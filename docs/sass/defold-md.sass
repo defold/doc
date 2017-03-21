@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+@font-face
+  font-family: 'fontello'
+  src: url('https://www.defold.com/static/fonts/fontello.eot')
+  src: url('https://www.defold.com/static/fonts/fontello.eot#iefix') format('embedded-opentype'),url('https://www.defold.com/static/fonts/fontello.woff') format('woff'),url('https://www.defold.com/static/fonts/fontello.ttf') format('truetype'),url('https://www.defold.com/static/fonts/fontello.svg#fontello') format('svg')
+  font-weight: normal
+  font-style: normal
+
+// Colors
+$text-black: #13234a
+$text-white: #d1d1d1
+$dark-grey: #282c34
+$light-grey: #e3e4e5
+
+body
+  font-family: Source Sans Pro, sans-serif
+  color: $text-black
+  line-height: 1.44em
+
+.documentation
+  width: 682px
+  padding: 24px
+  margin-left: auto
+  margin-right: auto
+
+  h1
+    font-size: 2.2rem
+    font-weight: 300
+
+  h2
+    font-size: 1.8em
+    font-weight: 300
+    margin-top: 1.4em
+    margin-bottom: 0.4em
+
+  strong, b
+    font-weight: 600
+
+  h1 + p
+    font-weight: 600
+
+  ul, ol
+    li
+      margin-top: 0.2em
+      margin-bottom: 0.2em
+
+  dl
+    dt
+      font-weight: 600
+    dd
+      margin-left: 1.4em
+      margin-top: 0.2em
+      margin-bottom: 0.8em
+
+  a
+    text-decoration: none
+
+  img
+    max-width: 100%
+
+  p img
+    margin: 1.6em 0
+
+  .anchor
+    display: block
+    position: relative
+    top: -100px
+    visibility: hidden
+
+  .anchor-link:before
+    font-family: fontello
+    content: '\e870'
+    color: #bfbfbf
+    font-size: 1rem
+    padding: 0.5em
+
+  .sidenote,
+  .important
+    padding: 0.1em 1em
+    background-color: rgb(255, 247, 212)
+    outline-style: solid
+    outline-width: 1px
+    outline-offset: -1px
+
+  .important
+    background-color: rgb(255, 147, 112)
+
+  pre
+    font-family: 'Source Code Pro', monospace
+    color: $text-white
+    font-size: 0.9em
+    line-height: 1.6em
+    padding: 1.4em
+    background-color: $dark-grey
+
+    .callout
+      color: $text-black
+      font-weight: 600
+      background-color: #bfbfbf
+      margin-left: 1.4em
+      padding: 0.2em 0.4em
+
+    .hljs-built_in
+      color: #d19a66
+
+    .k, .kd, .o, .hljs-keyword, .nt
+        color:  #e06c75
+
+    .s, .s2, .hljs-string
+        color: #98c379
+
+    .c1, .hljs-comment
+        color: #abb2bf
+
+    [data-pseudo-content]::before
+        content: attr(data-pseudo-content)
+
+  code
+    font-family: 'Source Code Pro', monospace
+    font-weight: 300
+    font-size: 0.92em
+
+  kbd
+    font-family: Source Sans Pro, sans-serif
+    background-color: $light-grey
+    padding: 0.1em 0.4em
