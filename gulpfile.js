@@ -49,8 +49,21 @@ md.use(md_deflist);
 md.use(md_attrs);
 md.use(md_sub);
 md.use(md_sup);
-md.use(md_container, 'sidenote', {});
-md.use(md_container, 'important', {});
+
+md.use(md_container, 'sidenote', { render: rendernote });
+md.use(md_container, 'important', { render: rendernote });
+
+// Notes are rendered as two divs so they can be styled right
+function rendernote(tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      // opening tag
+      var type = tokens[idx].info.trim().match(/^(\w+).*$/)[1];
+      return '<div class="note ' + type + '"><div class="note-icon"></div><div class="note-content">';
+    } else {
+      // closing tag
+      return '</div></div>\n';
+    }
+};
 
 function slugname(str) {
     return '_' + slugify(str, '_').toLowerCase();

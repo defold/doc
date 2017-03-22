@@ -19,6 +19,7 @@ body
   line-height: 1.44em
 
 .documentation
+  position: relative
   width: 682px
   padding: 24px
   margin-left: auto
@@ -75,16 +76,44 @@ body
     font-size: 1rem
     padding: 0.5em
 
-  .sidenote,
-  .important
-    padding: 0.1em 1em
-    background-color: rgb(255, 247, 212)
+  .note
+    position: relative
+
+  .sidenote
+    position: absolute
+    right: -18em
+    width: 14em
+    transform: translateY(-50%)
+    background-color: #fff7d4
     outline-style: solid
     outline-width: 1px
     outline-offset: -1px
+    outline-color: #e3d9aa
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, .04)
+
+    .note-content
+      font-size: 80%
+      padding: .6em 1.2em
 
   .important
-    background-color: rgb(255, 147, 112)
+    border: 1px solid #fd6623
+    background-color: #fff7d4
+    box-shadow: 0 3px 0 0 rgba(0, 0, 0, .04)
+    margin: 1.25rem 0
+
+    .note-icon
+      color: #fd6623
+      display: table-cell
+      width: 3em
+      text-align: center
+
+    .note-icon::before
+      font-family: 'fontello'
+      content: '\e871'
+
+    .note-content
+      display: table-cell
+      padding: 1em 1em 1em 0em
 
   pre
     font-family: 'Source Code Pro', monospace
