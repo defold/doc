@@ -1,15 +1,12 @@
 Cameras
 =======
-:toc: macro
-
-toc::[]
 
 Defold contains a primitive camera component. This manual describes its functionality and intended use.
 
 A camera is a component type that you use to provide a view into your game world. Cameras are very simple objects that in essence does the following:
 
-1. They have a location in space -- either 2D or 3D.
-2. They can be moved around in space -- by moving the containing game object.
+1. They have a location in space---either 2D or 3D.
+2. They can be moved around in space---by moving the containing game object.
 3. They provide the render script with the data necessary to render with computed view and projection matrices.
 
 Cameras in OpenGL are expressed as coordinate systems with a viewer, or eye, position, a near and a far clipping plane. The near clipping plane equals the viewing plane, or the screen.
@@ -31,7 +28,7 @@ The camera component has a set of properties that defines the camera frustum.
 ![Camera properties](images/cameras/cameras_properties.png)
 
 ::: important
-The current default FOV value is misleading. It is not expressed in degrees but in radians. For a 45 degree FOV, change the value to 0.785 (PI / 4).
+The current default FOV value is misleading. It is not expressed in degrees but in radians. For a 45 degree FOV, change the value to 0.785 (&#120529; / 4).
 :::
 
 aspect_ratio

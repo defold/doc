@@ -122,6 +122,7 @@ body
     line-height: 1.6em
     padding: 1.4em
     background-color: $dark-grey
+    overflow: auto
 
     .callout
       color: $text-black
@@ -133,17 +134,20 @@ body
     .hljs-built_in
       color: #d19a66
 
+    .hljs-title
+      font-weight: 400
+
     .k, .kd, .o, .hljs-keyword, .nt
-        color:  #e06c75
+      color:  #e06c75
 
     .s, .s2, .hljs-string
-        color: #98c379
+      color: #98c379
 
     .c1, .hljs-comment
-        color: #abb2bf
+      color: #abb2bf
 
     [data-pseudo-content]::before
-        content: attr(data-pseudo-content)
+      content: attr(data-pseudo-content)
 
   code
     font-family: 'Source Code Pro', monospace
@@ -153,4 +157,13 @@ body
   kbd
     font-family: Source Sans Pro, sans-serif
     background-color: $light-grey
-    padding: 0.1em 0.4em
+    padding: 0.02em 0.4em
+
+  table
+    margin-top: .625rem
+    margin-bottom: 2.5rem
+    width: 100%
+    border: 1px solid #d8dde6
+
+    tr:nth-child(odd)
+      background-color: #f7f8fa

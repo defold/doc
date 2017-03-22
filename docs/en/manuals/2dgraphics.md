@@ -219,7 +219,7 @@ The game object now contains the Tile Map and you can place or spawn the game ob
 
 ## Texture Filtering and Sampling
 
-Defold supports two different ways to do texture sampling. The method governs the visual result in cases when a _texel_ (a pixel in a texture) is not perfectly aligned with a screen pixel--. This happens when you move a Sprite containing the texture seamlessly (say 0.2 pixels in any direction), if your camera is moving seamlessly or if your camera zooms in or out:
+Defold supports two different ways to do texture sampling. The method governs the visual result in cases when a _texel_ (a pixel in a texture) is not perfectly aligned with a screen pixel. This happens when you move a Sprite containing the texture seamlessly (say 0.2 pixels in any direction), if your camera is moving seamlessly or if your camera zooms in or out:
 
 Nearest
 : The nearest texel will be picked to color the screen pixel. This sampling method should be chosen if you want a perfect one-to-one pixel mapping from your textures to what you see on screen. With nearest filtering everything will snap from pixel to pixel when moving which looks twitchy if the Sprite moves slowly.

@@ -1,7 +1,5 @@
 Application lifecycle
 =====================
-:location: documentation manuals concepts
-:type: manual
 
 This document details the lifecycle of Defold games and applications.
 
@@ -11,11 +9,11 @@ The lifecycle of a Defold application or game is on the large scale very simple.
 
 In many cases only a rudimentary understanding of Defold's inner workings is necessary. However, you might run into edge cases where the exact order Defold carries out its tasks becomes vital. This document describes how the engine runs an application from start to finish.
 
-The application starts by initializing everything that is needed to run the engine. It loads the main collection and calls `[init()](/ref/go#init)` on all loaded components that has an `init()` Lua function (script components and GUI components with GUI scripts). This allows you to do custom initialization.
+The application starts by initializing everything that is needed to run the engine. It loads the main collection and calls [`init()`](/ref/go#init) on all loaded components that has an `init()` Lua function (script components and GUI components with GUI scripts). This allows you to do custom initialization.
 
-The application then enters the update loop where the application will spend a majority of its lifetime. Each frame, game objects and the components they contain are updated. Any script and GUI script `[update()](/ref/go#update)` functions are called. During the update loop messages are dispatched to its recipients, sounds are played and all graphics is rendered.
+The application then enters the update loop where the application will spend a majority of its lifetime. Each frame, game objects and the components they contain are updated. Any script and GUI script [`update()`](/ref/go#update) functions are called. During the update loop messages are dispatched to its recipients, sounds are played and all graphics is rendered.
 
-At some point the applications lifecycle will come to an end. Before the application quits the engine steps out of the update loop and enters a finalization stage. It prepares all loaded game objects for deletion. All object components’ `[final()](/ref/go#final)` functions are called, which allows for custom cleanup. Then the objects are deleted and the main collection is unloaded.
+At some point the applications lifecycle will come to an end. Before the application quits the engine steps out of the update loop and enters a finalization stage. It prepares all loaded game objects for deletion. All object components’ [`final()`](/ref/go#final) functions are called, which allows for custom cleanup. Then the objects are deleted and the main collection is unloaded.
 
 ## Initialization
 
@@ -35,12 +33,12 @@ The order game object component `init()` functions are called is unspecified. Yo
 
 Since your `init()` code can post new messages, tell factories to spawn new objects, mark objects for deletion and do all sorts of things the engine performs a full "post-update" pass next. This pass carries out message delivery, the actual factory game object spawning and object deletion. Note that the post-update pass includes a  "dispatch messages" sequence that not only sends any queued messages but also handles messages sent to collection proxies. Any subsequent updates on the proxies (enable and disable, loading and mark for unloading) is performed during those steps.
 
-Studying the diagram above reveals that it is fully possible to load a [collection proxy](/manuals/collection-proxy) during `init()`, ensure all its contained objects are initialized, and then unload the collection through the proxy--all this before the first component `update()` is called, i.e. before the engine has left the initialization stage and entered the update loop:
+Studying the diagram above reveals that it is fully possible to load a [collection proxy](/manuals/collection-proxy) during `init()`, ensure all its contained objects are initialized, and then unload the collection through the proxy---all this before the first component `update()` is called, i.e. before the engine has left the initialization stage and entered the update loop:
 
 ```lua
 function init(self)
-        print("init()")
-        msg.post("#collectionproxy", "load")
+    print("init()")
+    msg.post("#collectionproxy", "load")
 end
 
 function update(self, dt)
@@ -49,14 +47,14 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-        if message_id == hash("proxy_loaded") then
-                print("proxy_loaded. Init, enable and then unload.")
-                msg.post("#collectionproxy", "init")
-                msg.post("#collectionproxy", "enable")
-                msg.post("#collectionproxy", "unload")
-                -- The proxy collection objects’ init() and final()
-                -- is called before we reach this object’s update()
-          end
+    if message_id == hash("proxy_loaded") then
+        print("proxy_loaded. Init, enable and then unload.")
+        msg.post("#collectionproxy", "init")
+        msg.post("#collectionproxy", "enable")
+        msg.post("#collectionproxy", "unload")
+        -- The proxy collection objects’ init() and final() functions
+        -- are called before we reach this object’s update()
+    end
 end
 ```
 
@@ -68,7 +66,7 @@ The update loop runs through a long sequence once every frame. The update sequen
 
 ## Input
 
-Input is is read from available devices, mapped against [input bindings](/manuals/input) and then dispatched. Any game object that has acquired input focus gets input sent to all its component `on_input()` functions. A game object with a script component and a GUI component with a GUI script will get input to both components’ `on_input()` functions--given that they are defined and that they have acquired input focus.
+Input is is read from available devices, mapped against [input bindings](/manuals/input) and then dispatched. Any game object that has acquired input focus gets input sent to all its component `on_input()` functions. A game object with a script component and a GUI component with a GUI script will get input to both components’ `on_input()` functions---given that they are defined and that they have acquired input focus.
 
 Any game object that has acquired input focus and that contain collection proxy components dispatches input further to components in the proxy collection belonging to game objects that has acquired input focus. This process continues recursively down enabled collection proxies within enabled collection proxies.
 
@@ -88,7 +86,7 @@ Transforms are then done, applying any game object movement, rotation and scalin
 
 ## Render update
 
-The render update block dispatches messages to the @render socket (camera component "set_view_projection" messages, "set_clear_color" messages etc). The render script `update()` is then called.
+The render update block dispatches messages to the `@render` socket (camera component `set_view_projection` messages, `set_clear_color` messages etc). The render script `update()` is then called.
 
 ## Post update
 
@@ -96,13 +94,13 @@ After the updates, a post update sequence is run. It unloads from memory collect
 
 Any factory components that has been told to spawn a game object will do that next. Finally, game objects that are marked for deletion are actually deleted.
 
-The last steps in the update loop involves dispatching @system messages ("exit", "reboot" messages, toggling the profiler, starting and stopping video capture etc). Then graphics is rendered. During the graphics rendering, video capture is done, as is any rendering of the visual profiler (see the [Debugging documentation](/manuals/debugging).)
+The last steps in the update loop involves dispatching `@system` messages (`exit`, `reboot` messages, toggling the profiler, starting and stopping video capture etc). Then graphics is rendered. During the graphics rendering, video capture is done, as is any rendering of the visual profiler (see the [Debugging documentation](/manuals/debugging).)
 
 ## Frame rate and collection time step
 
-The number of frame updates per seconds (which equals the number of update-loop runs per second) can be set in the project settings, or programmatically by sending an "set_update_frequency" message to the `@system` socket. In addition, it is possible to set the _time step_ for collection proxies individually by sending a "set_time_step" message to the proxy. Changing a collection's time step does not affect the frame rate. It has an effect on the physics update time step as well as the "dt" variable passed to `update().` Also note that altering the time step does not alter the number of times `update()` will be called each frame--it is always exactly once.
+The number of frame updates per seconds (which equals the number of update-loop runs per second) can be set in the project settings, or programmatically by sending an "set_update_frequency" message to the `@system` socket. In addition, it is possible to set the _time step_ for collection proxies individually by sending a `set_time_step` message to the proxy. Changing a collection's time step does not affect the frame rate. It has an effect on the physics update time step as well as the "dt" variable passed to `update().` Also note that altering the time step does not alter the number of times `update()` will be called each frame---it is always exactly once.
 
-(See [Collection proxy](/manuals/collection-proxy) and [set_time_step](/ref/collection-proxy#set_time_step) for details)
+(See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collection-proxy#set_time_step) for details)
 
 ## Finalization
 

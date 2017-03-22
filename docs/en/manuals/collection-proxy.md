@@ -70,11 +70,11 @@ msg.post("world2:manager#script", "spawn_player")
 
 So a collection you want to load through a proxy should be renamed to a unique name. If you don’t give it a unique name the engine will signal a name collision error:
 
-----
+```txt
 ERROR:GAMEOBJECT: The collection 'default' could not be created since there is already a socket with the same name.
 WARNING:RESOURCE: Unable to create resource: build/default/worlds/world1.collectionc
 ERROR:GAMESYS: The collection /worlds/world1.collectionc could not be loaded.
-----
+```
 
 ## Loading
 
@@ -89,23 +89,27 @@ The proxy will send back a message "proxy_loaded" when the loading is done. You 
 
 ```lua
 function on_message(self, message_id, message, sender)
-        if message_id == hash("proxy_loaded") then
-                -- New world is loaded. Init and enable it.
-                msg.post(sender, "init")
-                msg.post(sender, "enable")
-                ...
+    if message_id == hash("proxy_loaded") then
+        -- New world is loaded. Init and enable it.
+        msg.post(sender, "init")
+        msg.post(sender, "enable")
+        ...
+    end
+end
 ```
 
 Alternatively your logic can check the origin of the message an act accordingly. The collection proxy that sent the "proxy_loaded" is indicated in the fragment part of the sender URL:
 
 ```lua
 function on_message(self, message_id, message, sender)
-        if message_id == hash("proxy_loaded") and sender.fragment == hash("myproxy1") then
-                -- "myproxy1" is loaded. Let’s init and enable it.
-                ...
+    if message_id == hash("proxy_loaded") and sender.fragment == hash("myproxy1") then
+        -- "myproxy1" is loaded. Let’s init and enable it.
+        ...
+    end
+end
 ```
 
-Initializing the collection through the proxy with the "init" message will recursively initialize all the objects contained in the collection. Enabling the collection through the proxy with the "enable" message recursively enables all the objects contained in the collection.
+Initializing the collection through the proxy with the `init` message will recursively initialize all the objects contained in the collection. Enabling the collection through the proxy with the `enable` message recursively enables all the objects contained in the collection.
 
 (See [Application lifecycle](/manuals/application-lifecycle) for details on the lifespan of an object)
 
@@ -145,59 +149,47 @@ Here’s the setup in the "world2" collection:
 
 The "exit" sign is placed in the exact same coordinates in both collections giving one tile of overlap between them. Also notice that there is a "player" object in "world2" as well as in "world1". Because each collection is its own physics world we need a separate player in each and we just make sure to transfer the position and input control from one player object to the other when we move between the worlds.
 
-So, when the player hits the trigger in "world1" we start by loading "world2":
-
 ```lua
 function on_message(self, message_id, message, sender)
-        if message_id == hash("trigger_response") and message.enter then
-                -- Player hits the world switch trigger.
-                -- Load the next world as referenced through the
-                -- previously constructed url.
-                msg.post(self.url, "load")
-                ...
-```
-We then enable the collection when it’s loaded:
-
-```lua
-        elseif message_id == hash("proxy_loaded") then
-                -- New world is loded. Enable it.
-                msg.post(sender, "enable")
-```
-
-And then it’s time to switch the player object. We start by sending the current player a message requesting the data we need, which is the current position of the player object:
-
-```lua
-                -- We have to transfer the position of the player
-                -- to the player in the other world.
-                local currentsocket = ""
-                -- We can't use the hashed properties to build
-                -- strings:
-                if self.selfworld == hash("world1") then
-                        currentsocket = "world1"
-                elseif self.selfworld == hash("world2") then
-                        currentsocket = "world2"
-                end
-                msg.post(currentsocket .. ":" .. "/player#script", "request_player")
-```
-
-We get a response back and pass the player data to the player in the newly loaded collection:
-
-```lua
-        elseif message_id == hash("player_response") then
-                -- We're getting player position back.
-                -- Now we have to apply it to the other world's player.
-                local othersocket = ""
-                if self.otherworld == hash("world1") then
-                        othersocket = "world1"
-                elseif self.otherworld == hash("world2") then
-                        othersocket = "world2"
-                end
-                -- Pass along the message we got back.
-                msg.post(othersocket .. ":" .. "/player#script", "inherit_player", message)
+    if message_id == hash("trigger_response") and message.enter then -- <1>
+        -- Player hits the world switch trigger.
+        -- Load the next world as referenced through the
+        -- previously constructed url.
+        msg.post(self.url, "load")
+    elseif message_id == hash("proxy_loaded") then -- <2>
+        -- New world is loded. Enable it.
+        msg.post(sender, "enable")
+        -- We have to transfer the position of the player -- <3>
+        -- to the player in the other world.
+        local currentsocket = ""
+        -- We can't use the hashed properties to build
+        -- strings:
+        if self.selfworld == hash("world1") then
+            currentsocket = "world1"
+        elseif self.selfworld == hash("world2") then
+            currentsocket = "world2"
         end
+        msg.post(currentsocket .. ":" .. "/player#script", "request_player")
+    elseif message_id == hash("player_response") then -- <4>
+        -- We're getting player position back.
+        -- Now we have to apply it to the other world's player.
+        local othersocket = ""
+        if self.otherworld == hash("world1") then
+                othersocket = "world1"
+        elseif self.otherworld == hash("world2") then
+                othersocket = "world2"
+        end
+        -- Pass along the message we got back.
+        msg.post(othersocket .. ":" .. "/player#script", "inherit_player", message)
+    end
+end
 ```
+1. When the player hits the trigger in "world1" we start by loading "world2":
+2. We then enable the collection when it’s loaded:
+3. Then it’s time to switch the player object. We start by sending the current player a message requesting the data we need, which is the current position of the player object:
+4. We get a response back and pass the player data to the player in the newly loaded collection:
 
-The message "inherit_player" just inherits the position sent so the new player is repositioned to the same spot where the old player was (in the trigger, which is fine. It won’t detect the new player since they are parts of two different collections, and physical worlds)
+The message `inherit_player` just inherits the position sent so the new player is repositioned to the same spot where the old player was (in the trigger, which is fine. It won’t detect the new player since they are parts of two different collections, and physical worlds)
 
 If we run the game we can move from "world1" to "world2", but the player object in "world1" is still present, and will fall through the world of "world2".
 
@@ -219,9 +211,16 @@ msg.post("loader#world1", "final")
 msg.post("loader#world1", "unload")
 ```
 
-Disabling the collection through the proxy with "disable" sends recursively disables all the objects in the collection. Finalizing the collection through the proxy with a "final" message recursively finalizes all the objects in the collection and "unload" removes the collection from memory.
+`disable`
+: This message disables the collection through the proxy. It recursively disables all the objects in the collection loaded through the proxy.
 
-When the proxy has unloaded the collection it will send back a "proxy_unloaded" message:
+`final`
+: Finalizes the collection through the proxy. It recursively finalizes all the objects in the collection.
+
+`unload`
+: This message removes the collection from memory. If you don’t need the finer grained control, you can send the `unload` message without first disabling and finalizing the collection. The proxy will then automatically disable and finalize the collection before it’s unloaded.
+
+When the proxy has unloaded the collection it will send back a `proxy_unloaded` to the script that sent the `unload` message:
 
 ```lua
 if message_id == hash("unload_level") then
@@ -232,9 +231,8 @@ if message_id == hash("unload_level") then
 elseif message_id == hash("proxy_unloaded") then
     -- Ok, the level is unloaded
     ...
+end
 ```
-
-If you don’t need the finer grained control, you can send the "unload" message without first disabling and finalizing the collection. The proxy will then automatically disable and finalize the collection before it’s unloaded.
 
 Now back to our platformer example where the only thing we need to do is to send the messages to the right proxy. We do that right after we send the request for data to the new player object:
 
@@ -266,9 +264,10 @@ If we want to receive input action in objects belonging to either "world1" or "w
 
 ```lua
 function init(self)
-        -- Acquire input so collection objects will receive it.
-        msg.post(".", "acquire_input_focus")
-        ...
+    -- Acquire input so collection objects will receive it.
+    msg.post(".", "acquire_input_focus")
+    ...
+end
 ```
 
 Any object in either "world1" or "world2" (that is loaded) can now send "acquire_input_focus" and start receiving input actions. (For more information on input, see [Input](/manuals/input))
@@ -294,13 +293,13 @@ To see what's happening when changing the time step, we can create an object wit
 
 ```lua
 function update(self, dt)
-        print("update() with timestep (dt) " .. dt)
+    print("update() with timestep (dt) " .. dt)
 end
 ```
 
 With a time step of 0.2, we get the following result in the console:
 
-----
+```txt
 INFO:DLIB: SSDP started (ssdp://192.168.0.102:54967, http://0.0.0.0:62162)
 INFO:ENGINE: Defold Engine 1.2.37 (6b3ae27)
 INFO:ENGINE: Loading data from: build/default
@@ -314,10 +313,10 @@ DEBUG:SCRIPT: update() with timestep (dt) 0
 DEBUG:SCRIPT: update() with timestep (dt) 0
 DEBUG:SCRIPT: update() with timestep (dt) 0
 DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
-----
+```
 
-`update()` is still called 60 times a second, but the "dt" value changes. We see that only 1/5 (0.2) of the calls to `update()` will have a "dt" of 1/60 (corresponding to 60 FPS) -- the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
+`update()` is still called 60 times a second, but the "dt" value changes. We see that only 1/5 (0.2) of the calls to `update()` will have a "dt" of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
 
-See [set_time_step](/ref/collection-proxy#set_time_step) for more details.
+See [`set_time_step`](/ref/collection-proxy#set_time_step) for more details.
 
 (Some of the graphic assets used are made by Kenney: http://kenney.nl/assets)

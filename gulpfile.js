@@ -39,7 +39,7 @@ md = new markdown({
       try {
         var hl = hljs.highlight(lang, str).value;
         // Callouts hack!
-        return hl.replace(/-- &lt;([0-9]+)&gt;/g, '<span class="callout" data-pseudo-content="$1"></span>');
+        return hl.replace(/(?:--|\/\/|#) &lt;([0-9]+)&gt;/g, '<span class="callout" data-pseudo-content="$1"></span>');
       } catch (__) {}
     }
     return ''; // use external default escaping
