@@ -6,7 +6,6 @@ var gutil = require('gulp-util');
 var tap = require('gulp-tap');
 var hljs = require('highlight.js')
 var server = require('gulp-server-livereload');
-var wrapper = require('gulp-wrapper');
 var sass = require('gulp-sass');
 var minify = require('gulp-cssnano');
 var del = require('del');
@@ -16,6 +15,7 @@ var hljs = require('highlight.js');
 
 var print = require('gulp-print');
 
+var frontmatter = require('front-matter');
 var markdown = require('markdown-it');
 var md_attrs = require('markdown-it-attrs');
 var md_container = require('markdown-it-container');
@@ -49,7 +49,6 @@ md.use(md_deflist);
 md.use(md_attrs);
 md.use(md_sub);
 md.use(md_sup);
-
 md.use(md_container, 'sidenote', { render: rendernote });
 md.use(md_container, 'important', { render: rendernote });
 
@@ -72,7 +71,14 @@ function slugname(str) {
 // Add anchors to all headings.
 md.renderer.rules.heading_open = function (tokens, idx, options, env, self) {
     var tag = tokens[idx].tag;
-    var slug = slugname(tokens[idx + 1].content);
+    var title = tokens[idx + 1].content
+    var slug = slugname(title);
+    // Add TOC entry
+    if(!("toc" in env) ) {
+        env.toc = [];
+    }
+    var level = tag.match(/^h(\d+)$/)[1];
+    env.toc.push({ entry: title, slug: slug, level: level });
     return '<a name="' + slug + '" class="anchor"></a>' +
             '<' + tag + '>';
 };
@@ -87,26 +93,55 @@ md.renderer.rules.heading_close = function (tokens, idx, options, env, self) {
         return '</' + tag + '>';
 };
 
-function markdownToHtml(file) {
-    var result = md.render(file.contents.toString());
-    file.contents = new Buffer(result);
+// Output preview html documents
+function markdownToPreviewHtml(file) {
+    var data = frontmatter(file.contents.toString());
+    // Inject some styling html for the preview. The built htmls are clean.
+    var head = '<html><head><link type="text/css" rel="stylesheet" href="/defold-md.css"></head><body>\n';
+    head += '<div class="documentation">';
+    var foot = '</div></body></html>\n';
+    var html = head + md.render(data.body) + foot;
+    file.contents = new Buffer(html);
     file.path = gutil.replaceExtension(file.path, '.html');
     return;
 }
 
+// Build document json for storage
+function markdownToJson(file) {
+    var data = frontmatter(file.contents.toString());
+    var toc = {};
+    data.html = md.render(data.body, toc);
+    data.toc = toc;
+    file.contents = new Buffer(JSON.stringify(data));
+    file.path = gutil.replaceExtension(file.path, '.json');
+    return;
+}
+
+// Build docs
+gulp.task('build', ['clean', 'assets'], function () {
+    return gulp.src('docs/**/*.md')
+        .pipe(tap(markdownToJson))
+        .pipe(print())
+        .pipe(gulp.dest("build"));
+});
+
+gulp.task('assets', [], function() {
+    return gulp.src(['docs/**/*.{png,jpg,svg,gif}'])
+        .pipe(gulp.dest("build"));
+});
+
 // Watch for changes in md files and compile new html
 gulp.task('watch', function () {
+    mkdirp('build/preview');
 
-    mkdirp('build');
-
-    gulp.src('build')
+    gulp.src('build/preview')
         .pipe(server({
             livereload: true,
             open: true,
 
             directoryListing: {
                 enable: true,
-                path: 'build'
+                path: 'build/preview'
             }
         }));
 
@@ -118,22 +153,13 @@ gulp.task('watch', function () {
 
     gulp.src('docs/**/images/**/*.*')
         .pipe(watch('docs/**/images/**/*.*'))
-        .pipe(gulp.dest("build"));
-
-    // Inject some styling html for the preview. The built htmls are clean.
-    var inj_head = '<html><head><link type="text/css" rel="stylesheet" href="/defold-md.css"></head><body>\n';
-    inj_head += '<div class="documentation">';
-    var inj_foot = '</div></body></html>\n';
+        .pipe(gulp.dest("build/preview"));
 
     return gulp.src('docs/**/*.md')
         .pipe(watch('docs/**/*.md'))
-        .pipe(tap(markdownToHtml))
-        .pipe(wrapper({
-            header: inj_head,
-            footer: inj_foot,
-            }))
+        .pipe(tap(markdownToPreviewHtml))
         .pipe(print())
-        .pipe(gulp.dest("build"));
+        .pipe(gulp.dest("build/preview"));
 });
 
 gulp.task('clean', [], function() {
@@ -145,5 +171,5 @@ gulp.task('sass', [], function() {
         .pipe(plumber())
         .pipe(sass())
         .pipe(minify())
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('build/preview'))
 });

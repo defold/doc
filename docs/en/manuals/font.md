@@ -7,7 +7,7 @@ Font files in TrueType, OpenType or BMFont format can be added to your project a
 
 ## Creating a font
 
-To create a font for use in Defold, simply create a new Font file by selecting *File > New > Font File* (or right click in the *Project Explorer* and create the file).
+To create a font for use in Defold, simply create a new Font file by selecting <kbd>File ▸ New ▸ Font File</kbd> (or right click in the *Project Explorer* and create the file).
 
 ![Create font](images/font/fonts_create.png)
 
@@ -68,9 +68,8 @@ Shadow rendering of fonts is currently disabled by default because of performanc
 *output_format*
 : This property controls the type of font that is generated.
 
-+
-* `TYPE_BITMAP`. For OTF and TTF files, the imported font is converted into a font sheet texture where the bitmap data is used to render text nodes. The color channels are used to encode different aspects of the font, such as the face shape, outline and drop shadow. The preview shows the raw font texture with the font face in the red channel, the outline in the green channel and shadow in the blue channel. The pixel density of the font is fixed so it will look good in its generated size or scaled down. Bitmap fonts are very fast to render but size limited--scaling up a bitmap font quickly creates artifacts.
-* `TYPE_DISTANCE_FIELD` The imported font is converted into a font sheet texture where the pixel data represent not screen pixels but distances to the font edge. See below for details.
+  - `TYPE_BITMAP`. For OTF and TTF files, the imported font is converted into a font sheet texture where the bitmap data is used to render text nodes. The color channels are used to encode different aspects of the font, such as the face shape, outline and drop shadow. The preview shows the raw font texture with the font face in the red channel, the outline in the green channel and shadow in the blue channel. The pixel density of the font is fixed so it will look good in its generated size or scaled down. Bitmap fonts are very fast to render but size limited---scaling up a bitmap font quickly creates artifacts.
+  - `TYPE_DISTANCE_FIELD` The imported font is converted into a font sheet texture where the pixel data represent not screen pixels but distances to the font edge. See below for details.
 
 *all_chars*
 : If you set this property to `true` all glyphs available in the source file are included in the output.
@@ -111,7 +110,7 @@ To create a BMFont, you need to use a tool that can generate the appropriate fil
 
 ## Distance field fonts
 
-To create a distance field font, simply select "TYPE_DISTANCE_FIELD" as *output_format*. This creates a distance field map for the font. When the engine renders the font, a special shader is required to interprets the distance data and use that to create a sharp font edge. Distance field fonts are more resource intensive than bitmap fonts, but allow for much greater sizing flexibility.
+To create a distance field font, simply select `TYPE_DISTANCE_FIELD` as *output_format*. This creates a distance field map for the font. When the engine renders the font, a special shader is required to interprets the distance data and use that to create a sharp font edge. Distance field fonts are more resource intensive than bitmap fonts, but allow for much greater sizing flexibility.
 
 ![Distance field font](images/font/fonts_distance_field.png)
 

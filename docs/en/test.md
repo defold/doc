@@ -1,10 +1,17 @@
+---
+title: Defold documentation typography test
+brief: This document uses all Markdown features (Commonmark + extensions) that the Defold docs use.
+---
+
 # Defold documentation typography
 
 All defold manuals and tutorials are written in Markdown. This document outlines how to use the various formatting for a consistent look on all documents.
 
 Try to write as talking to the user. Keep the language direct and active and refrain from stating opinions unless it is important to the matter. Try to write paragraphs that flow and do not break them unnecessarily.
 
-You do have some typographic markers to your disposal. The simplest one is the *emphasis* marker. It puts some stress to a word, marking it as important. This marker should also be used to call attention to specific things that the user can encounter in Defold, like the names of properties, buttons etc. For example, a sprite component's *Position*, a button that says *Save...* etc. Do not use the **bold text** emphasis. Do not ***ever*** mark anything with both bold and emphasis.
+You do have some typographic markers to your disposal. The simplest one is the *emphasis* marker. It puts some stress to a word, marking it as important. This marker should also be used to call attention to specific things that the user can encounter in Defold, like the names of properties, buttons etc. For example, a sprite component's *Position*, a button that says *Save...* etc. File names are also typed like that: *game.project* or *main/images/logo.png*.
+
+Do not use the **bold text** emphasis. Do not ***ever*** mark anything with both bold and emphasis.
 
 Generally, when using quotes you can type straight quotes (`""`) and they get automatically converted to "nice typographically correct quotes". Also, the en and em-dashes are nice things to be able to type easily. You do that by typing `--` for en-dash and `---` for em-dash. So now you can get nicely typeset numeric intervals like 23--24, and if you want an em-dash as punctuation in a sentence---that's easy too. Just remember not to put spaces around them. A nice ellipsis character is also automatically inserted whenever you type more than two spaces in a row...
 

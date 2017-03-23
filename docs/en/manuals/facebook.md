@@ -22,7 +22,7 @@ To develop for Facebook requires that you sign up as a Facebook developer. This 
 
 ## Creating a Facebook app
 
-The next step is to create a Facebook application. The [menuseq]#My Apps# menu in the corner lists your apps, and there is a choice [menuseq]#Add a New App#.
+The next step is to create a Facebook application. The <kbd>My Apps</kbd> menu in the corner lists your apps, and there is a choice <kbd>Add a New App</kbd>.
 
 ![Add new app](images/facebook/add_new_app_menu.png)
 

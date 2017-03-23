@@ -1,7 +1,10 @@
+---
+title: GUI templates manual
+brief: This manual explains the Defold GUI template system that is used to create reusable visual GUI components based on shared templates or 'prefabs'.
+---
+
 Templates
 =========
-:location: documentation manuals gui
-:type: manual
 
 GUI templates provide a simple but powerful mechanism to create reusable visual GUI components based on shared templates or "prefabs". This manual explains the feature and how to use it.
 
@@ -20,6 +23,8 @@ Now we can add any number of instances of the button to another GUI scene. Creat
 Select the GUI scene file to use as template, in this case "button.gui". You can add any number of nodes, each an instance based on the same template. If we change the template, each instance updates immediately in the editor, reflecting the changes. Notice that all nodes present in the template node is accessible in the *Outline* view. Nodes under a template node are automatically named with a prefix "[template node id]/".
 
 ![Node instances](images/gui-templates/gui-templates-instances.png)
+
+The template itself is represented in the node tree with an item: "button" and "button1" above. Even though they look like they are nodes, they *are not*. Adding a template to a scene adds all the template nodes. There is no "template root node" or similar. If you need a root node to manipulate all nodes in a template, you have to add the root node to the template scene.
 
 ## Overloading properties
 

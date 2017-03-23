@@ -1,6 +1,9 @@
-= Android development
+---
+title: Defold development on the Android platform
+brief: This manual describes how to build and run Defold applications on Android devices
+---
 
-This document describes how to build and run Defold applications on Android devices.
+# Android development
 
 Android development differs from iOS development in that the devices give free access to upload content. It is very easy to build a version of your game and copy it onto an Android device. You can as easily put the development engine on a device for iterative development on the device over wifi.
 
@@ -18,33 +21,33 @@ You can find more information from the [Google Play developer console](https://p
 
 The `adb` command line tool is an easy to use and versatile program that is used to interact with Android devices. You can download and install `adb` as part of the Android SDK package, for Mac, Linux or Windows.
 
-Download the Android SDK from: http://developer.android.com/sdk/index.html. You find the `adb` tool in <sdk>/platform-tools/. Alternatively, platform specific packages can be installed through respective package managers.
+Download the Android SDK from: http://developer.android.com/sdk/index.html. You find the *adb* tool in *<sdk>/platform-tools/*. Alternatively, platform specific packages can be installed through respective package managers.
 
 On Ubuntu Linux:
 
-----
+```sh
 $ sudo apt-get install android-tools-adb
-----
+```
 
 On Fedora 18/19:
 
-----
+```sh
 $ sudo yum install android-tools
-----
+```
 
 On Mac OS X (Homebrew)
 
-----
+```sh
 $ brew install android-platform-tools
-----
+```
 
 You can veryfy that `adb` works by connecting your Android device to your computer via USB and issue the following command:
 
-----
+```sh
 $ adb devices
 List of devices attached
 31002535c90ef000    device
-----
+```
 
 If your device does not show up, verify that you have enabled *USB debugging* on the Android device. Open the device *Settings* and check *Developer options* (or *Development*).
 

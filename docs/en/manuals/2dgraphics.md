@@ -34,8 +34,8 @@ You need to populate an _Atlas_ before you can use it. As soon as you have added
 Your atlas has now been populated with images (and animations) it can be used as a graphics source to other components in Defold (see Sprite below and the ParticleFX guide).
 
 1. Import your image files as described above.
-2. Select [[New ▸ Atlas File]]{.menu} from the context menu in the Project Explorer.
-3. Select *Add Images* from the context menu in the Outline.
+2. Select <kbd>New ▸ Atlas File</kbd> from the context menu in the Project Explorer.
+3. Select <kbd>Add Images</kbd> from the context menu in the Outline.
 
 A dialog opens from where you can find and select the images you want to add to the Atlas. Note that you can filter the image files and select multiple files at once.
 
@@ -46,11 +46,11 @@ A dialog opens from where you can find and select the images you want to add to 
 
 You can define flip-book animations of selected sub-images in an atlas:
 
-- Select *Add Animation Group* from the context menu in the Outline.
-- Select *Add Images* from the context menu of the created animation group and choose the images that you want as frames of the animation.
+- Select <kbd>Add Animation Group</kbd> from the context menu in the Outline.
+- Select <kbd>Add Images</kbd> from the context menu of the created animation group and choose the images that you want as frames of the animation.
 - Adjust the *Properties* for the animation as needed.
 
-You can reorder the images in the Outline by dragging them, if needed. You can also easily create duplicates by copying and pasting (From the *Edit* menu, the right click context menu or keyboard shortcuts) images in the outline. Select an animation and press *Space* on your keyboard to preview the animation.
+You can reorder the images in the Outline by dragging them, if needed. You can also easily create duplicates by copying and pasting (From the <kbd>Edit</kbd> menu, the right click context menu or keyboard shortcuts) images in the outline. Select an animation and press <kbd>Space</kbd> on your keyboard to preview the animation.
 
 ## Creating a Tile Source
 
@@ -83,7 +83,7 @@ To define an animation in a Tile Source each frame must correspons to one tile (
 
 ![Tile Source add animation](images/2dgraphics/2dgraphics_tilesource_animation.png)
 
-You can easily add more animations to the Tile Source by selecting *Add Animation* in the context menu that can be accessed by right clicking the root *Tile Source* in the Outline view.
+You can easily add more animations to the Tile Source by selecting <kbd>Add Animation</kbd> in the context menu that can be accessed by right clicking the root *Tile Source* in the Outline view.
 
 ![Tile Source animation](images/2dgraphics/2dgraphics_tilesource_add_animation.png)
 
@@ -107,7 +107,7 @@ go.animate("wand", "euler", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(0, 0, -70), 
 
 It is actually possible to dynamically alter the scale of Sprite components in a non uniform way. This is a special feature that may feel odd when you try to construct a mental model for how game objects and components are related to each other and how to work with them.
 
-Sprites have a property "scale" which is of type `vmath.vector3`. You can animate the components separately:
+Sprites have a property `scale` which is of type `vmath.vector3`. You can animate the components separately:
 
 ```lua
 go.animate("my_object#sprite", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1.5, go.EASING_INOUTSINE, 2)
@@ -118,8 +118,8 @@ go.animate("my_object#sprite", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1.5, go.EASI
 Sprite components are used to add graphics and flip-book animations to game objects. They are typically used to create characters and props. Creating a Sprite component is very straightforward:
 
 - Create (or open) the game object the Sprite should belong to.
-- From the Game Object context menu in the Outline, select *Add Component*.
-- Choose "Sprite".
+- From the Game Object context menu in the Outline, select <kbd>Add Component</kbd>.
+- Choose *Sprite*.
 - Specify in the Sprite's *Image* property which Tile Source or Atlas the Sprite should use.
 - Specify in the Sprite's *Default Animation* property which animation it should play by default.
 
@@ -136,27 +136,24 @@ The *Blend Mode* property defines how the sprite should be blended with the grap
 Alpha
 : Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
 
-
 Add
 : Brighten the background with the color values of the corresponding sprite pixels: rgb~0~ + rgb~1~
 
-
-Add Alpha
+Add Alpha (deprecated!)
 : Brighten the background with the corresponding visible sprite pixels: a~0~ * rgb~0~ + rgb~1~
-
 
 Multiply
 : Darken the background with values of the the corresponding sprite pixels: rgb~0~ * rgb~1~
 
 ## Sprite Shading
 
-The default sprite shading files are located under "/builtins/material/sprite.*" in your project. The default shading performs a regular texture lookup, but also has a tint (a fragment shader constant) which is multiplied with the texture color.
+The default sprite shading files are located under */builtins/material/sprite.\** in your project. The default shading performs a regular texture lookup, but also has a tint (a fragment shader constant) which is multiplied with the texture color.
 
 To obtain effects like flashing a sprite white when it is hit, you can implement custom shading. To set a custom shading for your sprites, follow these steps:
 
-- Copy the files under "/builtins/material/sprite.*" into one of your project directories (you can't modify the content of the "builtins"-directory). This is not mandatory but makes the process easier.
-- Open the copied "sprite.material" file and remap the shader files (.vp and .fp) to your own copies.
-- Edit the .vp and .fp copies as you please. If you introduce shader constants, they must also be declared in the material file.
+- Copy the files under */builtins/material/sprite.\** into one of your project directories (you can't modify the content of the *builtins*-directory). This is not mandatory but makes the process easier.
+- Open the copied *sprite.material* file and remap the shader files (*.vp* and *.fp*) to your own copies.
+- Edit the *.vp* and *.fp* copies as you please. If you introduce shader constants, they must also be declared in the material file.
 - Open your sprite and specify your new material in the Properties.
 - To set a shader constants while the game is running, use the functions [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) and [`sprite.reset_contant()`](/ref/sprite#sprite.reset_constant).
 
@@ -167,15 +164,15 @@ A Tile Map is a component that allows you to assemble, or _paint_, tiles from a 
 ## Painting Tiles
 
 - Open the Tile Map you want to work in.
-- Make sure that there are no flagged issues in the Property or Outline view.
-- Select or create a Layer to paint on in the Outline view.
-- Select a tile to use as brush (press *Space* to show the tile palette)
+- Make sure that there are no flagged issues in the *Property* or *Outline* view.
+- Select or create a Layer to paint on in the *Outline* view.
+- Select a tile to use as brush (press <kbd>Space</kbd> to show the tile palette)
 
 ![Painting tiles](images/2dgraphics/2dgraphics_tilemap.png)
 
 ## Picking Tiles
 
-You can also pick tiles directly from the Tile Map to use as a brush. Hold *Shift* and click a tile to pick it up as the current brush. When holding *Shift* you can also click and drag to select a block of tiles to use as a larger brush.
+You can also pick tiles directly from the Tile Map to use as a brush. Hold <kbd>Shift</kbd> and click a tile to pick it up as the current brush. While holding <kbd>Shift</kbd> you can also click and drag to select a block of tiles to use as a larger brush.
 
 ![Picking tiles](images/2dgraphics/2dgraphics_tiles_pick.png)
 
@@ -183,10 +180,10 @@ You can also pick tiles directly from the Tile Map to use as a brush. Hold *Shif
 
 The Eraser tool is used to erase painted tiles. To select the Eraser, you can either:
 
-- Select it from the Tile Map menu
-- Press *Backspace*
-- Click the active tile again in the tiles palette
-- Pick any empty cell on the Tile Map
+- Select it from the <kbd>Tile Map</kbd> menu.
+- Press <kbd>Backspace</kbd>.
+- Click the active tile again in the tiles palette.
+- Pick any empty cell on the Tile Map.
 
 ## Attaching Physics
 
@@ -210,7 +207,7 @@ msg.post("/level#tilemap", "set_tile", { layer_id = hash("layer1"), position = d
 To add a Tile map to your game:
 
 1. Create a game object to hold the Tile Map component. The game object can be in a file or created directly in a collection
-2. Right-click the root of the game object and select [menuseq]#Add component from file#
+2. Right-click the root of the game object and select <kbd>Add component from file</kbd>
 3. Select the Tile Map file
 
 The game object now contains the Tile Map and you can place or spawn the game object wherever you want it.
