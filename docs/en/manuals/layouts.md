@@ -1,14 +1,17 @@
-= Layouts
-:location: documentation manuals gui
-:type: manual
+---
+title: GUI layouts in Defold
+brief: Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. This document explains how the feature works.
+---
 
-Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. Using this feature allows you to design GUIs that adapt to the orientation and aspect ratio of the screen. This document explains how the feature works.
+# Layouts
+
+Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. Using this feature allows you to design GUIs that adapt to the orientation and aspect ratio of the screen.
 
 The dynamic layout of GUI:s works by matching display profiles to the current width and height of the display that the game is running on.
 
 ## Display profiles
 
-Each project contains a "builtins/render/default.display_profiles" with two profiles:
+Each project contains a `builtins/render/default.display_profiles` with two profiles:
 
 ![Default display profiles](images/layouts/layouts_display_profiles.png)
 
@@ -18,8 +21,7 @@ Landscape
 Portrait
 : 720 pixels wide and 1280 pixels high
 
-
-For devices with an aspect ratio of 16:9 these profiles suffice. Even if the actual physical dimensions of the screen is higher or lower, the engine will automatically select the a profile that is closest. If you need to alter the default profiles, simply copy the built in file to a new place within your project or create a new file, then change the setting in "project.settings" so the engine knows which profiles-file to use:
+For devices with an aspect ratio of 16:9 these profiles are probably enough. Even if the actual physical dimensions of the screen is higher or lower, the engine will automatically select the a profile that is closest. If you need to alter the default profiles, simply copy the built in file to a new place within your project or create a new file, then change the setting in `project.settings` so the engine knows which profiles-file to use:
 
 ![Project settings](images/layouts/layouts_project_settings.png)
 
@@ -31,7 +33,7 @@ The current development app for iOS does not respect the *dynamic_orientation* s
 
 ## GUI layouts
 
-The defined display profiles can then be used to create layouts in the GUI editor. When working in the editor, a *Default* layout is used by default. If you have not added any additional layout(s), the default layout will be used. To add a new layout, right-click the *Layouts* icon in the *Outline* view and select the menu:Layout[] menu item:
+The defined display profiles can then be used to create layouts in the GUI editor. When working in the editor, a *Default* layout is used by default. If you have not added any additional layout(s), the default layout will be used. To add a new layout, right-click the *Layouts* icon in the *Outline* view and select the <kbd>Layout ▸ ...</kbd> menu item:
 
 ![Add layout to scene](images/layouts/layouts_add.png)
 
@@ -55,13 +57,13 @@ When the engine switches layout as a result of device rotation, a message `layou
 
 ```lua
 function on_message(self, message_id, message, sender)
-	if message_id == hash("layout_changed") and message.id == hash("Landscape") then
-		-- switching layout to landscape
+    if message_id == hash("layout_changed") and message.id == hash("Landscape") then
+        -- switching layout to landscape
     ...
-	elseif message_id == hash("layout_changed") and message.id == hash("Portrait") then
+    elseif message_id == hash("layout_changed") and message.id == hash("Portrait") then
     -- switching layout to portrait
     ...
-	end
+    end
 end
 ```
 

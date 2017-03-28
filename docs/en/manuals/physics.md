@@ -1,7 +1,9 @@
-﻿= Physics
-:location: documentation manuals resources
-:type: manual
-:tags: physics
+﻿---
+title: Physics in Defold
+brief: Defold includes physics engines for 2D and 3D. They allow you to simulate Newtonian physics interactions between different types of collision objects. This manual explains how this works.
+---
+
+# Physics
 
 Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine for 2D physics simulations. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
 
@@ -12,18 +14,14 @@ A collision object is a component you use to extends a game object with physical
 Static objects
 : These do not react in themselves, but any other object that collides with static objects will react. These are very useful (and cheap performance-wise) for building level geometry (i.e. ground and walls) that does not move. You cannot move or otherwise change static objects.
 
-
 Dynamic objects
 : The physics engine solves all collisions for you and applies resulting forces. These are good for objects that should behave realistically, with the caveat that the only way you can manually control them is by applying forces to them.
-
 
 Kinematic objects
 : These types of objects will collide with other physics objects, but the job of resolving the collisions (or ignoring them) is yours. Kinematic objects are good when you need objects that collide and you want fine grained control over all reactions.
 
-
 Triggers
 : Triggers are objects that register simple collisions. These are good for game logic where you want some event to happen when some other object (i.e. the player character) reaches a specific spot.
-
 
 ## Editing collision objects
 

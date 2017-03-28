@@ -1,9 +1,9 @@
-Debugging
-=========
-:location: documentation manuals logic
-:type: manual
+---
+title: Debugging in Defold
+brief: This manual explains the debugging facilities present in Defold.
+---
 
-This manual explains the debugging facilities present in Defold.
+# Debugging
 
 The simplest way to debug your game in Defold is to use [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). The technique is simply to use `print()` or [pprint()](/ref/builtins#pprint) statements to watch variables or indicate the flow of execution. If a game object without a script acts weird, you can just attach a script to it with the sole purpose of debugging.
 
@@ -29,10 +29,10 @@ Download "ZeroBrane Studio" from http://studio.zerobrane.com
 
 ## ZeroBrane configuration
 
-In order for ZeroBrane to find the files in your project, you need to point it to the location of your Defold project directory. A convenient way of finding this out is by using the *Show in Finder/Explorer* option in your Defold project.
+In order for ZeroBrane to find the files in your project, you need to point it to the location of your Defold project directory. A convenient way of finding this out is by using the <kbd>Show in Finder/Explorer</kbd> option in your Defold project.
 
-1. Right click on "game.project"
-2. Choose *Show in Finder*, for OS X users, or *Show in Explorer* for Windows users
+1. Right click on *game.project*
+2. Choose <kbd>Show in Finder</kbd>, for OS X users, or *Show in Explorer* for Windows users
 
 OS X:
 
@@ -44,7 +44,7 @@ Windows:
 
 ## To set up ZeroBrane
 
-To set up ZeroBrane, select menu:Project[Project Directory > Choose...]:
+To set up ZeroBrane, select <kbd>Project ▸ Project Directory ▸ Choose...</kbd>:
 
 ![Auto completion](images/debugging/setup.png)
 
@@ -54,13 +54,19 @@ Other recommended, but not necessary configuration changes can be found further 
 
 ## Starting the debugging server
 
-Before starting a debugging session, the ZeroBrane built-in debugging server needs to be started. The menu option for starting it can be found under the menu:Project menu. Just select menu:Project[Start Debugger Server]:
+Before starting a debugging session, the ZeroBrane built-in debugging server needs to be started. The menu option for starting it can be found under the <kbd>Project</kbd> menu. Just select <kbd>Project ▸ Start Debugger Server</kbd>:
 
 ![Auto completion](images/debugging/startdebug.png)
 
 ## Connecting your application to the debugger
 
 Debugging can be started at any point in the lifetime of the Defold application, but needs to be actively initiated from Lua script. The Lua code to start a debugging session looks like this:
+
+::: sidenote
+If your game exits when `dbg.start()` is called, it might be because ZeroBrane has detected a problem and sends the exit command to the game. For some reason, ZeroBrane needs a file opened to start the debug session, otherwise it will output:
+"Can't start debugging without an opened file or with the current file not being saved 'untitled.lua')."
+In ZeroBrane, open the file you added `dbg.start()` to fix this error.
+:::
 
 ```lua
 local dbg = require "builtins.scripts.mobdebug"
@@ -69,19 +75,17 @@ dbg.start()
 
 By inserting the above code into the application, it will connect to ZeroBrane’s debugging server (through "localhost", by default) and pause at the next statement to be executed.
 
-::: sidenote
-If your game exits when `dbg.start()` is called, it might be because ZeroBrane has detected a problem and sends the exit command to the game. For some reason, ZeroBrane needs a file opened to start the debug session, otherwise it will output:
-"Can't start debugging without an opened file or with the current file not being saved ('untitled.lua')."
-In ZeroBrane, open the file you added `dbg.start()` to fix this error.
-:::
+```txt
+Debugger server started at localhost:8172.
+Mapped remote request for '/' to '/Users/my_user/Documents/Projects/Defold_project/'.
+Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
+```
+
+Now it it possible to use the debugging features available in ZeroBrane; you can step, inspect, add and remove breakpoints etc.
 
 ::: sidenote
 The debugging will only be enabled for the lua context from where debugging is initiated. Enabling "shared_state" in game.project means you can debug all your application no matter where you started.
 :::
-
-Debugging session started in "<defold-dir>/branches/1610/1159/Main/".
-
-Now it it possible to use the debugging features available in ZeroBrane; you can step, inspect, add and remove breakpoints etc.
 
 ![Auto completion](images/debugging/code.png)
 
@@ -108,21 +112,21 @@ First step is to access the editor configuration file. Recommended is to change 
 
 - Select menu:Edit[Preferences > Settings: User]
 - Add the following to the configuration file:
-+
-----
-– to automatically open files requested during debugging 
-editor.autoactivate = true
-----
+
+  ```txt
+  - to automatically open files requested during debugging
+  editor.autoactivate = true
+  ```
+
 - Restart ZeroBrane
 
 ![Other recommended settings](images/debugging/otherrecommended.png)
 
-[[anchor-hr]]
 ## Hot reloading
 
 Defold allows you to perform hot reloading of resources. When developing a game this feature helps speed up certain task enormously. It allows you to change scripts in a game while it is running live. Common use-cases is to tweak gameplay parameters or to perform debugging on a running game.
 
-To reload a changed resource, simply select the menu item menu:Edit[Reload Resource] or press the corresponding shortcut on the keyboard:
+To reload a changed resource, simply select the menu item <kbd>Edit ▸ Reload Resource</kbd> or press the corresponding shortcut on the keyboard:
 
 ![Reloading resources](images/debugging/debugging_hot_reload.png)
 
@@ -131,8 +135,7 @@ Every script component can define a `on_reload()` function. If it exists it will
 ```lua
 function on_reload(self)
     -- Print the current velocity
-	print(self.velocity)
-
+    print(self.velocity)
     -- Zero the velocity
     self.velocity = vmath.vector3()
 end
@@ -145,7 +148,7 @@ The Defold engine is also able to display profiling information in a running gam
 ```lua
 function on_reload(self)
     -- Turn on profiler on hot reload.
-	msg.post("@system:", "toggle_profile")
+    msg.post("@system:", "toggle_profile")
 end
 ```
 
@@ -160,9 +163,9 @@ While running the game, a web-based profiler can be accessed that provides detai
 To access the profiler:
 
 1. Start your game on your target device.
-2. Open a web browser and point it to \http://<device IP>:8002 where <device IP> is the IP address of the device.
+2. Open a web browser and point it to `http://<device IP>:8002` where `<device IP>` is the IP address of the device.
 
-If you are running your game on your desktop computer, _http://localhost:8002_ would bring up the profiler. You can find the IP numbers of your target devices in the menu:Project[Target] menu.
+If you are running your game on your desktop computer, _http://localhost:8002_ would bring up the profiler. You can find the IP numbers of your target devices in the <kbd>Project ▸ Target</kbd> menu.
 
 ![Web profiler](images/debugging/webprofiler_page.png)
 

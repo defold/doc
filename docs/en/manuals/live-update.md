@@ -1,5 +1,9 @@
-Live update
-===========
+---
+title: Live update content in Defold
+brief: The Live update functionality provides a mechanism allowing the runtime to fetch and store resources to the application bundle that was intentionally left out of the bundle at build time. This manual explains how it works.
+---
+
+# Live update
 
 When bundling a game, Defold packs all the game resources into the resulting platform specific package. In most cases this is preferred since the running engine has instant access to all resources and can load them swiftly from storage. However, there are instances where you might want to postpone the loading of resources to a later stage. For instance:
 
@@ -15,33 +19,32 @@ Suppose we are making a game containing large, high resolution image resources. 
 
 ![Mona Lisa collection](images/live-update/mona-lisa.png)
 
-To have the engine load such a collection dynamically, we can simply add a collection proxy component and point it to "monalisa.collection". Now the game can choose when to load the content in the collection from storage into memory by sending a "load" message to the collection proxy. However, we want to go further and control the loading of the resources contained in the collection ourselves.
+To have the engine load such a collection dynamically, we can simply add a collection proxy component and point it to *monalisa.collection*. Now the game can choose when to load the content in the collection from storage into memory by sending a `load` message to the collection proxy. However, we want to go further and control the loading of the resources contained in the collection ourselves.
 
-This is done by simply checking the *Exclude* checkbox in the collection proxy properties, telling the bundler to leave any content in "monalisa.collection" out when creating an application bundle.
+This is done by simply checking the *Exclude* checkbox in the collection proxy properties, telling the bundler to leave any content in *monalisa.collection* out when creating an application bundle.
 
 ![Collection proxy excluded](images/live-update/proxy-excluded.png)
 
 ## Live update settings
 
-When the bundler creates an applicatin bundle, it needs to store any excluded resources somewhere. The project settings for Live update governs the location for those resources. The settings is found under "Project > Live update Settings...".
+When the bundler creates an applicatin bundle, it needs to store any excluded resources somewhere. The project settings for Live update governs the location for those resources. The settings is found under <kbd>Project ▸ Live update Settings...</kbd>.
 
 ![Live update settings](images/live-update/aws-settings.png)
 
 There are two ways Defold can store the settings. Choose the method in the *Mode* dropdown in the settings window:
 
-Amazon
+`Amazon`
 : This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name. [See below for details how to set up an AWS account](#_setting_up_amazon_web_service).
 
-
-Zip
+`Zip`
 : This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at location of the *Export path* setting.
 
 
 ## Scripting with excluded collection proxies
 
-A collection proxy that has been excluded from bundling works as a normal collection proxy, with one important difference. Sending it a "load" message while it still has resources not available in the bundle storage will cause it to fail.
+A collection proxy that has been excluded from bundling works as a normal collection proxy, with one important difference. Sending it a `load` message while it still has resources not available in the bundle storage will cause it to fail.
 
-So before we send it a "load", we need to check if there are any missing resources. If there are, we have to download them and then store them. The following example code assumes that the resources are stored on Amazon S3, in a bucket called "my-game-bucket" with the prefix "my-resources".
+So before we send it a `load`, we need to check if there are any missing resources. If there are, we have to download them and then store them. The following example code assumes that the resources are stored on Amazon S3, in a bucket called "my-game-bucket" with the prefix `my-resources`.
 
 ```lua
 function init(self)
@@ -88,15 +91,15 @@ function on_message(self, message_id, message, sender)
         local manifest = resource.get_current_manifest() -- <4>
         local base_url = "https://my-game-bucket.s3.amazonaws.com/my-resources/" -- <5>
         http.request(base_url .. message.resource_hash, "GET", function(self, id, response)
-                if response.status == 200 or response.status == 304 then -- <6>
-                    -- We got the response ok.
-                    print("storing " .. message.resource_hash)
-                    resource.store_resource(manifest, response.response, message.resource_hash, resource_store_response) -- <7>
-                else
-                    -- ERROR! Failed to download resource!
-                    print("Failed to download resource: " .. message.resource_hash)
-                end
-            end)
+            if response.status == 200 or response.status == 304 then -- <6>
+                -- We got the response ok.
+                print("storing " .. message.resource_hash)
+                resource.store_resource(manifest, response.response, message.resource_hash, resource_store_response) -- <7>
+            else
+                -- ERROR! Failed to download resource!
+                print("Failed to download resource: " .. message.resource_hash)
+            end
+        end)
     elseif message_id == hash("proxy_loaded") then
         msg.post(sender, "init")
         msg.post(sender, "enable")
@@ -116,7 +119,7 @@ With the loading code in place, we can test the application. However, running it
 
 ## Bundling with Live update
 
-To bundle with Live update is easy. Select "Project > Bundle" and then the platform you want to create an application bundle for. This opens the bundling dialog:
+To bundle with Live update is easy. Select <kbd>Project ▸ Bundle ▸ ...</kbd> and then the platform you want to create an application bundle for. This opens the bundling dialog:
 
 ![Bundle Live application](images/live-update/bundle-app.png)
 
@@ -130,122 +133,122 @@ To use the Defold Live update feature together with Amazon services you need an 
 
 This section will explain how to create a new user with limited access on Amazon Web Services that can be used together with the Defold editor to automatically upload Live update resources when you bundle your game, as well as how to configure Amazon S3 to allow game clients to retrieve resources. For additional information about how you can configure Amazon S3, please see the [Amazon S3 documentation](http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html).
 
-## 1. Create a bucket for Live update resources
+1. Create a bucket for Live update resources
 
-Open up the `Services` menu and select `S3` which is located under the _Storage_ category ([Amazon S3 Console](https://console.aws.amazon.com/s3)). You will see all your existing buckets together with the option to create a new bucket. Though it is possible to use an existing bucket, we recommend that you create a new bucket for Live update resources so that you can easily restrict access.
+    Open up the `Services` menu and select `S3` which is located under the _Storage_ category ([Amazon S3 Console](https://console.aws.amazon.com/s3)). You will see all your existing buckets together with the option to create a new bucket. Though it is possible to use an existing bucket, we recommend that you create a new bucket for Live update resources so that you can easily restrict access.
 
-![Create a bucket](images/live-update/01-create-bucket.png)
+    ![Create a bucket](images/live-update/01-create-bucket.png)
 
-## 2. Add a bucket policy to your bucket
+2. Add a bucket policy to your bucket
 
-Select the bucket you wish to use, open the *Properties* panel and expand the *Permissions* option within the panel. Open up the bucket policy by clicking on the *Add bucket policy* button. The bucket policy in this example will allow an anonymous user to retrieve files from the bucket, which will allow a game client to download the Live update resources that are required by the game. For additional information about bucket policies, please see [the Amazon documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
+    Select the bucket you wish to use, open the *Properties* panel and expand the *Permissions* option within the panel. Open up the bucket policy by clicking on the *Add bucket policy* button. The bucket policy in this example will allow an anonymous user to retrieve files from the bucket, which will allow a game client to download the Live update resources that are required by the game. For additional information about bucket policies, please see [the Amazon documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AddPerm",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::defold-liveupdate-example/*"
-        }
-    ]
-}
-```
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "AddPerm",
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::defold-liveupdate-example/*"
+            }
+        ]
+    }
+    ```
 
-![Bucket policy](images/live-update/02-bucket-policy.png)
+    ![Bucket policy](images/live-update/02-bucket-policy.png)
 
-## 3. Add a CORS configuration to your bucket (Optional)
+3. Add a CORS configuration to your bucket (Optional)
 
-[Cross-Origin Resource Sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) is a mechanism that allows a website to retrieve a resource from a different domain using JavaScript. If you intend to publish your game as an HTML5 client, you will need to add a CORS configuration to your bucket.
+    [Cross-Origin Resource Sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) is a mechanism that allows a website to retrieve a resource from a different domain using JavaScript. If you intend to publish your game as an HTML5 client, you will need to add a CORS configuration to your bucket.
 
-Select the bucket you wish to use, open the *Properties* panel and expand the *Permissions* option within the panel. Open up the bucket policy by clicking on the *Add CORS Configuration* button. The configuration in this example will allow access from any website by specifying a wildcard domain, though it is possible to restrict this access further if you know on which domains you will make you game available. For additional information about Amazon CORS configuration, please see [the Amazon documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
+    Select the bucket you wish to use, open the *Properties* panel and expand the *Permissions* option within the panel. Open up the bucket policy by clicking on the *Add CORS Configuration* button. The configuration in this example will allow access from any website by specifying a wildcard domain, though it is possible to restrict this access further if you know on which domains you will make you game available. For additional information about Amazon CORS configuration, please see [the Amazon documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-    <CORSRule>
-        <AllowedOrigin>*</AllowedOrigin>
-        <AllowedMethod>GET</AllowedMethod>
-    </CORSRule>
-</CORSConfiguration>
-```
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+        <CORSRule>
+            <AllowedOrigin>*</AllowedOrigin>
+            <AllowedMethod>GET</AllowedMethod>
+        </CORSRule>
+    </CORSConfiguration>
+    ```
 
-![CORS configuration](images/live-update/03-cors-configuration.png)
+    ![CORS configuration](images/live-update/03-cors-configuration.png)
 
-## 4. Create IAM policy
+4. Create IAM policy
 
-Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Policies* in the menu to the left and you will see all your existing policies together with the option to create a new policy.
+    Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Policies* in the menu to the left and you will see all your existing policies together with the option to create a new policy.
 
-Click the button *Create Policy*, and the choose to _Create Your Own Policy_. The policy in this example will allow a user to list all buckets, which is only required when configuring a Defold project for Live update. It will also allow the user to get the Access Control List (ACL) and upload resources to the specific bucket used for Live update resources. For additional information about Amazon Identity and Access Management (IAM), please see [the Amazon documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
+    Click the button *Create Policy*, and the choose to _Create Your Own Policy_. The policy in this example will allow a user to list all buckets, which is only required when configuring a Defold project for Live update. It will also allow the user to get the Access Control List (ACL) and upload resources to the specific bucket used for Live update resources. For additional information about Amazon Identity and Access Management (IAM), please see [the Amazon documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListAllMyBuckets"
-            ],
-            "Resource": "arn:aws:s3:::*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetBucketAcl"
-            ],
-            "Resource": "arn:aws:s3:::defold-liveupdate-example"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:::defold-liveupdate-example/*"
-        }
-    ]
-}
-```
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListAllMyBuckets"
+                ],
+                "Resource": "arn:aws:s3:::*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:GetBucketAcl"
+                ],
+                "Resource": "arn:aws:s3:::defold-liveupdate-example"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:PutObject"
+                ],
+                "Resource": "arn:aws:s3:::defold-liveupdate-example/*"
+            }
+        ]
+    }
+    ```
 
-![IAM policy](images/live-update/04-create-policy.png)
+    ![IAM policy](images/live-update/04-create-policy.png)
 
-## 5. Create a user for programmatic access
+5. Create a user for programmatic access
 
-Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Users* in the menu to the left and you will see all your existing users together with the option to add a new user. Though it is possible to use an existing user, we recommend that you add a new user for Live update resources so that you can easily restrict access.
+    Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Users* in the menu to the left and you will see all your existing users together with the option to add a new user. Though it is possible to use an existing user, we recommend that you add a new user for Live update resources so that you can easily restrict access.
 
-Click the button *Add User*, provide a username and choose *Programmatic access* as *Access type*, then press *Next: Permissions*. Select *Attach existing policies directly* and choose the policy you created in step 4.
+    Click the button *Add User*, provide a username and choose *Programmatic access* as *Access type*, then press *Next: Permissions*. Select *Attach existing policies directly* and choose the policy you created in step 4.
 
-When you've completed the process you will be provided with an *Access key ID* and a *Secret access key*.
+    When you've completed the process you will be provided with an *Access key ID* and a *Secret access key*.
 
-::: important
-It is *very important* that you store those keys since you will not be able to retrieve them from Amazon after you leave the page.
-:::
+    ::: important
+    It is *very important* that you store those keys since you will not be able to retrieve them from Amazon after you leave the page.
+    :::
 
-## 6. Create a credentials profile file
+6. Create a credentials profile file
 
-At this point you should have created a bucket, configured a bucket policy, added a CORS configuration, created a user policy and created a new user. The only thing that remains is to create a [credentials profile file](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks) so that the Defold editor can access the bucket on your behalf.
+    At this point you should have created a bucket, configured a bucket policy, added a CORS configuration, created a user policy and created a new user. The only thing that remains is to create a [credentials profile file](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks) so that the Defold editor can access the bucket on your behalf.
 
-Create a new directory ".aws" in your home folder, and create a file called "credentials" within the new directory.
+    Create a new directory *.aws* in your home folder, and create a file called *credentials* within the new directory.
 
-```bash
-$ mkdir ~/.aws
-$ touch ~/.aws/credentials
-```
+    ```bash
+    $ mkdir ~/.aws
+    $ touch ~/.aws/credentials
+    ```
 
-The file "~/.aws/credentials" will contain your credentials to access Amazon Web Services through programmatic access and is a standardised way to manage AWS credentials. Open the file in a text editor and enter your *Access key ID* and *Secret access key* in the below format.
+    The file *~/.aws/credentials* will contain your credentials to access Amazon Web Services through programmatic access and is a standardised way to manage AWS credentials. Open the file in a text editor and enter your *Access key ID* and *Secret access key* in the below format.
 
-```ini
-[defold-liveupdate-example]
-aws_access_key_id = <Access key ID>
-aws_secret_access_key = <Secret access key>
-```
+    ```ini
+    [defold-liveupdate-example]
+    aws_access_key_id = <Access key ID>
+    aws_secret_access_key = <Secret access key>
+    ```
 
-The identifier specified within the brackets, in this example _defold-liveupdate-example_, is the same identifier that you should provide when configuring your projects Live update settings in the Defold editor.
+    The identifier specified within the brackets, in this example _defold-liveupdate-example_, is the same identifier that you should provide when configuring your projects Live update settings in the Defold editor.
 
-![Live update settings](images/live-update/05-liveupdate-settings.png)
+    ![Live update settings](images/live-update/05-liveupdate-settings.png)
 
 ## The manifest
 
@@ -259,24 +262,22 @@ Currently, only the initial build manifest is available. The ability to store ne
 
 ## Development caveats
 
-## Debugging
+Debugging
+: When running a bundled version of your game, you don't have direct access to a console. This causes problems for debugging. However, you can run the application from command line or by double clicking the executable in the bundle directly:
 
-When running a bundled version of your game, you don't have direct access to a console. This causes problems for debugging. However, you can run the application from command line or by double clicking the executable in the bundle directly:
+  ![Running a bundle application](images/live-update/run-bundle.png)
 
-![Running a bundle application](images/live-update/run-bundle.png)
+  Now the game starts with a shell window that will output any `print()` statements:
 
-Now the game starts with a shell window that will output any `print()` statements:
+  ![Console output](images/live-update/run-bundle-console.png)
 
-![Console output](images/live-update/run-bundle-console.png)
+Forcing re-download of resources
+: When an application stores resources, they end up on disk on the local computer or handheld device. If you restart the application, the resources are there and ready. When developing you sometimes want to remove resources and force the application to download them again. The path returned from the function `sys.get_save_file()` gives the location where Defold stores resources. In that folder, Defold creates a folder with the name of the hash of the created bundle. If you delete the files in this folder, the application will invalidate the resources from the manifest and you can download and store them again.
 
-## Forcing re-download of resources
-
-When an application stores resources, they end up on disk on the local computer or handheld device. If you restart the application, the resources are there and ready. When developing you sometimes want to remove resources and force the application to download them again. The path returned from the function `sys.get_save_file()` gives the location where Defold stores resources. In that folder, Defold creates a folder with the name of the hash of the created bundle. If you delete the files in this folder, the application will invalidate the resources from the manifest and you can download and store them again.
-
-![Local storage](images/live-update/local-storage.png)
+  ![Local storage](images/live-update/local-storage.png)
 
 ## Known issues
 
 - At the moment you have access only to the manifest that is created at build-time. In the near future you will be able to store new manifests. This will allow you to modify existing resources, or add new resources to the game through Live update.
-- [resource.store_resource()](/ref/resource/#resource.store_resource) is currently blocking the main thread, meaning that if you store large resources you will experience hitches.
+- [`resource.store_resource()`](/ref/resource/#resource.store_resource) is currently blocking the main thread, meaning that if you store large resources you will experience hitches.
 

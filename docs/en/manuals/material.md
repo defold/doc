@@ -1,20 +1,23 @@
-Materials
-=========
+---
+title: Defold materials manual
+brief: This manual explains how to work with materials, shader constants and samplers.
+---
 
-Materials are the Defold way of expressing how a graphical component (a sprite, tilemap, font, GUI node etc) should be rendered. This manual explains how to work with materials, shader constants and samplers.
+# Materials
 
-## Overview
+Materials are the Defold way of expressing how a graphical component (a sprite, tilemap, font, GUI node etc) should be rendered.
 
 A material holds _Tags_, information that is used in the rendering pipeline to select objects to be rendered. It also holds references to _shader programs_ that are compiled through the available graphics driver and uploaded to the graphics hardware and run when the component is rendered each frame.
 
-For an in depth explanation on shader programs, see the [Shader documentation](/manuals/shader).
+* For more information on the render pipeline, see the [Rendering documentation](/manuals/rendering).
+* For an in depth explanation on shader programs, see the [Shader documentation](/manuals/shader).
 
 ## Creating a material
 
 Let's start by creating a simple flat (with no directional light), but textured material:
 
 1. Select a target folder in the *Project Explorer*.
-2. Select the menu *File > New... > Material File*. (You can also right click in the *Project Explorer and select *New... > Material File* from the pop up menu).
+2. Select the menu <kbd>File ▸ New... ▸ Material File</kbd>. (You can also right click in the *Project Explorer* and select <kbd>New... ▸ Material File</kbd> from the pop up menu).
 3. Name the new material file.
 4. The new material will open in the *Material Editor*.
 
@@ -22,10 +25,10 @@ Let's start by creating a simple flat (with no directional light), but textured 
 
 Now you need to create the vertex and fragment shader program files. Currently, the process is a little bit cumbersome:
 
-1. Create a script file by selecting *File > New... > Script File*.
-2. Rename the script file so it will have a ".vp" (Vertex Program) suffix.
+1. Create a script file by selecting <kbd>File ▸ New... ▸ Script File</kbd>.
+2. Rename the script file so it will have a *.vp* (Vertex Program) suffix.
 3. Create a second script file.
-4. Rename the script file so it will have a ".fp" (Fragment Program) suffix.
+4. Rename the script file so it will have a *.fp* (Fragment Program) suffix.
 
 Associate the two program files with the corresponding properties in the material:
 
@@ -33,7 +36,7 @@ Associate the two program files with the corresponding properties in the materia
 
 ## Material tags
 
-You need to set a tag for the material so your render script can render any component using the new material. The tags are represented in the engine as a _bitmask_ that is used by `[render.predicate()](/ref/render#render.predicate)` to collect components that should be drawn together. See the [Rendering documentation](/manuals/rendering) on how to do that.
+You need to set a tag for the material so your render script can render any component using the new material. The tags are represented in the engine as a _bitmask_ that is used by [`render.predicate()`](/ref/render#render.predicate) to collect components that should be drawn together. See the [Rendering documentation](/manuals/rendering) on how to do that.
 
 ::: important
 The maximum number of tags you can use in a project is 32.
@@ -43,27 +46,23 @@ The maximum number of tags you can use in a project is 32.
 
 ## Constants
 
-The vertex shader will need matrices so each vertex can be translated to the clipping space. You do that by setting up _vertex constants_. We set two constants.
-
-1. Call one "world" and set the type to `CONSTANT_TYPE_WORLD`. This lets the engine know that you want "world" to contain the world matrix.
-2. Call the second "view_proj" and set the type to `CONSTANT_VIEW_PROJECTION`. This lets the engine know that you want "view_proj" to contain the view matrix multiplied with the projection matrix.
+The vertex shader will need matrices so each vertex can be translated to the clipping space. You do that by setting up _vertex constants_. We add one constant "view_proj" and set the type to `CONSTANT_VIEW_PROJECTION`. This lets the engine know that you want "view_proj" to contain the view matrix multiplied with the projection matrix.
 
 ![Vertex constants](images/materials/materials_vertex_constants.png)
 
 ## Shader programs
 
-For the material to work, we have to edit the vertex and shader programs:
+For the material to work, we have to first edit the vertex shader programs:
 
-.Vertex shader ("flat.vp")
-----
+```glsl
+// flat.vp
 // view_proj and world are set as vertex constants and we
 // access them in our vertex shader program by declaring them
 // as "uniform".
 //
 uniform mediump mat4 view_proj;
-uniform mediump mat4 world;
 
-// position holds the original vertex position.
+// position holds the original vertex position, in world space.
 attribute mediump vec4 position;
 
 // texcoord0 contains the texture coordinate for this vertex.
@@ -75,22 +74,21 @@ varying mediump vec2 var_texcoord0;
 
 void main()
 {
-    // Multiply view, projection and world matrices into one.
-    mediump mat4 mvp = view_proj * world;
-
     // The varying var_texcoord0 is at texcoord0 at the position of
     // this vertex.
-	var_texcoord0 = texcoord0;
+    var_texcoord0 = texcoord0;
 
-    // Translate the vertex position with the mvp matrix.
+    // Translate the vertex position with the view_proj matrix.
     // The vec4(position.xyz, 1.0) ensures that the w component of
     // the position is always 1.0.
-    gl_Position = mvp * vec4(position.xyz, 1.0);
+    gl_Position = view_proj * vec4(position.xyz, 1.0);
 }
-----
+```
 
-.Fragment shader ("flat.fp")
-----
+Secondly, the fragment shader needs to be edited:
+
+```glsl
+// flat.fp
 // The texture coordinate for this fragment is varying between the
 // vertices.
 varying mediump vec2 var_texcoord0;
@@ -104,7 +102,7 @@ void main()
     // set the fragment color to it.
     gl_FragColor = texture2D(diffuse_texture, var_texcoord0);
 }
-----
+```
 
 ## Setting the material
 
@@ -126,19 +124,19 @@ self.constants.tint = vmath.vector4(1, 0, 0, 1) -- <2>
 ...
 render.draw(self.my_pred, self.constants) -- <3>
 ```
-<1> Create a new constants buffer
-<2> Set the "tint" constant to bright red
-<3> Draw the predicate using our custom constants
+1. Create a new constants buffer
+2. Set the `tint` constant to bright red
+3. Draw the predicate using our custom constants
 
-The buffer's constant elements can be indexed like an ordinary Lua table, but you can't iterate over them with pairs() or ipairs().
+The buffer's constant elements can be indexed like an ordinary Lua table, but you can't iterate over them with `pairs()` or `ipairs()`.
 
 ## Uniform texture samplers
 
-A declared sampler 2D is automatically bound to the texture referenced in the graphics component -- there is currently no need to specify samplers in the materials file, but you can configure samplers if you want, see below.
+A declared sampler 2D is automatically bound to the texture referenced in the graphics component---there is currently no need to specify samplers in the materials file, but you can configure samplers if you want, see below.
 
 ![Component texture](images/materials/materials_texture.png)
 
-----
+```glsl
 // The texture data for the component is accessed through a sampler2D
 uniform sampler2D diffuse_texture;
 ...
@@ -147,7 +145,7 @@ uniform sampler2D diffuse_texture;
 // set the fragment color to it.
 gl_FragColor = texture2D(diffuse_texture, var_texcoord0);
 ...
-----
+```
 
 ::: important
 Defold currently supports a single texture per material.
@@ -170,8 +168,7 @@ WRAP_MODE_MIRRORED_REPEAT
 : Texture data outside the range [0,1] will repeat but every second repetition is mirrored
 
 WRAP_MODE_CLAMP_TO_EDGE
-: Texture data for values greater than 1.0 are set to 1.0, and any values less than 0.0 are set to 0.0 - i.e. the edge pixels will be repeated to the edge
-
+: Texture data for values greater than 1.0 are set to 1.0, and any values less than 0.0 are set to 0.0---i.e. the edge pixels will be repeated to the edge
 
 ## Filter modes
 
@@ -195,12 +192,9 @@ FILTER_MODE_LINEAR_MIPMAP_NEAREST
 FILTER_MODE_LINEAR_MIPMAP_LINEAR
 : Uses linear interpolation to compute the value in each of two maps and then interpolates linearly between these two values
 
-
 ## Shader constants
 
-Uniforms are values that are passed from the engine to vertex and fragment shader programs. To use a constant you define it in the material file as either a *vertex_constant* property or a *fragment_constant* property. Corresponding `uniform` variables need to be defined in the shader program.
-
-The following constants can be set in a material:
+Uniforms are values that are passed from the engine to vertex and fragment shader programs. To use a constant you define it in the material file as either a *vertex_constant* property or a *fragment_constant* property. Corresponding `uniform` variables need to be defined in the shader program. The following constants can be set in a material:
 
 CONSTANT_TYPE_WORLD
 : The world matrix. Use to transform vertices into world space. For some component types, the vertices are already in world space when they arrive to the vertex program (due to batching). In those cases multiplying with the world matrix in the shader will yield the wrong results.
@@ -223,17 +217,16 @@ CONSTANT_TYPE_NORMAL
 CONSTANT_TYPE_USER
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions `.set_constant()` and `.reset_constant()` for each component type (`sprite`, `model`, `spine`, `particlefx` and `tilemap`)
 
-
 ## Vertex shader attributes
 
 _Attributes_ are values associated with individual vertices. Different component types has a different set of attributes. To access them, simply declare them in your shader program:
 
-----
+```glsl
 // position and texture coordinates for this vertex.
 attribute mediump vec4 position;
 attribute mediump vec2 texcoord0;
 ...
-----
+```
 
 The following attributes are available:
 

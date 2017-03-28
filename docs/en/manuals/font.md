@@ -1,9 +1,11 @@
-Font files
-==========
+---
+title: Fonts in Defold manual
+brief: This manual describes how Defold handles fonts and how to bring fonts onto the screen in your games.
+---
 
-Fonts are used to render label components and text nodes in GUI scenes. This manual describes how Defold handles fonts and how to bring fonts onto the screen in your games.
+# Font files
 
-Font files in TrueType, OpenType or BMFont format can be added to your project and be automatically into a graphical format that Defold can render. Two font rendering techniques are available, bitmap and distance field, each with its specific benefits and drawbacks.
+Fonts are used to render label components and text nodes in GUI scenes. Defold supports font files in TrueType, OpenType or BMFont format thad can be added to your project and automatically converted into a graphical format that Defold can render. Two font rendering techniques are available, bitmap and distance field, each with its specific benefits and drawbacks.
 
 ## Creating a font
 
@@ -20,50 +22,38 @@ Shadow rendering of fonts is currently disabled by default because of performanc
 *font*
 : In the font editor, set this property to the imported TTF, OTF or *.fnt* file (you can click the *...* button to browse for the file). The editor will immediately create the font data and show a preview in the font editor.
 
-
 *material*
 : The material to use when rendering this font. Make sure to change this if you are creating a distance field font or a BMFont (see below for more on these).
-
 
 *size*
 : The target size of the glyphs in pixels.
 
-
 *antialias*
 : If the font should be antialiased when baked onto the target bitmap. Set to 0 if you want pixel perfect font rendering.
-
 
 *alpha*
 : The value of the alpha channel. 0.0--1.0 where 0.0 means transparent and 1.0 opaque.
 
-
 *outline_alpha*
 : The value of the alpha channel for the generated outline. 0.0--1.0.
-
 
 *outline_width*
 : The width of the generated outline in pixels. Set to 0 for no outline.
 
-
 *shadow_alpha*
 : The value of the alpha channel for the generated shadow. 0.0--1.0.
-
 
 *shadow_blur*
 : The blur radius in pixels for the generated shadow.
 
-
 *shadow_x*
 : The horizontal offset of the generated shadow.
-
 
 *shadow_y*
 : The vertical offset of the generated shadow.
 
-
 *extra_characters*
 : By default the font will include the ASCII printable characters (character codes 32-126). To manually include additional characters, list them in this property field.
-
 
 *output_format*
 : This property controls the type of font that is generated.
@@ -74,14 +64,11 @@ Shadow rendering of fonts is currently disabled by default because of performanc
 *all_chars*
 : If you set this property to `true` all glyphs available in the source file are included in the output.
 
-
 *cache_width*
 : Set this to constrain the width of the glyph cache bitmap. When the engine renders text, it looks on the cache bitmap for a glyph. If it does not exist there it will be added to the cache before rendering. If the cache bitmap is too small to contain the glyphs the engine is asked to render, an error (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`) is signalled. If this value is 0 then the cache size is automatically.
 
-
 *cache_height*
 : Set this to constrain the height of the glyph cache bitmap. If this value is 0 then the cache size is automatically.
-
 
 ::: sidenote
 The ASCII printable characters are:
@@ -94,7 +81,7 @@ In addition to generated bitmaps Defold supports prebaked bitmap "BMFont" format
 
 These types of fonts provide no performance improvement from bitmap fonts generated from TrueType or OpenType font files, but can include arbitrary graphics, coloring and shadows right in the image.
 
-Add the generated *.fnt* and *.png* files to your Defold project. These files should reside in the same folder. Create a new font file and set the *font* property to the *.fnt* file. Make sure that *output_format* is set to "TYPE_BITMAP". Defold will not generate a bitmap but use the one provided in the PNG.
+Add the generated *.fnt* and *.png* files to your Defold project. These files should reside in the same folder. Create a new font file and set the *font* property to the *.fnt* file. Make sure that *output_format* is set to `TYPE_BITMAP`. Defold will not generate a bitmap but use the one provided in the PNG.
 
 ::: sidenote
 To create a BMFont, you need to use a tool that can generate the appropriate files. Several options exist:
@@ -114,7 +101,7 @@ To create a distance field font, simply select `TYPE_DISTANCE_FIELD` as *output_
 
 ![Distance field font](images/font/fonts_distance_field.png)
 
-Make sure to change the *material* property of the font to "builtins/fonts/font-df.material" (or any other material that can handle the distance field data) when you create the font--or the font will not use the correct shader when it is rendered to screen.
+Make sure to change the *material* property of the font to *builtins/fonts/font-df.material* (or any other material that can handle the distance field data) when you create the font--or the font will not use the correct shader when it is rendered to screen.
 
 ![Distance field font material](images/font/fonts_distance_field_material.png)
 

@@ -1,5 +1,9 @@
-Facebook
-========
+---
+title: Defold Facebook manual
+brief: This manual explains how to setup and integrate Facebook functionality in a Defold game.
+---
+
+# Facebook
 
 The Facebook APIs allows you to interact with Facebook's game connectivity features in a uniform way for games on iOS, Android and HTML5.
 
@@ -29,7 +33,7 @@ The next step is to create a Facebook application. The <kbd>My Apps</kbd> menu i
 You are presented with a selection of target platforms. Click *basic setup* to skip the wizards.
 
 ::: sidenote
-Most information provided through the wizards are irrelevant when developing on Defold. In particular, you usually don't need to edit "Info.plist" or "AndroidManifest.xml" yourself. Defold does that work for you.
+Most information provided through the wizards are irrelevant when developing on Defold. In particular, you usually don't need to edit *Info.plist* or *AndroidManifest.xml* yourself. Defold does that work for you.
 :::
 
 ![Add new app platform](images/facebook/add_new_app_platform.png)
@@ -40,7 +44,7 @@ You can easily add, remove and change platform settings in the app dashboard. Yo
 
 ![App dashboard settings](images/facebook/add_platform.png)
 
-Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Unfortunately this setting is hidden in the editor (this will change soon), but you easily add it. Right-click the "game.project" file in the *Project Explorer" and select "Open With > Text Editor".
+Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Unfortunately this setting is hidden in the editor (this will change soon), but you easily add it. Right-click the *game.project* file in the *Project Explorer* and select <kbd>Open With ▸ Text Editor</kbd>.
 
 ![Open project settings with](images/facebook/project_open_with.png)
 
@@ -54,17 +58,17 @@ Now, back in the *Settings* tab on the Facebook app page, click *+ Add Platform*
 
 ## iOS
 
-For iOS you need to specify the game's *bundle_identifier* as specified in "game.project".
+For iOS you need to specify the game's `bundle_identifier` as specified in *game.project*.
 
 ![iOS settings](images/facebook/settings_ios.png)
 
 ## Android
 
-For Android you need to specify *Google Play Package Name*, which is the game's *package* identifier specified in "game.project". You should also generate hashes of the certificate(s) you use and enter them into the *Key Hashes* field. You can generate a hash from a "certificate.pem" with openssl:
+For Android you need to specify *Google Play Package Name*, which is the game's *package* identifier specified in *game.project*. You should also generate hashes of the certificate(s) you use and enter them into the *Key Hashes* field. You can generate a hash from a *certificate.pem* with openssl:
 
-----
+```sh
 $ cat certificate.pem | openssl x509 -outform der | openssl sha1 -binary | openssl base64
-----
+```
 
 (See [Creating certificates and keys](/manuals/android/#_creating_certificates_and_keys) in the Android manual for details how to create your own signing files)
 
@@ -77,14 +81,14 @@ For HTML5 games, the process is a bit different. Facebook needs access to your g
 ![Facebook Canvas settings](images/facebook/settings_canvas.png)
 
 1. Use Facebook's *Simple Application Hosting*. Click *Yes* to select managed hosting. Select *uploaded assets* to open the hosted asset manager.
-+
-![Simple hosting](images/facebook/simple_hosting.png)
-+
-Select that you want to host a "HTML5 Bundle":
-+
-![HTML5 bundle](images/facebook/html5_bundle.png)
-+
-Compress your HTML5 bundle into a .7z or .zip archive and upload it to Facebook. Make sure to click *Push to production* to start serving the game.
+
+    ![Simple hosting](images/facebook/simple_hosting.png)
+    
+    Select that you want to host a "HTML5 Bundle":
+    
+    ![HTML5 bundle](images/facebook/html5_bundle.png)
+    
+    Compress your HTML5 bundle into a .7z or .zip archive and upload it to Facebook. Make sure to click *Push to production* to start serving the game.
 
 2. The alternative to Facebook hosting is to upload a HTML5 bundle of your game to some server of your choice that serves the game through HTTPS. Set the *Secure Canvas URL* to the URL of your game.
 
@@ -96,7 +100,7 @@ The following basic test can be used to see if things are set up properly.
 
 1. Create a new game object and attach a script component with a new script file to it.
 2. Enter the following code in the script file:
-+
+
 ```lua
 local function get_me_callback(self, id, response)
     -- The response table includes all the response data
@@ -129,7 +133,7 @@ end
 
 Running this simple test should display something like the following in the console:
 
-----
+```txt
 DEBUG:SCRIPT: 
 {
   status = 200,
@@ -150,12 +154,12 @@ DEBUG:SCRIPT:
   }
   response = {"name":"Max de Fold ","id":"14159265358979323"},
 }
-----
+```
 
 * The full Defold Facebook APIs are documented in the [Facebook reference documentation](/ref/facebook).
 * The Facebook Graph API is documented here: https://developers.facebook.com/docs/graph-api
 
 ## Development caveats
 
-When developing it is very convenient to use the dev application. Unfortunately, the Facebook API does not yet work on the dev app due to how the bundled "Info.plist" file has to be constructed. However, any debug bundle works as a dev app so the workaround is to build the game with the proper Facebook project settings, put it on the device and then connect to the running game and stream data to it from the editor as usual.
+When developing it is very convenient to use the dev application. Unfortunately, the Facebook API does not yet work on the dev app due to how the bundled *Info.plist* file has to be constructed. However, any debug bundle works as a dev app so the workaround is to build the game with the proper Facebook project settings, put it on the device and then connect to the running game and stream data to it from the editor as usual.
 

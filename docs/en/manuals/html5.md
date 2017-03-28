@@ -1,11 +1,13 @@
-HTML5
-=====
+---
+title: Defold development for the HTML5 platform
+brief: This manual describes the process of creating HTML5 canvas applications, along with known issues and limitations.
+---
 
-This manual describes the process of creating HTML5 canvas applications, along with known issues and limitations.
+# HTML5 development
 
-## Project configuration
+Defold supports building games for the HTML5 platform through the regular bundling menu, as well as some platform specific tools. In addition, the resulting game is embedded on a regular HTML page that can be styled through a simple template system.
 
-The "game.project" file has some settings specific to HTML5 targets: they may be found in the *html5* section:
+The *game.project* file contains the HTML5 specific settings:
 
 ![Project settings](images/html5/html5_project_settings.png)
 
@@ -27,7 +29,7 @@ You may opt to save application data within the _HTML5 application cache_ (See h
 
 ## Creating HTML5 content
 
-Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select *Project > Bundle > HTML5 Application...* from the menu:
+Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd> from the menu:
 
 ![Build HTML5](images/html5/html5_build_launch.png)
 

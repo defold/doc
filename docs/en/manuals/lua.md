@@ -1,15 +1,20 @@
-Lua in Defold
-=============
-:draft: Something something else.
+---
+title: Lua programming in Defold
+brief: This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold.
+---
+
+# Lua in Defold
 
 The Defold engine has the Lua language embedded for scripting. Lua is a lightweight dynamic language that is powerful, fast, and easy to embed. It is widely used as a videogame scripting language. Lua programs are written in a simple procedural syntax. The language is dynamically typed and is run by a bytecode interpreter. It features automatic memory management with incremental garbage collection.
 
-This manual will give a fast introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript or a similar dynamic language you will get going pretty quick. If you are totally new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
+This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript or a similar dynamic language you will get going pretty quick. If you are totally new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
 
 ## Lua versions
 We aim to keep Defold the same across all platforms, but we currently have a small discrepancy between Lua versions. For HTML5 and iOS 64 bit platforms we use Lua 5.1 but for other platforms we use LuaJIT. LuaJIT is based on 5.1 but contains a few additional features.
 
-*To keep your game working cross platform we suggest you stick to Lua 5.1 features.*
+::: important
+To keep your game working cross platform we suggest you stick to Lua 5.1 features.
+:::
 
 ## Lua books and resources
 
@@ -42,347 +47,332 @@ end
 
 Lua is dynamically typed which means that variables do not have types, but values do. Unlike in typed languages, you can assign any value to any variable as you like. There are eight basic types in Lua:
 
-nil
+`nil`
 : This type only has the value `nil`. It usually represents the absence of a useful value, for example unassigned variables.
 
-
-```lua
-print(my_var) -- will print 'nil' since 'my_var' is not yet assigned a value
-```
+  ```lua
+  print(my_var) -- will print 'nil' since 'my_var' is not yet assigned a value
+  ```
 
 boolean
 : Has either the value `true` or `false`. Conditions that are `false` or `nil` are made false. Any other value makes it true.
 
-
-```lua
-flag = true
-if flag then
-    print("flag is true")
-else
-    print("flag is false")
-end
-
-if my_var then
-    print("my_var is not nil nor false!")
-end
-
-if not my_var then
-    print("my_var is either nil or false!")
-end
-```
+  ```lua
+  flag = true
+  if flag then
+      print("flag is true")
+  else
+      print("flag is false")
+  end
+  
+  if my_var then
+      print("my_var is not nil nor false!")
+  end
+  
+  if not my_var then
+      print("my_var is either nil or false!")
+  end
+  ```
 
 number
 : Numbers are internally represented as either 64 bit _integers_ or 64 bit _floating point_ numbers. Lua automatically converts between these representations as needed so you generally don't have to worry about it.
 
-
-```lua
-print(10) --> prints '10'
-print(10.0) --> '10'
-print(10.000000000001) --> '10.000000000001'
-
-a = 5 -- integer
-b = 7/3 -- float
-print(a - b) --> '2.6666666666667'
-```
+  ```lua
+  print(10) --> prints '10'
+  print(10.0) --> '10'
+  print(10.000000000001) --> '10.000000000001'
+  
+  a = 5 -- integer
+  b = 7/3 -- float
+  print(a - b) --> '2.6666666666667'
+  ```
 
 string
 : Strings are immutable sequences of bytes that can contain any 8-bit value, including embedded zeros (`\0`). Lua makes no assumptions about the contents of a string so you can store any data you like in them. String literals are written in single or double quotes. Lua converts between numbers and strings at runtime. Strings can be concatenated with the `..` operator.
 
+  Strings can contain the following C-style escape sequences:
 
-Strings can contain the following C-style escape sequences:
+  | Sequence | Character |
+  | -------- | --------- |
+  | `\a`     | bell       |
+  | `\b`     | back space |
+  | `\f`     | form feed  |
+  | `\n`     | newline    |
+  | `\r`     | carriage return |
+  | `\t`     | horizontal tab |
+  | `\v`     | vertical tab   |
+  | `\\`     | backslash      |
+  | `\"`     | double quote   |
+  | `\'`     | single quote   |
+  | `\[`     | left square bracket    |
+  | `\]`     | right square bracket   |
+  | `\ddd`   | character denoted by its numeric value where ddd is a sequence of up to three _decimal_ digits |
 
-|===
-| \a | bell
-| \b | back space
-| \f | form feed
-| \n | newline
-| \r | carriage return
-| \t | horizontal tab
-| \v | vertical tab
-| \\ | backslash
-| \" | double quote
-| \' | single quote
-| \[ | left square bracket
-| \] | right square bracket
-| \ddd | character denoted by its numeric value where ddd is a sequence of up to three _decimal_ digits
-|===
-
-```lua
-my_string = "hello"
-another_string = 'world'
-print(my_string .. another_string) --> "helloworld"
-
-print("10.2" + 1) --> 11.2
-print(my_string + 1) -- error, can't convert "hello"
-print(my_string .. 1) --> "hello1"
-
-print("one\nstring") --> one
-                     --> string
-
-print("\097bc") --> "abc"
-
-multi_line_string = [[
-Here is a chunk of text that runs over several lines. This is all
-put into the string and is sometimes very handy.
-]]
-```
+  ```lua
+  my_string = "hello"
+  another_string = 'world'
+  print(my_string .. another_string) --> "helloworld"
+  
+  print("10.2" + 1) --> 11.2
+  print(my_string + 1) -- error, can't convert "hello"
+  print(my_string .. 1) --> "hello1"
+  
+  print("one\nstring") --> one
+                       --> string
+  
+  print("\097bc") --> "abc"
+  
+  multi_line_string = [[
+  Here is a chunk of text that runs over several lines. This is all
+  put into the string and is sometimes very handy.
+  ]]
+  ```
 
 function
 : Functions are first class values in Lua, meaning that you can pass them as parameters to functions and return them as values. Variables assigned to a function contains a reference to the function. You can assign variables to anonymous functions, but Lua provides syntactic sugar (`function name(param1, param2) ... end`) for convenience.
 
-
-```lua
--- Assign 'my_plus' to function
-my_plus = function(p, q)
-    return p + q
-end
-
-print(my_plus(4, 5)) --> 9
-
--- Convenient syntax to assign function to variable 'my_mult'
-function my_mult(p, q)
-    return p * q
-end
-
-print(my_mult(4, 5)) --> 20
-
--- Takes a function as parameter 'func'
-function operate(func, p, q)
-    return func(p, q) -- Calls the provided function with parameters 'p' and 'q'
-end
-
-print(operate(my_plus, 4, 5)) --> 9
-print(operate(my_mult, 4, 5)) --> 20
-
--- Create an adder function and return it
-function create_adder(n)
-    return function(a)
-        return a + n
-    end
-end
-
-adder = create_adder(2)
-print(adder(3)) --> 5
-print(adder(10)) --> 12
-```
+  ```lua
+  -- Assign 'my_plus' to function
+  my_plus = function(p, q)
+      return p + q
+  end
+  
+  print(my_plus(4, 5)) --> 9
+  
+  -- Convenient syntax to assign function to variable 'my_mult'
+  function my_mult(p, q)
+      return p * q
+  end
+  
+  print(my_mult(4, 5)) --> 20
+  
+  -- Takes a function as parameter 'func'
+  function operate(func, p, q)
+      return func(p, q) -- Calls the provided function with parameters 'p' and 'q'
+  end
+  
+  print(operate(my_plus, 4, 5)) --> 9
+  print(operate(my_mult, 4, 5)) --> 20
+  
+  -- Create an adder function and return it
+  function create_adder(n)
+      return function(a)
+          return a + n
+      end
+  end
+  
+  adder = create_adder(2)
+  print(adder(3)) --> 5
+  print(adder(10)) --> 12
+  ```
 
 table
-: Tables are the only data-structuring type in Lua. It is an associative array _object_ that is used to represent lists, arrays, sequences, symbol tables, sets, records, graphs, trees etc. Tables are always anonymous and variables you assign a table does not contain the table itself, but a reference to it. When initializing a table as a sequence, the first index is +1`, not `0`.
+: Tables are the only data-structuring type in Lua. It is an associative array _object_ that is used to represent lists, arrays, sequences, symbol tables, sets, records, graphs, trees etc. Tables are always anonymous and variables you assign a table does not contain the table itself, but a reference to it. When initializing a table as a sequence, the first index is `1`, not `0`.
 
-
-```lua
--- Initialize a table as a sequence
-weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday"}
-print(weekdays[1]) --> "Sunday"
-print(weekdays[5]) --> "Thursday"
-
--- Initialize a table as a record with sequence values
-moons = { Earth = { "Moon" }, Uranus = { "Puck", "Miranda", "Ariel", "Umbriel", "Titania", "Oberon" } }
-print(moons.Uranus[3]) --> "Ariel"
-
--- Build a table from an empty constructor {}
-a = 1
-t = {}
-t[1] = "first"
-t[a ` 1] = "second"
-t.x = 1 -- same as t["x"] = 1
-
--- Iterate over the table key, value pairs
-for key, value in pairs(t) do
-    print(key, value)
-end
---> 1   first
---> 2   second
---> x   1
-
-u = t -- u now refers to the same table as t
-u[1] = "changed"
-
-for key, value in pairs(t) do -- still iterating over t!
-    print(key, value)
-end
---> 1   changed
---> 2   second
---> x   1
-```
+  ```lua
+  -- Initialize a table as a sequence
+  weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
+              "Thursday", "Friday", "Saturday"}
+  print(weekdays[1]) --> "Sunday"
+  print(weekdays[5]) --> "Thursday"
+  
+  -- Initialize a table as a record with sequence values
+  moons = { Earth = { "Moon" }, 
+            Uranus = { "Puck", "Miranda", "Ariel", "Umbriel", "Titania", "Oberon" } }
+  print(moons.Uranus[3]) --> "Ariel"
+  
+  -- Build a table from an empty constructor {}
+  a = 1
+  t = {}
+  t[1] = "first"
+  t[a ` 1] = "second"
+  t.x = 1 -- same as t["x"] = 1
+  
+  -- Iterate over the table key, value pairs
+  for key, value in pairs(t) do
+      print(key, value)
+  end
+  --> 1   first
+  --> 2   second
+  --> x   1
+  
+  u = t -- u now refers to the same table as t
+  u[1] = "changed"
+  
+  for key, value in pairs(t) do -- still iterating over t!
+      print(key, value)
+  end
+  --> 1   changed
+  --> 2   second
+  --> x   1
+  ```
 
 userdata
 : Userdata is provided to allow arbitrary C data to be stored in Lua variables. Defold uses Lua userdata objects to store Hash values (hash), URL objects (url), Math objects (vector3, vector4, matrix4, quaternion), Game objects, GUI nodes (node), Render predicates (predicate), Render targets (render_target) and Render constant buffers (constant_buffer)
 
-
 thread
 : Threads represents independent threads of execution and it is used to implement coroutines. See below for details.
-
 
 ## Operators
 
 Arithmetic operators
-: Mathematic operators +`+, `-`, `*`, `/`, the unary `-+ (negation) and exponential +^`.
+: Mathematic operators `+`, `-`, `*`, `/`, the unary `-` (negation) and exponential `^`.
 
-
-```lua
-a = -1
-print(a * 2 ` 3 / 4^5) --> -1.9970703125
-```
+  ```lua
+  a = -1
+  print(a * 2 ` 3 / 4^5) --> -1.9970703125
+  ```
 
 Relational/comparison operators
-: +<+ (less than), +>+ (greater than), `\<=` (less or equal), `>=` (greater or equal), `==` (equal), `~=` (not equal). There operators always return `true` or `false`. Values of different types are considered different. If the type is the same, they are compared according to their types. Lua compares tables, userdata, and functions by reference. Two such values are considered equal only if they refer to the same object.
+: `<` (less than), `>` (greater than), `<=` (less or equal), `>=` (greater or equal), `==` (equal), `~=` (not equal). There operators always return `true` or `false`. Values of different types are considered different. If the type is the same, they are compared according to their types. Lua compares tables, userdata, and functions by reference. Two such values are considered equal only if they refer to the same object.
 
+  ```lua
+  a = 5
+  b = 6
+  
+  if a <= b then
+      print("a is less than or equal to b")
+  end
+  ```
 
-```lua
-a = 5
-b = 6
+Logical operators
+: `and`, `or`, and `not`. `and` returns its first argument if it is `false`, otherwise it returns its second argument. `or` returns its first argument if it is not `false`, otherwise it returns its second argument.
 
-if a <= b then
-    print("a is less than or equal to b")
-end
-```
-
-Logical operators: `and`, `or`, and `not`. `and` returns its first argument if it is `false`, otherwise it returns its second argument. `or` returns its first argument if it is not `false`, otherwise it returns its second argument.
-
-```lua
-print(true or false) --> true
-print(true and false) --> false
-print(not false) --> true
-
-if a == 5 and b == 6 then
-    print("a is 5 and b is 6")
-end
-```
+  ```lua
+  print(true or false) --> true
+  print(true and false) --> false
+  print(not false) --> true
+  
+  if a == 5 and b == 6 then
+      print("a is 5 and b is 6")
+  end
+  ```
 
 Concatenation
 : Strings can be concatenated with the `..` operator. Numbers are converted to strings when concatenated.
 
-
-```lua
-print("donkey" .. "kong") --> "donkeykong"
-print(1 .. 2) --> "12"
-```
+  ```lua
+  print("donkey" .. "kong") --> "donkeykong"
+  print(1 .. 2) --> "12"
+  ```
 
 Length
-: The unary length operator +#`. The length of a string is its number of bytes. The length of a table is its sequence length, the number of indices that are numbered from `1+ and upwards where the value is not nil. Note: If the sequence has `nil` value "holes" in it, the length can be any index preceding a `nil` value.
+: The unary length operator `#`. The length of a string is its number of bytes. The length of a table is its sequence length, the number of indices that are numbered from `1` and upwards where the value is not `nil`. Note: If the sequence has `nil` value "holes" in it, the length can be any index preceding a `nil` value.
 
-
-```lua
-s = "donkey"
-print(#s) --> 6
-
-t = { "a", "b", "c", "d" }
-print(#t) --> 4
-
-u = { a = 1, b = 2, c = 3 }
-print(#u) --> 0
-
-v = { "a", "b", nil }
-print(#v) --> 2
-```
+  ```lua
+  s = "donkey"
+  print(#s) --> 6
+  
+  t = { "a", "b", "c", "d" }
+  print(#t) --> 4
+  
+  u = { a = 1, b = 2, c = 3 }
+  print(#u) --> 0
+  
+  v = { "a", "b", nil }
+  print(#v) --> 2
+  ```
 
 ## Flow control
 
 Lua provides the usual set of flow control constructs.
 
-if then else
+if---then---else
 : Test a condition, execute the `then` part if the condition is true, otherwise execute the (optional) `else` part. Instead of nesting `if` statements you can use `elseif`. This replaces a switch-statement that Lua does not have.
 
-
-```lua
-a = 5
-b = 4
-
-if a < b then
-    print("a is smaller than b")
-end
-
-if a == '1' then
-    print("a is 1")
-elseif a == '2' then
-    print("a is 2")
-elseif a == '3' then
-    print("a is 3")
-else
-    print("I have no idea what a is...")
-end
-```
+  ```lua
+  a = 5
+  b = 4
+  
+  if a < b then
+      print("a is smaller than b")
+  end
+  
+  if a == '1' then
+      print("a is 1")
+  elseif a == '2' then
+      print("a is 2")
+  elseif a == '3' then
+      print("a is 3")
+  else
+      print("I have no idea what a is...")
+  end
+  ```
 
 while
 : Test a condition and execute the block as long as it's true.
 
+  ```lua
+  weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
+              "Thursday", "Friday", "Saturday"}
+  
+  -- Print each weekday
+  i = 1
+  while weekdays[i] do
+      print(weekdays[i])
+      i = i + 1
+  end
+  ```
 
-```lua
-weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday"}
-
--- Print each weekday
-i = 1
-while weekdays[i] do
-    print(weekdays[i])
-    i = i + 1
-end
-```
-
-repeat until
+repeat---until
 : Repeats the block until a condition is true. The condition is tested after the body so it will execute at least once.
 
-
-```lua
-weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday"}
-
--- Print each weekday
-i = 0
-repeat
-    i = i + 1
-    print(weekdays[i])
-until weekdays[i] == "Saturday"
-```
+  ```lua
+  weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
+              "Thursday", "Friday", "Saturday"}
+  
+  -- Print each weekday
+  i = 0
+  repeat
+      i = i + 1
+      print(weekdays[i])
+  until weekdays[i] == "Saturday"
+  ```
 
 for
 : Lua has two types of `for` loop: numeric and generic. The numeric `for` takes 2 or 3 numeric values whereas the generic `for` iterates over all values returned by an _iterator_ function.
 
-
-```lua
--- Print the numbers 1 to 10
-for i = 1, 10 do
-    print(i)
-end
-
--- Print the numbers 1 to 10 and increment with 2 each time
-for i = 1, 10, 2 do
-    print(i)
-end
-
--- Print the numbers 10 to 1
-for i=10, 1, -1 do
-    print(i)
-end
-
-t = { "a", "b", "c", "d" }
--- Iterate over the sequence and print the values
-for i, v in ipairs(t) do
-    print(v)
-end
-```
+  ```lua
+  -- Print the numbers 1 to 10
+  for i = 1, 10 do
+      print(i)
+  end
+  
+  -- Print the numbers 1 to 10 and increment with 2 each time
+  for i = 1, 10, 2 do
+      print(i)
+  end
+  
+  -- Print the numbers 10 to 1
+  for i=10, 1, -1 do
+      print(i)
+  end
+  
+  t = { "a", "b", "c", "d" }
+  -- Iterate over the sequence and print the values
+  for i, v in ipairs(t) do
+      print(v)
+  end
+  ```
 
 break and return
 : Use the `break` statement to break out of an inner block of a `for`, `while` or `repeat` loop. Use `return` to return a value from a function or to finish execution of a function and return to the caller. `break` or `return` can appear only as the last statement of a block.
 
-
-```lua
-a = 1
-while true do
-    a = a + 1
-    if a >= 100 then
-        break
-    end
-end
-
-function my_add(a, b)
-    return a + b
-end
-
-print(my_add(10, 12)) --> 22
-```
+  ```lua
+  a = 1
+  while true do
+      a = a + 1
+      if a >= 100 then
+          break
+      end
+  end
+  
+  function my_add(a, b)
+      return a + b
+  end
+  
+  print(my_add(10, 12)) --> 22
+  ```
 
 ## Locals, globals and lexical scoping
 
@@ -473,7 +463,7 @@ end
 
 ## Coroutines
 
-Functions execute from beginning to end and there is no way to stop it midway through. Coroutines allow you to do that, which can be very convenient in some cases. Suppose we want to create a very specific frame-by-frame animation where we move a game object from y position +0+ to some very specific y positions frame 1 to frame 5. We could solve that with a counter in the `update()` function (see below) and a list of the positions. However, with a coroutine we get a very clean implementation that is easy to extend and work with. All state is contained within the coroutine itself.
+Functions execute from beginning to end and there is no way to stop it midway through. Coroutines allow you to do that, which can be very convenient in some cases. Suppose we want to create a very specific frame-by-frame animation where we move a game object from y position `0` to some very specific y positions frame 1 to frame 5. We could solve that with a counter in the `update()` function (see below) and a list of the positions. However, with a coroutine we get a very clean implementation that is easy to extend and work with. All state is contained within the coroutine itself.
 
 When a coroutine yields it returns control back to the caller but remembers its execution point so it can continue from there later on.
 
@@ -523,59 +513,53 @@ Render scripts
 
 ## Script execution and callbacks
 
-Defold executes Lua scripts as part of the engine lifecycle and exposes the lifecycle through a set of predefined callback functions. When you add a script component to a game object the script becomes part of the game object's and its component(s) lifecycle. The script is evaluated in the Lua context when it is loaded, then the engine executes the following functions and passes a reference to the current script component instance as parameter. You can use this "self" reference to store state in the component instance. "self" is a userdata object that acts like a Lua table but you can't iterate over it with `pairs()+ or `ipairs()`.
+Defold executes Lua scripts as part of the engine lifecycle and exposes the lifecycle through a set of predefined callback functions. When you add a script component to a game object the script becomes part of the game object's and its component(s) lifecycle. The script is evaluated in the Lua context when it is loaded, then the engine executes the following functions and passes a reference to the current script component instance as parameter. You can use this `self` reference to store state in the component instance. `self` is a userdata object that acts like a Lua table but you can't iterate over it with `pairs()` or `ipairs()`.
 
-init(self)
+`init(self)`
 : Called when the component is initialized.
 
+  ```lua
+  function init(self)
+      -- These variables are available through the lifetime of the component instance
+      self.my_var = "something"
+      self.age = 0
+  end
+  ```
 
-```lua
-function init(self)
-    -- These variables are available through the lifetime of the component instance
-    self.my_var = "something"
-    self.age = 0
-end
-```
-
-final(self)
+`final(self)`
 : Called when the component is deleted. This is useful for cleaning up purposes, for instance if you have spawned game objects that should be deleted when the component is deleted.
 
+  ```lua
+  function final(self)
+      if self.my_var == "something" then
+          -- do some cleanup
+      end
+  end
+  ```
 
-```lua
-function final(self)
-    if self.my_var == "something" then
-        -- do some cleanup
-    end
-end
-```
-
-update(self, dt)
+`update(self, dt)`
 : Called once each frame. `dt` contains the delta time since the last frame.
 
+  ```lua
+  function update(self, dt)
+      self.age = self.age + dt -- increase age with the timestep
+  end
+  ```
 
-```lua
-function update(self, dt)
-    self.age = self.age + dt -- increase age with the timestep
-end
-```
+`on_message(self, message_id, message, sender)`
+: When messages are sent to the script component through [`msg.post()`](/ref/msg#msg.post) the engine calls this function of the receiver component.
 
-on_message(self, message_id, message, sender)
-: When messages are sent to the script component through `[msg.post()](/ref/msg#msg.post)` the engine calls this function of the receiver component.
+`on_input(self, action_id, action)`
+: If this component has acquired input focus (see [`acquire_input_focus`](/ref/go/#acquire_input_focus)) the engine calls this function when input is registered.
 
+`on_reload(self)`
+: This function is called when the script is reloaded through the hot reload editor function (<kbd>Edit ▸ Reload Resource</kbd>). It is very useful for debugging, testing and tweaking purposes.
 
-on_input(self, action_id, action)
-: If this component has acquired input focus (see `[acquire_input_focus](/ref/go/#acquire_input_focus)`) the engine calls this function when input is registered.
-
-
-on_reload(self)
-: This function is called when the script is reloaded through the hot reload editor function ("Edit > Reload Resource"). It is very useful for debugging, testing and tweaking purposes.
-
-
-```lua
-function on_reload(self)
-    print(self.age) -- print the age of this game object
-end
-```
+  ```lua
+  function on_reload(self)
+      print(self.age) -- print the age of this game object
+  end
+  ```
 
 ## Reactive logic
 
@@ -587,33 +571,33 @@ Let's look at a concrete example. Suppose that you want a script component to se
 
 ```lua
 function init(self)
-        -- Counter to keep track of time.
-        self.counter = 0
-        -- We need this to keep track of our state.
-        self.state = "first"
+    -- Counter to keep track of time.
+    self.counter = 0
+    -- We need this to keep track of our state.
+    self.state = "first"
 end
 
 function update(self, dt)
-        self.counter = self.counter + dt
-        if self.counter >= 2.0 and self.state == "first" then
-                -- send message after 2 seconds
-                msg.post("some_object", "some_message")
-        end
-        if self.counter >= 5.0 and self.state == "second" then
-                -- send message 5 seconds after we received "response"
-                msg.post("another_object", "another_message")
-                -- Nil the state so we don’t reach this state block again.
-                self.state = nil
-        end
+    self.counter = self.counter + dt
+    if self.counter >= 2.0 and self.state == "first" then
+        -- send message after 2 seconds
+        msg.post("some_object", "some_message")
+    end
+    if self.counter >= 5.0 and self.state == "second" then
+        -- send message 5 seconds after we received "response"
+        msg.post("another_object", "another_message")
+        -- Nil the state so we don’t reach this state block again.
+        self.state = nil
+    end
 end
 
 function on_message(self, message_id, message, sender)
-        if message_id == hash("response") then
-                -- “first” state done. enter next
-                self.state = "second"
-                -- zero the counter
-                self.counter = 0
-        end
+    if message_id == hash("response") then
+        -- “first” state done. enter next
+        self.state = "second"
+        -- zero the counter
+        self.counter = 0
+    end
 end
 ```
 
@@ -623,25 +607,25 @@ Even in this quite simple case we get fairly tangled up logic. It's possible to 
 -- Dummy property only for timing
 go.property("dummy", 0)
 function init(self)
-        -- Wait 2s then call send_first()
-        go.animate("#", "dummy", go.PLAYBACK_ONCE_FORWARD, 0,
-                     go.EASING_LINEAR, 2.0, 0, send_first)
+    -- Wait 2s then call send_first()
+    go.animate("#", "dummy", go.PLAYBACK_ONCE_FORWARD, 0,
+                 go.EASING_LINEAR, 2.0, 0, send_first)
 end
 
 function send_first()
-        msg.post("some_object", "some_message")
+    msg.post("some_object", "some_message")
 end
 
 function send_second()
-        msg.post("another_object", "another_message")
+    msg.post("another_object", "another_message")
 end
 
 function on_message(self, message_id, message, sender)
-        if message_id == hash("response") then
-                -- Wait 5s then call send_second()
-                go.animate("#", "dummy", go.PLAYBACK_ONCE_FORWARD, 0,
-                            go.EASING_LINEAR, 5.0, 0, send_second)
-        end
+    if message_id == hash("response") then
+        -- Wait 5s then call send_second()
+        go.animate("#", "dummy", go.PLAYBACK_ONCE_FORWARD, 0,
+                    go.EASING_LINEAR, 5.0, 0, send_second)
+    end
 end
 ```
 
@@ -649,7 +633,7 @@ This is cleaner and easier to follow. We get rid of internal state variables tha
 
 ## Lua contexts in Defold
 
-All variables that you declare are by default global, meaning that they are available through all parts of the Lua runtime context. Defold has a setting `shared_state` setting in "game.project" that controls this context. If the option is set, all scripts, GUI scripts and the render script are evaluated in the same Lua context and global variables are visible everywhere. If the option is not set, the engine executes scripts, GUI scripts and the render script in separate contexts.
+All variables that you declare are by default global, meaning that they are available through all parts of the Lua runtime context. Defold has a setting *shared_state* setting in *game.project* that controls this context. If the option is set, all scripts, GUI scripts and the render script are evaluated in the same Lua context and global variables are visible everywhere. If the option is not set, the engine executes scripts, GUI scripts and the render script in separate contexts.
 
 ![Contexts](images/lua/lua_contexts.png)
 
@@ -686,24 +670,24 @@ In a high performance game that is intended to run at a smooth 60 FPS small perf
 Beginning with the simple things. It is generally a good idea to write code that is straightforward and that does not contain unnecessary loops. Sometimes you do need to iterate over lists of things, but be careful if the list of things is sufficiently large. This example runs in slightly over 1 millisecond on a pretty decent laptop, which can make all the difference if each frame is only 16 milliseconds long (at 60 FPS) and with the engine, render script, physics simulation and so forth eating up a chunk of that.
 
 ```lua
-local t = os.clock()
+local t = socket.gettime()
 local table = {}
 for i=1,2000 do
     table[i] = vmath.vector3(i, i, i)
 end
-print((os.clock() - t) * 1000)
+print((socket.gettime() - t) * 1000)
 
--- DEBUG:SCRIPT: 1.18
+-- DEBUG:SCRIPT: 0.40388
 ```
 
-Use the value returned from `os.clock()` (seconds of CPU time for the program) to benchmark suspect code.
+Use the value returned from `socket.gettime()` (seconds since system epoch) to benchmark suspect code.
 
 ## Memory and garbage collection
 
 Lua's garbage collection runs automatically in the background by default and reclaims memory that the Lua runtime has allocated. Collecting lots of garbage can be a time consuming task so it is good to keep down the number of objects that needs to be garbage collected:
 
 * Local variables are in themselves free and will not generate garbage. (i.e. `local v = 42`)
-* Each _new unique_ string creates a new object. Writing `local s = "some_string"` will create a new object and assign +s+ to it. The local +s+ itself will not generate garbage, but the string object will. Using the same string multiple times adds no additional memory cost.
+* Each _new unique_ string creates a new object. Writing `local s = "some_string"` will create a new object and assign `s` to it. The local +s+ itself will not generate garbage, but the string object will. Using the same string multiple times adds no additional memory cost.
 * Each time a table constructor is executed (`{ ... }`) a new table is created.
 * Executing a _function statement_ creates a closure object. (i.e. executing the statement `function () ... end`, not calling a defined function)
 * Vararg functions (`function(v, ...) end`) create a table for the ellipsis each time the function is _called_ (in Lua prior to version 5.2, or if not using LuaJIT).
@@ -732,7 +716,7 @@ print(collectgarbage("count") * 1024)       -- 88611
 print(collectgarbage("count") * 1024)       -- 88633. 22 bytes allocated
 ```
 
-So a `vector3` weighs in at 70-22=48 bytes. That is not much, but if you create _one_ each frame in a 60 FPS game it's suddenly 2.8 kB of garbage per second. With 360 script components that each create one `vector3` every frame we're looking at 1 MB of garbage generated per second. The numbers can add upp very quickly. When the Lua runtime collects garbage it may eat up many precious milliseconds--especially on mobile platforms.
+So a `vector3` weighs in at 70-22=48 bytes. That is not much, but if you create _one_ each frame in a 60 FPS game it's suddenly 2.8 kB of garbage per second. With 360 script components that each create one `vector3` every frame we're looking at 1 MB of garbage generated per second. The numbers can add upp very quickly. When the Lua runtime collects garbage it may eat up many precious milliseconds---especially on mobile platforms.
 
 One way to avoid allocations is to create a `vector3` and then keep working with the same object. For instance, to reset a `vector3` we can use the following construct:
 
@@ -744,7 +728,7 @@ self.velocity.y = 0
 self.velocity.z = 0
 ```
 
-The default garbage collecting scheme may not be optimal for some time critical applications. If you see stutter in your game or app, you might want to tune how Lua collects garbage through the [collectgarbage()](http://www.lua.org/manual/5.1/manual.html#pdf-collectgarbage) Lua function. You can, for instance, run the collector for a short time every frame with a low "step" value. To get an idea how much memory your game or app is eating, you can print the current amount of garbage bytes with:
+The default garbage collecting scheme may not be optimal for some time critical applications. If you see stutter in your game or app, you might want to tune how Lua collects garbage through the [`collectgarbage()`](/ref/base/#collectgarbage) Lua function. You can, for instance, run the collector for a short time every frame with a low `step` value. To get an idea how much memory your game or app is eating, you can print the current amount of garbage bytes with:
 
 ```lua
 print(collectgarbage("count") * 1024)
@@ -754,26 +738,23 @@ print(collectgarbage("count") * 1024)
 
 A common implementation design consideration is how to structure code for shared behaviors. Several approaches are possible.
 
-## Behaviors in a module
+Behaviors in a module
+: Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects is a necessity (or leads to cleaner design). If you have to store internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
 
-![Module](images/lua/lua_module.png)
+  ![Module](images/lua/lua_module.png)
 
-Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects is a necessity (or leads to cleaner design). If you have to store internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
+  Also, even if it is possible to have module code directly modify the internals of a game object (by passing `self` to a module function) it is strongly disencouraged to do so since you create very tight coupling.
 
-Also, even if it is possible to have module code directly modify the internals of a game object (by passing "self" to a module function) it is strongly disencouraged to do so since you create very tight coupling.
+A helper game object with encapsulated behavior
+: Just like you can contain script code in a Lua module, you can contained it in a game object with a script component. The difference is that if you contain it in a game object and you communicate with it strictly through message passing.
 
-## A helper game object with encapsulated behavior
+  ![Helper](images/lua/lua_helper.png)
 
-![Helper](images/lua/lua_helper.png)
+Grouping game object with helper behavior object inside a collection
+: In this design you can create a behavior game object that automatically acts upon another target game object, either by a predefined name (the user has to rename the target game object to match), or through a `go.property()` URL that points to the target game object.
 
-Just like you can contain script code in a Lua module, you can contained it in a game object with a script component. The difference is that if you contain it in a game object and you communicate with it strictly through message passing.
+  ![Collection](images/lua/lua_collection.png)
 
-## Grouping game object with helper behavior object inside a collection
+  The benefit with this setup is that you can drop a behavior game object into a collection containing the target object. Zero additional code is needed.
 
-![Collection](images/lua/lua_collection.png)
-
-In this design you can create a behavior game object that automatically acts upon another target game object, either by a predefined name (the user has to rename the target game object to match), or through a `go.property()` URL that points to the target game object.
-
-The benefit with this setup is that you can drop a behavior game object into a collection containing the target object. Zero additional code is needed.
-
-In situations where you need to manage large quantities of game objects, this design is not preferable since the behavior object is duplicated for each instance and each object will cost memory.
+  In situations where you need to manage large quantities of game objects, this design is not preferable since the behavior object is duplicated for each instance and each object will cost memory.

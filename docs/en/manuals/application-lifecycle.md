@@ -1,9 +1,11 @@
-Application lifecycle
-=====================
+---
+title: Defold application lifecycle manual
+brief: This manual details the lifecycle of Defold games and applications.
+---
 
-This document details the lifecycle of Defold games and applications.
+# Application lifecycle
 
-The lifecycle of a Defold application or game is on the large scale very simple. The engine moves through three stages of execution: initialization, the update loop (where apps and games spend most of their time) and finalization.
+The lifecycle of a Defold application or game is on the large scale simple. The engine moves through three stages of execution: initialization, the update loop (where apps and games spend most of their time) and finalization.
 
 ![Lifecycle overview](images/application_lifecycle/application_lifecycle_overview.png)
 
@@ -98,7 +100,7 @@ The last steps in the update loop involves dispatching `@system` messages (`exit
 
 ## Frame rate and collection time step
 
-The number of frame updates per seconds (which equals the number of update-loop runs per second) can be set in the project settings, or programmatically by sending an "set_update_frequency" message to the `@system` socket. In addition, it is possible to set the _time step_ for collection proxies individually by sending a `set_time_step` message to the proxy. Changing a collection's time step does not affect the frame rate. It has an effect on the physics update time step as well as the "dt" variable passed to `update().` Also note that altering the time step does not alter the number of times `update()` will be called each frame---it is always exactly once.
+The number of frame updates per seconds (which equals the number of update-loop runs per second) can be set in the project settings, or programmatically by sending an `set_update_frequency` message to the `@system` socket. In addition, it is possible to set the _time step_ for collection proxies individually by sending a `set_time_step` message to the proxy. Changing a collection's time step does not affect the frame rate. It has an effect on the physics update time step as well as the `dt` variable passed to `update().` Also note that altering the time step does not alter the number of times `update()` will be called each frame---it is always exactly once.
 
 (See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collection-proxy#set_time_step) for details)
 

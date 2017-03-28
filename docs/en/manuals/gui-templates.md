@@ -3,8 +3,7 @@ title: GUI templates manual
 brief: This manual explains the Defold GUI template system that is used to create reusable visual GUI components based on shared templates or 'prefabs'.
 ---
 
-Templates
-=========
+# GUI templates
 
 GUI templates provide a simple but powerful mechanism to create reusable visual GUI components based on shared templates or "prefabs". This manual explains the feature and how to use it.
 
@@ -16,11 +15,11 @@ Since a GUI template is a plain GUI scene, there's nothing special about how the
 
 ![Button template](images/gui-templates/gui-templates-button.png)
 
-Now we can add any number of instances of the button to another GUI scene. Create or open a new scene and select menu:Gui[Add Template Node], alternatively right-click *Nodes* in the *Outline* and select *Add Templat* from the drop-down.
+Now we can add any number of instances of the button to another GUI scene. Create or open a new scene and select <kbd>Gui ▸ Add Template Node</kbd>, alternatively right-click *Nodes* in the *Outline* and select <kbd>Add Template</kbd> from the drop-down.
 
 ![Add template](images/gui-templates/gui-templates-add-template.png)
 
-Select the GUI scene file to use as template, in this case "button.gui". You can add any number of nodes, each an instance based on the same template. If we change the template, each instance updates immediately in the editor, reflecting the changes. Notice that all nodes present in the template node is accessible in the *Outline* view. Nodes under a template node are automatically named with a prefix "[template node id]/".
+Select the GUI scene file to use as template, in this case *button.gui*. You can add any number of nodes, each an instance based on the same template. If we change the template, each instance updates immediately in the editor, reflecting the changes. Notice that all nodes present in the template node is accessible in the *Outline* view. Nodes under a template node are automatically named with a prefix "[template node id]/".
 
 ![Node instances](images/gui-templates/gui-templates-instances.png)
 

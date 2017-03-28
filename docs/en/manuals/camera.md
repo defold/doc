@@ -1,9 +1,13 @@
-Cameras
-=======
+---
+title: Camera component manual
+brief: This manual describes the functionality of the Defold camera component.
+---
 
-Defold contains a primitive camera component. This manual describes its functionality and intended use.
+# Cameras
 
-A camera is a component type that you use to provide a view into your game world. Cameras are very simple objects that in essence does the following:
+A camera in Defold is a component that changes the viewport into the game world. By default, no camera is needed, but if your game requires scrolling through a level, Defold contains a primitive camera component that you use.
+
+Cameras are very simple objects that in essence does the following:
 
 1. They have a location in space---either 2D or 3D.
 2. They can be moved around in space---by moving the containing game object.

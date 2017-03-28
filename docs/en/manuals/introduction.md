@@ -1,5 +1,9 @@
-Welcome to Defold
-=================
+---
+title = Introduction to Defold
+brief = A brief introduction that covers the core concepts of Defold and is intended to give an overview to the editor and the most important features.
+---
+
+# Welcome to Defold
 
 Welcome to Defold. This introduction covers the core concepts of Defold and is intended to give an overview to the editor and the most important features. All descriptions are quite brief but there are links to more thorough documentation.
 
@@ -62,143 +66,83 @@ In addition to collaborating through project branches, Defold allows you to shar
 
 This is a list of all the available building blocks for creating apps and games. They are listed together with the icon used for the type of building block in the Defold editor.
 
-## Game object
+Game object
+: ![Game object](images/icons/brick.png){.image-left} See above for a description of game objects.
 
-![Game object](images/icons/brick.png)
+Collection
+: ![Collection](images/icons/bricks.png){.image-left} See above for a description of collections.
 
-See above for a description of game objects.
+Script
+: ![Script](images/icons/cog.png){.image-left} See above for a description of scripts.
 
-## Collection
+Sound
+: ![Sound](images/icons/sound.png){.image-left} The sound component is responsible for playing a specific sound. Currently, Defold supports soundfiles of the type WAV.
 
-![Collection](images/icons/bricks.png)
+Collision object
+: ![Collision object](images/icons/weight.png){.image-left} Collision objects are components that extend game objects with physical properties (like spatial shape, weight, friction and restitution). These properties govern how the collision object should collide with other collision objects. The most common types of collision objects are kinematic objects, dynamic objects and triggers. A kinematic object gives detailed collision information that you have to manually respond to, a dynamic object is automatically simulated by the physics engine to obey Newtonian laws of physics. Triggers are simple shapes that detect if other shapes have entered or exited the trigger.
 
-See above for a description of collections.
+Factory
+: ![Factory](images/icons/factory.png){.image-left} See above for a description of factories.
 
-## Script
+Sprite
+: ![Sprite](images/icons/pictures.png){.image-left} A sprite is a component that extends game objects with graphics. It displays an image either from a Tile source or from an Atlas. Sprites have built-in support for flip-book and bone animation. Sprites are usually used for characters and items. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
 
-![Script](images/icons/cog.png)
+Atlas
+: ![Atlas](images/icons/pictures_atlas.png){.image-left} An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. You can store still images or flip-book animated series of images. Atlases are used by Sprite and ParticleFX components to share graphics resources. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
 
-See above for a description of scripts.
+  ![Atlas](images/introduction/introduction_atlas.png)
 
-## Sound
+Tile source
+: ![Tile source](images/icons/small_tiles.png){.image-left} A tile source describes a texture that is composed of multiple smaller images, everyone with the same size. The component support flip-book animation. You can define animations over a sequence of images in the tile source. Tile sources can also automatically calculate collision shapes from image data. This is very useful for creating tiled levels that object can collide and interact with. Tile sources are used by Tile map (and Sprite and ParticleFX although Atlases are usually to prefer) components to share graphics resources. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
 
-![Sound](images/icons/sound.png)
+  ![Tile source](images/introduction/introduction_tilesource.png)
 
-The sound component is responsible for playing a specific sound. Currently, Defold supports soundfiles of the type WAV.
+  ![Tile source animation](images/introduction/introduction_tilesource_animation.png)
 
-## Collision object
+  ![Tile source shape](images/introduction/introduction_tilesource_hull.png)
 
-![Collision object](images/icons/weight.png)
+Tile map
+: ![Tile map](images/icons/layer_grid.png){.image-left} Tile map components display images from a tile source in one or more overlaid grids. They are most commonly used to build game environments: ground, walls, buildings and obstacles. A tile map can display several layers aligned on top of each other with specified blend mode. This is useful to, for example, put foilage on top of grass background tiles. It is also possible to dynamically change the displayed image in a tile. That allows you to, for instance, destroy a bridge and make it impassable by simply replacing the tiles with ones depicting the broken down bridge and containing the corresponding physics shape.
 
-Collision objects are components that extend game objects with physical properties (like spatial shape, weight, friction and restitution). These properties govern how the collision object should collide with other collision objects. The most common types of collision objects are kinematic objects, dynamic objects and triggers. A kinematic object gives detailed collision information that you have to manually respond to, a dynamic object is automatically simulated by the physics engine to obey Newtonian laws of physics. Triggers are simple shapes that detect if other shapes have entered or exited the trigger.
+  ![Tile map](images/introduction/introduction_tilemap.png)
 
-## Factory
+  ![Tile map palette](images/introduction/introduction_tilemap_palette.png)
 
-![Factory](images/icons/factory.png)
+ParticleFX
+: ![ParticleFX](images/icons/clouds.png){.image-left} Particles are very useful for creating nice visual effects, particularly in games. you can use them to create fog, smoke, fire, rain or falling leaves. Defold contains a powerful particle effects editor that allows you to build and tweak effects while you run them real time in your game. The [ParticleFX documentation](/manuals/particlefx) gives you the details on how that works.
 
-See above for a description of factories.
+  ![ParticleFX](images/introduction/introduction_particlefx.png)
 
-## Sprite
+GUI
+: ![GUI component](images/icons/text_allcaps.png){.image-left} A GUI component contains elements used to construct user interfaces: text and colored and/or textured blocks. Elements can be organized into hierarchial structures, scripted and animated. GUI components are typically used to create heads-up displays, menu systems and on-screen notifications. GUI components are controlled with GUI scripts that defines the behavior of the GUI and controls the user interaction with it. Read more in the [GUI documentation](/manuals/gui).
 
-![Sprite](images/icons/pictures.png)
+  ![GUI](images/introduction/introduction_gui.png)
 
-A sprite is a component that extends game objects with graphics. It displays an image either from a Tile source or from an Atlas. Sprites have built-in support for flip-book and bone animation. Sprites are usually used for characters and items. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
+GUI script
+: ![GUI script](images/icons/cog.png){.image-left} GUI scripts are used to define the behaviour of GUI components. They control GUI animations and how the user interacts with the GUI.
 
-## Atlas
+Font
+: ![Font file](images/icons/font.png){.image-left} A Font is built from a TrueType or OpenType font file. The Font specifies which size to render the font in and what type of decoration (outline and shadow) the rendered font should have. Fonts are used by GUI components.
 
-![Atlas](images/icons/pictures_atlas.png)
+  ![Font](images/introduction/introduction_font.png)
 
-An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. You can store still images or flip-book animated series of images. Atlases are used by Sprite and ParticleFX components to share graphics resources. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
+Input binding
+: ![Input binding](images/icons/keyboard.png){.image-left} Input binding files define how the game should interpret hardware input (mouse, keyboard, touchscreen and game pads). The file bind hardware input to high level input _actions_ like "jump" and "move_forward". In script components that listens to input you are then able to script the actions the game or app should take given certain input. See the [Input documentation](/manuals/input) for details.
 
-![Atlas](images/introduction/introduction_atlas.png)
+  ![Input binding](images/introduction/introduction_input_binding.png)
 
-## Tile source
+Camera
+: ![Camera](images/icons/camera.png){.image-left} Camera components helps to decide what part of the game world should be visible and how it should be projected. A common use case is to attach a camera to the player game object, or having a separate game object with a camera that follows the player around with some smoothing algorithm.
 
-![Tile source](images/icons/small_tiles.png)
+Material
+: ![Material](images/icons/large_tiles.png){.image-left} Materials define how different objects should be rendered by specifying shaders and their properties.
 
-A tile source describes a texture that is composed of multiple smaller images, everyone with the same size. The component support flip-book animation. You can define animations over a sequence of images in the tile source. Tile sources can also automatically calculate collision shapes from image data. This is very useful for creating tiled levels that object can collide and interact with. Tile sources are used by Tile map (and Sprite and ParticleFX although Atlases are usually to prefer) components to share graphics resources. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
+Render
+: ![Render](images/icons/paintcan.png){.image-left} Render files contains settings used when rendering the game to the screen. Render files define which Render script to use for rendering and which materials to use.
 
-![Tile source](images/introduction/introduction_tilesource.png)
+Render script
+: ![Render script](images/icons/cog.png){.image-left} A Render script is a Lua script that controls how the game or app should be rendered to the screen. There is a default Render script that covers most common cases, but you can write your own if you need custom lighting models and other effects.
 
-![Tile source animation](images/introduction/introduction_tilesource_animation.png)
-
-![Tile source shape](images/introduction/introduction_tilesource_hull.png)
-
-## Tile map
-
-![Tile map](images/icons/layer_grid.png)
-
-Tile map components display images from a tile source in one or more overlaid grids. They are most commonly used to build game environments: ground, walls, buildings and obstacles. A tile map can display several layers aligned on top of each other with specified blend mode. This is useful to, for example, put foilage on top of grass background tiles. It is also possible to dynamically change the displayed image in a tile. That allows you to, for instance, destroy a bridge and make it impassable by simply replacing the tiles with ones depicting the broken down bridge and containing the corresponding physics shape.
-
-![Tile map](images/introduction/introduction_tilemap.png)
-
-![Tile map palette](images/introduction/introduction_tilemap_palette.png)
-
-## ParticleFX
-
-![ParticleFX](images/icons/clouds.png)
-
-Particles are very useful for creating nice visual effects, particularly in games. you can use them to create fog, smoke, fire, rain or falling leaves. Defold contains a powerful particle effects editor that allows you to build and tweak effects while you run them real time in your game. The [ParticleFX documentation](/manuals/particlefx) gives you the details on how that works.
-
-![ParticleFX](images/introduction/introduction_particlefx.png)
-
-## GUI
-
-![GUI](images/icons/text_allcaps.png)
-
-A GUI component contains elements used to construct user interfaces: text and colored and/or textured blocks. Elements can be organized into hierarchial structures, scripted and animated. GUI components are typically used to create heads-up displays, menu systems and on-screen notifications. GUI components are controlled with GUI scripts that defines the behavior of the GUI and controls the user interaction with it. Read more in the [GUI documentation](/manuals/gui).
-
-![GUI](images/introduction/introduction_gui.png)
-
-## GUI script
-
-![GUI script](images/icons/cog.png)
-
-GUI scripts are used to define the behaviour of GUI components. They control GUI animations and how the user interacts with the GUI.
-
-## Font
-
-![Font](images/icons/font.png)
-
-A Font is built from a TrueType or OpenType font file. The Font specifies which size to render the font in and what type of decoration (outline and shadow) the rendered font should have. Fonts are used by GUI components.
-
-![GUI](images/introduction/introduction_font.png)
-
-## Input binding
-
-![Input binding](images/icons/keyboard.png)
-
-Input binding files define how the game should interpret hardware input (mouse, keyboard, touchscreen and game pads). The file bind hardware input to high level input _actions_ like "jump" and "move_forward". In script components that listens to input you are then able to script the actions the game or app should take given certain input. See the [Input documentation](/manuals/input) for details.
-
-![Input binding](images/introduction/introduction_input_binding.png)
-
-## Camera
-
-![Camera](images/icons/camera.png)
-
-Camera components helps to decide what part of the game world should be visible and how it should be projected. A common use case is to attach a camera to the player game object, or having a separate game object with a camera that follows the player around with some smoothing algorithm.
-
-## Material
-
-![Material](images/icons/large_tiles.png)
-
-Materials define how different objects should be rendered by specifying shaders and their properties.
-
-## Render
-
-![Render](images/icons/paintcan.png)
-
-Render files contains settings used when rendering the game to the screen. Render files define which Render script to use for rendering and which materials to use.
-
-## Render script
-
-![Render script](images/icons/cog.png)
-
-A Render script is a Lua script that controls how the game or app should be rendered to the screen. There is a default Render script that covers most common cases, but you can write your own if you need custom lighting models and other effects.
-
-## Collection proxy
-
-![Collection proxy](images/icons/bricks_proxy.png)
-
-A Collection proxy is used to load and enable collections on the fly while an app or game is running. The most common use case for Collection proxies are to load levels as they are to be played. See the [Collection proxy documentation](/manuals/collection-proxy) for details.
+Collection proxy
+: ![Collection proxy](images/icons/bricks_proxy.png){.image-left} A Collection proxy is used to load and enable collections on the fly while an app or game is running. The most common use case for Collection proxies are to load levels as they are to be played. See the [Collection proxy documentation](/manuals/collection-proxy) for details.
 

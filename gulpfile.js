@@ -9,12 +9,11 @@ var server = require('gulp-server-livereload');
 var sass = require('gulp-sass');
 var minify = require('gulp-cssnano');
 var del = require('del');
+var path = require('path');
 var mkdirp = require('mkdirp');
 var slugify = require('slugify');
 var hljs = require('highlight.js');
-
 var print = require('gulp-print');
-
 var frontmatter = require('front-matter');
 var markdown = require('markdown-it');
 var md_attrs = require('markdown-it-attrs');
@@ -93,6 +92,22 @@ md.renderer.rules.heading_close = function (tokens, idx, options, env, self) {
         return '</' + tag + '>';
 };
 
+// Images.
+md.renderer.rules.image = function (tokens, idx, options, env, self) {
+    var token = tokens[idx];
+
+    if('imgurl' in env) {
+        // Rewrite src
+        var src = token.attrs[token.attrIndex('src')][1];
+        token.attrs[token.attrIndex('src')][1] = env.imgurl + '/' + src;
+    }
+    // Set alt attribute
+    token.attrs[token.attrIndex('alt')][1] = self.renderInlineAsText(token.children, options, env);
+
+    return self.renderToken(tokens, idx, options);
+};
+
+
 // Output preview html documents
 function markdownToPreviewHtml(file) {
     var data = frontmatter(file.contents.toString());
@@ -106,26 +121,34 @@ function markdownToPreviewHtml(file) {
     return;
 }
 
+//var img_url = 'https://storage.googleapis.com/defold-doc';
+var img_url = '/_ah/gcs/defold-doc';
+
 // Build document json for storage
 function markdownToJson(file) {
+    var name = path.relative(file.base, file.path);
+    // Needs language for static image url:s
+    var m = name.match(/^(\w+)[/](\w+)[/].*$/);
+    var lang = m[1];
+    var doctype = m[2];
     var data = frontmatter(file.contents.toString());
-    var toc = {};
-    data.html = md.render(data.body, toc);
-    data.toc = toc;
+    var env = { imgurl: img_url + '/' + lang + '/' + doctype };
+    data.html = md.render(data.body, env);
+    data.toc = env.toc;
     file.contents = new Buffer(JSON.stringify(data));
     file.path = gutil.replaceExtension(file.path, '.json');
     return;
 }
 
 // Build docs
-gulp.task('build', ['clean', 'assets'], function () {
+gulp.task('build', ['assets'], function () {
     return gulp.src('docs/**/*.md')
         .pipe(tap(markdownToJson))
         .pipe(print())
         .pipe(gulp.dest("build"));
 });
 
-gulp.task('assets', [], function() {
+gulp.task('assets', ['clean'], function() {
     return gulp.src(['docs/**/*.{png,jpg,svg,gif}'])
         .pipe(gulp.dest("build"));
 });

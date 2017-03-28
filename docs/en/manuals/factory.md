@@ -1,5 +1,9 @@
-Factory components
-==================
+---
+title: Factory component manual
+brief: This manual explains how to use factory components to dynamically spawn game objects at runtime.
+---
+
+# Factory components
 
 Factory components are used to dynamically spawn game objects from a pool of objects into the running game.
 
@@ -11,8 +15,8 @@ When you add a factory component to a game object you specify in the *Prototype*
 
 To trigger the creation of a game object, call `factory.create()`:
 
-.factory.script
 ```lua
+-- factory.script
 local p = go.get_position()
 p.y = vmath.lerp(math.random(), min_y, max_y)
 local component = "#star_factory"
@@ -23,26 +27,25 @@ factory.create(component, p)
 
 `factory.create()` takes 5 parameters:
 
-url
+`url`
 : The id of the factory component that should spawn a new game object.
 
-[position]
+`[position]`
 : (optional) The world position of the new game object. This should be a `vector3`. If you do not specify a position, the game object is spawned at the position of the factory component.
 
-[rotation]
+`[rotation]`
 : (optional) The world rotation of the new game object. This should be a `quat`.
 
-[properties]
+`[properties]`
 : (optiona) A Lua table with any script property values to initiate the game object with. See the [Script property manual](/manuals/script-properties) for information on script properties.
 
-[scale]
+`[scale]`
 : (optional) The scale of the spawned game object. The scale can be expressed as a `number` (greater than 0) which specifies uniform scaling along all axis. You can also provide a `vector3` where each component specifies scaling along the corresponding axis.
-
 
 For example:
 
-.factory.script
 ```lua
+-- factory.script
 local p = go.get_position()
 p.y = vmath.lerp(math.random(), min_y, max_y)
 local component = "#star_factory"
@@ -73,8 +76,8 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-<1> The "score" script property is defined with a default value.
-<2> Reference the "score" script property as a value stored in "self".
+1. The "score" script property is defined with a default value.
+2. Reference the "score" script property as a value stored in "self".
 
 ![Spawned game object with property and scaling](images/factory/factory_spawned2.png)
 
@@ -86,8 +89,8 @@ Defold does not currently support non uniform scaling of collision shapes. If yo
 
 When you call `factory.create()` you get back the id of the new game object, allowing you to store the id for future reference. One common use is to spawn objects and add their id:s to a table so you can delete them all at a later point, for instance when resetting a level layout:
 
-.spawner.script
 ```lua
+-- spawner.script
 self.spawned_coins = {}
 
 ...
@@ -99,8 +102,8 @@ table.insert(self.spawned_coins, id)
 
 And then later:
 
-.coin.script
 ```lua
+-- coin.script
 -- Delete all spawned coins.
 for _, coin_id = ipairs(self.spawned_coins) do
     go.delete(coin_id)
@@ -112,8 +115,8 @@ go.delete_all(self.spawned_coins)
 
 It is also common that you want the spawned object to be aware of the game object that spawned it. One case would be a some type of autonomous object that can be spawned only one at a time. The spawned object then needs to inform the spawner when it is deleted or inactivated so another one can be spawned:
 
-.spawner.script
 ```lua
+-- spawner.script
 -- Spawn a drone and set its parent to the url of this script component
 self.spawned_drone = factory.create("#dronefactory", drone_position, nil, { parent = msg.url() })
 
@@ -128,8 +131,8 @@ end
 
 And the spawned object's logic:
 
-.drone.script
 ```lua
+-- drone.script
 go.property("parent", msg.url())
 
 ...

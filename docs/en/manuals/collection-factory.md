@@ -1,8 +1,11 @@
-= Collection factories
-:location: documentation manuals resources
-:type: manual
+---
+title: Collection factory manual
+brief: This manual explains how to use collection factory components to spawn hierarchies of game objects.
+---
 
-The collection factory component is used to spawn ready made blueprint hierarchies of game objects (collections) into a running game. This manual explains how collection factories work and how to use them.
+# Collection factories
+
+The collection factory component is used to spawn ready made blueprint hierarchies of game objects (collections) into a running game.
 
 Collections provide a powerful mechanism to create reusable templates, or "prefabs" in Defold. For an overview on Collections, see the [Building blocks documentation](/manuals/building-blocks#_collections). Collections can be placed in the editor and be cloned into the game at compile-time, and they can be dynamically inserted into your game in two ways:
 
@@ -12,13 +15,13 @@ Collections provide a powerful mechanism to create reusable templates, or "prefa
 
 ## Spawning a collection
 
-For the simple case, spawning a collection is performed exactly as when spawning a game object. Suppose we creating a planet sprite and want to spawn complex astronaut figures on the planet surface. We can then simply add a *Collection factory* to the "planet" gameobject and set "astronaut.collection" (supposing it exists) as the component's *prototype*:
+For the simple case, spawning a collection is performed exactly as when spawning a game object. Suppose we creating a planet sprite and want to spawn complex astronaut figures on the planet surface. We can then simply add a *Collection factory* to the "planet" gameobject and set *astronaut.collection* (supposing it exists) as the component's *prototype*:
 
 ![Collection factory](images/collection_factory/collection_factory_factory.png)
 
 Spawning an astronaut is now a matter of sending a message to the factory:
 
-```
+```lua
 local astro = collectionfactory.create("#factory", nil, nil, {}, nil)
 ```
 
@@ -26,9 +29,9 @@ The astronaut that is spawned is a tree of game objects, and we need to be able 
 
 ![Collection to spawn](images/collection_factory/collection_factory_collection.png)
 
-The regular factory component returns an id to the spawned object. The collection factory returns a table that maps a hash of the collection-local id of each object to the runtime id of each object. A prefix "/collectionNN/" is added to the id to uniquely identify each instance:
+The regular factory component returns an id to the spawned object. The collection factory returns a table that maps a hash of the collection-local id of each object to the runtime id of each object. A prefix `/collection[N]/`, where `[N]` is a counter, is added to the id to uniquely identify each instance:
 
-```
+```lua
 pprint(astro)
 -- DEBUG:SCRIPT:
 -- {
@@ -44,7 +47,7 @@ Observe that the parent-child relations between "astronaut" and "probe" is not r
 
 When spawning a collection, we can pass property parameters to each game object by constructing a table with pairs of collection-local object id:s and tables of script properties to set:
 
-```
+```lua
 -- planet.script
 --
 local props = {}
@@ -55,9 +58,9 @@ local astro = collectionfactory.create("#factory", nil, nil, props, nil)
 ...
 ```
 
-Each spawned instance of "astronaut" gets its "size" property set to the passed value and each "probe" its "color" property:
+Each spawned instance of "astronaut" gets its `size` property set to the passed value and each "probe" its `color` property:
 
-```
+```lua
 -- probe.script
 --
 go.property("color", hash("blue"))

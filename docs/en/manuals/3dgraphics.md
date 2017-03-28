@@ -1,7 +1,11 @@
-3D graphics
-===========
+---
+title = Defold 3D graphics manual
+brief = This manual outlines the 3D support in Defold.
+---
 
-Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but ortographically projected onto the screen. This manual outlines the 3D support in Defold.
+# 3D graphics
+
+Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but ortographically projected onto the screen.
 
 Defold allows you to utilize full 3D content by including 3D assets, or _Models_ into your collections. You can build games in strictly 3D with only 3D assets, or you can mix 3D and 2D content as you wish.
 

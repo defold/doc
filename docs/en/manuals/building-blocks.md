@@ -1,9 +1,9 @@
-= Building blocks
-:location: documentation manuals concepts
-:order: 2
-:type: manual
+---
+title: The building blocks of Defold
+brief: This manual digs into the details of how Game objects Components and Collections work.
+---
 
-This document digs into the details of how _Game objects_, _Components_ and _Collections_ work.
+#  Building blocks
 
 Some of the design decisions made in Defold differ from other software and it may take some time to get a good grip on how and why things are put together the way they are. In order to properly understand how Defold manages and gives you access to game resources, read this document and the [Message passing documentation](/manuals/message-passing). Some or many of the things here might be unfamiliar and hard to understand at first, but don't worry. Take your time, experiment with the editor and engine and return to the documentation when you run into problems.
 
@@ -26,7 +26,7 @@ When you create a game object _file_, you create a blueprint, or a prototype, fo
 
 ![Game object file](images/building_blocks/building_blocks_gameobject_file.png)
 
-Creating a game object file does not add anything to your running game. The game object does not exist yet, only the formula to create it. To add an actual game object based on the blueprint just created, you add an instance of the game object to a collection in your project by right clicking the collection and selecting *Add Game Object File*.
+Creating a game object file does not add anything to your running game. The game object does not exist yet, only the formula to create it. To add an actual game object based on the blueprint just created, you add an instance of the game object to a collection in your project by right clicking the collection and selecting <kbd>Add Game Object File</kbd>.
 
 ![Game object instance](images/building_blocks/building_blocks_gameobject_instance.png)
 
@@ -40,15 +40,15 @@ The nice thing with this model is that if you change the game object file you ar
 
 ## Childing game objects
 
-Let's now look at a case which might seem peculiar at first. Add an instance "my_gameobject" of the above prototype file to a collection, then create another game object called "heart" _in place_ (right click and select *Add Game Object*) with some component. Finally, make "heart" the child of "my_gameobject" by dragging it onto it. You now have a collection that looks like this:
+Let's now look at a case which might seem peculiar at first. Add an instance "my_gameobject" of the above prototype file to a collection, then create another game object called "heart" _in place_ (right click and select <kbd>Add Game Object</kbd>) with some component. Finally, make "heart" the child of "my_gameobject" by dragging it onto it. You now have a collection that looks like this:
 
 ![Game object instance with child](images/building_blocks/building_blocks_gameobject_instance_child.png)
 
 You might assume that by dragging the "heart" object onto "my_gameobject" you would change the file "my_gameobject.go", but that is not what happens. The effect of the operation is that the game object _instance_ "my_gameobject" gets a child attached to it. The game object instance has two separate properties for its prototype and its children. When you add children to a game object instance you add the object to the object's *children* property -- you don't touch the prototype.
 
-If you open the collection in the text editor by right clicking and selecting *Open With > Text Editor* you can inspect the game object data structure:
+If you open the collection in the text editor by right clicking and selecting <kbd>Open With ▸ Text Editor</kbd> you can inspect the game object data structure:
 
-----
+```txt
 name: "default"
 instances {
   id: "my_gameobject"
@@ -62,7 +62,7 @@ embedded_instances {
   data: "embedded_components {\n  id: \"sprite\"\n  type: \"sprite\"\n  data: \"tile_set: \\\"/cards_example/cards_sprites.atlas\\\"\\ndefault_animation: \\\"heart\\\"\\nmaterial: \\\"/builtins/materials/sprite.material\\\"\\nblend_mode: BLEND_MODE_ALPHA\\n\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
   ...
 }
-----
+```
 
 You can see clearly that the game object instance has a property *prototype* that is set to the game object file. It has another property *children* that lists "heart" as its only child. The game object "heart" is different. Since it's an in_place game object not based on a prototype, it is listed under *embedded_instances* and all its data is stored right inside the collection file.
 
@@ -70,7 +70,11 @@ You can see clearly that the game object instance has a property *prototype* tha
 Apart from making a clear distinction between game object prototypes and instances when working with them in the editor, you should also take the time to carefully study how game objects are identified with a _fixed_ id in run time and how and why the id is unaffected by childing. The [Message passing documentation](/manuals/message-passing) explains this in detail.
 :::
 
-At this point you might ask yourself _"What if I create a game object file with a game object and a child, and then remove the child after having instanced the object in a collection?"_ The answer is simply that you can't. A game object file is a blueprint for a single game object. It only makes sense to add children to instances of game objects, either at build time in the editor by editing a collection--or at runtime via `msg.post("my_object", "set_parent",  { parent_id = go.get_id("my_parent") })`.
+At this point you might ask yourself _"What if I create a game object file with a game object and a child, and then remove the child after having instanced the object in a collection?"_ The answer is simply that you can't. A game object file is a blueprint for a single game object. It only makes sense to add children to instances of game objects, either at build time in the editor by editing a collection---or at runtime via:
+
+```lua
+msg.post("my_object", "set_parent", { parent_id = go.get_id("my_parent") })
+```
 
 ## Components
 
@@ -83,13 +87,13 @@ In either of these cases you create components of a specific type. Opening that 
 
 In the previous section you saw how the editor stores embedded components in a game object though the *embedded_components* property. If we instead chose to instance the component from a file reference, the data looks like this:
 
-----
+```lua
 embedded_instances {
   id: "heart2"
   data: "components {\n  id: \"sprite\"\n  component: \"/a_simple_test/my_heart.sprite\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
   ...
 }
-----
+```
 
 The component specific data are stored in the component file referenced via the *component* property.
 
@@ -124,24 +128,43 @@ A detailed explanation of how script properties work and how they can be used is
 
 ![Script properties](images/building_blocks/building_blocks_properties.png)
 
-----
-  component_properties {
-    id: "script"
-    properties {
-      id: "my_property"
-      value: "4712.0"
-      type: PROPERTY_TYPE_NUMBER
-    }
+```txt
+component_properties {
+  id: "script"
+  properties {
+    id: "my_property"
+    value: "4712.0"
+    type: PROPERTY_TYPE_NUMBER
   }
-----
+}
+```
 
 Conversely, in an embedded game object, any component properties are explicitly expressed as a *properties* property in the collection file:
 
 ![Embedded script properties](images/building_blocks/building_blocks_properties_embedded.png)
 
-----
-data: "components {\n  id: \"some_script\"\n  component: \"/a_simple_test/my_thing.script\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n  properties {\n    id: \"my_property\"\n    value: \"4713.0\"\n    type: PROPERTY_TYPE_NUMBER\n  }\n}\ncomponents {\n  id: \"sprite\"\n  component: \"/a_simple_test/my_heart.sprite\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
-----
+```txt
+data: "components {\n"
+"  id: \"some_script\"\n"
+"  component: \"/a_simple_test/my_thing.script\"\n"
+"  position {\n"
+"    x: 0.0\n"
+"    y: 0.0\n"
+"    z: 0.0\n"
+"  }\n"
+"  rotation {\n"
+"    x: 0.0\n"
+"    y: 0.0\n"
+"    z: 0.0\n"
+"    w: 1.0\n"
+"  }\n"
+"  properties {\n"
+"    id: \"my_property\"\n"
+"    value: \"4713.0\"\n"
+"    type: PROPERTY_TYPE_NUMBER\n"
+"  }\n"
+"}\n"
+```
 
 ## Collections
 
@@ -152,12 +175,13 @@ Collections are Defold's mechanism for creating templates, or what in other engi
 
 ![Collection instances](images/building_blocks/building_blocks_collection_instances.png)
 
-Collections that have been placed in the editor cannot be modified. You cannot, for instance, add children to game objects that are part of the placed collection. Why you can't do that becomes clear when you look at the data that is stored for the collection instance. The data for the containing game objects is inside the _referenced_ collection file "my_collection.collection" and that is not what you're editing.
+Collections that have been placed in the editor cannot be modified. You cannot, for instance, add children to game objects that are part of the placed collection. Why you can't do that becomes clear when you look at the data that is stored for the collection instance. The data for the containing game objects is inside the _referenced_ collection file *my_collection.collection* and that is not what you're editing.
 
 While you can't modify the contents of a collection instance without editing the source collection file, the editor allows modification of property values such as script properties that are associated with components in the collection.
 
 ![Properties in a collection](images/building_blocks/building_blocks_collection_properties.png)
-----
+
+```txt
 collection_instances {
   id: "my_collection"
   collection: "/a_simple_test/my_collection.collection"
@@ -185,7 +209,7 @@ collection_instances {
     }
   }
 }
-----
+```
 
 ::: important
 A common misunderstanding is that a game object's place in the collection hierarchy is connected to the runtime parent-child hierarchy (which is altered with the `set_parent` message). It is important to realize that they are two different things. Collections are a means of managing and grouping, whereas the parent-child hierarchy dynamically alters the scene graph which allows objects to be visually attached to each other. The place a game object has in the collection hierarchy dictates its id, but the id is static throughout the lifetime of the object. A thorough description on game object addressing can be found in the [Message passing documentation](/manuals/message-passing).

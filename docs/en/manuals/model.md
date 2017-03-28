@@ -1,9 +1,11 @@
-Model component
-===============
+---
+title: 3D models in Defold
+brief: This manual describes how to bring 3D models, skeletons and animations into your game.
+---
 
-Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but ortographically projected onto the screen. This manual describes how to bring 3D models, skeletons and animations into your game.
+# Model component
 
-Defold allows you to utilize full 3D content by including 3D assets, or _Models_ into your collections. You can build games in strictly 3D with only 3D assets, or you can mix 3D and 2D content as you wish.
+Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but ortographically projected onto the screen.  Defold allows you to utilize full 3D content by including 3D assets, or _Models_ into your collections. You can build games in strictly 3D with only 3D assets, or you can mix 3D and 2D content as you wish.
 
 ## Creating a model
 
@@ -29,8 +31,8 @@ Now, to import the model, simply drag and drop the *.dae* file and the correspon
 
 Model components are created just like any other game object component. You can do it two ways:
 
-- Create a *Model file* by right-clicking in the *Project Explorer* and select *New > Model File*
-- Create the component embedded directly into a game object by right-clicking the game object in the *Outline* view and selecting *Add Component*. Then select *Model*.
+- Create a *Model file* by right-clicking in the *Project Explorer* and select <kbd>New ▸ Model File</kbd>.
+- Create the component embedded directly into a game object by right-clicking the game object in the *Outline* view and selecting <kbd>Add Component</kbd>. Then select *Model*.
 
 ![Model in game object](images/model/model.png)
 
@@ -40,7 +42,7 @@ With the model in place you need to specify a number of properties
 : This property should refer to the Collada *.dae* file that contains the mesh to use.
 
 *Material*
-: Set this property to a material you have created that is suitable for a textured 3D object. There is a built-in "model.material" file that you can use as a starting point.
+: Set this property to a material you have created that is suitable for a textured 3D object. There is a built-in *model.material* file that you can use as a starting point.
 
 *Texture*
 : This property should point to the texture image file that you want applied to the object.

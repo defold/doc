@@ -1,10 +1,13 @@
-﻿= Input
-:location: documentation manuals logic
-:type: manual
+﻿---
+title: Device input in Defold
+brief: This manual explains how you capture input actions and create interactive script reactions.
+---
 
-This manual explains how you capture input actions and create interactive script reactions.
+# Device input
 
-Defold listens to input from a variety of devices and allows you to write script logic that matches your design. The input device types that Defold supports are:
+Defold is capable of listening to input from a variety of devices and you can set up custom mapping from device input to input *actions* that your script logic can react to. Input handling in Defold is simple and powerful, allowing you to manage input as you see fit for your game. 
+
+Defold supports the following input device types:
 
 1. Keyboard (key and text input)
 2. Mouse (including mouse wheel actions)
@@ -25,7 +28,7 @@ Depending on the components that have acquired input focus, and whether they con
 
 ## Input bindings
 
-The input bindings is a project wide table that allows you to specify how raw input should translated into meaningful *actions* before they are dispatched to your Lua scripts. The input bindings is by default named "game.input_binding" and is found in the "input" folder at the root of your project. You can, however, easily change its name and location and update the project settings so the engine will find the bindings (see [Project settings](/manuals/project-settings)).
+The input bindings is a project wide table that allows you to specify how raw input should translated into meaningful *actions* before they are dispatched to your Lua scripts. The input bindings is by default named *game.input_binding* and is found in the *input* folder at the root of your project. You can, however, easily change its name and location and update the project settings so the engine will find the bindings (see [Project settings](/manuals/project-settings)).
 
 ![Input set bindings](images/input/input_set_bindings.png)
 
@@ -37,14 +40,13 @@ There are five types of triggers that you can create. They are device specific:
 4. `touch_trigger` is for all types of touch input.
 5. `text_trigger` is for text input.
 
-Right click on a trigger type and select "Add TYPE_trigger..." to add a new trigger. Each trigger has two fields:
+Right click on a trigger type and select <kbd>Add [TYPE]_trigger...</kbd> to add a new trigger. Each trigger has two fields:
 
-input
+*input*
 : A scroll list with the available inputs to listen to.
 
-action
-: The action name given to input actions when they are created and dispatched to your scripts. It is fine to have the same action names assigned to multiple actions. For instance, it is convenient to be able to bind the <kbd>Space</kbd> key to the action "jump" and the gamepad "A" button to the same action name.
-
+*action*
+: The action name given to input actions when they are created and dispatched to your scripts. It is fine to have the same action names assigned to multiple actions. For instance, it is convenient to be able to bind the <kbd>Space</kbd> key to the action `jump` and the gamepad "A" button to the same action name.
 
 ::: sidenote
 There is a known bug where touch inputs unfortunately cannot have the same action names as other inputs.
@@ -54,20 +56,20 @@ For instance, to set up key bindings for movement left and right for a game, you
 
 ![Input key bindings](images/input/input_key_bindings.png)
 
-Here, the inputs `KEY_LEFT` (the left arrow key on the keyboard) and `KEY_RIGHT` (the right arrow key) are bound to the action names "move_left" and "move_right" respectively. The benefit of separating the hardware input from the logical actions is that if you decide later on that you want to change which hardware inputs trigger what actions, there is only one place to modify.
+Here, the inputs `KEY_LEFT` (the left arrow key on the keyboard) and `KEY_RIGHT` (the right arrow key) are bound to the action names `move_left` and `move_right` respectively. The benefit of separating the hardware input from the logical actions is that if you decide later on that you want to change which hardware inputs trigger what actions, there is only one place to modify.
 
 ## Acquiring and releasing input focus
 
-To listen to input actions, create a game object with a script (or GUI script) component. In the script, send the game object itself a message "acquire_input_focus":
+To listen to input actions, create a game object with a script (or GUI script) component. In the script, send the game object itself a message `acquire_input_focus`:
 
 ```lua
 function init(self)
-        msg.post(".", "acquire_input_focus")
+    msg.post(".", "acquire_input_focus")
 end
 ```
 
 This message instructs Defold to direct input actions to the current game object. Technically, what happens is that the object is added to an *input stack* (see below for further details).
-To stop listening to input actions, simply send a "release_input_focus" message to the game object:
+To stop listening to input actions, simply send a `release_input_focus` message to the game object:
 
 ```lua
 ...
@@ -91,30 +93,29 @@ The function takes 2 parameters (besides "self"):
 `action`
 : A Lua table containing the message data.
 
-
-To (very crudely) handle the "move_left" and "move_right" bindings we set up above, we can write the following code:
+To (very crudely) handle the `move_left` and `move_right` bindings we set up above, we can write the following code:
 
 ```lua
 function on_input(self, action_id, action)
-        if action_id == hash("move_left") and action.pressed then
-                local pos = go.get_position()
-                pos.x = pos.x - 100
-                go.set_position(pos)
-        elseif action_id == hash("move_right") and action.pressed then
-                local pos = go.get_position()
-                pos.x = pos.x + 100
-                go.set_position(pos)
-        end
+    if action_id == hash("move_left") and action.pressed then
+        local pos = go.get_position()
+        pos.x = pos.x - 100
+        go.set_position(pos)
+    elseif action_id == hash("move_right") and action.pressed then
+        local pos = go.get_position()
+        pos.x = pos.x + 100
+        go.set_position(pos)
+    end
 end
 ```
 
 ::: important
-When working with collection proxies it is imperative to understand how input is dispatched through collections. If you can't get input to work with your collection proxies, make sure to read <<anchor-iacp, Input and Collection Proxies>> below.
+When working with collection proxies it is imperative to understand how input is dispatched through collections. If you can't get input to work with your collection proxies, make sure to read "Input and Collection Proxies" below.
 :::
 
 ## Action fields
 
-The `action` parameter sent to `on_input()` for each input message is a Lua table containing useful data like the value of the input, the position of the input, whether button input was "pressed", "repeated" or "released".
+The `action` parameter sent to `on_input()` for each input message is a Lua table containing useful data like the value of the input, the position of the input, whether button input was `pressed`, `repeated` or `released`.
 
 `action.pressed`
 : `true` the first frame the input was detected, otherwise `false`.
@@ -132,7 +133,7 @@ See [on_input()](/ref/go#on_input) for details on the available action fields.
 
 ## Screen positions
 
-Mouse and touch input set fields in the `action` table for location (+x+ and +y`) as well as movement (`dx+ and `dy`). These inputs also set specific fields that are calculated against the real screen space. These fields are called:
+Mouse and touch input set fields in the `action` table for location (`x` and `y`) as well as movement (`dx` and `dy`). These inputs also set specific fields that are calculated against the real screen space. These fields are called:
 
 `screen_x` and `screen_y`
 : The real screen position
@@ -140,12 +141,11 @@ Mouse and touch input set fields in the `action` table for location (+x+ and +y`
 `screen_dx` and `screen_dy`
 : The real screen delta change since last update
 
-
 These fields are useful on devices where the screen pixel position differs from the game position--for instance if you run a lower resolution game on a retina screen that scales the game. For instance, on the iPad you can have a screen that is 1024x768 but each "logical" pixels consists of 4 real ones and maps to a physical resolution of 2048x1536.
 
 ## Key triggers
 
-Key triggers are simple one-key inputs that acts as button input. They are useful for games that needs to tie specific buttons to specific functions, like the "move_left" and "move_right" button setup above. If you need to read arbitrary key input, use text triggers (see below).
+Key triggers are simple one-key inputs that acts as button input. They are useful for games that needs to tie specific buttons to specific functions, like the `move_left` and `move_right` button setup above. If you need to read arbitrary key input, use text triggers (see below).
 
 ## Mouse triggers
 
@@ -154,19 +154,17 @@ Mouse triggers come in two forms. The first one is mouse button and wheel input 
 Mouse button inputs
 : Use these to detect mouse presses.
 
-Note that the inputs "MOUSE_BUTTON_LEFT", "MOUSE_BUTTON_RIGHT" and "MOUSE_BUTTON_MIDDLE" are equivalent to "MOUSE_BUTTON_1", "MOUSE_BUTTON_2" and "MOUSE_BUTTON_3".
+  Note that the inputs `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` and `MOUSE_BUTTON_MIDDLE` are equivalent to `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` and `MOUSE_BUTTON_3`.
 
 ::: sidenote
-Currently, MOUSE_BUTTON_LEFT (or MOUSE_BUTTON_1) input actions are sent for single touch inputs as well.
+Currently, `MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well.
 :::
 
 Mouse wheel inputs
-: Use these to detect scroll actions. The field action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold do not currently support fine grained scroll input on touch pads.)
-
+: Use these to detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold do not currently support fine grained scroll input on touch pads.)
 
 Mouse movement
-: Mouse movements cannot be bound in the input bindings, and does not set the `action_id` to a name. Instead, the `action_id` is set to `nil` and the action table is populated with the location and delta movement of the mouse position.
-
+: Mouse movements cannot be bound in the input bindings, and does not set the `action_id` to a name. Instead, the `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position.
 
 ## Gamepad triggers
 
@@ -179,7 +177,7 @@ The gamepad triggers allows you to bind standard gamepad input to game functions
 5. Start, Back and Guide buttons
 
 ::: sidenote
-Right pad usually translates to the A, B, X and Y buttons on the Xbox controller and square, circle, triangle and cross buttons on the Playstation controller.
+Right pad usually translates to the "A", "B", "X" and "Y" buttons on the Xbox controller and "square", "circle", "triangle" and "cross" buttons on the Playstation controller.
 :::
 
 Gamepad input sets the `gamepad` field of the action table to the gamepad number the
@@ -199,10 +197,10 @@ end
 
 ## Touch triggers
 
-Touch and multi-touch triggers populate a subtable in the action table called `action.touch`. The elements in the table are numbered 1-N (where N is the number of touch points) and each element contains fields with input data.
+Touch and multi-touch triggers populate a subtable in the action table called `action.touch`. The elements in the table are numbered `1`--`N` (where `N` is the number of touch points) and each element contains fields with input data.
 
 ::: sidenote
-See [on_input()](/ref/go#on_input) for details on the available touch action fields.
+See [`on_input()`](/ref/go#on_input) for details on the available touch action fields.
 :::
 
 Since the elements are in a numbered table, array-like, you can traverse it easily:
@@ -228,45 +226,43 @@ Here, a component "factory" is used to spawn a simple particle effect with `fact
 
 Text triggers allows you to read arbitrary text input. There are two types of text triggers:
 
-TEXT
+`TEXT`
 : This input triggers captures normal text input.
 
+  A text trigger sets the `text` field of the action table to a string containing the typed character. The action is only fired at the press of the button, no `release` or `repeated` action is sent.
 
-A text trigger sets the "text" field of the action table to a string containing the typed character. The action is only fired at the press of the button, no "release" or "repeated" action is sent.
+  ```lua
+  function on_input(self, action_id, action)
+      if action_id == hash("text") then
+          -- Concatenate the input character to the "text" node...
+          local node = gui.get_node("text")
+          local text = gui.get_text(node)
+          text = text .. action.text
+          gui.set_text(node, text)
+      end
+  end
+  ```
 
-```lua
-function on_input(self, action_id, action)
-    if action_id == hash("text") then
-        -- Concatenate the input character to the "text" node...
-        local node = gui.get_node("text")
-        local text = gui.get_text(node)
-        text = text .. action.text
-        gui.set_text(node, text)
-    end
-end
-```
-
-MARKED_TEXT
+`MARKED_TEXT`
 : This is used primarily for asian keyboards where multiple keypresses can map to single inputs.
 
+  For example, the iOS "Japanese-Kana" keyboard is a 10 key keyboard. The user can type combinations and the top of the keyboard will display avaliable symbols or sequences of symbols that can be entered.
 
-For example, the iOS "Japanese-Kana" keyboard is a 10 key keyboard. The user can type combinations and the top of the keyboard will display avaliable symbols or sequences of symbols that can be entered.
+  ![Input marked text](images/input/input_marked_text.png)
 
-![Input marked text](images/input/input_marked_text.png)
+  Each keypress generates a separate action and sets the action field with the series of entered keypresses in the `text` field:
 
-Each keypress generates a separate action and sets the action field with the series of entered keypresses in the "text" field:
+  ```lua
+  {
+    repeated = false,
+    released = false,
+    text = た,
+    value = 0,
+    pressed = false,
+  }
+  ```
 
-```lua
-{
-  repeated = false,
-  released = false,
-  text = た,
-  value = 0,
-  pressed = false,
-}
-```
-
-When the user selects a symbol or symbol combination, an ordinary text trigger action is sent.
+  When the user selects a symbol or symbol combination, an ordinary text trigger action is sent.
 
 ## The input stack
 
@@ -283,12 +279,12 @@ If you have a set of game objects that all acquire input, they get added to the 
 ```lua
 -- in "listener1.script"
 function init(self)
-        msg.post(".", "acquire_input_focus")
+    msg.post(".", "acquire_input_focus")
 end
 
 -- in "listener2.script"
 function init(self)
-        msg.post(".", "acquire_input_focus")
+    msg.post(".", "acquire_input_focus")
 end
 ```
 
@@ -299,17 +295,17 @@ In situations where you need the listeners on the stack in a particular order yo
 ```lua
 -- in "listener1.script"
 function init(self)
-        -- We're added to the input stack first, "listener2" second.
-        msg.post(".", "acquire_input_focus")
-        msg.post("listener2", "acquire_input")
+    -- We're added to the input stack first, "listener2" second.
+    msg.post(".", "acquire_input_focus")
+    msg.post("listener2", "acquire_input")
 end
 
 -- in "listener2.scrip"
 function on_message(self, message_id, message, sender)
-        if message_id == hash("acquire_input") then
-                -- Acquire input when we get this message.
-                msg.post(".", "acquire_input_focus")
-        end
+    if message_id == hash("acquire_input") then
+        -- Acquire input when we get this message.
+        msg.post(".", "acquire_input_focus")
+    end
 end
 ```
 
@@ -342,20 +338,20 @@ The pause menu is initially hidden (disabled) and when the player touches the "P
 
 ```lua
 function init(self)
-        msg.post(".", "acquire_input_focus")
+    msg.post(".", "acquire_input_focus")
 end
 
 function on_input(self, action_id, action)
-        if action_id == hash("mouse_press") and action.pressed then
-                local x = action.x
-                local y = action.y
-                -- Get the "pause" node and see if player has pressed it.
-                local pausenode = gui.get_node("pause")
-                if gui.pick_node(pausenode, x, y) then
-                        -- Tell the pause menu to take over.
-                        msg.post("pause_menu", "show")
-                end
+    if action_id == hash("mouse_press") and action.pressed then
+        local x = action.x
+        local y = action.y
+        -- Get the "pause" node and see if player has pressed it.
+        local pausenode = gui.get_node("pause")
+        if gui.pick_node(pausenode, x, y) then
+            -- Tell the pause menu to take over.
+            msg.post("pause_menu", "show")
         end
+    end
 end
 ```
 
@@ -369,56 +365,55 @@ The pause menu GUI runs the following code:
 
 ```lua
 function init(self)
-        -- Fetch background node and disable.
-        -- Everything is childed under it.
-        local node = gui.get_node("background")
-        gui.set_enabled(node, false)
+    -- Fetch background node and disable.
+    -- Everything is childed under it.
+    local node = gui.get_node("background")
+    gui.set_enabled(node, false)
 end
 
 function on_message(self, message_id, message, sender)
-        if message_id == hash("show") then
-                -- First, show the pause menu.
-                local node = gui.get_node("background")
-                gui.set_enabled(node, true)
+    if message_id == hash("show") then
+        -- First, show the pause menu.
+        local node = gui.get_node("background")
+        gui.set_enabled(node, true)
 
-                -- Now, acquire input. We're gonna be on top of
-                -- the input stack. Yay!
-                msg.post(".", "acquire_input_focus")
-        end
+        -- Now, acquire input. We're gonna be on top of
+        -- the input stack. Yay!
+        msg.post(".", "acquire_input_focus")
+    end
 end
 
 function on_input(self, action_id, action)
-        if action_id == hash("mouse_press") and action.pressed then
-                local x = action.x
-                local y = action.y
-                -- Get the nodes and see if we have pressed any.
-                local loadnode = gui.get_node("load")
-                local savenode = gui.get_node("save")
-                local resumenode = gui.get_node("resume")
-                if gui.pick_node(loadnode, x, y) then
-                        print("THE GAME WILL LOAD...")
-                elseif gui.pick_node(savenode, x, y) then
-                        print("THE GAME WILL SAVE...")
-                elseif gui.pick_node(resumenode, x, y) then
-                        -- Resume the game...
-                        -- First, hide the pause menu.
-                        local node = gui.get_node("background")
-                        gui.set_enabled(node, false)
+    if action_id == hash("mouse_press") and action.pressed then
+        local x = action.x
+        local y = action.y
+        -- Get the nodes and see if we have pressed any.
+        local loadnode = gui.get_node("load")
+        local savenode = gui.get_node("save")
+        local resumenode = gui.get_node("resume")
+        if gui.pick_node(loadnode, x, y) then
+            print("THE GAME WILL LOAD...")
+        elseif gui.pick_node(savenode, x, y) then
+            print("THE GAME WILL SAVE...")
+        elseif gui.pick_node(resumenode, x, y) then
+            -- Resume the game...
+            -- First, hide the pause menu.
+            local node = gui.get_node("background")
+            gui.set_enabled(node, false)
 
-                        -- Finally, release input.
-                        msg.post(".", "release_input_focus")
-                end
+            -- Finally, release input.
+            msg.post(".", "release_input_focus")
         end
+    end
 
-        -- As long as we're listening to input, we're gonna consume it.
-        -- This disables game controls while the pause menu is showing.
-        return true
+    -- As long as we're listening to input, we're gonna consume it.
+    -- This disables game controls while the pause menu is showing.
+    return true
 end
 ```
 
 The `on_input()` function of the pause menu GUI script returns `true` as long as the menu shows. This means that it will consume all input actions. The game is thus effectively paused from a user input perspective.
 
-[[anchor-iacp]]
 ## Input and Collection Proxies
 
 The input stack is actually not global--there exist a separate local input stack for each collection. If you use collection proxies to structure your game it is imperative to understand how input is dispatched through collections.
@@ -429,8 +424,7 @@ When input actions are passed on down the current collection's input stack and r
 
 It is clear now that in order for any `on_input()` component code in a dynamically loaded collection to receive input actions, the game object containing the collection proxy *must* be on the input stack.
 
-Even if the collection proxy's game object contain no `on_input()` code at all, it must still send a "acquire_input_focus" message to itself to be added on top of the input stack. Any game object inside the loaded collection must send "acquire_input_focus" to get added to the collection's input stack.
-
+Even if the collection proxy's game object contain no `on_input()` code at all, it must still send a `acquire_input_focus` message to itself to be added on top of the input stack. Any game object inside the loaded collection must send "acquire_input_focus" to get added to the collection's input stack.
 
 Note that if at any step down the input stack an `on_input()` function returns true, then it will consume the input. It does not matter where that happens, actions will not be passed on further. If necessary, a loaded collection can therefore consume input and prevent objects further down the main collection input stack from receiving any actions.
 

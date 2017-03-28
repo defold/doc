@@ -1,9 +1,11 @@
-GUI
-===
-:location: documentation manuals gui
-:type: manual
+---
+title: GUI scenes in Defold
+brief: This manual goes through the Defold GUI editor, the various types of GUI nodes and GUI scripting.
+---
 
-Defold provides you with a custom GUI editor and powerful scripting possibilities that are tailor made for the construction and implementation of user interfaces. This manual goes through those features.
+# GUI
+
+Defold provides you with a custom GUI editor and powerful scripting possibilities that are tailor made for the construction and implementation of user interfaces. 
 
 A graphical user interface in Defold is a game object component that you build and attach to a game object and place in a collection. This component has the following properties:
 
@@ -30,13 +32,13 @@ A GUI component is built from a set of nodes. A node is a visual object that is 
 
 Nodes are simple and don’t contain any logic. They can be translated (moved) and ordered in parent-child hierarchies either in the editor or at runtime through scripting. 
 You have direct access to all nodes in your GUI component from the script code.
-Nodes can be animated with script (see <<anchor-a, Property animation>> below) and animation can be run on nodes (flipbook animations on Box nodes and bone animations on Spine nodes).
+Nodes can be animated with script (see [Property animation](#_property_animation) below) and animation can be run on nodes (flipbook animations on Box nodes and bone animations on Spine nodes).
 
-Add nodes by right-clicking on the "Nodes" folder and selecting either "Add Box", "Add Text", "Add Pie", "Add Template" or "Add Spine Node".
+Add nodes by right-clicking on the *Nodes* folder and selecting either <kbd>Add Box</kbd>, <kbd>Add Text</kbd>, <kbd>Add Pie</kbd>, <kbd>Add Template</kbd> or <kbd>Add Spine Node</kbd>.
 
 ![Add nodes](images/gui/gui_add_nodes.png)
 
-You can also use the GUI top menu, or the keyboard shortcuts ‘I’ and ‘O’ for box and text nodes.
+You can also use the GUI top menu, or the keyboard shortcuts <kbd>I</kbd> and <kbd>O</kbd> for box and text nodes.
 Placed nodes are moved and rotated in the same way game objects are translated in the collection editor.
 
 ## Node properties
@@ -53,11 +55,11 @@ Each node has an extensive set of properties that control its appearance:
 
 These properties can be modified in the editor's properties tab (except index and parenting), or through script (see [GUI API reference](/ref/gui)).
 
-Each of these properties can also be animated in script (see <<anchor-a, Property animation>> below).
+Each of these properties can also be animated in script (see [Property animation](#_property_animation) below).
 
 ## Textures and flip book animations
 
-You can use images and animations from texture atlases or tile sources as part of your GUI interface component. To do so, an image resource (atlas or tile source) must first be added, then all images and animations included in the resource can be applied to GUI nodes. You add textures either by right clicking the "Textures" folder, through the "GUI" top menu, or with keyboard shortcuts.
+You can use images and animations from texture atlases or tile sources as part of your GUI interface component. To do so, an image resource (atlas or tile source) must first be added, then all images and animations included in the resource can be applied to GUI nodes. You add textures either by right clicking the *Textures* folder, through the <kbd>GUI</kbd> top menu, or with keyboard shortcuts.
 
 Textures that has been added to the GUI can be applied to box and pie nodes.
 
@@ -70,10 +72,9 @@ Note that the color of the box node will tint the animation. The tint color is m
 ![Tinted texture](images/gui/gui_tinted_texture.png)
 
 ::: sidenote
-Box nodes are always rendered, even if they do not have a texture assigned to them, got an alpha set to 0 or are sized 0, 0, 0. Box nodes should always have a texture assigned to the. If you need an empty node, set its size to 0, 0, 0 and make sure to assign a texture to it.
+Box nodes are always rendered, even if they do not have a texture assigned to them, got an alpha set to `0` or are sized `0,0,0`. Box nodes should always have a texture assigned to the. If you need an empty node, set its size to `0,0,0` and make sure to assign a texture to it.
 :::
 
-[[anchor-slice9]]
 ## Slice-9 texturing
 
 Many GUIs and HUDs feature elements that are context sensitive in regards to their size. Panels and dialogs often need to be resized to fit the containing content and that will cause problems as soon as you apply texturing to the scaled node. Let's say that you want to use a large set of buttons where the width is determined by the amount of text you write on the button. Making a box node, applying a texture and then scale it will result in deformation:
@@ -104,9 +105,7 @@ It might also be tempting to use a 1 pixel wide bottom or top edge segment to sa
 
 ## Index: rendering order
 
-All nodes are rendered in the order they are listed under the "Nodes" folder. The node on top of the list is drawn first and will appear behind any other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Drag nodes in the list to change their index order.
-
-You can also change and group the ordering of nodes with layers (see below).
+All nodes are rendered in the order they are listed under the "Nodes" folder. The node on top of the list is drawn first and will appear behind any other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Drag nodes in the list to change their index order. You can also change and group the ordering of nodes with layers (see below).
 
 If you set the Z-value on a node the draw order will not change. The Z-values on nodes are ignored.
 
@@ -149,9 +148,9 @@ When the rendering pipeline walks through the list of nodes, it is forced to set
 
 We can do better, though. By carefully assigning layers to our nodes, we can render our buttons much more efficiently. For this example we create three layers:
 
-   . Shadow
-   . Button
-   . Text
+- Shadow
+- Button
+- Text
 
 We assign the nodes to the corresponding layer and make sure the layers are placed in correct render order in the Layers-list:
 
@@ -159,12 +158,12 @@ We assign the nodes to the corresponding layer and make sure the layers are plac
 
 Since the layer drawing order takes precedence over the regular node order the nodes are now drawn in the following order:
 
-   . play_block_shadow
-   . quit_block_shadow
-   . play_block
-   . quit_block
-   . play
-   . quit
+1. "play_block_shadow"
+2. "quit_block_shadow"
+3. "play_block"
+4. "quit_block"
+5. "play"
+6. "quit"
 
 The nodes that share atlas, blend mode or font now sit adjacent to each other and the rendering pipeline can batch these nodes into three batches instead of six. A 50% performance win.
 
@@ -172,7 +171,7 @@ Now, imagine that we scale our little example up and expand the GUI to 10 button
 
 ## Script
 
-To control the logic of your GUI and animate nodes you use Lua scripts. GUI scripts work the same as regular game object scripts, but are saved as a different file type and have access to a different set of functions: all in the "gui" module.
+To control the logic of your GUI and animate nodes you use Lua scripts. GUI scripts work the same as regular game object scripts, but are saved as a different file type and have access to a different set of functions: all in the `gui` module.
 
 You create a GUI Script File in your project and attach it to the GUI component by selecting the root GUI component in the outline view and then choosing a script file in the properties view.
 
@@ -182,22 +181,35 @@ The script file is by default equipped with functions just as game object script
 
 ```lua
 function init(self)
+   -- Add initialization code here
+   -- Remove this function if not needed
 end
 
 function final(self)
+   -- Add finalization code here
+   -- Remove this function if not needed
 end
 
 function update(self, dt)
+   -- Add update code here
+   -- Remove this function if not needed
 end
 
 function on_message(self, message_id, message, sender)
+   -- Add message-handling code here
+   -- Remove this function if not needed
 end
 
 function on_input(self, action_id, action)
+   -- Add input-handling code here
+   -- Remove this function if not needed
 end
 
 function on_reload(self)
+   -- Add input-handling code here
+   -- Remove this function if not needed
 end
+
 ```
 
 GUI components can thus receive input and messages just as game objects. You send messages to a GUI component by addressing the component in the fragment part of the URL:
@@ -211,7 +223,7 @@ msg.post("hud#gui", "set_stats", msgdata)
 
 GUI components are rendered separately and on top of other game content and there are some mechanisms in place to make life easier for game developers that target device that have screens of different resolutions and aspect ratios.
 
-Your Defold game project specifies a target resolution in the "game project" settings, however one or more of your target devices might have a different screen resolution and aspect ratio. In this case this means that your game will be up- or downscaled to fit the target screen.
+Your Defold game project specifies a target resolution in the *game project* settings, however one or more of your target devices might have a different screen resolution and aspect ratio. In this case this means that your game will be up- or downscaled to fit the target screen.
 
 Defold deals with the scaling of any GUI components differently to other game content. It also provides you with a set of simple, but powerful tools to lay out your user interface independently of resolution and/or aspect ratio.
 
@@ -231,14 +243,19 @@ You can easily simulate changes to the screen resolution and aspect ratio by cha
 
 When the window is resized and the resolution and aspect ratio is changed, all nodes are reshaped and adjusted according to how their Adjust Mode property is set. This property can be either of the following three settings:
 
-   . Fit. This is the default. The node is uniformly scaled proportionally against what would be the resized node's bounding box width or height, whichever is smallest.
-   . Zoom. The node is uniformly scaled proportionally against what would be the resized node's bounding box width or height, whichever is largest.
-   . Stretch. The node is reshaped proportionally.
+`Fit`
+: This is the default. The node is uniformly scaled proportionally against what would be the resized node's bounding box width or height, whichever is smallest.
+
+`Zoom`
+: The node is uniformly scaled proportionally against what would be the resized node's bounding box width or height, whichever is largest.
+
+`Stretch`
+: The node is reshaped proportionally.
 
 It’s perhaps easiest to understand the adjust modes by looking at the following example that contains a GUI component with a couple of nodes:
 
-- A background box node that has a grid texture for reference. This node has *Adjust Mode* set to "Stretch".
-- Three 256x256 pixel box nodes with a square Defold logo texture. One each with *Adjust Mode* "Fit", "Zoom" and "Stretch".
+- A background box node that has a grid texture for reference. This node has *Adjust Mode* set to `Stretch`.
+- Three 256x256 pixel box nodes with a square Defold logo texture. One each with *Adjust Mode* `Fit`, `Zoom` and `Stretch`.
 
 ![Adjust mode](images/gui/gui_adjust.png)
 
@@ -246,7 +263,7 @@ Now let’s see what happens to the box nodes when the window is resized:
 
 ![Resized window](images/gui/gui_adjust_resize.png)
 
-The "Stretch" node is just deformed to the new shape whereas the "Fit" and "Zoom" nodes keep their aspect ratio. The "Fit" node is fit inside the would-be reshaped bounding box (the grid square that it's in) and the "Zoom" node covers the would-be reshaped bounding box.
+The `Stretch` node is just deformed to the new shape whereas the `Fit` and `Zoom` nodes keep their aspect ratio. The `Fit` node is fit inside the would-be reshaped bounding box (the grid square that it's in) and the `Zoom` node covers the would-be reshaped bounding box.
 
 Text nodes behave in exactly the same way. The adjust mode applies to the invisible text bounding box that controls the shape of the text.
 
@@ -273,32 +290,32 @@ Similarly, if the window is shrunk and gets relatively narrower, the added heigh
 
 By setting the Xanchor and/or the Yanchor properties you can lock the position of nodes relative to the edges of the _would-be reshaped bounding box_.
 
-   * Xanchor set to "Left" will lock the horizontal position of the node against the left edge of the box.
-   * Xanchor set to "Right" will lock the horizontal position of the node against the right edge of the box.
-   * Yanchor set to "Top" will lock the vertical position of the node against the top edge of the box.
-   * Yanchor set to "Bottom" will lock the vertical position of the node against the bottom edge of the box.
+   * Xanchor set to `Left` will lock the horizontal position of the node against the left edge of the box.
+   * Xanchor set to `Right` will lock the horizontal position of the node against the right edge of the box.
+   * Yanchor set to `Top` will lock the vertical position of the node against the top edge of the box.
+   * Yanchor set to `Bottom` will lock the vertical position of the node against the bottom edge of the box.
 
-In practice this means that if you set the Xanchor property to "Right" and the Yanchor property to "Top", the node will keep its position relative to the top right corner of its reshaped box. The distance to the right edge and the top edge will be kept constant. However, the default *Pivot* is "Center" which keeps the center point. Often you want to anchor against an edge and then you should adjust the *Pivot* accordingly.
+In practice this means that if you set the Xanchor property to `Right` and the Yanchor property to `Top`, the node will keep its position relative to the top right corner of its reshaped box. The distance to the right edge and the top edge will be kept constant. However, the default *Pivot* is `Center` which keeps the center point. Often you want to anchor against an edge and then you should adjust the *Pivot* accordingly.
 
 ![Anchor top right](images/gui/gui_anchor_topright.png)
 
-This example shows a node that has "Top" and "Right" anchoring. It is "Fit" adjusted and has *Pivot* set to "North East". When the window stretch, the node is fit inside the "would-be" reshaped box (the blue dotted rectangle) and also anchored.
+This example shows a node that has `Top` and `Right` anchoring. It is `Fit` adjusted and has *Pivot* set to `North East`. When the window stretch, the node is fit inside the "would-be" reshaped box (the blue dotted rectangle) and also anchored.
 
 ## Pivot
 
 Each node has a position, scale and rotation inside the GUI coordinate system. A node is placed on that position so that its pivot is at the set coordinate and any rotation is done around that same pivot. For text nodes the text will be aligned according to the pivot setting.
 
-The default positioning and rotation of nodes happen against the center of the node—it has the *Pivot* property set to "Center". You can change the pivot of a node to any of one of the following settings:
+The default positioning and rotation of nodes happen against the center of the node—it has the *Pivot* property set to `Center`. You can change the pivot of a node to any of one of the following settings:
 
-* Center
-* North, South, East, West
-* North West, North East, South West, South East
+* `Center`
+* `North`, `South`, `East`, `West`
+* `North` West, `North East`, `South West`, `South East`
 
 The following image illustrates the position of each pivot setting:
 
 ![Pivot points](images/gui/pivot_points.png)
 
-If you change the pivot of a node, the node will be moved so that the new pivot will be at the given position. Text nodes are aligned so that "Center" sets the text center-aligned, "West" sets the text left-aligned and "East" sets the text right-aligned.
+If you change the pivot of a node, the node will be moved so that the new pivot will be at the given position. Text nodes are aligned so that `Center` sets the text center-aligned, `West` sets the text left-aligned and `East` sets the text right-aligned.
 
 ## GUI scripts
 
@@ -364,38 +381,33 @@ local new_textnode = gui.new_text_node(vmath.vector3(100, 100, 0), "Hello!")
 -- to do gui.get_node() when we already have the reference.
 ```
 
-[[anchor-a]]
 ## Property animation
 
 Several of the node properties can be fully asynchronously animated. To animate a property, you use the `gui.animate()` function and supply the following parameters:
 
-----
-gui.animate(node, property, to, easing, duration [,delay] [,complete_function] [,playback])
-----
+`gui.animate(node, property, to, easing, duration [,delay] [,complete_function] [,playback])`
 
 ::: sidenote
-See [go.animate()](/ref/go#go.animate) for details on the parameters.
+See [`go.animate()`](/ref/go#go.animate) for details on the parameters.
 :::
 
-The "property" parameter is usually given as a constant (`gui.PROP_POSITION` etc), but can also be supplied as described in the Properties guide (see [Properties](/manuals/properties)). This is handy if you want to animate just a specific component of a compound property value.
+The `property` parameter is usually given as a constant (`gui.PROP_POSITION` etc), but can also be supplied as described in the Properties guide (see [Properties](/manuals/properties)). This is handy if you want to animate just a specific component of a compound property value.
 
-For instance, the "color" property describes a, RGBA value, encoded in a vector4 value with one component for each color component red, green and blue, and the last one for alpha. The vector components are named respectively "x", "y", "z" and "w" and the alpha is thus in the "w" component.
+For instance, the `color` property describes a, RGBA value, encoded in a vector4 value with one component for each color component red, green and blue, and the last one for alpha. The vector components are named respectively `x`, `y`, `z` and `w` and the alpha is thus in the `w` component.
 
 To fade up and down the alpha value of a node we can do that with the following piece of code:
 
 ```lua
 function fadeup(self, node)
-        gui.animate(node, "color.w", 1.0, gui.EASING_LINEAR,
-0.3, 0, fadedown, gui.PLAYBACK_ONCE_FORWARD)
+   gui.animate(node, "color.w", 1.0, gui.EASING_LINEAR, 0.3, 0, fadedown, gui.PLAYBACK_ONCE_FORWARD)
 end
 
 function fadedown(self, node)
-        gui.animate(node, "color.w", 0.0, gui.EASING_LINEAR,
-0.3, 0, fadeup, gui.PLAYBACK_ONCE_FORWARD)
+   gui.animate(node, "color.w", 0.0, gui.EASING_LINEAR, 0.3, 0, fadeup, gui.PLAYBACK_ONCE_FORWARD)
 end
 ```
 
-Now we can call either `fadeup()` or `fadedown()` and supply the node we want the alpha animated on. Note that we use the "complete_function" property to supply the function to call when the animation is done, effectively chaining an endless loop of fade up and fade downs.
+Now we can call either `fadeup()` or `fadedown()` and supply the node we want the alpha animated on. Note that we set the `complete_function` parameter to supply the function to call when the animation is done, effectively chaining an endless loop of fade up and fade downs.
 
 ## Render script
 
@@ -412,7 +424,7 @@ render.draw(self.text_pred)
 ...
 ```
 
-The view is a normal identity matrix and the projection is orthographic. You can create custom render scripts for your project by copying the "default.render_script" and "default.render" render file from the "builtins/render" folder, changing them as you wish and then specifying your custom renderer under the "bootstrap" section of the project settings (see [Project settings](/manuals/project-settings)).
+The view is a normal identity matrix and the projection is orthographic. You can create custom render scripts for your project by copying the *default.render_script* and *default.render* render file from the *builtins/render* folder, changing them as you wish and then specifying your custom renderer under the *bootstrap* section of the project settings (see [Project settings](/manuals/project-settings)).
 
 To illustrate, you can render all GUI components with a 3D "camera" view and perspective projection:
 

@@ -1,21 +1,17 @@
-Collection Proxies
-==================
+---
+title: Collection proxy manual
+brief: This manual explains how to dynamically load and unload collections into a running game.
+---
 
-Defold organizes all game objects in collections. This manual explains how to dynamically load and unload collections into a running game.
+# Collection Proxies
 
-A collection can contain game objects and other collections (i.e. sub-collections). When Defold starts up it loads, initiates and enables a top level collection as defined in the project settings (see [Project settings](/manuals/project-settings)). Most templates have a preset "main.collection" that loads at startup.
+Defold organizes all game objects in collections. A collection can contain game objects and other collections (i.e. sub-collections). When Defold starts up it loads, initiates and enables a top level collection as defined in the project settings (see [Project settings](/manuals/project-settings)). Most templates have a preset *main.collection* that loads at startup.
 
-For many projects, containing the whole app in the top level collection is sufficient, but there are several cases (see below) where you will need a more powerful means of organizing your project: dynamically loading and unloading top level collections within your project.
+For many projects, containing the whole app in the top level collection is sufficient, but there are several cases where you will need a more powerful means of organizing your project, for instance:
 
-Collection proxies act as an outlet that serves on behalf of a collection file—you can communicate with a collection file that is not yet loaded by proxy.  You can tell it to load, initialize, enable, disable, finalize and unload.
-
-All communication with collection proxies regarding loading and unloading is done asynchronously: however, the actual loading and unloading is not implemented as a background process, so the engine will briefly pause when the actual loading and unloading happens.
-
-## Typical use cases
-
-Many games are separated into separate levels that are played one after the other. If your level content is manually built in the editor you will end up with a group of collections, each with a level inside (consisting of tilemaps, sprites etc). Collection proxies allow you to do this separation of content and then dynamically manage them through scripting.
-
-Possible uses of collection proxies are:
+::: sidenote
+Loading/unloading ("streaming") of regions in a seamless large world is possible to implement with collection proxies, but know that the actual loading is synchronous (meaning that they do not happen in the background, but pauses the game until loading is done) and can span over several frames. Therefore, you would want to keep the world pieces small or find a way to  hide the loading pauses somehow.
+:::
 
 * Loading/unloading of game levels.
 * Loading/unloading of front end GUI.
@@ -23,9 +19,9 @@ Possible uses of collection proxies are:
 * Loading/unloading of mini-games.
 * Loading/unloading of user selected content (music, background images etc)
 
-::: sidenote
-Loading/unloading ("streaming") of regions in a seamless large world is possible to implement with collection proxies, but know that the actual loading is synchronous (meaning that they do not happen in the background, but pauses the game until loading is done) and can span over several frames. Therefore, you would want to keep the world pieces small or find a way to  hide the loading pauses somehow.
-:::
+Collection proxies allow you to keep your content separated in collections and then dynamically manage the collections through scripting. A collection proxy component act as an outlet that serves on behalf of a collection file---you can communicate with a collection file that is not yet loaded, through the proxy. You can tell a collection proxy to load, initialize, enable, disable, finalize and unload the collection it is an outlet for.
+
+All communication with collection proxies regarding loading and unloading is done asynchronously: however, the actual loading and unloading is not implemented as a background process, so the engine will briefly pause when the actual loading and unloading happens.
 
 ## Worlds
 
@@ -270,7 +266,7 @@ function init(self)
 end
 ```
 
-Any object in either "world1" or "world2" (that is loaded) can now send "acquire_input_focus" and start receiving input actions. (For more information on input, see [Input](/manuals/input))
+Any object in either "world1" or "world2" (that is loaded) can now send `acquire_input_focus` and start receiving input actions. (For more information on input, see [Input](/manuals/input))
 
 ## Time step
 
@@ -280,9 +276,9 @@ Each collection proxy can individually control the update time step in relation 
 msg.post("@system:", "set_update_frequency", { frequency = 60 } )
 ```
 
-Collection proxy updates can be scaled by altering the _time step_. This means that even though the game ticks at a steady 60 FPS, a proxy can update at a higher or lower pace, affecting physics and the "dt" variable passed to `update()`. You can also set the update mode, which allows you to control if the scaling should be performed discretely (which only makes sense with a scale factor below 1.0) or continuously.
+Collection proxy updates can be scaled by altering the _time step_. This means that even though the game ticks at a steady 60 FPS, a proxy can update at a higher or lower pace, affecting physics and the `dt` variable passed to `update()`. You can also set the update mode, which allows you to control if the scaling should be performed discretely (which only makes sense with a scale factor below 1.0) or continuously.
 
-You control the scale factor and the scaling mode by sending the proxy a "set_time_step" message:
+You control the scale factor and the scaling mode by sending the proxy a `set_time_step` message:
 
 ```lua
 -- update proxy collection at one-fifth-speed.
@@ -315,7 +311,7 @@ DEBUG:SCRIPT: update() with timestep (dt) 0
 DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 ```
 
-`update()` is still called 60 times a second, but the "dt" value changes. We see that only 1/5 (0.2) of the calls to `update()` will have a "dt" of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
+`update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
 
 See [`set_time_step`](/ref/collection-proxy#set_time_step) for more details.
 

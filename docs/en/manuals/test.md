@@ -105,10 +105,13 @@ This is a block of text that the user will not miss. Use these sparingly for thi
 
 Images are inserted in the document like this:
 
-![A large image of sorts](manuals/images/doctest/large.png)
+![A large image of sorts](images/test/large.png)
 
-Note that images are rendered inline if they are part of the same paragragh. This is useful if you want to line up several images like this:
+![A small image of sorts](images/test/tiny.png){.left} An image that is put at the start of a paragraph---inline with a class `.left`. This is useful for small images like icons and the like. The rendering of these is not optimal since the image size is needed to figure out image placement in relation to the text. Still, in some cases it can be useful, for paragraph decoration or similar.
 
-![A small image of sorts](manuals/images/doctest/small.png)
-![A small image of sorts](manuals/images/doctest/small.png)
+![A small image of sorts](images/test/tiny.png){.right} An image that is put at the start of a paragraph---inline with a class `.right`. This is useful for small images like icons and the like. The rendering of these is not optimal since the image size is needed to figure out image placement in relation to the text. Still, in some cases it can be useful, for paragraph decoration or similar.
 
+Note that images are usually rendered centered in their own paragraph. Apply class `.inline` for inline behavior if you have several images as part of the same paragragh and you want to line up several images like this:
+
+![A small image of sorts](images/test/small.png){.inline}
+![A small image of sorts](images/test/small.png){.inline}

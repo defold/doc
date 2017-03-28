@@ -1,7 +1,11 @@
-2D Graphics
-===========
+---
+title = Defold 2D graphics manual
+brief = This manual details Defold's support for 2D graphical elements like sprites and Spine models.
+---
 
-2D games are commonly built by many images that are presented as is (for backgrounds or sprites), used in _flip-book animation_ (for sprites), combined and rigged to create _Spine animation_ (for sprites) or mapped out into tilemaps and used for levels or backgrounds. This manual details Defold's support for these 2D graphical elements.
+# 2D Graphics
+
+2D games are commonly built by many images that are presented as is (for backgrounds or sprites), used in _flip-book animation_ (for sprites), combined and rigged to create _Spine animation_ (for sprites) or mapped out into tilemaps and used for levels or backgrounds. 
 
 For performance reasons, images are often combined into one or a few larger images, but the small original image can still be referenced as a sub-image on the larger one. Combining smaller images into larger is especially important on mobile devices where memory and processing power is more scarce than on desktop machines or dedicated game consoles.
 
