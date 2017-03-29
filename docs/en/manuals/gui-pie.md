@@ -1,5 +1,5 @@
 ---
-titel: Defold GUI pie nodes
+title: Defold GUI pie nodes
 brief: This manual explains how to use pie nodes in Defold GUI scenes.
 ---
 

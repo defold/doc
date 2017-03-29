@@ -1,6 +1,6 @@
 ---
-title = Introduction to Defold
-brief = A brief introduction that covers the core concepts of Defold and is intended to give an overview to the editor and the most important features.
+title: Introduction to Defold
+brief: A brief introduction that covers the core concepts of Defold and is intended to give an overview to the editor and the most important features.
 ---
 
 # Welcome to Defold

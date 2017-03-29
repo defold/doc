@@ -1,5 +1,4 @@
-Models
-======
+# Models
 
 This document has been replaced by the following manuals:
 

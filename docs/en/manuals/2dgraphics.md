@@ -1,6 +1,6 @@
 ---
-title = Defold 2D graphics manual
-brief = This manual details Defold's support for 2D graphical elements like sprites and Spine models.
+title: Defold 2D graphics manual
+brief: This manual details Defold's support for 2D graphical elements like sprites and Spine models.
 ---
 
 # 2D Graphics

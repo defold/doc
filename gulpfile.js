@@ -23,6 +23,8 @@ var md_sub = require('markdown-it-sub');
 var md_sup = require('markdown-it-sup');
 var md_katex = require('markdown-it-katex');
 
+var exec = require('child_process').exec;
+
 // hljs lua highlight patched
 var lua = require('./lib/lua');
 hljs.registerLanguage('lua', lua.lua);
@@ -125,8 +127,8 @@ function markdownToPreviewHtml(file) {
     return;
 }
 
-//var img_url = 'https://storage.googleapis.com/defold-doc';
-var img_url = '/_ah/gcs/defold-doc';
+var img_url = 'https://storage.googleapis.com/defold-doc';
+//var img_url = '/_ah/gcs/defold-doc'; // local dev-server
 
 // Build document json for storage
 function markdownToJson(file) {
@@ -153,8 +155,23 @@ gulp.task('build', ['assets'], function () {
 });
 
 gulp.task('assets', ['clean'], function() {
-    return gulp.src(['docs/**/*.{png,jpg,svg,gif}'])
+    return gulp.src(['docs/**/*.{png,jpg,svg,gif,json}'])
         .pipe(gulp.dest("build"));
+});
+
+// Install GCS SDK
+//https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-148.0.1-darwin-x86_64.tar.gz
+
+// Publish
+gulp.task('publish', ['build'], function () {
+    exec('ls -al', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+    });
 });
 
 // Watch for changes in md files and compile new html

@@ -1,6 +1,6 @@
 ---
-title = Defold 3D graphics manual
-brief = This manual outlines the 3D support in Defold.
+title: Defold 3D graphics manual
+brief: This manual outlines the 3D support in Defold.
 ---
 
 # 3D graphics
