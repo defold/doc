@@ -5,19 +5,21 @@ Texture profiles
 
 Defold supports automatic texture processing and compression of image data (in *Atlas*, *Tile sources*, *Cubemaps* and stand-alone textures used for models, GUI etc). This manual describes the available functionality.
 
-Compression reduce memory footprint and graphics hardware is able to manage compressed textures. Compression also reduces the  of image resources and the final bundle size. It should be noted that PNG file compression can sometimes yield smaller files, but PNG files need to be uncompressed when read into memory.
+There are two types of compression, hardware texture compression and software image compression. Hardware texture compression reduce memory footprint and graphics hardware is able to manage compressed textures. Both hardware texture compression and software image compression reduces the size of image resources and the final bundle size. It should be noted that for example PNG file compression can sometimes yield smaller files, but PNG files need to be uncompressed when read into memory.
 
-The processing of textures is configured through a specific texture profile. In this file you create _profiles_ that express what compressed format(s) should be used when creating bundles for a specific platform. _Profiles_ are then tied to matching file _paths patterns_, allowing fine tuned control over what files in your project should be compressed and exactly how.
+The processing of textures is configured through a specific texture profile. In this file you create _profiles_ that express what compressed format(s) and type should be used when creating bundles for a specific platform. _Profiles_ are then tied to matching file _paths patterns_, allowing fine tuned control over what files in your project should be compressed and exactly how.
 
-Since all available texture compression is lossy, you will get artifacts in your texture data. These artifacts are highly dependant on how your source material looks and what compression method is used. You should test your source material and experiment to get the best results. Google is your friend here.
+Since all available hardware texture compression is lossy, you will get artifacts in your texture data. These artifacts are highly dependant on how your source material looks and what compression method is used. You should test your source material and experiment to get the best results. Google is your friend here.
+
+You can select what software image compression is applied on the final texture data (compressed or raw) in the bundle archives. Defold supports WebP or ZLib (default). WebP supports both lossy and lossless compression and usually results in significantly better compression than ZLib, which is a general data compression algorithm.
 
 ::: sidenote
-Compression is a resource intense and time consuming operation that can cause _very_ long build times depending on the amount of texture images to compress and also the chosen texture formats.
+Compression is a resource intense and time consuming operation that can cause _very_ long build times depending on the amount of texture images to compress and also the chosen texture formats and type of software compression.
 :::
 
 ## Texture profiles
 
-Each project contain a specific *.texture_profiles* file that contain the configuration used when compressing textures. By default, this file is "builtins/graphics/default.texture_profiles" and is has a configuration matching every texture resource to a profile that leaves the data uncompressed on all platforms.
+Each project contain a specific *.texture_profiles* file that contain the configuration used when compressing textures. By default, this file is "builtins/graphics/default.texture_profiles" and is has a configuration matching every texture resource to a profile using RGBA with no hardware texture compression and using the default ZLib file compression.
 
 To add texture compression:
 
@@ -52,7 +54,7 @@ The *path_settings* section of the texture profiles file contains a list of path
 This example contains two path patterns and corresponding profile.
 
 "/gui/\**/*.atlas"
-: All *.atlas* files in directory "/gui" or any of its subdirectories will be processed according to profile "gui_atlas". 
+: All *.atlas* files in directory "/gui" or any of its subdirectories will be processed according to profile "gui_atlas".
 
 "/\**/*.atlas"
 : All *.atlas* files anywhere in the project will be process according to the profile "atlas".
@@ -69,7 +71,7 @@ The *profiles* section of the texture profiles file contains a list of named pro
 ![Profiles](images/texture_profiles/texture_profiles_profiles.png)
 
 *os*
-: Specifies a matching OS platform. "OS_ID_GENERIC" matches all platforms including dev-app builds on device, "OS_ID_WINDOWS" matches Windows target bundles, "OS_ID_IOS" matches iOS bundles and so on.
+: Specifies a matching OS platform. "OS\_ID\_GENERIC" matches all platforms including dev-app builds on device, "OS\_ID\_WINDOWS" matches Windows target bundles, "OS\_ID\_IOS" matches iOS bundles and so on.
 
 *formats*
 : One or more texture formats to generate. If several formats are specified, textures for each format is generated and included in the bundle. The engine selects textures of a format that is supported by the runtime platform.
@@ -89,6 +91,8 @@ The *formats* added to a profile each has the following properties:
 *compression_level*
 : Selects the quality level for the resulting compressed image. The values range from "FAST" (low quality, fast compression) to "NORMAL", "HIGH" and "BEST" (highest quality, slowest compression).
 
+*compression_type*
+: Selects the type of compression used for the resulting compressed image, "COMPRESSION\_TYPE\_DEFAULT", "COMPRESSION\_TYPE\_WEBP" or "COMPRESSION\_TYPE\_WEBP\_LOSSY". see Compression type section for more details.
 
 ## Texture formats
 
@@ -98,7 +102,7 @@ The following lossy compression formats are currently supported.
 
 //////////////////////////////////////////
 DXT
-: Also called S3 Texture Compression. It can be generated on Windows platform only, but OS X supports reading it and it's possible to install support for it on Linux. The format divides the image into 4x4 pixel blocks with 4 colors set to the pixels within each block. 
+: Also called S3 Texture Compression. It can be generated on Windows platform only, but OS X supports reading it and it's possible to install support for it on Linux. The format divides the image into 4x4 pixel blocks with 4 colors set to the pixels within each block.
 
 //////////////////////////////////////////
 
@@ -107,49 +111,49 @@ PVRTC
 
 
 ETC
-: Ericsson Texture Compression. Groups of 4x4 pixels are compressed into a single 64-bit word. The 4x4 group is divided in half and each half is assigned a base color. Each pixel is then encoded as one of four offset values from the base color of its half. Android supports ETC1 since version 2.2 (Froyo). Defold compresses ETC1 textures.
+: Ericsson Texture Compression. Blocks of 4x4 pixels are compressed into a single 64-bit word. The 4x4 block is divided in half and each half is assigned a base color. Each pixel is then encoded as one of four offset values from the base color of its half. Android supports ETC1 since version 2.2 (Froyo). Defold compresses ETC1 textures.
 
 
 [.table-striped]
 |===========================
 | Format | Compression | Color | Note
 
-| TEXTURE_FORMAT_LUMINANCE
+| TEXTURE\_FORMAT\_LUMINANCE
 | none
 | One channel gray-scale, no alpha
 | RGB channels multiplied into one. Alpha is discarded.
 
-| TEXTURE_FORMAT_RGB
+| TEXTURE\_FORMAT\_RGB
 | none
 | 3 channel color
 | Alpha is discarded
 
-| TEXTURE_FORMAT_RGBA
+| TEXTURE\_FORMAT\_RGBA
 | none
 | 3 channel color and full alpha
 |
 
-| TEXTURE_FORMAT_RGB_PVRTC2BPPV1
+| TEXTURE\_FORMAT\_RGB\_PVRTC2BPPV1
 | 1:16 fixed
 | No alpha
 | Requires square images. Non square images will be resized.
 
-| TEXTURE_FORMAT_RGB_PVRTC4BPPV1
+| TEXTURE\_FORMAT\_RGB\_PVRTC4BPPV1
 | 1:8 fixed
 | No alpha
 | Requires square images. Non square images will be resized.
 
-| TEXTURE_FORMAT_RGBA_PVRTC2BPPV1
+| TEXTURE\_FORMAT\_RGBA\_PVRTC2BPPV1
 | 1:16 fixed
 | Pre-multiplied alpha
 | Requires square images. Non square images will be resized.
 
-| TEXTURE_FORMAT_RGBA_PVRTC4BPPV1
+| TEXTURE\_FORMAT\_RGBA\_PVRTC4BPPV1
 | 1:8 fixed
 | Pre-multiplied alpha
 | Requires square images. Non square images will be resized.
 
-| TEXTURE_FORMAT_RGB_ETC1
+| TEXTURE\_FORMAT\_RGB\_ETC1
 | 1:6 fixed
 | No alpha
 |
@@ -157,25 +161,35 @@ ETC
 |===========================
 
 //////////////////////////////////////////
-| TEXTURE_FORMAT_RGB_DTX1
+| TEXTURE\_FORMAT\_RGB\_DTX1
 | 1:8 fixed
 | No alpha
 | Can be compressed on Windows only
 
-| TEXTURE_FORMAT_RGBA_DTX1
+| TEXTURE\_FORMAT\_RGBA\_DTX1
 | 1:8 fixed
 | 1 bit alpha
 | Can be compressed on Windows only
 
-| TEXTURE_FORMAT_RGBA_DXT3
+| TEXTURE\_FORMAT\_RGBA\_DXT3
 | 1:4 fixed
 | 4 bit fixed alpha
 | Can be compressed on Windows only
 
-| TEXTURE_FORMAT_RGBA_DXT5
+| TEXTURE\_FORMAT\_RGBA\_DXT5
 | 1:4 fixed
 | Interpolated smooth alpha
 | Can be compressed on Windows only
 //////////////////////////////////////////
 
+## Compression types
+
+COMPRESSION\_TYPE\_DEFAULT
+: Default ZLib generic lossless data compression.
+
+COMPRESSION\_TYPE\_WEBP
+: WebP lossless compression. Higher quality level results in smaller size.<br>For hardware compressed texture formats PVRTC or ETC, the compression process transforms the compressed hardware texture format data into data more suitable for WebP image compression using an internal intermediate format. This is then transformed back into the compressed hardware texture format when loaded by the run-time.
+
+COMPRESSION\_TYPE\_WEBP\_LOSSY
+: WebP lossy compression. Lower quality level results in smaller size.<br>WebP lossy type is currently not supported for hardware compressed texture formats.
 
