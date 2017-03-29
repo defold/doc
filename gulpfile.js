@@ -21,6 +21,7 @@ var md_container = require('markdown-it-container');
 var md_deflist = require('markdown-it-deflist')
 var md_sub = require('markdown-it-sub');
 var md_sup = require('markdown-it-sup');
+var md_katex = require('markdown-it-katex');
 
 // hljs lua highlight patched
 var lua = require('./lib/lua');
@@ -48,6 +49,7 @@ md.use(md_deflist);
 md.use(md_attrs);
 md.use(md_sub);
 md.use(md_sup);
+md.use(md_katex);
 md.use(md_container, 'sidenote', { render: rendernote });
 md.use(md_container, 'important', { render: rendernote });
 
@@ -112,7 +114,9 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
 function markdownToPreviewHtml(file) {
     var data = frontmatter(file.contents.toString());
     // Inject some styling html for the preview. The built htmls are clean.
-    var head = '<html><head><link type="text/css" rel="stylesheet" href="/defold-md.css"></head><body>\n';
+    var head = '<!DOCTYPE html><html><head><link type="text/css" rel="stylesheet" href="/defold-md.css">' +
+                '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">' + 
+                '</head><body>\n';
     head += '<div class="documentation">';
     var foot = '</div></body></html>\n';
     var html = head + md.render(data.body) + foot;

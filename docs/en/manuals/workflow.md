@@ -1,9 +1,9 @@
-Workflow
-========
+---
+title: Workflows in Defold
+brief: This manual covers how assets are handled in Defold, how you can change the structure of your project easily with the help of powerful refactoring, how collaboration works and advanced topics like external editors and the underlying Git tools.
+---
 
-This manual covers how assets are handled in Defold, how you can change the structure of your project easily with the help of powerful refactoring, how collaboration works and advanced topics like external editors and the underlying Git tools.
-
-## Assets
+# Workflow
 
 A game project usually consist of a large number of external assets that are produced in various specialized programs for producing graphics, 3D models, sound files, animations and so forth. Defold is by default set up for a workflow that encourages you to work separately with your external tools, store the working files for those tools separately and then import the assets into Defold and the project file structure as they are finalized.
 
@@ -139,14 +139,14 @@ Defold uses Git to do version tracking on all files in a simple and easily under
 
 The Git command line tool can be used to perform manual operations that the editor does not support. For instance, you can inspect the commit history of the repository:
 
-```bash
-git log
+```sh
+$ git log
 ```
 
 and then do a checkout from a specific commit:
 
-```bash
-git checkout <commit-hash> <file path>
+```sh
+$ git checkout <commit-hash> <file path>
 ```
 
 You can also set up a more advanced work flow if you want, allowing you to pull changes directly between team members. If you run into situations where more than one person work on an experimental branch, you might want to consider utilizing Git for that. Please visit http://git-scm.com to learn more about Git.
@@ -156,14 +156,13 @@ You can also set up a more advanced work flow if you want, allowing you to pull 
 When you edit a text file on your computer and press *Return* on your keyboard, an invisible character sequence is inserted into the file indicating the line ending. Different operating systems use different sequences for historical reasons. These are the most common:
 
 Unix and Mac OS X
-: A single *Line Feed* character. (*LF*, '\n', 0x0A or 10 in decimal)
+: A single *Line Feed* character. (*LF*, `\n`, 0x0A or 10 in decimal)
 
 Windows
-: One *Carriage Return* character followed by a *Line Feed* character (*CR*+*LF*, '\r\n', 0x0D0A)
+: One *Carriage Return* character followed by a *Line Feed* character (*CR*+*LF*, `\r\n`, 0x0D0A)
 
 Mac OS 9 (and earlier)
-: A single *Carriage Return* character (*CR*, '\r', 0x0D or 13 in decimal)
-
+: A single *Carriage Return* character (*CR*, `\r`, 0x0D or 13 in decimal)
 
 ::: sidenote
 You can read more on line endings, or "newlines" at http://en.wikipedia.org/wiki/Newline
@@ -177,7 +176,7 @@ Meanwhile, a second team member who works on a Mac OS X machine does some editin
 
 ![Line endings conflict](images/workflow/workflow_line_endings_conflict.png)
 
-What happened is that the two files actually differs in how they encode the line endings. Since one file uses the *LF* character at the end of each line and the other the characters *CR*`*LF*, there is a legitimate conflict on each line and you will have to resolve it. If you have team members that work a lot with external tools line endings will cause merge conflicts all the time.
+What happened is that the two files actually differs in how they encode the line endings. Since one file uses the *LF* character at the end of each line and the other the characters *CR*+*LF*, there is a legitimate conflict on each line and you will have to resolve it. If you have team members that work a lot with external tools line endings will cause merge conflicts all the time.
 
 ## Line endings in Defold
 
@@ -195,7 +194,7 @@ There is also a menu option <kbd>File ▸ Convert Line Delimiters To ▸ ...</kb
 
 Git can be configured to specifically deal with line endings in a number of different ways:
 
-```bash
+```sh
 # Configure Git on OS X to properly handle line endings
 $ git config --global core.autocrlf input
 ```
@@ -203,8 +202,7 @@ $ git config --global core.autocrlf input
 The global Git setting `core.autocrlf` takes one parameter:
 
 false
-: The default. The result is that Git doesn't touch the line endings of your files. You can check in files with *LF*, *CR*`*LF* line endings, or a mix and Git does not care. If you work in a mixed operating system environment you should not use this setting.
-
+: The default. The result is that Git doesn't touch the line endings of your files. You can check in files with *LF*, *CR*+*LF* line endings, or a mix and Git does not care. If you work in a mixed operating system environment you should not use this setting.
 
 true
 : Git will process all text files and turn all *LF* line endings to *CR*`*LF* when writing them into the working directory and back to *LF* when they are checked into the repository again. This is a good setting on Windows machines.
@@ -214,7 +212,7 @@ input
 : Git will process all files and turn all *CR*+*LF* into *LF* line endings when checking files into the repository. When checking files out, the files are untouched. This is a good setting on Unix and OS X machines.
 
 
-You can configure Git with more fine grained control on how it should deal with line endings by creating a ".gitattributes" file in your repository:
+You can configure Git with more fine grained control on how it should deal with line endings by creating a *.gitattributes* file in your repository:
 
 ```txt
 # Set default behaviour, in case users don't have core.autocrlf set.
@@ -241,5 +239,5 @@ You can configure Git with more fine grained control on how it should deal with 
 *.ogg binary
 ```
 
-See the Git documentation on ".gitattributes" at http://git-scm.com/docs/gitattributes for details.
+See the Git documentation on *.gitattributes* at http://git-scm.com/docs/gitattributes for details.
 

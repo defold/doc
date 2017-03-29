@@ -12,6 +12,12 @@ $text-black: #282c34
 $text-white: #d1d1d1
 $dark-grey: #282c34
 $light-grey: #e3e4e5
+$gray-light: #d0d3db
+$gray-lighter: #f2f3f5
+$gray-light-background: #f7f8fa
+$blue-dark-faded: #6a7480
+$orange-primary: #fd6623
+
 
 body
   font-family: Source Sans Pro, sans-serif
@@ -170,6 +176,23 @@ body
   code
     font-family: 'Source Code Pro', monospace
     font-size: 0.9375em
+
+  code.type,
+  code.mark
+    font-family: Source Sans Pro, sans-serif
+    font-size: 0.9375em
+    line-height: 120%
+    border: 1px solid $gray-light
+    padding: 2px 6px
+    margin-right: 2px
+    color: $blue-dark-faded
+    background-color: $gray-lighter
+
+    .file
+        color: $orange-primary
+
+  code.mark
+        border: 1px solid $orange-primary
 
   kbd
     font-family: Source Sans Pro, sans-serif

@@ -1,8 +1,11 @@
-Scene editing
-=============
+---
+title: The Defold scene editor
+brief: Defold contains a number of editors, but the Scene Editor is the one used the most. This manual explains how to use it.
+---
+
+# Scene editing
 
 Defold contains a number of editors, but the Scene Editor is the one used the most. All Game Objects and Collections, as well as some component types are created and edited in this editor.
-
 
 Pan
 : <kbd>Alt</kbd> + <kbd>Middle button</kbd> (three button mouse) or <kbd>Option + Ctrl</kbd> + <kbd>Mouse button</kbd> (one button mouse)

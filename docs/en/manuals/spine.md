@@ -1,9 +1,9 @@
-Spine animation
-===============
+---
+title: Spine bone animation in Defold
+brief: This manual explains how to bring Spine animations from _Spine_ or _Dragon Bone_ into Defold.
+---
 
-This manual explains how to bring Spine animations from _Spine_ or _Dragon Bone_ into Defold.
-
-## Spine
+# Spine animation
 
 _Spine_ is a third party animation tool by Esoteric Software that allows you to create animations where movement of _bones_ in a skeletal rig drives various parts of the animated object. It is particularly useful to animate characters and animals, but works very well for other types of objects, like ropes, vehicles or foliage.
 
@@ -20,18 +20,14 @@ Currently, Defold does not support animation keys that flip bones over the X or 
 *Spine JSON data file*
 : This data file contains the skeleton, all the image slot names, skins and the actual animation data. No images are embedded in this file though. Create this file from your animation software of choice.
 
-
 *Spine scene*
 : The Defold resource tying together the Spine JSON data file and the image atlas that is used to fill bone slots with graphics.
-
 
 *Spine model*
 : The _SpineModel_ component is put in a game object to bring the graphics and animation to the screen. The component contains the skeleton game object hierarchy, which animation to play, what skin to use and it also specifies the material used for rendering the model. See [SpineModel documentation](/manuals/spinemodel) for details.
 
-
 *Spine Node*
 : If using Spine animation in a GUI scene, use Spine GUI nodes instead of Spine model components. See the [GUI spine documentation](/manuals/gui-spine) for details.
-
 
 ## Animation tools
 
@@ -62,7 +58,7 @@ If you work in _Dragon Bones_, simply select *Spine* as your output data type. A
 
 When you have the animation data and image files imported and set up in Defold, you need to create a _Spine scene_ resource file:
 
-- Create a new _Spine scene_ resource file (Select *New > Spine Scene File* from the main menu)
+- Create a new _Spine scene_ resource file (Select <kbd>New ▸ Spine Scene File</kbd> from the main menu)
 - Set the *spine_json* and *atlas* properties in the Spine scene file to reference the imported JSON and the newly created Atlas:
 
 ![Setup the Spine Scene](images/spine/spine_spinescene.png)
@@ -85,11 +81,11 @@ The animation data references the images used for the bones by name with the fil
 
 ![Spine images hierarchy](images/spine/spine_images.png)
 
-This example shows files laid out in a flat structure. It is, however, possible to organize the files in subfolders and the file references will reflect that. For instance, a file "head_parts/eyes.png" on disk will be referenced as "head_parts/eyes" when you use it in a slot. This is also the name used in the exported JSON file so when creating the Defold image atlas, all names must match an atlas animation.
+This example shows files laid out in a flat structure. It is, however, possible to organize the files in subfolders and the file references will reflect that. For instance, a file *head_parts/eyes.png* on disk will be referenced as *head_parts/eyes* when you use it in a slot. This is also the name used in the exported JSON file so when creating the Defold image atlas, all names must match an atlas animation.
 
-If you select *Add Images* Defold will automatically create animation groups with the same name as the added files, but with the file suffix stripped off. So, after having added the file "eyes.png" its animation group can be referenced by the name "eyes". This works with file names only, not paths.
+If you select <kbd>Add Images</kbd> Defold will automatically create animation groups with the same name as the added files, but with the file suffix stripped off. So, after having added the file *eyes.png* its animation group can be referenced by the name "eyes". This works with file names only, not paths.
 
-So how do you do if your animation references "head_parts/eyes"? The easiest way to accomplish a match is to add an animation group (right click the root node in the Atlas *Outline* view and select *Add Animation Group*). You can then name that group "head_parts/eyes" (it's just a name, not a path and '/' characters are legal) and then add the file "eyes.png" to the group.
+So how do you do if your animation references "head_parts/eyes"? The easiest way to accomplish a match is to add an animation group (right click the root node in the Atlas *Outline* view and select *Add Animation Group*). You can then name that group "head_parts/eyes" (it's just a name, not a path and `/` characters are legal) and then add the file "eyes.png" to the group.
 
 ![Atlas path names](images/spine/spine_atlas_names.png)
 

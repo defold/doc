@@ -1,5 +1,9 @@
-Shaders
-=======
+---
+title: Shader programs in Defold
+brief: This manual describes vertex and fragment shaders in detail and how to use them in Defold.
+---
+
+# Shaders
 
 Shaders are at the core of graphics rendering. They are programs written in a C-like language called GLSL (GL Shading Language) that are run on the graphics hardware and perform operations on either the underlying 3D data (vertices) or the pixels that are rendered to the screen (the "fragments"). Shaders are general programs that can be used for an unlimited array of things, for instance:
 
@@ -49,42 +53,38 @@ A shader program consists of code that operate on data. Data is passed to and be
 Vertex attribute variables
 : Vertex attributes are used to send data to the vertex shader. Values are set per vertex and contain information about each vertex' position, normal, color and texture coordinate. These values are usually stored in the mesh created in a 3D modelling software and exported to Collada files that Defold can read.
 
-
 Attributes provided from the engine can be defined in the vertex shader using the `attribute` qualifier. Vertex attributes differs from uniforms in that they are set for each vertex. Uniforms are constant for all vertices. It is not possible to define attributes in the fragment shader.
 
 Uniform variables
 : Uniforms are values that are passed from the engine to vertex and fragment shader programs. They are declared in the shader programs with the `uniform` qualifier and must also be defined in the material file as *vertex_constant* or *fragment_constant* properties. Uniforms do not change from one execution of a shader program to the next within a particular rendering call (i.e. within a component). That is why they are called uniforms. In Defold, you define uniforms as material _constants_ in the component material file. The following constants are available:
 
-
-CONSTANT_TYPE_WORLD
+`CONSTANT_TYPE_WORLD`
 : The world matrix. Use to transform vertices into world space. For some component types, the vertices are already in world space when they arrive to the vertex program (due to batching). In those cases multiplying with the world matrix will yield the wrong results.
 
-CONSTANT_TYPE_VIEW
+`CONSTANT_TYPE_VIEW`
 : The view matrix. Use to transform vertices to view (camera) space.
 
-CONSTANT_TYPE_PROJECTION
+`CONSTANT_TYPE_PROJECTION`
 : The projection matrix. Use to transform vertices to screen space.
 
-CONSTANT_TYPE_VIEWPROJ
+`CONSTANT_TYPE_VIEWPROJ`
 : A matrix with the view and projection matrices already multiplied.
 
-CONSTANT_TYPE_WORLDVIEW
+`CONSTANT_TYPE_WORLDVIEW`
 : A matrix with the world and view projection matrices already multiplied.
 
-CONSTANT_TYPE_NORMAL
+`CONSTANT_TYPE_NORMAL`
 : A matrix to compute normal orientation. The world transform might include non-uniform scaling, which breaks the orthogonality of the combined world-view transform. The normal matrix is used to avoid issues with the direction when transforming normals. (The normal matrix is the transpose inverse of the world-view matrix).
 
-CONSTANT_TYPE_USER
+`CONSTANT_TYPE_USER`
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions `.set_constant()` and `.reset_constant()` for each component type (`sprite`, `model`, `spine`, `particlefx` and `tilemap`)
-
 
 Varying variables
 : Varying variables gives you an interface between the vertex and fragment shader. It is the output of a vertex shader and the input of a fragment shader. Varying variables are declared withe the `varying` qualifier and can be of type `float`, `vec2`, `vec3`, `vec4`, `mat2`, `mat3` and `mat4`.
 
-
 If you define a varying variable and set its value in the vertex shader, the value will be set for each vertex. During rasterization this value is interpolated for each fragment on the primitive being rendered. You can access the interpolated value in the fragment shader to determine what color to set on the fragment.
 
-For example, suppose that you define a varying variable +v+ and set it for each vertex of a triangle +A`, `B`, `C`, then each fragment within the boundaries of the triangle will have a value of `v+ that is an interpolation of the three values for the vertices:
+For example, suppose that you define a varying variable +v+ and set it for each vertex of a triangle `A`, `B`, `C`, then each fragment within the boundaries of the triangle will have a value of `v` that is an interpolation of the three values for the vertices:
 
 ![Varying interpolation](images/shader/varying_interpolation.png)
 
@@ -93,12 +93,10 @@ For example, suppose that you define a varying variable +v+ and set it for each 
 Apart from the above types of user defined variables, a couple of built in variables also exist in GLSL:
 
 `gl_Position`​
-: A built in variable of type `vec4` that holds the output position of the current vertex in projection space. Set the value in the vertex shader. Note that this value has 4 component. +x`, `y`, `z+ and +w`. The `w+ component is used to calculate perspective correct interpolation. This value is normally 1.0 for each vertex _before any transformation matrix is applied_.
-
+: A built in variable of type `vec4` that holds the output position of the current vertex in projection space. Set the value in the vertex shader. Note that this value has 4 component. `x`, `y`, `z` and `w`. The `w` component is used to calculate perspective correct interpolation. This value is normally 1.0 for each vertex _before any transformation matrix is applied_.
 
 `gl_FragColor`
 : A built in variable of type `vec4` that holds the output RGBA color value for the current fragment. Set the value in the fragment shader.
-
 
 ## Texturing
 
@@ -107,12 +105,10 @@ To enable texturing of primitives, image mapping and image sampling is required:
 UV map
 : This is a list mapping each vertex to a 2D texture coordinate. The map is typically generated in the 3D modelling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute.
 
-
 ![UV coordinates](images/shader/uv_coordinates.png)
 
 Sampler variables
 : Samplers are uniform variables that are used to sample values from an image source. `sampler2D` and `samplerCube` type samplers are supported. `sampler2D` samples from a 2D image texture (a PNG or JPEG image) whereas `samplerCube` samples from a 6 image cubemap texture (defined in a `.cubemap` Defold resource file). You can use a sampler only in the GLSL standard library's texture lookup functions. These functions access the texture referred to by the sampler and take a texture coordinate as parameters. The [Material manual](/manuals/material) explains how to specify sampler settings.
-
 
 ## Vertex shaders
 
@@ -203,11 +199,7 @@ void main()
 }
 ```
 
-++`+
-<div class="image">
-    <iframe src="https://player.vimeo.com/video/206018645?autoplay=1&loop=1&title=0&byline=0&portrait=0" width="640" height="358" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-`+`+
+<iframe src="https://player.vimeo.com/video/206018645?autoplay=1&loop=1&title=0&byline=0&portrait=0" width="640" height="358" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ## Fragment shaders
 
@@ -229,8 +221,8 @@ A common use of fragment shaders is to texture the rendered primitives. First, t
 
 In this particular case the model is flat and square, so the texture would fit the model without any modification. But models are often complex and the fitting of the image needs to be done manually. To allow an arbitrary image texture to be mapped onto an arbitrary 3D model in an arbitrary manner, an _UV map_ is used. This map consists of 2D texture coordinates for each vertex in the model. A vertex shader program take the texture coordinate attribute and set a varying variable for each vertex, allowing the fragment shader to receive interpolated texture coordinate values for each fragment:
 
-.vertex shader
 ```glsl
+// vertex shader
 // This vertex attribute contains the UV texture coordinates for each vertex
 attribute mediump vec2 texcoord0;
 
@@ -248,10 +240,10 @@ void main()
 }
 ```
 
-In the fragment shader program, the varying texture coordinate variable is defined. A `sampler2D+ uniform variable is also defined. The sampler, together with the interpolated texture coordinates are used to perform texture lookup -- the graphics hardware samples the texture at a specified position and returns the sampled color value. The function `texture2D()` performs such lookup.
+In the fragment shader program, the varying texture coordinate variable is defined. A `sampler2D` uniform variable is also defined. The sampler, together with the interpolated texture coordinates are used to perform texture lookup---the graphics hardware samples the texture at a specified position and returns the sampled color value. The function `texture2D()` performs such lookup.
 
-.fragment shader
 ```glsl
+// fragment shader
 // The texture coordinate for the fragment
 varying mediump vec2 var_texcoord0;
 
@@ -276,8 +268,8 @@ Note that the above example only reposition the vertices. The texture coordinate
 
 We can choose fragment color based on any type of calculation. For example, it is possible to take the _normals_ of the model into account and create a simple lighting model. To get varied surface normals the example grid model has been deformed in the 3D modelling software.
 
-.vertex shader
 ```glsl
+// vertex shader
 attribute mediump vec4 position;
 attribute mediump vec4 normal;
 attribute mediump vec2 texcoord0;
@@ -303,8 +295,8 @@ void main()
 
 The fragment shader needs a position of a light source to be able to calculate the light intensity at every fragment's position. The intensity is depending on how far from the light source the fragment is, as well as the orientation of the surface normal, i.e. is the surface facing towards the light source or not?
 
-.fragment shader
 ```glsl
+// fragment shader
 varying mediump vec2 var_texcoord0;
 varying mediump vec3 var_normal;
 varying mediump vec4 var_position;

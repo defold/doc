@@ -1,9 +1,9 @@
-= Push notifications
-:location: documentation manuals extensions
-:type: manual
+---
+title: iOS and Android push notifications in Defold
+brief: This document describes how to set up and implement remote and local iOS and Android push notifications for your game or application.
+---
 
-This document describes how to set up and implement remote and local push
-notifications for your game or application.
+# Push notifications
 
 Push notifications are available on iOS and Android devices and allow your game to inform the player about changes and updates. The core functionality is similar between iOS and Android but there are some platform specific differences that you need to consider.
 
@@ -37,61 +37,61 @@ Make sure that you create a new provisioning profile, from the AppID and that yo
 
 Note that it can take a while for Apple's sandbox servers to update so you might not get push to work immediately. Be patient.
 
-[[above-code]]
 Now it's time to run some test code:
 
-```
+<a name="above-code"></a>
+```lua
 local function push_listener(self, payload, origin)
-	-- The payload arrives here.
-	pprint(payload)
+    -- The payload arrives here.
+    pprint(payload)
 end
 
 function init(self)
-	local sysinfo = sys.get_sys_info()
-	if sysinfo.system_name == "Android" then
-		msg.post("#", "push_android")
-	elseif sysinfo.system_name == "iPhone OS" then
-		msg.post("#", "push_ios")	
-	end
+    local sysinfo = sys.get_sys_info()
+    if sysinfo.system_name == "Android" then
+        msg.post("#", "push_android")
+    elseif sysinfo.system_name == "iPhone OS" then
+        msg.post("#", "push_ios")   
+    end
 end
 
 function on_message(self, message_id, message)
-	if message_id == hash("push_ios") then
-		local alerts = {push.NOTIFICATION_BADGE, push.NOTIFICATION_SOUND, push.NOTIFICATION_ALERT}
-		push.register(alerts, function (self, token, error)
-			if token then
-				local t = ""
-				for i = 1,#token do
-					t = t .. string.format("%02x", string.byte(token, i))
-				end
-				-- Print the device token
-				print(t)
-			else
-				-- Error
-				print(error.error)
-			end
-		end)	
-		push.set_listener(push_listener)
-	elseif message_id == hash("push_android") then
-		push.register(nil, function (self, token, error)
-			if token then
-				-- Print the device token
-				print(token)
-			else
-				-- Error
-				print(error.error)
-			end
-		end)
-		push.set_listener(push_listener)
-	end
+    if message_id == hash("push_ios") then
+        local alerts = {push.NOTIFICATION_BADGE, push.NOTIFICATION_SOUND, push.NOTIFICATION_ALERT}
+        push.register(alerts, function (self, token, error)
+            if token then
+                local t = ""
+                for i = 1,#token do
+                    t = t .. string.format("%02x", string.byte(token, i))
+                end
+                -- Print the device token
+                print(t)
+            else
+                -- Error
+                print(error.error)
+            end
+        end)    
+        push.set_listener(push_listener)
+    elseif message_id == hash("push_android") then
+        push.register(nil, function (self, token, error)
+            if token then
+                -- Print the device token
+                print(token)
+            else
+                -- Error
+                print(error.error)
+            end
+        end)
+        push.set_listener(push_listener)
+    end
 end
 ```
 
 If all goes well the notification listener will be registered and we get a token that we can use:
 
-----
+```txt
 DEBUG:SCRIPT: 1f8ba7869b84b10df69a07aa623cd7f55f62bca22cef61b51fedac643ec61ad8
-----
+```
 
 If you're running a push test app, you can now try to send notifications to your device using the device token and the APN service SSL certificate.
 
@@ -99,7 +99,7 @@ If you're running a push test app, you can now try to send notifications to your
 
 The notification should arrive to the client soon after you send it, from within your test application, arriving to the function `push_listener()`:
 
-----
+```txt
 DEBUG:SCRIPT: 
 {
   aps = {
@@ -108,7 +108,7 @@ DEBUG:SCRIPT:
     sound = default,
   }
 }
-----
+```
 
 And from the iOS homescreen:
 
@@ -127,11 +127,11 @@ On Android, you need the following information to send notifications:
 * A GCM Sender ID. This is built into the application.
 * A Server API Key to enable sending notifications through Google's servers.
 
-The setup is quite straightforward. Start by heading over to http://developers.google.com, click on "Android" and then "Google Cloud Messaging".
+The setup is quite straightforward. Start by heading over to http://developers.google.com, click on *Android* and then *Google Cloud Messaging*.
 
 ![Android getting started](images/push/push_android_get_started.png)
 
-A bit down the page there is a button saying "Get a configuration file".
+A bit down the page there is a button saying *Get a configuration file*.
 
 ![Android configuration file](images/push/push_android_configuration_file.png)
 
@@ -145,23 +145,23 @@ Copy the Sender ID and paste it into the *gcm_sender_id* field in your Defold pr
 
 Now everything is ready on the client. The [above code](#above-code) example works for Android as well. Run it and copy the device token id.
 
-----
+```txt
 DEBUG:SCRIPT: APA91bHkcKm0QHAMUCEQ_Dlpq2gzset6vh0cz46kDDV6230C5rFivyWZMCxGXcjxRDKg1PK4z1kWg3xnUVqSDiO_4_RiG8b8HeYJfaoW1ho4ukWYXjq5RE0Sy-JTyrhqRusUP_BxRTcE
-----
+```
 
 Now we have all information we need. Google's notifications are sent through a Web API so we can use *curl* to send test messages:
 
-----
+```sh
 $ curl  -X POST  -H "Content-type: application/json"  -H 'Authorization: key=SERVER_KEY' -d '{"registration_ids" : ["TOKEN_ID"], "data": {"alert": "Hello"}}' https://android.googleapis.com/gcm/send
-----
+```
 
-Replace *SERVER_KEY* and *TOKEN_ID* with your specific keys.
+Replace `SERVER_KEY` and `TOKEN_ID` with your specific keys.
 
 ## Local push notifications
 
 Local push notifications are supported as well as remote ones. After the regular setup you can schedule a local notification:
 
-```
+```lua
 -- Schedule a local push in 3 seconds
 local payload = '{"data" : {"field" : "Some value", "field2" : "Other value"}}'
 id, err = push.schedule(3, "A notification!", "Hello there", payload, { action = "get going" })
@@ -183,14 +183,14 @@ priority
 
 The API provides two functions to inspect what is currently scheduled. 
 
-```
+```lua
 n = push.get_scheduled(id)
 pprint(n)
 ```
 
 Which results in a table containing all details on the scheduled notification:
 
-----
+```txt
 DEBUG:SCRIPT: 
 {
   payload = {"data":{"field":"Some value","field2":"Other value"}},
@@ -199,18 +199,18 @@ DEBUG:SCRIPT:
   seconds = 19.991938,
   message = Hello there,
 }
-----
-
-Note that *seconds* indicate the number of seconds left for the notification to fire. It is also possible to retreive a table with _all_ scheduled notifications:
-
 ```
+
+Note that `seconds` indicate the number of seconds left for the notification to fire. It is also possible to retreive a table with _all_ scheduled notifications:
+
+```lua
 all_n = push.get_all_scheduled()
 pprint(all_n)
 ```
 
 Which results in a table pairing notification id:s with their respective data:
 
-----
+```txt
 DEBUG:SCRIPT: 
 {
   0 = {
@@ -235,5 +235,4 @@ DEBUG:SCRIPT:
     message = Please answer!,
   }
 }
-----
-
+```
