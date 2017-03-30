@@ -39,23 +39,23 @@ You add these shapes and can use the ordinary editor transform tools to scale, r
 
 ![Physics properties](images/physics/physics_properties.png)
 
-The "Collision Shape" property is used for tile map geometry that does not use ordinary primitive shapes. We’ll look at that <<anchor-tcs, below>>.
+The *Collision Shape* property is used for tile map geometry that does not use ordinary primitive shapes. We’ll look at that below.
 
-The *Type* property is used to set the type of collision object: "Dynamic", "Kinematic", "Static" or "Trigger". If you set the object to "Dynamic" you _must_ set the *Mass* property to a non zero value. For dynamic or static objects you should also set the *Friction* and *Restitution* values.
+The *Type* property is used to set the type of collision object: `Dynamic`, `Kinematic`, `Static` or `Trigger`. If you set the object to `Dynamic` you _must_ set the *Mass* property to a non zero value. For dynamic or static objects you should also set the *Friction* and *Restitution* values.
 
 ::: important
-If you set the type to "Dynamic" and forget to set the mass to non zero you will get a compilation error: *"ERROR:GAMESYS: Invalid mass 0.000000 for shape type 0"*
+If you set the type to `Dynamic` and forget to set the mass to non zero you will get a compilation error: `"ERROR:GAMESYS: Invalid mass 0.000000 for shape type 0"`
 :::
 
 ## Friction
 
-Friction makes it possible to make object slide realistically against each other. The friction value is usually set between 0 (no friction at all—a very slippery object) and 1 (strong friction—an abrasive object). However, any positive value is valid.
+Friction makes it possible to make object slide realistically against each other. The friction value is usually set between `0` (no friction at all---a very slippery object) and `1` (strong friction---an abrasive object). However, any positive value is valid.
 
-The friction strength is proportional to the normal force (this is called Coulomb friction). When the friction force is computed between two shapes, the friction values of both objects are combined by the geometric mean:
+The friction strength is proportional to the normal force (this is called Coulomb friction). When the friction force is computed between two shapes (`A` and `B`), the friction values of both objects are combined by the geometric mean:
 
-----
-combined_friction = math.sqrt(shape1_friction * shape2_friction)
-----
+$$
+F_{combined} = \sqrt{ F_A \times F_B }
+$$
 
 This means that if one of the objects has zero friction then the contact between them will have zero friction.
 
@@ -63,11 +63,11 @@ This means that if one of the objects has zero friction then the contact between
 
 The restitution value sets the bounciness of the object. The value is usually between 0 (inelastic collision—the object does not bounce at all) and 1 (perfectly elastic collision—the object's velocity will be exactly reflected in the bounce)
 
-Restitution values between two objects are combined using the following formula:
+Restitution values between two shapes (`A` and `B`) are combined using the following formula:
 
-----
-combined_restitution = math.max(shape1_restitution, shape2_restitution)
-----
+$$
+R = \max{ \left( R_A, R_B \right) }
+$$
 
 ::: sidenote
 When a shape develops multiple contacts, restitution is simulated approximately because Box2D uses an iterative solver. Box2D also uses inelastic collisions when the collision velocity is small to prevent bounce-jitter
@@ -87,11 +87,11 @@ Setting this property totally disables rotation on the collision object, no matt
 
 It is often desirable to be able to filter collision so that some types of objects collide with some other type, but not with a third kind. For instance, in a multiplayer shooter game you might want:
 
- . Player characters that shoot bullet objects
- . Bullet objects should collide with enemy objects
- . Bullet objects should not collide with player characters
- . Player characters should collide with enemy objects
- . Player and enemies collide with the game world tiles
+- Player characters that shoot bullet objects
+- Bullet objects should collide with enemy objects
+- Bullet objects should not collide with player characters
+- Player characters should collide with enemy objects
+- Player and enemies collide with the game world tiles
 
 The physics engine allows you to group your physics objects and filter how they should collide. This is handled by named _collision groups_. For each collision object you create two properties control how the object collides with other objects:
 
@@ -111,19 +111,17 @@ Note that each collision involves two objects and it is important that both obje
 To achieve the collision scheme outlined for the hypothetical shooter game above, the following setup would work:
 
 Players
-: _Group_: "players", _Mask_: "world, enemies"
+: *Group* = `players`, *Mask* =  `world, enemies`
 
 Bullet
-: _Group_: "bullets", _Mask_: "enemies"
+: *Group*: `bullets`, *Mask*: `enemies`
 
 Enemies
-: _Group_: "enemies", _Mask_: "players, bullets"
+: *Group*: `enemies`, *Mask*: `players, bullets`
 
 World
-: _Group_: "world", _Mask_: "players, enemies"
+: *Group*: `world`, *Mask*: `players, enemies`
 
-
-[[anchor-tcs]]
 ## Tilesource collision shapes
 
 The Defold editor has a tool that allows you to quickly generate physics shapes for a tilesource. In the tilesource editor, simply choose the image you wish to use as basis for collision. The editor will automatically generate a convex shape around each tile, taking into account pixels that are not 100% transparent:
@@ -154,59 +152,57 @@ To use the collision shapes from the Tile Source, create a collisionobject in th
 
 When two objects collide, the engine will broadcast messages to all components in both objects:
 
-## `collision_response`
+**`collision_response`**
 
 This message is sent for all collision objects. It has the following fields set:
 
-other_id
-: the id of the instance the collision object collided with (hash)
+`other_id`
+: the id of the instance the collision object collided with (`hash`)
 
-other_position
-: the world position of the instance the collision object collided with (vector3)
+`other_position`
+: the world position of the instance the collision object collided with (`vector3`)
 
-group
-: the collision group of the other collision object (hash)
-
+`group`
+: the collision group of the other collision object (`hash`)
 
 The collision_response message is only adequate to resolve collisions where you don't need any details on the actual intersection of the objects, for example if you want to detect if a bullet hits an enemy. There is only one of these messages sent for any colliding pair of objects each frame.
 
-## `contact_point_response`
+**`contact_point_response`**
 
 This message is sent when one of the colliding objects is Dynamic or Kinematic. It has the following fields set:
 
-position
-: world position of the contact point (vector3)
+`position`
+: world position of the contact point (`vector3`).
 
-normal
-: normal in world space of the contact point, which points from the other object towards the current object (vector3)
+`normal`
+: normal in world space of the contact point, which points from the other object towards the current object (`vector3`).
 
-relative_velocity
-: the relative velocity of the collision object as observed from the other object (vector3)
+`relative_velocity`
+: the relative velocity of the collision object as observed from the other object (`vector3`).
 
-distance
-: the penetration distance between the objects -- non negative (number)
+`distance`
+: the penetration distance between the objects -- non negative (`number`).
 
-applied_impulse
-: the impulse the contact resulted in (number)
+`applied_impulse`
+: the impulse the contact resulted in (`number`).
 
-life_time
-: life time of the contact (not currently used!) (number)
+`life_time`
+: (*not currently used!*) life time of the contact (`number`).
 
-mass
-: the mass of the current collision object in kg (number)
+`mass`
+: the mass of the current collision object in kg (`number`).
 
-other_mass
-: the mass of the other collision object in kg (number)
+`other_mass`
+: the mass of the other collision object in kg (`number`).
 
-other_id
-: the id of the instance the collision object is in contact with (hash)
+`other_id`
+: the id of the instance the collision object is in contact with (`hash`).
 
-other_position
-: the world position of the other collision object (vector3)
+`other_position`
+: the world position of the other collision object (`vector3`).
 
-group
-: the collision group of the other collision object (hash)
-
+`group`
+: the collision group of the other collision object (`hash`).
 
 For a game or application where you need to separate objects perfectly, the `contact_point_response` message gives you all information you need. However, note that for any given collision pair, a number of `contact_point_response` message can be received each frame.
 
@@ -214,11 +210,11 @@ For a game or application where you need to separate objects perfectly, the `con
 
 Triggers are light weight collision objects. In a trigger collision `collision_response` messages are sent. In addition, triggers also send a special `trigger_response` message when the collision begins and end. The message has the following fields:
 
-other_id
-: the id of the instance the collision object collided with (hash)
+`other_id`
+: the id of the instance the collision object collided with (`hash`).
 
-enter
-: `true` if the interaction was an entry into the trigger, `false` if it was an exit.
+`enter`
+: `true` if the interaction was an entry into the trigger, `false` if it was an exit. (`boolean`).
 
 
 ## Resolving Kinematic collisions
@@ -281,26 +277,24 @@ end
 
 ## Best practices
 
-## Triggers
-
-Trigger collision objects are sometimes too limited. Suppose you want a trigger that controls the intensity of a sound--the further the player moves into the trigger, the more intense the sound. This scenario requires a trigger that provides the penetration distance in the trigger. For this, a plain trigger collision object won’t do. Instead, you can set up a Kinematic object and never performing any separation of collisions but instead only registering them and use the collision data.
+Triggers
+: Trigger collision objects are sometimes too limited. Suppose you want a trigger that controls the intensity of a sound--the further the player moves into the trigger, the more intense the sound. This scenario requires a trigger that provides the penetration distance in the trigger. For this, a plain trigger collision object won’t do. Instead, you can set up a Kinematic object and never performing any separation of collisions but instead only registering them and use the collision data.
 
 ::: sidenote
 Kinematic objects are more expensive than triggers, so use them wisely.
 :::
 
-## Choosing between Dynamic or Kinematic objects
+Choosing between Dynamic or Kinematic objects
+: If you are making a game with a player character (of some sort) that you maneuver through a level, it might seem like a good idea to create the player character as a Dynamic physics object and the world as a Static physics object. Player input is then handled by applying various forces on the player object.
 
-If you are making a game with a player character (of some sort) that you maneuver through a level, it might seem like a good idea to create the player character as a Dynamic physics object and the world as a Static physics object. Player input is then handled by applying various forces on the player object.
+  Going down that path is possible, but it is extremely hard to achieve great results. Your game controls will likely feel generic—like thousands of other games, since it is implemented the same way on the same physics engine. The problem boils down to the fact that the Box2D physics simulation is a realistic Newtonian simulation whereas a platformer is usually fundamentally different. You will therefore have to fight hard to make a Newtonian simulation behave in non-Newtonian fashion.
 
-Going down that path is possible, but it is extremely hard to achieve great results. Your game controls will likely feel generic—like thousands of other games, since it is implemented the same way on the same physics engine. The problem boils down to the fact that the Box2D physics simulation is a realistic Newtonian simulation whereas a platformer is usually fundamentally different. You will therefore have to fight hard to make a Newtonian simulation behave in non-Newtonian fashion.
+  One immediate problem is what should happen at edges. With a dynamic simulation running, the player physics object (here set up as a box) behaves like a realistic box and will tip over any edges.
 
-One immediate problem is what should happen at edges. With a dynamic simulation running, the player physics object (here set up as a box) behaves like a realistic box and will tip over any edges.
+  ![Dynamic physics](images/physics/physics_dynamic.png)
 
-![Dynamic physics](images/physics/physics_dynamic.png)
+  This particular problem can be solved by setting the "Locked Rotation" property in the character's collision object. However, the example illustrates the core of the problem which is that the behavior of the character should be under the control of _you_, the designer/programmer and not being directly controlled by a physics simulation over which you have very limited control.
 
-This particular problem can be solved by setting the "Locked Rotation" property in the character's collision object. However, the example illustrates the core of the problem which is that the behavior of the character should be under the control of _you_, the designer/programmer and not being directly controlled by a physics simulation over which you have very limited control.
-
-So it is highly recommended that you implement your player character as a Kinematic physics object. Use the physics engine to detect collisions and deal with collisions and object separations as you need. Such an approach will initially require more work, but allows you to really design and fine-tune the player experience into something really good and unique.
+  So it is highly recommended that you implement your player character as a Kinematic physics object. Use the physics engine to detect collisions and deal with collisions and object separations as you need. Such an approach will initially require more work, but allows you to really design and fine-tune the player experience into something really good and unique.
 
 (Some of the graphic assets used are made by Kenney: http://kenney.nl/assets)

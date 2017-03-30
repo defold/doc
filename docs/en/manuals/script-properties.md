@@ -1,5 +1,9 @@
-Script properties
-=================
+---
+title: Script component properties
+brief: This manual explains how to add and use custom properties with script components.
+---
+
+# Script properties
 
 Script properties provide a simple and powerful way of exposing properties that control the behavior or look of a specific game object instance and allow non coders to change them in the editor.
 
@@ -55,7 +59,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-If the health reaches +0`, the script destroys the game object. Now suppose that you want to use the script in two different game objects, but want the game objects to have different amounts of health. With the function [go.property](/ref/go#go.property) you can declare the property a script property and it will be set by the specific game object instance:
+If the health reaches `0`, the script destroys the game object. Now suppose that you want to use the script in two different game objects, but want the game objects to have different amounts of health. With the function [`go.property()`](/ref/go#go.property) you can declare the property a script property and it will be set by the specific game object instance:
 
 ```lua
 -- self.health will be automatically set to 100 by default
@@ -71,7 +75,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Any game object that includes the script can set the value specifically. Simply select the script node in the `Outline+ view in the editor and the property appears in the `Properties` view allowing you to edit it:
+Any game object that includes the script can set the value specifically. Simply select the script node in the *Outline* view in the editor and the property appears in the *Properties* view allowing you to edit it:
 
 ![Script Properties](images/script_properties/script_properties.png)
 
@@ -90,44 +94,42 @@ There are several ways the value of a script property can be referenced and used
 Through `self`
 : The `self` variable contains a reference to the script instance. Any defined script property is available as a stored member in `self`:
 
-
-```lua
-go.property("my_property", 1)
-
-...
-function init(self)
-    self.other_property = 2
-end
-
-function update(self, dt)
-    -- Read and write the property
-    if self.my_property == 1 and self.other_property == 3 then
-        self.my_property = 3
-    end
-end
-```
+  ```lua
+  go.property("my_property", 1)
+  
+  ...
+  function init(self)
+      self.other_property = 2
+  end
+  
+  function update(self, dt)
+      -- Read and write the property
+      if self.my_property == 1 and self.other_property == 3 then
+          self.my_property = 3
+      end
+  end
+  ```
 
 As a script component property
 : Many components expose properties (sprites expose `size` and `scale`, for instance). Any user-defined script property is avaliable for getting, setting and animating the same way as other component and game object properties:
 
-
-.myobject.script
-```lua
--- This script is attached to the object "myobject". The script component is called "script".
-go.property("my_property", 1)
-
-...
-```
-
-.another.script
-```lua
--- increase "my_property" in "myobject#script" by 1
-local val = go.get("myobject#script", "my_property")
-go.set("myobject#script", "my_property", val + 1)
-
--- animate "my_property" in "myobject#script"
-go.animate("myobject#script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
-```
+  ```lua
+  -- myobject.script
+  -- This script is attached to the object "myobject". The script component is called "script".
+  go.property("my_property", 1)
+  
+  ...
+  ```
+  
+  ```lua
+  -- another.script
+  -- increase "my_property" in "myobject#script" by 1
+  local val = go.get("myobject#script", "my_property")
+  go.set("myobject#script", "my_property", val + 1)
+  
+  -- animate "my_property" in "myobject#script"
+  go.animate("myobject#script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
+  ```
 
 ## Factory created objects
 

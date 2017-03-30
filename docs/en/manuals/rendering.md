@@ -1,15 +1,15 @@
-Rendering
-=========
-:location: documentation manuals resources
-:type: manual
+---
+title: Rendering in Defold
+brief: This manual explains how Defold's render pipeline works and how you can program it.
+---
 
-Every object that is shown on screen by the engine: sprites, models, tiles, particles or GUI nodes are drawn by a rendering pipeline. This manual explains how this pipeline works and how you can program it.
+# Rendering
 
-By default, a pipeline is set up for you so every 2D object is drawn with the correct bitmap with the specified blending and at the correct Z depth--so you might not have to ever think about rendering beyond ordering and simple blending. For most 2D games, the default pipeline functions well, but your game might have special requirements. If that is the case, Defold allows you to write a tailor-made rendering pipeline.
+Every object that is shown on screen by the engine: sprites, models, tiles, particles or GUI nodes are drawn by a renderer. At the heart of the renderer is a render script that controls the render pipeline. By default, every 2D object is drawn with the correct bitmap with the specified blending and at the correct Z depth--so you might not have to ever think about rendering beyond ordering and simple blending. For most 2D games, the default pipeline functions well, but your game might have special requirements. If that is the case, Defold allows you to write a tailor-made rendering pipeline.
 
 ## The default renderer
 
-At the heart of the rendering pipeline is the _render script_. This is a regular Lua script with the functions `init()`, `update()` and `on_message()` and it is primarily used to interact with the underlying OpenGL rendering API. In the "Builtins" folder of your projects you can find the default render object ("default.render") and the default render script ("default.render_script"). The render object simply contains a reference to the current render script.
+At the heart of the rendering pipeline is the _render script_. This is a regular Lua script with the functions `init()`, `update()` and `on_message()` and it is primarily used to interact with the underlying OpenGL rendering API. In the "Builtins" folder of your projects you can find the default render resource (*default.render*) and the default render script (*default.render_script*). The render object simply contains a reference to the current render script.
 
 ::: sidenote
 Defold relies on OpenGL ES 2.0 for rendering on handheld devices. On desktops, regular Open GL is used. It is therefore possible to write shaders using features not available on OpenGL ES 2.0. Doing so will break cross compatibility.
@@ -21,10 +21,10 @@ Defold relies on OpenGL ES 2.0 for rendering on handheld devices. On desktops, r
 
 To set up a custom renderer, you can do as follows:
 
-1. Copy the files "default.render" and "default.render_script".
-2. Put the files somewhere in the project hierarchy, like in a "render" folder.
-3. Edit the new "default.render" object (or whatever you call it) and change the *script* property to refer to your copy of the render script.
-4. Change the *render* property under *Bootstrap* in the "game.project" settings file to refer to your copy of the "default.render" object.
+1. Copy the files *default.render* and *default.render_script*.
+2. Put the files somewhere in the project hierarchy, like in a *render* folder.
+3. Edit the new *default.render* object (or whatever you call it) and change the *script* property to refer to your copy of the render script.
+4. Change the *render* property under *Bootstrap* in the *game.project* settings file to refer to your copy of the *default.render* object.
 
 You can, of course, create a render script from scratch but it is a good idea to start with a copy of the default script if you are new to Defold and/or OpenGL ES rendering.
 

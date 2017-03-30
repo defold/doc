@@ -1,8 +1,11 @@
+---
+title: Defold project settings
+brief: This manual describes how project specific settings work in Defold.
+---
+
 # Project settings
 
-This manual describes how project specific Defold settings work.
-
-The file "game.project" contains all project wide settings. It must stay in the root of the project and must be named "game.project". The first thing the engine does when starting up and launching your game is looking for this file.
+The file *game.project* contains all project wide settings. It must stay in the root of the project and must be named *game.project*. The first thing the engine does when starting up and launching your game is looking for this file.
 
 Every setting in the file belongs to a category. The format of the file is simple text and can be edited by any standard text editor. The format looks like this:
 
@@ -23,13 +26,13 @@ main_collection = /main/main.collectionc
 
 which means that the setting *main_collection* belongs to the *bootstrap* category.
 Whenever a file reference is used, like the example above, the path needs to be appended with a 'c' character, which means you're referencing the compiled version of the file.
-Also note that your project root is treated as the real root, which is why there is an initial '/' in the setting path.
+Also note that the folder containing *game.project* will be the project root, which is why there is an initial '/' in the setting path.
 
-Below are all the available settings, arranged by section. Some settings are not yet exposed in the settings editor (these are marked "hidden setting" below), but can be set manually by right clicking "game.project" and selecting "Open With > Text Editor".
+Below are all the available settings, arranged by section. Some settings are not yet exposed in the settings editor (these are marked "hidden setting" below), but can be set manually by right clicking "game.project" and selecting <kbd>Open With ▸ Text Editor</kbd>.
 
 ## Setting config values on engine startup
 
-When the engine starts, it is possible to provide config values from the command line that override the "game.project" settings:
+When the engine starts, it is possible to provide config values from the command line that override the *game.project* settings:
 
 ```bash
 # Specify a bootstap collection
@@ -39,7 +42,7 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711
 ```
 
-Custom values can (just as any other config value) be read with [sys.get_config()](/ref/sys/#sys.get_config).
+Custom values can---just as any other config value---be read with [`sys.get_config()`](/ref/sys/#sys.get_config).
 
 ## Project
 
@@ -50,7 +53,7 @@ version
 : The version of the application.
 
 write_log
-: When checked the engine will write a log file "log.txt" in the project root. When running on iOS, the log file can be accessed through iTunes and the *Apps* tab and the *File Sharing* section. On Android, the file is stored in the apps external storage. When running the "dmengine" development app, you can view the log with:
+: When checked the engine will write a log file *log.txt* in the project root. When running on iOS, the log file can be accessed through iTunes and the *Apps* tab and the *File Sharing* section. On Android, the file is stored in the apps external storage. When running the *dmengine* development app, you can view the log with:
 
 ```bash
 $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
@@ -66,8 +69,7 @@ custom_resources (hidden setting)
 : A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included.
 
 bundle_resources (hidden setting)
-: A directory containing resource files and folders that should be copied as-is into the resulting package when bundling. The directory is specified with an absolute path from the project root, for example "/res". The resource directory should contain subfolders named by `platform`, or `architecure-platform`. Supported platforms are `ios`, `android` and `osx`. Supported arc-platform pairs are `armv7-ios`, `arm64-ios`, `armv7-android` and `x86_64-osx`. A subfolder named `common` is also allowed, containing resource files common for all platforms.
-
+: A directory containing resource files and folders that should be copied as-is into the resulting package when bundling. The directory is specified with an absolute path from the project root, for example `/res`. The resource directory should contain subfolders named by `platform`, or `architecure-platform`. Supported platforms are `ios`, `android` and `osx`. Supported arc-platform pairs are `armv7-ios`, `arm64-ios`, `armv7-android` and `x86_64-osx`. A subfolder named `common` is also allowed, containing resource files common for all platforms.
 
 ## Bootstrap
 
@@ -77,24 +79,20 @@ main_collection
 render
 : Which render file to use, which defines the render pipeline, `/builtins/render/default.renderc` by default.
 
-
 ## Library
 
 include_dirs
 : A space separated list of directories that should be shared from your project via library sharing.
 
-
 ## Script
 
 shared_state
-: Check to share a single LUA state between all script types, checked by default.
-
+: Check to share a single Lua state between all script types, checked by default.
 
 ## Tracking
 
 app_id
 : A unique tracking ID for this project. The project tracking ID an be found on the project dashboard.
-
 
 ## Display
 
@@ -114,7 +112,7 @@ fullscreen
 : Check if the application should start full screen. If unchecked, the application runs windowed.
 
 update_frequency
-: Frame update frequency, `60` by default. Valid values are `60`, `30`, `20`, `15`, `12`, `10`, `6`, `5`, `4`, `3`, `2` and `1`.
+: Frame update frequency, `60` by default. Valid values are `60`, `30`, `20`, `15`, `12`, `10`, `6`, `5`, `4`, `3`, `2` or `1`.
 
 variable_dt
 : Check if time step should be measured against actual time or be fixed (set to *update_frequency*).
@@ -124,7 +122,6 @@ display_profiles
 
 dynamic_orientation
 : Check if the app should dynamically switch between portrait and landscape on device rotation. Note that the development app does not currently respect this setting.
-
 
 ## Physics
 
@@ -138,7 +135,7 @@ debug
 : Check if physics should be visualized for debugging.
 
 debug_alpha
-: Alpha component value for visualized physics, `0` -- `1`. `0.9` by default.
+: Alpha component value for visualized physics, `0`--`1`. The value is `0.9` by default.
 
 world_count
 : Max number of concurrent physics worlds, `4` by default (careful, they waste memory).
@@ -150,7 +147,7 @@ gravity_z
 : World gravity along z-axis, `0` by default.
 
 scale
-: How to scale the physics worlds in relation to the game world for numerical precision,  `0.01` -- `1`. `0.02` by default.
+: How to scale the physics worlds in relation to the game world for numerical precision, `0.01`--`1`. The value is `0.02` by default.
 
 debug_scale
 : How big to draw unit objects in physics, like triads and normals, `30` by default.
@@ -163,7 +160,6 @@ max_contacts
 
 contact_impulse_limit
 : Ignore contact impulses with values less than this setting, `0` by default.
-
 
 ## Graphics
 
@@ -179,7 +175,6 @@ max_debug_vertices
 texture_profiles
 : The texture profiles file to use for this project, `/builtins/graphics/default.texture_profiles` by default.
 
-
 ## Input
 
 repeat_delay
@@ -194,7 +189,6 @@ gamepads
 game_binding
 : File reference of the input config file, which maps hardware inputs to actions, `/input/game.input_bindingc` by default.
 
-
 ## Resource
 
 http_cache
@@ -206,23 +200,20 @@ uri
 max_resources
 : The max number of resources that can be loaded at the same time, `1024` by default.
 
-
 ## Network
 
 http_timeout
 : The HTTP timeout in seconds. Set to `0` to disable timeout, which is the default.
-
 
 ## Collection
 
 max_instances
 : Max number of game object instances in a collection, `1024` by default.
 
-
 ## Sound
 
 gain
-: Global gain (volume), `0` -- `1`, `1` by default.
+: Global gain (volume), `0`--`1`, The value is `1` by default.
 
 max_sound_data
 : Max number of different sounds, `128` by default.
@@ -236,7 +227,6 @@ max_sound_sources
 max_sound_instances
 : Max number of concurrent sound instances, `256` by default.
 
-
 ## Sprite
 
 max_count
@@ -245,18 +235,15 @@ max_count
 subpixels
 : Check to allow sprites to appear unaligned with respect to pixels, checked by default.
 
-
 ## Spine
 
 max_count
 : Max number of spine models, `128` by default.
 
-
 ## GUI
 
 max_count
 : Max number of GUI components, `64` by default.
-
 
 ## Label
 
@@ -266,7 +253,6 @@ max_count
 sub_pixels
 : Check to allow lables to appear unaligned with respect to pixels, checked by default.
 
-
 ## Particle FX
 
 max_emitter_count
@@ -275,32 +261,28 @@ max_emitter_count
 max_particle_count
 : The max number of concurrent particles, `1024` by default.
 
-
 ## Collection proxy
 
 max_count
 : Max number of collection proxies, `8` by default.
-
 
 ## Collection factory
 
 max_count
 : Max number of collection factories, `128` by default.
 
-
 ## Factory
 
 max_count
 : Max number of game object factories, `128` by default.
 
-
 ## iOS
 
 app_icon_WxH
-: Image file to use as application icon at given width and height dimensions W &times; H.
+: Image file to use as application icon at given width and height dimensions `W` &times; `H`.
 
 launch_image_WxH
-: Image file to use as application launch image for resolution width and height dimensions W &times; H. Note that iOS selects the display resolution based on the launch image.
+: Image file to use as application launch image for resolution width and height dimensions `W` &times; `H`. Note that iOS selects the display resolution based on the launch image.
 
 pre_rendered_icons
 : (iOS 6 and earlier) Check if your icons are pre-rendered. If this is unchecked the icons will get a glossy highlight added automatically.
@@ -311,16 +293,15 @@ bundle_identifier
 infoplist
 : If specified, use this info.plist file when bundling your app.
 
-
 ## Android
 
 app_icon_WxH
-: Image file to use as application icon at given width and height dimensions W &times; H.
+: Image file to use as application icon at given width and height dimensions `W` &times; `H`.
 
 version_code
 : An integer value indicating the version of the app. Increase the value for each subsequent update.
 
-push_icon_NNN
+push_icon_SIZE
 : Image files to be used as custom push notification icon on Android. The icons will automatically be used for both local or remote push notifications. If not set the application icon will be used by default.
 
 push_field_title
@@ -344,7 +325,6 @@ iap_provider
 input_method
 : Specifies which method to use to get keyboard input on Android devices. Valid options are `KeyEvent` (old method) and `HiddenInputField` (new). `KeyEvent` by default.
 
-
 ## OS X
 
 app_icon
@@ -356,12 +336,10 @@ infoplist
 bundle_identifier
 : The bundle identifier lets OS X recognize updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and OS X apps.
 
-
 ## Windows
 
 app_icon
 : Image file to use as application icon on Windows.
-
 
 ## HTML5
 
@@ -393,7 +371,6 @@ archive_location_suffix
 
 appid (hidden setting)
 : The application id as issued by Facebook.
-
 
 ## IAP
 
