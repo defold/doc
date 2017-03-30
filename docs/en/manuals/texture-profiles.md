@@ -71,7 +71,7 @@ The *profiles* section of the texture profiles file contains a list of named pro
 ![Profiles](images/texture_profiles/texture_profiles_profiles.png)
 
 *os*
-: Specifies a matching OS platform. "OS\_ID\_GENERIC" matches all platforms including dev-app builds on device, "OS\_ID\_WINDOWS" matches Windows target bundles, "OS\_ID\_IOS" matches iOS bundles and so on.
+: Specifies a matching OS platform. "OS\_ID\_GENERIC" matches all platforms including dev-app builds on device, "OS\_ID\_WINDOWS" matches Windows target bundles, "OS\_ID\_IOS" matches iOS bundles and so on. Note that if "OS\_ID\_GENERIC" is specified, it will be included for all platforms.
 
 *formats*
 : One or more texture formats to generate. If several formats are specified, textures for each format is generated and included in the bundle. The engine selects textures of a format that is supported by the runtime platform.
