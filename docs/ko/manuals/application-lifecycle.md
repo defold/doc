@@ -1,4 +1,4 @@
-#Application lifecycle
+# Application lifecycle
 이 문서는 Defold의 게임과 어플리케이션의 라이프사이클에 대해 자세히 알아봅니다.
 
 Defold의 어플리케이션이나 게임의 라이프사이클은 매우 단순합니다. 엔진은 초기화(initialization), 업데이트 루프(update loop: 여기서 대부분의 시간이 소비됨), 마무리(finalization) 세 단계로 진행합니다.

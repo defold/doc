@@ -153,11 +153,11 @@
                         "name": "Template nodes"
                     },
                     {
-                        "path": "clipping",
+                        "path": "gui-clipping",
                         "name": "Clipping"
                     },
                     {
-                        "path": "layouts",
+                        "path": "gui-layouts",
                         "name": "Layouts"
                     }
                 ]
@@ -247,5 +247,5 @@
                 ]
             }
         ]
-    },
+    }
 }
