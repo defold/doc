@@ -51,7 +51,7 @@ Each node has an extensive set of properties that control its appearance:
 * Adjust mode, Pivot, Xanchor, Yanchor
 * Font, Text, Line-break (for text nodes)
 * Index, Layer, Parent
-* Clipping (for box and pie nodes) (See the [Clipping documentation](/manuals/clipping) for details)
+* Clipping (for box and pie nodes) (See the [Clipping documentation](/manuals/gui-clipping) for details)
 
 These properties can be modified in the editor's properties tab (except index and parenting), or through script (see [GUI API reference](/ref/gui)).
 

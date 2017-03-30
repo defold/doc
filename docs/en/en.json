@@ -1,0 +1,246 @@
+{
+    "navigation": {
+        "tutorials":
+        [
+        ],
+        "manuals":
+        [
+            {
+                "name": "GETTING STARTED",
+                "items": [
+                    {
+                        "path": "introduction",
+                        "name": "Introduction"
+                    },
+                    {
+                        "path": "scene-editing",
+                        "name": "Scene editing"
+                    },
+                    {
+                        "path": "workflow",
+                        "name": "Workflow"
+                    },
+                    {
+                        "path": "lua",
+                        "name": "Lua in Defold"
+                    }
+                ]
+            },
+            {
+                "name": "CORE CONCEPTS",
+                "items": [
+                    {
+                        "path": "building-blocks",
+                        "name": "Building blocks"
+                    },
+                    {
+                        "path": "message-passing",
+                        "name": "Message passing"
+                    },
+                    {
+                        "path": "application-lifecycle",
+                        "name": "Application lifecycle"
+                    }
+                ]
+            },
+            {
+                "name": "RESOURCES & COMPONENTS",
+                "items": [
+                    {
+                        "path": "2dgraphics",
+                        "name": "2D graphics"
+                    },
+                    {
+                        "path": "3dgraphics",
+                        "name": "3D graphics"
+                    },
+                    {
+                        "path": "animation",
+                        "name": "Animation"
+                    },
+                    {
+                        "path": "spine",
+                        "name": "Spine animation"
+                    },
+                    {
+                        "path": "spinemodel",
+                        "name": "Spine model"
+                    },
+                    {
+                        "path": "model",
+                        "name": "Model (3D)"
+                    },
+                    {
+                        "path": "particlefx",
+                        "name": "Particle FX"
+                    },
+                    {
+                        "path": "physics",
+                        "name": "Physics"
+                    },
+                    {
+                        "path": "sound",
+                        "name": "Sound"
+                    },
+                    {
+                        "path": "font",
+                        "name": "Font"
+                    },
+                    {
+                        "path": "label",
+                        "name": "Label"
+                    },
+                    {
+                        "path": "material",
+                        "name": "Material"
+                    },
+                    {
+                        "path": "rendering",
+                        "name": "Rendering"
+                    },
+                    {
+                        "path": "shader",
+                        "name": "Shader"
+                    },
+                    {
+                        "path": "factory",
+                        "name": "Factory"
+                    },
+                    {
+                        "path": "collection-factory",
+                        "name": "Collection factory"
+                    },
+                    {
+                        "path": "collection-proxy",
+                        "name": "Collection proxy"
+                    },
+                    {
+                        "path": "live-update",
+                        "name": "Live update"
+                    },
+                    {
+                        "path": "camera",
+                        "name": "Camera"
+                    }
+                ]
+            },
+            {
+                "name": "GUI",
+                "items": [
+                    {
+                        "path": "gui",
+                        "name": "GUI overview"
+                    },
+                    {
+                        "path": "gui-text",
+                        "name": "Text nodes"
+                    },
+                    {
+                        "path": "gui-pie",
+                        "name": "Pie nodes"
+                    },
+                    {
+                        "path": "gui-spine",
+                        "name": "Spine nodes"
+                    },
+                    {
+                        "path": "gui-templates",
+                        "name": "Template nodes"
+                    },
+                    {
+                        "path": "clipping",
+                        "name": "Clipping"
+                    },
+                    {
+                        "path": "layouts",
+                        "name": "Layouts"
+                    }
+                ]
+            },
+            {
+                "name": "GAME LOGIC",
+                "items": [
+                    {
+                        "path": "properties",
+                        "name": "Properties"
+                    },
+                    {
+                        "path": "script-properties",
+                        "name": "Script properties"
+                    },
+                    {
+                        "path": "input",
+                        "name": "Input"
+                    },
+                    {
+                        "path": "debugging",
+                        "name": "Debugging"
+                    },
+                    {
+                        "path": "modules",
+                        "name": "Modules"
+                    }
+                ]
+            },
+            {
+                "name": "PROJECT SETUP",
+                "items": [
+                    {
+                        "path": "project-settings",
+                        "name": "Project settings"
+                    },
+                    {
+                        "path": "libraries",
+                        "name": "Libraries"
+                    },
+                    {
+                        "path": "texture-profiles",
+                        "name": "Texture profiles"
+                    },
+                    {
+                        "path": "bob",
+                        "name": "Bob the builder"
+                    }
+                ]
+            },
+            {
+                "name": "PLATFORMS",
+                "items": [
+                    {
+                        "path": "ios",
+                        "name": "iOS"
+                    },
+                    {
+                        "path": "android",
+                        "name": "Android"
+                    },
+                    {
+                        "path": "html5",
+                        "name": "HTML5"
+                    }
+                ]
+            },
+            {
+                "name": "EXTENSIONS",
+                "items": [
+                    {
+                        "path": "extensions",
+                        "name": "Native extensions"
+                    },
+                    {
+                        "path": "facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "iap",
+                        "name": "In-app purchases"
+                    },
+                    {
+                        "path": "push",
+                        "name": "Push notifications"
+                    }
+                ]
+            }
+        ]
+    },
+}

@@ -4,7 +4,6 @@ brief: In-app purchases (or in-app billing) allows you to charge your players or
 ---
 
 # In-app purchases
-================
 
 Defold provides a unified, simple to use interface to Apple's iOS Appstore "in-app purchases" and Google Play's or Amazon's "in-app billing" on Android devices. Facebook Canvas "game payments" is supported for Facebook Canvas. These services gives you the opportunity to sell products as:
 

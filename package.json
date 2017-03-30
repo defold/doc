@@ -9,6 +9,7 @@
     "gulp-cli": "^1.2.2",
     "gulp-cssnano": "^2.1.2",
     "gulp-plumber": "^1.1.0",
+    "gulp-preservetime": "^1.2.1",
     "gulp-print": "^2.0.1",
     "gulp-sass": "^3.1.0",
     "gulp-server-livereload": "^1.9.2",
@@ -26,5 +27,6 @@
     "mkdirp": "^0.5.1",
     "slugify": "^1.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+  }
 }

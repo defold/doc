@@ -2,6 +2,7 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
+var preservetime = require('gulp-preservetime');
 var gutil = require('gulp-util');
 var tap = require('gulp-tap');
 var hljs = require('highlight.js')
@@ -12,6 +13,8 @@ var del = require('del');
 var path = require('path');
 var mkdirp = require('mkdirp');
 var slugify = require('slugify');
+var through = require('through2');
+var File = require('vinyl');
 var hljs = require('highlight.js');
 var print = require('gulp-print');
 var frontmatter = require('front-matter');
@@ -111,7 +114,6 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
 };
 
-
 // Output preview html documents
 function markdownToPreviewHtml(file) {
     var data = frontmatter(file.contents.toString());
@@ -146,32 +148,43 @@ function markdownToJson(file) {
     return;
 }
 
+// Create a map path -> [lang1, lang2 ...]
+function langMap() {
+    var langmap = {};
+    return through.obj(function (file, enc, cb) {
+            var fullpath = path.relative(file.base, file.path);
+            var m = fullpath.match(/^(\w+)[/](\w+)[/].*$/);
+            var lang = m[1];
+            var name = path.relative(lang, fullpath);
+            if(!langmap[name]) {
+                langmap[name] = [];
+            }
+            langmap[name].push(lang);
+            cb(null, file);
+        }, function(cb) {
+            f = new File({
+                path: 'language-map.json',
+                contents: new Buffer(JSON.stringify(langmap))
+                });
+            this.push(f);
+            cb();
+        });
+}
+
 // Build docs
 gulp.task('build', ['assets'], function () {
     return gulp.src('docs/**/*.md')
         .pipe(tap(markdownToJson))
         .pipe(print())
-        .pipe(gulp.dest("build"));
+        .pipe(langMap())
+        .pipe(gulp.dest("build"))
+        .pipe(preservetime());;
 });
 
 gulp.task('assets', ['clean'], function() {
     return gulp.src(['docs/**/*.{png,jpg,svg,gif,json}'])
-        .pipe(gulp.dest("build"));
-});
-
-// Install GCS SDK
-//https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-148.0.1-darwin-x86_64.tar.gz
-
-// Publish
-gulp.task('publish', ['build'], function () {
-    exec('ls -al', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-    });
+        .pipe(gulp.dest("build"))
+        .pipe(preservetime());;
 });
 
 // Watch for changes in md files and compile new html
