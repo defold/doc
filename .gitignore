@@ -1,2 +1,4 @@
 .DS_Store
 build
+lib/google-cloud-sdk/
+node_modules/
