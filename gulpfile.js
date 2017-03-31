@@ -5,6 +5,7 @@ var plumber = require('gulp-plumber');
 var preservetime = require('gulp-preservetime');
 var gutil = require('gulp-util');
 var tap = require('gulp-tap');
+var jsonlint = require('gulp-jsonlint');
 var hljs = require('highlight.js')
 var server = require('gulp-server-livereload');
 var sass = require('gulp-sass');
@@ -148,22 +149,24 @@ function markdownToJson(file) {
     return;
 }
 
-// Create a map path -> [lang1, lang2 ...]
-function langMap() {
-    var langmap = {};
+// Create a map path -> [lang1, lang2 ...] and add it to the
+// languages.json file
+function langMap(jsonfile) {
+    var langmap = require('./docs/' + jsonfile);
+    langmap['filemap'] = {};
     return through.obj(function (file, enc, cb) {
             var fullpath = path.relative(file.base, file.path);
             var m = fullpath.match(/^(\w+)[/](\w+)[/].*$/);
             var lang = m[1];
             var name = path.relative(lang, fullpath);
-            if(!langmap[name]) {
-                langmap[name] = [];
+            if(!langmap['filemap'][name]) {
+                langmap['filemap'][name] = [];
             }
-            langmap[name].push(lang);
+            langmap['filemap'][name].push(lang);
             cb(null, file);
         }, function(cb) {
             f = new File({
-                path: 'language-map.json',
+                path: jsonfile,
                 contents: new Buffer(JSON.stringify(langmap))
                 });
             this.push(f);
@@ -173,16 +176,22 @@ function langMap() {
 
 // Build docs
 gulp.task('build', ['assets'], function () {
-    return gulp.src('docs/**/*.md')
+    gulp.src('docs/**/*.md')
         .pipe(tap(markdownToJson))
-        .pipe(print())
-        .pipe(langMap())
+        .pipe(langMap('languages.json'))
+        .pipe(gulp.dest("build"))
+        .pipe(preservetime());;
+
+    // jsonfiles directly in lang folders are verified
+    return gulp.src(['docs/*/*.json'])
+        .pipe(jsonlint())
+        .pipe(jsonlint.reporter())
         .pipe(gulp.dest("build"))
         .pipe(preservetime());;
 });
 
 gulp.task('assets', ['clean'], function() {
-    return gulp.src(['docs/**/*.{png,jpg,svg,gif,json}'])
+    return gulp.src(['docs/**/*.{png,jpg,svg,gif}'])
         .pipe(gulp.dest("build"))
         .pipe(preservetime());;
 });

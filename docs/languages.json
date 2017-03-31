@@ -1,11 +1,14 @@
-[
-    {
-        "language": "en",
-        "language-name": "English"
-    },
-    {
-        "language": "ko",
-        "language-name": "한국어 (Korean)",
-        "translation": "Translation by Kiman Kim"
-    }
-]
+{
+    "languages":
+    [
+        {
+            "language": "en",
+            "name": "English"
+        },
+        {
+            "language": "ko",
+            "name": "한국어 (Korean)",
+            "translation": "Translation by Kiman Kim"
+        }
+    ]
+}
