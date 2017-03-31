@@ -56,7 +56,7 @@ So let's begin. We hope you will have a lot of fun going through this tutorial a
 
 The first step is to download the following package. It is a zip package that contains all content that you need to create the tutorial game.
 
-<a class="btn btn-primary btn-xs-block btn-icon" href="//www.defold.com/static/games/getting-started-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
+<a class="btn btn-primary btn-xs-block btn-icon" href="games/getting-started-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
 Now it's time to create a new project and getting it ready. If you are familiar with the process, head over to [www.defold.com](//www.defold.com) and log in to the dashboard. If you are not familiar with the steps, here they are.
 
@@ -108,7 +108,7 @@ Properties
 : The properties set on the currently selected object or component.
 
 Console
-: When running the game, this view captures output (logging, errors, debug info etc) coming from the game engine, and also any custom +print()+ and +pprint()+ debug messages from your scripts. If your app or game won't start the console is the first thing to check. Behind the console are a set of tabs displaying error information as well as a curve editor that is used when building particle effects.
+: When running the game, this view captures output (logging, errors, debug info etc) coming from the game engine, and also any custom `print()` and `pprint()` debug messages from your scripts. If your app or game won't start the console is the first thing to check. Behind the console are a set of tabs displaying error information as well as a curve editor that is used when building particle effects.
 
 ## Running the game
 
@@ -143,7 +143,7 @@ If you run the game again, the application window will be totally black.
 
 Let's take the first baby steps and create an arena for our character, or rather a piece of scrolling ground. We do this in a few steps. If you haven't already, download the following zip package containing all the assets you need.
 
-<a class="btn btn-primary btn-xs-block btn-icon" href="//www.defold.com/static/games/getting-started-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
+<a class="btn btn-primary btn-xs-block btn-icon" href="games/getting-started-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
 1. Import the image assets into the project by dragging the "ground01.png" and "ground02.png" image files into a suitable location in the project, for instance a new folder called "images" inside the "main" folder.
 2. Create a new *Atlas* file to hold the ground textures (right-click a suitable folder, for instance the "main" folder, in the *Project Explorer* and select <kbd>New ▸ Atlas File</kbd>). Name the atlas file "level.atlas".
@@ -488,7 +488,7 @@ The "controller" game object does not exist in a file but is created in-place in
 Now, the purpose of this "controller" game object is to control everything that relates to the running level. Soon, this script will be in charge of spawning platforms and coins for the hero to interact with, but for now it will only set the speed of the level.
 :::
 
-In the level controller script's +init()+ function, it sends a message to the ground controller object's script component, addressed by its id:
+In the level controller script's `init()` function, it sends a message to the ground controller object's script component, addressed by its id:
 
 ```lua
 msg.post("ground/controller#script", "set_speed", { speed = self.speed })
@@ -637,7 +637,7 @@ Wow, this is starting to turn into something (almost) playable...
 
 The first thing we're gonna do is to bring life to the frog. Right now the poor thing is stuck in a run-loop and does not respond well to jumps or anything. The spine file that we added from the asset package actually contains a set of animations for just that.
 
-1. Open the "hero.script" file and add the following functions _before_ the existing +update()+ function:
+1. Open the "hero.script" file and add the following functions _before_ the existing `update()` function:
 
     ```lua
     -- hero.script

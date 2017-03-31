@@ -4,17 +4,14 @@ This repo holds the markdown source files and assets for Defold documentation. E
 
 ## Dependencies
 
-Node.js:
+Node.js and Gulp:
 
 ```sh
+$ npm install gulp-cli -g
 $ npm install
 ```
 
-Publishing documentation is done with the `gsutil` which is part of the Google Cloud SDK:
-
-```sh
-$ ./install_deps
-```
+(Don't bother about "npm WARN deprecated" things during install.)
 
 ## Edit and preview
 
@@ -24,10 +21,11 @@ $ gulp watch
 
 Builds all documentation for preview and opens a browser pointing to the build root. Edits to any .md manual or image is detected, rebuilt and reloaded in browser.
 
-## Publish
-
-Builds all docs and publishes them onto GCS.
+## Build and publish
 
 ```sh
-$ gulp publish
+$ gulp build
+$ ./publish_sh
 ```
+
+Publishing documentation to GCS is done with the `gsutil` which is part of the Google Cloud SDK. It's automatically installed if needed.
