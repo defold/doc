@@ -7,11 +7,12 @@ This repo holds the markdown source files and assets for Defold documentation. E
 Node.js and Gulp:
 
 ```sh
+$ brew install node
 $ npm install gulp-cli -g
 $ npm install
 ```
 
-(Don't bother about "npm WARN deprecated" things during install.)
+(Don't bother about "npm WARN deprecated" things during npm install.)
 
 ## Edit and preview
 
