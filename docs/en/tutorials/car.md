@@ -233,7 +233,7 @@ Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take 
 (You can try it right here in the browser if you want. Use the arrow keys to control the car)
 
 <div id="game-container" class="game-container">
-    <img id="game-preview" src="//storage.googleapis.com/defold-doc/en/tutorials/images/car/play_game.jpg"/>
+    <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/car/preview.jpg"/>
     <canvas id="game-canvas" tabindex="1" width="1280" height="720">
     </canvas>
     <button id="game-button">
@@ -242,7 +242,7 @@ Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take 
 </div>
 
 <!-- -->
-<script type='text/javascript' src="/en/tutorials/images/dmloader.js">
+<script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js">
 </script>
 <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async>
 </script>
@@ -254,12 +254,16 @@ Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take 
         var extra_params = {
             archive_location_filter: function( path ) {
                 return ("//storage.googleapis.com/defold-doc/assets/car" + path + "");
+            },
+            load_done: function() {},
+            game_start: function() {
+                var e = document.getElementById("game-preview");
+                e.parentElement.removeChild(e);
             }
         }
         Module.runApp("game-canvas", extra_params);
         document.getElementById("game-button").style.display = 'none';
         document.getElementById("game-button").onclick = null;
-        document.getElementById("game-preview").style.display = 'none';
     };
 </script>
 

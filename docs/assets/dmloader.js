@@ -224,33 +224,62 @@ var Combine = {
 var DefaultProgress = {
     progress_id: "_defold-progress",
     bar_id: "_defold-progress-bar",
+    status_id: "_defold-status",
 
     start : function (canvas) {
-        /* Insert default progress bar below canvas */
-        var div = '<div id="' + Progress.progress_id + '">' +
-                    '<div id="' + Progress.bar_id + '">' +
-                    '</div></div>';
+        /* Insert default progress bar and status */
+        var div = '<div id="' + DefaultProgress.progress_id + '">' +
+                    '<div id="' + DefaultProgress.bar_id + '">' +
+                    '</div></div>' +
+                    '<div id="' + DefaultProgress.status_id + '"></div>';
+
         canvas.insertAdjacentHTML('afterend', div);
-        Progress.bar = document.getElementById(Progress.bar_id);
-        Progress.progress = document.getElementById(Progress.progress_id);
-        Progress.progress.style.width = '100%';
-        Progress.bar.style.width = '50%';
-        Progress.bar.style.background_color = 'red';
+        var status = document.getElementById(DefaultProgress.status_id);
+        var bar = document.getElementById(DefaultProgress.bar_id);
+        var progress = document.getElementById(DefaultProgress.progress_id);
+
+        status.style.display = 'none';
+        status.style.position = 'absolute';
+        status.style.textAlign = 'center';
+        status.style.fontWeight = '600';
+        status.style.bottom = '0';
+        status.style.left = '50%';
+        status.style.transform = 'translateX(-50%)';
+        status.style.backgroundColor = 'hsla(0, 0%, 100%, .75)';
+        status.style.boxShadow = '-0.035px 2px 5px 0px rgba(46, 37, 22, 0.25)';
+        status.style.padding = '6px 12px';
+
+        progress.style.width = '100%';
+        progress.style.position = 'absolute';
+        progress.style.bottom = '0';
+        bar.style.width = '50%';
+        bar.style.height = '4px';
+        bar.style.backgroundColor = '#3F7BBB';
+        DefaultProgress.status = status;
+        DefaultProgress.bar = bar;
+        DefaultProgress.progress = progress;
      },
 
     progress: function (bytes_loaded, bytes_total, status) {
         var percentage = bytes_loaded / bytes_total * 100;
-/
- //       Progress.bar.style.width = percentage + "%";
-
-//        text = (typeof text === 'undefined') ? Math.round(percentage) + "%" : text;
-//        Progress.bar.innerText = text;
+        DefaultProgress.bar.style.width = percentage + "%";
+        if(status) {
+            DefaultProgress.status.innerText = status;
+            DefaultProgress.status.style.display = 'block';
+        } else {
+            DefaultProgress.status.innerText = '';
+            DefaultProgress.status.style.display = 'none';
+        }
     },
 
-    done: function (canvas) {
-        if (Progress.progress.parentElement !== null) {
-            Progress.progress.parentElement.removeChild(Progress.progress);
-        }
+    done: function () {
+        DefaultProgress.status.innerText = "Starting...";
+        DefaultProgress.status.style.display = 'block';
+    },
+
+    end: function () {
+        DefaultProgress.progress.parentElement.removeChild(DefaultProgress.progress);
+        DefaultProgress.status.parentElement.removeChild(DefaultProgress.status);
     }
 };
 
@@ -366,10 +395,6 @@ var Module = {
     *
     * 'extra_params' is an optional object that can have the following fields:
     *
-    *     'splash_image':
-    *         Path to an image that should be used as a background image for
-    *         the canvas element.
-    *
     *     'archive_location_filter':
     *         Filter function that will run for each archive path.
     *
@@ -385,12 +410,28 @@ var Module = {
     *     'custom_heap_size':
     *         Number of bytes specifying the memory heap size.
     *
+    *     'load_start':
+    *         Function to call when download starts.
+    *         function(canvas) { }
     *
+    *     'load_progress':
+    *         Function to call on download progress.
+    *         function(bytes_downloaded, bytes_total, status)
+    *
+    *     'load_done':
+    *         Function to call when download is done.
+    *         function()
+    *
+    *     'load_end':
+    *         Function to call when game is loaded and ready to start.
+    *         function()
+    *
+    *     'game_start':
+    *         Function to call right before game starts.
+    *         function()
     *
     **/
-    runApp: function(app_canvas_id, extra_params) {
-        app_canvas_id = (typeof app_canvas_id === 'undefined') ?  'canvas' : app_canvas_id;
-
+    setParams: function(extra_params) {
         var params = {
             splash_image: undefined,
             archive_location_filter: function(path) { return 'split' + path; },
@@ -400,7 +441,9 @@ var Module = {
             custom_heap_size: undefined,
             load_start: DefaultProgress.start,
             load_progress: DefaultProgress.progress,
-            load_done: DefaultProgress.done
+            load_done: DefaultProgress.done,
+            load_end: DefaultProgress.end,
+            game_start: function() {},
         };
 
         for (var k in extra_params) {
@@ -409,13 +452,22 @@ var Module = {
             }
         }
 
-        Module.canvas = document.getElementById(app_canvas_id);
-        if (typeof params["splash_image"] !== 'undefined') {
-            Module.canvas.style.background = 'no-repeat center url("' + params["splash_image"] + '")';
-        }
+        Module.archive_location_filter = params["archive_location_filter"];
         Module.arguments = params["engine_arguments"];
         Module.persistentStorage = params["persistent_storage"];
         Module["TOTAL_MEMORY"] = params["custom_heap_size"];
+        Module.load_start = params["load_start"];
+        Module.load_progress = params["load_progress"];
+        Module.load_done = params["load_done"];
+        Module.load_end = params["load_end"];
+        Module.game_start = params["game_start"];
+    },
+
+    runApp: function(app_canvas_id, extra_params) {
+        app_canvas_id = (typeof app_canvas_id === 'undefined') ?  'canvas' : app_canvas_id;
+        Module.canvas = document.getElementById(app_canvas_id);
+
+        Module.setParams(extra_params);
 
         if (Module.hasWebGLSupport()) {
             // Override game keys
@@ -428,17 +480,17 @@ var Module = {
             document.head.appendChild(fb);
 
             // Add progress
-            params.load_start(Module.canvas);
+            Module.load_start(Module.canvas);
 
             // Load and assemble archive
             Combine.addCombineCompletedListener(Module.onArchiveFileLoaded);
             Combine.addAllTargetsBuiltListener(Module.onArchiveLoaded);
             Combine.addProgressListener(Module.onArchiveLoadProgress);
-            Combine._archiveLocationFilter = params["archive_location_filter"];
+            Combine._archiveLocationFilter = Module.archive_location_filter;
             Combine.process(Combine._archiveLocationFilter('/archive_files.json'));
         } else {
-            params.load_start(Module.canvas);
-            params.load_progress(0, 0, "Unable to start game, WebGL not supported");
+            Module.load_start(Module.canvas);
+            Module.load_progress(0, 0, "Unable to start game, WebGL not supported");
             Module.setStatus = function(text) {
                 if (text) Module.printErr('[missing WebGL] ' + text);
             };
@@ -448,36 +500,43 @@ var Module = {
             }
         }
     },
-
     /* Simulate app loading etc for frontend testing */
     testApp: function(app_canvas_id, extra_params) {
         app_canvas_id = (typeof app_canvas_id === 'undefined') ?  'canvas' : app_canvas_id;
+        Module.canvas = document.getElementById(app_canvas_id);
 
-        var params = {
-            splash_image: undefined,
-            archive_location_filter: function(path) { return 'split' + path; },
-            unsupported_webgl_callback: undefined,
-            engine_arguments: [],
-            persistent_storage: true,
-            custom_heap_size: undefined,
-            load_start: DefaultProgress.start,
-            load_progress: DefaultProgress.progress,
-            load_done: DefaultProgress.done
-        };
-        for (var k in extra_params) {
-            if (extra_params.hasOwnProperty(k)) {
-                params[k] = extra_params[k];
+        Module.setParams(extra_params);
+
+        // Test progress
+        Module._test_inc = 1;
+        Module._test_bytes = 0;
+        Module._test_total_bytes = 1000;
+        Module.load_start(Module.canvas);
+        Module._testintervall = setInterval(Module.testUpdate, 10);
+    },
+
+    testUpdate: function() {
+        Module._test_bytes += Module._test_inc;
+        var msg = undefined;
+        var rat = Module._test_bytes / Module._test_total_bytes;
+        if (rat > 0.3 && rat < 0.9) {
+            msg = "Looking good so far";
+            if (rat > 0.5) {
+                msg = "If something bad happens, this is how it's presented.";
             }
         }
-        Module.canvas = document.getElementById(app_canvas_id);
-        // Add progress
-        params.load_start(Module.canvas);
-
-
+        if (Module._test_bytes < Module._test_total_bytes) {
+            Module.load_progress(Module._test_bytes, Module._test_total_bytes, msg);
+        } else {
+            Module.load_done();
+            clearInterval(Module._testintervall);
+            setTimeout(Module.load_end, 2000);
+            setTimeout(Module.game_start, 3000);
+        }
     },
 
     onArchiveLoadProgress: function(downloaded, total) {
-        params.load_progress(downloaded, total);
+        Module.load_progress(downloaded, total);
     },
 
     onArchiveFileLoaded: function(name, data) {
@@ -488,8 +547,7 @@ var Module = {
         Combine.cleanUp();
         Module._archiveLoaded = true;
 
-        Progress.updateProgress(100, "Starting...");
-        params.load_progress(downloaded, total);
+        Module.load_done();
 
         if (Module._waitingForArchive) {
             Module._preloadAndCallMain();
@@ -583,12 +641,6 @@ var Module = {
         }
     }],
 
-    postRun: [function() {
-        if(Module._archiveLoaded) {
-            Progress.removeProgress();
-        }
-    }],
-
     _preloadAndCallMain: function() {
         // If the archive isn't loaded,
         // we will have to wait with calling main.
@@ -600,7 +652,8 @@ var Module = {
             TOTAL_MEMORY = Module["TOTAL_MEMORY"] || TOTAL_MEMORY;
 
             Module.preloadAll();
-            Progress.removeProgress();
+            Module.load_end();
+            Module.game_start();
             Module.callMain(Module.arguments);
         }
     },

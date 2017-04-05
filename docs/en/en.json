@@ -2,6 +2,77 @@
     "navigation": {
         "tutorials":
         [
+            {
+                "name": "Tutorials",
+                "items": [
+                    {
+                        "path": "getting-started",
+                        "name": "Getting started"
+                    },
+                    {
+                        "path": "side-scroller",
+                        "name": "Side scroller"
+                    },
+                    {
+                        "path": "platformer",
+                        "name": "Platformer"
+                    },
+                    {
+                        "path": "magic-link",
+                        "name": "Magic link"
+                    },
+                    {
+                        "path": "car",
+                        "name": "Building a car"
+                    }
+                ]
+            },
+            {
+                "name": "Code samples",
+                "items": [
+                    {
+                        "path": "https://github.com/defold/defold-examples",
+                        "name": "Defold examples repo"
+                    },
+                    {
+                        "path": "http://britzl.github.io/publicexamples/",
+                        "name": "Britzl's grab bag"
+                    },
+                    {
+                        "path": "https://jcash.github.io/",
+                        "name": "JCash demos"
+                    },
+                    {
+                        "path": "main-menu",
+                        "name": "Main menu"
+                    },
+                    {
+                        "path": "parallax",
+                        "name": "Parallax"
+                    },
+                    {
+                        "path": "hud",
+                        "name": "Hud"
+                    },
+                    {
+                        "path": "level-complete",
+                        "name": "Level complete"
+                    }
+                ]
+            },
+            {
+                "name": "Community resources",
+                "items": [
+                    {
+                        "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
+                        "name": "GFS video tutorials"
+                    },
+                    {
+                        "path": "https://forum.defold.com/t/big-list-of-lua-resources/1586",
+                        "name": "Lua resources"
+                    }
+                ]
+            }
         ],
         "manuals":
         [

@@ -191,9 +191,13 @@ gulp.task('build', ['assets'], function () {
 });
 
 gulp.task('assets', ['clean'], function() {
-    return gulp.src(['docs/**/*.{png,jpg,svg,gif}'])
+    gulp.src(['docs/assets/**/*.*'])
+        .pipe(gulp.dest("build/assets"))
+        .pipe(preservetime());
+
+    return gulp.src(['docs/**/*.{png,jpg,svg,gif,js,zip,js}'])
         .pipe(gulp.dest("build"))
-        .pipe(preservetime());;
+        .pipe(preservetime());
 });
 
 // Watch for changes in md files and compile new html
