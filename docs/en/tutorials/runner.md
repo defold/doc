@@ -3,7 +3,7 @@ title: Getting started in Defold
 brief: In this tutorial we start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.
 ---
 
-# Getting started
+# Runner tutorial
 
 In this tutorial we start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring. Before we begin, take a moment and try the game and get a feel for what we are about to create:
 
@@ -42,6 +42,7 @@ In this tutorial we start with an empty project and build a complete runner game
         document.getElementById("game-button").onclick = null;
     };
 </script>
+
 
 There is a lot to take in when learning a new game engine, so we have created this tutorial to get you started. It is a fairly complete tutorial that walks through how the engine and the editor works. We assume that you have some famililiarity with programming.
 
