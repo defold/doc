@@ -239,33 +239,29 @@ Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take 
     <button id="game-button">
         START GAME <span class="icon"></span>
     </button>
-</div>
-
-<!-- -->
-<script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js">
-</script>
-<script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async>
-</script>
-<!-- -->
-
-<script type='text/javascript'>
-    /* Load app on click in container. */
-    document.getElementById("game-button").onclick = function (e) {
-        var extra_params = {
-            archive_location_filter: function( path ) {
-                return ("//storage.googleapis.com/defold-doc/assets/car" + path + "");
-            },
-            load_done: function() {},
-            game_start: function() {
-                var e = document.getElementById("game-preview");
-                e.parentElement.removeChild(e);
+    <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js">
+    </script>
+    <script src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async>
+    </script>
+    <script>
+        /* Load app on click in container. */
+        document.getElementById("game-button").onclick = function (e) {
+            var extra_params = {
+                archive_location_filter: function( path ) {
+                    return ("//storage.googleapis.com/defold-doc/assets/car" + path + "");
+                },
+                load_done: function() {},
+                game_start: function() {
+                    var e = document.getElementById("game-preview");
+                    e.parentElement.removeChild(e);
+                }
             }
-        }
-        Module.runApp("game-canvas", extra_params);
-        document.getElementById("game-button").style.display = 'none';
-        document.getElementById("game-button").onclick = null;
-    };
-</script>
+            Module.runApp("game-canvas", extra_params);
+            document.getElementById("game-button").style.display = 'none';
+            document.getElementById("game-button").onclick = null;
+        };
+    </script>
+</div>
 
 If you want you can try to add more instances of *car.collection* to *main.collection*. Each instance is a clone of what's inside *car.collection* with the exact same behavior. Each one listens to input and reacts to the same messages.
 

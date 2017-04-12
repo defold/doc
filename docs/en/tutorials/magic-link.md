@@ -16,29 +16,27 @@ This tutorial is written as a step-by-step guide where we build the game on a co
     <button id="game-button">
         START GAME <span class="icon"></span>
     </button>
-</div>
-<!--
-<script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-<script src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async></script>
-<script>
-    /* Load app on click in container. */
-    document.getElementById("game-button").onclick = function (e) {
-        var extra_params = {
-            archive_location_filter: function( path ) {
-                return ("//storage.googleapis.com/defold-doc/assets/magic-link" + path + "");
-            },
-            load_done: function() {},
-            game_start: function() {
-                var e = document.getElementById("game-preview");
-                e.parentElement.removeChild(e);
+    <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
+    <script src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async></script>
+    <script>
+        /* Load app on click in container. */
+        document.getElementById("game-button").onclick = function (e) {
+            var extra_params = {
+                archive_location_filter: function( path ) {
+                    return ("//storage.googleapis.com/defold-doc/assets/magic-link" + path + "");
+                },
+                load_done: function() {},
+                game_start: function() {
+                    var e = document.getElementById("game-preview");
+                    e.parentElement.removeChild(e);
+                }
             }
-        }
-        Module.runApp("game-canvas", extra_params);
-        document.getElementById("game-button").style.display = 'none';
-        document.getElementById("game-button").onclick = null;
-    };
-</script>
--->
+            Module.runApp("game-canvas", extra_params);
+            document.getElementById("game-button").style.display = 'none';
+            document.getElementById("game-button").onclick = null;
+        };
+    </script>
+</div>
 
 ## Getting started
 
@@ -1369,6 +1367,7 @@ This little game has some interesting properties and you are encouraged to exper
 
 * Clarify interaction. A new player may have a hard time understanding how the game works and what she can interact with. Spend some time making the game more clear, without inserting tutorial elements.
 * Add sounds. The game is currently totally silent and would benefit from a nice soundtrack and interaction sounds.
+* Auto detect game over.
 * High score. Add a high score functionality that is persistent.
 * Re-implement the game using only the GUI APIs.
 * Currently, the game continues by adding one magic block for each level increase. That is not sustainable forever. Find a satisfying solution to this problem.

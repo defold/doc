@@ -9,40 +9,33 @@ In this tutorial we start with an empty project and build a complete runner game
 
 
 <div id="game-container" class="game-container">
-    <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/runner/preview.jpg"/>
-    <canvas id="game-canvas" tabindex="1" width="1280" height="720">
-    </canvas>
-    <button id="game-button">
-        START GAME <span class="icon"></span>
-    </button>
+  <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/runner/preview.jpg"/>
+  <canvas id="game-canvas" tabindex="1" width="1280" height="720">
+  </canvas>
+  <button id="game-button">
+    START GAME <span class="icon"></span>
+  </button>
+  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
+  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async></script>
+  <script type='text/javascript'>
+      /* Load app on click in container. */
+      document.getElementById("game-button").onclick = function (e) {
+          var extra_params = {
+              archive_location_filter: function( path ) {
+                  return ("//storage.googleapis.com/defold-doc/assets/runner" + path + "");
+              },
+              load_done: function() {},
+              game_start: function() {
+                  var e = document.getElementById("game-preview");
+                  e.parentElement.removeChild(e);
+              }
+          }
+          Module.runApp("game-canvas", extra_params);
+          document.getElementById("game-button").style.display = 'none';
+          document.getElementById("game-button").onclick = null;
+      };
+  </script>
 </div>
-
-<!-- -->
-<script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js">
-</script>
-<script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async>
-</script>
-<!-- -->
-
-<script type='text/javascript'>
-    /* Load app on click in container. */
-    document.getElementById("game-button").onclick = function (e) {
-        var extra_params = {
-            archive_location_filter: function( path ) {
-                return ("//storage.googleapis.com/defold-doc/assets/runner" + path + "");
-            },
-            load_done: function() {},
-            game_start: function() {
-                var e = document.getElementById("game-preview");
-                e.parentElement.removeChild(e);
-            }
-        }
-        Module.runApp("game-canvas", extra_params);
-        document.getElementById("game-button").style.display = 'none';
-        document.getElementById("game-button").onclick = null;
-    };
-</script>
-
 
 There is a lot to take in when learning a new game engine, so we have created this tutorial to get you started. It is a fairly complete tutorial that walks through how the engine and the editor works. We assume that you have some famililiarity with programming.
 
@@ -142,8 +135,8 @@ That's it!
 ::: sidenote
 The Defold editor works on files. By double-clicking a file in the *Project Explorer* you open it in a suitable editor. You can then work with the contents of the file.
 
-When you are done editing a file you have to save it. Select <kbd>File ▸ Save</kbd> in the main menu. The editor gives a hint by adding an asterisk '*' to the filename in the tab for any file that contain unsaved changes.
-
+When you are done editing a file you have to save it. Select <kbd>File ▸ Save</kbd> in the main menu. The editor gives a hint by adding an asterisk '\*' to the filename in the tab for any file that contain unsaved changes.
+  
 ![File with unsaved changes](images/runner/1/file_changed.png)
 :::
 
