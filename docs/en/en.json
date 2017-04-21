@@ -6,8 +6,8 @@
                 "name": "Tutorials",
                 "items": [
                     {
-                        "path": "getting-started",
-                        "name": "Getting started"
+                        "path": "runner",
+                        "name": "Runner"
                     },
                     {
                         "path": "side-scroller",
