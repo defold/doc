@@ -378,7 +378,7 @@ end
 
 이와 같이 최상위 컬렉션 간에 메세지를 보내면, URL의 socket 필드를 사용하여 타겟 오브젝트가 상주하는 컬렉션을 지정해야 합니다.
 
-> 자세한 설명은 [Collection proxy](Collection%20proxy) 문서에서 찾을 수 있습니다.
+> 자세한 설명은 [Collection proxy](/manuals/collection-proxy) 문서에서 찾을 수 있습니다.
 
 #### Message chains
 게시된 메세지들이 디스패치되고 수신자의 on_message()가 호출되면, 응답 코드를 담아 또 새 메세지를 게시하여 주거니 받거니 하는 것은 일반적인 개발 방식입니다. 당신은 엔진이 디스패치 해야하는 긴 메세지 체인을 구축할 수 있습니다. 이것은 언제 발생할까요?

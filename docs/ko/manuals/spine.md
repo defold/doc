@@ -17,7 +17,7 @@ Defold는 역기구학(IK = inverse kinematic)을 포함한 스파인 애니메�
 #### Spine scene
 Defold 리소스는 스파인 JSON 데이터 파일과 뼈대 슬롯(bone slots)을 그래픽으로 채우는데 사용되는 이미지 아틀라스를 함께 연결합니다.
 #### Spine model
-스파인 모델 컴포넌트는 그래픽 및 애니메이션을 화면에 표시하기 위해 게임 오브젝트에 넣어야 합니다. 이 컴포넌트는 애니메이션을 재생하고, 사용할 스킨과 모델을 렌더링 하기 위해 사용되는 메터리얼을 지정하는 스켈레톤 게임 오브젝트 계층구조(skeleton game object hierarchy)를 포함하고 있습니다. 자세한 내용은 [Spine Model](/manuals/spine-model) 문서를 참고 바랍니다.
+스파인 모델 컴포넌트는 그래픽 및 애니메이션을 화면에 표시하기 위해 게임 오브젝트에 넣어야 합니다. 이 컴포넌트는 애니메이션을 재생하고, 사용할 스킨과 모델을 렌더링 하기 위해 사용되는 메터리얼을 지정하는 스켈레톤 게임 오브젝트 계층구조(skeleton game object hierarchy)를 포함하고 있습니다. 자세한 내용은 [Spine Model](/manuals/spinemodel) 문서를 참고 바랍니다.
 
 #### Spine Node
 GUI씬에서 스파인 애니메이션을 사용하는 경우, 스파인 모델 컴포넌트 대신 스파인 GUI 노드를 사용하세요. 자세한 것은 [GUI Spine](/manuals/gui-spine) 문서를 참고 바랍니다.

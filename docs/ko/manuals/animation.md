@@ -16,7 +16,7 @@ Defold는 오브젝트 컴포넌트의 그래픽 소스로 사용할 수 있는 
 #### 3D skinned animation
 3D 모델의 스켈레톤 애니메이션은 스파인 애니메이션과 비슷하지만 2D가 아니라 3D로 동작합니다. 3D 모델은 별도의 파트로 잘리지 않고 컷아웃 애니메이션 처럼 뼈대로 묶입니다. 대신 이 뼈대들은 모델의 버텍스(vertex)에 변형(deformation)을 적용할 수 있으며, 뼈대가 버텍스에 영향을 미치는 정도를 제어할 수 있습니다.
 
-3D 데이터를 애니메이션 모델로 임포트 하는 자세한 방법은 [3D graphics](/manuals/3D-graphics) 문서를 참고 바랍니다.
+3D 데이터를 애니메이션 모델로 임포트 하는 자세한 방법은 [3D graphics](/manuals/3dgraphics) 문서를 참고 바랍니다.
 
 ![](images/animation/blender_animation.png) ![](images/animation/wiggle.gif)
 

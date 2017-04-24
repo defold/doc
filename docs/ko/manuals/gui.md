@@ -18,7 +18,7 @@ GUI 컴포넌트는 여러 개의 노드로 구성됩니다. 노드는 아래 �
 * Box node, 사각형에 색상이나 텍스쳐로 채워짐
 * Text node, 자세한 것은 [Text nodes](/manuals/gui-text) 문서 참고
 * Pie node, 자세한 것은 [Pie nodes](/manuals/gui-pie) 문서 참고
-* Template node, 자세한 것은 [Template nodes](/manuals/gui-template) 문서 참고
+* Template node, 자세한 것은 [Template nodes](/manuals/gui-templates) 문서 참고
 * Spine node, 자세한 것은 [Spine nodes](/manuals/gui-spine) 문서 참고
 
 노드는 단순하고 어떠한 로직도 포함하고 있지 않습니다. 에디터상에서나 런타임시 스크립트를 통하여 이동(translate or move)하거나 부-모 관계를 정렬(order)시킬 수는 있습니다. 스크립트 코드로 GUI 컴포넌트의 모든 노드들에게 직접적으로 액세스 할 수 있습니다. 노드는 스크립트로 애니메이션 시킬 수 있고(아래 [Property animation](/manuals/animation/#_property_animation) 참고) 애니메이션은 노드에서 실행될 수 있습니다(Box node의 플립북(flipbook) 애니메이션 그리고 Spine node의 본(bone) 애니메이션).
