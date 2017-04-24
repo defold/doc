@@ -5,7 +5,7 @@
 
 Defold의 Lua 통합(integration)은 Java, C++, C# 같이 상속을 사용한 클래스 구조로 어플리케이션을 개발하듯이 객체지향을 제공하지는 않습니다. 대신 Defold는 아래와 같이 간단하고 강력한 객체 지향 설계로 Lua의 기능을 확장합니다:
 
-* 오브젝트간 통신을 위한 [메세지 전달(Message passing)](Message%20passing)
+* 오브젝트간 통신을 위한 [메세지 전달(Message passing)](/manuals/message-passing)
 * 모든 오브젝트는 자체적인 내부 상태와 제어 가능한 자체 메모리를 가짐. "self" 참조를 통해서 가능함
 * 기존 오브젝트에 메세지를 보낼 수 있으며, 메세지에 어떻게 응답할지는 코드에 따라 다름. on_message() 함수를 통해 메시지를 받을 수 있으며 특정 메세지를 처리하는 코드가 없으면 아무 일도 일어나지 않음
 
@@ -48,7 +48,7 @@ Defold의 모든 오브젝트는 URL(Uniform Resource Locator)을 통해 고유�
 대부분의 경우에 이러한 URL 컴포넌트는 게임 오브젝트나 컴포넌트를 지명하는데 사용되긴 하지만 이 형식은 일반적입니다.
 
 #### socket
-발신자 혹은 수신자가 존재하는 "world"를 식별합니다. 이는 [컬렉션 프록시(Collection proxy)](Collection%20proxy)를 사용하는데 매우 중요하며 동적으로 불러운 컬렉션을 식별하는데 사용됩니다.
+발신자 혹은 수신자가 존재하는 "world"를 식별합니다. 이는 [컬렉션 프록시(Collection proxy)](/manuals/collection-proxy)를 사용하는데 매우 중요하며 동적으로 불러운 컬렉션을 식별하는데 사용됩니다.
 
 #### path
 URL의 이 부분은 일반적으로 타겟 게임 오브젝트의 전체 id를 포함합니다.

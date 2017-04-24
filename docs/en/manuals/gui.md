@@ -16,7 +16,7 @@ A graphical user interface in Defold is a game object component that you build a
 
 The GUI is not part of the collection’s coordinate system but is rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, the GUI component have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
 
-::: sidenote
+::: important
 The rendering behavior can be changed in the render script but it is usually desirable to use this arrangement since the user interface is a separate visual "layer" on top of the game view and you usually want HUD items and menus on certain spots on screen.
 :::
 

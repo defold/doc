@@ -13,7 +13,7 @@
 * **ParticleFX** - 파티클 효과를 나타내는 컴포넌트
 * **Emitter** - 모양에 따라 일정하게 분포된 파티클 입자를 방출(emit)하는 위치가 지정된 모형(positioned shape)
 * **Modifier** - 스폰된 파티클들의 속도(velocity), 가속도(acceleration), 저항(drag), 방사형(radial), 회오리형(vortex)에 영향을 줌
-* **Tile source** - 텍스쳐와 플립북 애니메이션을 추가해서 사용됨 ([2D graphics](2D%20graphics) 문서 참고)
+* **Tile source** - 텍스쳐와 플립북 애니메이션을 추가해서 사용됨 ([2D graphics](/manuals/2dgraphics) 문서 참고)
 
 파티클FX 파일을 생성하고 열어보면 Outline창에서 마우스 오른쪽 버튼을 눌러 emiter와 modifier를 추가할 수 있습니다.
 
@@ -22,7 +22,7 @@
 ![](images/particlefx/emitter_properties.png)
 
 ## Previewing
-파티클 효과를 미리보기 하려면, 씬 에디터를 사용하면 됩니다. [Scene Editing](Scene%20editing) 에서 자세한 설명을 볼 수 있습니다. 스페이스 키를 사용하면 파티클 효과의 미리보기를 시작하고 중지할 수 있습니다. 파티클 효과가 플레이중인지 아닌지와 상관 없이, 실시간으로 조정(tweak)하면서 파티클을 업데이트 할 수 있습니다.
+파티클 효과를 미리보기 하려면, 씬 에디터를 사용하면 됩니다. [Scene Editing](/manuals/scene-editing) 에서 자세한 설명을 볼 수 있습니다. 스페이스 키를 사용하면 파티클 효과의 미리보기를 시작하고 중지할 수 있습니다. 파티클 효과가 플레이중인지 아닌지와 상관 없이, 실시간으로 조정(tweak)하면서 파티클을 업데이트 할 수 있습니다.
 
 ## Value tweaking
 숫자로 된 모든 속성들은 alt키를 누른채 마우스 휠(혹은 트랙패드에서 스크롤 제스쳐)을 사용하여 조정할 수 있습니다. alt키를 ctrl키와 같이 눌러 사용하면 10배가 증가된 값으로 조정할 수 있습니다.

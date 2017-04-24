@@ -26,7 +26,7 @@ factory.create() 함수는 5개의 파라메터를 가집니다.
 #### [rotation]
 새 게임 오브젝트의 월드 로테이션(world rotation). quat(쿼터니온) 형식임
 #### [properties]
-게임 오브젝트와 초기화 되는 스크립트 속성값의 Lua 테이블. 자세한 내용은 [Script properties](Script%20properties) 매뉴얼 참고
+게임 오브젝트와 초기화 되는 스크립트 속성값의 Lua 테이블. 자세한 내용은 [Script properties](/manuals/script-properties) 매뉴얼 참고
 #### [scale]
 스폰된 게임오브젝트의 스케일(scale). 0보다 큰 숫자로 입력하면 모든 축(axis)에 동일한 사이즈로 변경되며, vector3로 입력하면 축마다 다른 크기로 스케일링 할 수 있음
 

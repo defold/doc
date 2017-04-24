@@ -92,7 +92,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-코드를 실행하면 두 나비가 동일한 원점을 기준으로 겹쳐 날아다니기 시작합니다. 여기서 일어나는 일을 이해하려면, Defold가 [Lua contexts](Lua%20in%20Defold)를 관리하는 방법을 다시 살펴보시기 바랍니다.
+코드를 실행하면 두 나비가 동일한 원점을 기준으로 겹쳐 날아다니기 시작합니다. 여기서 일어나는 일을 이해하려면, Defold가 [Lua contexts](/manuals/lua)를 관리하는 방법을 다시 살펴보시기 바랍니다.
 
 여기엔 파란색과 노란색 나비에게는 두 게임 오브젝트간 글로벌 데이터를 공유하면서 생긴 부작용이 있었습니다. origin 변수의 정의(definition)부분을 다시 살펴봅시다.
 

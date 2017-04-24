@@ -74,7 +74,7 @@ Android 장치에서 게임을 실행하려면, dmengine 앱과 에디터가 동
 3. 에디터의 **Project > Targets** 에서 당신의 기기를 선택합니다.
 4. **Project > Build And Launch**를 선택해서 게임을 실행합니다. 게임 컨텐츠가 네트워크를 통해 장치로 스트림 되므로 게임이 시작되는데 시간이 걸릴 수 있습니다.
 
-게임이 실행되는 동안, 평소처럼 [핫 리로드](Debugging#hot-reloading)을 사용할 수 있습니다.
+게임이 실행되는 동안, 평소처럼 [핫 리로드](/manuals/debugging#hot-reloading)을 사용할 수 있습니다.
 
 ## Android 어플리케이션 번들 만들기
 에디터는 게임을 위한 standalone 어플리케이션 번들을 쉽게 만들 수 있게 해 줍니다. **Project > Bundle…​ > Android Application…​** 메뉴를 선택해 보세요.

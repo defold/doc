@@ -9,14 +9,14 @@ Defold는 오브젝트 컴포넌트의 그래픽 소스로 사용할 수 있는 
 #### Spine animation
 스파인 애니메이션은 2D 스켈레톤 애니메이션을 제공합니다 (http://en.wikipedia.org/wiki/Skeletal_animation 참고). 이는 컷아웃 애니메이션과는 근본적으로 다른 기술입니다.  컷아웃 애니메이션에서는 애니메이션 오브젝트의 개별 조각들(예를 들어 몸체, 눈, 입 등)이 각 프레임간 개별적으로 움직입니다. 스파인 애니메이션은 서로 연결된 뼈대 구조로 구성된 보이지 않는 가상의 골격을 만듭니다. 개별 이미지를 각 뼈대에 붙이고 이 골격(skeleton) 혹은 릭(rig)을 애니메이션 처리 할 수 있습니다. Defold는 [스파인 JSON 포멧](http://ko.esotericsoftware.com/spine-json-format)으로 애니메이션을 생성하거나 익스포트 하는 것을 지원합니다. 스켈레톤 애니메이션은 엔진이 매 프레임마다 각 뼈대의 위치를 보간(interpolate)해 주기 때문에 매우 부드럽게 움직입니다.
 
-스파인 데이터를 어떻게 임포트 하는지 자세히 보려면 [Spine](Spine) 문서를 참고 바랍니다.
+스파인 데이터를 어떻게 임포트 하는지 자세히 보려면 [Spine](/manuals/spine) 문서를 참고 바랍니다.
 
 ![](images/animation/spine_animation.png) ![](images/animation/frog_runloop.gif)
 
 #### 3D skinned animation
 3D 모델의 스켈레톤 애니메이션은 스파인 애니메이션과 비슷하지만 2D가 아니라 3D로 동작합니다. 3D 모델은 별도의 파트로 잘리지 않고 컷아웃 애니메이션 처럼 뼈대로 묶입니다. 대신 이 뼈대들은 모델의 버텍스(vertex)에 변형(deformation)을 적용할 수 있으며, 뼈대가 버텍스에 영향을 미치는 정도를 제어할 수 있습니다.
 
-3D 데이터를 애니메이션 모델로 임포트 하는 자세한 방법은 [3D graphics](3D%20graphics) 문서를 참고 바랍니다.
+3D 데이터를 애니메이션 모델로 임포트 하는 자세한 방법은 [3D graphics](/manuals/3D-graphics) 문서를 참고 바랍니다.
 
 ![](images/animation/blender_animation.png) ![](images/animation/wiggle.gif)
 
@@ -248,7 +248,7 @@ go.cancel_animation(".", "euler.z")
 
 만약 "position"과 같이 복합적인(composite) 속성의 애니메이션을 취소하면, 하위 요소들("position.x", "position.y", "position.z")의 애니메이션도 함께 취소됩니다.
 
-[Properties](Properties) 매뉴얼에 게임 오브젝트, 컴포넌트, GUI노드의 모든 속성들에 대한 설명이 있습니다.
+[Properties](/manuals/properties) 매뉴얼에 게임 오브젝트, 컴포넌트, GUI노드의 모든 속성들에 대한 설명이 있습니다.
 
 ### GUI node property animation
 대부분의 모든 GUI 노드 속성들은 애니메이션 가능합니다. 예를 들어, "color" 속성을 설정해서 투명값을 조절하여 노드를 보이지 않게 만든 후에, 색상을 하얗게(tint 컬러가 아님) 애니메이션 처리해서 페이드인 효과를 줄 수 있습니다. 

@@ -6,7 +6,7 @@
 ## Lua versions
 우리는 Defold가 모든 플랫폼에서 같은 동작을 하는데 촛점을 맞추고 있습니다. 하지만 현재 Lua 버전간에 약간의 불일치가 있습니다.  HTML5와 iOS 64 비트 플랫폼의 경우 우리는 Lua 5.1을 사용하지만 다른 플랫폼에서는 LuaJIT을 사용합니다. LuaJIT은 5.1 기반이긴 하지만 몇가지 부가적인 기능이 더 추가되었습니다.
 
-**게임이 모든 플랫폼에서 동일하게 작동하도록 하려면 Lua 5.1에 맞춰 개발하는것이 좋습니다. **
+**게임이 모든 플랫폼에서 동일하게 작동하도록 하려면 Lua 5.1에 맞춰 개발하는것이 좋습니다.**
 
 ## Lua books and resources
 - Programming in Lua (first edition) Later editions are available in print.

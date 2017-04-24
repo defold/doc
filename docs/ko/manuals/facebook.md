@@ -34,7 +34,7 @@ Facebook 연동 개발을 하려면 Facebook developer에 가입해야 합니다
 
 ![App dashboard settings](images/facebook/add_platform.png)
 
-**Settings** 탭을 클릭해서 숫자로 된 **App ID**를 확인합니다. 이 식별자는 Defold 게임의 [project settings](project%20settings)에 필요한 값입니다. 불행히도 이 설정은 에디터에서는 숨겨져 있지만(곧 변경될 예정임), "game.project"에 마우스 오른쪽 클릭해서 **Open With ▸ Text Editor** 메뉴를 선택해서 식별자를 쉽게 추가할 수 있습니다.
+**Settings** 탭을 클릭해서 숫자로 된 **App ID**를 확인합니다. 이 식별자는 Defold 게임의 [project settings](/manuals/project-settings)에 필요한 값입니다. 불행히도 이 설정은 에디터에서는 숨겨져 있지만(곧 변경될 예정임), "game.project"에 마우스 오른쪽 클릭해서 **Open With ▸ Text Editor** 메뉴를 선택해서 식별자를 쉽게 추가할 수 있습니다.
 
 ![Open project settings with](images/facebook/project_open_with.png)
 
@@ -58,7 +58,7 @@ Android의 경우 **Google Play Package Name**에 "game.project"에서 설정한
 $ cat certificate.pem | openssl x509 -outform der | openssl sha1 -binary | openssl base64
 ```
 
-(서명 파일을 생성하는 자세한 방법은 Android 매뉴얼의 [Creating certificates and keys](android#Creating-certificates-and-keys)에서 참고 바랍니다.)
+(서명 파일을 생성하는 자세한 방법은 Android 매뉴얼의 [Creating certificates and keys](/manuals/android#Creating-certificates-and-keys)에서 참고 바랍니다.)
 
 ![Android settings](images/facebook/settings_android.png)
 

@@ -19,7 +19,7 @@ Defold는 다양한 장치로부터 입력을 받을 수 있으며 사용자의 
 입력 포커스를 획득한 컴포넌트에 따라서 이 입력을 그냥 넘겨버릴지 on_input() 함수로 도달했는지 안했는지가 결정되게 됩니다. 아래에서 이들이 어떻게 작동하는지 자세히 살펴 보도록 하겠습니다.
 
 ## Input bindings
-입력 바인딩은 Lua 스크립트로 입력값을 보내기 이전에 원시 입력(raw input)을 의미 있는 **actions**으로 번역하기 위한 테이블입니다. 입력 바인딩은 기본적으로 "game.input_binding"라는 이름으로 프로젝트 루트의 "input" 폴더에 위치해 있습니다. 하지만 엔진이 바인딩을 찾을 수 있도록 프로젝트 셋팅([Project settings](Project%20settings) 참고)을 업데이트해서 경로와 이름을 수정할 수도 있습니다.
+입력 바인딩은 Lua 스크립트로 입력값을 보내기 이전에 원시 입력(raw input)을 의미 있는 **actions**으로 번역하기 위한 테이블입니다. 입력 바인딩은 기본적으로 "game.input_binding"라는 이름으로 프로젝트 루트의 "input" 폴더에 위치해 있습니다. 하지만 엔진이 바인딩을 찾을 수 있도록 프로젝트 셋팅([Project settings](/manuals/project-settings) 참고)을 업데이트해서 경로와 이름을 수정할 수도 있습니다.
 
 ![Input set bindings](images/input/input_set_bindings.png)
 
@@ -101,7 +101,7 @@ end
 #### action.pressed
 입력이 검출된 첫번째 프레임에서 true, 그외에는 false
 #### action.repeated
-입력이 반복되고 있으면 true, 그 외에는 false. 이 값은 기본적으로 매 프레임마다 설정되지는 않지만 [프로젝트 설정(project settings)](Project settings#input)의 repeat_delay와 repeat_interval 의 설정에 따라 달라집니다.
+입력이 반복되고 있으면 true, 그 외에는 false. 이 값은 기본적으로 매 프레임마다 설정되지는 않지만 [프로젝트 설정(project settings)](/manuals/project-settings#input)의 repeat_delay와 repeat_interval 의 설정에 따라 달라집니다.
 #### action.released
 입력이 해지(release)된 프레임에 true, 그 외에는 false
 

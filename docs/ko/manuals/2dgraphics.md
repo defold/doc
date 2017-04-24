@@ -59,7 +59,7 @@ Defold에서 에셋을 사용하려면 프로젝트 계층구조(project hierarc
 > 좋은 측정방법은 게임이 보여질 때 텍스쳐의 크기를 얼만큼 조절할지에 알맞는 숫자를 명시하는 것입니다. 게임월드를 절반 크기로 나타내려면 **Extrude Borders**를 2로 설정하면 됩니다. 텍스처를 절반 크기로 줄여서 사용하면, 렌더링에 밉맵(mipmap)이 사용됩니다. 이 밉맵은 원본 이미지의 넓이와 높이가 절반입니다.
 
 ## Tile Source Collision Shapes
-타일 맵(Tile Map)을 사용하여 물리 상호작용을 활성화하는 충돌 영역(Collision shape)은 자동적으로 생성될 수 있습니다. Defold는 **Collision** 속성에 명시된 이미지로부터 각 타일에 볼록한 영역(Convex shape)을 생성하기 위해 알파 채널(alpha channel)을 사용합니다. 이 속성에는 이미지와 똑같은 충돌 영역을 위해 동일한 이미지를 사용하여 충돌 영역을 생성하는 것이 대부분이겠지만, 보이는 것과 다른 충돌 영역을 원한다면 다른 이미지를 선택해도 됩니다. 충돌(collision) 이미지를 지정하면, 생성된 충돌 영역을 나타내는 각 타일의 윤곽선으로 미리보기가 업데이트 됩니다. 자세한 것은 [Physics](Physics) 문서를 참고 바랍니다.
+타일 맵(Tile Map)을 사용하여 물리 상호작용을 활성화하는 충돌 영역(Collision shape)은 자동적으로 생성될 수 있습니다. Defold는 **Collision** 속성에 명시된 이미지로부터 각 타일에 볼록한 영역(Convex shape)을 생성하기 위해 알파 채널(alpha channel)을 사용합니다. 이 속성에는 이미지와 똑같은 충돌 영역을 위해 동일한 이미지를 사용하여 충돌 영역을 생성하는 것이 대부분이겠지만, 보이는 것과 다른 충돌 영역을 원한다면 다른 이미지를 선택해도 됩니다. 충돌(collision) 이미지를 지정하면, 생성된 충돌 영역을 나타내는 각 타일의 윤곽선으로 미리보기가 업데이트 됩니다. 자세한 것은 [Physics](/manuals/physics) 문서를 참고 바랍니다.
 
 ![Collision Shapes](images/2dgraphics/2dgraphics_tilesource_collision.png)
 
@@ -108,7 +108,7 @@ go.animate("my_object#sprite", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1.5, go.EASI
 기본 애니메이션은 게임 실행중에 게임 오브젝트가 생성되면 플레이 됩니다. 만약 이미지 리소스로 아틀라스를 사용중이라면 **Default Animation** 속성의 드롭다운 메뉴를 통해서 이미지들을 볼 수 있습니다. 타일 소스에 있는 이미지로부터 스프라이트를 만들고 싶다면, 1 프레임 짜리 애니메이션을 만들고 **Playback** 속성을 "None"으로 설정하면 됩니다.
 
 #### Collision Shapes
-스프라이트는 아직 타일소스에서 충돌모형(Collision Shape)을 자동생성하는 것을 지원하지 않습니다. 대신, 다른 게임 오브젝트와 마찬가지로 충돌 모형(Collision Shape)을 사용하여 충돌 오브젝트(Collision Object)를 추가할 수 있습니다. 자세한 것은 [Physics](Physics) 문서를 참고 바랍니다.
+스프라이트는 아직 타일소스에서 충돌모형(Collision Shape)을 자동생성하는 것을 지원하지 않습니다. 대신, 다른 게임 오브젝트와 마찬가지로 충돌 모형(Collision Shape)을 사용하여 충돌 오브젝트(Collision Object)를 추가할 수 있습니다. 자세한 것은 [Physics](/manuals/physics) 문서를 참고 바랍니다.
 
 #### Blend Mode
 블렌드 모드 속성은 스프라이트가 뒤쪽에 겹쳐진 그래픽과 어떻게 혼합(blend)할지 정의하는 속성입니다. 아래에 사용 가능한 블렌드 모드의 종류와 각각 어떻게 계산되는지에 대한 설명이 있습니다:
@@ -123,7 +123,7 @@ go.animate("my_object#sprite", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1.5, go.EASI
 해당 스프라이트 픽셀의 컬러값을 이용하여 배경을 어둡게 함: rgb0 * rgb1
 
 #### Sprite Shading
-기본 스프라이트 쉐이딩 파일은 프로젝트의 "/builtins/material/sprite.*" 에 있습니다. 기본 쉐이딩은 표준 텍스쳐 색상 보정(regular texture lookup)을 수행하지만 텍스쳐 색상과 겹쳐지는(multiply) 색조(tint: fragment shader constant) 또한 가지게 됩니다.
+기본 스프라이트 쉐이딩 파일은 프로젝트의 "/builtins/material/sprite.\*" 에 있습니다. 기본 쉐이딩은 표준 텍스쳐 색상 보정(regular texture lookup)을 수행하지만 텍스쳐 색상과 겹쳐지는(multiply) 색조(tint: fragment shader constant) 또한 가지게 됩니다.
 
 클릭시 스프라이트를 하얗게 번쩍이는 것과 같은 효과를 주기 위해 커스텀 쉐이딩을 구현할 수 있습니다. 스프라이트에 커스텀 쉐이딩을 설정하기 위해 아래 단계를 따라해 봅시다:
 
@@ -158,7 +158,7 @@ go.animate("my_object#sprite", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1.5, go.EASI
 4. 타일맵에서 아무 빈 셀이나 선택하기
 
 #### Attaching Physics
-타일맵에 물리 기능을 첨부하는 것으로 타일과 관련된 충돌을 감지하거나 물리 시뮬레이션을 할 수 있습니다. 타일맵에 물리 기능을 붙이기 위해서는 [Physics](Physics) 문서를 참고 바랍니다.
+타일맵에 물리 기능을 첨부하는 것으로 타일과 관련된 충돌을 감지하거나 물리 시뮬레이션을 할 수 있습니다. 타일맵에 물리 기능을 붙이기 위해서는 [Physics](/manuals/physics) 문서를 참고 바랍니다.
 
 ## Changing tiles from script
 게임이 실행되는 동안 동적으로 타일맵의 컨텐츠를 변경할 수도 있습니다. 이 작업을 위해서는 타일맵에 set_tile 메세지를 보내야 합니다:

@@ -3,7 +3,7 @@
 
 > 현재, 스파인 노드는 스파인 이벤트를 지원하지 않습니다. **SpineModel** 게임 오브젝트는 애니메이션 타임라인의 이벤트를 포함하고 게임오브젝트에 메세지를 전송할 수 있지만 스파인 노드에서는 지원되지 않습니다.
 
-임포트된 스파인 본 애니메이션(Spine bone animation)은 게임 오브젝트 뿐 아니라 GUI 씬에서도 사용할 수 있습니다(**SpineModel** 컴포넌트를 통해서). Defold에서 스파인 본 애니메이션을 동작시키기 위해, 먼저 애니메이션 데이터를 임포트하고 스파인 씬(Spine Scene) 리소스를 설정해야 합니다. 이를 위한 설명은 [Spine animation](Spine animation) 문서를 참고하시기 바랍니다.
+임포트된 스파인 본 애니메이션(Spine bone animation)은 게임 오브젝트 뿐 아니라 GUI 씬에서도 사용할 수 있습니다(**SpineModel** 컴포넌트를 통해서). Defold에서 스파인 본 애니메이션을 동작시키기 위해, 먼저 애니메이션 데이터를 임포트하고 스파인 씬(Spine Scene) 리소스를 설정해야 합니다. 이를 위한 설명은 [Spine animation](/manuals/spine) 문서를 참고하시기 바랍니다.
 
 GUI 씬에서 스파인 씬 리소스의 컨텐츠를 사용하려면, **Outline** 창의 **Spine Scenes** 폴더에 마우스 오른쪽 버튼을 눌려 **Add Spine Scene** 메뉴를 선택하고 사용하려는 스파인 씬을 선택합니다.
 

@@ -32,7 +32,7 @@ Defold는 모바일 장치에서 렌더링 하기 위해 OpenGL ES 2.0을 사용
 ![Shader files](images/materials/materials_shader_files.png)
 
 ### Material tags
-당신의 렌더 스크립트(render script)가 새 메터리얼을 사용하는 컴포넌트를 렌더링 할 수 있으므로 당신은 메터리얼을 위한 태그(tag)를 설정해야 합니다. 태그는 엔진에서 render.predicate()에 의해 함께 렌더링해야 하는 컴포넌트들을 수집하기위해 사용되며 비트마스크(bitmask)로 표시됩니다. 이를 수행하는 방법을 알고 싶다면 [Rendering](Rendering)문서를 참고 바랍니다.
+당신의 렌더 스크립트(render script)가 새 메터리얼을 사용하는 컴포넌트를 렌더링 할 수 있으므로 당신은 메터리얼을 위한 태그(tag)를 설정해야 합니다. 태그는 엔진에서 render.predicate()에 의해 함께 렌더링해야 하는 컴포넌트들을 수집하기위해 사용되며 비트마스크(bitmask)로 표시됩니다. 이를 수행하는 방법을 알고 싶다면 [Rendering](/manuals/rendering)문서를 참고 바랍니다.
 
 > 프로젝트에서 사용할 수 있는 최대 태그의 수는 32개 입니다.
 
@@ -97,7 +97,7 @@ void main()
 ```
 
 ### Setting the material
-각 그래픽 오브젝트의 타입은 **Material** 속성을 가지고 있으며 각 컴포넌트마다 특정 메터리얼을 설정할 수 있습니다. 메터리얼을 설정하지 않으면, 기본 메터리얼이 자동으로 선택됩니다. 직접 새로 만든 메터리얼을 사용하여 모델 렌더(model render)를 만들기 위해서는, **Material** 속성을 설정하여 메터리얼 파일을 참조하면 됩니다. [Models](Model (3D)) 문서에서 어떻게 3D 모델을 Defold로 임포트 하는지 가이드를 볼 수 있습니다.
+각 그래픽 오브젝트의 타입은 **Material** 속성을 가지고 있으며 각 컴포넌트마다 특정 메터리얼을 설정할 수 있습니다. 메터리얼을 설정하지 않으면, 기본 메터리얼이 자동으로 선택됩니다. 직접 새로 만든 메터리얼을 사용하여 모델 렌더(model render)를 만들기 위해서는, **Material** 속성을 설정하여 메터리얼 파일을 참조하면 됩니다. [Models](/manuals/model) 문서에서 어떻게 3D 모델을 Defold로 임포트 하는지 가이드를 볼 수 있습니다.
 
 ![Set material](images/materials/materials_set_material.png)
 

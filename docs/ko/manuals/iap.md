@@ -33,7 +33,7 @@ iOS 와 Android 의 구매 절차는 비슷합니다.
 
 1. Apple 이나 Google Play 의 개발자로 등록되었는지 확인합니다.
 
-2. 대상 디바이스(target device)에서 동작하도록 프로젝트를 설정합니다. [iOS development](http://www.defold.com/manuals/ios) 그리고 [Android development](http://www.defold.com/manuals/android) 가이드를 참고하세요.
+2. 대상 디바이스(target device)에서 동작하도록 프로젝트를 설정합니다. [iOS development](/manuals/ios) 그리고 [Android development](/manuals/android) 가이드를 참고하세요.
 
 3. 테스트용 앱을 설정합니다:
     * Android는 [Google Play Developer Console](https://play.google.com/apps/publish/) 에서 할 수 있습니다.

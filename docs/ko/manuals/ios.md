@@ -73,7 +73,7 @@ iOS 장치에서 게임을 실행하려면 Defold dev app과 에디터가 같은
 2. iOS 장치에서 Defold dev app 실행하기
 3. 에디터에서  **Project > Targets** 에 있는 당신의 장치 선택
 4. 게임을 실행하기 위해 **Project > Build And Launch** 선택하기. 게임 컨텐츠가 네트워크를 통해서 장치로 스트림 되므로 게임이 시작되는데 시간이 걸릴 수 있음.
-5. 게임이 실행되는 동안, 평소처럼 [핫 리로드(hot-reload)](Debugging#hot-reloading)도 할 수 있음
+5. 게임이 실행되는 동안, 평소처럼 [핫 리로드(hot-reload)](/manuals/debugging#_hot-reloading)도 할 수 있음
 
 ## Creating an iOS application bundle
 에디터에서 게임용 독립 어플리케이션 번들(stand alone application bundle)도 쉽게 생성할 수 있습니다. 메뉴에서 **Project > Bundle…​ > iOS Application…​** 를 선택하기만 하면 됩니다.

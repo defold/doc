@@ -30,4 +30,4 @@
 ![Spine model in editor](images/spinemodel/spine_model_defold.png)
 
 ## Runtime animation
-Defold는 런타임시 에니메이션을 제어하기 위한 강력한 기능을 제공합니다. 자세한 것은 [Animation](Animation)을 참고 바랍니다.
+Defold는 런타임시 에니메이션을 제어하기 위한 강력한 기능을 제공합니다. 자세한 것은 [Animation](/manuals/animation)을 참고 바랍니다.

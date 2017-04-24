@@ -21,10 +21,10 @@
 
 물론 그냥 처음부터 렌더 스크립트 파일을 새로 생성해도 되지만, Defold와 OpenGL ES 렌더링을 처음 다뤄보는 사용자라면 기존 스크립트에서 복사해서 편집하는 방식이 좋은 접근법입니다.
 
-> 렌더 스크립트는 게임의 라이프사이클 내에서 특별한 위치에 있습니다. 자세한 내용은 [Application lifecycle](Application%20lifecycle) 문서에서 찾을 수 있습니다.
+> 렌더 스크립트는 게임의 라이프사이클 내에서 특별한 위치에 있습니다. 자세한 내용은 [Application lifecycle](/manuals/application-lifecycle) 문서에서 찾을 수 있습니다.
 
 ## Render predicates
-render predicates(렌더 술어 or 조건자)는 오브젝트의 그리기 순서(draw order)를 제어할 수 있습니다. predicate는 메터리얼 태그의 선택을 기반으로 무엇을 그릴 것인지 선언합니다. 화면에 그려지는 각 오브젝트는 메터리얼을 포함하고 있으며, 오브젝트를 어떻게 정확히 화면에 그릴지, 어떤 쉐이더 프로그램을 실행할지를 제어합니다. 메터리얼에서는, 메터리얼과 연관된 한 개 이상의 태그를 지정할 수 있습니다. 이것은 게임을 빌드할 때 비트 필드(bit field)로 컴파일 되지만, 에디터상에서는 보통의 텍스트 태그로 나타납니다. 렌더 스크립트에서 한두개 렌더 predicate를 만들고 이 predicate가 속할 태그를 지정해 보세요. 마지막으로 predicate를 그릴 때에는, predicate에 지정된 목록과 일치하는 태그를 포함한 메터리얼이 있는 각 오브젝트가 그려집니다. 메터리얼에 대한 더 자세한 설명은 [Material](Material) 문서에서 찾을 수 있습니다.
+render predicates(렌더 술어 or 조건자)는 오브젝트의 그리기 순서(draw order)를 제어할 수 있습니다. predicate는 메터리얼 태그의 선택을 기반으로 무엇을 그릴 것인지 선언합니다. 화면에 그려지는 각 오브젝트는 메터리얼을 포함하고 있으며, 오브젝트를 어떻게 정확히 화면에 그릴지, 어떤 쉐이더 프로그램을 실행할지를 제어합니다. 메터리얼에서는, 메터리얼과 연관된 한 개 이상의 태그를 지정할 수 있습니다. 이것은 게임을 빌드할 때 비트 필드(bit field)로 컴파일 되지만, 에디터상에서는 보통의 텍스트 태그로 나타납니다. 렌더 스크립트에서 한두개 렌더 predicate를 만들고 이 predicate가 속할 태그를 지정해 보세요. 마지막으로 predicate를 그릴 때에는, predicate에 지정된 목록과 일치하는 태그를 포함한 메터리얼이 있는 각 오브젝트가 그려집니다. 메터리얼에 대한 더 자세한 설명은 [Material](/manuals/material) 문서에서 찾을 수 있습니다.
 
 ![Render predicate](images/rendering/rendering_predicate.png)
 
@@ -52,7 +52,7 @@ function init(self)
 end
 ```
 
-> 커스텀한 프로젝트 셋팅을 어떻게 정의하고 사용할지에 대한 정보는 [Project settings](Project%20settings) 문서에서 찾을 수 있습니다.  게임 카메라가 동작하는 방법에 대해 알고 싶다면 [Camera](Camera) 문서를 참고하세요.
+> 커스텀한 프로젝트 셋팅을 어떻게 정의하고 사용할지에 대한 정보는 [Project settings](/manuals/project-settings) 문서에서 찾을 수 있습니다.  게임 카메라가 동작하는 방법에 대해 알고 싶다면 [Camera](/manuals/camera) 문서를 참고하세요.
 
 #### update()
 update() 함수는 매 프레임 마다 호출됩니다. 이 함수는 OpenGL ES API(OpenGL Embedded Systems API)를 사용하여 실제 드로잉을 처리합니다. update() 함수에서 무슨일이 벌어지는지 이해하기 위해서는 OpenGL이 동작하는 방법을 이해해야만 합니다. OpenGL ES에는 훌륭한 리소스가 많이 있으며 https://www.khronos.org/opengles/ 공식 사이트가 이해를 위한 좋은 출발점이 될 수 있습니다.
@@ -113,7 +113,7 @@ end
 자, 이제 단순하고 직관적인 렌더 스크립트가 완성되었습니다. 이 렌더 스크립트는 매 프레임마다 동일한 방식으로 화면을 그리지만, 만약 렌더 상태(render states)를 도입하여 다른 곳에서 렌더링 파이프라인(render pipeline)을 제어하려고 한다면 어떻게 해야 할까요?
 
 #### on_message()
-이 렌더 스크립트 또한 Defold의 메세지 전달 세상에서는 보통의 시민들과 다를 바 없습니다. 그냥 렌더 스크립트에 on_message() 함수를 정의하는 것으로 게임의 다른 파트에서 렌더 스크립트의 동작에 영향을 주도록 하면 됩니다. 렌더 스크립트에 정보를 보내는 외부 오브젝트에 대한 예제로는 카메라 컴포넌트가 있습니다(자세한 내용은 [Camera](Camera) 문서 참고). 카메라 포커스가 있는 카메라 컴포넌트는 자동적으로 렌더 스크립트에 view와 projection을 보내고 있습니다. 반면 일반 스크립트에서 렌더 스크립트와 통신하려면 특수한 소켓인 @render를 사용하면 됩니다.
+이 렌더 스크립트 또한 Defold의 메세지 전달 세상에서는 보통의 시민들과 다를 바 없습니다. 그냥 렌더 스크립트에 on_message() 함수를 정의하는 것으로 게임의 다른 파트에서 렌더 스크립트의 동작에 영향을 주도록 하면 됩니다. 렌더 스크립트에 정보를 보내는 외부 오브젝트에 대한 예제로는 카메라 컴포넌트가 있습니다(자세한 내용은 [Camera](/manuals/camera) 문서 참고). 카메라 포커스가 있는 카메라 컴포넌트는 자동적으로 렌더 스크립트에 view와 projection을 보내고 있습니다. 반면 일반 스크립트에서 렌더 스크립트와 통신하려면 특수한 소켓인 @render를 사용하면 됩니다.
 
 ```lua
 function on_message(self, message_id, message)

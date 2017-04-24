@@ -25,7 +25,7 @@ Defold는 컬렉션에 모든 게임 오브젝트를 구성합니다. 이 매뉴
 ## Worlds
 컬렉션 프록시를 통하면 최상위 컬렉션을 전환하거나 한 개 이상의 최상위 컬렉션을 게임 엔진에 로드하는 것이 가능합니다. 단, 각 최상위 컬렉션은 분리된 물리 월드이며 물리 상호작용(Physics interactions: collisions, triggers, ray-casts)은 동일한 컬렉션에 소속된 오브젝트 끼리만 발생한다는 것을 알아 둬야 합니다. 즉, 각기 다른 최상위 컬렉션에 소속된 오브젝트들 사이에서는 물리 상호작용이 발생하지 않습니다.
 
-아래 예제에서는 게임 월드를 컬렉션 프록시를 통해 동적으로 로드되는 두 개의 컬렉션으로 분할했습니다. 두 컬렉션의 로드 및 언로드는 "loader"라는 게임 오브젝트에 의해 제어되며 이 오브젝트는 메인 컬렉션인 "worlds"에 들어 있습니다. 게임이 시작될때  "worlds.collection" 파일을 자동으로 로드하도록 구성([Project settings](Project%20settings) 참고)합니다. "world" 컬렉션은 "loader" 오브젝트 뿐만아니라 우리가 캐릭터를 움직일 수 있게 해주는 GUI 요소도 포함하고 있습니다.
+아래 예제에서는 게임 월드를 컬렉션 프록시를 통해 동적으로 로드되는 두 개의 컬렉션으로 분할했습니다. 두 컬렉션의 로드 및 언로드는 "loader"라는 게임 오브젝트에 의해 제어되며 이 오브젝트는 메인 컬렉션인 "worlds"에 들어 있습니다. 게임이 시작될때  "worlds.collection" 파일을 자동으로 로드하도록 구성([Project settings](/manuals/project-settings) 참고)합니다. "world" 컬렉션은 "loader" 오브젝트 뿐만아니라 우리가 캐릭터를 움직일 수 있게 해주는 GUI 요소도 포함하고 있습니다.
 
 ![Worlds 1](images/collection_proxies/collection_proxy_worlds_loader.png)
 
@@ -98,7 +98,7 @@ function on_message(self, message_id, message, sender)
 
 "init" 메세지로 프록시를 통해 컬렉션을 초기화(Initializing) 하는 것은 컬렉션에 포함된 모든 오브젝트들을 재귀적으로(recursively) 초기화 합니다. "enable" 메세지로 프록시를 통해 컬렉션을 활성화(Enabling)하는 것도 컬렉션에 포함된 모든 오브젝트들을 재귀적으로 활성화 하게 됩니다.
 
-(오브젝트의 생명주기에 대해 자세히 보고 싶다면 [Application lifecycle](Application%20lifecycle) 참고)
+(오브젝트의 생명주기에 대해 자세히 보고 싶다면 [Application lifecycle](/manuals/application-lifecycle) 참고)
 
 "enable"을 로드된 프록시에게 보내면 enable을 수행하기 전에 컬렉션을 자동으로 초기화(init) 합니다. 그러므로 초기화와 활성화 단계 별로 세분화 된 제어가 필요한게 아니라면 그냥 아래처럼 써도 됩니다.
 
@@ -260,7 +260,7 @@ function init(self)
         ...
 ```
 
-이제 "world1" 또는 "world2"의 오브젝트가 "acquire_input_focus" 메세지를 보내서 인풋 액션을 받을 수 있습니다. (입력에 대한 자세한 정보는 [Input](Input)을 참고하세요.)
+이제 "world1" 또는 "world2"의 오브젝트가 "acquire_input_focus" 메세지를 보내서 인풋 액션을 받을 수 있습니다. (입력에 대한 자세한 정보는 [Input](/manuals/input)을 참고하세요.)
 
 
 ## Time step
