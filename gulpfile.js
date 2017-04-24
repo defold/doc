@@ -86,7 +86,7 @@ md.renderer.rules.heading_open = function (tokens, idx, options, env, self) {
     }
     var level = tag.match(/^h(\d+)$/)[1];
     env.toc.push({ entry: title, slug: slug, level: level });
-    return '<a name="' + slug + '" class="anchor"></a>' +
+    return '<div id="' + slug + '" class="anchor"></div>' +
             '<' + tag + '>';
 };
 

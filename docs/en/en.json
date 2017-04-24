@@ -6,23 +6,23 @@
                 "name": "Tutorials",
                 "items": [
                     {
-                        "path": "runner",
+                        "path": "/tutorials/runner",
                         "name": "Runner"
                     },
                     {
-                        "path": "side-scroller",
+                        "path": "/tutorials/side-scroller",
                         "name": "Side scroller"
                     },
                     {
-                        "path": "platformer",
+                        "path": "/tutorials/platformer",
                         "name": "Platformer"
                     },
                     {
-                        "path": "magic-link",
+                        "path": "/tutorials/magic-link",
                         "name": "Magic link"
                     },
                     {
-                        "path": "car",
+                        "path": "/tutorials/car",
                         "name": "Building a car"
                     }
                 ]
@@ -43,19 +43,19 @@
                         "name": "JCash demos"
                     },
                     {
-                        "path": "main-menu",
+                        "path": "/tutorials/main-menu",
                         "name": "Main menu"
                     },
                     {
-                        "path": "parallax",
+                        "path": "/tutorials/parallax",
                         "name": "Parallax"
                     },
                     {
-                        "path": "hud",
+                        "path": "/tutorials/hud",
                         "name": "Hud"
                     },
                     {
-                        "path": "level-complete",
+                        "path": "/tutorials/level-complete",
                         "name": "Level complete"
                     }
                 ]
@@ -80,19 +80,19 @@
                 "name": "GETTING STARTED",
                 "items": [
                     {
-                        "path": "introduction",
+                        "path": "/manuals/introduction",
                         "name": "Introduction"
                     },
                     {
-                        "path": "scene-editing",
+                        "path": "/manuals/scene-editing",
                         "name": "Scene editing"
                     },
                     {
-                        "path": "workflow",
+                        "path": "/manuals/workflow",
                         "name": "Workflow"
                     },
                     {
-                        "path": "lua",
+                        "path": "/manuals/lua",
                         "name": "Lua in Defold"
                     }
                 ]
@@ -101,15 +101,15 @@
                 "name": "CORE CONCEPTS",
                 "items": [
                     {
-                        "path": "building-blocks",
+                        "path": "/manuals/building-blocks",
                         "name": "Building blocks"
                     },
                     {
-                        "path": "message-passing",
+                        "path": "/manuals/message-passing",
                         "name": "Message passing"
                     },
                     {
-                        "path": "application-lifecycle",
+                        "path": "/manuals/application-lifecycle",
                         "name": "Application lifecycle"
                     }
                 ]
@@ -118,79 +118,79 @@
                 "name": "RESOURCES & COMPONENTS",
                 "items": [
                     {
-                        "path": "2dgraphics",
+                        "path": "/manuals/2dgraphics",
                         "name": "2D graphics"
                     },
                     {
-                        "path": "3dgraphics",
+                        "path": "/manuals/3dgraphics",
                         "name": "3D graphics"
                     },
                     {
-                        "path": "animation",
+                        "path": "/manuals/animation",
                         "name": "Animation"
                     },
                     {
-                        "path": "spine",
+                        "path": "/manuals/spine",
                         "name": "Spine animation"
                     },
                     {
-                        "path": "spinemodel",
+                        "path": "/manuals/spinemodel",
                         "name": "Spine model"
                     },
                     {
-                        "path": "model",
+                        "path": "/manuals/model",
                         "name": "Model (3D)"
                     },
                     {
-                        "path": "particlefx",
+                        "path": "/manuals/particlefx",
                         "name": "Particle FX"
                     },
                     {
-                        "path": "physics",
+                        "path": "/manuals/physics",
                         "name": "Physics"
                     },
                     {
-                        "path": "sound",
+                        "path": "/manuals/sound",
                         "name": "Sound"
                     },
                     {
-                        "path": "font",
+                        "path": "/manuals/font",
                         "name": "Font"
                     },
                     {
-                        "path": "label",
+                        "path": "/manuals/label",
                         "name": "Label"
                     },
                     {
-                        "path": "material",
+                        "path": "/manuals/material",
                         "name": "Material"
                     },
                     {
-                        "path": "rendering",
+                        "path": "/manuals/rendering",
                         "name": "Rendering"
                     },
                     {
-                        "path": "shader",
+                        "path": "/manuals/shader",
                         "name": "Shader"
                     },
                     {
-                        "path": "factory",
+                        "path": "/manuals/factory",
                         "name": "Factory"
                     },
                     {
-                        "path": "collection-factory",
+                        "path": "/manuals/collection-factory",
                         "name": "Collection factory"
                     },
                     {
-                        "path": "collection-proxy",
+                        "path": "/manuals/collection-proxy",
                         "name": "Collection proxy"
                     },
                     {
-                        "path": "live-update",
+                        "path": "/manuals/live-update",
                         "name": "Live update"
                     },
                     {
-                        "path": "camera",
+                        "path": "/manuals/camera",
                         "name": "Camera"
                     }
                 ]
