@@ -16,5 +16,5 @@ if [ ! -d "build" ]; then
     echo "Build does not exist. Run 'gulp build'."
 else
     echo "Publishing build..."
-    $GSUTIL -m rsync -rd build gs://defold-doc
+    $GSUTIL -m rsync -x 'ref/*' -rd build gs://defold-doc
 fi
