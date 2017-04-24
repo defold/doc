@@ -199,31 +199,31 @@
                 "name": "GUI",
                 "items": [
                     {
-                        "path": "gui",
+                        "path": "/manuals/gui",
                         "name": "GUI overview"
                     },
                     {
-                        "path": "gui-text",
+                        "path": "/manuals/gui-text",
                         "name": "Text nodes"
                     },
                     {
-                        "path": "gui-pie",
+                        "path": "/manuals/gui-pie",
                         "name": "Pie nodes"
                     },
                     {
-                        "path": "gui-spine",
+                        "path": "/manuals/gui-spine",
                         "name": "Spine nodes"
                     },
                     {
-                        "path": "gui-templates",
+                        "path": "/manuals/gui-templates",
                         "name": "Template nodes"
                     },
                     {
-                        "path": "gui-clipping",
+                        "path": "/manuals/gui-clipping",
                         "name": "Clipping"
                     },
                     {
-                        "path": "gui-layouts",
+                        "path": "/manuals/gui-layouts",
                         "name": "Layouts"
                     }
                 ]
@@ -232,23 +232,23 @@
                 "name": "GAME LOGIC",
                 "items": [
                     {
-                        "path": "properties",
+                        "path": "/manuals/properties",
                         "name": "Properties"
                     },
                     {
-                        "path": "script-properties",
+                        "path": "/manuals/script-properties",
                         "name": "Script properties"
                     },
                     {
-                        "path": "input",
+                        "path": "/manuals/input",
                         "name": "Input"
                     },
                     {
-                        "path": "debugging",
+                        "path": "/manuals/debugging",
                         "name": "Debugging"
                     },
                     {
-                        "path": "modules",
+                        "path": "/manuals/modules",
                         "name": "Modules"
                     }
                 ]
@@ -257,19 +257,19 @@
                 "name": "PROJECT SETUP",
                 "items": [
                     {
-                        "path": "project-settings",
+                        "path": "/manuals/project-settings",
                         "name": "Project settings"
                     },
                     {
-                        "path": "libraries",
+                        "path": "/manuals/libraries",
                         "name": "Libraries"
                     },
                     {
-                        "path": "texture-profiles",
+                        "path": "/manuals/texture-profiles",
                         "name": "Texture profiles"
                     },
                     {
-                        "path": "bob",
+                        "path": "/manuals/bob",
                         "name": "Bob the builder"
                     }
                 ]
@@ -278,15 +278,15 @@
                 "name": "PLATFORMS",
                 "items": [
                     {
-                        "path": "ios",
+                        "path": "/manuals/ios",
                         "name": "iOS"
                     },
                     {
-                        "path": "android",
+                        "path": "/manuals/android",
                         "name": "Android"
                     },
                     {
-                        "path": "html5",
+                        "path": "/manuals/html5",
                         "name": "HTML5"
                     }
                 ]
@@ -295,19 +295,19 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
-                        "path": "extensions",
+                        "path": "/manuals/extensions",
                         "name": "Native extensions"
                     },
                     {
-                        "path": "facebook",
+                        "path": "/manuals/facebook",
                         "name": "Facebook"
                     },
                     {
-                        "path": "iap",
+                        "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
                     {
-                        "path": "push",
+                        "path": "/manuals/push",
                         "name": "Push notifications"
                     }
                 ]
