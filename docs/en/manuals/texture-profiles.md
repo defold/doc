@@ -71,7 +71,7 @@ The *profiles* section of the texture profiles file contains a list of named pro
 ![Profiles](images/texture_profiles/texture_profiles_profiles.png)
 
 *os*
-: Specifies a matching OS platform. `OS_ID_GENERIC` matches all platforms including dev-app builds on device, `OS_ID_WINDOWS` matches Windows target bundles, `OS_ID_IOS` matches iOS bundles and so on.
+: Specifies a matching OS platform. `OS_ID_GENERIC` matches all platforms including dev-app builds on device, `OS_ID_WINDOWS` matches Windows target bundles, `OS_ID_IOS` matches iOS bundles and so on. Note that if `OS_ID_GENERIC` is specified, it will be included for all platforms.
 
 *formats*
 : One or more texture formats to generate. If several formats are specified, textures for each format is generated and included in the bundle. The engine selects textures of a format that is supported by the runtime platform.
@@ -90,9 +90,12 @@ The *formats* added to a profile each has the following properties:
 *compression_level*
 : Selects the quality level for the resulting compressed image. The values range from `FAST` (low quality, fast compression) to `NORMAL`, `HIGH` and `BEST` (highest quality, slowest compression).
 
+*compression_type*
+: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#Compression Types) below for more details.
+
 ## Texture formats
 
-Textures can be processed into uncompressed or *lossy* compressed data with various number of channels and bit depths. Compression that is fixed means that the resulting image will be of a fixed size, regardless of the image content. This means that the quality loss during compression depends on the content of the original texture.
+Graphics hardware textures can be processed into uncompressed or *lossy* compressed data with various number of channels and bit depths. Hardware compression that is fixed means that the resulting image will be of a fixed size, regardless of the image content. This means that the quality loss during compression depends on the content of the original texture.
 
 The following lossy compression formats are currently supported.
 
@@ -105,7 +108,7 @@ PVRTC
 : Textures are compressed in blocks. In 4 bit mode (4BPP) one block has 4×4 pixels. In 2 bit mode (2BPP) one block are 8×4 pixels. One block always occupies 64 bits (8 bytes) of memory space.  The format is used in all generations of the iPhone, iPod Touch, and iPad. (certain Android devices, that use PowerVR GPUs also support the format). Defold supports PVRTC1, as indicated by the suffix "V1" in the format identifiers.
 
 ETC
-: Ericsson Texture Compression. Groups of 4x4 pixels are compressed into a single 64-bit word. The 4x4 group is divided in half and each half is assigned a base color. Each pixel is then encoded as one of four offset values from the base color of its half. Android supports ETC1 since version 2.2 (Froyo). Defold compresses ETC1 textures.
+: Ericsson Texture Compression. Blocks of 4×4 pixels are compressed into a single 64-bit word. The 4×4 block is divided in half and each half is assigned a base color. Each pixel is then encoded as one of four offset values from the base color of its half. Android supports ETC1 since version 2.2 (Froyo). Defold compresses ETC1 textures.
 
 | Format                            | Compression | Color                            | Note |
 | --------------------------------- | ----------- | -------------------------------- | ---- | 
@@ -141,3 +144,14 @@ ETC
 -->
 
 
+<div id="Compression Types"></div>
+
+## Compression types
+
+The following software image compression types are supported. The data is uncompressed when the texture file is loaded into memory.
+
+| Type                              | Formats                   | Note |
+| --------------------------------- | ------------------------- | ---- |
+| `COMPRESSION_TYPE_DEFAULT`        | All formats               | Generic lossless data compression. Default |
+| `COMPRESSION_TYPE_WEBP`           | All formats               | WebP lossless compression. Higher quality level results in smaller size. For hardware compressed texture formats PVRTC or ETC, the compression process transforms the compressed hardware texture format data into data more suitable for WebP image compression using an internal intermediate format. This is then transformed back into the compressed hardware texture format when loaded by the run-time. |
+| `COMPRESSION_TYPE_WEBP_LOSSY`     | TEXTURE_FORMAT_LUMINANCE TEXTURE_FORMAT_RGB TEXTURE_FORMAT_RGBA | WebP lossy compression. Lower quality level results in smaller size. WebP lossy type is currently not supported for hardware compressed texture formats. |
