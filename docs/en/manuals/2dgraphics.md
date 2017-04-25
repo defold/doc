@@ -24,7 +24,7 @@ Tile Sources
 Defold needs all assets that should be in your project hierarchy. Therefore you should start by importing the image files you want to build your graphics from. To import image assets, simply drag the files from the file system on your computer and drop them in an appropriate place in the Defold editor _Project Explorer_.
 
 ::: important
-Currently, Defold only support the PNG image format.
+Currently, Defold support the PNG and JPEG image formats.
 :::
 
 ![Importing image files](images/2dgraphics/2dgraphics_import1.png)

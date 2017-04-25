@@ -119,7 +119,7 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
 function markdownToPreviewHtml(file) {
     var data = frontmatter(file.contents.toString());
     // Inject some styling html for the preview. The built htmls are clean.
-    var head = '<!DOCTYPE html><html><head><link type="text/css" rel="stylesheet" href="/defold-md.css">' +
+    var head = '<!DOCTYPE html><html><head><link type="text/css" rel="stylesheet" href="/preview-md.css">' +
                 '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">' + 
                 '</head><body>\n';
     head += '<div class="documentation">';
@@ -237,7 +237,7 @@ gulp.task('clean', [], function() {
 });
 
 gulp.task('sass', [], function() {
-    gulp.src('docs/sass/defold-md.sass')
+    gulp.src('docs/sass/preview-md.sass')
         .pipe(plumber())
         .pipe(sass())
         .pipe(minify())

@@ -7,19 +7,21 @@ brief:  Defold supports automatic texture processing and compression of image da
 
 Defold supports automatic texture processing and compression of image data (in *Atlas*, *Tile sources*, *Cubemaps* and stand-alone textures used for models, GUI etc).
 
-Compression reduce memory footprint and graphics hardware is able to manage compressed textures. Compression also reduces the  of image resources and the final bundle size. It should be noted that PNG file compression can sometimes yield smaller files, but PNG files need to be uncompressed when read into memory.
+There are two types of compression, hardware texture compression and software image compression. Hardware texture compression reduce memory footprint and graphics hardware is able to manage compressed textures. Both hardware texture compression and software image compression reduces the size of image resources and the final bundle size. It should be noted that for example PNG file compression can sometimes yield smaller files, but PNG files need to be uncompressed when read into memory.
 
-The processing of textures is configured through a specific texture profile. In this file you create _profiles_ that express what compressed format(s) should be used when creating bundles for a specific platform. _Profiles_ are then tied to matching file _paths patterns_, allowing fine tuned control over what files in your project should be compressed and exactly how.
+The processing of textures is configured through a specific texture profile. In this file you create _profiles_ that express what compressed format(s) and type should be used when creating bundles for a specific platform. _Profiles_ are then tied to matching file _paths patterns_, allowing fine tuned control over what files in your project should be compressed and exactly how.
 
-Since all available texture compression is lossy, you will get artifacts in your texture data. These artifacts are highly dependant on how your source material looks and what compression method is used. You should test your source material and experiment to get the best results. Google is your friend here.
+Since all available hardware texture compression is lossy, you will get artifacts in your texture data. These artifacts are highly dependant on how your source material looks and what compression method is used. You should test your source material and experiment to get the best results. Google is your friend here.
+
+You can select what software image compression is applied on the final texture data (compressed or raw) in the bundle archives. Defold supports WebP or ZLib (default). WebP supports both lossy and lossless compression and usually results in significantly better compression than ZLib, which is a general data compression algorithm
 
 ::: sidenote
-Compression is a resource intense and time consuming operation that can cause _very_ long build times depending on the amount of texture images to compress and also the chosen texture formats.
+Compression is a resource intense and time consuming operation that can cause _very_ long build times depending on the amount of texture images to compress and also the chosen texture formats and type of software compression.
 :::
 
 ## Texture profiles
 
-Each project contain a specific *.texture_profiles* file that contain the configuration used when compressing textures. By default, this file is *builtins/graphics/default.texture_profiles* and it has a configuration matching every texture resource to a profile that leaves the data uncompressed on all platforms.
+Each project contain a specific *.texture_profiles* file that contain the configuration used when compressing textures. By default, this file is *builtins/graphics/default.texture_profiles* and it has a configuration matching every texture resource to a profile using RGBA with no hardware texture compression and using the default ZLib file compression.
 
 To add texture compression:
 
