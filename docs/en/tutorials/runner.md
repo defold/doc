@@ -7,7 +7,6 @@ brief: In this tutorial we start with an empty project and build a complete runn
 
 In this tutorial we start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring. Before we begin, take a moment and try the game and get a feel for what we are about to create:
 
-
 <div id="game-container" class="game-container">
   <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/runner/preview.jpg"/>
   <canvas id="game-canvas" tabindex="1" width="1280" height="720">

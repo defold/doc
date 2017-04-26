@@ -24,6 +24,10 @@
                     {
                         "path": "/tutorials/car",
                         "name": "Building a car"
+                    },
+                    {
+                        "path": "/tutorials/shadertoy",
+                        "name": "Shadertoy"
                     }
                 ]
             },
