@@ -19,6 +19,10 @@ The Star Nest shader is a pure fragment shader, so we only need something for th
 
 We start by creating a quadratic plane mesh in Blender (or any other 3D modelling program). For convenience the 4 vertex coordinates are at -1 and 1 on the X-axis and -1 and 1 on the Y axis. Blender has the Z-axis up by default so you need to rotate the mesh 90° around the X-axis. You should also make sure that you generate correct UV-coordinates for the mesh. In Blender, enter *Edit Mode* with the mesh selected, then select <kbd>Mesh ▸ UV unwrap... ▸ Unwrap</kbd>.
 
+::: sidenote
+Blender is a free, open-source 3D software which can be downloaded from [blender.org](https://www.blender.org).
+:::
+
 ![quad in Blender](images/shadertoy/quad_blender.png)
 
 1. Export the model as a *Collada* file called *quad.dae* and drag it into a new Defold project.
