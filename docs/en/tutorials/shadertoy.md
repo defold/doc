@@ -272,3 +272,6 @@ You can view the results here:
   </script>
 </div>
 
+A fun continuation exercise is to add the original mouse movement input to the shader. It should be fairly straightforward if you grasp how to deal with input.
+
+Happy Defolding!
