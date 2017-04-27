@@ -5,7 +5,7 @@ brief: This manual details Defold's support for 2D graphical elements like sprit
 
 # 2D Graphics
 
-2D games are commonly built by many images that are presented as is (for backgrounds or sprites), used in _flip-book animation_ (for sprites), combined and rigged to create _Spine animation_ (for sprites) or mapped out into tilemaps and used for levels or backgrounds. 
+2D games are commonly built by many images that are presented as is (for backgrounds or sprites), used in _flip-book animation_ (for sprites), combined and rigged to create _Spine animation_ (for sprites) or mapped out into tilemaps and used for levels or backgrounds.
 
 For performance reasons, images are often combined into one or a few larger images, but the small original image can still be referenced as a sub-image on the larger one. Combining smaller images into larger is especially important on mobile devices where memory and processing power is more scarce than on desktop machines or dedicated game consoles.
 
@@ -24,7 +24,7 @@ Tile Sources
 Defold needs all assets that should be in your project hierarchy. Therefore you should start by importing the image files you want to build your graphics from. To import image assets, simply drag the files from the file system on your computer and drop them in an appropriate place in the Defold editor _Project Explorer_.
 
 ::: important
-Currently, Defold support the PNG and JPEG image formats.
+Currently, Defold supports the PNG and JPEG image formats.
 :::
 
 ![Importing image files](images/2dgraphics/2dgraphics_import1.png)
@@ -33,15 +33,13 @@ Currently, Defold support the PNG and JPEG image formats.
 
 ## Creating an Atlas
 
-You need to populate an _Atlas_ before you can use it. As soon as you have added images and/or animations to the Atlas, it can be used as a graphics source to object components like Sprites and ParticleFX components.
-
-Your atlas has now been populated with images (and animations) it can be used as a graphics source to other components in Defold (see Sprite below and the ParticleFX guide).
+You need to populate an _Atlas_ before you can use it. As soon as you have added images and/or animations to the Atlas, it can be used as a graphics source for object components like Sprites and ParticleFX components.
 
 1. Import your image files as described above.
 2. Select <kbd>New ▸ Atlas File</kbd> from the context menu in the Project Explorer.
 3. Select <kbd>Add Images</kbd> from the context menu in the Outline.
 
-A dialog opens from where you can find and select the images you want to add to the Atlas. Note that you can filter the image files and select multiple files at once.
+A dialog opens from which you can find and select the images you want to add to the Atlas. Note that you can filter the image files and select multiple files at once.
 
 ![Creating an atlas, adding images](images/2dgraphics/2dgraphics_atlas_add.png)
 ![Creating an atlas](images/2dgraphics/2dgraphics_atlas.png)
@@ -83,7 +81,7 @@ Collision shapes that enable physics interaction with Tile Maps can be automatic
 
 ## Tile Source flip-book animations
 
-To define an animation in a Tile Source each frame must correspons to one tile (be on a grid of a certain width and height). Each frame tile must lie next to each other in a sequence left to right. The sequence can wrap from one row to the next. All newly created Tile Sources has a default animation named "anim". Selecting it displays the animation *Properties* that allow you to set a descriptive name, start and end frame, playback method and speed and whether the animation should be visually flipped horizontally or vertically.
+To define an animation in a Tile Source each frame must correspond to one tile (be on a grid of a certain width and height). Each frame tile must lie next to each other in a sequence left to right. The sequence can wrap from one row to the next. All newly created Tile Sources have a default animation named "anim". Selecting it displays the animation *Properties* that allow you to set a descriptive name, start and end frame, playback method, playback speed, and whether the animation should be visually flipped horizontally or vertically.
 
 ![Tile Source add animation](images/2dgraphics/2dgraphics_tilesource_animation.png)
 
@@ -93,11 +91,11 @@ You can easily add more animations to the Tile Source by selecting <kbd>Add Anim
 
 ## Manipulating Game Objects and components
 
-When you add visual components (Sprites, ParticleFX etc) to a game object, you are able to set the _position_ and _rotation_ of the component. These values are used as offsets against the position and rotation of the game object. And more, the values are _set_ in the component when you assemble the game object.
+When you add visual components (Sprites, ParticleFX, etc) to a game object, you are able to set the _position_ and _rotation_ of the component. These values are used as offsets against the position and rotation of the game object. What's more, the values are _set_ in the component when you assemble the game object.
 
 ![Component position](images/2dgraphics/2dgraphics_component_position.png)
 
-Defold game objects can be moved, rotated and have any of its properties animated. Components belonging to a manipulated game object undergo the same manipulations as the game object, but will keep their relative position and rotation as set in the game object. Components can be turned on and off, but are not possible to animate or move or rotate dynamically (with an exception described below). Therefore, if you have graphics that you intend to alter you should put the graphics in separate game objects. A group of game objects or a game object hierarchy is conveniently assembled in a Collection. Then you can freely manipulate the objects through script:
+Defold game objects can be moved, rotated, and have any of their properties animated. Components belonging to a manipulated game object undergo the same manipulations as the game object, but will keep their relative position and rotation as set in the game object. Components can be turned on and off, but it's not possible to animate, move, or rotate them dynamically (with an exception described below). Therefore, if you have graphics that you intend to alter you should put the graphics in separate game objects. A group of game objects or a game object hierarchy is conveniently assembled in a Collection. Then you can freely manipulate the objects through script:
 
 ![Component position](images/2dgraphics/2dgraphics_gameobject_position.png)
 
@@ -109,7 +107,7 @@ go.animate("wand", "euler", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(0, 0, -70), 
 
 ## Dynamically scaling Sprites
 
-It is actually possible to dynamically alter the scale of Sprite components in a non uniform way. This is a special feature that may feel odd when you try to construct a mental model for how game objects and components are related to each other and how to work with them.
+It is actually possible to dynamically alter the scale of Sprite components in a non-uniform way. This is a special feature that may feel odd when you try to construct a mental model for how game objects and components are related to each other and how to work with them.
 
 Sprites have a property `scale` which is of type `vmath.vector3`. You can animate the components separately:
 
@@ -159,7 +157,7 @@ To obtain effects like flashing a sprite white when it is hit, you can implement
 - Open the copied *sprite.material* file and remap the shader files (*.vp* and *.fp*) to your own copies.
 - Edit the *.vp* and *.fp* copies as you please. If you introduce shader constants, they must also be declared in the material file.
 - Open your sprite and specify your new material in the Properties.
-- To set a shader constants while the game is running, use the functions [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) and [`sprite.reset_contant()`](/ref/sprite#sprite.reset_constant).
+- To set a shader constant while the game is running, use the functions [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) and [`sprite.reset_contant()`](/ref/sprite#sprite.reset_constant).
 
 ## Tile Maps
 
@@ -199,7 +197,7 @@ You can change the content of a Tile Map dynamically while your game is running.
 
 ```lua
 -- Replace the two door-tiles with "open door" tiles.
--- The door is two tiles on top of each other.
+-- The door is two tiles, one on top of the other.
 local doorpos = vmath.vector3(174, 305, 0)
 msg.post("/level#tilemap", "set_tile", { layer_id = hash("layer1"), position = doorpos, tile = 58 })
 -- Upper part of door can be adressed with same position and "dy" set to 1.
@@ -227,7 +225,7 @@ Nearest
 
 
 Linear
-: The texel will be averaged with its neighbors before coloring the screen pixel. This produces smooth appearances for slow, continuous motions as a Sprite will bleed into the pixels before fully coloring them--it is this possible to move a Sprite less than a whole pixel.
+: The texel will be averaged with its neighbors before coloring the screen pixel. This produces smooth appearances for slow, continuous motions as a Sprite will bleed into the pixels before fully coloring them--thus it is possible to move a Sprite less than a whole pixel.
 
 
 The setting for which filtering to use is stored in the [Project Settings](/manuals/project-settings) file. There are two settings:
