@@ -164,7 +164,7 @@ Mouse wheel inputs
 : Use these to detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold do not currently support fine grained scroll input on touch pads.)
 
 Mouse movement
-: Mouse movements cannot be bound in the input bindings, and does not set the `action_id` to a name. Instead, the `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position.
+: Mouse movement cannot be bound in the input bindings, and does not set the `action_id` to a name. Instead, the `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position. Note that mouse movement events are not received unless at least one mouse trigger is set up in your input bindings. 
 
 ## Gamepad triggers
 
