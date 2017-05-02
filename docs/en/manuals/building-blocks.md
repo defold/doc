@@ -111,7 +111,7 @@ msg.post("my_object#script", "my_message", { my_data = 1 })
 
 ## Custom component properties
 
-Components have type specific properties that you set to alter the component in one way or another. It may be the width and height of a sprite component, or whether a sound component should loop its sound or not during playback. _Script components_, in contrast, allows you to specify custom properties for any purpose. In a script you define a script component simply by adding its definition to the script file:
+Components have type specific properties that you set to alter the component in one way or another. It may be the width and height of a sprite component, or a flag dictating whether a sound component should loop its sound or not during playback. _Script components_, in contrast, allow you to specify custom properties for any purpose. In a script you define a script component simply by adding its definition to the script file:
 
 ```lua
 -- self.health will be automatically set to 100 by default. You can change

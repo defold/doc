@@ -24,7 +24,7 @@ Using a pie node with clipping makes creating the minimap a very easy task:
 
 Now the parent node will act as a "keyhole" down to its children. Only graphics bound by the parent clipping node will show so the parent node will define the graphical outer bounds of the map. We are therefore free to move the map node around and whatever part is currently within the parent bounds will show.
 
-Clipping can be applied to box nodes and pie nodes. Text nodes can not clip other nodes. Two different types of clipping is available and a node can be set to *Visible clipper* which draws the clipper shape, and *Inverted clipper* which inverts how the clipper affects the clipping mask (see below for details).
+Clipping can be applied to box nodes and pie nodes. Text nodes can not clip other nodes. Two different types of clipping are available and a node can be set to *Visible clipper* which draws the clipper shape, and *Inverted clipper* which inverts how the clipper affects the clipping mask (see below for details).
 
 ![Clipping properties](images/clipping/clipping_properties.png)
 

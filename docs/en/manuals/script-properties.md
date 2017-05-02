@@ -7,7 +7,7 @@ brief: This manual explains how to add and use custom properties with script com
 
 Script properties provide a simple and powerful way of exposing properties that control the behavior or look of a specific game object instance and allow non coders to change them in the editor.
 
-Script properties allow for instance specific overrides of script properties. Common use cases is to set the health or speed of a specific enemy AI, the tint color of a pickup object, or what message a button object should send when pressed--and where to send it. There are many cases where script properties are very useful:
+Script properties allow for instance specific overrides of script properties. Common use cases are to set the health or speed of a specific enemy AI, the tint color of a pickup object, or what message a button object should send when pressed---and where to send it. There are many cases where script properties are very useful:
 
 * When you want to override their values for specific instances in the editor, and thereby increase script re-usability.
 * When you want to spawn a game object with initial values.
@@ -15,7 +15,7 @@ Script properties allow for instance specific overrides of script properties. Co
 * When you want to access the data in one script from another.
 
 ::: sidenote
-If access the data frequently, it is better to access it from a table rather than from properties in a foreign script for performance reasons.
+If you access the data frequently, it is better to access it from a local table rather than from properties in a foreign script component for performance reasons.
 :::
 
 Most types of values that you use to control script behavior or component properties can be exposed as script properties:
@@ -59,7 +59,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-If the health reaches `0`, the script destroys the game object. Now suppose that you want to use the script in two different game objects, but want the game objects to have different amounts of health. With the function [`go.property()`](/ref/go#go.property) you can declare the property a script property and it will be set by the specific game object instance:
+If the health reaches `0`, the script destroys the game object. Now suppose that you want to use the script in two different game objects, but want the game objects to have different amounts of health. With the function [`go.property()`](/ref/go#go.property) you can declare a script property and it will be stored in the specific script component instance:
 
 ```lua
 -- self.health will be automatically set to 100 by default
@@ -75,12 +75,12 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Any game object that includes the script can set the value specifically. Simply select the script node in the *Outline* view in the editor and the property appears in the *Properties* view allowing you to edit it:
+Any script component instance that uses the script can set the value specifically. Simply select the script component in the *Outline* view in the editor and the property appears in the *Properties* view allowing you to edit it:
 
 ![Script Properties](images/script_properties/script_properties.png)
 
 ::: sidenote
-In the case where you have the game object inside a sub-collection, expand the game object node in the collection to select the script.
+In the case where the game object holding the script lives inside a sub-collection, expand the game object node in the collection to select the script.
 :::
 
 The editor property inspector will automatically show a widget that is feasible for the type of property that you have declared. Numbers are entered in text boxes, vectors and quartenions as a set of numbers in boxes, hashes allow you to enter the string that will be hashed and URLs give you a drop down with all _relative_, local (that is, within the same collection) objects and components. You are still able to enter URL values manually, too.

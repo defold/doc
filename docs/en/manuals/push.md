@@ -176,8 +176,15 @@ badge_count
 : (iOS only). The numeric value of the icon badge. Set to 0 to clear the badge.
 
 priority
-: (Android only). The priority is a hint to the device UI about how the notification should be displayed. There are five priority levels, from -2 to 2 where -1 is the lowest priority and 2 the highest. Unless specified, a default priority level of 2 is used.
+: (Android only). The priority is a hint to the device UI about how the notification should be displayed. There are five priority levels:
 
+  - push.PRIORITY_MIN
+  - push.PRIORITY_LOW
+  - push.PRIORITY_DEFAULT
+  - push.PRIORITY_HIGH
+  - push.PRIORITY_MAX
+  
+  Unless specified, the max priority level is used.
 
 ## Inspecting scheduled notifications
 

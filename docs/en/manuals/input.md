@@ -18,7 +18,7 @@ Defold supports the following input device types:
 On Windows, only XBox 360 controllers are currently supported. To hook up your 360 controller to your Windows machine, make sure it is setup correctly. See http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
 :::
 
-All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that has acquired input focus and that implements the `on_input()` function.
+All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that have acquired input focus and that implement the `on_input()` function.
 
 Before the input reaches your script it is translated through input bindings into meaningful actions:
 
@@ -40,7 +40,7 @@ There are five types of triggers that you can create. They are device specific:
 4. `touch_trigger` is for all types of touch input.
 5. `text_trigger` is for text input.
 
-Right click on a trigger type and select <kbd>Add [TYPE]_trigger...</kbd> to add a new trigger. Each trigger has two fields:
+Right click on a trigger type and select <kbd>Add [TYPE]\_trigger...</kbd> to add a new trigger. Each trigger has two fields:
 
 *input*
 : A scroll list with the available inputs to listen to.
@@ -79,7 +79,7 @@ msg.post(".", "release_input_focus")
 
 ## on_input()
 
-To react on input actions, you need a component in your game object (that has acquired input focus) with a script and an `on_input()` function. The engine will then dispatch input actions to the function.
+To react to input actions, you need a component in your game object (that has acquired input focus) with a script and an `on_input()` function. The engine will then dispatch input actions to the function.
 
 ```lua
 function on_input(self, action_id, action)

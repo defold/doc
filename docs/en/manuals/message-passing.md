@@ -46,7 +46,7 @@ Some of this game content will live in separate files in the project. For instan
 
 The Defold editor will automatically assign unique id:s within the current collection when you place a collection or game object. You can change these names to whatever you like--the editor will keep track of the id:s and make sure that names don't collide. If you force a name collision, the Defold editor will signal an error.
 
-All addresses are expressed by an *URL* that uniquely identify each message sender and receiver in the running game. The URL consists of three components and is written in the following generic format:
+All addresses are expressed by a *URL* that uniquely identify each message sender and receiver in the running game. The URL consists of three components and is written in the following generic format:
 
 `[socket:][path][#fragment]`
 
@@ -84,7 +84,7 @@ In most cases, the above way of writing full URL:s is unnecessary and way too sp
 ![Message passing](images/message_passing/message_passing.png)
 
 Message 1
-: A `knock` message is sent from the "hero" script component to the "enemy" script component. Since both objects live in the same place in the collection hierarchy, their socket ("world", root, or main collection) are the same. We can leave out that piece of information which gives the following call:
+: A `knock` message is sent from the "hero" script component to the "enemy" script component. Since both objects live in the same place in the collection hierarchy, their sockets ("world", root, or main collection) are the same. We can leave out that piece of information which gives the following call:
 
   ```lua
   -- Send "knock" from the script component in "hero" to script in "enemy"
@@ -108,7 +108,7 @@ Message 1
   This is perfectly valid. By leaving out the target component, the message is _broadcast_ to all components in the specified game object. We encourage though that you do specify the component, mainly because broadcasting is less performant but also because it can lead to obscure bugs.
 
 Message 2
-: An `increase_score` message is sent from the "hero" game object's script component to the script component of the "interface" game object.
+: A `increase_score` message is sent from the "hero" game object's script component to the script component of the "interface" game object.
 
   ```lua
   -- Send "increase_score" from the script component in "hero" to script component in "interface"
@@ -125,7 +125,7 @@ Message 2
   Again, notice the lack of initial "/". By using a relative id, the sender and receiver will be able to communicate wherever they live in the collection hierarchies, which is vital when building objects and object hierarchies that are instanced multiple times or dynamically spawned.
 
 Message 3
-: An `update_minimap` message is sent from the "enemy" game object to the "gui" script in the "interface" game object.
+: A `update_minimap` message is sent from the "enemy" game object to the "gui" script in the "interface" game object.
 
   ```lua
   -- Send "update_minimap" from the script component in "enemy" to the GUI script in "interface".
@@ -139,10 +139,10 @@ Message 3
 We have seen how it is possible to leave out redundant information from the URL:s when constructing messages. In addition, Defold provides two handy shorthands that you can use:
 
 `.`
-: An URL shorthand for the current game object.
+: A URL shorthand for the current game object.
 
 `#`
-: An URL shorthand for the current script.
+: A URL shorthand for the current script.
 
 For example:
 

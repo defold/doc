@@ -44,8 +44,6 @@ We assume that you're familiar with a bit of vector mathematics (linear algebra)
 
 If you are already using Defold, you can create a new project based on the _Platformer_ template-project and play around with that while reading this article.
 
-We would love to hear your feedback, so please comment at the bottom of the page!
-
 ::: sidenote
 Some readers has brought up that our suggested method is not possible with the default implementation of Box2D. We made a few modifications to Box2D to make this work:
 

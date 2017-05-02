@@ -37,7 +37,7 @@ factory.create(component, p)
 : (optional) The world rotation of the new game object. This should be a `quat`.
 
 `[properties]`
-: (optiona) A Lua table with any script property values to initiate the game object with. See the [Script property manual](/manuals/script-properties) for information on script properties.
+: (optional) A Lua table with any script property values to initiate the game object with. See the [Script property manual](/manuals/script-properties) for information on script properties.
 
 `[scale]`
 : (optional) The scale of the spawned game object. The scale can be expressed as a `number` (greater than 0) which specifies uniform scaling along all axis. You can also provide a `vector3` where each component specifies scaling along the corresponding axis.

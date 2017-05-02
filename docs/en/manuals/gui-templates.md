@@ -19,7 +19,7 @@ Now we can add any number of instances of the button to another GUI scene. Creat
 
 ![Add template](images/gui-templates/gui-templates-add-template.png)
 
-Select the GUI scene file to use as template, in this case *button.gui*. You can add any number of nodes, each an instance based on the same template. If we change the template, each instance updates immediately in the editor, reflecting the changes. Notice that all nodes present in the template node is accessible in the *Outline* view. Nodes under a template node are automatically named with a prefix "[template node id]/".
+Select the GUI scene file to use as template, in this case *button.gui*. You can add any number of nodes, each an instance based on the same template. If we change the template, each instance updates immediately in the editor, reflecting the changes. Notice that all nodes present in the template node are accessible in the *Outline* view. Nodes under a template node are automatically named with a prefix "[template node id]/".
 
 ![Node instances](images/gui-templates/gui-templates-instances.png)
 
@@ -27,7 +27,7 @@ The template itself is represented in the node tree with an item: "button" and "
 
 ## Overloading properties
 
-Each instance node can overload any of the properties set in the template. Simply mark the node you wish to edit and change the property you want to alter. Nodes that has any overloaded properties are marked green in the *Outline* view. An overloaded property is marked blue. Click the blue property name to reset the property's value to the default.
+Each instance node can overload any of the properties set in the template. Simply mark the node you wish to edit and change the property you want to alter. Nodes that have any overloaded properties are marked green in the *Outline* view. An overloaded property is marked blue. Click the blue property name to reset the property's value to the default.
 
 ![Overloaded properties](images/gui-templates/gui-templates-overloaded.png)
 

@@ -37,7 +37,7 @@ To move objects, use the *Move Tool*. It is accessible through the menu <kbd>Sce
 
 ![Scene menu](images/scene_editing/scene_editing_scene.png)
 
-The selected object now shows three manipulation points that are used to move the object. Click and drag in the gren square to move the object freely:
+The selected object now shows three manipulation points that are used to move the object. Click and drag in the green square to move the object freely:
 
 ![Move object](images/scene_editing/scene_editing_move.png)
 

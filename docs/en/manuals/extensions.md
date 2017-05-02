@@ -33,7 +33,7 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains any include files.
 
 *lib*
-: This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries. Supported platforms are `ios`, `android+ and `osx`. Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android` and `x86_64-osx`.
+: This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries. Supported platforms are `ios`, `android` and `osx`. Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86-osx` and `x86_64-osx`.
 
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
@@ -41,7 +41,7 @@ To create a new extension, create a folder in the project root. This folder will
 
 ## A simple example extension
 
-Let's build a very simple extension. First, we create a new root folder *myextension* and add a file *ext.manifest* containing the name of the extension:
+Let's build a very simple extension. First, we create a new root folder *myextension* and add a file *ext.manifest* containing the name of the extension "MyExtension". Note that the name is a C++ symbol and must match the first argument to `DM_DECLARE_EXTENSION` (see below).
 
 ![Manifest](images/extensions/manifest.png)
 
@@ -154,7 +154,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. For this simple example, there is no need for any "update" or "on_event" entry points, so `0` is provided in those locations to the macro.
+Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. The first argument `symbol` must match the name specified in *ext.manifest*. For this simple example, there is no need for any "update" or "on_event" entry points, so `0` is provided in those locations to the macro.
 
 Now it is just a matter of building the project (<kbd>Project ▸ Build and Launch</kbd>). This will upload the extension to the extension builder which will produce a custom engine with the new extension included. If the builder encounters any errors, a dialog with the build errors will show.
 
@@ -170,7 +170,9 @@ And that's it! We have created a fully working native extension.
 
 ## The ext.manifest file
 
-Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libs and frameworks. Here is an example:
+Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libs and frameworks. If the *ext.manifest* file does not contain a "platforms" segment, or a platform is missing from the list, the platform you bundle for will still build, but without any extra flags set.
+
+Here is an example:
 
 ```yaml
 name: "AdExtension"

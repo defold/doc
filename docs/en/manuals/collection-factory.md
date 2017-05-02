@@ -53,7 +53,7 @@ When spawning a collection, we can pass property parameters to each game object 
 local props = {}
 props[hash("/astronaut")] = { size = 10.0 }
 props[hash("/probe1")] = { color = hash("red") }
-props[hash("/probe1")] = { color = hash("green") }
+props[hash("/probe2")] = { color = hash("green") }
 local astro = collectionfactory.create("#factory", nil, nil, props, nil)
 ...
 ```

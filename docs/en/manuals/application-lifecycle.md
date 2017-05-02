@@ -13,7 +13,7 @@ In many cases only a rudimentary understanding of Defold's inner workings is nec
 
 The application starts by initializing everything that is needed to run the engine. It loads the main collection and calls [`init()`](/ref/go#init) on all loaded components that has an `init()` Lua function (script components and GUI components with GUI scripts). This allows you to do custom initialization.
 
-The application then enters the update loop where the application will spend a majority of its lifetime. Each frame, game objects and the components they contain are updated. Any script and GUI script [`update()`](/ref/go#update) functions are called. During the update loop messages are dispatched to its recipients, sounds are played and all graphics is rendered.
+The application then enters the update loop where the application will spend a majority of its lifetime. Each frame, game objects and the components they contain are updated. Any script and GUI script [`update()`](/ref/go#update) functions are called. During the update loop messages are dispatched to their recipients, sounds are played and all graphics are rendered.
 
 At some point the applications lifecycle will come to an end. Before the application quits the engine steps out of the update loop and enters a finalization stage. It prepares all loaded game objects for deletion. All object components’ [`final()`](/ref/go#final) functions are called, which allows for custom cleanup. Then the objects are deleted and the main collection is unloaded.
 

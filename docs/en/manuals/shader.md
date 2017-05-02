@@ -48,7 +48,7 @@ Note that the vertex shader cannot create or delete vertices, just change vertex
 
 ## Variables
 
-A shader program consists of code that operate on data. Data is passed to and between shader programs through variables of different type:
+A shader program consists of code that operates on data. Data is passed to and between shader programs through variables of different types:
 
 Vertex attribute variables
 : Vertex attributes are used to send data to the vertex shader. Values are set per vertex and contain information about each vertex' position, normal, color and texture coordinate. These values are usually stored in the mesh created in a 3D modelling software and exported to Collada files that Defold can read.
@@ -80,7 +80,7 @@ Uniform variables
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions `.set_constant()` and `.reset_constant()` for each component type (`sprite`, `model`, `spine`, `particlefx` and `tilemap`)
 
 Varying variables
-: Varying variables gives you an interface between the vertex and fragment shader. It is the output of a vertex shader and the input of a fragment shader. Varying variables are declared withe the `varying` qualifier and can be of type `float`, `vec2`, `vec3`, `vec4`, `mat2`, `mat3` and `mat4`.
+: Varying variables gives you an interface between the vertex and fragment shader. It is the output of a vertex shader and the input of a fragment shader. Varying variables are declared with the `varying` qualifier and can be of type `float`, `vec2`, `vec3`, `vec4`, `mat2`, `mat3` and `mat4`.
 
 If you define a varying variable and set its value in the vertex shader, the value will be set for each vertex. During rasterization this value is interpolated for each fragment on the primitive being rendered. You can access the interpolated value in the fragment shader to determine what color to set on the fragment.
 

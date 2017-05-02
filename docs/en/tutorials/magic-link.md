@@ -284,7 +284,7 @@ Now that we have a board, we should add user interaction. First, we define the i
 
 ![Input bindings](images/magic-link/linker_input_bindings.png)
 
-We only need one binding and we're assigning `MOUSE_BUTTON_LEFT` to the action name "touch". This game don't use multi touch and as a convenience, Defold translates one finger touch input into left mouse clicks.
+We only need one binding and we're assigning `MOUSE_BUTTON_LEFT` to the action name "touch". This game doesn't use multi touch and as a convenience, Defold translates one finger touch input into left mouse clicks.
 
 The job of dealing with the input falls on the board, so we need to add code for that in *board.script*:
 
@@ -757,7 +757,10 @@ function on_input(self, action_id, action)
         end
         self.chain = {}
         -- Empty chain clears connector graphics.
-        connect_chain(self, x, y)
+        for i, c in ipairs(self.connectors) do
+            go.delete(c)
+        end
+        self.connectors = {}
     end
 ```
 
@@ -946,7 +949,10 @@ function on_input(self, action_id, action)
         end
         self.chain = {}
         -- Empty chain clears connector graphics.
-        connect_chain(self, x, y)
+        for i, c in ipairs(self.connectors) do
+            go.delete(c)
+        end
+        self.connectors = {}
     end
 ```
 

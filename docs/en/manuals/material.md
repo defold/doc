@@ -23,7 +23,9 @@ Let's start by creating a simple flat (with no directional light), but textured 
 
 ![Material editor](images/materials/materials_material_editor.png)
 
-Now you need to create the vertex and fragment shader program files. Currently, the process is a little bit cumbersome:
+Now you need to create the vertex and fragment shader program files. If you work in Editor 2, just right click the target folder and select the menu <kbd>New... ▸ Vertex Program</kbd> and <kbd>New... ▸ Fragment Program</kbd>.
+
+In Editor 1, the process is a little bit cumbersome:
 
 1. Create a script file by selecting <kbd>File ▸ New... ▸ Script File</kbd>.
 2. Rename the script file so it will have a *.vp* (Vertex Program) suffix.

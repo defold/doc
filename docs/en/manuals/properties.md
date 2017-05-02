@@ -59,14 +59,14 @@ Legacy functions for reading and writing game object properties also exist. They
 | *position* | The local position of the game object. | `vector3`.      | `get+set`{.mark} |
 | *rotation* | Local rotation of game object, expressed as quaternion.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Local rotation of game object, Euler angles. | `vector3` | `get+set`{.mark} |
-| *scale*    | Local uniform scale of the game object, multiplier. | `number` | `get+set`{.mark} |
+| *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
 
 *SPRITE COMPONENT PROPERTIES*
 
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
-| *size*.    | The non scaled size of the sprite--its size as taken from the source atlas. | `vector3` | `get`{.mark} |
-| *scale* | Non uniform scaling of the sprite, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark}|
+| *size*     | The non scaled size of the sprite---its size as taken from the source atlas. | `vector3` | `get`{.mark} |
+| *scale* | Non uniform scale of the sprite. | `vector3` | `get+set`{.mark}|
 
 *COLLISION OBJECT COMPONENT PROPERTIES*
 
@@ -84,7 +84,7 @@ Legacy functions for reading and writing game object properties also exist. They
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | The current animation. | `hash` | `get`{.mark} |
 | *skin*.     | The currently applied model skin. (cannot be animated!) | `hash` | `get+set`{.mark} |
-| *cursor*   | The current position (between 0-1) of the animation playback cursor. | `number` | get+set`{.mark} |
+| *cursor*   | The current position (between 0-1) of the animation playback cursor. | `number` | `get+set`{.mark} |
 | *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
 
 *MODEL (3D) COMPONENT PROPERTIES*

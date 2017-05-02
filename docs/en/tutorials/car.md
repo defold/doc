@@ -57,7 +57,7 @@ The "Empty" project template actually isn't completely empty. As you've already 
 
 It's perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 
-First of all, let's clean the file *main.collection* of the one game object it contains. Select "go" in the *Outline* view, right-click and select *Delete*. That's it. If you run the game again, the application window will be totally black.
+First of all, let's clean the file *main.collection* of the one game object it contains. Select "logo" in the *Outline* view, right-click and select *Delete*. That's it. If you run the game again, the application window will be totally black.
 
 ![Delete game object](images/car/start_delete_go.png)
 
@@ -103,7 +103,7 @@ Default Animation
 
 ## Completing the car
 
-Continue by adding two more game objects in the collection. Call them "left_wheel" and "right_wheel" and put a sprite component in each, showing the tire image that we added to *sprited.atlas*. Then grab the wheel game objects and drop them onto "car" to make them children under "car". Game objects that are children under other game objects will be attached to their parent when the parent moves. They can be moved individually as well, but all motion happens relative to the parent object. For the tires this is perfect since we want them to stick to the car and we can just rotate them slightly left and right as we steer the car. A collection can contain any number of game objects, side by side or arranged into complex parent-child trees, or a mix.
+Continue by adding two more game objects in the collection. Call them "left_wheel" and "right_wheel" and put a sprite component in each, showing the tire image that we added to *sprites.atlas*. Then grab the wheel game objects and drop them onto "car" to make them children under "car". Game objects that are children under other game objects will be attached to their parent when the parent moves. They can be moved individually as well, but all motion happens relative to the parent object. For the tires this is perfect since we want them to stick to the car and we can just rotate them slightly left and right as we steer the car. A collection can contain any number of game objects, side by side or arranged into complex parent-child trees, or a mix.
 
 Move the tire game objects into place by selecting them and then choosing <kbd>Scene ▸ Move Tool</kbd>. Grab the arrow handlebars, or the center green square to move the object to a good spot. The final thing we need to do is to make sure that the tires are drawn below the car. We do that by setting the Z component of the position to -0.5. Every visual item in a game is drawn from the back to front, sorted on their Z value. An object with a Z-value of 0 will be drawn on top of an object with a Z-value of -0.5. Since the default Z-value of the car game object is 0, the new value on the tire objects will put them under the car image.
 
@@ -111,7 +111,7 @@ Move the tire game objects into place by selecting them and then choosing <kbd>S
 
 The last piece of the puzzle is a _script_ to control the car. A script is a component that contains a program that defines game object behaviors. With scripts you can specify the rules of your game, how objects should respond to various interactions (with the player as well as other objects). All scripts are written in the Lua programming language. To be able to work with Defold, you or someone on your team needs to learn how to program in Lua.
 
-Mark "main" in the *Project Explorer*, right-click and select <kbd>New ▸ Script File</kbd>. Name the new file *car.script*, then add it to the "car" game object by marking "car" in the *Outline* view, right click and select <kbd>Add Component From File</kbd>. Select *car.script* and click *OK*. Save the collection file.
+Mark "main" in the *Project Explorer*, right-click and select <kbd>New ▸ Script File</kbd>. Name the new file *car.script*, then add it to the "car" game object by marking "car" in the *Outline* view, right click and select <kbd>Add Component File</kbd>. Select *car.script* and click *OK*. Save the collection file.
 
 Double click *car.script* and edit the script so it contains the following:
 
@@ -265,6 +265,6 @@ Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take 
 
 If you want you can try to add more instances of *car.collection* to *main.collection*. Each instance is a clone of what's inside *car.collection* with the exact same behavior. Each one listens to input and reacts to the same messages.
 
-That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](/learn) prepared to guide you, and if you get stuck, your're welcome to the [forum](//forum.defold.com).
+That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](/learn) prepared to guide you, and if you get stuck, you are very welcome to the [forum](//forum.defold.com).
 
 Happy Defolding!

@@ -115,7 +115,7 @@ To open a file in the text editor, right-click the file in the Project view and 
 
 Note that Defold remembers the choice of editor for the particular file. If you open a file with the Text Editor, subsequent double clicks on the file in the Project view will automatically open the file in the Text Editor. To reset the selected editor for the file, simply right-click the file and select <kbd>Open With ▸ [Filetype Editor]</kbd> where [Filetype Editor] is the type of editor used for the file type (e.g. Scene Editor for Game Objects, Tile Source Editor for Tile Sources and so forth).
 
-Extra care should be taken when working with files through the Text Editor. Easy to make errors can prevent the file from being possible to open in the designated editor. For instance, suppose you edit a Game Object file and omits an end-quote character in one of the names:
+Extra care should be taken when working with files through the Text Editor. Easy to make errors can prevent the file from being possible to open in the designated editor. For instance, suppose you edit a Game Object file and omit an end-quote character in one of the names:
 
 ![Missing Quote](images/workflow/workflow_texteditor_noquote.png)
 

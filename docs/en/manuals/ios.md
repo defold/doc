@@ -5,7 +5,7 @@ brief: This manual explains how to develop games and apps for iOS devices in Def
 
 # iOS development
 
-iOS development differs from Android development in that you have to be a registered developer to be able to put apps or games on an iOS device, even during development. iOS requires that all apps that are out on a phone or tablet is signed with an Apple-issued certificate and provisioning profile.
+iOS development differs from Android development in that you have to be a registered developer to be able to put apps or games on an iOS device, even during development. iOS requires that all apps that are out on a phone or tablet are signed with an Apple-issued certificate and provisioning profile.
 
 ## Apple's code signing process
 

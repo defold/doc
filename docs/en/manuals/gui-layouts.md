@@ -45,7 +45,7 @@ When editing a GUI scene, all nodes are edited on a particular layout. The curre
 
 ![Editing default layer](images/layouts/layouts_default.png)
 
-You also get visual feedback on whether a node overrides a property on the currently selected layer (other than *Default*) or not. Each change to a node property that you do with a layout selected _overrides_ the property in respect to the *Default* layer. Properties that are overridden are marked in blue. You can click on the blue property name to reset the property to the default value.
+You also get visual feedback on whether a node overrides a property on the currently selected layer (other than *Default*) or not. Each change to a node property that you do with a layout selected _overrides_ the property in respect to the *Default* layout. Properties that are overridden are marked in blue. You can click on the blue property name to reset the property to the default value.
 
 ![Editing with layouts](images/layouts/layouts_modified.png)
 

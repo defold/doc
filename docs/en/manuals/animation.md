@@ -379,7 +379,20 @@ For `gui.animate()` the values are named `gui.EASING_LINEAR`, `gui.EASING_INBACK
 
 ## Custom easing
 
-You can create custom easing curves by defining a `vector` with a set of values and then provide the vector instead of one of the predefined easing constants above:
+You can create custom easing curves by defining a `vector` with a set of values and then provide the vector instead of one of the predefined easing constants above. The vector values express a curve from the start value (`0`) to the target value (`1`). The runtime samples values from the vector and linearly interpolates when calculating values in between the points expressed in the vector.
+
+For example, the vector:
+
+```lua
+local values = { 0, 0.4, 0.2, 0.2, 0.5. 1 }
+local my_easing = vmath.vector(values)
+```
+
+yields the following curve:
+
+![Custom curve](images/animation/custom_curve.png)
+
+The following example causes the y position of a game object to jump between the current position and 200 according to a square curve:
 
 ```lua
 local values = { 0, 0, 0, 0, 0, 0, 0, 0,
@@ -393,6 +406,8 @@ local values = { 0, 0, 0, 0, 0, 0, 0, 0,
 local square_easing = vmath.vector(values)
 go.animate("go", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, square_easing, 2.0)
 ```
+
+![Square curve](images/animation/square_curve.png)
 
 ## Completion callbacks
 

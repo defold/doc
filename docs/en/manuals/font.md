@@ -5,7 +5,7 @@ brief: This manual describes how Defold handles fonts and how to bring fonts ont
 
 # Font files
 
-Fonts are used to render label components and text nodes in GUI scenes. Defold supports font files in TrueType, OpenType or BMFont format thad can be added to your project and automatically converted into a graphical format that Defold can render. Two font rendering techniques are available, bitmap and distance field, each with its specific benefits and drawbacks.
+Fonts are used to render label components and text nodes in GUI scenes. Defold supports font files in TrueType, OpenType or BMFont format that can be added to your project and automatically converted into a graphical format that Defold can render. Two font rendering techniques are available, bitmap and distance field, each with its specific benefits and drawbacks.
 
 ## Creating a font
 

@@ -14,7 +14,7 @@ A graphical user interface in Defold is a game object component that you build a
 * It is rendered in a separate pass from the rest of the game, on top of other content.
 * It is rendered against a screen-space coordinate system that is independent of camera view so even if you have a moving camera, your GUI elements will stay put on the screen.
 
-The GUI is not part of the collection’s coordinate system but is rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, the GUI component have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
+The GUI is not part of the collection’s coordinate system but is rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, GUI components have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
 
 ::: important
 The rendering behavior can be changed in the render script but it is usually desirable to use this arrangement since the user interface is a separate visual "layer" on top of the game view and you usually want HUD items and menus on certain spots on screen.
@@ -72,7 +72,7 @@ Note that the color of the box node will tint the animation. The tint color is m
 ![Tinted texture](images/gui/gui_tinted_texture.png)
 
 ::: sidenote
-Box nodes are always rendered, even if they do not have a texture assigned to them, got an alpha set to `0` or are sized `0,0,0`. Box nodes should always have a texture assigned to the. If you need an empty node, set its size to `0,0,0` and make sure to assign a texture to it.
+Box nodes are always rendered, even if they do not have a texture assigned to them, have their alpha set to `0`, or are sized `0, 0, 0`. Box nodes should always have a texture assigned to them so the renderer can batch them properly and reduce the number of draw-calls.
 :::
 
 ## Slice-9 texturing

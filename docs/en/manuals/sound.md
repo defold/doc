@@ -68,7 +68,7 @@ The groups are identified with a hash value. The string name can be retrieved wi
 ![Sound group mixer](images/sound/sound_mixer.png)
 
 ::: important
-You should not write code that rely on the string value of a sound group since it is not available in release builds.
+You should not write code that relies on the string value of a sound group since it is not available in release builds.
 :::
 
 All values are linear between 0 and 1.0 (0 dB). To convert to decibel, simply use the standard formula:
