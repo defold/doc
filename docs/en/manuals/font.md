@@ -95,13 +95,15 @@ To create a BMFont, you need to use a tool that can generate the appropriate fil
 
 ![BMFont](images/font/fonts_bmfont.png)
 
+For the font to render correctly, don't forget to set the material property to *builtins/fonts/font-fnt.material* when you create the font.
+
 ## Distance field fonts
 
 To create a distance field font, simply select `TYPE_DISTANCE_FIELD` as *output_format*. This creates a distance field map for the font. When the engine renders the font, a special shader is required to interprets the distance data and use that to create a sharp font edge. Distance field fonts are more resource intensive than bitmap fonts, but allow for much greater sizing flexibility.
 
 ![Distance field font](images/font/fonts_distance_field.png)
 
-Make sure to change the *material* property of the font to *builtins/fonts/font-df.material* (or any other material that can handle the distance field data) when you create the font--or the font will not use the correct shader when it is rendered to screen.
+Make sure to change the *material* property of the font to *builtins/fonts/font-df.material* (or any other material that can handle the distance field data) when you create the font---or the font will not use the correct shader when it is rendered to screen.
 
 ![Distance field font material](images/font/fonts_distance_field_material.png)
 
