@@ -36,13 +36,13 @@ Animation clips in Collada are not supported. To use multiple animations per mod
 
 ## Materials, shaders and textures
 
-3D software commonly allows you to set properties to your object vertices, like coloring and texturing. This information goes into the Collada *.dae* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
+3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the Collada *.dae* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
 
 You will also need to design and implement a game camera that works with your intended gameplay.
 
 Your Defold project has some built-in materials that are used to render sprites, tiles, particles and GUI nodes. For 3D models, there is no suitable built-in material so we have to create one. For the example book model there is a "textured.material" resource ready-made.
 
-Read the [Material documentation](/manuals/material) for information how materials work and how you can create materials that work with textured 3D models.
+Read the [Material documentation](/manuals/material) for information on how materials work and how you can create materials that work with textured 3D models.
 
 The [Shader manual](/manuals/shader) contains information on how shader programs work.
 

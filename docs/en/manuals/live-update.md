@@ -1,6 +1,6 @@
 ---
 title: Live update content in Defold
-brief: The Live update functionality provides a mechanism allowing the runtime to fetch and store resources to the application bundle that was intentionally left out of the bundle at build time. This manual explains how it works.
+brief: The Live update functionality provides a mechanism allowing the runtime to fetch and store resources to the application bundle that were intentionally left out of the bundle at build time. This manual explains how it works.
 ---
 
 # Live update
@@ -9,9 +9,9 @@ When bundling a game, Defold packs all the game resources into the resulting pla
 
 - Your game features a series of episodes and you wish to include only the first one for players to try out before they decide if they want to continue with the rest of the game.
 - Your game is targeted for HTML5. On the browser, loading an application from storage means that the entire application package has to be downloaded before startup. On such a platform you may wish to send a minimal start package and get the app up and running quickly before you download the rest of the game resources.
-- Your game contains very large resources (images, videos etc) that you wish to postpone downloading of until they are about to show in the game. This to keep the install size down.
+- Your game contains very large resources (images, videos etc) that you wish to postpone the downloading of until they are about to show in the game. This is to keep the install size down.
 
-The Live update functionality expands the concept of the collection proxy with a mechanism allowing the runtime to fetch and store resources to the application bundle that was intentionally left out of the bundle at build time.
+The Live update functionality expands the concept of the collection proxy with a mechanism allowing the runtime to fetch and store resources to the application bundle that were intentionally left out of the bundle at build time.
 
 ## Preparing content for Live update
 
@@ -27,7 +27,7 @@ This is done by simply checking the *Exclude* checkbox in the collection proxy p
 
 ## Live update settings
 
-When the bundler creates an applicatin bundle, it needs to store any excluded resources somewhere. The project settings for Live update governs the location for those resources. The settings is found under <kbd>Project ▸ Live update Settings...</kbd>.
+When the bundler creates an application bundle, it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>.
 
 ![Live update settings](images/live-update/aws-settings.png)
 
@@ -37,7 +37,7 @@ There are two ways Defold can store the settings. Choose the method in the *Mode
 : This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name. [See below for details how to set up an AWS account](#_setting_up_amazon_web_service).
 
 `Zip`
-: This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at location of the *Export path* setting.
+: This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
 
 
 ## Scripting with excluded collection proxies
@@ -182,7 +182,7 @@ This section will explain how to create a new user with limited access on Amazon
 
     Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Policies* in the menu to the left and you will see all your existing policies together with the option to create a new policy.
 
-    Click the button *Create Policy*, and the choose to _Create Your Own Policy_. The policy in this example will allow a user to list all buckets, which is only required when configuring a Defold project for Live update. It will also allow the user to get the Access Control List (ACL) and upload resources to the specific bucket used for Live update resources. For additional information about Amazon Identity and Access Management (IAM), please see [the Amazon documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
+    Click the button *Create Policy*, and then choose to _Create Your Own Policy_. The policy in this example will allow a user to list all buckets, which is only required when configuring a Defold project for Live update. It will also allow the user to get the Access Control List (ACL) and upload resources to the specific bucket used for Live update resources. For additional information about Amazon Identity and Access Management (IAM), please see [the Amazon documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
 
     ```json
     {
@@ -238,7 +238,7 @@ This section will explain how to create a new user with limited access on Amazon
     $ touch ~/.aws/credentials
     ```
 
-    The file *~/.aws/credentials* will contain your credentials to access Amazon Web Services through programmatic access and is a standardised way to manage AWS credentials. Open the file in a text editor and enter your *Access key ID* and *Secret access key* in the below format.
+    The file *~/.aws/credentials* will contain your credentials to access Amazon Web Services through programmatic access and is a standardised way to manage AWS credentials. Open the file in a text editor and enter your *Access key ID* and *Secret access key* in the format shown below.
 
     ```ini
     [defold-liveupdate-example]
@@ -246,7 +246,7 @@ This section will explain how to create a new user with limited access on Amazon
     aws_secret_access_key = <Secret access key>
     ```
 
-    The identifier specified within the brackets, in this example _defold-liveupdate-example_, is the same identifier that you should provide when configuring your projects Live update settings in the Defold editor.
+    The identifier specified within the brackets, in this example _defold-liveupdate-example_, is the same identifier that you should provide when configuring your project's Live update settings in the Defold editor.
 
     ![Live update settings](images/live-update/05-liveupdate-settings.png)
 
@@ -257,13 +257,13 @@ The manifest is an internal data structure that holds a list of all resources in
 From the user's perspective, the manifest is a numeric handle, leaving the details of how it's managed to the engine.
 
 ::: important
-Currently, only the initial build manifest is available. The ability to store new manifests is a planned update to the system. This will allow you to modify or add resources to a published game that was not known at build time.
+Currently, only the initial build manifest is available. The ability to store new manifests is a planned update to the system. This will allow you to modify or add resources to a published game that were not known at build time.
 :::
 
 ## Development caveats
 
 Debugging
-: When running a bundled version of your game, you don't have direct access to a console. This causes problems for debugging. However, you can run the application from command line or by double clicking the executable in the bundle directly:
+: When running a bundled version of your game, you don't have direct access to a console. This causes problems for debugging. However, you can run the application from the command line or by double clicking the executable in the bundle directly:
 
   ![Running a bundle application](images/live-update/run-bundle.png)
 
@@ -279,5 +279,5 @@ Forcing re-download of resources
 ## Known issues
 
 - At the moment you have access only to the manifest that is created at build-time. In the near future you will be able to store new manifests. This will allow you to modify existing resources, or add new resources to the game through Live update.
-- [`resource.store_resource()`](/ref/resource/#resource.store_resource) is currently blocking the main thread, meaning that if you store large resources you will experience hitches.
+- [`resource.store_resource()`](/ref/resource/#resource.store_resource) currently blocks the main thread, meaning that if you store large resources you will experience hitches.
 

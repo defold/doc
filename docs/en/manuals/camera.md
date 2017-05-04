@@ -17,7 +17,7 @@ Cameras in OpenGL are expressed as coordinate systems with a viewer, or eye, pos
 
 ![Camera planes](images/cameras/cameras_planes.png)
 
-A 3D camera usually have a viewing volume, a _frustum_, that is shaped like a cut off pyramid. The effect of this is that objects further away from the camera will be rendered smaller--the perspective will be realistic. The wider the _field of view_, the more the camera sees of the scenery, and the more dramatic will the difference between near and far object be.
+A 3D camera usually has a viewing volume, a _frustum_, that is shaped like a cut off pyramid. The effect of this is that objects further away from the camera will be rendered smaller--the perspective will be realistic. The wider the _field of view_, the more the camera sees of the scenery, and the more dramatic the difference between near and far objects will be.
 
 ![Camera field of view](images/cameras/cameras_fov.png)
 
@@ -53,13 +53,13 @@ auto_aspect_ratio
 
 ## Camera focus
 
-To activate the camera and have it feed its view and projection matrices, you send the component a `acquire_camera_focus` message:
+To activate the camera and have it feed its view and projection matrices, you send the component an `acquire_camera_focus` message:
 
 ```lua
 msg.post("#camera", "acquire_camera_focus")
 ```
 
-As soon as the camera component has camera focus, it will each frame send a `set_view_projection` message to the `@render` socket, i.e. to your render script:
+As soon as the camera component has camera focus, each frame it will send a `set_view_projection` message to the `@render` socket, i.e. to your render script:
 
 ```lua
 -- example.render_script
@@ -81,7 +81,7 @@ function on_message(self, message_id, message)
 end
 ```
 
-If you use both camera view and projection in your render script you will get a camera view into your game world with 3D perspective, even though your game content is strictly 2D. This is sometimes useful. You can, for instance, move the camera back to reveal more of the level. A simple camera script that measures the current camera move speed and pulls it back relative that speed could look like this:
+If you use both camera view and projection in your render script you will get a camera view into your game world with 3D perspective, even if your game content is strictly 2D. This is sometimes useful. You can, for instance, move the camera back to reveal more of the level. A simple camera script that measures the current camera move speed and pulls it back relative that speed could look like this:
 
 ```lua
 -- camera.script

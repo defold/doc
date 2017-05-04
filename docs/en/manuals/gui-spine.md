@@ -50,7 +50,7 @@ The individual bones in the Spine skeleton exist as GUI nodes. The nodes are nam
 
 ![Spine bone names](images/gui/gui_spine_bones.png)
 
-To, for instance, attach another node to an existing bone node, fetch the bone node by name with the [`gui.get_spine_bone()`](/ref/gui#gui.get_spine_bone) and attach the child:
+For instance, to attach another node to an existing bone node, fetch the bone node by name with [`gui.get_spine_bone()`](/ref/gui#gui.get_spine_bone) and attach the child to it:
 
 ```lua
 -- Attach a text node to the tail of the cat
@@ -60,7 +60,7 @@ local tail = gui.get_spine_bone(cat, "tail")
 gui.set_parent(textnode, tail)
 ```
 
-All bones are also accessible through [`go.get_node()`](/ref/gui#gui.get_node), by the bone name prefixed by the name of the name of the Spine node and a slash (`/`):
+All bones are also accessible through [`gui.get_node()`](/ref/gui#gui.get_node), by the bone name prefixed by the name of the name of the Spine node and a slash (`/`):
 
 ```lua
 -- Attach a text node to the tail of the cat

@@ -5,7 +5,9 @@ brief: Defold contains a number of editors, but the Scene Editor is the one used
 
 # Scene editing
 
-Defold contains a number of editors, but the Scene Editor is the one used the most. All Game Objects and Collections, as well as some component types are created and edited in this editor.
+Defold contains a number of editors, but the Scene Editor is the one used the most. All Game Objects and Collections, as well as some component types, are created and edited in this editor.
+
+## Viewport Navigation
 
 Pan
 : <kbd>Alt</kbd> + <kbd>Middle button</kbd> (three button mouse) or <kbd>Option + Ctrl</kbd> + <kbd>Mouse button</kbd> (one button mouse)
@@ -13,7 +15,7 @@ Pan
 Zoom
 : <kbd>Alt</kbd> + <kbd>Right button</kbd> (three button mouse) or <kbd>Ctrl</kbd> + <kbd>Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
 
-If you have a mouse wheel, it can be used to zoom the view. In OS X, two finger swipes up and down on the trackpad is equivalent to rolling the mouse wheel so you can use that gesture to zoom.
+If you have a mouse wheel, it can be used to zoom the view. In OS X, two finger swipes up and down on the trackpad are equivalent to rolling the mouse wheel, so you can use those gestures to zoom.
 
 To reset the view to where the whole scene is visible in the window, select <kbd>Scene ▸ Frame Objects</kbd>{.menu} from the menu or press <kbd>F</kbd>.
 
@@ -54,7 +56,7 @@ The *Rotate Tool* is accessible through the menu <kbd>Scene ▸ Rotate Tool</kbd
 
 ![Rotate object](images/scene_editing/scene_editing_rotate.png)
 
-The tool consists of three handles that you can manipulate. If you are working on 2D objects, you would probably only want to use the handle that rotates around the *Z* axis, which is the blue circle around the object. Click and drag on the circle to rotate the object.
+This tool consists of three handles that you can manipulate. If you are working on 2D objects, you would probably only want to use the handle that rotates around the *Z* axis, which is the blue circle around the object. Click and drag on the circle to rotate the object.
 
 If you want to rotate around the *X* or *Y* axis, click and drag on the green and red circles. Since the view is peripendicular to those axis, the circles only appear as two lines crossing the object: a green horizontal one and a red vertical.
 
@@ -76,5 +78,5 @@ It is often convenient to be able to disable the visual rendering of certain typ
 
 ![Showing information](images/scene_editing/scene_editing_show.png)
 
-The choices you make are stored in the editor and applies to all Scene Editor instances. Your choices are rememberered between sessions too so if you close the Defold editor down and start it up the next day, your Show settings will be intact.
+The choices you make are stored in the editor and apply to all Scene Editor instances. Your choices are rememberered between sessions too so if you close the Defold editor down and start it up the next day, your Show settings will be intact.
 

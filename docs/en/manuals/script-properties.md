@@ -83,7 +83,7 @@ Any script component instance that uses the script can set the value specificall
 In the case where the game object holding the script lives inside a sub-collection, expand the game object node in the collection to select the script.
 :::
 
-The editor property inspector will automatically show a widget that is feasible for the type of property that you have declared. Numbers are entered in text boxes, vectors and quartenions as a set of numbers in boxes, hashes allow you to enter the string that will be hashed and URLs give you a drop down with all _relative_, local (that is, within the same collection) objects and components. You are still able to enter URL values manually, too.
+The editor property inspector will automatically show a widget that is appropriate for the type of property that you have declared. Numbers are entered in text boxes, vectors and quaternions as a set of numbers in boxes, hashes allow you to enter the string that will be hashed and URLs give you a drop down with all _relative_, local (that is, within the same collection) objects and components. You are still able to enter URL values manually, too.
 
 ![Property example](images/script_properties/script_properties_example.png)
 
@@ -96,12 +96,12 @@ Through `self`
 
   ```lua
   go.property("my_property", 1)
-  
+
   ...
   function init(self)
       self.other_property = 2
   end
-  
+
   function update(self, dt)
       -- Read and write the property
       if self.my_property == 1 and self.other_property == 3 then
@@ -117,16 +117,16 @@ As a script component property
   -- myobject.script
   -- This script is attached to the object "myobject". The script component is called "script".
   go.property("my_property", 1)
-  
+
   ...
   ```
-  
+
   ```lua
   -- another.script
   -- increase "my_property" in "myobject#script" by 1
   local val = go.get("myobject#script", "my_property")
   go.set("myobject#script", "my_property", val + 1)
-  
+
   -- animate "my_property" in "myobject#script"
   go.animate("myobject#script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
   ```
@@ -154,10 +154,10 @@ props[hash("/object3")] = { another_property = 4 }
 local ids = collectionfactory.create("#collectionfactory", nil, nil, props)
 ```
 
-The property values provided via `factory.create()` and `collectionfactory.create()` override any value set in the game object file as well as the default value in the script.
+The property values provided via `factory.create()` and `collectionfactory.create()` override any values set in the game object file as well as the default values in the script.
 
 ::: important
-If you have several script components attached to a game object, it is possible to put script properties in any of the script files. Suppose that the game object example above had another script component also containing the property `health`. When `factory.create()` is called, the `health` property for _both_ scripts are set to the provided value.
+If you have several script components attached to a game object, it is possible to put script properties in any of the script files. Suppose that the game object example above had another script component also containing the property `health`. When `factory.create()` is called, the `health` properties for _both_ scripts are set to the provided value.
 :::
 
 

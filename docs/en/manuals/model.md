@@ -48,7 +48,7 @@ With the model in place you need to specify a number of properties
 : This property should point to the texture image file that you want applied to the object.
 
 *Skeleton*
-: This property should refer to the Collada *.dae* file that contaist the skeleton to use for animation.
+: This property should refer to the Collada *.dae* file that contains the skeleton to use for animation.
 
 *Animations*
 : Set this to the *Animation Set File* that contains the animations you want to use on the model.

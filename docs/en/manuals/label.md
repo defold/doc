@@ -5,7 +5,7 @@ brief: This manual explains how to use label components to use text with game ob
 
 # Label
 
-The *Label* component exists to allow you to attach text content to any game object. While Defold's GUI support is advanced, using it to glue information to in game objects can be tricky since GUI:s does not live in the game world.
+The *Label* component exists to allow you to attach text content to any game object. While Defold's GUI support is advanced, using it to glue information to in game objects can be tricky since GUIs do not live in the game world.
 
 ## Creating a label
 
@@ -13,11 +13,11 @@ A label component renders a piece of text on screen, in game space. By default i
 
 To create a Label component, either:
 
-1. Add a new component in-place in an existing game object by right clicking the game object and select *Add Component*. Select *Label* and press *OK*.
+1. Add a new component in-place in an existing game object by right clicking the game object and selecting *Add Component*. Select *Label* and press *OK*.
 
   ![Add label](images/label/add_label.png)
 
-2. If you want to instanciate several labels from the same template you can alternatively make a new *Label File* (right click a folder in the *Project Explorer* and select <kbd>New ▸ Label File</kbd>) and then add that to one or more game objects by right clicking the game objects and select <kbd>Add Component From File</kbd> and select your new label file.
+2. If you want to instantiate several labels from the same template you can alternatively make a new *Label File* (right click a folder in the *Project Explorer* and select <kbd>New ▸ Label File</kbd>) and then add that to one or more game objects by right clicking the game objects, selecting <kbd>Add Component From File</kbd> and selecting your new label file.
 
 The new label component has a set of special properties exposed that you can change in the editor or in runtime.
 
@@ -68,7 +68,7 @@ Note that the default material has shadow rendering disabled for performance rea
 
 ## Alignment
 
-By setting the pivot you can change the adjust mode for the text.
+By setting the pivot you can change the alignment mode for the text.
 
 *Center*
 : If the pivot is set to `Center`, `North` or `South`, the text is center-aligned.
@@ -83,7 +83,7 @@ By setting the pivot you can change the adjust mode for the text.
 
 ## Runtime manipulation
 
-You can manipulate labels in runtime by reading and setting the label text as well as the various properties.
+You can manipulate labels in runtime by getting and setting the label text as well as the various other properties.
 
 `color`
 : The label color (`vector4`)

@@ -21,7 +21,7 @@ Composite properties of type `vector3`, `vector4` or `quaternion` also expose th
 go.set("game_object", "position.x", 10)
 ```
 
-The functions `go.get()`, `go.set()` and `go.animate()` take a reference as their first parameter and a property identifier as their second. The reference identifies the game object or component and can be a string, a hash or an URL. URLs are explained in detail in the [Message passing documentation](/manuals/message-passing). The property identifier is a string or hash that names the property:
+The functions `go.get()`, `go.set()` and `go.animate()` take a reference as their first parameter and a property identifier as their second. The reference identifies the game object or component and can be a string, a hash or a URL. URLs are explained in detail in the [Message passing documentation](/manuals/message-passing). The property identifier is a string or hash that names the property:
 
 ```lua
 -- Set the x-scale of the sprite component
@@ -30,7 +30,7 @@ local prop = hash("scale.x")
 go.set(url, prop, 2.0)
 ```
 
-For GUI nodes, the node identifier is provided as first parameter to the property specific function:
+For GUI nodes, the node identifier is provided as the first parameter to the property specific function:
 
 ```lua
 -- Get the color of the button
@@ -57,7 +57,7 @@ Legacy functions for reading and writing game object properties also exist. They
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *position* | The local position of the game object. | `vector3`.      | `get+set`{.mark} |
-| *rotation* | Local rotation of game object, expressed as quaternion.  | `quaternion` | `get+set`{.mark} |
+| *rotation* | Local rotation of game object, expressed as a quaternion.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Local rotation of game object, Euler angles. | `vector3` | `get+set`{.mark} |
 | *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
 
@@ -73,10 +73,10 @@ Legacy functions for reading and writing game object properties also exist. They
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *mass*     | The mass of the collision object. | `number` | `get`{.mark} |
-| *linear_velocity* | The current linear velocity for the collision object. | `vector3` | `get`{.mark} |
-| *angular_velocity* | The current angular velocity for the collision object. | `vector3` | `get`{.mark} |
-| *linear_damping* | Linear damping for the collision object. | `vector3` | `get+set`{.mark} |
-| *angular_damping* | Angular damping for the collision object. | `vector3` | `get+set`{.mark} |
+| *linear_velocity* | The current linear velocity of the collision object. | `vector3` | `get`{.mark} |
+| *angular_velocity* | The current angular velocity of the collision object. | `vector3` | `get`{.mark} |
+| *linear_damping* | Linear damping of the collision object. | `vector3` | `get+set`{.mark} |
+| *angular_damping* | Angular damping of the collision object. | `vector3` | `get+set`{.mark} |
 
 *SPINE MODEL COMPONENT PROPERTIES*
 
@@ -97,7 +97,7 @@ Legacy functions for reading and writing game object properties also exist. They
 
 ## GUI node properties
 
-GUI nodes also contain properties, but they are read and written through special getter and setter functions. For each property there exist one get- and one set- function. There is also a set of constants defined to use as reference to the properties when animating them. If you need to refer to separate property components you have to use the string name of the property, or a hash of the string name.
+GUI nodes also contain properties, but they are read and written through special getter and setter functions. For each property there exists one get- and one set- function. There is also a set of constants defined to use as reference to the properties when animating them. If you need to refer to separate property components you have to use the string name of the property, or a hash of the string name.
 
 * `position` (or `gui.PROP_POSITION`)
 * `rotation` (or `gui.PROP_ROTATION`)

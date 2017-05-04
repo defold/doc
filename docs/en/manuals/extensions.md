@@ -1,6 +1,6 @@
 ---
 title: Writing native extensions for Defold
-brief: This manual explains how to write a native extensions for the Defold game engine and how to compile it through the zero setup cloud builders.
+brief: This manual explains how to write a native extension for the Defold game engine and how to compile it through the zero setup cloud builders.
 ---
 
 # Native extensions
@@ -8,18 +8,18 @@ brief: This manual explains how to write a native extensions for the Defold game
 If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in the C++ language. Typical use cases for native extensions are:
 
 - Interaction with specific hardware, for instance the camera on mobile phones.
-- Interaction with external low level API:s, for instance advertising network API:s that does not allow interaction through network API:s where Luasocket could be used.
+- Interaction with external low level APIs, for instance advertising network APIs that do not allow interaction through network APIs where Luasocket could be used.
 - High performance calculations.
 
 ## The build platform
 
-Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
+Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute them to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
 
 ![Cloud build](images/extensions/cloud_build.png)
 
 ## Project layout
 
-To create a new extension, create a folder in the project root. This folder will contain all settings, source code, libraries and resources associated with the extension. The extension builder recognizes the folder structure and collects any source files and libraries .
+To create a new extension, create a folder in the project root. This folder will contain all settings, source code, libraries and resources associated with the extension. The extension builder recognizes the folder structure and collects any source files and libraries.
 
 ![Project layout](images/extensions/layout.png)
 
@@ -195,7 +195,7 @@ platforms:
 
 ## Known issues
 
-The native extension feature is in an alpha state, meaning that that the API:s can still change. Furthermore, not all features are in place yet.
+The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
 
 Platforms
 : We currently only support building extensions for: macOS, iOS and Android. Android lacks support for *.java* and *.jar* archives

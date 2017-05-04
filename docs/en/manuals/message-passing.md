@@ -7,7 +7,7 @@ brief: Message passing is the mechanism used by Defold to permit loosely coupled
 
 Message passing is the mechanism used by Defold to permit objects to communicate without creating dependencies between them. This manual assumes that you have a basic understanding of *Game Objects*, *Components* and *Collections*.
 
-When programming it is generally best to couple all objects, code modules or components [as loosely as possible](http://en.wikipedia.org/wiki/Loose_coupling). Any object that has a dependency to the inner workings of another object is considered to be _tightly coupled_ and such coupling often lead to code that is harder to maintain and is a common source of bugs---some of which can be very hard to track down.
+When programming it is generally best to couple all objects, code modules or components [as loosely as possible](http://en.wikipedia.org/wiki/Loose_coupling). Any object that has a dependency to the inner workings of another object is considered to be _tightly coupled_ and such coupling often leads to code that is harder to maintain and it is a common source of bugs---some of which can be very hard to track down.
 
 Defold's Lua integration does not provide object orientation in the sense that you define your application by setting up class hierarchies with inheritance (like Java, C++ or C#). Instead, Defold extends Lua with a simple and powerful object oriented design with the following characteristics:
 
@@ -17,7 +17,7 @@ Defold's Lua integration does not provide object orientation in the sense that y
 
 ## Addressing and URLs
 
-Every object in Defold is uniquely addressed through a URL (Uniform Resource Locator). The address is set at compile time and stays fixed throughout  the object’s lifetime. This means that if you save the address to an object it will stay valid for as long as the object exists; you never have to worry about updating object references that you store.
+Every object in Defold is uniquely addressed through a URL (Uniform Resource Locator). The address is set at compile time and stays fixed throughout the object’s lifetime. This means that if you save the address to an object it will stay valid for as long as the object exists; you never have to worry about updating object references that you store.
 
 When you organize your project, you add game objects into a hierarchy of collections. In its simplest form it’s a set of game objects directly under the top level collection, but often you would want to group things a bit more. For instance, suppose you have a simple game consisting of:
 
@@ -44,7 +44,7 @@ Some of this game content will live in separate files in the project. For instan
 1. The id you assign something
 2. In what collection you put it
 
-The Defold editor will automatically assign unique id:s within the current collection when you place a collection or game object. You can change these names to whatever you like--the editor will keep track of the id:s and make sure that names don't collide. If you force a name collision, the Defold editor will signal an error.
+The Defold editor will automatically assign unique id:s within the current collection when you place a collection or game object. You can change these names to whatever you like---the editor will keep track of the id:s and make sure that names don't collide. If you force a name collision, the Defold editor will signal an error.
 
 All addresses are expressed by a *URL* that uniquely identify each message sender and receiver in the running game. The URL consists of three components and is written in the following generic format:
 
@@ -56,7 +56,7 @@ socket
 : Identifies which "world" the sender or receiver lives in. This is important when working with [Collection Proxies](/manuals/collection-proxy) and is then used to identify the _dynamically loaded collection_.
 
 path
-: This part of the URL usually contain the full id of the target _game object_.
+: This part of the URL usually contains the full id of the target _game object_.
 
 fragment
 : The id of the target _component_ within the specified game object.
@@ -79,7 +79,7 @@ If you send a message to an unknown recipient, Defold will signal an error in th
 ERROR:GAMEOBJECT: Instance '/level/enemy' could not be found when dispatching message 'hello' sent from default:/level/hero#brain
 ```
 
-In most cases, the above way of writing full URL:s is unnecessary and way too specific. Let's instead look at 3 more common examples of how to write messages in our example game:
+In most cases, the above way of writing full URLs is unnecessary and way too specific. Let's instead look at 3 more common examples of how to write messages in our example game:
 
 ![Message passing](images/message_passing/message_passing.png)
 
@@ -132,11 +132,11 @@ Message 3
   msg.post("/interface#gui", "update_minimap")
   ```
 
-  Here is another case where we cannot specify a relative URL. Instead we have to write the full id of the "interface" object and direct the message to the "gui" component. Script and GUI components are the only game object components that have Lua script associated with them. They can react to arbitrary messages. It is important to remember that GUI scripts must be added to the GUI scene that you add as a component to the game object. Messages between GUI scripts and other scripts works exactly the same way.
+  Here is another case where we cannot specify a relative URL. Instead we have to write the full id of the "interface" object and direct the message to the "gui" component. Script and GUI components are the only game object components that have Lua scripts associated with them. They can react to arbitrary messages. It is important to remember that a GUI script must be added to the GUI scene that you add as a component to the game object. Messages between GUI scripts and other scripts work exactly the same way.
 
 ## Shorthands
 
-We have seen how it is possible to leave out redundant information from the URL:s when constructing messages. In addition, Defold provides two handy shorthands that you can use:
+We have seen how it is possible to leave out redundant information from the URLs when constructing messages. In addition, Defold provides two handy shorthands that you can use:
 
 `.`
 : A URL shorthand for the current game object.
@@ -195,7 +195,7 @@ For convenience we add a message that sets all information on the HUD in one go.
 msg.post("hud#script", "set_stats", { score = 100, stars = 2, health = 4 })
 ```
 
-The call adds a `message` parameter with additional data to the message. The argument is optional and should be a Lua table, with key-value pairs inside curly braces. Almost any type of data can be included in the message Lua table. You can pass numbers, strings, booleans, URL:s, hashes and nested tables. You can not, however, pass functions.
+The call adds a `message` parameter with additional data to the message. The argument is optional and should be a Lua table, with key-value pairs inside curly braces. Almost any type of data can be included in the message Lua table. You can pass numbers, strings, booleans, URLs, hashes and nested tables. You can not, however, pass functions.
 
 ```lua
 -- Send table data containing a nested table
@@ -239,7 +239,7 @@ The console output shows the message, data and sender:
 
 ```txt
 DEBUG:SCRIPT: hash: [set_stats]
-DEBUG:SCRIPT: 
+DEBUG:SCRIPT:
 {
   health = 4,
   stars = 2,
@@ -310,7 +310,7 @@ local parent = go.get_id("tree")
 msg.post(".", "set_parent", { parent_id = parent })
 ```
 
-Parent-child hierarchies can also be set up the editor, and will still be dynamic. Let’s, for example, build a tree with hearts in it. It will consist of a “tree” object and a number of “heart” objects. We also have a “pot” in where the tree lives. First we have to place these objects in a collection in order to make them parent and child. We're calling this collection “hearttree”. Then we can simply drag the heart objects onto the tree object to child them:
+Parent-child hierarchies can also be set up the editor, and will still be dynamic. Let’s, for example, build a tree with hearts in it. It will consist of a “tree” object and a number of “heart” objects. We also have a “pot” in which the tree lives. First we have to place these objects in a collection in order to make them parent and child. We're calling this collection “hearttree”. Then we can simply drag the heart objects onto the tree object to child them:
 
 ![Heart tree](images/message_passing/editor_heart_tree.png)
 
@@ -356,7 +356,7 @@ Defold uses sockets for communicating with certain engine subsystems. Those are:
 - `@render:`
 - `@system:`
 
-Note that all are sockets with no path nor fragment.
+Note that all are sockets with no path or fragment.
 
 For instance, you can toggle the system profiler by sending a message `msg.post("@system:", "toggle_profile")`
 
@@ -443,7 +443,7 @@ DEBUG:SCRIPT: UPDATE 4
 DEBUG:SCRIPT: 75 dispatch passes before this update.
 DEBUG:SCRIPT: UPDATE 5
 DEBUG:SCRIPT: 75 dispatch passes before this update.
-``
+```
 
 We see that this particular Defold engine version performs 10 dispatch passes on the message queue between `init()` and the first call to `update()`. It then performs 75 passes during each subsequent update loop.
 

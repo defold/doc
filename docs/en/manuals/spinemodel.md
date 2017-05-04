@@ -9,7 +9,7 @@ The SpineModel component is used to bring _Spine_ skeletal animations to life in
 
 ## Creating SpineModel components
 
-Create a game object and put a *SpineModel* component in the game object. You can either create the component in-place (right click the game object and select <kbd>Add Component</kbd>) or create it on file first (Select <kbd>New ▸ Spine Model File</kbd> from the menu) and then add the file to the game object (right click the game object and select <kbd>Add Component From File</kbd>).
+Create a game object and add a *SpineModel* component to it. You can either create the component in-place (right click the game object and select <kbd>Add Component</kbd>) or create it on file first (Select <kbd>New ▸ Spine Model File</kbd> from the menu) and then add the file to the game object (right click the game object and select <kbd>Add Component From File</kbd>).
 
 ![Add component](images/spinemodel/spine_add_component.png)
 
@@ -24,7 +24,7 @@ Default animation
 : Set this to the animation you want the model to start with.
 
 Skin
-: If your model have skins, select the one you want it to start with.
+: If your model has skins, select the one you want it to start with.
 
 Material
 : If you need to render the model with a custom material, change this property.
