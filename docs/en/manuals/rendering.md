@@ -5,7 +5,7 @@ brief: This manual explains how Defold's render pipeline works and how you can p
 
 # Rendering
 
-Every object that is shown on screen by the engine: sprites, models, tiles, particles or GUI nodes are drawn by a renderer. At the heart of the renderer is a render script that controls the render pipeline. By default, every 2D object is drawn with the correct bitmap with the specified blending and at the correct Z depth--so you might not have to ever think about rendering beyond ordering and simple blending. For most 2D games, the default pipeline functions well, but your game might have special requirements. If that is the case, Defold allows you to write a tailor-made rendering pipeline.
+Every object that is shown on screen by the engine: sprites, models, tiles, particles or GUI nodes, are drawn by a renderer. At the heart of the renderer is a render script that controls the render pipeline. By default, every 2D object is drawn with the correct bitmap with the specified blending and at the correct Z depth---so you might not have to ever think about rendering beyond ordering and simple blending. For most 2D games, the default pipeline functions well, but your game might have special requirements. If that is the case, Defold allows you to write a tailor-made rendering pipeline.
 
 ## The default renderer
 
@@ -29,12 +29,12 @@ To set up a custom renderer, you can do as follows:
 You can, of course, create a render script from scratch but it is a good idea to start with a copy of the default script if you are new to Defold and/or OpenGL ES rendering.
 
 ::: sidenote
-The render script has a special place in the lifecycle of your game. Detailed can be found in the [Application lifecycle documentation](/manuals/application-lifecycle).
+The render script has a special place in the lifecycle of your game. Details can be found in the [Application lifecycle documentation](/manuals/application-lifecycle).
 :::
 
 ## Render predicates
 
-To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_. Each object that is drawn onto the screen has a material attached to it and it controls exactly how the object should be drawn, down to which shader program to run. In the material, you specify one or more _tags_ associated with the material. This is compiled into a bit field when building the game, but is expressed as plain text tags in the editor. In your render script, create one or more render predicates and specify which tags should belong to the predicate. When you finally draw the predicate, each object with a material containing a tag matching the list specified to the predicate will be drawn. A more detailed description on materials can be found in the [Material documentation](/manuals/material).
+To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_. Each object that is drawn onto the screen has a material attached to it and it controls exactly how the object should be drawn, down to which shader program to run. In the material, you specify one or more _tags_ associated with the material. This is compiled into a bit field when building the game, but is expressed as plain text tags in the editor. In your render script, create one or more render predicates and specify which tags should belong to the predicate. When you finally draw the predicate, each object with a material containing a tag matching the list specified for the predicate will be drawn. A more detailed description on materials can be found in the [Material documentation](/manuals/material).
 
 ![Render predicate](images/rendering/rendering_predicate.png)
 
@@ -75,7 +75,7 @@ Information on how to define and use custom project settings can be found in the
 
 The `update()` function is called each frame. Its function is to perform the actual drawing by calling the underlying OpenGL ES APIs (OpenGL Embedded Systems API). To properly understand what's going on in the `update()` function, you need to understand how OpenGL works. There are many great resources on OpenGL ES available. The official site is a good starting place. You find it at https://www.khronos.org/opengles/
 
-The following example contains one major addition to the built in script which is the setup necessary to properly draw 3D models. As you saw above, a `self.model_pred` predicate is constructed. Elsewhere a material corresponding to this predicate has been defined and been applied to a 3D model component. The code for `update()` requires some specific handling of that predicate:
+The following example contains one major addition to the built in script which is the setup necessary to properly draw 3D models. As you saw above, a `self.model_pred` predicate is constructed. Elsewhere a material corresponding to this predicate has been defined and applied to a 3D model component. The code for `update()` requires some specific handling of that predicate:
 
 ```lua
 function update(self)
@@ -165,7 +165,7 @@ The `@render` socket has some built-in messages. The engine will send you a `win
 ```
 function on_message(self, message_id, message)
   if message_id == hash("window_resized") then
-    -- The window was resized. message.width and message.height contains new dimensions.
+    -- The window was resized. message.width and message.height contain the new dimensions.
     ...
   end
 end
@@ -184,7 +184,7 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = vmath.vect
 These messages are intended to be used to draw debug information. You can easily visualize ray_casts and vectors and print debug or development statistics in a programmatic manner. This data relates to your render script as follows:
 
 * Any lines added to the scene through the `draw_line` message are drawn with the `render.draw_debug3d()` call.
-* Any text added to the scene through the `draw_text` message are drawn in the built in "system_font" font. The system font has a material with tag "text" and is thus drawn in the "self.text_pred" predicate in the above render script.
+* Any text added to the scene through the `draw_text` message is drawn in the built in "system_font" font. The system font has a material with tag "text" and is thus drawn in the "self.text_pred" predicate in the above render script.
 
 ::: sidenote
 The visual profiler accessible through the `toggle_profile` message sent to the `@system` socket is not part of the scriptable renderer. It is drawn separate from your render script.

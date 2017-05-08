@@ -7,19 +7,19 @@ brief: This document describes how to set up and implement remote and local iOS 
 
 Push notifications are available on iOS and Android devices and allow your game to inform the player about changes and updates. The core functionality is similar between iOS and Android but there are some platform specific differences that you need to consider.
 
-For a push notifications to find its way from server to the target device, certain bits of information is required for your app. The most complex parts consists of security information that you set in the application so the notification system can verify the legitimity of the client receiving notifications. But you will also need a piece of security information for your notification server so the Apple or Google servers can verify that your server is a legitimate notification sender. Finally, when you send notifications, you need to be able to uniquely direct notifications to specific user's device. For that you retreive and use a token that is unique to the particular device (i.e. user).
+For a push notification to find its way from the server to the target device, certain bits of information are required for your app. The most complex part consists of security information that you set in the application so the notification system can verify the legitimacy of the client receiving notifications. But you will also need a piece of security information for your notification server so the Apple or Google servers can verify that your server is a legitimate notification sender. Finally, when you send notifications, you need to be able to uniquely direct notifications to a specific user's device. For that you retreive and use a token that is unique to the particular device (i.e. user).
 
 ## iOS setup
 
 ::: sidenote
-To get acquainted with the Apple Push Notification Servide, a good idea is to start by reading Apple's own documentation on how the service works. You find it on https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html
+To get acquainted with the Apple Push Notification Service, a good idea is to start by reading Apple's own documentation on how the service works. You can find it at https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html
 :::
 
 On iOS, you need the following information to send notifications:
 
 * Push Notifications must be enabled in the App ID.
 * A provisioning profile containing this valid App ID is also required.
-* You also need an Apple Push Notification service SSL Certificate to be allowed to send notification data to the Apple Push Notification server from your messaging server application.
+* You also need an Apple Push Notification Service SSL Certificate to be allowed to send notification data to the Apple Push Notification server from your messaging server application.
 
 To get everything in place, head over to the [Apple Developer Member center](https://developer.apple.com/membercenter). Edit your AppID to enable Push Notifications.
 
@@ -29,9 +29,9 @@ You also need to create an Apple Push Notification service SSL certificate:
 
 ![APN SSL certificate](images/push/push_ios_certificate.png)
 
-The certificate will be needed on your server that will send out push notifications. While developing, you can download and install the certificate on your machine and run a push test apps such as [APNS-Pusher](https://github.com/KnuffApp/APNS-Pusher) or [NWPusher](https://github.com/noodlewerk/NWPusher).
+The certificate will be needed on your server that will send out push notifications. While developing, you can download and install the certificate on your machine and run a push test app such as [APNS-Pusher](https://github.com/KnuffApp/APNS-Pusher) or [NWPusher](https://github.com/noodlewerk/NWPusher).
 
-Make sure that you create a new provisioning profile, from the AppID and that you get that onto your device. You can do that manually from the "Member Center" page or through Xcode.
+Make sure that you create a new provisioning profile from the AppID, and that you get it onto your device. You can do that manually from the "Member Center" page or through Xcode.
 
 ![Provisioning profile](images/push/push_ios_provisioning_profile.png)
 
@@ -97,10 +97,10 @@ If you're running a push test app, you can now try to send notifications to your
 
 ![Pusher test](images/push/push_ios_pusher.png)
 
-The notification should arrive to the client soon after you send it, from within your test application, arriving to the function `push_listener()`:
+The notification should arrive at the client soon after you send it, from within your test application, arriving to the function `push_listener()`:
 
 ```txt
-DEBUG:SCRIPT: 
+DEBUG:SCRIPT:
 {
   aps = {
     badge = 42,
@@ -167,7 +167,7 @@ local payload = '{"data" : {"field" : "Some value", "field2" : "Other value"}}'
 id, err = push.schedule(3, "A notification!", "Hello there", payload, { action = "get going" })
 ```
 
-The id is uniquely identifying this scheduled notification and can be stored for later The final parameter to `push.schedule()` takes a table with platform specific settings:
+The id is uniquely identifying this scheduled notification and can be stored for later. The final parameter to `push.schedule()` takes a table with platform specific settings:
 
 action
 : (iOS only). The alert action string to be used as the title of the right button of the alert or the value of the unlock slider, where the value replaces "unlock" in "slide to unlock" text.
@@ -183,12 +183,12 @@ priority
   - push.PRIORITY_DEFAULT
   - push.PRIORITY_HIGH
   - push.PRIORITY_MAX
-  
+
   Unless specified, the max priority level is used.
 
 ## Inspecting scheduled notifications
 
-The API provides two functions to inspect what is currently scheduled. 
+The API provides two functions to inspect what is currently scheduled.
 
 ```lua
 n = push.get_scheduled(id)
@@ -198,7 +198,7 @@ pprint(n)
 Which results in a table containing all details on the scheduled notification:
 
 ```txt
-DEBUG:SCRIPT: 
+DEBUG:SCRIPT:
 {
   payload = {"data":{"field":"Some value","field2":"Other value"}},
   title = A notification!,
@@ -208,7 +208,7 @@ DEBUG:SCRIPT:
 }
 ```
 
-Note that `seconds` indicate the number of seconds left for the notification to fire. It is also possible to retreive a table with _all_ scheduled notifications:
+Note that `seconds` indicates the number of seconds left for the notification to fire. It is also possible to retreive a table with _all_ scheduled notifications:
 
 ```lua
 all_n = push.get_all_scheduled()
@@ -218,7 +218,7 @@ pprint(all_n)
 Which results in a table pairing notification id:s with their respective data:
 
 ```txt
-DEBUG:SCRIPT: 
+DEBUG:SCRIPT:
 {
   0 = {
     payload = {"data":{"field":"Some value","field2":"Other value"}},

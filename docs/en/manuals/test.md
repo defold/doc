@@ -7,7 +7,7 @@ brief: This document uses all Markdown features (Commonmark + extensions) that t
 
 All defold manuals and tutorials are written in Markdown. This document outlines how to use the various formatting for a consistent look on all documents.
 
-Try to write as talking to the user. Keep the language direct and active and refrain from stating opinions unless it is important to the matter. Try to write paragraphs that flow and do not break them unnecessarily.
+Try to write as if you are talking to the user. Keep the language direct and active and refrain from stating opinions unless it is important to the matter. Try to write paragraphs that flow and do not break them unnecessarily.
 
 You do have some typographic markers to your disposal. The simplest one is the *emphasis* marker. It puts some stress to a word, marking it as important. This marker should also be used to call attention to specific things that the user can encounter in Defold, like the names of properties, buttons etc. For example, a sprite component's *Position*, a button that says *Save...* etc. File names are also typed like that: *game.project* or *main/images/logo.png*.
 
@@ -49,7 +49,7 @@ end
 
 ## Two levels of headings, lists and tables
 
-Do not use more than two levels of headings. If you need to describe specific things that you feel calls for a third level heading, use a definition list instead:
+Do not use more than two levels of headings. If you need to describe specific things that you feel call for a third level heading, use a definition list instead:
 
 Some thing
 : Here you can explain what "Some thing" is, what it does and whatnot. You have access to all of markdown in the description, just make sure to indent properly:
@@ -61,7 +61,7 @@ Another thing to explain
 
 Definition lists are great when you can put a name to each item. Sometimes a bullet list is better, or a numbered list. You can mix and match these:
 
-- Bullet list, indicated with either `-` or a `*` or a `+` at the start of the line.
+- Bullet list, indicated with either a `-` or a `*` or a `+` at the start of the line.
 - Another item.
 - A third item. We can also make sub-items, either bullets or numbers:
     1. A numbered sub-item. Number list items are written either `1.` or `1)`.
@@ -91,10 +91,10 @@ Or right-aligned
 
 ## Notes and images
 
-There are two types of notes that you can insert in the text. Since this is not a printed medium the idea of a footnote doesn't really work. Instead we keep the notes together with the text. Use the `::: sidenote` block for these.
+There are two types of notes that you can insert into the text. Since this is not a printed medium the idea of a footnote doesn't really work. Instead we keep the notes together with the text. Use the `::: sidenote` block for these.
 
 ::: sidenote
-The `::: sidenote` block is good for adding footnote-like information to the text. It can be used to add further explanation that is not vital or point to other resources. They are shown to the side of the text they preceed.
+The `::: sidenote` block is good for adding footnote-like information to the text. It can be used to add further explanation that is not vital or point to other resources. They are shown to the side of the text they precede.
 :::
 
 When you really want to make the user aware of something, use the `::: important` block:
@@ -103,7 +103,7 @@ When you really want to make the user aware of something, use the `::: important
 This is a block of text that the user will not miss. Use these sparingly for things that really needs a lot of attention. If you find that your document is littered with these, you might want to group the information a bit.
 :::
 
-Images are inserted in the document like this:
+Images are inserted into the document like this:
 
 ![A large image of sorts](images/test/large.png)
 

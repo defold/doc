@@ -5,13 +5,13 @@ brief: In-app purchases (or in-app billing) allows you to charge your players or
 
 # In-app purchases
 
-Defold provides a unified, simple to use interface to Apple's iOS Appstore "in-app purchases" and Google Play's or Amazon's "in-app billing" on Android devices. Facebook Canvas "game payments" is supported for Facebook Canvas. These services gives you the opportunity to sell products as:
+Defold provides a unified, simple to use interface to Apple's iOS Appstore "in-app purchases" and Google Play's or Amazon's "in-app billing" on Android devices. Facebook Canvas "game payments" are supported for Facebook Canvas. These services gives you the opportunity to sell products as:
 
 * Standard in-app products (one time billing) of consumables or non-consumables and
 * Subscriptions (recurring, automated billing)
 
 ::: important
-The current Defold interface allows full interaction with Apple's Storekit functionality. For Google Play and Facebook Canvas, the interface is identical, meaning that you can run the same code on either platform. However, some process flow might differ from platform to platform. Also note that there is currently no support for OS X purchases through Mac Appstore.
+The current Defold interface allows full interaction with Apple's Storekit functionality. For Google Play and Facebook Canvas, the interface is identical, meaning that you can run the same code on either platform. However, some process flow might differ from platform to platform. Also note that there is currently no support for OS X purchases through the Mac Appstore.
 :::
 
 Detailed documentation from Apple, Google, Amazon and Facebook can be found here:
@@ -50,7 +50,7 @@ The procedure on iOS and Android is similar:
 
     ![iTunes Connect and Google Play Dev Console](images/iap/itunes_connect_google_play.png)
 
-4. For Google Play, you need to _upload and publish_ an alpha *.apk* file. For iTunes Connect, you should _not upload_ the development binary to iTunes Connect until the application is ready for App Review approval. If you upload a not binary to iTunes Connect and it is not fully functional, Apple will likely reject it.
+4. For Google Play, you need to _upload and publish_ an alpha *.apk* file. For iTunes Connect, you should _not upload_ the development binary to iTunes Connect until the application is ready for App Review approval. If you upload a binary to iTunes Connect and it is not fully functional, Apple will likely reject it.
 
 5. Create products for your app.
 
@@ -60,7 +60,7 @@ The procedure on iOS and Android is similar:
 
 6. Add test users.
     - The iTunes Connect page *Users and Roles* allow you to add users that can do test purchases in the _sandbox environment_. You should sign your app with a Developer certificate and use the sandbox account in Appstore on the test device.
-    - On Google Play Developer Console, choose *Settings > Account Details* where you can add user emails to the License Testing section. Separate the emails by commas. This allows your testers to use test purchases that don’t actually cost real money.
+    - From the Google Play Developer Console, choose *Settings > Account Details* where you can add user emails to the License Testing section. Separate the emails by commas. This allows your testers to use test purchases that don’t actually cost real money.
     - On Google Play, you also need to set up a Google Group for your testers. Google uses Groups to manage testers that can download your app from the Alpha and Beta stores. Click on the *Alpha Testing* tab and then *Manage list of testers* to add your Google Group as Alpha testers. The app must have passed through alpha publishing before you can see the opt-in link.
 
 ![Alpha testers](images/iap/alpha_testers.png)
@@ -151,13 +151,13 @@ Most payment providers only supports synchronous payments. This means that the c
 
 ## Asynchronous payments
 
-Some payment providers requires supporting asynchronous payments. This means that the client (your application) will only receive a notification when the payment is initiated. In order to verify completion of payment, further communication have to be done from developer server (or client) with the payment provider in order to verify.
-In the case of an initiated asynchronous payment the iap listener will receive the state TRANS_STATE_UNVERIFIED to indicate this (as opposed to TRANS_STATE_PURCHASED). This is the final state of the payment, meaning no more callbacks will be done on this transaction.
+Some payment providers require supporting asynchronous payments. This means that the client (your application) will only receive a notification when the payment is initiated. In order to verify completion of payment, further communication needs to be done between the developer server (or client) and the payment provider in order to verify.
+In the case of an initiated asynchronous payment the IAP listener will receive the state TRANS_STATE_UNVERIFIED to indicate this (as opposed to TRANS_STATE_PURCHASED). This is the final state of the payment, meaning no more callbacks will be done on this transaction.
 
 ## Purchase fulfillment
 
 In order to complete a purchase from a payment provider, the application needs to signal a purchase fulfillment to the provider telling the provider the purchase has gone through (for example by developer server-side verification).
-Iap support both auto-completion where fulfillment is automatically signaled to the provider when a purchase is complete (this is the default behavior). You can also disable the auto completion in the game project settings. You are then required to call iap.finish() when the transaction is complete, which will signal purchase fulfillment to the provider.
+IAP supports auto-completion, where fulfillment is automatically signaled to the provider when a purchase is complete (this is the default behavior). You can also disable auto-completion in the game project settings. You are then required to call iap.finish() when the transaction is complete, which will signal purchase fulfillment to the provider.
 
 ## Transaction receipt
 
@@ -166,19 +166,19 @@ The receipt is a signed chunk of data that can be sent to the App Store to verif
 ## Troubleshooting
 
 Android `iap.list()` returns "failed to fetch product"
-: You need to upload and publish an *.apk* on the alpha or beta channels on Google Play Developer Console. Also make sure that the _time and date_ on your device is correct.
+: You need to upload and publish an *.apk* on the alpha or beta channels on the Google Play Developer Console. Also make sure that the _time and date_ on your device is correct.
 
 iOS `iap.list()` returns nothing
 : Make sure that you’ve requested an iOS Paid Applications account, and all proper documentation has been filed. Without proper authorization, your iOS app purchasing (even test purchases) will not work.
 
   Check that the AppId you have on the "Member Center" has in-app purchases activated and that you are signing your app (or the dev-app) with a provisioning profile that is up to date with the AppId (check the "Enabled Services:" field in the provisioning profile details in the "Certificates, Identifiers & Profiles" area of "Member Center")
 
-  Wait. It can take a few hours for the In-App product IDs are propagated to the Sandbox environment.
+  Wait. It can take a few hours for the In-App product IDs to propagate to the Sandbox environment.
 
 iOS `iap.list()` fails logging error "Unexpected callback set"
-: iap.list does not support nested calls. Calling iap.list from an iap.list callback function will be ignored with the engine logging this error.
+: iap.list does not support nested calls. Calling iap.list from an iap.list callback function will be ignored, with the engine logging this error.
 
 On iOS, the "price_string" field contains '~' characters
-: The '~' characters are placeholders where no matching character could be found in the font file. The "price_string" field returned in the product list when using `iap.list()` is formatted with _non breaking space_ (`\u00a0`) between the value and the currency denominator. If you render this string in the GUI, you need to add the character to the font's *extra_characters* field. On Mac OS X you can type non breaking spaces by pressing <kbd>Option + SPACE</kbd>. See http://en.wikipedia.org/wiki/Non-breaking_space for more information.
+: The '~' characters are placeholders where no matching character could be found in the font file. The "price_string" field returned in the product list when using `iap.list()` is formatted with a _non breaking space_ (`\u00a0`) between the value and the currency denominator. If you render this string in the GUI, you need to add the character to the font's *extra_characters* field. On Mac OS X you can type non breaking spaces by pressing <kbd>Option + SPACE</kbd>. See http://en.wikipedia.org/wiki/Non-breaking_space for more information.
 
 

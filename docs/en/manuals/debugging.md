@@ -81,10 +81,10 @@ Mapped remote request for '/' to '/Users/my_user/Documents/Projects/Defold_proje
 Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 ```
 
-Now it it possible to use the debugging features available in ZeroBrane; you can step, inspect, add and remove breakpoints etc.
+Now it is possible to use the debugging features available in ZeroBrane; you can step, inspect, add and remove breakpoints etc.
 
 ::: sidenote
-The debugging will only be enabled for the lua context from where debugging is initiated. Enabling "shared_state" in game.project means you can debug all your application no matter where you started.
+The debugging will only be enabled for the lua context from where debugging is initiated. Enabling "shared_state" in game.project means you can debug your whole application no matter where you started.
 :::
 
 ![Auto completion](images/debugging/code.png)
@@ -108,7 +108,7 @@ This also means it is important to make sure to have network connectivity from t
 
 It is possible to make ZeroBrane automatically open Lua script files during debugging. This makes it possible to step into functions in other source files without having to open them manually.
 
-First step is to access the editor configuration file. Recommended is to change the user version of the file.
+The first step is to access the editor configuration file. It is recommended that you change the user version of the file.
 
 - Select menu:Edit[Preferences > Settings: User]
 - Add the following to the configuration file:
@@ -124,7 +124,7 @@ First step is to access the editor configuration file. Recommended is to change 
 
 ## Hot reloading
 
-Defold allows you to perform hot reloading of resources. When developing a game this feature helps speed up certain task enormously. It allows you to change scripts in a game while it is running live. Common use-cases is to tweak gameplay parameters or to perform debugging on a running game.
+Defold allows you to perform hot reloading of resources. When developing a game this feature helps speed up certain task enormously. It allows you to change scripts in a game while it is running live. Common use-cases are to tweak gameplay parameters or to perform debugging on a running game.
 
 To reload a changed resource, simply select the menu item <kbd>Edit ▸ Reload Resource</kbd> or press the corresponding shortcut on the keyboard:
 
@@ -181,7 +181,7 @@ Below the frames overview is a detailed frame data view. You can click on any fr
 
 ## Frame data
 
-The frame data view is a table where all data for the currently selected frame is broken down into detail. You can view how many milliseconds is spent in each engine scope (to the left) and also see sample points within the scopes (middle column). On the right hand side is a table of counters. The numbers presented are counters so it is easy to, for instance, track the number of draw calls required for each frame in the sample data.
+The frame data view is a table where all data for the currently selected frame is broken down into detail. You can view how many milliseconds are spent in each engine scope (to the left) and also see sample points within the scopes (middle column). On the right hand side is a table of counters. The numbers presented are counters so it is easy to, for instance, track the number of draw calls required for each frame in the sample data.
 
 ![Frame data](images/debugging/webprofiler_frame_data.png)
 

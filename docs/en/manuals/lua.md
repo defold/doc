@@ -7,7 +7,7 @@ brief: This manual will give a quick introduction to the basics of Lua programmi
 
 The Defold engine has the Lua language embedded for scripting. Lua is a lightweight dynamic language that is powerful, fast, and easy to embed. It is widely used as a videogame scripting language. Lua programs are written in a simple procedural syntax. The language is dynamically typed and is run by a bytecode interpreter. It features automatic memory management with incremental garbage collection.
 
-This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript or a similar dynamic language you will get going pretty quick. If you are totally new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
+This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript or a similar dynamic language you will get going pretty quickly. If you are totally new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
 
 ## Lua versions
 We aim to keep Defold the same across all platforms, but we currently have a small discrepancy between Lua versions. For HTML5 and iOS 64 bit platforms we use Lua 5.1 but for other platforms we use LuaJIT. LuaJIT is based on 5.1 but contains a few additional features.
@@ -129,7 +129,7 @@ string
   ```
 
 function
-: Functions are first class values in Lua, meaning that you can pass them as parameters to functions and return them as values. Variables assigned to a function contains a reference to the function. You can assign variables to anonymous functions, but Lua provides syntactic sugar (`function name(param1, param2) ... end`) for convenience.
+: Functions are first class values in Lua, meaning that you can pass them as parameters to functions and return them as values. Variables assigned to a function contain a reference to the function. You can assign variables to anonymous functions, but Lua provides syntactic sugar (`function name(param1, param2) ... end`) for convenience.
 
   ```lua
   -- Assign 'my_plus' to function
@@ -167,7 +167,7 @@ function
   ```
 
 table
-: Tables are the only data-structuring type in Lua. It is an associative array _object_ that is used to represent lists, arrays, sequences, symbol tables, sets, records, graphs, trees etc. Tables are always anonymous and variables you assign a table does not contain the table itself, but a reference to it. When initializing a table as a sequence, the first index is `1`, not `0`.
+: Tables are the only data-structuring type in Lua. They are associative array _objects_ that are used to represent lists, arrays, sequences, symbol tables, sets, records, graphs, trees etc. Tables are always anonymous and variables you assign a table to do not contain the table itself, but a reference to it. When initializing a table as a sequence, the first index is `1`, not `0`.
 
   ```lua
   -- Initialize a table as a sequence
@@ -211,7 +211,7 @@ userdata
 : Userdata is provided to allow arbitrary C data to be stored in Lua variables. Defold uses Lua userdata objects to store Hash values (hash), URL objects (url), Math objects (vector3, vector4, matrix4, quaternion), Game objects, GUI nodes (node), Render predicates (predicate), Render targets (render_target) and Render constant buffers (constant_buffer)
 
 thread
-: Threads represents independent threads of execution and it is used to implement coroutines. See below for details.
+: Threads represent independent threads of execution and are used to implement coroutines. See below for details.
 
 ## Operators
 
@@ -463,7 +463,7 @@ end
 
 ## Coroutines
 
-Functions execute from beginning to end and there is no way to stop it midway through. Coroutines allow you to do that, which can be very convenient in some cases. Suppose we want to create a very specific frame-by-frame animation where we move a game object from y position `0` to some very specific y positions frame 1 to frame 5. We could solve that with a counter in the `update()` function (see below) and a list of the positions. However, with a coroutine we get a very clean implementation that is easy to extend and work with. All state is contained within the coroutine itself.
+Functions execute from beginning to end and there is no way to stop them midway through. Coroutines allow you to do that, which can be very convenient in some cases. Suppose we want to create a very specific frame-by-frame animation where we move a game object from y position `0` to some very specific y positions from frame 1 to frame 5. We could solve that with a counter in the `update()` function (see below) and a list of the positions. However, with a coroutine we get a very clean implementation that is easy to extend and work with. All state is contained within the coroutine itself.
 
 When a coroutine yields it returns control back to the caller but remembers its execution point so it can continue from there later on.
 
@@ -500,15 +500,15 @@ The Defold editor supports Lua script editing with syntax coloring and auto-comp
 There are three types of Lua script in Defold, each has different Defold libraries available.
 
 Logic scripts
-: Extension _.script_. Run by script components in game objects. Logic scripts are usually used to control game objects and the logic that binds the game together with level loading, game rules and so forth. Logic scripts has access to all Defold library functions except [GUI](/ref/gui) and [Render](/ref/render) functions.
+: Extension _.script_. Run by script components in game objects. Logic scripts are usually used to control game objects and the logic that binds the game together with level loading, game rules and so forth. Logic scripts have access to all Defold library functions except [GUI](/ref/gui) and [Render](/ref/render) functions.
 
 
 GUI scripts
-: Extension _.guiscript_. Run by GUI components and usually contains the logic required to display GUI elements like heads up displays, menus etc. GUI scripts has access to the [GUI](/ref/gui) library functions.
+: Extension _.gui_script_. Run by GUI components and usually containing the logic required to display GUI elements like heads up displays, menus etc. GUI scripts have access to the [GUI](/ref/gui) library functions.
 
 
 Render scripts
-: Extension _.renderscript_. Run by the rendering pipeline and contains the logic required to render all app/game graphics each frame. Render scripts has access to the [Render](/ref/render) library functions.
+: Extension _.renderscript_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. Render scripts have access to the [Render](/ref/render) library functions.
 
 
 ## Script execution and callbacks
@@ -565,9 +565,9 @@ Defold executes Lua scripts as part of the engine lifecycle and exposes the life
 
 A game object with a script component implements some logic. Often, that logic is dependent on some external factor. An enemy AI might react to the player being within a certain radius from the AI; a door might unlock and open as a result of player interaction, etc, etc.
 
-The `update()` function allows you to implement complex behaviors defined as a state machine running each frame--sometimes that is the adequate approach. But there is a cost associated with each call to `update()`. Unless you really need the function you should delete it and instead try to build your logic _reactively_. It is cheaper to passively wait for some message to trigger a response than it is to actively probe the game world for data to respond to. Furthermore, solving a design problem reactively also often leads to cleaner and more stable design and implementation.
+The `update()` function allows you to implement complex behaviors defined as a state machine running each frame---sometimes that is the adequate approach. But there is a cost associated with each call to `update()`. Unless you really need the function you should delete it and instead try to build your logic _reactively_. It is cheaper to passively wait for some message to trigger a response than it is to actively probe the game world for data to respond to. Furthermore, solving a design problem reactively also often leads to cleaner and more stable design and implementation.
 
-Let's look at a concrete example. Suppose that you want a script component to send a message 2 seconds after it has been initiated. It should then wait for a certain response message and after received the response, it should send another message 5 seconds later. The non reactive code for that would look something like this:
+Let's look at a concrete example. Suppose that you want a script component to send a message 2 seconds after it has been initiated. It should then wait for a certain response message and after receiving the response, it should send another message 5 seconds later. The non reactive code for that would look something like this:
 
 ```lua
 function init(self)
@@ -629,7 +629,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-This is cleaner and easier to follow. We get rid of internal state variables that are often hard to follow through the logic--and which might lead to subtle bugs. We also dispose of the `update()` function completely. That relieves the engine from calling our script 60 times a second, even if it's just idling.
+This is cleaner and easier to follow. We get rid of internal state variables that are often hard to follow through the logic---and which might lead to subtle bugs. We also dispose of the `update()` function completely. That relieves the engine from calling our script 60 times a second, even if it's just idling.
 
 ## Lua contexts in Defold
 
@@ -643,7 +643,7 @@ Defold allows you to use the same script file in several separate game object co
 -- 'my_global_value' will be available from all scripts, gui_scripts, render script and modules (Lua files)
 my_global_value = "global scope"
 
--- this value will be shared through all component instances that uses this particular script file
+-- this value will be shared through all component instances that use this particular script file
 local script_value = "script scope"
 
 function init(self, dt)
@@ -739,14 +739,14 @@ print(collectgarbage("count") * 1024)
 A common implementation design consideration is how to structure code for shared behaviors. Several approaches are possible.
 
 Behaviors in a module
-: Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects is a necessity (or leads to cleaner design). If you have to store internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
+: Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects are a necessity (or lead to cleaner design). If you have to store internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
 
   ![Module](images/lua/lua_module.png)
 
-  Also, even if it is possible to have module code directly modify the internals of a game object (by passing `self` to a module function) it is strongly disencouraged to do so since you create very tight coupling.
+  Also, even if it is possible to have module code directly modify the internals of a game object (by passing `self` to a module function) we strongly discourage you from doing so since you will create very tight coupling.
 
 A helper game object with encapsulated behavior
-: Just like you can contain script code in a Lua module, you can contained it in a game object with a script component. The difference is that if you contain it in a game object and you communicate with it strictly through message passing.
+: Just like you can contain script code in a Lua module, you can contain it in a game object with a script component. The difference is that if you contain it in a game object you can communicate with it strictly through message passing.
 
   ![Helper](images/lua/lua_helper.png)
 

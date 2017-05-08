@@ -17,7 +17,7 @@ A graphical user interface in Defold is a game object component that you build a
 The GUI is not part of the collection’s coordinate system but is rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, GUI components have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
 
 ::: important
-The rendering behavior can be changed in the render script but it is usually desirable to use this arrangement since the user interface is a separate visual "layer" on top of the game view and you usually want HUD items and menus on certain spots on screen.
+The rendering behavior can be changed in the render script but it is usually desirable to use the default arrangement since the user interface is a separate visual "layer" on top of the game view and you usually want HUD items and menus on certain spots on screen.
 :::
 
 ## Nodes
@@ -61,7 +61,7 @@ Each of these properties can also be animated in script (see [Property animation
 
 You can use images and animations from texture atlases or tile sources as part of your GUI interface component. To do so, an image resource (atlas or tile source) must first be added, then all images and animations included in the resource can be applied to GUI nodes. You add textures either by right clicking the *Textures* folder, through the <kbd>GUI</kbd> top menu, or with keyboard shortcuts.
 
-Textures that has been added to the GUI can be applied to box and pie nodes.
+Textures that have been added to the GUI can be applied to box and pie nodes.
 
 ![Textures](images/gui/gui_texture.png)
 
@@ -77,7 +77,7 @@ Box nodes are always rendered, even if they do not have a texture assigned to th
 
 ## Slice-9 texturing
 
-Many GUIs and HUDs feature elements that are context sensitive in regards to their size. Panels and dialogs often need to be resized to fit the containing content and that will cause problems as soon as you apply texturing to the scaled node. Let's say that you want to use a large set of buttons where the width is determined by the amount of text you write on the button. Making a box node, applying a texture and then scale it will result in deformation:
+Many GUIs and HUDs feature elements that are context sensitive in regard to their size. Panels and dialogs often need to be resized to fit the containing content and that will cause problems as soon as you apply texturing to the scaled node. Let's say that you want to use a large set of buttons where the width is determined by the amount of text you write on the button. Making a box node, applying a texture and then scaling it will result in deformation:
 
 ![GUI bad scaling](images/gui/gui_scaling.png)
 
@@ -105,7 +105,7 @@ It might also be tempting to use a 1 pixel wide bottom or top edge segment to sa
 
 ## Index: rendering order
 
-All nodes are rendered in the order they are listed under the "Nodes" folder. The node on top of the list is drawn first and will appear behind any other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Drag nodes in the list to change their index order. You can also change and group the ordering of nodes with layers (see below).
+All nodes are rendered in the order they are listed under the "Nodes" folder. The node on top of the list is drawn first and will appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Drag nodes in the list to change their index order. You can also change and group the ordering of nodes with layers (see below).
 
 If you set the Z-value on a node the draw order will not change. The Z-values on nodes are ignored.
 
@@ -177,7 +177,7 @@ You create a GUI Script File in your project and attach it to the GUI component 
 
 ![Script](images/gui/gui_script.png)
 
-The script file is by default equipped with functions just as game object scripts:
+The script file is by default equipped with functions just like game object scripts:
 
 ```lua
 function init(self)
@@ -212,7 +212,7 @@ end
 
 ```
 
-GUI components can thus receive input and messages just as game objects. You send messages to a GUI component by addressing the component in the fragment part of the URL:
+GUI components can thus receive input and messages just like game objects. You send messages to a GUI component by addressing the component in the fragment part of the URL:
 
 ```lua
 local msgdata = { score = 4711, stars = 3, health = 6 }
@@ -223,9 +223,9 @@ msg.post("hud#gui", "set_stats", msgdata)
 
 GUI components are rendered separately and on top of other game content and there are some mechanisms in place to make life easier for game developers that target device that have screens of different resolutions and aspect ratios.
 
-Your Defold game project specifies a target resolution in the *game project* settings, however one or more of your target devices might have a different screen resolution and aspect ratio. In this case this means that your game will be up- or downscaled to fit the target screen.
+Your Defold game project specifies a target resolution in the *game project* settings; however, one or more of your target devices might have a different screen resolution and aspect ratio. In this case this means that your game will be up- or downscaled to fit the target screen.
 
-Defold deals with the scaling of any GUI components differently to other game content. It also provides you with a set of simple, but powerful tools to lay out your user interface independently of resolution and/or aspect ratio.
+Defold deals with the scaling of any GUI components differently to other game content. It also provides you with a set of simple but powerful tools to lay out your user interface independently of resolution and/or aspect ratio.
 
 Let’s illustrate with a little experiment and create a game app with a GUI. The display size is set to a square with dimensions 1024x1024. The game contains a GUI component with a level menu on top of some imagery. This is how it looks when run on a computer:
 
@@ -235,7 +235,7 @@ Now, if we run the same app on the iPad (with a very different screen size and a
 
 ![iPad square](images/gui/gui_ipad.png)
 
-We see that on the iPad the game is stretched out to fill the screen. The octopus in the background is deformed, but the GUI elements are not. The text nodes are rendered with the correct aspect ratio and keeps their location in the center of the screen.
+We see that on the iPad the game is stretched out to fill the screen. The octopus in the background is deformed, but the GUI elements are not. The text nodes are rendered with the correct aspect ratio and keep their location in the center of the screen.
 
 You can easily simulate changes to the screen resolution and aspect ratio by changing the window size of your running Defold game. Running the game on a device with a different resolution and aspect ratio is equivalent to changing the window. When the window changes size it triggers redrawing and re-positioning of GUI components, according to a set of adjustment and anchoring rules that give you good control over your user interface layout.
 
@@ -265,7 +265,7 @@ Now let’s see what happens to the box nodes when the window is resized:
 
 The `Stretch` node is just deformed to the new shape whereas the `Fit` and `Zoom` nodes keep their aspect ratio. The `Fit` node is fit inside the would-be reshaped bounding box (the grid square that it's in) and the `Zoom` node covers the would-be reshaped bounding box.
 
-Text nodes behave in exactly the same way. The adjust mode applies to the invisible text bounding box that controls the shape of the text.
+Text nodes behave in exactly the same way. The adjust mode applies to the invisible bounding box that controls the shape of the text.
 
 ## Anchors
 
@@ -299,17 +299,17 @@ In practice this means that if you set the Xanchor property to `Right` and the Y
 
 ![Anchor top right](images/gui/gui_anchor_topright.png)
 
-This example shows a node that has `Top` and `Right` anchoring. It is `Fit` adjusted and has *Pivot* set to `North East`. When the window stretch, the node is fit inside the "would-be" reshaped box (the blue dotted rectangle) and also anchored.
+This example shows a node that has `Top` and `Right` anchoring. It is `Fit` adjusted and has *Pivot* set to `North East`. When the window stretches, the node is fit inside the "would-be" reshaped box (the blue dotted rectangle) and also anchored.
 
 ## Pivot
 
-Each node has a position, scale and rotation inside the GUI coordinate system. A node is placed on that position so that its pivot is at the set coordinate and any rotation is done around that same pivot. For text nodes the text will be aligned according to the pivot setting.
+Each node has a position, rotation and scale inside the GUI coordinate system. A node is placed so that its pivot is at the set coordinate and any rotation is done around that same pivot. For text nodes the text will be aligned according to the pivot setting.
 
-The default positioning and rotation of nodes happen against the center of the node—it has the *Pivot* property set to `Center`. You can change the pivot of a node to any of one of the following settings:
+The default positioning and rotation of nodes happens against the center of the node---it has the *Pivot* property set to `Center`. You can change the pivot of a node to any of one of the following settings:
 
 * `Center`
 * `North`, `South`, `East`, `West`
-* `North` West, `North East`, `South West`, `South East`
+* `North West`, `North East`, `South West`, `South East`
 
 The following image illustrates the position of each pivot setting:
 
@@ -393,9 +393,9 @@ See [`go.animate()`](/ref/go#go.animate) for details on the parameters.
 
 The `property` parameter is usually given as a constant (`gui.PROP_POSITION` etc), but can also be supplied as described in the Properties guide (see [Properties](/manuals/properties)). This is handy if you want to animate just a specific component of a compound property value.
 
-For instance, the `color` property describes a, RGBA value, encoded in a vector4 value with one component for each color component red, green and blue, and the last one for alpha. The vector components are named respectively `x`, `y`, `z` and `w` and the alpha is thus in the `w` component.
+For instance, the `color` property describes an RGBA value, encoded in a vector4 value with one component for each color component---red, green, blue and the last one for alpha. The vector components are named respectively `x`, `y`, `z` and `w` and the alpha is thus in the `w` component.
 
-To fade up and down the alpha value of a node we can do that with the following piece of code:
+To fade up and down the alpha value of a node we can use the following piece of code:
 
 ```lua
 function fadeup(self, node)
@@ -407,7 +407,7 @@ function fadedown(self, node)
 end
 ```
 
-Now we can call either `fadeup()` or `fadedown()` and supply the node we want the alpha animated on. Note that we set the `complete_function` parameter to supply the function to call when the animation is done, effectively chaining an endless loop of fade up and fade downs.
+Now we can call either `fadeup()` or `fadedown()` and supply the node we want the alpha animated on. Note that we set the `complete_function` parameter to supply the function to call when the animation is done, effectively chaining an endless loop of fade ups and fade downs.
 
 ## Render script
 
@@ -446,4 +446,3 @@ render.draw(self.text_pred)
 This now affects all GUI components that are rendered. Here’s a version of our previous level menu with the modified render-script:
 
 ![Render script](images/gui/gui_renderscript.png)
-

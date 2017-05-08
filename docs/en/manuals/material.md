@@ -10,7 +10,7 @@ Materials are the Defold way of expressing how a graphical component (a sprite, 
 A material holds _Tags_, information that is used in the rendering pipeline to select objects to be rendered. It also holds references to _shader programs_ that are compiled through the available graphics driver and uploaded to the graphics hardware and run when the component is rendered each frame.
 
 * For more information on the render pipeline, see the [Rendering documentation](/manuals/rendering).
-* For an in depth explanation on shader programs, see the [Shader documentation](/manuals/shader).
+* For an in depth explanation of shader programs, see the [Shader documentation](/manuals/shader).
 
 ## Creating a material
 
@@ -54,7 +54,7 @@ The vertex shader will need matrices so each vertex can be translated to the cli
 
 ## Shader programs
 
-For the material to work, we have to first edit the vertex shader programs:
+For the material to work, we have to first edit the vertex shader program:
 
 ```glsl
 // flat.vp
@@ -108,7 +108,7 @@ void main()
 
 ## Setting the material
 
-Each of the graphical object types have a *Material* property that allows you to set a specific material for each component you create. If you don't set the material, a default one is automatically selected. To make a model render with your newly created material, set the *Material* property to reference the material file. You find a guide on how to import 3D models into Defold in the [Models documentation](/manuals/models).
+Each of the graphical object types has a *Material* property that allows you to set a specific material for each component you create. If you don't set the material, a default one is automatically selected. To make a model render with your newly created material, set the *Material* property to reference the material file. You can find a guide on how to import 3D models into Defold in the [Models documentation](/manuals/models).
 
 ![Set material](images/materials/materials_set_material.png)
 
@@ -118,7 +118,7 @@ You should now be able to see the resulting rendering of your model. Even though
 
 ## Constant buffers
 
-When the rendering pipeline draws it pulls constant values from a default system constants buffer. Custom constant buffers are used to override the default constants and instead set shader program variables programmatically in the render script. These are then passed to the `render.draw()` function.
+When the rendering pipeline draws, it pulls constant values from a default system constants buffer. Custom constant buffers are used to override the default constants and instead set shader program variables programmatically in the render script. These are then passed to the `render.draw()` function.
 
 ```lua
 self.constants = render.constant_buffer() -- <1>
@@ -155,13 +155,13 @@ Defold currently supports a single texture per material.
 
 ## Sampler settings
 
-You can optionally configure specific samplers in the materials file. Att a sampler, name it according to the name used in the shader program and set the wrap and filter settings to your liking.
+You can optionally configure specific samplers in the materials file. Add a sampler, name it according to the name used in the shader program and set the wrap and filter settings to your liking.
 
 ![Sampler settings](images/materials/materials_sampler_settings.png)
 
 ## Wrap modes
 
-The wrap mode can be set on the U and V axis independently:
+The wrap mode can be set on the U and V axes independently:
 
 WRAP_MODE_REPEAT
 : Texture data outside the range [0,1] will repeat
@@ -221,7 +221,7 @@ CONSTANT_TYPE_USER
 
 ## Vertex shader attributes
 
-_Attributes_ are values associated with individual vertices. Different component types has a different set of attributes. To access them, simply declare them in your shader program:
+_Attributes_ are values associated with individual vertices. Different component types have different sets of attributes. To access them, simply declare them in your shader program:
 
 ```glsl
 // position and texture coordinates for this vertex.

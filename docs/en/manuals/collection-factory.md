@@ -7,15 +7,15 @@ brief: This manual explains how to use collection factory components to spawn hi
 
 The collection factory component is used to spawn ready made blueprint hierarchies of game objects (collections) into a running game.
 
-Collections provide a powerful mechanism to create reusable templates, or "prefabs" in Defold. For an overview on Collections, see the [Building blocks documentation](/manuals/building-blocks#_collections). Collections can be placed in the editor and be cloned into the game at compile-time, and they can be dynamically inserted into your game in two ways:
+Collections provide a powerful mechanism to create reusable templates, or "prefabs" in Defold. For an overview on Collections, see the [Building blocks documentation](/manuals/building-blocks#_collections). Collections can be placed in the editor and be cloned into the game at compile-time, or they can be dynamically inserted into your game in two ways:
 
 1. Loaded through collection proxies. This method essentially loads a new isolated world (including how physics interact) into a running game. The loaded collection is accessed through a new socket. All assets contained in the collection are loaded through the proxy when you message the proxy to start loading. This makes them very useful to, for instance, change levels in a game. For more information, see the [Collection proxy documentation](/manuals/collection-proxy).
 
-2. Collection factory components allow spawning of the content of a collection proxy into the current main collection. This is analogous to performing factory spawning of all game objects inside the collection and then building the parent-child hierarchy between the objects. Typical use cases is to spawn enemies consisting of multiple game objects (enemy + weapon, for instance).
+2. Spawned into the current main collection with a collection factory component. This is analogous to performing factory spawning of all game objects inside the collection and then building the parent-child hierarchy between the objects. A typical use case is to spawn enemies consisting of multiple game objects (enemy + weapon, for instance).
 
 ## Spawning a collection
 
-For the simple case, spawning a collection is performed exactly as when spawning a game object. Suppose we creating a planet sprite and want to spawn complex astronaut figures on the planet surface. We can then simply add a *Collection factory* to the "planet" gameobject and set *astronaut.collection* (supposing it exists) as the component's *prototype*:
+For simple cases, you can spawn a collection just as you would spawn a game object. Suppose we are creating a planet sprite and want to spawn complex astronaut figures on the planet surface. We can simply add a *Collection factory* to the "planet" gameobject and set *astronaut.collection* (supposing it exists) as the component's *prototype*:
 
 ![Collection factory](images/collection_factory/collection_factory_factory.png)
 
@@ -29,7 +29,7 @@ The astronaut that is spawned is a tree of game objects, and we need to be able 
 
 ![Collection to spawn](images/collection_factory/collection_factory_collection.png)
 
-The regular factory component returns an id to the spawned object. The collection factory returns a table that maps a hash of the collection-local id of each object to the runtime id of each object. A prefix `/collection[N]/`, where `[N]` is a counter, is added to the id to uniquely identify each instance:
+The regular factory component returns the id of the spawned object. The collection factory returns a table that maps a hash of the collection-local id of each object to the runtime id of each object. A prefix `/collection[N]/`, where `[N]` is a counter, is added to the id to uniquely identify each instance:
 
 ```lua
 pprint(astro)
@@ -41,7 +41,7 @@ pprint(astro)
 -- }
 ```
 
-Observe that the parent-child relations between "astronaut" and "probe" is not reflected in the id/path of the objects but only in the runtime scene-graph, i.e. how objects are transformed together. Re-parenting an object never changes its id.
+Observe that the parent-child relationships between "astronaut" and "probe" are not reflected in the id/path of the objects but only in the runtime scene-graph, i.e. how objects are transformed together. Re-parenting an object never changes its id.
 
 ## Properties
 

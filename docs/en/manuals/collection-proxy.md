@@ -19,23 +19,23 @@ Loading/unloading ("streaming") of regions in a seamless large world is possible
 * Loading/unloading of mini-games.
 * Loading/unloading of user selected content (music, background images etc)
 
-Collection proxies allow you to keep your content separated in collections and then dynamically manage the collections through scripting. A collection proxy component act as an outlet that serves on behalf of a collection file---you can communicate with a collection file that is not yet loaded, through the proxy. You can tell a collection proxy to load, initialize, enable, disable, finalize and unload the collection it is an outlet for.
+Collection proxies allow you to keep your content separated in collections and then dynamically manage the collections through scripting. A collection proxy component acts as an outlet that serves on behalf of a collection file---you can communicate with a collection file that is not yet loaded through the proxy. You can tell a collection proxy to load, initialize, enable, disable, finalize and unload the collection it is an outlet for.
 
-All communication with collection proxies regarding loading and unloading is done asynchronously: however, the actual loading and unloading is not implemented as a background process, so the engine will briefly pause when the actual loading and unloading happens.
+All communication with collection proxies regarding loading and unloading is done asynchronously: however, the actual loading and unloading is not implemented as a background process, so the engine will briefly pause when the loading and unloading happens.
 
 ## Worlds
 
-Through collection proxies is it thus possible to switch the top level collection, or to load more than one top level collection into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) happen between objects belonging to the same collection. There is no physics interaction happening between objects belonging to different top level collections.
+Through collection proxies is it possible to switch the top level collection, or to load more than one top level collection into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) only happen between objects belonging to the same collection. There is no physics interaction between objects belonging to different top level collections.
 
-In the following example we have split the game world into two collections that we dynamically load through collection proxies. The loading and unloading of the two collections is controlled by a game object called "loader" that we put in our main collection "worlds". We configure the game to automatically load the "worlds.collection" file at startup (see [Project settings documentation](/manuals/project-settings) for details). The collection "worlds" will hold the "loader" object as well as the GUI elements that allow us to move our character around.
+In the following example we have split the game world into two collections that we dynamically load through collection proxies. The loading and unloading of the two collections is controlled by a game object called "loader" that we put in our main collection, "worlds". We configure the game to automatically load the "worlds.collection" file at startup (see [Project settings documentation](/manuals/project-settings) for details). The "worlds" collection will hold the "loader" object as well as the GUI elements that allow us to move our character around.
 
 ![Worlds 1](images/collection_proxies/collection_proxy_worlds_loader.png)
 
-The first collection, "world1", is on the left with purple ground tiles. To the right of the "exit" sign is  the "world2" collection with green ground tiles.
+The first collection, "world1", is on the left with purple ground tiles. To the right of the "exit" sign is the "world2" collection with green ground tiles.
 
 ![Worlds 1](images/collection_proxies/collection_proxy_worlds_1.png)
 
-Our player character is set up with physics collision against all ground tiles in the level and that allows the player to roll the character on the ground. But let’s see what happens when the player reaches the end of the "world1" collection:
+Our player character is set up with physics collision against all ground tiles in the level, which allows the player to roll the character on the ground. But let’s see what happens when the player reaches the end of the "world1" collection:
 
 ![Worlds 2](images/collection_proxies/collection_proxy_worlds_2.png)
 
@@ -94,7 +94,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Alternatively your logic can check the origin of the message an act accordingly. The collection proxy that sent the "proxy_loaded" is indicated in the fragment part of the sender URL:
+Alternatively your logic can check the origin of the message an act accordingly. The collection proxy that sent the "proxy_loaded" message is indicated in the fragment part of the sender URL:
 
 ```lua
 function on_message(self, message_id, message, sender)
@@ -143,7 +143,7 @@ Here’s the setup in the "world2" collection:
 
 ![Trigger world 2](images/collection_proxies/collection_proxy_trigger_2.png)
 
-The "exit" sign is placed in the exact same coordinates in both collections giving one tile of overlap between them. Also notice that there is a "player" object in "world2" as well as in "world1". Because each collection is its own physics world we need a separate player in each and we just make sure to transfer the position and input control from one player object to the other when we move between the worlds.
+The "exit" sign is placed at the exact same coordinates in both collections, giving one tile of overlap between them. Also notice that there is a "player" object in "world2" as well as in "world1". Because each collection is its own physics world we need a separate player in each and we just make sure to transfer the position and input control from one player object to the other when we move between the worlds.
 
 ```lua
 function on_message(self, message_id, message, sender)
@@ -185,7 +185,7 @@ end
 3. Then it’s time to switch the player object. We start by sending the current player a message requesting the data we need, which is the current position of the player object:
 4. We get a response back and pass the player data to the player in the newly loaded collection:
 
-The message `inherit_player` just inherits the position sent so the new player is repositioned to the same spot where the old player was (in the trigger, which is fine. It won’t detect the new player since they are parts of two different collections, and physical worlds)
+The message `inherit_player` just inherits the position sent so the new player is repositioned to the same spot where the old player was. (It's inside the trigger, but that is fine. It won’t detect the new player since they are parts of two different collections and therefore separate physical worlds.)
 
 If we run the game we can move from "world1" to "world2", but the player object in "world1" is still present, and will fall through the world of "world2".
 
@@ -211,12 +211,12 @@ msg.post("loader#world1", "unload")
 : This message disables the collection through the proxy. It recursively disables all the objects in the collection loaded through the proxy.
 
 `final`
-: Finalizes the collection through the proxy. It recursively finalizes all the objects in the collection.
+: This message finalizes the collection through the proxy. It recursively finalizes all the objects in the collection.
 
 `unload`
 : This message removes the collection from memory. If you don’t need the finer grained control, you can send the `unload` message without first disabling and finalizing the collection. The proxy will then automatically disable and finalize the collection before it’s unloaded.
 
-When the proxy has unloaded the collection it will send back a `proxy_unloaded` to the script that sent the `unload` message:
+When the proxy has unloaded the collection it will send back a `proxy_unloaded` message to the script that sent the `unload` message:
 
 ```lua
 if message_id == hash("unload_level") then
@@ -252,7 +252,7 @@ In a real game you wouldn’t want to unload a collection that is still visible 
 
 ## Input
 
-If you have objects in your loaded collection that require input actions, you need to make sure that the game object that contain the collection proxy acquires input. When the game object receives input messages these are propagated to the components of that object, i.e. the collection proxies. The input actions are sent via the proxy into the loaded collection.
+If you have objects in your loaded collection that require input actions, you need to make sure that the game object that contains the collection proxy acquires input. When the game object receives input messages these are propagated to the components of that object, i.e. the collection proxies. The input actions are sent via the proxy into the loaded collection.
 
 ![Input](images/collection_proxies/collection_proxy_input.png)
 
@@ -266,11 +266,11 @@ function init(self)
 end
 ```
 
-Any object in either "world1" or "world2" (that is loaded) can now send `acquire_input_focus` and start receiving input actions. (For more information on input, see [Input](/manuals/input))
+Any object in either "world1" or "world2" (that is loaded) can now `acquire_input_focus` and start receiving input actions. (For more information on input, see [Input](/manuals/input).)
 
 ## Time step
 
-Each collection proxy can individually control the update time step in relation to the application update frequency. You can set the global update frequency in the application project settings (it defaults to 60 frame updates per seconds), or it can be set by sending a message to the `@system` socket:
+Each collection proxy can individually control the update time step in relation to the application update frequency. You can set the global update frequency in the application project settings (it defaults to 60 frame updates per second), or it can be set by sending a message to the `@system` socket:
 
 ```lua
 msg.post("@system:", "set_update_frequency", { frequency = 60 } )
