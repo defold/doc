@@ -20,7 +20,7 @@ Emitter
 : A positioned shape that emits particles uniformly distributed over the shape.
 
 Modifier
-: Affects the velocity of spawned particles (field in Maya). Acceleration, drag, radial and vortex.
+: Affects the velocity of spawned particles (field in Maya). There are four types of modifiers: Acceleration, Drag, Radial and Vortex.
 
 Image (Tile source or Atlas)
 : Used for adding textures and flip-book animations, see the [2D graphics documentation](/manuals/2dgraphics)
@@ -44,7 +44,7 @@ All number properties can be tweaked using the mouse-wheel (or scroll gesture on
 
 ![ParticleFX Curve Editor](images/particlefx/curve_editor.png)
 
-Different properties can be keyed over different time lines, which means that their value can change over time. It is possible to see which properties have this ability in the reference below.
+Different properties can be keyed over different timelines, which means that their value can change over time. It is possible to see which properties have this ability in the reference below.
 
 To key a value:
 
@@ -56,7 +56,7 @@ To reset a keyed property, select Curve again from the context menu in its text 
 To auto-zoom the Curve Editor to display all curves, press <kbd>F</kbd>.
 
 Spread
-: When a property has two fields, the first is the value and the second is the spread. The value is what you key. The spread is a variation which is applied randomly for each spawned particle. E.g. if the value is 50 and the spread is 10, each spawned particle will get 50 +/- 10 as value.
+: When a property has two fields, the first is the value and the second is the spread. The value is what you key. The spread is a variation which is applied randomly for each spawned particle. E.g. if the value is 50 and the spread is 10, each spawned particle will get a value between 40 and 60 (50 +/- 10).
 
 ## Emitter properties
 
@@ -72,7 +72,7 @@ Duration
 Space
 : In which geometrical space the spawned particles will exist.
   - `World` means the particles are left in the world and move independently of the emitter;
-  - `Emitter` means they will move relative the emitter.
+  - `Emitter` means they will move relative to the emitter.
 
 Position/rotation
 : Transform of the emitter relative the ParticleFX component.
@@ -107,7 +107,7 @@ Type
   - `Cone` - A 3D cone which emits particles from its bottom corner directed out through the top disc of the cone. *Emitter Size X* defines the diameter of the top disc and *Y* defines the height.
 
 Start Delay
-: How long time to wait after the ParticleFX has been started before this emitter will start emitting particles.
+: How long to wait after the ParticleFX has been started before this emitter will start emitting particles.
 
 ## Keyable emitter properties
 

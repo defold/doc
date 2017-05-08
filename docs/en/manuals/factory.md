@@ -40,7 +40,7 @@ factory.create(component, p)
 : (optional) A Lua table with any script property values to initiate the game object with. See the [Script property manual](/manuals/script-properties) for information on script properties.
 
 `[scale]`
-: (optional) The scale of the spawned game object. The scale can be expressed as a `number` (greater than 0) which specifies uniform scaling along all axis. You can also provide a `vector3` where each component specifies scaling along the corresponding axis.
+: (optional) The scale of the spawned game object. The scale can be expressed as a `number` (greater than 0) which specifies uniform scaling along all axes. You can also provide a `vector3` where each component specifies scaling along the corresponding axis.
 
 For example:
 
@@ -82,7 +82,7 @@ end
 ![Spawned game object with property and scaling](images/factory/factory_spawned2.png)
 
 ::: sidenote
-Defold does not currently support non uniform scaling of collision shapes. If you provide a non uniform scale value, for instance `vmath.vector3(1.0, 2.0, 1.0)` the sprite will scale correctly but the collision shapes won't
+Defold does not currently support non uniform scaling of collision shapes. If you provide a non uniform scale value, for instance `vmath.vector3(1.0, 2.0, 1.0)` the sprite will scale correctly but the collision shapes won't.
 :::
 
 ## Tracking spawned and parent objects
@@ -113,7 +113,7 @@ end
 go.delete_all(self.spawned_coins)
 ```
 
-It is also common that you want the spawned object to be aware of the game object that spawned it. One case would be a some type of autonomous object that can be spawned only one at a time. The spawned object then needs to inform the spawner when it is deleted or inactivated so another one can be spawned:
+It is also common that you want the spawned object to be aware of the game object that spawned it. One case would be some type of autonomous object that can be spawned only one at a time. The spawned object then needs to inform the spawner when it is deleted or inactivated so another one can be spawned:
 
 ```lua
 -- spawner.script
@@ -145,11 +145,11 @@ end
 
 ## Instance limits
 
-The project setting *max_instances* in *Collection related settings* limits the total number of game object instances that can exist in a world (the main.collection loaded at startup or any world loaded via a collection proxy). All game objects that exist in the world is counted agaist that limit and it does not matter if they are placed by hand in the editor or spawned in runtime through a script.
+The project setting *max_instances* in *Collection related settings* limits the total number of game object instances that can exist in a world (the main.collection loaded at startup or any world loaded via a collection proxy). All game objects that exist in the world are counted agaist that limit and it does not matter if they are placed by hand in the editor or spawned in runtime through a script.
 
 ![Max instances](images/factory/factory_max_instances.png)
 
-So if you set *max_instances* to 1024 and have 24 manually placed game objects in your main collection, you can spawn an additional 1000 game objects. And as soon as you delete a game object, you are free to spawn another instance.
+So if you set *max_instances* to 1024 and have 24 manually placed game objects in your main collection, you can spawn an additional 1000 game objects. As soon as you delete a game object, you are free to spawn another instance.
 
 ## Pooling of game objects
 

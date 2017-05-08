@@ -118,7 +118,7 @@ onSetProgress(current, max)
 
 
 onDismissSplash()
-: This callback is invoked by the application when the application is loaded and it is about to begin execution and render to the canvas (i.e. the splash screen should be dismisses).
+: This callback is invoked by the application when the application is loaded and it is about to begin execution and render to the canvas (i.e. the splash screen should be dismissed).
 
 
 The default implementation also contains logic to deal with window resizing events. If you wish to change or replace the implementation, the main module provides two helper functions:

@@ -1,4 +1,4 @@
-﻿---
+---
 title: Lua modules in Defold
 brief: Lua modules allow you to structure your project and create reusable library code. This manual explains how to do that in Defold.
 ---
@@ -84,7 +84,7 @@ This code works pretty well and it makes the butterfly animate between random po
 
 ![Blue and yellow butterflies](images/modules/modules_blue_and_yellow.png)
 
-The code for flying randomly already exist, so creating the script for the yellow butterfly is straightforward:
+The code for flying randomly already exists, so creating the script for the yellow butterfly is straightforward:
 
 ```lua
 require "modules_example.flying"
@@ -186,7 +186,7 @@ end
 return M
 ```
 
-The difference is that we create a table flying that we populate with our data (`flying.origins`) and functions (`flying.fly_randomly()`). We end the module by returning the table. To use the module we change the butterfly scripts to:
+The difference is that we create a table, "flying", that we populate with our data (`flying.origins`) and functions (`flying.fly_randomly()`). We end the module by returning the table. To use the module we change the butterfly scripts to:
 
 ```lua
 flying = require "modules_example.flying"
@@ -276,7 +276,7 @@ return M
 
 ## Allowing monkey patching
 
->   "A monkey patch is a way to extend or modify the run-time code of dynamic languages 
+>   "A monkey patch is a way to extend or modify the run-time code of dynamic languages
 >   without altering the original source code." [Wikipedia]
 
 Lua is a dynamic language and as such it is possible to modify all of the builtin modules. This is extremely powerful and very useful, primarily for testing and debugging purposes. Monkey patching easily leads to strong coupling, which is usually a bad idea. However, if you write a module, you should make it possible to monkey patch your custom modules as well. Lua allows you to do things like:
@@ -298,7 +298,7 @@ setmetatable(M, {
 return M
 ```
 
-Tricks like the above is usually not a good idea. You should leave the decision on what to do to your module to the user.
+Tricks like the above are usually not a good idea. You should leave the decision on what to do to your module to the user.
 
 ## Beware of locals
 
@@ -510,7 +510,7 @@ print(foobar.public_function(fb, “bar”))
 ## Stateless modules using metatables
 
 ::: sidenote
-_Metatables_ is a powerful feature in Lua. A good tutorial on how they work can be found here: http://nova-fusion.com/2011/06/30/lua-metatables-tutorial/
+_Metatables_ are a powerful feature in Lua. A good tutorial on how they work can be found here: http://nova-fusion.com/2011/06/30/lua-metatables-tutorial/
 :::
 
 Another approach is to use a constructor function that returns a new table with state _and_ the public functions of the module each time it’s called:
@@ -600,6 +600,6 @@ If a function in the module account is named `login(username, password)` the exp
 Details on the LDoc documentation standard can be found here: https://github.com/stevedonovan/LDoc
 :::
 
-When documenting a module or function, remember to write documentation only when it adds information that can’t be inferred from function and argument names. In many cases short, well named functions and well named function arguments are enough to infer how the modules works, what to use and what to expect from a function call. Document return values, preconditions and examples of usage. Write documentation using the LDoc standard.
+When documenting a module or function, remember to write documentation only when it adds information that can’t be inferred from function and argument names. In many cases short, well named functions and well named function arguments are enough to infer how the module works, what to use and what to expect from a function call. Document return values, preconditions and examples of usage. Write documentation using the LDoc standard.
 
 

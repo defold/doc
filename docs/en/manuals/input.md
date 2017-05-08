@@ -1,4 +1,4 @@
-﻿---
+---
 title: Device input in Defold
 brief: This manual explains how you capture input actions and create interactive script reactions.
 ---
@@ -20,11 +20,11 @@ On Windows, only XBox 360 controllers are currently supported. To hook up your 3
 
 All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that have acquired input focus and that implement the `on_input()` function.
 
-Before the input reaches your script it is translated through input bindings into meaningful actions:
+Before the input reaches your scripts it is translated through input bindings into meaningful actions:
 
 ![Input bindings](images/input/input_bindings.png)
 
-Depending on the components that have acquired input focus, and whether they consume this input or pass it on, the input may or may not reach a specific component's `on_input()`. We will look at how this works in detail below.
+Depending on which components have acquired input focus and whether they consume this input or pass it on, the input may or may not reach a specific component's `on_input()`. We will look at how this works in detail below.
 
 ## Input bindings
 
@@ -43,7 +43,7 @@ There are five types of triggers that you can create. They are device specific:
 Right click on a trigger type and select <kbd>Add [TYPE]\_trigger...</kbd> to add a new trigger. Each trigger has two fields:
 
 *input*
-: A scroll list with the available inputs to listen to.
+: The raw input to listen for, selected from a scroll list of available inputs.
 
 *action*
 : The action name given to input actions when they are created and dispatched to your scripts. It is fine to have the same action names assigned to multiple actions. For instance, it is convenient to be able to bind the <kbd>Space</kbd> key to the action `jump` and the gamepad "A" button to the same action name.
@@ -56,7 +56,7 @@ For instance, to set up key bindings for movement left and right for a game, you
 
 ![Input key bindings](images/input/input_key_bindings.png)
 
-Here, the inputs `KEY_LEFT` (the left arrow key on the keyboard) and `KEY_RIGHT` (the right arrow key) are bound to the action names `move_left` and `move_right` respectively. The benefit of separating the hardware input from the logical actions is that if you decide later on that you want to change which hardware inputs trigger what actions, there is only one place to modify.
+Here, the inputs `KEY_LEFT` (the left arrow key on the keyboard) and `KEY_RIGHT` (the right arrow key) are bound to the action names `move_left` and `move_right` respectively. The benefit of separating the hardware input from the logical actions is that if you decide later on that you want to change which hardware inputs trigger what actions, you only have to modify it in one place.
 
 ## Acquiring and releasing input focus
 
@@ -115,7 +115,7 @@ When working with collection proxies it is imperative to understand how input is
 
 ## Action fields
 
-The `action` parameter sent to `on_input()` for each input message is a Lua table containing useful data like the value of the input, the position of the input, whether button input was `pressed`, `repeated` or `released`.
+The `action` parameter sent to `on_input()` for each input message is a Lua table containing useful data like the value of the input, the position of the input and whether button input was `pressed`, `repeated` or `released`.
 
 `action.pressed`
 : `true` the first frame the input was detected, otherwise `false`.
@@ -133,7 +133,7 @@ See [on_input()](/ref/go#on_input) for details on the available action fields.
 
 ## Screen positions
 
-Mouse and touch input set fields in the `action` table for location (`x` and `y`) as well as movement (`dx` and `dy`). These inputs also set specific fields that are calculated against the real screen space. These fields are called:
+Mouse and touch inputs set fields in the `action` table for location (`x` and `y`) as well as movement (`dx` and `dy`). These inputs also set specific fields that are calculated against the real screen space. These fields are called:
 
 `screen_x` and `screen_y`
 : The real screen position
@@ -145,14 +145,14 @@ These fields are useful on devices where the screen pixel position differs from 
 
 ## Key triggers
 
-Key triggers are simple one-key inputs that acts as button input. They are useful for games that needs to tie specific buttons to specific functions, like the `move_left` and `move_right` button setup above. If you need to read arbitrary key input, use text triggers (see below).
+Key triggers are simple one-key inputs that act as button inputs. They are useful for games that need to tie specific buttons to specific functions, like the `move_left` and `move_right` button setup above. If you need to read arbitrary key input, use text triggers (see below).
 
 ## Mouse triggers
 
-Mouse triggers come in two forms. The first one is mouse button and wheel input that you set up in your input bindings.
+Mouse input comes in two forms. First there are mouse button and wheel inputs, which are set up in your input bindings just like key triggers; then there is mouse movement input, which is handled differently (see below).
 
 Mouse button inputs
-: Use these to detect mouse presses.
+: Use these to detect mouse button presses.
 
   Note that the inputs `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` and `MOUSE_BUTTON_MIDDLE` are equivalent to `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` and `MOUSE_BUTTON_3`.
 
@@ -161,14 +161,14 @@ Currently, `MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for 
 :::
 
 Mouse wheel inputs
-: Use these to detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold do not currently support fine grained scroll input on touch pads.)
+: Use these to detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold does not currently support fine grained scroll input on touch pads.)
 
 Mouse movement
-: Mouse movement cannot be bound in the input bindings, and does not set the `action_id` to a name. Instead, the `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position. Note that mouse movement events are not received unless at least one mouse trigger is set up in your input bindings. 
+: Mouse movement cannot be bound in the input bindings, and does not set the `action_id` to a name. Instead, the `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position. Note that mouse movement events are not received unless at least one mouse trigger is set up in your input bindings.
 
 ## Gamepad triggers
 
-The gamepad triggers allows you to bind standard gamepad input to game functions. Defold supports multiple gamepads through the host operating system and offers bindings for:
+Gamepad triggers allow you to bind standard gamepad input to game functions. Defold supports multiple gamepads through the host operating system and offers bindings for:
 
 1. Left and right sticks (direction and clicks)
 2. Left and right digital pads
@@ -224,10 +224,10 @@ Here, a component "factory" is used to spawn a simple particle effect with `fact
 
 ## Text triggers
 
-Text triggers allows you to read arbitrary text input. There are two types of text triggers:
+Text triggers allow you to read arbitrary text input. There are two types of text triggers:
 
 `TEXT`
-: This input triggers captures normal text input.
+: This input trigger captures normal text input.
 
   A text trigger sets the `text` field of the action table to a string containing the typed character. The action is only fired at the press of the button, no `release` or `repeated` action is sent.
 
@@ -266,11 +266,11 @@ Text triggers allows you to read arbitrary text input. There are two types of te
 
 ## The input stack
 
-Any game object that acquires input focus is put first in the list of objects that listens to input. This list is called the *input stack*. Input actions are dispatched to the top object's components first and actions then trickles further down the stack to other components that listens to input:
+Any game object that acquires input focus is put first in the list of objects that listen to input. This list is called the *input stack*. Input actions are dispatched to the top object's components first and actions then trickle further down the stack to other components that listen to input:
 
 ![Input stack](images/input/input_stack.png)
 
-Dispatch of actions happen within the same frame so unless you deliberately control the dispatch of actions down the stack (see "Consuming input" below) it will appear as if all listening components' `on_input()` functions will receive actions simultaneously.
+All actions are dispatched within the same frame so unless you deliberately control the dispatch of actions down the stack (see "Consuming input" below) it will appear as if all listening components' `on_input()` functions will receive actions simultaneously.
 
 ## Stack order
 
@@ -317,7 +317,7 @@ Running this code will result in an input stack ordered like this:
 
 A component's `on_input()` code can actively control whether actions should be passed on down the stack or not:
 
-1. If the component `on_input()` code returns `false`, or if there is no return statement in the code (an omitted return statement implies a `nil` return which is a false value in Lua) input actions will be passed on to the next game object on the input stack.
+1. If the component's `on_input()` code returns `false`, or if there is no return statement in the code (an omitted return statement implies a `nil` return which is a false value in Lua) input actions will be passed on to the next game object on the input stack.
 2. If any of a game object components' scripts return `true` in its `on_input()` then the input is consumed and not passed on to other objects further down the input stack.
 
 ::: sidenote
@@ -365,7 +365,7 @@ The pause menu GUI runs the following code:
 
 ```lua
 function init(self)
-    -- Fetch background node and disable.
+    -- Fetch background node and disable it.
     -- Everything is childed under it.
     local node = gui.get_node("background")
     gui.set_enabled(node, false)
@@ -416,9 +416,9 @@ The `on_input()` function of the pause menu GUI script returns `true` as long as
 
 ## Input and Collection Proxies
 
-The input stack is actually not global--there exist a separate local input stack for each collection. If you use collection proxies to structure your game it is imperative to understand how input is dispatched through collections.
+The input stack is actually not global---there exists a separate local input stack for each collection. If you use collection proxies to structure your game it is imperative to understand how input is dispatched through collections.
 
-When input actions are passed on down the current collection's input stack and reaches a game object that contain a collection proxy component that is enabled, those actions will continue down the input stack of the dynamically loaded collection before they continue down the main collection's stack. The following diagram clarifies the process:
+When input actions are passed on down the current collection's input stack and reach a game object that contains a collection proxy component that is enabled, those actions will continue down the input stack of the dynamically loaded collection before they continue down the main collection's stack. The following diagram clarifies the process:
 
 ![Input stack proxy](images/input/input_stack_proxy.png)
 

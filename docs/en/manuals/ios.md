@@ -13,19 +13,19 @@ The security associated with iOS apps consists of several components. To get acc
 
 ![Apple Member Center](images/ios/apple_member_center.png)
 
-The section *Certificates, Identifiers & Profiles* contains all the tools you need. From here, you can create, delete and edit:
+The section *Certificates, Identifiers & Profiles* contains all the tools you need. From here you can create, delete and edit:
 
 Certificates
-: Apple issued cryptographic certificates that identifies you as a developer. You can create development or production certificates. Developer certificates allow you to test certain features such as the in-app purchase mechanism in a sandbox test environment. Production certificates are used to sign the final app for upload to the App Store. You need a certificate to sign apps before you can put them on your device for testing.
+: Apple-issued cryptographic certificates that identify you as a developer. You can create development or production certificates. Developer certificates allow you to test certain features such as the in-app purchase mechanism in a sandbox test environment. Production certificates are used to sign the final app for upload to the App Store. You need a certificate to sign apps before you can put them on your device for testing.
 
 Identifiers
-: Identifiers for various use. It is possible to register wildcard identifiers (i.e. `some.prefix.*`) which can be used with several apps. App IDs can contain Application Service information, like if the app enables Passbook integration, the Game Center etc. Such App IDs cannot be wildcard identifiers. For Application Services to function, your application's *bundle identifier* must match the App ID identifier.
+: Identifiers for various uses. It is possible to register wildcard identifiers (i.e. `some.prefix.*`) which can be used with several apps. App IDs can contain Application Service information, like if the app enables Passbook integration, the Game Center, etc. Such App IDs cannot be wildcard identifiers. For Application Services to function, your application's *bundle identifier* must match the App ID identifier.
 
 Devices
 : Each development device needs to be registered with their UDID (Unique Device IDentifier). See below for details on how to find the UDID of your device.
 
 Provisioning Profiles
-: Provisioning profiles associate certificates with App IDs and specific devices. It basically tells which app by what developer is allowed to be on what devices.
+: Provisioning profiles associate certificates with App IDs and specific devices. They basically tell which app by what developer is allowed to be on what devices.
 
 When signing your games and apps in Defold, you need a valid certificate and a valid provisioning profile.
 
@@ -55,18 +55,18 @@ Currently, at least one team member needs to run OS X and be a registered Apple 
 
 * The signer needs a certificate installed on his/her computer.
 * The signer needs a mobile provisioning profile on his/her computer.
-* The signer needs to collect all the UDIDs from other members and add these to his/hers mobile provisioning file.
+* The signer needs to collect all the UDIDs from other members and add these to his/her mobile provisioning file.
 
 To upload a signed development app to the Defold Dashboard, the following steps are required:
 
-- In the editor, select to <kbd>Project ▸ Sign iOS App...</kbd>
+- In the editor, select <kbd>Project ▸ Sign iOS App...</kbd>
 - Select your code signing identity.
 - Browse for your mobile provisioning file.
 - Press the *Sign and upload* button.
 
 ![Signing the app](images/ios/sign.png)
 
-The Defold dev app is uploaded to the project page in the Dashboard.
+The Defold dev app is uploaded to the project page on the Dashboard.
 Each project member can now:
 
 - Browse to the Dashboard from their iOS device.
@@ -108,5 +108,5 @@ Your device does not appear in the Targets menu
 : Make sure that your device is connected to the same wifi network as your computer.
 
 The game does not start with a message about mis-matching versions
-: This happens when you have upgraded the editor to the latest version. You need to sign the app again (<kbd>Project ▸ Sign iOS App...</kbd>) which creates a new dev app from the current engine version. Then download the new app from the dashboard on your device.
+: This happens when you have upgraded the editor to the latest version. You need to sign the app again (<kbd>Project ▸ Sign iOS App...</kbd>) which creates a new dev app from the current engine version. Then download the new app from the dashboard onto your device.
 

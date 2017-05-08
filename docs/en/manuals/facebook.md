@@ -5,17 +5,17 @@ brief: This manual explains how to setup and integrate Facebook functionality in
 
 # Facebook
 
-The Facebook APIs allows you to interact with Facebook's game connectivity features in a uniform way for games on iOS, Android and HTML5.
+The Facebook API allows you to interact with Facebook's game connectivity features in a uniform way for games on iOS, Android and HTML5.
 
-The Defold Facebook APIs brings the various platform specific Facebook APIs under a unified set of functions that work the same on iOS, Android and HTML5 (through Facebook Canvas). To get started with Facebook connectivity in your games, you need a Facebook account.
+The Defold Facebook API brings the various platform specific Facebook APIs under a unified set of functions that work the same on iOS, Android and HTML5 (through Facebook Canvas). To get started with Facebook connectivity in your games, you need a Facebook account.
 
 ::: important
-As of Defold 1.2.92, the Facebook API is redesigned with a new way of interacting with Facebook. The previous API:s still work so no breaking changes are introduced. However, the old API:s should be considered deprecated and not used in new applications.
+As of Defold 1.2.92, the Facebook API is redesigned with a new way of interacting with Facebook. The previous API still works, no breaking changes were introduced. However, the old API should be considered deprecated and not used in new applications.
 :::
 
 ## Registering as a Facebook developer
 
-To develop for Facebook requires that you sign up as a Facebook developer. This allows you to create Facebook applications that your Defold game can communicate with.
+To develop for Facebook you must sign up as a Facebook developer. This allows you to create Facebook applications that your Defold game can communicate with.
 
 * Head over to [Facebook for developers](https://developers.facebook.com)
 * Log in with your Facebook account.
@@ -26,14 +26,14 @@ To develop for Facebook requires that you sign up as a Facebook developer. This 
 
 ## Creating a Facebook app
 
-The next step is to create a Facebook application. The <kbd>My Apps</kbd> menu in the corner lists your apps, and there is a choice <kbd>Add a New App</kbd>.
+The next step is to create a Facebook application. The <kbd>My Apps</kbd> menu in the corner lists your apps, and there is an option to <kbd>Add a New App</kbd>.
 
 ![Add new app](images/facebook/add_new_app_menu.png)
 
 You are presented with a selection of target platforms. Click *basic setup* to skip the wizards.
 
 ::: sidenote
-Most information provided through the wizards are irrelevant when developing on Defold. In particular, you usually don't need to edit *Info.plist* or *AndroidManifest.xml* yourself. Defold does that work for you.
+Most information provided through the wizards is irrelevant when developing on Defold. In particular, you usually don't need to edit *Info.plist* or *AndroidManifest.xml* yourself. Defold does that work for you.
 :::
 
 ![Add new app platform](images/facebook/add_new_app_platform.png)
@@ -44,7 +44,7 @@ You can easily add, remove and change platform settings in the app dashboard. Yo
 
 ![App dashboard settings](images/facebook/add_platform.png)
 
-Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Unfortunately this setting is hidden in the editor (this will change soon), but you easily add it. Right-click the *game.project* file in the *Project Explorer* and select <kbd>Open With ▸ Text Editor</kbd>.
+Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Unfortunately this setting is hidden in the editor (this will change soon), but you can easily add it. Right-click the *game.project* file in the *Project Explorer* and select <kbd>Open With ▸ Text Editor</kbd>.
 
 ![Open project settings with](images/facebook/project_open_with.png)
 
@@ -64,13 +64,13 @@ For iOS you need to specify the game's `bundle_identifier` as specified in *game
 
 ## Android
 
-For Android you need to specify *Google Play Package Name*, which is the game's *package* identifier specified in *game.project*. You should also generate hashes of the certificate(s) you use and enter them into the *Key Hashes* field. You can generate a hash from a *certificate.pem* with openssl:
+For Android you need to specify a *Google Play Package Name*, which is the game's *package* identifier specified in *game.project*. You should also generate hashes of the certificate(s) you use and enter them into the *Key Hashes* field. You can generate a hash from a *certificate.pem* with openssl:
 
 ```sh
 $ cat certificate.pem | openssl x509 -outform der | openssl sha1 -binary | openssl base64
 ```
 
-(See [Creating certificates and keys](/manuals/android/#_creating_certificates_and_keys) in the Android manual for details how to create your own signing files)
+(See [Creating certificates and keys](/manuals/android/#_creating_certificates_and_keys) in the Android manual for details on how to create your own signing files.)
 
 ![Android settings](images/facebook/settings_android.png)
 
@@ -156,7 +156,7 @@ DEBUG:SCRIPT:
 }
 ```
 
-* The full Defold Facebook APIs are documented in the [Facebook reference documentation](/ref/facebook).
+* The full Defold Facebook API is documented in the [Facebook reference documentation](/ref/facebook).
 * The Facebook Graph API is documented here: https://developers.facebook.com/docs/graph-api
 
 ## Development caveats

@@ -1,4 +1,4 @@
-﻿---
+---
 title: Physics in Defold
 brief: Defold includes physics engines for 2D and 3D. They allow you to simulate Newtonian physics interactions between different types of collision objects. This manual explains how this works.
 ---
@@ -9,7 +9,7 @@ Defold includes a modified version of the [Box2D](http://www.box2d.org) physics 
 
 ## Collision objects
 
-A collision object is a component you use to extends a game object with physical behaviour. A collision object has different physical properties (like weight, restitution and friction) and its spatial extension is defined by one or more _shapes_ that you attach to the component. Defold supports the following types of collision object:
+A collision object is a component you use to extend a game object with physical behaviour. A collision object has different physical properties (like weight, restitution and friction) and its spatial extension is defined by one or more _shapes_ that you attach to the component. Defold supports the following types of collision objects:
 
 Static objects
 : These do not react in themselves, but any other object that collides with static objects will react. These are very useful (and cheap performance-wise) for building level geometry (i.e. ground and walls) that does not move. You cannot move or otherwise change static objects.
@@ -33,7 +33,7 @@ A collision object is constructed out of one or more physics shapes:
 
 * Box shapes
 * Sphere shapes
-* Capsule shapes (does only work with 3D physics!)
+* Capsule shapes (these only work with 3D physics!)
 
 You add these shapes and can use the ordinary editor transform tools to scale, rotate and position them. Each collision object has a number of properties:
 
@@ -49,7 +49,7 @@ If you set the type to `Dynamic` and forget to set the mass to non zero you will
 
 ## Friction
 
-Friction makes it possible to make object slide realistically against each other. The friction value is usually set between `0` (no friction at all---a very slippery object) and `1` (strong friction---an abrasive object). However, any positive value is valid.
+Friction makes it possible for objects to slide realistically against each other. The friction value is usually set between `0` (no friction at all---a very slippery object) and `1` (strong friction---an abrasive object). However, any positive value is valid.
 
 The friction strength is proportional to the normal force (this is called Coulomb friction). When the friction force is computed between two shapes (`A` and `B`), the friction values of both objects are combined by the geometric mean:
 
@@ -61,7 +61,7 @@ This means that if one of the objects has zero friction then the contact between
 
 ## Restitution
 
-The restitution value sets the bounciness of the object. The value is usually between 0 (inelastic collision—the object does not bounce at all) and 1 (perfectly elastic collision—the object's velocity will be exactly reflected in the bounce)
+The restitution value sets the bounciness of the object. The value is usually between 0 (inelastic collision—the object does not bounce at all) and 1 (perfectly elastic collision---the object's velocity will be exactly reflected in the bounce)
 
 Restitution values between two shapes (`A` and `B`) are combined using the following formula:
 
@@ -75,7 +75,7 @@ When a shape develops multiple contacts, restitution is simulated approximately 
 
 ## Linear and angular damping
 
-Damping reduces the linear and angular velocities of the body. It is different from friction that only occurs with contact and can be used to give objects a floaty appearance, like they are moving through something thicker than air. Valid values for both linear and angular damping is between 0 and 1.
+Damping reduces the linear and angular velocities of the body. It is different from friction, which only occurs during contact, and can be used to give objects a floaty appearance, like they are moving through something thicker than air. Valid values for both linear and angular damping are between 0 and 1.
 
 Box2D approximates damping for stability and performance. At small values, the damping effect is independent of the time step while at larger damping values, the damping effect varies with the time step. If you run your game with a fixed time step, this never becomes an issue.
 
@@ -146,7 +146,7 @@ To use the collision shapes from the Tile Source, create a collisionobject in th
 
 - Set the Group and Mask properties.
 
-- Make sure that the Group and Mask properties of the Collision Objects you want colliding with the tiles.
+- Make sure that the Group and Mask properties of the Collision Objects you want colliding with the tiles are set accordingly.
 
 ## Collision messages
 
@@ -204,7 +204,7 @@ This message is sent when one of the colliding objects is Dynamic or Kinematic. 
 `group`
 : the collision group of the other collision object (`hash`).
 
-For a game or application where you need to separate objects perfectly, the `contact_point_response` message gives you all information you need. However, note that for any given collision pair, a number of `contact_point_response` message can be received each frame.
+For a game or application where you need to separate objects perfectly, the `contact_point_response` message gives you all information you need. However, note that for any given collision pair, a number of `contact_point_response` messages can be received each frame.
 
 ## Triggers
 
@@ -255,11 +255,11 @@ The distance covered can be found if we project the penetration vector of Object
 function on_message(self, message_id, message, sender)
     -- Handle collision
     if message_id == hash("contact_point_response") then
-        -- Get the info needed to move out of collision. We might 
+        -- Get the info needed to move out of collision. We might
         -- get several contact points back and have to calculate
         -- how to move out of all accumulatively:
         if message.distance > 0 then
-            -- First, project the penetration vector on 
+            -- First, project the penetration vector on
             -- accumulated correction
             local proj = vmath.project(self.correction, message.normal * message.distance)
             if proj < 1 then
@@ -278,7 +278,7 @@ end
 ## Best practices
 
 Triggers
-: Trigger collision objects are sometimes too limited. Suppose you want a trigger that controls the intensity of a sound--the further the player moves into the trigger, the more intense the sound. This scenario requires a trigger that provides the penetration distance in the trigger. For this, a plain trigger collision object won’t do. Instead, you can set up a Kinematic object and never performing any separation of collisions but instead only registering them and use the collision data.
+: Trigger collision objects are sometimes too limited. Suppose you want a trigger that controls the intensity of a sound---the further the player moves into the trigger, the more intense the sound. This scenario requires a trigger that provides the penetration distance in the trigger. For this, a plain trigger collision object won’t do. Instead, you can set up a Kinematic object and never perform any separation of collisions but instead only register them and use the collision data.
 
 ::: sidenote
 Kinematic objects are more expensive than triggers, so use them wisely.
@@ -287,14 +287,14 @@ Kinematic objects are more expensive than triggers, so use them wisely.
 Choosing between Dynamic or Kinematic objects
 : If you are making a game with a player character (of some sort) that you maneuver through a level, it might seem like a good idea to create the player character as a Dynamic physics object and the world as a Static physics object. Player input is then handled by applying various forces on the player object.
 
-  Going down that path is possible, but it is extremely hard to achieve great results. Your game controls will likely feel generic—like thousands of other games, since it is implemented the same way on the same physics engine. The problem boils down to the fact that the Box2D physics simulation is a realistic Newtonian simulation whereas a platformer is usually fundamentally different. You will therefore have to fight hard to make a Newtonian simulation behave in non-Newtonian fashion.
+  Going down that path is possible, but it is extremely hard to achieve great results. Your game controls will likely feel generic---like thousands of other games, since it is implemented the same way on the same physics engine. The problem boils down to the fact that the Box2D physics simulation is a realistic Newtonian simulation whereas a platformer is usually fundamentally different. You will therefore have to fight hard to make a Newtonian simulation behave in a non-Newtonian fashion.
 
   One immediate problem is what should happen at edges. With a dynamic simulation running, the player physics object (here set up as a box) behaves like a realistic box and will tip over any edges.
 
   ![Dynamic physics](images/physics/physics_dynamic.png)
 
-  This particular problem can be solved by setting the "Locked Rotation" property in the character's collision object. However, the example illustrates the core of the problem which is that the behavior of the character should be under the control of _you_, the designer/programmer and not being directly controlled by a physics simulation over which you have very limited control.
+  This particular problem can be solved by setting the "Locked Rotation" property in the character's collision object. However, the example illustrates the core of the problem which is that the behavior of the character should be under the control of _you_, the designer/programmer and not be directly controlled by a physics simulation over which you have very limited control.
 
-  So it is highly recommended that you implement your player character as a Kinematic physics object. Use the physics engine to detect collisions and deal with collisions and object separations as you need. Such an approach will initially require more work, but allows you to really design and fine-tune the player experience into something really good and unique.
+  So it is highly recommended that you implement your player character as a Kinematic physics object. Use the physics engine to detect collisions and deal with collisions and object separations as you need. Such an approach will initially require more work, but will allow you to design and fine-tune the player experience into something really good and unique.
 
 (Some of the graphic assets used are made by Kenney: http://kenney.nl/assets)

@@ -28,7 +28,7 @@ Clipping can be applied to box nodes and pie nodes. Text nodes can not clip othe
 
 ![Clipping properties](images/clipping/clipping_properties.png)
 
-Stencil clipping can be applied to box nodes and pie nodes. Stencils has some limitations:
+Stencil clipping can be applied to box nodes and pie nodes. Stencils have some limitations:
 
 - The total number of stencil clippers can not exceed 256.
 - The maximum nesting depth of child _stencil_ nodes is 8 levels deep. (Only nodes with stencil clipping count.)
@@ -38,11 +38,11 @@ Stencil clipping can be applied to box nodes and pie nodes. Stencils has some li
 
 ## Stencil mask
 
-To understand how stencil clipping works, it is useful to imagine how a hierarchy of stencils apply their individual clipping shapes, in turn down the hierarchy, to the total mask. The mask set of a clipping node is inherited to the children of that node and the children can never _extend_ the mask, only clip it. Let's look at a concrete example:
+To understand how stencil clipping works, it is useful to imagine how a hierarchy of stencils apply their individual clipping shapes, in turn down the hierarchy, to the total mask. The mask set of a clipping node is inherited by the children of that node and the children can never _extend_ the mask, only clip it. Let's look at a concrete example:
 
 ![Clipping hierarchy](images/clipping/clipping_hierarchy.png)
 
-The hexagon and square shapes are both set to stencil clippers. Setting the *Inverted clipper* property inverts the mask as inherited to that node. For the hierarchy above, four combinations of normal and inverted clippers are possible:
+The hexagon and square shapes are both set to stencil clippers. Setting the *Inverted clipper* property inverts the mask as inherited by that node. For the hierarchy above, four combinations of normal and inverted clippers are possible:
 
 ![Stencil masks](images/clipping/clipping_stencil_masks.png)
 
@@ -52,9 +52,9 @@ If a node below an inverted node is also set to *Inverted clipper*, the part of 
 
 ## Layers
 
-Layers can be used to control rendering order (and batching) of nodes. When using layers and clipping nodes the usual layering order is overridden. Clipping order take precedence over layer order, meaning that regardless of what layer a node belongs to, it will be clipped according to the node hierarchy. Layers only affects the draw order of graphics--and furthermore, the layer set on a clipping node does only affect the draw order _in that clipper's hierarchy_.
+Layers can be used to control rendering order (and batching) of nodes. When using layers and clipping nodes the usual layering order is overridden. Clipping order take precedence over layer order, meaning that regardless of what layer a node belongs to, it will be clipped according to the node hierarchy. Layers only affect the draw order of graphics--and furthermore, the layer set on a clipping node only affects the draw order _in that clipper's hierarchy_.
 
-To illustrate, consider this clipper node "window_and_shadow" that has an inner shadow texture applied to it. By setting the node's *Visible clipper* property and then layering it ("layer2") in relation to the clipped "map" node ("layer0"), the clipper's texture is rendered on top of the child "map". Note that the layer set on "map", nor the one on "window_and_shadow", has any effect on its render order in relation to "blue_box" ("layer2") and "orange_box" ("layer1"). If you want to change the render order of "window_and_shadow" in relation to "blue_box" and "orange_box", simply change their order in the node tree.
+To illustrate, consider this clipper node "window_and_shadow" that has an inner shadow texture applied to it. By setting the node's *Visible clipper* property and then layering it ("layer2") in relation to the clipped "map" node ("layer0"), the clipper's texture is rendered on top of the child "map". Note that neither the layer set on "map", nor the one on "window_and_shadow", has any effect on its render order in relation to "blue_box" ("layer2") and "orange_box" ("layer1"). If you want to change the render order of "window_and_shadow" in relation to "blue_box" and "orange_box", simply change their order in the node tree.
 
 ![Layers and clipping](images/clipping/clipping_layers.png)
 

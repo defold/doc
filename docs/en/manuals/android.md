@@ -5,7 +5,7 @@ brief: This manual describes how to build and run Defold applications on Android
 
 # Android development
 
-Android development differs from iOS development in that the devices give free access to upload content. It is very easy to build a version of your game and copy it onto an Android device. You can as easily put the development engine on a device for iterative development on the device over wifi.
+Android development differs from iOS development in that the devices give free access to upload content. It is very easy to build a version of your game and copy it onto an Android device. You can just as easily put the development engine on a device for iterative development on the device over wifi.
 
 ## Android and Google Play signing process
 

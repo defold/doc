@@ -5,7 +5,7 @@ brief: This manual describes how Defold handles fonts and how to bring fonts ont
 
 # Font files
 
-Fonts are used to render label components and text nodes in GUI scenes. Defold supports font files in TrueType, OpenType or BMFont format that can be added to your project and automatically converted into a graphical format that Defold can render. Two font rendering techniques are available, bitmap and distance field, each with its specific benefits and drawbacks.
+Fonts are used to render label components and text nodes in GUI scenes. Defold supports font files in TrueType, OpenType or BMFont format, which can be added to your project and automatically converted into a graphical format that Defold can render. Two font rendering techniques are available, bitmap and distance field, each with its own specific benefits and drawbacks.
 
 ## Creating a font
 
@@ -59,16 +59,16 @@ Shadow rendering of fonts is currently disabled by default because of performanc
 : This property controls the type of font that is generated.
 
   - `TYPE_BITMAP`. For OTF and TTF files, the imported font is converted into a font sheet texture where the bitmap data is used to render text nodes. The color channels are used to encode different aspects of the font, such as the face shape, outline and drop shadow. The preview shows the raw font texture with the font face in the red channel, the outline in the green channel and shadow in the blue channel. The pixel density of the font is fixed so it will look good in its generated size or scaled down. Bitmap fonts are very fast to render but size limited---scaling up a bitmap font quickly creates artifacts.
-  - `TYPE_DISTANCE_FIELD` The imported font is converted into a font sheet texture where the pixel data represent not screen pixels but distances to the font edge. See below for details.
+  - `TYPE_DISTANCE_FIELD` The imported font is converted into a font sheet texture where the pixel data represents not screen pixels but distances to the font edge. See below for details.
 
 *all_chars*
-: If you set this property to `true` all glyphs available in the source file are included in the output.
+: If you set this property to `true` all glyphs available in the source file will be included in the output.
 
 *cache_width*
-: Set this to constrain the width of the glyph cache bitmap. When the engine renders text, it looks on the cache bitmap for a glyph. If it does not exist there it will be added to the cache before rendering. If the cache bitmap is too small to contain the glyphs the engine is asked to render, an error (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`) is signalled. If this value is 0 then the cache size is automatically.
+: Set this to constrain the width of the glyph cache bitmap. When the engine renders text, it looks on the cache bitmap for a glyph. If it does not exist there, it will be added to the cache before rendering. If the cache bitmap is too small to contain all the glyphs the engine is asked to render, an error (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`) is signalled. If this value is 0 then the cache size is set automatically.
 
 *cache_height*
-: Set this to constrain the height of the glyph cache bitmap. If this value is 0 then the cache size is automatically.
+: Set this to constrain the height of the glyph cache bitmap. If this value is 0 then the cache size is set automatically.
 
 ::: sidenote
 The ASCII printable characters are:
@@ -99,7 +99,7 @@ For the font to render correctly, don't forget to set the material property to *
 
 ## Distance field fonts
 
-To create a distance field font, simply select `TYPE_DISTANCE_FIELD` as *output_format*. This creates a distance field map for the font. When the engine renders the font, a special shader is required to interprets the distance data and use that to create a sharp font edge. Distance field fonts are more resource intensive than bitmap fonts, but allow for much greater sizing flexibility.
+To create a distance field font, simply select `TYPE_DISTANCE_FIELD` as *output_format*. This creates a distance field map for the font. When the engine renders the font, a special shader is required to interpret the distance data and use that to create a sharp font edge. Distance field fonts are more resource intensive than bitmap fonts, but allow for much greater sizing flexibility.
 
 ![Distance field font](images/font/fonts_distance_field.png)
 

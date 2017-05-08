@@ -8,7 +8,7 @@ brief: This manual explains how you bring sounds into your Defold project, play 
 Defold's sound implementation is simple but powerful. There are only two concepts that you need to be aware of:
 
 Sound components
-: These components contain an actual sound that should be played and is able to play back the sound.
+: These components contain an actual sound that should be played and are able to play back the sound.
 
 Sound groups
 : Each sound component can be designated to belong to a _group_. Groups offer an easy way to manage sounds that belong together in an intuitive way. For instance, a group "sound_fx" can be set up and any sound belonging to that group can be ducked by a simple function call.
@@ -25,10 +25,10 @@ The created component has a set of properties that should be set:
 : Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format (See http://en.wikipedia.org/wiki/WAV and http://en.wikipedia.org/wiki/Vorbis for details).
 
 *Looping*
-: If checked the sound will playback looping until explicitly stopped.
+: If checked the sound will play back in a loop until explicitly stopped.
 
 *Gain*
-: You can set the gain for the sound directly on the component. This allows you to easily tweak the gain for a sound without going back to your sound program and perform a re-export. See below for details on how gain is calculated.
+: You can set the gain for the sound directly on the component. This allows you to easily tweak the gain for a sound without going back to your sound program and performing a re-export. See below for details on how gain is calculated.
 
 *Group*
 : The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in "master" group.
@@ -68,7 +68,7 @@ The groups are identified with a hash value. The string name can be retrieved wi
 ![Sound group mixer](images/sound/sound_mixer.png)
 
 ::: important
-You should not write code that relies on the string value of a sound group since it is not available in release builds.
+You should not write code that relies on the string value of a sound group since they are not available in release builds.
 :::
 
 All values are linear between 0 and 1.0 (0 dB). To convert to decibel, simply use the standard formula:
@@ -103,7 +103,7 @@ sound.set_group_gain("master", 1.995)
 
 ## Gating sounds
 
-If your game plays the same sound on an event and that event is triggered often, you run the risk of playing the same sound two times or more almost at the same time. If that happens, the sounds will be _phase shifted_ which can result in some very noticeable artifacts. 
+If your game plays the same sound on an event and that event is triggered often, you run the risk of playing the same sound two times or more almost at the same time. If that happens, the sounds will be _phase shifted_ which can result in some very noticeable artifacts.
 
 ![Phase shift](images/sound/sound_phase_shift.png)
 
@@ -114,7 +114,7 @@ The easiest way to deal with this problem is to build a gate that filters sound 
 local gate_time = 0.3
 
 function init(self)
-    -- Store played sound timers in table and count down each frame until they have been 
+    -- Store played sound timers in a table and count down each frame until they have been
     -- in the table for "gate_time" seconds. Then remove them.
     self.sounds = {}
 end
@@ -152,6 +152,6 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 ```
 
 ::: important
-It does not work to have the gate listen to `play_sound` messages since that name is reserved by the Defold engine. You will get unexpected behavior if you do use reserved message names.
+It does not work to have the gate listen to `play_sound` messages since that name is reserved by the Defold engine. You will get unexpected behavior if you use reserved message names.
 :::
 

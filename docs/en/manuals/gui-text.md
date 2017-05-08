@@ -22,11 +22,11 @@ Text nodes have a set of special properties:
 : This property contains the text displayed.
 
 *Line Break*
-: Text alignment follows the pivot setting and setting the this property allows the text to flow over several lines. The width of the node determines where the text will wrap.
+: Text alignment follows the pivot setting and setting this property allows the text to flow over several lines. The width of the node determines where the text will wrap.
 
 ## Alignment
 
-By setting the node pivot you can change the adjust mode for the text.
+By setting the node pivot you can change the alignment mode for the text.
 
 *Center*
 : If the pivot is set to `Center`, `North` or `South`, the text is center-aligned.

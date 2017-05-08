@@ -78,7 +78,7 @@ msg.post("my_object", "set_parent", { parent_id = go.get_id("my_parent") })
 
 ## Components
 
-Components are used to give specific expression and/or functionality to game objects. They don't live a life on their own but have to be contained inside game objects. There are two different ways in which you can create new components in the editor:
+Components are used to give specific expression and/or functionality to game objects. They don't live a life of their own but have to be contained inside game objects. There are two different ways in which you can create new components in the editor:
 
 1. Create a component-type _file_, then create an instance of that component inside a game object.
 2. Create an _in-place_ instance of a component in a game object.
@@ -97,7 +97,7 @@ embedded_instances {
 
 The component specific data are stored in the component file referenced via the *component* property.
 
-The most common component type is probably the _script component_ that you use to create behaviors. It is easy to forget that there is a clear boundary between the script component and the containing game object. For instance, the following style of message passing is common:
+The most common component type is probably the _script component_, which you use to create behaviors. It is easy to forget that there is a clear boundary between the script component and the containing game object. For instance, the following style of message passing is common:
 
 ```lua
 msg.post("my_object", "my_message", { my_data = 1 }})
@@ -168,7 +168,7 @@ data: "components {\n"
 
 ## Collections
 
-Collections are Defold's mechanism for creating templates, or what in other engines are called "prefabs". Collections are tree structures that holds game objects and other collections. A collection is _always_ stored on file and brought into the game in one of two ways:
+Collections are Defold's mechanism for creating templates, or what in other engines are called "prefabs". Collections are tree structures that hold game objects and other collections. A collection is _always_ stored on file and brought into the game in one of two ways:
 
 1. Either at build time by placing the collection in another collection in the editor.
 2. At runtime by dynamically loading all resources gathered in the collection through a _collection proxy_ (See [Collection proxy documentation](/manuals/collection-proxy) for details).

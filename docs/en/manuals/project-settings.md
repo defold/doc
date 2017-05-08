@@ -5,7 +5,7 @@ brief: This manual describes how project specific settings work in Defold.
 
 # Project settings
 
-The file *game.project* contains all project wide settings. It must stay in the root of the project and must be named *game.project*. The first thing the engine does when starting up and launching your game is looking for this file.
+The file *game.project* contains all project wide settings. It must stay in the root folder of the project and must be named *game.project*. The first thing the engine does when starting up and launching your game is look for this file.
 
 Every setting in the file belongs to a category. The format of the file is simple text and can be edited by any standard text editor. The format looks like this:
 
@@ -42,7 +42,7 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711
 ```
 
-Custom values can---just as any other config value---be read with [`sys.get_config()`](/ref/sys/#sys.get_config).
+Custom values can---just like any other config value---be read with [`sys.get_config()`](/ref/sys/#sys.get_config).
 
 ## Project
 
@@ -53,7 +53,7 @@ version
 : The version of the application.
 
 write_log
-: When checked the engine will write a log file *log.txt* in the project root. When running on iOS, the log file can be accessed through iTunes and the *Apps* tab and the *File Sharing* section. On Android, the file is stored in the apps external storage. When running the *dmengine* development app, you can view the log with:
+: When checked, the engine will write a log file *log.txt* in the project root. When running on iOS, the log file can be accessed through iTunes and the *Apps* tab and the *File Sharing* section. On Android, the file is stored in the app's external storage. When running the *dmengine* development app, you can view the log with:
 
 ```bash
 $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
@@ -63,7 +63,7 @@ compress_archive
 : Enables compression of archives when bundling. Note that this currently applies to all platforms except Android where the apk already contains all data compressed.
 
 dependencies
-: A comma-separated list of URL:s to the project *Library URL*:s (can be found in the [Defold dashboard](//dashboard.defold.com)) that this project uses. Note that you need to be a member of the dependent projects.
+: A comma-separated list of URLs to the project *Library URL*s (can be found in the [Defold dashboard](//dashboard.defold.com)) that this project uses. Note that you need to be a member of the dependent projects.
 
 custom_resources (hidden setting)
 : A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included.
@@ -378,7 +378,7 @@ appid (hidden setting)
 ## IAP
 
 auto_finish_transactions
-: Check to automatically finish iap transactions. If unchecked, you need to explicitly call `iap.finish()` after a successful transaction, checked by default.
+: Check to automatically finish IAP transactions. If unchecked, you need to explicitly call `iap.finish()` after a successful transaction, checked by default.
 
 
 
