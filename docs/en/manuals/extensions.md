@@ -198,7 +198,7 @@ platforms:
 The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
 
 Platforms
-: We currently only support building extensions for: macOS, iOS and Android. Android lacks support for *.java* and *.jar* archives
+: We currently only support building extensions for: macOS, iOS and Android. Android lacks support for *.aar* archives
 
 Editor
 : The editor integration. There is no build process indication. Error reporting is rudimentary.

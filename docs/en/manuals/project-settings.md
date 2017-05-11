@@ -365,7 +365,7 @@ splash_image
 : If set, use the specified splash image on startup when bundling.
 
 archive_location_prefix
-: Game content are be split up into archive data files that are be requested by the engine at boot. Use this setting to specify the location of the data, `archive` by default.
+: When bundling for HTML5 game data is split up into one or more archive data files. When the engine starts the game, these archive files are read into memory. Use this setting to specify the location of the data, `archive` by default.
 
 archive_location_suffix
 : Suffix to be appended to the archive files. Useful to, for instance, force non-cached content from a CDN (`?version2` for example).

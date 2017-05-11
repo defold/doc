@@ -582,6 +582,7 @@ function update(self, dt)
     if self.counter >= 2.0 and self.state == "first" then
         -- send message after 2 seconds
         msg.post("some_object", "some_message")
+        self.state = "waiting"
     end
     if self.counter >= 5.0 and self.state == "second" then
         -- send message 5 seconds after we received "response"

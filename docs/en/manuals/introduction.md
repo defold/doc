@@ -67,13 +67,13 @@ In addition to collaborating through project branches, Defold allows you to shar
 This is a list of all the available building blocks for creating apps and games. They are listed together with the icon used for the type of building block in the Defold editor.
 
 Game object
-: ![Game object](images/icons/brick.png){.left} See above for a description of game objects.
+: ![Game object](images/icons/brick.png){.left} See [the Building blocks manual](/manuals/building-blocks) for a description of game objects.
 
 Collection
-: ![Collection](images/icons/bricks.png){.left} See above for a description of collections.
+: ![Collection](images/icons/bricks.png){.left} See [the Building blocks manual](/manuals/building-blocks) for a description of collections.
 
 Script
-: ![Script](images/icons/cog.png){.left} See above for a description of scripts.
+: ![Script](images/icons/cog.png){.left} [See above](#_scripts) for a description of script components.
 
 Sound
 : ![Sound](images/icons/sound.png){.left} The sound component is responsible for playing a specific sound. Currently, Defold supports sound files in the WAV and Ogg Vorbis formats.
@@ -82,7 +82,7 @@ Collision object
 : ![Collision object](images/icons/weight.png){.left} Collision objects are components that extend game objects with physical properties (like spatial shape, weight, friction and restitution). These properties govern how the collision object should collide with other collision objects. The most common types of collision objects are kinematic objects, dynamic objects and triggers. A kinematic object gives detailed collision information that you have to manually respond to, a dynamic object is automatically simulated by the physics engine to obey Newtonian laws of physics. Triggers are simple shapes that detect if other shapes have entered or exited the trigger.
 
 Factory
-: ![Factory](images/icons/factory.png){.left} See above for a description of factories.
+: ![Factory](images/icons/factory.png){.left} [See above](#_factories) for a description of factories.
 
 Sprite
 : ![Sprite](images/icons/pictures.png){.left} A sprite is a component that extends game objects with graphics. It displays an image either from a Tile source or from an Atlas. Sprites have built-in support for flip-book and bone animation. Sprites are usually used for characters and items. See the [2D graphics documentation](/manuals/2dgraphics) for more information.

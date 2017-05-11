@@ -416,9 +416,10 @@ The default render script is a Lua script that handles all rendering of your gam
 ```lua
 ...
 render.set_view(vmath.matrix4())
-render.set_projection(vmath.matrix4_orthographic(0,
-render.get_window_width(), 0,
-render.get_window_height(), -1, 1))
+local w = render.get_window_width()
+local h = render.get_window_height()
+local proj = vmath.matrix4_orthographic(0, w, 0, h, -1, 1)
+render.set_projection(proj)
 render.draw(self.gui_pred)
 render.draw(self.text_pred)
 ...
@@ -432,12 +433,14 @@ To illustrate, you can render all GUI components with a 3D "camera" view and per
 -- Set up a view to get a 3D positioned camera.
 local w = render.get_window_width() * 0.5
 local h = render.get_window_height() * 0.5
-local view = vmath.matrix4_look_at(vmath.vector3(w-25, h-10, 70),
-vmath.vector3(w, h, -250),
-vmath.vector3(0, 1.0, 0))
+local eye = vmath.vector3(w-25, h-10, 70)
+local look_at = vmath.vector3(w, h, -250)
+local up = vmath.vector3(0, 1.0, 0)
+local view = vmath.matrix4_look_at(eye, look_at, up)
 render.set_view(view)
 -- Perspective projection
-render.set_projection(vmath.matrix4_perspective(2.5, 4/3, 0.1, 1000))
+local proj = vmath.matrix4_perspective(2.5, 4/3, 0.1, 1000)
+render.set_projection(proj)
 
 render.draw(self.gui_pred)
 render.draw(self.text_pred)
