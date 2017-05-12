@@ -1,36 +1,38 @@
 ---
 title: Grading shader tutorial
-brief: In this tutorial we will create a full screen grading post effect in Defold.
+brief: In this tutorial we will create a full screen post effect in Defold.
 ---
 
 # Grading tutorial
 
-In this tutorial we are going to create a full screen color post processing effect for a game. The method used here is widely applicable for various types of post effects like blur, trails, glow, color adjustments and so on.
+In this tutorial we are going to create a color grading  full screen post effect. The basic rendering method used is widely applicable for various types of post effects like blur, trails, glow, color adjustments and so on.
 
-It is assumed that you have basic knowledge about GL shaders and that you have some understanding of the Defold rendering pipeline. If you need to read up on these subjects, check out [our Shader manual](/manuals/shader/) and the [Rendering manual](/manuals/rendering/).
+It is assumed that you know your way around the Defold editor, and that you have basic understanding of GL shaders and the Defold rendering pipeline. If you need to read up on these subjects, check out [our Shader manual](/manuals/shader/) and the [Rendering manual](/manuals/rendering/).
 
 ## Render targets
 
-With the default render script, each visual component (sprite, tilemap, particle effect, GUI etc) is rendered directly to the graphics card *frame buffer* so they will appear on the screen. The actual drawing of a component is done by GL *shader programs*. The default shader programs draw each component's pixel data as is---what you have in your images will appear on screen untouched. 
+With the default render script, each visual component (sprite, tilemap, particle effect, GUI etc) is rendered directly to the graphics card's *frame buffer*. The hardware then cause the graphics to appear on the screen. The actual drawing of a component's pixels is done by a GL *shader program*. Defold ships with a default shader program for each component type that draws the pixel data to the screen untouched. Normally, this is the behavior you want---your images should appear on the screen as they were originally conceived.
 
-By replacing the shader programs you can modify the pixel data, or create new pixel colors programmatically. The [Shadertoy tutorial](/tutorials/shadertoy) teaches you how to do that. However, sometimes you want to modify the pixel data for everything that appears on screen. Let's say that you want to render the whole game in black-and-white. One solution to that problem is to modify all shaders for all components so they desaturates color. That would take a bit of work. Currently, Defold ships with 6 built in materials and 6 vertex and fragment shader program pairs so it's not undoable, but any subsequent changes you want to make has to be made to each program.
+You can replace a component's shader program with one that modifies the pixel data, or creates wholly new pixel colors programmatically. The [Shadertoy tutorial](/tutorials/shadertoy) teaches you how to do that.
 
-An alternative solution is to instead do the rendering in two steps:
+Now let's say that you want to render your whole game in black-and-white. One possible solution is to modify the individual shader program for each components type so that each shader desaturates pixel colors. Currently, Defold ships with 6 built in materials and 6 vertex and fragment shader program pairs so it will take a fair amount of work. Furthermore, any subsequent changes or effect additions has to be made to each shader program.
+
+A much more flexible approach is to instead do the rendering in two separate steps:
 
 ![Render target](images/grading/render_target.png)
 
-1. Draw all components as usual, but instead of drawing them to the frame buffer, draw to an off-screen buffer. This buffer is called a *render target*.
-2. Then draw a square polygon to the frame buffer and use the off-screen buffer as the polygon's texture source. We make sure that the square polygon covers the whole screen.
+1. Draw all components as usual, but draw them to an off-screen buffer instead of the usual frame buffer. You do this by drawing to something called a *render target*.
+2. Draw a square polygon to the frame buffer and use the pixel data stored in the render target as the polygon's texture source. Also make sure that the square polygon is stretched to cover the whole screen.
 
-With this method, we only need to add shader programs to step 2 to create a full screen effect. Now, let's set this up in Defold.
+With this method, we are able to read the resulting visual data and modify it before it hits the screen. By adding shader programs to step 2 above, we can easily achieve full screen effects. Let's see how to set this up in Defold.
 
-## Drawing to an off-screen buffer
+## Setting up a custom renderer
 
-We need to use a custom render script for this method to work. The default render script is a good starting point so start by copying it:
+We need to modify the built in render script and add the new rendering functionality. The default render script is a good starting point so start by copying it:
 
-1. Copy */builtins/render/default.render_script* to a location in your project, for instance */main/grade.render_script*. In the *Asset* view, right click *default.render_script*, select <kbd>Copy</kbd> then right click *main* and select <kbd>Paste</kbd>. Right click the copy and select <kbd>Rename...</kbd>.
-2. Create a new render file */main/grade.render*. Right click *main* in the *Asset* view and select <kbd>New ▸ Render</kbd>.
-3. Open *grade.render* and set the *Script* property to "/main/grade.render_script".
+1. Copy */builtins/render/default.render_script*: In the *Asset* view, right click *default.render_script*, select <kbd>Copy</kbd> then right click *main* and select <kbd>Paste</kbd>. Right click the copy and select <kbd>Rename...</kbd> and give it a suitable name, like "grade.render_script".
+2. Create a new render file called */main/grade.render* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Render</kbd>.
+3. Open *grade.render* and set its *Script* property to "/main/grade.render_script".
    
    ![grade.render](images/grading/grade_render.png)
 
@@ -38,7 +40,7 @@ We need to use a custom render script for this method to work. The default rende
 
    ![game.project](images/grading/game_project.png)
 
-Now the game runs with a new render pipeline that we can modify. To test that the render script is properly used, run your game, then modify the render script and reload it. For example, disable drawing of tiles and sprites, then press <kbd>⌘ + R</kbd> to hot-relad the render script into the running game:
+Now the game is set up to run with a new render pipeline that we can modify. To test that our render script copy is used by the engine, run your game, then do a modification to the render script that will give a visual result, and then reload the script. For example, you can disable the drawing of tiles and sprites, then press <kbd>⌘ + R</kbd> to hot-relad the "broken" render script into the running game:
 
 ```lua
 ...
@@ -51,9 +53,13 @@ render.draw_debug3d()
 
 ...
 ```
-1. Comment out drawing of the "tile" predicate, which includes all sprites and tiles. This should be around line 33.
+1. Comment out drawing of the "tile" predicate, which includes all sprites and tiles. This line of code can be found around line 33 in the render script file.
 
-If the sprites and tiles disappear with `render.draw(self.tile_pred)` commented out you know that the game runs your render script. Undo the change to the render script. Now, let's modify the render script to draw to the off-screen buffer:
+If the sprites and tiles disappear by this simple test you know that the game runs your render script. If everything works as expected you can undo the change to the render script.
+
+## Drawing to an off-screen target
+
+Now, let's modify the render script so that it draws to the off-screen render target instead of the frame buffer. First we need to create the render target:
 
 ```lua
 function init(self)
@@ -92,33 +98,33 @@ function update(self)
   render.disable_render_target(self.target) -- <3>
 end
 ```
-1. Enable the render target. From now on, every call to `render.draw()` will draw to our off-screen buffer instead to the on-screen frame-buffer.
+1. Enable the render target. From now on, every call to `render.draw()` will draw to our off-screen render target's buffers.
 2. All original drawing code in `update()` is left as is.
-3. The whole game is now drawn to our render target's off-screen buffer. We are not going to draw to it anymore, so it's time to disable it.
+3. At this point, all the game's graphics has been drawn to the render target. So it's time to disable it.
 
-That's it. Running the game will draw everything to the render target's off-sceen buffer. But since we are not yet drawing anything to the frame-buffer we will only see a black screen.
+That's all we need to do. If you run the game now it will draw everything to the render target. But since we now drawing nothing to the frame-buffer we will only see a black screen.
 
 ## Something to fill the screen with
 
-To get the data from the off-screen buffer to the screen, we need something that we can texture with the render target's color buffer and that we can make fill the whole screen. For that purpose we are going to use a flat, quadratic 3D model.
+To draw the pixels in the render target's color buffer onto the screen, we need to set something up that we can texture with the pixel data. For that purpose we are going to use a flat, quadratic 3D model.
 
 Create a quadratic plane mesh in Blender (or any other 3D modelling program). Set the vertex coordinates to -1 and 1 on the X-axis and -1 and 1 on the Y axis. Blender has the Z-axis up by default so you need to rotate the mesh 90° around the X-axis. You should also make sure that you generate correct UV-coordinates for the mesh. In Blender, enter Edit Mode with the mesh selected, then select <kbd>Mesh ▸ UV unwrap... ▸ Unwrap</kbd>.
 
 ![game.project](images/grading/quad_blender.png)
 
-1. Export the model as a Collada file called quad.dae and drag it into your Defold project.
-2. Open *main.collection* and create a new game object "grade".
-3. Add a Model component to "grade".
-3. Set the *Mesh* property to the *quad.dae* file.
+1. Export the model as a Collada file called *quad.dae* and drag it into your Defold project.
+2. Open *main.collection* and create a new game object called "grade".
+3. Add a Model component to the "grade" game object.
+3. Set the *Mesh* property of the model component to the *quad.dae* file.
 
-Leave the game object unscaled at origo. We are soon going to apply projection and a view that makes it fill the whole screen, but first we need a material and shader programs for the quad:
+Leave the game object unscaled at origo. Later, when we render the quad we will project it so it fills the whole screen. But first we need a material and shader programs for the quad:
 
-1. Create a new material *grade.material*. Right click *main* in the *Asset* view and select <kbd>New ▸ Material</kbd>.
-2. Create a vertex shader program *grade.vp* and a fragment shader program *grade.fp*. Right click *main* in the *Asset* view and select <kbd>New ▸ Vertex program</kbd> and <kbd>New ▸ Fragment program</kbd>.
+1. Create a new material and call it *grade.material* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Material</kbd>.
+2. Create a vertex shader program called *grade.vp* and a fragment shader program called *grade.fp*by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Vertex program</kbd> and <kbd>New ▸ Fragment program</kbd>.
 3. Open *grade.material* and set the *Vertex program* and *Fragment program* properties to the new shader program files.
 4. Add a *Vertex constant* named "view_proj" of type `CONSTANT_TYPE_VIEWPROJ`. This is the view and projection matrix used in the vertex program for the quad vertices.
-5. Add a *Sampler* called "original" which will be used to sample pixels from the off-screen buffer.
-6. Add a *Tag* called "grade" which will be used in the render script.
+5. Add a *Sampler* called "original". This will be used to sample pixels from the off-screen render target color buffer.
+6. Add a *Tag* called "grade". We will make a new *render predicate* in the render script matching this tag to draw the quad.
 
    ![grade.material](images/grading/grade_material.png)
 
@@ -126,7 +132,7 @@ Leave the game object unscaled at origo. We are soon going to apply projection a
 
    ![model properties](images/grading/model_properties.png)
 
-8. The vertex shader program can be left according to the template:
+8. The vertex shader program can be left as created from the base template:
 
     ```glsl
     // grade.vp
@@ -145,7 +151,7 @@ Leave the game object unscaled at origo. We are soon going to apply projection a
     }
     ```
 
-9. Modify the fragment shader program. Instead of setting `gl_FragColor` to the sampled color directly, let's try a simple color manipulation to make sure everything works as expected:
+9. In the fragment shader program, instead of setting `gl_FragColor` to the sampled color value directly, let's perform a simple color manipulation. We do this mainly to make sure everything works as expected so far:
 
     ```glsl
     // grade.fp
@@ -163,7 +169,7 @@ Leave the game object unscaled at origo. We are soon going to apply projection a
     }
     ```
 
-Now we have the model in place with its material and shaders.
+Now we have the quad model in place with its material and shaders. We just have to draw it to the screen frame buffer.
 
 ## Texturing with the off-screen buffer
 
@@ -180,7 +186,7 @@ function init(self)
     ...
 end
 ```
-1. Add a new predicate for the "grade" tag that we set in *grade.material*.
+1. Add a new predicate matching the "grade" tag that we set in *grade.material*.
 
 After the render target's color buffer has been filled in `update()` we set up a view and a projection that make the quad model fill the whole screen. We then use the render target's color buffer as the quad's texture:
 
@@ -192,18 +198,21 @@ function update(self)
   
   render.disable_render_target(self.target)
 
-  render.set_view(vmath.matrix4()) -- <1>
+  render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color}) -- <1>
+
+  render.set_view(vmath.matrix4()) -- <2>
   render.set_projection(vmath.matrix4())
   
-  render.enable_texture(0, self.target, render.BUFFER_COLOR_BIT) -- <2>
-  render.draw(self.grade_pred) -- <3>
-  render.disable_texture(0, self.target) -- <4>
+  render.enable_texture(0, self.target, render.BUFFER_COLOR_BIT) -- <3>
+  render.draw(self.grade_pred) -- <4>
+  render.disable_texture(0, self.target) -- <5>
 end
 ```
-1. Set the view to the identity matrix. This means camera is at origo looking straight ahead. The projection is also the identity matrix---the quad stretching from (-1, -1) to (1, 1) will cover the whole screen.
-2. Set texture slot 0 to the color buffer of the render target. We have sampler "original" at slot 0 in our *grade.material* so the fragment shader will sample from our off screen buffer.
-3. Draw the predicate we created for the tag "grade". The quad model has the *grade.material* material which sets that tag---thus the quad will be drawn.
-4. Disable texture slot 0 since we are done drawing with it.
+1. Clear the frame buffer. Note that the previous call to `render.clear()` affects the render target, not the screen frame buffer.
+2. Set the view to the identity matrix. This means camera is at origo looking straight along the Z axis. Also set the projection to the identity matrix causing the the quad to be projected flat across the whole screen.
+3. Set texture slot 0 to the color buffer of the render target. We have sampler "original" at slot 0 in our *grade.material* so the fragment shader will sample from the render target.
+4. Draw the predicate we created matching any material with the tag "grade". The quad model uses *grade.material* which sets that tag---thus the quad will be drawn.
+5. After drawing, disable texture slot 0 since we are done drawing with it.
 
 Now let's run the game and see the result:
 
@@ -211,25 +220,33 @@ Now let's run the game and see the result:
 
 ## Color grading
 
-Colors are expressed as a three component values where the components dictate the amount of red, green and blue a color should contain. The full color spectrum from black, through red, green, blue, yellow and pink to white can be fit into a cube shape:
+Colors are expressed as three component values where each component dictates the amount of red, green or blue a color consist of. The full color spectrum from black, through red, green, blue, yellow and pink to white can be fit into a cube shape:
 
 ![color cube](images/grading/color_cube.png)
 
-Any color that can be displayed on screen can be found in this color cube. The basic idea of color grading is to create such a color cube but distort the colors in it and use it as a 3D *lookup table* in the fragment shader:
+Any color that can be displayed on screen can be found in this color cube. The basic idea of color grading is to use such a color cube, but with altered colors, as a 3D *lookup table*.
 
-1. Sample the color value for the pixel from the off-screen buffer.
-2. Look up the position of the sampled color value in the color-graded color cube.
-3. Set the fragment color to the looked up value.
+For each pixel:
+
+1. Look up its color's position in the color cube (based on the red, green and blue values).
+2. *Read* what color the graded cube has stored in that location.
+3. Draw the pixel in the read color instead of the original color.
+
+We can do this in our fragment shader:
+
+1. Sample the color value for each pixel in the off-screen buffer.
+2. Look up the color position of the sampled pixel in a color-graded color cube.
+3. Set the output fragment color to the looked up value.
 
 ![render target grading](images/grading/render_target_grading.png)
 
 ## Representing the lookup table
 
-Open GL ES 2.0 does not support 3D textures so we need to figure out a way to represent the 3D color cube as a 2D texture that we can sample from. The standard way of doing that is to slice the cube along the Z-axis (blue) and lay each slice side by side in a 2-dimensional grid. Each of the 16 slices contains a 16⨉16 pixel grid.
+Open GL ES 2.0 does not support 3D textures so we need to figure out another way to represent the 3D color cube. A common way of doing that is to slice the cube along the Z-axis (blue) and lay each slice side by side in a 2-dimensional grid. Each of the 16 slices contains a 16⨉16 pixel grid. We store this in a texture that we can read from in the fragment shader with a sampler:
 
 ![lookup texture](images/grading/lut.png)
 
-We see that the table contains 16 cells (one for each blue color intensity) and within each cell 16 red colors along the X axis and 16 green colors along the Y axis. It might seem like we have merely 4 bit color depth, which by most standards is lousy. But thanks to a feature of GL graphics hardware we can get very good results anyway. Let's see how.
+The resulting texture contains 16 cells (one for each blue color intensity) and within each cell 16 red colors along the X axis and 16 green colors along the Y axis. The texture represents the whole 16 million color RGB color space in just 4096 colors---merely 4 bits of color depth. By most standards this lousy but thanks to a feature of GL graphics hardware we can get very high color accuracy back. Let's see how.
 
 ## Looking up colors
 
@@ -239,9 +256,9 @@ $$
 cell = \left \lfloor{B \times (N - 1)} \right \rfloor
 $$
 
-Where `B` is the blue component value between 0 and 1 and `N` is the total numbers of cells. In our case the cell number will be in the range `0`--`15` where cell `0` have colors with the blue component at `0` and cell `15` have colors with the blue component at `1`.
+Here `B` is the blue component value between 0 and 1 and `N` is the total number of cells. In our case the cell number will be in the range `0`--`15` where cell `0` contains all colors with the blue component at `0` and cell `15` all colors with the blue component at `1`.
 
-For the RGB value `(0.63, 0.83, 0.4)` we can find all the colors with blue set to `0.4` in cell number 6. Knowing that, the lookup of the green and red position is simple:
+For example, the RGB value `(0.63, 0.83, 0.4)` is found in the cell containing all the colors with a blue value of `0.4`, which is cell number 6. Knowing that, the lookup of the final texture coordinates based on the green and red values is straightforward:
 
 ![lut lookup](images/grading/lut_lookup.png)
 
@@ -251,31 +268,33 @@ Note that we need to treat red and green values `(0, 0)` as being in the *center
 The reason we read starting at the center of the lower left pixel and up to the center of the top right one is that we don't want any pixels outside of the current cell to affect the sampled value. See below about filtering.
 :::
 
+When sampling at these specific coordinates on the texture we see that we end up right between 4 pixels. So what color value will GL tell us that point has?
+
 ![lut filtering](images/grading/lut_filtering.png)
 
-When sampling at these specific coordinates on the texture we see that we end up right between 4 pixels. So when sampling from that location, what color value will GL give us?
+The answer depends on how we have specified the sampler's *filtering* in the material.
 
-The answer depends on how we have set up *filtering* for the sampler in the material. If we set `FILTER_MODE_MAG_NEAREST`, GL will get return the color value of the nearest pixel value, position value rounded down. In this case we will read the color value at `(0.60, 0.80)`. With this particular lookup texture it means that we will quantize the color values in increments of 1/15. Making a larger lookup texture will get us more colors, but there is a much better method.
+- If the sampler filtering is `NEAREST`, GL will get return the color value of the nearest pixel value (position value rounded down). In the above case GL will return the color value at position `(0.60, 0.80)`. For our 4 bit lookup texture it means that we will quantize the color values into just 4096 colors in total.
 
-We can set `FILTER_MODE_MAG_LINEAR` for the sampler which will make GL return *interpolated* values. If we read the color value between two pixels `A` and `B` we will get a value that is a mix of the two pixel colors and the ratio of color from `A` and `B` depends on the distance to the pixels. If we read right at the center of `A` we get only `A`'s color, whereas if we read right between them we get 50% of each. In our example above, we get 25% of each of the 4 pixels around the sample point.
+- If the sampler filtering is `LINEAR`, GL will return the *interpolated* color value. GL will mix a color based on the distance to the pixels around the sample position. In the above case, GL will return a color that is 25% of each of the 4 pixels around the sample point.
 
-What we have just done is to eliminate color quantization. By utilizing linear interpolation in the graphics hardware, we can get very good color precision out of a pretty small lookup table.
+By using linear filtering we thus eliminate color quantization and get very good color precision out of a pretty small lookup table.
 
 ## Implementing the lookup
 
-Let's now build this in Defold.
+Let's implement the texture lookup in the fragment shader:
 
 1. Open *grading.texture*.
 2. Add a second sampler called "lut" (for lookup table).
-3. Set the *Filter mag* property to `FILTER_MODE_MAG_LINEAR`.
+3. Set the *Filter min* property to `FILTER_MODE_MIN_LINEAR` and the *Filter mag* property to `FILTER_MODE_MAG_LINEAR`.
 
-    ![lut sampler](images/grading/materal_lut_sampler.png)
+    ![lut sampler](images/grading/material_lut_sampler.png)
 
-4. Download the following lookup table texture and add it to your project.
+4. Download the following lookup table texture (*lut16.png*) and add it to your project.
 
     ![16 colors lut lookup table](images/grading/lut16.png)
 
-5. Open *main.collection* and set the *lut* texture to the lookup texture.
+5. Open *main.collection* and set the *lut* texture property to the lookup texture.
 
     ![quad model lut](images/grading/quad_lut.png)
 
@@ -302,44 +321,43 @@ Let's now build this in Defold.
         float half_px_x = 0.5 / WIDTH; // <5>
         float half_px_y = 0.5 / HEIGHT;
 
-        // <6>
-        float r_offset = half_px_x + px.r / COLORS * (MAXCOLOR / COLORS);
-        float g_offset = half_px_y + px.g * (MAXCOLOR / COLORS);
+        float x_offset = half_px_x + px.r / COLORS * (MAXCOLOR / COLORS);
+        float y_offset = half_px_y + px.g * (MAXCOLOR / COLORS); // <6>
       
-        vec2 lut_pos = vec2(cell / COLORS + r_offset, g_offset); // <7>
+        vec2 lut_pos = vec2(cell / COLORS + x_offset, y_offset); // <7>
 
         vec4 graded_color = texture2D(lut, lut_pos); // <8>
 
         gl_FragColor = graded_color; // <9>
     }
     ```
-    1. Declare the sampler "lut" so we can use it.
-    2. Constants for max color (15 since we start from 0), number of colors per channel and texture width and height.
-    3. Sample from the original texture (the off-screen buffer).
-    4. Which cell to read color from is based on the blue channel value.
-    5. Half pixel offsets so we read from pixel centers.
+    1. Declare the sampler `lut`.
+    2. Constants for max color (15 since we start from 0), number of colors per channel and lookup texture width and height.
+    3. Sample from the original texture (the off-screen render target color buffer).
+    4. Calculate which cell to read color from based on the blue channel value.
+    5. Calculate half pixel offsets so we read from pixel centers.
     6. Calculate the X and Y offset on the texture based on original pixel red and green values.
     7. Calculate the final sample position on the lookup texture.
     8. Sample the color from the lookup texture.
     9. Set the color on the quad's texture to the sampled color.
 
-Since the lookup table just returns the same color value as we look up, the resulting look of the game is unaltered---as is:
+Currently, the lookup table texture just returns the same color values that we look up. That means that the game renders with its original coloring:
 
 ![world original look](images/grading/world_original.png)
 
-This looks fine, but there are problems in there that we can bring to the surface by adding a test texture widh some gradients to our game world. Look at this:
+So far things looks fine, but there is a problem lurking beneath the surface. Look what happens when we add a sprite with a gradient test texture:
 
 ![blue banding](images/grading/blue_banding.png)
 
-The blue gradient shows some serious banding. Why is that?
+The blue gradient shows some really ugly banding. Why is that?
 
 ## Interpolating the blue channel
 
-The problem with the blue channel is that GL is unable to perform any interpolation when reading the color from the texture. We preselect a particular blue color value, select a cell from the texture and read from it. If the blue channel contains a value in the range `0.400`--`0.465` the result is the same, we sample from the same cell no matter what.
+The problem we see in the blue channel is that GL is unable to perform any interpolation when reading the color from the texture. We preselect a particular cell to read from based on the blue color value. For instance, if the blue channel contains a value anywhere in the range `0.400`--`0.465`, we sample from the same cell number 6.
 
-The solution to this problem is to implement the interpolation ourselves. If the lookup blue value is between two cells, we should sample from both of the cells and then mix the colors according to how close the lookup blue value is to the cell's blue value.
+The solution to this problem is to implement the interpolation ourselves. If the blue value is in between two cells, we should sample from both of the cells and then mix the colors.
 
-We read from two cells:
+We should read from two cells:
 
 $$
 cell_{low} = \left \lfloor{B \times (N - 1)} \right \rfloor
@@ -351,13 +369,13 @@ $$
 cell_{high} = \left \lceil{B \times (N - 1)} \right \rceil
 $$
 
-Then we sample from the cells as shown above and mix the sampled colors according to the formula:
+Then we should sample color values from each cell and interpolate the colors linearly, according to the formula:
 
 $$
 color = color_{low} \times (1 - C_{frac}) + color_{high} \times C_{frac}
 $$
 
-Here `color`~low~ is the color sampled from the lower (leftmost) cell and `color`^high^ is the color sampled from the higher (rightmost) cell. The value `C`~frac~ is the fractional part of the blue channel value scaled to the `0`--`15` color range:
+Here `color`~low~ is the color sampled from the lower (leftmost) cell and `color`~high~ is the color sampled from the higher (rightmost) cell. The value `C`~frac~ is the fractional part of the blue channel value scaled to the `0`--`15` color range:
 
 $$
 C_{frac} = B \times (N - 1) - \left \lfloor{B \times (N - 1)} \right \rfloor
