@@ -294,11 +294,11 @@ Let's implement the texture lookup in the fragment shader:
 
     ![16 colors lut lookup table](images/grading/lut16.png)
 
-5. Open *main.collection* and set the *lut* texture property to the lookup texture.
+5. Open *main.collection* and set the *lut* texture property to the downloaded lookup texture.
 
     ![quad model lut](images/grading/quad_lut.png)
 
-6. Finally, open *grading.fp* and add support for color lookup:
+6. Finally, open *grading.fp* so we can add support for color lookup:
 
     ```glsl
     varying mediump vec4 position;
@@ -333,19 +333,19 @@ Let's implement the texture lookup in the fragment shader:
     ```
     1. Declare the sampler `lut`.
     2. Constants for max color (15 since we start from 0), number of colors per channel and lookup texture width and height.
-    3. Sample from the original texture (the off-screen render target color buffer).
-    4. Calculate which cell to read color from based on the blue channel value.
+    3. Sample a pixel color (called `px`) from the original texture (the off-screen render target color buffer).
+    4. Calculate which cell to read color from based on the blue channel value of `px`.
     5. Calculate half pixel offsets so we read from pixel centers.
-    6. Calculate the X and Y offset on the texture based on original pixel red and green values.
+    6. Calculate the X and Y offset on the texture based on the red and green values of `px`.
     7. Calculate the final sample position on the lookup texture.
-    8. Sample the color from the lookup texture.
-    9. Set the color on the quad's texture to the sampled color.
+    8. Sample the resulting color from the lookup texture.
+    9. Set the color on the quad's texture to the resulting color.
 
-Currently, the lookup table texture just returns the same color values that we look up. That means that the game renders with its original coloring:
+Currently, the lookup table texture just returns the same color values that we look up. This means that the game should render with its original coloring:
 
 ![world original look](images/grading/world_original.png)
 
-So far things looks fine, but there is a problem lurking beneath the surface. Look what happens when we add a sprite with a gradient test texture:
+So far it looks like we have done everything right, but there is a problem lurking beneath the surface. Look what happens when we add a sprite with a gradient test texture:
 
 ![blue banding](images/grading/blue_banding.png)
 
@@ -353,11 +353,11 @@ The blue gradient shows some really ugly banding. Why is that?
 
 ## Interpolating the blue channel
 
-The problem we see in the blue channel is that GL is unable to perform any interpolation when reading the color from the texture. We preselect a particular cell to read from based on the blue color value. For instance, if the blue channel contains a value anywhere in the range `0.400`--`0.465`, we sample from the same cell number 6.
+The problem with banding in the blue channel is that GL is unable to perform any blue channel interpolation when reading the color from the texture. We preselect a particular cell to read from based on the blue color value, and that's it. For instance, if the blue channel contains a value anywhere in the range `0.400`--`0.466`, the value does not matter---we will always sample the final color from cell number 6 where the blue channel is set to `0.400`.
 
-The solution to this problem is to implement the interpolation ourselves. If the blue value is in between two cells, we should sample from both of the cells and then mix the colors.
+To get better blue channel resolution, we can implement the interpolation ourselves. If the blue value is in between the value of two adjacent cells, we can sample from both of these cells and then mix the colors. For example, if the blue value is `0.420` we should sample from cell number 6 *and* from cell number 7 and then mix the colors.
 
-We should read from two cells:
+So, we should read from two cells:
 
 $$
 cell_{low} = \left \lfloor{B \times (N - 1)} \right \rfloor
@@ -369,19 +369,21 @@ $$
 cell_{high} = \left \lceil{B \times (N - 1)} \right \rceil
 $$
 
-Then we should sample color values from each cell and interpolate the colors linearly, according to the formula:
+Then we sample color values from each of these cells and interpolate the colors linearly, according to the formula:
 
 $$
 color = color_{low} \times (1 - C_{frac}) + color_{high} \times C_{frac}
 $$
 
-Here `color`~low~ is the color sampled from the lower (leftmost) cell and `color`~high~ is the color sampled from the higher (rightmost) cell. The value `C`~frac~ is the fractional part of the blue channel value scaled to the `0`--`15` color range:
+Here `color`~low~ is the color sampled from the lower (leftmost) cell and `color`~high~ is the color sampled from the higher (rightmost) cell. The GLSL function `mix()` performs this linear interpolation for us.
+
+The value `C`~frac~ above is the fractional part of the blue channel value scaled to the `0`--`15` color range:
 
 $$
 C_{frac} = B \times (N - 1) - \left \lfloor{B \times (N - 1)} \right \rfloor
 $$
 
-The implementation of this in the fragment shader *grade.fp* is pretty straightforward:
+Again, there is a GLSL function that gives us the fractional part of a value. It's called `frac()`. The final implementation in the fragment shader (*grade.fp*) is quite straightforward:
 
 ```glsl
 varying mediump vec4 position;
@@ -421,16 +423,16 @@ void main()
     gl_FragColor = graded_color;
 }
 ```
-1. Calculate the two cells.
-2. Calculate the two separate lookup positions, one for each cell.
-3. Sample the two colors.
-3. Mix the colors according to the fraction of `cell`, which is the unrounded cell number.
+1. Calculate the two adjacent cells to read from.
+2. Calculate two separate lookup positions, one for each cell.
+3. Sample the two colors from the cell positions.
+3. Mix the colors linearly according to the fraction of `cell`, which is the scaled blue color value.
 
 Running the game again with the test texture now yields much better results. The banding on the blue channel is gone:
 
 ![blue no banding](images/grading/blue_no_banding.png)
 
-## Time to do some grading!
+## Grading the lookup texture
 
 Okay, that was a lot of work to draw something that looks exactly like the original game world. But this setup allows us to do something really cool. Hang on now!
 
@@ -440,9 +442,9 @@ Okay, that was a lot of work to draw something that looks exactly like the origi
     
     ![world in Affinity](images/grading/world_graded_affinity.png)
 
-4. Open the lookup table texture file *lut16.png* and apply the same color adjustments to it.
-5. Save the lookup table texture file.
-6. Replace the *lut16.png* used in your Defold project with the graded one.
+4. Apply the same color adjustments to the lookup table texture file (*lut16.png*).
+5. Save the color adjusted lookup table texture file.
+6. Replace the texture *lut16.png* used in your Defold project with the color adjusted one.
 7. Run the game!
 
 ![world graded](images/grading/world_graded.png)

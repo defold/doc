@@ -28,6 +28,10 @@
                     {
                         "path": "/tutorials/shadertoy",
                         "name": "Shadertoy"
+                    },
+                    {
+                        "path": "/tutorials/grading",
+                        "name": "Color grading"
                     }
                 ]
             },
