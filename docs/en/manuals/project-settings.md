@@ -150,7 +150,7 @@ gravity_z
 : World gravity along z-axis, `0` by default.
 
 scale
-: How to scale the physics worlds in relation to the game world for numerical precision, `0.01`--`1`. The value is `0.02` by default.
+: How to scale the physics worlds in relation to the game world for numerical precision, `0.01`--`1`. The value is `0.02` by default, meaning that the physics engine will see 160 units as 3.2 meters.
 
 debug_scale
 : How big to draw unit objects in physics, like triads and normals, `30` by default.
