@@ -77,14 +77,14 @@ function init(self)
     self.view = vmath.matrix4()
 
     local color_params = { format = render.FORMAT_RGBA,
-                       width = render.get_window_width(),
-                       height = render.get_window_height() } -- <1>
+                       width = render.get_width(),
+                       height = render.get_height() } -- <1>
     local target_params = {[render.BUFFER_COLOR_BIT] = color_params }
 
     self.target = render.render_target("original", target_params) -- <2>
 end
 ```
-1. Set up color buffer parmeters for the render target.
+1. Set up color buffer parmeters for the render target. We use the game's target resolution.
 2. Create the render target with the color buffer parameters.
 
 Now we just need to wrap the original rendering code with `render.enable_render_target()` and `render.disable_render_target()`:
@@ -93,13 +93,19 @@ Now we just need to wrap the original rendering code with `render.enable_render_
 function update(self)
   render.enable_render_target(self.target) -- <1>
   
-  ... -- <2>
+  render.set_depth_mask(true)
+  render.set_stencil_mask(0xff)
+  render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0})
+
+  render.set_viewport(0, 0, render.get_width(), render.get_height()) -- <2>
+  render.set_view(self.view)
+  ...
   
   render.disable_render_target(self.target) -- <3>
 end
 ```
 1. Enable the render target. From now on, every call to `render.draw()` will draw to our off-screen render target's buffers.
-2. All original drawing code in `update()` is left as is.
+2. All original drawing code in `update()` is left as is, apart from the viewport which is set to the render target's resolution.
 3. At this point, all the game's graphics has been drawn to the render target. So it's time to disable it.
 
 That's all we need to do. If you run the game now it will draw everything to the render target. But since we now drawing nothing to the frame-buffer we will only see a black screen.
@@ -200,19 +206,21 @@ function update(self)
 
   render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color}) -- <1>
 
-  render.set_view(vmath.matrix4()) -- <2>
+  render.set_viewport(0, 0, render.get_window_width(), render.get_window_height()) -- <2>
+  render.set_view(vmath.matrix4()) -- <3>
   render.set_projection(vmath.matrix4())
   
-  render.enable_texture(0, self.target, render.BUFFER_COLOR_BIT) -- <3>
-  render.draw(self.grade_pred) -- <4>
-  render.disable_texture(0, self.target) -- <5>
+  render.enable_texture(0, self.target, render.BUFFER_COLOR_BIT) -- <4>
+  render.draw(self.grade_pred) -- <5>
+  render.disable_texture(0, self.target) -- <6>
 end
 ```
 1. Clear the frame buffer. Note that the previous call to `render.clear()` affects the render target, not the screen frame buffer.
-2. Set the view to the identity matrix. This means camera is at origo looking straight along the Z axis. Also set the projection to the identity matrix causing the the quad to be projected flat across the whole screen.
-3. Set texture slot 0 to the color buffer of the render target. We have sampler "original" at slot 0 in our *grade.material* so the fragment shader will sample from the render target.
-4. Draw the predicate we created matching any material with the tag "grade". The quad model uses *grade.material* which sets that tag---thus the quad will be drawn.
-5. After drawing, disable texture slot 0 since we are done drawing with it.
+2. Set the viewport to match the window size.
+3. Set the view to the identity matrix. This means camera is at origo looking straight along the Z axis. Also set the projection to the identity matrix causing the the quad to be projected flat across the whole screen.
+4. Set texture slot 0 to the color buffer of the render target. We have sampler "original" at slot 0 in our *grade.material* so the fragment shader will sample from the render target.
+5. Draw the predicate we created matching any material with the tag "grade". The quad model uses *grade.material* which sets that tag---thus the quad will be drawn.
+6. After drawing, disable texture slot 0 since we are done drawing with it.
 
 Now let's run the game and see the result:
 

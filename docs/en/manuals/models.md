@@ -1,3 +1,8 @@
+---
+title: Deprecated 3D models doc
+brief: This document has been replaced
+---
+
 # Models
 
 This document has been replaced by the following manuals:

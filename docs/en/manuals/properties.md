@@ -124,7 +124,7 @@ Note that all color values are encoded in a vector4 where the components corresp
 `w`
 : The alpha component
 
-## GUI NODE PROPERTIES
+*GUI NODE PROPERTIES*
 
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
