@@ -1,6 +1,6 @@
 ---
 title: Getting started in Defold
-brief: In this tutorial we start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.
+brief: In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.
 ---
 
 # Runner tutorial

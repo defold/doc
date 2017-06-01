@@ -1,6 +1,6 @@
 ---
 title: Main menu code sample
-brief: In this sample, we demonstrate effects to present a main menu.
+brief: In this sample, you learn effects to present a main menu.
 ---
 # Main menu
 

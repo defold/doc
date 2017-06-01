@@ -1,6 +1,6 @@
 ---
 title: Level complete code sample
-brief: In this sample, we demonstrate effects to show the score counting that could occur when a level has been completed.
+brief: In this sample, you learn effects to show the score counting that could occur when a level has been completed.
 ---
 # Level complete
 

@@ -11,20 +11,25 @@ Is Defold really free?
 : Yes, the Defold engine and editor with full functionality is completely free of charge. No hidden costs, fees or royalties. Just free. And we will not start to charge for anything after the beta period.
 
 Why on earth would King give Defold away?
-: This may seem out of the ordinary, that a commercial game company releases its core technology for free, but here’s how we see it: the more people who use Defold, the better the engine will be. By releasing Defold to the community, _everyone_​ can help making Defold better, by creating tutorials, by finding bugs, improving the documentation, and much more. And since King uses Defold internally, every day – the better the engine gets, the happier our internal developers will be. We believe great tech attracts great talent. All in all, we believe this ultimately leads to better games – not only for us at King, but for all game developers.
+: This may seem out of the ordinary, that a commercial game company releases its core technology for free, but here’s how we see it: the more people who use Defold, the better the engine will be. By releasing Defold to the community, _everyone_​ can help making Defold better, by creating tutorials, by finding bugs, improving the documentation, and much more. And since King uses Defold internally, every day---the better the engine gets, the happier our internal developers will be. We believe great tech attracts great talent. All in all, we believe this ultimately leads to better games---not only for us at King, but for all game developers.
 
-  That’s it. And that’s what we’re all about – making and celebrating great games and the amazing people creating them.
+  That’s it. And that’s what we’re all about---making and celebrating great games and the amazing people creating them.
 
 How long will you support Defold?
 : We are deeply committed to Defold. Teams at King game studios all over the world are creating games made with Defold and have been doing it for years. It is not going away.
 
 Can I trust Defold for professional development?
-: Yes, we believe in "eating your own dogfood" and use it ourselves at King to develop almost all of our new game IP:s.
+: Yes, we believe in "eating your own dogfood". Here at King several of our game teams use the same version you have access to. Everyone downloads Defold from the same locations and get updates the same way.
 
 Why do I have to store my games on Defold's servers?
-: Starting with Defold editor 2 you can store your games wherever you want. Defold was originally designed to be a complete turnkey service, including collaboration tools and storage. There are benefits to using our servers and we will continue to supply value to those who do use it through the dashboard. However, we realize that some users prefer other storage providers and we are working on supporting that.
+: You don't have to. Starting with Defold editor 2 you can store your games wherever you want. Defold was originally designed to be a complete turnkey service, including collaboration tools and storage. There are benefits to using our servers and we will continue to supply value to those who do use it through the dashboard. However, we realize that some users prefer other storage providers and we are working on supporting that.
 
   If you are tech-savvy, there is a workaround available. See https://forum.defold.com/t/howto-alternative-project-hosting/1309[this HOWTO on our forum].
+
+What kind of user tracking are you doing?
+: We log anonymous usage data from our websites and the Defold editor in order to improve our services and product. The editor application also sends error reports to Sentry.io whenever a runtime exception is thrown.
+
+  If you choose to use our analytics service, we gather anonymous usage data of your game for you. This data includes the number of installs, players as well as retention data. We see the same data about your games as you do.
 
 Who made Defold?
 : Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/about-us).
@@ -64,8 +69,11 @@ Is there a way to know what version I'm running?
 
   The latest beta version available for download from http://d.defold.com/beta can be checked by opening http://d.defold.com/beta/info.json (the same file exists for stable versions as well: http://d.defold.com/stable/info.json)
 
+Is there a way to know what platform the game is running on at runtime?
+: Yes, check out [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
+
 Are Defold beta versions auto-updating?
-: Yes. The Defold beta checks for an update at startup, just like the Defold stable version does.
+: Yes. The Defold beta editor checks for an update at startup, just like the Defold stable version does.
 
 <a name="external-git-tools"></a>
 
@@ -76,6 +84,8 @@ Can I use external Git tools?
   3. Specify your Defold username. The password is the "Access token" that you find under "Settings" in the Defold Dashboard (the huge hexadecimal number).
   4. You can now add, commit, revert, branch and merge as much as you want. Any changes are immediately reflected in Defold. Note that Defold automatically stages all changes that you make in the editor.
 
+## Publishing games
+
 I try to publish my game to Appstore. How should I respond to IDFA?
 : Defold has built in support for IDFA (Advertising Identifier). You can fetch it via `sys.get_sys_info()`. When submitting, Apple has three checkboxes for their three valid use cases for the IDFA:
 
@@ -84,6 +94,19 @@ I try to publish my game to Appstore. How should I respond to IDFA?
   3. User action attribution from ads
 
   If you check option 1, the app reviewer will look for ads to show up in the app. If your game does not show ads, the game might get rejected. Defold uses the id for cross promotion of your games, so you should check option 2.
+
+How do I monetize from my game?
+: Defold ships with built in support for purchases through Apple’s Appstore "in-app purchases" on iOS devices and Google Play’s or Amazon’s "in-app billing" on Android devices. Facebook Canvas "game payments" are supported for Facebook Canvas.
+
+What about ads?
+: There is no built in support for ads, but there are a couple of extensions and libraries available for various ad networks:
+
+  * *AdMob*, see https://github.com/defold/extension-admob
+  * *UnityAds*, see https://github.com/AGulev/DefUnityAds
+  * *Appodeal*, see [this forum thread](https://forum.defold.com/t/appodeal-support/1511).
+  * The Defold Ads library project includes a number of ad network, see https://github.com/britzl/defads
+
+  Check out the [Defold forum](//forum.defold.com) for more information.
 
 ## Errors using Defold
 
@@ -130,7 +153,7 @@ When I try to run my game on Linux, the engine doesn't start.
 
   then you need to install *libopenal1*.
 
-## Working with game content
+## Game content
 
 Does Defold support prefabs?
 : Yes, it does. They are called collections. They allow you to create complex game object
@@ -214,14 +237,11 @@ What are the performance costs of having many contacts/collisions?
   cheaper performance wise for instance. Refer to the official [Physics
   documentation](/manuals/physics) in Defold for more details.
 
-What's the performance impact of having many ParticleFx components?
+What's the performance impact of having many particle effect components?
 : It depends on if they are playing or not. A ParticleFx that isn't playing have zero performance cost. The performance implication of a playing ParticleFx must be evaluated using the profiler since it's impact depends on how it is configured. The memory cost of a ParticleFX is around 140 bytes. As with most other things the memory is allocated up front for the number of ParticleFx defined as max_count in game.project.
 
 How do I receive input to a game object inside a collection loaded via a collection proxy?
 : Each proxy loaded collection has their own input stack. Input is routed from the main collection input stack via the proxy component to the objects in the collection. This means that it's not enough for the game object in the loaded collection to acquire input focus, the game object that _holds_ the proxy component need to acquire input focus as well. See the [Input documentation](/manuals/input) for details.
-
-Is there a way to know what platform the game is running on at runtime?
-: Yes, check out [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 
 Can I use string type script properties?
 : No. Defold supports properties of [hash](/ref/builtins#hash) types. These can be used

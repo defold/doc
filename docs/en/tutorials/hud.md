@@ -1,6 +1,6 @@
 ---
 title: HUD code sample
-brief: In this sample, we demonstrate effects for score counting.
+brief: In this sample, you learn effects for score counting.
 ---
 # HUD
 
