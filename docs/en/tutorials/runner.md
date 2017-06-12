@@ -15,7 +15,7 @@ In this tutorial we start with an empty project and build a complete runner game
     START GAME <span class="icon"></span>
   </button>
   <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async></script>
+  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
   <script type='text/javascript'>
       /* Load app on click in container. */
       document.getElementById("game-button").onclick = function (e) {

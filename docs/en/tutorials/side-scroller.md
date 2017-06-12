@@ -17,7 +17,7 @@ The game is extremely simple. The player controls a space ship and is supposed t
     START GAME <span class="icon"></span>
   </button>
   <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async></script>
+  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
   <script>
       /* Load app on click in container. */
       document.getElementById("game-button").onclick = function (e) {

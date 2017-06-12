@@ -335,6 +335,17 @@ The corresponding value to use when calling `go.animate()` are `go.EASING_LINEAR
 
 For `gui.animate()` the values are named `gui.EASING_LINEAR`, `gui.EASING_INBACK`, `gui.EASING_OUTBACK` and so forth.
 
+```linechart
+{
+  "labels": [1, "Tuesday", "Wednesday", "Thursday", "Friday"],
+  "series": [
+    [12, 9, 7, 8, 5],
+    [2, 1, 3.5, 7, 3],
+    [1, 3, 4, 5, 6]
+  ]
+}
+```
+
 ![Linear interpolation](images/properties/easing_linear.png){.inline}
 ![In back](images/properties/easing_inback.png){.inline}
 ![Out back](images/properties/easing_outback.png){.inline}

@@ -15,7 +15,7 @@ In this article, we go through the implementation of a basic tile-based 2D platf
     START GAME <span class="icon"></span>
   </button>
   <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine.js" async></script>
+  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
   <script>
       /* Load app on click in container. */
       document.getElementById("game-button").onclick = function (e) {

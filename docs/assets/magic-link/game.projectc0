@@ -1,5 +1,5 @@
 [project]
-title = magic_link
+title = Magic Link
 
 [bootstrap]
 main_collection = /main/main.collectionc
@@ -30,4 +30,7 @@ max_count = 512
 
 [android]
 package = com.example.linker
+
+[library]
+include_dirs = def-magic-link
 

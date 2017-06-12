@@ -193,15 +193,17 @@ You can attach physics to the Tile Map to do collision detection or physics simu
 
 ## Changing tiles from script
 
-You can change the content of a Tile Map dynamically while your game is running. To do so, send [`set_tile`](/ref/tilemap#set_tile) messages to the Tile Map:
+You can change the content of a Tile Map dynamically while your game is running. To do so, call the [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) function:
 
 ```lua
 -- Replace the two door-tiles with "open door" tiles.
 -- The door is two tiles, one on top of the other.
-local doorpos = vmath.vector3(174, 305, 0)
-msg.post("/level#tilemap", "set_tile", { layer_id = hash("layer1"), position = doorpos, tile = 58 })
--- Upper part of door can be adressed with same position and "dy" set to 1.
-msg.post("/level#tilemap", "set_tile", { layer_id = hash("layer1"), position = doorpos, tile = 46, dy = 1 })
+local x = 3
+local y = 4
+-- Lower part of door
+tilemap.set_tile("/level#tilemap", "layer1", x, y, 58)
+-- Upper part of door
+tilemap.set_tile("/level#tilemap", "layer1", x, y+1, 46)
 ```
 
 ## Adding a Tile Map to your game
