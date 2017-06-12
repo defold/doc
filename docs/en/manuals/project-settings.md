@@ -69,7 +69,7 @@ custom_resources (hidden setting)
 : A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included.
 
 bundle_resources (hidden setting)
-: A directory containing resource files and folders that should be copied as-is into the resulting package when bundling. The directory is specified with an absolute path from the project root, for example `/res`. The resource directory should contain subfolders named by `platform`, or `architecure-platform`. Supported platforms are `ios`, `android` and `osx`. Supported arc-platform pairs are `armv7-ios`, `arm64-ios`, `armv7-android` and `x86_64-osx`. A subfolder named `common` is also allowed, containing resource files common for all platforms.
+: A directory containing resource files and folders that should be copied as-is into the resulting package when bundling. The directory is specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`. Supported platforms are `ios`, `android`, `osx` and `web`. Supported arc-platform pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86_64-osx` and `js-web`. A subfolder named `common` is also allowed, containing resource files common for all platforms.
 
 bundle_exclude_resources (hidden setting)
 : A comma separated list of resources that should not be included in the bundle.
