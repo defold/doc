@@ -1,13 +1,13 @@
 ---
 title: War battles tutorial
-brief: In this tutorial you will create a small shooter game. This is a good starting point if you are new to Defold.
+brief: In this tutorial you will create the embryo of a small shooter game. This is a good starting point if you are new to Defold.
 ---
 
 # War battles tutorial
 
-This tutorial goes through all the steps needed to create a small playable game in Defold. You do not need to have any prior experience with Defold, but if you have done some programming in Lua, Javascript, Python or similar, that will help.
+This tutorial goes through the steps needed to create a small playable game embryo in Defold. You do not need to have any prior experience with Defold, but if you have done some programming in Lua, Javascript, Python or similar, that will help.
 
-To get an idea about what you will build, you can try the result here:
+To get an idea about what you are about to build, you can try the result here:
 
 <div id="game-container" class="game-container">
     <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/war-battles/preview.jpg"/>
@@ -40,7 +40,7 @@ To get an idea about what you will build, you can try the result here:
 
 ## Setting up the project
 
-You need to create an empty project in Defold and download the asset package.
+Before you begin, you need to create an empty project on the Defold Dashboard and then download a package with the assets needed to create this game.
 
 1. Go to the [Defold Dashboard](//dashboard.defold.com)
 2. Click *New Project*
@@ -67,31 +67,31 @@ Let's take a moment to familiarize ourselves with the various views in the edito
 
 1. The *Assets* view lists all the files that are part of your project. You click and scroll to navigate the list. All file oriented operations can be made in this view:
 
-    * <kbd>Double click</kbd> a file to open it in a suitable editor.
+    * <kbd>Double click</kbd> a file to open it in an editor for that file type.
     * <kbd>Drag and drop</kbd> to move files and folders to new locations.
-    * <kbd>Right click</kbd> to open a pop up menu from where you can create new files or folders, rename, delete see dependencies and more.
+    * <kbd>Right click</kbd> to open a pop up menu from where you can create new files or folders, rename, delete, track file dependencies and more.
 
-2. The *Editor* view in the center shows the currently open file in a suitable editor. Defold includes editors for all its file types. A toolbar is visible in the top right. There you find tools to move, rotate and scale the currently selected item. For all visual editors you can also alter the camera view:
+2. The *Editor* view in the center shows the currently open file in an editor for that file type. A toolbar is visible in the top right, including tools to move, rotate and scale currently selected items. In all visual editors you can alter the camera view:
 
     * <kbd>Scroll</kbd> to zoom in and out.
     * <kbd>Alt + left mouse button</kbd> to pan around.
     * <kbd>Ctrl + left mouse button</kbd> to rotate in 3D.
-    * The menu <kbd>Scene ▸ Camera</kbd> includes tools to frame and realign the camera.
+    * The menu <kbd>Scene ▸ Camera</kbd> includes tools to frame the view to the current selection and to realign the camera.
 
-3. The *Outline* shows the content of the currently open file in a hierarchial tree structure. The outline reflects the editor view and allows you to perform many operations on your items:
+3. The *Outline* shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform many operations on your items:
 
     * <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
     * <kbd>Drag and drop</kbd> to change the hierarchy.
     * <kbd>Right click</kbd> to open a pop up menu from where you can add items, delete selected items etc.
 
-4. The *Properties* view shows properties associated with the currently selected item, like *Position*, *Rotation*, *Animation* etc etc.
+4. The *Properties* view shows properties associated with the currently selected item, like *Position*, *Rotation*, *Animation* etc, etc.
 
-5. The *Console* shows any output that is printed when you run the game. Alongside the console is the *Curve editor* which is used when editing curves in the particle editor, the *Build errors* view that shows build errors and the *Search results* view that displays search results.
+5. The *Console* shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing the *Curve editor* which is used when editing curves in the particle editor, the *Build errors* view that shows build errors, and the *Search results* view that displays search results.
 
-6. The *Changed files* view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can upload all file changes to the project Git repository, that way you won't lose your work if unfortune strikes. Some file oriented operations can be performed in this view:
+6. The *Changed files* view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won't lose your work if unfortune strikes. Some file oriented operations can be performed in this view:
 
     * <kbd>Double click</kbd> a file to open it in a suitable editor, just like in the assets view.
-    * <kbd>Right click</kbd> to open a pop up menu from where you can open a diff view or revert all changes done to the file.
+    * <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.
 
 ## Cleaning the project
 
@@ -105,28 +105,29 @@ The empty project template is not 100% empty so we should fix that:
 
 Now the project is totally empty. You can verify this by selecting <kbd>Project ▸ Build</kbd> from the menu. This will launch the game and you should see nothing but a black window.
 
-## Drawing a map
+## Drawing the game map
 
-The map that you are going to draw will be made out of tiles, small images that are put together like a mosaic into a larger image. In Defold, such an image is called a *Tile map*. In order to create a tile map, you need to import an image with the various tiles, and also set up the sizes, margins etc of that image. This setup is done in a file called a *Tile source*.
+Your game needs a setting, a map. The map that you are going to draw will be made out of tiles, small images that are put together like a mosaic into a larger image. In Defold, such an image is called a *Tile map*. In order to create a tile map, you need to import an image file that contain the various tiles. You then need to specify the size of the tiles, margins and padding on that image. This setup is done in a file called a *Tile source*.
 
 1. Download the "War Battles" asset package. The file is a ZIP archive that you have to unpack on your hard drive.
 
    <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/war-battles-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
-2. Drag the file *map.png*, which contains all tiles, to the folder *main* in the *Assets* view of your project.
-3. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile source</kbd>. This will create a new tile source file. Name the file *map.tilesource*.
+2. Drag the file *map.png*, which contains all tiles, from the asset package to the folder *main* in the *Assets* view of your project.
+
+3. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile source</kbd>. This will create a new tile source file. Name the file "map.tilesource".
 
    ![map](images/war-battles/map_tilesource.png)
 
-4. The new tilesource opens in the editor. Set the *Image* property of the tile source to "/main/map.png". Easiest is to click the resource selector by the *Image* property to bring up the resource selector. Then select the file */main/map.png*:
+4. The new tilesource file opens automatically in the editor. Set the *Image* property of the tile source to the image file */main/map.png*. The easiest way to do that is to click the resource selector by the *Image* property to bring up the resource selector. Then select the file */main/map.png*:
 
     ![tilesource](images/war-battles/tilesource.png)
 
-    The tiles are 16⨉16 pixels in the source image so there is no need to alter the properties of the tile source.
+    The tiles are 16⨉16 pixels in the source image with no margins or padding so there is no need to alter the default properties of the tile source.
 
-5. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile map</kbd>. Name the file *map.tilemap*.
+5. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile map</kbd>. Name the file "map.tilemap". The tile map is automatically opened in the editor view.
 
-6. Set the *Tile source* property of the new tile map to "/main/map.tilesource".
+6. Set the *Tile source* property of the new tile map to */main/map.tilesource*.
 
 7. Select "layer1" in the *Outline*.
 
@@ -134,7 +135,9 @@ The map that you are going to draw will be made out of tiles, small images that 
 
     ![palette](images/war-battles/palette.png)
 
-9. Click on a grass tile to select the tile as brush. Now paint the tile map layer as you see fit. You can hold <kbd>Shift</kbd> and click to make a selection on the layer. The selection then becomes your new brush. This is useful to copy rectangular areas.
+9. Click on a grass tile. This selects the clicked tile as the current brush. Then paint the tile map layer as you see fit with the grass tile. Select other tiles from the tile palette to paint different graphics.
+
+10. You can hold <kbd>Shift</kbd>, then <kbd>click and drag</kbd> to make a selection on the current layer. The selection then becomes your new brush. This is a useful way to paint with a brush consisting of multiple tiles.
 
     ![selection](images/war-battles/selection.png)
 
@@ -142,7 +145,9 @@ When you are happy with the map, it is time to add it to the game.
 
 ## Add the map to the game
 
-1. Open *main.collection*. A collection is a container of game objects and other collections. You use collections to organize your game objects. In *game.project* you specify the collection that is loaded when the game starts up. This is initially set to "/main/main.collection".
+Defold stores everything you build in *collections*. A collection is a container of game objects and other collections. In *game.project* you specify the collection that is loaded when the game starts up. This is initially set to the file */main/main.collection*.
+
+1. Open the file *main.collection*.
 
 2. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add game object</kbd>.
 
@@ -154,7 +159,7 @@ When you are happy with the map, it is time to add it to the game.
 
     ![add component](images/war-battles/add_component.png)
 
-5. In the resource selector, pick "/main/map.tilemap". This adds a new tilemap component to the game object. The tile map should now appear in the editor view.
+5. In the resource selector, pick the file */main/map.tilemap*. This creates a new component in the game object based on the tilemap file. The tile map should now appear in the editor view.
 
     ![tilemap](images/war-battles/tilemap.png)
 
@@ -164,15 +169,15 @@ When you are happy with the map, it is time to add it to the game.
 
 ## The player animation
 
-1. Drag the folder *infantry* (it's in the folder *units*) from the asset package to the folder *main* in the *Assets* view. This copies a set of flip book animation frame images to your project. The images are divided into one folder for each movement direction: up, down, up-diagonally, down-diagonally and side.
+1. Drag the folder *units/infantry* from the asset package to the folder *main* in the *Assets* view. This copies a set of flip book animation frame images to your project. The images are divided into folders with one folder for each movement direction: up, down, up-diagonally, down-diagonally and side.
 
-2. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Atlas</kbd>. An atlas is a collection of images (PNG or JPEG) that are baked into a larger texture. Atlases are used instead of single image files for performance and memory reasons. The new atlas should open in the editor.
+2. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Atlas</kbd>. An atlas is a collection of images (PNG or JPEG) that are baked into a larger texture. Defold uses atlases instead of single image files for performance and memory reasons. The new atlas should open in the editor.
 
 3. <kbd>Right click</kbd> the root node of the atlas in the *Outline* and select <kbd>New ▸ Animation group</kbd>.
 
 4. Select the new animation group and change its *Id* property to "player-down".
 
-5. <kbd>Right click</kbd> the "player-down" animation group and select <kbd>Add images...</kbd>. In the resource selector, pick the images */main/infantry/down/1.png* to */main/infantry/down/4.png*.
+5. <kbd>Right click</kbd> the "player-down" animation group and select <kbd>Add Images...</kbd>. In the resource selector, pick the images */main/infantry/down/1.png* to */main/infantry/down/4.png*.
 
     ![add images](images/war-battles/add_images.png)
 
@@ -180,55 +185,55 @@ When you are happy with the map, it is time to add it to the game.
 
     ![play animation](images/war-battles/play_animation.png)
 
-Now you have an atlas with a single flipbook animation for the player. You will add more animations later, but first, let's create the player game object.
+Now you have an atlas with a single flipbook animation for the player. This is enough for initial testing---you can add more animations later. Now, let's create the player game object.
 
 ## The player game object
 
 1. Open *main.collection*.
 
-2. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add game object</kbd>. Set the *Id* property of the new game object to "player".
+2. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object</kbd>. Set the *Id* property of the new game object to "player".
 
 3. Change the Z *Position* property of the game object to 1.0. Since the "map" game object is at the default Z position 0 the "player" game object needs to be at a higher value so it's drawn on top.
 
-4. <kbd>Right click</kbd> the game object "player" and select <kbd>Add component ▸ Sprite</kbd>. This creates a new sprite component in the "player" game object that can show graphics.
+4. <kbd>Right click</kbd> the game object "player" and select <kbd>Add Component ▸ Sprite</kbd>. This creates a new sprite component in the "player" game object that can show graphics.
 
-5. Set the *Image* property of the sprite to "/main/sprites.atlas".
+5. Set the *Image* property of the sprite to */main/sprites.atlas*.
 
-6. Set the *Animation* property of the sprite to "player-down".
+6. Set the *Default Animation* property of the sprite to "player-down".
 
     ![player sprite](images/war-battles/player_sprite.png)
 
 7. Run the game and check that the player character is animating.
 
-The player game object now has a sprite component that gives it visual representation in the game world. The next step is to add a script component that gives the player game object behavior. The player game object's behavior, however, is depending on user input, so that needs to be set up first.
+The player game object now has visual representation in the game world. The next step is to add a script component to the player game object. This will allow you to create player behavior, such as movement. But that depends on user input, so first you need to set that up.
 
 ## Player input
 
-1. Open the file */input/game.input_binding*. This file contains mappings from input sources (keyboard, touch screen, game pads etc) to input *actions*. Actions are just names that we want certain input being associated with.
+1. Open the file */input/game.input_binding*. This file contains mappings from input sources (keyboard, touch screen, game pads etc) to input *actions*. Actions are just names that we want to associate with certain input.
 
-2. Add *Key triggers* for the four arrow keys.
+2. Add *Key triggers* for the four arrow keys. Name the actions "up", "down", "left" and "right".
 
     ![input](images/war-battles/input_bindings.png)
 
 ## The player script
 
-Unlike the sprite component, which you added inline into the "player" game object, a script component requires that you create a separate file.
+Unlike the sprite component, which you added directly into the "player" game object, a script component requires that you create a separate file. This script file is then used as basis for the script component.
 
-1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "player.script". The script file should open in the editor. It is pre-filled with functions from a template.
+1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "player.script". The script file, pre-filled with template functions, opens up in the editor.
 
     ![player script](images/war-battles/player_script.png)
 
-2. Open *main.collection*, <kbd>Right click</kbd> the game object "player" and select <kbd>Add component file</kbd>. Pick the new file */main/player.script* for the component.
+2. Open *main.collection*, <kbd>Right click</kbd> the game object "player" and select <kbd>Add component file</kbd>. Pick the new file */main/player.script* as the file to use for the component.
 
-You now have a script that runs in the "player" game object. It does not do anything though so let's start by adding player movement.
+You now have a script that runs in the "player" game object. It does not do anything yet though. Let's start by adding player movement.
 
 ## Player movement
 
-The Lua code needed to create character movement in 8 directions is not long, but may require some time to understand completely. Take your time and read through the extensive code notes as you copy the below script code into *player.script*.
+The Lua code needed to create character movement in 8 directions is not long, but may require some time to understand completely. Copy the code below to *player.script*, run the game, then take your time to carefully read through the code notes below.
 
 ```lua
 function init(self) -- <1>
-    msg.post("#", "acquire_input_focus") -- <2>
+    msg.post(".", "acquire_input_focus") -- <2>
 
     self.moving = false -- <3>    
     self.input = vmath.vector3() -- <4>
@@ -237,7 +242,7 @@ function init(self) -- <1>
 end
 
 function final(self) -- <7>
-    msg.post("#", "release_input_focus") -- <8>
+    msg.post(".", "release_input_focus") -- <8>
 end
 
 function update(self, dt) -- <9>
@@ -270,63 +275,67 @@ function on_input(self, action_id, action) -- <14>
 end
 ```
 
-1. The `init()` function is called when the script component is brought to life in the game engine.
-2. This posts a message named "acquire_input_focus" to the current component ("#" is shorthand for the current component). This is a system message that tells the engine to send input actions to this script component.
-3. `self` is a reference to the current component instance. You can keep state data that is local to the component instance by storing it in self. The flag `moving` is used to track if the player is moving or not.
-4. `input` is a vector3 that will point in any of the current 8 input directions. It changes as the player presses the arrow keys. The Z component of this vector is unused.
-5. `dir` is a vector3 that indicates the direction the player faces. The direction vector is separate from the input vector because if there is no input, the player character should still face in a direction, even if not moving.
+1. The `init()` function is called when the script component is brought to life in the game engine. This function is useful for initial setup of the game object state.
+2. This posts a message named "acquire_input_focus" to the current game object ("." is shorthand for the current game object). This is a system message that tells the engine to send input actions to this game object. The actions will arrive in this script component's `on_input()` function.
+3. `self` is a reference to the current component instance. You can store state data that is local to the component instance in `self`. You use it like a Lua table by indexing the table field variables with the dot notation. The flag variable `moving` is used to track if the player is moving or not.
+4. `input` is a vector3 that will point in any of the current 8 input directions. It will change as the player presses the arrow keys. The Z component of this vector is unused so it is kept at value 0.
+5. `dir` is another vector3 that contains the direction the player faces. The direction vector is separate from the input vector because if there is no input and the player character does not move, it should still face a direction.
 6. `speed` is the movement speed expressed in pixels per second.
 7. The `final()` function is called when the script component is deleted from the game. This happens either when the container game object ("player") is deleted or when the game shuts down.
-8. The script explicitly releases input focus, telling the engine that it wants no more input. Input focus is automatically released when the game object is deleted so this line is not necessary but is included for clarity.
-9. The `update()` function is called once each frame. The game is running at 60 frames per second so the function is called at an interval of 1/60 seconds. The argument variable `dt` contains the current interval.
-10. If the `moving` flag is true, get the current game object position. The function `go.get_position()` takes an optional argument which is the id of the game object to get the position of. If no argument is given, the current game object position is returned.
+8. The script explicitly releases input focus, telling the engine that it wants no more input. Input focus is automatically released when the game object is deleted so this line is not necessary but is included here for clarity.
+9. The `update()` function is called once each frame. The game is running at 60 frames per second so the function is called at an interval of 1/60 seconds. The argument variable `dt` contains the current frame interval---the time elapsed since the last call to the function.
+10. If the `moving` flag is true, get the current game object position. The function `go.get_position()` takes an optional argument which is the id of the game object to get the position of. If no argument is given, the current game object's position is returned.
 11. Add the current direction vector (scaled to speed and frame interval) to the position.
 12. Set the position of the game object to the new position.
 13. After the calculations have been made, set the input vector to 0 and unset the `moving` flag.
-14. The `on_input()` function is called every frame for all mapped input. The argument variable `action_id` contain the action as set up in the input bindings file. The argument variable `action` is a Lua table with details on the input.
-15. For each input direction, set the X or the Y component of the `input` vector in `self`. If the user presses the <kbd>up arrow</kbd> and <kbd>left arrow</kbd> keys, the engine will call this function twice and the input vector will be set to `(-1, 1, 0)`.
-16. If the user presses any of the arrow keys, the input vector length will be non zero. If so, set the `moving` flag so the player will be moved in `update()`.
+14. The `on_input()` function is called every frame for all mapped input that is active. The argument `action_id` contain the action as set up in the input bindings file. The argument `action` is a Lua table with details on the input.
+15. For each input direction, set the X or the Y component of the `input` vector in `self`. If the user presses the <kbd>up arrow</kbd> and <kbd>left arrow</kbd> keys, the engine will call this function twice and the input vector will end up being set to `(-1, 1, 0)`.
+16. If the user presses any of the arrow keys, the input vector length will be non zero. If so, set the `moving` flag so the player will be moved in `update()`. The reason the script does not move the player in the `on_inpup()` function is that it is simpler to collect all input each frame and then act upon it in `update()`.
 17. The `dir` direction vector is set to the normalized value of the input. If the input vector is `(-1, 1, 0)`, for instance, the vector length is greater than 1. Normalizing the vector brings it to a length of exactly 1. Without normalization diagonal movement would be faster than horizontal and vertical. When the engine runs the `update()` function, any user input will have an effect on the `dir` vector which will cause the player to move.
 
-With this piece of Lua code, your game now has a player character that can move around on the screen. The character, however, only plays one single animation in an endless loop. This will be fixed soon, but first we should add the possibility to fire rockets.
+With this piece of Lua code, your game now has a player character that can move around on the screen. Next, let's add the possibility to fire rockets.
+
+Rockets should work like this: whenever the user presses a key, a rocket should fire. It should be possible to fire any number of rockets, not just one. Now, how do you achieve that? Consider *main.collection* for a second. It contains two game objects: the map and the player. Adding a new rocket game object to *main.collection* in the same way would not really get you the desired result---there would be only one rocket. So what to do?
+
+What you need to is a *blueprint* for a rocket game object and then use some sort of "factory" that can create new game objects on the fly based on that blueprint. Let's start by creating the blueprint.
 
 ## The rocket game object
 
-Consider the main collection for a second. Now it contains two game objects: the map and the player, and that's fine since there is only one map and one player. But rockets will be a different story. They should work like this: whenever the user presses a key, a rocket should fire. For this to work you need a way of creating a new game object for each key press.
+1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game Object</kbd>. Name this file *rocket.go*.
 
-1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game object</kbd>. Name this file *rocket.go*. Note that by creating this file, you do not create a game object but a file can be used as a *blueprint* when creating an actual game object.
+    (Note that by creating this file, you do not create a new game object instance but a *blueprint* file for actual game object instances.)
 
 2. Drag the folder *buildings/turret-rocket* from the asset package to the *main* folder in the *Assets* view.
 
-3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation group</kbd>). Name the animation "rocket".
+3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation Group</kbd>). Name the animation "rocket".
 
 4. Add the three rocket images to the animation group and set the *Fps* property to a value that makes the animation look good when you preview.
 
     ![rocket animation](images/war-battles/rocket_animation.png)
 
-5. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add component ▸ Sprite</kbd>.
+5. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Sprite</kbd>.
 
-6. Set the *Image* property of the sprite to "/main/sprites.atlas" and the *Default animation* to "rocket".
+6. Set the *Image* property of the sprite to */main/sprites.atlas* and the *Default Animation* to "rocket".
 
-Now you have a basic rocket game object blueprint. The next step is to add functionality to spawn game objects based on this blueprint file. For that, you will use a *Factory* component. You also need to add a new input action for the firing mechanic.
+Now you have a basic rocket game object blueprint, on file. The next step is to add functionality to spawn game objects based on this blueprint file. For that, you will use a *Factory* component. You also need to add a new input action for the firing mechanic.
 
 ## Spawning rockets
 
-1. Open *main.collection* and <kbd>Right click</kbd> on the "player" game object. Select <kbd>Add component ▸ Factory</kbd>.
+1. Open *main.collection* and <kbd>Right click</kbd> on the "player" game object. Select <kbd>Add Component ▸ Factory</kbd>.
 
-2. Select the new factory component and set its *Id* property to "rocketfactory" and its *Prototype* to the file "/main/rocket.go" that you created above. Now the player game object is all set.
+2. Select the new factory component and set its *Id* property to "rocketfactory" and its *Prototype* to the file */main/rocket.go* (the one you created above). Now the player game object is all set.
 
 3. Open the file */input/game.input_binding*.
 
-4. Add a *Key trigger* for the firing action.
+4. Add a *Key trigger* for the firing action. Call this action "fire".
 
     ![input](images/war-battles/input_bindings_fire.png)
 
-5. Open *main/player.script* and add a flag to track if the player is firing in the `init()` function:
+5. Open *main/player.script* and add a flag to track if the player is firing to the `init()` function:
 
     ```lua
     function init(self)
-        msg.post("#", "acquire_input_focus")
+        msg.post(".", "acquire_input_focus")
     
         self.moving = false
         self.firing = false -- <1>
@@ -338,7 +347,7 @@ Now you have a basic rocket game object blueprint. The next step is to add funct
     ```
     1. Whenever the player is firing this value will be set to `true`.
 
-6. Add what should happen when the flag is set in `update()`. The factory should create a new game object instance:
+6. In `update()`, add what should happen when the flag is set: the factory component should create a new game object instance:
 
     ```lua
     function update(self, dt)
@@ -359,10 +368,10 @@ Now you have a basic rocket game object blueprint. The next step is to add funct
         self.firing = false -- <2>
     end
     ```
-    1. If the `firing` flag is true, tell the factory component called "rocketfactory" that you just created to spawn a new game object.
-    2. Set the flag to false. This flag will be set in `on_input()` each frame the player presses the fire key.
+    1. If the `firing` flag is true, tell the factory component called "rocketfactory" that you just created to spawn a new game object. Note the character '#' that indicates that what follows is the id of a component.
+    2. Set the firing flag to false. This flag will be set in `on_input()` each frame the player presses the fire key.
 
-7. Scroll down to the `on_input()` function. Add a fourth `elseif` for the case where the function is called with the "fire" action:
+7. Scroll down to the `on_input()` function. Add a fourth `elseif` for the case where the function is called with the "fire" action and only the one frame when the key is pressed down:
 
     ```lua
         ...
@@ -374,38 +383,39 @@ Now you have a basic rocket game object blueprint. The next step is to add funct
         ...
     ```
 
-If you run the game now you should be able to move around and drop rockets all over the map by hammering the fire key. This is a good start, now you only need to fix three things:
+If you run the game now you should be able to move around and drop rockets all over the map by hammering the fire key. This is a good start, now you only need to fix two things:
 
-1. When the rocket is spawned, it should be oriented in the player's direction and it should move straight ahead.
-2. The rocket should explode after a second or so.
-
-Let's do these things one by one:
+- When a rocket is spawned, it should be oriented in the player's direction. It should also move straight ahead.
+- The rocket should explode after a short interval.
 
 ## Setting the direction of the rocket
 
-1. Open *main/player.script* and scroll down to the `on_input()` function.
+1. Open *player.script* and scroll down to the `update()` function and update its code:
 
     ```lua
-        ...
-        elseif action_id == hash("right") then
-            self.input.x = 1
-        elseif action_id == hash("fire") and action.pressed then
+    function update(self, dt)
+        if self.moving then
+            local pos = go.get_position()
+            pos = pos + self.dir * self.speed * dt
+            go.set_position(pos)
+        end
+        
+        if self.firing then
             local angle = math.atan2(self.dir.y, self.dir.x) -- <1>
             local rot = vmath.quat_rotation_z(angle) -- <2>
             local props = { dir = self.dir } -- <3>
             factory.create("#rocketfactory", nil, rot, props) -- <4>
         end
-
         ...
     ```
     1. Compute the angle (in radians) of the player.
     2. Create a quaternion for that angular rotation around Z.
     3. Create a table containing property values to pass to the rocket. The player's direction is the only data the rocket needs.
-    3. Add explicit position (`nil`, the rocket will spawn at the player's position), rotation (the calculated quaternion) and spawn property values.
+    4. Add explicit position (`nil`, the rocket will spawn at the player's position), rotation (the calculated quaternion) and spawn property values.
 
     Note that the rocket needs a movement direction in addition to the game object rotation (`rot`). It would be possible to make the rocket calculate its movement vector based on its rotation, but it is easier and more flexible to separate the two values. For instance, with a separate rotation it is possible to add rotation wobble to the rocket without it affecting the movement direction.
 
-3.  <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "rocket.script". Replace the code of the file with the following:
+3.  <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "rocket.script". Replace the template code in the file with the following:
 
     ```lua
     go.property("dir", vmath.vector3()) -- <1>
@@ -420,15 +430,15 @@ Let's do these things one by one:
         go.set_position(pos) -- <5>
     end
     ```
-    1. Define a new script property named `dir` and initialize the property with a default empty vector (`vmath.vector3()`). The default value can be overrided by passing values to the `factory.create()` function. The current property value is accessed as `self.dir`.
+    1. Define a new script property named `dir` and initialize the property with a default empty vector (`vmath.vector3()`). The default value can be overrided by passing values to the `factory.create()` function. The current property value is accessed as `self.dir`. This is expected to be a unit vector (of length 1).
     2. A rocket speed value, expressed in pixels per second.
     3. Get the current rocket position.
-    4. Calculate a new position based on the old position, the movement direction (unit vector) and the speed.
+    4. Calculate a new position based on the old position, the movement direction and the speed.
     5. Set the new position.
 
-4. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add component ▸ Script</kbd>. Select "rocket.script" for the component.
+4. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Script</kbd>. Select the file *rocket.script* as basis for the component.
 
-5. Run the game and try the new mechanic. Notice that the rockets fly in the right direction but are oriented 180 degrees wrong.
+5. Run the game and try the new mechanic. Notice that the rockets fly in the right direction but are oriented 180 degrees wrong. That's an easy fix.
 
     ![fire rockets](images/war-battles/fire_rockets.png)
 
@@ -440,19 +450,19 @@ Let's do these things one by one:
 
     ![fire rockets](images/war-battles/fire_rocket_2.png)
 
-Now you only need to make the rockets explode.
+Now you only need to make the rockets explode a short while after they are fired.
 
 ## Explosions
 
 1. Drag the folder *fx/explosion* from the asset package to the main folder in the Assets view.
 
-2. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation group</kbd>). Call the animation "explosion".
+2. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation Group</kbd>). Call the animation "explosion".
 
 3. Add the nine explosion images to the animation group and set the *Fps* property to a value that makes the animation look good when you preview. Also make sure that this animation has the *Playback* property set to `Once Forward`.
 
     ![explosion animation](images/war-battles/explosion_animation.png)
 
-4. Open *main/rocket.script* and scroll down to the `init()` function and change it to:
+4. Open *rocket.script* and scroll down to the `init()` function and change it to:
 
     ```lua
     function init(self)
@@ -496,46 +506,46 @@ Now you only need to make the rockets explode.
     end
     ```
     1. The function `on_message()` gets called whenever a message is posted to this script component.
-    2. If the message posted has the hashed name (or id) "animation_done", then. The engine runtime sends back this message when a sprite animation initiated with "play_animation" has finished playing.
+    2. Check if the message posted has the hashed name (or id) "animation_done". The engine runtime sends this message whenever a sprite animation initiated with "play_animation" from this script has completed.
     3. When the animation is done, delete the current game object.
 
-Run the game. Now it starts feeling like the embryo for a nice little game, don't you think?
+Run the game.
 
 ![fire rockets](images/war-battles/fire_rocket_3.png)
 
-But now you need something to fire the rockets at. Enter tanks!
+This is definitely getting somewhere! But don't you think you need something to fire the rockets at?
 
 ## The tank game object
 
-1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game object</kbd>. Name this file *tank.go*. Like the rocket game object, this is a file that can be used as a *blueprint* when creating the actual tank game objects.
+1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game Object</kbd>. Name this file *tank.go*. Like the rocket game object, this is a file that can be used as a *blueprint* when creating actual tank game objects.
 
 2. Drag the folder *units/tank* from the asset package to the *main* folder in the *Assets* view.
 
-3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation group</kbd>). Name the animation "tank-down".
+3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation Group</kbd>). Name the animation "tank-down".
 
 4. Add the two downwards facing images (*/main/tank/down/1.png* and */main/tank/down/2.png*) to the animation and set it's *Fps* value to something that looks good.
 
     ![tank animation](images/war-battles/tank_animation.png)
 
-5. Open *tank.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add component ▸ Sprite</kbd>.
+5. Open *tank.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Sprite</kbd>.
 
-6. Set the *Image* property of the sprite to "/main/sprites.atlas" and the *Default animation* to "tank-down".
+6. Set the *Image* property of the sprite to */main/sprites.atlas* and the *Default animation* to "tank-down".
 
 7. Open *main.collection*
 
 8. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object File</kbd>. Select *tank.go* as blueprint for the new game object.
 
-9. Create a few more tanks and position them on the map with the *Move Tool*. Make sure to set the Z position to 1.0 so they are rendered on top of the map.
+9. Create a few more tanks from the blueprint. Position them on the map with the *Move Tool*. Make sure to set the Z position to 1.0 so they are all rendered on top of the map.
 
     ![tanks](images/war-battles/tanks.png)
 
-Run the game and check that the tanks look okay. You will notice that the rockets fly straight through the tanks so the next step is to add collision between the tanks and the rockets. To do this you need to add a new component to the tank and the rocket game object:
+Run the game and check that the tanks look okay. You will notice that if you fire at the tanks, the rockets fly straight through them. The next step is to add collision between the tanks and the rockets.
 
 ## Adding collision objects
 
-1. Open *tank.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add component ▸ Collision Object</kbd>.
+1. Open *tank.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Collision Object</kbd>.
 
-2. Set the *Type* property to "Kinematic". This means that the physics engine will not simulate any gravity or collision on this object. Instead it will detect collisions and leave it to you to code the response.
+2. Set the *Type* property to "Kinematic". This means that the physics engine will not simulate any gravity or collision on this object. Instead it will only detect and signal collisions and leave it to you to code the response.
 
 3. Set the *Group* property to "tanks" and *Mask* to "rockets". This causes this game object to detect collisions against object in the group "rockets" that has the mask set to "tanks".
 
@@ -547,11 +557,13 @@ Run the game and check that the tanks look okay. You will notice that the rocket
 
 7. Set the *Type* property to "Kinematic".
 
-8. Set the *Group* property to "rockets" and *Mask* to "tanks". This causes this game object to detect collisions against object in the group "tanks" that has the mask set to "rockets". Since that is what you set the group and mask to in *tank.go* the rockets and tanks will interact physically.
+8. Set the *Group* property to "rockets" and *Mask* to "tanks". This causes this game object to detect collisions against object in the group "tanks" that has the mask set to "rockets".
+
+    Now the group and mask between rockets and tanks match each other so the physics engine will detect when they interact.
 
     ![rocket collision](images/war-battles/rocket_collision.png)
 
-Now the engine will detect when these game objects intersect and send messages to them when that happens. The last piece of the puzzle is an addition to the rocket's script.
+The physics engine sends messages to game objects that collide. The last piece of the puzzle is to add code that reacts to those messages.
 
 ## Reacting to collisions
 
@@ -585,13 +597,13 @@ Now the engine will detect when these game objects intersect and send messages t
         end
     end
     ```
-    1. Since you want the rocket to explode either when the timer runs out (in `update()`) or when the rocket hits a tank (in `on_message()`) you should break out that piece of code to avoid duplication. There are a few options, the easiest is probably to just create a local function. The function is declared `local` meaning it only exist for the rocket script. Therefore it must be placed before it is used, above `update()`, this is how Lua's scoping rules work. Also note that you should pass `self` as a parameter to the function to be able to access `self.life` etc.
+    1. Since you want the rocket to explode either when the timer runs out (in `update()`) or when the rocket hits a tank (in `on_message()`) you should break out that piece of code to avoid duplication. In this case that is done with a local function. The function is declared `local`, meaning that it only exist within the scope of the rocket script. Lua's scoping rules says that local functions need to be declared before they are used. Therefore the function is placed above `update()`. Also make sure to pass `self` as a parameter to the function so you can access `self.life` etc.
     2. The code that used to live here has been moved to the `explode()` function.
     3. The engine sends a message called "collision_response" when the shapes collide, if the group and mask pairing is correct.
     4. Call the `explode()` function if there is a collision.
-    5. Finally delete the tank. You get the id of the game object the rocket collided with in the `message.other_id` variable.
+    5. Finally delete the tank. You get the id of the game object the rocket collided with through the `message.other_id` variable.
 
-And now you can run the game and try to destroy some tanks. The tanks aren't very interesting enemies, but they should nevertheless give you some score.
+Run the game and destroy some tanks! The tanks aren't very interesting enemies, but they should nevertheless give you some score.
 
 ## Scoring GUI
 
@@ -613,19 +625,19 @@ And now you can run the game and try to destroy some tanks. The tanks aren't ver
 
     ![ui gui](images/war-battles/ui.png)
 
-8. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui Script</kbd>. Name this file *ui.gui_script*.
+8. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui Script</kbd>. Name this new file "ui.gui_script".
 
-9. Go back to *ui.gui* and select the root node in the *Outline*. Set the *Script* property to the file */main/ui.gui_script* that you just created. Now if we add this Gui as a component to a game object the script will run for the component.
+9. Go back to *ui.gui* and select the root node in the *Outline*. Set the *Script* property to the file */main/ui.gui_script* that you just created. Now if we add this Gui as a component to a game object the Gui will be displayed and the script will run.
 
 10. Open *main.collection*.
 
-11. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add game object</kbd>.
+11. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object</kbd>.
 
-11. Set the id of the game object to "gui", then <kbd>Right click</kbd> it and select <kbd>Add Component File</kbd>. Select the file */main/ui.gui*.
+11. Set the *Id* property of the game object to "gui", then <kbd>Right click</kbd> it and select <kbd>Add Component File</kbd>. Select the file */main/ui.gui*.
 
     ![main gui](images/war-battles/main_gui.png)
 
-Now there is a score counter on screen. You only need to add functionality in the Gui script so the score can be updated.
+Now the score counter is displayed. You only need to add functionality in the Gui script so the score can be updated.
 
 ## Updating the score
 
@@ -652,7 +664,7 @@ Now there is a score counter on screen. You only need to add functionality in th
     4. Get hold of the text node named "score" that you created in the Gui.
     5. Update the text of the node to the string "SCORE: " and the current score value concatenated to the end of the string.
 
-3. Open *rocket.script* and scroll down to the `on_message()` function where you need to add a line of code:
+3. Open *rocket.script* and scroll down to the `on_message()` function where you need to add one new line of code:
 
     ```lua
     function on_message(self, message_id, message, sender)
@@ -665,17 +677,17 @@ Now there is a score counter on screen. You only need to add functionality in th
         end
     end
     ```
-    1. Post a message named "add_score" to the component "gui" in the game object named "gui" at the root of the main collection. Pass along a table where the entry `score` has been set to 100.
+    1. Post a message named "add_score" to the component "gui" in the game object named "gui" at the root of the main collection. Pass along a table where the field `score` has been set to 100.
 
 4. Try the game!
 
 ![done](images/war-battles/done.png)
 
-Well done! We hope you enjoyed this tutorial and that it was helpful.
+There you go! Well done!
 
 ## What next?
 
-To get to know Defold better, we suggest that you to continue working with this little game. Here are a few good exercises:
+We hope you enjoyed this tutorial and that it was helpful. To get to know Defold better, we suggest that you to continue working with this little game. Here are a few suggested exercises:
 
 1. Add directional animations for the player character. Tip, add a function called `update_animation(self)` to the `update()` function and change the animation depending on the value of the `self.dir` vector. It is also worth remembering that if you send a "play_animation" message each frame to a sprite, the animation will restart from the beginning, each frame---so you should only send "play_animation" when the animation should change.
 

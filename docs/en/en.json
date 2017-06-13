@@ -6,8 +6,8 @@
                 "name": "Tutorials",
                 "items": [
                     {
-                        "path": "/tutorials/runner",
-                        "name": "Runner"
+                        "path": "/tutorials/war-battles",
+                        "name": "War battles"
                     },
                     {
                         "path": "/tutorials/side-scroller",
@@ -16,6 +16,10 @@
                     {
                         "path": "/tutorials/platformer",
                         "name": "Platformer"
+                    },
+                    {
+                        "path": "/tutorials/runner",
+                        "name": "Runner"
                     },
                     {
                         "path": "/tutorials/magic-link",
