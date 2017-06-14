@@ -19,22 +19,31 @@ Bob is run from a shell or from the command line by invoking `java` (or `java.ex
 ```sh
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
- -,--identity <arg>                  Sign identity (iOS)
  -a,--archive                        Build archive
+    --binary-output <arg>            Location where built engine binary
+                                     will be placed. Default is
+                                     "<build-output>/<platform>/"
  -bo,--bundle-output <arg>           Bundle output directory
  -br,--build-report <arg>            Filepath where to save a build report
                                      as JSON
  -brhtml,--build-report-html <arg>   Filepath where to save a build report
                                      as HTML
+    --build-server <arg>             The build server (when using native
+                                     extensions)
  -ce,--certificate <arg>             Certificate (Android)
  -d,--debug                          Use debug version of dmengine (when
                                      bundling)
+    --defoldsdk <arg>                What version of the defold sdk (sha1)
+                                     to use
  -e,--email <arg>                    User email
  -h,--help                           This help message
  -i,--input <arg>                    Source directory. Default is current
                                      directory
+    --identity <arg>                 Sign identity (iOS)
  -k,--keep-unused                    Keep unused resources in archived
                                      output
+ -l,--liveupdate <arg>               yes if liveupdate content should be
+                                     published
  -mp,--mobileprovisioning <arg>      mobileprovisioning profile (iOS)
  -o,--output <arg>                   Output directory. Default is
                                      "build/default"

@@ -292,7 +292,7 @@ By using linear filtering we thus eliminate color quantization and get very good
 
 Let's implement the texture lookup in the fragment shader:
 
-1. Open *grading.texture*.
+1. Open *grade.material*.
 2. Add a second sampler called "lut" (for lookup table).
 3. Set the *Filter min* property to `FILTER_MODE_MIN_LINEAR` and the *Filter mag* property to `FILTER_MODE_MAG_LINEAR`.
 

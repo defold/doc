@@ -328,6 +328,9 @@ iap_provider
 input_method
 : Specifies which method to use to get keyboard input on Android devices. Valid options are `KeyEvent` (old method) and `HiddenInputField` (new). `KeyEvent` by default.
 
+immersive_mode
+: If set, hides the navigation and status bars and lets your app capture all touch events on the screen.
+
 ## OS X
 
 app_icon

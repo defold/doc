@@ -31,11 +31,11 @@ Each instance node can overload any of the properties set in the template. Simpl
 
 ![Overloaded properties](images/gui-templates/gui-templates-overloaded.png)
 
-## Layers
+## Layouts
 
-Layers behave as expected. Any property settings done to a particular layout in the template file are reflected in the layout of the instance nodes, given that the layer exists. Conversely, overloads to the template node instances affect the layer that is currently selected.
+Layouts behave as expected. Any property settings done to a particular layout in the template file are reflected in the layout of the instance nodes, given that the layout exists. Conversely, overloads to the template node instances affect the layout that is currently selected.
 
-![Overloading in layers](images/gui-templates/gui-templates-layers.png)
+![Overloading in layouts](images/gui-templates/gui-templates-layouts.png)
 
 ## Scripting
 

@@ -272,9 +272,13 @@ Debugging
   ![Console output](images/live-update/run-bundle-console.png)
 
 Forcing re-download of resources
-: When an application stores resources, they end up on disk on the local computer or handheld device. If you restart the application, the resources are there and ready. When developing you sometimes want to remove resources and force the application to download them again. The path returned from the function `sys.get_save_file()` gives the location where Defold stores resources. In that folder, Defold creates a folder with the name of the hash of the created bundle. If you delete the files in this folder, the application will invalidate the resources from the manifest and you can download and store them again.
+: When an application stores resources, they end up on disk on the local computer or handheld device. If you restart the application, the resources are there and ready. When developing you might want to remove resources and force the application to download them again.
+
+  Defold creates a folder with the name of the hash of the created bundle on the device in the application support folder. If you delete the files in this folder, the application will invalidate the resources from the manifest and you can download and store them again.
 
   ![Local storage](images/live-update/local-storage.png)
+
+  The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
 
 ## Known issues
 

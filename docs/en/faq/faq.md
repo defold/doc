@@ -127,7 +127,7 @@ Why does my HTML5-app freeze at the splash screen in Chrome?
   $ python -m SimpleHTTPServer [port]
   ```
 
-## Linux problems
+## Linux issues
 
 I'm running on Linux 64 bit and the editor won't start.
 : Make sure you downloaded the 64 bit version of the editor from the dashboard and that you start the editor with the supplied shell script:
@@ -152,6 +152,11 @@ When I try to run my game on Linux, the engine doesn't start.
   ```
 
   then you need to install *libopenal1*.
+
+## Android issues
+
+Is it possible to hide the the navigation and status bars on Android?
+: Yes, set the *immersive_mode* setting in the *Android* section of your *game.project* file. This lets your app take over the whole screen and capture all touch events on the screen.
 
 ## Game content
 

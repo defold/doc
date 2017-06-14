@@ -38,7 +38,7 @@ $ sudo yum install android-tools
 On Mac OS X (Homebrew)
 
 ```sh
-$ brew install android-platform-tools
+$ brew cask install android-platform-tools
 ```
 
 You can veryfy that `adb` works by connecting your Android device to your computer via USB and issue the following command:
@@ -49,7 +49,7 @@ List of devices attached
 31002535c90ef000    device
 ```
 
-If your device does not show up, verify that you have enabled *USB debugging* on the Android device. Open the device *Settings* and check *Developer options* (or *Development*).
+If your device does not show up, verify that you have enabled *USB debugging* on the Android device. Open the device *Settings* and look for *Developer options* (or *Development*).
 
 ![Enable USB debugging](images/android/usb_debugging.png)
 

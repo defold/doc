@@ -78,11 +78,11 @@ static int Rot13(lua_State* L)
     char *rot = (char *) malloc(len + 1);
 
     // Iterate over the parameter string and create rot13 string
-    for(int i = 0; i <= len; i`+) {
+    for(int i = 0; i <= len; i++) {
         const char c = str[i];
         if((c >= 'A' && c <= 'M') || (c >= 'a' && c <= 'm')) {
             // Between A-M just add 13 to the char.
-            rot[i] = c ` 13;
+            rot[i] = c + 13;
         } else if((c >= 'N' && c <= 'Z') || (c >= 'n' && c <= 'z')) {
             // If rolling past 'Z' which happens below 'M', wrap back (subtract 13)
             rot[i] = c - 13;
@@ -181,16 +181,16 @@ platforms:
     arm64-ios:
         context:
             frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
-            flags:      ["-stdlib=libc`+"]
+            flags:      ["-stdlib=libc++"]
             linkFlags:  ["-ObjC"]
-            libs:       ["z", "c``", "sqlite3"]
+            libs:       ["z", "c++", "sqlite3"]
 
     armv7-ios:
         context:
             frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
             flags:      ["-stdlib=libc``"]
             linkFlags:  ["-ObjC"]
-            libs:       ["z", "c`+", "sqlite3"]
+            libs:       ["z", "c++", "sqlite3"]
 ```
 
 ## Known issues
