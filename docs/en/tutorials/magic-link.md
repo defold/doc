@@ -294,7 +294,7 @@ function on_input(self, action_id, action)
     if action_id == hash("touch") and action.value == 1 then
         -- What block was touched or dragged over?
         local x = math.floor((action.x - edge) / blocksize)
-        local y = math.floor((action.y - edge) / blocksize)
+        local y = math.floor((action.y - bottom_edge) / blocksize)
 
         if x < 0 or x >= boardwidth or y < 0 or y >= boardheight or self.board[x][y] == nil then
             -- outside board.
@@ -469,7 +469,7 @@ local function remove_chain(self)
 end
 ```
 
-We'll also need a function to actually remove (set to `nil`) the positions on the board that has been set to `hash("removed")`:
+We'll also need a function to actually remove (set to `nil`) the positions on the board that has been set to `hash("removing")`:
 
 ```lua
 -- board.script

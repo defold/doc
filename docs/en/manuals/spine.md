@@ -21,7 +21,7 @@ Currently, Defold does not support animation keys that flip bones over the X or 
 : This data file contains the skeleton, all the image slot names, skins and the actual animation data. No images are embedded in this file though. Create this file from your animation software of choice.
 
 *Spine scene*
-: The Defold resource tying together the Spine JSON data file and the image atlas that is used to fill bone slots with graphics.
+: The Defold resource tying together the Spine JSON data file and the Defold image atlas file that is used to fill bone slots with graphics.
 
 *Spine model*
 : The _SpineModel_ component is put in a game object to bring the graphics and animation to the screen. The component contains the skeleton game object hierarchy, which animation to play, what skin to use and it also specifies the material used for rendering the model. See [SpineModel documentation](/manuals/spinemodel) for details.

@@ -92,8 +92,6 @@ function init(self)
     -- Track current position and where someone told us to look at.
 	self.pos = go.get_world_position()
 	self.look_at = self.pos
-    -- Store measured speed
-	self.speed = 0
 end
 
 function update(self, dt)
