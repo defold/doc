@@ -45,7 +45,7 @@ Observe that the parent-child relationships between "astronaut" and "probe" are 
 
 ## Properties
 
-When spawning a collection, we can pass property parameters to each game object by constructing a table with pairs of collection-local object id:s and tables of script properties to set:
+When spawning a collection, we can pass property parameters to each game object by constructing a table with pairs of collection-local object ids and tables of script properties to set:
 
 ```lua
 -- planet.script

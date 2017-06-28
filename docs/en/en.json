@@ -10,6 +10,10 @@
                         "name": "War battles"
                     },
                     {
+                        "path": "/tutorials/15-puzzle",
+                        "name": "15 puzzle"
+                    },
+                    {
                         "path": "/tutorials/side-scroller",
                         "name": "Side scroller"
                     },
