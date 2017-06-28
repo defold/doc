@@ -1,23 +1,24 @@
 ---
 title: Collection proxy manual
-brief: This manual explains how to dynamically load and unload collections into a running game.
+brief: This manual explains how to dynamically create new game worlds and switch between them.
 ---
 
 # Collection Proxies
 
+The collection proxy component is used to load and unload new game worlds dynamically based on the content of a collection file.
+
 Defold organizes all game objects in collections. A collection can contain game objects and other collections (i.e. sub-collections). When Defold starts up it loads, initiates and enables a top level collection as defined in the project settings (see [Project settings](/manuals/project-settings)). Most templates have a preset *main.collection* that loads at startup.
 
-For many projects, containing the whole app in the top level collection is sufficient, but there are several cases where you will need a more powerful means of organizing your project, for instance:
+For many projects, containing the whole app in the top level collection is sufficient, but there are several cases where you will need more powerful means of organizing your project, for instance:
 
-::: sidenote
-Loading/unloading ("streaming") of regions in a seamless large world is possible to implement with collection proxies, but know that the actual loading is synchronous (meaning that they do not happen in the background, but pauses the game until loading is done) and can span over several frames. Therefore, you would want to keep the world pieces small or find a way to  hide the loading pauses somehow.
-:::
-
-* Loading/unloading of game levels.
-* Loading/unloading of front end GUI.
+* Switching between game levels.
+* Switching between the game and the front end GUI.
 * Loading/unloading of narrative "scenes" throughout a level.
 * Loading/unloading of mini-games.
-* Loading/unloading of user selected content (music, background images etc)
+
+::: important
+Collection proxies are not intended for simultaneously loading large amounts of collections. Each loaded collection creates a new game world which comes with a relatively large memory footprint. If you load dozens of collections simultaneously through proxies, you might want to reconsider your design. To spawn many instances of game object hierarchies, [collection factories](/manuals/collection-factory) are more suitable.
+:::
 
 Collection proxies allow you to keep your content separated in collections and then dynamically manage the collections through scripting. A collection proxy component acts as an outlet that serves on behalf of a collection file---you can communicate with a collection file that is not yet loaded through the proxy. You can tell a collection proxy to load, initialize, enable, disable, finalize and unload the collection it is an outlet for.
 
