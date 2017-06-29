@@ -172,6 +172,12 @@ default_texture_min_filter
 default_texture_mag_filter
 : Specifies which filtering to use for mag filtering, `linear` (default) or `nearest`.
 
+max_draw_calls
+: The max number of render calls, `1024` by default.
+
+max_characters:
+: The max number of text character to pre-allocate, `8192` by default.
+
 max_debug_vertices
 : The maximum number of debug vertices. Used for physics shape rendering among other things, `10000` by default.
 
