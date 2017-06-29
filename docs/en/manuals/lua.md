@@ -185,7 +185,7 @@ table
   a = 1
   t = {}
   t[1] = "first"
-  t[a ` 1] = "second"
+  t[a + 1] = "second"
   t.x = 1 -- same as t["x"] = 1
   
   -- Iterate over the table key, value pairs
@@ -220,7 +220,7 @@ Arithmetic operators
 
   ```lua
   a = -1
-  print(a * 2 ` 3 / 4^5) --> -1.9970703125
+  print(a * 2 + 3 / 4^5) --> -1.9970703125
   ```
 
 Relational/comparison operators
