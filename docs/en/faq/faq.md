@@ -151,7 +151,7 @@ When I try to run my game on Linux, the engine doesn't start.
   /home/myname/Desktop/Defold/plugins/com.dynamo.cr.engine_1.0.0.201502231306/engine/linux/dmengine: error while loading shared libraries: libopenal.so.1: cannot open shared object file: No such file or directory
   ```
 
-  then you need to install *libopenal1*.
+  then you need to install *libopenal1*. The package name varies between distributions, and in some cases you might have to install the *openal* and *openal-dev* or *openal-devel* packages.
 
 ## Android issues
 
