@@ -313,6 +313,8 @@ Running this code will result in an input stack ordered like this:
 
 ![Input stack order](images/input/input_stack_order.png)
 
+If the same game object is added more than once to the input stack, the previous entry in the stack will be removed and entries above will be shifted down. The duplicate game object will be placed at the top of the stack. If this happens the engine will issue a warning in the Will probably also add a warning about this in the engine.
+
 ## Consuming input
 
 A component's `on_input()` code can actively control whether actions should be passed on down the stack or not:
