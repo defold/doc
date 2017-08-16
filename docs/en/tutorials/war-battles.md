@@ -7,6 +7,10 @@ brief: In this tutorial you will create the embryo of a small shooter game. This
 
 This tutorial goes through the steps needed to create a small playable game embryo in Defold. You do not need to have any prior experience with Defold, but if you have done some programming in Lua, Javascript, Python or similar, that will help.
 
+::: important
+We are in the process of transitioning to Defold editor 2, which is currently in alpha. This guide is written for the new editor 2, but most details apply to editor 1 as well. You are very welcome to [try the new editor](https://www.defold.com/editor-two/).
+:::
+
 To get an idea about what you are about to build, you can try the result here:
 
 <div id="game-container" class="game-container">

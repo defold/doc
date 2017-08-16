@@ -202,7 +202,7 @@ Collections
 For the time being these description probably suffices. However, a much more comprehensive dive through these things can be found in the [Building blocks manual](/manuals/building-blocks). It is a good idea to visit that manual at a later stage to get a deeper understanding on how things work in Defold.
 
 <a name="part-3"></span></a>
-## STEP 3 - Make the ground moving
+## STEP 3 - Making the ground move
 
 Now that we have all ground pieces in place, it is rather simple to get them moving. The idea is this: move the pieces right-to-left and when a piece reach the leftmost edge outside of the screen, move it to the rightmost position. To move all these game objects requires a Lua script so let's create one:
 
