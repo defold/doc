@@ -17,7 +17,7 @@ Before beginning, take a minute and try the game:
     START GAME <span class="icon"></span>
   </button>
   <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_107.js" async></script>
+  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_112.js" async></script>
   <script>
       /* Load app on click in container. */
       document.getElementById("game-button").onclick = function (e) {
