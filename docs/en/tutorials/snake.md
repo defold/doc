@@ -5,7 +5,7 @@ brief: If you are new to Defold, this guide will help you to get started with sc
 
 # Snake
 
-This tutorial walks you through the process of creating a snake game. This is onen of the most common classic games you can attempt to recreate. There are a lot of variations on this game, this one features a snake that eats "food", that only grows when it eats. The snake also crawls on a playfield that contains obstacles.
+This tutorial walks you through the process of creating one of the most common classic games you can attempt to recreate. There are a lot of variations on this game, this one features a snake that eats "food" and that only grows when it eats. This snake also crawls on a playfield that contains obstacles.
 
 Before beginning, take a minute and try the game:
 
@@ -42,7 +42,7 @@ Before beginning, take a minute and try the game:
 
 Create a new project and do a quick clean up. If you already know how to do that, great. If you don’t, head over to the [war battles](/tutorials/war-battles) tutorial and read the sections “Setting up the project” through “Cleaning the project”. There is also an overview of the editor there that will help you find your way around if you are totally new to Defold.
 
-With the project cleaned up, open the *game.project* settings file and set the dimensions of the game to 768⨉768 or some other multiple of 16. The reason why you want to do this is because the game will be drawn on a grid where each segment is going to be 16x16 pixels, and this way the game screen won't cut off any segments at the edges.
+With the project cleaned up, open the *game.project* settings file and set the dimensions of the game to 768⨉768 or some other multiple of 16. The reason why you want to do this is because the game will be drawn on a grid where each segment is going to be 16x16 pixels, and this way the game screen won't cut off any partial segments.
 
 ## Adding graphics to the game
 
@@ -50,9 +50,11 @@ Very little is needed in terms of graphics. One 16x16 segment for the snake, one
 
 ![snake sprites](images/snake/snake.png)
 
-Defold provides a built in *Tilemap* component that you will use to create the playfield. A tilemap allow you to set and read individual tiles, which suits this game perfectly. A tilemap will fetch its graphics from a *Tilesource* so you need to create one:
+Defold provides a built in *Tilemap* component that you will use to create the playfield. A tilemap allows you to set and read individual tiles, which suits this game perfectly. Since tilemaps fetch their graphics from a *Tilesource* so you need to create one:
 
 <kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Source</kbd>. Name the new file "snake.tilesource".
+
+Set the *Image* property to the graphics file you just imported.
 
 The *Width* and *Height* properties should be kept at 16. This will split the 32⨉32 pixel image into 4 tiles, numbered 1–4.
 
@@ -74,7 +76,7 @@ Save the tilemap when you are done.
 
 ## Adding the tilemap and a script to the game
 
-Now open *main.collection*. <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Game Object</kbd> which creates a new game object in the main collection that is loaded when the game starts.
+Now open *main.collection*. This is the bootstrap collection that is loaded on engine start. <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Game Object</kbd> which creates a new game object in the collection that is loaded when the game starts.
 
 ![add game object](images/snake/add_game_object.png)
 
@@ -92,11 +94,11 @@ Now you have the tilemap component and the script in place. If you run the game 
 
 ## The game script - initialization
 
-The script you are going to create will drive all of the game. The idea is to basically do this:
+The script you are going to write will drive all of the game. The idea for how that is going to work is the following:
 
-1. Keep a list of tile positions the snake currently occupies.
+1. The script keeps a list of tile positions that the snake currently occupies.
 2. If the player presses a directional key, store the direction the snake should be moving.
-3. At a regular interval, move the snake one step in the current movement direction, then redraw the snake at the new position.
+3. At a regular interval, move the snake one step in the current movement direction.
 
 Open *snake.script* and locate the `init()` function. This function is called by the engine when the script is initialized on game start. Change the code to the following.
 
@@ -120,8 +122,8 @@ end
 
 The script code above is written in the Lua language. There are a few things to note about the code:
 
-- Defold reserves a set of built in callback *functions* that are called during the lifetime of a script component. These are *not* methods but plain functions. The runtime passes a reference to the current component instance through the parameter `self`. The `self` reference is used to store instance data.
-- The name `msg.post` resolves to a function `post` residing in a Lua table named `msg`. The dot notation is used to indicate intries in Lua tables. There is no object orientation with objects and methods going on anywhere in Defold.
+- Defold reserves a set of built in callback *functions* that are called during the lifetime of a script component. These are *not* methods but plain functions. The runtime passes a reference to the current script component instance through the parameter `self`. The `self` reference is used to store instance data.
+- The name `msg.post` resolves to a function `post` residing in a Lua table named `msg`. The dot notation is used to indicate intries in Lua tables, *not* methods on an object "msg"!
 - Lua table literals are written surrounded with curly braces. Table entries can be key/value pairs (`{x = 10, y = 20}`), nested Lua tables (`{{a = 1}, {b = 2}}`) or other data types. 
 - The `self` reference can be used as a Lua table that you can store data in. Just use the dot notation as you would with any other table: `self.data = "value"`. The reference is valid throughout the lifetime of the script, in this case from game start until you quit it.
 
@@ -129,16 +131,16 @@ If you didn't understand any of the above, don't worry about it. Just tag along,
 
 ## The game script - update
 
-The `init()` function is called exactly once, when the component is instanciated into the running game. The function `update()`, however, is called once each frame, 60 times a second. That makes the function ideal for real time game logic.
+The `init()` function is called exactly once, when the script component is instanciated into the running game. The function `update()`, however, is called once each frame, 60 times a second. That makes the function ideal for real time game logic.
 
 The idea for the update is this:
 
 1. At some set interval do the following:
 2. Look at the head of the snake, then make a new head that is offset from the current head by the current movement direction. So, if the snake is moving by X=-1 and Y=0 and the current head is at location X=32 and Y=10, then the new head should be at X=31 and Y=10.
 3. Add the new head to the list of segments that constitutes the snake.
-4. Remove the tail from the segment list.
+4. Remove the tail from the segment table.
 5. Clear the tail tile.
-6. Draw the segments.
+6. Draw the snake segments.
 
 Find the `update()` function in *snake.script* and change the code to the following:
 
@@ -166,7 +168,7 @@ end
 2. If the timer has advanced enough.
 3. Get the current head segment. `#` is the operator used to get the lenght of a table given that it is used as an array, which it is---all the segments are table values with no key specified.
 4. Create a new head segment based on the current head location and the movement direction (`self.dir`).
-5. Add the new head to the (end of the) segments list.
+5. Add the new head to the (end of the) segments table.
 6. Remove the tail from the (beginning of the) segments table.
 7. Clear the tile at the position of the removed tail.
 8. Loop through the elements in the segments table. Each iteration will have `i` set to the position in the table (starting from 1) and `s` set to the current segment.
@@ -179,11 +181,11 @@ If you run the game now you should see the 4 segment long snake crawl from left 
 
 ## Player input
 
-Before you add code to react to player input, you need to set up the input connections. Open the file *input/game.input_binding* from the *Assets* browser. Add a set of *Key Trigger* bindings for movement up, down, left and right.
+Before you add code to react to player input, you need to set up the input connections. Find the file *input/game.input_binding* in the *Assets* browser and <kbd>double click</kbd> to open it. Add a set of *Key Trigger* bindings for movement up, down, left and right.
 
 ![input](images/snake/input.png)
 
-The input binding file maps actual user input (keys, mouse movements etc) to action *names* that are fed to scripts that have requested input. With bindings in place, you can open *snake.script* and add the following pieces of code:
+The input binding file maps actual user input (keys, mouse movements etc) to action *names* that are fed to scripts that have requested input. With bindings in place, open *snake.script* and add the following code:
 
 ```lua
 function init(self)
@@ -219,14 +221,14 @@ function on_input(self, action_id, action)
     end 
 end
 ```
-1. If the input action "up" is received, as set up in the input bindings, and the `action` table has the `pressed` field set to `true` then:
+1. If the input action "up" is received, as set up in the input bindings, and the `action` table has the `pressed` field set to `true` (player pressed the key) then:
 2. Set the movement direction.
 
 Run the game again and check that you are able to steer the snake.
 
-Note that if you press two keys simultaneously, that will result in two calls to `on_input()`, one for each input. As the code is written above, only call that is done last will have an effect on the snake's direction since it will overwrite the values in `self.dir`.
+Now, notice that if you press two keys simultaneously, that will result in two calls to `on_input()`, one for each press. As the code is written above, only the call that happens last will have an effect on the snake's direction since subsequent calls to `on_input()` will overwrite the values in `self.dir`.
 
-Also note that if the snake moves left and you press the <kbd>right</kbd> key, the snake will move into itself. That could be fixed by adding an additional condition to the `if` clauses in `on_input()`:
+Also note that if the snake moves left and you press the <kbd>right</kbd> key, the snake will steer into itself. The *apparently* obvious fix to this problem is by adding an additional condition to the `if` clauses in `on_input()`:
 
 ```lua
 if action_id == hash("up") and self.dir.y ~= -1 and action.pressed then
@@ -235,9 +237,9 @@ elseif action_id == hash("down") and self.dir.y ~= 1 and action.pressed then
     ...
 ```
 
-However, if the snake is moving left and the playes *quickly* presses first <kbd>up</kbd>, then <kbd>right</kbd> before the next movement step happens, only the <kbd>right</kbd> press will have an effect and the snake will move into itself. With the conditions added to the `if` clauses shown above, the input will be ignored. Not good.
+However, if the snake is moving left and the playes *quickly* presses first <kbd>up</kbd>, then <kbd>right</kbd> before the next movement step happens, only the <kbd>right</kbd> press will have an effect and the snake will move into itself. With the conditions added to the `if` clauses shown above, the input will be ignored. *Not good!*
 
-A solution to this problem is to store the input in a queue and pull entries from that queue as the snake moves:
+A proper solution to this problem is to store the input in a queue and pull entries from that queue as the snake moves:
 
 ```lua
 function init(self)
@@ -302,7 +304,7 @@ Start the game and check that it plays as expected.
 
 ## Food and collision with obstacles
 
-The snake needs food on the map, so let's add that:
+The snake needs food on the map so it can grow long and fast. Let's add that!
 
 ```lua
 local function put_food(self) -- <1>
@@ -327,13 +329,13 @@ function init(self)
     put_food(self) -- <5>
 end
 ```
-1. Declare a new function that puts a piece of food on the screen.
+1. Declare a new function called `put_food()` that puts a piece of food on the map.
 2. Store a random X and Y position in a variable called `self.food`.
 3. Set the tile at position X and Y to the value 3, which is the tile graphics for the food.
-4. Before you start pulling random values with `math.random()`, set the random seed, otherwise the same series of random values will be generated. Note, this seed should only be set once.
-5. Call the function at game start so the player begins with a food item on the map.
+4. Before starting to pull random values with `math.random()`, set the random seed, otherwise the same series of random values will be generated. This seed should only be set once.
+5. Call the function `put_food()` at game start so the player begins with a food item on the map.
 
-Now, detecting if the snake has collided with something is just a matter of looking at what's on the tilemap that the snake is heading towards and react. Add a variable that keeps track of whether the snake is alive or not:
+Now, detecting if the snake has collided with something is just a matter of looking at what's on the tilemap where snake is heading and react. Add a variable that keeps track of whether the snake is alive or not:
 
 ```lua
 function init(self)
@@ -399,12 +401,16 @@ end
 1. Only advance the snake if it's alive.
 2. Before drawing to the tilemap, read what's at the position where the new snake head will be.
 3. If the tile is an obstacle or another part of the snake, game over!
-4. If the tile is food just go ahead, but increase the speed, then put out a new food item.
+4. If the tile is food, increase the speed, then put out a new food item.
 5. Note that the removal of the tail only happens if there is no collision. This means that if the player eats food, the snake will grow by one segment since no tail is removed that move.
 
-This concludes the tutorial!
+Now try the game and make sure it plays well!
 
-## Complete code
+This concludes the tutorial but please continue experimenting with the game and work through some of the exercises below!
+
+## The complete script
+
+Here is the complete script code for reference:
 
 ```lua
 local function put_food(self)
