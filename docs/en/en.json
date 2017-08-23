@@ -114,6 +114,10 @@
                     {
                         "path": "/manuals/lua",
                         "name": "Lua in Defold"
+                    },
+                    {
+                        "path": "/manuals/flash",
+                        "name": "Defold for Flash users"
                     }
                 ]
             },
