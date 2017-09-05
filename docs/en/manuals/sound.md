@@ -22,7 +22,7 @@ Sound components can only be instanced in-place in a game object. Create a new g
 The created component has a set of properties that should be set:
 
 *Sound*
-: Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format (See http://en.wikipedia.org/wiki/WAV and http://en.wikipedia.org/wiki/Vorbis for details).
+: Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format with a sampling rate of 44100. (See http://en.wikipedia.org/wiki/WAV and http://en.wikipedia.org/wiki/Vorbis for details).
 
 *Looping*
 : If checked the sound will play back in a loop until explicitly stopped.

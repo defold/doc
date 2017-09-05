@@ -25,7 +25,7 @@ To keep your game working cross platform we suggest you stick to Lua 5.1 feature
 
 ## Syntax
 
-Programs have simple, easy to read syntax. Statements are written one on each line and there is no need to mark the end of a statement. You can optionally use semicolons +;+ to separate statements. Blocks of code are keyword delimited, ending with the `end` keyword. Comments can be either block or until the end of the line:
+Programs have simple, easy to read syntax. Statements are written one on each line and there is no need to mark the end of a statement. You can optionally use semicolons `;` to separate statements. Blocks of code are keyword delimited, ending with the `end` keyword. Comments can be either block or until the end of the line:
 
 ```lua
 --[[
@@ -223,8 +223,14 @@ Arithmetic operators
   print(a * 2 + 3 / 4^5) --> -1.9970703125
   ```
 
+  Lua provides automatic conversions between numbers and strings at run time. Any numeric operation applied to a string tries to convert the string to a number:
+  
+  ```lua
+  print("10" + 1) --> 11
+  ```
+
 Relational/comparison operators
-: `<` (less than), `>` (greater than), `<=` (less or equal), `>=` (greater or equal), `==` (equal), `~=` (not equal). There operators always return `true` or `false`. Values of different types are considered different. If the type is the same, they are compared according to their types. Lua compares tables, userdata, and functions by reference. Two such values are considered equal only if they refer to the same object.
+: `<` (less than), `>` (greater than), `<=` (less or equal), `>=` (greater or equal), `==` (equal), `~=` (not equal). There operators always return `true` or `false`. Values of different types are considered different. If the types are the same, they are compared according to their value. Lua compares tables, userdata, and functions by reference. Two such values are considered equal only if they refer to the same object.
 
   ```lua
   a = 5
@@ -233,6 +239,11 @@ Relational/comparison operators
   if a <= b then
       print("a is less than or equal to b")
   end
+
+  print("A" < "a") --> true
+  print("aa" < "ab") --> true
+  print(10 == "10") --> false
+  print(tostring(10) == "10") --> true
   ```
 
 Logical operators
@@ -688,7 +699,7 @@ Use the value returned from `socket.gettime()` (seconds since system epoch) to b
 Lua's garbage collection runs automatically in the background by default and reclaims memory that the Lua runtime has allocated. Collecting lots of garbage can be a time consuming task so it is good to keep down the number of objects that needs to be garbage collected:
 
 * Local variables are in themselves free and will not generate garbage. (i.e. `local v = 42`)
-* Each _new unique_ string creates a new object. Writing `local s = "some_string"` will create a new object and assign `s` to it. The local +s+ itself will not generate garbage, but the string object will. Using the same string multiple times adds no additional memory cost.
+* Each _new unique_ string creates a new object. Writing `local s = "some_string"` will create a new object and assign `s` to it. The local `s` itself will not generate garbage, but the string object will. Using the same string multiple times adds no additional memory cost.
 * Each time a table constructor is executed (`{ ... }`) a new table is created.
 * Executing a _function statement_ creates a closure object. (i.e. executing the statement `function () ... end`, not calling a defined function)
 * Vararg functions (`function(v, ...) end`) create a table for the ellipsis each time the function is _called_ (in Lua prior to version 5.2, or if not using LuaJIT).

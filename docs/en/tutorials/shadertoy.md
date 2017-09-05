@@ -44,10 +44,11 @@ Create a new material file *star-nest.material*, a vertex shader program *star-n
 3. Set the *Fragment Program* to `star-nest.fp`.
 4. Add a *Vertex Constant* and name it "view_proj" (for "view projection").
 5. Set its *Type* to `CONSTANT_TYPE_VIEWPROJ`.
+6. Add a tag "tile" to the *Tags*. This is so that the quad is included in the render pass when sprites and tiles are drawn.
 
     ![material](images/shadertoy/material.png)
 
-6. Open the vertex shader program file *star-nest.vp*. It should contain the following code. Leave the code as is.
+7. Open the vertex shader program file *star-nest.vp*. It should contain the following code. Leave the code as is.
 
     ```glsl
     // star-nest.vp
@@ -66,7 +67,7 @@ Create a new material file *star-nest.material*, a vertex shader program *star-n
     }
     ```
 
-7. Open the fragment shader program file *star-nest.fp* and modify the code so the fragment color is set based on the X and Y coordinates of the UV coordinates (`var_texcoord0`). We do this to make sure we have the model set up correctly:
+8. Open the fragment shader program file *star-nest.fp* and modify the code so the fragment color is set based on the X and Y coordinates of the UV coordinates (`var_texcoord0`). We do this to make sure we have the model set up correctly:
 
     ```glsl
     // star-nest.fp
@@ -78,7 +79,7 @@ Create a new material file *star-nest.material*, a vertex shader program *star-n
     }
     ```
 
-8. Set the material on the model component in the "star-nest" game object.
+9. Set the material on the model component in the "star-nest" game object.
 
 Now the editor should render the model with the new shader and we can clearly see if the UV coordinates are correct; the bottom left corner should have black color (0, 0, 0), the top left corner green color (0, 1, 0), the top right corner yellow color (1, 1, 0) and the bottom right corner should have red color (1, 0, 0):
 

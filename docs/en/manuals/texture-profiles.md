@@ -95,7 +95,7 @@ The *formats* added to a profile each have the following properties:
 : Selects the quality level for the resulting compressed image. The values range from `FAST` (low quality, fast compression) to `NORMAL`, `HIGH` and `BEST` (highest quality, slowest compression).
 
 *compression_type*
-: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#Compression Types) below for more details.
+: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See <a href="https://www.defold.com/manuals/texture-profiles/#_compression_types">Compression Types</a> below for more details.
 
 ## Texture formats
 
@@ -146,9 +146,6 @@ ETC
 | Interpolated smooth alpha
 | Can be compressed on Windows only
 -->
-
-
-<div id="Compression Types"></div>
 
 ## Compression types
 

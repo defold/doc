@@ -150,7 +150,7 @@ There are a set of GUI images that are used to create GUI elements, like buttons
 The first step is to build the board logic. The board will reside in its own collection that will contain everything on screen during gameplay. For now, the only thing necessary is the "blockfactory" factory component and the script. Later, we will add a factory for connections, a main menu GUI components and finally loading mechanics to start gameplay from the main menu and a way to exit to the menu.
 
 1. Create *board.collection* in the *main* folder. Make sure to name it "board" so we can address it later. If you add the background sprite component, make sure to set its Z position to -1, or it won't be drawn behind all the blocks we'll spawn later.
-2. Temporarily set *main_collection* in *game.project* to "/main/board.collectionc" so we can easily test.
+2. Temporarily set *Main Collection* (under *Bootstrap*) in *game.project* to "/main/board.collection" so we can easily test.
 
 ![Board collection](images/magic-link/linker_board_collection.png)
 

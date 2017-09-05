@@ -294,7 +294,7 @@ end
 13. After the calculations have been made, set the input vector to 0 and unset the `moving` flag.
 14. The `on_input()` function is called every frame for all mapped input that is active. The argument `action_id` contain the action as set up in the input bindings file. The argument `action` is a Lua table with details on the input.
 15. For each input direction, set the X or the Y component of the `input` vector in `self`. If the user presses the <kbd>up arrow</kbd> and <kbd>left arrow</kbd> keys, the engine will call this function twice and the input vector will end up being set to `(-1, 1, 0)`.
-16. If the user presses any of the arrow keys, the input vector length will be non zero. If so, set the `moving` flag so the player will be moved in `update()`. The reason the script does not move the player in the `on_inpup()` function is that it is simpler to collect all input each frame and then act upon it in `update()`.
+16. If the user presses any of the arrow keys, the input vector length will be non zero. If so, set the `moving` flag so the player will be moved in `update()`. The reason the script does not move the player in the `on_input()` function is that it is simpler to collect all input each frame and then act upon it in `update()`.
 17. The `dir` direction vector is set to the normalized value of the input. If the input vector is `(-1, 1, 0)`, for instance, the vector length is greater than 1. Normalizing the vector brings it to a length of exactly 1. Without normalization diagonal movement would be faster than horizontal and vertical. When the engine runs the `update()` function, any user input will have an effect on the `dir` vector which will cause the player to move.
 
 With this piece of Lua code, your game now has a player character that can move around on the screen. Next, let's add the possibility to fire rockets.
@@ -611,35 +611,37 @@ Run the game and destroy some tanks! The tanks aren't very interesting enemies, 
 
 ## Scoring GUI
 
-1. Drag the the file *fonts/04B_03.TTF* from the asset pack folder to the *main* folder in the *Assets* view.
+1. Drag the the file *fonts/04font.ttf* from the asset pack folder to the *main* folder in the *Assets* view.
 
 2. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Font</kbd>. Name this file *text.font*.
 
+3. Open *text.font* and set the *Font* property to the file *04font.ttf*.
+
     ![text font](images/war-battles/text_font.png)
 
-3. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui</kbd>. Name this file *ui.gui*. It will contain the user interface where you will place the score counter.
+4. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui</kbd>. Name this file *ui.gui*. It will contain the user interface where you will place the score counter.
 
-4. Open *ui.gui*. <kbd>Right click</kbd> *Fonts* in the *Outline* view and select <kbd>Add ▸ Fonts</kbd>. Select the */main/text.font* file.
+5. Open *ui.gui*. <kbd>Right click</kbd> *Fonts* in the *Outline* view and select <kbd>Add ▸ Fonts</kbd>. Select the */main/text.font* file.
 
-5. <kbd>Right click</kbd> *Nodes* in the *Outline* view and select <kbd>Add ▸ Text</kbd>.
+6. <kbd>Right click</kbd> *Nodes* in the *Outline* view and select <kbd>Add ▸ Text</kbd>.
 
-6. Select the new text node in the outline and set its *Id* property to "score", its *Text* property to "SCORE: 0", its *Font* property to the font "text" and its *Pivot* property to "West".
+7. Select the new text node in the outline and set its *Id* property to "score", its *Text* property to "SCORE: 0", its *Font* property to the font "text" and its *Pivot* property to "West".
 
-7. Place the text node in the top left corner of the screen.
+8. Place the text node in the top left corner of the screen.
 
     ![ui gui](images/war-battles/ui.png)
 
-8. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui Script</kbd>. Name this new file "ui.gui_script".
+9. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui Script</kbd>. Name this new file "ui.gui_script".
 
-9. Go back to *ui.gui* and select the root node in the *Outline*. Set the *Script* property to the file */main/ui.gui_script* that you just created. Now if we add this Gui as a component to a game object the Gui will be displayed and the script will run.
+10. Go back to *ui.gui* and select the root node in the *Outline*. Set the *Script* property to the file */main/ui.gui_script* that you just created. Now if we add this Gui as a component to a game object the Gui will be displayed and the script will run.
 
-10. Open *main.collection*.
+11. Open *main.collection*.
 
-11. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object</kbd>.
+12. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object</kbd>.
 
-11. Set the *Id* property of the game object to "gui", then <kbd>Right click</kbd> it and select <kbd>Add Component File</kbd>. Select the file */main/ui.gui*.
+13. Set the *Id* property of the game object to "gui", then <kbd>Right click</kbd> it and select <kbd>Add Component File</kbd>. Select the file */main/ui.gui*. The new component will automatically get the *Id* "ui".
 
-    ![main gui](images/war-battles/main_gui.png)
+    ![main gui](images/war-battles/main_ui.png)
 
 Now the score counter is displayed. You only need to add functionality in the Gui script so the score can be updated.
 
@@ -677,11 +679,11 @@ Now the score counter is displayed. You only need to add functionality in the Gu
         elseif message_id == hash("collision_response") then
             explode(self)
             go.delete(message.other_id)
-            msg.post("/gui#gui", "add_score", {score = 100}) -- <1>
+            msg.post("/gui#ui", "add_score", {score = 100}) -- <1>
         end
     end
     ```
-    1. Post a message named "add_score" to the component "gui" in the game object named "gui" at the root of the main collection. Pass along a table where the field `score` has been set to 100.
+    1. Post a message named "add_score" to the component "ui" in the game object named "gui" at the root of the main collection. Pass along a table where the field `score` has been set to 100.
 
 4. Try the game!
 

@@ -7,7 +7,7 @@ brief: This manual describes how to create GUI nodes that mask other nodes throu
 
 GUI nodes with textures or text add graphics to the GUI. However, sometimes it is convenient to be able to _mask_ what is being shown, to be able to _remove_ particular parts of the graphics from the screen.
 
-Say, for instance, that you want to create an on-screen HUD element containing a mini-map that the player can use to help orient herself in your game.
+Say, for instance, that you want to create an on-screen HUD element containing a mini-map that players can use to help orient themselves in your game.
 
 ![Minimap HUD](images/clipping/clipping_minimap.png)
 
