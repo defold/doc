@@ -44,7 +44,7 @@ What platforms does Defold run on?
   | macOS/OS X 10.7 Lion      | Editor and runtime   |
   | Windows Vista             | Editor and runtime   |
   | Linux (32 bit and 64 bit) | Editor and runtime   |
-  | iOS 5.1                   | Runtime              |
+  | iOS 6.0                   | Runtime              |
   | Android 2.3 (API level 9) | Runtime              |
   | HTML5                     | Runtime              |
 
@@ -104,6 +104,7 @@ What about ads?
   * *AdMob*, see https://github.com/defold/extension-admob
   * *UnityAds*, see https://github.com/AGulev/DefUnityAds
   * *Appodeal*, see [this forum thread](https://forum.defold.com/t/appodeal-support/1511).
+  * *FGL Enhance*, see https://github.com/enhance-co/defold-connector
   * The Defold Ads library project includes a number of ad network, see https://github.com/britzl/defads
 
   Check out the [Defold forum](//forum.defold.com) for more information.
