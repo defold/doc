@@ -118,6 +118,10 @@
                     {
                         "path": "/manuals/flash",
                         "name": "Defold for Flash users"
+                    },
+                    {
+                        "path": "/manuals/community",
+                        "name": "Community pages"
                     }
                 ]
             },
