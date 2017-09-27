@@ -1,9 +1,9 @@
 ---
-title: Defold documentation typography test
-brief: This document uses all Markdown features (Commonmark + extensions) that the Defold docs use.
+title: Defold markdown test
+brief: This document uses all Markdown features (Commonmark + a couple of extensions) that the Defold docs use.
 ---
 
-# Defold documentation typography
+# Defold markdown test
 
 All defold manuals and tutorials are written in Markdown. This document outlines how to use the various formatting for a consistent look on all documents.
 
@@ -119,3 +119,11 @@ Note that images are usually rendered centered in their own paragraph. Apply cla
 
 ![A small image of sorts](images/test/small.png){.inline}
 ![A small image of sorts](images/test/small.png){.inline}
+
+## Transclusion
+
+Pieces of text that are used in multiple places can be transcluded into a document. See https://github.com/jamesramsay/hercule for details on the transcluder plugin used.
+
+:[link](../shared/test.md)
+
+The end

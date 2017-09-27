@@ -26,7 +26,7 @@ All communication with collection proxies regarding loading and unloading is don
 
 ## Worlds
 
-Through collection proxies is it possible to switch the top level collection, or to load more than one top level collection into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) only happen between objects belonging to the same collection. There is no physics interaction between objects belonging to different top level collections.
+Through collection proxies it is possible to load more than one top level collection, or *game world* into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) only happen between objects belonging to the same collection. There is no physics interaction between objects belonging to different top level collections.
 
 In the following example we have split the game world into two collections that we dynamically load through collection proxies. The loading and unloading of the two collections is controlled by a game object called "loader" that we put in our main collection, "worlds". We configure the game to automatically load the "worlds.collection" file at startup (see [Project settings documentation](/manuals/project-settings) for details). The "worlds" collection will hold the "loader" object as well as the GUI elements that allow us to move our character around.
 

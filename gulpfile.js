@@ -26,6 +26,7 @@ var md_deflist = require('markdown-it-deflist')
 var md_sub = require('markdown-it-sub');
 var md_sup = require('markdown-it-sup');
 var md_katex = require('markdown-it-katex');
+var hercule = require('hercule');
 
 var exec = require('child_process').exec;
 
@@ -174,9 +175,45 @@ function langMap(jsonfile) {
         });
 }
 
+// Support for transclusion via :[](file.md) syntax
+function gulpHercule() {
+    return through.obj( function(file, encoding, callback) {
+      if (file.isNull()) {
+        return callback(null, file);
+      }
+
+      if (file.isBuffer()) {
+        var options = { 'source': file.path }
+        hercule.transcludeString(file.contents.toString(encoding), options, function(err, output) {
+          if (err) {
+            // Handle exceptions like dead links
+            process.stderr.write('ERROR: ' + err.message + ' (' + err.path + ')\n');
+            process.exit(1);
+          }
+          file.contents = new Buffer(output);
+          return callback(null, file);
+        })
+      }
+
+      if (file.isStream()) {
+        var transcluder = new hercule.TranscludeStream(options);
+        transcluder.on('error', (err) => {
+            // Handle exceptions like dead links
+            process.stderr.write('ERROR: ' + err.message + ' (' + err.path + ')\n');
+            process.exit(1);
+        });
+
+        file.contents = file.contents.pipe(transcluder);
+        return callback(null, file);
+      }
+    });
+};
+
+
 // Build docs
 gulp.task('build', ['assets'], function () {
     gulp.src('docs/**/*.md')
+        .pipe(gulpHercule())
         .pipe(tap(markdownToJson))
         .pipe(langMap('languages.json'))
         .pipe(gulp.dest("build"))
@@ -227,6 +264,7 @@ gulp.task('watch', function () {
 
     return gulp.src('docs/**/*.md')
         .pipe(watch('docs/**/*.md'))
+        .pipe(gulpHercule())
         .pipe(tap(markdownToPreviewHtml))
         .pipe(print())
         .pipe(gulp.dest("build/preview"));
