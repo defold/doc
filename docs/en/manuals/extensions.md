@@ -202,6 +202,8 @@ platforms:
 * [MacOS and iOS camera extension](https://github.com/defold/extension-camera)
 * [iOS and Android Admob extension](https://github.com/defold/extension-admob)
 
+The [Defold community asset portal](https://www.defold.com/community/assets/) also contain community created extensions.
+
 ## Known issues
 
 The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
