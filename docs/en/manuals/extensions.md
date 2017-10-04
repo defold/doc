@@ -5,11 +5,11 @@ brief: This manual explains how to write a native extension for the Defold game 
 
 # Native extensions
 
-If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in the C++ language. Typical use cases for native extensions are:
+If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in the C++, Objective C or Java language. Typical use cases for native extensions are:
 
 - Interaction with specific hardware, for instance the camera on mobile phones.
 - Interaction with external low level APIs, for instance advertising network APIs that do not allow interaction through network APIs where Luasocket could be used.
-- High performance calculations.
+- High performance calculations and data processing.
 
 ## The build platform
 
@@ -33,11 +33,12 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains any include files.
 
 *lib*
-: This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries. Supported platforms are `ios`, `android` and `osx`. Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86-osx` and `x86_64-osx`.
+: This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
+
+  Supported platforms are `ios`, `android`, `osx`, `win32`, . Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86-osx`, `x86_64-osx`, `x86-win32`, `x86_64-win32`.
 
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
-
 
 ## A simple example extension
 
@@ -193,12 +194,23 @@ platforms:
             libs:       ["z", "c++", "sqlite3"]
 ```
 
+## Example extensions
+
+* [Android extension example](https://github.com/defold/extension-android)
+* [HTML5 extension example](https://github.com/defold/extension-html5)
+* [MacOS, iOS and Android videoplayer extension](https://github.com/defold/extension-videoplayer)
+* [MacOS and iOS camera extension](https://github.com/defold/extension-camera)
+* [iOS and Android Admob extension](https://github.com/defold/extension-admob)
+
 ## Known issues
 
 The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
 
 Platforms
-: We currently only support building extensions for: macOS, iOS and Android. Android lacks support for *.aar* archives
+: There is currently no support for Linux extensions. Android lacks support for *.aar* archives. All platforms currently create debug builds only.
+
+Languages
+: C++, Objective C (MacOS and iOS) and Java (Android) are supported. Swift and Kotlin are currently not supported.
 
 Editor
 : The editor integration. There is no build process indication. Error reporting is rudimentary.
