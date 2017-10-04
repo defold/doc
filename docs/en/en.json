@@ -104,6 +104,10 @@
                         "name": "Introduction"
                     },
                     {
+                        "path": "/manuals/install",
+                        "name": "Installing Defold"
+                    },
+                    {
                         "path": "/manuals/scene-editing",
                         "name": "Scene editing"
                     },
