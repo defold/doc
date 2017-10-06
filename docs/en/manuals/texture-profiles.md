@@ -95,7 +95,7 @@ The *formats* added to a profile each have the following properties:
 : Selects the quality level for the resulting compressed image. The values range from `FAST` (low quality, fast compression) to `NORMAL`, `HIGH` and `BEST` (highest quality, slowest compression).
 
 *compression_type*
-: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See <a href="https://www.defold.com/manuals/texture-profiles/#_compression_types">Compression Types</a> below for more details.
+: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#_compression_types) below for more details.
 
 ## Texture formats
 
@@ -114,16 +114,19 @@ PVRTC
 ETC
 : Ericsson Texture Compression. Blocks of 4×4 pixels are compressed into a single 64-bit word. The 4×4 block is divided in half and each half is assigned a base color. Each pixel is then encoded as one of four offset values from the base color of its half. Android supports ETC1 since version 2.2 (Froyo). Defold compresses ETC1 textures.
 
-| Format                            | Compression | Color                            | Note |
+| Format                            | Compression | Details  |
 | --------------------------------- | ----------- | -------------------------------- | ---- |
-| `TEXTURE_FORMAT_LUMINANCE`        | none        | One channel gray-scale, no alpha | RGB channels multiplied into one. Alpha is discarded. |
-| `TEXTURE_FORMAT_RGB`              | none        | 3 channel color                  | Alpha is discarded |
-| `TEXTURE_FORMAT_RGBA`             | none        | 3 channel color and full alpha   | |
-| `TEXTURE_FORMAT_RGB_PVRTC2BPPV1`  | 1:16 fixed. | No alpha                         | Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGB_PVRTC4BPPV1`  | 1:8 fixed   | No alpha                         | Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGBA_PVRTC2BPPV1` | 1:16 fixed | Pre-multiplied alpha | Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGBA_PVRTC4BPPV1` | 1:8 fixed. | Pre-multiplied alpha | Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGB_ETC1`         | 1:6 fixed  | No alpha | |
+| `TEXTURE_FORMAT_RGB`              | none        | 3 channel color. Alpha is discarded |
+| `TEXTURE_FORMAT_RGBA`             | none        | 3 channel color and full alpha.    |
+| `TEXTURE_FORMAT_RGB_16BPP`        | none        | 3 channel color. 5+6+5 bits. |
+| `TEXTURE_FORMAT_RGBA_16BPP`       | none        | 3 channel color and full alpha. 4+4+4+4 bits. |
+| `TEXTURE_FORMAT_LUMINANCE`        | none        | 1 channel gray-scale, no alpha. RGB channels multiplied into one. Alpha is discarded. |
+| `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | none        | 1 channel gray-scale and full alpha. RGB channels multiplied into one. |
+| `TEXTURE_FORMAT_RGB_PVRTC2BPPV1`  | 1:16 fixed. | No alpha. Requires square images. Non square images will be resized. |
+| `TEXTURE_FORMAT_RGB_PVRTC4BPPV1`  | 1:8 fixed   | No alpha. Requires square images. Non square images will be resized. |
+| `TEXTURE_FORMAT_RGBA_PVRTC2BPPV1` | 1:16 fixed | Pre-multiplied alpha. Requires square images. Non square images will be resized. |
+| `TEXTURE_FORMAT_RGBA_PVRTC4BPPV1` | 1:8 fixed. | Pre-multiplied alpha. Requires square images. Non square images will be resized. |
+| `TEXTURE_FORMAT_RGB_ETC1`         | 1:6 fixed  | No alpha |
 
 <!---
 | TEXTURE_FORMAT_RGB_DTX1
@@ -153,6 +156,8 @@ The following software image compression types are supported. The data is uncomp
 
 | Type                              | Formats                   | Note |
 | --------------------------------- | ------------------------- | ---- |
-| `COMPRESSION_TYPE_DEFAULT`        | All formats               | Generic lossless data compression. Default |
-| `COMPRESSION_TYPE_WEBP`           | All formats               | WebP lossless compression. Higher quality level results in smaller size. For hardware compressed texture formats PVRTC or ETC, the compression process transforms the compressed hardware texture format data into data more suitable for WebP image compression using an internal intermediate format. This is then transformed back into the compressed hardware texture format when loaded by the run-time. |
-| `COMPRESSION_TYPE_WEBP_LOSSY`     | TEXTURE_FORMAT_LUMINANCE TEXTURE_FORMAT_RGB TEXTURE_FORMAT_RGBA | WebP lossy compression. Lower quality level results in smaller size. WebP lossy type is currently not supported for hardware compressed texture formats. |
+| `COMPRESSION_TYPE_DEFAULT`        | All formats               | Generic lossless data compression. Default. |
+| `COMPRESSION_TYPE_WEBP`           | All formats               | WebP lossless compression. Higher quality level results in smaller size. |
+| `COMPRESSION_TYPE_WEBP_LOSSY`     | All non hardware compressed formats. | WebP lossy compression. Lower quality level results in smaller size. |
+
+For hardware compressed texture formats PVRTC or ETC, the WebP lossless compression process transforms the compressed hardware texture format data into data more suitable for WebP image compression using an internal intermediate format. This is then transformed back into the compressed hardware texture format when loaded by the run-time. WebP lossy type is currently not supported for hardware compressed texture formats PVRTC and ETC.
