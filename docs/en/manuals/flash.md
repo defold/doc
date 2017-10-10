@@ -170,7 +170,7 @@ The result would look like the below (with the index position updated):
 
 ## Defold—z position
 
-The positions of game objects in Defold are represented by vectors consisting of three variables: x, y, and z. The z position determines the depth of a game object. In the default [render script](/manuals/rendering), the available z positions range from -1 to 1.
+The positions of game objects in Defold are represented by vectors consisting of three variables: x, y, and z. The z position determines the depth of a game object. In the default [render script](/manuals/render), the available z positions range from -1 to 1.
 
 ::: sidenote
 Game objects with a z position outside the -1 to 1 range will not be rendered and therefore not visible. This is a common pitfall for developers new to Defold, and is worth keeping in mind if a game object is not visible when you expect it to be.

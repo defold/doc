@@ -5,13 +5,44 @@ brief: This manual explains how Defold has solved the problem of addressing.
 
 # Addressing
 
-Every game object and component that exist in runtime must be possible to address. This manual describes how Defold solves the addressing problem.
+In a running game, every object and component must be possible to move, scale, animate, delete and manipulate in any other way. In order to do that you are able to uniquely address anything through the Defold addressing mechanism. This manual describe how it works.
 
 ## Identifiers
 
-When you create a new game object or component in the editor, a unique *Id* property is automatically set. Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc) and components get an id corresponding to the component type ("sprite", "sprite2" etc). All these identifiers can be modified and you are encouraged to pick good, descriptive names for your game objects and components.
+Let's look at a very simple example. Suppose you have a game object with a sprite and you want to disable the sprite when the game starts (so you can make it appear later). The setup in the editor would look something like this:
 
-![identifiers](images/addressing/identifiers.png)
+![bean in editor](images/addressing/bean_editor.png)
+
+You then put the following code in "controller.script":
+
+```lua
+function init(self)
+    msg.post("#body", "disable") -- <1>
+end
+```
+1. Don't worry if you're puzzled by the '#' character. We'll get to that soon.
+
+When you create a new game object or component in the editor, a unique *Id* property is automatically set. Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc) and components get an id corresponding to the component type ("sprite", "sprite2" etc). Each identifier can be modified and you are encouraged to pick good, descriptive names for your game objects and components.
+
+For the above example, the game object has been given the id "bean", its sprite component is named "body" and the script component that controls the character is called "controller".
+
+Schematically, the setup looks like this:
+
+![bean](images/addressing/bean.png)
+
+The script component *addresses* the sprite component by its identifier and sends it a message "disable".
+
+Let's now add another sprite component:
+
+![bean](images/addressing/bean_shield_editor.png)
+
+You *must* give the new shield sprite a unique identifier. If you would call it "body" the script code would be ambiquous as to which sprite it should send the "disable" message.
+
+![bean](images/addressing/bean_shield.png)
+
+
+## Identifiers
+
 
 Suppose you have created a collection file containing two separate game objects. You have given the game objects the identifiers "soldier" and "shield". Each game object also contains a single sprite component. The sprites are both named "sprite". There is also a script component in the "shield" game object that you have named "controller".
 

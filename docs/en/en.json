@@ -104,12 +104,16 @@
                         "name": "Introduction"
                     },
                     {
+                        "path": "/manuals/glossary",
+                        "name": "Glossary"
+                    },
+                    {
                         "path": "/manuals/install",
                         "name": "Installing Defold"
                     },
                     {
-                        "path": "/manuals/scene-editing",
-                        "name": "Scene editing"
+                        "path": "/manuals/editor",
+                        "name": "The editor"
                     },
                     {
                         "path": "/manuals/workflow",
@@ -198,8 +202,8 @@
                         "name": "Material"
                     },
                     {
-                        "path": "/manuals/rendering",
-                        "name": "Rendering"
+                        "path": "/manuals/render",
+                        "name": "Render"
                     },
                     {
                         "path": "/manuals/shader",

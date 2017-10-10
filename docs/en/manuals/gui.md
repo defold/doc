@@ -411,7 +411,7 @@ Now we can call either `fadeup()` or `fadedown()` and supply the node we want th
 
 ## Render script
 
-The default render script is a Lua script that handles all rendering of your game content (see [Rendering documentation](/manuals/rendering) for details). It is set up to render GUI nodes on top of the rest of a game in a separate pass:
+The default render script is a Lua script that handles all rendering of your game content (see [Render documentation](/manuals/render) for details). It is set up to render GUI nodes on top of the rest of a game in a separate pass:
 
 ```lua
 ...

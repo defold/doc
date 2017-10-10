@@ -7,7 +7,7 @@ brief: In this tutorial you will create a full screen post effect in Defold.
 
 In this tutorial we are going to create a color grading  full screen post effect. The basic rendering method used is widely applicable for various types of post effects like blur, trails, glow, color adjustments and so on.
 
-It is assumed that you know your way around the Defold editor, and that you have basic understanding of GL shaders and the Defold rendering pipeline. If you need to read up on these subjects, check out [our Shader manual](/manuals/shader/) and the [Rendering manual](/manuals/rendering/).
+It is assumed that you know your way around the Defold editor, and that you have basic understanding of GL shaders and the Defold rendering pipeline. If you need to read up on these subjects, check out [our Shader manual](/manuals/shader/) and the [Render manual](/manuals/render/).
 
 ## Render targets
 

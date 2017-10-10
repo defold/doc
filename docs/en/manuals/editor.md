@@ -7,7 +7,7 @@ brief: This manual gives an overview on how the editor look and works, and how t
 
 The editor allows you to browse and manipulate all files in your game project in an efficient manner. Editing files brings up a suitable editor and shows all relevant information about the file in separate views.
 
-:[overview](../shared/overview.md)
+:[overview](../shared/editor-views.md)
 
 ## The scene editor
 

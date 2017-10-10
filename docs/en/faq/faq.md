@@ -226,7 +226,7 @@ If I set the z coordinate of a sprite to 100 then it's not rendered. Why?
 : The Z-position of a game object controls rendering order. Low values are drawn before
   higher values. In the default render script game objects with a depth ranging between -1 and 1
   are drawn, anything lower or higher will not be drawn. You can read more about the
-  rendering script in the official [Rendering documentation](/manuals/rendering).
+  rendering script in the official [Render documentation](/manuals/render).
   On GUI nodes the Z value is ignored and does not affect rendering order at all.
   Instead nodes are rendered in the order they are listed and according to child hierarchies
   (and layering). Read more about gui rendering and draw call optimization using layers

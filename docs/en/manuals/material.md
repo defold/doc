@@ -9,7 +9,7 @@ Materials are the Defold way of expressing how a graphical component (a sprite, 
 
 A material holds _Tags_, information that is used in the rendering pipeline to select objects to be rendered. It also holds references to _shader programs_ that are compiled through the available graphics driver and uploaded to the graphics hardware and run when the component is rendered each frame.
 
-* For more information on the render pipeline, see the [Rendering documentation](/manuals/rendering).
+* For more information on the render pipeline, see the [Render documentation](/manuals/render).
 * For an in depth explanation of shader programs, see the [Shader documentation](/manuals/shader).
 
 ## Creating a material
@@ -38,7 +38,7 @@ Associate the two program files with the corresponding properties in the materia
 
 ## Material tags
 
-You need to set a tag for the material so your render script can render any component using the new material. The tags are represented in the engine as a _bitmask_ that is used by [`render.predicate()`](/ref/render#render.predicate) to collect components that should be drawn together. See the [Rendering documentation](/manuals/rendering) on how to do that.
+You need to set a tag for the material so your render script can render any component using the new material. The tags are represented in the engine as a _bitmask_ that is used by [`render.predicate()`](/ref/render#render.predicate) to collect components that should be drawn together. See the [Render documentation](/manuals/render) on how to do that.
 
 ::: important
 The maximum number of tags you can use in a project is 32.

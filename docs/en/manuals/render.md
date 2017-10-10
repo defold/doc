@@ -1,9 +1,9 @@
 ---
-title: Rendering in Defold
+title: The render pipeline in Defold
 brief: This manual explains how Defold's render pipeline works and how you can program it.
 ---
 
-# Rendering
+# Render
 
 Every object that is shown on screen by the engine: sprites, models, tiles, particles or GUI nodes, are drawn by a renderer. At the heart of the renderer is a render script that controls the render pipeline. By default, every 2D object is drawn with the correct bitmap with the specified blending and at the correct Z depth---so you might not have to ever think about rendering beyond ordering and simple blending. For most 2D games, the default pipeline functions well, but your game might have special requirements. If that is the case, Defold allows you to write a tailor-made rendering pipeline.
 

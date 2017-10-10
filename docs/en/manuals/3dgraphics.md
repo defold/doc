@@ -50,6 +50,6 @@ The [Shader manual](/manuals/shader) contains information on how shader programs
 
 The last thing to do to get the model into the game is to alter the *Render Script* for the project. The default render script is tailor made for 2D games and does not work with 3D models. But by copying the default render script and adding a handful of lines of Lua code we can make sure that our book is rendered as expected. For the example the render script is already set up.
 
-Read the [Rendering documentation](/manuals/rendering) for details on how render scripts work.
+Read the [Render documentation](/manuals/render) for details on how render scripts work.
 
 

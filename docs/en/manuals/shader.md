@@ -17,8 +17,8 @@ Shaders are at the core of graphics rendering. They are programs written in a C-
 
 This manual describes vertex and fragment shaders in detail. In order to create shaders for your content, you need to also understand the concept of materials in Defold, as well as how the render pipeline works.
 
-* See the [Rendering manual](/manuals/rendering) for details on the render pipeline.
-* See the [Materials manual](/manuals/material) for details on materials.
+* See the [Render manual](/manuals/render) for details on the render pipeline.
+* See the [Material manual](/manuals/material) for details on materials.
 
 Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at https://www.khronos.org/registry/gles/
 

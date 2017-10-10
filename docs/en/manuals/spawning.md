@@ -3,8 +3,7 @@ title: Dynamic spawning in Defold
 brief: This manual describes how to dynamically spawn game objects.
 ---
 
-Dynamic spawning
-================
+# Resources and spawning
 
 This manual explains Defold's dynamic spawning features and how to use them.
 

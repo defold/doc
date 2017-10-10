@@ -173,8 +173,8 @@
                         "name": "Material"
                     },
                     {
-                        "path": "/manuals/rendering",
-                        "name": "Rendering"
+                        "path": "/manuals/render",
+                        "name": "Render"
                     },
                     {
                         "path": "/manuals/shader",
