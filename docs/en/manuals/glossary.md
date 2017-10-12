@@ -5,7 +5,7 @@ brief: This manual lists everything that you encounter working in Defold with a 
 
 # Defold glossary
 
-This manual gives a brief description to all the things you encounter in Defold. In most cases, more in-depth documentation is available.
+This glossary gives a brief description to all the things you encounter in Defold. In most cases, you will find a link to more in-depth documentation.
 
 ## Animation set
 
@@ -25,7 +25,7 @@ This manual gives a brief description to all the things you encounter in Defold.
 
 ## Collision object
 
-![Collision object](images/icons/collision-object.png){.left} Collision objects are components that extend game objects with physical properties (like spatial shape, weight, friction and restitution). These properties govern how the collision object should collide with other collision objects. The most common types of collision objects are kinematic objects, dynamic objects and triggers. A kinematic object gives detailed collision information that you have to manually respond to, a dynamic object is automatically simulated by the physics engine to obey Newtonian laws of physics. Triggers are simple shapes that detect if other shapes have entered or exited the trigger. The [Physics documentation](/manuals/physics) details how this works.
+![Collision object](images/icons/collision-object.png){.left} Collision objects are components that extend game objects with physical properties (like spatial shape, weight, friction and restitution). These properties govern how the collision object should collide with other collision objects. The most common types of collision objects are kinematic objects, dynamic objects and triggers. A kinematic object gives detailed collision information that you have to manually respond to, a dynamic object is automatically simulated by the physics engine to obey Newtonian laws of physics. Triggers are simple shapes that detect if other shapes have entered or exited the trigger. See the [Physics documentation](/manuals/physics) for details on how this works.
 
 ## Component
 
@@ -73,7 +73,7 @@ Components are used to give specific expression and/or functionality to game obj
 
 ## GUI script
 
-![GUI script](images/icons/script.png){.left} GUI scripts are used to define the behaviour of GUI components. They control GUI animations and how the user interacts with the GUI.
+![GUI script](images/icons/script.png){.left} GUI scripts are used to control the behaviour of GUI components. They control GUI animations and how the user interacts with the GUI. See the [Lua in Defold manual](/manuals/lua) for details on how Lua scripts are used in Defold.
 
 ## Input binding
 
@@ -121,11 +121,11 @@ Here, `"#explosion"` is the address of the current object's sound component. `"p
 
 ## Render script
 
-![Render script](images/icons/script.png){.left} A Render script is a Lua script that controls how the game or app should be rendered to the screen. There is a default Render script that covers most common cases, but you can write your own if you need custom lighting models and other effects. See the [Render manual](/manuals/render/) for more details.
+![Render script](images/icons/script.png){.left} A Render script is a Lua script that controls how the game or app should be rendered to the screen. There is a default Render script that covers most common cases, but you can write your own if you need custom lighting models and other effects. See the [Render manual](/manuals/render/) for more details on how the render pipeline works, and the [Lua in Defold manual](/manuals/lua) for details on how Lua scripts are used in Defold.
 
 ## Script
 
-![Script](images/icons/script.png){.left}  A script is a component that contains a program that defines game object behaviors. With scripts you can specify the rules of your game, how objects should respond to various interactions (with the player as well as other objects). All scripts are written in the Lua programming language. To be able to work with Defold, you or someone on your team needs to learn how to program in Lua. Read the [Lua in Defold documentation](/manuals/lua) for more information.
+![Script](images/icons/script.png){.left}  A script is a component that contains a program that defines game object behaviors. With scripts you can specify the rules of your game, how objects should respond to various interactions (with the player as well as other objects). All scripts are written in the Lua programming language. To be able to work with Defold, you or someone on your team needs to learn how to program in Lua. See the [Lua in Defold manual](/manuals/lua) for an overview on Lua and details on how Lua scripts are used in Defold.
 
 ## Sound
 
