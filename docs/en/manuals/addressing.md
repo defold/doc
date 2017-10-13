@@ -5,15 +5,28 @@ brief: This manual explains how Defold has solved the problem of addressing.
 
 # Addressing
 
-In a running game, every object and component must be possible to move, scale, animate, delete and manipulate in any other way. In order to do that you are able to uniquely address anything through the Defold addressing mechanism. This manual describe how it works.
+Code that controls a running game must be able to reach every object and component in order to move, scale, animate, delete and manipulate what the player sees and hears. Defold's addressing mechanism makes this possible.
 
 ## Identifiers
 
-Let's look at a very simple example. Suppose you have a game object with a sprite and you want to disable the sprite when the game starts (so you can make it appear later). The setup in the editor would look something like this:
+Defold uses addresses (or URLs, but let's ignore that for now) to refer to game objects and components. These addresses consist of identifiers. The following are all examples of how Defold uses addresses. Through this manual we are going to examine in detail how they work:
+
+```lua
+local id = factory.create("#enemy_factory")
+label.set_text("my_gameobject#my_label", "Hello World!")
+
+local pos = go.get_position("my_gameobject")
+go.set_position(pos, "/level/stuff/other_gameobject")
+
+msg.post("#", "hello_there")
+local id = go.get_id(".")
+```
+
+Let's start with a very simple example. Suppose that you have a game object with a single sprite component. You also have a script component to control the game object. The setup in the editor would look something like this:
 
 ![bean in editor](images/addressing/bean_editor.png)
 
-You then put the following code in "controller.script":
+Now you want to disable the sprite when the game starts, so you can make it appear later. That is easily done by putting the following code in "controller.script":
 
 ```lua
 function init(self)
@@ -22,116 +35,195 @@ end
 ```
 1. Don't worry if you're puzzled by the '#' character. We'll get to that soon.
 
-When you create a new game object or component in the editor, a unique *Id* property is automatically set. Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc) and components get an id corresponding to the component type ("sprite", "sprite2" etc). Each identifier can be modified and you are encouraged to pick good, descriptive names for your game objects and components.
-
-For the above example, the game object has been given the id "bean", its sprite component is named "body" and the script component that controls the character is called "controller".
-
-Schematically, the setup looks like this:
+This will work as expected. When the game starts, the script component *addresses* the sprite component by its identifier "body" and uses that address to send it a *message* with the "disable". The effect of this special engine message is that the sprite component hides the sprite graphics. Schematically, the setup looks like this:
 
 ![bean](images/addressing/bean.png)
 
-The script component *addresses* the sprite component by its identifier and sends it a message "disable".
+The identifiers in the setup are arbitrary. Here we have chosen to give the game object the identifyer "bean", its sprite component has been named "body", and the script component that controls the character has been named "controller".
 
-Let's now add another sprite component:
+::: sidenote
+If you don't choose a name, the editor will. Whenever you create a new game object or component in the editor, a unique *Id* property is automatically set.
+
+- Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc).
+- Components get an id corresponding to the component type ("sprite", "sprite2" etc).
+
+You can stick to these automatically assigned names if you want to, but we encourage you to change the identifiers into good, descriptive names.
+:::
+
+Now, let's add another sprite component and give the bean a shield:
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-You *must* give the new shield sprite a unique identifier. If you would call it "body" the script code would be ambiquous as to which sprite it should send the "disable" message.
+The new component must be uniquely identified within the game object. If you would give it the name "body" the script code would be ambiquous as to which sprite it should send the "disable" message. Therefore we pick the unique (and descriptive) identifier "shield". Now we can enable and disable the "body" and "shield" sprites at will.
 
 ![bean](images/addressing/bean_shield.png)
 
+::: sidenote
+If you do try to use an identifier more than once, the editor will signal an error so this is never a problem in practice:
 
-## Identifiers
+![bean](images/addressing/name_collision.png)
+:::
 
+Now, let's look at what happens if you add more game objects. Suppose you want to pair two "beans" into a small team. You decide to call one of the bean game objects "bean" and the other one "buddy". Furthermore, when "bean" has been idle for a while, it should tell "buddy" to start dancing. That is done by sending a custom message called "dance" from the "controller" script component in "bean" to the "controller" script in "buddy":
 
-Suppose you have created a collection file containing two separate game objects. You have given the game objects the identifiers "soldier" and "shield". Each game object also contains a single sprite component. The sprites are both named "sprite". There is also a script component in the "shield" game object that you have named "controller".
+![bean](images/addressing/bean_buddy.png)
 
-Let's look a bit closer at the "shield" game object:
+::: sidenote
+There are two separate components named "controller", one in each game object but this is perfectly legal since each game object creates a new naming context.
+:::
 
-![shield flip](images/addressing/shield_script.png)
+Since the addressee of the message is outside the game object sending the message ("bean"), the code needs to specify which "controller" should receive the message. It needs to specify both the target game object id as well as the component id. The full address to the component becomes `"buddy#controller"` and this address consists of two separate parts.
 
-First, let's see how you can move the whole game object 10 pixels to the left:
+- First come the identity of the target game object ("buddy"),
+- then follows the game object/component separator character ("#"),
+- and finally you write the identity of the target component ("controller").
 
-```lua
-local pos = go.get_position()
-pos.x = pos.x + 10
-go.set_position(pos)
-```
+Going back to the previous example with a single game object we see that by leaving out the game object identifier part of the target address, the code can address components in the *current game object*.
 
-Notice that there are no address identifiers in this code at all. Defold knows that the script is running in a component inside the "shield" game object. By omitting an address, the current game object is implied. The above code snippet is equivalent to the following where the game object id is explicitly specified:
+For example, `"#body"` denotes the address to the component "body" in the current game object. This is very useful because this code will work in *any* game object, as long as there is a "body" component present. 
 
-```lua
-local pos = go.get_position("shield")
-pos.x = position.x + 10
-go.set_position(pos, "shield")
-```
+## Collections
 
-Now suppose you want to write code in the script that disables the shield sprite only. The script and the sprite lives in the same game object so the game object id "shield" is implied:
+Collections makes it possible to create groups, or hierarchies, of game objects and reuse them in a controlled way. You use collection files as templates (or "prototypes" or "prefabs") in the editor when you populate your game with content.
 
-```lua
-msg.post("#sprite", "disable")
-```
+Suppose that you want to create a great number of bean/buddy teams. A good way to do that is to create a template in a new *collection file* (name it "team.collection"). Build the team game objects in the collection file and save it. Then put an instance of that collection file's contents in your main bootstrap collection and give the instance an identifier (name it "team_1"):
 
-Notice the initial character '#' before the component id. The hash sign is used to separate the game object id from the component id. Since you don't have a game object id before the hash sign, it starts the address string.
+![bean](images/addressing/team_editor.png)
 
-If the script wants to disable the sprite in the "soldier" game object, it is no longer possible to leave out the game object id:
+With this structure, the "bean" game object can still refer to the "controller" component in "buddy" by the address `"buddy#controller"`.
 
-```lua
-msg.post("soldier#sprite", "disable")
-```
+![bean](images/addressing/collection_team.png)
 
-Without the "soldier" part in the address, the runtime cannot separate the component "sprite" in the "shield" game object from the component "sprite" in the "soldier" game object. Defold combines the identity of the game object with that of the component which is why you can have two components named "sprite" without violating the requirement for identity uniqueness.
+And if you add a second instance of "team.collection" (name it "team_2"), the code running inside the "team_2" script components will work just as well. The "bean" game object instance from collection "team_2" can still address the "controller" component in "buddy" by the address `"buddy#controller"`.
 
-![sprite identifiers](images/addressing/sprites.png)
+![bean](images/addressing/teams_editor.png)
 
-## Collections and game object ids
+## Relative addressing
 
-Suppose now that you need more than one bean soldiers in your game. You don't want to duplicate the "soldier" and "shield" game objects, so instead you create a new collection called "bean.collection". You put the two game objects in the collection and then, in "main.collection" you add two copies of "bean.collection":
-
-![collections](images/addressing/collections.png)
-
-You also add a game object called "commander" containing a script. The idea is that the "commander" script should be responsible for giving orders to the bean soldiers. In order for this to work, the "commander" script needs to be able to send messages to each bean.
-
-Within the context of "bean.collection", each game object still has the ids "soldier" and "shield". However, since we added several instances of this collection, each instance defines a new namespace with a unique id (in this case "bean1" and "bean2"). When the game data is compiled, the collection hierarchy is flattened and identities are combined down the collection hierarchy to each game object and they are given their full ids:
-
-- /bean1/soldier
-- /bean1/shield
-- /bean2/soldier
-- /bean2/shield
-- /commander
-
-## Absolute and relative ids
-
-Addressing works a bit like directory paths. A script in a game object can reference any object at the same namespace level and deeper. A script that is attached to the "soldier" game object instances can address its corresponding "shield" game object by the id that is local to "bean.collection":
-
-```lua
-msg.post("shield#sprite", "disable")
-```
+The address `"buddy#controller"` works for the game objects in both collections because it is a *relative* address. Each of the collections "team_1" and "team_2" creates a new naming context, or "namespace" if you will. Defold avoids naming collisions by taking the naming context a collection creates into consideration for addressing:
 
 ![relative id](images/addressing/relative_same.png)
 
-If you want the "commander" script to send messages to the two "soldier" script instances, you you must specify which one to address. You do that by providing the combined ids:
+- Within the naming context "team_1", the game objects "bean" and "buddy" are uniquely identified.
+- Similarly, within the naming context "team_2", the game objects "bean" and "buddy" are also uniquely identified.
+
+Relative addressing works by automatically prepending the current naming context when resolving a target address. This is again immensely useful and powerful because you can create groups of game objects with code and reuse those efficiently throughout the game.
+
+Shorthands
+: Defold provides two useful relative address shorthands:
+
+  `.`
+  : Shorthand resolving to the current game object.
+  
+  `#`
+  : Shorthand resolving to the current component.
+
+  For example:
+  
+  ```lua
+   -- Let this game object acquire input focus
+   msg.post(".", "acquire_input_focus")
+  ```
+  
+  ```lua
+   -- Post "reset" to the current script
+   msg.post("#", "reset")
+  ```
+
+## Game object full identifiers
+
+To correctly understand the naming mechanism, let's look at what happens when you build and run the project:
+
+1. The editor reads the bootstrap collection ("main.collection") and all its content (game objects and other collections).
+2. The compiler creates instances for all game objects, flattening the collection hierarchy.
+3. Identifiers are built as "paths" down the collection hierarchy, assigning each game object a unique identifier.
+
+For our example above, the game will run with the following 4 game objects:
+
+- /team_1/bean
+- /team_1/buddy
+- /team_2/bean
+- /team_2/buddy
+
+::: sidenote
+Identities are stored as hashed values. The runtime also stores the hashed value of each collection identity and uses a rolling hash algorithm to resolve the full address.
+:::
+
+In runtime, the collection grouping do not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
+
+## Absolute addressing
+
+It is possible to use the full identifiers described above when addressing. In most cases relative addressing is preferred since it allows for content reuse, but there are cases where absolutely addressing becomes necessary.
+
+For example, suppose that you want an AI manager that tracks the state of each bean object. You want beans to report to their active status to the manager, and the manager makes tactical decisions and gives orders to the beans based on their status. It would make perfect sense in this case to create a single manager game object with a script component and place that alongside the team collections in the bootstrap collection.
+
+![manager object](images/addressing/manager_editor.png)
+
+Each bean is then responsible for sending status messages to the manager: "contact" if it spots an enemy or "ouch!" if it is hit and takes damage. For this to work, the bean controller scrips use absolute addressing to send messages to the component "controller" in "manager".
+
+Any address that starts with a '/' will be resolved from the root of the game world. This corresponds to the root of the *bootstrap collection* that is loaded on game start.
+
+The absolute address of the manager script is `"/manager#controller"` and this absolute address will resolve to the right component no matter where it is used.
+
+![teams and manager](images/addressing/teams_manager.png)
+
+![absolute addressing](images/addressing/absolute.png)
+
+## URLs
+
+To complete the picture, let's look at the full format of Defold addresses: the URL.
+
+An URL is an object, usually written as specially formatted strings. A generic URL consists of three parts:
+
+`[socket:][path][#fragment]`
+
+socket
+: Identifies the game world of the target. This is important when working with [Collection Proxies](/manuals/collection-proxy) and is then used to identify the _dynamically loaded collection_.
+
+path
+: This part of the URL usually contains the full id of the target game object.
+
+fragment
+: The identity of the target component within the specified game object.
+
+As we have seen above, you can leave out some, or most of this information in the majority of cases. You almost never need to specify the socket, and you often, but not always, have to specify the path. In those cases when you do need to address things in another game world then you need to specify the socket part of the URL. For instance, the full URL string for the "controller" script in the "manager" game object above is:
+
+`"main:/manager#controller"`
+
+and the buddy controller in team_2 is:
+
+`"main:/team_2/buddy#controller"`
+
+We can send messages to them:
 
 ```lua
-msg.post("bean1/soldier#script", "be_alert")
-msg.post("bean2/soldier#script", "stay_frosty")
+-- Send "hello" to the manager script and team buddy bean
+msg.post("main:/manager#controller", "hello_manager")
+msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
 
-![relative id](images/addressing/relative.png)
+## Constructing URL objects
 
-But what if you want the soldier in "bean1" to send a message to the "commander" script? The "soldier" object and "commander" are not in the same namespace. In this case you must provide an *absolute* address, one that starts from the root:
+URL objects can also be constructed programmatically, like this:
 
 ```lua
-msg.post("/commander#script", "i_need_medic") -- Note the leading '/'!
+-- Construct URL object from a string:
+local my_url = msg.url("main:/manager#controller")
+print(my_url) --> url: [main:/manager#controller]
+print(my_url.socket) --> 786443 (internal numeric value)
+print(my_url.path) --> hash: [/manager]
+print(my_url.fragment) --> hash: [controller]
+
+-- Construct URL from parameters:
+local my_url = msg.url("main", "/manager", "controller")
+print(my_url) --> url: [main:/manager#controller]
+
+-- Build from empty URL object:
+local my_url = msg.url()
+my_url.socket = "main" -- specify by valid name
+my_url.path = hash("/manager") -- specify as string or hash
+my_url.fragment = "controller" -- specify as string or hash
+
+-- Post to target specified by URL
+msg.post(my_url, "hello_manager!")
 ```
-
-If you would have provided the address `commander#script` *without* the leading slash, that would have resolved to `/bean1/commander#script`.
-
-![absolute id](images/addressing/absolute.png)
-
-Any address that starts with a '/' will be resolved from the root namespace of the game world. This corresponds to the root of the *bootstrap collection* that is loaded on game start.
-
-## Identities are static
-
-We have seen how every object in Defold can uniquely addressed any other object through an absolute or relative address. These addresses are set at *compile time* and stays fixed throughout the object’s lifetime. There is *no way* an object can change its identity. This means that if you save the address to an object that address will stay valid for as long as the object exists; you never have to worry about updating object references that you store.
-
