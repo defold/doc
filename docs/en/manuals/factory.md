@@ -52,7 +52,7 @@ local component = "#star_factory"
 -- Spawn with no rotation but double scale. Set the score of the star to 10.
 factory.create(component, p, nil, { score = 10 }, 2.0) -- <1>
 ```
-<1> Sets the "score" property of the star game object.
+1. Sets the "score" property of the star game object.
 
 .star.script
 ```lua

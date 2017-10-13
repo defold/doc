@@ -5,14 +5,12 @@ brief: Message passing is the mechanism used by Defold to permit loosely coupled
 
 # Message passing
 
-Message passing is the mechanism used by Defold to permit objects to communicate without creating dependencies between them. This manual assumes that you have a basic understanding of *Game Objects*, *Components* and *Collections*.
-
-When programming it is generally best to couple all objects, code modules or components [as loosely as possible](http://en.wikipedia.org/wiki/Loose_coupling). Any object that has a dependency to the inner workings of another object is considered to be _tightly coupled_ and such coupling often leads to code that is harder to maintain and it is a common source of bugs---some of which can be very hard to track down.
+Message passing is the mechanism used by Defold to permit objects to communicate without creating dependencies between them. This manual assumes that you have a basic understanding of Defold's addressing mechanism and basic building blocks (game objects, components and collections).
 
 Defold's Lua integration does not provide object orientation in the sense that you define your application by setting up class hierarchies with inheritance (like Java, C++ or C#). Instead, Defold extends Lua with a simple and powerful object oriented design with the following characteristics:
 
 * [Message passing](/manuals/message-passing) to communicate between objects.
-* All objects have their own internal state, their own memory that they control. This is done through the `self` reference.
+* All script components have their own internal state, their own memory that they control. This is done through the `self` reference.
 * You can send _any_ message to any existing object and it is up to your code how to respond to the message. This is done through the `on_message()` function. If your code does not contain code for a particular message, nothing happens.
 
 ## Addressing and URLs
@@ -327,38 +325,21 @@ Note that the paths to the heart objects inside the "hearttree" collection are u
 The parent-child relationship is separate from the address of the object within the collection hierarchy. Thus, the parent-child relationship is _in no way_ reflected in the URL of an object.
 :::
 
-## Constructing URLs
-
-In rare situations you might find the need to build URL objects programmatically. You can do it like this:
-
-```lua
-local my_url = msg.url()
-my_url.socket = "main" -- specify by valid name
-my_url.path = hash("/hearttree/tree") -- specify as string or hash
-my_url.fragment = "script" -- specify as string or hash
-msg.post(my_url, "grow")
-```
-
-Inspecting the URL and its components:
-
-```lua
-print(my_url) --> url: [main:/hearttree/tree#script]
-print(my_url.socket) --> 786443 (internal numeric value)
-print(my_url.path) --> hash: [/hearttree/tree]
-print(my_url.fragment) --> hash: [script]
-```
+## System sockets
 
 ## System sockets
 
-Defold uses sockets for communicating with certain engine subsystems. Those are:
+Defold exposes certain engine subsystems as sockets:
 
 - `@physics:`
 - `@render:`
 - `@system:`
 
-Note that all are sockets with no path or fragment.
+For instance, you can toggle the system profiler by:
 
-For instance, you can toggle the system profiler by sending a message `msg.post("@system:", "toggle_profile")`
+```lua
+msg.post("@system:", "toggle_profile")
+```
 
 ## Collection Proxies
 
