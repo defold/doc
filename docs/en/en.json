@@ -145,6 +145,10 @@
                         "name": "Message passing"
                     },
                     {
+                        "path": "/manuals/resource",
+                        "name": "Resource management"
+                    },
+                    {
                         "path": "/manuals/application-lifecycle",
                         "name": "Application lifecycle"
                     }

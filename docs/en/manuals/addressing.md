@@ -130,13 +130,12 @@ Shorthands
    msg.post("#", "reset")
   ```
 
-## Game object full identifiers
+## Game object paths
 
 To correctly understand the naming mechanism, let's look at what happens when you build and run the project:
 
 1. The editor reads the bootstrap collection ("main.collection") and all its content (game objects and other collections).
-2. The compiler creates instances for all game objects, flattening the collection hierarchy.
-3. Identifiers are built as "paths" down the collection hierarchy, assigning each game object a unique identifier.
+2. For each static game object, the compiler creates an identifier. These are built as "paths" starting at the bootstrap root, down the collection hierarchy to the object. A '/' character is added at each level.
 
 For our example above, the game will run with the following 4 game objects:
 
@@ -146,7 +145,7 @@ For our example above, the game will run with the following 4 game objects:
 - /team_2/buddy
 
 ::: sidenote
-Identities are stored as hashed values. The runtime also stores the hashed value of each collection identity and uses a rolling hash algorithm to resolve the full address.
+Identities are stored as hashed values. The runtime also stores the hash state for each collection identity which is used to continue hashing relative string to an absolute id.
 :::
 
 In runtime, the collection grouping do not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
@@ -169,6 +168,39 @@ The absolute address of the manager script is `"/manager#controller"` and this a
 
 ![absolute addressing](images/addressing/absolute.png)
 
+## Hashed identifiers
+
+The engine stores all identifiers as hashed values. All functions that take as argument a component or a game object accepts a string, hash or an URL object. We have seen how to use strings for addressing above.
+
+When you get the identifier of a game object, the engine will always return an absolute path identifier that is hashed:
+
+```lua
+local my_id = go.get_id()
+print(my_id) --> hash: [/path/to/the/object]
+
+local spawned_id = factory.create("#some_factory")
+print(spawned_id) --> hash: [/instance42]
+```
+
+You can use such an identifier in place of a string id, or construct one yourself. Note though that a hashed id corresponds to the path to the object, i.e. an absolute address:
+
+::: sidenote
+The reason relative addresses must be given as strings is because the engine will compute a new hash id based on the hash state of the current naming context (collection) with the given string added to the hash.
+:::
+
+```lua
+local spawned_id = factory.create("#some_factory")
+local pos = vmath.vector3(100, 100, 0)
+go.set_position(pos, spawned_id)
+
+local other_id = hash("/path/to/the/object")
+go.set_position(pos, other_id)
+
+-- This will not work! Relative addresses must be given as strings.
+local relative_id = hash("my_object")
+go.set_position(pos, relative_id)
+```
+
 ## URLs
 
 To complete the picture, let's look at the full format of Defold addresses: the URL.
@@ -181,7 +213,7 @@ socket
 : Identifies the game world of the target. This is important when working with [Collection Proxies](/manuals/collection-proxy) and is then used to identify the _dynamically loaded collection_.
 
 path
-: This part of the URL usually contains the full id of the target game object.
+: This part of the URL contains the full id of the target game object.
 
 fragment
 : The identity of the target component within the specified game object.

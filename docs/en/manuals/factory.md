@@ -5,13 +5,13 @@ brief: This manual explains how to use factory components to dynamically spawn g
 
 # Factory components
 
-Factory components are used to dynamically spawn game objects from a pool of objects into the running game.
+Factory components are used to dynamically spawn game objects from a pool of objects into a running game.
 
 When you add a factory component to a game object you specify in the *Prototype* property what game object file the factory should use as a blueprint for all new game objects it creates.
 
-![Factory component](images/factory/factory_component.png)
-
 ![Factory component](images/factory/factory_collection.png)
+
+![Factory component](images/factory/factory_component.png)
 
 To trigger the creation of a game object, call `factory.create()`:
 
@@ -49,13 +49,14 @@ For example:
 local p = go.get_position()
 p.y = vmath.lerp(math.random(), min_y, max_y)
 local component = "#star_factory"
--- Spawn with no rotation but double scale. Set the score of the star to 10.
+-- Spawn with no rotation but double scale.
+-- Set the score of the star to 10.
 factory.create(component, p, nil, { score = 10 }, 2.0) -- <1>
 ```
 1. Sets the "score" property of the star game object.
 
-.star.script
 ```lua
+-- star.script
 go.property("score", 1) -- <1>
 
 local speed = -240
@@ -142,6 +143,65 @@ function final(self)
     msg.post(self.parent, "drone_dead")
 end
 ```
+
+## Dynamic loading of factory resources
+
+By checking the *Load Dynamically* checkbox in the factory properties, the engine postpones the loading of the resources associated with the factory.
+
+![Load dynamically](images/factory/load_dynamically.png)
+
+With the box unchecked the engine loads the prototype resources when the factory component is loaded so they are immediately ready for spawning.
+
+With the box checked, you have two options for usage:
+
+Synchronous loading
+: Call [`factory.create()`](/ref/factory/#factory.create) when you want to spawn objects. This  will load the resources synchronously, which may cause a hitch, then spawn new instances.
+
+  ```lua
+  function init(self)
+      -- No factory resources are loaded when the factory’s parent
+      -- collection is loaded. Calling create without having called
+      -- load will create the resources synchronously.
+      self.go_id = factory.create("#factory")
+  end
+  
+  function final(self)  
+      -- Delete game objects. Will decref resources.
+      -- In this case resources are deleted since the factory component
+      -- holds no reference.
+      go.delete(self.go_id)
+
+      -- Calling unload will do nothing since factory holds no references
+      factory.unload("#factory")
+  end
+  ```
+
+Asynchronous loading
+: Call [`factory.load()`](/ref/factory/#factory.load) to explicitly load the resources asynchronously. When the resources are ready for spawning, a callback is received.
+
+  ```lua
+  function load_complete(self, url, result)
+      -- Loading is complete, resources are ready to spawn
+      self.go_id = factory.create(url)
+  end
+  
+  function init(self)
+      -- No factory resources are loaded when the factory’s parent 
+      -- collection is loaded. Calling load will load the resources.
+      factory.load("#factory", load_complete)
+  end
+  
+  function final(self)
+      -- Delete game object. Will decref resources.
+      -- In this case resources aren’t deleted since the factory component
+      -- still holds a reference.
+      go.delete(self.go_id)
+  
+      -- Calling unload will decref resources held by the factory component,
+      -- resulting in resources being destroyed.
+      factory.unload("#factory")
+  end
+  ```
 
 ## Instance limits
 
