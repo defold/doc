@@ -49,9 +49,9 @@ What platforms does Defold run on?
 
   | System                    | Supported            |
   | ------------------------- | -------------------- |
-  | macOS/OS X 10.7 Lion      | Editor and runtime   |
+  | macOS 10.7 Lion           | Editor and runtime   |
   | Windows Vista             | Editor and runtime   |
-  | Linux (32 bit and 64 bit) | Editor and runtime   |
+  | Linux (64 bit)            | Editor and runtime   |
   | iOS 6.0                   | Runtime              |
   | Android 2.3 (API level 9) | Runtime              |
   | HTML5                     | Runtime              |
@@ -152,19 +152,15 @@ Why does my HTML5-app freeze at the splash screen in Chrome?
 
 ## Linux issues
 
-I'm running on Linux 64 bit and the editor won't start.
+I'm running on Linux and the editor won't start.
 
-: Make sure you downloaded the 64 bit version of the editor from the dashboard and that you start the editor with the supplied shell script:
+: Make sure that you start the editor with the supplied shell script:
 
   ```sh
   $ ./Defold-linux.sh
   ```
 
   Do *not* execute *Defold* directly.
-
-I'm running on Linux and nothing happens when I try to open my projects.
-
-: If you are running a 32 bit Linux, your installation may lack a compatible libwebkitgtk. Install *libwebkitgtk version 1.0-0* and restart the editor.
 
 I can't create a new branch for my project on Linux.
 

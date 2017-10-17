@@ -11,13 +11,13 @@ Collections provide a powerful mechanism to create reusable templates, or "prefa
 
 With a collection factory component you can spawn the contents of a collection file into a game world. This is analogous to performing factory spawning of all game objects inside the collection and then building the parent-child hierarchy between the objects. A typical use case is to spawn enemies consisting of multiple game objects (enemy + weapon, for instance).
 
-::: sidenote
-The *collection proxy* component is used to create a new game world, including a separate physics world, based on a collection. The new world is accessed through a new socket. All assets contained in the collection are loaded through the proxy when you message the proxy to start loading. This makes them very useful to, for instance, change levels in a game. New game worlds come with quite a lot of overhead though so do not use them for dynamic loading of small stuff. For more information, see the [Collection proxy documentation](/manuals/collection-proxy).
-:::
-
 ## Spawning a collection
 
 Suppose we want a character game object and a separate shield game object childed to the character. We build the game object hierarchy in a collection file and save it as "bean.collection".
+
+::: sidenote
+The *collection proxy* component is used to create a new game world, including a separate physics world, based on a collection. The new world is accessed through a new socket. All assets contained in the collection are loaded through the proxy when you message the proxy to start loading. This makes them very useful to, for instance, change levels in a game. New game worlds come with quite a lot of overhead though so do not use them for dynamic loading of small stuff. For more information, see the [Collection proxy documentation](/manuals/collection-proxy).
+:::
 
 ![Collection to spawn](images/collection_factory/collection.png)
 
