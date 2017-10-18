@@ -46,7 +46,7 @@ With this box checked, the engine will still include the referenced resources in
 1. Call [`factory.create()`](/ref/factory/#factory.create) or [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create) when you want to spawn objects. This  will load the resources synchronously, then spawn new instances.
 2. Call [`factory.load()`](/ref/factory/#factory.load) or [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load) to load the resources asynchronously. When the resources are ready for spawning, a callback is received.
 
-Read the [Factory manual](/manuals/factory) and the [Collection factory manual](/manual/collection-factory) for details on how this works.
+Read the [Factory manual](/manuals/factory) and the [Collection factory manual](/manuals/collection-factory) for details on how this works.
 
 ## Unloading dynamically loaded resources
 

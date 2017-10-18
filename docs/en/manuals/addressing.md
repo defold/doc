@@ -236,7 +236,7 @@ msg.post("main:/team_2/buddy#controller", "hello_buddy")
 
 ## Constructing URL objects
 
-URL objects can also be constructed programmatically, like this:
+URL objects can also be constructed programmatically in Lua code:
 
 ```lua
 -- Construct URL object from a string:

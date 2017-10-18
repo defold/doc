@@ -1,6 +1,6 @@
 ---
 title: The building blocks of Defold
-brief: This manual digs into the details of how Game objects Components and Collections work.
+brief: This manual digs into the details of how game objects, components and collections work.
 ---
 
 #  Building blocks
@@ -211,7 +211,15 @@ collection_instances {
 }
 ```
 
-::: important
-A common misunderstanding is that a game object's place in the collection hierarchy is connected to the runtime parent-child hierarchy (which is altered with the `set_parent` message). It is important to realize that they are two different things. Collections are a means of managing and grouping, whereas the parent-child hierarchy dynamically alters the scene graph which allows objects to be visually attached to each other. The place a game object has in the collection hierarchy dictates its id, but the id is static throughout the lifetime of the object. A thorough description on game object addressing can be found in the [Message passing documentation](/manuals/message-passing).
-:::
+## Child-parent hierarchies
 
+When editing a collection file, you can build hierarchies of game objects so that one or more game objects are children to a parent game object. Object parent-child hierarchies is a dynamic relation affecting how objects react to transformations. Any transformation (movement, rotation or scaling) applied to an object will in turn be applied to the object’s children.
+
+It is also possible to alter an object’s parent in run-time by sending `set_parent` messages.
+
+```lua
+local parent = go.get_id("some_object")
+msg.post(".", "set_parent", { parent_id = parent })
+```
+
+A common misunderstanding is that a game object's place in the collection hierarchy is connected to this runtime parent-child hierarchy. But they are two very different things. Parent-child hierarchies dynamically alters the scene graph which allows objects to be visually attached to each other. The place a game object has in the collection hierarchy dictates its id. This id is static throughout the lifetime of the object and will *never change*.
