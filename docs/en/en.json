@@ -141,6 +141,10 @@
                         "name": "Building blocks"
                     },
                     {
+                        "path": "/manuals/addressing",
+                        "name": "Addressing"
+                    },
+                    {
                         "path": "/manuals/message-passing",
                         "name": "Message passing"
                     },
