@@ -68,7 +68,17 @@ Now you have a tilesource ready for use so it's time to create the playfield til
 
 <kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Map</kbd>. Name the new file "grid.tilemap".
 
-Defold only stores the area of the tilemap that is actually used so you need to add enough tiles to fill the boundaries of the screen. Select the "layer1" layer and paint a border around the edge of the screen and some obstacles. Choose the menu option <kbd>Scene ▸ Tile Map ▸ Show Palette</kbd> to display the tile palette, then click the tile you want to use when painting.
+![Set tilesource](images/snake/set_tilesource.png)
+
+Set the *Tile Source* property of the new tile map to "snake.tilesource".
+
+Defold only stores the area of the tilemap that is actually used so you need to add enough tiles to fill the boundaries of the screen.
+
+Select the "layer1" layer.
+
+Choose the menu option <kbd>Scene ▸ Tile Map ▸ Show Palette</kbd> to display the tile palette, then click the tile you want to use when painting.
+
+Paint a border around the edge of the screen and some obstacles.
 
 ![tilemap](images/snake/tilemap.png)
 
