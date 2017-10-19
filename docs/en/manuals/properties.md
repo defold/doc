@@ -21,7 +21,7 @@ Composite properties of type `vector3`, `vector4` or `quaternion` also expose th
 go.set("game_object", "position.x", 10)
 ```
 
-The functions `go.get()`, `go.set()` and `go.animate()` take a reference as their first parameter and a property identifier as their second. The reference identifies the game object or component and can be a string, a hash or a URL. URLs are explained in detail in the [Message passing documentation](/manuals/message-passing). The property identifier is a string or hash that names the property:
+The functions `go.get()`, `go.set()` and `go.animate()` take a reference as their first parameter and a property identifier as their second. The reference identifies the game object or component and can be a string, a hash or a URL. URLs are explained in detail in the [addressing manual](/manuals/addressing). The property identifier is a string or hash that names the property:
 
 ```lua
 -- Set the x-scale of the sprite component

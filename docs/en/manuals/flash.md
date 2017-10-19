@@ -53,11 +53,11 @@ Referring to manually created movie clips in Flash requires the use of a manuall
 
 In Defold, all game objects and components are referred to via an address. In most cases only a simple name, or a shorthand is sufficient. For example:
 
-- `.` addresses the current game object.
-- `#` addresses the current component (the script).
-- `logo` addresses the game object with the id "logo".
-- `#script` addresses the component with id "script" in the current game object.
-- `logo#script` addresses the component with id "script" in the game object with id "logo".
+- `"."` addresses the current game object.
+- `"#"` addresses the current component (the script).
+- `"logo"` addresses the game object with the id "logo".
+- `"#script"` addresses the component with id "script" in the current game object.
+- `"logo#script"` addresses the component with id "script" in the game object with id "logo".
 
 The address of manually placed game objects is determined by the *Id* property assigned (see bottom right of screenshot). The id has to be unique for the current collection file you are working in. The editor automatically sets an id for you but you can change it for each game object instance that you create.
 
@@ -67,7 +67,7 @@ The address of manually placed game objects is determined by the *Id* property a
 You can find the id of a game object by running the following code in its script component: `print(go.get_id())`. This will print the id of the current game object in the console.
 :::
 
-Message passing and addressing is a key concept in Defold game development. In some cases the simple examples listed above are not expressive enough. The [message passing manual](/manuals/message-passing) covers all cases.
+The addressing model and message passing are key concepts in Defold game development. The [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing) explains these in great detail.
 
 ## Flash—dynamically creating movie clips
 

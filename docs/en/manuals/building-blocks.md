@@ -5,7 +5,9 @@ brief: This manual digs into the details of how game objects, components and col
 
 #  Building blocks
 
-Some of the design decisions made in Defold differ from other software and it may take some time to get a good grip on how and why things are put together the way they are. In order to properly understand how Defold manages and gives you access to game resources, read this document and the [Message passing documentation](/manuals/message-passing). Some or many of the things here might be unfamiliar and hard to understand at first, but don't worry. Take your time, experiment with the editor and engine and return to the documentation when you run into problems.
+Some of the design decisions made in Defold differ from other software and it may take some time to get a good grip on how and why things are put together the way they are. In order to properly understand how Defold manages and gives you access to game resources, read this document, the [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing).
+
+Some or many of the things here might be unfamiliar and hard to understand at first, but don't worry. Take your time, experiment with the editor and engine and return to the documentation when you run into problems.
 
 ![Building blocks](images/building_blocks/building_blocks.png)
 
