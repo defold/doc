@@ -225,16 +225,16 @@ gain
 : Global gain (volume), `0`--`1`, The value is `1` by default.
 
 max_sound_data
-: Max number of different sounds, `128` by default.
+: Max number of sound resources, i.e the number of unique sound files at runtime, `128` by default.
 
 max_sound_buffers
-: Max number of concurrent sound buffers, `32` by default.
+: (Currently not used) Max number of concurrent sound buffers, `32` by default.
 
 max_sound_sources
-: Max number of concurrently playing sounds, `16` by default.
+: (Currently not used) Max number of concurrently playing sounds, `16` by default.
 
 max_sound_instances
-: Max number of concurrent sound instances, `256` by default.
+: Max number of concurrent sound instances, i.e. actual sounds played at the same time. `256` by default.
 
 ## Sprite
 
