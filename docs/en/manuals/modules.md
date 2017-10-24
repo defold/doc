@@ -103,14 +103,14 @@ end
 
 When we run the code we find that the two butterflies join up and start to fly relative to the same origin. To understand what is happening here, recall how Defold manages [Lua contexts](/manuals/lua).
 
-Now, what happened with the blue and yellow butterflies was an unfortunate side effects of sharing global data between game objects. Here is the definition of the variable origin:
+What happens with the blue and yellow butterflies is an unfortunate side effect of sharing global data between game objects. Here is the definition of the variable origin:
 
 ```lua
 -- We need to store the original position.
 local origin
 ```
 
-It is defined "local" which means that it is local to the current Lua context. Since all game objects are evaluated in the same Lua context, the yellow and blue butterfly will use exactly the same variable origin. One of the butterfly objects will set the variable to its origin, then the second butterfly will use the same value for its origin:
+It is defined "local" which means that it is local to the current Lua context. Since all game objects are evaluated in the same Lua context, the yellow and blue butterfly will use exactly the same variable origin. One of the butterfly objects will set the variable to its origin, then the other butterfly will read and use the same value:
 
 ```lua
 -- "origin" is not set if someone in the same context
