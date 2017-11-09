@@ -9,7 +9,7 @@ Facebook Gameroom is a Windows-native client allowing players to play web games 
 
 ![Gameroom](images/gameroom/gameroom.jpg)
 
-<span class="icon-ios"></span> The client is available for download at https://www.facebook.com/gameroom/download/ for Windows 7 and above.
+<span class="icon-windows"></span> The client is [available for download here](https://www.facebook.com/gameroom/download/) for Windows 7 and above.
 
 Gameroom builds work with the same Facebook Lua API as usual. See the [Facebook manual](manuals/facebook) for more information on the Defold Facebook API.
 
