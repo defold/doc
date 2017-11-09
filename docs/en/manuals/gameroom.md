@@ -59,19 +59,15 @@ Trial Mode
 
 See https://developers.facebook.com/docs/games/gameroom/premium for details on how to set up your game as a premium game on the Facebook *App Dashboard*.
 
-Your game needs to implement a license check in order to separate trial and paid content. For instance, implement a time limit (3 day trial) or a content limit (first level trial) before requiring a purchase.
-
-When the player completes the trial content or trial time period, you should prompt the player to purchase the game. Calling this method will display a payment dialog with the price configured in the App Dash
-
-You need to manually implement a license check (paywall) within your game to separate the trial and paid content. You may choose to implement trial mode with a content or time limit. For example, after the player finishes the first level, call this method to see if the player can continue immediately or if they need to purchase the game.
-
-Gameroom adds two functions to the regular iap API:
+Gameroom adds two functions to the iap API. Use them to implement a license check in order to separate trial and paid content.
 
 [iap.has_premium()](/ref/iap#iap.has_premium)
 : Checks if the user has purchased a license for the game.
 
 [iap.buy_premium()](/ref/iap#iap.buy_premium)
 : Let the user purchase a premium game license. The purchase transaction is handled like other IAP purchases, via an iap listener function.
+
+To implement a trial mode, you do both a license check and a time limit (3 hour trial) or a content limit (first level trial) check. If the license check fails and the conditions for the trial does not hold anymore, you prompt the player to purchase the game. The Gameroom API will automatically display a payment dialog with the price configured in the Facebook App Dashboard.
 
 ```lua
 local function iap_listener(self, transaction, error)
@@ -86,12 +82,12 @@ local function iap_listener(self, transaction, error)
 end
 
 local function premium_result(self, has_premium)
-  -- how long has player tried this game?
-  local playtime = go.get("game#timekeeper", "playtime"))
+  -- how many minutes has player tried this game?
+  local playminutes = go.get("game#timekeeper", "playtime"))
 
   -- if user has played for more than 3 hours and has not yet purchased.
-  if playtime > 180 and not has_premium then
-     -- stop the game until purchase is ok
+  if playminutes > 180 and not has_premium then
+     -- stop the game until game is purchased
      msg.post("game#controller", "stop_for_purchase")
      iap.buy_premium()
   end
