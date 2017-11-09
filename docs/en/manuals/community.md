@@ -124,11 +124,18 @@ You can also choose to add an attachment to your asset community page. This is a
 
 ## License
 
-In order to make your asset page public, you need to choose a license which lets people know how they are allowed to use your asset. We recommend CC1.0 Universal, which lets people freely use your asset anyway they want. But you are of course free to use any license you want. If so, choose "Custom", and enter the link to the terms you want.
+In order to make your asset page public, you need to choose a license which lets people know how they are allowed to use your asset. We recommend CC0 1.0 Universal, which lets people freely use your asset anyway they want. But you are of course free to use any license you want. If so, choose "Custom", and enter the link to the terms you want.
 
-Example licenses:
+**tl;dr license descriptions:**
+CC0 1.0 Universal [https://creativecommons.org/publicdomain/zero/1.0/](https://creativecommons.org/publicdomain/zero/1.0/)
+: You’re free to use these assets in any project, personal or commercial. There’s no need to ask permission before using these. Giving attribution is not required.
 
-* MIT license: [https://en.wikipedia.org/wiki/MIT_License](https://en.wikipedia.org/wiki/MIT_License)
-* Apache License 2.0: [https://www.apache.org/licenses/LICENSE-2.0.html](https://www.apache.org/licenses/LICENSE-2.0.html)
-* GNU General Public License v 3.0: [https://opensource.org/licenses/GPL-3.0](https://opensource.org/licenses/GPL-3.0)
-* "Don’t be a dick" license: [http://www.dbad-license.org/](http://www.dbad-license.org/)
+MIT license [https://en.wikipedia.org/wiki/MIT_License](https://en.wikipedia.org/wiki/MIT_License)
+: A short, permissive software license. You are free to do whatever you want as long as you include the original copyright and license notice in any copy of the software/source.
+
+Apache License 2.0 [https://www.apache.org/licenses/LICENSE-2.0.html](https://www.apache.org/licenses/LICENSE-2.0.html)
+: You can do what you like with the software, as long as you include the required notices. This permissive license contains a patent license from the contributors of the code.
+
+GNU General Public License v 3.0 [https://opensource.org/licenses/GPL-3.0](https://opensource.org/licenses/GPL-3.0)
+: You may copy, distribute and modify the software as long as you track changes/dates in source files. Any modifications to or software including (via compiler) GPL-licensed code must also be made available under the GPL along with build & install instructions. 
+
