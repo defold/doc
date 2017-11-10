@@ -343,16 +343,20 @@
                         "name": "Native extensions"
                     },
                     {
-                        "path": "/manuals/facebook",
-                        "name": "Facebook"
-                    },
-                    {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
                     {
                         "path": "/manuals/push",
                         "name": "Push notifications"
+                    },
+                    {
+                        "path": "/manuals/facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/manuals/gameroom",
+                        "name": "Facebook Gameroom"
                     }
                 ]
             }
