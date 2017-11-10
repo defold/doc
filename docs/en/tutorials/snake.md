@@ -52,7 +52,7 @@ Very little is needed in terms of graphics. One 16x16 segment for the snake, one
 
 Defold provides a built in *Tilemap* component that you will use to create the playfield. A tilemap allows you to set and read individual tiles, which suits this game perfectly. Since tilemaps fetch their graphics from a *Tilesource* so you need to create one:
 
-<kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Source</kbd>. Name the new file "snake.tilesource".
+<kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Source</kbd>. Name the new file "snake" (the editor will save the file as "snake.tilesource").
 
 Set the *Image* property to the graphics file you just imported.
 
@@ -66,7 +66,7 @@ Note that the *Extrude Borders* property is set to 1 pixel. This is to prevent v
 
 Now you have a tilesource ready for use so it's time to create the playfield tilemap component:
 
-<kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Map</kbd>. Name the new file "grid.tilemap".
+<kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Map</kbd>. Name the new file "grid" (the editor will save the file as "grid.tilemap").
 
 ![Set tilesource](images/snake/set_tilesource.png)
 
@@ -94,7 +94,7 @@ Then <kbd>Right click</kbd> then new game object and select <kbd>Add Component F
 
 ![add component](images/snake/add_component_file.png)
 
-<kbd>Right click</kbd> the folder *main* in the *Assets* browser and select <kbd>New ▸ Script</kbd>. Name the new script file "snake.script". This file will hold all the logic for the game.
+<kbd>Right click</kbd> the folder *main* in the *Assets* browser and select <kbd>New ▸ Script</kbd>. Name the new script file "snake" (it is saved as "snake.script"). This file will hold all the logic for the game.
 
 Go back to *main.collection* and <kbd>right click</kbd> then game object holding the tilemap. Select <kbd>Add Component File</kbd> and choose the file "snake.script".
 

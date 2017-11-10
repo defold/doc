@@ -92,7 +92,7 @@ Let's take a moment to familiarize ourselves with the various views in the edito
 
 5. The *Console* shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing the *Curve editor* which is used when editing curves in the particle editor, the *Build errors* view that shows build errors, and the *Search results* view that displays search results.
 
-6. The *Changed files* view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won't lose your work if unfortune strikes. Some file oriented operations can be performed in this view:
+6. The *Changed files* view lists any files that have been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won't lose your work if misfortune strikes. Some file oriented operations can be performed in this view:
 
     * <kbd>Double click</kbd> a file to open it in a suitable editor, just like in the assets view.
     * <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.

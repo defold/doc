@@ -54,7 +54,7 @@ Now, let's add another sprite component and give the bean a shield:
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-The new component must be uniquely identified within the game object. If you would give it the name "body" the script code would be ambiquous as to which sprite it should send the "disable" message. Therefore we pick the unique (and descriptive) identifier "shield". Now we can enable and disable the "body" and "shield" sprites at will.
+The new component must be uniquely identified within the game object. If you would give it the name "body" the script code would be ambiguous as to which sprite it should send the "disable" message. Therefore we pick the unique (and descriptive) identifier "shield". Now we can enable and disable the "body" and "shield" sprites at will.
 
 ![bean](images/addressing/bean_shield.png)
 

@@ -283,5 +283,3 @@ Forcing re-download of resources
 ## Known issues
 
 - At the moment you have access only to the manifest that is created at build-time. In the near future you will be able to store new manifests. This will allow you to modify existing resources, or add new resources to the game through Live update.
-- [`resource.store_resource()`](/ref/resource/#resource.store_resource) currently blocks the main thread, meaning that if you store large resources you will experience hitches.
-
