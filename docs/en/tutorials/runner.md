@@ -216,7 +216,7 @@ local pieces = { "ground0", "ground1", "ground2", "ground3",
                     "ground4", "ground5", "ground6" } -- <1>
 
 function init(self) -- <2>
-    self.speed = 6
+    self.speed = 360  -- Speed in pixels/s
 end
 
 function update(self, dt) -- <3>
@@ -225,17 +225,18 @@ function update(self, dt) -- <3>
         if pos.x <= -228 then -- <5>
             pos.x = 1368 + (pos.x + 228)
         end
-        pos.x = pos.x - self.speed
-        go.set_position(pos, p) -- <6>
+        pos.x = pos.x - self.speed * dt -- <6>
+        go.set_position(pos, p) -- <7>
     end
 end
 ```
 1. Store the id:s of the ground game objects in a Lua table so we can iterate over them.
 2. The `init()` function is called when the game object comes to life in the game. We initiate a object local member variable that contains the speed of the ground.
-3. `update()` is called once each frame, typically 60 times per second.
+3. `update()` is called once each frame, typically 60 times per second. `dt` contains the number of seconds since the last call.
 4. Iterate over all the ground game objects.
 5. Store the current position in a local variable, then if the current object is on the leftmost edge, move it to the rightmost edge.
-6. Decrease the current X-position with the set speed, then update the object's position with the new speed.
+6. Decrease the current X-position with the set speed. Multiply with `dt` to get framerate independent speed in pixels/s.
+7. Update the object's position with the new speed.
 
 ![Ground script](images/runner/1/ground_script.png)
 
@@ -471,13 +472,13 @@ We should also add a controller game object with a script component to the level
 
     ```lua
     -- controller.script
-    go.property("speed", 6) -- <1>
+    go.property("speed", 360) -- <1>
 
     function init(self)
         msg.post("ground/controller#script", "set_speed", { speed = self.speed })
     end
     ```
-    1. This is a script property. We set it to a default value but any placed instance of the script    can override this value, directly in the properties view in the editor.
+    1. This is a script property. We set it to a default value but any placed instance of the script can override this value, directly in the properties view in the editor.
 
 3. Open the *level.collection* file.
 4. Right-click the root in the *Outline* and select <kbd>Add Game Object</kbd>.
@@ -552,7 +553,7 @@ To make life in frog-world a little less dull, we should add platforms to jump o
     ```lua
     -- platform.script
     function init(self)
-        self.speed = 9      -- Default speed
+        self.speed = 540      -- Default speed in pixels/s
     end
 
     function update(self, dt)
@@ -560,7 +561,7 @@ To make life in frog-world a little less dull, we should add platforms to jump o
         if pos.x < -500 then
             go.delete() -- <1>
         end
-        pos.x = pos.x - self.speed
+        pos.x = pos.x - self.speed * dt
         go.set_position(pos)
     end
 
@@ -599,7 +600,7 @@ The idea with the game is that it should be a simple endless runner. This means 
 
 ```lua
 -- controller.script
-go.property("speed", 6)
+go.property("speed", 360)
 
 local grid = 460
 local platform_heights = { 100, 200, 350 } -- <1>
@@ -610,7 +611,7 @@ function init(self)
 end
 
 function update(self, dt) -- <2>
-    self.gridw = self.gridw + self.speed
+    self.gridw = self.gridw + self.speed * dt
 
     if self.gridw >= grid then
         self.gridw = 0
@@ -761,7 +762,7 @@ If you try the game now it quickly becomes apparent that the reset mechanism doe
 
     ```lua
     -- controller.script
-    go.property("speed", 6)
+    go.property("speed", 360)
 
     local grid = 460
     local platform_heights = { 100, 200, 350 }
@@ -773,7 +774,7 @@ If you try the game now it quickly becomes apparent that the reset mechanism doe
     end
 
     function update(self, dt)
-        self.gridw = self.gridw + self.speed
+        self.gridw = self.gridw + self.speed * dt
 
         if self.gridw >= grid then
             self.gridw = 0
@@ -900,7 +901,7 @@ Now we need to modify *platform.script* so it spawns and deletes the coins:
 ```lua
 -- platform.script
 function init(self)
-    self.speed = 9      -- Default speed
+    self.speed = 540     -- Default speed in pixels/s
     self.coins = {}
 end
 
@@ -915,7 +916,7 @@ function update(self, dt)
     if pos.x < -500 then
         msg.post("/level/controller#script", "delete_spawn", { id = go.get_id() })
     end
-    pos.x = pos.x - self.speed
+    pos.x = pos.x - self.speed * dt
     go.set_position(pos)
 end
 
