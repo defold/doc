@@ -101,37 +101,37 @@ Let's take a moment to familiarize ourselves with the various views in the edito
 
 The empty project template is not 100% empty so we should fix that:
 
-1. Open the file *main/main.collection*.
+1. Open the file "main/main.collection".
 2. Mark the game object "logo" in either the outline or the editor.
 3. Delete the game object.
-4. Delete the file *main/images/logo.png* (you find it in the assets view).
-5. Delete the file *main/logo.atlas* (you find it in the assets view).
+4. Delete the file "main/images/logo.png" (you find it in the assets view).
+5. Delete the file "main/logo.atlas" (you find it in the assets view).
 
 Now the project is totally empty. You can verify this by selecting <kbd>Project ▸ Build</kbd> from the menu. This will launch the game and you should see nothing but a black window.
 
 ## Drawing the game map
 
-Your game needs a setting, a map. The map that you are going to draw will be made out of tiles, small images that are put together like a mosaic into a larger image. In Defold, such an image is called a *Tile map*. In order to create a tile map, you need to import an image file that contain the various tiles. You then need to specify the size of the tiles, margins and padding on that image. This setup is done in a file called a *Tile source*.
+Your game needs a setting, a map. The map that you are going to draw will be made out of tiles, small images that are put together like a mosaic into a larger image. In Defold, such an image is called a *Tile map*. In order to create a tile map, you need to import an image file that contain the various tiles. You then need to specify the size of the tiles, margins and padding on that image. This setup is done in a file of a type called *Tile source*.
 
 1. Download the "War Battles" asset package. The file is a ZIP archive that you have to unpack on your hard drive.
 
    <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/war-battles-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
-2. Drag the file *map.png*, which contains all tiles, from the asset package to the folder *main* in the *Assets* view of your project.
+2. Drag the file "map.png", which contains all tiles, from the asset package to the folder "main" in the *Assets* view of your project.
 
-3. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile source</kbd>. This will create a new tile source file. Name the file "map.tilesource".
+3. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile source</kbd>. This will create a new tile source file. Name the file "map" (full name "map.tilesource").
 
    ![map](images/war-battles/map_tilesource.png)
 
-4. The new tilesource file opens automatically in the editor. Set the *Image* property of the tile source to the image file */main/map.png*. The easiest way to do that is to click the resource selector by the *Image* property to bring up the resource selector. Then select the file */main/map.png*:
+4. The new tilesource file opens automatically in the editor. Set the *Image* property of the tile source to the image file "/main/map.png". The easiest way to do that is to click the resource selector by the *Image* property to bring up the resource selector. Then select the file "/main/map.png":
 
     ![tilesource](images/war-battles/tilesource.png)
 
     The tiles are 16⨉16 pixels in the source image with no margins or padding so there is no need to alter the default properties of the tile source.
 
-5. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile map</kbd>. Name the file "map.tilemap". The tile map is automatically opened in the editor view.
+5. <kbd>Right click</kbd> the folder *main* and select <kbd>New ▸ Tile map</kbd>. Name the file "map" (full name "map.tilemap"). The tile map is automatically opened in the editor view.
 
-6. Set the *Tile source* property of the new tile map to */main/map.tilesource*.
+6. Set the *Tile source* property of the new tile map to "/main/map.tilesource".
 
 7. Select "layer1" in the *Outline*.
 
@@ -149,9 +149,9 @@ When you are happy with the map, it is time to add it to the game.
 
 ## Add the map to the game
 
-Defold stores everything you build in *collections*. A collection is a container of game objects and other collections. In *game.project* you specify the collection that is loaded when the game starts up. This is initially set to the file */main/main.collection*.
+Defold stores everything you build in *collections*. A collection is a container of game objects and other collections. In the file "game.project" you specify the collection that is loaded when the game starts up. This is initially set to the file "/main/main.collection".
 
-1. Open the file *main.collection*.
+1. Open the file "main.collection".
 
 2. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add game object</kbd>.
 
@@ -163,7 +163,7 @@ Defold stores everything you build in *collections*. A collection is a container
 
     ![add component](images/war-battles/add_component.png)
 
-5. In the resource selector, pick the file */main/map.tilemap*. This creates a new component in the game object based on the tilemap file. The tile map should now appear in the editor view.
+5. In the resource selector, pick the file "/main/map.tilemap". This creates a new component in the game object based on the tilemap file. The tile map should now appear in the editor view.
 
     ![tilemap](images/war-battles/tilemap.png)
 
@@ -175,7 +175,7 @@ Defold stores everything you build in *collections*. A collection is a container
 
 1. Drag the folder *units/infantry* from the asset package to the folder *main* in the *Assets* view. This copies a set of flip book animation frame images to your project. The images are divided into folders with one folder for each movement direction: up, down, up-diagonally, down-diagonally and side.
 
-2. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Atlas</kbd>. An atlas is a collection of images (PNG or JPEG) that are baked into a larger texture. Defold uses atlases instead of single image files for performance and memory reasons. The new atlas should open in the editor.
+2. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Atlas</kbd>. Name the new atlas file "sprites" (full name "sprites.atlas"). An atlas is a collection of images (PNG or JPEG) that are baked into a larger texture. Defold uses atlases instead of single image files for performance and memory reasons. The new atlas should open in the editor.
 
 3. <kbd>Right click</kbd> the root node of the atlas in the *Outline* and select <kbd>New ▸ Animation group</kbd>.
 
@@ -197,23 +197,25 @@ Now you have an atlas with a single flipbook animation for the player. This is e
 
 2. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object</kbd>. Set the *Id* property of the new game object to "player".
 
-3. Change the Z *Position* property of the game object to 1.0. Since the "map" game object is at the default Z position 0 the "player" game object needs to be at a higher value so it's drawn on top.
+3. Change the Z *Position* property of the game object named "player" to 1.0. Since the "map" game object is at the default Z position 0 the "player" game object must be at a higher value (between -1.0 and 1.0) for it to be on top of the level.
 
 4. <kbd>Right click</kbd> the game object "player" and select <kbd>Add Component ▸ Sprite</kbd>. This creates a new sprite component in the "player" game object that can show graphics.
 
-5. Set the *Image* property of the sprite to */main/sprites.atlas*.
+5. Make sure that the Z *Position* of the *Sprite* is 0 so it will be rendered at the same depth as the game object "player". Setting the Z to a different value will offset the sprite depth from 1.0
 
-6. Set the *Default Animation* property of the sprite to "player-down".
+6. Set the *Image* property of the sprite to */main/sprites.atlas*.
+
+7. Set the *Default Animation* property of the sprite to "player-down".
 
     ![player sprite](images/war-battles/player_sprite.png)
 
-7. Run the game and check that the player character is animating.
+8. Run the game and check that the player character is animating.
 
 The player game object now has visual representation in the game world. The next step is to add a script component to the player game object. This will allow you to create player behavior, such as movement. But that depends on user input, so first you need to set that up.
 
 ## Player input
 
-1. Open the file */input/game.input_binding*. This file contains mappings from input sources (keyboard, touch screen, game pads etc) to input *actions*. Actions are just names that we want to associate with certain input.
+1. Open the file "/input/game.input_binding". This file contains mappings from input sources (keyboard, touch screen, game pads etc) to input *actions*. Actions are just names that we want to associate with certain input.
 
 2. Add *Key triggers* for the four arrow keys. Name the actions "up", "down", "left" and "right".
 
@@ -223,11 +225,11 @@ The player game object now has visual representation in the game world. The next
 
 Unlike the sprite component, which you added directly into the "player" game object, a script component requires that you create a separate file. This script file is then used as basis for the script component.
 
-1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "player.script". The script file, pre-filled with template functions, opens up in the editor.
+1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "player" (full name "player.script"). The script file, pre-filled with template functions, opens up in the editor.
 
     ![player script](images/war-battles/player_script.png)
 
-2. Open *main.collection*, <kbd>Right click</kbd> the game object "player" and select <kbd>Add component file</kbd>. Pick the new file */main/player.script* as the file to use for the component.
+2. Open *main.collection*, <kbd>Right click</kbd> the game object "player" and select <kbd>Add component file</kbd>. Pick the new file "/main/player.script" as the file to use for the component.
 
 You now have a script that runs in the "player" game object. It does not do anything yet though. Let's start by adding player movement.
 
@@ -305,7 +307,7 @@ What you need to is a *blueprint* for a rocket game object and then use some sor
 
 ## The rocket game object
 
-1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game Object</kbd>. Name this file *rocket.go*.
+1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game Object</kbd>. Name this file "rocket" (full name "rocket.go").
 
     (Note that by creating this file, you do not create a new game object instance but a *blueprint* file for actual game object instances.)
 
@@ -325,11 +327,11 @@ Now you have a basic rocket game object blueprint, on file. The next step is to 
 
 ## Spawning rockets
 
-1. Open *main.collection* and <kbd>Right click</kbd> on the "player" game object. Select <kbd>Add Component ▸ Factory</kbd>.
+1. Open "main.collection" and <kbd>Right click</kbd> on the "player" game object. Select <kbd>Add Component ▸ Factory</kbd>.
 
-2. Select the new factory component and set its *Id* property to "rocketfactory" and its *Prototype* to the file */main/rocket.go* (the one you created above). Now the player game object is all set.
+2. Select the new factory component and set its *Id* property to "rocketfactory" and its *Prototype* to the file "/main/rocket.go" (the one you created above). Now the player game object is all set.
 
-3. Open the file */input/game.input_binding*.
+3. Open the file "/input/game.input_binding".
 
 4. Add a *Key trigger* for the firing action. Call this action "fire".
 
@@ -419,7 +421,7 @@ If you run the game now you should be able to move around and drop rockets all o
 
     Note that the rocket needs a movement direction in addition to the game object rotation (`rot`). It would be possible to make the rocket calculate its movement vector based on its rotation, but it is easier and more flexible to separate the two values. For instance, with a separate rotation it is possible to add rotation wobble to the rocket without it affecting the movement direction.
 
-3.  <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "rocket.script". Replace the template code in the file with the following:
+3.  <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Script</kbd>. Name the new script file "rocket" (full name "rocket.script"). Replace the template code in the file with the following:
 
     ```lua
     go.property("dir", vmath.vector3()) -- <1>
@@ -440,7 +442,7 @@ If you run the game now you should be able to move around and drop rockets all o
     4. Calculate a new position based on the old position, the movement direction and the speed.
     5. Set the new position.
 
-4. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Script</kbd>. Select the file *rocket.script* as basis for the component.
+4. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Script</kbd>. Select the file "rocket.script" as basis for the component.
 
 5. Run the game and try the new mechanic. Notice that the rockets fly in the right direction but are oriented 180 degrees wrong. That's an easy fix.
 
@@ -521,7 +523,7 @@ This is definitely getting somewhere! But don't you think you need something to 
 
 ## The tank game object
 
-1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game Object</kbd>. Name this file *tank.go*. Like the rocket game object, this is a file that can be used as a *blueprint* when creating actual tank game objects.
+1. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Game Object</kbd>. Name this file "tank" (full name "tank.go"). Like the rocket game object, this is a file that can be used as a *blueprint* when creating actual tank game objects.
 
 2. Drag the folder *units/tank* from the asset package to the *main* folder in the *Assets* view.
 
@@ -611,17 +613,17 @@ Run the game and destroy some tanks! The tanks aren't very interesting enemies, 
 
 ## Scoring GUI
 
-1. Drag the the file *fonts/04font.ttf* from the asset pack folder to the *main* folder in the *Assets* view.
+1. Drag the the file "fonts/04font.ttf" from the asset pack folder to the "main" folder in the *Assets* view.
 
-2. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Font</kbd>. Name this file *text.font*.
+2. <kbd>Right click</kbd> the folder "main" in the *Assets* view and select <kbd>New ▸ Font</kbd>. Name this file "text" (full name "text.font").
 
-3. Open *text.font* and set the *Font* property to the file *04font.ttf*.
+3. Open *text.font* and set the *Font* property to the file "04font.ttf".
 
     ![text font](images/war-battles/text_font.png)
 
-4. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui</kbd>. Name this file *ui.gui*. It will contain the user interface where you will place the score counter.
+4. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui</kbd>. Name this file "ui" (full name "ui.gui"). It will contain the user interface where you will place the score counter.
 
-5. Open *ui.gui*. <kbd>Right click</kbd> *Fonts* in the *Outline* view and select <kbd>Add ▸ Fonts</kbd>. Select the */main/text.font* file.
+5. Open "ui.gui". <kbd>Right click</kbd> *Fonts* in the *Outline* view and select <kbd>Add ▸ Fonts</kbd>. Select the "/main/text.font" file.
 
 6. <kbd>Right click</kbd> *Nodes* in the *Outline* view and select <kbd>Add ▸ Text</kbd>.
 
@@ -631,15 +633,15 @@ Run the game and destroy some tanks! The tanks aren't very interesting enemies, 
 
     ![ui gui](images/war-battles/ui.png)
 
-9. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui Script</kbd>. Name this new file "ui.gui_script".
+9. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Gui Script</kbd>. Name this new file "ui" (full name "ui.gui_script").
 
-10. Go back to *ui.gui* and select the root node in the *Outline*. Set the *Script* property to the file */main/ui.gui_script* that you just created. Now if we add this Gui as a component to a game object the Gui will be displayed and the script will run.
+10. Go back to "ui.gui" and select the root node in the *Outline*. Set the *Script* property to the file "/main/ui.gui_script" that you just created. Now if we add this Gui as a component to a game object the Gui will be displayed and the script will run.
 
 11. Open *main.collection*.
 
 12. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object</kbd>.
 
-13. Set the *Id* property of the game object to "gui", then <kbd>Right click</kbd> it and select <kbd>Add Component File</kbd>. Select the file */main/ui.gui*. The new component will automatically get the *Id* "ui".
+13. Set the *Id* property of the game object to "gui", then <kbd>Right click</kbd> it and select <kbd>Add Component File</kbd>. Select the file "/main/ui.gui". The new component will automatically get the *Id* "ui".
 
     ![main gui](images/war-battles/main_ui.png)
 

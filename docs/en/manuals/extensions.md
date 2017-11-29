@@ -35,7 +35,7 @@ To create a new extension, create a folder in the project root. This folder will
 *lib*
 : This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
 
-  Supported platforms are `ios`, `android`, `osx`, `win32`, . Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86-osx`, `x86_64-osx`, `x86-win32`, `x86_64-win32`.
+  :[platforms](../shared/platforms.md)
 
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
