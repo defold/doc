@@ -141,7 +141,7 @@ If you didn't understand any of the above, don't worry about it. Just tag along,
 
 ## The game script - update
 
-The `init()` function is called exactly once, when the script component is instanciated into the running game. The function `update()`, however, is called once each frame, 60 times a second. That makes the function ideal for real time game logic.
+The `init()` function is called exactly once, when the script component is instantiated into the running game. The function `update()`, however, is called once each frame, 60 times a second. That makes the function ideal for real time game logic.
 
 The idea for the update is this:
 

@@ -58,7 +58,7 @@ The game contains a few simple mechanics that require communication between the 
   msg.post("/interface#gui", "update_score", { score = self.score })
   ```
 
-  In this case it's not possible to write a relative address since "interface" is at the root of the naming hierarchy and "hero" is not. The message is send to the GUI component that has a script attached to it, so it can react to the message accordingly. Messages can be sent freely between scripts, GUI scripts and render scripts.
+  In this case it's not possible to write a relative address since "interface" is at the root of the naming hierarchy and "hero" is not. The message is sent to the GUI component that has a script attached to it, so it can react to the message accordingly. Messages can be sent freely between scripts, GUI scripts and render scripts.
 
   The message `"update_score"` is coupled with score data. The data is passed as a Lua table in the `message` parameter:
 
@@ -182,7 +182,7 @@ end
 
 ## Messaging between game worlds
 
-If you use a collection proxy component to load a new game world into the runtime, you will want to pass messages between the game worlds. Suppose that you have loaded a collection via proxy and that the collection have its *Name* property set to "level":
+If you use a collection proxy component to load a new game world into the runtime, you will want to pass messages between the game worlds. Suppose that you have loaded a collection via proxy and that the collection has its *Name* property set to "level":
 
 ![Collection name](images/message_passing/collection_name.png)
 
