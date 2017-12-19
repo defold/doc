@@ -5,7 +5,7 @@ brief: This manual explains how to write a native extension for the Defold game 
 
 # Native extensions
 
-If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in the C++, Objective C or Java language. Typical use cases for native extensions are:
+If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in the C++, Objective C or Java languages. Typical use cases for native extensions are:
 
 - Interaction with specific hardware, for instance the camera on mobile phones.
 - Interaction with external low level APIs, for instance advertising network APIs that do not allow interaction through network APIs where Luasocket could be used.
@@ -169,6 +169,16 @@ print(rot_s) --> nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM
 
 And that's it! We have created a fully working native extension.
 
+## Defined platform identifiers
+
+The following identifiers are defined by the builder on each respective platform:
+
+* DM_PLATFORM_WINDOWS
+* DM_PLATFORM_OSX
+* DM_PLATFORM_IOS
+* DM_PLATFORM_ANDROID
+* DM_PLATFORM_LINUX
+
 ## The ext.manifest file
 
 Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libs and frameworks. If the *ext.manifest* file does not contain a "platforms" segment, or a platform is missing from the list, the platform you bundle for will still build, but without any extra flags set.
@@ -212,11 +222,10 @@ Platforms
 : There is currently no support for Linux extensions. Android lacks support for *.aar* archives. All platforms currently create debug builds only.
 
 Languages
-: C++, Objective C (MacOS and iOS) and Java (Android) are supported. Swift and Kotlin are currently not supported.
+: The Swift and Kotlin programming languages are currently not supported.
 
 Editor
-: The editor integration. There is no build process indication. Error reporting is rudimentary.
+: The editor integration lacks build process indication. Error reporting is rudimentary.
 
 Debugging
 : Currently, when building on iOS, the *.dSYM* files are not included in the build result
-

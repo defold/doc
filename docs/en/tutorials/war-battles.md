@@ -159,7 +159,7 @@ Defold stores everything you build in *collections*. A collection is a container
 
 3. Change the *Id* property of the game object to "map". The id does not really matter for this game object but it is a good habit to set identifiers that are descriptive---it makes it easier to find your way around when you have many game objects.
 
-4. <kbd>Right click</kbd> the new game object and select <kbd>Add component file</kbd>.
+4. <kbd>Right click</kbd> the new game object and select <kbd>Add Component File</kbd>.
 
     ![add component](images/war-battles/add_component.png)
 
@@ -177,7 +177,7 @@ Defold stores everything you build in *collections*. A collection is a container
 
 2. <kbd>Right click</kbd> the folder *main* in the *Assets* view and select <kbd>New ▸ Atlas</kbd>. Name the new atlas file "sprites" (full name "sprites.atlas"). An atlas is a collection of images (PNG or JPEG) that are baked into a larger texture. Defold uses atlases instead of single image files for performance and memory reasons. The new atlas should open in the editor.
 
-3. <kbd>Right click</kbd> the root node of the atlas in the *Outline* and select <kbd>New ▸ Animation group</kbd>.
+3. <kbd>Right click</kbd> the root node of the atlas in the *Outline* and select <kbd>Add Animation Group</kbd>.
 
 4. Select the new animation group and change its *Id* property to "player-down".
 
@@ -229,7 +229,7 @@ Unlike the sprite component, which you added directly into the "player" game obj
 
     ![player script](images/war-battles/player_script.png)
 
-2. Open *main.collection*, <kbd>Right click</kbd> the game object "player" and select <kbd>Add component file</kbd>. Pick the new file "/main/player.script" as the file to use for the component.
+2. Open *main.collection*, <kbd>Right click</kbd> the game object "player" and select <kbd>Add Component File</kbd>. Pick the new file "/main/player.script" as the file to use for the component.
 
 You now have a script that runs in the "player" game object. It does not do anything yet though. Let's start by adding player movement.
 
@@ -313,7 +313,7 @@ What you need to is a *blueprint* for a rocket game object and then use some sor
 
 2. Drag the folder *buildings/turret-rocket* from the asset package to the *main* folder in the *Assets* view.
 
-3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation Group</kbd>). Name the animation "rocket".
+3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>Add Animation Group</kbd>). Name the animation "rocket".
 
 4. Add the three rocket images to the animation group and set the *Fps* property to a value that makes the animation look good when you preview.
 
@@ -442,7 +442,7 @@ If you run the game now you should be able to move around and drop rockets all o
     4. Calculate a new position based on the old position, the movement direction and the speed.
     5. Set the new position.
 
-4. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Script</kbd>. Select the file "rocket.script" as basis for the component.
+4. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component File</kbd>. Select the file "rocket.script" as basis for the component.
 
 5. Run the game and try the new mechanic. Notice that the rockets fly in the right direction but are oriented 180 degrees wrong. That's an easy fix.
 
@@ -462,7 +462,7 @@ Now you only need to make the rockets explode a short while after they are fired
 
 1. Drag the folder *fx/explosion* from the asset package to the main folder in the Assets view.
 
-2. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation Group</kbd>). Call the animation "explosion".
+2. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>Add Animation Group</kbd>). Call the animation "explosion".
 
 3. Add the nine explosion images to the animation group and set the *Fps* property to a value that makes the animation look good when you preview. Also make sure that this animation has the *Playback* property set to `Once Forward`.
 
@@ -527,7 +527,7 @@ This is definitely getting somewhere! But don't you think you need something to 
 
 2. Drag the folder *units/tank* from the asset package to the *main* folder in the *Assets* view.
 
-3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>New ▸ Animation Group</kbd>). Name the animation "tank-down".
+3. Open *sprites.atlas* and create a new animation group (right click the root node and select <kbd>Add Animation Group</kbd>). Name the animation "tank-down".
 
 4. Add the two downwards facing images (*/main/tank/down/1.png* and */main/tank/down/2.png*) to the animation and set it's *Fps* value to something that looks good.
 
@@ -559,7 +559,7 @@ Run the game and check that the tanks look okay. You will notice that if you fir
 
     ![tank collision](images/war-battles/tank_collision.png)
 
-6. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add component ▸ Collision Object</kbd>.
+6. Open *rocket.go* and <kbd>Right click</kbd> the root in the *Outline* and select <kbd>Add Component ▸ Collision Object</kbd>.
 
 7. Set the *Type* property to "Kinematic".
 
