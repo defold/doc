@@ -80,7 +80,7 @@ Let's take a moment to familiarize ourselves with the various views in the edito
     * <kbd>Scroll</kbd> to zoom in and out.
     * <kbd>Alt + left mouse button</kbd> to pan around.
     * <kbd>Ctrl + left mouse button</kbd> to rotate in 3D.
-    * The menu <kbd>Scene ▸ Camera</kbd> includes tools to frame the view to the current selection and to realign the camera.
+    * The <kbd>View</kbd> menu includes tools to frame the view to the current selection and to realign the camera.
 
 3. The *Outline* shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform many operations on your items:
 
@@ -135,7 +135,7 @@ Your game needs a setting, a map. The map that you are going to draw will be mad
 
 7. Select "layer1" in the *Outline*.
 
-8. Select <kbd>Scene ▸ Tile map ▸ Show palette</kbd>. This brings up the tile palette.
+8. Select <kbd>Edit ▸ Select Tile</kbd>. This brings up the tile palette.
 
     ![palette](images/war-battles/palette.png)
 
@@ -185,7 +185,7 @@ Defold stores everything you build in *collections*. A collection is a container
 
     ![add images](images/war-battles/add_images.png)
 
-6. With the animation group marked, select <kbd>Scene ▸ Play</kbd> from the menu to preview the animation. It will play back at full 60 FPS which is way too fast. Set the playback speed (*Fps* property) to 8.
+6. With the animation group marked, select <kbd>View ▸ Play</kbd> from the menu to preview the animation. It will play back at full 60 FPS which is way too fast. Set the playback speed (*Fps* property) to 8.
 
     ![play animation](images/war-battles/play_animation.png)
 
