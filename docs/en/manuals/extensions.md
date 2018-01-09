@@ -219,7 +219,7 @@ The [Defold community asset portal](https://www.defold.com/community/assets/) al
 The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
 
 Platforms
-: There is currently no support for Linux extensions. Android lacks support for *.aar* archives. All platforms currently create debug builds only.
+: Android lacks support for *.aar* archives. All platforms currently create debug builds only.
 
 Languages
 : The Swift and Kotlin programming languages are currently not supported.
