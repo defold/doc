@@ -36,7 +36,7 @@ The idea is that we call `fly_randomly()` at `init()` which will cause the butte
 The first line `require 'modules_example.flying'` reads the script file *flying.lua* in the folder *modules_example* (where the application logic is stored) into the engine.
 
 ::: sidenote
-The syntax of the filename string provided to `require` is a bit special. Lua will replace '.' characters in the filename string with path separators: '/' on Mac OS X and Linux and '\' on Windows.
+The syntax of the filename string provided to `require` is a bit special. Lua will replace '.' characters in the filename string with path separators: '/' on Mac OS X and Linux and '\\' on Windows.
 :::
 
 To create *flying.lua*, just add a new Lua module file to your project and name it:

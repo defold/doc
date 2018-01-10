@@ -135,7 +135,7 @@ Your game needs a setting, a map. The map that you are going to draw will be mad
 
 7. Select "layer1" in the *Outline*.
 
-8. Select <kbd>Edit ▸ Select Tile</kbd>. This brings up the tile palette.
+8. Select <kbd>Edit ▸ Select Tile...</kbd>. This brings up the tile palette.
 
     ![palette](images/war-battles/palette.png)
 
@@ -377,7 +377,7 @@ Now you have a basic rocket game object blueprint, on file. The next step is to 
     1. If the `firing` flag is true, tell the factory component called "rocketfactory" that you just created to spawn a new game object. Note the character '#' that indicates that what follows is the id of a component.
     2. Set the firing flag to false. This flag will be set in `on_input()` each frame the player presses the fire key.
 
-7. Scroll down to the `on_input()` function. Add a fourth `elseif` for the case where the function is called with the "fire" action and only the one frame when the key is pressed down:
+7. Scroll down to the `on_input()` function. Add a fifth `elseif` for the case where the function is called with the "fire" action and only the one frame when the key is pressed down:
 
     ```lua
         ...
