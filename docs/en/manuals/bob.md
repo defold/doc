@@ -15,7 +15,7 @@ Bob is distributed as a Java _JAR_ archive containing everything needed to build
 
 Bob is run from a shell or from the command line by invoking `java` (or `java.exe` on Windows) and providing the bob java archive as argument:
 
-```sh
+```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
  -a,--archive                        Build archive
@@ -50,7 +50,8 @@ usage: bob [options] [commands]
  -pk,--private-key <arg>             Private key (Android)
  -r,--root <arg>                     Build root directory. Default is
                                      current directory
- -tp,--texture-profiles <arg>        Use texture profiles
+ -tc,--texture-compression <arg>     Use texture compression as specified
+                                     in texture profiles
  -u,--auth <arg>                     User auth token
  -v,--verbose                        Verbose output
 ```
