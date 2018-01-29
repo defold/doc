@@ -5,7 +5,7 @@ brief: This manual explains how to write a native extension for the Defold game 
 
 # Native extensions
 
-If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in the C++, Objective C or Java language. Typical use cases for native extensions are:
+If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in C, C++, Objective C, Java or Javascript, depending on target platform. Typical use cases for native extensions are:
 
 - Interaction with specific hardware, for instance the camera on mobile phones.
 - Interaction with external low level APIs, for instance advertising network APIs that do not allow interaction through network APIs where Luasocket could be used.
@@ -35,7 +35,9 @@ To create a new extension, create a folder in the project root. This folder will
 *lib*
 : This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
 
-  Supported platforms are `ios`, `android`, `osx`, `win32`, . Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86-osx`, `x86_64-osx`, `x86-win32`, `x86_64-win32`.
+  Supported platforms are `ios`, `android`, `osx`, `win32`, `linux`.
+
+  Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86-osx`, `x86_64-osx`, `x86-win32`, `x86_64-win32`, `x86-linux`, `x86_64-linux`.
 
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
@@ -209,7 +211,7 @@ The [Defold community asset portal](https://www.defold.com/community/assets/) al
 The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
 
 Platforms
-: There is currently no support for Linux extensions. Android lacks support for *.aar* archives. All platforms currently create debug builds only.
+: Android lacks support for *.aar* archives. All platforms currently create debug builds only.
 
 Languages
 : C++, Objective C (MacOS and iOS) and Java (Android) are supported. Swift and Kotlin are currently not supported.

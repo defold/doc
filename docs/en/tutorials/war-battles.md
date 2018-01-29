@@ -197,17 +197,19 @@ Now you have an atlas with a single flipbook animation for the player. This is e
 
 2. <kbd>Right click</kbd> the root node of the collection in the *Outline* and select <kbd>Add Game Object</kbd>. Set the *Id* property of the new game object to "player".
 
-3. Change the Z *Position* property of the game object to 1.0. Since the "map" game object is at the default Z position 0 the "player" game object needs to be at a higher value so it's drawn on top.
+3. Change the Z *Position* property of the game object named "player" to 1.0. Since the "map" game object is at the default Z position 0 the "player" game object must be at a higher value (between -1.0 and 1.0) for it to be on top of the level.
 
 4. <kbd>Right click</kbd> the game object "player" and select <kbd>Add Component ▸ Sprite</kbd>. This creates a new sprite component in the "player" game object that can show graphics.
 
-5. Set the *Image* property of the sprite to */main/sprites.atlas*.
+5. Make sure that the Z *Position* of the *Sprite* is 0 so it will be rendered at the same depth as the game object "player". Setting the Z to a different value will offset the sprite depth from 1.0
 
-6. Set the *Default Animation* property of the sprite to "player-down".
+6. Set the *Image* property of the sprite to */main/sprites.atlas*.
+
+7. Set the *Default Animation* property of the sprite to "player-down".
 
     ![player sprite](images/war-battles/player_sprite.png)
 
-7. Run the game and check that the player character is animating.
+8. Run the game and check that the player character is animating.
 
 The player game object now has visual representation in the game world. The next step is to add a script component to the player game object. This will allow you to create player behavior, such as movement. But that depends on user input, so first you need to set that up.
 
