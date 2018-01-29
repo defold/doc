@@ -39,7 +39,7 @@ Model components are created just like any other game object component. You can 
 With the model in place you need to specify a number of properties
 
 *Mesh*
-: This property should refer to the Collada *.dae* file that contains the mesh to use.
+: This property should refer to the Collada *.dae* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
 
 *Material*
 : Set this property to a material you have created that is suitable for a textured 3D object. There is a built-in *model.material* file that you can use as a starting point.

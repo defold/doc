@@ -35,9 +35,7 @@ To create a new extension, create a folder in the project root. This folder will
 *lib*
 : This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
 
-  Supported platforms are `ios`, `android`, `osx`, `win32`, `linux`.
-
-  Supported `arc-platform` pairs are `armv7-ios`, `arm64-ios`, `armv7-android`, `x86-osx`, `x86_64-osx`, `x86-win32`, `x86_64-win32`, `x86-linux`, `x86_64-linux`.
+  :[platforms](../shared/platforms.md)
 
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
@@ -171,6 +169,16 @@ print(rot_s) --> nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM
 
 And that's it! We have created a fully working native extension.
 
+## Defined platform identifiers
+
+The following identifiers are defined by the builder on each respective platform:
+
+* DM_PLATFORM_WINDOWS
+* DM_PLATFORM_OSX
+* DM_PLATFORM_IOS
+* DM_PLATFORM_ANDROID
+* DM_PLATFORM_LINUX
+
 ## The ext.manifest file
 
 Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libs and frameworks. If the *ext.manifest* file does not contain a "platforms" segment, or a platform is missing from the list, the platform you bundle for will still build, but without any extra flags set.
@@ -214,11 +222,10 @@ Platforms
 : Android lacks support for *.aar* archives. All platforms currently create debug builds only.
 
 Languages
-: C++, Objective C (MacOS and iOS) and Java (Android) are supported. Swift and Kotlin are currently not supported.
+: The Swift and Kotlin programming languages are currently not supported.
 
 Editor
-: The editor integration. There is no build process indication. Error reporting is rudimentary.
+: The editor integration lacks build process indication. Error reporting is rudimentary.
 
 Debugging
 : Currently, when building on iOS, the *.dSYM* files are not included in the build result
-

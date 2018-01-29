@@ -229,7 +229,7 @@ The possible ways the number of inversions can change by a vertical slide is by 
 
 The possible ways the empty square row can change by a vertical slide is by ±1.
 
-In the final state of the puzzle, the empty square is in the lower right corner (the *odd* row 1) and the number of inversions is the *even* value 0. Each legal move either leave these two values intact (horizontal move) or switches their polarity (vertical move). No legal move can ever make the polarity of the inversions and the emply square row *odd*, *odd* or *even*, *even*.
+In the final state of the puzzle, the empty square is in the lower right corner (the *odd* row 1) and the number of inversions is the *even* value 0. Each legal move either leave these two values intact (horizontal move) or switches their polarity (vertical move). No legal move can ever make the polarity of the inversions and the empty square row *odd*, *odd* or *even*, *even*.
 
 Any puzzle state where the two numbers are both odd or both even is therefore impossible to solve.
 

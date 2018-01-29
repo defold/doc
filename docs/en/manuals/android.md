@@ -121,7 +121,7 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 You need the to create certificates in *.pem*-format and keys in *.pk8*-format. You can generate these with the `openssl` tool:
 
 ```sh
-$ openssl genrsa -out key.pem 1024
+$ openssl genrsa -out key.pem 2048
 $ openssl req -new -key key.pem -out request.pem
 $ openssl x509 -req -days 9999 -in request.pem -signkey key.pem -out certificate.pem
 $ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocrypt

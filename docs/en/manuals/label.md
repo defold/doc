@@ -111,7 +111,7 @@ end
 ```lua
 function init(self)
     -- Set the color of the "my_label" component in the same game object
-    -- as this script to grey...
+    -- as this script. Color is a RGBA value stored in a vector4.
     local grey = vmath.vector4(0.5, 0.5, 0.5, 1.0)
     go.set("#my_label", "color", grey)
 
