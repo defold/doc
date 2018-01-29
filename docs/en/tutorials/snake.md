@@ -17,7 +17,7 @@ Before beginning, take a minute and try the game:
     START GAME <span class="icon"></span>
   </button>
   <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_112.js" async></script>
+  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_119.js" async></script>
   <script>
       /* Load app on click in container. */
       document.getElementById("game-button").onclick = function (e) {
@@ -76,7 +76,7 @@ Defold only stores the area of the tilemap that is actually used so you need to 
 
 Select the "layer1" layer.
 
-Choose the menu option <kbd>Scene ▸ Tile Map ▸ Show Palette</kbd> to display the tile palette, then click the tile you want to use when painting.
+Choose the menu option <kbd>Edit ▸ Select Tile...</kbd> to display the tile palette, then click the tile you want to use when painting.
 
 Paint a border around the edge of the screen and some obstacles.
 
