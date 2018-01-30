@@ -353,7 +353,7 @@ Set Custom Heap Size
 : If set, Emscripten allocates *custom_heap_size* number of bytes for the application heap.
 
 Custom Heap Size
-: Sets the custom heap size for Emscripten to use if *set_custom_heap_size* is set. If not set, 256MB is allocated for the application heap.
+: Sets the custom heap size (number of bytes) for Emscripten to use if *set_custom_heap_size* is set. If not set, 256MB is allocated for the application heap.
 
 Include Dev Tool
 : Includes a visual dev-tool in the application that allows tracking of memory usage.
