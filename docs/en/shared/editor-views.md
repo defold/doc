@@ -20,7 +20,7 @@ The *Editor* view
 : The center view shows the currently open file in an editor for that file type. In all visual editors you can navigate the camera:
 
    - Pan: <kbd>Alt + left mouse button</kbd>.
-   - Pan (editor 1): <kbd>Alt + Middle button</kbd> (three button mouse) or <kbd>Option + Ctrl + Mouse button</kbd> (one button mouse)
+   - Pan (editor 1): <kbd>Alt + Middle button</kbd> (three button mouse) or <kbd>Ctrl + ⌘ + Mouse button</kbd> (one button mouse, Mac) or <kbd>Ctrl + Alt + Mouse button</kbd> (one button mouse, Windows/Linux). You can change the mouse type in the application preferences, under *Defold / Scene Editor* and *Mouse Type*.
    - Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
    - Rotate in 3D (editor 2): <kbd>Ctrl + left mouse button</kbd>.
 
