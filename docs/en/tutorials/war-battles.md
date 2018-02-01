@@ -5,13 +5,7 @@ brief: In this tutorial you will create the embryo of a small shooter game. This
 
 # War battles tutorial
 
-This tutorial goes through the steps needed to create a small playable game embryo in Defold. You do not need to have any prior experience with Defold, but if you have done some programming in Lua, Javascript, Python or similar, that will help.
-
-::: important
-We are in the process of transitioning to Defold editor 2, which is currently in alpha. This guide is written for the new editor 2, but most details apply to editor 1 as well. You are very welcome to [try the new editor](https://www.defold.com/editor-two/).
-:::
-
-To get an idea about what you are about to build, you can try the result here:
+This tutorial goes through the steps needed to create a small playable game embryo in Defold. You do not need to have any prior experience with Defold, but if you have done some programming in Lua, Javascript, Python or similar, that will help. To get an idea about what you are about to build, you can try the result here:
 
 <div id="game-container" class="game-container">
     <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/war-battles/preview.jpg"/>
@@ -61,41 +55,13 @@ Before you begin, you need to create an empty project on the Defold Dashboard an
 
    ![import](images/war-battles/import_project.png)
 
-The editor now opens.
+The editor now opens. If you are new to Defold, take a moment to familiarize yourselfs with the various views in the editor.
+
+:[overview](../shared/editor-views.md)
 
 ## Editor overview
 
-Let's take a moment to familiarize ourselves with the various views in the editor.
-
 ![editor overview](images/war-battles/editor_overview.png)
-
-1. The *Assets* view lists all the files that are part of your project. You click and scroll to navigate the list. All file oriented operations can be made in this view:
-
-    * <kbd>Double click</kbd> a file to open it in an editor for that file type.
-    * <kbd>Drag and drop</kbd> to move files and folders to new locations.
-    * <kbd>Right click</kbd> to open a pop up menu from where you can create new files or folders, rename, delete, track file dependencies and more.
-
-2. The *Editor* view in the center shows the currently open file in an editor for that file type. A toolbar is visible in the top right, including tools to move, rotate and scale currently selected items. In all visual editors you can alter the camera view:
-
-    * <kbd>Scroll</kbd> to zoom in and out.
-    * <kbd>Alt + left mouse button</kbd> to pan around.
-    * <kbd>Ctrl + left mouse button</kbd> to rotate in 3D.
-    * The <kbd>View</kbd> menu includes tools to frame the view to the current selection and to realign the camera.
-
-3. The *Outline* shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform many operations on your items:
-
-    * <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
-    * <kbd>Drag and drop</kbd> to change the hierarchy.
-    * <kbd>Right click</kbd> to open a pop up menu from where you can add items, delete selected items etc.
-
-4. The *Properties* view shows properties associated with the currently selected item, like *Position*, *Rotation*, *Animation* etc, etc.
-
-5. The *Console* shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing the *Curve editor* which is used when editing curves in the particle editor, the *Build errors* view that shows build errors, and the *Search results* view that displays search results.
-
-6. The *Changed files* view lists any files that have been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won't lose your work if misfortune strikes. Some file oriented operations can be performed in this view:
-
-    * <kbd>Double click</kbd> a file to open it in a suitable editor, just like in the assets view.
-    * <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.
 
 ## Cleaning the project
 

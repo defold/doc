@@ -1,6 +1,6 @@
 ---
 title: Editor overview
-brief: This manual gives an overview on how the editor look and works, and how to navigate in it.
+brief: This manual gives an overview on how the Defold editor look and works, and how to navigate in it.
 ---
 
 # Editor overview
@@ -11,65 +11,45 @@ The editor allows you to browse and manipulate all files in your game project in
 
 ## The scene editor
 
-Defold contains a number of editors, but the Scene Editor is the one used the most. All Game Objects and Collections, as well as some component types, are created and edited in this editor.
+The *Scene Editor* is used to create and edit game objects with their components and collections.
 
-![Select object](images/scene_editing/scene_editing_select.png)
+![Select object](images/editor/select.jpg)
 
-## Selecting objects
+Selecting objects
+: Click on objects in the main window to select them. The rectangle surrounding the object in the editor view will highlight green to indicate what item is selected. The selected object is also highlighted in the *Outline* view.
 
-Click on objects in the main window to select them. The rectangle surrounding the object in the editor view will highlight green to indicate what item is selected.
+  You can also select objects by:
 
-You can also select objects by:
+  - <kbd>Click and drag</kbd> to select all objects inside the selection region.
+  - <kbd>Click</kbd> objects in the Outline view.
 
-- <kbd>Click and drag</kbd> to select all objects inside the selection region.
-- <kbd>Click</kbd> objects in the Outline view.
+  Hold <kbd>Shift</kbd> or <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) while clicking to expand the selection.
 
-Hold <kbd>Shift</kbd> or <kbd>⌘</kbd> (Mac) or <kbd>Ctrl</kbd> while clicking to expand the selection.
+The move tool
+: ![Move tool](images/editor/icon_move.png){.left}
+  To move objects, use the *Move Tool*. You find it in the toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
 
-## The Move tool
+  ![Move object](images/editor/move.jpg)
 
-To move objects, use the *Move Tool*. It is accessible through the menu <kbd>Scene ▸ Move Tool</kbd> or by pressing the <kbd>W</kbd> key.
+  The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There arn also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
 
-![Scene menu](images/scene_editing/scene_editing_scene.png)
+The rotate tool
+: ![Rotate tool](images/editor/icon_rotate.png){.left}
+  To rotate objects, use the *Rotate Tool* by selecting it in the toolbar, or by pressing the <kbd>E</kbd> key.
 
-The selected object now shows three manipulation points that are used to move the object. Click and drag in the green square to move the object freely:
+  ![Move object](images/editor/rotate.jpg)
 
-![Move object](images/scene_editing/scene_editing_move.png)
-
-You can also move the object along just one selected axis by clicking and dragging along the corresponding arrow. Clicking and dragging on the red arrow allows movement on the *X* axis only whereas clicking and dragging on the green arrow allows movement on the *Y* axis only.
-
-Move against the grid
-: Hold <kbd>Shift</kbd> when using the move tool to snap the center of the game object to the grid. The default grid size is set to 100. If you wish to alter the size of the grid, you can specify a custom grid size in the preferences. Select <kbd>Defold Editor ▸ Preferences...</kbd>
-
-    ![Grid size](images/scene_editing/scene_editing_grid.png)
-
-## Rotate Tool
-
-The *Rotate Tool* is accessible through the menu <kbd>Scene ▸ Rotate Tool</kbd> or by pressing the <kbd>E</kbd> key.
-
-![Rotate object](images/scene_editing/scene_editing_rotate.png)
-
-This tool consists of three handles that you can manipulate. If you are working on 2D objects, you would probably only want to use the handle that rotates around the *Z* axis, which is the blue circle around the object. Click and drag on the circle to rotate the object.
-
-If you want to rotate around the *X* or *Y* axis, click and drag on the green and red circles. Since the view is peripendicular to those axis, the circles only appear as two lines crossing the object: a green horizontal one and a red vertical.
-
-## Scale Tool
-
-The *Scale Tool* is accessed through the menu <kbd>Scene ▸ Scale Tool</kbd> or by pressing the <kbd>R</kbd> key.
-
-![Scale object](images/scene_editing/scene_editing_scale.png)
-
-Click the red or green handle and drag to scale the object. Game objects can be scaled freely along the *X* and *Y* axis, causing the object to stretch or compress visually.
+  This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
 
 ::: sidenote
-Currently, sprites can not be scaled in the editor. They do, however, support *runtime* free-form scaling. See the [2D Graphics documentation](/manuals/2dgraphics/) for details.
+Currently, sprite components can not be individually scaled in the editor, you have to scale the game object holding the sprite. Sprites do, however, support *runtime* free-form scaling. See the [2D Graphics documentation](/manuals/2dgraphics/) for details.
 :::
 
-## Selecting what is showing in the Scene Editor
+The scale tool
+: ![Scale tool](images/editor/icon_scale.png){.left}
+  To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
 
-It is often convenient to be able to disable the visual rendering of certain types of information in the Scene Editor, especially when you are working on a complicated collection with lots of objects containing physics, triggers and layers upon layers of graphical assets. The Scene Editor allows you to enable and disable the rendering of different types of information in the editor. Select the <kbd>Scene ▸ Show</kbd> submenu and then chose what you want to see in the editor.
+  ![Scale object](images/editor/scale.jpg)
 
-![Showing information](images/scene_editing/scene_editing_show.png)
-
-The choices you make are stored in the editor and apply to all Scene Editor instances. Your choices are rememberered between sessions too so if you close the Defold editor down and start it up the next day, your Show settings will be intact.
+  This tool consists of a set of square handles. The center one scales the object uniformly in all axes (including Z). There also one handle for scaling along each of the X, Y and Z axes and one handle for scaling in the X-Y plane, the X-Z plane and the Y-Z plane.
 

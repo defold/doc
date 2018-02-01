@@ -4,12 +4,12 @@ The Defold editor is separated into a set of panes, or views, that display speci
 
 ![Editor 2](../shared/images/editor2_overview.png)
 
-The old editor looks different but works very much the same, only with less functionality.
+The *Assets* view (*Project Explorer* in editor 1)
+: Lists all the files that are part of your project. Click and scroll to navigate the list. All file oriented operations can be made in this view:
 
-![Editor 1](../shared/images/editor1_overview.png)
-
-The *Assets* view / *Project Explorer* (editor 1)
-: Lists all the files that are part of your project. You click and scroll to navigate the list. All file oriented operations can be made in this view:
+::: sidenote
+Editor 1 looks different but works very much the same, only with less functionality.)
+:::
 
    - <kbd>Double click</kbd> a file to open it in an editor for that file type.
    - <kbd>Drag and drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
@@ -17,14 +17,21 @@ The *Assets* view / *Project Explorer* (editor 1)
 
 The *Editor* view
 
-: The center view shows the currently open file in an editor for that file type. In all visual editors you can navigate the camera:
+: The center view shows the currently open file in an editor for that file type. All visual editors allows you to change the camera view:
 
-   - Pan: <kbd>Alt + left mouse button</kbd>.
-   - Pan (editor 1): <kbd>Alt + Middle button</kbd> (three button mouse) or <kbd>Ctrl + ⌘ + Mouse button</kbd> (one button mouse, Mac) or <kbd>Ctrl + Alt + Mouse button</kbd> (one button mouse, Windows/Linux). You can change the mouse type in the application preferences, under *Defold / Scene Editor* and *Mouse Type*.
-   - Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
-   - Rotate in 3D (editor 2): <kbd>Ctrl + left mouse button</kbd>.
+- Pan: <kbd>Alt + left mouse button</kbd>.
+- Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
+- Rotate in 3D: <kbd>Ctrl + left mouse button</kbd>.
 
-   The menu <kbd>Scene</kbd> contains tools to move, rotate and scale the currently selected object, options to frame the view to the current selection and to realign the camera. Editor 2 contains a toolbar in the top right where you find the move, rotate and scale tools.
+::: sidenote
+Panning in editor 1: <kbd>Alt + Middle button</kbd> (three button mouse) or <kbd>Ctrl + ⌘ + Mouse button</kbd> (one button mouse, Mac) or <kbd>Ctrl + Alt + Mouse button</kbd> (one button mouse, Windows/Linux). You can change the mouse type in the application preferences, under *Defold / Scene Editor* and *Mouse Type*.
+
+Rotating in 3D is not possible in editor 1.
+
+The menu <kbd>Scene</kbd> contains the tools to move, rotate and scale the currently selected object, options to frame the view to the current selection and to realign the camera.
+:::
+
+There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale*.
 
 The *Outline*
 : This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
