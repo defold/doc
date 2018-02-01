@@ -63,7 +63,7 @@ Now your new project exist on our cloud servers and you can start work on it in 
 
 7. Try running the game by selecting the menu item <kbd>Project ▸ Build</kbd>. You can steer the space ship with the arrow keys and pick up stars.
 
-  ![Run the game](images/side-scroller/side-scroller_run_game.png)
+  ![Run the game](images/side-scroller/run_game.jpg)
 
 ## Tweaking the game
 
@@ -197,7 +197,7 @@ The last step is to make sure the factory game object starts creating the bonus 
 
    The new bonus stars will start to appear!
 
-![Run final game](images/side-scroller/side-scroller_run_final.png)
+![Run final game](images/side-scroller/run_final.jpg)
 
 **You Win!**
 

@@ -1,44 +1,36 @@
 ---
 title: Introduction to Defold
-brief: A brief introduction that covers the core concepts of Defold and is intended to give an overview to the editor and the most important features.
+brief: A brief introduction to Defold.
 ---
 
 # Welcome to Defold
 
-Welcome to Defold. This introduction covers the core concepts of Defold and is intended to give an overview of the editor and the most important features. All descriptions are quite brief but there are links to more thorough documentation.
+Defold is made to be a professional game production platform to help game teams design, build and _ship_ games. It is not an all-encompassing solution for everything. There are no ready made complex components available. Instead, we believe the job of Defold is to empower game teams with simple, powerful collaborative tools. This means that you often have to do a bit more work yourself, but it also means that the path to your goal is clearer.
 
-:[editor versions](../shared/editor-versions.md)
+If you are a novice or an experienced developer, some of our concepts may take a while to completely grasp. We encourage you to experiment, follow tutorials, read our manuals and API documentation, and to be active on the forum to learn from other users and follow the development of Defold.
 
-## Design philosophy
+## Where to start?
 
-Defold was created with the following goals:
+There is quite a lot of documentation available, in the form of manuals, API reference documentation, examples and tutorials. If you don't know where to start, here are some pointers:
 
-- To be a complete professional turn-key production platform for game teams.
-- To be simple and clear, providing explicit solutions to common game development architectural and workflow problems.
-- To be a blazing fast development platform ideal for iterative game development.
-- To be high-performance in runtime.
-- To be truly multi-platform.
+The editor
+: ![Editor overview](images/introduction/editor.png){.left} [The editor overview](/manuals/editor/) is a gives a good introduction to the editor and will help you get around, use the visual tools and write code. If you are familiar with 3D modelling programs and programming IDEs, there should be few surprises, but there are always things that will be different from your favorite piece of software.
 
-The design of the editor and engine is carefully crafted to reach those goals. Some of our design decisions differ from what you may be used to if you have experience with other platforms, for example:
+Simple examples
+: ![Examples](images/introduction/examples.jpg){.left} [Our collection of simple examples](/examples/) is a good introduction to how to put pieces together into something that works. You will find minimal examples of how to do a wide variety of common things in Defold.
 
-- We require static declaration of the resource tree and all naming. This requires some initial effort from you, but helps the development process tremendously in the long run.
-- We encourage message passing between simple encapsulated entities.
-- There is no object orientation inheritance.
-- Our API:s are asynchronous.
-- The rendering pipeline is code driven and fully customizable.
-- All our resource files are in simple plain text formats, optimally structured for Git merges as well as import and processing with external tools.
-- Resources can be changed and hot reloaded into a running game allowing for extremely fast iteration and experimentation.
+The Lua language
+: ![Lua overview](images/introduction/lua.png){.left} [Defold uses Lua](/manuals/lua/) for all its logic control. The engine is a fast C++ piece of machinery, but it is controlled on a high level by Lua programs. If you have programmed in Python, Javascript or any other high level language, you will find Lua pretty easy to grasp and can probably follow along a tutorial just fine. Otherwise, read through our Lua manual and take it from there.
 
-Defold is not an all-encompassing solution for everything. There are no ready made complex components available. Instead, we believe the job of Defold is to empower game teams with simple strong collaborative tools. This means that you often have to do a bit more work yourself, but it also means that the path to the goal is clearer.
+Game tutorials
+: ![Tutorials](images/introduction/tutorials.jpg){.left} [Learning by building games](/tutorials/) is something we encourage. We have a variety of tutorials available at different skill and complexity level. Following one or two of them may help you understand better how to put things together in Defold.
 
-If you are an experienced developer, Defold's core concepts may be pretty straightforward to understand, but please take the time to experiment and read through the documentation---some of our concepts are, although simple, different from what you might initially expect.
+The building blocks of Defold
+: ![Building blocks](images/introduction/building_blocks.png){.left} [Defold games are build by composing simple blocks](/manuals/building-blocks/), some of which seem familiar if you have used other engines. There are some architectural design decisions that make the blocks of Defold special and it takes a little while to be comfortable working with them. Our building blocks manual is a good start if yuo feel you need to understand thoroughly how it's working.
 
-## Collaboration
+The forum
+: ![Forum](images/introduction/forum.jpg){.left} [Learning from others](//forum.defold.com/) is often the best way to learn. Our community is very friendly and knows a lot about building games in general and Defold in particular. If you ever get stuck, don't hesitate but head over to the forum for help!
 
-Most games are created as a collaborative effort between two or more people. We believe that the ability to work together is key for a fast development cycle. Collaboration is therefore a cornerstone of the Defold platform.
+Remember that no matter what path you take to learning Defold, you can always come back here for in-depth explanations of the various features and concepts Defold provides. And don't hesitate to point out things that you do not understand or think are wrong. These pages are for you and we want to make them as good as possible.
 
-![Collaboration](images/introduction/introduction_collaboration.png)
-
-When you create a new project, a central repository is automatically created on our servers. During development, the files you create and modify are your personal view of this repository. When you have done some work and are ready to share your changes, just synchronize your personal view with the central repository. The editor uploads your changes, downloads any new changes (from other team members) and helps resolve conflicts if you and someone else have edited the same piece of project data. All changes are recorded and logged so there is a clear history of what has happened in your project. You don't have to worry about backups and you will never need to email files back and forth with your team. Read more about project collaboration in the [Workflow documentation](/manuals/workflow/).
-
-Defold's collaboration tools are built on the popular and extremely powerful distributed version control system "Git". (If you're interested in Git, you can read more on http://git-scm.com).
+We hope that you will enjoy creating your next awesome game in Defold!
