@@ -1,5 +1,5 @@
 ---
-title: Facebook Gameroom 
+title: Facebook Gameroom
 brief: Bob is a command line tool for building Defold projects. This manual explains how to use the tool.
 ---
 
@@ -11,11 +11,11 @@ Facebook Gameroom is a Windows-native client allowing players to play web games 
 
 <span class="icon-windows"></span> The client is [available for download here](https://www.facebook.com/gameroom/download/) for Windows 7 and above.
 
-Gameroom builds work with the same Facebook Lua API as usual. See the [Facebook manual](manuals/facebook) for more information on the Defold Facebook API.
+Gameroom builds work with the same Facebook Lua API as usual. See the [Facebook manual](/manuals/facebook) for more information on the Defold Facebook API.
 
 ## Configuring for Gameroom
 
-You need to set up your project for Facebook first. See the [Facebook manual](manuals/facebook) for details.
+You need to set up your project for Facebook first. See the [Facebook manual](/manuals/facebook) for details.
 
 Secondly, you should set the *IAP provider* setting under *Windows* in your "game.project" file to `Gameroom`:
 
