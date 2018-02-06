@@ -32,7 +32,7 @@ The site Shadertoy (https://www.shadertoy.com) contains a massive number of user
 
 The _vertex shader_ computes the screen geometry of a component's primitive polygon shapes. For any type of visual component, be it a sprite, spine model or model, the shape is represented by a set of polygon vertex positions. We use model components in the following discussion since their geometry often extends to full 3D.
 
-In the engine, the vertex positions of a model's shape are stored relative to a model-local origo, i.e. in a coordinate system that is unique to the particular model. The game world, however, uses a the same coordinate system for all objects that are part of the world. When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a world transform matrix.
+In the engine, the vertex positions of a model's shape are stored relative to a model-local origo, i.e. in a coordinate system that is unique to the particular model. The game world, however, uses the same coordinate system for all objects that are part of the world. When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a world transform matrix.
 
 ![World transform](images/shader/world_transform.png)
 
