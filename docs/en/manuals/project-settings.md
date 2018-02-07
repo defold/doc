@@ -82,7 +82,7 @@ High Dpi
 : Creates a high dpi back buffer on displays that support it. Typically the game will render in double the resolution than what is set in the *Width* and *Height* settings, which will still be the logical resolution used in scripts and properties.
 
 Samples
-: How many samples to use for super sampling anti-aliasing, `0` by default, which means it is turned off.
+: How many samples to use for super sampling anti-aliasing. It sets the GLFW_FSAA_SAMPLES window hint. It is `0` by default, which means that anti-aliasing is turned off.
 
 Fullscreen
 : Check if the application should start full screen. If unchecked, the application runs windowed.

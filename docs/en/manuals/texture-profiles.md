@@ -29,7 +29,8 @@ Each project contains a specific *.texture_profiles* file that contains the conf
 
 To add texture compression:
 
-- Select <kbd>File ▸ New ▸ Other...</kbd> and choose *Texture Profiles File* to create a new texture profiles file. (Alternatively copy *default.texture_profiles* to a location outside of *builtins*)
+- Select <kbd>File ▸ New...</kbd> and choose *Texture Profiles* to create a new texture profiles file. (Alternatively copy *default.texture_profiles* to a location outside of *builtins*)
+- Choose a name and location for the new file.
 - Change the *texture_profiles* entry in *game.project* to point to the new file.
 - Open the *.texture_profiles* file and configure it according to your requirements.
 
@@ -37,16 +38,16 @@ To add texture compression:
 
 ![Setting the texture profile](images/texture_profiles/texture_profiles_game_project.png)
 
-You can turn on and off the use of texture profiles in the editor preferences. Select <kbd>File ▸ Preferences</kbd>. The *Defold* pane contains a checkbox item *Enable texture profiles*.
+You can turn on and off the use of texture profiles in the editor preferences. Select <kbd>File ▸ Preferences...</kbd>. The *General* tab contains a checkbox item *Enable texture profiles*.
 
 ![Texture profiles preferences](images/texture_profiles/texture_profiles_preferences.png)
 
-## Paths
+## Path Settings
 
-The *path_settings* section of the texture profiles file contains a list of path regular expressions and the name of which *profile* to use when processing resources that match the path expression. The path regular expressions are expressed with "Ant Glob" patterns (see http://ant.apache.org/manual/dirtasks.html#patterns for details). Patterns can be expressed using the following wildcards:
+The *Path Settings* section of the texture profiles file contains a list of path patterns and which *profile* to use when processing resources that match the path. The paths are expressed as "Ant Glob" patterns (see http://ant.apache.org/manual/dirtasks.html#patterns for details). Patterns can be expressed using the following wildcards:
 
 `*`
-: Matches zero or more characters. For instance `sprite*.png` matches the files *sprite1.png*, *sprite.png* and *sprite_with_a_long_name.png*.
+: Matches zero or more characters. For instance `sprite*.png` matches the files *sprite.png*, *sprite1.png* and *sprite_with_a_long_name.png*.
 
 `?`
 : Matches exactly one character. For instance: `sprite?.png` matches the files *sprite1.png*, *spriteA.png* but not *sprite.png* or *sprite_with_a_long_name.png*.
@@ -74,27 +75,30 @@ The *profiles* section of the texture profiles file contains a list of named pro
 
 ![Profiles](images/texture_profiles/texture_profiles_profiles.png)
 
-*os*
-: Specifies a matching OS platform. `OS_ID_GENERIC` matches all platforms including dev-app builds on device, `OS_ID_WINDOWS` matches Windows target bundles, `OS_ID_IOS` matches iOS bundles and so on. Note that if `OS_ID_GENERIC` is specified, it will be included for all platforms.
+*Platforms*
+: Specifies a matching platform. `OS_ID_GENERIC` matches all platforms including dev-app builds on device, `OS_ID_WINDOWS` matches Windows target bundles, `OS_ID_IOS` matches iOS bundles and so on. Note that if `OS_ID_GENERIC` is specified, it will be included for all platforms.
 
-*formats*
+*Formats*
 : One or more texture formats to generate. If several formats are specified, textures for each format are generated and included in the bundle. The engine selects textures of a format that is supported by the runtime platform.
 
-*mipmaps*
-: For each platform, specify whether mipmaps should be generated. The property can be either `true` or `false`.
+*Mipmaps*
+: If checked, mipmaps are generated for the platform. Checked by default.
 
-*max_texture_size*
+*Premultiply alpha*
+: If checked, alpha is premultiplied into the texture data. Checked by default.
+
+*Max Texture Size*
 : If set to a non-zero value, textures are limited in pixel size to the specified number. Any texture that has a width or height larger than the specified value will be scaled down.
 
-The *formats* added to a profile each have the following properties:
+The *Formats* added to a profile each have the following properties:
 
-*format*
+*Format*
 : The format to use when encoding the texture. See below for all available texture formats.
 
-*compression_level*
-: Selects the quality level for the resulting compressed image. The values range from `FAST` (low quality, fast compression) to `NORMAL`, `HIGH` and `BEST` (highest quality, slowest compression).
+*Compression*
+: Selects the quality level for the resulting compressed image. The values range from `FAST` (lowest quality, fast compression) to `BEST` (highest quality, slowest compression).
 
-*compression_type*
+*Type*
 : Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#_compression_types) below for more details.
 
 ## Texture formats
