@@ -195,6 +195,7 @@ platforms:
             flags:      ["-stdlib=libc++"]
             linkFlags:  ["-ObjC"]
             libs:       ["z", "c++", "sqlite3"]
+            defines:    ["MY_DEFINE"]
 
     armv7-ios:
         context:
@@ -202,6 +203,7 @@ platforms:
             flags:      ["-stdlib=libc++"]
             linkFlags:  ["-ObjC"]
             libs:       ["z", "c++", "sqlite3"]
+            defines:    ["MY_DEFINE"]
 ```
 
 ## Example extensions
