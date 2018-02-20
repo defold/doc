@@ -456,7 +456,7 @@ Now that we have a hero character set up with collision and all, we need to also
 1. Create a new *level.collection* file (right-click *main* in the *Project Explorer* and select <kbd>New ▸ Collection File</kbd>).
 2. Open the new file, right-click the root in the *Outline* and select <kbd>Add Collection from File</kbd> and choose *ground.collection*.
 3. In *level.collection*, right-click the root in the *Outline* and select <kbd>Add Game Object File</kbd> and choose *hero.go*.
-4. Now, create a new folder called *level* in the project root (right-click the white space below *game.project* and select <kbd>New ▸ Folder</kbd>), then move all level assets to it.
+4. Now, create a new folder called *level* in the project root (right-click the white space below *game.project* and select <kbd>New ▸ Folder</kbd>), then move the level assets you have created so far to it: the files *level.collection*, *level.atlas*, the "images" folder holding the images for the level atlas, and the files *ground.collection* and *ground.script*.
 5. Open *main.collection* and replace *ground.collection* with *level.collection*.
 
 ::: sidenote
