@@ -103,7 +103,7 @@ This is how we integrate the acceleration and velocity to move the character in 
     ```
 
 5. Check if dv exceeds the intended speed difference, clamp it in that case
-6. Save the current velocity for later use (+self.velocity+, which right now is the velocity used the previous frame):
+6. Save the current velocity for later use (`self.velocity`, which right now is the velocity used the previous frame):
 
     ```lua
     local v0 = self.velocity
