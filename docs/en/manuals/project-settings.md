@@ -186,7 +186,7 @@ Use Accelerometer
 ## Resource
 
 Http Cache
-: Check if the HTTP cache should be enabled for faster loads over network.
+: If checked, a HTTP cache is enabled for faster loading of resources over the network to the running engine on device, unset by default.
 
 Uri
 : Where to find the project build data, in URI format.
