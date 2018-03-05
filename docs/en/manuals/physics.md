@@ -218,7 +218,7 @@ Triggers are light weight collision objects. Thay are similar to ray casts in th
 
 ## Ray casts
 
-Ray casts are used to read the physics world along a linear ray. You provide a start and end position as well as a set of groups to test against. The engine returns a response message telling you whether there are physics objects (dynamic, kinematic or static) along the ray or not:
+Ray casts are used to read the physics world along a linear ray. You provide a start and end position as well as a set of groups to test against. The engine returns a response message telling you whether there are physics objects along the ray or not. Rays intersect with dynamic, kinematic and static objects, not with triggers.
 
 ```lua
 function update(self, dt)
