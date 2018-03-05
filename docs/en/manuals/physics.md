@@ -169,7 +169,7 @@ The collision_response message is only adequate to resolve collisions where you 
 
 **`contact_point_response`**
 
-This message is sent when one of the colliding objects is Dynamic or Kinematic. It has the following fields set:
+This message is sent when one of the colliding objects is dynamic or kinematic. It has the following fields set:
 
 `position`
 : world position of the contact point (`vector3`).
@@ -208,7 +208,7 @@ For a game or application where you need to separate objects perfectly, the `con
 
 ## Triggers
 
-Triggers are light weight collision objects. In a trigger collision `collision_response` messages are sent. In addition, triggers also send a special `trigger_response` message when the collision begins and end. The message has the following fields:
+Triggers are light weight collision objects. Thay are similar to ray casts in that they are supposed to read the physics world as opposed to interacting with it. In a trigger collision `collision_response` messages are sent. In addition, triggers also send a special `trigger_response` message when the collision begins and end. The message has the following fields:
 
 `other_id`
 : the id of the instance the collision object collided with (`hash`).
@@ -216,10 +216,33 @@ Triggers are light weight collision objects. In a trigger collision `collision_r
 `enter`
 : `true` if the interaction was an entry into the trigger, `false` if it was an exit. (`boolean`).
 
+## Ray casts
 
-## Resolving Kinematic collisions
+Ray casts are used to read the physics world along a linear ray. You provide a start and end position as well as a set of groups to test against. The engine returns a response message telling you whether there are physics objects (dynamic, kinematic or static) along the ray or not:
 
-With Kinematic collision objects you have to resolve collisions yourself and move the objects apart from any penetration. A naive implementation of object separation looks like this:
+```lua
+function update(self, dt)
+  -- request ray cast
+  local my_start = vmath.vector3(0, 0, 0)
+  local my_end = vmath.vector3(100, 1000, 1000)
+  local my_groups = { hash("my_group1"), hash("my_group2") }
+
+  physics.ray_cast(my_start, my_end, my_groups)
+end
+
+function on_message(self, message_id, message, sender)
+    -- check for ray cast responses
+    if message_id == hash("ray_cast_response") then
+        -- act on the hit
+    elseif message_id == hash("ray_cast_missed") then
+        -- act on the miss
+    end
+end
+```
+
+## Resolving kinematic collisions
+
+With kinematic collision objects you have to resolve collisions yourself and move the objects apart from any penetration. A naive implementation of object separation looks like this:
 
 ```lua
 function on_message(self, message_id, message, sender)
@@ -231,7 +254,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-This code will separate your Kinematic object from other physics object it penetrates, but the separation often overshoots and you will see jitter in many cases. To properly take a Kinematic object out of a collision we need to consider cases like the following:
+This code will separate your kinematic object from other physics object it penetrates, but the separation often overshoots and you will see jitter in many cases. To properly take a kinematic object out of a collision we need to consider cases like the following:
 
 ![Physics collision](images/physics/physics_collision.png)
 
@@ -278,14 +301,14 @@ end
 ## Best practices
 
 Triggers
-: Trigger collision objects are sometimes too limited. Suppose you want a trigger that controls the intensity of a sound---the further the player moves into the trigger, the more intense the sound. This scenario requires a trigger that provides the penetration distance in the trigger. For this, a plain trigger collision object won’t do. Instead, you can set up a Kinematic object and never perform any separation of collisions but instead only register them and use the collision data.
+: Trigger collision objects are sometimes too limited. Suppose you want a trigger that controls the intensity of a sound---the further the player moves into the trigger, the more intense the sound. This scenario requires a trigger that provides the penetration distance in the trigger. For this, a plain trigger collision object won’t do. Instead, you can set up a kinematic object and never perform any separation of collisions but instead only register them and use the collision data.
 
 ::: sidenote
 Kinematic objects are more expensive than triggers, so use them wisely.
 :::
 
-Choosing between Dynamic or Kinematic objects
-: If you are making a game with a player character (of some sort) that you maneuver through a level, it might seem like a good idea to create the player character as a Dynamic physics object and the world as a Static physics object. Player input is then handled by applying various forces on the player object.
+Choosing between dynamic or kinematic objects
+: If you are making a game with a player character (of some sort) that you maneuver through a level, it might seem like a good idea to create the player character as a dynamic physics object and the world as a static physics object. Player input is then handled by applying various forces on the player object.
 
   Going down that path is possible, but it is extremely hard to achieve great results. Your game controls will likely feel generic---like thousands of other games, since it is implemented the same way on the same physics engine. The problem boils down to the fact that the Box2D physics simulation is a realistic Newtonian simulation whereas a platformer is usually fundamentally different. You will therefore have to fight hard to make a Newtonian simulation behave in a non-Newtonian fashion.
 
@@ -295,6 +318,6 @@ Choosing between Dynamic or Kinematic objects
 
   This particular problem can be solved by setting the "Locked Rotation" property in the character's collision object. However, the example illustrates the core of the problem which is that the behavior of the character should be under the control of _you_, the designer/programmer and not be directly controlled by a physics simulation over which you have very limited control.
 
-  So it is highly recommended that you implement your player character as a Kinematic physics object. Use the physics engine to detect collisions and deal with collisions and object separations as you need. Such an approach will initially require more work, but will allow you to design and fine-tune the player experience into something really good and unique.
+  So it is highly recommended that you implement your player character as a kinematic physics object. Use the physics engine to detect collisions and deal with collisions and object separations as you need. Such an approach will initially require more work, but will allow you to design and fine-tune the player experience into something really good and unique.
 
 (Some of the graphic assets used are made by Kenney: http://kenney.nl/assets)
