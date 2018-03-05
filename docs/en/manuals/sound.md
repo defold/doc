@@ -43,7 +43,7 @@ When you have a sound component set up properly, you can cause it to play its so
 msg.post("go#sound", "play_sound", {delay = 1, gain = 0.5})
 ```
 
-Each message sent to a component will cause it to play another instance of the sound, until the available sound voices are full. It is advised that you implement some sort of gating and sound grouping mechanism.
+Each message sent to a component will cause it to play another instance of the sound, until the available sound buffer is full and the engine will print errors in the console. It is advised that you implement some sort of gating and sound grouping mechanism.
 
 ## Gain
 
