@@ -15,14 +15,16 @@ Sound groups
 
 ## Creating a sound component
 
-Sound components can only be instanced in-place in a game object. Create a new game object, right click on it and select *Add Component*. Select *Sound* and press *OK*.
+Sound components can only be instanced in-place in a game object. Create a new game object, right click on it and select <kbd>Add Component ▸ Sound</kbd> and press *OK*.
 
-![Select component](images/sound/sound_select_component.png)
+![Select component](images/sound/sound_add_component.jpg)
 
 The created component has a set of properties that should be set:
 
+![Select component](images/sound/sound_properties.jpg)
+
 *Sound*
-: Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format with a sampling rate of 44100. (See http://en.wikipedia.org/wiki/WAV and http://en.wikipedia.org/wiki/Vorbis for details).
+: Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format. Defold supports sound files saved at 16bit bit depth and with a sampling rate of 44100.
 
 *Looping*
 : If checked the sound will play back in a loop until explicitly stopped.
@@ -33,7 +35,15 @@ The created component has a set of properties that should be set:
 *Group*
 : The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in "master" group.
 
-![Create component](images/sound/sound_create_component.png)
+## Playing the sound
+
+When you have a sound component set up properly, you can cause it to play its sound by sending it a ["play_sound"](https://www.defold.com/ref/sound/#play_sound) message:
+
+```lua
+msg.post("go#sound", "play_sound", {delay = 1, gain = 0.5})
+```
+
+Each message sent to a component will cause it to play another instance of the sound, until the available sound voices are full. It is advised that you implement some sort of gating and sound grouping mechanism.
 
 ## Gain
 
