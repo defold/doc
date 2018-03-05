@@ -30,17 +30,17 @@ Installation on MacOS
 Installation on Windows
 : The downloaded file is a ZIP archive that needs to be extracted:
 
-  1. Locate the archive file "Defold-x86_64-win32.zip" (or "Defold-x86-win32.zip" for 32 bit Windows), <kbd>press and hold</kbd> (or <kbd>right-click</kbd>) the folder, select *Extract All*, and then follow the instructions to extract the archive to a folder named "Defold-win32.win32.x86".
-  2. Move the folder "Defold-x86_64-win32" to "C:\Program Files (x86)\"
+  1. Locate the archive file "Defold-x86_64-win32.zip" (or "Defold-x86-win32.zip" for 32 bit Windows), <kbd>press and hold</kbd> (or <kbd>right-click</kbd>) the folder, select *Extract All*, and then follow the instructions to extract the archive to a folder named "Defold".
+  2. Move the folder "Defold" to "C:\Program Files (x86)\"
   
-  To start the editor, open the folder "Defold-x86_64-win32" and <kbd>double click</kbd> the file "Defold.exe".
+  To start the editor, open the folder "Defold" and <kbd>double click</kbd> the file "Defold.exe".
 
   ![Defold windows](../shared/images/windows_content.png)
 
 Installation on Linux
 : The downloaded file is a ZIP archive that needs to be extracted:
 
-  1. From a terminal, locate the archive file "Defold-x86_64-linux.zip" unzip it to a target Directory.
+  1. From a terminal, locate the archive file "Defold-x86_64-linux.zip" unzip it to a target Directory called "Defold".
 
      ```bash
      $ unzip Defold-x86_64-linux.zip -d Defold
