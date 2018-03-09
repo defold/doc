@@ -315,6 +315,10 @@
                     {
                         "path": "/manuals/bob",
                         "name": "Bob the builder"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
                     }
                 ]
             },

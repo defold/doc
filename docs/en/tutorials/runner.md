@@ -457,7 +457,7 @@ Now that we have a hero character set up with collision and all, we need to also
 2. Open the new file, right-click the root in the *Outline* and select <kbd>Add Collection from File</kbd> and choose *ground.collection*.
 3. In *level.collection*, right-click the root in the *Outline* and select <kbd>Add Game Object File</kbd> and choose *hero.go*.
 4. Now, create a new folder called *level* in the project root (right-click the white space below *game.project* and select <kbd>New ▸ Folder</kbd>), then move the level assets you have created so far to it: the files *level.collection*, *level.atlas*, the "images" folder holding the images for the level atlas, and the files *ground.collection* and *ground.script*.
-5. Open *main.collection* and replace *ground.collection* with *level.collection*.
+5. Open *main.collection*, delete *ground.collection* and instead add *level.collection* (right-click and <kbd>Add Collection from File</kbd>) which now contains the *ground.collection*. Make sure that you place the collection at position 0, 0, 0.
 
 ::: sidenote
 As you might have noticed by now, the file hierarchy seen in the *Project Explorer* is decoupled from the content structure you build in your collections. Individual files are referenced from collection- and game object files, but their location is completely arbitrary.
@@ -519,7 +519,7 @@ end
 ![Add ground code](images/runner/insert_ground_code.png)
 
 <a name="part-6"></span></a>
-# STEP 6 - Ground physics and platforms
+## STEP 6 - Ground physics and platforms
 
 At this point we should add physics collision for the ground:
 

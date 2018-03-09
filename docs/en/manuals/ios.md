@@ -1,19 +1,19 @@
 ---
 title: Defold development for the iOS platform
-brief: This manual explains how to develop games and apps for iOS devices in Defold.
+brief: This manual explains how to build and run games and apps on iOS devices in Defold.
 ---
 
 # iOS development
 
-iOS development differs from Android development in that you have to be a registered developer to be able to put apps or games on an iOS device, even during development. iOS requires that all apps that are out on a phone or tablet are signed with an Apple-issued certificate and provisioning profile.
+iOS requires that _any_ app that you build and want to run on your phone or tablet _must_ be signed with an Apple-issued certificate and provisioning profile. This manual explains the steps involved in bundling your game for iOS. During development, running your game through the [development app](/manuals/dev-app) is often preferred since it allows you to hot reload content and code wirelessly directly to your device.
 
 ## Apple's code signing process
 
-The security associated with iOS apps consists of several components. To get access to the required tools, you need to sign up to the [Apple's iOS Developer Program](https://developer.apple.com/programs/). When you have enrolled, go to the [Apple's Developer Member Center](https://developer.apple.com/membercenter/index.action).
+The security associated with iOS apps consists of several components. You can get access to the required tools by singing up to the [Apple's iOS Developer Program](https://developer.apple.com/programs/). When you have enrolled, go to the [Apple's Developer Member Center](https://developer.apple.com/membercenter/index.action).
 
 ![Apple Member Center](images/ios/apple_member_center.png)
 
-The section *Certificates, Identifiers & Profiles* contains all the tools you need. From here you can create, delete and edit:
+The section *Certificates, Identifiers & Profiles* contains all the tools that you need. From here you can create, delete and edit:
 
 Certificates
 : Apple-issued cryptographic certificates that identify you as a developer. You can create development or production certificates. Developer certificates allow you to test certain features such as the in-app purchase mechanism in a sandbox test environment. Production certificates are used to sign the final app for upload to the App Store. You need a certificate to sign apps before you can put them on your device for testing.
@@ -22,10 +22,10 @@ Identifiers
 : Identifiers for various uses. It is possible to register wildcard identifiers (i.e. `some.prefix.*`) which can be used with several apps. App IDs can contain Application Service information, like if the app enables Passbook integration, the Game Center, etc. Such App IDs cannot be wildcard identifiers. For Application Services to function, your application's *bundle identifier* must match the App ID identifier.
 
 Devices
-: Each development device needs to be registered with their UDID (Unique Device IDentifier). See below for details on how to find the UDID of your device.
+: Each development device needs to be registered with their UDID (Unique Device IDentifier, see below).
 
 Provisioning Profiles
-: Provisioning profiles associate certificates with App IDs and specific devices. They basically tell which app by what developer is allowed to be on what devices.
+: Provisioning profiles associate certificates with App IDs and a list of devices. They tell which app by what developer is allowed to be on what devices.
 
 When signing your games and apps in Defold, you need a valid certificate and a valid provisioning profile.
 
@@ -33,80 +33,59 @@ When signing your games and apps in Defold, you need a valid certificate and a v
 Some of the things you can do on the Member Center homepage you can also perform from inside the XCode development environment---if you have that installed.
 :::
 
-## Device UDID
+Device identifier (UDID)
+: The UDID for an iOS device can be found by connecting the device to a computer via wifi or cable. Open Xcode and select <kbd>Window ▸ Devices and Simulators</kbd>. The serial number and identifier are displayed when you select your device.
 
-The UDID for an iOS device can be found by connecting the device to a computer via wifi or cable. Open up iTunes and click on the devices symbol. Select your device.
+  ![xcode devices](images/ios/xcode_devices.png)
 
-![iTunes devices](images/ios/itunes_devices.png)
+  If you don't have Xcode installed you can find the identifier in iTunes. Click on the devices symbol and select your device.
 
-On the *Summary* page, locate the *Serial Number*.
+  ![itunes devices](images/ios/itunes_devices.png)
 
-![Device UDID step 1](images/ios/udid.png)
+  1. On the *Summary* page, locate the *Serial Number*.
+  2. Click the *Serial Number* once so the field changes into *UDID*. If you click repeatedly, several pieces of information about the device will show up. Just continue to click until *UDID* shows.
+  3. Right-click the long UDID string and select <kbd>Copy</kbd> to copy the identifier to the clipboard so you can easily paste it into the UDID field when registering the device on Apple's Developer Member Center.
 
-Click the *Serial Number* once so the field changes into *UDID*. If you click repeatedly, several pieces of information about the device will show up. Just continue to click until *UDID* shows. Right-click the long UDID string and select <kbd>Copy</kbd> to copy the identifier to the clipboard so you can easily paste it into the UDID field when registering the device on Apple's Developer Member Center.
+## Developing using a free Apple developer account
 
-![Device UDID step 2](images/ios/udid_2.png)
+Since Xcode 7, anyone can install Xcode and do on-device development for free. You don't have to sign up for the iOS Developer Program. Instead, Xcode will automatically issue a certificate for you as a developer (valid for 1 year) and a provisioning profile for your app (valid for one week) on your specific device.
 
-## Signing the Defold development app
+1. Connect your device.
+2. Install Xcode.
+3. Add a new account to Xcode and sign in with your Apple ID. 
+4. Create a new project. The simplest "Single View App" works fine.
+5. Select your "Team" (auto created for you) and give the app a bundle identifier.
+6. Make sure that Xcode has created a *Provisioning Profile* and *Signing Certificate* for the app.
+  
+   ![](images/ios/xcode_certificates.png)
 
-The development app is a very convenient version of the engine that allows you to push content to it over wifi. You install the development app on your device(s), start the app and then select the device as a build target from the editor.
+7. Build and launch the app on your device. The first time, Xcode will ask you to enable Developer mode and will prepare the device with debugger support. This may take a while.
+8. When you have verified that the app works, find it on your disk. You can see the build location in the Build report in the "Report Navigator".
 
-Currently, at least one team member needs to run OS X and be a registered Apple Developer in order to sign the development app for other team members. We will call this person the _signer_.
+   ![](images/ios/app_location.png)
 
-* The signer needs a certificate installed on his/her computer.
-* The signer needs a mobile provisioning profile on his/her computer.
-* The signer needs to collect all the UDIDs from other members and add these to his/her mobile provisioning file.
+9. Locate the app, right-click it and select <kbd>Show Package Contents</kbd>.
 
-To upload a signed development app to the Defold Dashboard, the following steps are required:
+   ![](images/ios/app_contents.png)
 
-- In the editor, select <kbd>Project ▸ Sign iOS App...</kbd>
-- Select your code signing identity.
-- Browse for your mobile provisioning file.
-- Press the *Sign and upload* button.
+10. Copy the file "embedded.mobileprovision" to some place on your drive where you will find it.
 
-![Signing the app](images/ios/sign.png)
+   ![](images/ios/free_provisioning.png)
 
-The Defold dev app is uploaded to the project page on the Dashboard.
-Each project member can now:
+This provision file can be used together with your code signing identity to sign apps in Defold for one week, for _one device_. There is no way to add additional device UDIDs to this generated provisioning profile.
 
-- Browse to the Dashboard from their iOS device.
-- Open the project page from the list of projects.
-- Click the link *Install the Defold App*, which can be found below the *Members* section.
-
-This video shows the whole process:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/T_igYdHubqA" frameborder="0" allowfullscreen></iframe>
-
-## Launching the game
-
-To launch your game on your iOS device, the Defold dev app and editor must be able to connect, over the same wifi network.
-
-- Make sure the editor is up and running.
-- Launch the Defold dev app on the iOS device.
-- Select your device under <kbd>Project ▸ Targets</kbd> in the editor.
-- Select <kbd>Project ▸ Build And Launch</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
-- While the game is running, you can use [hot reloading](/manuals/debugging#_hot_reloading) as usual.
+When the provision expires, you need to build the app again in Xcode and get a new temporary provision file as described above.
 
 ## Creating an iOS application bundle
 
-You can also easily create a stand alone application bundle for your game from the editor. Simply select <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> from the menu.
+When you have the code signing identity and privisioning profile, you are ready to create a stand alone application bundle for your game from the editor. Simply select <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> from the menu.
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
 Select your code signing identity and browse for your mobile provisioning file. Press *Package* and you will then be prompted to specify where on your computer the bundle will be created.
 
+You specify what icon to use for the app, the launch screen image and so forth on the *game.project* project settings file.
+
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
-The editor writes an *.ipa* file which is an iOS application bundle. This file you can drag and drop into iTunes and it will install on your device during the next sync. You can specify what icon to use for the app, the launch screen image and so forth on the *game.project* project settings file.
-
-## Troubleshooting
-
-Unable to download application
-: Make sure the signer has included your UDID in the mobile provisioning  that was used for signing the app.
-
-Your device does not appear in the Targets menu
-: Make sure that your device is connected to the same wifi network as your computer.
-
-The game does not start with a message about mis-matching versions
-: This happens when you have upgraded the editor to the latest version. You need to sign the app again (<kbd>Project ▸ Sign iOS App...</kbd>) which creates a new dev app from the current engine version. Then download the new app from the dashboard onto your device.
-
+The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use Xcode (via the "Devices and Simulators" window). Other options are to use a command line tool such as [ios-deploy](https://github.com/phonegap/ios-deploy) or iTunes.
