@@ -198,7 +198,7 @@ A more in depth description on how proxies work can be found in the [Collection 
 
 When a message that has been posted is eventually dispatched the recipients’ `on_message()` is called. It is quite common that the reaction code post new messages, which are added to the message queue.
 
-When the engine starts dispatching it will work through the message queue and call each message recipient's `on_message()` function and go on until the message queue is empty. If the dispatching pass adds new messages to the queu, it will do another pass. There is, however, a hard limit to how many times the engine tries to empty the queue, which effectively puts a limit to how long message chains you can expect to be fully dispatched within a frame. You can easily test how many dispatch passes the engine performs between each `update()` with the following script:
+When the engine starts dispatching it will work through the message queue and call each message recipient's `on_message()` function and go on until the message queue is empty. If the dispatching pass adds new messages to the queue, it will do another pass. There is, however, a hard limit to how many times the engine tries to empty the queue, which effectively puts a limit to how long message chains you can expect to be fully dispatched within a frame. You can easily test how many dispatch passes the engine performs between each `update()` with the following script:
 
 ```lua
 function init(self)
