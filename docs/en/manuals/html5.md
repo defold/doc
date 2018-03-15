@@ -141,7 +141,6 @@ When focusing on splash screen development, you can comment out any code related
 
 ## Tokens
 
-{% verbatim %}
 When your HTML5 application is created, the HTML and CSS files are passed through a compiler that is capable of replacing certain tokens with values that depend upon your project settings. These tokens are always encased in either double or triple curly braces (`{{TOKEN}}` or `{{{TOKEN}}}`), depending on whether character sequences should be escaped or not. This feature can be useful if you either make frequent changes to your project settings or intend for material to be reused in other projects.
 
 Whether HTML or CSS content, the following tokens are all supported:
@@ -246,8 +245,6 @@ DEFOLD_JS_INIT
 ::: important
 If you wish to use the Facebook SDK then the tag to load this should appear before the `{{{DEFOLD_JS_INIT}}}` tag. This macro should also be enclosed in triple braces, as it too contains HTML tags and should not be escaped.
 :::
-
-{% endverbatim %}
 
 ## HTML5 Memory Tracker
 

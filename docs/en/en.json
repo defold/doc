@@ -336,6 +336,18 @@
                     {
                         "path": "/manuals/html5",
                         "name": "HTML5"
+                    },
+                    {
+                        "path": "/manuals/facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/manuals/gameroom",
+                        "name": "Facebook Gameroom"
+                    },
+                    {
+                        "path": "/manuals/instant-games",
+                        "name": "Facebook Instant Games"
                     }
                 ]
             },
@@ -353,14 +365,6 @@
                     {
                         "path": "/manuals/push",
                         "name": "Push notifications"
-                    },
-                    {
-                        "path": "/manuals/facebook",
-                        "name": "Facebook"
-                    },
-                    {
-                        "path": "/manuals/gameroom",
-                        "name": "Facebook Gameroom"
                     }
                 ]
             }

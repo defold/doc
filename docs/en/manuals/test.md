@@ -33,7 +33,7 @@ function init(self) -- <2>
     self.speed = 6
 end
 
--- This is a comment to the functionality of the function
+-- This is a comment to the functionality of the function and it is running quite long to force a linebreak
 function update(self, dt)
     for i, p in ipairs(pieces) do -- <3>
         local pos = go.get_position(p)
@@ -44,6 +44,7 @@ function update(self, dt)
         go.set_position(pos, p)
     end
 end
+-- This is a comment to the functionality of the function and it is running quite long to force a
 ```
 1. Note that the `-- <1>` in the source is changed to a numeric callout that is not part of
    the source code anymore.
