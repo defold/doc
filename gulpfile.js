@@ -116,6 +116,59 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
 };
 
+// Fence code blocks
+md.renderer.rules.fence = function (tokens, idx, options, env, self) {
+  var token = tokens[idx],
+      info = token.info ? decodeURI(token.info).trim() : '',
+      langName = '',
+      highlighted, i, tmpAttrs, tmpToken;
+
+  if (info) {
+    langName = info.split(/\s+/g)[0];
+  }
+
+  if (options.highlight) {
+    highlighted = options.highlight(token.content, langName) || encodeURI(token.content);
+  } else {
+    highlighted = encodeURI(token.content);
+  }
+
+  if (highlighted.indexOf('<pre') === 0) {
+    return highlighted + '\n';
+  }
+
+  var id = 'codesnippet_' + idx;
+  var copy = '<button class="copy-to-clipboard" data-target="#' + id + '"><span class="icon-clipboard"></span></button>';
+
+  // If language exists, inject class gently, without modifying original token.
+  // May be, one day we will add .clone() for token and simplify this part, but
+  // now we prefer to keep things local.
+  if (info) {
+    i        = token.attrIndex('class');
+    tmpAttrs = token.attrs ? token.attrs.slice() : [];
+
+    if (i < 0) {
+      tmpAttrs.push([ 'class', options.langPrefix + langName ]);
+    } else {
+      tmpAttrs[i][1] += ' ' + options.langPrefix + langName;
+    }
+
+    // Fake token just to render attributes
+    tmpToken = {
+      attrs: tmpAttrs
+    };
+
+    return  '<pre>' + '<code id="' + id +'"' + self.renderAttrs(tmpToken) + '>'
+          + highlighted
+          + '</code>' + copy + '</pre>\n';
+  }
+
+
+  return  '<pre>' + '<code id="' + id +'"' + self.renderAttrs(token) + '>'
+        + highlighted
+        + '</code>' + copy + '</pre>\n';
+};
+
 // Output preview html documents
 function markdownToPreviewHtml(file) {
     var data = frontmatter(file.contents.toString());

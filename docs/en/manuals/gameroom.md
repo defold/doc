@@ -1,6 +1,6 @@
 ---
 title: Facebook Gameroom
-brief: Bob is a command line tool for building Defold projects. This manual explains how to use the tool.
+brief: Facebook Gameroom for PC gaming is a Windows-native client available as a free download for players worldwide. Within Facebook Gameroom, players can experience both web games and also native games built exclusively for the platform.
 ---
 
 # Facebook Gameroom
