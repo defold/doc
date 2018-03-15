@@ -36,7 +36,6 @@ This brings up a window where you can inspect your changes and write a _useful_ 
 
 ![Commit changes](images/workflow/workflow_commit.png)
 
-
 To inspect the changes that have been done to a file, simply double click the file in the commit-list to open the Compare window:
 
 ![Compare changes](images/workflow/workflow_compare_script.png)
@@ -158,7 +157,8 @@ input
 
 You can configure Git with more fine grained control on how it should deal with line endings by creating a *.gitattributes* file in your repository:
 
-```txt
+```
+<hello></hello>
 # Set default behaviour, in case users don't have core.autocrlf set.
 * text=auto
 

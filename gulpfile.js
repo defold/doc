@@ -116,6 +116,26 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
 };
 
+var HTML_ESCAPE_TEST_RE = /[&<>"]/;
+var HTML_ESCAPE_REPLACE_RE = /[&<>"]/g;
+var HTML_REPLACEMENTS = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;'
+};
+
+function replaceUnsafeChar(ch) {
+  return HTML_REPLACEMENTS[ch];
+}
+
+function escapeHtml(str) {
+  if (HTML_ESCAPE_TEST_RE.test(str)) {
+    return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar);
+  }
+  return str;
+}
+
 // Fence code blocks
 md.renderer.rules.fence = function (tokens, idx, options, env, self) {
   var token = tokens[idx],
@@ -128,9 +148,9 @@ md.renderer.rules.fence = function (tokens, idx, options, env, self) {
   }
 
   if (options.highlight) {
-    highlighted = options.highlight(token.content, langName) || encodeURI(token.content);
+    highlighted = options.highlight(token.content, langName) || escapeHtml(token.content);
   } else {
-    highlighted = encodeURI(token.content);
+    highlighted = escapeHtml(token.content);
   }
 
   if (highlighted.indexOf('<pre') === 0) {
@@ -162,7 +182,6 @@ md.renderer.rules.fence = function (tokens, idx, options, env, self) {
           + highlighted
           + '</code>' + copy + '</pre>\n';
   }
-
 
   return  '<pre>' + '<code id="' + id +'"' + self.renderAttrs(token) + '>'
         + highlighted
