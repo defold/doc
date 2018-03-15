@@ -30,21 +30,44 @@ To synchronize your project means that the project files are brought into sync w
 1. You want to bring your project up to speed with what is stored on the server.
 2. You want to share your local project changes with other team members by committing and pushing your changes to the server.
 
-To start synchronizing, select <kbd>File ▸ Synchronize</kbd> in the menu.
+To start synchronizing, select <kbd>File ▸ Synchronize</kbd> in the menu. A series of dialogs guide you through the synchronization process.
 
-This brings up a window where you can inspect your changes and write a _useful_ commit message:
+![Start sync](images/workflow/sync.png)
 
-![Commit changes](images/workflow/workflow_commit.png)
+Press <kbd>Pull</kbd> to pull changes from the server and merge them with your local changes. If there are conflicts, you are asked to resolve them:
 
-To inspect the changes that have been done to a file, simply double click the file in the commit-list to open the Compare window:
+![Resolve](images/workflow/resolve.png)
 
-![Compare changes](images/workflow/workflow_compare_script.png)
+Mark each conflicting file, right-click and select the action to take:
 
-The window shows two versions of the file (in case of a modified file; added or deleted files are shown differently). On the left hand side is the file as it looked on the server _when you last synchronized_. The right hand side shows your local version. Any differences are clearly highlighted so you can quickly review them.
+View Diff
+: Bring up a textual diff view of your and the server version of the file.
 
-The built in file comparison tool works on text files only. However, since Defold stores all working files (game objects, collections, atlases, etc etc) in easily understandable JSON files, you can often figure out the meaning of the changes that have been made to such files:
+  ![diff view](images/workflow/diff.png)
 
-![Compare Gameobject](images/workflow/workflow_compare_gameobject.png)
+  On the left hand side is the file pulled from the server. The right hand side shows your local version. Any differences are clearly highlighted so you can quickly review them.
+
+  The built in file comparison tool works on text files only. However, since Defold stores all working files (game objects, collections, atlases, etc etc) in easily understandable JSON files, you can often figure out the meaning of the changes that have been made to such files:
+
+Use Ours
+: Discard the changes from the server and instead use your version.
+
+Use Theirs
+: Discard your version and instead use the server version.
+
+When the editor is done pulling changes and any conflicts are resolved, a dialog asks you how to proceed.
+
+![pull done](images/workflow/push.png)
+
+* Press <kbd>Cancel</kbd> to abort and return the project to the state it was in prior to synchronization.
+* Press <kbd>Push</kbd> to continue committing and pushing your changes to the server.
+* Press <kbd>Done</kbd> to accept the server changes and conflict resolutions, but do not continue pushing. You can always push at a later stage.
+
+If you continue pushing and have local changes, you are asked to commit them before pushing. A dialog allows you to select (stage) the files that should be included in the commit framed orange in the image below).
+
+![stage](images/workflow/stage.png)
+
+Press <kbd>Push</kbd> to commit and push your changes to the server.
 
 ## Refactoring
 
