@@ -25,7 +25,7 @@ Before you can publish your Defold game to Facebook, you need to set up your gam
    <script src="https://connect.facebook.net/en_US/fbinstant.6.0.js"></script>
    ```
 
-   See [the HTML5 manual](/manuals/html5.html#_customizing_html5_applications) for details on how to customize your bundled app.
+   See [the HTML5 manual](/manuals/html5/#_customizing_html5_applications) for details on how to customize your bundled app.
 
 4. When you are ready to test your game, bundle it to HTML5 and upload it to Facebook.
 
@@ -78,4 +78,4 @@ Apply texture compression
 Exclude content from boot and download it during run-time
 : Many games split the game content into levels or episodes. For those types of games it often make sense to postpone loading of game content until the player has downloaded and started playing the game.
 
-  This process of excluding parts of the game content, storing it on a server and then downloading and caching it while the game is running is perfect for reducing the application size of an Instant Game. The entire process is handled by Defold's [Live Update](/manual/live-update/) system.
+  This process of excluding parts of the game content, storing it on a server and then downloading and caching it while the game is running is perfect for reducing the application size of an Instant Game. The entire process is handled by Defold's [Live Update](/manuals/live-update/) system.
