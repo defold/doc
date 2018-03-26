@@ -26,7 +26,7 @@ Game tutorials
 : ![Tutorials](images/introduction/tutorials.jpg){.left} [Learning by building games](/tutorials/) is something we encourage. We have a variety of tutorials available at different skill and complexity level. Following one or two of them may help you understand better how to put things together in Defold.
 
 The building blocks of Defold
-: ![Building blocks](images/introduction/building_blocks.png){.left} [Defold games are build by composing simple blocks](/manuals/building-blocks/), some of which seem familiar if you have used other engines. There are some architectural design decisions that make the blocks of Defold special and it takes a little while to be comfortable working with them. Our building blocks manual is a good start if yuo feel you need to understand thoroughly how it's working.
+: ![Building blocks](images/introduction/building_blocks.png){.left} [Defold games are build by composing simple blocks](/manuals/building-blocks/), some of which seem familiar if you have used other engines. There are some architectural design decisions that make the blocks of Defold special and it takes a little while to be comfortable working with them. Our building blocks manual is a good start if you feel you need to understand thoroughly how it's working.
 
 The forum
 : ![Forum](images/introduction/forum.jpg){.left} [Learning from others](//forum.defold.com/) is often the best way to learn. Our community is very friendly and knows a lot about building games in general and Defold in particular. If you ever get stuck, don't hesitate but head over to the forum for help!

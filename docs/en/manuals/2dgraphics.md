@@ -16,8 +16,7 @@ Atlases
 
 
 Tile Sources
-: A tile source references an image file that is already containing sub-images ordered on a uniform grid. Other tools sometimes use the terms _tile set_ and _sprite sheet_ for this type of image. See http://en.wikipedia.org/wiki/Tileset#Tile_set
-
+: A tile source references an image file that is already containing sub-images ordered on a uniform grid. Other tools sometimes use the terms _tile set_ and _sprite sheet_ for this type of image. See https://en.wikipedia.org/wiki/Tile-based_video_game for an overview of tile based games.
 
 ## Importing Image Files
 
@@ -157,7 +156,7 @@ To obtain effects like flashing a sprite white when it is hit, you can implement
 - Open the copied *sprite.material* file and remap the shader files (*.vp* and *.fp*) to your own copies.
 - Edit the *.vp* and *.fp* copies as you please. If you introduce shader constants, they must also be declared in the material file.
 - Open your sprite and specify your new material in the Properties.
-- To set a shader constant while the game is running, use the functions [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) and [`sprite.reset_contant()`](/ref/sprite#sprite.reset_constant).
+- To set a shader constant while the game is running, use the functions [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) and [`sprite.reset_constant()`](/ref/sprite#sprite.reset_constant).
 
 ## Tile Maps
 

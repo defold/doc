@@ -84,7 +84,11 @@ When you have the code signing identity and privisioning profile, you are ready 
 
 Select your code signing identity and browse for your mobile provisioning file. Press *Package* and you will then be prompted to specify where on your computer the bundle will be created.
 
-You specify what icon to use for the app, the launch screen image and so forth on the *game.project* project settings file.
+You specify what icon to use for the app, the launch screen image(s) and so forth on the *game.project* project settings file.
+
+:::important
+When your game launches on iOS, the launch images are used to set the correct screen resolution. If you do not supply the correct image size, you will get a lower resolution with resulting black bars.
+:::
 
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 

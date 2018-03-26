@@ -59,10 +59,6 @@ The editor now opens. If you are new to Defold, take a moment to familiarize you
 
 :[overview](../shared/editor-views.md)
 
-## Editor overview
-
-![editor overview](images/war-battles/editor_overview.png)
-
 ## Cleaning the project
 
 The empty project template is not 100% empty so we should fix that:
@@ -77,7 +73,7 @@ Now the project is totally empty. You can verify this by selecting <kbd>Project 
 
 ## Drawing the game map
 
-Your game needs a setting, a map. The map that you are going to draw will be made out of tiles, small images that are put together like a mosaic into a larger image. In Defold, such an image is called a *Tile map*. In order to create a tile map, you need to import an image file that contain the various tiles. You then need to specify the size of the tiles, margins and padding on that image. This setup is done in a file of a type called *Tile source*.
+Your game needs a setting, a map. The map that you are going to draw will be made out of tiles, small images that are put together like a mosaic into a larger image. In Defold, such an image is called a *Tile map*. In order to create a tile map, you need to import an image file that contains the various tiles. You then need to specify the size of the tiles, margins and padding on that image. This setup is done in a file of a type called *Tile source*.
 
 1. Download the "War Battles" asset package. The file is a ZIP archive that you have to unpack on your hard drive.
 
@@ -151,7 +147,7 @@ Defold stores everything you build in *collections*. A collection is a container
 
     ![add images](images/war-battles/add_images.png)
 
-6. With the animation group marked, select <kbd>View ▸ Play</kbd> from the menu to preview the animation. It will play back at full 60 FPS which is way too fast. Set the playback speed (*Fps* property) to 8.
+6. With the animation group marked, select <kbd>View ▸ Play</kbd> from the menu to preview the animation. Press <kbd>F</kbd> to frame the animation in the editor if necessary. The animation will play back at full 60 FPS which is way too fast. Set the playback speed (*Fps* property) to 8.
 
     ![play animation](images/war-battles/play_animation.png)
 
@@ -260,7 +256,7 @@ end
 11. Add the current direction vector (scaled to speed and frame interval) to the position.
 12. Set the position of the game object to the new position.
 13. After the calculations have been made, set the input vector to 0 and unset the `moving` flag.
-14. The `on_input()` function is called every frame for all mapped input that is active. The argument `action_id` contain the action as set up in the input bindings file. The argument `action` is a Lua table with details on the input.
+14. The `on_input()` function is called every frame for all mapped input that is active. The argument `action_id` contains the action as set up in the input bindings file. The argument `action` is a Lua table with details on the input.
 15. For each input direction, set the X or the Y component of the `input` vector in `self`. If the user presses the <kbd>up arrow</kbd> and <kbd>left arrow</kbd> keys, the engine will call this function twice and the input vector will end up being set to `(-1, 1, 0)`.
 16. If the user presses any of the arrow keys, the input vector length will be non zero. If so, set the `moving` flag so the player will be moved in `update()`. The reason the script does not move the player in the `on_input()` function is that it is simpler to collect all input each frame and then act upon it in `update()`.
 17. The `dir` direction vector is set to the normalized value of the input. If the input vector is `(-1, 1, 0)`, for instance, the vector length is greater than 1. Normalizing the vector brings it to a length of exactly 1. Without normalization diagonal movement would be faster than horizontal and vertical. When the engine runs the `update()` function, any user input will have an effect on the `dir` vector which will cause the player to move.

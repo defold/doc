@@ -239,7 +239,7 @@ local M = {}
 
 --- Constant for bar
 -- @field BAR
-local M.BAR = "bar"
+M.BAR = "bar"
 
 local function private_function()
 end

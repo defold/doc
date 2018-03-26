@@ -126,7 +126,7 @@ It's perhaps not very exciting, but it's a running Defold game application and w
 First of all, let's clean the *main.collection* file of the one game object it contains.
 
 * Double click the file *main.collection* to open it in the editor.
-* Select (click) "go" in the *Outline* view to the right.
+* Select (click) "logo" in the *Outline* view to the right.
 * Right-click and select <kbd>Delete</kbd> from the pop up menu.
 * Save the file. Select <kbd>File ▸ Save</kbd> in the main menu.
 That's it!
@@ -150,7 +150,7 @@ Let's take the first baby steps and create an arena for our character, or rather
 
 <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/runner-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
-1. Import the image assets into the project by dragging the *ground01.png* and *ground02.png* image files into a suitable location in the project, for instance a new folder called *images* inside the *main* folder.
+1. Import the image assets into the project by dragging the files "ground01.png" and "ground02.png" image files (from the sub-folder "level-images" in the asset package) into a suitable location in the project, for instance the folder "images" inside the "main" folder.
 2. Create a new *Atlas* file to hold the ground textures (right-click a suitable folder, for instance the *main* folder, in the *Project Explorer* and select <kbd>New ▸ Atlas File</kbd>). Name the atlas file *level.atlas*.
 
   ::: sidenote
@@ -270,7 +270,7 @@ A *Script*
 
 Start by importing the body part images, then add them to a new atlas that we call *hero.atlas*:
 
-1. Create a new folder by right-clicking in the *Project Explorer* and selecting <kbd>New ▸ Folder</kbd>. Make sure to not select a folder before clicking or the new folder will be created inside the marked one.
+1. Create a new folder by right-clicking in the *Project Explorer* and selecting <kbd>New ▸ Folder</kbd>. Make sure to not select a folder before clicking or the new folder will be created inside the marked one. Name the folder "hero".
 2. Create a new atlas file by right-clicking the *hero* folder and selecting <kbd>New ▸ Atlas File</kbd>. Name the file *hero.atlas*.
 3. Create a new subfolder *images* in the *hero* folder. Right-click the *hero* folder and select <kbd>New ▸ Folder</kbd>.
 4. Drag the bodypart images from the *hero-images* folder in the asset package to the *images* folder you just created in the *Project Explorer*.
@@ -451,7 +451,7 @@ The last thing we need for the hero to be functional is input. The script above 
 <a name="part-5"></a>
 ## STEP 5 - Refactoring the level
 
-Now that we have a hero character set up with collision and all, we need to also add collision to the ground so the frog has got something to collide with (or run on). We'll do that in a second, but first, let's do a little refactoring and put all level stuff in a separate collection and clean up the file structure a bit:
+Now that we have a hero character set up with collision and all, we need to also add collision to the ground so the frog has got something to collide with (or run on). We'll do that in a second, but first, we should do a little refactoring and put all level stuff in a separate collection and clean up the file structure a bit:
 
 1. Create a new *level.collection* file (right-click *main* in the *Project Explorer* and select <kbd>New ▸ Collection File</kbd>).
 2. Open the new file, right-click the root in the *Outline* and select <kbd>Add Collection from File</kbd> and choose *ground.collection*.
@@ -543,7 +543,7 @@ To make life in frog-world a little less dull, we should add platforms to jump o
 4. Create a new *Game Object* file called *platform.go* in the *level* folder. (Right-click *level*
  in the *Project Explorer* then select <kbd>New ▸ Game Object File</kbd>)
 5. Add a *Sprite* component to the game object (right-click the root in the *Outline* view and select <kbd>Add Component</kbd> and then *Sprite*).
-6. Set the *Image* property to refer to the file *level.atlas* and set *Default Animation* to "rock_planks". (For convenience you might wanna keep level objects in a subfolder "level/objects" but that is not necessary)
+6. Set the *Image* property to refer to the file *level.atlas* and set *Default Animation* to "rock_planks". For convenience, keep level objects in a subfolder "level/objects".
 7. Add a *Collision Object* component to the platform game object (right-click the root in the *Outline* view and select <kbd>Add Component</kbd>).
 8. Make sure to set the component's *Type* to "Kinematic" and the *Group* and *Mask* to "geometry" and "hero" respectively
 9. Add a *Box Shape* to the *Collision Object* component. (Right-click the component in the *Outline* and select <kbd>Add Shape</kbd>, then choose *Box*).
@@ -855,7 +855,7 @@ Next up - something to live for: coins!
 
 The idea is to put coins in the level for the player to collect. The first questions to ask is how to put them into the level. We can, for instance, develop a spawning scheme that is somehow in tune with the platform spawning algorithm. However, we chose a much easier approach in the end and just have the platforms themselves spawn coins:
 
-1. Drag the *coins.png* image from the asset package to "level/images" in the *Project Explorer*.
+1. Drag the *coin.png* image from the asset package to "level/images" in the *Project Explorer*.
 2. Open *level.atlas* and add the image (right-click and select <kbd>Add Images</kbd>).
 3. Create a *Game Object* file named *coin.go* in the *level* folder (right-click *level* in the *Project Explorer* and select <kbd>New ▸ Game Object File</kbd>).
 4. Open *coin.go* and add a *Sprite* component (right-click and select <kbd>Add Component</kbd> in the *Outline*). Set the *Image* to *level.atlas* and *Default Animation* to "coin".

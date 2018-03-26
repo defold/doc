@@ -51,7 +51,7 @@ usage: bob [options] [commands]
  -r,--root <arg>                     Build root directory. Default is
                                      current directory
  -tc,--texture-compression <arg>     Use texture compression as specified
-                                     in texture profiles
+                                     in texture profiles (boolean)
  -u,--auth <arg>                     User auth token
  -v,--verbose                        Verbose output
 ```

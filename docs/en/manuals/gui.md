@@ -388,7 +388,7 @@ Several of the node properties can be fully asynchronously animated. To animate 
 `gui.animate(node, property, to, easing, duration [,delay] [,complete_function] [,playback])`
 
 ::: sidenote
-See [`go.animate()`](/ref/go#go.animate) for details on the parameters.
+See [`gui.animate()`](/ref/gui#gui.animate) for details on the parameters.
 :::
 
 The `property` parameter is usually given as a constant (`gui.PROP_POSITION` etc), but can also be supplied as described in the Properties guide (see [Properties](/manuals/properties)). This is handy if you want to animate just a specific component of a compound property value.

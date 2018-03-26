@@ -275,26 +275,36 @@ It is straightforward to calculate the distance the previous movement out of Obj
 The distance covered can be found if we project the penetration vector of Object A against the one of Object B. To find the final movement we need to perform we just subtract +l+ from our original penetration vector. For an arbitrary number of penetrations, we can accumulate the actual movements into a vector and project against each penetration vector in turn. The full implementation looks like this:
 
 ```lua
+function init(self)
+  -- correction vector
+  self.correction = vmath.vector3()
+end
+
+function update(self, dt)
+  -- reset correction
+  self.correction = vmath.vector3()
+end
+
 function on_message(self, message_id, message, sender)
-    -- Handle collision
-    if message_id == hash("contact_point_response") then
-        -- Get the info needed to move out of collision. We might
-        -- get several contact points back and have to calculate
-        -- how to move out of all accumulatively:
-        if message.distance > 0 then
-            -- First, project the penetration vector on
-            -- accumulated correction
-            local proj = vmath.project(self.correction, message.normal * message.distance)
-            if proj < 1 then
-                -- Only care for projections that does not overshoot.
-                local comp = (message.distance - message.distance * proj) * message.normal
-                -- Apply compensation
-                go.set_position(go.get_position() + comp)
-                -- Accumulate the corrections done
-                self.correction = self.correction + comp
-            end
-        end
+  -- Handle collision
+  if message_id == hash("contact_point_response") then
+    -- Get the info needed to move out of collision. We might
+    -- get several contact points back and have to calculate
+    -- how to move out of all accumulatively:
+    if message.distance > 0 then
+      -- First, project the penetration vector on
+      -- accumulated correction
+      local proj = vmath.project(self.correction, message.normal * message.distance)
+      if proj < 1 then
+        -- Only care for projections that does not overshoot.
+        local comp = (message.distance - message.distance * proj) * message.normal
+        -- Apply compensation
+        go.set_position(go.get_position() + comp)
+        -- Accumulate the corrections done this frame
+        self.correction = self.correction + comp
+      end
     end
+  end
 end
 ```
 

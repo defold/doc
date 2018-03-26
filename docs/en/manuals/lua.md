@@ -519,7 +519,7 @@ GUI scripts
 
 
 Render scripts
-: Extension _.renderscript_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. Render scripts have access to the [Render](/ref/render) library functions.
+: Extension _.render_script_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. Render scripts have access to the [Render](/ref/render) library functions.
 
 
 ## Script execution and callbacks

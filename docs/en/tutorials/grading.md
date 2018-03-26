@@ -126,7 +126,7 @@ Create a quadratic plane mesh in Blender (or any other 3D modelling program). Se
 Leave the game object unscaled at origo. Later, when we render the quad we will project it so it fills the whole screen. But first we need a material and shader programs for the quad:
 
 1. Create a new material and call it *grade.material* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Material</kbd>.
-2. Create a vertex shader program called *grade.vp* and a fragment shader program called *grade.fp*by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Vertex program</kbd> and <kbd>New ▸ Fragment program</kbd>.
+2. Create a vertex shader program called *grade.vp* and a fragment shader program called *grade.fp* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Vertex program</kbd> and <kbd>New ▸ Fragment program</kbd>.
 3. Open *grade.material* and set the *Vertex program* and *Fragment program* properties to the new shader program files.
 4. Add a *Vertex constant* named "view_proj" of type `CONSTANT_TYPE_VIEWPROJ`. This is the view and projection matrix used in the vertex program for the quad vertices.
 5. Add a *Sampler* called "original". This will be used to sample pixels from the off-screen render target color buffer.
@@ -306,7 +306,7 @@ Let's implement the texture lookup in the fragment shader:
 
     ![quad model lut](images/grading/quad_lut.png)
 
-6. Finally, open *grading.fp* so we can add support for color lookup:
+6. Finally, open *grade.fp* so we can add support for color lookup:
 
     ```glsl
     varying mediump vec4 position;
