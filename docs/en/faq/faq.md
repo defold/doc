@@ -94,11 +94,12 @@ Are Defold beta versions auto-updating?
 
 Can I use external Git tools?
 
-: Yes you can:
-  1. Check out a project for the first time via Open Project and New Branch
-  2. Add the local repository found in "Defold/branches/[project_id]/[user_id]/[name_of_branch]" to your Git client.
-  3. Specify your Defold username. The password is the "Access token" that you find under "Settings" in the Defold Dashboard (the huge hexadecimal number).
-  4. You can now add, commit, revert, branch and merge as much as you want. Any changes are immediately reflected in Defold. Note that Defold automatically stages all changes that you make in the editor.
+: Absolutely, each Defold project is a Git repo so it's very simple:
+
+  1. Add the folder you selected for your project location to your Git client. (If you run editor 1, the project is found in "Defold/branches/[project_id]/[user_id]/[name_of_branch]")
+  2. Specify your Defold username. The password is the "Access token" that you find under "Settings" in the Defold Dashboard (the huge hexadecimal number).
+  
+  You can now add, commit, revert, branch and merge as much as you want. Any changes are immediately reflected in Defold. Note that Defold automatically stages all changes that you make in the editor.
 
 ## Publishing games
 
@@ -154,7 +155,7 @@ Why does my HTML5-app freeze at the splash screen in Chrome?
 
 I'm running on Linux and the editor won't start.
 
-: Make sure that you start the editor with the supplied shell script:
+: This applies to the old editor 1 only. Make sure that you start the editor with the supplied shell script:
 
   ```sh
   $ ./Defold-linux.sh
