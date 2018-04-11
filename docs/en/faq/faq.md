@@ -51,10 +51,12 @@ What platforms does Defold run on?
   | ------------------------- | -------------------- |
   | macOS 10.7 Lion           | Editor and runtime   |
   | Windows Vista             | Editor and runtime   |
-  | Linux (64 bit)            | Editor and runtime   |
+  | Linux (64 bit)*           | Editor and runtime   |
   | iOS 6.0                   | Runtime              |
   | Android 2.3 (API level 9) | Runtime              |
   | HTML5                     | Runtime              |
+
+  (* Linux versions are built with Ubuntu 16.04 and GCC 4.8.)
 
 What target platforms can I develop games for with Defold?
 
