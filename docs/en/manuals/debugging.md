@@ -5,198 +5,143 @@ brief: This manual explains the debugging facilities present in Defold.
 
 # Debugging
 
-The simplest way to debug your game in Defold is to use [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). The technique is simply to use `print()` or [pprint()](/ref/builtins#pprint) statements to watch variables or indicate the flow of execution. If a game object without a script acts weird, you can just attach a script to it with the sole purpose of debugging.
+Defold contains an integrated Lua debugger with an inspection facility. Together with the built in [profiling tools](/manuals/profiling) it is a powerful tool that can help finding the root cause of bugs or performance issues.
 
-Using any of the printing functions will print to the Console view in the Editor. You can also draw text on screen by posting `draw_text` messages to the `@render` socket:
+## Print and visual debugging
 
-```lua
-msg.post("@render:", "draw_text", {text = "My value: " .. my_val, position = vmath.vector3(200, 200, 0)})
-```
-
-If you run into problems with spatial calculations, like movement and physics, it is often very helpful to visualize the calculations by drawing lines on the screen. Send `draw_line` messages to the `@render` socket:
+The simplest way to debug your game in Defold is to use [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). The technique is simply to use `print()` or [`pprint()`](/ref/builtins#pprint) statements to watch variables or indicate the flow of execution. If a game object without a script acts weird, you can just attach a script to it with the sole purpose of debugging. Using any of the printing functions will print to the *Console* view in the editor.  In addition to printing, the engine can also draw debug text and straight lines on the screen. This is done by posting messages to the `@render` socket:
 
 ```lua
-msg.post("@render:", "draw_line", {start_point = my_start, end_point = my_end, color = my_color})
+-- Draw value of "my_val" with debug text on the screen
+msg.post("@render:", "draw_text", { text = "My value: " .. my_val, position = vmath.vector3(200, 200, 0) })
+
+-- Draw debug line between player and enemy on the screen
+local start_p = go.get_position("player")
+local end_p = go.get_position("enemy")
+local color_red = vmath.vector4(1, 0, 0, 1)
+msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, color = color_red })
 ```
 
-Lua comes with a debug library that is useful in some situations, particularly if you need to inspect the innards of your Lua environment. You can find more information about it on http://www.lua.org/pil/contents.html#23.
+The visual debug messages adds data to the rendering pipeline and is drawn as part of the regular render pipeline.
 
-## Debugging Lua scripts with ZeroBrane
+* `"draw_line"` adds data that is rendered with the `render.draw_debug3d()` function in the render script.
+* `"draw_text"` is rendered with the "/builtins/fonts/system_font.font" that uses the "/builtins/fonts/system_font.material" material.
 
-Defold engine comes with built-in support for debugging your Lua scripts through the free and open-source Lua IDE _ZeroBrane Studio_. ZeroBrane Studio needs to be installed in order to use the debugging features. The program is cross-platform and runs on both OSX and Windows.
+Note that you probably want to update this data every frame so posting the messages in the `update()` function is a good idea.
 
-Download "ZeroBrane Studio" from http://studio.zerobrane.com
+## Running the debugger
 
-## ZeroBrane configuration
+To run the debugger, either <kbd>Debug ▸ Run with Debugger</kbd> which starts up the game with the debugger attached, or select <kbd>Debug ▸ Attach Debugger</kbd> to attach the debugger to an already running game.
 
-In order for ZeroBrane to find the files in your project, you need to point it to the location of your Defold project directory. A convenient way of finding this out is by using the <kbd>Show in Finder/Explorer</kbd> option in your Defold project.
+![overview](images/debugging/overview.png){srcset="images/debugging/overview@2x.png 2x"}
 
-1. Right click on *game.project*
-2. Choose <kbd>Show in Finder</kbd>, for OS X users, or *Show in Explorer* for Windows users
+As soon as the debugger is attached, you have control of the execution of the game through the debugger control buttons in the console, or through the <kbd>Debug</kbd> menu:
 
-OS X:
+Break
+: ![pause](images/debugging/pause.svg){width=60px .left} 
+  Break execution of the game immediately. The game will break at its current point. You are now able to inspect the state of the game, advance the game step by step, or continue running it until the next breakpoint. The current point of execution is marked in the code editor:
+  
+  ![script](images/debugging/script.png){srcset="images/debugging/script@2x.png 2x"}
 
-![Show in Finder](images/debugging/showinfind.png)
+Continue
+: ![play](images/debugging/play.svg){width=60px .left}
+  Continue running the game. The game code will continue to run until you either press pause or the execution hits a breakpoint that you have set. If execution breaks at a set breakpoint, the the execution point is marked in the code editor on top of the breakpoint marker:
 
-Windows:
+  ![break](images/debugging/break.png){srcset="images/debugging/break@2x.png 2x"}
 
-![Show in Explorer](images/debugging/showinwin.png)
+Stop
+: ![stop](images/debugging/stop.svg){width=60px .left}
+  Stop the debugger. Pressing this button will immediately stop the debugger, detach it from the game and terminate the running game.
 
-## To set up ZeroBrane
+Step Over
+: ![step over](images/debugging/step_over.svg){width=60px .left}
+  Advance execution of the program one step. If the execution involves running another Lua function, the execution _will not step into the function_ but continue running and stop on the next line below the function call. In this example, if the user presses "step over", the debugger will execute code and stop at the `end` statement below the line with the call to the function `nextspawn()`:
 
-To set up ZeroBrane, select <kbd>Project ▸ Project Directory ▸ Choose...</kbd>:
-
-![Auto completion](images/debugging/setup.png)
-
-Once this has been set up to match the current Defold project directory, it should be possible to see the directory tree of the Defold project in ZeroBrane, and to navigate and open the files.
-
-Other recommended, but not necessary configuration changes can be found further down in the document.
-
-## Starting the debugging server
-
-Before starting a debugging session, the ZeroBrane built-in debugging server needs to be started. The menu option for starting it can be found under the <kbd>Project</kbd> menu. Just select <kbd>Project ▸ Start Debugger Server</kbd>:
-
-![Auto completion](images/debugging/startdebug.png)
-
-## Connecting your application to the debugger
-
-Debugging can be started at any point in the lifetime of the Defold application, but needs to be actively initiated from Lua script. The Lua code to start a debugging session looks like this:
+  ![step](images/debugging/step.png){srcset="images/debugging/step@2x.png 2x"}
 
 ::: sidenote
-If your game exits when `dbg.start()` is called, it might be because ZeroBrane has detected a problem and sends the exit command to the game. For some reason, ZeroBrane needs a file opened to start the debug session, otherwise it will output:
-"Can't start debugging without an opened file or with the current file not being saved 'untitled.lua')."
-In ZeroBrane, open the file you added `dbg.start()` to fix this error.
+A line of Lua code does not correspond to a single expression. Stepping in the debugger moves ahead one expression at a time, meaning that currently you may have to hit the step button more than once to advance to the next line.
 :::
 
-```lua
-local dbg = require "builtins.scripts.mobdebug"
-dbg.start()
-```
+Step Into
+: ![step in](images/debugging/step_in.svg){width=60px .left}
+  Advance execution of the program one step. If the execution involves running another Lua function, the execution _will step into the function_. Calling the function adds an entry to the call stack. You can click each entry in the call stack list to view the entry point and the content of all variables in that closure. Here, the user has stepped into the function `nextspawn()`:
 
-By inserting the above code into the application, it will connect to ZeroBrane’s debugging server (through "localhost", by default) and pause at the next statement to be executed.
+  ![step into](images/debugging/step_into.png){srcset="images/debugging/step_into@2x.png 2x"}
 
-```txt
-Debugger server started at localhost:8172.
-Mapped remote request for '/' to '/Users/my_user/Documents/Projects/Defold_project/'.
-Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
-```
+Step Out
+: ![step out](images/debugging/step_out.svg){width=60px .left}
+  Continue execution until it returns from the current function. If you have stepped execution into a function, pressing the button "step out" will continue execution until the function returns.
 
-Now it is possible to use the debugging features available in ZeroBrane; you can step, inspect, add and remove breakpoints etc.
+Setting and clearing breakpoints
+: You can set an arbitrary number of breakpoints in your Lua code. When the game runs with the debugger attached, it will stop execution at the next breakpoint it encounters and wait for further interaction from you.
 
-::: sidenote
-The debugging will only be enabled for the lua context from where debugging is initiated. Enabling "shared_state" in game.project means you can debug your whole application no matter where you started.
-:::
+  ![add breakpoint](images/debugging/add_breakpoint.png){srcset="images/debugging/add_breakpoint@2x.png 2x"}
 
-![Auto completion](images/debugging/code.png)
+  To set or clear a breakpoint, click in the column just right of the line numbers in the code editor. You can also select <kbd>Edit ▸ Toggle Breakpoint</kbd> from the menu.
 
-Should the connection attempt fail (possibly because the debugging server is not running), your application will continue to run as normal after the connection attempt has been made.
+Evaluating Lua expressions
+: With the debugger attached and the game stopped at a breakpoint, a Lua runtime is available with the current context. Type Lua expressions in the bottom of the console and press <kbd>Enter</kbd> to evaluate them:
 
-## Remote debugging
+  ![console](images/debugging/console.png){srcset="images/debugging/console@2x.png 2x"}
 
-As debugging happens over regular network connections (TCP), this allows for debugging remotely. This means it is possible to debug your application while it is running on a mobile device.
+  It is currently not possible to modify variables through the evaluator.
 
-The only change needed is to the command which starts the debugging. By default, `start()` will try to connect to localhost, but for remote debugging, we need to manually specify the address to ZeroBrane’s debugging server, like this:
+Detaching the debugger
+: Select <kbd>Debug ▸ Detach Debugger</kbd> to detach the debugger from the game. It will continue running immediately.
 
-```lua
-local dbg = require "builtins.scripts.mobdebug"
-dbg.start("192.168.5.101")
-```
+## Debugging on mobile devices
 
-This also means it is important to make sure to have network connectivity from the remote device, and that any firewalls or similar software allows TCP connections through on port 8172. Otherwise the application might stall when launching when it attempts to make the connection to your debugging server.
+Some issues can be hard to debug with the editor debugger. Diagnosing problems such as native crashes and out of memory issues may need you to connect to the devices with USB cable and make use of a terminal.
 
-## Other recommended ZeroBrane setting
+Android
+: Once your game is launched on your Android device, you can view all program output and crash stacktraces using the "adb" tool, which is part of the Android SDK. Documentation for "adb" and installation links can be found here: https://developer.android.com/studio/command-line/adb.html
 
-It is possible to make ZeroBrane automatically open Lua script files during debugging. This makes it possible to step into functions in other source files without having to open them manually.
-
-The first step is to access the editor configuration file. It is recommended that you change the user version of the file.
-
-- Select menu:Edit[Preferences > Settings: User]
-- Add the following to the configuration file:
+  Once installed and setup, connect your device with USB, open a terminal and run:
 
   ```txt
-  - to automatically open files requested during debugging
-  editor.autoactivate = true
+  cd <path_to_android_sdk>/platform-tools/
+  adb logcat
   ```
 
-- Restart ZeroBrane
+  The device will then dump all the output to the current terminal, along with any prints from the game.
 
-![Other recommended settings](images/debugging/otherrecommended.png)
+iOS
+: On iOS you can attach the LLDB debugger to a game running on device. To debug a game it needs to be signed with a “Apple Developer Provisioning Profile” that include the device you want to debug on. Bundle the game from the editor and supply the provisioning profile in the bundle dialog (bundling for iOS is only available on macOS).
 
-## Hot reloading
+  To launch the game and attach the debugger you will need a tool called [ios-deploy](https://github.com/phonegap/ios-deploy). Install and debug your game by running the following in a terminal:
 
-Defold allows you to perform hot reloading of resources. When developing a game this feature helps speed up certain task enormously. It allows you to change scripts in a game while it is running live. Common use-cases are to tweak gameplay parameters or to perform debugging on a running game.
+  ```txt
+  ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
+  ```
 
-To reload a changed resource, simply select the menu item <kbd>Edit ▸ Reload Resource</kbd> or press the corresponding shortcut on the keyboard:
+  This will install the app on your device, start it and automatically attach a LLDB debugger to it. If you are new to LLDB, read [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).
 
-![Reloading resources](images/debugging/debugging_hot_reload.png)
 
-Every script component can define a `on_reload()` function. If it exists it will be called anytime a script is reloaded into the game from the editor:
+## Extracting the log.txt file
 
-```lua
-function on_reload(self)
-    -- Print the current velocity
-    print(self.velocity)
-    -- Zero the velocity
-    self.velocity = vmath.vector3()
-end
-```
+If you enable the *Write Log* setting in "game.project", any game output will be written to disk, to a file called "log.txt". Here is how you extract the file if you run the game on device:
 
-## Visual profiler
+iOS
+: Connect your device to a computer with macOS and Xcode installed.
+  
+  Open Xcode and go to <kbd>Window ▸ Devices and Simulators</kbd>.
 
-The Defold engine is also able to display profiling information in a running game. This can be helpful when debugging or optimizing.
+  Select your device in the list, then select the relevant app in the *Installed Apps* list.
 
-```lua
-function on_reload(self)
-    -- Turn on profiler on hot reload.
-    msg.post("@system:", "toggle_profile")
-end
-```
+  Click the cog icon below the list and select <kbd>Download Container...</kbd>.
 
-The profiler displays live information on the running application:
+  ![download container](images/debugging/download_container.png){srcset="images/debugging/download_container@2x.png 2x"}
 
-![Visual profiler](images/debugging/debugging_profiling.png)
+  Once the container has been extracted it will be shown in *Finder*. Right click the container and select <kbd>Show Package Content</kbd>. Locate the file "log.txt", which should be located in "AppData/Documents/".
 
-## Web profiler
+Android
+: The ability to extract the "log.txt" depends on OS version and manufacturer. Here is a short and simple step by step guide: https://stackoverflow.com/a/48077004/129360
 
-While running the game, a web-based profiler can be accessed that provides detailed profiling information. It allows you to sample a series of data points and then analyze it in detail.
+## Running the ZeroBrane external debugger
 
-To access the profiler:
+In addition to the built in debugger, it is also possible to use the Lua IDE _ZeroBrane Studio_ as an external Lua debugger. Please refer to the [ZeroBrane debugging manual](/manuals/zerobrane) for details on how to set up and run the program with Defold.
 
-1. Start your game on your target device.
-2. Open a web browser and point it to `http://<device IP>:8002` where `<device IP>` is the IP address of the device.
+## Lua debug library
 
-If you are running your game on your desktop computer, _http://localhost:8002_ would bring up the profiler. You can find the IP numbers of your target devices in the <kbd>Project ▸ Target</kbd> menu.
-
-![Web profiler](images/debugging/webprofiler_page.png)
-
-The profiler is divided into 4 sections that all give different views into the current sample data. To update the sample data, press the *Capture* button at the top.
-
-## Frames overview
-
-The frames overview plots the currently sampled 20 frames side by side. The height of each bar shows the time spent in the frame. The number on the left hand side shows the max time spent in a frame in the current sample data.
-
-![Frames overview](images/debugging/webprofiler_frames_overview.png)
-
-Below the frames overview is a detailed frame data view. You can click on any frame bar in the overview to show the data for that specific frame in the data view. The frame timechart at the bottom of the page also updates to show the clicked frame's data.
-
-## Frame data
-
-The frame data view is a table where all data for the currently selected frame is broken down into detail. You can view how many milliseconds are spent in each engine scope (to the left) and also see sample points within the scopes (middle column). On the right hand side is a table of counters. The numbers presented are counters so it is easy to, for instance, track the number of draw calls required for each frame in the sample data.
-
-![Frame data](images/debugging/webprofiler_frame_data.png)
-
-Ticking the checkbox associated with a sample point or counter adds that data to the plot below.
-
-## Frames plot
-
-The frames plot view displays a plot over all sampled frames using the data selected in the frame data table, frame number on the X axis and time in milliseconds on the Y axis. Each selected data point is drawn in the color specified in the frame data table.
-
-![Frames plot](images/debugging/webprofiler_frames_plot.png)
-
-## Frame time chart
-
-The frame time chart breaks the frame down visually making it is very easy to inspect where the engine spends its time during the selected frame.
-
-![Frame timechart](images/debugging/webprofiler_frame_timechart.png)
-
-(Some of the graphic assets used are made by Kenney: http://kenney.nl/assets)
+Lua comes with a debug library that is useful in some situations, particularly if you need to inspect the innards of your Lua environment. You can find more information about it here: http://www.lua.org/pil/contents.html#23.

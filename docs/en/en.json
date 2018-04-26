@@ -120,8 +120,20 @@
                         "name": "Workflow"
                     },
                     {
+                        "path": "/manuals/hot-reload",
+                        "name": "Hot reloading"
+                    },
+                    {
                         "path": "/manuals/lua",
                         "name": "Lua in Defold"
+                    },
+                    {
+                        "path": "/manuals/debugging",
+                        "name": "Debugging"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
                     },
                     {
                         "path": "/manuals/flash",
@@ -286,10 +298,6 @@
                     {
                         "path": "/manuals/input",
                         "name": "Input"
-                    },
-                    {
-                        "path": "/manuals/debugging",
-                        "name": "Debugging"
                     },
                     {
                         "path": "/manuals/modules",

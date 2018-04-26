@@ -47,13 +47,17 @@ Components are used to give specific expression and/or functionality to game obj
 
 ![Cubemap](images/icons/cubemap.png){.left} A cubemap is a special type of texture that consists of 6 different textures that are mapped on the sides of a cube. This is useful for rendering skyboxes and different kinds of reflection and illumination maps.
 
+## Debugging
+
+At some point your game will behave in an unexpected way and you need to figure out what is wrong. Learning how to debug is an art and fortunately Defold ships with a built in debugger to help you out. See the [Debugging manual](/manuals/debugging) for more information.
+
 ## Factory
 
 ![Factory](images/icons/factory.png){.left} In some situations you cannot manually place all needed game objects in a collection, you have to create the game objects dynamically, on the fly. For instance, a player might fire bullets and each shot should be dynamically spawned and sent off whenever the player presses the trigger. To create game objects dynamically (from a pre-allocated pool of objects), you use a factory component. See the [Factory manual](/manuals/factory) for details.
 
 ## Font
 
-![Font file](images/icons/font.png){.left} A Font resource is built from a TrueType or OpenType font file. The Font specifies which size to render the font in and what type of decoration (outline and shadow) the rendered font should have. Fonts are used by GUI and Label components.
+![Font file](images/icons/font.png){.left} A Font resource is built from a TrueType or OpenType font file. The Font specifies which size to render the font in and what type of decoration (outline and shadow) the rendered font should have. Fonts are used by GUI and Label components. See the [Font manual](/manuals/font/) for details.
 
 ## Fragment shader
 
@@ -75,6 +79,10 @@ Components are used to give specific expression and/or functionality to game obj
 
 ![GUI script](images/icons/script.png){.left} GUI scripts are used to control the behaviour of GUI components. They control GUI animations and how the user interacts with the GUI. See the [Lua in Defold manual](/manuals/lua) for details on how Lua scripts are used in Defold.
 
+## Hot reload
+
+The Defold editor allows you to update content in an already running game, on desktop and device. This feature is extremely powerful and can improve the development workflow a lot. See the [Hot reload manual](/manuals/hot-reload) for more information.
+
 ## Input binding
 
 ![Input binding](images/icons/input-binding.png){.left} Input binding files define how the game should interpret hardware input (mouse, keyboard, touchscreen and gamepad). The file binds hardware input to high level input _actions_ like "jump" and "move_forward". In script components that listen to input you are able to script the actions the game or app should take given certain input. See the [Input documentation](/manuals/input) for details.
@@ -86,6 +94,10 @@ Components are used to give specific expression and/or functionality to game obj
 ## Library
 
 ![Game object](images/icons/builtins.png){.left} Defold allows you to share data between projects through a powerful library mechanism. You can use it to set up shared libraries that are accessible from all your projects, either for yourself or across the whole team. Read more about the library mechanism in the [Libraries documentation](/manuals/libraries).
+
+## Lua language
+
+The Lua programming language is used in Defold to create game logic. Lua is a powerful, efficient, very small scripting language. It supports procedural programming, object-oriented programming, functional programming, data-driven programming, and data description. You can read more about the language on the official Lua homepage at https://www.lua.org/ and in the [Lua in Defold manual](/manuals/lua).
 
 ## Lua module
 
@@ -114,6 +126,10 @@ Here, `"#explosion"` is the address of the current object's sound component. `"p
 ## ParticleFX
 
 ![ParticleFX](images/icons/particlefx.png){.left} Particles are very useful for creating nice visual effects, particularly in games. you can use them to create fog, smoke, fire, rain or falling leaves. Defold contains a powerful particle effects editor that allows you to build and tweak effects while you run them real time in your game. The [ParticleFX documentation](/manuals/particlefx) gives you the details on how that works.
+
+## Profiling
+
+Good performance is key in games and it is vital that you are able to do performance and memory profiling to measure your game and identify performance bottlenecks and memory problems that needs to be fixed. See the [Profiling manual](/manuals/profiling) for more information on the profiling tools available for Defold.
 
 ## Render
 

@@ -46,7 +46,9 @@ md = new markdown({
       try {
         var hl = hljs.highlight(lang, str).value;
         // Callouts hack!
-        return hl.replace(/(?:--|\/\/|#) &lt;([0-9]+)&gt;/g, '<span class="callout" data-pseudo-content="$1"></span>');
+        // replaces "-- [1]", "// [1]" and "-- <1>" and "// <1>" with a span
+        var exp = /(?:--|\/\/|#) (?:\[|&lt;)([0-9]+)(?:\]|&gt;)/g;
+        return hl.replace(exp, '<span class="callout" data-pseudo-content="$1"></span>');
       } catch (__) {}
     }
     return ''; // use external default escaping
@@ -106,9 +108,14 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
     var token = tokens[idx];
 
     if('imgurl' in env) {
-        // Rewrite src
+        // Rewrite src and srcset
         var src = token.attrs[token.attrIndex('src')][1];
         token.attrs[token.attrIndex('src')][1] = env.imgurl + '/' + src;
+
+        if(token.attrs[token.attrIndex('srcset')]) {
+          var srcset = token.attrs[token.attrIndex('srcset')][1];
+          token.attrs[token.attrIndex('srcset')][1] = env.imgurl + '/' + srcset;
+        }
     }
     // Set alt attribute
     token.attrs[token.attrIndex('alt')][1] = self.renderInlineAsText(token.children, options, env);
