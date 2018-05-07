@@ -1,5 +1,5 @@
 ---
-title: Getting started in Defold
+title: Endless runner tutorial
 brief: In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.
 ---
 

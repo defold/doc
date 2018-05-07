@@ -9,25 +9,24 @@ The editor allows you to browse and manipulate all files in your game project in
 
 ## Starting the editor
 
-When you start Defold you are met by a project selection dialog. On the left side there are three main operations available. Click to select what you want to do:
+When you run the Defold editor, you are presented with a project selection and creation screen. On the left side there are three main views available. Click to select what you want to do:
 
 Home
-: Lists your recently opened projects so you can quickly access them.
+: Click to show a lists your recently opened projects so you can quickly access them. This is the default view.
 
 New
-: Allows you to create a new Defold project. Select if you want to base your project on a basic template from the *From Template* tab, follow a tutorial from the *From Tutorial* tab, or check out a game sample from the *From Sample* tab.
+: Click if you want to create a new Defold project, then select if you want to base your project on a basic template (from the *From Template* tab), if you would like to follow a tutorial (the *From Tutorial* tab), or try one of the sample projects (the *From Sample* tab).
 
   ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
 
-  New projects are stored on your local drive, but you can use the *Synchronize* feature in the editor to create a Defold cloud Git storage project and push your changes to it.
+  When you create a new project it is stored on your local drive and any edits you do are saved locally. To share the project with members of your team, use the *Synchronize* feature in the editor. It creates a Defold cloud Git storage project for you through which you and your team can synchronize work.
 
 Import project
-: Import a project from you Defold cloud Git storage and create a working copy on your local drive so you can do changes to the project and synchronize against the cloud storage.
+: Create a working copy from an existing project from you Defold cloud Git storage account. The local copy is linked to the cloud Git project so it's ready for team synchronization.
 
   ![import project](images/editor/import_project.png){srcset="images/editor/import_project@2x.png 2x"}
 
   Access to the Defold cloud git storage requires that you provide your Defold account credentials.
-
 
 ## The editor views
 
