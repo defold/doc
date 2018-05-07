@@ -47,6 +47,7 @@ md = new markdown({
         var hl = hljs.highlight(lang, str).value;
         // Callouts hack!
         // replaces "-- [1]", "// [1]" and "-- <1>" and "// <1>" with a span
+        // callouts only work if the highlighter kicks in.
         var exp = /(?:--|\/\/|#) (?:\[|&lt;)([0-9]+)(?:\]|&gt;)/g;
         return hl.replace(exp, '<span class="callout" data-pseudo-content="$1"></span>');
       } catch (__) {}
@@ -109,10 +110,13 @@ md.renderer.rules.image = function (tokens, idx, options, env, self) {
 
     if('imgurl' in env) {
         // Rewrite src and srcset
+        // TODO: check if an url is absolute (leave as is) or relative (rewrite).
         var src = token.attrs[token.attrIndex('src')][1];
         token.attrs[token.attrIndex('src')][1] = env.imgurl + '/' + src;
 
         if(token.attrs[token.attrIndex('srcset')]) {
+          // TODO: srcset should be properly split and the url part should be
+          // rewritten.
           var srcset = token.attrs[token.attrIndex('srcset')][1];
           token.attrs[token.attrIndex('srcset')][1] = env.imgurl + '/' + srcset;
         }

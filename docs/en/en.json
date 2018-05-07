@@ -104,10 +104,6 @@
                         "name": "Introduction"
                     },
                     {
-                        "path": "/manuals/glossary",
-                        "name": "Glossary"
-                    },
-                    {
                         "path": "/manuals/install",
                         "name": "Installing Defold"
                     },
@@ -115,6 +111,19 @@
                         "path": "/manuals/editor",
                         "name": "The editor"
                     },
+                    {
+                        "path": "/manuals/community",
+                        "name": "Community pages"
+                    },
+                    {
+                        "path": "/manuals/glossary",
+                        "name": "Glossary"
+                    }                    
+                ]
+            },
+            {
+                "name": "WORKFLOW",
+                "items": [            
                     {
                         "path": "/manuals/workflow",
                         "name": "Workflow"
@@ -138,10 +147,6 @@
                     {
                         "path": "/manuals/flash",
                         "name": "Defold for Flash users"
-                    },
-                    {
-                        "path": "/manuals/community",
-                        "name": "Community pages"
                     }
                 ]
             },

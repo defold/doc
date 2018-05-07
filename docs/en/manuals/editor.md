@@ -7,7 +7,80 @@ brief: This manual gives an overview on how the Defold editor look and works, an
 
 The editor allows you to browse and manipulate all files in your game project in an efficient manner. Editing files brings up a suitable editor and shows all relevant information about the file in separate views.
 
-:[overview](../shared/editor-views.md)
+## Starting the editor
+
+When you start Defold you are met by a project selection dialog. On the left side there are three main operations available. Click to select what you want to do:
+
+Home
+: Lists your recently opened projects so you can quickly access them.
+
+New
+: Allows you to create a new Defold project. Select if you want to base your project on a basic template from the *From Template* tab, follow a tutorial from the *From Tutorial* tab, or check out a game sample from the *From Sample* tab.
+
+  ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
+
+  New projects are stored on your local drive, but you can use the *Synchronize* feature in the editor to create a Defold cloud Git storage project and push your changes to it.
+
+Import project
+: Import a project from you Defold cloud Git storage and create a working copy on your local drive so you can do changes to the project and synchronize against the cloud storage.
+
+  ![import project](images/editor/import_project.png){srcset="images/editor/import_project@2x.png 2x"}
+
+  Access to the Defold cloud git storage requires that you provide your Defold account credentials.
+
+
+## The editor views
+
+The Defold editor is separated into a set of panes, or views, that display specific information.
+
+![Editor 2](images/editor/editor2_overview.png)
+
+The *Assets* view
+: Lists all the files that are part of your project. Click and scroll to navigate the list. All file oriented operations can be made in this view:
+
+::: sidenote
+Editor 1 looks different but works very much the same, only with less functionality.)
+:::
+
+   - <kbd>Double click</kbd> a file to open it in an editor for that file type.
+   - <kbd>Drag and drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
+   - <kbd>Right click</kbd> to open a pop up menu from where you can create new files or folders, rename, delete, track file dependencies and more.
+
+The *Editor* view
+
+: The center view shows the currently open file in an editor for that file type. All visual editors allows you to change the camera view:
+
+- Pan: <kbd>Alt + left mouse button</kbd>.
+- Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
+- Rotate in 3D: <kbd>Ctrl + left mouse button</kbd>.
+
+There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale*.
+
+![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
+
+If you have multiple files open, a separate tab for each file is shown at the top of the editor view. It is possible to open 2 editor views side by side. <kbd>Right click</kbd> the tab for the editor you want to move and select <kbd>Move to Other Tab Pane</kbd>.
+
+![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
+
+You can also use the tab menu to swap the position of the two panes and join them to a single pane.
+
+The *Outline*
+: This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
+   - <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
+   - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to child it.
+   - <kbd>Right click</kbd> to open a pop up menu from where you can add items, delete selected items etc.
+
+The *Properties* view
+: This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
+
+The *Console*
+: This view shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing the *Curve Editor* which is used when editing curves in the particle editor, the *Build Errors* view that shows build errors, and the *Search Results* view that displays search results. The console is also used for interacting with the integrated debugger.
+
+The *Changed Files* view:
+: This view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if unfortune strikes. Some file oriented operations can be performed in this view:
+
+   - <kbd>Double click</kbd> a file to open a diff view of the file. Editor 2 opens the file in a suitable editor, just like in the assets view.
+   - <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more (editor 2).
 
 ## The scene editor
 

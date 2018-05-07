@@ -23,7 +23,7 @@ The Lua language
 : ![Lua overview](images/introduction/lua.png){.left} [Defold uses Lua](/manuals/lua/) for all its logic control. The engine is a fast C++ piece of machinery, but it is controlled on a high level by Lua programs. If you have programmed in Python, Javascript or any other high level language, you will find Lua pretty easy to grasp and can probably follow along a tutorial just fine. Otherwise, read through our Lua manual and take it from there.
 
 Game tutorials
-: ![Tutorials](images/introduction/tutorials.jpg){.left} [Learning by building games](/tutorials/) is something we encourage. We have a variety of tutorials available at different skill and complexity level. Following one or two of them may help you understand better how to put things together in Defold.
+: ![Tutorials](images/introduction/tutorials.jpg){.left} We believe that you learn best by doing. That is why we have a variety of tutorials available at different skill and complexity level available directly from [the editor](/manuals/editor/). Fire it up and follow one or two of the tutorials to learn how to build things and how Defold works.
 
 The building blocks of Defold
 : ![Building blocks](images/introduction/building_blocks.png){.left} [Defold games are build by composing simple blocks](/manuals/building-blocks/), some of which seem familiar if you have used other engines. There are some architectural design decisions that make the blocks of Defold special and it takes a little while to be comfortable working with them. Our building blocks manual is a good start if you feel you need to understand thoroughly how it's working.

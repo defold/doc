@@ -46,7 +46,7 @@ With the project cleaned up, open the *game.project* settings file and set the d
 
 ## Adding graphics to the game
 
-Very little is needed in terms of graphics. One 16x16 segment for the snake, one for obstacles and one for the food. Here is an image containing the graphics. Download it and drag it to a location in the project folder.
+Very little is needed in terms of graphics. One 16x16 segment for the snake, one for obstacles and one for the food. This image is the only asset you need. <kbd>Right click</kbd> the image, save it to your local disk and drag it to a location in the project folder.
 
 ![snake sprites](images/snake/snake.png)
 

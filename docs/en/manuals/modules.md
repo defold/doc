@@ -101,7 +101,7 @@ If you hot reload the module file the code is run again, but nothing happens wit
 
 First, the table created in "module.lua" is created in local scope and a _reference_ to that table is returned to the user. Reloading "module.lua" evaluates the module code again but that creates a new table in the local scope instead of updating the table `m` refers to.
 
-Secondly, Lua caches required files. The first time a file is required, it is put in the table [`package.loaded`](/ref/package/#package.loaded) so it can be read faster on subrequent requires. You can force a file to be re-read from disk by setting the file's entry to nil: `package.loaded["my_module"] = nil`.
+Secondly, Lua caches required files. The first time a file is required, it is put in the table [`package.loaded`](/ref/package/#package.loaded) so it can be read faster on subsequent requires. You can force a file to be re-read from disk by setting the file's entry to nil: `package.loaded["my_module"] = nil`.
 
 To properly hot reload a module, you need to reload the module, reset the cache and then reload all files that uses the module. This is far from optimal.
 

@@ -127,7 +127,7 @@ ERROR:GAMEOBJECT: Instance '/dont_exists' could not be found when dispatching me
 
 The complete signature of the `msg.post()` call is:
 
-`msg.post(receiver, message_id[, message])`
+`msg.post(receiver, message_id, [message])`
 
 receiver
 : The id of the target component or game object. Note that if you target a game object, the message will be broadcast to all components in the game object.
