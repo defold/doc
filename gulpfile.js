@@ -169,7 +169,7 @@ md.renderer.rules.fence = function (tokens, idx, options, env, self) {
   }
 
   var id = 'codesnippet_' + idx;
-  var copy = '<button class="copy-to-clipboard" data-target="#' + id + '"><span class="icon-clipboard"></span></button>';
+  var copy = '<button class="copy-to-clipboard" data-clipboard-target="#' + id + '"><span class="icon-clipboard"></span></button>';
 
   // If language exists, inject class gently, without modifying original token.
   // May be, one day we will add .clone() for token and simplify this part, but
