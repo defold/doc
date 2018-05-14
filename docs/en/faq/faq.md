@@ -212,12 +212,16 @@ Why am I experiencing visual artifacts around the edges of my sprites?
   Luckily this can be done automatically by the atlas editor in Defold.
   Open your atlas and set the *Extrude Borders* value to 1.
 
-Can I tint my sprites easily, or do I have to write my own shader for it?
+Can I tint my sprites or make them transparent, or do I have to write my own shader for it?
 
-: Yes, you can. The built-in sprite shader has a constant "tint" defined:
+: The built-in sprite shader that is used by default for all sprites has a constant "tint" defined:
 
   ```lua
-  sprite.set_constant("#sprite", "tint", vmath.vector4(r, g, b, a))
+  local red = 1
+  local green = 0.3
+  local blue = 0.55
+  local alpha = 1
+  sprite.set_constant("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
   ```
 
 If I set the z coordinate of a sprite to 100 then it's not rendered. Why?
