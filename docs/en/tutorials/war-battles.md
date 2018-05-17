@@ -1,11 +1,35 @@
 ---
 title: War battles tutorial
 brief: In this tutorial you will create the embryo of a small shooter game. This is a good starting point if you are new to Defold.
+github: https://github.com/defold/tutorial-war-battles
 ---
 
 # War battles tutorial
 
-This tutorial goes through the steps needed to create a small playable game embryo in Defold. You do not need to have any prior experience with Defold, but if you have done some programming in Lua, Javascript, Python or similar, that will help. To get an idea about what you are about to build, you can try the result here:
+In this tutorial you will learn how to create a small playable game featuring movement and firing mechanics.
+
+The tutorial is integrated with the Defold editor and easily accessible:
+
+1. Start Defold.
+2. Select *New Project* on the left.
+3. Select the *From Tutorial* tab.
+4. Select the "War battles tutorial"
+5. Select a location for the project on your local drive and click *Create New Project*.
+
+![new project](images/new-war-battles.png){srcset="images/new-war-battles@2x.png 2x"}
+
+The editor automatically opens the "README" file from the project root, containing the full tutorial text.
+
+![icon](images/icon-tutorial.svg){style="display:inline;margin:0 0.5rem 0 0;vertical-align: middle;"}
+[You can also read the full tutorial text on Github](https://github.com/defold/tutorial-war-battles)
+
+If you get stuck, head over to the [Defold Forum](//forum.defold.com) where you will get help from the Defold team and many friendly users.
+
+Happy Defolding!
+
+## The end result
+
+To get an idea about what you are about to build, you can try the result here:
 
 <div id="game-container" class="game-container">
     <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/war-battles/preview.jpg"/>
@@ -35,23 +59,3 @@ This tutorial goes through the steps needed to create a small playable game embr
         };
     </script>
 </div>
-
-## New project
-
-The tutorial is integrated with the editor so it is really easy to get going:
-
-1. Start Defold.
-2. Select *New Project* on the left.
-3. Select the *From Tutorial* tab.
-4. Select the "War battles tutorial"
-5. Select a location for the project on your local drive and click *Create New Project*.
-
-![create project](images/war-battles/create_project.png)
-
-The editor now automatically opens the "README" file from the project root, containing the full tutorial text.
-
-- If you are new to Defold, check out the [editor introduction](/manuals/editor).
-- If you get stuck, please head over to the [Defold Forum](//forum.defold.com) where you can talk to the Defold developers and many friendly users.
-- The tutorial is also available on Github: https://github.com/defold/tutorial-war-battles
-
-Happy Defolding!
