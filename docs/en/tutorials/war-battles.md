@@ -23,13 +23,7 @@ The editor automatically opens the "README" file from the project root, containi
 ![icon](images/icon-tutorial.svg){style="display:inline;margin:0 0.5rem 0 0;vertical-align: middle;"}
 [You can also read the full tutorial text on Github](https://github.com/defold/tutorial-war-battles)
 
-If you get stuck, head over to the [Defold Forum](//forum.defold.com) where you will get help from the Defold team and many friendly users.
-
-Happy Defolding!
-
-## The end result
-
-To get an idea about what you are about to build, you can try the result here:
+To get an idea about what you are about to build, you can try the game here. Move with the <kbd>arrow buttons</kbd> and fire with <kbd>space</kbd>.
 
 <div id="game-container" class="game-container">
     <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/war-battles/preview.jpg"/>
@@ -59,3 +53,7 @@ To get an idea about what you are about to build, you can try the result here:
         };
     </script>
 </div>
+
+If you get stuck, head over to the [Defold Forum](//forum.defold.com) where you will get help from the Defold team and many friendly users.
+
+Happy Defolding!
