@@ -101,7 +101,7 @@ Can I use external Git tools?
   1. Add the folder you selected for your project location to your Git client. (If you run editor 1, the project is found in "Defold/branches/[project_id]/[user_id]/[name_of_branch]")
   2. Specify your Defold username. The password is the "Access token" that you find under "Settings" in the Defold Dashboard (the huge hexadecimal number).
   
-  You can now add, commit, revert, branch and merge as much as you want. Any changes are immediately reflected in Defold. Note that Defold automatically stages all changes that you make in the editor.
+  You can now add, commit, revert, branch and merge as much as you want. Any changes are immediately reflected in Defold.
 
 ## Publishing games
 
