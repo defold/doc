@@ -169,11 +169,15 @@ Addon to the scripting example above, we add the following callback function
 
 ```lua
 local function store_manifest_cb(self, status)
-    print("Stored manifest with status: ", status)
+    if status == resource.LIVEUPDATE_OK then
+        print("Successfully stored manifest!")
+    else
+        print("Failed to store manifest, status: ", status)
+    end
 end
 ```
 
-and the following to ```on_message``` to handle receiving a message for ```attempt_download_manifest```:
+and the following to ```on_message``` to handle receiving message ```attempt_download_manifest```:
 
 ```lua
 ...
