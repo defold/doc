@@ -133,15 +133,13 @@ The manifest is an internal data structure that holds a list of all resources in
 
 From the user's perspective, the manifest is a numeric handle, leaving the details of how it's managed to the engine.
 
-[//]: # (::: important)
-[//]: # (Currently, only the initial build manifest is available. The ability to store new manifests is a planned update to the system. This will allow you to modify or add resources to a published game that were not known at build time.)
-[//]: # (:::)
-
 ## Updating the manifest with Live update
 
 With Live update a new manifest can be stored locally at runtime. The local manifest will be used at app startup instead of the one bundled with the application. This is useful for modifying or adding Live update resources to a published game that were not known at build time, without having to publish a full release.
 
-When publishing Live update resources to either Amazon Web Service or to a zip archive, the manifest will be included in that package next to the resources. The name of the manifest file will be `liveupdate.v<game-project-version>.game.dmanifest` were the project version will be fetched from `game.project` at build time.
+When publishing Live update resources to either Amazon Web Service or to a zip archive, the manifest will be included in that package next to the resources. The name of the manifest file will be `liveupdate.game.dmanifest`.
+
+Starting the engine for the first time after a manifest has been stored will create a bundle identifier file `bundle.ver` next to the manifest. This is used to detect whether the bundle has changed since the manifest was stored, for example after a full app store update. If this is the case the stored manifest will be deleted from the filesystem and the newer bundled manifest will be used instead. This means that a full app store update will delete any previously stored manifest. Any existing Live update resources will however remain untouched.
 
 ### Manifest verification
 When storing a new manifest the manifest data will be verified before it is actually written to disk. The verification consists of a number of checks:
@@ -162,10 +160,10 @@ $ openssl genrsa -out private_raw.key 1024
 $ openssl pkcs8 -topk8 -inform pem -in private_raw.key -outform der -nocrypt -out private.der
 $ openssl rsa -in private_raw.key -outform DER -RSAPublicKey_out -pubout -out public.der
 ```
-This will output `private_raw.key` (can be safely deleted), `private.der`, and `public.der`. To use the keys for signing open the Live update settings view and point respective field to the generated keys.
+This will output `private_raw.key` (can be safely deleted), `private.der`, and `public.der`. To use the keys for signing open the Live update settings view and point respective fields to the generated keys.
 
 ### Scripting with Live update manifest
-Addon to the scripting example above, we add the following callback function
+Adding to the scripting example above, we add the following callback function
 
 ```lua
 local function store_manifest_cb(self, status)
@@ -177,7 +175,7 @@ local function store_manifest_cb(self, status)
 end
 ```
 
-and the following to ```on_message``` to handle receiving message ```attempt_download_manifest```:
+and the following to ```on_message``` to handle message ```attempt_download_manifest```:
 
 ```lua
 ...
@@ -200,9 +198,8 @@ end
 
 ### Caveats
 There are a few gotchas that might be good to know if you plan to use this feature to store a new manifest with Live update.
-* It is only possible to add or modify resources to collection proxies that are tagged as `Exclude` in the new manifest. No changes should be made to already bundled resources or resources not in excluded collection proxies. For example, doing changes in a script that is referenced by a bundled collection will cause the resource system to look for that resource in the bundle data archive. But since the game bundle was not shipped with this changed script the resource will not be found and consequently cannot be loaded.
+* It is only possible to add or modify resources referenced by collection proxies that are tagged as `Exclude` in the new manifest. No changes should be made to already bundled resources or resources not in excluded collection proxies. For example, doing changes in a script that is referenced by a bundled collection will cause the resource system to look for that resource in the bundled data archive. But since the shipped game bundle has not changed (only the manifest has) the changed script will not be found and consequently cannot be loaded.
 
-[//]: # (SDFSFGFDGDGFG maybe the one above instead?* It is only possible to add or modify resources referenced by collection proxies that were tagged as `Exclude` in the original bundle. For example, doing changes in a script that is referenced by a collection proxy NOT tagged as `Exclude` will cause the resource system to look for the resource in the bundle. But since the game bundle was not shipped with this changed script the resource will not be found and consequently cannot be loaded.)
 * Even though this feature allows you to quickly push bug fixes or new features to a live game without doing a full app store release, it should be used with care. Pushing out a new manifest should involve the same processes as when doing a full release with everything that that entails (testing, QA, etc.).
 
 ## Setting up Amazon Web Service
