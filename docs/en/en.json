@@ -43,6 +43,19 @@
                         "name": "15 puzzle"
                     },
                     {
+                        "path": "/tutorials/shadertoy",
+                        "name": "Shadertoy"
+                    },
+                    {
+                        "path": "/tutorials/grading",
+                        "name": "Color grading"
+                    }
+                ]
+            },
+            {
+                "name": "Old tutorials",
+                "items": [
+                    {
                         "path": "/tutorials/platformer",
                         "name": "Platformer"
                     },
@@ -57,17 +70,9 @@
                     {
                         "path": "/tutorials/car",
                         "name": "Building a car"
-                    },
-                    {
-                        "path": "/tutorials/shadertoy",
-                        "name": "Shadertoy"
-                    },
-                    {
-                        "path": "/tutorials/grading",
-                        "name": "Color grading"
                     }
                 ]
-            },
+            },           
             {
                 "name": "Code samples",
                 "items": [

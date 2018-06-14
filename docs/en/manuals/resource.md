@@ -5,7 +5,7 @@ brief: This manual explains how Defold automatically manages resources and how y
 
 # Resource management
 
-If you make a very small game, the limitations of the target platform (memory footprint, bundle size, computing power and battery consumption) may not ever pose any proplems. However, when making larger games, and especially on handheld devices, memory consumption will likely be one of the biggest constraints. An experienced team will carefully make resource budgets against platform constraints. Defold provides a range of features to help manage memory and bundle size. This manual gives an overview to these features.
+If you make a very small game, the limitations of the target platform (memory footprint, bundle size, computing power and battery consumption) may not ever pose any problems. However, when making larger games, and especially on handheld devices, memory consumption will likely be one of the biggest constraints. An experienced team will carefully make resource budgets against platform constraints. Defold provides a range of features to help manage memory and bundle size. This manual gives an overview to these features.
 
 ## The static resource tree
 
