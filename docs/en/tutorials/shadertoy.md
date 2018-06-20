@@ -7,7 +7,7 @@ brief: In this tutorial you will convert a shader from shadertoy.com to Defold.
 
 [Shadertoy.com](https://www.shadertoy.com/) is a site that gathers user contributed GL shaders. It is a great resource for finding shader code and inspiration. In this tutorial we will take a shader from Shadertoy and make it run in Defold. Some basic understanding of shaders is assumed. If you need to read up, [the Shader manual](/manuals/shader/) is a good place to start.
 
-The shader we will use is [Star Nest](https://www.shadertoy.com/view/XlfGRj) by the user "Kali". It is a purely procedural mathematical black magickery fragment shader that renders a really cool starfield effect.
+The shader we will use is [Star Nest](https://www.shadertoy.com/view/XlfGRj) by Pablo Andrioli (user "Kali" on Shadertoy). It is a purely procedural mathematical black magickery fragment shader that renders a really cool starfield effect.
 
 ![Star Nest](images/shadertoy/starnest.png)
 
@@ -114,6 +114,9 @@ Now everything is in place to start working on the actual shader code. Let's fir
 Going through the sections above and doing the necessary changes results in the following shader code. It has been cleaned up a little for better readability. The differences between the Defold and Shadertoy versions are noted:
 
 ```glsl
+// Star Nest by Pablo Román Andrioli
+// This content is under the MIT License.
+
 #define iterations 17
 #define formuparam 0.53
 
