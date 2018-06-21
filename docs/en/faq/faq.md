@@ -155,15 +155,20 @@ Why does my HTML5-app freeze at the splash screen in Chrome?
 
 ## Linux issues
 
-I'm running on Linux and the editor won't start.
+When I try to create a new project, or open an existing one, the editor crashes.
+: On certain distributions (like Ubuntu 16 and 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
 
-: This applies to the old editor 1 only. Make sure that you start the editor with the supplied shell script:
+  See the following reports for more information:
 
-  ```sh
-  $ ./Defold-linux.sh
+  - https://github.com/defold/editor2-issues/issues/1905
+  - https://github.com/defold/editor2-issues/issues/1886 
+
+  If this is your problem try the following workaround:
+
   ```
-
-  Do *not* execute *Defold* directly.
+  $ export MESA_GL_VERSION_OVERRIDE=3.1
+  $ ./Defold
+  ```
 
 I can't create a new branch for my project on Linux.
 
@@ -174,10 +179,20 @@ When I try to run my game on Linux, the engine doesn't start.
 : Check the console output in the editor. If you get the following message:
 
   ```
-  /home/myname/Desktop/Defold/plugins/com.dynamo.cr.engine_1.0.0.201502231306/engine/linux/dmengine: error while loading shared libraries: libopenal.so.1: cannot open shared object file: No such file or directory
+  dmengine: error while loading shared libraries: libopenal.so.1: cannot open shared object file: No such file or directory
   ```
 
   then you need to install *libopenal1*. The package name varies between distributions, and in some cases you might have to install the *openal* and *openal-dev* or *openal-devel* packages.
+
+I'm running on Linux and the editor won't start.
+
+: This applies to the old editor 1 only. Make sure that you start the editor with the supplied shell script:
+
+  ```sh
+  $ ./Defold-linux.sh
+  ```
+
+  Do *not* execute *Defold* directly.
 
 ## Android issues
 
