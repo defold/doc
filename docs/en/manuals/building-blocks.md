@@ -5,11 +5,50 @@ brief: This manual digs into the details of how game objects, components and col
 
 #  Building blocks
 
-Some of the design decisions made in Defold differ from other software and it may take some time to get a good grip on how and why things are put together the way they are. In order to properly understand how Defold manages and gives you access to game resources, read this document, the [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing).
+At the core of Defold's design are a few concepts that may take a little while to get a good grip on. This manual explains what the building blocks of Defold consist of. After having read this manual, move on to the [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing). There are also a set of [tutorials](/tutorials/getting-started) available from within the editor to get you up and running quickly.
 
-Some or many of the things here might be unfamiliar and hard to understand at first, but don't worry. Take your time, experiment with the editor and engine and return to the documentation when you run into problems.
+![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
 
-![Building blocks](images/building_blocks/building_blocks.png)
+There are three basic types of building blocks that you use to construct a Defold game:
+
+Collection
+: A collection is a file used to structure your game. In collections you build hierarchies of game objects and other collections. They are typically used to structure game levels, groups of enemies or characters built out of several game objects.
+
+Game object
+: A game object is a container with an id, position, rotation and scale. It is used to contain components. They are typically used to create player characters, bullets, the game’s rule system or a level loader/unloader.
+
+Component
+: Components are entities that are put in game object to give them visual, audible and/or logic representation in the game. They are typically used to create character sprites, script files, add sound effects or add particle effects.
+
+## Collections
+
+Collections are tree structures that hold game objects and other collections. A collection is always stored on file.
+
+When the Defold engine starts, it loads a single _bootstrap collection_ as specified in the "game.project" settings file. The bootstrap collection is often named "main.collection" but you are free to use any name you like.
+
+A collection can contain game objects and other collection, nested arbitrarily deep. Here is an example file called "main.collection". It contains one game object (with the id "can") and one sub-collection (with the id "bean"). The sub-collection, in turn, contains two game objects: "bean" and "shield".
+
+![Collection](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
+
+Notice that the sub-collection with id "bean" is stored in its own file, called "/main/bean.collection":
+
+![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
+
+You can see what file an object instance is based on in the outline view. The file "main.collection" contains three instances that are based on files:
+
+1. The "bean" sub-collection.
+2. The "bean" script component in the "bean" game object in the "bean" sub-collection.
+3. The "can" script component in the "can" game object.
+
+![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
+
+If you bootstap the engine from the above "main.collection", it will instanciate three game objects with the following identities:
+
+- "/bean/bean"
+- "/bean/shield"
+- "/can"
+
+Note that there is _no runtime object_ corresponding to the sub-collection "bean" itself. Please refer to the [addressing manual](/manuals/addressing) for details on how to address objects in Defold.
 
 ## Game objects
 
@@ -168,50 +207,6 @@ data: "components {\n"
 "}\n"
 ```
 
-## Collections
-
-Collections are Defold's mechanism for creating templates, or what in other engines are called "prefabs". Collections are tree structures that hold game objects and other collections. A collection is _always_ stored on file and brought into the game in one of two ways:
-
-1. Either at build time by placing the collection in another collection in the editor.
-2. At runtime by dynamically loading all resources gathered in the collection through a _collection proxy_ (See [Collection proxy documentation](/manuals/collection-proxy) for details).
-
-![Collection instances](images/building_blocks/building_blocks_collection_instances.png)
-
-Collections that have been placed in the editor cannot be modified. You cannot, for instance, add children to game objects that are part of the placed collection. Why you can't do that becomes clear when you look at the data that is stored for the collection instance. The data for the containing game objects is inside the _referenced_ collection file *my_collection.collection* and that is not what you're editing.
-
-While you can't modify the contents of a collection instance without editing the source collection file, the editor allows modification of property values such as script properties that are associated with components in the collection.
-
-![Properties in a collection](images/building_blocks/building_blocks_collection_properties.png)
-
-```txt
-collection_instances {
-  id: "my_collection"
-  collection: "/a_simple_test/my_collection.collection"
-  position {
-    x: -172.74739
-    y: 149.61157
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale: 1.0
-  instance_properties {
-    id: "my_gameobject"
-    properties {
-      id: "script"
-      properties {
-        id: "my_property"
-        value: "4717.0"
-        type: PROPERTY_TYPE_NUMBER
-      }
-    }
-  }
-}
-```
 
 ## Child-parent hierarchies
 
