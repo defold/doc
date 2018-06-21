@@ -7,7 +7,11 @@ brief: Defold supports GUIs that automatically adapt to screen orientation chang
 
 Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. Using this feature allows you to design GUIs that adapt to the orientation and aspect ratio of the screen.
 
-The dynamic layout of GUIs works by matching display profiles to the current width and height of the display that the game is running on.
+The dynamic layout of GUIs works by matching display profiles qualifiers to the current width and height of the display that the game is running on and any device models specified as reported by `sys.get_sys_info()`.
+
+::: sidenote
+The only platforms reporting a device model when calling `sys.get_sys_info()` is Android and iOS. Other platforms return an empty string.
+:::
 
 ## Display profiles
 
@@ -21,7 +25,14 @@ Landscape
 Portrait
 : 720 pixels wide and 1280 pixels high
 
-For devices with an aspect ratio of 16:9 these profiles are probably enough. Even if the actual physical dimensions of the screen are higher or lower, the engine will automatically select the a profile that is closest. If you need to alter the default profiles, simply copy the built in file to a new place within your project or create a new file, then change the setting in `project.settings` so the engine knows which profiles-file to use:
+Device models
+: None
+
+For devices with an aspect ratio of 16:9 these profiles are probably enough. Even if the actual physical dimensions of the screen are higher or lower, the engine will automatically select the a profile that is closest.
+
+The device models qualifier is a comma separated string where a display profile can be targeted against one or more specific device models. Adding for example `"iPhone10"` to the device model qualifier means that the profile will only be eligible for selection for devices **starting with** that same string, for example `iPhone10,3` and `iPhone10,6`.
+
+If you need to alter the default profiles, simply copy the built in file to a new place within your project or create a new file, then change the setting in `project.settings` so the engine knows which profiles-file to use:
 
 ![Project settings](images/layouts/layouts_project_settings.png)
 
@@ -41,11 +52,11 @@ The defined display profiles can then be used to create layouts in the GUI edito
 The *Default* layout is only used if there are no other layouts added to the GUI scene. So, if you add a "Landscape" layout, that will be the best match for all orientations until you also add a "Portrait" layout.
 :::
 
-When editing a GUI scene, all nodes are edited on a particular layout. The currently selected layout is indicated in the *Outline* view. The current layout is marked in *bold*.
+When editing a GUI scene, all nodes are edited on a particular layout. The currently selected layout is indicated in the gui scene layout dropdown.
 
 ![Editing default layer](images/layouts/layouts_default.png)
 
-You also get visual feedback on whether a node overrides a property on the currently selected layer (other than *Default*) or not. Each change to a node property that you do with a layout selected _overrides_ the property in respect to the *Default* layout. Properties that are overridden are marked in blue. You can click on the blue property name to reset the property to the default value.
+You also get visual feedback on whether a node overrides a property on the currently selected layer (other than *Default*) or not. Each change to a node property that you do with a layout selected _overrides_ the property in respect to the *Default* layout. Properties that are overridden are marked in blue. You can click on the reset button next to the property to reset the property to the default value.
 
 ![Editing with layouts](images/layouts/layouts_modified.png)
 
