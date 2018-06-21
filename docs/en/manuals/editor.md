@@ -37,13 +37,9 @@ The Defold editor is separated into a set of panes, or views, that display speci
 The *Assets* view
 : Lists all the files that are part of your project. Click and scroll to navigate the list. All file oriented operations can be made in this view:
 
-::: sidenote
-Editor 1 looks different but works very much the same, only with less functionality.)
-:::
-
    - <kbd>Double click</kbd> a file to open it in an editor for that file type.
    - <kbd>Drag and drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
-   - <kbd>Right click</kbd> to open a pop up menu from where you can create new files or folders, rename, delete, track file dependencies and more.
+   - <kbd>Right click</kbd> to open a _context menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
 
 The *Editor* view
 
@@ -57,17 +53,11 @@ There is a toolbar in the top right corner of the scene view where you find obje
 
 ![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
 
-If you have multiple files open, a separate tab for each file is shown at the top of the editor view. It is possible to open 2 editor views side by side. <kbd>Right click</kbd> the tab for the editor you want to move and select <kbd>Move to Other Tab Pane</kbd>.
-
-![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
-
-You can also use the tab menu to swap the position of the two panes and join them to a single pane.
-
 The *Outline*
 : This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
    - <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
    - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to child it.
-   - <kbd>Right click</kbd> to open a pop up menu from where you can add items, delete selected items etc.
+   - <kbd>Right click</kbd> to open a _context menu_ from where you can add items, delete selected items etc.
 
 The *Properties* view
 : This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
@@ -81,9 +71,17 @@ The *Changed Files* view:
    - <kbd>Double click</kbd> a file to open a diff view of the file. Editor 2 opens the file in a suitable editor, just like in the assets view.
    - <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more (editor 2).
 
+## Side-by-side editing
+
+If you have multiple files open, a separate tab for each file is shown at the top of the editor view. It is possible to open 2 editor views side by side. <kbd>Right click</kbd> the tab for the editor you want to move and select <kbd>Move to Other Tab Pane</kbd>.
+
+![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
+
+You can also use the tab menu to swap the position of the two panes and join them to a single pane.
+
 ## The scene editor
 
-The *Scene Editor* is used to create and edit game objects with their components and collections.
+Double clicking a collection or game object file brings up the *Scene Editor*:
 
 ![Select object](images/editor/select.jpg)
 
@@ -113,10 +111,6 @@ The rotate tool
 
   This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
 
-::: sidenote
-Currently, sprite components can not be individually scaled in the editor, you have to scale the game object holding the sprite. Sprites do, however, support *runtime* free-form scaling. See the [2D Graphics documentation](/manuals/2dgraphics/) for details.
-:::
-
 The scale tool
 : ![Scale tool](images/editor/icon_scale.png){.left}
   To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
@@ -124,4 +118,22 @@ The scale tool
   ![Scale object](images/editor/scale.jpg)
 
   This tool consists of a set of square handles. The center one scales the object uniformly in all axes (including Z). There also one handle for scaling along each of the X, Y and Z axes and one handle for scaling in the X-Y plane, the X-Z plane and the Y-Z plane.
+
+## Creating new project files
+
+To create new resource files, either select <kbd>File ▸ New...</kbd> and then choose the file type from the menu, or use the context menu:
+
+<kbd>Right click</kbd> the target location in the *Assets* browser, then select <kbd>New... ▸ [file type]</kbd>:
+
+![create file](images/editor/create_file.png){srcset="images/editor/create_file@2x.png 2x"}
+
+Type a suitable name for the new file. The full file name including the file type suffix is shown under *Path* in the dialog:
+
+![create file name](images/editor/create_file_name.png){srcset="images/editor/create_file_name@2x.png 2x"}
+
+## Importing files to your project
+
+To add asset files (images, sounds, models etc) to your project, simply drag and drop them to the correct position in the *Assets* browser. This will make _copies_ of the files at the selected location in the project file structure.
+
+![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
 
