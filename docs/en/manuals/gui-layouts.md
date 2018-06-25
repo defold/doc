@@ -5,13 +5,7 @@ brief: Defold supports GUIs that automatically adapt to screen orientation chang
 
 # Layouts
 
-Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. Using this feature allows you to design GUIs that adapt to the orientation and aspect ratio of the screen.
-
-The dynamic layout of GUIs works by matching display profiles qualifiers to the current width and height of the display that the game is running on and any device models specified as reported by `sys.get_sys_info()`.
-
-::: sidenote
-The only platforms reporting a device model when calling `sys.get_sys_info()` is Android and iOS. Other platforms return an empty string.
-:::
+Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. Using this feature allows you to design GUIs that adapt to the orientation and aspect ratio of the screen. It is also possible to create layouts that match certain device models.
 
 ## Display profiles
 
@@ -27,6 +21,12 @@ Portrait
 
 Device models
 : None
+
+The dynamic layout of GUIs works by matching display profiles qualifiers to the current width and height of the display that the game is running on and any device models specified as reported by `sys.get_sys_info()`.
+
+::: sidenote
+The only platforms reporting a device model when calling `sys.get_sys_info()` is Android and iOS. Other platforms return an empty string.
+:::
 
 For devices with an aspect ratio of 16:9 these profiles are probably enough. Even if the actual physical dimensions of the screen are higher or lower, the engine will automatically select the a profile that is closest.
 
