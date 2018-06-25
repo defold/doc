@@ -217,6 +217,10 @@
                         "name": "Animation"
                     },
                     {
+                        "path": "/manuals/atlas",
+                        "name": "Atlas"
+                    },                    
+                    {
                         "path": "/manuals/spine",
                         "name": "Spine animation"
                     },

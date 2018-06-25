@@ -15,11 +15,13 @@ You need to populate an atlas with images before you can use it as a graphics so
 
 1. Make sure that you have added your images to the project (drag and drop image files to the right location in the *Assets* browser)
 2. Select <kbd>New ▸ Atlas</kbd> from the context menu in the Project Explorer.
-3. Select <kbd>Add Images</kbd> from the context menu in the Outline.
+3. When the new file opens in the atlas editor, <kbd>right click</kbd> the root Atlas entry in the *Outline* pane.
+4. Select <kbd>Add Images</kbd> from the pop up context menu.
 
 A dialog opens from which you can find and select the images you want to add to the Atlas. Note that you can filter the image files and select multiple files at once.
 
-![Creating an atlas, adding images](images/2dgraphics/2dgraphics_atlas_add.png)
+![Creating an atlas, adding images](images/atlas/add.png){srcset="images/atlas/add@2x.png 2x"}
+
 ![Creating an atlas](images/2dgraphics/2dgraphics_atlas.png)
 
 ## Defining flip-book animations
