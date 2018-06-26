@@ -13,7 +13,7 @@ This glossary gives a brief description to all the things you encounter in Defol
 
 ## Atlas
 
-![Atlas](images/icons/atlas.png){.left} An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. They can contain still images or flip-book animated series of images. Atlases are used by GUI, Sprite, Spine model and ParticleFX components to share graphics resources. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
+![Atlas](images/icons/atlas.png){.left} An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. They can contain still images or flip-book animated series of images. Atlases are used by GUI, Sprite, Spine model and ParticleFX components to share graphics resources. See the [Atlas documentation](/manuals/atlas) for more information.
 
 ## Builtins
 
@@ -157,7 +157,7 @@ Good performance is key in games and it is vital that you are able to do perform
 
 ## Sprite
 
-![Sprite](images/icons/sprite.png){.left} A sprite is a component that extends game objects with graphics. It displays an image either from a Tile source or from an Atlas. Sprites have built-in support for flip-book and bone animation. Sprites are usually used for characters and items. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
+![Sprite](images/icons/sprite.png){.left} A sprite is a component that extends game objects with graphics. It displays an image either from a Tile source or from an Atlas. Sprites have built-in support for flip-book and bone animation. Sprites are usually used for characters and items.
 
 ## Texture profiles
 
@@ -165,11 +165,11 @@ Good performance is key in games and it is vital that you are able to do perform
 
 ## Tile map
 
-![Tile map](images/icons/tilemap.png){.left} Tile map components display images from a tile source in one or more overlaid grids. They are most commonly used to build game environments: ground, walls, buildings and obstacles. A tile map can display several layers aligned on top of each other with a specified blend mode. This is useful to, for example, put foliage on top of grass background tiles. It is also possible to dynamically change the displayed image in a tile. That allows you to, for instance, destroy a bridge and make it impassable by simply replacing the tiles with ones depicting the broken down bridge and containing the corresponding physics shape. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
+![Tile map](images/icons/tilemap.png){.left} Tile map components display images from a tile source in one or more overlaid grids. They are most commonly used to build game environments: ground, walls, buildings and obstacles. A tile map can display several layers aligned on top of each other with a specified blend mode. This is useful to, for example, put foliage on top of grass background tiles. It is also possible to dynamically change the displayed image in a tile. That allows you to, for instance, destroy a bridge and make it impassable by simply replacing the tiles with ones depicting the broken down bridge and containing the corresponding physics shape. See the [Tile map documentation](/manuals/tilemap) for more information.
 
 ## Tile source
 
-![Tile source](images/icons/tilesource.png){.left} A tile source describes a texture that is composed of multiple smaller images, each with the same size. You can define flip-book animations from a sequence of images in a tile source. Tile sources can also automatically calculate collision shapes from image data. This is very useful for creating tiled levels that object can collide and interact with. Tile sources are used by Tile map components (and Sprite and ParticleFX) to share graphics resources. Note that Atlases are often a better fit than tile sources. See the [2D graphics documentation](/manuals/2dgraphics) for more information.
+![Tile source](images/icons/tilesource.png){.left} A tile source describes a texture that is composed of multiple smaller images, each with the same size. You can define flip-book animations from a sequence of images in a tile source. Tile sources can also automatically calculate collision shapes from image data. This is very useful for creating tiled levels that object can collide and interact with. Tile sources are used by Tile map components (and Sprite and ParticleFX) to share graphics resources. Note that Atlases are often a better fit than tile sources. See the [Tile map documentation](/manuals/tilemap) for more information.
 
 ## Vertex shader
 
