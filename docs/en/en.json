@@ -192,30 +192,35 @@
                         "name": "Message passing"
                     },
                     {
-                        "path": "/manuals/resource",
-                        "name": "Resource management"
-                    },
-                    {
                         "path": "/manuals/application-lifecycle",
                         "name": "Application lifecycle"
                     }
                 ]
             },
             {
-                "name": "RESOURCES & COMPONENTS",
+                "name": "ASSETS AND RESOURCES",
                 "items": [
-                    {
-                        "path": "/manuals/2dgraphics",
-                        "name": "2D graphics"
-                    },
-                    {
-                        "path": "/manuals/3dgraphics",
-                        "name": "3D graphics"
-                    },
                     {
                         "path": "/manuals/animation",
                         "name": "Animation"
                     },
+                    {
+                        "path": "/manuals/graphics",
+                        "name": "Graphics"
+                    },
+                    {
+                        "path": "/manuals/resource",
+                        "name": "Resource management"
+                    }
+                ]
+            },
+            {
+                "name": "COMPONENTS",
+                "items": [
+                    {
+                        "path": "/manuals/atlas",
+                        "name": "Atlas"
+                    },                    
                     {
                         "path": "/manuals/spine",
                         "name": "Spine animation"
@@ -226,7 +231,7 @@
                     },
                     {
                         "path": "/manuals/model",
-                        "name": "Model (3D)"
+                        "name": "Model"
                     },
                     {
                         "path": "/manuals/particlefx",
@@ -239,6 +244,10 @@
                     {
                         "path": "/manuals/sound",
                         "name": "Sound"
+                    },
+                    {
+                        "path": "/manuals/tilemap",
+                        "name": "Tilemap"
                     },
                     {
                         "path": "/manuals/font",
@@ -271,10 +280,6 @@
                     {
                         "path": "/manuals/collection-proxy",
                         "name": "Collection proxy"
-                    },
-                    {
-                        "path": "/manuals/live-update",
-                        "name": "Live update"
                     },
                     {
                         "path": "/manuals/camera",
@@ -387,7 +392,11 @@
                     {
                         "path": "/manuals/instant-games",
                         "name": "Facebook Instant Games"
-                    }
+                    },
+                    {
+                        "path": "/manuals/live-update",
+                        "name": "Live update"
+                    }                    
                 ]
             },
             {
