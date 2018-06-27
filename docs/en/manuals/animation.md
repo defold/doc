@@ -30,9 +30,9 @@ Spine animation
   ![Wiggle loop](images/animation/wiggle.gif){.inline}
 
 Property animation
-: All numeric properties (numbers, vector3, vector4 and quaterions) can be animated in the built in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
+: All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
 
-  ![Property animation](images/animation/property_animation.png){.inline}
+  ![Property animation](images/animation/property_animation.png){.inline srcset="images/animation/property_animation@2x.png 2x"}
   ![Bounce loop](images/animation/bounce.gif){.inline}
 
 ## Playing flip-book animations
@@ -125,11 +125,11 @@ function init(self)
     -- Play the "walk" animation on component "spinemodel" and blend against previous
     -- animation for the first 0.1 seconds, then call callback.
     local anim_props = { blend_duration = 0.1 }
-    spine.play_anim("#spinemodel", "walk", go.PLAYBACK_LOOP_FORWARD, anim_props, anim_done)
+    spine.play_anim("#spinemodel", "run", go.PLAYBACK_LOOP_FORWARD, anim_props, anim_done)
 end
 ```
 
-![Spine model in game](images/animation/spine_model_ingame.png)
+![Spine model in game](images/animation/spine_ingame.png){srcset="images/animation/spine_ingame@2x.png 2x"}
 
 If an animation is played with any of the `go.PLAYBACK_ONCE_*` modes and you have provided a callback function to `spine.play_anim()` the callback is run on animation complete. See below for information on callbacks.
 
@@ -156,7 +156,7 @@ When tweening or setting the cursor, timeline events may not fire as expected.
 
 The individual bones in the Spine skeleton are represented internally as game objects. In the *Outline* view of the Spine model component, the full hierarchy is visible. You can see each bone's name and its place in the skeleton hierarchy.
 
-![Spine model hierarchy](images/animation/spine_model_hierarchy.png)
+![Spine model hierarchy](images/animation/spine_bones.png){srcset="images/animation/spine_bones@2x.png 2x"}
 
 With the bone name at hand, you are able to retrieve the instance id of the bone in runtime. The function [`spine.get_go()`](/ref/spine#spine.get_go) returns the id of the specified bone and you can, for instance, child other game objects under the animated game object:
 
@@ -242,11 +242,9 @@ Animation clips in Collada are not supported. To use multiple animations per mod
 
 ## The bone hierarchy
 
-The bones in the Model skeleton are represented internally as game objects. In the *Outline* view of the Model component, you can see the bone hierarchy and each bone's name.
+The bones in the Model skeleton are represented internally as game objects.
 
-![Model hierarchy](images/animation/model_hierarchy.png)
-
-You can retrieve the instance id of the bone game object in runtime. The function [`model.get_go()`](/ref/model#model.get_go) returns the id of the specified bone.
+You can retrieve the instance id of the bone game object in runtime. The function [`model.get_go()`](/ref/model#model.get_go) returns the id of the game object for the specified bone.
 
 ```lua
 -- Get the middle bone go of our wiggler model

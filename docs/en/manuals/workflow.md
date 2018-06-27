@@ -5,7 +5,7 @@ brief: This manual covers how you collaborate in teams and change the structure 
 
 # Workflow
 
-A game project usually consists of a large number of external assets that are produced in various specialized programs for producing graphics, 3D models, sound files, animations and so forth. Defold is builit for a workflow where you to work in your external tools and then import the assets into Defold as they are finalized.
+A game project usually consists of a large number of external assets that are produced in various specialized programs for producing graphics, 3D models, sound files, animations and so forth. Defold is built for a workflow where you to work in your external tools and then import the assets into Defold as they are finalized.
 
 Defold is built intended for small teams that work in intense collaboration to create games. Team members can work in parallel on the same content with very little friction. Defold is built upon [Git](https://git-scm.com) that is designed for distributed collaborative work. Git is an extremely powerful tool that allows for a wide range of workflows and Defold uses it to provide built in simple and powerful functionality.
 

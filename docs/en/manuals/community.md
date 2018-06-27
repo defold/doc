@@ -38,13 +38,13 @@ There are many ways in which you can customise your community page for you to ma
 HTML5 playable
 : Adding an HTML5 playable will allow people to easily play your game or try out your asset. To add a playable, simply follow these steps.
 
-1) In Defold, choose <kbd>Project ▸ Bundle ▸ HTML5 application</kbd> (make sure to check "Release mode" in order to optimise HTML5 performance).
+1. In Defold, choose <kbd>Project ▸ Bundle ▸ HTML5 application</kbd> (make sure to check "Release mode" in order to optimise HTML5 performance).
 
-2) .zip the *folder* which is created from the bundling.
+2. .zip the *folder* which is created from the bundling.
 
-3) Click "Upload HTML5 playable" and upload the .zip file with the folder that was created in the bundling process.
+3. Click "Upload HTML5 playable" and upload the .zip file with the folder that was created in the bundling process.
 
-![add html5 playable](images/community/upload_html5.png)
+![add html5 playable](images/community/upload_html5.png){srcset="images/community/upload_html5@2x.png 2x"}
 
 HTML5 playable cover image
 : The HTML5 playable cover image is the *placeholder image* which is visible in the "Play it" section on your community page. A good idea is to use the title screen or a screenshot from your game.

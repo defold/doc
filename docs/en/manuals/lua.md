@@ -506,7 +506,7 @@ end
 
 The Defold editor supports Lua script editing with syntax coloring and auto-completion. To fill out Defold function names, press *Ctrl+Space* to bring up a list of the functions matching what you are typing.
 
-![Auto completion](images/lua/lua_completion.png)
+![Auto completion](images/lua/completion.png){srcset="images/lua/completion@2x.png 2x"}
 
 There are three types of Lua script in Defold, each has different Defold libraries available.
 
