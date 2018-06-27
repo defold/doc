@@ -59,9 +59,16 @@ If you work in _Dragon Bones_, simply select *Spine* as your output data type. A
 When you have the animation data and image files imported and set up in Defold, you need to create a _Spine scene_ resource file:
 
 - Create a new _Spine scene_ resource file (Select <kbd>New ▸ Spine Scene File</kbd> from the main menu)
-- Set the *spine_json* and *atlas* properties in the Spine scene file to reference the imported JSON and the newly created Atlas:
+- The new file opens in the spine scene editor.
+- Set the *Properties*.
 
-![Setup the Spine Scene](images/spine/spine_spinescene.png)
+![Setup the Spine Scene](images/spine/spinescene.png){srcset="images/spine/spinescene@2x.png 2x"}
+
+Spine Json
+: The Spine JSON file to use as source for bone and animation data.
+
+Atlas
+: The atlas containing images named corresponding to the Spine data file.
 
 ## Creating SpineModel components
 
@@ -87,6 +94,6 @@ If you select <kbd>Add Images</kbd> Defold will automatically create animation g
 
 So what do you do if your animation references "head_parts/eyes"? The easiest way to accomplish a match is to add an animation group (right click the root node in the Atlas *Outline* view and select *Add Animation Group*). You can then name that group "head_parts/eyes" (it's just a name, not a path and `/` characters are legal) and then add the file "eyes.png" to the group.
 
-![Atlas path names](images/spine/spine_atlas_names.png)
+![Atlas path names](images/spine/atlas_names.png){srcset="images/spine/atlas_names@2x.png 2x"}
 
 Moving on to animate your Spine model, please read the [Animation documentation](/manuals/animation).
