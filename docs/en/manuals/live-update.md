@@ -162,6 +162,8 @@ $ openssl rsa -in private_raw.key -outform DER -RSAPublicKey_out -pubout -out pu
 ```
 This will output `private_raw.key` (can be safely deleted), `private.der`, and `public.der`. To use the keys for signing open the Live update settings view and point respective fields to the generated keys.
 
+![Manifest signature key-pair](images/live-update/manifest-keys.png)
+
 ### Scripting with Live update manifest
 Adding to the scripting example above, we add the following callback function
 
