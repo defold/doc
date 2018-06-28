@@ -24,10 +24,10 @@ Spine animation
 3D skinned animation
 : Skeletal animation of 3D models is similar to Spine animation but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
 
-  For details on how to import 3D data into a Model for animation, see the [3D graphics documentation](/manuals/3dgraphics).
+  For details on how to import 3D data into a Model for animation, see the [Model documentation](/manuals/model).
 
-  ![Blender animation](images/animation/blender_animation.png){.inline}
-  ![Wiggle loop](images/animation/wiggle.gif){.inline}
+  ![Blender animation](images/animation/blender_animation.png){.inline srcset="images/animation/blender_animation@2x.png 2x"}
+  ![Wiggle loop](images/animation/suzanne.gif){.inline}
 
 Property animation
 : All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.

@@ -9,34 +9,32 @@ Defold is at its core a 3D engine. Even when you work with 2D material only all 
 
 ## Creating a model
 
-Let's look at an example. We have created a simple model with an UV mapped texture, a skeleton and a simple animation in _Blender_. Now we wish to bring this model to life in Defold.
+Let's look at an example. We have created a simple model with an armature (skeleton) and a simple animation in _Blender_. Now we wish to bring this model to life in Defold.
 
 ::: sidenote
 Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, Mac OS X and Linux and is freely available for download at http://www.blender.org]
 :::
 
-![Model in Blender](images/model/blender.png)
+![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
-When the model is done you select the Blender Collada exporter to produce a file with the *.dae* file extension. This exported mesh file contain all the vertices, edges and faces that make up the model, as well as _UV coordinates_ (what part of the texture image maps to a certain part of the mesh), the bones in the skeleton and animation data.
+When the model is done you select the Blender Collada exporter to produce a file with the *.dae* file extension. This exported mesh file contain all the vertices, edges and faces that make up the model, as well as _UV coordinates_ (what part of the texture image maps to a certain part of the mesh) if you have defined them, the bones in the skeleton and animation data.
 
-::: sidenote
 A detailed description on polygon meshes can be found on http://en.wikipedia.org/wiki/Polygon_mesh. UV coordinates and UV mapping is described at http://en.wikipedia.org/wiki/UV_mapping.
-:::
 
 Now, to import the model, simply drag and drop the *.dae* file and the corresponding texture image into the *Project Explorer* somewhere.
 
-![Imported model assets](images/model/imported_assets.png)
+![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
 
 ## Creating a model component
 
 Model components are created just like any other game object component. You can do it two ways:
 
-- Create a *Model file* by right-clicking in the *Project Explorer* and select <kbd>New ▸ Model File</kbd>.
-- Create the component embedded directly into a game object by right-clicking the game object in the *Outline* view and selecting <kbd>Add Component</kbd>. Then select *Model*.
+- Create a *Model file* by <kbd>right-clicking</kbd> a location in the *Assets* browser and select <kbd>New... ▸ Model</kbd>.
+- Create the component embedded directly into a game object by <kbd>right-clicking</kbd> a game object in the *Outline* view and selecting <kbd>Add Component ▸ Model</kbd>.
 
 ![Model in game object](images/model/model.png)
 
-With the model in place you need to specify a number of properties
+With the model created you need to specify a number of properties:
 
 *Mesh*
 : This property should refer to the Collada *.dae* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
@@ -48,7 +46,7 @@ With the model in place you need to specify a number of properties
 : This property should point to the texture image file that you want applied to the object.
 
 *Skeleton*
-: This property should refer to the Collada *.dae* file that contains the skeleton to use for animation.
+: This property should refer to the Collada *.dae* file that contains the skeleton to use for animation. Note that Defold requires a single root bone in your hierarchy.
 
 *Animations*
 : Set this to the *Animation Set File* that contains the animations you want to use on the model.
@@ -59,6 +57,6 @@ With the model in place you need to specify a number of properties
 
 With the model component in place you are free to edit and manipulate the component and/or the encapsulating game object with the regular *Scene Editor* tools to move, rotate and scale the model to your liking.
 
-![Wiggler ingame](images/model/ingame.png)
+![Wiggler ingame](images/model/ingame.png){srcset="images/model/ingame@2x.png 2x"}
 
 
