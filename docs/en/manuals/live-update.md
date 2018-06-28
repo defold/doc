@@ -344,7 +344,3 @@ Forcing re-download of resources
   ![Local storage](images/live-update/local-storage.png)
 
   The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
-
-## Known issues
-
-- At the moment you have access only to the manifest that is created at build-time. In the near future you will be able to store new manifests. This will allow you to modify existing resources, or add new resources to the game through Live update.
