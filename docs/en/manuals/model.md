@@ -9,11 +9,11 @@ Defold is at its core a 3D engine. Even when you work with 2D material only all 
 
 ## Creating a model
 
-Let's look at an example. We have created a simple model with an armature (skeleton) and a simple animation in _Blender_. Now we wish to bring this model to life in Defold.
+Let's look at an example. We have created a simple model with an armature (skeleton) and a simple animation in _Blender_. 
 
-::: sidenote
-Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, Mac OS X and Linux and is freely available for download at http://www.blender.org]
-:::
+Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, Mac OS X and Linux and is freely available for download at http://www.blender.org
+
+Now we wish to bring this model to life in Defold.
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
