@@ -158,6 +158,10 @@ If you encounter an error or if your game does not behave like expected, here is
 
 4. If your code is depending on the values of variables (in an if-statement, for example), either `print` those values where they are used or checked, or inspect them with the debugger.
 
-Sometimes finding a bug can be a hard and time consuming process, requiring you to go through your code bit by bit, checking everything and narrowing down the faulty code and eliminating sources of error.
+Sometimes finding a bug can be a hard and time consuming process, requiring you to go through your code bit by bit, checking everything and narrowing down the faulty code and eliminating sources of error. This is best done by a method called "divide and conquer":
+
+1. Figure out which half (or less) of the code that must contain the bug.
+2. Again, figure out which half, of that half, must contain the bug.
+3. Continue narrowing down the code that must cause the bug until you find it.
 
 Happy hunting!
