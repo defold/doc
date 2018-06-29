@@ -145,3 +145,19 @@ In addition to the built in debugger, it is also possible to use the Lua IDE _Ze
 ## Lua debug library
 
 Lua comes with a debug library that is useful in some situations, particularly if you need to inspect the innards of your Lua environment. You can find more information about it here: http://www.lua.org/pil/contents.html#23.
+
+## Debugging checklist
+
+If you encounter an error or if your game does not behave like expected, here is a debugging checklist:
+
+1. Check the console output and verified that there are no runtime errors.
+
+2. Add `print` statements to your code to verify that the code is actually running.
+
+3. If it's not running, check that you have done the proper setup in the editor required for the code to run. Is the script added to the right game object? Have your script acquired input focus? Are the input-triggers correct? Is the shader code added to the material? Etc.
+
+4. If your code is depending on the values of variables (in an if-statement, for example), either `print` those values where they are used or checked, or inspect them with the debugger.
+
+Sometimes finding a bug can be a hard and time consuming process, requiring you to go through your code bit by bit, checking everything and narrowing down the faulty code and eliminating sources of error.
+
+Happy hunting!

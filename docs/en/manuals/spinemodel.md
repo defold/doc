@@ -38,4 +38,19 @@ You should now be able to view your Spine model in the editor:
 
 ## Runtime animation
 
-Defold provides powerful support for controlling animation in runtime. See the [Animation documentation](/manuals/animation/#_animating_spine_models) for details.
+Defold provides powerful support for controlling animation in runtime:
+
+```lua
+local play_properties = { blend_duration = 0.1 }
+spine.play_anim("#spinemodel", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
+```
+
+The animation playback cursor can be animated either by hand or throught the property animation system:
+
+```lua
+-- set the run animation
+spine.play_anim("#spinemodel", "run", go.PLAYBACK_NONE)
+-- animate the cursor
+go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
+```
+
