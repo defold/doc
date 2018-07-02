@@ -150,7 +150,7 @@ Lua comes with a debug library that is useful in some situations, particularly i
 
 If you encounter an error or if your game does not behave like expected, here is a debugging checklist:
 
-1. Check the console output and verified that there are no runtime errors.
+1. Check the console output and verify that there are no runtime errors.
 
 2. Add `print` statements to your code to verify that the code is actually running.
 
