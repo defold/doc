@@ -145,11 +145,16 @@ Starting the engine for the first time after a manifest has been stored will cre
 When storing a new manifest the manifest data will be verified before it is actually written to disk. The verification consists of a number of checks:
 
 * Correct binary file format.
-* Supports the currently running engine version.
+* Supports the currently running engine version or any other supported version entry from the settings.
 * Cryptographic signature.
 * Signed using the same public-private key pair as the bundled manifest.
 
 From the user's perspective the verification process is completely opaque but it is important to note the steps involved to avoid the most common pitfalls.
+
+### Supported engine versions
+A manifest will always support the Defold version used when generating it. If you want to support any additional engine versions, add them to the list in the Live update settings. This can be useful if your live game uses a different Defold version than the one you are using to generate the manifest with.
+
+![Manifest supported engine versions](images/live-update/engine-versions-settings.png)
 
 ### Generating keys for signing
 The manifest signature is used to verify that no one with malicious intent has tampered with the content, and that the bundled manifest and the new manifest were signed using the same keys. The signing is done as a part of the bundling process.
