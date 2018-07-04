@@ -38,11 +38,18 @@ Before beginning, take a minute and try the game:
   </script>
 </div>
 
-## Setting up the project
+## Creating your project
 
-Create a new project and do a quick clean up. If you already know how to do that, great. If you don’t, head over to the [war battles](/tutorials/war-battles) tutorial and read the sections “Setting up the project” through “Cleaning the project”. There is also an overview of the editor there that will help you find your way around if you are totally new to Defold.
+When you run the Defold editor, you are presented with a project selection and creation screen. From here you can easily select which tutorial you want to try out:
 
-With the project cleaned up, open the *game.project* settings file and set the dimensions of the game to 768⨉768 or some other multiple of 16. The reason why you want to do this is because the game will be drawn on a grid where each segment is going to be 16x16 pixels, and this way the game screen won't cut off any partial segments.
+1. Start Defold.
+2. Select *New Project* on the left.
+3. Select the *From Template* tab.
+4. Select *Empty Project*
+5. Select a location for the project on your local drive.
+6. Click *Create New Project*.
+
+In your newly created project, open the *game.project* settings file and set the dimensions of the game to 768⨉768 or some other multiple of 16. The reason why you want to do this is because the game will be drawn on a grid where each segment is going to be 16x16 pixels, and this way the game screen won't cut off any partial segments.
 
 ## Adding graphics to the game
 
