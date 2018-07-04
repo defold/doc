@@ -38,11 +38,16 @@ The most common version of the puzzle shows the numbers 1--15 on the tiles. Howe
   </script>
 </div>
 
-## Setting up the project
+## Creating the project
 
-The first thing to do is to create a new project and do a quick clean up. If you already know how to do that, great. If you don't, head over to the [war battles tutorial](/tutorials/war-battles) and read the sections "Setting up the project" through "Cleaning the project". There is also an overview of the editor there that will help you find your way around if you are totally new to Defold.
+1. Start Defold.
+2. Select *New Project* on the left.
+3. Select the *From Template* tab.
+4. Select *Empty Project*
+5. Select a location for the project on your local drive.
+6. Click *Create New Project*.
 
-With the project cleaned up, open the *game.project* settings file and set the dimensions of the game to 512⨉512. These dimensions will match the image you are going to use.
+Open the *game.project* settings file and set the dimensions of the game to 512⨉512. These dimensions will match the image you are going to use.
 
 ![display settings](images/15-puzzle/display_settings.png)
 
