@@ -7,28 +7,65 @@ brief: This manual goes through the Defold GUI editor, the various types of GUI 
 
 Defold provides you with a custom GUI editor and powerful scripting possibilities that are tailor made for the construction and implementation of user interfaces. 
 
-A graphical user interface in Defold is a game object component that you build and attach to a game object and place in a collection. This component has the following properties:
+A graphical user interface in Defold is a component that you build and attach to a game object and place in a collection. This component has the following properties:
 
 * It has simple, but powerful, layout features that allow resolution and aspect ratio independent rendering of your user interface.
-* It can have logic behavior attached to it through a gui script.
-* It is rendered in a separate pass from the rest of the game, on top of other content.
-* It is rendered against a screen-space coordinate system that is independent of camera view so even if you have a moving camera, your GUI elements will stay put on the screen.
+* It can have logic behavior attached to it through a *GUI script*.
+* It is (by default) rendered on top of other content, independent of camera view so even if you have a moving camera, your GUI elements will stay put on the screen. The rendering behavior can be changed.
 
-The GUI is not part of the collection’s coordinate system but is rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, GUI components have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
+GUI components are rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, GUI components have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
 
-::: important
-The rendering behavior can be changed in the render script but it is usually desirable to use the default arrangement since the user interface is a separate visual "layer" on top of the game view and you usually want HUD items and menus on certain spots on screen.
-:::
+## Creating a GUI component
+
+GUI components are created from file blueprints so to to create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
+
+![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
+
+Defold now automatically opens the file in the GUI editor.
+
+![New gui](images/gui/new_gui.png){srcset="images/gui/new_gui@2x.png 2x"}
+
+The *Outline* lists all the GUI:s content: it's list of nodes and any dependencies (see below).
+
+The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layout) selector.
+
+![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
+
+A white rectangle shows the bounds of the currently selected layout, of the default display width and height as set in the project settings.
+
+## GUI properties
+
+Selecting the root "Gui" node in the *Outline* shows the *Properties* for the GUI component:
+
+Script
+: The GUI script bound to this GUI component.
+
+Material
+: The material used when rendering this GUI.
+
+Adjust Reference
+: Controls how each node's *Adjust Mode* should be calculated:
+
+  - `Per Node` adjusts eack node against the adjusted size of the parent node, or the resized screen.
+  - `Disable` turns off node adjust mode. This forces all nodes to keep their set size.
+
+Max Nodes
+: The maximum number of nodes for this GUI.
+
+## Dependencies
+
+The resource tree in a Defold game is static so any dependences that you at you need to specify dependencies. The GUI outline 
 
 ## Nodes
 
 A GUI component is built from a set of nodes. A node is a visual object that is either:
 
-* A Box node, a rectangle filled with a color or texture
+* A Box node, See the [Box node documentation](/manuals/gui-box) for details
 * A Text node. See the [Text node documentation](/manuals/gui-text) for details
 * A Pie node. See the [Pie node documentation](/manuals/gui-pie) for details
 * A Template node. See the [Template node documentation](/manuals/gui-templates) for details
 * A Spine node. See the [Spine node documentation](/manuals/gui-spine) for details
+* A ParticleFX node. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details
 
 Nodes are simple and don’t contain any logic. They can be translated (moved) and ordered in parent-child hierarchies either in the editor or at runtime through scripting. 
 You have direct access to all nodes in your GUI component from the script code.
@@ -57,51 +94,7 @@ These properties can be modified in the editor's properties tab (except index an
 
 Each of these properties can also be animated in script (see [Property animation](#_property_animation) below).
 
-## Textures and flip book animations
 
-You can use images and animations from texture atlases or tile sources as part of your GUI interface component. To do so, an image resource (atlas or tile source) must first be added, then all images and animations included in the resource can be applied to GUI nodes. You add textures either by right clicking the *Textures* folder, through the <kbd>GUI</kbd> top menu, or with keyboard shortcuts.
-
-Textures that have been added to the GUI can be applied to box and pie nodes.
-
-![Textures](images/gui/gui_texture.png)
-
-The selected texture animation (or single frame image) will automatically play when the GUI component is drawn on screen.
-
-Note that the color of the box node will tint the animation. The tint color is multiplied onto the image data, meaning that if you set the color to white (the default) no tint is applied.
-
-![Tinted texture](images/gui/gui_tinted_texture.png)
-
-::: sidenote
-Box nodes are always rendered, even if they do not have a texture assigned to them, have their alpha set to `0`, or are sized `0, 0, 0`. Box nodes should always have a texture assigned to them so the renderer can batch them properly and reduce the number of draw-calls.
-:::
-
-## Slice-9 texturing
-
-Many GUIs and HUDs feature elements that are context sensitive in regard to their size. Panels and dialogs often need to be resized to fit the containing content and that will cause problems as soon as you apply texturing to the scaled node. Let's say that you want to use a large set of buttons where the width is determined by the amount of text you write on the button. Making a box node, applying a texture and then scaling it will result in deformation:
-
-![GUI bad scaling](images/gui/gui_scaling.png)
-
-Defold contains a feature called _slice-9_ texturing that is intended to be used in situations like this. It works by allowing you to preserve the size of parts of the node texture when the node is scaled. A button texture is divided into bits and applied to the node so that the end bits don't scale as you change the horizontal size of the button node:
-
-![Sliced scaling](images/gui/gui_slice9_scaling.png)
-
-You can thus make buttons of any width using this simple technique. The *Slice9* box node property is used to control how the texture is sliced:
-
-![Slice 9 properties](images/gui/gui_slice9_properties.png)
-
-The slicing is controlled by 4 numbers that specify the margin width, in pixels, which will be preserved as the node is resized. Corner segments are never scaled, only moved; edge segments are scaled along one axis, and the center segment is scaled both horizontally and vertically as needed. The margins are set clockwise, starting on the left hand side:
-
-![Slice 9 property sections](images/gui/gui_slice9_sections.png)
-
-Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes look incorrect. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
-
-![Slice 9 mipmapping](images/gui/gui_slice9_mipmap.png)
-
-It is easy to avoid this problem, but it implies some constraints to the source texture: simply make sure that the texture's segments that will be scaled are small enough never to be scaled down, only up.
-
-::: sidenote
-It might also be tempting to use a 1 pixel wide bottom or top edge segment to save texture memory. However, doing so might result in other unwanted artifacts, because of texture filtering. If you make the edge wider so that edge segments start and stop with similar neighbor pixels you will typically get nicer results.
-:::
 
 ## Index: rendering order
 
@@ -169,55 +162,6 @@ The nodes that share atlas, blend mode or font now sit adjacent to each other an
 
 Now, imagine that we scale our little example up and expand the GUI to 10 buttons. If we make sure to properly assign the right layer to each new nodes, the engine will still render them in three batches, but this time instead of 30.
 
-## Script
-
-To control the logic of your GUI and animate nodes you use Lua scripts. GUI scripts work the same as regular game object scripts, but are saved as a different file type and have access to a different set of functions: all in the `gui` module.
-
-You create a GUI Script File in your project and attach it to the GUI component by selecting the root GUI component in the outline view and then choosing a script file in the properties view.
-
-![Script](images/gui/gui_script.png)
-
-The script file is by default equipped with functions just like game object scripts:
-
-```lua
-function init(self)
-   -- Add initialization code here
-   -- Remove this function if not needed
-end
-
-function final(self)
-   -- Add finalization code here
-   -- Remove this function if not needed
-end
-
-function update(self, dt)
-   -- Add update code here
-   -- Remove this function if not needed
-end
-
-function on_message(self, message_id, message, sender)
-   -- Add message-handling code here
-   -- Remove this function if not needed
-end
-
-function on_input(self, action_id, action)
-   -- Add input-handling code here
-   -- Remove this function if not needed
-end
-
-function on_reload(self)
-   -- Add input-handling code here
-   -- Remove this function if not needed
-end
-
-```
-
-GUI components can thus receive input and messages just like game objects. You send messages to a GUI component by addressing the component in the fragment part of the URL:
-
-```lua
-local msgdata = { score = 4711, stars = 3, health = 6 }
-msg.post("hud#gui", "set_stats", msgdata)
-```
 
 ## Handling different resolutions and aspect ratios
 
@@ -316,70 +260,6 @@ The following image illustrates the position of each pivot setting:
 ![Pivot points](images/gui/pivot_points.png)
 
 If you change the pivot of a node, the node will be moved so that the new pivot will be at the given position. Text nodes are aligned so that `Center` sets the text center-aligned, `West` sets the text left-aligned and `East` sets the text right-aligned.
-
-## GUI scripts
-
-Since GUI nodes have no logic in themselves but are controlled by a GUI script attached to the GUI component, you have to get direct script control of the nodes. This is done by obtaining a node reference using the node’s id. The reference is usually stored in a variable and then used to manipulate the node:
-
-```lua
--- Obtain a reference to the "magic" text node
-local magicnode = gui.get_node("magic")
--- Change the color of the node to orange
-local orange = vmath.vector4(1.0, 0.3, 0.0, 1.0)
-gui.set_color(magicnode, orange)
-```
-
-As soon as you have obtained the reference to a node by the `gui.get_node()` function you can call any of the many manipulation functions in the GUI module to reposition, resize, change appearance of, reorder in draw-order, or move in the parent-child hierarchy. All node properties are accessible through scripting.
-
-## Node id:s
-
-Each node must have a unique id. If you create a box node, it will have a default id "box" and a text node has the id "text". You should change the id of each created node right away to a more descriptive, unique name. If the Defold GUI editor detects an id name collision, an error is signalled.
-
-## Dynamically created nodes
-
-To create a new node with script in runtime you have two options. You either create the node from scratch:
-
-```lua
--- Create a new, white box node at position 300, 300 with size 150x200
-local new_position = vmath.vector3(300, 300, 0)
-local new_size = vmath.vector3(150, 200, 0)
-local new_boxnode = gui.new_box_node(new_position, new_size)
--- Add a text node at the same position
-local new_textnode = gui.new_text_node(new_position, "Hello!")
-```
-
-With the newly created nodes' references stored in variables you are now free to manipulate the nodes:
-
-```lua
--- Rotate the text node 10 degrees (around the z-axis)
-gui.set_rotation(new_textnode, vmath.vector3(0, 0, 10))
-```
-
-If we put this code in the GUI script’s init() function and run the game we get the following:
-
-![Script create node](images/gui/gui_script_create_nodes.png)
-
-The alternative way to create new nodes is to clone an existing node:
-
-```lua
--- Clone the magic text node
-local magicnode = gui.get_node("magic")
-local magic2 = gui.clone(magicnode)
--- The new node is right on top of the original. Let's move it.
-gui.set_position(magic2, vmath.vector3(300, 300, 0))
-```
-
-## Dynamic node IDs
-
-Dynamically created nodes do not have an id assigned to them. This is by design. The reference that is returned from `gui.new_box_node()`, `gui.new_text_node()`, `gui.new_pie_node()` and `gui.clone()` is the only thing necessary to be able to access the node and you should keep track of that reference.
-
-```lua
--- Add a text node
-local new_textnode = gui.new_text_node(vmath.vector3(100, 100, 0), "Hello!")
--- "new_textnode" contains the reference to the node.
--- The node has no id, and that is fine. There's no reason why we want
--- to do gui.get_node() when we already have the reference.
-```
 
 ## Property animation
 

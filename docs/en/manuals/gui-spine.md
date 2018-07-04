@@ -7,10 +7,6 @@ brief: This manual explains how to use bone animated Spine nodes in Defold GUI s
 
 Spine bone animations are available in GUI animations as well as in game objects. This manual explains how to use imported Spine animation data in GUI scenes.
 
-::: important
-Currently, Spine nodes do not support Spine events. For game objects with *SpineModel* components that contain events on the animation timeline, messages are sent to the game object. This is not supported with Spine nodes.
-:::
-
 Any imported Spine bone animation is available in GUI scenes as well as in game objects (through the *SpineModel* component). In order to work with Spine bone animations in Defold, you first have to import the animation data and set up a Spine Scene resource. The [Spine animation](/manuals/spine) documentation describes how to do that.
 
 To make the contents of a Spine Scene resource available in a GUI scene, add it to the scene by right-clicking the *Spine Scenes* section of the scene in the *Outline* and select <kbd>Add Spine Scene</kbd>. Choose the Spine Scene you wish to use in the scene.
