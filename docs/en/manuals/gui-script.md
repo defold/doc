@@ -83,20 +83,19 @@ msg.post("hud#gui", "set_stats", stats)
 
 ## Addressing nodes
 
-GUI nodes can be manipulated by a GUI script attached to the component. 
+GUI nodes can be manipulated by a GUI script attached to the component. Each node must have a unique *Id* that is set in the editor:
 
-have no logic in themselves but are controlled by a GUI script attached to the GUI component, you have to get direct script control of the nodes. This is done by obtaining a node reference using the node’s id. The reference is usually stored in a variable and then used to manipulate the node:
+![message passing](images/gui-script/node_id.png){srcset="images/gui-script/node_id@2x.png 2x"}
+
+The *Id* allows a script to get hold of a reference to the node and manipulate it with the [gui namespace functions](/ref/gui):
 
 ```lua
--- Obtain a reference to the "magic" text node
-local magicnode = gui.get_node("magic")
--- Change the color of the node to orange
-local orange = vmath.vector4(1.0, 0.3, 0.0, 1.0)
-gui.set_color(magicnode, orange)
+-- extend the health bar by 10 units
+local node = gui.get_node("healthbar")
+local size = gui.get_size(node)
+size.x = size.x + 10
+gui.set_size(node, size)
 ```
-
-As soon as you have obtained the reference to a node by the `gui.get_node()` function you can call any of the many manipulation functions in the GUI module to reposition, resize, change appearance of, reorder in draw-order, or move in the parent-child hierarchy. All node properties are accessible through scripting.
-
 
 ## Dynamically created nodes
 
@@ -144,30 +143,3 @@ local new_textnode = gui.new_text_node(vmath.vector3(100, 100, 0), "Hello!")
 -- to do gui.get_node() when we already have the reference.
 ```
 
-## Property animation
-
-Several of the node properties can be fully asynchronously animated. To animate a property, you use the `gui.animate()` function and supply the following parameters:
-
-`gui.animate(node, property, to, easing, duration [,delay] [,complete_function] [,playback])`
-
-::: sidenote
-See [`gui.animate()`](/ref/gui#gui.animate) for details on the parameters.
-:::
-
-The `property` parameter is usually given as a constant (`gui.PROP_POSITION` etc), but can also be supplied as described in the Properties guide (see [Properties](/manuals/properties)). This is handy if you want to animate just a specific component of a compound property value.
-
-For instance, the `color` property describes an RGBA value, encoded in a vector4 value with one component for each color component---red, green, blue and the last one for alpha. The vector components are named respectively `x`, `y`, `z` and `w` and the alpha is thus in the `w` component.
-
-To fade up and down the alpha value of a node we can use the following piece of code:
-
-```lua
-function fadeup(self, node)
-   gui.animate(node, "color.w", 1.0, gui.EASING_LINEAR, 0.3, 0, fadedown, gui.PLAYBACK_ONCE_FORWARD)
-end
-
-function fadedown(self, node)
-   gui.animate(node, "color.w", 0.0, gui.EASING_LINEAR, 0.3, 0, fadeup, gui.PLAYBACK_ONCE_FORWARD)
-end
-```
-
-Now we can call either `fadeup()` or `fadedown()` and supply the node we want the alpha animated on. Note that we set the `complete_function` parameter to supply the function to call when the animation is done, effectively chaining an endless loop of fade ups and fade downs.
