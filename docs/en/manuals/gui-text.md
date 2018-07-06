@@ -11,7 +11,7 @@ Defold supports a specific type of GUI node that allows text to be rendered in a
 
 The fonts that you wish to use in GUI text nodes must be added to the GUI component. Either right-click the *Fonts* folder, use the <kbd>GUI</kbd> top menu or press the corresponding keyboard shortcut.
 
-![Fonts](images/gui-text/fonts.png)
+![Fonts](images/gui-text/fonts.png){srcset="images/gui-text/fonts@2x.png 2x"}
 
 Text nodes have a set of special properties:
 
@@ -37,7 +37,7 @@ By setting the node pivot you can change the alignment mode for the text.
 *Right*
 : If the pivot is set to any of the `East` modes, the text is right-aligned.
 
-![Text alignment](images/gui-text/align.png)
+![Text alignment](images/gui-text/align.png){srcset="images/gui-text/align@2x.png 2x"}
 
 ## Modifying text nodes in runtime
 
@@ -55,7 +55,4 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-![Set text](images/gui-text/score_gui.png)
-
-![Set text](images/gui-text/score.png)
 
