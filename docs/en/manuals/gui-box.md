@@ -5,54 +5,46 @@ brief: This manual explains how to use GUI box nodes.
 
 # GUI box nodes
 
-A box node is a rectangle filled with a color or a texture or animation. Box nodes have the following special properties:
+A box node is a rectangle filled with a color or a texture or animation.
 
+## Adding box nodes
 
-## Textures and flip book animations
+Add new box nodes by either <kbd>right clicking</kbd> in the *Outline* and selecting <kbd>Add ▸ Box</kbd>, or press <kbd>A</kbd> and select <kbd>Box</kbd>.
 
-You can use images and animations from texture atlases or tile sources as part of your GUI interface component. To do so, an image resource (atlas or tile source) must first be added, then all images and animations included in the resource can be applied to GUI nodes. You add textures either by right clicking the *Textures* folder, through the <kbd>GUI</kbd> top menu, or with keyboard shortcuts.
+You can use images and animations from atlases or tile sources that has been added to the GUI. You add textures by <kbd>right clicking</kbd> the *Textures* folder icon in the *Outline* and selecting <kbd>Add ▸ Textures...</kbd>. Then set the *Texture* property on the box node:
 
-Textures that have been added to the GUI can be applied to box and pie nodes.
+![Textures](images/gui-box/create.png){srcset="images/gui-box/create@2x.png 2x"}
 
-![Textures](images/gui/gui_texture.png)
+Note that the color of the box node will tint the graphics. The tint color is multiplied onto the image data, meaning that if you set the color to white (the default) no tint is applied.
 
-The selected texture animation (or single frame image) will automatically play when the GUI component is drawn on screen.
+![Tinted texture](images/gui-box/tinted.png){srcset="images/gui-box/tinted@2x.png 2x"}
 
-Note that the color of the box node will tint the animation. The tint color is multiplied onto the image data, meaning that if you set the color to white (the default) no tint is applied.
-
-![Tinted texture](images/gui/gui_tinted_texture.png)
-
-::: sidenote
-Box nodes are always rendered, even if they do not have a texture assigned to them, have their alpha set to `0`, or are sized `0, 0, 0`. Box nodes should always have a texture assigned to them so the renderer can batch them properly and reduce the number of draw-calls.
-:::
+Box nodes are always rendered, even if they do not have a texture assigned to them, or have their alpha set to `0`, or are sized `0, 0, 0`. Box nodes should always have a texture assigned to them so the renderer can batch them properly and reduce the number of draw-calls.
 
 ## Slice-9 texturing
 
-Many GUIs and HUDs feature elements that are context sensitive in regard to their size. Panels and dialogs often need to be resized to fit the containing content and that will cause problems as soon as you apply texturing to the scaled node. Let's say that you want to use a large set of buttons where the width is determined by the amount of text you write on the button. Making a box node, applying a texture and then scaling it will result in deformation:
+GUIs often feature elements that are context sensitive in regard to their size: panels and dialogs that need to be resized to fit the containing content. These will cause problems as soon as you apply texturing to the scaled node.
 
-![GUI bad scaling](images/gui/gui_scaling.png)
+Normally, the engine scales the texture to fit the boundaries of a box node, but it is possible to limit what parts of the texture that should scale with the slice-9 feature:
 
-Defold contains a feature called _slice-9_ texturing that is intended to be used in situations like this. It works by allowing you to preserve the size of parts of the node texture when the node is scaled. A button texture is divided into bits and applied to the node so that the end bits don't scale as you change the horizontal size of the button node:
+![GUI scaling](images/gui-box/scaling.png){srcset="images/gui-box/scaling@2x.png 2x"}
 
-![Sliced scaling](images/gui/gui_slice9_scaling.png)
+The *Slice9* box node property is used to control how the texture is sliced:
 
-You can thus make buttons of any width using this simple technique. The *Slice9* box node property is used to control how the texture is sliced:
+The slicing is controlled by 4 numbers that specify the number of pixels that will not be regularly scaled, on each side of the texture.
 
-![Slice 9 properties](images/gui/gui_slice9_properties.png)
+![Slice 9 properties](images/gui-box/slice9_properties.png){srcset="images/gui-box/slice9_properties@2x.png 2x"}
 
-The slicing is controlled by 4 numbers that specify the margin width, in pixels, which will be preserved as the node is resized. Corner segments are never scaled, only moved; edge segments are scaled along one axis, and the center segment is scaled both horizontally and vertically as needed. The margins are set clockwise, starting on the left hand side:
+ The margins are set clockwise, starting on the left edge:
 
-![Slice 9 property sections](images/gui/gui_slice9_sections.png)
+![Slice 9 sections](images/gui-box/slice9.png){srcset="images/gui-box/slice9@2x.png 2x"}
 
-Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes look incorrect. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
+- Corner segments are never scaled, only moved.
+- Edge segments are scaled along one axis only.
+- The central texture area is scaled regularly, horizontally and vertically as needed.
 
-![Slice 9 mipmapping](images/gui/gui_slice9_mipmap.png)
+Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes exhibit artifacts. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
+
+![Slice 9 mipmapping](images/gui-box/mipmap.png){srcset="images/gui-box/mipmap@2x.png 2x"}
 
 It is easy to avoid this problem, but it implies some constraints to the source texture: simply make sure that the texture's segments that will be scaled are small enough never to be scaled down, only up.
-
-::: sidenote
-It might also be tempting to use a 1 pixel wide bottom or top edge segment to save texture memory. However, doing so might result in other unwanted artifacts, because of texture filtering. If you make the edge wider so that edge segments start and stop with similar neighbor pixels you will typically get nicer results.
-:::
-
-
-
