@@ -51,9 +51,9 @@ To attach the script to a GUI component, open the GUI component blueprint file a
 
 If the GUI component has been added to a game object somewhere in your game, the script will now run.
 
-## The gui namespace
+## The "gui" namespace
 
-GUI scripts have access to the `gui` name space so it can manipulate GUI nodes. The `go` namespace is not available so you will need to separate game object logic into script components and communicate between the GUI and game object scripts. Any attempt to use the `go` functions will cause an error:
+GUI scripts have access to the `gui` name space and [all the gui functions](/ref/gui). The `go` namespace is not available so you will need to separate game object logic into script components and communicate between the GUI and game object scripts. Any attempt to use the `go` functions will cause an error:
 
 ```lua
 function init(self)
@@ -91,49 +91,54 @@ The *Id* allows a script to get hold of a reference to the node and manipulate i
 
 ```lua
 -- extend the health bar by 10 units
-local node = gui.get_node("healthbar")
-local size = gui.get_size(node)
+local healthbar_node = gui.get_node("healthbar")
+local size = gui.get_size(healthbar_node)
 size.x = size.x + 10
-gui.set_size(node, size)
+gui.set_size(healthbar_node, size)
 ```
 
 ## Dynamically created nodes
 
-To create a new node with script in runtime you have two options. You either create the node from scratch:
+To create a new node with script in runtime you have two options. The first option is to create nodes from scratch by calling the `gui.new_[type]_node()` functions. Those return a reference to the new node that you can use to manipulate the node:
 
 ```lua
--- Create a new, white box node at position 300, 300 with size 150x200
-local new_position = vmath.vector3(300, 300, 0)
-local new_size = vmath.vector3(150, 200, 0)
+-- Create a new box node
+local new_position = vmath.vector3(400, 300, 0)
+local new_size = vmath.vector3(450, 400, 0)
 local new_boxnode = gui.new_box_node(new_position, new_size)
--- Add a text node at the same position
+gui.set_color(new_boxnode, vmath.vector4(0.2, 0.26, 0.32, 1))
+
+-- Create a new text node
 local new_textnode = gui.new_text_node(new_position, "Hello!")
+gui.set_font(new_textnode, "sourcesans")
+gui.set_color(new_textnode, vmath.vector4(0.69, 0.6
 ```
 
-With the newly created nodes' references stored in variables you are now free to manipulate the nodes:
+![dynamic node](images/gui-script/dynamic_nodes.png){srcset="images/gui-script/dynamic_nodes@2x.png 2x"}
+
+The alternative way to create new nodes is to clone an existing node with the `gui.clone()` function or a tree of nodes with the `gui.clone_tree()` function:
 
 ```lua
--- Rotate the text node 10 degrees (around the z-axis)
-gui.set_rotation(new_textnode, vmath.vector3(0, 0, 10))
+-- clone the healthbar
+local healthbar_node = gui.get_node("healthbar")
+local healthbar_node_2 = gui.clone(healthbar_node)
+
+-- clone button node-tree
+local button = gui.get_node("my_button")
+local new_button_nodes = gui.clone_tree(button)
+
+-- get the new tree root
+local new_root = new_button_nodes["my_button"]
+
+-- move the root (and children) 300 to the right
+local root_position = gui.get_position(new_root)
+root_position.x = root_position.x + 300
+gui.set_position(new_root, root_position)
 ```
 
-If we put this code in the GUI script’s init() function and run the game we get the following:
+## Dynamic node Ids
 
-![Script create node](images/gui/gui_script_create_nodes.png)
-
-The alternative way to create new nodes is to clone an existing node:
-
-```lua
--- Clone the magic text node
-local magicnode = gui.get_node("magic")
-local magic2 = gui.clone(magicnode)
--- The new node is right on top of the original. Let's move it.
-gui.set_position(magic2, vmath.vector3(300, 300, 0))
-```
-
-## Dynamic node IDs
-
-Dynamically created nodes do not have an id assigned to them. This is by design. The reference that is returned from `gui.new_box_node()`, `gui.new_text_node()`, `gui.new_pie_node()` and `gui.clone()` is the only thing necessary to be able to access the node and you should keep track of that reference.
+Dynamically created nodes do not have an id assigned to them. This is by design. The references that are returned from `gui.new_[type]_node()`, `gui.clone()` and `gui.clone_tree()` are the only thing necessary to be able to access the nodes and you should keep track of that reference.
 
 ```lua
 -- Add a text node

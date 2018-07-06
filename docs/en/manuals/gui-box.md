@@ -5,9 +5,8 @@ brief: This manual explains how to use GUI box nodes.
 
 # GUI box nodes
 
-A GUI component is built from a set of nodes. A node is a visual object that is either:
+A box node is a rectangle filled with a color or a texture or animation. Box nodes have the following special properties:
 
-* A Box node, a rectangle filled with a color or texture
 
 ## Textures and flip book animations
 

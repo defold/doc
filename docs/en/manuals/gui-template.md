@@ -3,9 +3,9 @@ title: GUI templates manual
 brief: This manual explains the Defold GUI template system that is used to create reusable visual GUI components based on shared templates or 'prefabs'.
 ---
 
-# GUI templates
+# GUI template nodes
 
-GUI templates provide a simple but powerful mechanism to create reusable visual GUI components based on shared templates or "prefabs". This manual explains the feature and how to use it.
+GUI template nodes provide a simple but powerful mechanism to create reusable visual GUI components based on shared templates or "prefabs". This manual explains the feature and how to use it.
 
 GUI templates are GUI scenes that are inserted into another GUI scene as a compound node, much like sub-collections can be placed inside other collections. But while a placed sub-collection can override the position of the sub-collection's root and any defined script-properties, a GUI template node can override any property values. Also, like sub-collections, GUI template nodes do not exist as a runtime concept, only as an editing tool.
 

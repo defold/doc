@@ -17,11 +17,11 @@ GUI components are rendered independently of the game view. Because of this it i
 
 ## Creating a GUI component
 
-GUI components are created from file blueprints so to to create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
+GUI components are created from a GUI scene blueprint file. To to create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
 
 ![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
 
-Defold now automatically opens the file in the GUI editor.
+Defold now automatically opens the file in the GUI scene editor.
 
 ![New gui](images/gui/new_gui.png){srcset="images/gui/new_gui@2x.png 2x"}
 
@@ -32,8 +32,6 @@ The central editing area shows the GUI. The toolbar in the top right corner of t
 ![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
 
 A white rectangle shows the bounds of the currently selected layout, of the default display width and height as set in the project settings.
-
-## GUI properties
 
 Selecting the root "Gui" node in the *Outline* shows the *Properties* for the GUI component:
 
@@ -54,278 +52,259 @@ Max Nodes
 
 ## Dependencies
 
-The resource tree in a Defold game is static so any dependences that you at you need to specify dependencies. The GUI outline 
+The resource tree in a Defold game is static so any dependences that you need for your GUI nodes need to be added to the component. The *Outline* groups all dependencies by type under "folders":
 
-## Nodes
+![dependencies](images/gui/dependencies.png){srcset="images/gui/dependencies@2x.png 2x"}
 
-A GUI component is built from a set of nodes. A node is a visual object that is either:
+To add a new dependency, <kbd>right click</kbd> the "Gui" root in the *Outline*, then select <kbd>Add ▸ [type]</kbd> from the popup context menu.
 
-* A Box node, See the [Box node documentation](/manuals/gui-box) for details
-* A Text node. See the [Text node documentation](/manuals/gui-text) for details
-* A Pie node. See the [Pie node documentation](/manuals/gui-pie) for details
-* A Template node. See the [Template node documentation](/manuals/gui-templates) for details
-* A Spine node. See the [Spine node documentation](/manuals/gui-spine) for details
-* A ParticleFX node. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details
+You can also <kbd>right click</kbd> on the folder icon for the type you want to add and select <kbd>Add ▸ [type]</kbd>.
 
-Nodes are simple and don’t contain any logic. They can be translated (moved) and ordered in parent-child hierarchies either in the editor or at runtime through scripting. 
-You have direct access to all nodes in your GUI component from the script code.
-Nodes can be animated with script (see [Property animation](#_property_animation) below) and animation can be run on nodes (flipbook animations on Box nodes and bone animations on Spine nodes).
+## Node types
 
-Add nodes by right-clicking on the *Nodes* folder and selecting either <kbd>Add Box</kbd>, <kbd>Add Text</kbd>, <kbd>Add Pie</kbd>, <kbd>Add Template</kbd> or <kbd>Add Spine Node</kbd>.
+A GUI component is built from a set of nodes. Nodes are simple elements. They can be translated (moved, scaled and rotated) and ordered in parent-child hierarchies either in the editor or at runtime through scripting. The following node types exist:
 
-![Add nodes](images/gui/gui_add_nodes.png)
+Box node
+: ![box node](images/icons/gui-box-node.png){.left}
+  Rectangular node with either a single color, texture or flip-book animation. See the [Box node documentation](/manuals/gui-box) for details.
 
-You can also use the GUI top menu, or the keyboard shortcuts <kbd>I</kbd> and <kbd>O</kbd> for box and text nodes.
-Placed nodes are moved and rotated in the same way game objects are translated in the collection editor.
+<div style="clear: both;"></div>
+
+Text node
+: ![text node](images/icons/gui-text-node.png){.left}
+  Displays text. See the [Text node documentation](/manuals/gui-text) for details.
+
+<div style="clear: both;"></div>
+
+Pie node
+: ![pie node](images/icons/gui-pie-node.png){.left}
+  A circular or ellipsoid node that can be partially filled or inverted. A See the [Pie node documentation](/manuals/gui-pie) for details.
+
+<div style="clear: both;"></div>
+
+Template node
+: ![template node](images/icons/gui.png){.left}
+  Templates are used to create instances based on other GUI scene files. See the [Template node documentation](/manuals/gui-template) for details.
+
+<div style="clear: both;"></div>
+
+Spine node
+: ![spine node](images/icons/spine-model.png){.left}
+  Displays and animates a spine model. See the [Spine node documentation](/manuals/gui-spine) for details.
+
+<div style="clear: both;"></div>
+
+ParticleFX node
+: ![particlefx node](images/icons/particlefx.png){.left}
+  Plays a particle effect. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
+
+<div style="clear: both;"></div>
+
+Add nodes by right-clicking on the *Nodes* folder and selecting <kbd>Add ▸</kbd> and then <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd>, <kbd>Spine</kbd> or <kbd>ParticleFx</kbd>.
+
+![Add nodes](images/gui/add_node.png){srcset="images/gui/add_node@2x.png 2x"}
+
+You can also press <kbd>A</kbd> and select the type you want to add to the GUI.
 
 ## Node properties
 
 Each node has an extensive set of properties that control its appearance:
 
-* Position, Rotation, Scale, Size (can be animated)
-* Color, Outline, Shadow (can be animated)
-* Blend mode
-* Adjust mode, Pivot, Xanchor, Yanchor
-* Font, Text, Line-break (for text nodes)
-* Index, Layer, Parent
-* Clipping (for box and pie nodes) (See the [Clipping documentation](/manuals/gui-clipping) for details)
+Id
+: The identity of the node. This name has to be unique within the GUI scene.
 
-These properties can be modified in the editor's properties tab (except index and parenting), or through script (see [GUI API reference](/ref/gui)).
+Position, Rotation and Scale
+: Governs the location, orientation and stretching of the node. You can use the *Move*, *Rotate* and *Scale* tools to change these values. The values can be animated from script.
 
-Each of these properties can also be animated in script (see [Property animation](#_property_animation) below).
+Size (box, text and pie nodes)
+: The size of the node is automatic by default but by setting the *Size Mode* to `Manual` you can alter the value. The size defines the bounds of the node and is used when doing input picking. This value can be animated from script.
+
+Size Mode (box and pie nodes)
+: If set to `Automatic` the editor will set a size for the node. If set to `Manual` you can set the size yourself.
+
+Text (text nodes)
+: The text to display on the node.
+
+Line Break (text nodes)
+: Set for text to wrap according to the width of the node.
+
+Font (text nodes)
+: The font to use when rendering the text.
+
+Texture (box and pie nodes)
+: The texture to draw on the node. This is a reference to an image or animation in an atlas or tile source.
+
+Slice 9 (box nodes)
+: Set to preserve the pixel size of the node's texture around the edges when the node is resized. See the [Box node documentation](/manuals/gui-box) for details.
+
+Inner Radius (pie nodes)
+: The inner radius of the node, expressed along the X axis. See the [Pie node documentation](/manuals/gui-pie) for details.
+
+Outer Bounds (pie nodes)
+: Controls the behavior of the outer bounds. See the [Pie node documentation](/manuals/gui-pie) for details.
+
+Perimeter Vertices (pie nodes)
+: The number of segments that will be used to build the shape. See the [Pie node documentation](/manuals/gui-pie) for details.
+
+Pie Fill Angle (pie nodes)
+: How much of the pie should be filled. See the [Pie node documentation](/manuals/gui-pie) for details.
+
+Template (template nodes)
+: The GUI scene file to use as template for the node. See the [Template node documentation](/manuals/gui-template) for details.
+
+Spine Scene (spine nodes)
+: The Spine Scene to use for this node. See the [Spine node documentation](/manuals/gui-spine) for details.
+
+Default Animation (spine nodes)
+: The animation to automatically play on this node. See the [Spine node documentation](/manuals/gui-spine) for details.
+
+Skin (spine nodes)
+: The skin to use for the node. See the [Spine node documentation](/manuals/gui-spine) for details.
+
+ParticleFX (particlefx nodes)
+: The particle effect to use on this node. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
+
+Color
+: The color of the node. It the node is textured, the color tints the texture. The color can be animated from script.
+
+Alpha
+: The translucency of the node. The alpha value can be animated from script.
+
+Inherit Alpha
+: Setting this checkbox makes a node inherit the alpha value of the parent node. The node's alpha value is then multiplied with the parent's alpha value.
+
+Leading (text nodes)
+: A scaling number for the line spacing. A value of `0` gives no line spacing. `1` (the default) is normal line spacing.
+
+Tracking (text nodes)
+: A scaling number for the letter spacing. Defaults to 0.
+
+Layer
+: Assigning a layer to the node overrides the normal draw order and instead follows the layer order. See below for details.
+
+Blend mode
+: Controls how the graphics of the node is blended with background graphics:
+  - `Alpha` alpha blends the pixel values of the node with the background. This corresponds to "Normal" blend mode in graphics software. 
+  - `Add` adds the pixel values of the node with the background. This corresponds to "Linear dodge" in some graphics software.
+  - `Multiply` multiplies the pixel values of the node with the background.
+
+Pivot
+: Sets the pivot point for the node. This can be seen as the "center point" of the node. Any rotation, scaling or size change will happen around this point.
+
+  Possible values are `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` or `South East`.
+
+  ![pivot point](images/gui/pivot.png){srcset="images/gui/pivot@2x.png 2x"}
+
+  If you change the pivot of a node, the node will be moved so that the new pivot will be at the node's position. Text nodes are aligned so that `Center` sets the text center-aligned, `West` sets the text left-aligned and `East` sets the text right-aligned.
+
+X Anchor, Y Anchor
+: Anchoring controls how the node's vertical and horizontal position is altered when the scene boundaries, or the parent node's boundaries are stretched to fit the physical screen size.
+
+  ![Anchor unadjusted](images/gui/anchoring_unadjusted.png){srcset="images/gui/anchoring_unadjusted@2x.png 2x"}
+  
+  The following anchoring modes are available:
+
+  - `None` (for both *X Anchor* and *Y Anchor*) keeps the node's position from the center of the parent node or scene, relative it's *adjusted* size.
+  - `Left` or `Right` (*X Anchor*) scales the horizontal position of the node so it keeps the position from the left and right edges of the parent node or scene at the same percentage.
+  - `Top` or `Bottom` (*Y Anchor*) scales the vertical position of the node so it keeps the position from the top and bottom edges of the parent node or scene at the same percentage.
+
+  ![Anchoring](images/gui/anchoring.png){srcset="images/gui/anchoring@2x.png 2x"}
+
+Adjust Mode
+: Sets the adjust mode for the node. The adjust mode setting controls what happens to a node when the scene boundaries, or the parent node's boundaries, are adjusted to fit the physical screen size.
+
+  A node created in a scene where the logical resolution is a typical landscape resolution:
+
+  ![Unadjusted](images/gui/unadjusted.png){srcset="images/gui/unadjusted@2x.png 2x"}
+
+  Fitting the scene to a portrait screen cause the scene to be stretched. Each node's bounding box is similarly stretched. However, by setting the adjust mode, the aspect ratio of the node's content can be kept intact. The following modes are available:
+
+  - `Fit` scales the node content so that it is equal to the stretched bounding box width or height, whichever is smallest. In other words, the content will fit inside the stretched node bounding box.
+  - `Zoom` scales the node content so that it is equal to the stretched bounding box width or height, whichever is largest. In other words, the content will fully cover the stretched node bounding box.
+  - `Stretch` stretches the node content so it fills the stretched node bounding box.
+
+  ![Adjust modes](images/gui/adjusted.png){srcset="images/gui/adjusted@2x.png 2x"}
+
+  If the GUI scene property *Adjust Reference* is set to `Disabled`, this setting will be ignored.
+
+Clipping Mode (box, pie and spine nodes)
+: Sets the clipping mode on the node:
+
+  - `None` renders the node as usual.
+  - `Stencil` makes the node boundaries define a stencil mask that is used to clip the node's child nodes.
+
+  See the [GUI clipping manual](/manuals/gui-clipping) for details.
+
+Clipping Visible (box, pie and spine nodes)
+: Set to render the node's content in the stencil area. See the [GUI clipping manual](/manuals/gui-clipping) for details.
+
+Clipping Inverted (box, pie and spine nodes)
+: Invert the stencil mask. See the [GUI clipping manual](/manuals/gui-clipping) for details.
 
 
+## Draw order 
 
-## Index: rendering order
+All nodes are rendered in the order they are listed under the "Nodes" folder. The node on top of the list is drawn first and will appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. The Z-values on nodes does not control the draw order. You can override the index ordering of nodes with layers (see below).
 
-All nodes are rendered in the order they are listed under the "Nodes" folder. The node on top of the list is drawn first and will appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Drag nodes in the list to change their index order. You can also change and group the ordering of nodes with layers (see below).
+![Draw order](images/gui/draw_order.png){srcset="images/gui/draw_order@2x.png 2x"}
 
-If you set the Z-value on a node the draw order will not change. The Z-values on nodes are ignored.
+Select a node and press <kbd>Alt + Up/Down</kbd> to move a node up or down and change its index order.
+
+The draw order can be changed in script:
+
+```lua
+local bean_node = gui.get_node("bean")
+local shield_node = gui.get_node("shield")
+
+if gui.get_index(shield_node) < gui.get_index(bean_node) then
+  gui.move_above(shield_node, bean_node)
+end
+```
 
 ## Parent-child hierarchies
 
-A node is made the child of another node by dragging it onto the node that you wish to be the child's parent. A node with a parent inherits the transform (change in position, rotation and scale) applied to the parent and relative to the parent pivot (see below). Children are drawn after their parents, so they will appear in front of the parent node. Use layers to change the draw order of parent and child nodes and to optimize the rendering of nodes (see "Batch Rendering" below)
+A node is made the child of another node by dragging it onto the node that you wish to be the child's parent. A node with a parent inherits the transform (position, rotation and scale) applied to the parent and relative to the parent pivot.
 
-## Layers
+![Parent child](images/gui/parent_child.png){srcset="images/gui/parent_child@2x.png 2x"}
 
-Layers give fine grained control over how nodes are drawn. If you assign a layer to a node it will be drawn as part of that layer. The layer drawing order takes precedence over the regular node order.
+Parents are drawn before their children. Use layers to change the draw order of parent and child nodes and to optimize the rendering of nodes (see below).
 
-![Layers](images/gui/gui_layers.png)
 
-In this example the orange box node "box2" is part of layer "front" which is drawn last according to the layer order list. This means that all nodes that are part of "front" will be drawn on top of nodes that are part of layer "back" and nodes without layers set.
+## Layers and draw calls
 
-Both "box1" and "box3" are set to layer "back". The drawing order within a layer is determined by the node’s index, it’s place in the node list. "box1" comes before "box3" and is thus drawn first, behind "box3".
+Layers give fine grained control over how nodes are drawn and can be used to reduce the number of draw calls the engine must create to draw a GUI scene. When the engine is about to draw the nodes of a GUI scene, it groups the nodes into draw call batches based on the following conditions:
 
-::: important
-A child node with unset layer will implicitly inherit the layer setting of its parent node.
-:::
-Not setting a layer on a node implicitly adds it to the "null" layer, which is drawn before any other layer.
-
-## Batch rendering
-
-In order to render your GUI as efficiently as possible, there are steps that you can take that will permit the engine to organise drawing of your GUI nodes in batches, reducing the overall number of drawcalls that the engine must create. If groups of nodes meet the following conditions, then they may be handled within a single batch:
-
-- If they are all box nodes, they use the same atlas for textures.
+- The nodes must use the same type.
+- The nodes must use the same atlas or tile source.
 - The nodes must be rendered with the same blend mode.
-- If they are text nodes, they use same font.
-- They must be rendered in sequence. That means that they must appear next to each other in the node list, or be part of the same layer (see the example below for details)
-- In addition, clipping nodes always break the batch and each stencil scope also breaks the batch.
+- They must use same font.
 
-The ability to arrange nodes in hierarchies is powerful and makes it easy to group complex hierarchies of nodes into manageable units. But hierarchies can effectively break batch rendering. Let’s look at a simple example:
+If a node differs from the previous one on any of these points, it will break the batch and create another draw call. Clipping nodes always break the batch and each stencil scope also breaks the batch.
 
-![Batch hierarchy](images/gui/gui_batch_hierarchy.png)
+The ability to arrange nodes in hierarchies makes it easy to group nodes into manageable units. But hierarchies can effectively break batch rendering:
 
-Here we have built two buttons each out of three nodes. We have a box node with a shadow texture, a box node with a shaded button texture and a text node with the button text. We have put these nodes in logical manageable hierarchies. The button graphics is drawn with "alpha" blend mode and the shadow with "multiply" blend mode.
+![Breaking batch hierarchy](images/gui/break_batch.png){srcset="images/gui/break_batch@2x.png 2x"}
 
-When the rendering pipeline walks through the list of nodes, it is forced to set up a separate batch for each separate node. This is because walking through the list the nodes with graphics share the same atlas, but because the shadow nodes use different blend modes than the buttons, the batch is broken at each node. So, all in all these two buttons will require six separate batches.
+When the rendering pipeline walks through the list of nodes, it is forced to set up a separate batch for each separate node because the types are different. All in all these three buttons will require six draw calls.
 
-We can do better, though. By carefully assigning layers to our nodes, we can render our buttons much more efficiently. For this example we create three layers:
+By assigning layers to the nodes, they can be ordered differently, allowing the render pipeline to group the nodes together in fewer draw calls. Start by adding the layers you need to the scene:
 
-- Shadow
-- Button
-- Text
+![Layers](images/gui/layers.png){srcset="images/gui/layers@2x.png 2x"}
 
-We assign the nodes to the corresponding layer and make sure the layers are placed in correct render order in the Layers-list:
+Then set the *Layer* property on each node to the corresponding layer. The layer drawing order takes precedence over the regular indexed node order, so setting the button graphics box-nodes to "graphics" and the button text nodes to "text" will result in the following draw order:
 
-![Batch layers](images/gui/gui_batch_layers.png)
+* First all nodes in the "graphics" layer, from the top:
 
-Since the layer drawing order takes precedence over the regular node order the nodes are now drawn in the following order:
+  1. "button-1"
+  2. "button-2"
+  3. "button-3"
 
-1. "play_block_shadow"
-2. "quit_block_shadow"
-3. "play_block"
-4. "quit_block"
-5. "play"
-6. "quit"
+* Then all nodes in the "text" layer, from the top:
 
-The nodes that share atlas, blend mode or font now sit adjacent to each other and the rendering pipeline can batch these nodes into three batches instead of six. A 50% performance win.
+  4. "button-text-1"
+  5. "button-text-2"
+  6. "button-text-3"
 
-Now, imagine that we scale our little example up and expand the GUI to 10 buttons. If we make sure to properly assign the right layer to each new nodes, the engine will still render them in three batches, but this time instead of 30.
+The nodes can now be batched into two draw calls, instead of six. A major performance win!
 
-
-## Handling different resolutions and aspect ratios
-
-GUI components are rendered separately and on top of other game content and there are some mechanisms in place to make life easier for game developers that target device that have screens of different resolutions and aspect ratios.
-
-Your Defold game project specifies a target resolution in the *game project* settings; however, one or more of your target devices might have a different screen resolution and aspect ratio. In this case this means that your game will be up- or downscaled to fit the target screen.
-
-Defold deals with the scaling of any GUI components differently to other game content. It also provides you with a set of simple but powerful tools to lay out your user interface independently of resolution and/or aspect ratio.
-
-Let’s illustrate with a little experiment and create a game app with a GUI. The display size is set to a square with dimensions 1024x1024. The game contains a GUI component with a level menu on top of some imagery. This is how it looks when run on a computer:
-
-![Square](images/gui/gui_square.png)
-
-Now, if we run the same app on the iPad (with a very different screen size and aspect ratio of 4:3) we get the following result:
-
-![iPad square](images/gui/gui_ipad.png)
-
-We see that on the iPad the game is stretched out to fill the screen. The octopus in the background is deformed, but the GUI elements are not. The text nodes are rendered with the correct aspect ratio and keep their location in the center of the screen.
-
-You can easily simulate changes to the screen resolution and aspect ratio by changing the window size of your running Defold game. Running the game on a device with a different resolution and aspect ratio is equivalent to changing the window. When the window changes size it triggers redrawing and re-positioning of GUI components, according to a set of adjustment and anchoring rules that give you good control over your user interface layout.
-
-## Adjust mode
-
-When the window is resized and the resolution and aspect ratio is changed, all nodes are reshaped and adjusted according to how their Adjust Mode property is set. This property can be either of the following three settings:
-
-`Fit`
-: This is the default. The node is uniformly scaled proportionally against what would be the resized node's bounding box width or height, whichever is smallest.
-
-`Zoom`
-: The node is uniformly scaled proportionally against what would be the resized node's bounding box width or height, whichever is largest.
-
-`Stretch`
-: The node is reshaped proportionally.
-
-It’s perhaps easiest to understand the adjust modes by looking at the following example that contains a GUI component with a couple of nodes:
-
-- A background box node that has a grid texture for reference. This node has *Adjust Mode* set to `Stretch`.
-- Three 256x256 pixel box nodes with a square Defold logo texture. One each with *Adjust Mode* `Fit`, `Zoom` and `Stretch`.
-
-![Adjust mode](images/gui/gui_adjust.png)
-
-Now let’s see what happens to the box nodes when the window is resized:
-
-![Resized window](images/gui/gui_adjust_resize.png)
-
-The `Stretch` node is just deformed to the new shape whereas the `Fit` and `Zoom` nodes keep their aspect ratio. The `Fit` node is fit inside the would-be reshaped bounding box (the grid square that it's in) and the `Zoom` node covers the would-be reshaped bounding box.
-
-Text nodes behave in exactly the same way. The adjust mode applies to the invisible bounding box that controls the shape of the text.
-
-## Anchors
-
-Anchors control the behavior of a node’s position _inside the would-be reshaped bounding box_ when the window is resized. New nodes are created _anchorless_, meaning that they are positioned relative to the center of the screen.
-
-## Node repositioning without anchors
-
-The default behavior of a created node is the following
-
-   * The GUI component’s coordinate system is uniformly scaled and centered inside the resized window.
-   * The node keeps its position in this scaled coordinate system.
-
-This means that all non-anchored nodes will keep their relative distance, in relation to the screen center. To illustrate, if the window gets wider, the added width (relatively) gets distributed equally on the sides of the GUI:
-
-![No anchor size up](images/gui/gui_no_anchor_sizeup.png)
-
-Similarly, if the window is shrunk and gets relatively narrower, the added height (relatively) is distributed equally above and below the GUI:
-
-![No anchor size down](images/gui/gui_no_anchor_sizedown.png)
-
-## Node repositioning with anchors
-
-By setting the Xanchor and/or the Yanchor properties you can lock the position of nodes relative to the edges of the _would-be reshaped bounding box_.
-
-   * Xanchor set to `Left` will lock the horizontal position of the node against the left edge of the box.
-   * Xanchor set to `Right` will lock the horizontal position of the node against the right edge of the box.
-   * Yanchor set to `Top` will lock the vertical position of the node against the top edge of the box.
-   * Yanchor set to `Bottom` will lock the vertical position of the node against the bottom edge of the box.
-
-In practice this means that if you set the Xanchor property to `Right` and the Yanchor property to `Top`, the node will keep its position relative to the top right corner of its reshaped box. The distance to the right edge and the top edge will be kept constant. However, the default *Pivot* is `Center` which keeps the center point. Often you want to anchor against an edge and then you should adjust the *Pivot* accordingly.
-
-![Anchor top right](images/gui/gui_anchor_topright.png)
-
-This example shows a node that has `Top` and `Right` anchoring. It is `Fit` adjusted and has *Pivot* set to `North East`. When the window stretches, the node is fit inside the "would-be" reshaped box (the blue dotted rectangle) and also anchored.
-
-## Pivot
-
-Each node has a position, rotation and scale inside the GUI coordinate system. A node is placed so that its pivot is at the set coordinate and any rotation is done around that same pivot. For text nodes the text will be aligned according to the pivot setting.
-
-The default positioning and rotation of nodes happens against the center of the node---it has the *Pivot* property set to `Center`. You can change the pivot of a node to any of one of the following settings:
-
-* `Center`
-* `North`, `South`, `East`, `West`
-* `North West`, `North East`, `South West`, `South East`
-
-The following image illustrates the position of each pivot setting:
-
-![Pivot points](images/gui/pivot_points.png)
-
-If you change the pivot of a node, the node will be moved so that the new pivot will be at the given position. Text nodes are aligned so that `Center` sets the text center-aligned, `West` sets the text left-aligned and `East` sets the text right-aligned.
-
-## Property animation
-
-Several of the node properties can be fully asynchronously animated. To animate a property, you use the `gui.animate()` function and supply the following parameters:
-
-`gui.animate(node, property, to, easing, duration [,delay] [,complete_function] [,playback])`
-
-::: sidenote
-See [`gui.animate()`](/ref/gui#gui.animate) for details on the parameters.
-:::
-
-The `property` parameter is usually given as a constant (`gui.PROP_POSITION` etc), but can also be supplied as described in the Properties guide (see [Properties](/manuals/properties)). This is handy if you want to animate just a specific component of a compound property value.
-
-For instance, the `color` property describes an RGBA value, encoded in a vector4 value with one component for each color component---red, green, blue and the last one for alpha. The vector components are named respectively `x`, `y`, `z` and `w` and the alpha is thus in the `w` component.
-
-To fade up and down the alpha value of a node we can use the following piece of code:
-
-```lua
-function fadeup(self, node)
-   gui.animate(node, "color.w", 1.0, gui.EASING_LINEAR, 0.3, 0, fadedown, gui.PLAYBACK_ONCE_FORWARD)
-end
-
-function fadedown(self, node)
-   gui.animate(node, "color.w", 0.0, gui.EASING_LINEAR, 0.3, 0, fadeup, gui.PLAYBACK_ONCE_FORWARD)
-end
-```
-
-Now we can call either `fadeup()` or `fadedown()` and supply the node we want the alpha animated on. Note that we set the `complete_function` parameter to supply the function to call when the animation is done, effectively chaining an endless loop of fade ups and fade downs.
-
-## Render script
-
-The default render script is a Lua script that handles all rendering of your game content (see [Render documentation](/manuals/render) for details). It is set up to render GUI nodes on top of the rest of a game in a separate pass:
-
-```lua
-...
-render.set_view(vmath.matrix4())
-local w = render.get_window_width()
-local h = render.get_window_height()
-local proj = vmath.matrix4_orthographic(0, w, 0, h, -1, 1)
-render.set_projection(proj)
-render.draw(self.gui_pred)
-render.draw(self.text_pred)
-...
-```
-
-The view is a normal identity matrix and the projection is orthographic. You can create custom render scripts for your project by copying the *default.render_script* and *default.render* render file from the *builtins/render* folder, changing them as you wish and then specifying your custom renderer under the *bootstrap* section of the project settings (see [Project settings](/manuals/project-settings)).
-
-To illustrate, you can render all GUI components with a 3D "camera" view and perspective projection:
-
-```lua
--- Set up a view to get a 3D positioned camera.
-local w = render.get_window_width() * 0.5
-local h = render.get_window_height() * 0.5
-local eye = vmath.vector3(w-25, h-10, 70)
-local look_at = vmath.vector3(w, h, -250)
-local up = vmath.vector3(0, 1.0, 0)
-local view = vmath.matrix4_look_at(eye, look_at, up)
-render.set_view(view)
--- Perspective projection
-local proj = vmath.matrix4_perspective(2.5, 4/3, 0.1, 1000)
-render.set_projection(proj)
-
-render.draw(self.gui_pred)
-render.draw(self.text_pred)
-```
-
-This now affects all GUI components that are rendered. Here’s a version of our previous level menu with the modified render-script:
-
-![Render script](images/gui/gui_renderscript.png)
+Note that a child node with unset layer will implicitly inherit the layer setting of its parent node. Not setting a layer on a node implicitly adds it to the "null" layer, which is drawn before any other layer.

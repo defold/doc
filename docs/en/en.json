@@ -295,6 +295,10 @@
                         "name": "GUI overview"
                     },
                     {
+                        "path": "/manuals/gui-box",
+                        "name": "Box nodes"
+                    },
+                    {
                         "path": "/manuals/gui-text",
                         "name": "Text nodes"
                     },
@@ -307,8 +311,16 @@
                         "name": "Spine nodes"
                     },
                     {
-                        "path": "/manuals/gui-templates",
+                        "path": "/manuals/gui-particlefx",
+                        "name": "ParticleFX nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-template",
                         "name": "Template nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-script",
+                        "name": "Scripts"
                     },
                     {
                         "path": "/manuals/gui-clipping",
