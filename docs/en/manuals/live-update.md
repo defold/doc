@@ -27,11 +27,11 @@ This is done by simply checking the *Exclude* checkbox in the collection proxy p
 
 ## Live update settings
 
-When the bundler creates an application bundle, it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>.
+When the bundler creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In `game.project`, select which liveupdate settings file to use when bundling. This allows for using different liveupdate settings for different environments, for example for live, QA, dev etc.
 
 ![Live update settings](images/live-update/aws-settings.png)
 
-There are two ways Defold can store the settings. Choose the method in the *Mode* dropdown in the settings window:
+There are currently two ways that Defold can store the resources. Choose the method in the *Mode* dropdown in the settings window:
 
 `Amazon`
 : This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name. [See below for details how to set up an AWS account](#_setting_up_amazon_web_service).
@@ -123,9 +123,94 @@ To bundle with Live update is easy. Select <kbd>Project ▸ Bundle ▸ ...</kbd>
 
 ![Bundle Live application](images/live-update/bundle-app.png)
 
-When bundling, any excluded resource will be left out of the application bundle. By checking the *Publish Live update content* checkbox, you tell Defold to either upload the excluded resources to Amazon or to create a Zip archive, depending on how you have set up your Live update settings (see above).
+When bundling, any excluded resource will be left out of the application bundle. By checking the *Publish Live update content* checkbox, you tell Defold to either upload the excluded resources to Amazon or to create a Zip archive, depending on how you have set up your Live update settings (see above). The manifest file for the bundle will also be included in the excluded resources.
 
 Click *Package* and select a location for the application bundle. Now you can start the application and check that everything works as expected.
+
+## The manifest
+
+The manifest is an internal data structure that holds a list of all resources included in a build as well as the hash value of each resource. The Live update functionality uses the manifest to track what is part of the built game, list what can be loaded from external sources, and if that happens, make certain that the loaded data is intact.
+
+From the user's perspective, the manifest is a numeric handle, leaving the details of how it's managed to the engine.
+
+## Updating the manifest with Live update
+
+With Live update a new manifest can be stored locally at runtime. The local manifest will be used at app startup instead of the one bundled with the application. This is useful for modifying or adding Live update resources to a published game that were not known at build time, without having to publish a full release.
+
+When publishing Live update resources to either Amazon Web Service or to a zip archive, the manifest will be included in that package next to the resources. The name of the manifest file will be `liveupdate.game.dmanifest`.
+
+Starting the engine for the first time after a manifest has been stored will create a bundle identifier file `bundle.ver` next to the manifest. This is used to detect whether the bundle has changed since the manifest was stored, for example after a full app store update. If this is the case the stored manifest will be deleted from the filesystem and the newer bundled manifest will be used instead. This means that a full app store update will delete any previously stored manifest. Any existing Live update resources will however remain untouched.
+
+### Manifest verification
+When storing a new manifest the manifest data will be verified before it is actually written to disk. The verification consists of a number of checks:
+
+* Correct binary file format.
+* Supports the currently running engine version or any other supported version entry from the settings.
+* Cryptographic signature.
+* Signed using the same public-private key pair as the bundled manifest.
+
+From the user's perspective the verification process is completely opaque but it is important to note the steps involved to avoid the most common pitfalls.
+
+### Supported engine versions
+A manifest will always support the Defold version used when generating it. If you want to support any additional engine versions, add them to the list in the Live update settings. This can be useful if your live game uses a different Defold version than the one you are using to generate the manifest with.
+
+![Manifest supported engine versions](images/live-update/engine-versions-settings.png)
+
+### Generating keys for signing
+The manifest signature is used to verify that no one with malicious intent has tampered with the content, and that the bundled manifest and the new manifest were signed using the same keys. The signing is done as a part of the bundling process.
+A public/private key pair is used to cryptographically sign the manifest. Signing uses 512/1024/2048-bit RSA keys in `.der`-format that the user needs to supply. You can generate these using the `openssl` tool:
+
+```sh
+$ openssl genrsa -out private_raw.key 1024
+$ openssl pkcs8 -topk8 -inform pem -in private_raw.key -outform der -nocrypt -out private.der
+$ openssl rsa -in private_raw.key -outform DER -RSAPublicKey_out -pubout -out public.der
+```
+This will output `private_raw.key` (can be safely deleted), `private.der`, and `public.der`. To use the keys for signing open the Live update settings view and point respective fields to the generated keys.
+
+![Manifest signature key-pair](images/live-update/manifest-keys.png)
+
+### Scripting with Live update manifest
+Adding to the scripting example above, we add the following callback function
+
+```lua
+local function store_manifest_cb(self, status)
+    if status == resource.LIVEUPDATE_OK then
+        print("Successfully stored manifest!")
+    else
+        print("Failed to store manifest, status: ", status)
+    end
+end
+```
+
+and the following to ```on_message``` to handle message ```attempt_download_manifest```:
+
+```lua
+...
+elseif message_id == hash("attempt_download_manifest") then
+    local base_url = "https://my-game-bucket.s3.amazonaws.com/my-resources/" -- <1>
+    http.request(base_url .. MANIFEST_FILENAME, "GET", function(self, id, response)
+        if response.status == 200 or response.status == 304 then
+            -- We got the response ok.
+            print("verifying and storing manifest " .. MANIFEST_FILENAME)
+            resource.store_manifest(response.response, store_manifest_cb) -- <2>
+        else
+            -- ERROR! Failed to download manifest!
+            print("Failed to download manifest: " .. MANIFEST_FILENAME)
+        end
+    end)
+end
+```
+1. The manifest will be stored on S3 next to the rest of the Live update resources. As before, if you create a Zip archive with resources you need to host the files somewhere and reference their location when downloading them with `http.request()`.
+2. Similar to how resources are downloaded and stored, the call to `resource.store_manifest` takes the downloaded manifest data and a callback as arguments. The function will verify the manifest and persist it to local storage.
+
+If `resource.store_manifest` succeeds, the new manifest is now located in local storage. The next time the engine starts this manifest will be used instead of the one bundled with the game.
+
+### Caveats
+There are a few gotchas that might be good to know if you plan to use this feature to store a new manifest with Live update.
+
+* It is only possible to add or modify resources referenced by collection proxies that are tagged as `Exclude` in the new manifest. No changes should be made to already bundled resources or resources not in excluded collection proxies. For example, doing changes in a script that is referenced by a bundled collection will cause the resource system to look for that resource in the bundled data archive. But since the shipped game bundle has not changed (only the manifest has) the changed script will not be found and consequently cannot be loaded.
+
+* Even though this feature allows you to quickly push bug fixes or new features to a live game without doing a full app store release, it should be used with care. Pushing out a new manifest should involve the same processes as when doing a full release with everything that that entails (testing, QA, etc.).
 
 ## Setting up Amazon Web Service
 
@@ -250,16 +335,6 @@ This section will explain how to create a new user with limited access on Amazon
 
     ![Live update settings](images/live-update/05-liveupdate-settings.png)
 
-## The manifest
-
-The manifest is an internal data structure that holds a list of all resources included in a build as well as the hash value of each resource. The Live update functionality uses the manifest to track what is part of the built game, list what can be loaded from external sources, and if that happens, make certain that the loaded data is intact.
-
-From the user's perspective, the manifest is a numeric handle, leaving the details of how it's managed to the engine.
-
-::: important
-Currently, only the initial build manifest is available. The ability to store new manifests is a planned update to the system. This will allow you to modify or add resources to a published game that were not known at build time.
-:::
-
 ## Development caveats
 
 Debugging
@@ -279,7 +354,3 @@ Forcing re-download of resources
   ![Local storage](images/live-update/local-storage.png)
 
   The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
-
-## Known issues
-
-- At the moment you have access only to the manifest that is created at build-time. In the near future you will be able to store new manifests. This will allow you to modify existing resources, or add new resources to the game through Live update.
