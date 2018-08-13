@@ -11,7 +11,7 @@ In Defold, an atlas resource is a list of separate images files, which are autom
 
 ## Creating an Atlas
 
-Select <kbd>New ▸ Atlas</kbd> from the context menu in the Project Explorer. Name the new atlas file. The editor will now open the file in the atlas editor. The atlas properties are shown in the 
+Select <kbd>New... ▸ Atlas</kbd> from the context menu in the *Assets* browser. Name the new atlas file. The editor will now open the file in the atlas editor. The atlas properties are shown in the 
 *Properties* pane so you can edit them (see below for details).
 
 You need to populate an atlas with images or animations before you can use it as a graphics source for object components like Sprites and ParticleFX components.

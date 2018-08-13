@@ -5,27 +5,43 @@ brief: This manual explains how the particle fx component works and how to edit 
 
 # Particle FX
 
-It is possible to enhance the visual appeal of the game by using Particle effects. Watch this video for an introduction on how to work with particle effects in Defold.
+Particle effects are used to visually enhance games. You can use them to create explosions, blood splatter, trails, weather or any other effect.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qzyB1lXNDKQ" frameborder="0" allowfullscreen></iframe>
+![ParticleFX Editor](images/particlefx/editor.png){srcset="images/particlefx/editor@2x.png 2x"}
 
-![ParticleFX Editor](images/particlefx/effect_editor.png)
+Particle effects consists of a number of emitters and optional modifiers:
+
+Emitter
+: An emitter is a positioned shape that emits particles uniformly distributed over the shape. The emitter contains properties that controls the particle spawning as well ass the image or animation, lifespan, color, shape and velocity of the individual particles.
+
+Modifier
+: A modifier affects the velocity of spawned particles to make them accelerate or slow down in a particular direction, move radially or swirl around a point. Modifiers can affect a single emitter's particles or a particular emitter.
+
+## Creating an effect
+
+Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file in the particle effect editor.
+
+By default a simple 2d cone emitter is added to the effect. Select the emitter
+
+The *Outline* pane shows the emitters and modifiers that are part of the effect. Selecting an emitter or modifier brings up its properties in the *Properties* pane below.
+
+
+
+
+
+The particle fx editor is a real time visual editor that allows you to edit and preview the effect.
+
+
+Updates to any property is immediately shown in the preview, whether the effect is running or not.
+
+
+
+<kbd>View ▸ Play</kbd>
+
+
 
 ## Concepts
 
-ParticleFX
-: A component that represents a particle effect.
-
-Emitter
-: A positioned shape that emits particles uniformly distributed over the shape.
-
-Modifier
-: Affects the velocity of spawned particles (field in Maya). There are four types of modifiers: Acceleration, Drag, Radial and Vortex.
-
-Image (Tile source or Atlas)
-: Used for adding textures and flip-book animations, see the [2D graphics documentation](/manuals/2dgraphics)
-
-When a ParticleFX file is created and opened, it is possible to add emitters and modifiers from the context menu in the Outline-view.
 
 ![ParticleFX Editor Outline](images/particlefx/effect_outline.png)
 
