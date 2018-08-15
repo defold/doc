@@ -19,85 +19,71 @@ Modifier
 
 ## Creating an effect
 
-Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file in the particle effect editor.
+Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file using the [Scene Editor](/manuals/editor/#_the_scene_editor).
 
-By default a simple 2d cone emitter is added to the effect. Select the emitter
+The *Outline* pane shows the default emitter. Select the emitter to bring up its properties in the *Properties* pane below.
 
-The *Outline* pane shows the emitters and modifiers that are part of the effect. Selecting an emitter or modifier brings up its properties in the *Properties* pane below.
+![Default particles](images/particlefx/default.png){srcset="images/particlefx/default@2x.png 2x"}
 
+To add a new emitter to the effect, <kbd>right click</kbd> the root of the *Outline* and select <kbd>Add Emitter ▸ [type]</kbd> from the context menu. Note that you can change the type of the emitter in the emitter properties.
 
+To add a new modifier, <kbd>right click</kbd> the location of the modifier in the *Outline* (the effect root or a particular emitter) and select <kbd>Add Modifier</kbd>, then select the modifier type.
 
+![Add modifier](images/particlefx/add_modifier.png){srcset="images/particlefx/add_modifier@2x.png 2x"}
 
+![Add modifier select](images/particlefx/add_modifier_select.png){srcset="images/particlefx/add_modifier_select@2x.png 2x"}
 
-The particle fx editor is a real time visual editor that allows you to edit and preview the effect.
+A modifier that sits on the effect root (not childed to an emitter) affects all particles in the effect.
 
+A modifier that is added as a child to an emitter affects only that emitter.
 
-Updates to any property is immediately shown in the preview, whether the effect is running or not.
+## Previewing an effect
 
+* Select <kbd>View ▸ Play</kbd> from the menu to preview the effect. You may need to zoom out the camera to see the effect properly.
+* Select <kbd>View ▸ Play</kbd> again to pause the effect.
+* Select <kbd>View ▸ Stop</kbd> to stop the effect. Playing it again restarts it from its initial state.
 
+When editing an emitter or modifier the result is immediately visible in the editor, even with the effect paused:
 
-<kbd>View ▸ Play</kbd>
-
-
-
-## Concepts
-
-
-![ParticleFX Editor Outline](images/particlefx/effect_outline.png)
-
-![ParticleFX Emitter Properties](images/particlefx/emitter_properties.png)
-
-## Previewing
-
-To preview the particle effects, the scene editor is used. It is explained in detail here: [Scene Editing](/manuals/scene-editing/).
-Use the <kbd>Space</kbd> key to start and stop particle effects while previewing. Whether the particle effect is playing or not, it will be updated in real-time while tweaking it.
-
-## Value tweaking
-
-All number properties can be tweaked using the mouse-wheel (or scroll gesture on track-pad) when the <kbd>Alt</kbd> key modifier is pressed. Use the <kbd>Alt</kbd> key in combination with the <kbd>Ctrl</kbd> key to increase the speed by a factor of 10.
-
-## Keying properties
-
-![ParticleFX Curve Editor](images/particlefx/curve_editor.png)
-
-Different properties can be keyed over different timelines, which means that their value can change over time. It is possible to see which properties have this ability in the reference below.
-
-To key a value:
-
-- Select Curve from the context menu in the text field you wish to key, which gives the text field a light green background.
-- Go to the Curve Editor (available among the tabs in the bottom view) and modify the curve. It is possible to click and drag the points and tangents. Double-click to add or remove points (also available from the context menu inside the Curve Editor).
-
-Keyed properties can't be edited in the Properties View, only in the Curve Editor.
-To reset a keyed property, select Curve again from the context menu in its text field.
-To auto-zoom the Curve Editor to display all curves, press <kbd>F</kbd>.
-
-Spread
-: When a property has two fields, the first is the value and the second is the spread. The value is what you key. The spread is a variation which is applied randomly for each spawned particle. E.g. if the value is 50 and the spread is 10, each spawned particle will get a value between 40 and 60 (50 +/- 10).
+![Edit particles](images/particlefx/rotate.gif)
 
 ## Emitter properties
 
 Id
 : Emitter identifier (used when setting render constants for specific emitters).
 
-Mode
-: If the emitter should stop (`Once`) or restart (`Loop`) when reaching its duration.
-
-Duration
-: For how long the emitter should emit particles.
-
-Space
-: In which geometrical space the spawned particles will exist.
-  - `World` means the particles are left in the world and move independently of the emitter;
-  - `Emitter` means they will move relative to the emitter.
-
-Position/rotation
+Position/Rotation
 : Transform of the emitter relative the ParticleFX component.
 
+Play Mode
+: Controls how the emitter plays:
+  - `Once` stops the emitter after reaching its duration.
+  - `Loop` restarts the emitter after reaching its duration.
+
+Size Mode
+: Controls how flipbook animations will be sized:
+  - `Auto` keeps the size of each flipbook animation frame to the source image.
+  - `Manual` sets the particle size according to the size property.
+
+Emission Space
+: Which geometrical space the spawned particles will exist:
+  - `World` moves the particles independent of the emitter.
+  - `Emitter` moves the particles relative to the emitter.
+
+Duration
+: The number of seconds the emitter should emit particles.
+
+Start Delay
+: The number of seconds the emitter should wait before emitting particles.
+
+Start Offset
+: The number of seconds into the particle simulation the emitter should start.
+
 Image
-: Image file (Tile source or Atlas) to use for texturing and animating the particles.
+: The image file (Tile source or Atlas) to use for texturing and animating the particles.
 
 Animation
-: Which animation in the Image file to use on the particles.
+: The animation from the *Image* file to use on the particles.
 
 Material
 : The material to use for shading the particles.
@@ -105,79 +91,116 @@ Material
 Blend Mode
 : Available blend modes are `Alpha`, `Add` and `Multiply`.
 
+Max Particle Count
+: How many particles originating from this emitter that can exist at the same time.
+
+Emitter Type
+: The shape of the emitter
+  - `Circle` emits particles from a random location inside a circle. The particles are directed outwards from the center. The circle diameter is defined by *Emitter Size X*.
+
+  - `2D Cone` emits particles from a random location inside a flat cone (a triangle). The particles are directed out of the top of the cone. *Emitter Size X* defines the width of the top and *Y* defines the height.
+
+  - `Box` emits particles from a random location inside a box. The particles are directed up along the box' local Y-axis. *Emitter Size X*, *Y* and *Z* defines width, height and depth respectively. For a 2D rectangle, keep the Z size at zero.
+
+  - `Sphere` emits particles from a random location inside a sphere. The particles are directed outwards from the center. The sphere diameter is defined by *Emitter Size X*.
+
+  - `Cone` emits particles from a random location inside a 3D cone. The particles are directed out through the top disc of the cone. *Emitter Size X* defines the diameter of the top disc and *Y* defines the height of the cone.
+
+  ![emitter types](images/particlefx/emitter_types.png){srcset="images/particlefx/emitter_types@2x.png 2x"}
+
 Particle Orientation
-: How the particles are oriented, either `Default` (unit orientation) or `Initial Direction`.
+: How the emitted particles are oriented:
+  - `Default` sets the orientation to unit orientation
+  - `Initial Direction` keeps the initial orientation of the emitted particles.
+  - `Movement Direction` adjusts the orientation of the particles according to their velocity.
 
 Inherit Velocity
-: How much of the velocity of the emitter the particles should inherit. This value is only available when *Space* is set to `World`. The velocity of the emitter is estimated every frame.
+: A scale value of how much of the velocity of the emitter the particles should inherit. This value is only available when *Space* is set to `World`. The velocity of the emitter is estimated every frame.
 
-Max Particle Count
-: How many particles from this emitter can exist at the same time.
-
-Type
-: The shape of the emitter
-  - `Circle` - A 2D circle which emits particles outwards from its center. Diameter is defined by *Emitter Size X*.
-  - `2D Cone` - A flattened cone which emits particles from its bottom corner directed out through the top of the cone. *Emitter Size X* defines the diameter of the top and *Y* defines the height.
-  - `Box` - A 3D box which emits particles along its local Y-axis. *Emitter Size X*, *Y* and *Z* defines width, height and depth respectively.
-  - `Sphere` - A 3D sphere which emits particles outwards from its center. Diameter is defined by *Emitter Size X*.
-  - `Cone` - A 3D cone which emits particles from its bottom corner directed out through the top disc of the cone. *Emitter Size X* defines the diameter of the top disc and *Y* defines the height.
-
-Start Delay
-: How long to wait after the ParticleFX has been started before this emitter will start emitting particles.
+Stretch With Velocity
+: Check to scale any particle stretch in the direction of movement.
 
 ## Keyable emitter properties
 
-These properties have two fields, a value and a spread. The values can be keyed over the duration of the emitter. Spread defines how much the value should randomly change for each spawned particle. Spread is added to the current value.
+These properties have two fields: a value and a spread. The spread is a variation which is applied randomly for each spawned particle. E.g. if the value is 50 and the spread is 3, each spawned particle will get a value between 47 and 53 (50 +/- 3).
+
+![Property](images/particlefx/property.png){srcset="images/particlefx/property@2x.png 2x"}
+
+By checking the key button, the value of the property is controlled by a curve over the duration of the emitter. To reset a keyed property, uncheck the key button.
+
+![Property keyed](images/particlefx/key.png){srcset="images/particlefx/key@2x.png 2x"}
+
+The *Curve Editor* (available among the tabs in the bottom view) is used to modify the curve. Keyed properties can't be edited in the *Properties* view, only in the *Curve Editor*. <kbd>Click and drag</kbd> the points and tangents to modify the shape of the curve. <kbd>Double-click</kbd> on the curve to add control points. To remove a control point, <kbd>double click</kbd> on it.
+
+![ParticleFX Curve Editor](images/particlefx/curve_editor.png){srcset="images/particlefx/curve_editor@2x.png 2x"}
+
+To auto-zoom the Curve Editor to display all curves, press <kbd>F</kbd>.
+
+The following properties can be keyed over the play time of the emitter:
 
 Spawn Rate
-: How many particles to emit per second.
+: The number of particles to emit per second.
 
 Emitter Size X/Y/Z
-: Dimensions of the emitter shape, see Type above.
+: The dimensions of the emitter shape, see *Emitter Type* above.
 
 Particle Life Time
-: How long each spawned particle should live.
+: The lifespan of each spawned particle, in seconds.
 
 Initial Speed
-: How fast the spawned particles should move initially.
+: The initial velocity of each spawned particle.
 
 Initial Size
-: How large the spawned particles should be.
+: The initial size of each spawned particle. If you set *Size Mode* to `Automatic` and use a flipbook animation as image source, this property is ignored.
 
 Initial Red/Green/Blue/Alpha
-: Initial color components for the particles.
+: The initial color component tint values for the particles.
 
-## Keyable particle properties
+Initial Rotation
+: The initial rotation values (in degrees) for the particles.
 
-These properties can be keyed over the life time of the particles.
+Initial Stretch X/Y
+: The initial stretch values (in degrees) for the particles.
+
+The following properties can be keyed over the life time of the particles:
 
 Life Scale
-: How the particle size should be scaled.
+: The scale value over each particle's life.
 
 Life Red/Green/Blue/Alpha
-: How the particle color should be tinted over its life.
+: The color component tint value over each particle's life.
+
+Life Rotation
+: The rotation value over each particle's life.
+
+Life Stretch X/Y
+: The stretch value over each particle's life.
+
+## Modifiers
+
+There are four types of modifiers available that affect the velocity of particles:
+
+`Acceleration`
+: Acceleration in a general direction.
+
+`Drag`
+: Reduces the acceleration of particles proportional to the particle velocity.
+
+`Radial`
+: Either attracts or repels particles towards/from a position.
+
+`Vortex`
+: Affects particles in a circular or spiraling direction around its position.
+
+  ![modifiers](images/particlefx/modifier.png){srcset="images/particlefx/modifiers@2x.png 2x"}
 
 ## Modifier properties
 
-Position/rotation
+Position/Rotation
 : The transform of the modifier relative its parent.
-
-Type
-: The type of modifier
-  |          | Type        |
-  | -------- | ----------- |
-  | ![Acceleration modifier](images/particlefx/acceleration.png){.inline} | `Acceleration`: A directed acceleration with no position. Use this for things like gravity. |
-  | ![Drag modifier](images/particlefx/drag.png){.inline} | `Drag`: A decelerating acceleration which is proportional to the particle velocity. Use this for things like air resistance and other fluids. |
-  | ![Radial modifier](images/particlefx/radial.png){.inline} | `Radial`: A radial modifier either attracts or repels particles towards/from a position. Use this for things like small planets. |
-  | ![Vortex modifier](images/particlefx/vortex.png){.inline} | `Vortex`: A vortex affects particles in a circular or spiraling direction around its position. Use this for things like black holes and tornados. |
-
-Max Distance
-: The maximum distance within which particles are affected at all by this modifier. Only used for Radial and Vortex.
-
-## Keyable modifier properties
-
-These properties have two fields, a value and a spread. The values can be keyed over the duration of the emitter. Spread defines how much the value should randomly change for each spawned particle. Spread is added to the current value.
 
 Magnitude
 : The amount of effect the modifier has on the particles.
 
+Max Distance
+: The maximum distance within which particles are affected at all by this modifier. Only used for Radial and Vortex.
