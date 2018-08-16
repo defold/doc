@@ -204,3 +204,17 @@ Magnitude
 
 Max Distance
 : The maximum distance within which particles are affected at all by this modifier. Only used for Radial and Vortex.
+
+## Controlling a particle effect
+
+To start and stop a particle effect from a script:
+
+```lua
+-- start the effect component "particles" in the current game object
+particlefx.play("#particles")
+
+-- stop the effect component "particles" in the current game object
+particlefx.stop("#particles")
+```
+
+See the [Particle FX reference documentation](/ref/particlefx) for more information.
