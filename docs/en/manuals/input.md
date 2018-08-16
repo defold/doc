@@ -300,7 +300,7 @@ function init(self)
     msg.post("listener2", "acquire_input")
 end
 
--- in "listener2.scrip"
+-- in "listener2.script"
 function on_message(self, message_id, message, sender)
     if message_id == hash("acquire_input") then
         -- Acquire input when we get this message.
