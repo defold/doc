@@ -5,41 +5,44 @@ brief: This manual explains how to use label components to use text with game ob
 
 # Label
 
-The *Label* component exists to allow you to attach text content to any game object. While Defold's GUI support is advanced, using it to glue information to in game objects can be tricky since GUIs do not live in the game world.
+A *Label* component renders a piece of text on screen, in game space. By default it is sorted and drawn with all sprite and tile graphics. The component has a set of properties that governs how the text is rendered. Defold's GUI supports text but it can be tricky to place GUI elements in the game world. Labels make this easier.
 
 ## Creating a label
 
-A label component renders a piece of text on screen, in game space. By default it is sorted and drawn with all sprite and tile graphics. The component has a set of properties that governs how the text is rendered.
+To create a Label component, <kbd>right click</kbd> the game object and selecting <kbd>Add Component ▸ Label</kbd>.
 
-To create a Label component, either:
+![Add label](images/label/add_label.png){srcset="images/label/add_label@2x.png 2x"}
 
-1. Add a new component in-place in an existing game object by right clicking the game object and selecting *Add Component*. Select *Label* and press *OK*.
+(If you want to instantiate several labels from the same template you can alternatively make a new label component file: <kbd>right click</kbd> a folder in the *Assets* browser and select <kbd>New... ▸ Label</kbd>, then add the file as component to any game objects)
 
-  ![Add label](images/label/add_label.png)
+![New label](images/label/label.png){srcset="images/label/label@2x.png 2x"}
 
-2. If you want to instantiate several labels from the same template you can alternatively make a new *Label File* (right click a folder in the *Project Explorer* and select <kbd>New ▸ Label File</kbd>) and then add that to one or more game objects by right clicking the game objects, selecting <kbd>Add Component From File</kbd> and selecting your new label file.
+Set the *Font* property to the font you want to use and make sure to set the *Material* property to a material that matches the font type:
 
-The new label component has a set of special properties exposed that you can change in the editor or in runtime.
+![Font and material](images/label/font_material.png){srcset="images/label/font_material@2x.png 2x"}
 
-![New Label component](images/label/label_component.png)
+## Label properties
 
-*Size*
-: The size of the text bounding box. If *Line Break* is set below this governs at what point the text should break.
+Apart from the properties *Id*, *Position*, *Rotation* and *Scale* the following component specific properties exist:
 
 *Text*
-: This property contains the text displayed.
+: The text content of the label.
+
+*Size*
+: The size of the text bounding box. If *Line Break* is set the width specifies at what point the text should break.
 
 *Color*
 : The color of the text.
 
-*Alpha*
-: The alpha value of the text.
+*Outline*
+: The color of the outline.
 
-*Pivot*
-: The pivot of the text. Use this to change text alignment (see below).
+*Shadow*
+: The color of the shadow.
 
-*Line Break*
-: Text alignment follows the pivot setting and setting the this property allows the text to flow over several lines. The width of the component determines where the text will wrap. Note that there has to be a space in the text for it to break.
+::: sidenote
+Note that the default material has shadow rendering disabled for performance reasons.
+:::
 
 *Leading*
 : A scaling number for the line spacing. A value of 0 gives no line spacing. Defaults to 1.
@@ -47,28 +50,24 @@ The new label component has a set of special properties exposed that you can cha
 *Tracking*
 : A scaling number for the letter spacing. Defaults to 0.
 
-*Outline*
-: The color of the outline.
+*Pivot*
+: The pivot of the text. Use this to change text alignment (see below).
 
-*Outline Alpha*
-: The value of the alpha channel for the generated outline. 0.0--1.0.
+*Blend Mode*
+: The blend mode to use when rendering this component.
 
-*Shadow*
-: The color of the shadow.
-
-*Shadow Alpha*
-: The value of the alpha channel for the generated shadow. 0.0--1.0.
+*Line Break*
+: Text alignment follows the pivot setting and setting the this property allows the text to flow over several lines. The width of the component determines where the text will wrap. Note that there has to be a space in the text for it to break.
 
 *Font*
 : The font resource to use for this label.
 
-::: sidenote
-Note that the default material has shadow rendering disabled for performance reasons.
-:::
+*Material*
+: The material to use for rendering this label. Make sure to select a material that is created for the font type that you use (bitmap, distance field or BMFont).
 
-## Alignment
+## Pivot and alignment
 
-By setting the pivot you can change the alignment mode for the text.
+By setting the *Pivot* property you can change the alignment mode for the text.
 
 *Center*
 : If the pivot is set to `Center`, `North` or `South`, the text is center-aligned.
@@ -79,7 +78,7 @@ By setting the pivot you can change the alignment mode for the text.
 *Right*
 : If the pivot is set to any of the `East` modes, the text is right-aligned.
 
-![Text alignment](images/label/align.png)
+![Text alignment](images/label/align.png){srcset="images/label/align@2x.png 2x"}
 
 ## Runtime manipulation
 
@@ -91,11 +90,11 @@ You can manipulate labels in runtime by getting and setting the label text as we
 `outline`
 : The label outline color (`vector4`)
 
-`scale`
-: The label scale, either a `number` for uniform scaling or a `vector3` for individual scaling along each axis.
-
 `shadow`
 : The label shadow color (`vector4`)
+
+`scale`
+: The label scale, either a `number` for uniform scaling or a `vector3` for individual scaling along each axis.
 
 `size`
 : The label size (`vector3`)

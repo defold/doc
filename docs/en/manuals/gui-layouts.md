@@ -54,13 +54,13 @@ The *Default* layout is only used if there are no other layouts added to the GUI
 
 When editing a GUI scene, all nodes are edited on a particular layout. The currently selected layout is indicated in the gui scene layout dropdown.
 
-![Editing default layer](images/layouts/layouts_default.png)
+![Editing default layout](images/layouts/layouts_default.png)
 
-You also get visual feedback on whether a node overrides a property on the currently selected layer (other than *Default*) or not. Each change to a node property that you do with a layout selected _overrides_ the property in respect to the *Default* layout. Properties that are overridden are marked in blue. You can click on the reset button next to the property to reset the property to the default value.
+You also get visual feedback on whether a node overrides a property on the currently selected layout (other than *Default*) or not. Each change to a node property that you do with a layout selected _overrides_ the property in respect to the *Default* layout. Properties that are overridden are marked in blue. You can click on the reset button next to the property to reset the property to the default value.
 
 ![Editing with layouts](images/layouts/layouts_modified.png)
 
-Note that layers only override properties. A layer cannot delete or create new nodes. If you need to remove a node from a layer you can either move the node off-screen or delete it with script logic. You should also pay attention to the currently selected layout. If you add a layout to your project, the new layout will be set up according to the currently selected layout. Also, copying and pasting nodes considers the currently selected layout, when copying *and* when pasting.
+Note that layouts only override properties. A layout cannot delete or create new nodes. If you need to remove a node from a layout you can either move the node off-screen or delete it with script logic. You should also pay attention to the currently selected layout. If you add a layout to your project, the new layout will be set up according to the currently selected layout. Also, copying and pasting nodes considers the currently selected layout, when copying *and* when pasting.
 
 ## Layout change messages
 
