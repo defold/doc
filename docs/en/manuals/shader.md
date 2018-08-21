@@ -5,36 +5,66 @@ brief: This manual describes vertex and fragment shaders in detail and how to us
 
 # Shaders
 
-Shaders are at the core of graphics rendering. They are programs written in a C-like language called GLSL (GL Shading Language) that are run on the graphics hardware and perform operations on either the underlying 3D data (vertices) or the pixels that are rendered to the screen (the "fragments"). Shaders are general programs that can be used for an unlimited array of things, for instance:
+Shader programs are at the core of graphics rendering. They are programs written in a C-like language called GLSL (GL Shading Language) that the graphics hardware run to perform operations on either the underlying 3D data (the vertices) or the pixels that end up on the screen (the "fragments"). Shaders are used for drawing sprites, lighting 3D models, creating full screen post effects and much, much more.
 
-* Simulation and rendering of water waves.
-* Bone animation.
-* Cartoon-style character rendering.
-* Realistic lighting.
-* Deformation of 3D models.
-* Full screen post effects.
-* and much, much more.
-
-This manual describes vertex and fragment shaders in detail. In order to create shaders for your content, you need to also understand the concept of materials in Defold, as well as how the render pipeline works.
+This manual describes how Defold's rendering pipeline interfaces with vertex and fragment shaders. In order to create shaders for your content, you also need to understand the concept of materials, as well as how the render pipeline works.
 
 * See the [Render manual](/manuals/render) for details on the render pipeline.
 * See the [Material manual](/manuals/material) for details on materials.
 
 Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at https://www.khronos.org/registry/gles/
 
-Note that on desktop computers it is possible to write and compile shaders using features not available on OpenGL ES 2.0. Doing so will break cross compatibility.
+Observe that on desktop computers it is possible to write shaders using features not available on OpenGL ES 2.0. Your graphics card driver may happily compile and run shader code that will not work on mobile devices.
 
 ::: sidenote
 The site Shadertoy (https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of techniques and inspiration. Many of the shaders showcased on the site can be ported to Defold with very little work.
 :::
 
-## Overview
+## Rendering overview
+
+All visual components (sprites, GUI nodes, particle effects or models) consists of vertices, points in 3D world that describe the shape of the component. The good thing by this is that it is possible to view the shape from any angle and distance. The job of the vertex shader program is to take the shape's vertices and translate them into a position in the viewport so the shape can end up on screen:
+
+![vertex shader](images/shader/vertex_shader.png){srcset="images/shader/vertex_shader@2x.png 2x"}
+
+For a shape with 4 vertices, the vertex shader program runs 4 times, each in parallell.
+
+The input of the program is the vertex position (and other data associated with the vertex) and the output is a new vertex position (`gl_Position`).
+
+The most simple vertex shader program just sets the position of each vertex to a zero vertex (which is not very useful):
+
+```glsl
+void main()
+{
+    gl_Position = vec4(0.0,0.0,0.0,1.0);
+}
+```
+
+After vertex shading, the on screen shape of the component has been decided. The graphics hardware then splits the shape into *fragments*, or pixels. It then runs the fragment shader program once for each of the fragments.
+
+![fragment shader](images/shader/fragment_shader.png){srcset="images/shader/fragment_shader@2x.png 2x"}
+
+For an on screen image 16x24 pixels in size, the program runs 384 times, each in parallell.
+
+The input of the program is ccc and the output is the final color of the pixel (`gl_FragColor`).
+
+The most simple fragment shader program just sets the color of each pixel to black (again, not a very useful program):
+
+```glsl
+void main()
+{
+    gl_FragColor = vec4(0.0,0.0,0.0,1.0);
+}
+```
+
+
+![Shader pipeline](images/shader/pipeline.png){srcset="images/shader/pipeline@2x.png 2x"}
+
 
 The _vertex shader_ computes the screen geometry of a component's primitive polygon shapes. For any type of visual component, be it a sprite, spine model or model, the shape is represented by a set of polygon vertex positions. We use model components in the following discussion since their geometry often extends to full 3D.
 
 In the engine, the vertex positions of a model's shape are stored relative to a model-local origo, i.e. in a coordinate system that is unique to the particular model. The game world, however, uses the same coordinate system for all objects that are part of the world. When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a world transform matrix.
 
-![World transform](images/shader/world_transform.png)
+![World transform](images/shader/world_transform.png){srcset="images/shader/world_transform@2x.png 2x"}
 
 The world transform matrix includes information about what translation (movement), rotation and scale should be applied to the model's vertices for them to be correctly placed in the game world's coordinate system. By separating these pieces of information the game engine is able to manipulate the position, rotation and scale of each model without ever destroying the original vertex values stored in the model component.
 
@@ -42,21 +72,49 @@ Similarly, when the game world is rendered, the 3D world coordinates of each ver
 
 Due to CPU batching of rendering primitives, the world space transformation is done on the CPU before the vertex program processes the vertices. The program processes each vertex (in world space) and computes the resulting coordinate that each vertex of a primitive should have. After that the primitive is _rasterized_. Rasterization means that primitives are divided into fragments (or pixels) and processed by a _fragment shader_ (sometimes called a _pixel shader_). The purpose of the fragment shader is to decide the color of each resulting fragment. This is done by calculation, texture lookups (one or several) or a combination of lookups and computations.
 
-![Shader pipeline](images/shader/shader_pipeline.png)
-
 Note that the vertex shader cannot create or delete vertices, only change vertex positions. Also note that the fragment shader is not able to operate on fragments outside of the primitives resulting from vertex shading.
 
-## Variables
+## Vertex shader attributes
 
-A shader program consists of code that operates on data. Data is passed to and between shader programs through variables of different types:
+Vertex attributes are values associated with individual vertices. Different component types have different sets of attributes and contain information about each vertex's position, normal, color and texture coordinates. These values are usually stored in the mesh created in a 3D modelling software and exported to Collada files that Defold can read. Vertex attributes differ from uniforms in that they are set for each vertex.
 
-Vertex attribute variables
-: Vertex attributes are used to send data to the vertex shader. Values are set per vertex and contain information about each vertex's position, normal, color and texture coordinates. These values are usually stored in the mesh created in a 3D modelling software and exported to Collada files that Defold can read.
+To access them, simply declare them in your shader program:
 
-Attributes provided from the engine can be defined in the vertex shader using the `attribute` qualifier. Vertex attributes differ from uniforms in that they are set for each vertex. Uniforms are constant for all vertices. It is not possible to define attributes in the fragment shader.
+```glsl
+// position and texture coordinates for this vertex.
+attribute mediump vec4 position;
+attribute mediump vec2 texcoord0;
+...
+```
 
-Uniform variables
-: Uniforms are values that are passed from the engine to vertex and fragment shader programs. They are declared in the shader programs with the `uniform` qualifier and must also be defined in the material file as *vertex_constant* or *fragment_constant* properties. Uniforms do not change from one execution of a shader program to the next within a particular rendering call (i.e. within a component). That is why they are called uniforms. In Defold, you define uniforms as material _constants_ in the component material file. The following constants are available:
+The following attributes are available:
+
+Sprite
+: `position` and `texcoord0`
+
+Tilegrid
+: `position` and `texcoord0`
+
+Spine model
+: `position` and `texcoord0`
+
+GUI node
+: `position`, `textcoord0` and `color`
+
+ParticleFX
+: `position`, `texcoord0` and `color`
+
+Model
+: `position`, `texcoord0` and `normal`
+
+Font
+: `position`, `texcoord0`, `face_color`, `outline_color` and `shadow_color`
+
+## Vertex and fragment constants
+
+Constants, or "uniforms" are values that are passed from the engine to vertex and fragment shader programs. They are declared in the shader programs with the `uniform` qualifier and must also be defined in the material file as *vertex_constant* or *fragment_constant* properties.
+
+Constants do not change from one execution of a shader program to the next within a particular rendering call (i.e. within a component). That is why they are called uniforms. The following constants are available:
 
 `CONSTANT_TYPE_WORLD`
 : The world matrix. Used to transform vertices into world space. For some component types, the vertices are already in world space when they arrive to the vertex program (due to batching). In those cases multiplying by the world matrix will yield the wrong results.
@@ -79,8 +137,9 @@ Uniform variables
 `CONSTANT_TYPE_USER`
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions `.set_constant()` and `.reset_constant()` for each component type (`sprite`, `model`, `spine`, `particlefx` and `tilemap`)
 
-Varying variables
-: Varying variables give you an interface between the vertex and fragment shader. They are the output of a vertex shader and the input of a fragment shader. Varying variables are declared with the `varying` qualifier and can be of type `float`, `vec2`, `vec3`, `vec4`, `mat2`, `mat3` and `mat4`.
+## Varying variables
+
+Varying variables give you an interface between the vertex and fragment shader. They are the output of a vertex shader and the input of a fragment shader. Varying variables are declared with the `varying` qualifier and can be of type `float`, `vec2`, `vec3`, `vec4`, `mat2`, `mat3` and `mat4`.
 
 If you define a varying variable and set its value in the vertex shader, the value will be set for each vertex. During rasterization this value is interpolated for each fragment on the primitive being rendered. You can access the interpolated value in the fragment shader to determine what color to set on the fragment.
 
