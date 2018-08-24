@@ -432,8 +432,12 @@ When the engine starts, it is possible to provide config values from the command
 # Specify a bootstap collection
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
-# Set the custom value "test.my_value"
-$ dmengine --config=test.my_value=4711
+# Set two custom config values
+$ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
 ```
 
-Custom values can---just like any other config value---be read with [`sys.get_config()`](/ref/sys/#sys.get_config).
+Custom values can---just like any other config value---be read with [`sys.get_config()`](/ref/sys/#sys.get_config):
+
+```lua
+local my_value = tonumber(sys.get_config("test.my_value")) 
+```

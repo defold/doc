@@ -29,7 +29,7 @@ When the Defold engine starts it loads and instanciates all game objects from a 
 
 To fit the game objects and their components the engine allocates the memory needed for the whole "game world" into which the contents of the bootstrap collection are instanciated. A separate physics world is also created for any collision objects and physics simulation.
 
-Since script components need to be able to address all objects in the game, even from outside the bootstrap world, it is given a unique name: the *Id* property that you set in the collection file:
+Since script components need to be able to address all objects in the game, even from outside the bootstrap world, it is given a unique name: the *Name* property that you set in the collection file:
 
 ![bootstrap](images/collection-proxy/collection_id.png){srcset="images/collection-proxy/collection_id@2x.png 2x"}
 
@@ -48,7 +48,7 @@ msg.post("#myproxy", "load")
 
 The proxy component will instruct the engine to allocate space for a new world. A separate runtime physics world is also created and all the game objects in the collection "mylevel.collection" are instantiated.
 
-The new world gets its name from the *Id* property in the collection file, in this example it is set to "mylevel". The name has to be unique. If the *Id* set in the collection file is already used for a loaded world, the engine will signal a name collision error:
+The new world gets its name from the *Name* property in the collection file, in this example it is set to "mylevel". The name has to be unique. If the *Name* set in the collection file is already used for a loaded world, the engine will signal a name collision error:
 
 ```txt
 ERROR:GAMEOBJECT: The collection 'default' could not be created since there is already a socket with the same name.

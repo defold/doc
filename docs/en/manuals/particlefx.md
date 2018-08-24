@@ -77,7 +77,7 @@ Start Delay
 : The number of seconds the emitter should wait before emitting particles.
 
 Start Offset
-: The number of seconds into the particle simulation the emitter should start.
+: The number of seconds into the particle simulation the emitter should start, or in other words how long the emitter should pre-warm the effect for.
 
 Image
 : The image file (Tile source or Atlas) to use for texturing and animating the particles.
