@@ -83,7 +83,7 @@ end
 
 ## Addressing into the new world
 
-The *Id* set in the collection file properties is used to address game objects and components in the loaded world. If you, for instance, create a loader object in the bootstrap collection you may need to communicate with it from any loaded collection:
+The *Name* set in the collection file properties is used to address game objects and components in the loaded world. If you, for instance, create a loader object in the bootstrap collection you may need to communicate with it from any loaded collection:
 
 ```lua
 -- tell the loader to load the next level:
