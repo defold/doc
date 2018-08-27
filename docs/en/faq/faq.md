@@ -153,6 +153,14 @@ Why does my HTML5-app freeze at the splash screen in Chrome?
   $ python -m SimpleHTTPServer [port]
   ```
 
+Why am I getting a java exception when I try to start Defold?
+
+: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
+
+  This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
+
+  See [this link](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md) for details on this error.
+
 ## Linux issues
 
 When I try to create a new project, or open an existing one, the editor crashes.
