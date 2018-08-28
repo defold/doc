@@ -12,7 +12,7 @@ Particle effects are used to visually enhance games. You can use them to create 
 Particle effects consists of a number of emitters and optional modifiers:
 
 Emitter
-: An emitter is a positioned shape that emits particles uniformly distributed over the shape. The emitter contains properties that controls the particle spawning as well ass the image or animation, lifespan, color, shape and velocity of the individual particles.
+: An emitter is a positioned shape that emits particles uniformly distributed over the shape. The emitter contains properties that controls the particle spawning as well as the image or animation, lifespan, color, shape and velocity of the individual particles.
 
 Modifier
 : A modifier affects the velocity of spawned particles to make them accelerate or slow down in a particular direction, move radially or swirl around a point. Modifiers can affect a single emitter's particles or a particular emitter.
