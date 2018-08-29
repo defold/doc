@@ -48,7 +48,7 @@ md = new markdown({
         // Callouts hack!
         // replaces "-- [1]", "// [1]" and "-- <1>" and "// <1>" with a span
         // callouts only work if the highlighter kicks in.
-        var exp = /(?:--|\/\/|#) (?:\[|&lt;)([0-9]+)(?:\]|&gt;)/g;
+        var exp = /(?:\-\-|\/\/|#) (?:\[|&lt;)([0-9]+)(?:\]|&gt;)/g;
         return hl.replace(exp, '<span class="callout" data-pseudo-content="$1"></span>');
       } catch (__) {}
     }
