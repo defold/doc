@@ -5,46 +5,58 @@ brief: This manual explains the Defold GUI template system that is used to creat
 
 # GUI template nodes
 
-GUI template nodes provide a simple but powerful mechanism to create reusable visual GUI components based on shared templates or "prefabs". This manual explains the feature and how to use it.
+GUI template nodes provide a powerful mechanism to create reusable GUI components based on shared templates or "prefabs". This manual explains the feature and how to use it.
 
-GUI templates are GUI scenes that are inserted into another GUI scene as a compound node, much like sub-collections can be placed inside other collections. But while a placed sub-collection can override the position of the sub-collection's root and any defined script-properties, a GUI template node can override any property values. Also, like sub-collections, GUI template nodes do not exist as a runtime concept, only as an editing tool.
+A GUI template is a GUI scene that is instanciated, node for node, in another GUI scene. Any property values in the original template nodes can then be overridden.
 
-## Creating and using a template
+## Creating a template
 
-Since a GUI template is a plain GUI scene, there's nothing special about how they are created. Suppose we want to create and use a button template. We can then make a default button in a GUI scene and save it in a file:
+A GUI template is a plain GUI scene so it is created just like any other GUI scene. <kbd>Right click</kbd> a location in the *Assets* pane and select <kbd>New... ▸ Gui</kbd>.
 
-![Button template](images/gui-templates/gui-templates-button.png)
+![Create template](images/gui-templates/create.png){srcset="images/gui-templates/create@2x.png 2x"}
 
-Now we can add any number of instances of the button to another GUI scene. Create or open a new scene, then select <kbd>Gui ▸ Add Template Node</kbd> or right-click *Nodes* in the *Outline* and select <kbd>Add Template</kbd> from the drop-down.
+Create the template and save it. Note that the nodes of the instance will be placed relative to origo so it is a good idea to create the template at position 0, 0, 0.
 
-![Add template](images/gui-templates/gui-templates-add-template.png)
+## Creating instances from a template
 
-Select the GUI scene file to use as a template, in this case *button.gui*. You can add any number of nodes, each an instance based on the same template. If we change the template, each instance updates immediately in the editor, reflecting the changes. Notice that all nodes present in the template node are accessible in the *Outline* view. Nodes under a template node are automatically named with a prefix "[template node id]/".
+You can create any number of instances based on the instance. Create or open the GUI scene where you want to place the template, then <kbd>right click</kbd> the *Nodes* section in the *Outline* and select <kbd>Add ▸ Template</kbd>.
 
-![Node instances](images/gui-templates/gui-templates-instances.png)
+![Create instance](images/gui-templates/create_instance.png){srcset="images/gui-templates/create_instance@2x.png 2x"}
 
-The template itself is represented in the node tree with an item: "button" and "button1" above. Even though they look like they are nodes, they *are not*. Adding a template to a scene adds all the template nodes. There is no "template root node" or similar. If you need a root node to manipulate all nodes in a template, you have to add the root node to the template scene.
+Set the *Template* property to the template GUI scene file.
 
-## Overloading properties
+You can add any number of template instances, and for each instance you can override the properties of each node and change instance node's position, coloring, size, texture and so forth.
 
-Each instance node can overload any of the properties set in the template. Simply mark the node you wish to edit and change the property you want to alter. Nodes that have any overloaded properties are marked green in the *Outline* view. An overloaded property is marked blue. Click the blue property name to reset the property's value to the default.
+![Instances](images/gui-templates/instances.png){srcset="images/gui-templates/instances@2x.png 2x"}
 
-![Overloaded properties](images/gui-templates/gui-templates-overloaded.png)
+Any property that you change is marked blue in the editor. Press the reset button by the property to set its value to the template value:
 
-## Layouts
+![Properties](images/gui-templates/properties.png){srcset="images/gui-templates/properties@2x.png 2x"}
 
-Layouts behave as expected. Any property settings done to a particular layout in the template file are reflected in the layout of the instance nodes, given that the layout exists. Conversely, overloads to the template node instances affect the layout that is currently selected.
+Any node that has overridden properties is also colored blue in the *Outline*:
 
-![Overloading in layouts](images/gui-templates/gui-templates-layouts.png)
+![Outline](images/gui-templates/outline.png){srcset="images/gui-templates/outline@2x.png 2x"}
 
-## Scripting
+The template instance is listed as a collapsible entry in the *Outline* view. However, it is important to note that this item in the outline *is not a node*. The template instance does not exist in runtime either, but all nodes that are part of the instance does.
 
-Writing Lua scripts to manipulate or query nodes added through the template node mechanism works exactly as usual. Just remember to address the nodes by their _full_ name, including the template node base prefix:
+Nodes that are part of a template instance are automatically named with a prefix and a slash (`"/"`) attached to their *Id*. The prefix is the *Id* set in the template instance.
+
+::: important
+Overriding template instance node values in *Layouts* is currently not working in Editor 2. If you need to use layouts in conjunction with templates, please use Editor 1 until the issue is resolved.
+
+See https://github.com/defold/editor2-issues/issues/1124
+:::
+
+## Modifying templates in runtime
+
+Scripts that manipulate or query nodes added through the templating mechanism only need to consider the naming of instance nodes and include the template instance *Id* as a node name prefix:
 
 ```lua
-if gui.pick_node(gui.get_node("button_ok/frame"), x, y) then
+if gui.pick_node(gui.get_node("button_1/button"), x, y) then
     -- Do something...
 end
 ```
 
-Note that there is no template node present during runtime. All nodes under a template node are added to the game but the template node itself exists only in the editor. Also, if you add a script to the template GUI scene, the script will be ignored, only one script is tied to each GUI scene and is set on the scene root node in the *Outline* view as usual.
+There is no node corresponding to the template instance itself. If you need a root node for an instance, add it to the template.
+
+If a script is associated with a template GUI scene, the script is not part of the instance node tree. You may attach one single script to each GUI scene so your script logic needs to sit on the GUI scene where you have instanciated your templates.
