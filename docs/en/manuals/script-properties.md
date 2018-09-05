@@ -1,163 +1,105 @@
 ---
 title: Script component properties
-brief: This manual explains how to add and use custom properties with script components.
+brief: This manual explains how to add custom properties to script components and access them from the editor and runtime scripts.
 ---
 
 # Script properties
 
-Script properties provide a simple and powerful way of exposing properties that control the behavior or look of a specific game object instance and allow non coders to change them in the editor.
+Script properties provide a simple and powerful way of defining and exposing custom properties for a specific game object instance. Script properties can be edited on specific instances directly in the editor and their settings can be used in code to alter the behavior of a game object. There are many cases where script properties are very useful:
 
-Script properties allow for instance specific overrides of script properties. Common use cases are to set the health or speed of a specific enemy AI, the tint color of a pickup object, or what message a button object should send when pressed---and where to send it. There are many cases where script properties are very useful:
-
-* When you want to override their values for specific instances in the editor, and thereby increase script re-usability.
+* When you want to override values for specific instances in the editor, and thereby increase script re-usability.
 * When you want to spawn a game object with initial values.
 * When you want to animate the values of a property.
-* When you want to access the data in one script from another.
+* When you want to access state data in one script from another. (Note that if you access properties frequently between objects, it may be better to move the data to a shared storage.)
 
-::: sidenote
-If you access the data frequently, it is better to access it from a local table rather than from properties in a foreign script component for performance reasons.
-:::
+Common use cases are to set the health or speed of a specific enemy AI, the tint color of a pickup object, or what message a button object should send when pressed---and/or where to send it.
 
-Most types of values that you use to control script behavior or component properties can be exposed as script properties:
+## Defining a script property
 
-Booleans
-: True or False
-
-Numbers
-: Numerical values.
-
-Hashes
-: Hashed string values.
-
-URLs
-: References to objects or components.
-
-Vector3
-: 3 dimensional vector values.
-
-Vector4
-: 4 dimensional vector values.
-
-Quaternion
-: Quaternion values.
-
-
-Suppose that you have a script which controls the health of a game object. The script can respond to damage through a message called `take_damage`:
+Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any callback-functions like `init()` and `update()`. The default value provided for the property governs the type of the property: number, boolean, hash, `msg.url`, `vmath.vector3`, `vmath.vector4` or `vmath.quaternion`.
 
 ```lua
-function init(self)
-    self.health = 100
-end
-
-function on_message(self, message_id, message, sender)
-    if message_id == hash("take_damage") then
-        self.health = self.health - message.damage
-        if self.health <= 0 then
-            go.delete()
-        end
-    end
-end
-```
-
-If the health reaches `0`, the script destroys the game object. Now suppose that you want to use the script in two different game objects, but want the game objects to have different amounts of health. With the function [`go.property()`](/ref/go#go.property) you can declare a script property and it will be stored in the specific script component instance:
-
-```lua
--- self.health will be automatically set to 100 by default
+-- Define script properties for health and an attack target
 go.property("health", 100)
+go.property("target", msg.url())
+
+function init(self)
+  -- store initial position of target.
+  -- self.target is an url referencing another objects.
+  self.target_pos = go.get_position(self.target)
+  ...
+end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("take_damage") then
-        self.health = self.health - message.damage
-        if self.health <= 0 then
-            go.delete()
-        end
+  if message_id == hash("take_damage") then
+    -- decrease the health property
+    self.health = self.health - message.damage
+    if self.health <= 0 then
+      go.delete()
     end
+  end
 end
 ```
 
-Any script component instance that uses the script can set the value specifically. Simply select the script component in the *Outline* view in the editor and the property appears in the *Properties* view allowing you to edit it:
+Any script component instance created from this script can then set the property values.
 
-![Script Properties](images/script_properties/script_properties.png)
+![Component with properties](images/script-properties/component.png){srcset="images/script-properties/component@2x.png 2x"}
 
-::: sidenote
-In the case where the game object holding the script lives inside a sub-collection, expand the game object node in the collection to select the script.
-:::
+ Select the script component in the *Outline* view in the editor and the properties appear in the *Properties* view allowing you to edit them:
 
-The editor property inspector will automatically show a widget that is appropriate for the type of property that you have declared. Numbers are entered in text boxes, vectors and quaternions as a set of numbers in boxes, hashes allow you to enter the string that will be hashed and URLs give you a drop down with all _relative_, local (that is, within the same collection) objects and components. You are still able to enter URL values manually, too.
+![Properties](images/script-properties/properties.png){srcset="images/script-properties/properties@2x.png 2x"}
 
-![Property example](images/script_properties/script_properties_example.png)
+Any property that is overridden with a new instance specific value is marked blue. Click the reset button by the property name to revert the value to the default (as set in the script).
 
 ## Accessing script properties
 
-There are several ways the value of a script property can be referenced and used:
+Any defined script property is available as a stored member in `self`, the script instance reference:
 
-Through `self`
-: The `self` variable contains a reference to the script instance. Any defined script property is available as a stored member in `self`:
+```lua
+-- my_script.script
+go.property("my_property", 1)
 
-  ```lua
-  go.property("my_property", 1)
-
-  ...
-  function init(self)
-      self.other_property = 2
+function update(self, dt)
+  -- Read and write the property
+  if self.my_property == 1 then
+      self.my_property = 3
   end
+end
+```
 
-  function update(self, dt)
-      -- Read and write the property
-      if self.my_property == 1 and self.other_property == 3 then
-          self.my_property = 3
-      end
-  end
-  ```
+User-defined script properties can also be accessed through the getting, setting and animation functions, the same way as any other property:
 
-As a script component property
-: Many components expose properties (sprites expose `size` and `scale`, for instance). Any user-defined script property is avaliable for getting, setting and animating the same way as other component and game object properties:
+```lua
+-- another.script
 
-  ```lua
-  -- myobject.script
-  -- This script is attached to the object "myobject". The script component is called "script".
-  go.property("my_property", 1)
+-- increase "my_property" in "myobject#script" by 1
+local val = go.get("myobject#my_script", "my_property")
+go.set("myobject#my_script", "my_property", val + 1)
 
-  ...
-  ```
-
-  ```lua
-  -- another.script
-  -- increase "my_property" in "myobject#script" by 1
-  local val = go.get("myobject#script", "my_property")
-  go.set("myobject#script", "my_property", val + 1)
-
-  -- animate "my_property" in "myobject#script"
-  go.animate("myobject#script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
-  ```
+-- animate "my_property" in "myobject#my_script"
+go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
+```
 
 ## Factory created objects
 
 If you use a factory to create the game object, it is possible to set script properties at creation time:
 
 ```lua
-function on_message(self, message_id, message, sender)
-    if message_id == hash("create_my_object") then
-        factory.create("#factory", go.get_position(), go.get_rotation(), { health = 50 })
-    end
-end
+local props = { health = 50, target = msg.url("player") }
+factory.create("#can_factory", nil, nil, props)
 ```
 
 When spawning a hierarchy of game objects through `collectionfactory.create()` you need to pair object id:s with property tables. These are put together in a table and passed to the `create()` function:
 
 ```lua
 local props = {}
-props[hash("/object1")] = { property = 1 }
-props[hash("/object2")] = { property = 2, another_property = 3 }
-props[hash("/object3")] = { another_property = 4 }
+props[hash("/can1")] = { health = 150 }
+props[hash("/can2")] = { health = 250, target = msg.url("player") }
+props[hash("/can3")] = { health = 200 }
 
-local ids = collectionfactory.create("#collectionfactory", nil, nil, props)
+local ids = collectionfactory.create("#cangang_factory", nil, nil, props)
 ```
 
-The property values provided via `factory.create()` and `collectionfactory.create()` override any values set in the game object file as well as the default values in the script.
+The property values provided via `factory.create()` and `collectionfactory.create()` will override any value set in the prototype file as well as the default values in the script.
 
-::: important
-If you have several script components attached to a game object, it is possible to put script properties in any of the script files. Suppose that the game object example above had another script component also containing the property `health`. When `factory.create()` is called, the `health` properties for _both_ scripts are set to the provided value.
-:::
-
-
+If several script components attached to a game object defines the same property, each component will get initialized with the value provided to `factory.create()` or `collectionfactory.create()`.
