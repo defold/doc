@@ -104,6 +104,9 @@ Available platforms:
 `js-web`
 : HTML5
 
+`--variant`
+: The variant specifies which type of executable to build when bundling and it together with strip-executable option replaces the -debug option. If no variant is specified you will get a stripped release version of the engine. Setting --variant to debug and not specifying --strip-executable yields the same type of executable as -debug used to do.
+
 By default, Bob looks in the current directory for a project to build. If you change the current dir to a Defold project and invoke bob, it builds the data for the project in the default output directory *build/default*.
 
 ```sh
