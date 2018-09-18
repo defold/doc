@@ -31,7 +31,8 @@ usage: bob [options] [commands]
                                      extensions)
  -ce,--certificate <arg>             Certificate (Android)
  -d,--debug                          Use debug version of dmengine (when
-                                     bundling)
+                                     bundling). Deprecated, use --variant
+                                     instead
     --defoldsdk <arg>                What version of the defold sdk (sha1)
                                      to use
  -e,--email <arg>                    User email
@@ -50,10 +51,17 @@ usage: bob [options] [commands]
  -pk,--private-key <arg>             Private key (Android)
  -r,--root <arg>                     Build root directory. Default is
                                      current directory
+    --strip-executable               Strip the dmengine of debug symbols
+                                     (when bundling iOS or Android)
  -tc,--texture-compression <arg>     Use texture compression as specified
-                                     in texture profiles (boolean)
+                                     in texture profiles
+ -tp,--texture-profiles <arg>        Use texture profiles (deprecated)
  -u,--auth <arg>                     User auth token
  -v,--verbose                        Verbose output
+    --variant <arg>                  Specify debug, release or headless
+                                     version of dmengine (when bundling)
+    --version                        Prints the version number to the
+                                     output
 ```
 
 Available commands:
