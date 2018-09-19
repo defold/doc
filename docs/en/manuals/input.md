@@ -3,7 +3,7 @@ title: Device input in Defold
 brief: This manual explains how input works, how to capture input actions and create interactive script reactions.
 ---
 
-# Device input
+# Input
 
 All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that have acquired input focus and that implement the `on_input()` function. This manual explains how you set up bindings to capture input and how you create code that responds to it. 
 
@@ -154,13 +154,13 @@ Input actions are dispatched according to the input stack, from the top to the b
 
 ![Action dispatch](images/input/actions.png){srcset="images/input/actions@2x.png 2x"}
 
-Any component that is on the stack containing an `on_input()` function will have that function called with the following arguments:
+Any component that is on the stack containing an `on_input()` function will have that function called, once for each input action during the frame, with the following arguments:
 
 `self`
 : The current script instance.
 
 `action_id`
-: The hashed name of the message, as set up in the input bindings.
+: The hashed name of the action, as set up in the input bindings.
 
 `action`
 : A table containing the useful data about the action, like the value of the input, its location (absolute and delta positions), whether button input was `pressed` etc. See [on_input()](/ref/go#on_input) for details on the available action fields.
@@ -269,6 +269,6 @@ It includes binaries for Windows, Linux and macOS. Run it from the command line:
 ./gdc
 ```
 
-The tool will ask you to press different buttons on your connected controller. It will then output a new gamepads file with correct mappings for your controller. Save the new file, or merge it with your existing gamepads file, then update the setting in "game.project";
+The tool will ask you to press different buttons on your connected controller. It will then output a new gamepads file with correct mappings for your controller. Save the new file, or merge it with your existing gamepads file, then update the setting in "game.project":
 
 ![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
