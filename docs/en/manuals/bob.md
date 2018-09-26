@@ -83,23 +83,26 @@ Available commands:
 
 Available platforms:
 
-`x86-darwin`
-: Mac OSX
-
 `x86_64-darwin`
 : Mac OSX 64 bit
 
-`x86-win32`
-: Windows
+`x86_64-win32`
+: Windows 64 bit
 
-`x86-linux`
-: Linux
+`x86-win32`
+: Windows 32 bit
+
+`x86_64-linux`
+: Linux 64 bit
+
+`arm64-darwin`
+: iOS 64 bit
 
 `armv7-darwin`
-: iOS
+: iOS 32 bit
 
 `armv7-android`
-: Android
+: Android 32 bit
 
 `js-web`
 : HTML5
