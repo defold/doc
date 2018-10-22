@@ -50,7 +50,7 @@ Success
 
 The development "dmengine" app is now available on the device.
 
-![dmengine on the device](images/android/dmengine_on_device.png)
+![dmengine on the device](images/dev-app/dmengine_on_device.png)
 
 ## Launching your game
 
