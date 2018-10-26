@@ -9,7 +9,7 @@ Defold includes a set of profiling tools that are integrated with the engine and
 
 ## The runtime visual profiler
 
-Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application. It is turned on and off my sending a message named "toggle_profile" to the "system" socket:
+Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application. It is turned on and off by sending a message named "toggle_profile" to the "system" socket:
 
 ```lua
 function on_reload(self)
