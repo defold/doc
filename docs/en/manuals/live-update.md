@@ -148,6 +148,7 @@ When storing a new manifest the manifest data will be verified before it is actu
 * Supports the currently running engine version or any other supported version entry from the settings.
 * Cryptographic signature.
 * Signed using the same public-private key pair as the bundled manifest.
+* Verify that all resources the manifest expects to be in the bundle actually are in the bundle.
 
 From the user's perspective the verification process is completely opaque but it is important to note the steps involved to avoid the most common pitfalls.
 
