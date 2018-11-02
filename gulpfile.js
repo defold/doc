@@ -292,9 +292,23 @@ function gulpHercule() {
     });
 };
 
+gulp.task('clean', function() {
+  return del(['build']);
+});
+
+gulp.task('assets', gulp.series('clean', function() {
+  gulp.src(['docs/assets/**/*.*'])
+    .pipe(gulp.dest("build/assets"))
+    .pipe(preservetime());
+
+  return gulp.src(['docs/**/*.{png,jpg,svg,gif,js,zip,js}'])
+    .pipe(gulp.dest("build"))
+    .pipe(preservetime());
+}));
+
 
 // Build docs
-gulp.task('build', ['assets'], function () {
+gulp.task('build', gulp.series('assets', function () {
     gulp.src('docs/**/*.md')
         .pipe(gulpHercule())
         .pipe(tap(markdownToJson))
@@ -308,17 +322,7 @@ gulp.task('build', ['assets'], function () {
         .pipe(jsonlint.reporter())
         .pipe(gulp.dest("build"))
         .pipe(preservetime());;
-});
-
-gulp.task('assets', ['clean'], function() {
-    gulp.src(['docs/assets/**/*.*'])
-        .pipe(gulp.dest("build/assets"))
-        .pipe(preservetime());
-
-    return gulp.src(['docs/**/*.{png,jpg,svg,gif,js,zip,js}'])
-        .pipe(gulp.dest("build"))
-        .pipe(preservetime());
-});
+}));
 
 // Watch for changes in md files and compile new html
 gulp.task('watch', function () {
@@ -353,11 +357,7 @@ gulp.task('watch', function () {
         .pipe(gulp.dest("build/preview"));
 });
 
-gulp.task('clean', [], function() {
-    return del(['build']);
-});
-
-gulp.task('sass', [], function() {
+gulp.task('sass', function() {
     gulp.src('docs/sass/preview-md.sass')
         .pipe(plumber())
         .pipe(sass())
