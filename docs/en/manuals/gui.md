@@ -27,7 +27,7 @@ Defold now automatically opens the file in the GUI scene editor.
 
 The *Outline* lists all the GUI:s content: it's list of nodes and any dependencies (see below).
 
-The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layout) selector.
+The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layouts) selector.
 
 ![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
 
