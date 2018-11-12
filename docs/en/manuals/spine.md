@@ -45,6 +45,11 @@ _Dragon Bones_ is available from http://dragonbones.com
 
 ![Dragon Bones](images/spine/dragonbones.png)
 
+::: important
+_Dragon Bones_ should typically be able to export to Spine JSON data files without any problems. If your _Dragon Bones_ exported data file isn't rendered properly in Defold we recommend that you use the official [Spine Skeleton Viewer](http://esotericsoftware.com/spine-skeleton-viewer) to first verify that the data can be correctly parsed. If there is a problem with the exported data the Spine Skeleton Viewer can pinpoint problems in the JSON data file, for instance missing or incorrect fields.
+:::
+
+
 ## Importing a Spine character and animations
 
 When you have a model and animations that you have created in Spine, the process of importing them into Defold is straightforward:
