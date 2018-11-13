@@ -72,7 +72,7 @@ end
 `"load"`
 : This message tells the collection proxy component to start loading its collection into a new world. The proxy will send back a message called `"proxy_loaded"` when it's done.
 
-`"load_async"`
+`"async_load"`
 : This message tells the collection proxy component to start background loading its collection into a new world. The proxy will send back a message called `"proxy_loaded"` when it's done.
 
 `"init"`
