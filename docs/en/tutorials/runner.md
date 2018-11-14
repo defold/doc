@@ -67,13 +67,13 @@ Now it's time to create a new project and getting it ready. If you are familiar 
 
 * If you haven't yet signed up to be a Defold developer, do so!
 * When you signed up a "Getting Started Tutorial" project was created for you. Use this project for the tutorial.
-* Alternativly you can create a new project on the [Defold Dashboard](//dashboard.defold.com/). In this tutorial we choose to start from a blank slate.
+* Alternativly you can create a new project on the [Defold Dashboard](//www.defold.com/dashboard/). In this tutorial we choose to start from a blank slate.
 
 ![The Dashboard](images/runner/1/dashboard.png)
 
 ![Dashboard new project](images/runner/1/dashboard_new_project.png)
 
-Now, if you haven't already downloaded and installed the Defold editor, it's time to do that. You find the download link on the [Defold Dashboard](//dashboard.defold.com/). Then start the program.
+Now, if you haven't already downloaded and installed the Defold editor, it's time to do that. You find the download link on the [Defold Dashboard](//www.defold.com/dashboard/). Then start the program.
 
 ![Download editor](images/runner/1/download_editor.png)
 

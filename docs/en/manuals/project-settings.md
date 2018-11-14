@@ -32,7 +32,7 @@ Compress Archive
 : Enables compression of archives when bundling. Note that this currently applies to all platforms except Android where the apk already contains all data compressed.
 
 Dependencies
-: A list of URLs to the project *Library URL*s. For Defold hosted projects, the URL is found on the project page on the [Dashboard](//dashboard.defold.com)). Note that you need read access to the URL. For Defold hosted projects, that means you need to be a member of the dependent projects.
+: A list of URLs to the project *Library URL*s. For Defold hosted projects, the URL is found on the project page on the [Dashboard](//www.defold.com/dashboard/)). Note that you need read access to the URL. For Defold hosted projects, that means you need to be a member of the dependent projects.
 
 Custom Resources
 : A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included.

@@ -52,7 +52,7 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### compress_archive
 번들을 만들 때 데이터 압축을 활성화 합니다. 모든 플랫폼에 적용되며 압축된 모든 데이터를 이미 포함하고 있는 apk를 사용하는 Android는 제외됩니다.
 #### dependencies
-이 프로젝트가 사용하는 프로젝트의 **Library URL:s** ([Defold dashboard](http://dashboard.defold.com/)에서 찾을 수 있음) 을 쉼표로 구분하여 나열합니다. 종속 프로젝트의 멤버여야 합니다.
+이 프로젝트가 사용하는 프로젝트의 **Library URL:s** ([Defold dashboard](https://www.defold.com/dashboard/)에서 찾을 수 있음) 을 쉼표로 구분하여 나열합니다. 종속 프로젝트의 멤버여야 합니다.
 #### custom_resources (hidden setting)
 프로젝트에 포함될 쉼표로 구분된 리소스 목록입니다. 디렉토리가 지정되면 이 디렉토리의 모든 파일과 디렉토리들이 재귀적으로(recursively) 포함됩니다.
 #### bundle_resources (hidden setting)

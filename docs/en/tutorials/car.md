@@ -11,7 +11,7 @@ We're going to start from an empty project and work step by step to a very small
 
 ## The Dashboard
 
-* Start by creating a new project on the [Defold Dashboard](//dashboard.defold.com/).
+* Start by creating a new project on the [Defold Dashboard](//www.defold.com/dashboard/).
 * If you haven't yet signed up to be a Defold developer, please do so.
 * Name your project and choose the "Empty" project template.
 
