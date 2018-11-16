@@ -134,4 +134,10 @@ Distance field fonts need to be rendered to a target size that is big enough to 
 
 ![Distance field artifacts](images/font/df_artifacts.png){srcset="images/font/df_artifacts@2x.png 2x"}
 
+## Font Cache
+A font resource in Defold will result in two things at runtime, a texture and the font data.
 
+* The font data consist of a list of glyph entries, each containing some basic kerning info and the bitmap data for that glyph.
+* The texture is internally called the "glyph cache texture" and it will be used when rendering text for a specific font.
+
+At runtime, when rendering text, the engine will first loop through the glyphs to be rendered to check which glyphs are available in the texture cache. Each glyph that is missing from the glyph texture cache will trigger a texture upload from the bitmap data stored in the font data.
