@@ -2,7 +2,7 @@
 
 If you haven't already downloaded and installed the Defold editor, it's time to do that.
 
-Log in to the [Defold Dashboard](//dashboard.defold.com) where you will find a "Download editor" menu button:
+Log in to the [Defold Dashboard](//www.defold.com/dashboard/) where you will find a "Download editor" menu button:
 
 ![download editor](../shared/images/dashboard_download.png)
 

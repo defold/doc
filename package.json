@@ -2,7 +2,8 @@
   "repository": "",
   "license": "",
   "version": "3.2.8",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "del": "2.2.2",
     "front-matter": "2.1.2",
     "gulp": "4.0.0",
@@ -29,6 +30,5 @@
     "markdown-it-sup": "1.0.0",
     "mkdirp": "0.5.1",
     "slugify": "1.3.2"
-  },
-  "devDependencies": {}
+  }
 }
