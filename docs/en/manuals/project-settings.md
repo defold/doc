@@ -37,14 +37,14 @@ Dependencies
 Custom Resources
 : A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included.
 
-_bundle_resources_ (hidden setting)
+Bundle Resources
 : A directory containing resource files and folders that should be copied as-is into the resulting package when bundling. The directory is specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
 
   :[platforms](../shared/platforms.md)
 
   A subfolder named `common` is also allowed, containing resource files common for all platforms.
 
-_bundle_exclude_resources_ (hidden setting)
+Bundle Exclude Resources
 : A comma separated list of resources that should not be included in the bundle.
 
 ## Bootstrap
@@ -439,5 +439,5 @@ $ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
 Custom values can---just like any other config value---be read with [`sys.get_config()`](/ref/sys/#sys.get_config):
 
 ```lua
-local my_value = tonumber(sys.get_config("test.my_value")) 
+local my_value = tonumber(sys.get_config("test.my_value"))
 ```
