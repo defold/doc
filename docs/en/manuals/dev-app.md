@@ -54,7 +54,7 @@ The development "dmengine" app is now available on the device.
 
 ## Launching your game
 
-To launch your game on your device, the dev app and editor must be able to connect, over the same wifi network.
+To launch your game on your device, the dev app and editor must be able to connect, over the same wifi network or in some cases also using USB (see below).
 
 1. Make sure the editor is up and running.
 2. Launch the dev app on the device.
@@ -63,6 +63,15 @@ To launch your game on your device, the dev app and editor must be able to conne
 5. While the game is running, you can use [hot reloading](/manuals/debugging#_hot_reloading) as usual.
 
 ![launch](images/dev-app/launch.png)
+
+### Connecting using USB on iOS
+
+On newer iOS version it is also possible to connect to a running dev app over USB. The device will open a new ethernet interface between the device and computer and the device will show up under <kbd>Project ▸ Targets</kbd> just like if it had been connected using wifi.
+
+### Connecting using USB on Android
+
+On Android it is possible to connect to a running dev app over USB when the device is in USB Tethering Mode. On MacOS you need to install a third-party driver such as [HoRNDIS](https://joshuawise.com/horndis#available_versions). When HoRNDIS is installed you also need to allow it to run via the Security & Privacy settings. Once USB Tethering is enabled the device will show up under <kbd>Project ▸ Targets</kbd> just like if it had been connected using wifi.
+
 
 ## Troubleshooting
 
