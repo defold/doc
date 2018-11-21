@@ -394,9 +394,9 @@ gulp.task('watch',
       serve,
       watchSass,
       watchAssets,
-      watchMarkdown,
-    ),
-  ),
+      watchMarkdown
+    )
+  )
 )
 
 
