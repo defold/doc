@@ -44,6 +44,12 @@ Set the *Font* property to the font file and set the font properties as needed.
   - `TYPE_BITMAP` converts the imported OTF or TTF file into a font sheet texture where the bitmap data is used to render text nodes. The color channels are used to encode the face shape, outline and drop shadow. For *.fnt* files, the source texture bitmap is used as is.
   - `TYPE_DISTANCE_FIELD` The imported font is converted into a font sheet texture where the pixel data represents not screen pixels but distances to the font edge. See below for details.
 
+*Render Mode*
+: The render mode to use for glyph rendering.
+
+  - `MODE_SINGLE_LAYER` produces a single quad for each character.
+  - `MODE_MULTI_LAYER` produces separate quads for the glyph shape, outline and shadows respectively. The layers are rendered in back-to-front order, which prevents a character from obscuring previously rendered characters if the outline is wider than the distance between glyphs. This render mode also enables proper drop shadow offsetting, as specified by the Shadow X/Y properties in the font resource.
+
 *Size*
 : The target size of the glyphs in pixels.
 
@@ -63,7 +69,7 @@ Set the *Font* property to the font file and set the font properties as needed.
 : The transparency of the generated shadow. 0.0--1.0.
 
 ::: sidenote
-Shadow rendering of fonts is disabled in the default built-in material shaders because of performance reasons. It is fairly easy to write a custom shader that renders shadows (at some cost) if you need them.
+Shadow support is enabled by the built-in font material shaders and handles both the single and multi layered render mode. If you don't need layered font rendering or shadow support, it is best to use a simpler shader such as the builtins/font-singlelayer.fp.
 :::
 
 *Shadow Blur*
@@ -141,3 +147,12 @@ A font resource in Defold will result in two things at runtime, a texture and th
 * The texture is internally called the "glyph cache texture" and it will be used when rendering text for a specific font.
 
 At runtime, when rendering text, the engine will first loop through the glyphs to be rendered to check which glyphs are available in the texture cache. Each glyph that is missing from the glyph texture cache will trigger a texture upload from the bitmap data stored in the font data.
+
+Each glyph is placed internally in the cache according to the font baseline, which means that you can calculate a local UV value of the glyph within its corresponding cache cell in a shader. This means that you can achieve certain text effects such as gradients or texture overlays dynamically. The engine exposes metrics about the cache to the shader via a special uniform called `texture_size_recip`, which contains the following information in the vector components:
+
+* `texture_size_recip.x` is the inverse of the cache width
+* `texture_size_recip.y` is the inverse of the cache height
+* `texture_size_recip.z` is the ratio of cache cell width to the cache width
+* `texture_size_recip.w` is the ratio of cache cell height to the cache height
+
+For more information about shader uniforms, see the [Shader manual](/manuals/shader).
