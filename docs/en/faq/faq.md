@@ -327,6 +327,14 @@ Can I use string type script properties?
   preferrable since the editor automatically populate a drop-down with relevant url:s
   for you. See the [Script properties documentation](/manuals/script-properties) for details.
 
+How do I access the individual cells of a matrix (created using [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) or similar)?
+
+: You access the cells using `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` etc
+
+I am getting `Not enough resources to clone the node` when using [gui.clone()](ref/gui/#gui.clone:node) or [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
+
+: Increase the `Max Nodes` value of the gui component. You find this value in the Properties panel when selecting the root of the component in the Outline.
+
 ## Lua
 
 Which Lua standard libraries are included in Defold?
