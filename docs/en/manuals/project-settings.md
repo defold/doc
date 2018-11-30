@@ -35,7 +35,7 @@ Dependencies
 : A list of URLs to the project *Library URL*s. For Defold hosted projects, the URL is found on the project page on the [Dashboard](//www.defold.com/dashboard/)). Note that you need read access to the URL. For Defold hosted projects, that means you need to be a member of the dependent projects.
 
 Custom Resources
-: A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included.
+: A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included. The resources can be loaded using [`sys.load_resource()`](/ref/sys/#sys.load_resource).
 
 Bundle Resources
 : A directory containing resource files and folders that should be copied as-is into the resulting package when bundling. The directory is specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
