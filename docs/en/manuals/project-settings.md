@@ -328,6 +328,9 @@ Input Method
 Immersive Mode
 : If set, hides the navigation and status bars and lets your app capture all touch events on the screen.
 
+Debuggable
+: Whether or not the application can be debugged using tools such as [GAPID](https://github.com/google/gapid) or [Android Studio](https://developer.android.com/studio/profile/android-profiler). This will set the `android:debuggable` flag in the Android manifest.
+
 ## MacOS / OS X
 
 App Icon
