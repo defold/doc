@@ -87,11 +87,14 @@ Samples
 Fullscreen
 : Check if the application should start full screen. If unchecked, the application runs windowed.
 
-Update Frequency
-: Frame update frequency, `60` by default. Valid values are `60`, `30`, `20`, `15`, `12`, `10`, `6`, `5`, `4`, `3`, `2` or `1`.
+Frame Cap
+: If `Vsync` checked, snaps to the closest matching swap interval for the set frame cap if a monitor is detected. Otherwise uses timers to respect the set value, 0 means no cap. This setting maps to `display.update_frequency`.
 
-Variable Dt
-: Check if time step should be measured against actual time spent in the update loop, uncheck if you want fixed time step (as set in *update_frequency*).
+Vsync
+: Vertical sync, rely on hardware vsync for frame timing. Can be overridden depending on graphics driver and platform specifics.
+
+Variable Dt (deprecated)
+: Deprecated. If checked, will check `Vsync` and set `Frame Cap` to 0 at build-time for equivalent behavior.
 
 Display Profiles
 : Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default.
@@ -444,3 +447,34 @@ Custom values can---just like any other config value---be read with [`sys.get_co
 ```lua
 local my_value = tonumber(sys.get_config("test.my_value"))
 ```
+
+## Vsync, frame cap, and swap interval
+The first thing of note is that on desktop platforms vsync can be controlled globally by graphics card settings. If for example vsync is force-enabled in the graphics control panel it is not user controllable, e.g. the setting cannot be accessed or modified from Defold. Most mobile devices also has vsync enabled by default.
+
+With `Vsync` checked in `game.project` the engine relies on hardware vsync and uses a fixed time step `dt` based on any detected monitor refresh rate. This is the default setting. With `Vsync` checked and `Frame cap` > 0, the rate will be clamped to a swap interval that matches any detected main monitor refresh rate. With `Vsync` unchecked and `Frame cap` 0, the time step is not fixed but instead uses actual elapsed time difference for `dt`. With `Vsync` unchecked and `Frame cap` > 0, timers are used to respect the set frame cap value. There is no guarantee that the frame cap will be achieved depending on platform specifics and hardware settings.
+
+Swap interval is the interval with which to swap the front and back buffers in sync with vertical blanks (v-blank), the hardware event where the screen image is updated with data from the front buffer. A value of 1 swaps the buffers at every v-blank, a value of 2 swaps the buffers every other v-blank and so on. A value of 0 disables waiting for v-blank before swapping the buffers\*. Setting `swap_interval` is done by sending a message to the system socket: [```swap_interval```](https://www.defold.com/ref/sys/#set_vsync:swap_interval)
+
+### Caveat
+Currently, Defold queries for monitor refresh rate at init and uses that as a basis for picking a fixed `dt`. If you want to support monitors using variable refresh rate (GSync or FreeSync for example) or other scenarios where the refresh rate might not be trivial to query, uncheck `Vsync`to let the engine measure actual `dt` each frame instead of relying on a fixed time step.
+
+
+### Vsync and frame cap in Defold*
+
+<table>
+  <tr>
+    <th></th>
+    <th><b>Frame cap 0 (default)</b></th>
+    <th><b>Frame cap > 0</b></th>
+  </tr>
+  <tr>
+    <td><b>Vsync checked (default)</b></td>
+    <td>Relies on hardware vsync. Fixed <code>dt</code> of <code>1/(detected monitor refresh rate)</code>.</td>
+    <td>Fixed <code>dt</code> of <code>(swap interval)/(detected monitor refresh rate)</code> where swap interval is clamped to the closest matching monitor refresh rate frame cap multiple.</td>
+  </tr>
+  <tr>
+    <td><b>Vsync unchecked</b></td>
+    <td>Calculates <code>dt</code> each frame based on elapsed system time. Vsync might still be enabled in driver settings.</td>
+    <td>Uses a fixed <code>dt</code> of <code>1 / (Frame cap)</code>. Uses timers and sleeps to respect the set frame cap.</td>
+  </tr>
+</table>
