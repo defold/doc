@@ -73,10 +73,10 @@ Shadow support is enabled by the built-in font material shaders and handles both
 :::
 
 *Shadow Blur*
-: The blur radius in pixels for the generated shadow.
+: For bitmap fonts, this setting indicates the number of times a small blur kernel will be applied to each font glyph. For distance field fonts, this setting equals the actual pixel width of the blur.
 
 *Shadow X/Y*
-: The horizontal and vertical offset in pixels of the generated shadow.
+: The horizontal and vertical offset in pixels of the generated shadow. This setting will only affect the glyph shadow when the output format is set to `MODE_MULTI_LAYER`.
 
 *Extra Characters*
 : By default the font will include the ASCII printable characters (character codes 32-126). To manually include additional characters, list them in this property field.
@@ -140,6 +140,8 @@ Distance field fonts need to be rendered to a target size that is big enough to 
 
 ![Distance field artifacts](images/font/df_artifacts.png){srcset="images/font/df_artifacts@2x.png 2x"}
 
+If you don't want shadow or outline support, set their respective alpha values to zero. Otherwise, shadow and outline data will still be generated, taking up unnecessary space.
+
 ## Font Cache
 A font resource in Defold will result in two things at runtime, a texture and the font data.
 
@@ -148,11 +150,15 @@ A font resource in Defold will result in two things at runtime, a texture and th
 
 At runtime, when rendering text, the engine will first loop through the glyphs to be rendered to check which glyphs are available in the texture cache. Each glyph that is missing from the glyph texture cache will trigger a texture upload from the bitmap data stored in the font data.
 
-Each glyph is placed internally in the cache according to the font baseline, which means that you can calculate a local UV value of the glyph within its corresponding cache cell in a shader. This means that you can achieve certain text effects such as gradients or texture overlays dynamically. The engine exposes metrics about the cache to the shader via a special uniform called `texture_size_recip`, which contains the following information in the vector components:
+Each glyph is placed internally in the cache according to the font baseline, which enables calculating a local UV value of the glyph within its corresponding cache cell in a shader. This means that you can achieve certain text effects such as gradients or texture overlays dynamically. The engine exposes metrics about the cache to the shader via a special uniform called `texture_size_recip`, which contains the following information in the vector components:
 
 * `texture_size_recip.x` is the inverse of the cache width
 * `texture_size_recip.y` is the inverse of the cache height
 * `texture_size_recip.z` is the ratio of cache cell width to the cache width
 * `texture_size_recip.w` is the ratio of cache cell height to the cache height
+
+For example - to generate a gradient in a shader fragment, simply write:
+
+`float horizontal_gradient = fract(var_texcoord0.y / texture_size_recip.w);`
 
 For more information about shader uniforms, see the [Shader manual](/manuals/shader).
