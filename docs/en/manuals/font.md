@@ -140,7 +140,7 @@ Distance field fonts need to be rendered to a target size that is big enough to 
 
 ![Distance field artifacts](images/font/df_artifacts.png){srcset="images/font/df_artifacts@2x.png 2x"}
 
-If you don't want shadow or outline support, set their respective alpha values to zero. Otherwise, shadow and outline data will still be generated, taking up unnecessary space.
+If you don't want shadow or outline support, set their respective alpha values to zero. Otherwise, shadow and outline data will still be generated, taking up unnecessary memory.
 
 ## Font Cache
 A font resource in Defold will result in two things at runtime, a texture and the font data.
@@ -150,7 +150,7 @@ A font resource in Defold will result in two things at runtime, a texture and th
 
 At runtime, when rendering text, the engine will first loop through the glyphs to be rendered to check which glyphs are available in the texture cache. Each glyph that is missing from the glyph texture cache will trigger a texture upload from the bitmap data stored in the font data.
 
-Each glyph is placed internally in the cache according to the font baseline, which enables calculating a local UV value of the glyph within its corresponding cache cell in a shader. This means that you can achieve certain text effects such as gradients or texture overlays dynamically. The engine exposes metrics about the cache to the shader via a special uniform called `texture_size_recip`, which contains the following information in the vector components:
+Each glyph is placed internally in the cache according to the font baseline, which enables calculating local texture coordinates of the glyph within its corresponding cache cell in a shader. This means that you can achieve certain text effects such as gradients or texture overlays dynamically. The engine exposes metrics about the cache to the shader via a special shader constant called `texture_size_recip`, which contains the following information in the vector components:
 
 * `texture_size_recip.x` is the inverse of the cache width
 * `texture_size_recip.y` is the inverse of the cache height
