@@ -296,6 +296,9 @@ Bundle Identifier
 Info.plist
 : If specified, use this info.plist file when bundling your app.
 
+Entitlements
+: If specified, can override wildcard entitlements defined in the supplied provisioning profile (.entitlements, .xcent, .plist).
+
 ## Android
 
 App Icon 36x36--192x192
