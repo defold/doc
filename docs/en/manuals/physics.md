@@ -25,7 +25,7 @@ Triggers
 
 ## Adding a collision object component
 
-A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the 
+A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the
 
 To add a collision object component to a game object:
 
@@ -97,7 +97,7 @@ The *Mask* field can contain multiple group names, allowing for complex interact
 
 ## Tilesource collision shapes
 
-Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
+Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
 
 To add collision to a tile map:
 
@@ -184,7 +184,7 @@ In a trigger collision `"collision_response"` messages are sent. In addition, tr
 
 Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
 
-If the ray hits a physics object, a `"ray_cast_response"` message is sent. If the ray misses, a `"ray_cast_missed"` message is sent. 
+If the ray hits a physics object, a `"ray_cast_response"` message is sent. If the ray misses, a `"ray_cast_missed"` message is sent.
 
 Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
 
@@ -272,7 +272,7 @@ function on_message(self, message_id, message, sender)
   if message_id == hash("contact_point_response") then
     -- Get the info needed to move out of collision. We might
     -- get several contact points back and have to calculate
-    -- how to move out of all of them by accumulating a 
+    -- how to move out of all of them by accumulating a
     -- correction vector for this frame:
     if message.distance > 0 then
       -- First, project the accumulated correction onto
