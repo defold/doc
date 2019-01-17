@@ -35,6 +35,9 @@ usage: bob [options] [commands]
                                      instead
     --defoldsdk <arg>                What version of the defold sdk (sha1)
                                      to use
+    --with-symbols                   When using native extensions, the debug
+                                     symbols are also returned (where
+                                     applicable)
  -e,--email <arg>                    User email
  -h,--help                           This help message
  -i,--input <arg>                    Source directory. Default is current
@@ -113,7 +116,7 @@ By default, Bob looks in the current directory for a project to build. If you ch
 $ cd /Applications/Defold-beta/branches/14/4/main
 $ java -jar bob.jar
 100%
-$ 
+$
 ```
 
 You can string commands together to perform a sequence of tasks in one go. The following example resolves libraries, wipes the build directory, builds archive data and bundles an OSX application (named *My Game.app*):
