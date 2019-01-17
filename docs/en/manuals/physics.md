@@ -5,7 +5,7 @@ brief: Defold includes physics engines for 2D and 3D. They allow you to simulate
 
 # Physics
 
-Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine for 2D physics simulations. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
+Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine (version 2.1) for 2D physics simulations and the Bullet physics engine (version 2.77) for 3D physics. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
 
 ## Collision objects
 
@@ -84,6 +84,10 @@ Group
 
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything.
+
+### Units used
+
+The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#_physics). Setting this value to for instance 0.02 would mean that a 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
 
 ## Group and mask
 
