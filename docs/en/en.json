@@ -424,6 +424,18 @@
                         "name": "Native extensions"
                     },
                     {
+                        "path": "/manuals/extensions_details",
+                        "name": "Native extensions - Details"
+                    },
+                    {
+                        "path": "/manuals/extensions_best_practices",
+                        "name": "Native extensions - Best Practices"
+                    },
+                    {
+                        "path": "/manuals/extensions_build_variants",
+                        "name": "Native extensions - Build Variants"
+                    },
+                    {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
