@@ -111,7 +111,7 @@ Assets are community pages which either has a) *enabled library use*, or b) *add
 If your asset is suited for library use (i.e. if you have made a library or an extension), choose "Add library URL" to add your library to your community page. This will allow you to choose hosting for your asset:
 
 Easy hosting
-: If you have your project hosted on the Defold servers (if you created your project from dashboard.defold.com), choosing this option will generate a library URL, usable by the community. Please note that you need to have folders added in *Include dirs* in your "game.project" file.
+: If you have your project hosted on the Defold servers (if you created your project from defold.com/dashboard), choosing this option will generate a library URL, usable by the community. Please note that you need to have folders added in *Include dirs* in your "game.project" file.
 
 <!-- Note: It is very important for us that we can provide a stable hosting solution for people depending on assets hosted on Defold’s servers, which is why *it’s not possible to remove releases* hosted via Easy hosting, in order to never break dependencies to people using the library. However—this naturally does not prevent you from switching visibility setting back to "Private" (if you no longer want your asset to be public), or make new releases (if you find that there are bugs in your latest release)—*but projects which use your library or extension can always continue to do so.* If you are worried about breaking dependencies, it could be a good idea to locally download and store libraries and extensions you are using. -->
 

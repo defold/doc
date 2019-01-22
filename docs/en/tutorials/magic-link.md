@@ -42,7 +42,7 @@ This tutorial is written as a step-by-step guide where we build the game on a co
 
 There are two ways you can follow this tutorial. Either you start a clean, empty project in Defold, download the asset package and build the game step-by-step.
 
-* Go to the [Defold Dashboard](//dashboard.defold.com)
+* Go to the [Defold Dashboard](//www.defold.com/dashboard/)
 * Click *New Project*
 * Choose a name for the project and select the "Empty Project" template
 * Download the "Magic Link" asset package and unpack it on your hard drive (the package is a ZIP archive)
@@ -53,7 +53,7 @@ There are two ways you can follow this tutorial. Either you start a clean, empty
 
 The other option is to create a new project based on the "Magic Link" project template.
 
-* Go to the [Defold Dashboard](//dashboard.defold.com)
+* Go to the [Defold Dashboard](//www.defold.com/dashboard/)
 * Click *New Project*
 * Choose a name for the project and select the "Magic Link" template
 

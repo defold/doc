@@ -21,7 +21,7 @@
                     {
                         "path": "/tutorials/astronaut",
                         "name": "Walking astronaut"
-                    },                    
+                    },
                     {
                         "path": "/tutorials/movement",
                         "name": "Movement"
@@ -72,7 +72,7 @@
                         "name": "Building a car"
                     }
                 ]
-            },           
+            },
             {
                 "name": "Code samples",
                 "items": [
@@ -144,12 +144,12 @@
                     {
                         "path": "/manuals/glossary",
                         "name": "Glossary"
-                    }                    
+                    }
                 ]
             },
             {
                 "name": "WORKFLOW",
-                "items": [            
+                "items": [
                     {
                         "path": "/manuals/workflow",
                         "name": "Workflow"
@@ -220,7 +220,7 @@
                     {
                         "path": "/manuals/atlas",
                         "name": "Atlas"
-                    },                    
+                    },
                     {
                         "path": "/manuals/spine",
                         "name": "Spine animation"
@@ -256,18 +256,6 @@
                     {
                         "path": "/manuals/label",
                         "name": "Label"
-                    },
-                    {
-                        "path": "/manuals/material",
-                        "name": "Material"
-                    },
-                    {
-                        "path": "/manuals/render",
-                        "name": "Render"
-                    },
-                    {
-                        "path": "/manuals/shader",
-                        "name": "Shader"
                     },
                     {
                         "path": "/manuals/factory",
@@ -354,6 +342,23 @@
                 ]
             },
             {
+                "name": "RENDERING",
+                "items": [
+                    {
+                        "path": "/manuals/render",
+                        "name": "Render"
+                    },
+                    {
+                        "path": "/manuals/material",
+                        "name": "Material"
+                    },
+                    {
+                        "path": "/manuals/shader",
+                        "name": "Shader"
+                    }
+                ]
+            },
+            {
                 "name": "PROJECT SETUP",
                 "items": [
                     {
@@ -408,7 +413,7 @@
                     {
                         "path": "/manuals/live-update",
                         "name": "Live update"
-                    }                    
+                    }
                 ]
             },
             {

@@ -2,7 +2,7 @@
 
 If you haven't already downloaded and installed the Defold editor, it's time to do that.
 
-Log in to the [Defold Dashboard](//dashboard.defold.com) where you will find a "Download editor" menu button:
+Log in to the [Defold Dashboard](//www.defold.com/dashboard/) where you will find a "Download editor" menu button:
 
 ![download editor](../shared/images/dashboard_download.png)
 
@@ -52,3 +52,5 @@ Installation on Linux
   $ cd Defold
   $ ./Defold
   ``` 
+
+  If you run into any problems starting the editor, opening a project or running a Defold game please refer to the [Linux section of the FAQ](../faq/faq.md#linux-issues).

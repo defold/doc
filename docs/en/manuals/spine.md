@@ -15,6 +15,10 @@ Defold supports most of Spine's animation features, including inverse kinematics
 Currently, Defold does not support animation keys that flip bones over the X or Y axis. Defold supports mesh animation but only with bones, meaning that you can't animate single vertices. If you need to animate single vertices you can do that through a bone being 100% bound to that vertex only and animate the bone.
 :::
 
+::: important
+The Spine runtime implementation in Defold supports all Spine 2.x features. The runtime provides only limited additional support for Spine 3.x features. Make sure to use only Spine 2.x features to ensure compatibility with the Defold runtime!
+:::
+
 ## Concepts
 
 *Spine JSON data file*
@@ -40,6 +44,11 @@ _Spine_ is available from http://esotericsoftware.com
 _Dragon Bones_ is available from http://dragonbones.com
 
 ![Dragon Bones](images/spine/dragonbones.png)
+
+::: important
+_Dragon Bones_ should typically be able to export to Spine JSON data files without any problems. If your _Dragon Bones_ exported data file isn't rendered properly in Defold we recommend that you use the official [Spine Skeleton Viewer](http://esotericsoftware.com/spine-skeleton-viewer) to first verify that the data can be correctly parsed. If there is a problem with the exported data the Spine Skeleton Viewer can pinpoint problems in the JSON data file, for instance missing or incorrect fields.
+:::
+
 
 ## Importing a Spine character and animations
 

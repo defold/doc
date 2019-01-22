@@ -9,10 +9,6 @@ The Facebook API allows you to interact with Facebook's game connectivity featur
 
 The Defold Facebook API brings the various platform specific Facebook APIs under a unified set of functions that work the same on iOS, Android and HTML5 (through Facebook Canvas). To get started with Facebook connectivity in your games, you need a Facebook account.
 
-::: important
-As of Defold 1.2.92, the Facebook API is redesigned with a new way of interacting with Facebook. The previous API still works, no breaking changes were introduced. However, the old API should be considered deprecated and not used in new applications.
-:::
-
 ## Registering as a Facebook developer
 
 To develop for Facebook you must sign up as a Facebook developer. This allows you to create Facebook applications that your Defold game can communicate with.

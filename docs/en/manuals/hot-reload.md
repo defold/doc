@@ -22,7 +22,7 @@ To then reload an updated resource  simply select the menu item <kbd>File ▸ Ho
 
 ## Hot reloading on device
 
-Hot reloading works wirelessly on device as well as on desktop. To use it on device, run a debug build of your game, or the [development app](/manuals/dev-app) on your mobile device, then chose it as target in the editor:
+Hot reloading works on device as well as on desktop. To use it on device, run a debug build of your game, or the [development app](/manuals/dev-app) on your mobile device, then chose it as target in the editor:
 
 ![target device](images/hot-reload/target.png){srcset="images/hot-reload/target@2x.png 2x"}
 
@@ -40,7 +40,7 @@ When you hot reload a file, the engine will print each reloaded resource file in
 
 ## Reloading scripts
 
-Any Lua script file that is reloaded will be re-executed in the running Lua environment. 
+Any Lua script file that is reloaded will be re-executed in the running Lua environment.
 
 ```lua
 local my_value = 10

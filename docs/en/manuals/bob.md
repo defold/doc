@@ -31,9 +31,13 @@ usage: bob [options] [commands]
                                      extensions)
  -ce,--certificate <arg>             Certificate (Android)
  -d,--debug                          Use debug version of dmengine (when
-                                     bundling)
+                                     bundling). Deprecated, use --variant
+                                     instead
     --defoldsdk <arg>                What version of the defold sdk (sha1)
                                      to use
+    --with-symbols                   When using native extensions, the debug
+                                     symbols are also returned (where
+                                     applicable)
  -e,--email <arg>                    User email
  -h,--help                           This help message
  -i,--input <arg>                    Source directory. Default is current
@@ -50,10 +54,17 @@ usage: bob [options] [commands]
  -pk,--private-key <arg>             Private key (Android)
  -r,--root <arg>                     Build root directory. Default is
                                      current directory
+    --strip-executable               Strip the dmengine of debug symbols
+                                     (when bundling iOS or Android)
  -tc,--texture-compression <arg>     Use texture compression as specified
-                                     in texture profiles (boolean)
+                                     in texture profiles
+ -tp,--texture-profiles <arg>        Use texture profiles (deprecated)
  -u,--auth <arg>                     User auth token
  -v,--verbose                        Verbose output
+    --variant <arg>                  Specify debug, release or headless
+                                     version of dmengine (when bundling)
+    --version                        Prints the version number to the
+                                     output
 ```
 
 Available commands:
@@ -65,33 +76,36 @@ Available commands:
 : Delete all files in the build directory.
 
 `build`
-: Builds all project data. Add the "--archive" option to build a data archive file ("game.darc" in the build directory).
+: Builds all project data. Add the `--archive` option to build a data archive file ("game.darc" in the build directory).
 
 `bundle`
-: Creates a platform specific application bundle. Bundling requires that a built archive is present (`build` with the `--archive` option) and that a target platform is specified (with the `--platform` option). Bob creates the bundle in the output directory unless a different directory is specified with the `--bundle-output` option. The bundle is named according to the project name setting in *game.project*.
+: Creates a platform specific application bundle. Bundling requires that a built archive is present (`build` with the `--archive` option) and that a target platform is specified (with the `--platform` option). Bob creates the bundle in the output directory unless a different directory is specified with the `--bundle-output` option. The bundle is named according to the project name setting in *game.project*. The `--variant` specifies which type of executable to build when bundling and it together with the `--strip-executable` option replaces the `--debug` option. If no `--variant` is specified you will get a release version of the engine (stripped of symbols on Android and iOS). Setting `--variant` to debug and omitting `--strip-executable` yields the same type of executable as `--debug` used to do.
 
 `resolve`
 : Resolve all external library dependencies.
 
 Available platforms:
 
-`x86-darwin`
-: Mac OSX
-
 `x86_64-darwin`
 : Mac OSX 64 bit
 
-`x86-win32`
-: Windows
+`x86_64-win32`
+: Windows 64 bit
 
-`x86-linux`
-: Linux
+`x86-win32`
+: Windows 32 bit
+
+`x86_64-linux`
+: Linux 64 bit
+
+`arm64-darwin`
+: iOS 64 bit
 
 `armv7-darwin`
-: iOS
+: iOS 32 bit
 
 `armv7-android`
-: Android
+: Android 32 bit
 
 `js-web`
 : HTML5
@@ -102,7 +116,7 @@ By default, Bob looks in the current directory for a project to build. If you ch
 $ cd /Applications/Defold-beta/branches/14/4/main
 $ java -jar bob.jar
 100%
-$ 
+$
 ```
 
 You can string commands together to perform a sequence of tasks in one go. The following example resolves libraries, wipes the build directory, builds archive data and bundles an OSX application (named *My Game.app*):

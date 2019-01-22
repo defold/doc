@@ -27,7 +27,7 @@ Defold now automatically opens the file in the GUI scene editor.
 
 The *Outline* lists all the GUI:s content: it's list of nodes and any dependencies (see below).
 
-The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layout) selector.
+The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layouts) selector.
 
 ![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
 
@@ -244,7 +244,7 @@ Clipping Inverted (box, pie and spine nodes)
 
 ## Draw order 
 
-All nodes are rendered in the order they are listed under the "Nodes" folder. The node on top of the list is drawn first and will appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. The Z-values on nodes does not control the draw order. You can override the index ordering of nodes with layers (see below).
+All nodes are rendered in the order they are listed under the "Nodes" folder. The node at the top of the list is drawn first and will thus appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Altering the Z-value on a node does not control its draw order; however, if you set the Z-value outside of your render script's render range the node will no longer be rendered to screen. You can override the index ordering of nodes with layers (see below).
 
 ![Draw order](images/gui/draw_order.png){srcset="images/gui/draw_order@2x.png 2x"}
 

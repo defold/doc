@@ -16,21 +16,98 @@ Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shad
 
 Observe that on desktop computers it is possible to write shaders using features not available on OpenGL ES 2.0. Your graphics card driver may happily compile and run shader code that will not work on mobile devices.
 
-::: sidenote
-The site Shadertoy (https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of techniques and inspiration. Many of the shaders showcased on the site can be ported to Defold with very little work.
-:::
 
-## Rendering overview
+## Concepts
 
-All visual components (sprites, GUI nodes, particle effects or models) consists of vertices, points in 3D world that describe the shape of the component. The good thing by this is that it is possible to view the shape from any angle and distance. The job of the vertex shader program is to take the shape's vertices and translate them into a position in the viewport so the shape can end up on screen:
+Vertex shader
+: A vertex shader cannot create or delete vertices, only change the position of a vertex. Vertex shaders are commonly used to transform the positions of vertices from the 3D world space into 2D screen space.
+
+  The input of a vertex shader is vertex data (in the form of `attributes`) and constants (`uniforms`). Common constants are the matrices necessary to transform and project the position of a vertex to screen space.
+
+  The output of the vertex shader is the computed screen position of the vertex (`gl_Position`). It is also possible to pass data from the vertex shader to the fragment shader through `varying` variables.
+
+Fragment shader
+: After the vertex shader is done, it is the job of the fragment shader to decide the coloring of each fragment (or pixel) of the resulting primitives.
+
+  The input of a fragment shader is constants (`uniforms`) as well as any `varying` variables that has been set by the verter shader.
+
+  The output of the fragment shader is the color value for the particular fragment (`gl_FragColor`).
+
+World matrix
+: The vertex positions of a model's shape are stored relative to the model's origo. This is called "model space". The game world, however, is a "world space" where the position, orientation and scale of each vertex is expressed relative to the world origo. By keeping these separate the game engine is able to move, rotate and scale each model without destroying the original vertex values stored in the model component.
+
+  When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a *world transform matrix*, which tells what  translation (movement), rotation and scale should be applied to a model's vertices to be correctly placed in the game world's coordinate system.
+
+  ![World transform](images/shader/world_transform.png){srcset="images/shader/world_transform@2x.png 2x"}
+
+View and projection matrix
+: In order to put the vertices of the game world onto the screen, each matrix' 3D coordinates is first translated into coordinates relative to the camera. This is done with a _view matrix_. Secondly, the vertices are projected onto the 2D screen space with a _projection matrix_:
+
+  ![Projection](images/shader/projection.png){srcset="images/shader/projection@2x.png 2x"}
+
+Attributes
+: A value associated with an individual vertex. Attributes are passed to the shader by the engine and if you want to access an attribute you just declare it in your shader program. Different component types have a different set of attributes:
+  - Sprite has `position` and `texcoord0`.
+  - Tilegrid has `position` and `texcoord0`.
+  - Spine model has `position` and `texcoord0`.
+  - GUI node has `position`, `textcoord0` and `color`.
+  - ParticleFX has `position`, `texcoord0` and `color`.
+  - Model has `position`, `texcoord0` and `normal`.
+  - Font has `position`, `texcoord0`, `face_color`, `outline_color` and `shadow_color`.
+
+Constants
+: Shader constants remain constant for the duration of the render draw call. Constants are added to the material file *Constants* sections and then declared as `uniform` in the shader program. Sampler uniforms are added to the *Samplers* section of the material and then declared as `uniform` in the shader program. The matrices necessary to perform vertex transformations in a vertex shader are available as constants:
+
+  - `CONSTANT_TYPE_WORLD` is the *world matrix* that maps from an object’s local coordinate space into world space.
+  - `CONSTANT_TYPE_VIEW` is the *view matrix* that maps from world space to camera space.
+  - `CONSTANT_TYPE_PROJECTION` is the *projection matrix* that maps from camera to screen space.
+  - Pre multiplied $world * view$, $view * projection$ and $world * view$ matrices are also available.
+  - `CONSTANT_TYPE_USER` is a `vec4` type constant that you can use as you wish.
+
+  The [Material manual](/manuals/material) explains how to specify constants.
+
+Samplers
+: Shaders can declare *sampler* type uniform variables. Samplers are used to read values from an image source:
+
+  - `sampler2D` samples from a 2D image texture.
+  - `samplerCube` samples from a 6 image cubemap texture.
+
+  You can use a sampler only in the GLSL standard library's texture lookup functions. The [Material manual](/manuals/material) explains how to specify sampler settings.
+
+UV coordinates
+: A 2D coordinate is associated with a vertex and it maps to a point on a 2D texture. A portion, or the whole, of the texture can therefore be painted onto the shape described by a set of vertices.
+
+  ![UV coordinates](images/shader/uv_map.png){srcset="images/shader/uv_map@2x.png 2x"}
+
+  A UV-map is typically generated in the 3D modelling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
+
+Varying variables
+: Varying types of variables are used to pass information between the vertex stage and the fragment stage.
+
+  1. A varying variable is set in the vertex shader for each vertex.
+  2. During rasterization this value is interpolated for each fragment on the primitive being rendered. The distance of the fragment to the shape's vertices dictates the interpolated value.
+  3. The variable is set for each call to the fragment shader and can be used for fragment calculations.
+
+  ![Varying interpolation](images/shader/varying_vertex.png){srcset="images/shader/varying_vertex@2x.png 2x"}
+
+  For instance, setting a varying to a `vec3` RGB color value on each corners of a triangle will interpolate the colors across the whole shape. Similarly, setting texture map lookup coordinates (or *UV-coordinates*) on each vertex in a rectangle allows the fragment shader to look up texture color values for the whole area of the shape.
+
+  ![Varying interpolation](images/shader/varying.png){srcset="images/shader/varying@2x.png 2x"}
+
+
+## The rendering process
+
+Before ending up on the screen, the data that you create for your game goes through a series of steps:
+
+![Render pipeline](images/shader/pipeline.png){srcset="images/shader/pipeline@2x.png 2x"}
+
+All visual components (sprites, GUI nodes, particle effects or models) consists of vertices, points in 3D world that describe the shape of the component. The good thing by this is that it is possible to view the shape from any angle and distance. The job of the vertex shader program is to take a single vertex and translate it into a position in the viewport so the shape can end up on screen. For a shape with 4 vertices, the vertex shader program runs 4 times, each in parallell.
 
 ![vertex shader](images/shader/vertex_shader.png){srcset="images/shader/vertex_shader@2x.png 2x"}
 
-For a shape with 4 vertices, the vertex shader program runs 4 times, each in parallell.
+The input of the program is the vertex position (and other attribute data associated with the vertex) and the output is a new vertex position (`gl_Position`) as well as any `varying` variables that should be interpolated for each fragment.
 
-The input of the program is the vertex position (and other data associated with the vertex) and the output is a new vertex position (`gl_Position`).
-
-The most simple vertex shader program just sets the position of each vertex to a zero vertex (which is not very useful):
+The most simple vertex shader program just sets the position of the output to a zero vertex (which is not very useful):
 
 ```glsl
 void main()
@@ -39,13 +116,37 @@ void main()
 }
 ```
 
-After vertex shading, the on screen shape of the component has been decided. The graphics hardware then splits the shape into *fragments*, or pixels. It then runs the fragment shader program once for each of the fragments.
+A more complete example is the built in sprite vertex shader:
+
+```glsl
+-- sprite.vp
+uniform mediump mat4 view_proj;             // [1]
+
+attribute mediump vec4 position;            // [2]
+attribute mediump vec2 texcoord0;
+
+varying mediump vec2 var_texcoord0;         // [3]
+
+void main()
+{
+  gl_Position = view_proj * vec4(position.xyz, 1.0);    // [4]
+  var_texcoord0 = texcoord0;                            // [5]
+}
+```
+1. A uniform (constant) containing the view and projection matrices multiplied.
+2. Attributes for the sprite vertex. `position` is already transformed into world space. `texcoord0` contains the UV coordinate for the vertex.
+3. Declare a varying output variable. This variable will be interpolated for each fragment between the values set for each vertex and sent to the fragment shader.
+4. `gl_Position` is set to the output position of the current vertex in projection space. This value has 4 components: `x`, `y`, `z` and `w`. The `w` component is used to calculate perspective-correct interpolation. This value is normally 1.0 for each vertex before any transformation matrix is applied.
+5. Set the varying UV coordinate for this vertex position. After rasterization it will be interpolated for each fragment and sent to the fragment shader.
+
+
+
+
+After vertex shading, the on screen shape of the component is decided: primitive shapes are generated and rasterized, meaning that the graphics hardware splits each shape into *fragments*, or pixels. It then runs the fragment shader program, once for each of the fragments. For an on screen image 16x24 pixels in size, the program runs 384 times, each in parallell.
 
 ![fragment shader](images/shader/fragment_shader.png){srcset="images/shader/fragment_shader@2x.png 2x"}
 
-For an on screen image 16x24 pixels in size, the program runs 384 times, each in parallell.
-
-The input of the program is ccc and the output is the final color of the pixel (`gl_FragColor`).
+The input of the program is whatever the rendering pipeline and the vertex shader sends, usually the *uv-coordinates* of the fragment, tint colors etc. The output is the final color of the pixel (`gl_FragColor`).
 
 The most simple fragment shader program just sets the color of each pixel to black (again, not a very useful program):
 
@@ -56,327 +157,35 @@ void main()
 }
 ```
 
-
-![Shader pipeline](images/shader/pipeline.png){srcset="images/shader/pipeline@2x.png 2x"}
-
-
-The _vertex shader_ computes the screen geometry of a component's primitive polygon shapes. For any type of visual component, be it a sprite, spine model or model, the shape is represented by a set of polygon vertex positions. We use model components in the following discussion since their geometry often extends to full 3D.
-
-In the engine, the vertex positions of a model's shape are stored relative to a model-local origo, i.e. in a coordinate system that is unique to the particular model. The game world, however, uses the same coordinate system for all objects that are part of the world. When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a world transform matrix.
-
-![World transform](images/shader/world_transform.png){srcset="images/shader/world_transform@2x.png 2x"}
-
-The world transform matrix includes information about what translation (movement), rotation and scale should be applied to the model's vertices for them to be correctly placed in the game world's coordinate system. By separating these pieces of information the game engine is able to manipulate the position, rotation and scale of each model without ever destroying the original vertex values stored in the model component.
-
-Similarly, when the game world is rendered, the 3D world coordinates of each vertex need to be translated into actual 2D screen positions. This translation is done with two matrices: a _view matrix_ that translates world coordinates into camera relative coordinates, and a _projection matrix_ that projects the camera relative 3D coordinates onto the flat 2D screen space.
-
-Due to CPU batching of rendering primitives, the world space transformation is done on the CPU before the vertex program processes the vertices. The program processes each vertex (in world space) and computes the resulting coordinate that each vertex of a primitive should have. After that the primitive is _rasterized_. Rasterization means that primitives are divided into fragments (or pixels) and processed by a _fragment shader_ (sometimes called a _pixel shader_). The purpose of the fragment shader is to decide the color of each resulting fragment. This is done by calculation, texture lookups (one or several) or a combination of lookups and computations.
-
-Note that the vertex shader cannot create or delete vertices, only change vertex positions. Also note that the fragment shader is not able to operate on fragments outside of the primitives resulting from vertex shading.
-
-## Vertex shader attributes
-
-Vertex attributes are values associated with individual vertices. Different component types have different sets of attributes and contain information about each vertex's position, normal, color and texture coordinates. These values are usually stored in the mesh created in a 3D modelling software and exported to Collada files that Defold can read. Vertex attributes differ from uniforms in that they are set for each vertex.
-
-To access them, simply declare them in your shader program:
+Again, a more complete example is the built in sprite fragment shader:
 
 ```glsl
-// position and texture coordinates for this vertex.
-attribute mediump vec4 position;
-attribute mediump vec2 texcoord0;
-...
-```
+// sprite.fp
+varying mediump vec2 var_texcoord0;             // [1]
 
-The following attributes are available:
-
-Sprite
-: `position` and `texcoord0`
-
-Tilegrid
-: `position` and `texcoord0`
-
-Spine model
-: `position` and `texcoord0`
-
-GUI node
-: `position`, `textcoord0` and `color`
-
-ParticleFX
-: `position`, `texcoord0` and `color`
-
-Model
-: `position`, `texcoord0` and `normal`
-
-Font
-: `position`, `texcoord0`, `face_color`, `outline_color` and `shadow_color`
-
-## Vertex and fragment constants
-
-Constants, or "uniforms" are values that are passed from the engine to vertex and fragment shader programs. They are declared in the shader programs with the `uniform` qualifier and must also be defined in the material file as *vertex_constant* or *fragment_constant* properties.
-
-Constants do not change from one execution of a shader program to the next within a particular rendering call (i.e. within a component). That is why they are called uniforms. The following constants are available:
-
-`CONSTANT_TYPE_WORLD`
-: The world matrix. Used to transform vertices into world space. For some component types, the vertices are already in world space when they arrive to the vertex program (due to batching). In those cases multiplying by the world matrix will yield the wrong results.
-
-`CONSTANT_TYPE_VIEW`
-: The view matrix. Used to transform vertices to view (camera) space.
-
-`CONSTANT_TYPE_PROJECTION`
-: The projection matrix. Used to transform vertices to screen space.
-
-`CONSTANT_TYPE_VIEWPROJ`
-: A matrix with the view and projection matrices already multiplied.
-
-`CONSTANT_TYPE_WORLDVIEW`
-: A matrix with the world and view projection matrices already multiplied.
-
-`CONSTANT_TYPE_NORMAL`
-: A matrix to compute normal orientation. The world transform might include non-uniform scaling, which breaks the orthogonality of the combined world-view transform. The normal matrix is used to avoid issues with the direction when transforming normals. (The normal matrix is the transpose inverse of the world-view matrix).
-
-`CONSTANT_TYPE_USER`
-: A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions `.set_constant()` and `.reset_constant()` for each component type (`sprite`, `model`, `spine`, `particlefx` and `tilemap`)
-
-## Varying variables
-
-Varying variables give you an interface between the vertex and fragment shader. They are the output of a vertex shader and the input of a fragment shader. Varying variables are declared with the `varying` qualifier and can be of type `float`, `vec2`, `vec3`, `vec4`, `mat2`, `mat3` and `mat4`.
-
-If you define a varying variable and set its value in the vertex shader, the value will be set for each vertex. During rasterization this value is interpolated for each fragment on the primitive being rendered. You can access the interpolated value in the fragment shader to determine what color to set on the fragment.
-
-For example, suppose that you define a varying variable +v+ and set it for each vertex of a triangle `A`, `B`, `C`, then each fragment within the boundaries of the triangle will have a value of `v` that is an interpolation of the three values for the vertices:
-
-![Varying interpolation](images/shader/varying_interpolation.png)
-
-## Built in variables
-
-Apart from the above types of user defined variables, a couple of built in variables also exist in GLSL:
-
-`gl_Position`​
-: A built in variable of type `vec4` that holds the output position of the current vertex in projection space. Set the value in the vertex shader. Note that this value has 4 components, `x`, `y`, `z` and `w`. The `w` component is used to calculate perspective-correct interpolation. This value is normally 1.0 for each vertex _before any transformation matrix is applied_.
-
-`gl_FragColor`
-: A built in variable of type `vec4` that holds the output RGBA color value for the current fragment. Set the value in the fragment shader.
-
-## Texturing
-
-To enable texturing of primitives, image mapping and image sampling is required:
-
-UV map
-: This is a list mapping each vertex to a 2D texture coordinate. The map is typically generated in the 3D modelling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute.
-
-![UV coordinates](images/shader/uv_coordinates.png)
-
-Sampler variables
-: Samplers are uniform variables that are used to sample values from an image source. `sampler2D` and `samplerCube` type samplers are supported. `sampler2D` samples from a 2D image texture (a PNG or JPEG image) whereas `samplerCube` samples from a 6 image cubemap texture (defined in a `.cubemap` Defold resource file). You can use a sampler only in the GLSL standard library's texture lookup functions. These functions access the texture referred to by the sampler and take a texture coordinate as a parameter. The [Material manual](/manuals/material) explains how to specify sampler settings.
-
-## Vertex shaders
-
-The simplest possible vertex shader takes the incoming vertices and simply transforms them by multiplying by the appropriate matrices that are passed to the shader as uniform values:
-
-```glsl
-// view_proj is set as vertex constants in the material.
-//
-uniform mediump mat4 view_proj;
-
-// position holds the world vertex position.
-attribute mediump vec4 position;
+uniform lowp sampler2D DIFFUSE_TEXTURE;         // [2]
+uniform lowp vec4 tint;                         // [3]
 
 void main()
 {
-    // Translate the vertex position with the view_proj matrix.
-    // The vec4(position.xyz, 1.0) ensures that the w component of
-    // the position is always 1.0 before matrix multiplication.
-    gl_Position = view_proj * vec4(position.xyz, 1.0);
+  lowp vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);          // [4]
+  lowp vec4 diff = texture2D(DIFFUSE_TEXTURE, var_texcoord0.xy);// [5]
+  gl_FragColor = diff * tint_pm;                                // [6]
 }
 ```
+1. The varying texture coordinate variable is declared. The value of this variable will be interpolated for each fragment between the values set for each vertex in the shape.
+2. A `sampler2D` uniform variable is declared. The sampler, together with the interpolated texture coordinates, is used to perform texture lookup so the sprite can be textured properly. Since this is a sprite, the engine will assign this sampler to the image set in the sprite's *Image* property.
+3. A constant of type `CONSTANT_TYPE_USER` is defined in the material and declared as a `uniform`. Its valueis used to allow color tinting of the sprite. The default is pure white.
+4. The color value of the tint gets pre-multiplied with its alpha value since all runtime textures already contain pre-multiplied alpha.
+5. Sample the texture at the interpolated coordinate and return the sampled value.
+6. `gl_FragColor` is set to the output color for the fragment: the diffuse color from the texture multiplied with the tint value.
 
-For a model consisting of a 32x32 flat grid of vertices, the vertices will be translated in the vertex shader, but are all passed to the fragment shader with their positions intact. (The following images are rendered with a custom fragment shader that shows each vertex):
+The resulting fragment value then goes through tests. A common test is the *depth test* in where the fragment's depth value is compared against the depth buffer value for the pixel that is being tested. Depending on the test, the fragment can be discarded or a new value is written to the depth buffer. A common use of this test is to allow graphics that is closer to the camera to block graphics further back.
 
-![Flat grid](images/shader/grid_flat.png)
+If the test concluded that the fragment is to be written to the frame buffer, it will be *blended* with the pixel data already present in the buffer. Blending parameters that are set in the render script allow the source color (the value written by the fragment shader) and the destination color (the color from the image in the framebuffer) to be combined in various ways. A common use of blending is to enable rendering transparent objects.
 
-However, the shader can do much more than straight transformations. It can freely modify the positions of the vertices and deform the model:
+## Further study
 
-```glsl
-uniform mediump mat4 view_proj;
+- The site Shadertoy (https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of inspiration where you can learn about various shading techniques. Many of the shaders showcased on the site can be ported to Defold with very little work. The [Shadertoy tutorial](https://www.defold.com/tutorials/shadertoy/) goes through the steps of converting an existing shader to Defold.
 
-attribute mediump vec4 position;
-
-// This is the center of the model.
-const vec4 center = vec4(640.0, 360.0, 0.0, 0.0);
-
-void main()
-{
-    float offset = length(position - center);
-
-    // Translate the vertex position with the mvp matrix and offset the y position.
-    gl_Position = view_proj * vec4(position.x, position.y - offset, position.z, 1.0);
-}
-```
-
-![Deformed grid](images/shader/grid_deformed.png)
-
-Here, the vertices are offset by a value that is static for each vertex. By providing a value that changes over time the vertex shader can animate the position of the vertices. We do that by defining a user constant (uniform) called `time` in the material and update its value each frame in the render script before calling `render.draw()`:
-
-```lua
-function init(self)
-    ...
-    self.t = 0
-    self.constants = render.constant_buffer()
-end
-
-function update(self)
-    ...
-    self.t = self.t + 0.0167
-    self.constants.time = vmath.vector4(self.t, 0, 0, 0)
-    render.draw(self.model_pred, self.constants)
-    ...
-end
-```
-
-With the time set in the +x+ component of the constant `time` set we can use it in the vertex shader to animate the positions of the vertices over time:
-
-```glsl
-uniform mediump mat4 view_proj;
-
-// time is a user type uniform that we set in the render script.
-// the x component contains the number of seconds since start.
-uniform mediump vec4 time;
-
-attribute mediump vec4 position;
-
-// This is the center of the model.
-const vec4 center = vec4(640.0, 360.0, 0.0, 0.0);
-
-void main()
-{
-    // Use time to offset the offset and sin() for some nice waves.
-    float t = time.x * 10.0;
-    float offset = sin((length(position - center) + t) / 20.0) * 20.0;
-
-    // Translate the vertex position with the mvp matrix and offset the y position.
-    gl_Position = view_proj * vec4(position.x, position.y - offset, position.z, 1.0);
-}
-```
-
-<iframe src="https://player.vimeo.com/video/206018645?autoplay=1&loop=1&title=0&byline=0&portrait=0" width="640" height="358" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
-## Fragment shaders
-
-After the vertex shader is done, it is the job of the fragment shader to decide the coloring of each fragment of the resulting primitives. In its simplest form, a fragment shader just sets the color of each fragment to a constant color value:
-
-```glsl
-void main()
-{
-    // Set the fragment to white. The color components of the vec4 are red, green, blue and alpha channels.
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-}
-```
-
-## Texturing primitives
-
-A common use of fragment shaders is to texture the rendered primitives. First, the model component needs its *Texture* property set to an image:
-
-![Model texture](images/shader/model_texture.png)
-
-In this particular case the model is flat and square, so the texture would fit the model without any modification. But models are often complex and the fitting of the image needs to be done manually. To allow an arbitrary image texture to be mapped onto an arbitrary 3D model in an arbitrary manner, a _UV map_ is used. This map consists of 2D texture coordinates for each vertex in the model. A vertex shader program takes the texture coordinate attribute and sets a varying variable for each vertex, allowing the fragment shader to receive interpolated texture coordinate values for each fragment:
-
-```glsl
-// vertex shader
-// This vertex attribute contains the UV texture coordinates for each vertex
-attribute mediump vec2 texcoord0;
-
-// Varying that will contain the texture coordinates
-varying mediump vec2 var_texcoord0;
-
-...
-
-void main()
-{
-    ...
-    // Set the varying so the fragment shader can texture according to UVs.
-    var_texcoord0 = texcoord0;
-    ...
-}
-```
-
-In the fragment shader program, the varying texture coordinate variable is defined. A `sampler2D` uniform variable is also defined. The sampler, together with the interpolated texture coordinates, is used to perform texture lookup---the graphics hardware samples the texture at a specified position and returns the sampled color value. The function `texture2D()` performs such lookup.
-
-```glsl
-// fragment shader
-// The texture coordinate for the fragment
-varying mediump vec2 var_texcoord0;
-
-// Texture sampler input
-uniform lowp sampler2D tex0;
-
-void main()
-{
-    // Get the texture color from the sampler
-    mediump vec4 color = texture2D(tex0, var_texcoord0.xy);
-
-    // Set the fragment color
-    gl_FragColor = color;
-}
-```
-
-![Textured deformed grid](images/shader/grid_textured.png)
-
-::: sidenote
-Note that the above example only repositions the vertices. The texture coordinates associated with each vertex are left intact. This leads to stretching where the distance between two vertices becomes large.
-:::
-
-We can choose fragment color based on any type of calculation. For example, it is possible to take the _normals_ of the model into account and create a simple lighting model. To get varied surface normals the example grid model has been deformed in the 3D modelling software.
-
-```glsl
-// vertex shader
-attribute mediump vec4 position;
-attribute mediump vec4 normal;
-attribute mediump vec2 texcoord0;
-
-uniform mediump mat4 mtx_viewproj;
-uniform mediump mat4 mtx_normal;
-
-varying mediump vec2 var_texcoord0;
-varying mediump vec4 var_position;
-varying mediump vec3 var_normal;
-
-void main()
-{
-    // The fragment shader needs normal, vertex position and texture coordinates.
-    var_normal = (mtx_normal * normal).xyz;
-    var_position = mtx_viewproj * position;
-    var_texcoord0 = texcoord0;
-
-    gl_Position = mtx_viewproj * position;
-}
-
-```
-
-The fragment shader needs a position of a light source to be able to calculate the light intensity at every fragment's position. The intensity is depending on how far from the light source the fragment is, as well as the orientation of the surface normal, i.e. is the surface facing towards the light source or not?
-
-```glsl
-// fragment shader
-varying mediump vec2 var_texcoord0;
-varying mediump vec3 var_normal;
-varying mediump vec4 var_position;
-
-uniform lowp sampler2D tex0;
-
-const vec3 light = vec3(0.0, 1000.0, 1000.0);
-
-void main()
-{
-    // Diffuse light calculations
-    vec3 ambient_light = vec3(0.01);
-    vec3 diff_light = vec3(normalize(light - var_position.xyz));
-    diff_light = max(dot(var_normal,diff_light), 0.0) + ambient_light;
-    diff_light = clamp(diff_light, 0.0, 1.0);
-
-    mediump vec4 color = texture2D(tex0, var_texcoord0.xy);
-    gl_FragColor = vec4(color.rgb * diff_light, 1.0);
-}
-```
-
-![Simply lit model](images/shader/model_lit.png)
-
-This simple example uses a hard coded light source, but it is easy to provide the position, intensity and perhaps color for the light through uniforms. That way a Lua script can set the uniform and the light can be moved or otherwise changed.
+- The [Grading tutorial](https://www.defold.com/tutorials/grading/) shows how to create a full screen color grading effect using color lookup table textures for the grading.

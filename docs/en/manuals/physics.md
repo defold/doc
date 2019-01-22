@@ -5,7 +5,7 @@ brief: Defold includes physics engines for 2D and 3D. They allow you to simulate
 
 # Physics
 
-Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine for 2D physics simulations. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
+Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine (version 2.1) for 2D physics simulations and the Bullet physics engine (version 2.77) for 3D physics. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
 
 ## Collision objects
 
@@ -25,7 +25,7 @@ Triggers
 
 ## Adding a collision object component
 
-A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the 
+A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the
 
 To add a collision object component to a game object:
 
@@ -85,6 +85,10 @@ Group
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything.
 
+### Units used by the physics engine simulation
+
+The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#_physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
+
 ## Group and mask
 
 The physics engine allows you to group your physics objects and filter how they should collide. This is handled by named _collision groups_. For each collision object you create two properties control how the object collides with other objects, *Group* and *Mask*.
@@ -97,7 +101,7 @@ The *Mask* field can contain multiple group names, allowing for complex interact
 
 ## Tilesource collision shapes
 
-Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
+Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
 
 To add collision to a tile map:
 
@@ -184,7 +188,7 @@ In a trigger collision `"collision_response"` messages are sent. In addition, tr
 
 Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
 
-If the ray hits a physics object, a `"ray_cast_response"` message is sent. If the ray misses, a `"ray_cast_missed"` message is sent. 
+If the ray hits a physics object, a `"ray_cast_response"` message is sent. If the ray misses, a `"ray_cast_missed"` message is sent.
 
 Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
 
@@ -272,7 +276,7 @@ function on_message(self, message_id, message, sender)
   if message_id == hash("contact_point_response") then
     -- Get the info needed to move out of collision. We might
     -- get several contact points back and have to calculate
-    -- how to move out of all of them by accumulating a 
+    -- how to move out of all of them by accumulating a
     -- correction vector for this frame:
     if message.distance > 0 then
       -- First, project the accumulated correction onto
@@ -290,3 +294,8 @@ function on_message(self, message_id, message, sender)
   end
 end
 ```
+
+## Caveats and common issues
+
+Collection proxies
+: Through collection proxies it is possible to load more than one top level collection, or *game world* into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) only happen between objects belonging to the same world. So even if the collision objects from two worlds visually sits right on top of each other, there cannot be any physics interaction between them.

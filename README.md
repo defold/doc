@@ -30,3 +30,11 @@ $ ./publish_sh
 ```
 
 Publishing documentation to GCS is done with the `gsutil` which is part of the Google Cloud SDK. It's automatically installed if needed.
+
+## Installing Google Cloud SDK & Getting access
+
+1. Go to https://cloud.google.com/sdk/docs/quickstart-macos and download the correct package.
+2. Run the `install.sh` script.
+3. Run `gcloud init` logging into your King account (`...@king.com`).
+4. Select the `defold-web` project when asked which should be the active project. If you don't see it in the list ask Samuel or Jonas about access.
+5. Everything should be OK now and you should have permission to run the `./publish_sh` script.

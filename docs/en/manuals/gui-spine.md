@@ -5,19 +5,21 @@ brief: This manual explains how to use bone animated Spine nodes in Defold GUI s
 
 # GUI Spine nodes
 
-Spine bone animations are available in GUI animations as well as in game objects. This manual explains how to use imported Spine animation data in GUI scenes.
+Spine animated models can be added as GUI nodes as well as game object components. This manual explains how to use imported Spine animation data in GUI scenes.
 
-Any imported Spine bone animation is available in GUI scenes as well as in game objects (through the *SpineModel* component). In order to work with Spine bone animations in Defold, you first have to import the animation data and set up a Spine Scene resource. The [Spine animation](/manuals/spine) documentation describes how to do that.
+## Creating a spine node
 
-To make the contents of a Spine Scene resource available in a GUI scene, add it to the scene by right-clicking the *Spine Scenes* section of the scene in the *Outline* and select <kbd>Add Spine Scene</kbd>. Choose the Spine Scene you wish to use in the scene.
+First you have to import the animation data and set up a Spine Scene resource. The [Spine animation](/manuals/spine) documentation describes how to do that.
 
-![Add Spine Scene](images/gui/gui_spine_add_scene.png)
+Second, the contents of your Spine Scene resource must be available in your GUI scene. Add it by <kbd>right-clicking</kbd> the *Spine Scenes* section of the scene in the *Outline* and select <kbd>Add ▸ Spine Scenes...</kbd>. Choose the Spine Scenes (one or more) you wish to use in the scene.
 
-![Added Spine Scene](images/gui/gui_spine_added_scene.png)
+![Add Spine Scene](images/gui-spine/add.png){srcset="images/gui-spine/add@2x.png 2x"}
 
-Now, if you create a Spine node (right click in the *Nodes* section of the *Outline* and select <kbd>Add Spine Node</kbd>) you are able to set the properties of the new Spine node accordingly:
+Third, create a Spine node by <kbd>right clicking</kbd> the *Nodes* section of the *Outline* and selecting <kbd>Add ▸ Spine</kbd>).
 
-![Spine node](images/gui/gui_spine_node.png)
+![New spine node](images/gui-spine/new_node.png){srcset="images/gui-spine/new_node@2x.png 2x"}
+
+The new node is automatically selected. Make sure to set its properties:
 
 Spine Scene
 : The Spine Scene to use as a data source for this node.
@@ -42,9 +44,9 @@ end)
 
 ## The bone hierarchy
 
-The individual bones in the Spine skeleton exist as GUI nodes. The nodes are named according to their names in the Spine setup.
+The individual bones in the Spine skeleton can be accessed as GUI nodes. The nodes are named according to their names in the Spine setup.
 
-![Spine bone names](images/gui/gui_spine_bones.png)
+![Spine bone names](images/gui-spine/bone.png){srcset="images/gui-spine/bone@2x.png 2x"}
 
 For instance, to attach another node to an existing bone node, fetch the bone node by name with [`gui.get_spine_bone()`](/ref/gui#gui.get_spine_bone) and attach the child to it:
 
@@ -56,7 +58,7 @@ local tail = gui.get_spine_bone(cat, "tail")
 gui.set_parent(textnode, tail)
 ```
 
-All bones are also accessible through [`gui.get_node()`](/ref/gui#gui.get_node), by the bone name prefixed by the name of the name of the Spine node and a slash (`/`):
+Bones are also accessible through [`gui.get_node()`](/ref/gui#gui.get_node), by the bone name prefixed by the name of the name of the Spine node and a slash (`/`):
 
 ```lua
 -- Attach a text node to the tail of the cat

@@ -161,7 +161,7 @@ on_message()
 `"window_resized"`
 : The engine will send this message on changes of the window size. You can listen to this message to alter rendering when the target window size changes. On desktop this means that the actual game window has been resized and on mobile devices this message is sent whenever an orientation change happens.
 
-  ```
+  ```lua
   function on_message(self, message_id, message)
     if message_id == hash("window_resized") then
       -- The window was resized. message.width and message.height contain the new dimensions.
@@ -173,7 +173,7 @@ on_message()
 `"draw_line"`
 : Draw debug line. Use to visualize ray_casts, vectors and more. Lines are drawn with the `render.draw_debug3d()` call.
   
-  ```
+  ```lua
   -- draw a white line
   local p1 = vmath.vector3(0, 0, 0)
   local p2 = vmath.vector3(1000, 1000, 0)
@@ -184,7 +184,7 @@ on_message()
 `"draw_text"`
 : Draw debug text. Use to print debug information. The text is drawn with the built in "system_font" font. The system font has a material with tag "text" and is rendered with other text in the default render script.
   
-  ```
+  ```lua
   -- draw a text message
   local pos = vmath.vector3(500, 500, 0)
   msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  

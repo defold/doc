@@ -153,6 +153,14 @@ Why does my HTML5-app freeze at the splash screen in Chrome?
   $ python -m SimpleHTTPServer [port]
   ```
 
+Why am I getting a java exception when I try to start Defold?
+
+: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
+
+  This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
+
+  See [this link](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md) for details on this error.
+
 ## Linux issues
 
 When I try to create a new project, or open an existing one, the editor crashes.
@@ -318,6 +326,14 @@ Can I use string type script properties?
   game object id:s (paths) although [url](/ref/msg#msg.url) properties are often
   preferrable since the editor automatically populate a drop-down with relevant url:s
   for you. See the [Script properties documentation](/manuals/script-properties) for details.
+
+How do I access the individual cells of a matrix (created using [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) or similar)?
+
+: You access the cells using `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` etc
+
+I am getting `Not enough resources to clone the node` when using [gui.clone()](ref/gui/#gui.clone:node) or [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
+
+: Increase the `Max Nodes` value of the gui component. You find this value in the Properties panel when selecting the root of the component in the Outline.
 
 ## Lua
 

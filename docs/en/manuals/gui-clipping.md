@@ -5,30 +5,48 @@ brief: This manual describes how to create GUI nodes that mask other nodes throu
 
 # Clipping
 
-GUI nodes with textures or text add graphics to the GUI. However, sometimes it is convenient to be able to _mask_ what is being shown, to be able to _remove_ particular parts of the graphics from the screen.
+GUI nodes can be used as *clipping* nodes---masks that control how other nodes are rendered. This manual explains how this feature works.
 
-Say, for instance, that you want to create an on-screen HUD element containing a mini-map that players can use to help orient themselves in your game.
+## Creating a clipping node
 
-![Minimap HUD](images/clipping/clipping_minimap.png)
+Box, Text and Pie nodes nodes can be used for clipping. To create a clipping node, add a node in your GUI, then set its properties accordingly:
 
-Using a pie node with clipping makes creating the minimap a very easy task:
+Clipping Mode
+: The mode used for clipping.
+  - `None` renders the node without any clipping taking place.
+  - `Stencil` makes the node writing to the current stencil mask.
 
-![Making the minimap](images/clipping/clipping_making_minimap.png)
+Clipping Visible
+: Check to render the content of the node.
 
-- Add a pie node. It will act as a "keyhole" for the map.
-- Add a box node and apply the map texture to it.
-- Child the box node to the pie node.
-- Set the *Clipping* property of the pie node to "Stencil".
+Clipping Inverted
+: Check to write the inversion of the node's shape to the mask.
 
-![Clipping preview](images/clipping/clipping_preview.png)
+Then add the node(s) you want to be clipped as children to the clipping node.
 
-Now the parent node will act as a "keyhole" down to its children. Only graphics bound by the parent clipping node will show so the parent node will define the graphical outer bounds of the map. We are therefore free to move the map node around and whatever part is currently within the parent bounds will show.
+![Create clipping](images/gui-clipping/create.png){srcset="images/gui-clipping/create@2x.png 2x"}
 
-Clipping can be applied to box nodes and pie nodes. Text nodes can not clip other nodes. Two different types of clipping are available and a node can be set to *Visible clipper* which draws the clipper shape, and *Inverted clipper* which inverts how the clipper affects the clipping mask (see below for details).
+## Stencil mask
 
-![Clipping properties](images/clipping/clipping_properties.png)
+Clipping works by having nodes writing to a *stencil buffer*. This buffer contains clipping masks: information that that tells the graphics card whether a pixel should be rendered or not.
 
-Stencil clipping can be applied to box nodes and pie nodes. Stencils have some limitations:
+- A node with no clipper parent but with clipping mode set to `Stencil` will write its shape (or its inverse shape) to an new clipping mask stored in the stencil buffer.
+- If a clipping node has a clipper parent it will instead clip the parent's clipping mask. A clipping child node can never _extend_ the current clipping mask, only clip it further.
+- Non clipper nodes that are children to clippers will be rendered with the clipping mask created by the parent hierarchy.
+
+![Clipping hierarchy](images/gui-clipping/setup.png){srcset="images/gui-clipping/setup@2x.png 2x"}
+
+Here, three nodes are set up in a hierarchy:
+
+- The hexagon and square shapes are both stencil clippers.
+- The hexagon creates a new clipping mask, the square clips it further.
+- The circle node is a regular pie node so it will be rendered with the clipping mask created by its parent clippers.
+
+Four combinations of normal and inverted clippers are possible for this hierarchy. The green area marks the part of the circle that is rendered. The rest is masked:
+
+![Stencil masks](images/gui-clipping/modes.png){srcset="images/gui-clipping/modes@2x.png 2x"}
+
+## Stencil limitations
 
 - The total number of stencil clippers can not exceed 256.
 - The maximum nesting depth of child _stencil_ nodes is 8 levels deep. (Only nodes with stencil clipping count.)
@@ -36,25 +54,16 @@ Stencil clipping can be applied to box nodes and pie nodes. Stencils have some l
 - Inverted nodes have a higher cost. There is a limit to 8 inverted clipping nodes and each will halve the max amount of non-inverted clipping nodes.
 - Stencils render a stencil mask from the _geometry_ of the node (not the texture). It is possible to invert the mask by setting the *Inverted clipper* property.
 
-## Stencil mask
-
-To understand how stencil clipping works, it is useful to imagine how a hierarchy of stencils apply their individual clipping shapes, in turn down the hierarchy, to the total mask. The mask set of a clipping node is inherited by the children of that node and the children can never _extend_ the mask, only clip it. Let's look at a concrete example:
-
-![Clipping hierarchy](images/clipping/clipping_hierarchy.png)
-
-The hexagon and square shapes are both set to stencil clippers. Setting the *Inverted clipper* property inverts the mask as inherited by that node. For the hierarchy above, four combinations of normal and inverted clippers are possible:
-
-![Stencil masks](images/clipping/clipping_stencil_masks.png)
-
-If a node below an inverted node is also set to *Inverted clipper*, the part of the mask bound by the child node is in turn inverted. By childing inverted clippers to each other, it is thus possible to cut multiple holes in a node:
-
-![Two inverters cutting a node](images/clipping/clipping_two_inverters.png)
 
 ## Layers
 
-Layers can be used to control rendering order (and batching) of nodes. When using layers and clipping nodes the usual layering order is overridden. Clipping order take precedence over layer order, meaning that regardless of what layer a node belongs to, it will be clipped according to the node hierarchy. Layers only affect the draw order of graphics--and furthermore, the layer set on a clipping node only affects the draw order _in that clipper's hierarchy_.
+Layers can be used to control rendering order (and batching) of nodes. When using layers and clipping nodes the usual layering order is overridden.
 
-To illustrate, consider this clipper node "window_and_shadow" that has an inner shadow texture applied to it. By setting the node's *Visible clipper* property and then layering it ("layer2") in relation to the clipped "map" node ("layer0"), the clipper's texture is rendered on top of the child "map". Note that neither the layer set on "map", nor the one on "window_and_shadow", has any effect on its render order in relation to "blue_box" ("layer2") and "orange_box" ("layer1"). If you want to change the render order of "window_and_shadow" in relation to "blue_box" and "orange_box", simply change their order in the node tree.
+- Clipping order take precedence over layer order---regardless of what layer a node belongs to, it will be clipped according to the node hierarchy.
+- Layers only affect the draw order of graphics---and furthermore, the layer set on a clipping node only affects the draw order _in that clipper's hierarchy_.
 
-![Layers and clipping](images/clipping/clipping_layers.png)
+![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
 
+Here the clipper node "ocular" is set to "layer3" and the "bean" node is set to "layer1". The ocular clipper's texture is therefore rendered on top of the clipped bean.
+
+The node "shield" is set to "layer2", but it has no effect on the node's render order in relation to "ocular" or "bean". To change the render order of "shield", change the node tree index order.
