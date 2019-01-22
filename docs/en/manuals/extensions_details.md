@@ -15,7 +15,9 @@ When creating libraries (such as extensions), it's good to keep the lowest commo
 # Toolchain
 
 Clang - macOS, iOS, Win32
-GCC - Android, Linux (deprecated)
+GCC - Android, Linux
+
+*We're plan make both Android and Linux to use Clang as well*
 
 ## SDK Versions
 
@@ -54,4 +56,11 @@ We don't make use of any exceptions in the engine.
 It isn't generally used in game engines, since the data is (mostly) known beforehand, during development.
 Removing the support for C++ exceptions decreases executable size and improves the runtime performance.
 
+# Defold SDK
+
+With each (biweekly) release of Defold, we release a new Defold SDK.
+With it, we ship the libraries of the engine, and also a build manifest file,
+which is identical in structure and syntax as the [extension](/manuals/extensions_build_variants) and [app](/manuals/extensions_build_variants) manifests.
+
+(This sdk is not yet public)
 
