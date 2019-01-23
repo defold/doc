@@ -13,7 +13,7 @@ In the Defold engine we use C++ very sparingly. In fact, most code is very C-lik
 
 ### C++ version
 
-The Defold source is built with the default C++ version of each compiler (See [Native Extensions - Best Practices](/manuals/extensions_best_practices#_)).
+The Defold source is built with the default C++ version of each compiler (See [Native Extensions - Best Practices](/manuals/extensions-best-practices/)).
 
 We avoid using the latest features or versions of C++. Mostly because we already have what we need to build a game engine. Keeping track of the latest features of C++ is a time consuming task, and to really master those features will require a lot of precious time.
 

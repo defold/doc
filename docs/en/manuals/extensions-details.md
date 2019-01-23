@@ -8,7 +8,7 @@ brief: This manual describes some details about the build system used for native
 Here we list some relevant build information, in order to make the integrations with your extensions as easy as possible.
 
 Here are some things to consider when you create an extension for the Defold engine.
-For more general guidelines on how to develop cross platform native code, and also extension/Lua apis, please refer to [Native Extensions - Best Practices](/manuals/extensions_best_practices)
+For more general guidelines on how to develop cross platform native code, and also extension/Lua apis, please refer to [Native Extensions - Best Practices](/manuals/extensions-best-practices)
 
 # C++ version
 
@@ -64,6 +64,6 @@ Removing the support for C++ exceptions decreases executable size and improves t
 
 With each (biweekly) release of Defold, we release a new Defold SDK.
 With it, we ship the libraries of the engine, and also a build manifest file,
-which is identical in structure and syntax as the [extension](/manuals/extensions_build_variants) and [app](/manuals/extensions_build_variants) manifests.
+which is identical in structure and syntax as the [extension](/manuals/extensions-build-variants) and [app](/manuals/extensions-build-variants) manifests.
 
 (This sdk is not yet public)

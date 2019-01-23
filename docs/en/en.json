@@ -424,15 +424,15 @@
                         "name": "Native extensions"
                     },
                     {
-                        "path": "/manuals/extensions_details",
+                        "path": "/manuals/extensions-details",
                         "name": "Native extensions - Details"
                     },
                     {
-                        "path": "/manuals/extensions_best_practices",
+                        "path": "/manuals/extensions-best-practices",
                         "name": "Native extensions - Best Practices"
                     },
                     {
-                        "path": "/manuals/extensions_build_variants",
+                        "path": "/manuals/extensions-build-variants",
                         "name": "Native extensions - Build Variants"
                     },
                     {
