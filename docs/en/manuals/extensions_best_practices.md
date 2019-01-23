@@ -1,22 +1,18 @@
 # Best Practices
 
-Writing cross platform code can be difficult, but there are some ways to make it easier to both develop and maintain.
-Here we list some ways we at Defold work with cross platform native code and API's.
+Writing cross platform code can be difficult, but there are some ways to make it easier to both develop and maintain. In this document we list some ways we at Defold work with cross platform native code and API's.
 
 ## Defold code
 
-In the Defold engine we use C++ very sparingly. In fact, most code is very C-like.
-We avoid templates, except for a few container classes, due to the fact that templates both incurs a cost on compilation times
-as well as executable size.
+In the Defold engine we use C++ very sparingly. In fact, most code is very C-like. We avoid templates, except for a few container classes, due to the fact that templates both incurs a cost on compilation times as well as executable size.
 
 ### C++ version
 
-The defold source it built with the default C++ version of each compiler (See [Native Extensions - Best Practices](/manuals/extensions_best_practices#_)).
+The Defold source is built with the default C++ version of each compiler (See [Native Extensions - Best Practices](/manuals/extensions_best_practices#_)).
 
-We avoid using the latest features or versions of C++. Mostly because we already have what we need to build an game engine.
-Keeping track of the latest features of C++ is a time consuming task, and to really master those features will require a lot of precious time.
+We avoid using the latest features or versions of C++. Mostly because we already have what we need to build a game engine. Keeping track of the latest features of C++ is a time consuming task, and to really master those features will require a lot of precious time.
 
-It also has the added benefit for our extension developers that we keep a stable ABI.
+It also has the added benefit for our extension developers that we keep a stable ABI. Also worth pointing out is that using the latest C++ features may prevent the code from compiling on different platforms due to varying support.
 
 ### Standard Template Libraries - STL
 
@@ -24,7 +20,7 @@ Since the Defold engine doesn't use any STL code, except for some algorithms and
 
 Again, bear in mind that ABI incompatibilites may hinder you when using your extension in conjunction with other extensions or 3rd party libraries.
 
-Avoiding the (heavily tepmlated) STL libraries, also improves on our build times, and more importantly, the executable size.
+Avoiding the (heavily templated) STL libraries, also improves on our build times, and more importantly, the executable size.
 
 #### Strings
 
@@ -35,26 +31,23 @@ For us, it's better to use `const char*` and a few helper functions.
 
 ### Make functions hidden
 
-Use the `static` keywork on functions local to your compile unit if possible. This lets the compiler do some optimizations, and
-can both improve performance as well as reduce executable size.
+Use the `static` keywork on functions local to your compile unit if possible. This lets the compiler do some optimizations, and can both improve performance as well as reduce executable size.
 
 # 3rd party libraries
 
 When choosing a 3rd party library to use (regardless of language), we consider at least these things:
 
 * Functionality - Does it solve the particular problem you have?
-* Performance - Does it infer a performance cost in the runtime? For each frame, or
-* Library size - How much bigger will the final executable be? Is it acceptable
-* Dependencies - Does it require extra libraries
-* Support - What state is the library in? Does it have many open issues? Is it still maintained? etc...
+* Performance - Does it infer a performance cost in the runtime?
+* Library size - How much bigger will the final executable be? Is it acceptable?
+* Dependencies - Does it require extra libraries?
+* Support - What state is the library in? Does it have many open issues? Is it still maintained?
 * License - Is it ok to use for this project?
 
 
 # Open source dependencies
 
-Always make sure that you have access to your dependencies.
-E.g. if you depend on something on github, there's nothing preventing that repository either being removed, or suddenly changes
-direction or ownership.
+Always make sure that you have access to your dependencies. E.g. if you depend on something on GitHub, there's nothing preventing that repository either being removed, or suddenly changes direction or ownership. You can mitigate this risk by forking the repository and using your fork instead of the upstream project.
 
 The code in that library will be injected into your game, so make sure the library does what it's supposed to do, and nothing more!
 
@@ -67,8 +60,7 @@ When creating an extension, there are a few things that help out in developing i
 
 ## Lua api
 
-There should only be one Lua api, and one implementation of it.
-This makes it a lot easier to behave the same for all platforms.
+There should only be one Lua api, and one implementation of it. This makes it a lot easier to behave the same for all platforms.
 
 If the platform in question shouldn't support the extension, we recommend simply not registering a Lua module at all.
 That way you can detect support by checking for nil:
@@ -127,5 +119,3 @@ So for instance, put platform specific libraries under:
                             /libFoo.a
         /arm64-android
                             /libFoo.a
-
-
