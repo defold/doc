@@ -55,7 +55,7 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 이 프로젝트가 사용하는 프로젝트의 **Library URL:s** ([Defold dashboard](https://www.defold.com/dashboard/)에서 찾을 수 있음) 을 쉼표로 구분하여 나열합니다. 종속 프로젝트의 멤버여야 합니다.
 #### custom_resources (hidden setting)
 프로젝트에 포함될 쉼표로 구분된 리소스 목록입니다. 디렉토리가 지정되면 이 디렉토리의 모든 파일과 디렉토리들이 재귀적으로(recursively) 포함됩니다.
-#### bundle_resources (hidden setting)
+#### bundle_resources
 번들을 만들 때 결과 패키지에 그대로 복사해야하는 리소스 파일과 폴더를 포함하고 있는 디렉토리입니다. 이 디렉토리는 예를 들어 "/res" 같이 프로젝트 루트의 절대 경로(absolute path)로 지정됩니다. 이 리소스 디렉토리에는 platform 이나 architecure-platform 이라는 이름의 하위 폴더를 포함해야 합니다. 지원되는 플랫폼은 ios, android, osx 입니다. 지원되는 arc-platform 계열으로는 armv7-ios, arm64-ios, armv7-android, x86_64-osx 가 있습니다. 또한 common 이라는 이름의 하위 폴더에 모든 플랫폼의 공통적인 리소스 파일을 포함 시킬 수도 있습니다.
 
 ## Display
