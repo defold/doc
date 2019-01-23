@@ -1,3 +1,7 @@
+---
+title: Native extensions - Details
+brief: This manual describes some details about the build system used for native extensions.
+---
 
 # The Defold build setup
 
@@ -63,4 +67,3 @@ With it, we ship the libraries of the engine, and also a build manifest file,
 which is identical in structure and syntax as the [extension](/manuals/extensions_build_variants) and [app](/manuals/extensions_build_variants) manifests.
 
 (This sdk is not yet public)
-
