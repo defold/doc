@@ -420,28 +420,33 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
-                        "path": "/manuals/extensions",
-                        "name": "Native extensions"
-                    },
-                    {
-                        "path": "/manuals/extensions-details",
-                        "name": "Native extensions - Details"
-                    },
-                    {
-                        "path": "/manuals/extensions-best-practices",
-                        "name": "Native extensions - Best Practices"
-                    },
-                    {
-                        "path": "/manuals/extensions-build-variants",
-                        "name": "Native extensions - Build Variants"
-                    },
-                    {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
                     {
                         "path": "/manuals/push",
                         "name": "Push notifications"
+                    }
+                ]
+            },
+            {
+                "name": "NATIVE EXTENSIONS",
+                "items": [
+                    {
+                        "path": "/manuals/extensions",
+                        "name": "Introduction"
+                    },
+                    {
+                        "path": "/manuals/extensions-details",
+                        "name": "Details"
+                    },
+                    {
+                        "path": "/manuals/extensions-best-practices",
+                        "name": "Best Practices"
+                    },
+                    {
+                        "path": "/manuals/extensions-build-variants",
+                        "name": "Build Variants"
                     }
                 ]
             }
