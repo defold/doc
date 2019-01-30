@@ -192,7 +192,7 @@ There are four types of modifiers available that affect the velocity of particle
 `Vortex`
 : Affects particles in a circular or spiraling direction around its position.
 
-  ![modifiers](images/particlefx/modifier.png){srcset="images/particlefx/modifiers@2x.png 2x"}
+  ![modifiers](images/particlefx/modifiers.png){srcset="images/particlefx/modifiers@2x.png 2x"}
 
 ## Modifier properties
 
