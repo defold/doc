@@ -50,7 +50,7 @@ Press <kbd>Create Bundle</kbd> and you will then be prompted to specify where on
 
 ![Android Application Package file](images/android/apk_file.png)
 
-The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). You can specify what icon(s) to use for the app, set version code etc in the "game.project" project settings file.
+The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). You can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](project-settings/#_android).
 
 ```
 $ adb install Defold\ examples.apk
@@ -58,6 +58,35 @@ $ adb install Defold\ examples.apk
   pkg: /data/local/tmp/my_app.apk
 Success
 ```
+
+## Permissions
+
+The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the "game.project" [project settings file](project-settings/#_android). The following permissions are requested in the default manifest:
+
+### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
+Allows applications to open network sockets and access information about networks. These permission are needed for internet access. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) and ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+
+### com.android.vending.BILLING
+Google Play Billing is a service that lets you sell digital content from inside an Android app, or in-app. This permission is needed for [in-app purchases](iap/) to work.
+
+### android.permission.WRITE_EXTERNAL_STORAGE (Protection level: dangerous)
+Allows an application to write to external storage. Starting in API level 19, this permission is not required to read/write files in your application-specific directories. This permission is needed if you intend to save/load files from disk (using io.* or sys.save/load) and have `android:minSdkVersion` set to less than 19 in the Android manifest. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
+
+### android.permission.READ_PHONE_STATE (Protection level: dangerous)
+Allows read only access to phone state, including the phone number of the device, current cellular network information, the status of any ongoing calls, and a list of any PhoneAccounts registered on the device. This permission is used to detect if a call is ongoing (for [sound.is_phone_call_active()](/ref/sound/#sound.is_music_playing)). ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#READ_PHONE_STATE)).
+
+### android.permission.GET_ACCOUNTS (Protection level: dangerous)
+Allows access to the list of accounts in the Accounts Service. This permission was used when registering for push notifications, but it is actually not needed. You can safely remove this permission (it will be removed from the default manifest later). ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#GET_ACCOUNTS)).
+
+### android.permission.WAKE_LOCK (Protection level: normal)
+Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. This permission is needed to temporarily prevent the device from sleeping while receiving a push notification. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
+
+### android.permission.VIBRATE (Protection level: normal)
+Allows access to the vibrator. This permission is needed for the device to vibrate when a push notification is received. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#VIBRATE))
+
+### com.google.android.c2dm.permission.RECEIVE and {{android.package}}.permission.C2D_MESSAGE
+These permissions are needed to receive push notifications.
+
 
 ## Android Debug Bridge
 
@@ -97,7 +126,7 @@ If your device does not show up, verify that you have enabled *USB debugging* on
 
 ## Debugging an application bundle
 
-A bundle built with the debug mode version of the engine (i.e. "Release mode" unchecked during bundling) will send all its console output to the Android system log. Access the log with the `adb` tool and give the `logcat` command. You probably want to filter the output by a tag (`-s [tagname]`):
+A bundle built with the debug mode version of the engine (i.e. "Debug" selected as variant during bundling) will send all its console output to the Android system log. Access the log with the `adb` tool and give the `logcat` command. You probably want to filter the output by a tag (`-s [tagname]`):
 
 ```
 $ adb logcat -s "defold"
@@ -125,4 +154,3 @@ I'm getting "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" when inst
           pkg: /data/local/tmp/Defold examples.apk
   Success
   ```
-
