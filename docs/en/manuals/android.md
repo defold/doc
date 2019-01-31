@@ -50,7 +50,7 @@ Press <kbd>Create Bundle</kbd> and you will then be prompted to specify where on
 
 ![Android Application Package file](images/android/apk_file.png)
 
-The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). You can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](project-settings/#_android).
+The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). You can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#_android).
 
 ```
 $ adb install Defold\ examples.apk
@@ -61,13 +61,13 @@ Success
 
 ## Permissions
 
-The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the "game.project" [project settings file](project-settings/#_android). The following permissions are requested in the default manifest:
+The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the "game.project" [project settings file](/manuals/project-settings/#_android). The following permissions are requested in the default manifest:
 
 ### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
 Allows applications to open network sockets and access information about networks. These permission are needed for internet access. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) and ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
 ### com.android.vending.BILLING
-Google Play Billing is a service that lets you sell digital content from inside an Android app, or in-app. This permission is needed for [in-app purchases](iap/) to work.
+Google Play Billing is a service that lets you sell digital content from inside an Android app, or in-app. This permission is needed for [in-app purchases](/manuals/iap/) to work.
 
 ### android.permission.WRITE_EXTERNAL_STORAGE (Protection level: dangerous)
 Allows an application to write to external storage. Starting in API level 19, this permission is not required to read/write files in your application-specific directories. This permission is needed if you intend to save/load files from disk (using io.* or sys.save/load) and have `android:minSdkVersion` set to less than 19 in the Android manifest. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
