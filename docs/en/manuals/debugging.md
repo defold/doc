@@ -38,9 +38,9 @@ To run the debugger, either <kbd>Debug ▸ Run with Debugger</kbd> which starts 
 As soon as the debugger is attached, you have control of the execution of the game through the debugger control buttons in the console, or through the <kbd>Debug</kbd> menu:
 
 Break
-: ![pause](images/debugging/pause.svg){width=60px .left} 
+: ![pause](images/debugging/pause.svg){width=60px .left}
   Break execution of the game immediately. The game will break at its current point. You are now able to inspect the state of the game, advance the game step by step, or continue running it until the next breakpoint. The current point of execution is marked in the code editor:
-  
+
   ![script](images/debugging/script.png){srcset="images/debugging/script@2x.png 2x"}
 
 Continue
@@ -106,6 +106,12 @@ Android
 
   The device will then dump all the output to the current terminal, along with any prints from the game.
 
+  If you want to see only Defold application outputs use next command:
+  ```txt
+  cd <path_to_android_sdk>/platform-tools/
+  adb logcat -s defold
+  ```
+
 iOS
 : On iOS you can attach the LLDB debugger to a game running on device. To debug a game it needs to be signed with a “Apple Developer Provisioning Profile” that include the device you want to debug on. Bundle the game from the editor and supply the provisioning profile in the bundle dialog (bundling for iOS is only available on macOS).
 
@@ -124,7 +130,7 @@ If you enable the *Write Log* setting in "game.project", any game output will be
 
 iOS
 : Connect your device to a computer with macOS and Xcode installed.
-  
+
   Open Xcode and go to <kbd>Window ▸ Devices and Simulators</kbd>.
 
   Select your device in the list, then select the relevant app in the *Installed Apps* list.
