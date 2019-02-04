@@ -86,7 +86,7 @@ The difficulty level govern the number of magic blocks that are put on the board
 
 ## Overview
 
-As with all projects, we need to device a plan how to approach the implementation in broad strokes.There are many ways the game could be structured and built. We could, technically, implement the whole game in the GUI system if we wanted. However, building the game with game objects and sprites and using the GUI APIs for on-screen GUI and heads-up display elements is most often the natural way to build a game so we're gonna take that path.
+As with all projects, we need to devise a plan how to approach the implementation in broad strokes.There are many ways the game could be structured and built. We could, technically, implement the whole game in the GUI system if we wanted. However, building the game with game objects and sprites and using the GUI APIs for on-screen GUI and heads-up display elements is most often the natural way to build a game so we're gonna take that path.
 
 Since we're expecting the number of files to stay fairly low, we're gonna keep the project folder structure very simple:
 

@@ -90,9 +90,9 @@ These permissions are needed to receive push notifications.
 
 ## Android Debug Bridge
 
-The `adb` command line tool is an easy to use and versatile program that is used to interact with Android devices. You can download and install `adb` as part of the Android SDK package, for Mac, Linux or Windows.
+The `adb` command line tool is an easy to use and versatile program that is used to interact with Android devices. You can download and install `adb` as part of the Android SDK Platform-Tools, for Mac, Linux or Windows.
 
-Download the Android SDK from: http://developer.android.com/sdk/index.html. You find the *adb* tool in *<sdk>/platform-tools/*. Alternatively, platform specific packages can be installed through respective package managers.
+Download the Android SDK Platform-Tools from: https://developer.android.com/studio/releases/platform-tools. You find the *adb* tool in */platform-tools/*. Alternatively, platform specific packages can be installed through respective package managers.
 
 On Ubuntu Linux:
 

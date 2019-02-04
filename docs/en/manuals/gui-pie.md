@@ -19,8 +19,8 @@ Inner Radius
 : The inner radius of the node, expressed along the X axis.
 
 Outer Bounds
-: The shape of the outer bounds of the node. 
-  
+: The shape of the outer bounds of the node.
+
   - `Ellipse` will extend the node to the outer radius.
   - `Rectangle` will extend the node to the node's bounding box.
 
@@ -30,13 +30,13 @@ Perimeter Vertices
 Pie Fill Angle
 : How much of the pie should be filled. Expressed as a counter-clockwise angle starting from the right.
 
-![Properties](images/gui/properties.png){srcset="images/gui-pie/properties@2x.png 2x"}
+![Properties](images/gui-pie/properties.png){srcset="images/gui-pie/properties@2x.png 2x"}
 
-If you set a texture on the node, the texture image is applied flat, with the corners of the texture correlating to the corners of the node bounding box. 
+If you set a texture on the node, the texture image is applied flat, with the corners of the texture correlating to the corners of the node bounding box.
 
 ## Modify pie nodes at runtime
 
-Pie nodes respond to any generic node manipulation functions for setting size, pivot, color and so forth. A few text node only functions and properties exist:
+Pie nodes respond to any generic node manipulation functions for setting size, pivot, color and so forth. A few pie node only functions and properties exist:
 
 ```lua
 local pienode = gui.get_node("my_pie_node")

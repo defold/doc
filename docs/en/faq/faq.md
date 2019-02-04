@@ -100,7 +100,7 @@ Can I use external Git tools?
 
   1. Add the folder you selected for your project location to your Git client. (If you run editor 1, the project is found in "Defold/branches/[project_id]/[user_id]/[name_of_branch]")
   2. Specify your Defold username. The password is the "Access token" that you find under "Settings" in the Defold Dashboard (the huge hexadecimal number).
-  
+
   You can now add, commit, revert, branch and merge as much as you want. Any changes are immediately reflected in Defold.
 
 ## Publishing games
@@ -169,7 +169,7 @@ When I try to create a new project, or open an existing one, the editor crashes.
   See the following reports for more information:
 
   - https://github.com/defold/editor2-issues/issues/1905
-  - https://github.com/defold/editor2-issues/issues/1886 
+  - https://github.com/defold/editor2-issues/issues/1886
 
   If this is your problem try the following workaround:
 
@@ -204,7 +204,7 @@ I'm running on Linux and the editor won't start.
 
 ## Android issues
 
-Is it possible to hide the the navigation and status bars on Android?
+Is it possible to hide the navigation and status bars on Android?
 
 : Yes, set the *immersive_mode* setting in the *Android* section of your *game.project* file. This lets your app take over the whole screen and capture all touch events on the screen.
 
@@ -224,7 +224,7 @@ I can't add a game object as a child to another game object, why?
 
 Why can't I broadcast messages to all children of a game object?
 
-: Parent-child relations express nothing else than the scene-graph transform relations 
+: Parent-child relations express nothing else than the scene-graph transform relations
   and should not be mistaken for object orientation aggregates. If you try to focus on your game data and how to best transform it as your game alter its state you will likely find less need to send messages with state data to many objects all the time. In the cases where you will need data hierarchies, these are easily constructed and handled in Lua.
 
 Why am I experiencing visual artifacts around the edges of my sprites?
