@@ -28,7 +28,7 @@ you can create and maintain multiple webviews simultaneously.
 
 The `webview.create` function takes a single argument in the form of a function, we will take a
 closer look at this in the callbacks section below, for now let's just pass in an empty function.
-```Lua
+```lua
 local webview_id = webview.create(function()
         -- do nothing for now
     end)
@@ -39,7 +39,7 @@ much fun without anything to show, so let's load one of our favorite web pages!
 To open a web page we need to call the function `webview.open` and pass along the `webview_id` we
 got from the previous call and a web URL as the second argument.
 
-```Lua
+```lua
 local request_id = webview.open(webview_id, "http://www.defold.com")
 ```
 
@@ -72,7 +72,7 @@ events when errors, navigations and success occur! They are exposed through the 
 pass as argument to the `webview.create` call.
 
 The callback function should have the following signature:
-```Lua
+```lua
 function callback(self, webview_id, request_id, type, data)
 ```
 
@@ -111,7 +111,7 @@ page we want to show some ingame notification and close the webview. And we prob
 player to be able to navigate away from the form.
 
 Our updated `webview.create` call and callback could looks something like this:
-```Lua
+```lua
 local player_feedback_url = "https://example.com/my_game_name/customer_feedback"
 
 local function webview_callback(self, webview_id, request_id, type, data)
@@ -158,19 +158,19 @@ URL. This means that even if the webserver is down, or the player have a slow in
 we can still show the feedback form.
 
 The first argument to `webview.open_raw` is just like `webview.open`, the `webview_id`. The second
-argument however is a string with raw HTML source, instead of an URL as in the previous function.
+argument is a string with raw HTML source, instead of an URL as in the previous function.
 
 Let's recreate the previous example but inline the HTML directly in our Lua source:
-```Lua
+```lua
 local feedback_html = [[
 <html>
 <script type="text/javascript">
-    function submit_feedback() {
+    function closeWebview() {
+        // TODO
+    }
+    function submitFeedback() {
         // do something with the feedback here
         // ...
-    }
-    function close_webview() {
-        // TODO
     }
 </script>
 <body>
@@ -179,9 +179,9 @@ local feedback_html = [[
     <p>Please provide some feedback for my awesome game!</p>
     <form>
         <label>Game feedback:<br><textarea placeholder="Is it fun? What can be improved?" style="width: 300px; height: 300px"></textarea></label><br>
-        <input type="button" onclick="submit_feedback()" value="Submit feedback">
+        <input type="button" onclick="submitFeedback()" value="Submit feedback">
         <br>
-        <input type="button" onclick="close_webview()" value="Cancel">
+        <input type="button" onclick="closeWebview()" value="Cancel">
     </form>
 </center>
 </body>
@@ -192,7 +192,7 @@ local function webview_callback(self, webview_id, request_id, type, data)
     -- ...
 end
 
-local feedback_webview = webview.create(webview_callback)
+local webview_id = webview.create(webview_callback)
 webview.open_raw(webview_id, feedback_html)
 ```
 
@@ -200,32 +200,124 @@ This should give us a similar webview as in the previous example, with the added
 can edit the HTML directly in our game source code. **Note:** The contents of `webview_callback` has
 only been removed for readability.
 
-If we tried to bundle and run this on a mobile device we would however run into an issue. In our
-`webview_callback` we still verify that the navigation is still to our remote URL! Let's remove it
+Since we know that the HTML source is going to grow a bit once we start adding JavaScript code and
+CSS, it now makes sense to separate the HTML data into its own file and load it dynamically during
+runtime using [`sys.load_resource`](https://www.defold.com/ref/sys/#sys.load_resource:filename).
+This also means that we more easily can view the HTML file in a desktop browser while we are
+developing.
 
-```Lua
-local html = sys.load_resource("/main/data/test.html")
-local request_id = webview.open_raw(webview_id, html)
+Let's create a new directory (`custom_resources`), and a HTML file (`feedback.html`) with the data
+instead and set the `feedback_html` variable dynamically instead.
+
+```lua
+local feedback_html = sys.load_resource("/custom_resources/feedback.html")
+-- ...
+webview.open_raw(webview_id, feedback_html)
 ```
 
 ## Visibility and positioning control
-```Lua
-webview.set_visible(webview_id, visible)
+Now let's tackle the issue of the webview being full screen.
+
+To get a more immersive interaction we might want the webview only cover the upper part of the
+screen. We can use the `webview.set_position` function to both set the position and width of a
+webview. Passing in `-1` as either width or height will make the take up the full space on the
+corresponding axis.
+
+```lua
+local webview_id = webview.create(webview_callback)
+-- Position: top left corner of screen (0, 0)
+-- Size: we want full with, but only 500px height
+webview.set_position(webview_id, 0, 0, -1, 500)
 ```
-```Lua
-webview.is_visible(webview_id)
+
+#### TODO insert image here ####
+
+If the user is on a device with poor performance, the page might not load instantly and display as
+white while loading. This might be jarring to our player, so let's hide the webview until the page
+has loaded. This also gives us the opportunity to show a loading indication in-game to reassure the
+player that the game is actually doing something.
+
+To hide the webview we can pass along an options table to the third argument of our
+`webview.open_raw` (or `webview.open`) call, with the field `hidden` set to `true`. The default
+value of this field is `false` as we have seen before, once we opened a URL or HTML the webview
+was immediately visible.
+
+```lua
+webview.open_raw(webview_id, feedback_html, {hidden = true})
 ```
-```Lua
-webview.set_position(webview_id, x, y, width, height)
-```
-```Lua
-local request_id = webview.open(webview_id, "http://www.defold.com", {hidden = true})
+
+To make sure the webview successfully loaded the URL or HTML we want to wait for the callback to
+trigger with an event of type `webview.CALLBACK_RESULT_URL_OK`. Once we get this we know that we can
+unhide the webview, which can be accomplished with the `webview.set_visible` function.
+
+Let's update our callback with this new logic:
+```lua
+local function webview_callback(self, webview_id, request_id, type, data)
+    if type == webview.CALLBACK_RESULT_URL_OK then
+        -- No errors, let's present the webview!
+        webview.set_visible(webview_id, 1)
+    elseif type == webview.CALLBACK_RESULT_URL_ERROR then
+        -- ...
 ```
 
 ## Running JavaScript
-```Lua
-local request_id = webview.eval(webview_id, "GetMyFormData()")
+Now we have managed to fix most of our issues, but one last thing is still unsolved; being able to
+close the webview.
+
+We have already seen and used the function that will close and remove the webview in our callback
+when we encounter an error, `webview.destroy`. But we need a way from inside the webview to trigger
+the function call. Thankfully we there is a way from Lua to call JavaScript that will run inside the
+webview and read the result. With this we should be able to poll for changes inside the webview.
+
+Let's start with adding some state inside the JavaScript tag of the HTML that we can change when
+the buttons are pressed on the web page.
+```js
+var shouldClose = false;
+function closeWebview() {
+    shouldClose = true;
+}
+function submitFeedback() {
+    // do something with the feedback here
+    // ...
+    closeWebview();
+}
+
 ```
 
+Now once the player presses either the "Submit feedback" or "Cancel" button we update the
+`shouldClose` variable.
 
+Now somewhere in our Lua script we need to check for this state and call `webview.destroy`. A naive
+place would be to check for this every frame, in our `update` function.
+
+```lua
+function update(self, dt)
+    if not self.closeCheckRequest then
+        self.closeCheckRequest = webview.eval(webview_id, "shouldClose")
+    end
+end
+```
+
+It's important to note here that the result from `webview.eval` is not the result from the
+JavaScript being evaluated, but a *request id*. We need to update our callback to check against this
+request id, and inspect the `data.result` field, which is where the actual JavaScript result will be
+stored.
+
+```lua
+local function webview_callback(self, webview_id, request_id, type, data)
+    if type == webview.CALLBACK_RESULT_EVAL_OK and
+        request_id == self.closeCheckRequest then
+
+        -- Compare the JavaScript result, if it's "true" we should
+        -- close the webview!
+        if data.result == "true" then
+            webview.destroy(webview_id)
+        end
+
+    elseif type == webview.CALLBACK_RESULT_URL_OK then
+        -- ...
+```
+
+Now we know if a form button was pressed from inside the webview and the player is able to get back
+to the game!
 
