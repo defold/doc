@@ -380,21 +380,21 @@ For `gui.animate()` available next values:
 | gui.EASING_INOUTQUINT | gui.EASING_OUTINQUINT |
 
 <div id="game-container" class="game-container">
-    <img id="game-preview" src="http://0.0.0.0:8000/assets/easier/preview.jpg"/>
+    <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/easier/preview.jpg"/>
     <canvas id="game-canvas" tabindex="1" width="640" height="512">
     </canvas>
     <button id="game-button">
         SHOW EXAMPLE <span class="icon"></span>
     </button>
-    <script src="http://0.0.0.0:8000/assets/easier/dmloader.js">
+    <script src="//storage.googleapis.com/defold-doc/assets/easier/dmloader.js">
     </script>
     <script>
         document.getElementById("game-button").onclick = function (e) {
             var extra_params = {
               archive_location_filter: function( path ) {
-                return ('http://0.0.0.0:8000/assets/easier/archive' + path + '');
+                return ('//storage.googleapis.com/defold-doc/assets/easier/archive' + path + '');
               },
-              splash_image: 'http://0.0.0.0:8000/assets/easier/preview.jpg',
+              splash_image: '//storage.googleapis.com/defold-doc/assets/easier/preview.jpg',
               custom_heap_size: 268435456,
               disable_context_menu: true,
               game_start: function() {
@@ -416,9 +416,9 @@ For `gui.animate()` available next values:
               var engineJS = document.createElement('script');
               engineJS.type = 'text/javascript';
               if (Module['isWASMSupported']) {
-                  engineJS.src = 'http://0.0.0.0:8000/assets/easier/easier_wasm.js';
+                  engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_wasm.js';
               } else {
-                  engineJS.src = 'http://0.0.0.0:8000/assets/easier/easier_asmjs.js';
+                  engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_asmjs.js';
               }
               document.head.appendChild(engineJS);
             }
