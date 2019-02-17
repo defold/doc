@@ -5,7 +5,7 @@ brief: This manual covers how to create an application bundle.
 
 # Bundling an application
 
-While developing your application you should make a habit of testing the game on the target platform(s) as often as possible. You should do this to detect performance issues early in the development process where these things are much easier to fix than when the application is almost finished. It is also good to test on all target platforms to find discrepancies in for instances shaders early on. When developing on mobile you have the option to use the [mobile development app](/manuals/dev-app/) to push content to the app, instead of having to do a full rebuild and uninstall/install cycle.
+While developing your application you should make a habit of testing the game on the target platforms as often as possible. You should do this to detect performance issues early on in the development process where these things are much easier to fix. It is also recommended to test on all target platforms to find discrepancies in for instances shaders early on. When developing on mobile you have the option to use the [mobile development app](/manuals/dev-app/) to push content to the app, instead of having to do a full bundle and uninstall/install cycle.
 
 You can create an application bundle for all platforms that Defold supports from within the Defold editor itself, with no external tools needed. You can also bundle from the command line using our command line tools.
 
