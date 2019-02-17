@@ -155,6 +155,10 @@
                         "name": "Workflow"
                     },
                     {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
+                    },
+                    {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
                     },
@@ -169,6 +173,10 @@
                     {
                         "path": "/manuals/profiling",
                         "name": "Profiling"
+                    },
+                    {
+                        "path": "/manuals/bundling",
+                        "name": "Bundling an application"
                     },
                     {
                         "path": "/manuals/flash",
