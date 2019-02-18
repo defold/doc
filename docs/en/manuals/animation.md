@@ -329,7 +329,7 @@ The pingpong modes run the animation first forward, then backward. A set of corr
 
 Easing defines how the animated value changes over time. The images below describe the functions applied over time to create the easing.
 
-For `go.animate()` available next values:
+The following are valid easing values for `go.animate()`:
 | | |
 |---|---|
 | go.EASING_LINEAR | |
@@ -354,7 +354,7 @@ For `go.animate()` available next values:
 | go.EASING_INQUINT | go.EASING_OUTQUINT |
 | go.EASING_INOUTQUINT | go.EASING_OUTINQUINT |
 
-For `gui.animate()` available next values:
+The following are valid easing values for `gui.animate()`:
 | | |
 |---|---|
 | gui.EASING_LINEAR | |
