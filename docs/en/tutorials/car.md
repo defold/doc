@@ -90,9 +90,12 @@ Select the "car" game object, right-click and select <kbd>Add Component</kbd>, t
 Image
 : This requires an image source for the sprite. Create an atlas image file by marking "main" in the *Project Explorer* view, right-clicking and selecting <kbd>New ▸ Atlas File</kbd>. Name the new atlas file *sprites.atlas* and double click it to open it in the atlas editor. Save the following two image files to your computer and drag them into *main* in the *Project Explorer* view. Now you can mark the Atlas root node in the atlas editor, right click and select <kbd>Add Images</kbd>. Add the car and the tire image to the atlas and save. Now you can select *sprites.atlas* as the image source for the sprite component in the "car" game object in the "car" collection.
 
-![Car image](images/car/start_car.png) [Car image](images/car/start_car.png)
+Images for our game:
 
-![Tire image](images/car/start_tire.png) [Tire image](images/car/start_tire.png)
+![Car image](images/car/start_car.png)
+![Tire image](images/car/start_tire.png)
+
+Add these images to the atlas:
 
 ![Sprites atlas](images/car/start_sprites_atlas.png)
 

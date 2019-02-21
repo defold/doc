@@ -329,20 +329,105 @@ The pingpong modes run the animation first forward, then backward. A set of corr
 
 Easing defines how the animated value changes over time. The images below describe the functions applied over time to create the easing.
 
-The corresponding value to use when calling `go.animate()` are `go.EASING_LINEAR`, `go.EASING_INBACK`, `go.EASING_OUTBACK` and so forth.
+The following are valid easing values for `go.animate()`:
+| | |
+|---|---|
+| go.EASING_LINEAR | |
+| go.EASING_INBACK | go.EASING_OUTBACK |
+| go.EASING_INOUTBACK | go.EASING_OUTINBACK |
+| go.EASING_INBOUNCE | go.EASING_OUTBOUNCE |
+| go.EASING_INOUTBOUNCE | go.EASING_OUTINBOUNCE |
+| go.EASING_INELASTIC | go.EASING_OUTELASTIC |
+| go.EASING_INOUTELASTIC | go.EASING_OUTINELASTIC |
+| go.EASING_INSINE | go.EASING_OUTSINE |
+| go.EASING_INOUTSINE | go.EASING_OUTINSINE |
+| go.EASING_INEXPO | go.EASING_OUTEXPO |
+| go.EASING_INOUTEXPO | go.EASING_OUTINEXPO |
+| go.EASING_INCIRC | go.EASING_OUTCIRC |
+| go.EASING_INOUTCIRC | go.EASING_OUTINCIRC |
+| go.EASING_INQUAD | go.EASING_OUTQUAD |
+| go.EASING_INOUTQUAD | go.EASING_OUTINQUAD |
+| go.EASING_INCUBIC | go.EASING_OUTCUBIC |
+| go.EASING_INOUTCUBIC | go.EASING_OUTINCUBIC |
+| go.EASING_INQUART | go.EASING_OUTQUART |
+| go.EASING_INOUTQUART | go.EASING_OUTINQUART |
+| go.EASING_INQUINT | go.EASING_OUTQUINT |
+| go.EASING_INOUTQUINT | go.EASING_OUTINQUINT |
 
-For `gui.animate()` the values are named `gui.EASING_LINEAR`, `gui.EASING_INBACK`, `gui.EASING_OUTBACK` and so forth.
+The following are valid easing values for `gui.animate()`:
+| | |
+|---|---|
+| gui.EASING_LINEAR | |
+| gui.EASING_INBACK | gui.EASING_OUTBACK |
+| gui.EASING_INOUTBACK | gui.EASING_OUTINBACK |
+| gui.EASING_INBOUNCE | gui.EASING_OUTBOUNCE |
+| gui.EASING_INOUTBOUNCE | gui.EASING_OUTINBOUNCE |
+| gui.EASING_INELASTIC | gui.EASING_OUTELASTIC |
+| gui.EASING_INOUTELASTIC | gui.EASING_OUTINELASTIC |
+| gui.EASING_INSINE | gui.EASING_OUTSINE |
+| gui.EASING_INOUTSINE | gui.EASING_OUTINSINE |
+| gui.EASING_INEXPO | gui.EASING_OUTEXPO |
+| gui.EASING_INOUTEXPO | gui.EASING_OUTINEXPO |
+| gui.EASING_INCIRC | gui.EASING_OUTCIRC |
+| gui.EASING_INOUTCIRC | gui.EASING_OUTINCIRC |
+| gui.EASING_INQUAD | gui.EASING_OUTQUAD |
+| gui.EASING_INOUTQUAD | gui.EASING_OUTINQUAD |
+| gui.EASING_INCUBIC | gui.EASING_OUTCUBIC |
+| gui.EASING_INOUTCUBIC | gui.EASING_OUTINCUBIC |
+| gui.EASING_INQUART | gui.EASING_OUTQUART |
+| gui.EASING_INOUTQUART | gui.EASING_OUTINQUART |
+| gui.EASING_INQUINT | gui.EASING_OUTQUINT |
+| gui.EASING_INOUTQUINT | gui.EASING_OUTINQUINT |
 
-```linechart
-{
-  "labels": [1, "Tuesday", "Wednesday", "Thursday", "Friday"],
-  "series": [
-    [12, 9, 7, 8, 5],
-    [2, 1, 3.5, 7, 3],
-    [1, 3, 4, 5, 6]
-  ]
-}
-```
+<div id="game-container" class="game-container">
+    <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/easier/preview.jpg"/>
+    <canvas id="game-canvas" tabindex="1" width="640" height="512">
+    </canvas>
+    <button id="game-button">
+        SHOW EXAMPLE <span class="icon"></span>
+    </button>
+    <script src="//storage.googleapis.com/defold-doc/assets/easier/dmloader.js">
+    </script>
+    <script>
+        document.getElementById("game-button").onclick = function (e) {
+            var extra_params = {
+              archive_location_filter: function( path ) {
+                return ('//storage.googleapis.com/defold-doc/assets/easier/archive' + path + '');
+              },
+              splash_image: '//storage.googleapis.com/defold-doc/assets/easier/preview.jpg',
+              custom_heap_size: 268435456,
+              disable_context_menu: true,
+              game_start: function() {
+                  var e = document.getElementById("game-preview");
+                  e.parentElement.removeChild(e);
+              }
+            };
+            Module['onRuntimeInitialized'] = function() {
+              Module.runApp("game-canvas", extra_params);
+            };
+            Module['locateFile'] = function(path, scriptDirectory)
+            {
+              if (path == "dmengine.wasm" || path == "dmengine_release.wasm" || path == "dmengine_headless.wasm") {
+                path = "easier.wasm";
+              }
+              return scriptDirectory + path;
+            };
+            function load_engine() {
+              var engineJS = document.createElement('script');
+              engineJS.type = 'text/javascript';
+              if (Module['isWASMSupported']) {
+                  engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_wasm.js';
+              } else {
+                  engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_asmjs.js';
+              }
+              document.head.appendChild(engineJS);
+            }
+            load_engine();
+            document.getElementById("game-button").style.display = 'none';
+            document.getElementById("game-button").onclick = null;
+        };
+    </script>
+</div>
 
 ![Linear interpolation](images/properties/easing_linear.png){.inline}
 ![In back](images/properties/easing_inback.png){.inline}
@@ -433,4 +518,3 @@ function init(self)
     go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, 100, go.EASING_OUTBOUNCE, 2, 0, done_bouncing)
 end
 ```
-
