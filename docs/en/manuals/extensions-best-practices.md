@@ -38,7 +38,7 @@ For us, it's better to use `const char*` and a few helper functions.
 
 Use the `static` keywork on functions local to your compile unit if possible. This lets the compiler do some optimizations, and can both improve performance as well as reduce executable size.
 
-# 3rd party libraries
+## 3rd party libraries
 
 When choosing a 3rd party library to use (regardless of language), we consider at least these things:
 
@@ -50,7 +50,7 @@ When choosing a 3rd party library to use (regardless of language), we consider a
 * License - Is it ok to use for this project?
 
 
-# Open source dependencies
+## Open source dependencies
 
 Always make sure that you have access to your dependencies. E.g. if you depend on something on GitHub, there's nothing preventing that repository either being removed, or suddenly changes direction or ownership. You can mitigate this risk by forking the repository and using your fork instead of the upstream project.
 
@@ -59,11 +59,11 @@ The code in that library will be injected into your game, so make sure the libra
 <legal note?>
 
 
-# Project structure
+## Project structure
 
 When creating an extension, there are a few things that help out in developing it as well as maintaining it.
 
-## Lua api
+### Lua api
 
 There should only be one Lua api, and one implementation of it. This makes it a lot easier to behave the same for all platforms.
 
@@ -74,7 +74,7 @@ That way you can detect support by checking for nil:
         myextension.do_something()
     end
 
-## Folder structure
+### Folder structure
 
 Here is a folder structure that we use frequently for our extensions.
 
@@ -106,7 +106,7 @@ Here is a folder structure that we use frequently for our extensions.
 
 Note that the `myextension.mm` and `myextension_android.cpp` are only needed if you are doing specific native calls for that platform.
 
-### Platform folders
+#### Platform folders
 
 In certain places, we use the platform architecture as a folder name, to know what files to use when compiling/bundling the application.
 These are of the form:
