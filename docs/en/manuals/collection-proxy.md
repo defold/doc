@@ -33,7 +33,7 @@ Since script components need to be able to address all objects in the game, even
 
 ![bootstrap](images/collection-proxy/collection_id.png){srcset="images/collection-proxy/collection_id@2x.png 2x"}
 
-If the collectino that is loaded contains collection proxy components, the collections that those refer to are *not* loaded automatically. You need to control the loading of these resources through scripts.
+If the collection that is loaded contains collection proxy components, the collections that those refer to are *not* loaded automatically. You need to control the loading of these resources through scripts.
 
 ## Loading a collection
 

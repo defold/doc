@@ -56,8 +56,6 @@ Always make sure that you have access to your dependencies. E.g. if you depend o
 
 The code in that library will be injected into your game, so make sure the library does what it's supposed to do, and nothing more!
 
-<legal note?>
-
 
 ## Project structure
 

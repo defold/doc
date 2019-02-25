@@ -155,6 +155,10 @@
                         "name": "Workflow"
                     },
                     {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
+                    },
+                    {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
                     },
@@ -169,6 +173,10 @@
                     {
                         "path": "/manuals/profiling",
                         "name": "Profiling"
+                    },
+                    {
+                        "path": "/manuals/bundling",
+                        "name": "Bundling an application"
                     },
                     {
                         "path": "/manuals/flash",
@@ -222,12 +230,28 @@
                         "name": "Atlas"
                     },
                     {
-                        "path": "/manuals/spine",
-                        "name": "Spine animation"
+                        "path": "/manuals/collection-factory",
+                        "name": "Collection factory"
                     },
                     {
-                        "path": "/manuals/spinemodel",
-                        "name": "Spine model"
+                        "path": "/manuals/collection-proxy",
+                        "name": "Collection proxy"
+                    },
+                    {
+                        "path": "/manuals/camera",
+                        "name": "Camera"
+                    },
+                    {
+                        "path": "/manuals/font",
+                        "name": "Font"
+                    },
+                    {
+                        "path": "/manuals/factory",
+                        "name": "Factory"
+                    },
+                    {
+                        "path": "/manuals/label",
+                        "name": "Label"
                     },
                     {
                         "path": "/manuals/model",
@@ -250,28 +274,12 @@
                         "name": "Tilemap"
                     },
                     {
-                        "path": "/manuals/font",
-                        "name": "Font"
+                        "path": "/manuals/spine",
+                        "name": "Spine animation"
                     },
                     {
-                        "path": "/manuals/label",
-                        "name": "Label"
-                    },
-                    {
-                        "path": "/manuals/factory",
-                        "name": "Factory"
-                    },
-                    {
-                        "path": "/manuals/collection-factory",
-                        "name": "Collection factory"
-                    },
-                    {
-                        "path": "/manuals/collection-proxy",
-                        "name": "Collection proxy"
-                    },
-                    {
-                        "path": "/manuals/camera",
-                        "name": "Camera"
+                        "path": "/manuals/spinemodel",
+                        "name": "Spine model"
                     }
                 ]
             },
@@ -420,28 +428,33 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
-                        "path": "/manuals/extensions",
-                        "name": "Native extensions"
-                    },
-                    {
-                        "path": "/manuals/extensions-details",
-                        "name": "Native extensions - Details"
-                    },
-                    {
-                        "path": "/manuals/extensions-best-practices",
-                        "name": "Native extensions - Best Practices"
-                    },
-                    {
-                        "path": "/manuals/extensions-build-variants",
-                        "name": "Native extensions - Build Variants"
-                    },
-                    {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
                     {
                         "path": "/manuals/push",
                         "name": "Push notifications"
+                    }
+                ]
+            },
+            {
+                "name": "NATIVE EXTENSIONS",
+                "items": [
+                    {
+                        "path": "/manuals/extensions",
+                        "name": "Introduction"
+                    },
+                    {
+                        "path": "/manuals/extensions-details",
+                        "name": "Details"
+                    },
+                    {
+                        "path": "/manuals/extensions-best-practices",
+                        "name": "Best Practices"
+                    },
+                    {
+                        "path": "/manuals/extensions-build-variants",
+                        "name": "Build Variants"
                     }
                 ]
             }

@@ -25,7 +25,7 @@ Triggers
 
 ## Adding a collision object component
 
-A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the
+A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the whole shape of the physics object.
 
 To add a collision object component to a game object:
 

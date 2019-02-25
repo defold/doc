@@ -25,9 +25,81 @@ To set up a custom renderer:
 
 3. Change the *Render* property (under *bootstrap*) in the "game.project" settings file to refer to your copy of the "default.render" file.
 
+### Default view projection
+
+The default render script provides a number of different projections for drawing your game content, with the default being a stretch projection. The other projections provided in the default render script are fixed fit and fixed projections.
+
+#### Stretch projection
+
+The stretch projection will always draw an area of your game that is equal to the dimensions set in "game.project", even when the window is resized. If the aspect ratio changes it will result in game content being stretched either vertically or horizontally:
+
+![Stretch projection](images/render/stretch_projection.png)
+
+*Stretch projection with original window size*
+
+![Stretch projection when resized](images/render/stretch_projection_resized.png)
+
+*Stretch projection with the window stretched horizontally*
+
+The stretch projection is the default projection but if you have changed from it and need to switch back you do it by sending a message to the render script:
+
+```lua
+function init(self)
+    msg.post("@render:", "use_stretch_projection", { near = 1, far = -1, zoom = 2 })
+end
+```
+
+#### Fixed fit projection
+
+Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be show vertically or horizontally:
+
+![Fixed fit projection](images/render/fixed_fit_projection.png)
+
+*Fixed with projection with original window size*
+
+![Fixed fit projection when resized](images/render/fixed_fit_projection_resized.png)
+
+*Fixed with projection with the window stretched horizontally*
+
+![Fixed fit projection when smaller](images/render/fixed_fit_projection_resized_smaller.png)
+
+*Fixed with projection with the window reduced to 50% of original size*
+
+You enable the fixed fit projection by sending a message to the render script:
+
+```lua
+function init(self)
+    msg.post("@render:", "use_fixed_fit_projection", { near = 1, far = -1 })
+end
+```
+
+#### Fixed projection
+
+The fixed projection will retain the original aspect ratio and render your game content with a fixed zoom level. This means that it if the zoom level is set to something other than 100% it will show more or less than the area of the game defined by the dimensions in "game.project":
+
+![Fixed projection](images/render/fixed_projection_zoom_2_0.png)
+
+*Fixed projection with zoom set to 2*
+
+![Fixed projection](images/render/fixed_projection_zoom_0_5.png)
+
+*Fixed projection with zoom set to 0.5*
+
+![Fixed projection](images/render/fixed_projection_zoom_2_0_resized.png)
+
+*Fixed projection with zoom set to 2 and window reduced to 50% of original size*
+
+You enable the fixed projection by sending a message to the render script:
+
+```lua
+function init(self)
+    msg.post("@render:", "use_fixed_projection", { near = 1, far = -1, zoom = 2 })
+end
+```
+
 ## Render predicates
 
-To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_. 
+To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_.
 
 Each object that is drawn onto the screen has a material attached to it that controls how the object should be drawn to the screen. In the material, you specify one or more _tags_ that should be associated with the material.
 
@@ -53,13 +125,13 @@ init()
       self.text_pred = render.predicate({"text"})
       self.particle_pred = render.predicate({"particle"})
       self.model_pred = render.predicate({"model"})
-  
+
       self.clear_color = vmath.vector4(0, 0, 0, 0)
       self.clear_color.x = sys.get_config("render.clear_color_red", 0)
       self.clear_color.y = sys.get_config("render.clear_color_green", 0)
       self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
       self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
-  
+
       -- Define a view matrix to use. If we have a camera object, it will
       -- send "set_view_projection" messages to the render script and we
       -- can update the view matrix with the value the camera provides.
@@ -76,19 +148,19 @@ update()
   function update(self)
       -- Set the depth mask which allows us to modify the depth buffer.
       render.set_depth_mask(true)
-  
+
       -- Clear the color buffer with the clear color value and set the depth buffer to 1.0.
       -- The normal depth values are between 0.0 (near) and 1.0 (far) so maximizing the values
       -- throughout the buffer means that every pixel you draw will be nearer than 1.0 and thus
       -- it will be properly drawn and depth testing will work from thereon.
       render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [  render.BUFFER_STENCIL_BIT] = 0})  
-  
+
       -- Set the viewport to the window dimensions.
       render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
-  
+
       -- Set the view to the stored view value (can be set by a camera object)
       render.set_view(self.view)
-  
+
       -- Render 2D space
       render.set_depth_mask(false)
       render.disable_state(render.STATE_DEPTH_TEST)
@@ -96,13 +168,13 @@ update()
       render.enable_state(render.STATE_BLEND)
       render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
       render.disable_state(render.STATE_CULL_FACE)
-  
+
       -- Set the projection to orthographic and only render between -200 and 200 Z-depth
       render.set_projection(vmath.matrix4_orthographic(0, render.get_width(), 0,   render.get_height(), -200, 200))  
-  
+
       render.draw(self.tile_pred)
       render.draw(self.particle_pred)
-  
+
       -- Render 3D space, but still orthographic
       -- Face culling and depth test should be enabled
       render.enable_state(render.STATE_CULL_FACE)
@@ -110,16 +182,16 @@ update()
       render.set_depth_mask(true)
       render.draw(self.model_pred)
       render.draw_debug3d()
-  
+
       -- Render the GUI last
       render.set_view(vmath.matrix4())
       render.set_projection(vmath.matrix4_orthographic(0, render.get_window_width(), 0,   render.get_window_height(), -1, 1))  
-  
+
       render.enable_state(render.STATE_STENCIL_TEST)
       render.draw(self.gui_pred)
       render.draw(self.text_pred)
       render.disable_state(render.STATE_STENCIL_TEST)
-  
+
       render.set_depth_mask(false)
       render.draw_debug2d()
   end
@@ -172,7 +244,7 @@ on_message()
 
 `"draw_line"`
 : Draw debug line. Use to visualize ray_casts, vectors and more. Lines are drawn with the `render.draw_debug3d()` call.
-  
+
   ```lua
   -- draw a white line
   local p1 = vmath.vector3(0, 0, 0)
@@ -183,7 +255,7 @@ on_message()
 
 `"draw_text"`
 : Draw debug text. Use to print debug information. The text is drawn with the built in "system_font" font. The system font has a material with tag "text" and is rendered with other text in the default render script.
-  
+
   ```lua
   -- draw a text message
   local pos = vmath.vector3(500, 500, 0)

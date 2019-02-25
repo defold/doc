@@ -56,7 +56,7 @@ Legacy functions for reading and writing game object properties also exist. They
 
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
-| *position* | The local position of the game object. | `vector3`.      | `get+set`{.mark} |
+| *position* | The local position of the game object. | `vector3`      | `get+set`{.mark} |
 | *rotation* | Local rotation of game object, expressed as a quaternion.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Local rotation of game object, Euler angles. | `vector3` | `get+set`{.mark} |
 | *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
@@ -66,6 +66,7 @@ Legacy functions for reading and writing game object properties also exist. They
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *size*     | The non scaled size of the sprite---its size as taken from the source atlas. | `vector3` | `get`{.mark} |
+| *texture0* | The texture path hash of the sprite. | `hash` | `get`{.mark}|
 | *scale* | Non uniform scale of the sprite. | `vector3` | `get+set`{.mark}|
 
 *COLLISION OBJECT COMPONENT PROPERTIES*
@@ -83,7 +84,7 @@ Legacy functions for reading and writing game object properties also exist. They
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | The current animation. | `hash` | `get`{.mark} |
-| *skin*.     | The currently applied model skin. (cannot be animated!) | `hash` | `get+set`{.mark} |
+| *skin*     | The currently applied model skin. (cannot be animated!) | `hash` | `get+set`{.mark} |
 | *cursor*   | The current position (between 0-1) of the animation playback cursor. | `number` | `get+set`{.mark} |
 | *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
 
@@ -92,8 +93,19 @@ Legacy functions for reading and writing game object properties also exist. They
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | The current animation.                | `hash`          | `get`{.mark}     |
-| *cursor*.  | Position (between 0--1) of playback cursor. | `number`   | `get+set`{.mark} |
+| *texture0* | The texture path hash of the model. | `hash` | `get`{.mark}|
+| *cursor*  | Position (between 0--1) of playback cursor. | `number`   | `get+set`{.mark} |
 | *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
+
+*LABEL COMPONENT PROPERTIES*
+
+| property   | description                            | type            |                  |
+| ---------- | -------------------------------------- | --------------- | ---------------- |
+| *scale* | The scale of the label. | `vector3` | `get+set`{.mark} |
+| *color*     | The color of the label. | `vector4` | `get+set`{.mark} |
+| *outline* | The outline color of the label. | `vector4` | `get+set`{.mark} |
+| *shadow* | The shadow color of the label. | `vector4` | `get+set`{.mark} |
+| *size* | The size of the label. The size will constrain the text if line break is enabled. | `vector3` | `get+set`{.mark} |
 
 ## GUI node properties
 
@@ -128,8 +140,8 @@ Note that all color values are encoded in a vector4 where the components corresp
 
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
-| *color*.   | The face color of the node.            | `vector4`.      | `gui.get_color()` `gui.set_color()` |
-| *outline*. | The outline color of the node.         | `vector4`       | `gui.get_outline()` `gui.set_outline()` |
+| *color*   | The face color of the node.            | `vector4`      | `gui.get_color()` `gui.set_color()` |
+| *outline* | The outline color of the node.         | `vector4`       | `gui.get_outline()` `gui.set_outline()` |
 | *position* | The position of the node. | `vector3` | `gui.get_position()` `gui.set_position()` |
 | *rotation* | The rotation of the node expressed as Euler angles--degrees rotated around each axis. | `vector3` | `gui.get_rotation()` `gui.set_rotation()` |
 | *scale* | The scale of the node expressed as a multiplier along each axis. | `vector3` |`gui.get_scale()` `gui.set_scale()` |
@@ -137,6 +149,4 @@ Note that all color values are encoded in a vector4 where the components corresp
 | *size* | The unscaled size of the node. | `vector3` | `gui.get_size()` `gui.set_size()` |
 | *fill_angle* | The fill angle of a pie node expressed as degrees counter-clockwise. | `number` | `gui.get_fill_angle()` `gui.set_fill_angle()` |
 | *inner_radius* | The inner radius of a pie node. | `number` | `gui.get_inner_radius()` `gui.set_inner_radius()` |
-| *slice9* | The edge distances of a slice9 node. | `vector4` | |
-
-
+| *slice9* | The edge distances of a slice9 node. | `vector4` | `gui.get_slice9()` `gui.set_slice9()` |

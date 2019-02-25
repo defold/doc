@@ -295,6 +295,10 @@
                     {
                         "path": "/manuals/html5",
                         "name": "HTML5"
+                    },
+                    {
+                        "path": "/manuals/facebook",
+                        "name": "Facebook"
                     }
                 ]
             },
@@ -306,16 +310,21 @@
                         "name": "Native extensions"
                     },
                     {
-                        "path": "/manuals/facebook",
-                        "name": "Facebook"
-                    },
-                    {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
                     {
                         "path": "/manuals/push",
                         "name": "Push notifications"
+                    }
+                ]
+            },
+            {
+                "name": "NATIVE EXTENSIONS",
+                "items": [
+                    {
+                        "path": "/manuals/extensions",
+                        "name": "Introduction"
                     }
                 ]
             }
