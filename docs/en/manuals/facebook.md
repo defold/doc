@@ -194,7 +194,7 @@ Events are accessed from the *Events* option on the from the Facebook Analytics 
 
 ### Sharing events with Facebook
 
-You can opt to share generated events with Facebook for improved ad-tracking. This is done via the [`enable_event_usage()`](/ref/facebook/#facebook.enable_event_usage) and [`disable_event_usage()`](/ref/facebook/#facebook.disable_event_usage) functions.
+You can opt to share generated events with Facebook for improved ad-tracking. This is done via the [`enable_event_usage()`](/ref/facebook/#facebook.enable_event_usage) and [`disable_event_usage()`](/ref/facebook/#facebook.disable_event_usage) functions. The default setting is according to the Facebook SDK documentation to not share events.
 
 ## Development caveats
 
