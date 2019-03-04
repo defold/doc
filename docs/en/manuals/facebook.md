@@ -40,13 +40,7 @@ You can easily add, remove and change platform settings in the app dashboard. Yo
 
 ![App dashboard settings](images/facebook/add_platform.png)
 
-Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Unfortunately this setting is hidden in the editor (this will change soon), but you can easily add it. Right-click the *game.project* file in the *Project Explorer* and select <kbd>Open With ▸ Text Editor</kbd>.
-
-![Open project settings with](images/facebook/project_open_with.png)
-
-Add a section `[facebook]` and an entry `appid = 456788687846098` but with your application's *App ID*. Make sure you get the number right. Then save the file.
-
-![Game project](images/facebook/game_project.png)
+Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Open the  *game.project* file from the *Project Explorer* and scroll to the *Facebook* section and add the *App ID* to the `Appid` field.
 
 Now, back in the *Settings* tab on the Facebook app page, click *+ Add Platform* to add a new platform to the app. Each platform has a set of settings to fill in.
 
@@ -79,11 +73,11 @@ For HTML5 games, the process is a bit different. Facebook needs access to your g
 1. Use Facebook's *Simple Application Hosting*. Click *Yes* to select managed hosting. Select *uploaded assets* to open the hosted asset manager.
 
     ![Simple hosting](images/facebook/simple_hosting.png)
-    
+
     Select that you want to host a "HTML5 Bundle":
-    
+
     ![HTML5 bundle](images/facebook/html5_bundle.png)
-    
+
     Compress your HTML5 bundle into a .7z or .zip archive and upload it to Facebook. Make sure to click *Push to production* to start serving the game.
 
 2. The alternative to Facebook hosting is to upload a HTML5 bundle of your game to some server of your choice that serves the game through HTTPS. Set the *Secure Canvas URL* to the URL of your game.
@@ -130,7 +124,7 @@ end
 Running this simple test should display something like the following in the console:
 
 ```txt
-DEBUG:SCRIPT: 
+DEBUG:SCRIPT:
 {
   status = 200,
   headers = {
@@ -155,7 +149,53 @@ DEBUG:SCRIPT:
 * The full Defold Facebook API is documented in the [Facebook reference documentation](/ref/facebook).
 * The Facebook Graph API is documented here: https://developers.facebook.com/docs/graph-api
 
+## Facebook Analytics
+
+Facebook Analytics allows you as a developer to get aggregated demographics and rich insights, like how many people launch your app, how often people make purchases and many other interactions.
+
+### Setup
+
+Before you can use Facebook Analytics you need to create a Facebook app and add the *App ID* to *game.project* as described above. Next step is to add the Analytics product to your Facebook app:
+
+![Add Facebook Analytics](images/facebook/add_facebook_analytics.png)
+
+Once you have added the Facebook Analytics product to your Facebook app you can optionally configure the Analytics settings. Refer to the Facebook Developer documentation for more information about the different settings:
+
+![Add Facebook Analytics](images/facebook/facebook_analytics_settings.png)
+
+### Usage
+
+When you have Facebook Analytics added to your Facebook app you can immediately start using it from your application by posting analytics events:
+
+```lua
+function init(self)
+    -- post a spent credits event
+    local params = { [facebook.PARAM_LEVEL] = 30, [facebook.PARAM_NUM_ITEMS] = 2 }
+    facebook.post_event(facebook.EVENT_SPENT_CREDITS, 25, params)
+
+    -- post a custom event
+    local level = 19
+    local params = { kills = 23, gold = 4, xp = 890 }
+    facebook.post_event("level_completed", level, params)
+end
+```
+
+Available predefined events and parameters can be seen in the [Facebook reference documentation](/ref/facebook). These should correlate to the [Standard Events](https://developers.facebook.com/docs/analytics/send_data/events#standard) and [Parameters](https://developers.facebook.com/docs/analytics/send_data/events#parameter) from the Facebook developer documentation.
+
+The Facebook SDK used by Defold will also automatically generate several events, such as app install and app launch. Refer to the [Auto-logged events](https://developers.facebook.com/docs/analytics/send_data/events#autologged) in the Facebook developer documentation.
+
+Once you have sent some events they will show up in the Facebook Analytics dashboard, accessible from your Facebook app page via the *View Analytics* button:
+
+![Add Facebook Analytics](images/facebook/facebook_analytics_open_dashboard.png)
+
+Events are accessed from the *Events* option on the from the Facebook Analytics page:
+
+![Add Facebook Analytics](images/facebook/facebook_analytics_show_events.png)
+
+### Sharing events with Facebook
+
+You can opt to share generated events with Facebook for improved ad-tracking. This is done via the [`enable_event_usage()`](/ref/facebook/#facebook.enable_event_usage) and [`disable_event_usage()`](/ref/facebook/#facebook.disable_event_usage) functions.
+
 ## Development caveats
 
 When developing it is very convenient to use the dev application. Unfortunately, the Facebook API does not yet work on the dev app due to how the bundled *Info.plist* file has to be constructed. However, any debug bundle works as a dev app so the workaround is to build the game with the proper Facebook project settings, put it on the device and then connect to the running game and stream data to it from the editor as usual.
-
