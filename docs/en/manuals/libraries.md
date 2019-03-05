@@ -37,7 +37,7 @@ It is recommend to always depends on a specific release of a library project ins
 
 ## Setting up library dependencies
 
-Open the project that you would like to access the library from. In the project settings, add the Library URL to the *dependencies* property. You can specify multiple dependent projects if you want. Just list them separated by spaces:
+Open the project that you would like to access the library from. In the project settings, add the Library URL to the *dependencies* property. You can specify multiple dependent projects if you want. Just add them one by one using the `+` button and remove using the `-` button:
 
 ![Dependencies](images/libraries/libraries_dependencies.png)
 
