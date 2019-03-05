@@ -135,7 +135,7 @@ That's it!
 The Defold editor works on files. By double-clicking a file in the *Project Explorer* you open it in a suitable editor. You can then work with the contents of the file.
 
 When you are done editing a file you have to save it. Select <kbd>File ▸ Save</kbd> in the main menu. The editor gives a hint by adding an asterisk '\*' to the filename in the tab for any file that contain unsaved changes.
-  
+
 ![File with unsaved changes](images/runner/1/file_changed.png)
 :::
 
@@ -169,7 +169,7 @@ Let's take the first baby steps and create an arena for our character, or rather
 
 4. Create a collection file *ground.collection* for the ground and add 7 game objects to it (right-click the root of the collection in the *Outline* view and select <kbd>Add Game Object</kbd>). Name the objects "ground0", "ground1", "ground2" etc by changing the *Id* property in the *Properties* view. Note that Defold automatically assigns new game objects a unique id.
 
-5. In each object, add a sprite component (right-click the game object in the *Outline* view and select <kbd>Add Component</kbd>, then select *Sprite* and click *OK*), set the *Image* property of the sprite component to the atlas you just created and set the default animation of the sprite to one of the two ground images. Set the X position of the _sprite component_ (not the game object) to 190. Since the width of the image is 380 pixels and we shift it sideways half as many pixels, the pivot of the game object will be at the leftmost edge of the sprite image.
+5. In each object, add a sprite component (right-click the game object in the *Outline* view and select <kbd>Add Component</kbd>, then select *Sprite* and click *OK*), set the *Image* property of the sprite component to the atlas you just created and set the default animation of the sprite to one of the two ground images. Set the X position of the _sprite component_ (not the game object) to 190 and Y position to 40. Since the width of the image is 380 pixels and we shift it sideways half as many pixels, the pivot of the game object will be at the leftmost edge of the sprite image.
 
   ![Create ground collection](images/runner/1/ground_collection.png)
 
