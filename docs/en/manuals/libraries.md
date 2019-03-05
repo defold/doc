@@ -32,7 +32,7 @@ For a project hosted on GitHub it would be the URL to a project release:
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
 ::: important
-It is recommend to always depends on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch a library project.
+It is recommend to always depends on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
 :::
 
 ## Setting up library dependencies
