@@ -23,9 +23,17 @@ The Defold server needs to know that the project contain folders that should be 
 
 ## Library URL
 
-Libraries are referred to via a standard URL. Each project has a Library URL that can be found in the Dashboard. Just select the relevant project and write down or copy the URL:
+Libraries are referred to via a standard URL. For a project hosted on the Defold servers it would be the Library URL that can be found in the Dashboard. Just select the relevant project and write down or copy the URL:
 
 ![Library URL](images/libraries/libraries_library_url.png)
+
+For a project hosted on GitHub it would be the URL to a project release:
+
+![GitHub Library URL](images/libraries/libraries_library_url_github.png)
+
+::: important
+It is recommend to always depends on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch a library project.
+:::
 
 ## Setting up library dependencies
 
@@ -43,33 +51,7 @@ Now the folders that you shared appear in the Project Explorer and you can use e
 
 ## Broken references
 
-Library sharing only includes files that are located under the shared folder. If you create something that references assets that are located outside of the shared hierarchy, the reference paths will be broken.
-
-In the example, the library folder *shared_sprites* contains an atlas. The PNG images that are gathered in that atlas, however, live in a folder in the library project that is not shared.
-
-![Bad references](images/libraries/libraries_bad_references.png)
-
-If you open the atlas in the Text Editor (as opposed to the default Atlas Editor), you can see the paths of the gathered images:
-
-```txt
-images {
-  image: "/cards_example/images/clubmaster.png"
-}
-images {
-  image: "/cards_example/images/heartson.png"
-}
-images {
-  image: "/cards_example/images/tree.png"
-}
-images {
-  image: "/cards_example/images/pot.png"
-}
-images {
-  image: "/cards_example/images/heart.png"
-}
-```
-
-It should now be clear what the problem is. The atlas file references these PNG images from a path that does not exist in the local project. You can fix the problem by adding the */cards_example/images* folder to the list of shared folders in the library project. Another option is to create a local folder */cards_example/images* and drop PNG files with the right names there.
+Library sharing only includes files that are located under the shared folder(s). If you create something that references assets that are located outside of the shared hierarchy, the reference paths will be broken.
 
 ## Name collisions
 
