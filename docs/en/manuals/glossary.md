@@ -51,6 +51,10 @@ Components are used to give specific expression and/or functionality to game obj
 
 At some point your game will behave in an unexpected way and you need to figure out what is wrong. Learning how to debug is an art and fortunately Defold ships with a built in debugger to help you out. See the [Debugging manual](/manuals/debugging) for more information.
 
+## Display profiles
+
+![Display profiles](images/icons/display-profiles.png){.left} The display profiles resource file is used for specifying GUI layouts depends on the orientation, aspect ratio or device model. It helps to adapt your UI for any kind of devices. Read more in the [Layouts manual](/manuals/gui-layouts).
+
 ## Factory
 
 ![Factory](images/icons/factory.png){.left} In some situations you cannot manually place all needed game objects in a collection, you have to create the game objects dynamically, on the fly. For instance, a player might fire bullets and each shot should be dynamically spawned and sent off whenever the player presses the trigger. To create game objects dynamically (from a pre-allocated pool of objects), you use a factory component. See the [Factory manual](/manuals/factory) for details.
