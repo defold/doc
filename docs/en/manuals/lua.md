@@ -64,11 +64,11 @@ boolean
   else
       print("flag is false")
   end
-  
+
   if my_var then
       print("my_var is not nil nor false!")
   end
-  
+
   if not my_var then
       print("my_var is either nil or false!")
   end
@@ -81,7 +81,7 @@ number
   print(10) --> prints '10'
   print(10.0) --> '10'
   print(10.000000000001) --> '10.000000000001'
-  
+
   a = 5 -- integer
   b = 7/3 -- float
   print(a - b) --> '2.6666666666667'
@@ -112,16 +112,16 @@ string
   my_string = "hello"
   another_string = 'world'
   print(my_string .. another_string) --> "helloworld"
-  
+
   print("10.2" + 1) --> 11.2
   print(my_string + 1) -- error, can't convert "hello"
   print(my_string .. 1) --> "hello1"
-  
+
   print("one\nstring") --> one
                        --> string
-  
+
   print("\097bc") --> "abc"
-  
+
   multi_line_string = [[
   Here is a chunk of text that runs over several lines. This is all
   put into the string and is sometimes very handy.
@@ -136,31 +136,31 @@ function
   my_plus = function(p, q)
       return p + q
   end
-  
+
   print(my_plus(4, 5)) --> 9
-  
+
   -- Convenient syntax to assign function to variable 'my_mult'
   function my_mult(p, q)
       return p * q
   end
-  
+
   print(my_mult(4, 5)) --> 20
-  
+
   -- Takes a function as parameter 'func'
   function operate(func, p, q)
       return func(p, q) -- Calls the provided function with parameters 'p' and 'q'
   end
-  
+
   print(operate(my_plus, 4, 5)) --> 9
   print(operate(my_mult, 4, 5)) --> 20
-  
+
   -- Create an adder function and return it
   function create_adder(n)
       return function(a)
           return a + n
       end
   end
-  
+
   adder = create_adder(2)
   print(adder(3)) --> 5
   print(adder(10)) --> 12
@@ -175,19 +175,19 @@ table
               "Thursday", "Friday", "Saturday"}
   print(weekdays[1]) --> "Sunday"
   print(weekdays[5]) --> "Thursday"
-  
+
   -- Initialize a table as a record with sequence values
-  moons = { Earth = { "Moon" }, 
+  moons = { Earth = { "Moon" },
             Uranus = { "Puck", "Miranda", "Ariel", "Umbriel", "Titania", "Oberon" } }
   print(moons.Uranus[3]) --> "Ariel"
-  
+
   -- Build a table from an empty constructor {}
   a = 1
   t = {}
   t[1] = "first"
   t[a + 1] = "second"
   t.x = 1 -- same as t["x"] = 1
-  
+
   -- Iterate over the table key, value pairs
   for key, value in pairs(t) do
       print(key, value)
@@ -195,10 +195,10 @@ table
   --> 1   first
   --> 2   second
   --> x   1
-  
+
   u = t -- u now refers to the same table as t
   u[1] = "changed"
-  
+
   for key, value in pairs(t) do -- still iterating over t!
       print(key, value)
   end
@@ -224,7 +224,7 @@ Arithmetic operators
   ```
 
   Lua provides automatic conversions between numbers and strings at run time. Any numeric operation applied to a string tries to convert the string to a number:
-  
+
   ```lua
   print("10" + 1) --> 11
   ```
@@ -235,7 +235,7 @@ Relational/comparison operators
   ```lua
   a = 5
   b = 6
-  
+
   if a <= b then
       print("a is less than or equal to b")
   end
@@ -253,7 +253,7 @@ Logical operators
   print(true or false) --> true
   print(true and false) --> false
   print(not false) --> true
-  
+
   if a == 5 and b == 6 then
       print("a is 5 and b is 6")
   end
@@ -273,13 +273,13 @@ Length
   ```lua
   s = "donkey"
   print(#s) --> 6
-  
+
   t = { "a", "b", "c", "d" }
   print(#t) --> 4
-  
+
   u = { a = 1, b = 2, c = 3 }
   print(#u) --> 0
-  
+
   v = { "a", "b", nil }
   print(#v) --> 2
   ```
@@ -294,11 +294,11 @@ if---then---else
   ```lua
   a = 5
   b = 4
-  
+
   if a < b then
       print("a is smaller than b")
   end
-  
+
   if a == '1' then
       print("a is 1")
   elseif a == '2' then
@@ -316,7 +316,7 @@ while
   ```lua
   weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
               "Thursday", "Friday", "Saturday"}
-  
+
   -- Print each weekday
   i = 1
   while weekdays[i] do
@@ -331,7 +331,7 @@ repeat---until
   ```lua
   weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
               "Thursday", "Friday", "Saturday"}
-  
+
   -- Print each weekday
   i = 0
   repeat
@@ -348,17 +348,17 @@ for
   for i = 1, 10 do
       print(i)
   end
-  
+
   -- Print the numbers 1 to 10 and increment with 2 each time
   for i = 1, 10, 2 do
       print(i)
   end
-  
+
   -- Print the numbers 10 to 1
   for i=10, 1, -1 do
       print(i)
   end
-  
+
   t = { "a", "b", "c", "d" }
   -- Iterate over the sequence and print the values
   for i, v in ipairs(t) do
@@ -377,11 +377,11 @@ break and return
           break
       end
   end
-  
+
   function my_add(a, b)
       return a + b
   end
-  
+
   print(my_add(10, 12)) --> 22
   ```
 
@@ -613,31 +613,27 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Even in this quite simple case we get fairly tangled up logic. It's possible to make this look better with the help of coroutines in a module (see below), but let's instead try to make this reactive and use a built in timing mechanism: property animation.
+Even in this quite simple case we get fairly tangled up logic. It's possible to make this look better with the help of coroutines in a module (see below), but let's instead try to make this reactive and use a built in timing mechanism.
 
 ```lua
--- Dummy property only for timing
-go.property("dummy", 0)
+local function send_first()
+	msg.post("some_object", "some_message")
+end
+
 function init(self)
-    -- Wait 2s then call send_first()
-    go.animate("#", "dummy", go.PLAYBACK_ONCE_FORWARD, 0,
-                 go.EASING_LINEAR, 2.0, 0, send_first)
+	-- Wait 2s then call send_first()
+	timer.delay(2, false, send_first)
 end
 
-function send_first()
-    msg.post("some_object", "some_message")
-end
-
-function send_second()
-    msg.post("another_object", "another_message")
+local function send_second()
+	msg.post("another_object", "another_message")
 end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("response") then
-        -- Wait 5s then call send_second()
-        go.animate("#", "dummy", go.PLAYBACK_ONCE_FORWARD, 0,
-                    go.EASING_LINEAR, 5.0, 0, send_second)
-    end
+	if message_id == hash("response") then
+		-- Wait 5s then call send_second()
+		timer.delay(5, false, send_second)
+	end
 end
 ```
 
