@@ -63,17 +63,3 @@ is random for each build, making the path mapping invalid for each build.
 However, it works fine for a debugging session.
 
 
-###
-
-
-##  OLD STUFF
-
-* Install the app on your Android device. E.g using [adb install example.apk](https://developer.android.com/studio/command-line/adb)
-
-
-* From the menu choose `Run` -> `Attach debugger to Android process...`
-
-* Choose the device to connect to
-
-	![attach_android](images/extensions/debugging/android/attach_to_process_android.png)
-
