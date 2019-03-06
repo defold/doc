@@ -19,6 +19,10 @@ The Star Nest shader is a pure fragment shader, so we only need something for th
 
 We start by creating a quadratic plane mesh in Blender (or any other 3D modelling program). For convenience the 4 vertex coordinates are at -1 and 1 on the X-axis and -1 and 1 on the Y axis. Blender has the Z-axis up by default so you need to rotate the mesh 90° around the X-axis. You should also make sure that you generate correct UV-coordinates for the mesh. In Blender, enter *Edit Mode* with the mesh selected, then select <kbd>Mesh ▸ UV unwrap... ▸ Unwrap</kbd>.
 
+
+<a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/quad.dae.zip">Download quad.dae<span aria-hidden="true" class="icon icon-download"></span></a>
+
+
 ::: sidenote
 Blender is a free, open-source 3D software which can be downloaded from [blender.org](https://www.blender.org).
 :::
@@ -53,13 +57,13 @@ Create a new material file *star-nest.material*, a vertex shader program *star-n
     ```glsl
     // star-nest.vp
     uniform mediump mat4 view_proj;
-    
+
     // positions are in world space
     attribute mediump vec4 position;
     attribute mediump vec2 texcoord0;
-    
+
     varying mediump vec2 var_texcoord0;
-    
+
     void main()
     {
         gl_Position = view_proj * vec4(position.xyz, 1.0);
@@ -72,7 +76,7 @@ Create a new material file *star-nest.material*, a vertex shader program *star-n
     ```glsl
     // star-nest.fp
     varying mediump vec2 var_texcoord0;
-    
+
     void main()
     {
         gl_FragColor = vec4(var_texcoord0.xy, 0.0, 1.0);
@@ -98,7 +102,7 @@ Now everything is in place to start working on the actual shader code. Let's fir
     In Defold, the input texture coordinates are passed from the vertex shader as UV coordinates (in the range 0--1) through a varying variable `var_texcoord0`. The output fragment color is set to the built in variable `gl_FragColor`.
 
 3. Lines 23--27 sets up the dimensions of the texture as well as movement direction and scaled time. The resolution of the viewport/texture is passed to the shader as `uniform vec3 iResolution`. The shader calculates UV style coordinates with the right aspect ratio from the fragment coordinates and the resolution. Some resolution offsetting is also done to get a nicer framing.
-    
+
     The Defold version needs to alter these calculations to use the UV coordinates from `var_texcoord0`.
 
     Time is also set up here. It is passed to the shader as `uniform float iGlobalTime`. Defold does not currently support `float` uniforms so we need to provide time through a `vec4` instead.
@@ -140,7 +144,7 @@ void main() // <2>
     vec2 res = vec2(1.0, 1.0); // <3>
     vec2 uv = var_texcoord0.xy * res.xy - 0.5;
     vec3 dir = vec3(uv * zoom, 1.0);
-    float time = 0.0; // <4> 
+    float time = 0.0; // <4>
 
     float a1=0.5; // <5>
     float a2=0.8;
@@ -152,7 +156,7 @@ void main() // <2>
     from += vec3(time * 2.0, time, -2.0);
     from.xz *= rot1;
     from.xy *= rot2;
-    
+
     //volumetric rendering
     float s = 0.1, fade = 1.0;
     vec3 v = vec3(0.0);
@@ -161,7 +165,7 @@ void main() // <2>
         // tiling fold
         p = abs(vec3(tile) - mod(p, vec3(tile * 2.0)));
         float pa, a = pa = 0.0;
-        for (int i=0; i < iterations; i++) { 
+        for (int i=0; i < iterations; i++) {
             // the magic formula
             p = abs(p) / dot(p, p) - formuparam;
             // absolute sum of average change
@@ -176,7 +180,7 @@ void main() // <2>
         v += fade;
         // coloring based on distance
         v += vec3(s, s * s, s * s * s * s) * a * brightness * fade;
-        fade *= distfading; 
+        fade *= distfading;
         s += stepsize;
     }
     // color adjust
