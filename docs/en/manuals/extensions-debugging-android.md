@@ -30,11 +30,17 @@ Here we list some ways to debug your executable running on an Android Device
 
 * Path mappings help you remap where the individual paths from where the executable was built (in the cloud) to an actual folder on your local drive.
 
-* Add a mapping your local drive
+* Select the .so file, then add a mapping your local drive
 
 	![path_mapping1](images/extensions/debugging/android/path_mappings_android.png)
 
 	![path_mapping2](images/extensions/debugging/android/path_mappings_android2.png)
+
+* If you have access to the engine source, ad a path mapping to that too
+
+		* make sure to checkout the version you are currently debugging
+
+			defold$ git checkout 1.2.148
 
 * Press `Apply changes`
 
@@ -53,7 +59,7 @@ Here we list some ways to debug your executable running on an Android Device
 * You can now step in the callstack as well as inspect the variables
 
 
-## Caveats
+## Notes
 
 ### Native Extension job folder
 
@@ -62,4 +68,6 @@ is random for each build, making the path mapping invalid for each build.
 
 However, it works fine for a debugging session.
 
+The path mappings are stored in the <project>.iml file in the Android Studio project.
+It's possible to get the job folder from
 
