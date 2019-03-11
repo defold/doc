@@ -53,6 +53,27 @@
                 ]
             },
             {
+                "name": "Samples",
+                "items": [
+                    {
+                        "path": "https://github.com/defold/sample-roids",
+                        "name": "Asteroids"
+                    },
+                    {
+                        "path": "https://github.com/defold/sample-linker",
+                        "name": "Linker"
+                    },
+                    {
+                        "path": "https://github.com/defold/sample-shadertoy",
+                        "name": "Shadertoy"
+                    },
+                    {
+                        "path": "https://github.com/defold/sample-rpgmap",
+                        "name": "RPG Map"
+                    }
+                ]
+            },
+            {
                 "name": "Old tutorials",
                 "items": [
                     {
