@@ -119,29 +119,59 @@ If you wish to update the badge count from within the application, use the `push
 ## Android setup
 
 ::: sidenote
-Google has extensive documentation for Google Cloud Messaging. We encourage you to start by reading it on https://developers.google.com/cloud-messaging/gcm
+Firebase has extensive documentation for Firebase Cloud Messaging. We encourage you to start by reading it on https://firebase.google.com/docs/cloud-messaging/
 :::
 
 On Android, you need the following information to send notifications:
 
-* A GCM Sender ID. This is built into the application.
-* A Server API Key to enable sending notifications through Google's servers.
+* A Firebase CM Sender ID and Application ID. These are built into the application.
+* A Server API Key to enable sending notifications through Firebase's servers.
 
-The setup is quite straightforward. Start by heading over to http://developers.google.com, click on *Android* and then *Google Cloud Messaging*.
+::: sidenote
+If you already have an application using Google Cloud Messaging platform, it needs to be migrated an application on Firebase Cloud Messaging instead. You only need to migrate the application entry on the Google dashboard to Firebase. The *sender id* will be the same after the migration, your `game.project` file will only need to be complemented with a `Firebase Application ID` (see below).
+:::
 
-![Android getting started](images/push/push_android_get_started.png)
+The setup is quite straightforward. Start by heading over to [https://console.firebase.google.com](https://console.firebase.google.com), select your application or create a new one if neccessary. Then add Cloud Messaging support by navigating to *Grow* and *Cloud Messaging*.
 
-A bit down the page there is a button saying *Get a configuration file*.
+![Adding Cloud Messaging to a Firebase project](images/push/push_fcm_add_cm.png)
 
-![Android configuration file](images/push/push_android_configuration_file.png)
+Click on the Android icon to begin the configuration for push notifications.
 
-Click the button and follow the instructions. At the end you will get a Server API Key and a Sender ID.
 
-![Android cloud services info](images/push/push_android_cloud_services.png)
+![Configure Cloud Messaging for Android](images/push/push_fcm_configure_android.png)
 
-Copy the Sender ID and paste it into the *gcm_sender_id* field in your Defold project settings.
+Follow the initial instructions, enter the same package name as your Defold game project use.
 
-![Google Cloud Messaging sender ID](images/push/push_android_gcm_sender_id.png)
+![Android cloud services info](images/push/push_fcm_register.png)
+
+Download the `google-services.json`, we will soon need some values from inside this file.
+
+![Google Cloud Messaging sender ID](images/push/push_fcm_download_json.png)
+
+You can skip over the two remaining steps, *Add Firebase SDK* and *Run your app to verify installation*. The SDK is built into Defold, you don't need to add it yourself.
+
+Open the `google-services.json` file in a text editor, and look for the *`project_number`* and *`mobilesdk_app_id`* entries. You need to copy these over to your `game.project` file, located under the *android* section, named `Gcm Sender Id` (`project_number`) and `Fcm Application Id` (`mobilesdk_app_id`).
+
+```json
+{
+  "project_info": {
+    "project_number": "123456789123",
+    "firebase_url": "https://project-name-ki7h7.firebaseio.com",
+    "project_id": "project-name-ki7h7",
+    "storage_bucket": "project-name-ki7h7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789123:android:c1de85bbda9bc512",
+        "android_client_info": {
+          "package_name": "my.package.name"
+        }
+      },
+      /* ... */
+```
+
+![Settings applied to game.project](images/push/push_fcm_game_project.png)
 
 Now everything is ready on the client. The [above code](#above-code) example works for Android as well. Run it and copy the device token id.
 
@@ -149,10 +179,14 @@ Now everything is ready on the client. The [above code](#above-code) example wor
 DEBUG:SCRIPT: APA91bHkcKm0QHAMUCEQ_Dlpq2gzset6vh0cz46kDDV6230C5rFivyWZMCxGXcjxRDKg1PK4z1kWg3xnUVqSDiO_4_RiG8b8HeYJfaoW1ho4ukWYXjq5RE0Sy-JTyrhqRusUP_BxRTcE
 ```
 
-Now we have all information we need. Google's notifications are sent through a Web API so we can use *curl* to send test messages:
+Before we can send any messages we need to get a key that will be used for authentication against the Firebase servers. You will find the key under *Settings* and *Cloud Messaging* on the Firebase dashboard.
+
+![Server Key location](images/push/push_fcm_server_key.png)
+
+Now we have all information we need. Firebase's notifications can be sent through a Web API so we can use *curl* to send test messages:
 
 ```sh
-$ curl  -X POST  -H "Content-type: application/json"  -H 'Authorization: key=SERVER_KEY' -d '{"registration_ids" : ["TOKEN_ID"], "data": {"alert": "Hello"}}' https://android.googleapis.com/gcm/send
+$ curl  -X POST  -H "Content-type: application/json"  -H 'Authorization: key=SERVER_KEY' -d '{"registration_ids" : ["TOKEN_ID"], "data": {"alert": "Hello"}}' https://fcm.googleapis.com/fcm/send
 ```
 
 Replace `SERVER_KEY` and `TOKEN_ID` with your specific keys.
