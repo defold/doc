@@ -21,7 +21,7 @@ In this manual we will first go through some basic information how to create and
 Later on we will explore more functionality by implementing a simple player feedback window.
 
 ## Opening a WebView
-Opening a webview is a simple call to `webview.create`, which will return a identification number
+Opening a webview is a simple call to `webview.create`, which will return an identification number
 associated with the newly created webview. This ID, which we will call `webview_id` from now on,
 will be used in other `webview` functions to interact with the specific webview instance. This means
 you can create and maintain multiple webviews simultaneously.
@@ -220,7 +220,7 @@ Now let's tackle the issue of the webview being full screen.
 
 To get a more immersive interaction we might want the webview only cover the upper part of the
 screen. We can use the `webview.set_position` function to both set the position and width of a
-webview. Passing in `-1` as either width or height will make the take up the full space on the
+webview. Passing in `-1` as either width or height will make the webview take up the full space on the
 corresponding axis.
 
 ```lua
