@@ -25,6 +25,7 @@ And each tool can debug certain platforms:
 * Visual studio - Windows + platforms supporting gdbserver (E.g. Linux/Android)
 * VSCode - Windows, macOS (lldb), Linux (lldb/gdb) + platforms supporting gdbserver
 * XCode -  macOS, iOS
+* Android Studio - Android
 * WinDBG - Windows
 * lldb/gdb - macOS, Linux, (iOS)
 * ios-deploy - iOS (via lldb)
@@ -33,18 +34,18 @@ And each tool can debug certain platforms:
 ## Print debugging
 
 In certain cases, one might want to add printf() statements to the code.
-Afterwards, you can get the logs from your device ana analyze them.
+Afterwards, you can get the logs from your device and analyze them.
 
 Note that Defold by default only prints using dmLog* functions in the debug build.
 
-### Android
+### [Android](./extensions-debugging-android.md)
 
 On Android, the simplest way to get the log is to run `adb` in the terminal.
 You can also see the `console` inside Android Studio, which is the same thing.
 
 If you get hold of a stack trace from the Android logs, you might be able to symbolicate it using [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html)
 
-### iOS
+### [iOS](./extensions-debugging-ios.md)
 
 On iOS, you need to open either iTunes or XCode to view the device logs.
 
@@ -69,10 +70,9 @@ If the app is [debuggable](https://www.defold.com/manuals/project-settings/#_and
 
 #### iOS
 
-In iTunes, you can vie/download an apps container.
+In iTunes, you can view/download an apps container.
 
 In the `XCode -> Devices` window, you can also select the crash logs
-
 
 
 ## Symbolication

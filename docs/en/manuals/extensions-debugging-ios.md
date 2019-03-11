@@ -4,15 +4,15 @@ Here we describe how to debug a build using [XCode](https://developer.apple.com/
 
 ## Xcode
 
-* Bundle the app as using bob, with the `--with-symbols` option
+* Bundle the app by using bob, with the `--with-symbols` option
 
 		$ cd myproject
 		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
-		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)" -bo build/ios
+		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
 
 * Install the app, either with `XCode`, `iTunes` or [ios-deploy](https://github.com/ios-control/ios-deploy)
 
-		$ ios-deploy -b VideoPlayer.ipa
+		$ ios-deploy -b <AppName>.ipa
 
 * Get the `.dSYM` folder (i.e the debug symbols)
 
@@ -102,6 +102,11 @@ You have a few options to debug an app
 		(lldb) settings set target.source-map /Users/builder/ci/builds/engine-ios-64-master/build /Users/mathiaswesterdahl/work/defold
 		(lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
 
+	* It's possible to get the job folder from the executable.
+	The jobfolder is named like so `job1298751322870374150`, each time with a random number.
+
+			$ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
+
 * Verify the source mappings
 
 		(lldb) settings show target.source-map
@@ -109,6 +114,7 @@ You have a few options to debug an app
 You can check what source file a symbol was originating from using
 
 	(lldb) image lookup -va <SymbolName>
+
 
 ### Breakpoints
 

@@ -36,7 +36,7 @@ Here we list some ways to debug your executable running on an Android Device
 
 	![path_mapping2](images/extensions/debugging/android/path_mappings_android2.png)
 
-* If you have access to the engine source, ad a path mapping to that too
+* If you have access to the engine source, add a path mapping to that too
 
 		* make sure to checkout the version you are currently debugging
 
@@ -69,5 +69,10 @@ is random for each build, making the path mapping invalid for each build.
 However, it works fine for a debugging session.
 
 The path mappings are stored in the <project>.iml file in the Android Studio project.
-It's possible to get the job folder from
+
+It's possible to get the job folder from the executable
+
+	$ arm-linux-androideabi-readelf --string-dump=.debug_str build/armv7-android/libdmengine.so | grep /job
+
+The jobfolder is named like so `job1298751322870374150`, each time with a random number.
 
