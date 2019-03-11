@@ -178,7 +178,7 @@ local feedback_html = [[
     <h4>Hello Player!</h4>
     <p>Please provide some feedback for my awesome game!</p>
     <form>
-        <label>Game feedback:<br><textarea placeholder="Is it fun? What can be improved?" style="width: 300px; height: 300px"></textarea></label><br>
+        <label>Game feedback:<br><textarea placeholder="Is it fun? What can be improved?" style="width: 300px; height: 80px"></textarea></label><br>
         <input type="button" onclick="submitFeedback()" value="Submit feedback">
         <br>
         <input type="button" onclick="closeWebview()" value="Cancel">
@@ -230,7 +230,7 @@ local webview_id = webview.create(webview_callback)
 webview.set_position(webview_id, 0, 0, -1, 500)
 ```
 
-#### TODO insert image here ####
+![Resized feedback page](images/webview/webview_player_feedback2.png)
 
 If the user is on a device with poor performance, the page might not load instantly and display as
 white while loading. This might be jarring to our player, so let's hide the webview until the page
