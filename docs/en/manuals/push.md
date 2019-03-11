@@ -168,7 +168,7 @@ Open the `google-services.json` file in a text editor, and look for the *`projec
           "package_name": "my.package.name"
         }
       },
-      /* ... */
+
 ```
 
 ![Settings applied to game.project](images/push/push_fcm_game_project.png)
