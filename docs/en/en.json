@@ -91,23 +91,6 @@
                     {
                         "path": "/tutorials/car",
                         "name": "Building a car"
-                    }
-                ]
-            },
-            {
-                "name": "Code samples",
-                "items": [
-                    {
-                        "path": "https://github.com/defold/defold-examples",
-                        "name": "Defold examples repo"
-                    },
-                    {
-                        "path": "http://britzl.github.io/publicexamples/",
-                        "name": "Britzl's grab bag"
-                    },
-                    {
-                        "path": "https://jcash.github.io/",
-                        "name": "JCash demos"
                     },
                     {
                         "path": "/tutorials/main-menu",
@@ -135,9 +118,25 @@
                         "name": "GFS video tutorials"
                     },
                     {
+                        "path": "https://github.com/benjames-171/defold-games",
+                        "name": "Ben James' games"
+                    },
+                    {
                         "path": "https://forum.defold.com/t/big-list-of-lua-resources/1586",
                         "name": "Lua resources"
-                    }
+                    },
+                    {
+                        "path": "https://github.com/defold/defold-examples",
+                        "name": "Defold examples repo"
+                    },
+                    {
+                        "path": "http://britzl.github.io/publicexamples/",
+                        "name": "Britzl's grab bag"
+                    },
+                    {
+                        "path": "https://jcash.github.io/",
+                        "name": "JCash demos"
+                    },
                 ]
             }
         ],
