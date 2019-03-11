@@ -29,9 +29,13 @@ To access the profiler:
 1. Start your game on your target device.
 2. Open a web browser and point it to `http://<device IP>:8002` where `<device IP>` is the IP address of the device. You can find the IP numbers of your target devices in the <kbd>Project ▸ Target</kbd> menu. If you are running your game on your desktop computer, http://localhost:8002 will bring up the profiler.
 
-![Web profiler](images/profiling/webprofiler_page.png)
+![Web profiler mode](images/profiling/webprofiler_mode.png)
+At the top, next to the *Capture* button there are radio buttons to switch between the *CPU/Frame profiler* and the *Resource profiler*.
 
-The profiler is divided into 4 sections that all give different views into the current sample data. To update the sample data, press the *Capture* button at the top.
+### CPU/Frame profiler
+The CPU profiler is divided into 4 sections that all give different views into the current sample data. To update the sample data, press the *Capture* button at the top.
+
+![Web profiler](images/profiling/webprofiler_page.png)
 
 Frames overview
 : The frames overview plots the currently sampled 20 frames side by side. The height of each bar shows the time spent in the frame. The number on the left hand side shows the max time spent in a frame in the current sample data.
@@ -58,6 +62,17 @@ Frame time chart
 :  The frame time chart breaks the frame down visually making it easy to inspect where the engine spends its time during the selected frame.
 
   ![Frame timechart](images/profiling/webprofiler_frame_timechart.png)
+
+### Resource profiler
+The resource profiler is divided into 2 sections, one showing a hierarchical view of the collections, game objects and components currently instantiated in your game, and the other showing all currently loaded resources.
+
+![Resource profiler](images/profiling/webprofiler_resources_page.png)
+
+Collection view
+: The collection view shows hierarchical list of all game objects and components currently instantiated in the game and from which collection they originate. This is a very useful tool when you need to dig into and understand what you have instanced in your game at any given time and from where the objects originate.
+
+Resources view
+: The resources view shows all resources currently loaded into memory, their size and the number of references to each resource. This is useful when optimizing memory usage in your application when you need to understand what is loaded into memory at any given time.
 
 ## Build reports
 
@@ -111,4 +126,3 @@ Graphics API Debugger (Android)
   This is a collection of tools that allows you to inspect, tweak and replay calls from an application to a graphics driver. To use the tool requires that you set `android:debuggable="true"` in "AndroidManifest.xml".
 
   ![graphics api debugger](images/profiling/gapid.png)
-
