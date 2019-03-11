@@ -27,7 +27,7 @@ While running a debug build of the game, an interactive web-based profiler can b
 To access the profiler:
 
 1. Start your game on your target device.
-2. Open a web browser and point it to `http://<device IP>:8002` where `<device IP>` is the IP address of the device. You can find the IP numbers of your target devices in the <kbd>Project ▸ Target</kbd> menu. If you are running your game on your desktop computer, http://localhost:8002 will bring up the profiler.
+2. Select <kbd> Debug ▸ Open Web Profiler</kbd> menu. Alternatively, for example, when you use multiple targets simultaneously, you can open a web browser and point it to `http://<device IP>:8002` where `<device IP>` is the IP address of the device. You can find the IP numbers of your target devices in the <kbd>Project ▸ Target</kbd> menu. If you are running your game on your desktop computer, http://localhost:8002 will bring up the profiler.
 
 ![Web profiler mode](images/profiling/webprofiler_mode.png)
 At the top, next to the *Capture* button there are radio buttons to switch between the *CPU/Frame profiler* and the *Resource profiler*.
