@@ -51,7 +51,7 @@ function init(self)
     if sysinfo.system_name == "Android" then
         msg.post("#", "push_android")
     elseif sysinfo.system_name == "iPhone OS" then
-        msg.post("#", "push_ios")   
+        msg.post("#", "push_ios")
     end
 end
 
@@ -70,7 +70,7 @@ function on_message(self, message_id, message)
                 -- Error
                 print(error.error)
             end
-        end)    
+        end)
         push.set_listener(push_listener)
     elseif message_id == hash("push_android") then
         push.register(nil, function (self, token, error)
@@ -128,7 +128,7 @@ On Android, you need the following information to send notifications:
 * A Server API Key to enable sending notifications through Firebase's servers.
 
 ::: sidenote
-If you already have an application using Google Cloud Messaging platform, it needs to be migrated an application on Firebase Cloud Messaging instead. You only need to migrate the application entry on the Google dashboard to Firebase. The *sender id* will be the same after the migration, your `game.project` file will only need to be complemented with a `Firebase Application ID` (see below).
+If you already have an application using Google Cloud Messaging platform, it needs to be migrated to an application on Firebase Cloud Messaging instead. You only need to migrate the application entry on the Google dashboard to Firebase. The *sender id* will be the same after the migration, your `game.project` file will only need to be complemented with a `Firebase Application ID` (see below).
 :::
 
 The setup is quite straightforward. Start by heading over to [https://console.firebase.google.com](https://console.firebase.google.com), select your application or create a new one if neccessary. Then add Cloud Messaging support by navigating to *Grow* and *Cloud Messaging*.
