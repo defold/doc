@@ -164,6 +164,10 @@
                     {
                         "path": "/manuals/glossary",
                         "name": "Glossary"
+                    },
+                    {
+                        "path": "/manuals/flash",
+                        "name": "Defold for Flash users"
                     }
                 ]
             },
@@ -197,10 +201,6 @@
                     {
                         "path": "/manuals/bundling",
                         "name": "Bundling an application"
-                    },
-                    {
-                        "path": "/manuals/flash",
-                        "name": "Defold for Flash users"
                     }
                 ]
             },
@@ -239,6 +239,10 @@
                     {
                         "path": "/manuals/resource",
                         "name": "Resource management"
+                    },
+                    {
+                        "path": "/manuals/texture-profiles",
+                        "name": "Texture profiles"
                     }
                 ]
             },
@@ -396,10 +400,6 @@
                     {
                         "path": "/manuals/libraries",
                         "name": "Libraries"
-                    },
-                    {
-                        "path": "/manuals/texture-profiles",
-                        "name": "Texture profiles"
                     },
                     {
                         "path": "/manuals/bob",
