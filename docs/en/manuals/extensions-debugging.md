@@ -115,7 +115,7 @@ This allows for the best symbolication of the callstack.
 
 1. Resolve the address
 
-    $ arm-linux-androideabi-addr2line -C -f -e dmengine_1_2_105/lib/armeabi-v7a/libdmengine.so <address>
+    $ arm-linux-androideabi-addr2line -C -f -e dmengine_1_2_105/lib/armeabi-v7a/libdmengine.so _address_
 
 ### iOS
 
