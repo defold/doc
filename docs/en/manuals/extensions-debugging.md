@@ -18,7 +18,7 @@ There are several debuggers around for each platform.
 * XCode - macOS
 * WinDBG - Windows
 * lldb / gdb - macOS, Linux, (Windows)
-* ios-deply - macOS
+* ios-deploy - macOS
 
 And each tool can debug certain platforms:
 
