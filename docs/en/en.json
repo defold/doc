@@ -458,6 +458,10 @@
                     {
                         "path": "/manuals/push",
                         "name": "Push notifications"
+                    },
+                    {
+                        "path": "/manuals/webview",
+                        "name": "Webview"
                     }
                 ]
             },
@@ -479,6 +483,18 @@
                     {
                         "path": "/manuals/extensions-build-variants",
                         "name": "Build Variants"
+                    },
+                    {
+                        "path": "/manuals/extensions-debugging",
+                        "name": "Debugging tips"
+                    },
+                    {
+                        "path": "/manuals/extensions-debugging-android",
+                        "name": "Debugging on Android"
+                    },
+                    {
+                        "path": "/manuals/extensions-debugging-ios",
+                        "name": "Debugging on iOS"
                     }
                 ]
             }
