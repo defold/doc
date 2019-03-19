@@ -454,6 +454,10 @@
                     {
                         "path": "/manuals/push",
                         "name": "Push notifications"
+                    },
+                    {
+                        "path": "/manuals/webview",
+                        "name": "Webview"
                     }
                 ]
             },
