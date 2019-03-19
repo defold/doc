@@ -241,6 +241,10 @@
                         "name": "Resource management"
                     },
                     {
+                        "path": "/manuals/adapting-to-different-screen-sizes",
+                        "name": "Adapting graphics to different screen sizes"
+                    },
+                    {
                         "path": "/manuals/texture-profiles",
                         "name": "Texture profiles"
                     }
