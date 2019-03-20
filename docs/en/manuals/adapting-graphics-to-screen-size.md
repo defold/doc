@@ -122,8 +122,3 @@ You can learn more about these properties [in the GUI manual](/manuals/gui/#_nod
 ### Layouts
 
 Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design GUIs that adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models. You can learn more about this system in the [GUI Layouts manual](/manuals/gui-layouts/)
-
-
-## Testing on different screen resolutions
-
-While it is recommended to test on actual hardware as much as possible it is sometimes more convenient to test how the game behaves on different screen resolutions while developing the game on your local machine. Defold provides a menu option where you can switch between different screen resolutions while the game is running. Selecting a screen resolution option from the menu will resize the window and trigger any window listener set using window.set_listener() as well as apply a new gui layout if needed.
