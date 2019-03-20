@@ -172,23 +172,40 @@
                 ]
             },
             {
-                "name": "WORKFLOW",
+                "name": "PROJECT SETUP",
                 "items": [
+                    {
+                        "path": "/manuals/project-setup",
+                        "name": "Creating a project"
+                    },
                     {
                         "path": "/manuals/workflow",
                         "name": "Workflow"
                     },
                     {
+                        "path": "/manuals/project-settings",
+                        "name": "Project settings"
+                    },
+                    {
+                        "path": "/manuals/libraries",
+                        "name": "Libraries"
+                    }
+                ]
+            },
+            {
+                "name": "WORKFLOW",
+                "items": [
+                    {
                         "path": "/manuals/writing-code",
                         "name": "Writing code"
                     },
                     {
-                        "path": "/manuals/hot-reload",
-                        "name": "Hot reloading"
-                    },
-                    {
                         "path": "/manuals/lua",
                         "name": "Lua in Defold"
+                    },
+                    {
+                        "path": "/manuals/hot-reload",
+                        "name": "Hot reloading"
                     },
                     {
                         "path": "/manuals/debugging",
@@ -199,8 +216,20 @@
                         "name": "Profiling"
                     },
                     {
+                        "path": "/manuals/refactoring",
+                        "name": "Refactoring"
+                    },
+                    {
                         "path": "/manuals/bundling",
                         "name": "Bundling an application"
+                    },
+                    {
+                        "path": "/manuals/bob",
+                        "name": "Bob the builder"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
                     }
                 ]
             },
@@ -387,27 +416,6 @@
                     {
                         "path": "/manuals/shader",
                         "name": "Shader"
-                    }
-                ]
-            },
-            {
-                "name": "PROJECT SETUP",
-                "items": [
-                    {
-                        "path": "/manuals/project-settings",
-                        "name": "Project settings"
-                    },
-                    {
-                        "path": "/manuals/libraries",
-                        "name": "Libraries"
-                    },
-                    {
-                        "path": "/manuals/bob",
-                        "name": "Bob the builder"
-                    },
-                    {
-                        "path": "/manuals/dev-app",
-                        "name": "The mobile dev app"
                     }
                 ]
             },
