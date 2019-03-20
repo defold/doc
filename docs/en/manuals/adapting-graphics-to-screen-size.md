@@ -1,5 +1,5 @@
 ---
-title: Adapting to different screen sizes
+title: Adapting graphics to different screen sizes
 brief: This manual explains how to adapt your game and graphics to different screen sizes.
 ---
 
