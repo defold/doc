@@ -45,7 +45,7 @@ The stretch projection is the default projection but if you have changed from it
 
 ```lua
 function init(self)
-    msg.post("@render:", "use_stretch_projection", { near = 1, far = -1, zoom = 2 })
+    msg.post("@render:", "use_stretch_projection", { near = 1, far = -1 })
 end
 ```
 
