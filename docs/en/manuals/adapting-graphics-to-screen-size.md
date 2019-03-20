@@ -7,15 +7,21 @@ brief: This manual explains how to adapt your game and graphics to different scr
 
 There are several things to consider when adapting your game and graphics to different screen sizes:
 
-* Is this a retro game with low resolution pixel perfect graphics or a modern game with high resolution anti aliased graphics?
+* Is this a retro game with low resolution pixel perfect graphics or a modern game with HD quality graphics?
 * How should the game behave when played in full screen on different screen sizes?
   * Should the player see more of the game content on a high resolution screen or should the graphics adaptively zoom to always show the same content?
 * How should the game deal with aspect ratios other than the one you have set in game.project?
-  * Should the player see more of the game content? Or maybe there should be black bars? Or maybe additional GUI chrome?
+  * Should the player see more of the game content? Or maybe there should be black bars? Or maybe resized GUI elements?
 * What kind of menus and on-screen gui components do you need and how should they adapt to different screen sizes and screen orientations?
- * Should the menus and other gui components and screens change layout when the orientation changes or should they keep the same layout regardless of orientation?
+ * Should menus and other gui components change layout when the orientation changes or should they keep the same layout regardless of orientation?
 
 This manual will address some of these things and suggest best practices.
+
+
+## How to change how your content is rendered
+
+The Defold render script give you total control over the entire rendering pipeline. The render script decides the order as well as what and how to draw things. The default behavior of the render script is to always draw the same area of pixels, defined by the width and height in the *game.project* file, regardless if the window is resized or the actual screen resolution doesn't match. This will result in the content being stretched if the aspect ratio changes and zoomed in or out if the window size changes. In some games this might be acceptable, but it is more likely that you want to show more or less game content if the screen resolution or aspect ratio is different, or at least make sure to zoom the content without changing the aspect ratio. The default stretch behavior can easily be changed and you can read more about how to do this in the [Render manual](https://www.defold.com/manuals/render/#_default_view_projection).
+
 
 ## Retro/8-bit graphics
 
@@ -75,9 +81,10 @@ To this:
 
 ![](images/screen_size/retro-font_with_sampler.png)
 
-## High resolution anti-aliased graphics
 
-When dealing with high resolution graphics we need to approach project and content setup in a different way than for retro/8-bit graphics. With bitmap graphics you need to create your content in such a way that it looks good on a high resolution screen when shown at a 1:1 scale or when scaled up in size.
+## High resolution graphics
+
+When dealing with high resolution graphics we need to approach project and content setup in a different way than for retro/8-bit graphics. With bitmap graphics you need to create your content in such a way that it looks good on a high resolution screen when shown at a 1:1 scale or when scaled up.
 
 Just like for retro/8-bit graphics you need to change the render script. In this case you want the graphics to scale with the screen size while maintaining the original aspect ratio:
 
@@ -95,32 +102,16 @@ If you also wish to support high resolution retina screens you can enable this i
 
 ![](images/screen_size/highdpi-enabled.png)
 
-This will create a high dpi back buffer on displays that support it. Typically the game will render in double the resolution than what is set in the Width and Height settings, which will still be the logical resolution used in scripts and properties. This means that all measurements stay the same and any content that is rendered at 1x scale will look the same. But if you import high res images and scale them to 0.5x they will be high dpi on screen.
-
-
-## How to change how your content is rendered
-
-The Defold render script give you total control over the entire rendering pipeline. The render script decides the order as well as what and how to draw things. The default behavior of the render script is to always draw the same area of pixels, defined by the width and height in the *game.project* file, regardless if the window is resized or the actual screen resolution doesn't match. This will result in the content being stretched if the aspect ratio changes and zoomed in or out if the window size changes. In some games this might be acceptable, but it is more likely that you want to show more or less game content if the screen resolution or aspect ratio is different, or at least make sure to zoom the content without changing the aspect ratio. The default stretch behavior can easily be changed and you can read more about how to do this in the [Render manual](https://www.defold.com/manuals/render/#_default_view_projection).
-
-
-## Optimizing storage and run-time size of graphics
-
-It is important to always keep in mind the limitations of your target platform(s). On mobile devices it is especially important to keep an eye on the both application size and the size the images take up when loaded into memory. When you bundle your game you can also [generate a build report](/manuals/profiling/#_build_reports) containing a breakdown of content included in your application bundle. You can use this to inspect the size on disk and make decisions about reducing the size of certain images or applying image compression (and perhaps also compress audio which usually takes up quite a bit of space).
-
-![](images/profiling/build_report_html.png)
-
-For things such as background images it might for instance be ok to use a small image and scale it up to the desired size. This kind of image size optimization is done on the image before it is added to Defold in an atlas or a tilesource. Once the reduced size image is imported it can be scaled using the normal scale property of a game object or component depending on where it is supposed to be used.
-
-It can also be acceptable to apply compression on images to reduce both storage size and run-time memory usage. Defold supports automatic texture processing and compression of image data using something called texture profiles. The texture profiles match groups of files or individual files to different texture compression algorithms with an option to apply different compression algorithms based on the target platform. You can also use the texture profiles system to disable mipmaps for content that isn't scaled to save further storage space. You can read more about how to use this system in the [Texture Profiles manual](/manuals/texture-profiles/).
+This will create a high dpi back buffer on displays that support it. The game will render in double the resolution than what is set in the Width and Height settings, which will still be the logical resolution used in scripts and properties. This means that all measurements stay the same and any content that is rendered at 1x scale will look the same. But if you import high res images and scale them to 0.5x they will be high dpi on screen.
 
 
 ## Creating an adaptive GUI
 
-The system for creating GUI components is built around a number of basic building blocks, or nodes, and while it may seem overly simple it can be used to create anything from buttons to complex menus and popups. The GUIs that you create can be configured to automatically adapt to screen size or orientation changes using what we call Node Properties and GUI Layouts. You can for instance keep nodes anchored to the top, bottom or sides of the screen and nodes can either keep their size or stretch. The relationship between nodes as well as their size and appearance can also be configured to change when the screen size or orientation changes.
+The system for creating GUI components is built around a number of basic building blocks, or nodes, and while it may seem overly simple it can be used to create anything from buttons to complex menus and popups. The GUIs that you create can be configured to automatically adapt to screen size and orientation changes. You can for instance keep nodes anchored to the top, bottom or sides of the screen and nodes can either keep their size or stretch. The relationship between nodes as well as their size and appearance can also be configured to change when the screen size or orientation changes.
 
 ### Node properties
 
-Each node in a gui has a pivot point, a horizontal and vertical anchor as well as what is called an adjust mode.
+Each node in a gui has a pivot point, a horizontal and vertical anchor as well as an adjust mode.
 
 * The pivot point defines the center point of a node.
 * The anchor mode controls how the node’s vertical and horizontal position is altered when the scene boundaries, or the parent node’s boundaries are stretched to fit the physical screen size.
@@ -135,4 +126,4 @@ Defold supports GUIs that automatically adapt to screen orientation changes on m
 
 ## Testing on different screen resolutions
 
-While it is recommended to test on actual hardware as much as possible it is also at times more convenient to test how the game behaves on different screen resolutions while developing the game on your local machine. Defold provides a menu option where you can switch between different screen resolutions while the game is running. Selecting a screen resolution option from the menu will resize the window and trigger any window listener set using window.set_listener() as well as apply a new gui layout if needed.
+While it is recommended to test on actual hardware as much as possible it is sometimes more convenient to test how the game behaves on different screen resolutions while developing the game on your local machine. Defold provides a menu option where you can switch between different screen resolutions while the game is running. Selecting a screen resolution option from the menu will resize the window and trigger any window listener set using window.set_listener() as well as apply a new gui layout if needed.
