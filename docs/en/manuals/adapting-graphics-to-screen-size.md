@@ -13,7 +13,7 @@ There are several things to consider when adapting your game and graphics to dif
 * How should the game deal with aspect ratios other than the one you have set in game.project?
   * Should the player see more of the game content? Or maybe there should be black bars? Or maybe resized GUI elements?
 * What kind of menus and on-screen gui components do you need and how should they adapt to different screen sizes and screen orientations?
- * Should menus and other gui components change layout when the orientation changes or should they keep the same layout regardless of orientation?
+  * Should menus and other gui components change layout when the orientation changes or should they keep the same layout regardless of orientation?
 
 This manual will address some of these things and suggest best practices.
 
@@ -25,9 +25,9 @@ The Defold render script give you total control over the entire rendering pipeli
 
 ## Retro/8-bit graphics
 
-Retro/8-bit graphics often refer to games emulating the graphical style of old game consoles or computers with their low resolution and limited color palette. As an example the Nintendo Entertainment System (NES) had a screen resolution of 256x240, the C64 320x200 and the Gameboy had 160x144, all of which are only a fraction of the size of modern screens. In order to make games emulating this graphical style and screen resolution playable on a modern high resolution screen the graphics has to be upscaled or zoomed several times. One simple way of doing this is to draw all of your graphics in the low resolution and style that you wish to emulate and zoom the graphics when it is rendered. This can easily be achieved in Defold using the render script and the [Fixed Projection](/manuals/render/#_default_view_projection) set to a suitable zoom value.
+Retro/8-bit graphics often refer to games emulating the graphical style of old game consoles or computers with their low resolution and limited color palette. As an example the Nintendo Entertainment System (NES) had a screen resolution of 256x240, the Commodore 64 had 320x200 and the Gameboy had 160x144, all of which are only a fraction of the size of modern screens. In order to make games emulating this graphical style and screen resolution playable on a modern high resolution screen the graphics has to be upscaled or zoomed several times. One simple way of doing this is to draw all of your graphics in the low resolution and style that you wish to emulate and zoom the graphics when it is rendered. This can easily be achieved in Defold using the render script and the [Fixed Projection](/manuals/render/#_default_view_projection) set to a suitable zoom value.
 
-Let's take this tileset and player character and use them for an 8-bit retro game with a resolution of 320x200:
+Let's take this tileset and player character ([source](https://ansimuz.itch.io/grotto-escape-game-art-pack)) and use them for an 8-bit retro game with a resolution of 320x200:
 
 ![](images/screen_size/retro-player.png)
 
@@ -69,7 +69,7 @@ Now we have crisp pixel-perfect graphics for our retro game. There are even more
 
 ![](images/screen_size/retro-subpixels.png)
 
-With sub-pixels disabled sprites would never get rendered on half-pixels and instead always snapped to the nearest full pixel. Another thing that can be done is to add a texture sampler with filtering set to *nearest* to any font material in use:
+When sub-pixels is disabled sprites will never get rendered on half-pixels and instead always snap to the nearest full pixel. Another thing that can be done is to add a texture sampler with filtering set to *nearest* to any font material in use:
 
 ![](images/screen_size/retro-font_sampler.png)
 
@@ -94,7 +94,7 @@ msg.post("@render:", "use_fixed_fit_projection")
 
 This will make sure that the screen will resize to always show the same amount of content as specified in the *game.project* file, possibly with additional content shown above and below or to the sides, depending on if the aspect ratio differs or not.
 
-You should configure the width and height in the *game.project* file to a size that allows you to show your game content unscaled. With this as the initial size you can easily test how your content will look on different screens using the [window size selection menu](#_testing-on-different-screen-resolutions).
+You should configure the width and height in the *game.project* file to a size that allows you to show your game content unscaled.
 
 ### High DPI setting and retina screens
 
@@ -107,7 +107,7 @@ This will create a high dpi back buffer on displays that support it. The game wi
 
 ## Creating an adaptive GUI
 
-The system for creating GUI components is built around a number of basic building blocks, or nodes, and while it may seem overly simple it can be used to create anything from buttons to complex menus and popups. The GUIs that you create can be configured to automatically adapt to screen size and orientation changes. You can for instance keep nodes anchored to the top, bottom or sides of the screen and nodes can either keep their size or stretch. The relationship between nodes as well as their size and appearance can also be configured to change when the screen size or orientation changes.
+The system for creating GUI components is built around a number of basic building blocks, or [nodes](/manuals/gui/#_node_types), and while it may seem overly simple it can be used to create anything from buttons to complex menus and popups. The GUIs that you create can be configured to automatically adapt to screen size and orientation changes. You can for instance keep nodes anchored to the top, bottom or sides of the screen and nodes can either keep their size or stretch. The relationship between nodes as well as their size and appearance can also be configured to change when the screen size or orientation changes.
 
 ### Node properties
 
