@@ -38,14 +38,14 @@ Afterwards, you can get the logs from your device and analyze them.
 
 Note that Defold by default only prints using dmLog* functions in the debug build.
 
-### [Android](./extensions-debugging-android.md)
+### [Android](/manuals/extensions-debugging-android.md)
 
 On Android, the simplest way to get the log is to run `adb` in the terminal.
 You can also see the `console` inside Android Studio, which is the same thing.
 
 If you get hold of a stack trace from the Android logs, you might be able to symbolicate it using [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html)
 
-### [iOS](./extensions-debugging-ios.md)
+### [iOS](/manuals/extensions-debugging-ios.md)
 
 On iOS, you need to open either iTunes or XCode to view the device logs.
 
@@ -142,10 +142,3 @@ This allows for the best symbolication of the callstack.
 
 		$ atos -arch arm64 -o MyApp.dSYM/Contents/Resources/DWARF/MyApp 0x1001492c4
 		dmCrash::OnCrash(int) (in MyApp) (backtrace_execinfo.cpp:27)
-
-
-
-
-
-
-
