@@ -193,47 +193,6 @@
                 ]
             },
             {
-                "name": "WORKFLOW",
-                "items": [
-                    {
-                        "path": "/manuals/writing-code",
-                        "name": "Writing code"
-                    },
-                    {
-                        "path": "/manuals/lua",
-                        "name": "Lua in Defold"
-                    },
-                    {
-                        "path": "/manuals/hot-reload",
-                        "name": "Hot reloading"
-                    },
-                    {
-                        "path": "/manuals/debugging",
-                        "name": "Debugging"
-                    },
-                    {
-                        "path": "/manuals/profiling",
-                        "name": "Profiling"
-                    },
-                    {
-                        "path": "/manuals/refactoring",
-                        "name": "Refactoring"
-                    },
-                    {
-                        "path": "/manuals/bundling",
-                        "name": "Bundling an application"
-                    },
-                    {
-                        "path": "/manuals/bob",
-                        "name": "Bob the builder"
-                    },
-                    {
-                        "path": "/manuals/dev-app",
-                        "name": "The mobile dev app"
-                    }
-                ]
-            },
-            {
                 "name": "CORE CONCEPTS",
                 "items": [
                     {
@@ -416,6 +375,47 @@
                     {
                         "path": "/manuals/shader",
                         "name": "Shader"
+                    }
+                ]
+            },
+            {
+                "name": "WORKFLOW",
+                "items": [
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
+                    },
+                    {
+                        "path": "/manuals/lua",
+                        "name": "Lua in Defold"
+                    },
+                    {
+                        "path": "/manuals/hot-reload",
+                        "name": "Hot reloading"
+                    },
+                    {
+                        "path": "/manuals/debugging",
+                        "name": "Debugging"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
+                    },
+                    {
+                        "path": "/manuals/refactoring",
+                        "name": "Refactoring"
+                    },
+                    {
+                        "path": "/manuals/bundling",
+                        "name": "Bundling an application"
+                    },
+                    {
+                        "path": "/manuals/bob",
+                        "name": "Bob the builder"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
                     }
                 ]
             },
