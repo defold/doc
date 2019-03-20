@@ -5,17 +5,15 @@ brief: This manual covers how you collaborate in teams and change the structure 
 
 # Workflow
 
-A game project usually consists of a large number of external assets that are produced in various specialized programs for producing graphics, 3D models, sound files, animations and so forth. Defold is built for a workflow where you to work in your external tools and then import the assets into Defold as they are finalized.
+A game project usually consists of a large number of external assets that are produced in various specialized programs for producing graphics, 3D models, sound files, animations and so forth. Defold is built for a workflow where you work in your external tools and then import the assets into Defold as they are finalized.
 
-Defold is built intended for small teams that work in intense collaboration to create games. Team members can work in parallel on the same content with very little friction. Defold is built upon [Git](https://git-scm.com) that is designed for distributed collaborative work. Git is an extremely powerful tool that allows for a wide range of workflows and Defold uses it to provide built in simple and powerful functionality.
+Defold is built intended for small teams that work in intense collaboration to create games. Team members can work in parallel on the same content with very little friction. Defold has built in support for version control using [Git](https://git-scm.com). Git is designed for distributed collaborative work and it is an extremely powerful tool that allows for a wide range of workflows.
 
 ## Your local working copy
 
-Before you can start working on a new project you need to get it to your local disk so the Defold editor can open it. 
+Before you can start working on a new project you need to get it to your local disk so the Defold editor can open it. Refer to the [Project Setup manual](/manuals/project_setup/) for more information.
 
-![open project](images/workflow/open_project.png){srcset="images/workflow/open_project@2x.png 2x"}
-
-Click to open project <kbd>From Dashboard</kbd> to bring up a list of Defold hosted projects that you have access to. Specify a location on your hard drive where the project files will be stored. If you already have a folder on your hard drive containing a Defold project you can open it by clicking open project <kbd>From Disk</kbd>. 
+## Changed files
 
 When you save changes in your local working copy, Defold tracks all changes in the *Changed Files* editor pane, listing each file that has either been added, deleted or modified.
 
@@ -25,6 +23,10 @@ When you save changes in your local working copy, Defold tracks all changes in t
 Select a file in the list and click <kbd>Diff</kbd> to view the changes that you have done to the file or <kbd>Revert</kbd> to undo all changes and restore the file to the state it had after the last synchronization.
 
 ## Synchronizing
+
+::: important
+Project synchronization is only available for projects hosted on the Defold Dashboard. Projects hosted on GitHub or in other Git repositories will not be able to use synchronization.
+:::
 
 To synchronize your project means that the project files are brought into sync with the project as it looks on the server. You should synchronize if:
 
@@ -74,18 +76,6 @@ If you continue pushing and have local changes, you are asked to commit them bef
 
 Press <kbd>Push</kbd> to commit and push your changes to the server.
 
-## Refactoring
-
-Refactoring refers to the process of restructuring existing code and assets. During the development of a project, the need to change or move things around often surfaces: names need to change to adhere to naming conventions or to improve clarity and code or asset files need to move to a more logical place in the project hierarchy.
-
-Defold helps you refactor efficiently by keeping track of how assets are used. It automatically updates references to assets that are renamed and/or moved. As a developer, you should feel free in your work. Your project is a flexible structure that you can change at will without fearing that everything will break and fall to pieces.
-
-However, if you break a reference by, for instance, deleting an asset, the editor can't resolve the problem, but will provide helpful error signals. For example, if you delete an animation from an atlas and that animation is in use somewhere, Defold will signal an error when you try to start the game. The editor will also mark where the errors occur to help you quickly locate the problem:
-
-![Refactoring error](images/workflow/delete_error.png){srcset="images/workflow/delete_error@2x.png 2x"}
-
-Build errors appear in the *Build Errors* pane at the bottom of the editor. <kbd>Double clicking</kbd> an error takes you to the location of the problem.
-
 ## External editors and tools
 
 Defold does not provide editing tools for creating images, sound files, models or animations. Such assets need to be created outside of Defold in specialized tools and imported into Defold. Defold automatically detects changes to any asset in the project hierarchy and updates the editor view accordingly.
@@ -94,7 +84,7 @@ There is currently no way to hook custom build steps into the in-editor builder,
 
 The editor saves all Defold assets in text based files that are merge friendly. They are also easy to create and modify with simple scripts. See [this forum thread](https://forum.defold.com/t/deftree-a-python-module-for-editing-defold-files/15210) for more information. Note though that we do not publish our file format details since they do change once in a while.
 
-Extra care should be taken when working with Defold asset files through a text editor or external tool. If you introduce errors those can prevent the file from opening in the Defold editor. 
+Extra care should be taken when working with Defold asset files through a text editor or external tool. If you introduce errors those can prevent the file from opening in the Defold editor.
 
 ## Git
 

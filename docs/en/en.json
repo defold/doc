@@ -172,35 +172,23 @@
                 ]
             },
             {
-                "name": "WORKFLOW",
+                "name": "PROJECT SETUP",
                 "items": [
+                    {
+                        "path": "/manuals/project-setup",
+                        "name": "Creating a project"
+                    },
                     {
                         "path": "/manuals/workflow",
                         "name": "Workflow"
                     },
                     {
-                        "path": "/manuals/writing-code",
-                        "name": "Writing code"
+                        "path": "/manuals/project-settings",
+                        "name": "Project settings"
                     },
                     {
-                        "path": "/manuals/hot-reload",
-                        "name": "Hot reloading"
-                    },
-                    {
-                        "path": "/manuals/lua",
-                        "name": "Lua in Defold"
-                    },
-                    {
-                        "path": "/manuals/debugging",
-                        "name": "Debugging"
-                    },
-                    {
-                        "path": "/manuals/profiling",
-                        "name": "Profiling"
-                    },
-                    {
-                        "path": "/manuals/bundling",
-                        "name": "Bundling an application"
+                        "path": "/manuals/libraries",
+                        "name": "Libraries"
                     }
                 ]
             },
@@ -395,15 +383,35 @@
                 ]
             },
             {
-                "name": "PROJECT SETUP",
+                "name": "WORKFLOW",
                 "items": [
                     {
-                        "path": "/manuals/project-settings",
-                        "name": "Project settings"
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
                     },
                     {
-                        "path": "/manuals/libraries",
-                        "name": "Libraries"
+                        "path": "/manuals/lua",
+                        "name": "Lua in Defold"
+                    },
+                    {
+                        "path": "/manuals/hot-reload",
+                        "name": "Hot reloading"
+                    },
+                    {
+                        "path": "/manuals/debugging",
+                        "name": "Debugging"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
+                    },
+                    {
+                        "path": "/manuals/refactoring",
+                        "name": "Refactoring"
+                    },
+                    {
+                        "path": "/manuals/bundling",
+                        "name": "Bundling an application"
                     },
                     {
                         "path": "/manuals/bob",
