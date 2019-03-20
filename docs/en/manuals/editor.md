@@ -28,6 +28,8 @@ Import project
 
   Access to the Defold cloud git storage requires that you provide your Defold account credentials.
 
+You can learn more about the different options in the [Project Setup manual](https://www.defold.com/manuals/project-setup/).
+
 ## The editor views
 
 The Defold editor is separated into a set of panes, or views, that display specific information.
@@ -136,4 +138,3 @@ Type a suitable name for the new file. The full file name including the file typ
 To add asset files (images, sounds, models etc) to your project, simply drag and drop them to the correct position in the *Assets* browser. This will make _copies_ of the files at the selected location in the project file structure.
 
 ![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
-
