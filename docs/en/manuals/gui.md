@@ -5,7 +5,7 @@ brief: This manual goes through the Defold GUI editor, the various types of GUI 
 
 # GUI
 
-Defold provides you with a custom GUI editor and powerful scripting possibilities that are tailor made for the construction and implementation of user interfaces. 
+Defold provides you with a custom GUI editor and powerful scripting possibilities that are tailor made for the construction and implementation of user interfaces.
 
 A graphical user interface in Defold is a component that you build and attach to a game object and place in a collection. This component has the following properties:
 
@@ -184,7 +184,7 @@ Layer
 
 Blend mode
 : Controls how the graphics of the node is blended with background graphics:
-  - `Alpha` alpha blends the pixel values of the node with the background. This corresponds to "Normal" blend mode in graphics software. 
+  - `Alpha` alpha blends the pixel values of the node with the background. This corresponds to "Normal" blend mode in graphics software.
   - `Add` adds the pixel values of the node with the background. This corresponds to "Linear dodge" in some graphics software.
   - `Multiply` multiplies the pixel values of the node with the background.
 
@@ -201,7 +201,7 @@ X Anchor, Y Anchor
 : Anchoring controls how the node's vertical and horizontal position is altered when the scene boundaries, or the parent node's boundaries are stretched to fit the physical screen size.
 
   ![Anchor unadjusted](images/gui/anchoring_unadjusted.png){srcset="images/gui/anchoring_unadjusted@2x.png 2x"}
-  
+
   The following anchoring modes are available:
 
   - `None` (for both *X Anchor* and *Y Anchor*) keeps the node's position from the center of the parent node or scene, relative it's *adjusted* size.
@@ -242,7 +242,48 @@ Clipping Inverted (box, pie and spine nodes)
 : Invert the stencil mask. See the [GUI clipping manual](/manuals/gui-clipping) for details.
 
 
-## Draw order 
+## Pivot, Anchors and Adjust Mode
+
+The combination of Pivot, Anchors and Adjust Mode properties allows for a very flexible design of GUIs but it can be somewhat hard to understand how it all works without looking at a concrete example. Let's take this GUI mockup created for a 640x1136 screen as an example:
+
+![](images/gui/adjustmode_example_original.png)
+
+The UI is created with X and Y Anchors set to None and the Adjust Mode for each node is left at the default value of Fit. The Pivot point for the top panel is North, the pivot for the bottom panel is South and the pivot point for the bars in the top panel are set to West. The rest of the nodes have pivot points set to Center. If we resize the window to make it wider this is what happens:
+
+![](images/gui/adjustmode_example_resized.png)
+
+Now, what if we want the top and bottom bars to always be as wide as the screen? We can change the Adjust Mode for the grey background panels at the top and bottom to Stretch:
+
+![](images/gui/adjustmode_example_resized_stretch.png)
+
+This is better. The grey background panels will now always stretch to the width of the window, but the bars in the top panel as well as the two boxes at the bottom aren't positioned properly. If we want to keep the bars at the top positioned to the left we need to change the X Anchor from None to Left:
+
+![](images/gui/adjustmode_example_top_anchor_left.png)
+
+That is exactly as we want it for the top panel. The bars in the top panel already had their Pivot points set to West which means that they will position themselves nicely with the left/west edge of the bars (Pivot) anchored to the left edge of the parent panel (X Anchor).
+
+Now, if we set the X Anchor to Left for the box on the left and the X Anchor to Right for the box on the right we get the following result:
+
+![](images/gui/adjustmode_example_bottom_anchor_left_right.png)
+
+This is not quite the expected result. The two boxes should stay as close to the left and right edges as the two bars did in the top panel. The reason for this is that the Pivot point is wrong:
+
+![](images/gui/adjustmode_example_bottom_pivot_center.png)
+
+Both boxes have a Pivot point set to Center. What this means is that when the screen becomes wider the center point (the pivot point) of the boxes will stay at the same relative distance from the edges. In the case of the left box it was 17% from the left edge with the original 640x1136 window:
+
+![](images/gui/adjustmode_example_original_ratio.png)
+
+When the screen is resized the center point of the left box remains at the same distance of 17% from the left edge:
+
+![](images/gui/adjustmode_example_resized_stretch_ratio.png)
+
+If we change the Pivot point from Center to West for the box on the left and to East for the box on the right and reposition the boxes we get the result we're after even when the screen is resized:
+
+![](images/gui/adjustmode_example_bottom_pivot_west_east.png)
+
+
+## Draw order
 
 All nodes are rendered in the order they are listed under the "Nodes" folder. The node at the top of the list is drawn first and will thus appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Altering the Z-value on a node does not control its draw order; however, if you set the Z-value outside of your render script's render range the node will no longer be rendered to screen. You can override the index ordering of nodes with layers (see below).
 
