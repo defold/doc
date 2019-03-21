@@ -47,7 +47,7 @@ Now that the window size is more reasonable we also need to do something about t
 msg.post("@render:", "use_fixed_projection", { zoom = 4 })
 ```
 
-Which will give the following result:
+This will give the following result:
 
 ![](images/screen_size/retro-zoomed_1280x800.png)
 
@@ -69,7 +69,7 @@ Now we have crisp pixel-perfect graphics for our retro game. There are even more
 
 ![](images/screen_size/retro-subpixels.png)
 
-When sub-pixels is disabled sprites will never get rendered on half-pixels and instead always snap to the nearest full pixel. Another thing that can be done is to add a texture sampler with filtering set to *nearest* to any font material in use:
+When the Subpixels option is disabled sprites will never get rendered on half pixels and instead always snap to the nearest full pixel. Another thing that can be done is to add a texture sampler with filtering set to *nearest* to any font material in use:
 
 ![](images/screen_size/retro-font_sampler.png)
 
@@ -84,7 +84,7 @@ To this:
 
 ## High resolution graphics
 
-When dealing with high resolution graphics we need to approach project and content setup in a different way than for retro/8-bit graphics. With bitmap graphics you need to create your content in such a way that it looks good on a high resolution screen when shown at a 1:1 scale or when scaled up.
+When dealing with high resolution graphics we need to approach project and content setup in a different way than for retro/8-bit graphics. With bitmap graphics you need to create your content in such a way that it looks good on a high resolution screen when shown at a 1:1 scale.
 
 Just like for retro/8-bit graphics you need to change the render script. In this case you want the graphics to scale with the screen size while maintaining the original aspect ratio:
 
@@ -121,4 +121,4 @@ You can learn more about these properties [in the GUI manual](/manuals/gui/#_nod
 
 ### Layouts
 
-Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design GUIs that adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models. You can learn more about this system in the [GUI Layouts manual](/manuals/gui-layouts/)
+Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design a GUI that can adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models. You can learn more about this system in the [GUI Layouts manual](/manuals/gui-layouts/)
