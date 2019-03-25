@@ -63,11 +63,11 @@ The first step is to download the following package. It is a zip package that co
 
 <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/runner-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
-Now, if you haven't already downloaded and installed the Defold editor, it's time to do that. You find the download link on the [Defold Dashboard](//www.defold.com/dashboard/). Then start the program.
+Now, if you haven't already downloaded and installed the Defold editor, it's time to do that:
 
-![Download editor](images/runner/1/download_editor.png)
+:[install](../shared/install.md)
 
-When the editor is started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#_creating_a_new_project) from the "Empty Project" template.
+When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#_creating_a_new_project) from the "Empty Project" template.
 
 ## The editor
 

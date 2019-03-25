@@ -1,7 +1,5 @@
 ## Downloading
 
-If you haven't already downloaded and installed the Defold editor, it's time to do that.
-
 Go to the [Defold download page](http://d.defold.com/stable/) where you will find Download buttons for macOS, Windows and Linux (Ubuntu):
 
 ![download editor](../shared/images/editor_download.png)
