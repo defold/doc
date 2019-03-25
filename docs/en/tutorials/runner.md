@@ -17,7 +17,7 @@ In this tutorial we start with an empty project and build a complete runner game
   <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
   <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
   <script type='text/javascript'>
-      /* Load app on click in container. */
+      // Load app on click in container.
       document.getElementById("game-button").onclick = function (e) {
           var extra_params = {
               archive_location_filter: function( path ) {
@@ -63,33 +63,15 @@ The first step is to download the following package. It is a zip package that co
 
 <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/runner-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
-Now it's time to create a new project and getting it ready. If you are familiar with the process, head over to [www.defold.com](//www.defold.com) and log in to the dashboard. If you are not familiar with the steps, here they are.
-
-* If you haven't yet signed up to be a Defold developer, do so!
-* When you signed up a "Getting Started Tutorial" project was created for you. Use this project for the tutorial.
-* Alternativly you can create a new project on the [Defold Dashboard](//www.defold.com/dashboard/). In this tutorial we choose to start from a blank slate.
-
-![The Dashboard](images/runner/1/dashboard.png)
-
-![Dashboard new project](images/runner/1/dashboard_new_project.png)
-
 Now, if you haven't already downloaded and installed the Defold editor, it's time to do that. You find the download link on the [Defold Dashboard](//www.defold.com/dashboard/). Then start the program.
 
 ![Download editor](images/runner/1/download_editor.png)
 
+When the editor is started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#_creating_a_new_project) from the "Empty Project" template.
+
 ## The editor
 
-The first time you start the editor, you will be prompted to log in to the Defold server where all your project data is stored. The editor starts blank, without any project open so choose <kbd>File ▸ Open Project</kbd> from the menu and select your newly created project. You will also be prompted to create a "branch" for the project.
-
-::: sidenote
-Defold uses Git to store and sync your code between different computers or team members. A branch is a local copy of the code that is stored on your computer and you can can have multiple branches if you are working on multiple versions of your game. You can name your branch anything, but we recommend naming it "master".
-
-For the Git savvy people---the branches you create in the editor are local branches only.
-
-When you do that a local copy of the whole project will be created on your computer. Any changes you do to the project will be saved in the branch. Whenever you select <kbd>File ▸ Synchronize</kbd> from the menu, your branch will be synchronized with the project on the Defold server. This means that your changes will be sent to the server and any changes that may have happened on the server is brought to your branch. If you're working in a team this is very powerful for collaboration.
-
-The [Workflow documentation](//www.defold.com/manuals/workflow) explains how all this works in more detail.
-:::
+The first time you start the editor, the editor starts blank, without any project open so choose <kbd>Open Project</kbd> from the menu and select your newly created project. You will also be prompted to create a "branch" for the project.
 
 Now, in the *Project Explorer* you will see all files that are part of the project. If you double-click the file "main/main.collection" the file will open up in the editor view in the center:
 

@@ -19,7 +19,7 @@ This tutorial is written as a step-by-step guide where we build the game on a co
     <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
     <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
     <script>
-        /* Load app on click in container. */
+        // Load app on click in container.
         document.getElementById("game-button").onclick = function (e) {
             var extra_params = {
                 archive_location_filter: function( path ) {
@@ -40,24 +40,14 @@ This tutorial is written as a step-by-step guide where we build the game on a co
 
 ## Getting started
 
-There are two ways you can follow this tutorial. Either you start a clean, empty project in Defold, download the asset package and build the game step-by-step.
+You need to start by creating a new project and importing the asset package:
 
-* Go to the [Defold Dashboard](//www.defold.com/dashboard/)
-* Click *New Project*
-* Choose a name for the project and select the "Empty Project" template
+* Create a [new project](/manuals/project-setup/#_creating_a_new_project) from the "Empty Project" template
 * Download the "Magic Link" asset package and unpack it on your hard drive (the package is a ZIP archive)
 
 <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/magic-link-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
 ![Magic Link asset pack](images/magic-link/linker_assets.png)
-
-The other option is to create a new project based on the "Magic Link" project template.
-
-* Go to the [Defold Dashboard](//www.defold.com/dashboard/)
-* Click *New Project*
-* Choose a name for the project and select the "Magic Link" template
-
-The new project will contain the fully functional game. You can browse the project files and use this tutorial as a guide to how everything is put together.
 
 ## Game rules
 

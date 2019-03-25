@@ -15,24 +15,28 @@ Libraries are useful for the following purposes:
 
 ## Setting up library sharing
 
-Suppose you want to build a library containing shared sprites and tile sources. You start by setting up a new project in the Defold dashboard (see the [Workflow documentation](/manuals/workflow) for details). Decide what folders you want to share from the project and add the names of those folders to the *include_dirs* property in the Project settings. If you want to list more than one folder, separate the names with spaces:
+Suppose you want to build a library containing shared sprites and tile sources. You start by [setting up a new project](/manuals/project-setup/). Decide what folders you want to share from the project and add the names of those folders to the *include_dirs* property in the Project settings. If you want to list more than one folder, separate the names with spaces:
 
 ![Include dirs](images/libraries/libraries_include_dirs.png)
 
-The Defold server needs to know that the project contain folders that should be shared. Therefore, make sure to _Synchronize your project_. Now, before we can add this library to another project we need to a way to locate the library.
+Before we can add this library to another project we need to a way to locate the library.
 
 ## Library URL
 
-Libraries are referred to via a standard URL. For a project hosted on the Defold servers it would be the Library URL that can be found in the Dashboard. Just select the relevant project and write down or copy the URL:
-
-![Library URL](images/libraries/libraries_library_url.png)
-
-For a project hosted on GitHub it would be the URL to a project release:
+Libraries are referred to via a standard URL. For a project hosted on GitHub it would be the URL to a project release:
 
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
+For a project hosted on the Defold servers it would be the Library URL that can be found in the Dashboard. Just select the relevant project and write down or copy the URL:
+
+![Library URL](images/libraries/libraries_library_url.png)
+
 ::: important
 It is recommend to always depends on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
+:::
+
+::: important
+Note that you need read access to the Library URL. For GitHub projects, that means that the project has to be either public or that you have generated an access token. For Defold hosted projects, that means you need to be a member of the dependent projects.
 :::
 
 ## Setting up library dependencies

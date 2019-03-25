@@ -27,9 +27,7 @@ Can I trust Defold for professional development?
 
 Why do I have to store my games on Defold's servers?
 
-: You don't have to. Starting with Defold editor 2 you can store your games wherever you want. Defold was originally designed to be a complete turnkey service, including collaboration tools and storage. There are benefits to using our servers and we will continue to supply value to those who do use it through the dashboard. However, we realize that some users prefer other storage providers and we are working on supporting that.
-
-  If you are tech-savvy, there is a workaround available. See [this HOWTO on our forum](//forum.defold.com/t/howto-alternative-project-hosting/1309).
+: You don't have to. Starting with Defold editor 2 you can open projects from any location on your hard drive and they can be either completely local, imported from the Defold dashboard or cloned from any version control system to your harddrive.
 
 What kind of user tracking are you doing?
 
