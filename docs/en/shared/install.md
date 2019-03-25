@@ -2,18 +2,9 @@
 
 If you haven't already downloaded and installed the Defold editor, it's time to do that.
 
-Log in to the [Defold Dashboard](//www.defold.com/dashboard/) where you will find a "Download editor" menu button:
+Go to the [Defold download page](http://d.defold.com/stable/) where you will find Download buttons for macOS, Windows and Linux (Ubuntu):
 
-![download editor](../shared/images/dashboard_download.png)
-
-Click "Download editor" and select the right package for your computer:
-
-* MacOS
-* Windows (32 bit)
-* Windows (64 bit)
-* Linux (64 bit)
-
-There are also builds of the legacy editor 1 avaliable.
+![download editor](../shared/images/editor_download.png)
 
 ## Installation
 
