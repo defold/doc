@@ -269,7 +269,7 @@ The visual profiler accessible through the `"toggle_profile"` message sent to th
 
 A draw call is the term used to describe the process of setting up the GPU to draw an object to the screen using a texture and a material with optional additional settings. This process is usually resource intensive and it is recommended that the number of draw calls are as few as possible. You can measure the number of the draw calls and the time it takes to render them using the [built-in profiler](/manuals/profiling/).
 
-Defold will try batch render operation to reduce the number of draw calls according to a set of rules defined below. The rules differ between GUI components and all other component types.
+Defold will try to batch render operation to reduce the number of draw calls according to a set of rules defined below. The rules differ between GUI components and all other component types.
 
 
 ### Batch rules for non-GUI components
@@ -278,7 +278,7 @@ Rendering is done based on z-order, from low to high. The engine will start by s
 
 * Belongs to the same collection proxy
 * Is of the same component type (sprite, particle fx, tilemap etc)
-* Use the same texture (atlas or tile source)
+* Uses the same texture (atlas or tile source)
 * Has the same material
 * Has the same shader constants (such as tint)
 
@@ -290,12 +290,12 @@ This means that if two sprite components in the same collection proxy has adjace
 Rendering of the nodes in a GUI component are done from top to bottom of the node list. Each node in the list will be grouped into the same draw call as the previous node if the following conditions are met:
 
 * Is of the same type (box, text, pie etc)
-* Use the same texture (atlas or tile source)
-* Use the same blend mode.
-* Use the same font (only for text nodes)
+* Uses the same texture (atlas or tile source)
+* Has the same blend mode.
+* Has the same font (only for text nodes)
 
 ::: sidenote
-Rendering of nodes are done per component. This means that nodes from different GUI components will not be batched. 
+Rendering of nodes are done per component. This means that nodes from different GUI components will not be batched.
 :::
 
 The ability to arrange nodes in hierarchies makes it easy to group nodes into manageable units. But hierarchies can effectively break batch rendering if you mix different node types. It is possible to more effectively batch GUI nodes while maintaining node hierarchies using GUI layers. You can read more about GUI layers and how they affect draw calls in the [GUI manual](/manuals/gui#_layers_and_draw_calls).
