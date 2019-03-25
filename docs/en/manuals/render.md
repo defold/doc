@@ -293,6 +293,7 @@ Rendering of the nodes in a GUI component are done from top to bottom of the nod
 * Uses the same texture (atlas or tile source)
 * Has the same blend mode.
 * Has the same font (only for text nodes)
+* Has the same stencil settings
 
 ::: sidenote
 Rendering of nodes are done per component. This means that nodes from different GUI components will not be batched.
