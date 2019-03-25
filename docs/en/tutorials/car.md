@@ -9,25 +9,11 @@ If you are new to Defold, this guide will help you getting your bearings right i
 
 We're going to start from an empty project and work step by step to a very small, playable application. At the end you will hopefully have a feel for how Defold works and you will be ready to tackle a more extensive tutorial or dive right into the manuals.
 
-## The Dashboard
-
-* Start by creating a new project on the [Defold Dashboard](//www.defold.com/dashboard/).
-* If you haven't yet signed up to be a Defold developer, please do so.
-* Name your project and choose the "Empty" project template.
-
-![The Dashboard](images/car/start_dashboard.png)
-
-![Dashboard new project](images/car/start_dashboard_new_project.png)
-
-Now, if you haven't already downloaded and installed the Defold editor, it's time to do that. Then start the program.
-
 ## The editor
 
-The editor starts without any project open so choose <kbd>File ▸ Open Project</kbd> from the menu and select your newly created project. You will also be prompted to create a "branch" for the project. When you do that a local copy of the whole project will be created on your computer. Any changes you do to the project will be saved in the branch. Whenever you select <kbd>File ▸ Synchronize</kbd> from the menu, your branch will be synchronized with the project on the Defold server. This means that your changes will be sent to the server and any changes that may have happened on the server is brought to your branch. If you're working in a team this is very powerful for collaboration.
+Start by creating a [new project](/manuals/project-setup/) and opening it in the editor. If you double-click the file *main/main.collection* the file will open up:
 
-If you double-click the file *main/main.collection* the file will open up:
-
-![Editor overview](images/car/start_editor_overview.png)
+![Editor overview](../manuals/images/editor/editor2_overview.png)
 
 The editor consists of the following main areas:
 
