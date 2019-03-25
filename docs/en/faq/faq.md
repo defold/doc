@@ -27,7 +27,7 @@ Can I trust Defold for professional development?
 
 Why do I have to store my games on Defold's servers?
 
-: You don't have to. Starting with Defold editor 2 you can open projects from any location on your hard drive and they can be either completely local, imported from the Defold dashboard or cloned from any version control system to your harddrive.
+: You don't have to. Starting with Defold editor 2 you can open projects from any location on your hard drive and the projects can be either completely local, imported from the Defold dashboard or cloned from any version control system to your hard drive.
 
 What kind of user tracking are you doing?
 
