@@ -17,7 +17,7 @@ Click the <kbd>New Project</kbd> option and select what kind of project you woul
 
 A local project will have no integration with any version control system, meaning that the files reside only on your hard drive. Any changes you make to the files are permanent and there is no way to revert changes or recover deleted files. It is recommended to use a version control system such as Git to track changes to your files. This also makes it very easy to collaborate on a project with other people. Uploading a local project to GitHub can be done in just a few steps:
 
-1. Create or login to an account on GitHub
+1. Create or login to an account on [GitHub](https://github.com/)
 2. Create a repository using the [New Repository](https://help.github.com/en/articles/creating-a-new-repository) option
 3. Upload all project files via the [Upload Files](https://help.github.com/en/articles/adding-a-file-to-a-repository) option
 
