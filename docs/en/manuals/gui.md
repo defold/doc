@@ -44,7 +44,7 @@ Material
 Adjust Reference
 : Controls how each node's *Adjust Mode* should be calculated:
 
-  - `Per Node` adjusts eack node against the adjusted size of the parent node, or the resized screen.
+  - `Per Node` adjusts each node against the adjusted size of the parent node, or the resized screen.
   - `Disable` turns off node adjust mode. This forces all nodes to keep their set size.
 
 Max Nodes
