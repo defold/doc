@@ -9,9 +9,17 @@ You can easily create a new project from within the Defold editor. You also have
 
 ## Creating a new local project
 
-Click the <kbd>New Project</kbd> option and select what kind of project you would like to create. Specify a location on your hard drive where the project files will be stored. Click <kbd>Create New Project</kbd> to create the project in the location you've chosen.
+Click the <kbd>New Project</kbd> option and select what kind of project you would like to create. Specify a location on your hard drive where the project files will be stored. Click <kbd>Create New Project</kbd> to create the project in the location you've chosen. You can create a new project from a Template:
 
 ![open project](images/workflow/open_project.png){srcset="images/workflow/open_project@2x.png 2x"}
+
+Or from a Tutorial with step by step instructions:
+
+![create project from tutorial](images/workflow/create_from_tutorial.png)
+
+Or from a finished Sample game:
+
+![create project from sample](images/workflow/create_from_sample.png)
 
 ### Adding the project to GitHub
 
