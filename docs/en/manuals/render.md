@@ -45,7 +45,7 @@ The stretch projection is the default projection but if you have changed from it
 
 ```lua
 function init(self)
-    msg.post("@render:", "use_stretch_projection", { near = 1, far = -1 })
+    msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 end
 ```
 
@@ -69,7 +69,7 @@ You enable the fixed fit projection by sending a message to the render script:
 
 ```lua
 function init(self)
-    msg.post("@render:", "use_fixed_fit_projection", { near = 1, far = -1 })
+    msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 end
 ```
 
@@ -93,7 +93,7 @@ You enable the fixed projection by sending a message to the render script:
 
 ```lua
 function init(self)
-    msg.post("@render:", "use_fixed_projection", { near = 1, far = -1, zoom = 2 })
+    msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 end
 ```
 
