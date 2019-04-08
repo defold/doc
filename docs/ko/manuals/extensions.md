@@ -52,6 +52,7 @@ Defold 에디터는 기본적으로 .cpp 파일을 열 수 없으므로 파일�
 
 // include the Defold SDK
 #include <dmsdk/sdk.h>
+#include <malloc.h>
 
 static int Rot13(lua_State* L)
 {

@@ -71,6 +71,7 @@ The extension source file contains the following code:
 
 // include the Defold SDK
 #include <dmsdk/sdk.h>
+#include <malloc.h>
 
 static int Rot13(lua_State* L)
 {
