@@ -1,24 +1,17 @@
 ---
-title: Workflows in Defold
-brief: This manual covers how you collaborate in teams and change the structure of your project easily with the help of powerful refactoring. The manual also covers topics like external editors and the underlying Git tools.
+title: Version control
+brief: This manual covers how to work with the built in version control system.
 ---
 
-# Workflow
-
-A game project usually consists of a large number of external assets that are produced in various specialized programs for producing graphics, 3D models, sound files, animations and so forth. Defold is built for a workflow where you work in your external tools and then import the assets into Defold as they are finalized.
+# Version control
 
 Defold is built intended for small teams that work in intense collaboration to create games. Team members can work in parallel on the same content with very little friction. Defold has built in support for version control using [Git](https://git-scm.com). Git is designed for distributed collaborative work and it is an extremely powerful tool that allows for a wide range of workflows.
-
-## Your local working copy
-
-Before you can start working on a new project you need to get it to your local disk so the Defold editor can open it. Refer to the [Project Setup manual](/manuals/project_setup/) for more information.
 
 ## Changed files
 
 When you save changes in your local working copy, Defold tracks all changes in the *Changed Files* editor pane, listing each file that has either been added, deleted or modified.
 
 ![changed files](images/workflow/changed_files.png){srcset="images/workflow/changed_files@2x.png 2x"}
-
 
 Select a file in the list and click <kbd>Diff</kbd> to view the changes that you have done to the file or <kbd>Revert</kbd> to undo all changes and restore the file to the state it had after the last synchronization.
 
@@ -75,16 +68,6 @@ If you continue pushing and have local changes, you are asked to commit them bef
 ![stage](images/workflow/stage.png)
 
 Press <kbd>Push</kbd> to commit and push your changes to the server.
-
-## External editors and tools
-
-Defold does not provide editing tools for creating images, sound files, models or animations. Such assets need to be created outside of Defold in specialized tools and imported into Defold. Defold automatically detects changes to any asset in the project hierarchy and updates the editor view accordingly.
-
-There is currently no way to hook custom build steps into the in-editor builder, but we provide a stand-alone build pipeline (see [Bob the builder](/manuals/bob)) that can be incorporated in any pipeline.
-
-The editor saves all Defold assets in text based files that are merge friendly. They are also easy to create and modify with simple scripts. See [this forum thread](https://forum.defold.com/t/deftree-a-python-module-for-editing-defold-files/15210) for more information. Note though that we do not publish our file format details since they do change once in a while.
-
-Extra care should be taken when working with Defold asset files through a text editor or external tool. If you introduce errors those can prevent the file from opening in the Defold editor.
 
 ## Git
 

@@ -179,10 +179,6 @@
                         "name": "Creating a project"
                     },
                     {
-                        "path": "/manuals/workflow",
-                        "name": "Workflow"
-                    },
-                    {
                         "path": "/manuals/project-settings",
                         "name": "Project settings"
                     },
@@ -216,6 +212,10 @@
             {
                 "name": "ASSETS AND RESOURCES",
                 "items": [
+                    {
+                        "path": "/manuals/importing-assets",
+                        "name": "Importing and editing assets"
+                    },
                     {
                         "path": "/manuals/animation",
                         "name": "Animation"
@@ -385,6 +385,10 @@
             {
                 "name": "WORKFLOW",
                 "items": [
+                    {
+                        "path": "/manuals/version-control",
+                        "name": "Version control"
+                    },
                     {
                         "path": "/manuals/writing-code",
                         "name": "Writing code"
