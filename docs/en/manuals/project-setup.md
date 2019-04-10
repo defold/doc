@@ -37,6 +37,10 @@ Click the <kbd>Import Project</kbd> option to bring up a list of Defold hosted p
 
 ![import project](images/workflow/import_project.png)
 
+### Migrating a project to GitHub
+
+You can migrate a Defold hosted project to GitHub by following [this guide from the Defold forum](https://forum.defold.com/t/howto-alternative-project-hosting/1309). This process will retain all of the commit history from the original repository.
+
 ## Open an existing project
 
 Click the <kbd>Open From Disk</kbd> option to open a project already located on your computer.
