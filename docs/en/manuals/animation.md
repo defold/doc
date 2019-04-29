@@ -40,14 +40,16 @@ Property animation
 Sprites and GUI box nodes can play flip-book animations and you have great control over them at runtime.
 
 Sprites
-: To run an animation during runtime you post [`play_animation`](/ref/sprite#play_animation) messages to the Sprite component you want to animate the texture on.
-
-  As soon as an animation is finished playing, the engine sends back an [`animation_done`](/ref/sprite#animation_done) message to the script that sent the `play_animation` message.
+: To run an animation during runtime you use the [`sprite.play_flipbook()`](/ref/#sprite.play_flipbook:url-id--complete_function---play_properties-) function. See below for an example.
 
 GUI box nodes
 : To run an animation during runtime you use the [`gui.play_flipbook()`](/ref/gui#play_flipbook) function. See below for an example.
 
-## Sprite example
+::: sidenote
+The playback mode once ping-pong will play the animation until the last frame and then reverse the order and play back until the **second** frame of the animation, not back to the first frame. This is done so that chaining of animations becomes easier.
+:::
+
+### Sprite example
 
 Suppose that your game has a "dodge" feature that allows the player to press a specific button to dodge. You have created four animations to support the feature with visual feedback:
 
@@ -66,34 +68,32 @@ Suppose that your game has a "dodge" feature that allows the player to press a s
 The following script provides the logic:
 
 ```lua
+
+local function play_idle_animation(self)
+    if self.dodge then
+        sprite.play_flipbook("#sprite", hash("dodge_idle"))
+    else
+        sprite.play_flipbook("#sprite", hash("idle"))
+    end
+end
+
 function on_input(self, action_id, action)
     -- "dodge" is our input action
     if action_id == hash("dodge") then
         if action.pressed then
-            msg.post("#sprite", "play_animation", {id = hash("start_dodge")})
+            sprite.play_flipbook("#sprite", hash("start_dodge"), play_idle_animation)
             -- remember that we are dodging
             self.dodge = true
         elseif action.released then
-            msg.post("#sprite", "play_animation", {id = hash("stop_dodge")})
+            sprite.play_flipbook("#sprite", hash("stop_dodge"), play_idle_animation)
             -- we are not dodging anymore
             self.dodge = false
         end
     end
 end
-
-function on_message(self, message_id, message, sender)
-    if message_id == hash("animation_done") then
-        -- one of the transition animations is finished, let's start looping
-        if self.dodge then
-            msg.post("#sprite", "play_animation", {id = hash("dodge_idle")})
-        else
-            msg.post("#sprite", "play_animation", {id = hash("idle")})
-        end
-    end
-end
 ```
 
-## GUI box node example
+### GUI box node example
 
 When selecting an animation or image for a node, you are in fact assigning the image source (atlas or tile source) and default animation in one go. The image source is statically set in the node, but the current animation to play can be changed in runtime. Still images are treated as one frame animations so changing an image means in run time is equivalent to playing a different flip book animation for the node:
 
@@ -112,7 +112,7 @@ end
 
 An optional function that is called on completion can be provided. It will be called on animations that are played back in any of the `ONCE_*` modes.
 
-## Animating Spine models
+## Spine model animation
 
 To run animations on your model, simply call the [`spine.play_anim()`](/ref/spine#spine.play_anim) function:
 
@@ -133,7 +133,7 @@ end
 
 If an animation is played with any of the `go.PLAYBACK_ONCE_*` modes and you have provided a callback function to `spine.play_anim()` the callback is run on animation complete. See below for information on callbacks.
 
-## Cursor animation
+### Spine model - Cursor animation
 
 In addition to using the `spine.play_anim()` to advance a spine animation, *Spine Model* components expose a "cursor" property that can be manipulated with `go.animate()`:
 
@@ -152,7 +152,7 @@ go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOU
 When tweening or setting the cursor, timeline events may not fire as expected.
 :::
 
-## The bone hierarchy
+### Spine model - The bone hierarchy
 
 The individual bones in the Spine skeleton are represented internally as game objects. In the *Outline* view of the Spine model component, the full hierarchy is visible. You can see each bone's name and its place in the skeleton hierarchy.
 
@@ -166,7 +166,7 @@ local hand = spine.get_go("heroine#spinemodel", "front_hand")
 msg.post("pistol", "set_parent", { parent_id = hand })
 ```
 
-## Timeline events
+### Spine model - Timeline events
 
 Spine animations can trigger timed events by sending messages at precise moments. They are very useful for events that should take place in sync with your animation, like playing footstep sounds, spawning particle effects, attaching or detaching objects to the bone hierarchy or anything else you would like to happen.
 
@@ -240,7 +240,7 @@ Animations are also linearly interpolated. If you do more advanced curve interpo
 Animation clips in Collada are not supported. To use multiple animations per model, export them into separate *.dae* files and gather the files into an *.animationset* file in Defold.
 :::
 
-## The bone hierarchy
+### 3D Model - The bone hierarchy
 
 The bones in the Model skeleton are represented internally as game objects.
 
@@ -253,7 +253,7 @@ local bone_go = model.get_go("#wiggler", "Bone_002")
 -- Now do something useful with the game object...
 ```
 
-## Cursor animation
+### 3D Model - Cursor animation
 
 Just like Spine models, 3D models can be animated by manipulating the `cursor` property:
 
@@ -505,9 +505,9 @@ go.animate("go", "position.y", go.PLAYBACK_LOOP_PINGPONG, 200, square_easing, 2.
 
 ## Completion callbacks
 
-All animation functions (`go.animate()`, `gui.animate()`, `gui.play_flipbook()`, `gui.play_spine_anim()`, `spine.play_anim()` and `model.play_anim()`) support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations, nor when an animation is manually canceled via `go.cancel_animations()`. The callback can be used to trigger events on animation completion or to chain multiple animations together.
+All animation functions (`go.animate()`, `gui.animate()`, `gui.play_flipbook()`, `gui.play_spine_anim()`, `sprite.play_flipbook()`, `spine.play_anim()` and `model.play_anim()`) support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations, nor when an animation is manually canceled via `go.cancel_animations()`. The callback can be used to trigger events on animation completion or to chain multiple animations together.
 
-The exact function signature of the callback differs slightly betweeen the animation functions. See the API documentation for the function you are using.
+The exact function signature of the callback differs slightly between the animation functions. See the API documentation for the function you are using.
 
 ```lua
 local function done_bouncing(self, url, property)
