@@ -160,10 +160,10 @@ Initial Rotation
 : The initial rotation values (in degrees) for the particles.
 
 Initial Stretch X/Y
-: The initial stretch values (in degrees) for the particles.
+: The initial stretch values (in units) for the particles.
 
 Initial Angular Velocity
-: The initial angular velocity of each spawned particle.
+: The initial angular velocity  (in degrees/second) of each spawned particle.
 
 The following properties can be keyed over the life time of the particles:
 
@@ -174,13 +174,13 @@ Life Red/Green/Blue/Alpha
 : The color component tint value over each particle's life.
 
 Life Rotation
-: The rotation value over each particle's life.
+: The rotation value (in degrees) over each particle's life.
 
 Life Stretch X/Y
-: The stretch value over each particle's life.
+: The stretch value (in units) over each particle's life.
 
 Life Angular Velocity
-: The angular velocity over each particle's life.
+: The angular velocity (in degrees/second) over each particle's life.
 
 ## Modifiers
 
