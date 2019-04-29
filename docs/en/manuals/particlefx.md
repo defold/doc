@@ -162,6 +162,9 @@ Initial Rotation
 Initial Stretch X/Y
 : The initial stretch values (in degrees) for the particles.
 
+Initial Angular Velocity
+: The initial angular velocity of each spawned particle.
+
 The following properties can be keyed over the life time of the particles:
 
 Life Scale
@@ -175,6 +178,9 @@ Life Rotation
 
 Life Stretch X/Y
 : The stretch value over each particle's life.
+
+Life Angular Velocity
+: The angular velocity over each particle's life.
 
 ## Modifiers
 
