@@ -7,8 +7,6 @@ brief: This manual explains how to build and run games and apps on iOS devices i
 
 iOS requires that _any_ app that you build and want to run on your phone or tablet _must_ be signed with an Apple-issued certificate and provisioning profile. This manual explains the steps involved in bundling your game for iOS. During development, running your game through the [development app](/manuals/dev-app) is often preferred since it allows you to hot reload content and code wirelessly directly to your device.
 
-Note that it is not currently possible to run a build in the iOS simulator.
-
 ## Apple's code signing process
 
 The security associated with iOS apps consists of several components. You can get access to the required tools by singing up to the [Apple's iOS Developer Program](https://developer.apple.com/programs/). When you have enrolled, go to the [Apple's Developer Member Center](https://developer.apple.com/membercenter/index.action).
@@ -54,11 +52,11 @@ Since Xcode 7, anyone can install Xcode and do on-device development for free. Y
 
 1. Connect your device.
 2. Install Xcode.
-3. Add a new account to Xcode and sign in with your Apple ID. 
+3. Add a new account to Xcode and sign in with your Apple ID.
 4. Create a new project. The simplest "Single View App" works fine.
 5. Select your "Team" (auto created for you) and give the app a bundle identifier.
 6. Make sure that Xcode has created a *Provisioning Profile* and *Signing Certificate* for the app.
-  
+
    ![](images/ios/xcode_certificates.png)
 
 7. Build and launch the app on your device. The first time, Xcode will ask you to enable Developer mode and will prepare the device with debugger support. This may take a while.
@@ -84,7 +82,9 @@ When you have the code signing identity and privisioning profile, you are ready 
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
-Select your code signing identity and browse for your mobile provisioning file. Press *Package* and you will then be prompted to specify where on your computer the bundle will be created.
+Select your code signing identity and browse for your mobile provisioning file. Select which architectures (32 bit, 64 bit and the iOS simulator) to bundle for as well as the variant (Debug or Release). You can optionally untick the `Sign application` checkbox to skip the signing process and then manually sign at a later stage.
+
+Press *Create Bundle* and you will then be prompted to specify where on your computer the bundle will be created.
 
 You specify what icon to use for the app, the launch screen image(s) and so forth on the *game.project* project settings file.
 
