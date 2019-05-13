@@ -25,11 +25,15 @@ To set up a custom renderer:
 
 3. Change the *Render* property (under *bootstrap*) in the "game.project" settings file to refer to your copy of the "default.render" file.
 
-### Default view projection
+## Default view projection
 
-The default render script provides a number of different projections for drawing your game content, with the default being a stretch projection. The other projections provided in the default render script are fixed fit and fixed projections.
+The default render script is configured to use an orthographic projection suitable for 2D games. It provides three different orthographic projections: `Stretch` (default), `Fixed Fit` and `Fixed`.
 
-#### Stretch projection
+You can also use a perspective projection suitable for 3D games, as provided by a camera component.
+
+The camera component can be used for both orthographic and perspective projections to change the view matrix (basically which part of the game world that is rendered). Learn more about the camera component in the [Camera manual](/manuals/camera).
+
+### Stretch projection
 
 The stretch projection will always draw an area of your game that is equal to the dimensions set in "game.project", even when the window is resized. If the aspect ratio changes it will result in game content being stretched either vertically or horizontally:
 
@@ -44,12 +48,10 @@ The stretch projection will always draw an area of your game that is equal to th
 The stretch projection is the default projection but if you have changed from it and need to switch back you do it by sending a message to the render script:
 
 ```lua
-function init(self)
-    msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
-end
+msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 ```
 
-#### Fixed fit projection
+### Fixed fit projection
 
 Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be show vertically or horizontally:
 
@@ -68,12 +70,10 @@ Just like the stretch projection the fixed fit projection will always show an ar
 You enable the fixed fit projection by sending a message to the render script:
 
 ```lua
-function init(self)
-    msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
-end
+msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 ```
 
-#### Fixed projection
+### Fixed projection
 
 The fixed projection will retain the original aspect ratio and render your game content with a fixed zoom level. This means that it if the zoom level is set to something other than 100% it will show more or less than the area of the game defined by the dimensions in "game.project":
 
@@ -92,10 +92,19 @@ The fixed projection will retain the original aspect ratio and render your game 
 You enable the fixed projection by sending a message to the render script:
 
 ```lua
-function init(self)
-    msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
-end
+msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 ```
+
+### Perspective projection
+
+The perspective projection is suitable for 3D games where game objects are rendered with a perspective and where the size of objects vary depending on the distance from an imagined eye/camera position.
+
+You enable the perspective projection provided from a camera component by sending a message to the render script:
+
+```lua
+msg.post("@render:", "use_camera_projection")
+```
+
 
 ## Render predicates
 
