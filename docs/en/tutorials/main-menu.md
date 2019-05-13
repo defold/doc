@@ -20,7 +20,7 @@ The background has a special slight fade out at the end, which is applied in `an
 ```lua
 -- file: menu.gui_script
 
--- the functions animX represents the animation time-lime
+-- the functions animX represents the animation time-line
 -- first is anim1 executed, when finished anim2 is executed, etc
 -- anim1 to anim4 creates a bouncing rubber effect.
 -- anim5 fades down alpha and is only used for the background
