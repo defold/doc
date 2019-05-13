@@ -188,9 +188,7 @@ In a trigger collision `"collision_response"` messages are sent. In addition, tr
 
 Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
 
-If the ray hits a physics object, a `"ray_cast_response"` message is sent. If the ray misses, a `"ray_cast_missed"` message is sent.
-
-Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
+If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
 
 ```lua
 function update(self, dt)
@@ -199,16 +197,11 @@ function update(self, dt)
   local my_end = vmath.vector3(100, 1000, 1000)
   local my_groups = { hash("my_group1"), hash("my_group2") }
 
-  physics.ray_cast(my_start, my_end, my_groups)
-end
-
-function on_message(self, message_id, message, sender)
-    -- check for ray cast responses
-    if message_id == hash("ray_cast_response") then
-        -- act on the hit
-    elseif message_id == hash("ray_cast_missed") then
-        -- act on the miss
-    end
+  local result = physics.raycast(my_start, my_end, my_groups)
+  if result then
+      -- act on the hit (see 'ray_cast_response' message for all values)
+      print(result.id)
+  end
 end
 ```
 
