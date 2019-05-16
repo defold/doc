@@ -9,7 +9,7 @@ GUI nodes can be used as *clipping* nodes---masks that control how other nodes a
 
 ## Creating a clipping node
 
-Box, Text and Pie nodes nodes can be used for clipping. To create a clipping node, add a node in your GUI, then set its properties accordingly:
+Box, Text and Pie nodes can be used for clipping. To create a clipping node, add a node in your GUI, then set its properties accordingly:
 
 Clipping Mode
 : The mode used for clipping.
