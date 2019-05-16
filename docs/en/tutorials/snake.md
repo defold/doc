@@ -181,7 +181,7 @@ end
 ```
 1. Advance the timer with the time difference (in seconds) since the last time `update()` was called.
 2. If the timer has advanced enough.
-3. Get the current head segment. `#` is the operator used to get the lenght of a table given that it is used as an array, which it is---all the segments are table values with no key specified.
+3. Get the current head segment. `#` is the operator used to get the length of a table given that it is used as an array, which it is---all the segments are table values with no key specified.
 4. Create a new head segment based on the current head location and the movement direction (`self.dir`).
 5. Add the new head to the (end of the) segments table.
 6. Remove the tail from the (beginning of the) segments table.
