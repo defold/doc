@@ -5,7 +5,7 @@ brief: This manual explains how input works, how to capture input actions and cr
 
 # Input
 
-All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that have acquired input focus and that implement the `on_input()` function. This manual explains how you set up bindings to capture input and how you create code that responds to it. 
+All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that have acquired input focus and that implement the `on_input()` function. This manual explains how you set up bindings to capture input and how you create code that responds to it.
 
 The input system uses a set of simple and powerful concepts, allowing you to manage input as you see fit for your game.
 
@@ -133,7 +133,7 @@ To listen to input actions in a script component or GUI script, the message `acq
 msg.post(".", "acquire_input_focus")
 ```
 
-This message instructs the engine to add input capable components (script components, GUI components and collection proxies) in the game objects to the *input stack*. The game object components are put on top of the input stack; the component that is added last will be top of the stack. Note that if the game object contains more than one input capable component, all components will be added to the stack: 
+This message instructs the engine to add input capable components (script components, GUI components and collection proxies) in the game objects to the *input stack*. The game object components are put on top of the input stack; the component that is added last will be top of the stack. Note that if the game object contains more than one input capable component, all components will be added to the stack:
 
 ![Input stack](images/input/input_stack.png){srcset="images/input/input_stack@2x.png 2x"}
 
@@ -150,7 +150,7 @@ msg.post(".", "release_input_focus")
 
 ## Input dispatch and on_input()
 
-Input actions are dispatched according to the input stack, from the top to the bottom. 
+Input actions are dispatched according to the input stack, from the top to the bottom.
 
 ![Action dispatch](images/input/actions.png){srcset="images/input/actions@2x.png 2x"}
 
@@ -196,7 +196,7 @@ A component's `on_input()` can actively control whether actions should be passed
 
 ![consuming input](images/input/consuming.png){srcset="images/input/consuming@2x.png 2x"}
 
-There are manu good use cases where input consumption provides a simple and powerful way to shift input between different parts of a game. For example, if you need a pop-up menu that temporarily is the only part of the game that listens to input:
+There are many good use cases where input consumption provides a simple and powerful way to shift input between different parts of a game. For example, if you need a pop-up menu that temporarily is the only part of the game that listens to input:
 
 ![consuming input](images/input/game.png){srcset="images/input/game@2x.png 2x"}
 
