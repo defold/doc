@@ -16,7 +16,7 @@ To create a camera, <kbd>right click</kbd> a game object and select <kbd>Add Com
 
 ![create camera component](images/camera/create.png){srcset="images/camera/create@2x.png 2x"}
 
-The camera component has the following properties that defines the camera *frustum*:
+The camera component has the following properties that defines the camera *frustum* (perspective camera only):
 
 ![camera settings](images/camera/settings.png){srcset="images/camera/settings@2x.png 2x"}
 
@@ -86,6 +86,10 @@ An alternative way is to update the position of the game object the camera compo
 
 When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the on_input() lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. Converting from mouse/screen coordinates to world coordinates from the default render script is done like this:
 
+::: sidenote
+Both the RenderCam and Orthographic camera extensions mentioned at the top of the document provides functions for converting to and from screen coordinates.
+:::
+
 ```Lua
 -- builtins/render/default.render_script
 --
@@ -100,10 +104,6 @@ local function screen_to_world(x, y, z)
 	return x1, y1, z1
 end
 ```
-
-::: sidenote
-Both the RenderCam and Orthographic camera extensions mentioned at the top of the document provides functions for converting to and from screen coordinates.
-:::
 
 ## Projections
 
@@ -122,8 +122,8 @@ msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 Note that the near and far planes are also specified in the message. The near and far planes set on the camera properties are only used for the perspective projection.
 :::
 
-::: sidenote
-Note that the with an orthographic projection the view will be positioned such that the lower-left corner of the rendered portion of the screen will correspond to the position of the game object the camera component is attached to.
+::: important
+With an orthographic projection the view will be positioned such that the lower-left corner of the rendered portion of the screen will correspond to the position of the game object the camera component is attached to.
 :::
 
 Learn more about the render script and how to change which type of orthographic projection to use in the [Render manual](/manuals/render/#_default_view_projection).
