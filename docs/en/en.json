@@ -443,6 +443,10 @@
                         "name": "HTML5"
                     },
                     {
+                        "path": "/manuals/windows",
+                        "name": "Windows"
+                    },
+                    {
                         "path": "/manuals/facebook",
                         "name": "Facebook"
                     },

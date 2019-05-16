@@ -32,7 +32,7 @@ Compress Archive
 : Enables compression of archives when bundling. Note that this currently applies to all platforms except Android where the apk already contains all data compressed.
 
 Dependencies
-: A list of URLs to the project *Library URL*s. Refer to the [Libraries manual](/manuals/libraries/) for more information. 
+: A list of URLs to the project *Library URL*s. Refer to the [Libraries manual](/manuals/libraries/) for more information.
 
 Custom Resources
 : A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included. The resources can be loaded using [`sys.load_resource()`](/ref/sys/#sys.load_resource).
@@ -282,10 +282,10 @@ Max Count
 ## iOS
 
 App Icon 57x57--180x180
-: Image file to use as application icon at given width and height dimensions `W` &times; `H`.
+: Image file (.png) to use as application icon at given width and height dimensions `W` &times; `H`.
 
 Launch Image 320x480--2436x1125
-: Image file to use as application launch image for resolution width and height dimensions `W` &times; `H`. iOS selects the display resolution based on the launch image.
+: Image file (.png) to use as application launch image for resolution width and height dimensions `W` &times; `H`. iOS selects the display resolution based on the launch image.
 
 Pre Rendered Icons
 : (iOS 6 and earlier) Check if your icons are pre-rendered. If this is unchecked the icons will get a glossy highlight added automatically.
@@ -302,10 +302,10 @@ Entitlements
 ## Android
 
 App Icon 36x36--192x192
-: Image file to use as application icon at given width and height dimensions `W` &times; `H`.
+: Image file (.png) to use as application icon at given width and height dimensions `W` &times; `H`.
 
 Push Icon Small--LargeXxxhdpi
-: Image files to be used as custom push notification icon on Android. The icons will automatically be used for both local or remote push notifications. If not set the application icon will be used by default.
+: Image files (.png) to be used as custom push notification icon on Android. The icons will automatically be used for both local or remote push notifications. If not set the application icon will be used by default.
 
 Push Field Title
 : Specifies which payload JSON field should be used as notification title. Leaving this setting empty makes the pushes default to the application name as title.
@@ -340,7 +340,7 @@ Debuggable
 ## MacOS / OS X
 
 App Icon
-: Image file to use as application icon on MacOS.
+: Image file (.png) to use as application icon on MacOS.
 
 Info.plist
 : If set, use the specified info.plist file when bundling.
@@ -351,7 +351,7 @@ Bundle Identifier
 ## Windows
 
 App Icon
-: Image file to use as application icon on Windows.
+: Image file (.ico) to use as application icon on Windows. Read more about how to create a .ico file in the [Windows manual](/manuals/windows).
 
 Iap Provider
 : Specifies which store to use. Valid options are `None` and `Gameroom`, `None` by default.
