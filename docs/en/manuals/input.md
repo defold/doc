@@ -16,7 +16,7 @@ Devices
 
   1. Keyboard (single key as well as text input)
   2. Mouse (position, button clicks and mouse wheel actions)
-  3. Multitouch (on iOS and Android devices)
+  3. Single and multi-touch (on iOS and Android devices)
   4. Gamepads (as supported through the operating system and mapped in the [gamepads](#_gamepads) file)
 
 Input bindings
@@ -62,7 +62,9 @@ Key Triggers
 Mouse Triggers
 : Input from mouse buttons and scroll wheels. Mouse movement is handled separately. Mouse movement events are not received unless at least one mouse trigger is set up in your input bindings.
 
-  - Mouse button inputs `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` and `MOUSE_BUTTON_MIDDLE` are equivalent to `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` and `MOUSE_BUTTON_3`. `MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well.
+  - Mouse button inputs `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` and `MOUSE_BUTTON_MIDDLE` are equivalent to `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` and `MOUSE_BUTTON_3`.
+
+  - **`MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well**.
 
   - Mouse wheel inputs detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold does not currently support fine grained scroll input on touch pads.)
 
@@ -92,7 +94,9 @@ Gamepad Triggers
   Gamepad input setup uses a separate mapping file for each hardware gamepad type. See below for more information.
 
 Touch Triggers
-: Multi-touch type triggers are available on iOS and Android devices. They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
+: Single-touch type triggers are available on iOS and Android devices. Single-touch type triggers are not set up from the Touch Triggers section of the input bindings. Instead **single-touch triggers are automatically set up when you have mouse button input set up for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`**.
+
+: Multi-touch type triggers are available on iOS and Android devices in native applications (ie not HTML5 builds running on a mobile device). They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
 
   ```lua
   -- Spawn at each touch point
@@ -101,6 +105,10 @@ Touch Triggers
     factory.create("#factory", pos)
   end
   ```
+
+::: important
+Multi-touch must not be assigned the same action as the mouse button input for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`. Assigning the same action will effectively override single-touch and prevent you from receiving any single-touch events.
+:::
 
 Text Triggers
 : Text triggers are used to read arbitrary text input. There are two types of text triggers:
