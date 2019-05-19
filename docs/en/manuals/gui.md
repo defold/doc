@@ -328,7 +328,7 @@ The ability to arrange nodes in hierarchies makes it easy to group nodes into ma
 
 When the rendering pipeline walks through the list of nodes, it is forced to set up a separate batch for each separate node because the types are different. All in all these three buttons will require six draw calls.
 
-By assigning layers to the nodes, they can be ordered differently, allowing the render pipeline to group the nodes together in fewer draw calls. Start by adding the layers you need to the scene. <kbd>Right click</kbd> then "Layers" folder icon in the *Outline* and select <kbd>Add ▸ Layer</kbd>. Mark the new layer and assign it a *Name* property in the *Properties* view.
+By assigning layers to the nodes, they can be ordered differently, allowing the render pipeline to group the nodes together in fewer draw calls. Start by adding the layers you need to the scene. <kbd>Right click</kbd> the "Layers" folder icon in the *Outline* and select <kbd>Add ▸ Layer</kbd>. Mark the new layer and assign it a *Name* property in the *Properties* view.
 
 ![Layers](images/gui/layers.png){srcset="images/gui/layers@2x.png 2x"}
 
