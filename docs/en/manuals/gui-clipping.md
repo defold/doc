@@ -62,6 +62,10 @@ Layers can be used to control rendering order (and batching) of nodes. When usin
 - Clipping order take precedence over layer order---regardless of what layer a node belongs to, it will be clipped according to the node hierarchy.
 - Layers only affect the draw order of graphics---and furthermore, the layer set on a clipping node only affects the draw order _in that clipper's hierarchy_.
 
+::: sidenote
+A clipping node and its hierarchy will be drawn first if it has a layer assigned and in the regular order if no layer is assigned.
+:::
+
 ![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
 
 Here the clipper node "ocular" is set to "layer3" and the "bean" node is set to "layer1". The ocular clipper's texture is therefore rendered on top of the clipped bean.
