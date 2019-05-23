@@ -461,7 +461,11 @@
                     {
                         "path": "/manuals/live-update",
                         "name": "Live update"
-                    }
+                    },
+                    {
+                        "path": "/manuals/google-play-instant",
+                        "name": "Google Play Instant"
+                    },
                 ]
             },
             {
