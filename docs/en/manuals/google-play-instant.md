@@ -86,6 +86,44 @@ Refer to the extension [API documentation](https://github.com/defold/extension-i
 ## Technical Requirements
 According to the [Google Play Instant Technical Requirements](https://developer.android.com/topic/google-play-instant/game-tech-requirements) `apk` size must be less than or equal to 10 MB. Information about application size optimisation available [here](/manuals/instant-games/#_reducing_bundle_size).
 
+## Testing
+![Testing Instant game](images/gpi/start_instant.png)
+
+1. Download Android SDK tools:
+- macOS: https://dl.google.com/android/repository/tools_r25.2.3-macosx.zip
+- Windows: https://dl.google.com/android/repository/tools_r25.2.3-windows.zip
+- Linux: https://dl.google.com/android/repository/tools_r25.2.3-linux.zip
+2. Unpack and copy the `tools` folder into `android-sdk` folder.
+3. Install build tools:
+```console
+./android-sdk/tools/bin/sdkmanager --verbose “build-tools;25.0.3”
+```
+4. Install `extra-google-instantapps` tools:
+```console
+sh ./android-sdk/tools/android update sdk --no-ui --all --filter extra-google-instantapps
+```
+5. Launch `apk` as Instant game on your device:
+```console
+android-sdk/extras/google/instantapps/ia run path_to_your_game.apk
+```
+
+It's also possible to use this script for preparation instead of p.1-p.4:
+```console
+mkdir ~/android
+cd ~/android
+mkdir android-sdk
+# Supported: macosx,linux,windows
+PLATFORM=macosx
+TOOL_VERSION=25.2.3
+wget https://dl.google.com/android/repository/tools_r$TOOL_VERSION-$PLATFORM.zip
+tar xvf tools_r$TOOL_VERSION-$PLATFORM.zip
+mv tools android-sdk/tools
+./android-sdk/tools/bin/sdkmanager --verbose "build-tools;25.0.3"
+sh ./android-sdk/tools/android update sdk --no-ui --all --filter extra-google-instantapps
+```
+
+More information about debugging on mobile devices available in the [Debugging manual](/manuals/debugging/#_debugging_on_mobile_devices).
+
 ## Troubleshooting
 
 ---
