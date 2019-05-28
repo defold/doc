@@ -69,18 +69,7 @@ Now we have crisp pixel-perfect graphics for our retro game. There are even more
 
 ![](images/screen_size/retro-subpixels.png)
 
-When the Subpixels option is disabled sprites will never get rendered on half pixels and instead always snap to the nearest full pixel. Another thing that can be done is to add a texture sampler with filtering set to *nearest* to any font material in use:
-
-![](images/screen_size/retro-font_sampler.png)
-
-This will make the font go from this:
-
-![](images/screen_size/retro-font_without_sampler.png)
-
-To this:
-
-![](images/screen_size/retro-font_with_sampler.png)
-
+When the Subpixels option is disabled sprites will never get rendered on half pixels and instead always snap to the nearest full pixel.
 
 ## High resolution graphics
 
