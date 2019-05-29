@@ -38,7 +38,7 @@ Custom Resources
 : A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included. The resources can be loaded using [`sys.load_resource()`](/ref/sys/#sys.load_resource).
 
 Bundle Resources
-: A directory containing resource files and folders that should be copied as-is into the resulting package when bundling. The directory is specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
+: A comma separated list of directories containing resource files and folders that should be copied as-is into the resulting package when bundling. The directories must be specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
 
   :[platforms](../shared/platforms.md)
 
