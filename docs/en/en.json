@@ -406,6 +406,10 @@
                         "name": "Debugging"
                     },
                     {
+                        "path": "/manuals/optimization",
+                        "name": "Optimizing an application"
+                    },
+                    {
                         "path": "/manuals/profiling",
                         "name": "Profiling"
                     },
