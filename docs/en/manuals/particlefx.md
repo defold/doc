@@ -223,4 +223,7 @@ particlefx.play("#particles")
 particlefx.stop("#particles")
 ```
 
+::: sidenote
+A particle effect will continue to emit particles even if the game object the particle effect component belonged to is deleted.
+:::
 See the [Particle FX reference documentation](/ref/particlefx) for more information.

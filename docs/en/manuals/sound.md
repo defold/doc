@@ -43,6 +43,9 @@ When you have a sound component set up properly, you can cause it to play its so
 msg.post("go#sound", "play_sound", {delay = 1, gain = 0.5})
 ```
 
+::: sidenote
+A sound will continue to play even if the game object the sound component belonged to is deleted. You can send a ["stop_sound"](https://www.defold.com/ref/sound/#play_sound) message to stop the sound (see below).
+:::
 Each message sent to a component will cause it to play another instance of the sound, until the available sound buffer is full and the engine will print errors in the console. It is advised that you implement some sort of gating and sound grouping mechanism.
 
 ## Stopping the sound
