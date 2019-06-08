@@ -120,8 +120,7 @@ function on_message(self, message_id, message, sender)
         if self.sounds[message.soundcomponent] == nil then
             -- 테이블에 사운드 타이머를 저장함
             self.sounds[message.soundcomponent] = gate_time
-            -- "play_sound" 메세지를 실제 타겟으로 보냄
-            msg.post(message.soundcomponent, "play_sound", { gain = message.gain })
+            sound.play(message.soundcomponent, { gain = message.gain })
         else
             -- 재생하려는 사운드를 막았음
             print("gated " .. message.soundcomponent)
@@ -137,4 +136,3 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 ```
 
 > "play_sound"는 Defold 엔진에 의해 예약된 이름이므로 게이트는 이 메세지를 들을 수 없습니다. 예약된 메세지 이름을 사용하면 예기치 않은 동작이 발생할 수 있습니다.
-

@@ -183,7 +183,7 @@ function on_message(self, message_id, message, sender)
     -- 애니메이션 사운드 플레이하기. 커스텀 이벤트 데이터에 사운드 컴포넌트 이름과 출력값(gain)이 들어 있음
     local url = msg.url("sounds")
     url.fragment = message.string
-    msg.post(url, "play_sound", { gain = message.float })
+    sound.play(url, { gain = message.float })
   end
 end
 ```
@@ -251,7 +251,7 @@ go.cancel_animation(".", "euler.z")
 [Properties](/manuals/properties) 매뉴얼에 게임 오브젝트, 컴포넌트, GUI노드의 모든 속성들에 대한 설명이 있습니다.
 
 ### GUI node property animation
-대부분의 모든 GUI 노드 속성들은 애니메이션 가능합니다. 예를 들어, "color" 속성을 설정해서 투명값을 조절하여 노드를 보이지 않게 만든 후에, 색상을 하얗게(tint 컬러가 아님) 애니메이션 처리해서 페이드인 효과를 줄 수 있습니다. 
+대부분의 모든 GUI 노드 속성들은 애니메이션 가능합니다. 예를 들어, "color" 속성을 설정해서 투명값을 조절하여 노드를 보이지 않게 만든 후에, 색상을 하얗게(tint 컬러가 아님) 애니메이션 처리해서 페이드인 효과를 줄 수 있습니다.
 
 ```lua
 local node = gui.get_node("button")

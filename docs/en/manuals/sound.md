@@ -37,23 +37,23 @@ The created component has a set of properties that should be set:
 
 ## Playing the sound
 
-When you have a sound component set up properly, you can cause it to play its sound by sending it a ["play_sound"](https://www.defold.com/ref/sound/#play_sound) message:
+When you have a sound component set up properly, you can cause it to play its sound by calling [`sound.play()`](https://www.defold.com/ref/sound/#sound.play:url--play_properties-):
 
 ```lua
-msg.post("go#sound", "play_sound", {delay = 1, gain = 0.5})
+sound.play("go#sound", {delay = 1, gain = 0.5})
 ```
 
 ::: sidenote
-A sound will continue to play even if the game object the sound component belonged to is deleted. You can send a ["stop_sound"](https://www.defold.com/ref/sound/#play_sound) message to stop the sound (see below).
+A sound will continue to play even if the game object the sound component belonged to is deleted. You can call [`sound.stop()`](https://www.defold.com/ref/sound/#sound.stop:url) to stop the sound (see below).
 :::
 Each message sent to a component will cause it to play another instance of the sound, until the available sound buffer is full and the engine will print errors in the console. It is advised that you implement some sort of gating and sound grouping mechanism.
 
 ## Stopping the sound
 
-If you wish to stop playing a sound you can send a ["stop_sound"](https://www.defold.com/ref/sound/#play_sound) message:
+If you wish to stop playing a sound you can call [`sound.stop()`](https://www.defold.com/ref/sound/#sound.stop:url):
 
 ```lua
-msg.post("go#sound", "stop_sound")
+sound.stop("go#sound")
 ```
 
 ## Gain
@@ -63,7 +63,7 @@ msg.post("go#sound", "stop_sound")
 The sound system has 4 levels of gain:
 
 - The gain set on the sound component.
-- The gain set when starting the sound via a `play_sound` message or when changing the gain on the voice via a `set_gain` message.
+- The gain set when starting the sound via a call to `sound.play()` or when changing the gain on the voice via a call to `sound.set_gain()`.
 - The gain set on the group via a [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) function call.
 - The gain set on the "master" group. This can be altered by `sound.set_group_gain(hash("master"))`.
 
@@ -156,8 +156,8 @@ function on_message(self, message_id, message, sender)
         if self.sounds[message.soundcomponent] == nil then
             -- Store sound timer in table
             self.sounds[message.soundcomponent] = gate_time
-            -- Redirect the "play_sound" message to the real target
-            msg.post(message.soundcomponent, "play_sound", { gain = message.gain })
+            -- Play the sound
+            sound.play(message.soundcomponent, { gain = message.gain })
         else
             -- An attempt to play a sound was gated
             print("gated " .. message.soundcomponent)
@@ -166,7 +166,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-To use the gate, simply send it a `play_gated_sound` message and specify the target sound component and sound gain. The gate will send a `play_sound` message to the target sound component if the gate is open:
+To use the gate, simply send it a `play_gated_sound` message and specify the target sound component and sound gain. The gate will call `sound.play()` with the target sound component if the gate is open:
 
 ```lua
 msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#explosion1", gain = 1.0 })

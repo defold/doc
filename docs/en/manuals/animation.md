@@ -216,7 +216,7 @@ function on_message(self, message_id, message, sender)
     -- Play animation sound. The custom event data contains the sound component and the gain.
     local url = msg.url("sounds")
     url.fragment = message.string
-    msg.post(url, "play_sound", { gain = message.float })
+    sound.play(url, { gain = message.float })
   end
 end
 ```
