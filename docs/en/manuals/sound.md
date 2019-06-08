@@ -45,6 +45,14 @@ msg.post("go#sound", "play_sound", {delay = 1, gain = 0.5})
 
 Each message sent to a component will cause it to play another instance of the sound, until the available sound buffer is full and the engine will print errors in the console. It is advised that you implement some sort of gating and sound grouping mechanism.
 
+## Stopping the sound
+
+If you wish to stop playing a sound you can send a ["stop_sound"](https://www.defold.com/ref/sound/#play_sound) message:
+
+```lua
+msg.post("go#sound", "stop_sound")
+```
+
 ## Gain
 
 ![Gain](images/sound/sound_gain.png)
@@ -164,4 +172,3 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 ::: important
 It does not work to have the gate listen to `play_sound` messages since that name is reserved by the Defold engine. You will get unexpected behavior if you use reserved message names.
 :::
-
