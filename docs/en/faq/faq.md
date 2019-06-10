@@ -49,12 +49,18 @@ What platforms does Defold run on?
   | ------------------------- | -------------------- |
   | macOS 10.7 Lion           | Editor and runtime   |
   | Windows Vista             | Editor and runtime   |
-  | Linux (64 bit)*           | Editor and runtime   |
+  | Ubuntu 16.04 (64 bit)(1)  | Editor               |
+  | Linux (64 bit)(2)         | Runtime              |
   | iOS 6.0                   | Runtime              |
   | Android 2.3 (API level 9) | Runtime              |
   | HTML5                     | Runtime              |
 
-  (* Linux versions are built with Ubuntu 16.04 and GCC 4.8.)
+  (1 The editor is built and tested for 64-bit Ubuntu 16.04. It should work on other distributions as well but we give no guarantees.)
+  (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date and supporting OpenGL ES 2.0.)
+
+What are the system requirements for the editor
+
+: The editor will use up to 75% of the available memory of the system. On a computer with 4 GB of RAM this should be enough for smaller Defold projects. For mid-sized or large projects it is recommended to use 6 GB or more of RAM.
 
 What target platforms can I develop games for with Defold?
 
