@@ -299,7 +299,7 @@ Defold supports joints for 2D physics. A joint connects two collision objects us
 
 ### Creating joints
 
-Joints can currently only be created programmatically using [`physics.create_joint(joint_type, collisionobject_a, joint_id, position_a, collisionobject_b, position_b, [properties])`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b--properties-):
+Joints can currently only be created programmatically using [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b--properties-):
 ::: sidenote
 Editor support for creating joints is planned but no release date has been decided.
 :::
@@ -313,7 +313,7 @@ The above will create a fixed joint with id `my_test_joint` connected between th
 
 ### Destroying joints
 
-A joint can be destroyed using [`physics.destroy_joint(collisionobject, joint_id)`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id):
+A joint can be destroyed using [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id):
 
 ```lua
 -- destroy a joint previously connected to the first collision object
@@ -322,7 +322,7 @@ physics.destroy_joint("obj_a#collisionobject", "my_test_joint")
 
 ### Reading from and Updating joints
 
-The properties of a joint can be read using [`physics.get_joint_properties(collisionobject, joint_id)`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) and set using [`physics.set_joint_properties(collisionobject, joint_id, properties)`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties):
+The properties of a joint can be read using [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) and set using [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties):
 
 ```lua
 function update(self, dt)
@@ -337,7 +337,7 @@ end
 
 ### Get joint reaction force and torque
 
-The reaction force and torque applied to a joint can be read using [`physics.get_joint_reaction_force(collisionobject, joint_id)`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) and [`physics.get_joint_reaction_torque(collisionobject, joint_id)`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id).
+The reaction force and torque applied to a joint can be read using [`physics.get_joint_reaction_force()`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) and [`physics.get_joint_reaction_torque()`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id).
 
 
 ## Caveats and common issues
