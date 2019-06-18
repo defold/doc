@@ -36,7 +36,7 @@ Make sure that you store your certificate and key safely. If you lose them you w
 
 ## Creating an Android application bundle
 
-The editor lets you easily create a stand alone application bundle for your game. Select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
+The editor lets you easily create a stand alone application bundle for your game. Before bundling you can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#_android). To bundle select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
 
 If you want the editor to automatically create random debug certificates, leave the *Certificate* and *Private key* fields empty:
 
@@ -50,7 +50,9 @@ Press <kbd>Create Bundle</kbd> and you will then be prompted to specify where on
 
 ![Android Application Package file](images/android/apk_file.png)
 
-The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). You can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#_android).
+### Installing an Android application bundle
+
+The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
 
 ```
 $ adb install Defold\ examples.apk

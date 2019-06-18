@@ -94,4 +94,6 @@ When your game launches on iOS, the launch images are used to set the correct sc
 
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
+### Installing an iOS application bundle
+
 The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use Xcode (via the "Devices and Simulators" window). Other options are to use a command line tool such as [ios-deploy](https://github.com/phonegap/ios-deploy) or iTunes.
