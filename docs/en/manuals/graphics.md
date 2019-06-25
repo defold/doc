@@ -5,7 +5,7 @@ brief: This manual outlines Defold's support for graphical elements.
 
 # Graphics
 
-Defold is a full 3D engine, but it is designed and built with strong support for 2D games. The editor is currently best suited for making 2D games. 
+Defold is a full 3D engine, but it is designed and built with strong support for 2D games. The editor is currently best suited for making 2D games.
 
 ## Importing Image Files
 
@@ -17,17 +17,21 @@ Defold supports images in the PNG and JPEG image formats. For models, Defold use
 
 ## Image resources
 
-In Defold, there are two types of resource that are used as an image source for visual components:
+In Defold, there are two types of resources that are used as an image source for visual components:
 
 ![atlas](images/icons/atlas.png){.icon} Atlas
 : An atlas contains a list of separate images files, which are automatically combined into a larger texture image. Atlases can contain still images and *Animation Groups*, sets of images that together form a flipbook animation.
 
   ![atlas](images/graphics/atlas.png){srcset="images/graphics/atlas@2x.png 2x"}
 
+Learn more about the atlas resource in the [Atlas manual](/manuals/atlas).
+
 ![tile source](images/icons/tilesource.png){.icon} Tile Source
 : A tile source references an image file that is already made out to consist of smaller sub-images ordered on a uniform grid. Another term commonly used for this type of compound image is _sprite sheet_. Tile sources can contain flipbook animations, defined by the first and last tile for the animation. It is also possible to use an image to automatically attach collision shapes to tiles.
 
   ![tile source](images/graphics/tilesource.png){srcset="images/graphics/tilesource@2x.png 2x"}
+
+Learn more about the tile source resource in the [Tile source manual](/manuals/tilesource).
 
 ## Visual components
 
@@ -38,23 +42,28 @@ There are several component types that get their image data from atlas or tile s
 
   ![sprite](images/graphics/sprite.png){srcset="images/graphics/sprite@2x.png 2x"}
 
+Learn more about sprites in the [Sprite manual](/manuals/sprite).
 
 ![tile map](images/icons/tilemap.png){.icon} Tile map
 : A tilemap component pieces together a map from tiles (image and collision shapes) that come from a tile source. Tile maps cannot use atlas sources.
 
   ![tilemap](images/graphics/tilemap.png){srcset="images/graphics/tilemap@2x.png 2x"}
 
+Learn more about tilemaps in the [Tilemap manual](/manuals/tilemap).
 
 ![particle effect](images/icons/particlefx.png){.icon} Particle fx
-: Particles that are spawned from a particle emitter consist of a still image or a flipbook animation from an atlas or tile source. 
+: Particles that are spawned from a particle emitter consist of a still image or a flipbook animation from an atlas or tile source.
 
   ![particles](images/graphics/particles.png){srcset="images/graphics/particles@2x.png 2x"}
 
+Learn more about particle effects in the [Particle fx manual](/manuals/particlefx).
 
 ![gui](images/icons/gui.png){.icon} GUI
 : GUI box nodes and pie nodes can use still images and flip book animations from atlases and tile sources.
 
   ![gui](images/graphics/gui.png){srcset="images/graphics/gui@2x.png 2x"}
+
+Learn more about GUIs in the [GUI manual](/manuals/gui).
 
 ![spine](images/icons/spine-model.png){.icon} Spine model
 : Spine models gets their data from Spine scene resources. Those contain two pieces of data:
@@ -64,6 +73,7 @@ There are several component types that get their image data from atlas or tile s
 
   ![spine](images/graphics/spine.png){srcset="images/graphics/spine@2x.png 2x"}
 
+Learn more about Spine models in the [Spine model manual](/manuals/spine-model).
 
 
 ## 3D graphics
@@ -71,9 +81,11 @@ There are several component types that get their image data from atlas or tile s
 Models get its image data directly from an image file that is mapped onto the model according to the model's UV map:
 
 ![model](images/icons/model.png){.icon} Model
-: 3D models 
+: 3D models
 
   ![model](images/graphics/model.png){srcset="images/graphics/model@2x.png 2x"}
+
+Learn more about models in the [Model manual](/manuals/model).
 
 Collada support
 : Defold's 3D support requires you to save or export model, skeleton and animation data in the _Collada_ format. This is a widely adopted format that most 3D modelling software supports. So you should be able to create assets in in _Maya_, _3D Max_, _Blender_, _Sketchup_ or any other popular software and then bring the results into Defold.

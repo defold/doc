@@ -5,32 +5,41 @@ brief: This manual describes Defold's animation support.
 
 # Animation
 
-Defold has built in support for many types of animation that you can use as a source of graphics for object components:
+Defold has built in support for many types of animation that you can use as a source of graphics for components:
 
-Flip-book animation
-: A flip book animation consists of a series of still images that are shown in succession. The technique is very similar to traditional cell animation (see http://en.wikipedia.org/wiki/Traditional_animation). The technique offers limitless opportunities since each frame can be manipulated individually. However, since each frame is stored in a unique image, the memory footprint can be high. The smoothness of animation is also dependent on the number of images shown each second but increasing the number of images usually also increase the amount of work. Defold flip book animations are either stored as individual images added to an Atlas, or as a Tile Source with all frames laid out in a horizontal sequence.
+* Flip-book animation
+* Spine animation
+* 3D skinned animation
+* Property animation
+
+## Flip-book animation
+
+A flip book animation consists of a series of still images that are shown in succession. The technique is very similar to traditional cell animation (see http://en.wikipedia.org/wiki/Traditional_animation). The technique offers limitless opportunities since each frame can be manipulated individually. However, since each frame is stored in a unique image, the memory footprint can be high. The smoothness of animation is also dependent on the number of images shown each second but increasing the number of images usually also increase the amount of work. Defold flip book animations are either stored as individual images added to an [Atlas](/manuals/atlas), or as a [Tile Source](/manuals/tilesource) with all frames laid out in a horizontal sequence.
 
   ![Animation sheet](images/animation/animsheet.png){.inline}
   ![Run loop](images/animation/runloop.gif){.inline}
 
-Spine animation
-: Spine animation provides 2D _skeletal animation_ support (see http://en.wikipedia.org/wiki/Skeletal_animation). This is a fundamentally different technique that is closer to cutout animation. In cutout animation separate pieces of the animated object (e.g body parts, eyes, mouth etc) are moved individually between each frame. Spine animation let you build an invisible, virtual skeleton consisting of a hierarchy of interconnected _bones_. This skeleton, or _rig_, is then animated and individual images are attached to the bones. Defold supports animations created or exported in the [Spine JSON format](http://esotericsoftware.com/spine-json-format). Skeletal animation is very smooth since the engine can interpolate the location of each bone for each frame.
+## Spine animation
+
+Spine animation provides 2D _skeletal animation_ support (see http://en.wikipedia.org/wiki/Skeletal_animation). This is a fundamentally different technique that is closer to cutout animation. In cutout animation separate pieces of the animated object (e.g body parts, eyes, mouth etc) are moved individually between each frame. Spine animation let you build an invisible, virtual skeleton consisting of a hierarchy of interconnected _bones_. This skeleton, or _rig_, is then animated and individual images are attached to the bones. Defold supports animations created or exported in the [Spine JSON format](http://esotericsoftware.com/spine-json-format). Skeletal animation is very smooth since the engine can interpolate the location of each bone for each frame.
 
   For details on how to import Spine data into a Spine model for animation, see the [Spine documentation](/manuals/spine).
 
   ![Spine animation](images/animation/spine_animation.png){.inline}
   ![Run loop](images/animation/frog_runloop.gif){.inline}
 
-3D skinned animation
-: Skeletal animation of 3D models is similar to Spine animation but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
+## 3D skinned animation
+
+Skeletal animation of 3D models is similar to Spine animation but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
 
   For details on how to import 3D data into a Model for animation, see the [Model documentation](/manuals/model).
 
   ![Blender animation](images/animation/blender_animation.png){.inline srcset="images/animation/blender_animation@2x.png 2x"}
   ![Wiggle loop](images/animation/suzanne.gif){.inline}
 
-Property animation
-: All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
+## Property animation
+
+All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
 
   ![Property animation](images/animation/property_animation.png){.inline srcset="images/animation/property_animation@2x.png 2x"}
   ![Bounce loop](images/animation/bounce.gif){.inline}

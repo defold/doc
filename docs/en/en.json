@@ -221,12 +221,24 @@
                         "name": "Animation"
                     },
                     {
+                        "path": "/manuals/atlas",
+                        "name": "Atlas"
+                    },
+                    {
+                        "path": "/manuals/font",
+                        "name": "Font"
+                    },
+                    {
                         "path": "/manuals/graphics",
                         "name": "Graphics"
                     },
                     {
                         "path": "/manuals/resource",
                         "name": "Resource management"
+                    },
+                    {
+                        "path": "/manuals/tilesource",
+                        "name": "Tile source"
                     },
                     {
                         "path": "/manuals/adapting-graphics-to-screen-size",
@@ -242,8 +254,8 @@
                 "name": "COMPONENTS",
                 "items": [
                     {
-                        "path": "/manuals/atlas",
-                        "name": "Atlas"
+                        "path": "/manuals/components",
+                        "name": "Overview"
                     },
                     {
                         "path": "/manuals/collection-factory",
@@ -256,10 +268,6 @@
                     {
                         "path": "/manuals/camera",
                         "name": "Camera"
-                    },
-                    {
-                        "path": "/manuals/font",
-                        "name": "Font"
                     },
                     {
                         "path": "/manuals/factory",
@@ -286,16 +294,20 @@
                         "name": "Sound"
                     },
                     {
-                        "path": "/manuals/tilemap",
-                        "name": "Tilemap"
-                    },
-                    {
                         "path": "/manuals/spine",
                         "name": "Spine animation"
                     },
                     {
                         "path": "/manuals/spinemodel",
                         "name": "Spine model"
+                    },
+                    {
+                        "path": "/manuals/sprite",
+                        "name": "Sprite"
+                    },
+                    {
+                        "path": "/manuals/tilemap",
+                        "name": "Tilemap"
                     }
                 ]
             },
@@ -348,12 +360,20 @@
                 "name": "GAME LOGIC",
                 "items": [
                     {
+                        "path": "/manuals/script",
+                        "name": "Scripts"
+                    },
+                    {
                         "path": "/manuals/properties",
                         "name": "Properties"
                     },
                     {
                         "path": "/manuals/script-properties",
                         "name": "Script properties"
+                    },
+                    {
+                        "path": "/manuals/lua",
+                        "name": "Lua in Defold"
                     },
                     {
                         "path": "/manuals/input",
@@ -392,10 +412,6 @@
                     {
                         "path": "/manuals/writing-code",
                         "name": "Writing code"
-                    },
-                    {
-                        "path": "/manuals/lua",
-                        "name": "Lua in Defold"
                     },
                     {
                         "path": "/manuals/hot-reload",
