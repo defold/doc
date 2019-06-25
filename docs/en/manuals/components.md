@@ -28,7 +28,7 @@ Defold supports the following component types:
 
 ## Enabling and disabling components
 
-The components of a game object are enabled when the game object is created. If you wish to disable a component this is done by sending a [**disable**](/ref/go/#disable) message to the component:
+The components of a game object are enabled when the game object is created. If you wish to disable a component this is done by sending a [`disable`](/ref/go/#disable) message to the component:
 
 ```lua
 -- disable the component with id 'weapon' on the same game object as this script
@@ -44,7 +44,7 @@ msg.post(".", "disable")
 msg.post("enemy", "disable")
 ```
 
-To enable a component again you can post an [**enable**](/ref/go/#enable) message to the component:
+To enable a component again you can post an [`enable`](/ref/go/#enable) message to the component:
 
 ```lua
 -- enable the component with id 'weapon'
