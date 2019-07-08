@@ -40,7 +40,7 @@ Custom Resources
 Bundle Resources
 : A comma separated list of directories containing resource files and folders that should be copied as-is into the resulting package when bundling. The directories must be specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
 
-  :[platforms](../shared/platforms.md)
+  Supported platforms are `ios`, `android`, `osx`, `win32`, `linux`, `web`.
 
   A subfolder named `common` is also allowed, containing resource files common for all platforms.
 
