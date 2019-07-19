@@ -14,24 +14,24 @@ A good way to discuss and get help with a problem is to post a question on our [
 * **Describe the bug (REQUIRED)** - A clear and concise description of the problem.
 
 * **To Reproduce (REQUIRED)** - Steps to reproduce the problem:
- 1. Go to '...'
- 2. Click on '....'
- 3. Scroll down to '....'
- 4. See error
+  1. Go to '...'
+  2. Click on '....'
+  3. Scroll down to '....'
+  4. See error
 
 * **Expected behavior (REQUIRED)** - A clear and concise description of what you expected to happen.
 
 * **Defold version (REQUIRED)** - Version [e.g. 1.2.155]. Preferably also the SHA1 of the engine and editor, as seen in the <kbd>Help->About</kbd> menu option.
 
 * **Platforms (REQUIRED)** - On which platforms does the problem happen?
- - Platforms: [e.g. iOS, Android, Windows, macOS, Linux, HTML5]
- - OS: [e.g. iOS8.1, Windows 10, High Sierra]
- - Device: [e.g. iPhone6]
+  - Platforms: [e.g. iOS, Android, Windows, macOS, Linux, HTML5]
+  - OS: [e.g. iOS8.1, Windows 10, High Sierra]
+  - Device: [e.g. iPhone6]
 
 * **Logs (OPTIONAL)** - Please include any relevant logs. This can be device logs or editor logs. Editor logs are located here:
- - Windows: C:\Users\ **Your Username** \AppData\Local\Defold
- - macOS: /Users/ **Your Username** /Library/Application Support/ or ~/Library/Application Support/Defold
- - Linux: ~/.Defold
+  - Windows: C:\Users\ **Your Username** \AppData\Local\Defold
+  - macOS: /Users/ **Your Username** /Library/Application Support/ or ~/Library/Application Support/Defold
+  - Linux: ~/.Defold
 
 * **Minimal repro case project (OPTIONAL)** - Please attach a minimal project where the bug is reproduced. This will greatly help the person trying to investigate and fix the bug.
 
