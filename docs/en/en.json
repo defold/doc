@@ -168,6 +168,10 @@
                     {
                         "path": "/manuals/flash",
                         "name": "Defold for Flash users"
+                    },
+                    {
+                        "path": "/manuals/getting_help",
+                        "name": "Getting help"
                     }
                 ]
             },
