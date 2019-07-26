@@ -50,3 +50,9 @@ To enable a component again you can post an [`enable`](/ref/go/#enable) message 
 -- enable the component with id 'weapon'
 msg.post("#weapon", "enable")
 ```
+
+## Component properties
+
+The Defold components types all have different properties. The [Properties pane](/manuals/editor/#_the_editor_views) in the editor will show the properties of the currently selected component in the [Outline pane](/manuals/editor/#_the_editor_views).
+
+Visual components usually have a position and rotation property and most often also a scale property. These properties can be changed from the editor and in almost all cases the properties can't be changed at run-time (the only exception is sprite scale which can be changed at run-time). If you need to change the position, rotation or scale of a component at run-time you instead modify the position, rotation and scale of the game object that the component belongs to. This has the side effect that all components on the game object will be affected. If you wish to only manipulate a single component out of many attached to a game object it is recommended that the component in question is moved to a separate game object and added as a child game object to the game object the component originally belonged to.
