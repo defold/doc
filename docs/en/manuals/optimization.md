@@ -4,7 +4,6 @@ brief: This manual describes how to optimize a Defold app for size and performan
 ---
 
 # Optimizing a Defold game
-
 It is important to understand the technical constraints of the platform(s) where your game is supposed to run and to optimize your game for the platform(s) while developing your game. There are several aspects to consider:
 
 * Application size
@@ -12,8 +11,7 @@ It is important to understand the technical constraints of the platform(s) where
 * Memory usage
 * Battery usage
 
-## Optimizing application size
-
+## Optimize application size
 Defold will create a dependency tree when building and bundling your application. The build system will start from the bootstrap collection specified in the *game.project* file and inspect every referenced collection, game object and component to build a list of the assets that are in use. It is only these assets that will get included in the final application bundle. Anything not directly referenced will get excluded. While it is good to know that unused assets will not be included you as a developer still needs to consider what goes into the final application and the size of the individual assets and the total size of the application bundle. Some target platforms and distribution channels have limitations on application size:
 
 * Apple and Google has defined application size limits when downloading over mobile networks (as opposed to downloading over Wifi).
@@ -24,12 +22,10 @@ Defold will create a dependency tree when building and bundling your application
 
 To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#_build_reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
 
-### Optimizing sounds
-
+### Optimize sounds
 Defold supports .ogg and .wav files where .ogg is typically used for music and .wav for sound effects. Sounds must be 16-bit with a sampling rate of 44100 so any optimizations must be done on the sounds before encoding them. You can edit the sounds in an external sound editor software to reduce the quality or convert from .wav to .ogg.
 
-### Optimizing graphics
-
+### Optimize graphics
 You have several options when it comes to optimizing the graphics used by your game but the first thing to do is to check the size of the graphics that gets added to an atlas or used as a tilesource. You should never use a larger size on the graphics than is actually needed in your game. Importing large images and scaling them down to the appropriate size is a waste of texture memory and should be avoided. Start by adjusting the size of the images using external image editing software to the actual size needed in your game. For things such as background images it might also be ok to use a small image and scale it up to the desired size. Once you have the images down to the correct size and added to atlases or used in tilesources you also need to consider the size of the atlases themselves. The maximum atlas size that can be used varies between platforms and graphics hardware.
 
 ::: sidenote
@@ -50,25 +46,32 @@ If an atlas is too large you need to either split it into several smaller atlase
 You can read more about how to optimize and manage textures in [this forum post](https://forum.defold.com/t/texture-management-in-defold/8921).
 :::
 
-### Excluding content for download on demand
-
+### Exclude content for download on demand
 Another way of reducing initial application size is to exclude parts of the game content from the application bundle and make this content downloadable on demand. Excluded content can be anything from entire levels to unlockable characters, skins, weapons or vehicles. Defold provides a system called Live Update for excluding content for download on demand. Learn more in the [Live Update manual](/manuals/live-update/).
 
 
-## Optimizing for application speed
+## Optimize for application speed
+Before trying to optimize a game with the goal to increase the speed at which the game runs you need to know where your bottlenecks are. What is actually taking up most of the time in a frame of your game? Is it the rendering? Is it your game logic? Is it the scene graph? To figure this out it is recommended to use the built in profiling tools. Use the [on-screen or web profiler](/manuals/profiling/) to sample the performance of your game and then make a decision if and what to optimize. Once you have a better understanding of what takes time you can start addressing the problems.
 
-The section is not yet finished. Topics that will be covered:
+### Reduce script execution time
+Reducing script execution time is needed if the profiler shows high values for the `Script` scope. As a general rule of thumb you should of course try to run as little code as possible every frame. Running a lot of code in `update()` and `on_input()` every frame is likely to have an impact on your game's performance, especially on low end devices. Some guidelines are:
 
-* Reactive code
-* Running code every frame
-* Reduce garbage collection
-* Optimize rendering
-* Culling
-* [Profiling](/manuals/profiling/)
+* Use reactive code patterns - Don't poll for changes if you can get a callback. Don't manually animate something or perform a task that can be handed over to the engine (eg go.animate vs manually animating something).
+* Reduce garbage collection - If you create loads of short lived objects such as Lua tables every frame this will eventually trigger the garbage collector of Lua. When this happens it can manifest itself as small hitches/spikes in frame time. Re-use tables where you can and really try to avoid creating Lua tables inside loops and similar constructs if possible.
 
+### Reduce time it takes to render a frame
+Reducing the time it takes to render a frame is needed if the profiler shows high values in the `Render` and `Render Script` scopes. There are several things to consider when trying to increase reduce the time it takes to render a frame:
 
-## Optimizing memory usage
+* Reduce draw calls - Read more about reducing draw calls in [this forum post](https://forum.defold.com/t/draw-calls-and-defold/4674)
+* Reduce overdraw
+* Reduce shader complexity - Read up on GLSL optimizations in [this Kronos article](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). You can also modify the default shaders used by Defold (found in `builtins/materials`) and reduce shader precision to gain some speed on low end devices. All shaders are using `highp` precision and a change to for instance `mediump` can in some cases improve performance slightly.
 
+### Reduce scene graph complexity
+Reducing the scene graph complexity is needed if the profiler shows high values in the `GameObject` scope and more specifically for the `UpdateTransform` sample. Some actions to take:
+
+* Culling - Disable game objects (and their components) if they aren't currently visible. How this is determined depends very much on the type of game. For a 2D game it can be as easy as always disabling game objects that are outside of a rectangular area. You can use a physics trigger to detect this or by partitioning your objects into buckets. Once you know which objects to disable or enable you do this by sending a `disable` or `enable` message to each game object. 
+
+## Optimize memory usage
 This section is not yet finished. Topics that will be covered:
 
 * [Texture compression](/manuals/texture-profiles/)
@@ -77,8 +80,7 @@ This section is not yet finished. Topics that will be covered:
 * [Profiling](/manuals/profiling/)
 
 
-## Optimizing battery usage
-
+## Optimize battery usage
 This section is not yet finished. Topics that will be covered:
 
 * Running code every frame
