@@ -69,7 +69,8 @@ Reducing the time it takes to render a frame is needed if the profiler shows hig
 ### Reduce scene graph complexity
 Reducing the scene graph complexity is needed if the profiler shows high values in the `GameObject` scope and more specifically for the `UpdateTransform` sample. Some actions to take:
 
-* Culling - Disable game objects (and their components) if they aren't currently visible. How this is determined depends very much on the type of game. For a 2D game it can be as easy as always disabling game objects that are outside of a rectangular area. You can use a physics trigger to detect this or by partitioning your objects into buckets. Once you know which objects to disable or enable you do this by sending a `disable` or `enable` message to each game object. 
+* Culling - Disable game objects (and their components) if they aren't currently visible. How this is determined depends very much on the type of game. For a 2D game it can be as easy as always disabling game objects that are outside of a rectangular area. You can use a physics trigger to detect this or by partitioning your objects into buckets. Once you know which objects to disable or enable you do this by sending a `disable` or `enable` message to each game object.
+
 
 ## Optimize memory usage
 This section is not yet finished. Topics that will be covered:
