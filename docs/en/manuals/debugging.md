@@ -170,7 +170,7 @@ Happy hunting!
 
 ## Debugging problems with physics
 
-If you have problems with physics and collisions aren't working as expected it is recommended to enable physics debugging. Check the *Physics Debug* checkbox in the Physics section of the ’game.project’ file:
+If you have problems with physics and collisions aren't working as expected it is recommended to enable physics debugging. Check the *Debug* checkbox in the *Physics* section of the *game.project* file:
 
 ![physics debug setting](images/debugging/physics_debug_setting.png)
 
