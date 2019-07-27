@@ -99,7 +99,7 @@ For a collision between two objects to register both objects must mutually speci
 
 The *Mask* field can contain multiple group names, allowing for complex interaction scenarios.
 
-## Tilesource collision shapes
+## Tilemap collision shapes
 
 Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
 
@@ -112,7 +112,9 @@ To add collision to a tile map:
 
 ![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
 
-Note that the *Group* property is not used here since the collision groups are defined in the tile map's tile source.
+::: important
+Note that the *Group* property is **not** used here since the collision groups are defined in the tile map's tile source.
+:::
 
 ## Collision messages
 
