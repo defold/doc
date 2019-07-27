@@ -144,10 +144,6 @@ iOS
 Android
 : The ability to extract the "log.txt" depends on OS version and manufacturer. Here is a short and simple step by step guide: https://stackoverflow.com/a/48077004/129360
 
-## Running the ZeroBrane external debugger
-
-In addition to the built in debugger, it is also possible to use the Lua IDE _ZeroBrane Studio_ as an external Lua debugger. Please refer to the [ZeroBrane debugging manual](/manuals/zerobrane) for details on how to set up and run the program with Defold.
-
 ## Lua debug library
 
 Lua comes with a debug library that is useful in some situations, particularly if you need to inspect the innards of your Lua environment. You can find more information about it here: http://www.lua.org/pil/contents.html#23.
@@ -171,3 +167,13 @@ Sometimes finding a bug can be a hard and time consuming process, requiring you 
 3. Continue narrowing down the code that must cause the bug until you find it.
 
 Happy hunting!
+
+## Debugging problems with physics
+
+If you have problems with physics and collisions aren't working as expected it is recommended to enable physics debugging. Check the *Physics Debug* checkbox in the Physics section of the ’game.project’ file:
+
+![physics debug setting](images/debugging/physics_debug_setting.png)
+
+When this checkbox is enabled Defold will draw all collision shapes and contact points of collisions:
+
+![physics debug visualisation](images/debugging/physics_debug_visualisation.png)
