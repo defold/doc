@@ -24,9 +24,13 @@ Render scripts
 : Extension _.render_script_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. Render scripts have access to the [Render](/ref/render) library functions.
 
 
-## Script execution and callbacks
+## Script execution, callbacks and self
 
-Defold executes Lua scripts as part of the engine lifecycle and exposes the lifecycle through a set of predefined callback functions. When you add a script component to a game object the script becomes part of the game object's and its component(s) lifecycle. The script is evaluated in the Lua context when it is loaded, then the engine executes the following functions and passes a reference to the current script component instance as parameter. You can use this `self` reference to store state in the component instance. `self` is a userdata object that acts like a Lua table but you can't iterate over it with `pairs()` or `ipairs()`.
+Defold executes Lua scripts as part of the engine lifecycle and exposes the lifecycle through a set of predefined callback functions. When you add a script component to a game object the script becomes part of the game object's and its component(s) lifecycle. The script is evaluated in the Lua context when it is loaded, then the engine executes the following functions and passes a reference to the current script component instance as parameter. You can use this `self` reference to store state in the component instance.
+
+::: important
+`self` is a userdata object that acts like a Lua table but you can't iterate over it with `pairs()` or `ipairs()` and you can't print it using `pprint()`.
+:::
 
 `init(self)`
 : Called when the component is initialized.
