@@ -84,6 +84,10 @@ When you have the code signing identity and privisioning profile, you are ready 
 
 Select your code signing identity and browse for your mobile provisioning file. Select which architectures (32 bit, 64 bit and the iOS simulator) to bundle for as well as the variant (Debug or Release). You can optionally untick the `Sign application` checkbox to skip the signing process and then manually sign at a later stage.
 
+:::important
+You **must** untick the `Sign application` checkbox when testing your game on the iOS simulator. You will be able to install the application but it will not boot.
+:::
+
 Press *Create Bundle* and you will then be prompted to specify where on your computer the bundle will be created.
 
 You specify what icon to use for the app, the launch screen image(s) and so forth on the *game.project* project settings file.
@@ -94,6 +98,19 @@ When your game launches on iOS, the launch images are used to set the correct sc
 
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
-### Installing an iOS application bundle
+## Installing an iOS application bundle
 
 The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use Xcode (via the "Devices and Simulators" window). Other options are to use a command line tool such as [ios-deploy](https://github.com/phonegap/ios-deploy) or iTunes.
+
+You can use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:
+
+```
+# show a list of available devices
+xcrun simctl list
+
+# boot an iPhone X simulator
+xcrun simctl boot "iPhone X"
+
+# install your.app to a booted simulator
+xcrun simctl install booted your.app
+```
