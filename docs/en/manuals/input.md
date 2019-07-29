@@ -264,14 +264,14 @@ end
 
 ## Detecting click or tap on objects
 
-Detecting when the user has clicked or tapped on a visual component is a very common operation that is needed in many games. It could be the user interaction with a button or other UI element or the interaction with a game object such as a player controlled unit in a strategy game, some loot on a level in a dungeon crawler or a quest giver in an RPG. The approach to use varies depending on the type of visual component.
+Detecting when the user has clicked or tapped on a visual component is a very common operation that is needed in many games. It could be user interaction with a button or other UI element or the interaction with a game object such as a player controlled unit in a strategy game, some treasure on a level in a dungeon crawler or a quest giver in an RPG. The approach to use varies depending on the type of visual component.
 
 ### Detecting interaction with GUI nodes
 
-For UI elements there is the `gui.pick_node(node, x, y)` function that will return true or false depending on if the specified coordinate is within the bounds of the gui node or not. Refer to the [API docs](/ref/gui/#gui.pick_node:node-x-y), the [pointer over example](https://www.defold.com/examples/gui/pointer_over/) or the [button example](https://www.defold.com/examples/gui/button/) to learn more.
+For UI elements there is the `gui.pick_node(node, x, y)` function that will return true or false depending on if the specified coordinate is within the bounds of a gui node or not. Refer to the [API docs](/ref/gui/#gui.pick_node:node-x-y), the [pointer over example](https://www.defold.com/examples/gui/pointer_over/) or the [button example](https://www.defold.com/examples/gui/button/) to learn more.
 
 ### Detecting interaction with game objects
-For game objects it is more complicated to detect input since things such as camera translation and render script projection will impact the required calculations. There are two general approaches to detecting interaction with game objects:
+For game objects it is more complicated to detect interaction since things such as camera translation and render script projection will impact the required calculations. There are two general approaches to detecting interaction with game objects:
 
   1. Track the position and size of game objects the user can interact with and check if the mouse or touch coordinate is within the bounds of any of the objects.
   2. Attach collision objects to game objects the user can interact with and one collision object that follows the mouse or finger and check for collisions between them.
@@ -280,10 +280,10 @@ For game objects it is more complicated to detect input since things such as cam
 A ready to use solution for using collision objects to detect user input can be found in the [Defold-Input library asset](https://github.com/britzl/defold-input).
 :::
 
-In both cases there is a need to convert from the screen space coordinates of the mouse or touch event and the world space coordinates of the game objects:
+In both cases there is a need to convert from the screen space coordinates of the mouse or touch event and the world space coordinates of the game objects. This can be done in a couple of different ways:
 
   * Manually keep track of which view and projection that is used by the render script and use this to convert to and from world space. See the [camera manual for an example of this](/manuals/camera/#_converting_mouse_to_world_coordinates).
-  * Use a [third-party camera solution](/manuals/camera/#_third_party_camera_solutions) and make use of the provided screen to world conversion functions.
+  * Use a [third-party camera solution](/manuals/camera/#_third_party_camera_solutions) and make use of the provided screen-to-world conversion functions.
 
 
 ## Gamepads settings file
