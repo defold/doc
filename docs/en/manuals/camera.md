@@ -5,10 +5,7 @@ brief: This manual describes the functionality of the Defold camera component.
 
 # Cameras
 
-A camera in Defold is a component that changes the viewport and projection of the game world. The camera component defines a bare bones perspective or orthographic camera that provides a view and projection matrix to the render script. A perspective camera is typically used for 3D games while an orthographic camera is used for 2D games. If you need advanced features like chasing, zooming, shake etc you will need to implement it. There are a few library camera solutions that implements common camera features. They are available from the Defold community assets portal:
-
-- [Rendercam](https://www.defold.com/community/projects/84064/) (2D & 3D) by Ross Grams.
-- [Ortographic camera](https://www.defold.com/community/projects/76573/) (2D only) by Björn Ritzl.
+A camera in Defold is a component that changes the viewport and projection of the game world. The camera component defines a bare bones perspective or orthographic camera that provides a view and projection matrix to the render script. A perspective camera is typically used for 3D games while an orthographic camera is used for 2D games. If you need advanced features like chasing, zooming, shake etc you will need to implement it yourself (see section on [third-party camera solutions](https://www.defold.com/manuals/camera/#_third_party_camera_solutions) below).
 
 ## Creating a camera
 
@@ -87,7 +84,7 @@ An alternative way is to update the position of the game object the camera compo
 When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the on_input() lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. Converting from mouse/screen coordinates to world coordinates from the default render script is done like this:
 
 ::: sidenote
-Both the RenderCam and Orthographic camera extensions mentioned at the top of the document provides functions for converting to and from screen coordinates.
+The [third-party camera solutions mentioned in this manual](/manuals/camera/#_third_party_camera_solutions) provides functions for converting to and from screen coordinates.
 :::
 
 ```Lua
@@ -136,3 +133,11 @@ msg.post("@render:", "use_camera_projection")
 ```
 
 Learn more about the render script in the [Render manual](/manuals/render/#_perspective_projection).
+
+
+## Third-party camera solutions
+
+There are a few library camera solutions that implements common camera features such as game object follow, screen to world coordinate conversion and so on. They are available from the Defold community assets portal:
+
+- [Rendercam](https://www.defold.com/community/projects/84064/) (2D & 3D) by Ross Grams.
+- [Ortographic camera](https://www.defold.com/community/projects/76573/) (2D only) by Björn Ritzl.
