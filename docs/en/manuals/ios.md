@@ -113,4 +113,7 @@ xcrun simctl boot "iPhone X"
 
 # install your.app to a booted simulator
 xcrun simctl install booted your.app
+
+# launch the simulator
+open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
