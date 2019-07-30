@@ -7,7 +7,10 @@ brief: "WebViews allows you to load and display web pages as overlays in your mo
 
 # WebViews
 The WebView extension provides a unified API to load and display web pages as overlays on mobile
-platforms.
+platforms. In this manual we will first go through some basic information how to create and show a webview.
+Later on we will explore more functionality by implementing a simple player feedback window.
+
+## Installing the extension
 
 To start using the webview extension you need to add it as a dependency to your `game.project` file.
 The latest stable version is available with the dependency URL:
@@ -15,10 +18,7 @@ The latest stable version is available with the dependency URL:
 https://github.com/defold/extension-webview/archive/master.zip
 ```
 
-Documentation of the API is available on this address: https://defold.github.io/extension-webview/
-
-In this manual we will first go through some basic information how to create and show a webview.
-Later on we will explore more functionality by implementing a simple player feedback window.
+Documentation of the API is available on [extension GitHub page](https://defold.github.io/extension-webview/).
 
 ## Opening a WebView
 Opening a webview is a simple call to `webview.create`, which will return an identification number
@@ -320,4 +320,3 @@ local function webview_callback(self, webview_id, request_id, type, data)
 
 Now we know if a form button was pressed from inside the webview and the player is able to get back
 to the game!
-
