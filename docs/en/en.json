@@ -471,10 +471,6 @@
                         "name": "Windows"
                     },
                     {
-                        "path": "/manuals/facebook",
-                        "name": "Facebook"
-                    },
-                    {
                         "path": "/manuals/gameroom",
                         "name": "Facebook Gameroom"
                     },
@@ -491,6 +487,10 @@
             {
                 "name": "EXTENSIONS",
                 "items": [
+                    {
+                        "path": "/manuals/facebook",
+                        "name": "Facebook"
+                    },
                     {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
