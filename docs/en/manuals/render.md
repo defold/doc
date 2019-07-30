@@ -53,7 +53,7 @@ msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 
 ### Fixed fit projection
 
-Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be show vertically or horizontally:
+Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be shown vertically or horizontally:
 
 ![Fixed fit projection](images/render/fixed_fit_projection.png)
 
