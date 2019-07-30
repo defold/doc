@@ -96,7 +96,7 @@ The game now works through the Facebook URL provided as *Canvas Page*.
 The following basic test can be used to see if things are set up properly.
 
 1. Create a new game object and attach a script component with a new script file to it.
-2. Enter the following code in the script file:
+2. Enter the following code in the script file (this requires the use of Facebook extension v.2 or later):
 
 ```lua
 local function get_me_callback(self, id, response)
