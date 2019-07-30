@@ -5,9 +5,16 @@ brief: This manual explains how to setup and integrate Facebook functionality in
 
 # Facebook
 
-The Facebook API allows you to interact with Facebook's game connectivity features in a uniform way for games on iOS, Android and HTML5.
+The Facebook API is provided as a [native extension](/manuals/extensions/). The extension allows you to interact with Facebook's game connectivity features in a uniform way for games on iOS, Android and HTML5. The Defold Facebook extension brings the various platform specific Facebook APIs under a unified set of functions that work the same on iOS, Android and HTML5 (through Facebook Canvas). To get started with Facebook connectivity in your games, you need a Facebook account.
 
-The Defold Facebook API brings the various platform specific Facebook APIs under a unified set of functions that work the same on iOS, Android and HTML5 (through Facebook Canvas). To get started with Facebook connectivity in your games, you need a Facebook account.
+## Installing the extension
+
+To start using the Facebook extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
+```
+https://github.com/defold/extension-facebook/archive/master.zip
+```
+
+Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-facebook/).
 
 ## Registering as a Facebook developer
 
@@ -117,7 +124,7 @@ end
 function init(self)
     -- Log in with read permissions.
     local permissions = { "public_profile", "email" }
-    facebook.login_with_read_permissions(permissions, fb_login)
+    facebook.login_with_permissions(permissions, facebook.AUDIENCE_EVERYONE, fb_login)
 end
 ```
 
@@ -146,8 +153,9 @@ DEBUG:SCRIPT:
 }
 ```
 
-* The full Defold Facebook API is documented in the [Facebook reference documentation](/ref/facebook).
+* The full Defold Facebook API is documented on the [extension GitHub page](https://defold.github.io/extension-facebook/).
 * The Facebook Graph API is documented here: https://developers.facebook.com/docs/graph-api
+
 
 ## Facebook Analytics
 
@@ -180,7 +188,7 @@ function init(self)
 end
 ```
 
-Available predefined events and parameters can be seen in the [Facebook reference documentation](/ref/facebook). These should correlate to the [Standard Events](https://developers.facebook.com/docs/analytics/send_data/events#standard) and [Parameters](https://developers.facebook.com/docs/analytics/send_data/events#parameter) from the Facebook developer documentation.
+Available predefined events and parameters can be seen in the [Facebook extension API reference](https://defold.github.io/extension-facebook/). These should correlate to the [Standard Events](https://developers.facebook.com/docs/analytics/send_data/events#standard) and [Parameters](https://developers.facebook.com/docs/analytics/send_data/events#parameter) from the Facebook developer documentation.
 
 The Facebook SDK used by Defold will also automatically generate several events, such as app install and app launch. Refer to the [Auto-logged events](https://developers.facebook.com/docs/analytics/send_data/events#autologged) in the Facebook developer documentation.
 
@@ -194,8 +202,4 @@ Events are accessed from the *Events* option on the from the Facebook Analytics 
 
 ### Sharing events with Facebook
 
-You can opt to share generated events with Facebook for improved ad-tracking. This is done via the [`enable_event_usage()`](/ref/facebook/#facebook.enable_event_usage) and [`disable_event_usage()`](/ref/facebook/#facebook.disable_event_usage) functions. The default setting is according to the Facebook SDK documentation to not share events.
-
-## Development caveats
-
-When developing it is very convenient to use the dev application. Unfortunately, the Facebook API does not yet work on the dev app due to how the bundled *Info.plist* file has to be constructed. However, any debug bundle works as a dev app so the workaround is to build the game with the proper Facebook project settings, put it on the device and then connect to the running game and stream data to it from the editor as usual.
+You can opt to share generated events with Facebook for improved ad-tracking. This is done via the [`enable_event_usage()`](https://defold.github.io/extension-facebook/#enable_event_usage) and [`disable_event_usage()`](https://defold.github.io/extension-facebook/#disable_event_usage) functions. The default setting is according to the Facebook SDK documentation to not share events.
