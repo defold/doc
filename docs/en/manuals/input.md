@@ -294,7 +294,7 @@ Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. De
 
 If you need to create a new gamepad settings file, we have a simple tool to help:
 
-[Click to download gdc.zip](https://forum.defold.com/uploads/default/original/2X/1/1d05d81d57b40da69831ae822e818a834e3dc3ac.zip).
+[Click to download gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
 It includes binaries for Windows, Linux and macOS. Run it from the command line:
 
