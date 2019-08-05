@@ -46,25 +46,35 @@ We don't specify a specific C++ version, so we use the default of each compiler.
 
 ## Android
 
-We include the following libraries and its dependencies into the Android bundle:
+We include the following libraries into the Android bundle:
 ```
-com.google.firebase:firebase-messaging:17.3.4
-com.google.firebase:firebase-core:16.0.7
-com.google.android.gms:play-services-base:16.0.1
-com.android.support:support-v4:27.1.1
-com.android.support:support-compat:27.1.1
-com.android.support:support-core-utils:27.1.1
-com.android.support:support-core-ui:27.1.1
-com.android.support:support-media-compat:27.1.1
-com.android.support:support-fragment:27.1.1
-com.android.support:support-annotations:27.1.1
-android.arch.core:common:1.1.0
-android.arch.core:runtime:1.1.0
-android.arch.lifecycle:common:1.1.1
-android.arch.lifecycle:compiler:1.1.1
-android.arch.lifecycle:extensions:1.1.1
-android.arch.lifecycle:reactivestreams:1.1.1
-android.arch.lifecycle:runtime:1.1.1
+com.google.android.gms.play-services-ads-identifier:16.0.0
+com.google.android.gms.play-services-base:16.0.1
+com.google.android.gms.play-services-tasks:16.0.1
+com.google.android.gms.play-services-basement:16.0.1
+com.android.support.support-v4:27.1.1
+android.arch.lifecycle.extensions:1.1.1
+com.android.support.support-fragment:27.1.1
+com.android.support.support-core-ui:27.1.1
+com.android.support.support-core-utils:27.1.1
+com.android.support.support-media-compat:27.1.1
+com.android.support.support-compat:27.1.1
+android.arch.lifecycle.compiler:1.1.1
+android.arch.lifecycle.reactivestreams:1.1.1
+android.arch.lifecycle.runtime:1.1.1
+android.arch.lifecycle.livedata:1.1.1
+android.arch.lifecycle.livedata-core:1.1.1
+android.arch.lifecycle.common:1.1.1
+android.arch.core.runtime:1.1.1
+android.arch.core.common:1.1.1
+android.arch.lifecycle.viewmodel:1.1.1
+com.android.support.support-annotations:27.1.1
+org.jetbrains.kotlin.kotlin-stdlib:1.2.20
+com.google.auto.auto-common:0.6
+com.squareup.javapoet:1.8.0
+org.reactivestreams.reactive-streams:1.0.0
+org.jetbrains.annotations:13.0
+com.google.guava.guava:18.0
 ```
 *We plan to move Firebase messages and Google Play Services to its own extensions.*
 
