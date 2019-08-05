@@ -358,29 +358,35 @@ Iap Provider
 
 ## HTML5
 
-Set Custom Heap Size
-: If set, Emscripten allocates *custom_heap_size* number of bytes for the application heap.
-
-Custom Heap Size
-: Sets the custom heap size (number of bytes) for Emscripten to use if *set_custom_heap_size* is set. If not set, 256MB is allocated for the application heap.
-
-Include Dev Tool
-: Includes a visual dev-tool in the application that allows tracking of memory usage.
+Heap Size
+: Heap size (number of megabytes) for Emscripten to use. By default this value is 256MB.
 
 .html Shell
-: If set, use the specified template HTML file when bundling.
+: Use the specified template HTML file when bundling. By default `/builtins/manifests/web/engine_template.html`.
 
 Custom .css
-: If set, use the specified CSS file when bundling.
+: Use the specified theme CSS file when bundling. By default `/builtins/manifests/web/light_theme.css`.
 
 Splash Image
-: If set, use the specified splash image on startup when bundling.
+: If set, use the specified splash image on startup when bundling instead of Defold logo.
 
 Archive Location Prefix
 : When bundling for HTML5 game data is split up into one or more archive data files. When the engine starts the game, these archive files are read into memory. Use this setting to specify the location of the data, `archive` by default.
 
 Archive Location Suffix
 : Suffix to be appended to the archive files. Useful to, for instance, force non-cached content from a CDN (`?version2` for example).
+
+Engine Arguments
+: List of arguments that will be passed to the engine.
+
+Show Fullscreen Button
+: Enables Fullscreen Button in `index.html` file. By default `true`.
+
+Show Made With Defold
+: Enables Made With Defold link in `index.html` file. By default `true`.
+
+Scale Mode
+: Specifies which method to use to scale the game canvas. By default `Downscale Fit`.
 
 ## Facebook
 
