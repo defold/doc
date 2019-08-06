@@ -82,7 +82,8 @@ You can't modify files of the default html/css template in `builtins` folder. Fo
 The canvas shouldn't be styled with any border or padding. If you do, mouse input coordinates will be wrong.
 :::
 
-In `game.project` possible to turn-off the `Fullscreen` button and `Made with Defold` link. Also, was predefined four different scale modes.
+In `game.project` possible to turn-off the `Fullscreen` button and `Made with Defold` link.
+Defold provides a dark and light theme for the index.html. The light theme is set by default but it possible to change just changing `Custom CSS` file. Also, was predefined four different scale modes that possible to change in `Scale Mode` field.
 
 ::: important
 The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in `game.project` (`Display` section)
