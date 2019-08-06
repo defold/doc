@@ -5,9 +5,20 @@ brief: This document describes how to set up and implement remote and local iOS 
 
 # Push notifications
 
-Push notifications are available on iOS and Android devices and allow your game to inform the player about changes and updates. The core functionality is similar between iOS and Android but there are some platform specific differences that you need to consider.
+Push notifications are available on iOS and Android devices as a [native extension](/manuals/extensions/) and allow your game to inform the player about changes and updates. The core functionality is similar between iOS and Android but there are some platform specific differences that you need to consider.
 
 For a push notification to find its way from the server to the target device, certain bits of information are required for your app. The most complex part consists of security information that you set in the application so the notification system can verify the legitimacy of the client receiving notifications. But you will also need a piece of security information for your notification server so the Apple or Google servers can verify that your server is a legitimate notification sender. Finally, when you send notifications, you need to be able to uniquely direct notifications to a specific user's device. For that you retreive and use a token that is unique to the particular device (i.e. user).
+
+## Installing the extension
+
+To start using the Push extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
+```
+https://github.com/defold/extension-push/archive/master.zip
+```
+
+We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-push/releases).
+
+Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-push/).
 
 ## iOS setup
 
