@@ -521,6 +521,10 @@
                         "name": "Defold SDK"
                     },
                     {
+                        "path": "/manuals/extensions-script-api",
+                        "name": "Adding auto-complete definition"
+                    },
+                    {
                         "path": "/manuals/extensions-best-practices",
                         "name": "Best Practices"
                     },
