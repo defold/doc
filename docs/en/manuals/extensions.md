@@ -57,8 +57,6 @@ name: "MyExtension"
 
 The extension consists of a single C++ file, *myextension.cpp* that is created in the "src" folder.
 
-The Defold editor will not open *.cpp* files by default so if you double click the file the system editor set for that file type is used. You can use the built in text editor by right-clicking the file and selecting <kbd>Open With ▸ Text Editor</kbd>. Note that Defold has no support for C++ files so the editing experience is minimal.
-
 ![C++ file](images/extensions/cppfile.png)
 
 The extension source file contains the following code:
@@ -71,7 +69,7 @@ The extension source file contains the following code:
 
 // include the Defold SDK
 #include <dmsdk/sdk.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 static int Rot13(lua_State* L)
 {
@@ -186,6 +184,7 @@ The following identifiers are defined by the builder on each respective platform
 * DM_PLATFORM_IOS
 * DM_PLATFORM_ANDROID
 * DM_PLATFORM_LINUX
+* DM_PLATFORM_HTML5
 
 ## The ext.manifest file
 
@@ -216,6 +215,7 @@ platforms:
 
 ## Example extensions
 
+* [Basic extension example](https://github.com/defold/template-native-extension) (the extension from this manual)
 * [Android extension example](https://github.com/defold/extension-android)
 * [HTML5 extension example](https://github.com/defold/extension-html5)
 * [MacOS, iOS and Android videoplayer extension](https://github.com/defold/extension-videoplayer)
@@ -223,19 +223,3 @@ platforms:
 * [iOS and Android Admob extension](https://github.com/defold/extension-admob)
 
 The [Defold community asset portal](https://www.defold.com/community/assets/) also contain community created extensions.
-
-## Known issues
-
-The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
-
-Platforms
-: Android lacks support for *.aar* archives. All platforms currently create debug builds only.
-
-Languages
-: The Swift and Kotlin programming languages are currently not supported.
-
-Editor
-: The editor integration lacks build process indication. Error reporting is rudimentary.
-
-Debugging
-: Currently, when building on iOS, the *.dSYM* files are not included in the build result

@@ -308,7 +308,7 @@ function copyAssets () {
     pipe(gulp.dest('build/assets')).
     pipe(preservetime())
 
-  return gulp.src(['docs/**/*.{png,jpg,svg,gif,js,zip,js}']).
+  return gulp.src(['docs/**/*.{png,jpg,svg,gif,js,zip,js,pdf}']).
     pipe(gulp.dest('build')).
     pipe(preservetime())
 }
@@ -398,5 +398,3 @@ gulp.task('watch',
     )
   )
 )
-
-

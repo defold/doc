@@ -517,6 +517,10 @@
                         "name": "Details"
                     },
                     {
+                        "path": "/manuals/extensions-defold-sdk",
+                        "name": "Defold SDK"
+                    },
+                    {
                         "path": "/manuals/extensions-best-practices",
                         "name": "Best Practices"
                     },

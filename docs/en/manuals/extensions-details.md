@@ -83,11 +83,3 @@ The main reason is that on iOS version < 8, multiple executable binaries in an .
 We don't make use of any exceptions in the engine.
 It isn't generally used in game engines, since the data is (mostly) known beforehand, during development.
 Removing the support for C++ exceptions decreases executable size and improves the runtime performance.
-
-## Defold SDK
-
-With each (biweekly) release of Defold, we release a new Defold SDK.
-With it, we ship the libraries of the engine, and also a build manifest file,
-which is identical in structure and syntax as the [extension](/manuals/extensions-build-variants) and [app](/manuals/extensions-build-variants) manifests.
-
-(This sdk is not yet public)
