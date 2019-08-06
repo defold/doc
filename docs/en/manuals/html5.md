@@ -1,6 +1,6 @@
 ---
 title: Defold development for the HTML5 platform
-brief: This manual describes the process of creating HTML5 canvas applications, along with known issues and limitations.
+brief: This manual describes the process of creating HTML5 game, along with known issues and limitations.
 ---
 
 # HTML5 development
@@ -20,7 +20,7 @@ Defold support for HTML5 is powered by Emscripten (See http://en.wikipedia.org/w
 
 ## Testing HTML5 build
 
-For testing HTML5 build you need a HTTP server. We will create the simplest one for you if you choose <kbd>Project ▸ Build HTML5</kbd>.
+For testing, HTML5 build needs an HTTP server. Defold creates the simplest one HTTP server for you if you choose <kbd>Project ▸ Build HTML5</kbd>.
 
 ![Build HTML5](images/html5/html5_build_launch.png)
 
@@ -52,10 +52,6 @@ Live update
 : Defold applications must run their own miniature web server in order to receive live updates from the editor. This is not possible within a pure browser application.
 
 
-CORS
-: Cross-origin resource sharing (See http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) is not enabled in the QA environment, limiting the ability of browsers to interact with web APIs. There are two possible workarounds: when using Chrome, start it with the ‘--disable-web-security’ flag; you can create a proxy server.
-
-
 Internet Explorer 11 (audio)
 : Defold handles audio playback using HTML5 _WebAudio_ (see http://www.w3.org/TR/webaudio), which is not currently supported by Internet Explorer 11. Applications will fall back to a null audio implementation when using this browser.
 
@@ -68,31 +64,46 @@ Internet Explorer 11 (Full screen)
 : Full screen mode is unreliable in the browser.
 
 
-## Customizing HTML5 applications
+## Customizing HTML5 bundle
 
-When generating an HTML5 version of your application, Defold provides a default web page that will house your application. It references style and script resources that dictate how your application is presented.
-
-Unless overridden, Defold will produce a default page, consisting of:
-
-- An HTML5 canvas for your application
-- A button to access fullscreen mode, if required
-- A link to Defold.com site, if required
-- Splash screen content and logic
+When generating an HTML5 version of your game, Defold provides a default web page. It references style and script resources that dictate how your game is presented.
 
 Each time the application is exported, this content is created afresh. If you wish to customize any of these elements you must make modifications to your project settings. To do so, open the *game.project* in the Defold editor and scroll to the *html5* section:
 
-![HTML5 settings](images/html5/html5_styling_settings.png)
+![HTML5 Section](images/html5/html5_section.png)
 
-These settings allow you to add a custom HTML file, stylesheet and splash image.
+More information about every option is available in [project settings manual](/manuals/project-settings/#_html5).
 
-::: sidenote
-To get started, you can begin by exporting the application once with the default settings. You then copy the exported HTML and CSS back into your project. Once copied, make the changes to the settings, as described above, and start editing the files.
+::: important
+You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in `game.project`.
 :::
 
-You have considerable freedom to make changes or additions to this content, but some restrictions apply:
+::: sidenote
+The canvas shouldn't be styled with any border or padding. If you do, mouse input coordinates will be wrong.
+:::
 
-- The canvas should not be styled with any border or padding. If you do, mouse input coordinates will be wrong.
+In `game.project` possible to turn-off the `Fullscreen` button and `Made with Defold` link. Also, was predefined four different scale modes.
 
+::: important
+The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in `game.project` (`Display` section)
+:::
+
+### Downscale Fit and Fit
+
+For the `Fit` mode canvas size will be changed the way to show full game canvas on the screen with original proportions. The only difference in `Downscale Fit` is changing size only if the inner size of the webpage is smaller than the original canvas of the game, but doesn't scale-up when a webpage is bigger than the original game canvas.
+
+![HTML5 Section](images/html5/html5_fit.png)
+
+### Stretch
+
+For the `Stretch` mode canvas size will be changed to fully fill the inner size of the webpage.
+
+![HTML5 Section](images/html5/html5_stretch.png)
+
+### No Scale
+With `No Scale` mode the canvas size exactly the same as you predefined in `game.project` file, `[display]` section.
+
+![HTML5 Section](images/html5/html5_no_scale.png)
 
 ## Tokens
 
