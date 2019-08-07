@@ -20,11 +20,11 @@ Defold support for HTML5 is powered by Emscripten (See http://en.wikipedia.org/w
 
 ## Testing HTML5 build
 
-For testing, HTML5 build needs an HTTP server. Defold creates the simplest one HTTP server for you if you choose <kbd>Project ▸ Build HTML5</kbd>.
+For testing, HTML5 build needs an HTTP server. Defold creates one for you if you choose <kbd>Project ▸ Build HTML5</kbd>.
 
 ![Build HTML5](images/html5/html5_build_launch.png)
 
-If you want to test your bundle, just upload it to your remote HTTP server or create local, for example, using python in the bundle folder.
+If you want to test your bundle, just upload it to your remote HTTP server or create a local server, for example, using python in the bundle folder.
 Python 2:
 > python -m SimpleHTTPServer
 
@@ -35,7 +35,7 @@ or
 > python3 -m http.server
 
 ::: important
-You can't test HTML5 bundle just opening `index.html` file in a browser. This requires HTTP server.
+You can't test the HTML5 bundle by opening `index.html` file in a browser. This requires HTTP server.
 :::
 
 ## Creating HTML5 bundle
@@ -78,12 +78,12 @@ More information about every option is available in [project settings manual](/m
 You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in `game.project`.
 :::
 
-::: sidenote
+::: important
 The canvas shouldn't be styled with any border or padding. If you do, mouse input coordinates will be wrong.
 :::
 
-In `game.project` possible to turn-off the `Fullscreen` button and `Made with Defold` link.
-Defold provides a dark and light theme for the index.html. The light theme is set by default but it possible to change just changing `Custom CSS` file. Also, was predefined four different scale modes that possible to change in `Scale Mode` field.
+In `game.project` it is possible to turn-off the `Fullscreen` button and the `Made with Defold` link.
+Defold provides a dark and light theme for the index.html. The light theme is set by default but it is possible to change by changing `Custom CSS` file. There is also four predefined scale modes to chose from in the `Scale Mode` field.
 
 ::: important
 The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in `game.project` (`Display` section)
@@ -91,7 +91,7 @@ The calculations for all scale modes include current screen DPI in case if you t
 
 ### Downscale Fit and Fit
 
-For the `Fit` mode canvas size will be changed the way to show full game canvas on the screen with original proportions. The only difference in `Downscale Fit` is changing size only if the inner size of the webpage is smaller than the original canvas of the game, but doesn't scale-up when a webpage is bigger than the original game canvas.
+For the `Fit` mode canvas size will be changed to show full game canvas on the screen with original proportions. The only difference in `Downscale Fit` is changing size only if the inner size of the webpage is smaller than the original canvas of the game, but doesn't scale-up when a webpage is bigger than the original game canvas.
 
 ![HTML5 Section](images/html5/html5_fit.png)
 
@@ -102,13 +102,13 @@ For the `Stretch` mode canvas size will be changed to fully fill the inner size 
 ![HTML5 Section](images/html5/html5_stretch.png)
 
 ### No Scale
-With `No Scale` mode the canvas size exactly the same as you predefined in `game.project` file, `[display]` section.
+With `No Scale` mode the canvas size is exactly the same as you predefined in `game.project` file, `[display]` section.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
 ## Tokens
 
-We use [Mustache template language](https://mustache.github.io/mustache.5.html) for creation `index.html` file. When your are building the HTML and CSS files are passed through a compiler that is capable of replacing certain tokens with values that depend upon your project settings. These tokens are always encased in either double or triple curly braces (`{{TOKEN}}` or `{{{TOKEN}}}`), depending on whether character sequences should be escaped or not. This feature can be useful if you either make frequent changes to your project settings or intend for material to be reused in other projects.
+We use [Mustache template language](https://mustache.github.io/mustache.5.html) for creation of the `index.html` file. When your are building or bundling, the HTML and CSS files are passed through a compiler that is capable of replacing certain tokens with values that depend upon your project settings. These tokens are always encased in either double or triple curly braces (`{{TOKEN}}` or `{{{TOKEN}}}`), depending on whether character sequences should be escaped or not. This feature can be useful if you either make frequent changes to your project settings or intend for material to be reused in other projects.
 
 ::: sidenote
 More information about Mustache template language is available in [manual](https://mustache.github.io/mustache.5.html).
