@@ -101,7 +101,7 @@ local function product_list(self, products, error)
 end
 
 function init(self)
-    -- Initiate a fetch of products
+    -- Initiate a fetch of products (max 20 at a time for Google Play)
     iap.list({ COINS_ID, LOGO_ID }, product_list)
 end
 ```
@@ -168,6 +168,9 @@ The receipt is a signed chunk of data that can be sent to the App Store to verif
 Android `iap.list()` returns "failed to fetch product"
 : You need to upload and publish an *.apk* on the alpha or beta channels on the Google Play Developer Console. Also make sure that the _time and date_ on your device is correct.
 
+Android (Google Play) `iap.list()` never returns more than 20 products
+: Google has an [limit of 20 products per request](https://github.com/googlesamples/android-play-billing/blob/master/TrivialDrive/app/src/main/aidl/com/android/vending/billing/IInAppBillingService.aidl#L62). The solution is to make multiple calls to `iap.list()` and combine the results if the number of products exceeds 20.
+
 iOS `iap.list()` returns nothing
 : Make sure that you’ve requested an iOS Paid Applications account, and all proper documentation has been filed. Without proper authorization, your iOS app purchasing (even test purchases) will not work.
 
@@ -180,5 +183,3 @@ iOS `iap.list()` fails logging error "Unexpected callback set"
 
 On iOS, the "price_string" field contains '~' characters
 : The '~' characters are placeholders where no matching character could be found in the font file. The "price_string" field returned in the product list when using `iap.list()` is formatted with a _non breaking space_ (`\u00a0`) between the value and the currency denominator. If you render this string in the GUI, you need to add the character to the font's *extra_characters* field. On Mac OS X you can type non breaking spaces by pressing <kbd>Option + SPACE</kbd>. See http://en.wikipedia.org/wiki/Non-breaking_space for more information.
-
-
