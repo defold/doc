@@ -18,6 +18,11 @@ https://github.com/defold/extension-push/archive/master.zip
 
 We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-push/releases).
 
+This extension requires the following dependency ([specific release](https://github.com/defold/extension-firebase-core/releases)):
+```
+https://github.com/defold/extension-firebase-core/archive/master.zip
+```
+
 Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-push/).
 
 ## iOS setup
