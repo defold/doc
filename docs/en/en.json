@@ -386,6 +386,10 @@
                     {
                         "path": "/manuals/modules",
                         "name": "Modules"
+                    },
+                    {
+                        "path": "/manuals/networking",
+                        "name": "Networking"
                     }
                 ]
             },
