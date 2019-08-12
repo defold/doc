@@ -138,8 +138,7 @@ end
 The script code above is written in the Lua language. There are a few things to note about the code:
 
 - Defold reserves a set of built in callback *functions* that are called during the lifetime of a script component. These are *not* methods but plain functions. The runtime passes a reference to the current script component instance through the parameter `self`. The `self` reference is used to store instance data.
-- The name `msg.post` resolves to a function `post` residing in a Lua table named `msg`. The dot notation is used to indicate intries in Lua tables, *not* methods on an object "msg"!
-- Lua table literals are written surrounded with curly braces. Table entries can be key/value pairs (`{x = 10, y = 20}`), nested Lua tables (`{{a = 1}, {b = 2}}`) or other data types. 
+- Lua table literals are written surrounded with curly braces. Table entries can be key/value pairs (`{x = 10, y = 20}`), nested Lua tables (`{{a = 1}, {b = 2}}`) or other data types.
 - The `self` reference can be used as a Lua table that you can store data in. Just use the dot notation as you would with any other table: `self.data = "value"`. The reference is valid throughout the lifetime of the script, in this case from game start until you quit it.
 
 If you didn't understand any of the above, don't worry about it. Just tag along, experiment and give it time---you will get it eventually.
@@ -174,7 +173,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do -- <8>
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2) -- <9>
         end
-        
+
         self.t = 0 -- <10>
     end
 end
@@ -233,7 +232,7 @@ function on_input(self, action_id, action)
     elseif action_id == hash("right") and action.pressed then
         self.dir.x = 1
         self.dir.y = 0
-    end 
+    end
 end
 ```
 1. If the input action "up" is received, as set up in the input bindings, and the `action` table has the `pressed` field set to `true` (player pressed the key) then:
@@ -292,7 +291,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)
         end
-        
+
         self.t = 0
     end
 end
@@ -306,7 +305,7 @@ function on_input(self, action_id, action)
         table.insert(self.dirqueue, {x = -1, y = 0})
     elseif action_id == hash("right") and action.pressed then
         table.insert(self.dirqueue, {x = 1, y = 0})
-    end 
+    end
 end
 ```
 1. Initialize an empty table that will hold the input direction queue.
@@ -339,7 +338,7 @@ function init(self)
     self.dirqueue = {}
     self.speed = 7.0
     self.t = 0
-    
+
     math.randomseed(socket.gettime()) -- <4>
     put_food(self) -- <5>
 end
@@ -366,7 +365,7 @@ function init(self)
     self.speed = 7.0
     self.alive = true -- <1>
     self.t = 0
-    
+
     math.randomseed(socket.gettime())
     put_food(self)
 end
@@ -380,7 +379,7 @@ function update(self, dt)
     self.t = self.t + dt
     if self.t >= 1.0 / self.speed and self.alive then -- <1>
         local newdir = table.remove(self.dirqueue, 1)
-        
+
         if newdir then
             local opposite = newdir.x == -self.dir.x or newdir.y == -self.dir.y
             if not opposite then
@@ -408,7 +407,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
         end
-        
+
         self.t = 0
     end
 end
@@ -446,7 +445,7 @@ function init(self)
     self.speed = 7.0
     self.alive = true
     self.t = 0
-    
+
     math.randomseed(socket.gettime())
     put_food(self)
 end
@@ -455,7 +454,7 @@ function update(self, dt)
     self.t = self.t + dt
     if self.t >= 1.0 / self.speed and self.alive then
         local newdir = table.remove(self.dirqueue, 1)
-        
+
         if newdir then
             local opposite = newdir.x == -self.dir.x or newdir.y == -self.dir.y
             if not opposite then
@@ -483,7 +482,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
         end
-        
+
         self.t = 0
     end
 end
@@ -497,7 +496,7 @@ function on_input(self, action_id, action)
         table.insert(self.dirqueue, {x = -1, y = 0})
     elseif action_id == hash("right") and action.pressed then
         table.insert(self.dirqueue, {x = 1, y = 0})
-    end 
+    end
 end
 ```
 

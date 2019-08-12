@@ -130,7 +130,7 @@ This message is sent for all collision objects. It has the following fields set:
 `other_position`
 : the world position of the instance the collision object collided with (`vector3`)
 
-`group`
+`other_group`
 : the collision group of the other collision object (`hash`)
 
 The collision_response message is only adequate to resolve collisions where you don't need any details on the actual intersection of the objects, for example if you want to detect if a bullet hits an enemy. There is only one of these messages sent for any colliding pair of objects each frame.
