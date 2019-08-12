@@ -13,7 +13,7 @@ Before you can create a tile map you need to create a Tile Source. Refer to the 
 
 To create a new tile map:
 
-- <kbd>right click</kbd> a location in the *Assets* browser, then select <kbd>New... ▸ Tile Map</kbd>).
+- <kbd>Right click</kbd> a location in the *Assets* browser, then select <kbd>New... ▸ Tile Map</kbd>).
 - Name the file.
 - The new tile map automatically opens in the tile map editor.
 

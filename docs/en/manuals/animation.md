@@ -49,7 +49,7 @@ All numeric properties (numbers, vector3, vector4 and quaterions) and shader con
 Sprites and GUI box nodes can play flip-book animations and you have great control over them at runtime.
 
 Sprites
-: To run an animation during runtime you use the [`sprite.play_flipbook()`](/ref/#sprite.play_flipbook:url-id--complete_function---play_properties-) function. See below for an example.
+: To run an animation during runtime you use the [`sprite.play_flipbook()`](ref/sprite/#sprite.play_flipbook:url-id--complete_function---play_properties-) function. See below for an example.
 
 GUI box nodes
 : To run an animation during runtime you use the [`gui.play_flipbook()`](/ref/gui#play_flipbook) function. See below for an example.

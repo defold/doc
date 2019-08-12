@@ -51,8 +51,8 @@ What platforms does Defold run on?
   | Windows Vista             | Editor and runtime   |
   | Ubuntu 16.04 (64 bit)(1)  | Editor               |
   | Linux (64 bit)(2)         | Runtime              |
-  | iOS 6.0                   | Runtime              |
-  | Android 2.3 (API level 9) | Runtime              |
+  | iOS 8.0                   | Runtime              |
+  | Android 4.1 (API level 16) | Runtime              |
   | HTML5                     | Runtime              |
 
   (1 The editor is built and tested for 64-bit Ubuntu 16.04. It should work on other distributions as well but we give no guarantees.)

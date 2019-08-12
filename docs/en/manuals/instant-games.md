@@ -22,7 +22,7 @@ Before you can publish your Defold game to Facebook, you need to set up your gam
 3. Make sure to include the Instant Games SDK in your "index.html" that is generated when you bundle your game.
 
    ```html
-   <script src="https://connect.facebook.net/en_US/fbinstant.6.0.js"></script>
+   <script src="https://connect.facebook.net/en_US/fbinstant.6.3.js"></script>
    ```
 
    See [the HTML5 manual](/manuals/html5/#_customizing_html5_applications) for details on how to customize your bundled app.

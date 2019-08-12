@@ -66,7 +66,7 @@ Game objects are either added in-place in a collection, or added to a collection
 
 :[components](../shared/components.md)
 
-Refer to the [component overview](/manuals/components.md) for a list of all available component types.
+Refer to the [component overview](/manuals/components/) for a list of all available component types.
 
 ## Objects added in-place or by reference
 
