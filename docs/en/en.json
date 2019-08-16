@@ -471,10 +471,6 @@
                         "name": "Windows"
                     },
                     {
-                        "path": "/manuals/gameroom",
-                        "name": "Facebook Gameroom"
-                    },
-                    {
                         "path": "/manuals/instant-games",
                         "name": "Facebook Instant Games"
                     },
