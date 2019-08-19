@@ -76,7 +76,7 @@ org.reactivestreams.reactive-streams:1.0.0
 org.jetbrains.annotations:13.0
 com.google.guava.guava:18.0
 ```
-*We plan to move Firebase messages and Google Play Services to its own extensions.*
+*We plan to move Google Play Services to its own extensions.*
 
 ## Win32 + Clang
 
