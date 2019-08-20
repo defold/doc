@@ -1,62 +1,55 @@
 ---
 title: Defold development for the HTML5 platform
-brief: This manual describes the process of creating HTML5 canvas applications, along with known issues and limitations.
+brief: This manual describes the process of creating HTML5 game, along with known issues and limitations.
 ---
 
 # HTML5 development
 
-Defold supports building games for the HTML5 platform through the regular bundling menu, as well as some platform specific tools. In addition, the resulting game is embedded on a regular HTML page that can be styled through a simple template system.
+Defold supports building games for the HTML5 platform through the regular bundling menu, as well as for other platforms. In addition, the resulting game is embedded on a regular HTML page that can be styled through a simple template system.
 
 The *game.project* file contains the HTML5 specific settings:
 
 ![Project settings](images/html5/html5_project_settings.png)
 
-## Customizing heap size
+## Heap size
 
 Defold support for HTML5 is powered by Emscripten (See http://en.wikipedia.org/wiki/Emscripten). In short, it creates a sandbox of memory for the heap in which the application operates. By default, the engine allocates a generous amount of memory (256MB). This should be more than sufficient for the typical game. As part of your optimization process, you may choose to use a smaller value. To do this, follow these steps:
 
-1. Set *custom_heap_size* to a preferred value. It should be expressed in bytes.
-2. Enable the override by checking *set_custom_heap_size*
-3. Create your HTML5 bundle (see below)
+1. Set *heap_size* to a preferred value. It should be expressed in megabytes.
+2. Create your HTML5 bundle (see below)
 
-## Monitoring memory usage
+## Testing HTML5 build
 
-During development, you may track the use of application memory by creating bundles that include a special memory tracking component. This feature is enabled by checking *include_dev_tool*. For further details, see below.
-
-## Application cache
-
-You may opt to save application data within the _HTML5 application cache_ (See https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache), as it may improve loading times and reduce network traffic. Most commonly, this features is not used during development as the browser will prefer cached data over any new content you create. If you use the feature during testing, note that building a new bundle will alter the cache manifest, leading to new data being fetched. All browsers provide the means to clear this cache.
-
-## Creating HTML5 content
-
-Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd> from the menu:
+For testing, HTML5 build needs an HTTP server. Defold creates one for you if you choose <kbd>Project ▸ Build HTML5</kbd>.
 
 ![Build HTML5](images/html5/html5_build_launch.png)
 
+If you want to test your bundle, just upload it to your remote HTTP server or create a local server, for example, using python in the bundle folder.
+Python 2:
+> python -m SimpleHTTPServer
+
+Python 3:
+> python -m http.server
+
+or
+> python3 -m http.server
+
+::: important
+You can't test the HTML5 bundle by opening `index.html` file in a browser. This requires HTTP server.
+:::
+
+## Creating HTML5 bundle
+
+Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd> from the menu:
+
+![Application files](images/html5/html5_bundle.png)
+
 You will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.
-
-![Application files](images/html5/html5_files.png)
-
-## Testing HTML5 Content
-
-Install your content into a directory accessible to a web server. The testing environment available to you will depend upon your project: from this environment simply open the .html page of your application.
-
-![Application](images/html5/html5_goat.png)
-
-You may also launch HTML content directly from the editor, which opens the application in a local browser. Depending on the functionality of your game, you may prefer to test your application from a web server instead.
 
 ## Known issues and limitations
 
 Live update
 : Defold applications must run their own miniature web server in order to receive live updates from the editor. This is not possible within a pure browser application.
-
-
-CORS
-: Cross-origin resource sharing (See http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) is not enabled in the QA environment, limiting the ability of browsers to interact with web APIs. There are two possible workarounds: when using Chrome, start it with the ‘--disable-web-security’ flag; you can create a proxy server.
-
-
-Safari (IndexedDB)
-: Persistent user data is stored locally using _IndexedDB API_ (see https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API). This HTML5 feature is not supported in the current version of Safari, so data will not be stored between sessions when using this browser. It will be included in the next update.
 
 
 Internet Explorer 11 (audio)
@@ -71,213 +64,157 @@ Internet Explorer 11 (Full screen)
 : Full screen mode is unreliable in the browser.
 
 
-## Customizing HTML5 applications
+## Customizing HTML5 bundle
 
-When generating an HTML5 version of your application, Defold provides a default web page that will house your application. It references style and script resources that dictate how your application is presented.
-
-In general, the time required to fetch all resources required to launch an application is not negligible. For this reason, Defold HTML5 applications implement a splash screen feature that is loaded separately from the main application and that will show while the main application loads.
-
-Unless overridden, Defold will produce a default page, consisting of:
-
-- An HTML5 canvas for your application
-- A button to access fullscreen mode
-- Splash screen content and logic
-- Development tools, if required
+When generating an HTML5 version of your game, Defold provides a default web page. It references style and script resources that dictate how your game is presented.
 
 Each time the application is exported, this content is created afresh. If you wish to customize any of these elements you must make modifications to your project settings. To do so, open the *game.project* in the Defold editor and scroll to the *html5* section:
 
-![HTML5 settings](images/html5/html5_styling_settings.png)
+![HTML5 Section](images/html5/html5_section.png)
 
-These settings allow you to add a custom HTML file, stylesheet and splash image.
-
-::: sidenote
-To get started, you can begin by exporting the application once with the default settings. You then copy the exported HTML and CSS back into your project. Once copied, make the changes to the settings, as described above, and start editing the files.
-:::
-
-You have considerable freedom to make changes or additions to this content, but some restrictions apply:
-
-- The canvas should not be styled with any border or padding. If you do, mouse input coordinates will be wrong.
-- If Facebook support is required then the script tag that loads the Javascript SDK should appear before the main application script.
-
-## Splash screens
-
-By default, a splash screen is implemented. If you wish to customize or remove the splash screen then there are a few features that require attention:
-
-- HTML markup
-- CSS styling
-- Javascript logic
-
-Although the implementation of any associated Javascript is a matter of preference, Defold applications will send information back to you if you implement a "SplashControl" object that contains the following methods:
-
-onSetMessage(text)
-: This callback receives text that is intended for display to the user.
-
-
-onSetProgress(current, max)
-: As the application is loaded, this callback receives the current progress. "current" contains the amount of data that has been loaded and "max" contains the total amount of data to load.
-
-
-onDismissSplash()
-: This callback is invoked by the application when the application is loaded and it is about to begin execution and render to the canvas (i.e. the splash screen should be dismissed).
-
-
-The default implementation also contains logic to deal with window resizing events. If you wish to change or replace the implementation, the main module provides two helper functions:
-
-Module.matchToCanvas(id)
-: Accepts the id of a DOM element and adjusts its styled "width" and "height" properties to match the proportions of the canvas. The "marginTop" property is set to a value that centers the canvas vertically in the browser window.
-
-
-Module.setMarginTop(id, sourcePixels)
-: Set the "marginTop" property of element "id" to a value "sourcePixels" that is expressed at a scale relative to the project settings application height. Internally, "sourcePixels" is multiplied by _scale_ before it's assigned to the top margin. The _scale_ is the actual browser window pixel height divided by the application pixel height as specified in the project settings.
-
+More information about every option is available in [project settings manual](/manuals/project-settings/#_html5).
 
 ::: important
-These methods are not available until the module script is loaded. See the default generated HTML file for example usage.
+You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in `game.project`.
 :::
 
-::: sidenote
-When focusing on splash screen development, you can comment out any code related to loading and running the engine to speed up the process.
+::: important
+The canvas shouldn't be styled with any border or padding. If you do, mouse input coordinates will be wrong.
 :::
+
+In `game.project` it is possible to turn-off the `Fullscreen` button and the `Made with Defold` link.
+Defold provides a dark and light theme for the index.html. The light theme is set by default but it is possible to change by changing `Custom CSS` file. There is also four predefined scale modes to chose from in the `Scale Mode` field.
+
+::: important
+The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in `game.project` (`Display` section)
+:::
+
+### Downscale Fit and Fit
+
+For the `Fit` mode canvas size will be changed to show full game canvas on the screen with original proportions. The only difference in `Downscale Fit` is changing size only if the inner size of the webpage is smaller than the original canvas of the game, but doesn't scale-up when a webpage is bigger than the original game canvas.
+
+![HTML5 Section](images/html5/html5_fit.png)
+
+### Stretch
+
+For the `Stretch` mode canvas size will be changed to fully fill the inner size of the webpage.
+
+![HTML5 Section](images/html5/html5_stretch.png)
+
+### No Scale
+With `No Scale` mode the canvas size is exactly the same as you predefined in `game.project` file, `[display]` section.
+
+![HTML5 Section](images/html5/html5_no_scale.png)
 
 ## Tokens
 
-When your HTML5 application is created, the HTML and CSS files are passed through a compiler that is capable of replacing certain tokens with values that depend upon your project settings. These tokens are always encased in either double or triple curly braces (`{{TOKEN}}` or `{{{TOKEN}}}`), depending on whether character sequences should be escaped or not. This feature can be useful if you either make frequent changes to your project settings or intend for material to be reused in other projects.
+We use [Mustache template language](https://mustache.github.io/mustache.5.html) for creation of the `index.html` file. When your are building or bundling, the HTML and CSS files are passed through a compiler that is capable of replacing certain tokens with values that depend upon your project settings. These tokens are always encased in either double or triple curly braces (`{{TOKEN}}` or `{{{TOKEN}}}`), depending on whether character sequences should be escaped or not. This feature can be useful if you either make frequent changes to your project settings or intend for material to be reused in other projects.
 
-Whether HTML or CSS content, the following tokens are all supported:
+::: sidenote
+More information about Mustache template language is available in [manual](https://mustache.github.io/mustache.5.html).
+:::
 
-DEFOLD_DISPLAY_WIDTH
-: (HTML or CSS) Writes the value specified in your project settings for display width.
+Any `game.project` can be a token. For example, if you want to use `Width` value from `Display` section:
 
+![Display section](images/html5/html5_display.png)
+
+Open `game.project` as a text and check `[section_name]` and name of the field you want to use. Then you can use it as a token: `{{section_name.field}}` or `{{{section_name.field}}}`.
+
+![Display section](images/html5/html5_game_project.png)
+
+For example, in HTML template in JavaScript:
 
 ```javascript
 function doSomething() {
-    var x = {{DEFOLD_DISPLAY_WIDTH}};
+    var x = {{display.width}};
     // ...
 }
 ```
 
-DEFOLD_DISPLAY_HEIGHT
-: (HTML or CSS) Writes the value specified in your project settings for display height.
-
-
-```javascript
-function doSomething() {
-    var y = {{DEFOLD_DISPLAY_HEIGHT}};
-}
-```
+Also, we have the following custom tokens:
 
 DEFOLD_SPLASH_IMAGE
-: (HTML or CSS) Writes the filename of the splash image file.
+: Writes the filename of the splash image file or `false` if `html5.splash_image` in `game.project` is empty
 
 
-```html
-<image class="splashImage" src="{{DEFOLD_SPLASH_IMAGE}}"></image>
+```css
+{{#DEFOLD_SPLASH_IMAGE}}
+		background-image: url("{{DEFOLD_SPLASH_IMAGE}}");
+{{/DEFOLD_SPLASH_IMAGE}}
 ```
 
-The following tokens are only supported when processing HTML files:
-
-DEFOLD_APP_TITLE
-: (HTML) Generates a string based on your project’s title.
+exe-name
+: The project name without unacceptable symbols
 
 
-```html
-<head>
-    <title>{{DEFOLD_APP_TITLE}}</title>
-</head>
-```
-
-DEFOLD_JS
-: (HTML) Corresponds to the name of the main application javascript file.
-
-
-DEFOLD_MODULE_JS
-: (HTML) Corresponds to the name of the bootstrap javascript file. It is this file that loads the application assets and coordinates the activity of the splash screen.
+DEFOLD_CUSTOM_CSS_INLINE
+: This is the place when we inline of the CSS file specified in your `game.project` settings.
 
 
 ```html
-<script type='text/javascript' src="{{DEFOLD_MODULE_JS}}"></script>
-```
-
-DEFOLD_CSS
-: (HTML) This is the filename of the CSS file that is output during export, either using the default or the template specified in your project settings.
-
-
-```html
-<head>
-    <link rel="stylesheet" type="text/css" href="{{DEFOLD_CSS}}"></style>
-</head>
-```
-
-DEFOLD_DEV_HEAD
-: (HTML) Creates a custom HTML fragment, used in the `<head>` section of your HTML document, content depending upon your project settings. Note the use of triple braces, as it is important that this character sequence should not be escaped.
-
-
-```html
-<head>
-    {{{DEFOLD_DEV_HEAD}}}
-</head>
-```
-
-DEFOLD_DEV_INLINE
-: (HTML) Creates a custom HTML fragment, used in the `<body>` section of your HTML document, content depending upon your project settings.
-
-
-```html
-{{{DEFOLD_DEV_INLINE}}}
-<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
-<!-- etc. -->
+<style>
+{{{DEFOLD_CUSTOM_CSS_INLINE}}}
+</style>
 ```
 
 ::: important
-It is important that this inline block appear before the main application script is loaded. Since it includes HTML tags, this macro should appear in triple braces to prevent character sequences being escaped.
+It is important that this inline block appear before the main application script is loaded. Since it includes HTML tags, this macro should appear in triple braces `{{{TOKEN}}}` to prevent character sequences being escaped.
 :::
 
-DEFOLD_JS_INIT
-: (HTML) This tag, once processed, adds code to load the Defold application. Should development options also be enabled, it also performs initialization of any associated modules.
+DEFOLD_SCALE_MODE_IS_DOWNSCALE_FIT
+: This token is `true` if `html5.scale_mode` is `Downscale Fit`.
+
+DEFOLD_SCALE_MODE_IS_FIT
+: This token is `true` if `html5.scale_mode` is `Fit`.
+
+DEFOLD_SCALE_MODE_IS_NO_SCALE
+: This token is `true` if `html5.scale_mode` is `No Scale`.
+
+DEFOLD_SCALE_MODE_IS_STRETCH
+: This token is `true` if `html5.scale_mode` is `Stretch`.
+
+DEFOLD_HEAP_SIZE
+: Heap size specified in `game.project` `html5.heap_size` converted to bytes.
+
+DEFOLD_ENGINE_ARGUMENTS
+: Engine arguments specified in `game.project` `html5.engine_arguments` separated by `,` symbol.
 
 
-```html
-{{{DEFOLD_DEV_INLINE}}}
-<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
-{{DEFOLD_JS_INIT}}
+## Extra parameters
+
+If you create your custom template, you can specify extra parameters for the engine loader:
 ```
+`Module.runApp("canvas", extra_params) - Starts the
+    application given a canvas element id
 
-::: important
-If you wish to use the Facebook SDK then the tag to load this should appear before the `{{{DEFOLD_JS_INIT}}}` tag. This macro should also be enclosed in triple braces, as it too contains HTML tags and should not be escaped.
-:::
+'extra_params' is an optional object that can have the
+    following fields:
 
-## HTML5 Memory Tracker
+'archive_location_filter':
+    Filter function that will run for each archive path.
 
-In development, HTML5 bundles can be created that include a simple memory tracking tool. To include it in your application, open your "game.project" file and scroll to the *html5* section.
+'unsupported_webgl_callback':
+    Function that is called if WebGL is not supported.
 
-![Include devtool](images/html5/html5_devtool_include.png)
+'engine_arguments':
+    List of arguments (strings) that will be passed to the engine.
 
-By enabling the *include_dev_tool* option, the bundling process will automatically include and enabled this tool. *Remember to cancel this option before creating release candidates!*
+'persistent_storage':
+    Boolean toggling the usage of persistent storage.
 
-## Tool features
+'custom_heap_size':
+    Number of bytes specifying the memory heap size.
 
-Launch your application in a browser as normal, and the tool will appear on screen.
+'disable_context_menu':
+    Disables the right-click context menu on the canvas element if true.
 
-![Devtool example](images/html5/html5_devtool_goatgold.png)
+'retry_time':
+    Pause before retry file loading after error.
 
-You may enable or disable the various sections of memory reporting by pressing the toggle switches. The sections contain the following information:
+'retry_count':
+    How many attempts we do when trying to download a file.
 
-Heap
-: The overall size of the heap memory. This may be configured by setting a custom heap size. Tuning this value will be useful when creating a release that makes optimum use of resources.
-
-Dynamic
-: Measures the current and peak levels of dynamic memory allocation, alongside overall counts of allocation and free operations being performed by the application.
-
-Static
-: Summarizes memory allocated for statically included data, built directly into the application.
-
-Stack
-: Monitors the overall amount of memory allocated to the code for stack use. You should expect the used value to consistently report zero during normal operation, other values may indicate a bug in the engine.
-
-
-It is most likely that the first two sections will be most relevant during development. In particular, best performing applications will not make frequent requests to dynamically allocate memory.
-
-## Known limitations
-
-The memory tracking tool works by patching the functions `malloc()` and `free()`, and doing so at the earliest possible moment. This patch is not performed before methods are declared to global constructors, meaning that dynamic allocations made during this early phase of the application will not be tracked in the usage or peak data. Values relating to the dynamic memory area and locations will, however, be accurate.
-
+'can_not_download_file_callback':
+    Function that is called if you can't download file after 'retry_count' attempts.
+*/
+```

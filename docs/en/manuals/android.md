@@ -77,17 +77,8 @@ Allows an application to write to external storage. Starting in API level 19, th
 ### android.permission.READ_PHONE_STATE (Protection level: dangerous)
 Allows read only access to phone state, including the phone number of the device, current cellular network information, the status of any ongoing calls, and a list of any PhoneAccounts registered on the device. This permission is used to detect if a call is ongoing (for [sound.is_phone_call_active()](/ref/sound/#sound.is_phone_call_active)) as well as to populate the `device_ident` field of [sys.get_sys_info()](/ref/sys/#sys.get_sys_info). ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#READ_PHONE_STATE))
 
-### android.permission.GET_ACCOUNTS (Protection level: dangerous)
-Allows access to the list of accounts in the Accounts Service. This permission was used when registering for push notifications, but it is actually not needed. You can safely remove this permission (it will be removed from the default manifest later). ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#GET_ACCOUNTS)).
-
 ### android.permission.WAKE_LOCK (Protection level: normal)
 Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. This permission is needed to temporarily prevent the device from sleeping while receiving a push notification. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
-
-### android.permission.VIBRATE (Protection level: normal)
-Allows access to the vibrator. This permission is needed for the device to vibrate when a push notification is received. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#VIBRATE))
-
-### com.google.android.c2dm.permission.RECEIVE and {{android.package}}.permission.C2D_MESSAGE
-These permissions are needed to receive push notifications.
 
 
 ## Android Debug Bridge

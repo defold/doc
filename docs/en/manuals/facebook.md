@@ -14,6 +14,8 @@ To start using the Facebook extension you need to add it as a dependency to your
 https://github.com/defold/extension-facebook/archive/master.zip
 ```
 
+We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-facebook/releases).
+
 Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-facebook/).
 
 ## Registering as a Facebook developer
