@@ -18,14 +18,14 @@ When creating libraries (such as extensions), it's good to keep the lowest commo
 
 ## Toolchain
 
-Clang - macOS, iOS, Win32
-GCC - Android, Linux
+Clang - macOS, iOS, Win32, Android
+GCC - Linux
 
-*We're plan make both Android and Linux to use Clang as well*
+*We plan to use clang for Linux aswell at some point*
 
 ### SDK Versions
 
-* Android: NDK 10e, Build Tools 23.0.2, Api Level 14
+* Android: NDK 20r, Build Tools 23.0.2, Api Level 16 for armv7 and Api level 21 for arm64
 * iOS: iPhoneOS11.2.sdk
 * MacOS: MacOSX10.13.sdk
 * Windows: WindowsKits 8.1 + 10.0, Microsoft Visual Studio 14.0
@@ -35,7 +35,7 @@ GCC - Android, Linux
 ### C++ version + ABI compatibility
 
 * Linux: `GCC 5.4.0`
-* Android:`GCC 4.8`
+* Android:`GCC 4.9`
 * Html5: `Emscripten 1.35.0`
 * Win32: `Microsoft Visual Studio 14.0` alt `clang-6.0`
 * iOS/MacOS: `apple-clang` alt `clang-6.0`
