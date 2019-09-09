@@ -111,6 +111,9 @@ Available platforms:
 `armv7-darwin`
 : iOS 32 bit
 
+`x86_64-ios`
+: iOS Mac OSX 64 bit (iOS Simulator)
+
 `armv7-android`
 : Android 32 bit
 
