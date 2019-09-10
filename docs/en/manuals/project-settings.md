@@ -227,10 +227,18 @@ Max Sound Instances
 ## Sprite
 
 Max Count
-: Max number of sprites, `128` by default.
+: Max number of sprites per collection, `128` by default.
 
 Subpixels
 : Check to allow sprites to appear unaligned with respect to pixels, checked by default.
+
+## Tilemap
+
+Max Count
+: Max number of tile maps per collection, `16` by default.
+
+Max Tile Count
+: Max number of concurrent visible tiles per collection, `2048` by default.
 
 ## Spine
 
@@ -388,11 +396,6 @@ Show Made With Defold
 Scale Mode
 : Specifies which method to use to scale the game canvas. By default `Downscale Fit`.
 
-## Facebook
-
-Appid
-: The application id as issued by Facebook.
-
 ## IAP
 
 Auto Finish Transactions
@@ -408,7 +411,7 @@ Public Key
 
 ## Native extension
 
-_App Manifest (alpha state)_
+_App Manifest_
 : If set, use the app manifest to customize the engine build. This allows you to remove unneeded parts from the engine making it possible to decrease the final binary size. Note that this feature is in alpha state. Please visit [the forum](https://forum.defold.com/t/native-extensions/4946/142) for information on how to proceed.
 
 ## Profiler
@@ -418,7 +421,7 @@ Track Cpu
 
 ## File format
 
-The format of the settings file is simple text and can be edited by any standard text editor. The format looks like this:
+The format of the settings file is simple text (INI format) and can be edited by any standard text editor. The format looks like this:
 
 ```ini
 [category1]
