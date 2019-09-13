@@ -70,7 +70,7 @@ stack traceback:
 
 ## Message passing
 
-Any GUI component with a script attached is able to communicate with other objects in your game runtime environment through message passing, it will behave like any other script component. 
+Any GUI component with a script attached is able to communicate with other objects in your game runtime environment through message passing, it will behave like any other script component.
 
 You address the GUI component like you would any other script component:
 
@@ -111,7 +111,7 @@ gui.set_color(new_boxnode, vmath.vector4(0.2, 0.26, 0.32, 1))
 -- Create a new text node
 local new_textnode = gui.new_text_node(new_position, "Hello!")
 gui.set_font(new_textnode, "sourcesans")
-gui.set_color(new_textnode, vmath.vector4(0.69, 0.6
+gui.set_color(new_textnode, vmath.vector4(0.69, 0.6, 0.8, 1.0))
 ```
 
 ![dynamic node](images/gui-script/dynamic_nodes.png){srcset="images/gui-script/dynamic_nodes@2x.png 2x"}
@@ -147,4 +147,3 @@ local new_textnode = gui.new_text_node(vmath.vector3(100, 100, 0), "Hello!")
 -- The node has no id, and that is fine. There's no reason why we want
 -- to do gui.get_node() when we already have the reference.
 ```
-

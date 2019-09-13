@@ -33,7 +33,7 @@ We need to modify the built in render script and add the new rendering functiona
 1. Copy */builtins/render/default.render_script*: In the *Asset* view, right click *default.render_script*, select <kbd>Copy</kbd> then right click *main* and select <kbd>Paste</kbd>. Right click the copy and select <kbd>Rename...</kbd> and give it a suitable name, like "grade.render_script".
 2. Create a new render file called */main/grade.render* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Render</kbd>.
 3. Open *grade.render* and set its *Script* property to "/main/grade.render_script".
-   
+
    ![grade.render](images/grading/grade_render.png)
 
 4. Open *game.project* and set *Render* to "/main/grade.render".
@@ -92,7 +92,7 @@ Now we just need to wrap the original rendering code with `render.enable_render_
 ```lua
 function update(self)
   render.enable_render_target(self.target) -- <1>
-  
+
   render.set_depth_mask(true)
   render.set_stencil_mask(0xff)
   render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0})
@@ -100,7 +100,7 @@ function update(self)
   render.set_viewport(0, 0, render.get_width(), render.get_height()) -- <2>
   render.set_view(self.view)
   ...
-  
+
   render.disable_render_target(self.target) -- <3>
 end
 ```
@@ -123,7 +123,7 @@ Create a quadratic plane mesh in Blender (or any other 3D modelling program). Se
 3. Add a Model component to the "grade" game object.
 3. Set the *Mesh* property of the model component to the *quad.dae* file.
 
-Leave the game object unscaled at origo. Later, when we render the quad we will project it so it fills the whole screen. But first we need a material and shader programs for the quad:
+Leave the game object unscaled at origin. Later, when we render the quad we will project it so it fills the whole screen. But first we need a material and shader programs for the quad:
 
 1. Create a new material and call it *grade.material* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Material</kbd>.
 2. Create a vertex shader program called *grade.vp* and a fragment shader program called *grade.fp* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Vertex program</kbd> and <kbd>New ▸ Fragment program</kbd>.
@@ -199,9 +199,9 @@ After the render target's color buffer has been filled in `update()` we set up a
 ```lua
 function update(self)
   render.enable_render_target(self.target)
-  
+
   ...
-  
+
   render.disable_render_target(self.target)
 
   render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color}) -- <1>
@@ -209,7 +209,7 @@ function update(self)
   render.set_viewport(0, 0, render.get_window_width(), render.get_window_height()) -- <2>
   render.set_view(vmath.matrix4()) -- <3>
   render.set_projection(vmath.matrix4())
-  
+
   render.enable_texture(0, self.target, render.BUFFER_COLOR_BIT) -- <4>
   render.draw(self.grade_pred) -- <5>
   render.disable_texture(0, self.target) -- <6>
@@ -217,7 +217,7 @@ end
 ```
 1. Clear the frame buffer. Note that the previous call to `render.clear()` affects the render target, not the screen frame buffer.
 2. Set the viewport to match the window size.
-3. Set the view to the identity matrix. This means camera is at origo looking straight along the Z axis. Also set the projection to the identity matrix causing the the quad to be projected flat across the whole screen.
+3. Set the view to the identity matrix. This means camera is at origin looking straight along the Z axis. Also set the projection to the identity matrix causing the the quad to be projected flat across the whole screen.
 4. Set texture slot 0 to the color buffer of the render target. We have sampler "original" at slot 0 in our *grade.material* so the fragment shader will sample from the render target.
 5. Draw the predicate we created matching any material with the tag "grade". The quad model uses *grade.material* which sets that tag---thus the quad will be drawn.
 6. After drawing, disable texture slot 0 since we are done drawing with it.
@@ -317,21 +317,21 @@ Let's implement the texture lookup in the fragment shader:
 
     #define MAXCOLOR 15.0 // <2>
     #define COLORS 16.0
-    #define WIDTH 256.0 
+    #define WIDTH 256.0
     #define HEIGHT 16.0
 
     void main()
     {
         vec4 px = texture2D(original, var_texcoord0.xy); // <3>
-        
+
         float cell = floor(px.b * MAXCOLOR); // <4>
-       
+
         float half_px_x = 0.5 / WIDTH; // <5>
         float half_px_y = 0.5 / HEIGHT;
 
         float x_offset = half_px_x + px.r / COLORS * (MAXCOLOR / COLORS);
         float y_offset = half_px_y + px.g * (MAXCOLOR / COLORS); // <6>
-      
+
         vec2 lut_pos = vec2(cell / COLORS + x_offset, y_offset); // <7>
 
         vec4 graded_color = texture2D(lut, lut_pos); // <8>
@@ -408,17 +408,17 @@ uniform lowp sampler2D lut;
 void main()
 {
   vec4 px = texture2D(original, var_texcoord0.xy);
-    
+
     float cell = px.b * MAXCOLOR;
 
     float cell_l = floor(cell); // <1>
     float cell_h = ceil(cell);
-    
+
     float half_px_x = 0.5 / WIDTH;
     float half_px_y = 0.5 / HEIGHT;
     float r_offset = half_px_x + px.r / COLORS * (MAXCOLOR / COLORS);
     float g_offset = half_px_y + px.g * (MAXCOLOR / COLORS);
-    
+
     vec2 lut_pos_l = vec2(cell_l / COLORS + r_offset, g_offset); // <2>
     vec2 lut_pos_h = vec2(cell_h / COLORS + r_offset, g_offset);
 
@@ -447,7 +447,7 @@ Okay, that was a lot of work to draw something that looks exactly like the origi
 1. Take a screenshot of the game in its unaffected form.
 2. Open the screenshot in your favorite image manipulation program.
 3. Apply any number of color adjustments (brightness, contrast, color curves, white balance, exposure etc, etc).
-    
+
     ![world in Affinity](images/grading/world_graded_affinity.png)
 
 4. Apply the same color adjustments to the lookup table texture file (*lut16.png*).

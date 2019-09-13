@@ -15,7 +15,7 @@ A GUI template is a plain GUI scene so it is created just like any other GUI sce
 
 ![Create template](images/gui-templates/create.png){srcset="images/gui-templates/create@2x.png 2x"}
 
-Create the template and save it. Note that the nodes of the instance will be placed relative to origo so it is a good idea to create the template at position 0, 0, 0.
+Create the template and save it. Note that the nodes of the instance will be placed relative to origin so it is a good idea to create the template at position 0, 0, 0.
 
 ## Creating instances from a template
 

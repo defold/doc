@@ -71,7 +71,7 @@ Set the tile *Width* and *Height* properties to 128. This will split the 512⨉5
 
 Next, <kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Map</kbd>. Name the new file "grid.tilemap".
 
-Defold needs you to initialize the grid. To do that, select the "layer1" layer and paint the 4⨉4 grid of tiles just to the top-right of origo. It does not really matter what you set the tiles to. You will write code in a bit that will set the content of these tiles automatically. 
+Defold needs you to initialize the grid. To do that, select the "layer1" layer and paint the 4⨉4 grid of tiles just to the top-right of origin. It does not really matter what you set the tiles to. You will write code in a bit that will set the content of these tiles automatically. 
 
 ![Tile map](images/15-puzzle/tilemap.png)
 
@@ -81,7 +81,7 @@ Open *main.collection*. <kbd>Right click</kbd> the root node in the *Outline* an
 
 <kbd>Right click</kbd> the game object and select <kbd>Add Component File</kbd>. Select the file *grid.tilemap*.
 
-<kbd>Right click</kbd> the game object and select <kbd>Add Component ▸ Label</kbd>. Set the *Id* property of the label to "done" and its *Text* property to "Well done". Move the label to the center of the tilemap. 
+<kbd>Right click</kbd> the game object and select <kbd>Add Component ▸ Label</kbd>. Set the *Id* property of the label to "done" and its *Text* property to "Well done". Move the label to the center of the tilemap.
 
 Set the Z position of the label to 1 to make sure it's drawn on top of the grid.
 
@@ -285,7 +285,7 @@ Open */input/game.input_bindings* and add a new *Mouse Trigger*. Set the name of
 
 ![input](images/15-puzzle/input.png)
 
-Go back to the script and create an `on_input()` function. 
+Go back to the script and create an `on_input()` function.
 
 ```lua
 -- Deal with user input
