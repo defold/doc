@@ -33,8 +33,10 @@ The extension manifests must be placed in a certain structure for the extension 
 The Android platform already has a manifest merging tool (based on `ManifestMerger2`), and we use it inside `bob.jar` to merge manifests.
 For a complete set of instructions on how to modify your Android manifests, please refer to [their documentation](https://developer.android.com/studio/build/manifest-merge)
 
-> If you don't set your app's `android:minSdkVersion='9'` in your extension manifest, the following permissions will be added automatically:  `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`.
-
+::: important
+If you don't set your app's `android:targetSdkVersion` in your extension manifest, the following permissions will be added automatically:  `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`. You can read more about it in the official documentation [here](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions).
+We recommend to use: `<uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />`
+:::
 ### Example
 
 Base manifest
@@ -56,7 +58,7 @@ Extension manifest:
 
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.defold.testmerge'>
-        <uses-sdk android:minSdkVersion='9' />
+         <uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />
         <uses-feature android:required='true' android:glEsVersion='0x00030000' />
         <application>
             <meta-data android:name='com.facebook.sdk.ApplicationName'
@@ -249,5 +251,3 @@ Result
         </script>
     </body>
     </html>
-
-
