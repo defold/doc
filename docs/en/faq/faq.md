@@ -110,16 +110,6 @@ Can I use external Git tools?
 
 ## Publishing games
 
-I try to publish my game to Appstore. How should I respond to IDFA?
-
-: Defold has built in support for IDFA (Advertising Identifier). You can fetch it via `sys.get_sys_info()`. When submitting, Apple has three checkboxes for their three valid use cases for the IDFA:
-
-  1. Serve ads within the app
-  2. Install attribution from ads
-  3. User action attribution from ads
-
-  If you check option 1, the app reviewer will look for ads to show up in the app. If your game does not show ads, the game might get rejected. Defold uses the id for cross promotion of your games, so you should check option 2.
-
 How do I monetize from my game?
 
 : Defold ships with built in support for purchases through Apple’s Appstore "in-app purchases" on iOS devices and Google Play’s or Amazon’s "in-app billing" on Android devices. Facebook Canvas "game payments" are supported for Facebook Canvas.
