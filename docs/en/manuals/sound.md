@@ -21,7 +21,7 @@ Sound components can only be instanced in-place in a game object. Create a new g
 
 The created component has a set of properties that should be set:
 
-![Select component](images/sound/sound_properties.jpg)
+![Select component](images/sound/sound_properties.png)
 
 *Sound*
 : Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format. Defold supports sound files saved at 16bit bit depth and with a sampling rate of 44100.
@@ -29,18 +29,25 @@ The created component has a set of properties that should be set:
 *Looping*
 : If checked the sound will play back in a loop until explicitly stopped.
 
+*Group*
+: The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in "master" group.
+
 *Gain*
 : You can set the gain for the sound directly on the component. This allows you to easily tweak the gain for a sound without going back to your sound program and performing a re-export. See below for details on how gain is calculated.
 
-*Group*
-: The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in "master" group.
+*Pan*
+: You can set the pan value for the sound directly on the component. The pan must be a value between -1 (-45 degrees left) and 1 (45 degrees right).
+
+*Speed*
+: You can set the speed value for the sound directly on the component. A value of 1.0 is normal speed, 0.5 is half speed and 2.0 is double speed.
+
 
 ## Playing the sound
 
 When you have a sound component set up properly, you can cause it to play its sound by calling [`sound.play()`](https://www.defold.com/ref/sound/#sound.play:url--play_properties-):
 
 ```lua
-sound.play("go#sound", {delay = 1, gain = 0.5})
+sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
 
 ::: sidenote
