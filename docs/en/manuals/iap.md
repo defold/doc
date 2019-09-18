@@ -157,7 +157,12 @@ In the case of an initiated asynchronous payment the IAP listener will receive t
 ## Purchase fulfillment
 
 In order to complete a purchase from a payment provider, the application needs to signal a purchase fulfillment to the provider telling the provider the purchase has gone through (for example by developer server-side verification).
-IAP supports auto-completion, where fulfillment is automatically signaled to the provider when a purchase is complete (this is the default behavior). You can also disable auto-completion in the game project settings. You are then required to call iap.finish() when the transaction is complete, which will signal purchase fulfillment to the provider.
+IAP supports auto-completion, where fulfillment is automatically signaled to the provider when a purchase is complete (this is the default behavior). You can also disable auto-completion in the game project settings. You are then required to call `iap.finish()` when the transaction is complete, which will signal purchase fulfillment to the provider.
+
+### Consumable vs non-consumable products
+The Google Play store does only support consumable products. If you need non-consumable products it is recommended to use manual fulfillment of purchases and never finish purchases for products that should be non-consumable. As long as a purchase isn't finished it will be returned as an active purchase when `iap.set_listener()` is called.
+
+The Apple App Store supports non-consumable products which means that you need to finish all purchases when you provide products to your users. You can do it automatically by keeping the default behavior in the game project settings or manually (if you want to do that after server validation, for example) using `iap.finish()`.
 
 ## Transaction receipt
 
