@@ -21,6 +21,18 @@ Detailed documentation from Apple, Google, Amazon and Facebook can be found here
 * [Amazon In-app Purchase documentation](https://developer.amazon.com/public/apis/earn/in-app-purchasing).
 * [Facebook game payments documentation](https://developers.facebook.com/docs/payments).
 
+## Installing the extension
+
+To start using the In-app purchases extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
+```
+https://github.com/defold/extension-iap/archive/master.zip
+```
+
+We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-iap/releases).
+
+Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-iap/).
+
+
 ## Testing Google Play Billing with static responses
 
 On Android it is recommended that you start implementing IAP in your app by using static responses from Google Play. This enables you to verify that everything in your app works correctly before you publish the app. Four reserved product IDs exist for testing static In-app Billing responses:
