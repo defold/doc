@@ -257,8 +257,3 @@ HTTP 타임아웃(초). 기본값은 0이며 타임아웃을 비활성화 함
 ## Script
 #### shared_state
 체크하면 모든 스크립트 유형간에 단일 LUA state를 공유함, 기본값 체크됨
-
-## Tracking
-#### app_id
-프로젝트의 고유한 tracking ID. 프로젝트 tracking ID는 프로젝트 대쉬보드에서 찾을 수 있음
-

@@ -65,11 +65,6 @@ Include Dirs
 Shared State
 : Check to share a single Lua state between all script types, unchecked by default.
 
-## Tracking
-
-App Id
-: A unique tracking ID for this project. The project tracking ID an be found on the project dashboard.
-
 ## Display
 
 Width
