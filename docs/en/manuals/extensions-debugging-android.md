@@ -1,6 +1,11 @@
+---
+title: Debugging on Android
+brief: This manual describes how to debug a build running on an Android device.
+---
+
 # Debugging on Android
 
-Here we list some ways to debug your executable running on an Android Device
+Here we list some ways to debug your executable running on an Android device
 
 ## Android Studio
 
