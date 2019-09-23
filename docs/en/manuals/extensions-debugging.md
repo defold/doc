@@ -1,3 +1,8 @@
+---
+title: Debugging native code
+brief: This manual describes some ways to debug an application, and also symbolicate crash logs.
+---
+
 # Debugging native code
 
 Here we describe some ways to debug an application, and also symbolicate crash logs.
