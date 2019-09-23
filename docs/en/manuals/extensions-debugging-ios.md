@@ -1,3 +1,8 @@
+---
+title: Debugging on iOS/macOS
+brief: This manual describes how to debug a build using XCode.
+---
+
 # Debugging on iOS/macOS
 
 Here we describe how to debug a build using [XCode](https://developer.apple.com/xcode/), Apple's preferred IDE for developing for macOS and iOS.
