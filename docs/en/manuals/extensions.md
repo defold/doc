@@ -227,24 +227,6 @@ Allowed keys are for platform specific compile flags are:
 * `aaptExcludePackages` - Regexp (or exact names) of packages to exclude (Android)
 * `aaptExcludeResourceDirs` - Regexp (or exact names) of resource dirs to exclude (Android)
 
-## Android packages and resources
-
-When creating native extensions for Android, especially those that interact with Google Play Services, the Android support libraries or Firebase, it is not unlikely that libraries and resources in the extension will conflict with the libraries and resources included by the engine. By using the `aaptExcludePackages` and `aaptExcludeResourceDirs` platform keys listed above it is possible to exclude the packages and resources from the engine in favor of the ones provided by the extension.
-
-The following package names are added automatically when bundling for Android:
-
-* com.google.android.gms
-* com.google.android.gms.common
-
-The following resource directories are added automatically when bundling for Android:
-
-* res/com.android.support.support-compat-27.1.1
-* res/com.android.support.support-core-ui-27.1.1
-* res/com.android.support.support-media-compat-27.1.1
-* res/com.google.android.gms.play-services-base-16.0.1
-* res/com.google.android.gms.play-services-basement-16.0.1
-* res/com.google.firebase.firebase-messaging-17.3.4
-
 ## Example extensions
 
 * [Android extension example](https://github.com/defold/extension-android)
