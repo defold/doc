@@ -340,7 +340,6 @@ Easing defines how the animated value changes over time. The images below descri
 
 The following are valid easing values for `go.animate()`:
 
-| | |
 |---|---|
 | go.EASING_LINEAR | |
 | go.EASING_INBACK | go.EASING_OUTBACK |
@@ -366,7 +365,6 @@ The following are valid easing values for `go.animate()`:
 
 The following are valid easing values for `gui.animate()`:
 
-| | |
 |---|---|
 | gui.EASING_LINEAR | |
 | gui.EASING_INBACK | gui.EASING_OUTBACK |
