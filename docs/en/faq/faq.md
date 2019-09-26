@@ -29,8 +29,6 @@ What kind of user tracking are you doing?
 
 : We log anonymous usage data from our websites and the Defold editor in order to improve our services and product. The editor application also sends error reports to Sentry.io whenever a runtime exception is thrown.
 
-  If you choose to use our analytics service, we gather anonymous usage data of your game for you. This data includes the number of installs, players as well as retention data. We see the same data about your games as you do.
-
 Who made Defold?
 
 : Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/about-us).
