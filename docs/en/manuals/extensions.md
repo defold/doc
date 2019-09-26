@@ -213,6 +213,19 @@ platforms:
             defines:    ["MY_DEFINE"]
 ```
 
+### Allowed keys
+
+Allowed keys are for platform specific compile flags are:
+
+* `frameworks` - Apple frameworks to include when building (iOS and OSX)
+* `flags` - Flags that should be passed to the compiler
+* `linkFlags` - Flags that should be passed to the linker
+* `libs` - Libraries to include when linking
+* `defines` - Defines to set when building
+* `aaptExtraPackages` - Extra package name that should be generated (Android)
+* `aaptExcludePackages` - Regexp (or exact names) of packages to exclude (Android)
+* `aaptExcludeResourceDirs` - Regexp (or exact names) of resource dirs to exclude (Android)
+
 ## Example extensions
 
 * [Basic extension example](https://github.com/defold/template-native-extension) (the extension from this manual)
