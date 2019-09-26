@@ -25,10 +25,6 @@ Can I trust Defold for professional development?
 
 : Yes, we believe in "eating your own dogfood". Here at King several of our game teams use the same version you have access to. Everyone downloads Defold from the same locations and get updates the same way.
 
-Why do I have to store my games on Defold's servers?
-
-: You don't have to. Starting with Defold editor 2 you can open projects from any location on your hard drive and the projects can be either completely local, imported from the Defold dashboard or cloned from any version control system to your hard drive.
-
 What kind of user tracking are you doing?
 
 : We log anonymous usage data from our websites and the Defold editor in order to improve our services and product. The editor application also sends error reports to Sentry.io whenever a runtime exception is thrown.
@@ -97,16 +93,6 @@ Are Defold beta versions auto-updating?
 
 : Yes. The Defold beta editor checks for an update at startup, just like the Defold stable version does.
 
-<a name="external-git-tools"></a>
-
-Can I use external Git tools?
-
-: Absolutely, each Defold project is a Git repo so it's very simple:
-
-  1. Add the folder you selected for your project location to your Git client. (If you run editor 1, the project is found in "Defold/branches/[project_id]/[user_id]/[name_of_branch]")
-  2. Specify your Defold username. The password is the "Access token" that you find under "Settings" in the Defold Dashboard (the huge hexadecimal number).
-
-  You can now add, commit, revert, branch and merge as much as you want. Any changes are immediately reflected in Defold.
 
 ## Publishing games
 

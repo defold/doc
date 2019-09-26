@@ -162,10 +162,6 @@
                         "name": "The editor"
                     },
                     {
-                        "path": "/manuals/community",
-                        "name": "Community pages"
-                    },
-                    {
                         "path": "/manuals/glossary",
                         "name": "Glossary"
                     },

@@ -83,4 +83,4 @@ Your device does not appear in the Targets menu
 : Make sure that your device is connected to the same wifi network as your computer.
 
 The game does not start with a message about mis-matching versions
-: This happens when you have upgraded the editor to the latest version. On iOS you need to sign the app again (<kbd>Project ▸ Sign iOS App...</kbd>) which creates a new dev app from the current engine version. Then download the new app from the dashboard onto your device. On Android you will need to download a new *dmengine.apk* and install it on your device.
+: This happens when you have upgraded the editor to the latest version. You need to build and install a new version.

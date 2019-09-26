@@ -27,10 +27,6 @@ Libraries are referred to via a standard URL. For a project hosted on GitHub it 
 
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
-For a project hosted on the Defold servers it would be the Library URL that can be found in the Dashboard. Just select the relevant project and write down or copy the URL:
-
-![Library URL](images/libraries/libraries_library_url.png)
-
 ::: important
 It is recommend to always depends on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
 :::

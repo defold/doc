@@ -18,10 +18,10 @@ Select a file in the list and click <kbd>Diff</kbd> to view the changes that you
 ## Synchronizing
 
 ::: important
-Project synchronization is only available for projects hosted on the Defold Dashboard. Projects hosted on GitHub or in other Git repositories will not be able to use synchronization. There are however many excellent external tools for working with Git repositories with [GitHub Desktop](https://desktop.github.com/), [GitTower](https://www.git-tower.com), [Git Kraken](https://www.gitkraken.com/git-client) and [SourceTree](https://www.sourcetreeapp.com/) being some of the more popular ones.
+Project synchronization can also be performed using one of the many excellent external tools for working with Git repositories. [GitHub Desktop](https://desktop.github.com/), [GitTower](https://www.git-tower.com), [Git Kraken](https://www.gitkraken.com/git-client) and [SourceTree](https://www.sourcetreeapp.com/) are some of the more popular ones.
 :::
 
-To synchronize your project means that the project files are brought into sync with the project as it looks on the server. You should synchronize if:
+To synchronize your project means that the project files are brought into sync with the project as it looks on the remote server. You should synchronize if:
 
 1. You want to bring your project up to speed with what is stored on the server.
 2. You want to share your local project changes with other team members by committing and pushing your changes to the server.
