@@ -7,7 +7,7 @@ brief: This manual covers how to import and edit assets in Defold using external
 
 A game project usually consists of a large number of external assets that are produced in various specialized programs for producing graphics, 3D models, sound files, animations and so forth. Defold is built for a workflow where you work in your external tools and then import the assets into Defold as they are finalized. When the assets are imported into Defold they can be used by the various component types to create flipbook animations, tilemaps, particle effects and many other things:
 
-* Images can be used to create texture [atlases](/manuals/atlas) and tile sources which in turn can be used by visual components such as [sprites](/manuals/sprite), [tilemaps](/manuals/tilemap) and [particle effects](/manuals/particlefx). Read more about this in the [Graphics manual](/manuals/graphics/#_importing_image_files).
+* Images can be used to create texture [atlases](/manuals/atlas) and tile sources which in turn can be used by visual components such as [sprites](/manuals/sprite), [tilemaps](/manuals/tilemap) and [particle effects](/manuals/particlefx). Read more about this in the [Graphics manual](/manuals/graphics/#importing-image-files).
 * Sounds can be used by the [Sound component](/manuals/sound) to play sounds.
 * Spine animation data is used by the [Spine component](/manuals/spinemodel) to show and animate Spine models.
 * Fonts are used by the [Label component](/manuals/label) and by [text nodes](/manuals/gui-text) in a GUI.

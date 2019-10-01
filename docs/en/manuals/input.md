@@ -17,7 +17,7 @@ Devices
   1. Keyboard (single key as well as text input)
   2. Mouse (position, button clicks and mouse wheel actions)
   3. Single and multi-touch (on iOS and Android devices)
-  4. Gamepads (as supported through the operating system and mapped in the [gamepads](#_gamepads) file)
+  4. Gamepads (as supported through the operating system and mapped in the [gamepads](#gamepads) file)
 
 Input bindings
 : Before input is sent to a script the raw input from the device is translated into meaningful *actions* via the input bindings table.
@@ -282,8 +282,8 @@ A ready to use solution for using collision objects to detect user input can be 
 
 In both cases there is a need to convert from the screen space coordinates of the mouse or touch event and the world space coordinates of the game objects. This can be done in a couple of different ways:
 
-  * Manually keep track of which view and projection that is used by the render script and use this to convert to and from world space. See the [camera manual for an example of this](/manuals/camera/#_converting_mouse_to_world_coordinates).
-  * Use a [third-party camera solution](/manuals/camera/#_third_party_camera_solutions) and make use of the provided screen-to-world conversion functions.
+  * Manually keep track of which view and projection that is used by the render script and use this to convert to and from world space. See the [camera manual for an example of this](/manuals/camera/#converting-mouse-to-world-coordinates).
+  * Use a [third-party camera solution](/manuals/camera/#third-party-camera-solutions) and make use of the provided screen-to-world conversion functions.
 
 
 ## Gamepads settings file

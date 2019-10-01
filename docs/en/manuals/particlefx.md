@@ -19,7 +19,7 @@ Modifier
 
 ## Creating an effect
 
-Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file using the [Scene Editor](/manuals/editor/#_the_scene_editor).
+Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file using the [Scene Editor](/manuals/editor/#the-scene-editor).
 
 The *Outline* pane shows the default emitter. Select the emitter to bring up its properties in the *Properties* pane below.
 

@@ -53,7 +53,7 @@ msg.post("#weapon", "enable")
 
 ## Component properties
 
-The Defold components types all have different properties. The [Properties pane](/manuals/editor/#_the_editor_views) in the editor will show the properties of the currently selected component in the [Outline pane](/manuals/editor/#_the_editor_views). Refer to the manuals of the different component types to learn more about the available component properties.
+The Defold components types all have different properties. The [Properties pane](/manuals/editor/#the-editor-views) in the editor will show the properties of the currently selected component in the [Outline pane](/manuals/editor/#the-editor-views). Refer to the manuals of the different component types to learn more about the available component properties.
 
 ## Component position, rotation and scale
 
@@ -66,7 +66,7 @@ If you need to change the position, rotation or scale of a component at run-time
 The draw order of visual components depend on two things:
 
 ### Render script predicates
-Each component is assigned a [material](/manuals/material/) and each material has one or more tags. The render script will in turn define a number of predicates, each matching one or more material tags. The render script [predicates are drawn one by one](/manuals/render/#_render_predicates) in the *update()* function of the render script and the components matching the tags defined in each predicate will be drawn. The default render script will first draw sprites and tilemaps in one pass, then particle effects in another pass, both in world space. The render script will then proceed to draw GUI components in a separate pass in screen space.
+Each component is assigned a [material](/manuals/material/) and each material has one or more tags. The render script will in turn define a number of predicates, each matching one or more material tags. The render script [predicates are drawn one by one](/manuals/render/#render-predicates) in the *update()* function of the render script and the components matching the tags defined in each predicate will be drawn. The default render script will first draw sprites and tilemaps in one pass, then particle effects in another pass, both in world space. The render script will then proceed to draw GUI components in a separate pass in screen space.
 
 ### Component z-value
 The components matching a predicate are drawn together, and the order in which they are drawn depends on the final z-value of the component. The final z-value of a component is the sum of the z-values of the component itself, the game object it belongs to and the z-value of any parent game objects.
@@ -88,5 +88,5 @@ With the above hierarchy the final z-value of the sprite component on B is 2 + 1
 ::: important
 If two components have the exact same z-value the order is undefined and you may end up with components flickering back and forth or components being rendered in one order on one platform and in another order on another platform.
 
-The render script defines a near and far plane for z-values. Any component with a z-value that falls outside of this range will not be rendered. The default range is -1 to 1 but [it can easily be changed](/manuals/render/#_default_view_projection).
+The render script defines a near and far plane for z-values. Any component with a z-value that falls outside of this range will not be rendered. The default range is -1 to 1 but [it can easily be changed](/manuals/render/#default-view-projection).
 :::

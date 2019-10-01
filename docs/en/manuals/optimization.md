@@ -20,7 +20,7 @@ Defold will create a dependency tree when building and bundling your application
   * What this means for actual application size is not clearly defined but we are talking size in the range of up to 20 MB.
 * Playable ads are usually limited to between 2 and 5 MB depending on the ad network.
 
-To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#_build_reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
+To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#build-reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
 
 ### Optimize sounds
 Defold supports .ogg and .wav files where .ogg is typically used for music and .wav for sound effects. Sounds must be 16-bit with a sampling rate of 44100 so any optimizations must be done on the sounds before encoding them. You can edit the sounds in an external sound editor software to reduce the quality or convert from .wav to .ogg.
@@ -133,7 +133,7 @@ This section is not yet finished. Topics that will be covered:
 
 * [Texture compression](/manuals/texture-profiles/)
 * [Dynamic loading of collections](https://www.defold.com/manuals/collection-proxy/)
-* [Dynamic loading of factories](https://www.defold.com/manuals/collection-factory/#_dynamic_loading_of_factory_resources)
+* [Dynamic loading of factories](https://www.defold.com/manuals/collection-factory/#dynamic-loading-of-factory-resources)
 * [Profiling](/manuals/profiling/)
 
 

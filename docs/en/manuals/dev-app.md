@@ -13,7 +13,7 @@ Any application that is bundled in Debug mode will be able to act as a developme
 
 ### Installing on iOS
 
-Any iOS application that has been bundled as a Debug variant will be able to act as a development app. It is recommended that you bundle a Debug variant of the application that you are currently working on. This will ensure that the dev app has the correct project settings and uses the same [native extensions](/manuals/extensions/). Follow the [instructions in the iOS manual](/manuals/ios/#_creating_an_ios_application_bundle) to bundle for iOS. Make sure to select Debug as variant!
+Any iOS application that has been bundled as a Debug variant will be able to act as a development app. It is recommended that you bundle a Debug variant of the application that you are currently working on. This will ensure that the dev app has the correct project settings and uses the same [native extensions](/manuals/extensions/). Follow the [instructions in the iOS manual](/manuals/ios/#creating-an-ios-application-bundle) to bundle for iOS. Make sure to select Debug as variant!
 
 ### Installing on Android
 
@@ -48,7 +48,7 @@ To launch your game on your device, the dev app and editor must be able to conne
 2. Launch the dev app on the device.
 3. Select your device under <kbd>Project ▸ Targets</kbd> in the editor.
 4. Select <kbd>Project ▸ Build And Launch</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
-5. While the game is running, you can use [hot reloading](/manuals/debugging#_hot_reloading) as usual.
+5. While the game is running, you can use [hot reloading](/manuals/debugging#hot-reloading) as usual.
 
 ![launch](images/dev-app/launch.png)
 

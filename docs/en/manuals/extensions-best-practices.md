@@ -96,7 +96,7 @@ Here is a folder structure that we use frequently for our extensions.
             /res                         -- Any resources needed for a platform
             /external
                 README.md                -- Notes/scripts on how to build or package any external libraries
-        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#_project))
+        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project))
             /<platform>
         game.project
         game.appmanifest                 -- Any extra app configuration info

@@ -7,7 +7,7 @@ brief: This manual explains how to use collection factory components to spawn hi
 
 The collection factory component is used to spawn groups and hierarchies of game objects stored in collection files into a running game.
 
-Collections provide a powerful mechanism to create reusable templates, or "prefabs" in Defold. For an overview on Collections, see the [Building blocks documentation](/manuals/building-blocks#_collections). Collections can be placed in the editor, or they can be dynamically inserted into your game.
+Collections provide a powerful mechanism to create reusable templates, or "prefabs" in Defold. For an overview on Collections, see the [Building blocks documentation](/manuals/building-blocks#collections). Collections can be placed in the editor, or they can be dynamically inserted into your game.
 
 With a collection factory component you can spawn the contents of a collection file into a game world. This is analogous to performing factory spawning of all game objects inside the collection and then building the parent-child hierarchy between the objects. A typical use case is to spawn enemies consisting of multiple game objects (enemy + weapon, for instance).
 

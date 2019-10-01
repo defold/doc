@@ -69,7 +69,7 @@ You are adviced to read the file, gather information and send it to a server of 
 
 The adb output says where it is located (different location on different devices)
 
-If the app is [debuggable](https://www.defold.com/manuals/project-settings/#_android), you can get the crash log like so:
+If the app is [debuggable](https://www.defold.com/manuals/project-settings/#android), you can get the crash log like so:
 
 	$ adb shell "run-as com.defold.adtest sh -c 'cat /data/data/com.defold.adtest/files/_crash'" > ./_crash
 

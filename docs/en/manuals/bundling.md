@@ -23,19 +23,19 @@ When bundling your game there is an option to create a build report. This is ver
 
 ![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
 
-To learn more about build reports please refer to the [Profiling manual](/manuals/profiling/#_build_reports).
+To learn more about build reports please refer to the [Profiling manual](/manuals/profiling/#build-reports).
 
 ### Android
 
-Creating an Android application bundle (.apk file) as well as the prerequisite setup is documented in the [Android manual](/manuals/android/#_creating_an_android_application_bundle).
+Creating an Android application bundle (.apk file) as well as the prerequisite setup is documented in the [Android manual](/manuals/android/#creating-an-android-application-bundle).
 
 ### iOS
 
-Creating an iOS application bundle (.ipa file) as well as the prerequisite setup is documented in the [iOS manual](/manuals/ios/#_creating_an_ios_application_bundle).
+Creating an iOS application bundle (.ipa file) as well as the prerequisite setup is documented in the [iOS manual](/manuals/ios/#creating-an-ios-application-bundle).
 
 ### OSX
 
-Creating an OSX application bundle (.app file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#_macos_os_x).
+Creating an OSX application bundle (.app file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#macos-os-x).
 
 ### Linux
 
@@ -43,7 +43,7 @@ Creating a Linux application bundle requires no specific setup and no optional p
 
 ### Windows
 
-Creating a Windows application bundle (.exe file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#_windows).
+Creating a Windows application bundle (.exe file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#windows).
 
 #### Facebook Gameroom
 
@@ -51,7 +51,7 @@ It is possible to create a special version of a Windows application bundle speci
 
 ### HTML5
 
-Creating an HTML5 application bundle as well as optional setup is documented in the [HTML5 manual](/manuals/html5/#_creating_html5_content).
+Creating an HTML5 application bundle as well as optional setup is documented in the [HTML5 manual](/manuals/html5/#creating-html5-content).
 
 #### Facebook Instant Games
 

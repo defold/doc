@@ -101,7 +101,7 @@ end
 #### action.pressed
 입력이 검출된 첫번째 프레임에서 true, 그외에는 false
 #### action.repeated
-입력이 반복되고 있으면 true, 그 외에는 false. 이 값은 기본적으로 매 프레임마다 설정되지는 않지만 [프로젝트 설정(project settings)](/manuals/project-settings#input)의 repeat_delay와 repeat_interval 의 설정에 따라 달라집니다.
+입력이 반복되고 있으면 true, 그 외에는 false. 이 값은 기본적으로 매 프레임마다 설정되지는 않지만 [프로젝트 설정(project settings)](/manuals/project-settings#input)의 repeat-delay와 repeat-interval 의 설정에 따라 달라집니다.
 #### action.released
 입력이 해지(release)된 프레임에 true, 그 외에는 false
 

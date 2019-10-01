@@ -69,7 +69,7 @@ For Android you need to specify a *Google Play Package Name*, which is the game'
 $ cat certificate.pem | openssl x509 -outform der | openssl sha1 -binary | openssl base64
 ```
 
-(See [Creating certificates and keys](/manuals/android/#_creating_certificates_and_keys) in the Android manual for details on how to create your own signing files.)
+(See [Creating certificates and keys](/manuals/android/#creating-certificates-and-keys) in the Android manual for details on how to create your own signing files.)
 
 ![Android settings](images/facebook/settings_android.png)
 

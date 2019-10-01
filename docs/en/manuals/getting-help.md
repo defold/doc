@@ -33,7 +33,7 @@ A good way to discuss and get help with a problem is to post a question on our [
   - macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
   - Linux: `~/.Defold`
 
-  Engine logs for Android can be accessed using the `adb` command line tool (Android Debug Bridge). Read more about the `adb` command line tool in the [Android manual](/manuals/android/#_android_debug_bridge).
+  Engine logs for Android can be accessed using the `adb` command line tool (Android Debug Bridge). Read more about the `adb` command line tool in the [Android manual](/manuals/android/#android-debug-bridge).
 
   Engine logs for iOS can be accessed using XCode and the Devices and Simulators menu option.
 
@@ -44,7 +44,7 @@ A good way to discuss and get help with a problem is to post a question on our [
 
   Engine logs for desktop builds can be viewed by running the Defold application from a terminal/command prompt.
 
-  You can also write engine logs to a file and access this once the application has been shut down. You can read more about how to enable and access the log in the [Debugging manual](/manuals/debugging/#_extracting_the_log.txt_file).
+  You can also write engine logs to a file and access this once the application has been shut down. You can read more about how to enable and access the log in the [Debugging manual](/manuals/debugging/#extracting-the-log.txt-file).
 
 * **Minimal repro case project (OPTIONAL)** - Please attach a minimal project where the bug is reproduced. This will greatly help the person trying to investigate and fix the bug. If you share the project as a zip file make sure to exclude the `.git`, `.internal` and `build` folders from the archive.
 

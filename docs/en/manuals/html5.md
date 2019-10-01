@@ -72,7 +72,7 @@ Each time the application is exported, this content is created afresh. If you wi
 
 ![HTML5 Section](images/html5/html5_section.png)
 
-More information about every option is available in [project settings manual](/manuals/project-settings/#_html5).
+More information about every option is available in [project settings manual](/manuals/project-settings/#html5).
 
 ::: important
 You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in `game.project`.

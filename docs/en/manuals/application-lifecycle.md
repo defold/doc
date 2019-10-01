@@ -102,7 +102,7 @@ The last step in the update loop involves dispatching `@system` messages (`exit`
 
 The number of frame updates per second (which equals the number of update-loop runs per second) can be set in the project settings, or programmatically by sending a `set_update_frequency` message to the `@system` socket. In addition, it is possible to set the _time step_ for collection proxies individually by sending a `set_time_step` message to the proxy. Changing a collection's time step does not affect the frame rate. It does affect the physics update time step as well as the `dt` variable passed to `update().` Also note that altering the time step does not alter the number of times `update()` will be called each frame---it is always exactly once.
 
-(See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collection-proxy#set_time_step) for details)
+(See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collection-proxy#set-time-step) for details)
 
 ## Finalization
 

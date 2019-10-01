@@ -42,7 +42,7 @@ This tutorial is written as a step-by-step guide where we build the game on a co
 
 You need to start by creating a new project and importing the asset package:
 
-* Create a [new project](/manuals/project-setup/#_creating_a_new_project) from the "Empty Project" template
+* Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template
 * Download the "Magic Link" asset package and unpack it on your hard drive (the package is a ZIP archive)
 
 <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/magic-link-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>

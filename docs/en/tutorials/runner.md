@@ -67,7 +67,7 @@ Now, if you haven't already downloaded and installed the Defold editor, it's tim
 
 :[install](../shared/install.md)
 
-When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#_creating_a_new_project) from the "Empty Project" template.
+When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template.
 
 ## The editor
 
@@ -314,7 +314,7 @@ Finally, create a new *hero.script* file and add it to the game object.
 ::: sidenote
 The reason we are handling the collision ourselves is that if we instead set the type on the frog's collision object to dynamic, the engine will peform a Newtonian simulation of the bodies involved. For a game like this, such a simulation is far from optimal so instead of fighting the physics engine with various forces, we take full control.
 
-Now, to do that and handle collision properly requires a little bit of vector mathematics. A thorough explanation on how to solve kinematic collisions is given in the [Physics documentation](/manuals/physics#_resolving_kinematic_collisions).
+Now, to do that and handle collision properly requires a little bit of vector mathematics. A thorough explanation on how to solve kinematic collisions is given in the [Physics documentation](/manuals/physics#resolving-kinematic-collisions).
 :::
 
 ```lua

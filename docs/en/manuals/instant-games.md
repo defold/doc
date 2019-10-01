@@ -25,7 +25,7 @@ Before you can publish your Defold game to Facebook, you need to set up your gam
    <script src="https://connect.facebook.net/en_US/fbinstant.6.3.js"></script>
    ```
 
-   See [the HTML5 manual](/manuals/html5/#_customizing_html5_applications) for details on how to customize your bundled app.
+   See [the HTML5 manual](/manuals/html5/#customizing-html5-applications) for details on how to customize your bundled app.
 
 4. When you are ready to test your game, bundle it to HTML5 and upload it to Facebook.
 
@@ -68,7 +68,7 @@ A Defold version of the "Tic Tac Toe" example game for Instant Games is availabl
 The Facebook Instant Games [best practices](https://developers.facebook.com/docs/games/instant-games/best-practices) recommends an initial loading time less than 5 seconds. Defold adds little overhead to your games and provide a number of tools allowing you to reduce the size of your game:
 
 Removing unused engine features
-: A standard Defold engine for HTML5 is a little less than 1.2MB in size when compressed using gzip, but the engine size can be significantly reduce by removing parts of the engine that aren't used by your game. Which parts of the engine to remove is specified in an "app.manifest", referenced from the [Native Extension section](/manuals/project-settings/#_native_extension) of your "game.project" file.
+: A standard Defold engine for HTML5 is a little less than 1.2MB in size when compressed using gzip, but the engine size can be significantly reduce by removing parts of the engine that aren't used by your game. Which parts of the engine to remove is specified in an "app.manifest", referenced from the [Native Extension section](/manuals/project-settings/#native-extension) of your "game.project" file.
 
   This functionality is still in an alpha state and needs further documentation. Tools for generating app.manifests file can be found here: https://forum.defold.com/t/stripping-appmanifest-maker/16059
 
