@@ -549,6 +549,15 @@
                         "name": "Debugging on iOS"
                     }
                 ]
+            },
+            {
+                "name": "EDITOR EXTENSIONS",
+                "items": [
+                    {
+                        "path": "/manuals/editor-scripts",
+                        "name": "Editor scripts"
+                    }
+                ]
             }
         ]
     }
