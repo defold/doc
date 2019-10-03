@@ -13,10 +13,10 @@ Editor scripts run inside an editor, in a Lua VM emulated by Java VM. All script
 - there is no `debug` and `coroutine` packages;
 - there is no `os.execute` — we provide a more user-friendly and secure way to execute shell scripts in [actions](#_actions) section;
 - there is no `os.tmpname` and `io.tmpfile` — currently editor scripts can access files only inside the project directory;
-- there is currently no `os.rename` and `os.remove`, although we plan to add them;
-- there is no `os.exit` and `os.setlocale`
+- there is currently no `os.rename` and `os.remove`, although we want to add them;
+- there is no `os.exit` and `os.setlocale`.
 
-All editor extensions defined in editor scripts are loaded when you open a project. When you fetch libraries, extensions are reloaded, since there might be new editor scripts in a libraries you depend on. During this reload, no changes in your own editor scripts are picked up, since you might be in the middle of coding them. To reload them as well, you should run Project → Reload Extensions command.
+All editor extensions defined in editor scripts are loaded when you open a project. When you fetch libraries, extensions are reloaded, since there might be new editor scripts in a libraries you depend on. During this reload, no changes in your own editor scripts are picked up, since you might be in the middle of changing them. To reload them as well, you should run Project → Reload Extensions command.
 
 ## Anatomy of `.editor_script`
 
@@ -25,7 +25,7 @@ Every editor script should return a module, like that:
 local M = {}
 
 function M.get_commands() 
-    -- TODO
+  -- TODO
 end
 
 return M
@@ -98,16 +98,16 @@ Editor expects `get_commands()` to return an array of tables, each describing a 
 
 - `label` (required) — text on a menu item that will be displayed to the user
 - `locations` (required) — an array of either `"Edit"`, `"View"`, `"Assets"` or `"Outline"`, describes a place where this command should be available. `"Edit"` and `"View"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, and `"Outline"` means context menu in Outline pane.
-- `query` — a way for command to ask editor for relevant information and define on what data it operates on. For every key in `query` table there will be corresponding key in `opts` table that `active` and `run` callbacks receive as argument. Supported keys:
+- `query` — a way for command to ask editor for relevant information and define what data it operates on. For every key in `query` table there will be corresponding key in `opts` table that `active` and `run` callbacks receive as argument. Supported keys:
   - `selection` means this command is valid when there is something selected, and it operates on this selection.
-    - `type` is a type of selected nodes command is interested in, currently only `"resource"` is allowed;
+    - `type` is a type of selected nodes command is interested in, currently only `"resource"` is allowed. In Assets and Outline, resource is selected item. In menu bar (Edit or View), resource is a currently open file;
     - `cardinality` defines how many selected items there should be. If `"one"`, selection passed to command callback will be a single node id. If `"many"`, selection passed to command callback will be an array of one or more node ids.
 - `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
 - `run` - a callback that is executed when user selects menu item, expected to return an array of [actions](#_actions).
 
 ## Actions
 
-Action is a table describing what editor should do. Every action has an `action` key. Action come in 2 flavors: undoable and non-undoable. 
+Action is a table describing what editor should do. Every action has an `action` key. Actions come in 2 flavors: undoable and non-undoable. 
 
 ### Undoable actions
 
@@ -132,7 +132,7 @@ Existing undoable actions:
 
 Non-undoable action clears undo history, so if you want to undo such action, you will have to use other means, such as version control.
 
-Existing undoable actions:
+Existing non-undoable actions:
 - `"shell"` — execute a shell script. Example:
   ```lua
   {
@@ -170,13 +170,13 @@ Every lifecycle hook can return actions or write to files in project directory.
 
 Existing lifecycle hooks that `/hooks.editor_script` may specify:
 - `on_build_started(opts)` — executed when game is Built to run locally or on some remote target. Your changes, be it returned actions or updated file contents, will appear in a built game. Raising an error from this hook will abort a build. `opts` is a table that contains following keys:
-  - `platform` — a string in `%arch%-%os%` format describing what platform it's built for, currently always the same value in `editor.platform`.
+  - `platform` — a string in `%arch%-%os%` format describing what platform it's built for, currently always the same value as in `editor.platform`.
 - `on_build_finished(opts)` — executed when build is finished, be at successful or failed. `opts` is a table with following keys:
   - `platform` — same as in `on_build_started`
   - `success` — whether build is successful, either `true` or `false`
 - `on_bundle_started(opts)` — executed when you create a bundle or Build HTML5 version of a game. As with `on_build_started`, changes triggered by this hook will appear in a bundle, and errors will abort a bundle. `opts` will have these keys:
   - `output_directory` — a file path pointing to a directory with bundle output, for example `"/path/to/project/build/default/__htmlLaunchDir"`
-  - `platform` — platform the game is bundled for. See a list of available platform values in [Bob manual](/manuals/bob).
+  - `platform` — platform the game is bundled for. See a list of possible platform values in [Bob manual](/manuals/bob).
 - `on_bundle_finished(opts)` — executed when bundle is finished, be it successful or not. `opts` is a table with the same data as `opts` in `on_bundle_started`, plus `success` key indicating whether build is successful.
 - `on_target_launched(opts)` — executed when user launched a game and it successfully started. `opts` contains an `url` key pointing to a launched engine service, for example, `"http://127.0.0.1:35405"`
 - `on_target_terminated(opts)` — executed when launched game is closed, has same opts as `on_target_launched`
@@ -185,4 +185,4 @@ Please note that lifecycle hooks currently are an editor-only feature, and they 
 
 ## Editor scripts in libraries
 
-You can publish libraries for other people to use that contain commands, and they will be automatically picked up by editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks in `.lua` files, so users of your library can require it and call in their `/hooks.editor_script`.
+You can publish libraries for other people to use that contain commands, and they will be automatically picked up by editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks as simple functions in `.lua` files, so users of your library can require and use them in their `/hooks.editor_script`.
