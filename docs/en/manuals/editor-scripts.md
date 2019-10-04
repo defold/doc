@@ -13,10 +13,10 @@ Editor scripts run inside an editor, in a Lua VM emulated by Java VM. All script
 - there is no `debug` and `coroutine` packages;
 - there is no `os.execute` — we provide a more user-friendly and secure way to execute shell scripts in [actions](#_actions) section;
 - there is no `os.tmpname` and `io.tmpfile` — currently editor scripts can access files only inside the project directory;
-- there is currently no `os.rename` and `os.remove`, although we want to add them;
+- there is currently no `os.rename`, although we want to add it;
 - there is no `os.exit` and `os.setlocale`.
 
-All editor extensions defined in editor scripts are loaded when you open a project. When you fetch libraries, extensions are reloaded, since there might be new editor scripts in a libraries you depend on. During this reload, no changes in your own editor scripts are picked up, since you might be in the middle of changing them. To reload them as well, you should run Project → Reload Extensions command.
+All editor extensions defined in editor scripts are loaded when you open a project. When you fetch libraries, extensions are reloaded, since there might be new editor scripts in a libraries you depend on. During this reload, no changes in your own editor scripts are picked up, since you might be in the middle of changing them. To reload them as well, you should run Project → Reload Editor Scripts command.
 
 ## Anatomy of `.editor_script`
 
@@ -36,7 +36,7 @@ Editor then collects all editor scripts defined in project and libraries, loads 
 
 You can interact with the editor using `editor` package that defines this API:
 - `editor.platform` — a string, either `"x86_64-win32"` for Windows, `"x86_64-darwin"` for macOS or `"x86_64-linux"` for Linux.
-- `editor.get(node_id, property)` - get a value of some node inside the editor. Nodes in the editor are various entities, such as script or collection files, game objects inside collections, json files loaded as resources, etc. `node_id` is a userdata that is passed to the editor script by the editor. `property` is a string. Currently these properties are supported:
+- `editor.get(node_id, property)` - get a value of some node inside the editor. Nodes in the editor are various entities, such as script or collection files, game objects inside collections, json files loaded as resources, etc. `node_id` is a userdata that is passed to the editor script by the editor. Alternatively, you can pass resource path instead of node id, for example `"/main/game.script"`. `property` is a string. Currently these properties are supported:
   - `"path"` — file path from the project folder for *resources* — entities that exist as files. Example of returned value: `"/main/game.script"`
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
 
@@ -124,7 +124,7 @@ Existing undoable actions:
   }
   ```
   `"set"` action requires these keys:
-  - `node_id` — node id userdata;
+  - `node_id` — node id userdata. Alternatively, you can use resource path here instead of node id you received from the editor, for example `"/main/game.script"`;
   - `property` — a property of a node to set, currently only `"text"` is supported;
   - `value` — new value for a property. For `"text"` property it should be a string.
 
