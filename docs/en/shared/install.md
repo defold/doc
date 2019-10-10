@@ -1,6 +1,6 @@
 ## Downloading
 
-Go to the [Defold download page](https://d.defold.com/stable/) where you will find Download buttons for macOS, Windows and Linux (Ubuntu):
+Go to the [Defold download page](https://defold.com/download/) where you will find Download buttons for macOS, Windows and Linux (Ubuntu):
 
 ![download editor](../shared/images/editor_download.png)
 
