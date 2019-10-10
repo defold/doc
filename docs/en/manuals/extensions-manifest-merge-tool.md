@@ -41,6 +41,7 @@ We recommend to use: `<uses-sdk android:targetSdkVersion=“{{android.target_sdk
 
 Base manifest
 
+```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android'
             package='com.defold.testmerge'
@@ -53,9 +54,11 @@ Base manifest
         </application>
         <uses-permission android:name='android.permission.VIBRATE' />
     </manifest>
+```
 
 Extension manifest:
 
+```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.defold.testmerge'>
          <uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />
@@ -69,9 +72,11 @@ Extension manifest:
               android:label='Test Project' />
         </application>
     </manifest>
+```
 
 Result
 
+```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android'
         package='com.defold.testmerge'
@@ -98,6 +103,7 @@ Result
                 android:theme='@android:style/Theme.Translucent.NoTitleBar' />
         </application>
     </manifest>
+```
 
 ## iOS / macOS
 
@@ -108,6 +114,7 @@ They can handle lists and dictionaries.
 
 Base Manifest
 
+```xml
     <?xml version='1.0' encoding='UTF-8'?>
     <!DOCTYPE plist PUBLIC '-//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
     <plist version='1.0'>
@@ -131,9 +138,11 @@ Base Manifest
             <data>SEVMTE8gV09STEQ=</data>
     </dict>
     </plist>
+```
 
 Extension manifest:
 
+```xml
     <?xml version='1.0' encoding='UTF-8'?>
     <!DOCTYPE plist PUBLIC '-//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
     <plist version='1.0'>
@@ -155,9 +164,11 @@ Extension manifest:
         <integer>42</integer>
     </dict>
     </plist>
+```
 
 Result:
 
+```xml
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
@@ -190,6 +201,7 @@ Result:
             <integer>42</integer>
         </dict>
     </plist>
+```
 
 
 ## HTML5
@@ -201,6 +213,7 @@ You can then specify the attributes `merge` or `keep`. `merge` is the default.
 
 Base manifest
 
+```html
     <!DOCTYPE html>
     <html>
     <body>
@@ -218,10 +231,11 @@ Base manifest
      </script>
     </body>
     </html>
-
+```
 
 Extension manifest
 
+```html
     <html>
     <body>
      <script id='engine-loader' type='text/javascript' src='mydmloader.js'></script>
@@ -230,9 +244,11 @@ Extension manifest
      </script>
     </body>
     </html>
+```
 
 Result
 
+```html
     <!doctype html>
     <html>
     <head></head>
@@ -251,3 +267,4 @@ Result
         </script>
     </body>
     </html>
+```
