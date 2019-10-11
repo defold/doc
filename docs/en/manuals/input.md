@@ -96,7 +96,7 @@ Gamepad Triggers
 Touch Triggers
 : Single-touch type triggers are available on iOS and Android devices. Single-touch type triggers are not set up from the Touch Triggers section of the input bindings. Instead **single-touch triggers are automatically set up when you have mouse button input set up for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`**.
 
-: Multi-touch type triggers are available on iOS and Android devices in native applications (ie not HTML5 builds running on a mobile device). They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
+: Multi-touch type triggers are available on iOS and Android devices in native applications and HTML5 bundles. They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
 
   ```lua
   -- Spawn at each touch point
