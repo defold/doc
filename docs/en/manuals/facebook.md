@@ -16,6 +16,11 @@ https://github.com/defold/extension-facebook/archive/master.zip
 
 We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-facebook/releases).
 
+Starting Defold 1.2.162 this extension has one more dependency:
+```
+https://github.com/defold/extension-gps/archive/master.zip
+```
+
 Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-facebook/).
 
 ## Registering as a Facebook developer
