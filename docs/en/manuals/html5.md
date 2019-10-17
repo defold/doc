@@ -48,21 +48,13 @@ You will be prompted to select a folder in which to create your application. Aft
 
 ## Known issues and limitations
 
-Live update
-: Defold applications must run their own miniature web server in order to receive live updates from the editor. This is not possible within a pure browser application.
-
-
-Internet Explorer 11 (audio)
-: Defold handles audio playback using HTML5 _WebAudio_ (see http://www.w3.org/TR/webaudio), which is not currently supported by Internet Explorer 11. Applications will fall back to a null audio implementation when using this browser.
-
-
-Internet Explorer 11 (WebGL)
-: Microsoft has not completed work implementing the _WebGL_ API (see https://www.khronos.org/registry/webgl/specs/latest/). Therefore, it does not perform as well as other browsers.
-
-
-Internet Explorer 11 (Full screen)
-: Full screen mode is unreliable in the browser.
-
+* Live update - Defold applications must run their own miniature web server in order to receive live updates from the editor. This is not possible within a pure browser application.
+* Internet Explorer 11
+  * Audio - Defold handles audio playback using HTML5 _WebAudio_ (see http://www.w3.org/TR/webaudio), which is not currently supported by Internet Explorer 11. Applications will fall back to a null audio implementation when using this browser.
+  * WebGL - Microsoft has not completed work implementing the _WebGL_ API (see https://www.khronos.org/registry/webgl/specs/latest/). Therefore, it does not perform as well as other browsers.
+  * Full screen - Full screen mode is unreliable in the browser.
+* Chrome
+  * Slow debug builds - In debug builds on HTML5 we verify all WebGL graphics calls to detect errors. This is unfortunately very slow when testing on Chrome. It is possible to disable this by setting the *Engine Arguments* field of *game.project* to `–verify-graphics-calls=false`.
 
 ## Customizing HTML5 bundle
 

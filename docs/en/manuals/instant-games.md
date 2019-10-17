@@ -78,4 +78,8 @@ Apply texture compression
 Exclude content from boot and download it during run-time
 : Many games split the game content into levels or episodes. For those types of games it often make sense to postpone loading of game content until the player has downloaded and started playing the game.
 
-  This process of excluding parts of the game content, storing it on a server and then downloading and caching it while the game is running is perfect for reducing the application size of an Instant Game. The entire process is handled by Defold's [Live Update](/manuals/live-update/) system.
+This process of excluding parts of the game content, storing it on a server and then downloading and caching it while the game is running is perfect for reducing the application size of an Instant Game. The entire process is handled by Defold's [Live Update](/manuals/live-update/) system.
+
+## Known issues
+
+Refer to the [Known Issues section of the HTML5 manual](/manuals/html5/#known-issues-and-limitations) for known issues with HTML5 and Instant Games.
