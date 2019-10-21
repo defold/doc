@@ -496,6 +496,10 @@
                         "name": "In-app purchases"
                     },
                     {
+                        "path": "/manuals/iac",
+                        "name": "Inter-app communication"
+                    },
+                    {
                         "path": "/manuals/push",
                         "name": "Push notifications"
                     },
