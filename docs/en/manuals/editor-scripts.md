@@ -36,9 +36,18 @@ Editor then collects all editor scripts defined in project and libraries, loads 
 
 You can interact with the editor using `editor` package that defines this API:
 - `editor.platform` — a string, either `"x86_64-win32"` for Windows, `"x86_64-darwin"` for macOS or `"x86_64-linux"` for Linux.
-- `editor.get(node_id, property)` - get a value of some node inside the editor. Nodes in the editor are various entities, such as script or collection files, game objects inside collections, json files loaded as resources, etc. `node_id` is a userdata that is passed to the editor script by the editor. Alternatively, you can pass resource path instead of node id, for example `"/main/game.script"`. `property` is a string. Currently these properties are supported:
+- `editor.get(node_id, property)` — get a value of some node inside the editor. Nodes in the editor are various entities, such as script or collection files, game objects inside collections, json files loaded as resources, etc. `node_id` is a userdata that is passed to the editor script by the editor. Alternatively, you can pass resource path instead of node id, for example `"/main/game.script"`. `property` is a string. Currently these properties are supported:
   - `"path"` — file path from the project folder for *resources* — entities that exist as files. Example of returned value: `"/main/game.script"`
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
+  - some properties that are shown in the Properties view when you have selected something in the Outline view. These types of outline properties supported:
+    - strings (read and write)
+    - booleans (read and write)
+    - numbers (read and write)
+    - vec2/vec3/vec4 properties (read and write)
+    - resources (read only)
+    Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts.
+- `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error
+- `editor.can_set(node_id, property)` — check if `"set"` command with this property won't throw an error
 
 ## Commands
 
@@ -100,7 +109,9 @@ Editor expects `get_commands()` to return an array of tables, each describing a 
 - `locations` (required) — an array of either `"Edit"`, `"View"`, `"Assets"` or `"Outline"`, describes a place where this command should be available. `"Edit"` and `"View"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, and `"Outline"` means context menu in Outline pane.
 - `query` — a way for command to ask editor for relevant information and define what data it operates on. For every key in `query` table there will be corresponding key in `opts` table that `active` and `run` callbacks receive as argument. Supported keys:
   - `selection` means this command is valid when there is something selected, and it operates on this selection.
-    - `type` is a type of selected nodes command is interested in, currently only `"resource"` is allowed. In Assets and Outline, resource is selected item. In menu bar (Edit or View), resource is a currently open file;
+    - `type` is a type of selected nodes command is interested in, currently these types are allowed:
+      - `"resource"` — in Assets and Outline, resource is selected item that has a corresponding file. In menu bar (Edit or View), resource is a currently open file;
+      - `"outline"` — something that can be shown in the Outline. In Outline it's a selected item, in menu bar it's a currently open file;
     - `cardinality` defines how many selected items there should be. If `"one"`, selection passed to command callback will be a single node id. If `"many"`, selection passed to command callback will be an array of one or more node ids.
 - `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
 - `run` - a callback that is executed when user selects menu item, expected to return an array of [actions](#_actions).
