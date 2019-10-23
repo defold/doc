@@ -32,7 +32,7 @@ Using HTTP requests allows you to connect to and interact with thousands of diff
 * [PlayFab](https://github.com/PlayFab/LuaSdk) - Add authentication, matchmaking, analytics, cloud save and more to your game
 * [Steamworks](https://github.com/britzl/steamworks-defold/) - Add Steam support to your game
 
-Check the [Asset Portal](https://www.defold.com/community/assets/) for even more extensions!
+Check the [Asset Portal](https://www.defold.com/assets/) for even more extensions!
 
 
 ## Socket connections

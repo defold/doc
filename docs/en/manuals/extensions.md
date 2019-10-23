@@ -235,4 +235,4 @@ Allowed keys are for platform specific compile flags are:
 * [MacOS and iOS camera extension](https://github.com/defold/extension-camera)
 * [iOS and Android Admob extension](https://github.com/defold/extension-admob)
 
-The [Defold community asset portal](https://www.defold.com/community/assets/) also contain community created extensions.
+The [Defold asset portal](https://www.defold.com/assets/) also contain several native extensions.
