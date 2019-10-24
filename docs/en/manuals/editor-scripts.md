@@ -200,3 +200,5 @@ Please note that lifecycle hooks currently are an editor-only feature, and they 
 ## Editor scripts in libraries
 
 You can publish libraries for other people to use that contain commands, and they will be automatically picked up by editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks as simple functions in `.lua` files, so users of your library can require and use them in their `/hooks.editor_script`.
+
+Also note that although dependencies are shown in Assets view, they do not exist as files (they are entries in a zip archive), so there is currently no easy way to execute a shell script you provide in a dependency. If you absolutely need it, you'll have to extract provided scripts by getting their text using `editor.get()` and then writing them somewhere with `file:write()`, for example in a `build/editor-scripts/your-extension-name` folder.
