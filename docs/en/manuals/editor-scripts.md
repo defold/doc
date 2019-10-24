@@ -40,13 +40,13 @@ You can interact with the editor using `editor` package that defines this API:
   - `"path"` — file path from the project folder for *resources* — entities that exist as files. Example of returned value: `"/main/game.script"`
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
   - some properties that are shown in the Properties view when you have selected something in the Outline view. These types of outline properties supported:
-    - strings (read and write)
-    - booleans (read and write)
-    - numbers (read and write)
-    - vec2/vec3/vec4 properties (read and write)
-    - resources (read only)
+    - strings
+    - booleans
+    - numbers
+    - vec2/vec3/vec4
+    - resources
     
-    Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts.
+    Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts. You can set resource properties to nil by supplying `""` value.
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error
 - `editor.can_set(node_id, property)` — check if `"set"` action with this property won't throw an error
 
