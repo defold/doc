@@ -172,6 +172,7 @@ local M = {}
 function M.on_build_started(opts) 
   local file = io.open("assets/build.json", "w")
   file:write("{\"build_time\": \"".. os.date() .."\"}")
+  file:close()
 end
 
 return M
