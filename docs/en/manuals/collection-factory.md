@@ -100,7 +100,7 @@ With the box unchecked the engine loads the prototype resources when the collect
 With the box checked, you have two options for usage:
 
 Synchronous loading
-: Call [`collectionfactory.create()`](/ref/collectionfactory/#collecionfactory.create) when you want to spawn objects. This  will load the resources synchronously, which may cause a hitch, then spawn new instances.
+: Call [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create:url-[position]-[rotation]-[properties]-[scale]) when you want to spawn objects. This  will load the resources synchronously, which may cause a hitch, then spawn new instances.
 
   ```lua
   function init(self)
@@ -109,7 +109,7 @@ Synchronous loading
       -- having called load will create the resources synchronously.
       self.go_ids = collecionfactory.create("#collectionfactory")
   end
-  
+
   function final(self)  
       -- Delete game objects. Will decref resources.
       -- In this case resources are deleted since the collection
@@ -123,26 +123,26 @@ Synchronous loading
   ```
 
 Asynchronous loading
-: Call [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load) to explicitly load the resources asynchronously. When the resources are ready for spawning, a callback is received.
+: Call [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load:[url]-[complete_function]) to explicitly load the resources asynchronously. When the resources are ready for spawning, a callback is received.
 
   ```lua
   function load_complete(self, url, result)
       -- Loading is complete, resources are ready to spawn
       self.go_ids = collectionfactory.create(url)
   end
-  
+
   function init(self)
       -- No factory resources are loaded when the collection factory’s
       -- parent collection is loaded. Calling load will load the resources.
       collectionfactory.load("#factory", load_complete)
   end
-  
+
   function final(self)
       -- Delete game object. Will decref resources.
       -- In this case resources aren’t deleted since the collection factory
       -- component still holds a reference.
       go.delete_all(self.go_ids)
-  
+
       -- Calling unload will decref resources held by the factory component,
       -- resulting in resources being destroyed.
       collectionfactory.unload("#factory")

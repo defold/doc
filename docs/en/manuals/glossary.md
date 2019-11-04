@@ -9,7 +9,7 @@ This glossary gives a brief description to all the things you encounter in Defol
 
 ## Animation set
 
-![Animation set](images/icons/animationset.png){.left} An animation set resource contains a list of .dae files or other .animationset files from where to read animations. Adding one .animationset files to another is handy if you share partial sets of animations between several models. See the [3D graphics manual](/manuals/3dgraphics/) for details.
+![Animation set](images/icons/animationset.png){.left} An animation set resource contains a list of .dae files or other .animationset files from where to read animations. Adding one .animationset files to another is handy if you share partial sets of animations between several models. See the [3D graphics manual](/manuals/graphics/) for details.
 
 ## Atlas
 

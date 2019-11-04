@@ -32,7 +32,7 @@ Skin
 
 ## Runtime animation control
 
-Spine nodes can be controlled in runtime through script. To start an animation on a node, simply call the [`gui.play_spine()`](/ref/gui#gui.play_spine) function:
+Spine nodes can be controlled in runtime through script. To start an animation on a node, simply call the [`gui.play_spine()`](/ref/gui/#gui.play_spine_anim:node-animation_id-playback-[play_properties]-[complete_function]) function:
 
 ```lua
 local catnode = gui.get_node("cat_note")
@@ -66,4 +66,3 @@ local textnode = gui.new_text_node(vmath.vector3(400, 0, 0), "Hello tail!")
 local tail = gui.get_node("cat_node/tail")
 gui.set_parent(textnode, tail)
 ```
-

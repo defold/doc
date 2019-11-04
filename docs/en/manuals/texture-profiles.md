@@ -99,7 +99,7 @@ The *Formats* added to a profile each have the following properties:
 : Selects the quality level for the resulting compressed image. The values range from `FAST` (lowest quality, fast compression) to `BEST` (highest quality, slowest compression).
 
 *Type*
-: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#compression_types) below for more details.
+: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#compression-types) below for more details.
 
 ## Texture formats
 

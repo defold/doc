@@ -165,7 +165,7 @@ DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 
 `update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
 
-See [`set_time_step`](/ref/collection-proxy#set_time_step) for more details.
+See [`set_time_step`](/ref/collectionproxy#set_time_step) for more details.
 
 ## Caveats and common issues
 

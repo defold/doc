@@ -99,4 +99,4 @@ function on_message(self, message_id, message)
 end
 ```
 
-When orientation is switched, the GUI layout manager will automatically rescale and reposition GUI nodes according to your layout and node properties. In-game content, however, is rendered in a separate pass (by default) with a stretch-fit projection into the current window. To change this behavior, either supply your own modified render script, or use a camera [library](/community/assets/).
+When orientation is switched, the GUI layout manager will automatically rescale and reposition GUI nodes according to your layout and node properties. In-game content, however, is rendered in a separate pass (by default) with a stretch-fit projection into the current window. To change this behavior, either supply your own modified render script, or use a camera [library](/assets/).

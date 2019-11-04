@@ -301,7 +301,7 @@ Defold supports joints for 2D physics. A joint connects two collision objects us
 
 ### Creating joints
 
-Joints can currently only be created programmatically using [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b--properties-):
+Joints can currently only be created programmatically using [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
 ::: sidenote
 Editor support for creating joints is planned but no release date has been decided.
 :::

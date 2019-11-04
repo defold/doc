@@ -139,5 +139,5 @@ Learn more about the render script in the [Render manual](/manuals/render/#persp
 
 There are a few library camera solutions that implements common camera features such as game object follow, screen to world coordinate conversion and so on. They are available from the Defold community assets portal:
 
-- [Rendercam](https://www.defold.com/community/projects/84064/) (2D & 3D) by Ross Grams.
-- [Ortographic camera](https://www.defold.com/community/projects/76573/) (2D only) by Björn Ritzl.
+- [Rendercam](https://defold.com/assets/rendercam/) (2D & 3D) by Ross Grams.
+- [Ortographic camera](https://defold.com/assets/orthographic/) (2D only) by Björn Ritzl.

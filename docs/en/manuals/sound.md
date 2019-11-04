@@ -44,20 +44,20 @@ The created component has a set of properties that should be set:
 
 ## Playing the sound
 
-When you have a sound component set up properly, you can cause it to play its sound by calling [`sound.play()`](https://www.defold.com/ref/sound/#sound.play:url--play_properties-):
+When you have a sound component set up properly, you can cause it to play its sound by calling [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
 sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
 
 ::: sidenote
-A sound will continue to play even if the game object the sound component belonged to is deleted. You can call [`sound.stop()`](https://www.defold.com/ref/sound/#sound.stop:url) to stop the sound (see below).
+A sound will continue to play even if the game object the sound component belonged to is deleted. You can call [`sound.stop()`](/ref/sound/#sound.stop:url) to stop the sound (see below).
 :::
 Each message sent to a component will cause it to play another instance of the sound, until the available sound buffer is full and the engine will print errors in the console. It is advised that you implement some sort of gating and sound grouping mechanism.
 
 ## Stopping the sound
 
-If you wish to stop playing a sound you can call [`sound.stop()`](https://www.defold.com/ref/sound/#sound.stop:url):
+If you wish to stop playing a sound you can call [`sound.stop()`](/ref/sound/#sound.stop:url):
 
 ```lua
 sound.stop("go#sound")

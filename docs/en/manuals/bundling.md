@@ -35,7 +35,7 @@ Creating an iOS application bundle (.ipa file) as well as the prerequisite setup
 
 ### OSX
 
-Creating an OSX application bundle (.app file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#macos-os-x).
+Creating an OSX application bundle (.app file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#macos--os-x).
 
 ### Linux
 
@@ -51,7 +51,7 @@ It is possible to create a special version of a Windows application bundle speci
 
 ### HTML5
 
-Creating an HTML5 application bundle as well as optional setup is documented in the [HTML5 manual](/manuals/html5/#creating-html5-content).
+Creating an HTML5 application bundle as well as optional setup is documented in the [HTML5 manual](/manuals/html5/#creating-html5-bundle).
 
 #### Facebook Instant Games
 

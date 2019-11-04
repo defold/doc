@@ -268,7 +268,7 @@ on_input
 on_reload
 :   Called when the script component is reloaded.
 
-The callback functions listed above are all optional and can be removed if not used. For details on how to set up input, please refer to the [input manual](/manuals/input). A common pitfall occurs when working with collection proxies - please refer for [this section](/manuals/input/#input-and-collection-proxies) of the input manual for more information.
+The callback functions listed above are all optional and can be removed if not used. For details on how to set up input, please refer to the [input manual](/manuals/input). A common pitfall occurs when working with collection proxies - please refer to [this section](/manuals/input/#input-dispatch-and-on_input) of the input manual for more information.
 
 As discussed in the collision detection section, collision events are dealt with through the sending of messages to the game objects involved. Their respective script components receive the message in their on_message callback functions.
 
@@ -313,7 +313,7 @@ DEBUG:SCRIPT: table: 0x7ff95de63ce0
 Using the `pprint()` function as illustrated above gives more meaningful results:
 
 ```
-DEBUG:SCRIPT: 
+DEBUG:SCRIPT:
 {
   name = Terra,
   teams = {

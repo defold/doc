@@ -25,7 +25,7 @@ Before you can publish your Defold game to Facebook, you need to set up your gam
    <script src="https://connect.facebook.net/en_US/fbinstant.6.3.js"></script>
    ```
 
-   See [the HTML5 manual](/manuals/html5/#customizing-html5-applications) for details on how to customize your bundled app.
+   See [the HTML5 manual](/manuals/html5/#customizing-html5-bundle) for details on how to customize your bundled app.
 
 4. When you are ready to test your game, bundle it to HTML5 and upload it to Facebook.
 
