@@ -14,6 +14,11 @@
         {
             "name": "Ру́сский (Russian)",
             "translation": ""
+        },
+        "zh":
+        {
+            "name": "中文 (Chinese)",
+            "translation": "support@cocosgames.com"
         }
     }
 }

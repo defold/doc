@@ -1,6 +1,6 @@
 ---
-title: Inter-app communication in Defold
-brief: Inter-app communication allows you to pick up on the launch arguments used when starting your application. This manual explains Defold's API available for this functionality.
+title: Defold 的应用内通信
+brief: 应用内通信可以让你获得应用启动时的启动参数信息. 此手册解释了Defold中此功能的API.
 ---
 
 # 应用内通信

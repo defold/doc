@@ -1,11 +1,11 @@
 ---
-title: Defold development for the Windows platform
-brief: This manual describes how to build and run Defold applications on Windows
+title: Windows 平台下的 Defold 开发
+brief: 此手册介绍了在 Windows 平台下如何编译和运行 Defold 应用 
 ---
 
 # Windows 开发
 
-为Windows平台开发开发Defold应用是一家轻车熟路的事.
+为Windows平台开发开发Defold应用是一件轻车熟路的事.
 
 ## 项目设置
 

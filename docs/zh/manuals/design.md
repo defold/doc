@@ -1,6 +1,6 @@
 ---
-title: The design of Defold
-brief: The philosophy behind Defold's design
+title: Defold 设计理念
+brief: Defold 设计幕后理念
 ---
 
 # Defold 的设计理念

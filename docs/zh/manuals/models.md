@@ -1,6 +1,6 @@
 ---
-title: Deprecated 3D models doc
-brief: This document has been replaced
+title: 废弃的 3D 模型文档
+brief: 此文档已过时
 ---
 
 # 模型

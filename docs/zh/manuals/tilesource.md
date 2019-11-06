@@ -1,6 +1,6 @@
 ---
-title: Defold tile source manual
-brief: This describes how to use and create a tile source.
+title: Defold瓷砖图集手册
+brief: 此手册介绍了如何使用瓷砖图集资源.
 ---
 
 # 瓷砖图集

@@ -1,6 +1,6 @@
 ---
-title: Defold graphics manual
-brief: This manual outlines Defold's support for graphical elements.
+title: Defold 图像手册
+brief: 此手册简述了 Defold 支持的图像组件.
 ---
 
 # 图像

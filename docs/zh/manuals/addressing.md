@@ -1,15 +1,15 @@
 ---
-title: Addressing in Defold
-brief: This manual explains how Defold has solved the problem of addressing.
+title: Defold 定位
+brief: 本手册解释了 Defold 如何实现地址定位功能.
 ---
 
 # 定位
 
-Code that controls a running game must be able to reach every object and component in order to move, scale, animate, delete and manipulate what the player sees and hears. Defold's addressing mechanism makes this possible.
+为了让代码能够控制每个对象和组件的移动，缩放，播放动画或者添加删除各种视听元素，Defold 提供了地址定位机制.
 
 ## 标志
 
-Defold uses addresses (or URLs, but let's ignore that for now) to refer to game objects and components. These addresses consist of identifiers. The following are all examples of how Defold uses addresses. Through this manual we are going to examine in detail how they work:
+Defold 使用地址 (称为 URL, 暂且不表) 来引用游戏对象和组件. 地址里包含各种标志. 下面列举了 Defold 使用地址的例子. 本手册将详述地址的用法:
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -22,103 +22,103 @@ msg.post("#", "hello_there")
 local id = go.get_id(".")
 ```
 
-Let's start with a very simple example. Suppose that you have a game object with a single sprite component. You also have a script component to control the game object. The setup in the editor would look something like this:
+先看一个简单的例子. 比如你有一个含有Sprite的游戏对象. 然后附加一个脚本来控制这个对象. 在编辑器里的设置就差不多这样:
 
 ![bean in editor](images/addressing/bean_editor.png)
 
-Now you want to disable the sprite when the game starts, so you can make it appear later. That is easily done by putting the following code in "controller.script":
+你想开始先关闭这个sprite，留待以后显示. 我们来简单创建一个脚本 "controller.script":
 
 ```lua
 function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-1. Don't worry if you're puzzled by the '#' character. We'll get to that soon.
+1. 不知道 '#' 是什么意思没关系，一会儿就谈到.
 
-This will work as expected. When the game starts, the script component *addresses* the sprite component by its identifier "body" and uses that address to send it a *message* with the "disable". The effect of this special engine message is that the sprite component hides the sprite graphics. Schematically, the setup looks like this:
+就像设计的那样, 游戏一开始脚本组件 *定位* 到了sprite组件 "body" 对其地址发出了一个  "disable" 的 *消息* . 这个消息的结果就是把sprite隐藏了. 也就是说, 整个流程是这样的:
 
 ![bean](images/addressing/bean.png)
 
-The identifiers in the setup are arbitrary. Here we have chosen to give the game object the identifier "bean", its sprite component has been named "body", and the script component that controls the character has been named "controller".
+id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprite组件叫做 "body", 控制这个对象的脚本组件叫做 "controller".
 
-::: sidenote
-If you don't choose a name, the editor will. Whenever you create a new game object or component in the editor, a unique *Id* property is automatically set.
+::: 注意
+如果你不手动命名，编辑器会自动设置一个命名. 每当新建一个游戏对象或组件, 系统会将唯一 *Id* 赋值给它.
 
-- Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc).
-- Components get an id corresponding to the component type ("sprite", "sprite2" etc).
+- 游戏对象就是go后面跟一个数字 ("go2", "go3" 以此类推).
+- 组件就是组件名后面跟一个数字 ("sprite", "sprite2" 以此类推).
 
-You can stick to these automatically assigned names if you want to, but we encourage you to change the identifiers into good, descriptive names.
+自动命名虽然能用, 但是我们鼓励你自己将命名设计的更好，更有意义.
 :::
 
-Now, let's add another sprite component and give the bean a shield:
+现在，再增加一个sprite来给豆子先生添加一个盾牌:
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-The new component must be uniquely identified within the game object. If you would give it the name "body" the script code would be ambiguous as to which sprite it should send the "disable" message. Therefore we pick the unique (and descriptive) identifier "shield". Now we can enable and disable the "body" and "shield" sprites at will.
+每个游戏对象的组件id必须唯一. 再叫 "body" 的话脚本就不知道该给谁发送 "disable" 信息了. 所以我们选择了 (更具意义的) id "shield". 这样不管是 "body" 还是 "shield" 我们都能自由控制了.
 
 ![bean](images/addressing/bean_shield.png)
 
-::: sidenote
-If you do try to use an identifier more than once, the editor will signal an error so this is never a problem in practice:
+::: 注意
+如果你非要设置成一样的id, 系统会提示错误阻止你这样做:
 
 ![bean](images/addressing/name_collision.png)
 :::
 
-Now, let's look at what happens if you add more game objects. Suppose you want to pair two "beans" into a small team. You decide to call one of the bean game objects "bean" and the other one "buddy". Furthermore, when "bean" has been idle for a while, it should tell "buddy" to start dancing. That is done by sending a custom message called "dance" from the "controller" script component in "bean" to the "controller" script in "buddy":
+现在再多加一些游戏对象进来试试. 假设你要让两个 "豆子先生" 组个队. 一个叫 "bean" 另一个叫 "buddy". 然后, 当 "bean" 等待一段时间后, 它就让 "buddy" 开始跳舞. 也就是从 "bean" 的脚本组件 "controller" 发送一个自定义消息 "dance" 到 "buddy" 的 "controller" :
 
 ![bean](images/addressing/bean_buddy.png)
 
-::: sidenote
-There are two separate components named "controller", one in each game object but this is perfectly legal since each game object creates a new naming context.
+::: 注意
+这两个脚本组件都叫 "controller", 但是由于唯一性是对每个游戏对象来说的，所以这样做是可以的.
 :::
 
-Since the addressee of the message is outside the game object sending the message ("bean"), the code needs to specify which "controller" should receive the message. It needs to specify both the target game object id as well as the component id. The full address to the component becomes `"buddy#controller"` and this address consists of two separate parts.
+这次的消息是发给本游戏对象 ("bean") 之外的地方, 代码需要知道哪个 "controller" 来接收这个消息. 既需要对象id也需要组件id. 完整的地址是 `"buddy#controller"` 它包含两个方面内容.
 
-- First come the identity of the target game object ("buddy"),
-- then follows the game object/component separator character ("#"),
-- and finally you write the identity of the target component ("controller").
+- 首先需要指定目标对象的id ("buddy"),
+- 然后是对象/组件分隔符 ("#"),
+- 组后是组件的id ("controller").
 
-Going back to the previous example with a single game object we see that by leaving out the game object identifier part of the target address, the code can address components in the *current game object*.
+回过头来看上个例子我们没有指定对象的id, 系统默认对象就是脚本所在的 *当前游戏对象*.
 
-For example, `"#body"` denotes the address to the component "body" in the current game object. This is very useful because this code will work in *any* game object, as long as there is a "body" component present.
+比如, `"#body"` 就是在当前游戏对象里找 "body" 组件. 这就很方便因为脚本可以在 *任何* 游戏对象上运行, 只要它有 "body" 组件.
 
-## Collections
+## 集合
 
-Collections makes it possible to create groups, or hierarchies, of game objects and reuse them in a controlled way. You use collection files as templates (or "prototypes" or "prefabs") in the editor when you populate your game with content.
+集合可以用来创建一组游戏对象，或者嵌套游戏对象然后在需要的时候使用它们. 当你在编辑器里做实例化操作时集合文件就可作为模板 (有的叫 "prototypes" 有的叫 "prefabs").
 
-Suppose that you want to create a great number of bean/buddy teams. A good way to do that is to create a template in a new *collection file* (name it "team.collection"). Build the team game objects in the collection file and save it. Then put an instance of that collection file's contents in your main bootstrap collection and give the instance an identifier (name it "team_1"):
+比如你想建立许多 bean/buddy 二人组. 最好把它们做成 *集合文件* (命名为 "team.collection"). 编译并保存好. 然后在启动集合里就可以实例化并命名 (比如 "team_1"):
 
 ![bean](images/addressing/team_editor.png)
 
-With this structure, the "bean" game object can still refer to the "controller" component in "buddy" by the address `"buddy#controller"`.
+这种结构下, "bean" 游戏对象依旧可以使用地址 `"buddy#controller"` 来引用"buddy"的"controller"组件.
 
 ![bean](images/addressing/collection_team.png)
 
-And if you add a second instance of "team.collection" (name it "team_2"), the code running inside the "team_2" script components will work just as well. The "bean" game object instance from collection "team_2" can still address the "controller" component in "buddy" by the address `"buddy#controller"`.
+如果你再实例化一个 "team.collection" (命名 "team_2"), 那么 "team_2" 的脚本也能顺利运行. "team_2"中的"bean" 对象同样使用地址 `"buddy#controller"` 来引用"buddy"的"controller"组件.
 
 ![bean](images/addressing/teams_editor.png)
 
-## Relative addressing
+## 相对地址
 
-The address `"buddy#controller"` works for the game objects in both collections because it is a *relative* address. Each of the collections "team_1" and "team_2" creates a new naming context, or "namespace" if you will. Defold avoids naming collisions by taking the naming context a collection creates into consideration for addressing:
+地址 `"buddy#controller"` 在两组实例下都能运行因为它是一个 *相对* 地址. 集合 "team_1" 和 "team_2" 都有自己的上下文, 或者叫做 "命名空间". Defold 认为集合内这样的相对地址与命名是合理的:
 
 ![relative id](images/addressing/relative_same.png)
 
-- Within the naming context "team_1", the game objects "bean" and "buddy" are uniquely identified.
-- Similarly, within the naming context "team_2", the game objects "bean" and "buddy" are also uniquely identified.
+- "team_1"的命名空间里 "bean" 和 "buddy" 都是唯一id.
+- 同样在"team_2"的命名空间里 "bean" 和 "buddy" 也都是唯一id.
 
-Relative addressing works by automatically prepending the current naming context when resolving a target address. This is again immensely useful and powerful because you can create groups of game objects with code and reuse those efficiently throughout the game.
+实际上相对地址在后台已经把上下文考虑在内. 这同样很方便因为你可以用同样的代码创建很多个集合的实例.
 
-Shorthands
-: Defold provides two useful relative address shorthands:
+简化符
+: Defold 支持如下相对地址简化符:
 
   `.`
-  : Shorthand resolving to the current game object.
+  : 代表本游戏对象.
 
   `#`
-  : Shorthand resolving to the current component.
+  : 代表本组件.
 
-  For example:
+  举例:
 
   ```lua
    -- Let this game object acquire input focus
@@ -130,31 +130,31 @@ Shorthands
    msg.post("#", "reset")
   ```
 
-## Game object paths
+## 游戏对象路径
 
-To correctly understand the naming mechanism, let's look at what happens when you build and run the project:
+为了正确理解命名机制, 我们来看看游戏编译运行时发生了什么:
 
-1. The editor reads the bootstrap collection ("main.collection") and all its content (game objects and other collections).
-2. For each static game object, the compiler creates an identifier. These are built as "paths" starting at the bootstrap root, down the collection hierarchy to the object. A '/' character is added at each level.
+1. 编辑器读取启动集合 ("main.collection") 与其所有内容 (游戏对象和其他集合).
+2. 对于每个静态的游戏对象, 编译器分配唯一id. 游戏对象 "路径" 从启动集合根节点起, 到嵌套关系里找到这个对象为止. 每个 '/' 符号代表嵌套的每一层.
 
-For our example above, the game will run with the following 4 game objects:
+如上示例, 游戏里就有四个游戏对象路径:
 
 - /team_1/bean
 - /team_1/buddy
 - /team_2/bean
 - /team_2/buddy
 
-::: sidenote
-Identities are stored as hashed values. The runtime also stores the hash state for each collection identity which is used to continue hashing relative string to an absolute id.
+::: 注意
+游戏里的各种id存储为哈希值. 包括集合里的相对路径也哈希成绝对路径.
 :::
 
-In runtime, the collection grouping does not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
+运行时，不存在集合的概念. 编译前，对象是不属于集合的. 也无法对集合本身施加操作. 有必要的话, 需要用代码维护集合里的对象. 每个对象id都是静态的, 并且在它们的生命周期中都保持不变. 所以保存一个对象的id后总可以使用此id引用它.
 
-## Absolute addressing
+## 绝对地址
 
-It is possible to use the full identifiers described above when addressing. In most cases relative addressing is preferred since it allows for content reuse, but there are cases where absolutely addressing becomes necessary.
+定位的时候完全可以使用绝对地址. 多数情况下相对地址有助于代码重用, 但是有些情况下还得使用绝对地址定位.
 
-For example, suppose that you want an AI manager that tracks the state of each bean object. You want beans to report to their active status to the manager, and the manager makes tactical decisions and gives orders to the beans based on their status. It would make perfect sense in this case to create a single manager game object with a script component and place that alongside the team collections in the bootstrap collection.
+比如, 你需要一个 AI 管理器管理每个豆子先生. 豆子先生要向管理器报告自身的激活状态, 管理器根据它们的状态决定它们的排序. 这就需要创建一个带脚本的管理器对象然后把它放在启动集合的根目录下.
 
 ![manager object](images/addressing/manager_editor.png)
 

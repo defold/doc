@@ -1,6 +1,6 @@
 ---
-title: Installing Defold
-brief: This manual explains how to download and install the Defold editor for your operating system.
+title: 安装 Defold
+brief: 此手册解释了在你的操作系统下如何下载和安装 Defold 编辑器.
 ---
 
 # 安装 Defold

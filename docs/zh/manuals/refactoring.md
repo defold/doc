@@ -1,6 +1,6 @@
 ---
-title: Refactoring
-brief: This manual covers how you can change the structure of your project easily with the help of powerful refactoring.
+title: 重构
+brief: 此手册涉及了强大的自动重构功能.
 ---
 
 # 重构

@@ -1,8 +1,8 @@
 ---
-title: The Defold scene editor
-brief: Defold contains a number of editors, but the Scene Editor is the one used the most. This manual explains how to use it.
+title: Defold 场景编辑器
+brief: Defold 有许多编辑器, 但是用的最多的还是场景编辑器. 本手册介绍了如何使用它.
 ---
 
-# Defold scene editor
+# Defold 场景编辑器
 
 详见 [编辑器手册](/manuals/editor).

@@ -1,6 +1,6 @@
 ---
-title: Spine model components in Defold
-brief: This manual explains how to create SpineModel components in Defold.
+title: Defold 中的 Spine 模型组件
+brief: 此手册介绍了在Defold中如何创建 SpineModel 组件.
 ---
 
 # Spine 模型

@@ -81,40 +81,40 @@ msg.post("@render:", "use_fixed_projection", { zoom = 4 })
 msg.post("@render:", "use_fixed_fit_projection")
 ```
 
-This will make sure that the screen will resize to always show the same amount of content as specified in the *game.project* file, possibly with additional content shown above and below or to the sides, depending on if the aspect ratio differs or not.
+这样就确保了游戏像 *game.project* 设置的那样始终显示等比的内容, 如果宽高比与设置不符，游戏边缘可能会显示出额外的内容.
 
-You should configure the width and height in the *game.project* file to a size that allows you to show your game content unscaled.
+在 *game.project* 文件中可以设置设计时屏幕宽和高.
 
-### High DPI setting and retina screens
+### 高分辨率视网膜屏幕
 
-If you also wish to support high resolution retina screens you can enable this in the *game.project* file in the Display section:
+想要支持高分辨率视网膜屏幕可以在 *game.project* 文件里打开这个选项:
 
 ![](images/screen_size/highdpi-enabled.png)
 
-This will create a high dpi back buffer on displays that support it. The game will render in double the resolution than what is set in the Width and Height settings, which will still be the logical resolution used in scripts and properties. This means that all measurements stay the same and any content that is rendered at 1x scale will look the same. But if you import high res images and scale them to 0.5x they will be high dpi on screen.
+选中这个选项就打开了高分辨率后台缓冲. 游戏会以设置好的宽高双倍比例渲染, 但是游戏分辨率不变. 也就是说游戏内容是1倍大小的就照常显示. 但是如果内容是双倍大小再在游戏里缩小为1倍的话就是高清渲染了.
 
 
-## Creating an adaptive GUI
+## 创建可适配性 GUI
 
-The system for creating GUI components is built around a number of basic building blocks, or [nodes](/manuals/gui/#node-types), and while it may seem overly simple it can be used to create anything from buttons to complex menus and popups. The GUIs that you create can be configured to automatically adapt to screen size and orientation changes. You can for instance keep nodes anchored to the top, bottom or sides of the screen and nodes can either keep their size or stretch. The relationship between nodes as well as their size and appearance can also be configured to change when the screen size or orientation changes.
+系统的 GUI 组件由各种元素组成, 或称作 [节点](/manuals/gui/#node-types), 虽然看起来很简单却能创造出从按钮到复杂的菜单和弹框等各种界面. GUI 可以设计成自动适配屏幕尺寸和方向的. 比如让节点保持在屏幕顶部, 底部或边上而不改变自身的大小. 也可以设置成对于不同屏幕尺寸和方向自动调整节点关系大小与形态.
 
-### Node properties
+### 节点属性
 
-Each node in a gui has a pivot point, a horizontal and vertical anchor as well as an adjust mode.
+gui中的节点包含锚点, 横轴纵轴以及一个调整模式.
 
-* The pivot point defines the center point of a node.
-* The anchor mode controls how the node’s vertical and horizontal position is altered when the scene boundaries, or the parent node’s boundaries are stretched to fit the physical screen size.
-* The adjust mode setting controls what happens to a node when the scene boundaries, or the parent node’s boundaries, are adjusted to fit the physical screen size.
+* 锚点定义了节点的中心.
+* 锚点模式控制着当屏幕边界或者其父节点边界在适配物理屏幕时拉伸的话，节点自身在水平和垂直方向位置如何修改.
+* 调整模式控制着当屏幕边界或者其父节点边界在适配物理屏幕时，节点自身该怎样做.
 
-You can learn more about these properties [in the GUI manual](/manuals/gui/#node-properties).
+详情请见 [GUI手册](/manuals/gui/#node-properties).
 
-### Layouts
+### 布局
 
-Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design a GUI that can adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models. You can learn more about this system in the [GUI Layouts manual](/manuals/gui-layouts/)
+Defold支持GUI在手机上自动适配屏幕方向. 此功能让你能把GUI设计成适配各种各样屏幕比例和方向的. 也可以用来创建特定设备上的界面布局. 详情请见 [GUI 布局手册](/manuals/gui-layouts/)
 
 
-## Testing different screen sizes
+## 测试不同的屏幕尺寸
 
-The Debug menu contains an option to simulate the resolution of either a certain device model resolution or a custom resolution. While the application is running you can select <kbd>Debug->Simulate Resolution</kbd> and pick one of the device models from the list. The running application window will resize and you'll be able to see how your game looks in a different resolution or with a different aspect ratio.
+Debug 菜单有用来模拟特定设备分辨率或者自定义分辨率的选项. 当应用运行时你可以通过选择 <kbd>Debug->Simulate Resolution</kbd> 然后从列表中选择一个模拟设备. 运行中的应用会自动缩放来测试游戏运行在不同分辨率和屏幕比例的设备上的样子.
 
 ![](images/screen_size/simulate-resolution.png)

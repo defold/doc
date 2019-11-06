@@ -1,6 +1,6 @@
 ---
-title: GUI particle fx in Defold
-brief: This manual explains how particle effects work in the Defold GUI.
+title: Defold里的GUI粒子特效
+brief: 此手册解释了 Defold GUI 的粒子特效如何工作.
 ---
 
 # GUI ParticleFX 节点

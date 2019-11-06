@@ -1,6 +1,6 @@
 ---
-title: Dynamic spawning in Defold
-brief: This manual describes how to dynamically spawn game objects.
+title: Defold中的动态实例化
+brief: 此手册介绍了如何实例化游戏对象.
 ---
 
 # 资源与实例化

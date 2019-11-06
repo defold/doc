@@ -1,6 +1,6 @@
 ---
-title: Showing 2D images
-brief: This manual describes how to show 2D images and animations using the sprite component.
+title: 显示 2D 图片
+brief: 此手册介绍了如何使用 sprite 组件显示 2D 图片和动画.
 ---
 
 #  Sprites（精灵）
