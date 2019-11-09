@@ -1,0 +1,62 @@
+---
+title: 打包应用
+brief: 此手册介绍了如何打包应用.
+---
+
+# 打包应用
+
+开发项目时常常需要在目标平台上进行测试. 开发中越早发现性能问题越好解决. 同样鼓励在各平台间做测试以便发现诸如shader之类的兼容问题. 在做手机开发时可以使用 [手机开发应用](/manuals/dev-app/) 把内容推送到手机上，避免反复的安装和卸载.
+
+你可以在 Defold 编辑器中生成其支持的所有平台应用, 不需要外界工具辅助. 也可以在控制台使用命令行工具打包应用. 如果应用里包含 [原生扩展](/manuals/extensions) 的话打包时需要网络连接.
+
+## 从编辑器中打包
+
+使用 Project 菜单的 Bundle 选项进行打包:
+
+![](images/bundling/bundle_menu.png)
+
+选择不同的打包平台会出现不同的对话窗.
+
+### 编译报告
+
+有一个编译选项控制编译时是否生成报告. 从报告中可以方便检查游戏包中各个资源占用的空间. 在编译时打开 *Generate build report* 选项即可.
+
+![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
+
+To learn more about build reports please refer to the [Profiling manual](/manuals/profiling/#build-reports).
+
+### Android
+
+打包安卓应用 (.apk 文件) 及其准备工作详见 [Android 手册](/manuals/android/#creating-an-android-application-bundle).
+
+### iOS
+
+打包ios应用 (.ipa 文件) 及其准备工作详见 [iOS 手册](/manuals/ios/#creating-an-ios-application-bundle).
+
+### OSX
+
+打包 OSX 应用 (.app 文件) 无需什么准备, 但是要在 "game.project" 文件中做相应设置，详见 [项目配置文件](/manuals/project-settings/#macos--os-x).
+
+### Linux
+
+打包 Linux 应用无需什么准备, 但是要在 "game.project" 文件中做相应设置，详见 [项目配置文件](/manuals/project-settings/).
+
+### Windows
+
+打包 Windows 应用 (.exe file) 无需什么准备, 但是要在 "game.project" 文件中做相应设置，详见但是要在 "game.project" 文件中做相应设置，详见 [项目配置文件](/manuals/project-settings/#windows).
+
+#### Facebook Gameroom
+
+可以为 Facebook Gameroom 打包成 Windows 应用的一种特殊版本. 这一过程详见 [Facebook Gameroom 手册](/manuals/gameroom/).
+
+### HTML5
+
+打包 HTML5 应用及其参数设置详见 [HTML5 手册](/manuals/html5/#creating-html5-bundle).
+
+#### Facebook Instant Games
+
+可以为 Facebook Instant Games 打包成 HTML5 应用的一种特殊版本. 这一过程详见 [Facebook Instant Games 手册](/manuals/instant-games/).
+
+## 命令行打包
+
+日常开发中一般使用 Defold 编辑器编译和打包应用. 如果需要自动生成机制, 比如发布新版本时批处理所有平台或者使用持续集成环境持续生成最新版本. 可以使用 [Bob 命令行工具](/manuals/bob/) 编译和打包.
