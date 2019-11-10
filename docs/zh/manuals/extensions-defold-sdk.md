@@ -1,6 +1,6 @@
 ---
 title: 原生扩展 - Defold SDK
-brief: 此手册介绍了创建原生扩展时如何使用 Defold SDK.
+brief: 本教程介绍了创建原生扩展时如何使用 Defold SDK.
 ---
 
 # Defold SDK

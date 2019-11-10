@@ -1,6 +1,6 @@
 ---
 title: Defold 图像手册
-brief: 此手册简述了 Defold 支持的图像组件.
+brief: 本教程简述了 Defold 支持的图像组件.
 ---
 
 # 图像

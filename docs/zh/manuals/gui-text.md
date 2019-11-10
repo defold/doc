@@ -1,6 +1,6 @@
 ---
 title: Defold GUI 文本节点
-brief: 此手册介绍了如何在 GUI 场景中添加文本.
+brief: 本教程介绍了如何在 GUI 场景中添加文本.
 ---
 
 # GUI 文本节点

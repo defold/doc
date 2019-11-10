@@ -1,6 +1,6 @@
 ---
 title: Defold 中的 GUI 方块节点
-brief: 此手册介绍了如何使用 GUI 方块节点.
+brief: 本教程介绍了如何使用 GUI 方块节点.
 ---
 
 # GUI 方块节点

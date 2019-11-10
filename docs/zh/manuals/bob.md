@@ -1,6 +1,6 @@
 ---
 title: Defold 项目编译手册
-brief: Bob 是用于 Defold 项目的命令行编译工具. 此手册详述如何使用这个工具.
+brief: Bob 是用于 Defold 项目的命令行编译工具. 本教程详述如何使用这个工具.
 ---
 
 # 编译器 Bob

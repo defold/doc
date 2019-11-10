@@ -1,6 +1,6 @@
 ---
 title: Defold 3D 图像手册
-brief: 此手册已过时
+brief: 本教程已过时
 ---
 
 # 3D 图像

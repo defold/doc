@@ -1,6 +1,6 @@
 ---
 title: Windows 平台下的 Defold 开发
-brief: 此手册介绍了在 Windows 平台下如何编译和运行 Defold 应用 
+brief: 本教程介绍了在 Windows 平台下如何编译和运行 Defold 应用 
 ---
 
 # Windows 开发

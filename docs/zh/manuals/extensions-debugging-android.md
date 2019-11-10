@@ -1,6 +1,6 @@
 ---
 title: Android调试
-brief: 此手册介绍了如何调试运行在 Android 设备上的应用.
+brief: 本教程介绍了如何调试运行在 Android 设备上的应用.
 ---
 
 # Android调试

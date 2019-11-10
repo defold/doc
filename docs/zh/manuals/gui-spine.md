@@ -1,11 +1,11 @@
 ---
 title: Defold GUI Spine 节点
-brief: 此手册介绍了 Defold GUI 场景中骨骼动画 Spine 节点的使用.
+brief: 本教程介绍了 Defold GUI 场景中骨骼动画 Spine 节点的使用.
 ---
 
 # GUI Spine 节点
 
-Spine 动画模型可以作为 GUI 节点也可以作为游戏对象加入场景. 此手册介绍了导入的 Spine 动画数据在 GUI 场景下的使用.
+Spine 动画模型可以作为 GUI 节点也可以作为游戏对象加入场景. 本教程介绍了导入的 Spine 动画数据在 GUI 场景下的使用.
 
 ## 创建 spine 节点
 

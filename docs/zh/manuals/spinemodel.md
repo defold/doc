@@ -1,6 +1,6 @@
 ---
 title: Defold 中的 Spine 模型组件
-brief: 此手册介绍了在Defold中如何创建 SpineModel 组件.
+brief: 本教程介绍了在Defold中如何创建 SpineModel 组件.
 ---
 
 # Spine 模型

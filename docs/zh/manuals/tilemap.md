@@ -1,6 +1,6 @@
 ---
 title: Defold 瓷砖地图手册
-brief: 此手册介绍了 Defold 对于瓷砖地图的支持.
+brief: 本教程介绍了 Defold 对于瓷砖地图的支持.
 ---
 
 # Tile map （瓷砖地图）
