@@ -26,7 +26,7 @@ Defold中, 可视组件使用两种图片资源:
 
 更多详情参见 [图集手册](/manuals/atlas).
 
-![tile source](images/icons/tilesource.png){.icon} 瓷砖图集
+![tile source](images/icons/tilesource.png){.icon} Tile Source
 : 瓷砖图集是由一系列小图块按顺序拼贴而成的图片. 就像 _Sprite动画表_ 一样. 瓷砖图集可以包含逐帧动画, 只需指定动画的首尾帧. 瓷砖图块也可以自动生成其碰撞图形.
 
   ![tile source](images/graphics/tilesource.png){srcset="images/graphics/tilesource@2x.png 2x"}
@@ -44,14 +44,14 @@ Defold中, 可视组件使用两种图片资源:
 
 Sprite更多详情请见 [Sprite manual](/manuals/sprite).
 
-![tile map](images/icons/tilemap.png){.icon} 瓷砖地图
+![tile map](images/icons/tilemap.png){.icon} Tile Map
 : 瓷砖地图组件是由瓷砖图集中的瓷砖 (包括瓷砖图及其碰撞图形) 组成的地图. 瓷砖地图不能使用普通图集资源.
 
   ![tilemap](images/graphics/tilemap.png){srcset="images/graphics/tilemap@2x.png 2x"}
 
 瓷砖地图更多详情请见 [Tilemap manual](/manuals/tilemap).
 
-![particle effect](images/icons/particlefx.png){.icon} 粒子特效
+![particle effect](images/icons/particlefx.png){.icon} Particle FX
 : 粒子是粒子发射器所发射出来的，来自于图集或者瓷砖图集的一个个静态图片或者逐帧动画.
 
   ![particles](images/graphics/particles.png){srcset="images/graphics/particles@2x.png 2x"}
@@ -186,6 +186,6 @@ default_texture_mag_filter = nearest
 
 默认材质和着色器文件位于项目的 "/builtins/materials/" 下. Sprite, 瓷砖, spine 模型 和 3D模型的默认材质从 "game.project" 中设置的采样和过滤中查找纹理. 片元着色器还使用与纹理颜色相乘的叫做 `tint` 的常量.
 
-当游戏运行时，你可以使用 [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) 和 [`sprite.reset_constant()`](/ref/sprite#sprite.reset_constant) 方法设置 `tint` 和其他着色常量设置 `tint` 和其他着色常量. sprites以外的组件也有相应的使用方法.
+当游戏运行时，你可以使用 [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) 和 [`sprite.reset_constant()`](/ref/sprite#sprite.reset_constant) 函数设置 `tint` 和其他着色常量设置 `tint` 和其他着色常量. sprite 以外的组件也有相应的函数.
 
 [Materials manual](/manuals/material/) 解释了如何创建自定义材质.

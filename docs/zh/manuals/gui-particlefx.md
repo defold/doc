@@ -9,9 +9,9 @@ brief: 本教程解释了 Defold GUI 的粒子特效如何工作.
 
 ## 添加 Particle FX 节点
 
-在 *大纲视图* 中点击 <kbd>鼠标右键</kbd> 选择 <kbd>Add ▸ ParticleFX</kbd>, 或者按 <kbd>A</kbd> 选择 <kbd>ParticleFX</kbd> 来添加新粒子节点.
+在 *outline 视图* 中点击 <kbd>鼠标右键</kbd> 选择 <kbd>Add ▸ ParticleFX</kbd>, 或者按 <kbd>A</kbd> 选择 <kbd>ParticleFX</kbd> 来添加新粒子节点.
 
-也可以使用 GUI 里已经存在的资源创建粒子特效. 在 *大纲视图* 的 *Particle FX* 文件夹上点击 <kbd>鼠标右键</kbd> 选择 <kbd>Add ▸ Particle FX...</kbd>. 然后设置节点的 *Particlefx* 属性:
+也可以使用 GUI 里已经存在的资源创建粒子特效. 在 *outline 视图* 的 *Particle FX* 文件夹上点击 <kbd>鼠标右键</kbd> 选择 <kbd>Add ▸ Particle FX...</kbd>. 然后设置节点的 *Particlefx* 属性:
 
 ![Particle fx](images/gui-particlefx/create.png){srcset="images/gui-particlefx/create@2x.png 2x"}
 

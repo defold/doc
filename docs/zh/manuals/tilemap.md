@@ -48,7 +48,7 @@ brief: 本教程介绍了 Defold 对于瓷砖地图的支持.
 
 ## 用脚本更改瓷砖
 
-游戏运行时可以使用脚本动态读写瓷砖地图的内容. 通过调用 [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) 和 [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) 方法:
+游戏运行时可以使用脚本动态读写瓷砖地图的内容. 通过调用 [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) 和 [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) 函数:
 
 ```lua
 local tile = tilemap.get_tile("/level#map", "ground", x, y)

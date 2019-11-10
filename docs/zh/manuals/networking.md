@@ -10,7 +10,7 @@ brief: 本教程介绍了如何连接远程服务器以及建立其他各种连�
 
 ## HTTP 请求
 
-Defold 能使用 `http.request()` 方法来建立 HTTP 请求. 比如:
+Defold 能使用 `http.request()` 函数来建立 HTTP 请求. 比如:
 
 ```Lua
 local function handle_response(self, id, response)
@@ -20,7 +20,7 @@ end
 http.request("https://www.defold.com", "GET", handle_response)
 ```
 
-这样就建立了一个到 https://www.defold.com 的 HTTP GET 请求. 这个方法是异步的所以请求同时游戏并不卡住等待响应. 当服务器发回响应数据后会进入设置好的回调函数. 回调函数接收了相应包含的所有信息, 包括状态码和响应头. 同样可以建立 HTTP POST 请求来向服务器发送数据也能设置请求头信息. 更多详情请见 [API 手册](/ref/http/).
+这样就建立了一个到 https://www.defold.com 的 HTTP GET 请求. 这个函数是异步的所以请求同时游戏并不卡住等待响应. 当服务器发回响应数据后会进入设置好的回调函数. 回调函数接收了相应包含的所有信息, 包括状态码和响应头. 同样可以建立 HTTP POST 请求来向服务器发送数据也能设置请求头信息. 更多详情请见 [API 手册](/ref/http/).
 
 使用 HTTP 请求可以让你能够和互联网上各种各样的服务器交互, 但是通常不会这么简单的发送 HTTP 请求. 通常你需要做一些认证和数据序列化之类的操作. 当然手动操作也可以，但是我们有很多现成的服务插件可以使用. 使用这些插件能简化许多操作:
 
@@ -37,7 +37,7 @@ http.request("https://www.defold.com", "GET", handle_response)
 
 ## Socket 连接
 
-Defold 包含 [LuaSocket 库](http://w3.impa.br/~diego/software/luasocket/) 用来创建 TCP 和 UDP socket 连接. 创建socket连接, 发送数据和接收响应需要调用这些方法:
+Defold 包含 [LuaSocket 库](http://w3.impa.br/~diego/software/luasocket/) 用来创建 TCP 和 UDP socket 连接. 创建socket连接, 发送数据和接收响应需要调用这些函数:
 
 ```Lua
 local client = socket.tcp()

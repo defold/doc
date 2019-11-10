@@ -32,7 +32,7 @@ Skin
 
 ## 运行时动画控制
 
-使用脚本可以在运行时控制Spine节点. 要在一个节点上开始播放动画, 只要调用 [`gui.play_spine()`](/ref/gui/#gui.play_spine_anim:node-animation_id-playback-[play_properties]-[complete_function]) 方法:
+使用脚本可以在运行时控制Spine节点. 要在一个节点上开始播放动画, 只要调用 [`gui.play_spine()`](/ref/gui/#gui.play_spine_anim:node-animation_id-playback-[play_properties]-[complete_function]) 函数:
 
 ```lua
 local catnode = gui.get_node("cat_note")
@@ -48,7 +48,7 @@ Spine 骨架中的各个骨骼都可以像 GUI 节点一样使用. 节点名就�
 
 ![Spine 骨骼名](images/gui-spine/bone.png){srcset="images/gui-spine/bone@2x.png 2x"}
 
-比如, 要做一个骨骼节点下增添一个节点, 使用 [`gui.get_spine_bone()`](/ref/gui#gui.get_spine_bone) 方法加节点名来获取此节点，然后再在上面加入一个节点:
+比如, 要做一个骨骼节点下增添一个节点, 使用 [`gui.get_spine_bone()`](/ref/gui#gui.get_spine_bone) 函数加节点名来获取此节点，然后再在上面加入一个节点:
 
 ```lua
 -- Attach a text node to the tail of the cat
@@ -58,7 +58,7 @@ local tail = gui.get_spine_bone(cat, "tail")
 gui.set_parent(textnode, tail)
 ```
 
-同样可以用 [`gui.get_node()`](/ref/gui#gui.get_node) 方法获取骨骼节点, 此时引用名要用 Spine 节点名加正斜杠斜杠 (`/`) 加子节点名:
+同样可以用 [`gui.get_node()`](/ref/gui#gui.get_node) 函数获取骨骼节点, 此时引用名要用 Spine 节点名加正斜杠斜杠 (`/`) 加子节点名:
 
 ```lua
 -- Attach a text node to the tail of the cat
