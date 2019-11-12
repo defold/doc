@@ -9,7 +9,7 @@ Every object that is shown on screen by the engine: sprites, models, tiles, part
 
 ### Render pipeline - What, when and where?
 
-The render pipeline controls what to render, when to render it and also where to render it. What to render is controlled by [render predicates](#render-predicates). When to render a predicate is controller in the [render script](#the-render-script) and where to render a predicate is controller by the [view projection](#default-view-projection).
+The render pipeline controls what to render, when to render it and also where to render it. What to render is controlled by [render predicates](#render-predicates). When to render a predicate is controlled in the [render script](#the-render-script) and where to render a predicate is controlled by the [view projection](#default-view-projection).
 
 
 ## The default render
