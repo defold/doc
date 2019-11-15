@@ -53,7 +53,7 @@ Main Collection
 : 打开应用启动的起始集合, 默认 `/logic/main.collection`.
 
 Render
-: 指定使用哪个渲染文件, 它决定着渲染管线（或称渲染流程）, 默认 `/builtins/render/default.render`.
+: 指定使用哪个渲染文件, 它决定了渲染流程, 默认 `/builtins/render/default.render`.
 
 ## Library
 
