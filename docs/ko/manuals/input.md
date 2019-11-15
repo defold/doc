@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Input
 이 매뉴얼은 입력 동작(input action)을 캡쳐하고 상호작용 스크립트의 반응(interactive script reactions)을 생성하는 방법에 대해 설명합니다.
 
@@ -124,7 +128,7 @@ end
 마우스 트리거는 input bindings에서 설정한 휠 입력과 마우스 버튼 입력으로 제공됩니다.
 
 #### Mouse button inputs
-마우스가 눌렸는지(press) 감지할 때 사용하면 됩니다. "MOUSE_BUTTON_LEFT", "MOUSE_BUTTON_RIGHT", "MOUSE_BUTTON_MIDDLE" 입력은 "MOUSE_BUTTON_1", "MOUSE_BUTTON_2", "MOUSE_BUTTON_3"과 동일합니다. 
+마우스가 눌렸는지(press) 감지할 때 사용하면 됩니다. "MOUSE_BUTTON_LEFT", "MOUSE_BUTTON_RIGHT", "MOUSE_BUTTON_MIDDLE" 입력은 "MOUSE_BUTTON_1", "MOUSE_BUTTON_2", "MOUSE_BUTTON_3"과 동일합니다.
 현재 MOUSE_BUTTON_LEFT (또는 MOUSE_BUTTON_1)입력 액션은 단일 터치 입력(single touch inputs)에 대해서도 전송됩니다.
 
 #### Mouse wheel inputs

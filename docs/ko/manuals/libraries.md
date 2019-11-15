@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Libraries
 라이브러리 기능은 프로젝트간 에셋을 공유할 수 있게 해 줍니다. 이는 간단하지만 매우 강력한 메커니즘으로서 여러가지 방법으로 이 기능을 사용할 수 있습니다. 이 메뉴얼은 어떻게 동작하는지에 대해 설명합니다.
 
@@ -66,4 +70,3 @@ images {
 "dependencies" Project setting 에서 여러 프로젝트의 URL을 나열할 수 있으므로 이름 충돌이 발생할 수도 있습니다. 이는 "include_dirs" Project setting에서 동일한 이름으로 종속 프로젝트 공유 폴더를 사용한 경우 발생합니다.
 
 Defold는 "dependencies" 목록에 지정된 프로젝트 URL 순서에서 동일한 이름 중에 마지막 경로를 제외한 모든 참조를 무시함으로서 이름 충돌을 해결합니다. 예를 들어 dependencies에 3개의 라이브러리 URL이 있는데 전부 폴더명이 "items"라면, 가장 마지막에 있는 "item" 폴더만이 표시됩니다.
-

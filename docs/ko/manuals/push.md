@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Push notifications
 이 문서는 당신의 게임 또는 어플리케이션에서 로컬 또는 원격 푸쉬 알림을 구현하고 설정하는 방법에 대해 설명합니다.
 

@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Application lifecycle
 이 문서는 Defold의 게임과 어플리케이션의 라이프사이클에 대해 자세히 알아봅니다.
 

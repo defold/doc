@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Layouts
 Defold는 모바일 장치에서 화면 방향 전환(screen orientation changes)에 따라 자동으로 조정하는 GUI 기능을 지원합니다. 이 기능을 사용하면 화면의 방향(orientation)과 종횡비(aspect ratio)에 맞게 GUI를 디자인 할 수 있습니다. 이 문서는 이 기능이 동작하는 방법에 대해 설명합니다.
 

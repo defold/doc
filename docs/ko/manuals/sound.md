@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Sound
 이 메뉴얼은 Defold 프로젝트로 사운드를 가져와 재생하고 제어하는 방법에 대하 성멸합니다.
 

@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Cameras
 Defold는 기본적인 카메라 컴포넌트(primitive camera component)를 가지고 있습니다. 이 메뉴얼은 이 컴포넌트의 기능과 용도에 대하여 설명합니다.
 

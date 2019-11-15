@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Texture profiles
 Defold는 자동 텍스쳐 프로세싱과 이미지 데이터 압축(**Atlas, Tile sources, Cubemaps** 그리고 모델과 GUI 등에서 사용되는 stand-alone 텍스쳐에서)을 지원합니다. 이 메뉴얼은 사용 가능한 기능에 대해 설명합니다.
 

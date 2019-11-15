@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Spine Model
 스파인 모델 컴포넌트는 스파인 골격 애니메이션을 Defold로 불러오는데 사용됩니다.
 

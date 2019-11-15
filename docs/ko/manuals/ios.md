@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Developing games for iOS
 이 매뉴얼은 Defold에서 iOS 장치의 앱과 게임을 개발하는 방법을 설명합니다.
 

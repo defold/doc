@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Project settings
 이 매뉴얼은 Defold 프로젝트를 셋팅하는 방법에 대해 설명합니다.
 
