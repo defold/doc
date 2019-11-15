@@ -95,7 +95,7 @@ Display Profiles
 : 指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.
 
 Dynamic Orientation
-: 开启的话会在设备转动时动态切换横竖显示方向. 注意开发应用（指dmengine）不参考此设置.
+: 开启的话会在设备转动时动态切换横竖显示方向. 注意开发用app（指dmengine）不参考此设置.
 
 ## Physics
 
