@@ -17,7 +17,7 @@ Blender 是一个著名的3D软件. 它可以运行在 Windows, Mac OS X and Lin
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
-首先需要使用 Blender Collada 导出器输出 *.dae* 格式的文件. 导出的文件包含模型的所有点，线和面, 还包含 _UV 坐标_ (模型与贴图的部分与部分的映射). 如果做了，还包含骨骼和动画数据.
+首先需要使用 Blender Collada 导出器输出 *.dae* 格式的文件. 导出的文件包含模型的所有点，线和面, 还包含 _UV 坐标_ (模型与纹理的部位对部位的映射). 如果做了，还包含骨骼和动画数据.
 
 关于多边形网格详见 http://en.wikipedia.org/wiki/Polygon_mesh. 关于 UV 坐标与 UV 映射详见 http://en.wikipedia.org/wiki/UV_mapping.
 

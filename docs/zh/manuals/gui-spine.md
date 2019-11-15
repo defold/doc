@@ -32,12 +32,12 @@ Skin
 
 ## 运行时动画控制
 
-使用脚本可以在运行时控制Spine节点. 要在一个节点上开始播放动画, 只要调用 [`gui.play_spine()`](/ref/gui/#gui.play_spine_anim:node-animation_id-playback-[play_properties]-[complete_function]) 函数:
+使用脚本可以在运行时控制Spine节点. 要在一个节点上开始播放动画, 只要调用 [`gui.play_spine_anim()`](/ref/gui/#gui.play_spine_anim:node-animation_id-playback-[play_properties]-[complete_function]) 函数:
 
 ```lua
 local catnode = gui.get_node("cat_note")
-local blend_time = 0.3
-gui.play_spine(catnode, hash("run"), gui.PLAYBACK_ONCE_FORWARD, blend_time, function(self, node)
+local play_properties = { blend_time = 0.3, offset = 0, playback_rate = 1 }
+gui.play_spine_anim(catnode, hash("run"), gui.PLAYBACK_ONCE_FORWARD, play_properties, function(self, node)
     print("Animation done!")
 end)
 ```
