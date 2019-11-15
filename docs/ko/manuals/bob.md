@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Bob the builder
 Bob은 에디터 외부에서 Defold 프로젝트를 빌드하기 위한 도구입니다. 이 메뉴얼은 이 도구를 사용하는 방법에 대해 설명합니다.
 

@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Debugging
 이 매뉴얼은 Defold에 있는 디버깅 기능에 대해 설명합니다.
 
@@ -63,7 +67,7 @@ dbg.start()
 > 디버깅은 디버깅이 시작된 위치에서만 lua 컨텍스트를 활성화 할 수 있습니다. game.project에서 "shared_state"를 활성화 하면 디버깅이 시작된 위치와 상관없이 모든 어플리케이션을 디버깅 할 수 있습니다.
 
 Debugging session started in "<defold-dir>/branches/1610/1159/Main/".
-(디버깅 세션이 "<defold-dir>/branches/1610/1159/Main/" 에서 시작되었습니다.) 
+(디버깅 세션이 "<defold-dir>/branches/1610/1159/Main/" 에서 시작되었습니다.)
 
 라는 메세지가 나타나면 이제 ZeroBrane에서 디버깅 기능을 사용할 수 있게 되어 중단점(breakpoint)를 추가 삭제해서 단계별로 검사할 수 있습니다.
 

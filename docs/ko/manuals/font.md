@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Font files
 폰트는 GUI 씬(GUI scene)에서 라벨 컴포넌트(label component)와 텍스트 노드(text node)를 렌더링 하는데 사용됩니다. 이 매뉴얼은 Defold가 폰트를 다루는 방법과 게임화면에 쓰일 폰트를 가져오는 방법에 대해 설명합니다.
 
@@ -74,7 +78,7 @@ Defold 프로젝트에 **.fnt**와 **.png** 파일을 추가해 보세요. 이 �
 
 ![Distance field font](images/font/fonts_distance_field.png)
 
-이 폰트를 만들 경우(혹은 화면에 렌더링 될 때 폰트가 알맞은 쉐이더를 사용하지 않을 경우)에는 **material** 속성값을 "builtins/fonts/font-df.material"(혹은 디스턴스 필드 데이터를 다룰 수 있는 다른 메터리얼)로 변경해야 합니다. 
+이 폰트를 만들 경우(혹은 화면에 렌더링 될 때 폰트가 알맞은 쉐이더를 사용하지 않을 경우)에는 **material** 속성값을 "builtins/fonts/font-df.material"(혹은 디스턴스 필드 데이터를 다룰 수 있는 다른 메터리얼)로 변경해야 합니다.
 
 ![Distance field font material](images/font/fonts_distance_field_material.png)
 

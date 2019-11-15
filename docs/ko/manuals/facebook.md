@@ -1,3 +1,6 @@
+---
+title: Defold manual
+---
 
 # Facebook
 Facebook API 는  iOS, Android, HTML5 게임을 위해 규격화된 방법으로 Facebook의 게임 연동 기능과 상호작용 할 수 있게 해 줍니다.
@@ -142,4 +145,3 @@ DEBUG:SCRIPT:
 
 ## Development caveats
 개발중에는 dev application으로 사용하는 것이 매우 편리합니다. 불행히도 Facebook API는 번들링 된 "Info.plist" 파일이 구성되어야 하는 방법에 따라 dev 앱에서 아직 동작하지 않습니다. 하지만 모든 디버그 번들은 dev 앱으로 동작하므로, 다른 해결책으로는 적절한 Facebook 프로젝트 설정으로 게임을 빌드하고, 장치에 넣고, 실행중인 게임에 연결하고, 평상시 처럼 데이터를 에디터에서 스트림하면 됩니다.
-

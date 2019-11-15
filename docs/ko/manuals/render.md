@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Rendering
 엔진에 의해 화면에 나타나는 모든 오브젝트(sprites, models, tiles, particles, GUI nodes)는 렌더링 파이프라인에 의해 그려집니다. 이 메뉴얼은 파이프 라인이 어떻게 동작하며 이것을 어떻게 프로그래밍 하면 되는지 설명합니다.
 
@@ -163,4 +167,3 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = vmath.vect
 * draw_text 메세지를 통해 씬(scene)에 추가된 모든 텍스트(text)들은 내장된 "system_font"로 그려집니다. 시스템 폰트는 "text" 태그가 있는 메터리얼을 가지므로 위의 렌더 스크립트 내용중에서  "self.text_pred" predicate에 그려집니다.
 
 > toggle_profile 메세지를 @system 소켓으로 보내서 접근 할 수 있는 비주얼 프로파일러(visual profiler)는 스크립트로 처리 가능한 렌더러와는 다른 파트이므로 당신의 렌더 스크립트와는 분리되어 그려집니다.
-

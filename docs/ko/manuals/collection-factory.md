@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Collection factories
 컬렉션 팩토리 컴포넌트는 게임 오브젝트(컬렉션)의 설계도면 계층구조(blueprint hierarchies)를 만들어 실행중인 게임으로 스폰하는데 사용됩니다. 이 매뉴얼은 컬렉션 팩토리가 어떻게 동작하며 어떻게 사용하면 되는지 설명합니다.
 
@@ -62,4 +66,3 @@ function init(self)
 우주인 여러 명을 스폰하고 적당히 배치하여 알맞은 속성 값들을 보내면, 아래처럼 사랑이 넘치는 행성을 만들 수 있습니다.
 
 ![Populated planet](images/collection_factory/collection_factory_game.png)
-

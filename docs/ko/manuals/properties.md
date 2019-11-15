@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Properties
 이 메뉴얼은 Defold에 존재하는 프로퍼티들의 종류와 이 프로퍼티를 어떻게 사용하고 에니메이션 처리하는지 설명합니다.
 

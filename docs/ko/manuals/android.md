@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Android development
 이 문서는 Android 장치에서 Defold 어플리케이션을 빌드하고 실행하는 방법에 대해 설명합니다.
 

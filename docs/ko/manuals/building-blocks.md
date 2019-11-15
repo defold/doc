@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Building blocks
 이 문서에서는 *게임오브젝트, 컴포넌트, 컬렉션*이 어떻게 동작하는지 자세히 설명합니다.
 
@@ -141,7 +145,7 @@ data: "components {\n  id: \"some_script\"\n  component: \"/a_simple_test/my_thi
 
 에디터에 위치한 컬렉션들은 수정할 수 없습니다. 예를 들어 배치된 컬렉션의 일부인 게임 오브젝트에 하위 항목을 추가할 수 없습니다. 컬렉션 인스턴스에 저장된 데이터를 보면 잘 될거 같은데 왜 안될까요? 게임 오브젝트를 포함하고 있는 이 데이터는 "my_collection.collection"이라는 참조된 컬렉션 파일 안에 있고 이것은 수정되는 것이 아닙니다.
 
-컬렉션 파일 원본을 수정하지 않고는 컬렉션의 내용을 수정할 수 없지만, 에디터는 컬렉션에서 컴포넌트들과 연관된 스크립트 속성과 동일하게 속성값들의 수정을 허용합니다. 
+컬렉션 파일 원본을 수정하지 않고는 컬렉션의 내용을 수정할 수 없지만, 에디터는 컬렉션에서 컴포넌트들과 연관된 스크립트 속성과 동일하게 속성값들의 수정을 허용합니다.
 
 ![Properties in a collection](images/building_blocks/building_blocks_collection_properties.png)
 

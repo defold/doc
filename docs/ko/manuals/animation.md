@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Animation
 Defold는 오브젝트 컴포넌트의 그래픽 소스로 사용할 수 있는 다양한 종류의 애니메이션을 지원합니다.
 

@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Spine animation
 이 매뉴얼은 스파인(Spine)이나 드래곤 본(Dragon Bone)으로부터 Defold로 스파인 애니메이션을 불러오는 방법을 설명합니다.
 
@@ -77,4 +81,3 @@ Defold는 Lua 인터페이스를 통해 애니메이션을 재생하는 방법�
 ![Atlas path names](images/spine/spine_atlas_names.png)
 
 스파인 모델(Spine model)을 애니메이션으로 움직이게 하려면  [Animation](/manuals/animation) 문서를 참고 바랍니다.
-
