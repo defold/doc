@@ -12,7 +12,7 @@ brief: 本教程提供了游戏对象组件概览及其使用方法.
 Defold 提供以下组件类型:
 
 * [Collection factory](/manuals/collection-factory) - 创建集合实例
-* [Collection proxy](/manuals/collection-proxy) - 载入卸载集合
+* [Collection proxy](/manuals/collection-proxy) - 加载卸载集合
 * [Collision object](/manuals/physics) - 2D 和 3D 物理
 * [Camera](/manuals/camera) - 修改游戏世界的视口和投射
 * [Factory](/manuals/factory) - 创建游戏对象实例
