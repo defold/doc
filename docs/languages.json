@@ -3,12 +3,14 @@
     {
         "en":
         {
-            "name": "English"
+            "name": "English",
+            "active": true
         },
         "ko":
         {
             "name": "한국어 (Korean)",
-            "translation": "Translation by Kiman Kim"
+            "translation": "Translation by Kiman Kim",
+            "active": false
         }
     }
 }
