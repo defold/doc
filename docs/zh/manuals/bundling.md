@@ -27,11 +27,11 @@ To learn more about build reports please refer to the [Profiling manual](/manual
 
 ### Android
 
-打包安卓应用 (.apk 文件) 及其准备工作详见 [Android 手册](/manuals/android/#creating-an-android-application-bundle).
+打包安卓应用 (.apk 文件) 及其准备工作详见 [Android 教程](/manuals/android/#creating-an-android-application-bundle).
 
 ### iOS
 
-打包ios应用 (.ipa 文件) 及其准备工作详见 [iOS 手册](/manuals/ios/#creating-an-ios-application-bundle).
+打包ios应用 (.ipa 文件) 及其准备工作详见 [iOS 教程](/manuals/ios/#creating-an-ios-application-bundle).
 
 ### OSX
 
@@ -47,15 +47,15 @@ To learn more about build reports please refer to the [Profiling manual](/manual
 
 #### Facebook Gameroom
 
-可以为 Facebook Gameroom 打包成 Windows 应用的一种特殊版本. 这一过程详见 [Facebook Gameroom 手册](/manuals/gameroom/).
+可以为 Facebook Gameroom 打包成 Windows 应用的一种特殊版本. 这一过程详见 [Facebook Gameroom 教程](/manuals/gameroom/).
 
 ### HTML5
 
-打包 HTML5 应用及其参数设置详见 [HTML5 手册](/manuals/html5/#creating-html5-bundle).
+打包 HTML5 应用及其参数设置详见 [HTML5 教程](/manuals/html5/#creating-html5-bundle).
 
 #### Facebook Instant Games
 
-可以为 Facebook Instant Games 打包成 HTML5 应用的一种特殊版本. 这一过程详见 [Facebook Instant Games 手册](/manuals/instant-games/).
+可以为 Facebook Instant Games 打包成 HTML5 应用的一种特殊版本. 这一过程详见 [Facebook Instant Games 教程](/manuals/instant-games/).
 
 ## 命令行打包
 

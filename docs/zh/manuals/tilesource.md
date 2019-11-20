@@ -1,5 +1,5 @@
 ---
-title: Defold瓷砖图集手册
+title: Defold瓷砖图集教程
 brief: 本教程介绍了如何使用瓷砖图集资源.
 ---
 

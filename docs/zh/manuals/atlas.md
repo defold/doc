@@ -1,5 +1,5 @@
 ---
-title: 图集手册
+title: 图集教程
 brief: 本教程介绍了 Defold 中图集资源是如何工作的.
 ---
 
@@ -55,7 +55,7 @@ sprites 通常使用单个的小图片, 但是处于性能考虑, 最好把小�
 图集资源有一系列属性. 在 *Outline* 视图中选中图集后属性出现在 *Properties* 面板中.
 
 Size
-: 图集空间占用大小. 宽高取2的整数幂. 注意如果开启了纹理压缩, 某些格式需要纹理为正方形. 非正方形纹理将加入空白以建立正方形. 详情请见 [Texture profiles 手册](/manuals/texture-profiles/).
+: 图集空间占用大小. 宽高取2的整数幂. 注意如果开启了纹理压缩, 某些格式需要纹理为正方形. 非正方形纹理将加入空白以建立正方形. 详情请见 [Texture profiles 教程](/manuals/texture-profiles/).
 
 Margin
 : 每两个图片之间的间隙.

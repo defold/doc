@@ -1,6 +1,6 @@
 ---
 title: Defold 中的 GUI 脚本 
-brief: 本手册介绍了 GUI 脚本.
+brief: 本教程介绍了 GUI 脚本.
 ---
 
 # GUI 脚本

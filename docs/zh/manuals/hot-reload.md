@@ -103,7 +103,7 @@ function update(self, dt)
 end
 ```
 
-更改并重载 "my_module.lua" 并 _不会_ 更新 "user.script" 的输出值. 关于这种情况的成因以及如何避免，详见 [模块手册](/manuals/modules).
+更改并重载 "my_module.lua" 并 _不会_ 更新 "user.script" 的输出值. 关于这种情况的成因以及如何避免，详见 [模块教程](/manuals/modules).
 
 ## on_reload() 函数
 

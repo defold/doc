@@ -25,7 +25,7 @@ Instant Games 可以让玩家在 Facebook 平台上随时玩到游戏的新方�
    <script src="https://connect.facebook.net/en_US/fbinstant.6.3.js"></script>
    ```
 
-   关于打包设置详情请见 [HTML5 手册](/manuals/html5/#customizing-html5-bundle).
+   关于打包设置详情请见 [HTML5 教程](/manuals/html5/#customizing-html5-bundle).
 
 4. 都准备好之后, 打包 HTML5 游戏并上传至 Facebook.
 
@@ -73,7 +73,7 @@ Facebook Instant Games [最佳实践](https://developers.facebook.com/docs/games
   此功能尚处于测试阶段且没有说明文档. 这里: https://forum.defold.com/t/stripping-appmanifest-maker/16059 有一个可以自动生成 app.manifests 文件的工具.
 
 使用纹理压缩
-: 纹理压缩是有效减少包体和内存占用的方法. 关于纹理压缩详情请见 [Texture Profiles 手册](/manuals/texture-profiles/).
+: 纹理压缩是有效减少包体和内存占用的方法. 关于纹理压缩详情请见 [Texture Profiles 教程](/manuals/texture-profiles/).
 
 减少启动所需资源按需下载
 : 许多游戏把内容分成各个关卡或者各个篇章. 这种类型的游戏可以把内容放到玩家玩到的时候再下载.
@@ -82,4 +82,4 @@ Facebook Instant Games [最佳实践](https://developers.facebook.com/docs/games
 
 ## 已知问题
 
-关于 HTML5 和 Instant Games 的已知问题详见 [HTML5 手册已知问题部分](/manuals/html5/#known-issues-and-limitations).
+关于 HTML5 和 Instant Games 的已知问题详见 [HTML5 教程已知问题部分](/manuals/html5/#known-issues-and-limitations).

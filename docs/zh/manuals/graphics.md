@@ -1,5 +1,5 @@
 ---
-title: Defold 图像手册
+title: Defold 图像教程
 brief: 本教程简述了 Defold 支持的图像组件.
 ---
 
@@ -24,7 +24,7 @@ Defold中, 可视组件使用两种图片资源:
 
   ![atlas](images/graphics/atlas.png){srcset="images/graphics/atlas@2x.png 2x"}
 
-更多详情参见 [图集手册](/manuals/atlas).
+更多详情参见 [图集教程](/manuals/atlas).
 
 ![tile source](images/icons/tilesource.png){.icon} Tile Source
 : 瓷砖图集是由一系列小图块按顺序拼贴而成的图片. 就像 _Sprite动画表_ 一样. 瓷砖图集可以包含逐帧动画, 只需指定动画的首尾帧. 瓷砖图块也可以自动生成其碰撞图形.

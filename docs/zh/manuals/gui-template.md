@@ -1,5 +1,5 @@
 ---
-title: GUI 模板手册
+title: GUI 模板教程
 brief: 本教程介绍了用以创建基于模板（或称作'prefabs'）的可重用可视 GUI 组件的 Defold GUI 模板系统.
 ---
 

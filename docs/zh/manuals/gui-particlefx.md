@@ -31,4 +31,4 @@ local particles_node = gui.get_node("particlefx")
 gui.stop_particlefx(particles_node)
 ```
 
-详情请见 [粒子特效手册](/manuals/particlefx).
+详情请见 [粒子特效教程](/manuals/particlefx).

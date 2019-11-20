@@ -28,7 +28,7 @@ brief: 本教程介绍了 Defold 如何自动管理资源以及如何手动加�
 
 但是, 运行时引擎不会自动读入以下资源:
 
-- 集合代理未加载内容. 这些内容需要在代码里手动实施加载和卸载. 详情请见 [集合代理手册](/manuals/collection-proxy).
+- 集合代理未加载内容. 这些内容需要在代码里手动实施加载和卸载. 详情请见 [集合代理教程](/manuals/collection-proxy).
 - 在 "game.project" 文件中 *Custom Resources* 里的资源. 这些资源需要手动使用 [sys.load_resource()](/ref/sys/#sys.load_resource) 函数加载.
 
 Defold 打包和加载资源的方法可以被修改具体到如何，何时把资源读入内存.
@@ -46,7 +46,7 @@ Defold 打包和加载资源的方法可以被修改具体到如何，何时把�
 1. 调用 [`factory.create()`](/ref/factory/#factory.create) 或者 [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create) 函数. 这样资源会被同步加载, 然后通过工厂创建出实例.
 2. 调用 [`factory.load()`](/ref/factory/#factory.load) 或者 [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load) 函数来异步加载资源. 一旦资源加载完成, 会调用回调函数.
 
-详情请见 [工厂手册](/manuals/factory) 和 [集合工厂手册](/manuals/collection-factory).
+详情请见 [工厂教程](/manuals/factory) 和 [集合工厂教程](/manuals/collection-factory).
 
 ## 动态资源卸载
 
@@ -60,4 +60,4 @@ Defold 持有所有资源的引用计数. 引用数为0则表示资源不被使�
 
 ![Exclude](images/resource/exclude.png)
 
-开启 *Exclude* 选项的集合代理的资源会被排除在打包之外. 所以, 你需要把这些被排除的集合保存在云端. 详情请见 [热更新手册](/manuals/live-update/).
+开启 *Exclude* 选项的集合代理的资源会被排除在打包之外. 所以, 你需要把这些被排除的集合保存在云端. 详情请见 [热更新教程](/manuals/live-update/).

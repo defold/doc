@@ -32,7 +32,7 @@ Compress Archive
 : 打包时启用压缩. 注意此设置除了 Android 都有效，因为apk已经是压缩档了.
 
 Dependencies
-: 项目的 *Library URL* 列表. 详情请见 [Libraries 手册](/manuals/libraries/).
+: 项目的 *Library URL* 列表. 详情请见 [Libraries 教程](/manuals/libraries/).
 
 Custom Resources
 : 项目中包含的以逗号分隔的资源列表. 如指定的是目录, 则目录下所有文件及其子目录都会包含进去. 这些资源可以通过 [`sys.load_resource()`](/ref/sys/#sys.load_resource) 载入.
@@ -354,7 +354,7 @@ Bundle Identifier
 ## Windows
 
 App Icon
-: 用于Windows应用图标的图片 (.ico) 文件. 对于如何创建图标文件详情请见 [Windows 手册](/manuals/windows).
+: 用于Windows应用图标的图片 (.ico) 文件. 对于如何创建图标文件详情请见 [Windows 教程](/manuals/windows).
 
 Iap Provider
 : 指定使用哪个应用商店. 合法值是 `None` 和 `Gameroom`, 默认是 `None`.

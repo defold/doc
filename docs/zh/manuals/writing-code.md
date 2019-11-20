@@ -11,11 +11,11 @@ Defold 中内建编辑器可以打开和编辑 Lua 文件 (.lua), Defold 脚本�
 
 ## 编写Lua脚本
 
-Defold 使用 Lua 5.1 和 LuaJIT (与目标平台相关) 并且需要遵循 Lua 该版本的书写规范来编写代码. 关于 Defold 中 Lua 使用详情请见 [Defold中Lua使用手册](/manuals/lua).
+Defold 使用 Lua 5.1 和 LuaJIT (与目标平台相关) 并且需要遵循 Lua 该版本的书写规范来编写代码. 关于 Defold 中 Lua 使用详情请见 [Defold中Lua使用教程](/manuals/lua).
 
 ## 编写扩展代码
 
-Defold 允许使用原生代码来扩展游戏引擎以使用引擎所不具备的特定功能. 或者 Lua 性能不良时 (密集计算, 图像处理等) 考虑使用原生扩展. 详情请见 [原生扩展手册](/manuals/extensions/).
+Defold 允许使用原生代码来扩展游戏引擎以使用引擎所不具备的特定功能. 或者 Lua 性能不良时 (密集计算, 图像处理等) 考虑使用原生扩展. 详情请见 [原生扩展教程](/manuals/extensions/).
 
 ## 使用第三方代码编辑器
 

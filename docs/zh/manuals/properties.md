@@ -21,7 +21,7 @@ Defold 对于游戏对象, 组件和 GUI 节点暴露了很多可读可写可用
 go.set("game_object", "position.x", 10)
 ```
 
-`go.get()`, `go.set()` 和 `go.animate()` 函数第一个参数是游戏对象引用，第二个参数是属性id. 游戏对象或者组件的引用可以是字符串, hash 或者 URL. URL 引用详情请见 [定位手册](/manuals/addressing). 属性id是属性名字符串或者hash:
+`go.get()`, `go.set()` 和 `go.animate()` 函数第一个参数是游戏对象引用，第二个参数是属性id. 游戏对象或者组件的引用可以是字符串, hash 或者 URL. URL 引用详情请见 [定位教程](/manuals/addressing). 属性id是属性名字符串或者hash:
 
 ```lua
 -- Set the x-scale of the sprite component

@@ -1,6 +1,6 @@
 ---
 title: Defold 定位
-brief: 本手册解释了 Defold 如何实现地址定位功能.
+brief: 本教程解释了 Defold 如何实现地址定位功能.
 ---
 
 # 定位
@@ -9,7 +9,7 @@ brief: 本手册解释了 Defold 如何实现地址定位功能.
 
 ## 标志
 
-Defold 使用地址 (称为 URL, 暂且不表) 来引用游戏对象和组件. 地址里包含各种标志. 下面列举了 Defold 使用地址的例子. 本手册将详述地址的用法:
+Defold 使用地址 (称为 URL, 暂且不表) 来引用游戏对象和组件. 地址里包含各种标志. 下面列举了 Defold 使用地址的例子. 本教程将详述地址的用法:
 
 ```lua
 local id = factory.create("#enemy_factory")

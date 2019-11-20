@@ -53,7 +53,7 @@ msg.post("#weapon", "enable")
 
 ## 组件属性
 
-Defold 组件属性各不相同.在 [Outline 视图](/manuals/editor/#the-editor-views) 中当前选中的组件属性会显示在编辑器的 [Properties 面板](/manuals/editor/#the-editor-views) 中. 可用组件的详细属性详情请见API手册.
+Defold 组件属性各不相同.在 [Outline 视图](/manuals/editor/#the-editor-views) 中当前选中的组件属性会显示在编辑器的 [Properties 面板](/manuals/editor/#the-editor-views) 中. 可用组件的详细属性详情请见API教程.
 
 ## 位置，旋转和缩放
 

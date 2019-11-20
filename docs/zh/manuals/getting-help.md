@@ -33,7 +33,7 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
   - macOS: `/Users/ **Your Username** /Library/Application Support/` 或者 `~/Library/Application Support/Defold`
   - Linux: `~/.Defold`
 
-  Android 的引擎日志可以通过使用 `adb` (Android Debug Bridge) 命令行工具获取. 关于 `adb` 命令行工具详情请见 [Android 手册](/manuals/android/#android-debug-bridge).
+  Android 的引擎日志可以通过使用 `adb` (Android Debug Bridge) 命令行工具获取. 关于 `adb` 命令行工具详情请见 [Android 教程](/manuals/android/#android-debug-bridge).
 
   iOS 的引擎日志可以通过使用 XCode 和设备模拟器菜单项获取.
 
@@ -44,7 +44,7 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
 
   桌面应用的引擎日志通过使用终端运行Defold应用获取.
 
-  你还可以把引擎日志写入一个文件便于存取. 详情请见 [调试手册](/manuals/debugging/#extracting-the-logtxt-file).
+  你还可以把引擎日志写入一个文件便于存取. 详情请见 [调试教程](/manuals/debugging/#extracting-the-logtxt-file).
 
 * **问题复现小项目 (可选)** - 请附加一个可以再现问题的最小项目包. 这可以对别人研究修复问题提供极大帮助. 如果你把项目打成zip包请去掉其中的 `.git`, `.internal` 和 `build` 文件夹.
 
