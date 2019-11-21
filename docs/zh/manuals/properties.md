@@ -7,7 +7,7 @@ brief: 本教程介绍了 Defold 中各种属性的使用以及属性动画的�
 
 Defold 对于游戏对象, 组件和 GUI 节点暴露了很多可读可写可用作动画的属性. 分为以下各种类型:
 
-* 游戏对象位移 (位置, 旋转和缩放) 和组件属性 (比如 sprite 的 pixel size 或者碰撞对象的 mass)
+* 游戏对象变化 (位置, 旋转和缩放) 和组件属性 (比如 sprite 的 pixel size 或者碰撞对象的 mass)
 * Lua 脚本属性 (详情请见 [脚本属性文档](/manuals/script-properties))
 * GUI 节点属性
 * shaders 和 材质文件里的着色器常量 (详情请见 [材质文档](/manuals/material))

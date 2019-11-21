@@ -9,111 +9,111 @@ iOS 要求 _所有_ 运行于手机或者平板电脑上的应用 _必须_ 使�
 
 ## Apple 签名过程
 
-iOS 应用安全包含几个要点. 通过访问 [Apple's iOS Developer Program](https://developer.apple.com/programs/) 可以得到必要的工具. 如需注册, 请访问 [Apple's Developer Member Center](https://developer.apple.com/membercenter/index.action).
+iOS 应用安全包含几个要素. 通过访问 [Apple's iOS Developer Program](https://developer.apple.com/programs/) 可以得到必要的工具. 如需注册, 请访问 [Apple's Developer Member Center](https://developer.apple.com/membercenter/index.action).
 
 ![Apple Member Center](images/ios/apple_member_center.png)
 
 *Certificates, Identifiers & Profiles* 部分包含了所有所需工具. 在这里可以创建, 删除和编辑:
 
 Certificates
-: Apple 为开发者颁发的加密证书. You can create development or production certificates. Developer certificates allow you to test certain features such as the in-app purchase mechanism in a sandbox test environment. Production certificates are used to sign the final app for upload to the App Store. You need a certificate to sign apps before you can put them on your device for testing.
+: Apple 为开发者颁发的加密证书. 分为开发证书和发布证书两种. 开发证书用以在沙盒环境中测试某些功能比如应用内购. 发布证书是将应用发布到 App Store 时用的证书. 在设备上测试之前要用证书对应用进行签名.
 
 Identifiers
-: Identifiers for various uses. It is possible to register wildcard identifiers (i.e. `some.prefix.*`) which can be used with several apps. App IDs can contain Application Service information, like if the app enables Passbook integration, the Game Center, etc. Such App IDs cannot be wildcard identifiers. For Application Services to function, your application's *bundle identifier* must match the App ID identifier.
+: 应用id. 用于多个应用的通配符id (类似 `some.prefix.*`) 是允许的. 应用id也在集成某些服务时使用, 比如 Passbook, Game Center 之类的. 这种情况下不支持通配符id. 因为使用服务时 *bundle identifier* 必须与应用id一致.
 
 Devices
-: Each development device needs to be registered with their UDID (Unique Device IDentifier, see below).
+: 用于开发的设备要注册 UDID (Unique Device IDentifier, 见下文).
 
 Provisioning Profiles
-: Provisioning profiles associate certificates with App IDs and a list of devices. They tell which app by what developer is allowed to be on what devices.
+: 提供商档案与应用id与开发设备的证书相关. 这样可以确保让谁的哪个应用可以运行于哪个设备上.
 
-When signing your games and apps in Defold, you need a valid certificate and a valid provisioning profile.
+在 Defold 中给应用做签名时, 需要提供加密证书和提供商档案文件.
 
-::: sidenote
-Some of the things you can do on the Member Center homepage you can also perform from inside the XCode development environment---if you have that installed.
+::: 注意
+Member Center 页面的一些功能在 XCode 里也可以进行---前提是先安装好XCode.
 :::
 
 Device identifier (UDID)
-: The UDID for an iOS device can be found by connecting the device to a computer via wifi or cable. Open Xcode and select <kbd>Window ▸ Devices and Simulators</kbd>. The serial number and identifier are displayed when you select your device.
+: iOS 设备的 UDID 可以通过wifi或者线路连接计算机查找. 打开 Xcode 选择 <kbd>Window ▸ Devices and Simulators</kbd>. 选中设备就会显示出序列号和UDID.
 
   ![xcode devices](images/ios/xcode_devices.png)
 
-  If you don't have Xcode installed you can find the identifier in iTunes. Click on the devices symbol and select your device.
+  如果没安装 Xcode也可以从 iTunes 里查看. 首先选中要查看的设备.
 
   ![itunes devices](images/ios/itunes_devices.png)
 
-  1. On the *Summary* page, locate the *Serial Number*.
-  2. Click the *Serial Number* once so the field changes into *UDID*. If you click repeatedly, several pieces of information about the device will show up. Just continue to click until *UDID* shows.
-  3. Right-click the long UDID string and select <kbd>Copy</kbd> to copy the identifier to the clipboard so you can easily paste it into the UDID field when registering the device on Apple's Developer Member Center.
+  1. 在 *Summary* 页, 可以找到 *Serial Number*.
+  2. 点击 *Serial Number* 一次，它会切换成 *UDID*. 再点击下去还会显示其他设备信息. 这里我们找到 *UDID* 即可.
+  3. 右键点击 UDID 那一长串字符，选择 <kbd>Copy</kbd> 即可将其存入剪贴板，在 Apple 开发中心注册设备时就可以直接粘贴填入了.
 
-## Developing using a free Apple developer account
+## 使用免费账户开发应用
 
-Since Xcode 7, anyone can install Xcode and do on-device development for free. You don't have to sign up for the iOS Developer Program. Instead, Xcode will automatically issue a certificate for you as a developer (valid for 1 year) and a provisioning profile for your app (valid for one week) on your specific device.
+从 Xcode 7 开始, 所有人都被允许安装 Xcode 并且免费开发设备应用. 无需注册iOS开发者. Xcode 会为设备自动核发一个临时开发者证书 (有效期1年) 和一个临时应用提供商档案 (有效期1周).
 
-1. Connect your device.
-2. Install Xcode.
-3. Add a new account to Xcode and sign in with your Apple ID.
-4. Create a new project. The simplest "Single View App" works fine.
-5. Select your "Team" (auto created for you) and give the app a bundle identifier.
-6. Make sure that Xcode has created a *Provisioning Profile* and *Signing Certificate* for the app.
+1. 连接设备.
+2. 安装 Xcode.
+3. 在 Xcode 注册并登录 Apple ID.
+4. 新建项目. 最简单的 "Single View App" 就好.
+5. 选择 "Team" (自动生成) 并为app设置 bundle identifier.
+6. 确保 Xcode 为app生成了 *Provisioning Profile* 和 *Signing Certificate*.
 
    ![](images/ios/xcode_certificates.png)
 
-7. Build and launch the app on your device. The first time, Xcode will ask you to enable Developer mode and will prepare the device with debugger support. This may take a while.
-8. When you have verified that the app works, find it on your disk. You can see the build location in the Build report in the "Report Navigator".
+7. 编译并且在设备上运行. 首次运行, Xcode 会提示打开开发者模式并为调试做好准备. 可能要等待一会儿.
+8. 确定应用正常运行后, 在硬盘上找到编译好的app. 可以在 "Report Navigator" 的编译报告里找到app位置.
 
    ![](images/ios/app_location.png)
 
-9. Locate the app, right-click it and select <kbd>Show Package Contents</kbd>.
+9. 找到app, 右键选择 <kbd>Show Package Contents</kbd>.
 
    ![](images/ios/app_contents.png)
 
-10. Copy the file "embedded.mobileprovision" to some place on your drive where you will find it.
+10. 把 "embedded.mobileprovision" 文件拷贝出来.
 
    ![](images/ios/free_provisioning.png)
 
-This provision file can be used together with your code signing identity to sign apps in Defold for one week, for _one device_. There is no way to add additional device UDIDs to this generated provisioning profile.
+这个供应商档案文件连同加密证书可以在 Defold 为应用签名, 有效期一周，_限一个设备_. 这样生成的供应商档案无法向其增加更多的 UDID.
 
-When the provision expires, you need to build the app again in Xcode and get a new temporary provision file as described above.
+档案过期后, 可以在 Xcode 里如法炮制再次生成临时档案文件.
 
-## Creating an iOS application bundle
+## 打包 iOS 应用
 
-When you have the code signing identity and privisioning profile, you are ready to create a stand alone application bundle for your game from the editor. Simply select <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> from the menu.
+如果你有加密证书和这个供应商档案文件, 就可以在编辑器里打包应用了. 从菜单中选择 <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd>.
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
-Select your code signing identity and browse for your mobile provisioning file. Select which architectures (32 bit, 64 bit and the iOS simulator) to bundle for as well as the variant (Debug or Release). You can optionally untick the `Sign application` checkbox to skip the signing process and then manually sign at a later stage.
+选择证书和档案. 设置架构 (32 bit, 64 bit 和 iOS 模拟器) 再选择打包模式 (Debug 或者 Release). 也可以取消选择 `Sign application` 跳过签名步骤留待后面完成.
 
-::: important
-You **must** untick the `Sign application` checkbox when testing your game on the iOS simulator. You will be able to install the application but it will not boot.
+::: 注意
+要在模拟器中测试游戏 **必须取消** `Sign application` 选项. 否则的话游戏能安装却不能运行.
 :::
 
-Press *Create Bundle* and you will then be prompted to specify where on your computer the bundle will be created.
+点击 *Create Bundle* 并选择打包应用存放位置.
 
-You specify what icon to use for the app, the launch screen image(s) and so forth on the *game.project* project settings file.
+可以在 *game.project* 项目配置文件中设置app图标，启动图片等等.
 
-::: important
-When your game launches on iOS, the launch images are used to set the correct screen resolution. If you do not supply the correct image size, you will get a lower resolution with resulting black bars.
+::: 注意
+iOS 上的应用, 启动图片决定了应用分辨率. 如果图片分辨率错误, 应用可能也会分辨率错误带黑边.
 :::
 
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
-## Installing an iOS application bundle
+## 安装 iOS 打包应用
 
-The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use Xcode (via the "Devices and Simulators" window). Other options are to use a command line tool such as [ios-deploy](https://github.com/phonegap/ios-deploy) or iTunes.
+编辑器对iOS应用打包后生成 *.ipa* 文件. 要安装此文件, 可以使用 Xcode (通过 "Devices and Simulators" 窗口). 或者使用命令行工具 [ios-deploy](https://github.com/phonegap/ios-deploy) 或者使用 iTunes.
 
-You can use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:
+可以使用 `xcrun simctl` 命令行工具与 Xcode 的 iOS 模拟器进行交互:
 
 ```
-# show a list of available devices
+# 显示可用设备列表
 xcrun simctl list
 
-# boot an iPhone X simulator
+# 启动 iPhone X 模拟器
 xcrun simctl boot "iPhone X"
 
-# install your.app to a booted simulator
+# 在模拟器上安装 your.app
 xcrun simctl install booted your.app
 
-# launch the simulator
+# 启动模拟器
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```

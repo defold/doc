@@ -1,11 +1,11 @@
 ---
-title: Defold 组成
+title: Defold 构成
 brief: 此教程详述游戏对象，组件和集合是如何工作的.
 ---
 
-#  Building blocks
+#  构成
 
-At the core of Defold's design are a few concepts that may take a little while to get a good grip on. This manual explains what the building blocks of Defold consist of. After having read this manual, move on to the [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing). There are also a set of [tutorials](/tutorials/getting-started) available from within the editor to get you up and running quickly.
+Defold 核心设计中的一些概念可能一时不容易理解. This manual explains what the building blocks of Defold consist of. After having read this manual, move on to the [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing). There are also a set of [tutorials](/tutorials/getting-started) available from within the editor to get you up and running quickly.
 
 ![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
 

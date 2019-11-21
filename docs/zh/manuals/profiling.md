@@ -1,13 +1,13 @@
 ---
-title: Defold 性能调优
-brief: This manual explains the profiling facilities present in Defold.
+title: Defold 性能分析
+brief: 本教程介绍了 Defold 内置的性能分析工具.
 ---
 
 # Profiling
 
-Defold includes a set of profiling tools that are integrated with the engine and the build pipeline. These are designed to help find problems with performance and memory usage. The built in profilers are available on debug builds only.
+Defold 引擎内置了性能分析工具. 这些工具用来分析查找性能和内存占用的问题. 内置分析器只在打包 debug 版应用中可用.
 
-## The runtime visual profiler
+## 运行时可视分析表
 
 Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application. It is turned on and off by sending a message named "toggle_profile" to the "system" socket:
 

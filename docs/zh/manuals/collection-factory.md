@@ -51,7 +51,7 @@ local bean_ids = collectionfactory.create("#bean_factory")
 `collectionfactory.create()` 返回一个包含每个新建对象id的表. 表的内容是集合内每个对象id对应运行时每个对象id:
 
 ::: 注意
-"bean" 与 "shield" 的父子层级关系 *不会* 在表里反应出来. 只能从运行时画面看出这种层级关系, 即做位移时两个对象同时变化. 改变层级关系与游戏对象id无关.
+"bean" 与 "shield" 的父子层级关系 *不会* 在表里反应出来. 只能从运行时画面看出这种层级关系, 即做变化时两个对象同时变化. 改变层级关系与游戏对象id无关.
 :::
 
 ```lua
