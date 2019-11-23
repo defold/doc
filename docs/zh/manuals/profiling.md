@@ -9,120 +9,120 @@ Defold 引擎内置了性能分析工具. 这些工具用来分析查找性能�
 
 ## 运行时可视分析表
 
-Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application. It is turned on and off by sending a message named "toggle_profile" to the "system" socket:
+Debug 应用包含运行时可视分析工具可以在应用最上层把分析信息显示出来. 可以向 "system" 接口发送 "toggle_profile" 消息控制其开关:
 
 ```lua
 function on_reload(self)
-    -- Toggle the visual profiler on hot reload.
+    -- 热重载时打开分析表.
     msg.post("@system:", "toggle_profile")
 end
 ```
 
 ![Visual profiler](images/profiling/visual_profiler.png)
 
-## The web profiler
+## 网页版分析器
 
-While running a debug build of the game, an interactive web-based profiler can be accessed through a browser. It allows you to sample your game over a series of frames and then analyze each frame in detail.
+运行debug版游戏时, 也可以从浏览器访问一个基于网页的分析器. 它可以对游戏每一帧进行取样并分析.
 
-To access the profiler:
+访问分析器:
 
-1. Start your game on your target device.
-2. Select <kbd> Debug ▸ Open Web Profiler</kbd> menu. Alternatively, for example, when you use multiple targets simultaneously, you can open a web browser and point it to `http://<device IP>:8002` where `<device IP>` is the IP address of the device. You can find the IP numbers of your target devices in the <kbd>Project ▸ Target</kbd> menu. If you are running your game on your desktop computer, http://localhost:8002 will bring up the profiler.
+1. 在目标设备上启动游戏.
+2. 选择菜单 <kbd> Debug ▸ Open Web Profiler</kbd>. 或者比如说, 同时调试多个设备时, 可以打开浏览器访问地址 `http://<device IP>:8002` 其中 `<device IP>` 是设备 IP 地址. 你可以从菜单 <kbd>Project ▸ Target</kbd> 找到设备的 IP 地址. 如果调试计算机本机游戏, 访问 http://localhost:8002 即可.
 
 ![Web profiler mode](images/profiling/webprofiler_mode.png)
-At the top, next to the *Capture* button there are radio buttons to switch between the *CPU/Frame profiler* and the *Resource profiler*.
+最上面, 挨着 *Capture* 按钮有一个开关用来切换 *CPU/Frame 分析器* 和 *Resource 分析器*.
 
-### CPU/Frame profiler
-The CPU profiler is divided into 4 sections that all give different views into the current sample data. To update the sample data, press the *Capture* button at the top.
+### CPU/Frame 分析器
+CPU 分析器对当前采样的数据分析图表分为4个部分. 要更新采样数据, 点击最上面的 *Capture* 按钮即可.
 
 ![Web profiler](images/profiling/webprofiler_page.png)
 
-Frames overview
-: The frames overview plots the currently sampled 20 frames side by side. The height of each bar shows the time spent in the frame. The number on the left hand side shows the max time spent in a frame in the current sample data.
+帧预览
+: 帧预览视图把最近采集的 20 帧并排放置. 每个方块的高度代表这个帧的耗时. 最左边显示这些帧最大耗时.
 
   ![Frames overview](images/profiling/webprofiler_frames_overview.png)
 
-  Below the frames overview is a detailed frame data view.
+  帧预览下面是采样数据的详细展示.
 
-  Click on a frame bar in the overview to show the data for that specific frame in the data view.
+  点击帧预览视图中的方块就会在下面给出这个帧的详细数据.
 
-Frame data
-: The frame data view is a table where all data for the currently selected frame is broken down into detail. You can view how many milliseconds are spent in each engine scope (to the left) and also see sample points within the scopes (middle column). On the right hand side is a table of counters. They make it is easy to, for instance, track the number of draw calls required for each frame in the sample data.
+帧数据
+: 帧数据显示了当前选择帧的详细数据表格. 这里可以看到引擎范围 (左边) 耗时（单位毫秒）和每个范围内的各个采样点 (中间). 右边是计数表格. 便于跟踪每帧 draw call 之类的数据.
 
   ![Frame data](images/profiling/webprofiler_frame_data.png)
 
-  Ticking the checkbox associated with a sample point or counter adds that data to the plot below.
+  勾选视图中的复选框可以给出下面的曲线图.
 
-Frames plot
-: The frames plot view displays a plot over all sampled frames with the data you have selected in the frame data table above the plot. The plot shows frame number on the X axis and time (in milliseconds) or counts on the Y axis. Each selected data point is drawn in the color specified in the frame data table.
+帧曲线图
+: 帧曲线图显示了你选择的特定数据项在每个采样帧中的耗时曲线图. X 轴是帧编号 Y 轴是耗时 (单位毫秒). 曲线颜色就是选择的数据项的颜色.
 
   ![Frames plot](images/profiling/webprofiler_frames_plot.png)
 
-Frame time chart
-:  The frame time chart breaks the frame down visually making it easy to inspect where the engine spends its time during the selected frame.
+帧瀑布图
+:  帧瀑布图展示了一帧中引擎耗时的各个部分.
 
   ![Frame timechart](images/profiling/webprofiler_frame_timechart.png)
 
-### Resource profiler
-The resource profiler is divided into 2 sections, one showing a hierarchical view of the collections, game objects and components currently instantiated in your game, and the other showing all currently loaded resources.
+### 资源分析器
+资源分析图表分为2个部分, 一个是集合层级关系, 显示了游戏中所有对象和组件实例, 另一个展示了加载的各种资源.
 
 ![Resource profiler](images/profiling/webprofiler_resources_page.png)
 
-Collection view
-: The collection view shows hierarchical list of all game objects and components currently instantiated in the game and from which collection they originate. This is a very useful tool when you need to dig into and understand what you have instanced in your game at any given time and from where the objects originate.
+集合视图
+: 集合视图展示了游戏里各个集合下所实例化出的各个游戏对象和组件的层级关系. 便于查找实例化对象与其原型的对应关系.
 
-Resources view
-: The resources view shows all resources currently loaded into memory, their size and the number of references to each resource. This is useful when optimizing memory usage in your application when you need to understand what is loaded into memory at any given time.
+资源视图
+: 资源视图展示了当前内存中加载的各种资源, 每个资源的空间占用和引用计数. 便于了解资源加载和优化内存使用.
 
-## Build reports
+## 编译报告
 
-When bundling your game there is an option to create a build report. This is very useful to get a grip on the size of all the assets that are part of your game bundle. Simply check the *Generate build report* checkbox when bundling the game.
+编译游戏时有个选项可以生成编译报告. 通过报告可以整体把握游戏包中各个资源的空间占用情况. 编译游戏时开启 *Generate build report* 选项即可.
 
 ![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
 
-The builder will produce a file called "report.html" alongside the game bundle. Open the file in a web browser to inspect the report:
+游戏编译完成后将生成 "report.html" 文件. 用浏览器打开这个文件进行查阅:
 
 ![build report](images/profiling/build_report_html.png){srcset="images/profiling/build_report_html@2x.png 2x"}
 
-The *Overview* gives an over all visual breakdown of the project size based on resource type.
+*Overview* 按资源类别给出空间占用饼图.
 
-*Resources* shows a detailed list of resources that you can sort based on size, compression ratio, encryption, type and directory name. Use the "search" field to filter the resource entries displayed.
+*Resources* 给出更详细的数据表格可以用来按照大小，压缩比, 加密与否, 类别和目录进行排序. 使用 "search" 框还可以对这些数据进行过滤.
 
-The *Structure* section shows sizes based on how resources are organized in the project file structure. Entries are color coded from green (light) to blue (heavy) according to the relative size of the file and directory content.
+*Structure* 基于项目结构给出空间占用树状图. 基于资源文件和目录从绿色 (占用小) 过渡到蓝色 (占用大).
 
-## External tools
+## 外部工具
 
-In addition to the built in tools, there is a wide range of free high quality tracing and profiling tools available. Here is a selection:
+除了内置工具, 还有许多免费高效的分析跟踪工具. 举例如下:
 
 ProFi (Lua)
-: We do not ship any built in Lua profiler but there are external libraries that are easy enough to use. To find where your scripts spend time, either insert time measures in your code yourself, or use a Lua profiling library like ProFi.
+: 内置工具里没有针对 Lua 的分析器但是使用外部工具可以做到这一点. 要测量脚本执行时间, 要么在代码里自己编写时间测试代码, 要么使用 ProFi 之类的 Lua 库.
 
   https://github.com/jgrahamc/ProFi
 
-  Note that pure Lua profilers add quite a lot of overhead with each hook they install. For this reason you should be a bit wary of the timing profiles you get from such a tool. Counting profiles are accurate enough though.
+  注意纯 Lua 分析器使用时会为代码执行增加一些负担. 这可能会造成测量结果不准确. 虽然计数器工具还是蛮准确的.
 
 Instruments (macOS and iOS)
-: This is a performance analyzer and visualizer that is part of Xcode. It allows you to trace and inspect the behavior of one or more apps or processes, examine device specific features (like Wi-Fi and Bluetooth) and much more.
+: Xcode 包含一个性能分析可视化工具. 使用它可以跟踪检查一个或多个应用或进程的行为, 测试设备功能 (比如 Wi-Fi 和 Bluetooth) 等等.
 
   ![instruments](images/profiling/instruments.png){srcset="images/profiling/instruments@2x.png 2x"}
 
-OpenGL profiler (macOS)
-: Part of the package "Additional Tools for Xcode" that you can download from Apple (select <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd> in the Xcode menu).
+OpenGL 分析器 (macOS)
+: 可以将 OpenGL 分析器作为 "Additional Tools for Xcode" 下载下来 (Xcode 菜单选择 <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd>).
 
-  This tool allows you to inspect a running Defold application and see how it uses OpenGL. It allows you to do traces of OpenGL function calls, set breakpoints on OpenGL functions, investigate application resources (textures, programs, shaders etc), look at buffer contents, and check other aspects of the OpenGL state.
+  此工具可以用来分析运行中的 Defold 应用如何使用 OpenGL. 可以用来跟踪 OpenGL 函数调用, 在 OpenGL 函数上打断点, 调查应用资源 (纹理, 程序, 着色器之类的), 查看缓存内容, 以及 OpenGL 的各方面状态.
 
   ![opengl profiler](images/profiling/opengl.png){srcset="images/profiling/opengl@2x.png 2x"}
 
-Android Profiler (Android)
+Android 分析器 (Android)
 : https://developer.android.com/studio/profile/android-profiler.html
 
-  A set of profiling tools that captures realtime data of your game's CPU, memory, and network activity. You can perform sample-based method tracing of code execution, capture heap dumps, view memory allocations, and inspect the details of network-transmitted files. Using the tool requires that you set `android:debuggable="true"` in "AndroidManifest.xml".
+  Android 分析器是一组能够试试捕捉游戏 CPU, 内存及网络使用情况的工具. 可以基于取样跟踪代码执行, 堆栈使用, 内存分配及网络文件传输. 要使用这个工具需要在 "AndroidManifest.xml" 里设置 `android:debuggable="true"`.
 
   ![android profiler](images/profiling/android_profiler.png)
 
-Graphics API Debugger (Android)
+图像 API 调试器 (Android)
 : https://github.com/google/gapid
 
-  This is a collection of tools that allows you to inspect, tweak and replay calls from an application to a graphics driver. To use the tool requires that you set `android:debuggable="true"` in "AndroidManifest.xml".
+  这组工具可以用来查看, 微调和重放从程序到显卡驱动的功能调用. 要使用这个工具需要在 "AndroidManifest.xml" 里设置 `android:debuggable="true"`.
 
   ![graphics api debugger](images/profiling/gapid.png)
