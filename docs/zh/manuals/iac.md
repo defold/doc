@@ -21,7 +21,7 @@ brief: 应用内通信可以让你获得应用启动时的启动参数信息. �
 https://github.com/defold/extension-iac/archive/master.zip
 ```
 
-推荐使用zip包的链接来[指定版本](https://github.com/defold/extension-iac/releases).
+推荐使用 [指定版本](https://github.com/defold/extension-iac/releases) 的zip包链接作为依赖.
 
 ## 使用扩展
 

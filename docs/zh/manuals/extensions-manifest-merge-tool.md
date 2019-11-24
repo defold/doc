@@ -34,7 +34,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
 关于 Android manifests 的详细信息, 参见 [官方文档](https://developer.android.com/studio/build/manifest-merge)
 
 ::: 注意
-如果扩展 manifest 中没有设置应用的 `android:targetSdkVersion` , 下列权限会被自动加入:  `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`. 下感情请见 [此文档](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions).
+如果扩展 manifest 中没有设置应用的 `android:targetSdkVersion` , 下列权限会被自动加入:  `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`. 详情请见 [此文档](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions).
 我们推荐这么设置: `<uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />`
 :::
 ### 示例
