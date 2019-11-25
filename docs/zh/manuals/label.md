@@ -35,7 +35,7 @@ brief: 本教程介绍了文本组件 label 的使用方法.
 : 文本的颜色.
 
 *Outline*
-: 边框的颜色.
+: 描边的颜色.
 
 *Shadow*
 : 阴影的颜色.
@@ -88,7 +88,7 @@ brief: 本教程介绍了文本组件 label 的使用方法.
 : label颜色 (`vector4`)
 
 `outline`
-: label边框颜色 (`vector4`)
+: label描边颜色 (`vector4`)
 
 `shadow`
 : label阴影颜色 (`vector4`)

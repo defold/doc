@@ -23,15 +23,15 @@ brief: 本教程介绍了如何打包应用.
 
 ![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
 
-To learn more about build reports please refer to the [Profiling manual](/manuals/profiling/#build-reports).
+To learn more about build reports please refer to the [Profiling manual](/manuals/profiling/#编译报告).
 
 ### Android
 
-打包安卓应用 (.apk 文件) 及其准备工作详见 [Android 教程](/manuals/android/#creating-an-android-application-bundle).
+打包安卓应用 (.apk 文件) 及其准备工作详见 [Android 教程](/manuals/android/#打包Android应用).
 
 ### iOS
 
-打包ios应用 (.ipa 文件) 及其准备工作详见 [iOS 教程](/manuals/ios/#creating-an-ios-application-bundle).
+打包ios应用 (.ipa 文件) 及其准备工作详见 [iOS 教程](/manuals/ios/#打包ios应用).
 
 ### OSX
 
@@ -51,7 +51,7 @@ To learn more about build reports please refer to the [Profiling manual](/manual
 
 ### HTML5
 
-打包 HTML5 应用及其参数设置详见 [HTML5 教程](/manuals/html5/#creating-html5-bundle).
+打包 HTML5 应用及其参数设置详见 [HTML5 教程](/manuals/html5/#打包html5应用).
 
 #### Facebook Instant Games
 

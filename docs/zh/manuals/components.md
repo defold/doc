@@ -14,7 +14,7 @@ Defold 提供以下组件类型:
 * [Collection factory](/manuals/collection-factory) - 创建集合实例
 * [Collection proxy](/manuals/collection-proxy) - 加载卸载集合
 * [Collision object](/manuals/physics) - 2D 和 3D 物理
-* [Camera](/manuals/camera) - 修改游戏世界的视口和投射
+* [Camera](/manuals/camera) - 修改游戏世界的视口和映射
 * [Factory](/manuals/factory) - 创建游戏对象实例
 * [GUI](/manuals/gui) - 渲染图形用户界面
 * [Label](/manuals/label) - 渲染文本
@@ -53,7 +53,7 @@ msg.post("#weapon", "enable")
 
 ## 组件属性
 
-Defold 组件属性各不相同.在 [Outline 视图](/manuals/editor/#the-editor-views) 中当前选中的组件属性会显示在编辑器的 [Properties 面板](/manuals/editor/#the-editor-views) 中. 可用组件的详细属性详情请见API教程.
+Defold 组件属性各不相同.在 [Outline 视图](/manuals/editor/#编辑器视图) 中当前选中的组件属性会显示在编辑器的 [Properties 面板](/manuals/editor/#the-editor-views) 中. 可用组件的详细属性详情请见API教程.
 
 ## 位置，旋转和缩放
 
@@ -88,5 +88,5 @@ Defold 组件属性各不相同.在 [Outline 视图](/manuals/editor/#the-editor
 ::: 注意
 如果两个组件 z 值相同则可能造成两个组件来回穿梭闪烁或者不同平台顺序不同的结果.
 
-渲染脚本为 z 值定义了极近端和极远端平面. z值在此范围之外的组件不会被渲染. 默认范围是 -1 到 1 但是 [可以任意修改](/manuals/render/#default-view-projection).
+渲染脚本为 z 值定义了极近端和极远端平面. z值在此范围之外的组件不会被渲染. 默认范围是 -1 到 1 但是 [可以任意修改](/manuals/render/#默认视口映射).
 :::
