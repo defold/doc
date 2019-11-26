@@ -143,7 +143,11 @@
                     },
                     {
                         "path": "https://www.tactxstudios.com/",
-                        "name": "Tactx Studios"
+                        "name": "Tactx Studios tutorials"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
+                        "name": "Tactx Studios video tutorials"
                     }
                 ]
             }
