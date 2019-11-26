@@ -29,13 +29,13 @@ Jesse Warden 写了一篇 [Actionscript 与 Lua 简要对比](http://jessewarden
 
 影片剪辑可以包含其他影片剪辑, 游戏对象不是 *包含* 其他游戏对象. 但是能够与其他游戏对象建立 *父子* 层级关系, 父子关系的游戏对象可以一起移动，旋转和缩放.
 
-## Flash—manually creating movie clips
+## Flash 手动创建影片剪辑
 
-In Flash, instances of movie clips can be added to your scene manually by dragging them from the library and onto the timeline. This is illustrated in the screenshot below, where each Flash logo is an instance of the "logo" movieclip:
+Flash 里, 可以从库中往时间轴上拖放影片剪辑以创建实例. 下图中, 舞台上的每个图标都是logo影片剪辑的实例:
 
 ![manual movie clips](images/flash/manual_movie_clips.png)
 
-## Defold—manually creating game objects
+## Defold 手动创建游戏对象
 
 As mentioned previously, Defold does not have a timeline concept. Instead, game objects are organised in collections. Collections are containers (or prefabs) that hold game objects and other collections. At the most basic level, a game can consist of only one collection. More frequently, Defold games make use of multiple collections, either added manually to the bootstrap “main” collection or dynamically loaded via [collection proxies](/manuals/collection-proxy). This concept of loading "levels" or "screens" does not have a direct Flash equivalent.
 
