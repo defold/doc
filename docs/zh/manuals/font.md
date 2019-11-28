@@ -18,7 +18,7 @@ brief: 本教程介绍了 Defold 如何处理和在游戏中使用字体.
 
 ## 创建字体
 
-在 Defold 中, 可以通过菜单栏 <kbd>File ▸ New...</kbd> 然后旋转 <kbd>Font</kbd> 来新建字体. 或者在 *Assets* 浏览器中 <kbd>右键点击</kbd> ，选择 <kbd>New... ▸ Font</kbd>.
+在 Defold 中, 可以通过菜单栏 <kbd>File ▸ New...</kbd> 然后旋转 <kbd>Font</kbd> 来新建字体. 或者在 *Assets* 浏览器中 <kbd>右键点击</kbd> , 选择 <kbd>New... ▸ Font</kbd>.
 
 ![New font name](images/font/new_font_name.png){srcset="images/font/new_font_name@2x.png 2x"}
 
@@ -57,7 +57,7 @@ brief: 本教程介绍了 Defold 如何处理和在游戏中使用字体.
 : 生成位图时是否抗锯齿. 如果想要像素对齐效果则设置为0.
 
 *Alpha*
-: 文字透明度. 范围 0.0--1.0， 其中 0.0 表示透明 1.0 表示不透明.
+: 文字透明度. 范围 0.0--1.0,  其中 0.0 表示透明 1.0 表示不透明.
 
 *Outline Alpha*
 : 描边透明度. 范围 0.0--1.0.
@@ -132,7 +132,7 @@ Distance field 字体适用于需要放大文字的地方. 相对的位图字体
 
 ![Fonts scaled up](images/font/scale_up.png){srcset="images/font/scale_up@2x.png 2x"}
 
-位图字体缩小的时候没有什么问题， GPU 还会帮助抗锯齿. 位图字体颜色保持得比 distance field 字体好. 下例是字体尺寸 48 像素, 缩小到 1/5:
+位图字体缩小的时候没有什么问题,  GPU 还会帮助抗锯齿. 位图字体颜色保持得比 distance field 字体好. 下例是字体尺寸 48 像素, 缩小到 1/5:
 
 ![Fonts scaled down](images/font/scale_down.png){srcset="images/font/scale_down@2x.png 2x"}
 

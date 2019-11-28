@@ -8,7 +8,7 @@ brief: 本教程介绍了应用的 manifests 混合是如何工作的
 一些平台上需要提供 manifests 片段 (或称存根) 来为扩展提供支持.
 可以是部分 `AndroidManifest.xml`, `Info.plist` 或者 `engine_template.html`
 
-从应用基础 manifest 开始，每个扩展 manifest 存根一个一个的被使用.
+从应用基础 manifest 开始, 每个扩展 manifest 存根一个一个的被使用.
 基础 manifest 可以是默认的 (位于 `builtins\manifests\<platforms>\...`), 也可以是由用户自定义的.
 
 ## 命名和结构

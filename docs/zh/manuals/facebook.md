@@ -9,14 +9,14 @@ Facebook API 作为 [原生扩展](/manuals/extensions/) 提供. 此扩展使得
 
 ## 安装扩展
 
-要使用 Facebook 扩展，需要在 `game.project` 文件中设置依赖. 最新稳定版的 URL 是:
+要使用 Facebook 扩展, 需要在 `game.project` 文件中设置依赖. 最新稳定版的 URL 是:
 ```
 https://github.com/defold/extension-facebook/archive/master.zip
 ```
 
 推荐使用 [指定版本](https://github.com/defold/extension-facebook/releases) 的zip包链接作为依赖.
 
-从 Defold 1.2.162 开始，此扩展需要其他依赖:
+从 Defold 1.2.162 开始, 此扩展需要其他依赖:
 ```
 https://github.com/defold/extension-gps/archive/master.zip
 ```
@@ -48,13 +48,13 @@ API 文档位于 [这里](https://defold.github.io/extension-facebook/).
 
 ![Add new app platform](images/facebook/add_new_app_platform.png)
 
-在 dashboard 里可以随意添加，删除应用或者更改平台设置. 接下来需要设置 *Display Name*, *Namespace* 和 *Category*. 这些也都可以在 dashboard 里设置. 设置完后, Facebook 会给你的应用创建唯一id. *App ID* 是不可修改的.
+在 dashboard 里可以随意添加, 删除应用或者更改平台设置. 接下来需要设置 *Display Name*, *Namespace* 和 *Category*. 这些也都可以在 dashboard 里设置. 设置完后, Facebook 会给你的应用创建唯一id. *App ID* 是不可修改的.
 
 ![New app id](images/facebook/new_app_id.png)
 
 ![App dashboard settings](images/facebook/add_platform.png)
 
-点击 *Settings* 面板. 这里显示了 *App ID*. 你要在 Defold 游戏的 [项目设置](/manuals/project-settings) 里输入这个id. 通过 *Project Explorer* 打开 *game.project* 文件，滚动到 *Facebook* 部分，在 `Appid` 这里填入 *App ID*.
+点击 *Settings* 面板. 这里显示了 *App ID*. 你要在 Defold 游戏的 [项目设置](/manuals/project-settings) 里输入这个id. 通过 *Project Explorer* 打开 *game.project* 文件, 滚动到 *Facebook* 部分, 在 `Appid` 这里填入 *App ID*.
 
 现在回到 Facebook 网站的 *Settings* 页面, 点击 *+ Add Platform* 来为应用设置目标平台. 针对每个平台都有不同的设置.
 
@@ -135,7 +135,7 @@ function init(self)
 end
 ```
 
-直接运行，控制台输出大概这样:
+直接运行, 控制台输出大概这样:
 
 ```txt
 DEBUG:SCRIPT:
@@ -197,7 +197,7 @@ end
 
 各种事件和参数详情请见 [Facebook 扩展 API 文档](https://defold.github.io/extension-facebook/). 这些应该与 Facebook 的 [标准事件](https://developers.facebook.com/docs/analytics/send_data/events#standard) 和 [参数](https://developers.facebook.com/docs/analytics/send_data/events#parameter) 文档相一致.
 
-除了分析统计事件，Defold 使用 Facebook SDK 时也会自动产生一些事件, 比如装机次数启动次数之类的. 详情请见 Facebook 的 [自动日志事件](https://developers.facebook.com/docs/analytics/send_data/events#autologged) 文档.
+除了分析统计事件, Defold 使用 Facebook SDK 时也会自动产生一些事件, 比如装机次数启动次数之类的. 详情请见 Facebook 的 [自动日志事件](https://developers.facebook.com/docs/analytics/send_data/events#autologged) 文档.
 
 事件汇总后会在 Facebook Analytics dashboard 中显示出来, 点击 *View Analytics* 按钮查看分析信息:
 

@@ -13,10 +13,10 @@ Defold 提供了集合或者称为 "prefabs" 的可重用模板机制 . 关于�
 
 ## 新建集合
 
-假设有一个角色对象，在它的子集有个盾牌对象. 我们就可以把这种含嵌套层级关系的组合保存为一个集合文件 "bean.collection".
+假设有一个角色对象, 在它的子集有个盾牌对象. 我们就可以把这种含嵌套层级关系的组合保存为一个集合文件 "bean.collection".
 
 ::: 注意
-*集合代理* 组件用于创建基于集合的游戏世界, 里面可以包含独立的物理世界. 通过新建一个接口，集合中的所有内容通过集合代理加载. 这样可以实现诸如切换关卡之类的功能. 游戏世界通常包含很多东西，如果加载少量内容，不要使用集合代理. 详情请见 [集合代理教程](/manuals/collection-proxy).
+*集合代理* 组件用于创建基于集合的游戏世界, 里面可以包含独立的物理世界. 通过新建一个接口, 集合中的所有内容通过集合代理加载. 这样可以实现诸如切换关卡之类的功能. 游戏世界通常包含很多东西, 如果加载少量内容, 不要使用集合代理. 详情请见 [集合代理教程](/manuals/collection-proxy).
 :::
 
 ![Collection to spawn](images/collection_factory/collection.png)
@@ -68,7 +68,7 @@ pprint(bean_ids)
 
 ## 属性
 
-创建集合的对象时, 可以把属性表作为参数传给集合工厂. 表里的键是对象id，值是这个对象需要设置的属性表.
+创建集合的对象时, 可以把属性表作为参数传给集合工厂. 表里的键是对象id, 值是这个对象需要设置的属性表.
 
 ```lua
 local props = {}
@@ -95,7 +95,7 @@ end
 
 ![Load dynamically](images/collection_factory/load_dynamically.png)
 
-关闭动态加载，则加载集合工厂组件时会同时加载其需要的资源以便工厂可以尽快创建新游戏对象.
+关闭动态加载, 则加载集合工厂组件时会同时加载其需要的资源以便工厂可以尽快创建新游戏对象.
 
 开启动态加载, 有两种用法:
 
@@ -111,7 +111,7 @@ end
   end
 
   function final(self)  
-      -- 删掉游戏对象，资源引用计数减少
+      -- 删掉游戏对象, 资源引用计数减少
       -- 本例中集合工厂资源也会被卸载
       -- 因为集合工厂组件不包含对资源的引用.
       go.delete_all(self.go_ids)
@@ -127,7 +127,7 @@ end
 
   ```lua
   function load_complete(self, url, result)
-      -- 资源加载完成，可以新建对象
+      -- 资源加载完成, 可以新建对象
       self.go_ids = collectionfactory.create(url)
   end
 
@@ -138,12 +138,12 @@ end
   end
 
   function final(self)
-      -- 删掉游戏对象，资源引用计数减少
+      -- 删掉游戏对象, 资源引用计数减少
       -- 本例中集合工厂资源不会被卸载
       -- 因为集合工厂组件包含对资源的引用.
       go.delete_all(self.go_ids)
 
-      -- 调用 unload 函数，集合工厂对资源引用被释放,
+      -- 调用 unload 函数, 集合工厂对资源引用被释放,
       -- 这样资源才会被卸载.
       collectionfactory.unload("#factory")
   end

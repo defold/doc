@@ -5,7 +5,7 @@ brief: 本教程介绍了 HTML5 游戏开发, 及其已知问题和局限性.
 
 # HTML5 开发
 
-通过编辑器编译菜单可以看到，Defold 支持导出 HTML5 游戏. 进一步说, 游戏会通过一个模板系统嵌入到一个 HTML 页面之中.
+通过编辑器编译菜单可以看到, Defold 支持导出 HTML5 游戏. 进一步说, 游戏会通过一个模板系统嵌入到一个 HTML 页面之中.
 
 *game.project* 文件包含了 HTML5 相关设置:
 
@@ -40,7 +40,7 @@ Python 3:
 
 ## 打包 HTML5 游戏
 
-Defold 打包 HTML5 游戏很简单，跟其他平台一样: 从菜单栏选择 <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd>:
+Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd>:
 
 ![Application files](images/html5/html5_bundle.png)
 
@@ -83,7 +83,7 @@ Defold 提供了 index.html 文件的亮暗两种风格. 默认亮风格但是�
 
 ### Fit 和 Downscale Fit
 
-使用 `Fit` 模式 canvas 会以原始比例缩放来适配当前屏幕. `Downscale Fit` 的区别在于，如果内嵌网页比游戏 canvas 小, 则游戏缩小；反之则以原始大小显示而并不放大=.
+使用 `Fit` 模式 canvas 会以原始比例缩放来适配当前屏幕. `Downscale Fit` 的区别在于, 如果内嵌网页比游戏 canvas 小, 则游戏缩小；反之则以原始大小显示而并不放大=.
 
 ![HTML5 Section](images/html5/html5_fit.png)
 
@@ -126,7 +126,7 @@ function doSomething() {
 而且, 我们还可以自定义标注:
 
 DEFOLD_SPLASH_IMAGE
-: 溅射屏幕图片文件名，如果 `game.project` 里的 `html5.splash_image` 为空，则设置为 `false`.
+: 溅射屏幕图片文件名, 如果 `game.project` 里的 `html5.splash_image` 为空, 则设置为 `false`.
 
 
 ```css
@@ -166,10 +166,10 @@ DEFOLD_SCALE_MODE_IS_STRETCH
 : 如果 `html5.scale_mode` 是 `Stretch` 的话则值为 `true`.
 
 DEFOLD_HEAP_SIZE
-: 在 `game.project` 里设置的内存大小，`html5.heap_size` 的值以字节为单位.
+: 在 `game.project` 里设置的内存大小, `html5.heap_size` 的值以字节为单位.
 
 DEFOLD_ENGINE_ARGUMENTS
-: 在 `game.project` 里设置的引擎参数，`html5.engine_arguments` 以逗号 `,` 分隔.
+: 在 `game.project` 里设置的引擎参数, `html5.engine_arguments` 以逗号 `,` 分隔.
 
 
 ## 额外参数
@@ -178,7 +178,7 @@ DEFOLD_ENGINE_ARGUMENTS
 ```
 `Module.runApp("canvas", extra_params) - 通过指定canvas启动游戏
 
-'extra_params' 可选的额外参数，如下:
+'extra_params' 可选的额外参数, 如下:
 
 'archive_location_filter':
     包地址过滤.
@@ -211,4 +211,4 @@ DEFOLD_ENGINE_ARGUMENTS
 
 ## HTML5 的文件操作
 
-HTML5 支持 `sys.save()`, `sys.load()` 和 `io.open()` 之类的文件操作，但是与其他平台实现方法不同. 基于安全考虑浏览器里运行的 Javascript 无权直接读写本地文件. Emscripten (即 Defold) 使用 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) 代替, 它是基于浏览器的持久化存储方案, 基于浏览器的虚拟文件系统. 与其他平台的区别主要是比直接读写文件要慢而且实质上读写的是一个数据库. 浏览器开发者工具通常都提供了 IndexedDB 的读写功能.
+HTML5 支持 `sys.save()`, `sys.load()` 和 `io.open()` 之类的文件操作, 但是与其他平台实现方法不同. 基于安全考虑浏览器里运行的 Javascript 无权直接读写本地文件. Emscripten (即 Defold) 使用 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) 代替, 它是基于浏览器的持久化存储方案, 基于浏览器的虚拟文件系统. 与其他平台的区别主要是比直接读写文件要慢而且实质上读写的是一个数据库. 浏览器开发者工具通常都提供了 IndexedDB 的读写功能.

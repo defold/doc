@@ -13,7 +13,7 @@ SpineModel 组件用于把 _Spine_ 骨骼动画在 Defold 中呈现出来.
 
 方法一 直接创建组件(<kbd>右键点击</kbd> 游戏对象选择 <kbd>Add Component ▸ Spine Model</kbd>)
 
-方法二 先创建文件 (在 *资源* 浏览器中 <kbd>右键点击</kbd>, 在上下文菜单中选择 <kbd>New... ▸ Spine Model</kbd>), 再在游戏对象上 <kbd>右键点击</kbd> ，选择 <kbd>Add Component File</kbd>).
+方法二 先创建文件 (在 *资源* 浏览器中 <kbd>右键点击</kbd>, 在上下文菜单中选择 <kbd>New... ▸ Spine Model</kbd>), 再在游戏对象上 <kbd>右键点击</kbd> , 选择 <kbd>Add Component File</kbd>).
 
 设置组件 *Properties*:
 

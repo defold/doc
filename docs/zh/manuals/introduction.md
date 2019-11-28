@@ -5,9 +5,9 @@ brief: Defold 简介.
 
 # 欢迎来到 Defold
 
-Defold 被设计为一个专业的游戏开发平台. 它能帮助开发团队设计，构建以及 _发布_ 游戏产品. 它并不高度集成一切功能. 目前也没有特别复杂的组件. 相对的, 我们相信Defold可以为开发团队提供简便的, 适于多人共同开发合作的工具. 这就需要你来手动完成一些工作, 与此同时也使得你的道路和目标更加明晰.
+Defold 被设计为一个专业的游戏开发平台. 它能帮助开发团队设计, 构建以及 _发布_ 游戏产品. 它并不高度集成一切功能. 目前也没有特别复杂的组件. 相对的, 我们相信Defold可以为开发团队提供简便的, 适于多人共同开发合作的工具. 这就需要你来手动完成一些工作, 与此同时也使得你的道路和目标更加明晰.
 
-不管是菜鸟还是老司机, 你可能一时无法充分理解我们的理念. 对此我们鼓励你去实验，看教程，看教程和API文档, 在论坛里积极学习和关注其他使用Defold的老同志.
+不管是菜鸟还是老司机, 你可能一时无法充分理解我们的理念. 对此我们鼓励你去实验, 看教程, 看教程和API文档, 在论坛里积极学习和关注其他使用Defold的老同志.
 
 ## 从哪开始?
 
@@ -26,10 +26,10 @@ Defold 被设计为一个专业的游戏开发平台. 它能帮助开发团队�
 : ![Tutorials](images/introduction/tutorials.jpg){.left} 我们相信做是学的最好方法. 这就是我们花费很多精力在Defold [编辑器](/manuals/editor/) 里集成一些教程和复杂关卡的原因.打开一两个教程跟着做一遍就知道 Defold 是怎么编译和工作的了.
 
 #### Defold 的资源组成
-: ![Building blocks](images/introduction/building_blocks.png){.left} [Defold 游戏由许多资源构成](/manuals/building-blocks/), 有些和其他游戏引擎类似. 还有另一些 Defold 里特有的，用熟才感觉方便的东西. 要想知道Defold的底层工作方式可以先从资源教程学起.
+: ![Building blocks](images/introduction/building_blocks.png){.left} [Defold 游戏由许多资源构成](/manuals/building-blocks/), 有些和其他游戏引擎类似. 还有另一些 Defold 里特有的, 用熟才感觉方便的东西. 要想知道Defold的底层工作方式可以先从资源教程学起.
 
 #### 社区论坛
-: ![论坛](images/introduction/forum.jpg){.left} [论坛](//forum.defold.com/) 是一个互相学习的好地方. 我们的社区很友好，我们的老司机在游戏开发，尤其是 Defold 开发方面都很精通. 如果你卡壳了, 可以来论坛寻求帮助!
+: ![论坛](images/introduction/forum.jpg){.left} [论坛](//forum.defold.com/) 是一个互相学习的好地方. 我们的社区很友好, 我们的老司机在游戏开发, 尤其是 Defold 开发方面都很精通. 如果你卡壳了, 可以来论坛寻求帮助!
 
 不管从哪开始学习 Defold, 都可以随时回来这个页面再深入理解 Defold 提供的功能和方法. 哪里不理解或者哪里写错了都可以跟我们说. 我们的初衷就是把这套教程做的尽善尽美.
 

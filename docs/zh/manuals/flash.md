@@ -27,7 +27,7 @@ Jesse Warden 写了一篇 [Actionscript 与 Lua 简要对比](http://jessewarden
 
 ![script component](images/flash/script_component.png)
 
-影片剪辑可以包含其他影片剪辑, 游戏对象不是 *包含* 其他游戏对象. 但是能够与其他游戏对象建立 *父子* 层级关系, 父子关系的游戏对象可以一起移动，旋转和缩放.
+影片剪辑可以包含其他影片剪辑, 游戏对象不是 *包含* 其他游戏对象. 但是能够与其他游戏对象建立 *父子* 层级关系, 父子关系的游戏对象可以一起移动, 旋转和缩放.
 
 ## Flash 手动创建影片剪辑
 
@@ -37,90 +37,90 @@ Flash 里, 可以从库中往时间轴上拖放影片剪辑以创建实例. 下�
 
 ## Defold 手动创建游戏对象
 
-As mentioned previously, Defold does not have a timeline concept. Instead, game objects are organised in collections. Collections are containers (or prefabs) that hold game objects and other collections. At the most basic level, a game can consist of only one collection. More frequently, Defold games make use of multiple collections, either added manually to the bootstrap “main” collection or dynamically loaded via [collection proxies](/manuals/collection-proxy). This concept of loading "levels" or "screens" does not have a direct Flash equivalent.
+上文说了, Defold 没有时间轴概念. 但是, 集合可以用来管理游戏对象. 集合是容纳游戏对象和其他集合的容器 (或称 prefabs). 最简单的情况, 一个游戏有一个集合. 通常, Defold 游戏包含许多集合, 或者手动指定启动 “main” 集合或者通过 [集合代理](/manuals/collection-proxy) 动态载入集合. 但是 Flash 的 "levels" 或者 "screens" 没有这个能力.
 
-In the example below, the "main" collection contains three instances (listed on the right, in the *Outline* window) of the "logo" game object (seen on the left, in the *Assets* browser window):
+下面的例子里, "main" 集合 (看右边, *Outline* 窗口里) 包含3个 "logo" 游戏对象 (看左边, *Assets* 浏览器窗口里):
 
 ![manual game objects](images/flash/manual_game_objects.png)
 
-## Flash—referencing manually created movie clips
+## Flash—手动引用影片剪辑
 
-Referring to manually created movie clips in Flash requires the use of a manually defined instance name:
+Flash 需要定义影片剪辑实例名再手动引用:
 
 ![flash instance name](images/flash/flash_instance_name.png)
 
-## Defold—Game object id
+## Defold—游戏对象id
 
-In Defold, all game objects and components are referred to via an address. In most cases only a simple name, or a shorthand is sufficient. For example:
+Defold 通过地址引用所有对象. 多数情况下使用快捷地址或者短小的名字就好. 例如:
 
-- `"."` addresses the current game object.
-- `"#"` addresses the current component (the script).
-- `"logo"` addresses the game object with the id "logo".
-- `"#script"` addresses the component with id "script" in the current game object.
-- `"logo#script"` addresses the component with id "script" in the game object with id "logo".
+- `"."` 定位当前游戏对象.
+- `"#"` 定位当前脚本组件.
+- `"logo"` 定位 id 叫 "logo" 的游戏对象.
+- `"#script"` 定位当前游戏对象里 id 叫 "script" 的脚本组件.
+- `"logo#script"` 定位游戏对象 "logo" 下的 "script" 脚本.
 
-The address of manually placed game objects is determined by the *Id* property assigned (see bottom right of screenshot). The id has to be unique for the current collection file you are working in. The editor automatically sets an id for you but you can change it for each game object instance that you create.
+手动拖放对象的地址由 *Id* 属性 (上图右下角) 决定. 每个集合里一个对象的id是唯一的. 编辑器可以自动生成默认id但是所有对象的id都可以随意更改.
 
 ![game object id](images/flash/game_object_id.png)
 
-::: sidenote
-You can find the id of a game object by running the following code in its script component: `print(go.get_id())`. This will print the id of the current game object in the console.
+::: 注意
+对象的id可以使用脚本: `print(go.get_id())` 查看. 它会在控制台打印出当前游戏对象的id.
 :::
 
-The addressing model and message passing are key concepts in Defold game development. The [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing) explains these in great detail.
+地址定位和消息传递是 Defold 游戏开发的核心概念. [定位教程](/manuals/addressing) 和 [消息传递教程](/manuals/message-passing) 里有更详细的介绍.
 
-## Flash—dynamically creating movie clips
+## Flash—动态创建影片剪辑
 
-In order to dynamically create movie clips in Flash, ActionScript Linkage first needs to be set up:
+Flash 里动态创建影片剪辑, 需要预先设置好 ActionScript Linkage:
 
 ![actionscript linkage](images/flash/actionscript_linkage.png)
 
-This creates a class (Logo in this case), which then enables instantiation of new instances of this class. Adding an instance of the Logo class to the Stage could be done as below:
+它创建了一个类 (本例是 Logo 图标), 这个类可以用于创建对象. 如下代码使用Logo类在舞台上创建了logo对象:
 
 ```as
 var logo:Logo = new Logo();
 addChild(logo);
 ```
 
-## Defold—creating game objects using factories
+## Defold—使用工厂创建游戏对象
 
-In Defold, dynamic generation of game objects is achieved through the use of *factories*. Factories are components that are used to spawn copies of a specific game object. In this example, a factory has been created with the "logo" game object as a prototype:
+Defold 使用 *工厂* 动态创建游戏对象. 工厂是创建游戏对象拷贝的组件. 本例中, 以 "logo" 游戏对象为原型创建了一个工厂组件:
 
 ![logo factory](images/flash/logo_factory.png)
 
-It is important to note that factories, like all components, need to be added to a game object before they can be used. In this example, we have created a game object called "factories", to hold our factory component:
+注意工厂组件, 需要像其他组件一样, 需要添加到游戏对象里才能用. 本例中, 我们创建了叫做 "factories" 的游戏对象, 来容纳工厂组件:
 
 ![factory component](images/flash/factory_component.png)
 
-The function to call to generate an instance of the logo game object is:
+如下代码使用工厂创建了游戏对象实例:
 
 ```lua
 local logo_id = factory.create("factories#logo_factory")
 ```
 
-The URL is a required parameter of `factory.create()`. In addition, you can add optional parameters to set position, rotation, properties, and scale. For more information on the factory component, please see the [factory manual](/manuals/factory). It is worth noting that calling `factory.create()` returns the id of the created game object. This id can be stored for later reference in a table (which is the Lua equivalent of an array).
+URL 是 `factory.create()` 函数的必要参数. 此外, 还有可选参数用以设置位置, 旋转, 缩放, 和其他属性. 工厂组件详情请见 [工厂教程](/manuals/factory). 注意调用 `factory.create()` 可返回被创建游戏对象的id. 可以把这个id放入表中留待以后引用 (Lua 的表相当于其他语言的数组).
 
-## Flash—stage
+## Flash—物体
 
-In Flash, we are familiar with the Timeline (top section of the screenshot below) and the Stage (visible below the Timeline):
+Flash 里经常使用时间轴 (下图上半部分) 和舞台 (时间轴下方):
 
 ![timeline and stage](images/flash/stage.png)
 
-As discussed in the movie clips section above, the Stage is essentially the top level container of a Flash game and is created each time a project is exported. The Stage will by default have one child, the *MainTimeline*. Each movie clip generated in the project will have its own timeline, and can serve as a container for other symbols (including movie clips).
+就像上文提到的影片剪辑容器, 舞台是Flash游戏的顶级容器. 舞台默认有一个子集, 叫 *MainTimeline*. 项目中每个影片剪辑都有子集的时间轴, 可以作为容纳其他组件的容器 (包括可以嵌套影片剪辑).
 
-## Defold—collections
+## Defold—集合
 
-The Defold equivalent of the Flash Stage is a collection. When the engine starts up it creates a new game world based on the content of a collection file. By default, this file is called "main.collection" but you can change which collection is loaded at startup by accessing the *game.project* settings file that is in the root of every Defold project:
+Defold 的集合类似于舞台. 引擎启动时集合文件的内容组成了游戏世界. 默认启动集合叫 "main.collection" 但是可以在 *game.project* 项目配置文件里随意更改:
 
 ![game.project](images/flash/game_project.png)
 
-Collections are containers that are used in the editor to organize game objects and other collections. The contents of a collection can also be spawned via script into the runtime using a [collection factory](/manuals/collection-factory/#spawning-a-collection), which works the same way as a regular game object factory. This is useful for spawning groups of enemies, or a pattern of coin collectables, for instance. In the screenshot below, we have manually placed two instances of the "logos" collection into the "main" collection.
+集合作为容器管理着游戏对象和其他集合. 通过 [集合工厂](/manuals/collection-factory/#创建集合) 可以在运行时动态创建集合内容, 就像游戏对象工厂创建游戏对象一样. 集合可以包含多组敌人, 或者一堆钱币, 之类的. 下图中, 我们手动拖放了两组 "logos" 集合到 "main" 集合中.
 
 ![collection](images/flash/collection.png)
 
-In some cases, you want to load a completely new game world. The [collection proxy](/manuals/collection-proxy/) component allows you to create a new game world based on the contents of a collection file. This would be useful for scenarios such as loading new game levels, mini games, or cutscenes.
+有时, 你需要载入完整的游戏世界. [集合代理](/manuals/collection-proxy/) 组件能让你基于集合文件内容创建一个新的游戏世界. 这在诸如需要加载关卡, 迷你游戏, 或者过场动画之类的功能时很有用.
 
-## Flash—timeline
+## Flash—时间轴
 
 The Flash timeline is primarily used for animation, using various frame by frame techniques or shape/motion tweens. The overall FPS (frames per second) setting of the project defines the length of time a frame is displayed. Advanced users can modify the overall FPS of the game, or even that of individual movie clips.
 

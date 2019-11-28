@@ -11,7 +11,7 @@ brief: 本教程介绍了 GUI 脚本.
 
 要在 GUI 上添加脚本, 首先在 *Assets* 浏览器里<kbd>右键点击</kbd> 再在弹出菜单选择 <kbd>New ▸ Gui Script</kbd> 来创建 GUI 脚本.
 
-编辑器会自动打开脚本文件. 它基于一个模板，各种空白生命周期函数齐全, 跟游戏对象脚本一样:
+编辑器会自动打开脚本文件. 它基于一个模板, 各种空白生命周期函数齐全, 跟游戏对象脚本一样:
 
 ```lua
 function init(self)
@@ -45,7 +45,7 @@ function on_reload(self)
 end
 ```
 
-要把脚本添加到 GUI 组件, 打开 GUI 蓝图文件，在 *Outline* 里选择根节点显示出 GUI *Properties*. 把 *Script* 属性设置为脚本文件即可.
+要把脚本添加到 GUI 组件, 打开 GUI 蓝图文件, 在 *Outline* 里选择根节点显示出 GUI *Properties*. 把 *Script* 属性设置为脚本文件即可.
 
 ![Script](images/gui-script/set_script.png){srcset="images/gui-script/set_script@2x.png 2x"}
 
@@ -53,7 +53,7 @@ end
 
 ## "gui" 命名空间
 
-GUI 脚本访问 `gui` 命名空间及其 [所有gui函数](/ref/gui). `go` 命名空间不可用，所以要注意区分游戏对象的脚本组件以及二者间的消息传递. 尝试使用 `go` 函数会报错:
+GUI 脚本访问 `gui` 命名空间及其 [所有gui函数](/ref/gui). `go` 命名空间不可用, 所以要注意区分游戏对象的脚本组件以及二者间的消息传递. 尝试使用 `go` 函数会报错:
 
 ```lua
 function init(self)
@@ -138,7 +138,7 @@ gui.set_position(new_root, root_position)
 
 ## 动态节点id
 
-动态创建的节点没有id. 设计上就是这样. 引用由 `gui.new_[type]_node()`, `gui.clone()` 和 `gui.clone_tree()` 函数返回，这是访问动态节点的唯一途径，记得保留好这个引用.
+动态创建的节点没有id. 设计上就是这样. 引用由 `gui.new_[type]_node()`, `gui.clone()` 和 `gui.clone_tree()` 函数返回, 这是访问动态节点的唯一途径, 记得保留好这个引用.
 
 ```lua
 -- 添加文本节点

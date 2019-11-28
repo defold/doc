@@ -5,7 +5,7 @@ brief: 本教程介绍了如何打包应用.
 
 # 打包应用
 
-开发项目时常常需要在目标平台上进行测试. 开发中越早发现性能问题越好解决. 同样鼓励在各平台间做测试以便发现诸如shader之类的兼容问题. 在做手机开发时可以使用 [手机开发应用](/manuals/dev-app/) 把内容推送到手机上，避免反复的安装和卸载.
+开发项目时常常需要在目标平台上进行测试. 开发中越早发现性能问题越好解决. 同样鼓励在各平台间做测试以便发现诸如shader之类的兼容问题. 在做手机开发时可以使用 [手机开发应用](/manuals/dev-app/) 把内容推送到手机上, 避免反复的安装和卸载.
 
 你可以在 Defold 编辑器中生成其支持的所有平台应用, 不需要外界工具辅助. 也可以在控制台使用命令行工具打包应用. 如果应用里包含 [原生扩展](/manuals/extensions) 的话打包时需要网络连接.
 
@@ -35,15 +35,15 @@ To learn more about build reports please refer to the [Profiling manual](/manual
 
 ### OSX
 
-打包 OSX 应用 (.app 文件) 无需什么准备, 但是要在 "game.project" 文件中做相应设置，详见 [项目配置文件](/manuals/project-settings/#macos--os-x).
+打包 OSX 应用 (.app 文件) 无需什么准备, 但是要在 "game.project" 文件中做相应设置, 详见 [项目配置文件](/manuals/project-settings/#macos--os-x).
 
 ### Linux
 
-打包 Linux 应用无需什么准备, 但是要在 "game.project" 文件中做相应设置，详见 [项目配置文件](/manuals/project-settings/).
+打包 Linux 应用无需什么准备, 但是要在 "game.project" 文件中做相应设置, 详见 [项目配置文件](/manuals/project-settings/).
 
 ### Windows
 
-打包 Windows 应用 (.exe file) 无需什么准备, 但是要在 "game.project" 文件中做相应设置，详见但是要在 "game.project" 文件中做相应设置，详见 [项目配置文件](/manuals/project-settings/#windows).
+打包 Windows 应用 (.exe file) 无需什么准备, 但是要在 "game.project" 文件中做相应设置, 详见但是要在 "game.project" 文件中做相应设置, 详见 [项目配置文件](/manuals/project-settings/#windows).
 
 #### Facebook Gameroom
 

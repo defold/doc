@@ -5,7 +5,7 @@ brief: 本教程介绍了如何通过 _Spine_ 或者 _Dragon Bone_ 把骨骼动�
 
 # Spine 动画
 
-_Spine_ 是由 Esoteric Software 开发的第三方动画工具，可以让你使用 _骨骼_ 绑定的技术创建动画. 这对于角色或者动物动画非常方便, 对制作其他动画也很有帮助, 比如绳子, 车辆或者树叶.
+_Spine_ 是由 Esoteric Software 开发的第三方动画工具, 可以让你使用 _骨骼_ 绑定的技术创建动画. 这对于角色或者动物动画非常方便, 对制作其他动画也很有帮助, 比如绳子, 车辆或者树叶.
 
 Defold 实现了 [Spine JSON 格式](http://esotericsoftware.com/spine-json-format) 的运行时和动画表达.
 
@@ -22,7 +22,7 @@ Defold 支持 Spine runtime 2.x 功能. 少量支持 Spine 3.x 功能. 为了保
 ## 概念
 
 *Spine JSON 数据文件*
-: 此数据文件包含骨架, 所有图片插槽名, 皮肤和动画数据. 虽然图片文件并不嵌入在这个文件里. Spine 和 Dragon Bones 都可以生成这个文件，喜欢用哪个就用哪个.
+: 此数据文件包含骨架, 所有图片插槽名, 皮肤和动画数据. 虽然图片文件并不嵌入在这个文件里. Spine 和 Dragon Bones 都可以生成这个文件, 喜欢用哪个就用哪个.
 
 *Spine scene*
 : 把 Spine JSON 数据文件和 Defold 图集文件做捆绑以便在骨骼插槽上显示图片内容.
@@ -46,7 +46,7 @@ _Dragon Bones_ 软件主页 http://dragonbones.com
 ![Dragon Bones](images/spine/dragonbones.png)
 
 ::: 注意
-_Dragon Bones_ 输出的 Spine JSON 数据文件应该能正常使用. 如果发现 _Dragon Bones_ 输出文件在 Defold 中显示不正确，我们推荐先用官方 [Spine Skeleton Viewer](http://esotericsoftware.com/spine-skeleton-viewer) 检查数据是否能正确读出. Spine Skeleton Viewer 能够指出数据文件问题所在, 比如实例或者数据项缺失.
+_Dragon Bones_ 输出的 Spine JSON 数据文件应该能正常使用. 如果发现 _Dragon Bones_ 输出文件在 Defold 中显示不正确, 我们推荐先用官方 [Spine Skeleton Viewer](http://esotericsoftware.com/spine-skeleton-viewer) 检查数据是否能正确读出. Spine Skeleton Viewer 能够指出数据文件问题所在, 比如实例或者数据项缺失.
 :::
 
 
@@ -97,7 +97,7 @@ Defold 通过 Lua 接口实现了全方位控制 Spine 动画播放的运行环�
 
 ![Spine images hierarchy](images/spine/spine_images.png)
 
-上图中图片没有嵌套关系. 但是通常, 图片会被分组放入子目录下，其引用就包含了子目录前缀. 比如, 骨骼插槽对文件 *head_parts/eyes.png* 的引用就是 *head_parts/eyes*. 输出的 JSON 文件图片引用也是这个所以 Defold 图集中图片名要与之相匹配.
+上图中图片没有嵌套关系. 但是通常, 图片会被分组放入子目录下, 其引用就包含了子目录前缀. 比如, 骨骼插槽对文件 *head_parts/eyes.png* 的引用就是 *head_parts/eyes*. 输出的 JSON 文件图片引用也是这个所以 Defold 图集中图片名要与之相匹配.
 
 在 Defold 里 <kbd>Add Images</kbd> 时, 图片会以文件名去掉后缀的方法命名. 所以对于 *eyes.png* 自动命名就是 "eyes". 这样正好但是这是不带路径的情况.
 

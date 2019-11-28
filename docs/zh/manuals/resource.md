@@ -11,7 +11,7 @@ brief: 本教程介绍了 Defold 如何自动管理资源以及如何手动加�
 
 编译 Defold 游戏, 就生成了静态资源树. 游戏里的各个部分都链接在资源树上, 第一个便是引导启动集合 (一般命名为 "main.collection"). 资源树链接了各种各样的资源:
 
-- 游戏对象和组件数据 (图集，声音之类的).
+- 游戏对象和组件数据 (图集, 声音之类的).
 - 工厂组件原型 (游戏对象和集合).
 - 集合代理组件数据 (集合).
 - 在 "game.project" 中定义的用户数据.
@@ -31,7 +31,7 @@ brief: 本教程介绍了 Defold 如何自动管理资源以及如何手动加�
 - 集合代理未加载内容. 这些内容需要在代码里手动实施加载和卸载. 详情请见 [集合代理教程](/manuals/collection-proxy).
 - 在 "game.project" 文件中 *Custom Resources* 里的资源. 这些资源需要手动使用 [sys.load_resource()](/ref/sys/#sys.load_resource) 函数加载.
 
-Defold 打包和加载资源的方法可以被修改具体到如何，何时把资源读入内存.
+Defold 打包和加载资源的方法可以被修改具体到如何, 何时把资源读入内存.
 
 ![Resource loading](images/resource/loading.png)
 
@@ -52,7 +52,7 @@ Defold 打包和加载资源的方法可以被修改具体到如何，何时把�
 
 Defold 持有所有资源的引用计数. 引用数为0则表示资源不被使用. 这样的资源会从内存自动卸载. 比如, 如果你删除了工厂所有实例连同工厂组件所在的游戏对象, 那么此工厂引用的资源就会被自动释放.
 
-对于标记为 *Load Dynamically* 的工厂，可以调用 [`factory.unload()`](/ref/factory/#factory.unload) 或者 [`collectionfactory.unload()`](/ref/collectionfactory/#collectionfactory.unload) 函数. 这样就手动释放了动态加载工厂所引用的资源. 如果一个资源没有任何引用 (比如，所有引用它的游戏对象都被删除了), 则它也会从内存中被卸载.
+对于标记为 *Load Dynamically* 的工厂, 可以调用 [`factory.unload()`](/ref/factory/#factory.unload) 或者 [`collectionfactory.unload()`](/ref/collectionfactory/#collectionfactory.unload) 函数. 这样就手动释放了动态加载工厂所引用的资源. 如果一个资源没有任何引用 (比如, 所有引用它的游戏对象都被删除了), 则它也会从内存中被卸载.
 
 ## 打包排除资源
 

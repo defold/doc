@@ -9,7 +9,7 @@ brief: 本教程介绍了如何在设备上安装开发用app以方便开发流�
 
 ## 安装开发用app
 
-使用引擎Debug打包的应用都可以用作开发用app. Android 上我们以及提供了 Defold 引擎的开发用app， 但是在 iOS 上的开发用app需要你使用自己的 signing identity 和 provisioning profile 手动打包并签名.
+使用引擎Debug打包的应用都可以用作开发用app. Android 上我们以及提供了 Defold 引擎的开发用app,  但是在 iOS 上的开发用app需要你使用自己的 signing identity 和 provisioning profile 手动打包并签名.
 
 ### 在 iOS 上安装
 
@@ -55,7 +55,7 @@ Success
 
 ### 在 Windows 上使用 USB 连接 iOS 设备
 
-要在 Windows 上使用 USB 连接运行于 iOS 设备上的app，首先 [安装 iTunes](https://www.apple.com/lae/itunes/download/). 安装完之后还需从iOS设备的设置菜单里 [开启 Personal Hotspot](https://support.apple.com/en-us/HT204023). 如果跳出 "Trust This Computer?" 则选择 Trust. 这样设备就会出现在 <kbd>Project ▸ Targets</kbd> 列表中了.
+要在 Windows 上使用 USB 连接运行于 iOS 设备上的app, 首先 [安装 iTunes](https://www.apple.com/lae/itunes/download/). 安装完之后还需从iOS设备的设置菜单里 [开启 Personal Hotspot](https://support.apple.com/en-us/HT204023). 如果跳出 "Trust This Computer?" 则选择 Trust. 这样设备就会出现在 <kbd>Project ▸ Targets</kbd> 列表中了.
 
 ### 在 Linux 上使用 USB 连接 iOS 设备
 
@@ -63,13 +63,13 @@ Linux 上同样开启 Personal Hotspot 然后 "Trust This Computer".
 
 ### 在 OSX 上使用 USB 连接 iOS 设备
 
-当设备与 OSX 通过 USB 连线时，新版本 iOS 能自动开启连接， <kbd>Project ▸ Targets</kbd> 会自动显示出设备.
+当设备与 OSX 通过 USB 连线时, 新版本 iOS 能自动开启连接,  <kbd>Project ▸ Targets</kbd> 会自动显示出设备.
 
 老iOS设备还是同样开启 Personal Hotspot 然后 "Trust This Computer".
 
 ### 在 OSX 上使用 USB 连接 Android 设备
 
-当设备处于 USB 共享模式时， 可以通过 USB 连接设备与 OSX. 在 MacOS 上需要安装 [HoRNDIS](https://joshuawise.com/horndis#available_versions) 这类的第三方驱动程序. 当 HoRNDIS 安装好后还需要在 Security & Privacy 设置里允许其运行. 设备上开启 USB 共享模式后就会出现在 <kbd>Project ▸ Targets</kbd> 列表中了.
+当设备处于 USB 共享模式时,  可以通过 USB 连接设备与 OSX. 在 MacOS 上需要安装 [HoRNDIS](https://joshuawise.com/horndis#available_versions) 这类的第三方驱动程序. 当 HoRNDIS 安装好后还需要在 Security & Privacy 设置里允许其运行. 设备上开启 USB 共享模式后就会出现在 <kbd>Project ▸ Targets</kbd> 列表中了.
 
 ### 在 Windows 或 Linux 上使用 USB 连接 Android 设备
 

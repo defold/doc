@@ -14,14 +14,14 @@ Defold 内置支持多种动画:
 
 ## 逐帧动画
 
-A flip book animation consists of a series of still images that are shown in succession. The technique is very similar to traditional cell animation (see http://en.wikipedia.org/wiki/Traditional_animation). The technique offers limitless opportunities since each frame can be manipulated individually. However, since each frame is stored in a unique image, the memory footprint can be high. The smoothness of animation is also dependent on the number of images shown each second but increasing the number of images usually also increase the amount of work. Defold flip book animations are either stored as individual images added to an [Atlas](/manuals/atlas), or as a [Tile Source](/manuals/tilesource) with all frames laid out in a horizontal sequence.
+逐帧动画就是由一些列静态图片轮流显示生成的动画. 这种技术类似于老式翻页动画 (详见 http://en.wikipedia.org/wiki/Traditional_animation). 由于每帧的独立性使得这种技术很自由. 但是每帧一张图片会很耗费内存. 相似图片越多动画过渡越平滑同时也带来了巨大的工作量. Defold 逐帧动画使用来自于 [图集](/manuals/atlas), 或者 [瓷砖图源](/manuals/tilesource) 里水平排列的图片.
 
   ![Animation sheet](images/animation/animsheet.png){.inline}
   ![Run loop](images/animation/runloop.gif){.inline}
 
-## Spine animation
+## Spine 动画
 
-Spine animation provides 2D _skeletal animation_ support (see http://en.wikipedia.org/wiki/Skeletal_animation). This is a fundamentally different technique that is closer to cutout animation. In cutout animation separate pieces of the animated object (e.g body parts, eyes, mouth etc) are moved individually between each frame. Spine animation let you build an invisible, virtual skeleton consisting of a hierarchy of interconnected _bones_. This skeleton, or _rig_, is then animated and individual images are attached to the bones. Defold supports animations created or exported in the [Spine JSON format](http://esotericsoftware.com/spine-json-format). Skeletal animation is very smooth since the engine can interpolate the location of each bone for each frame.
+Spine 动画提供 2D _骨骼动画_ 支持 (详见 http://en.wikipedia.org/wiki/Skeletal_animation). 这是一种类似于裁剪动画的独特技术. In cutout animation separate pieces of the animated object (e.g body parts, eyes, mouth etc) are moved individually between each frame. Spine animation let you build an invisible, virtual skeleton consisting of a hierarchy of interconnected _bones_. This skeleton, or _rig_, is then animated and individual images are attached to the bones. Defold supports animations created or exported in the [Spine JSON format](http://esotericsoftware.com/spine-json-format). Skeletal animation is very smooth since the engine can interpolate the location of each bone for each frame.
 
   For details on how to import Spine data into a Spine model for animation, see the [Spine documentation](/manuals/spine).
 

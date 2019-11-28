@@ -29,7 +29,7 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 ```
 
 Compress Archive
-: 打包时启用压缩. 注意此设置除了 Android 都有效，因为apk已经是压缩档了.
+: 打包时启用压缩. 注意此设置除了 Android 都有效, 因为apk已经是压缩档了.
 
 Dependencies
 : 项目的 *Library URL* 列表. 详情请见 [Libraries 教程](/manuals/libraries/).
@@ -285,10 +285,10 @@ Max Count
 ## iOS
 
 App Icon 57x57--180x180
-: 用于应用图标的图片 (.png) 文件，宽高分辨率表示为 `W` &times; `H`.
+: 用于应用图标的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`.
 
 Launch Image 320x480--2436x1125
-: 用于应用启动图的图片 (.png) 文件，宽高分辨率表示为 `W` &times; `H`. iOS 基于启动图选择分辨率.
+: 用于应用启动图的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`. iOS 基于启动图选择分辨率.
 
 Pre Rendered Icons
 : (iOS 6 及更早) 设置图标是否预渲染. 如果关闭则图标自动添加平滑高光效果.
@@ -305,7 +305,7 @@ Entitlements
 ## Android
 
 App Icon 36x36--192x192
-: 用于应用图标的图片 (.png) 文件，宽高分辨率表示为 `W` &times; `H`.
+: 用于应用图标的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`.
 
 Push Icon Small--LargeXxxhdpi
 : 用于Android上客户推送通知图标的图片 (.png) 文件. 图标会自动应用于本地与远程推送通知. 如果未设置默认使用应用图标.
@@ -323,7 +323,7 @@ Package
 : 包id.
 
 Gcm Sender Id
-: Google Cloud Messaging Sender Id. 此值由 Google 签发，设置后才能开启推送通知.
+: Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启推送通知.
 
 Manifest
 : 如果设置了, 则编译时使用指定 Android manifest XML 文件.
@@ -455,12 +455,12 @@ $ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
 local my_value = tonumber(sys.get_config("test.my_value"))
 ```
 
-## 垂直同步，帧数锁定 和 刷新间隔
+## 垂直同步, 帧数锁定 和 刷新间隔
 首先要注意的是桌面平台上垂直同步可以被显卡设置控制. 比如如果在显卡控制面板里强制开启了垂直同步那么从 Defold 的角度是没法读写这个设置的. 大多数移动设备也都默认开启了垂直同步.
 
-如果在 `game.project` 中开启 `Vsync` 的话，引擎依照硬件垂直同步根据检测到的任何显示设备刷新率决定固定 `dt` 值. 这是默认的情况. 如果开启 `Vsync` 并且设置 `Frame cap` > 0, 则帧率设置兼顾显示器刷新率与锁帧频率. 如果 `Vsync` 关闭并且设置 `Frame cap` 为 0, `dt` 就不是固定的了而是使用实际的时间间隔. 如果 `Vsync` 关闭并且设置 `Frame cap` > 0, 时间步进取帧数锁定设置的值. 不同平台和硬件设备下无法保证刷新间隔时间一致.
+如果在 `game.project` 中开启 `Vsync` 的话, 引擎依照硬件垂直同步根据检测到的任何显示设备刷新率决定固定 `dt` 值. 这是默认的情况. 如果开启 `Vsync` 并且设置 `Frame cap` > 0, 则帧率设置兼顾显示器刷新率与锁帧频率. 如果 `Vsync` 关闭并且设置 `Frame cap` 为 0, `dt` 就不是固定的了而是使用实际的时间间隔. 如果 `Vsync` 关闭并且设置 `Frame cap` > 0, 时间步进取帧数锁定设置的值. 不同平台和硬件设备下无法保证刷新间隔时间一致.
 
-交换间隔是指在垂直空白期 (v-blank) 同步中交换前后缓冲的间隔, 是屏幕图片从前缓冲更新数据的硬件事件. 取值为1就是每个v-blank做一次交换缓冲, 取值为2就是每两个（每隔一个）v-blank做一次交换缓冲，以此类推. 取值为0则做交换缓冲时不等待v-blank时间\*. 调用 [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval) 方法可以设置 `swap_interval` 的值.
+交换间隔是指在垂直空白期 (v-blank) 同步中交换前后缓冲的间隔, 是屏幕图片从前缓冲更新数据的硬件事件. 取值为1就是每个v-blank做一次交换缓冲, 取值为2就是每两个（每隔一个）v-blank做一次交换缓冲, 以此类推. 取值为0则做交换缓冲时不等待v-blank时间\*. 调用 [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval) 方法可以设置 `swap_interval` 的值.
 
 ### 警告
 目前, Defold 在初始化时查询屏幕刷新率并且把它作为固定 `dt` 的依据. 如果你需要支持可变刷新率 (比如 GSync 或者 FreeSync) 或者其他刷新率不是很有参考性的情况下, 关闭 `Vsync`来使引擎测量每帧实际 `dt` 而不是固定dt.

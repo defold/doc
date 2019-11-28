@@ -9,14 +9,14 @@ Sprite 组件可以是屏幕上显示的简单图片或者逐帧动画.
 
 ![sprite](images/graphics/sprite.png){srcset="images/graphics/sprite@2x.png 2x"}
 
-Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图集](/manuals/tilesource) 进行图像显示.
+Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tilesource) 进行图像显示.
 
 ## Sprite 属性
 
 除了 *Id*, *Position* 和 *Rotation* 还有如下属性:
 
 *Image*
-: 此sprite所使用的图集或者瓷砖图集资源.
+: 此sprite所使用的图集或者瓷砖图源资源.
 
 *DefaultAnimation*
 : 此sprite的默认动画.

@@ -9,7 +9,7 @@ Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
 
 Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build And Launch</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
 
-Bob 集合了编译所需的一切，作为Java包 _JAR_ 发布. 你可以在其发布地址 http://d.defold.com 里下载到 *bob.jar* . 先选择版本，再下载 *bob/bob.jar*. 要运行 Bob 工具, 你需要 [安装OpenJDK 11](https://openjdk.java.net/projects/jdk/11/).
+Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 你可以在其发布地址 http://d.defold.com 里下载到 *bob.jar* . 先选择版本, 再下载 *bob/bob.jar*. 要运行 Bob 工具, 你需要 [安装OpenJDK 11](https://openjdk.java.net/projects/jdk/11/).
 
 ## 用法
 
@@ -39,7 +39,7 @@ usage: bob [options] [commands]
                                      使用版本
  -e,--email <arg>                    用户电邮
  -h,--help                           帮助文档
- -i,--input <arg>                    指定源目录，默认是当前
+ -i,--input <arg>                    指定源目录, 默认是当前
                                      目录
     --identity <arg>                 指定签名 (iOS)
  -k,--keep-unused                    指定未使用资源仍然打包
@@ -86,7 +86,7 @@ usage: bob [options] [commands]
 : 编译所有项目文件. 加入 `--archive` 选项可生成编译数据包 (编译目录下生成 "game.darc" 文件).
 
 `bundle`
-: 指定平台打包. 打包需要数据包已经编译生成 (`build` 加入 `--archive` 选项) 然后指定打包平台 (使用 `--platform` 选项). Bob 会把应用打包到编译目录下，除非使用 `--bundle-output` 选项手动指定打包输出目录. 包名根据 *game.project* 文件中设置的项目名命名. 使用 `--variant` 指定打何种运行类型的包，连同 `--strip-executable` 选项代替了老的 `--debug` 选项. 如果 `--variant` 没有指定，默认时release类型的 (去除 Android 和 iOS 的debug信息). 把 `--variant` 设置为 debug 而省略 `--strip-executable` 选项，就相当于老的 `--debug`选项.
+: 指定平台打包. 打包需要数据包已经编译生成 (`build` 加入 `--archive` 选项) 然后指定打包平台 (使用 `--platform` 选项). Bob 会把应用打包到编译目录下, 除非使用 `--bundle-output` 选项手动指定打包输出目录. 包名根据 *game.project* 文件中设置的项目名命名. 使用 `--variant` 指定打何种运行类型的包, 连同 `--strip-executable` 选项代替了老的 `--debug` 选项. 如果 `--variant` 没有指定, 默认时release类型的 (去除 Android 和 iOS 的debug信息). 把 `--variant` 设置为 debug 而省略 `--strip-executable` 选项, 就相当于老的 `--debug`选项.
 
 `resolve`
 : 解析所有外部依赖库.

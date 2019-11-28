@@ -5,7 +5,7 @@ brief: 本教程介绍了 Defold 中图集资源是如何工作的.
 
 # Atlas
 
-sprites 通常使用单个的小图片, 但是处于性能考虑, 最好把小图片合并成大图, 称为图集. 相比桌面设备和游戏机，手机这种性能不太高的地方，合并小图的做法就十分必要了.
+sprites 通常使用单个的小图片, 但是处于性能考虑, 最好把小图片合并成大图, 称为图集. 相比桌面设备和游戏机, 手机这种性能不太高的地方, 合并小图的做法就十分必要了.
 
 在 Defold 中, 图集资源由一系列单个图片组成, 这些小图最终会自动合并成大图.
 
@@ -27,7 +27,7 @@ sprites 通常使用单个的小图片, 但是处于性能考虑, 最好把小�
 
   ![Creating an atlas, adding images](images/atlas/add.png){srcset="images/atlas/add@2x.png 2x"}
 
-  被加入的图片会显示在 *Outline* 列表里，而且编辑器里也会显示出图片合成的图集. 可以按 <kbd>F键</kbd> (菜单栏 <kbd>View ▸ Frame Selection</kbd>) 来居中显示.
+  被加入的图片会显示在 *Outline* 列表里, 而且编辑器里也会显示出图片合成的图集. 可以按 <kbd>F键</kbd> (菜单栏 <kbd>View ▸ Frame Selection</kbd>) 来居中显示.
 
   ![Images added](images/atlas/single_images.png){srcset="images/atlas/single_images@2x.png 2x"}
 
@@ -38,9 +38,9 @@ sprites 通常使用单个的小图片, 但是处于性能考虑, 最好把小�
 
   一个默认命名为 ("New Animation") 的新建空动画组就被加入图集了.
 
-  <kbd>右键点击</kbd> 动画组，选择 <kbd>Add Images</kbd> 加入来图片.
+  <kbd>右键点击</kbd> 动画组, 选择 <kbd>Add Images</kbd> 加入来图片.
 
-  同样会弹出选择图片菜单，选择的图片都会被加入到动画组.
+  同样会弹出选择图片菜单, 选择的图片都会被加入到动画组.
   
   ![Creating an atlas, adding images](images/atlas/add_animation.png){srcset="images/atlas/add_animation@2x.png 2x"}
 
@@ -89,7 +89,7 @@ Flip vertical
 Playback
 : 设置动画播放方式:
 
-  - `None` 不播放，只显示第一张图片.
+  - `None` 不播放, 只显示第一张图片.
   - `Once Forward` 从第一张图片到最后一张图片播放一次.
   - `Once Backward` 从最后一张图片到第一张图片播放一次.
   - `Once Ping Pong` 从第一张图片播放到最后一张图片再反向播放一次.

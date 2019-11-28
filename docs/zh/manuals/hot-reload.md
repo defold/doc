@@ -22,7 +22,7 @@ Defold 允许资源的热重载. 开发游戏时此功能可以大大节省时�
 
 ## 设备上的热重载
 
-除了桌面设备，热重载也可以其他设备上使用. 要在设备上使用热重载, 在移动设备上运行游戏的调试（debug）版本, 或者运行 [开发应用](/manuals/dev-app) , 然后在编辑器中选择目标设备:
+除了桌面设备, 热重载也可以其他设备上使用. 要在设备上使用热重载, 在移动设备上运行游戏的调试（debug）版本, 或者运行 [开发应用](/manuals/dev-app) , 然后在编辑器中选择目标设备:
 
 ![target device](images/hot-reload/target.png){srcset="images/hot-reload/target@2x.png 2x"}
 
@@ -103,11 +103,11 @@ function update(self, dt)
 end
 ```
 
-更改并重载 "my_module.lua" 并 _不会_ 更新 "user.script" 的输出值. 关于这种情况的成因以及如何避免，详见 [模块教程](/manuals/modules).
+更改并重载 "my_module.lua" 并 _不会_ 更新 "user.script" 的输出值. 关于这种情况的成因以及如何避免, 详见 [模块教程](/manuals/modules).
 
 ## on_reload() 函数
 
-所有脚本组件都能定义 `on_reload()` 函数. 如果此函数存在，则在重载时会自动被调用. 对于检查和修改数据, 发送消息之类的很有用:
+所有脚本组件都能定义 `on_reload()` 函数. 如果此函数存在, 则在重载时会自动被调用. 对于检查和修改数据, 发送消息之类的很有用:
 
 ```lua
 function on_reload(self)

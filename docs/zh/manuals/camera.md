@@ -5,7 +5,7 @@ brief: 本教程介绍了 Defold 摄像机组件的功能.
 
 # 摄像机
 
-Defold 的摄像机组件控制游戏世界的视口与映射. 摄像机组件定义了透视和平视的视口与映射矩阵用于渲染脚本进行渲染. 透视摄像机一般服务于 3D 游戏，平视摄像机一般服务员 2D 游戏. 如果需要摄像机追随, 缩放, 震动之类的功能需要自己来实现 (可以参考下面的 [第三方摄像机解决方案](https://www.defold.com/manuals/camera/#third-party-camera-solutions)).
+Defold 的摄像机组件控制游戏世界的视口与映射. 摄像机组件定义了透视和平视的视口与映射矩阵用于渲染脚本进行渲染. 透视摄像机一般服务于 3D 游戏, 平视摄像机一般服务员 2D 游戏. 如果需要摄像机追随, 缩放, 震动之类的功能需要自己来实现 (可以参考下面的 [第三方摄像机解决方案](https://www.defold.com/manuals/camera/#third-party-camera-solutions)).
 
 ## 创建摄像机
 
@@ -137,7 +137,7 @@ msg.post("@render:", "use_camera_projection")
 
 ## 第三方摄像机解决方案
 
-有一些第三方库实现了诸如游戏对象跟随，坐标转换等摄像机功能. 可以在 Defold 社区资源库找到:
+有一些第三方库实现了诸如游戏对象跟随, 坐标转换等摄像机功能. 可以在 Defold 社区资源库找到:
 
 - [Rendercam](https://defold.com/assets/rendercam/) (2D 和 3D) 由 Ross Grams 开发.
 - [Ortographic camera](https://defold.com/assets/orthographic/) (仅 2D) 由 Björn Ritzl 开发.

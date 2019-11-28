@@ -1,6 +1,6 @@
 ---
 title: Defold 中的3D模型
-brief: 本教程介绍了如何将3D模型，骨骼和动画带入你的游戏之中.
+brief: 本教程介绍了如何将3D模型, 骨骼和动画带入你的游戏之中.
 ---
 
 # Model 组件
@@ -17,7 +17,7 @@ Blender 是一个著名的3D软件. 它可以运行在 Windows, Mac OS X and Lin
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
-首先需要使用 Blender Collada 导出器输出 *.dae* 格式的文件. 导出的文件包含模型的所有点，线和面, 还包含 _UV 坐标_ (模型与纹理的部位对部位的映射). 如果做了，还包含骨骼和动画数据.
+首先需要使用 Blender Collada 导出器输出 *.dae* 格式的文件. 导出的文件包含模型的所有点, 线和面, 还包含 _UV 坐标_ (模型与纹理的部位对部位的映射). 如果做了, 还包含骨骼和动画数据.
 
 关于多边形网格详见 http://en.wikipedia.org/wiki/Polygon_mesh. 关于 UV 坐标与 UV 映射详见 http://en.wikipedia.org/wiki/UV_mapping.
 
@@ -27,7 +27,7 @@ Blender 是一个著名的3D软件. 它可以运行在 Windows, Mac OS X and Lin
 
 ## 创建 model 组件
 
-Model 组件和其他游戏对象组件一样，两种创建办法:
+Model 组件和其他游戏对象组件一样, 两种创建办法:
 
 - *Assets* 浏览器里 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Model</kbd> 创建 *Model 文件*.
 - 直接在 *Outline* 视图的游戏对象上 <kbd>右键点击</kbd> 然后选择 <kbd>Add Component ▸ Model</kbd>.
@@ -55,7 +55,7 @@ Model 组件和其他游戏对象组件一样，两种创建办法:
 : 指定自动播放的默认动画 (从动画集之中) .
 
 
-有了模型组件就可以使用随意使用组件功能同时可以使用 *Scene Editor* 工具移动，旋转和缩放模型游戏对象了.
+有了模型组件就可以使用随意使用组件功能同时可以使用 *Scene Editor* 工具移动, 旋转和缩放模型游戏对象了.
 
 ![Wiggler ingame](images/model/ingame.png){srcset="images/model/ingame@2x.png 2x"}
 

@@ -51,7 +51,7 @@ iOS 上, 推送通知需要做以下准备:
 
 ![Provisioning profile](images/push/push_ios_provisioning_profile.png)
 
-注意 Apple 的沙盒服务器可能需要一段时间更新信息，通知推送功能也许不能马上使用. 要有耐心.
+注意 Apple 的沙盒服务器可能需要一段时间更新信息, 通知推送功能也许不能马上使用. 要有耐心.
 
 推送通知测试代码如下:
 
@@ -113,7 +113,7 @@ DEBUG:SCRIPT: 1f8ba7869b84b10df69a07aa623cd7f55f62bca22cef61b51fedac643ec61ad8
 
 ![Pusher test](images/push/push_ios_pusher.png)
 
-通知发送之后会被测试应用接收，进入 `push_listener()` 函数:
+通知发送之后会被测试应用接收, 进入 `push_listener()` 函数:
 
 ```txt
 DEBUG:SCRIPT:

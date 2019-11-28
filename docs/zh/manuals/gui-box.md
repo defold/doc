@@ -5,13 +5,13 @@ brief: 本教程介绍了如何使用 GUI 方块节点.
 
 # GUI 方块节点
 
-方块节点是一个可以填充颜色，纹理或者动画的矩形.
+方块节点是一个可以填充颜色, 纹理或者动画的矩形.
 
 ## 添加方块节点
 
 添加方块节点可以在 *Outline* 中 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ Box</kbd>, 或者按 <kbd>A</kbd> 然后选择 <kbd>Box</kbd>.
 
-你可以使用图集或者瓷砖图集里的图片或者动画添加到GUI上去. 要添加纹理 <kbd>右键点击</kbd>  *Outline* 中的 *Textures* 文件夹图标，选择 <kbd>Add ▸ Textures...</kbd>. 然后设置方块节点的 *Texture* 属性:
+你可以使用图集或者瓷砖图源里的图片或者动画添加到GUI上去. 要添加纹理 <kbd>右键点击</kbd>  *Outline* 中的 *Textures* 文件夹图标, 选择 <kbd>Add ▸ Textures...</kbd>. 然后设置方块节点的 *Texture* 属性:
 
 ![纹理](images/gui-box/create.png){srcset="images/gui-box/create@2x.png 2x"}
 
@@ -29,11 +29,11 @@ GUIs 对于其元素的大小改变是积极的: 面板和对话框总是应该�
 
 ![GUI 缩放](images/gui-box/scaling.png){srcset="images/gui-box/scaling@2x.png 2x"}
 
-九宫格方块节点包含4个像素数值分别代表左，上，右，下有多少边缘不参与缩放:
+九宫格方块节点包含4个像素数值分别代表左, 上, 右, 下有多少边缘不参与缩放:
 
 ![九宫格属性](images/gui-box/slice9_properties.png){srcset="images/gui-box/slice9_properties@2x.png 2x"}
 
-从左边开始，顺时针设置:
+从左边开始, 顺时针设置:
 
 ![九宫格设置](images/gui-box/slice9.png){srcset="images/gui-box/slice9@2x.png 2x"}
 

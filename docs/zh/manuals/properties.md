@@ -21,7 +21,7 @@ Defold 对于游戏对象, 组件和 GUI 节点暴露了很多可读可写可用
 go.set("game_object", "position.x", 10)
 ```
 
-`go.get()`, `go.set()` 和 `go.animate()` 函数第一个参数是游戏对象引用，第二个参数是属性id. 游戏对象或者组件的引用可以是字符串, hash 或者 URL. URL 引用详情请见 [定位教程](/manuals/addressing). 属性id是属性名字符串或者hash:
+`go.get()`, `go.set()` 和 `go.animate()` 函数第一个参数是游戏对象引用, 第二个参数是属性id. 游戏对象或者组件的引用可以是字符串, hash 或者 URL. URL 引用详情请见 [定位教程](/manuals/addressing). 属性id是属性名字符串或者hash:
 
 ```lua
 -- Set the x-scale of the sprite component
@@ -40,7 +40,7 @@ local color = gui.get_color(node)
 
 ## 游戏对象属性和组件属性
 
-所有游戏对象属性和一些组件属性可以在运行时进行读写. 使用 [`go.get()`](/ref/go#go.get) 函数读取属性，使用 [`go.set()`](/ref/go#go.set) 函数写入属性. 很多属性都可以使用 [`go.animate()`](/ref/go#go.animate) 函数制作属性动画. 还有一小部分属性是只读的.
+所有游戏对象属性和一些组件属性可以在运行时进行读写. 使用 [`go.get()`](/ref/go#go.get) 函数读取属性, 使用 [`go.set()`](/ref/go#go.set) 函数写入属性. 很多属性都可以使用 [`go.animate()`](/ref/go#go.animate) 函数制作属性动画. 还有一小部分属性是只读的.
 
 `get`{.mark}
 : 表示可以使用 [`go.get()`](/ref/go#go.get) 读取.
@@ -57,7 +57,7 @@ local color = gui.get_color(node)
 | 属性        | 描述                                   | 类型            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *position* | 游戏对象的位置坐标. | `vector3`      | `get+set`{.mark} |
-| *rotation* | 游戏对象的旋转，以四元数表示.  | `quaternion` | `get+set`{.mark} |
+| *rotation* | 游戏对象的旋转, 以四元数表示.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | 游戏对象的旋转, 以欧拉角表示. | `vector3` | `get+set`{.mark} |
 | *scale*    | 游戏对象的非等比缩放, 以向量表示. 比如在 x 和 y 方向放大2倍, 就是 vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
 
@@ -143,10 +143,10 @@ GUI 节点也有属性, 但是要使用特定的读写函数. 每个属性都有
 | *color*   | 节点颜色.            | `vector4`      | `gui.get_color()` `gui.set_color()` |
 | *outline* | 节点轮廓.         | `vector4`       | `gui.get_outline()` `gui.set_outline()` |
 | *position* | 节点位置. | `vector3` | `gui.get_position()` `gui.set_position()` |
-| *rotation* | 节点旋转，以三轴欧拉角表示. | `vector3` | `gui.get_rotation()` `gui.set_rotation()` |
-| *scale* | 节点缩放，以三轴缩放倍数表示. | `vector3` |`gui.get_scale()` `gui.set_scale()` |
+| *rotation* | 节点旋转, 以三轴欧拉角表示. | `vector3` | `gui.get_rotation()` `gui.set_rotation()` |
+| *scale* | 节点缩放, 以三轴缩放倍数表示. | `vector3` |`gui.get_scale()` `gui.set_scale()` |
 | *shadow* | 节点阴影. | `vector4` | `gui.get_shadow()` `gui.set_shadow()` |
 | *size* | 界定非等比大小. | `vector3` | `gui.get_size()` `gui.set_size()` |
-| *fill_angle* | 饼图填充角，以逆时针角度表示. | `number` | `gui.get_fill_angle()` `gui.set_fill_angle()` |
+| *fill_angle* | 饼图填充角, 以逆时针角度表示. | `number` | `gui.get_fill_angle()` `gui.set_fill_angle()` |
 | *inner_radius* | 饼图内半径. | `number` | `gui.get_inner_radius()` `gui.set_inner_radius()` |
 | *slice9* | 九宫格节点四边距. | `vector4` | `gui.get_slice9()` `gui.set_slice9()` |

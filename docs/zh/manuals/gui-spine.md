@@ -11,11 +11,11 @@ Spine 动画模型可以作为 GUI 节点也可以作为游戏对象加入场景
 
 首先你应该导入动画数据并建立 Spine Scene 资源. [Spine 动画](/manuals/spine) 文档介绍了其方法.
 
-接着，Spine Scene 资源的内容要加入到 GUI 场景中去. 加入方法 <kbd>右键点击</kbd>  *Outline* 中的 *Spine Scenes* 部分，选择 <kbd>Add ▸ Spine Scenes...</kbd>. 选择要加入的 Spine Scenes (可加多个).
+接着, Spine Scene 资源的内容要加入到 GUI 场景中去. 加入方法 <kbd>右键点击</kbd>  *Outline* 中的 *Spine Scenes* 部分, 选择 <kbd>Add ▸ Spine Scenes...</kbd>. 选择要加入的 Spine Scenes (可加多个).
 
 ![添加 Spine Scene](images/gui-spine/add.png){srcset="images/gui-spine/add@2x.png 2x"}
 
-最后，<kbd>右键点击</kbd> *Outline* 中的 *Nodes* 部分，选择 <kbd>Add ▸ Spine</kbd> 来创建 Spine 节点.
+最后, <kbd>右键点击</kbd> *Outline* 中的 *Nodes* 部分, 选择 <kbd>Add ▸ Spine</kbd> 来创建 Spine 节点.
 
 ![New spine node](images/gui-spine/new_node.png){srcset="images/gui-spine/new_node@2x.png 2x"}
 
@@ -48,7 +48,7 @@ Spine 骨架中的各个骨骼都可以像 GUI 节点一样使用. 节点名就�
 
 ![Spine 骨骼名](images/gui-spine/bone.png){srcset="images/gui-spine/bone@2x.png 2x"}
 
-比如, 要做一个骨骼节点下增添一个节点, 使用 [`gui.get_spine_bone()`](/ref/gui#gui.get_spine_bone) 函数加节点名来获取此节点，然后再在上面加入一个节点:
+比如, 要做一个骨骼节点下增添一个节点, 使用 [`gui.get_spine_bone()`](/ref/gui#gui.get_spine_bone) 函数加节点名来获取此节点, 然后再在上面加入一个节点:
 
 ```lua
 -- Attach a text node to the tail of the cat

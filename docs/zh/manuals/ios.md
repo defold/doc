@@ -43,8 +43,8 @@ Device identifier (UDID)
   ![itunes devices](images/ios/itunes_devices.png)
 
   1. 在 *Summary* 页, 可以找到 *Serial Number*.
-  2. 点击 *Serial Number* 一次，它会切换成 *UDID*. 再点击下去还会显示其他设备信息. 这里我们找到 *UDID* 即可.
-  3. 右键点击 UDID 那一长串字符，选择 <kbd>Copy</kbd> 即可将其存入剪贴板，在 Apple 开发中心注册设备时就可以直接粘贴填入了.
+  2. 点击 *Serial Number* 一次, 它会切换成 *UDID*. 再点击下去还会显示其他设备信息. 这里我们找到 *UDID* 即可.
+  3. 右键点击 UDID 那一长串字符, 选择 <kbd>Copy</kbd> 即可将其存入剪贴板, 在 Apple 开发中心注册设备时就可以直接粘贴填入了.
 
 ## 使用免费账户开发应用
 
@@ -72,7 +72,7 @@ Device identifier (UDID)
 
    ![](images/ios/free_provisioning.png)
 
-这个供应商档案文件连同加密证书可以在 Defold 为应用签名, 有效期一周，_限一个设备_. 这样生成的供应商档案无法向其增加更多的 UDID.
+这个供应商档案文件连同加密证书可以在 Defold 为应用签名, 有效期一周, _限一个设备_. 这样生成的供应商档案无法向其增加更多的 UDID.
 
 档案过期后, 可以在 Xcode 里如法炮制再次生成临时档案文件.
 
@@ -90,7 +90,7 @@ Device identifier (UDID)
 
 点击 *Create Bundle* 并选择打包应用存放位置.
 
-可以在 *game.project* 项目配置文件中设置app图标，启动图片等等.
+可以在 *game.project* 项目配置文件中设置app图标, 启动图片等等.
 
 ::: 注意
 iOS 上的应用, 启动图片决定了应用分辨率. 如果图片分辨率错误, 应用可能也会分辨率错误带黑边.

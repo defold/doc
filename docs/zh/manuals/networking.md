@@ -22,7 +22,7 @@ http.request("https://www.defold.com", "GET", handle_response)
 
 这样就建立了一个到 https://www.defold.com 的 HTTP GET 请求. 这个函数是异步的所以请求同时游戏并不卡住等待响应. 当服务器发回响应数据后会进入设置好的回调函数. 回调函数接收了相应包含的所有信息, 包括状态码和响应头. 同样可以建立 HTTP POST 请求来向服务器发送数据也能设置请求头信息. 更多详情请见 [API 教程](/ref/http/).
 
-使用 HTTP 请求可以让你能够和互联网上各种各样的服务器交互, 但是通常不会这么简单的发送 HTTP 请求. 通常你需要做一些认证和数据序列化之类的操作. 当然手动操作也可以，但是我们有很多现成的服务插件可以使用. 使用这些插件能简化许多操作:
+使用 HTTP 请求可以让你能够和互联网上各种各样的服务器交互, 但是通常不会这么简单的发送 HTTP 请求. 通常你需要做一些认证和数据序列化之类的操作. 当然手动操作也可以, 但是我们有很多现成的服务插件可以使用. 使用这些插件能简化许多操作:
 
 * [AWS SDK](https://github.com/britzl/aws-sdk-lua) - 让游戏能够使用 Amazon Web Services
 * [Colyseus](https://github.com/colyseus/colyseus-defold) - 网游客户端
@@ -47,7 +47,7 @@ client:send("foobar")
 local response = client:receive("*l")
 ```
 
-这样就建立好了一个 TCP socket, 连接到了 IP 127.0.0.1 (localhost) 的端口 8123. 把超时设置成 0 就是建立成非阻塞式的socket，然后它在socket上发送了 "foobar" 消息. 最后它读取了一行socket响应数据 (读字节直到出现换行符). 注意此代码没有做错误处理. LuaSocket的更多功能详情请见 [API 文档](/ref/socket/). [官方 LuaSocket 文档](http://w3.impa.br/~diego/software/luasocket/) 同样包含了该库的许多使用实例. 此外这里也有许多实例和工具模块 [DefNet 库](https://github.com/britzl/defnet/).
+这样就建立好了一个 TCP socket, 连接到了 IP 127.0.0.1 (localhost) 的端口 8123. 把超时设置成 0 就是建立成非阻塞式的socket, 然后它在socket上发送了 "foobar" 消息. 最后它读取了一行socket响应数据 (读字节直到出现换行符). 注意此代码没有做错误处理. LuaSocket的更多功能详情请见 [API 文档](/ref/socket/). [官方 LuaSocket 文档](http://w3.impa.br/~diego/software/luasocket/) 同样包含了该库的许多使用实例. 此外这里也有许多实例和工具模块 [DefNet 库](https://github.com/britzl/defnet/).
 
 
 ## WebSocket 连接

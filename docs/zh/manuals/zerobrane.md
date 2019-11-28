@@ -11,7 +11,7 @@ Defold 自带内置调试器, 但是还可以使用免费开源的 Lua 编辑器
 
 ## ZeroBrane 设置
 
-要使 ZeroBrane 找到你的项目, 你需要指定 Defold 项目目录. Defold 中，可以很方便的打开项目根目录.
+要使 ZeroBrane 找到你的项目, 你需要指定 Defold 项目目录. Defold 中, 可以很方便的打开项目根目录.
 
 1. 右键点击 *game.project*
 2. 选择 <kbd>Show in Desktop</kbd>
