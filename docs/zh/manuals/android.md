@@ -52,7 +52,7 @@ $ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocryp
 
 ### 安装 Android 应用包
 
-The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
+编辑器生成 Android 应用包 *.apk* 文件. 应用包可以通过 `adb` 工具 (见下文), 或者通过 Google Play 的 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 安装到设备上.
 
 ```
 $ adb install Defold\ examples.apk
@@ -61,45 +61,45 @@ $ adb install Defold\ examples.apk
 Success
 ```
 
-## Permissions
+## 权限
 
-The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the "game.project" [project settings file](/manuals/project-settings/#android). You can read more about Android permissions in [the official docs](https://developer.android.com/guide/topics/permissions/overview). The following permissions are requested in the default manifest:
+Defold 引擎需要一些权限来运行各种功能. 权限在 `AndroidManifest.xml` 文件中定义, 并在 "game.project" [项目配置文件](/manuals/project-settings/#android) 中配置. 关于 Android 权限详见 [官方文档](https://developer.android.com/guide/topics/permissions/overview). 默认配置需要如下权限:
 
 ### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
-Allows applications to open network sockets and access information about networks. These permission are needed for internet access. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) and ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+允许应用打开网络连接访问互联网. 需要上网时需要此权限. 见 ([Android 官方文档-网络](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) 和 ([Android 官方文档-网络状态](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
 ### android.permission.WRITE_EXTERNAL_STORAGE (Protection level: dangerous)
-Allows an application to write to external storage. Starting in API level 19, this permission is not required to read/write files in your application-specific directories returned by Context.getExternalFilesDir(String) and Context.getExternalCacheDir(). This permission is needed if you intend to save/load files from disk (using io.* or sys.save/load) outside of the folder provided by [sys.get_save_file()](/ref/sys/#sys.get_save_file:application_id-file_name) and have `android:minSdkVersion` set to less than 19 in the Android manifest. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
+允许应用写入外部存储器. 从 API level 19 开始, 读写 Context.getExternalFilesDir(String) 和 Context.getExternalCacheDir() 返回的应用目录不需要此权限. 需要 (使用 io.* 或 sys.save/load) 读写 [sys.get_save_file()](/ref/sys/#sys.get_save_file:application_id-file_name) 之外的目录文件以及 Android manifest 里设置 `android:minSdkVersion` 小于 19 时需要此权限. ([[Android 官方文档-外存写入](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
 
 ### android.permission.WAKE_LOCK (Protection level: normal)
-Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. This permission is needed to temporarily prevent the device from sleeping while receiving a push notification. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
+允许应用阻止屏幕息屏和调光. 接收通知保持亮屏时需要此权限. ([[Android 官方文档-亮屏锁定](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
 
 ## Android Debug Bridge
 
-The `adb` command line tool is an easy to use and versatile program that is used to interact with Android devices. You can download and install `adb` as part of the Android SDK Platform-Tools, for Mac, Linux or Windows.
+`adb` 命令行工具是一个多功能易使用的用来与 Android 设备进行交互的工具. 可以在 Mac, Linux 或者 Windows 上下载 Android SDK Platform-Tools 来安装 `adb`.
 
-Download the Android SDK Platform-Tools from: https://developer.android.com/studio/releases/platform-tools. You find the *adb* tool in */platform-tools/*. Alternatively, platform specific packages can be installed through respective package managers.
+下载 Android SDK Platform-Tools 地址: https://developer.android.com/studio/releases/platform-tools. *adb* 工具就在 */platform-tools/* 里. 或者, 也通过各个平台的软件包管理器下载安装.
 
-On Ubuntu Linux:
+Ubuntu Linux:
 
 ```
 $ sudo apt-get install android-tools-adb
 ```
 
-On Fedora 18/19:
+Fedora 18/19:
 
 ```
 $ sudo yum install android-tools
 ```
 
-On Mac OS X (Homebrew)
+Mac OS X (Homebrew)
 
 ```
 $ brew cask install android-platform-tools
 ```
 
-You can veryfy that `adb` works by connecting your Android device to your computer via USB and issue the following command:
+通过如下代码让 `adb` 通过电脑 USB 与 Android 设备进行连接:
 
 ```
 $ adb devices
@@ -107,13 +107,13 @@ List of devices attached
 31002535c90ef000    device
 ```
 
-If your device does not show up, verify that you have enabled *USB debugging* on the Android device. Open the device *Settings* and look for *Developer options* (or *Development*).
+如果连接不上, 确保在 Android 设备上开启了 *USB debugging*. 在设备 *设置* 里找 *开发者选项* (或称 *开发选项*).
 
 ![Enable USB debugging](images/android/usb_debugging.png)
 
-## Debugging an application bundle
+## 应用包调试
 
-A bundle built with the debug mode version of the engine (i.e. "Debug" selected as variant during bundling) will send all its console output to the Android system log. Access the log with the `adb` tool and give the `logcat` command. You probably want to filter the output by a tag (`-s [tagname]`):
+使用调试版引擎打包的应用 (即打包时选择 "Debug" 变体) 会把控制台信息全部发送至 Android 系统日志上. 使用 `adb` 工具的 `logcat` 命令访问日志. 使用标签 (`-s [标签名]`) 可以对日志信息进行过滤:
 
 ```
 $ adb logcat -s "defold"
@@ -128,10 +128,10 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
 
-## Troubleshooting
+## 常见问题
 
-I'm getting "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" when installing
-: Android detects that you try to install the app with a new certificate. When bundling debug builds, each build will be signed with a temporary certificate. Uninstall the old app before installing the new version:
+安装时报 "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" 错误
+: Android 发现了你使用不同的证书安装应用. 编译调试包时, 使用的是临时证书. 安装前先卸载旧应用:
 
   ```
   $ adb uninstall com.defold.examples

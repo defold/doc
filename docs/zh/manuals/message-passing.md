@@ -3,7 +3,7 @@ title: Defold 的消息传递教程
 brief: Defold 的消息传递机制建立松耦合的对象交流方法. 本教程将详述这个机制.
 ---
 
-# Message passing
+# 消息传递
 
 Message passing is a mechanism for Defold game objects to communicate with each other. This manual assumes that you have a basic understanding of Defold's [addressing mechanism](/manuals/addressing) and [basic building blocks](/manuals/building-blocks).
 

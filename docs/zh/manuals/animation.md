@@ -30,21 +30,21 @@ Spine 动画提供 2D _骨骼动画_ 支持 (详见 http://en.wikipedia.org/wiki
 
 ## 3D 蒙皮动画
 
-Skeletal animation of 3D models is similar to Spine animation but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
+3D 模型的骨骼动画和 Spine 动画类似但是是针对于 3D 空间的. 3D 模型不是像剪裁动画那样先分成各个部分然后用骨骼连起来做动画. 而是使用骨骼精细控制模型上各个三角形如何移动.
 
-  For details on how to import 3D data into a Model for animation, see the [Model documentation](/manuals/model).
+  关于如何导入 3D 模型动画, 详情请见 [模型教程](/manuals/model).
 
   ![Blender animation](images/animation/blender_animation.png){.inline srcset="images/animation/blender_animation@2x.png 2x"}
   ![Wiggle loop](images/animation/suzanne.gif){.inline}
 
-## Property animation
+## 属性动画
 
-All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
+数值类的属性 (numbers, vector3, vector4 和 quaterions) 以及着色器常量都可以由内置的属性动画系统制作属性动画, 即使用 `go.animate()` 函数. 引擎会在属性值之间进行 "补间" 依照指定的播放和缓动模式进行播放. 你也可以自定义缓动函数.
 
   ![Property animation](images/animation/property_animation.png){.inline srcset="images/animation/property_animation@2x.png 2x"}
   ![Bounce loop](images/animation/bounce.gif){.inline}
 
-## Playing flip-book animations
+## 播放逐帧动画
 
 Sprites and GUI box nodes can play flip-book animations and you have great control over them at runtime.
 
