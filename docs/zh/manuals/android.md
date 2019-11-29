@@ -36,21 +36,21 @@ $ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocryp
 
 ## 创建 Android 应用包
 
-使用编辑器可以很容易地进行应用打包. Before bundling you can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#android). To bundle select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
+使用编辑器可以很容易地进行应用打包.打包前可以在  "game.project" [项目配置文件](/manuals/project-settings/#android) 里为应用设置图标, 版本号之类的. 菜单选择 <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> 来进行打包.
 
-If you want the editor to automatically create random debug certificates, leave the *Certificate* and *Private key* fields empty:
+如果希望编辑器自动生成调试用证书, 把 *Certificate* 和 *Private key* 置空即可:
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-If you want to sign your bundle with a particular certificate and key, specify the *.pem* and *.pk8* files:
+如果希望使用自己的证书和密匙, 配置 *.pem* 和 *.pk8* 文件即可:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-Press <kbd>Create Bundle</kbd> and you will then be prompted to specify where on your computer the bundle will be created.
+点击 <kbd>Create Bundle</kbd> 会提示选择打包文件存放位置.
 
 ![Android Application Package file](images/android/apk_file.png)
 
-### Installing an Android application bundle
+### 安装 Android 应用包
 
 The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
 

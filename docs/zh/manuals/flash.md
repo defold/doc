@@ -122,7 +122,7 @@ Defold 的集合类似于舞台. 引擎启动时集合文件的内容组成了�
 
 ## Flash—时间轴
 
-The Flash timeline is primarily used for animation, using various frame by frame techniques or shape/motion tweens. The overall FPS (frames per second) setting of the project defines the length of time a frame is displayed. Advanced users can modify the overall FPS of the game, or even that of individual movie clips.
+Flash 时间轴主要用来制作动画, 可以是逐帧动画也可以是形状/运动补间动画. 项目设置定义了全局 FPS (帧每秒) 决定了每帧显示多长时间. 老鸟用户可以随时修改游戏 FPS, 或者为影片剪辑独立设置 FPS.
 
 Shape tweens allow the interpolation of vector graphics between two states. It is mostly only useful for simple shapes and applications, as the below example of shape tweening a square into a triangle demonstrates:
 

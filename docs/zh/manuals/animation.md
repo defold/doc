@@ -21,14 +21,14 @@ Defold 内置支持多种动画:
 
 ## Spine 动画
 
-Spine 动画提供 2D _骨骼动画_ 支持 (详见 http://en.wikipedia.org/wiki/Skeletal_animation). 这是一种类似于裁剪动画的独特技术. In cutout animation separate pieces of the animated object (e.g body parts, eyes, mouth etc) are moved individually between each frame. Spine animation let you build an invisible, virtual skeleton consisting of a hierarchy of interconnected _bones_. This skeleton, or _rig_, is then animated and individual images are attached to the bones. Defold supports animations created or exported in the [Spine JSON format](http://esotericsoftware.com/spine-json-format). Skeletal animation is very smooth since the engine can interpolate the location of each bone for each frame.
+Spine 动画提供 2D _骨骼动画_ 支持 (详见 http://en.wikipedia.org/wiki/Skeletal_animation). 这是一种类似于剪裁动画的技术. 剪裁动画把对象分成各部分 (比如身体, 眼睛, 嘴巴之类的) 在每帧上独立运动. Spine 动画可以建立隐藏的, 树形关联的虚拟 _骨骼_. 骨架, 或称 _绑定_, 来为骨骼上添加的图片单独做动画. Defold 支持以 [Spine JSON 格式](http://esotericsoftware.com/spine-json-format) 输出的动画. Skeletal 动画都很平滑因为骨骼动画关键帧之间可以自动进行插值.
 
-  For details on how to import Spine data into a Spine model for animation, see the [Spine documentation](/manuals/spine).
+  关于导入 Spine 数据作为 Spine 模型和动画, 详见 [Spine 教程](/manuals/spine).
 
   ![Spine animation](images/animation/spine_animation.png){.inline}
   ![Run loop](images/animation/frog_runloop.gif){.inline}
 
-## 3D skinned animation
+## 3D 蒙皮动画
 
 Skeletal animation of 3D models is similar to Spine animation but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
 
