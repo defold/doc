@@ -140,13 +140,13 @@ Flash 在时间轴上用关键帧做动画, Defold 动画功能之一是用导�
 
 ![flipbook](images/flash/flipbook.png)
 
-## Flash—depth index
+## Flash—深度索引
 
-In Flash, the display list determines what is shown and in what order. The ordering of objects in a container (such as the Stage) is handled by an index. Objects added to a container using the `addChild()` method will automatically occupy the top position of the index, starting from 0 and incrementing with each additional object. In the screenshot below, we have generated three instances of the "logo" movie clip:
+在 Flash 里, 显示列表决定显示次序. 每个容器 (比如舞台) 都有一个显示列表. 对象使用 `addChild()` 方法会自动被加入到显示列表顶端, 从 0 开始索引层层递增. 下图中, 有三个 "logo" 影片剪辑的对象:
 
 ![depth index](images/flash/depth_index.png)
 
-The positions in the display list are indicated by the numbers next to each logo instance. Ignoring any code to handle the x/y position of the movie clips, the above could have been generated like so:
+图标上标注了其所在显示列表索引位置. 除去 x/y 位置设置, 如下代码会把图标加入到显示列表中:
 
 ```as
 var logo1:Logo = new Logo();
@@ -158,25 +158,25 @@ addChild(logo2);
 addChild(logo3);
 ```
 
-Whether an object is displayed above or below another object is determined by their relative positions in the display list index. This is well illustrated by swapping the index positions of two objects, for instance:
+显示列表索引位置决定了它们的显示层次. 如果交互两个图标的索引, 比如:
 
 ```as
 swapChildren(logo2,logo3);
 ```
 
-The result would look like the below (with the index position updated):
+结果如下 (索引已更新):
 
 ![depth index](images/flash/depth_index_2.png)
 
-## Defold—z position
+## Defold— z 轴位置
 
-The positions of game objects in Defold are represented by vectors consisting of three variables: x, y, and z. The z position determines the depth of a game object. In the default [render script](/manuals/render), the available z positions range from -1 to 1.
+Defold 里游戏对象的位置向量包含三部分: x, y, 和 z. 其中 z 轴位置决定了其深度. 在默认 [渲染脚本](/manuals/render) 中, z 轴位置范围是 -1 到 1.
 
-::: sidenote
-Game objects with a z position outside the -1 to 1 range will not be rendered and therefore not visible. This is a common pitfall for developers new to Defold, and is worth keeping in mind if a game object is not visible when you expect it to be.
+::: 注意
+如果游戏对象的 z 轴位置不在 -1 到 1 的范围内就不会被渲染也就是不可见. Defold 新手经常会因为这个感到困惑, 所以如果发现该显示的东西不显示想想是不是这个原因.
 :::
 
-Unlike in Flash where the editor only implies depth indexing (and allows modification using commands like *Bring Forward* and *Send Backward*), Defold allows you to set the z position of objects directly in the editor. In the screenshot below, you can see that "logo3" is displayed on top, and has a z position of 0.2. The other game objects have z positions of 0.0 and 0.1.
+不同于 Flash 由编辑器决定显示索引 (然后可以使用 *Bring Forward* 和 *Send Backward* 之类的命令修改索引), Defold 可以在编辑器里直接设置游戏对象的 z 轴位置. 下图中, 你会看到 "logo3" 显示在最上层, 其 z 轴位置是 0.2. 其他两个的 z 轴位置是 0.0 和 0.1.
 
 ![z-order](images/flash/z_order.png)
 

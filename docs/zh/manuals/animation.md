@@ -55,7 +55,7 @@ GUI 方块节点
 : 通过调用 [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]) 函数播放逐帧动画. 示例见下文.
 
 ::: 注意
-The playback mode once ping-pong will play the animation until the last frame and then reverse the order and play back until the **second** frame of the animation, not back to the first frame. This is done so that chaining of animations becomes easier.
+ping-pong 播放模式把动画从第一帧播放到最后一帧在返回播放到 **第二帧** , 而不是第一帧. 这样便于连续播放的衔接.
 :::
 
 ### Sprite example
