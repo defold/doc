@@ -124,19 +124,19 @@ Defold 的集合类似于舞台. 引擎启动时集合文件的内容组成了�
 
 Flash 时间轴主要用来制作动画, 可以是逐帧动画也可以是形状/运动补间动画. 项目设置定义了全局 FPS (帧每秒) 决定了每帧显示多长时间. 老鸟用户可以随时修改游戏 FPS, 或者为影片剪辑独立设置 FPS.
 
-形状补间可以在矢量图的两个状态间进行插值. It is mostly only useful for simple shapes and applications, as the below example of shape tweening a square into a triangle demonstrates:
+形状补间可以在矢量图的两个状态间进行插值. 这主要针对简单的图形和应用, 比如下例中把方块补间成三角:
 
 ![timeline](images/flash/timeline.png)
 
-Motion tweens allow the animation of various properties of an object, including size, position and rotation. In the example below, all the listed properties have been modified.
+运动补间可以应用于对象属性, 包括大小, 位置和旋转. 下例中这些属性都进行了补间.
 
 ![motion tween](images/flash/tween.png)
 
-## Defold—property animation
+## Defold—属性动画
 
-Defold works with pixel images as opposed to vector graphics, thus it does not have an equivalent for shape tweening. However, motion tweening has a powerful equivalent in [property animation](/ref/go/#go.animate). This is accomplished via script, using the `go.animate()` function. The go.animate() function tweens a property (such as color, scale, rotation or position) from the starting value to the desired end value, using one of many available easing functions (including custom ones). Where Flash required user implementation of more advanced easing functions, Defold includes [many easing functions](/manuals/animation/#easing) built into the engine.
+Defold 不使用矢量图而是使用位图, 所以没有形状补间. 但是运动补间可以使用 [属性动画](/ref/go/#go.animate) 来实现. 通过脚本, 调用 `go.animate()` 函数即可. go.animate() 函数基于各种缓动函数 (可以自定义) , 对属性 (比如颜色, 缩放, 旋转或者位置) 进行从初始值到设定结束值的补间. Defold 引擎内置了许多要 Flash 用户自定义才能实现的 [缓动函数](/manuals/animation/#easing).
 
-Where Flash makes use of keyframes of graphics on a timeline for animation, one of the main methods of graphic animation in Defold is by flipbook animation of imported image sequences. Animations are organised in a game object component known as an atlas. In this instance we have an atlas for a game character with an animation sequence called "run". This consists of a series of png files:
+Flash 在时间轴上用关键帧做动画, Defold 动画功能之一是用导入的序列图做逐帧动画. 动画基于图集管理. 下例中图集有一个叫做 "run" 的动画. 此动画由一组图片组成:
 
 ![flipbook](images/flash/flipbook.png)
 

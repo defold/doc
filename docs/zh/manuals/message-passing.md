@@ -5,39 +5,39 @@ brief: Defold 的消息传递机制建立松耦合的对象交流方法. 本教�
 
 # 消息传递
 
-Message passing is a mechanism for Defold game objects to communicate with each other. This manual assumes that you have a basic understanding of Defold's [addressing mechanism](/manuals/addressing) and [basic building blocks](/manuals/building-blocks).
+消息传递是 Defold 游戏对象间互相交流的机制. 本教程假设你已经大概了解了 Defold 的 [定位机制](/manuals/addressing) 和 [基本构成](/manuals/building-blocks).
 
-Defold does not do object orientation in the sense that you define your application by setting up class hierarchies with inheritance and member functions in your objects (like Java, C++ or C#). Instead, Defold extends Lua with a simple and powerful object oriented design where object state is kept internally in script components, accessible through the `self` reference. Objects can furthermore be fully decoupled with asynchronous message passing as means of communication between objects.
+Defold 不使用类继承对象成员函数 (像 Java, C++ 或者 C#) 这类面向对象的概念. Defold 使用了一个简单有效的面向对象的设计扩展了 Lua, 把对象保存在脚本组件内部, 通过 `self` 引用来进行访问. 对象间通过消息交流机制进一步解耦.
 
 
-## Usage examples
+## 使用示例
 
-Let's first look at a few simple usage examples. Suppose that you are building a game consisting of:
+来看几个简单的例子. 假设你的游戏由以下部分构成:
 
-1. A main bootstrap collection containing a game object with a GUI component (the GUI consists of a minimap and a score counter). There is also a collection with id "level".
-2. The collection named "level" contains two game objects: one hero player character and one enemy.
+1. 主启动集合里有一个带 GUI 组件的游戏对象 (GUI 包含一个迷你地图和一个计分器). 还有一个集合 id 叫 "level".
+2. 这个 "level" 集合包含两个游戏对象: 一个主角一个敌人.
 
 ![Message passing structure](images/message_passing/message_passing_structure.png)
 
-::: sidenote
-The content of this example lives in two separate files. There is one file for the main bootstrap collection and one for the collection with the id "level". However, file names _do not matter_ in Defold. The identity you assign instances does.
+::: 注意
+本例全部内容分为两个文件. 一个主启动集合文件和一个 id 叫 "level" 的集合文件. 然而, Defold 里文件名叫什么 _没有关系_. 重要的是其 id.
 :::
 
-The game contains a few simple mechanics that require communication between the objects:
+游戏需要一个对象间的交流机制:
 
 ![Message passing](images/message_passing/message_passing.png)
 
-① The hero punches the enemy
-: As part of this mechanic, a `"punch"` message is sent from the "hero" script component to the "enemy" script component. Since both objects live in the same place in the collection hierarchy, relative addressing is preferred:
+① 主角攻击敌人
+: 作为机制的一部分, 一个 `"punch"` 消息从 "hero" 脚本组件发送到 "enemy" 脚本组件. 因为两个游戏对象处在集合层级结构的同级, 可以使用相对地址定位:
 
   ```lua
-  -- Send "punch" from the "hero" script to "enemy" script
+  -- 从 "hero" 脚本向 "enemy" 脚本发送 "punch" 消息
   msg.post("enemy#controller", "punch")
   ```
 
-  There is only a single strength punch move in the game so the message does not need to contain any more information than its name, "punch".
+  这个消息不带数据, 发送消息明就可以, "punch".
 
-  In the script component of the enemy, you create a function to receive the message:
+  在敌人的脚本组件里, 使用如下函数接收消息:
   
   ```lua
   function on_message(self, message_id, message, sender)
@@ -47,41 +47,41 @@ The game contains a few simple mechanics that require communication between the 
   end
   ```
 
-  In this case, the code only looks at the name of the message (sent as a hashed string in the parameter `message_id`). The code does not care about message data nor the sender---*anyone* sending the message "punch" will inflict damage on the poor enemy.
+  像这样, 代码仅查看了消息名 (作为哈希字符串在参数 `message_id` 里接收). 并不关系消息数据和发送者---*任何组件* 只要发送了 "punch" 都会对敌人造成伤害.
 
-② Hero gaining score
-: Whenever the player defeats an enemy, the player score increases. A `"update_score"` message is also sent from the "hero" game object's script component to the "gui" component of the "interface" game object.
+② 主角得分
+: 主角打败敌人, 获得分数. 一个 `"update_score"` 消息从 "hero" 游戏对象脚本组件发送到 "interface" 游戏对象的 "gui" 组件.
 
   ```lua
-  -- Enemy defeated. Increase score counter by 100.
+  -- 敌人被击败. 加 100 分.
   self.score = self.score + 100
   msg.post("/interface#gui", "update_score", { score = self.score })
   ```
 
-  In this case it's not possible to write a relative address since "interface" is at the root of the naming hierarchy and "hero" is not. The message is sent to the GUI component that has a script attached to it, so it can react to the message accordingly. Messages can be sent freely between scripts, GUI scripts and render scripts.
+  这回就不能使用相对地址定位了因为 "interface" 处于层级根部而 "hero" 不是. 消息被发送到 GUI 组件的脚本上, 可被正确响应. 消息可以在脚本, GUI 脚本和渲染脚本间自由发送.
 
-  The message `"update_score"` is coupled with score data. The data is passed as a Lua table in the `message` parameter:
+  消息 `"update_score"` 带有分数数据. 数据作为一个 Lua 表由 `message` 参数接收:
 
   ```lua
   function on_message(self, message_id, message, sender)
     if message_id == hash("update_score") then
-      -- set the score counter to new score
+      -- 更新计分器为当前分数
       local score_node = gui.get_node("score")
       gui.set_text(score_node, "SCORE: " .. message.score)
     end
   end
   ```
 
-③ Enemy position on the minimap
-: The player has a minimap on screen to help locate and track enemies. Each enemy is responsible for signalling its position by sending an `"update_minimap"` message to the "gui" component in the "interface" game object:
+③ 敌人在迷你地图上的位置
+: 屏幕上有一个用于定位跟踪敌人的迷你地图. 敌人需要发送 `"update_minimap"` 消息到 "interface" 游戏对象的 "gui" 组件上:
 
   ```lua
-  -- Send the current position to update the interface minimap
+  -- 发送当前位置以更新迷你地图
   local pos = go.get_position()
   msg.post("/interface#gui", "update_minimap", { position = pos })
   ```
 
-  The GUI script code needs to track the position of each enemy, and if the same enemy sends a new position, the old should be replaced. The sender of the message (passed in parameter `sender`) can be used to key a Lua table with positions:
+  GUI 脚本代码跟踪每个敌人的位置, 如果某个敌人更新了位置, 旧的位置会被替换. 消息发送者 (由 `sender` 参数接收) 可以作为 Lua 位置表的键:
 
   ```lua
   function init(self)
@@ -90,34 +90,34 @@ The game contains a few simple mechanics that require communication between the 
 
   local function update_minimap(self)
     for url, pos in pairs(self.minimap_positions) do
-      -- update position on map
+      -- 更新地图上的位置
       ...
     end
   end
 
   function on_message(self, message_id, message, sender)
     if message_id == hash("update_score") then
-      -- set the score counter to new score
+      -- 更新计分器为当前分数
       local score_node = gui.get_node("score")
       gui.set_text(score_node, "SCORE: " .. message.score)
     elseif message_id == hash("update_minimap") then
-      -- update the minimap with new positions
+      -- 更新地图上的位置
       self.minimap_positions[sender] = message.position
       update_minimap(self)
     end
   end
   ```
 
-## Sending messages
+## 发送消息
 
-The mechanics of sending a message is, as we have seen above, very simple. You call the function `msg.post()` which posts  your message to the message queue. Then, each frame, the engine runs through the queue and delivers each message to its target address. For some system messages (like `"enable"`, `"disable"`, `"set_parent"` etc) the engine code handles the message. The engine also produces some system messages (like `"collision_response"` on physics collisions) that are delivered to your objects. For user messages sent to script components, the engine simply calls a special Defold Lua function named `on_message()`.
+发送消息机制, 从上面可以看到, 非常简单. 调用函数 `msg.post()` 把消息加入消息队列. 然后, 每一帧, 引擎遍历消息队列把每条消息发送到目标去. 有些系统消息 (像 `"enable"`, `"disable"`, `"set_parent"` 之类的) 引擎自己处理这些消息. 引擎也会发送一些消息 (像物理碰撞的 `"collision_response"` 消息) 到负责接收的游戏对象. 对于那些发送到脚本的消息, 引擎会调用函数 `on_message()`.
 
-You can send arbitrary messages to any existing object or component and it is up to the code on the recipient side to respond to the message. If you send a message to a script component and the script code ignores the message, that is fine. The responsibility of dealing with messages is fully on the receiving end.
+可以向存在的对象或者组件发送任意消息. 如果脚本组件收到但不响应消息, 没问题. 响应与否完全取决于接收方.
 
-The engine will check the message target address. If you try sending a message to an unknown recipient, Defold will signal an error in the console:
+引擎检查每条消息的目标. 如果消息接收者未知, Defold 会在控制台提示错误:
 
 ```lua
--- Try to post to a non existing object
+-- 尝试向不存在的对象发送消息
 msg.post("dont_exist#script", "hello")
 ```
 
@@ -125,47 +125,47 @@ msg.post("dont_exist#script", "hello")
 ERROR:GAMEOBJECT: Instance '/dont_exists' could not be found when dispatching message 'hello' sent from main:/my_object#script
 ```
 
-The complete signature of the `msg.post()` call is:
+函数 `msg.post()` 完整语法是:
 
 `msg.post(receiver, message_id, [message])`
 
 receiver
-: The id of the target component or game object. Note that if you target a game object, the message will be broadcast to all components in the game object.
+: 目标游戏对象或组件的 id. 如果目标是游戏对象, 消息会传播至游戏对象的所有组件上.
 
 message_id
-: A string or hashed string with the name of the message.
+: 消息名字符串或者字符串哈希.
 
 [message]
-: An optional Lua table with message data key-value pairs. Almost any type of data can be included in the message Lua table. You can pass numbers, strings, booleans, URLs, hashes and nested tables. You can not pass functions.
+: 可选参数, 作为消息数据的 Lua 表键-值对. 几乎所有数据都可以存在表里. 可以用来传输数字, 字符串, 布尔值, 地址, 哈希和嵌套表. 不能传输函数.
 
   ```lua
-  -- Send table data containing a nested table
+  -- 发送带嵌套表的数据
   local inventory_table = { sword = true, shield = true, bow = true, arrows = 9 }
   local stats = { score = 100, stars = 2, health = 4, inventory = inventory_table }
   msg.post("other_object#script", "set_stats", stats)
   ```
 
-::: sidenote
-There is a hard limit to the `message` parameter table size. This limit is set to 2 kilobytes. There is currently no trivial way to figure out the exact memory size a table consumes but you can use `collectgarbage("count")` at before and after inserting the table to monitor memory use.
+::: 注意
+对于 `message` 参数的表的大小有硬性限制. 限制最大2KB. 没有具体用来测试表大小的函数但是可以通过插入表之前和之后分别调用 `collectgarbage("count")` 来判断表占用内存的大小.
 :::
 
-## Receiving messages
+## 接收消息
 
-Reciving messages is a matter of making sure the target script component contains a function named `on_message()`. The function accepts four parameters:
+接收消息由 `on_message()` 函数完成. 函数接收4个参数:
 
 `function on_message(self, message_id, message, sender)`
 
 `self`
-: A reference to the script component itself.
+: 对脚本组件自身的引用.
 
 `message_id`
-: Contains the name of the message. The name is _hashed_.
+: 消息名. 这个值 _是哈希字符串_.
 
 `message`
-: Contains the message data. This is a Lua table. If there is no data, the table is empty.
+: 包含消息数据. 即一个 Lua 表. 如果消息不包含数据, 此表为空.
 
 `sender`
-: Contains the full URL of the sender.
+: 发送者绝对路径地址.
 
 ```lua
 function on_message(self, message_id, message, sender)
@@ -180,30 +180,30 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-## Messaging between game worlds
+## 游戏世界之间的消息传递
 
-If you use a collection proxy component to load a new game world into the runtime, you will want to pass messages between the game worlds. Suppose that you have loaded a collection via proxy and that the collection has its *Name* property set to "level":
+如果使用集合代理载入一个新的游戏世界, 你可能需要游戏世界之间的消息传递功能. 假设已经用一个代理载入了一个集合, 其 *Name* 属性是 "level":
 
 ![Collection name](images/message_passing/collection_name.png)
 
-As soon as the collection has been loaded, initiated and enabled, you can post messages to any component or object in the new world by specifying the game world name in the recipient address  "socket" field:
+当集合被载入, 初始化并开启, 就可以通过指定目标 "接口" 的方法向其中的任何游戏对象和组件发送消息了:
 
 ```lua
--- Send a message to the player in the new game world
+-- 向新游戏世界的主角发送消息
 msg.post("level:/player#controller", "wake_up")
 ```
-A more in depth description on how proxies work can be found in the [Collection Proxies](/manuals/collection-proxy) documentation.
+关于代理使用详情请见 [集合代理](/manuals/collection-proxy) 教程.
 
-## Message chains
+## 消息链
 
-When a message that has been posted is eventually dispatched the recipients’ `on_message()` is called. It is quite common that the reaction code post new messages, which are added to the message queue.
+发送的消息最终由接收方 `on_message()` 函数调用接收. 由此函数里再发出消息是很常见的, 消息仍会被加入到消息队列中.
 
-When the engine starts dispatching it will work through the message queue and call each message recipient's `on_message()` function and go on until the message queue is empty. If the dispatching pass adds new messages to the queue, it will do another pass. There is, however, a hard limit to how many times the engine tries to empty the queue, which effectively puts a limit to how long message chains you can expect to be fully dispatched within a frame. You can easily test how many dispatch passes the engine performs between each `update()` with the following script:
+引擎把消息分别发送到接收方的 `on_message()` 函数里直到消息队列为空. 如果接收方还要发送消息, 会进行新一轮消息传输. 然而, 引擎清空消息队列次数有一个限制, 也就相当于每帧消息链长度的限制. 可以使用如下代码在 `update()` 函数里测试出这个限制:
 
 ```lua
 function init(self)
-    -- We’re starting a long message chain during object init
-    -- and keeps it running through a number of update() steps.
+    -- 初始化时建立一个长消息链
+    -- 并在 update() 中记录消息链发送长度.
     print("INIT")
     msg.post("#", "msg")
     self.updates = 0
@@ -227,7 +227,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Running this script will print something like the following:
+运行代码输出如下:
 
 ```txt
 DEBUG:SCRIPT: INIT
@@ -244,5 +244,5 @@ DEBUG:SCRIPT: UPDATE 5
 DEBUG:SCRIPT: 75 dispatch passes before this update.
 ```
 
-We see that this particular Defold engine version performs 10 dispatch passes on the message queue between `init()` and the first call to `update()`. It then performs 75 passes during each subsequent update loop.
+可以看到这版 Defold 引擎在 `init()` 到 `update()` 中间发送10轮消息. 然后每帧发送75轮消息.
 
