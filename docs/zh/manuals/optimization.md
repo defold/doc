@@ -47,23 +47,23 @@ Defold 支持 .ogg 和 .wav 文件其中 .ogg 一般用于音乐 .wav 一般用�
 :::
 
 ### 排除内容按需下载
-Another way of reducing initial application size is to exclude parts of the game content from the application bundle and make this content downloadable on demand. Excluded content can be anything from entire levels to unlockable characters, skins, weapons or vehicles. Defold provides a system called Live Update for excluding content for download on demand. Learn more in the [Live Update manual](/manuals/live-update/).
+另一个减小包体的办法是打包时把部分内容排除在外, 需要时再下载. 一开始被排除的东西可以是锁住的关卡, 未激活的角色, 皮肤, 武器或者是车辆. Defold 提供了叫做热更新的按需下载内容的方案. 详情请见 [热更新教程](/manuals/live-update/).
 
 
-## Optimize for application speed
-Before trying to optimize a game with the goal to increase the speed at which the game runs you need to know where your bottlenecks are. What is actually taking up most of the time in a frame of your game? Is it the rendering? Is it your game logic? Is it the scene graph? To figure this out it is recommended to use the built in profiling tools. Use the [on-screen or web profiler](/manuals/profiling/) to sample the performance of your game and then make a decision if and what to optimize. Once you have a better understanding of what takes time you can start addressing the problems.
+## 应用运行速度优化
+你要知道游戏运行效率瓶颈在哪才能进行优化. 每帧的什么操作最耗时间? 与渲染有关吗? 与游戏逻辑有关吗? 与场景图有关吗? 建议使用内置的分析工具分析这些事情. 使用 [屏幕或者网页分析器](/manuals/profiling/) 对游戏进行采样再分析哪里应该优化. 发现最耗时的操作就找到了优化方向.
 
-### Reduce script execution time
-Reducing script execution time is needed if the profiler shows high values for the `Script` scope. As a general rule of thumb you should of course try to run as little code as possible every frame. Running a lot of code in `update()` and `on_input()` every frame is likely to have an impact on your game's performance, especially on low end devices. Some guidelines are:
+### 减少脚本运行时间
+如果分析工具指出 `Script` 部分耗时太多. 当然每帧运行脚本越少越好. 要是 `update()` 和 `on_input()` 里面代码太多很可能影响每帧运行性能, 尤其是对于低端设备. 一些建议是:
 
-#### Use reactive code patterns
-Don't poll for changes if you can get a callback. Don't manually animate something or perform a task that can be handed over to the engine (eg go.animate vs manually animating something).
+#### 代码有效率
+用回调别用轮询. 引擎提供的功能别自己手动实现 (比如用 go.animate 别用手动实现动画等等).
 
-#### Reduce garbage collection
-If you create loads of short lived objects such as Lua tables every frame this will eventually trigger the garbage collector of Lua. When this happens it can manifest itself as small hitches/spikes in frame time. Re-use tables where you can and really try to avoid creating Lua tables inside loops and similar constructs if possible.
+#### 减少垃圾回收
+每帧创建大量临时 Lua 表之类的对象会激发 Lua 的垃圾回收机制. 垃圾回收可能会造成卡一下. 尽可能重用表别在循环里创建很多表.
 
-#### Pre-hash message and action ids
-If you do a lot of message handling or have many input events to deal with it is recommended to pre-hash the strings. Consider this piece of code:
+#### 预哈希消息与行为id
+如果要处理很多消息处理很多输入的话推荐把字符串提前哈希保存. 比如如下代码:
 
 ```
 function on_message(self, message_id, message, sender)
@@ -75,7 +75,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-In the above scenario the hashed string would be recreated every time a message is received. This can be improved by creating the hashed strings once and use the hashed versions when handling messages:
+这样每次接收消息都要调用很多哈希函数. 预先把哈希字符串保存起来就可以提高效率:
 
 ```
 local MESSAGE1 = hash("message1")
@@ -93,16 +93,16 @@ end
 ```
 
 #### Prefer and cache URLs
-Message passing or in other ways addressing a game object or component can be done both by providing an id as a string or hash or as a URL. If a string or hash is used it will internally be translated into a URL. It is therefore recommended to cache URLs that are used often, to get the best possible performance out of the system. Consider the following:
+定位一个游戏对象和组件可以使用它的 id 的字符串或者哈希或者 URL. 字符串和哈希在内部被转换成 URL. 对于经常要使用的 URL 建议预先保存, 利于提高性能. 如下例:
 
 ```
     local pos = go.get_position("enemy")
     local pos = go.get_position(hash("enemy"))
     local pos = go.get_position(msg.url("enemy"))
-    -- do something with pos
+    -- 处理位置变量
 ```
 
-In all three cases the position of a game object with id `enemy` would be retrieved. In the first and second case the id (string or hash) would be converted into a URL before being used. This tells us that it's better to cache URLs and use the cached version for the best possible performance:
+以上三个定位 id 都是 `enemy`. 第一第二行 id (字符串或哈希) 使用前会转换为 URL. 所以预先保存 URL 在需要时使用就能提高效率:
 
 ```
     function init(self)
@@ -111,35 +111,35 @@ In all three cases the position of a game object with id `enemy` would be retrie
 
     function update(self, dt)
         local pos = go.get_position(enemy_url)
-        -- do something with pos
+        -- 处理位置变量
     end
 ```
 
-### Reduce time it takes to render a frame
-Reducing the time it takes to render a frame is needed if the profiler shows high values in the `Render` and `Render Script` scopes. There are several things to consider when trying to increase reduce the time it takes to render a frame:
+### 减少渲染一帧的时间
+分析工具可以在 `Render` 和 `Render Script` 部分指明哪些渲染耗时较长. 考虑以下方面来改善渲染耗时:
 
-* Reduce draw calls - Read more about reducing draw calls in [this forum post](https://forum.defold.com/t/draw-calls-and-defold/4674)
-* Reduce overdraw
-* Reduce shader complexity - Read up on GLSL optimizations in [this Kronos article](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). You can also modify the default shaders used by Defold (found in `builtins/materials`) and reduce shader precision to gain some speed on low end devices. All shaders are using `highp` precision and a change to for instance `mediump` can in some cases improve performance slightly.
+* 减少 draw calls - 减少 draw call 可以参考 [这个帖子](https://forum.defold.com/t/draw-calls-and-defold/4674)
+* 减少 overdraw
+* 减少 着色器复杂度 - 对于 GLSL 优化可以参考 [Kronos 的这个文章](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). 还可以修改 Defold 的默认着色器 (位于 `builtins/materials`) 或者针对低端设备降低着色器精确度. 所有着色器都使用 `highp` 精确度, 如果改成 `mediump` 可能会提升一些性能.
 
-### Reduce scene graph complexity
-Reducing the scene graph complexity is needed if the profiler shows high values in the `GameObject` scope and more specifically for the `UpdateTransform` sample. Some actions to take:
+### 降低场景图复杂度
+如果分析器指出 `GameObject` 部分, 尤其是 `UpdateTransform` 取样耗时较高就需要进行一定的优化. 方法如下:
 
-* Culling - Disable game objects (and their components) if they aren't currently visible. How this is determined depends very much on the type of game. For a 2D game it can be as easy as always disabling game objects that are outside of a rectangular area. You can use a physics trigger to detect this or by partitioning your objects into buckets. Once you know which objects to disable or enable you do this by sending a `disable` or `enable` message to each game object.
-
-
-## Optimize memory usage
-This section is not yet finished. Topics that will be covered:
-
-* [Texture compression](/manuals/texture-profiles/)
-* [Dynamic loading of collections](https://www.defold.com/manuals/collection-proxy/)
-* [Dynamic loading of factories](https://www.defold.com/manuals/collection-factory/#dynamic-loading-of-factory-resources)
-* [Profiling](/manuals/profiling/)
+* 剔除 - 如果游戏对象不可见, 关闭游戏对象 (及其组件). 基于游戏类型采取不同方法. 对于 2D 游戏视口内看不到的东西都可以关闭. 可以使用物理 trigger 进行检测或者把所有东西分为若干组群分别检测. 碰到需要关闭或者开启的情况就向游戏对象发送 `disable` 或者 `enable` 消息即可.
 
 
-## Optimize battery usage
-This section is not yet finished. Topics that will be covered:
+## 优化内存使用
+此部分教程未完成. 讨论涵盖以下方面:
 
-* Running code every frame
-* Accelerometer on mobile
-* [Profiling](/manuals/profiling/)
+* [纹理压缩](/manuals/texture-profiles/)
+* [动态加载集合](https://www.defold.com/manuals/collection-proxy/)
+* [动态加载工厂资源](https://www.defold.com/manuals/collection-factory/#dynamic-loading-of-factory-resources)
+* [性能分析](/manuals/profiling/)
+
+
+## 优化耗电
+此部分教程未完成. 讨论涵盖以下方面:
+
+* 每帧的脚本运行
+* 手机的加速度计
+* [性能分析](/manuals/profiling/)
