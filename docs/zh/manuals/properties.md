@@ -3,7 +3,7 @@ title: Defold 中的属性
 brief: 本教程介绍了 Defold 中各种属性的使用以及属性动画的制作方法.
 ---
 
-# Properties
+# 属性
 
 Defold 对于游戏对象, 组件和 GUI 节点暴露了很多可读可写可用作动画的属性. 分为以下各种类型:
 

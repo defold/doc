@@ -180,11 +180,11 @@ Defold 里游戏对象的位置向量包含三部分: x, y, 和 z. 其中 z 轴�
 
 ![z-order](images/flash/z_order.png)
 
-Note that the z position of a game object nested in one or more collections is decided by its own z position, together with that of all its parents. For instance, imagine the logo game objects above were placed in a "logos" collection which in turn was placed in "main" (see screenshot below). If the "logos" collection had a z position of 0.9, the z positions of the game objects contained within would be 0.9, 1.0, and 1.1. Therefore, "logo3" would not be rendered as its z position is greater than 1.
+注意游戏对象 z 轴位置是由其本身 z 轴位置, 连同其所有父级的 z 轴位置共同决定的. 比如, 假设上文图标位于 "logos" 集合中, 该集合又位于 "main" 集合中 (见下图). 如果 "logos" 集合 z 位置是 0.9, 那么这三个图标的 z 位置就会是 0.9, 1.0, 和 1.1. 所以, "logo3" 不会被渲染因为其 z 位置大于 1.
 
 ![z-order](images/flash/z_order_outline.png)
 
-The z position of a game object can of course be changed using script. Assume the below is located in the script component of a game object:
+z 轴位置可由脚本更改. 如下代码设置了游戏对象的 z 轴位置:
 
 ```lua
 local pos = go.get_position()
@@ -192,33 +192,33 @@ pos.z  = 0.5
 go.set_position(pos)
 ```
 
-## Flash—hitTestObject and hitTestPoint collision detection
+## Flash—hitTestObject 和 hitTestPoint 碰撞检测
 
-Basic collision detection in Flash is achieved by using the `hitTestObject()` method. In this example, we have two movie clips: "bullet" and "bullseye". These are illustrated in the screenshot below. The blue boundary box is visible when selecting the symbols in the Flash editor, and it is these boundary boxes that drive the result of the `hitTestObject()` method.
+Flash 中使用 `hitTestObject()` 方法进行基本碰撞检测. 举个例子, 有两个影片剪辑: "bullet" 和 "bullseye". 见下图. 在 Flash 编辑器选中对象时会显示一个蓝色边框, `hitTestObject()` 方法就是用这样的边框来进行碰撞检测的.
 
 ![hit test](images/flash/hittest.png)
 
-Collision detection using `hitTestObject()` is done as follows:
+如下使用 `hitTestObject()` 进行碰撞检测:
 
 ```as
 bullet.hitTestObject(bullseye);
 ```
 
-Using the boundary boxes in this case would not be appropriate, as a hit would be registered in the scenario below:
+这样检测可能会不准确, 比如如下的情况:
 
 ![hit test bounding box](images/flash/hitboundingbox.png)
 
-An alternative to `hitTestObject()` is the `hitTestPoint()` method. This method contains a `shapeFlag` parameter, which allows hit tests to be conducted against the actual pixels of an object as opposed to the bounding box. Collision detection using `hitTestPoint()` could be done as below:
+除了 `hitTestObject()` 还有 `hitTestPoint()` 方法. 此方法包含一个 `shapeFlag` 参数, 可以提供像素对目标有像素形状的碰撞检测. 如下使用 `hitTestPoint()` 进行碰撞检测:
 
 ```as
 bullseye.hitTestPoint(bullet.x, bullet.y, true);
 ```
 
-This line would check the x and y position of the bullet (top left in this scenario) against the shape of the target. Since `hitTestPoint()` checks a point against a shape, which point (or points!) to check is a key consideration.
+这样通过子弹 x 和 y 坐标 (子弹图片左上角) 对靶子形状进行碰撞检测. 因为 `hitTestPoint()` 是点对形状的碰撞检测, 哪个 (或哪些) 点需要检测是要考虑的关键.
 
-## Defold—collision objects
+## Defold—碰撞对象
 
-Defold includes a physics engine that can detect collisions and let a script react to it. Collision detection in Defold starts with assigning collision object components to game objects. In the screenshot below, we have added a collision object to the "bullet" game object. The collision object is indicated as the red transparent box (which is visible in the editor only):
+Defold 内含物理引擎可以用于碰撞检测然后使用其上的脚本进行相应. 首先要在游戏对象上面添加碰撞对象组件. 如下图所示, 我们对 "bullet" 游戏对象添加了碰撞对象. 碰撞对象以红色半透明方块表示 (只在编辑器中可见):
 
 ![collision object](images/flash/collision_object.png)
 

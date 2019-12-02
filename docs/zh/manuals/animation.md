@@ -55,26 +55,26 @@ GUI 方块节点
 : 通过调用 [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]) 函数播放逐帧动画. 示例见下文.
 
 ::: 注意
-ping-pong 播放模式把动画从第一帧播放到最后一帧在返回播放到 **第二帧** , 而不是第一帧. 这样便于连续播放的衔接.
+ping-pong 播放模式把动画从第一帧播放到最后一帧再反向播放到 **第二帧** , 而不是第一帧. 这样便于连续播放的衔接.
 :::
 
-### Sprite example
+### Sprite 示例
 
-Suppose that your game has a "dodge" feature that allows the player to press a specific button to dodge. You have created four animations to support the feature with visual feedback:
+假设你的游戏有个 "dodge" 功能, 按下指定的键主角就进行闪避动作. 为此你建立了四组动画:
 
 "idle"
-: A looping animation of the player character idling.
+: 主角待机的循环动画.
 
 "dodge_idle"
-: A looping animation of the player character idling while being in the dodging stance.
+: 主角闪避动作的循环动画.
 
 "start_dodge"
-: A play-once transition animation taking the player character from standing to dodging.
+: 主角从站立姿态到闪避动作的一次性动画.
 
 "stop_dodge"
-: A play-once transition animation taking the player character from dodging back to standing.
+: 主角从闪避动作到站立姿态的一次性动画.
 
-The following script provides the logic:
+逻辑代码如下:
 
 ```lua
 
@@ -87,24 +87,24 @@ local function play_idle_animation(self)
 end
 
 function on_input(self, action_id, action)
-    -- "dodge" is our input action
+    -- "dodge" 就是输入动作
     if action_id == hash("dodge") then
         if action.pressed then
             sprite.play_flipbook("#sprite", hash("start_dodge"), play_idle_animation)
-            -- remember that we are dodging
+            -- 记录闪避动作已开始
             self.dodge = true
         elseif action.released then
             sprite.play_flipbook("#sprite", hash("stop_dodge"), play_idle_animation)
-            -- we are not dodging anymore
+            -- 记录闪避动作完成
             self.dodge = false
         end
     end
 end
 ```
 
-### GUI box node example
+### GUI 方块节点示例
 
-When selecting an animation or image for a node, you are in fact assigning the image source (atlas or tile source) and default animation in one go. The image source is statically set in the node, but the current animation to play can be changed in runtime. Still images are treated as one frame animations so changing an image means in run time is equivalent to playing a different flip book animation for the node:
+给节点选择图片或者动画时, 实际上也同时指定了图片来源 (图集或者瓷砖图源) 以及默认动画. 节点图源是静态的, 但是当前播放的动画是可以在运行时指定的. 静态图片被视作单帧动画, 所以运行时切换图片相当于播放另一个动画:
 
 ```lua
 local function flipbook_done(self)
@@ -113,26 +113,26 @@ end
 
 function init(self)
     local character_node = gui.get_node("character")
-    -- This requires that the node has a default animation in the same atlas or tile source as
-    -- the new animation/image we're playing.
+    -- 新动画/图片播放时
+    -- 节点图源要存在默认动画.
     gui.play_flipbook(character_node, "jump_left", flipbook_done)
 end
 ```
 
-An optional function that is called on completion can be provided. It will be called on animations that are played back in any of the `ONCE_*` modes.
+动画播放完成时可以提供一个回调函数. 如果动画是以 `ONCE_*` 模式播放, 播放完成后会调用这个回调函数.
 
-## Spine model animation
+## Spine model 动画
 
-To run animations on your model, simply call the [`spine.play_anim()`](/ref/spine#spine.play_anim) function:
+在 Spine 模型上播放动画, 只需调用 [`spine.play_anim()`](/ref/spine#spine.play_anim) 函数:
 
 ```lua
 local function anim_done(self)
-    -- the animation is done, do something useful...
+    -- 动画播放完成, 做其他事情...
 end
 
 function init(self)
-    -- Play the "walk" animation on component "spinemodel" and blend against previous
-    -- animation for the first 0.1 seconds, then call callback.
+    -- 在 "spinemodel" 组件上播放 "walk" 动画同时与上一个动画
+    -- 在前 0.1 内混合, 然后进行回调.
     local anim_props = { blend_duration = 0.1 }
     spine.play_anim("#spinemodel", "run", go.PLAYBACK_LOOP_FORWARD, anim_props, anim_done)
 end
@@ -140,89 +140,89 @@ end
 
 ![Spine model in game](images/animation/spine_ingame.png){srcset="images/animation/spine_ingame@2x.png 2x"}
 
-If an animation is played with any of the `go.PLAYBACK_ONCE_*` modes and you have provided a callback function to `spine.play_anim()` the callback is run on animation complete. See below for information on callbacks.
+如果动画是以 `go.PLAYBACK_ONCE_*` 模式播放, 然后在 `spine.play_anim()` 里指定回调函数, 则动画播放完成后会调用回调函数. 关于回调函数详见下文.
 
-### Spine model - Cursor animation
+### Spine model - 播放头
 
-In addition to using the `spine.play_anim()` to advance a spine animation, *Spine Model* components expose a "cursor" property that can be manipulated with `go.animate()`:
+除了 `spine.play_anim()` 还有更高级的方法, *Spine Model* 组件暴露了一个 "cursor" 属性可以通过 `go.animate()` 进行控制:
 
 ```lua
--- Set the animation on the spine model but don't run it.
+-- 设置 spine model 动画但是不播放.
 spine.play_anim("#spinemodel", "run_right", go.PLAYBACK_NONE)
 
--- Set the cursor to position 0
+-- 设置播放头为 0
 go.set("#spinemodel", "cursor", 0)
 
--- Tween the cursor slowly between 0 and 1 pingpong with in-out quad easing.
+-- 基于 in-out quad 缓动慢慢对播放头进行从 0 到 1 的 pingpong 补间.
 go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD, 6)
 ```
 
-::: important
-When tweening or setting the cursor, timeline events may not fire as expected.
+::: 注意
+补间和设置播放头时, 时间轴事件不会被触发.
 :::
 
-### Spine model - The bone hierarchy
+### Spine model - 骨骼层级
 
-The individual bones in the Spine skeleton are represented internally as game objects. In the *Outline* view of the Spine model component, the full hierarchy is visible. You can see each bone's name and its place in the skeleton hierarchy.
+Spine 骨架的各个骨骼实例在游戏对象内展示出来. 在 Spine model 组件的 *Outline* 视图内, 可以看到完整的嵌套关系. 在此层级嵌套关系中你可以看到骨骼的名称和其所在的位置.
 
 ![Spine model hierarchy](images/animation/spine_bones.png){srcset="images/animation/spine_bones@2x.png 2x"}
 
-With the bone name at hand, you are able to retrieve the instance id of the bone in runtime. The function [`spine.get_go()`](/ref/spine#spine.get_go) returns the id of the specified bone and you can, for instance, child other game objects under the animated game object:
+通过骨骼名称, 就可以在运行时得到骨骼实例. 函数 [`spine.get_go()`](/ref/spine#spine.get_go) 返回指定骨骼的 id, 然后就可以用来进行设置父级之类的操作:
 
 ```lua
--- Attach pistol game object to the hand of the heroine
+-- 把手枪绑定到英雄手上
 local hand = spine.get_go("heroine#spinemodel", "front_hand")
 msg.post("pistol", "set_parent", { parent_id = hand })
 ```
 
-### Spine model - Timeline events
+### Spine model - 时间轴事件
 
-Spine animations can trigger timed events by sending messages at precise moments. They are very useful for events that should take place in sync with your animation, like playing footstep sounds, spawning particle effects, attaching or detaching objects to the bone hierarchy or anything else you would like to happen.
+Spine 动画可以基于精确的时间触发事件. 对于需要做同步行为的功能非常有帮助, 例如播放走路声音, 场景粒子效果, 在骨骼层级上进行绑定和解绑或者实现你需要的其他功能.
 
-Events are added in the Spine software and are visualized on the playback timeline:
+在 Spine 软件里可以使用时间轴设置事件:
 
 ![Spine events](images/animation/spine_events.png)
 
-Each event is referenced with a name identifier ("bump" in the example above) and each event instance on the timeline can contain additional information:
+各种事件由事件 id 表示 (上例中是 "bump") 而且时间轴上的事件可以包含一些数据:
 
 Integer
-: A numerical value expressed as an integer.
+: 整数值.
 
 Float
-: A floating point numerical value.
+: 浮点数值.
 
 String
-: A string value.
+: 字符串值.
 
-When the animation plays and events are encountered, `spine_event` messages are sent back to the script component that called `spine.play()`. The message data contains the custom numbers and strings embedded in the event, as well as a few additional fields that are sometimes useful:
+动画播放遇到事件时, `spine_event` 消息会被发回到调用 `spine.play()` 函数的脚本上. 消息数据参数就是事件附带的数据, 连同其他一些有用的数据:
 
 `t`
-: The number of seconds passed since the first frame of the animation.
+: 自动画播放第一帧开始经过的时间.
 
 `animation_id`
-: The animation name, hashed.
+: 动画名, 哈希值.
 
 `string`
-: The provided string value, hashed.
+: 事件附带字符串值, 哈希值.
 
 `float`
-: The provided floating point numerical value.
+: 事件附带浮点数值.
 
 `integer`
-: The provided integer numerical value.
+: 事件附带整数值.
 
 `event_id`
-: The event identifier, hashed.
+: 事件 id, 哈希值.
 
 `blend_weight`
-: How much of the animation is blended in at this point. 0 means that nothing of the current animation is part of the blend yet, 1 means that the blend consists of the current animation to 100%.
+: 此时动画混合情况. 0 表示动画还没有被混合, 1 当前动画混合 100%.
 
 ```lua
--- Spine animation contains events that are used to play sounds in sync with the animation.
--- These arrive here as messages.
+-- Spine 动画包含与动画同步的音效.
+-- 作为消息传到这里.
 function on_message(self, message_id, message, sender)
   if message_id == hash("spine_event") and message.event_id == hash("play_sound") then
-    -- Play animation sound. The custom event data contains the sound component and the gain.
+    -- 播放动画音效. 事件数据包括声音组件和声音增益.
     local url = msg.url("sounds")
     url.fragment = message.string
     sound.play(url, { gain = message.float })
@@ -230,91 +230,91 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-## 3D Model animation
+## 3D Model 动画
 
-Models are animated with the [`model.play_anim()`](/ref/model#model.play_anim) function:
+通过调用 [`model.play_anim()`](/ref/model#model.play_anim) 函数播放模型动画:
 
 ```lua
 function init(self)
-    -- Start the "wiggle" animation back and forth on #model
+    -- 在 #model 上来回播放 "wiggle" 动画
     model.play_anim("#model", "wiggle", go.PLAYBACK_LOOP_PINGPONG)
 end
 ```
 
-::: important
-Defold currently supports only baked animations. Animations need to have matrices for each animated bone each keyframe, and not position, rotation and scale as separate keys.
+::: 注意
+Defold 目前只支持烘焙动画. 动画每个骨骼每一帧都要有矩阵数据, 而不是单独的位置, 旋转和缩放数据.
 
-Animations are also linearly interpolated. If you do more advanced curve interpolation the animations needs to be prebaked from the exporter.
+动画是线性插值的. 如果需要曲线插值动画要在输出时烘焙.
 
-Animation clips in Collada are not supported. To use multiple animations per model, export them into separate *.dae* files and gather the files into an *.animationset* file in Defold.
+不支持 Collada 中的动画剪辑. 想要一个模型多个动画, 就要分别导出为 *.dae* 文件然后在 Defold 里组成 *.animationset* 文件.
 :::
 
-### 3D Model - The bone hierarchy
+### 3D Model - 骨骼层级
 
-The bones in the Model skeleton are represented internally as game objects.
+模型骨骼作为游戏对象展示出来.
 
-You can retrieve the instance id of the bone game object in runtime. The function [`model.get_go()`](/ref/model#model.get_go) returns the id of the game object for the specified bone.
+通过骨骼名称, 就可以在运行时得到骨骼实例. 函数 [`model.get_go()`](/ref/model#model.get_go) 返回指定骨骼的 id.
 
 ```lua
--- Get the middle bone go of our wiggler model
+-- 得到 wiggler 模型的中央骨骼
 local bone_go = model.get_go("#wiggler", "Bone_002")
 
--- Now do something useful with the game object...
+-- 然后可以任意操作该游戏对象...
 ```
 
-### 3D Model - Cursor animation
+### 3D Model - 播放头
 
-Just like Spine models, 3D models can be animated by manipulating the `cursor` property:
+像 Spine 模型一样, 3D 模型也可以通过控制 `cursor` 属性播放动画:
 
 ```lua
--- Set the animation on #model but don't start it
+-- 设置 #model 上的动画但不播放
 model.play_anim("#model", "wiggle", go.PLAYBACK_NONE)
--- Set the cursor to the beginning of the animation
+-- 把播放头设置为动画起始位置
 go.set("#model", "cursor", 0)
--- Tween the cursor between 0 and 1 pingpong with in-out quad easing.
+-- 基于 in-out quad 缓动对播放头进行从 0 到 1 的 pingpong 补间.
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD, 3)
 ```
 
-## Property animation
+## 属性动画
 
-To animate a game object or component property, use the function `go.animate()`. For GUI node properties, the corresponding function is `gui.animate()`.
+制作游戏对象或者组件的属性动画, 可以使用函数 `go.animate()`. 对于 GUI 节点属性, 可以使用函数 `gui.animate()`.
 
 ```lua
--- Set the position property y component to 200
+-- 设置 y 轴位置为 200
 go.set(".", "position.y", 200)
--- Then animate it
+-- 制作动画
 go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNCE, 2)
 ```
 
-To stop all animations of a given property, call `go.cancel_animations()`, or for GUI nodes, `gui.cancel_animation()`:
+停止某个属性的所有动画, 调用 `go.cancel_animations()`, 对于 GUI 节点, 调用 `gui.cancel_animation()`:
 
 ```lua
--- Stop euler z rotation animation on the current game object
+-- 停止当前游戏对象欧拉 z 轴旋转动画
 go.cancel_animation(".", "euler.z")
 ```
 
-If you cancel the animation of a composite property, like `position`, any animations of the sub-components (`position.x`, `position.y` and `position.z`) will be cancelled as well.
+如果取消组合属性的动画, 例如 `position`, 其所有子属性 (`position.x`, `position.y` 和 `position.z`) 动画也会一同取消.
 
-The [Properties Manual](/manuals/properties) contains all the available properties on game objects, components and GUI nodes.
+[属性教程](/manuals/properties) 涵盖游戏对象, 组件和 GUI 节点的所有属性.
 
-## GUI node property animation
+## GUI 节点属性动画
 
-Almost all GUI node properties are possible to animate. You can, for instance, make a node invisible by setting its `color` property to full transparency and then fade it into view by animating the color to white (i.e. no tint color).
+几乎所有 GUI 节点属性都可以制作动画. 比如说, 把一个节点的 `color` 设置成透明看不见然后制作属性动画到全白使其可见 (也就是没有染色).
 
 ```lua
 local node = gui.get_node("button")
 local color = gui.get_color(node)
--- Animate the color to white
+-- 节点白色动画
 gui.animate(node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTQUAD, 0.5)
--- Animate the outline red color component
+-- 边框红色动画
 gui.animate(node, "outline.x", 1, gui.EASING_INOUTQUAD, 0.5)
--- And move to x position 100
+-- 位置延 x 轴移动 100 像素动画
 gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 ```
 
-## Playback Modes
+## 播放模式
 
-Animations can be played either once or in a loop. How the animation plays is determined by the playback mode:
+动画可以单次播放也可以循环播放. 取决于播放模式:
 
 * go.PLAYBACK_NONE
 * go.PLAYBACK_ONCE_FORWARD
@@ -324,7 +324,7 @@ Animations can be played either once or in a loop. How the animation plays is de
 * go.PLAYBACK_LOOP_BACKWARD
 * go.PLAYBACK_LOOP_PINGPONG
 
-The pingpong modes run the animation first forward, then backward. A set of corresponding modes exist for GUI property animations:
+pingpong 模式先正向播放, 再反向播放. GUI 属性动画也有这些播放模式:
 
 * gui.PLAYBACK_NONE
 * gui.PLAYBACK_ONCE_FORWARD
@@ -334,11 +334,11 @@ The pingpong modes run the animation first forward, then backward. A set of corr
 * gui.PLAYBACK_LOOP_BACKWARD
 * gui.PLAYBACK_LOOP_PINGPONG
 
-## Easing
+## 缓动
 
-Easing defines how the animated value changes over time. The images below describe the functions applied over time to create the easing.
+缓动决定动画基于时间的变化. 下面列出了内置的缓动函数.
 
-The following are valid easing values for `go.animate()`:
+以下可用于 `go.animate()` 函数:
 
 |---|---|
 | go.EASING_LINEAR | |
@@ -363,7 +363,7 @@ The following are valid easing values for `go.animate()`:
 | go.EASING_INQUINT | go.EASING_OUTQUINT |
 | go.EASING_INOUTQUINT | go.EASING_OUTINQUINT |
 
-The following are valid easing values for `gui.animate()`:
+以下可用于 `gui.animate()` 函数:
 
 |---|---|
 | gui.EASING_LINEAR | |
@@ -460,22 +460,22 @@ The following are valid easing values for `gui.animate()`:
 ![In-out quintic](images/properties/easing_inoutquint.png){.inline}
 ![Out-in quintic](images/properties/easing_outinquint.png){.inline}
 
-## Custom easing
+## 自定义缓动
 
-You can create custom easing curves by defining a `vector` with a set of values and then provide the vector instead of one of the predefined easing constants above. The vector values express a curve from the start value (`0`) to the target value (`1`). The runtime samples values from the vector and linearly interpolates when calculating values in between the points expressed in the vector.
+可以使用 `vector` 和其中的一系列值代替预置缓动函数. 矢量值从 (`0`) 过渡到 (`1`). 引擎会从矢量中取样并自动线性插值生成缓动曲线.
 
-For example, the vector:
+示例如下:
 
 ```lua
 local values = { 0, 0.4, 0.2, 0.2, 0.5. 1 }
 local my_easing = vmath.vector(values)
 ```
 
-yields the following curve:
+生成的缓动曲线如下:
 
 ![Custom curve](images/animation/custom_curve.png)
 
-The following example causes the y position of a game object to jump between the current position and 200 according to a square curve:
+下面的例子是让游戏对象的 y 轴位置依照自定义曲线从当前位置到 200 来回跳跃:
 
 ```lua
 local values = { 0, 0, 0, 0, 0, 0, 0, 0,
@@ -492,15 +492,15 @@ go.animate("go", "position.y", go.PLAYBACK_LOOP_PINGPONG, 200, square_easing, 2.
 
 ![Square curve](images/animation/square_curve.png)
 
-## Completion callbacks
+## 播放完成回调函数
 
-All animation functions (`go.animate()`, `gui.animate()`, `gui.play_flipbook()`, `gui.play_spine_anim()`, `sprite.play_flipbook()`, `spine.play_anim()` and `model.play_anim()`) support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations, nor when an animation is manually canceled via `go.cancel_animations()`. The callback can be used to trigger events on animation completion or to chain multiple animations together.
+所有动画函数 (`go.animate()`, `gui.animate()`, `gui.play_flipbook()`, `gui.play_spine_anim()`, `sprite.play_flipbook()`, `spine.play_anim()` 和 `model.play_anim()`) 可以在最后一个参数上传入Lua回调函数. 当动画播放完成时会调用这个函数. 对于循环动画, 和使用 `go.cancel_animations()` 手动取消播放的动画, 不会调用回调函数. 动画播放完成的回调函数里可以发送消息或者继续播放其他动画.
 
-The exact function signature of the callback differs slightly between the animation functions. See the API documentation for the function you are using.
+不同动画函数的回调函数参数有些许区别. 具体请参照动画函数的 API 文档.
 
 ```lua
 local function done_bouncing(self, url, property)
-    -- We're done animating. Do something...
+    -- 动画播放完成. 进行各种处理...
 end
 
 function init(self)
