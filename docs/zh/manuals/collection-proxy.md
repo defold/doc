@@ -5,11 +5,11 @@ brief: 本教程介绍了如何动态创建新游戏世界以及在游戏世界�
 
 # 集合代理
 
-The collection proxy component is used to load and unload new game "worlds" dynamically based on the content of a collection file. They can be used to implement switching between game levels, GUI screens, loading and unloading of narrative "scenes" throughout a level, loading/unloading of mini-games and more.
+集合代理组件用于基于集合文件内容动态加载卸载新的游戏 "世界". 可以用来实现切换关卡, GUI 屏幕, 在关卡里加载卸载插播 "场景", 加载卸载迷你游戏等等功能.
 
-Defold organizes all game objects in collections. A collection can contain game objects and other collections (i.e. sub-collections). Collection proxies allow you to split your content into separate collections and then dynamically manage the loading and unloading of these collections through scripting.
+Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象和其他集合 (即子集合). 集合代理可以让你把内容拆分到各个集合然后用脚本动态加载卸载这些集合.
 
-Collection proxies differ from [collection factory components](/manuals/collection-factory/). A collection factory instanciates the contents of a collection into the current game world. Collection proxies create a new game world in runtime and are thus have different use-cases.
+集合代理不像 [集合工厂组件](/manuals/collection-factory/). 集合工厂用于在当前游戏世界创建集合. 集合代理用于运行时创建全新游戏世界, 它们用处不同.
 
 ## Creating a collection proxy component
 

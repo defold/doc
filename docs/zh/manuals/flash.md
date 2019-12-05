@@ -222,81 +222,81 @@ Defold 内含物理引擎可以用于碰撞检测然后使用其上的脚本进�
 
 ![collision object](images/flash/collision_object.png)
 
-Defold includes a modified version of the Box2D physics engine, which can simulate realistic collisions automatically. This guide assumes use of the kinematic collision objects, as these most closely resemble collision detection in Flash. Read more about the dynamic collision objects in the Defold [physics manual](/manuals/physics).
+Defold 包含一个 Box2D 物理引擎的修改版, 可以用来自动模拟真实的碰撞. 本教程使用运 Kinematic 碰撞对象, 因为它的碰撞检测和 Flash 的最接近. 关于动态碰撞详情请见 Defold [物理教程](/manuals/physics).
 
-The collision object includes the following properties:
+此碰撞对象包含如下属性:
 
 ![collision object properties](images/flash/collision_object_properties.png)
 
-A box shape has been used as this was most appropriate for the bullet graphic. The other shape used for 2D collisions, sphere, will be used for the target. Setting the type to Kinematic means resolving collisions is done by your script as opposed to the built-in physics engine (for more information on the other types, please refer to the [physics manual](/manuals/physics)). The group and mask properties determine what collision group the object belongs to and what collision group it should be checked against, respectively. The current setup means a "bullet" can only collide with a "target". Imagine the setup was changed to the below:
+用一个矩形代表上例中的子弹. 圆形代表靶子进行碰撞检测. 设置类型为 Kinematic 意味着使用脚本进行碰撞处理, 物理引擎默认不是这样 (关于其他类型, 请见 [物理手册](/manuals/physics)). 属性 group 和 mask 分别决定了碰撞对象属于哪个组以及和哪个组相碰撞. 当前设置是 "bullet" 只能与 "target" 碰撞. 要是如下这样:
 
 ![collision group/mask](images/flash/collision_groupmask.png)
 
-Now, bullets can collide with targets and other bullets. For reference, we have set up a collision object for the target that looks as follows:
+子弹之间就能相互碰撞了. 我们为靶子设置了如下的碰撞对象:
 
 ![collision object bullet](images/flash/collision_object_bullet.png)
 
-Note how the *Group* property is set to "target" and *Mask* is set to "bullet".
+注意 *Group* 属性设置为了 "target" 然后 *Mask* 设置为了 "bullet".
 
-In Flash, collision detection occurs only when explicitly called by the script. In Defold, collision detection occurs continuously in the background as long as a collision object remains enabled. When a collision occurs, messages are sent to all components of a game object (most relevantly, the script components). These are the [collision_response and contact_point_response](/manuals/physics/#collision-messages) messages, which contain all the information required to resolve the collision as desired.
+Flash 里, 需要脚本调用才会进行碰撞检测. Defold 里, 只要碰撞对象开启, 后台就会持续进行碰撞检测. 碰撞发生时, 消息会发送到游戏对象所有组件上 (更确切地说是脚本组件). 有 [碰撞处理和碰撞点处理](/manuals/physics/#collision-messages) 消息, 其中包含了处理碰撞所需的各种信息.
 
-The advantage of Defold collision detection is that it is more advanced than that of Flash, with the ability to detect collisions between relatively complex shapes with very little setup effort. Collision detection is automatic, meaning looping through the various objects in the different collision groups and explicitly performing hit tests is not required. The main drawback is that there is no equivalent to the Flash shapeFlag. However, for most uses combinations of the basic box and sphere shapes suffice. For more complex scenarios, custom shapes [are possible](//forum.defold.com/t/does-defold-support-only-three-shapes-for-collision-solved/1985).
+Defold 的碰撞检测比 Flash 的要高级, 毫不费力就能检测复杂形状间的碰撞. 碰撞检测是自动的, 也就是说不需要手动遍历各个对象然后挨个进行碰撞检测. 但是没有 Flash 的 shapeFlag. 但是对于复杂图形可以使用简单图形组合达成. 更复杂的需求下, 还可以使用 [自定义图形](//forum.defold.com/t/does-defold-support-only-three-shapes-for-collision-solved/1985).
 
-## Flash—event handling
+## Flash—事件监听
 
-Event objects and their associated listeners are used to detect various events (e.g. mouse clicks, button presses, clips being loaded) and trigger actions in response. There are a variety of events to work with.
+事件对象及其监听器用来检测各种事件 (比如说 鼠标点击, 按钮按下, 剪辑加载) 并在反馈里处理行为. 包括许许多多的事件.
 
-## Defold—call-back functions and messaging
+## Defold—回调函数和消息
 
-The Defold equivalent of the Flash event handling system consists of a few aspects. Firstly, each script component comes with a set of callback-functions that detect specific events. These are:
+Defold 跟 Flash 比有几个地方差不多. 首先, 每个脚本组件都包含一组特定事件的回调函数. 具体有:
 
 init
-:   Called when the script component is initialised. Equivalent to the constructor function in Flash.
+:   脚本组件初始化时调用. 相当于 Flash 的构造函数.
 
 final
-:   Called when the script component is destroyed (e.g. a spawned game object is removed).
+:   脚本组件析构时调用 (比如游戏对象被删除时).
 
 update
-:   Called every frame. Equivalent to enterFrame in Flash.
+:   在每一帧调用. 相当于 Flash 的 enterFrame.
 
 on_message
-:   Called when the script component receives a message.
+:   当脚本组件收到消息时调用.
 
 on_input
-:   Called when user input (e.g. mouse or keyboard) is sent to a game object with [input focus](/ref/go/#acquire_input_focus), which means that the object receives all input and can react to it.
+:   当用户输入 (比如鼠标或键盘) 发送到得到 [输入焦点](/ref/go/#acquire_input_focus) 的游戏对象上时调用, 得到输入焦点的游戏对象会接收并反馈所有输入.
 
 on_reload
-:   Called when the script component is reloaded.
+:   脚本组件重载时调用.
 
-The callback functions listed above are all optional and can be removed if not used. For details on how to set up input, please refer to the [input manual](/manuals/input). A common pitfall occurs when working with collection proxies - please refer to [this section](/manuals/input/#input-dispatch-and-on_input) of the input manual for more information.
+这些都是可选回调函数如果不需要可以删除. 关于如何接收输入, 详情请见 [输入教程](/manuals/input). 有一个关于集合代理易用错的地方 - 详情请见输入教程的 [这一章](/manuals/input/#input-dispatch-and-on_input).
 
-As discussed in the collision detection section, collision events are dealt with through the sending of messages to the game objects involved. Their respective script components receive the message in their on_message callback functions.
+就像碰撞检测部分说的那样, 碰撞事件被发送到相关游戏对象上进行处理. 各个脚本组件的 on_message 回调函数会被调用.
 
-## Flash—button symbols
+## Flash—按钮剪辑
 
-Flash uses a dedicated symbol type for buttons. Buttons use specific event handler methods (e.g. `click` and `buttonDown`) to execute actions when user interaction is detected. The graphical shape of a button in the "Hit" section of the button symbol determines the hit area of the button.
+Flash 为按钮使用了一种特殊剪辑. 按钮监听到用户交互时使用特殊的事件处理方法 (比如 `click` 和 `buttonDown`) 来运行指定行为. 按钮 "Hit" 部分的图形决定了按钮的可点击区域.
 
 ![button](images/flash/button.png)
 
-## Defold—GUI scenes and scripts
+## Defold—GUI场景和脚本
 
-Defold does not include a native button component, nor can clicks be easily detected against the shape of a given game object in the way buttons are handled in Flash. The use of a [GUI](/manuals/gui) component is the most common solution, partially because the positions of the Defold GUI components are not affected by the in-game camera (if used). The GUI API also contains functions for detecting if user input like clicks and touch events are within the bounds of a GUI element.
+Defold 没有内置按钮组件, 也不像 Flash 那样使用游戏对象的图形进行方便的点击检测. 使用 [GUI](/manuals/gui) 组件是一个通用方案, 部分因为 Defold GUI 组件的位置不受游戏中摄像机 (如果有使用). GUI API 还包含在 GUI 组件的范围内检测用户输入例如点击和触摸事件的功能.
 
-## Debugging
+## 调试
 
-In Flash, the `trace()` command is your friend when debugging. The Defold equivalent is `print()`, and is used in the same way as `trace()`:
+在 Flash 里, 用 `trace()` 命令帮助调试. 在 Defold 里相应的是 `print()`, 跟使用 `trace()` 方法一样:
 
 ```lua
 print("Hello world!"")
 ```
 
-You can print multiple variables using one `print()` function:
+可以调用一次 `print()` 函数输出多个变量:
 
 ```lua
 print(score, health, ammo)
 ```
 
-There is also a `pprint()` function (pretty print), which is useful when dealing with tables. This function prints the content of tables, including nested tables. Consider the script below:
+还有一个 `pprint()` 函数 (pretty print), 用于打印表. 此函数能输出表的内容, 包括嵌套表. 看下面的脚本:
 
 ```lua
 factions = {"red", "green", "blue"}
@@ -304,13 +304,13 @@ world = {name = "Terra", teams = factions}
 pprint(world)
 ```
 
-This contains a table (`factions`) nested in a table (`world`). Using the regular `print()` command would output the unique id of the table, but not the actual contents:
+这里把表 (`factions`) 嵌入到表 (`world`) 里. 使用普通 `print()` 命令只会输出表的id, 不含内容:
 
 ```
 DEBUG:SCRIPT: table: 0x7ff95de63ce0
 ```
 
-Using the `pprint()` function as illustrated above gives more meaningful results:
+使用 `pprint()` 函数就能显示出更多内容:
 
 ```
 DEBUG:SCRIPT:
@@ -324,27 +324,27 @@ DEBUG:SCRIPT:
 }
 ```
 
-If your game uses collision detection, you can toggle physics debugging by posting the message below:
+如果游戏使用了碰撞检测, 可以发送如下消息开关物理调试:
 
 ```lua
 msg.post("@system:", "toggle_physics_debug")
 ```
 
-Physics debug can also be enabled in the project settings. Before toggling physics debug our project would look like this:
+也可以在项目设置里打开物理调试. 打开物理调试前我们的项目看起来像这样:
 
 ![no debug](images/flash/no_debug.png)
 
-Toggling physics debug displays the collision objects added to our game objects:
+打开物理调试显示出项目中的碰撞对象:
 
 ![with debug](images/flash/with_debug.png)
 
-When collisions occur, the relevant collision objects light up. In addition, the collision vector is displayed:
+当碰撞发生时, 相关碰撞对象会高光显示. 而且, 碰撞向量也会被显示出来:
 
 ![collision](images/flash/collision.png)
 
-Finally, see the [profiler documentation](/ref/profiler/) for information on how to monitor CPU and memory usage. For more information on advanced debugging techniques, see the [debugging section](/manuals/debugging) in the Defold manual.
+最后, 关于检测 CPU 和内存使用情况详情请见 [性能分析教程](/ref/profiler/). 更高级的调试技术, 详情请见 Defold 手册的 [调试部分](/manuals/debugging).
 
-## Where to go from here
+## 更多参考
 
 - [Defold examples](/examples)
 - [Tutorials](/tutorials)
@@ -352,4 +352,4 @@ Finally, see the [profiler documentation](/ref/profiler/) for information on how
 - [Reference](/ref)
 - [FAQ](/faq)
 
-If you have questions or get stuck, the [Defold forums](//forum.defold.com) are a great place to reach out for help.
+如果你有疑问, [Defold 论坛](//forum.defold.com) 是一个获取帮助的好地方.
