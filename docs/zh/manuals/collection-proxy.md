@@ -11,7 +11,7 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 
 集合代理不像 [集合工厂组件](/manuals/collection-factory/). 集合工厂用于在当前游戏世界创建集合. 集合代理用于运行时创建全新游戏世界, 它们用处不同.
 
-## Creating a collection proxy component
+## 创建集合代理组件
 
 1. Add a collection proxy component to a game object by <kbd>right clicking</kbd> a game object and selecting <kbd>Add Component ▸ Collection Proxy</kbd> from the context menu.
 
