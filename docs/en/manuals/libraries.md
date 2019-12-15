@@ -28,11 +28,11 @@ Libraries are referred to via a standard URL. For a project hosted on GitHub it 
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
 ::: important
-It is recommend to always depends on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
+It is recommend to always depend on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
 :::
 
 ::: important
-Note that you need read access to the Library URL. For GitHub projects, that means that the project has to be either public or that you have generated an access token. For Defold hosted projects, that means you need to be a member of the dependent projects.
+Note that you need read access to the Library URL. For GitHub projects, that means that the project has to be either public or that you have generated an access token.
 :::
 
 ## Setting up library dependencies
