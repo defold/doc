@@ -35,7 +35,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 ![overview](images/debugging/overview.png){srcset="images/debugging/overview@2x.png 2x"}
 
-As soon as the debugger is attached, you have control of the execution of the game through the debugger control buttons in the console, or through the <kbd>Debug</kbd> menu:
+调试器一旦附加到游戏上, 你就可以通过控制台调试器面板按钮或者从 <kbd>Debug</kbd> 菜单来控制游戏运行了:
 
 Break
 : ![pause](images/debugging/pause.svg){width=60px .left}

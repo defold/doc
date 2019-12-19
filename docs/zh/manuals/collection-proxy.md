@@ -13,9 +13,9 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 
 ## 创建集合代理组件
 
-1. Add a collection proxy component to a game object by <kbd>right clicking</kbd> a game object and selecting <kbd>Add Component ▸ Collection Proxy</kbd> from the context menu.
+1. 把一个集合代理组件加入到游戏对象上 <kbd>右键点击</kbd> 并从上下文菜单中选择 <kbd>Add Component ▸ Collection Proxy</kbd>.
 
-2. Set the *Collection* property to reference a collection that you wish to dynamically load into the runtime at a later point. The reference is static and makes sure that all the content of the referenced collection end up in the final game.
+2. 设置 *Collection* 属性来引用一个集合, 就是你希望动态加载进运行环境的集合. 这些引用是静态的, 所以确保把游戏所需的各个部分都通过集合引用到.
 
 ![add proxy component](images/collection-proxy/create_proxy.png){srcset="images/collection-proxy/create_proxy@2x.png 2x"}
 
