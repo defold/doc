@@ -39,7 +39,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
-  Break execution of the game immediately. The game will break at its current point. You are now able to inspect the state of the game, advance the game step by step, or continue running it until the next breakpoint. The current point of execution is marked in the code editor:
+  立即停止游戏执行. 游戏会在断点处停止运行. 此时可以查看游戏状态, 步进游戏, 或者继续运行直到下一个断点. 编辑器上表明了当前运行的点:
 
   ![script](images/debugging/script.png){srcset="images/debugging/script@2x.png 2x"}
 

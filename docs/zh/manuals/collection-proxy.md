@@ -19,11 +19,11 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 
 ![add proxy component](images/collection-proxy/create_proxy.png){srcset="images/collection-proxy/create_proxy@2x.png 2x"}
 
-(You can exclude the content in the build and download it with code instead by checking the *Exclude* box and using the [Live update feature](/manuals/live-update/).)
+(也可以编译时排除一部分内容需要的时候用代码下载而不使用 *Exclude* 选项和 [热更新功能](/manuals/live-update/).)
 
-## Bootstrap
+## 启动集合
 
-When the Defold engine starts it loads and instanciates all game objects from a *bootstrap collection* into the runtime. It then initializes and enables the game objects and their components. Which bootstrap collection the engine should use is set in the [project settings](/manuals/project-settings). By convention this collection file is usually named "main.collection".
+当 Defold 引擎开始工作最先把 *启动集合* 导入运行环境并对其中的所有游戏对象进行初始化. 然后开启游戏对象和它们的组件. 在 [项目配置](/manuals/project-settings) 里设置把哪个集合作为启动集合使用. 依照惯例启动集合都叫做 "main.collection".
 
 ![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
 

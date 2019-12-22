@@ -5,11 +5,11 @@ brief: 本教程介绍了粒子特效组件的使用以及特效的编辑方法.
 
 # Particle FX
 
-Particle effects are used to visually enhance games. You can use them to create explosions, blood splatter, trails, weather or any other effect.
+粒子特效用以为游戏呈现视觉效果.可以用来表现爆炸, 喷血, 拖尾, 天气等等效果.
 
 ![ParticleFX Editor](images/particlefx/editor.png){srcset="images/particlefx/editor@2x.png 2x"}
 
-Particle effects consists of a number of emitters and optional modifiers:
+粒子特效包含一些发射器以及可选的修改器:
 
 Emitter
 : An emitter is a positioned shape that emits particles uniformly distributed over the shape. The emitter contains properties that controls the particle spawning as well as the image or animation, lifespan, color, shape and velocity of the individual particles.

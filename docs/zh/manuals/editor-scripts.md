@@ -5,22 +5,22 @@ brief: 本教程介绍了如何使用 Lua 扩展编辑器功能
 
 # 编辑器脚本
 
-You can create custom menu items and editor lifecycle hooks using Lua files with special extension: `.editor_script`. Using this system, you can tweak editor to enhance your development workflow.
+只需使用: `.editor_script` 扩展名的 Lua 脚本就可以创建自定义菜单项和编辑器生命周期回调. 使用这种方法, 你可以调整编辑器创建适合自己的开发流.
 
-## Editor script runtime
+## 编辑器脚本运行环境
 
-Editor scripts run inside an editor, in a Lua VM emulated by Java VM. All scripts share the same single environment, which means they can interact with each other. You can require Lua modules, just as with `.script` files, but Lua version that is running inside the editor is different, so make sure your shared code is compatible. Editor uses Lua version 5.2.x, more specifically [luaj](https://github.com/luaj/luaj) runtime, which is currently the only viable solution to run Lua on JVM. Besides that, there are some restrictions:
-- there is no `debug` and `coroutine` packages;
-- there is no `os.execute` — we provide a more user-friendly and secure way to execute shell scripts in [actions](#actions) section;
-- there is no `os.tmpname` and `io.tmpfile` — currently editor scripts can access files only inside the project directory;
-- there is currently no `os.rename`, although we want to add it;
-- there is no `os.exit` and `os.setlocale`.
+编辑器脚本运行于编辑器中, 在一个Java虚拟机下的Lua虚拟机下运行. 所有脚本共享一个环境, 也就是说它们能彼此访问. 你可以导入Lua模块, 就像 `.script` 文件一样, 但是编辑器内lua运行版本不同, 所以要注意代码兼容性. 编辑器使用 Lua 版本 5.2.x, 具体来说就是 [luaj](https://github.com/luaj/luaj) 运行时, 目前只有这个运行时能运行在Java虚拟机下. 除了这些, 还有一些限制:
+- 没有 `debug` 和 `coroutine` 包;
+- 没有 `os.execute` — 我们在 [actions](#actions) 部分提供了更有效安全的方法;
+- 没有 `os.tmpname` 和 `io.tmpfile` — 目前编辑器可存取文件仅限于项目文件夹内的文件;
+- 目前没有 `os.rename`, 以后可能加入;
+- 没有 `os.exit` 和 `os.setlocale`.
 
-All editor extensions defined in editor scripts are loaded when you open a project. When you fetch libraries, extensions are reloaded, since there might be new editor scripts in a libraries you depend on. During this reload, no changes in your own editor scripts are picked up, since you might be in the middle of changing them. To reload them as well, you should run Project → Reload Editor Scripts command.
+用编辑器脚本定义的编辑器扩展会在打开项目时加载. 获取依赖库时, 扩展会重新加载, 因为依赖库里有可能有扩展脚本存在. 重新加载时, 不会改变当前扩展脚本, 因为此时也许你正在编辑它们. 要完全重新加载, 可以使用 Project → Reload 编辑器命令.
 
-## Anatomy of `.editor_script`
+## `.editor_script` 构成
 
-Every editor script should return a module, like that:
+每个编辑器脚本需要返回一个模块, 如下:
 ```lua
 local M = {}
 
