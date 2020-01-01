@@ -12,11 +12,11 @@ Script properties provide a simple and powerful way of defining and exposing cus
 * When you want to animate the values of a property.
 * When you want to access state data in one script from another. (Note that if you access properties frequently between objects, it may be better to move the data to a shared storage.)
 
-Common use cases are to set the health or speed of a specific enemy AI, the tint color of a pickup object, or what message a button object should send when pressed---and/or where to send it.
+Common use cases are to set the health or speed of a specific enemy AI, the tint color of a pickup object, the atlas of a sprite, or what message a button object should send when pressed---and/or where to send it.
 
 ## Defining a script property
 
-Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any callback-functions like `init()` and `update()`. The default value provided for the property governs the type of the property: number, boolean, hash, `msg.url`, `vmath.vector3`, `vmath.vector4` or `vmath.quaternion`.
+Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any callback-functions like `init()` and `update()`. The default value provided for the property governs the type of the property: number, boolean, hash, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
 
 ```lua
 -- Define script properties for health and an attack target
@@ -103,3 +103,32 @@ local ids = collectionfactory.create("#cangang_factory", nil, nil, props)
 The property values provided via `factory.create()` and `collectionfactory.create()` will override any value set in the prototype file as well as the default values in the script.
 
 If several script components attached to a game object defines the same property, each component will get initialized with the value provided to `factory.create()` or `collectionfactory.create()`.
+
+
+## Resource properties
+
+Resource properties are defined just like the script properties for the basic data types:
+
+```lua
+go.property("my_atlas", resource.atlas("/atlas.atlas"))
+go.property("my_font", resource.font("/font.font"))
+go.property("my_material", resource.material("/material.material"))
+go.property("my_texture", resource.texture("/texture.png"))
+go.property("my_tile_source", resource.tile_source("/tilesource.tilesource"))
+```
+
+When a resource property is defined it shows up in the *Properties* view as any other script property, but as a file/resource browser field:
+
+![Resource Properties](images/script-properties/resource-properties.png)
+
+You access and use the resource properties using `go.get()` or via the `self` script instance reference and using `go.set()`:
+
+```lua
+function init(self)
+  go.set("#sprite", "image", self.my_atlas)
+  go.set("#label", "font", self.my_font)
+  go.set("#sprite", "material", self.my_material)
+  go.set("#model", "texture0", self.my_texture)
+  go.set("#tilemap", "tile_source", self.my_tile_source)
+end
+```
