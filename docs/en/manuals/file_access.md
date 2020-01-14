@@ -16,8 +16,8 @@ Defold provides several different functions to work with files:
 ## File and folder locations
 File and folder locations can be divided into three categories:
 
-* Files and folders bundled with your application
 * Application specific files created by your application
+* Files and folders bundled with your application
 * System specific files accessed by your application
 
 ### How to save and load application specific files
