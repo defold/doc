@@ -229,6 +229,14 @@
                         "name": "Importing and editing assets"
                     },
                     {
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
+                    },
+                    {
+                        "path": "/manuals/live-update",
+                        "name": "Live update"
+                    },
+                    {
                         "path": "/manuals/animation",
                         "name": "Animation"
                     },
@@ -251,10 +259,6 @@
                     {
                         "path": "/manuals/tilesource",
                         "name": "Tile source"
-                    },
-                    {
-                        "path": "/manuals/adapting-graphics-to-screen-size",
-                        "name": "Adapting to different screen sizes"
                     },
                     {
                         "path": "/manuals/texture-profiles",
@@ -394,10 +398,19 @@
                     {
                         "path": "/manuals/modules",
                         "name": "Modules"
-                    },
+                    }
+                ]
+            },
+            {
+                "name": "NETWORK AND FILE I/O",
+                "items": [
                     {
                         "path": "/manuals/networking",
                         "name": "Networking"
+                    },
+                    {
+                        "path": "/manuals/file_access",
+                        "name": "Working with files"
                     }
                 ]
             },
@@ -422,20 +435,24 @@
                 "name": "WORKFLOW",
                 "items": [
                     {
-                        "path": "/manuals/version-control",
-                        "name": "Version control"
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
                     },
                     {
-                        "path": "/manuals/writing-code",
-                        "name": "Writing code"
+                        "path": "/manuals/bundling",
+                        "name": "Bundling an application"
                     },
                     {
-                        "path": "/manuals/hot-reload",
-                        "name": "Hot reloading"
+                        "path": "/manuals/bob",
+                        "name": "Bob the builder"
                     },
                     {
                         "path": "/manuals/debugging",
                         "name": "Debugging"
+                    },
+                    {
+                        "path": "/manuals/hot-reload",
+                        "name": "Hot reloading"
                     },
                     {
                         "path": "/manuals/optimization",
@@ -450,16 +467,16 @@
                         "name": "Refactoring"
                     },
                     {
-                        "path": "/manuals/bundling",
-                        "name": "Bundling an application"
-                    },
-                    {
-                        "path": "/manuals/bob",
-                        "name": "Bob the builder"
-                    },
-                    {
                         "path": "/manuals/dev-app",
                         "name": "The mobile dev app"
+                    },
+                    {
+                        "path": "/manuals/version-control",
+                        "name": "Version control"
+                    },
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
                     }
                 ]
             },
@@ -467,28 +484,24 @@
                 "name": "PLATFORMS",
                 "items": [
                     {
-                        "path": "/manuals/ios",
-                        "name": "iOS"
-                    },
-                    {
                         "path": "/manuals/android",
                         "name": "Android"
+                    },
+                    {
+                        "path": "/manuals/ios",
+                        "name": "iOS"
                     },
                     {
                         "path": "/manuals/html5",
                         "name": "HTML5"
                     },
                     {
+                        "path": "/manuals/macos",
+                        "name": "macOS"
+                    },
+                    {
                         "path": "/manuals/windows",
                         "name": "Windows"
-                    },
-                    {
-                        "path": "/manuals/instant-games",
-                        "name": "Facebook Instant Games"
-                    },
-                    {
-                        "path": "/manuals/live-update",
-                        "name": "Live update"
                     }
                 ]
             },
@@ -498,6 +511,10 @@
                     {
                         "path": "/manuals/facebook",
                         "name": "Facebook"
+                    },
+                    {
+                        "path": "/manuals/instant-games",
+                        "name": "Facebook Instant Games"
                     },
                     {
                         "path": "/manuals/iap",
