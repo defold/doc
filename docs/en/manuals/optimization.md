@@ -20,6 +20,10 @@ Defold will create a dependency tree when building and bundling your application
   * What this means for actual application size is not clearly defined but we are talking size in the range of up to 20 MB.
 * Playable ads are usually limited to between 2 and 5 MB depending on the ad network.
 
+:::sidenote
+According to a 2017 study it was shown that "For every 6 MB increase to an APK’s size, we see a decrease in the install conversion rate of 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
+:::
+
 To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#build-reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
 
 ### Optimize sounds
