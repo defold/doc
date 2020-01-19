@@ -46,7 +46,7 @@ $ chmod +x Game.app/Contents/MacOS/Game
 
 * 2) Create an entitlements file specifying the permissions required by your game. For most games the following permissions are enough:
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
