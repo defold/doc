@@ -175,6 +175,30 @@ print(rot_s) --> nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM
 
 And that's it! We have created a fully working native extension.
 
+## Extension Lifecycle
+
+As we saw above the `DM_DECLARE_EXTENSION` macro is used to declare the various entry points into the extension code:
+
+`DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)`
+
+The entry points will allow you to run code at various points in the lifecycle of an extension:
+
+* Engine start
+  * Engine systems are starting
+  * Extension `app_init`
+  * Extension `init` - All Defold APIs have been initialized. This is the recommended point in the extension lifecycle where Lua bindings to extension code is created.
+  * Script init - The `init()` function of script files are called.
+* Engine loop
+  * Engine update
+    * Extension `update`
+    * Script update - The `update()` function of script files are called.
+  * Engine events (window minimize/maximize etc)
+    * Extension `on_event`
+* Engine shutdown (or reboot)
+  * Script final - The `final()` function of script files are called.
+  * Extension `final`
+  * Extension `app_final`
+
 ## Defined platform identifiers
 
 The following identifiers are defined by the builder on each respective platform:
