@@ -27,7 +27,7 @@ Apart from the properties *Id*, *Position* and *Rotation* the following componen
 *Blend Mode*
 : The blend mode to use when rendering this component.
 
-# Runtime manipulation
+## Runtime manipulation
 
 You can manipulate sprites in runtime through a number of different functions and properties (refer to the [API docs for usage](/ref/sprite/)). Functions:
 
@@ -39,6 +39,12 @@ A sprite also has a number of different properties that can be manipulated using
 `cursor`
 : The normalized animation cursor (`number`).
 
+`image`
+: The sprite image (`hash`). You can change this using an atlas or tilesource resource property and `go.set()`. Refer to the [API reference for an example](/ref/sprite/#image).
+
+`material`
+: The sprite material (`hash`). You can change this using a material resource property and `go.set()`. Refer to the [API reference for an example](/ref/sprite/#material).
+
 `playback_rate`
 : The animation playback rate (`number`).
 
@@ -47,3 +53,11 @@ A sprite also has a number of different properties that can be manipulated using
 
 `size`
 : The size of the sprite (`vector3`) (READ ONLY).
+
+
+## Sprite material constants
+
+The default sprite material has the following constants that can be changed using `sprite.set_constant()` and reset using `sprite.reset_constant()` (refer to the [Material manual for more details](/manuals/material/#vertex-and-fragment-constants)):
+
+`tint`
+: The color tint of the sprite (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/sprite/#sprite.set_constant:url-constant-value).
