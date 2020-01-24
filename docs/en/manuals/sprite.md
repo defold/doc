@@ -40,7 +40,7 @@ A sprite also has a number of different properties that can be manipulated using
 : The normalized animation cursor (`number`).
 
 `image`
-: The sprite image (`hash`). You can change this using an atlas or tilesource resource property and `go.set()`. Refer to the [API reference for an example](/ref/sprite/#image).
+: The sprite image (`hash`). You can change this using an atlas or tile source resource property and `go.set()`. Refer to the [API reference for an example](/ref/sprite/#image).
 
 `material`
 : The sprite material (`hash`). You can change this using a material resource property and `go.set()`. Refer to the [API reference for an example](/ref/sprite/#material).
@@ -54,8 +54,7 @@ A sprite also has a number of different properties that can be manipulated using
 `size`
 : The size of the sprite (`vector3`) (READ ONLY).
 
-
-## Sprite material constants
+## Material constants
 
 The default sprite material has the following constants that can be changed using `sprite.set_constant()` and reset using `sprite.reset_constant()` (refer to the [Material manual for more details](/manuals/material/#vertex-and-fragment-constants)):
 
