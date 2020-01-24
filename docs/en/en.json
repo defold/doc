@@ -409,7 +409,7 @@
                         "name": "Networking"
                     },
                     {
-                        "path": "/manuals/file_access",
+                        "path": "/manuals/file-access",
                         "name": "Working with files"
                     }
                 ]
