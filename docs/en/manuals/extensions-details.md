@@ -7,8 +7,7 @@ brief: This manual describes some details about the build system used for native
 
 Here we list some relevant build information, in order to make the integrations with your extensions as easy as possible.
 
-Here are some things to consider when you create an extension for the Defold engine.
-For more general guidelines on how to develop cross platform native code, and also extension/Lua apis, please refer to [Native Extensions - Best Practices](/manuals/extensions-best-practices)
+Here are some things to consider when you create an extension for the Defold engine. For more general guidelines on how to develop cross platform native code, and also extension/Lua apis, please refer to [Native Extensions - Best Practices](/manuals/extensions-best-practices)
 
 ## C++ version
 

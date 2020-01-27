@@ -9,11 +9,9 @@ Here we describe some ways to debug an application, and also symbolicate crash l
 
 ## Debugger
 
-When you get a particularly troublesome issue in your code,
-there are several ways to find the root cause.
+When you get a particularly troublesome issue in your code, there are several ways to find the root cause.
 
-The most common way is to run the code via a `debugger`.
-It let's you step through the code, set `breakpoints` and it will stop the execution if you get a crash.
+The most common way is to run the code via a `debugger`. It let's you step through the code, set `breakpoints` and it will stop the execution if you get a crash.
 
 There are several debuggers around for each platform.
 
@@ -38,15 +36,13 @@ And each tool can debug certain platforms:
 
 ## Print debugging
 
-In certain cases, one might want to add printf() statements to the code.
-Afterwards, you can get the logs from your device and analyze them.
+In certain cases, one might want to add `printf()` statements to the code. Afterwards, you can get the logs from your device and analyze them.
 
 Note that Defold by default only prints using dmLog* functions in the debug build.
 
 ### [Android](/manuals/extensions-debugging-android.md)
 
-On Android, the simplest way to get the log is to run `adb` in the terminal.
-You can also see the `console` inside Android Studio, which is the same thing.
+On Android, the simplest way to get the log is to run `adb` in the terminal. You can also see the `console` inside Android Studio, which is the same thing.
 
 If you get hold of a stack trace from the Android logs, you might be able to symbolicate it using [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html)
 
@@ -56,8 +52,7 @@ On iOS, you need to open either iTunes or XCode to view the device logs.
 
 ## Defold Crash Log
 
-The Defold engine saves a `_crash` file when it does a hard crash.
-It will contain information about the system as well as the crash.
+The Defold engine saves a `_crash` file when it does a hard crash. It will contain information about the system as well as the crash.
 
 You can use the [crash module](https://www.defold.com/ref/crash/) to read this file in the subsequent session.
 
