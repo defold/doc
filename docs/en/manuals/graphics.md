@@ -59,7 +59,7 @@ Learn more about tilemaps in the [Tilemap manual](/manuals/tilemap).
 Learn more about particle effects in the [Particle fx manual](/manuals/particlefx).
 
 ![gui](images/icons/gui.png){.icon} GUI
-: GUI box nodes and pie nodes can use still images and flip book animations from atlases and tile sources.
+: GUI box nodes and pie nodes can use still images and flipbook animations from atlases and tile sources.
 
   ![gui](images/graphics/gui.png){srcset="images/graphics/gui@2x.png 2x"}
 

@@ -15,7 +15,7 @@ With the default render script, each visual component (sprite, tilemap, particle
 
 You can replace a component's shader program with one that modifies the pixel data, or creates wholly new pixel colors programmatically. The [Shadertoy tutorial](/tutorials/shadertoy) teaches you how to do that.
 
-Now let's say that you want to render your whole game in black-and-white. One possible solution is to modify the individual shader program for each components type so that each shader desaturates pixel colors. Currently, Defold ships with 6 built in materials and 6 vertex and fragment shader program pairs so it will take a fair amount of work. Furthermore, any subsequent changes or effect additions has to be made to each shader program.
+Now let's say that you want to render your whole game in black-and-white. One possible solution is to modify the individual shader program for each components type so that each shader desaturates pixel colors. Currently, Defold ships with 6 built-in materials and 6 vertex and fragment shader program pairs so it will take a fair amount of work. Furthermore, any subsequent changes or effect additions has to be made to each shader program.
 
 A much more flexible approach is to instead do the rendering in two separate steps:
 
@@ -28,7 +28,7 @@ With this method, we are able to read the resulting visual data and modify it be
 
 ## Setting up a custom renderer
 
-We need to modify the built in render script and add the new rendering functionality. The default render script is a good starting point so start by copying it:
+We need to modify the built-in render script and add the new rendering functionality. The default render script is a good starting point so start by copying it:
 
 1. Copy */builtins/render/default.render_script*: In the *Asset* view, right click *default.render_script*, select <kbd>Copy</kbd> then right click *main* and select <kbd>Paste</kbd>. Right click the copy and select <kbd>Rename...</kbd> and give it a suitable name, like "grade.render_script".
 2. Create a new render file called */main/grade.render* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Render</kbd>.

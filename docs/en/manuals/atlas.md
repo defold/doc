@@ -11,7 +11,7 @@ In Defold, an atlas resource is a list of separate images files, which are autom
 
 ## Creating an Atlas
 
-Select <kbd>New... ▸ Atlas</kbd> from the context menu in the *Assets* browser. Name the new atlas file. The editor will now open the file in the atlas editor. The atlas properties are shown in the 
+Select <kbd>New... ▸ Atlas</kbd> from the context menu in the *Assets* browser. Name the new atlas file. The editor will now open the file in the atlas editor. The atlas properties are shown in the
 *Properties* pane so you can edit them (see below for details).
 
 You need to populate an atlas with images or animations before you can use it as a graphics source for object components like Sprites and ParticleFX components.
@@ -20,7 +20,7 @@ Make sure that you have added your images to the project (drag and drop image fi
 
 Adding single images
 : <kbd>Right click</kbd> the root Atlas entry in the *Outline* pane.
-  
+
   Select <kbd>Add Images</kbd> from the pop up context menu to add single images.
 
   A dialog opens from which you can find and select the images you want to add to the Atlas. Note that you can filter the image files and select multiple files at once.
@@ -31,17 +31,17 @@ Adding single images
 
   ![Images added](images/atlas/single_images.png){srcset="images/atlas/single_images@2x.png 2x"}
 
-Adding flip-book animations
+Adding flipbook animations
 : <kbd>Right click</kbd> the root Atlas entry in the *Outline* pane.
 
-  Select <kbd>Add Animation Group</kbd> from the pop up context menu to create a flip book animation group.
+  Select <kbd>Add Animation Group</kbd> from the pop up context menu to create a flipbook animation group.
 
   A new, empty, animation group with a default name ("New Animation") is added to the atlas.
 
   <kbd>Right click</kbd> then new group and select <kbd>Add Images</kbd> from the context menu.
 
   A dialog opens from which you can find and select the images you want to add to the animation group.
-  
+
   ![Creating an atlas, adding images](images/atlas/add_animation.png){srcset="images/atlas/add_animation@2x.png 2x"}
 
   Press <kbd>Space</kbd> with the animation group selected to preview it. Adjust the *Properties* for the animation as needed (see below).

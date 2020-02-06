@@ -288,7 +288,7 @@ In both cases there is a need to convert from the screen space coordinates of th
 
 ## Gamepads settings file
 
-Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built in gamepads file with settings for common gamepads:
+Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built-in gamepads file with settings for common gamepads:
 
 ![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
 

@@ -59,7 +59,7 @@ Download the image, then drag it to the *main* folder of your project.
 
 ## Representing the grid
 
-Defold contains a built in *Tilemap* component that is perfect for visualizing the puzzle board. Tilemaps allow you to set and read individual tiles, which is all you need for this project.
+Defold contains a built-in *Tilemap* component that is perfect for visualizing the puzzle board. Tilemaps allow you to set and read individual tiles, which is all you need for this project.
 
 But before you create the tilemap, you need a *Tilesource* that the tilemap will pull its tile images from.
 

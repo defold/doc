@@ -89,7 +89,7 @@ local props = { health = 50, target = msg.url("player") }
 factory.create("#can_factory", nil, nil, props)
 ```
 
-When spawning a hierarchy of game objects through `collectionfactory.create()` you need to pair object id:s with property tables. These are put together in a table and passed to the `create()` function:
+When spawning a hierarchy of game objects through `collectionfactory.create()` you need to pair object id's with property tables. These are put together in a table and passed to the `create()` function:
 
 ```lua
 local props = {}

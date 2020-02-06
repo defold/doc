@@ -99,7 +99,7 @@ Now everything is in place to start working on the actual shader code. Let's fir
 
 2. Lines 21 and 63 contains the input fragment X and Y screen space texture coordinates (`in vec2 fragCoord`), and output fragment color (`out vec4 fragColor`).
 
-    In Defold, the input texture coordinates are passed from the vertex shader as UV coordinates (in the range 0--1) through a varying variable `var_texcoord0`. The output fragment color is set to the built in variable `gl_FragColor`.
+    In Defold, the input texture coordinates are passed from the vertex shader as UV coordinates (in the range 0--1) through a varying variable `var_texcoord0`. The output fragment color is set to the built-in variable `gl_FragColor`.
 
 3. Lines 23--27 sets up the dimensions of the texture as well as movement direction and scaled time. The resolution of the viewport/texture is passed to the shader as `uniform vec3 iResolution`. The shader calculates UV style coordinates with the right aspect ratio from the fragment coordinates and the resolution. Some resolution offsetting is also done to get a nicer framing.
 

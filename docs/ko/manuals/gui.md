@@ -48,7 +48,7 @@ GUI 컴포넌트는 여러 개의 노드로 구성됩니다. 노드는 아래 �
 
 이들 각 프로퍼티는 스크립트를 통해 애니메이션을 적용할 수도 있습니다. (아래 [Property animation](/manuals/animation/#property-animation) 참고)
 
-## Textures and flip book animations
+## Textures and flipbook animations
 GUI 인터페이스 컴포넌트의 일부분으로 텍스쳐 아틀라스나 타일 소스의 이미지나 애니메이션을 사용 할 수 있습니다. 먼저 이미지 리소스(아틀라스 혹은 타일 소스)가 추가하면 이 리소스에 포함된 모든 이미지와 애니메이션을 GUI 노드에 반영할 수 있습니다. 상단의 "GUI" 메뉴를 사용하거나 키보드 단축키를 사용하거나 "Textures" 폴더에 마우스 오른쪽 버튼을 눌러서 텍스쳐를 추가해 보세요.
 
 GUI에 추가된 텍스쳐는 box나 pie 노드에 반영할 수 있습니다.

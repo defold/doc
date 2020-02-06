@@ -265,7 +265,7 @@ all_n = push.get_all_scheduled()
 pprint(all_n)
 ```
 
-Which results in a table pairing notification id:s with their respective data:
+Which results in a table pairing notification id's with their respective data:
 
 ```txt
 DEBUG:SCRIPT:

@@ -212,7 +212,7 @@ function update(self, dt) -- <3>
     end
 end
 ```
-1. Store the id:s of the ground game objects in a Lua table so we can iterate over them.
+1. Store the id's of the ground game objects in a Lua table so we can iterate over them.
 2. The `init()` function is called when the game object comes to life in the game. We initiate a object local member variable that contains the speed of the ground.
 3. `update()` is called once each frame, typically 60 times per second. `dt` contains the number of seconds since the last call.
 4. Iterate over all the ground game objects.
@@ -225,7 +225,7 @@ end
 ::: sidenote
 Defold is a fast engine core that manages your data and game objects. Any logic or behavior that you need for your game is created in the Lua language. Lua is a fast and light-weight programming language that is great for writing game logic. There are great resources available to learn the language, like the book http://www.lua.org/pil/[Programming in Lua] and the official http://www.lua.org/manual/5.3/[Lua reference manual].
 
-Defold adds a set of API:s on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
+Defold adds a set of APIs on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
 :::
 
 Now that we have a script file, we should add a reference to it to a component in a game object. That way, the script will be executed as part of the game object lifecycle. We do this by creating a new game object in *ground.collection* and add a *Script* component to the object that refers to the Lua script file we just created:
@@ -740,7 +740,7 @@ That's all that's needed to add jump and fall animations to the hero. If you run
 
 If you try the game now it quickly becomes apparent that the reset mechanism doesn't work. The hero reset is fine, but you can easily reset into a situation where you will instantly fall onto a platform edge and die again. What we want to do is to properly reset the whole level on death. Since the level is just a series of spawned platforms, we just need to track all spawned platforms and then delete them at reset:
 
-1. Open the *controller.script* file and edit the code to store the id:s of all spawned platforms:
+1. Open the *controller.script* file and edit the code to store the id's of all spawned platforms:
 
     ```lua
     -- controller.script

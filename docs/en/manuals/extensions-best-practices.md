@@ -5,7 +5,7 @@ brief: This manual describes best practices when developing native extensions.
 
 # Best Practices
 
-Writing cross platform code can be difficult, but there are some ways to make it easier to both develop and maintain. In this manual we list some ways we at Defold work with cross platform native code and API's.
+Writing cross platform code can be difficult, but there are some ways to make it easier to both develop and maintain. In this manual we list some ways we at Defold work with cross platform native code and APIs.
 
 ## Defold code
 

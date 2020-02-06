@@ -18,7 +18,7 @@ The design of the editor and engine is carefully crafted to reach those goals. S
 - We require static declaration of the resource tree and all naming. This requires some initial effort from you, but helps the development process tremendously in the long run.
 - We encourage message passing between simple encapsulated entities.
 - There is no object orientation inheritance.
-- Our API:s are asynchronous.
+- Our APIs are asynchronous.
 - The rendering pipeline is code driven and fully customizable.
 - All our resource files are in simple plain text formats, optimally structured for Git merges as well as import and processing with external tools.
 - Resources can be changed and hot reloaded into a running game allowing for extremely fast iteration and experimentation.

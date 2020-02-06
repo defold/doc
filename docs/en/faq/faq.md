@@ -31,7 +31,7 @@ What kind of user tracking are you doing?
 
 Who made Defold?
 
-: Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/about-us).
+: Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/history).
 
 ## Platform questions
 
@@ -39,15 +39,15 @@ What platforms does Defold run on?
 
 : The following platforms are supported for the editor/tools and the engine runtime:
 
-  | System                    | Supported            |
-  | ------------------------- | -------------------- |
-  | macOS 10.7 Lion           | Editor and runtime   |
-  | Windows Vista             | Editor and runtime   |
-  | Ubuntu 16.04 (64 bit)(1)  | Editor               |
-  | Linux (64 bit)(2)         | Runtime              |
-  | iOS 8.0                   | Runtime              |
+  | System                     | Supported            |
+  | -------------------------- | -------------------- |
+  | macOS 10.7 Lion            | Editor and runtime   |
+  | Windows Vista              | Editor and runtime   |
+  | Ubuntu 16.04 (64 bit)(1)   | Editor               |
+  | Linux (64 bit)(2)          | Runtime              |
+  | iOS 8.0                    | Runtime              |
   | Android 4.1 (API level 16) | Runtime              |
-  | HTML5                     | Runtime              |
+  | HTML5                      | Runtime              |
 
   (1 The editor is built and tested for 64-bit Ubuntu 16.04. It should work on other distributions as well but we give no guarantees.)
 
@@ -72,14 +72,14 @@ Can I do 3D games in Defold?
 
 What programming language do I work with in Defold?
 
-: All application and game logic in your Defold project is controlled through script. The Defold engine has the Lua language embedded for scripting. Lua is a lightweight dynamic language that is fast and very powerful. Read more on our [technology summary](/technology).
+: All application and game logic in your Defold project is controlled through script. The Defold engine has the Lua language embedded for scripting. Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to extend the Defold engine with new functionality.
 
   When building custom materials, OpenGL ES SL shader language is used to write vertex and fragment
 shaders.
 
 Is there a way to know what version I'm running?
 
-: Yes, select the "About Defold Editor" in the menu. The popup clearly shows Defold beta version and, more importantly, the specific release SHA1. For runtime version lookup, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
+: Yes, select the "About" option in the Help menu. The popup clearly shows Defold beta version and, more importantly, the specific release SHA1. For runtime version lookup, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
   The latest beta version available for download from http://d.defold.com/beta can be checked by opening http://d.defold.com/beta/info.json (the same file exists for stable versions as well: http://d.defold.com/stable/info.json)
 
@@ -94,7 +94,7 @@ Are Defold beta versions auto-updating?
 
 ## Publishing games
 
-I try to publish my game to Appstore. How should I respond to IDFA?
+I'm trying to publish my game to Appstore. How should I respond to IDFA?
 
 : When submitting, Apple has three checkboxes for their three valid use cases for the IDFA:
 
@@ -104,13 +104,13 @@ I try to publish my game to Appstore. How should I respond to IDFA?
 
   If you check option 1, the app reviewer will look for ads to show up in the app. If your game does not show ads, the game might get rejected. Defold itself doesn't use AD id.
 
-How do I monetize from my game?
+How do I monetize my game?
 
-: Defold ships with built in support for purchases through Apple’s Appstore "in-app purchases" on iOS devices and Google Play’s or Amazon’s "in-app billing" on Android devices. Facebook Canvas "game payments" are supported for Facebook Canvas.
+: Defold ships with built-in support for purchases through Apple’s Appstore "in-app purchases" on iOS devices and Google Play’s or Amazon’s "in-app billing" on Android devices. Facebook Canvas "game payments" are supported for Facebook Canvas.
 
 What about ads?
 
-: There is no built in support for ads, but there are a couple of extensions and libraries available for various ad networks:
+: There is no built-in support for ads, but there are a couple of extensions and libraries available for various ad networks:
 
   * *AdMob*, see https://github.com/defold/extension-admob
   * *UnityAds*, see https://github.com/AGulev/DefUnityAds
@@ -208,7 +208,7 @@ Does Defold support prefabs?
 I can't add a game object as a child to another game object, why?
 
 : Chances are that you try to add a child in the game object file and that is not possible.
-  To understand why you have to remember that parent-child hierarchies are strictly a _scene-graph_
+  To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_
   transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy.
 
 Why can't I broadcast messages to all children of a game object?
@@ -256,8 +256,8 @@ Would changing the view projection Z-range to -100 to 100 impact performance?
 
 There is no consistency to how angles are represented, why?
 
-: There is actually consistency. Angles are expressed as degrees everywhere
-  in the editor and the game API:s. The math libs use radians. Currently the
+: Actually there is consistency. Angles are expressed as degrees everywhere
+  in the editor and the game APIs. The math libs use radians. Currently the
   convention breaks for the `angular_velocity` physics property that is
   currently expressed as radians/s. That is expected to change.
 
@@ -273,9 +273,8 @@ If I change assets on the fly, will the engine automatically unload them?
 Is it possible to play audio without the use of an audio component attached to a game object?
 
 : Everything is component-based. It's possible to create a headless
-  gameobject with multiple sounds and play sounds by sending messages to the
-  sound-controller object. A benefit is that you can duck sounds based on
-  interval, etc
+  game object with multiple sounds and play sounds by sending messages to the
+  sound-controller object.
 
 Is it possible to change the audio file associated with an audio component at run time?
 
@@ -312,8 +311,8 @@ Can I use string type script properties?
 
 : No. Defold supports properties of [hash](/ref/builtins#hash) types. These can be used
   to indicate types, state identifiers or keys of any kind. Hashes can also be used to store
-  game object id:s (paths) although [url](/ref/msg#msg.url) properties are often
-  preferrable since the editor automatically populate a drop-down with relevant url:s
+  game object id's (paths) although [url](/ref/msg#msg.url) properties are often
+  preferrable since the editor automatically populate a drop-down with relevant URLs
   for you. See the [Script properties documentation](/manuals/script-properties) for details.
 
 How do I access the individual cells of a matrix (created using [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) or similar)?
@@ -341,7 +340,7 @@ Which Lua standard libraries are included in Defold?
   - socket (from [LuaSocket](https://github.com/diegonehab/luasocket))
   - bitop (from [BitOp](http://bitop.luajit.org/api.html))
 
-  All libraries are documented in the [reference API documentation](/ref/)
+  All libraries are documented in the [reference API documentation](/ref/go)
 
 ## The forum
 

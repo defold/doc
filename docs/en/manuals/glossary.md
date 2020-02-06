@@ -49,7 +49,7 @@ Components are used to give specific expression and/or functionality to game obj
 
 ## Debugging
 
-At some point your game will behave in an unexpected way and you need to figure out what is wrong. Learning how to debug is an art and fortunately Defold ships with a built in debugger to help you out. See the [Debugging manual](/manuals/debugging) for more information.
+At some point your game will behave in an unexpected way and you need to figure out what is wrong. Learning how to debug is an art and fortunately Defold ships with a built-in debugger to help you out. See the [Debugging manual](/manuals/debugging) for more information.
 
 ## Display profiles
 
