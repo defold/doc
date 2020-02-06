@@ -203,7 +203,7 @@ ExciteMike has made some nice graphs of the jump arcs in [Super Mario Bros 3](ht
 The level geometry is the collision shapes of the environment that the player character (and possibly other things) collide with. In Defold, there are two ways to create this geometry.
 
 Either you create separate collision shapes on top of the levels you build. This method is very flexible and allows fine positioning of graphics. It is especially useful if you want soft slopes.
-The game [Braid](http://www.davidhellman.net/blog/archives/85) used this method of building levels, and it is the method the example level in this tutorial is built too. Here is how it looks in the Defold editor:
+The game [Braid](http://braid-game.com/) used this method of building levels, and it is the method the example level in this tutorial is built too. Here is how it looks in the Defold editor:
 
 ![The Defold Editor with the level geometry and player placed into the world](images/platformer/editor.png)
 

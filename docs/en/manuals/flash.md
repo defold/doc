@@ -349,7 +349,7 @@ Finally, see the [profiler documentation](/ref/profiler/) for information on how
 - [Defold examples](/examples)
 - [Tutorials](/tutorials)
 - [Manuals](/manuals)
-- [Reference](/ref)
-- [FAQ](/faq)
+- [Reference](/ref/go)
+- [FAQ](/faq/faq)
 
 If you have questions or get stuck, the [Defold forums](//forum.defold.com) are a great place to reach out for help.

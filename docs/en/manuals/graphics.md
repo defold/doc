@@ -73,7 +73,7 @@ Learn more about GUIs in the [GUI manual](/manuals/gui).
 
   ![spine](images/graphics/spine.png){srcset="images/graphics/spine@2x.png 2x"}
 
-Learn more about Spine models in the [Spine model manual](/manuals/spine-model).
+Learn more about Spine models in the [Spine model manual](/manuals/spinemodel).
 
 
 ## 3D graphics

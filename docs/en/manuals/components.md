@@ -22,7 +22,7 @@ Defold supports the following component types:
 * [Particle FX](/manuals/particlefx) -  Spawn particles
 * [Script](/manuals/script) - Add game logic
 * [Sound](/manuals/sound) - Play sound or music
-* [Spine model](/manuals/spine-model) - Render a spine animation
+* [Spine model](/manuals/spinemodel) - Render a spine animation
 * [Sprite](/manuals/sprite) - Show a 2D image (with optional flipbook animation)
 * [Tilemap](/manuals/tilemap) - Show a grid of tiles
 
