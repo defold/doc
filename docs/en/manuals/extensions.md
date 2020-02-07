@@ -21,8 +21,25 @@ Defold provides a zero setup entry point to native extensions with a cloud based
 
 To create a new extension, create a folder in the project root. This folder will contain all settings, source code, libraries and resources associated with the extension. The extension builder recognizes the folder structure and collects any source files and libraries.
 
-![Project layout](images/extensions/layout.png)
+```
+ myextension/
+ │
+ ├── ext.manifest
+ │
+ ├── src/
+ │
+ ├── include/
+ │
+ ├── lib/
+ │   └──[platforms]
+ │
+ ├── manifests/
+ │   └──[platforms]
+ │
+ └── res/
+     └──[platforms]
 
+```
 *ext.manifest*
 : The extension folder _must_ contain an *ext.manifest* file. This file is a YAML format file that is picked up by the extension builder. A minimal manifest file should contain the name of the extension.
 
@@ -37,8 +54,21 @@ To create a new extension, create a folder in the project root. This folder will
 
   :[platforms](../shared/platforms.md)
 
+*manifests*
+: This optional folder contains additional files used in the build or bundling process. See below for details.
+
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
+
+### Manifest files
+
+The optional *manifests* folder of an extension contains additional files used in the build and bundling process. Files should be placed in subfolders named by `platform`:
+
+* `android` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)). The folder can also contain a `build.gradle` file with dependencies to be resolved by Gradle ([example](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Finally the folder can also contain zero or more ProGuard files (experimental).
+* `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+* `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+* `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+
 
 ## Sharing an extension
 
