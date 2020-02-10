@@ -92,7 +92,7 @@ Vertical sync, rely on hardware vsync for frame timing. Can be overridden depend
 Deprecated. If checked, will check `Vsync` and set `Frame Cap` to 0 at build-time for equivalent behavior.
 
 #### Display Profiles
-Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default.
+Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles). 
 
 #### Dynamic Orientation
 Check if the app should dynamically switch between portrait and landscape on device rotation. Note that the development app does not currently respect this setting.
