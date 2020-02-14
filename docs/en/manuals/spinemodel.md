@@ -38,6 +38,9 @@ You should now be able to view your Spine model in the editor:
 
 ![Spine model in editor](images/spinemodel/spinemodel.png){srcset="images/spinemodel/spinemodel@2x.png 2x"}
 
+### Blend modes
+:[blend-modes](../shared/blend-modes.md)
+
 ## Runtime manipulation
 
 You can manipulate spine models in runtime through a number of different functions and properties (refer to the [API docs for usage](/ref/spine/)).

@@ -66,16 +66,7 @@ Note that the default material has shadow rendering disabled for performance rea
 : The material to use for rendering this label. Make sure to select a material that is created for the font type that you use (bitmap, distance field or BMFont).
 
 ### Blend modes
-The *Blend Mode* property defines how the sprite should be blended with the graphics behind it. These are the available blend modes and how they are calculated:
-
-Alpha
-: Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
-
-Add
-: Brighten the background with the color values of the corresponding sprite pixels: rgb~0~ + rgb~1~
-
-Multiply
-: Darken the background with values of the the corresponding sprite pixels: rgb~0~ * rgb~1~
+:[blend-modes](../shared/blend-modes.md)
 
 ### Pivot and alignment
 
