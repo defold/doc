@@ -127,31 +127,6 @@ Rendering models
   See the [Render documentation](/manuals/render) for details on how render scripts work.
 
 
-## Z order
-
-All game objects and components are positioned in 3D space with positions expressed as vector3 objects. When you view your game's graphics content in 2D, the X and Y value determine the position of an object along the "width" and "height" axis, and the Z position determines the position along the "depth" axis. The Z position allows you to control the visibility of overlapping objects: a sprite with a Z value of 1 will appear in front of a sprite at Z position 0. By default, Defold uses a coordinate system allowing Z values between -1 and 1:
-
-![model](images/graphics/z-order.png){srcset="images/graphics/z-order@2x.png 2x"}
-
-The numerical precision on the Z values with a near and far limit of -1 and 1 is very high. When working with 3D assets, you may need to change the near and far limits of the default projection in a custom render script. See the [Render manual](/manuals/render/) for more information.
-
-## Blend modes
-
-The *Blend Mode* property defines how the sprite should be blended with the graphics behind it. These are the available blend modes and how they are calculated:
-
-Alpha
-: Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
-
-Add
-: Brighten the background with the color values of the corresponding sprite pixels: rgb~0~ + rgb~1~
-
-Add Alpha (deprecated!)
-: Brighten the background with the corresponding visible sprite pixels: a~0~ * rgb~0~ + rgb~1~
-
-Multiply
-: Darken the background with values of the the corresponding sprite pixels: rgb~0~ * rgb~1~
-
-
 ## Texture filtering and sampling
 
 You can control the filtering that is done during texture sampling. The filter method governs the visual result in cases when a _texel_ (a pixel in a texture) is not perfectly aligned with a screen pixel. This happens when you move a graphical element that contains the texture less than a pixel. The following filter methods are available:

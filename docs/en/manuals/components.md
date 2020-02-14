@@ -69,7 +69,11 @@ The draw order of visual components depend on two things:
 Each component is assigned a [material](/manuals/material/) and each material has one or more tags. The render script will in turn define a number of predicates, each matching one or more material tags. The render script [predicates are drawn one by one](/manuals/render/#render-predicates) in the *update()* function of the render script and the components matching the tags defined in each predicate will be drawn. The default render script will first draw sprites and tilemaps in one pass, then particle effects in another pass, both in world space. The render script will then proceed to draw GUI components in a separate pass in screen space.
 
 ### Component z-value
-The components matching a predicate are drawn together, and the order in which they are drawn depends on the final z-value of the component. The final z-value of a component is the sum of the z-values of the component itself, the game object it belongs to and the z-value of any parent game objects.
+All game objects and components are positioned in 3D space with positions expressed as vector3 objects. When you view your game's graphics content in 2D, the X and Y value determine the position of an object along the "width" and "height" axis, and the Z position determines the position along the "depth" axis. The Z position allows you to control the visibility of overlapping objects: a sprite with a Z value of 1 will appear in front of a sprite at Z position 0. By default, Defold uses a coordinate system allowing Z values between -1 and 1:
+
+![model](images/graphics/z-order.png){srcset="images/graphics/z-order@2x.png 2x"}
+
+The components matching a [render predicate](/manuals/render/#render-predicates) are drawn together, and the order in which they are drawn depends on the final z-value of the component. The final z-value of a component is the sum of the z-values of the component itself, the game object it belongs to and the z-value of any parent game objects.
 
 ::: sidenote
 The order in which multiple GUI components are drawn is **not** determined by the z-value of the GUI components. GUI component draw order is controlled by the [gui.set_render_order()](/ref/gui/#gui.set_render_order:order) function.
@@ -88,5 +92,5 @@ With the above hierarchy the final z-value of the sprite component on B is 2 + 1
 ::: important
 If two components have the exact same z-value the order is undefined and you may end up with components flickering back and forth or components being rendered in one order on one platform and in another order on another platform.
 
-The render script defines a near and far plane for z-values. Any component with a z-value that falls outside of this range will not be rendered. The default range is -1 to 1 but [it can easily be changed](/manuals/render/#default-view-projection).
+The render script defines a near and far plane for z-values. Any component with a z-value that falls outside of this range will not be rendered. The default range is -1 to 1 but [it can easily be changed](/manuals/render/#default-view-projection). The numerical precision on the Z values with a near and far limit of -1 and 1 is very high. When working with 3D assets, you may need to change the near and far limits of the default projection in a custom render script. See the [Render manual](/manuals/render/) for more information.
 :::
