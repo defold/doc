@@ -16,16 +16,28 @@ The Sprite component can use either an [Atlas](/manuals/atlas) or a [Tile Source
 Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
 
 *Image*
-: The atlas or tilesource resource to use for this sprite.
+: The atlas or tilesource resource to use for the sprite.
 
 *DefaultAnimation*
-: The animation to use for this sprite.
+: The animation to use for the sprite.
 
 *Material*
-: The material to use for rendering this sprite.
+: The material to use for rendering the sprite.
 
 *Blend Mode*
-: The blend mode to use when rendering this component.
+: The blend mode to use when rendering the sprite.
+
+### Blend modes
+The *Blend Mode* property defines how the sprite should be blended with the graphics behind it. These are the available blend modes and how they are calculated:
+
+Alpha
+: Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
+
+Add
+: Brighten the background with the color values of the corresponding sprite pixels: rgb~0~ + rgb~1~
+
+Multiply
+: Darken the background with values of the the corresponding sprite pixels: rgb~0~ * rgb~1~
 
 ## Runtime manipulation
 

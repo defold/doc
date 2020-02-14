@@ -63,6 +63,31 @@ if tile == 2 then
 end
 ```
 
+## Tilemap properties
+
+Apart from the properties *Id*, *Position*, *Rotation* and *Scale* the following component specific properties exist:
+
+*Tile Source*
+: The tilesource resource to use for the tilemap.
+
+*Material*
+: The material to use for rendering the tilemap.
+
+*Blend Mode*
+: The blend mode to use when rendering the tilemap.
+
+### Blend modes
+The *Blend Mode* property defines how the sprite should be blended with the graphics behind it. These are the available blend modes and how they are calculated:
+
+Alpha
+: Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
+
+Add
+: Brighten the background with the color values of the corresponding sprite pixels: rgb~0~ + rgb~1~
+
+Multiply
+: Darken the background with values of the the corresponding sprite pixels: rgb~0~ * rgb~1~
+
 ### Changing properties
 
 A tilemap has a number of different properties that can be manipulated using `go.get()` and `go.set()`:

@@ -120,6 +120,19 @@ Inherit Velocity
 Stretch With Velocity
 : Check to scale any particle stretch in the direction of movement.
 
+### Blend modes
+
+The *Blend Mode* property defines how the particles should be blended with the graphics behind it. These are the available blend modes and how they are calculated:
+
+Alpha
+: Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
+
+Add
+: Brighten the background with the color values of the corresponding particle pixels: rgb~0~ + rgb~1~
+
+Multiply
+: Darken the background with values of the the corresponding particle pixels: rgb~0~ * rgb~1~
+
 ## Keyable emitter properties
 
 These properties have two fields: a value and a spread. The spread is a variation which is applied randomly for each spawned particle. E.g. if the value is 50 and the spread is 3, each spawned particle will get a value between 47 and 53 (50 +/- 3).

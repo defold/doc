@@ -54,7 +54,7 @@ Note that the default material has shadow rendering disabled for performance rea
 : The pivot of the text. Use this to change text alignment (see below).
 
 *Blend Mode*
-: The blend mode to use when rendering this component.
+: The blend mode to use when rendering the label.
 
 *Line Break*
 : Text alignment follows the pivot setting and setting the this property allows the text to flow over several lines. The width of the component determines where the text will wrap. Note that there has to be a space in the text for it to break.
@@ -65,7 +65,19 @@ Note that the default material has shadow rendering disabled for performance rea
 *Material*
 : The material to use for rendering this label. Make sure to select a material that is created for the font type that you use (bitmap, distance field or BMFont).
 
-## Pivot and alignment
+### Blend modes
+The *Blend Mode* property defines how the sprite should be blended with the graphics behind it. These are the available blend modes and how they are calculated:
+
+Alpha
+: Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
+
+Add
+: Brighten the background with the color values of the corresponding sprite pixels: rgb~0~ + rgb~1~
+
+Multiply
+: Darken the background with values of the the corresponding sprite pixels: rgb~0~ * rgb~1~
+
+### Pivot and alignment
 
 By setting the *Pivot* property you can change the alignment mode for the text.
 
@@ -122,4 +134,3 @@ function init(self)
     go.set("#my_label", "scale.x", scale_x * 2)
 end
 ```
-
