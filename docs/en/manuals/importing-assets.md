@@ -26,7 +26,7 @@ When the assets are imported into Defold they can be used by the various compone
 * Sounds can be used by the [Sound component](/manuals/sound) to play sounds.
 * Spine animation data is used by the [Spine component](/manuals/spinemodel) to show and animate Spine models.
 * Fonts are used by the [Label component](/manuals/label) and by [text nodes](/manuals/gui-text) in a GUI.
-* Collada models can be used by the [Model component](/manuals/model) to show 3D models with animations.
+* Collada models can be used by the [Model component](/manuals/model) to show 3D models with animations. [Read more about importing 3D models here](/manuals/importing-models).
 
 
 ## Editing external Assets

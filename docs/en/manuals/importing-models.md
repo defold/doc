@@ -21,16 +21,16 @@ When you export a model to Collada format you need to make sure that it fulfills
 * The model must use a single material
 
 
-### Joining multiple meshes into a single mesh
+### Joining multiple meshes
 
-You can use Blender to join multiple meshes. Select all of the meshes and press `CTRL` + `J` to join them.
+You can use Blender to join multiple meshes. Select all of the meshes and press `CTRL`/`CMD` + `J` to join them.
 
 ![Join meshes](images/model/blender_join_meshes.png)
 
 
 ### Removing materials
 
-You can use Blender to remove extra materials from the model.
+You can use Blender to remove extra materials from the model. Select the material to remove and press the `-` button.
 
 ![Remove materials](images/model/blender_remove_materials.png)
 
@@ -55,6 +55,8 @@ You can then proceed to export the UV layout to an image that can be used as a t
 
 
 ### Exporting using Blender
+
+You export your model into Collada format using the Export menu option. Select the model before you select the Export to Collada menu option and check "Selection Only" to only export the model.
 
 ![Exporting using Blender](images/model/blender_export.png)
 
