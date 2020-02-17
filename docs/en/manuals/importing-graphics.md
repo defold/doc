@@ -40,11 +40,6 @@ Learn more about bitmap fonts in the [Fonts manual](/manuals/font/#bitmap-bmfont
   ![BMfont](images/font/bm_font.png){srcset="images/font/bm_font@2x.png 2x"}
 
 
- The atlas and tile source assets can in turn be used to create:
-
-* Images can be used to create texture [atlases](/manuals/atlas) and tile sources which in turn can be used by visual components such as [sprites](/manuals/sprite), [tilemaps](/manuals/tilemap) and [particle effects](/manuals/particlefx). Read more about this in the [Graphics manual](/manuals/graphics/#importing-image-files).
-
-
 ## Using Defold assets
 
 When you have converted the images into Atlas and Tile Source files you can use these to create several different kinds of visual components:

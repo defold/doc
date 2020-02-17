@@ -226,15 +226,15 @@
                 "items": [
                     {
                         "path": "/manuals/importing-assets",
-                        "name": "Importing and editing assets"
+                        "name": "Importing assets"
                     },
                     {
                         "path": "/manuals/importing-graphics",
-                        "name": "Importing and using 2D graphics"
+                        "name": "Importing 2D graphics"
                     },
                     {
                         "path": "/manuals/importing-models",
-                        "name": "Importing and using 3D models"
+                        "name": "Importing 3D models"
                     },
                     {
                         "path": "/manuals/adapting-graphics-to-screen-size",
@@ -257,16 +257,16 @@
                         "name": "Font"
                     },
                     {
-                        "path": "/manuals/graphics",
-                        "name": "Graphics"
-                    },
-                    {
                         "path": "/manuals/resource",
                         "name": "Resource management"
                     },
                     {
                         "path": "/manuals/tilesource",
                         "name": "Tile source"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
                     },
                     {
                         "path": "/manuals/texture-profiles",
@@ -436,6 +436,10 @@
                     {
                         "path": "/manuals/shader",
                         "name": "Shader"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
                     }
                 ]
             },

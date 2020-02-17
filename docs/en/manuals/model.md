@@ -87,9 +87,42 @@ A model also has a number of different properties that can be manipulated using 
 `textureN`
 : The model textures where N is 0-7 (`hash`). You can change this using a texture resource property and `go.set()`. Refer to the [API reference for an example](/ref/model/#textureN).
 
-## Material constants
+
+## Material
+
+3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the Collada *.dae* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
+
+There is a simple 3D model material available in the built-in materials folder. If you need to create custom materials for your models, see the [Material documentation](/manuals/material) for information. The [Shader manual](/manuals/shader) contains information on how shader programs work.
+
+
+### Material constants
 
 The default model material has the following constants that can be changed using `model.set_constant()` and reset using `model.reset_constant()` (refer to the [Material manual for more details](/manuals/material/#vertex-and-fragment-constants)):
 
 `tint`
 : The color tint of the model (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/model/#model.set_constant:url-constant-value).
+
+
+## Rendering
+
+The default render script is tailor made for 2D games and does not work with 3D models. But by copying the default render script and adding a handful of lines of code to the render script you can enable rendering of your models. For instance:
+
+  ```lua
+
+  function init(self)
+    self.model_pred = render.predicate({"model"})
+    ...
+  end
+
+  function update()
+    ...
+    render.set_depth_mask(true)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_projection(stretch_projection(-1000, 1000))  -- orthographic
+    render.draw(self.model_pred)
+    render.set_depth_mask(false)
+    ...
+  end
+  ```
+
+See the [Render documentation](/manuals/render) for details on how render scripts work.
