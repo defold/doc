@@ -23,7 +23,7 @@ Collection proxies differ from [collection factory components](/manuals/collecti
 
 ## Bootstrap
 
-When the Defold engine starts it loads and instanciates all game objects from a *bootstrap collection* into the runtime. It then initializes and enables the game objects and their components. Which bootstrap collection the engine should use is set in the [project settings](/manuals/project-settings). By convention this collection file is usually named "main.collection".
+When the Defold engine starts it loads and instanciates all game objects from a *bootstrap collection* into the runtime. It then initializes and enables the game objects and their components. Which bootstrap collection the engine should use is set in the [project settings](/manuals/project-settings/#main-collection). By convention this collection file is usually named "main.collection".
 
 ![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
 
