@@ -64,7 +64,7 @@ You export your model into Collada format using the Export menu option. Select t
 
 ## Importing to Defold
 
-To import the model, simply drag and drop the *.dae* file and the corresponding texture image into the *Project Explorer* somewhere.
+To import the model, simply drag and drop the *.dae* file and the corresponding texture image into the *Assets pane* somewhere.
 
 ![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
 
