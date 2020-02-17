@@ -32,7 +32,7 @@ Defold 서버는 프로젝트가 공유되는 폴더를 포함하고 있다는�
 
 ![Fetch Libraries](images/libraries/libraries_fetch_libraries.png)
 
-이제  Project Explorer에 공유된 폴더가 표시되고 공유된 모든것을 사용할 수 있습니다. 변경사항을 라이브러리 프로젝트에 동기화 하면 프로젝트에서 사용할 수 있게 됩니다.
+이제  Assets pane에 공유된 폴더가 표시되고 공유된 모든것을 사용할 수 있습니다. 변경사항을 라이브러리 프로젝트에 동기화 하면 프로젝트에서 사용할 수 있게 됩니다.
 
 ![Library setup done](images/libraries/libraries_done.png)
 

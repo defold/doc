@@ -17,7 +17,7 @@ Start by creating a [new project](/manuals/project-setup/) and opening it in the
 
 The editor consists of the following main areas:
 
-Project Explorer
+Assets pane
 : This is a view of all files in your project. Different file types have different icons. Double click on a file to open in in a designated editor for that file type. The special read-only folder *builtins* is common for all projects and include useful items like a default render script, a font, materials for rendering various components and other things.
 
 Main Editor View
@@ -51,7 +51,7 @@ First of all, let's clean the file *main.collection* of the one game object it c
 
 The first thing we're going to do is to create a new collection. A collection is a container of game objects that you have placed and put into position. Collections are most commonly used to build game levels but they are very useful whenever you need to reuse groups and/or hierarchies of game objects that belong together. It might be helpful to think about collections as a kind of prefab.
 
-Click on the *main* folder in the *Project Explorer*, then right-click and select <kbd>New ▸ Collection File</kbd>. You can also select <kbd>File ▸ New ▸ Collection File</kbd> from the main menu.
+Click on the *main* folder in the *Assets pane*, then right-click and select <kbd>New ▸ Collection File</kbd>. You can also select <kbd>File ▸ New ▸ Collection File</kbd> from the main menu.
 
 ![New Collection file](images/car/start_new_collection.png)
 
@@ -74,7 +74,7 @@ Note that you do not manipulate components directly---you can move, rotate, scal
 Select the "car" game object, right-click and select <kbd>Add Component</kbd>, then select *Sprite* and click *Ok*. If you mark the sprite in the *Outline* view you will see that it needs a few properties set:
 
 Image
-: This requires an image source for the sprite. Create an atlas image file by marking "main" in the *Project Explorer* view, right-clicking and selecting <kbd>New ▸ Atlas File</kbd>. Name the new atlas file *sprites.atlas* and double click it to open it in the atlas editor. Save the following two image files to your computer and drag them into *main* in the *Project Explorer* view. Now you can mark the Atlas root node in the atlas editor, right click and select <kbd>Add Images</kbd>. Add the car and the tire image to the atlas and save. Now you can select *sprites.atlas* as the image source for the sprite component in the "car" game object in the "car" collection.
+: This requires an image source for the sprite. Create an atlas image file by marking "main" in the *Assets pane* view, right-clicking and selecting <kbd>New ▸ Atlas File</kbd>. Name the new atlas file *sprites.atlas* and double click it to open it in the atlas editor. Save the following two image files to your computer and drag them into *main* in the *Assets pane* view. Now you can mark the Atlas root node in the atlas editor, right click and select <kbd>Add Images</kbd>. Add the car and the tire image to the atlas and save. Now you can select *sprites.atlas* as the image source for the sprite component in the "car" game object in the "car" collection.
 
 Images for our game:
 
@@ -100,7 +100,7 @@ Move the tire game objects into place by selecting them and then choosing <kbd>S
 
 The last piece of the puzzle is a _script_ to control the car. A script is a component that contains a program that defines game object behaviors. With scripts you can specify the rules of your game, how objects should respond to various interactions (with the player as well as other objects). All scripts are written in the Lua programming language. To be able to work with Defold, you or someone on your team needs to learn how to program in Lua.
 
-Mark "main" in the *Project Explorer*, right-click and select <kbd>New ▸ Script File</kbd>. Name the new file *car.script*, then add it to the "car" game object by marking "car" in the *Outline* view, right click and select <kbd>Add Component File</kbd>. Select *car.script* and click *OK*. Save the collection file.
+Mark "main" in the *Assets pane*, right-click and select <kbd>New ▸ Script File</kbd>. Name the new file *car.script*, then add it to the "car" game object by marking "car" in the *Outline* view, right click and select <kbd>Add Component File</kbd>. Select *car.script* and click *OK*. Save the collection file.
 
 Double click *car.script* and edit the script so it contains the following:
 

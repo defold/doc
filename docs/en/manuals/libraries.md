@@ -45,7 +45,7 @@ Now, select <kbd>Project ▸ Fetch Libraries</kbd> to update library dependencie
 
 ![Fetch Libraries](images/libraries/libraries_fetch_libraries.png)
 
-Now the folders that you shared appear in the Project Explorer and you can use everything you shared. Any synchronized changes done to the library project will be available in your project.
+Now the folders that you shared appear in the *Assets pane* and you can use everything you shared. Any synchronized changes done to the library project will be available in your project.
 
 ![Library setup done](images/libraries/libraries_done.png)
 

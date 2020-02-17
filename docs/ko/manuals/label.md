@@ -13,7 +13,7 @@ title: Defold manual
 * 게임 오브젝트에 마우스 오른쪽 버튼을 누르고 **Add Component**를 선택한 후 **Label**을 선택하고 **OK**를 누릅니다. 그러면 해당 게임 오브젝트의 내장 컴포넌트로 라벨이 추가됩니다.
 ![Add label](images/label/add_label.png)
 
-* 만약 같은 템플릿으로 부터 다수의 라벨을 인스턴스화 하고 싶다면 새 **Label File**을 만들고 (**Project Explorer** 창의 한 폴더에서 오른쪽 클릭하고 **New ▸ Label File** 선택) 게임 오브젝트에 오른쪽 클릭해서 **Add Component From File**을 선택한 후 아까 만든 라벨 파일을 선택하는 방식으로 여러 번 쓸 수 있습니다.
+* 만약 같은 템플릿으로 부터 다수의 라벨을 인스턴스화 하고 싶다면 새 **Label File**을 만들고 (**Assets pane** 창의 한 폴더에서 오른쪽 클릭하고 **New ▸ Label File** 선택) 게임 오브젝트에 오른쪽 클릭해서 **Add Component From File**을 선택한 후 아까 만든 라벨 파일을 선택하는 방식으로 여러 번 쓸 수 있습니다.
 
 라벨 컴포넌트는 런타임 중에 혹은 개발 중에 변경 가능한 특별한 속성들을 가지고 있습니다.
 
