@@ -489,6 +489,10 @@
                     {
                         "path": "/manuals/writing-code",
                         "name": "Writing code"
+                    },
+                    {
+                        "path": "/manuals/working-offline",
+                        "name": "Working offline"
                     }
                 ]
             },
