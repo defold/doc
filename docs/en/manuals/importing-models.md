@@ -11,9 +11,11 @@ Defold currently only support models, skeletons and animations in the Collada *.
 ## Exporting to Collada
 When you export a model to Collada format you get a file with the *.dae* file extension. This file contain all the vertices, edges and faces that make up the model, as well as _UV coordinates_ (what part of the texture image maps to a certain part of the mesh) if you have defined them, the bones in the skeleton and animation data.
 
-A detailed description on polygon meshes can be found on http://en.wikipedia.org/wiki/Polygon_mesh. UV coordinates and UV mapping is described at http://en.wikipedia.org/wiki/UV_mapping.
+* A detailed description on polygon meshes can be found on http://en.wikipedia.org/wiki/Polygon_mesh.
 
-Defold imposes some limnitations on exported animation data:
+* UV coordinates and UV mapping is described at http://en.wikipedia.org/wiki/UV_mapping.
+
+Defold imposes some limitations on exported animation data:
 
 * Defold currently only supports baked animations. Animations need to have matrices for each animated bone each keyframe, and not position, rotation and scale as separate keys.
 
