@@ -58,7 +58,7 @@ A layout cannot delete or create new nodes, only override properties. If you nee
 
 The dynamic layout matcher scores each display profile qualifier according to the following rules:
 
-1. If there is no device model set, or the device model matches, a score $S$ is calculated for the qualifier.
+1. If there is no device model set, or the device model matches, a score (S) is calculated for the qualifier.
 
 2. The score (S) is calculated with the area of the display (A), the area from the qualifier (A_Q), the aspect ratio of the display (R) and the aspect ratio of the qualifier (R_Q):
 
