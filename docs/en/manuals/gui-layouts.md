@@ -60,11 +60,9 @@ The dynamic layout matcher scores each display profile qualifier according to th
 
 1. If there is no device model set, or the device model matches, a score $S$ is calculated for the qualifier.
 
-2. The score ($S$) is calculated with the area of the display ($A$), the area from the qualifier ($A_Q$), the aspect ratio of the display ($R$) and the aspect ratio of the qualifier ($R_Q$):
+2. The score (S) is calculated with the area of the display (A), the area from the qualifier (A_Q), the aspect ratio of the display (R) and the aspect ratio of the qualifier (R_Q):
 
-   $$
-   S=\left|1 - \frac{A}{A_Q}\right| + \left|1 - \frac{R}{R_Q}\right|
-   $$
+<img src="https://latex.codecogs.com/svg.latex?\inline&space;S=\left|1&space;-&space;\frac{A}{A_Q}\right|&space;&plus;&space;\left|1&space;-&space;\frac{R}{R_Q}\right|" title="S=\left|1 - \frac{A}{A_Q}\right| + \left|1 - \frac{R}{R_Q}\right|" />
 
 3. The profile with the lowest scoring qualifier is selected, if the orientation (landscape or portrait) of the qualifier matches the display.
 
