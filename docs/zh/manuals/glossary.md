@@ -5,7 +5,7 @@ brief: 本教程列举了使用 Defold 工作中会遇到的各种专用词汇�
 
 # Defold glossary
 
-This glossary gives a brief description to all the things you encounter in Defold. In most cases, you will find a link to more in-depth documentation.
+该名词表简要介绍了您在 Defold 中遇到的所有东西。在大多数情况下，您会找到更多相关详细文档的链接。
 
 ## Animation set
 

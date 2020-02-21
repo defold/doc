@@ -12,10 +12,10 @@ brief: 本教程介绍了粒子特效组件的使用以及特效的编辑方法.
 粒子特效包含一些发射器以及可选的修改器:
 
 Emitter
-: An emitter is a positioned shape that emits particles uniformly distributed over the shape. The emitter contains properties that controls the particle spawning as well as the image or animation, lifespan, color, shape and velocity of the individual particles.
+: 发射器是任意放置的的形状，可发射均匀分布在该形状上的粒子。发射器包含控制粒子生成的属性，比如各个粒子的图像或动画，生命周期，颜色，形状和速度。
 
 Modifier
-: A modifier affects the velocity of spawned particles to make them accelerate or slow down in a particular direction, move radially or swirl around a point. Modifiers can affect a single emitter's particles or a particular emitter.
+: 修改器会影响生成的粒子的速度，以使其在特定方向上加速或减速，径向移动或绕点旋转。修改器可以影响单个的粒子或者整个发射器。
 
 ## Creating an effect
 

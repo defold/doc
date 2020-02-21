@@ -7,10 +7,9 @@ brief:  Defold 支持自动纹理处理和图片数据压缩. 本教程介绍这
 
 Defold 支持自动纹理处理和图片数据压缩 (用于 *Atlas*, *Tile sources*, *Cubemaps* 和模型贴图, GUI 等).
 
-There are two types of compression, software image compression and hardware texture compression.
+压缩有两种类型，软件图像压缩和硬件纹理压缩:
 
-1. Software compression (such as PNG and JPEG) reduces the storage size of image resources. This makes the the final bundle size smaller. However, the image files need to be uncompressed when read into memory so even though an image is small on disk, it can have a large memory footprint.
-
+1.软件压缩（例如PNG和JPEG）可减小图像资源的大小。这使最终的打包尺寸更小。但是，图像文件在读入内存时需要解压缩，因此即使图像在磁盘上很小，它也可能占用很大的内存。
 2. Hardware texture compression also reduces the storage size of image resources. But, unlike software compression, it reduces the in-memory footprint for textures. This is because the graphics hardware is able to directly manage compressed textures without first having to uncompress them.
 
 The processing of textures is configured through a specific texture profile. In this file you create _profiles_ that express what compressed format(s) and type should be used when creating bundles for a specific platform. _Profiles_ are then tied to matching file _paths patterns_, allowing fine tuned control over what files in your project should be compressed and exactly how.

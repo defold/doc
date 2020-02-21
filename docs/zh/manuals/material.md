@@ -34,20 +34,20 @@ Fragment Program
 : 片元着色器程序 (*.fp*) 在渲染材质时使用. 片元着色器运行于 GPU 以渲染每个组件的片元 (像素) 其目的是决定片元的颜色. 通常使用采样纹理或者基于输入变量 (可变变量或常量) 计算的方法得到结果.
 
 Vertex Constants
-: Uniforms that will be passed to the vertex shader program. See below for a list of available constants.
+: 传输给顶点着色器程序的数据. 有效常量列表见下文.
 
 Fragment Constants
-: Uniforms that will be passed to the fragment shader program. See below for a list of available constants.
+:  传输给片元着色器程序的数据. 有效常量列表见下文.
 
 Samplers
-: You can optionally configure specific samplers in the materials file. Add a sampler, name it according to the name used in the shader program and set the wrap and filter settings to your liking.
+: 你也可以在材质文件里指定采样器. 添加采样器, 赋予其在着色器程序里使用的名字再在链接上设置包裹和过滤.
 
 Tags
-: The tags associated with the material. Tags are represented in the engine as a _bitmask_ that is used by [`render.predicate()`](/ref/render#render.predicate) to collect components that should be drawn together. See the [Render documentation](/manuals/render) on how to do that. The maximum number of tags you can use in a project is 32.
+: 标签与材质相关. 标签在引擎内部表现为 _bitmask_ 并由 [`render.predicate()`](/ref/render#render.predicate) 来收集需要渲染的组件. 如何渲染请见 [Render documentation](/manuals/render). 每个项目最多可以使用32个标签.
 
 ## Vertex and fragment constants
 
-Shader constants, or "uniforms" are values that are passed from the engine to vertex and fragment shader programs. To use a constant you define it in the material file as either a *Vertex Constant* property or a *Fragment Constant* property. Corresponding `uniform` variables need to be defined in the shader program. The following constants can be set in a material:
+着色器常量, 或称 "uniforms" 是从引擎传输给顶点和片元着色器程序的数据. 要使用常量，您可以在材质文件中将其定义为一个 *顶点常量* 属性或 *片元常量* 属性。需要在着色器程序中定义相应的 `uniform` 变量。材质中可以设置以下常量：
 
 CONSTANT_TYPE_WORLD
 : The world matrix. Use to transform vertices into world space. For some component types, the vertices are already in world space when they arrive to the vertex program (due to batching). In those cases multiplying with the world matrix in the shader will yield the wrong results.

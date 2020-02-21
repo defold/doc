@@ -1,11 +1,11 @@
 ---
-title: Defold 里的 GUI 排版
+title: Defold 里的 GUI 布局
 brief: Defold 支持让 GUIs 自动适配手机屏幕方向的改变. 本教程介绍这部分功能.
 ---
 
 # Layouts
 
-Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design GUIs that adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models.
+Defold支持可自动适应移动设备上屏幕方向变化的GUI。通过使用此功能，您可以设计适合各种屏幕尺寸的方向和纵横比的GUI。也可以创建与特定设备型号匹配的布局。
 
 ## Creating display profiles
 
