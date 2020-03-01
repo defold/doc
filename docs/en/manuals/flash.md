@@ -134,7 +134,7 @@ Motion tweens allow the animation of various properties of an object, including 
 
 ## Defold—property animation
 
-Defold works with pixel images as opposed to vector graphics, thus it does not have an equivalent for shape tweening. However, motion tweening has a powerful equivalent in [property animation](/ref/go/#go.animate). This is accomplished via script, using the `go.animate()` function. The go.animate() function tweens a property (such as color, scale, rotation or position) from the starting value to the desired end value, using one of many available easing functions (including custom ones). Where Flash required user implementation of more advanced easing functions, Defold includes [many easing functions](/manuals/animation/#easing) built into the engine.
+Defold works with pixel images as opposed to vector graphics, thus it does not have an equivalent for shape tweening. However, motion tweening has a powerful equivalent in [property animation](/ref/go/#go.animate). This is accomplished via script, using the `go.animate()` function. The go.animate() function tweens a property (such as color, scale, rotation or position) from the starting value to the desired end value, using one of many available easing functions (including custom ones). Where Flash required user implementation of more advanced easing functions, Defold includes [many easing functions](/manuals/animation/#easing) built-into the engine.
 
 Where Flash makes use of keyframes of graphics on a timeline for animation, one of the main methods of graphic animation in Defold is by flipbook animation of imported image sequences. Animations are organised in a game object component known as an atlas. In this instance we have an atlas for a game character with an animation sequence called "run". This consists of a series of png files:
 
@@ -349,7 +349,7 @@ Finally, see the [profiler documentation](/ref/profiler/) for information on how
 - [Defold examples](/examples)
 - [Tutorials](/tutorials)
 - [Manuals](/manuals)
-- [Reference](/ref)
-- [FAQ](/faq)
+- [Reference](/ref/go)
+- [FAQ](/faq/faq)
 
 If you have questions or get stuck, the [Defold forums](//forum.defold.com) are a great place to reach out for help.

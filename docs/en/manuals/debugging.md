@@ -5,7 +5,7 @@ brief: This manual explains the debugging facilities present in Defold.
 
 # Debugging
 
-Defold contains an integrated Lua debugger with an inspection facility. Together with the built in [profiling tools](/manuals/profiling) it is a powerful tool that can help finding the root cause of bugs or performance issues.
+Defold contains an integrated Lua debugger with an inspection facility. Together with the built-in [profiling tools](/manuals/profiling) it is a powerful tool that can help finding the root cause of bugs or performance issues.
 
 ## Print and visual debugging
 

@@ -73,13 +73,13 @@ When the editor is installed and started it's time to create a new project and g
 
 The first time you start the editor, the editor starts blank, without any project open so choose <kbd>Open Project</kbd> from the menu and select your newly created project. You will also be prompted to create a "branch" for the project.
 
-Now, in the *Project Explorer* you will see all files that are part of the project. If you double-click the file "main/main.collection" the file will open up in the editor view in the center:
+Now, in the *Assets pane* you will see all files that are part of the project. If you double-click the file "main/main.collection" the file will open up in the editor view in the center:
 
 ![Editor overview](images/runner/1/editor_overview.png)
 
 The editor consists of the following main areas:
 
-Project Explorer
+Assets pane
 : This is a view of all files in your project. Different file types have different icons. Double click on a file to open in in a designated editor for that file type. The special read-only folder *builtins* is common for all projects and include useful items like a default render script, a font, materials for rendering various components and other things.
 
 Main Editor View
@@ -114,7 +114,7 @@ First of all, let's clean the *main.collection* file of the one game object it c
 That's it!
 
 ::: sidenote
-The Defold editor works on files. By double-clicking a file in the *Project Explorer* you open it in a suitable editor. You can then work with the contents of the file.
+The Defold editor works on files. By double-clicking a file in the *Assets pane* you open it in a suitable editor. You can then work with the contents of the file.
 
 When you are done editing a file you have to save it. Select <kbd>File ▸ Save</kbd> in the main menu. The editor gives a hint by adding an asterisk '\*' to the filename in the tab for any file that contain unsaved changes.
 
@@ -133,7 +133,7 @@ Let's take the first baby steps and create an arena for our character, or rather
 <a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/runner-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
 
 1. Import the image assets into the project by dragging the files "ground01.png" and "ground02.png" image files (from the sub-folder "level-images" in the asset package) into a suitable location in the project, for instance the folder "images" inside the "main" folder.
-2. Create a new *Atlas* file to hold the ground textures (right-click a suitable folder, for instance the *main* folder, in the *Project Explorer* and select <kbd>New ▸ Atlas File</kbd>). Name the atlas file *level.atlas*.
+2. Create a new *Atlas* file to hold the ground textures (right-click a suitable folder, for instance the *main* folder, in the *Assets pane* and select <kbd>New ▸ Atlas File</kbd>). Name the atlas file *level.atlas*.
 
   ::: sidenote
   An *Atlas* is a file that combines a set of separate images into one larger image file. The reason for doing that is to save space and also to gain performance. You can read more about Atlases and other 2D graphics features in the [2D graphics documentation](/manuals/2dgraphics).
@@ -188,7 +188,7 @@ For the time being these description probably suffices. However, a much more com
 
 Now that we have all ground pieces in place, it is rather simple to get them moving. The idea is this: move the pieces right-to-left and when a piece reach the leftmost edge outside of the screen, move it to the rightmost position. To move all these game objects requires a Lua script so let's create one:
 
-1. Right-click the *main* folder in the *Project Explorer*  and select <kbd>New ▸ Script File</kbd>. Name the new file *ground.script*.
+1. Right-click the *main* folder in the *Assets pane*  and select <kbd>New ▸ Script File</kbd>. Name the new file *ground.script*.
 2. Double click the new file to bring up the Lua script editor.
 3. Delete the default content of the file and copy the following Lua code into it, then save the file.
 
@@ -212,7 +212,7 @@ function update(self, dt) -- <3>
     end
 end
 ```
-1. Store the id:s of the ground game objects in a Lua table so we can iterate over them.
+1. Store the id's of the ground game objects in a Lua table so we can iterate over them.
 2. The `init()` function is called when the game object comes to life in the game. We initiate a object local member variable that contains the speed of the ground.
 3. `update()` is called once each frame, typically 60 times per second. `dt` contains the number of seconds since the last call.
 4. Iterate over all the ground game objects.
@@ -225,7 +225,7 @@ end
 ::: sidenote
 Defold is a fast engine core that manages your data and game objects. Any logic or behavior that you need for your game is created in the Lua language. Lua is a fast and light-weight programming language that is great for writing game logic. There are great resources available to learn the language, like the book http://www.lua.org/pil/[Programming in Lua] and the official http://www.lua.org/manual/5.3/[Lua reference manual].
 
-Defold adds a set of API:s on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
+Defold adds a set of APIs on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
 :::
 
 Now that we have a script file, we should add a reference to it to a component in a game object. That way, the script will be executed as part of the game object lifecycle. We do this by creating a new game object in *ground.collection* and add a *Script* component to the object that refers to the Lua script file we just created:
@@ -252,10 +252,10 @@ A *Script*
 
 Start by importing the body part images, then add them to a new atlas that we call *hero.atlas*:
 
-1. Create a new folder by right-clicking in the *Project Explorer* and selecting <kbd>New ▸ Folder</kbd>. Make sure to not select a folder before clicking or the new folder will be created inside the marked one. Name the folder "hero".
+1. Create a new folder by right-clicking in the *Assets pane* and selecting <kbd>New ▸ Folder</kbd>. Make sure to not select a folder before clicking or the new folder will be created inside the marked one. Name the folder "hero".
 2. Create a new atlas file by right-clicking the *hero* folder and selecting <kbd>New ▸ Atlas File</kbd>. Name the file *hero.atlas*.
 3. Create a new subfolder *images* in the *hero* folder. Right-click the *hero* folder and select <kbd>New ▸ Folder</kbd>.
-4. Drag the bodypart images from the *hero-images* folder in the asset package to the *images* folder you just created in the *Project Explorer*.
+4. Drag the bodypart images from the *hero-images* folder in the asset package to the *images* folder you just created in the *Assets pane*.
 5. Open *hero.atlas*, right-click the root node in the *Outline* and select <kbd>Add Images</kbd>. Mark all body part images and click *OK*.
 6. Save the atlas file.
 
@@ -263,7 +263,7 @@ Start by importing the body part images, then add them to a new atlas that we ca
 
 We also need to import the Spine animation data and set up a *Spine Scene* for it:
 
-1. Drag the file *hero.json* (it is included in the asset package) to the *hero* folder in the *Project Explorer*.
+1. Drag the file *hero.json* (it is included in the asset package) to the *hero* folder in the *Assets pane*.
 2. Create a *Spine Scene* file. Right-click the *hero* folder and select <kbd>New ▸ Spine Scene File</kbd>. Name the file *hero.spinescene*.
 3. Double-click the new file to open and edit the *Spine Scene*.
 4. Set the *spine_json* property to the imported JSON file *hero.json*. Click the property, then click the file selector button *...* to open the resource browser.
@@ -308,7 +308,7 @@ It is important that we specify what the collision object should interact with:
 
 Finally, create a new *hero.script* file and add it to the game object.
 
-1. Right-click the *hero* folder in the *Project Explorer*  and select <kbd>New ▸ Script File</kbd>. Name the new file *hero.script*.
+1. Right-click the *hero* folder in the *Assets pane*  and select <kbd>New ▸ Script File</kbd>. Name the new file *hero.script*.
 2. Open the new file, then copy and paste the following code into the script file, then save it. (The code is pretty straightforward apart from the solver that separates the hero collision shape from what it collides with. That is done by the `handle_geometry_contact()` function.)
 
 ::: sidenote
@@ -435,21 +435,21 @@ The last thing we need for the hero to be functional is input. The script above 
 
 Now that we have a hero character set up with collision and all, we need to also add collision to the ground so the frog has got something to collide with (or run on). We'll do that in a second, but first, we should do a little refactoring and put all level stuff in a separate collection and clean up the file structure a bit:
 
-1. Create a new *level.collection* file (right-click *main* in the *Project Explorer* and select <kbd>New ▸ Collection File</kbd>).
+1. Create a new *level.collection* file (right-click *main* in the *Assets pane* and select <kbd>New ▸ Collection File</kbd>).
 2. Open the new file, right-click the root in the *Outline* and select <kbd>Add Collection from File</kbd> and choose *ground.collection*.
 3. In *level.collection*, right-click the root in the *Outline* and select <kbd>Add Game Object File</kbd> and choose *hero.go*.
 4. Now, create a new folder called *level* in the project root (right-click the white space below *game.project* and select <kbd>New ▸ Folder</kbd>), then move the level assets you have created so far to it: the files *level.collection*, *level.atlas*, the "images" folder holding the images for the level atlas, and the files *ground.collection* and *ground.script*.
 5. Open *main.collection*, delete *ground.collection* and instead add *level.collection* (right-click and <kbd>Add Collection from File</kbd>) which now contains the *ground.collection*. Make sure that you place the collection at position 0, 0, 0.
 
 ::: sidenote
-As you might have noticed by now, the file hierarchy seen in the *Project Explorer* is decoupled from the content structure you build in your collections. Individual files are referenced from collection- and game object files, but their location is completely arbitrary.
+As you might have noticed by now, the file hierarchy seen in the *Assets pane* is decoupled from the content structure you build in your collections. Individual files are referenced from collection- and game object files, but their location is completely arbitrary.
 
 If you want to move a file to a new location Defold helps by automatically updating references to the file (refactoring). When making a complex piece of software, like a game, it is extremely helpful to be able to change the structure of the project as it grows and changes. Defold encourages that and makes the process smooth so don't be afraid to move your files around!
 :::
 
 We should also add a controller game object with a script component to the level collection:
 
-1. Create a new script file. Right-click the *level* folder in the *Project Explorer* and select <kbd>New ▸ Script File</kbd>. Name the file *controller.script*.
+1. Create a new script file. Right-click the *level* folder in the *Assets pane* and select <kbd>New ▸ Script File</kbd>. Name the file *controller.script*.
 2. Open the script file, copy the following code into it and save the file:
 
     ```lua
@@ -523,14 +523,14 @@ To make life in frog-world a little less dull, we should add platforms to jump o
 2. Open *level.atlas* and add the new image to the atlas (right-click the root in the *Outline* and select <kbd>Add Images</kbd>).
 3. Save the file.
 4. Create a new *Game Object* file called *platform.go* in the *level* folder. (Right-click *level*
- in the *Project Explorer* then select <kbd>New ▸ Game Object File</kbd>)
+ in the *Assets pane* then select <kbd>New ▸ Game Object File</kbd>)
 5. Add a *Sprite* component to the game object (right-click the root in the *Outline* view and select <kbd>Add Component</kbd> and then *Sprite*).
 6. Set the *Image* property to refer to the file *level.atlas* and set *Default Animation* to "rock_planks". For convenience, keep level objects in a subfolder "level/objects".
 7. Add a *Collision Object* component to the platform game object (right-click the root in the *Outline* view and select <kbd>Add Component</kbd>).
 8. Make sure to set the component's *Type* to "Kinematic" and the *Group* and *Mask* to "geometry" and "hero" respectively
 9. Add a *Box Shape* to the *Collision Object* component. (Right-click the component in the *Outline* and select <kbd>Add Shape</kbd>, then choose *Box*).
 10. Use the *Move Tool* and the *Scale Tool* (<kbd>Scene ▸ Move Tool</kbd> and <kbd>Scene ▸ Scale Tool</kbd>) to make the shape in the *Collision Object* component cover the platform.
-11. Create a *Script* file *platform.script* (Right-click in the *Project Explorer* then select <kbd>New ▸ Script File</kbd>) and put the following code in the file, then save it:
+11. Create a *Script* file *platform.script* (Right-click in the *Assets pane* then select <kbd>New ▸ Script File</kbd>) and put the following code in the file, then save it:
 
     ```lua
     -- platform.script
@@ -556,7 +556,7 @@ To make life in frog-world a little less dull, we should add platforms to jump o
     1. Just delete the platform when it has been moved off the right edge of the screen
 
 12. Open *platform.go* and add the new script as a component (right-click the root in the *Outline* view and select <kbd>Add Component From File</kbd> and select *platform.script*).
-13. Copy *platform.go* to a new file (right-click the file in the *Project Explorer* and select <kbd>Copy</kbd>, then right-click again and  select <kbd>Paste</kbd>) and call the new file *platform_long.go*.
+13. Copy *platform.go* to a new file (right-click the file in the *Assets pane* and select <kbd>Copy</kbd>, then right-click again and  select <kbd>Paste</kbd>) and call the new file *platform_long.go*.
 14. Open *platform_long.go* and add a second *Sprite* component (right-click the root in the *Outline* view and select <kbd>Add Component</kbd>). Alternatively you can copy the existing *Sprite*.
 15. Use the *Move Tool* (<kbd>Scene ▸ Move Tool</kbd>) to place the *Sprite* components side by side.
 16. Use the *Move Tool* and the *Scale Tool* to make the shape in the *Collision Object* component cover both platforms.
@@ -673,7 +673,7 @@ Lua has "lexical scope" for local variables and is sensitive about the order tha
 
 That's all that's needed to add jump and fall animations to the hero. If you run the game you will notice that it feels much better to play. You might also realize that the platforms unfortunately can push the hero off the screen. That is a side-effect of the collision handling but the remedy is easy--add violence and make the edges of the platforms dangerous!
 
-1. Drag *spikes.png* from the asset package to the "level/images" folder in the *Project Explorer*.
+1. Drag *spikes.png* from the asset package to the "level/images" folder in the *Assets pane*.
 2. Open *level.atlas* and add the image (right-click and select <kbd>Add Images</kbd>)
 3. Open *platform.go* and add a few *Sprite* components. Set the *Image* to *level.atlas* and the *Default Animation* to "spikes".
 4. Use the *Move Tool* and the *Rotate Tool* to place the spikes along the edges of the platform.
@@ -740,7 +740,7 @@ That's all that's needed to add jump and fall animations to the hero. If you run
 
 If you try the game now it quickly becomes apparent that the reset mechanism doesn't work. The hero reset is fine, but you can easily reset into a situation where you will instantly fall onto a platform edge and die again. What we want to do is to properly reset the whole level on death. Since the level is just a series of spawned platforms, we just need to track all spawned platforms and then delete them at reset:
 
-1. Open the *controller.script* file and edit the code to store the id:s of all spawned platforms:
+1. Open the *controller.script* file and edit the code to store the id's of all spawned platforms:
 
     ```lua
     -- controller.script
@@ -837,16 +837,16 @@ Next up - something to live for: coins!
 
 The idea is to put coins in the level for the player to collect. The first questions to ask is how to put them into the level. We can, for instance, develop a spawning scheme that is somehow in tune with the platform spawning algorithm. However, we chose a much easier approach in the end and just have the platforms themselves spawn coins:
 
-1. Drag the *coin.png* image from the asset package to "level/images" in the *Project Explorer*.
+1. Drag the *coin.png* image from the asset package to "level/images" in the *Assets pane*.
 2. Open *level.atlas* and add the image (right-click and select <kbd>Add Images</kbd>).
-3. Create a *Game Object* file named *coin.go* in the *level* folder (right-click *level* in the *Project Explorer* and select <kbd>New ▸ Game Object File</kbd>).
+3. Create a *Game Object* file named *coin.go* in the *level* folder (right-click *level* in the *Assets pane* and select <kbd>New ▸ Game Object File</kbd>).
 4. Open *coin.go* and add a *Sprite* component (right-click and select <kbd>Add Component</kbd> in the *Outline*). Set the *Image* to *level.atlas* and *Default Animation* to "coin".
 5. Add a *Collision Object* (right-click in the *Outline* and select <kbd>Add Component</kbd>)
 and add a *Sphere* shape that covers the image (right-click the component and select <kbd>Add Shape</kbd>).
 6. Use the *Move Tool* (<kbd>Scene ▸ Move Tool</kbd>) and the *Scale Tool* to make the sphere cover the coin image.
 7. Set the collision object *Type* to "Kinematic", its *Group* to "pickup" and its *Mask* to "hero".
 8. Open *hero.go* and add "pickup" to the *Collision Object* component's *Mask* property, then save the file.
-9. Create a new script file *coin.script* (right-click *level* in the *Project Explorer* and select <kbd>New ▸ Script File</kbd>). Replace the template code with the following:
+9. Create a new script file *coin.script* (right-click *level* in the *Assets pane* and select <kbd>New ▸ Script File</kbd>). Replace the template code with the following:
 
     ```lua
     -- coin.script

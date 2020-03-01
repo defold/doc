@@ -268,7 +268,7 @@ Detecting when the user has clicked or tapped on a visual component is a very co
 
 ### Detecting interaction with GUI nodes
 
-For UI elements there is the `gui.pick_node(node, x, y)` function that will return true or false depending on if the specified coordinate is within the bounds of a gui node or not. Refer to the [API docs](/ref/gui/#gui.pick_node:node-x-y), the [pointer over example](https://www.defold.com/examples/pointer_over/) or the [button example](https://www.defold.com/examples/button/) to learn more.
+For UI elements there is the `gui.pick_node(node, x, y)` function that will return true or false depending on if the specified coordinate is within the bounds of a gui node or not. Refer to the [API docs](/ref/gui/#gui.pick_node:node-x-y), the [pointer over example](/examples/gui/pointer_over/) or the [button example](/examples/gui/button/) to learn more.
 
 ### Detecting interaction with game objects
 For game objects it is more complicated to detect interaction since things such as camera translation and render script projection will impact the required calculations. There are two general approaches to detecting interaction with game objects:
@@ -288,7 +288,7 @@ In both cases there is a need to convert from the screen space coordinates of th
 
 ## Gamepads settings file
 
-Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built in gamepads file with settings for common gamepads:
+Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built-in gamepads file with settings for common gamepads:
 
 ![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
 

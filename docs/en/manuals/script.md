@@ -120,7 +120,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Even in this quite simple case we get fairly tangled up logic. It's possible to make this look better with the help of coroutines in a module (see below), but let's instead try to make this reactive and use a built in timing mechanism.
+Even in this quite simple case we get fairly tangled up logic. It's possible to make this look better with the help of coroutines in a module (see below), but let's instead try to make this reactive and use a built-in timing mechanism.
 
 ```lua
 local function send_first()

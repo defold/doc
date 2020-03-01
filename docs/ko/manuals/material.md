@@ -17,8 +17,8 @@ Defold는 모바일 장치에서 렌더링 하기 위해 OpenGL ES 2.0을 사용
 ## Creating a material
 자, 단순한 평면(지향성 빛(directional light)이 없는)이지만 질감이 있는 메터리얼(textured material)을 만들어 봅시다.
 
-1. **Project Explorer** 창에서 대상 폴더를 선택합니다.
-2. **File > New…​ > Material File** 메뉴를 선택합니다. (**Project Explorer** 창에서 오른쪽 클릭 후 **New…​ > Material File**을 선택해도 됩니다.)
+1. **Assets pane** 창에서 대상 폴더를 선택합니다.
+2. **File > New…​ > Material File** 메뉴를 선택합니다. (**Assets pane** 창에서 오른쪽 클릭 후 **New…​ > Material File**을 선택해도 됩니다.)
 3. 새 메터리얼 파일의 이름을 지정합니다.
 4. 새 메터리얼을 **Material Editor**에서 엽니다.
 

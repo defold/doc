@@ -8,11 +8,11 @@ title: Defold manual
 폰트 파일은 TrueType, OpenType, BMFont 포멧을 사용할 수 있으며 Defold가 렌더링 할 수 있도록 그래픽형식의 포멧으로 자동으로 변환합니다. 비트맵(bitmap)과 디스턴스 필드(distance field) 두 가지의 렌더링 기술이 있으며 각각 장단점이 있습니다.
 
 ## Creating a font
-Defold에서 사용할 폰트를 만들려면, **File > New > Font File** 메뉴를 선택해서 새 폰트파일을 생성할 수 있습니다. (혹은 **Project Explorer**에서 마우스 오른쪽 버튼 눌러서 파일 생성)
+Defold에서 사용할 폰트를 만들려면, **File > New > Font File** 메뉴를 선택해서 새 폰트파일을 생성할 수 있습니다. (혹은 **Assets pane**에서 마우스 오른쪽 버튼 눌러서 파일 생성)
 
 ![Create font](images/font/fonts_create.png)
 
-또한 Defold 프로젝트로 폰트를 임포트 해야합니다. TrueType이나 OpenType (혹은 BMFont, 아래 참고)  파일을 **Project Explorer**의 원하는 위치에 드래그-앤-드롭 하면 됩니다.
+또한 Defold 프로젝트로 폰트를 임포트 해야합니다. TrueType이나 OpenType (혹은 BMFont, 아래 참고)  파일을 **Assets pane**의 원하는 위치에 드래그-앤-드롭 하면 됩니다.
 
 > 폰트의 그림자 렌더링은 현재 성능상의 이유때문에 기본적으로 비활성화 되어 있습니다. 필요한 경우엔 그림자를 렌더링하는 커스텀 쉐이더를 만들어 쓰면 됩니다(성능상 비용이 조금 들게됨). 앞으로 Defold는 사용된 기능을 기반으로 적당한 쉐이더를 선택할 수 있게 될 것입니다.
 

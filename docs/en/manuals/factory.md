@@ -88,7 +88,7 @@ Defold does not currently support non uniform scaling of collision shapes. If yo
 
 ## Tracking spawned and parent objects
 
-When you call `factory.create()` you get back the id of the new game object, allowing you to store the id for future reference. One common use is to spawn objects and add their id:s to a table so you can delete them all at a later point, for instance when resetting a level layout:
+When you call `factory.create()` you get back the id of the new game object, allowing you to store the id for future reference. One common use is to spawn objects and add their id's to a table so you can delete them all at a later point, for instance when resetting a level layout:
 
 ```lua
 -- spawner.script
@@ -164,7 +164,7 @@ Synchronous loading
       -- load will create the resources synchronously.
       self.go_id = factory.create("#factory")
   end
-  
+
   function final(self)  
       -- Delete game objects. Will decref resources.
       -- In this case resources are deleted since the factory component
@@ -184,19 +184,19 @@ Asynchronous loading
       -- Loading is complete, resources are ready to spawn
       self.go_id = factory.create(url)
   end
-  
+
   function init(self)
-      -- No factory resources are loaded when the factory’s parent 
+      -- No factory resources are loaded when the factory’s parent
       -- collection is loaded. Calling load will load the resources.
       factory.load("#factory", load_complete)
   end
-  
+
   function final(self)
       -- Delete game object. Will decref resources.
       -- In this case resources aren’t deleted since the factory component
       -- still holds a reference.
       go.delete(self.go_id)
-  
+
       -- Calling unload will decref resources held by the factory component,
       -- resulting in resources being destroyed.
       factory.unload("#factory")
@@ -214,4 +214,3 @@ So if you set *max_instances* to 1024 and have 24 manually placed game objects i
 ## Pooling of game objects
 
 It may seem like a good idea to save spawned game objects in a pool and reuse them. However, the engine is already doing object pooling under the hood so additional overhead will only slow things down. So delete game objects and spawn new ones, that is both faster and cleaner.
-

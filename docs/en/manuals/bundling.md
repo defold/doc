@@ -27,27 +27,23 @@ To learn more about build reports please refer to the [Profiling manual](/manual
 
 ### Android
 
-Creating an Android application bundle (.apk file) as well as the prerequisite setup is documented in the [Android manual](/manuals/android/#creating-an-android-application-bundle).
+Creating an Android application bundle (.apk file) is documented in the [Android manual](/manuals/android/#creating-an-android-application-bundle).
 
 ### iOS
 
-Creating an iOS application bundle (.ipa file) as well as the prerequisite setup is documented in the [iOS manual](/manuals/ios/#creating-an-ios-application-bundle).
+Creating an iOS application bundle (.ipa file) is documented in the [iOS manual](/manuals/ios/#creating-an-ios-application-bundle).
 
 ### OSX
 
-Creating an OSX application bundle (.app file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#macos--os-x).
+Creating an OSX application bundle (.app file) is documented in the [macOS manual](/manuals/macos).
 
 ### Linux
 
-Creating a Linux application bundle requires no specific setup and no optional platform specific configuration in the "game.project" [project settings file](/manuals/project-settings/).
+Creating a Linux application bundle requires no specific setup and no optional platform specific configuration in the "game.project" [project settings file](/manuals/project-settings/#linux).
 
 ### Windows
 
-Creating a Windows application bundle (.exe file) requires no specific setup, but optional platform specific configuration is done in the "game.project" [project settings file](/manuals/project-settings/#windows).
-
-#### Facebook Gameroom
-
-It is possible to create a special version of a Windows application bundle specifically for Facebook Gameroom. This process is documented in the [Facebook Gameroom manual](/manuals/gameroom/).
+Creating a Windows application bundle (.exe file) is documented in the [Windows manual](/manuals/windows).
 
 ### HTML5
 

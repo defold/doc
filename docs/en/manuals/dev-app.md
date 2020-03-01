@@ -47,7 +47,7 @@ To launch your game on your device, the dev app and editor must be able to conne
 1. Make sure the editor is up and running.
 2. Launch the dev app on the device.
 3. Select your device under <kbd>Project ▸ Targets</kbd> in the editor.
-4. Select <kbd>Project ▸ Build And Launch</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
+4. Select <kbd>Project ▸ Build</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
 5. While the game is running, you can use [hot reloading](/manuals/hot-reload/) as usual.
 
 ![launch](images/dev-app/launch.png)

@@ -46,7 +46,11 @@ To add a tile map to your game:
 
 ![Use tile map](images/tilemap/use_tilemap.png){srcset="images/tilemap/use_tilemap@2x.png 2x"}
 
-## Changing tiles from script
+## Runtime manipulation
+
+You can manipulate tilemaps in runtime through a number of different functions and properties (refer to the [API docs for usage](/ref/tilemap/)).
+
+### Changing tiles from script
 
 You can read and write the content of a tile map dynamically while your game is running. To do so, use the [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) and [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) functions:
 
@@ -58,3 +62,36 @@ if tile == 2 then
     tilemap.set_tile("/level#map", "ground", x, y, 4)
 end
 ```
+
+## Tilemap properties
+
+Apart from the properties *Id*, *Position*, *Rotation* and *Scale* the following component specific properties exist:
+
+*Tile Source*
+: The tilesource resource to use for the tilemap.
+
+*Material*
+: The material to use for rendering the tilemap.
+
+*Blend Mode*
+: The blend mode to use when rendering the tilemap.
+
+### Blend modes
+:[blend-modes](../shared/blend-modes.md)
+
+### Changing properties
+
+A tilemap has a number of different properties that can be manipulated using `go.get()` and `go.set()`:
+
+`tile_source`
+: The tile map tile source (`hash`). You can change this using a tile source resource property and `go.set()`. Refer to the [API reference for an example](/ref/tilemap/#tile_source).
+
+`material`
+: The tile map material (`hash`). You can change this using a material resource property and `go.set()`. Refer to the [API reference for an example](/ref/tilemap/#material).
+
+### Material constants
+
+The default tile map material has the following constants that can be changed using `tilemap.set_constant()` and reset using `tilemap.reset_constant()` (refer to the [Material manual for more details](/manuals/material/#vertex-and-fragment-constants)):
+
+`tint`
+: The color tint of the tile map (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/tilemap/#tilemap.set_constant:url-constant-value).

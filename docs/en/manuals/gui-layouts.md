@@ -9,7 +9,7 @@ Defold supports GUIs that automatically adapt to screen orientation changes on m
 
 ## Creating display profiles
 
-By default, the "game.project" settings specify that a built in display profiles settings file ("builtins/render/default.display_profiles") is used. The default profiles are "Landscape" (1280 pixels wide and 720 pixels high) and "Portrait" (720 pixels wide and 1280 pixels high). No device models are set on the profiles so they will match on any device.
+By default, the "game.project" settings specify that a built-in display profiles settings file ("builtins/render/default.display_profiles") is used. The default profiles are "Landscape" (1280 pixels wide and 720 pixels high) and "Portrait" (720 pixels wide and 1280 pixels high). No device models are set on the profiles so they will match on any device.
 
 To create a new profiles settings file, either copy the one from the "builtins" folder or <kbd>right click</kbd> a suitable location in the *Assets* view and select <kbd>New... ▸ Display Profiles</kbd>. Give the new file a suitable name and click <kbd>Ok</kbd>.
 
@@ -58,13 +58,11 @@ A layout cannot delete or create new nodes, only override properties. If you nee
 
 The dynamic layout matcher scores each display profile qualifier according to the following rules:
 
-1. If there is no device model set, or the device model matches, a score $S$ is calculated for the qualifier.
+1. If there is no device model set, or the device model matches, a score (S) is calculated for the qualifier.
 
-2. The score ($S$) is calculated with the area of the display ($A$), the area from the qualifier ($A_Q$), the aspect ratio of the display ($R$) and the aspect ratio of the qualifier ($R_Q$):
+2. The score (S) is calculated with the area of the display (A), the area from the qualifier (A_Q), the aspect ratio of the display (R) and the aspect ratio of the qualifier (R_Q):
 
-   $$
-   S=\left|1 - \frac{A}{A_Q}\right| + \left|1 - \frac{R}{R_Q}\right|
-   $$
+<img src="https://latex.codecogs.com/svg.latex?\inline&space;S=\left|1&space;-&space;\frac{A}{A_Q}\right|&space;&plus;&space;\left|1&space;-&space;\frac{R}{R_Q}\right|" title="S=\left|1 - \frac{A}{A_Q}\right| + \left|1 - \frac{R}{R_Q}\right|" />
 
 3. The profile with the lowest scoring qualifier is selected, if the orientation (landscape or portrait) of the qualifier matches the display.
 

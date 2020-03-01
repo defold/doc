@@ -5,7 +5,7 @@ brief: This manual explains the profiling facilities present in Defold.
 
 # Profiling
 
-Defold includes a set of profiling tools that are integrated with the engine and the build pipeline. These are designed to help find problems with performance and memory usage. The built in profilers are available on debug builds only.
+Defold includes a set of profiling tools that are integrated with the engine and the build pipeline. These are designed to help find problems with performance and memory usage. The built-in profilers are available on debug builds only.
 
 ## The runtime visual profiler
 
@@ -92,10 +92,10 @@ The *Structure* section shows sizes based on how resources are organized in the 
 
 ## External tools
 
-In addition to the built in tools, there is a wide range of free high quality tracing and profiling tools available. Here is a selection:
+In addition to the built-in tools, there is a wide range of free high quality tracing and profiling tools available. Here is a selection:
 
 ProFi (Lua)
-: We do not ship any built in Lua profiler but there are external libraries that are easy enough to use. To find where your scripts spend time, either insert time measures in your code yourself, or use a Lua profiling library like ProFi.
+: We do not ship any built-in Lua profiler but there are external libraries that are easy enough to use. To find where your scripts spend time, either insert time measures in your code yourself, or use a Lua profiling library like ProFi.
 
   https://github.com/jgrahamc/ProFi
 

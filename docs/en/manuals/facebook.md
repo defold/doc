@@ -54,7 +54,7 @@ You can easily add, remove and change platform settings in the app dashboard. Yo
 
 ![App dashboard settings](images/facebook/add_platform.png)
 
-Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Open the  *game.project* file from the *Project Explorer* and scroll to the *Facebook* section and add the *App ID* to the `Appid` field.
+Click the *Settings* tab. Notice the numerical *App ID*. That identifier needs to go into the [project settings](/manuals/project-settings) of your Defold game. Open the  *game.project* file from the *Assets pane* and scroll to the *Facebook* section and add the *App ID* to the `Appid` field.
 
 Now, back in the *Settings* tab on the Facebook app page, click *+ Add Platform* to add a new platform to the app. Each platform has a set of settings to fill in.
 

@@ -20,6 +20,10 @@ Defold will create a dependency tree when building and bundling your application
   * What this means for actual application size is not clearly defined but we are talking size in the range of up to 20 MB.
 * Playable ads are usually limited to between 2 and 5 MB depending on the ad network.
 
+:::sidenote
+According to a 2017 study it was shown that "For every 6 MB increase to an APK’s size, we see a decrease in the install conversion rate of 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
+:::
+
 To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#build-reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
 
 ### Optimize sounds
@@ -51,7 +55,7 @@ Another way of reducing initial application size is to exclude parts of the game
 
 
 ## Optimize for application speed
-Before trying to optimize a game with the goal to increase the speed at which the game runs you need to know where your bottlenecks are. What is actually taking up most of the time in a frame of your game? Is it the rendering? Is it your game logic? Is it the scene graph? To figure this out it is recommended to use the built in profiling tools. Use the [on-screen or web profiler](/manuals/profiling/) to sample the performance of your game and then make a decision if and what to optimize. Once you have a better understanding of what takes time you can start addressing the problems.
+Before trying to optimize a game with the goal to increase the speed at which the game runs you need to know where your bottlenecks are. What is actually taking up most of the time in a frame of your game? Is it the rendering? Is it your game logic? Is it the scene graph? To figure this out it is recommended to use the built-in profiling tools. Use the [on-screen or web profiler](/manuals/profiling/) to sample the performance of your game and then make a decision if and what to optimize. Once you have a better understanding of what takes time you can start addressing the problems.
 
 ### Reduce script execution time
 Reducing script execution time is needed if the profiler shows high values for the `Script` scope. As a general rule of thumb you should of course try to run as little code as possible every frame. Running a lot of code in `update()` and `on_input()` every frame is likely to have an impact on your game's performance, especially on low end devices. Some guidelines are:

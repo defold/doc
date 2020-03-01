@@ -1,19 +1,28 @@
 ---
-title: Debugging native code
-brief: This manual describes some ways to debug an application, and also symbolicate crash logs.
+title: Debugging extensions
+brief: This manual describes some ways to debug an application containing native extensions.
 ---
 
-# Debugging native code
+# Debugging extensions
 
-Here we describe some ways to debug an application, and also symbolicate crash logs.
+When you develop a native extension you typically run into either problems when compiling the extension on the build server or when the extension code in an application.
 
-## Debugger
+## Debugging build problems
 
-When you get a particularly troublesome issue in your code,
-there are several ways to find the root cause.
+When a native extension fails to build the console usually shows all of the errors generated on the build server. You can see what kind of error it is and in which file and line number. The entire build log is also stored in a file `log.txt` in your build folder.
 
-The most common way is to run the code via a `debugger`.
-It let's you step through the code, set `breakpoints` and it will stop the execution if you get a crash.
+## Debugging run-time problems
+
+When you get a particularly troublesome issue in your code, there are several ways to find the root cause.
+
+* Using a debugger
+* Using print debugging
+* Analyzing a crash log
+* Symbolicating a callstack
+
+### Using a debugger
+
+The most common way is to run the code via a `debugger`. It let's you step through the code, set `breakpoints` and it will stop the execution if you get a crash.
 
 There are several debuggers around for each platform.
 
@@ -36,57 +45,58 @@ And each tool can debug certain platforms:
 * ios-deploy - iOS (via lldb)
 
 
-## Print debugging
+### Print debugging
 
-In certain cases, one might want to add printf() statements to the code.
-Afterwards, you can get the logs from your device and analyze them.
+In certain cases, one might want to add `printf()` statements to the code. Afterwards, you can get the logs from your device and analyze them.
 
 Note that Defold by default only prints using dmLog* functions in the debug build.
 
-### [Android](/manuals/extensions-debugging-android.md)
+#### [Android](/manuals/extensions-debugging-android)
 
-On Android, the simplest way to get the log is to run `adb` in the terminal.
-You can also see the `console` inside Android Studio, which is the same thing.
+On Android, the simplest way to get the log is to run `adb` in the terminal. You can also see the `console` inside Android Studio, which is the same thing.
 
 If you get hold of a stack trace from the Android logs, you might be able to symbolicate it using [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html)
 
-### [iOS](/manuals/extensions-debugging-ios.md)
+#### [iOS](/manuals/extensions-debugging-ios)
 
 On iOS, you need to open either iTunes or XCode to view the device logs.
 
-## Defold Crash Log
 
-The Defold engine saves a `_crash` file when it does a hard crash.
-It will contain information about the system as well as the crash.
+### Defold Crash Log
+
+The Defold engine saves a `_crash` file when it does a hard crash. It will contain information about the system as well as the crash.
 
 You can use the [crash module](https://www.defold.com/ref/crash/) to read this file in the subsequent session.
 
 You are adviced to read the file, gather information and send it to a server of choice to aggregate the data.
 
-### Getting the crash log from a device
 
-#### Android
+#### Getting the crash log from a device
+
+##### Android
 
 The adb output says where it is located (different location on different devices)
 
 If the app is [debuggable](https://www.defold.com/manuals/project-settings/#android), you can get the crash log like so:
 
+```
 	$ adb shell "run-as com.defold.adtest sh -c 'cat /data/data/com.defold.adtest/files/_crash'" > ./_crash
+```
 
-#### iOS
+##### iOS
 
 In iTunes, you can view/download an apps container.
 
 In the `XCode -> Devices` window, you can also select the crash logs
 
 
-## Symbolication
+### Symbolication
 
 If you get a callstack from either a `_crash` file or a log file, you can start symbolicate it.
 This means translating each address in the callstack into a filename and line number, which in turn helps
 when finding out the root cause.
 
-### Get correct engine
+#### Get correct engine
 
 It is important that you match the correct engine with the callstack.
 Otherwize it's very likely to send you debugging the incorrect things.
@@ -99,8 +109,7 @@ Android/Linux executables already contain the debug symbols.
 Also, you should keep an unstripped version of the engine.
 This allows for the best symbolication of the callstack.
 
-
-### Android
+#### Android
 
 1. Get it from your build folder
 
@@ -122,7 +131,7 @@ This allows for the best symbolication of the callstack.
 
     $ arm-linux-androideabi-addr2line -C -f -e dmengine_1_2_105/lib/armeabi-v7a/libdmengine.so _address_
 
-### iOS
+#### iOS
 
 1. If you are using Native Extensions, the server can provide the symbols (.dSYM) for you (pass "--with-symbols" to bob.jar)
 
