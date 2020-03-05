@@ -1,5 +1,5 @@
 ---
-title: Defold 名词表
+title: Defold 术语
 brief: 本教程列举了使用 Defold 工作中会遇到的各种专用词汇及其简短的解释.
 ---
 
