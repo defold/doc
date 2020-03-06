@@ -48,7 +48,7 @@ You will be prompted to select a folder in which to create your application. Aft
 
 ## Known issues and limitations
 
-* Live update - Defold applications must run their own miniature web server in order to receive live updates from the editor. This is not possible within a pure browser application.
+* Hot Reload - Hot Reload doesn't work in HTML5 builds. Defold applications must run their own miniature web server in order to receive updates from the editor, which isn't possible in a HTML5 build.
 * Internet Explorer 11
   * Audio - Defold handles audio playback using HTML5 _WebAudio_ (see http://www.w3.org/TR/webaudio), which is not currently supported by Internet Explorer 11. Applications will fall back to a null audio implementation when using this browser.
   * WebGL - Microsoft has not completed work implementing the _WebGL_ API (see https://www.khronos.org/registry/webgl/specs/latest/). Therefore, it does not perform as well as other browsers.
