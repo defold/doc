@@ -43,13 +43,13 @@ What platforms does Defold run on?
   | -------------------------- | -------------------- |
   | macOS 10.7 Lion            | Editor and runtime   |
   | Windows Vista              | Editor and runtime   |
-  | Ubuntu 16.04 (64 bit)(1)   | Editor               |
+  | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |
   | iOS 8.0                    | Runtime              |
   | Android 4.1 (API level 16) | Runtime              |
   | HTML5                      | Runtime              |
 
-  (1 The editor is built and tested for 64-bit Ubuntu 16.04. It should work on other distributions as well but we give no guarantees.)
+  (1 The editor is built and tested for 64-bit Ubuntu 18.04. It should work on other distributions as well but we give no guarantees.)
 
   (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date and supporting OpenGL ES 2.0.)
 
@@ -153,7 +153,7 @@ Why am I getting a java exception when I try to start Defold?
 ## Linux issues
 
 When I try to create a new project, or open an existing one, the editor crashes.
-: On certain distributions (like Ubuntu 16 and 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
+: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
 
   See the following reports for more information:
 
