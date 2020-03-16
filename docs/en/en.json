@@ -533,6 +533,10 @@
                         "name": "Facebook Instant Games"
                     },
                     {
+                        "path": "/manuals/gpgs",
+                        "name": "Google Play Game Services"
+                    },
+                    {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
