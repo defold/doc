@@ -18,17 +18,12 @@ https://github.com/defold/extension-push/archive/master.zip
 
 We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-push/releases).
 
-This extension requires the following dependency ([specific release](https://github.com/defold/extension-firebase-core/releases)):
-```
-https://github.com/defold/extension-firebase-core/archive/master.zip
-```
-
 Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-push/).
 
 ## iOS setup
 
 ::: sidenote
-To get acquainted with the Apple Push Notification Service, a good idea is to start by reading Apple's own documentation on how the service works. You can find it at https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html
+To get acquainted with the Apple Push Notification Service, a good idea is to start by reading [Apple's own documentation on how the service works](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html).
 :::
 
 On iOS, you need the following information to send notifications:
@@ -168,7 +163,7 @@ You can skip over the two remaining steps, *Add Firebase SDK* and *Run your app 
 
 Open the `google-services.json` file in a text editor, and look for the *`project_number`* and *`mobilesdk_app_id`* entries. You need to copy these over to your `game.project` file, located under the *android* section, named `Gcm Sender Id` (`project_number`) and `Fcm Application Id` (`mobilesdk_app_id`).
 
-```json
+```
 {
   "project_info": {
     "project_number": "123456789123",
