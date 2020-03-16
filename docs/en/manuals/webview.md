@@ -308,9 +308,9 @@ local function webview_callback(self, webview_id, request_id, type, data)
     if type == webview.CALLBACK_RESULT_EVAL_OK and
         request_id == self.closeCheckRequest then
 
-        -- Compare the JavaScript result, if it's "true" we should
+        -- Compare the JavaScript result, if it's "true" (or "1" on iOS) we should
         -- close the webview!
-        if data.result == "true" then
+        if data.result == "true" or data.result == "1" then
             webview.destroy(webview_id)
         end
 
