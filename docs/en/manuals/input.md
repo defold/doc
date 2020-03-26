@@ -16,7 +16,7 @@ Devices
 
   1. Keyboard (single key as well as text input)
   2. Mouse (position, button clicks and mouse wheel actions)
-  3. Single and multi-touch (on iOS and Android devices)
+  3. Single and multi-touch (on iOS and Android devices and HTML5 on mobile)
   4. Gamepads (as supported through the operating system and mapped in the [gamepads](#gamepads-settings-file) file)
 
 Input bindings
@@ -108,6 +108,10 @@ Touch Triggers
 
 ::: important
 Multi-touch must not be assigned the same action as the mouse button input for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`. Assigning the same action will effectively override single-touch and prevent you from receiving any single-touch events.
+:::
+
+::: sidenote
+The [Defold-Input asset](https://defold.com/assets/defoldinput/) can be used to easily set up virtual on-screen controls such as buttons and analog sticks with support for multi touch.
 :::
 
 Text Triggers
@@ -277,7 +281,7 @@ For game objects it is more complicated to detect interaction since things such 
   2. Attach collision objects to game objects the user can interact with and one collision object that follows the mouse or finger and check for collisions between them.
 
 ::: sidenote
-A ready to use solution for using collision objects to detect user input can be found in the [Defold-Input library asset](https://github.com/britzl/defold-input).
+A ready to use solution for using collision objects to detect user input with drag and click support can be found in the [Defold-Input asset](https://defold.com/assets/defoldinput/).
 :::
 
 In both cases there is a need to convert from the screen space coordinates of the mouse or touch event and the world space coordinates of the game objects. This can be done in a couple of different ways:
