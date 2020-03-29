@@ -15,7 +15,7 @@ Defold needs all the assets used in your project to be located somewhere in the 
 ![Importing files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
 
 ::: sidenote
-Defold supports images in the PNG and JPEG image formats. Other image formats need to be converted before they can be used.
+Defold supports images in the PNG and JPEG image formats. PNG images must be in 32 bit RGBA format. Other image formats need to be converted before they can be used.
 :::
 
 
