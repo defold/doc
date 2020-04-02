@@ -101,7 +101,7 @@ The *Mask* field can contain multiple group names, allowing for complex interact
 
 ## Tilemap collision shapes
 
-Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
+Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
 
 To add collision to a tile map:
 
