@@ -14,7 +14,7 @@ This tutorial is written as a step-by-step guide where we build the game on a co
 You need to start by creating a new project and importing the asset package:
 
 * Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template
-* Download the |complete "Magic Link" project](https://github.com/defold/defold-examples/releases/download/0.2.0/magic-link.zip) as a reference. The complete project contains all the asset in case you want to create the project from scratch.
+* Download the [complete "Magic Link" project](https://github.com/defold/defold-examples/releases/download/0.2.0/magic-link.zip) as a reference. The complete project contains all the asset in case you want to create the project from scratch.
 
 ## Game rules
 
