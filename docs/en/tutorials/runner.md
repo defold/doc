@@ -5,38 +5,9 @@ brief: In this tutorial you start with an empty project and build a complete run
 
 # Runner tutorial
 
-In this tutorial we start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring. Before we begin, take a moment and try the game and get a feel for what we are about to create:
+In this tutorial we start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.
 
-<div id="game-container" class="game-container">
-  <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/runner/preview.jpg"/>
-  <canvas id="game-canvas" tabindex="1" width="1280" height="720">
-  </canvas>
-  <button id="game-button">
-    START GAME <span class="icon"></span>
-  </button>
-  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
-  <script type='text/javascript'>
-      // Load app on click in container.
-      document.getElementById("game-button").onclick = function (e) {
-          var extra_params = {
-              archive_location_filter: function( path ) {
-                  return ("//storage.googleapis.com/defold-doc/assets/runner" + path + "");
-              },
-              load_done: function() {},
-              game_start: function() {
-                  var e = document.getElementById("game-preview");
-                  e.parentElement.removeChild(e);
-              }
-          }
-          Module.runApp("game-canvas", extra_params);
-          document.getElementById("game-button").style.display = 'none';
-          document.getElementById("game-button").onclick = null;
-      };
-  </script>
-</div>
-
-There is a lot to take in when learning a new game engine, so we have created this tutorial to get you started. It is a fairly complete tutorial that walks through how the engine and the editor works. We assume that you have some famililiarity with programming.
+There is a lot to take in when learning a new game engine, so we have created this tutorial to get you started. It is a fairly complete tutorial that walks through how the engine and the editor works. We assume that you have some familiarity with programming.
 
 If you need an introduction to Lua programming, check out our [Lua in Defold manual](/manuals/lua).
 
@@ -59,9 +30,7 @@ So let's begin. We hope you will have a lot of fun going through this tutorial a
 <a name="part-1"></a>
 ## STEP 1 - Installation and setup
 
-The first step is to download the following package. It is a zip package that contains all content that you need to create the tutorial game.
-
-<a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/runner-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
+The first step is to [download the following file](https://github.com/defold/defold-examples/releases/download/0.2.0/runner.zip). It is a zip package with the full project and all the assets that you need to create the tutorial game.
 
 Now, if you haven't already downloaded and installed the Defold editor, it's time to do that:
 
@@ -128,9 +97,7 @@ If you run the game again, the application window will be totally black.
 <a name="part-2"></span></a>
 ## STEP 2 - Creating the ground
 
-Let's take the first baby steps and create an arena for our character, or rather a piece of scrolling ground. We do this in a few steps. If you haven't already, download the following zip package containing all the assets you need.
-
-<a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/runner-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
+Let's take the first baby steps and create an arena for our character, or rather a piece of scrolling ground. We do this in a few steps.
 
 1. Import the image assets into the project by dragging the files "ground01.png" and "ground02.png" image files (from the sub-folder "level-images" in the asset package) into a suitable location in the project, for instance the folder "images" inside the "main" folder.
 2. Create a new *Atlas* file to hold the ground textures (right-click a suitable folder, for instance the *main* folder, in the *Assets pane* and select <kbd>New ▸ Atlas File</kbd>). Name the atlas file *level.atlas*.

@@ -20,7 +20,7 @@ The Star Nest shader is a pure fragment shader, so we only need something for th
 We start by creating a quadratic plane mesh in Blender (or any other 3D modelling program). For convenience the 4 vertex coordinates are at -1 and 1 on the X-axis and -1 and 1 on the Y axis. Blender has the Z-axis up by default so you need to rotate the mesh 90° around the X-axis. You should also make sure that you generate correct UV-coordinates for the mesh. In Blender, enter *Edit Mode* with the mesh selected, then select <kbd>Mesh ▸ UV unwrap... ▸ Unwrap</kbd>.
 
 
-<a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/quad.dae.zip">Download quad.dae<span aria-hidden="true" class="icon icon-download"></span></a>
+[Download quad.dae](https://github.com/defold/template-basic-3d/blob/master/assets/meshes/quad.dae)
 
 
 ::: sidenote
@@ -252,37 +252,6 @@ end
     ![script component](images/shadertoy/script_component.png)
 
 And that's it! We are done!
-
-You can view the results here:
-
-<div id="game-container" class="game-container">
-  <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/shadertoy/preview.jpg"/>
-  <canvas id="game-canvas" tabindex="1" width="1280" height="720">
-  </canvas>
-  <button id="game-button">
-    START GAME <span class="icon"></span>
-  </button>
-  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script type='text/javascript' src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
-  <script type='text/javascript'>
-      /* Load app on click in container. */
-      document.getElementById("game-button").onclick = function (e) {
-          var extra_params = {
-              archive_location_filter: function( path ) {
-                  return ("//storage.googleapis.com/defold-doc/assets/shadertoy" + path + "");
-              },
-              load_done: function() {},
-              game_start: function() {
-                  var e = document.getElementById("game-preview");
-                  e.parentElement.removeChild(e);
-              }
-          }
-          Module.runApp("game-canvas", extra_params);
-          document.getElementById("game-button").style.display = 'none';
-          document.getElementById("game-button").onclick = null;
-      };
-  </script>
-</div>
 
 A fun continuation exercise is to add the original mouse movement input to the shader. It should be fairly straightforward if you grasp how to deal with input.
 
