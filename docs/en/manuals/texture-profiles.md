@@ -65,18 +65,22 @@ This example contains two path patterns and their corresponding profiles.
 `/**/*.atlas`
 : All *.atlas* files anywhere in the project will be process according to the profile "atlas".
 
-Note that the more generic path is put last. The matcher works top down. The first occurence that matches the resource path will be used. A matching path expression further down the list never overrides the first match. Had the paths been put in the opposite order every atlas would have been processed with profile "atlas", even the ones in directory */gui*.
+Note that the more generic path is put last. The matcher works top down. The first occurrence that matches the resource path will be used. A matching path expression further down the list never overrides the first match. Had the paths been put in the opposite order every atlas would have been processed with profile "atlas", even the ones in directory */gui*.
 
 Texture resources that _do not_ match any path in the profiles file will be compiled and rescaled to the closest power of 2, but will otherwise be left intact.
 
 ## Profiles
 
-The *profiles* section of the texture profiles file contains a list of named profiles. Each profile contains one or more *plaforms*, each platform being described by a list of properties.
+The *profiles* section of the texture profiles file contains a list of named profiles. Each profile contains one or more *platforms*, each platform being described by a list of properties.
 
 ![Profiles](images/texture_profiles/texture_profiles_profiles.png)
 
 *Platforms*
 : Specifies a matching platform. `OS_ID_GENERIC` matches all platforms including dev-app builds on device, `OS_ID_WINDOWS` matches Windows target bundles, `OS_ID_IOS` matches iOS bundles and so on. Note that if `OS_ID_GENERIC` is specified, it will be included for all platforms.
+
+::: important
+If two [path settings](#path-settings) matches the same file and the path uses different profiles with different platforms **both** profiles will be used and **two** texture will be generated.
+:::
 
 *Formats*
 : One or more texture formats to generate. If several formats are specified, textures for each format are generated and included in the bundle. The engine selects textures of a format that is supported by the runtime platform.
