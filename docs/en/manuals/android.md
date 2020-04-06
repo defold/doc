@@ -128,16 +128,5 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
 
-## Troubleshooting
-
-I'm getting "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" when installing
-: Android detects that you try to install the app with a new certificate. When bundling debug builds, each build will be signed with a temporary certificate. Uninstall the old app before installing the new version:
-
-  ```
-  $ adb uninstall com.defold.examples
-  Success
-  $ adb install Defold\ examples.apk
-  4826 KB/s (18774344 bytes in 3.798s)
-          pkg: /data/local/tmp/Defold examples.apk
-  Success
-  ```
+## FAQ
+:[Android FAQ](../shared/android-faq.md)

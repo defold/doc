@@ -508,6 +508,10 @@
                         "name": "iOS"
                     },
                     {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
+                    },
+                    {
                         "path": "/manuals/html5",
                         "name": "HTML5"
                     },
