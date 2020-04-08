@@ -9,8 +9,11 @@ If you run into a problem while using Defold we'd like to hear from you so that 
 
 ## Report a problem on the forum
 
-A good way to discuss and get help with a problem is to post a question on our [forum](https://forum.defold.com). Post either in the [Questions](https://forum.defold.com/c/questions) or [Bugs](https://forum.defold.com/c/bugs) category depending on the type of problem you have. When you post a support question make sure to include as much information as possible. Remember to [search](https://forum.defold.com/search) for your question/issue before asking as there may already be a solution to your problem. 
+A good way to discuss and get help with a problem is to post a question on our [forum](https://forum.defold.com). Post either in the [Questions](https://forum.defold.com/c/questions) or [Bugs](https://forum.defold.com/c/bugs) category depending on the type of problem you have. Remember to [search](https://forum.defold.com/search) for your question/issue before asking as there may already be a solution to your problem.
 
+When you post a support question make sure to include as much information as possible. Also make sure to use a short and descriptive title. A good title would be "How do I move a game object in the direction it is rotated?" or "How do I fade out a sprite?". A bad title would be "I need some help using Defold!" or "My game is not working!".
+
+If you have several questions, create multiple posts. Do not ask unrelated questions in the same post.
 
 ## Report a problem from the editor
 
