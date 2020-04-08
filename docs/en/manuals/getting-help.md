@@ -9,37 +9,7 @@ If you run into a problem while using Defold we'd like to hear from you so that 
 
 ## Report a problem on the forum
 
-A good way to discuss and get help with a problem is to post a question on our [forum](https://forum.defold.com). Post either in the [Questions](https://forum.defold.com/c/questions) or [Bugs](https://forum.defold.com/c/bugs) category depending on the type of problem you have. When you post a support question make sure to include as much information as possible. Remember to [search](https://forum.defold.com/search) for your question/issue before asking as there may already be a solution to your problem. You must include the following for us to provide help:
-
-* **Describe the bug (REQUIRED)** - A clear and concise description of the problem.
-
-* **To Reproduce (REQUIRED)** - Steps to reproduce the problem:
-  1. Go to '...'
-  2. Click on '....'
-  3. Scroll down to '....'
-  4. See error
-
-* **Expected behavior (REQUIRED)** - A clear and concise description of what you expected to happen.
-
-* **Defold version (REQUIRED)** - Version [e.g. 1.2.155]. Preferably also the SHA1 of the engine and editor, as seen in the <kbd>Help->About</kbd> menu option.
-
-* **Platforms (REQUIRED)** - On which platforms does the problem happen?
-  - Platforms: [e.g. iOS, Android, Windows, macOS, Linux, HTML5]
-  - OS: [e.g. iOS8.1, Windows 10, High Sierra]
-  - Device: [e.g. iPhone6]
-
-* **System details (OPTIONAL)** - Additional systems details about the platform where the problem happens.
-  - HTML5: Provide information about WebGL from websites such as https://webglreport.com/?v=1
-
-* **Logs (OPTIONAL)** - Please include any relevant logs (build server, engine and editor). Refer to [the section below on how to extract log files](#log-files).
-
-* **Minimal repro case project (OPTIONAL)** - Please attach a minimal project where the bug is reproduced. This will greatly help the person trying to investigate and fix the bug. If you share the project as a zip file make sure to exclude the `.git`, `.internal` and `build` folders from the archive.
-
-* **Workaround (OPTIONAL)** - If there is a workaround, please describe it here.
-
-* **Screenshots (OPTIONAL)** - If applicable, add screenshots to help explain your problem.
-
-* **Additional context (OPTIONAL)** - Add any other context about the problem here.
+A good way to discuss and get help with a problem is to post a question on our [forum](https://forum.defold.com). Post either in the [Questions](https://forum.defold.com/c/questions) or [Bugs](https://forum.defold.com/c/bugs) category depending on the type of problem you have. When you post a support question make sure to include as much information as possible. Remember to [search](https://forum.defold.com/search) for your question/issue before asking as there may already be a solution to your problem. 
 
 
 ## Report a problem from the editor
