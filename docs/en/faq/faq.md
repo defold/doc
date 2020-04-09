@@ -113,19 +113,7 @@ Why doesn't the editor start or open my project?
 
 I can't start the game and there is no build error. What's wrong?
 
-: The build process can fail to rebuild files in rare cases where it have
-  previously encountered build errors that you have fixed. Force a full rebuild
-  by selecting *Project > Rebuild And Launch* from the menu.
-
-Why does my HTML5-app freeze at the splash screen in Chrome?
-
-: In some cases it is not possible to run a game in the browser locally
-  from the filesystem. Running from the editor serves the game from a local
-  webserver. You can, for instance, use SimpleHTTPServer in Python:
-
-  ```sh
-  $ python -m SimpleHTTPServer [port]
-  ```
+: The build process can fail to rebuild files in rare cases where it have previously encountered build errors that you have fixed. Force a full rebuild by selecting *Project > Rebuild And Launch* from the menu.
 
 Why am I getting a java exception when I try to start Defold?
 
@@ -140,6 +128,12 @@ Why am I getting a java exception when I try to start Defold?
 
 ## Android
 :[Android FAQ](../shared/android-faq.md)
+
+## HTML5
+:[HTML5 FAQ](../shared/html5-faq.md)
+
+## Windows
+:[Windows FAQ](../shared/windows-faq.md)
 
 ## Game content
 

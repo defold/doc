@@ -1,4 +1,4 @@
-EDITOR - Mouse clicks on Elementary OS go through the editor onto whatever is below.
+Mouse clicks on Elementary OS go through the editor onto whatever is below.
 
 : Start the editor like this:
 
@@ -6,7 +6,7 @@ EDITOR - Mouse clicks on Elementary OS go through the editor onto whatever is be
 $ GTK_CSD=0 ./Defold
 ```
 
-EDITOR - When I try to create a new project, or open an existing one, the editor crashes.
+When I try to create a new project, or open an existing one, the editor crashes.
 
 : On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
 
@@ -22,11 +22,11 @@ EDITOR - When I try to create a new project, or open an existing one, the editor
   $ ./Defold
   ```
 
-EDITOR - I can't create a new branch for my project on Linux.
+I can't create a new branch for my project on Linux.
 
 : Make sure that you have *libssl 0.9.8* installed on your machine. Some distributions come with a later version, but Defold needs version *0.9.8*.
 
-ENGINE - When I try to run my game on Linux, the engine doesn't start.
+When I try to run my game on Linux, the engine doesn't start.
 
 : Check the console output in the editor. If you get the following message:
 
