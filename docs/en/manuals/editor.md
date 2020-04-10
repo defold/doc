@@ -19,14 +19,7 @@ New
 
   ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
 
-  When you create a new project it is stored on your local drive and any edits you do are saved locally. To share the project with members of your team, use the *Synchronize* feature in the editor. It creates a Defold cloud Git storage project for you through which you and your team can synchronize work.
-
-Import project
-: Create a working copy from an existing project from you Defold cloud Git storage account. The local copy is linked to the cloud Git project so it's ready for team synchronization.
-
-  ![import project](images/editor/import_project.png){srcset="images/editor/import_project@2x.png 2x"}
-
-  Access to the Defold cloud git storage requires that you provide your Defold account credentials.
+  When you create a new project it is stored on your local drive and any edits you do are saved locally.
 
 You can learn more about the different options in the [Project Setup manual](https://www.defold.com/manuals/project-setup/).
 
