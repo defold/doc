@@ -9,16 +9,27 @@ Defold includes a set of profiling tools that are integrated with the engine and
 
 ## The runtime visual profiler
 
-Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application. It is turned on and off by sending a message named "toggle_profile" to the "system" socket:
+Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application:
 
 ```lua
 function on_reload(self)
     -- Toggle the visual profiler on hot reload.
-    msg.post("@system:", "toggle_profile")
+    profiler.enable_ui(true)
 end
 ```
 
 ![Visual profiler](images/profiling/visual_profiler.png)
+
+The visual profiler provides a number of different function that can be used to change the way the visual profiler presents its data:
+
+```lua
+
+profiler.set_ui_mode()
+profiler.set_ui_view_mode()
+profiler.view_recorded_frame()
+```
+
+Refer to a the [profiler API reference](/ref/stable/profiler/) for more information about the profiler functions.
 
 ## The web profiler
 
