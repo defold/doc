@@ -65,6 +65,11 @@ A space separated list of directories that should be shared from your project vi
 #### Shared State
 Check to share a single Lua state between all script types, unchecked by default.
 
+## Engine
+
+#### Run While Iconified
+Allow the engine to continue running while the application window is iconified (desktop platforms only), `false` by default.
+
 ## Display
 
 #### Width
