@@ -114,7 +114,7 @@ In all three cases the position of a game object with id `enemy` would be retrie
     end
 
     function update(self, dt)
-        local pos = go.get_position(enemy_url)
+        local pos = go.get_position(self.enemy_url)
         -- do something with pos
     end
 ```
