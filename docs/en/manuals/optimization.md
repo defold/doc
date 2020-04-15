@@ -20,11 +20,14 @@ Defold will create a dependency tree when building and bundling your application
   * What this means for actual application size is not clearly defined but we are talking size in the range of up to 20 MB.
 * Playable ads are usually limited to between 2 and 5 MB depending on the ad network.
 
-:::sidenote
+::: sidenote
 According to a 2017 study it was shown that "For every 6 MB increase to an APK’s size, we see a decrease in the install conversion rate of 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
 :::
 
 To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#build-reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
+
+### Reducing engine size
+You can use an [application manifest file](https://defold.com/manuals/project-settings/#app-manifest) to remove engine components that you do not need. You can for instance remove the included physics engines if your game doesn't use physics. Use the [Manifestation online tool](https://britzl.github.io/manifestation/) to generate an application manifest.
 
 ### Optimize sounds
 Defold supports .ogg and .wav files where .ogg is typically used for music and .wav for sound effects. Sounds must be 16-bit with a sampling rate of 44100 so any optimizations must be done on the sounds before encoding them. You can edit the sounds in an external sound editor software to reduce the quality or convert from .wav to .ogg.
@@ -52,6 +55,15 @@ You can read more about how to optimize and manage textures in [this forum post]
 
 ### Exclude content for download on demand
 Another way of reducing initial application size is to exclude parts of the game content from the application bundle and make this content downloadable on demand. Excluded content can be anything from entire levels to unlockable characters, skins, weapons or vehicles. Defold provides a system called Live Update for excluding content for download on demand. Learn more in the [Live Update manual](/manuals/live-update/).
+
+### Android specific size optimizations
+Android builds must support both 32-bit and 64-bit CPU architectures. When you [bundle for Android](/manuals/android) you can specify which CPU architectures to include:
+
+![Signing Android bundle](images/android/sign_bundle.png)
+
+Google Play has support for [multiple APKs](https://developer.android.com/google/play/publishing/multiple-apks) per release of a game, which means that you can reduce the application size by generating two APKs, one per CPU architecture, and uploading both to Google Play.
+
+You can also make use of a combination of [APK Expansion Files](https://developer.android.com/google/play/expansion-files) and [Live Update content](/manuals/live-update) thanks to the [APKX extension in the Asset Portal](https://defold.com/assets/apkx/).
 
 
 ## Optimize for application speed
