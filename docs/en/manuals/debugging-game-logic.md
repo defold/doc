@@ -92,26 +92,6 @@ Evaluating Lua expressions
 Detaching the debugger
 : Select <kbd>Debug ▸ Detach Debugger</kbd> to detach the debugger from the game. It will continue running immediately.
 
-## Extracting the log.txt file
-
-If you enable the *Write Log* setting in "game.project", any game output will be written to disk, to a file called "log.txt". Here is how you extract the file if you run the game on device:
-
-iOS
-: Connect your device to a computer with macOS and Xcode installed.
-
-  Open Xcode and go to <kbd>Window ▸ Devices and Simulators</kbd>.
-
-  Select your device in the list, then select the relevant app in the *Installed Apps* list.
-
-  Click the cog icon below the list and select <kbd>Download Container...</kbd>.
-
-  ![download container](images/debugging/download_container.png){srcset="images/debugging/download_container@2x.png 2x"}
-
-  Once the container has been extracted it will be shown in *Finder*. Right click the container and select <kbd>Show Package Content</kbd>. Locate the file "log.txt", which should be located in "AppData/Documents/".
-
-Android
-: The ability to extract the "log.txt" depends on OS version and manufacturer. Here is a short and simple step by step guide: https://stackoverflow.com/a/48077004/129360
-
 ## Lua debug library
 
 Lua comes with a debug library that is useful in some situations, particularly if you need to inspect the innards of your Lua environment. You can find more information about it here: http://www.lua.org/pil/contents.html#23.
