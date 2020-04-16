@@ -70,21 +70,31 @@ In iTunes, you can view/download an apps container.
 In the `XCode -> Devices` window, you can also select the crash logs
 
 
-### Symbolicate a callstack
+## Symbolicate a callstack
 
-If you get a callstack from either a `_crash` file or a [log file](/manuals/debugging-game-and-system-logs), you can symbolicate it. This means translating each address in the callstack into a filename and line number, which in turn helps when finding out the root cause.
+If you get a callstack from either a `_crash` file or a [log file](/manuals/debugging-game-and-system-logs), you can symbolicate. This means translating each address in the callstack into a filename and line number, which in turn helps when finding out the root cause.
 
-#### Get correct engine
+It is important that you match the correct engine with the callstack. Otherwise it's very likely to send you debugging the incorrect things. If you are building with native extensions, be sure to add the flag [--with-symbols](https://www.defold.com/manuals/bob/) so that you get all the needed data from the build server:
 
-It is important that you match the correct engine with the callstack. Otherwise it's very likely to send you debugging the incorrect things.
+* iOS and macOS - the `dmengine.dSYM` folder in the `build.zip` contains the debug symbols for iOS/macOS builds.
+* Android and Linux - the executables themselves contain the debug symbols.
+* Windows - the `dmengine.pdb` file in the `build.zip` contains the debug symbols for Windows builds.
+* HTML5 - the `dmengine.js.symbols` file in the `build.zip` contains the debug symbols for HTML5 builds.
 
-Also, if you are building with native extensions, be sure to add the flag [--with-symbols](https://www.defold.com/manuals/bob/) so that you get all the needed data from the build server. For instance, in the `build.zip` you'll find the `dmengine.dSYM` folder for iOS/macOS builds.
+If you are building without native extensions the debug symbols are available from the [Defold download website](http://d.defold.com):
 
-Android/Linux executables already contain the debug symbols.
+* iOS - The `engine/armv7-darwin/dmengine_release.dSYM.zip` and `engine/arm64-darwin/dmengine_release.dSYM.zip` files contain the debug symbols for 32 and 64-bit engine versions.
+* macOS - The `engine/x86_64-darwin/dmengine_release.dSYM.zip` file contains the debug symbols.
+* Android - The `engine/armv7-android/dmengine.apk` and `engine/arm64-android/dmengine.apk` engines include the debug symbols for 32 and 64-bit engine versions.
+* Linux - The `engine/x86_64-linux/dmengine_release` engine includes the debug symbols.
+* Windows -  The `engine/x86_64-win32/dmengine_release.pdb` file contains the debug symbols.
+* HTML5 - The `engine/js-web/dmengine_release.js.symbols` file contaons the debug symbols.
 
-Also, you should keep an unstripped version of the engine. This allows for the best symbolication of the callstack.
+::: important
+It is very important that your save the debug symbols somewhere for each public release you make of your game and that you know which release the debug symbols belong to. You will not be able to debug any native crashes if you do not have the debug symbols! Also, you should keep an unstripped version of the engine. This allows for the best symbolication of the callstack.
+:::
 
-#### Android
+### Symbolicate an Android callstack
 
 1. Get it from your build folder
 
@@ -96,7 +106,7 @@ Also, you should keep an unstripped version of the engine. This allows for the b
 
 1. Find the callstack address
 
-	E.g. in the non symbolicated callstack on Crash Analytics, it could look like this
+	E.g. in the non symbolicated callstack it could look like this
 
 	#00 pc 00257224 libmy_game_name.so
 
@@ -108,7 +118,7 @@ Also, you should keep an unstripped version of the engine. This allows for the b
 
 Note: If you get hold of a stack trace from the [Android logs](/manuals/debugging-game-and-system-logs), you might be able to symbolicate it using [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html)
 
-#### iOS
+### Symbolicate an iOS callstack
 
 1. If you are using Native Extensions, the server can provide the symbols (.dSYM) for you (pass `--with-symbols` to bob.jar)
 
