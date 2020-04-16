@@ -16,12 +16,6 @@ https://github.com/defold/extension-facebook/archive/master.zip
 
 We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-facebook/releases).
 
-Starting Defold 1.2.162 this extension has one more dependency (Google Play Services):
-```
-https://github.com/defold/extension-gps/archive/master.zip
-```
-For information on how to configure Google Play Services, see the [extension GitHub page](https://defold.com/extension-gpgs/).
-
 Documentation of the Facebook API is available on the [extension GitHub page](https://defold.github.io/extension-facebook/).
 
 ## Registering as a Facebook developer
