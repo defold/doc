@@ -611,6 +611,10 @@
                         "name": "Best Practices"
                     },
                     {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging"
+                    },
+                    {
                         "path": "/manuals/extensions-build-variants",
                         "name": "Build Variants"
                     },
