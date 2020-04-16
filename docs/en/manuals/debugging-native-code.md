@@ -51,6 +51,10 @@ The Defold engine saves a `_crash` file if it does a hard crash. The crash file 
 
 You can use the [crash module](https://www.defold.com/ref/crash/) to read this file in the subsequent session. It is recommended that you read the file, gather the information, print it to the console and send it to an [analytics services](/tags/stars/analytics/) that supports collection of crash logs.
 
+::: important
+On Windows a `_crash.dmp` file is also generated. This file is useful when debugging a crash.
+:::
+
 ### Getting the crash log from a device
 
 If a crash happens on a mobile device you can chose to download the crash file to your own computer and parse it locally.
