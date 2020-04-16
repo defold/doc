@@ -12,8 +12,6 @@ Defold is well tested and should very rarely crash under normal circumstances. I
 * Analyze a crash log
 * Symbolicate a callstack
 
-* If Defold crashes it will store information about the crash that can be used to help pinpoint what went wrong.
-* You can also [read game and system logs](/manuals/game-and-system-logs) to help you figure out what went wrong.
 
 ## Use a debugger
 
