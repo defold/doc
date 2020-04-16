@@ -45,7 +45,7 @@ The simplest way to debug your native code is to use [print debugging](http://en
 
 ## Analyze a crash log
 
-The Defold engine saves a `_crash` file if it does a hard crash. The crash file will contain information about the system as well as the crash.
+The Defold engine saves a `_crash` file if it does a hard crash. The crash file will contain information about the system as well as the crash. The [game log output](/manuals/debugging-game-and-system-logs) will write where the crash file is located (it varies depending on operating system, device and application).
 
 You can use the [crash module](https://www.defold.com/ref/crash/) to read this file in the subsequent session. It is recommended that you read the file, gather the information, print it to the console and send it to an [analytics services](/tags/stars/analytics/) that supports collection of crash logs.
 
@@ -59,7 +59,7 @@ If a crash happens on a mobile device you can chose to download the crash file t
 
 #### Android
 
-The [game log output](/manuals/debugging-game-and-system-logs) will write where the crash file is located (it varies from device to device and application to application). If the app is [debuggable](/manuals/project-settings/#android), you can get the crash log using the [Android Debug Bridge (ADB) tool](https://developer.android.com/studio/command-line/adb.html) and the `adb shell` command:
+If the app is [debuggable](/manuals/project-settings/#android), you can get the crash log using the [Android Debug Bridge (ADB) tool](https://developer.android.com/studio/command-line/adb.html) and the `adb shell` command:
 
 ```
 	$ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
