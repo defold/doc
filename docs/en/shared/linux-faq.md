@@ -1,23 +1,24 @@
-The Defold editor is super small when run on a 4k or HiDPI monitor when using GNOME.
+Q: Why is the Defold editor super small when run on a 4k or HiDPI monitor when using GNOME?
 
-: Change the scaling factor before running Defold (https://unix.stackexchange.com/a/552411)
+: A: Change the scaling factor before running Defold (https://unix.stackexchange.com/a/552411)
 
-```
-$ gsettings set org.gnome.desktop.interface scaling-factor 2
-```
+  ```
+  $ gsettings set org.gnome.desktop.interface scaling-factor 2
+  ```
 
 
-Mouse clicks on Elementary OS go through the editor onto whatever is below.
+Q: Why does mouse clicks on Elementary OS go through the editor onto whatever is below?
 
-: Start the editor like this:
+: A: Start the editor like this:
 
-```
-$ GTK_CSD=0 ./Defold
-```
+  ```
+  $ GTK_CSD=0 ./Defold
+  ```
 
-When I try to create a new project, or open an existing one, the editor crashes.
 
-: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
+Q: Why does the Defold editor crash when I try to create a new project, or open an existing one?
+
+: A: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
 
   See the following reports for more information:
 
@@ -31,13 +32,10 @@ When I try to create a new project, or open an existing one, the editor crashes.
   $ ./Defold
   ```
 
-I can't create a new branch for my project on Linux.
 
-: Make sure that you have *libssl 0.9.8* installed on your machine. Some distributions come with a later version, but Defold needs version *0.9.8*.
+Q: Why doesn't my Defold game start when I try to run it on Linux?
 
-When I try to run my game on Linux, the engine doesn't start.
-
-: Check the console output in the editor. If you get the following message:
+: A: Check the console output in the editor. If you get the following message:
 
   ```
   dmengine: error while loading shared libraries: libopenal.so.1: cannot open shared object file: No such file or directory
