@@ -1,6 +1,6 @@
 Q: Why is the Defold editor super small when run on a 4k or HiDPI monitor when using GNOME?
 
-: A: Change the scaling factor before running Defold (https://unix.stackexchange.com/a/552411)
+: A: Change the scaling factor before running Defold. [source](https://unix.stackexchange.com/a/552411)
 
   ```
   $ gsettings set org.gnome.desktop.interface scaling-factor 2
