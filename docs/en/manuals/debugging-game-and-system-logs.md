@@ -33,10 +33,10 @@ $ > ./mygame.app/Contenst/MacOS/mygame
 
 Logs can be read using the developer tools provided by most browsers.
 
-* [Chrome](https://developers.google.com/web/tools/chrome-devtools/console)
-* [Firefox](https://developer.mozilla.org/en-US/docs/Tools/Browser_Console)
+* [Chrome](https://developers.google.com/web/tools/chrome-devtools/console) - Menu > More Tools > Developer Tools
+* [Firefox](https://developer.mozilla.org/en-US/docs/Tools/Browser_Console) - Tools > Web Developer > Web Console
 * [Edge](https://docs.microsoft.com/en-us/microsoft-edge/devtools-guide/console)
-* [Safari](https://support.apple.com/guide/safari-developer/log-messages-with-the-console-dev4e7dedc90/mac)
+* [Safari](https://support.apple.com/guide/safari-developer/log-messages-with-the-console-dev4e7dedc90/mac) - Develop > Show JavaScript Console
 
 ### Android
 

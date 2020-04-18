@@ -11,7 +11,9 @@ If you run into a problem while using Defold we'd like to hear from you so that 
 
 A good way to discuss and get help with a problem is to post a question on our [forum](https://forum.defold.com). Post either in the [Questions](https://forum.defold.com/c/questions) or [Bugs](https://forum.defold.com/c/bugs) category depending on the type of problem you have. Remember to [search](https://forum.defold.com/search) for your question/issue before asking as there may already be a solution to your problem.
 
-When you post a support question make sure to include as much information as possible. Also make sure to use a short and descriptive title. A good title would be "How do I move a game object in the direction it is rotated?" or "How do I fade out a sprite?". A bad title would be "I need some help using Defold!" or "My game is not working!".
+When you post a support question make sure to include as much information as possible. Provide [log files](#log-files), information about your operating system, steps to reproduce the problem, possible workarounds etc.
+
+Also make sure to use a short and descriptive title. A good title would be "How do I move a game object in the direction it is rotated?" or "How do I fade out a sprite?". A bad title would be "I need some help using Defold!" or "My game is not working!".
 
 If you have several questions, create multiple posts. Do not ask unrelated questions in the same post.
 
@@ -21,7 +23,7 @@ The editor provides a convenient way to report issues. Select the <kbd>Help->Rep
 
 ![](images/getting_help/report_issue.png)
 
-Selecting this menu option will bring you to an issue tracker on GitHub. Please fill out the form and include as much information as possible. Refer to [the section below on how to extract log files](#log-files).
+Selecting this menu option will bring you to an issue tracker on GitHub. Provide [log files](#log-files), information about your operating system, steps to reproduce the problem, possible workarounds etc.
 
 ::: sidenote
 You need a GitHub account to submit a bug report this way.
@@ -35,23 +37,11 @@ If you run into a problem while using Defold you can try to ask the question on 
 
 # Log files
 
-The engine, editor and build server generates logging information that can be very valuable when asking for help and debugging an issue. Always provide log files when reporting a problem.
+The engine, editor and build server generates logging information that can be very valuable when asking for help and debugging an issue. Always provide log files when reporting a problem:
 
-## Engine logs
-- Android: Logs can be accessed using the `adb` command line tool (Android Debug Bridge). Read more about the `adb` command line tool in the [Android manual](/manuals/android/#android-debug-bridge).
-- iOS: Logs can be accessed using XCode and the Devices and Simulators menu option.
-- HTML5: Logs can be viewed in the browser developer console:
-  - Chrome: Menu > More Tools > Developer Tools
-  - Firefox: Tools > Web Developer > Web Console
-  - Safari: Develop > Show JavaScript Console
-- Desktop: Logs for desktop builds can be viewed by running the Defold application from a terminal/command prompt.
-
-You can also write engine logs to a file and access this once the application has been shut down. You can read more about how to enable and access the log in the [Debugging manual](/manuals/debugging/#extracting-the-logtxt-file).
-
-## Editor logs
-- Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-- macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
-- Linux: `~/.Defold`
-
-## Build server logs
-Build server logs are available when the project is using native extensions. The build server log (`log.txt`) is downloaded together with the custom engine when the project is built and stored inside the file `.internal/%platform%/build.zip`.
+* [Engine logs](/manuals/debugging-game-and-system-logs)
+* Editor logs
+  * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
+  * macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
+  * Linux: `~/.Defold`
+* [Build server logs](/manuals/extensions#build-server-logs)
