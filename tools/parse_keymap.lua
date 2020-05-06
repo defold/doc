@@ -345,10 +345,21 @@ for os,keymap in pairs(keymaps) do
 	end
 end
 
+local sorted_commands = {}
+for command,bindings in pairs(commands) do
+	bindings.command = command
+	sorted_commands[#sorted_commands + 1] = bindings
+end
+table.sort(sorted_commands, function(a, b)
+	return a.command < b.command
+end)
+
 print("| Command | Windows | macOS | Linux |")
 print("|---------|---------|-------|-------|")
-for command,bindings in pairs(commands) do
+for _,bindings in ipairs(sorted_commands) do
+	local command = bindings.command
 	command = command:gsub("-", " ")
+	command = command:sub(1,1):upper() .. command:sub(2)
 	local win32 = fix_binding(bindings.win32)
 	local darwin = fix_binding(bindings.darwin)
 	local linux = fix_binding(bindings.linux)
