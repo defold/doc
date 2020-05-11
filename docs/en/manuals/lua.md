@@ -36,6 +36,7 @@ All libraries are documented in the [reference API documentation](/ref/go).
 
 * [Programming in Lua (first edition)](http://www.lua.org/pil/contents.html) Later editions are available in print.
 * [Lua 5.1 reference manual](http://www.lua.org/manual/5.1/)
+* [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
 * Beginning Lua Programming (Wrox, 2007)
 * Game Development with Lua (Charles River Media, 2005)
 

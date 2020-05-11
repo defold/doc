@@ -3,7 +3,7 @@ title: Writing game logic in scripts
 brief: This manual describes how to add game logic using the script component.
 ---
 
-#  Scripts
+# Scripts
 
 The Script component allows you to create game logic using the [Lua programming language](/manuals/lua). Scripts are added to game objects exactly like any other [component](/manuals/components) and Defold will execute the Lua code as part of the engine lifecycle functions.
 
