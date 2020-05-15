@@ -93,9 +93,6 @@ If `Vsync` checked, snaps to the closest matching swap interval for the set fram
 #### Vsync
 Vertical sync, rely on hardware vsync for frame timing. Can be overridden depending on graphics driver and platform specifics.
 
-#### Variable Dt (deprecated)
-Deprecated. If checked, will check `Vsync` and set `Frame Cap` to 0 at build-time for equivalent behavior.
-
 #### Display Profiles
 Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles).
 
