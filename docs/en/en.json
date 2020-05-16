@@ -302,6 +302,10 @@
                         "name": "Label"
                     },
                     {
+                        "path": "/manuals/mesh",
+                        "name": "Mesh"
+                    },
+                    {
                         "path": "/manuals/model",
                         "name": "Model"
                     },
