@@ -18,6 +18,7 @@ Defold supports the following component types:
 * [Factory](/manuals/factory) - Spawn game objects
 * [GUI](/manuals/gui) - Render a graphical user interface
 * [Label](/manuals/label) - Render a piece of text
+* [Mesh](/manuals/mesh) Show a 3D mesh (with run-time creation and manipulation)
 * [Model](/manuals/model) Show a 3D model (with optional animations)
 * [Particle FX](/manuals/particlefx) -  Spawn particles
 * [Script](/manuals/script) - Add game logic
