@@ -54,4 +54,42 @@ If the Vertex Space setting of the mesh material is set to Local Space the data 
 If the Vertex Space setting of the mesh material is set to World Space you have to either provide a default “position” and “normal”, stream, or you can select it from the dropdown, when editing the mesh. This is so that the engine can transform the data to world space for batching with other objects.
 
 ## Examples
-Refer to the forum announcement post: https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137
+Refer to the [forum announcement post for more information](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137) on how to use the Mesh component, including sample projects and code snippets.
+
+Example of creating a cube from triangle strips:
+
+```Lua
+
+-- cube
+local vertices = {
+	0, 0, 0,
+	0, 1, 0,
+	1, 0, 0,
+	1, 1, 0,
+	1, 1, 1,
+	0, 1, 0,
+	0, 1, 1,
+	0, 0, 1,
+	1, 1, 1,
+	1, 0, 1,
+	1, 0, 0,
+	0, 0, 1,
+	0, 0, 0,
+	0, 1, 0
+}
+
+-- create a buffer with a position stream
+local buf = buffer.create(#vertices / 3, {
+	{ name = hash("position"), type=buffer.VALUE_TYPE_FLOAT32, count = 3 }
+})
+
+-- get the position stream and write the vertices
+local positions = buffer.get_stream(buf, "position")
+for i, value in ipairs(vertices) do
+	positions[i] = vertices[i]
+end
+
+-- set the buffer with the vertices on the mesh
+local res = go.get("#mesh", "vertices")
+resource.set_buffer(res, buf)
+```
