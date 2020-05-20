@@ -12,7 +12,7 @@ The editor allows you to browse and manipulate all files in your game project in
 When you run the Defold editor, you are presented with a project selection and creation screen. Click to select what you want to do:
 
 Home
-: Click to show a lists your recently opened projects so you can quickly access them. This is the default view.
+: Click to show your recently opened projects so you can quickly access them. This is the default view.
 
 New Project
 : Click if you want to create a new Defold project, then select if you want to base your project on a basic template (from the *From Template* tab), if you would like to follow a tutorial (the *From Tutorial* tab), or try one of the sample projects (the *From Sample* tab).
