@@ -93,6 +93,8 @@ Gamepad Triggers
 
   Gamepad input setup uses a separate mapping file for each hardware gamepad type. See below for more information.
 
+  Gamepad input bindings also provides two separate bindings named `Connected` and `Disconnected` to detect when a gamepad is connected (even those connected from the start) or disconnected.
+
 Touch Triggers
 : Single-touch type triggers are available on iOS and Android devices. Single-touch type triggers are not set up from the Touch Triggers section of the input bindings. Instead **single-touch triggers are automatically set up when you have mouse button input set up for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`**.
 
