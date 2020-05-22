@@ -213,4 +213,4 @@ So if you set *max_instances* to 1024 and have 24 manually placed game objects i
 
 ## Pooling of game objects
 
-It may seem like a good idea to save spawned game objects in a pool and reuse them. However, the engine is already doing object pooling under the hood so additional overhead will only slow things down. So delete game objects and spawn new ones, that is both faster and cleaner.
+It may seem like a good idea to save spawned game objects in a pool and reuse them. However, the engine is already doing object pooling under the hood so additional overhead will only slow things down. It is both faster and cleaner to delete game objects and spawn new ones.

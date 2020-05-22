@@ -95,3 +95,7 @@ The default tile map material has the following constants that can be changed us
 
 `tint`
 : The color tint of the tile map (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/tilemap/#tilemap.set_constant:url-constant-value).
+
+## Project configuration
+
+The *game.project* file has a few [project settings](/manuals/project-settings#tilemap) related to tilemaps.
