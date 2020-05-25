@@ -44,14 +44,20 @@ Installation on Linux
 
   If you run into any problems starting the editor, opening a project or running a Defold game please refer to the [Linux section of the FAQ](/faq/faq#linux-issues).
 
-  ## Install an old version
+## Install an old version
 
-  You can download and install old editor versions using the following link pattern:
+### From Defold download page
 
-  * Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
-  * macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-darwin.dmg
-  * Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
+You can download and install old editor versions using the following link pattern:
 
-  Replace `%sha1%` by the editor release hash representing the version in question. The hash of each Defold version can be seen in the links to the released version on the download page at https://d.defold.com/stable/ (make sure to remove the initial # character and only copy the alpha-numeric part):
+* Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
+* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-darwin.dmg
+* Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
+
+Replace `%sha1%` by the editor release hash representing the version in question. The hash of each Defold version can be seen in the links to the released version on the download page at https://d.defold.com/stable/ (make sure to remove the initial # character and only copy the alpha-numeric part):
 
 ![download editor](../shared/images/old_version_sha1.png)
+
+### From Defold GitHub release page
+
+Every stable version of Defold is also [released on GitHub](https://github.com/defold/defold/releases).
