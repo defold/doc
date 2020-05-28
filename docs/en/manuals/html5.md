@@ -38,6 +38,10 @@ or
 You can't test the HTML5 bundle by opening `index.html` file in a browser. This requires HTTP server.
 :::
 
+::: important
+If you see a "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." error in the console you must make sure that your server uses the `application/wasm` MIME type for .wasm files.
+:::
+
 ## Creating HTML5 bundle
 
 Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd> from the menu:
