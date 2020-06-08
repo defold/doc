@@ -38,7 +38,7 @@ The margins are set clockwise, starting on the left edge:
 ![Slice 9 sections](images/gui-box/slice9.png){srcset="images/gui-box/slice9@2x.png 2x"}
 
 - Corner segments are never scaled.
-- Edge segments are scaled along a sigle axis. The left and right edge segments are scaled vertically. The top and bottom edge segments are scaled horizontally.
+- Edge segments are scaled along a single axis. The left and right edge segments are scaled vertically. The top and bottom edge segments are scaled horizontally.
 - The central texture area is scaled horizontally and vertically as needed.
 
 Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes exhibit artifacts. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
