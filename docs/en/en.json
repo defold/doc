@@ -418,15 +418,36 @@
                 ]
             },
             {
-                "name": "NETWORK AND FILE I/O",
+                "name": "SAVING AND LOADING FILES",
                 "items": [
-                    {
-                        "path": "/manuals/networking",
-                        "name": "Networking"
-                    },
                     {
                         "path": "/manuals/file-access",
                         "name": "Working with files"
+                    }
+                ]
+            },
+            {
+                "name": "NETWORKING",
+                "items": [
+                    {
+                        "path": "/manuals/networking",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/http-requests",
+                        "name": "HTTP Requests"
+                    },
+                    {
+                        "path": "/manuals/socket-connections",
+                        "name": "Socket connections"
+                    },
+                    {
+                        "path": "/manuals/websocket-connections",
+                        "name": "WebSocket connections"
+                    },
+                    {
+                        "path": "/manuals/online-services",
+                        "name": "Online services"
                     }
                 ]
             },
