@@ -237,6 +237,10 @@ function update(self, dt)
 end
 ```
 
+::: sidenote
+Ray casts will ignore collision objects that contain the starting point of the ray. This is a limitation in Box2D.
+:::
+
 ## Resolving kinematic collisions
 
 Using kinematic collision objects require you to resolve collisions yourself and move the objects as a reaction. A naive implementation of separating two colliding objects looks like this:
