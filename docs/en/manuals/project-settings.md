@@ -139,6 +139,9 @@ World gravity along z-axis, `0` by default.
 #### Scale
 Tells the physics engine how to scale the physics worlds in relation to the game world for numerical precision, `0.01`--`1.0`. If the value is set to `0.02`, it means that the physics engine will view 50 units as 1 meter ($1 / 0.02$). The default value is `1.0`.
 
+#### Allow Dynamic Transforms
+Check if the physics engine should scale collision objects using the scale of the game objects they belong to.
+
 #### Debug Scale
 How big to draw unit objects in physics, like triads and normals, `30` by default.
 

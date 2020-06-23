@@ -131,6 +131,11 @@ The shape will not be drawn in the editor. You can [enable Physics debugging](/m
 :::
 
 
+### Scaling collision shapes
+
+It is possible to let the collision object and its shapes inherit the scale of the game object. Check the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project* to enable this. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
+
+
 ### Units used by the physics engine simulation
 
 The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
@@ -216,31 +221,6 @@ In a trigger collision `"collision_response"` messages are sent. In addition, tr
 `enter`
 : `true` if the interaction was an entry into the trigger, `false` if it was an exit. (`boolean`).
 
-## Ray casts
-
-Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
-
-If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
-
-```lua
-function update(self, dt)
-  -- request ray cast
-  local my_start = vmath.vector3(0, 0, 0)
-  local my_end = vmath.vector3(100, 1000, 1000)
-  local my_groups = { hash("my_group1"), hash("my_group2") }
-
-  local result = physics.raycast(my_start, my_end, my_groups)
-  if result then
-      -- act on the hit (see 'ray_cast_response' message for all values)
-      print(result.id)
-  end
-end
-```
-
-::: sidenote
-Ray casts will ignore collision objects that contain the starting point of the ray. This is a limitation in Box2D.
-:::
-
 ## Resolving kinematic collisions
 
 Using kinematic collision objects require you to resolve collisions yourself and move the objects as a reaction. A naive implementation of separating two colliding objects looks like this:
@@ -323,6 +303,31 @@ function on_message(self, message_id, message, sender)
   end
 end
 ```
+
+## Ray casts
+
+Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
+
+If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
+
+```lua
+function update(self, dt)
+  -- request ray cast
+  local my_start = vmath.vector3(0, 0, 0)
+  local my_end = vmath.vector3(100, 1000, 1000)
+  local my_groups = { hash("my_group1"), hash("my_group2") }
+
+  local result = physics.raycast(my_start, my_end, my_groups)
+  if result then
+      -- act on the hit (see 'ray_cast_response' message for all values)
+      print(result.id)
+  end
+end
+```
+
+::: sidenote
+Ray casts will ignore collision objects that contain the starting point of the ray. This is a limitation in Box2D.
+:::
 
 ## Joints
 
