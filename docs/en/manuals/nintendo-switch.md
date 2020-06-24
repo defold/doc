@@ -5,7 +5,10 @@ brief: This manual describes how to get Nintendo Switch access
 
 # Sign up for Nintendo Switch development
 
-Support for the Nintendo Switch platform is not included in the standard version of Defold. In order to get access to Nintendo Switch support in Defold you need to 1) Become a Defold community donor with Nintendo Switch access included in your membership tier, and 2) Become a registered game developer for Nintendo platforms.
+Support for the Nintendo Switch platform is not included in the standard version of Defold. In order to get access to Nintendo Switch support in Defold you need to:
+
+1. Become a Defold community donor with Nintendo Switch access included in your membership tier, and
+2. Become a registered game developer for Nintendo platforms.
 
 
 ## Become a Defold community donor with Nintendo Switch access
