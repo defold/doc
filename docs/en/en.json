@@ -583,6 +583,10 @@
                         "name": "iOS"
                     },
                     {
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    },
+                    {
                         "path": "/manuals/linux",
                         "name": "Linux"
                     },
