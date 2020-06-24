@@ -7,37 +7,41 @@ brief: Frequently asked questions about the Defold game engine, editor and platf
 
 ## General questions
 
-Is Defold really free?
+### Q: Is Defold really free?
 
-: Yes, the Defold engine and editor with full functionality is completely free of charge. No hidden costs, fees or royalties. Just free. And we will not start to charge for anything after the beta period.
+A: Yes, the Defold engine and editor with full functionality is completely free of charge. No hidden costs, fees or royalties. Just free.
 
-Why on earth would King give Defold away?
 
-: This may seem out of the ordinary, that a commercial game company releases its core technology for free, but here’s how we see it: the more people who use Defold, the better the engine will be. By releasing Defold to the community, _everyone_​ can help making Defold better, by creating tutorials, by finding bugs, improving the documentation, and much more. And since King uses Defold internally, every day---the better the engine gets, the happier our internal developers will be. We believe great tech attracts great talent. All in all, we believe this ultimately leads to better games---not only for us at King, but for all game developers.
+### Q: Why on earth would the Defold Foundation give Defold away?
 
-  That’s it. And that’s what we’re all about---making and celebrating great games and the amazing people creating them.
+A: One of the objectives of the [Defold Foundation](/foundation) is to make sure that the Defold software is available to developers world-wide and that the source code is available free of charge.
 
-How long will you support Defold?
 
-: We are deeply committed to Defold. Teams at King game studios all over the world are creating games made with Defold and have been doing it for years. It is not going away.
+### Q: How long will you support Defold?
 
-Can I trust Defold for professional development?
+A: We are deeply committed to Defold. The [Defold Foundation](/foundation) has been set up in such a way that it is guaranteed to exist as a responsible owner for Defold for many years to come. It is not going away.
 
-: Yes, we believe in "eating your own dogfood". Here at King several of our game teams use the same version you have access to. Everyone downloads Defold from the same locations and get updates the same way.
 
-What kind of user tracking are you doing?
+### Q: Can I trust Defold for professional development?
 
-: We log anonymous usage data from our websites and the Defold editor in order to improve our services and product. The editor application also sends error reports to Sentry.io whenever a runtime exception is thrown.
+A: Absolutely. Defold is used by a growing number of professional game developers and game studios. Check out the [games showcase](/showcase) for examples of games created using Defold.
 
-Who made Defold?
 
-: Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/history).
+### Q: What kind of user tracking are you doing?
+
+A: We log anonymous usage data from our websites and the Defold editor in order to improve our services and product. There is no user tracking in the games you create (unless you add an analytics service yourself). Read more about this in our [Privacy Policy](/privacy-policy).
+
+
+### Q: Who made Defold?
+
+A: Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/about).
+
 
 ## Platform questions
 
-What platforms does Defold run on?
+### Q: What platforms does Defold run on?
 
-: The following platforms are supported for the editor/tools and the engine runtime:
+A: The following platforms are supported for the editor/tools and the engine runtime:
 
   | System                     | Supported            |
   | -------------------------- | -------------------- |
@@ -53,47 +57,55 @@ What platforms does Defold run on?
 
   (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date and supporting OpenGL ES 2.0.)
 
-What are the system requirements for the editor
 
-: The editor will use up to 75% of the available memory of the system. On a computer with 4 GB of RAM this should be enough for smaller Defold projects. For mid-sized or large projects it is recommended to use 6 GB or more of RAM.
+### Q: What are the system requirements for the editor
 
-What target platforms can I develop games for with Defold?
+A: The editor will use up to 75% of the available memory of the system. On a computer with 4 GB of RAM this should be enough for smaller Defold projects. For mid-sized or large projects it is recommended to use 6 GB or more of RAM.
 
-: With one click you can publish to iOS, Android and HTML5 as well as macOS/OS X, Windows and Linux. It’s truly one codebase, six supported platforms.
 
-What rendering API does Defold rely on?
+### Q: What target platforms can I develop games for with Defold?
 
-: Defold uses OpenGL ES 2.0 for graphics rendering, which is available on all our supported platforms.
+A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as well as macOS/OS X, Windows and Linux. It’s truly one codebase with multiple supported platforms.
 
-Can I do 3D games in Defold?
 
-: Absolutely! The engine is a full blown 3D engine. However, the toolset is made for 2D so you will have to do a lot of heavy lifting yourself. Better 3D support is planned.
+### Q: What rendering API does Defold rely on?
 
-What programming language do I work with in Defold?
+A: Defold uses OpenGL ES 2.0 for graphics rendering, which is available on all our supported platforms.
 
-: All application and game logic in your Defold project is controlled through script. The Defold engine has the Lua language embedded for scripting (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to extend the Defold engine with new functionality. When building custom materials, OpenGL ES SL shader language is used to write vertex and fragment
+
+### Q: Can I do 3D games in Defold?
+
+A: Absolutely! The engine is a full blown 3D engine. However, the toolset is made for 2D so you will have to do a lot of heavy lifting yourself. Better 3D support is planned.
+
+
+### Q: What programming language do I work with in Defold?
+
+A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to extend the Defold engine with new functionality. When building custom materials, OpenGL ES SL shader language is used to write vertex and fragment
 shaders.
 
-Is there a way to know what version I'm running?
 
-: Yes, select the "About" option in the Help menu. The popup clearly shows Defold beta version and, more importantly, the specific release SHA1. For runtime version lookup, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
+### Q: Is there a way to know what version I'm running?
 
-  The latest beta version available for download from http://d.defold.com/beta can be checked by opening http://d.defold.com/beta/info.json (the same file exists for stable versions as well: http://d.defold.com/stable/info.json)
+A: Yes, select the "About" option in the Help menu. The popup clearly shows Defold beta version and, more importantly, the specific release SHA1. For runtime version lookup, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
-Is there a way to know what platform the game is running on at runtime?
+The latest beta version available for download from http://d.defold.com/beta can be checked by opening http://d.defold.com/beta/info.json (the same file exists for stable versions as well: http://d.defold.com/stable/info.json)
 
-: Yes, check out [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 
-Are Defold beta versions auto-updating?
+### Q: Is there a way to know what platform the game is running on at runtime?
 
-: Yes. The Defold beta editor checks for an update at startup, just like the Defold stable version does.
+A: Yes, check out [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
+
+
+### Q: Are Defold beta versions auto-updating?
+
+A: Yes. The Defold beta editor checks for an update at startup, just like the Defold stable version does.
 
 
 ## Publishing games
 
-I'm trying to publish my game to Appstore. How should I respond to IDFA?
+### Q: I'm trying to publish my game to AppStore. How should I respond to IDFA?
 
-: When submitting, Apple has three checkboxes for their three valid use cases for the IDFA:
+A: When submitting, Apple has three checkboxes for their three valid use cases for the IDFA:
 
   1. Serve ads within the app
   2. Install attribution from ads
@@ -101,61 +113,77 @@ I'm trying to publish my game to Appstore. How should I respond to IDFA?
 
   If you check option 1, the app reviewer will look for ads to show up in the app. If your game does not show ads, the game might get rejected. Defold itself doesn't use AD id.
 
-How do I monetize my game?
 
-: Defold has support for in-app purchases and various advertising solutions. Check the [Monetization category in the Asset Portal](https://defold.com/tags/stars/monetization/) for an up to date list of available monetization options.
+### Q: How do I monetize my game?
+
+A: Defold has support for in-app purchases and various advertising solutions. Check the [Monetization category in the Asset Portal](https://defold.com/tags/stars/monetization/) for an up to date list of available monetization options.
+
 
 ## Errors using Defold
 
-Why doesn't the editor start or open my project?
+### Q: Why doesn't the editor start or open my project?
 
-: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the OSX version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
+A: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the OSX version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
 
-I can't start the game and there is no build error. What's wrong?
 
-: The build process can fail to rebuild files in rare cases where it have previously encountered build errors that you have fixed. Force a full rebuild by selecting *Project > Rebuild And Launch* from the menu.
+### Q: I can't start the game and there is no build error. What's wrong?
 
-Why am I getting a java exception when I try to start Defold?
+A: The build process can fail to rebuild files in rare cases where it have previously encountered build errors that you have fixed. Force a full rebuild by selecting *Project > Rebuild And Launch* from the menu.
 
-: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
 
-  This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
+### Q: Why am I getting a java exception when I try to start Defold?
 
-  See [this link](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md) for details on this error.
+A: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
+
+This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
+
+See [this link](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md) for details on this error.
+
 
 ## Linux
 :[Linux FAQ](../shared/linux-faq.md)
 
+
 ## Android
 :[Android FAQ](../shared/android-faq.md)
+
 
 ## HTML5
 :[HTML5 FAQ](../shared/html5-faq.md)
 
+
 ## Windows
 :[Windows FAQ](../shared/windows-faq.md)
 
+## Nintendo Switch
+:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
+
+
 ## Game content
 
-Does Defold support prefabs?
+### Q: Does Defold support prefabs?
 
-: Yes, it does. They are called collections. They allow you to create complex game object hierarchies and store those as a separate building blocks that you can instance in the editor or at runtime (through collection spawning). For GUI nodes there is support for GUI templates.
+A: Yes, it does. They are called [collections](/manuals/building-blocks/#collections). They allow you to create complex game object hierarchies and store those as a separate building blocks that you can instance in the editor or at runtime (through collection spawning). For GUI nodes there is support for GUI templates.
 
-I can't add a game object as a child to another game object, why?
 
-: Chances are that you try to add a child in the game object file and that is not possible. To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_ transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy.
+### Q: I can't add a game object as a child to another game object, why?
 
-Why can't I broadcast messages to all children of a game object?
+A: Chances are that you try to add a child in the game object file and that is not possible. To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_ transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy.
 
-: Parent-child relations express nothing else than the scene-graph transform relations and should not be mistaken for object orientation aggregates. If you try to focus on your game data and how to best transform it as your game alter its state you will likely find less need to send messages with state data to many objects all the time. In the cases where you will need data hierarchies, these are easily constructed and handled in Lua.
 
-Why am I experiencing visual artifacts around the edges of my sprites?
+### Q: Why can't I broadcast messages to all children of a game object?
 
-: That is a visual artifact called "edge bleeding" where the edge pixels of neighboring pixels in an atlas bleed into the image assigned to your sprite. The solution is to pad the edge of your atlas images with extra row(s) and column(s) of identical pixels. Luckily this can be done automatically by the atlas editor in Defold. Open your atlas and set the *Extrude Borders* value to 1.
+A: Parent-child relations express nothing else than the scene-graph transform relations and should not be mistaken for object orientation aggregates. If you try to focus on your game data and how to best transform it as your game alter its state you will likely find less need to send messages with state data to many objects all the time. In the cases where you will need data hierarchies, these are easily constructed and handled in Lua.
 
-Can I tint my sprites or make them transparent, or do I have to write my own shader for it?
 
-: The built-in sprite shader that is used by default for all sprites has a constant "tint" defined:
+### Q: Why am I experiencing visual artifacts around the edges of my sprites?
+
+A: That is a visual artifact called "edge bleeding" where the edge pixels of neighboring pixels in an atlas bleed into the image assigned to your sprite. The solution is to pad the edge of your atlas images with extra row(s) and column(s) of identical pixels. Luckily this can be done automatically by the atlas editor in Defold. Open your atlas and set the *Extrude Borders* value to 1.
+
+
+### Q: Can I tint my sprites or make them transparent, or do I have to write my own shader for it?
+
+A: The built-in sprite shader that is used by default for all sprites has a constant "tint" defined:
 
   ```lua
   local red = 1
@@ -165,76 +193,94 @@ Can I tint my sprites or make them transparent, or do I have to write my own sha
   sprite.set_constant("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
   ```
 
-If I set the z coordinate of a sprite to 100 then it's not rendered. Why?
 
-: The Z-position of a game object controls rendering order. Low values are drawn before higher values. In the default render script game objects with a depth ranging between -1 and 1 are drawn, anything lower or higher will not be drawn. You can read more about the rendering script in the official [Render documentation](/manuals/render). On GUI nodes the Z value is ignored and does not affect rendering order at all. Instead nodes are rendered in the order they are listed and according to child hierarchies (and layering). Read more about gui rendering and draw call optimization using layers in the official [GUI documentation](/manuals/gui).
+### Q: If I set the z coordinate of a sprite to 100 then it's not rendered. Why?
 
-Would changing the view projection Z-range to -100 to 100 impact performance?
+A: The Z-position of a game object controls rendering order. Low values are drawn before higher values. In the default render script game objects with a depth ranging between -1 and 1 are drawn, anything lower or higher will not be drawn. You can read more about the rendering script in the official [Render documentation](/manuals/render). On GUI nodes the Z value is ignored and does not affect rendering order at all. Instead nodes are rendered in the order they are listed and according to child hierarchies (and layering). Read more about gui rendering and draw call optimization using layers in the official [GUI documentation](/manuals/gui).
 
-: No. The only effect is precision. The z-buffer is logarithmic and have very fine resolution of z values close to 0 and less resolution far away from 0. For instance, with a 24 bit buffer the values 10.0 and 10.000005 can be differentiated whereas 10000 and 10005 cannot.
 
-There is no consistency to how angles are represented, why?
+### Q: Would changing the view projection Z-range to -100 to 100 impact performance?
 
-: Actually there is consistency. Angles are expressed as degrees everywhere in the editor and the game APIs. The math libs use radians. Currently the convention breaks for the `angular_velocity` physics property that is currently expressed as radians/s. That is expected to change.
+A: No. The only effect is precision. The z-buffer is logarithmic and have very fine resolution of z values close to 0 and less resolution far away from 0. For instance, with a 24 bit buffer the values 10.0 and 10.000005 can be differentiated whereas 10000 and 10005 cannot.
 
-When creating a GUI box-node with only color (no texture), how will it be rendered?
 
-: It is just a vertex colored shape. Bear in mind that it will still cost fill-rate.
+### Q: There is no consistency to how angles are represented, why?
 
-If I change assets on the fly, will the engine automatically unload them?
+A: Actually there is consistency. Angles are expressed as degrees everywhere in the editor and the game APIs. The math libs use radians. Currently the convention breaks for the `angular_velocity` physics property that is currently expressed as radians/s. That is expected to change.
 
-: All resources are ref-counted internally. As soon as the ref-count is zero the resource is released.
 
-Is it possible to play audio without the use of an audio component attached to a game object?
+### Q: When creating a GUI box-node with only color (no texture), how will it be rendered?
 
-: Everything is component-based. It's possible to create a headless game object with multiple sounds and play sounds by sending messages to the sound-controller object.
+A: It is just a vertex colored shape. Bear in mind that it will still cost fill-rate.
 
-Is it possible to change the audio file associated with an audio component at run time?
 
-: In general all resources are statically declared with the benefit that you get resource management for free.
+### Q: If I change assets on the fly, will the engine automatically unload them?
 
-Is there a way to access the physics collision shape properties?
+A: All resources are ref-counted internally. As soon as the ref-count is zero the resource is released.
 
-: No, it is currently not possible.
 
-Is there any quick way to render the collision objects in my scene? (like Box2D's debugdraw)
+### Q: Is it possible to play audio without the use of an audio component attached to a game object?
 
-: Yes, set *physics.debug* flag in game.project. (Refer to the official [Project settings documentation](/manuals/project-settings))
+A: Everything is component-based. It's possible to create a headless game object with multiple sounds and play sounds by sending messages to the sound-controller object.
 
-What are the performance costs of having many contacts/collisions?
 
-: Defold runs a modified version of Box2D in the background and the performance cost should be quite similar. You can always see how much time the engine spends on physics by bringing up the [profiler](/manuals/debugging). You should also consider what kind of collisions objects you use. Static objects are cheaper performance wise for instance. Refer to the official [Physics documentation](/manuals/physics) in Defold for more details.
+### Q: Is it possible to change the audio file associated with an audio component at run time?
 
-What's the performance impact of having many particle effect components?
+A: In general all resources are statically declared with the benefit that you get resource management for free. You can use [resource properties](/manuals/script-properties/#resource-properties) to change which resource that is assigned to a component.
 
-: It depends on if they are playing or not. A ParticleFx that isn't playing have zero performance cost. The performance implication of a playing ParticleFx must be evaluated using the profiler since its impact depends on how it is configured. As with most other things the memory is allocated up front for the number of ParticleFx defined as max_count in game.project.
 
-How do I receive input to a game object inside a collection loaded via a collection proxy?
+### Q: Is there a way to access the physics collision shape properties?
 
-: Each proxy loaded collection has their own input stack. Input is routed from the main collection input stack via the proxy component to the objects in the collection. This means that it's not enough for the game object in the loaded collection to acquire input focus, the game object that _holds_ the proxy component need to acquire input focus as well. See the [Input documentation](/manuals/input) for details.
+A: No, it is currently not possible.
 
-Can I use string type script properties?
 
-: No. Defold supports properties of [hash](/ref/builtins#hash) types. These can be used to indicate types, state identifiers or keys of any kind. Hashes can also be used to store game object id's (paths) although [url](/ref/msg#msg.url) properties are often preferable since the editor automatically populate a drop-down with relevant URLs for you. See the [Script properties documentation](/manuals/script-properties) for details.
+### Q: Is there any quick way to render the collision objects in my scene? (like Box2D's debugdraw)
 
-How do I access the individual cells of a matrix (created using [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) or similar)?
+A: Yes, set *physics.debug* flag in *game.project*. (Refer to the official [Project settings documentation](/manuals/project-settings/#debug))
 
-: You access the cells using `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` etc
 
-I am getting `Not enough resources to clone the node` when using [gui.clone()](/ref/gui/#gui.clone:node) or [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
+### Q: What are the performance costs of having many contacts/collisions?
 
-: Increase the `Max Nodes` value of the gui component. You find this value in the Properties panel when selecting the root of the component in the Outline.
+A: Defold runs a modified version of Box2D in the background and the performance cost should be quite similar. You can always see how much time the engine spends on physics by bringing up the [profiler](/manuals/debugging). You should also consider what kind of collisions objects you use. Static objects are cheaper performance wise for instance. Refer to the official [Physics documentation](/manuals/physics) in Defold for more details.
+
+
+### Q: What's the performance impact of having many particle effect components?
+
+A: It depends on if they are playing or not. A ParticleFx that isn't playing have zero performance cost. The performance implication of a playing ParticleFx must be evaluated using the profiler since its impact depends on how it is configured. As with most other things the memory is allocated up front for the number of ParticleFx defined as max_count in game.project.
+
+
+### Q: How do I receive input to a game object inside a collection loaded via a collection proxy?
+
+A: Each proxy loaded collection has their own input stack. Input is routed from the main collection input stack via the proxy component to the objects in the collection. This means that it's not enough for the game object in the loaded collection to acquire input focus, the game object that _holds_ the proxy component need to acquire input focus as well. See the [Input documentation](/manuals/input) for details.
+
+
+### Q: Can I use string type script properties?
+
+A: No. Defold supports properties of [hash](/ref/builtins#hash) types. These can be used to indicate types, state identifiers or keys of any kind. Hashes can also be used to store game object id's (paths) although [url](/ref/msg#msg.url) properties are often preferable since the editor automatically populate a drop-down with relevant URLs for you. See the [Script properties documentation](/manuals/script-properties) for details.
+
+
+### Q: How do I access the individual cells of a matrix (created using [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) or similar)?
+
+A: You access the cells using `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` etc
+
+
+### Q: I am getting `Not enough resources to clone the node` when using [gui.clone()](/ref/gui/#gui.clone:node) or [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
+
+A: Increase the `Max Nodes` value of the gui component. You find this value in the Properties panel when selecting the root of the component in the Outline.
+
 
 ## The forum
 
-Can I post a thread where I advertise my work?
+### Q: Can I post a thread where I advertise my work?
 
-: Of course! We have a special "Work for hire" category for that. We will always encourage everything which benefits the community, and offering your services to the community---for remuneration or not---is a good example of that.
+A: Of course! We have a special ["Work for hire" category](https://forum.defold.com/c/work-for-hire) for that. We will always encourage everything which benefits the community, and offering your services to the community---for remuneration or not---is a good example of that.
 
-I made a thread and added my work—can I add more?
 
-: In order to reduce bumping of "Work for hire" threads, you may not post more than once per 14 days in your own thread (unless it’s a direct reply to a comment in the thread, in which case you may reply). If you want to add additional work to your thread within the 14-day period, you must edit your existing posts with your added content.
+### Q: I made a thread and added my work—can I add more?
 
-Can I use the Work for Hire category to post job offerings?
+A: In order to reduce bumping of "Work for hire" threads, you may not post more than once per 14 days in your own thread (unless it’s a direct reply to a comment in the thread, in which case you may reply). If you want to add additional work to your thread within the 14-day period, you must edit your existing posts with your added content.
 
-: Sure, knock yourselves out! It can be used for offerings as well as requests, e.g. “Programmer looking for 2D pixel artist; I’m rich and I’ll pay you well”.
+
+### Q: Can I use the Work for Hire category to post job offerings?
+
+A: Sure, knock yourselves out! It can be used for offerings as well as requests, e.g. “Programmer looking for 2D pixel artist; I’m rich and I’ll pay you well”.

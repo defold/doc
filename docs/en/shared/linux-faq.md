@@ -1,4 +1,4 @@
-Q: Why is the Defold editor super small when run on a 4k or HiDPI monitor when using GNOME?
+### Q: Why is the Defold editor super small when run on a 4k or HiDPI monitor when using GNOME?
 
 A: Change the scaling factor before running Defold. [source](https://unix.stackexchange.com/a/552411)
 
@@ -7,7 +7,7 @@ $ gsettings set org.gnome.desktop.interface scaling-factor 2
 ```
 
 
-Q: Why does mouse clicks on Elementary OS go through the editor onto whatever is below?
+### Q: Why does mouse clicks on Elementary OS go through the editor onto whatever is below?
 
 A: Start the editor like this:
 
@@ -16,7 +16,7 @@ $ GTK_CSD=0 ./Defold
 ```
 
 
-Q: Why does the Defold editor crash when I try to create a new project, or open an existing one?
+### Q: Why does the Defold editor crash when I try to create a new project, or open an existing one?
 
 A: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
 
@@ -33,7 +33,7 @@ $ ./Defold
 ```
 
 
-Q: Why doesn't my Defold game start when I try to run it on Linux?
+### Q: Why doesn't my Defold game start when I try to run it on Linux?
 
 A: Check the console output in the editor. If you get the following message:
 
