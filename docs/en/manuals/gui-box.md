@@ -41,6 +41,12 @@ The margins are set clockwise, starting on the left edge:
 - Edge segments are scaled along a single axis. The left and right edge segments are scaled vertically. The top and bottom edge segments are scaled horizontally.
 - The central texture area is scaled horizontally and vertically as needed.
 
+The *Slice9* texture scaling described above is only applied when you change box node's size:
+
+![GUI box node size](images/gui-box/slice9_size.png){srcset="images/gui-box/slice9_size@2x.png 2x"}
+
+If you change scale parameter of the box node - the node and texture is scaled without applying *Slice9* parameters.
+
 Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes exhibit artifacts. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
 
 ![Slice 9 mipmapping](images/gui-box/mipmap.png){srcset="images/gui-box/mipmap@2x.png 2x"}
