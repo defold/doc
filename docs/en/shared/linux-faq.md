@@ -25,7 +25,14 @@ See the following reports for more information:
   - https://github.com/defold/editor2-issues/issues/1905
   - https://github.com/defold/editor2-issues/issues/1886
 
- If this is your problem try the following workaround:
+If this is your problem try the following workaround:
+
+```bash
+$ export MESA_GL_VERSION_OVERRIDE=2.1
+$ ./Defold
+```
+
+And if that doesn't work then try (or some other version number matching your driver and larger than or equal to 2.1):
 
 ```bash
 $ export MESA_GL_VERSION_OVERRIDE=3.1
