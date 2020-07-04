@@ -34,11 +34,17 @@ All libraries are documented in the [reference API documentation](/ref/go).
 
 ## Lua books and resources
 
+### Online resources
 * [Programming in Lua (first edition)](http://www.lua.org/pil/contents.html) Later editions are available in print.
 * [Lua 5.1 reference manual](http://www.lua.org/manual/5.1/)
 * [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
-* Beginning Lua Programming (Wrox, 2007)
-* Game Development with Lua (Charles River Media, 2005)
+* [Awesome Lua - tutorial section](https://github.com/LewisJEllis/awesome-lua#tutorials)
+
+### Books
+* [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Programming in Lua is the official book about the language, providing a solid base to any programmer who wants to use Lua. Authored by Roberto Ierusalimschy, the chief architect of the language.
+* [Lua programming gems](https://www.amazon.com/Programming-Gems-Luiz-Henrique-Figueiredo/dp/8590379841) - This collection of articles record some of the existing wisdom and practice on how to program well in Lua.
+* [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - Also available online (see above)
+* [Beginning Lua Programming](https://www.amazon.com/Beginning-Lua-Programming-Kurt-Jung/dp/0470069171)
 
 ## Syntax
 
