@@ -19,7 +19,7 @@ You can find more information from the [Google Play developer console](https://p
 
 ## Creating certificates and keys
 
-You need the to create certificates in *.pem*-format and keys in *.pk8*-format. You can generate these with the `openssl` tool:
+You need to create certificates in *.pem*-format and keys in *.pk8*-format. You can generate these with the `openssl` tool:
 
 ```sh
 $ openssl genrsa -out key.pem 2048
