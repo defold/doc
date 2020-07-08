@@ -17,6 +17,10 @@ In addition to printing, the engine can also draw debug text and straight lines 
 -- Draw value of "my_val" with debug text on the screen
 msg.post("@render:", "draw_text", { text = "My value: " .. my_val, position = vmath.vector3(200, 200, 0) })
 
+-- Draw colored text on the screen
+local color_green = vmath.vector4(0, 1, 0, 1)
+msg.post("@render:", "draw_debug_text", { text = "Custom color", position = vmath.vector3(200, 180, 0), color = color_green })
+
 -- Draw debug line between player and enemy on the screen
 local start_p = go.get_position("player")
 local end_p = go.get_position("enemy")
@@ -28,6 +32,7 @@ The visual debug messages adds data to the rendering pipeline and is drawn as pa
 
 * `"draw_line"` adds data that is rendered with the `render.draw_debug3d()` function in the render script.
 * `"draw_text"` is rendered with the "/builtins/fonts/system_font.font" that uses the "/builtins/fonts/system_font.material" material.
+* `"draw_debug_text"` is the same as `"draw_text"`, but it's rendered in a custom color.
 
 Note that you probably want to update this data every frame so posting the messages in the `update()` function is a good idea.
 
