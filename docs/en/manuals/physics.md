@@ -213,7 +213,7 @@ For a game or application where you need to separate objects perfectly, the `"co
 
 Triggers are light weight collision objects. Thay are similar to ray casts in that they read the physics world as opposed to interacting with it.
 
-In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and end. The message has the following fields:
+In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and ends. The message has the following fields:
 
 `other_id`
 : the id of the instance the collision object collided with (`hash`).
