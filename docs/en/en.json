@@ -605,6 +605,19 @@
                 ]
             },
             {
+                "name": "MONETIZATION",
+                "items": [
+                    {
+                        "path": "/manuals/iap",
+                        "name": "In-app purchases"
+                    },
+                    {
+                        "path": "/manuals/ads",
+                        "name": "Showing ads"
+                    }
+                ]
+            },
+            {
                 "name": "EXTENSIONS",
                 "items": [
                     {
