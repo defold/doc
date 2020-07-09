@@ -246,3 +246,24 @@ DEBUG:SCRIPT: 75 dispatch passes before this update.
 
 We see that this particular Defold engine version performs 10 dispatch passes on the message queue between `init()` and the first call to `update()`. It then performs 75 passes during each subsequent update loop.
 
+## Shorthands
+
+Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
+
+`.`
+: A URL shorthand for the current game object.
+
+`#`
+: A URL shorthand for the current script.
+
+For example:
+
+```lua
+ -- Post "acquire_input_focus" to this game object
+ msg.post(".", "acquire_input_focus")
+```
+
+```lua
+ -- Post "reset" to this script
+ msg.post("#", "reset")
+```
