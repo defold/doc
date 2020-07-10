@@ -23,7 +23,7 @@ Three things are required in order to send and receive payments:
 
 Players must have an account with a Web Monetization Provider to be able to stream payments to game developers:
 
-* [![Coil logo](images/web-monetization/coil_logo.svg)](https://coil.com)
+[![Coil logo](images/web-monetization/coil_logo.svg)](https://coil.com)
 
 Coil is currently the only provider but others will likely be available in the future
 
@@ -32,11 +32,11 @@ Coil is currently the only provider but others will likely be available in the f
 
 Game developers must have a Web Monetization enabled wallet to hold received payments. There are several different services which provide wallets with support for Web Monetization:
 
-* [![Uphold logo](images/web-monetization/uphold_logo.svg)](https://www.uphold.com/signup)
+[![Uphold logo](images/web-monetization/uphold_logo.svg)](https://www.uphold.com/signup)
 
-* [![GateHub logo](images/web-monetization/gatehub_logo.svg)](https://gatehub.net)
+[![GateHub logo](images/web-monetization/gatehub_logo.svg)](https://gatehub.net)
 
-* [![Stronghold logo](images/web-monetization/stronghold_logo.svg)](https://stronghold.co/real-time-payments#coil)
+[![Stronghold logo](images/web-monetization/stronghold_logo.svg)](https://stronghold.co/real-time-payments#coil)
 
 
 ### Payment Pointers
