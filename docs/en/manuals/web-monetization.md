@@ -41,7 +41,7 @@ Game developers must have a Web Monetization enabled wallet to hold received pay
 
 ### Payment Pointers
 
-The wallet provider will assign a payment pointer to the wallet. The payment pointer is a public address for a wallet that can be share with anyone that wants to make a payment to the owner of the wallet. Learn more at [paymentpointers.org](https://paymentpointers.org/). The format of a payment pointer is similar to a URL, but starts with a $:
+The wallet provider will assign a payment pointer to the wallet. The payment pointer is a public address for a wallet that can be shared with anyone that wants to make a payment to the owner of the wallet. Learn more at [paymentpointers.org](https://paymentpointers.org/). The format of a payment pointer is similar to a URL, but starts with a $:
 
 ```
 $ilp.uphold.com/QkG86UgXzKq8
@@ -61,16 +61,18 @@ Enabling Web Monetization in a Defold game is a straightforward process. The ste
 
 ### Starting a new project
 
-If you are starting a new project it is recommended that you use the Web Monetization project template from the Defold editor Welcome screen. The Web Monetization template includes the [Web Monetization extension](https://github.com/defold/extension-webmonetization) and it will inject the payment pointer in the generated webpage for your game.
+If you are starting a new project it is recommended that you use the Web Monetization project template from the Defold editor Welcome screen. The Web Monetization template includes the [Web Monetization extension](https://github.com/defold/extension-webmonetization) and it will automatically set up the payment pointer in the generated webpage for your game:
 
-Next step is to register for a Web Monetization enabled wallet and add your payment pointer to the Web Monetization section of the **game.project** file:
+![Web Monetization template](images/web-monetization/web-monetization-template.png)
+
+Next step is to register for a [Web Monetization enabled wallet](/manuals/web-monetization/#web-monetization-wallets) and add your payment pointer to the Web Monetization section of the **game.project** file:
 
 ![Adding payment pointer to game.project](images/web-monetization/payment-pointer.png)
 
 
 ### Adding Web Monetization to an existing project
 
-Start by registering for a Web Monetization enabled wallet and add your payment pointer to your webpage:
+Start by registering for a [Web Monetization enabled wallet](/manuals/web-monetization/#web-monetization-wallets) and add your payment pointer to the webpage:
 
 ```html
 <meta name="monetization" content="YOUR_PAYMENT_POINTER">
@@ -85,7 +87,7 @@ https://github.com/defold/extension-webmonetization/archive/master.zip
 
 ## How to use Web Monetization in Defold
 
-When you have the Web Monetization extension and payment pointer added to your project you are ready to start using Web Monetization in your game. The API only contains two functions:
+When you have the Web Monetization extension and payment pointer added to your project you are ready to start using Web Monetization in your game. The API consosts of only two functions:
 
 Check if a player is monetized (ie is streaming payments to you):
 

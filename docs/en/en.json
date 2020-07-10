@@ -608,12 +608,16 @@
                 "name": "MONETIZATION",
                 "items": [
                     {
+                        "path": "/manuals/ads",
+                        "name": "Ads"
+                    },
+                    {
                         "path": "/manuals/iap",
                         "name": "In-app purchases"
                     },
                     {
-                        "path": "/manuals/ads",
-                        "name": "Showing ads"
+                        "path": "/manuals/web-monetization",
+                        "name": "Web Monetization"
                     }
                 ]
             },
