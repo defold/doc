@@ -190,7 +190,7 @@ A: The built-in sprite shader that is used by default for all sprites has a cons
   local green = 0.3
   local blue = 0.55
   local alpha = 1
-  sprite.set_constant("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
+  go.set("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
   ```
 
 
