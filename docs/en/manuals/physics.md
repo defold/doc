@@ -136,12 +136,11 @@ The shape will not be drawn in the editor. You can [enable Physics debugging](/m
 It is possible to let the collision object and its shapes inherit the scale of the game object. Check the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project* to enable this. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
 
 
-### Rotating collision shapes
-
-#### Rotating collision shapes in 3D physics
+### Rotating collision shapes in 3D physics
 Collision shapes in 3D physics can be rotated around all axis.
 
-#### Rotating collision shapes in 2D physics
+
+### Rotating collision shapes in 2D physics
 Collision shapes in 2D physics can only be rotated around the z-axis. Rotation around the x or y axis will yield incorrect results and should be avoided, even when rotating 180 degrees to essentially flip the shape along the x or y axis. To flip a physics shape it is recommended to use [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) and [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
 
 
