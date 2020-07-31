@@ -125,3 +125,7 @@ function init(self)
     go.set("#my_label", "scale.x", scale_x * 2)
 end
 ```
+
+## Project configuration
+
+The *game.project* file has a few [project settings](/manuals/project-settings#label) related to labels.

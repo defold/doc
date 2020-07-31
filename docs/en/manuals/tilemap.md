@@ -5,7 +5,7 @@ brief: This manual details Defold's support for tile maps.
 
 # Tile map
 
-A *Tile Map* is a component that allows you to assemble, or paint, tiles from a *Tile Source* onto a large grid area. Tile maps are commonly used to build game level environments. You can also use the *Collision Shapes* from the tile source in your maps for collision detection and physics simulation.
+A *Tile Map* is a component that allows you to assemble, or paint, tiles from a *Tile Source* onto a large grid area. Tile maps are commonly used to build game level environments. You can also use the *Collision Shapes* from the tile source in your maps for collision detection and physics simulation ([example](/examples/tilemap/collisions/)).
 
 Before you can create a tile map you need to create a Tile Source. Refer to the [Tile Source manual](/manuals/tilesource) to learn how to create a Tile Source.
 
@@ -95,3 +95,7 @@ The default tile map material has the following constants that can be changed us
 
 `tint`
 : The color tint of the tile map (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/tilemap/#tilemap.set_constant:url-constant-value).
+
+## Project configuration
+
+The *game.project* file has a few [project settings](/manuals/project-settings#tilemap) related to tilemaps.

@@ -9,51 +9,51 @@ If you run into a problem while using Defold we'd like to hear from you so that 
 
 ## Report a problem on the forum
 
-A good way to discuss and get help with a problem is to post a question on our [forum](https://forum.defold.com). Post either in the [Questions](https://forum.defold.com/c/questions) or [Bugs](https://forum.defold.com/c/bugs) category depending on the type of problem you have. When you post a support question make sure to include as much information as possible. Remember to [search](https://forum.defold.com/search) for your question/issue before asking as there may already be a solution to your problem. You must include the following for us to provide help:
+A good way to discuss and get help with a problem is to post a question on our [forum](https://forum.defold.com). Post either in the [Questions](https://forum.defold.com/c/questions) or [Bugs](https://forum.defold.com/c/bugs) category depending on the type of problem you have. Remember to [search](https://forum.defold.com/search) for your question/issue before asking as there may already be a solution to your problem.
 
-* **Describe the bug (REQUIRED)** - A clear and concise description of the problem.
+If you have several questions, create multiple posts. Do not ask unrelated questions in the same post.
 
-* **To Reproduce (REQUIRED)** - Steps to reproduce the problem:
-  1. Go to '...'
-  2. Click on '....'
-  3. Scroll down to '....'
-  4. See error
+### Required information
+We will not be able to provide support unless you provide the information needed:
 
-* **Expected behavior (REQUIRED)** - A clear and concise description of what you expected to happen.
+**Title**
+Make sure to use a short and descriptive title. A good title would be "How do I move a game object in the direction it is rotated?" or "How do I fade out a sprite?". A bad title would be "I need some help using Defold!" or "My game is not working!".
 
-* **Defold version (REQUIRED)** - Version [e.g. 1.2.155]. Preferably also the SHA1 of the engine and editor, as seen in the <kbd>Help->About</kbd> menu option.
+**Describe the bug (REQUIRED)**
+A clear and concise description of what the bug is.
 
-* **Platforms (REQUIRED)** - On which platforms does the problem happen?
-  - Platforms: [e.g. iOS, Android, Windows, macOS, Linux, HTML5]
-  - OS: [e.g. iOS8.1, Windows 10, High Sierra]
-  - Device: [e.g. iPhone6]
+**To Reproduce (REQUIRED)**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-* **Logs (OPTIONAL)** - Please include any relevant logs (engine and/or editor). Editor logs are located here:
-  - Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-  - macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
-  - Linux: `~/.Defold`
+**Expected behavior (REQUIRED)**
+A clear and concise description of what you expected to happen.
 
-  Engine logs for Android can be accessed using the `adb` command line tool (Android Debug Bridge). Read more about the `adb` command line tool in the [Android manual](/manuals/android/#android-debug-bridge).
+**Defold version (REQUIRED):**
+  - Version [e.g. 1.2.155]
 
-  Engine logs for iOS can be accessed using XCode and the Devices and Simulators menu option.
+**Platforms (REQUIRED):**
+ - Platforms: [e.g. iOS, Android, Windows, macOS, Linux, HTML5]
+ - OS: [e.g. iOS8.1, Windows 10, High Sierra]
+ - Device: [e.g. iPhone6]
 
-  Engine logs for HTML5 builds can be viewed in the browser developer console:
-  - Chrome: Menu > More Tools > Developer Tools
-  - Firefox: Tools > Web Developer > Web Console
-  - Safari: Develop > Show JavaScript Console
+**Minimal repro case project (OPTIONAL):**
+Please attach a minimal project where the bug is reproduced. This will greatly help the person trying to investigate and fix the bug.
 
-  Engine logs for desktop builds can be viewed by running the Defold application from a terminal/command prompt.
+**Logs (OPTIONAL):**
+Please provide relevant logs from engine, editor or build server. Learn where the logs are stored [here](#log-files).
 
-  You can also write engine logs to a file and access this once the application has been shut down. You can read more about how to enable and access the log in the [Debugging manual](/manuals/debugging/#extracting-the-logtxt-file).
+**Workaround (OPTIONAL):**
+If there is a workaround, please describe it here.
 
-* **Minimal repro case project (OPTIONAL)** - Please attach a minimal project where the bug is reproduced. This will greatly help the person trying to investigate and fix the bug. If you share the project as a zip file make sure to exclude the `.git`, `.internal` and `build` folders from the archive.
+**Screenshots (OPTIONAL):**
+If applicable, add screenshots to help explain your problem.
 
-* **Workaround (OPTIONAL)** - If there is a workaround, please describe it here.
-
-* **Screenshots (OPTIONAL)** - If applicable, add screenshots to help explain your problem.
-
-* **Additional context (OPTIONAL)** - Add any other context about the problem here.
-
+**Additional context (OPTIONAL):**
+Add any other context about the problem here.
 
 ## Report a problem from the editor
 
@@ -61,9 +61,25 @@ The editor provides a convenient way to report issues. Select the <kbd>Help->Rep
 
 ![](images/getting_help/report_issue.png)
 
-Selecting this menu option will bring you to an issue tracker on GitHub. Please fill out the form and include as much information as possible. Note that you need a GitHub account to submit a bug report this way.
+Selecting this menu option will bring you to an issue tracker on GitHub. Provide [log files](#log-files), information about your operating system, steps to reproduce the problem, possible workarounds etc.
+
+::: sidenote
+You need a GitHub account to submit a bug report this way.
+:::
 
 
 ## Discuss a problem on Slack
 
 If you run into a problem while using Defold you can try to ask the question on [Slack](https://www.defold.com/slack/). We do however recommend that complex questions and in-depth discussions are posted on the forum. Also note that we do not accept bug reports submitted through Slack.
+
+
+# Log files
+
+The engine, editor and build server generates logging information that can be very valuable when asking for help and debugging an issue. Always provide log files when reporting a problem:
+
+* [Engine logs](/manuals/debugging-game-and-system-logs)
+* Editor logs
+  * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
+  * macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
+  * Linux: `~/.Defold`
+* [Build server logs](/manuals/extensions#build-server-logs)

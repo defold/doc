@@ -3,7 +3,7 @@ title: Writing game logic in scripts
 brief: This manual describes how to add game logic using the script component.
 ---
 
-#  Scripts
+# Scripts
 
 The Script component allows you to create game logic using the [Lua programming language](/manuals/lua). Scripts are added to game objects exactly like any other [component](/manuals/components) and Defold will execute the Lua code as part of the engine lifecycle functions.
 
@@ -64,13 +64,29 @@ Defold executes Lua scripts as part of the engine lifecycle and exposes the life
   ```
 
 `on_message(self, message_id, message, sender)`
-: When messages are sent to the script component through [`msg.post()`](/ref/msg#msg.post) the engine calls this function of the receiver component.
+: When messages are sent to the script component through [`msg.post()`](/ref/msg#msg.post) the engine calls this function of the receiver component. Learn [more about message passing](/manuals/message-passing).
+
+    ```lua
+    function on_message(self, message_id, message, sender)
+        if message_id == hash("increase_score") then
+            self.total_score = self.total_score + message.score
+        end
+    end
+    ```
 
 `on_input(self, action_id, action)`
-: If this component has acquired input focus (see [`acquire_input_focus`](/ref/go/#acquire_input_focus)) the engine calls this function when input is registered.
+: If this component has acquired input focus (see [`acquire_input_focus`](/ref/go/#acquire_input_focus)) the engine calls this function when input is registered. Learn [more about input handling](/manuals/input).
+
+    ```lua
+    function on_input(self, action_id, action)
+        if action_id == hash("touch") and action.pressed then
+            print("Touch", action.x, action.y)
+        end
+    end
+    ```
 
 `on_reload(self)`
-: This function is called when the script is reloaded through the hot reload editor function (<kbd>Edit ▸ Reload Resource</kbd>). It is very useful for debugging, testing and tweaking purposes.
+: This function is called when the script is reloaded through the hot reload editor function (<kbd>Edit ▸ Reload Resource</kbd>). It is very useful for debugging, testing and tweaking purposes. Learn [more about hot-reload](/manuals/hot-reload).
 
   ```lua
   function on_reload(self)

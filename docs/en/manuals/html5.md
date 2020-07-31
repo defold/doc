@@ -38,6 +38,10 @@ or
 You can't test the HTML5 bundle by opening `index.html` file in a browser. This requires HTTP server.
 :::
 
+::: important
+If you see a "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." error in the console you must make sure that your server uses the `application/wasm` MIME type for .wasm files.
+:::
+
 ## Creating HTML5 bundle
 
 Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd> from the menu:
@@ -48,13 +52,13 @@ You will be prompted to select a folder in which to create your application. Aft
 
 ## Known issues and limitations
 
-* Live update - Defold applications must run their own miniature web server in order to receive live updates from the editor. This is not possible within a pure browser application.
+* Hot Reload - Hot Reload doesn't work in HTML5 builds. Defold applications must run their own miniature web server in order to receive updates from the editor, which isn't possible in a HTML5 build.
 * Internet Explorer 11
   * Audio - Defold handles audio playback using HTML5 _WebAudio_ (see http://www.w3.org/TR/webaudio), which is not currently supported by Internet Explorer 11. Applications will fall back to a null audio implementation when using this browser.
   * WebGL - Microsoft has not completed work implementing the _WebGL_ API (see https://www.khronos.org/registry/webgl/specs/latest/). Therefore, it does not perform as well as other browsers.
   * Full screen - Full screen mode is unreliable in the browser.
 * Chrome
-  * Slow debug builds - In debug builds on HTML5 we verify all WebGL graphics calls to detect errors. This is unfortunately very slow when testing on Chrome. It is possible to disable this by setting the *Engine Arguments* field of *game.project* to `–verify-graphics-calls=false`.
+  * Slow debug builds - In debug builds on HTML5 we verify all WebGL graphics calls to detect errors. This is unfortunately very slow when testing on Chrome. It is possible to disable this by setting the *Engine Arguments* field of *game.project* to `--verify-graphics-calls=false`.
 
 ## Customizing HTML5 bundle
 
@@ -214,3 +218,6 @@ If you create your custom template, you can specify extra parameters for the eng
 ## File operations in HTML5
 
 HTML5 builds support file operations such as `sys.save()`, `sys.load()` and `io.open()` but the way these operations are handled internally is different from other platforms. When Javascript is run in a browser there is no real concept of a file system and local file access is blocked for security reasons. Instead Emscripten (and thus Defold) uses [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB), an in-browser database used to persistently store data, to create a virtual filesystem in the browser. The important difference from file system access on other platforms is that there can be a slight delay between writing to a file and the change actually being stored in the database. The browser developer console usually allows you to inspect the contents of the IndexedDB.
+
+## FAQ
+:[HTML5 FAQ](../shared/html5-faq.md)

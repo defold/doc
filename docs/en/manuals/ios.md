@@ -72,7 +72,7 @@ Since Xcode 7, anyone can install Xcode and do on-device development for free. Y
 
    ![](images/ios/free_provisioning.png)
 
-This provision file can be used together with your code signing identity to sign apps in Defold for one week, for _one device_. There is no way to add additional device UDIDs to this generated provisioning profile.
+This provision file can be used together with your code signing identity to sign apps in Defold for one week.
 
 When the provision expires, you need to build the app again in Xcode and get a new temporary provision file as described above.
 

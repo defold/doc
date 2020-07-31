@@ -88,3 +88,7 @@ The default spine material has the following constants that can be changed using
 
 `tint`
 : The color tint of the spine model (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/spine/#spine.set_constant:url-constant-value).
+
+## Project configuration
+
+The *game.project* file has a few [project settings](/manuals/project-settings#spine) related to spine models.

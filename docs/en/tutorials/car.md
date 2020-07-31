@@ -219,39 +219,6 @@ Now the car is ready to roll. We have created it inside "car.collection" but it 
 
 Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take your new car for a spin!
 
-(You can try it right here in the browser if you want. Use the arrow keys to control the car)
-
-<div id="game-container" class="game-container">
-    <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/car/preview.jpg"/>
-    <canvas id="game-canvas" tabindex="1" width="1280" height="720">
-    </canvas>
-    <button id="game-button">
-        START GAME <span class="icon"></span>
-    </button>
-    <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js">
-    </script>
-    <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async>
-    </script>
-    <script>
-        /* Load app on click in container. */
-        document.getElementById("game-button").onclick = function (e) {
-            var extra_params = {
-                archive_location_filter: function( path ) {
-                    return ("//storage.googleapis.com/defold-doc/assets/car" + path + "");
-                },
-                load_done: function() {},
-                game_start: function() {
-                    var e = document.getElementById("game-preview");
-                    e.parentElement.removeChild(e);
-                }
-            }
-            Module.runApp("game-canvas", extra_params);
-            document.getElementById("game-button").style.display = 'none';
-            document.getElementById("game-button").onclick = null;
-        };
-    </script>
-</div>
-
 If you want you can try to add more instances of *car.collection* to *main.collection*. Each instance is a clone of what's inside *car.collection* with the exact same behavior. Each one listens to input and reacts to the same messages.
 
 That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](/learn) prepared to guide you, and if you get stuck, you are very welcome to the [forum](//forum.defold.com).

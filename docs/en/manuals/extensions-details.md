@@ -20,7 +20,7 @@ When creating libraries (such as extensions), it's good to keep the lowest commo
 Clang - macOS, iOS, Win32, Android
 GCC - Linux
 
-*We plan to use clang for Linux aswell at some point*
+*We plan to use clang for Linux as well at some point*
 
 ### SDK Versions
 

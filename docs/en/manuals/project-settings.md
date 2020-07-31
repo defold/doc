@@ -65,6 +65,11 @@ A space separated list of directories that should be shared from your project vi
 #### Shared State
 Check to share a single Lua state between all script types, unchecked by default.
 
+## Engine
+
+#### Run While Iconified
+Allow the engine to continue running while the application window is iconified (desktop platforms only), `false` by default.
+
 ## Display
 
 #### Width
@@ -88,14 +93,25 @@ If `Vsync` checked, snaps to the closest matching swap interval for the set fram
 #### Vsync
 Vertical sync, rely on hardware vsync for frame timing. Can be overridden depending on graphics driver and platform specifics.
 
-#### Variable Dt (deprecated)
-Deprecated. If checked, will check `Vsync` and set `Frame Cap` to 0 at build-time for equivalent behavior.
-
 #### Display Profiles
-Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles). 
+Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles).
 
 #### Dynamic Orientation
 Check if the app should dynamically switch between portrait and landscape on device rotation. Note that the development app does not currently respect this setting.
+
+## Render
+
+#### Clear Color Red
+Clear color red channel, used by the render script and when the window is created. Added in 1.2.167.
+
+#### Clear Color Green
+Clear color green channel, used by the render script and when the window is created. Added in 1.2.167.
+
+#### Clear Color Blue
+Clear color blue channel, used by the render script and when the window is created. Added in 1.2.167.
+
+#### Clear Color ALpha
+Clear color alpha channel, used by the render script and when the window is created. Added in 1.2.167.
 
 ## Physics
 
@@ -122,6 +138,9 @@ World gravity along z-axis, `0` by default.
 
 #### Scale
 Tells the physics engine how to scale the physics worlds in relation to the game world for numerical precision, `0.01`--`1.0`. If the value is set to `0.02`, it means that the physics engine will view 50 units as 1 meter ($1 / 0.02$). The default value is `1.0`.
+
+#### Allow Dynamic Transforms
+Check if the physics engine should scale collision objects using the scale of the game objects they belong to.
 
 #### Debug Scale
 How big to draw unit objects in physics, like triads and normals, `30` by default.
@@ -302,6 +321,12 @@ If specified, use this info.plist file when bundling your app.
 #### Entitlements
 If specified, can override wildcard entitlements defined in the supplied provisioning profile (.entitlements, .xcent, .plist).
 
+#### Default Language
+The language used if the application doesn't have user's preferred language in `Localizations` list (see [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
+
+#### Localizations
+This field contains comma-separated strings identifying the language name or ISO language designator of the supported localizations (see [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
+
 ## Android
 
 #### App Icon 36x36--192x192
@@ -350,6 +375,12 @@ If set, use the specified info.plist file when bundling.
 
 #### Bundle Identifier
 The bundle identifier lets OS X recognize updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and OS X apps.
+
+#### Default Language
+The language used if the application doesn't have user's preferred language in `Localizations` list (see [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
+
+#### Localizations
+This field contains comma-separated strings identifying the language name or ISO language designator of the supported localizations (see [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
 
 ## Windows
 

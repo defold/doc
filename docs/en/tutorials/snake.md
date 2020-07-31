@@ -7,37 +7,6 @@ brief: If you are new to Defold, this guide will help you to get started with sc
 
 This tutorial walks you through the process of creating one of the most common classic games you can attempt to recreate. There are a lot of variations on this game, this one features a snake that eats "food" and that only grows when it eats. This snake also crawls on a playfield that contains obstacles.
 
-Before beginning, take a minute and try the game:
-
-<div id="game-container" class="game-container">
-  <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/snake/preview.jpg"/>
-  <canvas id="game-canvas" tabindex="1" width="768" height="768">
-  </canvas>
-  <button id="game-button">
-    START GAME <span class="icon"></span>
-  </button>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_119.js" async></script>
-  <script>
-      /* Load app on click in container. */
-      document.getElementById("game-button").onclick = function (e) {
-          var extra_params = {
-              archive_location_filter: function( path ) {
-                  return ("//storage.googleapis.com/defold-doc/assets/snake" + path + "");
-              },
-              load_done: function() {},
-              game_start: function() {
-                  var e = document.getElementById("game-preview");
-                  e.parentElement.removeChild(e);
-              }
-          }
-          Module.runApp("game-canvas", extra_params);
-          document.getElementById("game-button").style.display = 'none';
-          document.getElementById("game-button").onclick = null;
-      };
-  </script>
-</div>
-
 ## Creating the project
 
 1. Start Defold.

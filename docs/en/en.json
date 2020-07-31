@@ -290,6 +290,10 @@
                         "name": "Collection proxy"
                     },
                     {
+                        "path": "/manuals/physics",
+                        "name": "Collision object"
+                    },
+                    {
                         "path": "/manuals/camera",
                         "name": "Camera"
                     },
@@ -302,16 +306,16 @@
                         "name": "Label"
                     },
                     {
+                        "path": "/manuals/mesh",
+                        "name": "Mesh"
+                    },
+                    {
                         "path": "/manuals/model",
                         "name": "Model"
                     },
                     {
                         "path": "/manuals/particlefx",
                         "name": "Particle FX"
-                    },
-                    {
-                        "path": "/manuals/physics",
-                        "name": "Physics"
                     },
                     {
                         "path": "/manuals/sound",
@@ -381,6 +385,27 @@
                 ]
             },
             {
+                "name": "PHYSICS",
+                "items": [
+                    {
+                        "path": "/manuals/physics",
+                        "name": "Collision objects"
+                    },
+                    {
+                        "path": "/manuals/physics/#collision-shapes",
+                        "name": "Collision shapes"
+                    },
+                    {
+                        "path": "/manuals/physics/#ray-casts",
+                        "name": "Ray casts"
+                    },
+                    {
+                        "path": "/manuals/physics/#joints",
+                        "name": "Joints"
+                    }
+                ]
+            },
+            {
                 "name": "GAME LOGIC",
                 "items": [
                     {
@@ -406,19 +431,44 @@
                     {
                         "path": "/manuals/modules",
                         "name": "Modules"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging"
                     }
                 ]
             },
             {
-                "name": "NETWORK AND FILE I/O",
+                "name": "SAVING AND LOADING FILES",
                 "items": [
-                    {
-                        "path": "/manuals/networking",
-                        "name": "Networking"
-                    },
                     {
                         "path": "/manuals/file-access",
                         "name": "Working with files"
+                    }
+                ]
+            },
+            {
+                "name": "NETWORKING",
+                "items": [
+                    {
+                        "path": "/manuals/networking",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/http-requests",
+                        "name": "HTTP Requests"
+                    },
+                    {
+                        "path": "/manuals/socket-connections",
+                        "name": "Socket connections"
+                    },
+                    {
+                        "path": "/manuals/websocket-connections",
+                        "name": "WebSocket connections"
+                    },
+                    {
+                        "path": "/manuals/online-services",
+                        "name": "Online services"
                     }
                 ]
             },
@@ -459,10 +509,6 @@
                         "name": "Bob the builder"
                     },
                     {
-                        "path": "/manuals/debugging",
-                        "name": "Debugging"
-                    },
-                    {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
                     },
@@ -497,6 +543,35 @@
                 ]
             },
             {
+                "name": "DEBUGGING",
+                "items": [
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging game logic"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging native code"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-android",
+                        "name": "Debugging native code on Android"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-ios",
+                        "name": "Debugging native code on iOS"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-and-system-logs",
+                        "name": "Reading game and system logs"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
+                    }
+                ]
+            },
+            {
                 "name": "PLATFORMS",
                 "items": [
                     {
@@ -506,6 +581,14 @@
                     {
                         "path": "/manuals/ios",
                         "name": "iOS"
+                    },
+                    {
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
                     },
                     {
                         "path": "/manuals/html5",
@@ -522,6 +605,23 @@
                 ]
             },
             {
+                "name": "MONETIZATION",
+                "items": [
+                    {
+                        "path": "/manuals/ads",
+                        "name": "Ads"
+                    },
+                    {
+                        "path": "/manuals/iap",
+                        "name": "In-app purchases"
+                    },
+                    {
+                        "path": "/manuals/web-monetization",
+                        "name": "Web Monetization"
+                    }
+                ]
+            },
+            {
                 "name": "EXTENSIONS",
                 "items": [
                     {
@@ -531,6 +631,10 @@
                     {
                         "path": "/manuals/instant-games",
                         "name": "Facebook Instant Games"
+                    },
+                    {
+                        "path": "/manuals/gpgs",
+                        "name": "Google Play Game Services"
                     },
                     {
                         "path": "/manuals/iap",
@@ -574,24 +678,16 @@
                         "name": "Best Practices"
                     },
                     {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging"
+                    },
+                    {
                         "path": "/manuals/extensions-build-variants",
                         "name": "Build Variants"
                     },
                     {
                         "path": "/manuals/extensions-manifest-merge-tool",
                         "name": "Manifest Merging"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging",
-                        "name": "Debugging tips"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging-android",
-                        "name": "Debugging on Android"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging-ios",
-                        "name": "Debugging on iOS"
                     }
                 ]
             },

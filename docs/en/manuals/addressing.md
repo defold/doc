@@ -109,26 +109,11 @@ The address `"buddy#controller"` works for the game objects in both collections 
 
 Relative addressing works by automatically prepending the current naming context when resolving a target address. This is again immensely useful and powerful because you can create groups of game objects with code and reuse those efficiently throughout the game.
 
-Shorthands
-: Defold provides two useful relative address shorthands:
+### Shorthands
 
-  `.`
-  : Shorthand resolving to the current game object.
+Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
 
-  `#`
-  : Shorthand resolving to the current component.
-
-  For example:
-
-  ```lua
-   -- Let this game object acquire input focus
-   msg.post(".", "acquire_input_focus")
-  ```
-
-  ```lua
-   -- Post "reset" to the current script
-   msg.post("#", "reset")
-  ```
+:[Shorthands](../shared/url-shorthands.md)
 
 ## Game object paths
 

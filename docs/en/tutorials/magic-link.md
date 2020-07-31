@@ -9,45 +9,12 @@ This game is a variation on the classic matching game in the vein of _Bejeweled_
 
 This tutorial is written as a step-by-step guide where we build the game on a complete design. In reality, it takes a lot of time and effort to find a design that works. You might start with a core idea and then find a way to prototype it to get a better understanding of what the idea could bring to the table. Even a simple game like "Magic Link" requires quite a lot of design work. This game went through a couple of iterations and some experimentation to arrive at its final (and still far from perfect) shape and set of game rules. But for this tutorial, we're gonna skip that process and start building on the final design.
 
-<div id="game-container" class="game-container">
-    <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/magic-link/preview.jpg"/>
-    <canvas id="game-canvas" tabindex="1" width="640" height="960">
-    </canvas>
-    <button id="game-button">
-        START GAME <span class="icon"></span>
-    </button>
-    <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-    <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
-    <script>
-        // Load app on click in container.
-        document.getElementById("game-button").onclick = function (e) {
-            var extra_params = {
-                archive_location_filter: function( path ) {
-                    return ("//storage.googleapis.com/defold-doc/assets/magic-link" + path + "");
-                },
-                load_done: function() {},
-                game_start: function() {
-                    var e = document.getElementById("game-preview");
-                    e.parentElement.removeChild(e);
-                }
-            }
-            Module.runApp("game-canvas", extra_params);
-            document.getElementById("game-button").style.display = 'none';
-            document.getElementById("game-button").onclick = null;
-        };
-    </script>
-</div>
-
 ## Getting started
 
 You need to start by creating a new project and importing the asset package:
 
 * Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template
-* Download the "Magic Link" asset package and unpack it on your hard drive (the package is a ZIP archive)
-
-<a class="btn btn-primary btn-xs-block btn-icon" href="//storage.googleapis.com/defold-doc/assets/magic-link-assets.zip">Download asset package<span aria-hidden="true" class="icon icon-download"></span></a>
-
-![Magic Link asset pack](images/magic-link/linker_assets.png)
+* Download the [complete "Magic Link" project](https://github.com/defold/defold-examples/releases/download/0.2.0/magic-link.zip) as a reference. The complete project contains all the asset in case you want to create the project from scratch.
 
 ## Game rules
 

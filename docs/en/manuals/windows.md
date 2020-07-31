@@ -16,3 +16,6 @@ Windows specific application configuration is done from the [Windows section](/m
 The application icon used for a Windows game must be in the .ico format. You can easily create a .ico file from a .png file using an online tool such as [ICOConvert](https://icoconvert.com/). Upload an image and use the following icon sizes:
 
 ![Windows icon sizes](images/windows/windows-icon.png)
+
+## FAQ
+:[Windows FAQ](../shared/windows-faq.md)

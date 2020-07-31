@@ -182,3 +182,7 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 ::: important
 It does not work to have the gate listen to `play_sound` messages since that name is reserved by the Defold engine. You will get unexpected behavior if you use reserved message names.
 :::
+
+## Project configuration
+
+The *game.project* file has a few [project settings](/manuals/project-settings#sound) related to sound components.

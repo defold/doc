@@ -38,7 +38,7 @@ The game contains a few simple mechanics that require communication between the 
   There is only a single strength punch move in the game so the message does not need to contain any more information than its name, "punch".
 
   In the script component of the enemy, you create a function to receive the message:
-  
+
   ```lua
   function on_message(self, message_id, message, sender)
     if message_id == hash("punch") then
@@ -149,6 +149,13 @@ message_id
 There is a hard limit to the `message` parameter table size. This limit is set to 2 kilobytes. There is currently no trivial way to figure out the exact memory size a table consumes but you can use `collectgarbage("count")` at before and after inserting the table to monitor memory use.
 :::
 
+### Shorthands
+
+Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
+
+:[Shorthands](../shared/url-shorthands.md)
+
+
 ## Receiving messages
 
 Reciving messages is a matter of making sure the target script component contains a function named `on_message()`. The function accepts four parameters:
@@ -175,7 +182,7 @@ function on_message(self, message_id, message, sender)
                     -->   score = 100,
                     -->   value = "some string"
                     --> }
-    
+
     print(sender) --> url: [main:/my_object#script]
 end
 ```
@@ -245,4 +252,3 @@ DEBUG:SCRIPT: 75 dispatch passes before this update.
 ```
 
 We see that this particular Defold engine version performs 10 dispatch passes on the message queue between `init()` and the first call to `update()`. It then performs 75 passes during each subsequent update loop.
-

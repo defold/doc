@@ -11,15 +11,15 @@ Android devices allows you to freely run your own apps on them. It is very easy 
 
 Android requires that apps that you want to install are digitally signed. Unlike iOS where all certificates are issued by Apple, Android allows self signed apps so you can freely create certificates and keys required to sign apps.
 
-The process of creating certificates and keys may seem complicated but as long as you are in development, Defold fully automates the process. When you create an Android application bundle from the editor you can provide a specific certificate and key. If you don't, Defold generates a random certificate and a key and signs the resulting *.apk* (Android Application Package) file.
+The process of creating certificates and keys may seem complicated but as long as you are in development, Defold fully automates the process. When you create an Android application bundle from the editor you can provide a specific certificate and key. If you don't, Defold generates a random certificate and a key and signs the resulting application bundle automatically.
 
-It is important to note that when it is time to release an app on Google Play, you will need to create a certificate and key that you use to sign the app. The reason is that when you intend to publish an updated version of the app, _the updated *.apk* file needs to be signed with the same signature as the current version_. If you sign with a different private key, Google Play will reject the *.apk* update and you will need to publish the game as a totally new app.
+It is important to note that when it is time to release an app on Google Play, you will need to create a certificate and key that you use to sign the app. The reason is that when you intend to publish an updated version of the app, _the updated application bundle needs to be signed with the same signature as the current version_. If you sign with a different private key, Google Play will reject the update and you will need to publish the game as a totally new app.
 
 You can find more information from the [Google Play developer console](https://play.google.com/apps/publish/).
 
 ## Creating certificates and keys
 
-You need the to create certificates in *.pem*-format and keys in *.pk8*-format. You can generate these with the `openssl` tool:
+You need to create certificates in *.pem*-format and keys in *.pk8*-format. You can generate these with the `openssl` tool:
 
 ```sh
 $ openssl genrsa -out key.pem 2048
@@ -31,12 +31,14 @@ $ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocryp
 This will leave you with the files *certificate.pem* and *key.pk8* that you can use to sign your application bundles.
 
 ::: important
-Make sure that you store your certificate and key safely. If you lose them you will _not_ be able to upload updated *.apk* file versions to Google Play.
+Make sure that you store your certificate and key safely. If you lose them you will _not_ be able to upload updated application versions to Google Play.
 :::
 
 ## Creating an Android application bundle
 
-The editor lets you easily create a stand alone application bundle for your game. Before bundling you can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#android). To bundle select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
+The editor lets you easily create a stand alone application bundle for your game. Before bundling you can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#android).
+
+To bundle select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
 
 If you want the editor to automatically create random debug certificates, leave the *Certificate* and *Private key* fields empty:
 
@@ -46,13 +48,17 @@ If you want to sign your bundle with a particular certificate and key, specify t
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-Press <kbd>Create Bundle</kbd> and you will then be prompted to specify where on your computer the bundle will be created.
+Defold supports the creation of both APK and AAB files. Select APK or AAB from the Bundle Format drop down.
+
+Press <kbd>Create Bundle</kbd> when you have configured the application bundle settings. You will then be prompted to specify where on your computer the bundle will be created.
 
 ![Android Application Package file](images/android/apk_file.png)
 
 ### Installing an Android application bundle
 
-The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
+### Installing an APK
+
+An *.apk* file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
 
 ```
 $ adb install Defold\ examples.apk
@@ -60,6 +66,10 @@ $ adb install Defold\ examples.apk
   pkg: /data/local/tmp/my_app.apk
 Success
 ```
+
+#### Installing an AAB
+
+An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *.apk* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
 ## Permissions
 
@@ -128,16 +138,5 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
 
-## Troubleshooting
-
-I'm getting "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" when installing
-: Android detects that you try to install the app with a new certificate. When bundling debug builds, each build will be signed with a temporary certificate. Uninstall the old app before installing the new version:
-
-  ```
-  $ adb uninstall com.defold.examples
-  Success
-  $ adb install Defold\ examples.apk
-  4826 KB/s (18774344 bytes in 3.798s)
-          pkg: /data/local/tmp/Defold examples.apk
-  Success
-  ```
+## FAQ
+:[Android FAQ](../shared/android-faq.md)
