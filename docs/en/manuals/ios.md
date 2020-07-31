@@ -78,7 +78,7 @@ When the provision expires, you need to build the app again in Xcode and get a n
 
 ## Creating an iOS application bundle
 
-When you have the code signing identity and privisioning profile, you are ready to create a stand alone application bundle for your game from the editor. Simply select <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> from the menu.
+When you have the code signing identity and provisioning profile, you are ready to create a stand alone application bundle for your game from the editor. Simply select <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> from the menu.
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
@@ -90,13 +90,51 @@ You **must** untick the `Sign application` checkbox when testing your game on th
 
 Press *Create Bundle* and you will then be prompted to specify where on your computer the bundle will be created.
 
-You specify what icon to use for the app, the launch screen image(s) and so forth on the *game.project* project settings file.
+![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
-::: important
-When your game launches on iOS, the launch images are used to set the correct screen resolution. If you do not supply the correct image size, you will get a lower resolution with resulting black bars.
+You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
+
+### Creating a storyboard
+
+You create a storyboard file using Xcode. Start Xcode and create a new project. Select iOS and Single View App:
+
+![Create project](images/ios/storyboard_create_project.png)
+
+Click Next and proceed to configure your project. Enter a Product Name:
+
+![Project settings](images/ios/storyboard_create_project_settings.png)
+
+Click Create to finish the process. Your project is now created and we can proceed to create the storyboard:
+
+![The project view](images/ios/storyboard_project_view.png)
+
+Drag and drop an image to import it to the project. Next select `Assets.xcassets` and drop the image to `Assets.xcassets`:
+
+![Add image](images/ios/storyboard_add_image.png)
+
+Open `LaunchScreen.storyboard` and click on the plus button (<kbd>+</kbd>). Type "imageview" in the dialog to find the ImageView component.
+
+![Add image view](images/ios/storyboard_add_imageview.png)
+
+Drag the Image View component onto the storyboard:
+
+![Add to storyboard](images/ios/storyboard_add_imageview_to_storyboard.png)
+
+Select the image you previously added to `Assets.xcassets` from the Image dropdown:
+
+![](images/ios/storyboard_select_image.png)
+
+Position the image and make any other adjustments you need, perhaps adding a Label or some other UI element. When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+
+The last step is to copy the compiled `LaunchScreen.storyboardc` file which was created when the project was built. Open Finder at the following location and copy the `LaunchScreen.storyboardc` file to your Defold project:
+
+
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Intermediates.noindex/YOUR-PRODUCT-NAME.build/Debug-iphonesimulator/YOUR-PRODUCT-NAME.build/Base.lproj/LaunchScreen.storyboardc
+
+::: sidenote
+Forum user Sergey Lerg has put together a video tutorial showing the process: https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo
 :::
 
-![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
 ## Installing an iOS application bundle
 
