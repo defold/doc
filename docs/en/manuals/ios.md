@@ -132,7 +132,7 @@ The last step is to copy the compiled `LaunchScreen.storyboardc` file which was 
     /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Intermediates.noindex/YOUR-PRODUCT-NAME.build/Debug-iphonesimulator/YOUR-PRODUCT-NAME.build/Base.lproj/LaunchScreen.storyboardc
 
 ::: sidenote
-Forum user Sergey Lerg has put together a video tutorial showing the process: https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo
+Forum user Sergey Lerg has put together [a video tutorial showing the process](https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo).
 :::
 
 

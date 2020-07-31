@@ -307,7 +307,7 @@ Max number of game object factories, `128` by default.
 Image file (.png) to use as application icon at given width and height dimensions `W` &times; `H`.
 
 #### Launch Screen
-Storyboard file (.storyboard). Learn more about how to create on in the [iOS manual](/manuals/ios).
+Storyboard file (.storyboard). Learn more about how to create one in the [iOS manual](/manuals/ios/#creating-a-storyboard).
 
 #### Pre Rendered Icons
 (iOS 6 and earlier) Check if your icons are pre-rendered. If this is unchecked the icons will get a glossy highlight added automatically.
