@@ -306,8 +306,8 @@ Max number of game object factories, `128` by default.
 #### App Icon 57x57--180x180
 Image file (.png) to use as application icon at given width and height dimensions `W` &times; `H`.
 
-#### Launch Image 320x480--2436x1125
-Image file (.png) to use as application launch image for resolution width and height dimensions `W` &times; `H`. iOS selects the display resolution based on the launch image.
+#### Launch Screen
+Storyboard file (.storyboard). Learn more about how to create one in the [iOS manual](/manuals/ios/#creating-a-storyboard).
 
 #### Pre Rendered Icons
 (iOS 6 and earlier) Check if your icons are pre-rendered. If this is unchecked the icons will get a glossy highlight added automatically.

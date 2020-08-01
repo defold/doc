@@ -645,7 +645,7 @@
                         "name": "Inter-app communication"
                     },
                     {
-                        "path": "/manuals/push",
+                        "path": "/extension-push",
                         "name": "Push notifications"
                     },
                     {
