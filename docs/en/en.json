@@ -633,7 +633,7 @@
                         "name": "Facebook Instant Games"
                     },
                     {
-                        "path": "/manuals/gpgs",
+                        "path": "/extension-gpgs",
                         "name": "Google Play Game Services"
                     },
                     {
