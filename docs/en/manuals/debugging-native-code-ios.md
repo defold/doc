@@ -1,11 +1,11 @@
 ---
 title: Debugging on iOS/macOS
-brief: This manual describes how to debug a build using XCode.
+brief: This manual describes how to debug a build using Xcode.
 ---
 
 # Debugging on iOS/macOS
 
-Here we describe how to debug a build using [XCode](https://developer.apple.com/xcode/), Apple's preferred IDE for developing for macOS and iOS.
+Here we describe how to debug a build using [Xcode](https://developer.apple.com/xcode/), Apple's preferred IDE for developing for macOS and iOS.
 
 ## Xcode
 
@@ -15,7 +15,7 @@ Here we describe how to debug a build using [XCode](https://developer.apple.com/
 		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
 		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
 
-* Install the app, either with `XCode`, `iTunes` or [ios-deploy](https://github.com/ios-control/ios-deploy)
+* Install the app, either with `Xcode`, `iTunes` or [ios-deploy](https://github.com/ios-control/ios-deploy)
 
 		$ ios-deploy -b <AppName>.ipa
 
@@ -36,7 +36,7 @@ Here we describe how to debug a build using [XCode](https://developer.apple.com/
 To properly debug, we need to have a project, and the source code mapped.
 We're not using this project to build things, only debug.
 
-* Create new XCode project, choose the `Game` template
+* Create new Xcode project, choose the `Game` template
 
 	![project_template](images/extensions/debugging/ios/project_template.png)
 

@@ -22,7 +22,7 @@ There are several debuggers for each platform.
 * Visual studio - Windows
 * VSCode - Windows, macOS, Linux
 * Android Studio - Windows, macOS, Linux
-* XCode - macOS
+* Xcode - macOS
 * WinDBG - Windows
 * lldb / gdb - macOS, Linux, (Windows)
 * ios-deploy - macOS
@@ -31,7 +31,7 @@ Each tool can debug certain platforms:
 
 * Visual studio - Windows + platforms supporting gdbserver (E.g. Linux/Android)
 * VSCode - Windows, macOS (lldb), Linux (lldb/gdb) + platforms supporting gdbserver
-* XCode -  macOS, iOS ([learn more](/manuals/debugging-native-code-ios))
+* Xcode -  macOS, iOS ([learn more](/manuals/debugging-native-code-ios))
 * Android Studio - Android ([learn more](/manuals/debugging-native-code-android))
 * WinDBG - Windows
 * lldb/gdb - macOS, Linux, (iOS)
@@ -69,7 +69,7 @@ If the app is [debuggable](/manuals/project-settings/#android), you can get the 
 
 In iTunes, you can view/download an apps container.
 
-In the `XCode -> Devices` window, you can also select the crash logs
+In the `Xcode -> Devices` window, you can also select the crash logs
 
 
 ## Symbolicate a callstack

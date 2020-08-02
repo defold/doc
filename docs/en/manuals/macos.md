@@ -83,7 +83,7 @@ $ codesign --force --sign "Developer ID Application: Company Name" --options run
 ```
 
 ## Publishing outside the Mac App Store
-Apple requires all software distributed outside the Mac App Store to be notarized by Apple in order to run by default on macOS Catalina. Refer to the [official documentation](https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow) to learn how to add notarization to a scripted build environment outside of XCode. Brief summary of the steps involved are:
+Apple requires all software distributed outside the Mac App Store to be notarized by Apple in order to run by default on macOS Catalina. Refer to the [official documentation](https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow) to learn how to add notarization to a scripted build environment outside of Xcode. Brief summary of the steps involved are:
 
 * 1) Follow the above steps of adding permissions and signing the application.
 
