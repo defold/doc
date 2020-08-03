@@ -612,7 +612,7 @@
                         "name": "Ads"
                     },
                     {
-                        "path": "/manuals/iap",
+                        "path": "/extension-iap",
                         "name": "In-app purchases"
                     },
                     {
@@ -637,7 +637,7 @@
                         "name": "Google Play Game Services"
                     },
                     {
-                        "path": "/manuals/iap",
+                        "path": "/extension-iap",
                         "name": "In-app purchases"
                     },
                     {
