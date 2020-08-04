@@ -11,6 +11,12 @@
             "name": "한국어 (Korean)",
             "translation": "Translation by Kiman Kim",
             "active": false
+        },
+        "zh":
+        {
+            "name": "中文 (Chinese)",
+            "translation": "Translation by cocosgames.com",
+            "active": false
         }
     }
 }
