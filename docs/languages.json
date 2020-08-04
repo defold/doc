@@ -16,7 +16,7 @@
         {
             "name": "中文 (Chinese)",
             "translation": "Translation by cocosgames.com",
-            "active": false
+            "active": true
         }
     }
 }
