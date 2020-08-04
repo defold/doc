@@ -30,7 +30,7 @@ Provisioning Profiles
 When signing your games and apps in Defold, you need a valid certificate and a valid provisioning profile.
 
 ::: sidenote
-Some of the things you can do on the Member Center homepage you can also perform from inside the XCode development environment---if you have that installed.
+Some of the things you can do on the Member Center homepage you can also perform from inside the Xcode development environment---if you have that installed.
 :::
 
 Device identifier (UDID)
