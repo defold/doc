@@ -26,6 +26,9 @@ http.request("https://www.defold.com", "GET", handle_response)
 
 这样就建立了一个到 https://www.defold.com 的 HTTP GET 请求. 这个函数是异步的所以请求同时游戏并不卡住等待响应. 当服务器发回响应数据后会进入设置好的回调函数. 回调函数接收了相应包含的所有信息, 包括状态码和响应头. 同样可以建立 HTTP POST 请求来向服务器发送数据也能设置请求头信息. 更多详情请见 [API 教程](/ref/http/).
 
+::: 注意
+为了提高效率, HTTP 请求会自动缓存在客户端. 缓存文件保存在一个叫 `defold/http-cache` 的文件夹里, 其路径根据操作系统不同而不同. 一般来说不必关心缓存的存在, 除非你需要手动清除缓存文件. macOS 系统路径是 `%HOME%/Library/Application Support/Defold/http-cache/` , Windows 系统路径是 `%APP_DATA%/defold/http-cache`.
+:::
 
 ## Socket 连接
 
