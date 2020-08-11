@@ -3,7 +3,7 @@ title: 显示 2D 图片
 brief: 本教程介绍了如何使用 sprite 组件显示 2D 图片和动画.
 ---
 
-#  Sprites（精灵）
+#  Sprites
 
 Sprite 组件可以是屏幕上显示的简单图片或者逐帧动画.
 
@@ -39,6 +39,12 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 `cursor`
 : 初始化动画播放头 (`number`).
 
+`image`
+: sprite图 (`hash`). 可以通过 `go.set()` 方法使用图集或者瓷砖图集资源来修改此属性. 请参考 [这个例子的 API 文档](/ref/sprite/#image).
+
+`material`
+: sprite材质 (`hash`). 可以通过 `go.set()` 方法使用材质资源来修改此属性. 请参考 [这个例子的 API 文档](/ref/sprite/#material).
+
 `playback_rate`
 : 动画播放速率 (`number`).
 
@@ -47,3 +53,10 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 
 `size`
 : Sprite大小 (`vector3`) (只读).
+
+## 材质属性
+
+sprite的默认材质属性可以用 `sprite.set_constant()` 和 `sprite.reset_constant()` 方法来设置和重置. (详情参见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
+
+`tint`
+: sprite染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/sprite/#sprite.set_constant:url-constant-value).

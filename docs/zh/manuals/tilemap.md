@@ -46,7 +46,11 @@ brief: 本教程介绍了 Defold 对于瓷砖地图的支持.
 
 ![使用瓷砖地图](images/tilemap/use_tilemap.png){srcset="images/tilemap/use_tilemap@2x.png 2x"}
 
-## 用脚本更改瓷砖
+## 运行时操作
+
+有一套用于在运行时修改瓷砖地图的方法和属性 (参见 [API文档](/ref/tilemap/)).
+
+### 用脚本更改瓷砖
 
 游戏运行时可以使用脚本动态读写瓷砖地图的内容. 通过调用 [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) 和 [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) 函数:
 
@@ -58,3 +62,20 @@ if tile == 2 then
     tilemap.set_tile("/level#map", "ground", x, y, 4)
 end
 ```
+
+### 修改属性
+
+使用 `go.get()` 和 `go.set()` 方法可以修改瓷砖地图的属性:
+
+`tile_source`
+: 瓷砖图源 (`hash`). 可以使用 `go.set()` 方法指定瓷砖图源. 参见 [这个例子的 API 用法](/ref/tilemap/#tile_source).
+
+`material`
+: 瓷砖地图材质 (`hash`). 可以使用 `go.set()` 方法指定瓷砖地图材质. 参见 [这个例子的 API 用法](/ref/tilemap/#material).
+
+### 材质属性
+
+材质可以使用 `tilemap.set_constant()` 和 `tilemap.reset_constant()` 方法设置和重置一系列属性 (详情参见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
+
+`tint`
+: 瓷砖地图染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/tilemap/#tilemap.set_constant:url-constant-value).
