@@ -9,7 +9,7 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
 
 ## 在论坛里提交问题
 
-在我们的 [论坛](https://www.defold.com/forum) 上提交问题是一个好方法. 依据你的问题的类型可以在 [Questions](https://forum.defold.com/c/questions) 或者 [Bugs](https://forum.defold.com/c/bugs) 类目下发帖. 提交问题的时候请尽附加可能多的信息. 记得发问之前在论坛 [搜索](https://forum.defold.com/search) 一下相关内容, 也许论坛上已经存在你的问题的解决方案了. 提问时请填写以下信息:
+在我们的 [论坛](https://forum.defold.com) 上提交问题是一个好方法. 依据你的问题的类型可以在 [Questions](https://forum.defold.com/c/questions) 或者 [Bugs](https://forum.defold.com/c/bugs) 类目下发帖. 提交问题的时候请尽附加可能多的信息. 记得发问之前在论坛 [搜索](https://forum.defold.com/search) 一下相关内容, 也许论坛上已经存在你的问题的解决方案了. 提问时请填写以下信息:
 
 * **问题的描述 (必须)** - 问题的简短描述.
 

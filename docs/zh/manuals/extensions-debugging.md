@@ -43,14 +43,14 @@ brief: 本教程介绍了一些调试应用以及解析崩溃日志的方法.
 
 注意 Defold 的debug编译版本默认只输出 dmLog* 函数结果.
 
-### [Android](/manuals/extensions-debugging-android.md)
+### [Android](/manuals/extensions-debugging-android)
 
 在 Android 上, 获取日志最简单办法是通过终端的 `adb`.
 还可以在 Android Studio 里使用 `console`, 这俩是一样的.
 
 如果你从 Android 日志中获得了跟踪堆栈, 你可能要使用 [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html) 来进行解析.
 
-### [iOS](/manuals/extensions-debugging-ios.md)
+### [iOS](/manuals/extensions-debugging-ios)
 
 在 iOS 中, 你要使用 iTunes 或者 XCode 来观察设备日志.
 

@@ -102,7 +102,7 @@ end
 
 每秒帧数 (即每秒更新循环运行次数) 可以在项目配置里设置, 或者通过发送 `set_update_frequency` 消息到 `@system` 接口手动设置. 而且, 可以通过发送 `set_time_step` 消息给代理来为集合单独设置 _时间步_. 修改集合时间步不影响帧率. 它影响的是物理时间步与发送到 `update()` 函数中的 `dt` 值. 注意修改时间步不影响 `update()` 调用的频率---永远是每帧调用一次.
 
-(See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collection-proxy#set-time-step) for details)
+(See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collectionproxy#set-time-step) for details)
 
 ## 析构
 

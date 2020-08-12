@@ -22,7 +22,7 @@ Defold 提供以下组件类型:
 * [Particle FX](/manuals/particlefx) -  创建粒子
 * [Script](/manuals/script) - 添加游戏逻辑
 * [Sound](/manuals/sound) - 播放音效音乐
-* [Spine model](/manuals/spine-model) - 渲染spine动画
+* [Spine model](/manuals/spinemodel) - 渲染spine动画
 * [Sprite](/manuals/sprite) - 显示2D图像 (可以带逐帧动画)
 * [Tilemap](/manuals/tilemap) - 显示一组瓷砖图
 
