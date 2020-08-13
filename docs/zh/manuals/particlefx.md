@@ -3,7 +3,7 @@ title: Defold 的粒子特效
 brief: 本教程介绍了粒子特效组件的使用以及特效的编辑方法.
 ---
 
-# Particle FX
+# 粒子特效
 
 粒子特效用以为游戏呈现视觉效果.可以用来表现爆炸, 喷血, 拖尾, 天气等等效果.
 
@@ -17,7 +17,7 @@ Emitter
 Modifier
 : 修改器会影响生成的粒子的速度，以使其在特定方向上加速或减速，径向移动或绕点旋转。修改器可以影响单个的粒子或者整个发射器。
 
-## Creating an effect
+## 新建粒子特效
 
 Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file using the [Scene Editor](/manuals/editor/#the-scene-editor).
 
@@ -119,6 +119,18 @@ Inherit Velocity
 
 Stretch With Velocity
 : Check to scale any particle stretch in the direction of movement.
+
+### 混合模式
+*Blend Mode* 属性决定了粒子特效与其下层图像如何进行颜色混合. 计算时配置了如下算法:
+
+Alpha
+: 普通混合: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
+
+Add
+: 使用粒子特效的像素值提亮背景: rgb~0~ + rgb~1~
+
+Multiply
+: 使用粒子特效的像素值调暗背景: rgb~0~ * rgb~1~
 
 ## Keyable emitter properties
 

@@ -63,6 +63,31 @@ if tile == 2 then
 end
 ```
 
+## 瓷砖地图属性
+
+除了 *Id*, *Position*, *Rotation* 和 *Scale*, 瓷砖地图还有如下属性:
+
+*Tile Source*
+: 瓷砖地图的图源.
+
+*Material*
+: 瓷砖地图的材质.
+
+*Blend Mode*
+: 瓷砖地图的混合模式.
+
+### 混合模式
+*Blend Mode* 属性决定了瓷砖地图与其下层图像如何进行颜色混合. 计算时配置了如下算法:
+
+Alpha
+: 普通混合: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
+
+Add
+: 使用瓷砖地图的像素值提亮背景: rgb~0~ + rgb~1~
+
+Multiply
+: 使用瓷砖地图的像素值调暗背景: rgb~0~ * rgb~1~
+
 ### 修改属性
 
 使用 `go.get()` 和 `go.set()` 方法可以修改瓷砖地图的属性:

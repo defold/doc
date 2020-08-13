@@ -32,8 +32,16 @@ You can bundle files with your application in two ways:
 
 2. As additional files and folders located as a part of your application bundle using the [*Bundle Resources* field](https://defold.com/manuals/project-settings/#project) in *game.project*. You can use [`sys.get_application_path()`](https://defold.com/ref/stable/sys/#sys.get_application_path:) to get the path to where the application is stored. Use this application base path to create the final absolute path to the files you need access to. Once you have the absolute path of these files you can use the `io.*` and `os.*` functions to access the files (see above).
 
+::: sidenote
+For security reasons browsers (and by extension any JavaScript running in a browser) is prevented from accessing system files. File operations in HTML5 builds in Defold still work, but only on a "virtual file system" using the IndexedDB API in the browser. What this means is that there is no way to access bundle resources using `io.*` or `os.*` functions. You can however access bundle resources using `http.request()`.
+:::
+
 ### System file access
 Access to system files may be restricted by the operating system for security reasons. You can use the [`extension-directiories`](https://defold.com/assets/extensiondirectories/) native extension to get the absolute path to some common system directories (ie documents, resource, temp). Once you have the absolute path of these files you can use the `io.*` and `os.*` functions to access the files (see above).
+
+::: sidenote
+For security reasons browsers (and by extension any JavaScript running in a browser) is prevented from accessing system files. File operations in HTML5 builds in Defold still work, but only on a "virtual file system" using the IndexedDB API in the browser. What this means is that there is no way to access system files in HTML5 builds.
+:::
 
 ## Extensions
 The [Asset Portal](https://defold.com/assets/) contains several assets to simplify file and folder access. Some examples:
