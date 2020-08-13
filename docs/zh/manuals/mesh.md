@@ -1,66 +1,66 @@
 ---
-title: 3D meshes in Defold
-brief: This manual describes how to create 3D meshes at run-time in your game.
+title: Defold 中的3D模型
+brief: 本教程介绍了如何在你的 Defold 游戏中添加3D模型.
 ---
 
-# Mesh component
+# Mesh 组件
 
-Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but orthographically projected onto the screen. Defold allows you to utilize full 3D content by adding and creating 3D meshes at run-time in your collections. You can build games in strictly 3D with only 3D assets, or you can mix 3D and 2D content as you wish.
+Defold 本质是3D的. 即使 2D 材质也是以 3D 方法进行渲染, 再通过正交投射显示在屏幕上. Defold 也可以使用全3D素材, 也可以在运行时建立3D模型. 纯3D还是混合2D、3D游戏根据需要随意创作.
 
-## Creating a mesh component
+## 新建 Mesh 组件
 
-Mesh components are created just like any other game object component. You can do it two ways:
+Mesh 组件的创建和其他组件一样. 有两种方法:
 
-- Create a *Mesh file* by <kbd>right-clicking</kbd> a location in the *Assets* browser and select <kbd>New... ▸ Mesh</kbd>.
-- Create the component embedded directly into a game object by <kbd>right-clicking</kbd> a game object in the *Outline* view and selecting <kbd>Add Component ▸ Mesh</kbd>.
+- 在 *Assets* 浏览器里 的 *Mesh 文件* 上 <kbd>右键单击</kbd> , 然后选择 <kbd>New... ▸ Mesh</kbd>.
+- 在 *Outline* 视图里的游戏对象上 <kbd>right-clicking</kbd> 然后选择 <kbd>Add Component ▸ Mesh</kbd>.
 
 ![Mesh in game object](images/mesh/mesh.png)
 
-With the mesh created you need to specify a number of properties:
+Mesh 组件包含一些列属性:
 
-### Mesh properties
+### Mesh 属性
 
-Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
+除了 *Id*, *Position* 和 *Rotation*, 还有如下属性:
 
 *Material*
-: The material to use for rendering the mesh.
+: 3D模型材质.
 
 *Vertices*
-: A buffer file describing the mesh data per stream.
+: 描述3D模型各种流顶点信息的缓冲文件.
 
 *Primitive Type*
-: Lines, Triangles or Triangle Strip.
+: Lines, Triangles 还是 Triangle Strip.
 
 *Position Stream*
-: This property should be the name of the *position* stream. The stream is automatically provided as input to the vertex shader.
+: *位置* 流. 流在顶点着色器输入数据时自动提供.
 
 *Normal Stream*
-: This property should be the name of the *normal* stream. The stream is automatically provided as input to the vertex shader.
+: *法线* 流. 流在顶点着色器输入数据时自动提供.
 
 *tex0*
-: Set this to texture to use for the mesh.
+: 3D模型的纹理.
 
-## Editor manipulation
+## 编辑时操作
 
-With the mesh component in place you are free to edit and manipulate the component and/or the encapsulating game object with the regular *Scene Editor* tools to move, rotate and scale the mesh to your liking.
+3D模型组件建立好之后就可以使用编辑器和 *Scene Editor* 工具, 像普通游戏对象一样, 随意进行旋转缩放.
 
-## Runtime manipulation
+## 运行时操作
 
-You can manipulate meshes at runtime using Defold buffers.
+可以使用 Defold 缓存在运行时修改3D模型.
 
-## Vertex local vs world space
-If the Vertex Space setting of the mesh material is set to Local Space the data will be provided as-is to you in your shader, and you will have to transform vertices/normals as usual on the GPU.
+## 顶点的局部/世界坐标空间
+如果3D模型材质的坐标空间设为局部坐标空间, 则数据会原封不动传入着色器, 这样通常要在着色器程序里进行GPU顶点/法线的转换.
 
-If the Vertex Space setting of the mesh material is set to World Space you have to either provide a default “position” and “normal”, stream, or you can select it from the dropdown, when editing the mesh. This is so that the engine can transform the data to world space for batching with other objects.
+如果3D模型材质的坐标空间设为世界坐标空间, 则必须要么提供默认的 “位置” 和 “法线”, 流, 要么在编辑3D模型时, 在下拉菜单中选择好. 这样便于引擎把同样是世界坐标系的3D模型进行数据合批.
 
-## Examples
-Refer to the [forum announcement post for more information](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137) on how to use the Mesh component, including sample projects and code snippets.
+## 举例
+关于3D模型操作及示例项目和代码片段请参考 [这个论坛帖子](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137).
 
-Example of creating a cube from triangle strips:
+用三角形建立方块的例子:
 
 ```Lua
 
--- cube
+-- 方块
 local vertices = {
 	0, 0, 0,
 	0, 1, 0,
@@ -78,18 +78,18 @@ local vertices = {
 	0, 1, 0
 }
 
--- create a buffer with a position stream
+-- 用位置流建立3D模型缓存
 local buf = buffer.create(#vertices / 3, {
 	{ name = hash("position"), type=buffer.VALUE_TYPE_FLOAT32, count = 3 }
 })
 
--- get the position stream and write the vertices
+-- 读取流数据, 写入三角形数据
 local positions = buffer.get_stream(buf, "position")
 for i, value in ipairs(vertices) do
 	positions[i] = vertices[i]
 end
 
--- set the buffer with the vertices on the mesh
+-- 用三角形数据建立方块3D模型
 local res = go.get("#mesh", "vertices")
 resource.set_buffer(res, buf)
 ```

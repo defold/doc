@@ -1,5 +1,5 @@
 ---
-title: Texture filtering
+title: 纹理过滤
 brief: This manual describes the available options for texture filtering when rendering graphics.
 ---
 
