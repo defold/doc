@@ -1,11 +1,11 @@
 ---
 title: 纹理过滤
-brief: This manual describes the available options for texture filtering when rendering graphics.
+brief: 本教程介绍了渲染图像时纹理过滤的功能.
 ---
 
-# Texture filtering and sampling
+# 纹理过滤和采样
 
-Texture filtering decides the visual result in cases when a _texel_ (a pixel in a texture) is not perfectly aligned with a screen pixel. This happens when you move a graphical element that contains the texture less than a pixel. The following filter methods are available:
+纹理过滤决定了当一个 _texel_ (纹理中的一个像素) 与屏幕像素不是完美对齐时的视觉效果. 当可视元素移动小于1个像素的时候就会发生这种现象. 可以选择以下的过滤方式:
 
 Nearest
 : The nearest texel will be picked to color the screen pixel. This sampling method should be chosen if you want a perfect one-to-one pixel mapping from your textures to what you see on screen. With nearest filtering everything will snap from pixel to pixel when moving. This may  look twitchy if the Sprite moves slowly.
