@@ -18,11 +18,6 @@ brief: 本教程介绍了有关编译系统用来编译原生扩展的一些细�
 
 ## 工具链
 
-Clang - macOS, iOS, Win32, Android
-GCC - Linux
-
-*我们打算以后也给Linux使用 clang *
-
 ### SDK 版本
 
 * Android: NDK 20r, Build Tools 23.0.2, Api Level 16 for armv7 and Api level 21 for arm64

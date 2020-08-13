@@ -17,11 +17,6 @@ When creating libraries (such as extensions), it's good to keep the lowest commo
 
 ## Toolchain
 
-Clang - macOS, iOS, Win32, Android
-GCC - Linux
-
-*We plan to use clang for Linux as well at some point*
-
 ### SDK Versions
 
 For the most accurate list of versions, check the [build.py](./scripts/build.py).
