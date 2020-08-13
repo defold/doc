@@ -39,7 +39,6 @@ For the most accurate list of versions, check the [build.py](./scripts/build.py)
 For iOS/MacOS, we use `-miphoneos-version-min=8.0` and `-mmacosx-version-min=10.7` respectively.
 
 We don't specify a specific C++ version, so we use the default of each compiler.
-However, we favor a C++-98 style of programming, to make the code portable with platforms and 3rd party extensions.
 
 ## Win32 + Clang
 
