@@ -1,10 +1,13 @@
-The *Blend Mode* property defines how the component graphics should be blended with the graphics behind it. These are the available blend modes and how they are calculated:
+*Blend Mode* 属性定义了可视组件如何与其后面的图像混合. 以下列举了支持的混合模式及其混合算法:
 
 Alpha
-: Normal blending: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
+: 普通混合: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
 
 Add
-: Brighten the background with the color values of the corresponding pixels of the component: rgb~0~ + rgb~1~
+: 使用相应的 sprite 像素颜色值提亮背景: rgb~0~ + rgb~1~
+
+Add Alpha (废弃!)
+: 使用相应的可见 sprite 像素颜色值提亮背景: a~0~ * rgb~0~ + rgb~1~
 
 Multiply
-: Darken the background with values of the the corresponding pixels of the component: rgb~0~ * rgb~1~
+: 使用相应的 sprite 像素颜色值调暗背景: rgb~0~ * rgb~1~

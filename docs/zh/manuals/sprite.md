@@ -27,18 +27,8 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 *Blend Mode*
 : 组件渲染时使用的混合模式.
 
-
 ### 混合模式
-*Blend Mode* 属性决定了sprite与其下层图像如何进行颜色混合. 计算时配置了如下算法:
-
-Alpha
-: 普通混合: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
-
-Add
-: 使用sprite的像素值提亮背景: rgb~0~ + rgb~1~
-
-Multiply
-: 使用sprite的像素值调暗背景: rgb~0~ * rgb~1~
+:[blend-modes](../shared/blend-modes.md)
 
 # 运行时操作
 

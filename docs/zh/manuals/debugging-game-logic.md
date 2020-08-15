@@ -1,9 +1,9 @@
 ---
-title: Debugging in Defold
-brief: This manual explains the debugging facilities present in Defold.
+title: Defold 中的调试
+brief: 本教程介绍了 Defold 中自带的调试功能.
 ---
 
-# Debugging game logic
+# 调试游戏逻辑
 
 Defold contains an integrated Lua debugger with an inspection facility. Together with the built-in [profiling tools](/manuals/profiling) it is a powerful tool that can help finding the cause of bugs in your game logic or help analyze performance issues.
 

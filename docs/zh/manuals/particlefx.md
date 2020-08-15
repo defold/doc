@@ -121,16 +121,7 @@ Stretch With Velocity
 : Check to scale any particle stretch in the direction of movement.
 
 ### 混合模式
-*Blend Mode* 属性决定了粒子特效与其下层图像如何进行颜色混合. 计算时配置了如下算法:
-
-Alpha
-: 普通混合: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
-
-Add
-: 使用粒子特效的像素值提亮背景: rgb~0~ + rgb~1~
-
-Multiply
-: 使用粒子特效的像素值调暗背景: rgb~0~ * rgb~1~
+:[blend-modes](../shared/blend-modes.md)
 
 ## Keyable emitter properties
 

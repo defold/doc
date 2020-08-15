@@ -38,6 +38,9 @@ SpineModel 组件用于把 _Spine_ 骨骼动画在 Defold 中呈现出来.
 
 ![编辑器中的Spine模型](images/spinemodel/spinemodel.png){srcset="images/spinemodel/spinemodel@2x.png 2x"}
 
+### 混合模式
+:[blend-modes](../shared/blend-modes.md)
+
 ## 运行时操作
 
 有一系列方法可以在运行时修改Spine模型 (参见 [API文档](/ref/spine/)).

@@ -66,16 +66,7 @@ brief: 本教程介绍了文本组件 label 的使用方法.
 : 用于渲染此 label 所使用的材质. 确保选中的材质是为你所使用的字体 (bitmap, distance field or BMFont) 创建的.
 
 ### 混合模式
-*Blend Mode* 属性决定了 label 与其下层图像如何进行颜色混合. 计算时配置了如下算法:
-
-Alpha
-: 普通混合: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
-
-Add
-: 使用 label 的像素值提亮背景: rgb~0~ + rgb~1~
-
-Multiply
-: 使用 label 的像素值调暗背景: rgb~0~ * rgb~1~
+:[blend-modes](../shared/blend-modes.md)
 
 ### 锚点和对齐
 
