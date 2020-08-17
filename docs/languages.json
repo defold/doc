@@ -17,6 +17,12 @@
             "name": "中文 (Chinese)",
             "translation": "Translation by cocosgames.com",
             "active": true
+        },
+        "pt":
+        {
+            "name": "Língua Portuguesa (Portuguese)",
+            "translation": "",
+            "active": true
         }
     }
 }
