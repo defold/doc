@@ -20,8 +20,14 @@
         },
         "pt":
         {
-            "name": "Língua Portuguesa (Portuguese)",
+            "name": "Português (Portuguese)",
             "translation": "",
+            "active": true
+        },
+        "pl":
+        {
+            "name": "Język polski (Polish)",
+            "translation": "Pawel Jarosz",
             "active": true
         }
     }
