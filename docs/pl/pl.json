@@ -1,0 +1,705 @@
+{
+    "navigation": {
+        "tutorials":
+        [
+            {
+                "name": "Wprowadzenie",
+                "items": [
+                    {
+                        "path": "/tutorials/getting-started",
+                        "name": "Jak rozpocząć"
+                    }
+                ]
+            },
+            {
+                "name": "Tutoriale",
+                "items": [
+                    {
+                        "path": "/tutorials/side-scroller",
+                        "name": "Side scroller"
+                    },
+                    {
+                        "path": "/tutorials/astronaut",
+                        "name": "Chodzący astronauta"
+                    },
+                    {
+                        "path": "/tutorials/movement",
+                        "name": "Poruszanie"
+                    },
+                    {
+                        "path": "/tutorials/colorslide",
+                        "name": "Colorslide"
+                    },
+                    {
+                        "path": "/tutorials/war-battles",
+                        "name": "War battles"
+                    },
+                    {
+                        "path": "/tutorials/snake",
+                        "name": "Snake"
+                    },
+                    {
+                        "path": "/tutorials/15-puzzle",
+                        "name": "15 puzzle"
+                    },
+                    {
+                        "path": "/tutorials/shadertoy",
+                        "name": "Shadertoy"
+                    },
+                    {
+                        "path": "/tutorials/grading",
+                        "name": "Degradacja kolorów - postefekty"
+                    }
+                ]
+            },
+            {
+                "name": "Przykłady",
+                "items": [
+                    {
+                        "path": "https://github.com/defold/sample-roids",
+                        "name": "Asteroids"
+                    },
+                    {
+                        "path": "https://github.com/defold/sample-linker",
+                        "name": "Linker - połącz 3"
+                    },
+                    {
+                        "path": "https://github.com/defold/sample-shadertoy",
+                        "name": "Shadertoy"
+                    },
+                    {
+                        "path": "https://github.com/defold/sample-rpgmap",
+                        "name": "Mapa RPG"
+                    }
+                ]
+            },
+            {
+                "name": "Starsze tutoriale",
+                "items": [
+                    {
+                        "path": "/tutorials/platformer",
+                        "name": "Platformer"
+                    },
+                    {
+                        "path": "/tutorials/runner",
+                        "name": "Runner"
+                    },
+                    {
+                        "path": "/tutorials/magic-link",
+                        "name": "Magic link"
+                    },
+                    {
+                        "path": "/tutorials/car",
+                        "name": "Samochód"
+                    },
+                    {
+                        "path": "/tutorials/main-menu",
+                        "name": "Menu główne"
+                    },
+                    {
+                        "path": "/tutorials/parallax",
+                        "name": "Parallax"
+                    },
+                    {
+                        "path": "/tutorials/hud",
+                        "name": "Hud"
+                    },
+                    {
+                        "path": "/tutorials/level-complete",
+                        "name": "Poziom ukończony"
+                    }
+                ]
+            },
+            {
+                "name": "Zasoby społeczności",
+                "items": [
+                    {
+                        "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
+                        "name": "Video tutoriale GFS"
+                    },
+                    {
+                        "path": "https://github.com/benjames-171/defold-games",
+                        "name": "Gry Bena Jamesa"
+                    },
+                    {
+                        "path": "https://forum.defold.com/t/big-list-of-lua-resources/1586",
+                        "name": "Wiedza o języku Lua"
+                    },
+                    {
+                        "path": "https://github.com/defold/defold-examples",
+                        "name": "Przykłady Defold"
+                    },
+                    {
+                        "path": "http://britzl.github.io/publicexamples/",
+                        "name": "Przykłady Britzla"
+                    },
+                    {
+                        "path": "https://jcash.github.io/",
+                        "name": "Przykłady JCasha"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
+                        "name": "Video tutoriale Sergeya Lerga"
+                    },
+                    {
+                        "path": "https://www.tactxstudios.com/",
+                        "name": "Tutoriale Tactx Studios"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
+                        "name": "Video tutoriale Tactx Studios"
+                    }
+                ]
+            }
+        ],
+        "manuals":
+        [
+            {
+                "name": "JAK ROZPOCZĄĆ",
+                "items": [
+                    {
+                        "path": "/manuals/introduction",
+                        "name": "Wprowadzenie"
+                    },
+                    {
+                        "path": "/manuals/install",
+                        "name": "Instalacja Defold"
+                    },
+                    {
+                        "path": "/manuals/editor",
+                        "name": "Edytor"
+                    },
+                    {
+                        "path": "/manuals/glossary",
+                        "name": "Słownik pojęć"
+                    },
+                    {
+                        "path": "/manuals/flash",
+                        "name": "Defold dla użytkowników Flasha"
+                    },
+                    {
+                        "path": "/manuals/getting-help",
+                        "name": "Uzyskiwanie pomocy"
+                    }
+                ]
+            },
+            {
+                "name": "USTAWIENIA PROJEKTU",
+                "items": [
+                    {
+                        "path": "/manuals/project-setup",
+                        "name": "Tworzenie projektu"
+                    },
+                    {
+                        "path": "/manuals/project-settings",
+                        "name": "Ustawienia projektu"
+                    },
+                    {
+                        "path": "/manuals/libraries",
+                        "name": "Biblioteki"
+                    }
+                ]
+            },
+            {
+                "name": "GŁÓWNE ELEMENTY",
+                "items": [
+                    {
+                        "path": "/manuals/building-blocks",
+                        "name": "Podstawowe bloki"
+                    },
+                    {
+                        "path": "/manuals/addressing",
+                        "name": "Adresowanie"
+                    },
+                    {
+                        "path": "/manuals/message-passing",
+                        "name": "Przekazywanie wiadomości"
+                    },
+                    {
+                        "path": "/manuals/application-lifecycle",
+                        "name": "Cykl życia aplikacji"
+                    }
+                ]
+            },
+            {
+                "name": "ASSETY I ZASOBY",
+                "items": [
+                    {
+                        "path": "/manuals/importing-assets",
+                        "name": "Importowanie assetów"
+                    },
+                    {
+                        "path": "/manuals/importing-graphics",
+                        "name": "Importowanie grafiki 2D"
+                    },
+                    {
+                        "path": "/manuals/importing-models",
+                        "name": "Importowanie modeli 3D"
+                    },
+                    {
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adaptacja do różnych wielkości ekranów"
+                    },
+                    {
+                        "path": "/manuals/live-update",
+                        "name": "Live update - aktualizacja na żywo"
+                    },
+                    {
+                        "path": "/manuals/animation",
+                        "name": "Animacja"
+                    },
+                    {
+                        "path": "/manuals/atlas",
+                        "name": "Atlas - galeria grafik"
+                    },
+                    {
+                        "path": "/manuals/font",
+                        "name": "Font - czcionka"
+                    },
+                    {
+                        "path": "/manuals/resource",
+                        "name": "Zarządzanie zasobami"
+                    },
+                    {
+                        "path": "/manuals/tilesource",
+                        "name": "Tile source - galeria kafelków"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Filtrowanie tekstur"
+                    },
+                    {
+                        "path": "/manuals/texture-profiles",
+                        "name": "Profile tekstur"
+                    }
+                ]
+            },
+            {
+                "name": "KOMPONENTY",
+                "items": [
+                    {
+                        "path": "/manuals/components",
+                        "name": "Przegląd"
+                    },
+                    {
+                        "path": "/manuals/collection-factory",
+                        "name": "Collection factory - Fabryka kolekcji"
+                    },
+                    {
+                        "path": "/manuals/collection-proxy",
+                        "name": "Collection proxy - Pełnomocnik kolekcji"
+                    },
+                    {
+                        "path": "/manuals/physics",
+                        "name": "Collision object - Kolizje"
+                    },
+                    {
+                        "path": "/manuals/camera",
+                        "name": "Camera - Kamera"
+                    },
+                    {
+                        "path": "/manuals/factory",
+                        "name": "Factory - Fabryka"
+                    },
+                    {
+                        "path": "/manuals/label",
+                        "name": "Label - Etykieta"
+                    },
+                    {
+                        "path": "/manuals/mesh",
+                        "name": "Mesh - Siatka"
+                    },
+                    {
+                        "path": "/manuals/model",
+                        "name": "Model - Model"
+                    },
+                    {
+                        "path": "/manuals/particlefx",
+                        "name": "Particle FX - Efkety cząsteczkowe"
+                    },
+                    {
+                        "path": "/manuals/sound",
+                        "name": "Sound - Dźwięk"
+                    },
+                    {
+                        "path": "/manuals/spine",
+                        "name": "Spine animation - Animacja kręgosłupowa"
+                    },
+                    {
+                        "path": "/manuals/spinemodel",
+                        "name": "Spine model - Model animacji kręgosłupowej"
+                    },
+                    {
+                        "path": "/manuals/sprite",
+                        "name": "Sprite - Grafika"
+                    },
+                    {
+                        "path": "/manuals/tilemap",
+                        "name": "Tilemap - Mapa kafelków"
+                    }
+                ]
+            },
+            {
+                "name": "GUI - Elementy interfejsu",
+                "items": [
+                    {
+                        "path": "/manuals/gui",
+                        "name": "Przegląd elementów interfejsu"
+                    },
+                    {
+                        "path": "/manuals/gui-box",
+                        "name": "Box - element prostokątny"
+                    },
+                    {
+                        "path": "/manuals/gui-text",
+                        "name": "Text - element tekstowy"
+                    },
+                    {
+                        "path": "/manuals/gui-pie",
+                        "name": "Pie - element okrągły"
+                    },
+                    {
+                        "path": "/manuals/gui-spine",
+                        "name": "Spine - element z animacją kręgosłupową"
+                    },
+                    {
+                        "path": "/manuals/gui-particlefx",
+                        "name": "ParticleFX - element z efektami cząsteczkowymi"
+                    },
+                    {
+                        "path": "/manuals/gui-template",
+                        "name": "Template - szablon"
+                    },
+                    {
+                        "path": "/manuals/gui-script",
+                        "name": "Skrypty"
+                    },
+                    {
+                        "path": "/manuals/gui-clipping",
+                        "name": "Clipping - Wycinanie"
+                    },
+                    {
+                        "path": "/manuals/gui-layouts",
+                        "name": "Layouts - Rozplanowanie"
+                    }
+                ]
+            },
+            {
+                "name": "FIZYKA",
+                "items": [
+                    {
+                        "path": "/manuals/physics",
+                        "name": "Collision objects - obiekty kolizji"
+                    },
+                    {
+                        "path": "/manuals/physics/#collision-shapes",
+                        "name": "Collision shapes - kształty kolizji"
+                    },
+                    {
+                        "path": "/manuals/physics/#ray-casts",
+                        "name": "Ray casts - promienie"
+                    },
+                    {
+                        "path": "/manuals/physics/#joints",
+                        "name": "Joints - przeguby"
+                    }
+                ]
+            },
+            {
+                "name": "LOGIKA GRY",
+                "items": [
+                    {
+                        "path": "/manuals/script",
+                        "name": "Skrypty"
+                    },
+                    {
+                        "path": "/manuals/properties",
+                        "name": "Właściwości"
+                    },
+                    {
+                        "path": "/manuals/script-properties",
+                        "name": "Właściwości skryptu"
+                    },
+                    {
+                        "path": "/manuals/lua",
+                        "name": "Użycie języka Lua w Defold"
+                    },
+                    {
+                        "path": "/manuals/input",
+                        "name": "Wejścia/Sterowanie"
+                    },
+                    {
+                        "path": "/manuals/modules",
+                        "name": "Moduły"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugowanie"
+                    }
+                ]
+            },
+            {
+                "name": "ZAPISYWANIE I WCZYTYWANIE PLIKÓW",
+                "items": [
+                    {
+                        "path": "/manuals/file-access",
+                        "name": "Praca z plikami"
+                    }
+                ]
+            },
+            {
+                "name": "USŁUGI INTERNETOWE",
+                "items": [
+                    {
+                        "path": "/manuals/networking",
+                        "name": "Przegląd"
+                    },
+                    {
+                        "path": "/manuals/http-requests",
+                        "name": "Zawołania HTTP"
+                    },
+                    {
+                        "path": "/manuals/socket-connections",
+                        "name": "Łączenie gniazd (Socket)"
+                    },
+                    {
+                        "path": "/manuals/websocket-connections",
+                        "name": "Łączenie gniazd (WebSocket)"
+                    },
+                    {
+                        "path": "/manuals/online-services",
+                        "name": "Usługi online"
+                    }
+                ]
+            },
+            {
+                "name": "RENDEROWANIE",
+                "items": [
+                    {
+                        "path": "/manuals/render",
+                        "name": "Renderowanie"
+                    },
+                    {
+                        "path": "/manuals/material",
+                        "name": "Materiały"
+                    },
+                    {
+                        "path": "/manuals/shader",
+                        "name": "Shadery - programy do postefektów"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Filtrowanie tekstur"
+                    }
+                ]
+            },
+            {
+                "name": "WORKFLOW",
+                "items": [
+                    {
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adaptacja do różnych wielkości ekranów"
+                    },
+                    {
+                        "path": "/manuals/bundling",
+                        "name": "Pakowanie aplikacji"
+                    },
+                    {
+                        "path": "/manuals/bob",
+                        "name": "Bob Budowniczy"
+                    },
+                    {
+                        "path": "/manuals/hot-reload",
+                        "name": "Szybkie przeładowanie"
+                    },
+                    {
+                        "path": "/manuals/optimization",
+                        "name": "Optymalizacja aplikacji"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profilowanie"
+                    },
+                    {
+                        "path": "/manuals/refactoring",
+                        "name": "Refaktoryzacja"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "Programowanie na urządzenia mobilne"
+                    },
+                    {
+                        "path": "/manuals/version-control",
+                        "name": "Systemy kontroli wersji"
+                    },
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Pisanie kodu"
+                    },
+                    {
+                        "path": "/manuals/working-offline",
+                        "name": "Praca bez internetu"
+                    }
+                ]
+            },
+            {
+                "name": "DEBUGOWANIE",
+                "items": [
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugowanie logiki gry"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugowanie kodu natywnego"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-android",
+                        "name": "Debugowanie kodu natywnego na Androidzie"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-ios",
+                        "name": "Debugowanie kodu natywnego na iOS"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-and-system-logs",
+                        "name": "Czytanie logów gry i systemowych"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profilowanie"
+                    }
+                ]
+            },
+            {
+                "name": "PLATFORMY",
+                "items": [
+                    {
+                        "path": "/manuals/android",
+                        "name": "Android"
+                    },
+                    {
+                        "path": "/manuals/ios",
+                        "name": "iOS"
+                    },
+                    {
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
+                    },
+                    {
+                        "path": "/manuals/html5",
+                        "name": "HTML5"
+                    },
+                    {
+                        "path": "/manuals/macos",
+                        "name": "macOS"
+                    },
+                    {
+                        "path": "/manuals/windows",
+                        "name": "Windows"
+                    }
+                ]
+            },
+            {
+                "name": "MONETYZACJA",
+                "items": [
+                    {
+                        "path": "/manuals/ads",
+                        "name": "Reklamy"
+                    },
+                    {
+                        "path": "/extension-iap",
+                        "name": "Zakupy wewnątrz aplikacji"
+                    },
+                    {
+                        "path": "/manuals/web-monetization",
+                        "name": "Monetyzacja na stronach internetowych"
+                    }
+                ]
+            },
+            {
+                "name": "ROZSZERZENIA",
+                "items": [
+                    {
+                        "path": "/manuals/facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/manuals/instant-games",
+                        "name": "Facebook Instant Games"
+                    },
+                    {
+                        "path": "/extension-gpgs",
+                        "name": "Google Play Game Services"
+                    },
+                    {
+                        "path": "/extension-iap",
+                        "name": "Zakupy wewnątrz aplikacji"
+                    },
+                    {
+                        "path": "/manuals/iac",
+                        "name": "Komunikacja wewnątrz aplikacji"
+                    },
+                    {
+                        "path": "/extension-push",
+                        "name": "Notyfikacje / Powiadomienia"
+                    },
+                    {
+                        "path": "/manuals/webview",
+                        "name": "Webview"
+                    }
+                ]
+            },
+            {
+                "name": "NATIVE EXTENSIONS - ROZSZERZENIA NATYWNE",
+                "items": [
+                    {
+                        "path": "/manuals/extensions",
+                        "name": "Wprowadzenie"
+                    },
+                    {
+                        "path": "/manuals/extensions-details",
+                        "name": "Szczegóły"
+                    },
+                    {
+                        "path": "/manuals/extensions-defold-sdk",
+                        "name": "Defold SDK"
+                    },
+                    {
+                        "path": "/manuals/extensions-script-api",
+                        "name": "Dodawanie definicji auto-uzupełniania"
+                    },
+                    {
+                        "path": "/manuals/extensions-best-practices",
+                        "name": "Najlepsze praktyki"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugowanie"
+                    },
+                    {
+                        "path": "/manuals/extensions-build-variants",
+                        "name": "Opcje budowania"
+                    },
+                    {
+                        "path": "/manuals/extensions-manifest-merge-tool",
+                        "name": "Dołączanie manifestów"
+                    }
+                ]
+            },
+            {
+                "name": "EDITOR EXTENSIONS - SKRYPTY DO EDYTORA",
+                "items": [
+                    {
+                        "path": "/manuals/editor-scripts",
+                        "name": "Skrypty do Edytora"
+                    }
+                ]
+            }
+        ]
+    }
+}
