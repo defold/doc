@@ -625,7 +625,7 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
-                        "path": "/manuals/facebook",
+                        "path": "/extension-facebook",
                         "name": "Facebook"
                     },
                     {
