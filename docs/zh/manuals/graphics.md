@@ -7,14 +7,6 @@ brief: 本教程简述了 Defold 支持的图像组件.
 
 Defold是一个全3D引擎, 但是设计上还是为2D提供强大支持的. 目前该引擎比较适用于开发2D游戏.
 
-## 导入图片文件
-
-Defold使用的资源全部保存在项目目录下. 需要显示什么样的图像, 就要先导入图像资源. 要导入一个资源只要简单的把文件从电脑上拖拽到Defold编辑器的 _资源目录_.
-
-![Importing image files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
-
-Defold支持PNG和JPEG图片格式. 如果需要模型, Defold支持Collada DAE格式.
-
 ## 图片资源
 
 Defold中, 可视组件使用两种图片资源:

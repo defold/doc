@@ -221,6 +221,10 @@
                         "name": "Importing and editing assets"
                     },
                     {
+                        "path": "/manuals/importing-models",
+                        "name": "Importing and using 3D models"
+                    },
+                    {
                         "path": "/manuals/animation",
                         "name": "Animation"
                     },
@@ -488,7 +492,7 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
-                        "path": "/manuals/facebook",
+                        "path": "/extension-facebook",
                         "name": "Facebook"
                     },
                     {

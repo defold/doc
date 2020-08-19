@@ -1,58 +1,58 @@
 ---
-title: Importing models
-brief: This manual covers how to import 3D models used by the model component.
+title: 导入模型
+brief: 本教程介绍了通过模型组件导入 3D 模型的方法.
 ---
 
-# Importing 3D models
-Defold currently only support models, skeletons and animations in the Collada *.dae* format. You can use tools such as Maya, 3D Max, Sketchup and Blender to create and/or convert 3D models into Collada format. Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, Mac OS X and Linux and is freely available for download at http://www.blender.org
+# 导入3D模型
+Defold 目前只支持 Collada *.dae* 格式的骨骼和动画模型. 可以使用类似 Maya, 3D Max, Sketchup 和 Blender 的软件保存或者转换3D模型为Collada格式. Blender 是一个著名的3D建模, 动画及渲染软件. 它在 Windows, Mac OS X 和 Linux 都能运行并且在 http://www.blender.org 上免费下载.
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
-## Exporting to Collada
-When you export a model to Collada format you get a file with the *.dae* file extension. This file contain all the vertices, edges and faces that make up the model, as well as _UV coordinates_ (what part of the texture image maps to a certain part of the mesh) if you have defined them, the bones in the skeleton and animation data.
+## 导出 Collada 格式文件
+导出的 Collada 格式文件扩展名是 *.dae*. 此文件包含模型所有的点, 边和面的信息, 如果模型贴了图, 同时还包含 _UV 坐标_ (用于确定纹理如何铺在模型表面), 以及骨架骨骼和动画数据.
 
-* A detailed description on polygon meshes can be found on http://en.wikipedia.org/wiki/Polygon_mesh.
+* 关于多边形网格的解释详见 http://en.wikipedia.org/wiki/Polygon_mesh.
 
-* UV coordinates and UV mapping is described at http://en.wikipedia.org/wiki/UV_mapping.
+* UV 坐标和 UV 映射的解释详见 http://en.wikipedia.org/wiki/UV_mapping.
 
-Defold imposes some limitations on exported animation data:
+Defold 对于导出的动画作了一些限制:
 
-* Defold currently only supports baked animations. Animations need to have matrices for each animated bone each keyframe, and not position, rotation and scale as separate keys.
+* Defold 目前只支持烘焙好的动画. 动画每一关键帧每个骨骼都要提供矩阵数据而不是位置, 旋转和缩放这样分开的数据.
 
-* Animations are also linearly interpolated. If you do more advanced curve interpolation the animations needs to be prebaked from the exporter.
+* 动画都是线性插值的. 如果需要曲线插值请在导出前预烘焙好.
 
-* Animation clips in Collada are not supported. To use multiple animations per model, export them into separate *.dae* files and gather the files into an *.animationset* file in Defold.
-
-
-### Requirements
-When you export a model to Collada format you need to make sure that it fulfills the following requirements:
-
-* The model must consist of a single mesh
-* The model must use a single material
+* 不支持 Collada 的动画片段. 一个模型如有多个动画, 请分别导出 *.dae* 文件然后在 Defold 中合并成一个 *.animationset* 文件.
 
 
-#### Joining multiple meshes
-You can use Blender to join multiple meshes. Select all of the meshes and press `CTRL`/`CMD` + `J` to join them.
+### 需求
+对于导出的 Collada 格式模型需遵循以下需求:
 
-![Join meshes](images/model/blender_join_meshes.png)
-
-
-#### Removing materials
-You can use Blender to remove extra materials from the model. Select the material to remove and press the `-` button.
-
-![Remove materials](images/model/blender_remove_materials.png)
+* 模型必须由单个网格组成
+* 模型必须使用单个材质
 
 
-#### Exporting a texture
-If you do not already have a texture for your model you can use Blender to generate a texture. You should do this before you remove extra materials from the model. Start by selecting the mesh and all of its vertices:
+#### 网格组合
+可以使用 Blender 来组合多个网格. 选中所有网格, 按 `CTRL`/`CMD` + `J` 来进行组合操作.
+
+![组合网格](images/model/blender_join_meshes.png)
+
+
+#### 删除材质
+可以使用 Blender 删除模型上的多余材质. 选中要删除的材质, 按 `-` 来进行删除.
+
+![删除材质](images/model/blender_remove_materials.png)
+
+
+#### 导出纹理
+如果模型没有纹理, 可以使用 Blender 来生成一个. 这个工作要在删除多余材质之前完成. 从选择网格及其所有的点开始:
 
 ![Select all](images/model/blender_select_all_vertices.png)
 
-When all vertices are selected you unwrap the mesh to get the UV layout:
+选中所有点后即可展开UV:
 
 ![Unwrap mesh](images/model/blender_unwrap_mesh.png)
 
-You can then proceed to export the UV layout to an image that can be used as a texture:
+接下来就可以把它保存为图片文件作为网格纹理:
 
 ![Export UV layout](images/model/blender_export_uv_layout.png)
 
@@ -61,17 +61,17 @@ You can then proceed to export the UV layout to an image that can be used as a t
 ![Export UV layout result](images/model/blender_export_uv_layout_result.png)
 
 
-## Exporting using Blender
-You export your model into Collada format using the Export menu option. Select the model before you select the Export to Collada menu option and check "Selection Only" to only export the model.
+## 从 Blender 中导出
+从导出菜单选项中导出 Collada 格式文件. 选中模型然后点选 导出为 Collada 菜单项, 选中 "Selection Only" 选项即可导出文件.
 
 ![Exporting using Blender](images/model/blender_export.png)
 
 
-## Importing to Defold
-To import the model, simply drag and drop the *.dae* file and the corresponding texture image into the *Assets Pane* somewhere.
+## 导入到 Defold 中
+要导入模型, 只需要把 *.dae* 文件及其相应纹理图片拖放到 *资源面板* 里即可.
 
 ![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
 
 
-## Using a model
-Once you have the model imported into Defold you can use it in a [Model component](/manuals/model).
+## 使用模型
+模型导入 Defold 后就可以使用 [模型组件](/manuals/model) 了.

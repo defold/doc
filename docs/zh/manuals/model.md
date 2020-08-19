@@ -7,24 +7,6 @@ brief: 本教程介绍了如何将3D模型, 骨骼和动画带入你的游戏之
 
 Defold 核心是3D的. 就算只有2D材质的话渲染也是3D的, 只不过是映射到平面屏幕上而已.  Defold 允许在集合中使用 3D 资源, 或者称作 _模型_ . 你可以用Defold制作全3D的, 或者2D和3D混合的游戏.
 
-## 创建模型
-
-来看一个示例. 我们已经用 _Blender_ 做好了一个带骨骼和动画的模型.
-
-Blender 是一个著名的3D软件. 它可以运行在 Windows, Mac OS X and Linux 系统上并且可以在 http://www.blender.org 免费下载.
-
-现在我们把它来导入 Defold.
-
-![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
-
-首先需要使用 Blender Collada 导出器输出 *.dae* 格式的文件. 导出的文件包含模型的所有点, 线和面, 还包含 _UV 坐标_ (模型与纹理的部位对部位的映射). 如果做了, 还包含骨骼和动画数据.
-
-关于多边形网格详见 http://en.wikipedia.org/wiki/Polygon_mesh. 关于 UV 坐标与 UV 映射详见 http://en.wikipedia.org/wiki/UV_mapping.
-
-现在要导入模型, 简单的拖拽 *.dae* 文件及其相应的纹理图到 *Project 浏览器* 的某个位置.
-
-![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
-
 ## 创建 model 组件
 
 Model 组件和其他游戏对象组件一样, 两种创建办法:
