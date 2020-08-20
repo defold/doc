@@ -1,6 +1,6 @@
 ---
 title: 导入和编辑资源
-brief: 本教程介绍了在 Defold 中如何使用外部编辑器编辑资源文件.
+brief: 本教程介绍了导入, 编辑资源的方法.
 ---
 
 # 导入和编辑资源导入和编辑资源
@@ -8,21 +8,21 @@ brief: 本教程介绍了在 Defold 中如何使用外部编辑器编辑资源�
 一个游戏项目通常包含了大量其他程序生成的资源文件, 比如图像, 3D 模型, 音乐文件, 动画之类的. Defold 工作流就包括使用第三方工具创建资源然后导入Defold中使用. 当这些资源导入之后就可以被Defold的各种组件使用, 比如 逐帧动画, 瓷砖地图, 粒子特效之类的:
 
 
-## Importing Assets
+## 导入资源
 
-Defold needs all the assets used in your project to be located somewhere in the project hierarchy. You therefore need to import all assets before you can use them. To import assets, simply drag the files from the file system on your computer and drop them in an appropriate place in the Defold editor _Project Explorer_.
+Defold 要求其所用资源全部位于项目文件夹内. 先导入后使用. 导入方法很简单, 从文件系统任意位置拖动任意文件放入 Defold 编辑器 _资源面板_ 里即可.
 
 ![Importing files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
 
-::: sidenote
-Defold supports images in the PNG and JPEG image formats. Other image formats need to be converted before they can be used.
+::: 注意
+Defold 支持 PNG 和 JPEG 图片格式. 其他格式要先转换成支持格式后使用.
 :::
 
-## Using Assets
+## 使用资源
 
-When the assets are imported into Defold they can be used by the various component types to create flipbook animations, tilemaps, particle effects and many other things:
+当资源文件导入 Defold 之后就可以使用各种组件来创造逐帧动画, 瓷砖地图, 粒子特效等各种内容:
 
-* 图片用于创建 [图集](/manuals/atlas) 瓷砖图源可以用于 [sprite](/manuals/sprite), [瓷砖地图](/manuals/tilemap) 和 [粒子特效](/manuals/particlefx). 详情请见 [图像教程](/manuals/graphics/#importing-image-files).
+* 图片可以用来实现2D游戏常见的各种可视内容. 详情请见 [如何导入和使用2D图像](/manuals/importing-graphics).
 * 声音文件可以用 [声音组件](/manuals/sound)来播放.
 * Spine 动画数据可以用于 [Spine 组件](/manuals/spinemodel) 来显示.
 * 字体文件 可以用于 [Label 组件](/manuals/label) 和GUI中的 [text 节点](/manuals/gui-text).

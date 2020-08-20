@@ -220,6 +220,10 @@
                         "path": "/manuals/importing-assets",
                         "name": "Importing and editing assets"
                     },
+
+                    {   "path": "/manuals/importing-graphics",
+                        "name": "Importing and using 2D graphics"
+                    },
                     {
                         "path": "/manuals/importing-models",
                         "name": "Importing and using 3D models"

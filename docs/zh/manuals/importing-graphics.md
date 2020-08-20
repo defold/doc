@@ -1,83 +1,83 @@
 ---
-title: Importing and using 2D graphics
-brief: This manual covers how to import and use 2D graphics.
+title: 导入和使用2D图像
+brief: 本教程介绍了如何导入和使用2D图像.
 ---
 
-# Importing 2D graphics
+# 导入2D图像
 
-Defold supports many kinds of visual components frequently used in 2D games. Use can use Defold to create static and animated sprites, UI components, particle effects, tile maps, bitmap fonts and Spine animations. Before you can create any of these visual components you need to import image files with the graphics that you wish to use. To import image files you simply drag the files from the file system on your computer and drop them in an appropriate place in the Defold editor *Assets pane*.
+Defold 支持2D游戏常见的可视内容. 可以使用 Defold 制作静态或动态Sprite, UI 组件, 粒子特效, 瓷砖地图, 位图字体和 Spine 动画. 先导入图片文件再创建相应资源以使用它们. 把文件系统任意图片文件拖放到 Defold 编辑器的 *资源面板* 中即完成导入操作.
 
 ![Importing files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
 
-::: sidenote
-Defold supports images in the PNG and JPEG image formats. Other image formats need to be converted before they can be used.
+::: 注意
+Defold 支持 PNG 和 JPEG 图片格式. 其他格式要先转换成支持格式后使用.
 :::
 
 
-## Creating Defold assets
+## 创建 Defold 资源
 
-When the images are imported into Defold they can be used to create Defold specific assets:
+图片导入 Defold 后即可创建相应资源:
 
 ![atlas](images/icons/atlas.png){.icon} Atlas
-: An atlas contains a list of separate images files, which are automatically combined into a larger texture image. Atlases can contain still images and *Animation Groups*, sets of images that together form a flipbook animation.
+: 图集是多张图片组成的大图. 图集可以包含单个图片或者 *动画组*, 即组成逐帧动画的一组图片.
 
   ![atlas](images/graphics/atlas.png){srcset="images/graphics/atlas@2x.png 2x"}
 
-Learn more about the atlas resource in the [Atlas manual](/manuals/atlas).
+关于图集资源详情请见 [图集教程](/manuals/atlas).
 
 ![tile source](images/icons/tilesource.png){.icon} Tile Source
-: A tile source references an image file that is already made out to consist of smaller sub-images ordered on a uniform grid. Another term commonly used for this type of compound image is _sprite sheet_. Tile sources can contain flipbook animations, defined by the first and last tile for the animation. It is also possible to use an image to automatically attach collision shapes to tiles.
+: 瓷砖图集是由小图按一定顺序排列好的大图. 这种图又被叫做 _精灵表_. 瓷砖图集也可以通过指定第一帧与最后一帧的图块, 来创造逐帧动画. 也可以使用图片自动生成图块的碰撞方块.
 
   ![tile source](images/graphics/tilesource.png){srcset="images/graphics/tilesource@2x.png 2x"}
 
-Learn more about the tile source resource in the [Tile source manual](/manuals/tilesource).
+关于瓷砖图集资源详情请见 [瓷砖图集教程](/manuals/tilesource).
 
 ![bitmap font](images/icons/font.png){.icon} Bitmap Font
-: A bitmap font has its glyphs in a PNG font sheet. These types of fonts provide no performance improvement from fonts generated from TrueType or OpenType font files, but can include arbitrary graphics, coloring and shadows right in the image.
+: 位图字体是 PNG 图片格式的文字表. 这种字体比起 TrueType 或者 OpenType 字体文件并没有性能优势, 但是由于是图片, 颜色阴影等效果可以随意加入.
 
-Learn more about bitmap fonts in the [Fonts manual](/manuals/font/#bitmap-bmfonts).
+关于字体资源详情请见 [字体教程](/manuals/font/#bitmap-bmfonts).
 
   ![BMfont](images/font/bm_font.png){srcset="images/font/bm_font@2x.png 2x"}
 
 
-## Using Defold assets
+## 使用 Defold 资源
 
-When you have converted the images into Atlas and Tile Source files you can use these to create several different kinds of visual components:
+当图片转化为图集或者瓷砖图集之后就可以用于各种可视组件之中:
 
 ![sprite](images/icons/sprite.png){.icon}
-: A sprite is either a static image or flipbook animation that is displayed on screen.
+: Sprite是可以显示的图片或者逐帧动画.
 
   ![sprite](images/graphics/sprite.png){srcset="images/graphics/sprite@2x.png 2x"}
 
-Learn more about sprites in the [Sprite manual](/manuals/sprite).
+关于Sprite详情请见 [Sprite教程](/manuals/sprite).
 
 ![tile map](images/icons/tilemap.png){.icon} Tile map
-: A tilemap component pieces together a map from tiles (image and collision shapes) that come from a tile source. Tile maps cannot use atlas sources.
+: 瓷砖地图是由若干源自瓷砖图集的地图块 (图片连同其碰撞方块) 组成的可视组件. 瓷砖地图不能使用图集资源.
 
   ![tilemap](images/graphics/tilemap.png){srcset="images/graphics/tilemap@2x.png 2x"}
 
-Learn more about tilemaps in the [Tilemap manual](/manuals/tilemap).
+关于瓷砖地图详情请见 [瓷砖地图教程](/manuals/tilemap).
 
 ![particle effect](images/icons/particlefx.png){.icon} Particle fx
-: Particles that are spawned from a particle emitter consist of a still image or a flipbook animation from an atlas or tile source.
+: 粒子是由粒子发射器发射的, 源自图集或者瓷砖图集图片生成的一组组静态图片或逐帧动画.
 
   ![particles](images/graphics/particles.png){srcset="images/graphics/particles@2x.png 2x"}
 
-Learn more about particle effects in the [Particle fx manual](/manuals/particlefx).
+关于粒子特效详情请见 [粒子特效教程](/manuals/particlefx).
 
 ![gui](images/icons/gui.png){.icon} GUI
-: GUI box nodes and pie nodes can use still images and flipbook animations from atlases and tile sources.
+: GUI 方块节点和 饼图节点也可以使用来自图集或者瓷砖图集的静态或逐帧动画.
 
   ![gui](images/graphics/gui.png){srcset="images/graphics/gui@2x.png 2x"}
 
-Learn more about GUIs in the [GUI manual](/manuals/gui).
+关于GUI详情请见 [GUI教程](/manuals/gui).
 
 ![spine](images/icons/spine-model.png){.icon} Spine model
-: Spine models gets their data from Spine scene resources. Those contain two pieces of data:
+: Spine models 从 Spine scene 资源中获取数据. 包括两部分:
 
-  1. A Spine Json file that describes the bone animations.
-  2. An atlas that contain the images that are attached to the bones. Spine models cannot use data from tile maps.
+  1. 一个描述骨骼与动画的 Spine Json 文件.
+  2. 依附于骨骼的图片图集. Spine models 不能使用瓷砖图集资源.
 
   ![spine](images/graphics/spine.png){srcset="images/graphics/spine@2x.png 2x"}
 
-Learn more about Spine models in the [Spine model manual](/manuals/spinemodel).
+关于 Spine models 详情请见 [Spine model 教程](/manuals/spinemodel).
