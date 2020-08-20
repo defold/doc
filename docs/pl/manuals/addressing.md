@@ -5,11 +5,11 @@ brief: Instrukcja wyjaśnia sposób adresowania w silniku Defold.
 
 # Adresowanie
 
-Kod, który kontroluje grę musi obejmować zasięgiem wszystkie obiekty i komponenty, aby poruszać, skalować, animować, usuwać czy manipulować co gracz widzi i słyszy. Umożliwia to mechanizm adresowania w silniku Defold.
+Kod, który kontroluje grę musi sięgać do wszystkich obiektów i komponentów, aby poruszać, skalować, animować, usuwać czy manipulować tym, co gracz widzi i słyszy. Umożliwia to mechanizm adresowania w silniku Defold.
 
 ## Identyfikatory
 
-Defold wykorzystuje adresy (tzw. URL z ang. Uniform Resource Locator)) aby odnosić się do obiektów i komponentów. Te adresy składają się z identyfikatorów (ID). Poniżej przedstawiono wszystkie przykłady tego, jak Defold wykorzystuje adresy. W tej instrukcji przeanalizujemy je szczegółowo:
+Defold wykorzystuje adresy (tzw. URL z ang. Uniform Resource Locator), aby odnosić się do obiektów i komponentów. Te adresy składają się z identyfikatorów (ID). Poniżej przedstawiono wszystkie przykłady tego, jak Defold wykorzystuje adresy. W tej instrukcji przeanalizujemy je szczegółowo:
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -35,16 +35,16 @@ end
 ```
 1. Nie przejmuj się na tę chwilę znakiem '#'. Powrócimy do tego.
 
-Będzie to działać tak jak oczekiwaliśmy. Gdy gra się uruchomi, skrypt *adresując* komponent typu sprite poprzez jego identyfikator "body" i użyje tego adresu aby wysłać do niego specjalną *wiadomość* o treści "disable" (ang. wyłącz). Efektem tej specjalnej wiadomości silnika jest to, że w komponencie sprite zostanie ukryty/wyłączony. Schematowo, ustawienie wygląda następująco:
+Zadziała to tak, jak oczekiwaliśmy. Gdy gra się uruchomi, skrypt *adresując* komponent typu sprite poprzez jego identyfikator "body" użyje tego adresu, aby wysłać do niego specjalną *wiadomość* o treści "disable" (ang. wyłącz). Efektem tej specjalnej wiadomości silnika jest to, że w komponencie sprite zostanie ukryty/wyłączony. Wygląda to następująco:
 
 ![bean](images/addressing/bean.png)
 
-Identyfkatory w ustawieniu są arbitralne. Tutaj, my wybraliśmy aby nadać obiektowi identyfikator "bean" (ang. fasola), a jego komponent typu sprite ma identyfikator "body" (ang. ciało), a skrypt kontrolujący postać został nazwany "controller".
+Identyfkatory w takim ustawieniu są arbitralne. Tutaj, to my zdecydowaliśmy, aby nadać obiektowi identyfikator "bean" (ang. fasola), a jego komponentowi typu sprite - identyfikator "body" (ang. ciało). Skrypt kontrolujący postać został nazwany "controller".
 
 ::: sidenote
-Jeśli sam nie wybierzesz identyfikatora, edytor zrobi to za Ciebie. Kiedykowliek tworzysz nowy obiekt lub komponent w edytorze zostaje mu przydzielony z góry unikalny *Id*.
+Jeśli sam nie wybierzesz identyfikatora, edytor zrobi to za Ciebie. Kiedy tworzysz nowy obiekt lub komponent w edytorze, zostaje mu z góry przydzielony unikalny *Id*.
 
-- Obiekty (ang. game objects) mają z góry przypisany Id "go" z numerem ("go2", "go3" itd.).
+- Obiekty (ang. game objects) mają z góry przypisane Id "go" z numerem ("go2", "go3" itd.).
 - Komponenty dostają Id odpowiadające typowi ("sprite", "sprite2", "label", "sound" itp.).
 
 Oczywiście możesz pozostać przy tak wygenerowanych nazwach, ale zachęcamy do ich zmiany na dobre, opisowe i znaczące nazwy.
@@ -64,7 +64,7 @@ Jeśli spróbujesz nadać nieunikalną nazwę, edytor i tak zasygnalizuje błąd
 ![bean](images/addressing/name_collision.png)
 :::
 
-Zobaczmy teraz co się stanie, gdy dodamy więcej obiektów. Załóżmy, że chcesz stworzyć małą drużynę "fasolek". Decydujesz się nazwać jeden z obiektów "bean", a drugi "buddy" (ang. kolega). Ponadto, kiedy "bean" będzie przez chwilę bezczynny, powinien powiedzieć swojemu koledze "buddy", aby zaczął tańczyć. Można to zrobić przez wysłanie niestandradowej wiadomości o treści "dance" (ang. tańcz) ze skryptu "controller" obiektu "bean" do skryptu "controller" obiektu "buddy":
+Zobaczmy teraz co się stanie, gdy dodamy więcej obiektów. Załóżmy, że chcesz stworzyć małą drużynę "fasolek". Nazwaliśmy jeden z obiektów "bean", to drugi nazwijmy "buddy" (ang. kolega). Ponadto, kiedy "bean" będzie przez chwilę bezczynny, chcemy, żeby powiedział on swojemu koledze "buddy", aby zaczął tańczyć. Można to zrobić przez wysłanie niestandradowej wiadomości o treści "dance" (ang. tańcz) ze skryptu "controller" obiektu "bean" do skryptu "controller" obiektu "buddy":
 
 ![bean](images/addressing/bean_buddy.png)
 
@@ -72,7 +72,7 @@ Zobaczmy teraz co się stanie, gdy dodamy więcej obiektów. Załóżmy, że chc
 Są tutaj dwa komponenty typu skrypt nazwane "controller", ale każdy w osobnym obiekcie, więc jest to całkowicie dozwolone, ponieważ ich całkowite nazwy (adresy) uwzględniające identyfikatory obiektów są od siebie różne. Nowy obiekt tworzy więc tzw. nowy kontekst nazewniczy.
 :::
 
-Ponieważ wysyłamy wiadomość do komponentu poza naszym obiektem ("bean"), w kodzie musimy określić, do którego komponentu "controller" nasza wiadomość powinna być wysłana. Musimy więc w tym przypadku określić zarówno identyfikator obiektu (game object id) i komponentu (component id). Pełny adres komponentu "controller" z obiektu "buddy" brzmi więc: `"buddy#controller"` i adres ten składa się z dwóch części.
+Ponieważ wysyłamy wiadomość do komponentu poza naszym obiektem ("bean"), w kodzie musimy dookreślić, do którego komponentu "controller" nasza wiadomość powinna być wysłana. Musimy więc w tym przypadku określić zarówno identyfikator obiektu (game object id) i komponentu (component id). Pełny adres komponentu "controller" z obiektu "buddy" brzmi więc: `"buddy#controller"` i adres ten składa się z dwóch części.
 
 - Najpierw określamy identyfikator obiektu ("buddy"),
 - następnie wstawiamy wspomniany już znak oddzielenia id obiektu od komponentu ("#"),
@@ -105,7 +105,7 @@ Adres `"buddy#controller"` działa dla obiektów z obu kolekcji, ponieważ jest 
 ![relative id](images/addressing/relative_same.png)
 
 - W obrębie kontekstu nazewniczego kolekcji "team_1", obiekty "bean" i "buddy" mają unikalne adresy.
-- Analogicznie, W obrębie kontekstu nazewniczego kolekcji "team_2", obiekty "bean" i "buddy" mają również unikalne adresy.
+- Analogicznie, w obrębie kontekstu nazewniczego kolekcji "team_2", obiekty "bean" i "buddy" mają również unikalne adresy.
 
 Adresowanie relatywne (względne) działa dzięki automatycznemu używaniu identyfikatora własnej, obecnej kolekcji (czy też własnego kontekstu nazewniczego) przy tworzeniu adresu każdego komponentu. Jest to również niezwykle przydatne, ponieważ możesz tworzyć grupy obiektów z tym samym kodem dla każdego z nich i wykorzystywać je wielokrotnie w grze.
 
@@ -130,7 +130,7 @@ Dla przykładu powyżej, gra uruchomi się startując z 4 obiektami:
 - /team_2/buddy
 
 ::: sidenote
-Adresy komponentów są przechowywane jako "posiekane" / "skrócone" (ang. hashed - i może lepiej jako programista używać angielskiej nazwy (hash)[https://pl.wikipedia.org/wiki/Funkcja_skrótu]- przyp. tłumacza) wartości. W czasie działania program przechowuje adresy również jako "shaszowane" dla każdej instancji w kolekcji, która jest w użyciu, aby zachować ciągłość nazwy adresu absolutnego (bezwzględnego).
+Adresy komponentów są przechowywane jako "posiekane" lub "skrócone" (ang. hashed - i może lepiej jako programista używać angielskiej nazwy (hash)[https://pl.wikipedia.org/wiki/Funkcja_skrótu]- przyp. tłumacza) wartości. W czasie działania program przechowuje adresy również jako "shaszowane" dla każdej instancji w kolekcji, która jest w użyciu, aby zachować ciągłość nazwy adresu absolutnego (bezwzględnego).
 :::
 
 W czasie działania programu, grupowanie kolekcji nie istnieje. Nie ma sposobu na sprawdzenie do jakiej kolekcji przynależy dany obiekt przed kompilacją. Nie jest też możliwe manipulowanie wszystkimi obiektami w kolekcji naraz. Jeśli jednak potrzebujesz wykorzystywać takie operacje  możesz z łatwością śledzić adres w kodzie. Każdy identyfikator obiektu jest statyczny, jest więc gwarantowane, że zostanie stały przez cały cykl życia obiektu. Oznacza to, że można bezpiecznie przechować id obiektu i używać go później.
@@ -203,7 +203,7 @@ path
 fragment
 : Identyfkator danego komponentu pod danym obiektem.
 
-Tak jak wcześniej, możesz zostawić niektóre pola puste pozwalając silnikowi na wydedukowanie, o jaki element chodzi zakładając domyślne wartości jak powyżej. Bardzo rzadko jest potrzeba określania socketu, za to często musisz określić path. W przypadkach, gdy chcesz się odnieść do obiektu z innego świata (kolekcji) niż obecna, będziesz podawać socket.Przykładowo, pełny URL skryptu "controller" obiektu "manager" wygląda następująco:
+Tak jak wcześniej, możesz zostawić niektóre pola puste pozwalając silnikowi na wydedukowanie, o jaki element chodzi zakładając domyślne wartości jak powyżej. Bardzo rzadko jest potrzeba określania gniazda (socket), za to często musisz określić ścieżkę (path). W przypadkach, gdy chcesz się odnieść do obiektu z innego świata (kolekcji) niż obecna, będziesz podawać socket. Przykładowo, pełny URL skryptu "controller" obiektu "manager" wygląda następująco:
 
 `"main:/manager#controller"`
 
