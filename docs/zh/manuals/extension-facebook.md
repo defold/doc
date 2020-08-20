@@ -54,7 +54,7 @@ https://github.com/defold/extension-gps/archive/master.zip
 
 ![App dashboard settings](images/facebook/add_platform.png)
 
-点击 *Settings* 面板. 这里显示了 *App ID*. 你要在 Defold 游戏的 [项目设置](/manuals/project-settings) 里输入这个id. 通过 *Project Explorer* 打开 *game.project* 文件, 滚动到 *Facebook* 部分, 在 `Appid` 这里填入 *App ID*.
+点击 *Settings* 面板. 这里显示了 *App ID*. 你要在 Defold 游戏的 [项目设置](/manuals/project-settings) 里输入这个id. 从 *资源面板* 里打开 *game.project* 文件, 滚动到 *Facebook* 部分, 在 `Appid` 这里填入 *App ID*.
 
 现在回到 Facebook 网站的 *Settings* 页面, 点击 *+ Add Platform* 来为应用设置目标平台. 针对每个平台都有不同的设置.
 

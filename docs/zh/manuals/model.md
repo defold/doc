@@ -87,10 +87,42 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 `textureN`
 : 模型材质. 其中 N 的范围是 0-7 (`hash`). 可使用 `go.set()` 修改. 参见 [这个例子的 API 用法](/ref/model/#textureN).
 
-## 材质属性
+
+## 材质
+
+3D 一半都有给网格赋予材质的功能, 比如颜色和贴图. 在 Collada *.dae* 文件输出时, 这些信息被写入文件. 应该基于游戏需要选择或者建造 _高性能_ 材质. 材质由 _着色器程序_ 及其若干相关属性组成.
+
+在内置材质文件夹里有一个3D模型材质. 如果需要自定义材质, 请参考 [材质文档](/manuals/material). [着色器教程](/manuals/shader) 介绍了着色器程序的工作方式.
+
+
+### 材质属性
 
 模型的默认材质属性可以用 `model.set_constant()` 和 `model.reset_constant()` 方法来设置和重置 (详情参见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
 
 `tint`
 : 模型的染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/model/#model.set_constant:url-constant-value).
 
+
+## 渲染
+
+默认的渲染脚本是为2D游戏而不是3D模型制作的. 但是你可以把默认渲染脚本拷贝出来, 自己加几行代码就能用来渲染模型. 比如:
+
+  ```lua
+
+  function init(self)
+    self.model_pred = render.predicate({"model"})
+    ...
+  end
+
+  function update()
+    ...
+    render.set_depth_mask(true)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_projection(stretch_projection(-1000, 1000))  -- orthographic
+    render.draw(self.model_pred)
+    render.set_depth_mask(false)
+    ...
+  end
+  ```
+
+关于渲染脚本详情请见 [Render documentation](/manuals/render).

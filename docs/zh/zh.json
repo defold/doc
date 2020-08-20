@@ -138,8 +138,16 @@
                         "name": "JCash demos"
                     },
                     {
+                        "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
+                        "name": "Sergey Lerg's video tutorials"
+                    },
+                    {
                         "path": "https://www.tactxstudios.com/",
-                        "name": "Tactx Studios"
+                        "name": "Tactx Studios tutorials"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
+                        "name": "Tactx Studios video tutorials"
                     }
                 ]
             }
@@ -218,15 +226,23 @@
                 "items": [
                     {
                         "path": "/manuals/importing-assets",
-                        "name": "Importing and editing assets"
+                        "name": "Importing assets"
                     },
-
-                    {   "path": "/manuals/importing-graphics",
-                        "name": "Importing and using 2D graphics"
+                    {
+                        "path": "/manuals/importing-graphics",
+                        "name": "Importing 2D graphics"
                     },
                     {
                         "path": "/manuals/importing-models",
-                        "name": "Importing and using 3D models"
+                        "name": "Importing 3D models"
+                    },
+                    {
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
+                    },
+                    {
+                        "path": "/manuals/live-update",
+                        "name": "Live update"
                     },
                     {
                         "path": "/manuals/animation",
@@ -241,10 +257,6 @@
                         "name": "Font"
                     },
                     {
-                        "path": "/manuals/graphics",
-                        "name": "Graphics"
-                    },
-                    {
                         "path": "/manuals/resource",
                         "name": "Resource management"
                     },
@@ -253,8 +265,8 @@
                         "name": "Tile source"
                     },
                     {
-                        "path": "/manuals/adapting-graphics-to-screen-size",
-                        "name": "Adapting to different screen sizes"
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
                     },
                     {
                         "path": "/manuals/texture-profiles",
@@ -278,6 +290,10 @@
                         "name": "Collection proxy"
                     },
                     {
+                        "path": "/manuals/physics",
+                        "name": "Collision object"
+                    },
+                    {
                         "path": "/manuals/camera",
                         "name": "Camera"
                     },
@@ -290,16 +306,16 @@
                         "name": "Label"
                     },
                     {
+                        "path": "/manuals/mesh",
+                        "name": "Mesh"
+                    },
+                    {
                         "path": "/manuals/model",
                         "name": "Model"
                     },
                     {
                         "path": "/manuals/particlefx",
                         "name": "Particle FX"
-                    },
-                    {
-                        "path": "/manuals/physics",
-                        "name": "Physics"
                     },
                     {
                         "path": "/manuals/sound",
@@ -369,6 +385,27 @@
                 ]
             },
             {
+                "name": "PHYSICS",
+                "items": [
+                    {
+                        "path": "/manuals/physics",
+                        "name": "Collision objects"
+                    },
+                    {
+                        "path": "/manuals/physics/#collision-shapes",
+                        "name": "Collision shapes"
+                    },
+                    {
+                        "path": "/manuals/physics/#ray-casts",
+                        "name": "Ray casts"
+                    },
+                    {
+                        "path": "/manuals/physics/#joints",
+                        "name": "Joints"
+                    }
+                ]
+            },
+            {
                 "name": "GAME LOGIC",
                 "items": [
                     {
@@ -396,8 +433,42 @@
                         "name": "Modules"
                     },
                     {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging"
+                    }
+                ]
+            },
+            {
+                "name": "SAVING AND LOADING FILES",
+                "items": [
+                    {
+                        "path": "/manuals/file-access",
+                        "name": "Working with files"
+                    }
+                ]
+            },
+            {
+                "name": "NETWORKING",
+                "items": [
+                    {
                         "path": "/manuals/networking",
-                        "name": "Networking"
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/http-requests",
+                        "name": "HTTP Requests"
+                    },
+                    {
+                        "path": "/manuals/socket-connections",
+                        "name": "Socket connections"
+                    },
+                    {
+                        "path": "/manuals/websocket-connections",
+                        "name": "WebSocket connections"
+                    },
+                    {
+                        "path": "/manuals/online-services",
+                        "name": "Online services"
                     }
                 ]
             },
@@ -415,6 +486,10 @@
                     {
                         "path": "/manuals/shader",
                         "name": "Shader"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
                     }
                 ]
             },
@@ -422,20 +497,20 @@
                 "name": "WORKFLOW",
                 "items": [
                     {
-                        "path": "/manuals/version-control",
-                        "name": "Version control"
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
                     },
                     {
-                        "path": "/manuals/writing-code",
-                        "name": "Writing code"
+                        "path": "/manuals/bundling",
+                        "name": "Bundling an application"
+                    },
+                    {
+                        "path": "/manuals/bob",
+                        "name": "Bob the builder"
                     },
                     {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
-                    },
-                    {
-                        "path": "/manuals/debugging",
-                        "name": "Debugging"
                     },
                     {
                         "path": "/manuals/optimization",
@@ -450,16 +525,49 @@
                         "name": "Refactoring"
                     },
                     {
-                        "path": "/manuals/bundling",
-                        "name": "Bundling an application"
-                    },
-                    {
-                        "path": "/manuals/bob",
-                        "name": "Bob the builder"
-                    },
-                    {
                         "path": "/manuals/dev-app",
                         "name": "The mobile dev app"
+                    },
+                    {
+                        "path": "/manuals/version-control",
+                        "name": "Version control"
+                    },
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
+                    },
+                    {
+                        "path": "/manuals/working-offline",
+                        "name": "Working offline"
+                    }
+                ]
+            },
+            {
+                "name": "DEBUGGING",
+                "items": [
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging game logic"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging native code"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-android",
+                        "name": "Debugging native code on Android"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-ios",
+                        "name": "Debugging native code on iOS"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-and-system-logs",
+                        "name": "Reading game and system logs"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
                     }
                 ]
             },
@@ -467,28 +575,49 @@
                 "name": "PLATFORMS",
                 "items": [
                     {
+                        "path": "/manuals/android",
+                        "name": "Android"
+                    },
+                    {
                         "path": "/manuals/ios",
                         "name": "iOS"
                     },
                     {
-                        "path": "/manuals/android",
-                        "name": "Android"
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
                     },
                     {
                         "path": "/manuals/html5",
                         "name": "HTML5"
                     },
                     {
+                        "path": "/manuals/macos",
+                        "name": "macOS"
+                    },
+                    {
                         "path": "/manuals/windows",
                         "name": "Windows"
+                    }
+                ]
+            },
+            {
+                "name": "MONETIZATION",
+                "items": [
+                    {
+                        "path": "/manuals/ads",
+                        "name": "Ads"
                     },
                     {
-                        "path": "/manuals/instant-games",
-                        "name": "Facebook Instant Games"
+                        "path": "/extension-iap",
+                        "name": "In-app purchases"
                     },
                     {
-                        "path": "/manuals/live-update",
-                        "name": "Live update"
+                        "path": "/manuals/web-monetization",
+                        "name": "Web Monetization"
                     }
                 ]
             },
@@ -500,7 +629,15 @@
                         "name": "Facebook"
                     },
                     {
-                        "path": "/manuals/iap",
+                        "path": "/extension-fbinstant",
+                        "name": "Facebook Instant Games"
+                    },
+                    {
+                        "path": "/extension-gpgs",
+                        "name": "Google Play Game Services"
+                    },
+                    {
+                        "path": "/extension-iap",
                         "name": "In-app purchases"
                     },
                     {
@@ -508,7 +645,7 @@
                         "name": "Inter-app communication"
                     },
                     {
-                        "path": "/manuals/push",
+                        "path": "/extension-push",
                         "name": "Push notifications"
                     },
                     {
@@ -541,24 +678,16 @@
                         "name": "Best Practices"
                     },
                     {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging"
+                    },
+                    {
                         "path": "/manuals/extensions-build-variants",
                         "name": "Build Variants"
                     },
                     {
                         "path": "/manuals/extensions-manifest-merge-tool",
                         "name": "Manifest Merging"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging",
-                        "name": "Debugging tips"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging-android",
-                        "name": "Debugging on Android"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging-ios",
-                        "name": "Debugging on iOS"
                     }
                 ]
             },

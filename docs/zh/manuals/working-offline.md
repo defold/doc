@@ -1,5 +1,5 @@
 ---
-title: Working offline
+title: 断网工作
 brief: This manual describes how to work offline in projects containing dependencies and in-particular native extensions
 ---
 
