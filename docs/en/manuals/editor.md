@@ -58,7 +58,7 @@ The *Properties* pane
 : This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
 
 The *Tools* pane
-: This view has several tabs. The *Console* tab shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing the *Curve Editor* which is used when editing curves in the particle editor, the *Build Errors* view that shows build errors, and the *Search Results* view that displays search results. The console is also used for interacting with the integrated debugger.
+: This view has several tabs. The *Console* tab shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing *Build Errors*, *Search Results* and the *Curve Editor* which is used when editing curves in the particle editor. The Tools pane is also used for interacting with the integrated debugger.
 
 The *Changed Files* pane
 : If you project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. Some file oriented operations can be performed in this view:
