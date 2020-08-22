@@ -625,11 +625,11 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
-                        "path": "/manuals/facebook",
+                        "path": "/extension-facebook",
                         "name": "Facebook"
                     },
                     {
-                        "path": "/manuals/instant-games",
+                        "path": "/extension-fbinstant",
                         "name": "Facebook Instant Games"
                     },
                     {
