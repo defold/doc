@@ -48,13 +48,13 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
 
 ## 已知问题和局限性
 
-* Live update - Defold 应用必须通过服务器加载运行才能接收热更新. 纯浏览器网页无法获得热更新.
+* Hot Reload - HTML5 游戏不支持热更新. Defold 应用必须通过服务器加载运行才能接收热更新. 纯浏览器网页无法获得热更新.
 * Internet Explorer 11
   * Audio - Defold 使用 HTML5 _WebAudio_ (详见 http://www.w3.org/TR/webaudio) 来处理声音, 目前 Internet Explorer 11 还不支持. 所以这种情况下没有声音.
   * WebGL - Microsoft 没有完全实现 _WebGL_ API (详见 https://www.khronos.org/registry/webgl/specs/latest/). 所以, 较其他浏览器而言对WebGL支持不好.
   * Full screen - 全屏模式在浏览器中不可靠.
 * Chrome
-  * Slow debug builds - 为了在 HTML5 平台更好地调试我们开启了校验所有 WebGL 图像调用来检测错误. 但是这样做在 Chrome 上会运行缓慢. 可以把 *game.project* 里的 *Engine Arguments* 部分设置为 `–verify-graphics-calls=false` 来关闭图像调用校验.
+  * Slow debug builds - 为了在 HTML5 平台更好地调试我们开启了校验所有 WebGL 图像调用来检测错误. 但是这样做在 Chrome 上会运行缓慢. 可以把 *game.project* 里的 *Engine Arguments* 部分设置为 `–-verify-graphics-calls=false` 来关闭图像调用校验.
 
 ## 自定义 HTML5 打包
 

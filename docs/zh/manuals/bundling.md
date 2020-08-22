@@ -40,7 +40,7 @@ brief: 本教程介绍了如何打包应用.
 
 ### Linux
 
-建立Linux应用无需特别设置 "game.project" [项目配置文件](/manuals/project-settings/).
+建立Linux应用无需特别设置 "game.project" [项目配置文件](/manuals/project-settings/#linux).
 
 ### Windows
 

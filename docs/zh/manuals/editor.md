@@ -1,138 +1,138 @@
 ---
 title: 编辑器概述
-brief: This manual gives an overview on how the Defold editor look and works, and how to navigate in it.
+brief: 本教程介绍了 Defold 编辑器的外观和用法, 以及切换导航方法.
 ---
 
-# Editor overview
+# 编辑器概述
 
-The editor allows you to browse and manipulate all files in your game project in an efficient manner. Editing files brings up a suitable editor and shows all relevant information about the file in separate views.
+编辑器在布局排版, 切换导航上设计得尽量让游戏开发更有效率. 编辑各个视图里的文件时都会有适当的编辑器自动弹出以方便使用.
 
-## Starting the editor
+## 打开编辑器
 
-When you run the Defold editor, you are presented with a project selection and creation screen. Click to select what you want to do:
+打开 Defold 编辑器, 首先呈现的是一个项目选择和新建窗口. 通过点选上面的按钮可以:
 
 Home
-: Click to show your recently opened projects so you can quickly access them. This is the default view.
+: 显示最近编辑的项目以便快速打开. 这是默认视图.
 
 New Project
-: Click if you want to create a new Defold project, then select if you want to base your project on a basic template (from the *From Template* tab), if you would like to follow a tutorial (the *From Tutorial* tab), or try one of the sample projects (the *From Sample* tab).
+: 创建新的项目, 然后会让你 (从 *Template* 窗口) 选择是否需要基于模板创建新项目, 还可以选择是否要参考 (*Tutorial* 窗口) 里的教程, 或者学习 (*Sample* 窗口) 里的示例项目.
 
   ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
 
-  When you create a new project it is stored on your local drive and any edits you do are saved locally.
+  新建项目完成后所有项目文件都保存在了本地硬盘上.
 
-You can learn more about the different options in the [Project Setup manual](https://www.defold.com/manuals/project-setup/).
+详情请见 [项目设立教程](https://www.defold.com/manuals/project-setup/).
 
-## The editor panes
+## 编辑器面板
 
-The Defold editor is separated into a set of panes, or views, that display specific information.
+Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据.
 
 ![Editor 2](images/editor/editor2_overview.png)
 
-The *Assets* pane
-: Lists all the files that are part of your project. Click and scroll to navigate the list. All file oriented operations can be made in this view:
+*Assets* 面板
+: 展示项目的所有文件. 点选和滚动鼠标滚轮可以在面板上滑动. 在这个视图上可以做的操作有:
 
-   - <kbd>Double click</kbd> a file to open it in an editor for that file type.
-   - <kbd>Drag and drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
-   - <kbd>Right click</kbd> to open a _context menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
+   - <kbd>双击</kbd> 文件会根据文件类型启动相应的编辑器打开文件.
+   - <kbd>拖放</kbd> 文件可以向项目中添加资源或者移动资源到想要的位置.
+   - <kbd>右键单击</kbd> 会弹出 _上下文菜单_ , 可以用来进行新建文件/文件夹, 重命名, 删除, 查看文件依赖等操作.
 
-The *Editor* pane
+*Editor* 面板
 
-: The center view shows the currently open file in an editor for that file type. All visual editors allows you to change the camera view:
+: 中间的视图显示当前打开的文件. 所有可视视图都可以进行如下操作:
 
-- Pan: <kbd>Alt + left mouse button</kbd>.
-- Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
-- Rotate in 3D: <kbd>Ctrl + left mouse button</kbd>.
+- 平移: <kbd>Alt + 鼠标左键</kbd>.
+- 缩放: <kbd>Alt + 鼠标右键</kbd> 或者使用鼠标滚轮.
+- 旋转: <kbd>Ctrl + 鼠标左键</kbd>.
 
-There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale*.
+场景试图右上角的工具栏里也有这些功能按钮: *平移*, *旋转* 和 *缩放*.
 
 ![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
 
-The *Outline* pane
-: This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
-   - <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
-   - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to child it.
-   - <kbd>Right click</kbd> to open a _context menu_ from where you can add items, delete selected items etc.
+*Outline* 面板
+: 这个视图以一个树形结构展示当前打开文件的内容. 大纲树的内容与场景视图内容是一一对应的, 可以方便操作:
+   - <kbd>单击</kbd> 选中一个物体. 按住 <kbd>Shift</kbd> 或 <kbd>Option</kbd> 键可以进行多选.
+   - <kbd>拖放</kbd> 移动物体. 在集合里把一个游戏对象拖放到另一个游戏对象上可以建立父子关系.
+   - <kbd>右键单击</kbd> 弹出 _上下文菜单_ 以便进行添加, 删除选中的物体等操作.
 
-The *Properties* pane
-: This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
+*Properties* 面板
+: 这个视图显示出当前选中物体的属性, 比如位置, 旋转, 动画等等.
 
-The *Tools* pane
-: This view has several tabs. The *Console* tab shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing *Build Errors*, *Search Results* and the *Curve Editor* which is used when editing curves in the particle editor. The Tools pane is also used for interacting with the integrated debugger.
+*Tools* 面板
+: 这个视图分为几个组. *Console* 组显示游戏输出和报错信息. 旁边是显示 *编译错误*, *查找结果* 和编辑粒子曲线数据时用到的 *曲线编辑器*. 同时工具面板也负责与调试器进行交互.
 
-The *Changed Files* pane
-: If you project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. Some file oriented operations can be performed in this view:
+*Changed Files* 面板
+: 如果项目使用 Git 做版本控制, 这个视图会列出项目中被修改, 添加或者删除的文件. 同步机制会把你的本地项目文件与 Git 托管项目进行同步, 这种机制方便团队合作开发, 而且云端备份可以保证项目不易损坏丢失. 相关操作:
 
-   - <kbd>Double click</kbd> a file to open a diff view of the file. The editor opens the file in a suitable editor, just like in the assets view.
-   - <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.
+   - <kbd>双击</kbd> 文件显示版本区别窗口. 同样, 编辑器会根据文件类型选择合适的显示窗口.
+   - <kbd>右键点击</kbd> 文件弹出的上下文菜单中, 可以进行显示版本区别窗口, 回退文件的更改, 打开文件系统浏览器显示文件位置等操作.
 
-## Side-by-side editing
+## 同时编辑
 
-If you have multiple files open, a separate tab for each file is shown at the top of the editor view. It is possible to open 2 editor views side by side. <kbd>Right click</kbd> the tab for the editor you want to move and select <kbd>Move to Other Tab Pane</kbd>.
+如果同时打开了多个文件, 编辑器视图上方就会出现多个标签. 要想两个视图对照着同时进行编辑工作. <kbd>右键点击</kbd> 想要移动的视图标签, 然后选择 <kbd>Move to Other Tab Pane</kbd>.
 
 ![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
 
-You can also use the tab menu to swap the position of the two panes and join them to a single pane.
+使用视图标签还可以让两个视图交换位置或者把多个面板合为一组.
 
-## The scene editor
+## 场景编辑器
 
-Double clicking a collection or game object file brings up the *Scene Editor*:
+双击集合文件或者游戏对象文件就会打开 *场景编辑器*:
 
 ![Select object](images/editor/select.jpg)
 
-Selecting objects
-: Click on objects in the main window to select them. The rectangle surrounding the object in the editor view will highlight green to indicate what item is selected. The selected object is also highlighted in the *Outline* view.
+选择物体
+: 在主视图中点选可以选中单个物体. 框选可以选中绿色方框套住的多个物体. 被选中的物体则在 *大纲* 视图中被高亮显示.
 
-  You can also select objects by:
+  大纲中还可以:
 
-  - <kbd>Click and drag</kbd> to select all objects inside the selection region.
-  - <kbd>Click</kbd> objects in the Outline view.
+  - <kbd>点击左键拖拉</kbd> 框选中多个物体.
+  - <kbd>单击</kbd> 选中单个物体.
 
-  Hold <kbd>Shift</kbd> or <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) while clicking to expand the selection.
+  按住 <kbd>Shift</kbd> 或 <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) 键可以在已选中物体的基础上增选物体.
 
-The move tool
+移动工具
 : ![Move tool](images/editor/icon_move.png){.left}
-  To move objects, use the *Move Tool*. You find it in the toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
+  使用 *移动工具* 来移动物体. 移动工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>W</kbd>.
 
   ![Move object](images/editor/move.jpg)
 
-  The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There arn also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
+  被选中的物体会显示出坐标轴 (方块和箭头). 拖拽绿方块可以在屏幕空间内任意移动这个物体, 拖拽箭头则是让这个物体在 X, Y 或 Z 轴上进行移动. 拖拽别的方块则可以让这个物体在 X-Y 平面上 (在3D视图中可见) 移动或者在 X-Z , Y-Z 平面上移动.
 
-The rotate tool
+旋转工具
 : ![Rotate tool](images/editor/icon_rotate.png){.left}
-  To rotate objects, use the *Rotate Tool* by selecting it in the toolbar, or by pressing the <kbd>E</kbd> key.
+  使用 *旋转工具* 来旋转物体. 旋转工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>E</kbd>.
 
   ![Move object](images/editor/rotate.jpg)
 
-  This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
+  旋转工具的坐标轴显示为圆形. 拖拽橙色的圆可以在屏幕空间内任意旋转这个物体, 可以沿着 X, Y 和 Z 轴旋转. 因为 X 和 Y 轴的位置关系, 在2D视图上仅显示为穿过物体的两条线.
 
-The scale tool
+缩放工具
 : ![Scale tool](images/editor/icon_scale.png){.left}
-  To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
+  使用 *缩放工具* 来缩放物体. 缩放工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>R</kbd>.
 
   ![Scale object](images/editor/scale.jpg)
 
-  This tool consists of a set of square handles. The center one scales the object uniformly in all axes (including Z). There also one handle for scaling along each of the X, Y and Z axes and one handle for scaling in the X-Y plane, the X-Z plane and the Y-Z plane.
+  缩放工具坐标轴显示为一组方块. 拖拽中间的方块可以将物体等比缩放 (包括Z轴). 同样也可以沿着 X, Y 和 Z 轴方向, 以及 X-Y , X-Z 和 Y-Z 平面上进行缩放.
 
-## Creating new project files
+## 新建文件
 
-To create new resource files, either select <kbd>File ▸ New...</kbd> and then choose the file type from the menu, or use the context menu:
+新建资源文件有两种方法, 通过点选菜单栏 <kbd>File ▸ New...</kbd> 按钮, 或者使用上下文菜单:
 
-<kbd>Right click</kbd> the target location in the *Assets* browser, then select <kbd>New... ▸ [file type]</kbd>:
+在 *资源* 浏览器目标位置 <kbd>右键单击</kbd> , 选择 <kbd>New... ▸ [file type]</kbd> 按钮:
 
 ![create file](images/editor/create_file.png){srcset="images/editor/create_file@2x.png 2x"}
 
-Type a suitable name for the new file. The full file name including the file type suffix is shown under *Path* in the dialog:
+为新文件取一个有意义的名字. 完整文件名包括类型扩展名会显示在 *路径* 对话框内:
 
 ![create file name](images/editor/create_file_name.png){srcset="images/editor/create_file_name@2x.png 2x"}
 
-## Importing files to your project
+## 向项目添加资源文件
 
-To add asset files (images, sounds, models etc) to your project, simply drag and drop them to the correct position in the *Assets* browser. This will make _copies_ of the files at the selected location in the project file structure. Read more about [how to import assets in our manual](/manuals/importing-assets/).
+要向项目添加资源 (图片, 声音, 模型等) 文件, 只需把文件拖放到 *资源* 浏览器里适当的位置上. 这样做实际上是把文件系统中的资源文件 _拷贝_ 到项目中来. 详情请见 [导入资源教程](/manuals/importing-assets/).
 
 ![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
 
-## Keyboard shortcuts
+## 快捷键
 
 | Command | Windows | macOS | Linux |
 |---------|---------|-------|-------|

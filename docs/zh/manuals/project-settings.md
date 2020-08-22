@@ -92,10 +92,24 @@ Variable Dt (deprecated)
 #### 弃用. 如果开启, 编译时将会开启 `Vsync` 同时设置 `Frame Cap` 为 0.
 
 Display Profiles
-#### 指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.  详情请见 [GUI 排版教程](/manuals/gui-layouts/#creating-display-profiles). 
+#### 指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.  详情请见 [GUI 排版教程](/manuals/gui-layouts/#creating-display-profiles).
 
 Dynamic Orientation
 #### 开启的话会在设备转动时动态切换横竖显示方向. 注意开发用app（指dmengine）不参考此设置.
+
+## 渲染
+
+#### Clear Color Red
+清除红色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+
+#### Clear Color Green
+清除绿色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+
+#### Clear Color Blue
+清除蓝色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+
+#### Clear Color ALpha
+清除alpha通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
 
 ## Physics
 
