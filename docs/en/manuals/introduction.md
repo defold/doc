@@ -5,13 +5,13 @@ brief: A brief introduction to Defold.
 
 # Welcome to Defold
 
-Defold is made to be a professional game production platform to help game teams design, build and _ship_ games. It is not an all-encompassing solution for everything. There are no ready made complex components available. Instead, we believe the job of Defold is to empower game teams with simple, powerful collaborative tools. This means that you often have to do a bit more work yourself, but it also means that the path to your goal is clearer.
+Defold is a turn-key solution, providing everything you need to design, build and ship games. The full list of supported features can be seen in our [Product Overview](/product).
 
-If you are a novice or an experienced developer, some of our concepts may take a while to completely grasp. We encourage you to experiment, follow tutorials, read our manuals and API documentation, and to be active on the forum to learn from other users and follow the development of Defold.
+We have spent a lot of time and effort making sure that certain key elements of the game development process are as smooth and effortless as possible and we believe it makes Defold stand out from the crowd. Learn [why we think you should use Defold here](/why).
 
 ## Where to start?
 
-There is quite a lot of documentation available, in the form of manuals, API reference documentation, examples and tutorials. If you don't know where to start, here are some pointers:
+We encourage you to experiment, follow tutorials, read our manuals and API documentation, and to be active on the forum to learn from other users and follow the development of Defold. There is quite a lot of documentation available, in the form of manuals, API reference documentation, examples and tutorials. If you don't know where to start, here are some pointers:
 
 #### The editor
 ![Editor overview](images/introduction/editor.png){.left} [The editor overview](/manuals/editor/) is a gives a good introduction to the editor and will help you get around, use the visual tools and write code. If you are familiar with 3D modelling programs and programming IDEs, there should be few surprises, but there are always things that will be different from your favorite piece of software.
