@@ -28,23 +28,10 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
   - 系统: [比如 iOS8.1, Windows 10, High Sierra]
   - 设备: [比如 iPhone6]
 
-* **日志 (可选)** - 请附加相关日志 (引擎或者编辑器的). 编辑器日志位于:
-  - Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-  - macOS: `/Users/ **Your Username** /Library/Application Support/` 或者 `~/Library/Application Support/Defold`
-  - Linux: `~/.Defold`
+* **详细系统信息 (可选)** - 有关错误出现系统平台的详细信息.
+  - HTML5: 提供关于 WebGL 的详细信息, 参考网站 https://webglreport.com/?v=1
 
-  Android 的引擎日志可以通过使用 `adb` (Android Debug Bridge) 命令行工具获取. 关于 `adb` 命令行工具详情请见 [Android 教程](/manuals/android/#android-debug-bridge).
-
-  iOS 的引擎日志可以通过使用 XCode 和设备模拟器菜单项获取.
-
-  HTML5 的引擎日志可以通过使用浏览器开发者控制台获取:
-  - Chrome: 菜单 > 更多工具 > 开发者工具
-  - Firefox: 工具 > web 开发者 > Web 控制台
-  - Safari: 开发 > 显示 JavaScript 控制台
-
-  桌面应用的引擎日志通过使用终端运行Defold应用获取.
-
-  你还可以把引擎日志写入一个文件便于存取. 详情请见 [调试教程](/manuals/debugging/#提取日志文件).
+* **日志 (可选)** - 请附带相关 (云编译服务器, 引擎和编辑器) 日志. 参考 [下面关于日志文件获取的章节](#log-files).
 
 * **问题复现小项目 (可选)** - 请附加一个可以再现问题的最小项目包. 这可以对别人研究修复问题提供极大帮助. 如果你把项目打成zip包请去掉其中的 `.git`, `.internal` 和 `build` 文件夹.
 
@@ -61,9 +48,37 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
 
 ![](images/getting_help/report_issue.png)
 
-选择此菜单项会在 GitHub 上提交一个 issue tracker. 请把尽量多的信息填入报表. 注意此种方法需要你有 GitHub 账号.
+这样就会在 GitHub 上生成一个错误报告. 请尽量详述错误的相关信息. 参考 [下面关于日志文件获取的章节](#log-files).
+
+::: 注意
+报告之前确保你已经拥有 GitHub 账户.
+:::
 
 
 ## 在 Slack 上讨论问题
 
 如果在使用 Defold 时遇到困难你可以尝试在 [Slack](https://www.defold.com/slack/) 上提出问题. 虽然我们推荐复杂问题应该在论坛上深入讨论. 而且注意 Slack 上不支持错误报告.
+
+
+# 日志文件
+
+游戏引擎, 编辑器和云编译服务器都有日志系统, 这对于定位调试错误十分有利. 报告错误时请务必带上日志文件.
+
+## 引擎日志
+- Android: 可以使用 `adb` (Android Debug Bridge) 命令获取. 有关 `adb` 命令详情请见 [Android 教程](/manuals/android/#android-debug-bridge).
+- iOS: 可以使用 XCode 的设备和模拟器菜单项获取.
+- HTML5: 浏览器控制台会输出日志:
+  - Chrome: 菜单 > 更多工具 > 开发者工具
+  - Firefox: 工具 > 网络开发者 > 网络控制台
+  - Safari: 开发 > 显示 JavaScript 控制台
+- Desktop: 如果从终端/命令控制台启动 Defold 程序的话, 就可以在上面看到输出的日志了.
+
+有个功能就是程序崩溃时把相关信息写入一个日志文件中去. 详情请见 [调试教程](/manuals/debugging/#extracting-the-logtxt-file).
+
+## 编辑器日志
+- Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
+- macOS: `/Users/ **Your Username** /Library/Application Support/` 或者 `~/Library/Application Support/Defold`
+- Linux: `~/.Defold`
+
+## 云编译服务器日志
+使用原生扩展时才会有编译服务器日志. 编译时其日志文件 (`log.txt`) 与自定义引擎一起下载并保存在 `.internal/%platform%/build.zip` 文件中.

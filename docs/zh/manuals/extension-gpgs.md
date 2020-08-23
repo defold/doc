@@ -1,21 +1,21 @@
 ---
-title: Google Play Game Services in Defold
-brief: This document describes how to set up and use Google Play Game Services
+title: Defold 中的 Google Play Game 服务
+brief: 本教程介绍了配置使用 Google Play Game 服务的方法
 ---
 
 # Google Play Game Services
 
-[Google Play Game Services](https://developers.google.com/games/services) adds use authentication, cloud save, achievements, leaderboards and more to your Android game. Google Play Game Services is available as a [native extension](/manuals/extensions/).
+[Google Play Game Services](https://developers.google.com/games/services) 可以给你的安卓游戏增加用户认证, 云存储, 成就系统, 排行榜等各种功能. Google Play Game 服务在 Defold 中作为一个 [原生扩展](/manuals/extensions/).
 
-## Installing the extension
+## 安装扩展
 
-To start using the Google Play Game Services extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
+要使用 Google Play Game 服务扩展你需要在 `game.project` 文件中加入依赖. 最新稳定版地址:
 ```
 https://github.com/defold/extension-gpgs/archive/master.zip
 ```
 
-We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-gpgs/releases).
+推荐使用发布页的zip链接 [指定某个版本](https://github.com/defold/extension-gpgs/releases).
 
-## Using the extension
+## 使用扩展
 
-Usage instructions and API reference is available on the [extension GitHub page](https://defold.github.io/extension-gpgs/).
+使用的介绍以及 API 文档位于 [GitHub 扩展项目网页](https://defold.github.io/extension-gpgs/).

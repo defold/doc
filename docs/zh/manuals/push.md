@@ -12,13 +12,13 @@ brief: 本教程介绍了如何配置和实现游戏中的本地和远程 iOS �
 ## 安装扩展
 
 使用之前要在 `game.project` 文件里配置扩展依赖. 最新稳定版依赖的 URL 是:
+
 ```
 https://github.com/defold/extension-push/archive/master.zip
 ```
 
 推荐使用 [指定版本](https://github.com/defold/extension-push/releases) 的zip包链接作为依赖.
 
-此扩展需要依赖 ([firebase](https://github.com/defold/extension-firebase-core/releases)):
 ```
 https://github.com/defold/extension-firebase-core/archive/master.zip
 ```
@@ -28,7 +28,7 @@ API 文档在 [推送通知扩展项目](https://defold.github.io/extension-push
 ## iOS 配置
 
 ::: 注意
-要深入了解 Apple Push Notification Service, 首先熟读 Apple 的服务文档. 文档在 https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html
+为了更好地使用 Apple Push Notification 服务, 最好先熟读 [Apple 的官方文档](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html).
 :::
 
 iOS 上, 推送通知需要做以下准备:
@@ -168,7 +168,7 @@ Android 上, 推送通知需要做以下准备:
 
 用文本编辑器打开 `google-services.json` 文件, 找到 *`project_number`* 和 *`mobilesdk_app_id`*. 把这俩id考入 `game.project` 文件, 对应 *android* 部分, `Gcm Sender Id` (`project_number`) 和 `Fcm Application Id` (`mobilesdk_app_id`).
 
-```json
+```
 {
   "project_info": {
     "project_number": "123456789123",
