@@ -5,4 +5,6 @@ brief: Αυτό το εγχειρίδιο είναι ξεπερασμένο
 
 # 2D Γραφικά
 
-This manual has been replaced by the [Εγχειρίδιο επισκόπησης γραφικών](/εγχειρίδια/γραφικά).
+
+Αυτό το εγχειρίδιο έχει αντικατασταθεί από το [Graphics overview manual](/manuals/graphics).
+
