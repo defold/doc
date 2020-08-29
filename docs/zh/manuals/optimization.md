@@ -114,7 +114,7 @@ end
     end
 
     function update(self, dt)
-        local pos = go.get_position(enemy_url)
+        local pos = go.get_position(self.enemy_url)
         -- 处理位置变量
     end
 ```

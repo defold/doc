@@ -9,16 +9,27 @@ Defold 引擎内置了性能分析工具. 这些工具用来分析查找性能�
 
 ## 运行时可视分析表
 
-Debug 应用包含运行时可视分析工具可以在应用最上层把分析信息显示出来. 可以向 "system" 接口发送 "toggle_profile" 消息控制其开关:
+Debug 应用包含运行时可视分析工具可以在应用最上层把分析信息显示出来:
 
 ```lua
 function on_reload(self)
     -- 热重载时打开分析表.
-    msg.post("@system:", "toggle_profile")
+    profiler.enable_ui(true)
 end
 ```
 
 ![Visual profiler](images/profiling/visual_profiler.png)
+
+此分析器提供了一些用来改变其数据显示方式的函数:
+
+```lua
+
+profiler.set_ui_mode()
+profiler.set_ui_view_mode()
+profiler.view_recorded_frame()
+```
+
+详情请见 [分析器 API 文档](/ref/stable/profiler/).
 
 ## 网页版分析器
 

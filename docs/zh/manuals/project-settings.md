@@ -65,6 +65,11 @@ Include Dirs
 Shared State
 #### 打开则共享脚本的Lua状态, 默认关闭.
 
+## Engine
+
+#### Run While Iconified
+当游戏应用程序窗口最小化时允许其在后台继续运行 (仅桌面平台有效), 默认值是 `false`.
+
 ## Display
 
 Width
@@ -315,6 +320,12 @@ Info.plist
 
 Entitlements
 #### 如果设置了, 则覆盖引用档文件 (.entitlements, .xcent, .plist) 中定义的通用权限.
+
+#### Default Language
+如果用户没有指定 `Localizations` 列表里的语言, 则使用此处设置的语言 (见 [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
+
+#### Localizations
+以逗号分割的语言名称缩写或者是 ISO 语言代号 (见 [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
 
 ## Android
 

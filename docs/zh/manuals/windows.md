@@ -16,3 +16,6 @@ Windows 相关设置位于*game.project* 文件的 [Windows部分](/manuals/proj
 Windows游戏的图标要使用 .ico 格式. 你可以拿一个 .png 文件, 使用[ICOConvert](https://icoconvert.com/) 之类的在线工具生成 .ico 图标. 注意图标使用如下大小:
 
 ![Windows icon sizes](images/windows/windows-icon.png)
+
+## FAQ
+:[Windows FAQ](../shared/windows-faq.md)

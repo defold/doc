@@ -1,6 +1,6 @@
 ---
-title: Defold 中的物理
-brief: Defold 包含 2D 和 3D 物理引擎. 它们可以用来模拟牛顿物理学碰撞对象之间的交互. 本教程介绍了其工作方法.
+title: Physics in Defold
+brief: Defold includes physics engines for 2D and 3D. They allow you to simulate Newtonian physics interactions between different types of collision objects. This manual explains how this works.
 ---
 
 # Physics
@@ -30,7 +30,7 @@ A collision object component has a set of *Properties* that sets its type and ph
 To add a collision object component to a game object:
 
 1. In the *Outline* view, <kbd>right click</kbd> the game object and select <kbd>Add Component ▸ Collision Object</kbd> from the context menu. This creates a new component with no shapes.
-2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. This adds a new shape to the collision object component. You can add any number of shapes to the component.
+2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. This adds a new shape to the collision object component. You can add any number of shapes to the component. You can also use a tilemap or a convex hull to define the shape of the physics object.
 3. Use the move, rotate and scale tools to edit the shapes.
 4. Select the component in the *Outline* and edit the collision object's *Properties*.
 
@@ -85,6 +85,52 @@ Group
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything.
 
+### Collision shapes
+
+A collision component can either use several primitive shapes or a single complex shape. The primitive shapes are *box*, *sphere* and *capsule*. A complex shape can either be created from a tilemap component or from a convex hull shape.
+
+### Box shape
+A box has a position, rotation and dimensions (width, height and depth):
+
+![Box shape](images/physics/box.png)
+
+### Sphere shape
+A sphere has a position, rotation and diameter:
+
+![Sphere shape](images/physics/sphere.png)
+
+### Capsule shape
+A capsule has a position, rotation, diameter and height:
+
+![Sphere shape](images/physics/capsule.png)
+
+### Tilemap collision shape
+Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
+
+To add collision to a tile map:
+
+1. Add the tilemap to a game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component File</kbd>. Select the tile map file.
+2. Add a collision object component to the game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component ▸ Collision Object</kbd>.
+3. Instead of adding shapes to the component, set the *Collision Shape* property to the *tilemap* file.
+4. Set up the collision object component *Properties* as usual.
+
+![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
+
+::: important
+Note that the *Group* property is **not** used here since the collision groups are defined in the tile map's tile source.
+:::
+
+### Convex hull shape
+Defold includes a feature allowing you to create a convex hull shape from three or more points. You can use an external tool such as the [Defold Polygon Editor](/assets/defoldpolygoneditor/) or the [Physics Body Editor](/assets/physicsbodyeditor/) to create a convex hull shape.
+
+1. Create convex hull shape file (file extension `.convexshape`) using an external editor.
+2. Instead of adding shapes to the collision object component, set the *Collision Shape* property to the *convex shape* file.
+
+::: sidenote
+The shape will not be drawn in the editor. You can [enable Physics debugging](/manuals/debugging/#debugging-problems-with-physics) at runtime to see the shape.
+:::
+
+
 ### Units used by the physics engine simulation
 
 The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
@@ -99,22 +145,6 @@ For a collision between two objects to register both objects must mutually speci
 
 The *Mask* field can contain multiple group names, allowing for complex interaction scenarios.
 
-## Tilemap collision shapes
-
-Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
-
-To add collision to a tile map:
-
-1. Add the tilemap to a game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component File</kbd>. Select the tile map file.
-2. Add a collision object component to the game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component ▸ Collision Object</kbd>.
-3. Instead of adding shapes to the component, set the *Collision Shape* property to the *tilemap* file.
-4. Set up the collision object component *Properties* as usual.
-
-![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
-
-::: important
-Note that the *Group* property is **not** used here since the collision groups are defined in the tile map's tile source.
-:::
 
 ## Collision messages
 

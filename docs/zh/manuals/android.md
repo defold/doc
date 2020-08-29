@@ -127,17 +127,5 @@ I/defold  ( 6210):
 D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
-
 ## 常见问题
-
-安装时报 "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" 错误
-: Android 发现了你使用不同的证书安装应用. 编译调试包时, 使用的是临时证书. 安装前先卸载旧应用:
-
-  ```
-  $ adb uninstall com.defold.examples
-  Success
-  $ adb install Defold\ examples.apk
-  4826 KB/s (18774344 bytes in 3.798s)
-          pkg: /data/local/tmp/Defold examples.apk
-  Success
-  ```
+:[Android FAQ](../shared/android-faq.md)
