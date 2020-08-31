@@ -41,4 +41,4 @@ The editor saves all Defold assets in text based files that are merge friendly. 
 
 Extra care should be taken when working with Defold asset files through a text editor or external tool. If you introduce errors those can prevent the file from opening in the Defold editor.
 
-Some external tools [such as Tiled](/assets/tiled/) can be used to generate Defold Assets automatically.
+Some external tools such as [Tiled](/assets/tiled/) and [Tilesetter](https://www.tilesetter.org/beta) can be used to generate Defold Assets automatically.
