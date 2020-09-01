@@ -42,4 +42,4 @@ Defold 编辑器自己生成的资源都是纯文本格式的以方便合并.甚
 
 另外要注意一点就是如果使用外部编辑器破坏了资源文本的话, 再回到 Defold 可能就无法打开这个文件了.
 
-某些第三方工具 [比如 Tiled](/assets/tiled/) 也可以用来自动生成 Defold 资源.
+某些第三方工具比如 [Tiled](/assets/tiled/) 和 [Tilesetter](https://www.tilesetter.org/beta) 也可以用来自动生成 Defold 资源.
