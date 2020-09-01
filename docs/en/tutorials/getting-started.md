@@ -5,9 +5,9 @@ brief: This tutorial explains how to get started doing tutorials in Defold.
 
 # Getting started
 
-The Defold engine and editor are powerful tools that will take a little while to get accustomed to. You should expect having to spend some time working in Defold before you know how to use it well. To help you on your way we have created a variety of tutorials. They are available directly from within the editor so you can start your journey towards becoming a Defold pro right away.
+The Defold engine and editor are powerful tools with a lot of features and functionality to learn. To help you on your way we have created a variety of tutorials. Many of the tutorials are available directly from within the editor which makes them very easy to get started with.
 
-## Starting a tutorial
+## Starting a tutorial from the editor
 
 When you run the Defold editor, you are presented with a project selection and creation screen. From here you can easily select which tutorial you want to try out:
 

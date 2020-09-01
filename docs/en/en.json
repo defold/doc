@@ -3,17 +3,12 @@
         "tutorials":
         [
             {
-                "name": "Overview",
+                "name": "Tutorials",
                 "items": [
                     {
                         "path": "/tutorials/getting-started",
                         "name": "Getting started"
-                    }
-                ]
-            },
-            {
-                "name": "Tutorials",
-                "items": [
+                    },
                     {
                         "path": "/tutorials/side-scroller",
                         "name": "Side scroller"
