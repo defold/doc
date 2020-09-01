@@ -1,38 +1,38 @@
-#### Q: Why is the Defold editor super small when run on a 4k or HiDPI monitor when using GNOME?
+#### Q: 在 GNOME 上使用 Defold 编辑器在 4k 或 HiDPI 显示器上显得特别小?
 
-A: Change the scaling factor before running Defold. [source](https://unix.stackexchange.com/a/552411)
+A: 启动 Defold 之前修改缩放参数. [参见](https://unix.stackexchange.com/a/552411)
 
 ```bash
 $ gsettings set org.gnome.desktop.interface scaling-factor 2
 ```
 
 
-#### Q: Why does mouse clicks on Elementary OS go through the editor onto whatever is below?
+#### Q:在 Elementary OS 上使用 Defold 编辑器, 鼠标点选上的都是后面的东西?
 
-A: Start the editor like this:
+A: 尝试这样启动编辑器:
 
 ```bash
 $ GTK_CSD=0 ./Defold
 ```
 
 
-#### Q: Why does the Defold editor crash when I try to create a new project, or open an existing one?
+#### Q: 在新建, 打开项目时 Defold 编辑器崩溃?
 
-A: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
+A: 某些版本 (比如 Ubuntu 18) 上 Defold 使用的 jogamp/jogl 版本与系统 Mesa 版本冲突.
 
-See the following reports for more information:
+详情请见:
 
   - https://github.com/defold/editor2-issues/issues/1905
   - https://github.com/defold/editor2-issues/issues/1886
 
-If this is your problem try the following workaround:
+使用如下代码可以绕过冲突:
 
 ```bash
 $ export MESA_GL_VERSION_OVERRIDE=2.1
 $ ./Defold
 ```
 
-And if that doesn't work then try (or some other version number matching your driver and larger than or equal to 2.1):
+如果问题没有解决可以尝试 (根据你自己的驱动匹配选取大于等于 2.1 的版本号):
 
 ```bash
 $ export MESA_GL_VERSION_OVERRIDE=3.1
@@ -40,15 +40,15 @@ $ ./Defold
 ```
 
 
-#### Q: Why doesn't my Defold game start when I try to run it on Linux?
+#### Q: 在 Linux 上启动 Defold 游戏无效?
 
-A: Check the console output in the editor. If you get the following message:
+A: 看看 Defold 编辑器控制台. 如果有下面这样的输出:
 
 ```
 dmengine: error while loading shared libraries: libopenal.so.1: cannot open shared object file: No such file or directory
 ```
 
-Then you need to install *libopenal1*. The package name varies between distributions, and in some cases you might have to install the *openal* and *openal-dev* or *openal-devel* packages.
+就需要安装 *libopenal1*. 不同版本包名不同, 另外某些用户也需要安装 *openal* 和 *openal-dev* 或者 *openal-devel* 包.
 
 ```bash
 $ apt-get install libopenal-dev

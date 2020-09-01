@@ -1,63 +1,63 @@
-## Downloading
+## 下载
 
-Go to the [Defold download page](https://defold.com/download/) where you will find Download buttons for macOS, Windows and Linux (Ubuntu):
+上 [Defold 下载页](https://defold.com/download/) 就能看到许多操作系统对应版本的下载按钮 macOS, Windows 还有 Linux (Ubuntu) 的:
 
 ![download editor](../shared/images/editor_download.png)
 
-## Installation
+## 安装
 
-Installation on macOS
-: The downloaded file is a DMG image containing the program.
+在 macOS 上安装
+: 下载完成后是一个 DMG 镜像文件.
 
-  1. Locate the file "Defold-x86_64-darwin.dmg" and double click it to open the image.
-  2. Drag the application "Defold" to the "Applications" folder link.
+  1. 双击 "Defold-x86_64-darwin.dmg" 开启镜像打开文件夹.
+  2. 把 "Defold" 拖拽到 "Applications" 文件夹里去.
 
-  To start the editor, open your "Applications" folder and <kbd>double click</kbd> the file "Defold".
+  打开 "Applications" 文件夹 <kbd>双击</kbd> "Defold" 文件即可启动.
 
   ![Defold macOS](../shared/images/macos_content.png)
 
-Installation on Windows
-: The downloaded file is a ZIP archive that needs to be extracted:
+在 Windows 上安装
+: 下载完成后是一个 ZIP 压缩档案:
 
-  1. Locate the archive file "Defold-x86_64-win32.zip" (or "Defold-x86-win32.zip" for 32 bit Windows), <kbd>press and hold</kbd> (or <kbd>right-click</kbd>) the folder, select *Extract All*, and then follow the instructions to extract the archive to a folder named "Defold".
+  1. 在文件资源管理器中找到 "Defold-x86_64-win32.zip" (32位是 "Defold-x86-win32.zip") 文件, <kbd>右键点击</kbd> 选择 *解压到当前位置*, 就会解压缩出来一个 "Defold" 文件夹.
   2. Move the folder "Defold" to "C:\Program Files (x86)\"
 
-  To start the editor, open the folder "Defold" and <kbd>double click</kbd> the file "Defold.exe".
+  打开 "Defold" 文件夹, <kbd>双击</kbd> "Defold.exe" 文件即可启动.
 
   ![Defold windows](../shared/images/windows_content.png)
 
-Installation on Linux
-: The downloaded file is a ZIP archive that needs to be extracted:
+在 Linux 上安装
+: 下载完成后是一个 ZIP 压缩档案:
 
-  1. From a terminal, locate the archive file "Defold-x86_64-linux.zip" unzip it to a target Directory called "Defold".
+  1. 在控制台里找到 "Defold-x86_64-linux.zip" 文件, 解压出 "Defold" 文件夹来.
 
      ```bash
      $ unzip Defold-x86_64-linux.zip -d Defold
      ```
 
-  To start the editor, change directory to where you extracted the application, then run the `Defold` executable, or <kbd>double click</kbd> it on your desktop.
+  控制台进入文件夹直接启动 `Defold` 可执行文件, 或者在桌面程序上 <kbd>双击</kbd> 它即可启动.
 
   ```bash
   $ cd Defold
   $ ./Defold
   ```
 
-  If you run into any problems starting the editor, opening a project or running a Defold game please refer to the [Linux section of the FAQ](/faq/faq#linux-issues).
+  如果遇到问题, 请参考 [FAQ 的 Linux 部分](/faq/faq#linux-issues).
 
-## Install an old version
+## 安装老版本
 
-### From Defold GitHub release page
+### 从 Defold GitHub 发布页下载
 
-Every stable version of Defold is also [released on GitHub](https://github.com/defold/defold/releases).
+Defold 各版本也 [发布在 GitHub 上](https://github.com/defold/defold/releases).
 
-### From Defold download page
+### 从 Defold 下载页下载
 
-You can download and install old editor versions using the following link pattern:
+下载链接遵循以下模式:
 
 * Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
 * macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-darwin.dmg
 * Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
 
-Replace `%sha1%` by the editor release hash representing the version in question. The hash of each Defold version can be seen in the links to the released version on the download page at https://d.defold.com/stable/ (make sure to remove the initial # character and only copy the alpha-numeric part):
+把上面的 `%sha1%` 换成你需要的版本 hash. 这些 hash 可以在 https://d.defold.com/stable/ 上找到 (不要开头 # 号, 只要后面的字符):
 
 ![download editor](../shared/images/old_version_sha1.png)

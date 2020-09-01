@@ -1,6 +1,6 @@
-#### Q: Why does my HTML5-app freeze at the splash screen in Chrome?
+#### Q: 我的HTML5游戏在Chrome里一到溅射屏幕就卡死了?
 
-A: In some cases it is not possible to run a game in the browser locally from the filesystem. Running from the editor serves the game from a local web server. You can, for instance, use SimpleHTTPServer in Python:
+A: 很多浏览器不允许从本地磁盘文件来启动程序. 从编辑器里运行就能自动生成临时本地服务器. 另外, 你也可以使用 Python 之类的程序快速搭建本地服务器 SimpleHTTPServer:
 
 ```sh
 $ python -m SimpleHTTPServer [port]

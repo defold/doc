@@ -1,17 +1,17 @@
   `.`
-  : Shorthand resolving to the current game object.
+  : 指代当前游戏对象.
 
   `#`
-  : Shorthand resolving to the current component.
+  : 指代当前组件.
 
-  For example:
+  举例:
 
   ```lua
-   -- Let this game object acquire input focus
+   -- 使当前游戏对象获得输入焦点
    msg.post(".", "acquire_input_focus")
   ```
 
   ```lua
-   -- Post "reset" to the current script
+   -- 向当前脚本组件发出 "reset" 信息
    msg.post("#", "reset")
   ```

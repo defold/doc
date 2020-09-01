@@ -1,13 +1,13 @@
-#### Q: Why is Nintendo Switch access not free?
+#### Q: 为什么开发任天堂游戏不免费?
 
-A: One of the objectives of the Defold Foundation is to make sure that the Defold software is available to developers world-wide and that the source code is available free of charge. The Defold Foundation will never compromise on this objective, but in this case access to the Nintendo Switch SDK, tools and resources is strictly controlled by Nintendo. This means that the source code for the Nintendo Switch platform implementation in Defold, including the editor and command line tools, can not be made available. This also means that the Defold Foundation is unable to receive community contributions to the code and documentation and it is the foundation which must provide all of the support and updates to the platform for as long as it is required to. The Nintendo Switch access fee will help ensure that the foundation has the resources necessary to support the platform.
-
-
-#### Q: Do I need to install additional tools to build for Nintendo Switch?
-
-A: You will be able to create application bundles directly from both the Defold editor and command line tools. Information about how to test on Nintendo Switch hardware will be provided to you when you are given access to the Nintendo Switch platform.
+A: Defold 基金会的目标之一就是让 Defold 软件和代码面向全世界免费. 我们不会食言, 但是接入的任天堂 Switch SDK 是人家说了算. 也就是说对任天堂 Switch 的支持, 编辑器, 各种工具, 我们没法自己做出来. 同样 Defold 基金会的社区贡献者也没法自己做出来, 为了确保对任天堂平台的合法长远的技术支持, 就必须缴费了.
 
 
-#### Q: Is it still easy to use a single code base if I decide to also target the Nintendo Switch platform?
+#### Q: 做任天堂 Switch 游戏需要什么别的工具吗?
 
-A: Yes, all of the standard Defold API functions are available also for the Nintendo Switch platform. In addition to the standard functionality you will also have access to a couple of Nintendo Switch specific functions, but in general the code should be able to remain exactly the same across multiple platforms.
+A: 使用 Defold 编辑器和命令行工具都可以打包任天堂 Switch 游戏. 一旦你取得了任天堂平台开发资格, 关于如何调试游戏的方法也会发送给你.
+
+
+#### Q: 开发跨平台游戏加上任天堂 Switch 游戏, 代码库够用吗?
+
+A: 够用, 所有标准 Defold API 功能在任天堂 Switch 平台同样有效. 除此之外也许需要调用一些任天堂 Switch 的原生功能, 但总体上讲一套代码跨平台没问题.

@@ -1,22 +1,22 @@
-Components are used to give specific expression and/or functionality to game objects. Components have to be contained inside game objects and are affected by the position, rotation and scale of the game object that contains the component:
+组件是用来给与游戏对象各种功能与表现的程序. 组件位于游戏对象之下, 游戏对象受控于组件:
 
 ![Components](../shared/images/components.png){srcset="../shared/images/components@2x.png 2x"}
 
-Many components have type specific properties that can be manipulated and there are component type specific functions available for interacting with them in runtime:
+许多组件含有某些属性是可以在运行时控制的, 根据组件属性的不同类型, 调用交换的函数也不一样:
 
 ```lua
--- disable the can "body" sprite
+-- 关闭 "body" 精灵
 msg.post("can#body", "disable")
 
--- play "hoohoo" sound on "bean" in 1 second
+-- 1 秒以后在 "bean" 上播放 "hoohoo" 声音
 sound.play("bean#hoohoo", { delay = 1, gain = 0.5 } )
 ```
 
-Components are either added in-place in a game object, or added to a game object as a reference to a component file:
+组件要么直接依附于游戏对象, 要么作为一个文件被游戏对象引用:
 
-<kbd>Right-click</kbd> the game object in the *Outline* view and select <kbd>Add Component</kbd> (add in-place) or <kbd>Add Component File</kbd> (add as file reference).
+<kbd>右键点击</kbd> *Outline* 视图里的游戏对象, 选择 <kbd>Add Component</kbd> (直接依附) 或者 <kbd>Add Component File</kbd> (引用文件).
 
-In most cases it makes most sense to create components in-place, but the following component types must be created in separate resource files before being added by reference to a game object:
+一般认为直接依附就够了, 但是以下组件类型必须保存为各种不同的文件以便被游戏对象引用:
 
 * Script
 * GUI
