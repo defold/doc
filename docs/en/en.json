@@ -49,6 +49,54 @@
                     {
                         "path": "/tutorials/grading",
                         "name": "Color grading"
+                    },
+                    {
+                        "path": "/tutorials/platformer",
+                        "name": "Platformer (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/runner",
+                        "name": "Runner (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/magic-link",
+                        "name": "Magic link (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/car",
+                        "name": "Building a car (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/main-menu",
+                        "name": "Main menu (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/parallax",
+                        "name": "Parallax (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/hud",
+                        "name": "Hud (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/level-complete",
+                        "name": "Level complete (OLD)"
+                    },
+                    {
+                        "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
+                        "name": "Games from Scratch video tutorials"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
+                        "name": "Sergey Lerg's video tutorials"
+                    },
+                    {
+                        "path": "https://www.tactxstudios.com/",
+                        "name": "Tactx Studios tutorials"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
+                        "name": "Tactx Studios video tutorials"
                     }
                 ]
             },
@@ -74,49 +122,8 @@
                 ]
             },
             {
-                "name": "Old tutorials",
-                "items": [
-                    {
-                        "path": "/tutorials/platformer",
-                        "name": "Platformer"
-                    },
-                    {
-                        "path": "/tutorials/runner",
-                        "name": "Runner"
-                    },
-                    {
-                        "path": "/tutorials/magic-link",
-                        "name": "Magic link"
-                    },
-                    {
-                        "path": "/tutorials/car",
-                        "name": "Building a car"
-                    },
-                    {
-                        "path": "/tutorials/main-menu",
-                        "name": "Main menu"
-                    },
-                    {
-                        "path": "/tutorials/parallax",
-                        "name": "Parallax"
-                    },
-                    {
-                        "path": "/tutorials/hud",
-                        "name": "Hud"
-                    },
-                    {
-                        "path": "/tutorials/level-complete",
-                        "name": "Level complete"
-                    }
-                ]
-            },
-            {
                 "name": "Community resources",
                 "items": [
-                    {
-                        "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
-                        "name": "GFS video tutorials"
-                    },
                     {
                         "path": "https://github.com/benjames-171/defold-games",
                         "name": "Ben James' games"
@@ -136,18 +143,6 @@
                     {
                         "path": "https://jcash.github.io/",
                         "name": "JCash demos"
-                    },
-                    {
-                        "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
-                        "name": "Sergey Lerg's video tutorials"
-                    },
-                    {
-                        "path": "https://www.tactxstudios.com/",
-                        "name": "Tactx Studios tutorials"
-                    },
-                    {
-                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
-                        "name": "Tactx Studios video tutorials"
                     }
                 ]
             }
