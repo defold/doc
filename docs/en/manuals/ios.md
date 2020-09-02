@@ -98,11 +98,11 @@ You specify what icon to use for the app, the launch screen storyboard and so fo
 
 You create a storyboard file using Xcode. Start Xcode and create a new project. Select iOS and Single View App:
 
-![Create project](images/ios/storyboard_create_project.png)
+![Create project](images/ios/xcode_create_project.png)
 
 Click Next and proceed to configure your project. Enter a Product Name:
 
-![Project settings](images/ios/storyboard_create_project_settings.png)
+![Project settings](images/ios/xcode_storyboard_create_project_settings.png)
 
 Click Create to finish the process. Your project is now created and we can proceed to create the storyboard:
 
@@ -110,29 +110,71 @@ Click Create to finish the process. Your project is now created and we can proce
 
 Drag and drop an image to import it to the project. Next select `Assets.xcassets` and drop the image to `Assets.xcassets`:
 
-![Add image](images/ios/storyboard_add_image.png)
+![Add image](images/ios/xcode_storyboard_add_image.png)
 
 Open `LaunchScreen.storyboard` and click on the plus button (<kbd>+</kbd>). Type "imageview" in the dialog to find the ImageView component.
 
-![Add image view](images/ios/storyboard_add_imageview.png)
+![Add image view](images/ios/xcode_storyboard_add_imageview.png)
 
 Drag the Image View component onto the storyboard:
 
-![Add to storyboard](images/ios/storyboard_add_imageview_to_storyboard.png)
+![Add to storyboard](images/ios/xcode_storyboard_add_imageview_to_storyboard.png)
 
 Select the image you previously added to `Assets.xcassets` from the Image dropdown:
 
-![](images/ios/storyboard_select_image.png)
+![](images/ios/xcode_storyboard_select_image.png)
 
 Position the image and make any other adjustments you need, perhaps adding a Label or some other UI element. When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
 
-The last step is to copy the compiled `LaunchScreen.storyboardc` file which was created when the project was built. Open Finder at the following location and copy the `LaunchScreen.storyboardc` file to your Defold project:
-
+The last step is to copy the compiled `LaunchScreen.storyboardc` file to your Defold project. Open Finder at the following location and copy the `LaunchScreen.storyboardc` file to your Defold project:
 
     /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Intermediates.noindex/YOUR-PRODUCT-NAME.build/Debug-iphonesimulator/YOUR-PRODUCT-NAME.build/Base.lproj/LaunchScreen.storyboardc
 
 ::: sidenote
 Forum user Sergey Lerg has put together [a video tutorial showing the process](https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo).
+:::
+
+Once you have the storyboard file you can reference it from *game.project*.
+
+
+### Creating an icon asset catalog
+
+::: sidenote
+This is required from Defold 1.2.175.
+:::
+
+Using an asset catalog is Apple's preferred way to manage your application's icons. In fact it is the only way to provide the icon used in the App Store listing. You create an asset catalog in the same way as a storyboard, using Xcode. Start Xcode and create a new project. Select iOS and Single View App:
+
+![Create project](images/ios/xcode_create_project.png)
+
+Click Next and proceed to configure your project. Enter a Product Name:
+
+![Project settings](images/ios/xcode_icons_create_project_settings.png)
+
+Click Create to finish the process. Your project is now created and we can proceed to create the asset catalog:
+
+![The project view](images/ios/xcode_icons_project_view.png)
+
+Drag and drop images to the empty boxes representing the different supported icon sizes:
+
+![Add icons](images/ios/xcode_icons_add_icons.png)
+
+::: sidenote
+Do not add any icons for Notifications, Settings or Spotlight.
+:::
+
+When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+
+The last step is to copy the compiled `Assets.car` file to your Defold project. Open Finder at the following location and copy the `Assets.car` file to your Defold project:
+
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphonesimulator/Icons.app/Assets.car
+
+Once you have the asset catalog file you can reference it and the icons from *game.project*:
+
+![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
+
+::: sidenote
+The App Store icon does not have to be references from *game.project*. It is automatically extracted from the `Asset.car` file when uploading to iTunes Connect.
 :::
 
 
