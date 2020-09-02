@@ -388,36 +388,6 @@ pingpong 模式先正向播放, 再反向播放. GUI 属性动画也有这些播
 | gui.EASING_INQUINT | gui.EASING_OUTQUINT |
 | gui.EASING_INOUTQUINT | gui.EASING_OUTINQUINT |
 
-<div id="game-container" class="game-container">
-<canvas id="game-canvas" tabindex="1" width="640" height="512"></canvas>
-<script src="//storage.googleapis.com/defold-doc/assets/easier/dmloader.js"></script>
-<script>
-  var extra_params = {
-   archive_location_filter: function( path ) { return ('//storage.googleapis.com/defold-doc/assets/easier/archive' + path + ''); },
-   splash_image: '//storage.googleapis.com/defold-doc/assets/easier/preview.jpg',
-   custom_heap_size: 268435456,
-   disable_context_menu: true,
-   game_start: function() {}
-  };
-  Module['onRuntimeInitialized'] = function() { Module.runApp("game-canvas", extra_params); };
-  Module['locateFile'] = function(path, scriptDirectory) {
-   if (path == "dmengine.wasm" || path == "dmengine_release.wasm" || path == "dmengine_headless.wasm") { path = "easier.wasm"; }
-   return scriptDirectory + path;
-  };
-  function load_engine() {
-   var engineJS = document.createElement('script');
-   engineJS.type = 'text/javascript';
-   if (Module['isWASMSupported']) {
-   engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_wasm.js';
-   } else {
-   engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_asmjs.js';
-   }
-   document.head.appendChild(engineJS);
-  }
-  load_engine();
-</script>
-</div>
-
 ![Linear interpolation](images/properties/easing_linear.png){.inline}
 ![In back](images/properties/easing_inback.png){.inline}
 ![Out back](images/properties/easing_outback.png){.inline}

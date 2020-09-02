@@ -22,7 +22,7 @@ Defold 提供以下组件类型:
 * [Particle FX](/manuals/particlefx) -  创建粒子
 * [Script](/manuals/script) - 添加游戏逻辑
 * [Sound](/manuals/sound) - 播放音效音乐
-* [Spine model](/manuals/spine-model) - 渲染spine动画
+* [Spine model](/manuals/spinemodel) - 渲染spine动画
 * [Sprite](/manuals/sprite) - 显示2D图像 (可以带逐帧动画)
 * [Tilemap](/manuals/tilemap) - 显示一组瓷砖图
 
@@ -69,6 +69,10 @@ Defold 组件属性各不相同.在 [Outline 视图](/manuals/editor/#编辑器�
 每个组件都有 [材质](/manuals/material/) 而且每个材质都有一个或多个标签. 渲染脚本依次定义一系列优先级, 每个优先级匹配一个或多个材质标签. 渲染脚本在 *update()* 函数里 [按优先级依次渲染](/manuals/render/#render-predicates) , 匹配优先级标签的组件会被显示出来. 默认渲染脚本先绘制 sprites 和 tilemaps, 再渲染粒子特效, 二者都使用世界坐标系. 最后渲染脚本会在屏幕坐标系中渲染 GUI 组件.
 
 ### 组件z值
+所有游戏对象都使用一个 vector3 作为其在 3D 空间中的位置. 如果是 2D 游戏, 则 X 和 Y 表示其在 "横向" 和 "纵向" 轴上的位置, 而 Z 值表示其在 "深度" 轴上的位置. 使用Z值可以操控游戏对象之间的层叠关系: Z 值是 1 的总是显示在 Z 值是 0 的对象上面. 默认情况下, Defold 使用 Z 值范围是 -1 到 1:
+
+![model](images/graphics/z-order.png){srcset="images/graphics/z-order@2x.png 2x"}
+
 匹配某个优先级的组件在一起渲染, 它们之间的渲染顺序取决于组件的 z 值. 组件的最终z值是由组件的z值, 游戏对象和其父级游戏对象的z值之和.
 
 ::: 注意
@@ -89,4 +93,5 @@ Defold 组件属性各不相同.在 [Outline 视图](/manuals/editor/#编辑器�
 如果两个组件 z 值相同则可能造成两个组件来回穿梭闪烁或者不同平台顺序不同的结果.
 
 渲染脚本为 z 值定义了极近端和极远端平面. z值在此范围之外的组件不会被渲染. 默认范围是 -1 到 1 但是 [可以任意修改](/manuals/render/#默认视口映射).
+Z 值得极近与极远坐标范围是 -1 到 1 的话, 需要很高的数值精度. 在处理 3D 资源时, 可能需要在你的自定义渲染脚本中修改极近和极远的坐标范围. 详情请见 [渲染教程](/manuals/render/).
 :::

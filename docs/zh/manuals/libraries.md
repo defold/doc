@@ -45,7 +45,7 @@ brief: 项目间可以使用库共享资源. 本教程解释了其工作方式.
 
 ![Fetch Libraries](images/libraries/libraries_fetch_libraries.png)
 
-此时你共享的文件夹就会出现在项目浏览器中等待使用. 库的各种修改都会同步到你的项目之中.
+此时你共享的文件夹就会出现在资源面板中等待使用. 库的各种修改都会同步到你的项目之中.
 
 ![Library setup done](images/libraries/libraries_done.png)
 

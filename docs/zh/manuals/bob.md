@@ -7,7 +7,7 @@ brief: Bob 是用于 Defold 项目的命令行编译工具. 本教程详述如�
 
 Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
 
-Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build And Launch</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
+Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
 
 Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 你可以在其发布地址 http://d.defold.com 里下载到 *bob.jar* . 先选择版本, 再下载 *bob/bob.jar*. 要运行 Bob 工具, 你需要 [安装OpenJDK 11](https://openjdk.java.net/projects/jdk/11/).
 

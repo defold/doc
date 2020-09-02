@@ -54,7 +54,7 @@ brief: 本教程介绍了文本组件 label 的使用方法.
 : 文本的锚点. 此值关系到文本对齐效果 (详见下文).
 
 *Blend Mode*
-: 组件渲染时使用的混合模式.
+: 此 label 渲染时使用的混合模式.
 
 *Line Break*
 : 文本对齐与锚点相关, 此属性可以让文本流动几行. 节点宽度决定文本在哪里换行.文本对齐与锚点相关, 此属性可以让文本溢出几行. 节点宽度决定文本在哪里换行. 注意文本换行处要留有空间.
@@ -65,7 +65,10 @@ brief: 本教程介绍了文本组件 label 的使用方法.
 *Material*
 : 用于渲染此 label 所使用的材质. 确保选中的材质是为你所使用的字体 (bitmap, distance field or BMFont) 创建的.
 
-## 锚点和对齐
+### 混合模式
+:[blend-modes](../shared/blend-modes.md)
+
+### 锚点和对齐
 
 你可以通过设置锚点来改变文本的对齐方式.
 
@@ -122,4 +125,3 @@ function init(self)
     go.set("#my_label", "scale.x", scale_x * 2)
 end
 ```
-
