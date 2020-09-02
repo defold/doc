@@ -1,27 +1,24 @@
 ---
 title: Defold 的 WebViews
-brief: "WebViews allows you to load and display web pages as overlays in your mobile games. They can
-        also run user supplied JavaScript in the background. This manual explains Defold's official
-        WebView extension, API and functionality."
+brief: "WebViews 可以在你的手机上显示一个网页层. 同时支持在后台运行用户定义的js代码. 本教程介绍了 Defold 的官方 WebView 扩展, API 和功能."
 ---
 
 # WebViews
-The WebView extension provides a unified API to load and display web pages as overlays on mobile
-platforms. In this manual we will first go through some basic information how to create and show a webview.
-Later on we will explore more functionality by implementing a simple player feedback window.
+WebView 提供了一套特殊的 API 用来在手机上显示一个网页层. 首先让我们来实现一个简单的 webview.
+然后我们会讨论如何使用一套简单的控制按钮控制这个 webview.
 
-## Installing the extension
+## 安装扩展
 
-To start using the webview extension you need to add it as a dependency to your `game.project` file.
-The latest stable version is available with the dependency URL:
+在你的 `game.project` 文件中设置 webview 依赖.
+最新版本位于如下 URL:
 ```
 https://github.com/defold/extension-webview/archive/master.zip
 ```
 
-Documentation of the API is available on [extension GitHub page](https://defold.github.io/extension-webview/).
+API文档位于 [扩展首页](https://defold.github.io/extension-webview/).
 
-## Opening a WebView
-Opening a webview is a simple call to `webview.create`, which will return an identification number
+## 打开 webview
+使用 `webview.create` 就能创建一个网页层, which will return an identification number
 associated with the newly created webview. This ID, which we will call `webview_id` from now on,
 will be used in other `webview` functions to interact with the specific webview instance. This means
 you can create and maintain multiple webviews simultaneously.
