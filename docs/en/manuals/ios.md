@@ -174,7 +174,7 @@ Once you have the asset catalog file you can reference it and the icons from *ga
 ![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
 
 ::: sidenote
-The App Store icon does not have to be references from *game.project*. It is automatically extracted from the `Asset.car` file when uploading to iTunes Connect.
+The App Store icon does not have to be referenced from *game.project*. It is automatically extracted from the `Asset.car` file when uploading to iTunes Connect.
 :::
 
 
