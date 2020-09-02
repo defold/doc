@@ -9,40 +9,44 @@ Android 设备允许自由允许你开发的应用. 可以很容易地编译好�
 
 ## Android 和 Google Play 签名
 
-Android 需要安装的应用都进行数字签名. 不像 iOS 证书都需要由 Apple 签发, Android 允许开发者自己创建证书和密匙来对应用签名.
+Android 要求每个 APK 文件在被安装到设备上或者在设备上更新之前必须进行数字签名. 如果你是安卓开发者, 只需要在把程序包上传到 Play Console 之前, 经过 [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play) 的自动处理即可. 然而, 你还可以选择手动对程序包进行签名以便上传到 Google Play, 其他应用商店以及在整个互联网上传播.
 
-创建证书和密匙的过程看似复杂但是开发阶段 Defold 对此有自动化功能.你可以在打包 Android应用时指定证书和密匙. 不指定的话, Defold 会自动创建证书和密匙打包 *.apk* (Android Application Package) 文件.
-
-注意如果要把应用上传至 Google Play, 就需要用自己的证书和密匙签名应用. 因为后续应用更新时, _新版本 *.apk* 文件签名需要与老版本保持一致_. 如果不一致, Google Play 会拒绝 *.apk* 更新上架, 除非作为全新应用发布.
-
-详情请见 [Google Play 开发者中心](https://play.google.com/apps/publish/).
-
-## 创建证书和密匙
-
-基于 *.pem*-格式创建证书, 基于 *.pk8*-格式创建密匙. 二者的创建都可以使用 `openssl` 工具:
-
-```sh
-$ openssl genrsa -out key.pem 2048
-$ openssl req -new -key key.pem -out request.pem
-$ openssl x509 -req -days 9999 -in request.pem -signkey key.pem -out certificate.pem
-$ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocrypt
-```
-
-这样就生成了 *certificate.pem* 和 *key.pk8* 文件可以用来签名应用包.
+从 Defold 编辑器或者 [命令行工具](/manuals/bob) 打包安卓包需要提供一个 keystore (包括证书和公匙), 然后对应用签名时还要用到私匙. 没有的话, Defold 会自动生成一个临时调试用 keystore 用于打包和签名.
 
 ::: 注意
-注意保存好证书和密匙文件. 一点丢失就 _不能_ 上传 *.apk* 更新文件到 Google Play 了.
+千万 **不要** 带着调试签名就上传到 Google Play 上去. 开发者必须自己制作属于自己的签名.
 :::
 
-## 创建 Android 应用包
+## 制作 keystore
 
-使用编辑器可以很容易地进行应用打包.打包前可以在  "game.project" [项目配置文件](/manuals/project-settings/#android) 里为应用设置图标, 版本号之类的. 菜单选择 <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> 来进行打包.
+::: 注意
+Defold 应对安卓应用包签名的改变是从 1.2.173 版开始的, 就是使用单独的证书和密码来合成 keystore.
+:::
 
-如果希望编辑器自动生成调试用证书, 把 *Certificate* 和 *Private key* 置空即可:
+也可以 [使用 Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) 或者通过使用控制台命令来生成签名:
+
+```bash
+keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, L=Unknown, ST=Nevada, C=US" -keystore mykeystore.keystore -storepass 5Up3r_53cR3t -alias myAlias -keyalg RSA -validity 9125
+```
+
+这个命令会生成一个叫做 `mykeystore.keystore` 的签名, 其中包含了证书和密码. 密匙 `5Up3r_53cR3t` 保护其不备破解. 这个签名有效期为 25 年 (9125 天). 这个签名的id叫做 `myAlias`.
+
+::: 注意
+要把签名和密匙保存好. 如果要手动上传 Google Play 但是签名密码丢失的话就没办法使用 Google Play 来更新你的应用了. 图省事的话就用 Google Play App Signing 搞定签名把.
+:::
+
+
+## 证书和安卓包
+
+编辑器打包安卓包十分方便. 打包之前可以为应用指定图标, 设置版本号等等, 都在 "game.project" [项目配置文件](/manuals/project-settings/#android) 里设置.
+
+选择菜单栏 <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> 就可以打包了.
+
+要让编辑器自动生成调试用签名, 只需把 *Keystore* 和 *Keystore password* 字段留空即可:
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-如果希望使用自己的证书和密匙, 配置 *.pem* 和 *.pk8* 文件即可:
+要让编辑器使用你自己指定的签名打包, 就要设置好 *Keystore* 和 *Keystore password* 字段. *Kyestore* 的扩展名是 `.keystore`, 而密码要保存成文本 `.txt` 文件:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 

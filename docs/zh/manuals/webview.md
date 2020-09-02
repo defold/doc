@@ -18,49 +18,39 @@ https://github.com/defold/extension-webview/archive/master.zip
 API文档位于 [扩展首页](https://defold.github.io/extension-webview/).
 
 ## 打开 webview
-使用 `webview.create` 就能创建一个网页层, which will return an identification number
-associated with the newly created webview. This ID, which we will call `webview_id` from now on,
-will be used in other `webview` functions to interact with the specific webview instance. This means
-you can create and maintain multiple webviews simultaneously.
+使用 `webview.create` 就能创建一个网页层, 并且返回一个唯一id. 下文中我们把这个 ID 称为 `webview_id`,
+多个 `webview` 之间进行交互时会用到这个id. 也就是说创建和维护多个 webview 是可行的.
 
-The `webview.create` function takes a single argument in the form of a function, we will take a
-closer look at this in the callbacks section below, for now let's just pass in an empty function.
+`webview.create` 带着一个函数参数, 待会儿我们再来仔细看看这个回调, 现在先给它留空.
 ```lua
 local webview_id = webview.create(function()
-        -- do nothing for now
+        -- 目前无代码
     end)
 ```
-Newly created webviews are hidden by default and doesn't actually load anything. But a webview isn't
-much fun without anything to show, so let's load one of our favorite web pages!
+默认状况下新建的 webview 都是不可见的, 因为它还没有加载任何内容. 其主要功能就是显示网页, 现在就来加载个超酷的网页吧!
 
-To open a web page we need to call the function `webview.open` and pass along the `webview_id` we
-got from the previous call and a web URL as the second argument.
+调用 `webview.open` 函数, 第一个参数就是上文的那个 `webview_id`, 第二个参数是要打开的URL.
 
 ```lua
-local request_id = webview.open(webview_id, "http://www.defold.com")
+local request_id = webview.open(webview_id, "http://www.defold.com") --广告无处不在
 ```
 
-The call will return a new id that can be used to keep track of the URL request, it will also be
-provided in the callback which we will go into detail about below.
+这个函数返回网页请求的id, 这个id我们稍后也会用到.
 
-If everything was successful you should now see a webview covering the full screen, it will also
-load the Defold official website.
+如果一切顺利你将看到神奇的网页占满了屏幕, 就是 Defold 官方首页.
 
-::: important
-To load arbitrary URL on iOS you need to add the following key-value inside the
-`NSAppTransportSecurity` dictionary entry in your `Info.plist` file.
+::: 注意
+要在 iOS 里访问的网页必须遵循在 `Info.plist` 文件中的 `NSAppTransportSecurity` 里面设置好的键值对.
 ```
 <key>NSAllowsArbitraryLoads</key>
 <true/>
 ```
 
-This is a valid setting to use while developing your game, but when releasing on the App Store it
-preferred to only allow specific domains by utilizing the `NSExceptionDomains` key instead. These
-options are a bit outside the scope of this manual, but more detailed information can be found
-in the [Apple Developer documentation](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW35).
+开发的时候可以随便设置, 但是发布到 App Store 之后就只能通过使用 `NSExceptionDomains` 键代替. 这有点超出本教程讨论范围,
+详情可以参考 [Apple 开发者文档](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW35).
 :::
 
-## Callback
+## 回调函数
 Just opening web pages inside a webview might be sufficient in most cases, but what happens if the
 URL isn't accessible or something unforeseen happens while loading? Perhaps we want to show a
 notification to the user if we encounter an error, or we want to perform some action if a user
