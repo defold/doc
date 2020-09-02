@@ -9,30 +9,32 @@ Android devices allows you to freely run your own apps on them. It is very easy 
 
 ## Android and Google Play signing process
 
-Android requires that apps that you want to install are digitally signed. Unlike iOS where all certificates are issued by Apple, Android allows self signed apps so you can freely create certificates and keys required to sign apps.
+Android requires that all APKs be digitally signed with a certificate before they are installed on a device or updated. If you use Android App Bundles, you need to sign only your app bundle before you upload it to the Play Console, and [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play) takes care of the rest. However, you can also manually sign your app for upload to Google Play, other app stores and for distribution outside of any store.
 
-The process of creating certificates and keys may seem complicated but as long as you are in development, Defold fully automates the process. When you create an Android application bundle from the editor you can provide a specific certificate and key. If you don't, Defold generates a random certificate and a key and signs the resulting application bundle automatically.
-
-It is important to note that when it is time to release an app on Google Play, you will need to create a certificate and key that you use to sign the app. The reason is that when you intend to publish an updated version of the app, _the updated application bundle needs to be signed with the same signature as the current version_. If you sign with a different private key, Google Play will reject the update and you will need to publish the game as a totally new app.
-
-You can find more information from the [Google Play developer console](https://play.google.com/apps/publish/).
-
-## Creating certificates and keys
-
-You need to create certificates in *.pem*-format and keys in *.pk8*-format. You can generate these with the `openssl` tool:
-
-```sh
-$ openssl genrsa -out key.pem 2048
-$ openssl req -new -key key.pem -out request.pem
-$ openssl x509 -req -days 9999 -in request.pem -signkey key.pem -out certificate.pem
-$ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocrypt
-```
-
-This will leave you with the files *certificate.pem* and *key.pk8* that you can use to sign your application bundles.
+When you create an Android application bundle from the Defold editor or the [command line tool](/manuals/bob) you can provide a keystore (containing your certificate and key) and keystore password which will be used when signing your application. If you don't, Defold generates a debug keystore and uses it when signing the application bundle.
 
 ::: important
-Make sure that you store your certificate and key safely. If you lose them you will _not_ be able to upload updated application versions to Google Play.
+You should **never** upload your application to Google Play if it was signed using a debug keystore. Always use a dedicated keystore which you have created yourself.
 :::
+
+## Creating a keystore
+
+::: sidenote
+The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore.
+:::
+
+You can create a keystore [using Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) or from a terminal/command prompt:
+
+```bash
+keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, L=Unknown, ST=Nevada, C=US" -keystore mykeystore.keystore -storepass 5Up3r_53cR3t -alias myAlias -keyalg RSA -validity 9125
+```
+
+This will create a keystore file named `mykeystore.keystore` containing a key and certificate. Access to key and certificate will be protected by the password `5Up3r_53cR3t`. The key and certificate will be valid for 25 years (9125 days). The generated key and certificate will be identified by the alias `myAlias`.
+
+::: important
+Make sure to store the keystore and associated password somewhere safe. If you sign and upload your applications to Google Play yourself and the keystore or keystore password is lost there is no way for you to update the application on Google Play. You can avoid this by using Google Play App Signing and let Google sign your applications for you.
+:::
+
 
 ## Creating an Android application bundle
 
@@ -40,11 +42,11 @@ The editor lets you easily create a stand alone application bundle for your game
 
 To bundle select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
 
-If you want the editor to automatically create random debug certificates, leave the *Certificate* and *Private key* fields empty:
+If you want the editor to automatically create random debug certificates, leave the *Keystore* and *Keystore password* fields empty:
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-If you want to sign your bundle with a particular certificate and key, specify the *.pem* and *.pk8* files:
+If you want to sign your bundle with a particular keystore, specify the *Keystore* and *Keystore password* files:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
