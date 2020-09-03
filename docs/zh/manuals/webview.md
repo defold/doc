@@ -51,65 +51,49 @@ local request_id = webview.open(webview_id, "http://www.defold.com") --广告无
 :::
 
 ## 回调函数
-Just opening web pages inside a webview might be sufficient in most cases, but what happens if the
-URL isn't accessible or something unforeseen happens while loading? Perhaps we want to show a
-notification to the user if we encounter an error, or we want to perform some action if a user
-navigates away from the web page. Thankfully the webview extension has functionality to trigger
-events when errors, navigations and success occur! They are exposed through the callback function we
-pass as argument to the `webview.create` call.
+顺利打开网页固然是好, 但要是 URL 无效或者出现其他不可预知的问题时要给用户显示错误信息怎么办? 或者要在用户离开网页时做些什么该怎么办?
+幸运的是 webview 扩展程序具备了报错, 导航, 载入成功等等事件回调功能. 只需在调用 `webview.create` 时传入回调函数作为参数即可.
 
-The callback function should have the following signature:
+回调函数特征如下:
 ```lua
 function callback(self, webview_id, request_id, type, data)
 ```
 
-* **`self`** - This is the script instance from where the callback was set.
-* **`webview_id`** - The callback can be reused for multiple webview instances, this argument let's
-you keep track of from which instance the event originates from.
-* **`request_id`** - Likewise, you can trigger multiple `webview.open` calls, and the request id
-allows you to know which of the requests the event was triggered from.
-* **`type`** - An enum describing what kind of event happened, we will go through them below in
-*Callback types*.
-* **`data`** - A table containing different information depending on what type of event occurred.
+* **`self`** - 回调函数所处的脚本引用.
+* **`webview_id`** - 回调函数可以做到多个webview共用, 这个参数引用的是回调事件发生的那个webview的id.
+* **`request_id`** - 同样 `webview.open` 也可以共用一个回调回调函数, 这个参数引用的是回调事件发生的那个载入请求的id.
+* **`type`** - 事件的类型, 枚举类型, 下文 *回调类型* 章节会详细探讨.
+* **`data`** - 不同时间连带的各种数据信息.
 
-#### Callback types
-The `type` argument of the callback are always set to one of the following enums:
+#### 回调类型
+回调的 `type` 参数可以被设置为以下枚举之一：
 
-* **`webview.CALLBACK_RESULT_URL_LOADING`** - When a navigation occurs inside the webview, the
-loading event is triggered. This can happen either if you call `webview.open` or the user clicks
-on a link that would result in a new URL being loaded. The result of the callback dictates if the
-navigation is allowed. If you return `false` the navigation will be blocked, any other return value
-will allow the navigation. To decide if the navigation should be allowed or not, you can inspect
-the `url` field in the `data` table, also supplied in the callback.
-* **`webview.CALLBACK_RESULT_URL_ERROR`** and **`webview.CALLBACK_RESULT_EVAL_ERROR`** - In case of
-errors loading the URL, or errors when trying to evaluate JavaScript (we will go into details below
-in *Running JavaScript*), an error event will be triggered. The `result` field in the `data` table
-contains more information about the error, as a string.
-* **`webview.CALLBACK_RESULT_URL_OK`** and **`webview.CALLBACK_RESULT_EVAL_OK`** - When a URL
-navigation or JavaScript execution was successful, an ok event will be triggered. In the case of
-a successful JavaScript evaluation the result will be available in the `result` field of the `data`
-table.
+* **`webview.CALLBACK_RESULT_URL_LOADING`** - 在 webview 内导航时, 载入事件被触发. 调用 `webview.open` 或者
+用户点击页面上的超级链接都会造成事件触发. 事件的处理结果决定了载入请求是否被允许. 如果返回 `false` 则载入终止, 其他值则是允许载入.
+被允许的链接也会记录在回调函数 `data` 表的 `url` 项里.
+* **`webview.CALLBACK_RESULT_URL_ERROR`** 和 **`webview.CALLBACK_RESULT_EVAL_ERROR`** -一旦载入出错, 或者
+执行JavaScript脚本出错 (下文 *运行JavaScript脚本* 章节会详细探讨), 错误事件就会被触发. `data` 表的 `result` 项用一个字符串记录了错误的详细内容.
+* **`webview.CALLBACK_RESULT_URL_OK`** 和 **`webview.CALLBACK_RESULT_EVAL_OK`** - 一旦载入成功, 或者执行JavaScript脚本成功,
+OK事件就会被触发. 对于成功执行的JavaScript程序, 其执行结果会被保存在 `data` 表的 `result` 项之中.
 
-Now that we know a bit more of how the callback is called, let's create a more advanced example.
+事件触发介绍完了, 现在我们来看一个复杂点的例子.
 
-Imagine if we want to show some player feedback webpage, where the player can report feedback about
-the game through a HTML form. We want to know if the URL couldn't be loaded, instead of an empty
-page we want to show some ingame notification and close the webview. And we probably don't want the
-player to be able to navigate away from the form.
+比如我们要向玩家展示一个反馈页面, 玩家通过一个 HTML 表格发送反馈意见. 我们要在载入不成功的时候要提示友好的错误信息并关闭webview而不是把白屏留给玩家.
+接下来我们尽量不让玩家离开这个反馈页面.
 
-Our updated `webview.create` call and callback could looks something like this:
+升级版的 `webview.create` 调用和回调被设计成下面这样:
 ```lua
 local player_feedback_url = "https://example.com/my_game_name/customer_feedback"
 
 local function webview_callback(self, webview_id, request_id, type, data)
     if type == webview.CALLBACK_RESULT_URL_ERROR then
-        -- An error occurred!
-        -- Let's close the webview and set a label with some helpful text!
+        -- 遇到错误!
+        -- 关闭 webview 然后显示提示文本!
         webview.destroy(webview_id)
         label.set_text("#label", "Player feedback not available at this moment.")
 
     elseif type == webview.CALLBACK_RESULT_URL_LOADING then
-        -- Make sure the player isn't navigating away from the feedback URL.
+        -- 不让玩家离开这个页面.
         if data.url ~= player_feedback_url then
             return false
         end
@@ -120,25 +104,17 @@ local feedback_webview = webview.create(webview_callback)
 webview.open(feedback_webview, player_feedback_url)
 ```
 
-This will result in a full screen webview being shown, loading a remote web page with our player
-feedback form. Depending of how we setup our player feedback webpage it will look something like
-this:
+一个反馈页面展示就完成了. 网页自己做, 打开后大概像这个样子:
 
 ![Player feedback web page](images/webview/webview_player_feedback1.png)
 
-Note: In our example we also included a link to google.com, just to verify that blocking any navigation
-that would lead away from our webpage.
+注意: 我们的例子里有一个指向 google.com 的超级链接, 目的是试试玩家点别的链接出不出的去. --牛虻
 
-We now have our first working player feedback prototype! But what should happen once the player has
-provided feedback? Maybe the player changes their mind and don't want to provide any feedback,
-how do they get back to your game? Lastly, a full screen webview might not be the best option in
-this case, perhaps we still want to show that the game is still running in the background! We will
-cover solutions for these issues in the *Running JavaScript* and
-*Visibility and positioning control* sections below.
+强制反馈功能完成! 但是怎么提交反馈呢? 也许玩家不想提交反馈呢, 怎么返回游戏? 再说, 全屏的网页真的合适吗? 后面的游戏界面全都被挡住了啊!
+我们会在下文的 *运行 JavaScript 脚本* 和 *可视定位控制面板* 章节继续探讨.
 
-## Opening and displaying a custom HTML page
-Before we continue with handling positioning/sizing and being able to close the webview, let's make
-it a bit easier to iterate on the HTML page without having to update our webserver with each change.
+## 载入展示自己的 HTML 网页
+继续深入探讨之前, 我们来动手做一个可以用来交互的 HTML 简单网页.
 
 With `webview.open_raw` we can provide a HTML source directly instead of loading it from a remote
 URL. This means that even if the webserver is down, or the player have a slow internet connection,
