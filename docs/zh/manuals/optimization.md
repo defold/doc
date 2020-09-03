@@ -20,6 +20,10 @@ Defold 编译和打包时建立了一个依赖树. 编译系统从 *game.project
   * 这虽然没有直接规定大小, 我们讨论认为大小应该限制在 20 MB 以内.
 * Playable ads 基于广告商网络一般限制在 2 到 5 MB.
 
+:::注意
+根据 2017 年一项研究表明 "APK 文件大小每增加 6 MB, 安装率就会相应降低 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
+:::
+
 为了更好的分析包体空间占用可以在编译时 [生成编译报告](/manuals/bundling/#build-reports). 通常声音和图片占游戏空间最大部分.
 
 ### 声音优化
@@ -110,7 +114,7 @@ end
     end
 
     function update(self, dt)
-        local pos = go.get_position(enemy_url)
+        local pos = go.get_position(self.enemy_url)
         -- 处理位置变量
     end
 ```

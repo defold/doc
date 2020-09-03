@@ -1,5 +1,5 @@
 ---
-title: 为 Defold 编写原生扩展
+title: Writing native extensions for Defold
 brief: This manual explains how to write a native extension for the Defold game engine and how to compile it through the zero setup cloud builders.
 ---
 
@@ -13,7 +13,7 @@ If you need custom interaction with external software or hardware on a low level
 
 ## The build platform
 
-Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute them to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
+Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project, either directly or through a [Library Project](/manuals/libraries/), becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute them to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
 
 ![Cloud build](images/extensions/cloud_build.png)
 
@@ -21,8 +21,25 @@ Defold provides a zero setup entry point to native extensions with a cloud based
 
 To create a new extension, create a folder in the project root. This folder will contain all settings, source code, libraries and resources associated with the extension. The extension builder recognizes the folder structure and collects any source files and libraries.
 
-![Project layout](images/extensions/layout.png)
+```
+ myextension/
+ │
+ ├── ext.manifest
+ │
+ ├── src/
+ │
+ ├── include/
+ │
+ ├── lib/
+ │   └──[platforms]
+ │
+ ├── manifests/
+ │   └──[platforms]
+ │
+ └── res/
+     └──[platforms]
 
+```
 *ext.manifest*
 : The extension folder _must_ contain an *ext.manifest* file. This file is a YAML format file that is picked up by the extension builder. A minimal manifest file should contain the name of the extension.
 
@@ -36,9 +53,22 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
 
   :[platforms](../shared/platforms.md)
+  
+*manifests*
+: This optional folder contains additional files used in the build or bundling process. See below for details.
 
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
+
+### Manifest files
+
+The optional *manifests* folder of an extension contains additional files used in the build and bundling process. Files should be placed in subfolders named by `platform`:
+
+* `android` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)). The folder can also contain a `build.gradle` file with dependencies to be resolved by Gradle ([example](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Finally the folder can also contain zero or more ProGuard files (experimental).
+* `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+* `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+* `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+
 
 ## Sharing an extension
 
@@ -175,6 +205,30 @@ print(rot_s) --> nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM
 
 And that's it! We have created a fully working native extension.
 
+## Extension Lifecycle
+
+As we saw above the `DM_DECLARE_EXTENSION` macro is used to declare the various entry points into the extension code:
+
+`DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)`
+
+The entry points will allow you to run code at various points in the lifecycle of an extension:
+
+* Engine start
+  * Engine systems are starting
+  * Extension `app_init`
+  * Extension `init` - All Defold APIs have been initialized. This is the recommended point in the extension lifecycle where Lua bindings to extension code is created.
+  * Script init - The `init()` function of script files are called.
+* Engine loop
+  * Engine update
+    * Extension `update`
+    * Script update - The `update()` function of script files are called.
+  * Engine events (window minimize/maximize etc)
+    * Extension `on_event`
+* Engine shutdown (or reboot)
+  * Script final - The `final()` function of script files are called.
+  * Extension `final`
+  * Extension `app_final`
+
 ## Defined platform identifiers
 
 The following identifiers are defined by the builder on each respective platform:
@@ -233,6 +287,7 @@ Allowed keys are for platform specific compile flags are:
 * [HTML5 extension example](https://github.com/defold/extension-html5)
 * [MacOS, iOS and Android videoplayer extension](https://github.com/defold/extension-videoplayer)
 * [MacOS and iOS camera extension](https://github.com/defold/extension-camera)
-* [iOS and Android Admob extension](https://github.com/defold/extension-admob)
+* [iOS and Android In-app Purchase extension](https://github.com/defold/extension-iap)
+* [iOS and Android Firebase Analytics extension](https://github.com/defold/extension-firebase-analytics)
 
 The [Defold asset portal](https://www.defold.com/assets/) also contain several native extensions.

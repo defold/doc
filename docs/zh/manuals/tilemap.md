@@ -5,7 +5,7 @@ brief: 本教程介绍了 Defold 对于瓷砖地图的支持.
 
 # Tile map （瓷砖地图）
 
-*瓷砖地图* 是一个可以借由瓷砖图源装配, 绘制成一个大网格地图的组件. 瓷砖地图一般用来作为游戏关卡环境. 你可以在地图上使用瓷砖图源里设置的 *碰撞形状* 来进行碰撞检测或者模拟物理效果.
+*瓷砖地图* 是一个可以借由瓷砖图源装配, 绘制成一个大网格地图的组件. 瓷砖地图一般用来作为游戏关卡环境. 你可以在地图上使用瓷砖图源里设置的 *碰撞形状* 来进行碰撞检测或者模拟物理效果 ([example](/examples/tilemap/collisions/)).
 
 创建瓷砖地图之前要先创建好瓷砖图源. 关于如何创建瓷砖图源, 详情请见 [瓷砖图源教程](/manuals/tilesource).
 
@@ -46,7 +46,11 @@ brief: 本教程介绍了 Defold 对于瓷砖地图的支持.
 
 ![使用瓷砖地图](images/tilemap/use_tilemap.png){srcset="images/tilemap/use_tilemap@2x.png 2x"}
 
-## 用脚本更改瓷砖
+## 运行时操作
+
+有一套用于在运行时修改瓷砖地图的方法和属性 (参见 [API文档](/ref/tilemap/)).
+
+### 用脚本更改瓷砖
 
 游戏运行时可以使用脚本动态读写瓷砖地图的内容. 通过调用 [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) 和 [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) 函数:
 
@@ -58,3 +62,36 @@ if tile == 2 then
     tilemap.set_tile("/level#map", "ground", x, y, 4)
 end
 ```
+
+## 瓷砖地图属性
+
+除了 *Id*, *Position*, *Rotation* 和 *Scale*, 瓷砖地图还有如下属性:
+
+*Tile Source*
+: 瓷砖地图的图源.
+
+*Material*
+: 瓷砖地图的材质.
+
+*Blend Mode*
+: 瓷砖地图的混合模式.
+
+### 混合模式
+:[blend-modes](../shared/blend-modes.md)
+
+### 修改属性
+
+使用 `go.get()` 和 `go.set()` 方法可以修改瓷砖地图的属性:
+
+`tile_source`
+: 瓷砖图源 (`hash`). 可以使用 `go.set()` 方法指定瓷砖图源. 参见 [这个例子的 API 用法](/ref/tilemap/#tile_source).
+
+`material`
+: 瓷砖地图材质 (`hash`). 可以使用 `go.set()` 方法指定瓷砖地图材质. 参见 [这个例子的 API 用法](/ref/tilemap/#material).
+
+### 材质属性
+
+材质可以使用 `tilemap.set_constant()` 和 `tilemap.reset_constant()` 方法设置和重置一系列属性 (详情参见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
+
+`tint`
+: 瓷砖地图染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/tilemap/#tilemap.set_constant:url-constant-value).

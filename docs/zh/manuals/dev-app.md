@@ -48,7 +48,7 @@ Success
 1. 确保编辑器处于运行中.
 2. 在设备上启动开发用app.
 3. 在编辑器的 <kbd>Project ▸ Targets</kbd> 中选择设备.
-4. 选择 <kbd>Project ▸ Build And Launch</kbd> 运行游戏. 如果用网络连接的话可能需要等一小会儿.
+4. 选择 <kbd>Project ▸ Build</kbd> 运行游戏. 如果用网络连接的话可能需要等一小会儿.
 5. 游戏运行时, 就可以照常使用 [热重载](/manuals/hot-reload/) 功能了.
 
 ![launch](images/dev-app/launch.png)

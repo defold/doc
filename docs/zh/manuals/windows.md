@@ -17,6 +17,5 @@ Windows游戏的图标要使用 .ico 格式. 你可以拿一个 .png 文件, 使
 
 ![Windows icon sizes](images/windows/windows-icon.png)
 
-## Facebook Gameroom
-
-Facebook Gameroom 是全世界都可以免费下载的 Windows 原生游戏客户端. 使用Facebook Gameroom, 玩家可以玩各种网页游戏和各种平台定制游戏. 在编译 Windows 项目时, 在*game.project*文件里有一个选项是选择是否支持 Gameroom . Facebook Gameroom 详情请见 [Gameroom 教程](/manuals/gameroom).
+## FAQ
+:[Windows FAQ](../shared/windows-faq.md)

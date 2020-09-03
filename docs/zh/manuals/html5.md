@@ -48,13 +48,13 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
 
 ## 已知问题和局限性
 
-* Live update - Defold 应用必须通过服务器加载运行才能接收热更新. 纯浏览器网页无法获得热更新.
+* Hot Reload - HTML5 游戏不支持热更新. Defold 应用必须通过服务器加载运行才能接收热更新. 纯浏览器网页无法获得热更新.
 * Internet Explorer 11
   * Audio - Defold 使用 HTML5 _WebAudio_ (详见 http://www.w3.org/TR/webaudio) 来处理声音, 目前 Internet Explorer 11 还不支持. 所以这种情况下没有声音.
   * WebGL - Microsoft 没有完全实现 _WebGL_ API (详见 https://www.khronos.org/registry/webgl/specs/latest/). 所以, 较其他浏览器而言对WebGL支持不好.
   * Full screen - 全屏模式在浏览器中不可靠.
 * Chrome
-  * Slow debug builds - 为了在 HTML5 平台更好地调试我们开启了校验所有 WebGL 图像调用来检测错误. 但是这样做在 Chrome 上会运行缓慢. 可以把 *game.project* 里的 *Engine Arguments* 部分设置为 `–verify-graphics-calls=false` 来关闭图像调用校验.
+  * Slow debug builds - 为了在 HTML5 平台更好地调试我们开启了校验所有 WebGL 图像调用来检测错误. 但是这样做在 Chrome 上会运行缓慢. 可以把 *game.project* 里的 *Engine Arguments* 部分设置为 `–-verify-graphics-calls=false` 来关闭图像调用校验.
 
 ## 自定义 HTML5 打包
 
@@ -212,3 +212,6 @@ DEFOLD_ENGINE_ARGUMENTS
 ## HTML5 的文件操作
 
 HTML5 支持 `sys.save()`, `sys.load()` 和 `io.open()` 之类的文件操作, 但是与其他平台实现方法不同. 基于安全考虑浏览器里运行的 Javascript 无权直接读写本地文件. Emscripten (即 Defold) 使用 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) 代替, 它是基于浏览器的持久化存储方案, 基于浏览器的虚拟文件系统. 与其他平台的区别主要是比直接读写文件要慢而且实质上读写的是一个数据库. 浏览器开发者工具通常都提供了 IndexedDB 的读写功能.
+
+## FAQ
+:[HTML5 FAQ](../shared/html5-faq.md)

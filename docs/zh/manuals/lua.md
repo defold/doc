@@ -16,6 +16,22 @@ Defold 引擎嵌入了 Lua 语言用以编写脚本. Lua 是一种轻量级脚�
 要真正做到跨所有平台建议只使用 Lua 5.1 功能.
 :::
 
+Defold 包含所有 [Lua 5.1 标准库](http://www.lua.org/manual/5.1/manual.html#5) 连同 socket 和少量操作系统功能库:
+
+  - base (`assert()`, `error()`, `print()`, `ipairs()`, `require()` 等等)
+  - coroutine
+  - package
+  - string
+  - table
+  - math
+  - io
+  - os
+  - debug
+  - socket (参考 [LuaSocket](https://github.com/diegonehab/luasocket))
+  - bitop (参考 [BitOp](http://bitop.luajit.org/api.html))
+
+所有库的用法都可以在 [API 文档](/ref/go) 中找到.
+
 ## Lua 书籍和资源
 
 * [Programming in Lua (first edition)](http://www.lua.org/pil/contents.html) 已有第二版.

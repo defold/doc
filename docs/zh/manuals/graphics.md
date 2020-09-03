@@ -7,14 +7,6 @@ brief: 本教程简述了 Defold 支持的图像组件.
 
 Defold是一个全3D引擎, 但是设计上还是为2D提供强大支持的. 目前该引擎比较适用于开发2D游戏.
 
-## 导入图片文件
-
-Defold使用的资源全部保存在项目目录下. 需要显示什么样的图像, 就要先导入图像资源. 要导入一个资源只要简单的把文件从电脑上拖拽到Defold编辑器的 _资源目录_.
-
-![Importing image files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
-
-Defold支持PNG和JPEG图片格式. 如果需要模型, Defold支持Collada DAE格式.
-
 ## 图片资源
 
 Defold中, 可视组件使用两种图片资源:
@@ -125,31 +117,6 @@ Collada 支持
   ```
 
   渲染脚本如何工作详情请见 [Render documentation](/manuals/render).
-
-
-## Z 排序
-
-所有游戏对象和组件在 3D 空间中的位置由 vector3 对象来决定. 在2D图像中, X 和 Y 值决定了物体在"横" , "竖" 轴的位置, Z 值决定了其在"深度"上的位置. Z轴位置可以让你控制可见物体的遮挡情况: Z 值为 1 的sprite会出现在 Z 值为 0 的sprite前面. 默认情况下, Defold 允许的 Z 值范围是 -1 到 1:
-
-![model](images/graphics/z-order.png){srcset="images/graphics/z-order@2x.png 2x"}
-
--1 到 1 的远近限制使得Z轴的数值精度很高. 在制作3D游戏时, 你可能需要在自定义渲染脚本里调整这个限制. 更多详情请见 [Render manual](/manuals/render/).
-
-## 混合模式
-
-*Blend Mode* 属性定义了 sprite 如何和其后面的图像混合. 以下列举了支持的混合模式及其混合算法:
-
-Alpha
-: 普通混合: a~0~ * rgb~0~ + (1 - a~0~) * rgb~1~
-
-Add
-: 使用相应的 sprite 像素颜色值提亮背景: rgb~0~ + rgb~1~
-
-Add Alpha (废弃!)
-: 使用相应的可见 sprite 像素颜色值提亮背景: a~0~ * rgb~0~ + rgb~1~
-
-Multiply
-: 使用相应的 sprite 像素颜色值调暗背景: rgb~0~ * rgb~1~
 
 
 ## 纹理过滤和采样

@@ -5,7 +5,11 @@ brief: 本教程介绍了如何连接远程服务器以及建立其他各种连�
 
 # 联网
 
-游戏需要连接各种后台服务器的情况很常见, 比如为了记录分数, 匹配对战玩家或者在云端存档. 还有的游戏有点对点交互的功能, 而不必连接中央服务器.
+游戏需要连接各种后台服务器的情况很常见, 比如为了记录分数, 匹配对战玩家或者在云端存档. 还有的游戏有点对点交互的功能, 而不必连接中央服务器. 网络连接和数据交换可以用多种方式实现:
+
+* [HTTP Requests](#http-requests)
+* [Socket connections](#socket-connections)
+* [WebSocket connections](#websocket-connections)
 
 
 ## HTTP 请求
@@ -22,18 +26,9 @@ http.request("https://www.defold.com", "GET", handle_response)
 
 这样就建立了一个到 https://www.defold.com 的 HTTP GET 请求. 这个函数是异步的所以请求同时游戏并不卡住等待响应. 当服务器发回响应数据后会进入设置好的回调函数. 回调函数接收了相应包含的所有信息, 包括状态码和响应头. 同样可以建立 HTTP POST 请求来向服务器发送数据也能设置请求头信息. 更多详情请见 [API 教程](/ref/http/).
 
-使用 HTTP 请求可以让你能够和互联网上各种各样的服务器交互, 但是通常不会这么简单的发送 HTTP 请求. 通常你需要做一些认证和数据序列化之类的操作. 当然手动操作也可以, 但是我们有很多现成的服务插件可以使用. 使用这些插件能简化许多操作:
-
-* [AWS SDK](https://github.com/britzl/aws-sdk-lua) - 让游戏能够使用 Amazon Web Services
-* [Colyseus](https://github.com/colyseus/colyseus-defold) - 网游客户端
-* [Firebase Analytics](https://github.com/defold/extension-firebase-analytics) - 让游戏能够使用 Firebase Analytics
-* [Google Analytics](https://github.com/britzl/defold-googleanalytics) - 让游戏能够使用 Google Analytics
-* [Google Play Game Services](https://github.com/defold/extension-gpgs) - 让游戏能够使用 Google Play Game Services 来进行用户认证和云端存档
-* [PlayFab](https://github.com/PlayFab/LuaSdk) - 让游戏能够使用 用户认证, 玩家匹配, 跟踪分析, 云端存档等等功能
-* [Steamworks](https://github.com/britzl/steamworks-defold/) - 让游戏能够使用 Steam 支持
-
-可以在 [资源大厅](https://www.defold.com/assets/) 找到更多扩展程序！
-
+::: 注意
+为了提高效率, HTTP 请求会自动缓存在客户端. 缓存文件保存在一个叫 `defold/http-cache` 的文件夹里, 其路径根据操作系统不同而不同. 一般来说不必关心缓存的存在, 除非你需要手动清除缓存文件. macOS 系统路径是 `%HOME%/Library/Application Support/Defold/http-cache/` , Windows 系统路径是 `%APP_DATA%/defold/http-cache`.
+:::
 
 ## Socket 连接
 
@@ -53,3 +48,17 @@ local response = client:receive("*l")
 ## WebSocket 连接
 
 Defold 不提供现成的建立 WebSocket 连接的方法. 对于 WebSocket 联网功能推荐使用 [Defold-WebSocket 扩展](https://github.com/britzl/defold-websocket).
+
+# 游戏服务器
+
+使用 HTTP 请求可以让你能够和互联网上各种各样的服务器交互, 但是通常不会这么简单的发送 HTTP 请求. 通常你需要做一些认证和数据序列化之类的操作. 当然手动操作也可以, 但是我们有很多现成的服务插件可以使用. 使用这些插件能简化许多操作:
+
+* [AWS SDK](https://github.com/britzl/aws-sdk-lua) - 让游戏能够使用 Amazon Web Services
+* [Colyseus](https://github.com/colyseus/colyseus-defold) - 网游客户端
+* [Firebase Analytics](https://github.com/defold/extension-firebase-analytics) - 让游戏能够使用 Firebase Analytics
+* [Google Analytics](https://github.com/britzl/defold-googleanalytics) - 让游戏能够使用 Google Analytics
+* [Google Play Game Services](https://github.com/defold/extension-gpgs) - 让游戏能够使用 Google Play Game Services 来进行用户认证和云端存档
+* [PlayFab](https://github.com/PlayFab/LuaSdk) - 让游戏能够使用 用户认证, 玩家匹配, 跟踪分析, 云端存档等等功能
+* [Steamworks](https://github.com/britzl/steamworks-defold/) - 让游戏能够使用 Steam 支持
+
+可以在 [资源大厅](https://www.defold.com/assets/) 找到更多扩展程序！

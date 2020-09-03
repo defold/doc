@@ -1,16 +1,28 @@
 ---
-title: 调试原生代码
-brief: 本教程介绍了一些调试应用以及解析崩溃日志的方法.
+title: 调试原生扩展
+brief: 本教程介绍了一些调试包含原生扩展程序应用的方法.
 ---
 
-# 调试原生代码
+# 调试原生扩展
 
-这里我们介绍了一些调试应用以及读取崩溃日志的方法.
+开发原生扩展程序的时候总会碰到这样那样的问题，比如在编译服务器上编译不通过或者应用里扩展程序无效等等.
 
-## 调试器
+## 报错调试
 
-当你的代码出现问题时,
-有一些方法可以找到问题根源.
+通常一旦原生扩展程序在编译服务器上报错, 服务器控制台会给出所有的错误信息. 包括错误类型和哪个文件哪一行出的错. 同时 `log.txt` 日志文件也会被保存在编译文件夹当中.
+
+## 运行时调试
+
+一旦原生扩展的程序代码出了问题, 有一下途径可以找到问题所在.
+
+* Using a debugger
+* Using print debugging
+* Analyzing a crash log
+* Symbolicating a callstack
+
+### 使用调试器
+
+当你的代码出现问题时, 有一些方法可以找到问题的根源.
 
 最普通的就是使用 `调试器`.
 调试可以让你在代码中步进, 设置 `断点` 而且能在崩溃时冻结运行.
@@ -36,34 +48,33 @@ brief: 本教程介绍了一些调试应用以及解析崩溃日志的方法.
 * ios-deploy - iOS (via lldb)
 
 
-## 打印调试信息
+### 打印调试信息
 
 有些时候, 需要在代码里加入 printf() 声明.
 之后, 你就可以从设备上获取日志文件来分析它.
 
 注意 Defold 的debug编译版本默认只输出 dmLog* 函数结果.
 
-### [Android](/manuals/extensions-debugging-android.md)
+#### [Android](/manuals/extensions-debugging-android)
 
 在 Android 上, 获取日志最简单办法是通过终端的 `adb`.
 还可以在 Android Studio 里使用 `console`, 这俩是一样的.
 
 如果你从 Android 日志中获得了跟踪堆栈, 你可能要使用 [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html) 来进行解析.
 
-### [iOS](/manuals/extensions-debugging-ios.md)
+#### [iOS](/manuals/extensions-debugging-ios)
 
 在 iOS 中, 你要使用 iTunes 或者 XCode 来观察设备日志.
 
-## Defold 崩溃日志
+### Defold 崩溃日志
 
 当 Defold 引擎硬崩溃时会保存一个 `_crash` 文件.
 它包含了关于系统和崩溃的信息.
 
 你可以使用 [crash module](https://www.defold.com/ref/crash/) 来读取这个文件.
 
-鼓励你读取文件, 收集信息然后放送到自己适用的服务器上来归集数据.
+建议你读取这个文件, 收集信息然后放送到自己适用的服务器上来归集数据.
 
-### 获取设备上的崩溃日志
 
 #### Android
 
@@ -71,21 +82,23 @@ adb 可以显示此文件在哪 (不同设备保存位置不同)
 
 如果应用是 [可调试的](https://www.defold.com/manuals/project-settings/#android), 可以这样获取崩溃日志:
 
+```
 	$ adb shell "run-as com.defold.adtest sh -c 'cat /data/data/com.defold.adtest/files/_crash'" > ./_crash
+```
 
-#### iOS
+##### iOS
 
 在 iTunes 中, 你可以 view/download 应用容器.
 
 在 `XCode -> Devices` 窗口中, 也可以选择崩溃日志
 
 
-## Symbolication
+### Symbolication
 
 如果你从 `_crash` 文件或者日志文件获得了调用堆栈, 就可以开始解析它.
 也就是把各个调用堆栈的地址转化为文件名和代码行, 这样有助于找到出问题的原因.
 
-### 获取正确的引擎
+#### 获取正确的引擎
 
 使调用堆栈匹配正确的引擎是很重要的.
 否则很容易让你调试到不正确的地方.
@@ -99,7 +112,7 @@ Android/Linux 可运行文件已经包含了调试信息.
 这样有助于分析调试文件的调用堆栈.
 
 
-### Android
+#### Android
 
 1. 从 build 文件夹获取
 
@@ -121,7 +134,7 @@ Android/Linux 可运行文件已经包含了调试信息.
 
     $ arm-linux-androideabi-addr2line -C -f -e dmengine_1_2_105/lib/armeabi-v7a/libdmengine.so _address_
 
-### iOS
+#### iOS
 
 1. 如果使用了原生扩展, 服务器会提供解析文件 (.dSYM) 给你 (使用 bob.jar 加 "--with-symbols" 选项)
 
