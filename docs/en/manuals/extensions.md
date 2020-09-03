@@ -229,7 +229,7 @@ The following identifiers are defined by the builder on each respective platform
 
 ## Build server logs
 
-Build server logs are available when the project is using native extensions. The build server log (`log.txt`) is downloaded together with the custom engine when the project is built and stored inside the file `.internal/%platform%/build.zip`.
+Build server logs are available when the project is using native extensions. The build server log (`log.txt`) is downloaded together with the custom engine when the project is built and stored inside the file `.internal/%platform%/build.zip` and also unpacked to the build folder of your project.
 
 
 ## The ext.manifest file
