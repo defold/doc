@@ -1,9 +1,9 @@
 ---
-title: Writing native extensions for Defold
-brief: This manual explains how to write a native extension for the Defold game engine and how to compile it through the zero setup cloud builders.
+title: 为 Defold 编写原生扩展
+brief: 本教程介绍了给 Defold 游戏引擎编写原生扩展的方法以及云端编译器的用法.
 ---
 
-# Native extensions
+# 原生扩展
 
 If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in C, C++, Objective C, Java or Javascript, depending on target platform. Typical use cases for native extensions are:
 
@@ -53,7 +53,7 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
 
   :[platforms](../shared/platforms.md)
-  
+
 *manifests*
 : This optional folder contains additional files used in the build or bundling process. See below for details.
 
@@ -73,6 +73,7 @@ The optional *manifests* folder of an extension contains additional files used i
 ## Sharing an extension
 
 Extensions are treated just like any other assets in your project and they can be shared in the same way. If a native extension folder is added as a Library folder it can be shared and used by others as a project dependency. Refer to the [Library project manual](/manuals/libraries/) for more information.
+
 
 ## A simple example extension
 
@@ -99,42 +100,27 @@ The extension source file contains the following code:
 
 // include the Defold SDK
 #include <dmsdk/sdk.h>
-#include <stdlib.h>
 
-static int Rot13(lua_State* L)
+static int Reverse(lua_State* L)
 {
-    int top = lua_gettop(L);
+    // The number of expected items to be on the Lua stack
+    // once this struct goes out of scope
+    DM_LUA_STACK_CHECK(L, 1);
 
     // Check and get parameter string from stack
-    const char* str = luaL_checkstring(L, 1);
+    char* str = (char*)luaL_checkstring(L, 1);
 
-    // Allocate new string
+    // Reverse the string
     int len = strlen(str);
-    char *rot = (char *) malloc(len + 1);
-
-    // Iterate over the parameter string and create rot13 string
-    for(int i = 0; i <= len; i++) {
-        const char c = str[i];
-        if((c >= 'A' && c <= 'M') || (c >= 'a' && c <= 'm')) {
-            // Between A-M just add 13 to the char.
-            rot[i] = c + 13;
-        } else if((c >= 'N' && c <= 'Z') || (c >= 'n' && c <= 'z')) {
-            // If rolling past 'Z' which happens below 'M', wrap back (subtract 13)
-            rot[i] = c - 13;
-        } else {
-            // Leave character intact
-            rot[i] = c;
-        }
+    for(int i = 0; i < len / 2; i++) {
+        const char a = str[i];
+        const char b = str[len - i - 1];
+        str[i] = b;
+        str[len - i - 1] = a;
     }
 
-    // Put the rotated string on the stack
-    lua_pushstring(L, rot);
-
-    // Free string memory. Lua has a copy by now.
-    free(rot);
-
-    // Assert that there is one item on the stack.
-    assert(top + 1 == lua_gettop(L));
+    // Put the reverse string on the stack
+    lua_pushstring(L, str);
 
     // Return 1 item
     return 1;
@@ -143,7 +129,7 @@ static int Rot13(lua_State* L)
 // Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
-    {"rot13", Rot13},
+    {"reverse", Reverse},
     {0, 0}
 };
 
@@ -199,11 +185,12 @@ To test the extension, create a game object and add a script component with some
 
 ```lua
 local s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-local rot_s = myextension.rot13(s)
-print(rot_s) --> nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM
+local reverse_s = myextension.reverse(s)
+print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 ```
 
 And that's it! We have created a fully working native extension.
+
 
 ## Extension Lifecycle
 
@@ -239,6 +226,11 @@ The following identifiers are defined by the builder on each respective platform
 * DM_PLATFORM_ANDROID
 * DM_PLATFORM_LINUX
 * DM_PLATFORM_HTML5
+
+## Build server logs
+
+Build server logs are available when the project is using native extensions. The build server log (`log.txt`) is downloaded together with the custom engine when the project is built and stored inside the file `.internal/%platform%/build.zip` and also unpacked to the build folder of your project.
+
 
 ## The ext.manifest file
 

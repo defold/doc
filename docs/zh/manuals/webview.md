@@ -116,24 +116,20 @@ webview.open(feedback_webview, player_feedback_url)
 ## 载入展示自己的 HTML 网页
 继续深入探讨之前, 我们来动手做一个可以用来交互的 HTML 简单网页.
 
-With `webview.open_raw` we can provide a HTML source directly instead of loading it from a remote
-URL. This means that even if the webserver is down, or the player have a slow internet connection,
-we can still show the feedback form.
+通过调用 `webview.open_raw` 函数我们可以让webview直接解析加载 HTML 文件源码. 这样即使没有服务器, 网络环境恶劣的情况下, 都可以载入我们的网页.
 
-The first argument to `webview.open_raw` is just like `webview.open`, the `webview_id`. The second
-argument is a string with raw HTML source, instead of an URL as in the previous function.
+`webview.open_raw` 的第一个参数和 `webview.open` 一样是 `webview_id`. 第二个参数换成网页源代码引用.
 
-Let's recreate the previous example but inline the HTML directly in our Lua source:
+下面来看一个把网页代码直接写在脚本里的例子:
 ```lua
 local feedback_html = [[
 <html>
 <script type="text/javascript">
     function closeWebview() {
-        // TODO
+        // 暂时留空
     }
     function submitFeedback() {
-        // do something with the feedback here
-        // ...
+        // 暂时留空
     }
 </script>
 <body>
@@ -159,18 +155,14 @@ local webview_id = webview.create(webview_callback)
 webview.open_raw(webview_id, feedback_html)
 ```
 
-This should give us a similar webview as in the previous example, with the added benefit that we
-can edit the HTML directly in our game source code. **Note:** The contents of `webview_callback` has
-only been removed for readability.
+效果与前面的示例类似, 不同的是这次我们可以随时任意修改网页代码.
+**注意:** 本例中 `webview_callback` 函数与前例类似故忽略.
 
-Since we know that the HTML source is going to grow a bit once we start adding JavaScript code and
-CSS, it now makes sense to separate the HTML data into its own file and load it dynamically during
-runtime using [`sys.load_resource`](https://www.defold.com/ref/sys/#sys.load_resource:filename).
-This also means that we more easily can view the HTML file in a desktop browser while we are
-developing.
+众所周知一个 HTML 源码包含所有代码和资源是不明智的, 最好把 JavaScript 和 CSS 等资源分门别类保存为文件, 这种情况下
+可以使用 [`sys.load_resource`](https://www.defold.com/ref/sys/#sys.load_resource:filename) 进行资源文件的预加载.
+而且这样做还有一个好处就是可以随时打开网页浏览器查看网页效果.
 
-Let's create a new directory (`custom_resources`), and a HTML file (`feedback.html`) with the data
-instead and set the `feedback_html` variable dynamically instead.
+新建一个文件夹 (`custom_resources`) 和一个 HTML 文件 (`feedback.html`). 然后用 `feedback_html` 变量引用这些资源.
 
 ```lua
 local feedback_html = sys.load_resource("/custom_resources/feedback.html")
@@ -178,80 +170,66 @@ local feedback_html = sys.load_resource("/custom_resources/feedback.html")
 webview.open_raw(webview_id, feedback_html)
 ```
 
-## Visibility and positioning control
-Now let's tackle the issue of the webview being full screen.
+## 可视性和位置控制
+现在来解决网页占据全屏问题.
 
-To get a more immersive interaction we might want the webview only cover the upper part of the
-screen. We can use the `webview.set_position` function to both set the position and width of a
-webview. Passing in `-1` as either width or height will make the webview take up the full space on the
-corresponding axis.
+为了更方便的互动, 我们要把网页放在游戏屏幕上半部分. 可以使用 `webview.set_position` 函数设置webview的位置和宽高.
+设置 `-1` 代表在这个轴向上占据全部屏幕.
 
 ```lua
 local webview_id = webview.create(webview_callback)
--- Position: top left corner of screen (0, 0)
--- Size: we want full with, but only 500px height
+-- 位置: 屏幕左上角 (0, 0)
+-- 尺寸: 全屏款, 500像素高
 webview.set_position(webview_id, 0, 0, -1, 500)
 ```
 
 ![Resized feedback page](images/webview/webview_player_feedback2.png)
 
-If the user is on a device with poor performance, the page might not load instantly and display as
-white while loading. This might be jarring to our player, so let's hide the webview until the page
-has loaded. This also gives us the opportunity to show a loading indication in-game to reassure the
-player that the game is actually doing something.
+遇到性能不理想的设备, 网页从加载到显示可能会白屏很长时间. 这个体验很不好, 所以加载完成之前我们先把webview隐藏起来. 同时我们还要提示玩家资源正在加载.
 
-To hide the webview we can pass along an options table to the third argument of our
-`webview.open_raw` (or `webview.open`) call, with the field `hidden` set to `true`. The default
-value of this field is `false` as we have seen before, once we opened a URL or HTML the webview
-was immediately visible.
+这里用到 `webview.open_raw` (`webview.open` 同样) 的第三个参数, 传入一个表, 然后设置 `hidden` 键为 `true`.
+默认是 `false`, 代表像前面示例那样一调用加载就可见.
 
 ```lua
 webview.open_raw(webview_id, feedback_html, {hidden = true})
 ```
 
-To make sure the webview successfully loaded the URL or HTML we want to wait for the callback to
-trigger with an event of type `webview.CALLBACK_RESULT_URL_OK`. Once we get this we know that we can
-unhide the webview, which can be accomplished with the `webview.set_visible` function.
+等到 `webview.CALLBACK_RESULT_URL_OK` 事件触发说明资源加载完毕. 这时就可以显示webview了, 调用 `webview.set_visible` 函数即可.
 
-Let's update our callback with this new logic:
+升级版的回调函数如下:
 ```lua
 local function webview_callback(self, webview_id, request_id, type, data)
     if type == webview.CALLBACK_RESULT_URL_OK then
-        -- No errors, let's present the webview!
+        -- 顺利完成加载, 显示webview!
         webview.set_visible(webview_id, 1)
     elseif type == webview.CALLBACK_RESULT_URL_ERROR then
         -- ...
 ```
 
-## Running JavaScript
-Now we have managed to fix most of our issues, but one last thing is still unsolved; being able to
-close the webview.
+## 运行 JavaScript 脚本
+现在来解决关闭webview的事.
 
-We have already seen and used the function that will close and remove the webview in our callback
-when we encounter an error, `webview.destroy`. But we need a way from inside the webview to trigger
-the function call. Thankfully we there is a way from Lua to call JavaScript that will run inside the
-webview and read the result. With this we should be able to poll for changes inside the webview.
+前例中已经出现过, 遇到错误事件触发时, 调用了 `webview.destroy` 函数. 但是没有错误就没法把握关闭webview的时机.
+幸好引擎提供了从 Lua 到webview里运行的 JavaScript 程序的交互功能. 这样我们就能关注webview里js变量的变化.
 
-Let's start with adding some state inside the JavaScript tag of the HTML that we can change when
-the buttons are pressed on the web page.
+当玩家按下网页上的一个按钮时, 运行一段程序, 改变一个变量.
 ```js
 var shouldClose = false;
 function closeWebview() {
     shouldClose = true;
 }
 function submitFeedback() {
-    // do something with the feedback here
+    // 自定义反馈处理代码
     // ...
     closeWebview();
 }
 
 ```
 
-Now once the player presses either the "Submit feedback" or "Cancel" button we update the
-`shouldClose` variable.
+不论玩家按了 "提交反馈" 还是 "取消反馈" 按钮, 程序都会把 `shouldClose` 变量设置为 true.
 
-Now somewhere in our Lua script we need to check for this state and call `webview.destroy`. A naive
-place would be to check for this every frame, in our `update` function.
+在 Lua 脚本里我们只要发现 `shouldClose` 变为 true 了, 就知道该调用 `webview.destroy` 了.
+正好有个好地方来关注这个变量, 就是在每帧都会被调用的 `update` 函数里.
 
 ```lua
 function update(self, dt)
@@ -261,18 +239,15 @@ function update(self, dt)
 end
 ```
 
-It's important to note here that the result from `webview.eval` is not the result from the
-JavaScript being evaluated, but a *request id*. We need to update our callback to check against this
-request id, and inspect the `data.result` field, which is where the actual JavaScript result will be
-stored.
+注意这里 `webview.eval` 返回的并不是 JavaScript 的运行结果, 而是 *运行请求id*. 我们首先要确定回调函数的请求id, 这个函数里传入的 `data.result` 才是真正的 JavaScript 运行结果.
 
 ```lua
 local function webview_callback(self, webview_id, request_id, type, data)
-    if type == webview.CALLBACK_RESULT_EVAL_OK and
-        request_id == self.closeCheckRequest then
+    if type == webview.CALLBACK_RESULT_EVAL_OK and --运行完毕
+        request_id == self.closeCheckRequest then --回调是由检查变量的运行请求触发的
 
-        -- Compare the JavaScript result, if it's "true" we should
-        -- close the webview!
+        -- 检查运行结果,
+        -- 如果是 true 则关闭 webview!
         if data.result == "true" then
             webview.destroy(webview_id)
         end
@@ -281,5 +256,4 @@ local function webview_callback(self, webview_id, request_id, type, data)
         -- ...
 ```
 
-Now we know if a form button was pressed from inside the webview and the player is able to get back
-to the game!
+这样一来玩家在点击按钮之后就能返回继续游戏了!
