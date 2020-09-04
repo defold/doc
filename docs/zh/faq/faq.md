@@ -1,169 +1,168 @@
 ---
-title: Defold engine and editor FAQ
-brief: Frequently asked questions about the Defold game engine, editor and platform.
+title: Defold 引擎与编辑器常见问题和解答
+brief:有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 ---
 
-# Frequently asked questions
+# 常见问题
 
-## General questions
+## 一般常见
 
-#### Q: Is Defold really free?
+#### 问: Defold 真的免费吗?
 
-A: Yes, the Defold engine and editor with full functionality is completely free of charge. No hidden costs, fees or royalties. Just free.
-
-
-#### Q: Why on earth would the Defold Foundation give Defold away?
-
-A: One of the objectives of the [Defold Foundation](/foundation) is to make sure that the Defold software is available to developers world-wide and that the source code is available free of charge.
+答: 对, Defold 引擎与编辑器和所有功能完全免费. 没有暗扣费, 手续费和使用权费用. 完全免费.
 
 
-#### Q: How long will you support Defold?
+#### 问: Defold 基金会为什么开发并免费提供 Defold?
 
-A: We are deeply committed to Defold. The [Defold Foundation](/foundation) has been set up in such a way that it is guaranteed to exist as a responsible owner for Defold for many years to come. It is not going away.
-
-
-#### Q: Can I trust Defold for professional development?
-
-A: Absolutely. Defold is used by a growing number of professional game developers and game studios. Check out the [games showcase](/showcase) for examples of games created using Defold.
+答: [Defold 基金会](/foundation) 的一大目标就是让 Defold 软件能够被世界上所有开发者免费使用并且源码也是公开免费的.
 
 
-#### Q: What kind of user tracking are you doing?
+#### 问: Defold 能持续维护多久?
 
-A: We log anonymous usage data from our websites and the Defold editor in order to improve our services and product. There is no user tracking in the games you create (unless you add an analytics service yourself). Read more about this in our [Privacy Policy](/privacy-policy).
-
-
-#### Q: Who made Defold?
-
-A: Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/about).
+答: 我们承诺维护 Defold. [Defold 基金会](/foundation) 的成立就是为了保证 Defold 能够被持续维护. 我们不会放弃.
 
 
-## Platform questions
+#### 问: 专业开发的话 Defold 值得信赖吗?
 
-#### Q: What platforms does Defold run on?
+答: 必须值得信赖. Defold 已被越来越多的职业开发者和工作室所采用. 可以参考位于 [游戏展示页](/showcase) 上的用 Defold 开发的各种样例.
 
-A: The following platforms are supported for the editor/tools and the engine runtime:
 
-  | System                     | Supported            |
+#### 问: 你们做了什么样的用户跟踪?
+
+答: 我们的网站和 Defold 编辑器会使用匿名回报一些数据用以提升我们的服务和产品质量. 你编译出版的游戏里不带任何用户跟踪 (除非你自己加入分析服务功能). 详情请见我们的 [隐私政策](/privacy-policy).
+
+
+#### 问: 谁制作了 Defold?
+
+答: Defold 由 Ragnar Svensson 和 Christian Murray 开发. 他们从2009年就开始了游戏引擎, 编辑器和配套服务的开发. King 和 Defold 在2013年建立了合作关系然后并于2014年获得 Defold. 详情请见 [这里](/about).
+
+
+## 平台相关
+
+#### 问: Defold 可以运行在哪些平台上?
+
+答: 下表列出了编辑器工具与游戏引擎运行环境的支持情况:
+
+  | 系统                        | 支持                  |
   | -------------------------- | -------------------- |
-  | macOS 10.7 Lion            | Editor and runtime   |
-  | Windows Vista              | Editor and runtime   |
-  | Ubuntu 18.04 (64 bit)(1)   | Editor               |
-  | Linux (64 bit)(2)          | Runtime              |
-  | iOS 8.0                    | Runtime              |
-  | Android 4.1 (API level 16) | Runtime              |
-  | HTML5                      | Runtime              |
+  | macOS 10.7 Lion            | 编辑器与游戏引擎        |
+  | Windows Vista              | 编辑器与游戏引擎        |
+  | Ubuntu 18.04 (64 bit)(1)   | 编辑器                |
+  | Linux (64 bit)(2)          | 游戏引擎              |
+  | iOS 8.0                    | 游戏引擎              |
+  | Android 4.1 (API level 16) | 游戏引擎              |
+  | HTML5                      | 游戏引擎              |
 
-  (1 The editor is built and tested for 64-bit Ubuntu 18.04. It should work on other distributions as well but we give no guarantees.)
+  (1 编辑器在 64-bit Ubuntu 18.04 平台上通过编译和测试. 其他版本应该同样可以运行但是未经过测试.)
 
-  (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date and supporting OpenGL ES 2.0.)
-
-
-#### Q: What are the system requirements for the editor
-
-A: The editor will use up to 75% of the available memory of the system. On a computer with 4 GB of RAM this should be enough for smaller Defold projects. For mid-sized or large projects it is recommended to use 6 GB or more of RAM.
+  (2 游戏引擎在大多数 64-bit Linux 版本上只要更新显卡驱动支持 OpenGL ES 2.0 的基本都能运行.)
 
 
-#### Q: What target platforms can I develop games for with Defold?
+#### 问: 运行编辑器需要什么硬件系统?
 
-A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as well as macOS/OS X, Windows and Linux. It’s truly one codebase with multiple supported platforms.
-
-
-#### Q: What rendering API does Defold rely on?
-
-A: Defold uses OpenGL ES 2.0 for graphics rendering, which is available on all our supported platforms.
+答: 编辑器最多占用 75% 的空闲系统内存. 一般 4 GB 内存的电脑就可以运行 Defold 小项目了. 中大型项目建议配备 6 GB 或更多内存.
 
 
-#### Q: Can I do 3D games in Defold?
+#### 问: Defold 能输出哪些平台的游戏?
 
-A: Absolutely! The engine is a full blown 3D engine. However, the toolset is made for 2D so you will have to do a lot of heavy lifting yourself. Better 3D support is planned.
-
-
-#### Q: What programming language do I work with in Defold?
-
-A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to extend the Defold engine with new functionality. When building custom materials, OpenGL ES SL shader language is used to write vertex and fragment
-shaders.
+答: 可以一键发布 任天堂 Switch, iOS, Android 和 HTML5 游戏, 外加 macOS/OS X, Windows 和 Linux 游戏. 真正的一套代码平台通用.
 
 
-#### Q: Is there a way to know what version I'm running?
+#### 问: Defold 基于何种渲染引擎?
 
-A: Yes, select the "About" option in the Help menu. The popup clearly shows Defold beta version and, more importantly, the specific release SHA1. For runtime version lookup, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
-
-The latest beta version available for download from http://d.defold.com/beta can be checked by opening http://d.defold.com/beta/info.json (the same file exists for stable versions as well: http://d.defold.com/stable/info.json)
+A: Defold 使用 OpenGL ES 2.0 进行图像渲染, 全平台有效. （如果平台渲染引擎更新, Defold引擎也会随之更新）
 
 
-#### Q: Is there a way to know what platform the game is running on at runtime?
+#### 问: Defold 能做 3D 游戏吗?
 
-A: Yes, check out [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
-
-
-#### Q: Are Defold beta versions auto-updating?
-
-A: Yes. The Defold beta editor checks for an update at startup, just like the Defold stable version does.
+答: 可以! 游戏引擎纯 3D. 然而, 工具都是针对 2D 游戏设计的, 所以 3D 游戏工具你得自己开发. 提升 3D 支持的计划进行中.
 
 
-## Publishing games
+#### 问: Defold 游戏开发用什么语言?
 
-#### Q: I'm trying to publish my game to AppStore. How should I respond to IDFA?
-
-A: When submitting, Apple has three checkboxes for their three valid use cases for the IDFA:
-
-  1. Serve ads within the app
-  2. Install attribution from ads
-  3. User action attribution from ads
-
-  If you check option 1, the app reviewer will look for ads to show up in the app. If your game does not show ads, the game might get rejected. Defold itself doesn't use AD id.
+答: Defold 项目游戏逻辑基本使用 Lua 语言 (特指 Lua 5.1/LuaJIT, 详情请见 [Lua 教程](/manuals/lua)). Lua 是一种强大快速的动态语言. 同时也支持使用原生 (C/C++, Objective-C, Java 和 JavaScript等) 语言来扩展 Defold 引擎功能. 自定义材质, 使用 OpenGL ES SL 语言编写的顶点和片元着色程序.
 
 
-#### Q: How do I monetize my game?
+#### 问: 如何获取 Defold 版本信息?
 
-A: Defold has support for in-app purchases and various advertising solutions. Check the [Monetization category in the Asset Portal](https://defold.com/tags/stars/monetization/) for an up to date list of available monetization options.
+答: 点击菜单栏 "About" 项. 弹出窗口详细列出了 Defold 版本号, 和文件哈希 SHA1. 对于游戏引擎版本, 调用 [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info) 获取.
 
-
-## Errors using Defold
-
-#### Q: Why doesn't the editor start or open my project?
-
-A: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the OSX version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
+最新测试版位于 http://d.defold.com/beta 可以查看 http://d.defold.com/beta/info.json (正式版同样也有: http://d.defold.com/stable/info.json) 文件获取最新版本信息.
 
 
-#### Q: I can't start the game and there is no build error. What's wrong?
+#### 问: 运行时如何获取系统信息?
 
-A: The build process can fail to rebuild files in rare cases where it have previously encountered build errors that you have fixed. Force a full rebuild by selecting *Project > Rebuild And Launch* from the menu.
+答: 调用 [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info) 获取.
 
 
-#### Q: Why am I getting a java exception when I try to start Defold?
+#### 问: Defold 测试版会自动更新吗?
 
-A: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
+答: Defold 测试版编辑器会在启动时检查并自动更新, 正式版也是.
 
-This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
 
-See [this link](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md) for details on this error.
+## 发布相关
+
+#### 问: 我想把游戏发布到 AppStore. 如何设置 IDFA?
+
+答: 提交游戏时, Apple 为广告商提供了3种 IDFA 用例:
+
+  1. 应用内展示广告
+  2. 用广告提升安装量
+  3. 用广告提升点击量
+
+  如果选择第一个, 编辑会在你的游戏里找广告. 如果没找到, 游戏很可能会被拒. Defold 本身不使用广告商id.
+
+
+#### 问: 怎么用游戏获利?
+
+答: Defold 支持游戏内付费和多种广告服务. 最新相关信息详见 [资源中心的盈利类目](https://defold.com/tags/stars/monetization/).
+
+
+## Defold 报错
+
+#### 问: 编辑器不启动, 项目不加载?
+
+答: 检查 Defold 安装路径里是否有空格. 比如, 把编辑器放在mac系统 *Applications* 中的 *Defold-macosx* 文件夹里, 就能运行.  改成 *Defold macosx* 就无法运行. 在 Windows 上, 像 *C:\\Program Files\\* 这样的路径都不行. 这归因于系统架构的一个bug.
+
+
+#### 问: 游戏无法启动也没有报错. 怎么办?
+
+答: 如果二次编译不通过很肯能由你最后做的改动导致. 从菜单栏选择 *Project > Rebuild And Launch* 试试.
+
+
+#### 问: 启动 Defold 时报了 Java 相关的错?
+
+答: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
+
+这个错是由于编辑器尝试建立 https 连接而服务器证书无法验证导致.
+
+详情请见 [这里](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md).
 
 
 ## Linux
-:[Linux FAQ](../shared/linux-faq.md)
+:[Linux 问答](../shared/linux-faq.md)
 
 
 ## Android
-:[Android FAQ](../shared/android-faq.md)
+:[Android 问答](../shared/android-faq.md)
 
 
 ## HTML5
-:[HTML5 FAQ](../shared/html5-faq.md)
+:[HTML5 问答](../shared/html5-faq.md)
 
 
 ## Windows
-:[Windows FAQ](../shared/windows-faq.md)
+:[Windows 问答](../shared/windows-faq.md)
 
 ## Nintendo Switch
-:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
+:[Nintendo Switch 问答](../shared/nintendo-switch-faq.md)
 
 
-## Game content
+## 游戏内容相关
 
-#### Q: Does Defold support prefabs?
+#### 问: Defold 里有 prefab 吗?
 
-A: Yes, it does. They are called [collections](/manuals/building-blocks/#collections). They allow you to create complex game object hierarchies and store those as a separate building blocks that you can instance in the editor or at runtime (through collection spawning). For GUI nodes there is support for GUI templates.
+A: 有. Defold 里叫 [集合](/manuals/building-blocks/#collections). They allow you to create complex game object hierarchies and store those as a separate building blocks that you can instance in the editor or at runtime (through collection spawning). For GUI nodes there is support for GUI templates.
 
 
 #### Q: I can't add a game object as a child to another game object, why?
