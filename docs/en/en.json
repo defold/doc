@@ -453,7 +453,7 @@
                         "name": "Socket connections"
                     },
                     {
-                        "path": "/manuals/websocket-connections",
+                        "path": "/extension-websocket",
                         "name": "WebSocket connections"
                     },
                     {
@@ -637,6 +637,10 @@
                     {
                         "path": "/extension-push",
                         "name": "Push notifications"
+                    },
+                    {
+                        "path": "/extension-websocket",
+                        "name": "WebSocket"
                     },
                     {
                         "path": "/manuals/webview",
