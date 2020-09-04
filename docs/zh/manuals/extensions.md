@@ -5,21 +5,21 @@ brief: 本教程介绍了给 Defold 游戏引擎编写原生扩展的方法以�
 
 # 原生扩展
 
-If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in C, C++, Objective C, Java or Javascript, depending on target platform. Typical use cases for native extensions are:
+如果需要使用 Lua 本身不提供的功能, 比如第三方软件交互或者底层硬件控制, Defold SDK 接受使用 C, C++, Objective C, Java 以及 Javascript 编写的扩展程序, 语言选取取决于目标发布平台. 原生扩展的常见用法有:
 
-- Interaction with specific hardware, for instance the camera on mobile phones.
-- Interaction with external low level APIs, for instance advertising network APIs that do not allow interaction through network APIs where Luasocket could be used.
-- High performance calculations and data processing.
+- 与特定硬件交互, 例如手机摄像头.
+- 与底层软件交互, 例如未提供的底层网络交互要使用 Luasocket 扩展包实现.
+- 高性能计算, 数据处理等.
 
-## The build platform
+## 编译平台
 
-Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project, either directly or through a [Library Project](/manuals/libraries/), becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute them to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
+Defold 提供了一个云端服务器编译方案. 游戏项目的各种依赖, 或者直接引用或者通过 [库项目](/manuals/libraries/) 加入, 都会变成项目内容的一部分. 没有必要重新编译特别版引擎然后分发给开发组成员, 任何成员对项目的编译运行使所有成员都能得到嵌入全部所需库的引擎程序.
 
 ![Cloud build](images/extensions/cloud_build.png)
 
-## Project layout
+## 项目结构
 
-To create a new extension, create a folder in the project root. This folder will contain all settings, source code, libraries and resources associated with the extension. The extension builder recognizes the folder structure and collects any source files and libraries.
+在项目根目录下为扩展程序建立一个文件夹. 这个文件夹将包含扩展程序所需要的一切, 源代码, 外部库和资源文件. 云编译服务器解析这个结构以便分别获取所需要的各种文件.
 
 ```
  myextension/
@@ -41,43 +41,43 @@ To create a new extension, create a folder in the project root. This folder will
 
 ```
 *ext.manifest*
-: The extension folder _must_ contain an *ext.manifest* file. This file is a YAML format file that is picked up by the extension builder. A minimal manifest file should contain the name of the extension.
+: 原生扩展程序文件夹下 _必须_ 包含一个 *ext.manifest* 文件. 这是一个 YAML 格式的文件, 编译服务器通过此文件了解扩展项目结构. 这个文件里至少要包含一项就是原生扩展的名字.
 
 *src*
-: This folder should contain all source code files.
+: 包含所有源代码.
 
 *include*
-: This optional folder contains any include files.
+: 包含所有外部引用文件（可选）.
 
 *lib*
-: This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
+: 包含要用到的所有外部编译好的库. 库文件要根据称为 `platform` 或 `architecure-platform` 的子文件夹分类放置, 也就是说什么平台用什么库.
 
   :[platforms](../shared/platforms.md)
 
 *manifests*
-: This optional folder contains additional files used in the build or bundling process. See below for details.
+: 包含编译过程所需配置文件（可选）. 详见下文.
 
 *res*
-: This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
+: 包含原生扩展所需的一切资源文件（可选）. 资源文件要根据称为 `platform` 或 `architecure-platform` 的子文件夹分类放置, 也就是说什么平台用什么资源. 其中 `common` 文件夹包含各种平台的通用资源文件.
 
 ### Manifest files
 
-The optional *manifests* folder of an extension contains additional files used in the build and bundling process. Files should be placed in subfolders named by `platform`:
+*manifests* 包含编译时不同平台所需的配置文件. 配置文件要根据称为 `platform` 的子文件夹分类放置:
 
-* `android` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)). The folder can also contain a `build.gradle` file with dependencies to be resolved by Gradle ([example](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Finally the folder can also contain zero or more ProGuard files (experimental).
-* `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
-* `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
-* `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
-
-
-## Sharing an extension
-
-Extensions are treated just like any other assets in your project and they can be shared in the same way. If a native extension folder is added as a Library folder it can be shared and used by others as a project dependency. Refer to the [Library project manual](/manuals/libraries/) for more information.
+* `android` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extension-manifest-merge-tool)). 还可以存放 `build.gradle` 文件及其依赖以便 Gradle 可以解析 ([示例](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). 还能存放0个或多个 ProGuard 代码混淆文件 (试验功能).
+* `ios` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extension-manifest-merge-tool)).
+* `osx` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extension-manifest-merge-tool)).
+* `web` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extension-manifest-merge-tool)).
 
 
-## A simple example extension
+## 共享原生扩展
 
-Let's build a very simple extension. First, we create a new root folder *myextension* and add a file *ext.manifest* containing the name of the extension "MyExtension". Note that the name is a C++ symbol and must match the first argument to `DM_DECLARE_EXTENSION` (see below).
+原生扩展如同其他资源文件一样也可以共享. 如果库项目包含原生扩展文件夹的话, 它就能作为项目依赖库共享给其他人. 详情请见 [库项目教程](/manuals/libraries/).
+
+
+## 简单示例
+
+从头开始做一个简单的原生扩展. 第一步, 创建 *myextension* 文件夹并加入 *ext.manifest* 文件, 文件中包含扩展名 "MyExtension". 注意这个扩展名会作为一个 C++ 变量名填充在 `DM_DECLARE_EXTENSION` 宏的第一个参数位置上 (见下文).
 
 ![Manifest](images/extensions/manifest.png)
 
@@ -86,11 +86,11 @@ Let's build a very simple extension. First, we create a new root folder *myexten
 name: "MyExtension"
 ```
 
-The extension consists of a single C++ file, *myextension.cpp* that is created in the "src" folder.
+这个扩展就一个 C++ 文件, *myextension.cpp*, 位于 "src" 文件夹里.
 
 ![C++ file](images/extensions/cppfile.png)
 
-The extension source file contains the following code:
+源代码如下:
 
 ```cpp
 // myextension.cpp
@@ -177,11 +177,11 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. The first argument `symbol` must match the name specified in *ext.manifest*. For this simple example, there is no need for any "update" or "on_event" entry points, so `0` is provided in those locations to the macro.
+注意 `DM_DECLARE_EXTENSION` 宏用来声明扩展程序执行入口. 第一个参数 `symbol` 要与 *ext.manifest* 上的扩展名一致. 本例中没有用到 "update" 或 "on_event" 执行入口, 所以用 `0` 填充了宏的相应参数.
 
-Now it is just a matter of building the project (<kbd>Project ▸ Build and Launch</kbd>). This will upload the extension to the extension builder which will produce a custom engine with the new extension included. If the builder encounters any errors, a dialog with the build errors will show.
+现在就差编译运行了 (<kbd>Project ▸ Build and Launch</kbd>). 带原生扩展的项目会被上传到云编译服务器编译. 如果编译出错, 将会弹出一个包含错误信息的窗口.
 
-To test the extension, create a game object and add a script component with some test code:
+测试扩展运行, 新建一个游戏对象和一个脚本组件, 再写一些测试代码:
 
 ```lua
 local s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -189,36 +189,36 @@ local reverse_s = myextension.reverse(s)
 print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 ```
 
-And that's it! We have created a fully working native extension.
+成功了! 我们从零开始完整地制作了一个扩展程序.
 
 
-## Extension Lifecycle
+## 扩展程序生命周期
 
-As we saw above the `DM_DECLARE_EXTENSION` macro is used to declare the various entry points into the extension code:
+上面提到了 `DM_DECLARE_EXTENSION` 宏用来声明程序执行入口:
 
 `DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)`
 
-The entry points will allow you to run code at various points in the lifecycle of an extension:
+入口对应扩展程序的各种生命周期函数, 运行顺序如下:
 
-* Engine start
-  * Engine systems are starting
-  * Extension `app_init`
-  * Extension `init` - All Defold APIs have been initialized. This is the recommended point in the extension lifecycle where Lua bindings to extension code is created.
-  * Script init - The `init()` function of script files are called.
-* Engine loop
-  * Engine update
-    * Extension `update`
-    * Script update - The `update()` function of script files are called.
-  * Engine events (window minimize/maximize etc)
-    * Extension `on_event`
-* Engine shutdown (or reboot)
-  * Script final - The `final()` function of script files are called.
-  * Extension `final`
-  * Extension `app_final`
+* 引擎启动
+  * 引擎代码运行
+  * 扩展 `app_init`
+  * 扩展 `init` - Defold API 初始化. 建议扩展程序从这里开始运行并且暴露给Lua脚本.
+  * 脚本 `init()` 函数调用.
+* 引擎循环
+  * 引擎刷新
+    * 扩展 `update`
+    * 脚本 `update()` 函数调用.
+  * 引擎事件 (窗口最大/最小化之类的)
+    * 扩展 `on_event`
+* 引擎关闭 (或重启)
+  * 脚本 `final()` 函数调用.
+  * 扩展 `final`
+  * 扩展 `app_final`
 
-## Defined platform identifiers
+## 预定义的平台标识
 
-The following identifiers are defined by the builder on each respective platform:
+编译器中预定义了如下平台标识:
 
 * DM_PLATFORM_WINDOWS
 * DM_PLATFORM_OSX
@@ -227,14 +227,14 @@ The following identifiers are defined by the builder on each respective platform
 * DM_PLATFORM_LINUX
 * DM_PLATFORM_HTML5
 
-## Build server logs
+## 编译服务器日志
 
-Build server logs are available when the project is using native extensions. The build server log (`log.txt`) is downloaded together with the custom engine when the project is built and stored inside the file `.internal/%platform%/build.zip` and also unpacked to the build folder of your project.
+当项目使用了原生扩展, 编译时就会生成编译服务器日志. 编译服务器日志文件 (`log.txt`) 与被编译的项目一起下载到本地, 并保存在项目 build 文件夹的 `.internal/%platform%/build.zip` 文件中.
 
 
-## The ext.manifest file
+## ext.manifest 文件
 
-Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libs and frameworks. If the *ext.manifest* file does not contain a "platforms" segment, or a platform is missing from the list, the platform you bundle for will still build, but without any extra flags set.
+除了扩展名称, ext.manifest 文件还可以包含指定平台的编译参数, 链接参数, 外部程序和链接库. 如果 *ext.manifest* 文件不包含 "platforms" 项, 或者找不到对应的平台配置参数, 编译仍会继续, 只是不加各种编译参数.
 
 Here is an example:
 
@@ -259,27 +259,27 @@ platforms:
             defines:    ["MY_DEFINE"]
 ```
 
-### Allowed keys
+### 可用参数项
 
-Allowed keys are for platform specific compile flags are:
+各个平台可用参数项如下:
 
-* `frameworks` - Apple frameworks to include when building (iOS and OSX)
-* `flags` - Flags that should be passed to the compiler
-* `linkFlags` - Flags that should be passed to the linker
-* `libs` - Libraries to include when linking
-* `defines` - Defines to set when building
-* `aaptExtraPackages` - Extra package name that should be generated (Android)
-* `aaptExcludePackages` - Regexp (or exact names) of packages to exclude (Android)
-* `aaptExcludeResourceDirs` - Regexp (or exact names) of resource dirs to exclude (Android)
+* `frameworks` - 加入苹果库 (iOS 和 OSX)
+* `flags` - 编译参数
+* `linkFlags` - 链接参数
+* `libs` - 链接库
+* `defines` - 编译预定义
+* `aaptExtraPackages` - 导入外部包 (Android)
+* `aaptExcludePackages` - 排除内部包 (Android)
+* `aaptExcludeResourceDirs` - 排除资源文件夹 (Android)
 
-## Example extensions
+## 原生扩展举例
 
-* [Basic extension example](https://github.com/defold/template-native-extension) (the extension from this manual)
-* [Android extension example](https://github.com/defold/extension-android)
-* [HTML5 extension example](https://github.com/defold/extension-html5)
-* [MacOS, iOS and Android videoplayer extension](https://github.com/defold/extension-videoplayer)
-* [MacOS and iOS camera extension](https://github.com/defold/extension-camera)
-* [iOS and Android In-app Purchase extension](https://github.com/defold/extension-iap)
-* [iOS and Android Firebase Analytics extension](https://github.com/defold/extension-firebase-analytics)
+* [基础示例](https://github.com/defold/template-native-extension) (本教程所使用的简单示例)
+* [Android 扩展示例](https://github.com/defold/extension-android)
+* [HTML5 扩展示例](https://github.com/defold/extension-html5)
+* [MacOS, iOS 和 Android 的 videoplayer 扩展程序](https://github.com/defold/extension-videoplayer)
+* [MacOS 和 iOS 的摄像头扩展程序](https://github.com/defold/extension-camera)
+* [iOS 和 Android 的内支付扩展程序](https://github.com/defold/extension-iap)
+* [iOS 和 Android 的 Firebase Analytics 扩展程序](https://github.com/defold/extension-firebase-analytics)
 
-The [Defold asset portal](https://www.defold.com/assets/) also contain several native extensions.
+[Defold 资源中心](https://www.defold.com/assets/) 也包含有许多原生扩展项目资源.
