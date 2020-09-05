@@ -162,27 +162,27 @@ A: Defold 使用 OpenGL ES 2.0 进行图像渲染, 全平台有效. （如果平
 
 #### 问: Defold 里有 prefab 吗?
 
-A: 有. Defold 里叫 [集合](/manuals/building-blocks/#collections). They allow you to create complex game object hierarchies and store those as a separate building blocks that you can instance in the editor or at runtime (through collection spawning). For GUI nodes there is support for GUI templates.
+答: 有. Defold 里叫 [集合](/manuals/building-blocks/#collections). 它能帮助建立储存游戏内容为树形结构以便在编辑器或者游戏运行时创建实例. 对于 GUI 节点类似结构称为 GUI 模板.
 
 
-#### Q: I can't add a game object as a child to another game object, why?
+#### 问: 为什么我不能在游戏对象下建立子游戏对象?
 
-A: Chances are that you try to add a child in the game object file and that is not possible. To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_ transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy.
-
-
-#### Q: Why can't I broadcast messages to all children of a game object?
-
-A: Parent-child relations express nothing else than the scene-graph transform relations and should not be mistaken for object orientation aggregates. If you try to focus on your game data and how to best transform it as your game alter its state you will likely find less need to send messages with state data to many objects all the time. In the cases where you will need data hierarchies, these are easily constructed and handled in Lua.
+答: 有一种可能是因为父级游戏对象是一个文件引用. 对于父子结构的游戏对象来说它们的位移关系通过 _场景结构_ 表达. 没有被加入到场景里的游戏对象无法于其他对象建立父子关系.
 
 
-#### Q: Why am I experiencing visual artifacts around the edges of my sprites?
+#### 问: 为什么我不能在所有子游戏对象间广播消息?
 
-A: That is a visual artifact called "edge bleeding" where the edge pixels of neighboring pixels in an atlas bleed into the image assigned to your sprite. The solution is to pad the edge of your atlas images with extra row(s) and column(s) of identical pixels. Luckily this can be done automatically by the atlas editor in Defold. Open your atlas and set the *Extrude Borders* value to 1.
+答: 父子关系除了场景结构中表现相对位移以外别无其他特别之处. 如果需要跟踪子对象状态无需时刻向所有子对象发送消息. 这种情况下你需要使用 Lua 编写数据结构.
 
 
-#### Q: Can I tint my sprites or make them transparent, or do I have to write my own shader for it?
+#### 问: 精灵对象周围出现黑白边?
 
-A: The built-in sprite shader that is used by default for all sprites has a constant "tint" defined:
+答: 这被称作 "边缘出血" 现象, 渲染精灵对象的时候把纹理旁边的一些像素也加入进来了. 解决办法是用纹理边缘的像素再扩充一圈. 好在 Defold 编辑器有工具能自动做这件事. 尝试打开图集并且设置 *Extrude Borders* 的值为 1.
+
+
+#### 问: 精灵变色, 透明效果如何制作?
+
+A: 精灵默认着色程序包含 "tint" 属性:
 
   ```lua
   local red = 1
@@ -193,93 +193,93 @@ A: The built-in sprite shader that is used by default for all sprites has a cons
   ```
 
 
-#### Q: If I set the z coordinate of a sprite to 100 then it's not rendered. Why?
+#### 问: 为什么游戏对象的z值设为100就看不见了?
 
-A: The Z-position of a game object controls rendering order. Low values are drawn before higher values. In the default render script game objects with a depth ranging between -1 and 1 are drawn, anything lower or higher will not be drawn. You can read more about the rendering script in the official [Render documentation](/manuals/render). On GUI nodes the Z value is ignored and does not affect rendering order at all. Instead nodes are rendered in the order they are listed and according to child hierarchies (and layering). Read more about gui rendering and draw call optimization using layers in the official [GUI documentation](/manuals/gui).
-
-
-#### Q: Would changing the view projection Z-range to -100 to 100 impact performance?
-
-A: No. The only effect is precision. The z-buffer is logarithmic and have very fine resolution of z values close to 0 and less resolution far away from 0. For instance, with a 24 bit buffer the values 10.0 and 10.000005 can be differentiated whereas 10000 and 10005 cannot.
+答: z值表示深度方向的遮挡关系. z值小的位于z值大的游戏对象前面. 默认渲染程序的z值范围是 -1 到 1, 此范围之外的不被渲染. 关于渲染脚本详情请见 [渲染教程](/manuals/render). 对于 GUI 节点来说z值毫无作用. 节点的遮挡顺序取决于树形结构 (以及层次设置). 关于用户界面节点的渲染详情请见 [GUI 教程](/manuals/gui).
 
 
-#### Q: There is no consistency to how angles are represented, why?
+#### 问: 要是把视口深度范围设为 -100 到 100 会影响性能吗?
 
-A: Actually there is consistency. Angles are expressed as degrees everywhere in the editor and the game APIs. The math libs use radians. Currently the convention breaks for the `angular_velocity` physics property that is currently expressed as radians/s. That is expected to change.
-
-
-#### Q: When creating a GUI box-node with only color (no texture), how will it be rendered?
-
-A: It is just a vertex colored shape. Bear in mind that it will still cost fill-rate.
+答: 不影响性能但是影响精度. z缓存是一种对数结构靠近 0 差别明显, 远离 0 差别不明显. 比如说, 用 24 位缓存 10.0 对比 10.000005 区别明显但是 10000 对比 10005 区别不明显.
 
 
-#### Q: If I change assets on the fly, will the engine automatically unload them?
+#### 问: 角度的单位为什么不一致?
 
-A: All resources are ref-counted internally. As soon as the ref-count is zero the resource is released.
-
-
-#### Q: Is it possible to play audio without the use of an audio component attached to a game object?
-
-A: Everything is component-based. It's possible to create a headless game object with multiple sounds and play sounds by sending messages to the sound-controller object.
+答: 实际上一致. 编辑器和游戏API使用角度制. 数学计算库使用弧度制. 目前对于物理 `angular_velocity` 是个例外使用了弧度制. 以后可能会矫正.
 
 
-#### Q: Is it possible to change the audio file associated with an audio component at run time?
+#### 问: 只有颜色没有纹理的GUI节点如何渲染?
 
-A: In general all resources are statically declared with the benefit that you get resource management for free. You can use [resource properties](/manuals/script-properties/#resource-properties) to change which resource that is assigned to a component.
-
-
-#### Q: Is there a way to access the physics collision shape properties?
-
-A: No, it is currently not possible.
+答: 作为顶点着色形状渲染, 注意其性能消耗.
 
 
-#### Q: Is there any quick way to render the collision objects in my scene? (like Box2D's debugdraw)
+#### 问: 如何释放资源所占用的内存?
 
-A: Yes, set *physics.debug* flag in *game.project*. (Refer to the official [Project settings documentation](/manuals/project-settings/#debug))
-
-
-#### Q: What are the performance costs of having many contacts/collisions?
-
-A: Defold runs a modified version of Box2D in the background and the performance cost should be quite similar. You can always see how much time the engine spends on physics by bringing up the [profiler](/manuals/debugging). You should also consider what kind of collisions objects you use. Static objects are cheaper performance wise for instance. Refer to the official [Physics documentation](/manuals/physics) in Defold for more details.
+答: 引擎对所有资源都有引用计数. 一旦引用为0则资源自动被释放.
 
 
-#### Q: What's the performance impact of having many particle effect components?
+#### 问: 不用游戏对象能播放声音吗?
 
-A: It depends on if they are playing or not. A ParticleFx that isn't playing have zero performance cost. The performance implication of a playing ParticleFx must be evaluated using the profiler since its impact depends on how it is configured. As with most other things the memory is allocated up front for the number of ParticleFx defined as max_count in game.project.
-
-
-#### Q: How do I receive input to a game object inside a collection loaded via a collection proxy?
-
-A: Each proxy loaded collection has their own input stack. Input is routed from the main collection input stack via the proxy component to the objects in the collection. This means that it's not enough for the game object in the loaded collection to acquire input focus, the game object that _holds_ the proxy component need to acquire input focus as well. See the [Input documentation](/manuals/input) for details.
+答: 游戏引擎设计模式基于组件. 可以建立一个不可见游戏对象把声音组件放入然后需要播放时给它发消息即可.
 
 
-#### Q: Can I use string type script properties?
+#### 问: 运行时声音组件播放的声音文件能更改吗?
 
-A: No. Defold supports properties of [hash](/ref/builtins#hash) types. These can be used to indicate types, state identifiers or keys of any kind. Hashes can also be used to store game object id's (paths) although [url](/ref/msg#msg.url) properties are often preferable since the editor automatically populate a drop-down with relevant URLs for you. See the [Script properties documentation](/manuals/script-properties) for details.
-
-
-#### Q: How do I access the individual cells of a matrix (created using [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) or similar)?
-
-A: You access the cells using `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` etc
+答: 一般资源都是静态声明随意管理的. 可以使用 [资源属性](/manuals/script-properties/#resource-properties) 来修改与组件关联的资源.
 
 
-#### Q: I am getting `Not enough resources to clone the node` when using [gui.clone()](/ref/gui/#gui.clone:node) or [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
+#### 问: 存取物理碰撞形状属性的方法?
 
-A: Increase the `Max Nodes` value of the gui component. You find this value in the Properties panel when selecting the root of the component in the Outline.
-
-
-## The forum
-
-#### Q: Can I post a thread where I advertise my work?
-
-A: Of course! We have a special ["Work for hire" category](https://forum.defold.com/c/work-for-hire) for that. We will always encourage everything which benefits the community, and offering your services to the community---for remuneration or not---is a good example of that.
+答: 目前尚未支持.
 
 
-#### Q: I made a thread and added my work—can I add more?
+#### 问: 有办法快速渲染物理碰撞对象吗? (就像 Box2D 的 debugdraw 那样)
 
-A: In order to reduce bumping of "Work for hire" threads, you may not post more than once per 14 days in your own thread (unless it’s a direct reply to a comment in the thread, in which case you may reply). If you want to add additional work to your thread within the 14-day period, you must edit your existing posts with your added content.
+答: 有, 要在 *game.project* 里设置 *physics.debug* 项. (参见 [项目设置教程](/manuals/project-settings/#debug))
 
 
-#### Q: Can I use the Work for Hire category to post job offerings?
+#### 问: 许多物理碰撞的主要性能消耗在哪里?
 
-A: Sure, knock yourselves out! It can be used for offerings as well as requests, e.g. “Programmer looking for 2D pixel artist; I’m rich and I’ll pay you well”.
+答: Defold 包含的是 Box2D 略微修改版本, 所以性能应该和原版差不多. 可以使用 [调试器](/manuals/debugging) 跟踪物理碰撞数量. 确保用对碰撞对象. 比如静态碰撞对象性能高些. 详情请见 Defold 的 [物理教程](/manuals/physics).
+
+
+#### 问: 如果有许多粒子效果, 对性能影响大不大?
+
+答: 这取决于粒子效果是否正在播放. 没有播放的粒子效果不消耗性能. 播放中的粒子效果性能消耗取决于其配置情况, 可以用调试器来观察. 粒子效果的内存消耗基本上取决于项目设置的 max_count 数.
+
+
+#### 问: 如何得到集合代理加载的集合里的游戏对象的输入信息?
+
+答: 每个集合都有自己的输入栈. 输入从主集合通过代理组件传递到被载入集合里的游戏对象. 换句话说仅游戏对象获得输入焦点是不够的, 那个代理组件 _所在的_ 游戏对象同样需要获得输入焦点. 详情请见 [输入教程](/manuals/input).
+
+
+#### 问: 脚本属性有字符串类型的吗?
+
+答: 没有. Defold 只有 [哈希](/ref/builtins#hash) 类型的脚本属性. 用来表示枚举, 表示状态, 表示各种类型都没问题. 而且游戏对象的 id (路径) 也是用其 [url](/ref/msg#msg.url) 属性的哈希来保存, 遇到这样的属性时编辑器会自动建立相关路径弹框供你选择. 详情请见 [脚本属性教程](/manuals/script-properties).
+
+
+#### 问: 如何存取矩阵 (使用 [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) 之类的函数生成的) 内部数据?
+
+答: 使用 `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` 之类的属性可以访问内部数据.
+
+
+#### 问: 使用 [gui.clone()](/ref/gui/#gui.clone:node) 或 [gui.clone_tree()](/ref/gui/#gui.clone_tree:node) 时报 `Not enough resources to clone the node` 的错误信息?
+
+答: 增加gui组件的 `Max Nodes` 值. 在大纲视图gui根节点的属性面板上就能看到.
+
+
+## 论坛相关
+
+#### 问: 我能在论坛上打广告吗?
+
+答: 可以! 论坛有一个 ["Work for hire" 类目](https://forum.defold.com/c/work-for-hire). 能充实社区论坛的所有信息都欢迎, 这里可以发布求职广告.
+
+
+#### 问: 可以无限打广告?
+
+答: 为避免 "Work for hire" 类目论坛被爆, 至少14天内不许再加广告 (除非有人回复找你, 此时你可以立即回复这个人). 14天内, 只能通过更新帖子的方式加入新内容.
+
+
+#### 问: 我能发布招聘广告吗?
+
+答: 可以, 自己找! 招聘也行求职也行, 比如 “程序员找美工; 高价求不差钱”.
