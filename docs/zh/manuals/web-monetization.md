@@ -1,5 +1,5 @@
 ---
-title: Web Monetization in Defold
+title: Defold 游戏盈利
 brief: Web Monetization is an exciting new and non-intrusive way for game developers to monetize their web games while at the same time offering premium content to their paying players.
 ---
 
