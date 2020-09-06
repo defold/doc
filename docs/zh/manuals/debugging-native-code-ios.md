@@ -1,29 +1,29 @@
 ---
-title: Debugging on iOS/macOS
-brief: This manual describes how to debug a build using Xcode.
+title: 在 iOS/macOS 中调试
+brief: 本教程介绍了如何使用 XCode 进行调试.
 ---
 
-# Debugging on iOS/macOS
+# 在 iOS/macOS 中调试
 
-Here we describe how to debug a build using [Xcode](https://developer.apple.com/xcode/), Apple's preferred IDE for developing for macOS and iOS.
+这里我们介绍如何使用 [XCode](https://developer.apple.com/xcode/), Apple的 macOS 和 iOS 首选开发环境来调试应用.
 
 ## Xcode
 
-* Bundle the app by using bob, with the `--with-symbols` option
+* 使用 bob, 加上 `--with-symbols` 选项打包应用
 
 		$ cd myproject
 		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
 		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
 
-* Install the app, either with `Xcode`, `iTunes` or [ios-deploy](https://github.com/ios-control/ios-deploy)
+* 安装应用, 可以通过 `XCode`, `iTunes` 或者 [ios-deploy](https://github.com/ios-control/ios-deploy)
 
 		$ ios-deploy -b <AppName>.ipa
 
-* Get the `.dSYM` folder (i.e the debug symbols)
+* 得到 `.dSYM` 文件夹 (即调试 symbols)
 
-	* If it's not using Native Extensions, you can download the `.dSYM` file from [d.defold.com](http://d.defold.com)
+	* 如果没使用原生扩展, 可以从 [d.defold.com](http://d.defold.com) 下载 `.dSYM` 文件
 
-	* If you are using a native extension, then the `.dSYM` folder is generated when you build with [bob.jar](https://www.defold.com/manuals/bob/). Only building is required (no archive or bundling):
+	* 如果使用了原生扩展, 可以使用 [bob.jar](https://www.defold.com/manuals/bob/) 生成 `.dSYM` 文件夹. 只需要 building (不需要 archive 和 bundling):
 
 			$ cd myproject
 			$ unzip .internal/cache/arm64-ios/build.zip
@@ -31,106 +31,106 @@ Here we describe how to debug a build using [Xcode](https://developer.apple.com/
 			$ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Resources/DWARF/<AppName>
 
 
-### Create Project
+### 创建项目
 
-To properly debug, we need to have a project, and the source code mapped.
-We're not using this project to build things, only debug.
+要正确的调试, 我们需要一个项目, 以及一个代码映射（source map）.
+这次项目不是用来编译的, 只是调试举例.
 
-* Create new Xcode project, choose the `Game` template
+*新建 XCode 项目, 选择 `Game` 模板
 
 	![project_template](images/extensions/debugging/ios/project_template.png)
 
-* Choose a name (e.g. `debug`) and the default settings
+* 指定一个名字 (例如 `debug`) 并且使用默认设置
 
-* Choose a folder to save the project into
+* 选择一个存放项目的目录
 
-* Add your code to the app
+* 为应用加入代码文件
 
 	![add_files](images/extensions/debugging/ios/add_files.png)
 
-* Make sure the "Copy items if needed" is unchecked.
+* 确保 "Copy items if needed" 未选中.
 
 	![add_source](images/extensions/debugging/ios/add_source.png)
 
-* This is the end result
+* 结果是这样
 
 	![added_source](images/extensions/debugging/ios/added_source.png)
 
 
-* Disable the `Build` step
+* 关闭 `Build` 步骤
 
 	![edit_scheme](images/extensions/debugging/ios/edit_scheme.png)
 
 	![disable_build](images/extensions/debugging/ios/disable_build.png)
 
-* Set the `Deployment target` version so it's now larger than your device iOS version
+* 设置 `Deployment target` 版本
 
 	![deployment_version](images/extensions/debugging/ios/deployment_version.png)
 
-* Select the target device
+* 设置目标设备
 
 	![select_device](images/extensions/debugging/ios/select_device.png)
 
 
-### Launch the debugger
+### 启动调试器
 
-You have a few options to debug an app
+调试应用有如下方法
 
-1. Either choose `Debug` -> `Attach to process...` and select the app from there
+* 可以使用 `Debug` -> `Attach to process...` 然后选择要调试应用
 
-1. Or choose the `Attach to process by PID or Process name`
+* 也可以选择 `Attach to process by PID or Process name`
 
 	![select_device](images/extensions/debugging/ios/attach_to_process_name.png)
 
-	1. Start the app on the device
+	然后在设备上启动应用
 
-1. In `Edit Scheme` add the <AppName>.app folder as the executable
+* 在 `Edit Scheme` 中加入 <AppName>.app 作为可运行文件夹
 
-### Debug symbols
+### 调试 symbols
 
-**To use lldb, the execution must be paused**
+**要使用 lldb, 运行必须先暂停**
 
-* Add the `.dSYM` path to lldb
+* 把 `.dSYM` 目录加入到 lldb 中
 
 		(lldb) add-dsym <PathTo.dSYM>
 
 	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
-* Verify that `lldb` read the symbols successfully
+* 确认 `lldb` 成功读取 symbols
 
 		(lldb) image list <AppName>
 
-### Path mappings
+### 路径映射
 
-* Add the engine source (change accordingly for your need)
+* 加入引擎路径 (根据你的安装目录自行调整)
 
 		(lldb) settings set target.source-map /Users/builder/ci/builds/engine-ios-64-master/build /Users/mathiaswesterdahl/work/defold
 		(lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
 
-	* It's possible to get the job folder from the executable.
-	The jobfolder is named like so `job1298751322870374150`, each time with a random number.
+	* 从可运行文件夹里可以得到 job 文件夹.
+	job 文件夹命名类似这样 `job1298751322870374150`, 每次都是随机数字.
 
 			$ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
 
-* Verify the source mappings
+* 验证路径映射
 
 		(lldb) settings show target.source-map
 
-You can check what source file a symbol was originating from using
+可以使用如下命令确定 symbol 的源代码文件
 
 	(lldb) image lookup -va <SymbolName>
 
 
-### Breakpoints
+### 断点
 
-* Open a file in the project view, and set a breakpoint
+* 从 project 视图打开一个文件, 然后设置断点
 
 	![breakpoint](images/extensions/debugging/ios/breakpoint.png)
 
-## Notes
+## 注意
 
-### Check UUID of binary
+### 检查二进制文件 UUID
 
-In order for the debugger to accept the `.dSYM` folder, the UUID need to match the UUID of the executable being debugged. You can check the UUID like so:
+为了让调试器接受 `.dSYM` 文件夹, UUID 需要与可运行文件的 UUID 相匹配. 你可以这样检查 UUID:
 
 	$ dwarfdump -u <PathToBinary>

@@ -3,29 +3,29 @@ title: Defold 术语
 brief: 本教程列举了使用 Defold 工作中会遇到的各种专用词汇及其简短的解释.
 ---
 
-# Defold glossary
+# Defold 术语
 
-该名词表简要介绍了您在 Defold 中遇到的所有东西。在大多数情况下，您会找到更多相关详细文档的链接。
+该名词表简要介绍了您在 Defold 中遇到的各种术语。在大多数情况下，您会找到更多相关详细文档的链接。
 
 ## Animation set
 
-![Animation set](images/icons/animationset.png){.left} An animation set resource contains a list of .dae files or other .animationset files from where to read animations. Adding one .animationset files to another is handy if you share partial sets of animations between several models. See the [3D graphics manual](/manuals/graphics/) for details.
+![Animation set](images/icons/animationset.png){.left} 包含一组动画的 .dae 文件或其他用以读取动画的 .animationset 文件的动画集资源. 如果多个模型文件共享一组动画的话, 可以方便地把 .animationset 文件设置给其他模型. 详情请见 [3D 图像教程](/manuals/graphics/).
 
 ## Atlas
 
-![Atlas](images/icons/atlas.png){.left} An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. They can contain still images or flip-book animated series of images. Atlases are used by GUI, Sprite, Spine model and ParticleFX components to share graphics resources. See the [Atlas documentation](/manuals/atlas) for more information.
+![Atlas](images/icons/atlas.png){.left} 图集是为了增加性能减少显存消耗而把许多单张图片合并而成的一张大图. 其中可以包括静态图和逐帧动画序列图. 图集可被 GUI, Sprite, Spine model 和 ParticleFX 组件所共享. 详情请见 [图集教程](/manuals/atlas).
 
 ## Builtins
 
-![Builtins](images/icons/builtins.png){.left} The builtins project folder is a read-only folder containing useful default resources. Here you find the default renderer, render script, materials and more. If you need custom modifications on any of these resources, simply copy them into your project and edit as you see fit.
+![Builtins](images/icons/builtins.png){.left} 项目内置文件夹是一个包含必要默认资源的只读文件夹. 里面由默认着色器, 默认渲染脚本, 默认材质等等. 如果需要自定义这些默认资源, 只要把它们拷贝到你的项目目录中去, 然后自由修改即可.
 
 ## Camera
 
-![Camera](images/icons/camera.png){.left} The camera component helps to decide what part of the game world should be visible and how it should be projected. A common use case is to attach a camera to the player game object, or to have a separate game object with a camera that follows the player around with some smoothing algorithm. See the [Camera documentation](/manuals/camera) for more information.
+![Camera](images/icons/camera.png){.left} 摄像机组件决定了游戏世界哪些可见哪些不可见以及视口的投射类型. 一个常见用法是把摄像机放到主角游戏对象上, 或者放到一个跟随主角的包含一些平滑移动算法的游戏对象上. 详情请见 [摄像机教程](/manuals/camera).
 
 ## Collision object
 
-![Collision object](images/icons/collision-object.png){.left} Collision objects are components that extend game objects with physical properties (like spatial shape, weight, friction and restitution). These properties govern how the collision object should collide with other collision objects. The most common types of collision objects are kinematic objects, dynamic objects and triggers. A kinematic object gives detailed collision information that you have to manually respond to, a dynamic object is automatically simulated by the physics engine to obey Newtonian laws of physics. Triggers are simple shapes that detect if other shapes have entered or exited the trigger. See the [Physics documentation](/manuals/physics) for details on how this works.
+![Collision object](images/icons/collision-object.png){.left} 碰撞对象组件为游戏对象增添了物理属性 (比如形状, 重量, 摩擦力和弹性). 这些属性决定了碰撞对象之间的碰撞效果. 常见碰撞对象有运动学, 动态和触发器三种类型. 运动学碰撞对象必须手动设置它的物理属性值, 动态碰撞对象由物理引擎基于牛顿物理定律计算它的物理属性. 触发器是一个形状, 能够检测其他物体进入或者离开. 详情请见 [物理教程](/manuals/physics).
 
 ## Component
 
