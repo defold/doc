@@ -1,42 +1,42 @@
 ---
-title: Defold development for Nintendo Switch
-brief: This manual describes how to get Nintendo Switch access
+title: 使用 Defold 开发 Nintendo Switch 游戏
+brief: 本教程介绍了 Nintendo Switch 开发许可
 ---
 
-# Sign up for Nintendo Switch development
+# 注册为 Nintendo Switch 开发者
 
-Support for the Nintendo Switch platform is not included in the standard version of Defold. In order to get access to Nintendo Switch support in Defold you need to:
+标准版 Defold 不含 Nintendo Switch 开发工具. 如果需要使用 Defold 开发 Nintendo Switch 游戏, 你需要:
 
-1. Become a Defold community donor with Nintendo Switch access included in your membership tier, and
-2. Become a registered game developer for Nintendo platforms.
+1. 注册为 Defold 社区赞助者, 赞助者权益中包含 Nintendo Switch 开发权力.
+2. 在 Nintendo 注册为开发者.
 
 
-## Become a Defold community donor with Nintendo Switch access
+## 注册为 Defold 社区赞助者享受 Nintendo Switch 开发权
 
-You become a Defold community donor on the [Defold community donation page](/community-donations/). You can become a donor with Nintendo Switch access using either GitHub Sponsors or Patreon. Pay attention to the available tiers and select one which includes Nintendo Switch access.
+在 [Defold 社区捐款平台](/community-donations/) 上捐一定数量的款, 你就成为了一名拥有 Nintendo Switch 开发权的会员. 注意有些捐款选项不含 Nintendo Switch 开发权.
 
 ![](images/nintendo-switch/register-defold.png)
 
-## Register as a game developer for Nintendo platforms
+## 在 Nintendo 注册为开发者
 
-You register as a game developer for Nintendo platforms at the [Nintendo Developer Portal](https://developer.nintendo.com/register):
+去到 [Nintendo 开发者中心](https://developer.nintendo.com/register) 注册成为游戏开发者:
 
 ![](images/nintendo-switch/register-nintendo.png)
 
-When you register you will get access to Nintendo developer tools and resources to create and publish games and applications for current Nintendo platforms.
+完成 Nintendo 开发者注册你就可以得到 Nintendo 平台的资源与开发工具, 也有权在 Nintendo 平台上发布自己的游戏.
 
 
-### Request Defold access
+### Defold 支持申请
 
-When you have been approved by Nintendo you need to log in to the Nintendo Developer Portal and visit the Tools and Middleware page and sign up for Defold access. When you register for Defold access we will get an email from Nintendo verifying you as a registered Nintendo developer. We will then proceed to verify you as a community donor with Nintendo Switch access included in your membership tier.
+当你成功注册为 Nintendo 开发者之后首先要去 Nintendo 开发者中心下载必要工具然后在中间件页面申请 Defold 支持. 提交申请之后你会收到来自 Nintendo 的电子邮件用以确认你的 Nintendo 开发者身份. 然后 Defold 会对你的赞助者 Nintendo Switch 开发权进行核实.
 
-When we have verified you as a donor with Nintendo Switch access we will provide you with the access to the following:
+已经核实我们会提供下列工具:
 
-* Versions of the Defold editor and the Defold command line tools (bob.jar) with support for bundling to the Nintendo Switch platform.
-* Private forum group where you are able to get Nintendo Switch specific support.
-* Nintendo Switch specific documentation
-* API reference to Nintendo Switch specific engine functionality.
+* Defold 编辑器及其命令行工具 (bob.jar) 包含 Nintendo Switch 发布功能的特别版.
+* Nintendo Switch 技术支持私人讨论组.
+* Nintendo Switch 相关文档.
+* Nintendo Switch 相关引擎API.
 
 
-## FAQ
-:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
+## 问答
+:[Nintendo Switch 问答](../shared/nintendo-switch-faq.md)
