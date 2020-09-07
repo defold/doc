@@ -178,7 +178,7 @@ Reciving messages is a matter of making sure the target script component contain
 function on_message(self, message_id, message, sender)
     print(message_id) --> hash: [my_message_name]
 
-    pprint(message) --> {
+    print(message) --> {
                     -->   score = 100,
                     -->   value = "some string"
                     --> }
