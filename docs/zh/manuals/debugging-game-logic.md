@@ -5,9 +5,9 @@ brief: 本教程介绍了 Defold 中自带的调试功能.
 
 # 调试游戏逻辑
 
-Defold contains an integrated Lua debugger with an inspection facility. Together with the built-in [profiling tools](/manuals/profiling) it is a powerful tool that can help finding the cause of bugs in your game logic or help analyze performance issues.
+Defold 内置集成式 Lua 调试器及检视工具. 加上内置的 [分析工具](/manuals/profiling) 构成强大工具集帮你快速找到逻辑错误和性能问题.
 
-## Print and visual debugging
+## 打印输出与可视调试
 
 The simplest way to debug your game in Defold is to use [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). Use `print()` or [`pprint()`](/ref/builtins#pprint) statements to watch variables or indicate the flow of execution. If a game object without a script acts weird, you can just attach a script to it with the sole purpose of debugging. Using any of the printing functions will print to the *Console* view in the editor and to the [game log](/manuals/debugging-game-and-system-logs).
 
