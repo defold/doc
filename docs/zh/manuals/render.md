@@ -5,11 +5,11 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 # 渲染
 
-引擎在屏幕上显示的每个对象：精灵，模型，图块，粒子或GUI节点均由渲染器绘制。渲染器的核心是控制渲染流程的渲染脚本。默认情况下，每个2D对象均使用指定混合和正确Z深度来进行绘制-因此，除了顺序和简单混合之外您可能不需要了解渲染。对于大多数2D游戏，默认流程功能良好，但是您的游戏可能有特殊要求。在这种情况下，Defold允许您编写量身定制的渲染程序。
+引擎在屏幕上显示的每个对象：精灵，模型，图块，粒子或GUI节点均由渲染器绘制。渲染器的核心是控制渲染流程的渲染脚本。默认情况下，每个2D均使用指定混合和正确Z深度来进行绘制-因此，除了顺序和简单混合之外您可能不需要了解渲染。对于大多数2D游戏，默认流程功能良好，但是您的游戏可能有特殊要求。在这种情况下，Defold允许您编写量身定制的渲染程序。
 
 ### 渲染管线是什么东东?
 
-渲染管线决定了渲染什么, 何时渲染以及渲染哪里. 渲染什么由 [渲染对象s](#render-predicates) 决定. 什么时候渲染由 [渲染脚本](#the-render-script) 决定, 渲染哪里由 [视口映射](#default-view-projection) 决定.
+渲染管线决定了渲染什么, 何时渲染以及渲染哪里. 渲染什么由 [渲染优先级](#render-predicates) 决定. 什么时候渲染由 [渲染脚本](#the-render-script) 决定, 渲染哪里由 [视口映射](#default-view-projection) 决定.
 
 
 ## 默认渲染器
@@ -24,14 +24,14 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 使用自定义渲染器:
 
-1. Copy the files "default.render" and "default.render_script" to a location in your project hierarchy. You can, of course, create a render script from scratch but it is a good idea to start with a copy of the default script, especially if you are new to Defold and/or OpenGL ES rendering.
+1. 把 "default.render" 和 "default.render_script" 复制到项目目录某个位置. 当然自己从头开始写也没问题, 但是拷贝出来能有个参考, 尤其是对于 Defold 或 OpenGL ES 渲染编写的新手来说.
 
-2. Edit your copy of the "default.render" file and change the *Script* property to refer to your copy of the render script.
+2. 编辑 "default.render" 文件, 指定 *Script* 项为自定义的脚本.
 
-3. Change the *Render* property (under *bootstrap*) in the "game.project" settings file to refer to your copy of the "default.render" file.
+3. 在 "game.project" 的 *bootstrap* 部分里的 *Render* 项上设置刚才修改好的 "default.render" 文件.
 
 
-## Render predicates
+## 渲染优先级
 
 To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_.
 
