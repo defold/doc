@@ -3,26 +3,26 @@ title: Defold 中的渲染过程
 brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 ---
 
-# Render
+# 渲染
 
 引擎在屏幕上显示的每个对象：精灵，模型，图块，粒子或GUI节点均由渲染器绘制。渲染器的核心是控制渲染流程的渲染脚本。默认情况下，每个2D对象均使用指定混合和正确Z深度来进行绘制-因此，除了顺序和简单混合之外您可能不需要了解渲染。对于大多数2D游戏，默认流程功能良好，但是您的游戏可能有特殊要求。在这种情况下，Defold允许您编写量身定制的渲染程序。
 
-### Render pipeline - What, when and where?
+### 渲染管线是什么东东?
 
-The render pipeline controls what to render, when to render it and also where to render it. What to render is controlled by [render predicates](#render-predicates). When to render a predicate is controlled in the [render script](#the-render-script) and where to render a predicate is controlled by the [view projection](#default-view-projection).
+渲染管线决定了渲染什么, 何时渲染以及渲染哪里. 渲染什么由 [渲染对象s](#render-predicates) 决定. 什么时候渲染由 [渲染脚本](#the-render-script) 决定, 渲染哪里由 [视口映射](#default-view-projection) 决定.
 
 
-## The default render
+## 默认渲染器
 
-The render file contains a reference to the current render script as well as custom materials that should be made available in the render script (use with [`render.enable_material()`](/ref/render/#render.enable_material))
+渲染文件保存有当前渲染脚本的引用, 还确定了该渲染脚本可以使用的材质 (使用 [`render.enable_material()`](/ref/render/#render.enable_material) 函数)
 
-At the heart of the rendering pipeline is the _render script_. This is a Lua script with the functions `init()`, `update()` and `on_message()` and it is primarily used to interact with the underlying OpenGL rendering API. The render script has a special place in the lifecycle of your game. Details can be found in the [Application lifecycle documentation](/manuals/application-lifecycle).
+渲染管线的核心就是 _渲染脚本_. 它是包含 `init()`, `update()` 与 `on_message()` 函数的 Lua 脚本, 主要用于与 OpenGL 渲染 API 的底层交互. 渲染脚本生命周期有其特殊之处. 详情请见 [应用生命周期教程](/manuals/application-lifecycle).
 
-In the "Builtins" folder of your projects you can find the default render resource ("default.render") and the default render script ("default.render_script").
+在 "Builtins" 文件夹中放有默认渲染器资源文件 ("default.render") 和默认渲染脚本 ("default.render_script").
 
 ![Builtin render](images/render/builtin.png){srcset="images/render/builtin@2x.png 2x"}
 
-To set up a custom renderer:
+使用自定义渲染器:
 
 1. Copy the files "default.render" and "default.render_script" to a location in your project hierarchy. You can, of course, create a render script from scratch but it is a good idea to start with a copy of the default script, especially if you are new to Defold and/or OpenGL ES rendering.
 

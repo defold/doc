@@ -1,11 +1,11 @@
 ---
 title: Defold 的设备输入操作
-brief: This manual explains how input works, how to capture input actions and create interactive script reactions.
+brief: 本教程介绍了输入系统如何工作, 如何捕获输入行为和相关脚本代码.
 ---
 
-# Input
+# 输入
 
-All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that have acquired input focus and that implement the `on_input()` function. This manual explains how you set up bindings to capture input and how you create code that responds to it.
+输入由引擎捕获并转化为输入行为传送到获取了输入焦点并且实现了 `on_input()` 函数的游戏对象脚本组件中去. This manual explains how you set up bindings to capture input and how you create code that responds to it.
 
 The input system uses a set of simple and powerful concepts, allowing you to manage input as you see fit for your game.
 

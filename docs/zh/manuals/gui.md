@@ -5,7 +5,7 @@ brief: 本教程介绍了 Defold GUI 编辑器, 各种各样的 GUI 节点以及
 
 # GUI
 
-Defold provides you with a custom GUI editor and powerful scripting possibilities that are tailor made for the construction and implementation of user interfaces.
+Defold 提供了 GUI 编辑器以及与之配套的脚本用以实现用户界面.
 
 A graphical user interface in Defold is a component that you build and attach to a game object and place in a collection. This component has the following properties:
 

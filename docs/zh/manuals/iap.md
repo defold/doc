@@ -1,11 +1,11 @@
 ---
-title: Defold 中的内支付
-brief: In-app purchases (or in-app billing) allows you to charge your players or app users for extra content or functionality. This manual explains Defold's API available for this functionality.
+title: Defold 中的应用内支付
+brief: 应用内支付 (也称内购买) 允许用户付费以获得额外的内容或功能. 本教程介绍了相关功能的 Defold API.
 ---
 
-# In-app purchases
+# 应用内支付
 
-Defold provides a unified, simple to use interface to Apple's iOS Appstore "in-app purchases" and Google Play's or Amazon's "in-app billing" on Android devices. Facebook Canvas "game payments" are supported for Facebook Canvas. These services gives you the opportunity to sell products as:
+Defold 提供了方便的 iOS Appstore "in-app purchases" 和 Google Play 及 Amazon "in-app billing" 系统接口. Facebook Canvas 的 "game payments" 用于 Facebook Canvas 游戏. 这些服务能让你销售:
 
 * Standard in-app products (one time billing) of consumables or non-consumables and
 * Subscriptions (recurring, automated billing)
