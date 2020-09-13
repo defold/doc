@@ -23,17 +23,17 @@ Defold 提供了方便的 iOS Appstore "in-app purchases" 和 Google Play 及 Am
 
 ## 安装扩展
 
-To start using the In-app purchases extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
+首先要在 `game.project` 文件中加入内支付扩展依赖. 最新稳定版本地址如下:
 ```
 https://github.com/defold/extension-iap/archive/master.zip
 ```
 
-We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-iap/releases).
+推荐使用 [正式发布版](https://github.com/defold/extension-iap/releases) 的zip连接作为依赖引用.
 
-Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-iap/).
+其 API 文档详见 [扩展项目首页](https://defold.github.io/extension-iap/).
 
 
-## Testing Google Play Billing with static responses
+## 使用静态响应测试 Google Play Billing
 
 On Android it is recommended that you start implementing IAP in your app by using static responses from Google Play. This enables you to verify that everything in your app works correctly before you publish the app. Four reserved product IDs exist for testing static In-app Billing responses:
 
