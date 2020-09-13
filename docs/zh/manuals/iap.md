@@ -7,21 +7,21 @@ brief: 应用内支付 (也称内购买) 允许用户付费以获得额外的内
 
 Defold 提供了方便的 iOS Appstore "in-app purchases" 和 Google Play 及 Amazon "in-app billing" 系统接口. Facebook Canvas 的 "game payments" 用于 Facebook Canvas 游戏. 这些服务能让你销售:
 
-* Standard in-app products (one time billing) of consumables or non-consumables and
-* Subscriptions (recurring, automated billing)
+* 标准应用内支付 (一次性购买) 的消耗品和非消耗品
+* 订阅 (自动循环购买)
 
-::: important
-The current Defold interface allows full interaction with Apple's Storekit functionality. For Google Play and Facebook Canvas, the interface is identical, meaning that you can run the same code on either platform. However, some process flow might differ from platform to platform. Also note that there is currently no support for OS X purchases through the Mac Appstore.
+::: 注意
+目前 Defold 接口可以与 Apple 的 Storekit 完整交互. 对于 Google Play 和 Facebook Canvas, 接口是一致的, 这有助于代码跨平台. 但是不同平台需要的流程有所不同. 而且注意目前没有针对 OS X 系统上 Mac Appstore 的支付接口.
 :::
 
-Detailed documentation from Apple, Google, Amazon and Facebook can be found here:
+关于 Apple, Google, Amazon 和 Facebook 的详细文档参考:
 
 * [In-App Purchase Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Introduction.html).
 * [Google Play In-app Billing documentation](http://developer.android.com/google/play/billing/index.html).
 * [Amazon In-app Purchase documentation](https://developer.amazon.com/public/apis/earn/in-app-purchasing).
 * [Facebook game payments documentation](https://developers.facebook.com/docs/payments).
 
-## Installing the extension
+## 安装扩展
 
 To start using the In-app purchases extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
 ```

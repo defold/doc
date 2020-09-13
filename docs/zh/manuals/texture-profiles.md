@@ -1,6 +1,6 @@
 ---
 title: Defold 中的纹理档案
-brief:  Defold supports automatic texture processing and compression of image data. This manual describes the available functionality.
+brief: Defold supports automatic texture processing and compression of image data. This manual describes the available functionality.
 ---
 
 # 纹理档案
