@@ -1,5 +1,5 @@
 ---
-title: Physics in Defold
+title: Defold 中的物理系统
 brief: Defold includes physics engines for 2D and 3D. They allow you to simulate Newtonian physics interactions between different types of collision objects. This manual explains how this works.
 ---
 

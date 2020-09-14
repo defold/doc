@@ -1,9 +1,9 @@
 ---
-title: Texture profiles in Defold
-brief:  Defold supports automatic texture processing and compression of image data. This manual describes the available functionality.
+title: Defold 中的纹理档案
+brief: Defold supports automatic texture processing and compression of image data. This manual describes the available functionality.
 ---
 
-# Texture profiles
+# 纹理档案
 
 Defold supports automatic texture processing and compression of image data (in *Atlas*, *Tile sources*, *Cubemaps* and stand-alone textures used for models, GUI etc).
 

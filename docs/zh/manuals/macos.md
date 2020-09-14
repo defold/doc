@@ -1,22 +1,22 @@
 ---
-title: Defold development for the macOS platform
-brief: This manual describes how to build and run Defold applications on macOS
+title: macOS 平台游戏开发
+brief: 本教程介绍了在 macOS 平台上编译和运行 Defold 游戏的方法
 ---
 
-# macOS development
+# macOS 开发
 
-Developing Defold applications for the macOS platform is a straight forward process with very few considerations to make.
+为 macOS 平台开发游戏非常简单, 有几件事需要注意.
 
-## Project settings
+## 项目配置
 
-macOS specific application configuration is done from the [OSX section](/manuals/project-settings/#osx) of the *game.project* settings file.
+macOS 相关选项位于 *game.project* 配置文件的 [OSX 部分](/manuals/project-settings/#osx).
 
-## Application icon
+## 应用图标
 
-The application icon used for a macOS game must be in the .icns format. You can easily create a .icns file from a set of .png files collected as an iconset. Follow the [official instructions for creating a .icns file](https://developer.apple.com/library/archive/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html). Brief summary of the steps involved are:
+macOS 图标只支持 .icns 格式. 可以使用一组.png文件生成一个.icns图标集. 参照 [官方 .icns 文件生成方法](https://developer.apple.com/library/archive/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html). 其主要步骤有:
 
-* Create an iconset folder, eg `game.iconset`
-* Copy icon files to the created folder:
+* 新建图标集文件夹, 比如 `game.iconset`
+* 把图片文件放入上述文件夹里:
 
     * `icon_16x16.png`
     * `icon_16x16@2x.png`
@@ -29,22 +29,22 @@ The application icon used for a macOS game must be in the .icns format. You can 
     * `icon_512x512.png`
     * `icon_512x512@2x.png`
 
-* Convert the .iconset folder to a .icns file using the `iconutil` command line tool:
+* 使用命令行工具 `iconutil` 把文件夹转化成图标集:
 
 ```
 iconutil -c icns -o game.icns game.iconset
 ```
 
-## Publishing your application
-You can publish your application to the Mac App Store, using a 3rd party store or portal such as Steam or itch.io or on your own through a website. Before publishing your application you need to prepare it for submission. The following steps are required regardless of how you intend to distribute the application:
+## 发布游戏应用
+可以把游戏发布到 Mac App Store, 第三方软件商店或者像 Steam 和 itch.io 这样的门户网站, 当然也可以放在自己的网站上. 发布之前做好提交准备. 无论发布到哪, 下面这些都是应该要考虑的事情:
 
-* 1) Make sure that anyone is able to run your game by adding the execute permissions (the default is that only the file owner has execute permissions):
+* 1) 添加运行权限以便所有玩家都能运行游戏 (默认文件所有者拥有运行权限):
 
 ```
 $ chmod +x Game.app/Contents/MacOS/Game
 ```
 
-* 2) Create an entitlements file specifying the permissions required by your game. For most games the following permissions are enough:
+* 2) 建立 entitlements 文件表明游戏所需权限. 例如:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -61,33 +61,33 @@ $ chmod +x Game.app/Contents/MacOS/Game
 </plist>
 ```
 
-  * `com.apple.security.cs.allow-jit` - Indicates whether the app may create writable and executable memory using the MAP_JIT flag
-  * `com.apple.security.cs.allow-unsigned-executable-memory` - Indicates whether the app may create writable and executable memory without the restrictions imposed by using the MAP_JIT flag
-  * `com.apple.security.cs.allow-dyld-environment-variables` - Indicates whether the app may be affected by dynamic linker environment variables, which you can use to inject code into your app’s process
+  * `com.apple.security.cs.allow-jit` - 让游戏可以使用 MAP_JIT 标识写入和运行内存内容
+  * `com.apple.security.cs.allow-unsigned-executable-memory` - 让游戏可以不必严格使用 MAP_JIT 标识也能写入和运行内存内容
+  * `com.apple.security.cs.allow-dyld-environment-variables` - 让游戏接受动态连接环境变量以便可以向游戏进程注入代码
 
-Some applications may also need additional entitlements. The Steamworks extension needs this extra entitlement:
+根据自己的游戏情况增减项目. 比如 Steamworks 扩展库需要如下权限:
 
 ```
 <key>com.apple.security.cs.disable-library-validation</key>
 <true/>
 ```
 
-    * `com.apple.security.cs.disable-library-validation` - Indicates whether the app may load arbitrary plug-ins or frameworks, without requiring code signing.
+    * `com.apple.security.cs.disable-library-validation` - 让游戏可以载入任意插件和库而不需要它们的代码签名.
 
-All of the entitlements that can be granted to an application are listed in the official [Apple developer documentation](https://developer.apple.com/documentation/bundleresources/entitlements).
+应用可以设置的一切权限都列在 [Apple 开发者文档](https://developer.apple.com/documentation/bundleresources/entitlements) 里.
 
-* 3) Sign your game using `codesign`:
+* 3) 使用 `codesign` 为游戏签名:
 
 ```
 $ codesign --force --sign "Developer ID Application: Company Name" --options runtime --deep --timestamp --entitlements entitlement.plist Game.app
 ```
 
-## Publishing outside the Mac App Store
-Apple requires all software distributed outside the Mac App Store to be notarized by Apple in order to run by default on macOS Catalina. Refer to the [official documentation](https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow) to learn how to add notarization to a scripted build environment outside of Xcode. Brief summary of the steps involved are:
+## 发布到 Mac App Store 以外的地方
+Apple 要求发布到 Mac App Store 以外的应用必须加入苹果认证才能在 macOS Catalina 上运行. 关于命令行编译环境加入认证的方法参考 [官方文档](https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow). 大体步骤是:
 
-* 1) Follow the above steps of adding permissions and signing the application.
+* 1) 完成上述添加权限和签名的工作.
 
-* 2) Zip and upload your game for notarization using `altool`.
+* 2) 使用 `altool` 命令行工具上传游戏包来添加苹果认证.
 
 ```
 $ xcrun altool --notarize-app
@@ -101,22 +101,22 @@ altool[16765:378423] No errors uploading 'Game.zip'.
 RequestUUID = 2EFE2717-52EF-43A5-96DC-0797E4CA1041
 ```
 
-* 3) Check the status of your submission using the returned request UUID from the call to `altool --notarize-app`:
+* 3) 使用 `altool --notarize-app` 命令行工具检查这个 UUID 的应用状态:
 
 ```
 $ xcrun altool --notarization-info 2EFE2717-52EF-43A5-96DC-0797E4CA1041
                -u "AC_USERNAME"
 ```
 
-* 4) Wait until the status becomes `success` and staple the notarization ticket to the game:
+* 4) 等到状态变为 `success` 然后把证书打入游戏包:
 
 ```
 $ xcrun stapler staple "Game.app"
 ```
 
-* 5) Your game is now ready for distribution.
+* 5) 完成之后就可以发布了. --苹果之壁（莲）
 
-## Publishing to the Mac App Store
-The process when publishing to the Mac App Store is well documented in the [Apple Developer documentation](https://developer.apple.com/macos/submit/). Make sure to add permissions and codesign the application as described above before submitting.
+## 发布到 Mac App Store
+这在 [Apple 开发者文档](https://developer.apple.com/macos/submit/) 里已经详细说明. 注意提交前要确保已加入权限和签名.
 
-Note: The game does not have to be notarized when publishing to the Mac App Store.
+注意: 发布到 Mac App Store 不需要任何认证.

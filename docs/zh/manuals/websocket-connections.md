@@ -1,7 +1,5 @@
 ---
-title: WebSocket connections
-brief: This manual explains how to use WebSocket connections.
+title: WebSocket 连接
+brief: 本教程介绍了 WebSocket 连接的使用方法.
 ---
-## WebSocket connections
-
-Defold doesn't contain any out of the box solution for creating WebSocket connections. For WebSocket connectivity it is recommended to use the [Defold-WebSocket extension](https://defold.com/assets/websocket/).
+本教程已移至 [这里](/extension-websocket).

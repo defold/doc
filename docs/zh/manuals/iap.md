@@ -1,98 +1,98 @@
 ---
 title: Defold 中的内支付
-brief: In-app purchases (or in-app billing) allows you to charge your players or app users for extra content or functionality. This manual explains Defold's API available for this functionality.
+brief: 应用内支付 (也称内购买) 允许用户付费以获得额外的内容或功能. 本教程介绍了相关功能的 Defold API.
 ---
 
-# In-app purchases
+# 应用内支付
 
-Defold provides a unified, simple to use interface to Apple's iOS Appstore "in-app purchases" and Google Play's or Amazon's "in-app billing" on Android devices. Facebook Canvas "game payments" are supported for Facebook Canvas. These services gives you the opportunity to sell products as:
+Defold 提供了方便的 iOS Appstore "in-app purchases" 和 Google Play 及 Amazon "in-app billing" 系统接口. Facebook Canvas 的 "game payments" 用于 Facebook Canvas 游戏. 这些服务能让你销售:
 
-* Standard in-app products (one time billing) of consumables or non-consumables and
-* Subscriptions (recurring, automated billing)
+* 标准应用内支付 (一次性购买) 的消耗品和非消耗品
+* 订阅 (自动循环购买)
 
-::: important
-The current Defold interface allows full interaction with Apple's Storekit functionality. For Google Play and Facebook Canvas, the interface is identical, meaning that you can run the same code on either platform. However, some process flow might differ from platform to platform. Also note that there is currently no support for OS X purchases through the Mac Appstore.
+::: 注意
+目前 Defold 接口可以与 Apple 的 Storekit 完整交互. 对于 Google Play 和 Facebook Canvas, 接口是一致的, 这有助于代码跨平台. 但是不同平台需要的流程有所不同. 而且注意目前没有针对 OS X 系统上 Mac Appstore 的支付接口.
 :::
 
-Detailed documentation from Apple, Google, Amazon and Facebook can be found here:
+关于 Apple, Google, Amazon 和 Facebook 的详细文档参考:
 
 * [In-App Purchase Programming Guide](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Introduction.html).
 * [Google Play In-app Billing documentation](http://developer.android.com/google/play/billing/index.html).
 * [Amazon In-app Purchase documentation](https://developer.amazon.com/public/apis/earn/in-app-purchasing).
 * [Facebook game payments documentation](https://developers.facebook.com/docs/payments).
 
-## Installing the extension
+## 安装扩展
 
-To start using the In-app purchases extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
+首先要在 `game.project` 文件中加入内支付扩展依赖. 最新稳定版本地址如下:
 ```
 https://github.com/defold/extension-iap/archive/master.zip
 ```
 
-We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-iap/releases).
+推荐使用 [正式发布版](https://github.com/defold/extension-iap/releases) 的zip连接作为依赖引用.
 
-Documentation of the API is available on the [extension GitHub page](https://defold.github.io/extension-iap/).
+其 API 文档详见 [扩展项目首页](https://defold.github.io/extension-iap/).
 
 
-## Testing Google Play Billing with static responses
+## 使用静态报告测试 Google Play Billing
 
-On Android it is recommended that you start implementing IAP in your app by using static responses from Google Play. This enables you to verify that everything in your app works correctly before you publish the app. Four reserved product IDs exist for testing static In-app Billing responses:
+Android 建议使用 Google Play 的静态报告来实现 IAP. 这样在正式发布之前就可以确保内支付工作正常. 测试用静态报告包括4个ID:
 
 `android.test.purchased`
-: Google Play responds as though you successfully purchased an item. The response includes a JSON string, which contains fake purchase information (for example, a fake order ID).
+: Google Play 报告模拟支付完成. 此报告包含一个 JSON 字符串, 内含模拟支付信息 (比如模拟用户ID等).
 
 `android.test.canceled`
-: Google Play responds as though the purchase was canceled. This can occur when an error is encountered in the order process, such as an invalid credit card, or when you cancel a user's order before it is charged.
+: Google Play 报告模拟支付取消. 这种情况可能因为付款时出现错误, 比如信用卡无效, 或者用户付款前订单被取消.
 
 `android.test.refunded`
-: Google Play responds as though the purchase was refunded.
+: Google Play 报告模拟退款完成.
 
 `android.test.item_unavailable`
-: Google Play responds as though the item being purchased was not listed in your application's product list.
+: Google Play 报告app可购买物品列表里找不到用户购买的项目.
 
-## Setting up your app for purchases/billing
+## 内支付准备流程
 
-The procedure on iOS and Android is similar:
+iOS 和 Android 内支付的准备流程差不多:
 
-1. Make sure you are a registered Apple or Google Play developer.
-2. Set up your project so it works on your target device. See the [iOS development](/manuals/ios) and [Android development](/manuals/android) guides.
-3. Set up the app for testing:
+1. 注册为 Apple 或 Google Play 开发者.
+2. 为目标平台进行项目配置. 参考 [iOS 开发教程](/manuals/ios) 与 [Android 开发教程](/manuals/android).
+3. 为应用商店进行测试配置:
 
-    - For Android, this is done on the [Google Play Developer Console](https://play.google.com/apps/publish/).
-    - For iOS, this is done on [iTunes Connect](https://itunesconnect.apple.com/). Make sure that your App ID (created in the "Member Center" on https://developer.apple.com) has "In-App Purchase" enabled.
+    - Android 上, 使用 [Google Play Developer Console](https://play.google.com/apps/publish/).
+    - iOS 上, 使用 [iTunes Connect](https://itunesconnect.apple.com/). 注意你的 App ID (于 https://developer.apple.com 上的 "成员中心" 配置) 要开启 "In-App Purchase" 选项.
 
     ![iTunes Connect and Google Play Dev Console](images/iap/itunes_connect_google_play.png)
 
-4. For Google Play, you need to _upload and publish_ an alpha *.apk* file. For iTunes Connect, you should _not upload_ the development binary to iTunes Connect until the application is ready for App Review approval. If you upload a binary to iTunes Connect and it is not fully functional, Apple will likely reject it.
+4. 对于 Google Play, 你需要 _上传并发布_ 测试版 *.apk* 文件. 对于 iTunes Connect, 直到应用审批之前你 _不用上传_ 应用文件给 iTunes Connect. 加入上传了未完成的应用文件给 iTunes Connect, Apple 会拒绝该应用.
 
-5. Create products for your app.
+5. 设置应用内消费品.
 
-    ![iTunes Products](images/iap/itunes_products.png)
+    ![iTunes 消费品](images/iap/itunes_products.png)
 
-    ![Google Play Products](images/iap/google_play_products.png)
+    ![Google Play 消费品](images/iap/google_play_products.png)
 
-6. Add test users.
-    - The iTunes Connect page *Users and Roles* allow you to add users that can do test purchases in the _sandbox environment_. You should sign your app with a Developer certificate and use the sandbox account in Appstore on the test device.
-    - From the Google Play Developer Console, choose *Settings > Account Details* where you can add user emails to the License Testing section. Separate the emails by commas. This allows your testers to use test purchases that don’t actually cost real money.
-    - On Google Play, you also need to set up a Google Group for your testers. Google uses Groups to manage testers that can download your app from the Alpha and Beta stores. Click on the *Alpha Testing* tab and then *Manage list of testers* to add your Google Group as Alpha testers. The app must have passed through alpha publishing before you can see the opt-in link.
+6. 设置测试用账户.
+    - 在 iTunes Connect 页面 *用户与规则* 中可以设置专门用于 _沙盒环境_ 的模拟支付用户. 要给应用做开发者证书签名然后在测试设备上登录 Appstore 沙盒账户进行测试.
+    - 在 Google Play Developer Console 上, 选择 *设置 > 账户详情* 的 License Testing 部分设置测试用户 email. 多个 email 用逗号分隔. 然后测试者可以登录并购买消费品而不会真的扣款.
+    - 在 Google Play 上, 还需要为测试者们建立 Google Group. Google 使用组来管理应用测试组成员. 在 *Alpha Testing* 页面的 *Manage list of testers* 设置测试者 Google Group. 应用上线前必须通过 Alpha 测试.
 
 ![Alpha testers](images/iap/alpha_testers.png)
 
-The procedure on Facebook:
+Facebook 内支付准备流程:
 
-1. Make sure you are a registered Facebook developer. Go to [Facebook for developers](https://developers.facebook.com/), "My Apps" and "Register as a developer", follow the steps.
-2. Facebook has extensive payment functionality and requires support of both synchronous and asynchronous payments. More info here [Payment overview](https://developers.facebook.com/docs/payments/overview)
-3. Set up app hosting and callback server:
-    * You will need to set up a secure canvas URL hosting your project. How this works is explained here [Games on Facebook](https://developers.facebook.com/docs/games/gamesonfacebook/hosting).
-    * The next step is to set up your callback server. Follow the steps here [Setting up your callback server](https://developers.facebook.com/docs/payments/realtimeupdates#yourcallbackserver).
-4. Set up you canvas app. Follow the steps on [Facebook Developer Dashboard](https://developers.facebook.com/quickstarts/?platform=canvas).
-5. Add test users. This is done in the "Canvas Payments" section of the app dashboard.
-6. Create products for your app [Defining products](https://developers.facebook.com/docs/payments/implementation-guide/defining-products/).
+1. 注册为 Facebook 开发者. 登录 [Facebook for developers](https://developers.facebook.com/), 在 "My Apps" 下 "Register as a developer", 完成注册步骤.
+2. Facebook 要求支持同步和异步两种支付方式. 详情请见 [Payment overview](https://developers.facebook.com/docs/payments/overview)
+3. 建立应用托管和回调服务器:
+    * 建立托管应用的加密 canvas 地址. 详情请见 [Games on Facebook](https://developers.facebook.com/docs/games/gamesonfacebook/hosting).
+    * 建立回调服务器. 详情请见 [Setting up your callback server](https://developers.facebook.com/docs/payments/realtimeupdates#yourcallbackserver).
+4. 配置应用. 详情请见 [Facebook Developer Dashboard](https://developers.facebook.com/quickstarts/?platform=canvas).
+5. 加入测试用户. 在应用面板的 "Canvas Payments" 部分进行设置.
+6. 建立应用消费品. 详情请见 [Defining products](https://developers.facebook.com/docs/payments/implementation-guide/defining-products/).
 
-## Asynchronous transactions
+## 异步的内支付 API
 
-The IAP API is asynchronous, meaning that after each request that your program sends to the server, the program will not halt and wait for a response. Instead, the program continues as ordinary and when the response arrives, a _callback_ function is invoked where you can react to the response data.
+内支付 API 是异步的, 也就是说应用发送信息给服务器, 然后能继续运行. 等到从服务器传回的信息时, 一个 _回调_ 函数会被调用, 从中可以根据回调数据进行各种处理工作.
 
-To fetch all product information available:
+获得消费品列表:
 
 ```lua
 local COINS_ID = "com.defold.examples.coins"
@@ -113,12 +113,12 @@ local function product_list(self, products, error)
 end
 
 function init(self)
-    -- Initiate a fetch of products (max 20 at a time for Google Play)
+    -- 初始化消费品列表 (对于 Google Play 来说一次能获取 20 个)
     iap.list({ COINS_ID, LOGO_ID }, product_list)
 end
 ```
 
-To perform actual transactions, first register a function that will listen to transaction results, then call the store function at the appropriate time:
+对于正式交易, 首先要注册交易结果监听器, 然后在玩家购买时调用内支付函数:
 
 ```lua
 local function iap_listener(self, transaction, error)
@@ -141,15 +141,15 @@ end
 
 function on_message(self, message_id, message, sender)
     ...
-    -- Register the function that will listen to IAP transactions.
+    -- 注册内支付结果监听器.
     iap.set_listener(iap_listener)
-    -- Initiate a purchase of a coin...
+    -- 买一个金币...
     iap.buy(COINS_ID)
     ...
 end
 ```
 
-The device operating system will automatically show a pop-up window allowing the user to go through with the purchase. The interface clearly indicates when you are running in the test/sandbox environment.
+操作系统会自动弹出支付界面. 要是处于测试/沙盒环境下, 界面中会明确标明.
 
 ![Confirm purchase](images/iap/ios_confirm_purchase.png)
 
@@ -157,46 +157,46 @@ The device operating system will automatically show a pop-up window allowing the
 
 ![Confirm purchase](images/iap/ios_purchase_done.png)
 
-## Synchronous payments
+## 实时付款
 
-Most payment providers only supports synchronous payments. This means that the client (your application) will receive a notification when the payment is complete, TRANS_STATE_PURCHASED. This is the final state of the payment, meaning no more callbacks will be done on this transaction.
+大多数付款系统都是实时的. 支付完成时应用会收到一个消息, TRANS_STATE_PURCHASED. 这是交易的最终状态, 表明对于这笔交易不会再有其他消息了.
 
-## Asynchronous payments
+## 非实时付款
 
-Some payment providers require supporting asynchronous payments. This means that the client (your application) will only receive a notification when the payment is initiated. In order to verify completion of payment, further communication needs to be done between the developer server (or client) and the payment provider in order to verify.
-In the case of an initiated asynchronous payment the IAP listener will receive the state TRANS_STATE_UNVERIFIED to indicate this (as opposed to TRANS_STATE_PURCHASED). This is the final state of the payment, meaning no more callbacks will be done on this transaction.
+有的付款系统需要非实时的支持. 也就是说你的应用只在付款开始时收到一个消息. 为了验证付款完成与否, 需要你的服务器 (或者客户端) 与付款系统进行更多的交流.
+这种情况下支付完成时应用会收到一个 TRANS_STATE_UNVERIFIED 消息 (而不是 TRANS_STATE_PURCHASED). 这也是交易的最终状态, 表明对于这笔交易不会再有其他消息了.
 
-## Purchase fulfillment
+## 购买交付
 
-In order to complete a purchase from a payment provider, the application needs to signal a purchase fulfillment to the provider telling the provider the purchase has gone through (for example by developer server-side verification).
-IAP supports auto-completion, where fulfillment is automatically signaled to the provider when a purchase is complete (this is the default behavior). You can also disable auto-completion in the game project settings. You are then required to call `iap.finish()` when the transaction is complete, which will signal purchase fulfillment to the provider.
+玩家购买消费品之后, 应用有义务告知玩家支付已完成 (比如服务器验证支付成功之后).
+内支付支持 auto-completion, 也就是自动产生支付完成的消息 (默认设置). 也可以在项目配置里关闭 auto-completion. 支付完成时手动调用 `iap.finish()`, 来产生完成消息.
 
-### Consumable vs non-consumable products
-The Google Play store does only support consumable products. If you need non-consumable products it is recommended to use manual fulfillment of purchases and never finish purchases for products that should be non-consumable. As long as a purchase isn't finished it will be returned as an active purchase when `iap.set_listener()` is called.
+### 消耗品与非消耗品
+Google Play 应用商店只支持消耗品. 必须使用非消耗品的话就关闭 auto-completion 并且不要调用完成函数. 这样在 `iap.set_listener()` 被调用时, 消费品购买总是保持着购买中的状态.
 
-The Apple App Store supports non-consumable products which means that you need to finish all purchases when you provide products to your users. You can do it automatically by keeping the default behavior in the game project settings or manually (if you want to do that after server validation, for example) using `iap.finish()`.
+Apple App Store 支持非消耗品, 也就是说购买完成时才向玩家提供消费品交付. 这种情况下 auto-completion 可以开启也可以关闭 (比如你需要自己验证支付成功) 之后调用 `iap.finish()`.
 
-## Transaction receipt
+## 支付收据
 
-The receipt is a signed chunk of data that can be sent to the App Store to verify that the payment was successfully processed. This is most useful when designing a store that uses a separate server to verify that payment was processed.
+收据是一堆加密数据, 可以把它发送给 App Store 来验证付款是否真正完成. 这是用开发者服务器验证付款必须使用的东西.
 
-## Troubleshooting
+## 除错
 
-Android `iap.list()` returns "failed to fetch product"
-: You need to upload and publish an *.apk* on the alpha or beta channels on the Google Play Developer Console. Also make sure that the _time and date_ on your device is correct.
+Android `iap.list()` 返回 "failed to fetch product"
+: 你需要上传 *.apk* 文件到 Google Play Developer Console 的 alpha 或者 beta 频道. 还要注意确保你的设配上 _日期和时间_ 是正确的.
 
-Android (Google Play) `iap.list()` never returns more than 20 products
-: Google has an [limit of 20 products per request](https://github.com/googlesamples/android-play-billing/blob/master/TrivialDrive/app/src/main/aidl/com/android/vending/billing/IInAppBillingService.aidl#L62). The solution is to make multiple calls to `iap.list()` and combine the results if the number of products exceeds 20.
+Android (Google Play) `iap.list()` 只返回 20 个消费品
+: Google 有 [每次请求返回最多 20 个消费品的限制](https://github.com/googlesamples/android-play-billing/blob/master/TrivialDrive/app/src/main/aidl/com/android/vending/billing/IInAppBillingService.aidl#L62). 可以多次调用 `iap.list()` 然后合并返回结果以实现20个以上的消费品列表.
 
-iOS `iap.list()` returns nothing
-: Make sure that you’ve requested an iOS Paid Applications account, and all proper documentation has been filed. Without proper authorization, your iOS app purchasing (even test purchases) will not work.
+iOS `iap.list()` 返回空值
+: 确保你的账户是 iOS 付款应用账户, 并且签署好一切所需文件. 没有经过认证的话, 你的 iOS 应用内支付 (甚至测试支付) 操作不会正确执行.
 
-  Check that the AppId you have on the "Member Center" has in-app purchases activated and that you are signing your app (or the dev-app) with a provisioning profile that is up to date with the AppId (check the "Enabled Services:" field in the provisioning profile details in the "Certificates, Identifiers & Profiles" area of "Member Center")
+  检查 "Member Center" 上的应用ID是否开启了 in-app purchases  (检查 "Member Center" 里 "Certificates, Identifiers & Profiles" 的 "Enabled Services:" 项) 并且该应用 (或者调试版应用) 已用供应商档案进行了签名而且签名没过期.
 
-  Wait. It can take a few hours for the In-App product IDs to propagate to the Sandbox environment.
+  内支付消费品信息传到沙盒环境需要几小时时间, 请耐心等待.
 
-iOS `iap.list()` fails logging error "Unexpected callback set"
-: `iap.list()` does not support nested calls. Calling `iap.list()` from an `iap.list()` callback function will be ignored, with the engine logging this error.
+iOS `iap.list()` 产生错误日志 "Unexpected callback set"
+: `iap.list()` 调用不可以嵌套. 从 `iap.list()` 调用 `iap.list()` 就会产生这个错误日志.
 
-On iOS, the "price_string" field contains '~' characters
-: The '~' characters are placeholders where no matching character could be found in the font file. The "price_string" field returned in the product list when using `iap.list()` is formatted with a _non breaking space_ (`\u00a0`) between the value and the currency denominator. If you render this string in the GUI, you need to add the character to the font's *extra_characters* field. On Mac OS X you can type non breaking spaces by pressing <kbd>Option + SPACE</kbd>. See http://en.wikipedia.org/wiki/Non-breaking_space for more information.
+在 iOS 上, "price_string" 里有个 '~' 字符
+: '~' 是未找到字体的字符占位符. 调用 `iap.list()` 返回的数据使用 _不间断空白_ (`\u00a0`) 分割价格和货币符号并填充 "price_string" 变量. 使用 GUI 组件渲染的话, 需要在字体 *extra_characters* 属性里设置所需字符. 在 Mac OS X 上按 <kbd>Option + SPACE</kbd> 就是不间断空白. 详情请见 http://en.wikipedia.org/wiki/Non-breaking_space.
