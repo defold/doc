@@ -1,11 +1,11 @@
 ---
 title: 在 iOS/macOS 中调试
-brief: 本教程介绍了如何使用 XCode 进行调试.
+brief: 本教程介绍了如何使用 Xcode 进行调试.
 ---
 
 # 在 iOS/macOS 中调试
 
-这里我们介绍如何使用 [XCode](https://developer.apple.com/xcode/), Apple的 macOS 和 iOS 首选开发环境来调试应用.
+这里我们介绍如何使用 [Xcode](https://developer.apple.com/Xcode/), Apple的 macOS 和 iOS 首选开发环境来调试应用.
 
 ## Xcode
 
@@ -15,7 +15,7 @@ brief: 本教程介绍了如何使用 XCode 进行调试.
 		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
 		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
 
-* 安装应用, 可以通过 `XCode`, `iTunes` 或者 [ios-deploy](https://github.com/ios-control/ios-deploy)
+* 安装应用, 可以通过 `Xcode`, `iTunes` 或者 [ios-deploy](https://github.com/ios-control/ios-deploy)
 
 		$ ios-deploy -b <AppName>.ipa
 
@@ -36,7 +36,7 @@ brief: 本教程介绍了如何使用 XCode 进行调试.
 要正确的调试, 我们需要一个项目, 以及一个代码映射（source map）.
 这次项目不是用来编译的, 只是调试举例.
 
-*新建 XCode 项目, 选择 `Game` 模板
+*新建 Xcode 项目, 选择 `Game` 模板
 
 	![project_template](images/extensions/debugging/ios/project_template.png)
 

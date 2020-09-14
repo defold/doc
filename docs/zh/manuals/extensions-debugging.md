@@ -32,7 +32,7 @@ brief: 本教程介绍了一些调试包含原生扩展程序应用的方法.
 * Visual studio - Windows
 * VSCode - Windows, macOS, Linux
 * Android Studio - Windows, macOS, Linux
-* XCode - macOS
+* Xcode - macOS
 * WinDBG - Windows
 * lldb / gdb - macOS, Linux, (Windows)
 * ios-deploy - macOS
@@ -41,7 +41,7 @@ brief: 本教程介绍了一些调试包含原生扩展程序应用的方法.
 
 * Visual studio - Windows + platforms supporting gdbserver (E.g. Linux/Android)
 * VSCode - Windows, macOS (lldb), Linux (lldb/gdb) + platforms supporting gdbserver
-* XCode -  macOS, iOS
+* Xcode -  macOS, iOS
 * Android Studio - Android
 * WinDBG - Windows
 * lldb/gdb - macOS, Linux, (iOS)
@@ -64,7 +64,7 @@ brief: 本教程介绍了一些调试包含原生扩展程序应用的方法.
 
 #### [iOS](/manuals/extensions-debugging-ios)
 
-在 iOS 中, 你要使用 iTunes 或者 XCode 来观察设备日志.
+在 iOS 中, 你要使用 iTunes 或者 Xcode 来观察设备日志.
 
 ### Defold 崩溃日志
 
@@ -90,7 +90,7 @@ adb 可以显示此文件在哪 (不同设备保存位置不同)
 
 在 iTunes 中, 你可以 view/download 应用容器.
 
-在 `XCode -> Devices` 窗口中, 也可以选择崩溃日志
+在 `Xcode -> Devices` 窗口中, 也可以选择崩溃日志
 
 
 ### Symbolication

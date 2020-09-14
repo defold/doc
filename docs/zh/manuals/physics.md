@@ -131,6 +131,21 @@ The shape will not be drawn in the editor. You can [enable Physics debugging](/m
 :::
 
 
+### Scaling collision shapes
+
+It is possible to let the collision object and its shapes inherit the scale of the game object. Check the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project* to enable this. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
+
+
+### Rotating collision shapes
+
+### Rotating collision shapes in 3D physics
+Collision shapes in 3D physics can be rotated around all axis.
+
+
+### Rotating collision shapes in 2D physics
+Collision shapes in 2D physics can only be rotated around the z-axis. Rotation around the x or y axis will yield incorrect results and should be avoided, even when rotating 180 degrees to essentially flip the shape along the x or y axis. To flip a physics shape it is recommended to use [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) and [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
+
+
 ### Units used by the physics engine simulation
 
 The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
@@ -208,34 +223,13 @@ For a game or application where you need to separate objects perfectly, the `"co
 
 Triggers are light weight collision objects. Thay are similar to ray casts in that they read the physics world as opposed to interacting with it.
 
-In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and end. The message has the following fields:
+In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and ends. The message has the following fields:
 
 `other_id`
 : the id of the instance the collision object collided with (`hash`).
 
 `enter`
 : `true` if the interaction was an entry into the trigger, `false` if it was an exit. (`boolean`).
-
-## Ray casts
-
-Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
-
-If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
-
-```lua
-function update(self, dt)
-  -- request ray cast
-  local my_start = vmath.vector3(0, 0, 0)
-  local my_end = vmath.vector3(100, 1000, 1000)
-  local my_groups = { hash("my_group1"), hash("my_group2") }
-
-  local result = physics.raycast(my_start, my_end, my_groups)
-  if result then
-      -- act on the hit (see 'ray_cast_response' message for all values)
-      print(result.id)
-  end
-end
-```
 
 ## Resolving kinematic collisions
 
@@ -319,6 +313,31 @@ function on_message(self, message_id, message, sender)
   end
 end
 ```
+
+## Ray casts
+
+Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
+
+If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
+
+```lua
+function update(self, dt)
+  -- request ray cast
+  local my_start = vmath.vector3(0, 0, 0)
+  local my_end = vmath.vector3(100, 1000, 1000)
+  local my_groups = { hash("my_group1"), hash("my_group2") }
+
+  local result = physics.raycast(my_start, my_end, my_groups)
+  if result then
+      -- act on the hit (see 'ray_cast_response' message for all values)
+      print(result.id)
+  end
+end
+```
+
+::: sidenote
+Ray casts will ignore collision objects that contain the starting point of the ray. This is a limitation in Box2D.
+:::
 
 ## Joints
 

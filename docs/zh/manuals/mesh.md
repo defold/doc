@@ -48,6 +48,13 @@ Mesh 组件包含一些列属性:
 
 可以使用 Defold 缓存在运行时修改3D网格.
 
+## 材质常量
+
+{% include shared/material-constants.md component='mesh' variable='tint' %}
+
+`tint`
+: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
+
 ## 顶点的局部/世界坐标空间
 如果3D网格材质的坐标空间设为局部坐标空间, 则数据会原封不动传入着色器, 这样通常要在着色器程序里进行GPU顶点/法线的转换.
 

@@ -243,12 +243,12 @@ end
 
 ```lua
 local function webview_callback(self, webview_id, request_id, type, data)
-    if type == webview.CALLBACK_RESULT_EVAL_OK and --运行完毕
-        request_id == self.closeCheckRequest then --回调是由检查变量的运行请求触发的
+    if type == webview.CALLBACK_RESULT_EVAL_OK and
+        request_id == self.closeCheckRequest then
 
-        -- 检查运行结果,
-        -- 如果是 true 则关闭 webview!
-        if data.result == "true" then
+        -- 比较JavaScript执行结果, 如果是 "true" (iOS 上为 "1" )
+        -- 就应该关闭 webview!
+        if data.result == "true" or data.result == "1" then
             webview.destroy(webview_id)
         end
 

@@ -83,7 +83,7 @@ $ codesign --force --sign "Developer ID Application: Company Name" --options run
 ```
 
 ## 发布到 Mac App Store 以外的地方
-Apple 要求发布到 Mac App Store 以外的应用必须加入苹果认证才能在 macOS Catalina 上运行. 关于命令行编译环境加入认证的方法参考 [官方文档](https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow). 大体步骤是:
+Apple 要求发布到 Mac App Store 以外的应用必须加入苹果认证才能在 macOS Catalina 上运行. 关于命令行编译环境加入认证的方法参考 [官方文档](https://developer.apple.com/documentation/Xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow). 大体步骤是:
 
 * 1) 完成上述添加权限和签名的工作.
 

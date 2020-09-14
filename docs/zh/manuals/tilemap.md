@@ -89,12 +89,12 @@ end
 `material`
 : 瓷砖地图材质 (`hash`). 可以使用 `go.set()` 方法指定瓷砖地图材质. 参见 [这个例子的 API 用法](/ref/tilemap/#material).
 
-### 材质属性
+### 材质常量
 
-材质可以使用 `tilemap.set_constant()` 和 `tilemap.reset_constant()` 方法设置和重置一系列属性 (详情参见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
+{% include shared/material-constants.md component='tilemap' variable='tint' %}
 
 `tint`
-: 瓷砖地图染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/tilemap/#tilemap.set_constant:url-constant-value).
+: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
 
 ## 相关项目配置
 
