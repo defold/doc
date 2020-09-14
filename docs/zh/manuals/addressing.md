@@ -109,26 +109,11 @@ id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprit
 
 实际上相对地址在后台已经把上下文考虑在内. 这同样很方便因为你可以用同样的代码创建很多个集合的实例.
 
-简化符
-: Defold 支持如下相对地址简化符:
+### 简化符
 
-  `.`
-  : 代表本游戏对象.
+Defold 提供两种简化写法用来简化消息传递时需要输入的完整地址:
 
-  `#`
-  : 代表本组件.
-
-  举例:
-
-  ```lua
-   -- Let this game object acquire input focus
-   msg.post(".", "acquire_input_focus")
-  ```
-
-  ```lua
-   -- Post "reset" to the current script
-   msg.post("#", "reset")
-  ```
+:[Shorthands](../shared/url-shorthands.md)
 
 ## 游戏对象路径
 

@@ -95,12 +95,12 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 在内置材质文件夹里有一个3D模型材质. 如果需要自定义材质, 请参考 [材质文档](/manuals/material). [着色器教程](/manuals/shader) 介绍了着色器程序的工作方式.
 
 
-### 材质属性
+## 材质常量
 
-模型的默认材质属性可以用 `model.set_constant()` 和 `model.reset_constant()` 方法来设置和重置 (详情参见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
+{% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: 模型的染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/model/#model.set_constant:url-constant-value).
+: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
 
 
 ## 渲染

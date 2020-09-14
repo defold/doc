@@ -3,7 +3,7 @@ title: 使用脚本编写游戏逻辑
 brief: 本教程介绍了如何使用脚本组件加入游戏逻辑
 ---
 
-#  脚本
+# 脚本
 
 脚本组件使用 [Lua 编程语言](/manuals/lua) 编程. 脚本像其他 [组件](/manuals/components) 一样附加到游戏对象上, Defold 会在引擎声明循环周期中运行这些 Lua 代码.
 
@@ -66,11 +66,28 @@ Defold 把 Lua 脚本作为引擎生命周期的一部分来执行并且向脚�
 `on_message(self, message_id, message, sender)`
 : 当使用 [`msg.post()`](/ref/msg#msg.post) 把消息发送到脚本组件上时, 接收方组件的脚本中此函数被调用.
 
+    ```lua
+    function on_message(self, message_id, message, sender)
+        if message_id == hash("increase_score") then
+            self.total_score = self.total_score + message.score
+        end
+    end
+    ```
+    
 `on_input(self, action_id, action)`
 : 如果组件掌握输入焦点 (见 [`acquire_input_focus`](/ref/go/#acquire_input_focus)) 那么当输入触发时此函数被引擎调用.
 
+
+    ```lua
+    function on_input(self, action_id, action)
+        if action_id == hash("touch") and action.pressed then
+            print("Touch", action.x, action.y)
+        end
+    end
+    ```
+    
 `on_reload(self)`
-: 当使用编辑器的热重载功能 (<kbd>Edit ▸ Reload Resource</kbd>) 重载脚本时此函数被调用. 这对于调试, 测试和微调看效果等需求非常方便.
+: 当使用编辑器的热重载功能 (<kbd>Edit ▸ Reload Resource</kbd>) 重载脚本时此函数被调用. 这对于调试, 测试和微调看效果等需求非常方便. 详情请见 [热重载教程](/manuals/hot-reload).
 
   ```lua
   function on_reload(self)

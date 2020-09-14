@@ -1,11 +1,11 @@
 ---
 title: Defold 的设备输入操作
-brief: This manual explains how input works, how to capture input actions and create interactive script reactions.
+brief: 本教程介绍了输入系统如何工作, 如何捕获输入行为和相关脚本代码.
 ---
 
-# Input
+# 输入
 
-All user input is captured by the engine and dispatched as actions to script- and GUI script components in game objects that have acquired input focus and that implement the `on_input()` function. This manual explains how you set up bindings to capture input and how you create code that responds to it.
+输入由引擎捕获并转化为输入行为传送到获取了输入焦点并且实现了 `on_input()` 函数的游戏对象脚本组件中去. This manual explains how you set up bindings to capture input and how you create code that responds to it.
 
 The input system uses a set of simple and powerful concepts, allowing you to manage input as you see fit for your game.
 
@@ -36,7 +36,7 @@ Consuming input
 
 ## Setting up input bindings
 
-The input bindings is a project wide table that allows you to specify how device input should translate into named *actions* before they are dispatched to your script components and GUI scripts. You can create a new input binding file, <kbd>right click</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the enginen use the new file, change the *Game Binding* entry in "game.project".
+The input bindings is a project wide table that allows you to specify how device input should translate into named *actions* before they are dispatched to your script components and GUI scripts. You can create a new input binding file, <kbd>right click</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the engine use the new file, change the *Game Binding* entry in "game.project".
 
 ![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
 
@@ -92,6 +92,8 @@ Gamepad Triggers
   On Windows, only XBox 360 controllers are currently supported. To hook up your 360 controller to your Windows machine, make sure it is setup correctly. See http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
 
   Gamepad input setup uses a separate mapping file for each hardware gamepad type. See below for more information.
+  
+  Gamepad input bindings also provides two separate bindings named `Connected` and `Disconnected` to detect when a gamepad is connected (even those connected from the start) or disconnected.
 
 Touch Triggers
 : Single-touch type triggers are available on iOS and Android devices. Single-touch type triggers are not set up from the Touch Triggers section of the input bindings. Instead **single-touch triggers are automatically set up when you have mouse button input set up for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`**.

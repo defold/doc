@@ -30,13 +30,13 @@ Provisioning Profiles
 在 Defold 中给应用做签名时, 需要提供加密证书和提供商档案文件.
 
 ::: 注意
-Member Center 页面的一些功能在 XCode 里也可以进行---前提是先安装好XCode.
+Member Center 页面的一些功能在 Xcode 里也可以进行---前提是先安装好Xcode.
 :::
 
 Device identifier (UDID)
 : iOS 设备的 UDID 可以通过wifi或者线路连接计算机查找. 打开 Xcode 选择 <kbd>Window ▸ Devices and Simulators</kbd>. 选中设备就会显示出序列号和UDID.
 
-  ![xcode devices](images/ios/xcode_devices.png)
+  ![Xcode devices](images/ios/Xcode_devices.png)
 
   如果没安装 Xcode也可以从 iTunes 里查看. 首先选中要查看的设备.
 
@@ -57,7 +57,7 @@ Device identifier (UDID)
 5. 选择 "Team" (自动生成) 并为app设置 bundle identifier.
 6. 确保 Xcode 为app生成了 *Provisioning Profile* 和 *Signing Certificate*.
 
-   ![](images/ios/xcode_certificates.png)
+   ![](images/ios/Xcode_certificates.png)
 
 7. 编译并且在设备上运行. 首次运行, Xcode 会提示打开开发者模式并为调试做好准备. 可能要等待一会儿.
 8. 确定应用正常运行后, 在硬盘上找到编译好的app. 可以在 "Report Navigator" 的编译报告里找到app位置.
@@ -72,7 +72,7 @@ Device identifier (UDID)
 
    ![](images/ios/free_provisioning.png)
 
-这个供应商档案文件连同加密证书可以在 Defold 为应用签名, 有效期一周, _限一个设备_. 这样生成的供应商档案无法向其增加更多的 UDID.
+这个供应商档案文件连同加密证书可以在 Defold 为应用签名, 有效期为一周.
 
 档案过期后, 可以在 Xcode 里如法炮制再次生成临时档案文件.
 
@@ -90,13 +90,51 @@ Device identifier (UDID)
 
 点击 *Create Bundle* 并选择打包应用存放位置.
 
-可以在 *game.project* 项目配置文件中设置app图标, 启动图片等等.
+![ipa iOS application bundle](images/ios/ipa_file.png){.left}
+
+可以在 *game.project* 项目配置文件的 [iOS 部分](/manuals/project-settings/#ios) 设置应用的图标, 启动屏幕 storyboard 等等.
+
+### 创建 storyboard
+
+使用 Xcode 创建 storyboard. 启动 Xcode 新建一个项目. 选择 iOS 和单视图应用:
+
+![Create project](images/ios/storyboard_create_project.png)
+
+点击 Next 继续配置项目并输入名称:
+
+![Project settings](images/ios/storyboard_create_project_settings.png)
+
+点击 Create 完成项目创建. 接下来就可以创建 storyboard 了:
+
+![The project view](images/ios/storyboard_project_view.png)
+
+把需要的图片拖入项目. 然后打开 `Assets.xcassets`, 再把图片拖放到 `Assets.xcassets` 中去:
+
+![Add image](images/ios/storyboard_add_image.png)
+
+打开 `LaunchScreen.storyboard` 点击加号 (<kbd>+</kbd>) 按钮. 输入 "imageview" 找到 ImageView 控件.
+
+![Add image view](images/ios/storyboard_add_imageview.png)
+
+把控件拖放到 storyboard 上:
+
+![Add to storyboard](images/ios/storyboard_add_imageview_to_storyboard.png)
+
+从下拉列表中选择刚才放入 `Assets.xcassets` 的图片:
+
+![](images/ios/storyboard_select_image.png)
+
+进行摆放位置等操作, 还可能加入些文字标签或者其他界面组件. 制作好之后选择 <kbd>Product</kbd> -> <kbd>Build</kbd>. 等编译处理完成.
+
+最后一步, 拷贝编译生成的 `LaunchScreen.storyboardc` 文件. 打开仿达, 把 `LaunchScreen.storyboardc` 文件粘贴到你的 Defold 项目目录:
+
+
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Intermediates.noindex/YOUR-PRODUCT-NAME.build/Debug-iphonesimulator/YOUR-PRODUCT-NAME.build/Base.lproj/LaunchScreen.storyboardc
 
 ::: 注意
-iOS 上的应用, 启动图片决定了应用分辨率. 如果图片分辨率错误, 应用可能也会分辨率错误带黑边.
+社区牛人 Sergey Lerg 已把上述步骤 [录成了视频](https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo) 供大家参考.
 :::
 
-![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
 ## 安装 iOS 打包应用
 

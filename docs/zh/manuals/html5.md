@@ -38,6 +38,10 @@ Python 3:
 不能直接用浏览器打开 HTML5 游戏的 `index.html` 文件. 要通过服务器访问打开.
 :::
 
+::: 注意
+如果在控制台见到 "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." 错误, 请确保你的服务器设置了 `application/wasm` MIME 类型对应 .wasm 文件.
+:::
+
 ## 打包 HTML5 游戏
 
 Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd>:
@@ -213,5 +217,5 @@ DEFOLD_ENGINE_ARGUMENTS
 
 HTML5 支持 `sys.save()`, `sys.load()` 和 `io.open()` 之类的文件操作, 但是与其他平台实现方法不同. 基于安全考虑浏览器里运行的 Javascript 无权直接读写本地文件. Emscripten (即 Defold) 使用 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) 代替, 它是基于浏览器的持久化存储方案, 基于浏览器的虚拟文件系统. 与其他平台的区别主要是比直接读写文件要慢而且实质上读写的是一个数据库. 浏览器开发者工具通常都提供了 IndexedDB 的读写功能.
 
-## FAQ
-:[HTML5 FAQ](../shared/html5-faq.md)
+## 问答
+:[HTML5 问答](../shared/html5-faq.md)

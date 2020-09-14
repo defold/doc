@@ -82,9 +82,13 @@ Spine模型可以使用 `go.get()` 和 `go.set()` 方法修改其属性:
 `skin`
 : 当前组件的皮肤 (`hash`).
 
-## 材质属性
+## 材质常量
 
-Spine模型的默认材质属性可以用 `spine.set_constant()` 和 `spine.reset_constant()` 方法来设置和重置. (详情参见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
+{% include shared/material-constants.md component='spine' variable='tint' %}
 
 `tint`
-: Spine材质的染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/spine/#spine.set_constant:url-constant-value).
+: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
+
+## 相关项目配置
+
+在 *game.project* 文件里有些关于Spine模型的 [设置项目](/manuals/project-settings#spine).

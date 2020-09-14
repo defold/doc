@@ -1,15 +1,16 @@
+
 ---
-title: Defold development for the Linux platform
-brief: This manual describes how to build and run Defold applications on Linux
+title: Defold 开发 Linux 游戏
+brief: 本教程介绍了如何在 Linux 上编译运行 Defold 游戏
 ---
 
-# Linux development
+# Linux 开发
 
-Developing Defold applications for the Linux platform is a straight forward process with very few considerations to make.
+在 Linux 上编译运行 Defold 游戏十分简单.
 
-## Project settings
+## 项目配置
 
-Linux specific application configuration is done from the [Linux section](/manuals/project-settings/#linux) of the *game.project* settings file.
+Linux 相关设置位于 *game.project* 文件的 [Linux 部分](/manuals/project-settings/#linux).
 
-## FAQ
-:[Linux FAQ](../shared/linux-faq.md)
+## 问答
+:[Linux 问答](../shared/linux-faq.md)

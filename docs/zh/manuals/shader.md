@@ -1,6 +1,6 @@
 ---
 title: Defold 中的着色器编程
-brief: This manual describes vertex and fragment shaders in detail and how to use them in Defold.
+brief: 本教程介绍了顶点和片元着色器及其在 Defold 中的使用方法.
 ---
 
 # Shaders

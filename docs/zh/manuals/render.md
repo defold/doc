@@ -3,148 +3,147 @@ title: Defold 中的渲染过程
 brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 ---
 
-# Render
+# 渲染
 
-引擎在屏幕上显示的每个对象：精灵，模型，图块，粒子或GUI节点均由渲染器绘制。渲染器的核心是控制渲染流程的渲染脚本。默认情况下，每个2D对象均使用指定混合和正确Z深度来进行绘制-因此，除了顺序和简单混合之外您可能不需要了解渲染。对于大多数2D游戏，默认流程功能良好，但是您的游戏可能有特殊要求。在这种情况下，Defold允许您编写量身定制的渲染程序。
+引擎在屏幕上显示的每个对象：精灵，模型，图块，粒子或GUI节点均由渲染器绘制。渲染器的核心是控制渲染流程的渲染脚本。默认情况下，每个2D均使用指定混合和正确Z深度来进行绘制-因此，除了顺序和简单混合之外您可能不需要了解渲染。对于大多数2D游戏，默认流程功能良好，但是您的游戏可能有特殊要求。在这种情况下，Defold允许您编写量身定制的渲染程序。
 
-### Render pipeline - What, when and where?
+### 渲染管线是什么东东?
 
-The render pipeline controls what to render, when to render it and also where to render it. What to render is controlled by [render predicates](#render-predicates). When to render a predicate is controlled in the [render script](#the-render-script) and where to render a predicate is controlled by the [view projection](#default-view-projection).
+渲染管线决定了渲染什么, 何时渲染以及渲染哪里. 渲染什么由 [渲染优先级](#render-predicates) 决定. 什么时候渲染由 [渲染脚本](#the-render-script) 决定, 渲染哪里由 [视口映射](#default-view-projection) 决定.
 
 
-## The default render
+## 默认渲染器
 
-The render file contains a reference to the current render script as well as custom materials that should be made available in the render script (use with [`render.enable_material()`](/ref/render/#render.enable_material))
+渲染文件保存有当前渲染脚本的引用, 还确定了该渲染脚本可以使用的材质 (使用 [`render.enable_material()`](/ref/render/#render.enable_material) 函数)
 
-At the heart of the rendering pipeline is the _render script_. This is a Lua script with the functions `init()`, `update()` and `on_message()` and it is primarily used to interact with the underlying OpenGL rendering API. The render script has a special place in the lifecycle of your game. Details can be found in the [Application lifecycle documentation](/manuals/application-lifecycle).
+渲染管线的核心就是 _渲染脚本_. 它是包含 `init()`, `update()` 与 `on_message()` 函数的 Lua 脚本, 主要用于与 OpenGL 渲染 API 的底层交互. 渲染脚本生命周期有其特殊之处. 详情请见 [应用生命周期教程](/manuals/application-lifecycle).
 
-In the "Builtins" folder of your projects you can find the default render resource ("default.render") and the default render script ("default.render_script").
+在 "Builtins" 文件夹中放有默认渲染器资源文件 ("default.render") 和默认渲染脚本 ("default.render_script").
 
 ![Builtin render](images/render/builtin.png){srcset="images/render/builtin@2x.png 2x"}
 
-To set up a custom renderer:
+使用自定义渲染器:
 
-1. Copy the files "default.render" and "default.render_script" to a location in your project hierarchy. You can, of course, create a render script from scratch but it is a good idea to start with a copy of the default script, especially if you are new to Defold and/or OpenGL ES rendering.
+1. 把 "default.render" 和 "default.render_script" 复制到项目目录某个位置. 当然自己从头开始写也没问题, 但是拷贝出来能有个参考, 尤其是对于 Defold 或 OpenGL ES 渲染编写的新手来说.
 
-2. Edit your copy of the "default.render" file and change the *Script* property to refer to your copy of the render script.
+2. 编辑 "default.render" 文件, 指定 *Script* 项为自定义的脚本.
 
-3. Change the *Render* property (under *bootstrap*) in the "game.project" settings file to refer to your copy of the "default.render" file.
+3. 在 "game.project" 的 *bootstrap* 部分里的 *Render* 项上设置刚才修改好的 "default.render" 文件.
 
 
-## Render predicates
+## 渲染优先级
 
-To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_.
+可视对象的渲染顺序, 是基于渲染 _优先级_ 的. 优先级的确定基于材质 _标签_.
 
-Each object that is drawn onto the screen has a material attached to it that controls how the object should be drawn to the screen. In the material, you specify one or more _tags_ that should be associated with the material.
+可是对象都有材质用以确定如何在屏幕上进行绘制. 材质之中, 可以指定一个或多个 _标签_ 与材质相对应.
 
-In your render script, you can then create a *render predicate* and specify which tags should belong to that predicate. When you tell the engine to draw the predicate, each object with a material containing a tag matching the list specified for the predicate will be drawn.
+渲染脚本中, 就可以决定什么样的标签拥有什么样的 *渲染优先级*. 引擎渲染时, 材质基于标签队列被赋予渲染优先级.
 
 ![Render predicate](images/render/render_predicate.png){srcset="images/render/render_predicate@2x.png 2x"}
 
-A detailed description on how materials work can be found in the [Material documentation](/manuals/material).
+关于材质详情请见 [材质教程](/manuals/material).
 
 
-## Default view projection
+## 默认视口映射
 
-The default render script is configured to use an orthographic projection suitable for 2D games. It provides three different orthographic projections: `Stretch` (default), `Fixed Fit` and `Fixed`.
+默认渲染脚本使用2D游戏常用的正交映射. 填充方式有三种: `Stretch` (默认), `Fixed Fit` 和 `Fixed`.
 
-You can also use a perspective projection suitable for 3D games, as provided by a camera component.
+做3D游戏的话, 可以使用摄像机组件提供的透视映射渲染方法.
 
-The camera component can be used for both orthographic and perspective projections to change the view matrix (basically which part of the game world that is rendered). Learn more about the camera component in the [Camera manual](/manuals/camera).
+摄像机组件既可以设置为正交也可以设置为透视来改变视口矩阵 (简单地说就是游戏世界哪部分需要被渲染). 关于摄像机组件详情请见 [摄像机教程](/manuals/camera).
 
-### Stretch projection
+### Stretch
 
-The stretch projection will always draw an area of your game that is equal to the dimensions set in "game.project", even when the window is resized. If the aspect ratio changes it will result in game content being stretched either vertically or horizontally:
+无论应用窗口怎样改变, 渲染视口大小总是等于在 "game.project" 里面设置的分辨率. 所以一旦宽高比例改变, 就会造成视口拉伸现象:
 
 ![Stretch projection](images/render/stretch_projection.png)
 
-*Stretch projection with original window size*
+*原窗口大小*
 
 ![Stretch projection when resized](images/render/stretch_projection_resized.png)
 
-*Stretch projection with the window stretched horizontally*
+*横向拉伸*
 
-The stretch projection is the default projection but if you have changed from it and need to switch back you do it by sending a message to the render script:
+视口拉伸是默认选项, 其对应命令脚本是:
 
 ```lua
 msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 ```
 
-### Fixed fit projection
+### Fixed Fit
 
-Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be shown vertically or horizontally:
+跟 Stretch 一样 Fixed Fit 也是使用 "game.project" 里设置的分辨率, 不同的是一旦窗口大小改变游戏内容会缩放但是始终保持原比例, 这样一来本来不应被渲染的内容也可能会被显示出来:
 
 ![Fixed fit projection](images/render/fixed_fit_projection.png)
 
-*Fixed with projection with original window size*
+*原窗口大小*
 
 ![Fixed fit projection when resized](images/render/fixed_fit_projection_resized.png)
 
-*Fixed with projection with the window stretched horizontally*
+*横向拉伸*
 
 ![Fixed fit projection when smaller](images/render/fixed_fit_projection_resized_smaller.png)
 
-*Fixed with projection with the window reduced to 50% of original size*
+*窗体缩小一半*
 
-You enable the fixed fit projection by sending a message to the render script:
+等比缩放对应命令脚本是:
 
 ```lua
 msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 ```
 
-### 固定映射
+### fixed
 
-The fixed projection will retain the original aspect ratio and render your game content with a fixed zoom level. This means that it if the zoom level is set to something other than 100% it will show more or less than the area of the game defined by the dimensions in "game.project":
+以一个固定倍数按比例缩放视口. 也就是说倍数不是 100% 的话就会自行多显示或少显示内容, 而不按照 "game.project" 的设定分辨率渲染:
 
 ![Fixed projection](images/render/fixed_projection_zoom_2_0.png)
 
-*Fixed projection with zoom set to 2*
+*缩放倍数为2*
 
 ![Fixed projection](images/render/fixed_projection_zoom_0_5.png)
 
-*Fixed projection with zoom set to 0.5*
+*缩放倍数为0.5*
 
 ![Fixed projection](images/render/fixed_projection_zoom_2_0_resized.png)
 
-*Fixed projection with zoom set to 2 and window reduced to 50% of original size*
+*缩放倍数为2窗体缩小一半*
 
-You enable the fixed projection by sending a message to the render script:
+其对应命令脚本是:
 
 ```lua
 msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 ```
 
-### Perspective projection
+### 透视映射
 
-The perspective projection is suitable for 3D games where game objects are rendered with a perspective and where the size of objects vary depending on the distance from an imagined eye/camera position.
+透视用来制作 3D 游戏, 游戏对象大小取决于与摄像机距离的远近.
 
-You enable the perspective projection provided from a camera component by sending a message to the render script:
+其命令脚本是:
 
 ```lua
 msg.post("@render:", "use_camera_projection")
 ```
 
 
-## Coordinate systems
+## 坐标系统
 
-When components are rendered you usually talk of in which coordinate system the components are rendered. In most games you have some components drawn in world space and some in screen space.
+提到渲染就不得不说其基于的坐标系统. 一般游戏都有世界坐标系和屏幕坐标系.
 
-GUI components and their nodes are usually drawn in the screen space coordinate, with the bottom left corner of the screen having coordinate (0,0) and the top right corner is (screen width, screen height). The screen space coordinate system is never offset or in some other way translated by a camera. This will keep the GUI nodes always drawn on screen regardless of how the world is rendered.
+GUI 组件节点基于屏幕坐标系渲染, 屏幕左下角是坐标原点 (0,0) 右上角是最大值 (screen width, screen height). 游戏和摄像机如何改变都不会改变屏幕坐标系. 这样就能保证用户界面不受游戏世界的影响.
 
-Sprites, tilemaps and other components used by game objects that exist in your game world are usually drawn in the world space coordinate system. If you make no modifications to your render script and use no camera component to change the view projection this coordinate system is the same as the screen space coordinate system, but as soon as you add a camera and either move it around or change the view projection the two coordinate systems will deviate. When the camera is moving the lower left corner of the screen will be offset from (0, 0) so that other parts of the world is rendered. If the projection changes the coordinates will be both translated (ie offset from 0, 0) and modified by a scale factor.
+Sprite, 瓷砖地图和其他游戏组件都是使用游戏世界坐标系. 既不改变渲染脚本又不使用摄像机组件改变映射方式的话游戏世界坐标系和屏幕坐标系数值上是相同的, 但是一旦视口移动或者映射方式改变, 两者就会偏离. 摄像机移动时屏幕坐标原点 (0, 0) 会跟着改变. 映射方式改变原点和偏移量都会由于缩放系数而改变.
 
 
-## The render script
+## 渲染脚本
 
-Below is the code for a custom render script that is a slightly modified version of the built-in one.
+下面展示一个对默认渲染脚本稍经修改的版本.
 
 init()
-: The function `init()` is used to set up the predicates, the view and clear color. These variables will be used during the actual rendering.
+: 函数 `init()` 用来设定优先级, 视口和视口颜色. 这些渲染时都会被用到.
 
   ```lua
   function init(self)
-      -- Define the render predicates. Each predicate is drawn by itself and
-      -- that allows us to change the state of OpenGL between the draws.
+      -- 定义渲染优先级. 每个优先级的绘制不相干所以绘制时可以任意修改 OpenGL 的状态.
       self.tile_pred = render.predicate({"tile"})
       self.gui_pred = render.predicate({"gui"})
       self.text_pred = render.predicate({"text"})
@@ -157,36 +156,36 @@ init()
       self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
       self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
 
-      -- Define a view matrix to use. If we have a camera object, it will
-      -- send "set_view_projection" messages to the render script and we
-      -- can update the view matrix with the value the camera provides.
+      -- 视口矩阵. 如果使用了摄像机, 摄像机就会
+      -- 把 "set_view_projection" 信息发送给渲染脚本
+      -- 以便我们根据摄像机提供的参数更新视口矩阵.
       self.view = vmath.matrix4()
   end
   ```
 
 update()
-: The `update()` function is called once each frame. Its function is to perform the actual drawing by calling the underlying OpenGL ES APIs (OpenGL Embedded Systems API). To properly understand what's going on in the `update()` function, you need to understand how OpenGL works. There are many great resources on OpenGL ES available. The official site is a good starting place. You find it at https://www.khronos.org/opengles/
+: 函数 `update()` 每帧都会被调用. 用于调用底层 OpenGL ES API (OpenGL 嵌入系统 API) 以实现渲染. 想了解 `update()` 函数, 先要了解 OpenGL 工作原理. 对于 OpenGL ES 有许多教程. 官方网站就是个不错的学习之地. 参考 https://www.khronos.org/opengles/
 
-  This example contains the setup necessary to draw 3D models. The `init()` function defined a `self.model_pred` predicate. Elsewhere a material with the tag "model" has been created. There are also some model components that use the material:
+  本例中函数里设置了渲染 3D 模型必须的两部分内容. `init()` 定义了 `self.model_pred` 优先级. 含有 "model" 标签的材质被建立. 以及使用此材质的模型组件:
 
   ```lua
   function update(self)
-      -- Set the depth mask which allows us to modify the depth buffer.
+      -- 设置深度蒙版以便修改深度缓存.
       render.set_depth_mask(true)
 
-      -- Clear the color buffer with the clear color value and set the depth buffer to 1.0.
-      -- The normal depth values are between 0.0 (near) and 1.0 (far) so maximizing the values
-      -- throughout the buffer means that every pixel you draw will be nearer than 1.0 and thus
-      -- it will be properly drawn and depth testing will work from thereon.
+      -- 使用背景清空渲染缓存然后设置其深度为 1.0.
+      -- 通常深度范围为 0.0 (近端) 到 1.0 (远端) 要全包括所以设置为 1.0
+      -- 缓存只保持并渲染比 1.0 近的物体
+      -- 这样的配置就很合乎逻辑.
       render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [  render.BUFFER_STENCIL_BIT] = 0})  
 
-      -- Set the viewport to the window dimensions.
+      -- 视口大小设置为窗体大小.
       render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
 
-      -- Set the view to the stored view value (can be set by a camera object)
+      -- 填充视口 (摄像机会自动填充)
       render.set_view(self.view)
 
-      -- Render 2D space
+      -- 渲染 2D 空间
       render.set_depth_mask(false)
       render.disable_state(render.STATE_DEPTH_TEST)
       render.disable_state(render.STATE_STENCIL_TEST)
@@ -194,21 +193,21 @@ update()
       render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
       render.disable_state(render.STATE_CULL_FACE)
 
-      -- Set the projection to orthographic and only render between -200 and 200 Z-depth
+      -- 设定正交映射及Z轴范围为 -200 到 200
       render.set_projection(vmath.matrix4_orthographic(0, render.get_width(), 0,   render.get_height(), -200, 200))  
 
       render.draw(self.tile_pred)
       render.draw(self.particle_pred)
 
-      -- Render 3D space, but still orthographic
-      -- Face culling and depth test should be enabled
+      -- 渲染 3D 空间, 此时仍是正交映射
+      -- 需要打开面剔除和深度测试
       render.enable_state(render.STATE_CULL_FACE)
       render.enable_state(render.STATE_DEPTH_TEST)
       render.set_depth_mask(true)
       render.draw(self.model_pred)
       render.draw_debug3d()
 
-      -- Render the GUI last
+      -- 最后渲染 GUI
       render.set_view(vmath.matrix4())
       render.set_projection(vmath.matrix4_orthographic(0, render.get_window_width(), 0,   render.get_window_height(), -1, 1))  
 
@@ -222,56 +221,56 @@ update()
   end
   ```
 
-So far this is a simple and straightforward render script. It draws in the same manner every single frame. However, it is sometimes desirable to be able to introduce state into the render script and perform different operations depending on the state. It may also be desirable to communicate with the render script from other parts of the game code.
+上面是一个简单版的渲染脚本. 每帧工作都一样. 然而有些时候需要对不同的游戏状态进行不同的渲染操作. 可能还需要与游戏代码脚本进行交互.
 
 on_message()
-: A render script can define an `on_message()` function and receive messages from other parts of your game or app. A common case where an external component sends information to the render script is the _camera_. A camera component that has acquired camera focus will automatically send its view and projection to the render script each frame. This message is named `"set_view_projection"`:
+: 渲染脚本有一个 `on_message()` 函数用来接收游戏其他脚本发来的消息. 典型的例子比如 _摄像机_. 摄像机组件每一帧都把视口和映射发给渲染脚本. 消息名为 `"set_view_projection"`:
 
   ```lua
   function on_message(self, message_id, message)
       if message_id == hash("clear_color") then
-          -- Someone sent us a new clear color to be used.
+          -- 根据消息命令清空屏幕.
           self.clear_color = message.color
       elseif message_id == hash("set_view_projection") then
-          -- The camera component that has camera focus will sent set_view_projection
-          -- messages to the @render socket. We can use the camera information to
-          -- set view (and possibly projection) of the rendering.
-          -- Currently, we're rendering orthogonally so there's no need for camera
-          -- projection.
+          -- 焦点摄像机每一帧都发送 set_view_projection
+          -- 消息到 @render 端口. 使用摄像机发来的数据可以
+          -- 设置渲染视口 (及映射).
+          -- 这里使用默认正交映射所以
+          -- 不使用消息传输映射.
           self.view = message.view
       end
   end
   ```
 
-  However, any script of GUI script can send messages to the render script though the special `@render` socket:
+  GUI 脚本同样可以向 `@render` 端口发送消息:
 
   ```lua
-  -- Change the clear color.
+  -- 更改清屏颜色.
   msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
   ```
 
-## System messages
+## 系统消息
 
 `"set_view_projection"`
-: This message is sent from camera components that has acquired camera focus.
+: 焦点摄像机发给渲染脚本的消息.
 
 `"window_resized"`
-: The engine will send this message on changes of the window size. You can listen to this message to alter rendering when the target window size changes. On desktop this means that the actual game window has been resized and on mobile devices this message is sent whenever an orientation change happens.
+: 窗体大小变化时系统发送给渲染脚本的消息. 监听此消息以便在窗体大小变化时采取相应的渲染方案. 桌面设备窗口大小改变和移动设备屏幕方向改变都会触发此消息发送.
 
   ```lua
   function on_message(self, message_id, message)
     if message_id == hash("window_resized") then
-      -- The window was resized. message.width and message.height contain the new dimensions.
+      -- 窗体变化. message.width 与 message.height 保存了变化后的窗体尺寸.
       ...
     end
   end
   ```
 
 `"draw_line"`
-: Draw debug line. Use to visualize ray_casts, vectors and more. Lines are drawn with the `render.draw_debug3d()` call.
+: 调试用画线. 可以用来检查射线, 向量等等. 线的绘制调用了 `render.draw_debug3d()` 函数.
 
   ```lua
-  -- draw a white line
+  -- 绘制白线
   local p1 = vmath.vector3(0, 0, 0)
   local p2 = vmath.vector3(1000, 1000, 0)
   local col = vmath.vector4(1, 1, 1, 1)
@@ -279,49 +278,49 @@ on_message()
   ```
 
 `"draw_text"`
-: Draw debug text. Use to print debug information. The text is drawn with the built in "system_font" font. The system font has a material with tag "text" and is rendered with other text in the default render script.
+: 调试用文字绘制. 可以用来展示一些调试信息. 文字使用自带 "system_font" 字体. 使用材质标签 "text" 于渲染脚本里进行绘制.
 
   ```lua
-  -- draw a text message
+  -- 文字信息绘制
   local pos = vmath.vector3(500, 500, 0)
   msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  
   ```
 
-The visual profiler accessible through the `"toggle_profile"` message sent to the `@system` socket is not part of the scriptable renderer. It is drawn separate from your render script.
+可视分析器通过发送 `"toggle_profile"` 消息到 `@system` 端口显示出来, 它不是在渲染脚本里进行绘制的, 而是在系统内部其他脚本里进行绘制的.
 
 
-## Draw calls and batching
+## Draw call 与合批
 
-A draw call is the term used to describe the process of setting up the GPU to draw an object to the screen using a texture and a material with optional additional settings. This process is usually resource intensive and it is recommended that the number of draw calls are as few as possible. You can measure the number of the draw calls and the time it takes to render them using the [built-in profiler](/manuals/profiling/).
+Draw call 众所周知是调用 GPU 使用指定材质和纹理以及各种参数设置进行一次屏幕渲染的过程. 这个过程比较耗时所以游戏 draw call 数量应该尽可能地小. 可以使用 [内置分析器](/manuals/profiling/) 来查看 draw call 数量与耗时.
 
-Defold will try to batch render operation to reduce the number of draw calls according to a set of rules defined below. The rules differ between GUI components and all other component types.
-
-
-### Batch rules for non-GUI components
-
-Rendering is done based on z-order, from low to high. The engine will start by sorting the list of things to draw and iterate from low to high z-values. Each object in the list will be grouped into the same draw call as the previous object if the following conditions are met:
-
-* Belongs to the same collection proxy
-* Is of the same component type (sprite, particle fx, tilemap etc)
-* Uses the same texture (atlas or tile source)
-* Has the same material
-* Has the same shader constants (such as tint)
-
-This means that if two sprite components in the same collection proxy has adjacent or the same z-value (and thus comes next to each other in the sorted list), use the same texture, material and constants they will be grouped into the same draw call.
+Defold 基于下列规则自动进行合批渲染操作以达到减少 draw call 的目的. 其中 GUI 组件与其他组件类型的规则不同.
 
 
-### Batch rules for GUI components
+### 非 GUI 组件合批
 
-Rendering of the nodes in a GUI component are done from top to bottom of the node list. Each node in the list will be grouped into the same draw call as the previous node if the following conditions are met:
+渲染基于Z轴位置, 从小到大进行. 引擎会将物体按照Z轴位置由小到大排序. 如果一个物体遇到以下情形, 就把当前物体与上一个物体打包合批在一个 draw call 中渲染:
 
-* Is of the same type (box, text, pie etc)
-* Uses the same texture (atlas or tile source)
-* Has the same blend mode.
-* Has the same font (only for text nodes)
-* Has the same stencil settings
+* 属于同一个集合代理
+* 属于同一种组件类型 (都是 sprite, particle fx, tilemap 等等)
+* 使用同一个纹理 (图集或者瓷砖图源)
+* 使用同一个材质
+* 使用同一个材质参数值 (例如 tint)
 
-::: sidenote
-Rendering of nodes are done per component. This means that nodes from different GUI components will not be batched.
+注意两个物体要满足上述全部条件才能进行合批操作.
+
+
+### GUI 组件合批
+
+GUI 组件按照节点树从上到下进行渲染. 如果一个节点遇到以下情形, 就把当前节点与上一个节点打包合批在一个 draw call 中渲染:
+
+* 属于同一种组件类型 (都是 box, text, pie 等等)
+* 使用同一个纹理 (图集或者瓷砖图源)
+* 使用同一种混合模式.
+* 使用同一个字体 (仅针对文本节点)
+* 使用同样的绘制参数
+
+::: 注意
+节点按组件逐个渲染. 也就是说不同 GUI 组件的节点不会合批.
 :::
 
-The ability to arrange nodes in hierarchies makes it easy to group nodes into manageable units. But hierarchies can effectively break batch rendering if you mix different node types. It is possible to more effectively batch GUI nodes while maintaining node hierarchies using GUI layers. You can read more about GUI layers and how they affect draw calls in the [GUI manual](/manuals/gui#layers-and-draw-calls).
+节点树直观的反映用户界面节点的关系. 但是这种树形结构有可能会打破合批. 树形结构下 GUI 要使节点高效渲染推荐使用 GUI 层. 关于层的使用及其对合批的影响详见 [GUI 教程](/manuals/gui#layers-and-draw-calls).

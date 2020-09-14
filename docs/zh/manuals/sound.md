@@ -182,3 +182,7 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 ::: 注意
 对于 `play_sound` 消息没法过滤因为该消息由 Defold 引擎内部保留. 如果使用引擎保留消息名会造成运行不正确.
 :::
+
+## 相关项目配置
+
+在 *game.project* 文件里有些关于声音组件的 [设置项目](/manuals/project-settings#sound).

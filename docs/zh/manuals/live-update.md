@@ -1,7 +1,9 @@
 ---
 title: Defold 的热更新
-brief: The Live update functionality provides a mechanism allowing the runtime to fetch and store resources to the application bundle that were intentionally left out of the bundle at build time. This manual explains how it works.
+brief: 热更新允许游戏运行时获取和存储编译时并不存在的资源. 本教程介绍了热更新的用法.
 ---
+
+# 目前热更新机制正在升级, 本教程可能随时变化
 
 # Live update
 
@@ -151,6 +153,10 @@ When storing a new manifest the manifest data will be verified before it is actu
 * Verify that all resources the manifest expects to be in the bundle actually are in the bundle.
 
 From the user's perspective the verification process is completely opaque but it is important to note the steps involved to avoid the most common pitfalls.
+
+::: important
+If you see a "ERROR:RESOURCE: Byte mismatch in decrypted manifest signature. Different keys used for signing?" error in the console on HTML5 builds it is likely that your webserver doesn't serve the excluded content or updated manifest file using the correct MIME type. Make sure the MIME type is `application/octet-stream`. You can add a `.htaccess` file with a single `AddType application/octet-stream .` line to the folder where the live update resources are downloaded from.
+:::
 
 ### Supported engine versions
 A manifest will always support the Defold version used when generating it. If you want to support any additional engine versions, add them to the list in the Live update settings. This can be useful if your live game uses a different Defold version than the one you are using to generate the manifest with.

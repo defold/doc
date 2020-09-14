@@ -1,6 +1,6 @@
 ## 下载
 
-上 [Defold 下载页](https://defold.com/download/) 就能看到许多操作系统对应版本的下载按钮 macOS, Windows 还有 Linux (Ubuntu) 的:
+打开 [Defold 下载页](https://defold.com/download/) 就能看到许多操作系统对应版本的下载按钮 macOS, Windows 还有 Linux (Ubuntu) 的:
 
 ![download editor](../shared/images/editor_download.png)
 

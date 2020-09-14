@@ -32,11 +32,11 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 这个命令会生成一个叫做 `mykeystore.keystore` 的签名, 其中包含了证书和密码. 密匙 `5Up3r_53cR3t` 保护其不备破解. 这个签名有效期为 25 年 (9125 天). 这个签名的id叫做 `myAlias`.
 
 ::: 注意
-要把签名和密匙保存好. 如果要手动上传 Google Play 但是签名密码丢失的话就没办法使用 Google Play 来更新你的应用了. 图省事的话就用 Google Play App Signing 搞定签名把.
+要把签名和密匙保存好. 如果要手动上传 Google Play 但是签名密码丢失的话就没办法使用 Google Play 来更新你的应用了. 图省事的话就用 Google Play App Signing 搞定签名吧.
 :::
 
 
-## 证书和安卓包
+## 安卓应用打包
 
 编辑器打包安卓包十分方便. 打包之前可以为应用指定图标, 设置版本号等等, 都在 "game.project" [项目配置文件](/manuals/project-settings/#android) 里设置.
 
@@ -50,11 +50,15 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
+Defold 支持创建 APK 和 AAB 文件. 从打包格式下拉菜单中选择.
+
 点击 <kbd>Create Bundle</kbd> 会提示选择打包文件存放位置.
 
 ![Android Application Package file](images/android/apk_file.png)
 
 ### 安装 Android 应用包
+
+#### 安装 APK
 
 编辑器生成 Android 应用包 *.apk* 文件. 应用包可以通过 `adb` 工具 (见下文), 或者通过 Google Play 的 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 安装到设备上.
 
@@ -64,6 +68,10 @@ $ adb install Defold\ examples.apk
   pkg: /data/local/tmp/my_app.apk
 Success
 ```
+
+#### Installing an AAB
+
+对于 *.aab* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传给 Google Play. 也可以使用 *.aab* 文件制作 *.apk* 以便使用 [Android 打包工具](https://developer.android.com/studio/command-line/bundletool) 在本地安装.
 
 ## 权限
 
@@ -131,5 +139,6 @@ I/defold  ( 6210):
 D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
+
 ## 常见问题
-:[Android FAQ](../shared/android-faq.md)
+:[Android 问答](../shared/android-faq.md)
