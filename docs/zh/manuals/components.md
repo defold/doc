@@ -3,7 +3,7 @@ title: 游戏对象组件
 brief: 本教程提供了游戏对象组件概览及其使用方法.
 ---
 
-#  组件
+# 组件
 
 :[组件](../shared/components.md)
 
@@ -18,6 +18,7 @@ Defold 提供以下组件类型:
 * [Factory](/manuals/factory) - 创建游戏对象实例
 * [GUI](/manuals/gui) - 渲染图形用户界面
 * [Label](/manuals/label) - 渲染文本
+* [Mesh](/manuals/mesh) - 显示3D网格 (同时具有实时创建和维护功能)
 * [Model](/manuals/model) 显示3D模型 (可以带动画)
 * [Particle FX](/manuals/particlefx) -  创建粒子
 * [Script](/manuals/script) - 添加游戏逻辑

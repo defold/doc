@@ -93,9 +93,6 @@ Frame Cap
 Vsync
 #### 垂直同步, 根据硬件的帧率进行刷新. 可以被驱动程序或者操作系统平台设置覆盖.
 
-Variable Dt (deprecated)
-#### 弃用. 如果开启, 编译时将会开启 `Vsync` 同时设置 `Frame Cap` 为 0.
-
 Display Profiles
 #### 指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.  详情请见 [GUI 排版教程](/manuals/gui-layouts/#creating-display-profiles).
 

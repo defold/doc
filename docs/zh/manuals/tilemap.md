@@ -95,3 +95,7 @@ end
 
 `tint`
 : 瓷砖地图染色 (`vector4`). 四元数 x, y, z, 和 w 代表染色的红, 绿, 蓝 和不透明度. 参见 [这个例子的 API 用法](/ref/tilemap/#tilemap.set_constant:url-constant-value).
+
+## 相关项目配置
+
+在 *game.project* 文件里有些关于瓷砖地图的 [设置项目](/manuals/project-settings#tilemap).

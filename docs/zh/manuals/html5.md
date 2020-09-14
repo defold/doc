@@ -38,6 +38,10 @@ Python 3:
 不能直接用浏览器打开 HTML5 游戏的 `index.html` 文件. 要通过服务器访问打开.
 :::
 
+::: 注意
+如果在控制台见到 "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." 错误, 请确保你的服务器设置了 `application/wasm` MIME 类型对应 .wasm 文件.
+:::
+
 ## 打包 HTML5 游戏
 
 Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd>:

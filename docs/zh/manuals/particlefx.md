@@ -237,3 +237,7 @@ The default particle effect material has the following constants that can be cha
 
 `tint`
 : The color tint of the particle effect (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/particlefx/#particlefx.set_constant:url-constant-value).
+
+## 相关项目配置
+
+在 *game.project* 文件里有些关于粒子效果的 [设置项目](/manuals/project-settings#particle-fx).
