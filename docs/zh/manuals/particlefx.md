@@ -236,7 +236,7 @@ particlefx.stop("#particles")
 粒子特效默认的材质常量可以使用 `particlefx.set_constant()` 和 `particlefx.reset_constant()` 进行设置和重置 (详情请见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
 
 `tint`
-: 粒子特效染色 (`vector4`). 四元组的 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度. 详情请见 [API 文档上的示例](/ref/particlefx/#particlefx.set_constant:url-constant-value
+: 粒子特效染色 (`vector4`). 四元组的 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度. 详情请见 [API 文档上的示例](/ref/particlefx/#particlefx.set_constant:url-constant-value).
 
 ## 相关项目配置
 
