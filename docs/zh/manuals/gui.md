@@ -9,13 +9,13 @@ Defold 提供了 GUI 编辑器以及与之配套的脚本用以实现用户界�
 
 Defold 的图形用户界面是被放在集合里的, 依附于游戏对象的 GUI 组件. 这种组件有如下特点:
 
-* It has simple, but powerful, layout features that allow resolution and aspect ratio independent rendering of your user interface.
-* It can have logic behavior attached to it through a *GUI script*.
-* It is (by default) rendered on top of other content, independent of camera view so even if you have a moving camera, your GUI elements will stay put on the screen. The rendering behavior can be changed.
+* 简单且功能强大的布局功能, 可以适配各种分辨率和纵横比的屏幕
+* 通过 *GUI 脚本* 进行逻辑控制.
+* 界面 (默认) 被渲染于其他内容之上, 于视口摄像机无关, GUI 始终保持最上端显示. 这种特性可以根据需要手动修改.
 
-GUI components are rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, GUI components have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
+界面独立于游戏内容. 所以集合编辑器里并不显示界面元素. 但是界面必须依附于一个游戏对象而这个游戏对象要被放在集合里. 具体放在集合什么位置上并不影响界面的位置.
 
-## Creating a GUI component
+## 创建界面文件
 
 GUI components are created from a GUI scene blueprint file. To to create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
 

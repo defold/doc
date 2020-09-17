@@ -36,8 +36,6 @@ brief: 网页游戏盈利是用网页游戏获利的一种手段, 开发者获�
 
 [![GateHub logo](images/web-monetization/gatehub_logo.svg)](https://gatehub.net)
 
-[![Stronghold logo](images/web-monetization/stronghold_logo.svg)](https://stronghold.co/real-time-payments#coil)
-
 
 ### 支付点
 
