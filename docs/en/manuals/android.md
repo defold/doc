@@ -111,7 +111,7 @@ On Mac OS X (Homebrew)
 $ brew cask install android-platform-tools
 ```
 
-You can veryfy that `adb` works by connecting your Android device to your computer via USB and issue the following command:
+You can verify that `adb` works by connecting your Android device to your computer via USB and issue the following command:
 
 ```
 $ adb devices
