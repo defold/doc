@@ -5,14 +5,14 @@ brief: 本教程介绍了输入系统如何工作, 如何捕获输入行为和�
 
 # 输入
 
-输入由引擎捕获并转化为输入行为传送到获取了输入焦点并且实现了 `on_input()` 函数的游戏对象脚本组件中去. This manual explains how you set up bindings to capture input and how you create code that responds to it.
+输入由引擎捕获并转化为输入行为传送到获取了输入焦点并且实现了 `on_input()` 函数的游戏对象脚本组件中去. 本教程介绍了捕获输入绑定行为的方法以及如何用代码对输入做出响应.
 
-The input system uses a set of simple and powerful concepts, allowing you to manage input as you see fit for your game.
+输入系统包含一些概念, 用以让开发者直观地处理游戏逻辑.
 
 ![Input bindings](images/input/overview.png){srcset="images/input/overview@2x.png 2x"}
 
 Devices
-: Input devices that are either part of, or plugged into, your computer or mobile device provide raw system level input to the Defold runtime. The following device types are supported:
+: 不管是插上的, 连上的, 有线无线的, 操作系统级别的底层能够进行输入的设备. Defold 支持以下设备:
 
   1. Keyboard (single key as well as text input)
   2. Mouse (position, button clicks and mouse wheel actions)

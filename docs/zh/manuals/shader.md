@@ -5,7 +5,7 @@ brief: 本教程介绍了顶点和片元着色器及其在 Defold 中的使用�
 
 # Shaders
 
-Shader programs are at the core of graphics rendering. They are programs written in a C-like language called GLSL (GL Shading Language) that the graphics hardware run to perform operations on either the underlying 3D data (the vertices) or the pixels that end up on the screen (the "fragments"). Shaders are used for drawing sprites, lighting 3D models, creating full screen post effects and much, much more.
+着色程序是图像渲染的核心. 由类似 C 语言的 GLSL (GL 着色语言) 语言编写而成供图形设备和操作系统操作 3D 数据 (称为顶点) 和屏幕上的像素 (称为片元). 着色器可以用来渲染图像, 3D 模型, 灯光和全屏的后期特效等等等等.
 
 This manual describes how Defold's rendering pipeline interfaces with vertex and fragment shaders. In order to create shaders for your content, you also need to understand the concept of materials, as well as how the render pipeline works.
 

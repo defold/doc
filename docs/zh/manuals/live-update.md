@@ -5,9 +5,9 @@ brief: 热更新允许游戏运行时获取和存储编译时并不存在的资�
 
 # 目前热更新机制正在升级, 本教程可能随时变化
 
-# Live update
+# 热更新
 
-When bundling a game, Defold packs all the game resources into the resulting platform specific package. In most cases this is preferred since the running engine has instant access to all resources and can load them swiftly from storage. However, there are instances where you might want to postpone the loading of resources to a later stage. For instance:
+打包游戏时, Defold 把所有游戏资源装进游戏包当中. 多数情况下这样做很好因为游戏运行时引擎要快速找到加载所需要的各种资源. 但是, 有一些情况下 postpone the loading of resources to a later stage. For instance:
 
 - Your game features a series of episodes and you wish to include only the first one for players to try out before they decide if they want to continue with the rest of the game.
 - Your game is targeted for HTML5. On the browser, loading an application from storage means that the entire application package has to be downloaded before startup. On such a platform you may wish to send a minimal start package and get the app up and running quickly before you download the rest of the game resources.

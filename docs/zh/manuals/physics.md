@@ -1,18 +1,18 @@
 ---
 title: Defold 中的物理系统
-brief: Defold includes physics engines for 2D and 3D. They allow you to simulate Newtonian physics interactions between different types of collision objects. This manual explains how this works.
+brief: Defold 包含的物理引擎可以基于牛顿物理定律模拟物体运动碰撞时的物理效果. 本教程介绍了物理引擎的使用方法.
 ---
 
-# Physics
+# 物理
 
-Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine (version 2.1) for 2D physics simulations and the Bullet physics engine (version 2.77) for 3D physics. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
+Defold 包含一个修改版的 [Box2D](http://www.box2d.org) 物理引擎 (版本 2.1) 用于模拟2D物理效果和一个 Bullet physics 引擎 (版本 2.77) 用来模拟3D物理效果. 物理引擎可以基于牛顿物理定律模拟各种 _碰撞物体_ 运动碰撞时的物理效果. 本教程介绍了物理引擎的使用方法.
 
-## Collision objects
+## 碰撞对象
 
-A collision object is a component you use to give a game object physical behaviour. A collision object has physical properties like weight, restitution and friction and its spatial extension is defined by one or more _shapes_ that you attach to the component. Defold supports the following types of collision objects:
+碰撞对象是能给与游戏对象物理行为的组件. 碰撞对象包含许多物理属性比如重量, 弹性, 阻力等等. 组件上定义的一个或多个 _形状_ 决定了它在物理空间中的样子. Defold 支持以下的碰撞对象:
 
 Static objects
-: Static objects never move but a dynamic object that collides with a static object will react by bouncing and/or sliding. Static objects are very useful for building level geometry (i.e. ground and walls) that does not move. They are also cheaper performance-wise than dynamic objects. You cannot move or otherwise change static objects.
+: 静态对象不会移动但是能和移动物体进行碰撞. Static objects are very useful for building level geometry (i.e. ground and walls) that does not move. They are also cheaper performance-wise than dynamic objects. You cannot move or otherwise change static objects.
 
 Dynamic objects
 : Dynamic objects are simulated by the physics engine. The engine solves all collisions and applies resulting forces. Dynamic objects are good for objects that should behave realistically but you *cannot* directly manipulate the position and orientation of a dynamic object. The only way to affect them is indirectly, by applying forces.
