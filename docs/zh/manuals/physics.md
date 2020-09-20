@@ -12,18 +12,18 @@ Defold 包含一个修改版的 [Box2D](http://www.box2d.org) 物理引擎 (版�
 碰撞对象是能给与游戏对象物理行为的组件. 碰撞对象包含许多物理属性比如重量, 弹性, 阻力等等. 组件上定义的一个或多个 _形状_ 决定了它在物理空间中的样子. Defold 支持以下的碰撞对象:
 
 Static objects
-: 静态对象不会移动但是能和移动物体进行碰撞. Static objects are very useful for building level geometry (i.e. ground and walls) that does not move. They are also cheaper performance-wise than dynamic objects. You cannot move or otherwise change static objects.
+: 静态对象不会移动但是能和移动物体进行碰撞. 静态对象很适合制作游戏固定场景元素 (比如地板和墙). 它们比动态对象性能消耗少. 静态对象不能被移动和修改.
 
 Dynamic objects
-: Dynamic objects are simulated by the physics engine. The engine solves all collisions and applies resulting forces. Dynamic objects are good for objects that should behave realistically but you *cannot* directly manipulate the position and orientation of a dynamic object. The only way to affect them is indirectly, by applying forces.
+: 动态对象由物理引擎负责计算位移. 处理碰撞然后给予力. 动态对象看起来很有真实感但是你 *不能* 直接控制它的位置与方向. 要想对其施加影响, 只能向它施加力的作用.
 
 Kinematic objects
-: Kinematic objects register collisions with other physics objects, but the physics engine do not perform any automatic simulation. The job of resolving collisions, or ignoring them, is left to you. Kinematic objects are very good for player or script controlled objects that require fine grained control of the physical reactions, like a player character.
+: 动画对象可以和其他对象产生碰撞, 但是物理引擎并不处理它们. 忽略碰撞, 或者交给你来处理. 动画对象很适合用作由脚本控制的又能对物理做出反应的物体, 比如游戏角色.
 
 Triggers
-: Triggers are objects that register simple collisions. They are good for objects that just need to register a hit (like a bullet) or as part of game logic where you want to trigger certain actions when an object reaches a specific point. Trigger are computationally cheaper than kinematic objects and should be used in favor of those if possible.
+: 触发器是记录碰撞的物体. 很适合用作碰撞检测 (比如子弹碰撞) 或者接触后触发时间的场景. 触发器比动画对象节省性能所以可以多用一些.
 
-## Adding a collision object component
+## 加入 collision object 组件
 
 A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the whole shape of the physics object.
 
