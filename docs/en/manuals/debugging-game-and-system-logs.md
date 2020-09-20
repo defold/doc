@@ -24,7 +24,7 @@ When you run your game locally from the editor or connected to the [mobile dev a
 When you run a Defold game from the terminal the log will show in the terminal window itself. On Windows and Linux you type the name of the executable in the terminal to start the game. On macOS you need to launch the engine from within the .app file:
 
 ```
-$ > ./mygame.app/Contenst/MacOS/mygame
+$ > ./mygame.app/Contents/MacOS/mygame
 ```
 
 ## Reading game and system logs using platform specific tools
