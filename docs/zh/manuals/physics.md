@@ -25,9 +25,9 @@ Triggers
 
 ## 加入 collision object 组件
 
-A collision object component has a set of *Properties* that sets its type and physics properties. It also contains one or more *Shapes* that define the whole shape of the physics object.
+碰撞对象组件包含一系列 *属性* 用以设定其类型和物理特性. 还包含一个或多个 *形状* 用以定义这个物体的物理形态.
 
-To add a collision object component to a game object:
+在游戏对象上添加碰撞对象组件:
 
 1. In the *Outline* view, <kbd>right click</kbd> the game object and select <kbd>Add Component ▸ Collision Object</kbd> from the context menu. This creates a new component with no shapes.
 2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. This adds a new shape to the collision object component. You can add any number of shapes to the component. You can also use a tilemap or a convex hull to define the shape of the physics object.
@@ -37,39 +37,39 @@ To add a collision object component to a game object:
 ![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
 
 Id
-: The identity of the component.
+: 组件名.
 
 Collision Shape
-: This property is used for tile map geometry that does not use ordinary primitive shapes. See below for more information.
+: 这个是针对瓷砖地图的几何形状设置. 详见下文.
 
 Type
-: The type of collision object: `Dynamic`, `Kinematic`, `Static` or `Trigger`. If you set the object to dynamic you _must_ set the *Mass* property to a non zero value. For dynamic or static objects you should also check that the *Friction* and *Restitution* values are good for your use-case.
+: 碰撞对象的类型有: `Dynamic`, `Kinematic`, `Static` 和 `Trigger`. 如果设为动态就 _必须_ 设置其 *Mass* 属性为非0的值. 动态静态碰撞对象都需要为其设置适当的 *Friction* 和 *Restitution* 值.
 
 Friction
-: Friction makes it possible for objects to slide realistically against each other. The friction value is usually set between `0` (no friction at all---a very slippery object) and `1` (strong friction---an abrasive object). However, any positive value is valid.
+: 摩擦可以做出一个物体在另一个物体上滑动的效果. 一般摩擦系数取值范围从 `0` (无摩擦---超级光滑) 到 `1` (强摩擦---超级粗糙) 之间. 但其实任何正数值都有效.
 
-  The friction strength is proportional to the normal force (this is called Coulomb friction). When the friction force is computed between two shapes (`A` and `B`), the friction values of both objects are combined by the geometric mean:
+  摩擦力于法方向上的力成正比 (称为库伦摩擦). 计算两个物体 (`A` 和 `B`) 间的摩擦力时, 摩擦系数取两个物体的几何平均值:
 
   $$
   F_{combined} = \sqrt{ F_A \times F_B }
   $$
 
-  This means that if one of the objects has zero friction then the contact between them will have zero friction.
+  也就是说只要有一个物体是0摩擦的, 两个物体之间就不会有摩擦力.
 
 Restitution
-: The restitution value sets the "bounciness" of the object. The value is usually between 0 (inelastic collision—the object does not bounce at all) and 1 (perfectly elastic collision---the object's velocity will be exactly reflected in the bounce)
+: 弹性是物体的 "反弹性能". 一般取值范围从 0 (非弹性碰撞—一点也不反弹) 到 1 (完全弹性碰撞---物体速度在碰撞后完全反向)
 
-  Restitution values between two shapes (`A` and `B`) are combined using the following formula:
+  两个物体 (`A` 和 `B`) 之间的弹性计算基于以下公式:
 
   $$
   R = \max{ \left( R_A, R_B \right) }
   $$
 
-  When a shape develops multiple contacts, restitution is simulated approximately because Box2D uses an iterative solver. Box2D also uses inelastic collisions when the collision velocity is small to prevent bounce-jitter
+  当一个形状发生多处碰撞时, 弹性模拟并不精确因为 Box2D 使用的是迭代解算器. Box2D 在碰撞相对速度很小时也使用非弹性碰撞代替, 以防止反弹抖动.
 
 
 Linear damping
-: Linear damping reduces the linear velocity of the body. It is different from friction, which only occurs during contact, and can be used to give objects a floaty appearance, like they are moving through something thicker than air. Valid values are between 0 and 1.
+: 线性阻尼会减小刚体的线性速度. 不像摩擦只在物体接触时产生, 线性阻尼始终应用与线性移动的物体上, 给人一种物体飘进比空气密度大的环境中的感觉. 取值范围 0 到 1.
 
   Box2D approximates damping for stability and performance. At small values, the damping effect is independent of the time step while at larger damping values, the damping effect varies with the time step. If you run your game with a fixed time step, this never becomes an issue.
 

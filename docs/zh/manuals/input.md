@@ -36,25 +36,25 @@ Consuming input
 
 ## 输入绑定设置
 
-输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, <kbd>右键点击</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the engine use the new file, change the *Game Binding* entry in "game.project".
+输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, 在 *Assets* 视图中 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Input Binding</kbd>. 然后修改 "game.project" 里 *Game Binding* 项对输入绑定文件的引用.
 
 ![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
 
-A default input binding file is automatically created with all new project templates so there is usually no need to create a new binding file. The default file is called "game.input_binding" and can be found in the "input" folder in the project root. <kbd>Double click</kbd> the file to open it in the editor:
+每个新建项目都会自动生成默认输入绑定文件. 默认叫做 "game.input_binding", 位于项目根目录下 "input" 文件夹内. <kbd>双击</kbd> 即可在编辑器中打开此文件:
 
 ![Input set bindings](images/input/input_binding.png){srcset="images/input/input_binding@2x.png 2x"}
 
-To create a new binding, click the <kbd>+</kbd> button at the bottom of the relevant trigger type section. Each entry has two fields:
+点击相关触发类型底部的 <kbd>+</kbd> 按钮, 即可新建一个绑定项. 每一项有两个部分:
 
 *Input*
-: The raw input to listen for, selected from a scroll list of available inputs.
+: 需要监听的底层输入信号, 从滚动列表里选择.
 
 *Action*
-: The action name given to input actions when they are created and dispatched to your scripts. The same action name can be assigned to multiple inputs. For instance, you can bind the <kbd>Space</kbd> key and the gamepad "A" button to the action `jump`. Note that there is a known bug where touch inputs unfortunately cannot have the same action names as other inputs.
+: 输入对应的用于发送给脚本的动作名. 一个动作可以对应多个输入. 例如, 可以设置按下 <kbd>空格</kbd> 键和游戏手柄 "A" 按钮都是 `jump` 动作. 可是触屏输入的动作名必须是唯一值.
 
-## Trigger types
+## 触发器类型
 
-There are five device specific types of triggers that you can create
+触发器有五种类型:
 
 Key Triggers
 : Single key keyboard input. Each key is mapped separately into a corresponding action. Key triggers are used to tie specific buttons to specific functions, like character movement with the arrow or WASD keys. If you need to read arbitrary keyboard input, use text triggers (see below).

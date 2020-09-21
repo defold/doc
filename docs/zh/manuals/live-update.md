@@ -7,46 +7,46 @@ brief: 热更新允许游戏运行时获取和存储编译时并不存在的资�
 
 # 热更新
 
-打包游戏时, Defold 把所有游戏资源装进游戏包当中. 多数情况下这样做很好因为游戏运行时引擎要快速找到加载所需要的各种资源. 但是, 有一些情况下 postpone the loading of resources to a later stage. For instance:
+打包游戏时, Defold 把所有游戏资源装进游戏包当中. 多数情况下这样做很好因为游戏运行时引擎要快速找到加载所需要的各种资源. 但是, 有一些情况下需要将资源加载推迟到后续阶段. 比如:
 
-- Your game features a series of episodes and you wish to include only the first one for players to try out before they decide if they want to continue with the rest of the game.
-- Your game is targeted for HTML5. On the browser, loading an application from storage means that the entire application package has to be downloaded before startup. On such a platform you may wish to send a minimal start package and get the app up and running quickly before you download the rest of the game resources.
-- Your game contains very large resources (images, videos etc) that you wish to postpone the downloading of until they are about to show in the game. This is to keep the install size down.
+- 你的游戏设计了好几个章节但是只免费提供第一章节给玩家试玩以便让玩家决定是否购买游戏的后续章节.
+- 你做了个 HTML5 游戏. 在浏览器里, 一个程序的所有内容全部加载完成这个程序才能运行. 可以用一个小程序让游戏先展示出来, 大量自由数据下载留到后面再说.
+- 你的游戏包含大量资源数据 (图片, 视频之类的) 所以需要一种按需求的下载和加载机制. 这样就能保证游戏包不会太大.
 
-The Live update functionality expands the concept of the collection proxy with a mechanism allowing the runtime to fetch and store resources to the application bundle that were intentionally left out of the bundle at build time.
+热更新扩展了集合代理的概念允许引擎在运行时获取和存储未被打入游戏包的资源数据.
 
-## Preparing content for Live update
+## 准备工作
 
-Suppose we are making a game containing large, high resolution image resources. The game keeps these images in collections with a game object and a sprite with the image:
+假设我们有个很大的, 高分辨率的图片. 图片放在sprite里, sprite放在游戏对象里, 游戏对象放在集合里:
 
 ![Mona Lisa collection](images/live-update/mona-lisa.png)
 
-To have the engine load such a collection dynamically, we can simply add a collection proxy component and point it to *monalisa.collection*. Now the game can choose when to load the content in the collection from storage into memory by sending a `load` message to the collection proxy. However, we want to go further and control the loading of the resources contained in the collection ourselves.
+动态加载这个集合, 只需使用集合代理组件并将它指向 *monalisa.collection* 即可. 集合里的资源合适加载入内存取决于发给集合代理的 `load` 消息. 如果要进一步控制资源文件的话,
 
-This is done by simply checking the *Exclude* checkbox in the collection proxy properties, telling the bundler to leave any content in *monalisa.collection* out when creating an application bundle.
+勾选集合代理属性 *Exclude* 即可, 打包时会把 *monalisa.collection* 的内容排除于包外.
 
 ![Collection proxy excluded](images/live-update/proxy-excluded.png)
 
-## Live update settings
+## 热更新配置
 
-When the bundler creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In `game.project`, select which liveupdate settings file to use when bundling. This allows for using different liveupdate settings for different environments, for example for live, QA, dev etc.
+游戏打包时需要知道把包外的资源保存在哪里了. 项目设置里的热更新配置明确了这个保存位置. 点击 <kbd>Project ▸ Live update Settings...</kbd> 来创建热更新配置文件. 在 `game.project` 里, 指定打包时所使用的热更新配置文件. 不同运行环境可以对于不同配置, 比如游戏环境, 测试环境, 开发环境等.
 
 ![Live update settings](images/live-update/aws-settings.png)
 
-There are currently two ways that Defold can store the resources. Choose the method in the *Mode* dropdown in the settings window:
+目前 Defold 支持两种包外资源的保存模式. 可以在设置窗口里的 *Mode* 下拉菜单中选择:
 
 `Amazon`
-: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name. [See below for details how to set up an AWS account](#setting_up_amazon_web_service).
+: 让 Defold 自动把包外资源上传到 Amazon Web Service (AWS) S3 服务器上. 填写 AWS *凭证* 名, 选择合适的 *服务器* 在提供一个 *前缀* 名. [关于 AWS 账户注册请见下文](#setting_up_amazon_web_service).
 
 `Zip`
-: This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
+: 让 Defold 把包外资源打成 zip 包. 并且在配置里 *Export path* 项指定存放路径.
 
 
-## Scripting with excluded collection proxies
+## 热更新脚本
 
-A collection proxy that has been excluded from bundling works as a normal collection proxy, with one important difference. Sending it a `load` message while it still has resources not available in the bundle storage will cause it to fail.
+热更新集合代理和普通集合代理差不多, 只是有一个重要区别. 如果在资源还没下载好的时候发送 `load` 消息的话就会导致失败报错.
 
-So before we send it a `load`, we need to check if there are any missing resources. If there are, we have to download them and then store them. The following example code assumes that the resources are stored on Amazon S3, in a bucket called "my-game-bucket" with the prefix `my-resources`.
+所以发送 `load` 之前, 一定要确保资源的完整性. 把完整的资源下载并保存好. 一下代码假设资源保存在 Amazon S3, 一个叫做 "my-game-bucket" 的服务器上, 前缀为 `my-resources`.
 
 ```lua
 function init(self)
@@ -54,22 +54,21 @@ function init(self)
     msg.post("#", "attempt_load_resources")
 end
 
--- This function is called whenever we have tried to store a downloaded resource
--- necessary for our collection proxy to load.
+-- 下载热更新用到的包外资源进行本地保存时会调用此函数
 local function resource_store_response(self, hexdigest, status)
     if status == true then
-        -- Successfully loaded resource
+        -- 加载成功
         print("Resource data stored: " .. hexdigest)
 
-        -- One less resource to go...
+        -- 还差一个资源
         self.resources_pending = self.resources_pending - 1
 
-        -- That was all of them, time to load the proxied collection.
+        -- 全部保存好了, 可以开始加载了
         if self.resources_pending == 0 then
             msg.post("#proxy", "load") -- <8>
         end
     else
-        -- ERROR! Failed to store the data!
+        -- 错误! 资源数据保存失败.
         print("Failed to store resource data: " .. hexdigest)
     end
 end
@@ -78,14 +77,14 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("attempt_load_resources") then
         local missing_resources = collectionproxy.missing_resources("#proxy") -- <2>
 
-        -- initiate a download request for each of the missing resources that has not yet been tried.
+        -- 为缺失的而且没被尝试下载过的资源初始化下载请求.
         for _,resource_hash in ipairs(missing_resources) do
             msg.post("#", "attempt_download", { resource_hash = resource_hash})
         end
 
         self.resources_pending = #missing_resources -- <3>
 
-        -- if we're running from editor all resources are there from the start.
+        -- 如果游戏是从编辑器运行的, 那么全部资源都存在本地.
         if self.resources_pending == 0 then
             msg.post("#proxy", "load")
         end
@@ -94,11 +93,11 @@ function on_message(self, message_id, message, sender)
         local base_url = "https://my-game-bucket.s3.amazonaws.com/my-resources/" -- <5>
         http.request(base_url .. message.resource_hash, "GET", function(self, id, response)
             if response.status == 200 or response.status == 304 then -- <6>
-                -- We got the response ok.
+                -- 得到ok响应.
                 print("storing " .. message.resource_hash)
                 resource.store_resource(manifest, response.response, message.resource_hash, resource_store_response) -- <7>
             else
-                -- ERROR! Failed to download resource!
+                -- 错误! 资源下载失败.
                 print("Failed to download resource: " .. message.resource_hash)
             end
         end)
