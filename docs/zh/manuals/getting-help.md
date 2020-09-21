@@ -73,8 +73,5 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
 游戏引擎, 编辑器和云编译服务器都有日志系统, 这对于定位调试错误十分有利. 报告错误时请务必带上日志文件.
 
 * [引擎日志](/manuals/debugging-game-and-system-logs)
-* 编辑器日志
-  * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-  * macOS: `/Users/ **Your Username** /Library/Application Support/` 或 `~/Library/Application Support/Defold`
-  * Linux: `~/.Defold`
+* [Editor logs](/manuals/editor#editor-logs)
 * [编译服务器日志](/manuals/extensions#build-server-logs)

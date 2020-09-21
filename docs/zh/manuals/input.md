@@ -14,29 +14,29 @@ brief: 本教程介绍了输入系统如何工作, 如何捕获输入行为和�
 Devices
 : 不管是插上的, 连上的, 有线无线的, 操作系统级别的底层能够进行输入的设备. Defold 支持以下设备:
 
-  1. Keyboard (single key as well as text input)
-  2. Mouse (position, button clicks and mouse wheel actions)
-  3. Single and multi-touch (on iOS, Android devices and HTML5 on mobile)
-  4. Gamepads (as supported through the operating system and mapped in the [gamepads](#gamepads-settings-file) file)
+  1. 键盘 (包括按键输入和文本输入)
+  2. 鼠标 (位置, 按键, 滚轮输入)
+  3. 单点/多点触摸屏 (iOS, Android 设备和 HTML5 手机端)
+  4. 游戏手柄 (操作系统负责将其输入发送给游戏然后映射给脚本. 详见 [游戏手柄配置文件](#gamepads-settings-file))
 
 Input bindings
-: Before input is sent to a script the raw input from the device is translated into meaningful *actions* via the input bindings table.
+: 发送给脚本之前设备原始输入信号要通过映射表转化为有意义的 *动作* 指令.
 
 Actions
-: Actions are identified by the (hashed) names that you list in the input bindings file. Each action also contain relevant data about the input: if a button is pressed or released, the coordinates of the mouse and touch etc.
+: 动作是列在输入绑定文件里的 (哈希过的) 名字. 每种动作还包括其相关数据: 比如按钮是被按下还是抬起, 鼠标或触摸屏幕坐标等等.
 
 Input listeners
-: Any script component or GUI script can receive input actions by *acquiring input focus*. Several listeners can be active at the same time.
+: 脚本可以得到 *获取了输入焦点的* 组件的输入消息. 一个输入信息可以同时激活多个输入监听器.
 
 Input stack
-: The list of input listeners with the first acquirer of focus at the bottom of the stack and the last acquirer at the top.
+: 首个获取输入焦点的组件位于最下端, 最后一个获取输入焦点的组件位于最上端的输入监听器堆栈.
 
 Consuming input
-: A script may choose to consume the input it received, preventing listeners further down the stack to receive it.
+: 脚本消耗了输入信息, 不再让输入栈的深层监听器得到这个信息.
 
-## Setting up input bindings
+## 输入绑定设置
 
-The input bindings is a project wide table that allows you to specify how device input should translate into named *actions* before they are dispatched to your script components and GUI scripts. You can create a new input binding file, <kbd>right click</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the engine use the new file, change the *Game Binding* entry in "game.project".
+输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, <kbd>右键点击</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the engine use the new file, change the *Game Binding* entry in "game.project".
 
 ![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
 
