@@ -130,17 +130,17 @@ end
 
 ## 清单文件
 
-The manifest is an internal data structure that holds a list of all resources included in a build as well as the hash value of each resource. The Live update functionality uses the manifest to track what is part of the built game, list what can be loaded from external sources, and if that happens, make certain that the loaded data is intact.
+清单是一种内部数据结构用来保存编译所需的所有资源列表连同每个资源的哈希值. 热更新使用清单来确定哪些资源是游戏的一部分, 哪些资源不在本地需要下载, 还要确定下载的资源是否完整.
 
-From the user's perspective, the manifest is a numeric handle, leaving the details of how it's managed to the engine.
+从用户角度来看, 清单是一个数字句柄, 将如何管理资源的细节留给引擎去做.
 
-## Updating the manifest with Live update
+## 清单更新
 
-With Live update a new manifest can be stored locally at runtime. The local manifest will be used at app startup instead of the one bundled with the application. This is useful for modifying or adding Live update resources to a published game that were not known at build time, without having to publish a full release.
+每次热更新都会在本地保存一份更新的清单. 应用启动时会使用最新的清单代替包内的清单. 这对于游戏后续通过热更新来修改增添资源很重要, 尤其是第一版游戏打包时并不知道的资源.
 
-When publishing Live update resources to either Amazon Web Service or to a zip archive, the manifest will be included in that package next to the resources. The name of the manifest file will be `liveupdate.game.dmanifest`.
+当把资源上传到 Amazon 服务器或打包成zip资源包的时候, 清单也会被加入到那些资源当中. 名称为 `liveupdate.game.dmanifest`.
 
-Starting the engine for the first time after a manifest has been stored will create a bundle identifier file `bundle.ver` next to the manifest. This is used to detect whether the bundle has changed since the manifest was stored, for example after a full app store update. If this is the case the stored manifest will be deleted from the filesystem and the newer bundled manifest will be used instead. This means that a full app store update will delete any previously stored manifest. Any existing Live update resources will however remain untouched.
+保存清单后首次启动引擎时会生成一个游戏包版本文件 `bundle.ver`. 用来判断保存清单之后游戏有无改动, 比如说一次完整的 app store 更新. 如果是这样的话清单将从文件系统中删除并使用更新版本游戏包中的清单代替. 也就是说完整 app store 更新会清除上次保存的清单. 而通过热更新下载到本地的资源不被清除.
 
 ### Manifest verification
 When storing a new manifest the manifest data will be verified before it is actually written to disk. The verification consists of a number of checks:
