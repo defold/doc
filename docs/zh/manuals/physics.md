@@ -251,64 +251,64 @@ end
 
 ![Physics collision](images/physics/collision_multi.png){srcset="images/physics/collision_multi@2x.png 2x"}
 
-物理引擎发出多个 `"contact_point_response"` 消息, one for object *A* and one for object *B* the frame the collision occurs. If you move the character in response to each penetration, as in the naive code above, the resulting separation would be:
+碰撞发生的那一帧里, 物理引擎发出多个 `"contact_point_response"` 消息, 一个给 *A* 一个给 *B*. 如果按上面那样移动角色, 结果会是这样:
 
-- Move the character out of object *A* according to its penetration distance (the black arrow)
-- Move the character out of object *B* according to its penetration distance (the black arrow)
+- 根据 *A* 的穿透距离把角色向上移 (黑色箭头)
+- 根据 *B* 的穿透距离把角色向左上移 (黑色箭头)
 
-The order of these is arbitrary but the result is the same either way: a total separation that is the *sum of the individual penetration vectors*:
+顺序无所谓结果是一样的: 最终位移是 *每个穿透向量的矢量和*:
 
 ![Physics separation naive](images/physics/separation_naive.png){srcset="images/physics/separation_naive@2x.png 2x"}
 
-To properly separate the character from objects *A* and *B*, you need to handle each contact point's penetration distance and check if any previous separations have already, wholly or partially, solved the separation.
+要想正确地将角色移出 *A* 和 *B*, 需要处理碰撞点的穿透距离并检测上一个位移是否, 完全或部分, 分离了它们.
 
-Suppose that the first contact point message comes from object *A* and that you move the character out by *A*'s penetration vector:
+假设第一次碰撞从 *A* 开始, 然后针对 *A* 做位移:
 
 ![Physics separation step 1](images/physics/separation_step1.png){srcset="images/physics/separation_step1@2x.png 2x"}
 
-Then the character has already been partially separated from *B*. The final compensation necessary to perform full separation from object *B* is indicated by the black arrow above. The length of the compensation vector can be calculated by projecting the penetration vector of *A* onto the penetration vector of *B*:
+这样一来角色也部分离开了 *B*. 最后只剩下 *B* 黑色箭头那点穿透. 这段位移应该是 *A* 向量映射到 *B* 剩余的补偿:
 
 ![Projection](images/physics/projection.png){srcset="images/physics/projection@2x.png 2x"}
 
 $$l = vmath.project(A, B) \times vmath.length(B)$$
 
-The compensation vector can be found by reducing the length of *B* by *l*. To calculate this for an arbitrary number of penetrations, you can accumulate the necessary correction in a vector by, for each contact point, and starting with a zero length correction vector:
+补偿向量等于 *B* 向量减去 *l* 向量. 所以计算位移的时候, 对于每个碰撞点, 可以引入矫正向量按以下步骤进行矫正:
 
-1. Project the current correction against the contact's penetration vector.
-2. Calculate what compensation is left from the penetration vector (as per the formula above).
-3. Move the object by the compensation vector.
-4. Add the compensation to the accumulated correction.
+1. 把当前矫正向量映射到碰撞穿透向量上.
+2. 计算穿透向量的补偿 (按照上述公式).
+3. 依照补偿向量移动对象.
+4. 把补偿向量累加到矫正向量中.
 
 完整的代码实现如下:
 
 ```lua
 function init(self)
-  -- 校正矢量
+  -- 校正向量
   self.correction = vmath.vector3()
 end
 
 function update(self, dt)
-  -- 重置矫正矢量
+  -- 重置矫正向量
   self.correction = vmath.vector3()
 end
 
 function on_message(self, message_id, message, sender)
   -- 处理碰撞
   if message_id == hash("contact_point_response") then
-    -- Get the info needed to move out of collision. We might
-    -- get several contact points back and have to calculate
-    -- how to move out of all of them by accumulating a
-    -- correction vector for this frame:
+    -- 获取位移计算所需数据. 
+    -- 当前帧可能有多个碰撞点需要处理,
+    -- 通过累积矫正向量,
+    -- 达到正确计算位移的目的:
     if message.distance > 0 then
-      -- First, project the accumulated correction onto
-      -- the penetration vector
+      -- 第一步, 把矫正向量投射到
+      -- 穿透向量上.
       local proj = vmath.project(self.correction, message.normal * message.distance)
       if proj < 1 then
-        -- Only care for projections that does not overshoot.
+        -- 没有过冲的才需要补偿.
         local comp = (message.distance - message.distance * proj) * message.normal
-        -- Apply compensation
+        -- 应用补偿向量.
         go.set_position(go.get_position() + comp)
-        -- Accumulate correction done
+        -- 积累矫正向量.
         self.correction = self.correction + comp
       end
     end
