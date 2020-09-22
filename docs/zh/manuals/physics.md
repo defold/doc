@@ -148,96 +148,98 @@ Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以�
 
 ### 物理引擎单位
 
-The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
+设计上按照牛顿物理学单位米, 千克和秒 (MKS) 的标准单位. 模拟物尺寸 0.1 到 10 米范围 (静态对象可以更大) 效果较好, 默认一像素 (pixel) 当作 1 米. 这种转换是物理模拟器层次上的, 对游戏来说并不适用.
+默认一个200像素的物体在物理世界相当于200米超过了最佳模拟范围. 一般需要对游戏里的物体进行物理上的缩放. 可以在 `game.project` 里的 [物理缩放设置](/manuals/project-settings/#physics) 处指定缩放值.
+比如设置为 0.02 意味着 1:50, 那么200像素就是 4 米. 注意重力 (也在 `game.project` 里进行设定) 也需要基于缩放值进行调整.
 
-## Group and mask
+## 碰撞组与碰撞掩码
 
-The physics engine allows you to group your physics objects and filter how they should collide. This is handled by named _collision groups_. For each collision object you create two properties control how the object collides with other objects, *Group* and *Mask*.
+物理引擎通过组与掩码处理碰撞. 这个组就是 _碰撞组_. 每个碰撞对象都有2个属性用以控制其与其他物体的碰撞, *Group* 和 *Mask*.
 
-For a collision between two objects to register both objects must mutually specify each other's groups in their *Mask* field.
+碰撞只发生在两个物体所处的组分别被包含在对方的 *碰撞掩码* 之中的情况下.
 
 ![Physics collision group](images/physics/collision_group.png){srcset="images/physics/collision_group@2x.png 2x"}
 
-The *Mask* field can contain multiple group names, allowing for complex interaction scenarios.
+*掩码* 可包含多个组名, 以实现复杂的碰撞控制.
 
 
-## Collision messages
+## 碰撞消息
 
-When two objects collide, the engine will broadcast messages to all components in both objects:
+两个物体发生碰撞时, 消息会广播到两个物体上的所有组件中:
 
 **`"collision_response"`**
 
-This message is sent for all collision objects. It has the following fields set:
+碰撞对象会收到此消息. 其包含以下数据内容:
 
 `other_id`
-: the id of the instance the collision object collided with (`hash`)
+: 另一个碰撞物的id (`hash`过的)
 
 `other_position`
-: the world position of the instance the collision object collided with (`vector3`)
+: 另一个碰撞物的世界坐标 (`vector3`类型)
 
 `other_group`
-: the collision group of the other collision object (`hash`)
+: 另一个碰撞物所在的碰撞组 (`hash`过的)
 
-The collision_response message is only adequate to resolve collisions where you don't need any details on the actual intersection of the objects, for example if you want to detect if a bullet hits an enemy. There is only one of these messages sent for any colliding pair of objects each frame.
+如果不需要很详细的信息, 碰撞响应消息就足够了, 比如检测子弹是否碰撞了敌人. 每帧每对碰撞物只有一个能收到此消息.
 
 **`"contact_point_response"`**
 
-This message is sent when one of the colliding objects is dynamic or kinematic. It has the following fields set:
+这个消息由 dynamic 或 kinematic 碰撞对物体其中之一接收. 附带如下数据:
 
 `position`
-: world position of the contact point (`vector3`).
+: 接触点世界坐标 (`vector3`类型).
 
 `normal`
-: normal in world space of the contact point, which points from the other object towards the current object (`vector3`).
+: 接触点世界坐标系法向量, 方向是从另一物体指向当前物体 (`vector3`类型).
 
 `relative_velocity`
-: the relative velocity of the collision object as observed from the other object (`vector3`).
+: 两个接触物体之间的相对速度, 方向是从另一物体指向当前物体 (`vector3`类型).
 
 `distance`
-: the penetration distance between the objects -- non negative (`number`).
+: 两个接触物体之间穿透距离 -- 非负数 (`number`类型).
 
 `applied_impulse`
-: the impulse the contact resulted in (`number`).
+: 两个接触物体间的冲量大小 (`number`类型).
 
 `life_time`
-: (*not currently used!*) life time of the contact (`number`).
+: (*目前未使用*) 接触时长 (`number`类型).
 
 `mass`
-: the mass of the current collision object in kg (`number`).
+: 当前物体质量, 单位千克 (`number`类型).
 
 `other_mass`
-: the mass of the other collision object in kg (`number`).
+: 另一个物体质量, 单位千克 (`number`类型).
 
 `other_id`
-: the id of the instance the collision object is in contact with (`hash`).
+: 另一个物体的id (`hash`过的).
 
 `other_position`
-: the world position of the other collision object (`vector3`).
+: 另一个物体的世界坐标 (`vector3`类型).
 
 `group`
-: the collision group of the other collision object (`hash`).
+: 另一个物体所处的碰撞组 (`hash`过的).
 
-For a game or application where you need to separate objects perfectly, the `"contact_point_response"` message gives you all information you need. However, note that for any given collision pair, several `"contact_point_response"` messages can be received each frame, depending on the nature of the collision. See below for more information.
+要让相碰撞的物体好好分离, 用 `"contact_point_response"` 消息里的数据就够了. 注意每帧每对碰撞物可能不止收到一个 `"contact_point_response"` 消息, 取决于接触的多少. 详情请见下文.
 
-## Trigger messages
+## 触发器消息
 
-Triggers are light weight collision objects. Thay are similar to ray casts in that they read the physics world as opposed to interacting with it.
+触发器是精简版的碰撞物体. 根投射射线类似, 它们迭代物理世界物品但不与之进行交互.
 
-In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and ends. The message has the following fields:
+触发器碰撞时发出 `"collision_response"` 消息. 而且在碰撞开始和结束时都会发送 `"trigger_response"` 消息. 消息包含如下信息:
 
 `other_id`
-: the id of the instance the collision object collided with (`hash`).
+: 另一个物体的id (`hash`过的).
 
 `enter`
-: `true` if the interaction was an entry into the trigger, `false` if it was an exit. (`boolean`).
+: 如果另一个物体进入触发器为 `true`, 离开为 `false`. (`boolean`类型).
 
-## Resolving kinematic collisions
+## 动画碰撞对象
 
-Using kinematic collision objects require you to resolve collisions yourself and move the objects as a reaction. A naive implementation of separating two colliding objects looks like this:
+对于动画碰撞对象的碰撞必须手动处理. 一个想当然的处理方法如下:
 
 ```lua
 function on_message(self, message_id, message, sender)
-  -- Handle collision
+  -- 处理碰撞
   if message_id == hash("contact_point_response") then
     local newpos = go.get_position() + message.normal * message.distance
     go.set_position(newpos)
@@ -245,11 +247,11 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-This code will separate your kinematic object from other physics object it penetrates, but the separation often overshoots and you will see jitter in many cases. To understand the problem better, consider the following case where a player character has collided with two objects, *A* and *B*:
+动画碰撞对象的确离开了碰撞穿透, 但是分离之后经常会过冲, 这在许多情况下会产生抖动. 为了便于理解, 想象游戏主角碰到了两个物体, *A* 和 *B*:
 
 ![Physics collision](images/physics/collision_multi.png){srcset="images/physics/collision_multi@2x.png 2x"}
 
-The physics engine will send multiple `"contact_point_response"` message, one for object *A* and one for object *B* the frame the collision occurs. If you move the character in response to each penetration, as in the naive code above, the resulting separation would be:
+物理引擎发出多个 `"contact_point_response"` 消息, one for object *A* and one for object *B* the frame the collision occurs. If you move the character in response to each penetration, as in the naive code above, the resulting separation would be:
 
 - Move the character out of object *A* according to its penetration distance (the black arrow)
 - Move the character out of object *B* according to its penetration distance (the black arrow)
@@ -277,21 +279,21 @@ The compensation vector can be found by reducing the length of *B* by *l*. To ca
 3. Move the object by the compensation vector.
 4. Add the compensation to the accumulated correction.
 
-A complete implementation looks like this:
+完整的代码实现如下:
 
 ```lua
 function init(self)
-  -- correction vector
+  -- 校正矢量
   self.correction = vmath.vector3()
 end
 
 function update(self, dt)
-  -- reset correction
+  -- 重置矫正矢量
   self.correction = vmath.vector3()
 end
 
 function on_message(self, message_id, message, sender)
-  -- Handle collision
+  -- 处理碰撞
   if message_id == hash("contact_point_response") then
     -- Get the info needed to move out of collision. We might
     -- get several contact points back and have to calculate
@@ -314,87 +316,88 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-## Ray casts
+## 射线投射
 
-Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
+射线用于收集延一条投射射线所遇到的物理世界的物体. 只要提供起止点和碰撞组, 就可以投射射线了.
 
-If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
+射线碰到的物体数据都会被记录下来. 包括动态, 静态和动画碰撞对象. 不包括触发器对象.
 
 ```lua
 function update(self, dt)
-  -- request ray cast
+  -- 投射射线
   local my_start = vmath.vector3(0, 0, 0)
   local my_end = vmath.vector3(100, 1000, 1000)
   local my_groups = { hash("my_group1"), hash("my_group2") }
 
   local result = physics.raycast(my_start, my_end, my_groups)
   if result then
-      -- act on the hit (see 'ray_cast_response' message for all values)
+      -- 处理射线碰撞结果 (所有数据参见 'ray_cast_response' 消息)
       print(result.id)
   end
 end
 ```
 
-::: sidenote
-Ray casts will ignore collision objects that contain the starting point of the ray. This is a limitation in Box2D.
+::: 注意
+结果不包括射线起始点位置的碰撞物体. 这是 Box2D 做的限制.
 :::
 
-## Joints
+## 关节
 
-Defold supports joints for 2D physics. A joint connects two collision objects using some kind of constraint. The supported joint types are:
+Defold 支持物理关节. 一个关键基于某种限制连接两个物体. 支持的关节类型如下:
 
-* Fixed (physics.JOINT_TYPE_FIXED) - A rope joint that restricts the maximum distance between two points. In Box2D referred to as a Rope joint.
-* Hinge (physics.JOINT_TYPE_HINGE) - A hinge joint specifies an anchor point on two collision objects and moves them so that the two collision objects are always in the same place, and the relative rotation of the collision objects is not restricted. The hinge joint can enable a motor with a defined maximum engine torque and speed. In Box2D referred to as a Revolute joint.
-* Spring (physics.JOINT_TYPE_SPRING) - A spring joint keeps two collision objects at a constant distance from each other. The spring joint can be made soft like a spring with a frequency and damping ratio. In Box2D referred to as a Distance joint.
-* Slider (physics.JOINT_TYPE_SLIDER) - A slider joint allows for relative translation of two collision objects along a specified axis and prevents relative rotation. In Box2D referred to as a Prismatic joint.
+* Fixed (physics.JOINT_TYPE_FIXED) - 限制两物体最大距离的固定关节. 在 Box2D 被称为绳子关节.
+* Hinge (physics.JOINT_TYPE_HINGE) - 把两个物体通过一个锚点钉在一起的钉子关节. 两物体相对位置固定而相对旋转没有限制. 这种关节可以开启马达给一个最大扭力与速度. 在 Box2D 被称为旋转关节.
+* Spring (physics.JOINT_TYPE_SPRING) - 限制两个物体之间距离范围的弹簧关节. 弹簧关节通过设定其频率和阻尼比可以让物体像是被软弹簧连接. 在 Box2D 被称为距离关节.
+* Slider (physics.JOINT_TYPE_SLIDER) - 限制两物体只能在某个指定轴上相对移动而不允许相对转动的滑动关节. 在 Box2D 被称为活塞关节.
 
-### Creating joints
+### 建立关节
 
-Joints can currently only be created programmatically using [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
-::: sidenote
-Editor support for creating joints is planned but no release date has been decided.
+目前只能使用 [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) 函数手动建立关节:
+
+::: 注意
+编辑器可是环境新建关节在支持计划中但发布时间未知.
 :::
 
 ```lua
--- connect two collision objects with a fixed joint constraint (rope)
+-- 将两个碰撞物体用固定关节连接 (绳子)
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-The above will create a fixed joint with id `my_test_joint` connected between the two collision object `obj_a#collisionobject` and `obj_b#collisionobject`. The joint is connected 10 pixels to the left of the center of collision object `obj_a#collisionobject` and 20 pixels above the center of collision object `obj_b#collisionobject`. The maximum length of the joint is 20 pixels.
+上述代码创建了一个固定关节, 其id为 `my_test_joint`, 连接了两个物体 `obj_a#collisionobject` 与 `obj_b#collisionobject`. 关节位于 `obj_a#collisionobject` 偏左10像素, `obj_b#collisionobject` 偏上20像素的位置上. 设定的最大距离是20像素.
 
-### Destroying joints
+### 删除关节
 
-A joint can be destroyed using [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id):
+可以使用 [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id) 函数删除关节:
 
 ```lua
--- destroy a joint previously connected to the first collision object
+-- 删除上面提到的第一个物体上的关节
 physics.destroy_joint("obj_a#collisionobject", "my_test_joint")
 ```
 
-### Reading from and Updating joints
+### 关节属性及修改
 
-The properties of a joint can be read using [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) and set using [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties):
+可以使用 [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) 读取关节属性, 使用 [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties) 修改关节属性:
 
 ```lua
 function update(self, dt)
     if self.accelerating then
         local hinge_props = physics.get_joint_properties("obj_a#collisionobject", "my_hinge")
-        -- increase motor speed by 100 revolutions per second
+        -- 马达速度提升每秒100转
         hinge_props.motor_speed = hinge_props.motor_speed + 100 * 2 * math.pi * dt
         physics.set_joint_properties("obj_a#collisionobject", "my_hinge", hinge_props)
     end
 end
 ```
 
-### Get joint reaction force and torque
+### 关节反作用力和扭矩
 
-The reaction force and torque applied to a joint can be read using [`physics.get_joint_reaction_force()`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) and [`physics.get_joint_reaction_torque()`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id).
+可以使用 [`physics.get_joint_reaction_force()`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) 读取关节反作用力, 使用 [`physics.get_joint_reaction_torque()`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id) 读取关节扭力.
 
 
-## Caveats and common issues
+## 注意事项
 
-Collection proxies
-: Through collection proxies it is possible to load more than one top level collection, or *game world* into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) only happen between objects belonging to the same world. So even if the collision objects from two worlds visually sits right on top of each other, there cannot be any physics interaction between them.
+碰撞代理
+: 通过碰撞代理可以支持多个物理集合, 或称 *游戏世界*. 但是要记住每个集合都是一个单独的物理世界. 物理现象 (碰撞, 触发, 射线) 之发生在同一世界中. 两个不同集合的物体就算放到一块儿, 也不会发生物理碰撞.
 
-Collisions not detected
-: If you have problems with collisions not being handled or detected properly then make sure to read up on [physics debugging in the Debugging manual](/manuals/debugging/#debugging-problems-with-physics).
+碰撞漏检
+: 如果发现碰撞未检测或未处理请先阅读 [调试教程的物理调试部分](/manuals/debugging/#debugging-problems-with-physics).
