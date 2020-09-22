@@ -71,43 +71,43 @@ Restitution
 Linear damping
 : 线性阻尼会减小刚体的线性速度. 不像摩擦只在物体接触时产生, 线性阻尼始终应用与线性移动的物体上, 给人一种物体飘进比空气密度大的环境中的感觉. 取值范围 0 到 1.
 
-  Box2D approximates damping for stability and performance. At small values, the damping effect is independent of the time step while at larger damping values, the damping effect varies with the time step. If you run your game with a fixed time step, this never becomes an issue.
+  Box2D 并不精确计算阻尼. 值很小时阻尼与时间无关, 值很大时阻尼随时间变化. 如果时间步固定, 这不会造成问题.
 
 Angular damping
-: Angular damping works like linear damping but reduces the angular velocity of the body. Valid values are between 0 and 1.
+: 角阻尼与线性阻尼类似, 不同的是它减小的是刚体角速度. 取值范围 0 到 1.
 
 Locked rotation
-: Setting this property totally disables rotation on the collision object, no matter what forces are brought to it.
+: 关闭碰撞对象的旋转, 无论力如何施加都不会旋转.
 
 Group
-: The name of the collison group the object should belong to. You can have 16 different groups and you name them as you see fit for your game. For example "players", "bullets", "enemies" and "world". If the *Collision Shape* is set to a tile map, this field is not used but the groups names are taken from the tile source.
+: 此碰撞对象所归属的碰撞组. 可以自由定义16个组. 比如 "players", "bullets", "enemies" 或 "world". 如果瓷砖地图上设置了 *Collision Shape*, 则使用的是瓷砖图源里的组名而不是该属性定义的组名.
 
 Mask
-: The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything.
+: 可以与此对象进行碰撞的 _组_. 如果指定多个, 组名以逗号分割. 如果值为空, 则此对象不与任何物体进行碰撞.
 
 ### Collision shapes
 
-A collision component can either use several primitive shapes or a single complex shape. The primitive shapes are *box*, *sphere* and *capsule*. A complex shape can either be created from a tilemap component or from a convex hull shape.
+碰撞对象的形状可以由多个简单形状组成也可以由一个复杂形状代替. 简单形状有 *box*, *sphere* 和 *capsule*. 复杂形状可以由瓷砖地图生成或者使用凸多边形.
 
 ### Box shape
-A box has a position, rotation and dimensions (width, height and depth):
+方形设定由位置, 旋转和尺寸 (宽度, 高度和深度) 组成:
 
 ![Box shape](images/physics/box.png)
 
 ### Sphere shape
-A sphere has a position, rotation and diameter:
+圆形设定由位置, 旋转和直径组成:
 
 ![Sphere shape](images/physics/sphere.png)
 
 ### Capsule shape
-A capsule has a position, rotation, diameter and height:
+胶囊形设定由位置, 旋转, 直径和高度组成:
 
 ![Sphere shape](images/physics/capsule.png)
 
-### Tilemap collision shape
-Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
+### 瓷砖地图碰撞形状
+Defold 包含一个功能就是从瓷砖地图中自动生成物理碰撞形状. [瓷砖地图教程](/manuals/tilemap/) 介绍了新建瓷砖图源的碰撞组与把瓷砖分配给碰撞组的 ([例子](/examples/tilemap/collisions/)).
 
-To add collision to a tile map:
+在瓷砖地图上添加碰撞:
 
 1. Add the tilemap to a game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component File</kbd>. Select the tile map file.
 2. Add a collision object component to the game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component ▸ Collision Object</kbd>.

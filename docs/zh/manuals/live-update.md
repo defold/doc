@@ -107,28 +107,28 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-1. A simple counter that tells us how many resources we have still to download and store before we can load the proxy collection. Note that this code does not deal with errors at all so production code would need to do a better job at tracking the download and store operations.
-2. Get any resources that we need to download and store.
-3. Store the number of missing resources so we can count them down.
-4. We need the current manifest since it lists all resources in the bundle, and if they are available or not.
-5. We store our resources on Amazon S3. If you create a Zip archive with resources, you need to host the files somewhere and reference their location when downloading them with `http.request()`.
-6. Amazon returns status 304 when files are cached.
-7. We have data at this point. Try to store it.
-8. Storage was successful and we have decreased the resource counter to zero. It is now safe to send a "load" message to the collection proxy. Note that if download or storage fails at some point, the counter will never reach zero.
+1. 一个计数器记录了还剩多少资源需要下载保存. 注意此处未做错误处理, 产品级游戏要跟踪好下载和保存的各种情况.
+2. 得到需要下载保存的资源.
+3. 计数器更新.
+4. 资源需求清单.
+5. 本例中资源保存于 Amazon S3. 如果使用zip包保存资源, 需要调用 `http.request()` 连同资源托管地址进行下载.
+6. 文件缓存好之后 Amazon 返回状态 304.
+7. 下载完成, 开始保存.
+8. 保存成功, 资源计数器清零. 此时可以放心发送 "load" 消息给集合代理. 注意如果下载保存任何地方出错, 计数器都不会清零.
 
-With the loading code in place, we can test the application. However, running it from the editor will not download anything. This is because Live update is a bundle feature. When running in the editor environment no resources are ever excluded. To make sure everything works fine, we need to create a bundle.
+一切准备就绪, 我们可以尝试启动这个程序. 但是从编辑器运行并不会下载任何东西. 因为热更新是游戏包的功能. 编辑器运行时游戏未打包. 所以, 要测试热更新必须先给游戏打包.
 
-## Bundling with Live update
+## 热更新应用打包
 
-To bundle with Live update is easy. Select <kbd>Project ▸ Bundle ▸ ...</kbd> and then the platform you want to create an application bundle for. This opens the bundling dialog:
+打包很简单. 选择 <kbd>Project ▸ Bundle ▸ ...</kbd> 然后选择目标平台. 此时会弹出对话框:
 
 ![Bundle Live application](images/live-update/bundle-app.png)
 
-When bundling, any excluded resource will be left out of the application bundle. By checking the *Publish Live update content* checkbox, you tell Defold to either upload the excluded resources to Amazon or to create a Zip archive, depending on how you have set up your Live update settings (see above). The manifest file for the bundle will also be included in the excluded resources.
+打包时, 指定资源被排除在包外. 勾选 *Publish Live update content*, 来让 Defold 把包外资源自动上传给 Amazon 或者打成zip包, 取决于热更新配置 (见上文). 资源清单也会被生成出来.
 
-Click *Package* and select a location for the application bundle. Now you can start the application and check that everything works as expected.
+点击 *Package* 然后指定保存位置. 打包好之后就能测试热更新功能了.
 
-## The manifest
+## 清单文件
 
 The manifest is an internal data structure that holds a list of all resources included in a build as well as the hash value of each resource. The Live update functionality uses the manifest to track what is part of the built game, list what can be loaded from external sources, and if that happens, make certain that the loaded data is intact.
 
