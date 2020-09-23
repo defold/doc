@@ -27,28 +27,28 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 
 ![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
 
-To fit the game objects and their components the engine allocates the memory needed for the whole "game world" into which the contents of the bootstrap collection are instanciated. A separate physics world is also created for any collision objects and physics simulation.
+启动集合实例化时引擎会为 "游戏世界" 里的游戏对象和组件分配足够的内存空间. 对于物理模拟和碰撞对象, 引擎会为其建立另一个游戏世界.
 
-Since script components need to be able to address all objects in the game, even from outside the bootstrap world, it is given a unique name: the *Name* property that you set in the collection file:
+因为脚本要能定位任何地方的游戏对象, 包括启动集合之外的集合里的对象, 所以集合必须有独立的属性: *Name*:
 
 ![bootstrap](images/collection-proxy/collection_id.png){srcset="images/collection-proxy/collection_id@2x.png 2x"}
 
-If the collection that is loaded contains collection proxy components, the collections that those refer to are *not* loaded automatically. You need to control the loading of these resources through scripts.
+如果被加载集合里还有集合代理, 代理引用的集合 *不会* 被自动加载. 需要手动写代码进行加载.
 
-## Loading a collection
+## 载入集合
 
-Dynamically loading a collection via proxy is done by sending a message called `"load"` to the proxy component from a script:
+通过代理动态载入集合需要用脚本给代理发送 `"load"` 消息:
 
 ```lua
--- Tell the proxy "myproxy" to start loading.
+-- 让代理 "myproxy" 开始加载集合.
 msg.post("#myproxy", "load")
 ```
 
 ![load](images/collection-proxy/proxy_load.png){srcset="images/collection-proxy/proxy_load@2x.png 2x"}
 
-The proxy component will instruct the engine to allocate space for a new world. A separate runtime physics world is also created and all the game objects in the collection "mylevel.collection" are instantiated.
+集合代理会告诉引擎需要为新游戏世界分配多大空间内存. 另一个物理世界也被建立起来连同集合 "mylevel.collection" 里的游戏对象都会被实例化.
 
-The new world gets its name from the *Name* property in the collection file, in this example it is set to "mylevel". The name has to be unique. If the *Name* set in the collection file is already used for a loaded world, the engine will signal a name collision error:
+新游戏世界的创建通过 *Name* 属性引用的集合文件为蓝图, 本例中是 "mylevel". 不能有重名. 如果集合文件 *Name* 重名, 引擎会报错:
 
 ```txt
 ERROR:GAMEOBJECT: The collection 'default' could not be created since there is already a socket with the same name.
@@ -56,12 +56,12 @@ WARNING:RESOURCE: Unable to create resource: build/default/mylevel.collectionc
 ERROR:GAMESYS: The collection /mylevel.collectionc could not be loaded.
 ```
 
-When the engine has finished loading the collection, the collection proxy component will send a message named `"proxy_loaded"` back to the script that sent the `"load"` message. The script can then initialize and enable the collection as a reaction to the message:
+当集合加载完毕, 集合代理会向发送 `"load"` 消息的脚本发回 `"proxy_loaded"` 消息. 收到此消息就可以进行集合初始化等工作了:
 
 ```lua
 function on_message(self, message_id, message, sender)
     if message_id == hash("proxy_loaded") then
-        -- New world is loaded. Init and enable it.
+        -- 新集合已加载完毕. 初始化并激活它.
         msg.post(sender, "init")
         msg.post(sender, "enable")
         ...
@@ -70,74 +70,74 @@ end
 ```
 
 `"load"`
-: This message tells the collection proxy component to start loading its collection into a new world. The proxy will send back a message called `"proxy_loaded"` when it's done.
+: 此消息通知集合代理组件开始为新游戏世界加载集合. 完成后会发送 `"proxy_loaded"` 消息.
 
 `"async_load"`
-: This message tells the collection proxy component to start background loading its collection into a new world. The proxy will send back a message called `"proxy_loaded"` when it's done.
+: 此消息通知集合代理组件开始在后台为新游戏世界加载集合. 完成后会发送 `"proxy_loaded"` 消息.
 
 `"init"`
-: This message tells the collection proxy component that all the game objects and components that has been instantiated should be initialized. All script `init()` functions are called at this stage.
+: 此消息通知集合代理组件集合里的游戏对象和组件已实例化完毕, 可以进行初始化了. 此时所有脚本里的 `init()` 函数会被调用.
 
 `"enable"`
-: This message tells the collection proxy component that all the game objects and components should be enabled. All sprite components begin to draw when enabled, for instance.
+: 此消息通知集合代理组件集合里的游戏对象和组件已实例化完毕, 可以激活它们了. 此时会进行sprite渲染等等工作.
 
-## Addressing into the new world
+## 新游戏世界定位
 
-The *Name* set in the collection file properties is used to address game objects and components in the loaded world. If you, for instance, create a loader object in the bootstrap collection you may need to communicate with it from any loaded collection:
+使用集合文件的 *Name* 属性用来定位其中的游戏对象和组件. 比如启动集合里有个加载器对象, 一关结束后让它加载下一关:
 
 ```lua
--- tell the loader to load the next level:
+-- 告诉加载器加载下一关:
 msg.post("main:/loader#script", "load_level", { level_id = 2 })
 ```
 
 ![load](images/collection-proxy/message_passing.png){srcset="images/collection-proxy/message_passing@2x.png 2x"}
 
-## Unloading a world
+## 新游戏世界卸载
 
-To unload a loaded collection, you send messages corresponding to the converse steps of the loading:
+卸载需要发送的消息和加载相反:
 
 ```lua
--- unload the level
+-- 卸载当前关卡
 msg.post("#myproxy", "disable")
 msg.post("#myproxy", "final")
 msg.post("#myproxy", "unload")
 ```
 
 `"disable"`
-: This message tells the collection proxy component to disable all the game object and components in the world. Sprites stop being rendered at this stage.
+: 此消息通知集合代理组件关闭游戏对象和组件. 此时sprite不再进行渲染工作.
 
 `"final"`
-: This message tells the collection proxy component to finalize all the game object and components in the world. All scripts' `final()` functions are called at this stage.
+: 此消息通知集合代理组件析构游戏对象和组件. 此时所有脚本里的 `final()` 函数会被调用.
 
 `"unload"`
-: This message tells the collection proxy to remove the world completely from memory.
+: 此消息通知集合代理组件把游戏世界从内存中清除.
 
-If you don’t need the finer grained control, you can send the `"unload"` message directly without first disabling and finalizing the collection. The proxy will then automatically disable and finalize the collection before it’s unloaded.
+如果不那么细致, 只发送 `"unload"` 消息就好. 在卸载前代理会自动进行关闭和析构工作.
 
-When the collection proxy has finished unloading the collection it will send a `"proxy_unloaded"` message back to the script that sent the `"unload"` message:
+当即和卸载完毕, 集合代理会向发送 `"unload"` 消息的脚本发回 `"proxy_unloaded"` 消息:
 
 ```lua
 function on_message(self, message_id, message, sender)
     if message_id == hash("proxy_unloaded") then
-        -- Ok, the world is unloaded...
+        -- Ok, 游戏世界卸载完成...
         ...
     end
 end
 ```
 
 
-## Time step
+## 时间步
 
-Collection proxy updates can be scaled by altering the _time step_. This means that even though the game ticks at a steady 60 FPS, a proxy can update at a higher or lower pace, affecting physics and the `dt` variable passed to `update()`. You can also set the update mode, which allows you to control if the scaling should be performed discretely (which only makes sense with a scale factor below 1.0) or continuously.
+集合代理的更新周期可以使用 _time step_ 进行缩放. 也就是说即使游戏是 60 FPS 的, 代理游戏世界的速度可以更快或者更慢, 影响物理世界和 `update()` 函数的 `dt` 参数. 还可以设置更新执行模式, 用以确定这种时间缩放是断续执行 (缩放值小于 1.0 时才有意义) 还是持续执行.
 
-You control the scale factor and the scaling mode by sending the proxy a `set_time_step` message:
+通过发送 `set_time_step` 消息给集合代理组件来设置时间步缩放系数与执行模式:
 
 ```lua
--- update loaded world at one-fifth-speed.
+-- 把加载的游戏世界时间放慢为1/5.
 msg.post("#myproxy", "set_time_step", {factor = 0.2, mode = 1}
 ```
 
-To see what's happening when changing the time step, we can create an object with the following code in a script component and put it in the collection we're altering the timestep of:
+这样做的结果, 我们可以通过一段代码来进行观察:
 
 ```lua
 function update(self, dt)
@@ -145,7 +145,7 @@ function update(self, dt)
 end
 ```
 
-With a time step of 0.2, we get the following result in the console:
+时间步系数为 0.2, 控制台打印如下输出:
 
 ```txt
 INFO:DLIB: SSDP started (ssdp://192.168.0.102:54967, http://0.0.0.0:62162)
@@ -163,17 +163,17 @@ DEBUG:SCRIPT: update() with timestep (dt) 0
 DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 ```
 
-`update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
+`update()` 仍然是每秒调用 60 次, 但是 `dt` 值变了. 可以看到只有 1/5 (0.2) 的 `update()` 调用包含 1/60 秒的 `dt` 参数, 其他都是 0. 物理模拟也基于 dt 每 5 帧步进一次.
 
-See [`set_time_step`](/ref/collectionproxy#set_time_step) for more details.
+详情请见 [`set_time_step`](/ref/collectionproxy#set_time_step).
 
-## Caveats and common issues
+## 注意事项与常见问题
 
-Physics
-: Through collection proxies it is possible to load more than one top level collection, or *game world* into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) only happen between objects belonging to the same world. So even if the collision objects from two worlds visually sits right on top of each other, there cannot be any physics interaction between them.
+物理
+: 通过集合代理可以导入多个集合, 或称 *游戏世界*. 要注意的是每个顶级集合都有自己的物理世界. 物理交互 (碰撞, 触发, 射线) 只发生与同一物理世界的物体之间. 所以即使分别来自两个游戏世界的两个物体即使被放在一起, 也不会有碰撞发生.
 
-Memory
-: Each loaded collection creates a new game world which comes with a relatively large memory footprint. If you load dozens of collections simultaneously through proxies, you might want to reconsider your design. To spawn many instances of game object hierarchies, [collection factories](/manuals/collection-factory) are more suitable.
+内存
+: 被载入的游戏世界都要占不少内存. 如果同时加载了很多集合, 推荐优化你的游戏规则. 创建多个游戏对象实例的话, [集合工厂](/manuals/collection-factory) 更加适用.
 
-Input
-: If you have objects in your loaded collection that require input actions, you need to make sure that the game object that contains the collection proxy acquires input. When the game object receives input messages these are propagated to the components of that object, i.e. the collection proxies. The input actions are sent via the proxy into the loaded collection.
+输入
+: 要让集合里的游戏对象获得输入信息, 首先要确保集合代理所在的游戏对象获得了输入焦点. 当游戏对象收到输入消息时, 这些消息将传播到该对象的组件也就是集合代理中去. 输入动作通过集合代理下发到其载入的集合里.
