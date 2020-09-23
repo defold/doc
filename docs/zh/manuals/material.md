@@ -45,12 +45,12 @@ Samplers
 Tags
 : 标签与材质相关. 标签在引擎内部表现为 _bitmask_ 并由 [`render.predicate()`](/ref/render#render.predicate) 来收集需要渲染的组件. 如何渲染请见 [Render documentation](/manuals/render). 每个项目最多可以使用32个标签.
 
-## Vertex and fragment constants
+## 着色器常量
 
-着色器常量, 或称 "uniforms" 是从引擎传输给顶点和片元着色器程序的数据. 要使用常量，您可以在材质文件中将其定义为一个 *顶点常量* 属性或 *片元常量* 属性。需要在着色器程序中定义相应的 `uniform` 变量。材质中可以设置以下常量：
+着色器常量, 或称 "uniforms" 是从引擎传输给顶点和片元着色器程序的数据. 要使用常量,您可以在材质文件中将其定义为一个 *顶点常量* 属性或 *片元常量* 属性.需要在着色器程序中定义相应的 `uniform` 变量.材质中可以设置以下常量：
 
 CONSTANT_TYPE_WORLD
-: 世界矩阵. 用来把顶点转换为世界坐标. 有的组件类型, 由于合批的应用它们到达顶点着色程序时已经是世界坐标的了. 在这些情况下，用着色器程序把世界矩阵再乘一遍就会产生错误的结果.
+: 世界矩阵. 用来把顶点转换为世界坐标. 有的组件类型, 由于合批的应用它们到达顶点着色程序时已经是世界坐标的了. 在这些情况下,用着色器程序把世界矩阵再乘一遍就会产生错误的结果.
 
 CONSTANT_TYPE_VIEW
 : 视图矩阵. 用于转换顶点为视口（相机）空间坐标.
@@ -68,7 +68,7 @@ CONSTANT_TYPE_NORMAL
 : 用于计算法方向的矩阵. 世界移动转换可能包含非等比缩放, 这样会打破世界-视口转换的正交性. 变换法线时使用发方向可以避免这个问题. (法矩阵是世界-视口矩阵的转置逆).
 
 CONSTANT_TYPE_USER
-: 一个 vector4 常量用以向你的着色程序传递自定义数据. 定义时可以赋初值, 可以通过各组件 (`sprite`, `model`, `spine`, `particlefx` 和 `tilemap`) 的 `.set_constant()` 和 `.reset_constant()` 函数来改变其值. 改变单个组件实例的材质参数会 [打破合批增加drawcall](/manuals/render/#draw-calls-and-batching).
+: 一个 vector4 常量用以向你的着色程序传递自定义数据. 定义时可以赋初值, 可以通过各组件 (`sprite`, `model`, `spine`, `particlefx` 和 `tilemap`) 的 `.set_constant()` 和 `.reset_constant()` 函数来改变其值. 改变单个组件实例的材质参数会 [打破合批增加drawcall](/manuals/render/#Draw call 与合批).
 <br>举例:
 ```lua
 go.set("#sprite", "tint", vmath.vector4(1,0,0,1))

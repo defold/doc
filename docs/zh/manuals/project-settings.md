@@ -94,12 +94,12 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 垂直同步, 根据硬件的帧率进行刷新. 可以被驱动程序或者操作系统平台设置覆盖.
 
 #### Display Profiles
-指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.  详情请见 [GUI 排版教程](/manuals/gui-layouts/#creating-display-profiles).
+指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.  详情请见 [GUI 排版教程](/manuals/gui-layouts/#新建显示档案).
 
 #### Dynamic Orientation
 开启的话会在设备转动时动态切换横竖显示方向. 注意开发用app（指dmengine）不参考此设置.
 
-## 渲染
+## Render
 
 #### Clear Color Red
 清除红色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
@@ -307,7 +307,7 @@ label 最大数目, 默认是 `64`.
 用于应用图标的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`.
 
 #### Launch Screen
-Storyboard 文件 (.storyboard). 其创建方法详情请见 [iOS 教程](/manuals/ios/#creating-a-storyboard).
+Storyboard 文件 (.storyboard). 其创建方法详情请见 [iOS 教程](/manuals/ios/#创建 storyboard).
 
 #### Launch Image 320x480--2436x1125
 用于应用启动图的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`. iOS 基于启动图选择分辨率.
@@ -368,7 +368,7 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 #### Debuggable
 指定应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或者 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具来调试. 这将开启 Android manifest 的 `android:debuggable` 选项.
 
-## MacOS / OS X
+## MacOS 和 OS X
 
 #### App Icon
 用于MacOS应用图标的图片 (.png) 文件.
@@ -490,7 +490,7 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 
 交换间隔是指在垂直空白期 (v-blank) 同步中交换前后缓冲的间隔, 是屏幕图片从前缓冲更新数据的硬件事件. 取值为1就是每个v-blank做一次交换缓冲, 取值为2就是每两个（每隔一个）v-blank做一次交换缓冲, 以此类推. 取值为0则做交换缓冲时不等待v-blank时间\*. 调用 [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval) 方法可以设置 `swap_interval` 的值.
 
-### 警告
+### 注意事项
 目前, Defold 在初始化时查询屏幕刷新率并且把它作为固定 `dt` 的依据. 如果你需要支持可变刷新率 (比如 GSync 或者 FreeSync) 或者其他刷新率不是很有参考性的情况下, 关闭 `Vsync`来使引擎测量每帧实际 `dt` 而不是固定dt.
 
 

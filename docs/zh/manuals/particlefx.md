@@ -12,14 +12,14 @@ brief: 本教程介绍了粒子特效组件的使用以及特效的编辑方法.
 粒子特效包含一些发射器以及可选的修改器:
 
 Emitter
-: 发射器是任意放置的的形状，可发射均匀分布在该形状上的粒子。发射器包含控制粒子生成的属性，比如各个粒子的图像或动画，生命周期，颜色，形状和速度。
+: 发射器是任意放置的的形状,可发射均匀分布在该形状上的粒子.发射器包含控制粒子生成的属性,比如各个粒子的图像或动画,生命周期,颜色,形状和速度.
 
 Modifier
-: 修改器会影响生成的粒子的速度，以使其在特定方向上加速或减速，径向移动或绕点旋转。修改器可以影响单个的粒子或者整个发射器。
+: 修改器会影响生成的粒子的速度,以使其在特定方向上加速或减速,径向移动或绕点旋转.修改器可以影响单个的粒子或者整个发射器.
 
 ## 新建粒子特效
 
-在  *Assets* 浏览器菜单栏选择 <kbd>New... ▸ Particle FX</kbd>. 为新建粒子特效命名. 编辑器会为其自动打开 [场景编辑器](/manuals/editor/#the-scene-editor).
+在  *Assets* 浏览器菜单栏选择 <kbd>New... ▸ Particle FX</kbd>. 为新建粒子特效命名. 编辑器会为其自动打开 [场景编辑器](/manuals/editor/#场景编辑器).
 
 在 *Outline* 面板中显示出默认粒子发射器. 点选发射器 *Properties* 面板会对应更新.
 
@@ -233,7 +233,7 @@ particlefx.stop("#particles")
 
 ## 材质常量
 
-粒子特效默认的材质常量可以使用 `particlefx.set_constant()` 和 `particlefx.reset_constant()` 进行设置和重置 (详情请见 [材质教程](/manuals/material/#vertex-and-fragment-constants)):
+粒子特效默认的材质常量可以使用 `particlefx.set_constant()` 和 `particlefx.reset_constant()` 进行设置和重置 (详情请见 [材质教程](/manuals/material/#着色器常量)):
 
 `tint`
 : 粒子特效染色 (`vector4`). 四元组的 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度. 详情请见 [API 文档上的示例](/ref/particlefx/#particlefx.set_constant:url-constant-value).

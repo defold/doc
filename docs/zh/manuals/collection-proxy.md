@@ -23,7 +23,7 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 
 ## 启动集合
 
-当 Defold 引擎开始工作最先把 *启动集合* 导入运行环境并对其中的所有游戏对象进行初始化. 然后开启游戏对象和它们的组件. 在 [项目配置](/manuals/project-settings/#main-collection) 里设置把哪个集合作为启动集合使用. 依照惯例启动集合都叫做 "main.collection".
+当 Defold 引擎开始工作最先把 *启动集合* 导入运行环境并对其中的所有游戏对象进行初始化. 然后开启游戏对象和它们的组件. 在 [项目配置](/manuals/project-settings/#Main Collection) 里设置把哪个集合作为启动集合使用. 依照惯例启动集合都叫做 "main.collection".
 
 ![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
 

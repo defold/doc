@@ -5,7 +5,7 @@ brief: 本教程介绍了一些调试包含原生扩展程序应用的方法.
 
 # 调试原生扩展
 
-开发原生扩展程序的时候总会碰到这样那样的问题，比如在编译服务器上编译不通过或者应用里扩展程序无效等等.
+开发原生扩展程序的时候总会碰到这样那样的问题,比如在编译服务器上编译不通过或者应用里扩展程序无效等等.
 
 ## 报错调试
 
@@ -80,7 +80,7 @@ brief: 本教程介绍了一些调试包含原生扩展程序应用的方法.
 
 adb 可以显示此文件在哪 (不同设备保存位置不同)
 
-如果应用是 [可调试的](https://www.defold.com/manuals/project-settings/#android), 可以这样获取崩溃日志:
+如果应用是 [可调试的](https://www.defold.com/manuals/project-settings/#Android), 可以这样获取崩溃日志:
 
 ```
 	$ adb shell "run-as com.defold.adtest sh -c 'cat /data/data/com.defold.adtest/files/_crash'" > ./_crash

@@ -127,13 +127,13 @@ Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以�
 2. 不在碰撞对象上加入形状, 而是设置 *Collision Shape* 属性为 *凸多边形文件*.
 
 ::: 注意
-编辑器里不显示形状. 只有 [开启物理调试](/manuals/debugging/#debugging-problems-with-physics) 才能在运行时看到形状.
+编辑器里不显示形状. 只有 [开启物理调试](/manuals/debugging-game-logic/#物理引擎调试) 才能在运行时看到形状.
 :::
 
 
 ### 缩放碰撞形状
 
-可以让碰撞形状继承游戏对象的缩放. 在 *game.project* 里的物理部分勾选 [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) 即可. 注意缩放继承只支持等比缩放, 如果不等比, 去三周最小值.
+可以让碰撞形状继承游戏对象的缩放. 在 *game.project* 里的物理部分勾选 [Allow Dynamic Transforms](/manuals/project-settings/#Allow Dynamic Transforms) 即可. 注意缩放继承只支持等比缩放, 如果不等比, 去三周最小值.
 
 
 ### 旋转碰撞形状
@@ -149,7 +149,7 @@ Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以�
 ### 物理引擎单位
 
 设计上按照牛顿物理学单位米, 千克和秒 (MKS) 的标准单位. 模拟物尺寸 0.1 到 10 米范围 (静态对象可以更大) 效果较好, 默认一像素 (pixel) 当作 1 米. 这种转换是物理模拟器层次上的, 对游戏来说并不适用.
-默认一个200像素的物体在物理世界相当于200米超过了最佳模拟范围. 一般需要对游戏里的物体进行物理上的缩放. 可以在 `game.project` 里的 [物理缩放设置](/manuals/project-settings/#physics) 处指定缩放值.
+默认一个200像素的物体在物理世界相当于200米超过了最佳模拟范围. 一般需要对游戏里的物体进行物理上的缩放. 可以在 `game.project` 里的 [物理缩放设置](/manuals/project-settings/#Physics) 处指定缩放值.
 比如设置为 0.02 意味着 1:50, 那么200像素就是 4 米. 注意重力 (也在 `game.project` 里进行设定) 也需要基于缩放值进行调整.
 
 ## 碰撞组与碰撞掩码
@@ -400,4 +400,4 @@ end
 : 通过碰撞代理可以支持多个物理集合, 或称 *游戏世界*. 但是要记住每个集合都是一个单独的物理世界. 物理现象 (碰撞, 触发, 射线) 之发生在同一世界中. 两个不同集合的物体就算放到一块儿, 也不会发生物理碰撞.
 
 碰撞漏检
-: 如果发现碰撞未检测或未处理请先阅读 [调试教程的物理调试部分](/manuals/debugging/#debugging-problems-with-physics).
+: 如果发现碰撞未检测或未处理请先阅读 [调试教程的物理调试部分](/manuals/debugging-game-logic/#物理引擎调试).

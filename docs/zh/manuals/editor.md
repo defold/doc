@@ -235,7 +235,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 
 ## 编辑器日志
-使用编辑器时如果遇到了麻烦可以 [向我们汇报](/manuals/getting-help/#getting-help), 并且连同编辑器日志一起上报. 编辑器日志存放路径如下:
+使用编辑器时如果遇到了麻烦可以 [向我们汇报](/manuals/getting-help/#获得帮助), 并且连同编辑器日志一起上报. 编辑器日志存放路径如下:
 
   * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
   * macOS: `/Users/ **Your Username** /Library/Application Support/` 或 `~/Library/Application Support/Defold`

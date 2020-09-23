@@ -142,41 +142,41 @@ end
 
 保存清单后首次启动引擎时会生成一个游戏包版本文件 `bundle.ver`. 用来判断保存清单之后游戏有无改动, 比如说一次完整的 app store 更新. 如果是这样的话清单将从文件系统中删除并使用更新版本游戏包中的清单代替. 也就是说完整 app store 更新会清除上次保存的清单. 而通过热更新下载到本地的资源不被清除.
 
-### Manifest verification
-When storing a new manifest the manifest data will be verified before it is actually written to disk. The verification consists of a number of checks:
+### 清单验证
+保存新版清单之前会对其进行验证. 验证包括如下内容:
 
-* Correct binary file format.
-* Supports the currently running engine version or any other supported version entry from the settings.
-* Cryptographic signature.
-* Signed using the same public-private key pair as the bundled manifest.
-* Verify that all resources the manifest expects to be in the bundle actually are in the bundle.
+* 二进制文件格式是否正确.
+* 引擎版本是否正确.
+* 清单签名是否正确.
+* 新旧文件签名所用的公钥私钥是否一致.
+* 清单列出的资源是否齐全.
 
-From the user's perspective the verification process is completely opaque but it is important to note the steps involved to avoid the most common pitfalls.
+从用户角度来看, 验证过程不必深入了解, 但是要知道验证内容, 以便遇到错误时可以及时修复.
 
-::: important
-If you see a "ERROR:RESOURCE: Byte mismatch in decrypted manifest signature. Different keys used for signing?" error in the console on HTML5 builds it is likely that your webserver doesn't serve the excluded content or updated manifest file using the correct MIME type. Make sure the MIME type is `application/octet-stream`. You can add a `.htaccess` file with a single `AddType application/octet-stream .` line to the folder where the live update resources are downloaded from.
+::: 注意
+如果遇到 "ERROR:RESOURCE: Byte mismatch in decrypted manifest signature. Different keys used for signing?" 错误很有可能是因为你的服务器对包外资源和清单文件的 MIME 类型设置错误. 确保 MIME 类型为 `application/octet-stream`. 可以使用 `.htaccess` 文件加上一条 `AddType application/octet-stream .` 关联到资源和清单文件所在文件夹.
 :::
 
-### Supported engine versions
-A manifest will always support the Defold version used when generating it. If you want to support any additional engine versions, add them to the list in the Live update settings. This can be useful if your live game uses a different Defold version than the one you are using to generate the manifest with.
+### 引擎版本
+清单文件支持生成它的 Defold 版本. 如果希望它支持更多版本, 需要在热更新配置里手动添加. 如果你的游戏需要多版本客户端同时在线, 这一步设定很重要.
 
 ![Manifest supported engine versions](images/live-update/engine-versions-settings.png)
 
-### Generating keys for signing
-The manifest signature is used to verify that no one with malicious intent has tampered with the content, and that the bundled manifest and the new manifest were signed using the same keys. The signing is done as a part of the bundling process.
-A public/private key pair is used to cryptographically sign the manifest. Signing uses 512/1024/2048-bit RSA keys in `.der`-format that the user needs to supply. You can generate these using the `openssl` tool:
+### 签名密钥
+清单签名用来保证游戏内容没有被恶意篡改, 还要确保新旧清单文件签名所用的密钥是相同的. 编译时签名自动生成.
+清单签名使用一对公私密钥. 用户需要提供 `.der` 格式 512/1024/2048-bit RSA 密钥. 可以使用 `openssl` 工具生成密钥:
 
 ```sh
 $ openssl genrsa -out private_raw.key 1024
 $ openssl pkcs8 -topk8 -inform pem -in private_raw.key -outform der -nocrypt -out private.der
 $ openssl rsa -in private_raw.key -outform DER -RSAPublicKey_out -pubout -out public.der
 ```
-This will output `private_raw.key` (can be safely deleted), `private.der`, and `public.der`. To use the keys for signing open the Live update settings view and point respective fields to the generated keys.
+输出文件为 `private_raw.key` (可以删除), `private.der` 和 `public.der`. 然后在热更新配置里指定密钥位置.
 
 ![Manifest signature key-pair](images/live-update/manifest-keys.png)
 
-### Scripting with Live update manifest
-Adding to the scripting example above, we add the following callback function
+### 热更新清单脚本
+接上文热更新脚本, 加入以下回调函数:
 
 ```lua
 local function store_manifest_cb(self, status)
@@ -188,7 +188,7 @@ local function store_manifest_cb(self, status)
 end
 ```
 
-and the following to ```on_message``` to handle message ```attempt_download_manifest```:
+然后在 ```on_message``` 里加入处理 ```attempt_download_manifest``` 的代码:
 
 ```lua
 ...
@@ -196,43 +196,43 @@ elseif message_id == hash("attempt_download_manifest") then
     local base_url = "https://my-game-bucket.s3.amazonaws.com/my-resources/" -- <1>
     http.request(base_url .. MANIFEST_FILENAME, "GET", function(self, id, response)
         if response.status == 200 or response.status == 304 then
-            -- We got the response ok.
+            -- 响应 ok.
             print("verifying and storing manifest " .. MANIFEST_FILENAME)
             resource.store_manifest(response.response, store_manifest_cb) -- <2>
         else
-            -- ERROR! Failed to download manifest!
+            -- 错误! 清单下载失败.
             print("Failed to download manifest: " .. MANIFEST_FILENAME)
         end
     end)
 end
 ```
-1. The manifest will be stored on S3 next to the rest of the Live update resources. As before, if you create a Zip archive with resources you need to host the files somewhere and reference their location when downloading them with `http.request()`.
-2. Similar to how resources are downloaded and stored, the call to `resource.store_manifest` takes the downloaded manifest data and a callback as arguments. The function will verify the manifest and persist it to local storage.
+1. 清单文件要跟热更新资源保存在一起. 无论是保存在S3服务器还是打zip包.
+2. 跟资源文件下载保存类似, 调用 `resource.store_manifest` 下载清单数据传入回调函数. 下载验证后保存在本地.
 
-If `resource.store_manifest` succeeds, the new manifest is now located in local storage. The next time the engine starts this manifest will be used instead of the one bundled with the game.
+如果 `resource.store_manifest` 成功, 清单已保存在本地. 下次游戏启动会自动使用新清单文件代替包内旧清单文件.
 
-### Caveats
-There are a few gotchas that might be good to know if you plan to use this feature to store a new manifest with Live update.
+### 注意事项
+更新清单文件要注意几个事项.
 
-* It is only possible to add or modify resources referenced by collection proxies that are tagged as `Exclude` in the new manifest. No changes should be made to already bundled resources or resources not in excluded collection proxies. For example, doing changes in a script that is referenced by a bundled collection will cause the resource system to look for that resource in the bundled data archive. But since the shipped game bundle has not changed (only the manifest has) the changed script will not be found and consequently cannot be loaded.
+* 只能添加或修改集合代理中被设置为 `Exclude` 的资源. 包内资源和集合代理未设置排除的资源不可更改. 比如清单列表要更新包内脚本, 但是因为包内资源不变 (只有清单更新了), 无法在包内找到新脚本, 更新肯定不会成功.
 
-* Even though this feature allows you to quickly push bug fixes or new features to a live game without doing a full app store release, it should be used with care. Pushing out a new manifest should involve the same processes as when doing a full release with everything that that entails (testing, QA, etc.).
+* 热更新方便快捷, 但是使用时要多加留意. 热更新也是更新, 发布前也要做测试等工作.
 
-## Setting up Amazon Web Service
+## 创建 Amazon 网络服务器
 
-To use the Defold Live update feature together with Amazon services you need an Amazon Web Services account. If you don't already have an account you can create one here https://aws.amazon.com/.
+要使用 Defold 配合 Amazon 服务器进行热更新首先要有 Amazon Web Services 账户. 没有的话请在这里注册: https://aws.amazon.com/.
 
-This section will explain how to create a new user with limited access on Amazon Web Services that can be used together with the Defold editor to automatically upload Live update resources when you bundle your game, as well as how to configure Amazon S3 to allow game clients to retrieve resources. For additional information about how you can configure Amazon S3, please see the [Amazon S3 documentation](http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html).
+这里介绍一下如何开通 Amazon 服务以配合 Defold 进行热更新, 在 Amazon S3 需要那些配置. 更多关于 Amazon S3 的信息, 请参考 [Amazon S3 文档](http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html).
 
-1. Create a bucket for Live update resources
+1. 开通服务
 
-    Open up the `Services` menu and select `S3` which is located under the _Storage_ category ([Amazon S3 Console](https://console.aws.amazon.com/s3)). You will see all your existing buckets together with the option to create a new bucket. Though it is possible to use an existing bucket, we recommend that you create a new bucket for Live update resources so that you can easily restrict access.
-
+    在 _Storage_ 类目 ([Amazon S3 Console](https://console.aws.amazon.com/s3)) 下打开 `Services` 菜单选择 `S3`. 页面上会列出已存在的所有服务器与开通新服务器的选项. 使用已存在的服务器是可以的, 但是建议为热更新资源创建一个新服务器,以便设置访问限制.
+    
     ![Create a bucket](images/live-update/01-create-bucket.png)
 
-2. Add a bucket policy to your bucket
+2. 服务配置
 
-    Select the bucket you wish to use, open the *Properties* panel and expand the *Permissions* option within the panel. Open up the bucket policy by clicking on the *Add bucket policy* button. The bucket policy in this example will allow an anonymous user to retrieve files from the bucket, which will allow a game client to download the Live update resources that are required by the game. For additional information about bucket policies, please see [the Amazon documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
+    开通服务器, 打开 *Properties* 面板展开折叠的 *Permissions* 选项. 点击 *Add bucket policy* 按钮添加配置文件. 本例中的配置是允许任何客户端访问服务器资源, 以便热更新顺利工作. 更多配置信息, 请参考 [Amazon 文档](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
 
     ```json
     {
@@ -251,11 +251,11 @@ This section will explain how to create a new user with limited access on Amazon
 
     ![Bucket policy](images/live-update/02-bucket-policy.png)
 
-3. Add a CORS configuration to your bucket (Optional)
+3. 添加 CORS 配置 (可选)
 
-    [Cross-Origin Resource Sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) is a mechanism that allows a website to retrieve a resource from a different domain using JavaScript. If you intend to publish your game as an HTML5 client, you will need to add a CORS configuration to your bucket.
+    [Cross-Origin Resource Sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) 是一种能让服务器使用 JavaScript 访问另一服务器资源的机制. 如果你发布的是 HTML5 游戏, 就需要给服务器添加 CORS 配置.
 
-    Select the bucket you wish to use, open the *Properties* panel and expand the *Permissions* option within the panel. Open up the bucket policy by clicking on the *Add CORS Configuration* button. The configuration in this example will allow access from any website by specifying a wildcard domain, though it is possible to restrict this access further if you know on which domains you will make you game available. For additional information about Amazon CORS configuration, please see [the Amazon documentation](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
+    选择服务器, 打开 *Properties* 面板展开折叠的 *Permissions* 选项. 点击 *Add CORS Configuration* 按钮添加 CORS 配置. 本例中的配置是允许任何服务器访问本服务器资源, 如果需要可以做详细的限制. 更多 Amazon CORS 配置信息, 请参考 [Amazon 文档](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
 
     ```xml
     <?xml version="1.0" encoding="UTF-8"?>
@@ -269,11 +269,11 @@ This section will explain how to create a new user with limited access on Amazon
 
     ![CORS configuration](images/live-update/03-cors-configuration.png)
 
-4. Create IAM policy
+4. 创建 IAM 配置
 
-    Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Policies* in the menu to the left and you will see all your existing policies together with the option to create a new policy.
+    打开 *Services* 菜单, 在 _Security, Identity & Compliance_ 类目 ([Amazon IAM Console](https://console.aws.amazon.com/iam)) 下打开 *IAM*. 选择左边的 *Policies*, 页面会列出已存在的所有 IAM 配置与创建新配置的选项.
 
-    Click the button *Create Policy*, and then choose to _Create Your Own Policy_. The policy in this example will allow a user to list all buckets, which is only required when configuring a Defold project for Live update. It will also allow the user to get the Access Control List (ACL) and upload resources to the specific bucket used for Live update resources. For additional information about Amazon Identity and Access Management (IAM), please see [the Amazon documentation](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
+    点击 *Create Policy* 按钮, 选择 _Create Your Own Policy_. 本例中的配置是允许用户获得服务器列表, 这是 Defold 热更新的必要配置. 这里还可以允许用户获得 Access Control List (ACL) 和把资源文件上传至服务器的权力. 关于 Amazon Identity and Access Management (IAM) 的更多信息, 详见 [Amazon 文档](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
 
     ```json
     {
@@ -306,7 +306,7 @@ This section will explain how to create a new user with limited access on Amazon
 
     ![IAM policy](images/live-update/04-create-policy.png)
 
-5. Create a user for programmatic access
+5. 创建管理账户
 
     Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Users* in the menu to the left and you will see all your existing users together with the option to add a new user. Though it is possible to use an existing user, we recommend that you add a new user for Live update resources so that you can easily restrict access.
 
@@ -341,9 +341,9 @@ This section will explain how to create a new user with limited access on Amazon
 
     ![Live update settings](images/live-update/05-liveupdate-settings.png)
 
-## Development caveats
+## 开发注意事项
 
-Debugging
+调试
 : When running a bundled version of your game, you don't have direct access to a console. This causes problems for debugging. However, you can run the application from the command line or by double clicking the executable in the bundle directly:
 
   ![Running a bundle application](images/live-update/run-bundle.png)
