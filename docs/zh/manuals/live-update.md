@@ -3,7 +3,7 @@ title: Defold 的热更新
 brief: 热更新允许游戏运行时获取和存储编译时并不存在的资源. 本教程介绍了热更新的用法.
 ---
 
-# 目前热更新机制正在升级, 本教程可能随时变化
+#### 目前热更新机制正在升级, 本教程可能随时变化
 
 # 热更新
 
@@ -308,28 +308,28 @@ end
 
 5. 创建管理账户
 
-    Open up the *Services* menu and select *IAM* which is located under the _Security, Identity & Compliance_ category ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Select *Users* in the menu to the left and you will see all your existing users together with the option to add a new user. Though it is possible to use an existing user, we recommend that you add a new user for Live update resources so that you can easily restrict access.
+    打开 *Services* 菜单, 在 _Security, Identity & Compliance_ 类目 ([Amazon IAM Console](https://console.aws.amazon.com/iam)) 下打开 *IAM*. 选择左边的 *Users*, 页面会列出已存在的所有用户与创建新用户的选项. 使用已存在的用户是可以的, 但是建议为热更新资源创建一个新用户,以便设置访问限制.
 
-    Click the button *Add User*, provide a username and choose *Programmatic access* as *Access type*, then press *Next: Permissions*. Select *Attach existing policies directly* and choose the policy you created in step 4.
+    点击 *Add User* 按钮, 输入用户名选择 *Programmatic access* 作为 *Access type*, 然后点击 *Next: Permissions*. 选择 *Attach existing policies directly* 然后选择第4步中所作的配置.
 
-    When you've completed the process you will be provided with an *Access key ID* and a *Secret access key*.
+    完成之后你会得到 *Access key ID* 和 *Secret access key*.
 
-    ::: important
-    It is *very important* that you store those keys since you will not be able to retrieve them from Amazon after you leave the page.
+    ::: 注意
+    保存好密匙 *非常重要* 因为离开 Amazon 页面后就无法再次获得密匙了.
     :::
 
-6. Create a credentials profile file
+6. 创建档案文件
 
-    At this point you should have created a bucket, configured a bucket policy, added a CORS configuration, created a user policy and created a new user. The only thing that remains is to create a [credentials profile file](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks) so that the Defold editor can access the bucket on your behalf.
+    此时你已经开启了服务器, 做好了客户端访问配置, 添加了服务端方位配置, 新建了用户权限和一个新用户. 剩下的最后一件事是创建 [档案文件](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks) 以便让 Defold 也能访问服务器.
 
-    Create a new directory *.aws* in your home folder, and create a file called *credentials* within the new directory.
+    在本地新建一个 *.aws* 文件夹, 在里面新建一个 *credentials* 文件.
 
     ```bash
     $ mkdir ~/.aws
     $ touch ~/.aws/credentials
     ```
 
-    The file *~/.aws/credentials* will contain your credentials to access Amazon Web Services through programmatic access and is a standardised way to manage AWS credentials. Open the file in a text editor and enter your *Access key ID* and *Secret access key* in the format shown below.
+    文件 *~/.aws/credentials* 要包含访问 Amazon 服务所需的凭证即标准 AWS 证书. 打开文件按照如下格式输入你的 *Access key ID* 和 *Secret access key*.
 
     ```ini
     [defold-liveupdate-example]
@@ -337,26 +337,27 @@ end
     aws_secret_access_key = <Secret access key>
     ```
 
-    The identifier specified within the brackets, in this example _defold-liveupdate-example_, is the same identifier that you should provide when configuring your project's Live update settings in the Defold editor.
+    服务器名, 本例中是 _defold-liveupdate-example_, 在 Defold 编辑器热更新配置里也要提供.
 
     ![Live update settings](images/live-update/05-liveupdate-settings.png)
 
 ## 开发注意事项
 
 调试
-: When running a bundled version of your game, you don't have direct access to a console. This causes problems for debugging. However, you can run the application from the command line or by double clicking the executable in the bundle directly:
+: 运行打包游戏, 不要直接接入控制台. 这在调试时会产生错误. 但是当你使用命令行或者双击启动的方式启动游戏:
 
   ![Running a bundle application](images/live-update/run-bundle.png)
 
-  Now the game starts with a shell window that will output any `print()` statements:
+  这样游戏里的 `print()` 语句输出都会被打印到控制台上:
 
   ![Console output](images/live-update/run-bundle-console.png)
 
-Forcing re-download of resources
-: When an application stores resources, they end up on disk on the local computer or handheld device. If you restart the application, the resources are there and ready. When developing you might want to remove resources and force the application to download them again.
+强制重新下载资源
+: 游戏保存资源时, 文件被保存在设备本地硬盘上. 重启游戏, 资源文件并不消失. 开发阶段可能会希望删掉这些文件然后强制重新下载.
 
-  Defold creates a folder with the name of the hash of the created bundle on the device in the application support folder. If you delete the files in this folder, the application will invalidate the resources from the manifest and you can download and store them again.
+  Defold 在设备上的应用文件夹下创建了一个以游戏包哈希值为名字的文件夹. 如果删除这个文件夹下的文件, 游戏会自动把清单资源作废然后就可以重新下载重新保存了.
 
   ![Local storage](images/live-update/local-storage.png)
 
-  The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
+  这个应用文件夹的位置基于操作系统有所不同. 可以运行 `print(sys.get_save_file("", ""))` 脚本查看其路径.
+  
