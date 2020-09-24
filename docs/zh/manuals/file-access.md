@@ -28,9 +28,9 @@ Defold 提供如下函数用以存取文件/文件夹:
 ### 游戏应用打包进去的文件处理
 游戏打包有两种方法:
 
-1. 在 *game.project* 配置文件中的 [*Custom Resources* 项](https://defold.com/manuals/project-settings/#project) 设置自定义资源. 然后就可以使用 [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource) 函数进行加载. 其实这不是在加载磁盘上的文件. 打包进游戏的资源文件作为游戏的一部分保存为二进制数据, 只能使用 `sys.load_resource()` 载入.
+1. 在 *game.project* 配置文件中的 [*Custom Resources* 项](https://defold.com/manuals/project-settings/#Project) 设置自定义资源. 然后就可以使用 [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource) 函数进行加载. 其实这不是在加载磁盘上的文件. 打包进游戏的资源文件作为游戏的一部分保存为二进制数据, 只能使用 `sys.load_resource()` 载入.
 
-2. 在 *game.project* 配置文件中的 [*Bundle Resources* 项](https://defold.com/manuals/project-settings/#project) 设置额外打包文件. 然后就可以使用 [`sys.get_application_path()`](https://defold.com/ref/stable/sys/#sys.get_application_path:) 取得游戏所在位置. 进而取得文件的绝对路径. 然后用 `sys.*`, `io.*` 和 `os.*` 函数处理文件/文件夹 (见上文).
+2. 在 *game.project* 配置文件中的 [*Bundle Resources* 项](https://defold.com/manuals/project-settings/#Project) 设置额外打包文件. 然后就可以使用 [`sys.get_application_path()`](https://defold.com/ref/stable/sys/#sys.get_application_path:) 取得游戏所在位置. 进而取得文件的绝对路径. 然后用 `sys.*`, `io.*` 和 `os.*` 函数处理文件/文件夹 (见上文).
 
 ### 操作系统文件处理
 基于安全考虑操作系统所管理的文件存取被严格限制. 可以使用 [`extension-directiories`](https://defold.com/assets/extensiondirectories/) 原生扩展来存取某些地方的绝对路径 (例如 documents, resource, temp). 然后用 `sys.*`, `io.*` 和 `os.*` 函数处理文件/文件夹 (见上文).

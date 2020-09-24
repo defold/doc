@@ -107,4 +107,6 @@ local parent = go.get_id("bean")
 msg.post("child_bean", "set_parent", { parent_id = parent })
 ```
 
+::: 注意
 一个常见的误解是对象层级改变了那么它的定位地址也会改变. 但是, 这其实是两码事. 父子关系改变的是场景的层级. 集合嵌套关系才决定对象地址. 在对象整个生命周期中, 地址是不会变化的.
+:::

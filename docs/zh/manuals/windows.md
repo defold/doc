@@ -9,7 +9,7 @@ brief: 本教程介绍了在 Windows 平台下如何编译和运行 Defold 应�
 
 ## 项目设置
 
-Windows 相关设置位于*game.project* 文件的 [Windows部分](/manuals/project-settings/#windows)  .
+Windows 相关设置位于*game.project* 文件的 [Windows部分](/manuals/project-settings/#Windows)  .
 
 ## 应用图标
 

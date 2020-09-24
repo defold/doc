@@ -76,7 +76,7 @@ Device identifier (UDID)
 
 档案过期后, 可以在 Xcode 里如法炮制再次生成临时档案文件.
 
-## 打包 iOS 应用
+## iOS应用打包
 
 如果你有加密证书和这个供应商档案文件, 就可以在编辑器里打包应用了. 从菜单中选择 <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd>.
 
@@ -92,7 +92,7 @@ Device identifier (UDID)
 
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
-可以在 *game.project* 项目配置文件的 [iOS 部分](/manuals/project-settings/#ios) 设置应用的图标, 启动屏幕 storyboard 等等.
+可以在 *game.project* 项目配置文件的 [iOS 部分](/manuals/project-settings/#iOS) 设置应用的图标, 启动屏幕 storyboard 等等.
 
 ### 创建 storyboard
 

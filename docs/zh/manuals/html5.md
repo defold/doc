@@ -42,7 +42,7 @@ Python 3:
 如果在控制台见到 "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." 错误, 请确保你的服务器设置了 `application/wasm` MIME 类型对应 .wasm 文件.
 :::
 
-## 打包 HTML5 游戏
+## HTML5游戏打包
 
 Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd>:
 
@@ -60,7 +60,7 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
 * Chrome
   * Slow debug builds - 为了在 HTML5 平台更好地调试我们开启了校验所有 WebGL 图像调用来检测错误. 但是这样做在 Chrome 上会运行缓慢. 可以把 *game.project* 里的 *Engine Arguments* 部分设置为 `–-verify-graphics-calls=false` 来关闭图像调用校验.
 
-## 自定义 HTML5 打包
+## 自定义HTML5打包
 
 针对 HTML5 版本的游戏, Defold 提供了一个默认模板网页. 其中包含的样式和脚本代码决定了游戏的显示方式.
 
@@ -68,7 +68,7 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
 
 ![HTML5 Section](images/html5/html5_section.png)
 
-关于每个选项详情请见 [形目设置教程](/manuals/project-settings/#html5).
+关于每个选项详情请见 [形目设置教程](/manuals/project-settings/#HTML5).
 
 ::: 注意
 `builtins` 文件夹下的默认 html/css 模板文件是不能直接修改的. 要先从 `builtins` 里把文件拷贝出来然后再在 `game.project` 文件里指明要使用的文件的位置.

@@ -9,289 +9,289 @@ Defold 提供了 GUI 编辑器以及与之配套的脚本用以实现用户界�
 
 Defold 的图形用户界面是被放在集合里的, 依附于游戏对象的 GUI 组件. 这种组件有如下特点:
 
-* It has simple, but powerful, layout features that allow resolution and aspect ratio independent rendering of your user interface.
-* It can have logic behavior attached to it through a *GUI script*.
-* It is (by default) rendered on top of other content, independent of camera view so even if you have a moving camera, your GUI elements will stay put on the screen. The rendering behavior can be changed.
+* 简单且功能强大的布局功能, 可以适配各种分辨率和纵横比的屏幕
+* 通过 *GUI 脚本* 进行逻辑控制.
+* 界面 (默认) 被渲染于其他内容之上, 于视口摄像机无关, GUI 始终保持最上端显示. 这种特性可以根据需要手动修改.
 
-GUI components are rendered independently of the game view. Because of this it is not placed in a particular location in the collection editor, nor does it have a visual representation in the collection editor. However, GUI components have to reside in a game object that has a location in a collection. Changing that location has no effect on the GUI.
+界面独立于游戏内容. 所以集合编辑器里并不显示界面元素. 但是界面必须依附于一个游戏对象而这个游戏对象要被放在集合里. 具体放在集合什么位置上并不影响界面的位置.
 
-## Creating a GUI component
+## 创建界面文件
 
-GUI components are created from a GUI scene blueprint file. To to create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
+GUI 的创建基于一个模板文件. 要新建GUI文件, 在 *Assets* 浏览器中 <kbd>右键点击</kbd> 然后选择 <kbd>New ▸ Gui</kbd>. 为文件命名然后点击 <kbd>Ok</kbd>.
 
 ![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
 
-Defold now automatically opens the file in the GUI scene editor.
+Defold 会自动启动场景编辑器打开这个文件.
 
 ![New gui](images/gui/new_gui.png){srcset="images/gui/new_gui@2x.png 2x"}
 
-The *Outline* lists all the GUI:s content: it's list of nodes and any dependencies (see below).
+*大纲* 视图里列出了所有 GUI:s 内容: 节点及其资源列表(见下文).
 
-The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layouts) selector.
+中间编辑区显示 GUI. 右上角的工具栏有 *移动*, *旋转* 和 *缩放* 工具, 以及一个 [布局](/manuals/gui-layouts) 选择器.
 
 ![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
 
-A white rectangle shows the bounds of the currently selected layout, of the default display width and height as set in the project settings.
+当前布局用白色方框表示, 其宽度高度是在项目配置文件里设置的.
 
-Selecting the root "Gui" node in the *Outline* shows the *Properties* for the GUI component:
+在 *大纲* 视图中选中根节点 "Gui" 就会显示出当前GUI的 *属性*:
 
 Script
-: The GUI script bound to this GUI component.
+: 当前界面的GUI脚本.
 
 Material
-: The material used when rendering this GUI.
+: 当前界面的渲染用材质.
 
 Adjust Reference
-: Controls how each node's *Adjust Mode* should be calculated:
+: 控制节点的 *Adjust Mode* 算法:
 
-  - `Per Node` adjusts each node against the adjusted size of the parent node, or the resized screen.
-  - `Disable` turns off node adjust mode. This forces all nodes to keep their set size.
+  - `Per Node` 当父节点或屏幕大小改变时, 调整各个节点大小.
+  - `Disable` 关闭调整. 各个节点保持不变.
 
 Max Nodes
-: The maximum number of nodes for this GUI.
+: 界面最大节点数.
 
-## Dependencies
+## 资源
 
-The resource tree in a Defold game is static so any dependences that you need for your GUI nodes need to be added to the component. The *Outline* groups all dependencies by type under "folders":
+界面的结构与集合不同, 是分门别类的. *Outline* 视图中可以看到所有资源都被按照其类型分配到 "子文件夹" 下:
 
 ![dependencies](images/gui/dependencies.png){srcset="images/gui/dependencies@2x.png 2x"}
 
-To add a new dependency, <kbd>right click</kbd> the "Gui" root in the *Outline*, then select <kbd>Add ▸ [type]</kbd> from the popup context menu.
+要添加资源, <kbd>右键点击k</kbd> *Outline* 里的 "Gui" 根节点, 然后从上下文菜单中选择 <kbd>Add ▸ [资源类型]</kbd>.
 
-You can also <kbd>right click</kbd> on the folder icon for the type you want to add and select <kbd>Add ▸ [type]</kbd>.
+也可以在相应类型文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ [资源类型]</kbd>.
 
-## Node types
+## 节点类型
 
-A GUI component is built from a set of nodes. Nodes are simple elements. They can be translated (moved, scaled and rotated) and ordered in parent-child hierarchies either in the editor or at runtime through scripting. The following node types exist:
+界面有节点组成. 节点是一种类似游戏对象的元素. 可以进行位移 (移动, 旋转和缩放) 并且以父子树形结构排列. 有以下几种节点类型:
 
 Box node
 : ![box node](images/icons/gui-box-node.png){.left}
-  Rectangular node with either a single color, texture or flip-book animation. See the [Box node documentation](/manuals/gui-box) for details.
+  显示为纯色, 纹理或者逐帧动画的矩形. 详情请见 [方块节点教程](/manuals/gui-box).
 
 <div style="clear: both;"></div>
 
 Text node
 : ![text node](images/icons/gui-text-node.png){.left}
-  Displays text. See the [Text node documentation](/manuals/gui-text) for details.
+  显示文字. 详情请见 [文本节点教程](/manuals/gui-text).
 
 <div style="clear: both;"></div>
 
 Pie node
 : ![pie node](images/icons/gui-pie-node.png){.left}
-  A circular or ellipsoid node that can be partially filled or inverted. A See the [Pie node documentation](/manuals/gui-pie) for details.
+  圆形或椭圆饼图. 详情请见 [饼图节点教程](/manuals/gui-pie).
 
 <div style="clear: both;"></div>
 
 Template node
 : ![template node](images/icons/gui.png){.left}
-  Templates are used to create instances based on other GUI scene files. See the [Template node documentation](/manuals/gui-template) for details.
+  模板用来基于其他界面文件创建节点实例. 详情请见 [模板节点教程](/manuals/gui-template).
 
 <div style="clear: both;"></div>
 
 Spine node
 : ![spine node](images/icons/spine-model.png){.left}
-  Displays and animates a spine model. See the [Spine node documentation](/manuals/gui-spine) for details.
+  显示spine模型和动画. 详情请见 [Spine 节点教程](/manuals/gui-spine).
 
 <div style="clear: both;"></div>
 
 ParticleFX node
 : ![particlefx node](images/icons/particlefx.png){.left}
-  Plays a particle effect. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
+  显示粒子特效. 详情请见 [粒子特效节点教程](/manuals/gui-particlefx).
 
 <div style="clear: both;"></div>
 
-Add nodes by right-clicking on the *Nodes* folder and selecting <kbd>Add ▸</kbd> and then <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd>, <kbd>Spine</kbd> or <kbd>ParticleFx</kbd>.
+右键点击 *Nodes* 文件夹选择 <kbd>Add ▸</kbd> 然后点击 <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd>, <kbd>Spine</kbd> 或 <kbd>ParticleFx</kbd> 即可创建节点.
 
 ![Add nodes](images/gui/add_node.png){srcset="images/gui/add_node@2x.png 2x"}
 
-You can also press <kbd>A</kbd> and select the type you want to add to the GUI.
+还可以用快捷键 <kbd>A</kbd> 来创建节点.
 
-## Node properties
+## 节点属性
 
-Each node has an extensive set of properties that control its appearance:
+节点有自身属性:
 
 Id
-: The identity of the node. This name has to be unique within the GUI scene.
+: 节点id. 每个id是这个界面中的唯一值.
 
 Position, Rotation and Scale
-: Governs the location, orientation and stretching of the node. You can use the *Move*, *Rotate* and *Scale* tools to change these values. The values can be animated from script.
+: 节点位移. 可以使用 *移动*, *旋转* 和 *缩放* 工具自由修改. 也可以用脚本动画形式控制这些值.
 
-Size (box, text and pie nodes)
-: The size of the node is automatic by default but by setting the *Size Mode* to `Manual` you can alter the value. The size defines the bounds of the node and is used when doing input picking. This value can be animated from script.
+Size (box, text 和 pie 节点)
+: 默认尺寸设置为自动, 如果需要手动设定尺寸可以设置 *Size Mode* 为 `Manual`. 节点尺寸决定了节点接收输入操作的范围. 此值也可使用脚本动画进行控制.
 
-Size Mode (box and pie nodes)
-: If set to `Automatic` the editor will set a size for the node. If set to `Manual` you can set the size yourself.
+Size Mode (box 和 pie 节点)
+: 如果设为 `Automatic` 则自动计算并设置节点尺寸. 如果设为 `Manual` 则需手动设置节点尺寸.
 
-Text (text nodes)
-: The text to display on the node.
+Text (text 节点)
+: 节点上显示的文字.
 
-Line Break (text nodes)
-: Set for text to wrap according to the width of the node.
+Line Break (text 节点)
+: 文字基于节点宽度换行.
 
-Font (text nodes)
-: The font to use when rendering the text.
+Font (text 节点)
+: 文字字体.
 
-Texture (box and pie nodes)
-: The texture to draw on the node. This is a reference to an image or animation in an atlas or tile source.
+Texture (box 和 pie 节点)
+: 节点上显示的纹理. 可以使用图集和瓷砖图源的图片或动画.
 
-Slice 9 (box nodes)
-: Set to preserve the pixel size of the node's texture around the edges when the node is resized. See the [Box node documentation](/manuals/gui-box) for details.
+Slice 9 (box 节点)
+: 缩放九宫格. 详情请见 [box 节点教程](/manuals/gui-box).
 
-Inner Radius (pie nodes)
-: The inner radius of the node, expressed along the X axis. See the [Pie node documentation](/manuals/gui-pie) for details.
+Inner Radius (pie 节点)
+: 节点内半径, 延 X 轴. 详情请见 [pie 节点教程](/manuals/gui-pie).
 
-Outer Bounds (pie nodes)
-: Controls the behavior of the outer bounds. See the [Pie node documentation](/manuals/gui-pie) for details.
+Outer Bounds (pie 节点)
+: 节点外轮廓. 详情请见 [pie 节点教程](/manuals/gui-pie).
 
-Perimeter Vertices (pie nodes)
-: The number of segments that will be used to build the shape. See the [Pie node documentation](/manuals/gui-pie) for details.
+Perimeter Vertices (pie 节点)
+: 图形的分段数, 就是360度一圈需要的顶点数. 详情请见 [Pie 节点教程](/manuals/gui-pie)
 
-Pie Fill Angle (pie nodes)
-: How much of the pie should be filled. See the [Pie node documentation](/manuals/gui-pie) for details.
+Pie Fill Angle (pie 节点)
+: 饼状图的填充. 详情请见 [Pie 节点教程](/manuals/gui-pie)
 
-Template (template nodes)
-: The GUI scene file to use as template for the node. See the [Template node documentation](/manuals/gui-template) for details.
+Template (template 节点)
+: 节点模板界面文件. 详情请见 [Template 节点教程](/manuals/gui-template)
 
-Spine Scene (spine nodes)
-: The Spine Scene to use for this node. See the [Spine node documentation](/manuals/gui-spine) for details.
+Spine Scene (spine 节点)
+: 节点上显示的spine scene. 详情请见 [Spine 节点教程](/manuals/gui-spine)
 
-Default Animation (spine nodes)
-: The animation to automatically play on this node. See the [Spine node documentation](/manuals/gui-spine) for details.
+Default Animation (spine 节点)
+: 节点上自动播放的spine动画. 详情请见 [Spine 节点教程](/manuals/gui-spine)
 
-Skin (spine nodes)
-: The skin to use for the node. See the [Spine node documentation](/manuals/gui-spine) for details.
+Skin (spine 节点)
+: 节点上使用的spine皮肤. 详情请见 [Spine 节点教程](/manuals/gui-spine)
 
-ParticleFX (particlefx nodes)
-: The particle effect to use on this node. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
+ParticleFX (particlefx 节点)
+: 节点上显示的粒子特效. 详情请见 [ParticleFX 节点教程](/manuals/gui-particlefx)
 
 Color
-: The color of the node. It the node is textured, the color tints the texture. The color can be animated from script.
+: 节点颜色. 如果用纹理填充, 则对纹理进行染色. 颜色可由脚本动画控制.
 
 Alpha
-: The translucency of the node. The alpha value can be animated from script.
+: 节点不透明度. 不透明度可由脚本动画控制.
 
 Inherit Alpha
-: Setting this checkbox makes a node inherit the alpha value of the parent node. The node's alpha value is then multiplied with the parent's alpha value.
+: 继承父节点不透明度. 最终结果是父节点与此节点不透明度的叠加.
 
-Leading (text nodes)
-: A scaling number for the line spacing. A value of `0` gives no line spacing. `1` (the default) is normal line spacing.
+Leading (text 节点)
+: 每行开头空白. `0` 无空白. 默认值为 `1`.
 
-Tracking (text nodes)
-: A scaling number for the letter spacing. Defaults to 0.
+Tracking (text 节点)
+: 字符间距缩放值. 默认值为 0.
 
 Layer
-: Assigning a layer to the node overrides the normal draw order and instead follows the layer order. See below for details.
+: 把此节点分配给层. 详情请见下文.
 
 Blend mode
-: Controls how the graphics of the node is blended with background graphics:
-  - `Alpha` alpha blends the pixel values of the node with the background. This corresponds to "Normal" blend mode in graphics software.
-  - `Add` adds the pixel values of the node with the background. This corresponds to "Linear dodge" in some graphics software.
-  - `Multiply` multiplies the pixel values of the node with the background.
+: 混合模式控制其与下层颜色混合后的结果:
+  - `Alpha` 覆盖下层颜色. 有的软件将其称作 "普通" 混合模式.
+  - `Add` 叠加下层颜色. 有的软件将其称作 "增强" 混合模式.
+  - `Multiply` 与下层颜色相乘.
 
 Pivot
-: Sets the pivot point for the node. This can be seen as the "center point" of the node. Any rotation, scaling or size change will happen around this point.
+: 节点的轴点. 可以看作是节点 "中心点". 各种旋转缩放等操作都基于这个轴点.
 
-  Possible values are `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` or `South East`.
+  可选值有 `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` 和 `South East`.
 
   ![pivot point](images/gui/pivot.png){srcset="images/gui/pivot@2x.png 2x"}
 
-  If you change the pivot of a node, the node will be moved so that the new pivot will be at the node's position. Text nodes are aligned so that `Center` sets the text center-aligned, `West` sets the text left-aligned and `East` sets the text right-aligned.
+  如果修改了节点的轴点, 节点会适当移动以保证坐标位置不变. 对于文本节点来说 `Center` 意味着文字居中对齐, `West` 意味着文字左对齐, `East` 意味着文字右对齐.
 
 X Anchor, Y Anchor
-: Anchoring controls how the node's vertical and horizontal position is altered when the scene boundaries, or the parent node's boundaries are stretched to fit the physical screen size.
+: 锚点控制着当窗体或者父节点拉伸时当前节点位置如何处理.
 
   ![Anchor unadjusted](images/gui/anchoring_unadjusted.png){srcset="images/gui/anchoring_unadjusted@2x.png 2x"}
 
-  The following anchoring modes are available:
+  可选值有:
 
-  - `None` (for both *X Anchor* and *Y Anchor*) keeps the node's position from the center of the parent node or scene, relative it's *adjusted* size.
-  - `Left` or `Right` (*X Anchor*) scales the horizontal position of the node so it keeps the position from the left and right edges of the parent node or scene at the same percentage.
-  - `Top` or `Bottom` (*Y Anchor*) scales the vertical position of the node so it keeps the position from the top and bottom edges of the parent node or scene at the same percentage.
+  - `None` (*X轴* 和 *Y轴*) 相对于窗体或者父节点的中心, 保持自身位置.
+  - `Left` 或 `Right` (*X轴*) 缩放水平方向位置以便保持其相对于窗体或者父节点宽度方向上的百分比位置不变.
+  - `Top` 或 `Bottom` (*Y轴*) 缩放垂直方向位置以便保持其相对于窗体或者父节点高度方向上的百分比位置不变.
 
   ![Anchoring](images/gui/anchoring.png){srcset="images/gui/anchoring@2x.png 2x"}
 
 Adjust Mode
-: Sets the adjust mode for the node. The adjust mode setting controls what happens to a node when the scene boundaries, or the parent node's boundaries, are adjusted to fit the physical screen size.
+: 节点调整模式. 调整模式控制着当窗体或者父节点拉伸时当前节点尺寸如何处理.
 
-  A node created in a scene where the logical resolution is a typical landscape resolution:
+  这里有一个节点放置在逻辑分辨率为横屏的场景中:
 
   ![Unadjusted](images/gui/unadjusted.png){srcset="images/gui/unadjusted@2x.png 2x"}
 
-  Fitting the scene to a portrait screen cause the scene to be stretched. Each node's bounding box is similarly stretched. However, by setting the adjust mode, the aspect ratio of the node's content can be kept intact. The following modes are available:
+  当场景需要填充竖屏时. 每个节点都会被拉伸. 但是如果使用了适当的调整模式, 节点内容的长宽比可以保持不变. 可选值有:
 
-  - `Fit` scales the node content so that it is equal to the stretched bounding box width or height, whichever is smallest. In other words, the content will fit inside the stretched node bounding box.
-  - `Zoom` scales the node content so that it is equal to the stretched bounding box width or height, whichever is largest. In other words, the content will fully cover the stretched node bounding box.
-  - `Stretch` stretches the node content so it fills the stretched node bounding box.
+  - `Fit` 缩放节点内容,使其等于拉伸的边界框宽度或高度, 以数值最小者为准. 换句话说, 内容将拉伸到父级的边界.
+  - `Zoom` 缩放节点内容,使其等于拉伸的边界框宽度或高度, 以数值最大者为准. 换句话说, 内容将超越过父级的边界.
+  - `Stretch` 拉伸节点内容, 使其填充父级的边界框.
 
   ![Adjust modes](images/gui/adjusted.png){srcset="images/gui/adjusted@2x.png 2x"}
 
-  If the GUI scene property *Adjust Reference* is set to `Disabled`, this setting will be ignored.
+  如果场景的 *Adjust Reference* 设置为 `Disabled` 的话, 此设置被忽略.
 
-Clipping Mode (box, pie and spine nodes)
-: Sets the clipping mode on the node:
+Clipping Mode (box, pie 和 spine 节点)
+: 剔除模式:
 
-  - `None` renders the node as usual.
-  - `Stencil` makes the node boundaries define a stencil mask that is used to clip the node's child nodes.
+  - `None` 正常渲染.
+  - `Stencil` 以当前节点边框作为子节点蒙版.
 
-  See the [GUI clipping manual](/manuals/gui-clipping) for details.
+  详情请见 [GUI 蒙版教程](/manuals/gui-clipping)
 
-Clipping Visible (box, pie and spine nodes)
-: Set to render the node's content in the stencil area. See the [GUI clipping manual](/manuals/gui-clipping) for details.
+Clipping Visible (box, pie 和 spine 节点)
+: 蒙版可见. 详情请见 [GUI clipping manual](/manuals/gui-clipping)
 
-Clipping Inverted (box, pie and spine nodes)
-: Invert the stencil mask. See the [GUI clipping manual](/manuals/gui-clipping) for details.
+Clipping Inverted (box, pie 和 spine 节点)
+: 反转蒙版. 详情请见 [GUI clipping manual](/manuals/gui-clipping)
 
 
-## Pivot, Anchors and Adjust Mode
+## 原点, 锚点和调整模式
 
-The combination of Pivot, Anchors and Adjust Mode properties allows for a very flexible design of GUIs but it can be somewhat hard to understand how it all works without looking at a concrete example. Let's take this GUI mockup created for a 640x1136 screen as an example:
+轴点, 锚点和调整模式互相配合可以给设计者很大的发挥空间. 但是但凭想象很难搞清楚它们对应的具体功能. 这里列举了一个具体的例子, 屏幕分辨率 640x1136 的界面:
 
 ![](images/gui/adjustmode_example_original.png)
 
-The UI is created with X and Y Anchors set to None and the Adjust Mode for each node is left at the default value of Fit. The Pivot point for the top panel is North, the pivot for the bottom panel is South and the pivot point for the bars in the top panel are set to West. The rest of the nodes have pivot points set to Center. If we resize the window to make it wider this is what happens:
+ 界面的 X 和 Y 锚点为 None 调整模式为 left. 上面板轴点为 North, 下面板轴点为 South 上面版里的进度条轴点为 West. 其他节点轴点都为 Center. 如果把窗体拉宽, 看看会发生什么:
 
 ![](images/gui/adjustmode_example_resized.png)
 
-Now, what if we want the top and bottom bars to always be as wide as the screen? We can change the Adjust Mode for the grey background panels at the top and bottom to Stretch:
+如果我们希望上下面板保持屏幕宽度要怎么做? 可以把两个面板的调整模式设置为 Stretch:
 
 ![](images/gui/adjustmode_example_resized_stretch.png)
 
-This is better. The grey background panels will now always stretch to the width of the window, but the bars in the top panel as well as the two boxes at the bottom aren't positioned properly. If we want to keep the bars at the top positioned to the left we need to change the X Anchor from None to Left:
+出不多了. 上下两个面板会拉伸并一直保持屏幕宽度大小, 但是进度条和下面版的内容位置不太对. 要是想让进度条于上面版左对齐, 修改 X 锚点为 Left:
 
 ![](images/gui/adjustmode_example_top_anchor_left.png)
 
-That is exactly as we want it for the top panel. The bars in the top panel already had their Pivot points set to West which means that they will position themselves nicely with the left/west edge of the bars (Pivot) anchored to the left edge of the parent panel (X Anchor).
+上面版完美了. 进度条本身轴点是 West 也就是说让它们的左端 (轴点) 与父级面板左边缘 (X 锚点) 对齐.
 
-Now, if we set the X Anchor to Left for the box on the left and the X Anchor to Right for the box on the right we get the following result:
+然后再把下面版左边方块的 X 锚点设置为 Left, 右边方块的 X 锚点设置为 Right, 就会变成这样:
 
 ![](images/gui/adjustmode_example_bottom_anchor_left_right.png)
 
-This is not quite the expected result. The two boxes should stay as close to the left and right edges as the two bars did in the top panel. The reason for this is that the Pivot point is wrong:
+结果还是不太对. 我们想让两个方块分别呆在下面版的左右两端. 但是轴点搞错了:
 
 ![](images/gui/adjustmode_example_bottom_pivot_center.png)
 
-Both boxes have a Pivot point set to Center. What this means is that when the screen becomes wider the center point (the pivot point) of the boxes will stay at the same relative distance from the edges. In the case of the left box it was 17% from the left edge with the original 640x1136 window:
+两个方块的轴点都是 Center. 也就是说当窗体变宽时方块的位置 (轴点) 处于相对于边缘的固定位置上. 本例中左边方块在 640x1136 分辨率窗口中大约位于离左边界 17% 的地方:
 
 ![](images/gui/adjustmode_example_original_ratio.png)
 
-When the screen is resized the center point of the left box remains at the same distance of 17% from the left edge:
+屏幕缩放时它保持这个 17% 的位置:
 
 ![](images/gui/adjustmode_example_resized_stretch_ratio.png)
 
-If we change the Pivot point from Center to West for the box on the left and to East for the box on the right and reposition the boxes we get the result we're after even when the screen is resized:
+如果把左边方块轴点设为 West, 右边方块设为 East 结果就是我们想要的样子了:
 
 ![](images/gui/adjustmode_example_bottom_pivot_west_east.png)
 
 
-## Draw order
+## 绘制顺序
 
-All nodes are rendered in the order they are listed under the "Nodes" folder. The node at the top of the list is drawn first and will thus appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Altering the Z-value on a node does not control its draw order; however, if you set the Z-value outside of your render script's render range the node will no longer be rendered to screen. You can override the index ordering of nodes with layers (see below).
+节点基于 "Nodes" 文件夹的排序进行绘制. 最高处节点最先绘制, 也就是会被放置于其他节点的后面. 最下面的节点最后绘制, 即它会位于其他节点前面. 至于节点 Z 值并不影响绘制顺序; 但是记得如果Z值超过了渲染脚本的渲染范围就不被渲染了. 可以使用层来覆盖这个默认的绘制顺序 (见下文).
 
 ![Draw order](images/gui/draw_order.png){srcset="images/gui/draw_order@2x.png 2x"}
 
-Select a node and press <kbd>Alt + Up/Down</kbd> to move a node up or down and change its index order.
+选中节点按 <kbd>Alt + Up/Down</kbd> 移动其在列表中的排序.
 
-The draw order can be changed in script:
+排序也可使用脚本控制:
 
 ```lua
 local bean_node = gui.get_node("bean")
@@ -302,50 +302,50 @@ if gui.get_index(shield_node) < gui.get_index(bean_node) then
 end
 ```
 
-## Parent-child hierarchies
+## 父子结构
 
-A node is made the child of another node by dragging it onto the node that you wish to be the child's parent. A node with a parent inherits the transform (position, rotation and scale) applied to the parent and relative to the parent pivot.
+把节点拖放到另一节点上就组成了一个父子结构. 子节点基于父节点轴点继承父节点的位移 (位置, 旋转和缩放).
 
 ![Parent child](images/gui/parent_child.png){srcset="images/gui/parent_child@2x.png 2x"}
 
-Parents are drawn before their children. Use layers to change the draw order of parent and child nodes and to optimize the rendering of nodes (see below).
+父节点先于子节点进行绘制. 使用层可以改变这个顺序还可以优化性能 (见下文).
 
 
-## Layers and draw calls
+## 层与 drawcall
 
-Layers give fine grained control over how nodes are drawn and can be used to reduce the number of draw calls the engine must create to draw a GUI scene. When the engine is about to draw the nodes of a GUI scene, it groups the nodes into draw call batches based on the following conditions:
+Layers 可以方便控制节点绘制顺序以及减少drawcall. 引擎绘制界面前, 会根据以下规则合批渲染:
 
-- The nodes must use the same type.
-- The nodes must use the same atlas or tile source.
-- The nodes must be rendered with the same blend mode.
-- They must use same font.
+- 节点类型相同.
+- 节点纹理源自同一张图集或瓷砖图源.
+- 节点的渲染模式相同.
+- 节点使用的字体相同.
 
-If a node differs from the previous one on any of these points, it will break the batch and create another draw call. Clipping nodes always break the batch and each stencil scope also breaks the batch.
+如果有一条不符合, 就会破坏合批产生另一个drawcall. 蒙版和被蒙节点必然会破坏合批产生drawcall.
 
-The ability to arrange nodes in hierarchies makes it easy to group nodes into manageable units. But hierarchies can effectively break batch rendering if you mix different node types:
+树形结构对于节点管理非常方便. 但是不同类型节点的混合一定会打破合批渲染:
 
 ![Breaking batch hierarchy](images/gui/break_batch.png){srcset="images/gui/break_batch@2x.png 2x"}
 
-When the rendering pipeline walks through the list of nodes, it is forced to set up a separate batch for each separate node because the types are different. All in all these three buttons will require six draw calls.
+渲染管线被迫为不同类型的节点建立不同的渲染批次. 这三个按钮就会产生6次drawcall.
 
-By assigning layers to the nodes, they can be ordered differently, allowing the render pipeline to group the nodes together in fewer draw calls. Start by adding the layers you need to the scene. <kbd>Right click</kbd> the "Layers" folder icon in the *Outline* and select <kbd>Add ▸ Layer</kbd>. Mark the new layer and assign it a *Name* property in the *Properties* view.
+要是使用层, 就可以重塑节点的绘制顺序, 渲染管线就能更好地进行合批减少drawcall. 第一步新建层. 在 *Outline* 的 "Layers" 文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ Layer</kbd>. 在 *Properties* 视图中填充 *Name* 属性给层命名.
 
 ![Layers](images/gui/layers.png){srcset="images/gui/layers@2x.png 2x"}
 
-Then set the *Layer* property on each node to the corresponding layer. The layer drawing order takes precedence over the regular indexed node order, so setting the button graphics box-nodes to "graphics" and the button text nodes to "text" will result in the following draw order:
+现在给每个节点的 *Layer* 属性都分配适当的层. 层的绘制顺序优先级高于默认情况, 所以把按钮底图都分配给 "graphics" 层, 文本节点都分配给 "text" 层, 那么界面绘制的顺序就是这样的:
 
-* First all nodes in the "graphics" layer, from the top:
+* 先绘制 "graphics" 层里的节点:
 
   1. "button-1"
   2. "button-2"
   3. "button-3"
 
-* Then all nodes in the "text" layer, from the top:
+* 再绘制 "text" 层里的节点:
 
   4. "button-text-1"
   5. "button-text-2"
   6. "button-text-3"
 
-The nodes can now be batched into two draw calls, instead of six. A major performance win!
+这样一来合批就成形了, 不再需要那么多drawcall了!
 
-Note that a child node with unset layer will implicitly inherit the layer setting of its parent node. Not setting a layer on a node implicitly adds it to the "null" layer, which is drawn before any other layer.
+注意如果子节点没有设置分配层默认继承分配父节点所在的层. 没有设置分配层的节点会被归为 "null" 层, 这个层最先被绘制.

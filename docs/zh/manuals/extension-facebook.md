@@ -72,7 +72,7 @@ Android 平台需要填写 *Google Play Package Name*, 也就是 *game.project* 
 $ cat certificate.pem | openssl x509 -outform der | openssl sha1 -binary | openssl base64
 ```
 
-(关于签名文件详细信息参见 [创建证书和密匙](/manuals/android/#creating-certificates-and-keys).)
+(关于签名文件详细信息参见 [制作 keystore](/manuals/android/#制作 keystore).)
 
 ![Android settings](images/facebook/settings_android.png)
 

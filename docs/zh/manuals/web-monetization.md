@@ -36,8 +36,6 @@ brief: 网页游戏盈利是用网页游戏获利的一种手段, 开发者获�
 
 [![GateHub logo](images/web-monetization/gatehub_logo.svg)](https://gatehub.net)
 
-[![Stronghold logo](images/web-monetization/stronghold_logo.svg)](https://stronghold.co/real-time-payments#coil)
-
 
 ### 支付点
 
@@ -65,14 +63,14 @@ $ilp.uphold.com/QkG86UgXzKq8
 
 ![Web Monetization template](images/web-monetization/web-monetization-template.png)
 
-下一步注册 [网页支付钱包](/manuals/web-monetization/#web-monetization-wallets) 然后在 **game.project** 文件的 Web Monetization 部分将支付点与钱包挂接:
+下一步注册 [网页钱包账户](/manuals/web-monetization/#网页钱包账户) 然后在 **game.project** 文件的 Web Monetization 部分将支付点与钱包挂接:
 
 ![Adding payment pointer to game.project](images/web-monetization/payment-pointer.png)
 
 
 ### 已有项目
 
-首先注册 [网页支付钱包](/manuals/web-monetization/#web-monetization-wallets) 然后手动在网页中加入支付点:
+首先注册 [网页钱包账户](/manuals/web-monetization/#网页钱包账户) 然后手动在网页中加入支付点:
 
 ```html
 <meta name="monetization" content="YOUR_PAYMENT_POINTER">

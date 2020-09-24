@@ -25,7 +25,7 @@ Instant Games 可以让玩家在 Facebook 平台上随时玩到游戏的新方�
    <script src="https://connect.facebook.net/en_US/fbinstant.6.3.js"></script>
    ```
 
-   关于打包设置详情请见 [HTML5 教程](/manuals/html5/#自定义html5打包).
+   关于打包设置详情请见 [HTML5 教程](/manuals/html5/#自定义HTML5打包).
 
 4. 都准备好之后, 打包 HTML5 游戏并上传至 Facebook.
 
@@ -68,7 +68,7 @@ end)
 Facebook Instant Games [最佳实践](https://developers.facebook.com/docs/games/instant-games/best-practices) 建议游戏首次载入时间不得超过5秒. 这对 Defold 来说有点勉强, 好在还有一些方法能减小游戏体积:
 
 去掉未使用引擎特性
-: HTML5 版的标准 Defold 引擎用gzip压缩后小于 1.2MB, 但是可以通过去掉不必要的引擎特效来达到减少包体的效果. 在 "app.manifest" 文件中可以指定去掉引擎哪方面特性, 此文件在 "game.project" 文件的 [Native Extension 部分](/manuals/project-settings/#原生扩展) 引用.
+: HTML5 版的标准 Defold 引擎用gzip压缩后小于 1.2MB, 但是可以通过去掉不必要的引擎特效来达到减少包体的效果. 在 "app.manifest" 文件中可以指定去掉引擎哪方面特性, 此文件在 "game.project" 文件的 [Native Extension 部分](/manuals/project-settings/#Native extension) 引用.
 
   此功能尚处于测试阶段且没有说明文档. 这里: https://forum.defold.com/t/stripping-appmanifest-maker/16059 有一个可以自动生成 app.manifests 文件的工具.
 
@@ -82,4 +82,4 @@ Facebook Instant Games [最佳实践](https://developers.facebook.com/docs/games
 
 ## 已知问题
 
-关于 HTML5 和 Instant Games 的已知问题详见 [HTML5 教程已知问题部分](/manuals/html5/#known-issues-and-limitations).
+关于 HTML5 和 Instant Games 的已知问题详见 [HTML5 教程已知问题部分](/manuals/html5/#已知问题和局限性).

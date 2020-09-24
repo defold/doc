@@ -10,7 +10,7 @@ brief: 本教程介绍了如何在 Linux 上编译运行 Defold 游戏
 
 ## 项目配置
 
-Linux 相关设置位于 *game.project* 文件的 [Linux 部分](/manuals/project-settings/#linux).
+Linux 相关设置位于 *game.project* 文件的 Linux 部分.
 
 ## 问答
 :[Linux 问答](../shared/linux-faq.md)
