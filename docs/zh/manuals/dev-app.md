@@ -13,7 +13,7 @@ brief: 本教程介绍了如何在设备上安装开发用app以方便开发流�
 
 ### 在 iOS 上安装
 
-打包成 Debug 变体的 iOS 应用可以用作开发用app. 推荐就使用你当前的项目打包成 Debug 变体就好. 这样可以保证你的应用使用了正确的项目设置和 [原生扩展](/manuals/extensions/). 关于如何打包ios应用详情请见 [iOS 教程](/manuals/ios/#creating-an-ios-application-bundle). 记得使用 Debug 变体!
+打包成 Debug 变体的 iOS 应用可以用作开发用app. 推荐就使用你当前的项目打包成 Debug 变体就好. 这样可以保证你的应用使用了正确的项目设置和 [原生扩展](/manuals/extensions/). 关于如何打包ios应用详情请见 [iOS 教程](/manuals/ios/#iOS应用打包). 记得使用 Debug 变体!
 
 ### 在 Android 上安装
 

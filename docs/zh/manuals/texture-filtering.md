@@ -13,7 +13,7 @@ Nearest
 Linear
 : 屏幕像素颜色取决于图素及其旁边图素的颜色的平均值. 这样缓慢的移动能显得十分平滑, 因为渲染之前Sprite的颜色已经与周围进行了融合--所以移动小于一个像素距离也是可以的.
 
-过滤设置保存在 [项目设置](/manuals/project-settings/#graphics) 文件里. 一共有两项:
+过滤设置保存在 [项目设置](/manuals/project-settings/#Graphics) 文件里. 一共有两项:
 
 default_texture_min_filter
 : 当图素小于屏幕像素大小, 要缩小时使用的过滤效果.

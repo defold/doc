@@ -5,125 +5,125 @@ brief: 本教程介绍了输入系统如何工作, 如何捕获输入行为和�
 
 # 输入
 
-输入由引擎捕获并转化为输入行为传送到获取了输入焦点并且实现了 `on_input()` 函数的游戏对象脚本组件中去. This manual explains how you set up bindings to capture input and how you create code that responds to it.
+输入由引擎捕获并转化为输入行为传送到获取了输入焦点并且实现了 `on_input()` 函数的游戏对象脚本组件中去. 本教程介绍了捕获输入绑定行为的方法以及如何用代码对输入做出响应.
 
-The input system uses a set of simple and powerful concepts, allowing you to manage input as you see fit for your game.
+输入系统包含一些概念, 用以让开发者直观地处理游戏逻辑.
 
 ![Input bindings](images/input/overview.png){srcset="images/input/overview@2x.png 2x"}
 
 Devices
-: Input devices that are either part of, or plugged into, your computer or mobile device provide raw system level input to the Defold runtime. The following device types are supported:
+: 不管是插上的, 连上的, 有线无线的, 操作系统级别的底层能够进行输入的设备. Defold 支持以下设备:
 
-  1. Keyboard (single key as well as text input)
-  2. Mouse (position, button clicks and mouse wheel actions)
-  3. Single and multi-touch (on iOS, Android devices and HTML5 on mobile)
-  4. Gamepads (as supported through the operating system and mapped in the [gamepads](#gamepads-settings-file) file)
+  1. 键盘 (包括按键输入和文本输入)
+  2. 鼠标 (位置, 按键, 滚轮输入)
+  3. 单点/多点触摸屏 (iOS, Android 设备和 HTML5 手机端)
+  4. 游戏手柄 (操作系统负责将其输入发送给游戏然后映射给脚本. 详见 [游戏手柄配置文件](#gamepads-settings-file))
 
 Input bindings
-: Before input is sent to a script the raw input from the device is translated into meaningful *actions* via the input bindings table.
+: 发送给脚本之前设备原始输入信号要通过映射表转化为有意义的 *动作* 指令.
 
 Actions
-: Actions are identified by the (hashed) names that you list in the input bindings file. Each action also contain relevant data about the input: if a button is pressed or released, the coordinates of the mouse and touch etc.
+: 动作是列在输入绑定文件里的 (哈希过的) 名字. 每种动作还包括其相关数据: 比如按钮是被按下还是抬起, 鼠标或触摸屏幕坐标等等.
 
 Input listeners
-: Any script component or GUI script can receive input actions by *acquiring input focus*. Several listeners can be active at the same time.
+: 脚本可以得到 *获取了输入焦点的* 组件的输入消息. 一个输入信息可以同时激活多个输入监听器.
 
 Input stack
-: The list of input listeners with the first acquirer of focus at the bottom of the stack and the last acquirer at the top.
+: 首个获取输入焦点的组件位于最下端, 最后一个获取输入焦点的组件位于最上端的输入监听器堆栈.
 
 Consuming input
-: A script may choose to consume the input it received, preventing listeners further down the stack to receive it.
+: 脚本消耗了输入信息, 不再让输入栈的深层监听器得到这个信息.
 
-## Setting up input bindings
+## 输入绑定设置
 
-The input bindings is a project wide table that allows you to specify how device input should translate into named *actions* before they are dispatched to your script components and GUI scripts. You can create a new input binding file, <kbd>right click</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the engine use the new file, change the *Game Binding* entry in "game.project".
+输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, 在 *Assets* 视图中 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Input Binding</kbd>. 然后修改 "game.project" 里 *Game Binding* 项对输入绑定文件的引用.
 
 ![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
 
-A default input binding file is automatically created with all new project templates so there is usually no need to create a new binding file. The default file is called "game.input_binding" and can be found in the "input" folder in the project root. <kbd>Double click</kbd> the file to open it in the editor:
+每个新建项目都会自动生成默认输入绑定文件. 默认叫做 "game.input_binding", 位于项目根目录下 "input" 文件夹内. <kbd>双击</kbd> 即可在编辑器中打开此文件:
 
 ![Input set bindings](images/input/input_binding.png){srcset="images/input/input_binding@2x.png 2x"}
 
-To create a new binding, click the <kbd>+</kbd> button at the bottom of the relevant trigger type section. Each entry has two fields:
+点击相关触发类型底部的 <kbd>+</kbd> 按钮, 即可新建一个绑定项. 每一项有两个部分:
 
 *Input*
-: The raw input to listen for, selected from a scroll list of available inputs.
+: 需要监听的底层输入信号, 从滚动列表里选择.
 
 *Action*
-: The action name given to input actions when they are created and dispatched to your scripts. The same action name can be assigned to multiple inputs. For instance, you can bind the <kbd>Space</kbd> key and the gamepad "A" button to the action `jump`. Note that there is a known bug where touch inputs unfortunately cannot have the same action names as other inputs.
+: 输入对应的用于发送给脚本的动作名. 一个动作可以对应多个输入. 例如, 可以设置按下 <kbd>空格</kbd> 键和游戏手柄 "A" 按钮都是 `jump` 动作. 可是触屏输入的动作名必须是唯一值.
 
-## Trigger types
+## 触发器类型
 
-There are five device specific types of triggers that you can create
+触发器有五种类型:
 
 Key Triggers
-: Single key keyboard input. Each key is mapped separately into a corresponding action. Key triggers are used to tie specific buttons to specific functions, like character movement with the arrow or WASD keys. If you need to read arbitrary keyboard input, use text triggers (see below).
+: 键盘单键输入. 每个键分别映射为动作. 一个键一个功能, 比如箭头键或者 WASD 键对应上左下右. 如果需要获得输入字符, 要使用 text triggers (见下文).
 
 Mouse Triggers
-: Input from mouse buttons and scroll wheels. Mouse movement is handled separately. Mouse movement events are not received unless at least one mouse trigger is set up in your input bindings.
+: 鼠标按键或者滚轮输入. 鼠标移动输入事件不在这里设定. 但是如果没设定鼠标触发器, 也不会捕获鼠标移动事件.
 
-  - Mouse button inputs `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` and `MOUSE_BUTTON_MIDDLE` are equivalent to `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` and `MOUSE_BUTTON_3`.
+  - 鼠标按键输入 `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` 和 `MOUSE_BUTTON_MIDDLE` 等同于 `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` 和 `MOUSE_BUTTON_3`.
 
-  - **`MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well**.
+  - **单点触摸也会触发 `MOUSE_BUTTON_LEFT` (或 `MOUSE_BUTTON_1`) 事件**.
 
-  - Mouse wheel inputs detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold does not currently support fine grained scroll input on touch pads.)
+  - 鼠标滚轮转动输入. 如果 `action.value` 为 `1` 代表转动, 为 `0` 代表不转动. (滚轮转动被当作按钮按下处理. Defold 目前不支持触摸板上的滚轮输入.)
 
-  - Mouse movement are not bound in the input bindings but `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position.
+  - 鼠标移动不在此做设定, 但是鼠标移动时会自动发出事件, 其中 `action_id` 为 `nil` 并且 `action` 表保存了鼠标位置与移动距离.
 
 Gamepad Triggers
-: Gamepad triggers allow you to bind standard gamepad input to game functions. Defold supports multiple gamepads through the host operating system, actions set the `gamepad` field of the action table to the gamepad number the input originated from:
+: 游戏手柄触发器绑定标准手柄输入到游戏功能的映射. Defold 通过操作系统支持多种游戏手柄, 事件里 `gamepad` 项对应手柄输入来源:
 
   ```lua
   if action_id == hash("gamepad_start") then
     if action.gamepad == 0 then
-      -- gamepad 0 wants to join the game
+      -- gamepad 0 申请加入游戏
     end
   end
   ```
 
-  Gamepad input and offers bindings for:
+  游戏手柄可以绑定:
 
-  - Left and right sticks (direction and clicks)
-  - Left and right digital pads. Right pad usually translates to the "A", "B", "X" and "Y" buttons on the Xbox controller and "square", "circle", "triangle" and "cross" buttons on the Playstation controller.
-  - Left and right triggers
-  - Left and right shoulder buttons
-  - Start, Back and Guide buttons
+  - 左右摇杆 (方向和按下)
+  - 手柄按钮. 通常右手柄 Xbox 为 "A", "B", "X" 和 "Y", Playstation 为 "方块", "圆圈", "三角" 和 "十叉".
+  - 方向按钮.
+  - 左右肩按钮.
+  - 开始, 后退, 暂停按钮
 
-  On Windows, only XBox 360 controllers are currently supported. To hook up your 360 controller to your Windows machine, make sure it is setup correctly. See http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
+  在 Windows 上, 只支持 XBox 360 兼容手柄. 安装方法请见 http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
 
-  Gamepad input setup uses a separate mapping file for each hardware gamepad type. See below for more information.
+  每种手柄分别对应一份映射文件. 详情请见下文.
   
-  Gamepad input bindings also provides two separate bindings named `Connected` and `Disconnected` to detect when a gamepad is connected (even those connected from the start) or disconnected.
+  游戏手柄还有 `Connected` 和 `Disconnected` 两种事件用以通知手柄连接和断开.
 
 Touch Triggers
-: Single-touch type triggers are available on iOS and Android devices. Single-touch type triggers are not set up from the Touch Triggers section of the input bindings. Instead **single-touch triggers are automatically set up when you have mouse button input set up for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`**.
+: iOS 和 Android 设备支持单点触摸. 单点触摸不用在触摸映射部分进行设置. 而在 **鼠标映射设置 `MOUSE_BUTTON_LEFT` 或 `MOUSE_BUTTON_1`** 之后自动触发.
 
-: Multi-touch type triggers are available on iOS and Android devices in native applications and HTML5 bundles. They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
+: iOS 和 Android 设备支持 APP 和 HTML5 应用的多点触摸. 触发时 `touch` 表即是记录触摸点的数组. 其中数组键 `1`--`N` 的 `N` 是触摸点的排号. 对应的值为触摸点数据:
 
   ```lua
-  -- Spawn at each touch point
+  -- 捕获到接触事件时触发
   for i, touchdata in ipairs(action.touch) do
     local pos = vmath.vector3(touchdata.x, touchdata.y, 0)
     factory.create("#factory", pos)
   end
   ```
 
-::: important
-Multi-touch must not be assigned the same action as the mouse button input for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`. Assigning the same action will effectively override single-touch and prevent you from receiving any single-touch events.
+::: 注意
+多点触摸动作名不能与 `MOUSE_BUTTON_LEFT` 或 `MOUSE_BUTTON_1` 的动作名重名. 否则的话将导致事件覆盖, 就监听不到单点触摸事件了.
 :::
 
-::: sidenote
-The [Defold-Input asset](https://defold.com/assets/defoldinput/) can be used to easily set up virtual on-screen controls such as buttons and analog sticks with support for multi touch.
+::: 注意
+公共资源 [Defold 输入手柄](https://defold.com/assets/defoldinput/) 可以用来在多点触摸屏上模拟手柄输入.
 :::
 
 Text Triggers
-: Text triggers are used to read arbitrary text input. There are two types of text triggers:
+: 文本触发器用来读取输入的文字. 分为以下两种:
 
-  - `text` captures normal text input. It sets the `text` field of the action table to a string containing the typed character. The action is only fired at the press of the button, no `release` or `repeated` action is sent.
+  - `text` 捕获一般字符输入. 事件 `text` 项保存了输入的字符. 动作由按下按钮时触发, 不存在 `release` 和 `repeated` 事件.
 
     ```lua
     if action_id == hash("text") then
-      -- Concatenate the typed character to the "user" node...
+      -- 收集输入字符填充 "user" 节点...
       local node = gui.get_node("user")
       local name = gui.get_text(node)
       name = name .. action.text
@@ -131,63 +131,63 @@ Text Triggers
     end
     ```
 
-  - `marked-text` is used primarily for asian keyboards where multiple keypresses can map to single inputs. For example, with the iOS "Japanese-Kana" keyboard, the user can type combinations and the top of the keyboard will display avaliable symbols or sequences of symbols that can be entered.
+  - `marked-text` 一般用于亚洲键盘可把多个按键事件合为一个输入事件. 比如说, iOS 里的 "Japanese-Kana" 键盘, 用户输入多个键时键盘上方就会显示出可供输入的文字或字符串.
 
   ![Input marked text](images/input/marked_text.png){srcset="images/input/marked_text@2x.png 2x"}
 
-  - Each keypress generates a separate action and sets the action field `text` to the currently entered sequence of symbols (the "marked text").
-  - When the user selects a symbol or symbol combination, a separate `text` type trigger action is sent (provided that one is set up in the input binding list). The separate action sets the action field `text` to the final sequence of symbols.
+  - 每个键被按下时触发事件, 动作 `text` 为目前已经输入了的字符串 (星号标记文本).
+  - 用户选择了要提交的文字时, 一个 `text` 类型动作被触发 (证明当前触发器配置正确). 而这个动作的 `text` 项保存了用户最终提交的文字.
 
-## Input focus
+## 输入焦点
 
-To listen to input actions in a script component or GUI script, the message `acquire_input_focus` should be sent to the game object holding the component:
+脚本要想获得输入消息, 就要把 `acquire_input_focus` 消息发给其所在的游戏对象:
 
 ```lua
--- tell the current game object (".") to acquire input focus
+-- 告诉当前游戏对象 (".") 要接收输入消息了
 msg.post(".", "acquire_input_focus")
 ```
 
-This message instructs the engine to add input capable components (script components, GUI components and collection proxies) in the game objects to the *input stack*. The game object components are put on top of the input stack; the component that is added last will be top of the stack. Note that if the game object contains more than one input capable component, all components will be added to the stack:
+此消息让引擎把可接收输入的游戏对象组件 (脚本, GUI 和集合代理) 压入 *输入栈*. 这些组件位于栈顶; 最后入栈的组件位于栈顶. 注意如果一个游戏对象包含多个输入组件, 所有组件都会入栈:
 
 ![Input stack](images/input/input_stack.png){srcset="images/input/input_stack@2x.png 2x"}
 
-Each game world that is dynamically loaded through a collection proxy has its own input stack. For action dispatch to reach the loaded world's input stack, the proxy component must be on the main world's input stack.
+由集合代理加载的每个游戏世界都有自己的输入栈. 被加载的游戏世界获得输入, 前提是主游戏世界输入栈里包含了这个游戏世界的集合代理.
 
-If a game object that has already aquired input focus does so again, its component(s) will be moved to the top of the stack.
+已获得输入焦点的游戏对象再次请求焦点的话, 它上面的所有组件都会被推到输入栈顶.
 
-To stop listening to input actions, send a `release_input_focus` message to the game object. This message will remove any of the game object's components from the input stack:
+要取消动作监听, 发送 `release_input_focus` 消息给游戏对象即可. 这样该游戏对象的所有组件都会从输入栈中移除:
 
 ```lua
--- tell the current game object (".") to release input focus.
+-- 告诉当前游戏对象 (".") 释放输入焦点.
 msg.post(".", "release_input_focus")
 ```
 
-## Input dispatch and on_input()
+## 输入调度和 on_input() 函数
 
-Input actions are dispatched according to the input stack, from the top to the bottom.
+输入事件在输入栈上, 从上到下传递.
 
 ![Action dispatch](images/input/actions.png){srcset="images/input/actions@2x.png 2x"}
 
-Any component that is on the stack containing an `on_input()` function will have that function called, once for each input action during the frame, with the following arguments:
+每个入栈组件都有 `on_input()` 函数, 一帧中每个输入都调用一次该函数, 连同如下参数:
 
 `self`
-: The current script instance.
+: 当前脚本实例引用.
 
 `action_id`
-: The hashed name of the action, as set up in the input bindings.
+: 动作名哈希串, 与输入映射配置的名称一致.
 
 `action`
-: A table containing the useful data about the action, like the value of the input, its location (absolute and delta positions), whether button input was `pressed` etc. See [on_input()](/ref/go#on_input) for details on the available action fields.
+: 有关动作的表, 包含比如输入值, 位置和移动距离, 按键是不是 `按下` 状态等等. 详情请见 [on_input() 函数](/ref/go#on_input).
 
 ```lua
 function on_input(self, action_id, action)
   if action_id == hash("left") and action.pressed then
-    -- move left
+    -- 左移
     local pos = go.get_position()
     pos.x = pos.x - 100
     go.set_position(pos)
   elseif action_id == hash("right") and action.pressed then
-    -- move right
+    -- 右移
     local pos = go.get_position()
     pos.x = pos.x + 100
     go.set_position(pos)
@@ -195,34 +195,34 @@ function on_input(self, action_id, action)
 end
 ```
 
-Collection proxy components must be on the main world's stack for input to be dispatched to the components on the loaded world's input stack. All components on a loaded world's stack are handled before dispatch continues down the main stack:
+集合代理必须位于主世界输入栈中才能把输入传递到其代理的游戏世界中去. 代理入栈的组件优先与主世界组件获得输入事件触发动作:
 
 ![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
 
-It is a common error to forget to send `acquire_input_focus` to the game object holding the collection proxy component. Skipping this step prevents input from reaching any of the components on the loaded world's input stack.
+使用集合代理组件时经常会忘记让其游戏对象 `acquire_input_focus`. 没有这一步其加载的游戏世界将得不到任何输入信息.
 
 ## Consuming input
 
-A component's `on_input()` can actively control whether actions should be passed on further down the stack or not:
+每个 `on_input()` 函数都能决定当前动作是否要阻止其继续传播下去:
 
-- If `on_input()` returns `false`, or a return is omitted (this implies a `nil` return which is a false value in Lua) input actions will be passed on to the next component on the input stack.
-- If `on_input()` returns `true` input is consumed. No component further down the input stack will receive the input. Note that this applies to *all* input stacks. A component on a proxy-loaded world's stack can consume input preventing components on the main stack to receive input:
+- 如果 `on_input()` 返回 `false`, 或者未返回值 (此时默认返回 `nil` 也被看作是false) 输入动作会继续传播.
+- 如果 `on_input()` 返回 `true` 输入就此销毁. 再无组件可以接收到这个消息. 作用于 *全部* 输入栈. 也就是说集合代理加载的组件销毁输入那么主栈的组件就收不到这个输入消息了:
 
 ![consuming input](images/input/consuming.png){srcset="images/input/consuming@2x.png 2x"}
 
-There are many good use cases where input consumption provides a simple and powerful way to shift input between different parts of a game. For example, if you need a pop-up menu that temporarily is the only part of the game that listens to input:
+输入消耗可以使游戏变得灵活, 控制性更强. 例如, 如果需要弹出菜单暂时只有部分界面可以接受点击:
 
 ![consuming input](images/input/game.png){srcset="images/input/game@2x.png 2x"}
 
-The pause menu is initially hidden (disabled) and when the player touches the "PAUSE" HUD item, it is enabled:
+菜单开始是隐藏的 (disabled) 玩家点击 "PAUSE" 组件, 菜单被激活:
 
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("mouse_press") and action.pressed then
-        -- Did the player press PAUSE?
+        -- 玩家点击了 PAUSE?
         local pausenode = gui.get_node("pause")
         if gui.pick_node(pausenode, action.x, action.y) then
-            -- Tell the pause menu to take over.
+            -- 弹出暂停菜单.
             msg.post("pause_menu", "show")
         end
     end
@@ -231,16 +231,16 @@ end
 
 ![pause menu](images/input/game_paused.png){srcset="images/input/game_paused@2x.png 2x"}
 
-The pause menu GUI acquires input focus and consumes input, preventing any input other than what's relevant for the pop-up menu:
+此时弹出的暂停菜单获得输入焦点并且消耗输入, 以防止点击穿透:
 
 ```lua
 function on_message(self, message_id, message, sender)
   if message_id == hash("show") then
-    -- Show the pause menu.
+    -- 显示暂停菜单.
     local node = gui.get_node("pause_menu")
     gui.set_enabled(node, true)
 
-    -- Acquire input.
+    -- 获得输入焦点.
     msg.post(".", "acquire_input_focus")
   end
 end
@@ -248,66 +248,66 @@ end
 function on_input(self, action_id, action)
   if action_id == hash("mouse_press") and action.pressed then
 
-    -- do things...
+    -- 这里做其他游戏逻辑...
 
     local resumenode = gui.get_node("resume")
     if gui.pick_node(resumenode, action.x, action.y) then
-        -- Hide the pause menu
+        -- 隐藏暂停菜单
         local node = gui.get_node("pause_menu")
         gui.set_enabled(node, false)
 
-        -- Release input.
+        -- 释放输入焦点.
         msg.post(".", "release_input_focus")
     end
   end
 
-  -- Consume all input. Anything below us on the input stack
-  -- will never see input until we release input focus.
+  -- 消耗掉输入. 输入栈里其他组件
+  -- 不会得到输入, 直到脚本释放输入焦点.
   return true
 end
 ```
 
 
-## Detecting click or tap on objects
+## 拾取检测
 
-Detecting when the user has clicked or tapped on a visual component is a very common operation that is needed in many games. It could be user interaction with a button or other UI element or the interaction with a game object such as a player controlled unit in a strategy game, some treasure on a level in a dungeon crawler or a quest giver in an RPG. The approach to use varies depending on the type of visual component.
+游戏里经常可见拾取操作. 可能是玩家点击界面按钮或者战略游戏里玩家选取一个作战单位, RPG 游戏点取宝箱等等. 不同组件有不同解决方法.
 
-### Detecting interaction with GUI nodes
+### 界面点击检测
 
-For UI elements there is the `gui.pick_node(node, x, y)` function that will return true or false depending on if the specified coordinate is within the bounds of a gui node or not. Refer to the [API docs](/ref/gui/#gui.pick_node:node-x-y), the [pointer over example](https://www.defold.com/examples/pointer_over/) or the [button example](https://www.defold.com/examples/button/) to learn more.
+界面有一个 `gui.pick_node(node, x, y)` 函数来判断点击输入是否处在某个节点范围之内. 详见 [API 文档](/ref/gui/#gui.pick_node:node-x-y), [指针悬停示例](https://www.defold.com/examples/pointer_over/) 或者 [按钮示例](https://www.defold.com/examples/button/).
 
-### Detecting interaction with game objects
-For game objects it is more complicated to detect interaction since things such as camera translation and render script projection will impact the required calculations. There are two general approaches to detecting interaction with game objects:
+### 游戏对象点击检测
+游戏对象检测有点复杂, 因为摄像机移动和渲染脚本映射都会影响位置计算. 方法主要分为两种:
 
-  1. Track the position and size of game objects the user can interact with and check if the mouse or touch coordinate is within the bounds of any of the objects.
-  2. Attach collision objects to game objects the user can interact with and one collision object that follows the mouse or finger and check for collisions between them.
+  1. 追踪游戏对象的位置和大小然后检测点选位置是否包含在内.
+  2. 给游戏对象加入碰撞组件再在点选位置生成一个碰撞对象检查二者碰撞情况.
 
-::: sidenote
-A ready to use solution for using collision objects to detect user input can be found in the [Defold-Input library asset](https://github.com/britzl/defold-input).
+::: 注意
+公共资源 [Defold 输入库](https://github.com/britzl/defold-input) 是一个开箱即用的输入检测库.
 :::
 
-In both cases there is a need to convert from the screen space coordinates of the mouse or touch event and the world space coordinates of the game objects. This can be done in a couple of different ways:
+无论哪种方案都必须将鼠标手点选的屏幕坐标转换成游戏对象的世界坐标. 实现思路如下:
 
-  * Manually keep track of which view and projection that is used by the render script and use this to convert to and from world space. See the [camera manual for an example of this](/manuals/camera/#converting-mouse-to-world-coordinates).
-  * Use a [third-party camera solution](/manuals/camera/#third-party-camera-solutions) and make use of the provided screen-to-world conversion functions.
+  * 手动跟踪渲染脚本使用的视口和投射用以进行坐标转换. 详见 [摄像机教程的这个示例](/manuals/camera/#鼠标位置转换为世界坐标).
+  * 使用 [第三方摄像机解决方案](/manuals/camera/#第三方摄像机解决方案) 里面的屏幕到世界坐标转换函数.
 
 
-## Gamepads settings file
+## 游戏手柄配置文件
 
-Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built in gamepads file with settings for common gamepads:
+游戏手柄配置保存在 *gamepads* 文件里. Defold 自带一个通用手柄配置文件:
 
 ![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
 
-If you need to create a new gamepad settings file, we have a simple tool to help:
+如需自定义手柄配置, 这里有个工具可供使用:
 
-[Click to download gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
+[gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
-It includes binaries for Windows, Linux and macOS. Run it from the command line:
+其中包含可运行于 Windows, Linux 和 macOS 上的可执行文件. 从命令行打开:
 
 ```sh
 ./gdc
 ```
 
-The tool will ask you to press different buttons on your connected controller. It will then output a new gamepads file with correct mappings for your controller. Save the new file, or merge it with your existing gamepads file, then update the setting in "game.project":
+工具提示你按下手柄某个按键. 然后输出配置文件. 保存这个文件, 并在 "game.project" 里引用它:
 
 ![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
