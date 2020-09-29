@@ -48,6 +48,13 @@ With the mesh component in place you are free to edit and manipulate the compone
 
 You can manipulate meshes at runtime using Defold buffers.
 
+## Material constants
+
+{% include shared/material-constants.md component='mesh' variable='tint' %}
+
+`tint`
+: The color tint of the mesh (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
+
 ## Vertex local vs world space
 If the Vertex Space setting of the mesh material is set to Local Space the data will be provided as-is to you in your shader, and you will have to transform vertices/normals as usual on the GPU.
 
