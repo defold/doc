@@ -615,6 +615,10 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
+                        "path": "/extension-adinfo",
+                        "name": "Advertising Info"
+                    },
+                    {
                         "path": "/extension-facebook",
                         "name": "Facebook"
                     },
