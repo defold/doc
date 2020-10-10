@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Materials
 메터리얼은 그래픽 컴포넌트들(스프라이트, 타일맵, 폰트, GUI노트 등)을 어떻게 렌더링되어 표현하는지 Defold의 방식입니다. 이 매뉴얼은 메터리얼(materials), 쉐이더 상수(shader constants), 샘플러(samplers) 들이 어떻게 동작하는지 설명합니다.
 
@@ -13,8 +17,8 @@ Defold는 모바일 장치에서 렌더링 하기 위해 OpenGL ES 2.0을 사용
 ## Creating a material
 자, 단순한 평면(지향성 빛(directional light)이 없는)이지만 질감이 있는 메터리얼(textured material)을 만들어 봅시다.
 
-1. **Project Explorer** 창에서 대상 폴더를 선택합니다.
-2. **File > New…​ > Material File** 메뉴를 선택합니다. (**Project Explorer** 창에서 오른쪽 클릭 후 **New…​ > Material File**을 선택해도 됩니다.)
+1. **Assets pane** 창에서 대상 폴더를 선택합니다.
+2. **File > New…​ > Material File** 메뉴를 선택합니다. (**Assets pane** 창에서 오른쪽 클릭 후 **New…​ > Material File**을 선택해도 됩니다.)
 3. 새 메터리얼 파일의 이름을 지정합니다.
 4. 새 메터리얼을 **Material Editor**에서 엽니다.
 
@@ -186,7 +190,7 @@ wrap 모드는 U 및 V 축을 독립적으로 설정할 수 있습니다.
 선형 보간을 사용하여 두 맵을 각각 계산하고 이 두 값 사이를 선형적으로 보간합니다.
 
 ## Vertex shader attributes
-특성(attribute)은 개별 버텍스와 관련된 값입니다. 각기 다른 컴포넌트 타입은 각기 다른 특성 모음을 가지고 있습니다. 이 특성에 엑세스 하기 위해서는 쉐이더 프로그램에서 선언하기만 하면 됩니다. 
+특성(attribute)은 개별 버텍스와 관련된 값입니다. 각기 다른 컴포넌트 타입은 각기 다른 특성 모음을 가지고 있습니다. 이 특성에 엑세스 하기 위해서는 쉐이더 프로그램에서 선언하기만 하면 됩니다.
 
 ```
 // 이 버텍스를 위한 포지션과 텍스쳐 좌표

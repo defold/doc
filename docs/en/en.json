@@ -3,17 +3,12 @@
         "tutorials":
         [
             {
-                "name": "Overview",
+                "name": "Tutorials",
                 "items": [
                     {
                         "path": "/tutorials/getting-started",
                         "name": "Getting started"
-                    }
-                ]
-            },
-            {
-                "name": "Tutorials",
-                "items": [
+                    },
                     {
                         "path": "/tutorials/side-scroller",
                         "name": "Side scroller"
@@ -49,6 +44,54 @@
                     {
                         "path": "/tutorials/grading",
                         "name": "Color grading"
+                    },
+                    {
+                        "path": "/tutorials/platformer",
+                        "name": "Platformer (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/runner",
+                        "name": "Runner (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/magic-link",
+                        "name": "Magic link (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/car",
+                        "name": "Building a car (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/main-menu",
+                        "name": "Main menu (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/parallax",
+                        "name": "Parallax (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/hud",
+                        "name": "Hud (OLD)"
+                    },
+                    {
+                        "path": "/tutorials/level-complete",
+                        "name": "Level complete (OLD)"
+                    },
+                    {
+                        "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
+                        "name": "Games from Scratch video tutorials"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
+                        "name": "Sergey Lerg's video tutorials"
+                    },
+                    {
+                        "path": "https://www.tactxstudios.com/",
+                        "name": "Tactx Studios tutorials"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
+                        "name": "Tactx Studios video tutorials"
                     }
                 ]
             },
@@ -74,49 +117,8 @@
                 ]
             },
             {
-                "name": "Old tutorials",
-                "items": [
-                    {
-                        "path": "/tutorials/platformer",
-                        "name": "Platformer"
-                    },
-                    {
-                        "path": "/tutorials/runner",
-                        "name": "Runner"
-                    },
-                    {
-                        "path": "/tutorials/magic-link",
-                        "name": "Magic link"
-                    },
-                    {
-                        "path": "/tutorials/car",
-                        "name": "Building a car"
-                    },
-                    {
-                        "path": "/tutorials/main-menu",
-                        "name": "Main menu"
-                    },
-                    {
-                        "path": "/tutorials/parallax",
-                        "name": "Parallax"
-                    },
-                    {
-                        "path": "/tutorials/hud",
-                        "name": "Hud"
-                    },
-                    {
-                        "path": "/tutorials/level-complete",
-                        "name": "Level complete"
-                    }
-                ]
-            },
-            {
                 "name": "Community resources",
                 "items": [
-                    {
-                        "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
-                        "name": "GFS video tutorials"
-                    },
                     {
                         "path": "https://github.com/benjames-171/defold-games",
                         "name": "Ben James' games"
@@ -158,16 +160,16 @@
                         "name": "The editor"
                     },
                     {
-                        "path": "/manuals/community",
-                        "name": "Community pages"
-                    },
-                    {
                         "path": "/manuals/glossary",
                         "name": "Glossary"
                     },
                     {
                         "path": "/manuals/flash",
                         "name": "Defold for Flash users"
+                    },
+                    {
+                        "path": "/manuals/getting-help",
+                        "name": "Getting help"
                     }
                 ]
             },
@@ -214,23 +216,47 @@
                 "items": [
                     {
                         "path": "/manuals/importing-assets",
-                        "name": "Importing and editing assets"
+                        "name": "Importing assets"
+                    },
+                    {
+                        "path": "/manuals/importing-graphics",
+                        "name": "Importing 2D graphics"
+                    },
+                    {
+                        "path": "/manuals/importing-models",
+                        "name": "Importing 3D models"
+                    },
+                    {
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
+                    },
+                    {
+                        "path": "/manuals/live-update",
+                        "name": "Live update"
                     },
                     {
                         "path": "/manuals/animation",
                         "name": "Animation"
                     },
                     {
-                        "path": "/manuals/graphics",
-                        "name": "Graphics"
+                        "path": "/manuals/atlas",
+                        "name": "Atlas"
+                    },
+                    {
+                        "path": "/manuals/font",
+                        "name": "Font"
                     },
                     {
                         "path": "/manuals/resource",
                         "name": "Resource management"
                     },
                     {
-                        "path": "/manuals/adapting-graphics-to-screen-size",
-                        "name": "Adapting to different screen sizes"
+                        "path": "/manuals/tilesource",
+                        "name": "Tile source"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
                     },
                     {
                         "path": "/manuals/texture-profiles",
@@ -242,8 +268,8 @@
                 "name": "COMPONENTS",
                 "items": [
                     {
-                        "path": "/manuals/atlas",
-                        "name": "Atlas"
+                        "path": "/manuals/components",
+                        "name": "Overview"
                     },
                     {
                         "path": "/manuals/collection-factory",
@@ -254,12 +280,12 @@
                         "name": "Collection proxy"
                     },
                     {
-                        "path": "/manuals/camera",
-                        "name": "Camera"
+                        "path": "/manuals/physics",
+                        "name": "Collision object"
                     },
                     {
-                        "path": "/manuals/font",
-                        "name": "Font"
+                        "path": "/manuals/camera",
+                        "name": "Camera"
                     },
                     {
                         "path": "/manuals/factory",
@@ -270,6 +296,10 @@
                         "name": "Label"
                     },
                     {
+                        "path": "/manuals/mesh",
+                        "name": "Mesh"
+                    },
+                    {
                         "path": "/manuals/model",
                         "name": "Model"
                     },
@@ -278,16 +308,8 @@
                         "name": "Particle FX"
                     },
                     {
-                        "path": "/manuals/physics",
-                        "name": "Physics"
-                    },
-                    {
                         "path": "/manuals/sound",
                         "name": "Sound"
-                    },
-                    {
-                        "path": "/manuals/tilemap",
-                        "name": "Tilemap"
                     },
                     {
                         "path": "/manuals/spine",
@@ -296,6 +318,14 @@
                     {
                         "path": "/manuals/spinemodel",
                         "name": "Spine model"
+                    },
+                    {
+                        "path": "/manuals/sprite",
+                        "name": "Sprite"
+                    },
+                    {
+                        "path": "/manuals/tilemap",
+                        "name": "Tilemap"
                     }
                 ]
             },
@@ -345,8 +375,33 @@
                 ]
             },
             {
+                "name": "PHYSICS",
+                "items": [
+                    {
+                        "path": "/manuals/physics",
+                        "name": "Collision objects"
+                    },
+                    {
+                        "path": "/manuals/physics/#collision-shapes",
+                        "name": "Collision shapes"
+                    },
+                    {
+                        "path": "/manuals/physics/#ray-casts",
+                        "name": "Ray casts"
+                    },
+                    {
+                        "path": "/manuals/physics/#joints",
+                        "name": "Joints"
+                    }
+                ]
+            },
+            {
                 "name": "GAME LOGIC",
                 "items": [
+                    {
+                        "path": "/manuals/script",
+                        "name": "Scripts"
+                    },
                     {
                         "path": "/manuals/properties",
                         "name": "Properties"
@@ -356,12 +411,54 @@
                         "name": "Script properties"
                     },
                     {
+                        "path": "/manuals/lua",
+                        "name": "Lua in Defold"
+                    },
+                    {
                         "path": "/manuals/input",
                         "name": "Input"
                     },
                     {
                         "path": "/manuals/modules",
                         "name": "Modules"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging"
+                    }
+                ]
+            },
+            {
+                "name": "SAVING AND LOADING FILES",
+                "items": [
+                    {
+                        "path": "/manuals/file-access",
+                        "name": "Working with files"
+                    }
+                ]
+            },
+            {
+                "name": "NETWORKING",
+                "items": [
+                    {
+                        "path": "/manuals/networking",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/http-requests",
+                        "name": "HTTP Requests"
+                    },
+                    {
+                        "path": "/manuals/socket-connections",
+                        "name": "Socket connections"
+                    },
+                    {
+                        "path": "/extension-websocket",
+                        "name": "WebSocket connections"
+                    },
+                    {
+                        "path": "/manuals/online-services",
+                        "name": "Online services"
                     }
                 ]
             },
@@ -379,6 +476,10 @@
                     {
                         "path": "/manuals/shader",
                         "name": "Shader"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
                     }
                 ]
             },
@@ -386,32 +487,8 @@
                 "name": "WORKFLOW",
                 "items": [
                     {
-                        "path": "/manuals/version-control",
-                        "name": "Version control"
-                    },
-                    {
-                        "path": "/manuals/writing-code",
-                        "name": "Writing code"
-                    },
-                    {
-                        "path": "/manuals/lua",
-                        "name": "Lua in Defold"
-                    },
-                    {
-                        "path": "/manuals/hot-reload",
-                        "name": "Hot reloading"
-                    },
-                    {
-                        "path": "/manuals/debugging",
-                        "name": "Debugging"
-                    },
-                    {
-                        "path": "/manuals/profiling",
-                        "name": "Profiling"
-                    },
-                    {
-                        "path": "/manuals/refactoring",
-                        "name": "Refactoring"
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
                     },
                     {
                         "path": "/manuals/bundling",
@@ -422,8 +499,65 @@
                         "name": "Bob the builder"
                     },
                     {
+                        "path": "/manuals/hot-reload",
+                        "name": "Hot reloading"
+                    },
+                    {
+                        "path": "/manuals/optimization",
+                        "name": "Optimizing an application"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
+                    },
+                    {
+                        "path": "/manuals/refactoring",
+                        "name": "Refactoring"
+                    },
+                    {
                         "path": "/manuals/dev-app",
                         "name": "The mobile dev app"
+                    },
+                    {
+                        "path": "/manuals/version-control",
+                        "name": "Version control"
+                    },
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
+                    },
+                    {
+                        "path": "/manuals/working-offline",
+                        "name": "Working offline"
+                    }
+                ]
+            },
+            {
+                "name": "DEBUGGING",
+                "items": [
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging game logic"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging native code"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-android",
+                        "name": "Debugging native code on Android"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-ios",
+                        "name": "Debugging native code on iOS"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-and-system-logs",
+                        "name": "Reading game and system logs"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
                     }
                 ]
             },
@@ -431,58 +565,95 @@
                 "name": "PLATFORMS",
                 "items": [
                     {
+                        "path": "/manuals/android",
+                        "name": "Android"
+                    },
+                    {
                         "path": "/manuals/ios",
                         "name": "iOS"
                     },
                     {
-                        "path": "/manuals/android",
-                        "name": "Android"
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
                     },
                     {
                         "path": "/manuals/html5",
                         "name": "HTML5"
                     },
                     {
+                        "path": "/manuals/macos",
+                        "name": "macOS"
+                    },
+                    {
                         "path": "/manuals/windows",
                         "name": "Windows"
+                    }
+                ]
+            },
+            {
+                "name": "MONETIZATION",
+                "items": [
+                    {
+                        "path": "/manuals/ads",
+                        "name": "Ads"
                     },
                     {
-                        "path": "/manuals/facebook",
-                        "name": "Facebook"
+                        "path": "/extension-iap",
+                        "name": "In-app purchases"
                     },
                     {
-                        "path": "/manuals/gameroom",
-                        "name": "Facebook Gameroom"
-                    },
-                    {
-                        "path": "/manuals/instant-games",
-                        "name": "Facebook Instant Games"
-                    },
-                    {
-                        "path": "/manuals/live-update",
-                        "name": "Live update"
-                    },
-                    {
-                        "path": "/manuals/google-play-instant",
-                        "name": "Google Play Instant"
-                    },
+                        "path": "/manuals/web-monetization",
+                        "name": "Web Monetization"
+                    }
                 ]
             },
             {
                 "name": "EXTENSIONS",
                 "items": [
                     {
-                        "path": "/manuals/iap",
+                        "path": "/extension-adinfo",
+                        "name": "Advertising Info"
+                    },
+                    {
+                        "path": "/extension-facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/extension-fbinstant",
+                        "name": "Facebook Instant Games"
+                    },
+                    {
+                        "path": "/extension-gpgs",
+                        "name": "Google Play Game Services"
+                    },
+                    {
+                        "path": "/extension-iap",
                         "name": "In-app purchases"
                     },
                     {
-                        "path": "/manuals/push",
+                        "path": "/manuals/iac",
+                        "name": "Inter-app communication"
+                    },
+                    {
+                        "path": "/extension-push",
                         "name": "Push notifications"
                     },
                     {
-                        "path": "/manuals/webview",
+                        "path": "/extension-websocket",
+                        "name": "WebSocket"
+                    },
+                    {
+                        "path": "/extension-webview",
                         "name": "Webview"
-                    }
+                    },
+                    {
+                        "path": "/extension-google-play-instant",
+                        "name": "Google Play Instant"
+                    },
                 ]
             },
             {
@@ -497,8 +668,20 @@
                         "name": "Details"
                     },
                     {
+                        "path": "/manuals/extensions-defold-sdk",
+                        "name": "Defold SDK"
+                    },
+                    {
+                        "path": "/manuals/extensions-script-api",
+                        "name": "Adding auto-complete definition"
+                    },
+                    {
                         "path": "/manuals/extensions-best-practices",
                         "name": "Best Practices"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging"
                     },
                     {
                         "path": "/manuals/extensions-build-variants",
@@ -507,18 +690,15 @@
                     {
                         "path": "/manuals/extensions-manifest-merge-tool",
                         "name": "Manifest Merging"
-                    },
+                    }
+                ]
+            },
+            {
+                "name": "EDITOR EXTENSIONS",
+                "items": [
                     {
-                        "path": "/manuals/extensions-debugging",
-                        "name": "Debugging tips"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging-android",
-                        "name": "Debugging on Android"
-                    },
-                    {
-                        "path": "/manuals/extensions-debugging-ios",
-                        "name": "Debugging on iOS"
+                        "path": "/manuals/editor-scripts",
+                        "name": "Editor scripts"
                     }
                 ]
             }

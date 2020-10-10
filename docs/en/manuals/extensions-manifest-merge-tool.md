@@ -33,10 +33,15 @@ The extension manifests must be placed in a certain structure for the extension 
 The Android platform already has a manifest merging tool (based on `ManifestMerger2`), and we use it inside `bob.jar` to merge manifests.
 For a complete set of instructions on how to modify your Android manifests, please refer to [their documentation](https://developer.android.com/studio/build/manifest-merge)
 
+::: important
+If you don't set your app's `android:targetSdkVersion` in your extension manifest, the following permissions will be added automatically:  `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`. You can read more about it in the official documentation [here](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions).
+We recommend to use: `<uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />`
+:::
 ### Example
 
 Base manifest
 
+```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android'
             package='com.defold.testmerge'
@@ -49,11 +54,14 @@ Base manifest
         </application>
         <uses-permission android:name='android.permission.VIBRATE' />
     </manifest>
+```
 
 Extension manifest:
 
+```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.defold.testmerge'>
+         <uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />
         <uses-feature android:required='true' android:glEsVersion='0x00030000' />
         <application>
             <meta-data android:name='com.facebook.sdk.ApplicationName'
@@ -64,9 +72,11 @@ Extension manifest:
               android:label='Test Project' />
         </application>
     </manifest>
+```
 
 Result
 
+```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android'
         package='com.defold.testmerge'
@@ -80,9 +90,6 @@ Result
         <uses-feature
             android:glEsVersion='0x00030000'
             android:required='true' />
-        <uses-permission android:name='android.permission.WRITE_EXTERNAL_STORAGE' />
-        <uses-permission android:name='android.permission.READ_PHONE_STATE' />
-        <uses-permission android:name='android.permission.READ_EXTERNAL_STORAGE' />
         <application
             android:hasCode='true'
             android:label='Test Project' >
@@ -96,6 +103,7 @@ Result
                 android:theme='@android:style/Theme.Translucent.NoTitleBar' />
         </application>
     </manifest>
+```
 
 ## iOS / macOS
 
@@ -106,6 +114,7 @@ They can handle lists and dictionaries.
 
 Base Manifest
 
+```xml
     <?xml version='1.0' encoding='UTF-8'?>
     <!DOCTYPE plist PUBLIC '-//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
     <plist version='1.0'>
@@ -129,9 +138,11 @@ Base Manifest
             <data>SEVMTE8gV09STEQ=</data>
     </dict>
     </plist>
+```
 
 Extension manifest:
 
+```xml
     <?xml version='1.0' encoding='UTF-8'?>
     <!DOCTYPE plist PUBLIC '-//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
     <plist version='1.0'>
@@ -153,9 +164,11 @@ Extension manifest:
         <integer>42</integer>
     </dict>
     </plist>
+```
 
 Result:
 
+```xml
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
@@ -188,6 +201,7 @@ Result:
             <integer>42</integer>
         </dict>
     </plist>
+```
 
 
 ## HTML5
@@ -199,6 +213,7 @@ You can then specify the attributes `merge` or `keep`. `merge` is the default.
 
 Base manifest
 
+```html
     <!DOCTYPE html>
     <html>
     <body>
@@ -216,10 +231,11 @@ Base manifest
      </script>
     </body>
     </html>
-
+```
 
 Extension manifest
 
+```html
     <html>
     <body>
      <script id='engine-loader' type='text/javascript' src='mydmloader.js'></script>
@@ -228,9 +244,11 @@ Extension manifest
      </script>
     </body>
     </html>
+```
 
 Result
 
+```html
     <!doctype html>
     <html>
     <head></head>
@@ -249,5 +267,4 @@ Result
         </script>
     </body>
     </html>
-
-
+```

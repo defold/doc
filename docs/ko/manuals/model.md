@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Model component
 Defold는 3D 엔진의 기능을 사용하고 있습니다. 2D 메터리얼을 사용하더라도 모든 렌더링은 3D로 처리되지만 화면에는 직교(orthographic)로 투영되어 2D 처럼 보이게 됩니다. 이 매뉴얼은 어떻게 3D 모델, 스켈레톤, 애니메이션을 게임에 불러오는지 설명합니다.
 
@@ -14,14 +18,14 @@ Defold는 3D 에셋이나 모델을 컬렉션에 포함해서 3D 컨텐츠를 �
 
 > 폴리곤 메쉬(polygon mesh)에 대한 자세한 설명은 http://en.wikipedia.org/wiki/Polygon_mesh 를 참고 바랍니다. UV좌표(UV coordinates)와 UV매핑(UV mapping)에 대한 설명은 http://en.wikipedia.org/wiki/UV_mapping 를 참고 바랍니다.
 
-이제, 모델을 임포트 하기 위해,  **.dae** 파일과 텍스쳐 이미지를 **Project Explorer**의 원하는 위치로 간단히 드래그-앤-드롭 하면 됩니다.
+이제, 모델을 임포트 하기 위해,  **.dae** 파일과 텍스쳐 이미지를 **Assets pane**의 원하는 위치로 간단히 드래그-앤-드롭 하면 됩니다.
 
 ![Imported model assets](images/model/imported_assets.png)
 
 ## Creating a model component
 모델 컴포넌트는 다른 게임 오브젝트 컴포넌트와 마찬가지로 아래 두 가지 방법으로 생성할 수 있습니다:
 
-1. **Project Explorer**창에서 마우스 오른쪽 버튼을 누르고 **New > Model File** 선택해서 **Model file** 생성하기
+1. **Assets pane**창에서 마우스 오른쪽 버튼을 누르고 **New > Model File** 선택해서 **Model file** 생성하기
 2. **Outline**창에서 게임 오브젝트에 마우스 오른쪽 버튼 누르고 **Add Component** 선택하고 **Model**을 선택해서 게임 오브젝트에 직접 내장(embed)되는 컴포넌트 생성하기
 
 ![Model in game object](images/model/model.png)

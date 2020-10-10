@@ -9,35 +9,6 @@ This well-known puzzle became popular in America during the 1870s. The goal of t
 
 The most common version of the puzzle shows the numbers 1--15 on the tiles. However, you can make the puzzle a bit more challenging by making the tiles part of an image. Before we begin, try to solve the puzzle. Click on a tile adjacent to the empty square to slide the tile to the empty position.
 
-<div id="game-container" class="game-container">
-  <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/15-puzzle/preview.jpg"/>
-  <canvas id="game-canvas" tabindex="1" width="512" height="512">
-  </canvas>
-  <button id="game-button">
-    START GAME <span class="icon"></span>
-  </button>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_107.js" async></script>
-  <script>
-      /* Load app on click in container. */
-      document.getElementById("game-button").onclick = function (e) {
-          var extra_params = {
-              archive_location_filter: function( path ) {
-                  return ("//storage.googleapis.com/defold-doc/assets/15-puzzle" + path + "");
-              },
-              load_done: function() {},
-              game_start: function() {
-                  var e = document.getElementById("game-preview");
-                  e.parentElement.removeChild(e);
-              }
-          }
-          Module.runApp("game-canvas", extra_params);
-          document.getElementById("game-button").style.display = 'none';
-          document.getElementById("game-button").onclick = null;
-      };
-  </script>
-</div>
-
 ## Creating the project
 
 1. Start Defold.
@@ -59,7 +30,7 @@ Download the image, then drag it to the *main* folder of your project.
 
 ## Representing the grid
 
-Defold contains a built in *Tilemap* component that is perfect for visualizing the puzzle board. Tilemaps allow you to set and read individual tiles, which is all you need for this project.
+Defold contains a built-in *Tilemap* component that is perfect for visualizing the puzzle board. Tilemaps allow you to set and read individual tiles, which is all you need for this project.
 
 But before you create the tilemap, you need a *Tilesource* that the tilemap will pull its tile images from.
 
@@ -71,7 +42,7 @@ Set the tile *Width* and *Height* properties to 128. This will split the 512⨉5
 
 Next, <kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Map</kbd>. Name the new file "grid.tilemap".
 
-Defold needs you to initialize the grid. To do that, select the "layer1" layer and paint the 4⨉4 grid of tiles just to the top-right of origo. It does not really matter what you set the tiles to. You will write code in a bit that will set the content of these tiles automatically. 
+Defold needs you to initialize the grid. To do that, select the "layer1" layer and paint the 4⨉4 grid of tiles just to the top-right of origin. It does not really matter what you set the tiles to. You will write code in a bit that will set the content of these tiles automatically.
 
 ![Tile map](images/15-puzzle/tilemap.png)
 
@@ -81,7 +52,7 @@ Open *main.collection*. <kbd>Right click</kbd> the root node in the *Outline* an
 
 <kbd>Right click</kbd> the game object and select <kbd>Add Component File</kbd>. Select the file *grid.tilemap*.
 
-<kbd>Right click</kbd> the game object and select <kbd>Add Component ▸ Label</kbd>. Set the *Id* property of the label to "done" and its *Text* property to "Well done". Move the label to the center of the tilemap. 
+<kbd>Right click</kbd> the game object and select <kbd>Add Component ▸ Label</kbd>. Set the *Id* property of the label to "done" and its *Text* property to "Well done". Move the label to the center of the tilemap.
 
 Set the Z position of the label to 1 to make sure it's drawn on top of the grid.
 
@@ -285,7 +256,7 @@ Open */input/game.input_bindings* and add a new *Mouse Trigger*. Set the name of
 
 ![input](images/15-puzzle/input.png)
 
-Go back to the script and create an `on_input()` function. 
+Go back to the script and create an `on_input()` function.
 
 ```lua
 -- Deal with user input

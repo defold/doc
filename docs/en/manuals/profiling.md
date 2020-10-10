@@ -5,20 +5,31 @@ brief: This manual explains the profiling facilities present in Defold.
 
 # Profiling
 
-Defold includes a set of profiling tools that are integrated with the engine and the build pipeline. These are designed to help find problems with performance and memory usage. The built in profilers are available on debug builds only.
+Defold includes a set of profiling tools that are integrated with the engine and the build pipeline. These are designed to help find problems with performance and memory usage. The built-in profilers are available on debug builds only.
 
 ## The runtime visual profiler
 
-Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application. It is turned on and off by sending a message named "toggle_profile" to the "system" socket:
+Debug builds feature a runtime visual profiler that displays live information rendered overlayed on top of the running application:
 
 ```lua
 function on_reload(self)
     -- Toggle the visual profiler on hot reload.
-    msg.post("@system:", "toggle_profile")
+    profiler.enable_ui(true)
 end
 ```
 
 ![Visual profiler](images/profiling/visual_profiler.png)
+
+The visual profiler provides a number of different function that can be used to change the way the visual profiler presents its data:
+
+```lua
+
+profiler.set_ui_mode()
+profiler.set_ui_view_mode()
+profiler.view_recorded_frame()
+```
+
+Refer to a the [profiler API reference](/ref/stable/profiler/) for more information about the profiler functions.
 
 ## The web profiler
 
@@ -92,10 +103,10 @@ The *Structure* section shows sizes based on how resources are organized in the 
 
 ## External tools
 
-In addition to the built in tools, there is a wide range of free high quality tracing and profiling tools available. Here is a selection:
+In addition to the built-in tools, there is a wide range of free high quality tracing and profiling tools available. Here is a selection:
 
 ProFi (Lua)
-: We do not ship any built in Lua profiler but there are external libraries that are easy enough to use. To find where your scripts spend time, either insert time measures in your code yourself, or use a Lua profiling library like ProFi.
+: We do not ship any built-in Lua profiler but there are external libraries that are easy enough to use. To find where your scripts spend time, either insert time measures in your code yourself, or use a Lua profiling library like ProFi.
 
   https://github.com/jgrahamc/ProFi
 

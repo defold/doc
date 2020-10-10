@@ -7,37 +7,6 @@ brief: If you are new to Defold, this guide will help you to get started with sc
 
 This tutorial walks you through the process of creating one of the most common classic games you can attempt to recreate. There are a lot of variations on this game, this one features a snake that eats "food" and that only grows when it eats. This snake also crawls on a playfield that contains obstacles.
 
-Before beginning, take a minute and try the game:
-
-<div id="game-container" class="game-container">
-  <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/snake/preview.jpg"/>
-  <canvas id="game-canvas" tabindex="1" width="768" height="768">
-  </canvas>
-  <button id="game-button">
-    START GAME <span class="icon"></span>
-  </button>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_119.js" async></script>
-  <script>
-      /* Load app on click in container. */
-      document.getElementById("game-button").onclick = function (e) {
-          var extra_params = {
-              archive_location_filter: function( path ) {
-                  return ("//storage.googleapis.com/defold-doc/assets/snake" + path + "");
-              },
-              load_done: function() {},
-              game_start: function() {
-                  var e = document.getElementById("game-preview");
-                  e.parentElement.removeChild(e);
-              }
-          }
-          Module.runApp("game-canvas", extra_params);
-          document.getElementById("game-button").style.display = 'none';
-          document.getElementById("game-button").onclick = null;
-      };
-  </script>
-</div>
-
 ## Creating the project
 
 1. Start Defold.
@@ -55,7 +24,7 @@ Very little is needed in terms of graphics. One 16x16 segment for the snake, one
 
 ![snake sprites](images/snake/snake.png)
 
-Defold provides a built in *Tilemap* component that you will use to create the playfield. A tilemap allows you to set and read individual tiles, which suits this game perfectly. Since tilemaps fetch their graphics from a *Tilesource* so you need to create one:
+Defold provides a built-in *Tilemap* component that you will use to create the playfield. A tilemap allows you to set and read individual tiles, which suits this game perfectly. Since tilemaps fetch their graphics from a *Tilesource* so you need to create one:
 
 <kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Source</kbd>. Name the new file "snake" (the editor will save the file as "snake.tilesource").
 
@@ -137,9 +106,8 @@ end
 
 The script code above is written in the Lua language. There are a few things to note about the code:
 
-- Defold reserves a set of built in callback *functions* that are called during the lifetime of a script component. These are *not* methods but plain functions. The runtime passes a reference to the current script component instance through the parameter `self`. The `self` reference is used to store instance data.
-- The name `msg.post` resolves to a function `post` residing in a Lua table named `msg`. The dot notation is used to indicate intries in Lua tables, *not* methods on an object "msg"!
-- Lua table literals are written surrounded with curly braces. Table entries can be key/value pairs (`{x = 10, y = 20}`), nested Lua tables (`{{a = 1}, {b = 2}}`) or other data types. 
+- Defold reserves a set of built-in callback *functions* that are called during the lifetime of a script component. These are *not* methods but plain functions. The runtime passes a reference to the current script component instance through the parameter `self`. The `self` reference is used to store instance data.
+- Lua table literals are written surrounded with curly braces. Table entries can be key/value pairs (`{x = 10, y = 20}`), nested Lua tables (`{ {a = 1}, {b = 2} a}`) or other data types.
 - The `self` reference can be used as a Lua table that you can store data in. Just use the dot notation as you would with any other table: `self.data = "value"`. The reference is valid throughout the lifetime of the script, in this case from game start until you quit it.
 
 If you didn't understand any of the above, don't worry about it. Just tag along, experiment and give it time---you will get it eventually.
@@ -174,7 +142,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do -- <8>
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2) -- <9>
         end
-        
+
         self.t = 0 -- <10>
     end
 end
@@ -233,7 +201,7 @@ function on_input(self, action_id, action)
     elseif action_id == hash("right") and action.pressed then
         self.dir.x = 1
         self.dir.y = 0
-    end 
+    end
 end
 ```
 1. If the input action "up" is received, as set up in the input bindings, and the `action` table has the `pressed` field set to `true` (player pressed the key) then:
@@ -292,7 +260,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)
         end
-        
+
         self.t = 0
     end
 end
@@ -306,7 +274,7 @@ function on_input(self, action_id, action)
         table.insert(self.dirqueue, {x = -1, y = 0})
     elseif action_id == hash("right") and action.pressed then
         table.insert(self.dirqueue, {x = 1, y = 0})
-    end 
+    end
 end
 ```
 1. Initialize an empty table that will hold the input direction queue.
@@ -339,7 +307,7 @@ function init(self)
     self.dirqueue = {}
     self.speed = 7.0
     self.t = 0
-    
+
     math.randomseed(socket.gettime()) -- <4>
     put_food(self) -- <5>
 end
@@ -366,7 +334,7 @@ function init(self)
     self.speed = 7.0
     self.alive = true -- <1>
     self.t = 0
-    
+
     math.randomseed(socket.gettime())
     put_food(self)
 end
@@ -380,7 +348,7 @@ function update(self, dt)
     self.t = self.t + dt
     if self.t >= 1.0 / self.speed and self.alive then -- <1>
         local newdir = table.remove(self.dirqueue, 1)
-        
+
         if newdir then
             local opposite = newdir.x == -self.dir.x or newdir.y == -self.dir.y
             if not opposite then
@@ -408,7 +376,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
         end
-        
+
         self.t = 0
     end
 end
@@ -446,7 +414,7 @@ function init(self)
     self.speed = 7.0
     self.alive = true
     self.t = 0
-    
+
     math.randomseed(socket.gettime())
     put_food(self)
 end
@@ -455,7 +423,7 @@ function update(self, dt)
     self.t = self.t + dt
     if self.t >= 1.0 / self.speed and self.alive then
         local newdir = table.remove(self.dirqueue, 1)
-        
+
         if newdir then
             local opposite = newdir.x == -self.dir.x or newdir.y == -self.dir.y
             if not opposite then
@@ -483,7 +451,7 @@ function update(self, dt)
         for i, s in ipairs(self.segments) do
             tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
         end
-        
+
         self.t = 0
     end
 end
@@ -497,7 +465,7 @@ function on_input(self, action_id, action)
         table.insert(self.dirqueue, {x = -1, y = 0})
     elseif action_id == hash("right") and action.pressed then
         table.insert(self.dirqueue, {x = 1, y = 0})
-    end 
+    end
 end
 ```
 

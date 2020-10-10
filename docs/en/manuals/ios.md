@@ -30,7 +30,7 @@ Provisioning Profiles
 When signing your games and apps in Defold, you need a valid certificate and a valid provisioning profile.
 
 ::: sidenote
-Some of the things you can do on the Member Center homepage you can also perform from inside the XCode development environment---if you have that installed.
+Some of the things you can do on the Member Center homepage you can also perform from inside the Xcode development environment---if you have that installed.
 :::
 
 Device identifier (UDID)
@@ -72,26 +72,128 @@ Since Xcode 7, anyone can install Xcode and do on-device development for free. Y
 
    ![](images/ios/free_provisioning.png)
 
-This provision file can be used together with your code signing identity to sign apps in Defold for one week, for _one device_. There is no way to add additional device UDIDs to this generated provisioning profile.
+This provision file can be used together with your code signing identity to sign apps in Defold for one week.
 
 When the provision expires, you need to build the app again in Xcode and get a new temporary provision file as described above.
 
 ## Creating an iOS application bundle
 
-When you have the code signing identity and privisioning profile, you are ready to create a stand alone application bundle for your game from the editor. Simply select <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> from the menu.
+When you have the code signing identity and provisioning profile, you are ready to create a stand alone application bundle for your game from the editor. Simply select <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> from the menu.
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
 Select your code signing identity and browse for your mobile provisioning file. Select which architectures (32 bit, 64 bit and the iOS simulator) to bundle for as well as the variant (Debug or Release). You can optionally untick the `Sign application` checkbox to skip the signing process and then manually sign at a later stage.
 
-Press *Create Bundle* and you will then be prompted to specify where on your computer the bundle will be created.
-
-You specify what icon to use for the app, the launch screen image(s) and so forth on the *game.project* project settings file.
-
-:::important
-When your game launches on iOS, the launch images are used to set the correct screen resolution. If you do not supply the correct image size, you will get a lower resolution with resulting black bars.
+::: important
+You **must** untick the `Sign application` checkbox when testing your game on the iOS simulator. You will be able to install the application but it will not boot.
 :::
+
+Press *Create Bundle* and you will then be prompted to specify where on your computer the bundle will be created.
 
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
+You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
+
+### Creating a storyboard
+
+You create a storyboard file using Xcode. Start Xcode and create a new project. Select iOS and Single View App:
+
+![Create project](images/ios/xcode_create_project.png)
+
+Click Next and proceed to configure your project. Enter a Product Name:
+
+![Project settings](images/ios/xcode_storyboard_create_project_settings.png)
+
+Click Create to finish the process. Your project is now created and we can proceed to create the storyboard:
+
+![The project view](images/ios/storyboard_project_view.png)
+
+Drag and drop an image to import it to the project. Next select `Assets.xcassets` and drop the image to `Assets.xcassets`:
+
+![Add image](images/ios/xcode_storyboard_add_image.png)
+
+Open `LaunchScreen.storyboard` and click on the plus button (<kbd>+</kbd>). Type "imageview" in the dialog to find the ImageView component.
+
+![Add image view](images/ios/xcode_storyboard_add_imageview.png)
+
+Drag the Image View component onto the storyboard:
+
+![Add to storyboard](images/ios/xcode_storyboard_add_imageview_to_storyboard.png)
+
+Select the image you previously added to `Assets.xcassets` from the Image dropdown:
+
+![](images/ios/xcode_storyboard_select_image.png)
+
+Position the image and make any other adjustments you need, perhaps adding a Label or some other UI element. When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+
+The last step is to copy the compiled `LaunchScreen.storyboardc` file to your Defold project. Open Finder at the following location and copy the `LaunchScreen.storyboardc` file to your Defold project:
+
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Intermediates.noindex/YOUR-PRODUCT-NAME.build/Debug-iphonesimulator/YOUR-PRODUCT-NAME.build/Base.lproj/LaunchScreen.storyboardc
+
+::: sidenote
+Forum user Sergey Lerg has put together [a video tutorial showing the process](https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo).
+:::
+
+Once you have the storyboard file you can reference it from *game.project*.
+
+
+### Creating an icon asset catalog
+
+::: sidenote
+This is required from Defold 1.2.175.
+:::
+
+Using an asset catalog is Apple's preferred way to manage your application's icons. In fact it is the only way to provide the icon used in the App Store listing. You create an asset catalog in the same way as a storyboard, using Xcode. Start Xcode and create a new project. Select iOS and Single View App:
+
+![Create project](images/ios/xcode_create_project.png)
+
+Click Next and proceed to configure your project. Enter a Product Name:
+
+![Project settings](images/ios/xcode_icons_create_project_settings.png)
+
+Click Create to finish the process. Your project is now created and we can proceed to create the asset catalog:
+
+![The project view](images/ios/xcode_icons_project_view.png)
+
+Drag and drop images to the empty boxes representing the different supported icon sizes:
+
+![Add icons](images/ios/xcode_icons_add_icons.png)
+
+::: sidenote
+Do not add any icons for Notifications, Settings or Spotlight.
+:::
+
+When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+
+The last step is to copy the compiled `Assets.car` file to your Defold project. Open Finder at the following location and copy the `Assets.car` file to your Defold project:
+
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphonesimulator/Icons.app/Assets.car
+
+Once you have the asset catalog file you can reference it and the icons from *game.project*:
+
+![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
+
+::: sidenote
+The App Store icon does not have to be referenced from *game.project*. It is automatically extracted from the `Asset.car` file when uploading to iTunes Connect.
+:::
+
+
+## Installing an iOS application bundle
+
 The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use Xcode (via the "Devices and Simulators" window). Other options are to use a command line tool such as [ios-deploy](https://github.com/phonegap/ios-deploy) or iTunes.
+
+You can use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:
+
+```
+# show a list of available devices
+xcrun simctl list
+
+# boot an iPhone X simulator
+xcrun simctl boot "iPhone X"
+
+# install your.app to a booted simulator
+xcrun simctl install booted your.app
+
+# launch the simulator
+open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+```

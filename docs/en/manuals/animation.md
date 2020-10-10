@@ -5,32 +5,41 @@ brief: This manual describes Defold's animation support.
 
 # Animation
 
-Defold has built in support for many types of animation that you can use as a source of graphics for object components:
+Defold has built-in support for many types of animation that you can use as a source of graphics for components:
 
-Flip-book animation
-: A flip book animation consists of a series of still images that are shown in succession. The technique is very similar to traditional cell animation (see http://en.wikipedia.org/wiki/Traditional_animation). The technique offers limitless opportunities since each frame can be manipulated individually. However, since each frame is stored in a unique image, the memory footprint can be high. The smoothness of animation is also dependent on the number of images shown each second but increasing the number of images usually also increase the amount of work. Defold flip book animations are either stored as individual images added to an Atlas, or as a Tile Source with all frames laid out in a horizontal sequence.
+* Flip-book animation
+* Spine animation
+* 3D skinned animation
+* Property animation
+
+## Flip-book animation
+
+A flipbook animation consists of a series of still images that are shown in succession. The technique is very similar to traditional cell animation (see http://en.wikipedia.org/wiki/Traditional_animation). The technique offers limitless opportunities since each frame can be manipulated individually. However, since each frame is stored in a unique image, the memory footprint can be high. The smoothness of animation is also dependent on the number of images shown each second but increasing the number of images usually also increase the amount of work. Defold flipbook animations are either stored as individual images added to an [Atlas](/manuals/atlas), or as a [Tile Source](/manuals/tilesource) with all frames laid out in a horizontal sequence.
 
   ![Animation sheet](images/animation/animsheet.png){.inline}
   ![Run loop](images/animation/runloop.gif){.inline}
 
-Spine animation
-: Spine animation provides 2D _skeletal animation_ support (see http://en.wikipedia.org/wiki/Skeletal_animation). This is a fundamentally different technique that is closer to cutout animation. In cutout animation separate pieces of the animated object (e.g body parts, eyes, mouth etc) are moved individually between each frame. Spine animation let you build an invisible, virtual skeleton consisting of a hierarchy of interconnected _bones_. This skeleton, or _rig_, is then animated and individual images are attached to the bones. Defold supports animations created or exported in the [Spine JSON format](http://esotericsoftware.com/spine-json-format). Skeletal animation is very smooth since the engine can interpolate the location of each bone for each frame.
+## Spine animation
+
+Spine animation provides 2D _skeletal animation_ support (see http://en.wikipedia.org/wiki/Skeletal_animation). This is a fundamentally different technique that is closer to cutout animation. In cutout animation separate pieces of the animated object (e.g body parts, eyes, mouth etc) are moved individually between each frame. Spine animation let you build an invisible, virtual skeleton consisting of a hierarchy of interconnected _bones_. This skeleton, or _rig_, is then animated and individual images are attached to the bones. Defold supports animations created or exported in the [Spine JSON format](http://esotericsoftware.com/spine-json-format). Skeletal animation is very smooth since the engine can interpolate the location of each bone for each frame.
 
   For details on how to import Spine data into a Spine model for animation, see the [Spine documentation](/manuals/spine).
 
   ![Spine animation](images/animation/spine_animation.png){.inline}
   ![Run loop](images/animation/frog_runloop.gif){.inline}
 
-3D skinned animation
-: Skeletal animation of 3D models is similar to Spine animation but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
+## 3D skinned animation
+
+Skeletal animation of 3D models is similar to Spine animation but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
 
   For details on how to import 3D data into a Model for animation, see the [Model documentation](/manuals/model).
 
   ![Blender animation](images/animation/blender_animation.png){.inline srcset="images/animation/blender_animation@2x.png 2x"}
   ![Wiggle loop](images/animation/suzanne.gif){.inline}
 
-Property animation
-: All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
+## Property animation
+
+All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built-in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
 
   ![Property animation](images/animation/property_animation.png){.inline srcset="images/animation/property_animation@2x.png 2x"}
   ![Bounce loop](images/animation/bounce.gif){.inline}
@@ -40,10 +49,10 @@ Property animation
 Sprites and GUI box nodes can play flip-book animations and you have great control over them at runtime.
 
 Sprites
-: To run an animation during runtime you use the [`sprite.play_flipbook()`](/ref/#sprite.play_flipbook:url-id--complete_function---play_properties-) function. See below for an example.
+: To run an animation during runtime you use the [`sprite.play_flipbook()`](/ref/sprite/?q=play_flipbook#sprite.play_flipbook:url-id-[complete_function]-[play_properties]) function. See below for an example.
 
 GUI box nodes
-: To run an animation during runtime you use the [`gui.play_flipbook()`](/ref/gui#play_flipbook) function. See below for an example.
+: To run an animation during runtime you use the [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]) function. See below for an example.
 
 ::: sidenote
 The playback mode once ping-pong will play the animation until the last frame and then reverse the order and play back until the **second** frame of the animation, not back to the first frame. This is done so that chaining of animations becomes easier.
@@ -95,7 +104,7 @@ end
 
 ### GUI box node example
 
-When selecting an animation or image for a node, you are in fact assigning the image source (atlas or tile source) and default animation in one go. The image source is statically set in the node, but the current animation to play can be changed in runtime. Still images are treated as one frame animations so changing an image means in run time is equivalent to playing a different flip book animation for the node:
+When selecting an animation or image for a node, you are in fact assigning the image source (atlas or tile source) and default animation in one go. The image source is statically set in the node, but the current animation to play can be changed in runtime. Still images are treated as one frame animations so changing an image means in run time is equivalent to playing a different flipbook animation for the node:
 
 ```lua
 local function flipbook_done(self)
@@ -216,7 +225,7 @@ function on_message(self, message_id, message, sender)
     -- Play animation sound. The custom event data contains the sound component and the gain.
     local url = msg.url("sounds")
     url.fragment = message.string
-    msg.post(url, "play_sound", { gain = message.float })
+    sound.play(url, { gain = message.float })
   end
 end
 ```
@@ -330,7 +339,7 @@ The pingpong modes run the animation first forward, then backward. A set of corr
 Easing defines how the animated value changes over time. The images below describe the functions applied over time to create the easing.
 
 The following are valid easing values for `go.animate()`:
-| | |
+
 |---|---|
 | go.EASING_LINEAR | |
 | go.EASING_INBACK | go.EASING_OUTBACK |
@@ -355,7 +364,7 @@ The following are valid easing values for `go.animate()`:
 | go.EASING_INOUTQUINT | go.EASING_OUTINQUINT |
 
 The following are valid easing values for `gui.animate()`:
-| | |
+
 |---|---|
 | gui.EASING_LINEAR | |
 | gui.EASING_INBACK | gui.EASING_OUTBACK |
@@ -378,56 +387,6 @@ The following are valid easing values for `gui.animate()`:
 | gui.EASING_INOUTQUART | gui.EASING_OUTINQUART |
 | gui.EASING_INQUINT | gui.EASING_OUTQUINT |
 | gui.EASING_INOUTQUINT | gui.EASING_OUTINQUINT |
-
-<div id="game-container" class="game-container">
-    <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/easier/preview.jpg"/>
-    <canvas id="game-canvas" tabindex="1" width="640" height="512">
-    </canvas>
-    <button id="game-button">
-        SHOW EXAMPLE <span class="icon"></span>
-    </button>
-    <script src="//storage.googleapis.com/defold-doc/assets/easier/dmloader.js">
-    </script>
-    <script>
-        document.getElementById("game-button").onclick = function (e) {
-            var extra_params = {
-              archive_location_filter: function( path ) {
-                return ('//storage.googleapis.com/defold-doc/assets/easier/archive' + path + '');
-              },
-              splash_image: '//storage.googleapis.com/defold-doc/assets/easier/preview.jpg',
-              custom_heap_size: 268435456,
-              disable_context_menu: true,
-              game_start: function() {
-                  var e = document.getElementById("game-preview");
-                  e.parentElement.removeChild(e);
-              }
-            };
-            Module['onRuntimeInitialized'] = function() {
-              Module.runApp("game-canvas", extra_params);
-            };
-            Module['locateFile'] = function(path, scriptDirectory)
-            {
-              if (path == "dmengine.wasm" || path == "dmengine_release.wasm" || path == "dmengine_headless.wasm") {
-                path = "easier.wasm";
-              }
-              return scriptDirectory + path;
-            };
-            function load_engine() {
-              var engineJS = document.createElement('script');
-              engineJS.type = 'text/javascript';
-              if (Module['isWASMSupported']) {
-                  engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_wasm.js';
-              } else {
-                  engineJS.src = '//storage.googleapis.com/defold-doc/assets/easier/easier_asmjs.js';
-              }
-              document.head.appendChild(engineJS);
-            }
-            load_engine();
-            document.getElementById("game-button").style.display = 'none';
-            document.getElementById("game-button").onclick = null;
-        };
-    </script>
-</div>
 
 ![Linear interpolation](images/properties/easing_linear.png){.inline}
 ![In back](images/properties/easing_inback.png){.inline}

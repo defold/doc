@@ -5,7 +5,7 @@ brief: This manual covers how to create or open a project in Defold.
 
 # Project setup
 
-You can easily create a new project from within the Defold editor. You also have the option to import an existing project from the Defold dashboard as well as open an existing project already located on your computer.
+You can easily create a new project from within the Defold editor. You also have the option to open an existing project already located on your computer.
 
 ## Creating a new local project
 
@@ -30,16 +30,6 @@ A local project will have no integration with any version control system, meanin
 3. Upload all project files via the [Upload Files](https://help.github.com/en/articles/adding-a-file-to-a-repository) option
 
 The project is now under version control and you should [clone the project](https://help.github.com/en/articles/cloning-a-repository) to your local hard drive and work from this new location instead.
-
-## Importing a project
-
-Click the <kbd>Import Project</kbd> option to bring up a list of Defold hosted projects that you have access to. If you are not already signed in you must first do so. Specify a location on your hard drive where the project files will be stored.
-
-![import project](images/workflow/import_project.png)
-
-### Migrating a project to GitHub
-
-You can migrate a Defold hosted project to GitHub by following [this guide from the Defold forum](https://forum.defold.com/t/howto-alternative-project-hosting/1309). This process will retain all of the commit history from the original repository.
 
 ## Open an existing project
 

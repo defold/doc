@@ -34,7 +34,7 @@ When the bundler creates an application bundle it needs to store any excluded re
 There are currently two ways that Defold can store the resources. Choose the method in the *Mode* dropdown in the settings window:
 
 `Amazon`
-: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name. [See below for details how to set up an AWS account](#_setting_up_amazon_web_service).
+: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name. [See below for details how to set up an AWS account](#setting_up_amazon_web_service).
 
 `Zip`
 : This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
@@ -151,6 +151,10 @@ When storing a new manifest the manifest data will be verified before it is actu
 * Verify that all resources the manifest expects to be in the bundle actually are in the bundle.
 
 From the user's perspective the verification process is completely opaque but it is important to note the steps involved to avoid the most common pitfalls.
+
+::: important
+If you see a "ERROR:RESOURCE: Byte mismatch in decrypted manifest signature. Different keys used for signing?" error in the console on HTML5 builds it is likely that your webserver doesn't serve the excluded content or updated manifest file using the correct MIME type. Make sure the MIME type is `application/octet-stream`. You can add a `.htaccess` file with a single `AddType application/octet-stream .` line to the folder where the live update resources are downloaded from.
+:::
 
 ### Supported engine versions
 A manifest will always support the Defold version used when generating it. If you want to support any additional engine versions, add them to the list in the Live update settings. This can be useful if your live game uses a different Defold version than the one you are using to generate the manifest with.

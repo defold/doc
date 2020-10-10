@@ -13,7 +13,7 @@ If you need custom interaction with external software or hardware on a low level
 
 ## The build platform
 
-Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute them to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
+Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project, either directly or through a [Library Project](/manuals/libraries/), becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute them to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
 
 ![Cloud build](images/extensions/cloud_build.png)
 
@@ -21,8 +21,25 @@ Defold provides a zero setup entry point to native extensions with a cloud based
 
 To create a new extension, create a folder in the project root. This folder will contain all settings, source code, libraries and resources associated with the extension. The extension builder recognizes the folder structure and collects any source files and libraries.
 
-![Project layout](images/extensions/layout.png)
+```
+ myextension/
+ │
+ ├── ext.manifest
+ │
+ ├── src/
+ │
+ ├── include/
+ │
+ ├── lib/
+ │   └──[platforms]
+ │
+ ├── manifests/
+ │   └──[platforms]
+ │
+ └── res/
+     └──[platforms]
 
+```
 *ext.manifest*
 : The extension folder _must_ contain an *ext.manifest* file. This file is a YAML format file that is picked up by the extension builder. A minimal manifest file should contain the name of the extension.
 
@@ -37,12 +54,26 @@ To create a new extension, create a folder in the project root. This folder will
 
   :[platforms](../shared/platforms.md)
 
+*manifests*
+: This optional folder contains additional files used in the build or bundling process. See below for details.
+
 *res*
 : This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
+
+### Manifest files
+
+The optional *manifests* folder of an extension contains additional files used in the build and bundling process. Files should be placed in subfolders named by `platform`:
+
+* `android` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)). The folder can also contain a `build.gradle` file with dependencies to be resolved by Gradle ([example](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Finally the folder can also contain zero or more ProGuard files (experimental).
+* `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+* `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+* `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+
 
 ## Sharing an extension
 
 Extensions are treated just like any other assets in your project and they can be shared in the same way. If a native extension folder is added as a Library folder it can be shared and used by others as a project dependency. Refer to the [Library project manual](/manuals/libraries/) for more information.
+
 
 ## A simple example extension
 
@@ -57,8 +88,6 @@ name: "MyExtension"
 
 The extension consists of a single C++ file, *myextension.cpp* that is created in the "src" folder.
 
-The Defold editor will not open *.cpp* files by default so if you double click the file the system editor set for that file type is used. You can use the built in text editor by right-clicking the file and selecting <kbd>Open With ▸ Text Editor</kbd>. Note that Defold has no support for C++ files so the editing experience is minimal.
-
 ![C++ file](images/extensions/cppfile.png)
 
 The extension source file contains the following code:
@@ -71,42 +100,27 @@ The extension source file contains the following code:
 
 // include the Defold SDK
 #include <dmsdk/sdk.h>
-#include <malloc.h>
 
-static int Rot13(lua_State* L)
+static int Reverse(lua_State* L)
 {
-    int top = lua_gettop(L);
+    // The number of expected items to be on the Lua stack
+    // once this struct goes out of scope
+    DM_LUA_STACK_CHECK(L, 1);
 
     // Check and get parameter string from stack
-    const char* str = luaL_checkstring(L, 1);
+    char* str = (char*)luaL_checkstring(L, 1);
 
-    // Allocate new string
+    // Reverse the string
     int len = strlen(str);
-    char *rot = (char *) malloc(len + 1);
-
-    // Iterate over the parameter string and create rot13 string
-    for(int i = 0; i <= len; i++) {
-        const char c = str[i];
-        if((c >= 'A' && c <= 'M') || (c >= 'a' && c <= 'm')) {
-            // Between A-M just add 13 to the char.
-            rot[i] = c + 13;
-        } else if((c >= 'N' && c <= 'Z') || (c >= 'n' && c <= 'z')) {
-            // If rolling past 'Z' which happens below 'M', wrap back (subtract 13)
-            rot[i] = c - 13;
-        } else {
-            // Leave character intact
-            rot[i] = c;
-        }
+    for(int i = 0; i < len / 2; i++) {
+        const char a = str[i];
+        const char b = str[len - i - 1];
+        str[i] = b;
+        str[len - i - 1] = a;
     }
 
-    // Put the rotated string on the stack
-    lua_pushstring(L, rot);
-
-    // Free string memory. Lua has a copy by now.
-    free(rot);
-
-    // Assert that there is one item on the stack.
-    assert(top + 1 == lua_gettop(L));
+    // Put the reverse string on the stack
+    lua_pushstring(L, str);
 
     // Return 1 item
     return 1;
@@ -115,7 +129,7 @@ static int Rot13(lua_State* L)
 // Functions exposed to Lua
 static const luaL_reg Module_methods[] =
 {
-    {"rot13", Rot13},
+    {"reverse", Reverse},
     {0, 0}
 };
 
@@ -171,11 +185,36 @@ To test the extension, create a game object and add a script component with some
 
 ```lua
 local s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-local rot_s = myextension.rot13(s)
-print(rot_s) --> nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM
+local reverse_s = myextension.reverse(s)
+print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 ```
 
 And that's it! We have created a fully working native extension.
+
+
+## Extension Lifecycle
+
+As we saw above the `DM_DECLARE_EXTENSION` macro is used to declare the various entry points into the extension code:
+
+`DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)`
+
+The entry points will allow you to run code at various points in the lifecycle of an extension:
+
+* Engine start
+  * Engine systems are starting
+  * Extension `app_init`
+  * Extension `init` - All Defold APIs have been initialized. This is the recommended point in the extension lifecycle where Lua bindings to extension code is created.
+  * Script init - The `init()` function of script files are called.
+* Engine loop
+  * Engine update
+    * Extension `update`
+    * Script update - The `update()` function of script files are called.
+  * Engine events (window minimize/maximize etc)
+    * Extension `on_event`
+* Engine shutdown (or reboot)
+  * Script final - The `final()` function of script files are called.
+  * Extension `final`
+  * Extension `app_final`
 
 ## Defined platform identifiers
 
@@ -186,6 +225,12 @@ The following identifiers are defined by the builder on each respective platform
 * DM_PLATFORM_IOS
 * DM_PLATFORM_ANDROID
 * DM_PLATFORM_LINUX
+* DM_PLATFORM_HTML5
+
+## Build server logs
+
+Build server logs are available when the project is using native extensions. The build server log (`log.txt`) is downloaded together with the custom engine when the project is built and stored inside the file `.internal/%platform%/build.zip` and also unpacked to the build folder of your project.
+
 
 ## The ext.manifest file
 
@@ -214,28 +259,27 @@ platforms:
             defines:    ["MY_DEFINE"]
 ```
 
+### Allowed keys
+
+Allowed keys are for platform specific compile flags are:
+
+* `frameworks` - Apple frameworks to include when building (iOS and OSX)
+* `flags` - Flags that should be passed to the compiler
+* `linkFlags` - Flags that should be passed to the linker
+* `libs` - Libraries to include when linking
+* `defines` - Defines to set when building
+* `aaptExtraPackages` - Extra package name that should be generated (Android)
+* `aaptExcludePackages` - Regexp (or exact names) of packages to exclude (Android)
+* `aaptExcludeResourceDirs` - Regexp (or exact names) of resource dirs to exclude (Android)
+
 ## Example extensions
 
+* [Basic extension example](https://github.com/defold/template-native-extension) (the extension from this manual)
 * [Android extension example](https://github.com/defold/extension-android)
 * [HTML5 extension example](https://github.com/defold/extension-html5)
 * [MacOS, iOS and Android videoplayer extension](https://github.com/defold/extension-videoplayer)
 * [MacOS and iOS camera extension](https://github.com/defold/extension-camera)
-* [iOS and Android Admob extension](https://github.com/defold/extension-admob)
+* [iOS and Android In-app Purchase extension](https://github.com/defold/extension-iap)
+* [iOS and Android Firebase Analytics extension](https://github.com/defold/extension-firebase-analytics)
 
-The [Defold community asset portal](https://www.defold.com/community/assets/) also contain community created extensions.
-
-## Known issues
-
-The native extension feature is in an alpha state, meaning that that the APIs can still change. Furthermore, not all features are in place yet.
-
-Platforms
-: Android lacks support for *.aar* archives. All platforms currently create debug builds only.
-
-Languages
-: The Swift and Kotlin programming languages are currently not supported.
-
-Editor
-: The editor integration lacks build process indication. Error reporting is rudimentary.
-
-Debugging
-: Currently, when building on iOS, the *.dSYM* files are not included in the build result
+The [Defold asset portal](https://www.defold.com/assets/) also contain several native extensions.

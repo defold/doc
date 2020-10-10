@@ -7,8 +7,7 @@ brief: This manual describes some details about the build system used for native
 
 Here we list some relevant build information, in order to make the integrations with your extensions as easy as possible.
 
-Here are some things to consider when you create an extension for the Defold engine.
-For more general guidelines on how to develop cross platform native code, and also extension/Lua apis, please refer to [Native Extensions - Best Practices](/manuals/extensions-best-practices)
+Here are some things to consider when you create an extension for the Defold engine. For more general guidelines on how to develop cross platform native code, and also extension/Lua apis, please refer to [Native Extensions - Best Practices](/manuals/extensions-best-practices)
 
 ## C++ version
 
@@ -18,29 +17,26 @@ When creating libraries (such as extensions), it's good to keep the lowest commo
 
 ## Toolchain
 
-Clang - macOS, iOS, Win32
-GCC - Android, Linux
-
-*We're plan make both Android and Linux to use Clang as well*
-
 ### SDK Versions
 
-* Android: NDK 10e, Build Tools 23.0.2, Api Level 14
-* iOS: iPhoneOS11.2.sdk
-* MacOS: MacOSX10.13.sdk
-* Windows: WindowsKits 8.1 + 10.0, Microsoft Visual Studio 14.0
-* Linux: Ubuntu 16.04, gcc 5.4.0, libssl-dev, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
-* Html5: Emscripten 1.38.0,
+For the most accurate list of versions, check the [build.py](./scripts/build.py).
+
+* Android: NDK 20r, Build Tools 23.0.2, Api Level 16 for armv7 and Api level 21 for arm64
+* iOS: iPhoneOS13.5.sdk
+* MacOS: MacOSX10.15.sdk
+* Windows: WindowsKits 10.0, Microsoft Visual Studio 2019
+* Linux: Ubuntu 16.04, clang 9, libssl-dev, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
+* Html5: Emscripten 1.39.16
 
 ### C++ version + ABI compatibility
 
-* Linux: `GCC 5.4.0`
-* Android:`GCC 4.8`
-* Html5: `Emscripten 1.35.0`
-* Win32: `Microsoft Visual Studio 14.0` alt `clang-6.0`
-* iOS/MacOS: `apple-clang` alt `clang-6.0`
+* Linux: `clang 9`
+* Android:`clang` using `NDK r20`
+* Html5: `Emscripten 1.39.16`
+* Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
+* iOS/MacOS: `apple-clang` (`clang 9` on build server)
 
-For iOS/MacOS, we use `-miphoneos-version-min=6.0` and `-mmacosx-version-min=10.7` respectively.
+For iOS/MacOS, we use `-miphoneos-version-min=8.0` and `-mmacosx-version-min=10.7` respectively.
 
 We don't specify a specific C++ version, so we use the default of each compiler.
 
@@ -59,11 +55,3 @@ The main reason is that on iOS version < 8, multiple executable binaries in an .
 We don't make use of any exceptions in the engine.
 It isn't generally used in game engines, since the data is (mostly) known beforehand, during development.
 Removing the support for C++ exceptions decreases executable size and improves the runtime performance.
-
-## Defold SDK
-
-With each (biweekly) release of Defold, we release a new Defold SDK.
-With it, we ship the libraries of the engine, and also a build manifest file,
-which is identical in structure and syntax as the [extension](/manuals/extensions-build-variants) and [app](/manuals/extensions-build-variants) manifests.
-
-(This sdk is not yet public)

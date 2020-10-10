@@ -16,8 +16,8 @@ Devices
 
   1. Keyboard (single key as well as text input)
   2. Mouse (position, button clicks and mouse wheel actions)
-  3. Single and multi-touch (on iOS and Android devices)
-  4. Gamepads (as supported through the operating system and mapped in the [gamepads](#_gamepads) file)
+  3. Single and multi-touch (on iOS and Android devices and HTML5 on mobile)
+  4. Gamepads (as supported through the operating system and mapped in the [gamepads](#gamepads-settings-file) file)
 
 Input bindings
 : Before input is sent to a script the raw input from the device is translated into meaningful *actions* via the input bindings table.
@@ -36,7 +36,7 @@ Consuming input
 
 ## Setting up input bindings
 
-The input bindings is a project wide table that allows you to specify how device input should translate into named *actions* before they are dispatched to your script components and GUI scripts. You can create a new input binding file, <kbd>right click</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the enginen use the new file, change the *Game Binding* entry in "game.project".
+The input bindings is a project wide table that allows you to specify how device input should translate into named *actions* before they are dispatched to your script components and GUI scripts. You can create a new input binding file, <kbd>right click</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the engine use the new file, change the *Game Binding* entry in "game.project".
 
 ![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
 
@@ -93,10 +93,12 @@ Gamepad Triggers
 
   Gamepad input setup uses a separate mapping file for each hardware gamepad type. See below for more information.
 
+  Gamepad input bindings also provides two separate bindings named `Connected` and `Disconnected` to detect when a gamepad is connected (even those connected from the start) or disconnected.
+
 Touch Triggers
 : Single-touch type triggers are available on iOS and Android devices. Single-touch type triggers are not set up from the Touch Triggers section of the input bindings. Instead **single-touch triggers are automatically set up when you have mouse button input set up for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`**.
 
-: Multi-touch type triggers are available on iOS and Android devices in native applications (ie not HTML5 builds running on a mobile device). They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
+: Multi-touch type triggers are available on iOS and Android devices in native applications and HTML5 bundles. They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
 
   ```lua
   -- Spawn at each touch point
@@ -108,6 +110,10 @@ Touch Triggers
 
 ::: important
 Multi-touch must not be assigned the same action as the mouse button input for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`. Assigning the same action will effectively override single-touch and prevent you from receiving any single-touch events.
+:::
+
+::: sidenote
+The [Defold-Input asset](https://defold.com/assets/defoldinput/) can be used to easily set up virtual on-screen controls such as buttons and analog sticks with support for multi touch.
 :::
 
 Text Triggers
@@ -261,15 +267,40 @@ function on_input(self, action_id, action)
 end
 ```
 
+
+## Detecting click or tap on objects
+
+Detecting when the user has clicked or tapped on a visual component is a very common operation that is needed in many games. It could be user interaction with a button or other UI element or the interaction with a game object such as a player controlled unit in a strategy game, some treasure on a level in a dungeon crawler or a quest giver in an RPG. The approach to use varies depending on the type of visual component.
+
+### Detecting interaction with GUI nodes
+
+For UI elements there is the `gui.pick_node(node, x, y)` function that will return true or false depending on if the specified coordinate is within the bounds of a gui node or not. Refer to the [API docs](/ref/gui/#gui.pick_node:node-x-y), the [pointer over example](/examples/gui/pointer_over/) or the [button example](/examples/gui/button/) to learn more.
+
+### Detecting interaction with game objects
+For game objects it is more complicated to detect interaction since things such as camera translation and render script projection will impact the required calculations. There are two general approaches to detecting interaction with game objects:
+
+  1. Track the position and size of game objects the user can interact with and check if the mouse or touch coordinate is within the bounds of any of the objects.
+  2. Attach collision objects to game objects the user can interact with and one collision object that follows the mouse or finger and check for collisions between them.
+
+::: sidenote
+A ready to use solution for using collision objects to detect user input with drag and click support can be found in the [Defold-Input asset](https://defold.com/assets/defoldinput/).
+:::
+
+In both cases there is a need to convert from the screen space coordinates of the mouse or touch event and the world space coordinates of the game objects. This can be done in a couple of different ways:
+
+  * Manually keep track of which view and projection that is used by the render script and use this to convert to and from world space. See the [camera manual for an example of this](/manuals/camera/#converting-mouse-to-world-coordinates).
+  * Use a [third-party camera solution](/manuals/camera/#third-party-camera-solutions) and make use of the provided screen-to-world conversion functions.
+
+
 ## Gamepads settings file
 
-Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built in gamepads file with settings for common gamepads:
+Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built-in gamepads file with settings for common gamepads:
 
 ![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
 
 If you need to create a new gamepad settings file, we have a simple tool to help:
 
-[Click to download gdc.zip](https://forum.defold.com/uploads/default/original/2X/1/1d05d81d57b40da69831ae822e818a834e3dc3ac.zip).
+[Click to download gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
 
 It includes binaries for Windows, Linux and macOS. Run it from the command line:
 

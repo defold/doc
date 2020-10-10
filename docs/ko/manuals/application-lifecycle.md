@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Application lifecycle
 이 문서는 Defold의 게임과 어플리케이션의 라이프사이클에 대해 자세히 알아봅니다.
 
@@ -90,7 +94,7 @@ main 컬렉션의 각 게임 오브젝트 컴포넌트 순환하며 수행됩니
 #### Frame rate and collection time step
 초당 프레임 업데이트의 수(FPS, 즉 update-loop의 실행 수와 동일함)는 프로젝트 설정(project settings)에서 셋팅할 수 있으며 프로그래밍 방식으로 @system 소켓에 "set_update_frequency" 메세지를 보내서 셋팅할 수도 있습니다. 그리고 프록시로 "set_time_step" 메세지를 보내서 컬렉션 프록시의 시간 흐름(time step)을 개별적으로 설정하는 것도 가능합니다. 컬렉션의 시간 흐름을 변경해도 프레임 레이트에 영향을 주지는 않습니다. 대신, 물리 업데이트(physics update)의 시간 흐름과, update() 함수로 전달되는 "dt" 인자값에 영향을 줍니다. 또한, 시간 흐름을 변경하는 것은 각 프레임에 호출되는 update()의 횟수를 변경하는 것은 아닙니다. update()는 프레임당 한번씩만 호출됩니다.
 
-(자세한 것은 [Collection proxy](/manuals/collection-proxy) 와 [set_time_step](/ref/collectionproxy/#set_time_step) 를 참고하세요.)
+(자세한 것은 [Collection proxy](/manuals/collection-proxy) 와 [set_time_step](/ref/collectionproxy/#set-time-step) 를 참고하세요.)
 
 ## Finalization
 어플리케이션이 종료되는 시점에는, 마지막 업데이트 루프 시퀀스를 끝내고, 컬렉션 프록시들을 언로드하여 프록시 컬렉션의 모든 게임오브젝트의 마무리(finalizing)와 삭제(deleting)를 수행합니다.

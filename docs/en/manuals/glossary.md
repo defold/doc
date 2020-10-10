@@ -9,7 +9,7 @@ This glossary gives a brief description to all the things you encounter in Defol
 
 ## Animation set
 
-![Animation set](images/icons/animationset.png){.left} An animation set resource contains a list of .dae files or other .animationset files from where to read animations. Adding one .animationset files to another is handy if you share partial sets of animations between several models. See the [3D graphics manual](/manuals/3dgraphics/) for details.
+![Animation set](images/icons/animationset.png){.left} An animation set resource contains a list of .dae files or other .animationset files from where to read animations. Adding one .animationset files to another is handy if you share partial sets of animations between several models. See the [3D graphics manual](/manuals/graphics/) for details.
 
 ## Atlas
 
@@ -49,7 +49,7 @@ Components are used to give specific expression and/or functionality to game obj
 
 ## Debugging
 
-At some point your game will behave in an unexpected way and you need to figure out what is wrong. Learning how to debug is an art and fortunately Defold ships with a built in debugger to help you out. See the [Debugging manual](/manuals/debugging) for more information.
+At some point your game will behave in an unexpected way and you need to figure out what is wrong. Learning how to debug is an art and fortunately Defold ships with a built-in debugger to help you out. See the [Debugging manual](/manuals/debugging) for more information.
 
 ## Display profiles
 
@@ -113,15 +113,15 @@ The Lua programming language is used in Defold to create game logic. Lua is a po
 
 ## Message
 
-Components communicate with each other and other systems through message passing. Components also respond to a set of predefined messages that alter them or trigger specific actions. You send messages to hide graphics, play sounds or nudge physics objects. The engine also uses messages to notify components of events, for instance when physics shapes collide. The message passing mechanism needs a recipient for each sent message. Therefore, everything in the game is uniquely addressed. To allow communication between objects, Defold extends Lua with message passing. Defold also provides a library of useful functions.
+Components communicate with each other and other systems through message passing. Components also respond to a set of predefined messages that alter them or trigger specific actions. You send messages to hide graphics or nudge physics objects. The engine also uses messages to notify components of events, for instance when physics shapes collide. The message passing mechanism needs a recipient for each sent message. Therefore, everything in the game is uniquely addressed. To allow communication between objects, Defold extends Lua with message passing. Defold also provides a library of useful functions.
 
-For instance, the Lua-code required to play an explosion sound from a game object looks like this:
+For instance, the Lua-code required to hide a sprite component on a game object looks like this:
 
 ```lua
-msg.post("#explosion", "play_sound")
+msg.post("#weapon", "disable")
 ```
 
-Here, `"#explosion"` is the address of the current object's sound component. `"play_sound"` is a message that sound components respond to. See the [Message passing documentation](/manuals/message-passing) for an in depth explanation of how message passing works.
+Here, `"#weapon"` is the address of the current object's sprite component. `"disable"` is a message that sprite components respond to. See the [Message passing documentation](/manuals/message-passing) for an in depth explanation of how message passing works.
 
 ## Model
 

@@ -3,17 +3,38 @@
     {
         "en":
         {
-            "name": "English"
+            "name": "English",
+            "active": true
+        },
+        "zh":
+        {
+            "name": "中文 (Chinese)",
+            "translation": "Translation by cocosgames.com",
+            "active": true
+        },
+        "gr":
+        {
+            "name": "Νεοελληνική γλώσσα (Greek)",
+            "translation": "Gkikas Elpidoforos",
+            "active": true
         },
         "ko":
         {
             "name": "한국어 (Korean)",
-            "translation": "Translation by Kiman Kim"
+            "translation": "Translation by Kiman Kim",
+            "active": false
         },
-        "ru":
+        "pl":
         {
-            "name": "Ру́сский (Russian)",
-            "translation": ""
+            "name": "Język polski (Polish)",
+            "translation": "Pawel Jarosz",
+            "active": true
+        },
+        "pt":
+        {
+            "name": "Português (Portuguese)",
+            "translation": "",
+            "active": true
         }
     }
 }

@@ -21,7 +21,7 @@ Sound components can only be instanced in-place in a game object. Create a new g
 
 The created component has a set of properties that should be set:
 
-![Select component](images/sound/sound_properties.jpg)
+![Select component](images/sound/sound_properties.png)
 
 *Sound*
 : Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format. Defold supports sound files saved at 16bit bit depth and with a sampling rate of 44100.
@@ -29,21 +29,39 @@ The created component has a set of properties that should be set:
 *Looping*
 : If checked the sound will play back in a loop until explicitly stopped.
 
-*Gain*
-: You can set the gain for the sound directly on the component. This allows you to easily tweak the gain for a sound without going back to your sound program and performing a re-export. See below for details on how gain is calculated.
-
 *Group*
 : The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in "master" group.
 
+*Gain*
+: You can set the gain for the sound directly on the component. This allows you to easily tweak the gain for a sound without going back to your sound program and performing a re-export. See below for details on how gain is calculated.
+
+*Pan*
+: You can set the pan value for the sound directly on the component. The pan must be a value between -1 (-45 degrees left) and 1 (45 degrees right).
+
+*Speed*
+: You can set the speed value for the sound directly on the component. A value of 1.0 is normal speed, 0.5 is half speed and 2.0 is double speed.
+
+
 ## Playing the sound
 
-When you have a sound component set up properly, you can cause it to play its sound by sending it a ["play_sound"](https://www.defold.com/ref/sound/#play_sound) message:
+When you have a sound component set up properly, you can cause it to play its sound by calling [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
-msg.post("go#sound", "play_sound", {delay = 1, gain = 0.5})
+sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
 
+::: sidenote
+A sound will continue to play even if the game object the sound component belonged to is deleted. You can call [`sound.stop()`](/ref/sound/#sound.stop:url) to stop the sound (see below).
+:::
 Each message sent to a component will cause it to play another instance of the sound, until the available sound buffer is full and the engine will print errors in the console. It is advised that you implement some sort of gating and sound grouping mechanism.
+
+## Stopping the sound
+
+If you wish to stop playing a sound you can call [`sound.stop()`](/ref/sound/#sound.stop:url):
+
+```lua
+sound.stop("go#sound")
+```
 
 ## Gain
 
@@ -52,7 +70,7 @@ Each message sent to a component will cause it to play another instance of the s
 The sound system has 4 levels of gain:
 
 - The gain set on the sound component.
-- The gain set when starting the sound via a `play_sound` message or when changing the gain on the voice via a `set_gain` message.
+- The gain set when starting the sound via a call to `sound.play()` or when changing the gain on the voice via a call to `sound.set_gain()`.
 - The gain set on the group via a [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) function call.
 - The gain set on the "master" group. This can be altered by `sound.set_group_gain(hash("master"))`.
 
@@ -145,8 +163,8 @@ function on_message(self, message_id, message, sender)
         if self.sounds[message.soundcomponent] == nil then
             -- Store sound timer in table
             self.sounds[message.soundcomponent] = gate_time
-            -- Redirect the "play_sound" message to the real target
-            msg.post(message.soundcomponent, "play_sound", { gain = message.gain })
+            -- Play the sound
+            sound.play(message.soundcomponent, { gain = message.gain })
         else
             -- An attempt to play a sound was gated
             print("gated " .. message.soundcomponent)
@@ -155,7 +173,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-To use the gate, simply send it a `play_gated_sound` message and specify the target sound component and sound gain. The gate will send a `play_sound` message to the target sound component if the gate is open:
+To use the gate, simply send it a `play_gated_sound` message and specify the target sound component and sound gain. The gate will call `sound.play()` with the target sound component if the gate is open:
 
 ```lua
 msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#explosion1", gain = 1.0 })
@@ -165,3 +183,6 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 It does not work to have the gate listen to `play_sound` messages since that name is reserved by the Defold engine. You will get unexpected behavior if you use reserved message names.
 :::
 
+## Project configuration
+
+The *game.project* file has a few [project settings](/manuals/project-settings#sound) related to sound components.

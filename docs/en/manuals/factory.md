@@ -86,9 +86,42 @@ end
 Defold does not currently support non uniform scaling of collision shapes. If you provide a non uniform scale value, for instance `vmath.vector3(1.0, 2.0, 1.0)` the sprite will scale correctly but the collision shapes won't.
 :::
 
+
+## Addressing of factory created objects
+
+Defold's addressing mechanism makes it possible to access every object and component in a running game. The [Addressing manual](/manuals/addressing/) goes into quite a bit of detail how the system works. It is possible to use the same addressing mechanism for spawned game objects and their components. It is quite often enough to use the id of the spawned object, for instance when sending a message:
+
+```lua
+local function create_hunter(target_id)
+    local id = factory.create("#hunterfactory")
+    msg.post(id, "hunt", { target = target_id })
+    return id
+end
+```
+
+::: sidenote
+Message passing to the game object itself instead of a specific component will in fact send the message to all components. This is usually not a problem but it's good to keep in mind if the object has a lot of components.
+:::
+
+But what if you need to access a specific component on a spawned game object, for instance to disable a collision object or change a sprite image? The solution is to construct a URL from the game object id and the id of the component.
+
+```lua
+local function create_guard(unarmed)
+    local id = factory.create("#guardfactory")
+    if unarmed then
+        local weapon_sprite_url = msg.url(nil, id, "weapon")
+        msg.post(weapon_sprite_url, "disable")
+
+        local body_sprite_url = msg.url(nil, id, "body")
+        sprite.play_flipbook(body_sprite_url, hash("red_guard"))
+    end
+end
+```
+
+
 ## Tracking spawned and parent objects
 
-When you call `factory.create()` you get back the id of the new game object, allowing you to store the id for future reference. One common use is to spawn objects and add their id:s to a table so you can delete them all at a later point, for instance when resetting a level layout:
+When you call `factory.create()` you get back the id of the new game object, allowing you to store the id for future reference. One common use is to spawn objects and add their id's to a table so you can delete them all at a later point, for instance when resetting a level layout:
 
 ```lua
 -- spawner.script
@@ -164,7 +197,7 @@ Synchronous loading
       -- load will create the resources synchronously.
       self.go_id = factory.create("#factory")
   end
-  
+
   function final(self)  
       -- Delete game objects. Will decref resources.
       -- In this case resources are deleted since the factory component
@@ -184,19 +217,19 @@ Asynchronous loading
       -- Loading is complete, resources are ready to spawn
       self.go_id = factory.create(url)
   end
-  
+
   function init(self)
-      -- No factory resources are loaded when the factory’s parent 
+      -- No factory resources are loaded when the factory’s parent
       -- collection is loaded. Calling load will load the resources.
       factory.load("#factory", load_complete)
   end
-  
+
   function final(self)
       -- Delete game object. Will decref resources.
       -- In this case resources aren’t deleted since the factory component
       -- still holds a reference.
       go.delete(self.go_id)
-  
+
       -- Calling unload will decref resources held by the factory component,
       -- resulting in resources being destroyed.
       factory.unload("#factory")
@@ -213,5 +246,4 @@ So if you set *max_instances* to 1024 and have 24 manually placed game objects i
 
 ## Pooling of game objects
 
-It may seem like a good idea to save spawned game objects in a pool and reuse them. However, the engine is already doing object pooling under the hood so additional overhead will only slow things down. So delete game objects and spawn new ones, that is both faster and cleaner.
-
+It may seem like a good idea to save spawned game objects in a pool and reuse them. However, the engine is already doing object pooling under the hood so additional overhead will only slow things down. It is both faster and cleaner to delete game objects and spawn new ones.

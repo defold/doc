@@ -7,9 +7,9 @@ brief: Bob is a command line tool for building Defold projects. This manual expl
 
 Bob is a command line tool for building Defold projects outside of the normal editor workflow.
 
-Bob is able to build data (corresponding to the build step of selecting the editor menu item <kbd>Project ▸ Build And Launch</kbd>), create data archives and create standalone, distributable application bundles (corresponding to the editor menu item <kbd>Project ▸ Bundle ▸ ...</kbd> options)
+Bob is able to build data (corresponding to the build step of selecting the editor menu item <kbd>Project ▸ Build</kbd>), create data archives and create standalone, distributable application bundles (corresponding to the editor menu item <kbd>Project ▸ Bundle ▸ ...</kbd> options)
 
-Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution at http://d.defold.com. Select a release, then download *bob/bob.jar*. To run the Bob tool, you need Java 8 installed on your computer. You can download a version of Java from https://www.java.com.
+Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [Defold Download page](http://d.defold.com) and the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. To run the Bob tool, you need [OpenJDK 11 installed on your computer](https://openjdk.java.net/projects/jdk/11/).
 
 ## Usage
 
@@ -19,6 +19,8 @@ Bob is run from a shell or from the command line by invoking `java` (or `java.ex
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
  -a,--archive                        Build archive
+ -ar,--architectures <arg>           comma separated list of architectures
+                                     to include for the platform
     --binary-output <arg>            Location where built engine binary
                                      will be placed. Default is
                                      "<build-output>/<platform>/"
@@ -35,9 +37,6 @@ usage: bob [options] [commands]
                                      instead
     --defoldsdk <arg>                What version of the defold sdk (sha1)
                                      to use
-    --with-symbols                   When using native extensions, the debug
-                                     symbols are also returned (where
-                                     applicable)
  -e,--email <arg>                    User email
  -h,--help                           This help message
  -i,--input <arg>                    Source directory. Default is current
@@ -54,17 +53,25 @@ usage: bob [options] [commands]
  -pk,--private-key <arg>             Private key (Android)
  -r,--root <arg>                     Build root directory. Default is
                                      current directory
+    --settings <arg>                 a path to a game project settings
+                                     file. more than one occurrance are
+                                     allowed. the settings files are
+                                     applied left to right.
     --strip-executable               Strip the dmengine of debug symbols
                                      (when bundling iOS or Android)
  -tc,--texture-compression <arg>     Use texture compression as specified
                                      in texture profiles
  -tp,--texture-profiles <arg>        Use texture profiles (deprecated)
  -u,--auth <arg>                     User auth token
+    --use-vanilla-lua                Only ships vanilla source code (i.e.
+                                     no byte code)
  -v,--verbose                        Verbose output
     --variant <arg>                  Specify debug, release or headless
                                      version of dmengine (when bundling)
     --version                        Prints the version number to the
                                      output
+    --with-symbols                   Generate the symbol file (if
+                                     applicable)
 ```
 
 Available commands:
@@ -104,6 +111,9 @@ Available platforms:
 `armv7-darwin`
 : iOS 32 bit
 
+`x86_64-ios`
+: iOS Mac OSX 64 bit (iOS Simulator)
+
 `armv7-android`
 : Android 32 bit
 
@@ -141,4 +151,3 @@ drwxr-xr-x   27 sicher  staff       918  1 Dec 10:15 sound
 -rw-r--r--    1 sicher  staff    131926  1 Dec 10:15 state
 $
 ```
-

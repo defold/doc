@@ -17,7 +17,7 @@ GUI components are rendered independently of the game view. Because of this it i
 
 ## Creating a GUI component
 
-GUI components are created from a GUI scene blueprint file. To to create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
+GUI components are created from a GUI scene blueprint file. To create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
 
 ![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
 
@@ -25,7 +25,7 @@ Defold now automatically opens the file in the GUI scene editor.
 
 ![New gui](images/gui/new_gui.png){srcset="images/gui/new_gui@2x.png 2x"}
 
-The *Outline* lists all the GUI:s content: it's list of nodes and any dependencies (see below).
+The *Outline* lists all the GUI's content: it's list of nodes and any dependencies (see below).
 
 The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layouts) selector.
 
@@ -52,7 +52,7 @@ Max Nodes
 
 ## Dependencies
 
-The resource tree in a Defold game is static so any dependences that you need for your GUI nodes need to be added to the component. The *Outline* groups all dependencies by type under "folders":
+The resource tree in a Defold game is static so any dependencies that you need for your GUI nodes need to be added to the component. The *Outline* groups all dependencies by type under "folders":
 
 ![dependencies](images/gui/dependencies.png){srcset="images/gui/dependencies@2x.png 2x"}
 
@@ -165,7 +165,7 @@ ParticleFX (particlefx nodes)
 : The particle effect to use on this node. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
 
 Color
-: The color of the node. It the node is textured, the color tints the texture. The color can be animated from script.
+: The color of the node. If the node is textured, the color tints the texture. The color can be animated from script.
 
 Alpha
 : The translucency of the node. The alpha value can be animated from script.
@@ -204,7 +204,7 @@ X Anchor, Y Anchor
 
   The following anchoring modes are available:
 
-  - `None` (for both *X Anchor* and *Y Anchor*) keeps the node's position from the center of the parent node or scene, relative it's *adjusted* size.
+  - `None` (for both *X Anchor* and *Y Anchor*) keeps the node's position from the center of the parent node or scene, relative to it's *adjusted* size.
   - `Left` or `Right` (*X Anchor*) scales the horizontal position of the node so it keeps the position from the left and right edges of the parent node or scene at the same percentage.
   - `Top` or `Bottom` (*Y Anchor*) scales the vertical position of the node so it keeps the position from the top and bottom edges of the parent node or scene at the same percentage.
 
@@ -217,7 +217,7 @@ Adjust Mode
 
   ![Unadjusted](images/gui/unadjusted.png){srcset="images/gui/unadjusted@2x.png 2x"}
 
-  Fitting the scene to a portrait screen cause the scene to be stretched. Each node's bounding box is similarly stretched. However, by setting the adjust mode, the aspect ratio of the node's content can be kept intact. The following modes are available:
+  Fitting the scene to a portrait screen causes the scene to be stretched. Each node's bounding box is similarly stretched. However, by setting the adjust mode, the aspect ratio of the node's content can be kept intact. The following modes are available:
 
   - `Fit` scales the node content so that it is equal to the stretched bounding box width or height, whichever is smallest. In other words, the content will fit inside the stretched node bounding box.
   - `Zoom` scales the node content so that it is equal to the stretched bounding box width or height, whichever is largest. In other words, the content will fully cover the stretched node bounding box.

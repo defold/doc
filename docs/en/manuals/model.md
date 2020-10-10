@@ -5,25 +5,7 @@ brief: This manual describes how to bring 3D models, skeletons and animations in
 
 # Model component
 
-Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but orthographically projected onto the screen.  Defold allows you to utilize full 3D content by including 3D assets, or _Models_ into your collections. You can build games in strictly 3D with only 3D assets, or you can mix 3D and 2D content as you wish.
-
-## Creating a model
-
-Let's look at an example. We have created a simple model with an armature (skeleton) and a simple animation in _Blender_. 
-
-Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, Mac OS X and Linux and is freely available for download at http://www.blender.org
-
-Now we wish to bring this model to life in Defold.
-
-![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
-
-When the model is done you select the Blender Collada exporter to produce a file with the *.dae* file extension. This exported mesh file contain all the vertices, edges and faces that make up the model, as well as _UV coordinates_ (what part of the texture image maps to a certain part of the mesh) if you have defined them, the bones in the skeleton and animation data.
-
-A detailed description on polygon meshes can be found on http://en.wikipedia.org/wiki/Polygon_mesh. UV coordinates and UV mapping is described at http://en.wikipedia.org/wiki/UV_mapping.
-
-Now, to import the model, simply drag and drop the *.dae* file and the corresponding texture image into the *Project Explorer* somewhere.
-
-![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
+Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but orthographically projected onto the screen. Defold allows you to utilize full 3D content by including 3D assets, or _Models_ into your collections. You can build games in strictly 3D with only 3D assets, or you can mix 3D and 2D content as you wish.
 
 ## Creating a model component
 
@@ -35,6 +17,10 @@ Model components are created just like any other game object component. You can 
 ![Model in game object](images/model/model.png)
 
 With the model created you need to specify a number of properties:
+
+### Model properties
+
+Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
 
 *Mesh*
 : This property should refer to the Collada *.dae* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
@@ -54,9 +40,89 @@ With the model created you need to specify a number of properties:
 *Default Animation*
 : This is the animation (from the animation set) that will be automatically played on the model.
 
+## Editor manipulation
 
 With the model component in place you are free to edit and manipulate the component and/or the encapsulating game object with the regular *Scene Editor* tools to move, rotate and scale the model to your liking.
 
 ![Wiggler ingame](images/model/ingame.png){srcset="images/model/ingame@2x.png 2x"}
 
+## Runtime manipulation
 
+You can manipulate models in runtime through a number of different functions and properties (refer to the [API docs for usage](/ref/model/)).
+
+### Runtime animation
+
+Defold provides powerful support for controlling animation in runtime:
+
+```lua
+local play_properties = { blend_duration = 0.1 }
+spine.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
+```
+
+The animation playback cursor can be animated either by hand or through the property animation system:
+
+```lua
+-- set the run animation
+model.play_anim("#model", "run", go.PLAYBACK_NONE)
+-- animate the cursor
+go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
+```
+
+### Changing properties
+
+A model also has a number of different properties that can be manipulated using `go.get()` and `go.set()`:
+
+`animation`
+: The current model animation (`hash`) (READ ONLY). You change animation using `model.play_anim()` (see above).
+
+`cursor`
+: The normalized animation cursor (`number`).
+
+`material`
+: The model material (`hash`). You can change this using a material resource property and `go.set()`. Refer to the [API reference for an example](/ref/model/#material).
+
+`playback_rate`
+: The animation playback rate (`number`).
+
+`textureN`
+: The model textures where N is 0-7 (`hash`). You can change this using a texture resource property and `go.set()`. Refer to the [API reference for an example](/ref/model/#textureN).
+
+
+## Material
+
+3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the Collada *.dae* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
+
+There is a simple 3D model material available in the built-in materials folder. If you need to create custom materials for your models, see the [Material documentation](/manuals/material) for information. The [Shader manual](/manuals/shader) contains information on how shader programs work.
+
+
+### Material constants
+
+{% include shared/material-constants.md component='model' variable='tint' %}
+
+`tint`
+: The color tint of the model (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
+
+
+## Rendering
+
+The default render script is tailor made for 2D games and does not work with 3D models. But by copying the default render script and adding a handful of lines of code to the render script you can enable rendering of your models. For instance:
+
+  ```lua
+
+  function init(self)
+    self.model_pred = render.predicate({"model"})
+    ...
+  end
+
+  function update()
+    ...
+    render.set_depth_mask(true)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_projection(stretch_projection(-1000, 1000))  -- orthographic
+    render.draw(self.model_pred)
+    render.set_depth_mask(false)
+    ...
+  end
+  ```
+
+See the [Render documentation](/manuals/render) for details on how render scripts work.

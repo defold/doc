@@ -7,7 +7,7 @@ brief: This manual briefly covers how to work with code in Defold.
 
 While Defold allows you to create a lot of your game content using visual tools such as the tilemap and particle effect editors you still create your game logic using a code editor. Game logic is written using the [Lua programming language](https://www.lua.org/) while extensions to the engine itself are written using the native language(s) for the target platform.
 
-Defold has a built in text editor that allows you to open and edit Lua files (.lua), Defold script files (.script, .gui_script and .render_script) as well as any other file with a file extension not natively handled by the editor. Additionally the editor provides syntax highlighting for Lua and script files.
+Defold has a built-in text editor that allows you to open and edit Lua files (.lua), Defold script files (.script, .gui_script and .render_script) as well as any other file with a file extension not natively handled by the editor. Additionally the editor provides syntax highlighting for Lua and script files.
 
 ## Writing Lua code
 

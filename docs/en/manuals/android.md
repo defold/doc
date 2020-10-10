@@ -9,48 +9,58 @@ Android devices allows you to freely run your own apps on them. It is very easy 
 
 ## Android and Google Play signing process
 
-Android requires that apps that you want to install are digitally signed. Unlike iOS where all certificates are issued by Apple, Android allows self signed apps so you can freely create certificates and keys required to sign apps.
+Android requires that all APKs be digitally signed with a certificate before they are installed on a device or updated. If you use Android App Bundles, you need to sign only your app bundle before you upload it to the Play Console, and [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play) takes care of the rest. However, you can also manually sign your app for upload to Google Play, other app stores and for distribution outside of any store.
 
-The process of creating certificates and keys may seem complicated but as long as you are in development, Defold fully automates the process. When you create an Android application bundle from the editor you can provide a specific certificate and key. If you don't, Defold generates a random certificate and a key and signs the resulting *.apk* (Android Application Package) file.
-
-It is important to note that when it is time to release an app on Google Play, you will need to create a certificate and key that you use to sign the app. The reason is that when you intend to publish an updated version of the app, _the updated *.apk* file needs to be signed with the same signature as the current version_. If you sign with a different private key, Google Play will reject the *.apk* update and you will need to publish the game as a totally new app.
-
-You can find more information from the [Google Play developer console](https://play.google.com/apps/publish/).
-
-## Creating certificates and keys
-
-You need the to create certificates in *.pem*-format and keys in *.pk8*-format. You can generate these with the `openssl` tool:
-
-```sh
-$ openssl genrsa -out key.pem 2048
-$ openssl req -new -key key.pem -out request.pem
-$ openssl x509 -req -days 9999 -in request.pem -signkey key.pem -out certificate.pem
-$ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocrypt
-```
-
-This will leave you with the files *certificate.pem* and *key.pk8* that you can use to sign your application bundles.
+When you create an Android application bundle from the Defold editor or the [command line tool](/manuals/bob) you can provide a keystore (containing your certificate and key) and keystore password which will be used when signing your application. If you don't, Defold generates a debug keystore and uses it when signing the application bundle.
 
 ::: important
-Make sure that you store your certificate and key safely. If you lose them you will _not_ be able to upload updated *.apk* file versions to Google Play.
+You should **never** upload your application to Google Play if it was signed using a debug keystore. Always use a dedicated keystore which you have created yourself.
 :::
+
+## Creating a keystore
+
+::: sidenote
+The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore.
+:::
+
+You can create a keystore [using Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) or from a terminal/command prompt:
+
+```bash
+keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, L=Unknown, ST=Nevada, C=US" -keystore mykeystore.keystore -storepass 5Up3r_53cR3t -alias myAlias -keyalg RSA -validity 9125
+```
+
+This will create a keystore file named `mykeystore.keystore` containing a key and certificate. Access to key and certificate will be protected by the password `5Up3r_53cR3t`. The key and certificate will be valid for 25 years (9125 days). The generated key and certificate will be identified by the alias `myAlias`.
+
+::: important
+Make sure to store the keystore and associated password somewhere safe. If you sign and upload your applications to Google Play yourself and the keystore or keystore password is lost there is no way for you to update the application on Google Play. You can avoid this by using Google Play App Signing and let Google sign your applications for you.
+:::
+
 
 ## Creating an Android application bundle
 
-The editor lets you easily create a stand alone application bundle for your game. Select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
+The editor lets you easily create a stand alone application bundle for your game. Before bundling you can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#android).
 
-If you want the editor to automatically create random debug certificates, leave the *Certificate* and *Private key* fields empty:
+To bundle select <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> from the menu.
+
+If you want the editor to automatically create random debug certificates, leave the *Keystore* and *Keystore password* fields empty:
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-If you want to sign your bundle with a particular certificate and key, specify the *.pem* and *.pk8* files:
+If you want to sign your bundle with a particular keystore, specify the *Keystore* and *Keystore password*. The *Kyestore* is expected to have the `.keystore` file extension while the password is expected to be stored in a text file with the `.txt` extension:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-Press <kbd>Create Bundle</kbd> and you will then be prompted to specify where on your computer the bundle will be created.
+Defold supports the creation of both APK and AAB files. Select APK or AAB from the Bundle Format drop down.
+
+Press <kbd>Create Bundle</kbd> when you have configured the application bundle settings. You will then be prompted to specify where on your computer the bundle will be created.
 
 ![Android Application Package file](images/android/apk_file.png)
 
-The editor writes an *.apk* file which is an Android application bundle. This file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). You can specify what icon(s) to use for the app, set version code etc in the "game.project" [project settings file](/manuals/project-settings/#_android).
+### Installing an Android application bundle
+
+### Installing an APK
+
+An *.apk* file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
 
 ```
 $ adb install Defold\ examples.apk
@@ -59,33 +69,22 @@ $ adb install Defold\ examples.apk
 Success
 ```
 
+#### Installing an AAB
+
+An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *.apk* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
+
 ## Permissions
 
-The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the "game.project" [project settings file](/manuals/project-settings/#_android). You can read more about Android permissions in [the official docs](https://developer.android.com/guide/topics/permissions/overview). The following permissions are requested in the default manifest:
+The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the "game.project" [project settings file](/manuals/project-settings/#android). You can read more about Android permissions in [the official docs](https://developer.android.com/guide/topics/permissions/overview). The following permissions are requested in the default manifest:
 
 ### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
 Allows applications to open network sockets and access information about networks. These permission are needed for internet access. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) and ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
-### com.android.vending.BILLING
-Google Play Billing is a service that lets you sell digital content from inside an Android app, or in-app. This permission is needed for [in-app purchases](/manuals/iap/) to work.
-
 ### android.permission.WRITE_EXTERNAL_STORAGE (Protection level: dangerous)
 Allows an application to write to external storage. Starting in API level 19, this permission is not required to read/write files in your application-specific directories returned by Context.getExternalFilesDir(String) and Context.getExternalCacheDir(). This permission is needed if you intend to save/load files from disk (using io.* or sys.save/load) outside of the folder provided by [sys.get_save_file()](/ref/sys/#sys.get_save_file:application_id-file_name) and have `android:minSdkVersion` set to less than 19 in the Android manifest. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
 
-### android.permission.READ_PHONE_STATE (Protection level: dangerous)
-Allows read only access to phone state, including the phone number of the device, current cellular network information, the status of any ongoing calls, and a list of any PhoneAccounts registered on the device. This permission is used to detect if a call is ongoing (for [sound.is_phone_call_active()](/ref/sound/#sound.is_phone_call_active)) as well as to populate the `device_ident` field of [sys.get_sys_info()](/ref/sys/#sys.get_sys_info). ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#READ_PHONE_STATE))
-
-### android.permission.GET_ACCOUNTS (Protection level: dangerous)
-Allows access to the list of accounts in the Accounts Service. This permission was used when registering for push notifications, but it is actually not needed. You can safely remove this permission (it will be removed from the default manifest later). ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#GET_ACCOUNTS)).
-
 ### android.permission.WAKE_LOCK (Protection level: normal)
 Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. This permission is needed to temporarily prevent the device from sleeping while receiving a push notification. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
-
-### android.permission.VIBRATE (Protection level: normal)
-Allows access to the vibrator. This permission is needed for the device to vibrate when a push notification is received. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#VIBRATE))
-
-### com.google.android.c2dm.permission.RECEIVE and {{android.package}}.permission.C2D_MESSAGE
-These permissions are needed to receive push notifications.
 
 
 ## Android Debug Bridge
@@ -112,7 +111,7 @@ On Mac OS X (Homebrew)
 $ brew cask install android-platform-tools
 ```
 
-You can veryfy that `adb` works by connecting your Android device to your computer via USB and issue the following command:
+You can verify that `adb` works by connecting your Android device to your computer via USB and issue the following command:
 
 ```
 $ adb devices
@@ -141,16 +140,5 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
 
-## Troubleshooting
-
-I'm getting "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" when installing
-: Android detects that you try to install the app with a new certificate. When bundling debug builds, each build will be signed with a temporary certificate. Uninstall the old app before installing the new version:
-
-  ```
-  $ adb uninstall com.defold.examples
-  Success
-  $ adb install Defold\ examples.apk
-  4826 KB/s (18774344 bytes in 3.798s)
-          pkg: /data/local/tmp/Defold examples.apk
-  Success
-  ```
+## FAQ
+:[Android FAQ](../shared/android-faq.md)

@@ -39,7 +39,7 @@ This will work as expected. When the game starts, the script component *addresse
 
 ![bean](images/addressing/bean.png)
 
-The identifiers in the setup are arbitrary. Here we have chosen to give the game object the identifyer "bean", its sprite component has been named "body", and the script component that controls the character has been named "controller".
+The identifiers in the setup are arbitrary. Here we have chosen to give the game object the identifier "bean", its sprite component has been named "body", and the script component that controls the character has been named "controller".
 
 ::: sidenote
 If you don't choose a name, the editor will. Whenever you create a new game object or component in the editor, a unique *Id* property is automatically set.
@@ -80,7 +80,7 @@ Since the addressee of the message is outside the game object sending the messag
 
 Going back to the previous example with a single game object we see that by leaving out the game object identifier part of the target address, the code can address components in the *current game object*.
 
-For example, `"#body"` denotes the address to the component "body" in the current game object. This is very useful because this code will work in *any* game object, as long as there is a "body" component present. 
+For example, `"#body"` denotes the address to the component "body" in the current game object. This is very useful because this code will work in *any* game object, as long as there is a "body" component present.
 
 ## Collections
 
@@ -109,26 +109,11 @@ The address `"buddy#controller"` works for the game objects in both collections 
 
 Relative addressing works by automatically prepending the current naming context when resolving a target address. This is again immensely useful and powerful because you can create groups of game objects with code and reuse those efficiently throughout the game.
 
-Shorthands
-: Defold provides two useful relative address shorthands:
+### Shorthands
 
-  `.`
-  : Shorthand resolving to the current game object.
-  
-  `#`
-  : Shorthand resolving to the current component.
+Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
 
-  For example:
-  
-  ```lua
-   -- Let this game object acquire input focus
-   msg.post(".", "acquire_input_focus")
-  ```
-  
-  ```lua
-   -- Post "reset" to the current script
-   msg.post("#", "reset")
-  ```
+:[Shorthands](../shared/url-shorthands.md)
 
 ## Game object paths
 
@@ -148,7 +133,7 @@ For our example above, the game will run with the following 4 game objects:
 Identities are stored as hashed values. The runtime also stores the hash state for each collection identity which is used to continue hashing relative string to an absolute id.
 :::
 
-In runtime, the collection grouping do not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
+In runtime, the collection grouping does not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
 
 ## Absolute addressing
 

@@ -7,6 +7,11 @@ brief: This manual explains how Defold's render pipeline works and how you can p
 
 Every object that is shown on screen by the engine: sprites, models, tiles, particles or GUI nodes, are drawn by a renderer. At the heart of the renderer is a render script that controls the render pipeline. By default, every 2D object is drawn with the correct bitmap with the specified blending and at the correct Z depth---so you might not have to ever think about rendering beyond ordering and simple blending. For most 2D games, the default pipeline functions well, but your game might have special requirements. If that is the case, Defold allows you to write a tailor-made rendering pipeline.
 
+### Render pipeline - What, when and where?
+
+The render pipeline controls what to render, when to render it and also where to render it. What to render is controlled by [render predicates](#render-predicates). When to render a predicate is controlled in the [render script](#the-render-script) and where to render a predicate is controlled by the [view projection](#default-view-projection).
+
+
 ## The default render
 
 The render file contains a reference to the current render script as well as custom materials that should be made available in the render script (use with [`render.enable_material()`](/ref/render/#render.enable_material))
@@ -24,6 +29,20 @@ To set up a custom renderer:
 2. Edit your copy of the "default.render" file and change the *Script* property to refer to your copy of the render script.
 
 3. Change the *Render* property (under *bootstrap*) in the "game.project" settings file to refer to your copy of the "default.render" file.
+
+
+## Render predicates
+
+To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_.
+
+Each object that is drawn onto the screen has a material attached to it that controls how the object should be drawn to the screen. In the material, you specify one or more _tags_ that should be associated with the material.
+
+In your render script, you can then create a *render predicate* and specify which tags should belong to that predicate. When you tell the engine to draw the predicate, each object with a material containing a tag matching the list specified for the predicate will be drawn.
+
+![Render predicate](images/render/render_predicate.png){srcset="images/render/render_predicate@2x.png 2x"}
+
+A detailed description on how materials work can be found in the [Material documentation](/manuals/material).
+
 
 ## Default view projection
 
@@ -53,7 +72,7 @@ msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 
 ### Fixed fit projection
 
-Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be show vertically or horizontally:
+Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be shown vertically or horizontally:
 
 ![Fixed fit projection](images/render/fixed_fit_projection.png)
 
@@ -106,17 +125,14 @@ msg.post("@render:", "use_camera_projection")
 ```
 
 
-## Render predicates
+## Coordinate systems
 
-To be able to control the draw order of objects, you create render _predicates_. A predicate declares what should be drawn based on a selection of material _tags_.
+When components are rendered you usually talk of in which coordinate system the components are rendered. In most games you have some components drawn in world space and some in screen space.
 
-Each object that is drawn onto the screen has a material attached to it that controls how the object should be drawn to the screen. In the material, you specify one or more _tags_ that should be associated with the material.
+GUI components and their nodes are usually drawn in the screen space coordinate, with the bottom left corner of the screen having coordinate (0,0) and the top right corner is (screen width, screen height). The screen space coordinate system is never offset or in some other way translated by a camera. This will keep the GUI nodes always drawn on screen regardless of how the world is rendered.
 
-In your render script, you can then create a *render predicate* and specify which tags should belong to that predicate. When you tell the engine to draw the predicate, each object with a material containing a tag matching the list specified for the predicate will be drawn.
+Sprites, tilemaps and other components used by game objects that exist in your game world are usually drawn in the world space coordinate system. If you make no modifications to your render script and use no camera component to change the view projection this coordinate system is the same as the screen space coordinate system, but as soon as you add a camera and either move it around or change the view projection the two coordinate systems will deviate. When the camera is moving the lower left corner of the screen will be offset from (0, 0) so that other parts of the world is rendered. If the projection changes the coordinates will be both translated (ie offset from 0, 0) and modified by a scale factor.
 
-![Render predicate](images/render/render_predicate.png){srcset="images/render/render_predicate@2x.png 2x"}
-
-A detailed description on how materials work can be found in the [Material documentation](/manuals/material).
 
 ## The render script
 
@@ -263,7 +279,7 @@ on_message()
   ```
 
 `"draw_text"`
-: Draw debug text. Use to print debug information. The text is drawn with the built in "system_font" font. The system font has a material with tag "text" and is rendered with other text in the default render script.
+: Draw debug text. Use to print debug information. The text is drawn with the built-in "system_font" font. The system font has a material with tag "text" and is rendered with other text in the default render script.
 
   ```lua
   -- draw a text message
@@ -308,4 +324,4 @@ Rendering of the nodes in a GUI component are done from top to bottom of the nod
 Rendering of nodes are done per component. This means that nodes from different GUI components will not be batched.
 :::
 
-The ability to arrange nodes in hierarchies makes it easy to group nodes into manageable units. But hierarchies can effectively break batch rendering if you mix different node types. It is possible to more effectively batch GUI nodes while maintaining node hierarchies using GUI layers. You can read more about GUI layers and how they affect draw calls in the [GUI manual](/manuals/gui#_layers_and_draw_calls).
+The ability to arrange nodes in hierarchies makes it easy to group nodes into manageable units. But hierarchies can effectively break batch rendering if you mix different node types. It is possible to more effectively batch GUI nodes while maintaining node hierarchies using GUI layers. You can read more about GUI layers and how they affect draw calls in the [GUI manual](/manuals/gui#layers-and-draw-calls).

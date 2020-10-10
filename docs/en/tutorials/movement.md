@@ -1,7 +1,6 @@
 ---
 title: Movement tutorial
 brief: In this beginner's tutorial you learn how to make realistic movement using vectors and some simple vector algebra.
-github: https://github.com/defold/tutorial-movement
 ---
 
 # Movement tutorial

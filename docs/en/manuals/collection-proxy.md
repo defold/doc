@@ -23,7 +23,7 @@ Collection proxies differ from [collection factory components](/manuals/collecti
 
 ## Bootstrap
 
-When the Defold engine starts it loads and instanciates all game objects from a *bootstrap collection* into the runtime. It then initializes and enables the game objects and their components. Which bootstrap collection the engine should use is set in the [project settings](/manuals/project-settings). By convention this collection file is usually named "main.collection".
+When the Defold engine starts it loads and instanciates all game objects from a *bootstrap collection* into the runtime. It then initializes and enables the game objects and their components. Which bootstrap collection the engine should use is set in the [project settings](/manuals/project-settings/#main-collection). By convention this collection file is usually named "main.collection".
 
 ![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
 
@@ -165,7 +165,7 @@ DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 
 `update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
 
-See [`set_time_step`](/ref/collection-proxy#set_time_step) for more details.
+See [`set_time_step`](/ref/collectionproxy#set_time_step) for more details.
 
 ## Caveats and common issues
 

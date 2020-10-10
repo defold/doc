@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # GUI text nodes
 Font는 GUI 씬에서 text 노드를 렌더링하는데 사용됩니다. 이 매뉴얼은 GUI 씬에서 텍스트를 다루는 방법에 대해 설명합니다.
 

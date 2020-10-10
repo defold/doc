@@ -7,35 +7,6 @@ brief: In this article, you go through the implementation of a basic tile-based 
 
 In this article, we go through the implementation of a basic tile-based 2D platformer in Defold. The mechanics we will learn are moving left/right, jumping and falling.
 
-<div id="game-container" class="game-container">
-  <img id="game-preview" src="//storage.googleapis.com/defold-doc/assets/platformer/preview.jpg"/>
-  <canvas id="game-canvas" tabindex="1" width="1024" height="768">
-  </canvas>
-  <button id="game-button">
-    START GAME <span class="icon"></span>
-  </button>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmloader.js"></script>
-  <script src="//storage.googleapis.com/defold-doc/assets/dmengine_1_2_106.js" async></script>
-  <script>
-      /* Load app on click in container. */
-      document.getElementById("game-button").onclick = function (e) {
-          var extra_params = {
-              archive_location_filter: function( path ) {
-                  return ("//storage.googleapis.com/defold-doc/assets/platformer" + path + "");
-              },
-              load_done: function() {},
-              game_start: function() {
-                  var e = document.getElementById("game-preview");
-                  e.parentElement.removeChild(e);
-              }
-          }
-          Module.runApp("game-canvas", extra_params);
-          document.getElementById("game-button").style.display = 'none';
-          document.getElementById("game-button").onclick = null;
-      };
-  </script>
-</div>
-
 There are many different ways to go about creating a platformer. Rodrigo Monteiro has written an exhaustive analysis on the subject and more [here](http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/).
 
 We highly recommend you read it if you are new to making platformers, as it contains plenty of valuable information. We will go into a bit more detail on a few of the methods described and how to implement them in Defold. Everything should however be easy to port to other platforms and languages (we use Lua in Defold).
@@ -203,7 +174,7 @@ ExciteMike has made some nice graphs of the jump arcs in [Super Mario Bros 3](ht
 The level geometry is the collision shapes of the environment that the player character (and possibly other things) collide with. In Defold, there are two ways to create this geometry.
 
 Either you create separate collision shapes on top of the levels you build. This method is very flexible and allows fine positioning of graphics. It is especially useful if you want soft slopes.
-The game [Braid](http://www.davidhellman.net/blog/archives/85) used this method of building levels, and it is the method the example level in this tutorial is built too. Here is how it looks in the Defold editor:
+The game [Braid](http://braid-game.com/) used this method of building levels, and it is the method the example level in this tutorial is built too. Here is how it looks in the Defold editor:
 
 ![The Defold Editor with the level geometry and player placed into the world](images/platformer/editor.png)
 

@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Developing games for iOS
 이 매뉴얼은 Defold에서 iOS 장치의 앱과 게임을 개발하는 방법을 설명합니다.
 
@@ -24,7 +28,7 @@ Apple은 당신을 개발자로 식별하는 암호화된 인증서를 발행합
 
 Defold에서 게임이나 앱에 서명할 때에는 유효한 인증서와 유효한 프로비져닝 프로파일이 필요합니다.
 
-> Member Center 홈페이지에서 할 수 있는 일 중에 일부는 XCode 개발환경 내에서도 수행할 수 있습니다.
+> Member Center 홈페이지에서 할 수 있는 일 중에 일부는 Xcode 개발환경 내에서도 수행할 수 있습니다.
 
 ## Device UDID
 iOS 장치의 UDID는 와이파이나 케이블로 컴퓨터에 연결해서 알아낼 수 있습니다. iTunes 를 열어서 장치 아이콘을 클릭하고 당신의 장치를 선택하세요.
@@ -73,7 +77,7 @@ iOS 장치에서 게임을 실행하려면 Defold dev app과 에디터가 같은
 2. iOS 장치에서 Defold dev app 실행하기
 3. 에디터에서  **Project > Targets** 에 있는 당신의 장치 선택
 4. 게임을 실행하기 위해 **Project > Build And Launch** 선택하기. 게임 컨텐츠가 네트워크를 통해서 장치로 스트림 되므로 게임이 시작되는데 시간이 걸릴 수 있음.
-5. 게임이 실행되는 동안, 평소처럼 [핫 리로드(hot-reload)](/manuals/debugging#_hot-reloading)도 할 수 있음
+5. 게임이 실행되는 동안, 평소처럼 [핫 리로드(hot-reload)](/manuals/debugging#hot-reloading)도 할 수 있음
 
 ## Creating an iOS application bundle
 에디터에서 게임용 독립 어플리케이션 번들(stand alone application bundle)도 쉽게 생성할 수 있습니다. 메뉴에서 **Project > Bundle…​ > iOS Application…​** 를 선택하기만 하면 됩니다.

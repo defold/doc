@@ -5,7 +5,7 @@ brief: This manual describes best practices when developing native extensions.
 
 # Best Practices
 
-Writing cross platform code can be difficult, but there are some ways to make it easier to both develop and maintain. In this manual we list some ways we at Defold work with cross platform native code and API's.
+Writing cross platform code can be difficult, but there are some ways to make it easier to both develop and maintain. In this manual we list some ways we at Defold work with cross platform native code and APIs.
 
 ## Defold code
 
@@ -96,7 +96,7 @@ Here is a folder structure that we use frequently for our extensions.
             /res                         -- Any resources needed for a platform
             /external
                 README.md                -- Notes/scripts on how to build or package any external libraries
-        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#_project))
+        /bundleres                       -- Resources that should be bundles for (see game.project and the [bundle_resources setting]([physics scale setting](/manuals/project-settings/#project))
             /<platform>
         game.project
         game.appmanifest                 -- Any extra app configuration info

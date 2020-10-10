@@ -1,12 +1,12 @@
 ## Downloading
 
-Go to the [Defold download page](http://d.defold.com/stable/) where you will find Download buttons for macOS, Windows and Linux (Ubuntu):
+Go to the [Defold download page](https://defold.com/download/) where you will find Download buttons for macOS, Windows and Linux (Ubuntu):
 
 ![download editor](../shared/images/editor_download.png)
 
 ## Installation
 
-Installation on MacOS
+Installation on macOS
 : The downloaded file is a DMG image containing the program.
 
   1. Locate the file "Defold-x86_64-darwin.dmg" and double click it to open the image.
@@ -14,7 +14,7 @@ Installation on MacOS
 
   To start the editor, open your "Applications" folder and <kbd>double click</kbd> the file "Defold".
 
-  ![Defold MacOS](../shared/images/macos_content.png)
+  ![Defold macOS](../shared/images/macos_content.png)
 
 Installation on Windows
 : The downloaded file is a ZIP archive that needs to be extracted:
@@ -42,4 +42,22 @@ Installation on Linux
   $ ./Defold
   ```
 
-  If you run into any problems starting the editor, opening a project or running a Defold game please refer to the [Linux section of the FAQ](/faq/faq.md#linux-issues).
+  If you run into any problems starting the editor, opening a project or running a Defold game please refer to the [Linux section of the FAQ](/faq/faq#linux-issues).
+
+## Install an old version
+
+### From Defold GitHub release page
+
+Every stable version of Defold is also [released on GitHub](https://github.com/defold/defold/releases).
+
+### From Defold download page
+
+You can download and install old editor versions using the following link pattern:
+
+* Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
+* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-darwin.dmg
+* Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
+
+Replace `%sha1%` by the editor release hash representing the version in question. The hash of each Defold version can be seen in the links to the released version on the download page at https://d.defold.com/stable/ (make sure to remove the initial # character and only copy the alpha-numeric part):
+
+![download editor](../shared/images/old_version_sha1.png)

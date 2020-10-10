@@ -68,7 +68,7 @@ The update loop runs through a long sequence once every frame. The update sequen
 
 ## Input
 
-Input is is read from available devices, mapped against [input bindings](/manuals/input) and then dispatched. Any game object that has acquired input focus gets input sent to all its components' `on_input()` functions. A game object with a script component and a GUI component with a GUI script will get input to both components’ `on_input()` functions---given that they are defined and that they have acquired input focus.
+Input is read from available devices, mapped against [input bindings](/manuals/input) and then dispatched. Any game object that has acquired input focus gets input sent to all its components' `on_input()` functions. A game object with a script component and a GUI component with a GUI script will get input to both components’ `on_input()` functions---given that they are defined and that they have acquired input focus.
 
 Any game object that has acquired input focus and contains collection proxy components dispatches input to components inside the proxy collection. This process continues recursively down enabled collection proxies within enabled collection proxies.
 
@@ -102,7 +102,7 @@ The last step in the update loop involves dispatching `@system` messages (`exit`
 
 The number of frame updates per second (which equals the number of update-loop runs per second) can be set in the project settings, or programmatically by sending a `set_update_frequency` message to the `@system` socket. In addition, it is possible to set the _time step_ for collection proxies individually by sending a `set_time_step` message to the proxy. Changing a collection's time step does not affect the frame rate. It does affect the physics update time step as well as the `dt` variable passed to `update().` Also note that altering the time step does not alter the number of times `update()` will be called each frame---it is always exactly once.
 
-(See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collection-proxy#set_time_step) for details)
+(See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collectionproxy#set-time-step) for details)
 
 ## Finalization
 
@@ -117,4 +117,3 @@ Component `final()` functions are called first. A subsequent dispatching of mess
 The engine follows up with behind the scenes shutting down of subsystems: project configuration is deleted, the memory profiler is shut down, and so forth.
 
 The application is now completely shut down.
-

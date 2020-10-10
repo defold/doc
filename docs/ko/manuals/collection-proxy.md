@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Collection Proxies
 Defold는 컬렉션에 모든 게임 오브젝트를 구성합니다. 이 매뉴얼은 게임 실행중에 동적으로 컬렉션을 로드하고 언로드하는 방법에 대해 설명합니다.
 

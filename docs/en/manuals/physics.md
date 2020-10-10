@@ -30,7 +30,7 @@ A collision object component has a set of *Properties* that sets its type and ph
 To add a collision object component to a game object:
 
 1. In the *Outline* view, <kbd>right click</kbd> the game object and select <kbd>Add Component ▸ Collision Object</kbd> from the context menu. This creates a new component with no shapes.
-2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. This adds a new shape to the collision object component. You can add any number of shapes to the component.
+2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. This adds a new shape to the collision object component. You can add any number of shapes to the component. You can also use a tilemap or a convex hull to define the shape of the physics object.
 3. Use the move, rotate and scale tools to edit the shapes.
 4. Select the component in the *Outline* and edit the collision object's *Properties*.
 
@@ -85,9 +85,68 @@ Group
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything.
 
+### Collision shapes
+
+A collision component can either use several primitive shapes or a single complex shape. The primitive shapes are *box*, *sphere* and *capsule*. A complex shape can either be created from a tilemap component or from a convex hull shape.
+
+### Box shape
+A box has a position, rotation and dimensions (width, height and depth):
+
+![Box shape](images/physics/box.png)
+
+### Sphere shape
+A sphere has a position, rotation and diameter:
+
+![Sphere shape](images/physics/sphere.png)
+
+### Capsule shape
+A capsule has a position, rotation, diameter and height:
+
+![Sphere shape](images/physics/capsule.png)
+
+### Tilemap collision shape
+Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
+
+To add collision to a tile map:
+
+1. Add the tilemap to a game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component File</kbd>. Select the tile map file.
+2. Add a collision object component to the game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component ▸ Collision Object</kbd>.
+3. Instead of adding shapes to the component, set the *Collision Shape* property to the *tilemap* file.
+4. Set up the collision object component *Properties* as usual.
+
+![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
+
+::: important
+Note that the *Group* property is **not** used here since the collision groups are defined in the tile map's tile source.
+:::
+
+### Convex hull shape
+Defold includes a feature allowing you to create a convex hull shape from three or more points. You can use an external tool such as the [Defold Polygon Editor](/assets/defoldpolygoneditor/) or the [Physics Body Editor](/assets/physicsbodyeditor/) to create a convex hull shape.
+
+1. Create convex hull shape file (file extension `.convexshape`) using an external editor.
+2. Instead of adding shapes to the collision object component, set the *Collision Shape* property to the *convex shape* file.
+
+::: sidenote
+The shape will not be drawn in the editor. You can [enable Physics debugging](/manuals/debugging/#debugging-problems-with-physics) at runtime to see the shape.
+:::
+
+
+### Scaling collision shapes
+
+It is possible to let the collision object and its shapes inherit the scale of the game object. Check the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project* to enable this. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
+
+
+### Rotating collision shapes in 3D physics
+Collision shapes in 3D physics can be rotated around all axis.
+
+
+### Rotating collision shapes in 2D physics
+Collision shapes in 2D physics can only be rotated around the z-axis. Rotation around the x or y axis will yield incorrect results and should be avoided, even when rotating 180 degrees to essentially flip the shape along the x or y axis. To flip a physics shape it is recommended to use [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) and [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
+
+
 ### Units used by the physics engine simulation
 
-The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#_physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
+The physics engine simulates Newtonian physics and it is designed to work well with meters, kilograms and seconds (MKS) units. Furthermore, the physics engine is tuned to work well with moving objects of a size in the 0.1 to 10 meters range (static objects can be larger) and by default the engine treats 1 unit (pixel) as 1 meter. This conversion between pixels and meters is convenient on a simulation level, but from a game creation perspective it isn't very useful. With default settings a collision shape with a size of 200 pixels would be treated as having a size of 200 meters which is well outside of the recommended range, at least for a moving object. In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
 
 ## Group and mask
 
@@ -99,20 +158,6 @@ For a collision between two objects to register both objects must mutually speci
 
 The *Mask* field can contain multiple group names, allowing for complex interaction scenarios.
 
-## Tilesource collision shapes
-
-Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups.
-
-To add collision to a tile map:
-
-1. Add the tilemap to a game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component File</kbd>. Select the tile map file.
-2. Add a collision object component to the game object by <kbd>right-clicking</kbd> the game object and selecting <kbd>Add Component ▸ Collision Object</kbd>.
-3. Instead of adding shapes to the component, set the *Collision Shape* property to the *tilemap* file.
-4. Set up the collision object component *Properties* as usual.
-
-![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
-
-Note that the *Group* property is not used here since the collision groups are defined in the tile map's tile source.
 
 ## Collision messages
 
@@ -128,7 +173,7 @@ This message is sent for all collision objects. It has the following fields set:
 `other_position`
 : the world position of the instance the collision object collided with (`vector3`)
 
-`group`
+`other_group`
 : the collision group of the other collision object (`hash`)
 
 The collision_response message is only adequate to resolve collisions where you don't need any details on the actual intersection of the objects, for example if you want to detect if a bullet hits an enemy. There is only one of these messages sent for any colliding pair of objects each frame.
@@ -176,34 +221,13 @@ For a game or application where you need to separate objects perfectly, the `"co
 
 Triggers are light weight collision objects. Thay are similar to ray casts in that they read the physics world as opposed to interacting with it.
 
-In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and end. The message has the following fields:
+In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and ends. The message has the following fields:
 
 `other_id`
 : the id of the instance the collision object collided with (`hash`).
 
 `enter`
 : `true` if the interaction was an entry into the trigger, `false` if it was an exit. (`boolean`).
-
-## Ray casts
-
-Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
-
-If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
-
-```lua
-function update(self, dt)
-  -- request ray cast
-  local my_start = vmath.vector3(0, 0, 0)
-  local my_end = vmath.vector3(100, 1000, 1000)
-  local my_groups = { hash("my_group1"), hash("my_group2") }
-
-  local result = physics.raycast(my_start, my_end, my_groups)
-  if result then
-      -- act on the hit (see 'ray_cast_response' message for all values)
-      print(result.id)
-  end
-end
-```
 
 ## Resolving kinematic collisions
 
@@ -288,7 +312,87 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
+## Ray casts
+
+Ray casts are used to read the physics world along a linear ray. To cast a ray into the physics world, you provide a start and end position as well as a set of collision groups to test against.
+
+If the ray hits a physics object you will get information about the object it hit. Rays intersect with dynamic, kinematic and static objects. They do not interact with triggers.
+
+```lua
+function update(self, dt)
+  -- request ray cast
+  local my_start = vmath.vector3(0, 0, 0)
+  local my_end = vmath.vector3(100, 1000, 1000)
+  local my_groups = { hash("my_group1"), hash("my_group2") }
+
+  local result = physics.raycast(my_start, my_end, my_groups)
+  if result then
+      -- act on the hit (see 'ray_cast_response' message for all values)
+      print(result.id)
+  end
+end
+```
+
+::: sidenote
+Ray casts will ignore collision objects that contain the starting point of the ray. This is a limitation in Box2D.
+:::
+
+## Joints
+
+Defold supports joints for 2D physics. A joint connects two collision objects using some kind of constraint. The supported joint types are:
+
+* Fixed (physics.JOINT_TYPE_FIXED) - A rope joint that restricts the maximum distance between two points. In Box2D referred to as a Rope joint.
+* Hinge (physics.JOINT_TYPE_HINGE) - A hinge joint specifies an anchor point on two collision objects and moves them so that the two collision objects are always in the same place, and the relative rotation of the collision objects is not restricted. The hinge joint can enable a motor with a defined maximum engine torque and speed. In Box2D referred to as a Revolute joint.
+* Spring (physics.JOINT_TYPE_SPRING) - A spring joint keeps two collision objects at a constant distance from each other. The spring joint can be made soft like a spring with a frequency and damping ratio. In Box2D referred to as a Distance joint.
+* Slider (physics.JOINT_TYPE_SLIDER) - A slider joint allows for relative translation of two collision objects along a specified axis and prevents relative rotation. In Box2D referred to as a Prismatic joint.
+
+### Creating joints
+
+Joints can currently only be created programmatically using [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]):
+::: sidenote
+Editor support for creating joints is planned but no release date has been decided.
+:::
+
+```lua
+-- connect two collision objects with a fixed joint constraint (rope)
+physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
+```
+
+The above will create a fixed joint with id `my_test_joint` connected between the two collision object `obj_a#collisionobject` and `obj_b#collisionobject`. The joint is connected 10 pixels to the left of the center of collision object `obj_a#collisionobject` and 20 pixels above the center of collision object `obj_b#collisionobject`. The maximum length of the joint is 20 pixels.
+
+### Destroying joints
+
+A joint can be destroyed using [`physics.destroy_joint()`](/ref/physics/#physics.destroy_joint:collisionobject-joint_id):
+
+```lua
+-- destroy a joint previously connected to the first collision object
+physics.destroy_joint("obj_a#collisionobject", "my_test_joint")
+```
+
+### Reading from and Updating joints
+
+The properties of a joint can be read using [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) and set using [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties):
+
+```lua
+function update(self, dt)
+    if self.accelerating then
+        local hinge_props = physics.get_joint_properties("obj_a#collisionobject", "my_hinge")
+        -- increase motor speed by 100 revolutions per second
+        hinge_props.motor_speed = hinge_props.motor_speed + 100 * 2 * math.pi * dt
+        physics.set_joint_properties("obj_a#collisionobject", "my_hinge", hinge_props)
+    end
+end
+```
+
+### Get joint reaction force and torque
+
+The reaction force and torque applied to a joint can be read using [`physics.get_joint_reaction_force()`](/ref/physics/#physics.get_joint_reaction_force:collisionobject-joint_id) and [`physics.get_joint_reaction_torque()`](/ref/physics/#physics.get_joint_reaction_torque:collisionobject-joint_id).
+
+
 ## Caveats and common issues
 
 Collection proxies
 : Through collection proxies it is possible to load more than one top level collection, or *game world* into the engine. When doing so it is important to know that each top level collection is a separate physical world. Physics interactions (collisions, triggers, ray-casts) only happen between objects belonging to the same world. So even if the collision objects from two worlds visually sits right on top of each other, there cannot be any physics interaction between them.
+
+Collisions not detected
+: If you have problems with collisions not being handled or detected properly then make sure to read up on [physics debugging in the Debugging manual](/manuals/debugging/#debugging-problems-with-physics).

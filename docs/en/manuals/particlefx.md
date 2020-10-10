@@ -19,7 +19,7 @@ Modifier
 
 ## Creating an effect
 
-Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file using the [Scene Editor](/manuals/editor/#_the_scene_editor).
+Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file using the [Scene Editor](/manuals/editor/#the-scene-editor).
 
 The *Outline* pane shows the default emitter. Select the emitter to bring up its properties in the *Properties* pane below.
 
@@ -119,6 +119,9 @@ Inherit Velocity
 
 Stretch With Velocity
 : Check to scale any particle stretch in the direction of movement.
+
+### Blend modes
+:[blend-modes](../shared/blend-modes.md)
 
 ## Keyable emitter properties
 
@@ -223,4 +226,19 @@ particlefx.play("#particles")
 particlefx.stop("#particles")
 ```
 
+::: sidenote
+A particle effect will continue to emit particles even if the game object the particle effect component belonged to is deleted.
+:::
 See the [Particle FX reference documentation](/ref/particlefx) for more information.
+
+## Material constants
+
+The default particle effect material has the following constants that can be changed using `particlefx.set_constant()` and reset using `particlefx.reset_constant()` (refer to the [Material manual for more details](/manuals/material/#vertex-and-fragment-constants)):
+
+`tint`
+: The color tint of the particle effect (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/particlefx/#particlefx.set_constant:url-constant-value).
+
+
+## Project configuration
+
+The *game.project* file has a few [project settings](/manuals/project-settings#particle-fx) related to particles.

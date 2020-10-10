@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # Input
 이 매뉴얼은 입력 동작(input action)을 캡쳐하고 상호작용 스크립트의 반응(interactive script reactions)을 생성하는 방법에 대해 설명합니다.
 
@@ -101,7 +105,7 @@ end
 #### action.pressed
 입력이 검출된 첫번째 프레임에서 true, 그외에는 false
 #### action.repeated
-입력이 반복되고 있으면 true, 그 외에는 false. 이 값은 기본적으로 매 프레임마다 설정되지는 않지만 [프로젝트 설정(project settings)](/manuals/project-settings#input)의 repeat_delay와 repeat_interval 의 설정에 따라 달라집니다.
+입력이 반복되고 있으면 true, 그 외에는 false. 이 값은 기본적으로 매 프레임마다 설정되지는 않지만 [프로젝트 설정(project settings)](/manuals/project-settings#input)의 repeat-delay와 repeat-interval 의 설정에 따라 달라집니다.
 #### action.released
 입력이 해지(release)된 프레임에 true, 그 외에는 false
 
@@ -124,7 +128,7 @@ end
 마우스 트리거는 input bindings에서 설정한 휠 입력과 마우스 버튼 입력으로 제공됩니다.
 
 #### Mouse button inputs
-마우스가 눌렸는지(press) 감지할 때 사용하면 됩니다. "MOUSE_BUTTON_LEFT", "MOUSE_BUTTON_RIGHT", "MOUSE_BUTTON_MIDDLE" 입력은 "MOUSE_BUTTON_1", "MOUSE_BUTTON_2", "MOUSE_BUTTON_3"과 동일합니다. 
+마우스가 눌렸는지(press) 감지할 때 사용하면 됩니다. "MOUSE_BUTTON_LEFT", "MOUSE_BUTTON_RIGHT", "MOUSE_BUTTON_MIDDLE" 입력은 "MOUSE_BUTTON_1", "MOUSE_BUTTON_2", "MOUSE_BUTTON_3"과 동일합니다.
 현재 MOUSE_BUTTON_LEFT (또는 MOUSE_BUTTON_1)입력 액션은 단일 터치 입력(single touch inputs)에 대해서도 전송됩니다.
 
 #### Mouse wheel inputs

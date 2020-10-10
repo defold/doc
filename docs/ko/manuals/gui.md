@@ -1,3 +1,7 @@
+---
+title: Defold manual
+---
+
 # GUI
 Defold는 유저 인터페이스의 구성과 구현을 위해 맞춤형 커스텀 GUI 에디터와 강력한 스크립팅 기능을 제공합니다. 이 매뉴얼은 이러한 기능을 설명합니다.
 
@@ -21,7 +25,7 @@ GUI 컴포넌트는 여러 개의 노드로 구성됩니다. 노드는 아래 �
 * Template node, 자세한 것은 [Template nodes](/manuals/gui-templates) 문서 참고
 * Spine node, 자세한 것은 [Spine nodes](/manuals/gui-spine) 문서 참고
 
-노드는 단순하고 어떠한 로직도 포함하고 있지 않습니다. 에디터상에서나 런타임시 스크립트를 통하여 이동(translate or move)하거나 부-모 관계를 정렬(order)시킬 수는 있습니다. 스크립트 코드로 GUI 컴포넌트의 모든 노드들에게 직접적으로 액세스 할 수 있습니다. 노드는 스크립트로 애니메이션 시킬 수 있고(아래 [Property animation](/manuals/animation/#_property_animation) 참고) 애니메이션은 노드에서 실행될 수 있습니다(Box node의 플립북(flipbook) 애니메이션 그리고 Spine node의 본(bone) 애니메이션).
+노드는 단순하고 어떠한 로직도 포함하고 있지 않습니다. 에디터상에서나 런타임시 스크립트를 통하여 이동(translate or move)하거나 부-모 관계를 정렬(order)시킬 수는 있습니다. 스크립트 코드로 GUI 컴포넌트의 모든 노드들에게 직접적으로 액세스 할 수 있습니다. 노드는 스크립트로 애니메이션 시킬 수 있고(아래 [Property animation](/manuals/animation/#property-animation) 참고) 애니메이션은 노드에서 실행될 수 있습니다(Box node의 플립북(flipbook) 애니메이션 그리고 Spine node의 본(bone) 애니메이션).
 
 "Nodes" 폴더에서 마우스 오른쪽 버튼을 눌러 "Add Box", "Add Text", "Add Pie", "Add Template", "Add Spine Node" 중 하나를 선택해 노드를 추가합니다.
 
@@ -42,9 +46,9 @@ GUI 컴포넌트는 여러 개의 노드로 구성됩니다. 노드는 아래 �
 
 이들 프로퍼티는 에디터의 프로퍼티 탭에서 수정(인덱스(index) 설정과 부모관계(parenting) 설정은 안됨)하거나 스크립트를 통해 수정([GUI API](http://www.defold.com/ref/gui) 참고)하는 것이 가능합니다.
 
-이들 각 프로퍼티는 스크립트를 통해 애니메이션을 적용할 수도 있습니다. (아래 [Property animation](/manuals/animation/#_property_animation) 참고) 
+이들 각 프로퍼티는 스크립트를 통해 애니메이션을 적용할 수도 있습니다. (아래 [Property animation](/manuals/animation/#property-animation) 참고)
 
-## Textures and flip book animations
+## Textures and flipbook animations
 GUI 인터페이스 컴포넌트의 일부분으로 텍스쳐 아틀라스나 타일 소스의 이미지나 애니메이션을 사용 할 수 있습니다. 먼저 이미지 리소스(아틀라스 혹은 타일 소스)가 추가하면 이 리소스에 포함된 모든 이미지와 애니메이션을 GUI 노드에 반영할 수 있습니다. 상단의 "GUI" 메뉴를 사용하거나 키보드 단축키를 사용하거나 "Textures" 폴더에 마우스 오른쪽 버튼을 눌러서 텍스쳐를 추가해 보세요.
 
 GUI에 추가된 텍스쳐는 box나 pie 노드에 반영할 수 있습니다.

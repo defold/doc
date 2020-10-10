@@ -5,34 +5,22 @@ brief: This manual explains how to put the development app on your device for it
 
 # The mobile development app
 
-The development app is a very convenient bare bones version of the engine that allows you to push content to it over wifi. You install the development app on your device(s), start the app and then select the device as a build target from the editor.
+The development app allows you to push content to it over wifi. This will greatly reduce iteration time as you don't have to bundle and install every time you wish to test your changes. You install the development app on your device(s), start the app and then select the device as a build target from the editor.
 
-## Signing the development app (iOS)
+## Installing a development app
 
-Currently, at least one team member needs to run macOS and act as signer. The signer needs a code signing identity certificate installed on his/her computer. The signer also needs a mobile provisioning profile on his/her computer. (Note that the auto generated free provisioning profile Xcode can generate is only valid for one device)
+Any application that is bundled in Debug mode will be able to act as a development app. On Android a stand-alone version of the Defold engine is available and on iOS you need to manually bundle and sign the application using your own signing identity and provisioning profile.
 
-To upload a signed development app to the Defold Dashboard, the following steps are required:
+### Installing on iOS
 
-- In the editor, select <kbd>Project ▸ Sign iOS App...</kbd>
-- Select your code signing identity.
-- Browse for your mobile provisioning file.
-- Press the <kbd>Sign</kbd> button.
+Any iOS application that has been bundled as a Debug variant will be able to act as a development app. It is recommended that you bundle a Debug variant of the application that you are currently working on. This will ensure that the dev app has the correct project settings and uses the same [native extensions](/manuals/extensions/). Follow the [instructions in the iOS manual](/manuals/ios/#creating-an-ios-application-bundle) to bundle for iOS. Make sure to select Debug as variant!
 
-![Signing the app](images/dev-app/sign.png)
+### Installing on Android
 
-The Defold dev app is uploaded to the project page on the Dashboard.
-Each project member can now:
-
-- Browse to the Dashboard from their iOS device.
-- Open the project page from the list of projects.
-- Click the link *Install the Defold App*, which can be found below the *Members* section.
-
-![install the app](images/dev-app/install.jpg)
-
-## Installing the development dmengine (Android)
-
-A stand-alone version of the Defold engine is available as a ready made *.apk* file that you can install on a device and use for iterative development wirelessly.
-
+The same recommendation as for iOS to bundle a Debug variant works for Android. In addition to this option there's also a stand-alone version of the Defold engine available as a ready made *.apk* file that you can install on a device and use for iterative development wirelessly.
+::: important
+The stand-alone version will only work for projects without any [native extensions](/manuals/extensions/). If your project contains native extensions you must bundle a Debug variant of your project to ensure that the dev app contains the native extensions that you intend to use.
+:::
 * Visit http://d.defold.com where Defold downloads can be found.
 * Click on the version you want to download to expand a list of available engine builds.
 * Select *engine/armv7-android/dmengine.apk* for a debug enabled build for the Android platform (Armv7).
@@ -59,8 +47,8 @@ To launch your game on your device, the dev app and editor must be able to conne
 1. Make sure the editor is up and running.
 2. Launch the dev app on the device.
 3. Select your device under <kbd>Project ▸ Targets</kbd> in the editor.
-4. Select <kbd>Project ▸ Build And Launch</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
-5. While the game is running, you can use [hot reloading](/manuals/debugging#_hot_reloading) as usual.
+4. Select <kbd>Project ▸ Build</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
+5. While the game is running, you can use [hot reloading](/manuals/hot-reload/) as usual.
 
 ![launch](images/dev-app/launch.png)
 
@@ -95,4 +83,4 @@ Your device does not appear in the Targets menu
 : Make sure that your device is connected to the same wifi network as your computer.
 
 The game does not start with a message about mis-matching versions
-: This happens when you have upgraded the editor to the latest version. On iOS you need to sign the app again (<kbd>Project ▸ Sign iOS App...</kbd>) which creates a new dev app from the current engine version. Then download the new app from the dashboard onto your device. On Android you will need to download a new *dmengine.apk* and install it on your device.
+: This happens when you have upgraded the editor to the latest version. You need to build and install a new version.

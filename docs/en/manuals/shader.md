@@ -34,7 +34,7 @@ Fragment shader
   The output of the fragment shader is the color value for the particular fragment (`gl_FragColor`).
 
 World matrix
-: The vertex positions of a model's shape are stored relative to the model's origo. This is called "model space". The game world, however, is a "world space" where the position, orientation and scale of each vertex is expressed relative to the world origo. By keeping these separate the game engine is able to move, rotate and scale each model without destroying the original vertex values stored in the model component.
+: The vertex positions of a model's shape are stored relative to the model's origin. This is called "model space". The game world, however, is a "world space" where the position, orientation and scale of each vertex is expressed relative to the world origin. By keeping these separate the game engine is able to move, rotate and scale each model without destroying the original vertex values stored in the model component.
 
   When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a *world transform matrix*, which tells what  translation (movement), rotation and scale should be applied to a model's vertices to be correctly placed in the game world's coordinate system.
 
@@ -116,7 +116,7 @@ void main()
 }
 ```
 
-A more complete example is the built in sprite vertex shader:
+A more complete example is the built-in sprite vertex shader:
 
 ```glsl
 -- sprite.vp
@@ -157,7 +157,7 @@ void main()
 }
 ```
 
-Again, a more complete example is the built in sprite fragment shader:
+Again, a more complete example is the built-in sprite fragment shader:
 
 ```glsl
 // sprite.fp
