@@ -631,6 +631,10 @@
                         "name": "Google Play Game Services"
                     },
                     {
+                        "path": "/manuals/extension-google-play-instant",
+                        "name": "Google Play Instant"
+                    },
+                    {
                         "path": "/extension-iap",
                         "name": "In-app purchases"
                     },
@@ -649,11 +653,7 @@
                     {
                         "path": "/extension-webview",
                         "name": "Webview"
-                    },
-                    {
-                        "path": "/extension-google-play-instant",
-                        "name": "Google Play Instant"
-                    },
+                    }
                 ]
             },
             {
