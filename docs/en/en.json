@@ -631,7 +631,7 @@
                         "name": "Google Play Game Services"
                     },
                     {
-                        "path": "/manuals/extension-google-play-instant",
+                        "path": "/extension-googleplayinstant",
                         "name": "Google Play Instant"
                     },
                     {
