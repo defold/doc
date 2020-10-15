@@ -10,7 +10,7 @@ Defold는 3D 에셋이나 모델을 컬렉션에 포함해서 3D 컨텐츠를 �
 ## Creating a model
 예제를 봅시다. 우리는 블렌더(Blender)로 간단한 모델을 만들어 UV 매핑 텍스쳐를 입히고 스켈레톤을 만들고 간단한 애니메이션도 만들었습니다. 이제 우리는 이 모델을 Defold로 가져오려 합니다.
 
-> 블렌더(Blender)는 강력하고 유명한 3D 모델링, 애니메이션, 렌더링 프로그램입니다. http://www.blender.org 에서 무료로 다운로드 가능하고 Windows, Max OS X, Linux 에서 동작합니다.
+> 블렌더(Blender)는 강력하고 유명한 3D 모델링, 애니메이션, 렌더링 프로그램입니다. http://www.blender.org 에서 무료로 다운로드 가능하고 Windows, macOS, Linux 에서 동작합니다.
 
 ![Model in Blender](images/model/blender.png)
 

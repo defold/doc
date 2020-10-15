@@ -105,7 +105,7 @@ On Fedora 18/19:
 $ sudo yum install android-tools
 ```
 
-On Mac OS X (Homebrew)
+On macOS (Homebrew)
 
 ```
 $ brew cask install android-platform-tools

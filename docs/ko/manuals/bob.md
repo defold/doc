@@ -60,9 +60,9 @@ usage: bob [options] [commands]
 ### Available platforms:
 
 #### x86-darwin
-Mac OSX
+macOS
 #### x86_64-darwin
-Mac OSX 64 bit
+macOS 64 bit
 #### x86-win32
 Windows
 #### x86-linux
@@ -83,7 +83,7 @@ $ java -jar bob.jar
 $
 ```
 
-한방에 일련의 작업들을 수행하려면 명령들을 함께 나열하면 됩니다. 아래 예제는 라이브러리 종속성을 처리하고, 빌드 디렉토리를 지우고, 번들과 데이터를 OSX용 어플리케이션(이름은 "My Game.app")으로 빌드합니다.
+한방에 일련의 작업들을 수행하려면 명령들을 함께 나열하면 됩니다. 아래 예제는 라이브러리 종속성을 처리하고, 빌드 디렉토리를 지우고, 번들과 데이터를 macOS용 어플리케이션(이름은 "My Game.app")으로 빌드합니다.
 
 ```
 $ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle

@@ -9,7 +9,7 @@ brief: 本教程介绍了在 macOS 平台上编译和运行 Defold 游戏的方�
 
 ## 项目配置
 
-macOS 相关选项位于 *game.project* 配置文件的 [OSX 部分](/manuals/project-settings/#MacOS 和 OS X).
+macOS 相关选项位于 *game.project* 配置文件的 [OSX 部分](/manuals/project-settings/#MacOS 和 macOS).
 
 ## 应用图标
 

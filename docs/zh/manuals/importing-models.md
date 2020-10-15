@@ -4,7 +4,7 @@ brief: 本教程介绍了通过模型组件导入 3D 模型的方法.
 ---
 
 # 导入3D模型
-Defold 目前只支持 Collada *.dae* 格式的骨骼和动画模型. 可以使用类似 Maya, 3D Max, Sketchup 和 Blender 的软件保存或者转换3D模型为Collada格式. Blender 是一个著名的3D建模, 动画及渲染软件. 它在 Windows, Mac OS X 和 Linux 都能运行并且在 http://www.blender.org 上免费下载.
+Defold 目前只支持 Collada *.dae* 格式的骨骼和动画模型. 可以使用类似 Maya, 3D Max, Sketchup 和 Blender 的软件保存或者转换3D模型为Collada格式. Blender 是一个著名的3D建模, 动画及渲染软件. 它在 Windows, macOS 和 Linux 都能运行并且在 http://www.blender.org 上免费下载.
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 

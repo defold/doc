@@ -34,7 +34,7 @@ brief: 本教程介绍了如何打包应用.
 
 建立苹果移动应用 (.ipa 文件) 详见 [iOS 教程](/manuals/ios/#iOS应用打包).
 
-### OSX
+### macOS
 
 建立Mac系统应用 (.app 文件) 详见 [macOS 教程](/manuals/macos).
 

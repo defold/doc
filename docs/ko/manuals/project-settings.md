@@ -180,7 +180,7 @@ OS의 게임패드 신호와 매핑하는 게임패드 구성 파일의 참조, 
 #### pre_rendered_icons
 (iOS 6 and earlier) Check if your icons are pre-rendered. If this is unchecked the icons will get a glossy highlight added automatically.
 #### bundle_identifier
-번들 식별자는 iOS가 앱의 업데이트를 인식하도록 해줌. 번들 ID는 반드시 고유(unique)해야하며 Apple에 등록되어야 함. iOS와 OS X 앱에서 동일한 식별자를 사용할 수 없음.
+번들 식별자는 iOS가 앱의 업데이트를 인식하도록 해줌. 번들 ID는 반드시 고유(unique)해야하며 Apple에 등록되어야 함. iOS와 macOS 앱에서 동일한 식별자를 사용할 수 없음.
 #### infoplist
 지정하면 앱을 번들로 만들 때 이 info.plist 파일을 사용함
 
@@ -206,13 +206,13 @@ Google Cloud Messaging의 Sender Id. 푸쉬 알림을 사용하도록 Google에�
 #### input_method
 Android 장치에서 키보드 입력을 받는데 사용되는 방법을 지정함. 유효한 옵션은 KeyEvent (옛날꺼) 그리고 HiddenInputField (새거) 가 있음. 기본값은 KeyEvent
 
-## OS X
+## macOS
 #### app_icon
-OS X에서 어플리케이션 아이콘으로 사용할 이미지 파일
+macOS에서 어플리케이션 아이콘으로 사용할 이미지 파일
 #### infoplist
 지정하면 앱을 번들로 만들 때 이 info.plist 파일을 사용함
 #### bundle_identifier
-번들 식별자는 OS X가 앱의 업데이트를 인식하도록 해줌. 번들 ID는 반드시 고유(unique)해야하며 Apple에 등록되어야 함. iOS와 OS X 앱에서 동일한 식별자를 사용할 수 없음.
+번들 식별자는 macOS가 앱의 업데이트를 인식하도록 해줌. 번들 ID는 반드시 고유(unique)해야하며 Apple에 등록되어야 함. iOS와 macOS 앱에서 동일한 식별자를 사용할 수 없음.
 
 ## Windows
 #### app_icon

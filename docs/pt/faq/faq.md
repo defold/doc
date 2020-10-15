@@ -65,7 +65,7 @@ R: O editor usará até 75% da memória disponível do sistema. Em um computador
 
 #### P: Para quais plataformas-alvo eu posso desenvolver jogos com Defold?
 
-R: Com um clique você pode publicar para Nintendo Switch, iOS, Android e HTML5 como também macOS/OS X, Windows e Linux. É realmente uma base de código com múltiplas plataformas suportadas.
+R: Com um clique você pode publicar para Nintendo Switch, iOS, Android e HTML5 como também macOS, Windows e Linux. É realmente uma base de código com múltiplas plataformas suportadas.
 
 
 #### P: Com quais APIs de renderização a Defold está dependendo?
@@ -123,7 +123,7 @@ R: Defold possui suporte para comprar dentro do app e várias soluções de publ
 
 #### P: Por que o editor não inicia ou abre meu projeto?
 
-R: Verifique se existem espaços no path da aplicação Defold. Por exemplo, se você colocar a pasta *Defold-macosx* contendo a versão OSX do editor em sua pasta *Applications*, então deve estar tudo bem. Se você renomear a pasta *Defold macosx* o editor pode não inicializar mais. No Windows, colocar Defold dentro de *C:\\Program Files\\* pode ocasionar este problema. Isto é por conta de um bug conhecido na base do framework Eclipse.
+R: Verifique se existem espaços no path da aplicação Defold. Por exemplo, se você colocar a pasta *Defold-macosx* contendo a versão macOS do editor em sua pasta *Applications*, então deve estar tudo bem. Se você renomear a pasta *Defold macosx* o editor pode não inicializar mais. No Windows, colocar Defold dentro de *C:\\Program Files\\* pode ocasionar este problema. Isto é por conta de um bug conhecido na base do framework Eclipse.
 
 
 #### P: Eu não consigo iniciar o jogo e não há erro de build. O que está acontecendo?

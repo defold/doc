@@ -99,7 +99,7 @@ Available commands:
 Available platforms:
 
 `x86_64-darwin`
-: Mac OSX 64 bit
+: macOS 64 bit
 
 `x86_64-win32`
 : Windows 64 bit
@@ -117,7 +117,7 @@ Available platforms:
 : iOS 32 bit
 
 `x86_64-ios`
-: iOS Mac OSX 64 bit (iOS Simulator)
+: iOS macOS 64 bit (iOS Simulator)
 
 `armv7-android`
 : Android 32 bit
@@ -134,7 +134,7 @@ $ java -jar bob.jar
 $
 ```
 
-You can string commands together to perform a sequence of tasks in one go. The following example resolves libraries, wipes the build directory, builds archive data and bundles an OSX application (named *My Game.app*):
+You can string commands together to perform a sequence of tasks in one go. The following example resolves libraries, wipes the build directory, builds archive data and bundles a macOS application (named *My Game.app*):
 
 ```sh
 $ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle
