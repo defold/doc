@@ -11,7 +11,7 @@ Defold 提供了方便的 iOS Appstore "in-app purchases" 和 Google Play 及 Am
 * 订阅 (自动循环购买)
 
 ::: 注意
-目前 Defold 接口可以与 Apple 的 Storekit 完整交互. 对于 Google Play 和 Facebook Canvas, 接口是一致的, 这有助于代码跨平台. 但是不同平台需要的流程有所不同. 而且注意目前没有针对 OS X 系统上 Mac Appstore 的支付接口.
+目前 Defold 接口可以与 Apple 的 Storekit 完整交互. 对于 Google Play 和 Facebook Canvas, 接口是一致的, 这有助于代码跨平台. 但是不同平台需要的流程有所不同. 而且注意目前没有针对 macOS 系统上 Mac Appstore 的支付接口.
 :::
 
 关于 Apple, Google, Amazon 和 Facebook 的详细文档参考:
@@ -199,4 +199,4 @@ iOS `iap.list()` 产生错误日志 "Unexpected callback set"
 : `iap.list()` 调用不可以嵌套. 从 `iap.list()` 调用 `iap.list()` 就会产生这个错误日志.
 
 在 iOS 上, "price_string" 里有个 '~' 字符
-: '~' 是未找到字体的字符占位符. 调用 `iap.list()` 返回的数据使用 _不间断空白_ (`\u00a0`) 分割价格和货币符号并填充 "price_string" 变量. 使用 GUI 组件渲染的话, 需要在字体 *extra_characters* 属性里设置所需字符. 在 Mac OS X 上按 <kbd>Option + SPACE</kbd> 就是不间断空白. 详情请见 http://en.wikipedia.org/wiki/Non-breaking_space.
+: '~' 是未找到字体的字符占位符. 调用 `iap.list()` 返回的数据使用 _不间断空白_ (`\u00a0`) 分割价格和货币符号并填充 "price_string" 变量. 使用 GUI 组件渲染的话, 需要在字体 *extra_characters* 属性里设置所需字符. 在 macOS 上按 <kbd>Option + SPACE</kbd> 就是不间断空白. 详情请见 http://en.wikipedia.org/wiki/Non-breaking_space.

@@ -277,8 +277,8 @@ platforms:
 * [基础示例](https://github.com/defold/template-native-extension) (本教程所使用的简单示例)
 * [Android 扩展示例](https://github.com/defold/extension-android)
 * [HTML5 扩展示例](https://github.com/defold/extension-html5)
-* [MacOS, iOS 和 Android 的 videoplayer 扩展程序](https://github.com/defold/extension-videoplayer)
-* [MacOS 和 iOS 的摄像头扩展程序](https://github.com/defold/extension-camera)
+* [macOS, iOS 和 Android 的 videoplayer 扩展程序](https://github.com/defold/extension-videoplayer)
+* [macOS 和 iOS 的摄像头扩展程序](https://github.com/defold/extension-camera)
 * [iOS 和 Android 的内支付扩展程序](https://github.com/defold/extension-iap)
 * [iOS 和 Android 的 Firebase Analytics 扩展程序](https://github.com/defold/extension-firebase-analytics)
 

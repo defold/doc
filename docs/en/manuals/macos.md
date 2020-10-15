@@ -9,7 +9,7 @@ Developing Defold applications for the macOS platform is a straight forward proc
 
 ## Project settings
 
-macOS specific application configuration is done from the [OSX section](/manuals/project-settings/#osx) of the *game.project* settings file.
+macOS specific application configuration is done from the [macOS section](/manuals/project-settings/#macos) of the *game.project* settings file.
 
 ## Application icon
 

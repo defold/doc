@@ -23,7 +23,7 @@ For the most accurate list of versions, check the [build.py](./scripts/build.py)
 
 * Android: NDK 20r, Build Tools 23.0.2, Api Level 16 for armv7 and Api level 21 for arm64
 * iOS: iPhoneOS13.5.sdk
-* MacOS: MacOSX10.15.sdk
+* macOS: MacOSX10.15.sdk
 * Windows: WindowsKits 10.0, Microsoft Visual Studio 2019
 * Linux: Ubuntu 16.04, clang 9, libssl-dev, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
 * Html5: Emscripten 1.39.16
@@ -34,9 +34,9 @@ For the most accurate list of versions, check the [build.py](./scripts/build.py)
 * Android:`clang` using `NDK r20`
 * Html5: `Emscripten 1.39.16`
 * Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
-* iOS/MacOS: `apple-clang` (`clang 9` on build server)
+* iOS/macOS: `apple-clang` (`clang 9` on build server)
 
-For iOS/MacOS, we use `-miphoneos-version-min=8.0` and `-mmacosx-version-min=10.7` respectively.
+For iOS/macOS, we use `-miphoneos-version-min=8.0` and `-mmacosx-version-min=10.7` respectively.
 
 We don't specify a specific C++ version, so we use the default of each compiler.
 

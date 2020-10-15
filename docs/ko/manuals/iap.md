@@ -11,7 +11,7 @@ Facebook Canvas "game payments"는 Facebook Canvas에서 지원됩니다. 이들
 * 소모성 또는 비소모성의 표준 인-앱 제품 (1회 결제)
 * 구독(Subscription) (반복 결제, 자동 결제)
 
-> 현재 Defold 인터페이스는 Apple의 Storekit 기능과 완벽히 상호작용 됩니다. Google Play와 Facebook Canvas의 경우는 인터페이스는 동일하므로 각 플랫폼에서 동일한 코드를 실행할 수 있습니다. 하지만 일부 프로세스 흐름은 플랫폼 마다 다를 수 있습니다. 또한, 현재 Mac Appstore를 통핸 OS X 구매는 지원되고 있지 않습니다.
+> 현재 Defold 인터페이스는 Apple의 Storekit 기능과 완벽히 상호작용 됩니다. Google Play와 Facebook Canvas의 경우는 인터페이스는 동일하므로 각 플랫폼에서 동일한 코드를 실행할 수 있습니다. 하지만 일부 프로세스 흐름은 플랫폼 마다 다를 수 있습니다. 또한, 현재 Mac Appstore를 통핸 macOS 구매는 지원되고 있지 않습니다.
 
 Apple, Google, Amazon, Facebook 에서 자세한 설명을 볼 수 있습니다.
 
@@ -174,4 +174,4 @@ iOS Paid Applications 계정을 요청해서 올바른 문서가 제출되었는
 iap.list는 중첩 호출(nested calls)를 지원하지 않습니다. iap.list 콜백함수에서 iap.list 를 호출하는 것은 이 에러를 수집하는 엔진에서 무시하게 됩니다.
 
 ### On iOS, the "price_string" field contains ~ characters
-~ 문자는 폰트 파일에서 일치하는 문자를 찾을 수 없는 placeholders입니다. iap.list()를 사용하는 경우 제품 목록에서 반환된 "price_string" 필드는 이 값과 화폐 분모(currency denominator) 사이에서 줄 바꿈 없는 공백(non breaking space (\u00a0))으로 형식화 됩니다. 만약 GUI에서 이 문자열을 렌더링하려면, 폰트의 **extra_characters** 필드에 이 문자를 추가할 필요가 있습니다. Mac OS X에서는 줄 바꿈 없는 공백(non breaking spaces)을 **Option-\<SPACE>** 를 눌러서 입력할 수 있습니다. 자세한 정보는  [https://ko.wikipedia.org/wiki/줄 바꿈 없는 공백](https://ko.wikipedia.org/wiki/줄%20바꿈%20없는%20공백) 를 확인 바랍니다.
+~ 문자는 폰트 파일에서 일치하는 문자를 찾을 수 없는 placeholders입니다. iap.list()를 사용하는 경우 제품 목록에서 반환된 "price_string" 필드는 이 값과 화폐 분모(currency denominator) 사이에서 줄 바꿈 없는 공백(non breaking space (\u00a0))으로 형식화 됩니다. 만약 GUI에서 이 문자열을 렌더링하려면, 폰트의 **extra_characters** 필드에 이 문자를 추가할 필요가 있습니다. macOS에서는 줄 바꿈 없는 공백(non breaking spaces)을 **Option-\<SPACE>** 를 눌러서 입력할 수 있습니다. 자세한 정보는  [https://ko.wikipedia.org/wiki/줄 바꿈 없는 공백](https://ko.wikipedia.org/wiki/줄%20바꿈%20없는%20공백) 를 확인 바랍니다.

@@ -4,7 +4,7 @@ brief: This manual covers how to import 3D models used by the model component.
 ---
 
 # Importing 3D models
-Defold currently only support models, skeletons and animations in the Collada *.dae* format. You can use tools such as Maya, 3D Max, Sketchup and Blender to create and/or convert 3D models into Collada format. Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, Mac OS X and Linux and is freely available for download at http://www.blender.org
+Defold currently only support models, skeletons and animations in the Collada *.dae* format. You can use tools such as Maya, 3D Max, Sketchup and Blender to create and/or convert 3D models into Collada format. Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, macOS and Linux and is freely available for download at http://www.blender.org
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 

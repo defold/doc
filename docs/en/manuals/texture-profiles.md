@@ -113,7 +113,7 @@ The following lossy compression formats are currently supported.
 
 <!--
 DXT
-: Also called S3 Texture Compression. It can be generated on Windows platform only, but OS X supports reading it and it's possible to install support for it on Linux. The format divides the image into 4x4 pixel blocks with 4 colors set to the pixels within each block.
+: Also called S3 Texture Compression. It can be generated on Windows platform only, but macOS supports reading it and it's possible to install support for it on Linux. The format divides the image into 4x4 pixel blocks with 4 colors set to the pixels within each block.
 -->
 
 PVRTC
