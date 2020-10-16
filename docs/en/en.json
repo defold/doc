@@ -615,6 +615,10 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
+                        "path": "/extension-adinfo",
+                        "name": "Advertising Info"
+                    },
+                    {
                         "path": "/extension-facebook",
                         "name": "Facebook"
                     },
@@ -625,6 +629,10 @@
                     {
                         "path": "/extension-gpgs",
                         "name": "Google Play Game Services"
+                    },
+                    {
+                        "path": "/extension-googleplayinstant",
+                        "name": "Google Play Instant"
                     },
                     {
                         "path": "/extension-iap",

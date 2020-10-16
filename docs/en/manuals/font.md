@@ -114,10 +114,10 @@ Add the generated *.fnt* and *.png* files to your Defold project. These files sh
 To create a BMFont, you need to use a tool that can generate the appropriate files. Several options exist:
 
 * [Bitmap Font Generator](http://www.angelcode.com/products/bmfont/), a Windows only tool provided by AngelCode.
-* [Shoebox](http://renderhjs.net/shoebox/), a free Adobe Air based app for Windows and MacOS.
+* [Shoebox](http://renderhjs.net/shoebox/), a free Adobe Air based app for Windows and macOS.
 * [Hiero](https://github.com/libgdx/libgdx/wiki/Hiero), an open source Java based tool.
-* [Glyph Designer](https://71squared.com/glyphdesigner), a commercial MacOS tool from 71 Squared.
-* [bmGlyph](https://www.bmglyph.com), a commercial MacOS tool from Sovapps.
+* [Glyph Designer](https://71squared.com/glyphdesigner), a commercial macOS tool from 71 Squared.
+* [bmGlyph](https://www.bmglyph.com), a commercial macOS tool from Sovapps.
 :::
 
 ![BMfont](images/font/bm_font.png){srcset="images/font/bm_font@2x.png 2x"}

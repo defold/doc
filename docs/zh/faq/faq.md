@@ -65,7 +65,7 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 
 #### 问: Defold 能输出哪些平台的游戏?
 
-答: 可以一键发布 任天堂 Switch, iOS, Android 和 HTML5 游戏, 外加 macOS/OS X, Windows 和 Linux 游戏. 真正的一套代码平台通用.
+答: 可以一键发布 任天堂 Switch, iOS, Android 和 HTML5 游戏, 外加 macOS, Windows 和 Linux 游戏. 真正的一套代码平台通用.
 
 
 #### 问: Defold 基于何种渲染引擎?

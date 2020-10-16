@@ -97,7 +97,7 @@ usage: bob [options] [commands]
 可用平台:
 
 `x86_64-darwin`
-: Mac OSX 64 bit
+: macOS 64 bit
 
 `x86_64-win32`
 : Windows 64 bit
@@ -115,7 +115,7 @@ usage: bob [options] [commands]
 : iOS 32 bit
 
 `x86_64-ios`
-: iOS Mac OSX 64 bit (iOS Simulator)
+: iOS macOS 64 bit (iOS Simulator)
 
 `armv7-android`
 : Android 32 bit
@@ -132,7 +132,7 @@ $ java -jar bob.jar
 $
 ```
 
-还可以把命令连成一行一起执行. 下面的例子包含了解析库, 清理编译目录, 编译数据包然后打包成 OSX 应用 (命名为 *My Game.app*):
+还可以把命令连成一行一起执行. 下面的例子包含了解析库, 清理编译目录, 编译数据包然后打包成 macOS 应用 (命名为 *My Game.app*):
 
 ```sh
 $ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle

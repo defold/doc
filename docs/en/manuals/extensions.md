@@ -277,8 +277,8 @@ Allowed keys are for platform specific compile flags are:
 * [Basic extension example](https://github.com/defold/template-native-extension) (the extension from this manual)
 * [Android extension example](https://github.com/defold/extension-android)
 * [HTML5 extension example](https://github.com/defold/extension-html5)
-* [MacOS, iOS and Android videoplayer extension](https://github.com/defold/extension-videoplayer)
-* [MacOS and iOS camera extension](https://github.com/defold/extension-camera)
+* [macOS, iOS and Android videoplayer extension](https://github.com/defold/extension-videoplayer)
+* [macOS and iOS camera extension](https://github.com/defold/extension-camera)
 * [iOS and Android In-app Purchase extension](https://github.com/defold/extension-iap)
 * [iOS and Android Firebase Analytics extension](https://github.com/defold/extension-firebase-analytics)
 

@@ -61,15 +61,15 @@ Success
 
 Linux 上同样开启 Personal Hotspot 然后 "Trust This Computer".
 
-### 在 OSX 上使用 USB 连接 iOS 设备
+### 在 macOS 上使用 USB 连接 iOS 设备
 
-当设备与 OSX 通过 USB 连线时, 新版本 iOS 能自动开启连接,  <kbd>Project ▸ Targets</kbd> 会自动显示出设备.
+当设备与 macOS 通过 USB 连线时, 新版本 iOS 能自动开启连接,  <kbd>Project ▸ Targets</kbd> 会自动显示出设备.
 
 老iOS设备还是同样开启 Personal Hotspot 然后 "Trust This Computer".
 
-### 在 OSX 上使用 USB 连接 Android 设备
+### 在 macOS 上使用 USB 连接 Android 设备
 
-当设备处于 USB 共享模式时,  可以通过 USB 连接设备与 OSX. 在 MacOS 上需要安装 [HoRNDIS](https://joshuawise.com/horndis#available_versions) 这类的第三方驱动程序. 当 HoRNDIS 安装好后还需要在 Security & Privacy 设置里允许其运行. 设备上开启 USB 共享模式后就会出现在 <kbd>Project ▸ Targets</kbd> 列表中了.
+当设备处于 USB 共享模式时,  可以通过 USB 连接设备与 macOS. 在 macOS 上需要安装 [HoRNDIS](https://joshuawise.com/horndis#available_versions) 这类的第三方驱动程序. 当 HoRNDIS 安装好后还需要在 Security & Privacy 设置里允许其运行. 设备上开启 USB 共享模式后就会出现在 <kbd>Project ▸ Targets</kbd> 列表中了.
 
 ### 在 Windows 或 Linux 上使用 USB 连接 Android 设备
 

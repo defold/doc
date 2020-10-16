@@ -46,7 +46,7 @@ iOS 장치의 UDID는 와이파이나 케이블로 컴퓨터에 연결해서 알
 ## Signing the Defold development app
 development app은 와이파이를 통해 컨텐츠를 설치할 수 있는 아주 편리한 버전입니다. 장치에 development app을 설치하고 앱을 시작한 다음 에디터에서 해당 장치를 빌드 대상으로 선택합니다.
 
-현재, 최소한 팀원 한 명은 OS X를 실행하고 다른 팀 멤버를 위해 development app를 서명하려고 Apple Developer에 등록할 필요가 있습니다. 우리는 이 사람을 서명인(signer)이라고 부르도록 하겠습니다.
+현재, 최소한 팀원 한 명은 macOS를 실행하고 다른 팀 멤버를 위해 development app를 서명하려고 Apple Developer에 등록할 필요가 있습니다. 우리는 이 사람을 서명인(signer)이라고 부르도록 하겠습니다.
 
 * 서명인의 컴퓨터에 설치된 인증서가 있어야 합니다.
 * 서명인의 컴퓨터에 모바일 프로비져닝 프로파일이 있어야 합니다.

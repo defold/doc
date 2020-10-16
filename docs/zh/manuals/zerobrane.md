@@ -5,7 +5,7 @@ brief: This manual explains how to use ZeroBrane Studio to debug Lua code in Def
 
 # 在 ZeroBrane Studio 中调试 Lua 脚本 
 
-Defold 自带内置调试器, 但是还可以使用免费开源的 Lua 编辑器 _ZeroBrane Studio_ 作为第三方调试器. 首先需要安装 ZeroBrane Studio. 它是跨平台软件可以运行于 OSX 和 Windows 上.
+Defold 自带内置调试器, 但是还可以使用免费开源的 Lua 编辑器 _ZeroBrane Studio_ 作为第三方调试器. 首先需要安装 ZeroBrane Studio. 它是跨平台软件可以运行于 macOS 和 Windows 上.
 
 从 http://studio.zerobrane.com 下载  "ZeroBrane Studio".
 

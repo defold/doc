@@ -5,7 +5,7 @@ brief: This manual explains how to use ZeroBrane Studio to debug Lua code in Def
 
 # Debugging Lua scripts with ZeroBrane Studio
 
-Defold contains a built-in debugger, but it is also possible to run the free and open-source Lua IDE _ZeroBrane Studio_ as an external debugger. ZeroBrane Studio needs to be installed in order to use the debugging features. The program is cross-platform and runs on both OSX and Windows.
+Defold contains a built-in debugger, but it is also possible to run the free and open-source Lua IDE _ZeroBrane Studio_ as an external debugger. ZeroBrane Studio needs to be installed in order to use the debugging features. The program is cross-platform and runs on both macOS and Windows.
 
 Download "ZeroBrane Studio" from http://studio.zerobrane.com
 
