@@ -1,6 +1,6 @@
 ---
 title: Defold GUI 饼状图节点
-brief: 本教程介绍了如何在 Defold GUI 场景中使用饼状图节点.
+brief: 本教程介绍了在 Defold GUI 场景中如何使用饼状图节点.
 ---
 
 # GUI 饼状图节点
