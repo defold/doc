@@ -33,9 +33,9 @@ Creating an Android application bundle (.apk file) is documented in the [Android
 
 Creating an iOS application bundle (.ipa file) is documented in the [iOS manual](/manuals/ios/#creating-an-ios-application-bundle).
 
-### OSX
+### macOS
 
-Creating an OSX application bundle (.app file) is documented in the [macOS manual](/manuals/macos).
+Creating a macOS application bundle (.app file) is documented in the [macOS manual](/manuals/macos).
 
 ### Linux
 

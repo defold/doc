@@ -78,8 +78,5 @@ If you run into a problem while using Defold you can try to ask the question on 
 The engine, editor and build server generates logging information that can be very valuable when asking for help and debugging an issue. Always provide log files when reporting a problem:
 
 * [Engine logs](/manuals/debugging-game-and-system-logs)
-* Editor logs
-  * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-  * macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
-  * Linux: `~/.Defold`
+* [Editor logs](/manuals/editor#editor-logs)
 * [Build server logs](/manuals/extensions#build-server-logs)

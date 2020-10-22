@@ -1,95 +1,93 @@
 ---
-title: Web Monetization in Defold
-brief: Web Monetization is an exciting new and non-intrusive way for game developers to monetize their web games while at the same time offering premium content to their paying players.
+title: Defold 网页游戏盈利
+brief: 网页游戏盈利是用网页游戏获利的一种手段, 开发者获利的同时玩家获得更高级的游戏内容.
 ---
 
-# Web Monetization
+# 网页游戏盈利
 
-[Web Monetization](https://webmonetization.org/) is an open technology that allows someone viewing a webpage or playing a web game to stream very small payments (micropayments) to the creator in real time. It is an exciting new and non-intrusive way for game developers to monetize their web games while at the same time offering premium content to their paying players.
+[Web Monetization](https://webmonetization.org/) 是一种开放的技术手段, 能让浏览网站或者玩网页游戏的用户向作者进行 (超小额度) 付款而且实时到账. 这给网页游戏开发者一条新的生财之道, 同时付款的玩家会获得额外的高端游戏内容.
 
-Web Monetization is being [proposed as a W3C standard](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785). It is based on the [Interledger](https://interledger.org/) protocol which is an open, neutral protocol for transferring money of any currency, including digital currencies such as Bitcoin.
-
-
-## How does it work?
-
-Three things are required in order to send and receive payments:
-
-1. A player must have an account with a **Web Monetization Provider** - The provider streams payments from the player.
-2. The developer must have a **Web Monetization Wallet** - The wallet holds received payments.
-3. The developer must add a **Payment Pointer** on the webpage containing content that should be monetized - The payment pointer tells the provider which wallet to send the money to.
+网页微支付 [已被提名为 W3C 标准](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785). 它基于 [Interledger](https://interledger.org/) 协议, 一种开放的, 中立的任意货币转账协议, 包括比特币这样的数字货币.
 
 
-### Web Monetization Providers
+## 如何工作?
 
-Players must have an account with a Web Monetization Provider to be able to stream payments to game developers:
+转账要满足以下需求:
+
+1. 玩家必须持有 **Web Monetization Provider** 账户 - 玩家付款的账户.
+2. 开发者必须持有 **Web Monetization Wallet** 账户 - 开发者收款的账户.
+3. 开发者必须在网页上放置 **Payment Pointer** 其中包含需要付费才能得到的内容 - 支付点用来确定把款项发往哪个钱包.
+
+
+### 网页支付账户
+
+玩家必须持有网页支付提供商提供账户以便向游戏开发者付款:
 
 [![Coil logo](images/web-monetization/coil_logo.svg)](https://coil.com)
 
-Coil is currently the only provider but others will likely be available in the future
+目前 Coil 是唯一的网页支付服务提供商, 以后会越来越多.
 
 
-### Web Monetization Wallets
+### 网页钱包账户
 
-Game developers must have a Web Monetization enabled wallet to hold received payments. There are several different services which provide wallets with support for Web Monetization:
+开发者必须持有网页支付钱包以便接收付款. 已经有许多服务提供商提供网页钱包服务:
 
 [![Uphold logo](images/web-monetization/uphold_logo.svg)](https://www.uphold.com/signup)
 
 [![GateHub logo](images/web-monetization/gatehub_logo.svg)](https://gatehub.net)
 
-[![Stronghold logo](images/web-monetization/stronghold_logo.svg)](https://stronghold.co/real-time-payments#coil)
 
+### 支付点
 
-### Payment Pointers
-
-The wallet provider will assign a payment pointer to the wallet. The payment pointer is a public address for a wallet that can be shared with anyone that wants to make a payment to the owner of the wallet. Learn more at [paymentpointers.org](https://paymentpointers.org/). The format of a payment pointer is similar to a URL, but starts with a $:
+钱包提供商把支付点与钱包对应. 支付点是钱包的收款地址, 它可以被随意公开出去. 详情请见 [paymentpointers.org](https://paymentpointers.org/). 支付点就像一个网络连接, 但是是由 $ 开头:
 
 ```
 $ilp.uphold.com/QkG86UgXzKq8
 ```
 
-The payment pointer is added to the website content using a `<meta>` tag in the `<head>` of the website:
+支付点要加入到网页 `<head>` 标签中的 `<meta>` 标签里:
 
 ```html
 <meta name="monetization" content="$ilp.uphold.com/QkG86UgXzKq8">
 ```
 
 
-## How to set up Web Monetization in Defold
+## 在 Defold 中配置支付点 
 
-Enabling Web Monetization in a Defold game is a straightforward process. The steps involved depend on if you are adding Web Monetization to an existing project or if you are starting a new project.
+在 Defold 游戏中使用网页支付功能是个简单的过程. 新建项目和已有项目的配置方法略有不同.
 
 
-### Starting a new project
+### 新建项目
 
-If you are starting a new project it is recommended that you use the Web Monetization project template from the Defold editor Welcome screen. The Web Monetization template includes the [Web Monetization extension](https://github.com/defold/extension-webmonetization) and it will automatically set up the payment pointer in the generated webpage for your game:
+如果是新建项目强烈建议你使用 Defold 欢迎屏幕里的网页支付项目模板. 这个模板包含了 [网页支付原生扩展](https://github.com/defold/extension-webmonetization), 还能为你的网页游戏自动添加支付点:
 
 ![Web Monetization template](images/web-monetization/web-monetization-template.png)
 
-Next step is to register for a [Web Monetization enabled wallet](/manuals/web-monetization/#web-monetization-wallets) and add your payment pointer to the Web Monetization section of the **game.project** file:
+下一步注册 [网页钱包账户](/manuals/web-monetization/#网页钱包账户) 然后在 **game.project** 文件的 Web Monetization 部分将支付点与钱包挂接:
 
 ![Adding payment pointer to game.project](images/web-monetization/payment-pointer.png)
 
 
-### Adding Web Monetization to an existing project
+### 已有项目
 
-Start by registering for a [Web Monetization enabled wallet](/manuals/web-monetization/#web-monetization-wallets) and add your payment pointer to the webpage:
+首先注册 [网页钱包账户](/manuals/web-monetization/#网页钱包账户) 然后手动在网页中加入支付点:
 
 ```html
 <meta name="monetization" content="YOUR_PAYMENT_POINTER">
 ```
 
-Next you need to add the [Web Monetization extension](https://github.com/defold/extension-webmonetization) as a [project dependency](http://www.defold.com/manuals/libraries/). Open the **game.project** file and in the [Dependencies field in the Project section](https://defold.com/manuals/project-settings/#dependencies) add:
+下一步将 [网页支付原生扩展](https://github.com/defold/extension-webmonetization) 作为 [项目依赖库](http://www.defold.com/manuals/libraries/) 加入. 打开 **game.project** 文件, 找到 Project 部分的 [Dependencies 项](https://defold.com/manuals/project-settings/#dependencies) 加入:
 
 ```
 https://github.com/defold/extension-webmonetization/archive/master.zip
 ```
 
 
-## How to use Web Monetization in Defold
+## Defold 网页支付用法
 
-When you have the Web Monetization extension and payment pointer added to your project you are ready to start using Web Monetization in your game. The API consosts of only two functions:
+在项目中加入扩展包和支付点之后就可以使用它了. 它的 API 包含两个部分:
 
-Check if a player is monetized (ie is streaming payments to you):
+检查玩家付款 (或者正在付款):
 
 ```lua
 local monetized = webmonetization.is_monetized()
@@ -98,7 +96,7 @@ if monetized then
 end
 ```
 
-Set up a listener to get updates on the current monetization state of the player:
+设置监听器跟踪付款进度:
 
 ```lua
 webmonetization.set_listener(function(self, event)
@@ -115,10 +113,10 @@ end)
 ```
 
 
-## Best practices
+## 最佳实践
 
-* Offer exclusive content to web monetized players. What you offer depends on the type of game. Some examples:
-  * New skins or other cosmetic changes such as unique in-game decals or stickers
-  * New game modes
-  * Additional levels
-* If your game contains ads you should also consider removing the ads for web monetized players
+* 为付费玩家提供值钱的内容. 不同游戏类型有所不同. 比如:
+  * 独一无二的皮肤或装束
+  * 新的人物模型
+  * 新的关卡
+* 如果游戏包含广告还可以考虑为付费玩家去掉广告

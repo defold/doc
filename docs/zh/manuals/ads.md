@@ -5,57 +5,57 @@ brief: 广告是网页游戏和手机游戏的基本盈利方式. 本教程介�
 
 # 广告
 
-Ads has become a very common way of monetizing web and mobile games and it has turned into a billion dollar industry. As a developer you get paid based on the number of people watching the ads you show in your game. It is usually as simple as more viewers equals more money, but other factors also have an impact on how much you get paid:
+广告作为网页游戏和手机游戏的一种普遍盈利方式日趋壮大. 玩家观看游戏里的广告, 开发者有机会获利. 一般看的越多获利越多, 但是最终受益还要取决于下面几项:
 
-* The ad quality - relevant ads are more likely to get interaction and attention from your players.
-* The ad format - banner ads usually pay less while full screen ads viewed from start to to finish pays more.
-* The ad network - the amount you get paid varies from ad networks to ad network.
+* 广告质量 - 游戏内容相关的广告容易获得玩家点击与关注.
+* 广告类型 - 广告条的利润低而从头看到尾的全屏广告利润高.
+* 广告商 - 不同广告供应商的广告利润有高有低.
 
-::: sidenote
-CPM = Cost per mille. The amount an advertiser pays per one thousand views. The CPM varies between ad networks and ad formats.
+::: 注意
+CPM = 千人成本. 广告商为一千个浏览量支付的报酬. 不同广告商不同广告类型费用也不同.
 :::
 
-## Formats
+## 类型
 
-There are many different kinds of ad formats that can be used in games. Some of the more common ones are banner, interstitial and reward ads:
+游戏中可以放各种广告. 常见的有广告条, 插播广告和奖励广告:
 
-### Banner ads
+### 广告条
 
-Banner ads are text, image or video based and cover a relatively small part of the screen, usually at the top or bottom of the screen. Banner ads are very easy to implement and they fit very well with casual single screen games where it is easy to reserve an area of the screen for advertisements. Banner ads maximize exposure as users play your game without interruption.
+广告条可以是文字的, 图片的或者视频的并且占据一部分屏幕, 一般不是屏幕上边就是底边. 广告条很容易植入, 休闲小游戏也容易空出广告条的位置来. 曝光率高, 玩家反感较少.
 
-### Interstitial ads
+### 插播广告
 
-Interstitial ads are large full screen experiences with animations and sometimes also interactive rich media content. Interstitial ads are typically shown in between levels or game sessions as it is a natural break in the game experience. Interstitial ads typically generate less views than banner ads, but the cost (CPM) is much higher than for banner ads, resulting in significant overall ad revenue.
+插播广告是一种带动画有的还有多媒体交互的全屏广告. 插播广告通常出现在游戏关与关之间或者游戏暂停等时候. 插播广告曝光不高, 但是付费较高, 可以带来不菲收入.
 
-### Rewarded ads
+### 奖励广告
 
-Rewarded ads (also know as Incentivized ads) are optional and therefore less obtrusive than many other forms of ads. Rewarded ads are usually full screen experiences like interstitial ads. The user can choose a reward in exchange for viewing the ad - for instance loot, coins, lives, time or some other in-game currency or benefit. Rewarded ads usually has the highest cost (CPM), but the number of views is directly related to user opt-in rates. Rewarded ads will only generate great performance if the rewards are valuable enough and offered at the right time.
-
-
-## Ad networks
-
-The [Defold Asset Portal](/tags/stars/ads/) contains several assets which integrate with ad providers:
-
-* [AdMob](https://defold.com/assets/admob/) - Show ads using the Google ad network.
-* [Enhance](https://defold.com/assets/enhance/) - Supports a number of different ad networks. Requires an additional post-build step.
-* [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - Show ads in your Facebook Instant Game.
-* [IronSource](https://defold.com/assets/ironsource/) - Show ads using the IronSource Ad network.
-* [Unity Ads](https://defold.com/assets/defvideoads/) - Show ads using the Unity Ads network.
+奖励广告 (也叫激励广告) 是一种玩家最不反感的广告. 样子通常跟插播广告类似. 玩家可以通过观看广告获得游戏虚拟奖励 - 比如财产, 金币, 命, 游戏延时等等. 奖励广告通常付费最高, 但是观看率取决于玩家. 在关键时刻给予玩家渴望的奖励才能取得激励的效果.
 
 
-# How to integrate ads in your game
+## 广告商
 
-When you have decided on an ad network to integrate in your game you need to follow the installation and usage instructions for that particular asset. What you typically do is to first add the extension as a [project dependency](/manuals/libraries/#setting-up-library-dependencies). Once you have the asset added to your project you can proceed with the integration and call the functions specific to the asset to load and show ads.
+在 [Defold 资源中心](/tags/stars/ads/) 提供了一些广告商的支持程序:
+
+* [AdMob](https://defold.com/assets/admob/) - 谷歌广告.
+* [Enhance](https://defold.com/assets/enhance/) - 广告商大集合. 编译后需要额外的安装步骤.
+* [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - 脸书广告.
+* [IronSource](https://defold.com/assets/ironsource/) - IronSource 广告.
+* [Unity Ads](https://defold.com/assets/defvideoads/) - Unity 广告.
 
 
-# Combining ads and in-app purchases
+# 广告游戏整合
 
-It is quite common in mobile games to offer an [In-app purchase](/manuals/iap) to get rid of ads permanently.
+决定好合作广告商就可以按步骤地植入广告资源了. 一般都要首先加入 [项目依赖](/manuals/libraries/#设置库依赖). 之后载入广告资源, 展示广告内容.
 
 
-## Learn more
+# 广告与内支付
 
-There are many online resources to learn from when it comes to optimizing ad revenue:
+手机游戏通常含有 [应用内支付](/manuals/iap) 功能以便获得更大收益.
+
+
+## 更多资源
+
+网上也有很多关于优化广告的教程:
 
 * Google AdMob [Monetize mobile games with ads](https://admob.google.com/home/resources/monetize-mobile-game-with-ads/)
 * Game Analytics [Popular ad formats and how to use them](https://gameanalytics.com/blog/popular-mobile-game-ad-formats.html)

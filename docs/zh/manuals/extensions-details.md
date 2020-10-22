@@ -18,29 +18,28 @@ brief: 本教程介绍了有关编译系统用来编译原生扩展的一些细�
 
 ## 工具链
 
-Clang - macOS, iOS, Win32, Android
-GCC - Linux
 
-*我们打算以后也给Linux使用 clang *
+
+
 
 ### SDK 版本
 
 * Android: NDK 20r, Build Tools 23.0.2, Api Level 16 for armv7 and Api level 21 for arm64
-* iOS: iPhoneOS11.2.sdk
-* MacOS: MacOSX10.13.sdk
-* Windows: WindowsKits 8.1 + 10.0, Microsoft Visual Studio 14.0
-* Linux: Ubuntu 16.04, gcc 5.4.0, libssl-dev, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
-* Html5: Emscripten 1.38.0,
+* iOS: iPhoneOS13.5.sdk
+* macOS: MacOSX10.15.sdk
+* Windows: WindowsKits 10.0, Microsoft Visual Studio 2019
+* Linux: Ubuntu 16.04, clang 9, libssl-dev, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
+* Html5: Emscripten 1.39.16
 
 ### C++ 版本 + ABI 兼容
 
-* Linux: `GCC 5.4.0`
-* Android:`GCC 4.9`
-* Html5: `Emscripten 1.35.0`
-* Win32: `Microsoft Visual Studio 14.0` 或 `clang-6.0`
-* iOS/MacOS: `apple-clang` 或 `clang-6.0`
+* Linux: `clang 9`
+* Android:`clang` using `NDK r20`
+* Html5: `Emscripten 1.39.16`
+* Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
+* iOS/macOS: `apple-clang` (`clang 9` on build server)
 
-对于 iOS/MacOS, 我们分别使用了 `-miphoneos-version-min=8.0` 和 `-mmacosx-version-min=10.7`.
+对于 iOS/macOS, 我们分别使用了 `-miphoneos-version-min=8.0` 和 `-mmacosx-version-min=10.7` 参数.
 
 由于我们不指定 C++ 版本, 所以各个编译器都使用了默认设置.
 

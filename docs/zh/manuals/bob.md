@@ -9,7 +9,7 @@ Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
 
 Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
 
-Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 你可以在其发布地址 http://d.defold.com 里下载到 *bob.jar* . 先选择版本, 再下载 *bob/bob.jar*. 要运行 Bob 工具, 你需要 [安装OpenJDK 11](https://openjdk.java.net/projects/jdk/11/).
+Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 需要 [OpenJDK 11](https://openjdk.java.net/projects/jdk/11/) 支持.
 
 ## 用法
 
@@ -31,7 +31,6 @@ usage: bob [options] [commands]
                                      报告为HTML格式
     --build-server <arg>             编译服务器 (当使用原生扩展
                                      时使用)
- -ce,--certificate <arg>             指定证书 (Android)
  -d,--debug                          使用dmengine的debug版本(当
                                      编译时). 弃用, 使用--variant
                                      代替
@@ -50,7 +49,6 @@ usage: bob [options] [commands]
  -o,--output <arg>                   输出目录. 默认是
                                      "build/default"
  -p,--platform <arg>                 发布平台 (打包时)
- -pk,--private-key <arg>             指定私匙 (Android)
  -r,--root <arg>                     指定编译目录. 默认是
                                      当前目录
     --settings <arg>                 指定项目设置文件的
@@ -72,6 +70,11 @@ usage: bob [options] [commands]
                                      版本号
     --with-symbols                   生成标记文件 (如果
                                      可用)
+    --bundle-format <apk|aab>        使用哪种格式打 Android 包.
+    --keystore <arg>                 使用哪个密匙注册
+                                     Android 包.
+    --keystore-pass <arg>            密匙密码路径用于打 Android 包.
+    --keystore-alias <arg>           密匙别名用于打 Android 包.
 ```
 
 支持的命令:
@@ -94,7 +97,7 @@ usage: bob [options] [commands]
 可用平台:
 
 `x86_64-darwin`
-: Mac OSX 64 bit
+: macOS 64 bit
 
 `x86_64-win32`
 : Windows 64 bit
@@ -112,7 +115,7 @@ usage: bob [options] [commands]
 : iOS 32 bit
 
 `x86_64-ios`
-: iOS Mac OSX 64 bit (iOS Simulator)
+: iOS macOS 64 bit (iOS Simulator)
 
 `armv7-android`
 : Android 32 bit
@@ -129,7 +132,7 @@ $ java -jar bob.jar
 $
 ```
 
-还可以把命令连成一行一起执行. 下面的例子包含了解析库, 清理编译目录, 编译数据包然后打包成 OSX 应用 (命名为 *My Game.app*):
+还可以把命令连成一行一起执行. 下面的例子包含了解析库, 清理编译目录, 编译数据包然后打包成 macOS 应用 (命名为 *My Game.app*):
 
 ```sh
 $ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle

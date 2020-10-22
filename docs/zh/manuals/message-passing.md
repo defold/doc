@@ -149,6 +149,12 @@ message_id
 对于 `message` 参数的表的大小有硬性限制. 限制最大2KB. 没有具体用来测试表大小的函数但是可以通过插入表之前和之后分别调用 `collectgarbage("count")` 来判断表占用内存的大小.
 :::
 
+### 简化符
+
+Defold 提供两种简化写法用来简化消息传递时需要输入的完整地址:
+
+:[Shorthands](../shared/url-shorthands.md)
+
 ## 接收消息
 
 接收消息由 `on_message()` 函数完成. 函数接收4个参数:

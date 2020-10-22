@@ -46,7 +46,7 @@ If you want the editor to automatically create random debug certificates, leave 
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-If you want to sign your bundle with a particular keystore, specify the *Keystore* and *Keystore password*. The *Kyestore* is expected to have the `.keystore` file extension while the password is expected to be stored in a text file with the `.txt` extension:
+If you want to sign your bundle with a particular keystore, specify the *Keystore* and *Keystore password*. The *Keystore* is expected to have the `.keystore` file extension while the password is expected to be stored in a text file with the `.txt` extension:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
@@ -105,13 +105,13 @@ On Fedora 18/19:
 $ sudo yum install android-tools
 ```
 
-On Mac OS X (Homebrew)
+On macOS (Homebrew)
 
 ```
 $ brew cask install android-platform-tools
 ```
 
-You can veryfy that `adb` works by connecting your Android device to your computer via USB and issue the following command:
+You can verify that `adb` works by connecting your Android device to your computer via USB and issue the following command:
 
 ```
 $ adb devices

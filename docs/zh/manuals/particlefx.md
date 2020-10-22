@@ -12,228 +12,232 @@ brief: 本教程介绍了粒子特效组件的使用以及特效的编辑方法.
 粒子特效包含一些发射器以及可选的修改器:
 
 Emitter
-: 发射器是任意放置的的形状，可发射均匀分布在该形状上的粒子。发射器包含控制粒子生成的属性，比如各个粒子的图像或动画，生命周期，颜色，形状和速度。
+: 发射器是任意放置的的形状,可发射均匀分布在该形状上的粒子.发射器包含控制粒子生成的属性,比如各个粒子的图像或动画,生命周期,颜色,形状和速度.
 
 Modifier
-: 修改器会影响生成的粒子的速度，以使其在特定方向上加速或减速，径向移动或绕点旋转。修改器可以影响单个的粒子或者整个发射器。
+: 修改器会影响生成的粒子的速度,以使其在特定方向上加速或减速,径向移动或绕点旋转.修改器可以影响单个的粒子或者整个发射器.
 
 ## 新建粒子特效
 
-Select <kbd>New... ▸ Particle FX</kbd> from the context menu in the *Assets* browser. Name the new particle effect file. The editor will now open the file using the [Scene Editor](/manuals/editor/#the-scene-editor).
+在  *Assets* 浏览器菜单栏选择 <kbd>New... ▸ Particle FX</kbd>. 为新建粒子特效命名. 编辑器会为其自动打开 [场景编辑器](/manuals/editor/#场景编辑器).
 
-The *Outline* pane shows the default emitter. Select the emitter to bring up its properties in the *Properties* pane below.
+在 *Outline* 面板中显示出默认粒子发射器. 点选发射器 *Properties* 面板会对应更新.
 
 ![Default particles](images/particlefx/default.png){srcset="images/particlefx/default@2x.png 2x"}
 
-To add a new emitter to the effect, <kbd>right click</kbd> the root of the *Outline* and select <kbd>Add Emitter ▸ [type]</kbd> from the context menu. Note that you can change the type of the emitter in the emitter properties.
+新建发射器, <kbd>右键点击</kbd> *Outline* 视图, 从上下文菜单中选择 <kbd>Add Emitter ▸ [type]</kbd>. 其中发射器类型可以创建后在属性里更改.
 
-To add a new modifier, <kbd>right click</kbd> the location of the modifier in the *Outline* (the effect root or a particular emitter) and select <kbd>Add Modifier</kbd>, then select the modifier type.
+新建修改器, <kbd>右键点击</kbd> *Outline* 视图里的发射器, 从上下文菜单中选择 <kbd>Add Modifier</kbd>, 再选择修改器类型.
 
 ![Add modifier](images/particlefx/add_modifier.png){srcset="images/particlefx/add_modifier@2x.png 2x"}
 
 ![Add modifier select](images/particlefx/add_modifier_select.png){srcset="images/particlefx/add_modifier_select@2x.png 2x"}
 
-A modifier that sits on the effect root (not childed to an emitter) affects all particles in the effect.
+在根节点 (而不是发射器子级) 上添加的修改器会作用域所有粒子.
 
-A modifier that is added as a child to an emitter affects only that emitter.
+作为在发射器子集添加的修改器只会作用域该发射器的粒子.
 
-## Previewing an effect
+## 预览效果
 
-* Select <kbd>View ▸ Play</kbd> from the menu to preview the effect. You may need to zoom out the camera to see the effect properly.
-* Select <kbd>View ▸ Play</kbd> again to pause the effect.
-* Select <kbd>View ▸ Stop</kbd> to stop the effect. Playing it again restarts it from its initial state.
+* 菜单栏选择 <kbd>View ▸ Play</kbd>. 配合摄像机缩放进行预览.
+* 再次选择 <kbd>View ▸ Play</kbd> 会暂停效果预览.
+* 选择 <kbd>View ▸ Stop</kbd> 结束预览. 再次预览时会重新初始化粒子效果.
 
-When editing an emitter or modifier the result is immediately visible in the editor, even with the effect paused:
+在发射器和修改器上做的属性修改会立即反映在预览之中, 即使是在暂停状态:
 
 ![Edit particles](images/particlefx/rotate.gif)
 
-## Emitter properties
+## 发射器属性
 
 Id
-: Emitter identifier (used when setting render constants for specific emitters).
+: 发射器名 (为发射器设置渲染常量时会用到).
 
 Position/Rotation
-: Transform of the emitter relative the ParticleFX component.
+: 基于粒子特效组件的位置/旋转.
 
 Play Mode
-: Controls how the emitter plays:
-  - `Once` stops the emitter after reaching its duration.
-  - `Loop` restarts the emitter after reaching its duration.
+: 用于控制播放模式:
+  - `Once` 播放结束后即停止.
+  - `Loop` 播放结束后再次播放.
 
 Size Mode
-: Controls how flipbook animations will be sized:
-  - `Auto` keeps the size of each flipbook animation frame to the source image.
-  - `Manual` sets the particle size according to the size property.
+: 用于控制逐帧动画的大小:
+  - `Auto` 基于图片大小.
+  - `Manual` 基于 size 设置.
 
 Emission Space
-: Which geometrical space the spawned particles will exist:
-  - `World` moves the particles independent of the emitter.
-  - `Emitter` moves the particles relative to the emitter.
+: 把粒子发射在哪里:
+  - `World` 世界空间.
+  - `Emitter` 发射器空间.
 
 Duration
-: The number of seconds the emitter should emit particles.
+: 多少秒发射一次粒子.
 
 Start Delay
-: The number of seconds the emitter should wait before emitting particles.
+: 发射前等待多少秒.
 
 Start Offset
-: The number of seconds into the particle simulation the emitter should start, or in other words how long the emitter should pre-warm the effect for.
+: 起始效果偏移秒数, 换句话说就是发射器发射粒子的预热时间.
 
 Image
-: The image file (Tile source or Atlas) to use for texturing and animating the particles.
+: 粒子使用的图片 (来自瓷砖图源或者图集资源).
 
 Animation
-: The animation from the *Image* file to use on the particles.
+: 粒子用的基于 *图片* 的逐帧动画资源文件.
 
 Material
-: The material to use for shading the particles.
+: 粒子材质.
 
 Blend Mode
-: Available blend modes are `Alpha`, `Add` and `Multiply`.
+: 混合模式, 可以选择 `Alpha`, `Add` 或者 `Multiply`.
 
 Max Particle Count
-: How many particles originating from this emitter that can exist at the same time.
+: 当前发射器允许同时存在的最多粒子数量.
 
 Emitter Type
-: The shape of the emitter
-  - `Circle` emits particles from a random location inside a circle. The particles are directed outwards from the center. The circle diameter is defined by *Emitter Size X*.
+: 发射器形状
+  - `Circle` 从圆的内部随机位置发射粒子. 发射方向背向圆心. 圆直径基于 *发射器 Size 的X值*.
 
-  - `2D Cone` emits particles from a random location inside a flat cone (a triangle). The particles are directed out of the top of the cone. *Emitter Size X* defines the width of the top and *Y* defines the height.
+  - `2D Cone` 从锥形(三角形)的内部随机位置发射粒子. 发射方向为锥顶到锥底. 宽度基于 *发射器 Size 的X值*, 高度基于 *Y值*.
 
-  - `Box` emits particles from a random location inside a box. The particles are directed up along the box' local Y-axis. *Emitter Size X*, *Y* and *Z* defines width, height and depth respectively. For a 2D rectangle, keep the Z size at zero.
+  - `Box` 从盒子的内部随机位置发射粒子. 发射方向延盒子本地 Y 轴方向. *发射器 Size 的X值*, *Y值* 和 *Z值* 分别定义宽度, 高度和长度. 如果需要2D矩形, 把Z值设置为0即可.
 
-  - `Sphere` emits particles from a random location inside a sphere. The particles are directed outwards from the center. The sphere diameter is defined by *Emitter Size X*.
+  - `Sphere` 从球体的内部随机位置发射粒子. 发射方向背向球心. 球体的直径基于 *发射器 Size 的X值*.
 
-  - `Cone` emits particles from a random location inside a 3D cone. The particles are directed out through the top disc of the cone. *Emitter Size X* defines the diameter of the top disc and *Y* defines the height of the cone.
+  - `Cone` 从锥体的内部随机位置发射粒子. 发射方向为锥顶到锥底. 宽度基于 *发射器 Size 的X值*, 高度基于 *Y值*.
 
   ![emitter types](images/particlefx/emitter_types.png){srcset="images/particlefx/emitter_types@2x.png 2x"}
 
 Particle Orientation
-: How the emitted particles are oriented:
-  - `Default` sets the orientation to unit orientation
-  - `Initial Direction` keeps the initial orientation of the emitted particles.
-  - `Movement Direction` adjusts the orientation of the particles according to their velocity.
+: 粒子移动方向:
+  - `Default` 元向量方向
+  - `Initial Direction` 粒子初始化方向.
+  - `Movement Direction` 速度向量方向.
 
 Inherit Velocity
-: A scale value of how much of the velocity of the emitter the particles should inherit. This value is only available when *Space* is set to `World`. The velocity of the emitter is estimated every frame.
+: 粒子继承发射器速度的比例. 仅当 *Space* 设置为 `World` 时有效. 发射器速度每帧更新.
 
 Stretch With Velocity
-: Check to scale any particle stretch in the direction of movement.
+: 延移动方向拉伸粒子.
 
 ### 混合模式
 :[blend-modes](../shared/blend-modes.md)
 
-## Keyable emitter properties
+## 发射器非固定属性
 
-These properties have two fields: a value and a spread. The spread is a variation which is applied randomly for each spawned particle. E.g. if the value is 50 and the spread is 3, each spawned particle will get a value between 47 and 53 (50 +/- 3).
+这种属性分为两个部分: 一个数值和一个抖动. 抖动就是施加于粒子上的随机数值. 比如数值是 50 抖动是 3, 则最终值的范围就是 47 到 53 (50 +/- 3).
 
 ![Property](images/particlefx/property.png){srcset="images/particlefx/property@2x.png 2x"}
 
-By checking the key button, the value of the property is controlled by a curve over the duration of the emitter. To reset a keyed property, uncheck the key button.
+点击关键帧按钮, 则属性值由一条曲线决定. 恢复数值加抖动模式, 取消点选关键帧按钮即可.
 
 ![Property keyed](images/particlefx/key.png){srcset="images/particlefx/key@2x.png 2x"}
 
-The *Curve Editor* (available among the tabs in the bottom view) is used to modify the curve. Keyed properties can't be edited in the *Properties* view, only in the *Curve Editor*. <kbd>Click and drag</kbd> the points and tangents to modify the shape of the curve. <kbd>Double-click</kbd> on the curve to add control points. To remove a control point, <kbd>double click</kbd> on it.
+*曲线编辑器* (位于视口下方) 用以修改曲线. 这种属性不会显示在 *属性* 视图中, 只能显示在 *曲线编辑器* 中. 通过 <kbd>点击拖动</kbd> 控制点与其切线来修改曲线形状. <kbd>双击</kbd> 曲线添加控制点. <kbd>双击</kbd> 控制点可以删除它.
 
 ![ParticleFX Curve Editor](images/particlefx/curve_editor.png){srcset="images/particlefx/curve_editor@2x.png 2x"}
 
-To auto-zoom the Curve Editor to display all curves, press <kbd>F</kbd>.
+自动缩放显示完整曲线快捷键为 <kbd>F</kbd>.
 
-The following properties can be keyed over the play time of the emitter:
+以下属性都可以基于发射器发射时间周期用曲线表示:
 
 Spawn Rate
-: The number of particles to emit per second.
+: 每秒发射粒子数.
 
 Emitter Size X/Y/Z
-: The dimensions of the emitter shape, see *Emitter Type* above.
+: 发射器大小, 参考上述 *Emitter Type*.
 
 Particle Life Time
-: The lifespan of each spawned particle, in seconds.
+: 粒子生存周期, 单位是秒.
 
 Initial Speed
-: The initial velocity of each spawned particle.
+: 粒子初始速度.
 
 Initial Size
-: The initial size of each spawned particle. If you set *Size Mode* to `Automatic` and use a flipbook animation as image source, this property is ignored.
+: 粒子初始大小. 如果把 *Size Mode* 设置为 `Automatic` 并且粒子使用基于图片大小的逐帧动画的话, 此属性无效.
 
 Initial Red/Green/Blue/Alpha
-: The initial color component tint values for the particles.
+: 粒子初始颜色及其不透明度.
 
 Initial Rotation
-: The initial rotation values (in degrees) for the particles.
+: 粒子初始角度 (角度制).
 
 Initial Stretch X/Y
-: The initial stretch values (in units) for the particles.
+: 粒子初始拉伸.
 
 Initial Angular Velocity
-: The initial angular velocity  (in degrees/second) of each spawned particle.
+: 粒子初始角速度 (度/每秒).
 
-The following properties can be keyed over the life time of the particles:
+以下属性都可以基于粒子的生命周期用曲线表示:
 
 Life Scale
-: The scale value over each particle's life.
+: 粒子缩放.
 
 Life Red/Green/Blue/Alpha
-: The color component tint value over each particle's life.
+: 粒子颜色及其不透明度.
 
 Life Rotation
-: The rotation value (in degrees) over each particle's life.
+: 粒子旋转角度 (角度制).
 
 Life Stretch X/Y
-: The stretch value (in units) over each particle's life.
+: 粒子拉伸.
 
 Life Angular Velocity
-: The angular velocity (in degrees/second) over each particle's life.
+: 粒子角速度 (度/每秒).
 
-## Modifiers
+## 修改器
 
-There are four types of modifiers available that affect the velocity of particles:
+粒子的速度受以下四种修改器影响:
 
 `Acceleration`
-: Acceleration in a general direction.
+: 在某方向上加速.
 
 `Drag`
-: Reduces the acceleration of particles proportional to the particle velocity.
+: 在粒子方向上的阻尼.
 
 `Radial`
-: Either attracts or repels particles towards/from a position.
+: 在径向方向上吸引或排斥.
 
 `Vortex`
-: Affects particles in a circular or spiraling direction around its position.
+: 让粒子圆周运动或者漩涡式弧线运动.
 
   ![modifiers](images/particlefx/modifiers.png){srcset="images/particlefx/modifiers@2x.png 2x"}
 
-## Modifier properties
+## 修改器属性
 
 Position/Rotation
-: The transform of the modifier relative its parent.
+: 修改器相对父级的位移.
 
 Magnitude
-: The amount of effect the modifier has on the particles.
+: 修改器对粒子的影响强度.
 
 Max Distance
-: The maximum distance within which particles are affected at all by this modifier. Only used for Radial and Vortex.
+: 受修改器影响的粒子最远距离. 仅支持 Radial 和 Vortex.
 
-## Controlling a particle effect
+## 控制粒子特效
 
-To start and stop a particle effect from a script:
+开始/停止粒子特效播放的脚本命令:
 
 ```lua
--- start the effect component "particles" in the current game object
+-- 开始当前游戏对象上的粒子特效组件 "particles" 的播放
 particlefx.play("#particles")
 
--- stop the effect component "particles" in the current game object
+-- 停止当前游戏对象上的粒子特效组件 "particles" 的播放
 particlefx.stop("#particles")
 ```
 
-::: sidenote
-A particle effect will continue to emit particles even if the game object the particle effect component belonged to is deleted.
+::: 注意
+即使粒子特效组件依附的游戏对象被删除, 粒子效果也不会停止播放.
 :::
-See the [Particle FX reference documentation](/ref/particlefx) for more information.
+详情请见 [粒子特效索引文档](/ref/particlefx).
 
-## Material constants
+## 材质常量
 
-The default particle effect material has the following constants that can be changed using `particlefx.set_constant()` and reset using `particlefx.reset_constant()` (refer to the [Material manual for more details](/manuals/material/#vertex-and-fragment-constants)):
+粒子特效默认的材质常量可以使用 `particlefx.set_constant()` 和 `particlefx.reset_constant()` 进行设置和重置 (详情请见 [材质教程](/manuals/material/#着色器常量)):
 
 `tint`
-: The color tint of the particle effect (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/particlefx/#particlefx.set_constant:url-constant-value).
+: 粒子特效染色 (`vector4`). 四元组的 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度. 详情请见 [API 文档上的示例](/ref/particlefx/#particlefx.set_constant:url-constant-value).
+
+## 相关项目配置
+
+在 *game.project* 文件里有些关于粒子效果的 [设置项目](/manuals/project-settings#particle-fx).

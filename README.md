@@ -15,6 +15,8 @@ Start by [forking the repository](https://docs.github.com/en/github/getting-star
 ### What to translate
 Translate the manuals found in the English master documentation (i.e. in "docs/en/manuals") one-by-one. Start by translating the [introduction.md](https://github.com/defold/doc/blob/master/docs/en/manuals/introduction.md) and then proceed with the pages such as [addressing.md](https://github.com/defold/doc/blob/master/docs/en/manuals/addressing.md), [building-blocks.md](https://github.com/defold/doc/blob/master/docs/en/manuals/building-blocks.md) and any of the other pages describing the basics of the engine.
 
+You can also translate shared text snippets in "docs/en/shared". These short texts are often included and used in multiple manuals.
+
 NOTE: Please do not contribute machine translated manuals!
 
 #### Translate important concepts

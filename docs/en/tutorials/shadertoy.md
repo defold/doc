@@ -241,7 +241,7 @@ end
 
 function update(self, dt)
     self.t = self.t + dt -- <2>
-    model.set_constant("#model", "time", vmath.vector4(self.t, 0, 0, 0)) -- <3>
+    go.set("#model", "time", vmath.vector4(self.t, 0, 0, 0)) -- <3>
 end
 ```
 1. Store a value `t` in the script component (`self`) and intialize to 0.

@@ -615,6 +615,10 @@
                 "name": "EXTENSIONS",
                 "items": [
                     {
+                        "path": "/extension-adinfo",
+                        "name": "Advertising Info"
+                    },
+                    {
                         "path": "/extension-facebook",
                         "name": "Facebook"
                     },
@@ -623,8 +627,16 @@
                         "name": "Facebook Instant Games"
                     },
                     {
+                        "path": "/extension-firebase-analytics",
+                        "name": "Firebase Analytics"
+                    },
+                    {
                         "path": "/extension-gpgs",
                         "name": "Google Play Game Services"
+                    },
+                    {
+                        "path": "/extension-googleplayinstant",
+                        "name": "Google Play Instant"
                     },
                     {
                         "path": "/extension-iap",
@@ -643,7 +655,7 @@
                         "name": "WebSocket"
                     },
                     {
-                        "path": "/manuals/webview",
+                        "path": "/extension-webview",
                         "name": "Webview"
                     }
                 ]

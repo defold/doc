@@ -65,7 +65,7 @@ A: The editor will use up to 75% of the available memory of the system. On a com
 
 #### Q: What target platforms can I develop games for with Defold?
 
-A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as well as macOS/OS X, Windows and Linux. It’s truly one codebase with multiple supported platforms.
+A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as well as macOS, Windows and Linux. It’s truly one codebase with multiple supported platforms.
 
 
 #### Q: What rendering API does Defold rely on?
@@ -123,7 +123,7 @@ A: Defold has support for in-app purchases and various advertising solutions. Ch
 
 #### Q: Why doesn't the editor start or open my project?
 
-A: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the OSX version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
+A: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the macOS version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
 
 
 #### Q: I can't start the game and there is no build error. What's wrong?
@@ -190,7 +190,7 @@ A: The built-in sprite shader that is used by default for all sprites has a cons
   local green = 0.3
   local blue = 0.55
   local alpha = 1
-  sprite.set_constant("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
+  go.set("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
   ```
 
 

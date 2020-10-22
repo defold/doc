@@ -66,10 +66,10 @@ Defold 프로젝트에 **.fnt**와 **.png** 파일을 추가해 보세요. 이 �
 
 > BMFont 를 만들기 위해서는 전용 툴을 사용해야 합니다. 여기 여러 옵션이 있습니다.
 * Bitmap Font Generator, AngelCode에 의해 제공되는 Windows 전용 툴
-* Shoebox, Windows와 MacOS를 위한 무료 Adobe Air 기반의 앱
+* Shoebox, Windows와 macOS를 위한 무료 Adobe Air 기반의 앱
 * Hiero, Java 기반의 오픈소스
-* Glyph Designer, 71 Squared의 유료 MacOS 툴
-* bmGlyph, Sovapps의 유료 MacOS 툴
+* Glyph Designer, 71 Squared의 유료 macOS 툴
+* bmGlyph, Sovapps의 유료 macOS 툴
 
 ![BMFont](images/font/fonts_bmfont.png)
 

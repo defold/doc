@@ -24,7 +24,10 @@ Defold 编译和打包时建立了一个依赖树. 编译系统从 *game.project
 根据 2017 年一项研究表明 "APK 文件大小每增加 6 MB, 安装率就会相应降低 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
 :::
 
-为了更好的分析包体空间占用可以在编译时 [生成编译报告](/manuals/bundling/#build-reports). 通常声音和图片占游戏空间最大部分.
+为了更好的分析包体空间占用可以在编译时 [生成编译报告](/manuals/bundling/#编译报告). 通常声音和图片占游戏空间最大部分.
+
+### 缩减引擎
+可以使用 [application manifest 文件](https://defold.com/manuals/project-settings/#app-manifest) 去掉引擎中不需要的功能. 比如游戏不用物理效果就去掉物理引擎. 使用 [Manifestation 在线工具](https://britzl.github.io/manifestation/) 可以方便配置和生成这个文件.
 
 ### 声音优化
 Defold 支持 .ogg 和 .wav 文件其中 .ogg 一般用于音乐 .wav 一般用于音效. Sounds 必须是 16-bit 采样率 44100 所以编码前就要对其做好优化. 可以使用第三方软件降低音质或者把 .wav 转换成 .ogg.

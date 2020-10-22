@@ -9,7 +9,15 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
 
 ## 在论坛里提交问题
 
-在我们的 [论坛](https://forum.defold.com) 上提交问题是一个好方法. 依据你的问题的类型可以在 [Questions](https://forum.defold.com/c/questions) 或者 [Bugs](https://forum.defold.com/c/bugs) 类目下发帖. 提交问题的时候请尽附加可能多的信息. 记得发问之前在论坛 [搜索](https://forum.defold.com/search) 一下相关内容, 也许论坛上已经存在你的问题的解决方案了. 提问时请填写以下信息:
+在我们的 [论坛](https://forum.defold.com) 上提交问题是一个好方法. 依据你的问题的类型可以在 [Questions](https://forum.defold.com/c/questions) 或者 [Bugs](https://forum.defold.com/c/bugs) 类目下发帖. 提交问题的时候请尽附加可能多的信息. 记得发问之前在论坛 [搜索](https://forum.defold.com/search) 一下相关内容, 也许论坛上已经存在你的问题的解决方案了.
+
+有多个问题, 就发多张帖子. 不要在一个帖子说发布不相干的问题.
+
+### 提供信息
+提问时请提供以下信息:
+
+**题目**
+简明扼要的标题. 像 "如何让游戏对象延面对方向前进?" 或者 "如何实现 Sprite 渐隐效果?" 就比较好. 像 "我需要 Defold 的帮助!" 或者 "我的游戏不动了!" 就不怎么好.
 
 * **问题的描述 (必须)** - 问题的简短描述.
 
@@ -48,7 +56,7 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
 
 ![](images/getting_help/report_issue.png)
 
-这样就会在 GitHub 上生成一个错误报告. 请尽量详述错误的相关信息. 参考 [下面关于日志文件获取的章节](#log-files).
+这样就会在 GitHub 上生成一个错误报告. 请提供 [日志文件](#log-files), 操作系统, 重现方法, 临时绕过错误的方法等信息.
 
 ::: 注意
 报告之前确保你已经拥有 GitHub 账户.
@@ -64,21 +72,6 @@ brief: 本教程介绍了使用 Defold 遇到麻烦时该如何寻求帮助.
 
 游戏引擎, 编辑器和云编译服务器都有日志系统, 这对于定位调试错误十分有利. 报告错误时请务必带上日志文件.
 
-## 引擎日志
-- Android: 可以使用 `adb` (Android Debug Bridge) 命令获取. 有关 `adb` 命令详情请见 [Android 教程](/manuals/android/#android-debug-bridge).
-- iOS: 可以使用 XCode 的设备和模拟器菜单项获取.
-- HTML5: 浏览器控制台会输出日志:
-  - Chrome: 菜单 > 更多工具 > 开发者工具
-  - Firefox: 工具 > 网络开发者 > 网络控制台
-  - Safari: 开发 > 显示 JavaScript 控制台
-- Desktop: 如果从终端/命令控制台启动 Defold 程序的话, 就可以在上面看到输出的日志了.
-
-有个功能就是程序崩溃时把相关信息写入一个日志文件中去. 详情请见 [调试教程](/manuals/debugging/#extracting-the-logtxt-file).
-
-## 编辑器日志
-- Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-- macOS: `/Users/ **Your Username** /Library/Application Support/` 或者 `~/Library/Application Support/Defold`
-- Linux: `~/.Defold`
-
-## 云编译服务器日志
-使用原生扩展时才会有编译服务器日志. 编译时其日志文件 (`log.txt`) 与自定义引擎一起下载并保存在 `.internal/%platform%/build.zip` 文件中.
+* [引擎日志](/manuals/debugging-game-and-system-logs)
+* [Editor logs](/manuals/editor#editor-logs)
+* [编译服务器日志](/manuals/extensions#build-server-logs)

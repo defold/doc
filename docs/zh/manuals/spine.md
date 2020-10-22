@@ -9,7 +9,7 @@ _Spine_ 是由 Esoteric Software 开发的第三方动画工具, 可以让你使
 
 Defold 实现了 [Spine JSON 格式](http://esotericsoftware.com/spine-json-format) 的运行时和动画表达.
 
-Defold 支持了主要的 Spine 动画功能, 包括反向运动鞋 (IK).
+Defold 支持了主要的 Spine 动画功能, 包括反向运动学 (IK).
 
 ::: 注意
 目前, Defold 不支持翻转 X 或者 Y 轴的动画关键帧. Defold 只支持骨骼驱动的网格动画, 不支持单个三角形顶点动画. 一定要做的话就用骨骼 100% 绑定一个三角形来做骨骼动画.

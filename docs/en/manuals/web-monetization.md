@@ -36,8 +36,6 @@ Game developers must have a Web Monetization enabled wallet to hold received pay
 
 [![GateHub logo](images/web-monetization/gatehub_logo.svg)](https://gatehub.net)
 
-[![Stronghold logo](images/web-monetization/stronghold_logo.svg)](https://stronghold.co/real-time-payments#coil)
-
 
 ### Payment Pointers
 

@@ -86,6 +86,38 @@ end
 Defold 目前不支持碰撞形状的非等比缩放. 如果赋了非等比值, 比如 `vmath.vector3(1.0, 2.0, 1.0)` 则 sprite 会正确缩放但是碰撞形状不会正确缩放.
 :::
 
+
+## 定位新对象
+
+Defold 的地址定位机制可以在运行时定位任何对象和组件. 关于定位详情请见 [地址定位教程](/manuals/addressing/). 对于工厂新建对象及其组件同样如此. 新建的对象id经常被使用, 比如发送消息时:
+
+```lua
+local function create_hunter(target_id)
+    local id = factory.create("#hunterfactory")
+    msg.post(id, "hunt", { target = target_id })
+    return id
+end
+```
+
+::: 注意
+发给游戏对象而非组件的消息会传遍对象上的所有组件. 一般不会造成问题, 但是处理消息时要明白这一点.
+:::
+
+要获取对象上的组件, 比如关闭碰撞或改变Sprite图片该怎么办呢? 使用游戏对象id再加上组件名生成的地址即可.
+
+```lua
+local function create_guard(unarmed)
+    local id = factory.create("#guardfactory")
+    if unarmed then
+        local weapon_sprite_url = msg.url(nil, id, "weapon")
+        msg.post(weapon_sprite_url, "disable")
+
+        local body_sprite_url = msg.url(nil, id, "body")
+        sprite.play_flipbook(body_sprite_url, hash("red_guard"))
+    end
+end
+```
+
 ## 新对象引用和对象父级
 
 调用 `factory.create()` 会返回新游戏对象的id, 以便保存其引用. 通常把 id:s 保存到一个表里以便需要时统一删除, 比如重启关卡时:

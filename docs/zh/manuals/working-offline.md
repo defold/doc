@@ -1,6 +1,6 @@
 ---
 title: 断网工作
-brief: 此教程介绍了在离线状态下使用依赖库尤其是使用原生扩展的方法
+brief: 本教程介绍了在离线状态下使用依赖库尤其是使用原生扩展的方法
 ---
 
 # 断网工作
@@ -24,14 +24,14 @@ Defold 定期查找是否存在更新版本. Defold 查找新版本时会连接 
 
 如果编辑器发现了错误就会弹出错误报告框让用户选择是否把错误内容回报给 Defold 官方. 错误跟踪表 [存储在 GitHub 上](https://www.github.com/defold/editor2-issues), 所以回报问题时需要联网.
 
-如果在离线状态下遇到错误还可以使用编辑器的 [帮助菜单下的回报错误按钮](/manuals/getting-help/#report-a-problem-from-the-editor) 提交错误报告.
+如果在离线状态下遇到错误还可以使用编辑器的 [帮助菜单下的回报错误按钮](/manuals/getting-help/#从编辑器里汇报问题) 提交错误报告.
 
 
 ## 下载依赖
 
 Defold 支持通过一个叫做 [库项目](/manuals/libraries/) 的功能共享代码和资源. 库被保存为zip文件存放在网络上. 一般 Defold 库项目都保存在 GitHub 和各个代码托管平台上.
 
-在项目设置里可以添加库 [作为项目依赖](/manuals/project-settings/#dependencies). 当项目开启或者 *Project* 菜单栏下的 *Fetch Libraries* 被点选时, Defold 会自动进行项目依赖的下载/更新.
+在项目设置里可以添加库 [作为项目依赖](/manuals/project-settings/#Dependencies). 当项目开启或者 *Project* 菜单栏下的 *Fetch Libraries* 被点选时, Defold 会自动进行项目依赖的下载/更新.
 
 如果必须团队离线工作, 建议把共享依赖存放在本地共享服务器上. GitHub 上的依赖库文件一般都在其发布页面:
 

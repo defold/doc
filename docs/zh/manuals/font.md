@@ -114,10 +114,10 @@ Defold 还支持 "BMFont" 格式字体. 这种字体的字符都是由位图组�
 要使用 BMFont, 需要使用工具软件来生成所需文件. 下面列举一些这样的工具:
 
 * [Bitmap Font Generator](http://www.angelcode.com/products/bmfont/), AngelCode 开发的 Windows 版软件.
-* [Shoebox](http://renderhjs.net/shoebox/), 免费的基于 Adobe Air 的可运行与 Windows 和 MacOS 上的工具.
+* [Shoebox](http://renderhjs.net/shoebox/), 免费的基于 Adobe Air 的可运行与 Windows 和 macOS 上的工具.
 * [Hiero](https://github.com/libgdx/libgdx/wiki/Hiero), 基于 Java 的开源软件.
-* [Glyph Designer](https://71squared.com/glyphdesigner), 71 Squared 开发的付费 MacOS 应用.
-* [bmGlyph](https://www.bmglyph.com), Sovapps 开发的付费 MacOS 应用.
+* [Glyph Designer](https://71squared.com/glyphdesigner), 71 Squared 开发的付费 macOS 应用.
+* [bmGlyph](https://www.bmglyph.com), Sovapps 开发的付费 macOS 应用.
 :::
 
 ![BMfont](images/font/bm_font.png){srcset="images/font/bm_font@2x.png 2x"}

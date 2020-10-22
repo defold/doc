@@ -96,7 +96,7 @@ Defold 引擎不支持 STL 代码, 除了某些算法和数学库 (std::sort, st
             /res                         -- 平台需要的资源文件
             /external
                 README.md                -- 扩展相关编译打包的说明/脚本
-        /bundleres                       -- 需要打包的资源 (参见 game.project 以及 [bundle_resources 设置](/manuals/project-settings/#project))
+        /bundleres                       -- 需要打包的资源 (参见 game.project 以及 [bundle_resources 设置](/manuals/project-settings/#Project))
             /<platform>
         game.project
         game.appmanifest                 -- 其他应用设置

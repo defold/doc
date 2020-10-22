@@ -34,7 +34,7 @@ end
 
 첫 번째 줄 "require modules_example.flying"는 "modules_example" 폴더(어플리케이션 로직이 저장된 위치에서)에서 "flying.lua" 스크립트 파일을 읽습니다.
 
-> require 구문에 필요한 파일명의 문법은 조금 특별합니다. Lua는 파일명의 .(쩜) 문자를 경로 구분자(path separators)로 변경합니다. (Mac OS X와 Linux에서 /, Windows에서 \)
+> require 구문에 필요한 파일명의 문법은 조금 특별합니다. Lua는 파일명의 .(쩜) 문자를 경로 구분자(path separators)로 변경합니다. (macOS와 Linux에서 /, Windows에서 \)
 
 "flying.lua"을 생성하려면 프로젝트에 새 Lua Module File을 추가하고 이름을 바꾸면 됩니다.
 

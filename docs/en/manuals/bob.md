@@ -31,7 +31,6 @@ usage: bob [options] [commands]
                                      as HTML
     --build-server <arg>             The build server (when using native
                                      extensions)
- -ce,--certificate <arg>             Certificate (Android)
  -d,--debug                          Use debug version of dmengine (when
                                      bundling). Deprecated, use --variant
                                      instead
@@ -50,7 +49,6 @@ usage: bob [options] [commands]
  -o,--output <arg>                   Output directory. Default is
                                      "build/default"
  -p,--platform <arg>                 Platform (when bundling)
- -pk,--private-key <arg>             Private key (Android)
  -r,--root <arg>                     Build root directory. Default is
                                      current directory
     --settings <arg>                 a path to a game project settings
@@ -72,6 +70,13 @@ usage: bob [options] [commands]
                                      output
     --with-symbols                   Generate the symbol file (if
                                      applicable)
+    --bundle-format <apk|aab>        Which format to generate Android bundle in.
+    --keystore <arg>                 Which keystore file to use when signing the
+                                     Android bundle.
+    --keystore-pass <arg>            Path to file with keystore password used to
+                                     when bundling for Android.
+    --keystore-alias <arg>           Name of alias from provided keystore to use
+                                     when bundling for Android.
 ```
 
 Available commands:
@@ -94,7 +99,7 @@ Available commands:
 Available platforms:
 
 `x86_64-darwin`
-: Mac OSX 64 bit
+: macOS 64 bit
 
 `x86_64-win32`
 : Windows 64 bit
@@ -112,7 +117,7 @@ Available platforms:
 : iOS 32 bit
 
 `x86_64-ios`
-: iOS Mac OSX 64 bit (iOS Simulator)
+: iOS macOS 64 bit (iOS Simulator)
 
 `armv7-android`
 : Android 32 bit
@@ -129,7 +134,7 @@ $ java -jar bob.jar
 $
 ```
 
-You can string commands together to perform a sequence of tasks in one go. The following example resolves libraries, wipes the build directory, builds archive data and bundles an OSX application (named *My Game.app*):
+You can string commands together to perform a sequence of tasks in one go. The following example resolves libraries, wipes the build directory, builds archive data and bundles a macOS application (named *My Game.app*):
 
 ```sh
 $ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle

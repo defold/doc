@@ -1,113 +1,113 @@
 ---
 title: Defold 中的着色器编程
-brief: This manual describes vertex and fragment shaders in detail and how to use them in Defold.
+brief: 本教程介绍了顶点和片元着色器及其在 Defold 中的使用方法.
 ---
 
 # Shaders
 
-Shader programs are at the core of graphics rendering. They are programs written in a C-like language called GLSL (GL Shading Language) that the graphics hardware run to perform operations on either the underlying 3D data (the vertices) or the pixels that end up on the screen (the "fragments"). Shaders are used for drawing sprites, lighting 3D models, creating full screen post effects and much, much more.
+着色程序是图像渲染的核心. 由类似 C 语言的 GLSL (GL 着色语言) 语言编写而成供图形设备和操作系统操作 3D 数据 (称为顶点) 和屏幕上的像素 (称为片元). 着色器可以用来渲染图像, 3D 模型, 灯光和全屏的后期特效等等等等.
 
-This manual describes how Defold's rendering pipeline interfaces with vertex and fragment shaders. In order to create shaders for your content, you also need to understand the concept of materials, as well as how the render pipeline works.
+本教程介绍了 Defold 的渲染管线中的顶点/片元着色器接口. 为了编写着色器, 你还需要理解材质的概念, 以及渲染管线工作原理.
 
-* See the [Render manual](/manuals/render) for details on the render pipeline.
-* See the [Material manual](/manuals/material) for details on materials.
+* 关于渲染管线详情请见 [渲染教程](/manuals/render).
+* 关于材质详情请见 [材质教程](/manuals/material).
 
-Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at https://www.khronos.org/registry/gles/
+OpenGL ES 2.0 (OpenGL for Embedded Systems) 和 OpenGL ES 着色语言官方说明请见 https://www.khronos.org/registry/gles/
 
-Observe that on desktop computers it is possible to write shaders using features not available on OpenGL ES 2.0. Your graphics card driver may happily compile and run shader code that will not work on mobile devices.
+注意桌面设备渲染功能大于 OpenGL ES 2.0. 电脑显卡支持的效果在移动设备上可能无法使用.
 
 
-## Concepts
+## 概念
 
 Vertex shader
-: A vertex shader cannot create or delete vertices, only change the position of a vertex. Vertex shaders are commonly used to transform the positions of vertices from the 3D world space into 2D screen space.
+: 顶点着色器不新建也不删除顶点, 只是计算顶点的位置. 顶点着色器一般用于把3D空间的顶点位置转换到2D屏幕空间之中.
 
-  The input of a vertex shader is vertex data (in the form of `attributes`) and constants (`uniforms`). Common constants are the matrices necessary to transform and project the position of a vertex to screen space.
+  输入的是顶点数据 (以 `attributes` 的形式) 和常量 (`uniforms`). 通常常量是用于位置转换计算的矩阵.
 
-  The output of the vertex shader is the computed screen position of the vertex (`gl_Position`). It is also possible to pass data from the vertex shader to the fragment shader through `varying` variables.
+  输出的是屏幕空间顶点坐标 (`gl_Position`). 也可以通过 `varying` 变量向片元着色器传递数据.
 
 Fragment shader
-: After the vertex shader is done, it is the job of the fragment shader to decide the coloring of each fragment (or pixel) of the resulting primitives.
+: 顶点处理结束后, 由片元着色器来接手处理每个片元 (像素) 的颜色数据.
 
-  The input of a fragment shader is constants (`uniforms`) as well as any `varying` variables that has been set by the verter shader.
+  输入的是常量 (`uniforms`) 还有从顶点着色器发来的 `varying` 变量.
 
-  The output of the fragment shader is the color value for the particular fragment (`gl_FragColor`).
+  输出的是单个片元的颜色 (`gl_FragColor`).
 
 World matrix
-: The vertex positions of a model's shape are stored relative to the model's origin. This is called "model space". The game world, however, is a "world space" where the position, orientation and scale of each vertex is expressed relative to the world origin. By keeping these separate the game engine is able to move, rotate and scale each model without destroying the original vertex values stored in the model component.
+: 模型顶点的位置基于模型原点. 这被称作 "模型空间". 而游戏使用的是 "世界空间" 也就是每个点的位置旋转和缩放都是基于世界坐标系原点的. 把两者区别开便于引擎实现导入模型的移动, 旋转和缩放而不会破坏模型组件里存储的顶点数据.
 
-  When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a *world transform matrix*, which tells what  translation (movement), rotation and scale should be applied to a model's vertices to be correctly placed in the game world's coordinate system.
+  把模型放置于游戏世界时, 模型顶点要改成基于世界坐标系的. 这就需要一个 *世界变换矩阵* 来确定多少移动, 旋转和缩放应该应用于模型顶点以修正其基于世界坐标系的位置.
 
   ![World transform](images/shader/world_transform.png){srcset="images/shader/world_transform@2x.png 2x"}
 
-View and projection matrix
-: In order to put the vertices of the game world onto the screen, each matrix' 3D coordinates is first translated into coordinates relative to the camera. This is done with a _view matrix_. Secondly, the vertices are projected onto the 2D screen space with a _projection matrix_:
+View 和 projection matrix
+: 为了把游戏世界物体投射到屏幕上, 每个矩阵的3D坐标先是转换为基于摄像机的坐标. 这时使用的是 _视口矩阵_. 然后, 顶点再被转换为屏幕空间坐标, 这时使用的是 _投射矩阵_:
 
   ![Projection](images/shader/projection.png){srcset="images/shader/projection@2x.png 2x"}
 
 Attributes
-: A value associated with an individual vertex. Attributes are passed to the shader by the engine and if you want to access an attribute you just declare it in your shader program. Different component types have a different set of attributes:
-  - Sprite has `position` and `texcoord0`.
-  - Tilegrid has `position` and `texcoord0`.
-  - Spine model has `position` and `texcoord0`.
-  - GUI node has `position`, `textcoord0` and `color`.
-  - ParticleFX has `position`, `texcoord0` and `color`.
-  - Model has `position`, `texcoord0` and `normal`.
-  - Font has `position`, `texcoord0`, `face_color`, `outline_color` and `shadow_color`.
+: 顶点上的相关属性. 属性经由引擎传送给着色器. 只要在着色程序中声明一下即可使用. 不同类型组件有不同的属性:
+  - Sprite 有 `position` 和 `texcoord0`.
+  - Tilegrid 有 `position` 和 `texcoord0`.
+  - Spine model 有 `position` 和 `texcoord0`.
+  - GUI node 有 `position`, `textcoord0` 和 `color`.
+  - ParticleFX 有 `position`, `texcoord0` 和 `color`.
+  - Model 有 `position`, `texcoord0` 和 `normal`.
+  - Font 有 `position`, `texcoord0`, `face_color`, `outline_color` 和 `shadow_color`.
 
 Constants
-: Shader constants remain constant for the duration of the render draw call. Constants are added to the material file *Constants* sections and then declared as `uniform` in the shader program. Sampler uniforms are added to the *Samplers* section of the material and then declared as `uniform` in the shader program. The matrices necessary to perform vertex transformations in a vertex shader are available as constants:
+: 着色器常量保持在渲染器的一个 draw call 之内. 常量位于材质的 *Constants* 部分并且在着色器程序里声明为 `uniform`. 取样器位于材质的 *Samplers* 部分并且在着色程序里声明为 `uniform`. 在顶点着色器里作为常量提供矩阵是执行顶点转换所必需的:
 
-  - `CONSTANT_TYPE_WORLD` is the *world matrix* that maps from an object’s local coordinate space into world space.
-  - `CONSTANT_TYPE_VIEW` is the *view matrix* that maps from world space to camera space.
-  - `CONSTANT_TYPE_PROJECTION` is the *projection matrix* that maps from camera to screen space.
-  - Pre multiplied $world * view$, $view * projection$ and $world * view$ matrices are also available.
-  - `CONSTANT_TYPE_USER` is a `vec4` type constant that you can use as you wish.
+  - `CONSTANT_TYPE_WORLD` 是 *world matrix* 用于把物体本地空间坐标映射到世界坐标系中.
+  - `CONSTANT_TYPE_VIEW` 是 *view matrix* 用于世界空间到摄像机空间的映射.
+  - `CONSTANT_TYPE_PROJECTION` 是 *projection matrix* 用于摄像机空间到屏幕空间的映射.
+  -  还有预乘的 $world * view$, $view * projection$ 和 $world * view$ 矩阵都可使用.
+  - `CONSTANT_TYPE_USER` 是 `vec4` 可以自由使用的四元组.
 
-  The [Material manual](/manuals/material) explains how to specify constants.
+  关于着色器常量的用法详情请见 [材质教程](/manuals/material).
 
 Samplers
-: Shaders can declare *sampler* type uniform variables. Samplers are used to read values from an image source:
+: 着色器可以声明 *采样器* 类型 uniform 变量. 采样器用于从图片中读取数值:
 
-  - `sampler2D` samples from a 2D image texture.
-  - `samplerCube` samples from a 6 image cubemap texture.
+  - `sampler2D` 从2D纹理中采样.
+  - `samplerCube` 从六图 cubemap 纹理中采样.
 
-  You can use a sampler only in the GLSL standard library's texture lookup functions. The [Material manual](/manuals/material) explains how to specify sampler settings.
+  只能在 GLSL 标准库的纹理查找函数里使用采样器. 关于采样器设置详情请见 [材质教程](/manuals/material).
 
-UV coordinates
-: A 2D coordinate is associated with a vertex and it maps to a point on a 2D texture. A portion, or the whole, of the texture can therefore be painted onto the shape described by a set of vertices.
+UV 坐标
+: 2D纹理上的坐标. 用于将纹理对应到顶点组成的模型上.
 
   ![UV coordinates](images/shader/uv_map.png){srcset="images/shader/uv_map@2x.png 2x"}
 
-  A UV-map is typically generated in the 3D modelling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
+  UV图由3D建模软件生成并且存储在网格之中. 每个顶点的纹理坐标作为属性提供给顶点着色器. 然后用 varying 变量来给从顶点数据插值产生的片元顶点查找UV坐标.
 
-Varying variables
-: Varying types of variables are used to pass information between the vertex stage and the fragment stage.
+Varying 变量
+: Varying 变量被用作从顶点到片元程序的数据传递媒介.
 
-  1. A varying variable is set in the vertex shader for each vertex.
-  2. During rasterization this value is interpolated for each fragment on the primitive being rendered. The distance of the fragment to the shape's vertices dictates the interpolated value.
-  3. The variable is set for each call to the fragment shader and can be used for fragment calculations.
+  1. varying 由顶点着色器为每个顶点所设立.
+  2. 在栅格化期间, 将为被渲染物每个片元间内插该值. 插值取决于片元到顶点间的距离.
+  3. 此变量在每次调用片元着色器时被设置传递可以用来进行片元着色计算.
 
   ![Varying interpolation](images/shader/varying_vertex.png){srcset="images/shader/varying_vertex@2x.png 2x"}
 
-  For instance, setting a varying to a `vec3` RGB color value on each corners of a triangle will interpolate the colors across the whole shape. Similarly, setting texture map lookup coordinates (or *UV-coordinates*) on each vertex in a rectangle allows the fragment shader to look up texture color values for the whole area of the shape.
+  比如说设定 varying 为三角面的顶点赋予 `vec3` RGB 颜色, 那么这个面上的片元都会根据此变量进行插值. 类似地, 设置四顶点平面的纹理采样坐标 (或称 *UV坐标*) 就可以让片元着色器查找到整个平面各个片元的颜色.
 
   ![Varying interpolation](images/shader/varying.png){srcset="images/shader/varying@2x.png 2x"}
 
 
-## The rendering process
+## 渲染过程
 
-Before ending up on the screen, the data that you create for your game goes through a series of steps:
+数据被投入屏幕之前, 要经过一系列步骤:
 
 ![Render pipeline](images/shader/pipeline.png){srcset="images/shader/pipeline@2x.png 2x"}
 
-All visual components (sprites, GUI nodes, particle effects or models) consists of vertices, points in 3D world that describe the shape of the component. The good thing by this is that it is possible to view the shape from any angle and distance. The job of the vertex shader program is to take a single vertex and translate it into a position in the viewport so the shape can end up on screen. For a shape with 4 vertices, the vertex shader program runs 4 times, each in parallell.
+可视组件 (sprite, GUI 节点, 粒子特效和模型) 都由顶点构成, 位于3D坐标系的顶点描述了组件的形状. 好处是从任何角度任何距离都可以观察这些组件. 顶点着色器的工作就是获取每个顶点并把它转换成视口坐标系的坐标以便投射到屏幕上. 对于一个四顶点形状来说, 顶点着色器要并行运行四次.
 
 ![vertex shader](images/shader/vertex_shader.png){srcset="images/shader/vertex_shader@2x.png 2x"}
 
-The input of the program is the vertex position (and other attribute data associated with the vertex) and the output is a new vertex position (`gl_Position`) as well as any `varying` variables that should be interpolated for each fragment.
+顶点着色程序输入的是顶点位置 (及顶点属性数据) 而输出的是一个新的顶点坐标 (`gl_Position`) 连同片元间插值的 `varying` 变量.
 
-The most simple vertex shader program just sets the position of the output to a zero vertex (which is not very useful):
+最简单的顶点着色程序大概就是全部输出为0坐标 (没啥用):
 
 ```glsl
 void main()
@@ -116,7 +116,7 @@ void main()
 }
 ```
 
-A more complete example is the built in sprite vertex shader:
+复杂点的像sprite的顶点着色程序:
 
 ```glsl
 -- sprite.vp
@@ -133,22 +133,22 @@ void main()
   var_texcoord0 = texcoord0;                            // [5]
 }
 ```
-1. A uniform (constant) containing the view and projection matrices multiplied.
-2. Attributes for the sprite vertex. `position` is already transformed into world space. `texcoord0` contains the UV coordinate for the vertex.
-3. Declare a varying output variable. This variable will be interpolated for each fragment between the values set for each vertex and sent to the fragment shader.
-4. `gl_Position` is set to the output position of the current vertex in projection space. This value has 4 components: `x`, `y`, `z` and `w`. The `w` component is used to calculate perspective-correct interpolation. This value is normally 1.0 for each vertex before any transformation matrix is applied.
-5. Set the varying UV coordinate for this vertex position. After rasterization it will be interpolated for each fragment and sent to the fragment shader.
+1. 一个 uniform (常量) 包含视口和投射预乘矩阵.
+2. 顶点属性. `position` 已被转换为世界坐标. `texcoord0` 包含顶点的UV坐标.
+3. 声明输出变量. 变量基于顶点数据为每个片元插值然后传送给片元着色器.
+4. `gl_Position` 被设置为当前顶点在投射空间的输出坐标. 包含四项: `x`, `y`, `z` 和 `w`. 其中 `w` 用于计算透视校正插值. 应用转换矩阵前一般都取值为 1.0.
+5. 设置当前顶点的 varying UV 坐标. 栅格化之后它会为每个片元进行插值计算然后发送给片元着色器.
 
 
 
 
-After vertex shading, the on screen shape of the component is decided: primitive shapes are generated and rasterized, meaning that the graphics hardware splits each shape into *fragments*, or pixels. It then runs the fragment shader program, once for each of the fragments. For an on screen image 16x24 pixels in size, the program runs 384 times, each in parallell.
+顶点着色器运行完, 组件的屏幕投射形状已被计算出来: 原始形状生成并被栅格化, 就是显卡把要显示的东西分解成 *片元*, 或理解为像素. 然后运行片元着色器, 每个片元处理运行一次. 对于屏幕上显示的 16x24 像素大小的图片, 片元着色程序要并行运行384次.
 
 ![fragment shader](images/shader/fragment_shader.png){srcset="images/shader/fragment_shader@2x.png 2x"}
 
-The input of the program is whatever the rendering pipeline and the vertex shader sends, usually the *uv-coordinates* of the fragment, tint colors etc. The output is the final color of the pixel (`gl_FragColor`).
+片元着色程序输入的是渲染管线和顶点着色器发来的数据, 一般是片元的 *uv坐标*, 染色颜色之类的. 而输出的是最终颜色值 (`gl_FragColor`).
 
-The most simple fragment shader program just sets the color of each pixel to black (again, not a very useful program):
+最简单的片元着色程序大概就是把每个像素设置为黑色 (还是没什么用):
 
 ```glsl
 void main()
@@ -157,7 +157,7 @@ void main()
 }
 ```
 
-Again, a more complete example is the built in sprite fragment shader:
+复杂一点的比如sprite的片元着色程序:
 
 ```glsl
 // sprite.fp
@@ -173,19 +173,19 @@ void main()
   gl_FragColor = diff * tint_pm;                                // [6]
 }
 ```
-1. The varying texture coordinate variable is declared. The value of this variable will be interpolated for each fragment between the values set for each vertex in the shape.
-2. A `sampler2D` uniform variable is declared. The sampler, together with the interpolated texture coordinates, is used to perform texture lookup so the sprite can be textured properly. Since this is a sprite, the engine will assign this sampler to the image set in the sprite's *Image* property.
-3. A constant of type `CONSTANT_TYPE_USER` is defined in the material and declared as a `uniform`. Its valueis used to allow color tinting of the sprite. The default is pure white.
-4. The color value of the tint gets pre-multiplied with its alpha value since all runtime textures already contain pre-multiplied alpha.
-5. Sample the texture at the interpolated coordinate and return the sampled value.
-6. `gl_FragColor` is set to the output color for the fragment: the diffuse color from the texture multiplied with the tint value.
+1. 声明 varying 纹理坐标变量. 此变量基于形状顶点为每个片元进行插值.
+2. 声明 `sampler2D` uniform 变量. 取样器, 连同插值纹理坐标, 用于sprite的纹理采样. 对于sprite来说, 引擎会自动把要采样的纹理对应到sprite的 *Image* 属性上.
+3. 定义 `CONSTANT_TYPE_USER` 材质常量并且声明为 `uniform`. 用来给sprite设置染色颜色. 默认值纯白.
+4. 染色颜色于其不透明度相乘, 因为运行时纹理颜色都是经过不透明度预乘的.
+5. 在插值坐标处采样并返回颜色值.
+6. `gl_FragColor` 代表片元最终颜色结果: 漫反射纹理颜色于其染色颜色的乘积.
 
-The resulting fragment value then goes through tests. A common test is the *depth test* in where the fragment's depth value is compared against the depth buffer value for the pixel that is being tested. Depending on the test, the fragment can be discarded or a new value is written to the depth buffer. A common use of this test is to allow graphics that is closer to the camera to block graphics further back.
+得到片元的最终颜色后还要经过一系列测试. 常见的有 *深度检测*, 看片元深度值是否与像素深度缓存相匹配. 经过测试后, 片元可能被丢弃或者深度缓存被赋予新的值. 这个检测常用于计算远离摄像机物体的渲染剔除工作.
 
-If the test concluded that the fragment is to be written to the frame buffer, it will be *blended* with the pixel data already present in the buffer. Blending parameters that are set in the render script allow the source color (the value written by the fragment shader) and the destination color (the color from the image in the framebuffer) to be combined in various ways. A common use of blending is to enable rendering transparent objects.
+如果这个片元被保留下来, 它还要与早先进入帧缓存的像素数据进行 *混合*. 渲染脚本基于混合参数将源颜色 (片元着色器输出颜色) 与目标颜色 (帧缓存里已有颜色) 进行混合计算. 混合计算常见用法如显示半透明图像等.
 
-## Further study
+## 深入学习
 
-- The site Shadertoy (https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of inspiration where you can learn about various shading techniques. Many of the shaders showcased on the site can be ported to Defold with very little work. The [Shadertoy tutorial](https://www.defold.com/tutorials/shadertoy/) goes through the steps of converting an existing shader to Defold.
+- 著名着色器开源站 Shadertoy (https://www.shadertoy.com) 上有大量开发者开源着色器. 可以通过学习各种着色技术作为自己的灵感源泉. 其中很多着色器改改就能应用到 Defold 中去. [Shadertoy 教程](https://www.defold.com/tutorials/shadertoy/) 介绍了把网站着色器用于 Defold 的具体步骤.
 
-- The [Grading tutorial](https://www.defold.com/tutorials/grading/) shows how to create a full screen color grading effect using color lookup table textures for the grading.
+- [渐变教程](https://www.defold.com/tutorials/grading/) 介绍了使用纹理采样进行全屏颜色渐变效果的编写方法.

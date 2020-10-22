@@ -59,10 +59,10 @@ A sprite also has a number of different properties that can be manipulated using
 
 ## Material constants
 
-The default sprite material has the following constants that can be changed using `sprite.set_constant()` and reset using `sprite.reset_constant()` (refer to the [Material manual for more details](/manuals/material/#vertex-and-fragment-constants)):
+{% include shared/material-constants.md component='sprite' variable='tint' %}
 
 `tint`
-: The color tint of the sprite (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint. Refer to the [API reference for an example](/ref/sprite/#sprite.set_constant:url-constant-value).
+: The color tint of the sprite (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
 
 ## Project configuration
 

@@ -22,7 +22,7 @@ msg.post("@render:", "draw_line", {start_point = my_start, end_point = my_end, c
 Lua는 몇몇 상황에서 유용한 디버깅 라이브러리를 제공합니다. 특히 Lua 환경의 내부를 조사해야 하는 경우 필요할 수도 있습니다. 더 많은 정보는 http://www.lua.org/pil/contents.html#23 를 참고 바랍니다.
 
 ## Debugging Lua scripts with ZeroBrane
-Defold 엔진은 Lua IDE ZeroBrane Studio 라는 무료 오픈소스를 통해 Lua 스크립트를 디버깅하기 위한 기능을 내장하고 있습니다. 디버깅 기능을 위해서는 ZeroBrane Studio를 설치해야 합니다. 이 프로그램은 OSX와 Windows에서 실행 가능합니다.
+Defold 엔진은 Lua IDE ZeroBrane Studio 라는 무료 오픈소스를 통해 Lua 스크립트를 디버깅하기 위한 기능을 내장하고 있습니다. 디버깅 기능을 위해서는 ZeroBrane Studio를 설치해야 합니다. 이 프로그램은 macOS와 Windows에서 실행 가능합니다.
 
 http://studio.zerobrane.com 에서 "ZeroBrane Studio"를 다운로드 하세요.
 
@@ -30,9 +30,9 @@ http://studio.zerobrane.com 에서 "ZeroBrane Studio"를 다운로드 하세요.
 ZeroBrane이 프로젝트의 파일들을 찾으려면, Defold 프로젝트 디렉토리의 위치를 알려줘야 합니다. 간단한 방법으로는 Defold project에서 **Show in Finder/Explorer** 메뉴로 찾을 수 있습니다.
 
 1. "game.project" 에서 마우스 오른쪽 클릭
-2. OSX에서 **Show in Finder** 선택, Windows에서 **Show in Explorer** 선택
+2. macOS에서 **Show in Finder** 선택, Windows에서 **Show in Explorer** 선택
 
-OS X:
+macOS:
 ![Show in Finder](images/debugging/showinfind.png)
 
 Windows:

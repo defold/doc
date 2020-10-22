@@ -19,11 +19,9 @@ https://github.com/defold/extension-facebook/archive/master.zip
 
 推荐使用 [指定版本](https://github.com/defold/extension-facebook/releases) 的zip包链接作为依赖.
 
-从 Defold 1.2.162 开始, 此扩展需要其他依赖:
-```
-https://github.com/defold/extension-gps/archive/master.zip
-```
+Facebook API 文档位于 [fb扩展主页](https://defold.github.io/extension-facebook/).
 
+## 注册为 Facebook 开发者
 
 开发 Facebook 应用首先要注册成为 Facebook 开发者. 这样你的 Defold 游戏就能与 Facebook 应用交互了.
 
@@ -74,7 +72,7 @@ Android 平台需要填写 *Google Play Package Name*, 也就是 *game.project* 
 $ cat certificate.pem | openssl x509 -outform der | openssl sha1 -binary | openssl base64
 ```
 
-(关于签名文件详细信息参见 [创建证书和密匙](/manuals/android/#creating-certificates-and-keys).)
+(关于签名文件详细信息参见 [制作 keystore](/manuals/android/#制作 keystore).)
 
 ![Android settings](images/facebook/settings_android.png)
 

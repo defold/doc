@@ -45,36 +45,42 @@ Samplers
 Tags
 : 标签与材质相关. 标签在引擎内部表现为 _bitmask_ 并由 [`render.predicate()`](/ref/render#render.predicate) 来收集需要渲染的组件. 如何渲染请见 [Render documentation](/manuals/render). 每个项目最多可以使用32个标签.
 
-## Vertex and fragment constants
+## 着色器常量
 
-着色器常量, 或称 "uniforms" 是从引擎传输给顶点和片元着色器程序的数据. 要使用常量，您可以在材质文件中将其定义为一个 *顶点常量* 属性或 *片元常量* 属性。需要在着色器程序中定义相应的 `uniform` 变量。材质中可以设置以下常量：
+着色器常量, 或称 "uniforms" 是从引擎传输给顶点和片元着色器程序的数据. 要使用常量,您可以在材质文件中将其定义为一个 *顶点常量* 属性或 *片元常量* 属性.需要在着色器程序中定义相应的 `uniform` 变量.材质中可以设置以下常量：
 
 CONSTANT_TYPE_WORLD
-: The world matrix. Use to transform vertices into world space. For some component types, the vertices are already in world space when they arrive to the vertex program (due to batching). In those cases multiplying with the world matrix in the shader will yield the wrong results.
+: 世界矩阵. 用来把顶点转换为世界坐标. 有的组件类型, 由于合批的应用它们到达顶点着色程序时已经是世界坐标的了. 在这些情况下,用着色器程序把世界矩阵再乘一遍就会产生错误的结果.
 
 CONSTANT_TYPE_VIEW
-: The view matrix. Use to transform vertices to view (camera) space.
+: 视图矩阵. 用于转换顶点为视口（相机）空间坐标.
 
 CONSTANT_TYPE_PROJECTION
-: The projection matrix. Use to transform vertices to screen space.
+: 映射矩阵. 用于将顶点转换为屏幕空间坐标.
 
 CONSTANT_TYPE_VIEWPROJ
-: A matrix with the view and projection matrices already multiplied.
+: 视口与其映射矩阵相乘后的矩阵.
 
 CONSTANT_TYPE_WORLDVIEW
-: A matrix with the world and view projection matrices already multiplied.
+: 世界与视口映射矩阵相乘后的矩阵.
 
 CONSTANT_TYPE_NORMAL
-: A matrix to compute normal orientation. The world transform might include non-uniform scaling, which breaks the orthogonality of the combined world-view transform. The normal matrix is used to avoid issues with the direction when transforming normals. (The normal matrix is the transpose inverse of the world-view matrix).
+: 用于计算法方向的矩阵. 世界移动转换可能包含非等比缩放, 这样会打破世界-视口转换的正交性. 变换法线时使用发方向可以避免这个问题. (法矩阵是世界-视口矩阵的转置逆).
 
 CONSTANT_TYPE_USER
-: A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions `.set_constant()` and `.reset_constant()` for each component type (`sprite`, `model`, `spine`, `particlefx` and `tilemap`). Changing a material constant of a single component instance [breaks render batching and will result in additional draw calls](/manuals/render/#draw-calls-and-batching).
+: 一个 vector4 常量用以向你的着色程序传递自定义数据. 定义时可以赋初值, 可以通过各组件 (`sprite`, `model`, `spine`, `particlefx` 和 `tilemap`) 的 `.set_constant()` 和 `.reset_constant()` 函数来改变其值. 改变单个组件实例的材质参数会 [打破合批增加drawcall](/manuals/render/#Draw call 与合批).
+<br>举例:
+```lua
+go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 
-## Samplers
+go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1), go.EASING_LINEAR, 2)
+```
 
-Samplers are used to sample the color information from a texture (a tile source or atlas). The color information can then be used for calculations in the shader program.
+## 采样器
 
-Sprite, tilemap, GUI and particle effect components automatically gets a `sampler2D` set. The first declared `sampler2D` in the shader program is automatically bound to the image referenced in the graphics component. Therefore there is currently no need to specify any samplers in the materials file for those components. Furthermore, those component types currently only support a single texture. (If you need multiple textures in a shader, you can use [`render.enable_texture()`](/ref/render/#render.enable_texture) and set texture samplers manually from your render script.)
+采样器用于从纹理 (瓷砖图源或者图集) 中取得颜色数据. 颜色数据用于在着色器程序中参与计算.
+
+Sprite, tilemap, GUI 和 particle effect 组件自动获得 `sampler2D` 集. 着色程序里第一个声明的 `sampler2D` 与可视组件所引用的图片自动绑定. 也就是说这些组件不用特地指定材质文件. 而且目前这些组件只支持一个纹理. (如需在着色器中使用多纹理, 可以使用 [`render.enable_texture()`](/ref/render/#render.enable_texture) 在渲染脚本中手动设置采样器.)
 
 ![Sprite sampler](images/materials/sprite_sampler.png){srcset="images/materials/sprite_sampler@2x.png 2x"}
 
@@ -88,11 +94,11 @@ void main()
 }
 ```
 
-You can specify a component's sampler settings by adding the sampler by name in the materials file. If you don't set up your sampler in the materials file, the global *graphics* project settings are used.
+在材质文件中添加取样器名就指定了一个采样器. 要是材质文件里没有指定, 会使用项目全局设置里的 *graphics* 设置.
 
 ![Sampler settings](images/materials/my_sampler.png){srcset="images/materials/my_sampler@2x.png 2x"}
 
-For model components, you need to specify your samplers in the material file with the settings you want. The editor will then allow you to set textures for any model component that use the material:
+对于3D模型组件, 还要在材质文件里设置采样器属性. 之后编辑器会让你选择使用该材质的3D模型纹理:
 
 ![Model samplers](images/materials/model_samplers.png){srcset="images/materials/model_samplers@2x.png 2x"}
 
@@ -111,31 +117,31 @@ void main()
 
 ![Model](images/materials/model.png){srcset="images/materials/model@2x.png 2x"}
 
-## Sampler settings
+## 采样器设置
 
 Name
-: The name of the sampler. This name should match the `sampler2D` declared in the fragment shader.
+: 采样器名. 需要与片元着色器中定义的 `sampler2D` 变量名相匹配.
 
-Wrap U/W
-: The wrap mode for the U and V axes:
+Wrap U/V
+: U V 轴向上的包裹模式:
 
-  - `WRAP_MODE_REPEAT` will repeat texture data outside the range [0,1].
-  - `WRAP_MODE_MIRRORED_REPEAT` will repeat texture data outside the range [0,1] but every second repetition is mirrored.
-  - `WRAP_MODE_CLAMP_TO_EDGE` will set texture data for values greater than 1.0 to 1.0, and any values less than 0.0 is set to 0.0---i.e. the edge pixels will be repeated to the edge.
+  - `WRAP_MODE_REPEAT` [0,1] 范围之外重复纹理.
+  - `WRAP_MODE_MIRRORED_REPEAT` [0,1] 范围之外重复纹理, 但是再次重复时使用镜像的纹理.
+  - `WRAP_MODE_CLAMP_TO_EDGE` 把大于 1.0 的值设置为 1.0, 小于 0.0 的值设置为 0.0---也就是说边缘的纹理会扩展开去.
 
 Filter Min/Mag
-: The filtering for magnification and minification. Nearest filtering requires less computation than linear interpolation, but can result in aliasing artifacts. Linear interpolation often provides smoother results:
+: 缩放过滤. 就近过滤比线性插值过滤省资源, 但是可能产生不良效果. 一般线性插值过滤结果比较平滑:
 
-  - `FILTER_MODE_NEAREST` uses the texel with coordinates nearest the center of the pixel.
-  - `FILTER_MODE_LINEAR` sets a weighted linear average of the 2x2 array of texels that lie nearest to the center of the pixel.
-  - `FILTER_MODE_NEAREST_MIPMAP_NEAREST` chooses the nearest texel value within an individual mipmap.
-  - `FILTER_MODE_NEAREST_MIPMAP_LINEAR` selects the nearest texel in the two nearest best choices of mipmaps and then interpolates linearly between these two values.
-  - `FILTER_MODE_LINEAR_MIPMAP_NEAREST` interpolates linearly within an individual mipmap.
-  - `FILTER_MODE_LINEAR_MIPMAP_LINEAR` uses linear interpolation to compute the value in each of two maps and then interpolates linearly between these two values.
+  - `FILTER_MODE_NEAREST` 使用位于像素中心最近的图素.
+  - `FILTER_MODE_LINEAR` 使用位于像素中心最近的的2x2图素矩阵的加权线性平均值.
+  - `FILTER_MODE_NEAREST_MIPMAP_NEAREST` 使用位于单个mipmap上最近的图素值.
+  - `FILTER_MODE_NEAREST_MIPMAP_LINEAR` 在最近的两个mipmap中选出最近的两个图素再进行线性插值.
+  - `FILTER_MODE_LINEAR_MIPMAP_NEAREST` 在单个mipmap里线性插值.
+  - `FILTER_MODE_LINEAR_MIPMAP_LINEAR` 使用线性插值分别计算两个mipmap再把两个结果进行线性插值.
 
-## Constants buffers
+## 常量缓存
 
-When the rendering pipeline draws, it pulls constant values from a default system constants buffer. You can create a custom constants buffer to override the default constants and instead set shader program uniforms programmatically in the render script:
+渲染管线工作时, 默认会从系统常量缓存中拉取数据. 也可以建立自定义缓存再把着色器参数在渲染脚本里填充进缓存里去:
 
 ```lua
 self.constants = render.constant_buffer() -- <1>
@@ -143,8 +149,8 @@ self.constants.tint = vmath.vector4(1, 0, 0, 1) -- <2>
 ...
 render.draw(self.my_pred, self.constants) -- <3>
 ```
-1. Create a new constants buffer
-2. Set the `tint` constant to bright red
-3. Draw the predicate using our custom constants
+1. 新建常量缓存
+2. 设置 `tint` 常量为白色
+3. 使用自定义常量进行渲染
 
-Note that the buffer's constant elements are referenced like an ordinary Lua table, but you can't iterate over the buffer with `pairs()` or `ipairs()`.
+注意常量缓存就是一个普通的 Lua 表, 只是不能使用 `pairs()` 或 `ipairs()` 来进行迭代.
