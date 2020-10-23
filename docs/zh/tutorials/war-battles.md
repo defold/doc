@@ -21,7 +21,7 @@ github: https://github.com/defold/tutorial-war-battles
 編輯器會自動打開項目根目錄裏的 "README" 文件, 其中包含了完整的教學資料.
 
 ![icon](images/icon-tutorial.svg){style="display:inline;margin:0 0.5rem 0 0;vertical-align: middle;"}
-[You can also read the full tutorial text on Github](https://github.com/defold/tutorial-war-battles)
+[完整教程請見 Github](https://github.com/defold/tutorial-war-battles)
 
 有問題請登錄 [Defold Forum](//forum.defold.com) , 這裏有官方和友善的網友爲你答疑解惑.
 
