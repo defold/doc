@@ -1,8 +1,8 @@
-Components are used to give specific expression and/or functionality to game objects. Components have to be contained inside game objects and are affected by the position, rotation and scale of the game object that contains the component:
+Komponenty są używane, żeby nadać obiektom gry konkretne właściwości i funkcjonalności, takie jak reprezentacja graficzna, dźwiękowa czy logika gry. Komponenty muszą należeć do obiektu gry i są afektowane przez zmiany jego pozycji, orientacji i skali:
 
 ![Components](../shared/images/components.png){srcset="../shared/images/components@2x.png 2x"}
 
-Many components have type specific properties that can be manipulated and there are component type specific functions available for interacting with them in runtime:
+Wiele komponentów ma specyficzne właściwości, które mogą być modyfikowane. Istnieją trzy specyficzne funkcje do interakcji z nimi w trakcie działania programu:
 
 ```lua
 -- disable the can "body" sprite
@@ -12,13 +12,13 @@ msg.post("can#body", "disable")
 sound.play("bean#hoohoo", { delay = 1, gain = 0.5 } )
 ```
 
-Components are either added in-place in a game object, or added to a game object as a reference to a component file:
+Komponenty są dodawane do obiektów gry z poziomu Edytora jako ich nowe komponenty lub referencje do istniejących plików komponentów:
 
-<kbd>Right-click</kbd> the game object in the *Outline* view and select <kbd>Add Component</kbd> (add in-place) or <kbd>Add Component File</kbd> (add as file reference).
+<kbd>Naciśnij prawym przyciskiem myszki</kbd> na obiekcie gry w panelu *Outline* i wybierz <kbd>Add Component</kbd> (nowy komponent) lub <kbd>Add Component File</kbd> (jako referencja do pliku).
 
-In most cases it makes most sense to create components in-place, but the following component types must be created in separate resource files before being added by reference to a game object:
+W większości przypadków sens ma tworzenie nowych komponentów specyficznych dla danego obiektu, ale często możesz też wykorzystywać wspólne komponenty dla wielu obiektów, a niektóre z nich nie mogą być utworzone inaczej niż przez stworzenie wcześniej pliku:
 
-* Script
-* GUI
-* Particle FX
-* Tile Map
+* Skrypty
+* komponenty GUI
+* Efekty cząsteczkowe (Particle FX)
+* Mapy kafelków (Tile maps)
