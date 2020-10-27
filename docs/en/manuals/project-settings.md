@@ -497,7 +497,7 @@ Swap interval is the interval with which to swap the front and back buffers in s
 Currently, Defold queries for monitor refresh rate at init and uses that as a basis for picking a fixed `dt`. If you want to support monitors using variable refresh rate (GSync or FreeSync for example) or other scenarios where the refresh rate might not be trivial to query, uncheck `Vsync`to let the engine measure actual `dt` each frame instead of relying on a fixed time step.
 
 
-### Vsync and frame cap in Defold*
+### Vsync and frame cap in Defold
 
 <table>
   <tr>
