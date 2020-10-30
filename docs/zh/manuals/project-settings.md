@@ -494,7 +494,7 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 目前, Defold 在初始化时查询屏幕刷新率并且把它作为固定 `dt` 的依据. 如果你需要支持可变刷新率 (比如 GSync 或者 FreeSync) 或者其他刷新率不是很有参考性的情况下, 关闭 `Vsync`来使引擎测量每帧实际 `dt` 而不是固定dt.
 
 
-### Defold 中的垂直同步与帧数锁定*
+### Defold 中的垂直同步与帧数锁定
 
 <table>
   <tr>
