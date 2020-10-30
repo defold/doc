@@ -29,10 +29,10 @@ Triggers
 
 在游戏对象上添加碰撞对象组件:
 
-1. In the *Outline* view, <kbd>right click</kbd> the game object and select <kbd>Add Component ▸ Collision Object</kbd> from the context menu. This creates a new component with no shapes.
-2. <kbd>Right click</kbd> the new component and select <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. This adds a new shape to the collision object component. You can add any number of shapes to the component. You can also use a tilemap or a convex hull to define the shape of the physics object.
-3. Use the move, rotate and scale tools to edit the shapes.
-4. Select the component in the *Outline* and edit the collision object's *Properties*.
+1. 在 *大綱* 視圖中, <kbd>右鍵點擊</kbd> 游戲對象然後在上下文菜單中選擇 <kbd>Add Component ▸ Collision Object</kbd>. 新添加的組件沒有形狀.
+2. 在組件上 <kbd>右鍵點擊</kbd> 然後選擇 <kbd>Add Shape ▸ Box / Capsule / Sphere</kbd>. 來為組件添加形狀. 一個組件可以有多個形狀. 還可以使用瓷磚地圖或者凸多邊形頂點文件定義物理對象的形狀.
+3. 可以使用移動, 旋轉, 縮放工具修改形狀.
+4. 點選組件后可在 *大綱* 視圖中編輯其 *屬性*.
 
 ![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
 
