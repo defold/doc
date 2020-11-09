@@ -619,6 +619,10 @@
                         "name": "Advertising Info"
                     },
                     {
+                        "path": "/extension-camera",
+                        "name": "Camera"
+                    },
+                    {
                         "path": "/extension-facebook",
                         "name": "Facebook"
                     },
