@@ -134,6 +134,8 @@ To add asset files (images, sounds, models etc) to your project, simply drag and
 
 ## Keyboard shortcuts
 
+### Default shortcuts
+
 | Command | Windows | macOS | Linux |
 |---------|---------|-------|-------|
 | Add | <kbd>A</kbd> | <kbd>A</kbd> | <kbd>A</kbd> |
@@ -233,6 +235,12 @@ To add asset files (images, sounds, models etc) to your project, simply drag and
 | Zoom in | <kbd>Ctrl</kbd>+<kbd>'</kbd>+<kbd>'</kbd> | <kbd>Cmd</kbd>+<kbd>'</kbd>+<kbd>'</kbd> | <kbd>Ctrl</kbd>+<kbd>'</kbd>+<kbd>'</kbd> |
 | Zoom out | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> | <kbd>Cmd</kbd>+<kbd>'-'</kbd> | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> |
 
+
+### Customizing shortcuts
+
+You can customize keyboard shortcuts by creating a configuration file (e.g. `keymap.edn` in your home directory). Then go into <kbd>File ▸ Preferences</kbd>, and set <kbd>Path to custom keymap</kbd> to the created file.
+
+You can see and download keymaps for: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn) and [Linux](examples/keymap_linux.edn)
 
 ## Editor logs
 If you run into a problem with the editor and need to [report an issue](/manuals/getting-help/#getting-help) it is a good idea to provide log files from the editor itself. The editor logs files can be found here:
