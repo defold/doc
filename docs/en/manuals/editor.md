@@ -238,7 +238,7 @@ To add asset files (images, sounds, models etc) to your project, simply drag and
 
 ### Customizing shortcuts
 
-You can customize keyboard shortcuts by creating a configuration file (e.g. `keymap.edn` in your home directory). Then go into <kbd>File ▸ Preferences</kbd>, and set <kbd>Path to custom keymap</kbd> to the created file.
+You can customize keyboard shortcuts by creating a configuration file (e.g. `keymap.edn` in your home directory). Then go into <kbd>File ▸ Preferences</kbd>, and set <kbd>Path to custom keymap</kbd> to the created file. You need to restart Defold after setting this setting, and every time you edit the keymap file.
 
 You can see and download keymaps for: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn) and [Linux](examples/keymap_linux.edn)
 
