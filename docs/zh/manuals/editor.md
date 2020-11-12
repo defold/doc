@@ -134,6 +134,8 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 ## 快捷键
 
+### 默認快捷鍵
+
 | Command | Windows | macOS | Linux |
 |---------|---------|-------|-------|
 | Add | <kbd>A</kbd> | <kbd>A</kbd> | <kbd>A</kbd> |
@@ -233,6 +235,12 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 | Zoom in | <kbd>Ctrl</kbd>+<kbd>'</kbd>+<kbd>'</kbd> | <kbd>Cmd</kbd>+<kbd>'</kbd>+<kbd>'</kbd> | <kbd>Ctrl</kbd>+<kbd>'</kbd>+<kbd>'</kbd> |
 | Zoom out | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> | <kbd>Cmd</kbd>+<kbd>'-'</kbd> | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> |
 
+
+### 自定義快捷鍵
+
+可以創建配置文件以自定義快捷鍵 (例如 home 文件夾下的 `keymap.edn` 文件). 然後選擇 <kbd>File ▸ Preferences</kbd>, 設置 <kbd>Path to custom keymap</kbd> 為自定義的配置文件. 設置好之後重啓 Defold 才會生效, 每次修改都要重啓.
+
+這些配置文件可以用來參考: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn) 和 [Linux](examples/keymap_linux.edn)
 
 ## 编辑器日志
 使用编辑器时如果遇到了麻烦可以 [向我们汇报](/manuals/getting-help/#获得帮助), 并且连同编辑器日志一起上报. 编辑器日志存放路径如下:
