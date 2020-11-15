@@ -182,6 +182,10 @@ Once you have the asset catalog file you can reference it and the icons from *ga
 The App Store icon does not have to be referenced from *game.project*. It is automatically extracted from the `Asset.car` file when uploading to iTunes Connect.
 :::
 
+::: sidenote
+To support older operating systems (iOS versions >= 7.0), the app icons are also required in the bundle outside of an asset catalog. This is why you also have to add the icons in **game.project**
+:::
+
 
 ## Installing an iOS application bundle
 
