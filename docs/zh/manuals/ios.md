@@ -135,6 +135,51 @@ Device identifier (UDID)
 社区牛人 Sergey Lerg 已把上述步骤 [录成了视频](https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo) 供大家参考.
 :::
 
+得到 storyboard 文件之後就可以在 *game.project* 裏引用它了.
+
+
+### 建立圖標資源列表
+
+::: 注意
+從 Defold 1.2.175 版本開始需要這個設置.
+:::
+
+Apple 建議使用圖標資源列表來管理應用圖標. 這也是能讓你的圖標在 App Store 裏展示出來的唯一方法. 建立圖標資源表跟建立 storyboard 類似, 也要使用 Xcode. 啓動 Xcode 新建項目. 選擇 iOS and Single View App:
+
+![Create project](images/ios/xcode_create_project.png)
+
+點擊 Next 進行設置操作. 輸入產品名:
+
+![Project settings](images/ios/xcode_icons_create_project_settings.png)
+
+點擊 Create 完成配置工作. 此時項目已經建立, 接著就可以繼續建立資源列表了:
+
+![The project view](images/ios/xcode_icons_project_view.png)
+
+依據圖標大小把圖片分別拖放到空白方框裏:
+
+![Add icons](images/ios/xcode_icons_add_icons.png)
+
+::: 注意
+Notifications, Settings 和 Spotlight 這三項不要拖放圖標.
+:::
+
+完成之後, 將活動方案設置為 "Build -> Any iOS Device (arm64)" 然後選擇 <kbd>Product</kbd> -> <kbd>Build</kbd>. 等待編譯完成.
+
+![Build project](images/ios/xcode_icons_build.png)
+
+最後一步是將編譯好的 `Assets.car` 文件拷貝到你的 Defold 項目中去. 打開訪達依照如下路徑找到 `Assets.car` 文件, 將其複製到 Defold 項目中:
+
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphoneos/Icons.app/Assets.car
+
+得到圖標資源列表文件之後就可以在 *game.project* 裏引用它和其中的圖標了:
+
+![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
+
+::: 注意
+無需在 *game.project* 裏設置 App Store 的圖標. App 上傳到 iTunes Connect 時, 圖標會自動從 `Assets.car` 文件中選取並解壓出來.
+:::
+
 
 ## 安装 iOS 打包应用
 
@@ -155,3 +200,7 @@ xcrun simctl install booted your.app
 # 启动模拟器
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
+
+
+## 常見問題
+:[iOS FAQ](../shared/ios-faq.md)
