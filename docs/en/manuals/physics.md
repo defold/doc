@@ -15,7 +15,7 @@ Static objects
 : Static objects never move but a dynamic object that collides with a static object will react by bouncing and/or sliding. Static objects are very useful for building level geometry (i.e. ground and walls) that does not move. They are also cheaper performance-wise than dynamic objects. You cannot move or otherwise change static objects.
 
 Dynamic objects
-: Dynamic objects are simulated by the physics engine. The engine solves all collisions and applies resulting forces. Dynamic objects are good for objects that should behave realistically but you *cannot* directly manipulate the position and orientation of a dynamic object. The only way to affect them is indirectly, by applying forces.
+: Dynamic objects are simulated by the physics engine. The engine solves all collisions and applies resulting forces. Dynamic objects are good for objects that should behave realistically but you *cannot* directly manipulate the position and orientation of a dynamic object. The only way to affect them is indirectly, by [applying forces](/ref/physics/#apply_force).
 
 Kinematic objects
 : Kinematic objects register collisions with other physics objects, but the physics engine do not perform any automatic simulation. The job of resolving collisions, or ignoring them, is left to you. Kinematic objects are very good for player or script controlled objects that require fine grained control of the physical reactions, like a player character.
@@ -35,6 +35,9 @@ To add a collision object component to a game object:
 4. Select the component in the *Outline* and edit the collision object's *Properties*.
 
 ![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
+
+
+## Collision object properties
 
 Id
 : The identity of the component.
@@ -67,7 +70,6 @@ Restitution
 
   When a shape develops multiple contacts, restitution is simulated approximately because Box2D uses an iterative solver. Box2D also uses inelastic collisions when the collision velocity is small to prevent bounce-jitter
 
-
 Linear damping
 : Linear damping reduces the linear velocity of the body. It is different from friction, which only occurs during contact, and can be used to give objects a floaty appearance, like they are moving through something thicker than air. Valid values are between 0 and 1.
 
@@ -85,7 +87,8 @@ Group
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything.
 
-### Collision shapes
+
+## Collision shapes
 
 A collision component can either use several primitive shapes or a single complex shape. The primitive shapes are *box*, *sphere* and *capsule*. A complex shape can either be created from a tilemap component or from a convex hull shape.
 
@@ -157,6 +160,25 @@ For a collision between two objects to register both objects must mutually speci
 ![Physics collision group](images/physics/collision_group.png){srcset="images/physics/collision_group@2x.png 2x"}
 
 The *Mask* field can contain multiple group names, allowing for complex interaction scenarios.
+
+## Runtime properties
+
+A physics object has a number of different properties that can be read and changed using `go.get()` and `go.set()`:
+
+`angular_damping`
+: The angular damping value for the collision object component (`number`). [API reference](/ref/physics/#angular_damping).
+
+`angular_velocity`
+: The current angular velocity of the collision object component (`vector3`). [API reference](/ref/physics/#angular_velocity).
+
+`linear_damping`
+: The linear damping value for the collision object (`number`). [API reference](/ref/physics/#linear_damping).
+
+`linear_velocity`
+: The current linear velocity of the collision object component (`vector3`). [API reference](/ref/physics/#linear_velocity).
+
+`mass`
+: The defined physical mass of the collision object component (`number`). [API reference](/ref/physics/#mass).
 
 
 ## Collision messages
