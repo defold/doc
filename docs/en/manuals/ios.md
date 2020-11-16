@@ -168,18 +168,20 @@ Drag and drop images to the empty boxes representing the different supported ico
 Do not add any icons for Notifications, Settings or Spotlight.
 :::
 
-When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+When you are done, set the active scheme to "Build -> Any iOS Device (arm64)" and select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+
+![Build project](images/ios/xcode_icons_build.png)
 
 The last step is to copy the compiled `Assets.car` file to your Defold project. Open Finder at the following location and copy the `Assets.car` file to your Defold project:
 
-    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphonesimulator/Icons.app/Assets.car
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphoneos/Icons.app/Assets.car
 
 Once you have the asset catalog file you can reference it and the icons from *game.project*:
 
 ![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
 
 ::: sidenote
-The App Store icon does not have to be referenced from *game.project*. It is automatically extracted from the `Asset.car` file when uploading to iTunes Connect.
+The App Store icon does not have to be referenced from *game.project*. It is automatically extracted from the `Assets.car` file when uploading to iTunes Connect.
 :::
 
 
