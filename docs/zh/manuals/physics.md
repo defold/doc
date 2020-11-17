@@ -15,7 +15,7 @@ Static objects
 : 静态对象不会移动但是能和移动物体进行碰撞. 静态对象很适合制作游戏固定场景元素 (比如地板和墙). 它们比动态对象性能消耗少. 静态对象不能被移动和修改.
 
 Dynamic objects
-: 动态对象由物理引擎负责计算位移. 处理碰撞然后给予力. 动态对象看起来很有真实感但是你 *不能* 直接控制它的位置与方向. 要想对其施加影响, 只能向它施加力的作用.
+: 动态对象由物理引擎负责计算位移. 处理碰撞然后给予力. 动态对象看起来很有真实感但是你 *不能* 直接控制它的位置与方向. 要想对其施加影响, 只能向它[施加力的作用](/ref/physics/#apply_force).
 
 Kinematic objects
 : 动画对象可以和其他对象产生碰撞, 但是物理引擎并不处理它们. 忽略碰撞, 或者交给你来处理. 动画对象很适合用作由脚本控制的又能对物理做出反应的物体, 比如游戏角色.
@@ -23,7 +23,7 @@ Kinematic objects
 Triggers
 : 触发器是记录碰撞的物体. 很适合用作碰撞检测 (比如子弹碰撞) 或者接触后触发时间的场景. 触发器比动画对象节省性能所以可以多用一些.
 
-## 加入 collision object 组件
+## 加入碰撞對象组件
 
 碰撞对象组件包含一系列 *属性* 用以设定其类型和物理特性. 还包含一个或多个 *形状* 用以定义这个物体的物理形态.
 
@@ -35,6 +35,9 @@ Triggers
 4. 點選組件后可在 *大綱* 視圖中編輯其 *屬性*.
 
 ![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
+
+
+## 碰撞對象屬性
 
 Id
 : 组件名.
@@ -67,7 +70,6 @@ Restitution
 
   当一个形状发生多处碰撞时, 弹性模拟并不精确因为 Box2D 使用的是迭代解算器. Box2D 在碰撞相对速度很小时也使用非弹性碰撞代替, 以防止反弹抖动.
 
-
 Linear damping
 : 线性阻尼会减小刚体的线性速度. 不像摩擦只在物体接触时产生, 线性阻尼始终应用与线性移动的物体上, 给人一种物体飘进比空气密度大的环境中的感觉. 取值范围 0 到 1.
 
@@ -85,21 +87,21 @@ Group
 Mask
 : 可以与此对象进行碰撞的 _组_. 如果指定多个, 组名以逗号分割. 如果值为空, 则此对象不与任何物体进行碰撞.
 
-### Collision shapes
+## 碰撞對象形狀
 
 碰撞对象的形状可以由多个简单形状组成也可以由一个复杂形状代替. 简单形状有 *box*, *sphere* 和 *capsule*. 复杂形状可以由瓷砖地图生成或者使用凸多边形.
 
-### Box shape
+### 方形
 方形设定由位置, 旋转和尺寸 (宽度, 高度和深度) 组成:
 
 ![Box shape](images/physics/box.png)
 
-### Sphere shape
+### 圓形
 圆形设定由位置, 旋转和直径组成:
 
 ![Sphere shape](images/physics/sphere.png)
 
-### Capsule shape
+### 膠囊形
 胶囊形设定由位置, 旋转, 直径和高度组成:
 
 ![Sphere shape](images/physics/capsule.png)
@@ -141,7 +143,6 @@ Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以�
 #### 在3D物理世界中旋转碰撞形状
 在3D物理中物体在各个轴上都可以进行旋转.
 
-
 #### 在2D物理世界中旋转碰撞形状
 在3D物理中物体只能在z轴上旋转. 其他轴旋转会造成错误结果, 即使旋转180度用于翻转形状也不行. 要翻转物理形状推荐使用 [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) 和 [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip) 函数.
 
@@ -161,6 +162,25 @@ Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以�
 ![Physics collision group](images/physics/collision_group.png){srcset="images/physics/collision_group@2x.png 2x"}
 
 *掩码* 可包含多个组名, 以实现复杂的碰撞控制.
+
+## 運行時屬性
+
+可以使用 `go.get()` 和 `go.set()` 來存取物理對象的一系列屬性:
+
+`angular_damping`
+: 碰撞對象的旋轉阻尼 (`number`). [API reference](/ref/physics/#angular_damping).
+
+`angular_velocity`
+: 碰撞對象的旋轉速度 (`vector3`). [API reference](/ref/physics/#angular_velocity).
+
+`linear_damping`
+: 碰撞對象的綫性阻尼 (`number`). [API reference](/ref/physics/#linear_damping).
+
+`linear_velocity`
+: 碰撞對象的綫性速度 (`vector3`). [API reference](/ref/physics/#linear_velocity).
+
+`mass`
+: 碰撞對象的物理質量 (`number`). [API reference](/ref/physics/#mass).
 
 
 ## 碰撞消息
@@ -316,7 +336,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-## Ray casts
+## 投射
 
 射线用于收集延一条投射射线所遇到的物理世界的物体. 只要提供起止点和碰撞组, 就可以投射射线了.
 
@@ -341,7 +361,7 @@ end
 结果不包括射线起始点位置的碰撞物体. 这是 Box2D 做的限制.
 :::
 
-## Joints
+## 關節約束
 
 Defold 支持物理关节. 一个关键基于某种限制连接两个物体. 支持的关节类型如下:
 
