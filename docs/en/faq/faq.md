@@ -37,6 +37,17 @@ A: We log anonymous usage data from our websites and the Defold editor in order 
 A: Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/about).
 
 
+#### Q: Can I do 3D games in Defold?
+
+A: Absolutely! The engine is a full blown 3D engine. However, the toolset is made for 2D so you will have to do a lot of heavy lifting yourself. Better 3D support is planned.
+
+
+#### Q: What programming language do I work with in Defold?
+
+A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to extend the Defold engine with new functionality. When building custom materials, OpenGL ES SL shader language is used to write vertex and fragment
+shaders.
+
+
 ## Platform questions
 
 #### Q: What platforms does Defold run on?
@@ -58,11 +69,6 @@ A: The following platforms are supported for the editor/tools and the engine run
   (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date and supporting OpenGL ES 2.0.)
 
 
-#### Q: What are the system requirements for the editor
-
-A: The editor will use up to 75% of the available memory of the system. On a computer with 4 GB of RAM this should be enough for smaller Defold projects. For mid-sized or large projects it is recommended to use 6 GB or more of RAM.
-
-
 #### Q: What target platforms can I develop games for with Defold?
 
 A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as well as macOS, Windows and Linux. It’s truly one codebase with multiple supported platforms.
@@ -70,18 +76,7 @@ A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as 
 
 #### Q: What rendering API does Defold rely on?
 
-A: Defold uses OpenGL ES 2.0 for graphics rendering, which is available on all our supported platforms.
-
-
-#### Q: Can I do 3D games in Defold?
-
-A: Absolutely! The engine is a full blown 3D engine. However, the toolset is made for 2D so you will have to do a lot of heavy lifting yourself. Better 3D support is planned.
-
-
-#### Q: What programming language do I work with in Defold?
-
-A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to extend the Defold engine with new functionality. When building custom materials, OpenGL ES SL shader language is used to write vertex and fragment
-shaders.
+A: Defold uses WebGL in HTML5 builds, Metal on iOS and macOS and Vulkan or OpenGL ES 2.0 on all other platforms. As a developer you only have to worry about a single render API using a fully scriptable rendering pipeline.
 
 
 #### Q: Is there a way to know what version I'm running?
@@ -96,9 +91,32 @@ The latest beta version available for download from http://d.defold.com/beta can
 A: Yes, check out [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 
 
-#### Q: Are Defold beta versions auto-updating?
+## Editor Questions
+:[Editor FAQ](../shared/editor-faq.md)
 
-A: Yes. The Defold beta editor checks for an update at startup, just like the Defold stable version does.
+
+## Linux Questions
+:[Linux FAQ](../shared/linux-faq.md)
+
+
+## Android Questions
+:[Android FAQ](../shared/android-faq.md)
+
+
+## HTML5 Questions
+:[HTML5 FAQ](../shared/html5-faq.md)
+
+
+## IOS Questions
+:[iOS FAQ](../shared/ios-faq.md)
+
+
+## Windows Questions
+:[Windows FAQ](../shared/windows-faq.md)
+
+
+## Nintendo Switch Questions
+:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
 
 
 ## Publishing games
@@ -121,44 +139,10 @@ A: Defold has support for in-app purchases and various advertising solutions. Ch
 
 ## Errors using Defold
 
-#### Q: Why doesn't the editor start or open my project?
-
-A: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the macOS version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
-
-
 #### Q: I can't start the game and there is no build error. What's wrong?
 
 A: The build process can fail to rebuild files in rare cases where it have previously encountered build errors that you have fixed. Force a full rebuild by selecting *Project > Rebuild And Launch* from the menu.
 
-
-#### Q: Why am I getting a java exception when I try to start Defold?
-
-A: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
-
-This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
-
-See [this link](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md) for details on this error.
-
-
-## Linux
-:[Linux FAQ](../shared/linux-faq.md)
-
-
-## Android
-:[Android FAQ](../shared/android-faq.md)
-
-
-## HTML5
-:[HTML5 FAQ](../shared/html5-faq.md)
-
-## IOS
-:[iOS FAQ](../shared/ios-faq.md)
-
-## Windows
-:[Windows FAQ](../shared/windows-faq.md)
-
-## Nintendo Switch
-:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
 
 
 ## Game content
