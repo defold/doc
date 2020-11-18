@@ -131,6 +131,8 @@ Android Profiler (Android)
 
   ![android profiler](images/profiling/android_profiler.png)
 
+  Note: Since Android Studio 4.1 it is also possible to [run the profiling tools without starting Android Studio](https://developer.android.com/studio/profile/android-profiler.html#standalone-profilers).
+
 Graphics API Debugger (Android)
 : https://github.com/google/gapid
 
