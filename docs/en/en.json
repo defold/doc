@@ -655,6 +655,10 @@
                         "name": "Push notifications"
                     },
                     {
+                        "path": "/extension-review",
+                        "name": "App review and ratings"
+                    },
+                    {
                         "path": "/extension-websocket",
                         "name": "WebSocket"
                     },
