@@ -5,6 +5,10 @@ brief: This manual explains how to build and run games and apps on iOS devices i
 
 # iOS development
 
+::: sidenote
+Bundling a game for iOS is available only on Mac version of the Defold Editor.
+:::
+
 iOS requires that _any_ app that you build and want to run on your phone or tablet _must_ be signed with an Apple-issued certificate and provisioning profile. This manual explains the steps involved in bundling your game for iOS. During development, running your game through the [development app](/manuals/dev-app) is often preferred since it allows you to hot reload content and code wirelessly directly to your device.
 
 ## Apple's code signing process
@@ -111,7 +115,7 @@ Click Next and proceed to configure your project. Enter a Product Name:
 
 Click Create to finish the process. Your project is now created and we can proceed to create the storyboard:
 
-![The project view](images/ios/storyboard_project_view.png)
+![The project view](images/ios/xcode_storyboard_project_view.png)
 
 Drag and drop an image to import it to the project. Next select `Assets.xcassets` and drop the image to `Assets.xcassets`:
 
