@@ -140,5 +140,16 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
 
+
+## 使用 AndroidX
+AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的許多擴展包已經支持 AndroidX 并且隨著時間推移以前依賴 Android Support Library 將會全部支持 AndroidX. 在使用支持 AndroidX 的擴展包時要記得在先你的項目中開啓 AndroidX 支持:
+
+1. 如果已存在應用清單文件要在 `armv7-android` 和 `arm64-android` 裏加入 `jetifier: true`.
+
+2. 如果還沒有應用清單文件可以去 [Defold App Manifest generator](https://britzl.github.io/manifestation/) 生成一個, 記得勾選 AndroidX 選項.
+
+![](images/android/enable_androidx.png)
+
+
 ## 常见问题
 :[Android 问答](../shared/android-faq.md)

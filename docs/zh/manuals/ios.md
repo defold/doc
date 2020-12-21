@@ -5,6 +5,10 @@ brief: 本教程介绍了如何在 Defold 里编译运行 iOS 设备应用.
 
 # iOS 开发
 
+::: 注意
+必須使用 Mac版 Defold編輯器 才能打包 iOS 項目.
+:::
+
 iOS 要求 _所有_ 运行于手机或者平板电脑上的应用 _必须_ 使用 Apple 核发的 certificate 和 provisioning profile 进行签名. 本教程介绍了 iOS 平台的游戏打包. 在开发阶段, 推荐使用 [开发用app](/manuals/dev-app) 以利用热重载功能实现对移动设备的无线推送.
 
 ## Apple 签名过程
@@ -106,7 +110,7 @@ Device identifier (UDID)
 
 点击 Create 完成项目创建. 接下来就可以创建 storyboard 了:
 
-![The project view](images/ios/storyboard_project_view.png)
+![The project view](images/ios/xcode_storyboard_project_view.png)
 
 把需要的图片拖入项目. 然后打开 `Assets.xcassets`, 再把图片拖放到 `Assets.xcassets` 中去:
 
