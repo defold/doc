@@ -34,17 +34,17 @@ Defold 包含所有 [Lua 5.1 标准库](http://www.lua.org/manual/5.1/manual.htm
 
 ## Lua 书籍和资源
 
-### Online resources
+### 在綫資源
 
 * [Programming in Lua (first edition)](http://www.lua.org/pil/contents.html) 已有第二版.
 * [Lua 5.1 reference manual](http://www.lua.org/manual/5.1/)
 * [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
 * [Awesome Lua - tutorial section](https://github.com/LewisJEllis/awesome-lua#tutorials)
 
-### Books
-* [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Programming in Lua is the official book about the language, providing a solid base to any programmer who wants to use Lua. Authored by Roberto Ierusalimschy, the chief architect of the language.
-* [Lua programming gems](https://www.amazon.com/Programming-Gems-Luiz-Henrique-Figueiredo/dp/8590379841) - This collection of articles record some of the existing wisdom and practice on how to program well in Lua.
-* [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - Also available online (see above)
+### 書籍
+* [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Lua 官方教材, 可以爲開發者打下堅實的 Lua 語言基礎. 作者 Roberto Ierusalimschy, 是此語言的主架構師.
+* [Lua programming gems](https://www.amazon.com/Programming-Gems-Luiz-Henrique-Figueiredo/dp/8590379841) - 這裏的文章給開發 Lua 程序提供了許多小技巧.
+* [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - 同時具有在綫資源 (見上文)
 * [Beginning Lua Programming](https://www.amazon.com/Beginning-Lua-Programming-Kurt-Jung/dp/0470069171)
 
 ## 语法
