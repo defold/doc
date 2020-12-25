@@ -133,7 +133,16 @@ Select the image you previously added to `Assets.xcassets` from the Image dropdo
 
 ![](images/ios/xcode_storyboard_select_image.png)
 
-Position the image and make any other adjustments you need, perhaps adding a Label or some other UI element. When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+Position the image and make any other adjustments you need, perhaps adding a Label or some other UI element. When you are done set the active scheme to "Build -> Any iOS Device (arm64, armv7)"(or "Generic iOS Device") and select Product -> Build. Wait for the build process to finish.
+
+::: sidenote
+If you have only `arm64` option in "Any iOS Device (arm64)" change `iOS Deployment target` to 10.3 in "Project -> Basic -> Deployment" settings. It will make your storyboard compatible with `armv7` devices (for example iPhone5c)  
+:::
+
+If you use images in the storyboard they will not be included in your `LaunchScreen.storyboardc` automatically. Use `Bundle Resources` filed in `game.project` to include resources.
+For example, create folder `LaunchScreen` in Defold project and folder `ios` inside (`ios` folder needed to include these files only for ios bundles), then put your files in `LaunchScreen/ios/`. Add this path in `Bundle Resources`.
+
+![](images/ios/bundle_res.png)
 
 The last step is to copy the compiled `LaunchScreen.storyboardc` file to your Defold project. Open Finder at the following location and copy the `LaunchScreen.storyboardc` file to your Defold project:
 
@@ -172,7 +181,11 @@ Drag and drop images to the empty boxes representing the different supported ico
 Do not add any icons for Notifications, Settings or Spotlight.
 :::
 
-When you are done, set the active scheme to "Build -> Any iOS Device (arm64)" and select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+When you are done, set the active scheme to "Build -> Any iOS Device (arm64)"(or "Generic iOS Device") and select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+
+::: sidenote
+Make sure that you build for "Any iOS Device (arm64)" or "Generic iOS Device" otherwise you will get `ERROR ITMS-90704` error when uploading your build.
+:::
 
 ![Build project](images/ios/xcode_icons_build.png)
 
