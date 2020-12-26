@@ -128,7 +128,16 @@ Device identifier (UDID)
 
 ![](images/ios/storyboard_select_image.png)
 
-进行摆放位置等操作, 还可能加入些文字标签或者其他界面组件. 制作好之后选择 <kbd>Product</kbd> -> <kbd>Build</kbd>. 等编译处理完成.
+摆放好位置定义好组件, 比如可以加个标签什么的. 配置好之后选择 "Build -> Any iOS Device (arm64, armv7)"(或者 "Generic iOS Device") 然后 Product -> Build. 等待编译完成.
+
+::: 注意
+如果你的 "Any iOS Device (arm64)" 里只有一个 `arm64` 选项, 则需要把 "Project -> Basic -> Deployment" 里的 `iOS Deployment target` 设置为 10.3. 这样你的 storyboard 才能支持 `armv7` 设备 (比如 iPhone5c)  
+:::
+
+在 storyboard 里使用的图片不会自动包含进 `LaunchScreen.storyboardc` 里. 要在 `game.project` 的 `Bundle Resources` 选项中配置需要包含的图片资源.
+例如, 在 Defold 项目目录下有个 `LaunchScreen` 文件夹, 里面包含 `ios` 文件夹 (`ios` 文件夹下的文件只针对 ios 打包使用), 所以先要把资源文件放入 `LaunchScreen/ios/`. 然后配置 `Bundle Resources` 为此路径.
+
+![](images/ios/bundle_res.png)
 
 最后一步, 拷贝编译生成的 `LaunchScreen.storyboardc` 文件. 打开仿达, 把 `LaunchScreen.storyboardc` 文件粘贴到你的 Defold 项目目录:
 
@@ -168,7 +177,11 @@ Apple 建議使用圖標資源列表來管理應用圖標. 這也是能讓你的
 Notifications, Settings 和 Spotlight 這三項不要拖放圖標.
 :::
 
-完成之後, 將活動方案設置為 "Build -> Any iOS Device (arm64)" 然後選擇 <kbd>Product</kbd> -> <kbd>Build</kbd>. 等待編譯完成.
+完成之后, 配置好之后选择 "Build -> Any iOS Device (arm64, armv7)"(或者 "Generic iOS Device") 然后 Product -> Build. 等待编译完成.
+
+::: 注意
+确保编译目标为 "Any iOS Device (arm64)" 或者 "Generic iOS Device", 否则上传游戏时会报 `ERROR ITMS-90704` 错误.
+:::
 
 ![Build project](images/ios/xcode_icons_build.png)
 
