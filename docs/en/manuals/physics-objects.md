@@ -14,7 +14,7 @@ Dynamic objects
 : Dynamic objects are simulated by the physics engine. The engine solves all collisions and applies resulting forces. Dynamic objects are good for objects that should behave realistically but you *cannot* directly manipulate the position and orientation of a dynamic object. The only way to affect them is indirectly, by [applying forces](/ref/physics/#apply_force) or changing the angular [damping](/ref/stable/physics/#angular_damping) and [velocity](/ref/stable/physics/#linear_velocity) and the linear [damping](/ref/stable/physics/#linear_damping) and [velocity](/ref/stable/physics/#angular_velocity).
 
 Kinematic objects
-: Kinematic objects register collisions with other physics objects, but the physics engine do not perform any automatic simulation. The job of resolving collisions, or ignoring them, is left to you. Kinematic objects are very good for player or script controlled objects that require fine grained control of the physical reactions, like a player character.
+: Kinematic objects register collisions with other physics objects, but the physics engine do not perform any automatic simulation. The job of resolving collisions, or ignoring them, is left to you ([learn more](/manuals/physics-resolving-collisions)). Kinematic objects are very good for player or script controlled objects that require fine grained control of the physical reactions, like a player character.
 
 Triggers
 : Triggers are objects that register simple collisions. Triggers are light weight collision objects. They are similar to [ray casts](/manuals/physics-ray-cast) in that they read the physics world as opposed to interacting with it. They are good for objects that just need to register a hit (like a bullet) or as part of game logic where you want to trigger certain actions when an object reaches a specific point. Trigger are computationally cheaper than kinematic objects and should be used in favor of those if possible.
@@ -45,7 +45,7 @@ Id
 : The identity of the component.
 
 Collision Shape
-: This property is used for tile map geometry that does not use ordinary primitive shapes. See [Collision Shapes for more information](/manuals/physics-shapes).
+: This property is used for tile map geometry or convex shapes that does not use primitive shapes. See [Collision Shapes for more information](/manuals/physics-shapes).
 
 Type
 : The type of collision object: `Dynamic`, `Kinematic`, `Static` or `Trigger`. If you set the object to dynamic you _must_ set the *Mass* property to a non zero value. For dynamic or static objects you should also check that the *Friction* and *Restitution* values are good for your use-case.
@@ -56,7 +56,7 @@ Friction
   The friction strength is proportional to the normal force (this is called Coulomb friction). When the friction force is computed between two shapes (`A` and `B`), the friction values of both objects are combined by the geometric mean:
 
   $$
-  F_{combined} = \sqrt{ F_A \times F_B }
+  F = sqrt( F_A * F_B )
   $$
 
   This means that if one of the objects has zero friction then the contact between them will have zero friction.
@@ -67,7 +67,7 @@ Restitution
   Restitution values between two shapes (`A` and `B`) are combined using the following formula:
 
   $$
-  R = \max{ \left( R_A, R_B \right) }
+  R = max( R_A, R_B )
   $$
 
   When a shape develops multiple contacts, restitution is simulated approximately because Box2D uses an iterative solver. Box2D also uses inelastic collisions when the collision velocity is small to prevent bounce-jitter

@@ -7,10 +7,10 @@ brief: Defold supports joints for 2D physics. This manual explains how to create
 
 Defold supports joints for 2D physics. A joint connects two collision objects using some kind of constraint. The supported joint types are:
 
-* Fixed (physics.JOINT_TYPE_FIXED) - A rope joint that restricts the maximum distance between two points. In Box2D referred to as a Rope joint.
-* Hinge (physics.JOINT_TYPE_HINGE) - A hinge joint specifies an anchor point on two collision objects and moves them so that the two collision objects are always in the same place, and the relative rotation of the collision objects is not restricted. The hinge joint can enable a motor with a defined maximum engine torque and speed. In Box2D referred to as a Revolute joint.
-* Spring (physics.JOINT_TYPE_SPRING) - A spring joint keeps two collision objects at a constant distance from each other. The spring joint can be made soft like a spring with a frequency and damping ratio. In Box2D referred to as a Distance joint.
-* Slider (physics.JOINT_TYPE_SLIDER) - A slider joint allows for relative translation of two collision objects along a specified axis and prevents relative rotation. In Box2D referred to as a Prismatic joint.
+* **Fixed (physics.JOINT_TYPE_FIXED)** - A rope joint that restricts the maximum distance between two points. In Box2D referred to as a Rope joint.
+* **Hinge (physics.JOINT_TYPE_HINGE)** - A hinge joint specifies an anchor point on two collision objects and moves them so that the two collision objects are always in the same place, and the relative rotation of the collision objects is not restricted. The hinge joint can enable a motor with a defined maximum engine torque and speed. In Box2D referred to as a Revolute joint.
+* **Spring (physics.JOINT_TYPE_SPRING)** - A spring joint keeps two collision objects at a constant distance from each other. The spring joint can be made soft like a spring with a frequency and damping ratio. In Box2D referred to as a Distance joint.
+* **Slider (physics.JOINT_TYPE_SLIDER)** - A slider joint allows for relative translation of two collision objects along a specified axis and prevents relative rotation. In Box2D referred to as a Prismatic joint.
 
 ## Creating joints
 
@@ -35,7 +35,7 @@ A joint can be destroyed using [`physics.destroy_joint()`](/ref/physics/#physics
 physics.destroy_joint("obj_a#collisionobject", "my_test_joint")
 ```
 
-## Reading from and Updating joints
+## Reading from and updating joints
 
 The properties of a joint can be read using [`physics.get_joint_properties()`](/ref/physics/#physics.get_joint_properties:collisionobject-joint_id) and set using [`physics.set_joint_properties()`](/ref/physics/#physics.set_joint_properties:collisionobject-joint_id-properties):
 

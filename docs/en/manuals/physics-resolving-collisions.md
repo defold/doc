@@ -40,7 +40,9 @@ Then the character has already been partially separated from *B*. The final comp
 
 ![Projection](images/physics/projection.png){srcset="images/physics/projection@2x.png 2x"}
 
-$$l = vmath.project(A, B) \times vmath.length(B)$$
+```
+l = vmath.project(A, B) * vmath.length(B)
+```
 
 The compensation vector can be found by reducing the length of *B* by *l*. To calculate this for an arbitrary number of penetrations, you can accumulate the necessary correction in a vector by, for each contact point, and starting with a zero length correction vector:
 

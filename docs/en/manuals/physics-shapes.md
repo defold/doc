@@ -5,7 +5,12 @@ brief: A collision component can either use several primitive shapes or a single
 
 # Collision shapes
 
-A collision component can either use several primitive shapes or a single complex shape. The primitive shapes are *box*, *sphere* and *capsule*. A complex shape can either be created from a tilemap component or from a convex hull shape.
+A collision component can either use several primitive shapes or a single complex shape.
+
+### Primitive shapes
+The primitive shapes are *box*, *sphere* and *capsule*. You add a primitive shape by <kbd>right clicking</kbd> the collision object and selecting <kbd>Add Shape</kbd>:
+
+![Add a primitive shape](images/physics/add_shape.png)
 
 ## Box shape
 A box has a position, rotation and dimensions (width, height and depth):
@@ -21,6 +26,13 @@ A sphere has a position, rotation and diameter:
 A capsule has a position, rotation, diameter and height:
 
 ![Sphere shape](images/physics/capsule.png)
+
+::: important
+Capsule shapes are only supported when using 3D physics (configured in the Physics section of the *game.project* file).
+:::
+
+### Complex shapes
+A complex shape can either be created from a tilemap component or from a convex hull shape.
 
 ## Tilemap collision shape
 Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
@@ -53,9 +65,11 @@ The shape will not be drawn in the editor. You can [enable Physics debugging](/m
 It is possible to let the collision object and its shapes inherit the scale of the game object. Check the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project* to enable this. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
 
 
-# Rotating collision shapes in 3D physics
+# Rotating collision shapes
+
+## Rotating collision shapes in 3D physics
 Collision shapes in 3D physics can be rotated around all axis.
 
 
-# Rotating collision shapes in 2D physics
+## Rotating collision shapes in 2D physics
 Collision shapes in 2D physics can only be rotated around the z-axis. Rotation around the x or y axis will yield incorrect results and should be avoided, even when rotating 180 degrees to essentially flip the shape along the x or y axis. To flip a physics shape it is recommended to use [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) and [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
