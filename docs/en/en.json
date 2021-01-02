@@ -280,7 +280,7 @@
                         "name": "Collection proxy"
                     },
                     {
-                        "path": "/manuals/physics",
+                        "path": "/manuals/physics-objects",
                         "name": "Collision object"
                     },
                     {
@@ -379,19 +379,35 @@
                 "items": [
                     {
                         "path": "/manuals/physics",
+                        "name": "Physics overview"
+                    },
+                    {
+                        "path": "/manuals/physics-objects",
                         "name": "Collision objects"
                     },
                     {
-                        "path": "/manuals/physics/#collision-shapes",
+                        "path": "/manuals/physics-shapes",
                         "name": "Collision shapes"
                     },
                     {
-                        "path": "/manuals/physics/#ray-casts",
+                        "path": "/manuals/physics-groups",
+                        "name": "Collision groups"
+                    },
+                    {
+                        "path": "/manuals/physics-messages",
+                        "name": "Collision messages"
+                    },
+                    {
+                        "path": "/manuals/physics-resolving-collisions",
+                        "name": "Resolving collisions"
+                    },
+                    {
+                        "path": "/manuals/physics-ray-casts",
                         "name": "Ray casts"
                     },
                     {
-                        "path": "/manuals/physics/#joints",
-                        "name": "Joints"
+                        "path": "/manuals/physics-joints",
+                        "name": "Joints and constraints"
                     }
                 ]
             },
