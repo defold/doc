@@ -151,9 +151,21 @@ This message instructs the engine to add input capable components (script compon
 
 ![Input stack](images/input/input_stack.png){srcset="images/input/input_stack@2x.png 2x"}
 
-Each game world that is dynamically loaded through a collection proxy has its own input stack. For action dispatch to reach the loaded world's input stack, the proxy component must be on the main world's input stack.
+If a game object that has already acquired input focus does so again, its component(s) will be moved to the top of the stack.
 
-If a game object that has already aquired input focus does so again, its component(s) will be moved to the top of the stack.
+
+### Input focus and Collection proxy component
+
+Each game world that is dynamically loaded through a collection proxy has its own input stack. For action dispatch to reach the loaded world's input stack, the proxy component must be on the main world's input stack. All components on a loaded world's stack are handled before dispatch continues down the main stack:
+
+![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
+
+::: important
+It is a common error to forget to send `acquire_input_focus` to the game object holding the collection proxy component. Skipping this step prevents input from reaching any of the components on the loaded world's input stack.
+:::
+
+
+### Release input focus
 
 To stop listening to input actions, send a `release_input_focus` message to the game object. This message will remove any of the game object's components from the input stack:
 
@@ -195,11 +207,6 @@ function on_input(self, action_id, action)
 end
 ```
 
-Collection proxy components must be on the main world's stack for input to be dispatched to the components on the loaded world's input stack. All components on a loaded world's stack are handled before dispatch continues down the main stack:
-
-![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
-
-It is a common error to forget to send `acquire_input_focus` to the game object holding the collection proxy component. Skipping this step prevents input from reaching any of the components on the loaded world's input stack.
 
 ## Consuming input
 
