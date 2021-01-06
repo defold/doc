@@ -151,16 +151,8 @@ msg.post(".", "acquire_input_focus")
 
 ![Input stack](images/input/input_stack.png){srcset="images/input/input_stack@2x.png 2x"}
 
-由集合代理加载的每个游戏世界都有自己的输入栈. 被加载的游戏世界获得输入, 前提是主游戏世界输入栈里包含了这个游戏世界的集合代理.
+如果已获得输入焦点的游戏对象再次请求输入焦点, 那么其组件会被移至输入栈顶端.
 
-已获得输入焦点的游戏对象再次请求焦点的话, 它上面的所有组件都会被推到输入栈顶.
-
-要取消动作监听, 发送 `release_input_focus` 消息给游戏对象即可. 这样该游戏对象的所有组件都会从输入栈中移除:
-
-```lua
--- 告诉当前游戏对象 (".") 释放输入焦点.
-msg.post(".", "release_input_focus")
-```
 
 ## 输入调度和 on_input() 函数
 
@@ -195,13 +187,29 @@ function on_input(self, action_id, action)
 end
 ```
 
-集合代理必须位于主世界输入栈中才能把输入传递到其代理的游戏世界中去. 代理入栈的组件优先与主世界组件获得输入事件触发动作:
+
+### 输入焦点与集合代理组件
+
+由集合代理动态载入的游戏世界都有自己的输入栈. 为了让被载入的游戏世界获得输入信息, 集合代理组件必须位于主游戏世界的输入栈里. 被加载的游戏世界优先于主游戏世界获得输入信息:
 
 ![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
 
-使用集合代理组件时经常会忘记让其游戏对象 `acquire_input_focus`. 没有这一步其加载的游戏世界将得不到任何输入信息.
+::: 注意
+开发者经常会忘记发送 `acquire_input_focus` 来使集合代理所在的游戏对象获得输入焦点. 不这么做的话此集合代理加载的所有游戏世界都无法获得输入消息.
+:::
 
-## Consuming input
+
+### 释放输入焦点
+
+要取消动作监听, 发送 `release_input_focus` 消息给游戏对象即可. 这样该游戏对象的所有组件都会从输入栈中移除:
+
+```lua
+-- 告诉当前游戏对象 (".") 释放输入焦点.
+msg.post(".", "release_input_focus")
+```
+
+
+## 输入传播
 
 每个 `on_input()` 函数都能决定当前动作是否要阻止其继续传播下去:
 
