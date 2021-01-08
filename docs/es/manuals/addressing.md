@@ -41,45 +41,45 @@ Esto funcionará como se espera. Cuando el juego comience, el componente script 
 Los identificadores en la configuración son arbitrarios. Aquí hemos escogido darle el identificador de "bean" al game object, su componente sprite ha sido nombrado "body", y el componente script que controlar el personaje se llama "controller".
 
 ::: sidenote
-If you don't choose a name, the editor will. Whenever you create a new game object or component in the editor, a unique *Id* property is automatically set.
+Si le colcas un nombre, el editor lo hará. No importa si crear un nuevo objecto  de juego o un componente en el editor, un *Id* único se colocará automáticamente.
 
-- Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc).
-- Components get an id corresponding to the component type ("sprite", "sprite2" etc).
+- Un objecto de juego automáticamente obtiene un id llamando "go" con un enumerador ("go2", "go3", etc).
+- Los componente obtienen su id correspondiente según el tipo de componente ("sprite", "sprite2", etc).
 
-You can stick to these automatically assigned names if you want to, but we encourage you to change the identifiers into good, descriptive names.
+Puedes utilizar estos nombres asignados automáticamente si quieres, pero te recomendamos que los cambies por nombres más descriptivos.
 :::
 
-Now, let's add another sprite component and give the bean a shield:
+Ahora, vamos a agregar otro componente sprite y dar al frijol un escudo:
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-The new component must be uniquely identified within the game object. If you would give it the name "body" the script code would be ambiguous as to which sprite it should send the "disable" message. Therefore we pick the unique (and descriptive) identifier "shield". Now we can enable and disable the "body" and "shield" sprites at will.
+El nuevo componente debería ser identificado de forma única con el objecto de juego. Si le dieras el nombre de "body" el código script será ambiguo sobre cuál de sprite debería enviar el mensaje "disable". Por lo tanto nosotros escogemos un único (y descriptivo) identificador "shield". Ahora podemos habilitar y deshabilitar los sprites "body" y "shield" a voluntad.
 
 ![bean](images/addressing/bean_shield.png)
 
 ::: sidenote
-If you do try to use an identifier more than once, the editor will signal an error so this is never a problem in practice:
+Si intentas utilizar un identificador más de una vez, el editor mostrará una señal de error así que esto nunca es un problema en la práctica:
 
 ![bean](images/addressing/name_collision.png)
 :::
 
-Now, let's look at what happens if you add more game objects. Suppose you want to pair two "beans" into a small team. You decide to call one of the bean game objects "bean" and the other one "buddy". Furthermore, when "bean" has been idle for a while, it should tell "buddy" to start dancing. That is done by sending a custom message called "dance" from the "controller" script component in "bean" to the "controller" script in "buddy":
+Ahora, vamos a ver que pasa si agregamos más objectos de juego. Supongamos que quieres agrupar dos "beans" en un pequeño equipo. Decides llamar a uno de ellos como "bean" y el otro "buddy". Además, cuando "bean" esta quieto por un tiempo, debería decirle a "buddy" que comience a bailar. Esto se hace al enviar un mensaje personalizado llamado "dance" desde el script "controller" en "bean" al script "controller" de "buddy":
 
 ![bean](images/addressing/bean_buddy.png)
 
 ::: sidenote
-There are two separate components named "controller", one in each game object but this is perfectly legal since each game object creates a new naming context.
+Existen dos componentes separados que se llaman "controller", uno en cada uno de los objetos de juego pero esto es perfectamente legal porque cada objecto de juego crea su propio contexto de nombre.
 :::
 
-Since the addressee of the message is outside the game object sending the message ("bean"), the code needs to specify which "controller" should receive the message. It needs to specify both the target game object id as well as the component id. The full address to the component becomes `"buddy#controller"` and this address consists of two separate parts.
+Debido a que el destinatario del mensaje esta por fuera del object que está enviando el mensaje ("bean"), el código necesita especificar cual "controller" debería recibir el mensaje. Debe ser especificado ambos, tanto el id del objeto de juego cómo el id del componente. La dirección completa del componente sería `"buddy#controller"` y está dirección consiste en dos partes separadas.
 
-- First come the identity of the target game object ("buddy"),
-- then follows the game object/component separator character ("#"),
-- and finally you write the identity of the target component ("controller").
+- Primero viene el identificador del objecto que recibirá el mensaje ("buddy"),
+- luego le sigue el caracter separador de objetos de juego y componente ("#"),
+- y finalmente se escribe el identificar del componente objetivo ("controller").
 
-Going back to the previous example with a single game object we see that by leaving out the game object identifier part of the target address, the code can address components in the *current game object*.
+Volviendo al ejemplo anterior con un solo objecto de juego vimos que que si no colocamos el identificar del objeto de juego como parte de la dirección, el código puede direccionar componentes dentro del *objecto de juego actual*
 
-For example, `"#body"` denotes the address to the component "body" in the current game object. This is very useful because this code will work in *any* game object, as long as there is a "body" component present.
+Por ejemplo, `"#body"` denota la dirección al componente "body" en el mismo objecto de juego. Esto puede ser muy útil porque el código trabajará en *cualquier* objeto de juego, mientras haya un componente "body" presente en él.
 
 ## Collections
 
