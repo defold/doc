@@ -40,6 +40,16 @@ $ ./Defold
 ```
 
 
+#### Q: Why am I getting "com.jogamp.opengl.GLException: Graphics configuration failed" when launching Defold on Ubuntu 20.04?
+
+A: On certain distributions there is an issue with the new Mesa drivers (Iris) when running Defold. You can try using an older version when running Defold:
+
+```bash
+$ export MESA_LOADER_DRIVER_OVERRIDE=i965
+$ ./Defold
+```
+
+
 #### Q: Why doesn't my Defold game start when I try to run it on Linux?
 
 A: Check the console output in the editor. If you get the following message:
