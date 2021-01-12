@@ -83,45 +83,45 @@ Por ejemplo, `"#body"` denota la dirección al componente "body" en el mismo obj
 
 ## Collections
 
-Collections makes it possible to create groups, or hierarchies, of game objects and reuse them in a controlled way. You use collection files as templates (or "prototypes" or "prefabs") in the editor when you populate your game with content.
+Las colecciones hacen posible la creaci´no de grupos, o jerarquías, de objectos del juego y re utilizarlos en una forma controlada. Puedes utilizas colecciones de archivos como plantillas (o "prototipos" o "prefabricados") ("prototypes" or "prefab") en el editor cuando llenes tu juego de contenido
 
-Suppose that you want to create a great number of bean/buddy teams. A good way to do that is to create a template in a new *collection file* (name it "team.collection"). Build the team game objects in the collection file and save it. Then put an instance of that collection file's contents in your main bootstrap collection and give the instance an identifier (name it "team_1"):
+Supongamos que quieres crear un gran número de equipos bean/buddy. Una buena manera de hacer esto es crear una plantilla en una nuevo *archivo de colección* (nombrarlo "colección.equipo"). Construir los objectos del juego en un archivo de colección y guárdalo. Luego coloca una instancia de ese archivo de colección en la colección principal y asigna un identificador a la instancia (nómbralo "team_1"):
 
 ![bean](images/addressing/team_editor.png)
 
-With this structure, the "bean" game object can still refer to the "controller" component in "buddy" by the address `"buddy#controller"`.
+Con esta estructura, el objeto del juego "bean" puede seguir refiriendo al componente "controller" en "buddy" por la dirección `"buddy#controller"`.
 
 ![bean](images/addressing/collection_team.png)
 
-And if you add a second instance of "team.collection" (name it "team_2"), the code running inside the "team_2" script components will work just as well. The "bean" game object instance from collection "team_2" can still address the "controller" component in "buddy" by the address `"buddy#controller"`.
+Y si agregar una segunda instancia de "team.collecion" (nómbralo "team_2"), el códio que se ejecuta dentro de los componentes script de "team_2" funcinoarán muy bien. El objecto del juego "bean" de la colección "team_2" todavía puede direccionar al componente "controller" en "buddy" por la dirección `"buddy#controller"`.
 
 ![bean](images/addressing/teams_editor.png)
 
-## Relative addressing
+## Direcciones relativas (Relative addressing)
 
-The address `"buddy#controller"` works for the game objects in both collections because it is a *relative* address. Each of the collections "team_1" and "team_2" creates a new naming context, or "namespace" if you will. Defold avoids naming collisions by taking the naming context a collection creates into consideration for addressing:
+La dirección `"buddy#controller"` funciona para el objecto de juego en las dos colecciones por que es un dirección *relativa*. Cada colección de "team_1" y "team_2" crea un nuevo contexto de nombres, or también "namespace". Defold evita coleisiones de nombres tomando el contexto de los nombres de las colecciones creadas en condieración para el direccionamiento:
 
 ![relative id](images/addressing/relative_same.png)
 
-- Within the naming context "team_1", the game objects "bean" and "buddy" are uniquely identified.
-- Similarly, within the naming context "team_2", the game objects "bean" and "buddy" are also uniquely identified.
+- Con el contexto de nombre "team_1", los objetos del juego "bean" y "buddy" son identificados de forma única.
+- De igual manera, con el contexto de nombre de "team_2", los objetos del juego "bean" y "buddy" son también identificados de forma única.
 
-Relative addressing works by automatically prepending the current naming context when resolving a target address. This is again immensely useful and powerful because you can create groups of game objects with code and reuse those efficiently throughout the game.
+Direccionamiento relativo trabjar automáticamente anteponiendo el nombre del contexto actual cuando resuelve las direcciones objetivo. Esto es inmensamente útil y poderoso porque puedes crear grupos de objectos del juego con código y reusarlo efectivamente a través del juego.
 
 ### Shorthands
 
-Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
+Defold provee de dos abreviaturas que puede sutilizar para enviar mensajes sin especificar la URL completa:
 
 :[Shorthands](../shared/url-shorthands.md)
 
-## Game object paths
+## Rutas de los objetos del juego
 
-To correctly understand the naming mechanism, let's look at what happens when you build and run the project:
+Para entender correctamente el mecanismo de nombramiento, vamos a mirar lo que sucede cuando compilamos y ejecutamos el proyecto:
 
-1. The editor reads the bootstrap collection ("main.collection") and all its content (game objects and other collections).
-2. For each static game object, the compiler creates an identifier. These are built as "paths" starting at the bootstrap root, down the collection hierarchy to the object. A '/' character is added at each level.
+1. El editor lee la colección principal ("main.collecion") y todo lo que contiene (objetos del juego y otras colecciones).
+2. Por cada objecto estático del juego, el compilador crea un identificador. Esto es compilado como "rutas" comenzando por la raíz, siguiendo la jerarquía de colecciones hacia abajo hasta el objecto. A caracter '/' es agregado por cada nivel.
 
-For our example above, the game will run with the following 4 game objects:
+Para nuestro ejemplo de arriba, el juego se ejecutará con los siguientes 4 objectos del juego: 
 
 - /team_1/bean
 - /team_1/buddy
@@ -129,10 +129,10 @@ For our example above, the game will run with the following 4 game objects:
 - /team_2/buddy
 
 ::: sidenote
-Identities are stored as hashed values. The runtime also stores the hash state for each collection identity which is used to continue hashing relative string to an absolute id.
+Los identificadores son almacenados como valores hash. El entorno de ejecución también almacena el estado del hash por cada identificación de colección los cuales son usados para continuar la cadena relativa hash en un id absoluto.
 :::
 
-In runtime, the collection grouping does not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
+En el tiempo de ejecución, los grupos de colecciones no existe. No hay forma de saber qué colección pertenece un objecto de juego antes de la complicación. Tampoco es posible manipular todos los objetos en una colección al mismo tiempo. Si necesitas hacer estas operaciones, puedes fácilmente hacer el seguimiento de tu código. Cada identificador de objeto es estático, es garantizado que se quede fijo a través de tiempo de vida del objeto. Esto significa que puedes de forma segura almacenar la identidad de un objecto y usarlo después.
 
 ## Absolute addressing
 
