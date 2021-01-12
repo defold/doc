@@ -40,6 +40,16 @@ $ ./Defold
 ```
 
 
+#### Q: 在 Ubuntu 20.04 上運行 Defold 報錯 "com.jogamp.opengl.GLException: Graphics configuration failed" ?
+
+A: 這個版本在運行 Defold 時會出現新驅動程序 (Iris) 問題. 可以嘗試使用舊版本驅動程序:
+
+```bash
+$ export MESA_LOADER_DRIVER_OVERRIDE=i965
+$ ./Defold
+```
+
+
 #### Q: 在 Linux 上启动 Defold 游戏无效?
 
 A: 看看 Defold 编辑器控制台. 如果有下面这样的输出:
