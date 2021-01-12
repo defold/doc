@@ -31,9 +31,25 @@ Libraries are referred to via a standard URL. For a project hosted on GitHub it 
 It is recommend to always depend on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
 :::
 
+
+### Basic access authentication
+
+It is possible to add a username and password/token to the library URL to perform basic access authentication when using libraries that are not publicly available:
+
+```
+https://username:password@github.com/defold/private/archive/main.zip
+```
+
+The `username` and `password` fields will be extracted and added as an `Authorization` request header. This works for any server which supports basic access authorization. It can also be used to fetch libraries from private repositories hosted on GitHub. In the case of GitHub you need to [generate a personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) and use that as your password.
+
+```
+https://github-username:personal-access-token@github.com/defold/private/archive/main.zip
+```
+
 ::: important
-Note that you need read access to the Library URL. For GitHub projects, that means that the project has to be either public or that you have generated an access token.
+Make sure to not share or accidentally leak your generated personal access token or password as it can have dire consequences if they fall into the wrong hands!
 :::
+
 
 ## Setting up library dependencies
 

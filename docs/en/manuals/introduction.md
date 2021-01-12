@@ -26,7 +26,7 @@ We encourage you to experiment, follow tutorials, read our manuals and API docum
 ![Tutorials](images/introduction/tutorials.jpg){.left} We believe that you learn best by doing. That is why we have a selection of tutorials at various skill and complexity level available directly from [the editor](/manuals/editor/). Fire it up and follow one or two of the tutorials to learn how to build things and how Defold works.
 
 #### The building blocks of Defold
-![Building blocks](images/introduction/building_blocks.png){.left} [Defold games are build by composing simple blocks](/manuals/building-blocks/), some of which seem familiar if you have used other engines. There are some architectural design decisions that make the blocks of Defold special and it takes a little while to be comfortable working with them. Our building blocks manual is a good start if you feel you need to understand thoroughly how it's working.
+![Building blocks](images/introduction/building_blocks.png){.left} [Defold games are built by composing simple blocks](/manuals/building-blocks/), some of which seem familiar if you have used other engines. There are some architectural design decisions that make the blocks of Defold special and it takes a little while to be comfortable working with them. Our building blocks manual is a good start if you feel you need to understand thoroughly how it's working.
 
 #### The forum
 ![Forum](images/introduction/forum.jpg){.left} [Learning from others](//forum.defold.com/) is often the best way to learn. Our community is very friendly and knows a lot about building games in general and Defold in particular. If you ever get stuck, don't hesitate but head over to the forum for help!
