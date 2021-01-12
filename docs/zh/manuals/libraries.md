@@ -31,9 +31,25 @@ brief: 项目间可以使用库共享资源. 本教程解释了其工作方式.
 最好使用库项目的发布地址而不是主分支来引用库. 作为开发者你要决定什么时候该合并更新而不是时刻保持主分支最新代码 (使用主分支最新版可能引入潜在的不稳定性).
 :::
 
+
+### 基本訪問驗證
+
+對於不公開的庫可以通過在 URL 上加入用戶名密碼 / 訪問權標記的方法來訪問:
+
+```
+https://username:password@github.com/defold/private/archive/main.zip
+```
+
+這裏 `username` 和 `password` 項會被提取並轉化爲 `Authorization` 請求頭. 這種方法一般服務器都適用. 包括從 GitHub 上獲取私有庫. GitHub 還支持使用 [生成訪問權標記](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) 的方法來代替密碼.
+
+```
+https://github-username:personal-access-token@github.com/defold/private/archive/main.zip
+```
+
 ::: 注意
-你要有库 URL 的访问权限. 对于 GitHub 托管项目来说, 这意味着要么项目是公开的要么你已经获取了权限. 对于 Defold 托管项目来说, 这意味着你必须是项目开发组成员.
+不要共享或者不小心泄露你的密碼或訪問權標記, 否則可能會落入他人之手造成不良後果.
 :::
+
 
 ## 设置库依赖
 
