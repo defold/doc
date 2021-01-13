@@ -134,29 +134,29 @@ Los identificadores son almacenados como valores hash. El entorno de ejecución 
 
 En el tiempo de ejecución, los grupos de colecciones no existe. No hay forma de saber qué colección pertenece un objecto de juego antes de la complicación. Tampoco es posible manipular todos los objetos en una colección al mismo tiempo. Si necesitas hacer estas operaciones, puedes fácilmente hacer el seguimiento de tu código. Cada identificador de objeto es estático, es garantizado que se quede fijo a través de tiempo de vida del objeto. Esto significa que puedes de forma segura almacenar la identidad de un objecto y usarlo después.
 
-## Absolute addressing
+## Direcciones absolutas (absolute addressing)
 
-It is possible to use the full identifiers described above when addressing. In most cases relative addressing is preferred since it allows for content reuse, but there are cases where absolutely addressing becomes necessary.
+Es posible utilizar el identificadores completos descritos arriba. En la mayoría de los casos las direcciones relativas son preferidas debido a que te permite el reuso, pero hay casos donde el direccionamiento absoluto se vuelve necesario.
 
-For example, suppose that you want an AI manager that tracks the state of each bean object. You want beans to report to their active status to the manager, and the manager makes tactical decisions and gives orders to the beans based on their status. It would make perfect sense in this case to create a single manager game object with a script component and place that alongside the team collections in the bootstrap collection.
+Por ejemplo, supongamos que quieres un administrador de IA que hace el seguimiento del estado de cada uno de los objetos frijoles. Los frijoles deberían reportar sus estados activos al administrador, y así el administrador podrá crear decisiones estratégicas and dar órdenes a los frijoles basándose en sus estados. Aquí tendría mucho sentido crear un solo objecto del juego que haga de administrador con un componente script y colocarlo al mismo nivel que las colecciones de equipo en la colección principal.
 
 ![manager object](images/addressing/manager_editor.png)
 
-Each bean is then responsible for sending status messages to the manager: "contact" if it spots an enemy or "ouch!" if it is hit and takes damage. For this to work, the bean controller scrips use absolute addressing to send messages to the component "controller" in "manager".
+Cada frijol es responsable de envidar mensajes con su estado al administrador: "contract" si mira a un enemigo o "ouch!" si es golpeado y obtiene un daño. Para que esto funcione, los scripts controladores del frijol utilizan direccionamiento absoluto para enviar mensajes al componente "controller" en el administrador "manager".
 
-Any address that starts with a '/' will be resolved from the root of the game world. This corresponds to the root of the *bootstrap collection* that is loaded on game start.
+Cualquier dirección que comience con un '/' será resuvleta como la raíz del mundo del juego. Esto corresponde a la raíz de *bootstrap collection* que es cargada al comienzo del juego.
 
-The absolute address of the manager script is `"/manager#controller"` and this absolute address will resolve to the right component no matter where it is used.
+La ruta absoluta del script del administrador es `"/manager#controller"` y esta ruta absoluta será direccionada al componente correcto sin importar desde donde se utilice.
 
 ![teams and manager](images/addressing/teams_manager.png)
 
 ![absolute addressing](images/addressing/absolute.png)
 
-## Hashed identifiers
+## Indentificadores hashes (Hashed identifiers)
 
-The engine stores all identifiers as hashed values. All functions that take as argument a component or a game object accepts a string, hash or an URL object. We have seen how to use strings for addressing above.
+El motoro almacena todos los identificadores en sus valores hash. Todas las funciones que tienen como argumento un componente o un objecto del juego aceptan una cadena, hash o una URL del objeto. Hemos visto cómo usar estas cadenas para el direccionamiento anteriormente.
 
-When you get the identifier of a game object, the engine will always return an absolute path identifier that is hashed:
+Cuando obtienes el identificador de un objecto del juego, el motor siempre regresará el identificador de la ruta absoluta que está hasheado:
 
 ```lua
 local my_id = go.get_id()
@@ -166,10 +166,10 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-You can use such an identifier in place of a string id, or construct one yourself. Note though that a hashed id corresponds to the path to the object, i.e. an absolute address:
+Puedes utilizar este identificador como un id de cadena, o uno propio. Mira que ese id hashed corresponde a la ruta del objeto, p.e. una ruta absoluta:
 
 ::: sidenote
-The reason relative addresses must be given as strings is because the engine will compute a new hash id based on the hash state of the current naming context (collection) with the given string added to the hash.
+La razón de que las direcciones relativas deben ser entregadas como cadenas es debido a que el motor compuará un nuevo id hash basado en el estado del hash del contexto de nombre actual (colección) con la cadena dada agregada al hash.
 :::
 
 ```lua
@@ -187,30 +187,30 @@ go.set_position(pos, relative_id)
 
 ## URLs
 
-To complete the picture, let's look at the full format of Defold addresses: the URL.
+Para completar, vamos a ver el formato completo de las direcciones de Defold: la URL.
 
-An URL is an object, usually written as specially formatted strings. A generic URL consists of three parts:
+Una URL es un objecto, usualmente escrito como cadenas especialmente formateadas. Una URL genérica consiste de tres partes:
 
 `[socket:][path][#fragment]`
 
 socket
-: Identifies the game world of the target. This is important when working with [Collection Proxies](/manuals/collection-proxy) and is then used to identify the _dynamically loaded collection_.
+: Identifica el mundo de juego objetivo. Esto es importante cuando trabjas con [Collection Proxies](/manuals/collection-proxy) y es utilizado para identificar _colección cargada dinámicamente_.
 
-path
-: This part of the URL contains the full id of the target game object.
+path (ruta)
+: Esta parte de la URL contiene el id completo del objeto de juego objetivo.
 
-fragment
-: The identity of the target component within the specified game object.
+fragment (fragmento)
+: La identidad del componente objetivo con su objecto de juego especificado.
 
-As we have seen above, you can leave out some, or most of this information in the majority of cases. You almost never need to specify the socket, and you often, but not always, have to specify the path. In those cases when you do need to address things in another game world then you need to specify the socket part of the URL. For instance, the full URL string for the "controller" script in the "manager" game object above is:
+Cómo se puede ver arriba, puedes no escribir algunos, o la mayoría d esta información una gran cantidad de casos. Podrías casi nunca necesitas especificar un socket, y usualmente, pero no siempre, tener que especificar la ruta. En esos casos cuando necesites direcciones cosas en otro mundo de juego necesitas especificar el socket como parte de la URL. Por ejemplo, la cadena URL completa para el script "controller" en el "manager" (administrador) del ejemplo anterior sería:
 
 `"main:/manager#controller"`
 
-and the buddy controller in team_2 is:
+y el controlador (controller) de "buddy" en team_2 es:
 
 `"main:/team_2/buddy#controller"`
 
-We can send messages to them:
+Podemos enviar mensajes a ellos:
 
 ```lua
 -- Send "hello" to the manager script and team buddy bean
@@ -218,9 +218,9 @@ msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
 
-## Constructing URL objects
+## Construyendo objectos URL
 
-URL objects can also be constructed programmatically in Lua code:
+Objectos URL pueden ser construidos programáticamente en código Lua:
 
 ```lua
 -- Construct URL object from a string:
