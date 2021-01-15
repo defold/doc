@@ -55,6 +55,23 @@ If applicable, add screenshots to help explain your problem.
 **Additional context (OPTIONAL):**
 Add any other context about the problem here.
 
+
+### Sharing code
+When you share code it is recommended to share the code as text, not as screenshots. Sharing it as text makes it easy to search, to highlight errors and to suggest and make modifications. Share code by wrapping it in three \`\`\` or indenting it with 4 spaces.
+
+Example:
+
+\`\`\`</br>
+print("Hello code!")</br>
+\`\`\`
+
+Result:
+
+```
+print("Hello code!")
+```
+
+
 ## Report a problem from the editor
 
 The editor provides a convenient way to report issues. Select the <kbd>Help->Report Issue</kbd> menu option from within the editor to report an issue.
