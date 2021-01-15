@@ -61,8 +61,8 @@ When you share code it is recommended to share the code as text, not as screensh
 
 Example:
 
-\`\`\`</br>
-print("Hello code!")</br>
+\`\`\`
+print("Hello code!")
 \`\`\`
 
 Result:
