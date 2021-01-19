@@ -223,5 +223,22 @@ open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
 
 
+## Export Compliance information
+
+When you submit your game to the App Store you will be asked to provide Export Compliance information with regard to the use of encryption in your game. [Apple explains why this is required](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations):
+
+"When you submit your app to TestFlight or the App Store, you upload your app to a server in the United States. If you distribute your app outside the U.S. or Canada, your app is subject to U.S. export laws, regardless of where your legal entity is based. If your app uses, accesses, contains, implements, or incorporates encryption, this is considered an export of encryption software, which means your app is subject to U.S. export compliance requirements, as well as the import compliance requirements of the countries where you distribute your app."
+
+Additional documentation:
+
+* Export compliance overview - https://help.apple.com/app-store-connect/#/dev88f5c7bf9
+* Determining your export compliance requirements - https://help.apple.com/app-store-connect/#/dev63c95e436
+
+The Defold game engine use encryption for the following purposes:
+
+* Making calls over secure channels (i.e. HTTPS and SSL)
+* Copyright protection of Lua code
+
+
 ## FAQ
 :[iOS FAQ](../shared/ios-faq.md)
