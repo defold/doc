@@ -318,8 +318,11 @@ The bundle identifier lets iOS recognize any updates to your app. Your bundle ID
 #### Info.plist
 If specified, use this info.plist file when bundling your app.
 
-#### Entitlements
-If specified, can override wildcard entitlements defined in the supplied provisioning profile (.entitlements, .xcent, .plist).
+#### Custom Entitlements
+If specified, the entitlements in the supplied provisioning profile (.entitlements, .xcent, .plist) will be merged with the entitlements from the provisioning profile supplied when bundling the application. Entitlements from the 
+
+#### Override Entitlements
+If checked the Custom Entitlements will replace the ones in the provisioning profile when bundling. Must be used in combination with the Custom Entitlements setting above.
 
 #### Default Language
 The language used if the application doesn't have user's preferred language in `Localizations` list (see [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
