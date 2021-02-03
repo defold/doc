@@ -319,7 +319,7 @@ The bundle identifier lets iOS recognize any updates to your app. Your bundle ID
 If specified, use this info.plist file when bundling your app.
 
 #### Custom Entitlements
-If specified, the entitlements in the supplied provisioning profile (.entitlements, .xcent, .plist) will be merged with the entitlements from the provisioning profile supplied when bundling the application. Entitlements from the 
+If specified, the entitlements in the supplied provisioning profile (.entitlements, .xcent, .plist) will be merged with the entitlements from the provisioning profile supplied when bundling the application.
 
 #### Override Entitlements
 If checked the Custom Entitlements will replace the ones in the provisioning profile when bundling. Must be used in combination with the Custom Entitlements setting above.
