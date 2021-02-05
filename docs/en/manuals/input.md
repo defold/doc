@@ -66,11 +66,22 @@ Mouse Triggers
 : Input from mouse buttons and scroll wheels. Learn more in the [mouse and touch input manual](/manuals/input-mouse-and-touch).
 
 Touch Triggers
-: Single-touch and Multi-touch type triggers are available on iOS and Android devices in native applications and in HTML5 bundles. Learn more in the [touch manual](/manuals/input-mouse-and-touch).
+: Single-touch and Multi-touch type triggers are available on iOS and Android devices in native applications and in HTML5 bundles. Learn more in the [mouse and touch manual](/manuals/input-mouse-and-touch).
 
 Gamepad Triggers
 : Gamepad triggers allow you to bind standard gamepad input to game functions. Learn more in the [gamepads manual](/manuals/input-gamepads).
 
+### Accelerometer input
+
+In addition to the five different trigger types listed above Defold also supports accelerometer input in native Android and iOS applications. Check the Use Accelerometer box in the Input section of your *game.project* file.
+
+```lua
+function on_input(self, action_id, action)
+    if action.acc_x and action.acc_y and action.acc_z then
+        -- react to accelerometer data
+    end
+end
+```
 
 ## Input focus
 

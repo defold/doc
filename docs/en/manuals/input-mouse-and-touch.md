@@ -36,7 +36,7 @@ end
 ```
 
 ::: important
-**`MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well**.
+`MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well.
 :::
 
 ## Mouse wheel
