@@ -412,6 +412,27 @@
                 ]
             },
             {
+                "name": "INPUT",
+                "items": [
+                    {
+                        "path": "/manuals/input",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/input-key-and-text",
+                        "name": "Key and text input"
+                    },
+                    {
+                        "path": "/manuals/input-mouse-and-touch",
+                        "name": "Mouse and touch"
+                    },
+                    {
+                        "path": "/manuals/input-gamepads",
+                        "name": "Gamepads"
+                    }
+                ]
+            },
+            {
                 "name": "GAME LOGIC",
                 "items": [
                     {
@@ -429,10 +450,6 @@
                     {
                         "path": "/manuals/lua",
                         "name": "Lua in Defold"
-                    },
-                    {
-                        "path": "/manuals/input",
-                        "name": "Input"
                     },
                     {
                         "path": "/manuals/modules",

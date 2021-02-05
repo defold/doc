@@ -54,89 +54,23 @@ To create a new binding, click the <kbd>+</kbd> button at the bottom of the rele
 
 ## Trigger types
 
-There are five device specific types of triggers that you can create
+There are five device specific types of triggers that you can create:
 
 Key Triggers
-: Single key keyboard input. Each key is mapped separately into a corresponding action. Key triggers are used to tie specific buttons to specific functions, like character movement with the arrow or WASD keys. If you need to read arbitrary keyboard input, use text triggers (see below).
-
-Mouse Triggers
-: Input from mouse buttons and scroll wheels. Mouse movement is handled separately. Mouse movement events are not received unless at least one mouse trigger is set up in your input bindings.
-
-  - Mouse button inputs `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` and `MOUSE_BUTTON_MIDDLE` are equivalent to `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` and `MOUSE_BUTTON_3`.
-
-  - **`MOUSE_BUTTON_LEFT` (or `MOUSE_BUTTON_1`) input actions are sent for single touch inputs as well**.
-
-  - Mouse wheel inputs detect scroll actions. The field `action.value` is `1` if the wheel is scrolled and `0` otherwise. (Scroll actions are dealt with as they were button presses. Defold does not currently support fine grained scroll input on touch pads.)
-
-  - Mouse movement are not bound in the input bindings but `action_id` is set to `nil` and the `action` table is populated with the location and delta movement of the mouse position.
-
-Gamepad Triggers
-: Gamepad triggers allow you to bind standard gamepad input to game functions. Defold supports multiple gamepads through the host operating system, actions set the `gamepad` field of the action table to the gamepad number the input originated from:
-
-  ```lua
-  if action_id == hash("gamepad_start") then
-    if action.gamepad == 0 then
-      -- gamepad 0 wants to join the game
-    end
-  end
-  ```
-
-  Gamepad input and offers bindings for:
-
-  - Left and right sticks (direction and clicks)
-  - Left and right digital pads. Right pad usually translates to the "A", "B", "X" and "Y" buttons on the Xbox controller and "square", "circle", "triangle" and "cross" buttons on the Playstation controller.
-  - Left and right triggers
-  - Left and right shoulder buttons
-  - Start, Back and Guide buttons
-
-  On Windows, only XBox 360 controllers are currently supported. To hook up your 360 controller to your Windows machine, make sure it is setup correctly. See http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
-
-  Gamepad input setup uses a separate mapping file for each hardware gamepad type. See below for more information.
-
-  Gamepad input bindings also provides two separate bindings named `Connected` and `Disconnected` to detect when a gamepad is connected (even those connected from the start) or disconnected.
-
-Touch Triggers
-: Single-touch type triggers are available on iOS and Android devices. Single-touch type triggers are not set up from the Touch Triggers section of the input bindings. Instead **single-touch triggers are automatically set up when you have mouse button input set up for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`**.
-
-: Multi-touch type triggers are available on iOS and Android devices in native applications and HTML5 bundles. They populate a table in the action table called `touch`. The elements in the table are integer-indexed with numbers `1`--`N`where `N` is the number of touch points. Each element of the table contains fields with input data:
-
-  ```lua
-  -- Spawn at each touch point
-  for i, touchdata in ipairs(action.touch) do
-    local pos = vmath.vector3(touchdata.x, touchdata.y, 0)
-    factory.create("#factory", pos)
-  end
-  ```
-
-::: important
-Multi-touch must not be assigned the same action as the mouse button input for `MOUSE_BUTTON_LEFT` or `MOUSE_BUTTON_1`. Assigning the same action will effectively override single-touch and prevent you from receiving any single-touch events.
-:::
-
-::: sidenote
-The [Defold-Input asset](https://defold.com/assets/defoldinput/) can be used to easily set up virtual on-screen controls such as buttons and analog sticks with support for multi touch.
-:::
+: Single key keyboard input. Each key is mapped separately into a corresponding action. Learn more in the [key and text input manual](/manuals/input-key-and-text).
 
 Text Triggers
-: Text triggers are used to read arbitrary text input. There are two types of text triggers:
+: Text triggers are used to read arbitrary text input. Learn more in the [key and text input manual](/manuals/input-key-and-text)
 
-  - `text` captures normal text input. It sets the `text` field of the action table to a string containing the typed character. The action is only fired at the press of the button, no `release` or `repeated` action is sent.
+Mouse Triggers
+: Input from mouse buttons and scroll wheels. Learn more in the [mouse and touch input manual](/manuals/input-mouse-and-touch).
 
-    ```lua
-    if action_id == hash("text") then
-      -- Concatenate the typed character to the "user" node...
-      local node = gui.get_node("user")
-      local name = gui.get_text(node)
-      name = name .. action.text
-      gui.set_text(node, name)
-    end
-    ```
+Touch Triggers
+: Single-touch and Multi-touch type triggers are available on iOS and Android devices in native applications and in HTML5 bundles. Learn more in the [touch manual](/manuals/input-mouse-and-touch).
 
-  - `marked-text` is used primarily for asian keyboards where multiple keypresses can map to single inputs. For example, with the iOS "Japanese-Kana" keyboard, the user can type combinations and the top of the keyboard will display avaliable symbols or sequences of symbols that can be entered.
+Gamepad Triggers
+: Gamepad triggers allow you to bind standard gamepad input to game functions. Learn more in the [gamepads manual](/manuals/input-gamepads).
 
-  ![Input marked text](images/input/marked_text.png){srcset="images/input/marked_text@2x.png 2x"}
-
-  - Each keypress generates a separate action and sets the action field `text` to the currently entered sequence of symbols (the "marked text").
-  - When the user selects a symbol or symbol combination, a separate `text` type trigger action is sent (provided that one is set up in the input binding list). The separate action sets the action field `text` to the final sequence of symbols.
 
 ## Input focus
 
@@ -274,48 +208,3 @@ function on_input(self, action_id, action)
   return true
 end
 ```
-
-
-## Detecting click or tap on objects
-
-Detecting when the user has clicked or tapped on a visual component is a very common operation that is needed in many games. It could be user interaction with a button or other UI element or the interaction with a game object such as a player controlled unit in a strategy game, some treasure on a level in a dungeon crawler or a quest giver in an RPG. The approach to use varies depending on the type of visual component.
-
-### Detecting interaction with GUI nodes
-
-For UI elements there is the `gui.pick_node(node, x, y)` function that will return true or false depending on if the specified coordinate is within the bounds of a gui node or not. Refer to the [API docs](/ref/gui/#gui.pick_node:node-x-y), the [pointer over example](/examples/gui/pointer_over/) or the [button example](/examples/gui/button/) to learn more.
-
-### Detecting interaction with game objects
-For game objects it is more complicated to detect interaction since things such as camera translation and render script projection will impact the required calculations. There are two general approaches to detecting interaction with game objects:
-
-  1. Track the position and size of game objects the user can interact with and check if the mouse or touch coordinate is within the bounds of any of the objects.
-  2. Attach collision objects to game objects the user can interact with and one collision object that follows the mouse or finger and check for collisions between them.
-
-::: sidenote
-A ready to use solution for using collision objects to detect user input with drag and click support can be found in the [Defold-Input asset](https://defold.com/assets/defoldinput/).
-:::
-
-In both cases there is a need to convert from the screen space coordinates of the mouse or touch event and the world space coordinates of the game objects. This can be done in a couple of different ways:
-
-  * Manually keep track of which view and projection that is used by the render script and use this to convert to and from world space. See the [camera manual for an example of this](/manuals/camera/#converting-mouse-to-world-coordinates).
-  * Use a [third-party camera solution](/manuals/camera/#third-party-camera-solutions) and make use of the provided screen-to-world conversion functions.
-
-
-## Gamepads settings file
-
-Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built-in gamepads file with settings for common gamepads:
-
-![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
-
-If you need to create a new gamepad settings file, we have a simple tool to help:
-
-[Click to download gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
-
-It includes binaries for Windows, Linux and macOS. Run it from the command line:
-
-```sh
-./gdc
-```
-
-The tool will ask you to press different buttons on your connected controller. It will then output a new gamepads file with correct mappings for your controller. Save the new file, or merge it with your existing gamepads file, then update the setting in "game.project":
-
-![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
