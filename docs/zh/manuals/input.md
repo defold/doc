@@ -57,86 +57,31 @@ Consuming input
 触发器有五种类型:
 
 Key Triggers
-: 键盘单键输入. 每个键分别映射为动作. 一个键一个功能, 比如箭头键或者 WASD 键对应上左下右. 如果需要获得输入字符, 要使用 text triggers (见下文).
-
-Mouse Triggers
-: 鼠标按键或者滚轮输入. 鼠标移动输入事件不在这里设定. 但是如果没设定鼠标触发器, 也不会捕获鼠标移动事件.
-
-  - 鼠标按键输入 `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` 和 `MOUSE_BUTTON_MIDDLE` 等同于 `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` 和 `MOUSE_BUTTON_3`.
-
-  - **单点触摸也会触发 `MOUSE_BUTTON_LEFT` (或 `MOUSE_BUTTON_1`) 事件**.
-
-  - 鼠标滚轮转动输入. 如果 `action.value` 为 `1` 代表转动, 为 `0` 代表不转动. (滚轮转动被当作按钮按下处理. Defold 目前不支持触摸板上的滚轮输入.)
-
-  - 鼠标移动不在此做设定, 但是鼠标移动时会自动发出事件, 其中 `action_id` 为 `nil` 并且 `action` 表保存了鼠标位置与移动距离.
-
-Gamepad Triggers
-: 游戏手柄触发器绑定标准手柄输入到游戏功能的映射. Defold 通过操作系统支持多种游戏手柄, 事件里 `gamepad` 项对应手柄输入来源:
-
-  ```lua
-  if action_id == hash("gamepad_start") then
-    if action.gamepad == 0 then
-      -- gamepad 0 申请加入游戏
-    end
-  end
-  ```
-
-  游戏手柄可以绑定:
-
-  - 左右摇杆 (方向和按下)
-  - 手柄按钮. 通常右手柄 Xbox 为 "A", "B", "X" 和 "Y", Playstation 为 "方块", "圆圈", "三角" 和 "十叉".
-  - 方向按钮.
-  - 左右肩按钮.
-  - 开始, 后退, 暂停按钮
-
-  在 Windows 上, 只支持 XBox 360 兼容手柄. 安装方法请见 http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
-
-  每种手柄分别对应一份映射文件. 详情请见下文.
-  
-  游戏手柄还有 `Connected` 和 `Disconnected` 两种事件用以通知手柄连接和断开.
-
-Touch Triggers
-: iOS 和 Android 设备支持单点触摸. 单点触摸不用在触摸映射部分进行设置. 而在 **鼠标映射设置 `MOUSE_BUTTON_LEFT` 或 `MOUSE_BUTTON_1`** 之后自动触发.
-
-: iOS 和 Android 设备支持 APP 和 HTML5 应用的多点触摸. 触发时 `touch` 表即是记录触摸点的数组. 其中数组键 `1`--`N` 的 `N` 是触摸点的排号. 对应的值为触摸点数据:
-
-  ```lua
-  -- 捕获到接触事件时触发
-  for i, touchdata in ipairs(action.touch) do
-    local pos = vmath.vector3(touchdata.x, touchdata.y, 0)
-    factory.create("#factory", pos)
-  end
-  ```
-
-::: 注意
-多点触摸动作名不能与 `MOUSE_BUTTON_LEFT` 或 `MOUSE_BUTTON_1` 的动作名重名. 否则的话将导致事件覆盖, 就监听不到单点触摸事件了.
-:::
-
-::: 注意
-公共资源 [Defold 输入手柄](https://defold.com/assets/defoldinput/) 可以用来在多点触摸屏上模拟手柄输入.
-:::
+: 键盘单键输入. 每个键分别映射为指定的动作. 一一对应. 详情请见 [键盘按键输入教程](/manuals/input-key-and-text).
 
 Text Triggers
-: 文本触发器用来读取输入的文字. 分为以下两种:
+: 文本触发器用来读取输入的文字. 详情请见 [键盘按键输入教程](/manuals/input-key-and-text).
 
-  - `text` 捕获一般字符输入. 事件 `text` 项保存了输入的字符. 动作由按下按钮时触发, 不存在 `release` 和 `repeated` 事件.
+Mouse Triggers
+: 来自鼠标按键和滚轮的输入. 详情请见 [鼠标和触摸输入教程](/manuals/input-mouse-and-touch).
 
-    ```lua
-    if action_id == hash("text") then
-      -- 收集输入字符填充 "user" 节点...
-      local node = gui.get_node("user")
-      local name = gui.get_text(node)
-      name = name .. action.text
-      gui.set_text(node, name)
+Touch Triggers
+: iOS 和 Android 设备上运行的原生应用与HTML5应用都支持单点和多点触摸输入. 详情请见 [鼠标和触摸输入教程](/manuals/input-mouse-and-touch).
+
+Gamepad Triggers
+: 这种触发器可以绑定标准手柄输入到游戏功能的映射. 详情请见 [游戏手柄输入教程](/manuals/input-gamepads).
+
+### 加速度计输入
+
+除了上述五种输入触发器, Defold 还支持 Android 和 iOS 原生系统加速度计输入. 需要勾选 *game.project* 配置文件中输入部分里的 Use Accelerometer.
+
+```lua
+function on_input(self, action_id, action)
+    if action.acc_x and action.acc_y and action.acc_z then
+        -- 读取加速度计数据
     end
-    ```
-
-  - `marked-text` 一般用于亚洲键盘可把多个按键事件合为一个输入事件. 比如说, iOS 里的 "Japanese-Kana" 键盘, 用户输入多个键时键盘上方就会显示出可供输入的文字或字符串.
-
-  ![Input marked text](images/input/marked_text.png){srcset="images/input/marked_text@2x.png 2x"}
-
-  - 每个键被按下时触发事件, 动作 `text` 为目前已经输入了的字符串 (星号标记文本).
-  - 用户选择了要提交的文字时, 一个 `text` 类型动作被触发 (证明当前触发器配置正确). 而这个动作的 `text` 项保存了用户最终提交的文字.
+end
+```
 
 ## 输入焦点
 
@@ -274,48 +219,3 @@ function on_input(self, action_id, action)
   return true
 end
 ```
-
-
-## 拾取检测
-
-游戏里经常可见拾取操作. 可能是玩家点击界面按钮或者战略游戏里玩家选取一个作战单位, RPG 游戏点取宝箱等等. 不同组件有不同解决方法.
-
-### 界面点击检测
-
-界面有一个 `gui.pick_node(node, x, y)` 函数来判断点击输入是否处在某个节点范围之内. 详见 [API 文档](/ref/gui/#gui.pick_node:node-x-y), [指针悬停示例](https://www.defold.com/examples/pointer_over/) 或者 [按钮示例](https://www.defold.com/examples/button/).
-
-### 游戏对象点击检测
-游戏对象检测有点复杂, 因为摄像机移动和渲染脚本映射都会影响位置计算. 方法主要分为两种:
-
-  1. 追踪游戏对象的位置和大小然后检测点选位置是否包含在内.
-  2. 给游戏对象加入碰撞组件再在点选位置生成一个碰撞对象检查二者碰撞情况.
-
-::: 注意
-公共资源 [Defold 输入库](https://github.com/britzl/defold-input) 是一个开箱即用的输入检测库.
-:::
-
-无论哪种方案都必须将鼠标手点选的屏幕坐标转换成游戏对象的世界坐标. 实现思路如下:
-
-  * 手动跟踪渲染脚本使用的视口和投射用以进行坐标转换. 详见 [摄像机教程的这个示例](/manuals/camera/#鼠标位置转换为世界坐标).
-  * 使用 [第三方摄像机解决方案](/manuals/camera/#第三方摄像机解决方案) 里面的屏幕到世界坐标转换函数.
-
-
-## 游戏手柄配置文件
-
-游戏手柄配置保存在 *gamepads* 文件里. Defold 自带一个通用手柄配置文件:
-
-![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
-
-如需自定义手柄配置, 这里有个工具可供使用:
-
-[gdc.zip](https://forum.defold.com/t/big-thread-of-gamepad-testing/56032).
-
-其中包含可运行于 Windows, Linux 和 macOS 上的可执行文件. 从命令行打开:
-
-```sh
-./gdc
-```
-
-工具提示你按下手柄某个按键. 然后输出配置文件. 保存这个文件, 并在 "game.project" 里引用它:
-
-![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
