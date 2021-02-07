@@ -50,6 +50,25 @@ https://github-username:personal-access-token@github.com/defold/private/archive/
 Make sure to not share or accidentally leak your generated personal access token or password as it can have dire consequences if they fall into the wrong hands!
 :::
 
+### Advanced access authentication
+
+When using the basic access authentication a user's access token and username will be shared on any repository used for the project.  With a greater than 1 man team this can be an issue. To solve this issue a "read only" user needs to be used for library access to the repository, on github this requires an organisation, a team and a user who doesn't need to edit the repo (hence read only).
+
+Github Steps:
+* [Create an organisation](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch)
+* [Create a team within the organisation](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-team)
+* [Transfer the desired private repository to your organisation](https://docs.github.com/en/github/administering-a-repository/transferring-a-repository)
+* [Give the team "read only" access to the repository](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/managing-team-access-to-an-organization-repository)
+* [Create or select a user to be part of this team](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/organizing-members-into-teams)
+* Use the "basic access authentication" above to create a personal access token for this user
+
+At this point the new user's authentication details can be committed and pushed to the repository.  This will allow anyone working with your private repository to fetch it as a library without having edit permissions to the library itself.
+
+::: important
+The read only user's token is fully accessible to anyone who can access the game repositories that are using the library.
+:::
+
+Thanks to *dapetcu21* for this solution.
 
 ## Setting up library dependencies
 
