@@ -20,7 +20,7 @@ You should **never** upload your application to Google Play if it was signed usi
 ## Creating a keystore
 
 ::: sidenote
-The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore.
+The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore. [More information in this forum post](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
 You can create a keystore [using Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) or from a terminal/command prompt:
