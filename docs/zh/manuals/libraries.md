@@ -34,22 +34,41 @@ brief: 项目间可以使用库共享资源. 本教程解释了其工作方式.
 
 ### 基本訪問驗證
 
-對於不公開的庫可以通過在 URL 上加入用戶名密碼 / 訪問權標記的方法來訪問:
+對於不公開的庫可以通過在 URL 上加入用戶名密碼 / 訪問權token的方法來訪問:
 
 ```
 https://username:password@github.com/defold/private/archive/main.zip
 ```
 
-這裏 `username` 和 `password` 項會被提取並轉化爲 `Authorization` 請求頭. 這種方法一般服務器都適用. 包括從 GitHub 上獲取私有庫. GitHub 還支持使用 [生成訪問權標記](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) 的方法來代替密碼.
+這裏 `username` 和 `password` 項會被提取並轉化爲 `Authorization` 請求頭. 這種方法一般服務器都適用. 包括從 GitHub 上獲取私有庫. GitHub 還支持使用 [生成訪問權token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) 的方法來代替密碼.
 
 ```
 https://github-username:personal-access-token@github.com/defold/private/archive/main.zip
 ```
 
 ::: 注意
-不要共享或者不小心泄露你的密碼或訪問權標記, 否則可能會落入他人之手造成不良後果.
+不要共享或者不小心泄露你的密碼或訪問權token, 否則可能會落入他人之手造成不良後果.
 :::
 
+### 严格访问权限
+
+基本訪問权限下token和用户名都在项目依赖库上公开. 这对于多人开发团队来说可能会造成麻烦. 解决办法是给库引入一个 "只读" 用户, 在 GitHub 上可以设置一个机构, 一个团队以及一个不需要编辑代码的用户 (也就是只读用户).
+
+GitHub 具体步骤:
+* [创建机构](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch)
+* [机构之下的团队](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-team)
+* [把需要的私有库存放到机构之下](https://docs.github.com/en/github/administering-a-repository/transferring-a-repository)
+* [将开发团队设置为对库 "只读"](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/managing-team-access-to-an-organization-repository)
+* [创建只读团队的只读用户成员](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/organizing-members-into-teams)
+* 给只读用户发放 "基本访问权限" token
+
+此时这个只读用户的信息就可以放心公开在依赖库上. 这样就可以将私有库公开化而不用担心被恶意篡改.
+
+::: 注意
+使用这种只读用户的 token 可以访问所有依赖私有库的游戏.
+:::
+
+上述解决方案于 Defold 论坛提出并 [于此帖子上进行谈论](https://forum.defold.com/t/private-github-for-library-solved/67240).
 
 ## 设置库依赖
 

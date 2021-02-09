@@ -20,7 +20,7 @@ Android 要求每个 APK 文件在被安装到设备上或者在设备上更新�
 ## 制作 keystore
 
 ::: 注意
-Defold 应对安卓应用包签名的改变是从 1.2.173 版开始的, 就是使用单独的证书和密码来合成 keystore.
+Defold 应对安卓应用包签名的改变是从 1.2.173 版开始的, 就是使用单独的证书和密码来合成 keystore. [详见论坛帖子](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
 也可以 [使用 Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) 或者通过使用控制台命令来生成签名:
