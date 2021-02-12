@@ -109,3 +109,21 @@ end
 这个工具通过收集连接控制器的输入自动生成映射文件. 新的映射文件可以在 "game.project" 里进行指定或者混合使用:
 
 ![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
+
+## HTML5上的游戏手柄
+HTML5平台同样支持游戏手柄, 效果和原生应用一样. 游戏手柄的支持基于 [标准游戏手柄API](https://www.w3.org/TR/gamepad/), 并且受绝大多数浏览器支持 ([详见此图表](https://caniuse.com/?search=gamepad)). 万一遇到不支持的浏览器 Defold 会忽略所有游戏手柄的操作. 可以通过检查浏览器的`navigator`对象中是否存在`getGamepads`函数来判断其是否支持游戏手柄:
+
+```lua
+local function supports_gamepads()
+    return not html5 or (html5.run('typeof navigator.getGamepads === "function"') == "true")
+end
+if supports_gamepads() then
+    print("Platform supports gamepads")
+end
+```
+
+运行在 `iframe` 上的游戏要确保 `iframe` 的 `gamepad` 权限已被开启:
+
+```html
+<iframe allow="gamepad"></iframe>
+```
