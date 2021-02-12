@@ -109,3 +109,22 @@ It includes binaries for Windows, Linux and macOS. Run it from the command line:
 The tool will ask you to press different buttons on your connected controller. It will then output a new gamepads file with correct mappings for your controller. Save the new file, or merge it with your existing gamepads file, then update the setting in "game.project":
 
 ![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
+
+## Gamepads in HTML5
+Gamepads are supported in HTML5 builds and generate the same input events as on other platforms. Support for gamepads is based on the [Gamepad API](https://www.w3.org/TR/gamepad/) which is supported in most browsers ([refer to this support chart](https://caniuse.com/?search=gamepad)). If the browser doesn't support the Gamepad API Defold will silently ignore any Gamepad triggers in your project. You can check if the browser supports the Gamepad API by checking if the `getGamepads` function exists on the `navigator` object:
+
+```lua
+local function supports_gamepads()
+    return not html5 or (html5.run('typeof navigator.getGamepads === "function"') == "true")
+end
+
+if supports_gamepads() then
+    print("Platform supports gamepads")
+end
+```
+
+If your game is running from inside an `iframe` you must also make sure that the `iframe` has the `gamepad` permission added:
+
+```html
+<iframe allow="gamepad"></iframe>
+```
