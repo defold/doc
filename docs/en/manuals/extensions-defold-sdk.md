@@ -28,7 +28,7 @@ The header file is not publicly published but all of the available SDK functions
 * [Game Object](/ref/dmGameObject/) - API for manipulating game objects.
 * [Graphics](/ref/dmGraphics/) - Platform specific native graphics functions.
 * [Hash](/ref/dmHash/) - Hash functions.
-* [HID](/ref/dmHash/) - API for generating programmatic input events.
+* [HID](/ref/dmHid/) - API for generating programmatic input events.
 * [HTTP Client](/ref/dmHttpClient/) - API for interacting with a HTTP clients.
 * [Json](/ref/dmJson/) - API for platform independent parsing of json files.
 * [Log](/ref/dmLog/) - Logging functions.
