@@ -36,7 +36,7 @@ The header file is not publicly published but all of the available SDK functions
 * [Mutex](/ref/dmMutex/) - API for platform independent mutex synchronization primitive.
 * [SSL Socket](/ref/dmSSLSocket/) - API for secure socket functions.
 * [Script](/ref/dmScript/) - Built-in scripting functions.
-* [SSL Socket](/ref/dmSocket/) - API for socket functions.
+* [Socket](/ref/dmSocket/) - API for socket functions.
 * [String Functions](/ref/dmStringFunc/) - API for manipulating strings.
 * [Thread](/ref/dmThread/) - API for thread creation.
 * [Time](/ref/dmTime/) - API for universal time and timing functions.
