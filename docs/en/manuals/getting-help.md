@@ -85,9 +85,9 @@ You need a GitHub account to submit a bug report this way.
 :::
 
 
-## Discuss a problem on Slack
+## Discuss a problem on Discord
 
-If you run into a problem while using Defold you can try to ask the question on [Slack](https://www.defold.com/slack/). We do however recommend that complex questions and in-depth discussions are posted on the forum. Also note that we do not accept bug reports submitted through Slack.
+If you run into a problem while using Defold you can try to ask the question on [Discord](https://www.defold.com/discord/). We do however recommend that complex questions and in-depth discussions are posted on the forum. Also note that we do not accept bug reports submitted through Discord.
 
 
 # Log files

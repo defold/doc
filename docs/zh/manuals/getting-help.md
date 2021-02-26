@@ -79,9 +79,9 @@ print("Hello code!")
 :::
 
 
-## 在 Slack 上讨论问题
+## 在 Discord 上讨论问题
 
-如果在使用 Defold 时遇到困难你可以尝试在 [Slack](https://www.defold.com/slack/) 上提出问题. 虽然我们推荐复杂问题应该在论坛上深入讨论. 而且注意 Slack 上不支持错误报告.
+如果在使用 Defold 时遇到困难你可以尝试在 [Discord](https://www.defold.com/discord/) 上提出问题. 虽然我们推荐复杂问题应该在论坛上深入讨论. 而且注意 Discord 上不支持错误报告.
 
 
 # 日志文件

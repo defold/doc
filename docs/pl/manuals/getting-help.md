@@ -75,9 +75,9 @@ Musisz mieć konto na GitHubie, żeby zgłosić problem w ten sposób.
 :::
 
 
-## Przedysktuj problem na Slacku
+## Przedysktuj problem na Discord
 
-W razie problemów możesz również zadać pytanie na oficjalnym [Slacku](https://www.defold.com/slack/), jednak pamiętaj, że zalecamy, aby skomplikowane kwestie i dogłębne dyskusje prowadzić na forum. Pamiętaj też, że nie przyjmujemy zgłoszeń bugów, problemów przez Slacka.
+W razie problemów możesz również zadać pytanie na oficjalnym [Discord](https://www.defold.com/discord/), jednak pamiętaj, że zalecamy, aby skomplikowane kwestie i dogłębne dyskusje prowadzić na forum. Pamiętaj też, że nie przyjmujemy zgłoszeń bugów, problemów przez Discord.
 
 
 # Logi

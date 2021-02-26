@@ -412,6 +412,19 @@
                 ]
             },
             {
+                "name": "SOUND",
+                "items": [
+                    {
+                        "path": "/manuals/sound",
+                        "name": "Sound"
+                    },
+                    {
+                        "path": "https://defold.com/assets/fmod/",
+                        "name": "FMOD"
+                    }
+                ]
+            },
+            {
                 "name": "INPUT",
                 "items": [
                     {
@@ -458,6 +471,10 @@
                     {
                         "path": "/manuals/debugging-game-logic",
                         "name": "Debugging"
+                    },
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
                     }
                 ]
             },
