@@ -49,6 +49,12 @@ $ export MESA_LOADER_DRIVER_OVERRIDE=i965
 $ ./Defold
 ```
 
+可能还需要指定载入 libffi 版本 6 才能启动 Defold:
+
+```bash
+$ export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.6
+```
+
 
 #### Q: 在 Linux 上启动 Defold 游戏无效?
 
