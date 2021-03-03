@@ -39,6 +39,12 @@ $ export MESA_GL_VERSION_OVERRIDE=3.1
 $ ./Defold
 ```
 
+You may also need to specifically load libffi version 6 before starting Defold:
+
+```bash
+$ export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.6
+```
+
 
 #### Q: Why am I getting "com.jogamp.opengl.GLException: Graphics configuration failed" when launching Defold on Ubuntu 20.04?
 
