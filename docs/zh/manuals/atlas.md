@@ -70,6 +70,24 @@ Extrude Borders
 
 ![Atlas properties](images/atlas/atlas_properties.png){srcset="images/atlas/atlas_properties@2x.png 2x"}
 
+## 图片属性
+
+图集中的每个图片都有一系列属性:
+
+Id
+: 图片名称 (只读).
+
+Size
+: 图片宽高 (只读).
+
+Sprite Trim Mode
+: 决定sprite如何渲染. 默认以矩形渲染 (Sprite Trim Mode 为 Off). 如果图片由许多透明的地方最好用4个或8个顶点设定非矩形渲染.
+
+Image
+: 图片路径.
+
+![Image properties](images/atlas/image_properties.png){srcset="images/atlas/image_properties@2x.png 2x"}
+
 ## 动画属性
 
 动画组除了组成动画的图片, 还提供了一些属性:
