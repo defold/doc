@@ -132,6 +132,14 @@ To add asset files (images, sounds, models etc) to your project, simply drag and
 
 ![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
 
+## Updating the editor
+
+The editor will automatically check for updates. When an update is detected it will be shown in the lower right corner of the editor window and on the project selection screen. Pressing the Update Available link will download and update the editor.
+
+![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
+
+![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
+
 ## Keyboard shortcuts
 
 ### Default shortcuts
