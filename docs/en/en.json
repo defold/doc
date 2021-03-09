@@ -11,39 +11,48 @@
                     },
                     {
                         "path": "/tutorials/side-scroller",
-                        "name": "Side scroller"
+                        "name": "Side scroller",
+                        "description": "This tutorial is intended to give a taste of what making games in Defold is about. It goes through creating a new project, based on a simple side-scroller. You will then learn how to tweak the game to make it more fun. Finally you will add a new game object. The tutorial should only take about 10 minutes."
                     },
                     {
                         "path": "/tutorials/astronaut",
-                        "name": "Walking astronaut"
+                        "name": "Walking astronaut",
+                        "description": "In this beginner's tutorial you learn how to capture player input and make a character move and animate. You will also learn about game objects, components and collections."
                     },
                     {
                         "path": "/tutorials/movement",
-                        "name": "Movement"
+                        "name": "Movement",
+                        "description": "In this beginner's tutorial you learn how to make realistic movement using vectors and some simple vector algebra."
                     },
                     {
                         "path": "/tutorials/colorslide",
-                        "name": "Colorslide"
+                        "name": "Colorslide",
+                        "description": "In this medium difficulty tutorial you build an in-game GUI, a GUI screen for level selection and a start screen for a simple multi level mobile game."
                     },
                     {
                         "path": "/tutorials/war-battles",
-                        "name": "War battles"
+                        "name": "War battles",
+                        "description": "In this tutorial you will create the embryo of a small shooter game. This is a good starting point if you are new to Defold."
                     },
                     {
                         "path": "/tutorials/snake",
-                        "name": "Snake"
+                        "name": "Snake",
+                        "description": "If you are new to Defold, this guide will help you to get started with script logic together with a few of the building blocks in Defold."
                     },
                     {
                         "path": "/tutorials/15-puzzle",
-                        "name": "15 puzzle"
+                        "name": "15 puzzle",
+                        "description": "If you are new to Defold, this guide will help you to lab with a few of the building blocks in Defold and run script logic."
                     },
                     {
                         "path": "/tutorials/shadertoy",
-                        "name": "Shadertoy"
+                        "name": "Shadertoy",
+                        "description": "In this tutorial you will convert a shader from shadertoy.com to Defold."
                     },
                     {
                         "path": "/tutorials/grading",
-                        "name": "Color grading"
+                        "name": "Color grading",
+                        "description": "In this tutorial you will create a full screen post effect in Defold."
                     },
                     {
                         "path": "/tutorials/platformer",
@@ -119,7 +128,7 @@
                 ]
             },
             {
-                "name": "Samples",
+                "name": "Sample projects",
                 "items": [
                     {
                         "path": "https://github.com/defold/sample-roids",
