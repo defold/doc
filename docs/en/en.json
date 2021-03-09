@@ -87,24 +87,34 @@
                 "name": "Videos",
                 "items": [
                     {
-                        "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
-                        "name": "Games from Scratch video tutorials"
+                        "path": "https://www.youtube.com/watch?v=4XGbQ92FzRI&list=PLS9MbmO_ssyC5gN_850U7iz21ZhdjS3J8",
+                        "name": "Game from Scratch video tutorials",
+                        "description": "This game programming series by Game from Scratch covers covers all aspects of 2D game development in Defold."
                     },
                     {
-                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
-                        "name": "Tactx Studios video tutorials"
-                    },
-                    {
-                        "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
-                        "name": "Sergey Lerg's video tutorials"
+                        "path": "https://www.youtube.com/watch?v=Ri2KStY-mfE&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT",
+                        "name": "Defold introduction by Tactx Studios",
+                        "description": "This 7 episode series of introductory tutorials will be walking you through the essential building blocks needed to design and develop great games."
                     },
                     {
                         "path": "https://www.youtube.com/watch?v=2sxj1Ggc4jQ&list=PLiyuZHAJlUirBilfmrIBHD-A8ouaWvBCj",
-                        "name": "Game Developers video tutorials"
+                        "name": "Game Developers video tutorials",
+                        "description": "This is a new series of tutorials focused on Defold."
                     },
                     {
-                        "path": "https://www.youtube.com/watch?v=slTEz6555Ts&list=PL8NAsjaVlA78V7IyxTeIab-5JqLHm8EvX",
-                        "name": "Procedural Content Generation in Defold"
+                        "path": "https://www.youtube.com/watch?v=Ri2KStY-mfE&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT",
+                        "name": "Build a Tower Defense game by Tactx Studios",
+                        "description": "This Tower Defense Tutorial will teach you the basics on how to incorporate the following features into a game: (1) splashscreens, (2) level selection menus, (3) help screens, (4) tank strikes, (5) tower placement, (6) fire exchange, (7) health resources, and (8) victory conditions."
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
+                        "name": "Sergey Lerg's video tutorials",
+                        "description": "A collection of tutorials covering topics such as procedural 2D terrain and grids and arrays."
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCR4QXWikWqkT5NkJw_Ij_8g/videos",
+                        "name": "Procedural Content Generation in Defold",
+                        "description": "This series of videos shows how Defold can be used for procedural content generation."
                     }
                 ]
             },
