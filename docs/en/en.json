@@ -6,10 +6,6 @@
                 "name": "Tutorials",
                 "items": [
                     {
-                        "path": "/tutorials/getting-started",
-                        "name": "Getting started"
-                    },
-                    {
                         "path": "/tutorials/side-scroller",
                         "name": "Side scroller",
                         "description": "This tutorial is intended to give a taste of what making games in Defold is about. It goes through creating a new project, based on a simple side-scroller. You will then learn how to tweak the game to make it more fun. Finally you will add a new game object. The tutorial should only take about 10 minutes."
@@ -23,6 +19,10 @@
                         "path": "/tutorials/movement",
                         "name": "Movement",
                         "description": "In this beginner's tutorial you learn how to make realistic movement using vectors and some simple vector algebra."
+                    },
+                    {
+                        "path": "/tutorials/getting-started",
+                        "name": "Getting started"
                     },
                     {
                         "path": "/tutorials/colorslide",
