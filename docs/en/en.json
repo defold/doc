@@ -8,17 +8,20 @@
                     {
                         "path": "/tutorials/side-scroller",
                         "name": "Side scroller",
-                        "description": "This tutorial is intended to give a taste of what making games in Defold is about. It goes through creating a new project, based on a simple side-scroller. You will then learn how to tweak the game to make it more fun. Finally you will add a new game object. The tutorial should only take about 10 minutes."
+                        "description": "This tutorial is intended to give a taste of what making games in Defold is about. It goes through creating a new project, based on a simple side-scroller. You will then learn how to tweak the game to make it more fun. Finally you will add a new game object. The tutorial should only take about 10 minutes.",
+                        "image": "/tutorials/images/videos/side-scroller.png"
                     },
                     {
                         "path": "/tutorials/astronaut",
                         "name": "Walking astronaut",
-                        "description": "In this beginner's tutorial you learn how to capture player input and make a character move and animate. You will also learn about game objects, components and collections."
+                        "description": "In this beginner's tutorial you learn how to capture player input and make a character move and animate. You will also learn about game objects, components and collections.",
+                        "image": "/tutorials/images/videos/astronaut.png"
                     },
                     {
                         "path": "/tutorials/movement",
                         "name": "Movement",
-                        "description": "In this beginner's tutorial you learn how to make realistic movement using vectors and some simple vector algebra."
+                        "description": "In this beginner's tutorial you learn how to make realistic movement using vectors and some simple vector algebra.",
+                        "image": "/tutorials/images/videos/movement.png"
                     },
                     {
                         "path": "/tutorials/getting-started",
@@ -27,12 +30,14 @@
                     {
                         "path": "/tutorials/colorslide",
                         "name": "Colorslide",
-                        "description": "In this medium difficulty tutorial you build an in-game GUI, a GUI screen for level selection and a start screen for a simple multi level mobile game."
+                        "description": "In this medium difficulty tutorial you build an in-game GUI, a GUI screen for level selection and a start screen for a simple multi level mobile game.",
+                        "image": "/tutorials/images/videos/colorslide.png"
                     },
                     {
                         "path": "/tutorials/war-battles",
                         "name": "War battles",
-                        "description": "In this tutorial you will create the embryo of a small shooter game. This is a good starting point if you are new to Defold."
+                        "description": "In this tutorial you will create the embryo of a small shooter game. This is a good starting point if you are new to Defold.",
+                        "image": "/tutorials/images/videos/war-battles.png"
                     },
                     {
                         "path": "/tutorials/snake",
@@ -47,7 +52,8 @@
                     {
                         "path": "/tutorials/shadertoy",
                         "name": "Shadertoy",
-                        "description": "In this tutorial you will convert a shader from shadertoy.com to Defold."
+                        "description": "In this tutorial you will convert a shader from shadertoy.com to Defold.",
+                        "image": "/tutorials/images/videos/shadertoy.png"
                     },
                     {
                         "path": "/tutorials/grading",
