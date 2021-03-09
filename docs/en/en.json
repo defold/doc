@@ -78,20 +78,33 @@
                         "name": "Level complete (OLD)"
                     },
                     {
+                        "path": "https://www.tactxstudios.com/",
+                        "name": "Tactx Studios tutorials"
+                    }
+                ]
+            },
+            {
+                "name": "Videos",
+                "items": [
+                    {
                         "path": "http://www.gamefromscratch.com/page/Defold-Engine-Tutorial-Series.aspx",
                         "name": "Games from Scratch video tutorials"
+                    },
+                    {
+                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
+                        "name": "Tactx Studios video tutorials"
                     },
                     {
                         "path": "https://www.youtube.com/channel/UCjkECP_YgfCXd6Y3j3rkY_g",
                         "name": "Sergey Lerg's video tutorials"
                     },
                     {
-                        "path": "https://www.tactxstudios.com/",
-                        "name": "Tactx Studios tutorials"
+                        "path": "https://www.youtube.com/watch?v=2sxj1Ggc4jQ&list=PLiyuZHAJlUirBilfmrIBHD-A8ouaWvBCj",
+                        "name": "Game Developers video tutorials"
                     },
                     {
-                        "path": "https://www.youtube.com/channel/UCkHxiTiccq97knREKsi5UKA/videos",
-                        "name": "Tactx Studios video tutorials"
+                        "path": "https://www.youtube.com/watch?v=slTEz6555Ts&list=PL8NAsjaVlA78V7IyxTeIab-5JqLHm8EvX",
+                        "name": "Procedural Content Generation in Defold"
                     }
                 ]
             },
