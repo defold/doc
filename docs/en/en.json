@@ -56,6 +56,16 @@
                         "image": "/tutorials/images/videos/shadertoy.png"
                     },
                     {
+                        "path": "https://defold.com/2021/03/02/Creating-online-games-using-Nakama-and-Defold/",
+                        "name": "Creating online games using Nakama and Defold",
+                        "description": "In this tutorial we will look at how to create online multiplayer games in Defold using the open-source Nakama game server from Heroic Labs."
+                    },
+                    {
+                        "path": "https://defold.com/2020/10/19/Shaders-for-beginners//",
+                        "name": "Shaders for Beginners",
+                        "description": "In this guest tutorial Paweł Jarosz, developer of Witchcrafter: Empire Legends, share his experience learning shader programming in general and for Defold in particular."
+                    },
+                    {
                         "path": "/tutorials/grading",
                         "name": "Color grading",
                         "description": "In this tutorial you will create a full screen post effect in Defold."
