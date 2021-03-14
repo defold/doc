@@ -13,7 +13,7 @@ Defold SDK 包含了应用运行的原生平台底层接口与高层Lua逻辑接
 
     #include <dmsdk/sdk.h>
 
-这个头文件并不公开发布但是SDK的所有功能都在 [API](/ref/dmExtension/) 里写明了. SDK包含以下命名空间和功能:
+可用的SDK功能都在 [API文档](/ref/dmExtension/) 里写明了. SDK包含以下命名空间和功能:
 
 * [Align](/ref/dmAlign/) - 公共宏. 用来保证编译器兼容
 * [Array](/ref/dmArray/) - 具有边界检测的模板化数组.
@@ -45,4 +45,5 @@ Defold SDK 包含了应用运行的原生平台底层接口与高层Lua逻辑接
 * [Shared Library](/ref/sharedlibrary/) - 共享库导入导出功能.
 * [Sony vector Math Library](../assets/Vector_Math_Library-Overview.pdf) - Sony 矢量计算库 主要为了3D图像和3D, 4D矢量运算, 矩阵运算和四元运算.
 
+如果需要 `dmsdk/sdk.h` 头文件请到 [Defold 官方 Github 库](https://github.com/defold/defold/blob/dev/engine/sdk/src/dmsdk/sdk.h) 查询, 这里有 [各种命名空间的头文件](https://github.com/defold/defold/tree/dev/engine/dlib/src/dmsdk/dlib).
 
