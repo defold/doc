@@ -61,6 +61,11 @@
                         "description": "In this tutorial we will look at how to create online multiplayer games in Defold using the open-source Nakama game server from Heroic Labs."
                     },
                     {
+                        "path": "https://defold.com/2021/03/14/Releasing-html5-games-on-Game-Distribution/",
+                        "name": "Releasing HTML5 games on Game Distribution",
+                        "description": "In this blog post we'll look at how to add the Game Distribution SDK to an existing game or how to create one from scratch. We will also look at how to submit your game for distribution through the Game Distribution network."
+                    },
+                    {
                         "path": "https://defold.com/2020/10/19/Shaders-for-beginners//",
                         "name": "Shaders for Beginners",
                         "description": "In this guest tutorial Paweł Jarosz, developer of Witchcrafter: Empire Legends, share his experience learning shader programming in general and for Defold in particular."
