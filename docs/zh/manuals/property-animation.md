@@ -50,7 +50,7 @@ gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 
 ## 播放完成回调函数
 
-动画函数 (`go.animate()` 和 `gui.animate()`) 可以在最后一个参数上传入Lua回调函数. 当动画播放完成时会调用这个函数. 对于循环动画, 不会调用回调函数, 也不能通过调用 `go.cancel_animations()` or `gui.cancel_animation()` 取消动画. 动画播放完成的回调函数里可以发送消息或者继续播放其他动画.
+动画函数 (`go.animate()` 和 `gui.animate()`) 可以在最后一个参数上传入Lua回调函数. 当动画播放完成时会调用这个函数. 对于循环动画和用 `go.cancel_animations()` 或 `gui.cancel_animation()` 取消的动画,不会调用回调函数. 回调函数里可以发送消息或者继续播放其他动画.
 
 ## 缓动
 
