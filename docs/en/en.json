@@ -342,7 +342,7 @@
                         "name": "Property animation (tweens)"
                     },
                     {
-                        "path": "/manuals/spine-animation",
+                        "path": "/manuals/spine",
                         "name": "Spine animation"
                     }
                 ]
@@ -395,12 +395,8 @@
                         "name": "Sound"
                     },
                     {
-                        "path": "/manuals/spine",
-                        "name": "Spine animation"
-                    },
-                    {
                         "path": "/manuals/spinemodel",
-                        "name": "Spine model"
+                        "name": "Spine"
                     },
                     {
                         "path": "/manuals/sprite",
