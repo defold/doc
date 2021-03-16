@@ -73,33 +73,35 @@ end
 When selecting an animation or image for a node, you are in fact assigning the image source (atlas or tile source) and default animation in one go. The image source is statically set in the node, but the current animation to play can be changed in runtime. Still images are treated as one frame animations so changing an image means in run time is equivalent to playing a different flipbook animation for the node:
 
 ```lua
+function init(self)
+    local character_node = gui.get_node("character")
+    -- This requires that the node has a default animation in the same atlas or tile source as
+    -- the new animation/image we're playing.
+    gui.play_flipbook(character_node, "jump_left")
+end
+```
+
+
+## Completion callbacks
+
+The `sprite.play_flipbook()` and `gui.play_flipbook()` functions support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations. The callback can be used to trigger events on animation completion or to chain multiple animations together. Examples:
+
+```lua
 local function flipbook_done(self)
     msg.post("#", "jump_completed")
 end
 
 function init(self)
-    local character_node = gui.get_node("character")
-    -- This requires that the node has a default animation in the same atlas or tile source as
-    -- the new animation/image we're playing.
-    gui.play_flipbook(character_node, "jump_left", flipbook_done)
+    sprite.play_flipbook("#character", "jump_left", flipbook_done)
 end
 ```
 
-An optional function that is called on completion can be provided. It will be called on animations that are played back in any of the `ONCE_*` modes.
-
-
-## Completion callbacks
-
-All animation functions (`go.animate()`, `gui.animate()`, `gui.play_flipbook()`, `gui.play_spine_anim()`, `sprite.play_flipbook()`, `spine.play_anim()` and `model.play_anim()`) support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations, nor when an animation is manually canceled via `go.cancel_animations()`. The callback can be used to trigger events on animation completion or to chain multiple animations together.
-
-The exact function signature of the callback differs slightly between the animation functions. See the API documentation for the function you are using.
-
 ```lua
-local function done_bouncing(self, url, property)
-    -- We're done animating. Do something...
+local function flipbook_done(self)
+    msg.post("#", "jump_completed")
 end
 
 function init(self)
-    go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, 100, go.EASING_OUTBOUNCE, 2, 0, done_bouncing)
+    gui.play_flipbook(gui.get_node("character"), "jump_left", flipbook_done)
 end
 ```
