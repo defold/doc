@@ -297,10 +297,6 @@
                         "name": "Live update"
                     },
                     {
-                        "path": "/manuals/animation",
-                        "name": "Animation"
-                    },
-                    {
                         "path": "/manuals/atlas",
                         "name": "Atlas"
                     },
@@ -323,6 +319,31 @@
                     {
                         "path": "/manuals/texture-profiles",
                         "name": "Texture profiles"
+                    }
+                ]
+            },
+            {
+                "name": "ANIMATIONS",
+                "items": [
+                    {
+                        "path": "/manuals/animation",
+                        "name": "Animation"
+                    },
+                    {
+                        "path": "/manuals/flipbook-animation",
+                        "name": "Flipbook Animation"
+                    },
+                    {
+                        "path": "/manuals/model-animation",
+                        "name": "Model animation"
+                    },
+                    {
+                        "path": "/manuals/property-animation",
+                        "name": "Property animation (tweens)"
+                    },
+                    {
+                        "path": "/manuals/spine-animation",
+                        "name": "Spine animation"
                     }
                 ]
             },

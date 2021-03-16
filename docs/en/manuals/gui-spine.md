@@ -42,6 +42,16 @@ gui.play_spine_anim(catnode, hash("run"), gui.PLAYBACK_ONCE_FORWARD, play_proper
 end)
 ```
 
+Use one of the following playback modes to control animation playback:
+
+* gui.PLAYBACK_NONE
+* gui.PLAYBACK_ONCE_FORWARD
+* gui.PLAYBACK_ONCE_BACKWARD
+* gui.PLAYBACK_ONCE_PINGPONG
+* gui.PLAYBACK_LOOP_FORWARD
+* gui.PLAYBACK_LOOP_BACKWARD
+* gui.PLAYBACK_LOOP_PINGPONG
+
 ## The bone hierarchy
 
 The individual bones in the Spine skeleton can be accessed as GUI nodes. The nodes are named according to their names in the Spine setup.

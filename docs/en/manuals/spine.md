@@ -89,7 +89,7 @@ You can also use Spine animations in GUI scenes. See the [GUI spine documentatio
 
 ## Animating Spine models and nodes
 
-Defold gives you powerful runtime control of how animations should play through a Lua interface. See the [Animation documentation](/manuals/animation) for details.
+Defold gives you powerful runtime control of how animations should play through a Lua interface. See the [Spine animation documentation](/manuals/spine-animation) for details.
 
 ## Atlas caveats
 

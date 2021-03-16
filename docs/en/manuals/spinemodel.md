@@ -7,7 +7,7 @@ brief: This manual explains how to create SpineModel components in Defold.
 
 The SpineModel component is used to bring _Spine_ skeletal animations to life in Defold.
 
-## Creating SpineModel components
+## Creating Spine model components
 
 Select a game object to hold the new component:
 
