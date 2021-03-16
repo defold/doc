@@ -21,6 +21,10 @@ Note that the color of the box node will tint the graphics. The tint color is mu
 
 Box nodes are always rendered, even if they do not have a texture assigned to them, or have their alpha set to `0`, or are sized `0, 0, 0`. Box nodes should always have a texture assigned to them so the renderer can batch them properly and reduce the number of draw-calls.
 
+## Playing animations
+
+Box nodes can play animations from atlases or tile sources. Refer to the [flipbook animation manual](/manuals/flipbook-animation) to learn more.
+
 ## Slice-9 texturing
 
 GUIs often feature elements that are context sensitive in regard to their size: panels and dialogs that need to be resized to fit the containing content. These may cause visual problems when you apply texturing to the resized node.

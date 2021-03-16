@@ -7,7 +7,7 @@ brief: This manual explains how to create SpineModel components in Defold.
 
 The SpineModel component is used to bring _Spine_ skeletal animations to life in Defold.
 
-## Creating SpineModel components
+## Creating Spine model components
 
 Select a game object to hold the new component:
 
@@ -47,28 +47,14 @@ You can manipulate spine models in runtime through a number of different functio
 
 ### Runtime animation
 
-Defold provides powerful support for controlling animation in runtime:
-
-```lua
-local play_properties = { blend_duration = 0.1 }
-spine.play_anim("#spinemodel", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
-```
-
-The animation playback cursor can be animated either by hand or through the property animation system:
-
-```lua
--- set the run animation
-spine.play_anim("#spinemodel", "run", go.PLAYBACK_NONE)
--- animate the cursor
-go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
-```
+Defold provides powerful support for controlling animation in runtime. Refer to the [spine animation manual](/manuals/spine) to learn more.
 
 ### Changing properties
 
 A spine model also has a number of different properties that can be manipulated using `go.get()` and `go.set()`:
 
 `animation`
-: The current model animation (`hash`) (READ ONLY). You change animation using `spine.play_anim()` (see above).
+: The current model animation (`hash`) (READ ONLY). You change animation using `spine.play_anim()` (see the [spine animation manual](/manuals/spine)).
 
 `cursor`
 : The normalized animation cursor (`number`).
