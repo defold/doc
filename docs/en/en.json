@@ -130,11 +130,48 @@
                         "name": "Game from Scratch video tutorials",
                         "description": "This game programming series by Game from Scratch covers covers all aspects of 2D game development in Defold."
                     },
+
                     {
                         "path": "https://www.youtube.com/watch?v=Ri2KStY-mfE&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT",
                         "name": "Defold introduction by Tactx Studios",
                         "description": "This 7 episode series of introductory tutorials will be walking you through the essential building blocks needed to design and develop great games."
                     },
+                    {
+                        "path": "https://www.youtube.com/watch?v=Ri2KStY-mfE&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT&index=1",
+                        "name": "Defold Installation and Overview by Tactx Studios",
+                        "description": "In this session you’ll learn about how to install Defold on your desktop (Mac or Windows) as well as get oriented to the Defold Editor."
+                    },
+                    {
+                        "path": "https://www.youtube.com/watch?v=GfOrjyeC5b8&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT&index=2",
+                        "name": "Defold Image Procedures by Tactx Studios",
+                        "description": "This session will provide instructions on how to load images to your Defold game project as well as how to position them within your game.  Some basic animation techniques are also described."
+                    },
+                    {
+                        "path": "https://www.youtube.com/watch?v=GfOrjyeC5b8&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT&index=3",
+                        "name": "Defold Drag and Drop by Tactx Studios",
+                        "description": "A walkthough is provided on how you can support a user selecting a specific game object and dragging it to a new location within your game."
+                    },
+                    {
+                        "path": "https://www.youtube.com/watch?v=GfOrjyeC5b8&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT&index=4",
+                        "name": "Defold Movement by Tactx Studios",
+                        "description": "This tutorial describes the procedures needed to move a Game Object using either a pre-defined path, or based on user inputs via mouse or touch."
+                    },
+                    {
+                        "path": "https://www.youtube.com/watch?v=GfOrjyeC5b8&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT&index=5",
+                        "name": "Defold Physics by Tactx Studios",
+                        "description": "Leveraging Defold’s Physics Engine – this tutorial reviews the concept of a collision object, used to trigger when one game object touches another, effects of gravity and bounce features."
+                    },
+                    {
+                        "path": "https://www.youtube.com/watch?v=GfOrjyeC5b8&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT&index=6",
+                        "name": "Defold GUI by Tactx Studios",
+                        "description": "A detailed description is provided on how you can incorporate button animations within the GUI as well as text notifications to users."
+                    },
+                    {
+                        "path": "https://www.youtube.com/watch?v=GfOrjyeC5b8&list=PLseKVnAXs_iVaksj-sjkz6R1D9Fpv1EaT&index=7",
+                        "name": "Defold Levels and Lua Modules by Tactx Studios",
+                        "description": "The final tutorial in this introductory series provides an explanation on how to accommodate multiple game levels to support different scenes or game chapters – as well as how to exchange information between game components."
+                    },
+
                     {
                         "path": "https://www.youtube.com/watch?v=2sxj1Ggc4jQ&list=PLiyuZHAJlUirBilfmrIBHD-A8ouaWvBCj",
                         "name": "Game Developers video tutorials",
