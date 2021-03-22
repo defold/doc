@@ -19,7 +19,7 @@ Instalacja w systemie macOS
 Instalacja w systemie Windows
 : Pobrany plik to spakowane archiwum ZIP do wypakowania:
 
-  1. Znajdź plik "Defold-x86_64-win32.zip" (lub "Defold-x86-win32.zip" dla 32-bitowego Windowsa), <kbd>kliknij prawym przyciskiem myszki</kbd> (lub <kbd>naciśnij i przytrzymaj</kbd>) archiwum i wybierz *Wypakuj pliki*(/*Extract All*), i podążaj za instrukcjami programu do wypakowywania, żeby wypakować archiwum do folderu "Defold".
+  1. Znajdź plik "Defold-x86_64-win32.zip", <kbd>kliknij prawym przyciskiem myszki</kbd> (lub <kbd>naciśnij i przytrzymaj</kbd>) archiwum i wybierz *Wypakuj pliki*(/*Extract All*), i podążaj za instrukcjami programu do wypakowywania, żeby wypakować archiwum do folderu "Defold".
   2. Przenieś folder "Defold" do "C:\Program Files (x86)\"
 
   Aby uruchomić edytor, otwórz folder "Defold" i <kbd>dwukrotnie kliknij</kbd> plik "Defold.exe".
