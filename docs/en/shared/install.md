@@ -19,7 +19,7 @@ Installation on macOS
 Installation on Windows
 : The downloaded file is a ZIP archive that needs to be extracted:
 
-  1. Locate the archive file "Defold-x86_64-win32.zip" (or "Defold-x86-win32.zip" for 32 bit Windows), <kbd>press and hold</kbd> (or <kbd>right-click</kbd>) the folder, select *Extract All*, and then follow the instructions to extract the archive to a folder named "Defold".
+  1. Locate the archive file "Defold-x86_64-win32.zip", <kbd>press and hold</kbd> (or <kbd>right-click</kbd>) the folder, select *Extract All*, and then follow the instructions to extract the archive to a folder named "Defold".
   2. Move the folder "Defold" to "C:\Program Files (x86)\"
 
   To start the editor, open the folder "Defold" and <kbd>double click</kbd> the file "Defold.exe".
