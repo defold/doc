@@ -57,6 +57,13 @@
             },
 
             {
+                "path": "https://www.youtube.com/watch?v=iMacxZQMPXs",
+                "name": "Lua Tutorial",
+                "author": "Derek Bananas",
+                "description": "Learn Lua in one hour."
+            },
+
+            {
                 "path": "https://www.youtube.com/embed/Ri2KStY-mfE",
                 "name": "Defold Installation and Overview",
                 "author": "Tactx Studios",
