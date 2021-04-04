@@ -118,7 +118,13 @@
                 "author": "Game Developers",
                 "description": "In this video, we will start to take a look at the building blocks of creating a game for the engine."
             },
-
+            {
+                "path": "https://www.youtube.com/watch?v=3kjkAThCLc0",
+                "name": "Enemy movement and animations",
+                "author": "Game Developers",
+                "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
+            },
+            
             {
                 "path": "https://www.youtube.com/embed/7P4Qj-OCLF8",
                 "name": "Build a Tower Defense game - Opening Sequence",
