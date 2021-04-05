@@ -57,6 +57,13 @@
             },
 
             {
+                "path": "https://www.youtube.com/watch?v=iMacxZQMPXs",
+                "name": "Lua Tutorial",
+                "author": "Derek Bananas",
+                "description": "Learn Lua in one hour."
+            },
+
+            {
                 "path": "https://www.youtube.com/embed/Ri2KStY-mfE",
                 "name": "Defold Installation and Overview",
                 "author": "Tactx Studios",
@@ -111,7 +118,13 @@
                 "author": "Game Developers",
                 "description": "In this video, we will start to take a look at the building blocks of creating a game for the engine."
             },
-
+            {
+                "path": "https://www.youtube.com/watch?v=3kjkAThCLc0",
+                "name": "Enemy movement and animations",
+                "author": "Game Developers",
+                "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
+            },
+            
             {
                 "path": "https://www.youtube.com/embed/7P4Qj-OCLF8",
                 "name": "Build a Tower Defense game - Opening Sequence",
@@ -268,10 +281,6 @@
                 "image": "/tutorials/images/videos/movement.png"
             },
             {
-                "path": "/tutorials/getting-started",
-                "name": "Getting started"
-            },
-            {
                 "path": "/tutorials/colorslide",
                 "name": "Colorslide",
                 "description": "In this medium difficulty tutorial you build an in-game GUI, a GUI screen for level selection and a start screen for a simple multi level mobile game.",
@@ -286,12 +295,14 @@
             {
                 "path": "/tutorials/snake",
                 "name": "Snake",
-                "description": "If you are new to Defold, this guide will help you to get started with script logic together with a few of the building blocks in Defold."
+                "description": "If you are new to Defold, this guide will help you to get started with script logic together with a few of the building blocks in Defold.",
+                "image": "/tutorials/images/snake/run_1.png"
             },
             {
                 "path": "/tutorials/15-puzzle",
                 "name": "15 puzzle",
-                "description": "If you are new to Defold, this guide will help you to lab with a few of the building blocks in Defold and run script logic."
+                "description": "If you are new to Defold, this guide will help you to lab with a few of the building blocks in Defold and run script logic.",
+                "image": "/tutorials/images/15-puzzle/slide.png"
             },
             {
                 "path": "/tutorials/shadertoy",
@@ -310,34 +321,64 @@
                 "description": "In this blog post we'll look at how to add the Game Distribution SDK to an existing game or how to create one from scratch. We will also look at how to submit your game for distribution through the Game Distribution network."
             },
             {
-                "path": "https://defold.com/2020/10/19/Shaders-for-beginners//",
+                "path": "https://defold.com/2020/10/19/Shaders-for-beginners/",
                 "name": "Shaders for Beginners",
                 "description": "In this guest tutorial Paweł Jarosz, developer of Witchcrafter: Empire Legends, share his experience learning shader programming in general and for Defold in particular."
             },
             {
                 "path": "/tutorials/grading",
                 "name": "Color grading",
-                "description": "In this tutorial you will create a full screen post effect in Defold."
+                "description": "In this tutorial you will create a full screen post effect in Defold.",
+                "image": "/tutorials/images/grading/world_graded.png"
+            },
+            {
+                "path": "https://www.tactxstudios.com/",
+                "name": "Tactx Studios tutorials",
+                "description": "These tutorials illustrate several common features of the Defold Game Engine, to include: (a) Image Procedures, (b) Dragging and Dropping Game Objects, (c) various Game Object Movement Techniques, (d) Preliminary use of 2d Physics based Collisions, (e) Graphic User Interface (GUI), and (f) an introduction to Defold Levels, Messaging and Menu Development."
+            },
+            {
+                "path": "https://github.com/defold/sample-roids",
+                "name": "Asteroids",
+                "description": "This is a very simple 'Asteroids' clone where you turn the ship left and right with the arrow keys and fire at incoming meteors with space."
+            },
+            {
+                "path": "https://github.com/defold/sample-linker",
+                "name": "Linker",
+                "description": "This sample project shows how to create a linker game. Click and drag and link three or more fish of the same color together to remove them from the board. Long chains of fish yields boosters."
+            },
+            {
+                "path": "https://github.com/defold/sample-shadertoy",
+                "name": "Shadertoy",
+                "description": "This sample project shows how to port a Shadertoy shader to to Defold."
+            },
+            {
+                "path": "https://github.com/defold/sample-rpgmap",
+                "name": "RPG Map",
+                "description": "This sample shows one method of creating very large screen based RPG maps in Defold."
             },
             {
                 "path": "/tutorials/platformer",
                 "name": "Platformer (OLD)",
-                "description": "In this article, you go through the implementation of a basic tile-based 2D platformer in Defold. The mechanics you learn are moving left/right, jumping and falling."
+                "description": "In this article, you go through the implementation of a basic tile-based 2D platformer in Defold. The mechanics you learn are moving left/right, jumping and falling.",
+                "image": "/tutorials/images/platformer/collision.png"
             },
             {
                 "path": "/tutorials/runner",
                 "name": "Runner (OLD)",
-                "description": "In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring."
+                "description": "In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.",
+                "image": "/tutorials/images/runner/2/run_game.png"
             },
             {
                 "path": "/tutorials/magic-link",
                 "name": "Magic link (OLD)",
-                "description": "In this tutorial you will build a complete little puzzle game with a start screen, the mechanics of the game and simple level progression in the form of increasing difficulty."
+                "description": "In this tutorial you will build a complete little puzzle game with a start screen, the mechanics of the game and simple level progression in the form of increasing difficulty.",
+                "image": "/tutorials/images/magic-link/linker_connector_screen.png"
             },
             {
                 "path": "/tutorials/car",
                 "name": "Building a car (OLD)",
-                "description": "If you are new to Defold, this guide will help you getting your bearings right in the editor. It also explains the basic ideas and the most common building blocks in Defold - game objects, collections, scripts and sprites."
+                "description": "If you are new to Defold, this guide will help you getting your bearings right in the editor. It also explains the basic ideas and the most common building blocks in Defold - game objects, collections, scripts and sprites.",
+                "image": "/tutorials/images/car/start_car_collection_complete.png"
             },
             {
                 "path": "/tutorials/main-menu",
@@ -358,31 +399,6 @@
                 "path": "/tutorials/level-complete",
                 "name": "Level complete (OLD)",
                 "description": "In this sample, you learn effects to show the score counting that could occur when a level has been completed."
-            },
-            {
-                "path": "https://www.tactxstudios.com/",
-                "name": "Tactx Studios tutorials",
-                "description": "These tutorials illustrate several common features of the Defold Game Engine, to include: (a) Image Procedures, (b) Dragging and Dropping Game Objects, (c) various Game Object Movement Techniques, (d) Preliminary use of 2d Physics based Collisions, (e) Graphic User Interface (GUI), and (f) an introduction to Defold Levels, Messaging and Menu Development."
-            },
-            {
-                "path": "https://github.com/defold/sample-roids",
-                "name": "Asteroids",
-                "description": ""
-            },
-            {
-                "path": "https://github.com/defold/sample-linker",
-                "name": "Linker",
-                "description": ""
-            },
-            {
-                "path": "https://github.com/defold/sample-shadertoy",
-                "name": "Shadertoy",
-                "description": ""
-            },
-            {
-                "path": "https://github.com/defold/sample-rpgmap",
-                "name": "RPG Map",
-                "description": ""
             }
         ],
         "resources": [
