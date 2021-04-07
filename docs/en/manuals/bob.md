@@ -20,7 +20,8 @@ $ java -jar bob.jar --help
 usage: bob [options] [commands]
  -a,--archive                        Build archive
  -ar,--architectures <arg>           comma separated list of architectures
-                                     to include for the platform, for example "arm64-android,armv7-android"
+                                     to include for the platform, for example
+                                     "arm64-android,armv7-android"
     --binary-output <arg>            Location where built engine binary
                                      will be placed. Default is
                                      "<build-output>/<platform>/"
@@ -119,7 +120,8 @@ Available platforms and architectures:
 `armv7-android`
 : Android with available 32 bit `armv7-android` and 64 bit `arm64-android` architectures. By default, `--architectures` argument value is `armv7-android,arm64-android`.
 
-`js-web` : HTML5 with available `js-web` and `wasm-web` architectures. By default, `--architectures` argument value is `js-web,wasm-web`.
+`js-web`
+: HTML5 with available `js-web` and `wasm-web` architectures. By default, `--architectures` argument value is `js-web,wasm-web`.
 
 By default, Bob looks in the current directory for a project to build. If you change the current dir to a Defold project and invoke bob, it builds the data for the project in the default output directory *build/default*.
 
