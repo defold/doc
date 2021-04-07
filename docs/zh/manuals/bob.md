@@ -19,7 +19,7 @@ Bob 运行于命令行界面 `java` (再Windows上是 `java.exe`) 后跟bob的ja
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
  -a,--archive                        编译数据包
- -ar,--architectures <arg>           逗号分割发布架构
+ -ar,--architectures <arg>           逗号分割发布架构, 例如 "arm64-android,armv7-android"
                                      
     --binary-output <arg>            指定可执行文件存放地址
                                      默认地址是
@@ -94,7 +94,7 @@ usage: bob [options] [commands]
 `resolve`
 : 解析所有外部依赖库.
 
-可用平台:
+支持平台和架构:
 
 `x86_64-darwin`
 : macOS 64 bit
@@ -108,20 +108,16 @@ usage: bob [options] [commands]
 `x86_64-linux`
 : Linux 64 bit
 
-`arm64-darwin`
-: iOS 64 bit
+`x86_64-ios`
+: iOS macOS 64 bit (iOS 模拟器)
 
 `armv7-darwin`
-: iOS 32 bit
-
-`x86_64-ios`
-: iOS macOS 64 bit (iOS Simulator)
+: iOS 支持 32-bit `armv7-darwin` 和 64-bit `arm64-darwin` 架构. 默认情况下, `--architectures` 参数值为 `armv7-darwin,arm64-darwin`.
 
 `armv7-android`
-: Android 32 bit
+: Android 支持 32 bit `armv7-android` 和 64 bit `arm64-android` 架构. 默认情况下, `--architectures` 参数值为 `armv7-android,arm64-android`.
 
-`js-web`
-: HTML5
+`js-web` : HTML5 支持 `js-web` 和 `wasm-web` 架构. 默认情况下, `--architectures` 参数值为 `js-web,wasm-web`.
 
 默认情况下, Bob 在当前目录下寻找项目来编译. 切换到 Defold 项目目录下使用 bob, 它会把数据编译到默认输出 *build/default* 目录下.
 
