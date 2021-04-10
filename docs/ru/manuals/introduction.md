@@ -3,34 +3,34 @@ title: Introduction to Defold
 brief: A brief introduction to Defold.
 ---
 
-# Welcome to Defold
+# Добро пожаловать в Defold
 
-Defold is a turn-key solution, providing everything you need to design, build and ship games. The full list of supported features can be seen in our [Product Overview](/product).
+Defold - это решение "под ключ", предоставляющее весь необходимый инструментарий для проектирования, разработки и выпуска игр. С полным список поддерживаемых возможностей можно ознакомиться в нашем [Обзоре продукта](/product).
 
-We have spent a lot of time and effort making sure that certain key elements of the game development process are as smooth and effortless as possible and we believe it makes Defold stand out from the crowd. Learn [why we think you should use Defold here](/why).
+Мы потратили много времени и усилий, чтобы некоторые ключевые элементы процесса разработки игр были как можно более плавными и непринужденными, и мы считаем, что за счет этого Defold выделяется из массы решений. Узнайте [почему мы думаем, что вы должны использовать именно Defold](/why).
 
-## Where to start?
+## С чего начать?
 
-We encourage you to experiment, follow tutorials, read our manuals and API documentation, and to be active on the forum to learn from other users and follow the development of Defold. There is quite a lot of documentation available, in the form of manuals, API reference documentation, examples and tutorials. If you don't know where to start, here are some pointers:
+Мы призываем вас экспериментировать, следовать урокам, читать наши руководства и документацию по API, а также принимать активное участие на форуме, чтобы учиться у других пользователей и следить за развитием Defold. Существует достаточно много документации в виде руководств, справочника по API, примеров и уроков. Если вы не знаете с чего начать, предлагаем некоторые указания:
 
-#### The editor
-![Editor overview](images/introduction/editor.png){.left} [The editor overview](/manuals/editor/) is a gives a good introduction to the editor and will help you get around, use the visual tools and write code. If you are familiar with 3D modelling programs and programming IDEs, there should be few surprises, but there are always things that will be different from your favorite piece of software.
+#### Редактор
+![Editor overview](images/introduction/editor.png){.left} [Обзор редактора](/manuals/editor/) является отличным введением, помогающим начать ориентироваться в редакторе Defold, использовать визуальные инструменты и писать код. Если вы знакомы с программами 3D моделирования и программированием в IDE, сюрпризов должно быть немного, тем не менее всегда есть вещи, которые будут отличаться от привычного вам программного обеспечения.
 
-#### Simple examples
-![Examples](images/introduction/examples.jpg){.left} [Our collection of simple examples](/examples/) is a good introduction to how to put pieces together into something that works. You will find minimal examples of how to do a wide variety of common things in Defold.
+#### Простые примеры
+![Examples](images/introduction/examples.jpg){.left} [Наша коллекция простых примеров](/examples/) является хорошим введением в процесс соединения частей вместе в нечто работающее. В Defold вы найдете минимальные примеры того, как справляться с различными повседневными задачами.
 
-#### The Lua language
-![Lua overview](images/introduction/lua.png){.left} [Defold uses Lua](/manuals/lua/) for all its logic control. The engine is a fast C++ piece of machinery, but it is controlled on a high level by Lua programs. If you have programmed in Python, Javascript or any other high level language, you will find Lua pretty easy to grasp and can probably follow along a tutorial just fine. Otherwise, read through our Lua manual and take it from there.
+#### Язык Lua
+![Lua overview](images/introduction/lua.png){.left} [Defold использует Lua](/manuals/lua/) для всего своего контроля над логикой. Движок является быстрой машиной на C++, но управляется программами высокого уровня, написанными на Lua. Если вы программировали на Python, Javascript или любом другом языке высокого уровня, то Lua окажется не сложным для понимания и вы, вероятно, сможете просто следовать инструкциям. В противном случае, прочтите наше руководство по Lua для ознакомления с эти языком.
 
-#### Game tutorials
-![Tutorials](images/introduction/tutorials.jpg){.left} We believe that you learn best by doing. That is why we have a selection of tutorials at various skill and complexity level available directly from [the editor](/manuals/editor/). Fire it up and follow one or two of the tutorials to learn how to build things and how Defold works.
+#### Уроки по созданию игр
+![Tutorials](images/introduction/tutorials.jpg){.left} Мы верим, что вы учитесь лучше всего, выполняя какие-либо задачи. Поэтому у нас есть подборка уроков различного уровня квалификации и сложности, доступных непосредственно из [редактора](/manuals/editor/). Запустите его и следуйте за одним-двумя учебниками, чтобы узнать, как что-либо создавать и как работает Defold.
 
-#### The building blocks of Defold
-![Building blocks](images/introduction/building_blocks.png){.left} [Defold games are built by composing simple blocks](/manuals/building-blocks/), some of which seem familiar if you have used other engines. There are some architectural design decisions that make the blocks of Defold special and it takes a little while to be comfortable working with them. Our building blocks manual is a good start if you feel you need to understand thoroughly how it's working.
+#### Блоки построения Defold
+![Building blocks](images/introduction/building_blocks.png){.left} [В Defold игры строятся посредством составления композиции из простых блоков](/manuals/building-blocks/), некоторые из которых окажутся знакомыми, если вы использовали другие движки. Существуют некоторые архитектурные дизайнерские решения, которые делают блоки Defold особенными, и для комфортной работы с ними потребуется потратить некоторое время. Наше руководство по блокам является хорошим началом, если вы чувствуете, что вам нужно тщательно разобраться в том, как это работает.
 
-#### The forum
-![Forum](images/introduction/forum.jpg){.left} [Learning from others](//forum.defold.com/) is often the best way to learn. Our community is very friendly and knows a lot about building games in general and Defold in particular. If you ever get stuck, don't hesitate but head over to the forum for help!
+#### Форум
+![Forum](images/introduction/forum.jpg){.left} [Учиться у других](//forum.defold.com/) - часто является лучшим способом обучения. Наше сообщество весьма дружелюбно и знает много о создании игр вообще и в Defold в частности. Если у вас когда-нибудь возникнут проблемы, не стесняйтесь и отправляйтесь на форум за помощью!
 
-Remember that no matter what path you take to learning Defold, you can always come back here for in-depth explanations of the various features and concepts Defold provides. And don't hesitate to point out things that you do not understand or think are wrong. These pages are for you and we want to make them as good as possible.
+Помните, что независимо от того, по какому пути вы будете изучать Defold, вы всегда можете вернуться сюда за подробным объяснением различных функций и концепций, которые предоставляет Defold. И не стесняйтесь указывать на вещи, которые вы не понимаете или считаете неправильными. Эти страницы предназначены для вас, и мы хотим сделать их как можно лучше.
 
-We hope that you will enjoy creating your next awesome game in Defold!
+Мы надеемся, что вы останетесь довольны процессом создания своей следующей потрясающей игры в Defold!
