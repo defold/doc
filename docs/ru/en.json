@@ -1,0 +1,1071 @@
+{
+    "navigation": {
+        "videos": [
+            {
+                "path": "https://www.youtube.com/embed/4XGbQ92FzRI",
+                "name": "Series Introduction",
+                "author": "Game from Scratch",
+                "description": "This game programming series by Game from Scratch covers covers all aspects of 2D game development in Defold."
+            },
+            {
+                "path": "https://www.youtube.com/embed/PrkmFn86E5Y",
+                "name": "Getting Started",
+                "author": "Game from Scratch",
+                "description": "In this part of our ongoing Defold Tutorial Series, we look at the initial getting started process. We download and run the tools, create then run our first project"
+            },
+            {
+                "path": "https://www.youtube.com/embed/eAnXnsoab-Q",
+                "name": "Application Basics",
+                "author": "Game from Scratch",
+                "description": "Welcome to the second tutorial in the Defold Game Engine series by Game from Scratch. Today we look at how a Defold application works. How collections, game objects and components are used together to create games. We then look at attaching a script and how the game lifecycle is resolved."
+            },
+            {
+                "path": "https://www.youtube.com/embed/REA3dsuZpkw",
+                "name": "Sprites and Animations",
+                "author": "Game from Scratch",
+                "description": "In this part of the tutorial we look at creating flipbook style sprite animations. We look at the two ways it is supported, Atlas based and tilesheet based sprites."
+            },
+            {
+                "path": "https://www.youtube.com/embed/ha1Wq2FB7L0",
+                "name": "Input, Scripting and Messages",
+                "author": "Game from Scratch",
+                "description": "In the next part of our ongoing Defold Game Engine tutorial, we look at how you script. In addition we look at handling input and how message passing works, a critical concept."
+            },
+            {
+                "path": "https://www.youtube.com/embed/CDggJOQmlPI",
+                "name": "Sound and Music",
+                "author": "Game from Scratch",
+                "description": "In this part of the Defold Game Engine tutorial series we are going to look at audio programming. Specifically how to play ogg and wav files using components and code."
+            },
+            {
+                "path": "https://www.youtube.com/embed/eH_2X0tVesw",
+                "name": "Tilemaps",
+                "author": "Game from Scratch",
+                "description": "In this tutorial we look at quickly and easily creating 2D levels using the Defold editor and tile maps."
+            },
+            {
+                "path": "https://www.youtube.com/embed/o6LNvXSnvGM",
+                "name": "Physics",
+                "author": "Game from Scratch",
+                "description": "In this tutorial on using the Defold Game Engine, we explore how to use the integrated Box2D physics."
+            },
+            {
+                "path": "https://www.youtube.com/embed/99gKlgl1nR0",
+                "name": "UI Programming",
+                "author": "Game from Scratch",
+                "description": "In this tutorial we look at GUI/UI programming in the Defold game engine."
+            },
+
+            {
+                "path": "https://www.youtube.com/watch?v=iMacxZQMPXs",
+                "name": "Lua Tutorial",
+                "author": "Derek Bananas",
+                "description": "Learn Lua in one hour."
+            },
+
+            {
+                "path": "https://www.youtube.com/embed/Ri2KStY-mfE",
+                "name": "Defold Installation and Overview",
+                "author": "Tactx Studios",
+                "description": "In this session you’ll learn about how to install Defold on your desktop (Mac or Windows) as well as get oriented to the Defold Editor."
+            },
+            {
+                "path": "https://www.youtube.com/embed/GfOrjyeC5b8",
+                "name": "Defold Image Procedures",
+                "author": "Tactx Studios",
+                "description": "This session will provide instructions on how to load images to your Defold game project as well as how to position them within your game.  Some basic animation techniques are also described."
+            },
+            {
+                "path": "https://www.youtube.com/embed/83TcgJyv9vk",
+                "name": "Defold Drag and Drop",
+                "author": "Tactx Studios",
+                "description": "A walkthough is provided on how you can support a user selecting a specific game object and dragging it to a new location within your game."
+            },
+            {
+                "path": "https://www.youtube.com/embed/nLKKbxTDaas",
+                "name": "Defold Movement",
+                "author": "Tactx Studios",
+                "description": "This tutorial describes the procedures needed to move a Game Object using either a pre-defined path, or based on user inputs via mouse or touch."
+            },
+            {
+                "path": "https://www.youtube.com/embed/lxw7vhnaJxc",
+                "name": "Defold Physics",
+                "author": "Tactx Studios",
+                "description": "Leveraging Defold’s Physics Engine – this tutorial reviews the concept of a collision object, used to trigger when one game object touches another, effects of gravity and bounce features."
+            },
+            {
+                "path": "https://www.youtube.com/embed/VU2aJSLmo7Y",
+                "name": "Defold GUI",
+                "author": "Tactx Studios",
+                "description": "A detailed description is provided on how you can incorporate button animations within the GUI as well as text notifications to users."
+            },
+            {
+                "path": "https://www.youtube.com/embed/ri1xa-3nG3U",
+                "name": "Defold Levels and Lua Modules",
+                "author": "Tactx Studios",
+                "description": "The final tutorial in this introductory series provides an explanation on how to accommodate multiple game levels to support different scenes or game chapters – as well as how to exchange information between game components."
+            },
+
+            {
+                "path": "https://www.youtube.com/embed/2sxj1Ggc4jQ",
+                "name": "Introduction to Defold",
+                "author": "Game Developers",
+                "description": "In this first lesson, we are going over the game engine IDE, its main blocks and its capabilities as engine to create multiplatform games."
+            },
+            {
+                "path": "https://www.youtube.com/embed/Q_R8Zt8giGg",
+                "name": "Creating a platformer protoype",
+                "author": "Game Developers",
+                "description": "In this video, we will start to take a look at the building blocks of creating a game for the engine."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=3kjkAThCLc0",
+                "name": "Enemy movement and animations",
+                "author": "Game Developers",
+                "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
+            },
+            
+            {
+                "path": "https://www.youtube.com/embed/7P4Qj-OCLF8",
+                "name": "Build a Tower Defense game - Opening Sequence",
+                "author": "Tactx Studios",
+                "description": "This Tower Defense Tutorial will teach you the basics on how to incorporate the following features into a game: (1) splashscreens, (2) level selection menus, (3) help screens, (4) tank strikes, (5) tower placement, (6) fire exchange, (7) health resources, and (8) victory conditions."
+            },
+            {
+                "path": "https://www.youtube.com/embed/no0PEgUJPSE",
+                "name": "Build a Tower Defense game - Tanks and Objectives",
+                "author": "Tactx Studios",
+                "description": "This second video in our Tower Defense Series will focus on the design of Tank Collections and a Game Object representing the Enemy Tank's Final Objective."
+            },
+            {
+                "path": "https://www.youtube.com/embed/GVsdtgoFiCw",
+                "name": "Build a Tower Defense game - Tower Deployment",
+                "author": "Tactx Studios",
+                "description": "Hang on for this third video in our Tower Defense Series – it focuses on game design techniques that facilitate the spawning of both Defensive Positions and Tower Collections, as well as supporting the ability to drag and drop Tower Objects across the game screen."
+            },
+            {
+                "path": "https://www.youtube.com/embed/-mB5QiRab7w",
+                "name": "Build a Tower Defense game - Fire Exchange",
+                "author": "Tactx Studios",
+                "description": "You just can’t have a Tower Defense game with modeling the exchange of gun fires between your deployed Towers…and the series of Tank Strikes that move toward their objective."
+            },
+            {
+                "path": "https://www.youtube.com/embed/IyX0tGC1GuE",
+                "name": "Build a Tower Defense game - Scoring and Tower Upgrade Process",
+                "author": "Tactx Studios",
+                "description": "This fifth video in our Tower Defense Series will focus on design mechanics that support the inclusion of both a Resource as well as Health set of Scoring criteria. Additionally, it will address the addition of a popup that will let you either repair a tower, upgrade a tower or sell it outright."
+            },
+            {
+                "path": "https://www.youtube.com/embed/DEKHx3somkA",
+                "name": "Build a Tower Defense game - Game Pause and Tutorial Wrap-up",
+                "author": "Tactx Studios",
+                "description": "This last video in our Tower Defense Series is going to focus on a couple pretty important concepts: (1) pausing a game using the Defold Collection Proxy Component, and (2) adjusting several game parameters within the game to achieve game balance."
+            },
+
+            {
+                "path": "https://www.youtube.com/embed/nv1xZe0BAic",
+                "name": "Procedural 2D Terrain with Climate",
+                "author": "Sergey Lerg",
+                "description": "Procedural 2D terrain generation with procedural climate change animation using Defold engine and Lua programming language."
+            },
+            {
+                "path": "https://www.youtube.com/embed/NedBomX5TFw",
+                "name": "AdMob extension for Defold",
+                "author": "Sergey Lerg",
+                "description": "How to use AdMob in Defold."
+            },
+            {
+                "path": "https://www.youtube.com/embed/sK4pJ8A3YS4",
+                "name": "Taxi Town and Lunar Orbit - Technical breakdown",
+                "author": "Sergey Lerg",
+                "description": "A Technical breakdown of how Taxi Town and Lunar Orbit were created using Defold."
+            },
+            {
+                "path": "https://www.youtube.com/embed/PRQca8TqPJI",
+                "name": "Grids and Arrays",
+                "author": "Sergey Lerg",
+                "description": "Tutorial on making grids and working with arrays in Defold."
+            },
+
+            {
+                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "name": "Cellular Automata and Procedural Map Generation",
+                "author": "Klayton Kowalski",
+                "description": "In this video, Klayton explain what a cellular automaton is, how it works, and how to implement it."
+            },
+            {
+                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "name": "Diamond Square and Procedural Map Generation",
+                "author": "Klayton Kowalski",
+                "description": "In this video, Klayton explain what a cellular automaton is, how it works, and how to implement it."
+            },
+            {
+                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "name": "Cellular Automata and Procedural Map Generation",
+                "author": "Klayton Kowalski",
+                "description": "In this video, Klayton explain what the diamond square algorithm is, how it works, and how to implement it."
+            },
+            {
+                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "name": "Lazy Flood Fill and Procedural Map Generation",
+                "author": "Klayton Kowalski",
+                "description": "In this video, Klayton explain what the lazy flood fill algorithm algorithm is, how it works, and how to implement it."
+            },
+
+            {
+                "path": "https://www.youtube.com/embed/aXIaijThcHM",
+                "name": "Defold Team Explains #1 - Collection Proxies and memory management",
+                "author": "Defold",
+                "description": "In this video we explain how to better design scene and level loading in your game? How does Defold manage memory under the hood?"
+            },
+            {
+                "path": "https://www.youtube.com/embed/Q4slGOd7Og4",
+                "name": "Defold Team Explains #2 - App Manifest in Defold and the manifestation tool",
+                "author": "Defold",
+                "description": "In this video we explain how to use an app manifest to reduce the size of your game."
+            },
+            {
+                "path": "https://www.youtube.com/embed/1kiLHUkL8HI",
+                "name": "Defold Team Explains #3 - The basics of addressing and message passing",
+                "author": "Defold",
+                "description": "In this video we explain the concept of message passing and the basics of game object addressing."
+            },
+            {
+                "path": "https://www.youtube.com/embed/bG1IJDBHwHg",
+                "name": "Defold Team Explains #4 - How to add post effects to a Defold game",
+                "author": "Defold",
+                "description": "How to modify the rendering pipeline of Defold. Overview of the render script, Shaders, materials and how to modify them. Implementing a full screen post effect."
+            },
+            {
+                "path": "https://www.youtube.com/embed/aFLhNqst7j8",
+                "name": "Defold Team Explains #5 - Talking to objects created by Collection Factories",
+                "author": "Defold",
+                "description": "In this video we explain addressing in the context of factory created game objects and in nested collections. We also discuss the performance of message passing."
+            },
+            {
+                "path": "https://www.youtube.com/embed/va3UWbDkTK4",
+                "name": "Defold Team Explains #6 - Why Live Update is essential for your game",
+                "author": "Defold",
+                "description": "In this video we explain what Live Update is and how to use it."
+            },
+            {
+                "path": "https://www.youtube.com/embed/a5788qHAiO0",
+                "name": "Defold Team Explains #7 - Constructing and deconstructing URLs, caching senders",
+                "author": "Defold",
+                "description": "How are message URLs constructed and what are the parts that make up a full URL to an object in Defold?"
+            },
+            {
+                "path": "https://www.youtube.com/embed/_0YM2QTYN5Y",
+                "name": "Defold Team Explains #8 - How to push new content to live games",
+                "author": "Defold",
+                "description": "In this video we explain how to use Live Update to push new content to live games."
+            }
+        ],
+        "tutorials": [
+            {
+                "path": "/tutorials/side-scroller",
+                "name": "Side scroller",
+                "description": "This tutorial is intended to give a taste of what making games in Defold is about. It goes through creating a new project, based on a simple side-scroller. You will then learn how to tweak the game to make it more fun. Finally you will add a new game object. The tutorial should only take about 10 minutes.",
+                "image": "/tutorials/images/videos/side-scroller.png"
+            },
+            {
+                "path": "/tutorials/astronaut",
+                "name": "Walking astronaut",
+                "description": "In this beginner's tutorial you learn how to capture player input and make a character move and animate. You will also learn about game objects, components and collections.",
+                "image": "/tutorials/images/videos/astronaut.png"
+            },
+            {
+                "path": "/tutorials/movement",
+                "name": "Movement",
+                "description": "In this beginner's tutorial you learn how to make realistic movement using vectors and some simple vector algebra.",
+                "image": "/tutorials/images/videos/movement.png"
+            },
+            {
+                "path": "/tutorials/colorslide",
+                "name": "Colorslide",
+                "description": "In this medium difficulty tutorial you build an in-game GUI, a GUI screen for level selection and a start screen for a simple multi level mobile game.",
+                "image": "/tutorials/images/videos/colorslide.png"
+            },
+            {
+                "path": "/tutorials/war-battles",
+                "name": "War battles",
+                "description": "In this tutorial you will create the embryo of a small shooter game. This is a good starting point if you are new to Defold.",
+                "image": "/tutorials/images/videos/war-battles.png"
+            },
+            {
+                "path": "/tutorials/snake",
+                "name": "Snake",
+                "description": "If you are new to Defold, this guide will help you to get started with script logic together with a few of the building blocks in Defold.",
+                "image": "/tutorials/images/snake/run_1.png"
+            },
+            {
+                "path": "/tutorials/15-puzzle",
+                "name": "15 puzzle",
+                "description": "If you are new to Defold, this guide will help you to lab with a few of the building blocks in Defold and run script logic.",
+                "image": "/tutorials/images/15-puzzle/slide.png"
+            },
+            {
+                "path": "/tutorials/shadertoy",
+                "name": "Shadertoy",
+                "description": "In this tutorial you will convert a shader from shadertoy.com to Defold.",
+                "image": "/tutorials/images/videos/shadertoy.png"
+            },
+            {
+                "path": "https://defold.com/2021/03/02/Creating-online-games-using-Nakama-and-Defold/",
+                "name": "Creating online games using Nakama and Defold",
+                "description": "In this tutorial we will look at how to create online multiplayer games in Defold using the open-source Nakama game server from Heroic Labs."
+            },
+            {
+                "path": "https://defold.com/2021/03/14/Releasing-html5-games-on-Game-Distribution/",
+                "name": "Releasing HTML5 games on Game Distribution",
+                "description": "In this blog post we'll look at how to add the Game Distribution SDK to an existing game or how to create one from scratch. We will also look at how to submit your game for distribution through the Game Distribution network."
+            },
+            {
+                "path": "https://defold.com/2020/10/19/Shaders-for-beginners/",
+                "name": "Shaders for Beginners",
+                "description": "In this guest tutorial Paweł Jarosz, developer of Witchcrafter: Empire Legends, share his experience learning shader programming in general and for Defold in particular."
+            },
+            {
+                "path": "/tutorials/grading",
+                "name": "Color grading",
+                "description": "In this tutorial you will create a full screen post effect in Defold.",
+                "image": "/tutorials/images/grading/world_graded.png"
+            },
+            {
+                "path": "https://www.tactxstudios.com/",
+                "name": "Tactx Studios tutorials",
+                "description": "These tutorials illustrate several common features of the Defold Game Engine, to include: (a) Image Procedures, (b) Dragging and Dropping Game Objects, (c) various Game Object Movement Techniques, (d) Preliminary use of 2d Physics based Collisions, (e) Graphic User Interface (GUI), and (f) an introduction to Defold Levels, Messaging and Menu Development."
+            },
+            {
+                "path": "https://github.com/defold/sample-roids",
+                "name": "Asteroids",
+                "description": "This is a very simple 'Asteroids' clone where you turn the ship left and right with the arrow keys and fire at incoming meteors with space."
+            },
+            {
+                "path": "https://github.com/defold/sample-linker",
+                "name": "Linker",
+                "description": "This sample project shows how to create a linker game. Click and drag and link three or more fish of the same color together to remove them from the board. Long chains of fish yields boosters."
+            },
+            {
+                "path": "https://github.com/defold/sample-shadertoy",
+                "name": "Shadertoy",
+                "description": "This sample project shows how to port a Shadertoy shader to to Defold."
+            },
+            {
+                "path": "https://github.com/defold/sample-rpgmap",
+                "name": "RPG Map",
+                "description": "This sample shows one method of creating very large screen based RPG maps in Defold."
+            },
+            {
+                "path": "/tutorials/platformer",
+                "name": "Platformer (OLD)",
+                "description": "In this article, you go through the implementation of a basic tile-based 2D platformer in Defold. The mechanics you learn are moving left/right, jumping and falling.",
+                "image": "/tutorials/images/platformer/collision.png"
+            },
+            {
+                "path": "/tutorials/runner",
+                "name": "Runner (OLD)",
+                "description": "In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.",
+                "image": "/tutorials/images/runner/2/run_game.png"
+            },
+            {
+                "path": "/tutorials/magic-link",
+                "name": "Magic link (OLD)",
+                "description": "In this tutorial you will build a complete little puzzle game with a start screen, the mechanics of the game and simple level progression in the form of increasing difficulty.",
+                "image": "/tutorials/images/magic-link/linker_connector_screen.png"
+            },
+            {
+                "path": "/tutorials/car",
+                "name": "Building a car (OLD)",
+                "description": "If you are new to Defold, this guide will help you getting your bearings right in the editor. It also explains the basic ideas and the most common building blocks in Defold - game objects, collections, scripts and sprites.",
+                "image": "/tutorials/images/car/start_car_collection_complete.png"
+            },
+            {
+                "path": "/tutorials/main-menu",
+                "name": "Main menu (OLD)",
+                "description": "In this sample, you learn effects to present a main menu."
+            },
+            {
+                "path": "/tutorials/parallax",
+                "name": "Parallax (OLD)",
+                "description": "In this sample, you learn how to use a parallax effect to simulate depth in the game world."
+            },
+            {
+                "path": "/tutorials/hud",
+                "name": "Hud (OLD)",
+                "description": "In this sample, you learn effects for score counting."
+            },
+            {
+                "path": "/tutorials/level-complete",
+                "name": "Level complete (OLD)",
+                "description": "In this sample, you learn effects to show the score counting that could occur when a level has been completed."
+            }
+        ],
+        "resources": [
+            {
+                "path": "https://github.com/benjames-171/defold-games",
+                "name": "Ben James' games"
+            },
+            {
+                "path": "https://forum.defold.com/t/big-list-of-lua-resources/1586",
+                "name": "Lua resources"
+            },
+            {
+                "path": "https://github.com/defold/defold-examples",
+                "name": "Defold examples repo"
+            },
+            {
+                "path": "http://britzl.github.io/publicexamples/",
+                "name": "Britzl's grab bag"
+            },
+            {
+                "path": "https://jcash.github.io/",
+                "name": "JCash demos"
+            }
+        ],
+        "manuals":
+        [
+            {
+                "name": "GETTING STARTED",
+                "items": [
+                    {
+                        "path": "/manuals/introduction",
+                        "name": "Introduction"
+                    },
+                    {
+                        "path": "/manuals/install",
+                        "name": "Installing Defold"
+                    },
+                    {
+                        "path": "/manuals/editor",
+                        "name": "The editor"
+                    },
+                    {
+                        "path": "/manuals/glossary",
+                        "name": "Glossary"
+                    },
+                    {
+                        "path": "/manuals/flash",
+                        "name": "Defold for Flash users"
+                    },
+                    {
+                        "path": "/manuals/getting-help",
+                        "name": "Getting help"
+                    }
+                ]
+            },
+            {
+                "name": "PROJECT SETUP",
+                "items": [
+                    {
+                        "path": "/manuals/project-setup",
+                        "name": "Creating a project"
+                    },
+                    {
+                        "path": "/manuals/project-settings",
+                        "name": "Project settings"
+                    },
+                    {
+                        "path": "/manuals/libraries",
+                        "name": "Libraries"
+                    }
+                ]
+            },
+            {
+                "name": "CORE CONCEPTS",
+                "items": [
+                    {
+                        "path": "/manuals/building-blocks",
+                        "name": "Building blocks"
+                    },
+                    {
+                        "path": "/manuals/addressing",
+                        "name": "Addressing"
+                    },
+                    {
+                        "path": "/manuals/message-passing",
+                        "name": "Message passing"
+                    },
+                    {
+                        "path": "/manuals/application-lifecycle",
+                        "name": "Application lifecycle"
+                    }
+                ]
+            },
+            {
+                "name": "ASSETS AND RESOURCES",
+                "items": [
+                    {
+                        "path": "/manuals/importing-assets",
+                        "name": "Importing assets"
+                    },
+                    {
+                        "path": "/manuals/importing-graphics",
+                        "name": "Importing 2D graphics"
+                    },
+                    {
+                        "path": "/manuals/importing-models",
+                        "name": "Importing 3D models"
+                    },
+                    {
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
+                    },
+                    {
+                        "path": "/manuals/live-update",
+                        "name": "Live update"
+                    },
+                    {
+                        "path": "/manuals/atlas",
+                        "name": "Atlas"
+                    },
+                    {
+                        "path": "/manuals/font",
+                        "name": "Font"
+                    },
+                    {
+                        "path": "/manuals/resource",
+                        "name": "Resource management"
+                    },
+                    {
+                        "path": "/manuals/tilesource",
+                        "name": "Tile source"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
+                    },
+                    {
+                        "path": "/manuals/texture-profiles",
+                        "name": "Texture profiles"
+                    }
+                ]
+            },
+            {
+                "name": "ANIMATIONS",
+                "items": [
+                    {
+                        "path": "/manuals/animation",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/flipbook-animation",
+                        "name": "Flipbook Animation"
+                    },
+                    {
+                        "path": "/manuals/model-animation",
+                        "name": "Model animation"
+                    },
+                    {
+                        "path": "/manuals/property-animation",
+                        "name": "Property animation (tweens)"
+                    },
+                    {
+                        "path": "/manuals/spine",
+                        "name": "Spine animation"
+                    }
+                ]
+            },
+            {
+                "name": "COMPONENTS",
+                "items": [
+                    {
+                        "path": "/manuals/components",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/collection-factory",
+                        "name": "Collection factory"
+                    },
+                    {
+                        "path": "/manuals/collection-proxy",
+                        "name": "Collection proxy"
+                    },
+                    {
+                        "path": "/manuals/physics-objects",
+                        "name": "Collision object"
+                    },
+                    {
+                        "path": "/manuals/camera",
+                        "name": "Camera"
+                    },
+                    {
+                        "path": "/manuals/factory",
+                        "name": "Factory"
+                    },
+                    {
+                        "path": "/manuals/label",
+                        "name": "Label"
+                    },
+                    {
+                        "path": "/manuals/mesh",
+                        "name": "Mesh"
+                    },
+                    {
+                        "path": "/manuals/model",
+                        "name": "Model"
+                    },
+                    {
+                        "path": "/manuals/particlefx",
+                        "name": "Particle FX"
+                    },
+                    {
+                        "path": "/manuals/sound",
+                        "name": "Sound"
+                    },
+                    {
+                        "path": "/manuals/spinemodel",
+                        "name": "Spine"
+                    },
+                    {
+                        "path": "/manuals/sprite",
+                        "name": "Sprite"
+                    },
+                    {
+                        "path": "/manuals/tilemap",
+                        "name": "Tilemap"
+                    }
+                ]
+            },
+            {
+                "name": "GUI",
+                "items": [
+                    {
+                        "path": "/manuals/gui",
+                        "name": "GUI overview"
+                    },
+                    {
+                        "path": "/manuals/gui-box",
+                        "name": "Box nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-text",
+                        "name": "Text nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-pie",
+                        "name": "Pie nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-spine",
+                        "name": "Spine nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-particlefx",
+                        "name": "ParticleFX nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-template",
+                        "name": "Template nodes"
+                    },
+                    {
+                        "path": "/manuals/gui-script",
+                        "name": "Scripts"
+                    },
+                    {
+                        "path": "/manuals/gui-clipping",
+                        "name": "Clipping"
+                    },
+                    {
+                        "path": "/manuals/gui-layouts",
+                        "name": "Layouts"
+                    }
+                ]
+            },
+            {
+                "name": "PHYSICS",
+                "items": [
+                    {
+                        "path": "/manuals/physics",
+                        "name": "Physics overview"
+                    },
+                    {
+                        "path": "/manuals/physics-objects",
+                        "name": "Collision objects"
+                    },
+                    {
+                        "path": "/manuals/physics-shapes",
+                        "name": "Collision shapes"
+                    },
+                    {
+                        "path": "/manuals/physics-groups",
+                        "name": "Collision groups"
+                    },
+                    {
+                        "path": "/manuals/physics-messages",
+                        "name": "Collision messages"
+                    },
+                    {
+                        "path": "/manuals/physics-resolving-collisions",
+                        "name": "Resolving collisions"
+                    },
+                    {
+                        "path": "/manuals/physics-ray-casts",
+                        "name": "Ray casts"
+                    },
+                    {
+                        "path": "/manuals/physics-joints",
+                        "name": "Joints and constraints"
+                    }
+                ]
+            },
+            {
+                "name": "SOUND",
+                "items": [
+                    {
+                        "path": "/manuals/sound",
+                        "name": "Sound"
+                    },
+                    {
+                        "path": "https://defold.com/assets/fmod/",
+                        "name": "FMOD"
+                    }
+                ]
+            },
+            {
+                "name": "INPUT",
+                "items": [
+                    {
+                        "path": "/manuals/input",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/input-key-and-text",
+                        "name": "Key and text input"
+                    },
+                    {
+                        "path": "/manuals/input-mouse-and-touch",
+                        "name": "Mouse and touch"
+                    },
+                    {
+                        "path": "/manuals/input-gamepads",
+                        "name": "Gamepads"
+                    }
+                ]
+            },
+            {
+                "name": "GAME LOGIC",
+                "items": [
+                    {
+                        "path": "/manuals/script",
+                        "name": "Scripts"
+                    },
+                    {
+                        "path": "/manuals/properties",
+                        "name": "Properties"
+                    },
+                    {
+                        "path": "/manuals/script-properties",
+                        "name": "Script properties"
+                    },
+                    {
+                        "path": "/manuals/lua",
+                        "name": "Lua in Defold"
+                    },
+                    {
+                        "path": "/manuals/modules",
+                        "name": "Modules"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging"
+                    },
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
+                    }
+                ]
+            },
+            {
+                "name": "SAVING AND LOADING FILES",
+                "items": [
+                    {
+                        "path": "/manuals/file-access",
+                        "name": "Working with files"
+                    }
+                ]
+            },
+            {
+                "name": "NETWORKING",
+                "items": [
+                    {
+                        "path": "/manuals/networking",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/http-requests",
+                        "name": "HTTP Requests"
+                    },
+                    {
+                        "path": "/manuals/socket-connections",
+                        "name": "Socket connections"
+                    },
+                    {
+                        "path": "/extension-websocket",
+                        "name": "WebSocket connections"
+                    },
+                    {
+                        "path": "/manuals/online-services",
+                        "name": "Online services"
+                    }
+                ]
+            },
+            {
+                "name": "RENDERING",
+                "items": [
+                    {
+                        "path": "/manuals/render",
+                        "name": "Render"
+                    },
+                    {
+                        "path": "/manuals/material",
+                        "name": "Material"
+                    },
+                    {
+                        "path": "/manuals/shader",
+                        "name": "Shader"
+                    },
+                    {
+                        "path": "/manuals/texture-filtering",
+                        "name": "Texture filtering"
+                    }
+                ]
+            },
+            {
+                "name": "WORKFLOW",
+                "items": [
+                    {
+                        "path": "/manuals/adapting-graphics-to-screen-size",
+                        "name": "Adapting to different screen sizes"
+                    },
+                    {
+                        "path": "/manuals/bundling",
+                        "name": "Bundling an application"
+                    },
+                    {
+                        "path": "/manuals/bob",
+                        "name": "Bob the builder"
+                    },
+                    {
+                        "path": "/manuals/hot-reload",
+                        "name": "Hot reloading"
+                    },
+                    {
+                        "path": "/manuals/optimization",
+                        "name": "Optimizing an application"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
+                    },
+                    {
+                        "path": "/manuals/refactoring",
+                        "name": "Refactoring"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
+                    },
+                    {
+                        "path": "/manuals/version-control",
+                        "name": "Version control"
+                    },
+                    {
+                        "path": "/manuals/writing-code",
+                        "name": "Writing code"
+                    },
+                    {
+                        "path": "/manuals/working-offline",
+                        "name": "Working offline"
+                    }
+                ]
+            },
+            {
+                "name": "DEBUGGING",
+                "items": [
+                    {
+                        "path": "/manuals/debugging-game-logic",
+                        "name": "Debugging game logic"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging native code"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-android",
+                        "name": "Debugging native code on Android"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code-ios",
+                        "name": "Debugging native code on iOS"
+                    },
+                    {
+                        "path": "/manuals/debugging-game-and-system-logs",
+                        "name": "Reading game and system logs"
+                    },
+                    {
+                        "path": "/manuals/profiling",
+                        "name": "Profiling"
+                    }
+                ]
+            },
+            {
+                "name": "PLATFORMS",
+                "items": [
+                    {
+                        "path": "/manuals/android",
+                        "name": "Android"
+                    },
+                    {
+                        "path": "/manuals/ios",
+                        "name": "iOS"
+                    },
+                    {
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
+                    },
+                    {
+                        "path": "/manuals/html5",
+                        "name": "HTML5"
+                    },
+                    {
+                        "path": "/manuals/macos",
+                        "name": "macOS"
+                    },
+                    {
+                        "path": "/manuals/windows",
+                        "name": "Windows"
+                    }
+                ]
+            },
+            {
+                "name": "MONETIZATION",
+                "items": [
+                    {
+                        "path": "/manuals/ads",
+                        "name": "Ads"
+                    },
+                    {
+                        "path": "/extension-iap",
+                        "name": "In-app purchases"
+                    },
+                    {
+                        "path": "/extension-webmonetization",
+                        "name": "Web Monetization"
+                    }
+                ]
+            },
+            {
+                "name": "EXTENSIONS",
+                "items": [
+                    {
+                        "path": "/extension-adinfo",
+                        "name": "Advertising Info"
+                    },
+                    {
+                        "path": "/extension-camera",
+                        "name": "Camera"
+                    },
+                    {
+                        "path": "/extension-facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/extension-fbinstant",
+                        "name": "Facebook Instant Games"
+                    },
+                    {
+                        "path": "/extension-firebase-analytics",
+                        "name": "Firebase Analytics"
+                    },
+                    {
+                        "path": "/extension-gpgs",
+                        "name": "Google Play Game Services"
+                    },
+                    {
+                        "path": "/extension-googleplayinstant",
+                        "name": "Google Play Instant"
+                    },
+                    {
+                        "path": "/extension-iap",
+                        "name": "In-app purchases"
+                    },
+                    {
+                        "path": "/manuals/iac",
+                        "name": "Inter-app communication"
+                    },
+                    {
+                        "path": "/extension-push",
+                        "name": "Push notifications"
+                    },
+                    {
+                        "path": "/extension-review",
+                        "name": "App review and ratings"
+                    },
+                    {
+                        "path": "/extension-webmonetization",
+                        "name": "WebMonetization"
+                    },
+                    {
+                        "path": "/extension-websocket",
+                        "name": "WebSocket"
+                    },
+                    {
+                        "path": "/extension-webview",
+                        "name": "Webview"
+                    }
+                ]
+            },
+            {
+                "name": "NATIVE EXTENSIONS",
+                "items": [
+                    {
+                        "path": "/manuals/extensions",
+                        "name": "Introduction"
+                    },
+                    {
+                        "path": "/manuals/extensions-details",
+                        "name": "Details"
+                    },
+                    {
+                        "path": "/manuals/extensions-defold-sdk",
+                        "name": "Defold SDK"
+                    },
+                    {
+                        "path": "/manuals/extensions-script-api",
+                        "name": "Adding auto-complete definition"
+                    },
+                    {
+                        "path": "/manuals/extensions-best-practices",
+                        "name": "Best Practices"
+                    },
+                    {
+                        "path": "/manuals/debugging-native-code",
+                        "name": "Debugging"
+                    },
+                    {
+                        "path": "/manuals/extensions-build-variants",
+                        "name": "Build Variants"
+                    },
+                    {
+                        "path": "/manuals/extensions-manifest-merge-tool",
+                        "name": "Manifest Merging"
+                    }
+                ]
+            },
+            {
+                "name": "EDITOR EXTENSIONS",
+                "items": [
+                    {
+                        "path": "/manuals/editor-scripts",
+                        "name": "Editor scripts"
+                    }
+                ]
+            }
+        ]
+    }
+}
