@@ -1,180 +1,180 @@
 ---
-title: Defold glossary
-brief: This manual lists everything that you encounter working in Defold with a brief description.
+title: Глоссарий Defold
+brief: В этом руководстве с кратким описанием перечислено все, с чем вы сталкиваетесь при работе в Defold.
 ---
 
-# Defold glossary
+# Глоссарий Defold
 
-This glossary gives a brief description to all the things you encounter in Defold. In most cases, you will find a link to more in-depth documentation.
+В этом глоссарии дается краткое описание всех элементов и понятий, с которыми вы сталкиваетесь в Defold. В большинстве случаев вы найдете ссылку на более подробную документацию.
 
-## Animation set
+## Animation Set
 
-![Animation set](images/icons/animationset.png){.left} An animation set resource contains a list of .dae files or other .animationset files from where to read animations. Adding one .animationset files to another is handy if you share partial sets of animations between several models. See the [3D graphics manual](/manuals/graphics/) for details.
+![Animation set](images/icons/animationset.png){.left} "Animation Set" - это ресурс, содержащий список ``.dae``-файлов или других ``.animationset``-файлов, из которых можно считывать анимацию. Вложение одного ``.animationset``-файла в другой удобно, в случае, если вы используете частичные наборы анимации совместно между несколькими моделями. За подробностями обращайтесь к [Руководству по 3D-графике](/manuals/graphics/).
 
 ## Atlas
 
-![Atlas](images/icons/atlas.png){.left} An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. They can contain still images or flip-book animated series of images. Atlases are used by GUI, Sprite, Spine model and ParticleFX components to share graphics resources. See the [Atlas documentation](/manuals/atlas) for more information.
+![Atlas](images/icons/atlas.png){.left} "Atlas" - это ресурс, представляющий собой набор отдельных изображений, которые по причинам производительности и эффективности использования памяти формируются на одном большом холсте. Может содержать неподвижные изображения или мультипликации. Ресурсы "Atlas" используются компонентами "GUI", "Sprite", "Spine" и "ParticleFX" с целью совместного использования графических ресурсов. Дополнительные сведения см. на стр. [Ресурс "Atlas"](/manuals/atlas).
 
 ## Builtins
 
-![Builtins](images/icons/builtins.png){.left} The builtins project folder is a read-only folder containing useful default resources. Here you find the default renderer, render script, materials and more. If you need custom modifications on any of these resources, simply copy them into your project and edit as you see fit.
+![Builtins](images/icons/builtins.png){.left} Проектная папка ``builtins`` - это папка с атрибутом "только для чтения", содержащая полезные дефолтные ресурсы. Здесь вы найдете дефолтный рендер, рендер-скрипт, материалы и многое другое. Если вам нужны пользовательские изменения в любом из этих ресурсов, просто скопируйте их в свой проект и отредактируйте на свое умотрение.
 
 ## Camera
 
-![Camera](images/icons/camera.png){.left} The camera component helps to decide what part of the game world should be visible and how it should be projected. A common use case is to attach a camera to the player game object, or to have a separate game object with a camera that follows the player around with some smoothing algorithm. See the [Camera documentation](/manuals/camera) for more information.
+![Camera](images/icons/camera.png){.left} "Camera" - это компонент, помогающий определить, какая часть игрового мира должна быть видимой и как она должна быть спроецирована. Обычно используется для прикрепления камеры к объекту игрового персонажа или для создания отдельного игрового объекта с камерой, которая следует за игроком с каким-либо алгоритмом стабилизации движения. Дополнительную информацию см. на стр. [Компонент "Camera"](/manuals/camera).
 
-## Collision object
+## Collision Object
 
-![Collision object](images/icons/collision-object.png){.left} Collision objects are components that extend game objects with physical properties (like spatial shape, weight, friction and restitution). These properties govern how the collision object should collide with other collision objects. The most common types of collision objects are kinematic objects, dynamic objects and triggers. A kinematic object gives detailed collision information that you have to manually respond to, a dynamic object is automatically simulated by the physics engine to obey Newtonian laws of physics. Triggers are simple shapes that detect if other shapes have entered or exited the trigger. See the [Physics documentation](/manuals/physics) for details on how this works.
+![Collision Object](images/icons/collision-object.png){.left} "Collision Object" - это компонент, расширяющий игровые объекты физическими свойствами (такими как пространственная форма, вес, трение и реституция). Эти свойства определяют, как объект столкновения должен сталкиваться с другими объектами столкновения. Наиболее распространенными типами объектов столкновения являются кинематические объекты, динамические объекты и триггеры. Кинематический объект дает подробную информацию о столкновении, на которую вы должны ответить вручную, динамический объект автоматически моделируется физическим движком, подчиняясь ньютоновским законам физики. Триггеры - это простые формы, которые определяют, вошли ли другие формы в триггер или вышли из него. Подробнее о том, как это работает, смотрите на стр. [Физика](/manuals/physics)
 
-## Component
+## Компоненты
 
-Components are used to give specific expression and/or functionality to game objects, like graphics, animation, coded behavior and sound. They don’t live a life of their own but have to be contained inside game objects. There are many kinds of components available in Defold. See [the Building blocks manual](/manuals/building-blocks) for a description of components.
+Компоненты используются для придания определенной выразительности и/или функциональности (таких как графика, анимация, программируемое поведение и звук) игровым объектам. Они не существуют сами по себе, они должны содержаться внутри игровых объектов. В Defold существует множество доступных компонентов, описание которых см. на стр. [Блоки построения](/manuals/building-blocks).
 
 ## Collection
 
-![Collection](images/icons/collection.png){.left} Collections are Defold’s mechanism for creating templates, or what in other engines are called "prefabs" in where hierarchies of game objects can be reused. Collections are tree structures that hold game objects and other collections. A collection is always stored on file and brought into the game either statically by placing it manually in the editor, or dynamically by spawning. See [the Building blocks manual](/manuals/building-blocks) for a description of collections.
+![Collection](images/icons/collection.png){.left} "Collection" - это механизм Defold для создания шаблонов, того, что в других движках называется "префабами", в которых иерархии игровых объектов могут быть использованы повторно. "Collection" - это древовидные структуры, в которых хранятся игровые объекты и другие коллекции. Всегда хранится в файле и вносится в игру либо статически, вручную средствами редактора, либо динамически, посредством порождения (spawning). Описание коллекций см. на стр. [Блоки построения](/manuals/building-blocks).
 
-## Collection factory
+## Collection Factory
 
-![Collection factory](images/icons/collection-factory.png){.left} A Collection factory component is used to spawn hierarchies of game objects dynamically into a running game. See the [Collection factory manual](/manuals/collection-factory) manual for details.
+![Collection Factory](images/icons/collection-factory.png){.left} "Collection Factory" используется для динамического порождения иерархий игровых объектов в запущенной игре. Подробности см. на стр. [Collection factories](/manuals/collection-factory).
 
-## Collection proxy
+## "Collection Proxy"
 
-![Collection](images/icons/collection.png){.left} A Collection proxy is used to load and enable collections on the fly while an app or game is running. The most common use case for Collection proxies is to load levels as they are to be played. See the [Collection proxy documentation](/manuals/collection-proxy) for details.
+![Collection](images/icons/collection.png){.left} "Collection Proxy" - это компонент, используемый для загрузки и включения коллекций на лету во время работы приложения или игры. Наиболее распространенным вариантом использования "Collection Proxy" является загрузка уровней по мере их вопроизведения. Подробности см. на стр. [Компонент "Collection Proxy"](/manuals/collection-proxy).
 
 ## Cubemap
 
-![Cubemap](images/icons/cubemap.png){.left} A cubemap is a special type of texture that consists of 6 different textures that are mapped on the sides of a cube. This is useful for rendering skyboxes and different kinds of reflection and illumination maps.
+![Cubemap](images/icons/cubemap.png){.left} "Cubemap" - это ресурс, представляющий собой особый тип текстуры, состоящий из 6 отдельных частей, отображаемых по аналогии со сторонами куба. Это удобно при рендеринге скайбоксов и различных видов карт отражения и освещения.
 
-## Debugging
+## Отладка
 
-At some point your game will behave in an unexpected way and you need to figure out what is wrong. Learning how to debug is an art and fortunately Defold ships with a built-in debugger to help you out. See the [Debugging manual](/manuals/debugging) for more information.
+В какой-то момент ваша игра будет вести себя непредсказуемо, и вы должны выяснить, в чем заключается проблема. Научиться отлаживать - это искусство, и, к счастью, Defold поставляется со встроенным отладчиком, который поможет вам в этом. За подробностями обращайтесь к стр. [Отладка](/manuals/debugging).
 
-## Display profiles
+## Display Profiles
 
-![Display profiles](images/icons/display-profiles.png){.left} The display profiles resource file is used for specifying GUI layouts depends on the orientation, aspect ratio or device model. It helps to adapt your UI for any kind of devices. Read more in the [Layouts manual](/manuals/gui-layouts).
+![Display profiles](images/icons/display-profiles.png){.left} "Display Profiles" - это файл ресурса, используемый для определения компоновки графического интерфейса в зависимости от ориентации, соотношения сторон или модели устройства. Он помогает адаптировать пользовательский интерфейс для любого типа устройств. Подробнее см. на стр. [Компоновки](/manuals/gui-layouts).
 
 ## Factory
 
-![Factory](images/icons/factory.png){.left} In some situations you cannot manually place all needed game objects in a collection, you have to create the game objects dynamically, on the fly. For instance, a player might fire bullets and each shot should be dynamically spawned and sent off whenever the player presses the trigger. To create game objects dynamically (from a pre-allocated pool of objects), you use a factory component. See the [Factory manual](/manuals/factory) for details.
+![Factory](images/icons/factory.png){.left} В некоторых ситуациях вы не сможете вручную разместить все необходимые игровые объекты в коллекции, и вам придется создавать игровые объекты динамически, на лету. Например, игрок может стрелять пулями, и каждый выстрел должен быть динамически порожден и отправлен, при нажатии игроком на спусковой механизм. Для динамического создания игровых объектов (из предварительно распределенного пула объектов) используется компонент "Factory". Подробности см. на стр. [Компонент "Factory"](/manuals/factory).
 
 ## Font
 
-![Font file](images/icons/font.png){.left} A Font resource is built from a TrueType or OpenType font file. The Font specifies which size to render the font in and what type of decoration (outline and shadow) the rendered font should have. Fonts are used by GUI and Label components. See the [Font manual](/manuals/font/) for details.
+![Font file](images/icons/font.png){.left} "Font" - это ресурс, который создается из файла шрифтов TrueType или OpenType. "Font" определяет, какой размер и какой тип оформления (контур и тень) должен быть у визуализируемого шрифта. "Font" используется компонентами "GUI" и "Label". Подробности см. на стр. [Файлы шрифтов](/manuals/font/).
 
 ## Fragment shader
 
-![Fragment shader](images/icons/fragment-shader.png){.left} This is a program that is run on the graphics processor for each pixel (fragment) in a polygon when it is drawn to the screen. The purpose of the fragment shader is to decide the color of each resulting fragment. This is done by calculation, texture lookups (one or several) or a combination of lookups and computations. See the [Shader manual](/manuals/shader) for more information.
+![Fragment shader](images/icons/fragment-shader.png){.left} Это программа, которая запускается на графическом процессоре для каждого пикселя (фрагмента) в полигоне, при отрисовке его на экране. Целью фрагментного шейдера является определение цвета каждого полученного фрагмента. Это делается путем вычисления, выборки текстур (по одной или несколько) или комбинации выборки и вычислений. Дополнительную информацию см. на стр. [Шейдеры](/manuals/shader).
 
 ## Gamepads
 
-![Gamepads](images/icons/gamepad.png){.left} A gamepads resource file defines how specific gamepad device input is mapped to gamepad input triggers on a certain platform. See the [Input manual](/manuals/input) for details.
+![Gamepads](images/icons/gamepad.png){.left} "Gamepads" - это файл ресурса, определяющий, как конкретный ввод устройства геймпада соотносится с вводом триггера геймпада на определенной платформе. Подробности см. на стр. [Ввод](/manuals/input).
 
-## Game object
+## Game Object
 
-![Game object](images/icons/game-object.png){.left} Game objects are simple objects that have a separate lifespan during the execution of your game. Game objects are containers and are usually equipped with visual or audible components, like a sound or a sprite. They can also be equipped with behavior through script components. You create game objects and place them in collections in the editor, or spawn them dynamically at run-time with factories. See [the Building blocks manual](/manuals/building-blocks) for a description of game objects.
+![Game object](images/icons/game-object.png){.left} "Game Object" - это это простые объекты, которые имеют отдельную продолжительность жизни во время выполнения игры. "Game Object" - это контейнеры, которые обычно оснащены визуальными или звуковыми компонентами, такими как звук или спрайт. Они также могут быть оснащены поведением через компоненты сценария. Вы создаете игровые объекты и помещаете их в коллекции средствами редактора, либо динамически порождаете их в реальном времени посредством "Factory". Описание игровых объектов см. на стр. [Блоки построения](/manuals/building-blocks).
 
 ## GUI
 
-![GUI component](images/icons/gui.png){.left} A GUI component contains elements used to construct user interfaces: text and colored and/or textured blocks. Elements can be organized into hierarchical structures, scripted and animated. GUI components are typically used to create heads-up displays, menu systems and on-screen notifications. GUI components are controlled with GUI scripts that define the behavior of the GUI and control the user interaction with it. Read more in the [GUI documentation](/manuals/gui).
+![GUI component](images/icons/gui.png){.left} "GUI" - это компонент, содержащий элементы, используемые для построения пользовательских интерфейсов: текстовые и цветовые и/или текстурные блоки. Элементы могут быть организованы в иерархические структуры, заскриптованы и анимированны. Компоненты "GUI" обычно используются для создания HUD, систем меню и экранных уведомлений. Управляются с помощью GUI-скриптов, которые определяют поведение графического интерфейса и контролируют взаимодействие с ним пользователя. Подробнее см. на стр. [GUI](/manuals/gui).
 
-## GUI script
+## GUI Script
 
-![GUI script](images/icons/script.png){.left} GUI scripts are used to control the behaviour of GUI components. They control GUI animations and how the user interacts with the GUI. See the [Lua in Defold manual](/manuals/lua) for details on how Lua scripts are used in Defold.
+![GUI script](images/icons/script.png){.left} Для управления поведением компонентов графического интерфейса используются "GUI Script". Они управляют GUI-анимацией и взаимодействием пользователя с графическим интерфейсом. Подробнее о том, как скрипты Lua используются в Defold, смотрите на стр. [Lua в Defold](/manuals/lua).
 
-## Hot reload
+## Горячая перезагрузка
 
-The Defold editor allows you to update content in an already running game, on desktop and device. This feature is extremely powerful and can improve the development workflow a lot. See the [Hot reload manual](/manuals/hot-reload) for more information.
+Редактор Defold позволяет обновлять контент в уже запущенной игре, на рабочем столе и устройстве. Эта функция является чрезвычайно мощной и может повысить эффективность процесса разработки. Для получения более подробной информации обращайтесь к стр. [Горячая перезагрузка ресурсов](/manuals/hot-reload).
 
-## Input binding
+## Привязка ввода
 
-![Input binding](images/icons/input-binding.png){.left} Input binding files define how the game should interpret hardware input (mouse, keyboard, touchscreen and gamepad). The file binds hardware input to high level input _actions_ like "jump" and "move_forward". In script components that listen to input you are able to script the actions the game or app should take given certain input. See the [Input documentation](/manuals/input) for details.
+![Input binding](images/icons/input-binding.png){.left} Файлы привязки ввода определяют, как игра должна интерпретировать аппаратный ввод (мышь, клавиатура, сенсорный экран и геймпад). Файл связывает аппаратный ввод с вводом высокого уровня _actions_ вида "jump" и "move_forward". В скриптовых компонентах, которые слушают ввод, вы можете написать сценарий действий, которые игра или приложение должно принять с учетом определенного ввода. Подробности см. на стр. [Ввод](/manuals/input).
 
 ## Label
 
-![Label](images/icons/label.png){.left} The label component allows you to attach text content to any game object. It renders a piece of text with a particular font, on screen, in game space. See the [Label manual](/manuals/label) for more information.
+![Label](images/icons/label.png){.left} "Label" - это компонент, позволяющий прикрепить текстовое содержимое к любому игровому объекту. Он отображает фрагмент текста с определенным шрифтом на экране в пространстве игры. Дополнительные сведения см. на стр. [Компонент "Label"](/manuals/label).
 
 ## Library
 
-![Game object](images/icons/builtins.png){.left} Defold allows you to share data between projects through a powerful library mechanism. You can use it to set up shared libraries that are accessible from all your projects, either for yourself or across the whole team. Read more about the library mechanism in the [Libraries documentation](/manuals/libraries).
+![Game object](images/icons/builtins.png){.left} Defold позволяет обмениваться данными между проектами с помощью мощного механизма библиотек. Вы можете использовать его для настройки общих библиотек, которые доступны из всех ваших проектов, как для себя, так и для всей команды. Подробнее о механизме работы библиотек см. на стр. [Библиотеки](/manuals/libraries).
 
-## Lua language
+## Язык Lua
 
-The Lua programming language is used in Defold to create game logic. Lua is a powerful, efficient, very small scripting language. It supports procedural programming, object-oriented programming, functional programming, data-driven programming, and data description. You can read more about the language on the official Lua homepage at https://www.lua.org/ and in the [Lua in Defold manual](/manuals/lua).
+Язык программирования Lua используется в Defold для создания логики игры. Lua - это мощный, эффективный и компактный скриптовый язык. Он поддерживает процедурное, объектно-ориентированное, функциональное программирование, программирование на основе данных и описание данных. Подробнее о языке можно прочитать на официальной домашней странице Lua по адресу https://www.lua.org/ и на стр. [Lua в Defold](/manuals/lua).
 
-## Lua module
+## Lua-модуль
 
-![Lua module](images/icons/lua-module.png){.left} Lua modules allow you to structure your project and create reusable library code. Read more about it in the [Lua modules manual](/manuals/modules/)
+![Lua module](images/icons/lua-module.png){.left} Lua-модули позволяют структурировать проект и создавать библиотечный код многоразового использования. Подробнее об этом читайте на стр. [Lua-модули](/manuals/modules/).
 
 ## Material
 
-![Material](images/icons/material.png){.left} Materials define how different objects should be rendered by specifying shaders and their properties. See the [Material manual](/manuals/material) for more information.
+![Material](images/icons/material.png){.left} Материалы определяют, как должны быть визуализированы различные объекты, посредством определения шейдеров и их свойств. Для получения более подробной информации обращайтесь к стр. [Материалы](/manuals/material).
 
-## Message
+## Сообщение
 
-Components communicate with each other and other systems through message passing. Components also respond to a set of predefined messages that alter them or trigger specific actions. You send messages to hide graphics or nudge physics objects. The engine also uses messages to notify components of events, for instance when physics shapes collide. The message passing mechanism needs a recipient for each sent message. Therefore, everything in the game is uniquely addressed. To allow communication between objects, Defold extends Lua with message passing. Defold also provides a library of useful functions.
+Компоненты общаются друг с другом и с другими системами посредством передачи сообщений. Компоненты также реагируют на набор предопределенных сообщений, которые изменяют их или вызывают определенные действия. Вы отправляете сообщения, чтобы скрыть графику или подтолкнуть физические объекты. Движок также использует сообщения для уведомления компонентов о событиях, например, при столкновении физических форм. Механизму передачи сообщений необходим получатель для каждого отправленного сообщения. Поэтому все в игре адресовано уникально. Чтобы обеспечить связь между объектами, Defold расширяет Lua возможностью передачи сообщений. Defold также предоставляет библиотеку полезных функций.
 
-For instance, the Lua-code required to hide a sprite component on a game object looks like this:
+Например, Lua-код, необходимый для того, чтобы скрыть компонент спрайта на игровом объекте, выглядит следующим образом:
 
 ```lua
 msg.post("#weapon", "disable")
 ```
 
-Here, `"#weapon"` is the address of the current object's sprite component. `"disable"` is a message that sprite components respond to. See the [Message passing documentation](/manuals/message-passing) for an in depth explanation of how message passing works.
+Здесь `"#weapon"` - это адрес компонента спрайта текущего объекта. `"disable"` - это сообщение, на которое реагируют компоненты спрайта. См. стр. [Передача сообщений](/manuals/message-passing) для более подробного объяснения того, как работает передача сообщений.
 
 ## Model
 
-![Model](images/icons/model.png){.left} With the 3D model component can import Collada mesh, skeleton and animation assets into your game. See the [Model manual](/manuals/model/) for more information.
+![Model](images/icons/model.png){.left} С помощью компонента "Model" можно импортировать в игру Collada-сетку, скелет и анимационные ассеты. Для получения дополнительной информации см. стр. [Компонент "Model"](/manuals/model/).
 
 ## ParticleFX
 
-![ParticleFX](images/icons/particlefx.png){.left} Particles are very useful for creating nice visual effects, particularly in games. you can use them to create fog, smoke, fire, rain or falling leaves. Defold contains a powerful particle effects editor that allows you to build and tweak effects while you run them real time in your game. The [ParticleFX documentation](/manuals/particlefx) gives you the details on how that works.
+![ParticleFX](images/icons/particlefx.png){.left} Частицы очень полезны для создания приятных визуальных эффектов, особенно в играх. Вы можете использовать их для создания тумана, дыма, огня, дождя или падающих листьев. Defold содержит мощный редактор эффектов частиц, который позволяет создавать и корректировать эффекты, пока вы запускаете их в режиме реального времени в игре. Стр. [Компонент "ParticleFX"](/manuals/particlefx) даст вам подробную информацию о том, как это работает.
 
-## Profiling
+## Профилирование
 
-Good performance is key in games and it is vital that you are able to do performance and memory profiling to measure your game and identify performance bottlenecks and memory problems that needs to be fixed. See the [Profiling manual](/manuals/profiling) for more information on the profiling tools available for Defold.
+Хорошая производительность является ключевым фактором в играх, и очень важно, чтобы вы могли выполнять профилирование производительности и памяти, чтобы оценить вашу игру и определить узкие места в производительности и проблемы с памятью, которые должны быть устранены. См. стр. [Профилирование](/manuals/profiling) для получения дополнительной информации об инструментах профилирования, доступных в Defold.
 
 ## Render
 
-![Render](images/icons/render.png){.left} Render files contain settings used when rendering the game to the screen. Render files define which Render script to use for rendering and which materials to use. See the [Render manual](/manuals/render/) for more details.
+![Render](images/icons/render.png){.left} Файлы "Render" содержат настройки, используемые при рендеринге игры на экран. Файлы "Render" определяют, какой "Render Script" и какие материалы использовать для рендеринга. Подробнее см. на стр. [Render](/manuals/render/).
 
-## Render script
+## Render Script
 
-![Render script](images/icons/script.png){.left} A Render script is a Lua script that controls how the game or app should be rendered to the screen. There is a default Render script that covers most common cases, but you can write your own if you need custom lighting models and other effects. See the [Render manual](/manuals/render/) for more details on how the render pipeline works, and the [Lua in Defold manual](/manuals/lua) for details on how Lua scripts are used in Defold.
+![Render script](images/icons/script.png){.left} "Render Script" - это Lua-скрипт, который управляет тем, как игра или приложение должны быть выведены на экран. Существует "Render Script" по умолчанию, который охватывает большинство распространенных случаев, но вы можете написать свой собственный, если вам нужны пользовательские модели освещения и других эффектов. Смотритеe стр. [Render](/manuals/render/) для получения более подробной информации о том, как работает процесс рендеринга, и [Lua в Defold](/manuals/lua) для получения более подробной информации о том, как Lua-скрипты используются в Defold.
 
 ## Script
 
-![Script](images/icons/script.png){.left}  A script is a component that contains a program that defines game object behaviors. With scripts you can specify the rules of your game, how objects should respond to various interactions (with the player as well as other objects). All scripts are written in the Lua programming language. To be able to work with Defold, you or someone on your team needs to learn how to program in Lua. See the [Lua in Defold manual](/manuals/lua) for an overview on Lua and details on how Lua scripts are used in Defold.
+![Script](images/icons/script.png){.left} "Script" - это компонент, который содержит программу, определяющую поведение игровых объектов. С помощью сценариев можно указать правила игры, как объекты должны реагировать на различные взаимодействия (как с игроком, так и с другими объектами). Все сценарии написаны на языке программирования Lua. Чтобы иметь возможность работать с Defold, вы или кто-то из вашей команды должен научиться программировать на Lua. См. стр. [Lua в Defold](/manuals/lua) для обзора Lua и подробностей о том, как Lua-скрипты используются в Defold.
 
 ## Sound
 
-![Sound](images/icons/sound.png){.left} The sound component is responsible for playing a specific sound. Currently, Defold supports sound files in the WAV and Ogg Vorbis formats. See the [Sound manual](/manuals/sound) for more information.
+![Sound](images/icons/sound.png){.left} "Sound" - это компонет, отвечающий за воспроизведение определенного звука. В настоящее время Defold поддерживает звуковые файлы в форматах WAV и Ogg Vorbis. Дополнительную информацию см. на стр. [Sound](/manuals/sound).
 
-## Spine model
+## Spine Model
 
-![Spine model](images/icons/spine-model.png){.left} The Spine model component is used to bring Spine skeletal animations to life in Defold. Read more about how to use it in the [Spine model manual](/manuals/spinemodel).
+![Spine model](images/icons/spine-model.png){.left} "Spine Model" - это компонент, используемый для оживления скелетной Spine-анимации в Defold. Подробнее о том, как его использовать, читайте на стр. [Компонент "Spine Model"](/manuals/spinemodel).
 
-## Spine scene
+## Spine Scene
 
-![Spine scene](images/icons/spine-scene.png){.left} The Spine scene resource ties together the Spine JSON data file and the Defold image atlas file that is used to fill bone slots with graphics. The [Spine animation manual](/manuals/spine) contains more information.
+![Spine scene](images/icons/spine-scene.png){.left} Ресурс "Spine Scene" связывает файл данных Spine JSON и файл атласа изображения Defold, который используется для заполнения слотов костей графикой. Страница [Spine-анимация](/manuals/spine) содержит более подробную информацию.
 
 ## Sprite
 
-![Sprite](images/icons/sprite.png){.left} A sprite is a component that extends game objects with graphics. It displays an image either from a Tile source or from an Atlas. Sprites have built-in support for flip-book and bone animation. Sprites are usually used for characters and items.
+![Sprite](images/icons/sprite.png){.left} "Sprite" - это компонент, расширяющий игровые объекты графикой. Он отображает изображение либо из "Tile Source", либо из "Atlas". "Sprite" имеют встроенную поддержку флипбук и костевую анимацию. Обычно используются для персонажей и предметов.
 
-## Texture profiles
+## Texture Profiles
 
-![Texture profiles](images/icons/texture-profiles.png){.left} The texture profiles resource file is used in the bundling process to automatically process and compress image data (in Atlas, Tile sources, Cubemaps and stand-alone textures used for models, GUI etc). Read more in the [Texture profiles manual](/manuals/texture-profiles).
+![Texture profiles](images/icons/texture-profiles.png){.left} "Texture Profiles" - это ресурс, используемый в процессе пакетирования для автоматической обработки и сжатия данных изображения (в "Atlas", "Tile Source", "Cubemap" и автономных текстурах, используемых для моделей, GUI и т.д.). Подробнее см. на стр. [Ресурс "Texture Profiles"](/manuals/texture-profiles).
 
-## Tile map
+## Tile Map
 
-![Tile map](images/icons/tilemap.png){.left} Tile map components display images from a tile source in one or more overlaid grids. They are most commonly used to build game environments: ground, walls, buildings and obstacles. A tile map can display several layers aligned on top of each other with a specified blend mode. This is useful to, for example, put foliage on top of grass background tiles. It is also possible to dynamically change the displayed image in a tile. That allows you to, for instance, destroy a bridge and make it impassable by simply replacing the tiles with ones depicting the broken down bridge and containing the corresponding physics shape. See the [Tile map documentation](/manuals/tilemap) for more information.
+![Tile map](images/icons/tilemap.png){.left} "Tile Map" - это компонены, отображающие изображения из "Tile Source" в одной или нескольких перекрывающихся сетках. Они чаще всего используются для создания игровых сред: земли, стен, зданий и препятствий. "Tile Map" может отображать несколько слоев, выровненных друг над другом с заданным режимом смешивания. Это полезно, например, для нанесения листьев поверх травяных фоновых плиток. Также можно динамически изменять отображаемое изображение в плитке. Это позволяет, например, разрушить мост и сделать его непроходимым, просто заменив одну плитку на другую, изображающую разрушенный мост и содержащую соответствующую физическую форму. Дополнительную информацию см. на стр. [Компонент "Tile Map"](/manuals/tilemap).
 
-## Tile source
+## Tile Source
 
-![Tile source](images/icons/tilesource.png){.left} A tile source describes a texture that is composed of multiple smaller images, each with the same size. You can define flip-book animations from a sequence of images in a tile source. Tile sources can also automatically calculate collision shapes from image data. This is very useful for creating tiled levels that object can collide and interact with. Tile sources are used by Tile map components (and Sprite and ParticleFX) to share graphics resources. Note that Atlases are often a better fit than tile sources. See the [Tile map documentation](/manuals/tilemap) for more information.
+![Tile source](images/icons/tilesource.png){.left} "Tile Source" описывает текстуру, состоящую из нескольких уменьшенных изображений, каждое из которых имеет одинаковый размер. Вы можете определить флипбук-анимацию из последовательности изображений в "Tile Source". "Tile Source" также могут автоматически вычислять формы столкновений из данных изображений. Это очень полезно для создания уровней плитки, с которыми могут сталкиваться и взаимодействовать объекты. "Tile Source" используются компонентами "Tile Map" (а также "Sprite" и "ParticleFX") для совместного использования графических ресурсов. Обратите внимание, что "Atlas" часто подходит лучше, чем "Tile Source". См. стр. [Ресурс "Tile Source"](/manuals/tilemap).
 
 ## Vertex shader
 
-![Vertex shader](images/icons/vertex-shader.png){.left} The vertex shader computes the screen geometry of a component's primitive polygon shapes. For any type of visual component, be it a sprite, spine model or model, the shape is represented by a set of polygon vertex positions. The vertex shader program processes each vertex (in world space) and computes the resulting coordinate that each vertex of a primitive should have. See the [Shader manual](/manuals/shader) for more information.
+![Vertex shader](images/icons/vertex-shader.png){.left} "Vertex shader" вычисляет экранную геометрию примитивных полигональных форм компонента. Для любого типа визуального компонента, будь то "Sprite", "Spine Model" или "Model", форма представлена набором позиций полигональных вершин. "Vertex shader" обрабатывает каждую вершину (в мировом пространстве) и вычисляет результирующую координату, которую должна иметь каждая вершина примитива. Дополнительную информацию см. на стр. [Шейдеры](/manuals/shader).
