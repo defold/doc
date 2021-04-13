@@ -46,6 +46,15 @@ $ export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.6
 ```
 
 
+#### Q: My OpenGL drivers are outdated. Can I still use Defold?
+
+A: Yes, it might be possible to use Defold if you enable software rendering. You can enable software rendering by setting the LIBGL_ALWAYS_SOFTWARE environment variable to 1:
+
+```bash
+~/bin/Defold$ LIBGL_ALWAYS_SOFTWARE=1 ./Defold
+```
+
+
 #### Q: Why am I getting "com.jogamp.opengl.GLException: Graphics configuration failed" when launching Defold on Ubuntu 20.04?
 
 A: On certain distributions there is an issue with the new Mesa drivers (Iris) when running Defold. You can try using an older version when running Defold:
