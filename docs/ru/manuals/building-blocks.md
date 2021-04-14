@@ -1,40 +1,40 @@
 ---
-title: The building blocks of Defold
-brief: This manual digs into the details of how game objects, components and collections work.
+title: Блоки построения Defold
+brief: В этом руководстве подробно описан принцип работы игровых объектов, компонентов и коллекций.
 ---
 
-#  Building blocks
+#  Блоки построения
 
-At the core of Defold's design are a few concepts that may take a little while to get a good grip on. This manual explains what the building blocks of Defold consist of. After having read this manual, move on to the [addressing manual](/manuals/addressing) and the [message passing manual](/manuals/message-passing). There are also a set of [tutorials](/tutorials/getting-started) available from within the editor to get you up and running quickly.
+В основе дизайна Defold лежат несколько концепций, которые могут потребовать некоторого количества времени для их качественного освоения. Это руководство объясняет, как устроены блоки построения Defold. Прочитав это руководство, перейдите к [руководству по адрессации](/manuals/addressing) и [передачи сообщений](/manuals/message-passing). Также имеется набор [уроков](/tutorials/getting-started), доступных в редакторе и позволяющих быстрее приступить к работе.
 
 ![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
 
-There are three basic types of building blocks that you use to construct a Defold game:
+В Defold существуют три основных типа блоков построения, которые используются для конструирования игр:
 
-Collection
-: A collection is a file used to structure your game. In collections you build hierarchies of game objects and other collections. They are typically used to structure game levels, groups of enemies or characters built out of several game objects.
+Коллекция (collection)
+: Коллекция представляет собой файл, используемый для структурирования вашей игры. В коллекциях вы строите иерархии игровых объектов и других коллекций. Как правило, они используются для структурирования игровых уровней, групп врагов или персонажей, построенных из нескольких игровых объектов.
 
-Game object
-: A game object is a container with an id, position, rotation and scale. It is used to contain components. They are typically used to create player characters, bullets, the game’s rule system or a level loader/unloader.
+Игровой объект (game object)
+: Игровой объект - это контейнер с идентификатором, положением, вращением и масштабом. Он используется в качестве контейнера с компонентами. Обычно они используются для создания игровых персонажей, пуль, системы правил игры или для загрузки/выгрузки уровней.
 
-Component
-: Components are entities that are put in game object to give them visual, audible and/or logic representation in the game. They are typically used to create character sprites, script files, add sound effects or add particle effects.
+Компонент (сomponent)
+: Компонентами являются сущности, которые помещаются в игровой объект, с целью придать им визуальное, звуковое и/или логическое представление в игре. Обычно используются для создания спрайтов персонажей, файлов сценариев, для добавления звуковых эффектов или эффектов частиц.
 
-## Collections
+## Коллекции
 
-Collections are tree structures that hold game objects and other collections. A collection is always stored on file.
+Коллекции представляют собой древовидные структуры, в которых хранятся игровые объекты и другие коллекции. Коллекции всегда хранятся в файлах.
 
-When the Defold engine starts, it loads a single _bootstrap collection_ as specified in the "game.project" settings file. The bootstrap collection is often named "main.collection" but you are free to use any name you like.
+При запуске Defold загружает единственную _коллекцию начальной загрузки (bootstrap collection)_, как указано в файле настроек "game.project". Коллекция начальной загрузки часто называется "main.collection", но вы можете использовать любое другое имя.
 
-A collection can contain game objects and other collections (by reference to the sub-collection's file), nested arbitrarily deep. Here is an example file called "main.collection". It contains one game object (with the id "can") and one sub-collection (with the id "bean"). The sub-collection, in turn, contains two game objects: "bean" and "shield".
+Коллекция может содержать игровые объекты и другие коллекции (по ссылке на файл субколлекции), вложенные сколь угодно глубоко. Вот пример файла под названием "main.collection". Он содержит один игровой объект (с идентификатором "can") и одну субколлекцию (с идентификатором "bean"). Субколлекция, в свою очередь, содержит два игровых объекта: "bean" и "shield".
 
 ![Collection](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
 
-Notice that the sub-collection with id "bean" is stored in its own file, called "/main/bean.collection" and is only referenced in "main.collection":
+Обратите внимание, что субколлекция с идентификатором "bean" хранится в собственном файле, называемом "/main/bean.collection", и на нее имеются ссылки только в "main.collection":
 
 ![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
 
-You cannot address collections themselves since there are no runtime objects corresponding to the "main" and "bean" collections. However, you sometimes need to use the identity of a collection as part of the _path_ to a game object (See the [addressing manual](/manuals/addressing) for details):
+Вы не можете обращаться к самим коллекциям, так как не существует объектов времени выполнения, соответствующих коллекциям "main" и "bean". Тем не менее, иногда необходимо использовать идентификатор коллекции как часть _пути_ к игровому объекту (см. [руководство по адресации](/manuals/addressing) для получения более подробной информации):
 
 ```lua
 -- file: can.script
@@ -42,35 +42,35 @@ You cannot address collections themselves since there are no runtime objects cor
 local pos = go.get_position("bean/bean")
 ```
 
-A collection is always added to another collection as a reference to a collection file:
+Коллекция всегда добавляется в другую коллекцию в качестве ссылки на файл коллекции:
 
-<kbd>Right-click</kbd> the collection in the *Outline* view and select <kbd>Add Collection File</kbd>.
+Выполните <kbd>правый клик</kbd> по коллекции в представлении *Outline* и выберите <kbd>Add Collection File</kbd>.
 
-## Game objects
+## Игровые объекты
 
-Game objects are simple objects that each have a separate lifespan during the execution of your game. Game objects have a position, rotation, and scale that each of which can be manipulated and animatied at runtime.
+Игровые объекты - это простые объекты, каждый из которых имеет отдельную продолжительность жизни во время выполнения игры. Игровые объекты имеют позицию, вращение и масштаб, которыми можно манипулировать и анимировать во время выполнения.
 
 ```lua
 -- animate X position of "can" game object
 go.animate("can", "position.x", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 1.0)
 ```
 
-Game objects can be used empty (as position markers, for instance) but are usually used equipped with various components, like sprites, sounds, scripts, models, factories and more. Game objects are either created in the editor, placed in collection files, or dynamically spawned at run-time through _factory_ components.
+Игровые объекты можно использовать пустыми (например, в качестве маркеров позиции), но обычно они оснащены различными компонентами, такими как спрайты, звуки, скрипты, модели, фабрики и многое другое. Игровые объекты либо создаются в редакторе и помещаются в файлы коллекции, либо динамически создаются во время выполнения через компоненты _factory_.
 
-Game objects are either added in-place in a collection, or added to a collection as a reference to a game object file:
+Игровые объекты добавляются в коллекцию непосредственно, либо в качестве ссылки на файл игрового объекта:
 
-<kbd>Right-click</kbd> the collection in the *Outline* view and select <kbd>Add Game Object</kbd> (add in-place) or <kbd>Add Game Object File</kbd> (add as file reference).
+Выполните <kbd>правый клик</kbd> по коллекции в представлении *Outline* и выберите <kbd>Add Game Object</kbd> (добавить на месте) или <kbd>Add Game Object File</kbd> (добавить в качестве ссылки на файл).
 
 
-## Components
+## Компоненты
 
 :[components](../shared/components.md)
 
 Refer to the [component overview](/manuals/components/) for a list of all available component types.
 
-## Objects added in-place or by reference
+## Объекты, добавленные на месте или по ссылке
 
-When you create a collection, game object or component _file_, you create a blueprint, or a prototype. This only adds a file to the project file structure, nothing is added to your running game. To add an instance of a collection, game object or component based on a blueprint file, you add an instance of it in one of your collection files.
+При создании _файла_ коллекции, игрового объекта или компонента, вы создаете шаблон, или прототип. При этом файл добавляется только в файловую структуру проекта, к запущенной игре ничего не добавляется. Чтобы добавить экземпляр коллекции, игрового объекта или компонента на основе файла шаблона, необходимо добавить его в один из файлов коллекции.
 
 You can see what file an object instance is based on in the outline view. The file "main.collection" contains three instances that are based on files:
 
