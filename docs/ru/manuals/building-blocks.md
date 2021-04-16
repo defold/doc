@@ -5,7 +5,7 @@ brief: В этом руководстве подробно описан прин
 
 #  Блоки построения
 
-В основе дизайна Defold лежат несколько концепций, которые могут потребовать некоторого количества времени для их качественного освоения. Это руководство объясняет, как устроены блоки построения Defold. Прочитав это руководство, перейдите к [руководству по адрессации](/manuals/addressing) и [передачи сообщений](/manuals/message-passing). Также имеется набор [уроков](/tutorials/getting-started), доступных в редакторе и позволяющих быстрее приступить к работе.
+В основе дизайна Defold лежат несколько концепций, качественное освоение которых может потребовать временных затрат. Это руководство объясняет, как устроены блоки построения Defold. Прочитав это руководство, перейдите к [руководству по адрессации](/manuals/addressing) и [передачи сообщений](/manuals/message-passing). Также имеется набор [уроков](/tutorials/getting-started), доступных в редакторе и позволяющих быстрее приступить к работе.
 
 ![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
 
@@ -20,11 +20,11 @@ brief: В этом руководстве подробно описан прин
 Компонент (сomponent)
 : Компонентами являются сущности, которые помещаются в игровой объект, с целью придать им визуальное, звуковое и/или логическое представление в игре. Обычно используются для создания спрайтов персонажей, файлов сценариев, для добавления звуковых эффектов или эффектов частиц.
 
-## Коллекции
+## Коллекции (Collections)
 
 Коллекции представляют собой древовидные структуры, в которых хранятся игровые объекты и другие коллекции. Коллекции всегда хранятся в файлах.
 
-При запуске Defold загружает единственную _коллекцию начальной загрузки (bootstrap collection)_, как указано в файле настроек "game.project". Коллекция начальной загрузки часто называется "main.collection", но вы можете использовать любое другое имя.
+При запуске Defold загружает единственную _коллекцию начальной загрузки_, как указано в файле настроек "game.project". Коллекция начальной загрузки часто называется "main.collection", но вы можете использовать любое другое имя.
 
 Коллекция может содержать игровые объекты и другие коллекции (по ссылке на файл субколлекции), вложенные сколь угодно глубоко. Вот пример файла под названием "main.collection". Он содержит один игровой объект (с идентификатором "can") и одну субколлекцию (с идентификатором "bean"). Субколлекция, в свою очередь, содержит два игровых объекта: "bean" и "shield".
 
@@ -34,7 +34,7 @@ brief: В этом руководстве подробно описан прин
 
 ![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
 
-Вы не можете обращаться к самим коллекциям, так как не существует объектов времени выполнения, соответствующих коллекциям "main" и "bean". Тем не менее, иногда необходимо использовать идентификатор коллекции как часть _пути_ к игровому объекту (см. [руководство по адресации](/manuals/addressing) для получения более подробной информации):
+Вы не можете обращаться к самим коллекциям, так как не существует объектов времени выполнения, соответствующих коллекциям "main" и "bean". Тем не менее, иногда необходимо использовать идентификатор коллекции как часть _пути_ к игровому объекту (за подробностями обращайтесь к [руководству по адресации](/manuals/addressing)):
 
 ```lua
 -- file: can.script
@@ -46,7 +46,7 @@ local pos = go.get_position("bean/bean")
 
 Выполните <kbd>правый клик</kbd> по коллекции в представлении *Outline* и выберите <kbd>Add Collection File</kbd>.
 
-## Игровые объекты
+## Игровые объекты (Game objects)
 
 Игровые объекты - это простые объекты, каждый из которых имеет отдельную продолжительность жизни во время выполнения игры. Игровые объекты имеют позицию, вращение и масштаб, которыми можно манипулировать и анимировать во время выполнения.
 
@@ -55,7 +55,7 @@ local pos = go.get_position("bean/bean")
 go.animate("can", "position.x", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 1.0)
 ```
 
-Игровые объекты можно использовать пустыми (например, в качестве маркеров позиции), но обычно они оснащены различными компонентами, такими как спрайты, звуки, скрипты, модели, фабрики и многое другое. Игровые объекты либо создаются в редакторе и помещаются в файлы коллекции, либо динамически создаются во время выполнения через компоненты _factory_.
+Игровые объекты можно использовать пустыми (например, в качестве маркеров позиции), но обычно они оснащены различными компонентами, такими как спрайты, звуки, скрипты, модели, фабрикаторы и др. Игровые объекты либо создаются в редакторе и помещаются в файлы коллекции, либо динамически создаются во время выполнения через _фабрикаторы_.
 
 Игровые объекты добавляются в коллекцию непосредственно, либо в качестве ссылки на файл игрового объекта:
 
@@ -72,35 +72,35 @@ Refer to the [component overview](/manuals/components/) for a list of all availa
 
 При создании _файла_ коллекции, игрового объекта или компонента, вы создаете шаблон, или прототип. При этом файл добавляется только в файловую структуру проекта, к запущенной игре ничего не добавляется. Чтобы добавить экземпляр коллекции, игрового объекта или компонента на основе файла шаблона, необходимо добавить его в один из файлов коллекции.
 
-You can see what file an object instance is based on in the outline view. The file "main.collection" contains three instances that are based on files:
+Вы можете видеть, на каком файле основан экземпляр объекта в представлении Outline. Файл "main.collection" содержит три экземпляра, которые основаны на файлах:
 
-1. The "bean" sub-collection.
-2. The "bean" script component in the "bean" game object in the "bean" sub-collection.
-3. The "can" script component in the "can" game object.
+1. Субколлекция "bean".
+2. Скрипт "bean" в игровом объекте "bean" в субколлекции "bean".
+3. Скрипт "can" в игровом объекте "can".
 
 ![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
 
-The benefit of creating blueprint files becomes apparent when you have multiple instances of a game object or collection and wishes to change all of them:
+Преимущество создания шаблонных файлов становится очевидным, когда у вас есть несколько экземпляров игрового объекта или коллекции и вы хотите изменить их все:
 
 ![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
 
-By changing the blueprint file, any instance that uses that file will immediately be updated.
+При изменении файла шаблона любой экземпляр, использующий этот файл, будет немедленно обновлен.
 
 ![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
 
-## Childing game objects
+## Подчинение игровых объектов
 
-In a collection file, you can build hierarchies of game objects so that one or more game objects are children to a single parent game object. By simply <kbd>dragging</kbd> one game object and <kbd>dropping</kbd> it onto another the dragged game object is childed under the target:
+В файле коллекции, вы можете строить иерархии игровых объектов, так что один или несколько игровых объектов становятся дочерними по отношению к одному родительскому игровому объекту. Просто <kbd>перетащите</kbd> один игровой объект и <kbd>бросьте</kbd> его на другой, и перетаскиваемый игровой объект станет дочерним для цели:
 
 ![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
 
-Object parent-child hierarchies is a dynamic relation affecting how objects react to transformations. Any transformation (movement, rotation or scaling) applied to an object will in turn be applied to the object’s children, both in the editor and in runtime:
+Объектная иерархия "родительский-дочерний" - это динамическое отношение, влияющее на то, как объекты реагируют на трансформации. Любые трансформации (перемещение, вращение или масштабирование), применяемые к объекту, будут, в свою очередь, применяться к дочерним элементам объекта, как в редакторе, так и во время выполнения:
 
 ![Child transform](images/building_blocks/child_transform.png){srcset="images/building_blocks/child_transform@2x.png 2x"}
 
-Conversely, a child's translations are done in the local space of the parent. In the editor, you can choose to edit a child game object in the local space or world space by selecting <kbd>Edit ▸ World Space</kbd> (the default) or <kbd>Edit ▸ Local Space</kbd>.
+И наоборот, дочерние трансляции выполняются в локальном пространстве родителя. В редакторе вы можете выбрать редактирование дочернего игрового объекта в локальном пространстве или пространстве мира, выбрав <kbd>Edit ▸ World Space</kbd> (по умолчанию) или <kbd>Edit ▸ Local Space</kbd>.
 
-It is also possible to alter an object’s parent in run-time by sending a `set_parent` message to the object.
+Также существует возможность изменить родителя объекта во время выполнения, отправив объекту сообщение `set_parent`.
 
 ```lua
 local parent = go.get_id("bean")
@@ -108,5 +108,5 @@ msg.post("child_bean", "set_parent", { parent_id = parent })
 ```
 
 ::: important
-A common misunderstanding is that a game object's place in the collection hierarchy changes when it becomes part of a parent-child hierarchy. However, these are two very different things. Parent-child hierarchies dynamically alters the scene graph which allows objects to be visually attached to each other. The only thing that dictates a game object's address is its place in the collection hierarchy. The address is static throughout the lifetime of the object.
+Распространенным заблуждением является то, что место игрового объекта в иерархии коллекции меняется, когда он становится частью иерархии "родительский-дочерний". Однако, это две очень разные вещи. Иерархии "родительский-дочерний" динамически изменяют график сцены, что позволяет визуально привязывать объекты друг к другу. Единственное, что определяет адрес игрового объекта, это его место в иерархии коллекции. Адрес статический на протяжении всего срока жизни объекта
 :::
