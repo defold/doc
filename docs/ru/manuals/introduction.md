@@ -1,6 +1,6 @@
 ---
-title: Introduction to Defold
-brief: A brief introduction to Defold.
+title: Введение в Defold
+brief: Краткое введение в Defold.
 ---
 
 # Добро пожаловать в Defold
