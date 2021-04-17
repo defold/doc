@@ -426,11 +426,11 @@
         "manuals":
         [
             {
-                "name": "GETTING STARTED",
+                "name": "ПРИСТУПАЯ К РАБОТЕ",
                 "items": [
                     {
                         "path": "/manuals/introduction",
-                        "name": "Introduction"
+                        "name": "Введение"
                     },
                     {
                         "path": "/manuals/install",
@@ -442,7 +442,7 @@
                     },
                     {
                         "path": "/manuals/glossary",
-                        "name": "Glossary"
+                        "name": "Глоссарий"
                     },
                     {
                         "path": "/manuals/flash",
@@ -476,7 +476,7 @@
                 "items": [
                     {
                         "path": "/manuals/building-blocks",
-                        "name": "Building blocks"
+                        "name": "Блоки построения"
                     },
                     {
                         "path": "/manuals/addressing",
