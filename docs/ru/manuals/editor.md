@@ -1,38 +1,38 @@
 ---
-title: Editor overview
-brief: This manual gives an overview on how the Defold editor look and works, and how to navigate in it.
+title: Обзор редактора
+brief: В этом руководстве дается обзор того, как выглядит и работает редактор Defold, и как в нем осуществляется навигация.
 ---
 
-# Editor overview
+# Обзор редактора
 
-The editor allows you to browse and manipulate all files in your game project in an efficient manner. Editing files brings up a suitable editor and shows all relevant information about the file in separate views.
+Редактор позволяет просматривать и эффективно манипулировать всеми файлами в игровом проекте. При редактировании файлов открывается соответствующий редактор и вся необходимая информация о файле отображается в отдельных представлениях.
 
-## Starting the editor
+## Запуск редактора
 
-When you run the Defold editor, you are presented with a project selection and creation screen. Click to select what you want to do:
+Когда вы запускаете редактор Defold, вам предоставляется экран выбора и создания проекта. Кликните мышью, чтобы выбрать то, что вы хотите сделать:
 
 Home
-: Click to show your recently opened projects so you can quickly access them. This is the default view.
+: Кликните для отображения недавно открытых проектов, чтобы получить быстрый доступ к ним. Это представление по умолчанию.
 
 New Project
-: Click if you want to create a new Defold project, then select if you want to base your project on a basic template (from the *From Template* tab), if you would like to follow a tutorial (the *From Tutorial* tab), or try one of the sample projects (the *From Sample* tab).
+: Кликните, если вы хотите создать новый проект Defold, затем выберите, хотите ли вы использовать базовый шаблон (из вкладки *From Template*), хотите ли вы следовать учебнику (вкладка *From Tutorial*) или попробовать один из проектов-образцов (вкладка *From Sample*).
 
   ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
 
-  When you create a new project it is stored on your local drive and any edits you do are saved locally.
+  Когда вы создаете новый проект, он сохраняется на локальном диске, и все сделанные вами изменения сохраняются локально.
 
-You can learn more about the different options in the [Project Setup manual](https://www.defold.com/manuals/project-setup/).
+Подробнее о различных опциях можно узнать в [руководстве по настройке проекта](https://www.defold.com/manuals/project-setup/).
 
-## The editor panes
+## Панели редактора
 
-The Defold editor is separated into a set of panes, or views, that display specific information.
+Редактор Defold разделен на несколько панелей, или представлений, которые отображают определенную информацию.
 
 ![Editor 2](images/editor/editor2_overview.png)
 
-The *Assets* pane
-: Lists all the files that are part of your project. Click and scroll to navigate the list. All file oriented operations can be made in this view:
+Панель *Assets*
+: Содержит список всех файлов, которые являются частью проекта. Кликните и прокрутите для навигации по списку. В этом представлении могут быть выполнены все файловые операции:
 
-   - <kbd>Double click</kbd> a file to open it in an editor for that file type.
+   - Выполните <kbd>двойной клик</kbd> по файлу, чтобы открыть его в редакторе для этого типа файлов.
    - <kbd>Drag and drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
    - <kbd>Right click</kbd> to open a _context menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
 
