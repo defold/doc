@@ -142,13 +142,13 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 
 
 ## Using AndroidX
-AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Many of the Android extensions in the [Asset Portal](/assets) already support AndroidX and over time all extension which previously relied on the Android Support Library will be updated to use AndroidX. When using an extension with AndroidX support you must enabled AndroidX support for your project:
+AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Most of the Android extensions in the [Asset Portal](/assets) support AndroidX. If you do not wish to use AndroidX you can explicitly disable it in favour of the old Android Support Library:
 
-1. If you already have an app manifest add `jetifier: true` to `armv7-android` and `arm64-android`.
+1. If you already have an app manifest add `jetifier: false` to `armv7-android` and `arm64-android`.
 
-2. If you do not have an app manifest file head over to [Defold App Manifest generator](https://britzl.github.io/manifestation/) and check the Use AndroidX checkbox.
+2. If you do not have an app manifest file head over to [Defold App Manifest generator](https://britzl.github.io/manifestation/) and check the "Use Android Support lib" checkbox.
 
-![](images/android/enable_androidx.png)
+![](images/android/enable_supportlibrary.png)
 
 
 ## FAQ

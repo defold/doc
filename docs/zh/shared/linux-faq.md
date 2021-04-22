@@ -40,6 +40,15 @@ $ ./Defold
 ```
 
 
+#### Q: 我的 OpenGL 驱动过期了. 还能用 Defold 吗?
+
+A: 能用, 但是需要打开 Defold 软件渲染. 可以设置环境变量 LIBGL_ALWAYS_SOFTWARE 值为 1:
+
+```bash
+~/bin/Defold$ LIBGL_ALWAYS_SOFTWARE=1 ./Defold
+```
+
+
 #### Q: 在 Ubuntu 20.04 上運行 Defold 報錯 "com.jogamp.opengl.GLException: Graphics configuration failed" ?
 
 A: 這個版本在運行 Defold 時會出現新驅動程序 (Iris) 問題. 可以嘗試使用舊版本驅動程序:
