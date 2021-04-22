@@ -1,25 +1,25 @@
 ---
 title: Обзор редактора
-brief: В этом руководстве дается обзор того, как выглядит и работает редактор Defold, и как в нем осуществляется навигация.
+brief: Данное руководство представляет собой обзор внешнего вида и принципов работы редактора Defold, а также навигации в нем.
 ---
 
 # Обзор редактора
 
-Редактор позволяет просматривать и эффективно манипулировать всеми файлами в игровом проекте. При редактировании файлов открывается соответствующий редактор и вся необходимая информация о файле отображается в отдельных представлениях.
+Назначение редактора - просмотр и эффективное управление файлами игрового проекта. При открытии файла на редактирование, запускается соответствующий редактор, при этом вся необходимая информация о файле отображается в отдельных представлениях.
 
 ## Запуск редактора
 
-Когда вы запускаете редактор Defold, вам предоставляется экран выбора и создания проекта. Кликните мышью, чтобы выбрать то, что вы хотите сделать:
+При запуске редактора Defold, появляется экран выбора и создания проекта. Кликните мышью, в соответствии с желаемым действием:
 
 Home
-: Кликните для отображения недавно открытых проектов, чтобы получить быстрый доступ к ним. Это представление по умолчанию.
+: Отображает недавно открывавшиеся проекты, предоставляя к ним быстрый доступ. Это представление открывается по умолчанию.
 
 New Project
-: Кликните, если вы хотите создать новый проект Defold, затем выберите, хотите ли вы использовать базовый шаблон (из вкладки *From Template*), хотите ли вы следовать учебнику (вкладка *From Tutorial*) или попробовать один из проектов-образцов (вкладка *From Sample*).
+: Позволяет создать новый проект Defold. Здесь вам необходимо выбрать, хотите ли вы использовать базовый шаблон (из вкладки *From Template*), следовать учебнику (вкладка *From Tutorial*) или попробовать один из проектов-примеров (вкладка *From Sample*).
 
   ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
 
-  Когда вы создаете новый проект, он сохраняется на локальном диске, и все сделанные вами изменения сохраняются локально.
+  При создании новый проект сохраняется на локальном диске, и все сделанные изменения сохраняются локально.
 
 Подробнее о различных опциях можно узнать в [руководстве по настройке проекта](https://www.defold.com/manuals/project-setup/).
 
@@ -30,121 +30,121 @@ New Project
 ![Editor 2](images/editor/editor2_overview.png)
 
 Панель *Assets*
-: Содержит список всех файлов, которые являются частью проекта. Кликните и прокрутите для навигации по списку. В этом представлении могут быть выполнены все файловые операции:
+: Содержит список всех файлов, являющихся частью проекта. Навигация по списку осуществляется посредством прокрутки мыши. В этом представлении могут быть выполнены любые файловые операции:
 
-   - Выполните <kbd>двойной клик</kbd> по файлу, чтобы открыть его в редакторе для этого типа файлов.
-   - <kbd>Drag and drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
-   - <kbd>Right click</kbd> to open a _context menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
+   - Выполните <kbd>двойной клик</kbd> по файлу, чтобы открыть его в редакторе, соответствующем этому типу файлов.
+   - <kbd>Перетащите и бросьте</kbd>, чтобы добавить в проект файлы из других расположений на диске или переместить файлы и папки в новые расположения в пределах проекта.
+   - Выполните <kbd>клик ПКМ</kbd>, чтобы открыть _контекстное меню_, с помощью которого можно создавать новые файлы или папки, переименовывать, удалять, отслеживать файловые зависимости и многое другое.
 
-The *Editor* pane
+Панель *Editor*
 
-: The center view shows the currently open file in an editor for that file type. All visual editors allows you to change the camera view:
+: Представление по центру отображает текущий открытый файл в редакторе соответствующего типа. Все визуальные редакторы позволяют управлять видом камеры:
 
-- Pan: <kbd>Alt + left mouse button</kbd>.
-- Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
-- Rotate in 3D: <kbd>Ctrl + left mouse button</kbd>.
+- Панорамирование: <kbd>Alt + ЛКМ</kbd>.
+- Зумирование: <kbd>Alt + ПКМ</kbd> (трёхкнопочная мышь) или <kbd>Ctrl + Mouse button</kbd> (однокнопочная мышь). Если мышь оснащена колесом прокрутки, его можно использовать для зумирования.
+- Вращение в 3D: <kbd>Ctrl + ЛКМ</kbd>.
 
-There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale*.
+В правом верхнем углу представления сцены расположен тулбар, на котором можно найти инструменты манипулирования объектами: *Move*, *Rotate* и *Scale*.
 
 ![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
 
-The *Outline* pane
-: This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
-   - <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
-   - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to child it.
-   - <kbd>Right click</kbd> to open a _context menu_ from where you can add items, delete selected items etc.
+Панель *Outline*
+: Это представление отображает содержимое редактируемого в данный момент файла в виде иерархической древовидной структуры. Outline отражает представление редактора, позволяя выполнять операции с элементами:
+   - <kbd>Кликните</kbd> по элементу, чтобы выделить его. Удерживайте <kbd>Shift</kbd> или <kbd>Option</kbd>, чтобы расширить выделение.
+   - <kbd>Перетащите и бросьте</kbd> элемент для перемещения. Бросьте какой-либо игровой объект на другой игровой объект в коллекции, чтобы сделать его дочерним.
+   - <kbd>Кликните ПКМ</kbd> чтобы открыть _контекстное меню_, с помощью которого можно добавлять, удалять выделенные элементы и т. д.
 
-The *Properties* pane
-: This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
+Панель *Properties*
+: Это представление отображает свойства (такие как Position, Rotation, Animation и т. д.), ассоциированные с текущим выбранным элементом.
 
-The *Tools* pane
-: This view has several tabs. The *Console* tab shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing *Build Errors*, *Search Results* and the *Curve Editor* which is used when editing curves in the particle editor. The Tools pane is also used for interacting with the integrated debugger.
+Панель *Tools*
+: В этом представлении есть несколько вкладок. Вкладка *Console* отображает вывод какой-либо ошибки или целенаправленный вывод, осуществляемый вами во время выполнения игры. Рядом с консолью находятся вкладки *Build Errors*, *Search Results*, а также *Curve Editor*, используемый при редактировании кривых в редакторе частиц. Панель Tools также используется для взаимодействия со встроенным отладчиком.
 
-The *Changed Files* pane
-: If your project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. You can learn more about Git in our [Version Control manual](/manuals/version-control/). Some file oriented operations can be performed in this view:
+Панель *Changed Files*
+: Если проект использует распределённую систему контроля версий Git, это представление отображает список файлов проекта, которые были изменены, добавлены или удалены. Регулярно выполняя синхронизацию проекта, вы можете синхронизировать свою локальную копию с тем, что хранится в Git-репозитории проекта, что позволяет сотрудничать с командой без риска потери своей работы в случае сбоя. Подробнее о Git можно узнать в нашем [руководстве по контролю версий] (/manuals/version-control/). В этом представлении можно выполнять некоторые файловые операции:
 
-   - <kbd>Double click</kbd> a file to open a diff view of the file. The editor opens the file in a suitable editor, just like in the assets view.
-   - <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.
+   - Выполните <kbd>двойной клик</kbd> по файлу чтобы открыть представление отличий. Defold открывает файл в подходящем редакторе, так же, как и в представлении ассетов.
+   - Выполните <kbd>клик ПКМ</kbd> по файлу, чтобы открыть всплывающее меню, с помощью которого можно открыть представление отличий, отменить все изменения, сделанные в файле, найти файл в файловой системе и многое другое.
 
-## Side-by-side editing
+## Двухпанельное редактирование
 
-If you have multiple files open, a separate tab for each file is shown at the top of the editor view. It is possible to open 2 editor views side by side. <kbd>Right click</kbd> the tab for the editor you want to move and select <kbd>Move to Other Tab Pane</kbd>.
+Когда открыто несколько файлов, для каждого из них в верхней части окна редактора отображается отдельная вкладка. Рядом друг с другом можно открыть 2 представления редактора. Выполните <kbd>клик ПКМ</kbd> по вкладке редактора, который хотите переместить, и выберите <kbd>Move to Other Tab Pane</kbd>.
 
 ![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
 
-You can also use the tab menu to swap the position of the two panes and join them to a single pane.
+С помощью меню вкладок можно также поменять местами две панели или объединить их в одну.
 
-## The scene editor
+## Редактор сцен
 
-Double clicking a collection or game object file brings up the *Scene Editor*:
+Двойной клик по файлу коллекции или игрового объекта приводит к открытию *редактора сцены*:
 
 ![Select object](images/editor/select.jpg)
 
-Selecting objects
-: Click on objects in the main window to select them. The rectangle surrounding the object in the editor view will highlight green to indicate what item is selected. The selected object is also highlighted in the *Outline* view.
+Выделение объектов
+: Клик по объектам в главном окне выделяет их. Прямоугольник, окружающий объект в представлении редактора, будет подсвечен зеленым цветом, указывая на то, какой элемент выделен. Выделенный объект также подсвечивается в представлении *Outline*.
 
-  You can also select objects by:
+  Объекты можно выделять и другим способом:
 
-  - <kbd>Click and drag</kbd> to select all objects inside the selection region.
-  - <kbd>Click</kbd> objects in the Outline view.
+  - <kbd>Кликните и перетащите</kbd>, чтобы выделить все объекты, попавшие внутрь области выделения.
+  - <kbd>Кликните</kbd> по объекту в представлении Outline.
 
-  Hold <kbd>Shift</kbd> or <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) while clicking to expand the selection.
+  Для добавления к выделению зажмите и удерживайте <kbd>Shift</kbd> или <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) при клике по объектам.
 
-The move tool
+Инструмент перемещения
 : ![Move tool](images/editor/icon_move.png){.left}
-  To move objects, use the *Move Tool*. You find it in the toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
+  Для перемещения объектов используется инструмент *Move*. Активировать его можно на тулбаре в правом верхнем углу редактора сцены, или нажав клавишу <kbd>W</kbd>.
 
   ![Move object](images/editor/move.jpg)
 
-  The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There arn also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
+  На выделенном объекте отображается набор манипуляторов (квадратики и стрелки). Перетаскивание центрального маркера, в виде зеленого квадратика, приводит к свободному перемещению объекта в пространстве экрана, перетаскивание стрелок позволяет перемещать объект по осям X, Y и Z. Здесь же имеются маркеры-квадратики для перемещения объекта в плоскости X-Y, а также (видно при повороте камеры в 3D) в плоскостях X-Z и Y-Z.
 
-The rotate tool
+Инструмент вращения
 : ![Rotate tool](images/editor/icon_rotate.png){.left}
-  To rotate objects, use the *Rotate Tool* by selecting it in the toolbar, or by pressing the <kbd>E</kbd> key.
+  Для вращения объектов используется инструмент *Rotate*, который можно активировать на тулбаре и нажатием клавиши <kbd>E</kbd>.
 
   ![Move object](images/editor/rotate.jpg)
 
-  This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
+  Данный инструмент состоит из четырех круговых манипуляторов: один оранжевый, вращающий объект в пространстве экрана, и по одному для вращения вокруг каждой из осей X, Y и Z. Поскольку вид является параллельным по отношению к осям X и Y, круги отображаются только как две прямые, пересекающие объект.
 
-The scale tool
+Инструмент масштабирования
 : ![Scale tool](images/editor/icon_scale.png){.left}
-  To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
+  Для масштабирования объектов используется инструмент *Scale*, который можно активировать на тулбаре и нажатием клавиши <kbd>R</kbd>.
 
   ![Scale object](images/editor/scale.jpg)
 
-  This tool consists of a set of square handles. The center one scales the object uniformly in all axes (including Z). There also one handle for scaling along each of the X, Y and Z axes and one handle for scaling in the X-Y plane, the X-Z plane and the Y-Z plane.
+  Этот инструмент состоит из набора квадратных маркеров. Из них центральный равномерно масштабирует объект по всем осям (включая Z). Также имеется по одному маркеру для масштабирования вдоль каждой из осей X, Y и Z и по одному - для масштабирования в плоскостях X-Y, X-Z и Y-Z.
 
-## Creating new project files
+## Создание новых файлов проекта
 
-To create new resource files, either select <kbd>File ▸ New...</kbd> and then choose the file type from the menu, or use the context menu:
+Создавать новые файлы ресурсов можно двумя способами: выполнив <kbd>File ▸ New...</kbd> и выбрав тип файла из меню, либо используя контекстное меню:
 
-<kbd>Right click</kbd> the target location in the *Assets* browser, then select <kbd>New... ▸ [file type]</kbd>:
+Выполните <kbd>клик ПКМ</kbd> в целевом расположении в браузере *ассетов*, затем выберите <kbd>New... ▸ [тип файла]</kbd>:
 
 ![create file](images/editor/create_file.png){srcset="images/editor/create_file@2x.png 2x"}
 
-Type a suitable name for the new file. The full file name including the file type suffix is shown under *Path* in the dialog:
+Введите подходящее имя для нового файла. Полное имя файла, включая суффикс типа файла, отображается в диалоге в строке *Path*:
 
 ![create file name](images/editor/create_file_name.png){srcset="images/editor/create_file_name@2x.png 2x"}
 
-## Importing files to your project
+## Импортирование файлов в проект
 
-To add asset files (images, sounds, models etc) to your project, simply drag and drop them to the correct position in the *Assets* browser. This will make _copies_ of the files at the selected location in the project file structure. Read more about [how to import assets in our manual](/manuals/importing-assets/).
+Добавление в проект файлов ассетов (изображений, звуков, моделей и т. д.) осуществляется простым перетаскиванием их в нужную позицию в браузер *ассетов*. При этом создаются _копии_ файлов в выбранном расположении файловой структуры проекта. За подробностями обращайтесь к [нашему руководству по импортированию ассетов](/manuals/importing-assets/).
 
 ![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
 
-## Updating the editor
+## Обновление редактора
 
-The editor will automatically check for updates. When an update is detected it will be shown in the lower right corner of the editor window and on the project selection screen. Pressing the Update Available link will download and update the editor.
+Редактор будет автоматически проверять наличие обновлений. При обнаружении обновление будет отображаться в правом нижнем углу окна редактора и на экране выбора проекта. При клике по ссылке Update Available будет произведена загрузка и обновление редактора.
 
 ![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
 
 ![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
 
-## Keyboard shortcuts
+## Клавиатурные сокращения
 
-### Default shortcuts
+### Сокращения по умолчанию
 
-| Command | Windows | macOS | Linux |
+| Команда | Windows | macOS | Linux |
 |---------|---------|-------|-------|
 | Add | <kbd>A</kbd> | <kbd>A</kbd> | <kbd>A</kbd> |
 | Add secondary | <kbd>Shift</kbd>+<kbd>A</kbd> | <kbd>Shift</kbd>+<kbd>A</kbd> | <kbd>Shift</kbd>+<kbd>A</kbd> |
@@ -244,20 +244,20 @@ The editor will automatically check for updates. When an update is detected it w
 | Zoom out | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> | <kbd>Cmd</kbd>+<kbd>'-'</kbd> | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> |
 
 
-### Customizing shortcuts
+### Кастомизация сокращений
 
-You can customize keyboard shortcuts by creating a configuration file (e.g. `keymap.edn` in your home directory). Then go into <kbd>File ▸ Preferences</kbd>, and set <kbd>Path to custom keymap</kbd> to the created file. You need to restart Defold after setting this setting, and every time you edit the keymap file.
+Клавиатурные сокращения можно настроить, если создать конфигурационный файл (например, `keymap.edn` в домашней директории). Затем необходимо выполнить <kbd>File ▸ Preferences</kbd> и в строку <kbd>Path to custom keymap</kbd> прописать путь к созданному файлу. Необходимо перезапустить Defold после изменения этой настройки, а также каждый раз при редактировании файла keymap.
 
-You can see and download keymaps for: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn) and [Linux](examples/keymap_linux.edn)
+Просмотреть и скачать файлы конфигурации клавиш можно здесь: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn), [Linux](examples/keymap_linux.edn)
 
-## Editor logs
-If you run into a problem with the editor and need to [report an issue](/manuals/getting-help/#getting-help) it is a good idea to provide log files from the editor itself. The editor logs files can be found here:
+## Журнал событий редактора
+При возникновении проблем с редактором и при необходимости [сообщить о проблеме](/manuals/getting-help/#getting-help), лучше всего предоставить лог-файлы из самого редактора. Лог-файлы редактора можно найти в следующих расположениях:
 
   * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-  * macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
+  * macOS: `/Users/ **Your Username** /Library/Application Support/` или `~/Library/Application Support/Defold`
   * Linux: `~/.Defold`
 
-You can also get access to editor logs while the editor is running if it is started from a terminal/command prompt. To launch the editor from the terminal on macOS:
+Получить доступ к журналу редактора можно также во время его работы, если он запущен из терминала/командной строки. Для запуска редактора из терминала на macOS:
 
 ```
 $ > ./path/to/Defold.app/Contents/MacOS/Defold
