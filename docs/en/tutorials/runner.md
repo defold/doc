@@ -424,7 +424,7 @@ We should also add a controller game object with a script component to the level
     go.property("speed", 360) -- <1>
 
     function init(self)
-        msg.post("ground/controller#script", "set_speed", { speed = self.speed })
+        msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
     end
     ```
     1. This is a script property. We set it to a default value but any placed instance of the script can override this value, directly in the properties view in the editor.
@@ -446,10 +446,10 @@ Now, the purpose of this "controller" game object is to control everything that 
 In the level controller script's `init()` function, it sends a message to the ground controller object's script component, addressed by its id:
 
 ```lua
-msg.post("ground/controller#script", "set_speed", { speed = self.speed })
+msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
 ```
 
-The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"script"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the "set_speed" message so we have to add an `on_message()` function to *ground.script* and add logic for that.
+The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"controller"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the "set_speed" message so we have to add an `on_message()` function to *ground.script* and add logic for that.
 
 1. Open *ground.script*.
 2. Add the following code and save the file:
@@ -555,7 +555,7 @@ local grid = 460
 local platform_heights = { 100, 200, 350 } -- <1>
 
 function init(self)
-    msg.post("ground/controller#script", "set_speed", { speed = self.speed })
+    msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
     self.gridw = 0
 end
 
@@ -717,7 +717,7 @@ If you try the game now it quickly becomes apparent that the reset mechanism doe
     local platform_heights = { 100, 200, 350 }
 
     function init(self)
-        msg.post("ground/controller#script", "set_speed", { speed = self.speed })
+        msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
         self.gridw = 0
         self.spawns = {} -- <1>
     end
@@ -746,7 +746,7 @@ If you try the game now it quickly becomes apparent that the reset mechanism doe
     function on_message(self, message_id, message, sender)
         if message_id == hash("reset") then -- <2>
             -- Tell the hero to reset.
-            msg.post("hero#script", "reset")
+            msg.post("hero#hero", "reset")
             -- Delete all platforms
             for i,p in ipairs(self.spawns) do
                 go.delete(p)
@@ -773,7 +773,7 @@ If you try the game now it quickly becomes apparent that the reset mechanism doe
     -- platform.script
     ...
     if pos.x < -500 then
-        msg.post("/level/controller#script", "delete_spawn", { id = go.get_id() })
+        msg.post("/level/controller#controller", "delete_spawn", { id = go.get_id() })
     end
     ...
     ```
@@ -788,7 +788,7 @@ If you try the game now it quickly becomes apparent that the reset mechanism doe
 ...
 go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, go.get_position().y - 200, go.EASING_INSINE, 0.5, 0.2,
     function()
-        msg.post("controller#script", "reset")
+        msg.post("controller#controller", "reset")
     end)
 ...
 ```
@@ -863,7 +863,7 @@ end
 function update(self, dt)
     local pos = go.get_position()
     if pos.x < -500 then
-        msg.post("/level/controller#script", "delete_spawn", { id = go.get_id() })
+        msg.post("/level/controller#controller", "delete_spawn", { id = go.get_id() })
     end
     pos.x = pos.x - self.speed * dt
     go.set_position(pos)
