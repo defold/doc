@@ -62,7 +62,7 @@ The shape will not be drawn in the editor. You can [enable Physics debugging](/m
 
 
 # Scaling collision shapes
-It is possible to let the collision object and its shapes inherit the scale of the game object. Check the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project* to enable this. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
+The collision object and its shapes inherit the scale of the game object. To disable this behaviour uncheck the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project*. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
 
 
 # Rotating collision shapes
