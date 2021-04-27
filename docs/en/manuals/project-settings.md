@@ -238,6 +238,9 @@ Max number of sound resources, i.e the number of unique sound files at runtime, 
 #### Max Sound Instances
 Max number of concurrent sound instances, i.e. actual sounds played at the same time. `256` by default.
 
+#### Use Thread
+If checked, the sound system will use threads for sound playback to reduce risk of stutter when the main thread is under heavy load. Checked by default.
+
 ## Sprite
 
 #### Max Count
