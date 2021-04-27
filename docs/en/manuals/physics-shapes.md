@@ -35,7 +35,7 @@ Capsule shapes are only supported when using 3D physics (configured in the Physi
 A complex shape can either be created from a tilemap component or from a convex hull shape.
 
 ## Tilemap collision shape
-Defold includes a feature allowing you to easily generate physics shapes for a tile map. The [Tilemap manual](/manuals/tilemap/) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
+Defold includes a feature allowing you to easily generate physics shapes for the tile source used by a tile map. The [Tilesource manual](/manuals/tilesource/#tile-source-collision-shapes) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
 
 To add collision to a tile map:
 
