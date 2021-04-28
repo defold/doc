@@ -1,15 +1,15 @@
 ---
 title: Адресация в Defold
-brief: В этом руководстве объясняется, как в Defold решина проблема адресации.
+brief: В этом руководстве объясняется, как в Defold реализована адресации.
 ---
 
 # Адресация
 
-Код, управляющий запущенной игрой, должен быть способен достигать каждый объект и компонент, чтобы перемещать, масштабировать, анимировать, удалять и манипулировать видимым и слышимым для игрока содержимым. Механизм адресации Defold делает это возможным.
+Код, управляющий запущенной игрой, должен иметь возможность достигнуть каждый объект и компонент с целью перемещения, масштабирования, анимирования, удаления и прочих видов манипуляций с видимым и слышимым для игрока контентом. Механизм адресации Defold делает такую возможность доступной.
 
 ## Идентификаторы
 
-Defold ссылается на игровые объекты и компоненты используя адреса (или URL, но пока что проигнорируем это). Эти адреса состоят из идентификаторов. Ниже приведены все примеры того, как Defold использует адреса. В этом руководстве мы подробно рассмотрим, как они работают:
+Defold ссылается на игровые объекты и компоненты используя адреса (или URL, об этом позже). Эти адреса состоят из идентификаторов. Ниже приведены все примеры использования адресов в Defold. В этом руководстве мы подробно рассмотрим принцип их работы:
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -22,107 +22,107 @@ msg.post("#", "hello_there")
 local id = go.get_id(".")
 ```
 
-Let's start with a very simple example. Suppose that you have a game object with a single sprite component. You also have a script component to control the game object. The setup in the editor would look something like this:
+Начнем с очень простого примера. Предположим, что есть игровой объект с одним спрайтом. Также имеется скрипт для управления этим игровым объектом. В редакторе такая структура будет выглядеть примерно следующим образом:
 
 ![bean in editor](images/addressing/bean_editor.png)
 
-Now you want to disable the sprite when the game starts, so you can make it appear later. That is easily done by putting the following code in "controller.script":
+Допустим, требуется, чтобы спрайт отключился в начале игры, и чтобы была возможность включить его позже. Это несложно сделать, поместив следующий код в "controller.script":
 
 ```lua
 function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-1. Don't worry if you're puzzled by the '#' character. We'll get to that soon.
+1. Не стоит переживать по поводу символа '#'. Мы скоро дойдем до него.
 
-This will work as expected. When the game starts, the script component *addresses* the sprite component by its identifier "body" and uses that address to send it a *message* with the "disable". The effect of this special engine message is that the sprite component hides the sprite graphics. Schematically, the setup looks like this:
+Это сработает, как и ожидалось. При запуске игры компонент Script *обратится* к компоненту Sprite посредством его идентификатора "body" и, воспользовавшись этим адресом, отправит ему *сообщение* с пометкой "disable". В результате этого специального сообщения движка компонент Sprite скроет свое графическое изображение. Схематически структура выглядит следующим образом:
 
 ![bean](images/addressing/bean.png)
 
-The identifiers in the setup are arbitrary. Here we have chosen to give the game object the identifier "bean", its sprite component has been named "body", and the script component that controls the character has been named "controller".
+Идентификаторы в структуре произвольны. В данном примере для игрового объекта был выбран идентификатор - "bean", для компонента Sprite - "body", а для скрипта, управляющего персонажем - "controller".
 
 ::: sidenote
-If you don't choose a name, the editor will. Whenever you create a new game object or component in the editor, a unique *Id* property is automatically set.
+В случае, если имя не выбрано, это сделает редактор. При создании нового игрового объекта или компонента в редакторе уникальное свойство *Id* устанавливается автоматически.
 
-- Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc).
-- Components get an id corresponding to the component type ("sprite", "sprite2" etc).
+- Игровые объекты автоматически получают идентификатор "go" с добавлением нумерации ("go2", "go3" и т. д.).
+- Компоненты получают идентификатор в соответствии с типом этого компонента ("sprite", "sprite2" и т. д.).
 
-You can stick to these automatically assigned names if you want to, but we encourage you to change the identifiers into good, descriptive names.
+При желании можно придерживаться этих автоматически назначаемых имен, но рекомендуется изменять идентификаторы на читабельные и описательные имена.
 :::
 
-Now, let's add another sprite component and give the bean a shield:
+Теперь добавим еще один спрайт и дадим персонажу "bean" щит:
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-The new component must be uniquely identified within the game object. If you would give it the name "body" the script code would be ambiguous as to which sprite it should send the "disable" message. Therefore we pick the unique (and descriptive) identifier "shield". Now we can enable and disable the "body" and "shield" sprites at will.
+Новый компонент необходимо однозначно идентифицировать внутри игрового объекта. Если дать ему имя "body", то код скрипта станет двусмысленным относительно того, какому спрайту необходимо посылать сообщение "disable". Поэтому выбираем уникальный (и описательный) идентификатор "shield". Теперь спрайты "body" и "shield" можно произвольно включать и выключать.
 
 ![bean](images/addressing/bean_shield.png)
 
 ::: sidenote
-If you do try to use an identifier more than once, the editor will signal an error so this is never a problem in practice:
+Если попытаться использовать идентификатор более одного раза, редактор оповестит об ошибке, так что на практике проблем с этим не будет никогда:
 
 ![bean](images/addressing/name_collision.png)
 :::
 
-Now, let's look at what happens if you add more game objects. Suppose you want to pair two "beans" into a small team. You decide to call one of the bean game objects "bean" and the other one "buddy". Furthermore, when "bean" has been idle for a while, it should tell "buddy" to start dancing. That is done by sending a custom message called "dance" from the "controller" script component in "bean" to the "controller" script in "buddy":
+Теперь посмотрим, что произойдет, если добавить еще игровых объектов. Предположим, необходимо объединить двух "bean" в небольшую команду. Один из игровых объектов назовем "bean", а другой - "buddy". Кроме того, когда "bean" некоторое время простаивает, он должен сказать: "buddy", танцуй. Это делается посредством отправки пользовательского сообщения "dance" из скрипта "controller" объекта "bean" в скрипт "controller" объекта "buddy":
 
 ![bean](images/addressing/bean_buddy.png)
 
 ::: sidenote
-There are two separate components named "controller", one in each game object but this is perfectly legal since each game object creates a new naming context.
+Существует два отдельных компонента с именем "controller", по одному в каждом игровом объекте, но это абсолютно допустимо, так как каждый игровой объект создает новый контекст именования.
 :::
 
-Since the addressee of the message is outside the game object sending the message ("bean"), the code needs to specify which "controller" should receive the message. It needs to specify both the target game object id as well as the component id. The full address to the component becomes `"buddy#controller"` and this address consists of two separate parts.
+Поскольку адресат сообщения находится вне игрового объекта, отправляющего сообщение ("bean"), в коде необходимо указать, какой именно "controller" должен это сообщение получить. Необходимо указать как идентификатор целевого игрового объекта, так и идентификатор компонента. Полным адресом к компоненту будет `"buddy#controller"`, и этот адрес состоит из двух отдельных частей.
 
-- First come the identity of the target game object ("buddy"),
-- then follows the game object/component separator character ("#"),
-- and finally you write the identity of the target component ("controller").
+- В первую очередь идет идентификация целевого игрового объекта ("buddy"),
+- затем следует символ-разделитель игрового объекта/компонента ("#"),
+- и, наконец, указывается идентификатор целевого компонента ("controller").
 
-Going back to the previous example with a single game object we see that by leaving out the game object identifier part of the target address, the code can address components in the *current game object*.
+Вернувшись к предыдущему примеру с одним игровым объектом, можно заметить, что пропустив идентификатор игрового объекта как часть целевого адреса, код может обращаться к компонентам в *текущем игровом объекте*.
 
-For example, `"#body"` denotes the address to the component "body" in the current game object. This is very useful because this code will work in *any* game object, as long as there is a "body" component present.
+Например, `"#body"` обозначает адрес к компоненту "body" в текущем игровом объекте. Это очень удобно, поскольку такой код будет работать в *любом* игровом объекте, если в нем имеется компонент "body".
 
-## Collections
+## Коллекции
 
-Collections makes it possible to create groups, or hierarchies, of game objects and reuse them in a controlled way. You use collection files as templates (or "prototypes" or "prefabs") in the editor when you populate your game with content.
+Коллекции позволяют создавать группы, или иерархии, игровых объектов и многократно использовать их контролируемым образом. Файлы коллекций используются в качестве шаблонов (или "прототипов", "префабов") в редакторе при наполнении игры контентом.
 
-Suppose that you want to create a great number of bean/buddy teams. A good way to do that is to create a template in a new *collection file* (name it "team.collection"). Build the team game objects in the collection file and save it. Then put an instance of that collection file's contents in your main bootstrap collection and give the instance an identifier (name it "team_1"):
+Предположим, требуется создать несколько команд "bean/buddy". Хорошим подходом будет создание шаблона в новом *файле коллекции* (с именем "team.collection"). Далее необходимо собрать игровые объекты команды в файле коллекции и сохранить. Затем поместить экземпляр содержимого этого файла коллекции в основную загрузочную коллекцию и назначить этому экземпляру идентификатор (назвать его "team_1"):
 
 ![bean](images/addressing/team_editor.png)
 
-With this structure, the "bean" game object can still refer to the "controller" component in "buddy" by the address `"buddy#controller"`.
+При такой структуре игровой объект "bean" все также может ссылаться на компонент "controller" в объекте "buddy" по адресу `"buddy#controller"`.
 
 ![bean](images/addressing/collection_team.png)
 
-And if you add a second instance of "team.collection" (name it "team_2"), the code running inside the "team_2" script components will work just as well. The "bean" game object instance from collection "team_2" can still address the "controller" component in "buddy" by the address `"buddy#controller"`.
+Если добавить второй экземпляр "team.collection" (с именем "team_2"), то код, запущенный внутри скрипта экземпляра коллекции "team_2", также будет успешно работать. Экземпляр игрового объекта "bean" из коллекции "team_2" по-прежнему может обращаться к компоненту "controller" в объекте "buddy" по адресу `"buddy#controller"`.
 
 ![bean](images/addressing/teams_editor.png)
 
-## Relative addressing
+## Относительная адресация
 
-The address `"buddy#controller"` works for the game objects in both collections because it is a *relative* address. Each of the collections "team_1" and "team_2" creates a new naming context, or "namespace" if you will. Defold avoids naming collisions by taking the naming context a collection creates into consideration for addressing:
+Адрес `"buddy#controller"` работает для игровых объектов в обеих коллекциях, потому что это *относительный* адрес. Каждая из коллекций, "team_1" и "team_2", задает новый контекст именования, или, если хотите, "пространство имён". Defold позволяет избежать конфликтов при именовании, учитывая контекст, создаваемый коллекцией для адресации:
 
 ![relative id](images/addressing/relative_same.png)
 
-- Within the naming context "team_1", the game objects "bean" and "buddy" are uniquely identified.
-- Similarly, within the naming context "team_2", the game objects "bean" and "buddy" are also uniquely identified.
+- В контексте именования коллекции "team_1" однозначно идентифицируются игровые объекты "bean" и "buddy".
+- Аналогичным образом, в контексте именования коллекции "team_2", игровые объекты "bean" и "buddy" также имеют уникальную идентификацию.
 
-Relative addressing works by automatically prepending the current naming context when resolving a target address. This is again immensely useful and powerful because you can create groups of game objects with code and reuse those efficiently throughout the game.
+Относительная адресация работает путем автоматического добавления текущего контекста именования при определении целевого адреса. Это опять-таки чрезвычайно удобно, поскольку появляется возможность создавать группы игровых объектов с кодом и эффективно использовать их на всех этапах разработки игры.
 
-### Shorthands
+### Сокращения
 
-Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
+Defold предлагает два полезных сокращения, которые можно использовать для отправки сообщений без указания полного URL:
 
 :[Shorthands](../shared/url-shorthands.md)
 
-## Game object paths
+## Пути игровых объектов
 
-To correctly understand the naming mechanism, let's look at what happens when you build and run the project:
+Чтобы правильно понять принцип именования, посмотрим, что происходит при сборке и запуске проекта:
 
-1. The editor reads the bootstrap collection ("main.collection") and all its content (game objects and other collections).
-2. For each static game object, the compiler creates an identifier. These are built as "paths" starting at the bootstrap root, down the collection hierarchy to the object. A '/' character is added at each level.
+1. Редактор считывает загрузочную коллекцию ("main.collection") и все ее содержимое (игровые объекты и другие коллекции).
+2. Для каждого статичного игрового объекта компилятор создает идентификатор. Они формируются в виде "путей", начинающихся от загрузочной коллекции, далее по иерархии коллекции к объекту. На каждом уровне добавляется символ '/'.
 
-For our example above, the game will run with the following 4 game objects:
+В приведенном выше примере игра будет работать со следующими 4 игровыми объектами:
 
 - /team_1/bean
 - /team_1/buddy
@@ -130,34 +130,34 @@ For our example above, the game will run with the following 4 game objects:
 - /team_2/buddy
 
 ::: sidenote
-Identities are stored as hashed values. The runtime also stores the hash state for each collection identity which is used to continue hashing relative string to an absolute id.
+Идентификаторы хранятся в виде хэшированных значений. В процессе выполнения также сохраняется хэш-состояние для каждого идентификатора коллекции, которое используется для последующего хэширования строки относительного адреса к абсолютному идентификатору.
 :::
 
-In runtime, the collection grouping does not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
+Во время выполнения не существует такой категории, как коллекции. Нет способа узнать, к какой коллекции принадлежал тот или иной игровой объект до компиляции. Также невозможно манипулировать всеми объектами коллекции одновременно. Если есть необходимость в таких операциях, можно легко отследить их самостоятельно в коде. Идентификатор каждого объекта статичен, он гарантированно остается неизменным на протяжении всего времени существования объекта. Это означает, что можно хранить идентификатор объекта без риска потери и использовать его позже.
 
-## Absolute addressing
+## Абсолютная адресация
 
-It is possible to use the full identifiers described above when addressing. In most cases relative addressing is preferred since it allows for content reuse, but there are cases where absolutely addressing becomes necessary.
+При указании адресов можно использовать полные идентификаторы, описанные выше. В большинстве случаев предпочтительна относительная адресация, так как она позволяет повторно использовать контент, но бывают случаи, когда абсолютная адресация становится необходимой.
 
-For example, suppose that you want an AI manager that tracks the state of each bean object. You want beans to report to their active status to the manager, and the manager makes tactical decisions and gives orders to the beans based on their status. It would make perfect sense in this case to create a single manager game object with a script component and place that alongside the team collections in the bootstrap collection.
+Например, предположим, что требуется создать AI-менеджер, который отслеживает состояние каждого объекта "bean". Необходимо, чтобы "bean" сообщали менеджеру о своем активном состоянии, а менеджер принимал тактические решения и отдавал приказы объектам "bean", учитывая их статус. В этом случае имеет смысл создать единый игровой объект-менеджер с компонентом Script и поместить его вместе с коллекциями "team" в коллекцию начальной загрузки.
 
 ![manager object](images/addressing/manager_editor.png)
 
-Each bean is then responsible for sending status messages to the manager: "contact" if it spots an enemy or "ouch!" if it is hit and takes damage. For this to work, the bean controller scrips use absolute addressing to send messages to the component "controller" in "manager".
+Тогда каждый объект "bean" отвечает за отправку менеджеру сообщений о состоянии: "contact", если обнаружен враг, или "ouch!", если получен урон. Чтобы это работало, скрипты "controller" объектов "bean" используют абсолютную адресацию для отправки сообщений компоненту "controller" объекта "manager".
 
-Any address that starts with a '/' will be resolved from the root of the game world. This corresponds to the root of the *bootstrap collection* that is loaded on game start.
+Любой адрес, начинающийся с символа '/' будет вычисляться исходя из корня игрового мира, что соответствует корню *коллекции начальной загрузки*, которая загружается при старте игры.
 
-The absolute address of the manager script is `"/manager#controller"` and this absolute address will resolve to the right component no matter where it is used.
+Абсолютный адрес скрипта менеджера - `"/manager#controller"` и этот абсолютный адрес будет актуальным для компонента вне зависимости от того, где он используется.
 
 ![teams and manager](images/addressing/teams_manager.png)
 
 ![absolute addressing](images/addressing/absolute.png)
 
-## Hashed identifiers
+## Хэшированные идентификаторы
 
-The engine stores all identifiers as hashed values. All functions that take as argument a component or a game object accepts a string, hash or an URL object. We have seen how to use strings for addressing above.
+Движок хранит все идентификаторы в виде хэш-значений. Все функции, которым в качестве аргумента необходимо передать компонент или игровой объект, принимают строку, хэш или же URL-объект. Выше мы рассматривали, как использовать строки при адресации.
 
-When you get the identifier of a game object, the engine will always return an absolute path identifier that is hashed:
+При получении идентификатора игрового объекта движок всегда возвращает абсолютный идентификатор пути в хэшированном виде:
 
 ```lua
 local my_id = go.get_id()
@@ -167,10 +167,10 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-You can use such an identifier in place of a string id, or construct one yourself. Note though that a hashed id corresponds to the path to the object, i.e. an absolute address:
+Такой идентификатор можно использовать взамен строкового идентификатора, или сформировать его самостоятельно. При этом следует иметь в виду, что хэшированный идентификатор соответствует пути к объекту, т.е. абсолютному адресу:
 
 ::: sidenote
-The reason relative addresses must be given as strings is because the engine will compute a new hash id based on the hash state of the current naming context (collection) with the given string added to the hash.
+Причина, по которой относительные адреса должны быть указаны в виде строк, заключается в том, что движок вычисляет новый хэш идентификатора, основанный на хэш-состоянии текущего контекста именования (коллекции) с добавлением в хэш данной строки.
 :::
 
 ```lua
@@ -181,66 +181,66 @@ go.set_position(pos, spawned_id)
 local other_id = hash("/path/to/the/object")
 go.set_position(pos, other_id)
 
--- This will not work! Relative addresses must be given as strings.
+-- Это не сработает! Относительные адреса должны быть указаны в виде строк.
 local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```
 
-## URLs
+## URL
 
-To complete the picture, let's look at the full format of Defold addresses: the URL.
+Для полноты картины, давайте посмотрим на полный формат адресов Defold: URL.
 
-An URL is an object, usually written as specially formatted strings. A generic URL consists of three parts:
+URL - это объект, записанный, как правило, в виде строк специального формата. Типовой URL состоит из трех частей:
 
 `[socket:][path][#fragment]`
 
 socket
-: Identifies the game world of the target. This is important when working with [Collection Proxies](/manuals/collection-proxy) and is then used to identify the _dynamically loaded collection_.
+: Идентифицирует игровое пространство игры. Имеет важное значение при работе с [прокси-коллекциями](/manuals/collection-proxy), а также используется для идентификации _динамически загружаемых коллекций_.
 
 path
-: This part of the URL contains the full id of the target game object.
+: Эта часть URL содержит полный идентификатор целевого игрового объекта.
 
 fragment
-: The identity of the target component within the specified game object.
+: Идентификация целевого компонента в пределах указанного игрового объекта.
 
-As we have seen above, you can leave out some, or most of this information in the majority of cases. You almost never need to specify the socket, and you often, but not always, have to specify the path. In those cases when you do need to address things in another game world then you need to specify the socket part of the URL. For instance, the full URL string for the "controller" script in the "manager" game object above is:
+Как было показано выше, в большинстве случаев можно пропустить некоторую или большую часть этой информации. Почти никогда не требуется указывать сокет, и часто, но не всегда необходимо указывать путь. В тех случаях, когда все-таки нужно обратиться к чему-либо в другом игровом мире, потребуется указать сокетную часть URL. Например, полная строка URL для скрипта "controller" в игровом объекте "manager":
 
 `"main:/manager#controller"`
 
-and the buddy controller in team_2 is:
+и "controller" объекта "buddy" в team_2:
 
 `"main:/team_2/buddy#controller"`
 
-We can send messages to them:
+Мы можем отправить им сообщения следующим образом:
 
 ```lua
--- Send "hello" to the manager script and team buddy bean
+-- Отправить "hello" скрипту менеджера и команде buddy и bean
 msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
 
-## Constructing URL objects
+## Получение URL-объектов
 
-URL objects can also be constructed programmatically in Lua code:
+URL-объекты также могут быть созданы программно в Lua-коде:
 
 ```lua
--- Construct URL object from a string:
+-- Сформировать URL-объект из строки:
 local my_url = msg.url("main:/manager#controller")
 print(my_url) --> url: [main:/manager#controller]
 print(my_url.socket) --> 786443 (internal numeric value)
 print(my_url.path) --> hash: [/manager]
 print(my_url.fragment) --> hash: [controller]
 
--- Construct URL from parameters:
+-- Сформировать URL по параметрам:
 local my_url = msg.url("main", "/manager", "controller")
 print(my_url) --> url: [main:/manager#controller]
 
--- Build from empty URL object:
+-- Сформировать URL-объект из ничего:
 local my_url = msg.url()
 my_url.socket = "main" -- specify by valid name
 my_url.path = hash("/manager") -- specify as string or hash
 my_url.fragment = "controller" -- specify as string or hash
 
--- Post to target specified by URL
+-- Отправить сообщение целевому объекту, указанному в URL
 msg.post(my_url, "hello_manager!")
 ```

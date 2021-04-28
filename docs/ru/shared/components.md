@@ -20,5 +20,5 @@ sound.play("bean#hoohoo", { delay = 1, gain = 0.5 } )
 
 * Скрипт (Script)
 * GUI
-* Эффект частиц (Particle FX)
+* Эффекты частиц (Particle FX)
 * Тайловая карта (Tile Map)
