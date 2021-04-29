@@ -36,7 +36,7 @@ brief: 碰撞对象的形状可以包含多个简单形状组成也可以由一�
 复杂形状可以由瓷砖地图生成或者使用凸多边形.
 
 ## 瓷砖地图碰撞形状
-Defold 包含一个功能就是从瓷砖地图中自动生成物理碰撞形状. [瓷砖地图教程](/manuals/tilemap/) 介绍了新建瓷砖图源的碰撞组与把瓷砖分配给碰撞组的 ([例子](/examples/tilemap/collisions/)).
+Defold 包含一个功能就是从瓷砖地图中自动生成瓷磚圖源的物理碰撞形状. [瓷砖圖源教程](/manuals/tilesource/#tile-source-collision-shapes) 介绍了新建瓷砖图源的碰撞组与把瓷砖分配给碰撞组的 ([例子](/examples/tilemap/collisions/)).
 
 在瓷砖地图上添加碰撞:
 
@@ -63,8 +63,7 @@ Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以�
 
 
 # 缩放碰撞形状
-
-可以让碰撞形状继承游戏对象的缩放. 在 *game.project* 里的物理部分勾选 [Allow Dynamic Transforms](/manuals/project-settings/#Allow Dynamic Transforms) 即可. 注意缩放继承只支持等比缩放, 如果不等比, 去三周最小值.
+碰撞對象及其形狀繼承于游戲對象. 不想要該功能的話可以取消勾選 *game.project* 中物理部分下的 [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms). 注意只有等比縮放受支持, 數值不等比的話以最小的一項數值為准.
 
 
 # 旋转碰撞形状
