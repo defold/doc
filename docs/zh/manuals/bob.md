@@ -18,63 +18,64 @@ Bob 运行于命令行界面 `java` (再Windows上是 `java.exe`) 后跟bob的ja
 ```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
- -a,--archive                        编译数据包
+  -a,--archive                       编译数据包
  -ar,--architectures <arg>           逗号分割发布架构, 例如 "arm64-android,armv7-android"
-                                     
-    --binary-output <arg>            指定可执行文件存放地址
+  -u,--auth <arg>                    作者認證標記
+     --binary-output <arg>           指定可执行文件存放地址
                                      默认地址是
                                      "<build-output>/<platform>/"
- -bo,--bundle-output <arg>           打包输出目录
  -br,--build-report <arg>            指定编译报告的存放存放地址
                                      报告为JSON格式
  -brhtml,--build-report-html <arg>   指定编译报告的存放存放地址
                                      报告为HTML格式
-    --build-server <arg>             编译服务器 (当使用原生扩展
+     --build-server <arg>            编译服务器 (当使用原生扩展
                                      时使用)
- -d,--debug                          使用dmengine的debug版本(当
+ -bo,--bundle-output <arg>           打包輸出目錄
+     --bundle-format <apk|aab>       Android 打包格式
+  -d,--debug                         使用dmengine的debug版本(当
                                      编译时). 弃用, 使用--variant
                                      代替
-    --defoldsdk <arg>                指定defold sdk (sha1)
+     --debug-ne-upload               把文件打包為upload.zip之後上傳到
+                                     編譯服務器
+     --defoldsdk <arg>               指定defold sdk (sha1)
                                      使用版本
- -e,--email <arg>                    用户电邮
- -h,--help                           帮助文档
- -i,--input <arg>                    指定源目录, 默认是当前
+     --exclude-build-folder          逗號分割的排除目錄列表
+  -e,--email <arg>                   用户电邮
+  -h,--help                          帮助文档
+  -i,--input <arg>                   指定源目录, 默认是当前
                                      目录
-    --identity <arg>                 指定签名 (iOS)
- -k,--keep-unused                    指定未使用资源仍然打包
+     --identity <arg>                指定签名 (iOS)
+  -k,--keep-unused                   指定未使用资源仍然打包
                                      输出
- -l,--liveupdate <arg>               要在发布后使用热更新功能
-                                     参数填yes
- -mp,--mobileprovisioning <arg>      指定mobileprovisioning profile (iOS)
- -o,--output <arg>                   输出目录. 默认是
+     --keystore <arg>                Android 打包密鑰文件.
+     --keystore-pass <arg>           Android 打包密鑰密碼文件路徑.
+     --keystore-alias <arg>          Android 打包密鑰別名文件路徑.
+  -l,--liveupdate <arg>              要在发布后使用热更新功能
+                                     参数填 yes
+ -mp,--mobileprovisioning <arg>      指定 mobileprovisioning profile (iOS)
+  -o,--output <arg>                  输出目录. 默认是
                                      "build/default"
- -p,--platform <arg>                 发布平台 (打包时)
- -r,--root <arg>                     指定编译目录. 默认是
+  -p,--platform <arg>                发布平台 (打包时)
+  -r,--root <arg>                    指定编译目录. 默认是
                                      当前目录
-    --settings <arg>                 指定项目设置文件的
+     --settings <arg>                指定项目设置文件的
                                      路径. 可以使用多个
                                      文件. 设置根据文件
                                      从左到右应用.
-    --strip-executable               去掉dmengine的debug信息
+     --strip-executable              去掉dmengine的debug信息
                                      (编译 iOS 或 Android时)
  -tc,--texture-compression <arg>     使用纹理档中指定的
                                      纹理压缩
  -tp,--texture-profiles <arg>        使用纹理压缩档 (弃用)
- -u,--auth <arg>                     用户auth符
-    --use-vanilla-lua                只使用 vanilla 源代码 (即
+     --use-vanilla-lua               只使用 vanilla 源代码 (即
                                      不要字节码)
- -v,--verbose                        冗余输出
-    --variant <arg>                  指定使用 debug, release 或者 headless
-                                     dmengine的版本 (编译时)
-    --version                        打印输出
+  -v,--verbose                       冗余输出
+     --variant <arg>                 指定使用 debug, release 或者 headless
+                                     的dmengine版本 (编译时)
+     --version                       打印输出
                                      版本号
-    --with-symbols                   生成标记文件 (如果
+     --with-symbols                  生成标记文件 (如果
                                      可用)
-    --bundle-format <apk|aab>        使用哪种格式打 Android 包.
-    --keystore <arg>                 使用哪个密匙注册
-                                     Android 包.
-    --keystore-pass <arg>            密匙密码路径用于打 Android 包.
-    --keystore-alias <arg>           密匙别名用于打 Android 包.
 ```
 
 支持的命令:
