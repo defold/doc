@@ -17,10 +17,12 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 
 因为所有硬件压缩都是有损的, 纹理数据可能会不如压缩前好看. 造成这种现象的原因高度取决于材质和压缩算法. 为了得到最好的效果就需要多多尝试. 别忘了 Google 是你的好伙伴.
 
-软件压缩方面可以在打包时选择如何保存纹理数据 (压缩或者原图). Defold 支持 WebP 和 ZLib (默认) 算法. WebP 支持有损无损两种方式, 通常比 ZLib 效果好, ZLib 效果一般.
+软件压缩方面可以在打包时选择如何保存纹理数据 (压缩或者原图). Defold 支持 [基础通用](https://github.com/BinomialLLC/basis_universal) 纹理压缩, 它能把图片压缩为一个中间格式. 这种格式可以在运行时解码为适合硬件 GPU 使用的数据.
+基础通用格式是高质量有损格式.
+打包时还会使用 LZ4 算法进一步对图片进行压缩以减小包体.
 
 ::: 注意
-压缩属于资源密集型耗时操作, 图片多的话可以 _大大_ 增加编译时间. 就连选择纹理压缩格式和类型也非常耗时.
+压缩属于资源密集型耗时操作, 图片多的话可以 _大大_ 增加编译时间, 还取决于你选择的纹理格式和压缩类型.
 :::
 
 ## 纹理档案
@@ -79,7 +81,7 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 : 指定平台. `OS_ID_GENERIC` 匹配所有平台, `OS_ID_WINDOWS` 对应 Windows 平台, `OS_ID_IOS` 对应 iOS 平台. 注意如果使用 `OS_ID_GENERIC`, 设定将会对所有平台生效.
 
 ::: 注意
-如果两个 [路径样式](#path-settings) 匹配一个文件并且这两个路径分别指定不同的平台, 那么这 **两个** 档案都会生效, 所以会生成 **两个** 纹理.
+如果两个 [路径样式](#path-settings) 匹配一个文件并且这两个路径分别指定不同的平台, 那么这两个档案 **都会** 生效, 所以会生成 **两个** 纹理.
 :::
 
 *Formats*
@@ -109,12 +111,20 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 
 硬件可以直接处理未压缩纹理以及 *有损* 压缩纹理. 固定硬件压缩意思是纹理大小是一定的, 而不论纹理的内容. 一定意义上原图内容决定了硬件压缩后纹理的质量.
 
-目前支持以下有损压缩.
+因为基础通用压缩解码取决于设备的 GPU 功能, 推荐配合基础通用压缩的格式为:
+`TEXTURE_FORMAT_RGB`, `TEXTURE_FORMAT_RGBA`, `TEXTURE_FORMAT_RGB_16BPP`, `TEXTURE_FORMAT_RGBA_16BPP`, `TEXTURE_FORMAT_LUMINANCE` 与 `TEXTURE_FORMAT_LUMINANCE_ALPHA`.
 
-<!--
-DXT
-: 也叫 S3 纹理压缩. 原本只在Windows上应用, 但是 macOS 支持了这种格式的读取而 Linux 可以用安装软件的方法支持这种格式. 其原理是把图片分为 4x4 像素大小的图块每个图块每个像素四个颜色通道.
--->
+基础通用压缩解码支持各种输出格式, 例如 `ASTC4x4`, `BCx`, `ETC2`, `ETC1` 与 `PVRTC1`.
+更多更新详情请见
+
+::: 注意
+为了引入基础通用编码器, 目前指定硬件输出格式关闭.
+
+如何同时支持这两种格式还在探索当中.
+远期未来目标是引入内容管线插件来解决这个问题.
+:::
+
+目前支持以下有损压缩格式:
 
 PVRTC
 : 也是一种图块压缩方法. 在4比特模式 (4BPP) 下每个图块 4×4 像素. 在2比特模式 (2BPP) 下每个图块 8×4 像素. 每个图块占用 64 比特 (8 字节) 内存空间.  这种格式原本用于 iPhone, iPod Touch, 和 iPad. 目前使用 PowerVR GPU 的 Android 设备, 也支持这种格式. Defold 支持 PVRTC1, 在格式id中用后缀 "V1" 表示.
@@ -136,36 +146,23 @@ ETC
 | `TEXTURE_FORMAT_RGBA_PVRTC4BPPV1` | 1:8 固定. | 预乘 alpha. 正方形图片. 非正方形图片会被裁剪. |
 | `TEXTURE_FORMAT_RGB_ETC1`         | 1:6 固定  | 无 alpha 通道. |
 
-<!---
-| TEXTURE_FORMAT_RGB_DTX1
-| 1:8 fixed
-| No alpha
-| Can be compressed on Windows only
-
-| TEXTURE_FORMAT_RGBA_DTX1
-| 1:8 fixed
-| 1 bit alpha
-| Can be compressed on Windows only
-
-| TEXTURE_FORMAT_RGBA_DXT3
-| 1:4 fixed
-| 4 bit fixed alpha
-| Can be compressed on Windows only
-
-| TEXTURE_FORMAT_RGBA_DXT5
-| 1:4 fixed
-| Interpolated smooth alpha
-| Can be compressed on Windows only
--->
 
 ## 压缩类型
 
 支持以下软件压缩类型. 载入内存时需要解压.
 
-| 类型                              | 格式                   | 描述 |
+::: 注意
+目前 `WEBP` 压缩会回退为 `BASIS_UASTC` 压缩.
+
+如何同时支持这两种格式还在探索当中.
+远期未来目标是引入内容管线插件来解决这个问题.
+:::
+
+| Type                              | Formats                   | Note |
 | --------------------------------- | ------------------------- | ---- |
-| `COMPRESSION_TYPE_DEFAULT`        | 所有格式               | 简单无损压缩, 默认值. |
-| `COMPRESSION_TYPE_WEBP`           | 所有格式               | WebP 无损压缩. 高质量小体积. |
-| `COMPRESSION_TYPE_WEBP_LOSSY`     | 所有非硬件压缩格式 | WebP 有损压缩. 降低质量再降低体积. |
+| `COMPRESSION_TYPE_DEFAULT`        | All formats               | 常见有损压缩. 默认类型. |
+| `COMPRESSION_TYPE_BASIS_UASTC`    | All RGB/RGBA formats      | 基础通用高质, 有损压缩. 质量等级越低体积越小. |
+| `COMPRESSION_TYPE_WEBP`           | All formats               | WebP 无损压缩. 质量等级越高体积越小. |
+| `COMPRESSION_TYPE_WEBP_LOSSY`     | All non hardware compressed formats. | WebP 有损压缩. 质量等级越低体积越小. |
 
 对于硬件压缩纹理格式PVRTC或ETC, WebP无损压缩过程使用内部中间格式将压缩的硬件纹理格式数据转换为更适合WebP图像压缩的数据. 然后在运行时加载时将其转换回压缩的硬件纹理格式. 硬件压缩纹理格式PVRTC和ETC目前不支持WebP有损类型.
