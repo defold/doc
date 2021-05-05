@@ -262,6 +262,16 @@ Max number of concurrent visible tiles per collection, `2048` by default.
 #### Max Count
 Max number of spine models, `128` by default.
 
+## Mesh
+
+#### Max Count
+Max number of mesh components per collection, `128` by default.
+
+## Model
+
+#### Max Count
+Max number of model components per collection, `128` by default.
+
 ## GUI
 
 #### Max Count
