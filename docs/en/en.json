@@ -124,7 +124,7 @@
                 "author": "Game Developers",
                 "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
             },
-            
+
             {
                 "path": "https://www.youtube.com/embed/7P4Qj-OCLF8",
                 "name": "Build a Tower Defense game - Opening Sequence",
@@ -314,6 +314,11 @@
                 "path": "https://defold.com/2021/03/02/Creating-online-games-using-Nakama-and-Defold/",
                 "name": "Creating online games using Nakama and Defold",
                 "description": "In this tutorial we will look at how to create online multiplayer games in Defold using the open-source Nakama game server from Heroic Labs."
+            },
+            {
+                "path": "https://defold.com/2021/04/21/Releasing-games-on-Yandex/",
+                "name": "Releasing HTML5 games on Yandex.Games",
+                "description": "In this blog post we’ll look at how to add the Yandex.Games SDK to a Defold game and how to submit your game to the Yandex.Games catalog."
             },
             {
                 "path": "https://defold.com/2021/03/14/Releasing-html5-games-on-Game-Distribution/",
