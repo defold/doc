@@ -186,6 +186,29 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 对于 `play_sound` 消息没法过滤因为该消息由 Defold 引擎内部保留. 如果使用引擎保留消息名会造成运行不正确.
 :::
 
+
+## 运行时控制
+可以通关一些列属性在运行时控制声音 (用法参见 [API](/ref/sound/)). 以下属性可以使用 `go.get()` 和 `go.set()` 来进行操作:
+
+`gain`
+: 声音组件音量 (`number`).
+
+`pan`
+: 声音组件角度 (`number`). 取值从 -1 (向左-45度) 到 1 (向右45度).
+
+`speed`
+: 声音组件速度 (`number`). 取值 1.0 为一般速度, 0.5 半速, 2.0 两倍速.
+
+`sound`
+: 声音资源路径 (`hash`). 可以使用 `resource.set_sound(path, buffer)` 来变更声音资源. 例如:
+
+```lua
+local boom = sys.load_resource("/sounds/boom.wav")
+local path = go.get("#sound", "sound")
+resource.set_sound(path, boom)
+```
+
+
 ## 相关项目配置
 
 在 *game.project* 文件里有些关于声音组件的 [设置项目](/manuals/project-settings#sound).
