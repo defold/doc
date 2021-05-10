@@ -40,6 +40,12 @@
             "name": "Português (Portuguese)",
             "translation": "",
             "active": true
+        },
+        "ru":
+        {
+            "name": "Русский (Russian)",
+            "translation": "Demetrij87G",
+            "active": true
         }
     }
 }
