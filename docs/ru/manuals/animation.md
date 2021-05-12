@@ -10,5 +10,5 @@ Defold has built-in support for many types of animation that you can use as a so
 
 * [Покадровая анимация](/manuals/flipbook-animation) - Последовательное проигрывание серии изображений
 * [Скелетная анимация](/manuals/spine) - Проигрывание 2D скелетных анимаций
-* [Анимация моделей](/manuals/model-animation) - Playing 3D skinned animations (?)
+* [Анимация моделей](/manuals/model-animation) - Проигрывание 3D Анимаций моделей
 * [Анимация свойств](/manuals/property-animation) - Анимация свойств объекта, таких как положение, масштаб, углы поворота и многих других
