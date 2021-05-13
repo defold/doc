@@ -125,7 +125,7 @@ go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOU
 ```
 
 ::: important
-Когда выставлен курсор либо при его твининге, события таймлайна могут быть не вызваны (?)
+При анимировании или установке позиции курсора, события временной шкалы могут срабатывать не так, как ожидается.
 :::
 
 ### Иерархия костей
@@ -182,7 +182,7 @@ String
 : Идентификатор события, в хеш-форме.
 
 `blend_weight`
-: How much of the animation is blended in at this point. 0 means that nothing of the current animation is part of the blend yet, 1 means that the blend consists of the current animation to 100%. (?)
+: Указывает, какой процент от анимации будет использован в бленде в текущий момент времени. 0 означает, что ничего из текущей анимации не является частью бленда, 1 означает, что бленд состоит из текущей анимации на 100%.
 
 ```lua
 -- Spine animation contains events that are used to play sounds in sync with the animation.
