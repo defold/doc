@@ -9,8 +9,8 @@ brief: Данное руководство объясняет как испол�
 
 Подроьнее о том, как импортируются трехмерные данные в 3D модель для анимации, смотрите [Документация по моделям](/manuals/model).
 
-  ![Анимация в Blender](images/animation/blender_animation.png){.inline srcset="images/animation/blender_animation@2x.png 2x"}
-  ![Цик покачивания](images/animation/suzanne.gif){.inline}
+  ![Blender animation](images/animation/blender_animation.png){.inline srcset="images/animation/blender_animation@2x.png 2x"}
+  ![Wiggle loop](images/animation/suzanne.gif){.inline}
 
 
 ## Проигрывание анимаций
