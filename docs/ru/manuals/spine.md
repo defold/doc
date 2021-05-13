@@ -98,8 +98,8 @@ Atlas
 
 ```lua
 function init(self)
-    -- Play the "walk" animation on component "spinemodel" and blend against previous
-    -- animation for the first 0.1 seconds
+    -- Проиграть анимацию "walk" для компонента "spinemodel" и смешать её относительно предыдущей
+    -- анимации первые 0.1 секунд
     local anim_props = { blend_duration = 0.1 }
     spine.play_anim("#spinemodel", "run", go.PLAYBACK_LOOP_FORWARD, anim_props)
 end
@@ -114,13 +114,13 @@ end
 В дополнении к использованию метода `spine.play_anim()` для более продвинутой анимации модели компоненты типа *Spine Model* предоставляют свойство "cursor" которым можно управлять с помощью вызова `go.animate()` (более подробно в разделе [анимация свойств](/manuals/property-animation)):
 
 ```lua
--- Set the animation on the spine model but don't run it.
+-- Установить анимацию для Spine модели, но не проигрывать её.
 spine.play_anim("#spinemodel", "run_right", go.PLAYBACK_NONE)
 
--- Set the cursor to position 0
+-- Выставить курсор в 0
 go.set("#spinemodel", "cursor", 0)
 
--- Tween the cursor slowly between 0 and 1 pingpong with in-out quad easing.
+-- Сделать медленный твининг курсора между 0 и 1 в режиме пинг-понг со смягчением in-out
 go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD, 6)
 ```
 
@@ -137,7 +137,7 @@ go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOU
 Зная имя кости, вы можете получить идентификатор экземпляра кости во время выполнения игры. Функция [`spine.get_go()`](/ref/spine#spine.get_go) возвращает идентификатор заданной кости и вы можете, например, установить другие игровые объекты дочерними для данного анимируемого игрового объекта:
 
 ```lua
--- Attach pistol game object to the hand of the heroine
+-- Прикрепить игровой объект пистолета к руке героини
 local hand = spine.get_go("heroine#spinemodel", "front_hand")
 msg.post("pistol", "set_parent", { parent_id = hand })
 ```
@@ -185,11 +185,11 @@ String
 : Указывает, какой процент от анимации будет использован в бленде в текущий момент времени. 0 означает, что ничего из текущей анимации не является частью бленда, 1 означает, что бленд состоит из текущей анимации на 100%.
 
 ```lua
--- Spine animation contains events that are used to play sounds in sync with the animation.
--- These arrive here as messages.
+-- Spine-анимация содержит события, которые используются для проигрывания звуков синхронно с анимацией.
+-- Эти события прибывают сюда в виде сообщений
 function on_message(self, message_id, message, sender)
   if message_id == hash("spine_event") and message.event_id == hash("play_sound") then
-    -- Play animation sound. The custom event data contains the sound component and the gain.
+    -- Проиграть звук анимации. Пользовательские данные события содержат компонент звука и уровень усиления
     local url = msg.url("sounds")
     url.fragment = message.string
     sound.play(url, { gain = message.float })
@@ -203,12 +203,12 @@ end
 
 ```lua
 local function anim_done(self)
-    -- the animation is done, do something useful...
+    -- анимация проиграна, сделаем что-нибудь полезное...
 end
 
 function init(self)
-    -- Play the "walk" animation on component "spinemodel" and blend against previous
-    -- animation for the first 0.1 seconds, then call callback.
+        -- Проиграть анимацию "walk" для компонента "spinemodel" и смешать её относительно предыдущей
+        -- анимации первые 0.1 секунд, затем вызовем функцию обратного вызова
     local anim_props = { blend_duration = 0.1 }
     spine.play_anim("#spinemodel", "run", go.PLAYBACK_LOOP_FORWARD, anim_props, anim_done)
 end

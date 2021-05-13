@@ -19,7 +19,7 @@ brief: Данное руководство объясняет как испол�
 
 ```lua
 function init(self)
-    -- Start the "wiggle" animation back and forth on #model
+    -- Начать анимацию "wiggle" вперед и назад для #model
     model.play_anim("#model", "wiggle", go.PLAYBACK_LOOP_PINGPONG)
 end
 ```
@@ -39,10 +39,10 @@ end
 Можно получить идентификатор конкретного экземпляра игрового объекта кости во время выполнения игры. Функция [`model.get_go()`](/ref/model#model.get_go) возвращает идентификатор игрового объекта для заданной кости.
 
 ```lua
--- Get the middle bone go of our wiggler model
+-- Получить среднюю кость игрового объекта нашей модели wiggler
 local bone_go = model.get_go("#wiggler", "Bone_002")
 
--- Now do something useful with the game object...
+-- Здесь производим некую полезную работу с нашим игровым объектом кости...
 ```
 
 ### Анимация курсором
@@ -50,11 +50,11 @@ local bone_go = model.get_go("#wiggler", "Bone_002")
 В дополнении к использованию метода `model.play_anim()` для более продвинутой анимации модели компоненты типа *Модель* предоставляют свойство "cursor" которым можно управлять с помощью вызова `go.animate()` (более подробно в разделе [анимация свойств](/manuals/property-animation)):
 
 ```lua
--- Set the animation on #model but don't start it
+-- Выставить анимацию для #model, но не запускать её
 model.play_anim("#model", "wiggle", go.PLAYBACK_NONE)
--- Set the cursor to the beginning of the animation
+-- Выставить курсор в начало анимации
 go.set("#model", "cursor", 0)
--- Tween the cursor between 0 and 1 pingpong with in-out quad easing.
+-- Произвести твининг курсора между 0 и 1 в режиме пинг-понг с in-oud quad смягчением.
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD, 3)
 ```
 
@@ -64,7 +64,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD
 
 ```lua
 local function wiggle_done(self, message_id, message, sender)
-    -- Done animating
+    -- Анимация завершилась на этом этапе
 end
 
 function init(self)

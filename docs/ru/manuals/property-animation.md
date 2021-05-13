@@ -15,16 +15,16 @@ brief: Данное руководство объясняет как испол�
 Чтобы анимировать свойство игрового объекта или компонента, используйте функцию `go.animate()`. Для свойств GUI нод, соответствующей функцией будет `gui.animate()`.
 
 ```lua
--- Set the position property y component to 200
+-- Установить координату "y" позиции в 200
 go.set(".", "position.y", 200)
--- Then animate it
+-- Затем анимировать её
 go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNCE, 2)
 ```
 
 Для остановки всех анимаций заданного свойства, вызовите `go.cancel_animations()`, или в случае с GUI нодами, `gui.cancel_animation()`: 
 
 ```lua
--- Stop euler z rotation animation on the current game object
+-- Остановить анимацию эйлерова вращения по Z для текущего игрового объекта 
 go.cancel_animation(".", "euler.z")
 ```
 
@@ -39,11 +39,11 @@ go.cancel_animation(".", "euler.z")
 ```lua
 local node = gui.get_node("button")
 local color = gui.get_color(node)
--- Animate the color to white
+-- Анимировать цвет к белому
 gui.animate(node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_INOUTQUAD, 0.5)
--- Animate the outline red color component
+-- Анимировать красный компонент цвета контура
 gui.animate(node, "outline.x", 1, gui.EASING_INOUTQUAD, 0.5)
--- And move to x position 100
+-- И передвинуть позицию по x на 100
 gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 ```
 

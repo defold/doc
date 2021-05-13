@@ -53,15 +53,15 @@ local function play_idle_animation(self)
 end
 
 function on_input(self, action_id, action)
-    -- "dodge" is our input action
+    -- "dodge" - это наше приходящее на вход действие
     if action_id == hash("dodge") then
         if action.pressed then
             sprite.play_flipbook("#sprite", hash("start_dodge"), play_idle_animation)
-            -- remember that we are dodging
+            -- запоминаем, что мы уклоняемся
             self.dodge = true
         elseif action.released then
             sprite.play_flipbook("#sprite", hash("stop_dodge"), play_idle_animation)
-            -- we are not dodging anymore
+            -- больше не уклоняемся
             self.dodge = false
         end
     end
@@ -75,8 +75,8 @@ end
 ```lua
 function init(self)
     local character_node = gui.get_node("character")
-    -- This requires that the node has a default animation in the same atlas or tile source as
-    -- the new animation/image we're playing.
+    -- Требуется, чтобы нода имела анимацию по-умолчанию в том же атласе или источнике тайлов 
+    -- как и новая анимация/изображение, которые мы проигрываем. 
     gui.play_flipbook(character_node, "jump_left")
 end
 ```
