@@ -1,65 +1,65 @@
 ---
-title: 3D models in Defold
-brief: This manual describes how to bring 3D models, skeletons and animations into your game.
+title: 3D-модели в Defold
+brief: В этом руководстве описывается порядок внесения 3D-моделей, скелетов и анимации в игру.
 ---
 
-# Model component
+# Компонент Model
 
-Defold is at its core a 3D engine. Even when you work with 2D material only all rendering is done in 3D, but orthographically projected onto the screen. Defold allows you to utilize full 3D content by including 3D assets, or _Models_ into your collections. You can build games in strictly 3D with only 3D assets, or you can mix 3D and 2D content as you wish.
+Defold по сути является 3D движком. Даже когда работа ведется только с 2D-материалом, весь рендеринг выполняется в 3D, но проецируется на экран ортографически. Defold позволяет полноценно использовать 3D-контент, включая 3D-ассеты, или _модели_ в коллекции. Игры могут быть созданы исключительно в 3D с использованием лишь 3D-ассетов, или же 3D и 2D контент может совмещаться в соответствии с целями разработчика.
 
-## Creating a model component
+## Создание компонента Model
 
-Model components are created just like any other game object component. You can do it two ways:
+Модели создаются так же, как и любой другой компонент игрового объекта. Это можно сделать двумя способами:
 
-- Create a *Model file* by <kbd>right-clicking</kbd> a location in the *Assets* browser and select <kbd>New... ▸ Model</kbd>.
-- Create the component embedded directly into a game object by <kbd>right-clicking</kbd> a game object in the *Outline* view and selecting <kbd>Add Component ▸ Model</kbd>.
+- Создайте *файл модели*, <kbd>кликнув ПКМ</kbd> в подходящем расположении в браузере *Assets* и выберите <kbd>New... ▸ Model</kbd>.
+- Создайте компонент, встроенный непосредственно в игровой объект, <kbd>кликнув ПКМ</kbd> по игровому объекту в представлении *Outline* и выбрав <kbd>Add Component ▸ Model</kbd>.
 
 ![Model in game object](images/model/model.png)
 
-With the model created you need to specify a number of properties:
+После того как модель создана, необходимо определить ряд ее свойств.
 
-### Model properties
+### Свойства модели
 
-Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
+Помимо свойств *Id*, *Position* и *Rotation* существуют следующие специфичные для данного компонента свойства:
 
 *Mesh*
-: This property should refer to the Collada *.dae* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
+: Данное свойство должно ссылаться на файл *.dae* (Collada), содержащий используемую сетку. Если файл содержит несколько сеток, считана будет только первая.
 
 *Material*
-: Set this property to a material you have created that is suitable for a textured 3D object. There is a built-in *model.material* file that you can use as a starting point.
+: Укажите в этом свойстве материал, подходящий для текстурированного 3D-объекта. Существует встроенный файл *model.material*, который можно использовать в качестве отправной точки.
 
 *Texture*
-: This property should point to the texture image file that you want applied to the object.
+: Данное свойство должно указывать на файл текстуры, которую необходимо применить к объекту.
 
 *Skeleton*
-: This property should refer to the Collada *.dae* file that contains the skeleton to use for animation. Note that Defold requires a single root bone in your hierarchy.
+: Данное свойство должно ссылаться на файл *.dae* (Collada), содержащий скелет, используемый для анимации. Следует иметь в виду, что Defold требует наличия одной корневой кости в иерархии.
 
 *Animations*
-: Set this to the *Animation Set File* that contains the animations you want to use on the model.
+: Укажите в этом свойстве файл *Animation Set*, содержащий анимацию, требуемую для модели.
 
 *Default Animation*
-: This is the animation (from the animation set) that will be automatically played on the model.
+: Это анимация (из набора анимаций), которая будет автоматически воспроизводиться в модели.
 
-## Editor manipulation
+## Манипулирование в редакторе
 
-With the model component in place you are free to edit and manipulate the component and/or the encapsulating game object with the regular *Scene Editor* tools to move, rotate and scale the model to your liking.
+После того, как модель размещена, можно свободно редактировать и манипулировать этим компонентом и/или объемлющим игровым объектом с помощью обычных инструментов *Scene Editor*, перемещая, вращая и масштабируя модель по своему усмотрению.
 
 ![Wiggler ingame](images/model/ingame.png){srcset="images/model/ingame@2x.png 2x"}
 
-## Runtime manipulation
+## Манипулирование во время выполнения
 
-You can manipulate models in runtime through a number of different functions and properties (refer to the [API docs for usage](/ref/model/)).
+Манипулировать моделями во время выполнения можно с помощью ряда различных функций и свойств (обращайтесь к [документации по API](/ref/model/)).
 
-### Runtime animation
+### Анимация во время выполнения
 
-Defold provides powerful support for controlling animation in runtime. More in the [model animation manual](/manuals/model-animation):
+Defold предоставляет мощную поддержку для управления анимацией во время выполнения. За подробностями обращайтесь к [руководству по модельной анимации](/manuals/model-animation):
 
 ```lua
 local play_properties = { blend_duration = 0.1 }
 model.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
 ```
 
-The animation playback cursor can be animated either by hand or through the property animation system:
+Курсор воспроизведения анимации может быть анимирован как вручную, так и с помощью механизма анимации свойств:
 
 ```lua
 -- set the run animation
@@ -68,44 +68,44 @@ model.play_anim("#model", "run", go.PLAYBACK_NONE)
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
 ```
 
-### Changing properties
+### Изменение свойств
 
-A model also has a number of different properties that can be manipulated using `go.get()` and `go.set()`:
+Модель также имеет ряд различных свойств, которыми можно манипулировать с помощью `go.get()` и `go.set()`:
 
 `animation`
-: The current model animation (`hash`) (READ ONLY). You change animation using `model.play_anim()` (see above).
+: Текущая анимация модели (`hash`, только для чтения). Анимация изменяется с помощью `model.play_anim()` (см. выше).
 
 `cursor`
-: The normalized animation cursor (`number`).
+: Нормализованный курсор анимации (`number`).
 
 `material`
-: The model material (`hash`). You can change this using a material resource property and `go.set()`. Refer to the [API reference for an example](/ref/model/#material).
+: Материал модели (`hash`). Это свойство можно изменить с помощью свойства ресурса Material и `go.set()`. За примером обращайтесь к [справочнику по API](/ref/model/#material).
 
 `playback_rate`
-: The animation playback rate (`number`).
+: Скорость воспроизведения анимации (`number`).
 
 `textureN`
-: The model textures where N is 0-7 (`hash`). You can change this using a texture resource property and `go.set()`. Refer to the [API reference for an example](/ref/model/#textureN).
+: Текстуры модели, где N --- 0-7 (`hash`). Может быть изменено с помощью свойства ресурса текстуры и `go.set()`. За примером обращайтесь к [справочнику по API](/ref/model/#textureN).
 
 
-## Material
+## Материал
 
-3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the Collada *.dae* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
+3D-программы обычно позволяют задавать свойства вершин объекта, такие как цвет и текстурирование. Эта информация попадает в файл Collada *.dae*, который экспортируется из 3D-программы. В зависимости от требований игры потребуется выбрать и/или создать подходящие и _эффективные_ материалы для объектов. Материал сочетает в себе _шейдерные программы_ с набором параметров для рендеринга объекта.
 
-There is a simple 3D model material available in the built-in materials folder. If you need to create custom materials for your models, see the [Material documentation](/manuals/material) for information. The [Shader manual](/manuals/shader) contains information on how shader programs work.
+В папке встроенных материалов имеется простой материал для 3D-модели. Если необходимо создавать пользовательские материалы для моделей, обращайтесь к [документации по материалам](/manuals/material). [Руководство по шейдерам](/manuals/shader) содержит информацию о работе шейдерных программ.
 
 
-### Material constants
+### Константы материала
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: The color tint of the model (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
+: Цветовой оттенок модели (`vector4`). Для представления оттенка с компонентами x, y, z и w, соответствующими красному, зеленому, синему и альфа оттенкам, используется тип vector4.
 
 
-## Rendering
+## Рендеринг
 
-The default render script is tailor made for 2D games and does not work with 3D models. But by copying the default render script and adding a handful of lines of code to the render script you can enable rendering of your models. For instance:
+Рендер-скрипт по умолчанию создан для 2D-игр и не работает с 3D-моделями. Но, скопировав этот стандартный рендер-скрипт и добавив в него несколько строк кода, можно включить рендеринг моделей. Например:
 
   ```lua
 
@@ -125,4 +125,4 @@ The default render script is tailor made for 2D games and does not work with 3D 
   end
   ```
 
-See the [Render documentation](/manuals/render) for details on how render scripts work.
+Обращайтесь к [документации по рендеру](/manuals/render) за информацией о работе рендер-скриптов.
