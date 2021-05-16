@@ -1,9 +1,9 @@
 ---
-title: Руководство по фабрикам коллекций
+title: Компонент Collection Factory
 brief: Это руководство объясняет особенности использования компонентов Collection Factory, предназначенных для порождения иерархий игровых объектов.
 ---
 
-# Фабрики коллекций
+# Компонент Collection Factory
 
 Компонент Collection Factory используется для порождения групп и иерархий игровых объектов, хранящихся в файлах коллекций, в запущенной игре.
 
@@ -11,47 +11,47 @@ brief: Это руководство объясняет особенности �
 
 С помощью фабрик коллекций можно порождать содержимое файла коллекции в игровой мир. Это аналогично выполнению порождения фабрикой всех игровых объектов внутри коллекции с последующим построением иерархии "родительский-дочерний" между объектами. Типичным примером является порождение врагов, состоящих из нескольких игровых объектов (например, враг + оружие).
 
-## Spawning a collection
+## Порождение коллекции
 
-Suppose we want a character game object and a separate shield game object childed to the character. We build the game object hierarchy in a collection file and save it as "bean.collection".
+Предположим, нам нужен игровой объект персонаж и отдельный игровой объект щит, дочерний по отношению к персонажу. Мы построим иерархию игровых объектов в файле коллекции и сохраним его под именем "bean.collection".
 
 ::: sidenote
-The *collection proxy* component is used to create a new game world, including a separate physics world, based on a collection. The new world is accessed through a new socket. All assets contained in the collection are loaded through the proxy when you message the proxy to start loading. This makes them very useful to, for instance, change levels in a game. New game worlds come with quite a lot of overhead though so do not use them for dynamic loading of small stuff. For more information, see the [Collection proxy documentation](/manuals/collection-proxy).
+Компонент *collection proxy* используется для создания нового игрового мира, включая отдельный физический мир, на основе коллекции. Доступ к новому миру осуществляется через новый сокет. Все ассеты, содержащиеся в коллекции, загружаются через прокси, когда вы сообщаете прокси о начале загрузки. Это делает их очень полезными, например, для изменения уровней в игре. Однако новые игровые миры сопровождаются довольно большими накладными расходами, поэтому не стоит использовать их для динамической загрузки мелкого контента. За подробностями обращайтесь к [документации по прокси-коллекциям](/manuals/collection-proxy).
 :::
 
 ![Collection to spawn](images/collection_factory/collection.png)
 
-We then add a *Collection factory* to a gameobject that will take care of the spawning and set "bean.collection" as the component's *Prototype*:
+Затем добавляется *Collection factory* к игровому объекту, который будет осуществлять порождение, и устанавливается "bean.collection" в качестве *прототипа* компонента:
 
 ![Collection factory](images/collection_factory/factory.png)
 
-Spawning a bean and shield is now just a matter of calling the `collectionfactory.create()` function:
+Теперь порождение объектов "bean" и "shield" --- это просто вызов функции `collectionfactory.create()`:
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
 ```
 
-The function takes 5 parameters:
+Функция принимает 5 параметров:
 
 `url`
-: The id of the collection factory component that should spawn the new set of game objects.
+: Идентификатор фабрики коллекций, которая должна породить новый набор игровых объектов.
 
 `[position]`
-: (optional) The world position of the spawned game objects. This should be a `vector3`. If you do not specify a position, the objects are spawned at the position of the collection factory component.
+: (Опционально) Мировая позиция порожденных игровых объектов. Это должен быть `vector3`. Если не указать позицию, объекты будут порождены в позиции фабрики.
 
 `[rotation]`
-: (optional) The world rotation of the new game objects. This should be a `quat`.
+: (Опционально) Мировое вращение новых игровых объектов. Это должен быть `quat`.
 
 `[properties]`
-: (optional) A Lua table with `id`-`table` pairs used to initiate the spawned game objects. See below for how to construct this table.
+: (Опционально) Lua-таблица с парами `id`-`table`, используемая для инициирования порожденных игровых объектов. Как построить эту таблицу, смотрите ниже.
 
 `[scale]`
-: (optional) The scale of the spawned game objects. The scale can be expressed as a `number` (greater than 0) which specifies uniform scaling along all axes. You can also provide a `vector3` where each component specifies scaling along the corresponding axis.
+: (Опционально) Масштаб порождаемых игровых объектов. Масштаб может быть выражен в виде `number` (больше 0), которое задает равномерное масштабирование по всем осям. Можно также указать `vector3`, где каждый компонент задает масштабирование по соответствующей оси.
 
-`collectionfactory.create()` returns the identities of the spawned game objects as a table. The table keys map the hash of the collection-local id of each object to the runtime id of each object:
+`collectionfactory.create()` возвращает идентификаторы порожденных игровых объектов в виде таблицы. Ключи таблицы отображают хэш локального идентификатора коллекции каждого объекта на идентификатор каждого объекта в среде выполнения:
 
 ::: sidenote
-The parent-child relationship between "bean" and "shield" is *not* reflected in the returned table. This relation only exist in the runtime scene-graph, i.e. how objects are transformed together. Re-parenting an object never changes its id.
+Отношение "родительский-дочерний" между "bean" и "shield" *не* отражается в возвращаемой таблице. Это отношение существует только в графе сцены среды выполнения, то есть в том, как объекты преобразуются вместе. Повторное подчинение объекта никогда не изменяет его id.
 :::
 
 ```lua
@@ -64,11 +64,11 @@ pprint(bean_ids)
 --   hash: [/bean] = hash: [/collection0/bean],
 -- }
 ```
-1. A prefix `/collection[N]/`, where `[N]` is a counter, is added to the id to uniquely identify each instance:
+1. Префикс `/collection[N]/`, где `[N]` --- счетчик, добавляемый к id для уникальной идентификации каждого экземпляра:
 
-## Properties
+## Свойства
 
-When spawning a collection, you can pass property parameters to each game object by constructing a table where the keys are object ids and the values are tables with the script properties to set.
+При порождении коллекции можно передать свойства каждому игровому объекту, построив таблицу, где ключами являются идентификаторы объектов, а значениями --- таблицы со свойствами скрипта, которые нужно установить.
 
 ```lua
 local props = {}
@@ -76,7 +76,7 @@ props[hash("/bean")] = { shield = false }
 local ids = collectionfactory.create("#bean_factory", nil, nil, props)
 ```
 
-Supposing the "bean" game object in "bean.collection" defines the "shield" property. [The Script property manual](/manuals/script-properties) contains information on script properties.
+Предположим, что игровой объект "bean" в "bean.collection" определяет свойство "shield". [Руководство по свойствам скрипта](/manuals/script-properties) содержит информацию о свойствах сценария.
 
 ```lua
 -- bean/controller.script
@@ -89,18 +89,18 @@ function init(self)
 end
 ```
 
-## Dynamic loading of factory resources
+## Динамическая загрузка ресурсов фабрики
 
-By checking the *Load Dynamically* checkbox in the collection factory properties, the engine postpones the loading of the resources associated with the factory.
+Отметив в свойствах фабрики коллекций *Load Dynamically*, движок откладывает загрузку ресурсов, связанных с фабрикой.
 
 ![Load dynamically](images/collection_factory/load_dynamically.png)
 
-With the box unchecked the engine loads the prototype resources when the collection factory component is loaded so they are immediately ready for spawning.
+Если опция не отмечена, движок загружает ресурсы прототипа при загрузке компонента фабрики коллекций, так что они сразу готовы к порождению.
 
-With the box checked, you have two options for usage:
+Если опция отмечена, есть два варианта использования:
 
-Synchronous loading
-: Call [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create:url-[position]-[rotation]-[properties]-[scale]) when you want to spawn objects. This  will load the resources synchronously, which may cause a hitch, then spawn new instances.
+Синхронная загрузка
+: Вызовите [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create:url-[position]-[rotation]-[properties]-[scale]), когда нужно породить объекты. При этом ресурсы будут загружены синхронно, что может вызвать заминку, а затем будут порождены новые экземпляры.
 
   ```lua
   function init(self)
@@ -110,7 +110,7 @@ Synchronous loading
       self.go_ids = collecionfactory.create("#collectionfactory")
   end
 
-  function final(self)  
+  function final(self)
       -- Delete game objects. Will decref resources.
       -- In this case resources are deleted since the collection
       -- factory component holds no reference.
@@ -122,8 +122,8 @@ Synchronous loading
   end
   ```
 
-Asynchronous loading
-: Call [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load:[url]-[complete_function]) to explicitly load the resources asynchronously. When the resources are ready for spawning, a callback is received.
+Асинхронная загрузка
+: Вызовите [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load:[url]-[complete_function]) для явной асинхронной загрузки ресурсов. Когда ресурсы будут готовы к порождению, будет получен обратный вызов.
 
   ```lua
   function load_complete(self, url, result)
