@@ -128,3 +128,45 @@ If your game is running from inside an `iframe` you must also make sure that the
 ```html
 <iframe allow="gamepad"></iframe>
 ```
+
+## Gamepads on Android
+(Available since Defold 1.2.183)
+
+Gamepads are supported in Android builds and generate the same input events as on other platforms. Support for gamepads is based on the [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input). The Android input events will be translated to Defold gamepad events using the same *gamepad* file as described above.
+
+When adding additional gamepad bindings on Android you can use the following lookup tables to translate from the Android input events to *gamepad* file values:
+
+| Key event to button index   | Index |
+|-----------------------------|-------|
+| AKEYCODE_BUTTON_A           | 0     |
+| AKEYCODE_BUTTON_B           | 1     |
+| AKEYCODE_BUTTON_C           | 2     |
+| AKEYCODE_BUTTON_X           | 3     |
+| AKEYCODE_BUTTON_L1          | 4     |
+| AKEYCODE_BUTTON_R1          | 5     |
+| AKEYCODE_BUTTON_Y           | 6     |
+| AKEYCODE_BUTTON_Z           | 7     |
+| AKEYCODE_BUTTON_L2          | 8     |
+| AKEYCODE_BUTTON_R2          | 9     |
+| AKEYCODE_DPAD_CENTER        | 10    |
+| AKEYCODE_DPAD_DOWN          | 11    |
+| AKEYCODE_DPAD_LEFT          | 12    |
+| AKEYCODE_DPAD_RIGHT         | 13    |
+| AKEYCODE_DPAD_UP            | 14    |
+| AKEYCODE_BUTTON_START       | 15    |
+| AKEYCODE_BUTTON_SELECT      | 16    |
+| AKEYCODE_BUTTON_THUMBL      | 17    |
+| AKEYCODE_BUTTON_THUMBR      | 18    |
+
+([Android KeyEvent definitions](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
+
+| Motion event to axis index  | Index |
+|-----------------------------|-------|
+| AMOTION_EVENT_AXIS_X        | 0     |
+| AMOTION_EVENT_AXIS_Y        | 1     |
+| AMOTION_EVENT_AXIS_Z        | 2     |
+| AMOTION_EVENT_AXIS_RZ       | 3     |
+
+([Android MotionEvent definitions](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
+
+Use this lookup table in combination with a gamepad test app from the Google Play Store to figure out which key event each button on your gamepad is mapped to.
