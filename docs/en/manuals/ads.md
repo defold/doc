@@ -36,7 +36,7 @@ Rewarded ads (also know as Incentivized ads) are optional and therefore less obt
 
 The [Defold Asset Portal](/tags/stars/ads/) contains several assets which integrate with ad providers:
 
-* [AdMob](https://defold.com/extension-admob/) - Show ads using the Google ad network.
+* [AdMob](https://defold.com/assets/admob-defold/) - Show ads using the Google AdMob network.
 * [Enhance](https://defold.com/assets/enhance/) - Supports a number of different ad networks. Requires an additional post-build step.
 * [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - Show ads in your Facebook Instant Game.
 * [IronSource](https://defold.com/assets/ironsource/) - Show ads using the IronSource Ad network.
