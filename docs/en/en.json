@@ -955,6 +955,10 @@
                         "name": "Ads"
                     },
                     {
+                        "path": "/extension-admob",
+                        "name": "AdMob ads"
+                    },
+                    {
                         "path": "/extension-iap",
                         "name": "In-app purchases"
                     },
@@ -970,6 +974,10 @@
                     {
                         "path": "/extension-adinfo",
                         "name": "Advertising Info"
+                    },
+                    {
+                        "path": "/extension-admob",
+                        "name": "AdMob ads"
                     },
                     {
                         "path": "/extension-camera",
