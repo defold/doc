@@ -992,6 +992,10 @@
                         "name": "Firebase Analytics"
                     },
                     {
+                        "path": "/extension-firebase-remoteconfig",
+                        "name": "Firebase Remote Config"
+                    },
+                    {
                         "path": "/extension-gpgs",
                         "name": "Google Play Game Services"
                     },
