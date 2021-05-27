@@ -842,28 +842,16 @@
                 "name": "WORKFLOW",
                 "items": [
                     {
-                        "path": "/manuals/adapting-graphics-to-screen-size",
-                        "name": "Adapting to different screen sizes"
-                    },
-                    {
                         "path": "/manuals/bundling",
                         "name": "Bundling an application"
                     },
                     {
                         "path": "/manuals/bob",
-                        "name": "Bob the builder"
+                        "name": "Command line tools"
                     },
                     {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
-                    },
-                    {
-                        "path": "/manuals/optimization",
-                        "name": "Optimizing an application"
-                    },
-                    {
-                        "path": "/manuals/profiling",
-                        "name": "Profiling"
                     },
                     {
                         "path": "/manuals/refactoring",
@@ -909,6 +897,15 @@
                     {
                         "path": "/manuals/debugging-game-and-system-logs",
                         "name": "Reading game and system logs"
+                    }
+                ]
+            },
+            {
+                "name": "OPTIMIZATION",
+                "items": [
+                    {
+                        "path": "/manuals/optimization",
+                        "name": "Optimizing an application"
                     },
                     {
                         "path": "/manuals/profiling",
@@ -939,7 +936,7 @@
                 "items": [
                     {
                         "path": "/manuals/android",
-                        "name": "Android"
+                        "name": "Introduction"
                     },
                     {
                         "path": "/extension-adinfo",
@@ -1000,7 +997,7 @@
                 "items": [
                     {
                         "path": "/manuals/ios",
-                        "name": "iOS"
+                        "name": "Introduction"
                     },
                     {
                         "path": "/extension-adinfo",
@@ -1062,7 +1059,7 @@
                 "items": [
                     {
                         "path": "/manuals/html5",
-                        "name": "HTML5"
+                        "name": "Introduction"
                     },
                     {
                         "path": "/extension-facebook",
