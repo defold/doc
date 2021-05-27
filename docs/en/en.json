@@ -935,7 +935,7 @@
                 "divider": true
             },
             {
-                "name": "Platform - Android",
+                "name": "Android",
                 "items": [
                     {
                         "path": "/manuals/android",
@@ -996,7 +996,7 @@
                 ]
             },
             {
-                "name": "Platform - iOS",
+                "name": "iOS",
                 "items": [
                     {
                         "path": "/manuals/ios",
@@ -1049,7 +1049,7 @@
                 ]
             },
             {
-                "name": "Platform - Nintendo Switch",
+                "name": "Nintendo Switch",
                 "items": [
                     {
                         "path": "/manuals/nintendo-switch",
@@ -1058,7 +1058,7 @@
                 ]
             },
             {
-                "name": "Platform - HTML5",
+                "name": "HTML5",
                 "items": [
                     {
                         "path": "/manuals/html5",
@@ -1075,7 +1075,7 @@
                 ]
             },
             {
-                "name": "Platform - Desktop",
+                "name": "Desktop",
                 "items": [
                     {
                         "path": "/manuals/linux",
