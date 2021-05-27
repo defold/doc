@@ -472,7 +472,7 @@
                     },
                     {
                         "path": "/manuals/libraries",
-                        "name": "Libraries"
+                        "name": "Sharing projects"
                     }
                 ]
             },
@@ -495,7 +495,8 @@
                         "path": "/manuals/application-lifecycle",
                         "name": "Application lifecycle"
                     }
-                ]
+                ],
+                "divider": true
             },
             {
                 "name": "ASSETS AND RESOURCES",
@@ -834,7 +835,8 @@
                         "path": "/manuals/texture-filtering",
                         "name": "Texture filtering"
                     }
-                ]
+                ],
+                "divider": true
             },
             {
                 "name": "WORKFLOW",
@@ -915,39 +917,6 @@
                 ]
             },
             {
-                "name": "PLATFORMS",
-                "items": [
-                    {
-                        "path": "/manuals/android",
-                        "name": "Android"
-                    },
-                    {
-                        "path": "/manuals/ios",
-                        "name": "iOS"
-                    },
-                    {
-                        "path": "/manuals/nintendo-switch",
-                        "name": "Nintendo Switch"
-                    },
-                    {
-                        "path": "/manuals/linux",
-                        "name": "Linux"
-                    },
-                    {
-                        "path": "/manuals/html5",
-                        "name": "HTML5"
-                    },
-                    {
-                        "path": "/manuals/macos",
-                        "name": "macOS"
-                    },
-                    {
-                        "path": "/manuals/windows",
-                        "name": "Windows"
-                    }
-                ]
-            },
-            {
                 "name": "MONETIZATION",
                 "items": [
                     {
@@ -962,11 +931,16 @@
                         "path": "/extension-webmonetization",
                         "name": "Web Monetization"
                     }
-                ]
+                ],
+                "divider": true
             },
             {
-                "name": "EXTENSIONS",
+                "name": "Platform - Android",
                 "items": [
+                    {
+                        "path": "/manuals/android",
+                        "name": "Android"
+                    },
                     {
                         "path": "/extension-adinfo",
                         "name": "Advertising Info"
@@ -976,16 +950,16 @@
                         "name": "AdMob ads"
                     },
                     {
+                        "path": "/extension-review",
+                        "name": "App review and ratings"
+                    },
+                    {
                         "path": "/extension-camera",
                         "name": "Camera"
                     },
                     {
                         "path": "/extension-facebook",
                         "name": "Facebook"
-                    },
-                    {
-                        "path": "/extension-fbinstant",
-                        "name": "Facebook Instant Games"
                     },
                     {
                         "path": "/extension-firebase-analytics",
@@ -1004,8 +978,57 @@
                         "name": "Google Play Instant"
                     },
                     {
-                        "path": "/extension-iap",
-                        "name": "In-app purchases"
+                        "path": "/manuals/iac",
+                        "name": "Inter-app communication"
+                    },
+                    {
+                        "path": "/extension-push",
+                        "name": "Push notifications"
+                    },
+                    {
+                        "path": "/extension-webview",
+                        "name": "Webview"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
+                    }
+                ]
+            },
+            {
+                "name": "Platform - iOS",
+                "items": [
+                    {
+                        "path": "/manuals/ios",
+                        "name": "iOS"
+                    },
+                    {
+                        "path": "/extension-adinfo",
+                        "name": "Advertising Info"
+                    },
+                    {
+                        "path": "/extension-admob",
+                        "name": "AdMob ads"
+                    },
+                    {
+                        "path": "/extension-review",
+                        "name": "App review and ratings"
+                    },
+                    {
+                        "path": "/extension-camera",
+                        "name": "Camera"
+                    },
+                    {
+                        "path": "/extension-facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/extension-firebase-analytics",
+                        "name": "Firebase Analytics"
+                    },
+                    {
+                        "path": "/extension-firebase-remoteconfig",
+                        "name": "Firebase Remote Config"
                     },
                     {
                         "path": "/manuals/iac",
@@ -1016,25 +1039,61 @@
                         "name": "Push notifications"
                     },
                     {
-                        "path": "/extension-review",
-                        "name": "App review and ratings"
-                    },
-                    {
-                        "path": "/extension-webmonetization",
-                        "name": "WebMonetization"
-                    },
-                    {
-                        "path": "/extension-websocket",
-                        "name": "WebSocket"
-                    },
-                    {
                         "path": "/extension-webview",
                         "name": "Webview"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
                     }
                 ]
             },
             {
-                "name": "NATIVE EXTENSIONS",
+                "name": "Platform - Nintendo Switch",
+                "items": [
+                    {
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    }
+                ]
+            },
+            {
+                "name": "Platform - HTML5",
+                "items": [
+                    {
+                        "path": "/manuals/html5",
+                        "name": "HTML5"
+                    },
+                    {
+                        "path": "/extension-facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/extension-fbinstant",
+                        "name": "Facebook Instant Games"
+                    }
+                ]
+            },
+            {
+                "name": "Platform - Desktop",
+                "items": [
+                    {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
+                    },
+                    {
+                        "path": "/manuals/macos",
+                        "name": "macOS"
+                    },
+                    {
+                        "path": "/manuals/windows",
+                        "name": "Windows"
+                    }
+                ],
+                "divider": true
+            },
+            {
+                "name": "ENGINE EXTENSIONS",
                 "items": [
                     {
                         "path": "/manuals/extensions",
