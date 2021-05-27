@@ -431,7 +431,7 @@
         "manuals":
         [
             {
-                "name": "GETTING STARTED",
+                "name": "Getting Started",
                 "items": [
                     {
                         "path": "/manuals/introduction",
@@ -460,7 +460,7 @@
                 ]
             },
             {
-                "name": "PROJECT SETUP",
+                "name": "Project Setup",
                 "items": [
                     {
                         "path": "/manuals/project-setup",
@@ -477,7 +477,7 @@
                 ]
             },
             {
-                "name": "CORE CONCEPTS",
+                "name": "Core Concepts",
                 "items": [
                     {
                         "path": "/manuals/building-blocks",
@@ -499,7 +499,7 @@
                 "divider": true
             },
             {
-                "name": "ASSETS AND RESOURCES",
+                "name": "Assets and Resources",
                 "items": [
                     {
                         "path": "/manuals/importing-assets",
@@ -548,7 +548,7 @@
                 ]
             },
             {
-                "name": "ANIMATIONS",
+                "name": "Animations",
                 "items": [
                     {
                         "path": "/manuals/animation",
@@ -573,7 +573,7 @@
                 ]
             },
             {
-                "name": "COMPONENTS",
+                "name": "Components",
                 "items": [
                     {
                         "path": "/manuals/components",
@@ -679,7 +679,7 @@
                 ]
             },
             {
-                "name": "PHYSICS",
+                "name": "Physics",
                 "items": [
                     {
                         "path": "/manuals/physics",
@@ -716,7 +716,7 @@
                 ]
             },
             {
-                "name": "SOUND",
+                "name": "Sound",
                 "items": [
                     {
                         "path": "/manuals/sound",
@@ -729,7 +729,7 @@
                 ]
             },
             {
-                "name": "INPUT",
+                "name": "Input",
                 "items": [
                     {
                         "path": "/manuals/input",
@@ -750,7 +750,7 @@
                 ]
             },
             {
-                "name": "GAME LOGIC",
+                "name": "Game logic",
                 "items": [
                     {
                         "path": "/manuals/script",
@@ -783,7 +783,7 @@
                 ]
             },
             {
-                "name": "SAVING AND LOADING FILES",
+                "name": "File I/O",
                 "items": [
                     {
                         "path": "/manuals/file-access",
@@ -792,7 +792,7 @@
                 ]
             },
             {
-                "name": "NETWORKING",
+                "name": "Network Connections",
                 "items": [
                     {
                         "path": "/manuals/networking",
@@ -817,7 +817,7 @@
                 ]
             },
             {
-                "name": "RENDERING",
+                "name": "Rendering",
                 "items": [
                     {
                         "path": "/manuals/render",
@@ -839,7 +839,7 @@
                 "divider": true
             },
             {
-                "name": "WORKFLOW",
+                "name": "Workflow",
                 "items": [
                     {
                         "path": "/manuals/bundling",
@@ -876,7 +876,7 @@
                 ]
             },
             {
-                "name": "DEBUGGING",
+                "name": "Debugging",
                 "items": [
                     {
                         "path": "/manuals/debugging-game-logic",
@@ -901,7 +901,7 @@
                 ]
             },
             {
-                "name": "OPTIMIZATION",
+                "name": "Optimization",
                 "items": [
                     {
                         "path": "/manuals/optimization",
@@ -914,7 +914,7 @@
                 ]
             },
             {
-                "name": "MONETIZATION",
+                "name": "Monetization",
                 "items": [
                     {
                         "path": "/manuals/ads",
@@ -1090,7 +1090,7 @@
                 "divider": true
             },
             {
-                "name": "ENGINE EXTENSIONS",
+                "name": "Engine extensions",
                 "items": [
                     {
                         "path": "/manuals/extensions",
@@ -1127,7 +1127,7 @@
                 ]
             },
             {
-                "name": "EDITOR EXTENSIONS",
+                "name": "Editor extensions",
                 "items": [
                     {
                         "path": "/manuals/editor-scripts",
