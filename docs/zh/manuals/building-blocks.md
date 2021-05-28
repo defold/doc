@@ -5,7 +5,7 @@ brief: 本教程详述游戏对象, 组件和集合是如何工作的.
 
 #  构成
 
-Defold 核心设计中的一些概念可能一时不容易理解. 本教程介绍了 Defold 游戏的各个组成部分. 看完本教程后, 可以去参考 [定位教程](/manuals/addressing) 和 [消息传递教程](/manuals/message-passing). 编辑器中提供了一些 [教程](/tutorials/getting-started) 也可以帮助学习理解.
+理解 Defold 核心设计中的各种概念是很重要的. 本教程介绍了 Defold 游戏的各个组成部分. 看完本教程后, 可以去参考 [定位教程](/manuals/addressing) 和 [消息传递教程](/manuals/message-passing). 编辑器中提供了一些 [教程](/tutorials/getting-started) 也可以帮助学习理解.
 
 ![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
 
