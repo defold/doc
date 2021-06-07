@@ -133,7 +133,7 @@ end
 * Скорость физических симуляций
 * `dt`, переданное в `update()`
 * [Анимация свойств игровых объектов и GUI](https://defold.com/manuals/animation/#property-animation-1)
-* [Мультипликационная анимация](https://defold.com/manuals/animation/#flip-book-animation)
+* [Мултикадровая анимация](https://defold.com/manuals/animation/#flip-book-animation)
 * [Симуляции эффектов частиц](https://defold.com/manuals/particlefx/)
 * Частота таймера
 

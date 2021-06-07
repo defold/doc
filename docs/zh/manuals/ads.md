@@ -36,7 +36,7 @@ CPM = 千人成本. 广告商为一千个浏览量支付的报酬. 不同广告�
 
 在 [Defold 资源中心](/tags/stars/ads/) 提供了一些广告商的支持程序:
 
-* [AdMob](https://defold.com/assets/admob/) - 谷歌广告.
+* [AdMob](https://defold.com/assets/admob-defold/) - 谷歌 AdMob 广告.
 * [Enhance](https://defold.com/assets/enhance/) - 广告商大集合. 编译后需要额外的安装步骤.
 * [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - 脸书广告.
 * [IronSource](https://defold.com/assets/ironsource/) - IronSource 广告.

@@ -72,7 +72,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Connect and Disconnect
+## Connect 和 Disconnect
 游戏手柄还有 `Connected` 和 `Disconnected` 两种事件用以通知手柄连接和断开.
 
 ```lua
@@ -127,3 +127,45 @@ end
 ```html
 <iframe allow="gamepad"></iframe>
 ```
+
+## 安卓手柄
+(自从 Defold 1.2.183 版本开始)
+
+Android 和其他平台一样支持手柄的输入事件. 手柄支持基于 [Android 按键和运动事件输入系统](https://developer.android.com/training/game-controllers/controller-input). 通过上文提到的 *gamepad* 文件把安卓输入事件转化成 Defold 手柄事件.
+
+安卓手柄输入按键到 *gamepad* 文件手柄事件对应表如下:
+
+| 按键输入   | 事件编号 |
+|-----------------------------|-------|
+| AKEYCODE_BUTTON_A           | 0     |
+| AKEYCODE_BUTTON_B           | 1     |
+| AKEYCODE_BUTTON_C           | 2     |
+| AKEYCODE_BUTTON_X           | 3     |
+| AKEYCODE_BUTTON_L1          | 4     |
+| AKEYCODE_BUTTON_R1          | 5     |
+| AKEYCODE_BUTTON_Y           | 6     |
+| AKEYCODE_BUTTON_Z           | 7     |
+| AKEYCODE_BUTTON_L2          | 8     |
+| AKEYCODE_BUTTON_R2          | 9     |
+| AKEYCODE_DPAD_CENTER        | 10    |
+| AKEYCODE_DPAD_DOWN          | 11    |
+| AKEYCODE_DPAD_LEFT          | 12    |
+| AKEYCODE_DPAD_RIGHT         | 13    |
+| AKEYCODE_DPAD_UP            | 14    |
+| AKEYCODE_BUTTON_START       | 15    |
+| AKEYCODE_BUTTON_SELECT      | 16    |
+| AKEYCODE_BUTTON_THUMBL      | 17    |
+| AKEYCODE_BUTTON_THUMBR      | 18    |
+
+([Android KeyEvent 定义](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
+
+| 摇杆输入  | 事件编号 |
+|-----------------------------|-------|
+| AMOTION_EVENT_AXIS_X        | 0     |
+| AMOTION_EVENT_AXIS_Y        | 1     |
+| AMOTION_EVENT_AXIS_Z        | 2     |
+| AMOTION_EVENT_AXIS_RZ       | 3     |
+
+([Android MotionEvent 定义](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
+
+为了正确使用手柄事件映射请参考上表以及 Google Play Store 上的手柄映射测试小工具.
