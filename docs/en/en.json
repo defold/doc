@@ -431,7 +431,7 @@
         "manuals":
         [
             {
-                "name": "GETTING STARTED",
+                "name": "Getting Started",
                 "items": [
                     {
                         "path": "/manuals/introduction",
@@ -460,7 +460,7 @@
                 ]
             },
             {
-                "name": "PROJECT SETUP",
+                "name": "Project Setup",
                 "items": [
                     {
                         "path": "/manuals/project-setup",
@@ -472,12 +472,12 @@
                     },
                     {
                         "path": "/manuals/libraries",
-                        "name": "Libraries"
+                        "name": "Sharing projects"
                     }
                 ]
             },
             {
-                "name": "CORE CONCEPTS",
+                "name": "Core Concepts",
                 "items": [
                     {
                         "path": "/manuals/building-blocks",
@@ -495,10 +495,11 @@
                         "path": "/manuals/application-lifecycle",
                         "name": "Application lifecycle"
                     }
-                ]
+                ],
+                "divider": true
             },
             {
-                "name": "ASSETS AND RESOURCES",
+                "name": "Assets and Resources",
                 "items": [
                     {
                         "path": "/manuals/importing-assets",
@@ -547,7 +548,7 @@
                 ]
             },
             {
-                "name": "ANIMATIONS",
+                "name": "Animations",
                 "items": [
                     {
                         "path": "/manuals/animation",
@@ -572,7 +573,7 @@
                 ]
             },
             {
-                "name": "COMPONENTS",
+                "name": "Components",
                 "items": [
                     {
                         "path": "/manuals/components",
@@ -678,7 +679,7 @@
                 ]
             },
             {
-                "name": "PHYSICS",
+                "name": "Physics",
                 "items": [
                     {
                         "path": "/manuals/physics",
@@ -715,7 +716,7 @@
                 ]
             },
             {
-                "name": "SOUND",
+                "name": "Sound",
                 "items": [
                     {
                         "path": "/manuals/sound",
@@ -728,7 +729,7 @@
                 ]
             },
             {
-                "name": "INPUT",
+                "name": "Input",
                 "items": [
                     {
                         "path": "/manuals/input",
@@ -749,7 +750,7 @@
                 ]
             },
             {
-                "name": "GAME LOGIC",
+                "name": "Game logic",
                 "items": [
                     {
                         "path": "/manuals/script",
@@ -782,7 +783,7 @@
                 ]
             },
             {
-                "name": "SAVING AND LOADING FILES",
+                "name": "File I/O",
                 "items": [
                     {
                         "path": "/manuals/file-access",
@@ -791,7 +792,7 @@
                 ]
             },
             {
-                "name": "NETWORKING",
+                "name": "Network Connections",
                 "items": [
                     {
                         "path": "/manuals/networking",
@@ -816,7 +817,7 @@
                 ]
             },
             {
-                "name": "RENDERING",
+                "name": "Rendering",
                 "items": [
                     {
                         "path": "/manuals/render",
@@ -834,34 +835,23 @@
                         "path": "/manuals/texture-filtering",
                         "name": "Texture filtering"
                     }
-                ]
+                ],
+                "divider": true
             },
             {
-                "name": "WORKFLOW",
+                "name": "Workflow",
                 "items": [
-                    {
-                        "path": "/manuals/adapting-graphics-to-screen-size",
-                        "name": "Adapting to different screen sizes"
-                    },
                     {
                         "path": "/manuals/bundling",
                         "name": "Bundling an application"
                     },
                     {
                         "path": "/manuals/bob",
-                        "name": "Bob the builder"
+                        "name": "Command line tools"
                     },
                     {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
-                    },
-                    {
-                        "path": "/manuals/optimization",
-                        "name": "Optimizing an application"
-                    },
-                    {
-                        "path": "/manuals/profiling",
-                        "name": "Profiling"
                     },
                     {
                         "path": "/manuals/refactoring",
@@ -886,7 +876,7 @@
                 ]
             },
             {
-                "name": "DEBUGGING",
+                "name": "Debugging",
                 "items": [
                     {
                         "path": "/manuals/debugging-game-logic",
@@ -907,6 +897,15 @@
                     {
                         "path": "/manuals/debugging-game-and-system-logs",
                         "name": "Reading game and system logs"
+                    }
+                ]
+            },
+            {
+                "name": "Optimization",
+                "items": [
+                    {
+                        "path": "/manuals/optimization",
+                        "name": "Optimizing an application"
                     },
                     {
                         "path": "/manuals/profiling",
@@ -915,40 +914,7 @@
                 ]
             },
             {
-                "name": "PLATFORMS",
-                "items": [
-                    {
-                        "path": "/manuals/android",
-                        "name": "Android"
-                    },
-                    {
-                        "path": "/manuals/ios",
-                        "name": "iOS"
-                    },
-                    {
-                        "path": "/manuals/nintendo-switch",
-                        "name": "Nintendo Switch"
-                    },
-                    {
-                        "path": "/manuals/linux",
-                        "name": "Linux"
-                    },
-                    {
-                        "path": "/manuals/html5",
-                        "name": "HTML5"
-                    },
-                    {
-                        "path": "/manuals/macos",
-                        "name": "macOS"
-                    },
-                    {
-                        "path": "/manuals/windows",
-                        "name": "Windows"
-                    }
-                ]
-            },
-            {
-                "name": "MONETIZATION",
+                "name": "Monetization",
                 "items": [
                     {
                         "path": "/manuals/ads",
@@ -962,11 +928,16 @@
                         "path": "/extension-webmonetization",
                         "name": "Web Monetization"
                     }
-                ]
+                ],
+                "divider": true
             },
             {
-                "name": "EXTENSIONS",
+                "name": "Android",
                 "items": [
+                    {
+                        "path": "/manuals/android",
+                        "name": "Introduction"
+                    },
                     {
                         "path": "/extension-adinfo",
                         "name": "Advertising Info"
@@ -974,6 +945,10 @@
                     {
                         "path": "/extension-admob",
                         "name": "AdMob ads"
+                    },
+                    {
+                        "path": "/extension-review",
+                        "name": "App review and ratings"
                     },
                     {
                         "path": "/extension-camera",
@@ -984,12 +959,12 @@
                         "name": "Facebook"
                     },
                     {
-                        "path": "/extension-fbinstant",
-                        "name": "Facebook Instant Games"
-                    },
-                    {
                         "path": "/extension-firebase-analytics",
                         "name": "Firebase Analytics"
+                    },
+                    {
+                        "path": "/extension-firebase-remoteconfig",
+                        "name": "Firebase Remote Config"
                     },
                     {
                         "path": "/extension-gpgs",
@@ -1000,8 +975,57 @@
                         "name": "Google Play Instant"
                     },
                     {
-                        "path": "/extension-iap",
-                        "name": "In-app purchases"
+                        "path": "/manuals/iac",
+                        "name": "Inter-app communication"
+                    },
+                    {
+                        "path": "/extension-push",
+                        "name": "Push notifications"
+                    },
+                    {
+                        "path": "/extension-webview",
+                        "name": "Webview"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
+                    }
+                ]
+            },
+            {
+                "name": "iOS",
+                "items": [
+                    {
+                        "path": "/manuals/ios",
+                        "name": "Introduction"
+                    },
+                    {
+                        "path": "/extension-adinfo",
+                        "name": "Advertising Info"
+                    },
+                    {
+                        "path": "/extension-admob",
+                        "name": "AdMob ads"
+                    },
+                    {
+                        "path": "/extension-review",
+                        "name": "App review and ratings"
+                    },
+                    {
+                        "path": "/extension-camera",
+                        "name": "Camera"
+                    },
+                    {
+                        "path": "/extension-facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/extension-firebase-analytics",
+                        "name": "Firebase Analytics"
+                    },
+                    {
+                        "path": "/extension-firebase-remoteconfig",
+                        "name": "Firebase Remote Config"
                     },
                     {
                         "path": "/manuals/iac",
@@ -1012,25 +1036,61 @@
                         "name": "Push notifications"
                     },
                     {
-                        "path": "/extension-review",
-                        "name": "App review and ratings"
-                    },
-                    {
-                        "path": "/extension-webmonetization",
-                        "name": "WebMonetization"
-                    },
-                    {
-                        "path": "/extension-websocket",
-                        "name": "WebSocket"
-                    },
-                    {
                         "path": "/extension-webview",
                         "name": "Webview"
+                    },
+                    {
+                        "path": "/manuals/dev-app",
+                        "name": "The mobile dev app"
                     }
                 ]
             },
             {
-                "name": "NATIVE EXTENSIONS",
+                "name": "Nintendo Switch",
+                "items": [
+                    {
+                        "path": "/manuals/nintendo-switch",
+                        "name": "Nintendo Switch"
+                    }
+                ]
+            },
+            {
+                "name": "HTML5",
+                "items": [
+                    {
+                        "path": "/manuals/html5",
+                        "name": "Introduction"
+                    },
+                    {
+                        "path": "/extension-facebook",
+                        "name": "Facebook"
+                    },
+                    {
+                        "path": "/extension-fbinstant",
+                        "name": "Facebook Instant Games"
+                    }
+                ]
+            },
+            {
+                "name": "Desktop",
+                "items": [
+                    {
+                        "path": "/manuals/linux",
+                        "name": "Linux"
+                    },
+                    {
+                        "path": "/manuals/macos",
+                        "name": "macOS"
+                    },
+                    {
+                        "path": "/manuals/windows",
+                        "name": "Windows"
+                    }
+                ],
+                "divider": true
+            },
+            {
+                "name": "Engine extensions",
                 "items": [
                     {
                         "path": "/manuals/extensions",
@@ -1067,7 +1127,7 @@
                 ]
             },
             {
-                "name": "EDITOR EXTENSIONS",
+                "name": "Editor extensions",
                 "items": [
                     {
                         "path": "/manuals/editor-scripts",
