@@ -204,9 +204,14 @@ The App Store icon does not have to be referenced from *game.project*. It is aut
 
 ## Installing an iOS application bundle
 
-The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use Xcode (via the "Devices and Simulators" window). Other options are to use a command line tool such as [ios-deploy](https://github.com/phonegap/ios-deploy) or iTunes.
+The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use one of the following tools:
 
-You can use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:
+* Xcode via the "Devices and Simulators" window
+* [ios-deploy](https://github.com/ios-control/ios-deploy) command line tool
+* [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/) from the macOS App Store
+* iTunes
+
+You can also use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:
 
 ```
 # show a list of available devices
