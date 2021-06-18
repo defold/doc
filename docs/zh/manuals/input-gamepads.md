@@ -156,6 +156,7 @@ Android 和其他平台一样支持手柄的输入事件. 手柄支持基于 [An
 | AKEYCODE_BUTTON_SELECT      | 16    |
 | AKEYCODE_BUTTON_THUMBL      | 17    |
 | AKEYCODE_BUTTON_THUMBR      | 18    |
+| AKEYCODE_BUTTON_MODE        | 19    |
 
 ([Android KeyEvent 定义](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 
@@ -165,6 +166,10 @@ Android 和其他平台一样支持手柄的输入事件. 手柄支持基于 [An
 | AMOTION_EVENT_AXIS_Y        | 1     |
 | AMOTION_EVENT_AXIS_Z        | 2     |
 | AMOTION_EVENT_AXIS_RZ       | 3     |
+| AMOTION_EVENT_AXIS_LTRIGGER | 4     |
+| AMOTION_EVENT_AXIS_RTRIGGER | 5     |
+| AMOTION_EVENT_AXIS_HAT_X    | 6     |
+| AMOTION_EVENT_AXIS_HAT_Y    | 7     |
 
 ([Android MotionEvent 定义](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
 

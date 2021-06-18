@@ -200,7 +200,12 @@ Notifications, Settings 和 Spotlight 這三項不要拖放圖標.
 
 ## 安装 iOS 打包应用
 
-编辑器对iOS应用打包后生成 *.ipa* 文件. 要安装此文件, 可以使用 Xcode (通过 "Devices and Simulators" 窗口). 或者使用命令行工具 [ios-deploy](https://github.com/phonegap/ios-deploy) 或者使用 iTunes.
+编辑器对iOS应用打包后生成 *.ipa* 文件. 要安装此文件, 可以使用以下所列举工具之一:
+
+* Xcode 的 "Devices and Simulators" 窗口
+* [ios-deploy](https://github.com/ios-control/ios-deploy) 命令行工具
+* macOS App Store 里的 [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/)
+* iTunes
 
 可以使用 `xcrun simctl` 命令行工具与 Xcode 的 iOS 模拟器进行交互:
 
