@@ -66,7 +66,7 @@ A: The following platforms are supported for the editor/tools and the engine run
 
   (1 The editor is built and tested for 64-bit Ubuntu 18.04. It should work on other distributions as well but we give no guarantees.)
 
-  (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date and supporting OpenGL ES 2.0.)
+  (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date, see below for more information on graphics APIs)
 
 
 #### Q: What target platforms can I develop games for with Defold?
