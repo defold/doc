@@ -183,6 +183,11 @@ The maximum number of debug vertices. Used for physics shape rendering among oth
 #### Texture Profiles
 The texture profiles file to use for this project, `/builtins/graphics/default.texture_profiles` by default.
 
+## Shader
+
+#### Output SPIR-V
+Compile and output SPIR-V shaders for use with Metal or Vulkan.
+
 ## Input
 
 #### Repeat Delay
@@ -220,6 +225,9 @@ The HTTP timeout in seconds. Set to `0` to disable timeout, which is the default
 
 #### Max Instances
 Max number of game object instances in a collection, `1024` by default.
+
+#### Max Input Stack Entries
+Max number of game objects in the input stack, `16` by default.
 
 ## Sound
 
