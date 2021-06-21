@@ -76,8 +76,9 @@ A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as 
 
 #### Q: What rendering API does Defold rely on?
 
-A: Defold uses WebGL in HTML5 builds, Metal on iOS and macOS and Vulkan or OpenGL ES 2.0 on all other platforms. As a developer you only have to worry about a single render API using a fully scriptable rendering pipeline.
+A: As a developer you only have to worry about a single render API using a [fully scriptable rendering pipeline](/manuals/render/). The Defold render script API translates render operations into the following graphics APIs:
 
+:[Graphics API](../shared/editor-faq.md)
 
 #### Q: Is there a way to know what version I'm running?
 
