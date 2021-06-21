@@ -253,7 +253,7 @@ on_message()
 ## Supported graphics APIs
 The Defold render script API translates render operations into the following graphics APIs:
 
-:[Graphics API](../shared/editor-faq.md)
+:[Graphics API](../shared/graphics-api.md)
 
 
 ## System messages
