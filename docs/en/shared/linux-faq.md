@@ -69,8 +69,8 @@ $ MESA_LOADER_DRIVER_OVERRIDE=i965 ./Defold
 A: The [libffi](https://sourceware.org/libffi/) version of your distribution and the one required by Defold (version 6 or 7) does not match. Make sure `libffi.so.6` or `libffi.so.7` is installed under `/usr/lib/x86_64-linux-gnu`. You can download `libffi.so.7` like this:  
 
 ```bash
-$ wget http://ftp.br.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-5_amd64.deb
-$ sudo dpkg -i libffi7_3.3-5_amd64.deb
+$ wget http://ftp.br.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-6_amd64.deb
+$ sudo dpkg -i libffi7_3.3-6_amd64.deb
 ```
 
 Next you specify the path to this version in the `LD_PRELOAD` environment variable when running Defold:

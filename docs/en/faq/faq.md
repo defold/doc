@@ -66,7 +66,7 @@ A: The following platforms are supported for the editor/tools and the engine run
 
   (1 The editor is built and tested for 64-bit Ubuntu 18.04. It should work on other distributions as well but we give no guarantees.)
 
-  (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date and supporting OpenGL ES 2.0.)
+  (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date, see below for more information on graphics APIs)
 
 
 #### Q: What target platforms can I develop games for with Defold?
@@ -76,8 +76,9 @@ A: With one click you can publish to Nintendo Switch, iOS, Android and HTML5 as 
 
 #### Q: What rendering API does Defold rely on?
 
-A: Defold uses WebGL in HTML5 builds, Metal on iOS and macOS and Vulkan or OpenGL ES 2.0 on all other platforms. As a developer you only have to worry about a single render API using a fully scriptable rendering pipeline.
+A: As a developer you only have to worry about a single render API using a [fully scriptable rendering pipeline](/manuals/render/). The Defold render script API translates render operations into the following graphics APIs:
 
+:[Graphics API](../shared/graphics-api.md)
 
 #### Q: Is there a way to know what version I'm running?
 
