@@ -71,8 +71,8 @@ A: 这是由于Linux系统的 [libffi](https://sourceware.org/libffi/) 版本与
 确保 `libffi.so.6` 或 `libffi.so.7` 已安装在 `/usr/lib/x86_64-linux-gnu` 路径下. 可以使用如下命令下载 `libffi.so.7`:
 
 ```bash
-$ wget http://ftp.br.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-5_amd64.deb
-$ sudo dpkg -i libffi7_3.3-5_amd64.deb
+$ wget http://ftp.br.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-6_amd64.deb
+$ sudo dpkg -i libffi7_3.3-6_amd64.deb
 ```
 
 然后需要在环境变量 `LD_PRELOAD` 中指定安装路径再启动 Defold:
