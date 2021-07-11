@@ -7,6 +7,16 @@ $ gsettings set org.gnome.desktop.interface scaling-factor 2
 $ ./Defold
 ```
 
+A: 另一种办法, 尤其是在你希望把界面放大到非整数倍时, 可以修改 `Defold/config` 文件, 在`vmargs` 一行加入 `glass.gtk.uiScale`: [source](https://forum.defold.com/t/4k-hidpi-monitor-support-solved/64108/12?u=britzl)
+
+```
+vmargs = -Dglass.gtk.uiScale=1.5,-Dfile.encoding=UTF-8,...
+vmargs = -Dglass.gtk.uiScale=175%,-Dfile.encoding=UTF-8,...
+vmargs = -Dglass.gtk.uiScale=192dpi,-Dfile.encoding=UTF-8,...
+```
+
+此值的意义参见 [Arch Linux HiDPI wiki 文章](https://wiki.archlinux.org/title/HiDPI#JavaFX).
+
 
 #### Q:在 Elementary OS 上使用 Defold 编辑器, 鼠标点选上的都是后面的东西?
 
