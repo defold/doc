@@ -7,6 +7,15 @@ $ gsettings set org.gnome.desktop.interface scaling-factor 2
 $ ./Defold
 ```
 
+A: An alternative solution, especially when you wish to scale up by a fraction, is to modify the `Defold/config` file and on the `vmargs` line add `glass.gtk.uiScale`: [source](https://forum.defold.com/t/4k-hidpi-monitor-support-solved/64108/12?u=britzl)
+
+```
+vmargs = -Dglass.gtk.uiScale=1.5,-Dfile.encoding=UTF-8,...
+vmargs = -Dglass.gtk.uiScale=175%,-Dfile.encoding=UTF-8,...
+vmargs = -Dglass.gtk.uiScale=192dpi,-Dfile.encoding=UTF-8,...
+```
+
+More on this value in the [Arch Linux HiDPI wiki article](https://wiki.archlinux.org/title/HiDPI#JavaFX).
 
 #### Q: Why does mouse clicks on Elementary OS go through the editor onto whatever is below?
 
