@@ -210,7 +210,7 @@ The comparison is done using the `basisu` tool (measuring the PSNR)
 
 ### Compression file sizes
 
-Original file size is 524388 bytes.
+Original file size is 1572882 bytes.
 
 | Level      | File Sizes | Ratio    |
 | ---------------------------------- |
