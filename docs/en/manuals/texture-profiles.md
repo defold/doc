@@ -102,7 +102,18 @@ The *Formats* added to a profile each have the following properties:
 : The format to use when encoding the texture. See below for all available texture formats.
 
 *Compression*
-: Selects the quality level for the resulting compressed image. The values range from `FAST` (lowest quality, fast compression) to `BEST` (highest quality, slowest compression).
+: Selects the quality level for the resulting compressed image.
+
+| LEVEL    | Note                                          |
+| -------- | --------------------------------------------- |
+| `FAST`   | Fastest compression. Low image quality        |
+| `NORMAL` | Default compression. Best image quality       |
+| `HIGH`   | Slowest compression. Smaller file size        |
+| `BEST`   | Slow compression. Smallest file size          |
+
+::: sidenote
+Since 1.2.185 we've redefined these enums, since they are a bit ambiguous.
+:::
 
 *Type*
 : Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#compression-types) below for more details.
@@ -166,3 +177,63 @@ Our current long running task of introducing content pipeline plugins aim to fix
 | `COMPRESSION_TYPE_WEBP_LOSSY`     | All non hardware compressed formats. | WebP lossy compression. Lower quality level results in smaller size. |
 
 For hardware compressed texture formats PVRTC or ETC, the WebP lossless compression process transforms the compressed hardware texture format data into data more suitable for WebP image compression using an internal intermediate format. This is then transformed back into the compressed hardware texture format when loaded by the run-time. WebP lossy type is currently not supported for hardware compressed texture formats PVRTC and ETC.
+
+
+## Example image
+
+To better give an understanding of the output, here is an example.
+Note that the image quality, compression time and compression size are always dependent on the input image and may vary.
+
+Base image (1024x512):
+![New profiles file](images/texture_profiles/kodim03_pow2.png)
+
+### Compression times
+
+| Level      | Compression time | Relative time   |
+| ----------------------------- | --------------- |
+| `FAST`     | 0m0.143s         | 0.5x            |
+| `NORMAL`   | 0m0.294s         | 1.0x            |
+| `HIGH`     | 0m1.764s         | 6.0x            |
+| `BEST`     | 0m1.109s         | 3.8x            |
+
+### Signal loss
+
+The comparison is done using the `basisu` tool (measuring the PSNR)
+100 dB means no signal loss (i.e. it's the same as the original image).
+
+| Level      | Signal                                          |
+| ------------------------------------------------------------ |
+| `FAST`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
+| `NORMAL`   | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
+| `HIGH`     | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
+| `BEST`     | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
+
+### Compression file sizes
+
+Original file size is 1572882 bytes.
+
+| Level      | File Sizes | Ratio    |
+| ---------------------------------- |
+| `FAST`     | 357225     | 22.71 %  |
+| `NORMAL`   | 365548     | 23.24 %  |
+| `HIGH`     | 277186     | 17.62 %  |
+| `BEST`     | 254380     | 16.17 %  |
+
+
+### Image quality
+
+Here are the resulting images (retrieved from the ASTC encoding using the `basisu` tool)
+
+`FAST`
+![fast compression level](images/texture_profiles/kodim03_pow2.fast.png)
+
+`NORMAL`
+![normal compression level](images/texture_profiles/kodim03_pow2.normal.png)
+
+`HIGH`
+![high compression level](images/texture_profiles/kodim03_pow2.high.png)
+
+`BEST`
+![best compression level](images/texture_profiles/kodim03_pow2.best.png)
+
+
