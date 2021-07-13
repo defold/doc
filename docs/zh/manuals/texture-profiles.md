@@ -102,7 +102,18 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 : 纹理编码格式. 可用格式见下文.
 
 *Compression*
-: 压缩图片的质量等级. 取值从 `FAST` (质量最差, 速度最快) 到 `BEST` (质量最高, 速度最慢).
+: 选择图片压缩质量等级.
+
+| 等级    |  说明                                         |
+| -------- | --------------------------------------------- |
+| `FAST`   | 压缩速度最快. 图片质量最低        |
+| `NORMAL` | 默认压缩. 图片质量最高       |
+| `HIGH`   | 最慢压缩. 缩小图片文件大小        |
+| `BEST`   | 慢压缩. 图片文件大小最小          |
+
+::: 注意
+为了避免歧义, 从版本 1.2.185 开始, 等级枚举用词做了调整.
+:::
 
 *Type*
 : 压缩类型, 可选值有 `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` 和 `COMPRESSION_TYPE_WEBP_LOSSY`. 详见下文 [压缩类型](#compression-types).
@@ -158,7 +169,7 @@ ETC
 远期未来目标是引入内容管线插件来解决这个问题.
 :::
 
-| Type                              | Formats                   | Note |
+| 类型                              | 格式                   | 说明 |
 | --------------------------------- | ------------------------- | ---- |
 | `COMPRESSION_TYPE_DEFAULT`        | All formats               | 常见有损压缩. 默认类型. |
 | `COMPRESSION_TYPE_BASIS_UASTC`    | All RGB/RGBA formats      | 基础通用高质, 有损压缩. 质量等级越低体积越小. |
@@ -166,3 +177,61 @@ ETC
 | `COMPRESSION_TYPE_WEBP_LOSSY`     | All non hardware compressed formats. | WebP 有损压缩. 质量等级越低体积越小. |
 
 对于硬件压缩纹理格式PVRTC或ETC, WebP无损压缩过程使用内部中间格式将压缩的硬件纹理格式数据转换为更适合WebP图像压缩的数据. 然后在运行时加载时将其转换回压缩的硬件纹理格式. 硬件压缩纹理格式PVRTC和ETC目前不支持WebP有损类型.
+
+
+## 图片压缩测试
+
+为了便于更好地理解, 这里举了一个例子.
+注意图片质量, 压缩时间和压缩量取决于原始图片, 不同图片可能效果不同.
+
+原始图片 (1024x512):
+![New profiles file](images/texture_profiles/kodim03_pow2.png)
+
+### 压缩时间
+
+| 等级      | 压缩时间 | 倍率   |
+| ----------------------------- | --------------- |
+| `FAST`     | 0m0.143s         | 0.5x            |
+| `NORMAL`   | 0m0.294s         | 1.0x            |
+| `HIGH`     | 0m1.764s         | 6.0x            |
+| `BEST`     | 0m1.109s         | 3.8x            |
+
+### 失真
+
+这里使用 `basisu` 工具进行比较 (比较参数 PSNR)
+100 dB 表示不失真 (也就是说和原始图片完全相同).
+
+| 等级      | 数据                                          |
+| ------------------------------------------------------------ |
+| `FAST`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
+| `NORMAL`   | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
+| `HIGH`     | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
+| `BEST`     | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
+
+### 压缩文件大小
+
+原始文件 1572882 字节.
+
+| 等级      | 文件大小 | 压缩率    |
+| ---------------------------------- |
+| `FAST`     | 357225     | 22.71 %  |
+| `NORMAL`   | 365548     | 23.24 %  |
+| `HIGH`     | 277186     | 17.62 %  |
+| `BEST`     | 254380     | 16.17 %  |
+
+
+### 图片质量
+
+下面给出压缩后的图片 (使用`basisu` 工具的 ASTC 编码进行了修正)
+
+`FAST`
+![fast compression level](images/texture_profiles/kodim03_pow2.fast.png)
+
+`NORMAL`
+![normal compression level](images/texture_profiles/kodim03_pow2.normal.png)
+
+`HIGH`
+![high compression level](images/texture_profiles/kodim03_pow2.high.png)
+
+`BEST`
+![best compression level](images/texture_profiles/kodim03_pow2.best.png)
