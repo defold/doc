@@ -139,7 +139,7 @@ table.insert(self.spawned_coins, id)
 ```lua
 -- coin.script
 -- Удалить все порожденные монеты.
-for _, coin_id = ipairs(self.spawned_coins) do
+for _, coin_id in ipairs(self.spawned_coins) do
     go.delete(coin_id)
 end
 
