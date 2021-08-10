@@ -73,7 +73,7 @@ end
 ```
 
 ## Connect 和 Disconnect
-游戏手柄还有 `Connected` 和 `Disconnected` 两种事件用以通知手柄连接和断开.
+游戏手柄还有 `Connected` 和 `Disconnected` 两种事件用以通知手柄的连接(包括一开始就连着的手柄)和断开.
 
 ```lua
 function on_input(self, action_id, action)
@@ -85,6 +85,21 @@ function on_input(self, action_id, action)
         if action.gamepad == 0 then
           -- 手柄0号已断开
         end
+    end
+end
+```
+
+## 手柄原始数据
+(更新于 Defold 1.2.183)
+
+手柄输入绑定提供了一个 `Raw` 事件给出按键, 十字键或者摇杆的原始 (不使用阈值) 数据.
+
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("raw") then
+        pprint(action.gamepad_buttons)
+        pprint(action.gamepad_axis)
+        pprint(action.gamepad_hats)
     end
 end
 ```
@@ -110,6 +125,11 @@ end
 
 ![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
 
+### 未映射手柄
+(更新于 Defold 1.2.186)
+
+如果手柄没有配置消息映射的话, 就只有 "connected", "disconnected" 和 "raw" 三种事件. 这种情况下只能使用手柄原始数据来控制游戏.
+
 ## HTML5上的游戏手柄
 HTML5平台同样支持游戏手柄, 效果和原生应用一样. 游戏手柄的支持基于 [标准游戏手柄API](https://www.w3.org/TR/gamepad/), 并且受绝大多数浏览器支持 ([详见此图表](https://caniuse.com/?search=gamepad)). 万一遇到不支持的浏览器 Defold 会忽略所有游戏手柄的操作. 可以通过检查浏览器的`navigator`对象中是否存在`getGamepads`函数来判断其是否支持游戏手柄:
 
@@ -129,34 +149,50 @@ end
 ```
 
 ## 安卓手柄
-(自从 Defold 1.2.183 版本开始)
+(更新于 Defold 1.2.183)
 
 Android 和其他平台一样支持手柄的输入事件. 手柄支持基于 [Android 按键和运动事件输入系统](https://developer.android.com/training/game-controllers/controller-input). 通过上文提到的 *gamepad* 文件把安卓输入事件转化成 Defold 手柄事件.
 
 安卓手柄输入按键到 *gamepad* 文件手柄事件对应表如下:
 
-| 按键输入   | 事件编号 |
-|-----------------------------|-------|
-| AKEYCODE_BUTTON_A           | 0     |
-| AKEYCODE_BUTTON_B           | 1     |
-| AKEYCODE_BUTTON_C           | 2     |
-| AKEYCODE_BUTTON_X           | 3     |
-| AKEYCODE_BUTTON_L1          | 4     |
-| AKEYCODE_BUTTON_R1          | 5     |
-| AKEYCODE_BUTTON_Y           | 6     |
-| AKEYCODE_BUTTON_Z           | 7     |
-| AKEYCODE_BUTTON_L2          | 8     |
-| AKEYCODE_BUTTON_R2          | 9     |
-| AKEYCODE_DPAD_CENTER        | 10    |
-| AKEYCODE_DPAD_DOWN          | 11    |
-| AKEYCODE_DPAD_LEFT          | 12    |
-| AKEYCODE_DPAD_RIGHT         | 13    |
-| AKEYCODE_DPAD_UP            | 14    |
-| AKEYCODE_BUTTON_START       | 15    |
-| AKEYCODE_BUTTON_SELECT      | 16    |
-| AKEYCODE_BUTTON_THUMBL      | 17    |
-| AKEYCODE_BUTTON_THUMBR      | 18    |
-| AKEYCODE_BUTTON_MODE        | 19    |
+| 按键输入 | 事件编号 | 引擎版本 |
+|-----------------------------|-------|---------|
+| AKEYCODE_BUTTON_A           | 0     | 1.2.183 |
+| AKEYCODE_BUTTON_B           | 1     | 1.2.183 |
+| AKEYCODE_BUTTON_C           | 2     | 1.2.183 |
+| AKEYCODE_BUTTON_X           | 3     | 1.2.183 |
+| AKEYCODE_BUTTON_L1          | 4     | 1.2.183 |
+| AKEYCODE_BUTTON_R1          | 5     | 1.2.183 |
+| AKEYCODE_BUTTON_Y           | 6     | 1.2.183 |
+| AKEYCODE_BUTTON_Z           | 7     | 1.2.183 |
+| AKEYCODE_BUTTON_L2          | 8     | 1.2.183 |
+| AKEYCODE_BUTTON_R2          | 9     | 1.2.183 |
+| AKEYCODE_DPAD_CENTER        | 10    | 1.2.183 |
+| AKEYCODE_DPAD_DOWN          | 11    | 1.2.183 |
+| AKEYCODE_DPAD_LEFT          | 12    | 1.2.183 |
+| AKEYCODE_DPAD_RIGHT         | 13    | 1.2.183 |
+| AKEYCODE_DPAD_UP            | 14    | 1.2.183 |
+| AKEYCODE_BUTTON_START       | 15    | 1.2.183 |
+| AKEYCODE_BUTTON_SELECT      | 16    | 1.2.183 |
+| AKEYCODE_BUTTON_THUMBL      | 17    | 1.2.183 |
+| AKEYCODE_BUTTON_THUMBR      | 18    | 1.2.183 |
+| AKEYCODE_BUTTON_MODE        | 19    | 1.2.183 |
+| AKEYCODE_BUTTON_1           | 20    | 1.2.186 |
+| AKEYCODE_BUTTON_2           | 21    | 1.2.186 |
+| AKEYCODE_BUTTON_3           | 22    | 1.2.186 |
+| AKEYCODE_BUTTON_4           | 23    | 1.2.186 |
+| AKEYCODE_BUTTON_5           | 24    | 1.2.186 |
+| AKEYCODE_BUTTON_6           | 25    | 1.2.186 |
+| AKEYCODE_BUTTON_7           | 26    | 1.2.186 |
+| AKEYCODE_BUTTON_8           | 27    | 1.2.186 |
+| AKEYCODE_BUTTON_9           | 28    | 1.2.186 |
+| AKEYCODE_BUTTON_10          | 29    | 1.2.186 |
+| AKEYCODE_BUTTON_11          | 30    | 1.2.186 |
+| AKEYCODE_BUTTON_12          | 31    | 1.2.186 |
+| AKEYCODE_BUTTON_13          | 32    | 1.2.186 |
+| AKEYCODE_BUTTON_14          | 33    | 1.2.186 |
+| AKEYCODE_BUTTON_15          | 34    | 1.2.186 |
+| AKEYCODE_BUTTON_16          | 35    | 1.2.186 |
 
 ([Android KeyEvent 定义](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 
