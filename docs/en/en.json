@@ -124,6 +124,12 @@
                 "author": "Game Developers",
                 "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
             },
+            {
+                "path": "https://www.youtube.com/watch?v=ESjvMqY8Bw",
+                "name": "Enemy melee attack",
+                "author": "Game Developers",
+                "description": "In this video, we are continuing from the previous video and build a detect and attack behavior for our skeleton enemy. For this to work, we have to implement trigger detection, collision enabling and disabling, frame count detection to synchronize the hitbox enabling with the frame animation, and finally applying the damage to the player."
+            },
 
             {
                 "path": "https://www.youtube.com/embed/7P4Qj-OCLF8",
@@ -259,7 +265,33 @@
                 "name": "Defold Team Explains #8 - How to push new content to live games",
                 "author": "Defold",
                 "description": "In this video we explain how to use Live Update to push new content to live games."
+            },
+
+            {
+                "path": "https://www.youtube.com/embed/Tz-AinJGDIM",
+                "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 1",
+                "author": "ShapeShift Games",
+                "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. In part 1 you will create the project and do some initial setup (11 steps)."
+            },
+            {
+                "path": "https://www.youtube.com/embed/6zgh2r2I6dQ",
+                "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 2",
+                "author": "ShapeShift Games",
+                "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. In part 2 you will create the start screen (9 steps)."
+            },
+            {
+                "path": "https://www.youtube.com/embed/wuQgTNBmxhI",
+                "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 3",
+                "author": "ShapeShift Games",
+                "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. In part 3 you will create the fully functioning game (35 steps)."
+            },
+            {
+                "path": "https://www.youtube.com/embed/p9ZzM3VRDXw",
+                "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 4",
+                "author": "ShapeShift Games",
+                "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. Part 4 is the final video. In this part you will create the gameover screen (11 steps)."
             }
+
         ],
         "tutorials": [
             {

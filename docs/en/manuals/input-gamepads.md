@@ -73,7 +73,7 @@ end
 ```
 
 ## Connect and Disconnect
-Gamepad input bindings also provides two separate bindings named `Connected` and `Disconnected` to detect when a gamepad is connected (even those connected from the start) or disconnected.
+Gamepad input bindings also provide two separate bindings named `Connected` and `Disconnected` to detect when a gamepad is connected (even those connected from the start) or disconnected.
 
 ```lua
 function on_input(self, action_id, action)
@@ -85,6 +85,21 @@ function on_input(self, action_id, action)
         if action.gamepad == 0 then
           -- gamepad 0 was dicconnected
         end
+    end
+end
+```
+
+## Raw gamepads
+(From Defold 1.2.183)
+
+Gamepad input bindings also provide a separate binding named `Raw` to give the unfiltered (without applied deadzone) button, axis and hat input of any connected gamepad.
+
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("raw") then
+        pprint(action.gamepad_buttons)
+        pprint(action.gamepad_axis)
+        pprint(action.gamepad_hats)
     end
 end
 ```
@@ -110,6 +125,11 @@ The tool will ask you to press different buttons on your connected controller. I
 
 ![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
 
+### Unidentified gamepads
+(From Defold 1.2.186)
+
+When a gamepad is connected and no mapping exists for the gamepad the gamepad will only generate "connected", "disconnected" and "raw" actions. In this case you need to manually map the raw gamepad data to actions in your game.
+
 ## Gamepads in HTML5
 Gamepads are supported in HTML5 builds and generate the same input events as on other platforms. Support for gamepads is based on the [Gamepad API](https://www.w3.org/TR/gamepad/) which is supported in most browsers ([refer to this support chart](https://caniuse.com/?search=gamepad)). If the browser doesn't support the Gamepad API Defold will silently ignore any Gamepad triggers in your project. You can check if the browser supports the Gamepad API by checking if the `getGamepads` function exists on the `navigator` object:
 
@@ -130,34 +150,50 @@ If your game is running from inside an `iframe` you must also make sure that the
 ```
 
 ## Gamepads on Android
-(Available since Defold 1.2.183)
+(From Defold 1.2.183)
 
 Gamepads are supported in Android builds and generate the same input events as on other platforms. Support for gamepads is based on the [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input). The Android input events will be translated to Defold gamepad events using the same *gamepad* file as described above.
 
 When adding additional gamepad bindings on Android you can use the following lookup tables to translate from the Android input events to *gamepad* file values:
 
-| Key event to button index   | Index |
-|-----------------------------|-------|
-| AKEYCODE_BUTTON_A           | 0     |
-| AKEYCODE_BUTTON_B           | 1     |
-| AKEYCODE_BUTTON_C           | 2     |
-| AKEYCODE_BUTTON_X           | 3     |
-| AKEYCODE_BUTTON_L1          | 4     |
-| AKEYCODE_BUTTON_R1          | 5     |
-| AKEYCODE_BUTTON_Y           | 6     |
-| AKEYCODE_BUTTON_Z           | 7     |
-| AKEYCODE_BUTTON_L2          | 8     |
-| AKEYCODE_BUTTON_R2          | 9     |
-| AKEYCODE_DPAD_CENTER        | 10    |
-| AKEYCODE_DPAD_DOWN          | 11    |
-| AKEYCODE_DPAD_LEFT          | 12    |
-| AKEYCODE_DPAD_RIGHT         | 13    |
-| AKEYCODE_DPAD_UP            | 14    |
-| AKEYCODE_BUTTON_START       | 15    |
-| AKEYCODE_BUTTON_SELECT      | 16    |
-| AKEYCODE_BUTTON_THUMBL      | 17    |
-| AKEYCODE_BUTTON_THUMBR      | 18    |
-| AKEYCODE_BUTTON_MODE        | 19    |
+| Key event to button index   | Index | Version |
+|-----------------------------|-------|---------|
+| AKEYCODE_BUTTON_A           | 0     | 1.2.183 |
+| AKEYCODE_BUTTON_B           | 1     | 1.2.183 |
+| AKEYCODE_BUTTON_C           | 2     | 1.2.183 |
+| AKEYCODE_BUTTON_X           | 3     | 1.2.183 |
+| AKEYCODE_BUTTON_L1          | 4     | 1.2.183 |
+| AKEYCODE_BUTTON_R1          | 5     | 1.2.183 |
+| AKEYCODE_BUTTON_Y           | 6     | 1.2.183 |
+| AKEYCODE_BUTTON_Z           | 7     | 1.2.183 |
+| AKEYCODE_BUTTON_L2          | 8     | 1.2.183 |
+| AKEYCODE_BUTTON_R2          | 9     | 1.2.183 |
+| AKEYCODE_DPAD_CENTER        | 10    | 1.2.183 |
+| AKEYCODE_DPAD_DOWN          | 11    | 1.2.183 |
+| AKEYCODE_DPAD_LEFT          | 12    | 1.2.183 |
+| AKEYCODE_DPAD_RIGHT         | 13    | 1.2.183 |
+| AKEYCODE_DPAD_UP            | 14    | 1.2.183 |
+| AKEYCODE_BUTTON_START       | 15    | 1.2.183 |
+| AKEYCODE_BUTTON_SELECT      | 16    | 1.2.183 |
+| AKEYCODE_BUTTON_THUMBL      | 17    | 1.2.183 |
+| AKEYCODE_BUTTON_THUMBR      | 18    | 1.2.183 |
+| AKEYCODE_BUTTON_MODE        | 19    | 1.2.183 |
+| AKEYCODE_BUTTON_1           | 20    | 1.2.186 |
+| AKEYCODE_BUTTON_2           | 21    | 1.2.186 |
+| AKEYCODE_BUTTON_3           | 22    | 1.2.186 |
+| AKEYCODE_BUTTON_4           | 23    | 1.2.186 |
+| AKEYCODE_BUTTON_5           | 24    | 1.2.186 |
+| AKEYCODE_BUTTON_6           | 25    | 1.2.186 |
+| AKEYCODE_BUTTON_7           | 26    | 1.2.186 |
+| AKEYCODE_BUTTON_8           | 27    | 1.2.186 |
+| AKEYCODE_BUTTON_9           | 28    | 1.2.186 |
+| AKEYCODE_BUTTON_10          | 29    | 1.2.186 |
+| AKEYCODE_BUTTON_11          | 30    | 1.2.186 |
+| AKEYCODE_BUTTON_12          | 31    | 1.2.186 |
+| AKEYCODE_BUTTON_13          | 32    | 1.2.186 |
+| AKEYCODE_BUTTON_14          | 33    | 1.2.186 |
+| AKEYCODE_BUTTON_15          | 34    | 1.2.186 |
+| AKEYCODE_BUTTON_16          | 35    | 1.2.186 |
 
 ([Android KeyEvent definitions](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 
