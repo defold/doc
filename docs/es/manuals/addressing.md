@@ -42,7 +42,7 @@ Esto hará que cuando el juego inicie, el script "direccione" el sprite por el i
 
 El identificador es un parámetro sobre el que nosotros decidimos el valor. En este caso, se le da al objeto el identificador de "bean", al igual que al script se le nombra "controller" y al sprite "body"
 
-::: Anotación
+::: sidenote
 
 Si no eliges un nombre, el editor creara de forma automática un ID único.
 
@@ -61,7 +61,7 @@ El nuevo componente debe tener un identificador único, para no crear ambiguedad
 
 ![bean](images/addressing/bean_shield.png)
 
-::: Anotación
+::: sidenote
 
 Si intentas crear dos identificadores iguales, el editor mostrara un mensaje de error.
 
@@ -72,7 +72,7 @@ Ahora, veamos que ocurre si añadimos más objetos. Supongamos que queremos crea
 
 ![bean](images/addressing/bean_buddy.png)
 
-::: Anotación
+::: sidenote
 
 Hay dos componentes separados llamados "controller", uno en cada objeto, sin que ello tenga porque dar problemas.
 :::
@@ -134,7 +134,7 @@ Para nuestro ejemplo anterior, el juego se ejecutará con los siguientes 4 objet
 - /team_2/bean
 - /team_2/buddy
 
-::: Anotación
+::: sidenote
 
 Los identificadores se almacenan como valores hash. En tiempo de ejecución también se almacena el estado del hash y se usa para extraer la id absoluta desde un valor relativo.
 
@@ -176,8 +176,8 @@ print(spawned_id) --&gt; hash: [/instance42]
 
 Puedes usar un identificador de este tipo en lugar de una identificación de cadena o construir de cero. Sin embargo, ten en cuenta que una identificación hash corresponde a la ruta al objeto, es decir, una dirección absoluta:
 
-::: Anotación
-The reason relative addresses must be given as strings is because the engine will compute a new hash id based on the hash state of the current naming context (collection) with the given string added to the hash.
+::: sidenote
+La razón por la que la dirección relativa debe ser dada como string es porque se calculara el nuevo id del hash basandose en donde está la colección actual junto con el string que queremos añadir.
 :::
 
 '''lua
