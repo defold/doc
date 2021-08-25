@@ -5,9 +5,9 @@ brief: This manual explains how to use the asset cache to speed up builds.
 
 # Caching assets
 
-Games created with Defold usually build in a matter of seconds, but usually as a project grows so does the amount of assets. Compiling fonts and compressing textures can take a significant amount of time in a large project and the asset cache exists to speed up builds by only rebuilding assets that have changed while using already compiled assets from the cache for assets that hasn't changed.
+Games created with Defold usually build in a matter of seconds, but as a project grows so does the amount of assets. Compiling fonts and compressing textures can take a significant amount of time in a large project and the asset cache exists to speed up builds by only rebuilding assets that have changed while using already compiled assets from the cache for assets that hasn't changed.
 
-The Defold build system uses a three-tiered cache:
+Defold uses a three-tiered cache:
 
 1. Project cache
 2. Local cache
@@ -48,4 +48,4 @@ The remote cache is an optional third cache where compiled assets are stored on 
 java -jar bob.jar --resource-cache-remote https://http://192.168.0.100/
 ```
 
-As with the local cache all assets are accessed from the remote cache based on a computed checksum. Cached assets are accessed through the HTTP request methods GET, PUT and HEAD. Defold does not provide the remote cache server. It is up to each developer to set this up.
+As with the local cache all assets are accessed from the remote cache based on a computed checksum. Cached assets are accessed through the HTTP request methods GET, PUT and HEAD. Defold does not provide the remote cache server. It is up to each developer to set this up. An example of [a basic Python server can be seen here](https://github.com/britzl/httpserver-python).
