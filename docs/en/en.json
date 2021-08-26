@@ -538,6 +538,10 @@
                         "name": "Importing assets"
                     },
                     {
+                        "path": "/manuals/caching-assets",
+                        "name": "Caching assets"
+                    },
+                    {
                         "path": "/manuals/importing-graphics",
                         "name": "Importing 2D graphics"
                     },
@@ -876,6 +880,10 @@
                     {
                         "path": "/manuals/bundling",
                         "name": "Bundling an application"
+                    },
+                    {
+                        "path": "/manuals/caching-assets",
+                        "name": "Caching assets"
                     },
                     {
                         "path": "/manuals/bob",
