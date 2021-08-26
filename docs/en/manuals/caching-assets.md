@@ -45,7 +45,7 @@ Added in Defold 1.2.187
 The remote cache is an optional third cache where compiled assets are stored on a server and accessed through HTTP request. The cache is currently only available when building using the command line tools. It is enabled through the `resource-cache-remote` option:
 
 ```sh
-java -jar bob.jar --resource-cache-remote https://http://192.168.0.100/
+java -jar bob.jar --resource-cache-remote http://192.168.0.100/
 ```
 
 As with the local cache all assets are accessed from the remote cache based on a computed checksum. Cached assets are accessed through the HTTP request methods GET, PUT and HEAD. Defold does not provide the remote cache server. It is up to each developer to set this up. An example of [a basic Python server can be seen here](https://github.com/britzl/httpserver-python).
