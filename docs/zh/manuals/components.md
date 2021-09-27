@@ -88,6 +88,8 @@ Defold 组件属性各不相同.在 [Outline 面板](/manuals/editor/#Outline �
 | B        | 1       |
 | B#sprite | 0.5     |
 
+![](images/graphics/component-hierarchy.png)
+
 在上述定义中 B 的sprite组件最终z值是 2 + 1 + 0.5 = 3.5.
 
 ::: 注意
