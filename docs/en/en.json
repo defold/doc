@@ -603,6 +603,10 @@
                         "name": "Property animation (tweens)"
                     },
                     {
+                        "path": "/extension-rive",
+                        "name": "Rive animation"
+                    },
+                    {
                         "path": "/manuals/spine",
                         "name": "Spine animation"
                     }
@@ -650,6 +654,10 @@
                     {
                         "path": "/manuals/particlefx",
                         "name": "Particle FX"
+                    },
+                    {
+                        "path": "/extension-rive",
+                        "name": "Rive"
                     },
                     {
                         "path": "/manuals/sound",
