@@ -10,12 +10,30 @@ The Defold engine has the Lua language embedded for scripting. Lua is a lightwei
 This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript or a similar dynamic language you will get going pretty quickly. If you are totally new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
 
 ## Lua versions
-We aim to keep Defold the same across all platforms, but we currently have a small discrepancy between Lua versions. For HTML5 and iOS 64 bit platforms we use Lua 5.1 but for other platforms we use LuaJIT. LuaJIT is based on 5.1 but contains a few additional features.
+We aim to keep Defold the same across all platforms, but we currently have a few minor discrepancies in Lua language version between platforms:
+
+| Platform        | Lua version         | JIT Enabled |
+|-----------------|---------------------|-------------|
+| Windows         | LuaJIT 2.1.0-beta3  | Yes         |
+| macOS           | LuaJIT 2.1.0-beta3  | Yes         |
+| Linux           | LuaJIT 2.1.0-beta3  | Yes         |
+| Android         | LuaJIT 2.1.0-beta3  | Yes         |
+| iOS             | LuaJIT 2.1.0-beta3  | No*         |
+| Nintendo Switch | LuaJIT 2.1.0-beta3  | No*         |
+| HTML5           | Lua 5.1.4           | N/A         |
+
+*=JIT compiled code is not allowed
+
+[LuaJIT](https://luajit.org/) is a highly optimized version of Lua, suitable for use in games and other performance critical software. LuaJIT is fully upwards-compatible with Lua 5.1. It supports all standard Lua library functions and the full set of Lua/C API functions.
+
+LuaJIT also adds a number of [language extensions](https://luajit.org/extensions.html) and some features from Lua 5.2.
 
 ::: important
-To keep your game working cross platform we suggest you stick to Lua 5.1 features.
+To guarantee that your game works across all supported platforms we strongly recommend that you ONLY use language features from Lua 5.1.
 :::
 
+
+### Standard libraries and extensions
 Defold includes all of the [Lua 5.1 standard libraries](http://www.lua.org/manual/5.1/manual.html#5) as well as a socket and a bit operation library:
 
   - base (`assert()`, `error()`, `print()`, `ipairs()`, `require()` etc)

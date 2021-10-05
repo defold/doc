@@ -52,11 +52,11 @@ You can manipulate models in runtime through a number of different functions and
 
 ### Runtime animation
 
-Defold provides powerful support for controlling animation in runtime:
+Defold provides powerful support for controlling animation in runtime. More in the [model animation manual](/manuals/model-animation):
 
 ```lua
 local play_properties = { blend_duration = 0.1 }
-spine.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
+model.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
 ```
 
 The animation playback cursor can be animated either by hand or through the property animation system:

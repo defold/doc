@@ -12,6 +12,11 @@
             "translation": "Translation by cocosgames.com",
             "active": true
         },
+        "es":
+        {
+            "name": "Español (Spanish)",
+            "active": true
+        },
         "gr":
         {
             "name": "Νεοελληνική γλώσσα (Greek)",
@@ -34,6 +39,12 @@
         {
             "name": "Português (Portuguese)",
             "translation": "",
+            "active": true
+        },
+        "ru":
+        {
+            "name": "Русский (Russian)",
+            "translation": "Demetrij87G",
             "active": true
         }
     }

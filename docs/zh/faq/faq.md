@@ -37,6 +37,16 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 答: Defold 由 Ragnar Svensson 和 Christian Murray 开发. 他们从2009年就开始了游戏引擎, 编辑器和配套服务的开发. King 和 Defold 在2013年建立了合作关系然后并于2014年获得 Defold. 详情请见 [这里](/about).
 
 
+#### 问: Defold 能做 3D 游戏吗?
+
+答: 可以! 游戏引擎纯 3D. 然而, 工具都是针对 2D 游戏设计的, 所以 3D 游戏工具你得自己开发. 提升 3D 支持的计划进行中.
+
+
+#### 问: Defold 游戏开发用什么语言?
+
+答: Defold 项目游戏逻辑基本使用 Lua 语言 (特指 Lua 5.1/LuaJIT, 详情请见 [Lua 教程](/manuals/lua)). Lua 是一种强大快速的动态语言. 同时也支持使用原生 (C/C++, Objective-C, Java 和 JavaScript等) 语言来扩展 Defold 引擎功能. 自定义材质, 使用 OpenGL ES SL 语言编写的顶点和片元着色程序.
+
+
 ## 平台相关
 
 #### 问: Defold 可以运行在哪些平台上?
@@ -58,11 +68,6 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
   (2 游戏引擎在大多数 64-bit Linux 版本上只要更新显卡驱动支持 OpenGL ES 2.0 的基本都能运行.)
 
 
-#### 问: 运行编辑器需要什么硬件系统?
-
-答: 编辑器最多占用 75% 的空闲系统内存. 一般 4 GB 内存的电脑就可以运行 Defold 小项目了. 中大型项目建议配备 6 GB 或更多内存.
-
-
 #### 问: Defold 能输出哪些平台的游戏?
 
 答: 可以一键发布 任天堂 Switch, iOS, Android 和 HTML5 游戏, 外加 macOS, Windows 和 Linux 游戏. 真正的一套代码平台通用.
@@ -70,17 +75,7 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 
 #### 问: Defold 基于何种渲染引擎?
 
-A: Defold 使用 OpenGL ES 2.0 进行图像渲染, 全平台有效. （如果平台渲染引擎更新, Defold引擎也会随之更新）
-
-
-#### 问: Defold 能做 3D 游戏吗?
-
-答: 可以! 游戏引擎纯 3D. 然而, 工具都是针对 2D 游戏设计的, 所以 3D 游戏工具你得自己开发. 提升 3D 支持的计划进行中.
-
-
-#### 问: Defold 游戏开发用什么语言?
-
-答: Defold 项目游戏逻辑基本使用 Lua 语言 (特指 Lua 5.1/LuaJIT, 详情请见 [Lua 教程](/manuals/lua)). Lua 是一种强大快速的动态语言. 同时也支持使用原生 (C/C++, Objective-C, Java 和 JavaScript等) 语言来扩展 Defold 引擎功能. 自定义材质, 使用 OpenGL ES SL 语言编写的顶点和片元着色程序.
+A: Defold 在 HTML5 中使用 WebGL, iOS 和 macOS 中使用 Metal, 其他平臺中使用 Vulkan 或者 OpenGL ES 2.0. 作爲開發者只需要關心可編程渲染管綫所支持的一種渲染 API 即可.
 
 
 #### 问: 如何获取 Defold 版本信息?
@@ -95,10 +90,32 @@ A: Defold 使用 OpenGL ES 2.0 进行图像渲染, 全平台有效. （如果平
 答: 调用 [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info) 获取.
 
 
-#### 问: Defold 测试版会自动更新吗?
+## 編輯器相關
+:[Editor FAQ](../shared/editor-faq.md)
 
-答: Defold 测试版编辑器会在启动时检查并自动更新, 正式版也是.
 
+## Linux 相關
+:[Linux FAQ](../shared/linux-faq.md)
+
+
+## Android 相關
+:[Android FAQ](../shared/android-faq.md)
+
+
+## HTML5 相關
+:[HTML5 FAQ](../shared/html5-faq.md)
+
+
+## IOS 相關
+:[iOS FAQ](../shared/ios-faq.md)
+
+
+## Windows 相關
+:[Windows FAQ](../shared/windows-faq.md)
+
+
+## Nintendo Switch 相關
+:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
 
 ## 发布相关
 
@@ -120,42 +137,10 @@ A: Defold 使用 OpenGL ES 2.0 进行图像渲染, 全平台有效. （如果平
 
 ## Defold 报错
 
-#### 问: 编辑器不启动, 项目不加载?
-
-答: 检查 Defold 安装路径里是否有空格. 比如, 把编辑器放在mac系统 *Applications* 中的 *Defold-macosx* 文件夹里, 就能运行.  改成 *Defold macosx* 就无法运行. 在 Windows 上, 像 *C:\\Program Files\\* 这样的路径都不行. 这归因于系统架构的一个bug.
-
 
 #### 问: 游戏无法启动也没有报错. 怎么办?
 
 答: 如果二次编译不通过很肯能由你最后做的改动导致. 从菜单栏选择 *Project > Rebuild And Launch* 试试.
-
-
-#### 问: 启动 Defold 时报了 Java 相关的错?
-
-答: `javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target`
-
-这个错是由于编辑器尝试建立 https 连接而服务器证书无法验证导致.
-
-详情请见 [这里](https://github.com/defold/editor2-issues/blob/master/faq/pkixpathbuilding.md).
-
-
-## Linux
-:[Linux 问答](../shared/linux-faq.md)
-
-
-## Android
-:[Android 问答](../shared/android-faq.md)
-
-
-## HTML5
-:[HTML5 问答](../shared/html5-faq.md)
-
-
-## Windows
-:[Windows 问答](../shared/windows-faq.md)
-
-## Nintendo Switch
-:[Nintendo Switch 问答](../shared/nintendo-switch-faq.md)
 
 
 ## 游戏内容相关

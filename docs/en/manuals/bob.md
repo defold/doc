@@ -18,65 +18,70 @@ Bob is run from a shell or from the command line by invoking `java` (or `java.ex
 ```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
- -a,--archive                        Build archive
+  -a,--archive                       Build archive
  -ar,--architectures <arg>           comma separated list of architectures
-                                     to include for the platform
-    --binary-output <arg>            Location where built engine binary
+                                     to include for the platform, for example
+                                     "arm64-android,armv7-android"
+  -u,--auth <arg>                    User auth token
+     --binary-output <arg>           Location where built engine binary
                                      will be placed. Default is
                                      "<build-output>/<platform>/"
- -bo,--bundle-output <arg>           Bundle output directory
  -br,--build-report <arg>            Filepath where to save a build report
                                      as JSON
  -brhtml,--build-report-html <arg>   Filepath where to save a build report
                                      as HTML
-    --build-server <arg>             The build server (when using native
+     --build-server <arg>            The build server (when using native
                                      extensions)
- -d,--debug                          Use debug version of dmengine (when
+ -bo,--bundle-output <arg>           Bundle output directory
+     --bundle-format <apk|aab>       Which format to generate Android bundle in
+  -d,--debug                         Use debug version of dmengine (when
                                      bundling). Deprecated, use --variant
                                      instead
-    --defoldsdk <arg>                What version of the defold sdk (sha1)
+     --debug-ne-upload               Outputs the files sent to build server as
+                                     upload.zip
+     --defoldsdk <arg>               What version of the defold sdk (sha1)
                                      to use
- -e,--email <arg>                    User email
- -h,--help                           This help message
- -i,--input <arg>                    Source directory. Default is current
+     --exclude-build-folder          Comma separated list of folders to exclude
+                                     from the build
+  -e,--email <arg>                   User email
+  -h,--help                          This help message
+  -i,--input <arg>                   Source directory. Default is current
                                      directory
-    --identity <arg>                 Sign identity (iOS)
- -k,--keep-unused                    Keep unused resources in archived
+     --identity <arg>                Sign identity (iOS)
+  -k,--keep-unused                   Keep unused resources in archived
                                      output
- -l,--liveupdate <arg>               yes if liveupdate content should be
+     --keystore <arg>                Which keystore file to use when signing the
+                                     Android bundle.
+     --keystore-pass <arg>           Path to file with keystore password used to
+                                     when bundling for Android.
+     --keystore-alias <arg>          Name of alias from provided keystore to use
+                                     when bundling for Android.
+  -l,--liveupdate <arg>              yes if liveupdate content should be
                                      published
  -mp,--mobileprovisioning <arg>      mobileprovisioning profile (iOS)
- -o,--output <arg>                   Output directory. Default is
+  -o,--output <arg>                  Output directory. Default is
                                      "build/default"
- -p,--platform <arg>                 Platform (when bundling)
- -r,--root <arg>                     Build root directory. Default is
+  -p,--platform <arg>                Platform (when bundling)
+  -r,--root <arg>                    Build root directory. Default is
                                      current directory
-    --settings <arg>                 a path to a game project settings
+     --settings <arg>                Path to a game project settings
                                      file. more than one occurrance are
                                      allowed. the settings files are
                                      applied left to right.
-    --strip-executable               Strip the dmengine of debug symbols
+     --strip-executable              Strip the dmengine of debug symbols
                                      (when bundling iOS or Android)
  -tc,--texture-compression <arg>     Use texture compression as specified
                                      in texture profiles
  -tp,--texture-profiles <arg>        Use texture profiles (deprecated)
- -u,--auth <arg>                     User auth token
-    --use-vanilla-lua                Only ships vanilla source code (i.e.
+     --use-vanilla-lua               Only ships vanilla source code (i.e.
                                      no byte code)
- -v,--verbose                        Verbose output
-    --variant <arg>                  Specify debug, release or headless
+  -v,--verbose                       Verbose output
+     --variant <arg>                 Specify debug, release or headless
                                      version of dmengine (when bundling)
-    --version                        Prints the version number to the
+     --version                       Prints the version number to the
                                      output
-    --with-symbols                   Generate the symbol file (if
+     --with-symbols                  Generate the symbol file (if
                                      applicable)
-    --bundle-format <apk|aab>        Which format to generate Android bundle in.
-    --keystore <arg>                 Which keystore file to use when signing the
-                                     Android bundle.
-    --keystore-pass <arg>            Path to file with keystore password used to
-                                     when bundling for Android.
-    --keystore-alias <arg>           Name of alias from provided keystore to use
-                                     when bundling for Android.
 ```
 
 Available commands:
@@ -96,7 +101,7 @@ Available commands:
 `resolve`
 : Resolve all external library dependencies.
 
-Available platforms:
+Available platforms and architectures:
 
 `x86_64-darwin`
 : macOS 64 bit
@@ -110,20 +115,17 @@ Available platforms:
 `x86_64-linux`
 : Linux 64 bit
 
-`arm64-darwin`
-: iOS 64 bit
-
-`armv7-darwin`
-: iOS 32 bit
-
 `x86_64-ios`
 : iOS macOS 64 bit (iOS Simulator)
 
+`armv7-darwin`
+: iOS with available 32-bit `armv7-darwin` and 64-bit `arm64-darwin` architectures. By default, `--architectures` argument value is `armv7-darwin,arm64-darwin`.
+
 `armv7-android`
-: Android 32 bit
+: Android with available 32 bit `armv7-android` and 64 bit `arm64-android` architectures. By default, `--architectures` argument value is `armv7-android,arm64-android`.
 
 `js-web`
-: HTML5
+: HTML5 with available `js-web` and `wasm-web` architectures. By default, `--architectures` argument value is `js-web,wasm-web`.
 
 By default, Bob looks in the current directory for a project to build. If you change the current dir to a Defold project and invoke bob, it builds the data for the project in the default output directory *build/default*.
 

@@ -61,7 +61,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 : 这个视图分为几个组. *Console* 组显示游戏输出和报错信息. 旁边是显示 *编译错误*, *查找结果* 和编辑粒子曲线数据时用到的 *曲线编辑器*. 同时工具面板也负责与调试器进行交互.
 
 *Changed Files* 面板
-: 如果项目使用 Git 做版本控制, 这个视图会列出项目中被修改, 添加或者删除的文件. 同步机制会把你的本地项目文件与 Git 托管项目进行同步, 这种机制方便团队合作开发, 而且云端备份可以保证项目不易损坏丢失. 相关操作:
+: 如果你的项目使用 Git 做版本控制, 这个视图会列出项目中被修改, 添加或者删除的文件. 同步机制会把你的本地项目文件与 Git 托管项目进行同步, 这种机制方便团队合作开发, 而且云端备份可以保证项目不易损坏丢失. 关于 Git 详见 [版本控制教程](/manuals/version-control/). 相关操作:
 
    - <kbd>双击</kbd> 文件显示版本区别窗口. 同样, 编辑器会根据文件类型选择合适的显示窗口.
    - <kbd>右键点击</kbd> 文件弹出的上下文菜单中, 可以进行显示版本区别窗口, 回退文件的更改, 打开文件系统浏览器显示文件位置等操作.
@@ -132,7 +132,17 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 ![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
 
+## 编辑器更新
+
+编辑器自动检查更新. 检测到新版本的话就会在编辑器右下角或者项目选择视图里显示出来. 点击即可自动更新.
+
+![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
+
+![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
+
 ## 快捷键
+
+### 默認快捷鍵
 
 | Command | Windows | macOS | Linux |
 |---------|---------|-------|-------|
@@ -234,6 +244,12 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 | Zoom out | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> | <kbd>Cmd</kbd>+<kbd>'-'</kbd> | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> |
 
 
+### 自定義快捷鍵
+
+可以創建配置文件以自定義快捷鍵 (例如 home 文件夾下的 `keymap.edn` 文件). 然後選擇 <kbd>File ▸ Preferences</kbd>, 設置 <kbd>Path to custom keymap</kbd> 為自定義的配置文件. 設置好之後重啓 Defold 才會生效, 每次修改都要重啓.
+
+這些配置文件可以用來參考: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn) 和 [Linux](examples/keymap_linux.edn)
+
 ## 编辑器日志
 使用编辑器时如果遇到了麻烦可以 [向我们汇报](/manuals/getting-help/#获得帮助), 并且连同编辑器日志一起上报. 编辑器日志存放路径如下:
 
@@ -246,3 +262,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 ```
 $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ```
+
+
+## 常見問題
+:[Editor FAQ](../shared/editor-faq.md)

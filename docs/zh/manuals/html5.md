@@ -59,6 +59,7 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
   * Full screen - 全屏模式在浏览器中不可靠.
 * Chrome
   * Slow debug builds - 为了在 HTML5 平台更好地调试我们开启了校验所有 WebGL 图像调用来检测错误. 但是这样做在 Chrome 上会运行缓慢. 可以把 *game.project* 里的 *Engine Arguments* 部分设置为 `–-verify-graphics-calls=false` 来关闭图像调用校验.
+* 游戏手柄支持 - 对于 HTML5 平台的游戏手柄支持与配置参见[这篇教程](/manuals/input-gamepads/#gamepads-in-html5).
 
 ## 自定义HTML5打包
 

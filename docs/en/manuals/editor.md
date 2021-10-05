@@ -61,7 +61,7 @@ The *Tools* pane
 : This view has several tabs. The *Console* tab shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing *Build Errors*, *Search Results* and the *Curve Editor* which is used when editing curves in the particle editor. The Tools pane is also used for interacting with the integrated debugger.
 
 The *Changed Files* pane
-: If you project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. Some file oriented operations can be performed in this view:
+: If your project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. You can learn more about Git in our [Version Control manual](/manuals/version-control/). Some file oriented operations can be performed in this view:
 
    - <kbd>Double click</kbd> a file to open a diff view of the file. The editor opens the file in a suitable editor, just like in the assets view.
    - <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.
@@ -132,7 +132,17 @@ To add asset files (images, sounds, models etc) to your project, simply drag and
 
 ![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
 
+## Updating the editor
+
+The editor will automatically check for updates. When an update is detected it will be shown in the lower right corner of the editor window and on the project selection screen. Pressing the Update Available link will download and update the editor.
+
+![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
+
+![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
+
 ## Keyboard shortcuts
+
+### Default shortcuts
 
 | Command | Windows | macOS | Linux |
 |---------|---------|-------|-------|
@@ -234,6 +244,12 @@ To add asset files (images, sounds, models etc) to your project, simply drag and
 | Zoom out | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> | <kbd>Cmd</kbd>+<kbd>'-'</kbd> | <kbd>Ctrl</kbd>+<kbd>'-'</kbd> |
 
 
+### Customizing shortcuts
+
+You can customize keyboard shortcuts by creating a configuration file (e.g. `keymap.edn` in your home directory). Then go into <kbd>File ▸ Preferences</kbd>, and set <kbd>Path to custom keymap</kbd> to the created file. You need to restart Defold after setting this setting, and every time you edit the keymap file.
+
+You can see and download keymaps for: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn) and [Linux](examples/keymap_linux.edn)
+
 ## Editor logs
 If you run into a problem with the editor and need to [report an issue](/manuals/getting-help/#getting-help) it is a good idea to provide log files from the editor itself. The editor logs files can be found here:
 
@@ -246,3 +262,7 @@ You can also get access to editor logs while the editor is running if it is star
 ```
 $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ```
+
+
+## FAQ
+:[Editor FAQ](../shared/editor-faq.md)

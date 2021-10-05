@@ -27,7 +27,10 @@ The created component has a set of properties that should be set:
 : Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format. Defold supports sound files saved at 16bit bit depth and with a sampling rate of 44100.
 
 *Looping*
-: If checked the sound will play back in a loop until explicitly stopped.
+: If checked the sound will play back in _Loopcount_ times or until explicitly stopped.
+
+*Loopcount*
+: The number of times a looping sound will play before stopping (0 means the sound should loop until explicitly stopped).
 
 *Group*
 : The name of the sound group the sound should belong to. If this property is left empty, the sound will be assigned to the built-in "master" group.
@@ -182,6 +185,29 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 ::: important
 It does not work to have the gate listen to `play_sound` messages since that name is reserved by the Defold engine. You will get unexpected behavior if you use reserved message names.
 :::
+
+
+## Runtime manipulation
+You can manipulate sounds in runtime through a number of different properties (refer to the [API docs for usage](/ref/sound/)). The following properties can be manipulated using `go.get()` and `go.set()`:
+
+`gain`
+: The gain for the sound component (`number`).
+
+`pan`
+: The pan for the sound component (`number`). The pan must be a value between -1 (-45 degrees left) and 1 (45 degrees right).
+
+`speed`
+: The speed for the sound component (`number`). A value of 1.0 is normal speed, 0.5 is half speed and 2.0 is double speed.
+
+`sound`
+: The resource path to the sound (`hash`). You can use the resource path to change the sound using `resource.set_sound(path, buffer)`. Example:
+
+```lua
+local boom = sys.load_resource("/sounds/boom.wav")
+local path = go.get("#sound", "sound")
+resource.set_sound(path, boom)
+```
+
 
 ## Project configuration
 

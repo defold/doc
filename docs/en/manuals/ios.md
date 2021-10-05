@@ -5,6 +5,10 @@ brief: This manual explains how to build and run games and apps on iOS devices i
 
 # iOS development
 
+::: sidenote
+Bundling a game for iOS is available only on Mac version of the Defold Editor.
+:::
+
 iOS requires that _any_ app that you build and want to run on your phone or tablet _must_ be signed with an Apple-issued certificate and provisioning profile. This manual explains the steps involved in bundling your game for iOS. During development, running your game through the [development app](/manuals/dev-app) is often preferred since it allows you to hot reload content and code wirelessly directly to your device.
 
 ## Apple's code signing process
@@ -55,6 +59,11 @@ Since Xcode 7, anyone can install Xcode and do on-device development for free. Y
 3. Add a new account to Xcode and sign in with your Apple ID.
 4. Create a new project. The simplest "Single View App" works fine.
 5. Select your "Team" (auto created for you) and give the app a bundle identifier.
+
+::: important
+Make a note of the bundle identifier as you must use the same bundle identifier in your Defold project.
+:::
+
 6. Make sure that Xcode has created a *Provisioning Profile* and *Signing Certificate* for the app.
 
    ![](images/ios/xcode_certificates.png)
@@ -106,7 +115,7 @@ Click Next and proceed to configure your project. Enter a Product Name:
 
 Click Create to finish the process. Your project is now created and we can proceed to create the storyboard:
 
-![The project view](images/ios/storyboard_project_view.png)
+![The project view](images/ios/xcode_storyboard_project_view.png)
 
 Drag and drop an image to import it to the project. Next select `Assets.xcassets` and drop the image to `Assets.xcassets`:
 
@@ -124,7 +133,16 @@ Select the image you previously added to `Assets.xcassets` from the Image dropdo
 
 ![](images/ios/xcode_storyboard_select_image.png)
 
-Position the image and make any other adjustments you need, perhaps adding a Label or some other UI element. When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+Position the image and make any other adjustments you need, perhaps adding a Label or some other UI element. When you are done set the active scheme to "Build -> Any iOS Device (arm64, armv7)"(or "Generic iOS Device") and select Product -> Build. Wait for the build process to finish.
+
+::: sidenote
+If you have only `arm64` option in "Any iOS Device (arm64)" change `iOS Deployment target` to 10.3 in "Project -> Basic -> Deployment" settings. It will make your storyboard compatible with `armv7` devices (for example iPhone5c)  
+:::
+
+If you use images in the storyboard they will not be included in your `LaunchScreen.storyboardc` automatically. Use `Bundle Resources` field in `game.project` to include resources.
+For example, create folder `LaunchScreen` in Defold project and folder `ios` inside (`ios` folder needed to include these files only for ios bundles), then put your files in `LaunchScreen/ios/`. Add this path in `Bundle Resources`.
+
+![](images/ios/bundle_res.png)
 
 The last step is to copy the compiled `LaunchScreen.storyboardc` file to your Defold project. Open Finder at the following location and copy the `LaunchScreen.storyboardc` file to your Defold project:
 
@@ -163,26 +181,37 @@ Drag and drop images to the empty boxes representing the different supported ico
 Do not add any icons for Notifications, Settings or Spotlight.
 :::
 
-When you are done select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+When you are done, set the active scheme to "Build -> Any iOS Device (arm64)"(or "Generic iOS Device") and select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+
+::: sidenote
+Make sure that you build for "Any iOS Device (arm64)" or "Generic iOS Device" otherwise you will get `ERROR ITMS-90704` error when uploading your build.
+:::
+
+![Build project](images/ios/xcode_icons_build.png)
 
 The last step is to copy the compiled `Assets.car` file to your Defold project. Open Finder at the following location and copy the `Assets.car` file to your Defold project:
 
-    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphonesimulator/Icons.app/Assets.car
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphoneos/Icons.app/Assets.car
 
 Once you have the asset catalog file you can reference it and the icons from *game.project*:
 
 ![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
 
 ::: sidenote
-The App Store icon does not have to be referenced from *game.project*. It is automatically extracted from the `Asset.car` file when uploading to iTunes Connect.
+The App Store icon does not have to be referenced from *game.project*. It is automatically extracted from the `Assets.car` file when uploading to iTunes Connect.
 :::
 
 
 ## Installing an iOS application bundle
 
-The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use Xcode (via the "Devices and Simulators" window). Other options are to use a command line tool such as [ios-deploy](https://github.com/phonegap/ios-deploy) or iTunes.
+The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use one of the following tools:
 
-You can use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:
+* Xcode via the "Devices and Simulators" window
+* [ios-deploy](https://github.com/ios-control/ios-deploy) command line tool
+* [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/) from the macOS App Store
+* iTunes
+
+You can also use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:
 
 ```
 # show a list of available devices
@@ -197,3 +226,24 @@ xcrun simctl install booted your.app
 # launch the simulator
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
+
+
+## Export Compliance information
+
+When you submit your game to the App Store you will be asked to provide Export Compliance information with regard to the use of encryption in your game. [Apple explains why this is required](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations):
+
+"When you submit your app to TestFlight or the App Store, you upload your app to a server in the United States. If you distribute your app outside the U.S. or Canada, your app is subject to U.S. export laws, regardless of where your legal entity is based. If your app uses, accesses, contains, implements, or incorporates encryption, this is considered an export of encryption software, which means your app is subject to U.S. export compliance requirements, as well as the import compliance requirements of the countries where you distribute your app."
+
+Additional documentation:
+
+* Export compliance overview - https://help.apple.com/app-store-connect/#/dev88f5c7bf9
+* Determining your export compliance requirements - https://help.apple.com/app-store-connect/#/dev63c95e436
+
+The Defold game engine use encryption for the following purposes:
+
+* Making calls over secure channels (i.e. HTTPS and SSL)
+* Copyright protection of Lua code
+
+
+## FAQ
+:[iOS FAQ](../shared/ios-faq.md)

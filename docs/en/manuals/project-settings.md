@@ -140,7 +140,7 @@ World gravity along z-axis, `0` by default.
 Tells the physics engine how to scale the physics worlds in relation to the game world for numerical precision, `0.01`--`1.0`. If the value is set to `0.02`, it means that the physics engine will view 50 units as 1 meter ($1 / 0.02$). The default value is `1.0`.
 
 #### Allow Dynamic Transforms
-Check if the physics engine should scale collision objects using the scale of the game objects they belong to.
+Check if the physics engine should scale collision objects using the scale of the game objects they belong to. `true` by default.
 
 #### Debug Scale
 How big to draw unit objects in physics, like triads and normals, `30` by default.
@@ -183,6 +183,11 @@ The maximum number of debug vertices. Used for physics shape rendering among oth
 #### Texture Profiles
 The texture profiles file to use for this project, `/builtins/graphics/default.texture_profiles` by default.
 
+## Shader
+
+#### Output SPIR-V
+Compile and output SPIR-V shaders for use with Metal or Vulkan.
+
 ## Input
 
 #### Repeat Delay
@@ -221,6 +226,9 @@ The HTTP timeout in seconds. Set to `0` to disable timeout, which is the default
 #### Max Instances
 Max number of game object instances in a collection, `1024` by default.
 
+#### Max Input Stack Entries
+Max number of game objects in the input stack, `16` by default.
+
 ## Sound
 
 #### Gain
@@ -237,6 +245,9 @@ Max number of sound resources, i.e the number of unique sound files at runtime, 
 
 #### Max Sound Instances
 Max number of concurrent sound instances, i.e. actual sounds played at the same time. `256` by default.
+
+#### Use Thread
+If checked, the sound system will use threads for sound playback to reduce risk of stutter when the main thread is under heavy load. Checked by default.
 
 ## Sprite
 
@@ -258,6 +269,16 @@ Max number of concurrent visible tiles per collection, `2048` by default.
 
 #### Max Count
 Max number of spine models, `128` by default.
+
+## Mesh
+
+#### Max Count
+Max number of mesh components per collection, `128` by default.
+
+## Model
+
+#### Max Count
+Max number of model components per collection, `128` by default.
 
 ## GUI
 
@@ -318,8 +339,11 @@ The bundle identifier lets iOS recognize any updates to your app. Your bundle ID
 #### Info.plist
 If specified, use this info.plist file when bundling your app.
 
-#### Entitlements
-If specified, can override wildcard entitlements defined in the supplied provisioning profile (.entitlements, .xcent, .plist).
+#### Custom Entitlements
+If specified, the entitlements in the supplied provisioning profile (.entitlements, .xcent, .plist) will be merged with the entitlements from the provisioning profile supplied when bundling the application.
+
+#### Override Entitlements
+If checked the Custom Entitlements will replace the ones in the provisioning profile when bundling. Must be used in combination with the Custom Entitlements setting above.
 
 #### Default Language
 The language used if the application doesn't have user's preferred language in `Localizations` list (see [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
@@ -497,7 +521,7 @@ Swap interval is the interval with which to swap the front and back buffers in s
 Currently, Defold queries for monitor refresh rate at init and uses that as a basis for picking a fixed `dt`. If you want to support monitors using variable refresh rate (GSync or FreeSync for example) or other scenarios where the refresh rate might not be trivial to query, uncheck `Vsync`to let the engine measure actual `dt` each frame instead of relying on a fixed time step.
 
 
-### Vsync and frame cap in Defold*
+### Vsync and frame cap in Defold
 
 <table>
   <tr>

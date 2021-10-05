@@ -5,6 +5,10 @@ brief: 本教程介绍了如何在 Defold 里编译运行 iOS 设备应用.
 
 # iOS 开发
 
+::: 注意
+必須使用 Mac版 Defold編輯器 才能打包 iOS 項目.
+:::
+
 iOS 要求 _所有_ 运行于手机或者平板电脑上的应用 _必须_ 使用 Apple 核发的 certificate 和 provisioning profile 进行签名. 本教程介绍了 iOS 平台的游戏打包. 在开发阶段, 推荐使用 [开发用app](/manuals/dev-app) 以利用热重载功能实现对移动设备的无线推送.
 
 ## Apple 签名过程
@@ -106,7 +110,7 @@ Device identifier (UDID)
 
 点击 Create 完成项目创建. 接下来就可以创建 storyboard 了:
 
-![The project view](images/ios/storyboard_project_view.png)
+![The project view](images/ios/xcode_storyboard_project_view.png)
 
 把需要的图片拖入项目. 然后打开 `Assets.xcassets`, 再把图片拖放到 `Assets.xcassets` 中去:
 
@@ -124,7 +128,16 @@ Device identifier (UDID)
 
 ![](images/ios/storyboard_select_image.png)
 
-进行摆放位置等操作, 还可能加入些文字标签或者其他界面组件. 制作好之后选择 <kbd>Product</kbd> -> <kbd>Build</kbd>. 等编译处理完成.
+摆放好位置定义好组件, 比如可以加个标签什么的. 配置好之后选择 "Build -> Any iOS Device (arm64, armv7)"(或者 "Generic iOS Device") 然后 Product -> Build. 等待编译完成.
+
+::: 注意
+如果你的 "Any iOS Device (arm64)" 里只有一个 `arm64` 选项, 则需要把 "Project -> Basic -> Deployment" 里的 `iOS Deployment target` 设置为 10.3. 这样你的 storyboard 才能支持 `armv7` 设备 (比如 iPhone5c)  
+:::
+
+在 storyboard 里使用的图片不会自动包含进 `LaunchScreen.storyboardc` 里. 要在 `game.project` 的 `Bundle Resources` 选项中配置需要包含的图片资源.
+例如, 在 Defold 项目目录下有个 `LaunchScreen` 文件夹, 里面包含 `ios` 文件夹 (`ios` 文件夹下的文件只针对 ios 打包使用), 所以先要把资源文件放入 `LaunchScreen/ios/`. 然后配置 `Bundle Resources` 为此路径.
+
+![](images/ios/bundle_res.png)
 
 最后一步, 拷贝编译生成的 `LaunchScreen.storyboardc` 文件. 打开仿达, 把 `LaunchScreen.storyboardc` 文件粘贴到你的 Defold 项目目录:
 
@@ -135,10 +148,64 @@ Device identifier (UDID)
 社区牛人 Sergey Lerg 已把上述步骤 [录成了视频](https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo) 供大家参考.
 :::
 
+得到 storyboard 文件之後就可以在 *game.project* 裏引用它了.
+
+
+### 建立圖標資源列表
+
+::: 注意
+從 Defold 1.2.175 版本開始需要這個設置.
+:::
+
+Apple 建議使用圖標資源列表來管理應用圖標. 這也是能讓你的圖標在 App Store 裏展示出來的唯一方法. 建立圖標資源表跟建立 storyboard 類似, 也要使用 Xcode. 啓動 Xcode 新建項目. 選擇 iOS and Single View App:
+
+![Create project](images/ios/xcode_create_project.png)
+
+點擊 Next 進行設置操作. 輸入產品名:
+
+![Project settings](images/ios/xcode_icons_create_project_settings.png)
+
+點擊 Create 完成配置工作. 此時項目已經建立, 接著就可以繼續建立資源列表了:
+
+![The project view](images/ios/xcode_icons_project_view.png)
+
+依據圖標大小把圖片分別拖放到空白方框裏:
+
+![Add icons](images/ios/xcode_icons_add_icons.png)
+
+::: 注意
+Notifications, Settings 和 Spotlight 這三項不要拖放圖標.
+:::
+
+完成之后, 配置好之后选择 "Build -> Any iOS Device (arm64, armv7)"(或者 "Generic iOS Device") 然后 Product -> Build. 等待编译完成.
+
+::: 注意
+确保编译目标为 "Any iOS Device (arm64)" 或者 "Generic iOS Device", 否则上传游戏时会报 `ERROR ITMS-90704` 错误.
+:::
+
+![Build project](images/ios/xcode_icons_build.png)
+
+最後一步是將編譯好的 `Assets.car` 文件拷貝到你的 Defold 項目中去. 打開訪達依照如下路徑找到 `Assets.car` 文件, 將其複製到 Defold 項目中:
+
+    /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Products/Debug-iphoneos/Icons.app/Assets.car
+
+得到圖標資源列表文件之後就可以在 *game.project* 裏引用它和其中的圖標了:
+
+![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
+
+::: 注意
+無需在 *game.project* 裏設置 App Store 的圖標. App 上傳到 iTunes Connect 時, 圖標會自動從 `Assets.car` 文件中選取並解壓出來.
+:::
+
 
 ## 安装 iOS 打包应用
 
-编辑器对iOS应用打包后生成 *.ipa* 文件. 要安装此文件, 可以使用 Xcode (通过 "Devices and Simulators" 窗口). 或者使用命令行工具 [ios-deploy](https://github.com/phonegap/ios-deploy) 或者使用 iTunes.
+编辑器对iOS应用打包后生成 *.ipa* 文件. 要安装此文件, 可以使用以下所列举工具之一:
+
+* Xcode 的 "Devices and Simulators" 窗口
+* [ios-deploy](https://github.com/ios-control/ios-deploy) 命令行工具
+* macOS App Store 里的 [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/)
+* iTunes
 
 可以使用 `xcrun simctl` 命令行工具与 Xcode 的 iOS 模拟器进行交互:
 
@@ -155,3 +222,24 @@ xcrun simctl install booted your.app
 # 启动模拟器
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
+
+
+## 出口合规信息
+
+将游戏上传到 App Store 时要提供加密部分的出口合规信息. [Apple 在此解释了这个需求的原因](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations):
+
+"把应用往 TestFlight 或者 App Store 上传的时候, 你是把应用上传到了美国的服务器上. 一旦要把应用分发到美国或者加拿大之外的国家, 无论你的法人实体在哪里, 都必须遵守美国出口法案. 如果你的应用使用, 访问, 包含, 实现, 或者汇入了加密内容, 就会被视作加密软件出口, 这意味着你的应用必须符合美国出口法案的要求, 同时也要符合你的出口目的国家的法律需求."
+
+相关文档:
+
+* 出口合规概要 - https://help.apple.com/app-store-connect/#/dev88f5c7bf9
+* 查看游戏是否符合出口规范 - https://help.apple.com/app-store-connect/#/dev63c95e436
+
+Defold 引擎会对以下内容实施加密:
+
+* 加密信道调用 (如 HTTPS 和 SSL)
+* Lua 代码版权保护
+
+
+## 常見問題
+:[iOS FAQ](../shared/ios-faq.md)

@@ -186,6 +186,8 @@ If the test concluded that the fragment is to be written to the frame buffer, it
 
 ## Further study
 
-- The site Shadertoy (https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of inspiration where you can learn about various shading techniques. Many of the shaders showcased on the site can be ported to Defold with very little work. The [Shadertoy tutorial](https://www.defold.com/tutorials/shadertoy/) goes through the steps of converting an existing shader to Defold.
+- [Shadertoy](https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of inspiration where you can learn about various shading techniques. Many of the shaders showcased on the site can be ported to Defold with very little work. The [Shadertoy tutorial](https://www.defold.com/tutorials/shadertoy/) goes through the steps of converting an existing shader to Defold.
 
 - The [Grading tutorial](https://www.defold.com/tutorials/grading/) shows how to create a full screen color grading effect using color lookup table textures for the grading.
+
+- [The Book of Shaders](https://thebookofshaders.com/00/) will teach you how to use and integrate shaders into your projects, improving their performance and graphical quality.

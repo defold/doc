@@ -31,9 +31,44 @@ Libraries are referred to via a standard URL. For a project hosted on GitHub it 
 It is recommend to always depend on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
 :::
 
+
+### Basic access authentication
+
+It is possible to add a username and password/token to the library URL to perform basic access authentication when using libraries that are not publicly available:
+
+```
+https://username:password@github.com/defold/private/archive/main.zip
+```
+
+The `username` and `password` fields will be extracted and added as an `Authorization` request header. This works for any server which supports basic access authorization. It can also be used to fetch libraries from private repositories hosted on GitHub. In the case of GitHub you need to [generate a personal access token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) and use that as your password.
+
+```
+https://github-username:personal-access-token@github.com/defold/private/archive/main.zip
+```
+
 ::: important
-Note that you need read access to the Library URL. For GitHub projects, that means that the project has to be either public or that you have generated an access token.
+Make sure to not share or accidentally leak your generated personal access token or password as it can have dire consequences if they fall into the wrong hands!
 :::
+
+### Advanced access authentication
+
+When using the basic access authentication a user's access token and username will be shared on any repository used for the project.  With a greater than 1 man team this can be an issue. To solve this issue a "read only" user needs to be used for library access to the repository, on GitHub this requires an organisation, a team and a user who doesn't need to edit the repo (hence read only).
+
+GitHub Steps:
+* [Create an organisation](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch)
+* [Create a team within the organisation](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-team)
+* [Transfer the desired private repository to your organisation](https://docs.github.com/en/github/administering-a-repository/transferring-a-repository)
+* [Give the team "read only" access to the repository](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/managing-team-access-to-an-organization-repository)
+* [Create or select a user to be part of this team](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/organizing-members-into-teams)
+* Use the "basic access authentication" above to create a personal access token for this user
+
+At this point the new user's authentication details can be committed and pushed to the repository.  This will allow anyone working with your private repository to fetch it as a library without having edit permissions to the library itself.
+
+::: important
+The read only user's token is fully accessible to anyone who can access the game repositories that are using the library.
+:::
+
+This solution was proposed on the Defold forum and [discussed in this thread](https://forum.defold.com/t/private-github-for-library-solved/67240).
 
 ## Setting up library dependencies
 

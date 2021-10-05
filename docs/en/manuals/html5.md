@@ -59,6 +59,7 @@ You will be prompted to select a folder in which to create your application. Aft
   * Full screen - Full screen mode is unreliable in the browser.
 * Chrome
   * Slow debug builds - In debug builds on HTML5 we verify all WebGL graphics calls to detect errors. This is unfortunately very slow when testing on Chrome. It is possible to disable this by setting the *Engine Arguments* field of *game.project* to `--verify-graphics-calls=false`.
+* Gamepad support - [Refer to the Gamepad documentation](/manuals/input-gamepads/#gamepads-in-html5) for special considerations and steps you may need to take on HTML5.
 
 ## Customizing HTML5 bundle
 

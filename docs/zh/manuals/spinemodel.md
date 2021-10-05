@@ -47,28 +47,14 @@ SpineModel 组件用于把 _Spine_ 骨骼动画在 Defold 中呈现出来.
 
 ### 运行时动画
 
-Defold 提供运行时控制动画的功能:
-
-```lua
-local play_properties = { blend_duration = 0.1 }
-spine.play_anim("#spinemodel", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
-```
-
-可以手动播放动画甚至使用属性动画系统控制播放头:
-
-```lua
--- set the run animation
-spine.play_anim("#spinemodel", "run", go.PLAYBACK_NONE)
--- animate the cursor
-go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
-```
+Defold 提供强大的运行时控制动画的功能, 参见 [spine 动画教程](/manuals/spine).
 
 ### 修改属性
 
 Spine模型可以使用 `go.get()` 和 `go.set()` 方法修改其属性:
 
 `animation`
-: 当前Spine模型动画 (`hash`) (只读). 使用 `spine.play_anim()` 方法来更改播放动画 (见上文).
+: 当前Spine模型动画 (`hash`) (只读). 使用 `spine.play_anim()` 方法来更改播放动画 (参见 [spine 动画教程](/manuals/spine)).
 
 `cursor`
 : 标准化动画头 (`number`).

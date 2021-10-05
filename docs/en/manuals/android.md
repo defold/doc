@@ -20,7 +20,7 @@ You should **never** upload your application to Google Play if it was signed usi
 ## Creating a keystore
 
 ::: sidenote
-The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore.
+The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore. [More information in this forum post](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
 You can create a keystore [using Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) or from a terminal/command prompt:
@@ -139,6 +139,17 @@ I/defold  ( 6210):
 D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
+
+
+## Using AndroidX
+AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Most of the Android extensions in the [Asset Portal](/assets) support AndroidX. If you do not wish to use AndroidX you can explicitly disable it in favour of the old Android Support Library:
+
+1. If you already have an app manifest add `jetifier: false` to `armv7-android` and `arm64-android`.
+
+2. If you do not have an app manifest file head over to [Defold App Manifest generator](https://britzl.github.io/manifestation/) and check the "Use Android Support lib" checkbox.
+
+![](images/android/enable_supportlibrary.png)
+
 
 ## FAQ
 :[Android FAQ](../shared/android-faq.md)

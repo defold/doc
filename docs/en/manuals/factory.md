@@ -139,7 +139,7 @@ And then later:
 ```lua
 -- coin.script
 -- Delete all spawned coins.
-for _, coin_id = ipairs(self.spawned_coins) do
+for _, coin_id in ipairs(self.spawned_coins) do
     go.delete(coin_id)
 end
 

@@ -27,7 +27,10 @@ Defold 支持声音但是不那么强大. 要注意两个概念:
 : 从项目中选择一个声音文件. 文件需要 _Wave_ 或者 _Ogg Vorbis_ 格式. Defold 支持 16bit 位深和 44100 采样率的声音文件.
 
 *Looping*
-: 开启此选项声音会循环播放除非手动停止.
+: 开启此选项声音会循环播放除非循環次數達到 _Loopcount_ 或者手动停止.
+
+*Loopcount*
+: 停止前要循環播放的次數 (0 表示除非手動停止否則永遠循環).
 
 *Group*
 : 声音属于的组. 如果置空, 此声音默认归属 "master" 组.
@@ -182,6 +185,29 @@ msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#e
 ::: 注意
 对于 `play_sound` 消息没法过滤因为该消息由 Defold 引擎内部保留. 如果使用引擎保留消息名会造成运行不正确.
 :::
+
+
+## 运行时控制
+可以通关一些列属性在运行时控制声音 (用法参见 [API](/ref/sound/)). 以下属性可以使用 `go.get()` 和 `go.set()` 来进行操作:
+
+`gain`
+: 声音组件音量 (`number`).
+
+`pan`
+: 声音组件角度 (`number`). 取值从 -1 (向左-45度) 到 1 (向右45度).
+
+`speed`
+: 声音组件速度 (`number`). 取值 1.0 为一般速度, 0.5 半速, 2.0 两倍速.
+
+`sound`
+: 声音资源路径 (`hash`). 可以使用 `resource.set_sound(path, buffer)` 来变更声音资源. 例如:
+
+```lua
+local boom = sys.load_resource("/sounds/boom.wav")
+local path = go.get("#sound", "sound")
+resource.set_sound(path, boom)
+```
+
 
 ## 相关项目配置
 

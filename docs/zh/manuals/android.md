@@ -20,7 +20,7 @@ Android 要求每个 APK 文件在被安装到设备上或者在设备上更新�
 ## 制作 keystore
 
 ::: 注意
-Defold 应对安卓应用包签名的改变是从 1.2.173 版开始的, 就是使用单独的证书和密码来合成 keystore.
+Defold 应对安卓应用包签名的改变是从 1.2.173 版开始的, 就是使用单独的证书和密码来合成 keystore. [详见论坛帖子](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
 也可以 [使用 Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) 或者通过使用控制台命令来生成签名:
@@ -139,6 +139,17 @@ I/defold  ( 6210):
 D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
 ```
+
+
+## 使用 AndroidX
+AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以主动关闭它:
+
+1. 如果已存在應用清單文件要在 `armv7-android` 和 `arm64-android` 裏加入 `jetifier: false`.
+
+2. 如果還沒有應用清單文件可以去 [Defold App Manifest generator](https://britzl.github.io/manifestation/) 生成一個, 記得勾選 "Use Android Support lib" 選項.
+
+![](images/android/enable_supportlibrary.png)
+
 
 ## 常见问题
 :[Android 问答](../shared/android-faq.md)

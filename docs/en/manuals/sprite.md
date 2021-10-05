@@ -3,7 +3,7 @@ title: Showing 2D images
 brief: This manual describes how to show 2D images and animations using the sprite component.
 ---
 
-#  Sprites
+# Sprites
 
 A Sprite component is a simple image or flipbook animation that is displayed on screen.
 

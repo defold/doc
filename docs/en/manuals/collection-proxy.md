@@ -128,7 +128,16 @@ end
 
 ## Time step
 
-Collection proxy updates can be scaled by altering the _time step_. This means that even though the game ticks at a steady 60 FPS, a proxy can update at a higher or lower pace, affecting physics and the `dt` variable passed to `update()`. You can also set the update mode, which allows you to control if the scaling should be performed discretely (which only makes sense with a scale factor below 1.0) or continuously.
+Collection proxy updates can be scaled by altering the _time step_. This means that even though the game ticks at a steady 60 FPS, a proxy can update at a higher or lower pace, affecting things such as:
+
+* Physics simulation speed
+* The `dt` passed to `update()`
+* [Game object and gui property animations](https://defold.com/manuals/animation/#property-animation-1)
+* [Flipbook animations](https://defold.com/manuals/animation/#flip-book-animation)
+* [Particle FX simulations](https://defold.com/manuals/particlefx/)
+* Timer speed
+
+You can also set the update mode, which allows you to control if the scaling should be performed discretely (which only makes sense with a scale factor below 1.0) or continuously.
 
 You control the scale factor and the scaling mode by sending the proxy a `set_time_step` message:
 
@@ -164,6 +173,10 @@ DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 ```
 
 `update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
+
+:::sidenote
+You can use the collection time step functionality to pause your game, for instance while showing a popup or when the window has lost focus. Use `msg.post("#myproxy", "set_time_step", {factor = 0, mode = 0})` to pause and `msg.post("#myproxy", "set_time_step", {factor = 1, mode = 1})` to resume.
+:::
 
 See [`set_time_step`](/ref/collectionproxy#set_time_step) for more details.
 

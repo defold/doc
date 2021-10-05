@@ -114,10 +114,10 @@ Id
 : The identity of the node. This name has to be unique within the GUI scene.
 
 Position, Rotation and Scale
-: Governs the location, orientation and stretching of the node. You can use the *Move*, *Rotate* and *Scale* tools to change these values. The values can be animated from script.
+: Governs the location, orientation and stretching of the node. You can use the *Move*, *Rotate* and *Scale* tools to change these values. The values can be animated from script ([learn more](/manuals/property-animation)).
 
 Size (box, text and pie nodes)
-: The size of the node is automatic by default but by setting the *Size Mode* to `Manual` you can alter the value. The size defines the bounds of the node and is used when doing input picking. This value can be animated from script.
+: The size of the node is automatic by default but by setting the *Size Mode* to `Manual` you can alter the value. The size defines the bounds of the node and is used when doing input picking. This value can be animated from script ([learn more](/manuals/property-animation)).
 
 Size Mode (box and pie nodes)
 : If set to `Automatic` the editor will set a size for the node. If set to `Manual` you can set the size yourself.
@@ -165,10 +165,10 @@ ParticleFX (particlefx nodes)
 : The particle effect to use on this node. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
 
 Color
-: The color of the node. If the node is textured, the color tints the texture. The color can be animated from script.
+: The color of the node. If the node is textured, the color tints the texture. The color can be animated from script ([learn more](/manuals/property-animation)).
 
 Alpha
-: The translucency of the node. The alpha value can be animated from script.
+: The translucency of the node. The alpha value can be animated from script ([learn more](/manuals/property-animation)).
 
 Inherit Alpha
 : Setting this checkbox makes a node inherit the alpha value of the parent node. The node's alpha value is then multiplied with the parent's alpha value.

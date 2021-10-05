@@ -88,7 +88,9 @@ Example: Two game objects A and B. B is a child of A. B has a sprite component.
 | B        | 1       |
 | B#sprite | 0.5     |
 
-With the above hierarchy the final z-value of the sprite component on B is 2 + 1 + 0.5 = 2.5.
+![](images/graphics/component-hierarchy.png)
+
+With the above hierarchy the final z-value of the sprite component on B is 2 + 1 + 0.5 = 3.5.
 
 ::: important
 If two components have the exact same z-value the order is undefined and you may end up with components flickering back and forth or components being rendered in one order on one platform and in another order on another platform.

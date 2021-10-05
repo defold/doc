@@ -19,7 +19,7 @@
 在 Windows 上安装
 : 下载完成后是一个 ZIP 压缩档案:
 
-  1. 在文件资源管理器中找到 "Defold-x86_64-win32.zip" (32位是 "Defold-x86-win32.zip") 文件, <kbd>右键点击</kbd> 选择 *解压到当前位置*, 就会解压缩出来一个 "Defold" 文件夹.
+  1. 在文件资源管理器中找到 "Defold-x86_64-win32.zip" 文件, <kbd>右键点击</kbd> 选择 *解压到当前位置*, 就会解压缩出来一个 "Defold" 文件夹.
   2. Move the folder "Defold" to "C:\Program Files (x86)\"
 
   打开 "Defold" 文件夹, <kbd>双击</kbd> "Defold.exe" 文件即可启动.

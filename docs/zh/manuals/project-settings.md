@@ -140,10 +140,10 @@ debug线的不透明度, `0`--`1`. 默认是 `0.9`.
 设定物理世界与游戏世界的数值映射比例, `0.01`--`1.0`. 如果设置为 `0.02`, 相当于物理引擎视50个游戏单位为1米 ($1 / 0.02$). 默认值是 `1.0`.
 
 #### Allow Dynamic Transforms
-设定物理世界碰撞物体是否进行像游戏对象同等的缩放.
+設置物理碰撞對象縮放是否繼承于其父級游戲對象. 默認為 `true`.
 
 #### Debug Scale
-设置物理元物体画多大, 比如原向量和法线,  默认是`30`.
+设置物理元物体画多大, 比如原向量和法线,  默认是 `30`.
 
 #### Max Collisions
 设置向脚本报告多少个碰撞, 默认是 `64`.
@@ -183,6 +183,11 @@ debug顶点最大数目. 用于物理形状渲染与其他一些功能, 默认�
 #### Texture Profiles
 项目使用的纹理档配置文件, 默认是 `/builtins/graphics/default.texture_profiles`.
 
+## Shader
+
+#### Output SPIR-V
+为 Metal 和 Vulkan 编译输出 SPIR-V 着色器.
+
 ## Input
 
 #### Repeat Delay
@@ -221,6 +226,9 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 #### Max Instances
 一个集合里容纳游戏对象实例的最大数目, 默认是`1024`.
 
+#### Max Input Stack Entries
+输入栈内最大游戏对象数目, 默认是`16`.
+
 ## Sound
 
 #### Gain
@@ -237,6 +245,9 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 
 #### Max Sound Instances
 同一时间声音实例最大数目, 也就是实际同时播放声音最大数目. 默认是 `256`.
+
+#### Use Thread
+勾選的話, 系統將使用綫程進行聲音播放以減少因爲主綫程過載造成的卡頓. 默認勾選.
 
 ## Sprite
 
@@ -258,6 +269,16 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 
 #### Max Count
 spine 模型最大数目, 默认是 `128`.
+
+## Mesh
+
+#### Max Count
+每个集合最大容纳3D模型面数, 默认是 `128`.
+
+## Model
+
+#### Max Count
+每个集合最大容纳3D模型组件个数, 默认是 `128`.
 
 ## GUI
 
@@ -321,8 +342,11 @@ Storyboard 文件 (.storyboard). 其创建方法详情请见 [iOS 教程](/manua
 #### Info.plist
 如果设置了, 则打包应用时使用此 info.plist 文件.
 
-#### Entitlements
-如果设置了, 则覆盖引用档文件 (.entitlements, .xcent, .plist) 中定义的通用权限.
+#### Custom Entitlements
+如果设置了, 则打包应用会把这里的配置与档案文件 (.entitlements, .xcent, .plist) 里面设置的权限相混合.
+
+#### Override Entitlements
+如果设置了, 则会覆盖档案文件 (.entitlements, .xcent, .plist) 里面设置的权限. 必须与上面的 Custom Entitlements 配置项一起使用.
 
 #### Default Language
 如果用户没有指定 `Localizations` 列表里的语言, 则使用此处设置的语言 (见 [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
@@ -494,7 +518,7 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 目前, Defold 在初始化时查询屏幕刷新率并且把它作为固定 `dt` 的依据. 如果你需要支持可变刷新率 (比如 GSync 或者 FreeSync) 或者其他刷新率不是很有参考性的情况下, 关闭 `Vsync`来使引擎测量每帧实际 `dt` 而不是固定dt.
 
 
-### Defold 中的垂直同步与帧数锁定*
+### Defold 中的垂直同步与帧数锁定
 
 <table>
   <tr>

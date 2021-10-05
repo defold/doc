@@ -2,7 +2,6 @@
 
 A: This error can happen on [computers using AMD Radeon GPUs](https://github.com/defold/editor2-issues/issues/2723). Make sure to update your graphics drivers.
 
+#### Q: Why am I getting 'com.sun.jna.Native.open.class java.lang.Error: Access is denied' when opening an atlas or a scene view?
 
-#### Q: The editor doesn't start and the editor log shows "Caused by: java.awt.AWTError: Assistive Technology not found: com.sun.java.accessibility.AccessBridge"
-
-A: This error is related to problems with Java assistive technology such as the [NVDA screen reader](https://www.nvaccess.org/download/). Try removing any `.accessibility.properties` file in your user's home folder. Discussed [here on the Defold forum](https://forum.defold.com/t/editor-endless-loading-windows-10-1-2-169-solved/65481/3?u=britzl).
+A: Try running Defold as administrator. Right-click on the Defold executable and select "Run as Administrator".
