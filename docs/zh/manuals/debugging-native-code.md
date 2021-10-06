@@ -72,7 +72,7 @@ Defold 几经测试鲜有崩溃情况出现. 但是崩溃这种事谁能保证�
 
 从 `_crash` 文件或者 [日志文件](/manuals/debugging-game-and-system-logs), 都可以进行代码文件映射. 即把调用堆栈里的每个地址映射到文件名和代码行, 利于寻找代码的问题.
 
-注意引擎版本要选择正确. 不然映射会错乱. 需要编译原生扩展, 命令行要加入 [--with-symbols](https://www.defold.com/manuals/bob/) 参数才能下载到所需的全部数据:
+注意引擎版本要选择正确. 不然映射会错乱. 需要编译原生扩展, 命令行要加入 [--with-symbols](https://www.defold.com/manuals/bob/) 参数给 [bob](https://www.defold.com/manuals/bob/) 或者在编辑器打包对话框里点选 "Generate debug symbols" 才能下载到所需的全部数据:
 
 * iOS 与 macOS - `build.zip` 里的 `dmengine.dSYM` 文件夹下包含了调试映射数据.
 * Android 与 Linux - 可执行文件中就包含全部调试映射数据.
