@@ -88,7 +88,9 @@ Przykład: Dwa obiekty gry A i B. Obiekt B jest dzieckiem obiektu A. Obiekt B ma
 | B        | 1       |
 | B#sprite | 0.5     |
 
-Przy powyższej hierarchi ostateczna wartość Z komponentu typu sprite to 2 + 1 + 0.5 = 2.5.
+![](images/graphics/component-hierarchy.png)
+
+Przy powyższej hierarchi ostateczna wartość Z komponentu typu sprite to 2 + 1 + 0.5 = 3.5.
 
 ::: important
 Jeśli dwa komponenty mają dokładnie taką samą wartość komponentu Z, to kolejność rysowania jest nieokreślona i obiekty mogą migać zmieniając nieustannie tę kolejność w zależności od platformy.

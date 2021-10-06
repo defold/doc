@@ -374,6 +374,18 @@
                 "description": "These tutorials illustrate several common features of the Defold Game Engine, to include: (a) Image Procedures, (b) Dragging and Dropping Game Objects, (c) various Game Object Movement Techniques, (d) Preliminary use of 2d Physics based Collisions, (e) Graphic User Interface (GUI), and (f) an introduction to Defold Levels, Messaging and Menu Development."
             },
             {
+                "path": "https://github.com/defold/sample-lights-and-shadows",
+                "name": "Lights and Shadows",
+                "description": "This sample project shows how to achieve pixel perfect shadows in a 2D view.",
+                "image": "/tutorials/images/sample-lights-and-shadows.png"
+            },
+            {
+                "path": "https://github.com/defold/sample-pixel-line-platformer",
+                "name": "Pixel Line Platformer",
+                "description": "This sample project shows how to create a platformer game using original art created by Kenney.",
+                "image": "/tutorials/images/sample-pixel-line-platformer.png"
+            },
+            {
                 "path": "https://github.com/defold/sample-roids",
                 "name": "Asteroids",
                 "description": "This is a very simple 'Asteroids' clone where you turn the ship left and right with the arrow keys and fire at incoming meteors with space."
@@ -603,6 +615,10 @@
                         "name": "Property animation (tweens)"
                     },
                     {
+                        "path": "/extension-rive",
+                        "name": "Rive animation"
+                    },
+                    {
                         "path": "/manuals/spine",
                         "name": "Spine animation"
                     }
@@ -650,6 +666,10 @@
                     {
                         "path": "/manuals/particlefx",
                         "name": "Particle FX"
+                    },
+                    {
+                        "path": "/extension-rive",
+                        "name": "Rive"
                     },
                     {
                         "path": "/manuals/sound",
