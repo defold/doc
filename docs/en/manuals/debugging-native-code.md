@@ -76,7 +76,7 @@ In the `Xcode -> Devices` window, you can also select the crash logs
 
 If you get a callstack from either a `_crash` file or a [log file](/manuals/debugging-game-and-system-logs), you can symbolicate. This means translating each address in the callstack into a filename and line number, which in turn helps when finding out the root cause.
 
-It is important that you match the correct engine with the callstack. Otherwise it's very likely to send you debugging the incorrect things. If you are building with native extensions, be sure to add the flag [--with-symbols](https://www.defold.com/manuals/bob/) so that you get all the needed data from the build server:
+It is important that you match the correct engine with the callstack. Otherwise it's very likely to send you debugging the incorrect things. If you are building with native extensions, be sure to add the flag [--with-symbols](https://www.defold.com/manuals/bob/) to [bob](https://www.defold.com/manuals/bob/) or check the "Generate debug symbols" checkbox from the bundle dialog in the editor so that you get all the needed data from the build server:
 
 * iOS and macOS - the `dmengine.dSYM` folder in the `build.zip` contains the debug symbols for iOS/macOS builds.
 * Android and Linux - the executables themselves contain the debug symbols.
