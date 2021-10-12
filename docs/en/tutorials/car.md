@@ -98,6 +98,8 @@ Move the tire game objects into place by selecting them and then choosing <kbd>S
 
 ![Car collection complete](images/car/start_car_collection_complete.png)
 
+## The car script
+
 The last piece of the puzzle is a _script_ to control the car. A script is a component that contains a program that defines game object behaviors. With scripts you can specify the rules of your game, how objects should respond to various interactions (with the player as well as other objects). All scripts are written in the Lua programming language. To be able to work with Defold, you or someone on your team needs to learn how to program in Lua.
 
 Mark "main" in the *Assets pane*, right-click and select <kbd>New ▸ Script File</kbd>. Name the new file *car.script*, then add it to the "car" game object by marking "car" in the *Outline* view, right click and select <kbd>Add Component File</kbd>. Select *car.script* and click *OK*. Save the collection file.
@@ -107,82 +109,98 @@ Double click *car.script* and edit the script so it contains the following:
 ```lua
 -- car.script
 -- Constants
-local turn_speed = 0.1                           -- Slerp factor
+local turn_speed = 0.1                           					-- Slerp factor
 local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 degrees
 local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local wheels_vector = vmath.vector3(0, 72, 0)               -- Vector from center of back and front wheel pairs
+local steer_angle_zero = vmath.quat_rotation_z(0)					-- zero degrees
+local wheels_vector = vmath.vector3(0, 72, 0)         		        -- Vector from center of back and front wheel pairs
 
 function init(self)
-    -- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
-    -- This changes the background color of the game. The vector4 contains color information
-    -- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
-    msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )
+	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
+	-- This changes the background color of the game. The vector4 contains color information
+	-- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
+	msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )
 
-    -- Acquire input focus so we can react to input
-    msg.post(".", "acquire_input_focus")
+	-- Acquire input focus so we can react to input
+	msg.post(".", "acquire_input_focus")
 
-    -- Some variables
-    self.steer_angle = vmath.quat()
-    self.direction = vmath.quat()
+	-- Some variables
+	self.steer_angle = vmath.quat()
+	self.direction = vmath.quat()
 
-    -- Velocity and acceleration are car relative (not rotated)
-    self.velocity = vmath.vector3()
-    self.acceleration = vmath.vector3()
+	-- Velocity and acceleration are car relative (not rotated)
+	self.velocity = vmath.vector3()
+	self.acceleration = vmath.vector3()
+
+	-- the input vector
+	self.input = vmath.vector3()
 end
 
 function update(self, dt)
-    -- Calculate new velocity based on current acceleration
-    self.velocity = self.velocity + self.acceleration * dt
+	-- set acceleration to the y input
+	self.acceleration.y = self.input.y
+	-- Calculate new velocity based on current acceleration
+	self.velocity = self.velocity + self.acceleration * dt
 
-    -- Calculate the new positions of front and back wheels
-    local front_vel = vmath.rotate(self.steer_angle, self.velocity)
-    local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
-    local new_back_pos = vmath.rotate(self.direction, self.velocity)
+	-- Calculate the new positions of front and back wheels
+	local front_vel = vmath.rotate(self.steer_angle, self.velocity)
+	local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
+	local new_back_pos = vmath.rotate(self.direction, self.velocity)
 
-    -- Calculate the car's new direction
-    local new_dir = vmath.normalize(new_front_pos - new_back_pos)
-    self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)
+	-- Calculate the car's new direction
+	local new_dir = vmath.normalize(new_front_pos - new_back_pos)
+	self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)
 
-    -- Update position based on current velocity and direction
-    local pos = go.get_position()
-    pos = pos + vmath.rotate(self.direction, self.velocity)
-    go.set_position(pos)
+	-- Update position based on current velocity and direction
+	local pos = go.get_position()
+	pos = pos + vmath.rotate(self.direction, self.velocity)
+	go.set_position(pos)
 
-    -- Set the game object's rotation to the direction
-    go.set_rotation(self.direction)
+	-- interpolate the wheels
+	if self.input.x > 0 then 
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
+	elseif self.input.x < 0 then
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_left)
+	else
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, steer_angle_zero)
+	end
+
+	-- update the wheel rotation
+	go.set_rotation(self.steer_angle, "left_wheel")
+	go.set_rotation(self.steer_angle, "right_wheel")
+
+	-- Set the game object's rotation to the direction
+	go.set_rotation(self.direction)
+	-- reset acceleration and input
+	self.acceleration = vmath.vector3()
+	self.input = vmath.vector3()
 end
 
 function on_message(self, message_id, message, sender)
-    if message_id == hash("left") then
-        -- Interpolate the steering angle.
-        self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_left)
-        go.set_rotation(self.steer_angle, "left_wheel")
-        go.set_rotation(self.steer_angle, "right_wheel")
-    elseif message_id == hash("right") then
-        -- Interpolate the steering angle.
-        self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
-        go.set_rotation(self.steer_angle, "left_wheel")
-        go.set_rotation(self.steer_angle, "right_wheel")
-    elseif message_id == hash("set_acceleration") then
-        -- Set acceleration y component (car relative) to the message data field "acc".
-        self.acceleration.y = message.acc
-    end
+	if message_id == hash("left") then
+		self.input.x = -1
+	elseif message_id == hash("right") then
+		self.input.x = 1
+	elseif message_id == hash("set_acceleration") then
+		-- Set acceleration y component (car relative) to the message data field "acc".
+		self.input.y = message.acc
+	end
 end
 
 function on_input(self, action_id, action)
-    if action_id == hash("left") then
-        msg.post("#", "left")
-    elseif action_id == hash("right") then
-        msg.post("#", "right")
-    elseif action_id == hash("accelerate") and action.value == 1 then
-        msg.post("#", "set_acceleration", { acc = 10 })
-    elseif action_id == hash("accelerate") and action.value == 0 then
-        msg.post("#", "set_acceleration", { acc = 0 })
-    elseif action_id == hash("brake") and action.value == 1 then
-        msg.post("#", "set_acceleration", { acc = -10 })
-    elseif action_id == hash("brake") and action.value == 0 then
-        msg.post("#", "set_acceleration", { acc = 0 })
-    end
+	if action_id == hash("left") then
+		msg.post("#", "left")
+	elseif action_id == hash("right") then
+		msg.post("#", "right")
+	elseif action_id == hash("accelerate") and action.value == 1 then
+		msg.post("#", "set_acceleration", { acc = 15 })
+	elseif action_id == hash("accelerate") and action.value == 0 then
+		msg.post("#", "set_acceleration", { acc = 0 })
+	elseif action_id == hash("brake") and action.value == 1 then
+		msg.post("#", "set_acceleration", { acc = -15 })
+	elseif action_id == hash("brake") and action.value == 0 then
+		msg.post("#", "set_acceleration", { acc = 0 })
+	end
 end
 ```
 
@@ -198,7 +216,7 @@ Constants
 : This function is called once each frame (i.e. 60 times a second) during the lifetime of the game object. We use the function to calculate the speed and direction of the car based on the rotation of the car and the tires. The parameter "dt" is the current timestep (1/60 of a second in this case) and we use that to scale the calculations right. The way steering is computed is an approximation but yields pretty good results if the steering angles are not too extreme. After the calculations, the script updates the position of the game object. This affects all components in the game object (the car body sprite) as well as any child game objects (the tires).
 
 `on_message()`
-: This function is called whenever a message arrives to the script component. We check what message is arriving and take proper action, setting game object variables to new values. If steering left or right, we interpolate with `vmath.slerp()` against the max values, if we are accelerating or decelerating both are handled by the message "set_acceleration" and a message value "acc" with the value of acceleration, positive or negative.
+: This function is called whenever a message arrives to the script component. We check what message is arriving and take proper action, setting input variable to new values. If steering left or right, we interpolate with `vmath.slerp()` against the max values, if we are accelerating or decelerating both are handled by the message "set_acceleration" and a message value "acc" with the value of acceleration, positive or negative.
 
 `on_input()`
 : Since this game object listens to input (through the message "acquire_input_focus" in `init()` we receive input actions. Input are mapped from actual key, mouse, touch or game pad input to input "actions". We react to steering, accelerate and brake actions. When these actions arrive we send messages to the script component itself ("#" is shorthand for that) and through the logic in `on_message()` the car reacts. Now, we could just as well have skipped `on_message()` and put all logic straight into `on_input()` but there are benefits to using messages like we do. By allowing the car object to react to messages we can move the input handling to a different place, or perhaps add an AI driver somewhere that could drive the car through messages.
@@ -215,9 +233,57 @@ Now the car is ready to roll. We have created it inside "car.collection" but it 
 
 ![Adding the car collection](images/car/start_adding_car_collection.png)
 
+Now, select <kbd>Project ▸ Build</kbd> from the main menu and take your new car for a spin!
+You'll notice that you're now able to move to make the car move to your will. But something isn't right yet. When you leave the controls, the car does not stop, as it should have. It's time to add that in!
+
+## Drag to the rescue
+
+Whenever an object moves in the real world, the force of drag acts against the object causing it to slow down. This force almost falls proportional to the square velocity of the moving object, and hence can be described as `D = k * |V| * V` where `k` is a constant, `V` is the velocity and `|V|` its magnitude.
+
+In the constants section at the top of the script, add the following constant
+
+```lua
+local drag = 0.35        --the drag force <1>
+```
+
+Then in the beginning of the update function, replace these lines by the following lines and save the file.
+
+```lua
+function update(self, dt)
+    -- set acceleration to the y input
+	self.acceleration.y = self.input.y
+	-- Calculate new velocity based on current acceleration
+	self.velocity = self.velocity + self.acceleration * dt
+
+    ...
+end
+```
+
+```lua
+function update(self, dt)
+    -- set acceleration to the y input
+	self.acceleration.y = self.input.y
+    -- get the magnitude of the velocity
+    local speed = vmath.length(self.velocity)       -- <2>
+    -- apply drag
+    self.acceleration = self.acceleration - drag * speed * self.velocity -- <3>
+    -- Calculate new velocity based on current acceleration
+	self.velocity = self.velocity + self.acceleration * dt
+    -- stop if we are already slow enough
+    if speed < 0.2 then self.velocity = vmath.vector3() end -- <4>
+
+    ...
+end
+```
+
+1. Declare the drag value as a constant. 
+2. Calculate the speed with which we are moving. 
+3. Apply the drag to the current acceleration based on the formula
+4. Stop if the car is already slow enough
+
 ## Trying the final game
 
-Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take your new car for a spin!
+Now, select <kbd>Project ▸ Build</kbd> from the main menu and take your new car for a spin!
 
 If you want you can try to add more instances of *car.collection* to *main.collection*. Each instance is a clone of what's inside *car.collection* with the exact same behavior. Each one listens to input and reacts to the same messages.
 
