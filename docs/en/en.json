@@ -425,7 +425,7 @@
             },
             {
                 "path": "/tutorials/car",
-                "name": "Building a car (OLD)",
+                "name": "Building a car",
                 "description": "If you are new to Defold, this guide will help you getting your bearings right in the editor. It also explains the basic ideas and the most common building blocks in Defold - game objects, collections, scripts and sprites.",
                 "image": "/tutorials/images/car/start_car_collection_complete.png"
             },
