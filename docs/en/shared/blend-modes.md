@@ -10,4 +10,4 @@ Multiply
 : Darken the background with values of the the corresponding pixels of the component: `src.rgb * dst.rgb`
 
 Screen
-:Opposite of Multiply. Brighten background and values of the the corresponding pixels of the component: `(1 * src.rgb) - dst.rgb * dst.rgb`
+:Opposite of Multiply. Brighten background and values of the the corresponding pixels of the component: `src.rgb - dst.rgb * dst.rgb`
