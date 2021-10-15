@@ -44,7 +44,7 @@ The first time you start the editor, the editor starts blank, without any projec
 
 Now, in the *Assets pane* you will see all files that are part of the project. If you double-click the file "main/main.collection" the file will open up in the editor view in the center:
 
-![Editor overview](images/runner/1/editor_overview.png)
+![Editor overview](images/runner/1/editor2_overview.png)
 
 The editor consists of the following main areas:
 
@@ -68,19 +68,11 @@ Console
 
 ## Running the game
 
-The "Empty" project template actually isn't completely empty. As you've already seen, it contains one game object with a simple image. Select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
+The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
 
 ![Build and launch](images/runner/1/build_and_launch.png)
 
-It's perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
-
-First of all, let's clean the *main.collection* file of the one game object it contains.
-
-* Double click the file *main.collection* to open it in the editor.
-* Select (click) "logo" in the *Outline* view to the right.
-* Right-click and select <kbd>Delete</kbd> from the pop up menu.
-* Save the file. Select <kbd>File ▸ Save</kbd> in the main menu.
-That's it!
+A black screen is perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 
 ::: sidenote
 The Defold editor works on files. By double-clicking a file in the *Assets pane* you open it in a suitable editor. You can then work with the contents of the file.
@@ -89,10 +81,6 @@ When you are done editing a file you have to save it. Select <kbd>File ▸ Save<
 
 ![File with unsaved changes](images/runner/1/file_changed.png)
 :::
-
-![Delete game object](images/runner/1/delete_go.png)
-
-If you run the game again, the application window will be totally black.
 
 <a name="part-2"></span></a>
 ## STEP 2 - Creating the ground
@@ -187,12 +175,14 @@ end
 6. Decrease the current X-position with the set speed. Multiply with `dt` to get framerate independent speed in pixels/s.
 7. Update the object's position with the new speed.
 
-![Ground script](images/runner/1/ground_script.png)
-
 ::: sidenote
 Defold is a fast engine core that manages your data and game objects. Any logic or behavior that you need for your game is created in the Lua language. Lua is a fast and light-weight programming language that is great for writing game logic. There are great resources available to learn the language, like the book http://www.lua.org/pil/[Programming in Lua] and the official http://www.lua.org/manual/5.3/[Lua reference manual].
 
 Defold adds a set of APIs on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
+:::
+
+::: sidenote
+You can toggle the Assets Pane, Console and Outline sections of the editor using the <kbd>F6</kbd>, <kbd>F7</kbd> and <kbd>F8</kbd> keys respectively
 :::
 
 Now that we have a script file, we should add a reference to it to a component in a game object. That way, the script will be executed as part of the game object lifecycle. We do this by creating a new game object in *ground.collection* and add a *Script* component to the object that refers to the Lua script file we just created:
@@ -271,12 +261,12 @@ It is important that we specify what the collision object should interact with:
 1. Set the *Group* property to a new collision group called "hero".
 2. Setting the *Mask* property to another group "geometry" that this collision object should register collisions with. Note that the "geometry" group does not yet exist, but we will soon add collision objects belonging to it.
 
-![Hero game object](images/runner/2/hero_game_object.png)
-
 Finally, create a new *hero.script* file and add it to the game object.
 
 1. Right-click the *hero* folder in the *Assets pane*  and select <kbd>New ▸ Script File</kbd>. Name the new file *hero.script*.
 2. Open the new file, then copy and paste the following code into the script file, then save it. (The code is pretty straightforward apart from the solver that separates the hero collision shape from what it collides with. That is done by the `handle_geometry_contact()` function.)
+
+![Hero game object](images/runner/2/hero_game_object.png)
 
 ::: sidenote
 The reason we are handling the collision ourselves is that if we instead set the type on the frog's collision object to dynamic, the engine will peform a Newtonian simulation of the bodies involved. For a game like this, such a simulation is far from optimal so instead of fighting the physics engine with various forces, we take full control.
@@ -384,7 +374,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-3. Add the script as a *Script* component to the hero object (right-click the root of *hero.go* in the *Outline* and select <kbd>Add Component from File</kbd>, then select the *hero.script* file).
+1. Add the script as a *Script* component to the hero object (right-click the root of *hero.go* in the *Outline* and select <kbd>Add Component from File</kbd>, then select the *hero.script* file).
 
 If you want you can now try and temporarily add the hero frog to the main collection and run the game to see it fall through the world.
 
