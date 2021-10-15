@@ -343,6 +343,18 @@
                 "image": "/tutorials/images/videos/shadertoy.png"
             },
             {
+                "path": "/tutorials/runner",
+                "name": "Runner",
+                "description": "In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.",
+                "image": "/tutorials/images/runner/2/run_game.png"
+            },
+            {
+                "path": "/tutorials/car",
+                "name": "Building a car",
+                "description": "If you are new to Defold, this guide will help you getting your bearings right in the editor. It also explains the basic ideas and the most common building blocks in Defold - game objects, collections, scripts and sprites.",
+                "image": "/tutorials/images/car/start_car_collection_complete.png"
+            },
+            {
                 "path": "https://defold.com/2021/03/02/Creating-online-games-using-Nakama-and-Defold/",
                 "name": "Creating online games using Nakama and Defold",
                 "description": "In this tutorial we will look at how to create online multiplayer games in Defold using the open-source Nakama game server from Heroic Labs."
@@ -412,22 +424,10 @@
                 "image": "/tutorials/images/platformer/collision.png"
             },
             {
-                "path": "/tutorials/runner",
-                "name": "Runner (OLD)",
-                "description": "In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.",
-                "image": "/tutorials/images/runner/2/run_game.png"
-            },
-            {
                 "path": "/tutorials/magic-link",
                 "name": "Magic link (OLD)",
                 "description": "In this tutorial you will build a complete little puzzle game with a start screen, the mechanics of the game and simple level progression in the form of increasing difficulty.",
                 "image": "/tutorials/images/magic-link/linker_connector_screen.png"
-            },
-            {
-                "path": "/tutorials/car",
-                "name": "Building a car",
-                "description": "If you are new to Defold, this guide will help you getting your bearings right in the editor. It also explains the basic ideas and the most common building blocks in Defold - game objects, collections, scripts and sprites.",
-                "image": "/tutorials/images/car/start_car_collection_complete.png"
             },
             {
                 "path": "/tutorials/main-menu",

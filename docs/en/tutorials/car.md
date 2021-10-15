@@ -337,8 +337,6 @@ local wheels_vector = vmath.vector3(0, 72, 0)         				-- Vector from center 
 local acceleration = 100 											-- The acceleration of the car
 local drag = 1.1	-- the drag constant
 
-local up = vmath.vector3(0, 1, 0)
-
 function init(self)
 	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
 	-- This changes the background color of the game. The vector4 contains color information

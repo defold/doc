@@ -27,6 +27,8 @@ Throughout the tutorial, detailed descriptions on concepts and how to do certain
 
 So let's begin. We hope you will have a lot of fun going through this tutorial and that it helps you getting going with Defold.
 
+> Download the assets for this tutorial [here](images/runner/assets_runner.zip).
+
 <a name="part-1"></a>
 ## STEP 1 - Installation and setup
 
@@ -80,6 +82,14 @@ The Defold editor works on files. By double-clicking a file in the *Assets pane*
 When you are done editing a file you have to save it. Select <kbd>File ▸ Save</kbd> in the main menu. The editor gives a hint by adding an asterisk '\*' to the filename in the tab for any file that contain unsaved changes.
 
 ![File with unsaved changes](images/runner/1/file_changed.png)
+:::
+
+## Setting up the project
+
+Before we begin, let's set up several settings for our projects. Open the `game.project` asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively. 
+
+::: sidenote
+If your Display's refresh rate is greater than 60 hz then you might want to disable `vsync` and set a frame cap to a value like 60.
 :::
 
 <a name="part-2"></span></a>
@@ -924,6 +934,8 @@ And now we have a simple, but functional game! If you make it this far you might
 1. Scoring and life counters
 2. Particle effects for the pickups and death
 3. Nice background imagery
+
+> Download the completed version of the project [here](images/runner/sample-runner.zip)
 
 That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](//www.defold.com/learn) prepared to guide you, and if you get stuck, your're welcome to the [forum](//forum.defold.com).
 
