@@ -7,4 +7,7 @@ Add
 : Brighten the background with the color values of the corresponding pixels of the component: `src.rgb + dst.rgb`
 
 Multiply
-: Darken the background with values of the the corresponding pixels of the component: `src.rgb * dst.rgb`
+: Darken the background with values of the corresponding pixels of the component: `src.rgb * dst.rgb`
+
+Screen
+: Opposite of Multiply. Brighten background and values of the corresponding pixels of the component: `src.rgb - dst.rgb * dst.rgb`
