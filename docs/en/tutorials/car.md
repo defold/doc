@@ -136,13 +136,13 @@ Next, add the following lines of code before the init function start starts.
 
 ```lua
 -- Constants
-local turn_speed = 0.1                           									 -- Slerp factor
+local turn_speed = 0.1                           									  -- Slerp factor
 local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 degrees
 local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)									 -- Zero degrees
+local steer_angle_zero = vmath.quat_rotation_z(0)									  -- Zero degrees
 local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- Vector from center of back and front wheel pairs
 
-local acceleration = 50 																						-- The acceleration of the car
+local acceleration = 100 																						-- The acceleration of the car
 
 -- prehash the inputs
 local left = hash("left")
@@ -328,14 +328,14 @@ end
 After completing the above steps, your *car.script* should look like :
 
 ```lua
-local turn_speed = 0.1                           					-- Slerp factor
+local turn_speed = 0.1                           				          	-- Slerp factor
 local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 degrees
 local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)					-- Zero degrees
-local wheels_vector = vmath.vector3(0, 72, 0)         				-- Vector from center of back and front wheel pairs
+local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- Zero degrees
+local wheels_vector = vmath.vector3(0, 72, 0)         				      -- Vector from center of back and front wheel pairs
 
-local acceleration = 100 											-- The acceleration of the car
-local drag = 1.1	-- the drag constant
+local acceleration = 100 		                      									-- The acceleration of the car
+local drag = 1.1                                                  	-- the drag constant
 
 function init(self)
 	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
