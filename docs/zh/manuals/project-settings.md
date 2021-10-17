@@ -13,7 +13,9 @@ brief: 本教程介绍了如何在 Defold 中进行项目配置工作.
 
 下面是根据不同模块排序的各种设置. 其中有一些不在编辑器中显示 (标注为 "隐藏设置"), 但是可以右键点击 "game.project" 然后选择 <kbd>Open With ▸ Text Editor</kbd> 来进行手动编辑.
 
-## Project
+## 各类设置
+
+### Project
 
 #### Title
 项目标题.
@@ -47,7 +49,9 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### Bundle Exclude Resources
 项目中排除的以逗号分隔的资源列表.
 
-## Bootstrap
+---
+
+### Bootstrap
 
 #### Main Collection
 打开应用启动的起始集合, 默认 `/logic/main.collection`.
@@ -55,22 +59,28 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### Render
 指定使用哪个渲染文件, 它决定了渲染流程, 默认 `/builtins/render/default.render`.
 
-## Library
+---
+
+### Library
 
 #### Include Dirs
 使用库共享机制从项目中共享出去的以逗号分隔的目录列表.
 
-## Script
+---
+
+### Script
 
 #### Shared State
 打开则共享脚本的Lua状态, 默认关闭.
 
-## Engine
+---
+
+### Engine
 
 #### Run While Iconified
 当游戏应用程序窗口最小化时允许其在后台继续运行 (仅桌面平台有效), 默认值是 `false`.
 
-## Display
+### Display
 
 #### Width
 应用窗口像素为单位宽度, 默认 `960`.
@@ -88,10 +98,10 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 设置应用启动是否使用全屏. 如果关闭, 应用会以窗口形式启动.
 
 #### Frame Cap
-如果 `Vsync` 开启, 则为锁帧频率匹配最接近的交换间隔. 否则的话依据锁帧设置计时器, 0 代表不锁帧. 此设置相当于 `display.update_frequency`.
+如果 `Vsync` 开启, 则为锁帧频率匹配最接近的交换间隔. 否则的话依据锁帧设置计时器, 0 代表不锁帧. 此设置相当于 `display.update_frequency`. ([见下文](#vsync-frame-cap-and-swap-interval)).
 
 #### Vsync
-垂直同步, 根据硬件的帧率进行刷新. 可以被驱动程序或者操作系统平台设置覆盖.
+垂直同步, 根据硬件的帧率进行刷新. 可以被驱动程序或者操作系统平台设置覆盖. ([见下文](#vsync-frame-cap-and-swap-interval)).
 
 #### Display Profiles
 指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.  详情请见 [GUI 排版教程](/manuals/gui-layouts/#新建显示档案).
@@ -99,7 +109,9 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### Dynamic Orientation
 开启的话会在设备转动时动态切换横竖显示方向. 注意开发用app（指dmengine）不参考此设置.
 
-## Render
+---
+
+### Render
 
 #### Clear Color Red
 清除红色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
@@ -113,7 +125,9 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### Clear Color ALpha
 清除alpha通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
 
-## Physics
+---
+
+### Physics
 
 #### Type
 使用何种物理引擎, `2D` (默认) 还是 `3D`.
@@ -163,7 +177,9 @@ debug线的不透明度, `0`--`1`. 默认是 `0.9`.
 #### Trigger Overlap Capacity
 物理 trigger 的最大重叠数量. 默认是 `16`.
 
-## Graphics
+---
+
+### Graphics
 
 #### Default Texture Min Filter
 设置缩小过滤方式, `linear` (默认) 或者 `nearest`.
@@ -183,12 +199,14 @@ debug顶点最大数目. 用于物理形状渲染与其他一些功能, 默认�
 #### Texture Profiles
 项目使用的纹理档配置文件, 默认是 `/builtins/graphics/default.texture_profiles`.
 
-## Shader
+### Shader
 
 #### Output SPIR-V
 为 Metal 和 Vulkan 编译输出 SPIR-V 着色器.
 
-## Input
+---
+
+### Input
 
 #### Repeat Delay
 按下输入保持时等待多少秒后开始算作重复输入, 默认是 `0.5`.
@@ -205,7 +223,9 @@ debug顶点最大数目. 用于物理形状渲染与其他一些功能, 默认�
 #### Use Accelerometer
 开启后游戏引擎会在每帧接收加速度计数据. 关闭会获得少许性能提升, 默认开启.
 
-## Resource
+---
+
+### Resource
 
 #### Http Cache
 开启后, 会开启HTTP缓存用于设备上的游戏引擎从缓存中快速导入网络数据, 默认关闭.
@@ -216,12 +236,16 @@ debug顶点最大数目. 用于物理形状渲染与其他一些功能, 默认�
 #### Max Resources
 一次可以加载资源的最大数目, 默认是 `1024`.
 
-## Network
+---
+
+### Network
 
 #### Http Timeout
 HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 
-## Collection
+---
+
+### Collection
 
 #### Max Instances
 一个集合里容纳游戏对象实例的最大数目, 默认是`1024`.
@@ -229,7 +253,9 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 #### Max Input Stack Entries
 输入栈内最大游戏对象数目, 默认是`16`.
 
-## Sound
+---
+
+### Sound
 
 #### Gain
 全局增益 (音量), `0`--`1`, 默认值是 `1`.
@@ -249,41 +275,53 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 #### Use Thread
 勾選的話, 系統將使用綫程進行聲音播放以減少因爲主綫程過載造成的卡頓. 默認勾選.
 
-## Sprite
+---
+
+### Sprite
 
 #### Max Count
-每个集合最大sprite数目, 默认是 `128`.
+每个集合最大sprite数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
 #### Subpixels
 开启后允许sprite不与像素对齐, 默认开启.
 
-## Tilemap
+---
+
+### Tilemap
 
 #### Max Count
-每个集合的瓷砖地图最大数目, 默认是 `16`.
+每个集合的瓷砖地图最大数目, 默认是 `16`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
 #### Max Tile Count
 每个集合可同时显示的瓷砖最大数目, 默认是 `2048`.
 
-## Spine
+---
+
+### Spine
 
 #### Max Count
 spine 模型最大数目, 默认是 `128`.
 
-## Mesh
+---
+
+### Mesh
 
 #### Max Count
-每个集合最大容纳3D模型面数, 默认是 `128`.
+每个集合最大容纳3D模型面数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
-## Model
+---
 
-#### Max Count
-每个集合最大容纳3D模型组件个数, 默认是 `128`.
-
-## GUI
+### Model
 
 #### Max Count
-GUI 组件最大数目, 默认是 `64`.
+每个集合最大容纳3D模型组件个数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
+
+---
+
+### GUI
+
+#### Max Count
+GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
 #### Max Particlefx Count
 同一时间粒子发射器最大数目, 默认是 `64`.
@@ -291,38 +329,50 @@ GUI 组件最大数目, 默认是 `64`.
 #### Max Particle Count
 同一时间粒子最大数目, 默认是 `1024`.
 
-## Label
+---
+
+### Label
 
 #### Max Count
-label 最大数目, 默认是 `64`.
+label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
 #### Subpixels
 开启后允许 lables 不与像素对齐, 默认开启.
 
-## Particle FX
+---
+
+### Particle FX
 
 #### Max Count
-同一时间粒子发射器最大数目, 默认是 `64`.
+同一时间粒子发射器最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
 #### Max Particle Count
 同一时间粒子最大数目, 默认是 `1024`.
 
-## Collection proxy
+---
+
+### Collection proxy
 
 #### Max Count
-集合代理最大数目, 默认是 `8`.
+集合代理最大数目, 默认是 `8`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
-## Collection factory
+---
 
-#### Max Count
-集合工厂最大数目, 默认是 `128`.
-
-## Factory
+### Collection factory
 
 #### Max Count
-游戏对象工厂最大数目, 默认是 `128`.
+集合工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
 
-## iOS
+---
+
+### Factory
+
+#### Max Count
+游戏对象工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
+
+---
+
+### iOS
 
 #### App Icon 57x57--180x180
 用于应用图标的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`.
@@ -354,7 +404,9 @@ Storyboard 文件 (.storyboard). 其创建方法详情请见 [iOS 教程](/manua
 #### Localizations
 以逗号分割的语言名称缩写或者是 ISO 语言代号 (见 [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
 
-## Android
+---
+
+### Android
 
 #### App Icon 36x36--192x192
 用于应用图标的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`.
@@ -392,7 +444,9 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 #### Debuggable
 指定应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或者 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具来调试. 这将开启 Android manifest 的 `android:debuggable` 选项.
 
-## macOS
+---
+
+### macOS
 
 #### App Icon
 用于macOS应用图标的图片 (.png) 文件.
@@ -403,7 +457,9 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 #### Bundle Identifier
 打包id使得 macOS 认识你的应用的版本更新. 你的打包 ID 必须在 Apple 注册且确保应用唯一性. iOS 与 macOS 应用不可以使用同一id.
 
-## Windows
+---
+
+### Windows
 
 #### App Icon
 用于Windows应用图标的图片 (.ico) 文件. 对于如何创建图标文件详情请见 [Windows 教程](/manuals/windows).
@@ -411,7 +467,9 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 #### Iap Provider
 指定使用哪个应用商店. 合法值是 `None` 和 `Gameroom`, 默认是 `None`.
 
-## HTML5
+---
+
+### HTML5
 
 #### Heap Size
 指定Emscripten所使用的堆大小 (兆字节) . 默认值是 256MB.
@@ -443,12 +501,16 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 #### Scale Mode
 指定游戏 canvas 所使用的缩放方式. 默认是 `Downscale Fit`.
 
-## IAP
+---
+
+### IAP
 
 #### Auto Finish Transactions
 开启后自动完成 IAP 交易. 如果关闭, 在交易成功后你需要手动调用 `iap.finish()` , 默认开启.
 
-## Live update
+---
+
+### Live update
 
 #### Private Key
 如果设置了, 则在编译热更新内容时使用指定的私匙. 如果不设置, 则自动生成一个私匙.
@@ -456,15 +518,21 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 #### Public Key
 如果设置了, 则在编译热更新内容时使用指定的公匙. 如果不设置, 则自动生成一个私匙.
 
-## Native extension
+---
+
+### Native extension
 
 #### _App Manifest_
 如果设置了, 则在自定义引擎编译时使用指定的 manifest. 此设置可以让你移除引擎不必要的部分来减小包体. 注意此设置尚在测试中. 使用方法详情请见 [这个帖子](https://forum.defold.com/t/native-extensions/4946/142).
 
-## Profiler
+---
+
+### Profiler
 
 #### Track Cpu
 如果开启, 则在编译版本中开启 CPU profiling. 通常, 你只能在 debug 版本中进行调试.
+
+---
 
 ## File format
 
@@ -489,6 +557,7 @@ main_collection = /main/main.collectionc
 当引用了一个文件, 比如上面的例子, 路径尾需要加一个 'c' 字符, 表明引用的时编译后的文件.
 注意包含 *game.project* 的文件夹将作为项目根目录, 这就是路径开头使用 '/' 的原因.
 
+
 ## 在引擎启动时设定配置值
 
 引擎启动时, 可以从命令行输入设置来覆盖 *game.project* 里的设定:
@@ -507,12 +576,24 @@ $ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
 local my_value = tonumber(sys.get_config("test.my_value"))
 ```
 
+## 最大组件数优化
+配置文件 `game.project` 包含针对各种资源同时存在的最大数目的配置项, 容器大都是每个载入的集合 (也叫做游戏世界). Defold 引擎使用这些最大值来预分配内存以避免游戏运行时内存动态分配及内存碎片化.
+
+用于表示组件和其他资源的 Defold 数据结构优化为尽可能少用内存, 但当配置这些最大值时仍要留意是否保证了满足游戏运行的需求.
+
+另一方面 Defold 编译处理会分析游戏内容, 如果明确分析出必要的内存需求则会覆盖最大值设置:
+
+* 如果集合不含工厂组件则仅分配各个组件必须的内存忽略最大值设置.
+* 如果集合包含工厂组件则分析工厂可实例化的游戏对象组件的必要内存并为其实例化分配足够内存.
+
+
 ## 垂直同步, 帧数锁定 和 刷新间隔
 首先要注意的是桌面平台上垂直同步可以被显卡设置控制. 比如如果在显卡控制面板里强制开启了垂直同步那么从 Defold 的角度是没法读写这个设置的. 大多数移动设备也都默认开启了垂直同步.
 
 如果在 `game.project` 中开启 `Vsync` 的话, 引擎依照硬件垂直同步根据检测到的任何显示设备刷新率决定固定 `dt` 值. 这是默认的情况. 如果开启 `Vsync` 并且设置 `Frame cap` > 0, 则帧率设置兼顾显示器刷新率与锁帧频率. 如果 `Vsync` 关闭并且设置 `Frame cap` 为 0, `dt` 就不是固定的了而是使用实际的时间间隔. 如果 `Vsync` 关闭并且设置 `Frame cap` > 0, 时间步进取帧数锁定设置的值. 不同平台和硬件设备下无法保证刷新间隔时间一致.
 
 交换间隔是指在垂直空白期 (v-blank) 同步中交换前后缓冲的间隔, 是屏幕图片从前缓冲更新数据的硬件事件. 取值为1就是每个v-blank做一次交换缓冲, 取值为2就是每两个（每隔一个）v-blank做一次交换缓冲, 以此类推. 取值为0则做交换缓冲时不等待v-blank时间\*. 调用 [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval) 方法可以设置 `swap_interval` 的值.
+
 
 ### 注意事项
 目前, Defold 在初始化时查询屏幕刷新率并且把它作为固定 `dt` 的依据. 如果你需要支持可变刷新率 (比如 GSync 或者 FreeSync) 或者其他刷新率不是很有参考性的情况下, 关闭 `Vsync`来使引擎测量每帧实际 `dt` 而不是固定dt.

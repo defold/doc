@@ -9,6 +9,21 @@ If you are new to Defold, this guide will help you getting your bearings right i
 
 We're going to start from an empty project and work step by step to a very small, playable application. At the end you will hopefully have a feel for how Defold works and you will be ready to tackle a more extensive tutorial or dive right into the manuals.
 
+::: sidenote
+Throughout the tutorial, detailed descriptions on concepts and how to do certain moments are marked like this paragraph. If you feel that these section go into too much detail, please skip them.
+:::
+
+## Creating a new project
+
+![New Project](images/new_empty.png)
+
+1. Start Defold.
+2. Select *New Project* on the left.
+3. Select the *From Template* tab.
+4. Select *Empty Project*
+5. Select a location for the project on your local drive.
+6. Click *Create New Project*.
+
 ## The editor
 
 Start by creating a [new project](/manuals/project-setup/) and opening it in the editor. If you double-click the file *main/main.collection* the file will open up:
@@ -37,15 +52,19 @@ Console
 
 ## Running the game
 
-The "Empty" project template actually isn't completely empty. As you've already seen, it contains one game object with a simple image. Select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
+The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
 
 ![Build and launch](images/car/start_build_and_launch.png)
 
-It's perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
+A black screen is perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 
-First of all, let's clean the file *main.collection* of the one game object it contains. Select "logo" in the *Outline* view, right-click and select *Delete*. That's it. If you run the game again, the application window will be totally black.
+::: sidenote
+The Defold editor works on files. By double-clicking a file in the *Assets pane* you open it in a suitable editor. You can then work with the contents of the file.
 
-![Delete game object](images/car/start_delete_go.png)
+When you are done editing a file you have to save it. Select <kbd>File ▸ Save</kbd> in the main menu. The editor gives a hint by adding an asterisk '\*' to the filename in the tab for any file that contain unsaved changes.
+
+![File with unsaved changes](images/car/file_changed.png)
+:::
 
 ## Assembling the car
 
@@ -98,110 +117,155 @@ Move the tire game objects into place by selecting them and then choosing <kbd>S
 
 ![Car collection complete](images/car/start_car_collection_complete.png)
 
+## The car script
+
 The last piece of the puzzle is a _script_ to control the car. A script is a component that contains a program that defines game object behaviors. With scripts you can specify the rules of your game, how objects should respond to various interactions (with the player as well as other objects). All scripts are written in the Lua programming language. To be able to work with Defold, you or someone on your team needs to learn how to program in Lua.
 
 Mark "main" in the *Assets pane*, right-click and select <kbd>New ▸ Script File</kbd>. Name the new file *car.script*, then add it to the "car" game object by marking "car" in the *Outline* view, right click and select <kbd>Add Component File</kbd>. Select *car.script* and click *OK*. Save the collection file.
 
-Double click *car.script* and edit the script so it contains the following:
+Double click *car.script* to open it.
+
+::: sidenote
+Defold provides several lifecycle functions to code game logic. Read more about them in the [Script Manual](/manuals/script).
+:::
+
+Start by removing the `final`, `on_message` and `on_reload` functions as we won't be needing them
+for this tutorial.
+
+Next, add the following lines of code before the init function start starts.
 
 ```lua
--- car.script
 -- Constants
-local turn_speed = 0.1                           -- Slerp factor
+local turn_speed = 0.1                           									  -- Slerp factor
 local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 degrees
 local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local wheels_vector = vmath.vector3(0, 72, 0)               -- Vector from center of back and front wheel pairs
+local steer_angle_zero = vmath.quat_rotation_z(0)									  -- Zero degrees
+local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- Vector from center of back and front wheel pairs
 
+local acceleration = 100 																						-- The acceleration of the car
+
+-- prehash the inputs
+local left = hash("left")
+local right = hash("right")
+local accelerate = hash("accelerate")
+local brake = hash("brake")
+```
+
+The changes made here are fairly simple, we just added a bunch of `constants` to our script that we'll be using later on to code our car.
+
+::: sidenote
+Pay notice to how we store the hashes beforehand in variables. It is actually a good practice to do so as it makes your code more readable and performant.
+:::
+
+Next, edit the `init` function so that it contains the following:
+
+```lua
 function init(self)
-    -- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
-    -- This changes the background color of the game. The vector4 contains color information
-    -- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
-    msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )
+	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
+	-- This changes the background color of the game. The vector4 contains color information
+	-- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
+	msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )		--<1>
 
-    -- Acquire input focus so we can react to input
-    msg.post(".", "acquire_input_focus")
+	-- Acquire input focus so we can react to input
+	msg.post(".", "acquire_input_focus")		-- <2>
 
-    -- Some variables
-    self.steer_angle = vmath.quat()
-    self.direction = vmath.quat()
+	-- Some variables
+	self.steer_angle = vmath.quat()				 -- <3>
+	self.direction = vmath.quat()
 
-    -- Velocity and acceleration are car relative (not rotated)
-    self.velocity = vmath.vector3()
-    self.acceleration = vmath.vector3()
-end
+	-- Velocity and acceleration are car relative (not rotated)
+	self.velocity = vmath.vector3()
+	self.acceleration = vmath.vector3()
 
-function update(self, dt)
-    -- Calculate new velocity based on current acceleration
-    self.velocity = self.velocity + self.acceleration * dt
-
-    -- Calculate the new positions of front and back wheels
-    local front_vel = vmath.rotate(self.steer_angle, self.velocity)
-    local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
-    local new_back_pos = vmath.rotate(self.direction, self.velocity)
-
-    -- Calculate the car's new direction
-    local new_dir = vmath.normalize(new_front_pos - new_back_pos)
-    self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)
-
-    -- Update position based on current velocity and direction
-    local pos = go.get_position()
-    pos = pos + vmath.rotate(self.direction, self.velocity)
-    go.set_position(pos)
-
-    -- Set the game object's rotation to the direction
-    go.set_rotation(self.direction)
-end
-
-function on_message(self, message_id, message, sender)
-    if message_id == hash("left") then
-        -- Interpolate the steering angle.
-        self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_left)
-        go.set_rotation(self.steer_angle, "left_wheel")
-        go.set_rotation(self.steer_angle, "right_wheel")
-    elseif message_id == hash("right") then
-        -- Interpolate the steering angle.
-        self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
-        go.set_rotation(self.steer_angle, "left_wheel")
-        go.set_rotation(self.steer_angle, "right_wheel")
-    elseif message_id == hash("set_acceleration") then
-        -- Set acceleration y component (car relative) to the message data field "acc".
-        self.acceleration.y = message.acc
-    end
-end
-
-function on_input(self, action_id, action)
-    if action_id == hash("left") then
-        msg.post("#", "left")
-    elseif action_id == hash("right") then
-        msg.post("#", "right")
-    elseif action_id == hash("accelerate") and action.value == 1 then
-        msg.post("#", "set_acceleration", { acc = 10 })
-    elseif action_id == hash("accelerate") and action.value == 0 then
-        msg.post("#", "set_acceleration", { acc = 0 })
-    elseif action_id == hash("brake") and action.value == 1 then
-        msg.post("#", "set_acceleration", { acc = -10 })
-    elseif action_id == hash("brake") and action.value == 0 then
-        msg.post("#", "set_acceleration", { acc = 0 })
-    end
+	-- Input vector. This is modified later in the on_input function
+	-- to store the input.
+	self.input = vmath.vector3()
 end
 ```
 
-Don't forget to save your edits. The script contains 5 parts:
+Wondering what we just changed? Here is an explanation.
 
-Constants
-: At the top we define a couple of local variables that we use as constants throughout the script. This is optional but usually a good practice since it makes changes of the values easier.
+1. Send a message to our render script asking it set the background color to grey. Render scripts are special scripts in Defold that control how objects are shown on the screen.
+2. To listen to input actions in a script component or GUI script, the message `acquire_input_focus` needs to be sent to the game object holding the component. In our case we send this message to the gameobject that holds the car script.
+3. Then, we declare some variables that we'll use to keep track of the current state of our car.
 
-`init()`
-: The function `init()` is run when the game object that the script component exists in is brought to life in the game. This function is usually used to set up internal variables, that we add to the game object "self" that is passed to the function. Any variable added to "self" will be kept through the lifetime of the game object. This script sends two messages during initialization. The first is to the rendering system, which sets the background color for the game. The second message is sent to the game object harboring the script ("." is shorthand for that) asking the game object to start receiving input.
+That was easy now, wasn't it? We'll continue now by editing the `update` function so that it now contains the following:
 
-`update()`
-: This function is called once each frame (i.e. 60 times a second) during the lifetime of the game object. We use the function to calculate the speed and direction of the car based on the rotation of the car and the tires. The parameter "dt" is the current timestep (1/60 of a second in this case) and we use that to scale the calculations right. The way steering is computed is an approximation but yields pretty good results if the steering angles are not too extreme. After the calculations, the script updates the position of the game object. This affects all components in the game object (the car body sprite) as well as any child game objects (the tires).
+```lua
+function update(self, dt)
+	-- Set acceleration to the y input
+	self.acceleration.y = self.input.y * acceleration				-- <1>
 
-`on_message()`
-: This function is called whenever a message arrives to the script component. We check what message is arriving and take proper action, setting game object variables to new values. If steering left or right, we interpolate with `vmath.slerp()` against the max values, if we are accelerating or decelerating both are handled by the message "set_acceleration" and a message value "acc" with the value of acceleration, positive or negative.
+	-- Calculate the new positions of front and back wheels
+	local front_vel = vmath.rotate(self.steer_angle, self.velocity)
+	local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
+	local new_back_pos = vmath.rotate(self.direction, self.velocity)								-- <2>
 
-`on_input()`
-: Since this game object listens to input (through the message "acquire_input_focus" in `init()` we receive input actions. Input are mapped from actual key, mouse, touch or game pad input to input "actions". We react to steering, accelerate and brake actions. When these actions arrive we send messages to the script component itself ("#" is shorthand for that) and through the logic in `on_message()` the car reacts. Now, we could just as well have skipped `on_message()` and put all logic straight into `on_input()` but there are benefits to using messages like we do. By allowing the car object to react to messages we can move the input handling to a different place, or perhaps add an AI driver somewhere that could drive the car through messages.
+	-- Calculate the car's new direction
+	local new_dir = vmath.normalize(new_front_pos - new_back_pos)
+	self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)			-- <3>
+
+	-- Calculate new velocity based on current acceleration
+	self.velocity = self.velocity + self.acceleration * dt			-- <4>
+
+	-- Update position based on current velocity and direction
+	local pos = go.get_position()
+	pos = pos + vmath.rotate(self.direction, self.velocity)
+	go.set_position(pos)																			-- <5>
+
+	-- Interpolate the wheels using vmath.slerp
+	if self.input.x > 0 then																		-- <6>
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
+	elseif self.input.x < 0 then
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_left)
+	else
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, steer_angle_zero)
+	end
+
+	-- Update the wheel rotation
+	go.set_rotation(self.steer_angle, "left_wheel")					-- <7>
+	go.set_rotation(self.steer_angle, "right_wheel")
+
+	-- Set the game object's rotation to the direction
+	go.set_rotation(self.direction)
+
+	-- reset acceleration and input
+	self.acceleration = vmath.vector3()								-- <8>
+	self.input = vmath.vector3()
+end
+```
+
+That was a huge function! But don't worry, this is how it all works:
+
+1. We first set our acceleration vector based on our input vector. This ensures that the car's acceleration is in the direction of the input.
+2. Next, the displacement of both the wheels is calculated based on the simple logic that while the back wheels of the car always move forward, the front wheel move in the direction they're turned towards.
+3. Based on the displacement of both wheels, the new direction of motion of our car is calculated.
+4. Here, we add the calculated acceleration to the velocity.
+5. Finally, we update the position of the car based on our current velocity.
+6. We slerp the steering angle based on our left/right input. This is done so that the wheels don't snap instantly whenever the input changes.
+7. The rotation of the the wheels is then set based on the current steer angle of the car. Similarily, the rotation of the car is set based on the direction it is currently moving in.
+8. Finally, we reset the acceleration and input vectors.
+
+Finally, it is time to make our car react to input. Update the `on_input` function so it looks like this:
+
+```lua
+function on_input(self, action_id, action)
+	-- set the input vector to correspond to the key press
+	if action_id == left then
+		self.input.x = -1
+	elseif action_id == right then
+		self.input.x = 1
+	elseif action_id == accelerate then
+		self.input.y = 1
+	elseif action_id == brake then
+		self.input.y = -1
+	end
+end
+```
+
+This function is actually fairly simple, we just accept the input and set our input vector.
+
+Don't forget to save your edits.
 
 ## Input
 
@@ -215,12 +279,161 @@ Now the car is ready to roll. We have created it inside "car.collection" but it 
 
 ![Adding the car collection](images/car/start_adding_car_collection.png)
 
+Now, select <kbd>Project ▸ Build</kbd> and take your new car for a spin!
+You'll notice that you're now able to move to make the car move to your will. But something isn't right yet. When you leave the controls, the car does not stop, as it should have. It's time to add that in!
+
+## Drag to the rescue
+
+Whenever an object moves in the real world, the force of drag acts against the object causing it to slow down. This force almost falls proportional to the square velocity of the moving object, and hence can be described as `D = k * |V| * V` where `k` is a constant, `V` is the velocity and `|V|` its magnitude (speed). Let's add that.
+
+In the constants section at the top of the script, add the following constant
+
+```lua
+local drag = 1.1	        --the drag constant <1>
+```
+
+Then in the update function, just above this line add the following lines and save the file.
+
+```lua
+function update(self, dt)
+	...
+  -- Calculate new velocity based on current acceleration
+	self.velocity = self.velocity + self.acceleration * dt
+  ...
+end
+```
+
+```lua
+function update(self, dt)
+	...
+	-- Speed is the magnitude of the velocity
+	local speed = vmath.length_sqr(self.velocity)
+
+	-- Apply drag
+	self.acceleration = self.acceleration - speed * self.direction * drag
+
+	-- Stop if we are already slow enough
+	if speed < 0.5 then self.velocity = vmath.vector3(0) end
+  ...
+end
+```
+
+1. Declare the drag value as a constant.
+2. Calculate the speed with which we are moving.
+3. Apply the drag to the current acceleration based on the formula
+4. Stop if the car is already slow enough.
+
+## The complete car script
+
+After completing the above steps, your *car.script* should look like :
+
+```lua
+local turn_speed = 0.1                           				          	-- Slerp factor
+local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 degrees
+local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
+local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- Zero degrees
+local wheels_vector = vmath.vector3(0, 72, 0)         				      -- Vector from center of back and front wheel pairs
+
+local acceleration = 100 		                      									-- The acceleration of the car
+local drag = 1.1                                                  	-- the drag constant
+
+function init(self)
+	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
+	-- This changes the background color of the game. The vector4 contains color information
+	-- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
+	msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )
+
+	-- Acquire input focus so we can react to input
+	msg.post(".", "acquire_input_focus")
+
+	-- Some variables
+	self.steer_angle = vmath.quat()
+	self.direction = vmath.quat()
+
+	-- Velocity and acceleration are car relative (not rotated)
+	self.velocity = vmath.vector3()
+	self.acceleration = vmath.vector3()
+
+	-- Input vector. This is modified later in the on_input function
+	-- to store the input.
+	self.input = vmath.vector3()
+end
+
+function update(self, dt)
+	-- Set acceleration to the y input
+	self.acceleration.y = self.input.y * acceleration
+
+	-- Calculate the new positions of front and back wheels
+	local front_vel = vmath.rotate(self.steer_angle, self.velocity)
+	local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
+	local new_back_pos = vmath.rotate(self.direction, self.velocity)
+
+	-- Calculate the car's new direction
+	local new_dir = vmath.normalize(new_front_pos - new_back_pos)
+	self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)
+
+	-- Speed is the magnitude of the velocity
+	local speed = vmath.length(self.velocity)
+
+	-- Apply drag
+	self.acceleration = self.acceleration - speed * self.velocity * drag
+
+	-- Stop if we are already slow enough
+	if speed < 0.5 then self.velocity = vmath.vector3() end
+
+	-- Calculate new velocity based on current acceleration
+	self.velocity = self.velocity + self.acceleration * dt
+
+	-- Update position based on current velocity and direction
+	local pos = go.get_position()
+	pos = pos + vmath.rotate(self.direction, self.velocity)
+	go.set_position(pos)
+
+	-- Interpolate the wheels using vmath.slerp
+	if self.input.x > 0 then
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
+	elseif self.input.x < 0 then
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_left)
+	else
+		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, steer_angle_zero)
+	end
+
+	-- Update the wheel rotation
+	go.set_rotation(self.steer_angle, "left_wheel")
+	go.set_rotation(self.steer_angle, "right_wheel")
+
+	-- Set the game object's rotation to the direction
+	go.set_rotation(self.direction)
+
+	-- reset acceleration and input
+	self.acceleration = vmath.vector3()
+	self.input = vmath.vector3()
+end
+
+function on_input(self, action_id, action)
+	-- set the input vector to correspond to the key press
+	if action_id == hash("left") then
+		self.input.x = -1
+	elseif action_id == hash("right") then
+		self.input.x = 1
+	elseif action_id == hash("accelerate") then
+		self.input.y = 1
+	elseif action_id == hash("brake") then
+		self.input.y = -1
+	end
+end
+```
+
 ## Trying the final game
 
-Now, select <kbd>Project ▸ Build And Launch</kbd> from the main menu and take your new car for a spin!
+Now, select <kbd>Project ▸ Build</kbd> from the main menu and take your new car for a spin!
 
-If you want you can try to add more instances of *car.collection* to *main.collection*. Each instance is a clone of what's inside *car.collection* with the exact same behavior. Each one listens to input and reacts to the same messages.
+That concludes this introductory tutorial. Here is a set of challenges that you may wish to tackle on your own:
 
-That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](/learn) prepared to guide you, and if you get stuck, you are very welcome to the [forum](//forum.defold.com).
+1. Currently the car moves with the same acceleration in both forward and backward direction. You may wish to change this so that the car moves slower when it is moving backwards.
+2. Make some of the constants (like acceleration) `properties` so that they can be changed for different instances of the car.
+3. Add sounds to your car and make it go vroom! ([Hint](manuals/sound/))
+
+Now go ahead and dive into Defold. We have lots of [manuals and tutorials](/learn) prepared to guide you, and if you get stuck, you are very welcome to the [forum](//forum.defold.com).
 
 Happy Defolding!
