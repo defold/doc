@@ -86,6 +86,10 @@ The benefit of creating blueprint files becomes apparent when you have multiple 
 
 By changing the blueprint file, any instance that uses that file will immediately be updated.
 
+![GO changing blueprint](images/building_blocks/go_change_blueprint.png){srcset="images/building_blocks/go_change_blueprint@2x.png 2x"}
+
+Here the sprite image of the blueprint file is changed and immediately all instances using the file are updated:
+
 ![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
 
 ## Childing game objects
