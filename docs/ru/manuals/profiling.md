@@ -118,7 +118,7 @@ Instruments (macOS и iOS)
   ![instruments](images/profiling/instruments.png){srcset="images/profiling/instruments@2x.png 2x"}
 
 OpenGL profiler (macOS)
-: Часть пакета "Additional Tools for Xcode", который можно загрузить из Apple (выберите <kbd>Xcode ▸ Открыть инструмент разработчика ▸ Дополнительные инструменты разработчика ...</kbd> в меню Xcode).
+: Часть пакета "Additional Tools for Xcode", который можно загрузить из Apple (выберите <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd> в меню Xcode).
 
    Этот инструмент позволяет вам анализировать работающее Defold приложение и увидеть, как оно использует OpenGL. Он позволяет вам отслеживать вызовы функций OpenGL, устанавливать точки останова для функций OpenGL, исследовать ресурсы приложения (текстуры, программы, шейдеры и т. д.), просматривать содержимое буфера и проверять другие аспекты состояния OpenGL. 
 
