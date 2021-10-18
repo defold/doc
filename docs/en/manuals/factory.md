@@ -7,7 +7,7 @@ brief: This manual explains how to use factory components to dynamically spawn g
 
 Factory components are used to dynamically spawn game objects from a pool of objects into a running game.
 
-When you add a factory component to a game object you specify in the *Prototype* property what game object file the factory should use as a blueprint for all new game objects it creates.
+When you add a factory component to a game object you specify in the *Prototype* property what game object file the factory should use as a prototype (also known as "prefabs" or "blueprints" in other engines) for all new game objects it creates.
 
 ![Factory component](images/factory/factory_collection.png)
 

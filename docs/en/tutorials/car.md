@@ -78,7 +78,7 @@ Name the new collection file *car.collection* and open it. We're going to use th
 
 Also, it's possible to create a game object in place in a collection, as we did here. That results in a one-of-a-kind object. You can copy that object but each copy is separate---changing one does not affect the others. This means that if you create 10 copies of a game object and realize that you want to change them all, you will need to edit all 10 instances of the object. Therefore, in place created game objects should be used for objects that you do not intend to make a lot of copies of.
 
-However, a game object that is stored in a _file_ works as a blueprint. When you place instances of a file stored game object in a collection each object is placed _by reference_---it is a clone based on the blueprint. If you decide you need to change the blueprint, every single placed game object based on that blueprint is instantly updated.
+However, a game object that is stored in a _file_ works as a prototype (also known as "prefabs" or "blueprints" in other engines). When you place instances of a file stored game object in a collection each object is placed _by reference_---it is a clone based on the prototype. If you decide you need to change the prototype, every single placed game object based on that prototype is instantly updated.
 
 ![Add car gameobject](images/car/start_add_car_gameobject.png)
 

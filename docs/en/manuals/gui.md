@@ -17,7 +17,7 @@ GUI components are rendered independently of the game view. Because of this it i
 
 ## Creating a GUI component
 
-GUI components are created from a GUI scene blueprint file. To create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
+GUI components are created from a GUI scene prototype file (also known as "prefabs" or "blueprints" in other engines). To create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
 
 ![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
 
