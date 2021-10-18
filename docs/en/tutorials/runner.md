@@ -32,7 +32,7 @@ So let's begin. We hope you will have a lot of fun going through this tutorial a
 <a name="part-1"></a>
 ## STEP 1 - Installation and setup
 
-The first step is to [download the following file](https://github.com/defold/sample-runner/archive/refs/heads/main.zip). It is a zip package with the full project and all the assets that you need to create the tutorial game.
+The first step is to [download the following file](images/runner/assets_runner.zip). It is a zip package with all the assets that you need to create the tutorial game, plus some more to extend it.
 
 Now, if you haven't already downloaded and installed the Defold editor, it's time to do that:
 
