@@ -486,10 +486,6 @@
                         "name": "Installing Defold"
                     },
                     {
-                        "path": "/manuals/editor",
-                        "name": "The editor"
-                    },
-                    {
                         "path": "/manuals/glossary",
                         "name": "Glossary"
                     },
@@ -517,6 +513,27 @@
                     {
                         "path": "/manuals/libraries",
                         "name": "Sharing projects"
+                    }
+                ]
+            },
+            {
+                "name": "Editor",
+                "items": [
+                    {
+                        "path": "/manuals/editor",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/editor-preferences",
+                        "name": "Preferences"
+                    },
+                    {
+                        "path": "/manuals/editor-keyboard-shortcuts",
+                        "name": "Keyboard shortcuts"
+                    },
+                    {
+                        "path": "/manuals/editor-scripts",
+                        "name": "Editor scripts"
                     }
                 ]
             },
@@ -1183,15 +1200,6 @@
                     {
                         "path": "/manuals/extensions-manifest-merge-tool",
                         "name": "Manifest Merging"
-                    }
-                ]
-            },
-            {
-                "name": "Editor extensions",
-                "items": [
-                    {
-                        "path": "/manuals/editor-scripts",
-                        "name": "Editor scripts"
                     }
                 ]
             }
