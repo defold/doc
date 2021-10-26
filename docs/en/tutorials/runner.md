@@ -29,7 +29,6 @@ So let's begin. We hope you will have a lot of fun going through this tutorial a
 
 > Download the assets for this tutorial [here](images/runner/assets_runner.zip).
 
-<a name="part-1"></a>
 ## STEP 1 - Installation and setup
 
 The first step is to [download the following file](images/runner/assets_runner.zip). It is a zip package with all the assets that you need to create the tutorial game, plus some more to extend it.
@@ -39,6 +38,10 @@ Now, if you haven't already downloaded and installed the Defold editor, it's tim
 :[install](../shared/install.md)
 
 When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template.
+
+::: sidenote
+This tutorial uses Spine features, which has been moved to its own extension post Defold 1.2.188. If you are on a newer version, please add the [Spine Extension](https://github.com/defold/extension-spine) to the dependencies section of `game.project`.
+:::
 
 ## The editor
 
@@ -92,7 +95,6 @@ Before we begin, let's set up several settings for our projects. Open the `game.
 If your Display's refresh rate is greater than 60 hz then you might want to disable `vsync` and set a frame cap to a value like 60.
 :::
 
-<a name="part-2"></span></a>
 ## STEP 2 - Creating the ground
 
 Let's take the first baby steps and create an arena for our character, or rather a piece of scrolling ground. We do this in a few steps.
@@ -148,7 +150,6 @@ Collections
 
 For the time being these description probably suffices. However, a much more comprehensive dive through these things can be found in the [Building blocks manual](/manuals/building-blocks). It is a good idea to visit that manual at a later stage to get a deeper understanding on how things work in Defold.
 
-<a name="part-3"></span></a>
 ## STEP 3 - Making the ground move
 
 Now that we have all ground pieces in place, it is rather simple to get them moving. The idea is this: move the pieces right-to-left and when a piece reach the leftmost edge outside of the screen, move it to the rightmost position. To move all these game objects requires a Lua script so let's create one:
@@ -397,7 +398,6 @@ The last thing we need for the hero to be functional is input. The script above 
 
 ![Input bindings](images/runner/2/input_bindings.png)
 
-<a name="part-5"></a>
 ## STEP 5 - Refactoring the level
 
 Now that we have a hero character set up with collision and all, we need to also add collision to the ground so the frog has got something to collide with (or run on). We'll do that in a second, but first, we should do a little refactoring and put all level stuff in a separate collection and clean up the file structure a bit:
@@ -449,7 +449,7 @@ In the level controller script's `init()` function, it sends a message to the gr
 msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
 ```
 
-The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"controller"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the "set_speed" message so we have to add an `on_message()` function to *ground.script* and add logic for that.
+The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"controller"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the `set_speed` message so we have to add an `on_message()` function to *ground.script* and add logic for that.
 
 1. Open *ground.script*.
 2. Add the following code and save the file:
@@ -467,7 +467,6 @@ end
 
 ![Add ground code](images/runner/insert_ground_code.png)
 
-<a name="part-6"></span></a>
 ## STEP 6 - Ground physics and platforms
 
 At this point we should add physics collision for the ground:
@@ -588,7 +587,6 @@ Wow, this is starting to turn into something (almost) playable...
 
 ![Running the game](images/runner/2/run_game.png)
 
-<a name="part-7"></span></a>
 ## STEP 7 - Animation and death
 
 The first thing we're gonna do is to bring life to the frog. Right now the poor thing is stuck in a run-loop and does not respond well to jumps or anything. The spine file that we added from the asset package actually contains a set of animations for just that.
@@ -702,7 +700,6 @@ That's all that's needed to add jump and fall animations to the hero. If you run
     end
     ```
 
-<a name="part-8"></span></a>
 ## STEP 8 - Resetting the level
 
 If you try the game now it quickly becomes apparent that the reset mechanism doesn't work. The hero reset is fine, but you can easily reset into a situation where you will instantly fall onto a platform edge and die again. What we want to do is to properly reset the whole level on death. Since the level is just a series of spawned platforms, we just need to track all spawned platforms and then delete them at reset:
@@ -799,7 +796,6 @@ And now the main restart-die loop is in place!
 
 Next up - something to live for: coins!
 
-<a name="part-9"></span></a>
 ## STEP 9 - Coins to collect
 
 The idea is to put coins in the level for the player to collect. The first questions to ask is how to put them into the level. We can, for instance, develop a spawning scheme that is somehow in tune with the platform spawning algorithm. However, we chose a much easier approach in the end and just have the platforms themselves spawn coins:
