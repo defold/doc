@@ -50,7 +50,7 @@ Defold needs you to initialize the grid. To do that, select the "layer1" layer a
 
 Open *main.collection*. <kbd>Right click</kbd> the root node in the *Outline* and select <kbd>Add Game Object</kbd>. Set the *Id* property of the new game object to "game".
 
-<kbd>Right click</kbd> the game object and select <kbd>Add Component File</kbd>. Select the file *grid.tilemap*.
+<kbd>Right click</kbd> the game object and select <kbd>Add Component File</kbd>. Select the file *grid.tilemap*. Set the *Id* property to "tilemap".
 
 <kbd>Right click</kbd> the game object and select <kbd>Add Component ▸ Label</kbd>. Set the *Id* property of the label to "done" and its *Text* property to "Well done". Move the label to the center of the tilemap.
 
