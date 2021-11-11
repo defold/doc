@@ -66,8 +66,11 @@ Legacy functions for reading and writing game object properties also exist. They
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *size*     | The non scaled size of the sprite---its size as taken from the source atlas. | `vector3` | `get`{.mark} |
-| *texture0* | The texture path hash of the sprite. | `hash` | `get`{.mark}|
+| *image* | The texture path hash of the sprite. | `hash` | `get`{.mark}|
 | *scale* | Non uniform scale of the sprite. | `vector3` | `get+set`{.mark}|
+| *material* | The material used by the sprite. | `hash` | `get+set`{.mark}|
+| *cursor* | Position (between 0--1) of playback cursor. | `number` | `get+set`{.mark}|
+| *playback_rate* | The framerate of the flipbook animation. | `number` | `get+set`{.mark}|
 
 *COLLISION OBJECT COMPONENT PROPERTIES*
 
@@ -96,6 +99,7 @@ Legacy functions for reading and writing game object properties also exist. They
 | *texture0* | The texture path hash of the model. | `hash` | `get`{.mark}|
 | *cursor*  | Position (between 0--1) of playback cursor. | `number`   | `get+set`{.mark} |
 | *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
+| *material* | The material used by the model. | `hash` | `get+set`{.mark}|
 
 *LABEL COMPONENT PROPERTIES*
 
@@ -106,6 +110,9 @@ Legacy functions for reading and writing game object properties also exist. They
 | *outline* | The outline color of the label. | `vector4` | `get+set`{.mark} |
 | *shadow* | The shadow color of the label. | `vector4` | `get+set`{.mark} |
 | *size* | The size of the label. The size will constrain the text if line break is enabled. | `vector3` | `get+set`{.mark} |
+| *material* | The material used by the label. | `hash` | `get+set`{.mark}|
+| *font* | The font used by the label. | `hash` | `get+set`{.mark}|
+
 
 ## GUI node properties
 
