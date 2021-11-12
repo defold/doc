@@ -27,10 +27,11 @@ Throughout the tutorial, detailed descriptions on concepts and how to do certain
 
 So let's begin. We hope you will have a lot of fun going through this tutorial and that it helps you getting going with Defold.
 
-<a name="part-1"></a>
+> Download the assets for this tutorial [here](images/runner/assets_runner.zip).
+
 ## STEP 1 - Installation and setup
 
-The first step is to [download the following file](https://github.com/defold/sample-runner/archive/refs/heads/main.zip). It is a zip package with the full project and all the assets that you need to create the tutorial game.
+The first step is to [download the following file](images/runner/assets_runner.zip). It is a zip package with all the assets that you need to create the tutorial game, plus some more to extend it.
 
 Now, if you haven't already downloaded and installed the Defold editor, it's time to do that:
 
@@ -38,13 +39,17 @@ Now, if you haven't already downloaded and installed the Defold editor, it's tim
 
 When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template.
 
+::: sidenote
+This tutorial uses Spine features, which has been moved to its own extension post Defold 1.2.188. If you are on a newer version, please add the [Spine Extension](https://github.com/defold/extension-spine) to the dependencies section of `game.project`.
+:::
+
 ## The editor
 
 The first time you start the editor, the editor starts blank, without any project open so choose <kbd>Open Project</kbd> from the menu and select your newly created project. You will also be prompted to create a "branch" for the project.
 
 Now, in the *Assets pane* you will see all files that are part of the project. If you double-click the file "main/main.collection" the file will open up in the editor view in the center:
 
-![Editor overview](images/runner/1/editor_overview.png)
+![Editor overview](images/runner/1/editor2_overview.png)
 
 The editor consists of the following main areas:
 
@@ -68,19 +73,11 @@ Console
 
 ## Running the game
 
-The "Empty" project template actually isn't completely empty. As you've already seen, it contains one game object with a simple image. Select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
+The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
 
 ![Build and launch](images/runner/1/build_and_launch.png)
 
-It's perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
-
-First of all, let's clean the *main.collection* file of the one game object it contains.
-
-* Double click the file *main.collection* to open it in the editor.
-* Select (click) "logo" in the *Outline* view to the right.
-* Right-click and select <kbd>Delete</kbd> from the pop up menu.
-* Save the file. Select <kbd>File ▸ Save</kbd> in the main menu.
-That's it!
+A black screen is perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 
 ::: sidenote
 The Defold editor works on files. By double-clicking a file in the *Assets pane* you open it in a suitable editor. You can then work with the contents of the file.
@@ -90,11 +87,14 @@ When you are done editing a file you have to save it. Select <kbd>File ▸ Save<
 ![File with unsaved changes](images/runner/1/file_changed.png)
 :::
 
-![Delete game object](images/runner/1/delete_go.png)
+## Setting up the project
 
-If you run the game again, the application window will be totally black.
+Before we begin, let's set up several settings for our projects. Open the `game.project` asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively.
 
-<a name="part-2"></span></a>
+::: sidenote
+If your Display's refresh rate is greater than 60 hz then you might want to disable `vsync` and set a frame cap to a value like 60.
+:::
+
 ## STEP 2 - Creating the ground
 
 Let's take the first baby steps and create an arena for our character, or rather a piece of scrolling ground. We do this in a few steps.
@@ -146,11 +146,10 @@ Game objects
 : These are things that exist in the running game. Each game object has a location in 3D space, a rotation and scaling. It doesn't necessarily have to be visible. A game object holds any number of _components_ that adds abilities like graphics (sprites, tilemaps, models, spine models and particle effects), sounds, physics, factories (for spawning) and more. Lua _script components_ can also be added to give a game object behaviors. Each game object that exist in your games has an *id* that you need in order to communicate with it, through message passing.
 
 Collections
-: Collections do not exist by themselves in a running game but are used to enable static naming of game object and at the same time allowing multiple instances of the same game object. In practice, collections are used as containers for game objects and other collections. You can use collections much like "prefabs" or "blueprints" of complex hiearchies of game objects and collections. At startup, the engine loads a main collection and breathes life to anything you have put inside it. By default this is the *main.collection* file in the *main* folder of your project, but you can change that in the project settings.
+: Collections do not exist by themselves in a running game but are used to enable static naming of game object and at the same time allowing multiple instances of the same game object. In practice, collections are used as containers for game objects and other collections. You can use collections much like prototypes (also known as "prefabs" or "blueprints" in other engines) of complex hiearchies of game objects and collections. At startup, the engine loads a main collection and breathes life to anything you have put inside it. By default this is the *main.collection* file in the *main* folder of your project, but you can change that in the project settings.
 
 For the time being these description probably suffices. However, a much more comprehensive dive through these things can be found in the [Building blocks manual](/manuals/building-blocks). It is a good idea to visit that manual at a later stage to get a deeper understanding on how things work in Defold.
 
-<a name="part-3"></span></a>
 ## STEP 3 - Making the ground move
 
 Now that we have all ground pieces in place, it is rather simple to get them moving. The idea is this: move the pieces right-to-left and when a piece reach the leftmost edge outside of the screen, move it to the rightmost position. To move all these game objects requires a Lua script so let's create one:
@@ -187,12 +186,14 @@ end
 6. Decrease the current X-position with the set speed. Multiply with `dt` to get framerate independent speed in pixels/s.
 7. Update the object's position with the new speed.
 
-![Ground script](images/runner/1/ground_script.png)
-
 ::: sidenote
 Defold is a fast engine core that manages your data and game objects. Any logic or behavior that you need for your game is created in the Lua language. Lua is a fast and light-weight programming language that is great for writing game logic. There are great resources available to learn the language, like the book http://www.lua.org/pil/[Programming in Lua] and the official http://www.lua.org/manual/5.3/[Lua reference manual].
 
 Defold adds a set of APIs on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
+:::
+
+::: sidenote
+You can toggle the Assets Pane, Console and Outline sections of the editor using the <kbd>F6</kbd>, <kbd>F7</kbd> and <kbd>F8</kbd> keys respectively
 :::
 
 Now that we have a script file, we should add a reference to it to a component in a game object. That way, the script will be executed as part of the game object lifecycle. We do this by creating a new game object in *ground.collection* and add a *Script* component to the object that refers to the Lua script file we just created:
@@ -271,12 +272,12 @@ It is important that we specify what the collision object should interact with:
 1. Set the *Group* property to a new collision group called "hero".
 2. Setting the *Mask* property to another group "geometry" that this collision object should register collisions with. Note that the "geometry" group does not yet exist, but we will soon add collision objects belonging to it.
 
-![Hero game object](images/runner/2/hero_game_object.png)
-
 Finally, create a new *hero.script* file and add it to the game object.
 
 1. Right-click the *hero* folder in the *Assets pane*  and select <kbd>New ▸ Script File</kbd>. Name the new file *hero.script*.
 2. Open the new file, then copy and paste the following code into the script file, then save it. (The code is pretty straightforward apart from the solver that separates the hero collision shape from what it collides with. That is done by the `handle_geometry_contact()` function.)
+
+![Hero game object](images/runner/2/hero_game_object.png)
 
 ::: sidenote
 The reason we are handling the collision ourselves is that if we instead set the type on the frog's collision object to dynamic, the engine will peform a Newtonian simulation of the bodies involved. For a game like this, such a simulation is far from optimal so instead of fighting the physics engine with various forces, we take full control.
@@ -384,7 +385,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-3. Add the script as a *Script* component to the hero object (right-click the root of *hero.go* in the *Outline* and select <kbd>Add Component from File</kbd>, then select the *hero.script* file).
+1. Add the script as a *Script* component to the hero object (right-click the root of *hero.go* in the *Outline* and select <kbd>Add Component from File</kbd>, then select the *hero.script* file).
 
 If you want you can now try and temporarily add the hero frog to the main collection and run the game to see it fall through the world.
 
@@ -397,7 +398,6 @@ The last thing we need for the hero to be functional is input. The script above 
 
 ![Input bindings](images/runner/2/input_bindings.png)
 
-<a name="part-5"></a>
 ## STEP 5 - Refactoring the level
 
 Now that we have a hero character set up with collision and all, we need to also add collision to the ground so the frog has got something to collide with (or run on). We'll do that in a second, but first, we should do a little refactoring and put all level stuff in a separate collection and clean up the file structure a bit:
@@ -449,7 +449,7 @@ In the level controller script's `init()` function, it sends a message to the gr
 msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
 ```
 
-The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"controller"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the "set_speed" message so we have to add an `on_message()` function to *ground.script* and add logic for that.
+The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"controller"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the `set_speed` message so we have to add an `on_message()` function to *ground.script* and add logic for that.
 
 1. Open *ground.script*.
 2. Add the following code and save the file:
@@ -467,7 +467,6 @@ end
 
 ![Add ground code](images/runner/insert_ground_code.png)
 
-<a name="part-6"></span></a>
 ## STEP 6 - Ground physics and platforms
 
 At this point we should add physics collision for the ground:
@@ -588,7 +587,6 @@ Wow, this is starting to turn into something (almost) playable...
 
 ![Running the game](images/runner/2/run_game.png)
 
-<a name="part-7"></span></a>
 ## STEP 7 - Animation and death
 
 The first thing we're gonna do is to bring life to the frog. Right now the poor thing is stuck in a run-loop and does not respond well to jumps or anything. The spine file that we added from the asset package actually contains a set of animations for just that.
@@ -702,7 +700,6 @@ That's all that's needed to add jump and fall animations to the hero. If you run
     end
     ```
 
-<a name="part-8"></span></a>
 ## STEP 8 - Resetting the level
 
 If you try the game now it quickly becomes apparent that the reset mechanism doesn't work. The hero reset is fine, but you can easily reset into a situation where you will instantly fall onto a platform edge and die again. What we want to do is to properly reset the whole level on death. Since the level is just a series of spawned platforms, we just need to track all spawned platforms and then delete them at reset:
@@ -799,7 +796,6 @@ And now the main restart-die loop is in place!
 
 Next up - something to live for: coins!
 
-<a name="part-9"></span></a>
 ## STEP 9 - Coins to collect
 
 The idea is to put coins in the level for the player to collect. The first questions to ask is how to put them into the level. We can, for instance, develop a spawning scheme that is somehow in tune with the platform spawning algorithm. However, we chose a much easier approach in the end and just have the platforms themselves spawn coins:
@@ -934,6 +930,8 @@ And now we have a simple, but functional game! If you make it this far you might
 1. Scoring and life counters
 2. Particle effects for the pickups and death
 3. Nice background imagery
+
+> Download the completed version of the project [here](images/runner/sample-runner.zip)
 
 That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](//www.defold.com/learn) prepared to guide you, and if you get stuck, your're welcome to the [forum](//forum.defold.com).
 

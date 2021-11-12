@@ -38,7 +38,7 @@ A physics engine stores the states of the physics objects along with their shape
 - A *dynamic* object is influenced by forces and torques which are transformed into velocities during the simulation.
 - A *kinematic* object is controlled by the application logic, but still affects other dynamic objects.
 
-In a game like this, we are looking for something that resembles physical real-world behaviour, but having responsive controls and balanced mechanics is far more important. A jump that feels good does not need to be physically accurate or act under real-world gravity. [This](http://hypertextbook.com/facts/2007/mariogravity.shtml) analysis shows however that the gravity in Mario games gets closer to a gravity of 9.8 m/s^2^ for each version. :-)
+In a game like this, we are looking for something that resembles physical real-world behaviour, but having responsive controls and balanced mechanics is far more important. A jump that feels good does not need to be physically accurate or act under real-world gravity. [This](http://hypertextbook.com/facts/2007/mariogravity.shtml) analysis shows however that the gravity in Mario games gets closer to a gravity of 9.8 m/s<sup>2</sup> for each version. :-)
 
 It's important that we have full control of what's going on so we can design and tweak the mechanics to achieve the intended experience. This is why we choose to model the player character by a kinematic object. Then we can move the player character around as we please, without having to deal with physical forces. This means that we will have to solve separation between the character and level geometry ourselves (more about this later), but that's a drawback we are willing to accept. We will represent the player character by a box shape in the physics world.
 
@@ -50,17 +50,13 @@ The movement will be acceleration-based, to give a sense of weight to the charac
 
 ![Approximative velocity integration](images/platformer/integration.png)
 
-The two vertical lines marks the beginning and end of the frame. The height of the lines is the velocity the player character has at these two points in time. Let us call these velocities `v`~0~ and `v`~1~ . `v`~1~ is given by applying the acceleration (the slope of the curve) for the time-step `dt`:
+The two vertical lines marks the beginning and end of the frame. The height of the lines is the velocity the player character has at these two points in time. Let us call these velocities `v0` and `v1` . `v1` is given by applying the acceleration (the slope of the curve) for the time-step `dt`:
 
-$$
-v1 = v0 + acceleration \times dt
-$$
+![Equation of velocity](images/platformer/equationofvelocity.png)
 
 The orange area is the translation we are supposed to apply to the player character during the current frame. Geometrically, we can approximate the area as:
 
-$$
-translation = \frac{(v0 + v1) \times dt}{2}
-$$
+![Equation of translation](images/platformer/equationoftranslation.png)
 
 This is how we integrate the acceleration and velocity to move the character in the update-loop:
 
@@ -126,6 +122,7 @@ local comp = (distance - proj) * normal -- <2>
 self.correction = self.correction + comp -- <3>
 go.set_position(go.get_position() + comp) -- <4>
 ```
+
 1. Project the correction vector onto the contact normal (the correction vector is the 0-vector for the first contact point)
 2. Calculate the compensation we need to make for this contact point
 3. Add it to the correction vector
@@ -257,7 +254,7 @@ local function play_animation(self, anim)
     -- only play animations which are not already playing
     if self.anim ~= anim then
         -- tell the sprite to play the animation
-        msg.post("#sprite", "play_animation", {id = anim})
+        sprite.play_flipbook("#sprite", anim)
         -- remember which animation is playing
         self.anim = anim
     end

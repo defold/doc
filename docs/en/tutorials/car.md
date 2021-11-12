@@ -78,7 +78,7 @@ Name the new collection file *car.collection* and open it. We're going to use th
 
 Also, it's possible to create a game object in place in a collection, as we did here. That results in a one-of-a-kind object. You can copy that object but each copy is separate---changing one does not affect the others. This means that if you create 10 copies of a game object and realize that you want to change them all, you will need to edit all 10 instances of the object. Therefore, in place created game objects should be used for objects that you do not intend to make a lot of copies of.
 
-However, a game object that is stored in a _file_ works as a blueprint. When you place instances of a file stored game object in a collection each object is placed _by reference_---it is a clone based on the blueprint. If you decide you need to change the blueprint, every single placed game object based on that blueprint is instantly updated.
+However, a game object that is stored in a _file_ works as a prototype (also known as "prefabs" or "blueprints" in other engines). When you place instances of a file stored game object in a collection each object is placed _by reference_---it is a clone based on the prototype. If you decide you need to change the prototype, every single placed game object based on that prototype is instantly updated.
 
 ![Add car gameobject](images/car/start_add_car_gameobject.png)
 
@@ -136,13 +136,13 @@ Next, add the following lines of code before the init function start starts.
 
 ```lua
 -- Constants
-local turn_speed = 0.1                           									 -- Slerp factor
+local turn_speed = 0.1                           									  -- Slerp factor
 local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 degrees
 local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)									 -- Zero degrees
+local steer_angle_zero = vmath.quat_rotation_z(0)									  -- Zero degrees
 local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- Vector from center of back and front wheel pairs
 
-local acceleration = 50 																						-- The acceleration of the car
+local acceleration = 100 																						-- The acceleration of the car
 
 -- prehash the inputs
 local left = hash("left")
@@ -328,16 +328,14 @@ end
 After completing the above steps, your *car.script* should look like :
 
 ```lua
-local turn_speed = 0.1                           					-- Slerp factor
+local turn_speed = 0.1                           				          	-- Slerp factor
 local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 degrees
 local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)					-- Zero degrees
-local wheels_vector = vmath.vector3(0, 72, 0)         				-- Vector from center of back and front wheel pairs
+local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- Zero degrees
+local wheels_vector = vmath.vector3(0, 72, 0)         				      -- Vector from center of back and front wheel pairs
 
-local acceleration = 100 											-- The acceleration of the car
-local drag = 1.1	-- the drag constant
-
-local up = vmath.vector3(0, 1, 0)
+local acceleration = 100 		                      									-- The acceleration of the car
+local drag = 1.1                                                  	-- the drag constant
 
 function init(self)
 	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.

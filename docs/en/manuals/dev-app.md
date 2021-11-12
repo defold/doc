@@ -9,36 +9,21 @@ The development app allows you to push content to it over wifi. This will greatl
 
 ## Installing a development app
 
-Any application that is bundled in Debug mode will be able to act as a development app. On Android a stand-alone version of the Defold engine is available and on iOS you need to manually bundle and sign the application using your own signing identity and provisioning profile.
+Any iOS or Android application that is bundled in Debug mode will be able to act as a development app. In fact, this is the recommended solution as the development app will have the correct project settings and uses the same [native extensions](/manuals/extensions/) as the project you are working on. There is also a [stand-alone Defold project](https://github.com/defold/dev-app) (without native extensions) designed specifically to work as a development app.
 
-### Installing on iOS
+![launch](images/dev-app/launch.png)
 
-Any iOS application that has been bundled as a Debug variant will be able to act as a development app. It is recommended that you bundle a Debug variant of the application that you are currently working on. This will ensure that the dev app has the correct project settings and uses the same [native extensions](/manuals/extensions/). Follow the [instructions in the iOS manual](/manuals/ios/#creating-an-ios-application-bundle) to bundle for iOS. Make sure to select Debug as variant!
-
-### Installing on Android
-
-The same recommendation as for iOS to bundle a Debug variant works for Android. In addition to this option there's also a stand-alone version of the Defold engine available as a ready made *.apk* file that you can install on a device and use for iterative development wirelessly.
 ::: important
 The stand-alone version will only work for projects without any [native extensions](/manuals/extensions/). If your project contains native extensions you must bundle a Debug variant of your project to ensure that the dev app contains the native extensions that you intend to use.
 :::
-* Visit http://d.defold.com where Defold downloads can be found.
-* Click on the version you want to download to expand a list of available engine builds.
-* Select *engine/armv7-android/dmengine.apk* for a debug enabled build for the Android platform (Armv7).
 
-![Download dmengine](images/dev-app/download_dmengine.png)
+### Installing on iOS
 
-Download the file, then issue the following `adb` command from the location of the *.apk*:
+Follow the [instructions in the iOS manual](/manuals/ios/#creating-an-ios-application-bundle) to bundle for iOS. Make sure to select Debug as variant!
 
-```sh
-$ adb install dmengine.apk
-4445 KB/s (8706017 bytes in 1.912s)
-    pkg: /data/local/tmp/dmengine.apk
-Success
-```
+### Installing on Android
 
-The development "dmengine" app is now available on the device.
-
-![dmengine on the device](images/dev-app/dmengine_on_device.png)
+Follow the [instructions in the Android manual](https://defold.com/manuals/android/#creating-an-android-application-bundle) to bundle for Android.
 
 ## Launching your game
 
@@ -49,8 +34,6 @@ To launch your game on your device, the dev app and editor must be able to conne
 3. Select your device under <kbd>Project ▸ Targets</kbd> in the editor.
 4. Select <kbd>Project ▸ Build</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
 5. While the game is running, you can use [hot reloading](/manuals/hot-reload/) as usual.
-
-![launch](images/dev-app/launch.png)
 
 ### Connecting to an iOS device using USB on Windows
 
@@ -80,7 +63,7 @@ Unable to download application
 : Make sure the your device UDID is included in the mobile provisioning that was used for signing the app.
 
 Your device does not appear in the Targets menu
-: Make sure that your device is connected to the same wifi network as your computer.
+: Make sure that your device is connected to the same wifi network as your computer. Make sure the dev app is built in Debug mode.
 
 The game does not start with a message about mis-matching versions
 : This happens when you have upgraded the editor to the latest version. You need to build and install a new version.
