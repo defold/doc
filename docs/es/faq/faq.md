@@ -56,7 +56,8 @@ A: Las siguientes plataformas tienen soporte para el editor/herramientas y el ru
 
   | Sistema                    | Soporte              |
   | -------------------------- | -------------------- |
-  | macOS 10.7 Lion            | Editor y runtime     |
+  | macOS 10.12 Sierra         | Editor               |
+  | macOS 10.7 Lion            | Runtime              |
   | Windows Vista              | Editor y runtime     |
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |
@@ -159,7 +160,7 @@ A: Probablemente sea que trataste de añadir un hijo en el archivo de objeto de 
 
 #### Q: ¿Por quéno puedo transmitir mensajes a todos los hijos de un objeto de juego?
 
-A: Las relaciones padre-hijo no expresan nada más que las relaciones de transformación scene-graph y no deben ser confundidas por agregados de orientación de objeto. Si intentas enfocarte en los datos de tu juego y como transformarlo de la mejor forma posible, encontrarás menor necesidad de enviar mensajes con datos de estado a demasiados objetos al mismo tiempo. En los casos donde necesites jerarquía de datos, éstos son construidos y mantenidos fácilmente en Lua. 
+A: Las relaciones padre-hijo no expresan nada más que las relaciones de transformación scene-graph y no deben ser confundidas por agregados de orientación de objeto. Si intentas enfocarte en los datos de tu juego y como transformarlo de la mejor forma posible, encontrarás menor necesidad de enviar mensajes con datos de estado a demasiados objetos al mismo tiempo. En los casos donde necesites jerarquía de datos, éstos son construidos y mantenidos fácilmente en Lua.
 
 
 #### Q: ¿Por qué experimento artefactos visuales alrededor de los bordes de mis sprites?
