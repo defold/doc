@@ -55,4 +55,28 @@ It is possible to create a special version of an HTML5 application bundle specif
 
 ## Bundling from the command line
 
+The editor uses our command line tool [Bob](/manuals/bob/) to bundle the application.
+
 While doing day to day development of your application it is likely that you build and bundle from within the Defold editor. In other circumstances you may wish to automatically generate application bundles, for instance batch building for all targets when releasing a new version or when creating nightly builds of the latest version of the game, perhaps in a CI environment. Building and bundling of an application can be done outside the normal editor workflow using the [Bob command line tool](/manuals/bob/).
+
+## The bundle layout
+
+The logical bundle layout is structured like this:
+
+![](images/bundling/bundle_schematic_01.png)
+
+A bundle is output into a folder. Depending on platform, that folder may also be zip archived into an `.apk` or `.ipa`.
+The contents of the folder depends on the platform.
+
+Apart from the executable files, our bundling process also collects the required assets for the platform (e.g. the .xml resource files for Android).
+
+Using the [bundle_resources](https://defold.com/manuals/project-settings/#bundle-resources) setting, you can configure assets that should be placed within the bundle as-is.
+You can control this per platform.
+
+The game assets are located in the `game.arcd` file, and they are individually compressed using LZ4 compression.
+Using the [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) setting, you can configure assets that should be placed (with compression) within the game.arcd.
+These assets can be accessed via the [sys.load_resource()](https://defold.com/ref/sys/#sys.load_resource) function.
+
+
+
+

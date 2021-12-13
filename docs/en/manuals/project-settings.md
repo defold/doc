@@ -37,17 +37,24 @@ Enables compression of archives when bundling. Note that this currently applies 
 A list of URLs to the project *Library URL*s. Refer to the [Libraries manual](/manuals/libraries/) for more information.
 
 #### Custom Resources
+`custom_resources`
 A comma separated list of resources that will be included in the project. If directories are specified, all files and directories in that directory are recursively included. The resources can be loaded using [`sys.load_resource()`](/ref/sys/#sys.load_resource).
 
 #### Bundle Resources
+`bundle_resources`
 A comma separated list of directories containing resource files and folders that should be copied as-is into the resulting package when bundling. The directories must be specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
 
-  Supported platforms are `ios`, `android`, `osx`, `win32`, `linux`, `web`.
+Supported platforms are `ios`, `android`, `osx`, `win32`, `linux`, `web`, `switch`
 
-  A subfolder named `common` is also allowed, containing resource files common for all platforms.
+A subfolder named `common` is also allowed, containing resource files common for all platforms.
+
+Access to files within the the bundle resources is platform specific. The Lua module `io` is one way to do it. Care must be taken to have the correct file paths for the platform.
+(e.g. prefix using "file:///android_asset/" on Android)
 
 #### Bundle Exclude Resources
+`bundle_exclude_resources`
 A comma separated list of resources that should not be included in the bundle.
+That is, they're removed from the result of the collection of the `bundle_resources` step.
 
 ---
 
@@ -114,16 +121,16 @@ Check if the app should dynamically switch between portrait and landscape on dev
 ### Render
 
 #### Clear Color Red
-Clear color red channel, used by the render script and when the window is created. Added in 1.2.167.
+Clear color red channel, used by the render script and when the window is created.
 
 #### Clear Color Green
-Clear color green channel, used by the render script and when the window is created. Added in 1.2.167.
+Clear color green channel, used by the render script and when the window is created.
 
 #### Clear Color Blue
-Clear color blue channel, used by the render script and when the window is created. Added in 1.2.167.
+Clear color blue channel, used by the render script and when the window is created.
 
 #### Clear Color ALpha
-Clear color alpha channel, used by the render script and when the window is created. Added in 1.2.167.
+Clear color alpha channel, used by the render script and when the window is created.
 
 ---
 
