@@ -45,7 +45,8 @@ R: As seguintes plataformas são suportadas para o editor/ferramentas e o tempo 
 
   | Sistema                    | Suportado            |
   | -------------------------- | -------------------- |
-  | macOS 10.7 Lion            | Editor e runtime     |
+  | macOS 10.12 Sierra         | Editor               |
+  | macOS 10.7 Lion            | Runtime              |
   | Windows Vista              | Editor e runtime     |
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |
@@ -178,4 +179,4 @@ R: Relações pai-filho espressam nada mais do que relações de transformação
 
 #### P: Por que estou sofrendo com artefatos visuais ao redor das bordas dos meus sprites?
 
-R: Isso é um artefato visual chamado "edge bleeding" onde você encontra os pixels de borda 
+R: Isso é um artefato visual chamado "edge bleeding" onde você encontra os pixels de borda

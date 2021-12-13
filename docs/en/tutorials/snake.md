@@ -226,6 +226,8 @@ A proper solution to this problem is to store the input in a queue and pull entr
 
 ```lua
 function init(self)
+    msg.post(".", "acquire_input_focus")
+
     self.segments = {
         {x = 7, y = 24},
         {x = 8, y = 24},
