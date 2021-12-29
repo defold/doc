@@ -37,17 +37,24 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 项目的 *Library URL* 列表. 详情请见 [Libraries 教程](/manuals/libraries/).
 
 #### Custom Resources
+`custom_resources`
 项目中包含的以逗号分隔的资源列表. 如指定的是目录, 则目录下所有文件及其子目录都会包含进去. 这些资源可以通过 [`sys.load_resource()`](/ref/sys/#sys.load_resource) 载入.
 
 #### Bundle Resources
+`bundle_resources`
 需要根据平台单独打包的以逗号分隔的资源目录列表. 目录必须是以项目根目录开始的绝对路径, 比如像 `/res`. 资源目录里要包含 `platform`, 或者 `architecure-platform` 的子目录.
 
-  支持的 platform 有 `ios`, `android`, `osx`, `win32`, `linux`, `web`.
+支持的 platform 有 `ios`, `android`, `osx`, `win32`, `linux`, `web`, `switch`.
 
-  允许名叫 `common` 的子目录, 用以容纳平台间共享的资源.
+支持包含名为 `common` 的文件夹, 可以在其中加入各平台公用的资源文件.
+
+不同平台访问 bundle 资源的方法不一样. 使用 Lua 的 `io` 模块是可行的. 但是要特别注意写对各平台的文件路径.
+(举例: 在安卓平台上要这么写 "file:///android_asset/")
 
 #### Bundle Exclude Resources
+`bundle_exclude_resources`
 项目中排除的以逗号分隔的资源列表.
+也就是说, 这些资源会被从 `bundle_resources` 设置的基础上被剔除.
 
 ---
 
@@ -114,16 +121,16 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 ### Render
 
 #### Clear Color Red
-清除红色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+清除红色通道, 建立游戏窗口和渲染脚本中使用.
 
 #### Clear Color Green
-清除绿色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+清除绿色通道, 建立游戏窗口和渲染脚本中使用.
 
 #### Clear Color Blue
-清除蓝色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+清除蓝色通道, 建立游戏窗口和渲染脚本中使用.
 
 #### Clear Color ALpha
-清除alpha通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+清除alpha通道, 建立游戏窗口和渲染脚本中使用.
 
 ---
 
