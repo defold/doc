@@ -524,6 +524,10 @@
                         "name": "Overview"
                     },
                     {
+                        "path": "/manuals/debugging-game-logic/#running-the-debugger",
+                        "name": "Debugger"
+                    },
+                    {
                         "path": "/manuals/editor-preferences",
                         "name": "Preferences"
                     },

@@ -76,15 +76,15 @@ Just like the stretch projection the fixed fit projection will always show an ar
 
 ![Fixed fit projection](images/render/fixed_fit_projection.png)
 
-*Fixed with projection with original window size*
+*Fixed fit projection with original window size*
 
 ![Fixed fit projection when resized](images/render/fixed_fit_projection_resized.png)
 
-*Fixed with projection with the window stretched horizontally*
+*Fixed fit projection with the window stretched horizontally*
 
 ![Fixed fit projection when smaller](images/render/fixed_fit_projection_resized_smaller.png)
 
-*Fixed with projection with the window reduced to 50% of original size*
+*Fixed fit projection with the window reduced to 50% of original size*
 
 You enable the fixed fit projection by sending a message to the render script:
 

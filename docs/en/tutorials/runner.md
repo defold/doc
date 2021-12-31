@@ -424,7 +424,7 @@ We should also add a controller game object with a script component to the level
     go.property("speed", 360) -- <1>
 
     function init(self)
-        msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
+        msg.post("ground/controller#ground", "set_speed", { speed = self.speed })
     end
     ```
     1. This is a script property. We set it to a default value but any placed instance of the script can override this value, directly in the properties view in the editor.

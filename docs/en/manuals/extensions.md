@@ -64,10 +64,10 @@ To create a new extension, create a folder in the project root. This folder will
 
 The optional *manifests* folder of an extension contains additional files used in the build and bundling process. Files should be placed in subfolders named by `platform`:
 
-* `android` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)). The folder can also contain a `build.gradle` file with dependencies to be resolved by Gradle ([example](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Finally the folder can also contain zero or more ProGuard files (experimental).
-* `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
-* `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
-* `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extension-manifest-merge-tool)).
+* `android` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extensions-manifest-merge-tool)). The folder can also contain a `build.gradle` file with dependencies to be resolved by Gradle ([example](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Finally the folder can also contain zero or more ProGuard files (experimental).
+* `ios` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extensions-manifest-merge-tool)).
+* `osx` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extensions-manifest-merge-tool)).
+* `web` - This folder accepts a manifest stub file to be merged into the main application ([as described here](extensions-manifest-merge-tool)).
 
 
 ## Sharing an extension
