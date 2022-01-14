@@ -2,68 +2,6 @@
     "navigation": {
         "videos": [
             {
-                "path": "https://www.youtube.com/embed/4XGbQ92FzRI",
-                "name": "Series Introduction",
-                "author": "Game from Scratch",
-                "description": "This game programming series by Game from Scratch covers covers all aspects of 2D game development in Defold."
-            },
-            {
-                "path": "https://www.youtube.com/embed/PrkmFn86E5Y",
-                "name": "Getting Started",
-                "author": "Game from Scratch",
-                "description": "In this part of our ongoing Defold Tutorial Series, we look at the initial getting started process. We download and run the tools, create then run our first project"
-            },
-            {
-                "path": "https://www.youtube.com/embed/eAnXnsoab-Q",
-                "name": "Application Basics",
-                "author": "Game from Scratch",
-                "description": "Welcome to the second tutorial in the Defold Game Engine series by Game from Scratch. Today we look at how a Defold application works. How collections, game objects and components are used together to create games. We then look at attaching a script and how the game lifecycle is resolved."
-            },
-            {
-                "path": "https://www.youtube.com/embed/REA3dsuZpkw",
-                "name": "Sprites and Animations",
-                "author": "Game from Scratch",
-                "description": "In this part of the tutorial we look at creating flipbook style sprite animations. We look at the two ways it is supported, Atlas based and tilesheet based sprites."
-            },
-            {
-                "path": "https://www.youtube.com/embed/ha1Wq2FB7L0",
-                "name": "Input, Scripting and Messages",
-                "author": "Game from Scratch",
-                "description": "In the next part of our ongoing Defold Game Engine tutorial, we look at how you script. In addition we look at handling input and how message passing works, a critical concept."
-            },
-            {
-                "path": "https://www.youtube.com/embed/CDggJOQmlPI",
-                "name": "Sound and Music",
-                "author": "Game from Scratch",
-                "description": "In this part of the Defold Game Engine tutorial series we are going to look at audio programming. Specifically how to play ogg and wav files using components and code."
-            },
-            {
-                "path": "https://www.youtube.com/embed/eH_2X0tVesw",
-                "name": "Tilemaps",
-                "author": "Game from Scratch",
-                "description": "In this tutorial we look at quickly and easily creating 2D levels using the Defold editor and tile maps."
-            },
-            {
-                "path": "https://www.youtube.com/embed/o6LNvXSnvGM",
-                "name": "Physics",
-                "author": "Game from Scratch",
-                "description": "In this tutorial on using the Defold Game Engine, we explore how to use the integrated Box2D physics."
-            },
-            {
-                "path": "https://www.youtube.com/embed/99gKlgl1nR0",
-                "name": "UI Programming",
-                "author": "Game from Scratch",
-                "description": "In this tutorial we look at GUI/UI programming in the Defold game engine."
-            },
-
-            {
-                "path": "https://www.youtube.com/watch?v=iMacxZQMPXs",
-                "name": "Lua Tutorial",
-                "author": "Derek Bananas",
-                "description": "Learn Lua in one hour."
-            },
-
-            {
                 "path": "https://www.youtube.com/embed/Ri2KStY-mfE",
                 "name": "Defold Installation and Overview",
                 "author": "Tactx Studios",
@@ -106,30 +44,64 @@
                 "description": "The final tutorial in this introductory series provides an explanation on how to accommodate multiple game levels to support different scenes or game chapters – as well as how to exchange information between game components."
             },
 
+
+
             {
-                "path": "https://www.youtube.com/embed/2sxj1Ggc4jQ",
-                "name": "Introduction to Defold",
-                "author": "Game Developers",
-                "description": "In this first lesson, we are going over the game engine IDE, its main blocks and its capabilities as engine to create multiplatform games."
+                "path": "https://www.youtube.com/embed/4XGbQ92FzRI",
+                "name": "Series Introduction",
+                "author": "Game from Scratch",
+                "description": "This game programming series by Game from Scratch covers covers all aspects of 2D game development in Defold. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/Q_R8Zt8giGg",
-                "name": "Creating a platformer protoype",
-                "author": "Game Developers",
-                "description": "In this video, we will start to take a look at the building blocks of creating a game for the engine."
+                "path": "https://www.youtube.com/embed/PrkmFn86E5Y",
+                "name": "Getting Started",
+                "author": "Game from Scratch",
+                "description": "In this part of our ongoing Defold Tutorial Series, we look at the initial getting started process. We download and run the tools, create then run our first project. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/watch?v=3kjkAThCLc0",
-                "name": "Enemy movement and animations",
-                "author": "Game Developers",
-                "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
+                "path": "https://www.youtube.com/embed/eAnXnsoab-Q",
+                "name": "Application Basics",
+                "author": "Game from Scratch",
+                "description": "Welcome to the second tutorial in the Defold Game Engine series by Game from Scratch. Today we look at how a Defold application works. How collections, game objects and components are used together to create games. We then look at attaching a script and how the game lifecycle is resolved. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/watch?v=ESjvMqY8Bw",
-                "name": "Enemy melee attack",
-                "author": "Game Developers",
-                "description": "In this video, we are continuing from the previous video and build a detect and attack behavior for our skeleton enemy. For this to work, we have to implement trigger detection, collision enabling and disabling, frame count detection to synchronize the hitbox enabling with the frame animation, and finally applying the damage to the player."
+                "path": "https://www.youtube.com/embed/REA3dsuZpkw",
+                "name": "Sprites and Animations",
+                "author": "Game from Scratch",
+                "description": "In this part of the tutorial we look at creating flipbook style sprite animations. We look at the two ways it is supported, Atlas based and tilesheet based sprites. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
+            {
+                "path": "https://www.youtube.com/embed/ha1Wq2FB7L0",
+                "name": "Input, Scripting and Messages",
+                "author": "Game from Scratch",
+                "description": "In the next part of our ongoing Defold Game Engine tutorial, we look at how you script. In addition we look at handling input and how message passing works, a critical concept. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
+            },
+            {
+                "path": "https://www.youtube.com/embed/CDggJOQmlPI",
+                "name": "Sound and Music",
+                "author": "Game from Scratch",
+                "description": "In this part of the Defold Game Engine tutorial series we are going to look at audio programming. Specifically how to play ogg and wav files using components and code. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
+            },
+            {
+                "path": "https://www.youtube.com/embed/eH_2X0tVesw",
+                "name": "Tilemaps",
+                "author": "Game from Scratch",
+                "description": "In this tutorial we look at quickly and easily creating 2D levels using the Defold editor and tile maps. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
+            },
+            {
+                "path": "https://www.youtube.com/embed/o6LNvXSnvGM",
+                "name": "Physics",
+                "author": "Game from Scratch",
+                "description": "In this tutorial on using the Defold Game Engine, we explore how to use the integrated Box2D physics. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
+            },
+            {
+                "path": "https://www.youtube.com/embed/99gKlgl1nR0",
+                "name": "UI Programming",
+                "author": "Game from Scratch",
+                "description": "In this tutorial we look at GUI/UI programming in the Defold game engine. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
+            },
+
+
 
             {
                 "path": "https://www.youtube.com/embed/7P4Qj-OCLF8",
@@ -168,6 +140,44 @@
                 "description": "This last video in our Tower Defense Series is going to focus on a couple pretty important concepts: (1) pausing a game using the Defold Collection Proxy Component, and (2) adjusting several game parameters within the game to achieve game balance."
             },
 
+
+
+            {
+                "path": "https://www.youtube.com/watch?v=iMacxZQMPXs",
+                "name": "Lua Tutorial",
+                "author": "Derek Bananas",
+                "description": "Learn Lua in one hour."
+            },
+
+
+
+            {
+                "path": "https://www.youtube.com/embed/2sxj1Ggc4jQ",
+                "name": "Introduction to Defold",
+                "author": "Game Developers",
+                "description": "In this first lesson, we are going over the game engine IDE, its main blocks and its capabilities as engine to create multiplatform games."
+            },
+            {
+                "path": "https://www.youtube.com/embed/Q_R8Zt8giGg",
+                "name": "Creating a platformer protoype",
+                "author": "Game Developers",
+                "description": "In this video, we will start to take a look at the building blocks of creating a game for the engine."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=3kjkAThCLc0",
+                "name": "Enemy movement and animations",
+                "author": "Game Developers",
+                "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=ESjvMqY8Bw",
+                "name": "Enemy melee attack",
+                "author": "Game Developers",
+                "description": "In this video, we are continuing from the previous video and build a detect and attack behavior for our skeleton enemy. For this to work, we have to implement trigger detection, collision enabling and disabling, frame count detection to synchronize the hitbox enabling with the frame animation, and finally applying the damage to the player."
+            },
+
+
+
             {
                 "path": "https://www.youtube.com/embed/nv1xZe0BAic",
                 "name": "Procedural 2D Terrain with Climate",
@@ -193,6 +203,8 @@
                 "description": "Tutorial on making grids and working with arrays in Defold."
             },
 
+
+
             {
                 "path": "https://www.youtube.com/embed/slTEz6555Ts",
                 "name": "Cellular Automata and Procedural Map Generation",
@@ -217,6 +229,8 @@
                 "author": "Klayton Kowalski",
                 "description": "In this video, Klayton explain what the lazy flood fill algorithm algorithm is, how it works, and how to implement it."
             },
+
+
 
             {
                 "path": "https://www.youtube.com/embed/aXIaijThcHM",
@@ -266,6 +280,8 @@
                 "author": "Defold",
                 "description": "In this video we explain how to use Live Update to push new content to live games."
             },
+
+
 
             {
                 "path": "https://www.youtube.com/embed/Tz-AinJGDIM",
