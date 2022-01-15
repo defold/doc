@@ -83,6 +83,9 @@ Angular damping
 Locked rotation
 : 关闭碰撞对象的旋转, 无论力如何施加都不会旋转.
 
+Bullet
+: 开启此项将会在该碰撞物体和其他动态碰撞物体直接进行连续碰撞检测 (CCD). 如果一方碰撞物体不是 `Dynamic` 的, 则忽略该选项.
+
 Group
 : 此碰撞对象所归属的碰撞组. 可以自由定义16个组. 比如 "players", "bullets", "enemies" 或 "world". 如果瓷砖地图上设置了 *Collision Shape*, 则使用的是瓷砖图源里的组名而不是该属性定义的组名.
 
