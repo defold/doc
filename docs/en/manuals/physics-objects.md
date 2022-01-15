@@ -83,6 +83,9 @@ Angular damping
 Locked rotation
 : Setting this property totally disables rotation on the collision object, no matter what forces are brought to it.
 
+Bullet
+: Setting this property enables continuous collision detection (CCD) between the collision object and other dynamic collision objects. The Bullet property is ignored if the Type is not set to `Dynamic`.
+
 Group
 : The name of the collison group the object should belong to. You can have 16 different groups and you name them as you see fit for your game. For example "players", "bullets", "enemies" and "world". If the *Collision Shape* is set to a tile map, this field is not used but the groups names are taken from the tile source. [Learn more about collision groups](/manuals/physics-groups).
 
