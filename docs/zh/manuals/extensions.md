@@ -64,10 +64,10 @@ Defold 提供了一个云端服务器编译方案. 游戏项目的各种依赖, 
 
 *manifests* 包含编译时不同平台所需的配置文件. 配置文件要根据称为 `platform` 的子文件夹分类放置:
 
-* `android` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extensions-manifest-merge-tool)). 还可以存放 `build.gradle` 文件及其依赖以便 Gradle 可以解析 ([示例](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). 还能存放0个或多个 ProGuard 代码混淆文件 (试验功能).
-* `ios` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extensions-manifest-merge-tool)).
-* `osx` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extensions-manifest-merge-tool)).
-* `web` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](extensions-manifest-merge-tool)).
+* `android` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](/manuals/extensions-manifest-merge-tool)). 还可以存放 `build.gradle` 文件及其依赖以便 Gradle 可以解析 ([示例](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). 还能存放0个或多个 ProGuard 代码混淆文件 (试验功能).
+* `ios` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](/manuals/extensions-manifest-merge-tool)).
+* `osx` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](/manuals/extensions-manifest-merge-tool)).
+* `web` - 这里存放片段配置文件用以与主配置文件混合 ([就像这里介绍的那样](/manuals/extensions-manifest-merge-tool)).
 
 
 ## 共享原生扩展
