@@ -57,6 +57,7 @@ _Dragon Bones_ should typically be able to export to Spine JSON data files witho
 
 When you have a model and animations that you have created in Spine, the process of importing them into Defold is straightforward:
 
+- Add a project dependency for https://github.com/defold/extension-spine
 - Export a Spine JSON version of the animation data.
 - Put the exported JSON file somewhere in your project hierarchy.
 - Put all images associated with the model somewhere in your project hierarchy.

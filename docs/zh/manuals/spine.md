@@ -57,6 +57,7 @@ _Dragon Bones_ 输出的 Spine JSON 数据文件应该能正常使用. 如果发
 
 在 Spine 创建好模型和动画之后, 可以方便地导入到 Defold 中:
 
+- Add a project dependency for https://github.com/defold/extension-spine
 - 把动画输出为 Spine JSON 版本文件.
 - 把输出的 JSON 文件放入项目目录中.
 - 把所需所有碎图放入项目目录中.
