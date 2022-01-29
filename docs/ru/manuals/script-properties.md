@@ -87,7 +87,7 @@ go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, 
 
 ```lua
 local props = { health = 50, target = msg.url("player") }
-factory.create("#can_factory", nil, nil, props)
+local id = factory.create("#can_factory", nil, nil, props)
 
 -- Доступ к свойствам скрипта для объектов созданных с помощью Factory
 local url = msg.url(nil, id, "can")
