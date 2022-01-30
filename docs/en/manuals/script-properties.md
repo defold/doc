@@ -19,6 +19,7 @@ Common use cases are to set the health or speed of a specific enemy AI, the tint
 Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any callback-functions like `init()` and `update()`. The default value provided for the property governs the type of the property: number, boolean, hash, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
 
 ```lua
+-- can.script
 -- Define script properties for health and an attack target
 go.property("health", 100)
 go.property("target", msg.url())
@@ -86,7 +87,11 @@ If you use a factory to create the game object, it is possible to set script pro
 
 ```lua
 local props = { health = 50, target = msg.url("player") }
-factory.create("#can_factory", nil, nil, props)
+local id = factory.create("#can_factory", nil, nil, props)
+
+-- Accessing to factory created script properties
+local url = msg.url(nil, id, "can")
+local can_health = go.get(url, "health")
 ```
 
 When spawning a hierarchy of game objects through `collectionfactory.create()` you need to pair object id's with property tables. These are put together in a table and passed to the `create()` function:
