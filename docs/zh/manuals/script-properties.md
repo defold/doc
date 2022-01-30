@@ -19,13 +19,14 @@ brief: 本教程介绍了如何对脚本组件添加属性以及如何在运行�
 脚本组件中属性由 `go.property()` 函数定义. 函数应位于顶级---不应在 `init()` 和 `update()` 之类的函数内部调用. 默认值决定了值类型: number, boolean, hash, `msg.url`, `vmath.vector3`, `vmath.vector4` 还是 `vmath.quaternion`. （好像最新版已经提供了属性类型的设置功能）
 
 ```lua
--- Define script properties for health and an attack target
+-- can.script
+-- 对 health 和 target 创建脚本属性
 go.property("health", 100)
 go.property("target", msg.url())
 
 function init(self)
-  -- store initial position of target.
-  -- self.target is an url referencing another objects.
+  -- 初始化 target 位置.
+  -- self.target 是用 url 引用的另一个游戏对象.
   self.target_pos = go.get_position(self.target)
   ...
 end
@@ -72,11 +73,11 @@ end
 ```lua
 -- another.script
 
--- increase "my_property" in "myobject#script" by 1
+-- 对 "myobject#script" 里的 "my_property" 实施增 1
 local val = go.get("myobject#my_script", "my_property")
 go.set("myobject#my_script", "my_property", val + 1)
 
--- animate "my_property" in "myobject#my_script"
+-- 对 "myobject#my_script" 里的 "my_property" 实施动画
 go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
 ```
 
@@ -86,7 +87,11 @@ go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, 
 
 ```lua
 local props = { health = 50, target = msg.url("player") }
-factory.create("#can_factory", nil, nil, props)
+local id = factory.create("#can_factory", nil, nil, props)
+
+-- 访问工厂创建对象的脚本属性
+local url = msg.url(nil, id, "can")
+local can_health = go.get(url, "health")
 ```
 
 当使用 `collectionfactory.create()` 创建对象时需要匹配id与对应的属性. 保存在一个表里传入 `create()` 函数:
