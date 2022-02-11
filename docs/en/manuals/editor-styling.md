@@ -124,6 +124,6 @@ It is also possible to use a local font instead of a web font:
 }
 ```
 
-:::sidenote
+::: sidenote
 The code editor font is defined separately in the editor Preferences!
 :::
