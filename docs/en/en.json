@@ -544,12 +544,16 @@
                         "name": "Debugger"
                     },
                     {
+                        "path": "/manuals/editor-keyboard-shortcuts",
+                        "name": "Keyboard shortcuts"
+                    },
+                    {
                         "path": "/manuals/editor-preferences",
                         "name": "Preferences"
                     },
                     {
-                        "path": "/manuals/editor-keyboard-shortcuts",
-                        "name": "Keyboard shortcuts"
+                        "path": "/manuals/editor-styling",
+                        "name": "Styling"
                     },
                     {
                         "path": "/manuals/editor-scripts",
