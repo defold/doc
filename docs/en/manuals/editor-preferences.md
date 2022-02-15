@@ -46,4 +46,4 @@ Open File at Line
 ![](images/editor/preferences_extensions.png)
 
 Build Server
-: URL to the build server used when building a project containing [native extensions](/manuals/extensions).
+: URL to the build server used when building a project containing [native extensions](/manuals/extensions). It is possible to add a username and access token to the URL for authenticated access to the build server. Use the following notation to specify the username and access token: `username:token@build.defold.com`. Authenticated access is required for Nintendo Switch builds and when running your own build server instance with authentication enabled ([refer to the build server documentation](https://github.com/defold/extender/blob/dev/README_SECURITY.md) for more information).
