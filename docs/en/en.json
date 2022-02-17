@@ -540,6 +540,14 @@
                         "name": "Overview"
                     },
                     {
+                        "path": "/manuals/editor-templates",
+                        "name": "Custom project templates"
+                    },
+                    {
+                        "path": "/manuals/editor-scripts",
+                        "name": "Editor scripts"
+                    },
+                    {
                         "path": "/manuals/debugging-game-logic/#running-the-debugger",
                         "name": "Debugger"
                     },
@@ -554,10 +562,6 @@
                     {
                         "path": "/manuals/editor-styling",
                         "name": "Styling"
-                    },
-                    {
-                        "path": "/manuals/editor-scripts",
-                        "name": "Editor scripts"
                     }
                 ]
             },

@@ -8,10 +8,10 @@ brief: You can modify the colors, typography and other visual aspects of the edi
 You can modify the colors, typography and other visual aspects of the editor using a custom stylesheet:
 
 * Create a folder named `.defold` in your user home directory.
-   * On Windows `C:\Users\**Your Username**\.defold`
-   * On macOS `/Users/**Your Username**/.defold`
-   * On Linux `~/.defold`
- * Create a `editor.css` file in the `.defold` folder
+  * On Windows `C:\Users\**Your Username**\.defold`
+  * On macOS `/Users/**Your Username**/.defold`
+  * On Linux `~/.defold`
+* Create a `editor.css` file in the `.defold` folder
 
 The editor will on startup load your custom stylesheet and apply it on top of the default style. The editor uses JavaFX for the user interface and the stylesheets are almost identical to the CSS files used in a browser to apply style attributes to the elements of a webpage. The default stylesheets for the editor are [available for inspection on GitHub](https://github.com/defold/defold/tree/editor-dev/editor/styling/stylesheets/base).
 
