@@ -148,6 +148,13 @@
                 "author": "Derek Bananas",
                 "description": "Learn Lua in one hour."
             },
+            {
+                "path": "https://www.youtube.com/watch?v=jUuqBZwwkQw",
+                "name": "Lua in 100 seconds",
+                "author": "Fireship",
+                "description": "An overview of the Lua language."
+            },
+
 
 
 
@@ -713,7 +720,7 @@
                         "name": "Particle FX"
                     },
                     {
-                        "path": "/extension-rive",
+                        "path": "/extension-rive/#creating-rive-model-components",
                         "name": "Rive"
                     },
                     {
