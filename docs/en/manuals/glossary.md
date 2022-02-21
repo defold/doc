@@ -13,7 +13,7 @@ This glossary gives a brief description to all the things you encounter in Defol
 
 ## Atlas
 
-![Atlas](images/icons/atlas.png){.left} An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. They can contain still images or flip-book animated series of images. Atlases are used by GUI, Sprite, Spine model and ParticleFX components to share graphics resources. See the [Atlas documentation](/manuals/atlas) for more information.
+![Atlas](images/icons/atlas.png){.left} An atlas is a set of separate images that are compiled into a larger sheet for performance and memory reasons. They can contain still images or flip-book animated series of images. Atlases are used by a variety of components to share graphics resources. See the [Atlas documentation](/manuals/atlas) for more information.
 
 ## Builtins
 
@@ -151,14 +151,6 @@ Good performance is key in games and it is vital that you are able to do perform
 
 ![Sound](images/icons/sound.png){.left} The sound component is responsible for playing a specific sound. Currently, Defold supports sound files in the WAV and Ogg Vorbis formats. See the [Sound manual](/manuals/sound) for more information.
 
-## Spine model
-
-![Spine model](images/icons/spine-model.png){.left} The Spine model component is used to bring Spine skeletal animations to life in Defold. Read more about how to use it in the [Spine model manual](/manuals/spinemodel).
-
-## Spine scene
-
-![Spine scene](images/icons/spine-scene.png){.left} The Spine scene resource ties together the Spine JSON data file and the Defold image atlas file that is used to fill bone slots with graphics. The [Spine animation manual](/manuals/spine) contains more information.
-
 ## Sprite
 
 ![Sprite](images/icons/sprite.png){.left} A sprite is a component that extends game objects with graphics. It displays an image either from a Tile source or from an Atlas. Sprites have built-in support for flip-book and bone animation. Sprites are usually used for characters and items.
@@ -177,4 +169,4 @@ Good performance is key in games and it is vital that you are able to do perform
 
 ## Vertex shader
 
-![Vertex shader](images/icons/vertex-shader.png){.left} The vertex shader computes the screen geometry of a component's primitive polygon shapes. For any type of visual component, be it a sprite, spine model or model, the shape is represented by a set of polygon vertex positions. The vertex shader program processes each vertex (in world space) and computes the resulting coordinate that each vertex of a primitive should have. See the [Shader manual](/manuals/shader) for more information.
+![Vertex shader](images/icons/vertex-shader.png){.left} The vertex shader computes the screen geometry of a component's primitive polygon shapes. For any type of visual component, be it a sprite, tilemap or model, the shape is represented by a set of polygon vertex positions. The vertex shader program processes each vertex (in world space) and computes the resulting coordinate that each vertex of a primitive should have. See the [Shader manual](/manuals/shader) for more information.

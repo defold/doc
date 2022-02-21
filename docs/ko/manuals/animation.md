@@ -10,13 +10,6 @@ Defold는 오브젝트 컴포넌트의 그래픽 소스로 사용할 수 있는 
 
 ![](images/animation/animsheet.png) ![](images/animation/runloop.gif)
 
-#### Spine animation
-스파인 애니메이션은 2D 스켈레톤 애니메이션을 제공합니다 (http://en.wikipedia.org/wiki/Skeletal_animation 참고). 이는 컷아웃 애니메이션과는 근본적으로 다른 기술입니다.  컷아웃 애니메이션에서는 애니메이션 오브젝트의 개별 조각들(예를 들어 몸체, 눈, 입 등)이 각 프레임간 개별적으로 움직입니다. 스파인 애니메이션은 서로 연결된 뼈대 구조로 구성된 보이지 않는 가상의 골격을 만듭니다. 개별 이미지를 각 뼈대에 붙이고 이 골격(skeleton) 혹은 릭(rig)을 애니메이션 처리 할 수 있습니다. Defold는 [스파인 JSON 포멧](http://ko.esotericsoftware.com/spine-json-format)으로 애니메이션을 생성하거나 익스포트 하는 것을 지원합니다. 스켈레톤 애니메이션은 엔진이 매 프레임마다 각 뼈대의 위치를 보간(interpolate)해 주기 때문에 매우 부드럽게 움직입니다.
-
-스파인 데이터를 어떻게 임포트 하는지 자세히 보려면 [Spine](/manuals/spine) 문서를 참고 바랍니다.
-
-![](images/animation/spine_animation.png) ![](images/animation/frog_runloop.gif)
-
 #### 3D skinned animation
 3D 모델의 스켈레톤 애니메이션은 스파인 애니메이션과 비슷하지만 2D가 아니라 3D로 동작합니다. 3D 모델은 별도의 파트로 잘리지 않고 컷아웃 애니메이션 처럼 뼈대로 묶입니다. 대신 이 뼈대들은 모델의 버텍스(vertex)에 변형(deformation)을 적용할 수 있으며, 뼈대가 버텍스에 영향을 미치는 정도를 제어할 수 있습니다.
 
@@ -97,100 +90,6 @@ end
 ```
 
 완료시 호출되는 선택적(optional) 함수가 제공될 수 있습니다(위 예제의 flipbook_done 함수처럼). 이는 ONCE__* 모드에서 재생되는 애니메이션으로부터 호출됩니다.
-
-## Animating Spine models
-스파인 모델에 애니메이션을 적용하려면, 간단히 spine.play_anim() 함수를 호출하면 됩니다:
-
-```lua
-local function anim_done(self)
-    -- 애니메이션이 종료되고, 뭔가 유용한 일을 합니다...
-end
-
-function init(self)
-    -- "spinemodel" 컴포넌트의 "walk" 애니메이션을 플레이하고 첫 0.1초 동안 이전 애니메이션과 블랜딩한 후 콜백을 호출합니다.
-    local anim_props = { blend_duration = 0.1 }
-    spine.play_anim("#spinemodel", "walk", go.PLAYBACK_LOOP_FORWARD, anim_props, anim_done)
-end
-```
-
-![Spine model in game](images/animation/spine_model_ingame.png)
-
-애니메이션이 **go.PLAYBACK_ONCE_** 모드로 플레이되고 spine.play_anim() 함수에 콜백 함수를 넘기면 애니메이션 완료시 이 콜백 함수가 실행됩니다. 아래의 콜백(callback) 정보를 참고바랍니다.
-
-### Cursor animation
-spine.play_anim() 를 사용해서 스파인 애니메이션을 진행하는 것 외에도, **Spine Model** 컴포넌트는 go.animate() 으로 다룰 수 있는 "cursor" 속성을 제공합니다.
-
-```lua
--- 스파인 모델에 애니메이션을 설정하고 재생은 안함
-spine.play_anim("#spinemodel", "run_right", go.PLAYBACK_NONE)
-
--- 커서 위치를 0으로 설정함
-go.set("#spinemodel", "cursor", 0)
-
--- 커서를 느리게 트위닝 시키고 in-out quad 이징(easing) 효과를 주고 핑퐁 애니메이션 처리함
-go.animate("#spinemodel", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD, 6)
-```
-
-> 커서가 트위닝(tween)되거나 셋팅되면, 타임라인 이벤트(timeline events)가 예상대로 발생하지 않을 수 있습니다.
-
-### The bone hierarchy
-스파인 스켈레톤의 개별 뼈대들은 게임 오브젝트에 내부적으로 나타납니다. 스파인 모델 컴포넌트의 아웃라인 창(**Outline**)에서 전체 계층구조가 표시됩니다. 여기서 스켈레톤 구조의 각 뼈대의 이름과 위치를 볼 수 있습니다.
-
-![Spine model hierarchy](images/animation/spine_model_hierarchy.png)
-
-뼈대의 이름을  사용하여, 런타임시 뼈대의 인스턴스 아이디를 검색할 수 있습니다. spine.get_go() 함수는 특정 뼈대의 아이디를 반환합니다. 예를 들어, 움직이는 게임 오브젝트 아래에 다른 오브젝트를 자식 객체로 넣을 수 있습니다:
-
-```lua
--- heroine의 손에 권총 오브젝트를 갖다 붙임
-local hand = spine.get_go("heroine#spinemodel", "front_hand")
-msg.post("pistol", "set_parent", { parent_id = hand })
-```
-
-### Timeline events
-스파인 애니메이션은 정확한 순간에 메세지를 보내서 이벤트를 트리거 할 수 있습니다. 이는 발자국 소리를 재생하거나, 파티클 효과를 스폰하거나, 뼈대 계층구조에 오브젝트를 붙이고 떼거나 하는 등등의 이벤트를 애니메이션과 동기화 되어 배치 해야만 하는 경우에 매우 유용합니다.
-
-이벤트들은 스파인 소프트웨어에서 추가할 수 있으며 플레이백 타임라인(playback timeline)에서 시각화 됩니다:
-
-![Spine events](images/animation/spine_events.png)
-
-각 이벤트는 이름 식별자(name identifier: 위 예제에서 "bump")로 참조되며 타임라인의 각 이벤트 인스턴스는 추가 정보를 포함할 수 있습니다:
-
-#### Integer
-정수형 숫자값
-#### Float
-부동소수점 숫자값
-#### String
-문자열 값
-
-애니메이션이 플레이되고 타임라인 이벤트가 발생하면, spine_event 메세지가 spine.play()를 호출했던 스크립트 컴포넌트로 전송됩니다. 이 메세지 데이터에는 이벤트에 내장된 커스텀 숫자나 문자열 뿐만 아니라 때로는 유용한 추가적인 필드도 포함하고 있습니다:
-
-#### t
-애니메이션의 첫 번째 프레임 이후 경과된 시간(초)
-#### animation_id
-애니메이션 이름, 해쉬(hash)됨
-#### string
-제공된 문자열 값, 해쉬(hash)됨
-#### float
-제공된 부동 소수점 숫자값
-#### integer
-제공된 정수형 숫자값
-#### event_id
-이벤트 식별자, 해쉬(hash)됨
-#### blend_weight
-애니메이션이 얼마나 블렌드(blend) 되었는지에 대한 값. 0은 현재 애니메이션이 아직 블렌드의 일부분이 아님을 의미하며, 1은 현재 애니메이션이 100%로 구성된 블렌드 라는것을 의미함.
-
-```lua
--- 스파인 애니메이션이 애니메이션과 동기화된 사운드를 플레이하기 위해 이벤트를 포함하고 있음.
--- 여기로 메세지가 도착함.
-function on_message(self, message_id, message, sender)
-  if message_id == hash("spine_event") and message.event_id == hash("play_sound") then
-    -- 애니메이션 사운드 플레이하기. 커스텀 이벤트 데이터에 사운드 컴포넌트 이름과 출력값(gain)이 들어 있음
-    local url = msg.url("sounds")
-    url.fragment = message.string
-    sound.play(url, { gain = message.float })
-  end
-end
-```
 
 ## 3D Model animation
 모델은 model.play_anim() 함수를 사용해서 애니메이션 됩니다:
@@ -315,7 +214,7 @@ go.animate("go", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, square_easing, 2.
 ```
 
 ## Completion callbacks
-모든 애니메이션 함수(go.animate(), gui.animate(), gui.play_flipbook(), gui.play_spine_anim(), spine.play_anim(), model.play_anim())는 마지막 인자값으로 선택적인 Lua 콜백 함수(optional Lua callback function)를 지원합니다. 이 함수는 애니메이션의 재생이 종료되면 호출됩니다. 이 함수는 루프 애니메이션일 경우이거나 애니메이션이 go.cancel_animations()로 수동적으로 취소 되었을 경우엔 호출되지 않습니다. 콜백은 애니메이션 완료시 이벤트를 트리거하거나 여러 애니메이션을 함께 연결하는데 사용됩니다.
+모든 애니메이션 함수(go.animate(), gui.animate(), gui.play_flipbook(), model.play_anim())는 마지막 인자값으로 선택적인 Lua 콜백 함수(optional Lua callback function)를 지원합니다. 이 함수는 애니메이션의 재생이 종료되면 호출됩니다. 이 함수는 루프 애니메이션일 경우이거나 애니메이션이 go.cancel_animations()로 수동적으로 취소 되었을 경우엔 호출되지 않습니다. 콜백은 애니메이션 완료시 이벤트를 트리거하거나 여러 애니메이션을 함께 연결하는데 사용됩니다.
 
 콜백의 정확한 함수 형태(signature)는 애니메이션 함수마다 조금씩 다릅니다. 자세한 것은 API 문서를 참고 바랍니다.
 

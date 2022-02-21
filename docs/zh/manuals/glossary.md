@@ -151,14 +151,6 @@ msg.post("#weapon", "disable")
 
 ![Sound](images/icons/sound.png){.left} 声音组件用于播放声音. 目前 Defold 支持 WAV 和 Ogg Vorbis 格式的声音文件. 详情请见 [声音教程](/manuals/sound).
 
-## Spine model
-
-![Spine model](images/icons/spine-model.png){.left} Spine model 组件用于在 Defold 中使用 Spine 骨骼动画. 详情请见 [Spine 模型教程](/manuals/spinemodel).
-
-## Spine scene
-
-![Spine scene](images/icons/spine-scene.png){.left} Spine scene 资源把 Spine JSON 数据文件与 Defold 图集资源文件结合起来填充 Spine 骨架. 详情请见 [Spine 动画教程](/manuals/spine).
-
 ## Sprite
 
 ![Sprite](images/icons/sprite.png){.left} Sprite 可以使游戏对象显示出图像. 它使用瓷砖图源或者图集资源的数据显示图像. Sprite 也支持逐帧动画. 它常常被用于显示人物, 物品等.
