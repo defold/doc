@@ -13,7 +13,7 @@ brief: 本教程列举了使用 Defold 工作中会遇到的各种专用词汇�
 
 ## Atlas
 
-![Atlas](images/icons/atlas.png){.left} 图集是为了增加性能减少显存消耗而把许多单张图片合并而成的一张大图. 其中可以包括静态图和逐帧动画序列图. 图集可被 GUI, Sprite, Spine model 和 ParticleFX 组件所共享. 详情请见 [图集教程](/manuals/atlas).
+![Atlas](images/icons/atlas.png){.left} 图集是为了增加性能减少显存消耗而把许多单张图片合并而成的一张大图. 其中可以包括静态图和逐帧动画序列图. 图集可以被多种组件所共享. 详情请见 [图集教程](/manuals/atlas).
 
 ## Builtins
 
@@ -169,4 +169,4 @@ msg.post("#weapon", "disable")
 
 ## Vertex shader
 
-![Vertex shader](images/icons/vertex-shader.png){.left} 顶点着色器用于计算多边形在屏幕上投射的位置. 对于各种可视组件, 比如 sprite, spine 模型 或者 3D 模型, 它们的形状由多边形顶点构成. 顶点着色程序负责处理顶点 (在全局游戏空间) 的位置并且负责计算出每个多边形顶点的在屏幕上的映射位置. 详情请见 [Shader manual](/manuals/shader).
+![Vertex shader](images/icons/vertex-shader.png){.left} 顶点着色器用于计算多边形在屏幕上投射的位置. 对于各种可视组件, 比如 sprite, 瓷砖地图 或者 3D 模型, 它们的形状由多边形顶点构成. 顶点着色程序负责处理顶点 (在全局游戏空间) 的位置并且负责计算出每个多边形顶点的在屏幕上的映射位置. 详情请见 [Shader manual](/manuals/shader).
