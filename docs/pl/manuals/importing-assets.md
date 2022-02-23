@@ -25,7 +25,6 @@ Kiedy zasoby są już zaimportowane do projektu, mogą być wykorzystywane przez
 
 * Pliki graficzne mogą być używane w różnego rodzaju komponentach wizualnych, często używanych np. w grach 2D. Więcej szczegółów znajdziesz w [tej instrukcji jak importować i używać grafiki 2D](/manuals/importing-graphics).
 * Pliki dźwiękowe mogą być używane przez [komponent dźwięku](/manuals/sound) w celu odtwarzania dźwięków.
-* Pliki animacji szkieletowej (Spine) mogą być używane przez [komponent Spine](/manuals/spinemodel) w celu wyświetlania i animowania modeli Spine.
 * Pliki fontów mogą być używane przez [komponent etykiety](/manuals/label) i przez [węzły tekstowe](/manuals/gui-text) w GUI.
 * Pliki modeli Collada mogą być używane przez [komponent modeli trójwymiarowych](/manuals/model) w celu wyświetlania i animowania modeli trójwymiarowych. Więcej szczegółów znajdziesz w [tej instrukcji jak importować i używać grafiki 3D](/manuals/importing-models). 
 

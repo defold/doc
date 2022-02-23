@@ -5,7 +5,7 @@ brief: This manual describes how to use 3D model animations in Defold.
 
 # 3D skinned animation
 
-Skeletal animation of 3D models is similar to [Spine animation](/manuals/spine-animation) but works in 3D as opposed to 2D. The 3D model is not cut into separate parts and tied to a bone like in cutout animation. Instead, the bones apply deformation to vertices in the model and you have great control over how much a bone should affect the vertices.
+Skeletal animation of 3D models use the bones of the model to apply deformation to vertices in the model.
 
 For details on how to import 3D data into a Model for animation, see the [Model documentation](/manuals/model).
 

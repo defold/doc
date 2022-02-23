@@ -82,15 +82,6 @@ Legacy functions for reading and writing game object properties also exist. They
 | *linear_damping* | Linear damping of the collision object. | `vector3` | `get+set`{.mark} |
 | *angular_damping* | Angular damping of the collision object. | `vector3` | `get+set`{.mark} |
 
-*SPINE MODEL COMPONENT PROPERTIES*
-
-| property   | description                            | type            |                  |
-| ---------- | -------------------------------------- | --------------- | ---------------- |
-| *animation* | The current animation. | `hash` | `get`{.mark} |
-| *skin*     | The currently applied model skin. (cannot be animated!) | `hash` | `get+set`{.mark} |
-| *cursor*   | The current position (between 0-1) of the animation playback cursor. | `number` | `get+set`{.mark} |
-| *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
-
 *MODEL (3D) COMPONENT PROPERTIES*
 
 | property   | description                            | type            |                  |

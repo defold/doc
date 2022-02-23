@@ -147,7 +147,14 @@
                 "name": "Lua Tutorial",
                 "author": "Derek Bananas",
                 "description": "Learn Lua in one hour."
+            }, 
+            {
+                "path": "https://www.youtube.com/watch?v=jUuqBZwwkQw",
+                "name": "Lua in 100 seconds",
+                "author": "Fireship",
+                "description": "An overview of the Lua language."
             },
+
 
 
 
@@ -664,7 +671,7 @@
                         "name": "Rive animation"
                     },
                     {
-                        "path": "/manuals/spine",
+                        "path": "/extension-spine#playing-animations",
                         "name": "Spine animation"
                     }
                 ]
@@ -713,7 +720,7 @@
                         "name": "Particle FX"
                     },
                     {
-                        "path": "/extension-rive",
+                        "path": "/extension-rive/#creating-rive-model-components",
                         "name": "Rive"
                     },
                     {
@@ -721,7 +728,7 @@
                         "name": "Sound"
                     },
                     {
-                        "path": "/manuals/spinemodel",
+                        "path": "/extension-spine#creating-spine-model-components",
                         "name": "Spine"
                     },
                     {
@@ -754,7 +761,7 @@
                         "name": "Pie nodes"
                     },
                     {
-                        "path": "/manuals/gui-spine",
+                        "path": "/extension-spine#creating-spine-gui-nodes",
                         "name": "Spine nodes"
                     },
                     {
