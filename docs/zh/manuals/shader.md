@@ -49,7 +49,6 @@ Attributes
 : 顶点上的相关属性. 属性经由引擎传送给着色器. 只要在着色程序中声明一下即可使用. 不同类型组件有不同的属性:
   - Sprite 有 `position` 和 `texcoord0`.
   - Tilegrid 有 `position` 和 `texcoord0`.
-  - Spine model 有 `position` 和 `texcoord0`.
   - GUI node 有 `position`, `textcoord0` 和 `color`.
   - ParticleFX 有 `position`, `texcoord0` 和 `color`.
   - Model 有 `position`, `texcoord0` 和 `normal`.
