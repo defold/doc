@@ -60,7 +60,7 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
   | Windows Vista              | 编辑器与游戏引擎        |
   | Ubuntu 18.04 (64 bit)(1)   | 编辑器                |
   | Linux (64 bit)(2)          | 游戏引擎              |
-  | iOS 8.0                    | 游戏引擎              |
+  | iOS 9.0                    | 游戏引擎              |
   | Android 4.1 (API level 16) | 游戏引擎              |
   | HTML5                      | 游戏引擎              |
 
