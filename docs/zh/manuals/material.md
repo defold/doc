@@ -69,7 +69,9 @@ CONSTANT_TYPE_NORMAL
 
 CONSTANT_TYPE_USER
 : 一个 vector4 常量用以向你的着色程序传递自定义数据. 定义时可以赋初值, 可以通过各组件 (`sprite`, `model`, `spine`, `particlefx` 和 `tilemap`) 的 `.set_constant()` 和 `.reset_constant()` 函数来改变其值. 改变单个组件实例的材质参数会 [打破合批增加drawcall](/manuals/render/#Draw call 与合批).
-<br>举例:
+
+举例:
+
 ```lua
 go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 
