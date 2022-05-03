@@ -129,7 +129,7 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### Clear Color Blue
 清除蓝色通道, 建立游戏窗口和渲染脚本中使用.
 
-#### Clear Color ALpha
+#### Clear Color Alpha
 清除alpha通道, 建立游戏窗口和渲染脚本中使用.
 
 ---
