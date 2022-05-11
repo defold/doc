@@ -230,17 +230,17 @@ Start by importing the body part images, then add them to a new atlas that we ca
 
 We also need to import the Spine animation data and set up a *Spine Scene* for it:
 
-1. Drag the file *hero.json* (it is included in the asset package) to the *hero* folder in the *Assets pane*.
+1. Drag the file *hero.spinejson* (it is included in the asset package) to the *hero* folder in the *Assets pane*.
 2. Create a *Spine Scene* file. Right-click the *hero* folder and select <kbd>New ▸ Spine Scene File</kbd>. Name the file *hero.spinescene*.
 3. Double-click the new file to open and edit the *Spine Scene*.
-4. Set the *spine_json* property to the imported JSON file *hero.json*. Click the property, then click the file selector button *...* to open the resource browser.
+4. Set the *spine_json* property to the imported JSON file *hero.spinejson*. Click the property, then click the file selector button *...* to open the resource browser.
 5. Set the *atlas* property to refer to the *hero.atlas* file.
 6. Save the file.
 
 ![Hero spinescene](images/runner/2/hero_spinescene.png)
 
 ::: sidenote
-The file *hero.json* has been exported in Spine JSON format. You will need the Spine or Dragon Bones animation software to be able to create such files. If you want to use other animation software you can export your animations as sprite-sheets and use them as flip-book animations either from *Tile Source* or *Atlas* resources. See the manual on [Animation](/manuals/animation) for more information.
+The file *hero.spinejson* has been exported in Spine JSON format. You will need the Spine or Dragon Bones animation software to be able to create such files. If you want to use other animation software you can export your animations as sprite-sheets and use them as flip-book animations either from *Tile Source* or *Atlas* resources. See the manual on [Animation](/manuals/animation) for more information.
 :::
 
 ### Building the game object
