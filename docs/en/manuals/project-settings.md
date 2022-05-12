@@ -129,7 +129,7 @@ Clear color green channel, used by the render script and when the window is crea
 #### Clear Color Blue
 Clear color blue channel, used by the render script and when the window is created.
 
-#### Clear Color ALpha
+#### Clear Color Alpha
 Clear color alpha channel, used by the render script and when the window is created.
 
 ---
