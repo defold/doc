@@ -144,7 +144,7 @@ for _, coin_id in ipairs(self.spawned_coins) do
 end
 
 -- or alternatively
-go.delete_all(self.spawned_coins)
+go.delete(self.spawned_coins)
 ```
 
 It is also common that you want the spawned object to be aware of the game object that spawned it. One case would be some type of autonomous object that can be spawned only one at a time. The spawned object then needs to inform the spawner when it is deleted or inactivated so another one can be spawned:

@@ -143,7 +143,7 @@ for _, coin_id in ipairs(self.spawned_coins) do
 end
 
 -- 或者直接
-go.delete_all(self.spawned_coins)
+go.delete(self.spawned_coins)
 ```
 
 另一种常见用法是创建新对象时保存一个引用, 同时新对象也保存脚本的一个引用, 等以后需要时可以给创建脚本发送通知消息:
