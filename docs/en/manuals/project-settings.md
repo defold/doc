@@ -287,7 +287,7 @@ If checked, the sound system will use threads for sound playback to reduce risk 
 ### Sprite
 
 #### Max Count
-Max number of sprites per collection, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of sprites per collection, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 #### Subpixels
 Check to allow sprites to appear unaligned with respect to pixels, checked by default.
@@ -297,7 +297,7 @@ Check to allow sprites to appear unaligned with respect to pixels, checked by de
 ### Tilemap
 
 #### Max Count
-Max number of tile maps per collection, `16` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of tile maps per collection, `16` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 #### Max Tile Count
 Max number of concurrent visible tiles per collection, `2048` by default.
@@ -307,28 +307,28 @@ Max number of concurrent visible tiles per collection, `2048` by default.
 ### Spine
 
 #### Max Count
-Max number of spine model components, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of spine model components, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 ---
 
 ### Mesh
 
 #### Max Count
-Max number of mesh components per collection, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of mesh components per collection, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 ---
 
 ### Model
 
 #### Max Count
-Max number of model components per collection, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of model components per collection, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 ---
 
 ### GUI
 
 #### Max Count
-Max number of GUI components, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of GUI components, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 #### Max Particlefx Count
 The max number of concurrent emitters, `64` by default.
@@ -341,7 +341,7 @@ The max number of concurrent particles, `1024` by default.
 ### Label
 
 #### Max Count
-Max number of labels, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of labels, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 #### Subpixels
 Check to allow lables to appear unaligned with respect to pixels, checked by default.
@@ -351,7 +351,7 @@ Check to allow lables to appear unaligned with respect to pixels, checked by def
 ### Particle FX
 
 #### Max Count
-The max number of concurrent emitters, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+The max number of concurrent emitters, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 #### Max Particle Count
 The max number of concurrent particles, `1024` by default.
@@ -361,21 +361,21 @@ The max number of concurrent particles, `1024` by default.
 ### Collection proxy
 
 #### Max Count
-Max number of collection proxies, `8` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of collection proxies, `8` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 ---
 
 ### Collection factory
 
 #### Max Count
-Max number of collection factories, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of collection factories, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 ---
 
 ### Factory
 
 #### Max Count
-Max number of game object factories, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimzations).
+Max number of game object factories, `128` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 ---
 
@@ -587,7 +587,7 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 ```
 
 
-## Component max count optimzations
+## Component max count optimizations
 The `game.project` settings file contains many values specifying the maximum number of a certain resource that can exist at the same time, often counted per loaded collection (also called world). The Defold engine will use these max values to preallocate memory for this amount of memory to avoid dynamic allocations and memory fragmentation while the game is running.
 
 The Defold data structures used to represent components and other resources are optimized to use as little memory as possible but care should still be taken when setting the values to avoid allocating more memory than is actually necessary.
