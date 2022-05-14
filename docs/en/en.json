@@ -156,7 +156,30 @@
             },
 
 
-
+            {
+                "path": "https://www.youtube.com/embed/6Et67K4qZpI",
+                "name": "Scrolling background",
+                "author": "Mahri2D",
+                "description": "How to create a scrolling background."
+            },
+            {
+                "path": "https://www.youtube.com/embed/BVfa18KV5VQ",
+                "name": "Top Down Movement",
+                "author": "Mahri2D",
+                "description": "How to create a top-down player movement controller."
+            },
+            {
+                "path": "https://www.youtube.com/embed/WUNsBa0nPbE",
+                "name": "Follow mouse",
+                "author": "Mahri2D",
+                "description": "How to make an object follow the mouse pointer or finger."
+            },
+            {
+                "path": "https://www.youtube.com/embed/WhO2k52Xl0s",
+                "name": "Rotate to mouse",
+                "author": "Mahri2D",
+                "description": "How to make an object rotate towards the mouse pointer or finger."
+            },
 
             {
                 "path": "https://www.youtube.com/embed/2sxj1Ggc4jQ",
