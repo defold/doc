@@ -110,7 +110,7 @@ Zielona składowa koloru czyszczenia ekranu, używana przez skrypt renderowania,
 #### Clear Color Blue
 Niebieska składowa koloru czyszczenia ekranu, używana przez skrypt renderowania, kiedy okno jest tworzone. Dodano w 1.2.167.
 
-#### Clear Color ALpha
+#### Clear Color Alpha
 Składowa koloru czyszczenia ekranu odpowiedzialna za transparentność, używana przez skrypt renderowania, kiedy okno jest tworzone. Dodano w 1.2.167.
 
 ## Physics (Fizyka)

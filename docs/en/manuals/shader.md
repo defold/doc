@@ -49,7 +49,6 @@ Attributes
 : A value associated with an individual vertex. Attributes are passed to the shader by the engine and if you want to access an attribute you just declare it in your shader program. Different component types have a different set of attributes:
   - Sprite has `position` and `texcoord0`.
   - Tilegrid has `position` and `texcoord0`.
-  - Spine model has `position` and `texcoord0`.
   - GUI node has `position`, `textcoord0` and `color`.
   - ParticleFX has `position`, `texcoord0` and `color`.
   - Model has `position`, `texcoord0` and `normal`.

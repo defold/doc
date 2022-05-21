@@ -45,7 +45,7 @@ function on_reload(self)
 end
 ```
 
-To attach the script to a GUI component, open the GUI component blueprint file and select the root in the *Outline* to bring up GUI *Properties*. Set the *Script* property to the script file
+To attach the script to a GUI component, open the GUI component prototype file (also known as "prefabs" or "blueprints" in other engines) and select the root in the *Outline* to bring up GUI *Properties*. Set the *Script* property to the script file
 
 ![Script](images/gui-script/set_script.png){srcset="images/gui-script/set_script@2x.png 2x"}
 

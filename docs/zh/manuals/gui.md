@@ -88,19 +88,13 @@ Template node
 
 <div style="clear: both;"></div>
 
-Spine node
-: ![spine node](images/icons/spine-model.png){.left}
-  显示spine模型和动画. 详情请见 [Spine 节点教程](/manuals/gui-spine).
-
-<div style="clear: both;"></div>
-
 ParticleFX node
 : ![particlefx node](images/icons/particlefx.png){.left}
   显示粒子特效. 详情请见 [粒子特效节点教程](/manuals/gui-particlefx).
 
 <div style="clear: both;"></div>
 
-右键点击 *Nodes* 文件夹选择 <kbd>Add ▸</kbd> 然后点击 <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd>, <kbd>Spine</kbd> 或 <kbd>ParticleFx</kbd> 即可创建节点.
+右键点击 *Nodes* 文件夹选择 <kbd>Add ▸</kbd> 然后点击 <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> 或 <kbd>ParticleFx</kbd> 即可创建节点.
 
 ![Add nodes](images/gui/add_node.png){srcset="images/gui/add_node@2x.png 2x"}
 
@@ -151,15 +145,6 @@ Pie Fill Angle (pie 节点)
 
 Template (template 节点)
 : 节点模板界面文件. 详情请见 [Template 节点教程](/manuals/gui-template)
-
-Spine Scene (spine 节点)
-: 节点上显示的spine scene. 详情请见 [Spine 节点教程](/manuals/gui-spine)
-
-Default Animation (spine 节点)
-: 节点上自动播放的spine动画. 详情请见 [Spine 节点教程](/manuals/gui-spine)
-
-Skin (spine 节点)
-: 节点上使用的spine皮肤. 详情请见 [Spine 节点教程](/manuals/gui-spine)
 
 ParticleFX (particlefx 节点)
 : 节点上显示的粒子特效. 详情请见 [ParticleFX 节点教程](/manuals/gui-particlefx)
@@ -227,7 +212,7 @@ Adjust Mode
 
   如果场景的 *Adjust Reference* 设置为 `Disabled` 的话, 此设置被忽略.
 
-Clipping Mode (box, pie 和 spine 节点)
+Clipping Mode (box 和 pie 节点)
 : 剔除模式:
 
   - `None` 正常渲染.
@@ -235,10 +220,10 @@ Clipping Mode (box, pie 和 spine 节点)
 
   详情请见 [GUI 蒙版教程](/manuals/gui-clipping)
 
-Clipping Visible (box, pie 和 spine 节点)
+Clipping Visible (box 和 pie 节点)
 : 蒙版可见. 详情请见 [GUI clipping manual](/manuals/gui-clipping)
 
-Clipping Inverted (box, pie 和 spine 节点)
+Clipping Inverted (box 和 pie 节点)
 : 反转蒙版. 详情请见 [GUI clipping manual](/manuals/gui-clipping)
 
 

@@ -37,17 +37,24 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 项目的 *Library URL* 列表. 详情请见 [Libraries 教程](/manuals/libraries/).
 
 #### Custom Resources
+`custom_resources`
 项目中包含的以逗号分隔的资源列表. 如指定的是目录, 则目录下所有文件及其子目录都会包含进去. 这些资源可以通过 [`sys.load_resource()`](/ref/sys/#sys.load_resource) 载入.
 
 #### Bundle Resources
+`bundle_resources`
 需要根据平台单独打包的以逗号分隔的资源目录列表. 目录必须是以项目根目录开始的绝对路径, 比如像 `/res`. 资源目录里要包含 `platform`, 或者 `architecure-platform` 的子目录.
 
-  支持的 platform 有 `ios`, `android`, `osx`, `win32`, `linux`, `web`.
+支持的 platform 有 `ios`, `android`, `osx`, `win32`, `linux`, `web`, `switch`.
 
-  允许名叫 `common` 的子目录, 用以容纳平台间共享的资源.
+支持包含名为 `common` 的文件夹, 可以在其中加入各平台公用的资源文件.
+
+不同平台访问 bundle 资源的方法不一样. 使用 Lua 的 `io` 模块是可行的. 但是要特别注意写对各平台的文件路径.
+(举例: 在安卓平台上要这么写 "file:///android_asset/")
 
 #### Bundle Exclude Resources
+`bundle_exclude_resources`
 项目中排除的以逗号分隔的资源列表.
+也就是说, 这些资源会被从 `bundle_resources` 设置的基础上被剔除.
 
 ---
 
@@ -114,16 +121,16 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 ### Render
 
 #### Clear Color Red
-清除红色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+清除红色通道, 建立游戏窗口和渲染脚本中使用.
 
 #### Clear Color Green
-清除绿色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+清除绿色通道, 建立游戏窗口和渲染脚本中使用.
 
 #### Clear Color Blue
-清除蓝色通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+清除蓝色通道, 建立游戏窗口和渲染脚本中使用.
 
-#### Clear Color ALpha
-清除alpha通道, 建立游戏窗口和渲染脚本中使用. 1.2.167 版新增.
+#### Clear Color Alpha
+清除alpha通道, 建立游戏窗口和渲染脚本中使用.
 
 ---
 
@@ -154,10 +161,10 @@ debug线的不透明度, `0`--`1`. 默认是 `0.9`.
 设定物理世界与游戏世界的数值映射比例, `0.01`--`1.0`. 如果设置为 `0.02`, 相当于物理引擎视50个游戏单位为1米 ($1 / 0.02$). 默认值是 `1.0`.
 
 #### Allow Dynamic Transforms
-設置物理碰撞對象縮放是否繼承于其父級游戲對象. 默認為 `true`.
+設置物理碰撞對象的变化是否繼承于其父級游戲對象, 所谓变化包括父级的移动, 缩放和缩放, 即使当前物体是动态物理物体也可继承父级的变化. 默認為 `true`.
 
 #### Debug Scale
-设置物理元物体画多大, 比如原向量和法线,  默认是 `30`.
+设置物理标识画多大, 比如原向量和法线,  默认是 `30`.
 
 #### Max Collisions
 设置向脚本报告多少个碰撞, 默认是 `64`.
@@ -280,7 +287,7 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 ### Sprite
 
 #### Max Count
-每个集合最大sprite数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
+每个集合最大sprite数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 #### Subpixels
 开启后允许sprite不与像素对齐, 默认开启.
@@ -290,7 +297,7 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 ### Tilemap
 
 #### Max Count
-每个集合的瓷砖地图最大数目, 默认是 `16`. [(参见最大组件数优化)](#component_max_count_optimzations).
+每个集合的瓷砖地图最大数目, 默认是 `16`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 #### Max Tile Count
 每个集合可同时显示的瓷砖最大数目, 默认是 `2048`.
@@ -307,21 +314,21 @@ spine 模型最大数目, 默认是 `128`.
 ### Mesh
 
 #### Max Count
-每个集合最大容纳3D模型面数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
+每个集合最大容纳3D模型面数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 ---
 
 ### Model
 
 #### Max Count
-每个集合最大容纳3D模型组件个数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
+每个集合最大容纳3D模型组件个数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 ---
 
 ### GUI
 
 #### Max Count
-GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimzations).
+GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 #### Max Particlefx Count
 同一时间粒子发射器最大数目, 默认是 `64`.
@@ -334,7 +341,7 @@ GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#compone
 ### Label
 
 #### Max Count
-label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimzations).
+label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 #### Subpixels
 开启后允许 lables 不与像素对齐, 默认开启.
@@ -344,7 +351,7 @@ label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_m
 ### Particle FX
 
 #### Max Count
-同一时间粒子发射器最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimzations).
+同一时间粒子发射器最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 #### Max Particle Count
 同一时间粒子最大数目, 默认是 `1024`.
@@ -354,21 +361,21 @@ label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_m
 ### Collection proxy
 
 #### Max Count
-集合代理最大数目, 默认是 `8`. [(参见最大组件数优化)](#component_max_count_optimzations).
+集合代理最大数目, 默认是 `8`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 ---
 
 ### Collection factory
 
 #### Max Count
-集合工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
+集合工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 ---
 
 ### Factory
 
 #### Max Count
-游戏对象工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimzations).
+游戏对象工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
 
 ---
 

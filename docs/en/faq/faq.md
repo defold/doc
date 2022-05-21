@@ -56,11 +56,12 @@ A: The following platforms are supported for the editor/tools and the engine run
 
   | System                     | Supported            |
   | -------------------------- | -------------------- |
-  | macOS 10.7 Lion            | Editor and runtime   |
+  | macOS 10.12 Sierra         | Editor               |
+  | macOS 10.7 Lion            | Runtime              |
   | Windows Vista              | Editor and runtime   |
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |
-  | iOS 8.0                    | Runtime              |
+  | iOS 9.0                    | Runtime              |
   | Android 4.1 (API level 16) | Runtime              |
   | HTML5                      | Runtime              |
 

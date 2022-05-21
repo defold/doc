@@ -17,7 +17,7 @@ If you prefer to watch video tutorials, please check out [the video version on Y
 
 We use game assets from two other tutorials, with some small modifications. The tutorial is divided into several steps, with each part taking us a significant step towards the final game.
 
-The end result will be a game where you control a frog that runs through an environments, collecting coins and avoiding obstacles. The frog runs at fixed speed and the player controls only the frog's jumping by the press of a single button (or screen touch on a mobile device). The level consists of an endless stream of platforms to jump on - and of coins to collect.
+The end result will be a game where you control a hero character that runs through an environments, collecting coins and avoiding obstacles. The hero character runs at fixed speed and the player controls only the hero character's jumping by the press of a single button (or screen touch on a mobile device). The level consists of an endless stream of platforms to jump on - and of coins to collect.
 
 If you at any point get stuck on this tutorial or when creating your game don't hesitate to ask us for help at the [Defold Forum](//forum.defold.com). In the forum you can discuss Defold, ask for help from the Defold team, see how other game developers solved their problems and find new inspiration. Get started now.
 
@@ -27,10 +27,11 @@ Throughout the tutorial, detailed descriptions on concepts and how to do certain
 
 So let's begin. We hope you will have a lot of fun going through this tutorial and that it helps you getting going with Defold.
 
-<a name="part-1"></a>
+> Download the assets for this tutorial [here](https://github.com/defold/sample-runner/tree/main/def-runner).
+
 ## STEP 1 - Installation and setup
 
-The first step is to [download the following file](https://github.com/defold/sample-runner/archive/refs/heads/main.zip). It is a zip package with the full project and all the assets that you need to create the tutorial game.
+The first step is to [download the following files](https://github.com/defold/sample-runner/tree/main/def-runner).
 
 Now, if you haven't already downloaded and installed the Defold editor, it's time to do that:
 
@@ -38,13 +39,17 @@ Now, if you haven't already downloaded and installed the Defold editor, it's tim
 
 When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template.
 
+::: sidenote
+This tutorial uses Spine features, which has been moved to its own extension post Defold 1.2.188. If you are on a newer version, please add the [Spine Extension](https://github.com/defold/extension-spine) to the dependencies section of `game.project`.
+:::
+
 ## The editor
 
 The first time you start the editor, the editor starts blank, without any project open so choose <kbd>Open Project</kbd> from the menu and select your newly created project. You will also be prompted to create a "branch" for the project.
 
 Now, in the *Assets pane* you will see all files that are part of the project. If you double-click the file "main/main.collection" the file will open up in the editor view in the center:
 
-![Editor overview](images/runner/1/editor_overview.png)
+![Editor overview](images/runner/1/editor2_overview.png)
 
 The editor consists of the following main areas:
 
@@ -68,19 +73,11 @@ Console
 
 ## Running the game
 
-The "Empty" project template actually isn't completely empty. As you've already seen, it contains one game object with a simple image. Select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
+The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
 
 ![Build and launch](images/runner/1/build_and_launch.png)
 
-It's perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
-
-First of all, let's clean the *main.collection* file of the one game object it contains.
-
-* Double click the file *main.collection* to open it in the editor.
-* Select (click) "logo" in the *Outline* view to the right.
-* Right-click and select <kbd>Delete</kbd> from the pop up menu.
-* Save the file. Select <kbd>File ▸ Save</kbd> in the main menu.
-That's it!
+A black screen is perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 
 ::: sidenote
 The Defold editor works on files. By double-clicking a file in the *Assets pane* you open it in a suitable editor. You can then work with the contents of the file.
@@ -90,11 +87,13 @@ When you are done editing a file you have to save it. Select <kbd>File ▸ Save<
 ![File with unsaved changes](images/runner/1/file_changed.png)
 :::
 
-![Delete game object](images/runner/1/delete_go.png)
+## Setting up the project
 
-If you run the game again, the application window will be totally black.
+Before we begin, let's set up several settings for our projects. Open the `game.project` asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively. You also need to add the Spine extension to the project so that we can animate the hero character. Add the following URL to your game.project dependencies:
 
-<a name="part-2"></span></a>
+https://github.com/defold/extension-spine/archive/main.zip
+
+
 ## STEP 2 - Creating the ground
 
 Let's take the first baby steps and create an arena for our character, or rather a piece of scrolling ground. We do this in a few steps.
@@ -146,11 +145,10 @@ Game objects
 : These are things that exist in the running game. Each game object has a location in 3D space, a rotation and scaling. It doesn't necessarily have to be visible. A game object holds any number of _components_ that adds abilities like graphics (sprites, tilemaps, models, spine models and particle effects), sounds, physics, factories (for spawning) and more. Lua _script components_ can also be added to give a game object behaviors. Each game object that exist in your games has an *id* that you need in order to communicate with it, through message passing.
 
 Collections
-: Collections do not exist by themselves in a running game but are used to enable static naming of game object and at the same time allowing multiple instances of the same game object. In practice, collections are used as containers for game objects and other collections. You can use collections much like "prefabs" or "blueprints" of complex hiearchies of game objects and collections. At startup, the engine loads a main collection and breathes life to anything you have put inside it. By default this is the *main.collection* file in the *main* folder of your project, but you can change that in the project settings.
+: Collections do not exist by themselves in a running game but are used to enable static naming of game object and at the same time allowing multiple instances of the same game object. In practice, collections are used as containers for game objects and other collections. You can use collections much like prototypes (also known as "prefabs" or "blueprints" in other engines) of complex hiearchies of game objects and collections. At startup, the engine loads a main collection and breathes life to anything you have put inside it. By default this is the *main.collection* file in the *main* folder of your project, but you can change that in the project settings.
 
 For the time being these description probably suffices. However, a much more comprehensive dive through these things can be found in the [Building blocks manual](/manuals/building-blocks). It is a good idea to visit that manual at a later stage to get a deeper understanding on how things work in Defold.
 
-<a name="part-3"></span></a>
 ## STEP 3 - Making the ground move
 
 Now that we have all ground pieces in place, it is rather simple to get them moving. The idea is this: move the pieces right-to-left and when a piece reach the leftmost edge outside of the screen, move it to the rightmost position. To move all these game objects requires a Lua script so let's create one:
@@ -187,12 +185,14 @@ end
 6. Decrease the current X-position with the set speed. Multiply with `dt` to get framerate independent speed in pixels/s.
 7. Update the object's position with the new speed.
 
-![Ground script](images/runner/1/ground_script.png)
-
 ::: sidenote
 Defold is a fast engine core that manages your data and game objects. Any logic or behavior that you need for your game is created in the Lua language. Lua is a fast and light-weight programming language that is great for writing game logic. There are great resources available to learn the language, like the book http://www.lua.org/pil/[Programming in Lua] and the official http://www.lua.org/manual/5.3/[Lua reference manual].
 
 Defold adds a set of APIs on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
+:::
+
+::: sidenote
+You can toggle the Assets Pane, Console and Outline sections of the editor using the <kbd>F6</kbd>, <kbd>F7</kbd> and <kbd>F8</kbd> keys respectively
 :::
 
 Now that we have a script file, we should add a reference to it to a component in a game object. That way, the script will be executed as part of the game object lifecycle. We do this by creating a new game object in *ground.collection* and add a *Script* component to the object that refers to the Lua script file we just created:
@@ -209,13 +209,13 @@ Now when you run the game, the "controller" game object will run the script in i
 The hero character will be a game object consisting of the following components:
 
 A *Spine Model*
-: This gives us a paper-doll like little frog whose body parts can be smoothly (and cheaply) animated.
+: This gives us a paper-doll like little hero character whose body parts can be smoothly (and cheaply) animated.
 
 A *Collision Object*
-: This will detect collisions between the hero frog and things in the level that it can run on, that are dangerous or that can be picked up.
+: This will detect collisions between the hero character and things in the level that it can run on, that are dangerous or that can be picked up.
 
 A *Script*
-: This acquires user input and reacts to that, makes the hero frog jump, animate and deal with collisions.
+: This acquires user input and reacts to that, makes the hero character jump, animate and deal with collisions.
 
 Start by importing the body part images, then add them to a new atlas that we call *hero.atlas*:
 
@@ -230,17 +230,17 @@ Start by importing the body part images, then add them to a new atlas that we ca
 
 We also need to import the Spine animation data and set up a *Spine Scene* for it:
 
-1. Drag the file *hero.json* (it is included in the asset package) to the *hero* folder in the *Assets pane*.
+1. Drag the file *hero.spinejson* (it is included in the asset package) to the *hero* folder in the *Assets pane*.
 2. Create a *Spine Scene* file. Right-click the *hero* folder and select <kbd>New ▸ Spine Scene File</kbd>. Name the file *hero.spinescene*.
 3. Double-click the new file to open and edit the *Spine Scene*.
-4. Set the *spine_json* property to the imported JSON file *hero.json*. Click the property, then click the file selector button *...* to open the resource browser.
+4. Set the *spine_json* property to the imported JSON file *hero.spinejson*. Click the property, then click the file selector button *...* to open the resource browser.
 5. Set the *atlas* property to refer to the *hero.atlas* file.
 6. Save the file.
 
 ![Hero spinescene](images/runner/2/hero_spinescene.png)
 
 ::: sidenote
-The file *hero.json* has been exported in Spine JSON format. You will need the Spine or Dragon Bones animation software to be able to create such files. If you want to use other animation software you can export your animations as sprite-sheets and use them as flip-book animations either from *Tile Source* or *Atlas* resources. See the manual on [Animation](/manuals/animation) for more information.
+The file *hero.spinejson* has been exported in Spine JSON format. You will need the Spine or Dragon Bones animation software to be able to create such files. If you want to use other animation software you can export your animations as sprite-sheets and use them as flip-book animations either from *Tile Source* or *Atlas* resources. See the manual on [Animation](/manuals/animation) for more information.
 :::
 
 ### Building the game object
@@ -258,7 +258,7 @@ Now we can start constructing the hero gameobject:
 Now it's time to add physics for collision to work:
 
 1. Add a *Collision Object* component to the hero game object. (Right-click the root in the *Outline* and select <kbd>Add Component</kbd>, then select "Collision Object")
-2. Right-click the new component and select <kbd>Add Shape</kbd>. Add two shapes to cover the frog's body. A sphere and a box will do.
+2. Right-click the new component and select <kbd>Add Shape</kbd>. Add two shapes to cover the characters's body. A sphere and a box will do.
 3. Click the shapes and use the *Move Tool* (<kbd>Scene ▸ Move Tool</kbd>) to move the shapes into good positions.
 4. Mark the *Collision Object* component and set the *Type* property to "Kinematic".
 
@@ -271,15 +271,15 @@ It is important that we specify what the collision object should interact with:
 1. Set the *Group* property to a new collision group called "hero".
 2. Setting the *Mask* property to another group "geometry" that this collision object should register collisions with. Note that the "geometry" group does not yet exist, but we will soon add collision objects belonging to it.
 
-![Hero game object](images/runner/2/hero_game_object.png)
-
 Finally, create a new *hero.script* file and add it to the game object.
 
 1. Right-click the *hero* folder in the *Assets pane*  and select <kbd>New ▸ Script File</kbd>. Name the new file *hero.script*.
 2. Open the new file, then copy and paste the following code into the script file, then save it. (The code is pretty straightforward apart from the solver that separates the hero collision shape from what it collides with. That is done by the `handle_geometry_contact()` function.)
 
+![Hero game object](images/runner/2/hero_game_object.png)
+
 ::: sidenote
-The reason we are handling the collision ourselves is that if we instead set the type on the frog's collision object to dynamic, the engine will peform a Newtonian simulation of the bodies involved. For a game like this, such a simulation is far from optimal so instead of fighting the physics engine with various forces, we take full control.
+The reason we are handling the collision ourselves is that if we instead set the type on the character's collision object to dynamic, the engine will peform a Newtonian simulation of the bodies involved. For a game like this, such a simulation is far from optimal so instead of fighting the physics engine with various forces, we take full control.
 
 Now, to do that and handle collision properly requires a little bit of vector mathematics. A thorough explanation on how to solve kinematic collisions is given in the [Physics documentation](/manuals/physics#resolving-kinematic-collisions).
 :::
@@ -384,9 +384,9 @@ function on_input(self, action_id, action)
 end
 ```
 
-3. Add the script as a *Script* component to the hero object (right-click the root of *hero.go* in the *Outline* and select <kbd>Add Component from File</kbd>, then select the *hero.script* file).
+1. Add the script as a *Script* component to the hero object (right-click the root of *hero.go* in the *Outline* and select <kbd>Add Component from File</kbd>, then select the *hero.script* file).
 
-If you want you can now try and temporarily add the hero frog to the main collection and run the game to see it fall through the world.
+If you want you can now try and temporarily add the hero character to the main collection and run the game to see it fall through the world.
 
 The last thing we need for the hero to be functional is input. The script above already contains an `on_input()` function that responds to actions "jump" and "touch" (for touch screens). Let's add input bindings for these actions.
 
@@ -397,10 +397,9 @@ The last thing we need for the hero to be functional is input. The script above 
 
 ![Input bindings](images/runner/2/input_bindings.png)
 
-<a name="part-5"></a>
 ## STEP 5 - Refactoring the level
 
-Now that we have a hero character set up with collision and all, we need to also add collision to the ground so the frog has got something to collide with (or run on). We'll do that in a second, but first, we should do a little refactoring and put all level stuff in a separate collection and clean up the file structure a bit:
+Now that we have a hero character set up with collision and all, we need to also add collision to the ground so the hero character has got something to collide with (or run on). We'll do that in a second, but first, we should do a little refactoring and put all level stuff in a separate collection and clean up the file structure a bit:
 
 1. Create a new *level.collection* file (right-click *main* in the *Assets pane* and select <kbd>New ▸ Collection File</kbd>).
 2. Open the new file, right-click the root in the *Outline* and select <kbd>Add Collection from File</kbd> and choose *ground.collection*.
@@ -424,7 +423,7 @@ We should also add a controller game object with a script component to the level
     go.property("speed", 360) -- <1>
 
     function init(self)
-        msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
+        msg.post("ground/controller#ground", "set_speed", { speed = self.speed })
     end
     ```
     1. This is a script property. We set it to a default value but any placed instance of the script can override this value, directly in the properties view in the editor.
@@ -449,7 +448,7 @@ In the level controller script's `init()` function, it sends a message to the gr
 msg.post("ground/controller#controller", "set_speed", { speed = self.speed })
 ```
 
-The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"controller"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the "set_speed" message so we have to add an `on_message()` function to *ground.script* and add logic for that.
+The id of the controller game object is set to `"ground/controller"` since it lives in the "ground" collection. Then we add the component id `"controller"` after the hash character `"#"` that separates the object id from the component id. Note that the ground script does not yet have any code to react to the `set_speed` message so we have to add an `on_message()` function to *ground.script* and add logic for that.
 
 1. Open *ground.script*.
 2. Add the following code and save the file:
@@ -467,7 +466,6 @@ end
 
 ![Add ground code](images/runner/insert_ground_code.png)
 
-<a name="part-6"></span></a>
 ## STEP 6 - Ground physics and platforms
 
 At this point we should add physics collision for the ground:
@@ -482,9 +480,9 @@ At this point we should add physics collision for the ground:
 
 ![Ground collision](images/runner/2/ground_collision.png)
 
-Now you should be able to try running the game (<kbd>Project ▸ Build and Launch</kbd>). The frog should run on the ground and it should be possible to jump with the  kbd:[Space] button. If you run the game on a mobile device, you can jump by tapping on the screen.
+Now you should be able to try running the game (<kbd>Project ▸ Build and Launch</kbd>). The hero character should run on the ground and it should be possible to jump with the  kbd:[Space] button. If you run the game on a mobile device, you can jump by tapping on the screen.
 
-To make life in frog-world a little less dull, we should add platforms to jump on.
+To make life in our game world a little less dull, we should add platforms to jump on.
 
 1. Drag the image file *rock_planks.png* from the asset package to the *level/images* subfolder.
 2. Open *level.atlas* and add the new image to the atlas (right-click the root in the *Outline* and select <kbd>Add Images</kbd>).
@@ -588,20 +586,20 @@ Wow, this is starting to turn into something (almost) playable...
 
 ![Running the game](images/runner/2/run_game.png)
 
-<a name="part-7"></span></a>
 ## STEP 7 - Animation and death
 
-The first thing we're gonna do is to bring life to the frog. Right now the poor thing is stuck in a run-loop and does not respond well to jumps or anything. The spine file that we added from the asset package actually contains a set of animations for just that.
+The first thing we're gonna do is to bring life to the hero character. Right now the poor thing is stuck in a run-loop and does not respond well to jumps or anything. The spine file that we added from the asset package actually contains a set of animations for just that.
 
 1. Open the *hero.script* file and add the following functions _before_ the existing `update()` function:
 
-    ```lua
+```lua
     -- hero.script
     local function play_animation(self, anim)
         -- only play animations which are not already playing
         if self.anim ~= anim then
             -- tell the spine model to play the animation
-            spine.play("#spinemodel", anim, go.PLAYBACK_LOOP_FORWARD, 0.15)
+            local anim_props = { blend_duration = 0.15 }
+            spine.play_anim("#spinemodel", anim, go.PLAYBACK_LOOP_FORWARD, anim_props)
             -- remember which animation is playing
             self.anim = anim
         end
@@ -610,27 +608,24 @@ The first thing we're gonna do is to bring life to the frog. Right now the poor 
     local function update_animation(self)
         -- make sure the right animation is playing
         if self.ground_contact then
-            play_animation(self, hash("run_right"))
+            play_animation(self, hash("run"))
         else
-            if self.velocity.y > 0 then
-                play_animation(self, hash("jump_right"))
-            else
-                play_animation(self, hash("fall_right"))
-            end
+            play_animation(self, hash("jump"))
+
         end
     end
-    ```
+```
 
 2. Find the function `update()` and add a call to `update_animation`:
 
-    ```lua
+```lua
     ...
     -- apply it to the player character
     go.set_position(go.get_position() + self.velocity * dt)
 
     update_animation(self)
     ...
-    ```
+  ```
 
 ![Insert hero code](images/runner/insert_hero_code.png)
 
@@ -646,7 +641,7 @@ That's all that's needed to add jump and fall animations to the hero. If you run
 4. Use the *Move Tool* and the *Rotate Tool* to place the spikes along the edges of the platform.
 5. To make the spikes render behind the platform, set the *Z* position of the spike sprites to -0.1.
 6. Add a new *Collision Object* component to the platforms (right-click the root in the *Outline* and select <kbd>Add Component</kbd>). Set the *Group* property to "danger". Also set *Mask* to "hero".
-7. Add a box shape to the *Collision Object* (right-click and select <kbd>Add Shape</kbd>) and use the *Move Tool* (<kbd>Scene ▸ Move Tool</kbd>) and the *Scale Tool* to place the shape so the frog will collide with the "danger" object when hitting the platform from the side or from below.
+7. Add a box shape to the *Collision Object* (right-click and select <kbd>Add Shape</kbd>) and use the *Move Tool* (<kbd>Scene ▸ Move Tool</kbd>) and the *Scale Tool* to place the shape so the hero character will collide with the "danger" object when hitting the platform from the side or from below.
 8. Save the file.
 
     ![Platform spikes](images/runner/3/danger_edges.png)
@@ -655,7 +650,7 @@ That's all that's needed to add jump and fall animations to the hero. If you run
 
     ![Hero collision](images/runner/3/hero_collision.png)
 
-10. Open *hero.script* and change the `on_message()` function so we get a reaction if the frog collides with a "danger" egde:
+10. Open *hero.script* and change the `on_message()` function so we get a reaction if the hero character collides with a "danger" egde:
 
     ```lua
     -- hero.script
@@ -673,7 +668,7 @@ That's all that's needed to add jump and fall animations to the hero. If you run
             -- check if we received a contact point message
             if message.group == hash("danger") then
                 -- Die and restart
-                play_animation(self, hash("die_right"))
+                play_animation(self, hash("death"))
                 msg.post("#collisionobject", "disable")
                 -- <1>
                 go.animate(".", "euler.z", go.PLAYBACK_ONCE_FORWARD, 160, go.EASING_LINEAR, 0.7)
@@ -702,7 +697,6 @@ That's all that's needed to add jump and fall animations to the hero. If you run
     end
     ```
 
-<a name="part-8"></span></a>
 ## STEP 8 - Resetting the level
 
 If you try the game now it quickly becomes apparent that the reset mechanism doesn't work. The hero reset is fine, but you can easily reset into a situation where you will instantly fall onto a platform edge and die again. What we want to do is to properly reset the whole level on death. Since the level is just a series of spawned platforms, we just need to track all spawned platforms and then delete them at reset:
@@ -799,7 +793,6 @@ And now the main restart-die loop is in place!
 
 Next up - something to live for: coins!
 
-<a name="part-9"></span></a>
 ## STEP 9 - Coins to collect
 
 The idea is to put coins in the level for the player to collect. The first questions to ask is how to put them into the level. We can, for instance, develop a spawning scheme that is somehow in tune with the platform spawning algorithm. However, we chose a much easier approach in the end and just have the platforms themselves spawn coins:
@@ -934,6 +927,8 @@ And now we have a simple, but functional game! If you make it this far you might
 1. Scoring and life counters
 2. Particle effects for the pickups and death
 3. Nice background imagery
+
+> Download the completed version of the project [here](images/runner/sample-runner.zip)
 
 That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](//www.defold.com/learn) prepared to guide you, and if you get stuck, your're welcome to the [forum](//forum.defold.com).
 

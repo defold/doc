@@ -55,7 +55,7 @@ Game objects are simple objects that each have a separate lifespan during the ex
 go.animate("can", "position.x", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 1.0)
 ```
 
-Game objects can be used empty (as position markers, for instance) but are usually used equipped with various components, like sprites, sounds, scripts, models, factories and more. Game objects are either created in the editor, placed in collection files, or dynamically spawned at run-time through _factory_ components.
+Game objects can be used empty (as position markers, for instance) but are usually equipped with various components, like sprites, sounds, scripts, models, factories and more. Game objects are either created in the editor, placed in collection files, or dynamically spawned at run-time through _factory_ components.
 
 Game objects are either added in-place in a collection, or added to a collection as a reference to a game object file:
 
@@ -70,7 +70,7 @@ Refer to the [component overview](/manuals/components/) for a list of all availa
 
 ## Objects added in-place or by reference
 
-When you create a collection, game object or component _file_, you create a blueprint, or a prototype. This only adds a file to the project file structure, nothing is added to your running game. To add an instance of a collection, game object or component based on a blueprint file, you add an instance of it in one of your collection files.
+When you create a collection, game object or component _file_, you create what we call a prototype (also known as "prefabs" or "blueprints" in other engines). This only adds a file to the project file structure, nothing is added to your running game. To add an instance of a collection, game object or component based on a prototype file, you add an instance of it in one of your collection files.
 
 You can see what file an object instance is based on in the outline view. The file "main.collection" contains three instances that are based on files:
 
@@ -80,17 +80,21 @@ You can see what file an object instance is based on in the outline view. The fi
 
 ![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
 
-The benefit of creating blueprint files becomes apparent when you have multiple instances of a game object or collection and wishes to change all of them:
+The benefit of creating prototype files becomes apparent when you have multiple instances of a game object or collection and wish to change all of them:
 
 ![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
 
-By changing the blueprint file, any instance that uses that file will immediately be updated.
+By changing the prototype file, any instance that uses that file will immediately be updated.
+
+![GO changing prototype](images/building_blocks/go_change_blueprint.png){srcset="images/building_blocks/go_change_blueprint@2x.png 2x"}
+
+Here the sprite image of the prototype file is changed and immediately all instances using the file are updated:
 
 ![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
 
 ## Childing game objects
 
-In a collection file, you can build hierarchies of game objects so that one or more game objects are children to a single parent game object. By simply <kbd>dragging</kbd> one game object and <kbd>dropping</kbd> it onto another the dragged game object is childed under the target:
+In a collection file, you can build hierarchies of game objects so that one or more game objects are children to a single parent game object. By simply <kbd>dragging</kbd> one game object and <kbd>dropping</kbd> it onto another, the dragged game object is childed under the target:
 
 ![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
 
@@ -108,5 +112,5 @@ msg.post("child_bean", "set_parent", { parent_id = parent })
 ```
 
 ::: important
-A common misunderstanding is that a game object's place in the collection hierarchy changes when it becomes part of a parent-child hierarchy. However, these are two very different things. Parent-child hierarchies dynamically alters the scene graph which allows objects to be visually attached to each other. The only thing that dictates a game object's address is its place in the collection hierarchy. The address is static throughout the lifetime of the object.
+A common misunderstanding is that a game object's place in the collection hierarchy changes when it becomes part of a parent-child hierarchy. However, these are two very different things. Parent-child hierarchies dynamically alter the scene graph, which allows objects to be visually attached to each other. The only thing that dictates a game object's address is its place in the collection hierarchy. The address is static throughout the lifetime of the object.
 :::

@@ -114,7 +114,7 @@ end
       -- Delete game objects. Will decref resources.
       -- In this case resources are deleted since the collection
       -- factory component holds no reference.
-      go.delete_all(self.go_ids)
+      go.delete(self.go_ids)
 
       -- Calling unload will do nothing since factory holds
       -- no references
@@ -141,7 +141,7 @@ end
       -- Delete game object. Will decref resources.
       -- In this case resources aren’t deleted since the collection factory
       -- component still holds a reference.
-      go.delete_all(self.go_ids)
+      go.delete(self.go_ids)
 
       -- Calling unload will decref resources held by the factory component,
       -- resulting in resources being destroyed.

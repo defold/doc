@@ -69,7 +69,9 @@ CONSTANT_TYPE_NORMAL
 
 CONSTANT_TYPE_USER
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). You can also retrieve the value with [go.get()](/ref/stable/go/#go.get). Changing a material constant of a single component instance [breaks render batching and will result in additional draw calls](/manuals/render/#draw-calls-and-batching).
-<br>Example:
+
+Example:
+
 ```lua
 go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 

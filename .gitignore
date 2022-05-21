@@ -3,3 +3,5 @@ build
 lib/google-cloud-sdk/
 node_modules/
 deps/
+.vscode/
+.lite_project.lua

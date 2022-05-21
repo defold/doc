@@ -66,8 +66,11 @@ local color = gui.get_color(node)
 | 属性   | 描述                            | 类型            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *size*     | sprite 原始尺寸 --- 从图集图片而定的尺寸. | `vector3` | `get`{.mark} |
-| *texture0* | sprite 纹理路径hash. | `hash` | `get`{.mark}|
+| *image* | sprite 纹理路径hash. | `hash` | `get`{.mark}|
 | *scale* | sprite 非等比缩放. | `vector3` | `get+set`{.mark}|
+| *material* | sprite 使用的材质. | `hash` | `get+set`{.mark}|
+| *cursor* | 动画播放头位置 (取值范围 0--1). | `number` | `get+set`{.mark}|
+| *playback_rate* | 逐帧动画播放速率. | `number` | `get+set`{.mark}|
 
 *COLLISION OBJECT 组件属性*
 
@@ -79,15 +82,6 @@ local color = gui.get_color(node)
 | *linear_damping* | 碰撞对象当前的线性阻尼. | `vector3` | `get+set`{.mark} |
 | *angular_damping* | 碰撞对象当前的旋转阻尼. | `vector3` | `get+set`{.mark} |
 
-*SPINE MODEL 组件属性*
-
-| 属性   | 描述                            | 类型            |                  |
-| ---------- | -------------------------------------- | --------------- | ---------------- |
-| *animation* | 当前动画. | `hash` | `get`{.mark} |
-| *skin*     | 当前皮肤. (不支持属性动画) | `hash` | `get+set`{.mark} |
-| *cursor*   | 当前动画播放头 (取值范围 0-1). | `number` | `get+set`{.mark} |
-| *playback_rate* | 当前动画播放速率. 即播放速度倍数. | `number` | `get+set`{.mark} |
-
 *MODEL (3D) 组件属性*
 
 | 属性   | 描述                            | 类型            |                  |
@@ -96,6 +90,7 @@ local color = gui.get_color(node)
 | *texture0* | 模型的纹理路径hash. | `hash` | `get`{.mark}|
 | *cursor*  | 当前动画播放头 (取值范围 0-1). | `number`   | `get+set`{.mark} |
 | *playback_rate* | 当前动画播放速率. 即播放速度倍数. | `number` | `get+set`{.mark} |
+| *material* | 模型所用材质. | `hash` | `get+set`{.mark}|
 
 *LABEL 组件属性*
 
@@ -106,6 +101,8 @@ local color = gui.get_color(node)
 | *outline* | 文本标签的轮廓. | `vector4` | `get+set`{.mark} |
 | *shadow* | 文本标签的阴影. | `vector4` | `get+set`{.mark} |
 | *size* | 文本标签的大小. 如果开启换行的话文本标签大小会被约束. | `vector3` | `get+set`{.mark} |
+| *material* | 文本标签所用材质. | `hash` | `get+set`{.mark}|
+| *font* | 文本标签所用字体. | `hash` | `get+set`{.mark}|
 
 ## GUI 节点属性
 

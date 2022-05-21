@@ -115,7 +115,7 @@ Wczytywanie synchroniczne:
       -- Usuwanie obiektów gry. Zwolni to zasoby.
       -- W tym przypadku obiekty są usuwane, ponieważ 
       -- fabryka kolekcji nie ma żadnych referencji.
-      go.delete_all(self.go_ids)
+      go.delete(self.go_ids)
 
       -- Wywołanie unload nie zrobi nic, ponieważ
       -- fabryka kolekcji nie ma żadnych referencji.
@@ -144,7 +144,7 @@ Wczytywanie asynchroniczne:
       -- Usuwanie obiektu gry. Zasoby są zwalniane.
       -- W tym przypadku zasoby nie są usuwane, ponieważ
       -- fabryka kolekcji nadal posiada do nich referencję.
-      go.delete_all(self.go_ids)
+      go.delete(self.go_ids)
 
       -- Wywołanie unload zwolni zasoby utrzymywane przez farbykę i usunie je
       collectionfactory.unload("#factory")
