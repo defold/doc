@@ -149,7 +149,7 @@ Filter Min/Mag
 self.constants = render.constant_buffer() -- <1>
 self.constants.tint = vmath.vector4(1, 0, 0, 1) -- <2>
 ...
-render.draw(self.my_pred, self.constants) -- <3>
+render.draw(self.my_pred, {constants = self.constants}) -- <3>
 ```
 1. 新建常量缓存
 2. 设置 `tint` 常量为白色
