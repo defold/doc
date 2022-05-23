@@ -206,6 +206,11 @@ The maximum number of debug vertices. Used for physics shape rendering among oth
 #### Texture Profiles
 The texture profiles file to use for this project, `/builtins/graphics/default.texture_profiles` by default.
 
+#### Verify Graphics Calls
+Verify the return value after each graphics call and report any errors in the log.
+
+---
+
 ### Shader
 
 #### Output SPIR-V

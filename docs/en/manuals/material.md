@@ -149,7 +149,7 @@ When the rendering pipeline draws, it pulls constant values from a default syste
 self.constants = render.constant_buffer() -- <1>
 self.constants.tint = vmath.vector4(1, 0, 0, 1) -- <2>
 ...
-render.draw(self.my_pred, self.constants) -- <3>
+render.draw(self.my_pred, {constants = self.constants}) -- <3>
 ```
 1. Create a new constants buffer
 2. Set the `tint` constant to bright red
