@@ -206,6 +206,11 @@ debug顶点最大数目. 用于物理形状渲染与其他一些功能, 默认�
 #### Texture Profiles
 项目使用的纹理档配置文件, 默认是 `/builtins/graphics/default.texture_profiles`.
 
+#### Verify Graphics Calls
+校验每个 graphics call 的返回值, 并且把遇到的错误保存到 log 里.
+
+---
+
 ### Shader
 
 #### Output SPIR-V
