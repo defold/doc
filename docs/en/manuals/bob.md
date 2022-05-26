@@ -11,7 +11,7 @@ Bob is able to build data (corresponding to the build step of selecting the edit
 
 Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. To run the Bob tool, you need OpenJDK 11 installed on your computer. 
 
-Compatiable OpenJDK 11 mirrors:
+Compatible OpenJDK 11 mirrors:
 * https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
 * https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
 
