@@ -9,7 +9,13 @@ Bob is a command line tool for building Defold projects outside of the normal ed
 
 Bob is able to build data (corresponding to the build step of selecting the editor menu item <kbd>Project ▸ Build</kbd>), create data archives and create standalone, distributable application bundles (corresponding to the editor menu item <kbd>Project ▸ Bundle ▸ ...</kbd> options)
 
-Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. To run the Bob tool, you need [OpenJDK 11 installed on your computer](https://openjdk.java.net/projects/jdk/11/). You can [download installers for OpenJDK 11 here](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11).
+Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. To run the Bob tool, you need OpenJDK 11 installed on your computer. 
+
+Compatiable OpenJDK 11 mirrors:
+* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
+* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
+
+If you are on Windows you want the .msi file installer for OpenJDK 11.
 
 ## Usage
 
