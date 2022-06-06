@@ -9,7 +9,13 @@ Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
 
 Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
 
-Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 需要 [OpenJDK 11](https://openjdk.java.net/projects/jdk/11/) 支持.
+Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 您需要安装 OpenJDK 11.
+
+下载 OpenJDK 11 的地址:
+* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
+* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
+
+比如在 Windows 平台上, 需要下载 OpenJDK 11 的 .msi 安装包.
 
 ## 用法
 

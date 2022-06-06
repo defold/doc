@@ -218,5 +218,76 @@ DEFOLD_ENGINE_ARGUMENTS
 
 HTML5 支持 `sys.save()`, `sys.load()` 和 `io.open()` 之类的文件操作, 但是与其他平台实现方法不同. 基于安全考虑浏览器里运行的 Javascript 无权直接读写本地文件. Emscripten (即 Defold) 使用 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) 代替, 它是基于浏览器的持久化存储方案, 基于浏览器的虚拟文件系统. 与其他平台的区别主要是比直接读写文件要慢而且实质上读写的是一个数据库. 浏览器开发者工具通常都提供了 IndexedDB 的读写功能.
 
+
+## 给 HTML5 游戏传递参数
+
+一些情况下我们需要在游戏启动前或者启动时为其提供某些参数. 可能是用户 id, session 令牌或者告诉游戏启动时为当前玩家加载哪一关. 有多种方法实现这样的功能, 下面就列举一些.
+
+### 引擎参数
+
+用于在引进加载时指定引擎参数. 这些参数在运行时可以使用 `sys.get_config()` 得到. 在 `index.html` 里修改 `extra_params` 对象的 `engine_arguments` 项, 加入键值对以提供参数:
+
+
+```
+    <script id='engine-setup' type='text/javascript'>
+    var extra_params = {
+        ...,
+        engine_arguments: ["–config=foo1=bar1","--config=foo2=bar2"],
+        ...
+    }
+```
+
+也可以在项目 `game.project` 的 HTML5 部分加入如 `"–config=foo1=bar1","--config=foo2=bar2"` 的引擎参数, 它们会被注入到自动生成的 index.html 文件中.
+
+运行时可以这样取得引擎参数:
+
+```lua
+local foo1 = sys.get_config("foo1")
+local foo2 = sys.get_config("foo2")
+print(foo1) -- bar1
+print(foo2) -- bar2
+```
+
+
+### 在 URL 中提供参数
+
+可以在游戏页面的 URL 中提供参数, 然后在运行时读取:
+
+```
+https://www.mygame.com/index.html?foo1=bar1&foo2=bar2
+```
+
+```lua
+local url = html5.run("window.location")
+print(url)
+```
+
+下面提供一个获取所有查询参数并把它们保存为 Lua 表的函数:
+
+```lua
+local function get_query_parameters()
+    local url = html5.run("window.location")
+    -- get the query part of the url (the bit after ?)
+    local query = url:match(".*?(.*)")
+    if not query then
+        return {}
+    end
+
+    local params = {}
+    -- iterate over all key value pairs
+    for kvp in query:gmatch("([^&]+)") do
+        local key, value = kvp:match("(.+)=(.+)")
+        params[key] = value
+    end
+    return params
+end
+
+function init(self)
+    local params = get_query_parameters()
+    print(params.foo1) -- bar1
+end
+```
+
+
 ## 问答
 :[HTML5 问答](../shared/html5-faq.md)
