@@ -200,21 +200,21 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 
 Точки входа позволят вам запускать код в различных точках жизненного цикла расширения:
 
-* Engine start
-  * Engine systems are starting
-  * Extension `app_init`
-  * Extension `init` - All Defold APIs have been initialized. This is the recommended point in the extension lifecycle where Lua bindings to extension code is created.
-  * Script init - The `init()` function of script files are called.
-* Engine loop
-  * Engine update
-    * Extension `update`
-    * Script update - The `update()` function of script files are called.
-  * Engine events (window minimize/maximize etc)
-    * Extension `on_event`
-* Engine shutdown (or reboot)
-  * Script final - The `final()` function of script files are called.
-  * Extension `final`
-  * Extension `app_final`
+* Запуск движка
+  * Запуск систем движка
+  * Расширение `app_init`
+  * Расширение `init` - Все API Defold были инициализированы. Это рекомендуемый момент жизненного цикла расширения, когда создаются привязки Lua к коду расширения.
+  * Запуск скрипта - Вызываются функции `init()` файлов скриптов.
+* Цикл движка
+  * Обновление движка
+    * Расширение `update`
+    * Обновление скрипта - Вызывается функция `update()` файлов скриптов.
+  * События движка (window minimize/maximize etc)
+    * Расширение `on_event`
+* Выключение движка (или перезагрузка)
+  * Завершения скрипта - Вызывается функция `final()` файлов скриптов.
+  * Расширение `final`
+  * Расширение `app_final`
 
 ## Определенные идентификаторы платформы
 
@@ -271,7 +271,7 @@ platforms:
 * `aaptExcludePackages` - Регулярные выражения (или точные названия) пакетов для исключения (Android
 * `aaptExcludeResourceDirs` - Регулярные выражения (или точные названия) каталоги ресурсов для исключения (Android)
 
-## Example extensions
+## Примеры расширений
 
 * [Базовый пример расширения](https://github.com/defold/template-native-extension) (the extension from this manual)
 * [Пример расширения для Android](https://github.com/defold/extension-android)
