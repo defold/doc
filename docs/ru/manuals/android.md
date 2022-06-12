@@ -23,7 +23,7 @@ Android требует, чтобы все APK были подписаны циф
 Процесс подписи Android в Defold изменился в версии 1.2.173 с использования отдельного ключа и сертификата на keystore. [Дополнительная информация в сообщении форума](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
-Вы можете создать хранилище ключей с помощью[Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) или из терминала/командной строки:
+Вы можете создать хранилище ключей с помощью [Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) или из терминала/командной строки:
 
 ```bash
 keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, L=Unknown, ST=Nevada, C=US" -keystore mykeystore.keystore -storepass 5Up3r_53cR3t -alias myAlias -keyalg RSA -validity 9125
