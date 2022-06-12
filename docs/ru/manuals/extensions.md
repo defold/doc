@@ -64,7 +64,7 @@ Defold предоставляет точку входа для нативных 
 
 Опциональная папка *manifests* расширения содержит дополнительные файлы, используемые в процессе сборки и комплектации. Файлы должны быть помещены во вложенные папки, названные по `платформе`:
 
-* `android` - В эту папку помещается файл-заглушка манифеста, который будет объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)). Папка также может содержать файл `build.gradle` с зависимостями, которые должны быть разрешены Gradle ([пример](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Finally the folder can also contain zero or more ProGuard files (experimental).
+* `android` - В эту папку помещается файл-заглушка манифеста, который будет объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)). Папка также может содержать файл `build.gradle` с зависимостями, которые должны быть разрешены Gradle ([пример](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Наконец, папка может также содержать ноль или более файлов ProGuard (экспериментально).
 * `ios` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
 * `osx` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
 * `web` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
