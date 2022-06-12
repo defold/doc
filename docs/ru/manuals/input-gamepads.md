@@ -143,7 +143,7 @@ if supports_gamepads() then
 end
 ```
 
-If your game is running from inside an `iframe` you must also make sure that the `iframe` has the `gamepad` permission added:
+Если ваша игра запускается внутри `iframe`, вы также должны убедиться, что в `iframe` добавлено разрешение `gamepad`:
 
 ```html
 <iframe allow="gamepad"></iframe>
