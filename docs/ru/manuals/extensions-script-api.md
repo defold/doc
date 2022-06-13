@@ -20,7 +20,7 @@ brief: В этом руководстве объясняется, как соз�
   - name: Name of the first member
     type: Member type
     desc: Member description
-    # if member type is "function"
+    # если тип члена - "function"
     parameters:
     - name: Name of the first parameter
       type: Parameter type
@@ -28,7 +28,7 @@ brief: В этом руководстве объясняется, как соз�
     - name: Name of the second parameter
       type: Parameter type
       desc: Parameter description
-    # if member type is "function"
+    # если тип члена - "function"
     returns:
     - name: Name of first return value
       type: Return value type
