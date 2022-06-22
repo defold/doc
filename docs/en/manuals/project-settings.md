@@ -87,6 +87,11 @@ Check to share a single Lua state between all script types, unchecked by default
 #### Run While Iconified
 Allow the engine to continue running while the application window is iconified (desktop platforms only), `false` by default.
 
+#### Fixed Update Frequency
+The update frequency of the `fixed_update(self, dt)` lifecycle function. In Hertz. 60 by default.
+
+---
+
 ### Display
 
 #### Width
@@ -104,11 +109,11 @@ How many samples to use for super sampling anti-aliasing. It sets the GLFW_FSAA_
 #### Fullscreen
 Check if the application should start full screen. If unchecked, the application runs windowed.
 
-#### Frame Cap
-If `Vsync` checked, snaps to the closest matching swap interval for the set frame cap if a monitor is detected. Otherwise uses timers to respect the set value, 0 means no cap. This setting maps to `display.update_frequency`. ([See below](#vsync-frame-cap-and-swap-interval)).
-
-#### Vsync
-Vertical sync, rely on hardware vsync for frame timing. Can be overridden depending on graphics driver and platform specifics. ([See below](#vsync-frame-cap-and-swap-interval)).
+#### Update Frequency
+The desired frame rate in Hertz. Set to 0 for variable frame rate. A value larger than 0 will result in a fixed frame rate capped at runtime towards the actual frame rate (which means that you cannot update the game loop twice in an engine frame). Use [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) to change this value at runtime.
+ 
+#### Swap interval
+An integer setting that sets the [OpenGL swap interval](https://www.khronos.org/opengl/wiki/Swap_Interval). Does not work with Vulkan. 0 disables vsync. Default is 1.
 
 #### Display Profiles
 Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles).
@@ -162,6 +167,9 @@ Tells the physics engine how to scale the physics worlds in relation to the game
 
 #### Allow Dynamic Transforms
 Check if the physics engine should apply the transform of a game object to any attached collision object components. This can be used to move, scale and rotate collision shapes, even those that are dynamic. `true` by default.
+
+#### Use Fixed Timestep
+Check if the physics engine should use fixed and framerate independent updates. Use this setting in combination with the `fixed_update(self, dt)` lifecycle function and the `engine.fixed_update_frequency` project setting to interact with the physics engine at regular intervals. For new projects the recommended setting is `true`. `false` by default
 
 #### Debug Scale
 How big to draw unit objects in physics, like triads and normals, `30` by default.
@@ -601,36 +609,3 @@ To further optimize memory usage the Defold build process will analyse the conte
 
 * If a collection doesn't contain any factory components the exact amount of each component will be allocated and the max count values will be ignored.
 * If a collection contains a factory component the spawned objects will be analysed and the max count will be used for components that can be spawned from the factories.
-
-
-## Vsync, frame cap, and swap interval
-The first thing of note is that on desktop platforms vsync can be controlled globally by graphics card settings. If for example vsync is force-enabled in the graphics control panel it is not user controllable, e.g. the setting cannot be accessed or modified from Defold. Most mobile devices also has vsync enabled by default.
-
-With `Vsync` checked in `game.project` the engine relies on hardware vsync and uses a fixed time step `dt` based on any detected monitor refresh rate. This is the default setting. With `Vsync` checked and `Frame cap` > 0, the rate will be clamped to a swap interval that matches any detected main monitor refresh rate. With `Vsync` unchecked and `Frame cap` 0, the time step is not fixed but instead uses actual elapsed time difference for `dt`. With `Vsync` unchecked and `Frame cap` > 0, timers are used to respect the set frame cap value. There is no guarantee that the frame cap will be achieved depending on platform specifics and hardware settings.
-
-Swap interval is the interval with which to swap the front and back buffers in sync with vertical blanks (v-blank), the hardware event where the screen image is updated with data from the front buffer. A value of 1 swaps the buffers at every v-blank, a value of 2 swaps the buffers every other v-blank and so on. A value of 0 disables waiting for v-blank before swapping the buffers\*. Setting `swap_interval` is done by calling the [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval) function.
-
-
-### Caveat
-Currently, Defold queries for monitor refresh rate at init and uses that as a basis for picking a fixed `dt`. If you want to support monitors using variable refresh rate (GSync or FreeSync for example) or other scenarios where the refresh rate might not be trivial to query, uncheck `Vsync`to let the engine measure actual `dt` each frame instead of relying on a fixed time step.
-
-
-### Vsync and frame cap in Defold
-
-<table>
-  <tr>
-    <th></th>
-    <th><b>Frame cap 0 (default)</b></th>
-    <th><b>Frame cap > 0</b></th>
-  </tr>
-  <tr>
-    <td><b>Vsync checked (default)</b></td>
-    <td>Relies on hardware vsync. Fixed <code>dt</code> of <code>1/(detected monitor refresh rate)</code>.</td>
-    <td>Fixed <code>dt</code> of <code>(swap interval)/(detected monitor refresh rate)</code> where swap interval is clamped to the closest matching monitor refresh rate frame cap multiple.</td>
-  </tr>
-  <tr>
-    <td><b>Vsync unchecked</b></td>
-    <td>Calculates <code>dt</code> each frame based on elapsed system time. Vsync might still be enabled in driver settings.</td>
-    <td>Uses a fixed <code>dt</code> of <code>1 / (Frame cap)</code>. Uses timers and sleeps to respect the set frame cap.</td>
-  </tr>
-</table>
