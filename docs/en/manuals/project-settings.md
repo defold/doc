@@ -609,3 +609,38 @@ To further optimize memory usage the Defold build process will analyse the conte
 
 * If a collection doesn't contain any factory components the exact amount of each component will be allocated and the max count values will be ignored.
 * If a collection contains a factory component the spawned objects will be analysed and the max count will be used for components that can be spawned from the factories.
+
+
+## Custom project settings
+
+It is possible to define custom settings for the main project or for a [library project](https://defold.com/manuals/libraries/#libraries). Custom settings for the main project must be defined in a `game.properties` file in the root of the project. For a library project they should be defined in an `ext.properties` file in the root of the include dir of the library.
+
+The settings file uses the same INI format as *game.project* and property attributes are defined using a dot notation with a suffix:
+
+```
+[my_category]
+my_property.private = 1
+...
+```
+
+The default meta file that is always applied is available [here](https://github.com/defold/defold/blob/dev/com.dynamo.cr/com.dynamo.cr.bob/src/com/dynamo/bob/meta.properties)
+
+The following attributes are currently available:
+
+```
+// `type` - used for the value string parsing (only in bob.jar for now)
+my_property.type = string // one of the follwoing values: bool, string, number, integer, string_array, resource
+
+// `help` - used as help tip in the editor (not used for now)
+my_property.help = string
+
+// `default` - value used as default if user didn't set value manually (only in bob.jar for now)
+my_property.default = string
+
+// `private` - private value used during the bundle process but will be removed from the bundle itself
+my_property.private = 1 // boolean value 1 or 0
+
+``` 
+
+
+At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the `game.project` viewer. 
