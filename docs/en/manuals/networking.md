@@ -23,5 +23,5 @@ Defold supports IPv4 and IPv6 connections for sockets and HTTP requests.
 
 Defold supports secure SSL connections for sockets and HTTP requests.
 
-Defold can optionally also verify the SSL certificate of any secure connection. SSL verification will be enabled when a PEM file containing public CA-root certificate keys or a self-signed certificate public keys is provided in the [SSL Certificates setting](/manuals/project-settings/#network)) field of the Network section in *game.project*. A list of CA-root certificates is included in `builtins/ca-certificates`, but it is recommended to create a new PEM file and copy-paste the needed CA-root certificates depending on the server(s) the game conects to.
+Defold can optionally also verify the SSL certificate of any secure connection. SSL verification will be enabled when a PEM file containing public CA-root certificate keys or a self-signed certificate public key is provided in the [SSL Certificates setting](/manuals/project-settings/#network)) field of the Network section in *game.project*. A list of CA-root certificates is included in `builtins/ca-certificates`, but it is recommended to create a new PEM file and copy-paste the needed CA-root certificates depending on the server(s) the game conects to.
 
