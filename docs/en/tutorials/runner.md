@@ -91,7 +91,9 @@ When you are done editing a file you have to save it. Select <kbd>File ▸ Save<
 
 Before we begin, let's set up several settings for our projects. Open the `game.project` asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively. You also need to add the Spine extension to the project so that we can animate the hero character. Add the following URL to your game.project dependencies:
 
-https://github.com/defold/extension-spine/archive/main.zip
+[https://github.com/defold/extension-spine/archive/main.zip](https://github.com/defold/extension-spine/archive/main.zip)
+
+When the Spine extension has been updated you also need to restart the editor to activate the editor integration included with the Spine extension.
 
 
 ## STEP 2 - Creating the ground

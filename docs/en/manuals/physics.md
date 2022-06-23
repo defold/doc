@@ -26,6 +26,11 @@ The physics engine simulates Newtonian physics and it is designed to work well w
 In general it is required that the physics simulation is scaled for it to work well with the typical size of objects in a game. The scale of the physics simulation can be changed in `game.project` via the [physics scale setting](/manuals/project-settings/#physics). Setting this value to for instance 0.02 would mean that 200 pixels would be treated as a 4 meters. Do note that the gravity (also changed in `game.project`) has to be increased to accommodate for the change in scale.
 
 
+## Physics updates
+
+It is recommended to update the physics engine at regular intervals to ensure a stable simulation (as opposed to updating at possibly irregular frame-rate dependent intervals). You can use a fixed update for physics by checking the [Use Fixed Timestep setting](/manuals/project-settings/#physics) of the Physics section in the *game.project* file. The update frequency is controlled by the [Fixed Update Frequency setting](/manuals/project-settings/#engine) of the Engine section in the *game.project* file. When using a fixed timestep for physics it is also recommended to use the `fixed_update(self, dt)` lifecycle function to interact with the collision objects of your game, for instance when applying forces to them.
+
+
 ## Caveats and common issues
 
 Collection proxies
