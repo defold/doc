@@ -613,7 +613,7 @@ To further optimize memory usage the Defold build process will analyse the conte
 
 ## Custom project settings
 
-It is possible to define custom settings for the main project or for a [library project](https://defold.com/manuals/libraries/#libraries). Custom settings for the main project must be defined in a `game.properties` file in the root of the project. For a library project they should be defined in an `ext.properties` file in the root of the include dir of the library.
+It is possible to define custom settings for the main project or for a [native extension](/manuals/extensions/). Custom settings for the main project must be defined in a `game.properties` file in the root of the project. For a native extension they should be defined in an `ext.properties` file next to the `ext.manifest` file.
 
 The settings file uses the same INI format as *game.project* and property attributes are defined using a dot notation with a suffix:
 
