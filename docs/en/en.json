@@ -973,6 +973,10 @@
                 "name": "Workflow",
                 "items": [
                     {
+                        "path": "/manuals/application-security",
+                        "name": "Application security"
+                    },
+                    {
                         "path": "/manuals/bundling",
                         "name": "Bundling an application"
                     },
