@@ -1262,6 +1262,10 @@
                     {
                         "path": "/manuals/extensions-manifest-merge-tool",
                         "name": "Manifest Merging"
+                    },
+                    {
+                        "path": "https://lua.msys.ch/lua-integration-guide.html#_the_lua_c_api",
+                        "name": "The Lua C API (external)"
                     }
                 ]
             }
