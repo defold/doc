@@ -40,35 +40,46 @@ Logs can be read using the developer tools provided by most browsers.
 
 ### Android
 
-You can use the [Android Debug Bridge (ADB) tool](https://developer.android.com/studio/command-line/adb.html) to view the game and system log.
+You can use the Android Debug Bridge (ADB) tool to view the game and system log.
 
-  Once installed and setup, connect your device with USB, open a terminal and run:
+:[Android ADB](../shared/android-adb.md)
 
-  ```txt
-  cd <path_to_android_sdk>/platform-tools/
-  adb logcat
-  ```
+Once installed and setup, connect your device with USB, open a terminal and run:
 
-  The device will then dump all the output to the current terminal, along with any prints from the game.
+```txt
+$cd <path_to_android_sdk>/platform-tools/
+$adb logcat
+```
 
-  If you want to see only Defold application outputs use this command:
+The device will then dump all the output to the current terminal, along with any prints from the game.
 
-  ```txt
-  cd <path_to_android_sdk>/platform-tools/
-  adb logcat -s defold
-  ```
+If you want to see only Defold application outputs use this command:
+
+```txt
+$ cd <path_to_android_sdk>/platform-tools/
+$ adb logcat -s defold
+--------- beginning of /dev/log/system
+--------- beginning of /dev/log/main
+I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
+I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
+I/defold  ( 6210): INFO:ENGINE: Loading data from:
+I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
+I/defold  ( 6210):
+D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
+...
+```
 
 ### iOS
 
 You can use the [Console tool](https://support.apple.com/guide/console/welcome/mac) to read game and system log. You can use the LLDB debugger to attach to a game running on device. To debug a game it needs to be signed with a “Apple Developer Provisioning Profile” that include the device you want to debug on. Bundle the game from the editor and supply the provisioning profile in the bundle dialog (bundling for iOS is only available on macOS).
 
-  To launch the game and attach the debugger you will need a tool called [ios-deploy](https://github.com/phonegap/ios-deploy). Install and debug your game by running the following in a terminal:
+To launch the game and attach the debugger you will need a tool called [ios-deploy](https://github.com/phonegap/ios-deploy). Install and debug your game by running the following in a terminal:
 
-  ```txt
-  ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
-  ```
+```txt
+$ ios-deploy --debug --bundle <path_to_game.app> # NOTE: not the .ipa file
+```
 
-  This will install the app on your device, start it and automatically attach a LLDB debugger to it. If you are new to LLDB, read [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).
+This will install the app on your device, start it and automatically attach a LLDB debugger to it. If you are new to LLDB, read [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).
 
 
 ## Reading the game log from the log file
@@ -88,5 +99,5 @@ iOS
 
   Once the container has been extracted it will be shown in *Finder*. Right click the container and select <kbd>Show Package Content</kbd>. Locate the file "log.txt", which should be located in "AppData/Documents/".
 
-Android
-: The ability to extract the "log.txt" depends on OS version and manufacturer. Here is a short and simple step by step guide: https://stackoverflow.com/a/48077004/129360
+Android(
+: The ability to extract the "log.txt" depends on OS version and manufacturer. Here is a short and simple [step by step guide](https://stackoverflow.com/a/48077004/]129360).

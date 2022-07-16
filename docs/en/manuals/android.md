@@ -60,7 +60,9 @@ Press <kbd>Create Bundle</kbd> when you have configured the application bundle s
 
 ### Installing an APK
 
-An *.apk* file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
+An *.apk* file can be copied to your device with the `adb` tool, or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
+
+:[Android ADB](../shared/android-adb.md)
 
 ```
 $ adb install Defold\ examples.apk
@@ -85,64 +87,6 @@ Allows an application to write to external storage. Starting in API level 19, th
 
 ### android.permission.WAKE_LOCK (Protection level: normal)
 Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. This permission is needed to temporarily prevent the device from sleeping while receiving a push notification. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
-
-
-## Android Debug Bridge
-
-The `adb` command line tool is an easy to use and versatile program that is used to interact with Android devices. You can download and install `adb` as part of the Android SDK Platform-Tools, for Mac, Linux or Windows.
-
-Download the Android SDK Platform-Tools from: https://developer.android.com/studio/releases/platform-tools. You find the *adb* tool in */platform-tools/*. Alternatively, platform specific packages can be installed through respective package managers.
-
-On Ubuntu Linux:
-
-```
-$ sudo apt-get install android-tools-adb
-```
-
-On Fedora 18/19:
-
-```
-$ sudo yum install android-tools
-```
-
-On macOS (Homebrew)
-
-```
-$ brew cask install android-platform-tools
-```
-
-You can verify that `adb` works by connecting your Android device to your computer via USB and issue the following command:
-
-```
-$ adb devices
-List of devices attached
-31002535c90ef000    device
-```
-
-If your device does not show up, verify that you have enabled *USB debugging* on the Android device. Open the device *Settings* and look for *Developer options* (or *Development*).
-
-![Enable USB debugging](images/android/usb_debugging.png)
-
-## Debugging an application bundle
-
-A bundle built with the debug mode version of the engine (i.e. "Debug" selected as variant during bundling) will send all its console output to the Android system log. Access the log with the `adb` tool and give the `logcat` command. You probably want to filter the output by a tag (`-s [tagname]`):
-
-```
-$ adb logcat -s "defold"
---------- beginning of /dev/log/system
---------- beginning of /dev/log/main
-I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
-I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
-I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
-I/defold  ( 6210):
-D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
-...
-```
-
-
-### Uploading symbols to Google Play
-You can [upload the debug symbols to Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) so that any crashes logged in Google Play will show symbolicated call stacks. Learn more about this in the [manual on native code debugging](/manuals/debugging-native-code).
 
 
 ## Using AndroidX
