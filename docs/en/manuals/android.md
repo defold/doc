@@ -141,6 +141,10 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ```
 
 
+### Uploading symbols to Google Play
+You can [upload the debug symbols to Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) so that any crashes logged in Google Play will show symbolicated call stacks. Learn more about this in the [manual on native code debugging](/manuals/debugging-native-code).
+
+
 ## Using AndroidX
 AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Most of the Android extensions in the [Asset Portal](/assets) support AndroidX. If you do not wish to use AndroidX you can explicitly disable it in favour of the old Android Support Library:
 
@@ -149,7 +153,6 @@ AndroidX is a major improvement to the original Android Support Library, which i
 2. If you do not have an app manifest file head over to [Defold App Manifest generator](https://britzl.github.io/manifestation/) and check the "Use Android Support lib" checkbox.
 
 ![](images/android/enable_supportlibrary.png)
-
 
 ## FAQ
 :[Android FAQ](../shared/android-faq.md)
