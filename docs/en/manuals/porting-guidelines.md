@@ -1,6 +1,6 @@
 ---
 title: Porting guidelines
-brief: This manual highlights some things to consider when porting your game to a new platform
+brief: This manual highlights some things to consider when porting a game to a new platform
 ---
 
 Porting a Defold game to a new platform is usually a very straight forward process. In theory it is enough to make sure that the relevant sections are configured in the *game.project* file, but to make the most out of each platform it is recommended to adapt the game to the specifics of each platform. This manual contains some best practices for porting in general and some specifics for some of the platforms.
@@ -26,6 +26,10 @@ For platforms with a fixed orientation and screen resolution: Check that the gam
 For mobile platforms either lock the screen orientation in *game.project* or make sure the game works in both landscape and portrait mode.
 
 
+### Mobile phones and notch and hole punch cameras
+It has become increasingly popular to use a small lens cut-out on the display screen to fit in the front camera and sensors (also known as a notch or hole punch camera). When porting a game to mobile it is recommended to make sure that no critical information is positioned where a notch (center of upper screen edge) or hole-punch (top left screen area) is typically found. It is also possible to use the [Safe Area extension](/extension-safearea) to restrict the game view to the area outside any notch or hole-punch camera.
+
+
 ### Nintendo Switch
 Integrate platform specific code - For Nintendo Switch there's a separate extension with some helper functionality for user selection etc
 
@@ -34,3 +38,5 @@ Defold for Nintendo Switch uses Vulkan as the graphics backend - Make sure to te
 
 ### HTML5
 Playing web games on mobile phones is increasing in popularity - Try to make the game run well in a mobile browser as well! It is also important to keep in mind that web games are expected to load fast! - Make sure to optimize the game for size. Also consider the loading experience in general to not lose players unnecessarily.
+
+In 2018 browsers introduced an autoplay policy for sounds which prevent games and other web content from playing sounds until a user interaction event (touch, button, gamepad etc) has taken place. It is important to take this into account when porting to HTML5 and only start playing sounds and music upon first user interaction. Attempts to play sounds before any user interaction will be logged as an error in the browser developer console but will not impact the game.
