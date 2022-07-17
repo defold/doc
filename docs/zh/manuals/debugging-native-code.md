@@ -93,7 +93,7 @@ Defold 几经测试鲜有崩溃情况出现. 但是崩溃这种事谁能保证�
 
 ### Android调用堆栈映射
 
-1. 找到编译文件夹
+1. 从编译文件夹下找到引擎文件
 
 	$ ls <project>/build/<platform>/[lib]dmengine[.exe|.so]
 

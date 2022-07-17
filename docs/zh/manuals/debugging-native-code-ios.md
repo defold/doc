@@ -9,11 +9,11 @@ brief: 本教程介绍了如何使用 Xcode 进行调试.
 
 ## Xcode
 
-* 使用 bob, 加上 `--with-symbols` 选项打包应用
+* 使用 bob, 加上 `--with-symbols` 选项打包应用 ([更多详情](/manuals/debugging-native-code/#symbolicate-a-callstack)):
 
 		$ cd myproject
 		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
-		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
+		$ java -jar bob.jar --platform armv7-darwin build --with-symbols --variant debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
 
 * 安装应用, 可以通过 `Xcode`, `iTunes` 或者 [ios-deploy](https://github.com/ios-control/ios-deploy)
 
@@ -76,15 +76,15 @@ brief: 本教程介绍了如何使用 Xcode 进行调试.
 
 调试应用有如下方法
 
-* 可以使用 `Debug` -> `Attach to process...` 然后选择要调试应用
+1. 可以使用 `Debug` -> `Attach to process...` 然后选择要调试应用
 
-* 也可以选择 `Attach to process by PID or Process name`
+1. 也可以选择 `Attach to process by PID or Process name`
 
 	![select_device](images/extensions/debugging/ios/attach_to_process_name.png)
 
-	然后在设备上启动应用
+1. 从设备上启动应用
 
-* 在 `Edit Scheme` 中加入 <AppName>.app 作为可运行文件夹
+1. 在 `Edit Scheme` 中加入 <AppName>.app 作为可运行文件夹
 
 ### 调试 symbols
 
