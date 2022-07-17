@@ -47,8 +47,8 @@ You can use the Android Debug Bridge (ADB) tool to view the game and system log.
 Once installed and setup, connect your device with USB, open a terminal and run:
 
 ```txt
-$cd <path_to_android_sdk>/platform-tools/
-$adb logcat
+$ cd <path_to_android_sdk>/platform-tools/
+$ adb logcat
 ```
 
 The device will then dump all the output to the current terminal, along with any prints from the game.

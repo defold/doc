@@ -42,11 +42,11 @@ Here we describe how to debug a build using [Android Studio](https://developer.a
 
 	![path_mapping2](images/extensions/debugging/android/path_mappings_android2.png)
 
-* If you have access to the engine source, add a path mapping to that too
+* If you have access to the engine source, add a path mapping to that too.
 
-		* make sure to checkout the version you are currently debugging
+* Make sure to checkout the version you are currently debugging
 
-			defold$ git checkout 1.2.148
+	defold$ git checkout 1.2.148
 
 * Press `Apply changes`
 

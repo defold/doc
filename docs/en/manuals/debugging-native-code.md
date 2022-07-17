@@ -62,7 +62,7 @@ If a crash happens on a mobile device you can chose to download the crash file t
 If the app is [debuggable](/manuals/project-settings/#android), you can get the crash log using the [Android Debug Bridge (ADB) tool](https://developer.android.com/studio/command-line/adb.html) and the `adb shell` command:
 
 ```
-	$ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
+$ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
 ```
 
 #### iOS
