@@ -9,11 +9,11 @@ Here we describe how to debug a build using [Xcode](https://developer.apple.com/
 
 ## Xcode
 
-* Bundle the app by using bob, with the `--with-symbols` option
+* Bundle the app by using bob, with the `--with-symbols` option ([more info](/manuals/debugging-native-code/#symbolicate-a-callstack)):
 
 		$ cd myproject
 		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
-		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
+		$ java -jar bob.jar --platform armv7-darwin build --with-symbols --variant debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
 
 * Install the app, either with `Xcode`, `iTunes` or [ios-deploy](https://github.com/ios-control/ios-deploy)
 
@@ -82,7 +82,7 @@ You have a few options to debug an app
 
 	![select_device](images/extensions/debugging/ios/attach_to_process_name.png)
 
-	1. Start the app on the device
+1. Start the app on the device
 
 1. In `Edit Scheme` add the <AppName>.app folder as the executable
 

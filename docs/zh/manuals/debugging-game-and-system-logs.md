@@ -89,4 +89,4 @@ iOS
   容器被下载解压之后就可以在 *Finder* 中看到了. 右键单击容器选择 <kbd>Show Package Content</kbd>. 找到 "log.txt", 一般位于 "AppData/Documents/".
 
 Android
-: "log.txt" 的获取取决于操作系统版本和制造商. 在这里有一个简单的获取步骤: https://stackoverflow.com/a/48077004/129360
+: "log.txt" 的获取取决于操作系统版本和制造商. 在这里有一个简单的获取步骤: [https://stackoverflow.com/a/48077004/129360](https://stackoverflow.com/a/48077004/129360).

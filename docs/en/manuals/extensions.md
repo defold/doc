@@ -11,11 +11,13 @@ If you need custom interaction with external software or hardware on a low level
 - Interaction with external low level APIs, for instance advertising network APIs that do not allow interaction through network APIs where Luasocket could be used.
 - High performance calculations and data processing.
 
-## The build platform
+## The build server
 
 Defold provides a zero setup entry point to native extensions with a cloud based build solution. Any native extension that is developed and added to a game project, either directly or through a [Library Project](/manuals/libraries/), becomes part of the ordinary project content. There is no need to build special versions of the engine and distribute them to team members, that is handled automatically---any team member that builds and runs the project will get a project specific engine executable with all native extensions baked in.
 
 ![Cloud build](images/extensions/cloud_build.png)
+
+Defold provides the cloud build server free of charge, without any usage restrictions. The server is hosted in Europe, and the URL to which native code is sent is configured in the [Editor Preferences window](/manuals/editor-preferences/#extensions) or through the `--build-server` command line option to [bob](/manuals/bob/#usage). If you wish to learn more about the cloud build server or how to set up your own server please refer to the [instructions on GitHub](https://github.com/defold/extender).
 
 ## Project layout
 
