@@ -47,8 +47,8 @@ $ > ./mygame.app/Contenst/MacOS/mygame
   工具安装好之后, 通过 USB 连接你的设备, 启动控制台, 输入:
 
 ```txt
-$cd <path_to_android_sdk>/platform-tools/
-$adb logcat
+$ cd <path_to_android_sdk>/platform-tools/
+$ adb logcat
 ```
 
 设备会把所有日志信息打印在当前控制台上, 包含游戏输出信息.
