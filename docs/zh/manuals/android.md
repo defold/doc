@@ -141,6 +141,10 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ```
 
 
+### 把 symbols 上传到 Google Play
+可以 [上传 debug symbols 到 Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) 以便让 Google Play 上的崩溃日志显示可读的调用堆栈. 详情请见 [原生代码调试教程](/manuals/debugging-native-code).
+
+
 ## 使用 AndroidX
 AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以主动关闭它:
 
@@ -149,7 +153,6 @@ AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. And
 2. 如果還沒有應用清單文件可以去 [Defold App Manifest generator](https://britzl.github.io/manifestation/) 生成一個, 記得勾選 "Use Android Support lib" 選項.
 
 ![](images/android/enable_supportlibrary.png)
-
 
 ## 常见问题
 :[Android 问答](../shared/android-faq.md)
