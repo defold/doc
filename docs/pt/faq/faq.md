@@ -156,8 +156,8 @@ Ver [este link](https://github.com/defold/editor2-issues/blob/master/faq/pkixpat
 ## Windows
 :[Windows FAQ](../shared/windows-faq.md)
 
-## Nintendo Switch
-:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
+## Consoles
+:[Consoles FAQ](../shared/consoles-faq.md)
 
 
 ## Conteúdo de jogo

@@ -41,3 +41,7 @@ When we have verified you as a donor with Sony PlayStation access we will provid
 * Private forum group where you are able to get PlayStation specific support.
 * PlayStation specific documentation
 * API reference to PlayStation specific engine functionality.
+
+
+## FAQ
+:[Consoles FAQ](../shared/consoles-faq.md)
