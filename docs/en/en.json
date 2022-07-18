@@ -666,7 +666,7 @@
                     },
                     {
                         "path": "/manuals/texture-profiles",
-                        "name": "Texture profiles"
+                        "name": "Texture compression"
                     }
                 ]
             },
@@ -991,6 +991,10 @@
                     {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
+                    },
+                    {
+                        "path": "/manuals/porting-guidlines",
+                        "name": "Porting guidelines"
                     },
                     {
                         "path": "/manuals/refactoring",
