@@ -11,11 +11,13 @@ brief: 本教程介绍了给 Defold 游戏引擎编写原生扩展的方法以�
 - 与底层软件交互, 例如未提供的底层网络交互要使用 Luasocket 扩展包实现.
 - 高性能计算, 数据处理等.
 
-## 编译平台
+## 编译服务器
 
 Defold 提供了一个云端服务器编译方案. 游戏项目的各种依赖, 或者直接引用或者通过 [库项目](/manuals/libraries/) 加入, 都会变成项目内容的一部分. 没有必要重新编译特别版引擎然后分发给开发组成员, 任何成员对项目的编译运行使所有成员都能得到嵌入全部所需库的引擎程序.
 
 ![Cloud build](images/extensions/cloud_build.png)
+
+Defold 免费提供云编译服务器, 没有使用限制. 服务器托管于欧洲, 代码上传的 URL 可以在 [编辑器首选项窗口](/manuals/editor-preferences/#extensions) 进行设置, 或者用命令行工具 [bob](/manuals/bob/#usage) 设置 `--build-server` 参数进行指定. 关于云编译服务器及假设私人编译服务器的详情请参考 [GitHub 上的介绍](https://github.com/defold/extender).
 
 ## 项目结构
 

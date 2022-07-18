@@ -40,35 +40,46 @@ $ > ./mygame.app/Contenst/MacOS/mygame
 
 ### Android
 
-可以使用 [Android Debug Bridge (ADB) 工具](https://developer.android.com/studio/command-line/adb.html) 查看游戏和系统日志.
+可以使用 Android Debug Bridge (ADB) 工具来查看游戏和系统日志.
+
+:[Android ADB](../shared/android-adb.md)
 
   工具安装好之后, 通过 USB 连接你的设备, 启动控制台, 输入:
 
-  ```txt
-  cd <path_to_android_sdk>/platform-tools/
-  adb logcat
-  ```
+```txt
+$ cd <path_to_android_sdk>/platform-tools/
+$ adb logcat
+```
 
-  设备会把所有日志信息打印在当前控制台上, 包含游戏输出信息.
+设备会把所有日志信息打印在当前控制台上, 包含游戏输出信息.
 
-  要只查看 Defold 输出的日志信息, 可以这么输入:
+要想只查看 Defold 输出的日志信息, 可以这么输入:
 
-  ```txt
-  cd <path_to_android_sdk>/platform-tools/
-  adb logcat -s defold
-  ```
+```txt
+$ cd <path_to_android_sdk>/platform-tools/
+$ adb logcat -s defold
+--------- beginning of /dev/log/system
+--------- beginning of /dev/log/main
+I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
+I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
+I/defold  ( 6210): INFO:ENGINE: Loading data from:
+I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
+I/defold  ( 6210):
+D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
+...
+```
 
 ### iOS
 
 可以使用 [控制台工具](https://support.apple.com/guide/console/welcome/mac) 读取游戏和系统日志. 可以使用 LLDB 调试器连接设备上运行的游戏. 调试前确保设备上存有该应用的 “Apple Developer Provisioning Profile”. 从编辑器的打包对话框那里提供档案文件 (只能在 macOS 平台上打包 iOS 应用).
 
-  需要一个叫做 [ios-deploy](https://github.com/phonegap/ios-deploy) 的工具才能进行调试. 命令如下:
+需要一个叫做 [ios-deploy](https://github.com/phonegap/ios-deploy) 的工具才能进行调试. 命令如下:
 
-  ```txt
-  ios-deploy --debug --bundle <path_to_game.app> # 注意: 不是 .ipa 文件
-  ```
+```txt
+ios-deploy --debug --bundle <path_to_game.app> # 注意: 不是 .ipa 文件
+```
 
-  它会把应用安装到设备上, 启动应用并且把 LLDB 调试器连接到应用上. 如果不熟悉 LLDB, 参考 [LLDB 基础教程](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).
+它会把应用安装到设备上, 启动应用并且把 LLDB 调试器连接到应用上. 如果不熟悉 LLDB, 请参考 [LLDB 基础教程](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).
 
 
 ## 从日志文件中读取日志信息
@@ -89,4 +100,4 @@ iOS
   容器被下载解压之后就可以在 *Finder* 中看到了. 右键单击容器选择 <kbd>Show Package Content</kbd>. 找到 "log.txt", 一般位于 "AppData/Documents/".
 
 Android
-: "log.txt" 的获取取决于操作系统版本和制造商. 在这里有一个简单的获取步骤: [https://stackoverflow.com/a/48077004/129360](https://stackoverflow.com/a/48077004/129360).
+: "log.txt" 的获取取决于操作系统版本和制造商. 这里有一个简单的 [步骤教程](https://stackoverflow.com/a/48077004/129360).
