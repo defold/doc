@@ -50,6 +50,15 @@ https://github-username:personal-access-token@github.com/defold/private/archive/
 Make sure to not share or accidentally leak your generated personal access token or password as it can have dire consequences if they fall into the wrong hands!
 :::
 
+To avoid accidentally leaking any credentials by having them in clear text in the library URL it is also possible to use a string replacement pattern and store the credentials as environment variables:
+
+```
+https://__PRIVATE_USERNAME__:__PRIVATE_TOKEN__@github.com/defold/private/archive/main.zip
+```
+
+In the above example the username and token will be read from the system environment variables `PRIVATE_USERNAME` and `PRIVATE_TOKEN`.
+
+
 ### Advanced access authentication
 
 When using the basic access authentication a user's access token and username will be shared on any repository used for the project.  With a greater than 1 man team this can be an issue. To solve this issue a "read only" user needs to be used for library access to the repository, on GitHub this requires an organisation, a team and a user who doesn't need to edit the repo (hence read only).
