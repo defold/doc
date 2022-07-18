@@ -1189,11 +1189,19 @@
                 ]
             },
             {
-                "name": "Nintendo Switch",
+                "name": "Consoles",
                 "items": [
                     {
                         "path": "/manuals/nintendo-switch",
                         "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/sony-playstation",
+                        "name": "Sony PlayStation"
+                    },
+                    {
+                        "path": "/manuals/microsoft-xbox",
+                        "name": "Microsoft Xbox"
                     }
                 ]
             },
