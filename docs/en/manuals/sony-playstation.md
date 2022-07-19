@@ -24,7 +24,7 @@ You become a Defold community donor on the [Defold community donation page](/com
 
 ## Register as Sony PlayStation Partner
 
-You register as a game developer for Nintendo platforms at the [Sony PlayStation Partner page](https://register.playstation.net/):
+You register as a game developer for PlayStation at the [Sony PlayStation Partner page](https://register.playstation.net/):
 
 ![](images/sony-playstation/sony-playstation-partner.png)
 
