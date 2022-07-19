@@ -50,6 +50,15 @@ https://github-username:personal-access-token@github.com/defold/private/archive/
 不要共享或者不小心泄露你的密碼或訪問權token, 否則可能會落入他人之手造成不良後果.
 :::
 
+为避免泄密在库 URL 上的明文用户名密码字符串可以使用环境变量代替:
+
+```
+https://__PRIVATE_USERNAME__:__PRIVATE_TOKEN__@github.com/defold/private/archive/main.zip
+```
+
+上面的例子里用户名和令牌会被替换为环境变量 `PRIVATE_USERNAME` 和 `PRIVATE_TOKEN` 的值.
+
+
 ### 严格访问权限
 
 基本訪問权限下token和用户名都在项目依赖库上公开. 这对于多人开发团队来说可能会造成麻烦. 解决办法是给库引入一个 "只读" 用户, 在 GitHub 上可以设置一个机构, 一个团队以及一个不需要编辑代码的用户 (也就是只读用户).
