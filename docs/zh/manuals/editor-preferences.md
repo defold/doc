@@ -46,4 +46,4 @@ Open File at Line
 ![](images/editor/preferences_extensions.png)
 
 Build Server
-: 编译包含 [原生扩展](/manuals/extensions) 项目时使用的编译服务器的 URL. 可以在编译服务器的请求 URL 中加入用户名和验证令牌. 使用格式举例: `username:token@build.defold.com`. 在使用用户自己的编译服务器并开启认证时, 任天堂 Switch 编译需要这种用户认证 ([更多信息详见编译服务器文档](https://github.com/defold/extender/blob/dev/README_SECURITY.md)).
+: 编译包含 [原生扩展](/manuals/extensions) 项目时使用的编译服务器的 URL. 可以在编译服务器的请求 URL 中加入用户名和验证令牌. 使用格式举例: `username:token@build.defold.com`. 在使用用户自己的编译服务器并开启认证时, 任天堂 Switch 编译需要这种用户认证 ([更多信息详见编译服务器文档](https://github.com/defold/extender/blob/dev/README_SECURITY.md)). 其中用户名和密码可以用系统环境变量 `DM_EXTENDER_USERNAME` 和 `DM_EXTENDER_PASSWORD` 来设置.
