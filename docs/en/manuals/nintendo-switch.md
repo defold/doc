@@ -39,4 +39,4 @@ When we have verified you as a donor with Nintendo Switch access we will provide
 
 
 ## FAQ
-:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
+:[Consoles FAQ](../shared/consoles-faq.md)

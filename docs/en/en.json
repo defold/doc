@@ -666,7 +666,7 @@
                     },
                     {
                         "path": "/manuals/texture-profiles",
-                        "name": "Texture profiles"
+                        "name": "Texture compression"
                     }
                 ]
             },
@@ -993,6 +993,10 @@
                         "name": "Hot reloading"
                     },
                     {
+                        "path": "/manuals/porting-guidlines",
+                        "name": "Porting guidelines"
+                    },
+                    {
                         "path": "/manuals/refactoring",
                         "name": "Refactoring"
                     },
@@ -1185,11 +1189,19 @@
                 ]
             },
             {
-                "name": "Nintendo Switch",
+                "name": "Consoles",
                 "items": [
                     {
                         "path": "/manuals/nintendo-switch",
                         "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/sony-playstation",
+                        "name": "Sony PlayStation"
+                    },
+                    {
+                        "path": "/manuals/microsoft-xbox",
+                        "name": "Microsoft Xbox"
                     }
                 ]
             },

@@ -115,8 +115,8 @@ A: Defold 在 HTML5 中使用 WebGL, iOS 和 macOS 中使用 Metal, 其他平臺
 :[Windows FAQ](../shared/windows-faq.md)
 
 
-## Nintendo Switch 相關
-:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
+## Consoles 相關
+:[Consoles FAQ](../shared/consoles-faq.md)
 
 ## 发布相关
 
