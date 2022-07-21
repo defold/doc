@@ -3,6 +3,8 @@ title: Porting guidelines
 brief: This manual highlights some things to consider when porting a game to a new platform
 ---
 
+# Porting guidelines
+
 Porting a Defold game to a new platform is usually a very straight forward process. In theory it is enough to make sure that the relevant sections are configured in the *game.project* file, but to make the most out of each platform it is recommended to adapt the game to the specifics of each platform. This manual contains some best practices for porting in general and some specifics for some of the platforms.
 
 
