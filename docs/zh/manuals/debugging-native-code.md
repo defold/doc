@@ -58,7 +58,7 @@ Defold 几经测试鲜有崩溃情况出现. 但是崩溃这种事谁能保证�
 如果应用是 [可调式的](/manuals/project-settings/#Android), 就可以使用 [Android Debug Bridge (ADB) 工具](https://developer.android.com/studio/command-line/adb.html) 和 `adb shell` 命令得到崩溃日志:
 
 ```
-	$ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
+$ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
 ```
 
 #### iOS
@@ -72,29 +72,28 @@ Defold 几经测试鲜有崩溃情况出现. 但是崩溃这种事谁能保证�
 
 从 `_crash` 文件或者 [日志文件](/manuals/debugging-game-and-system-logs), 都可以进行代码文件映射. 即把调用堆栈里的每个地址映射到文件名和代码行, 利于寻找代码的问题.
 
-注意引擎版本要选择正确. 不然映射会错乱. 需要编译原生扩展, 命令行要加入 [--with-symbols](https://www.defold.com/manuals/bob/) 参数给 [bob](https://www.defold.com/manuals/bob/) 或者在编辑器打包对话框里点选 "Generate debug symbols" 才能下载到所需的全部数据:
+注意引擎版本要选择正确. 不然映射会错乱. 使用 [bob](https://www.defold.com/manuals/bob/) 编译时命令行加入 [--with-symbols](https://www.defold.com/manuals/bob/) 或者在编辑器打包对话框里点选 "Generate debug symbols":
 
-* iOS 与 macOS - `build.zip` 里的 `dmengine.dSYM` 文件夹下包含了调试映射数据.
-* Android 与 Linux - 可执行文件中就包含全部调试映射数据.
-* Windows - `build.zip` 里的 `dmengine.pdb` 文件中包含了调试和映射数据.
-* HTML5 - `build.zip` 里的 `dmengine.js.symbols` 文件中包含了调试和映射数据.
+* iOS - 在 `build/arm64-ios` 下的 `dmengine.dSYM.zip` 中包含有 iOS 编译用 debug symbols.
+* macOS - 在 `build/x86_64-darwin` 下的 `dmengine.dSYM.zip` 中包含有 macOS 编译用 debug symbols.
+* Android - 在打包输出目录 `projecttitle.apk.symbols/lib/` 下包含有各架构编译用 debug symbols.
+* Linux - 可执行文件本身包含 debug symbols. 
+* Windows - 在 `build/x86_64-win32` 下的 `dmengine.pdb` 中包含有 Windows 编译用 debug symbols.
+* HTML5 - 在 `build/js-web` 或 `build/wasm-web` 下的 `dmengine.js.symbols` 中包含有 HTML5 编译用 debug symbols.
 
-如果无需编译原生扩展, 那么调试用信息可以从 [Defold 下载站](http://d.defold.com) 下载到:
-
-* iOS - `engine/armv7-darwin/dmengine_release.dSYM.zip` 和 `engine/arm64-darwin/dmengine_release.dSYM.zip` 文件分别包含32位和64位调试映射数据.
-* macOS - `engine/x86_64-darwin/dmengine_release.dSYM.zip` 文件包含调试映射数据.
-* Android - `engine/armv7-android/dmengine.apk` 和 `engine/arm64-android/dmengine.apk` 游戏引擎文件分别包含32位和64位调试映射数据.
-* Linux - `engine/x86_64-linux/dmengine_release` 游戏引擎文件包含调试映射数据.
-* Windows -  `engine/x86_64-win32/dmengine_release.pdb` 文件包含调试映射数据.
-* HTML5 - `engine/js-web/dmengine_release.js.symbols` 文件包含调试映射数据.
 
 ::: 注意
 对于游戏的每个发布版本一定要保留一套对应的调试数据. 不然的话原生扩展上线以后出错误就没法调试! 为了方便查看调用堆栈, 也要保存好对应的游戏引擎.
 :::
 
+
+### 把 symbols 上传到 Google Play
+可以 [上传 debug symbols 到 Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) 以便让 Google Play 上的崩溃日志显示可读的调用堆栈. 详情请见 [原生代码调试教程](/manuals/debugging-native-code).
+
+
 ### Android调用堆栈映射
 
-1. 找到编译文件夹
+1. 从编译文件夹下找到引擎文件
 
 	$ ls <project>/build/<platform>/[lib]dmengine[.exe|.so]
 

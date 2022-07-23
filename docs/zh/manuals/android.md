@@ -60,7 +60,7 @@ Defold 支持创建 APK 和 AAB 文件. 从打包格式下拉菜单中选择.
 
 #### 安装 APK
 
-编辑器生成 Android 应用包 *.apk* 文件. 应用包可以通过 `adb` 工具 (见下文), 或者通过 Google Play 的 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 安装到设备上.
+编辑器生成 Android 应用包 *.apk* 文件. 应用包可以通过 `adb` 工具安装到设备上, 或者通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 发布到 Google Play 上.
 
 ```
 $ adb install Defold\ examples.apk
@@ -87,60 +87,6 @@ Defold 引擎需要一些权限来运行各种功能. 权限在 `AndroidManifest
 允许应用阻止屏幕息屏和调光. 接收通知保持亮屏时需要此权限. ([[Android 官方文档-亮屏锁定](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
 
-## Android Debug Bridge
-
-`adb` 命令行工具是一个多功能易使用的用来与 Android 设备进行交互的工具. 可以在 Mac, Linux 或者 Windows 上下载 Android SDK Platform-Tools 来安装 `adb`.
-
-下载 Android SDK Platform-Tools 地址: https://developer.android.com/studio/releases/platform-tools. *adb* 工具就在 */platform-tools/* 里. 或者, 也通过各个平台的软件包管理器下载安装.
-
-Ubuntu Linux:
-
-```
-$ sudo apt-get install android-tools-adb
-```
-
-Fedora 18/19:
-
-```
-$ sudo yum install android-tools
-```
-
-macOS (Homebrew)
-
-```
-$ brew cask install android-platform-tools
-```
-
-通过如下代码让 `adb` 通过电脑 USB 与 Android 设备进行连接:
-
-```
-$ adb devices
-List of devices attached
-31002535c90ef000    device
-```
-
-如果连接不上, 确保在 Android 设备上开启了 *USB debugging*. 在设备 *设置* 里找 *开发者选项* (或称 *开发选项*).
-
-![Enable USB debugging](images/android/usb_debugging.png)
-
-## 应用包调试
-
-使用调试版引擎打包的应用 (即打包时选择 "Debug" 变体) 会把控制台信息全部发送至 Android 系统日志上. 使用 `adb` 工具的 `logcat` 命令访问日志. 使用标签 (`-s [标签名]`) 可以对日志信息进行过滤:
-
-```
-$ adb logcat -s "defold"
---------- beginning of /dev/log/system
---------- beginning of /dev/log/main
-I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
-I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
-I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
-I/defold  ( 6210):
-D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
-...
-```
-
-
 ## 使用 AndroidX
 AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以主动关闭它:
 
@@ -149,7 +95,6 @@ AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. And
 2. 如果還沒有應用清單文件可以去 [Defold App Manifest generator](https://britzl.github.io/manifestation/) 生成一個, 記得勾選 "Use Android Support lib" 選項.
 
 ![](images/android/enable_supportlibrary.png)
-
 
 ## 常见问题
 :[Android 问答](../shared/android-faq.md)

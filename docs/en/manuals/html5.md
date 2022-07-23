@@ -220,5 +220,76 @@ If you create your custom template, you can specify extra parameters for the eng
 
 HTML5 builds support file operations such as `sys.save()`, `sys.load()` and `io.open()` but the way these operations are handled internally is different from other platforms. When Javascript is run in a browser there is no real concept of a file system and local file access is blocked for security reasons. Instead Emscripten (and thus Defold) uses [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB), an in-browser database used to persistently store data, to create a virtual filesystem in the browser. The important difference from file system access on other platforms is that there can be a slight delay between writing to a file and the change actually being stored in the database. The browser developer console usually allows you to inspect the contents of the IndexedDB.
 
+
+## Passing arguments to an HTML5 game
+
+It is sometimes necessary to provide additional arguments to a game before it or as it is started. This could for instance be a user id, session token or which level to load when the game starts. This can be achieved in a number of different ways, some of which are described here.
+
+### Engine arguments
+
+It is possible to specify additional engine arguments when the engine is configured and loaded. These extra engine arguments can at runtime be retrieved using `sys.get_config()`. To add the key-value pairs you modify the `engine_arguments` field of the `extra_params` object that is passed to the engine when loaded in `index.html`:
+
+
+```
+    <script id='engine-setup' type='text/javascript'>
+    var extra_params = {
+        ...,
+        engine_arguments: ["–config=foo1=bar1","--config=foo2=bar2"],
+        ...
+    }
+```
+
+You can also add `"–config=foo1=bar1","--config=foo2=bar2"` to the engine arguments field in the HTML5 section of `game.project` and it will be injected into the generated index.html file.
+
+At runtime you get the values like this:
+
+```lua
+local foo1 = sys.get_config("foo1")
+local foo2 = sys.get_config("foo2")
+print(foo1) -- bar1
+print(foo2) -- bar2
+```
+
+
+### Query arguments in the URL
+
+You can pass arguments as part of the query parameters in the page URL and read these at runtime:
+
+```
+https://www.mygame.com/index.html?foo1=bar1&foo2=bar2
+```
+
+```lua
+local url = html5.run("window.location")
+print(url)
+```
+
+A full helper function to get all query parameters as a Lua table:
+
+```lua
+local function get_query_parameters()
+    local url = html5.run("window.location")
+    -- get the query part of the url (the bit after ?)
+    local query = url:match(".*?(.*)")
+    if not query then
+        return {}
+    end
+
+    local params = {}
+    -- iterate over all key value pairs
+    for kvp in query:gmatch("([^&]+)") do
+        local key, value = kvp:match("(.+)=(.+)")
+        params[key] = value
+    end
+    return params
+end
+
+function init(self)
+    local params = get_query_parameters()
+    print(params.foo1) -- bar1
+end
+```
+
+
 ## FAQ
 :[HTML5 FAQ](../shared/html5-faq.md)

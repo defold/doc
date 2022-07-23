@@ -87,6 +87,11 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### Run While Iconified
 当游戏应用程序窗口最小化时允许其在后台继续运行 (仅桌面平台有效), 默认值是 `false`.
 
+#### Fixed Update Frequency
+生命周期函数 `fixed_update(self, dt)` 的帧率. 单位每秒. 默认 60.
+
+---
+
 ### Display
 
 #### Width
@@ -104,11 +109,11 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 #### Fullscreen
 设置应用启动是否使用全屏. 如果关闭, 应用会以窗口形式启动.
 
-#### Frame Cap
-如果 `Vsync` 开启, 则为锁帧频率匹配最接近的交换间隔. 否则的话依据锁帧设置计时器, 0 代表不锁帧. 此设置相当于 `display.update_frequency`. ([见下文](#vsync-frame-cap-and-swap-interval)).
-
-#### Vsync
-垂直同步, 根据硬件的帧率进行刷新. 可以被驱动程序或者操作系统平台设置覆盖. ([见下文](#vsync-frame-cap-and-swap-interval)).
+#### Update Frequency
+帧率, 单位次/每秒. 可变帧率设置为 0. 设置大于 0 的话会从该值到实际运行帧率之间取一个最大值 (确保一个游戏引擎循环之中不会调用 update 两次). 运行时可以使用 [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) 来修改该值.
+ 
+#### Swap interval
+一个用以设置 [OpenGL swap interval](https://www.khronos.org/opengl/wiki/Swap_Interval) 的整数值. 不支持 Vulkan. 0 表示关闭垂直同步. 默认值为 1.
 
 #### Display Profiles
 指定使用哪个显示样式文件, 默认 `/builtins/render/default.display_profilesc`.  详情请见 [GUI 排版教程](/manuals/gui-layouts/#新建显示档案).
@@ -163,6 +168,9 @@ debug线的不透明度, `0`--`1`. 默认是 `0.9`.
 #### Allow Dynamic Transforms
 設置物理碰撞對象的变化是否繼承于其父級游戲對象, 所谓变化包括父级的移动, 缩放和缩放, 即使当前物体是动态物理物体也可继承父级的变化. 默認為 `true`.
 
+#### Use Fixed Timestep
+勾选使得物理引擎使用固定帧率而非依据 update 游戏循环帧. 配合 `fixed_update(self, dt)` 生命周期函数和 `engine.fixed_update_frequency` 项目配置以使用固定帧率进行物理交互. 建议新项目设置为 `true`. 默认为 `false`.
+
 #### Debug Scale
 设置物理标识画多大, 比如原向量和法线,  默认是 `30`.
 
@@ -205,6 +213,11 @@ debug顶点最大数目. 用于物理形状渲染与其他一些功能, 默认�
 
 #### Texture Profiles
 项目使用的纹理档配置文件, 默认是 `/builtins/graphics/default.texture_profiles`.
+
+#### Verify Graphics Calls
+校验每个 graphics call 的返回值, 并且把遇到的错误保存到 log 里.
+
+---
 
 ### Shader
 
@@ -594,34 +607,36 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 * 如果集合包含工厂组件则分析工厂可实例化的游戏对象组件的必要内存并为其实例化分配足够内存.
 
 
-## 垂直同步, 帧数锁定 和 刷新间隔
-首先要注意的是桌面平台上垂直同步可以被显卡设置控制. 比如如果在显卡控制面板里强制开启了垂直同步那么从 Defold 的角度是没法读写这个设置的. 大多数移动设备也都默认开启了垂直同步.
+## 自定义项目配置文件
 
-如果在 `game.project` 中开启 `Vsync` 的话, 引擎依照硬件垂直同步根据检测到的任何显示设备刷新率决定固定 `dt` 值. 这是默认的情况. 如果开启 `Vsync` 并且设置 `Frame cap` > 0, 则帧率设置兼顾显示器刷新率与锁帧频率. 如果 `Vsync` 关闭并且设置 `Frame cap` 为 0, `dt` 就不是固定的了而是使用实际的时间间隔. 如果 `Vsync` 关闭并且设置 `Frame cap` > 0, 时间步进取帧数锁定设置的值. 不同平台和硬件设备下无法保证刷新间隔时间一致.
+可以为主项目或者为 [原生扩展](/manuals/extensions/) 设置自定义的配置. 主项目的配置文件必须定义在项目根目录的 `game.properties` 文件里. 原生扩展的自定义配置应该保存为 `ext.properties` 文件并存放在 `ext.manifest` 文件相同目录下.
 
-交换间隔是指在垂直空白期 (v-blank) 同步中交换前后缓冲的间隔, 是屏幕图片从前缓冲更新数据的硬件事件. 取值为1就是每个v-blank做一次交换缓冲, 取值为2就是每两个（每隔一个）v-blank做一次交换缓冲, 以此类推. 取值为0则做交换缓冲时不等待v-blank时间\*. 调用 [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval) 方法可以设置 `swap_interval` 的值.
+自定义配置文件同 *game.project* 一样使用 INI 格式编写, 配置项属性可以用前缀加点号的格式表示:
+
+```
+[my_category]
+my_property.private = 1
+...
+```
+
+预定义有效元数据详见 [这里](https://github.com/defold/defold/blob/dev/com.dynamo.cr/com.dynamo.cr.bob/src/com/dynamo/bob/meta.properties)
+
+目前预定义有效属性为:
+
+```
+// `type` - 用于数值与字符串之间相互转换 (目前仅用于 bob.jar)
+my_property.type = string // 这些值有效: bool, string, number, integer, string_array, resource
+
+// `help` - 用于编辑器里的帮助提示 (尚未使用)
+my_property.help = string
+
+// `default` - 用户未手动输入值的情况下的默认值 (目前仅用于 bob.jar)
+my_property.default = string
+
+// `private` - 是否定义为打包时使用但是打包后丢弃的私有值
+my_property.private = 1 // 布尔值 1 或 0
+
+``` 
 
 
-### 注意事项
-目前, Defold 在初始化时查询屏幕刷新率并且把它作为固定 `dt` 的依据. 如果你需要支持可变刷新率 (比如 GSync 或者 FreeSync) 或者其他刷新率不是很有参考性的情况下, 关闭 `Vsync`来使引擎测量每帧实际 `dt` 而不是固定dt.
-
-
-### Defold 中的垂直同步与帧数锁定
-
-<table>
-  <tr>
-    <th></th>
-    <th><b>Frame cap 为 0 (默认)</b></th>
-    <th><b>Frame cap 大于 0</b></th>
-  </tr>
-  <tr>
-    <td><b>Vsync 开启 (默认)</b></td>
-    <td>依据硬件垂直同步. 取<code>1/(屏幕刷新率)</code> 作为固定 <code>dt</code> .</td>
-    <td>固定 <code>dt</code> 为 <code>(交换间隔)/(显示器刷新率)</code> 其中交换间隔取值基于锁帧频率.</td>
-  </tr>
-  <tr>
-    <td><b>Vsync 关闭</b></td>
-    <td>依据记录的每帧实际消耗系统时间计算 <code>dt</code>. 驱动程序有权强制开启垂直同步.</td>
-    <td>固定 <code>dt</code> 为 <code>1 / (锁定帧数)</code>. 计时与等待取值基于锁帧频率.</td>
-  </tr>
-</table>
+元属性目前仅由 `bob.jar` 做应用打包时使用, 但是以后会应用于编辑器与 `game.project` 概览视图中. 

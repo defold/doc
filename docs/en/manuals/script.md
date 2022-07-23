@@ -63,6 +63,15 @@ Defold executes Lua scripts as part of the engine lifecycle and exposes the life
   end
   ```
 
+`fixed_update(self, dt)`
+: Frame-rate independent update. `dt` contains the delta time since the last update. Useful when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation. Requires that `physics.use_fixed_timestep` is enabled in *game.project*.
+
+  ```lua
+  function fixed_update(self, dt)
+      msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+  end
+  ```
+
 `on_message(self, message_id, message, sender)`
 : When messages are sent to the script component through [`msg.post()`](/ref/msg#msg.post) the engine calls this function of the receiver component. Learn [more about message passing](/manuals/message-passing).
 

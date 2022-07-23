@@ -666,7 +666,7 @@
                     },
                     {
                         "path": "/manuals/texture-profiles",
-                        "name": "Texture profiles"
+                        "name": "Texture compression"
                     }
                 ]
             },
@@ -973,6 +973,10 @@
                 "name": "Workflow",
                 "items": [
                     {
+                        "path": "/manuals/application-security",
+                        "name": "Application security"
+                    },
+                    {
                         "path": "/manuals/bundling",
                         "name": "Bundling an application"
                     },
@@ -987,6 +991,10 @@
                     {
                         "path": "/manuals/hot-reload",
                         "name": "Hot reloading"
+                    },
+                    {
+                        "path": "/manuals/porting-guidlines",
+                        "name": "Porting guidelines"
                     },
                     {
                         "path": "/manuals/refactoring",
@@ -1181,11 +1189,19 @@
                 ]
             },
             {
-                "name": "Nintendo Switch",
+                "name": "Consoles",
                 "items": [
                     {
                         "path": "/manuals/nintendo-switch",
                         "name": "Nintendo Switch"
+                    },
+                    {
+                        "path": "/manuals/sony-playstation",
+                        "name": "Sony PlayStation"
+                    },
+                    {
+                        "path": "/manuals/microsoft-xbox",
+                        "name": "Microsoft Xbox"
                     }
                 ]
             },
@@ -1258,6 +1274,10 @@
                     {
                         "path": "/manuals/extensions-manifest-merge-tool",
                         "name": "Manifest Merging"
+                    },
+                    {
+                        "path": "https://lua.msys.ch/lua-integration-guide.html#_the_lua_c_api",
+                        "name": "The Lua C API (external)"
                     }
                 ]
             }
