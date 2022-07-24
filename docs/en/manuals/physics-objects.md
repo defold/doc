@@ -17,7 +17,7 @@ Kinematic objects
 : Kinematic objects register collisions with other physics objects, but the physics engine do not perform any automatic simulation. The job of resolving collisions, or ignoring them, is left to you ([learn more](/manuals/physics-resolving-collisions)). Kinematic objects are very good for player or script controlled objects that require fine grained control of the physical reactions, like a player character.
 
 Triggers
-: Triggers are objects that register simple collisions. Triggers are light weight collision objects. They are similar to [ray casts](/manuals/physics-ray-cast) in that they read the physics world as opposed to interacting with it. They are good for objects that just need to register a hit (like a bullet) or as part of game logic where you want to trigger certain actions when an object reaches a specific point. Trigger are computationally cheaper than kinematic objects and should be used in favor of those if possible.
+: Triggers are objects that register simple collisions. Triggers are light weight collision objects. They are similar to [ray casts](/manuals/physics-ray-casts) in that they read the physics world as opposed to interacting with it. They are good for objects that just need to register a hit (like a bullet) or as part of game logic where you want to trigger certain actions when an object reaches a specific point. Trigger are computationally cheaper than kinematic objects and should be used in favor of those if possible.
 
 
 ## Adding a collision object component
