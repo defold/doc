@@ -38,13 +38,23 @@ While running a debug build of the game, an interactive web-based profiler can b
 To access the profiler:
 
 1. Start your game on your target device.
-2. Select <kbd> Debug ▸ Open Web Profiler</kbd> menu. Alternatively, for example, when you use multiple targets simultaneously, you can open a web browser and point it to `http://<device IP>:8002` where `<device IP>` is the IP address of the device. You can find the IP numbers of your target devices in the <kbd>Project ▸ Target</kbd> menu.
+2. Select <kbd> Debug ▸ Open Web Profiler</kbd> menu.
 
 
 ### CPU/Frame profiler
 The CPU profiler is divided into several sections that all give different views into the runing game. Press the Pause button in the top right corner to temporarily stop the profiler from updating the views.
 
 ![Web profiler](images/profiling/webprofiler_page.png)
+
+::: sidenote
+When you use multiple targets simultaneously, you can manually switch between them by changing the Connection Address field at the top of the page to match the Remotery profiler URL shown in the console when the target started:
+
+```
+INFO:ENGINE: Defold Engine 1.3.4 (80b1b73)
+INFO:DLIB: Initialized Remotery (ws://127.0.0.1:17815/rmt)
+INFO:ENGINE: Loading data from: build/default
+```
+:::
 
 Sample Timeline
 : The Sample Timeline will show the frames of data captured in the engine, one horizontal timeline per Thread. Main is the main thread where all of the game logic and most of the engine code is run. Remotery is for the profiler itself and Sound is for the sound mixing and playback thread. You can zoom in and out (using the mouse wheel) and select individual frames to see the details of a frame in the Frame Data view.
