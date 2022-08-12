@@ -32,17 +32,15 @@ profiler.view_recorded_frame()
 Refer to a the [profiler API reference](/ref/stable/profiler/) for more information about the profiler functions.
 
 ## The web profiler
+While running a debug build of the game, an interactive web-based profiler can be accessed through a browser.
 
-While running a debug build of the game, an interactive web-based profiler can be accessed through a browser. It allows you to sample your game while it is running and analyze individual frames in detail.
-
-To access the profiler:
+### Frame profiler
+The Frame profiler allows you to sample your game while it is running and analyze individual frames in detail. To access the profiler:
 
 1. Start your game on your target device.
 2. Select <kbd> Debug ▸ Open Web Profiler</kbd> menu.
 
-
-### CPU/Frame profiler
-The CPU profiler is divided into several sections that all give different views into the runing game. Press the Pause button in the top right corner to temporarily stop the profiler from updating the views.
+The frame profiler is divided into several sections that all give different views into the runing game. Press the Pause button in the top right corner to temporarily stop the profiler from updating the views.
 
 ![Web profiler](images/profiling/webprofiler_page.png)
 
@@ -75,6 +73,11 @@ Global Properties
 
 
 ### Resource profiler
+The Resource profiler allows you to inspect your game while it is running and analyze resource use in detail. To access the profiler:
+
+1. Start your game on your target device.
+2. Open a browser and browse to http://localhost:8002
+
 The resource profiler is divided into 2 sections, one showing a hierarchical view of the collections, game objects and components currently instantiated in your game, and the other showing all currently loaded resources.
 
 ![Resource profiler](images/profiling/webprofiler_resources_page.png)
