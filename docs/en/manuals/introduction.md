@@ -14,7 +14,7 @@ We have spent a lot of time and effort making sure that certain key elements of 
 We encourage you to experiment, follow tutorials, read our manuals and API documentation, and to be active on the forum to learn from other users and follow the development of Defold. There is quite a lot of documentation available, in the form of manuals, API reference documentation, examples and tutorials. If you don't know where to start, here are some pointers:
 
 #### The editor
-![Editor overview](images/introduction/editor.png){.left} [The editor overview](/manuals/editor/) is a gives a good introduction to the editor and will help you get around, use the visual tools and write code. If you are familiar with 3D modelling programs and programming IDEs, there should be few surprises, but there are always things that will be different from your favorite piece of software.
+![Editor overview](images/introduction/editor.png){.left} [The editor overview](/manuals/editor/) gives a good introduction to the editor and will help you get around, use the visual tools and write code. If you are familiar with 3D modelling programs and programming IDEs, there should be few surprises, but there are always things that will be different from your favorite piece of software.
 
 #### Simple examples
 ![Examples](images/introduction/examples.jpg){.left} [Our collection of simple examples](/examples/) is a good introduction to how to put pieces together into something that works. You will find minimal examples of how to do a wide variety of common things in Defold.
