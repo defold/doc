@@ -87,11 +87,11 @@ end
 1. Set up color buffer parmeters for the render target. We use the game's target resolution.
 2. Create the render target with the color buffer parameters.
 
-Now we just need to wrap the original rendering code with `render.enable_render_target()` and `render.disable_render_target()`:
+Now we just need to wrap the original rendering code with `render.set_render_target()` like this:
 
 ```lua
 function update(self)
-  render.enable_render_target(self.target) -- <1>
+  render.set_render_target(self.target) -- <1>
 
   render.set_depth_mask(true)
   render.set_stencil_mask(0xff)
@@ -101,12 +101,12 @@ function update(self)
   render.set_view(self.view)
   ...
 
-  render.disable_render_target(self.target) -- <3>
+  render.set_render_target(render.RENDER_TARGET_DEFAULT) -- <3>
 end
 ```
 1. Enable the render target. From now on, every call to `render.draw()` will draw to our off-screen render target's buffers.
 2. All original drawing code in `update()` is left as is, apart from the viewport which is set to the render target's resolution.
-3. At this point, all the game's graphics has been drawn to the render target. So it's time to disable it.
+3. At this point, all the game's graphics has been drawn to the render target. So it's time to disable it by setting to default render target.
 
 That's all we need to do. If you run the game now it will draw everything to the render target. But since we now drawing nothing to the frame-buffer we will only see a black screen.
 
@@ -198,11 +198,11 @@ After the render target's color buffer has been filled in `update()` we set up a
 
 ```lua
 function update(self)
-  render.enable_render_target(self.target)
+  render.set_render_target(self.target)
 
   ...
 
-  render.disable_render_target(self.target)
+  render.set_render_target(render.RENDER_TARGET_DEFAULT)
 
   render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color}) -- <1>
 
