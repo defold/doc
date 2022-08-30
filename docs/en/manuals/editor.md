@@ -117,7 +117,7 @@ The scale tool
 Visibility filters
 : Toggle visibility of various component types as well as bounding boxes and guide lines.
 
-  ![Visibility filters](images/editor/sisibilityfilters.png)
+  ![Visibility filters](images/editor/visibilityfilters.png)
 
 
 ## Creating new project files
