@@ -44,9 +44,9 @@ The *Editor* pane
 - Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
 - Rotate in 3D: <kbd>Ctrl + left mouse button</kbd>.
 
-There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale*.
+There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale* as well as *Camera Perspective* and *Visibility Filters*.
 
-![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
+![toolbar](images/editor/toolbar.png)
 
 The *Outline* pane
 : This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
@@ -78,7 +78,7 @@ You can also use the tab menu to swap the position of the two panes and join the
 
 Double clicking a collection or game object file brings up the *Scene Editor*:
 
-![Select object](images/editor/select.jpg)
+![Select object](images/editor/select.png)
 
 Selecting objects
 : Click on objects in the main window to select them. The rectangle surrounding the object in the editor view will highlight green to indicate what item is selected. The selected object is also highlighted in the *Outline* view.
@@ -94,7 +94,7 @@ The move tool
 : ![Move tool](images/editor/icon_move.png){.left}
   To move objects, use the *Move Tool*. You find it in the toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
 
-  ![Move object](images/editor/move.jpg)
+  ![Move object](images/editor/move.png)
 
   The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There arn also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
 
@@ -102,7 +102,7 @@ The rotate tool
 : ![Rotate tool](images/editor/icon_rotate.png){.left}
   To rotate objects, use the *Rotate Tool* by selecting it in the toolbar, or by pressing the <kbd>E</kbd> key.
 
-  ![Move object](images/editor/rotate.jpg)
+  ![Move object](images/editor/rotate.png)
 
   This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
 
@@ -110,9 +110,15 @@ The scale tool
 : ![Scale tool](images/editor/icon_scale.png){.left}
   To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
 
-  ![Scale object](images/editor/scale.jpg)
+  ![Scale object](images/editor/scale.png)
 
   This tool consists of a set of square handles. The center one scales the object uniformly in all axes (including Z). There also one handle for scaling along each of the X, Y and Z axes and one handle for scaling in the X-Y plane, the X-Z plane and the Y-Z plane.
+
+Visibility filters
+: Toggle visibility of various component types as well as bounding boxes and guide lines.
+
+  ![Visibility filters](images/editor/sisibilityfilters.png)
+
 
 ## Creating new project files
 
