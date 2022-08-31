@@ -44,9 +44,9 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 - 缩放: <kbd>Alt + 鼠标右键</kbd> 或者使用鼠标滚轮.
 - 旋转: <kbd>Ctrl + 鼠标左键</kbd>.
 
-场景试图右上角的工具栏里也有这些功能按钮: *平移*, *旋转* 和 *缩放*.
+场景视图右上角的工具栏里也有这些功能按钮: *平移*, *旋转* 和 *缩放*, 以及 *摄像机透视* 和 *可见性过滤*.
 
-![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
+![toolbar](images/editor/toolbar.png)
 
 *Outline* 面板
 : 这个视图以一个树形结构展示当前打开文件的内容. 大纲树的内容与场景视图内容是一一对应的, 可以方便操作:
@@ -78,7 +78,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 双击集合文件或者游戏对象文件就会打开 *场景编辑器*:
 
-![Select object](images/editor/select.jpg)
+![Select object](images/editor/select.png)
 
 选择物体
 : 在主视图中点选可以选中单个物体. 框选可以选中绿色方框套住的多个物体. 被选中的物体则在 *大纲* 视图中被高亮显示.
@@ -94,7 +94,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 : ![Move tool](images/editor/icon_move.png){.left}
   使用 *移动工具* 来移动物体. 移动工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>W</kbd>.
 
-  ![Move object](images/editor/move.jpg)
+  ![Move object](images/editor/move.png)
 
   被选中的物体会显示出坐标轴 (方块和箭头). 拖拽绿方块可以在屏幕空间内任意移动这个物体, 拖拽箭头则是让这个物体在 X, Y 或 Z 轴上进行移动. 拖拽别的方块则可以让这个物体在 X-Y 平面上 (在3D视图中可见) 移动或者在 X-Z , Y-Z 平面上移动.
 
@@ -102,7 +102,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 : ![Rotate tool](images/editor/icon_rotate.png){.left}
   使用 *旋转工具* 来旋转物体. 旋转工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>E</kbd>.
 
-  ![Move object](images/editor/rotate.jpg)
+  ![Move object](images/editor/rotate.png)
 
   旋转工具的坐标轴显示为圆形. 拖拽橙色的圆可以在屏幕空间内任意旋转这个物体, 可以沿着 X, Y 和 Z 轴旋转. 因为 X 和 Y 轴的位置关系, 在2D视图上仅显示为穿过物体的两条线.
 
@@ -110,9 +110,15 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 : ![Scale tool](images/editor/icon_scale.png){.left}
   使用 *缩放工具* 来缩放物体. 缩放工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>R</kbd>.
 
-  ![Scale object](images/editor/scale.jpg)
+  ![Scale object](images/editor/scale.png)
 
   缩放工具坐标轴显示为一组方块. 拖拽中间的方块可以将物体等比缩放 (包括Z轴). 同样也可以沿着 X, Y 和 Z 轴方向, 以及 X-Y , X-Z 和 Y-Z 平面上进行缩放.
+
+可视性过滤
+: 各种组件类型的可视性开关, 包括边界框和基准线.
+
+  ![Visibility filters](images/editor/visibilityfilters.png)
+
 
 ## 新建文件
 
