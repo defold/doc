@@ -389,7 +389,7 @@
                 "image": "/tutorials/images/videos/shadertoy.png"
             },
             {
-                "path": "/tutorials/textuire-scrolling",
+                "path": "/tutorials/texture-scrolling",
                 "name": "Texture scrolling",
                 "description": "In this tutorial you will learn how to use a shader to scroll a repeating texture."
             },
