@@ -74,7 +74,7 @@ usage: bob [options] [commands]
 -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
 -o,--output <arg>                       Output directory. Default is
                                         "build/default"
--p,--platform <arg>                     Platform (when bundling)
+-p,--platform <arg>                     Platform (when building and bundling)
 -pk,--private-key <arg>                 DEPRECATED! Private key (Android)
 -r,--root <arg>                         Build root directory. Default is
                                         current directory
