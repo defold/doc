@@ -127,7 +127,8 @@ Available commands:
 
 Available platforms and architectures:
 
-`x86_64-darwin`
+`x86_64-darwin` (Defold 1.3.5 and older)
+`x86_64-macos` (Defold 1.3.6 and newer)
 : macOS 64 bit
 
 `x86_64-win32`
@@ -142,7 +143,8 @@ Available platforms and architectures:
 `x86_64-ios`
 : iOS macOS 64 bit (iOS Simulator)
 
-`armv7-darwin`
+`armv7-darwin` (Defold 1.3.5 and older)
+`armv7-ios` (Defold 1.3.6 and newer)
 : iOS with available 32-bit `armv7-darwin` and 64-bit `arm64-darwin` architectures. By default, `--architectures` argument value is `armv7-darwin,arm64-darwin`.
 
 `armv7-android`
