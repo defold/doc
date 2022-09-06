@@ -389,6 +389,11 @@
                 "image": "/tutorials/images/videos/shadertoy.png"
             },
             {
+                "path": "/tutorials/texture-scrolling",
+                "name": "Texture scrolling",
+                "description": "In this tutorial you will learn how to use a shader to scroll a repeating texture."
+            },
+            {
                 "path": "/tutorials/runner",
                 "name": "Runner",
                 "description": "In this tutorial you start with an empty project and build a complete runner game with an animated character, physics collision, pickups and scoring.",
