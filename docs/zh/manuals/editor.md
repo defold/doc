@@ -114,7 +114,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
   缩放工具坐标轴显示为一组方块. 拖拽中间的方块可以将物体等比缩放 (包括Z轴). 同样也可以沿着 X, Y 和 Z 轴方向, 以及 X-Y , X-Z 和 Y-Z 平面上进行缩放.
 
-可视性过滤
+可见性过滤
 : 各种组件类型的可视性开关, 包括边界框和基准线.
 
   ![Visibility filters](images/editor/visibilityfilters.png)

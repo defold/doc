@@ -48,10 +48,10 @@ usage: bob [options] [commands]
 -h,--help                               帮助文档
 -i,--input <arg>                        指定源目录, 默认是当前目录
     --identity <arg>                    指定签名 (iOS)
--k,--keep-unused                        使未使用的资源仍然被打包输出
-    --keystore <arg>                    Android 打包密鑰文件.
-    --keystore-alias <arg>              Android 打包密鑰別名文件路徑.
-    --keystore-pass <arg>               Android 打包密鑰密碼文件路徑.
+-k,--keep-unused                        把未使用资源打包进 output
+-ks,--keystore <arg>                    用来签名 APKs (Android) 的开发密钥
+-ksa,--keystore-alias <arg>             用来签名 APKs (Android) 的密钥证书别名
+-ksp,--keystore-pass <arg>              用来签名 APKs (Android) 的密钥密码
 -l,--liveupdate <arg>                   要在发布后使用热更新功能, 该参数填 yes
 -mp,--mobileprovisioning <arg>          指定 mobileprovisioning profile (iOS)
 -o,--output <arg>                       输出目录. 默认是 "build/default"
@@ -96,7 +96,8 @@ usage: bob [options] [commands]
 
 支持平台和架构:
 
-`x86_64-darwin`
+`x86_64-darwin` (Defold 1.3.5 及更老版本)
+`x86_64-macos` (Defold 1.3.6 及更新版本)
 : macOS 64 bit
 
 `x86_64-win32`
@@ -111,7 +112,8 @@ usage: bob [options] [commands]
 `x86_64-ios`
 : iOS macOS 64 bit (iOS 模拟器)
 
-`armv7-darwin`
+`armv7-darwin` (Defold 1.3.5 及更老版本)
+`armv7-ios` (Defold 1.3.6 及更新版本)
 : iOS 支持 32-bit `armv7-darwin` 和 64-bit `arm64-darwin` 架构. 默认情况下, `--architectures` 参数值为 `armv7-darwin,arm64-darwin`.
 
 `armv7-android`
