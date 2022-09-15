@@ -62,8 +62,8 @@ brief: This manual shows the current keyboard shortcuts and how to customize the
 | Recent files | <kbd>Alt</kbd>+<kbd>R</kbd> | <kbd>Ctrl</kbd>+<kbd>R</kbd> | <kbd>Alt</kbd>+<kbd>R</kbd> |
 | Redo | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Z</kbd> | <kbd>Shift</kbd>+<kbd>Cmd</kbd>+<kbd>Z</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Z</kbd> |
 | Reindent | <kbd>Ctrl</kbd>+<kbd>I</kbd> | <kbd>Ctrl</kbd>+<kbd>I</kbd> | <kbd>Ctrl</kbd>+<kbd>I</kbd> |
-| Reopen closed file | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>T</kbd> | <kbd>Shift</kbd>+<kbd>Cmd</kbd>+<kbd>T</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>T</kbd> |
 | Rename | <kbd>F2</kbd> | <kbd>F2</kbd> | <kbd>F2</kbd> |
+| Reopen closed file | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>T</kbd> | <kbd>Shift</kbd>+<kbd>Cmd</kbd>+<kbd>T</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>T</kbd> |
 | Replace next | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>H</kbd> | <kbd>Alt</kbd>+<kbd>Cmd</kbd>+<kbd>G</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>H</kbd> |
 | Replace text |  | <kbd>Alt</kbd>+<kbd>Cmd</kbd>+<kbd>F</kbd> |  |
 | Right | <kbd>Right</kbd> | <kbd>Right</kbd> | <kbd>Right</kbd> |
