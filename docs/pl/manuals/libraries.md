@@ -15,7 +15,7 @@ Biblioteki są przydatne, kiedy chcesz:
 
 ## Ustawianie udostępniania biblioteki
 
-Załóżmy, że chcesz zbudować bibliotekę zawierającą sprite'y i źródła kafelków (tile sources). Rozpoczynasz przez [utworzenie nowego projektu](/manuals/project-setup/). Zdecyduj, które foldery z danego projektu chcesz udostępnić i dołącz ich ścieżki do *include_dirs* w ustawieniach porjektu w pliku *game.project*. Jeśli chcesz dodać więcej niż jedną lokalizację, oddziel je spacjami:
+Załóżmy, że chcesz zbudować bibliotekę zawierającą sprite'y i źródła kafelków (tile sources). Rozpoczynasz przez [utworzenie nowego projektu](/manuals/project-setup/). Zdecyduj, które foldery z danego projektu chcesz udostępnić i dołącz ich ścieżki do *include_dirs* w ustawieniach projektu w pliku *game.project*. Jeśli chcesz dodać więcej niż jedną lokalizację, oddziel je spacjami:
 
 ![Include dirs](images/libraries/libraries_include_dirs.png)
 
