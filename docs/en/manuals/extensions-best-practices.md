@@ -36,7 +36,7 @@ For us, it's better to use `const char*` and a few helper functions.
 
 ### Make functions hidden
 
-Use the `static` keywork on functions local to your compile unit if possible. This lets the compiler do some optimizations, and can both improve performance as well as reduce executable size.
+Use the `static` keywor on functions local to your compile unit if possible. This lets the compiler do some optimizations, and can both improve performance as well as reduce executable size.
 
 ## 3rd party libraries
 
