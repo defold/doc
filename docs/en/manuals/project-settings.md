@@ -42,7 +42,7 @@ A comma separated list of resources that will be included in the project. If dir
 
 #### Bundle Resources
 `bundle_resources`
-A comma separated list of directories containing resource files and folders that should be copied as-is into the resulting package when bundling. The directories must be specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
+A comma separated list of directories containing resource files and folders that should be copied as-is into the resulting package when bundling. The directories must be specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecture-platform`.
 
 Supported platforms are `ios`, `android`, `osx`, `win32`, `linux`, `web`, `switch`
 
