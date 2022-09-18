@@ -586,7 +586,7 @@ Also note that the folder containing *game.project* will be the project root, wh
 When the engine starts, it is possible to provide config values from the command line that override the *game.project* settings:
 
 ```bash
-# Specify a bootstap collection
+# Specify a bootstrap collection
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
 # Set two custom config values
