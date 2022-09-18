@@ -357,7 +357,7 @@ The max number of concurrent particles, `1024` by default.
 Max number of labels, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 #### Subpixels
-Check to allow lables to appear unaligned with respect to pixels, checked by default.
+Check to allow labels to appear unaligned with respect to pixels, checked by default.
 
 ---
 
