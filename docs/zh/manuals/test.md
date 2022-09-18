@@ -118,7 +118,7 @@ Images are inserted into the document like this:
 
 ![A small icon](images/test/icon.svg){.icon} Images with class `.icon` are rendered inline aligned with the text. Use this to insert really small images (like ![A small icon](images/test/icon.svg){.icon}) into running text.
 
-Note that images are usually rendered centered in their own paragraph. Apply class `.inline` for inline behavior if you have several images as part of the same paragragh and you want to line up several images like this:
+Note that images are usually rendered centered in their own paragraph. Apply class `.inline` for inline behavior if you have several images as part of the same paragraph and you want to line up several images like this:
 
 ![A small image of sorts](images/test/small.png){.inline}
 ![A small image of sorts](images/test/small.png){.inline}
