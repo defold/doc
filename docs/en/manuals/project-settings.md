@@ -629,7 +629,7 @@ The following attributes are currently available:
 
 ```
 // `type` - used for the value string parsing (only in bob.jar for now)
-my_property.type = string // one of the follwoing values: bool, string, number, integer, string_array, resource
+my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
 // `help` - used as help tip in the editor (not used for now)
 my_property.help = string
