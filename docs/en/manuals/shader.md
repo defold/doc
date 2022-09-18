@@ -78,7 +78,7 @@ UV coordinates
 
   ![UV coordinates](images/shader/uv_map.png){srcset="images/shader/uv_map@2x.png 2x"}
 
-  A UV-map is typically generated in the 3D modelling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
+  A UV-map is typically generated in the 3D modeling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
 
 Varying variables
 : Varying types of variables are used to pass information between the vertex stage and the fragment stage.
