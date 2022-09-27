@@ -48,9 +48,6 @@ local color = gui.get_color(node)
 `get+set`{.mark}
 : 表示可以使用 [`go.get()`](/ref/go#go.get) 读取并且可以使用 [`go.set()`](/ref/go#go.set) 写入. 数值类型的属性可以使用 [`go.animate()`](/ref/go#go.animate) 制作属性动画.
 
-::: 注意
-以前用于读写游戏对象某些属性的老函数并没有被删除. 比如像 `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()` 之类的.
-:::
 
 *游戏对象属性*
 
@@ -60,6 +57,10 @@ local color = gui.get_color(node)
 | *rotation* | 游戏对象的旋转, 以四元数表示.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | 游戏对象的旋转, 以欧拉角表示. | `vector3` | `get+set`{.mark} |
 | *scale*    | 游戏对象的非等比缩放, 以向量表示. 比如在 x 和 y 方向放大2倍, 就是 vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
+
+::: 注意
+对于位移专用的函数也是有的; 即 `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()` 和 `go.set_scale()`.
+:::
 
 *SPRITE 组件属性*
 
