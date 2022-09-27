@@ -19,7 +19,7 @@ Suppose you want to build a library containing shared sprites and tile sources. 
 
 ![Include dirs](images/libraries/libraries_include_dirs.png)
 
-Before we can add this library to another project we need to a way to locate the library.
+Before we can add this library to another project we need a way to locate the library.
 
 ## Library URL
 

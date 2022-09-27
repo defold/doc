@@ -48,10 +48,6 @@ All game objects, and some component types have properties that can be read and 
 `get+set`{.mark}
 : Can be read with [`go.get()`](/ref/go#go.get) and written with [`go.set()`](/ref/go#go.set). Numerical values can be animated with [`go.animate()`](/ref/go#go.animate).
 
-::: sidenote
-Legacy functions for reading and writing game object properties also exist. They are `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  and so forth.
-:::
-
 *GAME OBJECT PROPERTIES*
 
 | property   | description                            | type            |                  |
@@ -60,6 +56,10 @@ Legacy functions for reading and writing game object properties also exist. They
 | *rotation* | Local rotation of game object, expressed as a quaternion.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Local rotation of game object, Euler angles. | `vector3` | `get+set`{.mark} |
 | *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
+
+::: sidenote
+Specific functions for working with the game object transform also exist; they are `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()` and `go.set_scale()`.
+:::
 
 *SPRITE COMPONENT PROPERTIES*
 

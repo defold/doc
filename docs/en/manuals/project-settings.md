@@ -42,7 +42,7 @@ A comma separated list of resources that will be included in the project. If dir
 
 #### Bundle Resources
 `bundle_resources`
-A comma separated list of directories containing resource files and folders that should be copied as-is into the resulting package when bundling. The directories must be specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecure-platform`.
+A comma separated list of directories containing resource files and folders that should be copied as-is into the resulting package when bundling. The directories must be specified with an absolute path from the project root, for example `/res`. The resource directory must contain subfolders named by `platform`, or `architecture-platform`.
 
 Supported platforms are `ios`, `android`, `osx`, `win32`, `linux`, `web`, `switch`
 
@@ -357,7 +357,7 @@ The max number of concurrent particles, `1024` by default.
 Max number of labels, `64` by default. [(See information about component max count optimizations)](#component_max_count_optimizations).
 
 #### Subpixels
-Check to allow lables to appear unaligned with respect to pixels, checked by default.
+Check to allow labels to appear unaligned with respect to pixels, checked by default.
 
 ---
 
@@ -586,7 +586,7 @@ Also note that the folder containing *game.project* will be the project root, wh
 When the engine starts, it is possible to provide config values from the command line that override the *game.project* settings:
 
 ```bash
-# Specify a bootstap collection
+# Specify a bootstrap collection
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
 # Set two custom config values
@@ -629,7 +629,7 @@ The following attributes are currently available:
 
 ```
 // `type` - used for the value string parsing (only in bob.jar for now)
-my_property.type = string // one of the follwoing values: bool, string, number, integer, string_array, resource
+my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
 // `help` - used as help tip in the editor (not used for now)
 my_property.help = string
