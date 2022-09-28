@@ -141,6 +141,9 @@ Filter Min/Mag
   - `FILTER_MODE_LINEAR_MIPMAP_NEAREST` interpolates linearly within an individual mipmap.
   - `FILTER_MODE_LINEAR_MIPMAP_LINEAR` uses linear interpolation to compute the value in each of two maps and then interpolates linearly between these two values.
 
+Max Anisotropy
+: The level of anisotropy for texture samplers. If anisotropic filtering is not enabled the parameter will not do anything, and it will be set to 1 as default.
+
 ## Constants buffers
 
 When the rendering pipeline draws, it pulls constant values from a default system constants buffer. You can create a custom constants buffer to override the default constants and instead set shader program uniforms programmatically in the render script:
