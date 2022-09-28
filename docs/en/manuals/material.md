@@ -142,7 +142,7 @@ Filter Min/Mag
   - `FILTER_MODE_LINEAR_MIPMAP_LINEAR` uses linear interpolation to compute the value in each of two maps and then interpolates linearly between these two values.
 
 Max Anisotropy
-: The level of anisotropy for texture samplers. If anisotropic filtering is not enabled the parameter will not do anything, and it will be set to 1 as default.
+: Anisotropic filtering is an advanced filtering technique that takes multiple samples, blending the results together. This setting controls the level of anisotropy for the texture samplers. If anisotropic filtering is not supported by the GPU the parameter will not do anything, and it will be set to 1 as default.
 
 ## Constants buffers
 
