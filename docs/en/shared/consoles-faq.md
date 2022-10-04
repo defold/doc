@@ -10,4 +10,4 @@ A: You will be able to create application bundles from the command line tools. I
 
 #### Q: Is it still easy to use a single code base if I decide to also target consoles?
 
-A: Yes, all of the standard Defold API functions are available also for the console platforms. In addition to the standard functionality you will also have access to a couple of Sony PlaytStation and Nintendo Switch specific functions, but in general the code should be able to remain exactly the same across multiple platforms.
+A: Yes, all of the standard Defold API functions are available also for the console platforms. In addition to the standard functionality you will also have access to a couple of Sony PlayStation and Nintendo Switch specific functions, but in general the code should be able to remain exactly the same across multiple platforms.
