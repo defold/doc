@@ -18,88 +18,112 @@ Bob запускается из оболочки или из командной 
 ```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
--a,--archive                            Build archive
--ar,--architectures <arg>               Comma separated list of
-                                        architectures to include for the
-                                        platform
-   --archive-resource-padding <arg>     The alignment of the resources in
-                                        the game archive. Default is 4
--bf,--bundle-format <arg>               Format of the created bundle
-                                        (Android: 'apk' and 'aab')
-   --binary-output <arg>                Location where built engine
-                                        binary will be placed. Default is
-                                        "<build-output>/<platform>/"
--bo,--bundle-output <arg>               Bundle output directory
--br,--build-report <arg>                Filepath where to save a build
-                                        report as JSON
--brhtml,--build-report-html <arg>       Filepath where to save a build
-                                        report as HTML
-   --build-artifacts <arg>              If left out, will default to
-                                        build the engine. Choices:
-                                        'engine', 'plugins'. Comma
-                                        separated list.
-   --build-server <arg>                 The build server (when using
-                                        native extensions)
--ce,--certificate <arg>                 DEPRECATED! Certificate (Android)
--d,--debug                              Use debug version of dmengine
-                                        (when bundling). Deprecated, use
-                                        --variant instead
-   --debug-ne-upload                    Outputs the files sent to build
-                                        server as upload.zip
-   --defoldsdk <arg>                    What version of the defold sdk
-                                        (sha1) to use
--e,--email <arg>                        User email
-   --exclude-build-folder <arg>         Comma separated list of folders
-                                        to exclude from the build
--h,--help                               This help message
--i,--input <arg>                        Source directory. Default is
-                                        current directory
-   --identity <arg>                     Sign identity (iOS)
--k,--keep-unused                        Keep unused resources in archived
-                                        output
--ks,--keystore <arg>                    Deployment keystore used to sign
-                                        APKs (Android)
--ksa,--keystore-alias <arg>             The alias of the signing key+cert
-                                        you want to use (Android)
--ksp,--keystore-pass <arg>              Pasword of the deployment
-                                        keystore (Android)
--l,--liveupdate <arg>                   Yes if liveupdate content should
-                                        be published
--mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
--o,--output <arg>                       Output directory. Default is
-                                        "build/default"
--p,--platform <arg>                     Platform (when bundling)
--pk,--private-key <arg>                 DEPRECATED! Private key (Android)
--r,--root <arg>                         Build root directory. Default is
-                                        current directory
-   --resource-cache-local <arg>         Path to local resource cache.
-   --resource-cache-remote <arg>        URL to remote resource cache.
-   --resource-cache-remote-pass <arg>   Password/token to authenticate
-                                        access to the remote resource
-                                        cache.
-   --resource-cache-remote-user <arg>   Username to authenticate access
-                                        to the remote resource cache.
-   --settings <arg>                     Path to a game project settings
-                                        file. More than one occurrance
-                                        are allowed. The settings files
-                                        are applied left to right.
-   --strip-executable                   Strip the dmengine of debug
-                                        symbols (when bundling iOS or
-                                        Android)
--tc,--texture-compression <arg>         Use texture compression as
-                                        specified in texture profiles
--tp,--texture-profiles <arg>            Use texture profiles (deprecated)
--u,--auth <arg>                         User auth token
-   --use-vanilla-lua                    Only ships vanilla source code
-                                        (i.e. no byte code)
--v,--verbose                            Verbose output
-   --variant <arg>                      Specify debug, release or
-                                        headless version of dmengine
-                                        (when bundling)
-   --version                            Prints the version number to the
-                                        output
-   --with-symbols                       Generate the symbol file (if
-                                        applicable)
+ -a,--archive                            Build archive
+ -ar,--architectures <arg>               Comma separated list of
+                                         architectures to include for the
+                                         platform
+    --archive-resource-padding <arg>     The alignment of the resources in
+                                         the game archive. Default is 4
+ -bf,--bundle-format <arg>               Which formats to create the
+                                         application bundle in. Comma
+                                         separated list. (Android: 'apk'
+                                         and 'aab')
+    --binary-output <arg>                Location where built engine
+                                         binary will be placed. Default is
+                                         "<build-output>/<platform>/"
+ -bo,--bundle-output <arg>               Bundle output directory
+ -br,--build-report <arg>                Filepath where to save a build
+                                         report as JSON
+ -brhtml,--build-report-html <arg>       Filepath where to save a build
+                                         report as HTML
+    --build-artifacts <arg>              If left out, will default to
+                                         build the engine. Choices:
+                                         'engine', 'plugins'. Comma
+                                         separated list.
+    --build-server <arg>                 The build server (when using
+                                         native extensions)
+ -ce,--certificate <arg>                 DEPRECATED! Use --keystore
+                                         instead
+ -d,--debug                              DEPRECATED! Use --variant=debug
+                                         instead
+    --debug-ne-upload                    Outputs the files sent to build
+                                         server as upload.zip
+    --defoldsdk <arg>                    What version of the defold sdk
+                                         (sha1) to use
+ -e,--email <arg>                        User email
+ -ea,--exclude-archive                   Exclude resource archives from
+                                         application bundle. Use this to
+                                         create an empty Defold
+                                         application for use as a build
+                                         target
+    --exclude-build-folder <arg>         Comma separated list of folders
+                                         to exclude from the build
+ -h,--help                               This help message
+ -i,--input <arg>                        Source directory. Default is
+                                         current directory
+    --identity <arg>                     Sign identity (iOS)
+ -k,--keep-unused                        Keep unused resources in archived
+                                         output
+ -kp,--key-pass <arg>                    Password of the deployment key if
+                                         different from the keystore
+                                         password (Android)
+ -ks,--keystore <arg>                    Deployment keystore used to sign
+                                         APKs (Android)
+ -ksa,--keystore-alias <arg>             The alias of the signing key+cert
+                                         you want to use (Android)
+ -ksp,--keystore-pass <arg>              Password of the deployment
+                                         keystore (Android)
+ -l,--liveupdate <arg>                   Yes if liveupdate content should
+                                         be published
+    --manifest-private-key <arg>         Private key to use when signing
+                                         manifest and archive.
+    --manifest-public-key <arg>          Public key to use when signing
+                                         manifest and archive.
+ -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
+ -o,--output <arg>                       Output directory. Default is
+                                         "build/default"
+ -p,--platform <arg>                     Platform (when building and
+                                         bundling)
+ -pk,--private-key <arg>                 DEPRECATED! Use --keystore
+                                         instead
+ -r,--root <arg>                         Build root directory. Default is
+                                         current directory
+    --resource-cache-local <arg>         Path to local resource cache.
+    --resource-cache-remote <arg>        URL to remote resource cache.
+    --resource-cache-remote-pass <arg>   Password/token to authenticate
+                                         access to the remote resource
+                                         cache.
+    --resource-cache-remote-user <arg>   Username to authenticate access
+                                         to the remote resource cache.
+    --settings <arg>                     Path to a game project settings
+                                         file. More than one occurrance
+                                         are allowed. The settings files
+                                         are applied left to right.
+    --strip-executable                   Strip the dmengine of debug
+                                         symbols (when bundling iOS or
+                                         Android)
+ -tc,--texture-compression <arg>         Use texture compression as
+                                         specified in texture profiles
+ -tp,--texture-profiles <arg>            DEPRECATED! Use
+                                         --texture-compression instead
+ -u,--auth <arg>                         User auth token
+    --use-async-build-server             Use an async build process for
+                                         the build server (when using
+                                         native extensions)
+    --use-uncompressed-lua-source        Use uncompressed and unencrypted
+                                         Lua source code instead of byte
+                                         code
+    --use-vanilla-lua                    DEPRECATED! Use
+                                         --use-uncompressed-lua-source
+                                         instead.
+ -v,--verbose                            Verbose output
+    --variant <arg>                      Specify debug, release or
+                                         headless version of dmengine
+                                         (when bundling)
+    --version                            Prints the version number to the
+                                         output
+    --with-symbols                       Generate the symbol file (if
+                                         applicable)
 ```
 
 Доступные команды:
