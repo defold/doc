@@ -25,51 +25,59 @@ Bob 运行于命令行界面 `java` (再Windows上是 `java.exe`) 后跟bob的ja
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
 -a,--archive                            编译数据包
--ar,--architectures <arg>               逗号分割发布平台包含的架构
+-ar,--architectures <arg>               逗号分割的发布平台包含的架构列表
     --archive-resource-padding <arg>    游戏包中的资源对齐间隔. 默认值为4.
--bf,--bundle-format <arg>               游戏包格式 (Android: 'apk' 和 'aab')
+-bf,--bundle-format <arg>               逗号分割的发布平台格式列表
+                                        (Android: 'apk' 和 'aab')
     --binary-output <arg>               指定可执行文件存放地址, 默认地址是
                                         "<build-output>/<platform>/"
 -bo,--bundle-output <arg>               打包输出目录
 -br,--build-report <arg>                指定编译生成的JSON报告的存放地址
 -brhtml,--build-report-html <arg>       指定编译生成的HTML报告的存放地址
-    --build-artifacts <arg>             编译对象, 不指定的话默认为编译engine.
+    --build-artifacts <arg>             不指定的话默认为编译engine.
                                         可选项为 'engine', 'plugins'.
                                         以逗号分隔.
     --build-server <arg>                编译服务器 (使用原生扩展时需指定)
--ce,--certificate <arg>                 已弃用! 指定证书 (Android)
--d,--debug                              使用dmengine的debug版本(当
-                                        编译时). 已弃用, 使用--variant代替
+-ce,--certificate <arg>                 已弃用! 使用 --keystore 代替
+-d,--debug                              已弃用! 使用 --variant=debug 代替
     --debug-ne-upload                   把文件打包為upload.zip后上傳到
                                         編譯服務器
-    --defoldsdk <arg>                   指定defold sdk (sha1) 使用版本
+    --defoldsdk <arg>                   指定 defold sdk (sha1) 使用版本
 -e,--email <arg>                        用户电邮
-    --exclude-build-folder              逗號分割的排除目錄列表
--h,--help                               帮助文档
+-ea,--exclude-archive                   要从打包中排除的资源档案. 以此创建空应用用作编译目标
+    --exclude-build-folder              逗号分割的排除目錄列表
+-h,--help                               该命令的帮助文档
 -i,--input <arg>                        指定源目录, 默认是当前目录
     --identity <arg>                    指定签名 (iOS)
--k,--keep-unused                        把未使用资源打包进 output
--ks,--keystore <arg>                    用来签名 APKs (Android) 的开发密钥
--ksa,--keystore-alias <arg>             用来签名 APKs (Android) 的密钥证书别名
--ksp,--keystore-pass <arg>              用来签名 APKs (Android) 的密钥密码
+-k,--keep-unused                        把未使用资源也打包进 output
+-ks,--keystore <arg>                    用来签名 APKs (Android) 的部署密钥
+-ksa,--keystore-alias <arg>             用来签名 (Android) 的 key+cert 别名
+-ksp,--keystore-pass <arg>              用来签名 (Android) 的部署密钥密码
 -l,--liveupdate <arg>                   要在发布后使用热更新功能, 该参数填 yes
+
+    --manifest-private-key <arg>        用来签名 manifest 和 archive 的私钥
+
+    --manifest-public-key <arg>         用来签名 manifest 和 archive 的公钥
+
 -mp,--mobileprovisioning <arg>          指定 mobileprovisioning profile (iOS)
 -o,--output <arg>                       输出目录. 默认是 "build/default"
 -p,--platform <arg>                     发布平台 (打包时)
--pk,--private-key <arg>                 已弃用! 指定密钥 (Android)
--r,--root <arg>                         指定编译目录. 默认是当前目录
+-pk,--private-key <arg>                 已弃用! 使用 --keystore 代替
+-r,--root <arg>                         指定编译根目录. 默认是当前目录
     --resource-cache-local <arg>        本地资源缓存地址.
     --resource-cache-remote <arg>       远程资源缓存URL.
     --resource-cache-remote-pass <arg>  远程资源存取认证的密码/令牌.
     --resource-cache-remote-user <arg>  远程资源存取认证的用户名.
-    --settings <arg>                    指定项目设置文件的路径. 可以使用多个
-                                        文件. 设置根据文件, 从左到右应用.
+    --settings <arg>                    指定项目配置文件的路径. 可以使用多个
+                                        文件. 配置文件从左到右依次被应用.
     --strip-executable                  去掉dmengine的debug信息 (编译 iOS 或 Android时)
--tc,--texture-compression <arg>         使用纹理档中指定的纹理压缩
--tp,--texture-profiles <arg>            使用纹理压缩档 (已弃用)
+-tc,--texture-compression <arg>         使用纹理档案中指定的纹理压缩
+-tp,--texture-profiles <arg>            已弃用! 使用 --texture-compression 代替
 -u,--auth <arg>                         用户认证令牌
-    --use-vanilla-lua                   只输出源代码
-                                        (例如, 不要字节码)
+   --use-async-build-server             为编译服务器启用异步编译处理 (使用原生扩展时)
+   --use-uncompressed-lua-source        使用未压缩未加密的明文Lua源代码代替二进制文件
+   --use-vanilla-lua                    已弃用! 使用 --use-uncompressed-lua-source 代替
+
 -v,--verbose                            冗余输出
     --variant <arg>                     指定使用 debug, release 或者 headless
                                         的dmengine版本 (编译时)
