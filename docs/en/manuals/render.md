@@ -46,11 +46,7 @@ A detailed description on how materials work can be found in the [Material docum
 
 ## Default view projection
 
-The default render script is configured to use an orthographic projection suitable for 2D games. It provides three different orthographic projections: `Stretch` (default), `Fixed Fit` and `Fixed`.
-
-You can also use a perspective projection suitable for 3D games, as provided by a camera component.
-
-The camera component can be used for both orthographic and perspective projections to change the view matrix (basically which part of the game world that is rendered). Learn more about the camera component in the [Camera manual](/manuals/camera).
+The default render script is configured to use an orthographic projection suitable for 2D games. It provides three different orthographic projections: `Stretch` (default), `Fixed Fit` and `Fixed`. As an alternative to the orthographic projections in the default render script you also have the option to use the projection matrix provided by a camera component.
 
 ### Stretch projection
 
@@ -114,11 +110,9 @@ You enable the fixed projection by sending a message to the render script:
 msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 ```
 
-### Perspective projection
+### Camera projection
 
-The perspective projection is suitable for 3D games where game objects are rendered with a perspective and where the size of objects vary depending on the distance from an imagined eye/camera position.
-
-You enable the perspective projection provided from a camera component by sending a message to the render script:
+You can also use the projection provided by a [Camera component](/manuals/camera). You enable the camera projection by sending a message to the render script:
 
 ```lua
 msg.post("@render:", "use_camera_projection")
