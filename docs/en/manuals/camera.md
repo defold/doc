@@ -74,7 +74,7 @@ end
 The camera component supplies the render script with either a perspective or orthographic projection matrix depending on the *Orthographic Projection* property of the camera.
 
 ::: important
-For reasons of backwards compatibility the default render script ignores the projection provided by the camera and always uses an orthographic stretch projection.
+For reasons of backwards compatibility the default render script ignores the projection provided by the camera and always uses an orthographic stretch projection. Learn more about the render script and the view and projection matrices in the [Render manual](/manuals/render/#default-view-projection).
 :::
 
 You can tell the render script to use the projection provided by the camera by sending a message to the render script:
@@ -82,8 +82,6 @@ You can tell the render script to use the projection provided by the camera by s
 ```lua
 msg.post("@render:", "use_camera_projection")
 ```
-
-Learn more about the render script and the view and projection matrices in the [Render manual](/manuals/render/#default-view-projection).
 
 
 ### Panning the camera
