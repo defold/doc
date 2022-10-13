@@ -5,17 +5,24 @@ brief: This manual describes the functionality of the Defold camera component.
 
 # Cameras
 
-A camera in Defold is a component that changes the viewport and projection of the game world. The camera component defines a bare bones perspective or orthographic camera that provides a view and projection matrix to the render script. A perspective camera is typically used for 3D games while an orthographic camera is used for 2D games. If you need advanced features like chasing, zooming, shake etc you will need to implement it yourself (see section on [third-party camera solutions](https://www.defold.com/manuals/camera/#third-party-camera-solutions) below).
+A camera in Defold is a component that changes the viewport and projection of the game world. The camera component defines a bare bones perspective or orthographic camera that provides a view and projection matrix to the render script.
+
+A perspective camera is typically used for 3D games where the view of the camera and the size and perspective of objects is based on a view frustum and the distance and view angle from the camera to the objects in the game.
+
+For 2D games, it is often desirable to render the scene with an orthographic projection. This means that the view of the camera is no longer dictated by a view frustum, but by a box. Orthographic projection is unrealistic in that it does not alter the size of objects based on their distance. An object 1000 units away will render at the same size as an object right in front of the camera.
+
+![projections](images/camera/projections.png)
+
 
 ## Creating a camera
 
 To create a camera, <kbd>right click</kbd> a game object and select <kbd>Add Component ▸ Camera</kbd>. You can alternatively create a component file in your project hierarchy and add the component file to the game object.
 
-![create camera component](images/camera/create.png){srcset="images/camera/create@2x.png 2x"}
+![create camera component](images/camera/create.png)
 
 The camera component has the following properties that defines the camera *frustum* (perspective camera only):
 
-![camera settings](images/camera/settings.png){srcset="images/camera/settings@2x.png 2x"}
+![camera settings](images/camera/settings.png)
 
 Id
 : The id of the component
@@ -35,15 +42,22 @@ Far Z
 Auto Aspect Ratio
 : (**Perspective camera only**) - Set this to let the camera automatically calculate the aspect ratio.
 
+Orthographic Projection
+: Set this to switch the camera to an orthographic projection (see below).
+
+Orthographic Zoom
+: (**Orthographic camera only**) - The zoom used for the orthographic projection (> 1 = zoom in, < 1 = zoom out).
+
+
 ## Using the camera
 
-To activate a camera and have it feed its view and projection matrices to the render script, you send the component an acquire_camera_focus message:
+To activate a camera and have it feed its view and projection matrices to the render script, you send the component an `acquire_camera_focus` message:
 
 ```lua
 msg.post("#camera", "acquire_camera_focus")
 ```
 
-Each frame, the camera component that currently has camera focus will send a `"set_view_projection"` message to the "@render" socket, i.e. it will arrive to your render script:
+Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the "@render" socket, i.e. it will arrive to your render script:
 
 ```lua
 -- builtins/render/default.render_script
@@ -57,6 +71,19 @@ end
 ```
 1. The message posted from the camera component includes a view matrix and a projection matrix.
 
+The camera component supplies the render script with either a perspective or orthographic projection matrix depending on the *Orthographic Projection* property of the camera.
+
+::: important
+For reasons of backwards compatibility the default render script ignores the projection provided by the camera and always uses an orthographic stretch projection. Learn more about the render script and the view and projection matrices in the [Render manual](/manuals/render/#default-view-projection).
+:::
+
+You can tell the render script to use the projection provided by the camera by sending a message to the render script:
+
+```lua
+msg.post("@render:", "use_camera_projection")
+```
+
+
 ### Panning the camera
 
 You pan/move the camera around the game world by moving the game object the camera component is attached to. The camera component will automatically send an updated view matrix based on the current x and y axis position of the camera.
@@ -65,10 +92,10 @@ You pan/move the camera around the game world by moving the game object the came
 
 You can zoom in and out when using a perspective camera by moving the game object the camera is attached to along the z-axis. The camera component will automatically send an updated view matrix based on the current z-position of the camera.
 
-You can only zoom in and out when using an orthographic camera if the projection type is set to `Fixed`, and in that case the zoom is changed by sending a message to the render script with the required zoom level:
+You can zoom in and out when using an orthographic camera by changing the *Orthographic Zoom* property of the camera:
 
-```Lua
-msg.post("@render:", "use_fixed_projection", { zoom = 2, near = -1, far = 1 })
+```lua
+go.set("#camera", "orthographic_zoom", 2)
 ```
 
 ### Following a game object
@@ -81,7 +108,7 @@ An alternative way is to update the position of the game object the camera compo
 
 ### Converting mouse to world coordinates
 
-When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the on_input() lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. Converting from mouse/screen coordinates to world coordinates from the default render script is done like this:
+When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the `on_input()` lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. Converting from mouse/screen coordinates to world coordinates from the default render script is done like this:
 
 ::: sidenote
 The [third-party camera solutions mentioned in this manual](/manuals/camera/#third-party-camera-solutions) provides functions for converting to and from screen coordinates.
@@ -102,42 +129,28 @@ local function screen_to_world(x, y, z)
 end
 ```
 
-## Projections
 
-The camera component supplies the render script with a perspective projection. This is well suited for 3D games. For 2D games, it is often desirable to render the scene with *orthographic projection*. This means that the view of the camera is no longer dictated by a frustum, but by a box. Orthographic projection is unrealistic in that it does not alter the size of objects based on their distance. An object 1000 units away will render at the same size as an object right in front of the camera.
+## Runtime manipulation
+You can manipulate cameras in runtime through a number of different messages and properties (refer to the [API docs for usage](/ref/camera/)).
 
-![projections](images/camera/projections.png){srcset="images/camera/projections@2x.png 2x"}
+A camera has a number of different properties that can be manipulated using `go.get()` and `go.set()`:
 
-### Orthographic projection (2D)
-To use an orthographic projection you ignore the projection matrix sent by the camera component and instead provide one yourself in the render script. The default render script supports three orthographic projections; `Stretch`, `Fixed` and `Fixed Fit`. You select which one to use by sending a message to the render script:
+`fov`
+: The camera field-of-view (`number`).
 
-```lua
-msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
-```
+`near_z`
+: The camera near Z-value (`number`).
 
-::: important
-Note that the near and far planes are also specified in the message. The near and far planes set on the camera properties are only used for the perspective projection.
-:::
+`far_z`
+: The camera far Z-value (`number`).
 
-::: important
-With an orthographic projection the view will be positioned such that the lower-left corner of the rendered portion of the screen will correspond to the position of the game object the camera component is attached to.
-:::
-
-Learn more about the render script and how to change which type of orthographic projection to use in the [Render manual](/manuals/render/#default-view-projection).
-
-### Perspective projection (3D)
-To use perspective projection you must use both the view and projection provided by the camera. You tell the render script to use the projection coming from the camera by sending a message to the render script:
-
-```lua
-msg.post("@render:", "use_camera_projection")
-```
-
-Learn more about the render script in the [Render manual](/manuals/render/#perspective-projection).
+`orthographic_zoom`
+: The orthographic camera zoom (`number`).
 
 
 ## Third-party camera solutions
 
-There are a few library camera solutions that implements common camera features such as game object follow, screen to world coordinate conversion and so on. They are available from the Defold community assets portal:
+There are a few library camera solutions that implements common camera features such as game object follow, screen shake, screen to world coordinate conversion and so on. They are available from the Defold community assets portal:
 
 - [Rendercam](https://defold.com/assets/rendercam/) (2D & 3D) by Ross Grams.
 - [Ortographic camera](https://defold.com/assets/orthographic/) (2D only) by Björn Ritzl.
