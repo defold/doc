@@ -46,7 +46,7 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-要让编辑器使用你自己指定的签名打包, 就要设置好 *Keystore* 和 *Keystore password* 字段. *Keystore* 的扩展名是 `.keystore`, 而密码要保存成文本 `.txt` 文件:
+要让编辑器使用你自己指定的签名打包, 就要设置好 *Keystore* 和 *Keystore password* 字段. *Keystore* 的扩展名是 `.keystore`, 而密码要保存成文本 `.txt` 文件. 如果 keystore 里的 key 使用了自己的密码, 也可在 *Key password* 里指定:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
