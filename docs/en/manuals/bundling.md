@@ -77,6 +77,16 @@ The game assets are located in the `game.arcd` file, and they are individually c
 Using the [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) setting, you can configure assets that should be placed (with compression) within the game.arcd.
 These assets can be accessed via the [sys.load_resource()](https://defold.com/ref/sys/#sys.load_resource) function.
 
+## Release vs Debug
+
+When creating an application bundle you have an option of creating a debug or release bundle. The differences between the two bundles are small but important to keep in mind:
+
+* Release builds do not include the [profiler](/manuals/profiling)
+* Release builds do not include the [screen recorder](/ref/stable/sys/#start_record)
+* Release builds do not show the output of any calls to `print()` or the output from any native extensions
+* Release builds have the `is_debug` value in `sys.get_engine_info()` set to`false`
+* Release builds will not do reverse lookups of `hash` values when calling `tostring()`. What this means in practice is that a `tostring()` for a value of type `url` or `hash` will return its numeric representation and not the original string (`'hash: [/camera_001]'` vs `'hash: [11844936738040519888 (unknown)]'`)
+* Release builds do not support targeting from the editor for [hot-reload](/manuals/hot-reload) and similar functionality
 
 
 

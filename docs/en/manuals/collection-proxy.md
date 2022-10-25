@@ -9,7 +9,7 @@ The collection proxy component is used to load and unload new game "worlds" dyna
 
 Defold organizes all game objects in collections. A collection can contain game objects and other collections (i.e. sub-collections). Collection proxies allow you to split your content into separate collections and then dynamically manage the loading and unloading of these collections through scripting.
 
-Collection proxies differ from [collection factory components](/manuals/collection-factory/). A collection factory instanciates the contents of a collection into the current game world. Collection proxies create a new game world in runtime and are thus have different use-cases.
+Collection proxies differ from [collection factory components](/manuals/collection-factory/). A collection factory instanciates the contents of a collection into the current game world. Collection proxies create a new game world at runtime and thus have different use-cases.
 
 ## Creating a collection proxy component
 
