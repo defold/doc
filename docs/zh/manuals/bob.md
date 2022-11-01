@@ -50,6 +50,8 @@ usage: bob [options] [commands]
 -i,--input <arg>                        指定源目录, 默认是当前目录
     --identity <arg>                    指定签名 (iOS)
 -k,--keep-unused                        把未使用资源也打包进 output
+-kp,--key-pass <arg>                    如果开发密钥不同于部署密钥的话
+                                        则在这里指定 (Android)
 -ks,--keystore <arg>                    用来签名 APKs (Android) 的部署密钥
 -ksa,--keystore-alias <arg>             用来签名 (Android) 的 key+cert 别名
 -ksp,--keystore-pass <arg>              用来签名 (Android) 的部署密钥密码
