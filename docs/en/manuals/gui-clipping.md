@@ -57,10 +57,7 @@ Four combinations of normal and inverted clippers are possible for this hierarch
 
 ## Layers
 
-Layers can be used to control rendering order (and batching) of nodes. When using layers and clipping nodes the usual layering order is overridden.
-
-- Clipping order take precedence over layer order---regardless of what layer a node belongs to, it will be clipped according to the node hierarchy.
-- Layers only affect the draw order of graphics---and furthermore, the layer set on a clipping node only affects the draw order _in that clipper's hierarchy_.
+Layers can be used to control rendering order (and batching) of nodes. When using layers and clipping nodes the usual layering order is overridden. Layer order always take precedence over the clipping order---if layer assignments are combined with clipping nodes, clipping could happen out-of-order if a parent node with clipping enabled belongs to a higher layer than its children. The children with no layer assigned will still respect the hierarchy and subsequently be drawn and clipped after the parent.
 
 ::: sidenote
 A clipping node and its hierarchy will be drawn first if it has a layer assigned and in the regular order if no layer is assigned.
@@ -68,6 +65,11 @@ A clipping node and its hierarchy will be drawn first if it has a layer assigned
 
 ![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
 
-Here the clipper node "ocular" is set to "layer3" and the "bean" node is set to "layer1". The ocular clipper's texture is therefore rendered on top of the clipped bean.
+In this example, both the clipper nodes "Donut BG" and "BG" are using the same layer 1. The render order between them will be according to the same order in the hierarchy where "Donut BG" is rendered before "BG". However, the child node "Donut Shadow" is assigned to the layer 2 which has a higher layer order and thus will be rendered after the both clipping nodes. In this case, the render order will be:
 
-The node "shield" is set to "layer2", but it has no effect on the node's render order in relation to "ocular" or "bean". To change the render order of "shield", change the node tree index order.
+- Donut BG
+- BG
+- BG Frame
+- Donut Shadow
+
+Here you can see that the "Donut Shadow" object will be clipped by both clipping nodes due to the layering, eventhough it is only a child to one of them.
