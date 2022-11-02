@@ -17,6 +17,10 @@ Any iOS or Android application that is bundled in Debug mode will be able to act
 The stand-alone version will only work for projects without any [native extensions](/manuals/extensions/). If your project contains native extensions you must bundle a Debug variant of your project to ensure that the dev app contains the native extensions that you intend to use.
 :::
 
+Starting with Defold 1.4.0 it is possible to bundle a Debug variant of your project without any content. Use this option to create a version of your application with native extensions, suitable for iterative development as described in this manual.
+
+![content less bundle](images/dev-app/contentless-bundle.png)
+
 ### Installing on iOS
 
 Follow the [instructions in the iOS manual](/manuals/ios/#creating-an-ios-application-bundle) to bundle for iOS. Make sure to select Debug as variant!
