@@ -158,7 +158,7 @@ Defold provides two handy shorthands that you can use to send message without sp
 
 ## Receiving messages
 
-Reciving messages is a matter of making sure the target script component contains a function named `on_message()`. The function accepts four parameters:
+Receiving messages is a matter of making sure the target script component contains a function named `on_message()`. The function accepts four parameters:
 
 `function on_message(self, message_id, message, sender)`
 
