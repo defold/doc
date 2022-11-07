@@ -16,6 +16,11 @@ Debug  模式下编译的任何 iOS 或 Android 应用都可以作为开发用ap
 ::: 注意
 只有在不使用 [原生扩展](/manuals/extensions/) 的项目可以使用我们提供的开发用apk. 否则你需要自己手动打debug包并且加入你所使用的原生扩展.
 :::
+
+从 Defold 1.4.0 版本开始可以给项目打空的 debug 包. 使用这个选项可以创建带原生扩展的应用版本, 适合于教程里提到的开发迭代.
+
+![content less bundle](images/dev-app/contentless-bundle.png)
+
 ### Installing on iOS
 
 依照 [iOS 教程介绍的步骤](/manuals/ios/#creating-an-ios-application-bundle) 打包 iOS 应用. 记得 variant 要选择 Debug!
