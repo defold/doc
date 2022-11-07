@@ -3,7 +3,7 @@ title: Defold development for Nintendo Switch
 brief: This manual describes how to get Nintendo Switch access
 ---
 
-# Sign up for Nintendo Switch development
+# Nintendo Switch development
 
 Due to Nintendo licensing restrictions access to Defold versions with support for the Nintendo Switch platform is not included in the standard version of Defold. In order to get access to versions of Defold with Nintendo Switch support you need to become an approved game developer for Nintendo Switch.
 
