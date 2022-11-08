@@ -3,40 +3,40 @@ title: 使用 Defold 开发 Nintendo Switch 游戏
 brief: 本教程介绍了 Nintendo Switch 开发许可
 ---
 
-# 注册为 Nintendo Switch 开发者
+# Nintendo Switch 开发
 
-标准版 Defold 不含 Nintendo Switch 开发工具. 如果需要使用 Defold 开发 Nintendo Switch 游戏, 你需要:
+基于 Nintendo 许可证限制, 支持 Nintendo Switch 平台的 Defold 版本不包括标准版. 要获取支持 Sony PlayStation® 的 Defold 特殊版本首先必须成为 Nintendo Switch 的正式开发者.
 
-1. 注册为 Defold 社区赞助者, 赞助者权益中包含 Nintendo Switch 开发权力.
-2. 在 Nintendo 注册为开发者.
+## 注册成为 Nintendo Switch 开发者
 
-
-## 注册为 Defold 社区赞助者享受 Nintendo Switch 开发权
-
-在 [Defold 社区捐款平台](/community-donations/) 上捐一定数量的款, 你就成为了一名拥有 Nintendo Switch 开发权的会员. 注意有些捐款选项不含 Nintendo Switch 开发权.
-
-![](images/nintendo-switch/register-defold.png)
-
-## 在 Nintendo 注册为开发者
-
-去到 [Nintendo 开发者中心](https://developer.nintendo.com/register) 注册成为游戏开发者:
+可以在 [Nintendo Developer Portal](https://developer.nintendo.com/register) 注册成为 Nintendo Switch 开发者:
 
 ![](images/nintendo-switch/register-nintendo.png)
 
-完成 Nintendo 开发者注册你就可以得到 Nintendo 平台的资源与开发工具, 也有权在 Nintendo 平台上发布自己的游戏.
+Nintendo 审核通过后就可以访问 Nintendo 开发者大厅里的 Defold 可用的工具和中间件. 开发者申请 Defold 工具访问时, 我们将从 Nintendo 获得一份说明开发者是否为 Nintendo Switch 开发者的鉴定邮件.
+
+## Nintendo Switch 的 Defold 访问
+
+当我们确定开发者是正式 Nintendo 开发者时, 我们会在 Defold 中提供对 Nintendo Switch 的两层访问:
+
+1. 标准访问 - Nintendo Switch 扩展, 编译工具及技术支持.
+2. 源码访问 - Nintendo Switch 扩展, 编译工具及技术支持连同 Defold 引擎用于访问 Nintendo Switch 那部分的源代码.
 
 
-### Defold 支持申请
+### 标准访问
 
-当你成功注册为 Nintendo 开发者之后首先要去 Nintendo 开发者中心下载必要工具然后在中间件页面申请 Defold 支持. 提交申请之后你会收到来自 Nintendo 的电子邮件用以确认你的 Nintendo 开发者身份. 然后 Defold 会对你的赞助者 Nintendo Switch 开发权进行核实.
+Nintendo 批准的所有开发人员均可免费访问支持 Nintendo Switch 的 Defold 版本. 作为获得批准的开发人员, 我们将为您提供以下访问权限:
 
-已经核实我们会提供下列工具:
+* Nintendo Switch 相关 API 整合的扩展程序.
+* 用于编译打包 Nintendo Switch 应用的 [命令行工具](/manuals/bob).
+* 提供 Nintendo Switch 相关技术支持的论坛.
 
-* Defold 编辑器及其命令行工具 (bob.jar) 包含 Nintendo Switch 发布功能的特别版.
-* Nintendo Switch 技术支持私人讨论组.
-* Nintendo Switch 相关文档.
-* Nintendo Switch 相关引擎API.
 
+### 源码访问
+
+只对 [活跃月度社区捐款](/community-donations/) 达到一定数额的开发者提供源码访问.
+
+![](images/nintendo-switch/register-defold.png)
 
 ## 问答
 :[Consoles FAQ](../shared/consoles-faq.md)
