@@ -105,8 +105,6 @@ end
 ```
 
 ## Gamepads settings file
-On Windows, only XBox 360 controllers are currently supported. To hook up your 360 controller to your Windows machine, make sure it is setup correctly. See http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
-
 Gamepad input setup uses a separate mapping file for each hardware gamepad type. Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built-in gamepads file with settings for common gamepads:
 
 ![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
@@ -148,6 +146,14 @@ If your game is running from inside an `iframe` you must also make sure that the
 ```html
 <iframe allow="gamepad"></iframe>
 ```
+
+### Standard gamepad
+(From Defold 1.3.8)
+
+If a connected gamepad is not found in the [gamepads settings file](/manuals/input-gamepads/#gamepads-settings-file) Defold will check if the gamepad is identified as a *Standard Gamepad*. A standard gamepad is defined as having 16 buttons and 2 analog sticks with a button layout similar to a PlayStation or Xbox controller (see the [W3C definition and button layout](https://w3c.github.io/gamepad/#dfn-standard-gamepad) for more information). If the connected gamepad is a standard gamepad Defold will look for a gamepad mapping for "Standard Gamepad" in the gamepads settings file (a Standard Gamepad mapping is included in the `default.gamepads` file in `/builtins`).
+
+## Gamepads on Windows
+On Windows, only XBox 360 controllers are currently supported. To hook up your 360 controller to your Windows machine, [make sure it is setup correctly](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 
 ## Gamepads on Android
 (From Defold 1.2.183)
