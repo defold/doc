@@ -148,7 +148,7 @@ If your game is running from inside an `iframe` you must also make sure that the
 ```
 
 ### Standard gamepad
-(From Defold 1.4.2)
+(From Defold 1.4.1)
 
 If a connected gamepad is not found in the [gamepads settings file](/manuals/input-gamepads/#gamepads-settings-file) Defold will check if the gamepad is identified as a *Standard Gamepad*. A standard gamepad is defined as having 16 buttons and 2 analog sticks with a button layout similar to a PlayStation or Xbox controller (see the [W3C definition and button layout](https://w3c.github.io/gamepad/#dfn-standard-gamepad) for more information). If the connected gamepad is a standard gamepad Defold will look for a gamepad mapping for "Standard Gamepad" in the gamepads settings file (a Standard Gamepad mapping is included in the `default.gamepads` file in `/builtins`).
 
