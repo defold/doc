@@ -55,11 +55,12 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 
   | 系统                        | 支持                  |
   | -------------------------- | -------------------- |
-  | macOS 10.7 Lion            | 编辑器与游戏引擎        |
+  | macOS 10.12 Sierra         | 编辑器                |
+  | macOS 10.7 Lion            | 游戏引擎               |
   | Windows Vista              | 编辑器与游戏引擎        |
   | Ubuntu 18.04 (64 bit)(1)   | 编辑器                |
   | Linux (64 bit)(2)          | 游戏引擎              |
-  | iOS 8.0                    | 游戏引擎              |
+  | iOS 9.0                    | 游戏引擎              |
   | Android 4.1 (API level 16) | 游戏引擎              |
   | HTML5                      | 游戏引擎              |
 
@@ -114,8 +115,8 @@ A: Defold 在 HTML5 中使用 WebGL, iOS 和 macOS 中使用 Metal, 其他平臺
 :[Windows FAQ](../shared/windows-faq.md)
 
 
-## Nintendo Switch 相關
-:[Nintendo Switch FAQ](../shared/nintendo-switch-faq.md)
+## Consoles 相關
+:[Consoles FAQ](../shared/consoles-faq.md)
 
 ## 发布相关
 

@@ -9,7 +9,13 @@ Bob is a command line tool for building Defold projects outside of the normal ed
 
 Bob is able to build data (corresponding to the build step of selecting the editor menu item <kbd>Project ▸ Build</kbd>), create data archives and create standalone, distributable application bundles (corresponding to the editor menu item <kbd>Project ▸ Bundle ▸ ...</kbd> options)
 
-Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [Defold Download page](http://d.defold.com) and the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. To run the Bob tool, you need [OpenJDK 11 installed on your computer](https://openjdk.java.net/projects/jdk/11/).
+Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. To run the Bob tool, you need OpenJDK 11 installed on your computer. 
+
+Compatible OpenJDK 11 mirrors:
+* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
+* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
+
+If you are on Windows you want the .msi file installer for OpenJDK 11.
 
 ## Usage
 
@@ -18,65 +24,112 @@ Bob is run from a shell or from the command line by invoking `java` (or `java.ex
 ```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
- -a,--archive                        Build archive
- -ar,--architectures <arg>           comma separated list of architectures
-                                     to include for the platform
-    --binary-output <arg>            Location where built engine binary
-                                     will be placed. Default is
-                                     "<build-output>/<platform>/"
- -bo,--bundle-output <arg>           Bundle output directory
- -br,--build-report <arg>            Filepath where to save a build report
-                                     as JSON
- -brhtml,--build-report-html <arg>   Filepath where to save a build report
-                                     as HTML
-    --build-server <arg>             The build server (when using native
-                                     extensions)
- -d,--debug                          Use debug version of dmengine (when
-                                     bundling). Deprecated, use --variant
-                                     instead
-    --defoldsdk <arg>                What version of the defold sdk (sha1)
-                                     to use
- -e,--email <arg>                    User email
- -h,--help                           This help message
- -i,--input <arg>                    Source directory. Default is current
-                                     directory
-    --identity <arg>                 Sign identity (iOS)
- -k,--keep-unused                    Keep unused resources in archived
-                                     output
- -l,--liveupdate <arg>               yes if liveupdate content should be
-                                     published
- -mp,--mobileprovisioning <arg>      mobileprovisioning profile (iOS)
- -o,--output <arg>                   Output directory. Default is
-                                     "build/default"
- -p,--platform <arg>                 Platform (when bundling)
- -r,--root <arg>                     Build root directory. Default is
-                                     current directory
-    --settings <arg>                 a path to a game project settings
-                                     file. more than one occurrance are
-                                     allowed. the settings files are
-                                     applied left to right.
-    --strip-executable               Strip the dmengine of debug symbols
-                                     (when bundling iOS or Android)
- -tc,--texture-compression <arg>     Use texture compression as specified
-                                     in texture profiles
- -tp,--texture-profiles <arg>        Use texture profiles (deprecated)
- -u,--auth <arg>                     User auth token
-    --use-vanilla-lua                Only ships vanilla source code (i.e.
-                                     no byte code)
- -v,--verbose                        Verbose output
-    --variant <arg>                  Specify debug, release or headless
-                                     version of dmengine (when bundling)
-    --version                        Prints the version number to the
-                                     output
-    --with-symbols                   Generate the symbol file (if
-                                     applicable)
-    --bundle-format <apk|aab>        Which format to generate Android bundle in.
-    --keystore <arg>                 Which keystore file to use when signing the
-                                     Android bundle.
-    --keystore-pass <arg>            Path to file with keystore password used to
-                                     when bundling for Android.
-    --keystore-alias <arg>           Name of alias from provided keystore to use
-                                     when bundling for Android.
+ -a,--archive                            Build archive
+ -ar,--architectures <arg>               Comma separated list of
+                                         architectures to include for the
+                                         platform
+    --archive-resource-padding <arg>     The alignment of the resources in
+                                         the game archive. Default is 4
+ -bf,--bundle-format <arg>               Which formats to create the
+                                         application bundle in. Comma
+                                         separated list. (Android: 'apk'
+                                         and 'aab')
+    --binary-output <arg>                Location where built engine
+                                         binary will be placed. Default is
+                                         "<build-output>/<platform>/"
+ -bo,--bundle-output <arg>               Bundle output directory
+ -br,--build-report <arg>                Filepath where to save a build
+                                         report as JSON
+ -brhtml,--build-report-html <arg>       Filepath where to save a build
+                                         report as HTML
+    --build-artifacts <arg>              If left out, will default to
+                                         build the engine. Choices:
+                                         'engine', 'plugins'. Comma
+                                         separated list.
+    --build-server <arg>                 The build server (when using
+                                         native extensions)
+ -ce,--certificate <arg>                 DEPRECATED! Use --keystore
+                                         instead
+ -d,--debug                              DEPRECATED! Use --variant=debug
+                                         instead
+    --debug-ne-upload                    Outputs the files sent to build
+                                         server as upload.zip
+    --defoldsdk <arg>                    What version of the defold sdk
+                                         (sha1) to use
+ -e,--email <arg>                        User email
+ -ea,--exclude-archive                   Exclude resource archives from
+                                         application bundle. Use this to
+                                         create an empty Defold
+                                         application for use as a build
+                                         target
+    --exclude-build-folder <arg>         Comma separated list of folders
+                                         to exclude from the build
+ -h,--help                               This help message
+ -i,--input <arg>                        Source directory. Default is
+                                         current directory
+    --identity <arg>                     Sign identity (iOS)
+ -k,--keep-unused                        Keep unused resources in archived
+                                         output
+ -kp,--key-pass <arg>                    Password of the deployment key if
+                                         different from the keystore
+                                         password (Android)
+ -ks,--keystore <arg>                    Deployment keystore used to sign
+                                         APKs (Android)
+ -ksa,--keystore-alias <arg>             The alias of the signing key+cert
+                                         you want to use (Android)
+ -ksp,--keystore-pass <arg>              Password of the deployment
+                                         keystore (Android)
+ -l,--liveupdate <arg>                   Yes if liveupdate content should
+                                         be published
+    --manifest-private-key <arg>         Private key to use when signing
+                                         manifest and archive.
+    --manifest-public-key <arg>          Public key to use when signing
+                                         manifest and archive.
+ -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
+ -o,--output <arg>                       Output directory. Default is
+                                         "build/default"
+ -p,--platform <arg>                     Platform (when building and
+                                         bundling)
+ -pk,--private-key <arg>                 DEPRECATED! Use --keystore
+                                         instead
+ -r,--root <arg>                         Build root directory. Default is
+                                         current directory
+    --resource-cache-local <arg>         Path to local resource cache.
+    --resource-cache-remote <arg>        URL to remote resource cache.
+    --resource-cache-remote-pass <arg>   Password/token to authenticate
+                                         access to the remote resource
+                                         cache.
+    --resource-cache-remote-user <arg>   Username to authenticate access
+                                         to the remote resource cache.
+    --settings <arg>                     Path to a game project settings
+                                         file. More than one occurrance
+                                         are allowed. The settings files
+                                         are applied left to right.
+    --strip-executable                   Strip the dmengine of debug
+                                         symbols (when bundling iOS or
+                                         Android)
+ -tc,--texture-compression <arg>         Use texture compression as
+                                         specified in texture profiles
+ -tp,--texture-profiles <arg>            DEPRECATED! Use
+                                         --texture-compression instead
+ -u,--auth <arg>                         User auth token
+    --use-async-build-server             Use an async build process for
+                                         the build server (when using
+                                         native extensions)
+    --use-uncompressed-lua-source        Use uncompressed and unencrypted
+                                         Lua source code instead of byte
+                                         code
+    --use-vanilla-lua                    DEPRECATED! Use
+                                         --use-uncompressed-lua-source
+                                         instead.
+ -v,--verbose                            Verbose output
+    --variant <arg>                      Specify debug, release or
+                                         headless version of dmengine
+                                         (when bundling)
+    --version                            Prints the version number to the
+                                         output
+    --with-symbols                       Generate the symbol file (if
+                                         applicable)
 ```
 
 Available commands:
@@ -96,9 +149,10 @@ Available commands:
 `resolve`
 : Resolve all external library dependencies.
 
-Available platforms:
+Available platforms and architectures:
 
-`x86_64-darwin`
+`x86_64-darwin` (Defold 1.3.5 and older)
+`x86_64-macos` (Defold 1.3.6 and newer)
 : macOS 64 bit
 
 `x86_64-win32`
@@ -110,20 +164,18 @@ Available platforms:
 `x86_64-linux`
 : Linux 64 bit
 
-`arm64-darwin`
-: iOS 64 bit
-
-`armv7-darwin`
-: iOS 32 bit
-
 `x86_64-ios`
 : iOS macOS 64 bit (iOS Simulator)
 
+`armv7-darwin` (Defold 1.3.5 and older)
+`armv7-ios` (Defold 1.3.6 and newer)
+: iOS with available 32-bit `armv7-darwin` and 64-bit `arm64-darwin` architectures. By default, `--architectures` argument value is `armv7-darwin,arm64-darwin`.
+
 `armv7-android`
-: Android 32 bit
+: Android with available 32 bit `armv7-android` and 64 bit `arm64-android` architectures. By default, `--architectures` argument value is `armv7-android,arm64-android`.
 
 `js-web`
-: HTML5
+: HTML5 with available `js-web` and `wasm-web` architectures. By default, `--architectures` argument value is `js-web,wasm-web`.
 
 By default, Bob looks in the current directory for a project to build. If you change the current dir to a Defold project and invoke bob, it builds the data for the project in the default output directory *build/default*.
 

@@ -69,7 +69,9 @@ CONSTANT_TYPE_NORMAL
 
 CONSTANT_TYPE_USER
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). You can also retrieve the value with [go.get()](/ref/stable/go/#go.get). Changing a material constant of a single component instance [breaks render batching and will result in additional draw calls](/manuals/render/#draw-calls-and-batching).
-<br>Example:
+
+Example:
+
 ```lua
 go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 
@@ -139,6 +141,9 @@ Filter Min/Mag
   - `FILTER_MODE_LINEAR_MIPMAP_NEAREST` interpolates linearly within an individual mipmap.
   - `FILTER_MODE_LINEAR_MIPMAP_LINEAR` uses linear interpolation to compute the value in each of two maps and then interpolates linearly between these two values.
 
+Max Anisotropy
+: Anisotropic filtering is an advanced filtering technique that takes multiple samples, blending the results together. This setting controls the level of anisotropy for the texture samplers. If anisotropic filtering is not supported by the GPU the parameter will not do anything, and it will be set to 1 as default.
+
 ## Constants buffers
 
 When the rendering pipeline draws, it pulls constant values from a default system constants buffer. You can create a custom constants buffer to override the default constants and instead set shader program uniforms programmatically in the render script:
@@ -147,7 +152,7 @@ When the rendering pipeline draws, it pulls constant values from a default syste
 self.constants = render.constant_buffer() -- <1>
 self.constants.tint = vmath.vector4(1, 0, 0, 1) -- <2>
 ...
-render.draw(self.my_pred, self.constants) -- <3>
+render.draw(self.my_pred, {constants = self.constants}) -- <3>
 ```
 1. Create a new constants buffer
 2. Set the `tint` constant to bright red

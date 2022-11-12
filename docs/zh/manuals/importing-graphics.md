@@ -5,7 +5,7 @@ brief: 本教程介绍了如何导入和使用2D图像.
 
 # 导入2D图像
 
-Defold 支持2D游戏常见的可视内容. 可以使用 Defold 制作静态或动态Sprite, UI 组件, 粒子特效, 瓷砖地图, 位图字体和 Spine 动画. 先导入图片文件再创建相应资源以使用它们. 把文件系统任意图片文件拖放到 Defold 编辑器的 *资源面板* 中即完成导入操作.
+Defold 支持2D游戏常见的可视内容. 可以使用 Defold 制作静态或动态Sprite, UI 组件, 粒子特效, 瓷砖地图 和 位图字体. 先导入图片文件再创建相应资源以使用它们. 把文件系统任意图片文件拖放到 Defold 编辑器的 *资源面板* 中即完成导入操作.
 
 ![Importing files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
 
@@ -71,13 +71,3 @@ Defold 支持 PNG 和 JPEG 图片格式. 其他格式要先转换成支持格式
   ![gui](images/graphics/gui.png){srcset="images/graphics/gui@2x.png 2x"}
 
 关于GUI详情请见 [GUI教程](/manuals/gui).
-
-![spine](images/icons/spine-model.png){.icon} Spine model
-: Spine models 从 Spine scene 资源中获取数据. 包括两部分:
-
-  1. 一个描述骨骼与动画的 Spine Json 文件.
-  2. 依附于骨骼的图片图集. Spine models 不能使用瓷砖图集资源.
-
-  ![spine](images/graphics/spine.png){srcset="images/graphics/spine@2x.png 2x"}
-
-关于 Spine models 详情请见 [Spine model 教程](/manuals/spinemodel).

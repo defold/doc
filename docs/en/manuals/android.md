@@ -20,7 +20,7 @@ You should **never** upload your application to Google Play if it was signed usi
 ## Creating a keystore
 
 ::: sidenote
-The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore.
+The Android signing process in Defold changed in version 1.2.173 from using a stand-alone key and certificate to a keystore. [More information in this forum post](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
 You can create a keystore [using Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) or from a terminal/command prompt:
@@ -46,7 +46,7 @@ If you want the editor to automatically create random debug certificates, leave 
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-If you want to sign your bundle with a particular keystore, specify the *Keystore* and *Keystore password*. The *Keystore* is expected to have the `.keystore` file extension while the password is expected to be stored in a text file with the `.txt` extension:
+If you want to sign your bundle with a particular keystore, specify the *Keystore* and *Keystore password*. The *Keystore* is expected to have the `.keystore` file extension while the password is expected to be stored in a text file with the `.txt` extension. It is also possible to specify a *Key password* if the key in the keystore uses a different password than the keystore itself:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
@@ -60,7 +60,9 @@ Press <kbd>Create Bundle</kbd> when you have configured the application bundle s
 
 ### Installing an APK
 
-An *.apk* file can be copied to your device with the `adb` tool (see below), or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
+An *.apk* file can be copied to your device with the `adb` tool, or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
+
+:[Android ADB](../shared/android-adb.md)
 
 ```
 $ adb install Defold\ examples.apk
@@ -87,69 +89,14 @@ Allows an application to write to external storage. Starting in API level 19, th
 Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. This permission is needed to temporarily prevent the device from sleeping while receiving a push notification. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
 
-## Android Debug Bridge
-
-The `adb` command line tool is an easy to use and versatile program that is used to interact with Android devices. You can download and install `adb` as part of the Android SDK Platform-Tools, for Mac, Linux or Windows.
-
-Download the Android SDK Platform-Tools from: https://developer.android.com/studio/releases/platform-tools. You find the *adb* tool in */platform-tools/*. Alternatively, platform specific packages can be installed through respective package managers.
-
-On Ubuntu Linux:
-
-```
-$ sudo apt-get install android-tools-adb
-```
-
-On Fedora 18/19:
-
-```
-$ sudo yum install android-tools
-```
-
-On macOS (Homebrew)
-
-```
-$ brew cask install android-platform-tools
-```
-
-You can verify that `adb` works by connecting your Android device to your computer via USB and issue the following command:
-
-```
-$ adb devices
-List of devices attached
-31002535c90ef000    device
-```
-
-If your device does not show up, verify that you have enabled *USB debugging* on the Android device. Open the device *Settings* and look for *Developer options* (or *Development*).
-
-![Enable USB debugging](images/android/usb_debugging.png)
-
-## Debugging an application bundle
-
-A bundle built with the debug mode version of the engine (i.e. "Debug" selected as variant during bundling) will send all its console output to the Android system log. Access the log with the `adb` tool and give the `logcat` command. You probably want to filter the output by a tag (`-s [tagname]`):
-
-```
-$ adb logcat -s "defold"
---------- beginning of /dev/log/system
---------- beginning of /dev/log/main
-I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
-I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
-I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
-I/defold  ( 6210):
-D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
-...
-```
-
-
 ## Using AndroidX
-AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Many of the Android extensions in the [Asset Portal](/assets) already support AndroidX and over time all extension which previously relied on the Android Support Library will be updated to use AndroidX. When using an extension with AndroidX support you must enabled AndroidX support for your project:
+AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Most of the Android extensions in the [Asset Portal](/assets) support AndroidX. If you do not wish to use AndroidX you can explicitly disable it in favour of the old Android Support Library:
 
-1. If you already have an app manifest add `jetifier: true` to `armv7-android` and `arm64-android`.
+1. If you already have an app manifest add `jetifier: false` to `armv7-android` and `arm64-android`.
 
-2. If you do not have an app manifest file head over to [Defold App Manifest generator](https://britzl.github.io/manifestation/) and check the Use AndroidX checkbox.
+2. If you do not have an app manifest file head over to [Defold App Manifest generator](https://britzl.github.io/manifestation/) and check the "Use Android Support lib" checkbox.
 
-![](images/android/enable_androidx.png)
-
+![](images/android/enable_supportlibrary.png)
 
 ## FAQ
 :[Android FAQ](../shared/android-faq.md)

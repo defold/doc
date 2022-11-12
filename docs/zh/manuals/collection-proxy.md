@@ -128,7 +128,16 @@ end
 
 ## 时间步
 
-集合代理的更新周期可以使用 _time step_ 进行缩放. 也就是说即使游戏是 60 FPS 的, 代理游戏世界的速度可以更快或者更慢, 影响物理世界和 `update()` 函数的 `dt` 参数. 还可以设置更新执行模式, 用以确定这种时间缩放是断续执行 (缩放值小于 1.0 时才有意义) 还是持续执行.
+集合代理的更新周期可以使用 _time step_ 进行缩放. 也就是说即使游戏是 60 FPS 的, 集合代理游戏世界的速度还是可以变得可以更快或者更慢, 收以下几方面影响: 
+
+* 物理模拟器步进
+* `update()` 函数里的 `dt`
+* [游戏对象和gui属性动画](https://defold.com/manuals/animation/#property-animation-1)
+* [逐帧动画](https://defold.com/manuals/animation/#flip-book-animation)
+* [粒子特效模拟器](https://defold.com/manuals/particlefx/)
+* lua逻辑计时器速度
+
+还可以设置刷新执行模式, 可以控制游戏刷新是分散的(速度缩放小于1.0有效) 还是连续的.
 
 通过发送 `set_time_step` 消息给集合代理组件来设置时间步缩放系数与执行模式:
 
@@ -164,6 +173,10 @@ DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 ```
 
 `update()` 仍然是每秒调用 60 次, 但是 `dt` 值变了. 可以看到只有 1/5 (0.2) 的 `update()` 调用包含 1/60 秒的 `dt` 参数, 其他都是 0. 物理模拟也基于 dt 每 5 帧步进一次.
+
+:::注意
+可以使用集合的时间步功能来暂停游戏, 例如弹出窗口或者游戏窗口失去焦点时, 使用 `msg.post("#myproxy", "set_time_step", {factor = 0, mode = 0})` 暂停游戏, 然后使用 `msg.post("#myproxy", "set_time_step", {factor = 1, mode = 1})` 继续游戏.
+:::
 
 详情请见 [`set_time_step`](/ref/collectionproxy#set_time_step).
 

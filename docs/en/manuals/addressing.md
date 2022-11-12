@@ -143,7 +143,7 @@ For example, suppose that you want an AI manager that tracks the state of each b
 
 ![manager object](images/addressing/manager_editor.png)
 
-Each bean is then responsible for sending status messages to the manager: "contact" if it spots an enemy or "ouch!" if it is hit and takes damage. For this to work, the bean controller scrips use absolute addressing to send messages to the component "controller" in "manager".
+Each bean is then responsible for sending status messages to the manager: "contact" if it spots an enemy or "ouch!" if it is hit and takes damage. For this to work, the bean controller script uses absolute addressing to send messages to the component "controller" in "manager".
 
 Any address that starts with a '/' will be resolved from the root of the game world. This corresponds to the root of the *bootstrap collection* that is loaded on game start.
 

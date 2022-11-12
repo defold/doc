@@ -9,7 +9,13 @@ Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
 
 Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
 
-Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 需要 [OpenJDK 11](https://openjdk.java.net/projects/jdk/11/) 支持.
+Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 您需要安装 OpenJDK 11.
+
+下载 OpenJDK 11 的地址:
+* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
+* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
+
+比如在 Windows 平台上, 需要下载 OpenJDK 11 的 .msi 安装包.
 
 ## 用法
 
@@ -18,63 +24,67 @@ Bob 运行于命令行界面 `java` (再Windows上是 `java.exe`) 后跟bob的ja
 ```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
- -a,--archive                        编译数据包
- -ar,--architectures <arg>           逗号分割发布架构
-                                     
-    --binary-output <arg>            指定可执行文件存放地址
-                                     默认地址是
-                                     "<build-output>/<platform>/"
- -bo,--bundle-output <arg>           打包输出目录
- -br,--build-report <arg>            指定编译报告的存放存放地址
-                                     报告为JSON格式
- -brhtml,--build-report-html <arg>   指定编译报告的存放存放地址
-                                     报告为HTML格式
-    --build-server <arg>             编译服务器 (当使用原生扩展
-                                     时使用)
- -d,--debug                          使用dmengine的debug版本(当
-                                     编译时). 弃用, 使用--variant
-                                     代替
-    --defoldsdk <arg>                指定defold sdk (sha1)
-                                     使用版本
- -e,--email <arg>                    用户电邮
- -h,--help                           帮助文档
- -i,--input <arg>                    指定源目录, 默认是当前
-                                     目录
-    --identity <arg>                 指定签名 (iOS)
- -k,--keep-unused                    指定未使用资源仍然打包
-                                     输出
- -l,--liveupdate <arg>               要在发布后使用热更新功能
-                                     参数填yes
- -mp,--mobileprovisioning <arg>      指定mobileprovisioning profile (iOS)
- -o,--output <arg>                   输出目录. 默认是
-                                     "build/default"
- -p,--platform <arg>                 发布平台 (打包时)
- -r,--root <arg>                     指定编译目录. 默认是
-                                     当前目录
-    --settings <arg>                 指定项目设置文件的
-                                     路径. 可以使用多个
-                                     文件. 设置根据文件
-                                     从左到右应用.
-    --strip-executable               去掉dmengine的debug信息
-                                     (编译 iOS 或 Android时)
- -tc,--texture-compression <arg>     使用纹理档中指定的
-                                     纹理压缩
- -tp,--texture-profiles <arg>        使用纹理压缩档 (弃用)
- -u,--auth <arg>                     用户auth符
-    --use-vanilla-lua                只使用 vanilla 源代码 (即
-                                     不要字节码)
- -v,--verbose                        冗余输出
-    --variant <arg>                  指定使用 debug, release 或者 headless
-                                     dmengine的版本 (编译时)
-    --version                        打印输出
-                                     版本号
-    --with-symbols                   生成标记文件 (如果
-                                     可用)
-    --bundle-format <apk|aab>        使用哪种格式打 Android 包.
-    --keystore <arg>                 使用哪个密匙注册
-                                     Android 包.
-    --keystore-pass <arg>            密匙密码路径用于打 Android 包.
-    --keystore-alias <arg>           密匙别名用于打 Android 包.
+-a,--archive                            编译数据包
+-ar,--architectures <arg>               逗号分割的发布平台包含的架构列表
+    --archive-resource-padding <arg>    游戏包中的资源对齐间隔. 默认值为4.
+-bf,--bundle-format <arg>               逗号分割的发布平台格式列表
+                                        (Android: 'apk' 和 'aab')
+    --binary-output <arg>               指定可执行文件存放地址, 默认地址是
+                                        "<build-output>/<platform>/"
+-bo,--bundle-output <arg>               打包输出目录
+-br,--build-report <arg>                指定编译生成的JSON报告的存放地址
+-brhtml,--build-report-html <arg>       指定编译生成的HTML报告的存放地址
+    --build-artifacts <arg>             不指定的话默认为编译engine.
+                                        可选项为 'engine', 'plugins'.
+                                        以逗号分隔.
+    --build-server <arg>                编译服务器 (使用原生扩展时需指定)
+-ce,--certificate <arg>                 已弃用! 使用 --keystore 代替
+-d,--debug                              已弃用! 使用 --variant=debug 代替
+    --debug-ne-upload                   把文件打包為upload.zip后上傳到
+                                        編譯服務器
+    --defoldsdk <arg>                   指定 defold sdk (sha1) 使用版本
+-e,--email <arg>                        用户电邮
+-ea,--exclude-archive                   要从打包中排除的资源档案. 以此创建空应用用作编译目标
+    --exclude-build-folder              逗号分割的排除目錄列表
+-h,--help                               该命令的帮助文档
+-i,--input <arg>                        指定源目录, 默认是当前目录
+    --identity <arg>                    指定签名 (iOS)
+-k,--keep-unused                        把未使用资源也打包进 output
+-kp,--key-pass <arg>                    如果开发密钥不同于部署密钥的话
+                                        则在这里指定 (Android)
+-ks,--keystore <arg>                    用来签名 APKs (Android) 的部署密钥
+-ksa,--keystore-alias <arg>             用来签名 (Android) 的 key+cert 别名
+-ksp,--keystore-pass <arg>              用来签名 (Android) 的部署密钥密码
+-l,--liveupdate <arg>                   要在发布后使用热更新功能, 该参数填 yes
+
+    --manifest-private-key <arg>        用来签名 manifest 和 archive 的私钥
+
+    --manifest-public-key <arg>         用来签名 manifest 和 archive 的公钥
+
+-mp,--mobileprovisioning <arg>          指定 mobileprovisioning profile (iOS)
+-o,--output <arg>                       输出目录. 默认是 "build/default"
+-p,--platform <arg>                     发布平台 (打包时)
+-pk,--private-key <arg>                 已弃用! 使用 --keystore 代替
+-r,--root <arg>                         指定编译根目录. 默认是当前目录
+    --resource-cache-local <arg>        本地资源缓存地址.
+    --resource-cache-remote <arg>       远程资源缓存URL.
+    --resource-cache-remote-pass <arg>  远程资源存取认证的密码/令牌.
+    --resource-cache-remote-user <arg>  远程资源存取认证的用户名.
+    --settings <arg>                    指定项目配置文件的路径. 可以使用多个
+                                        文件. 配置文件从左到右依次被应用.
+    --strip-executable                  去掉dmengine的debug信息 (编译 iOS 或 Android时)
+-tc,--texture-compression <arg>         使用纹理档案中指定的纹理压缩
+-tp,--texture-profiles <arg>            已弃用! 使用 --texture-compression 代替
+-u,--auth <arg>                         用户认证令牌
+   --use-async-build-server             为编译服务器启用异步编译处理 (使用原生扩展时)
+   --use-uncompressed-lua-source        使用未压缩未加密的明文Lua源代码代替二进制文件
+   --use-vanilla-lua                    已弃用! 使用 --use-uncompressed-lua-source 代替
+
+-v,--verbose                            冗余输出
+    --variant <arg>                     指定使用 debug, release 或者 headless
+                                        的dmengine版本 (编译时)
+    --version                           打印输出版本号
+    --with-symbols                      生成标记文件 (如果可用)
 ```
 
 支持的命令:
@@ -94,9 +104,10 @@ usage: bob [options] [commands]
 `resolve`
 : 解析所有外部依赖库.
 
-可用平台:
+支持平台和架构:
 
-`x86_64-darwin`
+`x86_64-darwin` (Defold 1.3.5 及更老版本)
+`x86_64-macos` (Defold 1.3.6 及更新版本)
 : macOS 64 bit
 
 `x86_64-win32`
@@ -108,20 +119,17 @@ usage: bob [options] [commands]
 `x86_64-linux`
 : Linux 64 bit
 
-`arm64-darwin`
-: iOS 64 bit
-
-`armv7-darwin`
-: iOS 32 bit
-
 `x86_64-ios`
-: iOS macOS 64 bit (iOS Simulator)
+: iOS macOS 64 bit (iOS 模拟器)
+
+`armv7-darwin` (Defold 1.3.5 及更老版本)
+`armv7-ios` (Defold 1.3.6 及更新版本)
+: iOS 支持 32-bit `armv7-darwin` 和 64-bit `arm64-darwin` 架构. 默认情况下, `--architectures` 参数值为 `armv7-darwin,arm64-darwin`.
 
 `armv7-android`
-: Android 32 bit
+: Android 支持 32 bit `armv7-android` 和 64 bit `arm64-android` 架构. 默认情况下, `--architectures` 参数值为 `armv7-android,arm64-android`.
 
-`js-web`
-: HTML5
+`js-web` : HTML5 支持 `js-web` 和 `wasm-web` 架构. 默认情况下, `--architectures` 参数值为 `js-web,wasm-web`.
 
 默认情况下, Bob 在当前目录下寻找项目来编译. 切换到 Defold 项目目录下使用 bob, 它会把数据编译到默认输出 *build/default* 目录下.
 

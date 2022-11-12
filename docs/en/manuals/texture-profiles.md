@@ -17,7 +17,9 @@ The processing of textures is configured through a specific texture profile. In 
 
 Since all available hardware texture compression is lossy, you will get artifacts in your texture data. These artifacts are highly dependent on how your source material looks and what compression method is used. You should test your source material and experiment to get the best results. Google is your friend here.
 
-You can select what software image compression is applied on the final texture data (compressed or raw) in the bundle archives. Defold supports WebP or ZLib (default). WebP supports both lossy and lossless compression and usually results in significantly better compression than ZLib, which is a general data compression algorithm
+You can select what software image compression is applied on the final texture data (compressed or raw) in the bundle archives. Defold supports [Basis Universal](https://github.com/BinomialLLC/basis_universal) texture compression, which compresses the image into a intermediary format. This format is transcoded at runtime to a hardware format appropriate for the current device's GPU.
+The Basis Universal format is a high quality but lossy format.
+All images are also compressed using LZ4 for further reduction of file size when we store them into the game archive.
 
 ::: sidenote
 Compression is a resource intensive and time consuming operation that can cause _very_ long build times depending on the number of texture images to compress and also the chosen texture formats and type of software compression.
@@ -100,7 +102,18 @@ The *Formats* added to a profile each have the following properties:
 : The format to use when encoding the texture. See below for all available texture formats.
 
 *Compression*
-: Selects the quality level for the resulting compressed image. The values range from `FAST` (lowest quality, fast compression) to `BEST` (highest quality, slowest compression).
+: Selects the quality level for the resulting compressed image.
+
+| LEVEL    | Note                                          |
+| -------- | --------------------------------------------- |
+| `FAST`   | Fastest compression. Low image quality        |
+| `NORMAL` | Default compression. Best image quality       |
+| `HIGH`   | Slowest compression. Smaller file size        |
+| `BEST`   | Slow compression. Smallest file size          |
+
+::: sidenote
+Since 1.2.185 we've redefined these enums, since they are a bit ambiguous.
+:::
 
 *Type*
 : Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#compression-types) below for more details.
@@ -109,12 +122,20 @@ The *Formats* added to a profile each have the following properties:
 
 Graphics hardware textures can be processed into uncompressed or *lossy* compressed data with various numbers of channels and bit depths. Hardware compression that is fixed means that the resulting image will be of a fixed size, regardless of the image content. This means that the quality loss during compression depends on the content of the original texture.
 
-The following lossy compression formats are currently supported.
+Since Basis Universal compression transcoding is dependent on the device's GPU capabilities, the recommended formats for use with the Basis Universal compression is the generic formats like:
+`TEXTURE_FORMAT_RGB`, `TEXTURE_FORMAT_RGBA`, `TEXTURE_FORMAT_RGB_16BPP`, `TEXTURE_FORMAT_RGBA_16BPP`, `TEXTURE_FORMAT_LUMINANCE` and `TEXTURE_FORMAT_LUMINANCE_ALPHA`.
 
-<!--
-DXT
-: Also called S3 Texture Compression. It can be generated on Windows platform only, but macOS supports reading it and it's possible to install support for it on Linux. The format divides the image into 4x4 pixel blocks with 4 colors set to the pixels within each block.
--->
+The Basis Universal transcoder supports many output formats, like `ASTC4x4`, `BCx`, `ETC2`, `ETC1` and `PVRTC1`.
+For a complete, up-to-date list, see
+
+::: sidenote
+The hardware specific output formats are currently disable due to the recent upgrade to our usage of Basis Universal encoder.
+
+We are currently looking into how to reintroduce support for both these formats, as well as readding support for WEBP compression.
+Our current long running task of introducing content pipeline plugins aim to fix this.
+:::
+
+The following lossy compression formats are currently supported:
 
 PVRTC
 : Textures are compressed in blocks. In 4 bit mode (4BPP) each block is 4×4 pixels. In 2 bit mode (2BPP) each block is 8×4 pixels. Each block always occupies 64 bits (8 bytes) of memory space.  The format is used in all generations of the iPhone, iPod Touch, and iPad. (certain Android devices, that use PowerVR GPUs, also support the format). Defold supports PVRTC1, as indicated by the suffix "V1" in the format identifiers.
@@ -136,36 +157,83 @@ ETC
 | `TEXTURE_FORMAT_RGBA_PVRTC4BPPV1` | 1:8 fixed. | Pre-multiplied alpha. Requires square images. Non square images will be resized. |
 | `TEXTURE_FORMAT_RGB_ETC1`         | 1:6 fixed  | No alpha |
 
-<!---
-| TEXTURE_FORMAT_RGB_DTX1
-| 1:8 fixed
-| No alpha
-| Can be compressed on Windows only
-
-| TEXTURE_FORMAT_RGBA_DTX1
-| 1:8 fixed
-| 1 bit alpha
-| Can be compressed on Windows only
-
-| TEXTURE_FORMAT_RGBA_DXT3
-| 1:4 fixed
-| 4 bit fixed alpha
-| Can be compressed on Windows only
-
-| TEXTURE_FORMAT_RGBA_DXT5
-| 1:4 fixed
-| Interpolated smooth alpha
-| Can be compressed on Windows only
--->
 
 ## Compression types
 
 The following software image compression types are supported. The data is uncompressed when the texture file is loaded into memory.
 
+::: sidenote
+Currently the `WEBP` compression will always fallback to `BASIS_UASTC` compression.
+
+We are currently looking into how to reintroduce support for both these formats, as well as readding support for WEBP compression.
+Our current long running task of introducing content pipeline plugins aim to fix this.
+:::
+
 | Type                              | Formats                   | Note |
 | --------------------------------- | ------------------------- | ---- |
 | `COMPRESSION_TYPE_DEFAULT`        | All formats               | Generic lossless data compression. Default. |
+| `COMPRESSION_TYPE_BASIS_UASTC`    | All RGB/RGBA formats      | Basis Universal high quality, lossy compression. Lower quality level results in smaller size. |
 | `COMPRESSION_TYPE_WEBP`           | All formats               | WebP lossless compression. Higher quality level results in smaller size. |
 | `COMPRESSION_TYPE_WEBP_LOSSY`     | All non hardware compressed formats. | WebP lossy compression. Lower quality level results in smaller size. |
 
 For hardware compressed texture formats PVRTC or ETC, the WebP lossless compression process transforms the compressed hardware texture format data into data more suitable for WebP image compression using an internal intermediate format. This is then transformed back into the compressed hardware texture format when loaded by the run-time. WebP lossy type is currently not supported for hardware compressed texture formats PVRTC and ETC.
+
+
+## Example image
+
+To better give an understanding of the output, here is an example.
+Note that the image quality, compression time and compression size are always dependent on the input image and may vary.
+
+Base image (1024x512):
+![New profiles file](images/texture_profiles/kodim03_pow2.png)
+
+### Compression times
+
+| Level      | Compression time | Relative time   |
+| ----------------------------- | --------------- |
+| `FAST`     | 0m0.143s         | 0.5x            |
+| `NORMAL`   | 0m0.294s         | 1.0x            |
+| `HIGH`     | 0m1.764s         | 6.0x            |
+| `BEST`     | 0m1.109s         | 3.8x            |
+
+### Signal loss
+
+The comparison is done using the `basisu` tool (measuring the PSNR)
+100 dB means no signal loss (i.e. it's the same as the original image).
+
+| Level      | Signal                                          |
+| ------------------------------------------------------------ |
+| `FAST`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
+| `NORMAL`   | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
+| `HIGH`     | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
+| `BEST`     | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
+
+### Compression file sizes
+
+Original file size is 1572882 bytes.
+
+| Level      | File Sizes | Ratio    |
+| ---------------------------------- |
+| `FAST`     | 357225     | 22.71 %  |
+| `NORMAL`   | 365548     | 23.24 %  |
+| `HIGH`     | 277186     | 17.62 %  |
+| `BEST`     | 254380     | 16.17 %  |
+
+
+### Image quality
+
+Here are the resulting images (retrieved from the ASTC encoding using the `basisu` tool)
+
+`FAST`
+![fast compression level](images/texture_profiles/kodim03_pow2.fast.png)
+
+`NORMAL`
+![normal compression level](images/texture_profiles/kodim03_pow2.normal.png)
+
+`HIGH`
+![high compression level](images/texture_profiles/kodim03_pow2.high.png)
+
+`BEST`
+![best compression level](images/texture_profiles/kodim03_pow2.best.png)
+
+

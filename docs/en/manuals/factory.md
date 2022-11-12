@@ -7,7 +7,7 @@ brief: This manual explains how to use factory components to dynamically spawn g
 
 Factory components are used to dynamically spawn game objects from a pool of objects into a running game.
 
-When you add a factory component to a game object you specify in the *Prototype* property what game object file the factory should use as a blueprint for all new game objects it creates.
+When you add a factory component to a game object you specify in the *Prototype* property what game object file the factory should use as a prototype (also known as "prefabs" or "blueprints" in other engines) for all new game objects it creates.
 
 ![Factory component](images/factory/factory_collection.png)
 
@@ -139,12 +139,12 @@ And then later:
 ```lua
 -- coin.script
 -- Delete all spawned coins.
-for _, coin_id = ipairs(self.spawned_coins) do
+for _, coin_id in ipairs(self.spawned_coins) do
     go.delete(coin_id)
 end
 
 -- or alternatively
-go.delete_all(self.spawned_coins)
+go.delete(self.spawned_coins)
 ```
 
 It is also common that you want the spawned object to be aware of the game object that spawned it. One case would be some type of autonomous object that can be spawned only one at a time. The spawned object then needs to inform the spawner when it is deleted or inactivated so another one can be spawned:

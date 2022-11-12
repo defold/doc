@@ -17,7 +17,7 @@ Kinematic objects
 : Kinematic objects register collisions with other physics objects, but the physics engine do not perform any automatic simulation. The job of resolving collisions, or ignoring them, is left to you ([learn more](/manuals/physics-resolving-collisions)). Kinematic objects are very good for player or script controlled objects that require fine grained control of the physical reactions, like a player character.
 
 Triggers
-: Triggers are objects that register simple collisions. Triggers are light weight collision objects. They are similar to [ray casts](/manuals/physics-ray-cast) in that they read the physics world as opposed to interacting with it. They are good for objects that just need to register a hit (like a bullet) or as part of game logic where you want to trigger certain actions when an object reaches a specific point. Trigger are computationally cheaper than kinematic objects and should be used in favor of those if possible.
+: Triggers are objects that register simple collisions. Triggers are light weight collision objects. They are similar to [ray casts](/manuals/physics-ray-casts) in that they read the physics world as opposed to interacting with it. They are good for objects that just need to register a hit (like a bullet) or as part of game logic where you want to trigger certain actions when an object reaches a specific point. Trigger are computationally cheaper than kinematic objects and should be used in favor of those if possible.
 
 
 ## Adding a collision object component
@@ -83,8 +83,11 @@ Angular damping
 Locked rotation
 : Setting this property totally disables rotation on the collision object, no matter what forces are brought to it.
 
+Bullet
+: Setting this property enables continuous collision detection (CCD) between the collision object and other dynamic collision objects. The Bullet property is ignored if the Type is not set to `Dynamic`.
+
 Group
-: The name of the collison group the object should belong to. You can have 16 different groups and you name them as you see fit for your game. For example "players", "bullets", "enemies" and "world". If the *Collision Shape* is set to a tile map, this field is not used but the groups names are taken from the tile source. [Learn more about collision groups](/manuals/physics-groups).
+: The name of the collision group the object should belong to. You can have 16 different groups and you name them as you see fit for your game. For example "players", "bullets", "enemies" and "world". If the *Collision Shape* is set to a tile map, this field is not used but the groups names are taken from the tile source. [Learn more about collision groups](/manuals/physics-groups).
 
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything. [Learn more about collision groups](/manuals/physics-groups).

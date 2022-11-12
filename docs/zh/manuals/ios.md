@@ -200,7 +200,12 @@ Notifications, Settings 和 Spotlight 這三項不要拖放圖標.
 
 ## 安装 iOS 打包应用
 
-编辑器对iOS应用打包后生成 *.ipa* 文件. 要安装此文件, 可以使用 Xcode (通过 "Devices and Simulators" 窗口). 或者使用命令行工具 [ios-deploy](https://github.com/phonegap/ios-deploy) 或者使用 iTunes.
+编辑器对iOS应用打包后生成 *.ipa* 文件. 要安装此文件, 可以使用以下所列举工具之一:
+
+* Xcode 的 "Devices and Simulators" 窗口
+* [ios-deploy](https://github.com/ios-control/ios-deploy) 命令行工具
+* macOS App Store 里的 [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/)
+* iTunes
 
 可以使用 `xcrun simctl` 命令行工具与 Xcode 的 iOS 模拟器进行交互:
 
@@ -217,6 +222,23 @@ xcrun simctl install booted your.app
 # 启动模拟器
 open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
 ```
+
+
+## 出口合规信息
+
+将游戏上传到 App Store 时要提供加密部分的出口合规信息. [Apple 在此解释了这个需求的原因](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations):
+
+"把应用往 TestFlight 或者 App Store 上传的时候, 你是把应用上传到了美国的服务器上. 一旦要把应用分发到美国或者加拿大之外的国家, 无论你的法人实体在哪里, 都必须遵守美国出口法案. 如果你的应用使用, 访问, 包含, 实现, 或者汇入了加密内容, 就会被视作加密软件出口, 这意味着你的应用必须符合美国出口法案的要求, 同时也要符合你的出口目的国家的法律需求."
+
+相关文档:
+
+* 出口合规概要 - https://help.apple.com/app-store-connect/#/dev88f5c7bf9
+* 查看游戏是否符合出口规范 - https://help.apple.com/app-store-connect/#/dev63c95e436
+
+Defold 引擎会对以下内容实施加密:
+
+* 加密信道调用 (如 HTTPS 和 SSL)
+* Lua 代码版权保护
 
 
 ## 常見問題

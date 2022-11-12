@@ -138,12 +138,12 @@ table.insert(self.spawned_coins, id)
 ```lua
 -- coin.script
 -- 删除所有 coins.
-for _, coin_id = ipairs(self.spawned_coins) do
+for _, coin_id in ipairs(self.spawned_coins) do
     go.delete(coin_id)
 end
 
 -- 或者直接
-go.delete_all(self.spawned_coins)
+go.delete(self.spawned_coins)
 ```
 
 另一种常见用法是创建新对象时保存一个引用, 同时新对象也保存脚本的一个引用, 等以后需要时可以给创建脚本发送通知消息:
@@ -196,7 +196,7 @@ end
       -- 会把资源进行同步加载.
       self.go_id = factory.create("#factory")
   end
-  
+
   function final(self)  
       -- 删掉游戏对象, 资源引用计数减少
       -- 本例中工厂资源也会被卸载
@@ -216,19 +216,19 @@ end
       -- 资源加载完成, 可以新建对象
       self.go_id = factory.create(url)
   end
-  
+
   function init(self)
       -- 工厂父级集合加载时
       -- 工厂资源不被加载. 调用 load 函数进行资源异步加载.
       factory.load("#factory", load_complete)
   end
-  
+
   function final(self)
       -- 删掉游戏对象, 资源引用计数减少
       -- 本例中工厂资源不会被卸载
       -- 因为工厂组件包含对资源的引用.
       go.delete(self.go_id)
-  
+
       -- 调用 unload 函数, 工厂对资源引用被释放,
       -- 这样资源才会被卸载.
       factory.unload("#factory")
@@ -246,4 +246,3 @@ end
 ## 游戏对象池
 
 使用游戏对象池提高对象重用性是个好办法. 然而, 游戏引擎已经使用对象池进行游戏对象管理, 用户就不必多此一举了. 不论删除还是创建对象, 都能保证稳定高效.
-

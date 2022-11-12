@@ -1,11 +1,11 @@
 ---
 title: Android 平台调试
-brief: 本教程介绍了在安卓设备上调试游戏的方法.
+brief: 本教程介绍了在使用 Android Studio 调试游戏的方法.
 ---
 
 # Android 平台调试
 
-下面列出了一些在 Android 设备上调试游戏的方法
+下面介绍了如何使用 [Android Studio](https://developer.android.com/studio/), 即 Google 的 Android 操作系统的官方 IDE, 来调试游戏的方法.
 
 ## Android Studio
 
@@ -43,9 +43,9 @@ brief: 本教程介绍了在安卓设备上调试游戏的方法.
 
 * 要是动过引擎源码, 也要对引擎代码添加路径映射
 
-		* 注意一定要获取与你所用版本完全一致的引擎版本
+* 注意一定要获取与你所用版本完全一致的引擎版本
 
-			defold$ git checkout 1.2.148
+		defold$ git checkout 1.2.148
 
 * 点击 `Apply changes`
 

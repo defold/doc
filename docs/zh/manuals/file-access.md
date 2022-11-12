@@ -26,18 +26,29 @@ Defold 提供如下函数用以存取文件/文件夹:
 [Check the example showing how to use sys.save() and sys.load()](/examples/file/sys_save_load/).
 
 ### 游戏应用打包进去的文件处理
-游戏打包有两种方法:
+把文件打包进游戏应用有两种方法:
 
-1. 在 *game.project* 配置文件中的 [*Custom Resources* 项](https://defold.com/manuals/project-settings/#Project) 设置自定义资源. 然后就可以使用 [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource) 函数进行加载. 其实这不是在加载磁盘上的文件. 打包进游戏的资源文件作为游戏的一部分保存为二进制数据, 只能使用 `sys.load_resource()` 载入.
+1. **用户资源文件** - 在 *game.project* 配置文件的 [*Custom Resources* 项](https://defold.com/manuals/project-settings/#custom-resources) 进行设置. 然后可以使用 [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource) 函数进行访问. 注意这些文件实际上并不存在于用户的操作系统之中. 这样打包的文件作为游戏包的一部分只可以使用 `sys.load_resource()` 进行访问.
 
-2. 在 *game.project* 配置文件中的 [*Bundle Resources* 项](https://defold.com/manuals/project-settings/#Project) 设置额外打包文件. 然后就可以使用 [`sys.get_application_path()`](https://defold.com/ref/stable/sys/#sys.get_application_path:) 取得游戏所在位置. 进而取得文件的绝对路径. 然后用 `sys.*`, `io.*` 和 `os.*` 函数处理文件/文件夹 (见上文).
+2. **打包资源文件** - 在 *game.project* 配置文件的 [*Bundle Resources* 项](https://defold.com/manuals/project-settings/#bundle-resources) 进行设置. 然后可以使用 [`sys.get_application_path()`](https://defold.com/ref/stable/sys/#sys.get_application_path:) 得到应用的实际路径. 再基于应用路径得到资源文件的完整路径. 之后就可以使用 `io.*` 和 `os.*` 的功能函数进行访问 (参见上文).
+
+ ::: 注意
+ 基于安全考虑浏览器 (及浏览器里运行的 JavaScript 插件) 不允许访问本地文件. 虽然 HTML5 游戏也能运行, 但是只能用浏览器提供的 IndexedDB API 在 "虚拟文件系统" 中存取数据. 也就是说不允许使用 `io.*` 和 `os.*` 下的函数. 但是可以用 `http.request()` 请求在线资源文件.
+ :::
+
+#### 用户资源与打包资源对比
+
+| 特点              | 用户资源                          | 打包资源                              |
+|-----------------------------|-------------------------------------------|------------------------------------------------|
+| 加载速度               | 快 - 从应用二进制包内加载 | 慢 - 从文件系统中加载          |
+| 加载单个文件的功能          | 无 - 只能加载全部资源                    | 有 - 基于文件的字节读取           |
+| 应用打包后修改资源文件 | 无 - 所有资源保存为一个二进制资源包 | 有 - 文件存储基于文件操作系统    |
+| HTML5 支持               | 有                                       | 有 - 但是这里的访问基于 http 而不是文件 I/O |
+
 
 ### 操作系统文件处理
 基于安全考虑操作系统所管理的文件存取被严格限制. 可以使用 [`extension-directiories`](https://defold.com/assets/extensiondirectories/) 原生扩展来存取某些地方的绝对路径 (例如 documents, resource, temp). 然后用 `sys.*`, `io.*` 和 `os.*` 函数处理文件/文件夹 (见上文).
 
-::: 注意
-基于安全考虑浏览器 (及浏览器里运行的 JavaScript 插件) 不允许访问本地文件. 虽然 HTML5 游戏也能运行, 但是只能用浏览器提供的 IndexedDB API 在 "虚拟文件系统" 中存取数据. 也就是说不允许使用 `io.*` 和 `os.*` 下的函数. 但是可以用 `http.request()` 请求在线资源文件.
-:::
 
 ## 相关原生扩展
 在 [资源中心](https://defold.com/assets/) 里有些原生扩展能简化文件存取的工作. 例如:

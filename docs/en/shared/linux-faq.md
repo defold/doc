@@ -4,8 +4,18 @@ A: Change the scaling factor before running Defold. [source](https://unix.stacke
 
 ```bash
 $ gsettings set org.gnome.desktop.interface scaling-factor 2
+$ ./Defold
 ```
 
+A: An alternative solution, especially when you wish to scale up by a fraction, is to modify the `Defold/config` file and on the `vmargs` line add `glass.gtk.uiScale`: [source](https://forum.defold.com/t/4k-hidpi-monitor-support-solved/64108/12?u=britzl)
+
+```
+vmargs = -Dglass.gtk.uiScale=1.5,-Dfile.encoding=UTF-8,...
+vmargs = -Dglass.gtk.uiScale=175%,-Dfile.encoding=UTF-8,...
+vmargs = -Dglass.gtk.uiScale=192dpi,-Dfile.encoding=UTF-8,...
+```
+
+More on this value in the [Arch Linux HiDPI wiki article](https://wiki.archlinux.org/title/HiDPI#JavaFX).
 
 #### Q: Why does mouse clicks on Elementary OS go through the editor onto whatever is below?
 
@@ -16,27 +26,75 @@ $ GTK_CSD=0 ./Defold
 ```
 
 
-#### Q: Why does the Defold editor crash when I try to create a new project, or open an existing one?
+#### Q: The Defold editor crashes when opening a collection or game object and the crash refers to "com.jogamp.opengl"
 
-A: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of Mesa on the system.
-
-See the following reports for more information:
-
-  - https://github.com/defold/editor2-issues/issues/1905
-  - https://github.com/defold/editor2-issues/issues/1886
-
-If this is your problem try the following workaround:
+A: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of [Mesa](https://docs.mesa3d.org/) on the system. You can override which GL version that gets reported when calling `glGetString(GL_VERSION)` by setting the `MESA_GL_VERSION_OVERRIDE` to 2.1 or a larger value but less than or equal to the version of your driver. You can check which is the maximum OpenGL version your driver supports using `glxinfo`:
 
 ```bash
-$ export MESA_GL_VERSION_OVERRIDE=2.1
-$ ./Defold
+glxinfo | grep version
 ```
 
-And if that doesn't work then try (or some other version number matching your driver and larger than or equal to 2.1):
+Example output (look for "OpenGL version string: x.y"):
+
+```
+server glx version string: 1.4
+client glx version string: 1.4
+GLX version: 1.4
+Max core profile version: 4.6
+Max compat profile version: 4.6
+Max GLES1 profile version: 1.1
+Max GLES[23] profile version: 3.2
+OpenGL core profile version string: 4.6 (Core Profile) Mesa 20.2.6
+OpenGL core profile shading language version string: 4.60
+OpenGL version string: 4.6 (Compatibility Profile) Mesa 20.2.6
+OpenGL shading language version string: 4.60
+OpenGL ES profile version string: OpenGL ES 3.2 Mesa 20.2.6
+OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
+GL_EXT_shader_implicit_conversions, GL_EXT_shader_integer_mix,
+```
+
+Use version 2.1 or version matching your graphics driver:
 
 ```bash
-$ export MESA_GL_VERSION_OVERRIDE=3.1
-$ ./Defold
+$ MESA_GL_VERSION_OVERRIDE=2.1 ./Defold
+```
+
+```bash
+$ MESA_GL_VERSION_OVERRIDE=4.6 ./Defold
+```
+
+
+#### Q: Why am I getting "com.jogamp.opengl.GLException: Graphics configuration failed" when launching Defold?
+
+A: On certain distributions (for instance Ubuntu 20.04) there is an issue with the new [Mesa](https://docs.mesa3d.org/) drivers (Iris) when running Defold. You can try using an older driver version when running Defold:
+
+```bash
+$ MESA_LOADER_DRIVER_OVERRIDE=i965 ./Defold
+```
+
+
+#### Q: The Defold editor crashes when opening a collection or game object and the crash refers to libffi.so
+
+A: The [libffi](https://sourceware.org/libffi/) version of your distribution and the one required by Defold (version 6 or 7) does not match. Make sure `libffi.so.6` or `libffi.so.7` is installed under `/usr/lib/x86_64-linux-gnu`. You can download `libffi.so.7` like this:  
+
+```bash
+$ wget http://ftp.br.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-6_amd64.deb
+$ sudo dpkg -i libffi7_3.3-6_amd64.deb
+```
+
+Next you specify the path to this version in the `LD_PRELOAD` environment variable when running Defold:
+
+```bash
+$ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.7 ./Defold
+```
+
+
+#### Q: My OpenGL drivers are outdated. Can I still use Defold?
+
+A: Yes, it might be possible to use Defold if you enable software rendering. You can enable software rendering by setting the `LIBGL_ALWAYS_SOFTWARE` environment variable to 1:
+
+```bash
+$ LIBGL_ALWAYS_SOFTWARE=1 ./Defold
 ```
 
 

@@ -77,6 +77,10 @@ Any game object that has acquired input focus and contains collection proxy comp
 Each game object component in the main collection is traversed. If any of these components has a script `update()` function, then that will be called. If the component is a collection proxy, each component in the proxy collection is recursively updated with all the steps in the "update" sequence in the diagram above.
 
 ::: sidenote
+If a [fixed timestep is used for physics simulation](/manuals/physics/#physics-updates) there may also be a call to the `fixed_update()` function in all script components. This function is useful in physics based games when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation.
+:::
+
+::: sidenote
 The order in which game object component `update()` functions are called is unspecified. You should not assume that the engine updates objects belonging to the same collection in a certain order.
 :::
 

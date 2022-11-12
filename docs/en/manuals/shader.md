@@ -49,7 +49,6 @@ Attributes
 : A value associated with an individual vertex. Attributes are passed to the shader by the engine and if you want to access an attribute you just declare it in your shader program. Different component types have a different set of attributes:
   - Sprite has `position` and `texcoord0`.
   - Tilegrid has `position` and `texcoord0`.
-  - Spine model has `position` and `texcoord0`.
   - GUI node has `position`, `textcoord0` and `color`.
   - ParticleFX has `position`, `texcoord0` and `color`.
   - Model has `position`, `texcoord0` and `normal`.
@@ -79,7 +78,7 @@ UV coordinates
 
   ![UV coordinates](images/shader/uv_map.png){srcset="images/shader/uv_map@2x.png 2x"}
 
-  A UV-map is typically generated in the 3D modelling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
+  A UV-map is typically generated in the 3D modeling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
 
 Varying variables
 : Varying types of variables are used to pass information between the vertex stage and the fragment stage.
@@ -101,7 +100,7 @@ Before ending up on the screen, the data that you create for your game goes thro
 
 ![Render pipeline](images/shader/pipeline.png){srcset="images/shader/pipeline@2x.png 2x"}
 
-All visual components (sprites, GUI nodes, particle effects or models) consists of vertices, points in 3D world that describe the shape of the component. The good thing by this is that it is possible to view the shape from any angle and distance. The job of the vertex shader program is to take a single vertex and translate it into a position in the viewport so the shape can end up on screen. For a shape with 4 vertices, the vertex shader program runs 4 times, each in parallell.
+All visual components (sprites, GUI nodes, particle effects or models) consists of vertices, points in 3D world that describe the shape of the component. The good thing by this is that it is possible to view the shape from any angle and distance. The job of the vertex shader program is to take a single vertex and translate it into a position in the viewport so the shape can end up on screen. For a shape with 4 vertices, the vertex shader program runs 4 times, each in parallel.
 
 ![vertex shader](images/shader/vertex_shader.png){srcset="images/shader/vertex_shader@2x.png 2x"}
 
@@ -142,7 +141,7 @@ void main()
 
 
 
-After vertex shading, the on screen shape of the component is decided: primitive shapes are generated and rasterized, meaning that the graphics hardware splits each shape into *fragments*, or pixels. It then runs the fragment shader program, once for each of the fragments. For an on screen image 16x24 pixels in size, the program runs 384 times, each in parallell.
+After vertex shading, the on screen shape of the component is decided: primitive shapes are generated and rasterized, meaning that the graphics hardware splits each shape into *fragments*, or pixels. It then runs the fragment shader program, once for each of the fragments. For an on screen image 16x24 pixels in size, the program runs 384 times, each in parallel.
 
 ![fragment shader](images/shader/fragment_shader.png){srcset="images/shader/fragment_shader@2x.png 2x"}
 
@@ -186,6 +185,8 @@ If the test concluded that the fragment is to be written to the frame buffer, it
 
 ## Further study
 
-- The site Shadertoy (https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of inspiration where you can learn about various shading techniques. Many of the shaders showcased on the site can be ported to Defold with very little work. The [Shadertoy tutorial](https://www.defold.com/tutorials/shadertoy/) goes through the steps of converting an existing shader to Defold.
+- [Shadertoy](https://www.shadertoy.com) contains a massive number of user contributed shaders. It is a great source of inspiration where you can learn about various shading techniques. Many of the shaders showcased on the site can be ported to Defold with very little work. The [Shadertoy tutorial](https://www.defold.com/tutorials/shadertoy/) goes through the steps of converting an existing shader to Defold.
 
 - The [Grading tutorial](https://www.defold.com/tutorials/grading/) shows how to create a full screen color grading effect using color lookup table textures for the grading.
+
+- [The Book of Shaders](https://thebookofshaders.com/00/) will teach you how to use and integrate shaders into your projects, improving their performance and graphical quality.

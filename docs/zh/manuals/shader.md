@@ -49,7 +49,6 @@ Attributes
 : 顶点上的相关属性. 属性经由引擎传送给着色器. 只要在着色程序中声明一下即可使用. 不同类型组件有不同的属性:
   - Sprite 有 `position` 和 `texcoord0`.
   - Tilegrid 有 `position` 和 `texcoord0`.
-  - Spine model 有 `position` 和 `texcoord0`.
   - GUI node 有 `position`, `textcoord0` 和 `color`.
   - ParticleFX 有 `position`, `texcoord0` 和 `color`.
   - Model 有 `position`, `texcoord0` 和 `normal`.
@@ -186,6 +185,8 @@ void main()
 
 ## 深入学习
 
-- 著名着色器开源站 Shadertoy (https://www.shadertoy.com) 上有大量开发者开源着色器. 可以通过学习各种着色技术作为自己的灵感源泉. 其中很多着色器改改就能应用到 Defold 中去. [Shadertoy 教程](https://www.defold.com/tutorials/shadertoy/) 介绍了把网站着色器用于 Defold 的具体步骤.
+- [Shadertoy](https://www.shadertoy.com) 上有大量开发者开源着色器. 可以通过学习各种着色技术作为自己的灵感源泉. 其中很多着色器改改就能应用到 Defold 中去. [Shadertoy 教程](https://www.defold.com/tutorials/shadertoy/) 介绍了把网站着色器用于 Defold 的具体步骤.
 
 - [渐变教程](https://www.defold.com/tutorials/grading/) 介绍了使用纹理采样进行全屏颜色渐变效果的编写方法.
+
+- [The Book of Shaders](https://thebookofshaders.com/00/) 介紹了將著色器應用於項目的方法, 有利於提高性能和視覺效果.

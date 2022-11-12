@@ -48,10 +48,6 @@ All game objects, and some component types have properties that can be read and 
 `get+set`{.mark}
 : Can be read with [`go.get()`](/ref/go#go.get) and written with [`go.set()`](/ref/go#go.set). Numerical values can be animated with [`go.animate()`](/ref/go#go.animate).
 
-::: sidenote
-Legacy functions for reading and writing game object properties also exist. They are `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  and so forth.
-:::
-
 *GAME OBJECT PROPERTIES*
 
 | property   | description                            | type            |                  |
@@ -61,13 +57,20 @@ Legacy functions for reading and writing game object properties also exist. They
 | *euler*    | Local rotation of game object, Euler angles. | `vector3` | `get+set`{.mark} |
 | *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
 
+::: sidenote
+Specific functions for working with the game object transform also exist; they are `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()` and `go.set_scale()`.
+:::
+
 *SPRITE COMPONENT PROPERTIES*
 
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *size*     | The non scaled size of the sprite---its size as taken from the source atlas. | `vector3` | `get`{.mark} |
-| *texture0* | The texture path hash of the sprite. | `hash` | `get`{.mark}|
+| *image* | The texture path hash of the sprite. | `hash` | `get`{.mark}|
 | *scale* | Non uniform scale of the sprite. | `vector3` | `get+set`{.mark}|
+| *material* | The material used by the sprite. | `hash` | `get+set`{.mark}|
+| *cursor* | Position (between 0--1) of playback cursor. | `number` | `get+set`{.mark}|
+| *playback_rate* | The framerate of the flipbook animation. | `number` | `get+set`{.mark}|
 
 *COLLISION OBJECT COMPONENT PROPERTIES*
 
@@ -79,15 +82,6 @@ Legacy functions for reading and writing game object properties also exist. They
 | *linear_damping* | Linear damping of the collision object. | `vector3` | `get+set`{.mark} |
 | *angular_damping* | Angular damping of the collision object. | `vector3` | `get+set`{.mark} |
 
-*SPINE MODEL COMPONENT PROPERTIES*
-
-| property   | description                            | type            |                  |
-| ---------- | -------------------------------------- | --------------- | ---------------- |
-| *animation* | The current animation. | `hash` | `get`{.mark} |
-| *skin*     | The currently applied model skin. (cannot be animated!) | `hash` | `get+set`{.mark} |
-| *cursor*   | The current position (between 0-1) of the animation playback cursor. | `number` | `get+set`{.mark} |
-| *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
-
 *MODEL (3D) COMPONENT PROPERTIES*
 
 | property   | description                            | type            |                  |
@@ -96,6 +90,7 @@ Legacy functions for reading and writing game object properties also exist. They
 | *texture0* | The texture path hash of the model. | `hash` | `get`{.mark}|
 | *cursor*  | Position (between 0--1) of playback cursor. | `number`   | `get+set`{.mark} |
 | *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
+| *material* | The material used by the model. | `hash` | `get+set`{.mark}|
 
 *LABEL COMPONENT PROPERTIES*
 
@@ -106,6 +101,9 @@ Legacy functions for reading and writing game object properties also exist. They
 | *outline* | The outline color of the label. | `vector4` | `get+set`{.mark} |
 | *shadow* | The shadow color of the label. | `vector4` | `get+set`{.mark} |
 | *size* | The size of the label. The size will constrain the text if line break is enabled. | `vector3` | `get+set`{.mark} |
+| *material* | The material used by the label. | `hash` | `get+set`{.mark}|
+| *font* | The font used by the label. | `hash` | `get+set`{.mark}|
+
 
 ## GUI node properties
 

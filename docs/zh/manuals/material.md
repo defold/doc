@@ -69,7 +69,9 @@ CONSTANT_TYPE_NORMAL
 
 CONSTANT_TYPE_USER
 : 一个 vector4 常量用以向你的着色程序传递自定义数据. 定义时可以赋初值, 可以通过各组件 (`sprite`, `model`, `spine`, `particlefx` 和 `tilemap`) 的 `.set_constant()` 和 `.reset_constant()` 函数来改变其值. 改变单个组件实例的材质参数会 [打破合批增加drawcall](/manuals/render/#Draw call 与合批).
-<br>举例:
+
+举例:
+
 ```lua
 go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 
@@ -139,6 +141,9 @@ Filter Min/Mag
   - `FILTER_MODE_LINEAR_MIPMAP_NEAREST` 在单个mipmap里线性插值.
   - `FILTER_MODE_LINEAR_MIPMAP_LINEAR` 使用线性插值分别计算两个mipmap再把两个结果进行线性插值.
 
+Max Anisotropy
+: 各异相性过滤是一种多重采样, 然后混合结果的高级技术. 该参数控制纹理采样器的各异相性级别. 如果 GPU 不支持各异相性过滤则该参数无效, 该参数默认值为 1.
+
 ## 常量缓存
 
 渲染管线工作时, 默认会从系统常量缓存中拉取数据. 也可以建立自定义缓存再把着色器参数在渲染脚本里填充进缓存里去:
@@ -147,7 +152,7 @@ Filter Min/Mag
 self.constants = render.constant_buffer() -- <1>
 self.constants.tint = vmath.vector4(1, 0, 0, 1) -- <2>
 ...
-render.draw(self.my_pred, self.constants) -- <3>
+render.draw(self.my_pred, {constants = self.constants}) -- <3>
 ```
 1. 新建常量缓存
 2. 设置 `tint` 常量为白色

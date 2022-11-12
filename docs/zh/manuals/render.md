@@ -46,11 +46,7 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 ## 默认视口映射
 
-默认渲染脚本使用2D游戏常用的正交映射. 填充方式有三种: `Stretch` (默认), `Fixed Fit` 和 `Fixed`.
-
-做3D游戏的话, 可以使用摄像机组件提供的透视映射渲染方法.
-
-摄像机组件既可以设置为正交也可以设置为透视来改变视口矩阵 (简单地说就是游戏世界哪部分需要被渲染). 关于摄像机组件详情请见 [摄像机教程](/manuals/camera).
+默认渲染脚本使用2D游戏常用的平视透视. 填充方式有三种: `Stretch` (默认), `Fixed Fit` 和 `Fixed`. 除了默认渲染脚本使用的平时透视之外, 还可以使用摄像机组件提供的透视矩阵.
 
 ### Stretch
 
@@ -114,11 +110,9 @@ msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 ```
 
-### 透视映射
+### 摄像机透视
 
-透视用来制作 3D 游戏, 游戏对象大小取决于与摄像机距离的远近.
-
-其命令脚本是:
+还可以使用 [摄像机组件](/manuals/camera)提供的透视矩阵. 用以下代码开启摄像机透视:
 
 ```lua
 msg.post("@render:", "use_camera_projection")

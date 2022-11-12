@@ -17,7 +17,7 @@ GUI components are rendered independently of the game view. Because of this it i
 
 ## Creating a GUI component
 
-GUI components are created from a GUI scene blueprint file. To create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
+GUI components are created from a GUI scene prototype file (also known as "prefabs" or "blueprints" in other engines). To create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
 
 ![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
 
@@ -88,19 +88,13 @@ Template node
 
 <div style="clear: both;"></div>
 
-Spine node
-: ![spine node](images/icons/spine-model.png){.left}
-  Displays and animates a spine model. See the [Spine node documentation](/manuals/gui-spine) for details.
-
-<div style="clear: both;"></div>
-
 ParticleFX node
 : ![particlefx node](images/icons/particlefx.png){.left}
   Plays a particle effect. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
 
 <div style="clear: both;"></div>
 
-Add nodes by right-clicking on the *Nodes* folder and selecting <kbd>Add ▸</kbd> and then <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd>, <kbd>Spine</kbd> or <kbd>ParticleFx</kbd>.
+Add nodes by right-clicking on the *Nodes* folder and selecting <kbd>Add ▸</kbd> and then <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> or <kbd>ParticleFx</kbd>.
 
 ![Add nodes](images/gui/add_node.png){srcset="images/gui/add_node@2x.png 2x"}
 
@@ -114,10 +108,10 @@ Id
 : The identity of the node. This name has to be unique within the GUI scene.
 
 Position, Rotation and Scale
-: Governs the location, orientation and stretching of the node. You can use the *Move*, *Rotate* and *Scale* tools to change these values. The values can be animated from script.
+: Governs the location, orientation and stretching of the node. You can use the *Move*, *Rotate* and *Scale* tools to change these values. The values can be animated from script ([learn more](/manuals/property-animation)).
 
 Size (box, text and pie nodes)
-: The size of the node is automatic by default but by setting the *Size Mode* to `Manual` you can alter the value. The size defines the bounds of the node and is used when doing input picking. This value can be animated from script.
+: The size of the node is automatic by default but by setting the *Size Mode* to `Manual` you can alter the value. The size defines the bounds of the node and is used when doing input picking. This value can be animated from script ([learn more](/manuals/property-animation)).
 
 Size Mode (box and pie nodes)
 : If set to `Automatic` the editor will set a size for the node. If set to `Manual` you can set the size yourself.
@@ -152,23 +146,14 @@ Pie Fill Angle (pie nodes)
 Template (template nodes)
 : The GUI scene file to use as template for the node. See the [Template node documentation](/manuals/gui-template) for details.
 
-Spine Scene (spine nodes)
-: The Spine Scene to use for this node. See the [Spine node documentation](/manuals/gui-spine) for details.
-
-Default Animation (spine nodes)
-: The animation to automatically play on this node. See the [Spine node documentation](/manuals/gui-spine) for details.
-
-Skin (spine nodes)
-: The skin to use for the node. See the [Spine node documentation](/manuals/gui-spine) for details.
-
 ParticleFX (particlefx nodes)
 : The particle effect to use on this node. See the [ParticleFX node documentation](/manuals/gui-particlefx) for details.
 
 Color
-: The color of the node. If the node is textured, the color tints the texture. The color can be animated from script.
+: The color of the node. If the node is textured, the color tints the texture. The color can be animated from script ([learn more](/manuals/property-animation)).
 
 Alpha
-: The translucency of the node. The alpha value can be animated from script.
+: The translucency of the node. The alpha value can be animated from script ([learn more](/manuals/property-animation)).
 
 Inherit Alpha
 : Setting this checkbox makes a node inherit the alpha value of the parent node. The node's alpha value is then multiplied with the parent's alpha value.
@@ -227,7 +212,7 @@ Adjust Mode
 
   If the GUI scene property *Adjust Reference* is set to `Disabled`, this setting will be ignored.
 
-Clipping Mode (box, pie and spine nodes)
+Clipping Mode (box and pie nodes)
 : Sets the clipping mode on the node:
 
   - `None` renders the node as usual.
@@ -235,10 +220,10 @@ Clipping Mode (box, pie and spine nodes)
 
   See the [GUI clipping manual](/manuals/gui-clipping) for details.
 
-Clipping Visible (box, pie and spine nodes)
+Clipping Visible (box and pie nodes)
 : Set to render the node's content in the stencil area. See the [GUI clipping manual](/manuals/gui-clipping) for details.
 
-Clipping Inverted (box, pie and spine nodes)
+Clipping Inverted (box and pie nodes)
 : Invert the stencil mask. See the [GUI clipping manual](/manuals/gui-clipping) for details.
 
 

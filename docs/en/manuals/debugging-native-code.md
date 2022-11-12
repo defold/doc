@@ -62,7 +62,7 @@ If a crash happens on a mobile device you can chose to download the crash file t
 If the app is [debuggable](/manuals/project-settings/#android), you can get the crash log using the [Android Debug Bridge (ADB) tool](https://developer.android.com/studio/command-line/adb.html) and the `adb shell` command:
 
 ```
-	$ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
+$ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
 ```
 
 #### iOS
@@ -74,31 +74,29 @@ In the `Xcode -> Devices` window, you can also select the crash logs
 
 ## Symbolicate a callstack
 
-If you get a callstack from either a `_crash` file or a [log file](/manuals/debugging-game-and-system-logs), you can symbolicate. This means translating each address in the callstack into a filename and line number, which in turn helps when finding out the root cause.
+If you get a callstack from either a `_crash` file or a [log file](/manuals/debugging-game-and-system-logs), you can symbolicate it. This means translating each address in the callstack into a filename and line number, which in turn helps when finding out the root cause.
 
-It is important that you match the correct engine with the callstack. Otherwise it's very likely to send you debugging the incorrect things. If you are building with native extensions, be sure to add the flag [--with-symbols](https://www.defold.com/manuals/bob/) so that you get all the needed data from the build server:
+It is important that you match the correct engine with the callstack, otherwise it's very likely to send you debugging the incorrect things! Use the flag [`--with-symbols`](https://www.defold.com/manuals/bob/) when bundling with [bob](https://www.defold.com/manuals/bob/) or check the "Generate debug symbols" checkbox from the bundle dialog in the editor:
 
-* iOS and macOS - the `dmengine.dSYM` folder in the `build.zip` contains the debug symbols for iOS/macOS builds.
-* Android and Linux - the executables themselves contain the debug symbols.
-* Windows - the `dmengine.pdb` file in the `build.zip` contains the debug symbols for Windows builds.
-* HTML5 - the `dmengine.js.symbols` file in the `build.zip` contains the debug symbols for HTML5 builds.
-
-If you are building without native extensions the debug symbols are available from the [Defold download website](http://d.defold.com):
-
-* iOS - The `engine/armv7-darwin/dmengine_release.dSYM.zip` and `engine/arm64-darwin/dmengine_release.dSYM.zip` files contain the debug symbols for 32 and 64-bit engine versions.
-* macOS - The `engine/x86_64-darwin/dmengine_release.dSYM.zip` file contains the debug symbols.
-* Android - The `engine/armv7-android/dmengine.apk` and `engine/arm64-android/dmengine.apk` engines include the debug symbols for 32 and 64-bit engine versions.
-* Linux - The `engine/x86_64-linux/dmengine_release` engine includes the debug symbols.
-* Windows -  The `engine/x86_64-win32/dmengine_release.pdb` file contains the debug symbols.
-* HTML5 - The `engine/js-web/dmengine_release.js.symbols` file contaons the debug symbols.
+* iOS - the `dmengine.dSYM.zip` folder in `build/arm64-ios` contains the debug symbols for iOS builds.
+* macOS - the `dmengine.dSYM.zip` folder in `build/x86_64-darwin` contains the debug symbols for macOS builds.
+* Android - the `projecttitle.apk.symbols/lib/` bundle output folder contains the debug symbols for the target architectures.
+* Linux - the executable contain the debug symbols. 
+* Windows - the `dmengine.pdb` file in `build/x86_64-win32` contains the debug symbols for Windows builds.
+* HTML5 - the `dmengine.js.symbols` file in `build/js-web` or `build/wasm-web` contains the debug symbols for HTML5 builds.
 
 ::: important
 It is very important that your save the debug symbols somewhere for each public release you make of your game and that you know which release the debug symbols belong to. You will not be able to debug any native crashes if you do not have the debug symbols! Also, you should keep an unstripped version of the engine. This allows for the best symbolication of the callstack.
 :::
 
+
+### Uploading symbols to Google Play
+You can [upload the debug symbols to Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) so that any crashes logged in Google Play will show symbolicated call stacks. Zip the contents of the `projecttitle.apk.symbols/lib/` bundle output folder. The folder includes one or more sub folders with architecture names such as `arm64-v8a` and `armeabi-v7a`.
+
+
 ### Symbolicate an Android callstack
 
-1. Get it from your build folder
+1. Get the engine from your build folder
 
 	$ ls <project>/build/<platform>/[lib]dmengine[.exe|.so]
 

@@ -23,9 +23,14 @@ Defold supports the following component types:
 * [Particle FX](/manuals/particlefx) -  Spawn particles
 * [Script](/manuals/script) - Add game logic
 * [Sound](/manuals/sound) - Play sound or music
-* [Spine model](/manuals/spinemodel) - Render a spine animation
 * [Sprite](/manuals/sprite) - Show a 2D image (with optional flipbook animation)
 * [Tilemap](/manuals/tilemap) - Show a grid of tiles
+
+Additional components can be added through extensions:
+
+* [Rive model](/extension-rive) - Render a Rive animation
+* [Spine model](/extension-spine) - Render a Spine animation
+
 
 ## Enabling and disabling components
 
@@ -88,7 +93,9 @@ Example: Two game objects A and B. B is a child of A. B has a sprite component.
 | B        | 1       |
 | B#sprite | 0.5     |
 
-With the above hierarchy the final z-value of the sprite component on B is 2 + 1 + 0.5 = 2.5.
+![](images/graphics/component-hierarchy.png)
+
+With the above hierarchy the final z-value of the sprite component on B is 2 + 1 + 0.5 = 3.5.
 
 ::: important
 If two components have the exact same z-value the order is undefined and you may end up with components flickering back and forth or components being rendered in one order on one platform and in another order on another platform.

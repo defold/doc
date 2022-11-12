@@ -26,6 +26,11 @@ Defold 中的物理相关教程如下:
 比如设置为 0.02 意味着 1:50, 那么200像素就是 4 米. 注意重力 (也在 `game.project` 里进行设定) 也需要基于缩放值进行调整.
 
 
+## 物理循环更新
+
+推荐以固定帧率更新物理引擎 (而不是依据游戏不稳定的更新频率) 以模拟稳定的物理效果. 可以在 *game.project* 文件的 Physics 部分中勾选 [Use Fixed Timestep setting](/manuals/project-settings/#physics) 以启用固定帧率物理更新. 帧率由 *game.project* 文件的 Engine 部分中的 [Fixed Update Frequency setting](/manuals/project-settings/#engine) 配置决定. 当物理引擎使用固定帧率更新时推荐使用 `fixed_update(self, dt)` 生命周期函数来对游戏中的物体的交互进行处理, 例如对物体施加一个力.
+
+
 ## 注意事项
 
 碰撞代理

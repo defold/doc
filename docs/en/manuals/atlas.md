@@ -70,6 +70,24 @@ Here are examples of the different property settings with four square images of 
 
 ![Atlas properties](images/atlas/atlas_properties.png){srcset="images/atlas/atlas_properties@2x.png 2x"}
 
+## Image properties
+
+Each image in an atlas has a set of properties:
+
+Id
+: The id of the image (read-only).
+
+Size
+: The width and height of the image (read-only).
+
+Sprite Trim Mode
+: How the sprite is rendered. The default is to render the sprite as a rectangle (Sprite Trim Mode set to Off). If the sprite contains a lot of transparent pixels it may be more efficient to render the sprite as a non rectangular shape using between 4 and 8 vertices.
+
+Image
+: Path to the image itself.
+
+![Image properties](images/atlas/image_properties.png){srcset="images/atlas/image_properties@2x.png 2x"}
+
 ## Animation properties
 
 In addition to the list of images that are part of an animation group, a set of properties are available:

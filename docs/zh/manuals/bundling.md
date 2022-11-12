@@ -56,4 +56,38 @@ brief: 本教程介绍了如何打包应用.
 
 ## 命令行打包
 
+编辑器使用命令行工具 [Bob](/manuals/bob/) 进行应用打包.
+
 日常开发中一般使用 Defold 编辑器编译和打包应用. 如果需要自动生成机制, 比如发布新版本时批处理所有平台或者使用持续集成环境持续生成最新版本. 可以使用 [Bob 命令行工具](/manuals/bob/) 编译和打包.
+
+## Bundle 结构
+
+Bundle 的逻辑结构是这样的:
+
+![](images/bundling/bundle_schematic_01.png)
+
+Bundle 会被输出到一个文件夹. 不同平台位置各异, 还有可能作为 zip 文件包含进 `.apk` 或者 `.ipa` 中.
+Bundle 文件夹的内容每个平台也不一样.
+
+除了可执行文件, 打包过程中也会收集相关平台所必须的资源 (比如安卓平台用的 .xml 资源文件).
+
+通过 [bundle_resources](https://defold.com/manuals/project-settings/#bundle-resources) 项, 设置应打包进 bundle 里的资源.
+可以针对不同平台分别设置.
+
+游戏资源被保存在 `game.arcd` 文件中, 使用 LZ4 算法逐个压缩.
+通过 [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) 项, 设置应打包 (同时也被压缩) 进 game.arcd 里的资源.
+这类资源可以使用 [sys.load_resource()](https://defold.com/ref/sys/#sys.load_resource) 函数来进行访问.
+
+## Release 与 Debug
+
+打包游戏时有个选项允许选择创建 debug 还是 release 应用. 这两种应用包类似但是要记得两者存在如下区别:
+
+* Release 包不包含 [性能分析器](/manuals/profiling)
+* Release 包不包含 [屏幕录制器](/ref/stable/sys/#start_record)
+* Release 不输出调用 `print()` 产生的信息也不输出原生扩展产生的任何信息
+* Release 包的 `sys.get_engine_info()` 中的 `is_debug` 被设置为 `false`
+* Release 包调用 `tostring()` 时不会反查 `hash` 值. 也就是说对于一个类型为 `url` 或 `hash` 值的 `tostring()` 不会返回原值字符串而是返回一个数字表示的字符串 (`'hash: [/camera_001]'` 对比 `'hash: [11844936738040519888 (unknown)]'`)
+* Release 包不支持编辑器中设置的用于 [热重载](/manuals/hot-reload) 和类似功能的 target
+
+
+

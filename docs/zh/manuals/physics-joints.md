@@ -7,10 +7,11 @@ brief: Defold 支持 2D 物理关节约束. 本教程介绍了其用法.
 
 Defold 支持物理关节. 一个关键基于某种限制连接两个物体. 支持的关节类型如下:
 
-* Fixed (physics.JOINT_TYPE_FIXED) - 限制两物体最大距离的固定关节. 在 Box2D 被称为绳子关节.
-* Hinge (physics.JOINT_TYPE_HINGE) - 把两个物体通过一个锚点钉在一起的钉子关节. 两物体相对位置固定而相对旋转没有限制. 这种关节可以开启马达给一个最大扭力与速度. 在 Box2D 被称为旋转关节.
-* Spring (physics.JOINT_TYPE_SPRING) - 限制两个物体之间距离范围的弹簧关节. 弹簧关节通过设定其频率和阻尼比可以让物体像是被软弹簧连接. 在 Box2D 被称为距离关节.
-* Slider (physics.JOINT_TYPE_SLIDER) - 限制两物体只能在某个指定轴上相对移动而不允许相对转动的滑动关节. 在 Box2D 被称为活塞关节.
+* **Fixed (physics.JOINT_TYPE_FIXED)** - 限制两物体最大距离的固定关节. 在 Box2D 被称为绳子关节.
+* **Hinge (physics.JOINT_TYPE_HINGE)** - 把两个物体通过一个锚点钉在一起的钉子关节. 两物体相对位置固定而相对旋转没有限制. 这种关节可以开启马达给一个最大扭力与速度. 在 Box2D 被称为旋转关节.
+* **Weld (physics.JOINT_TYPE_WELD)** - 用於完全保持對象之間的位置關係的關節. 通過調整頻率和阻尼率軟化的焊接關節可以產生類似彈簧的效果. 在 Box2D 被称为焊接关节.
+* **Spring (physics.JOINT_TYPE_SPRING)** - 限制两个物体之间距离范围的弹簧关节. 弹簧关节通过设定其频率和阻尼比可以让物体像是被软弹簧连接. 在 Box2D 被称为距离关节.
+* **Slider (physics.JOINT_TYPE_SLIDER)** - 限制两物体只能在某个指定轴上相对移动而不允许相对转动的滑动关节. 在 Box2D 被称为活塞关节.
 
 ## 建立关节
 
