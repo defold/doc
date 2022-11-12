@@ -21,20 +21,22 @@ go.set_position(pos, "/level/stuff/other_gameobject")
 msg.post("#", "hello_there")
 local id = go.get_id(".")
 ```
+
 Vamos a comenar con un ejemplo sencillo. Supongamos que tienes un game object solamente con un componente sprite. También tienes un componente script para controlar el game object. La configuración en el editor podría ser algo como esto: 
 
 ![bean in editor](images/addressing/bean_editor.png)
 
-Ahora quieres deshabilitar el sprite cuando comience el juego, para que puedas hacerlo aparecer después. Esto se hace fácil colocando el siguinete código en "controller.script":
+Ahora quieres deshabilitar el sprite cuando comience el juego, para que puedas hacerlo aparecer después. Esto se hace fácil de hacer colocando el siguinete código en "controller.script":
 
 ```lua
 function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-1. No te preocupes si estás perplejo por el uso de '#'. Llegaremos a eso pronto.
 
-Esto funcionará como se espera. Cuando el juego comience, el componente script *direccionará* un *mensaje* de "disable" (inabilitado) al componente sprite que se encuentra identificado por "body". El efecto de este mensaje especial del motor es que el componente sprite ocultará las gráficas del sprite. Esquemáticamente, la configuración es algo cómo esto:
+1. No te asustes por utilizar '#'. Llegaremos hablaremos de eso pronto.
+
+Esto funcionará como se esperamos. Cuando el juego comience, el componente script *enviará* un *mensaje* de "disable" (inabilitado) direccionado al componente sprite que se encuentra identificado por "body". El efecto de este mensaje especial del motor es que el componente sprite ocultará las gráficas del sprite. Esquemáticamente, la configuración es algo cómo esto:
 
 ![bean](images/addressing/bean.png)
 
@@ -68,7 +70,7 @@ Ahora, vamos a ver que pasa si agregamos más objectos de juego. Supongamos que 
 ![bean](images/addressing/bean_buddy.png)
 
 ::: sidenote
-Existen dos componentes separados que se llaman "controller", uno en cada uno de los objetos de juego pero esto es perfectamente legal porque cada objecto de juego crea su propio contexto de nombre.
+Existen dos componentes separados que se llaman "controller", uno en cada uno de los objetos de juego, pero esto es perfectamente legal porque cada objecto de juego crea su propio contexto de nombre.
 :::
 
 Debido a que el destinatario del mensaje esta por fuera del object que está enviando el mensaje ("bean"), el código necesita especificar cual "controller" debería recibir el mensaje. Debe ser especificado ambos, tanto el id del objeto de juego cómo el id del componente. La dirección completa del componente sería `"buddy#controller"` y está dirección consiste en dos partes separadas.
