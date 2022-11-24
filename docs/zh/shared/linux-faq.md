@@ -114,3 +114,18 @@ dmengine: error while loading shared libraries: libopenal.so.1: cannot open shar
 ```bash
 $ apt-get install libopenal-dev
 ```
+
+####  Q: 还没等我选择什么选项菜单栏就关闭了?
+
+A: 这很可能是窗口管理器 (比如 Qtile 或 i3) 造成的. 这是一个 [JavaFX 已知问题](https://bugs.openjdk.org/browse/JDK-8251240?focusedCommentId=14362084&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-14362084) 解决方法其一, 设置 `GDK_DISPLAY` 环境变量为 1:¨
+
+```bash
+$ GDK_DISPLAY=1 ./Defold
+D=2
+```
+
+解决方法其二, 修改 `Defold/config` 文件在 `vmargs` 行添加 `-Djdk.gtk.version=2`:
+
+```
+vmargs = -Djdk.gtk.version=2,-Dfile.encoding=UTF-8,...
+```
