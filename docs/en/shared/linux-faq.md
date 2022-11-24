@@ -111,3 +111,12 @@ Then you need to install *libopenal1*. The package name varies between distribut
 ```bash
 $ apt-get install libopenal-dev
 ```
+
+####  Q: Why does the top menu close before I can select something?
+
+A: This is likely caused by the window manager used (for instance Qtile or i3). This is a [known issue in JavaFX](https://bugs.openjdk.org/browse/JDK-8251240?focusedCommentId=14362084&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-14362084) and it can be solved by setting the `GDK_DISPLAY` environment variable to 1:¨
+
+```bash
+$ GDK_DISPLAY=1 ./Defold
+```
+
