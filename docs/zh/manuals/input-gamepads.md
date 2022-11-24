@@ -105,8 +105,6 @@ end
 ```
 
 ## 手柄配置文件
-在 Windows 上, 只支持 XBox 360 兼容手柄. 安装方法请见 http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows
-
 每种手柄分别对应一份映射文件, 可以在 *gamepads* 配置文件中设置. Defold 自带一个通用的手柄映射配置文件:
 
 ![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
@@ -148,6 +146,14 @@ end
 <iframe allow="gamepad"></iframe>
 ```
 
+
+### 标准手柄
+(自 Defold 1.4.1 版本起)
+
+如果连着的手柄被浏览器视为标准手柄, 则它会使用 [手柄配置文件](/manuals/input-gamepads/#gamepads-settings-file) (在 `/builtins` 目录下有一个标准手柄映射配置文件 `default.gamepads`) 里的 "Standard Gamepad" 映射. 所谓标准手柄是指包含个 16 按钮和 2 个摇杆的手柄, 布局类似 PlayStation 或者 Xbox 手柄 (更多详情请参考 [W3C 定义及按钮布局](https://w3c.github.io/gamepad/#dfn-standard-gamepad)). 如果连接着的手柄未被视为标准手柄 Defold 会根据硬件类型在手柄配置文件里寻找匹配的映射.
+
+## Windows 上的手柄
+在 Windows 上, 只支持 XBox 360 兼容手柄. To hook up your 360 controller to your Windows machine, [make sure it is setup correctly](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 ## 安卓手柄
 (更新于 Defold 1.2.183)
 
