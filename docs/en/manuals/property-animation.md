@@ -25,7 +25,7 @@ To stop all animations of a given property, call `go.cancel_animations()`, or fo
 
 ```lua
 -- Stop euler z rotation animation on the current game object
-go.cancel_animation(".", "euler.z")
+go.cancel_animations(".", "euler.z")
 ```
 
 If you cancel the animation of a composite property, like `position`, any animations of the sub-components (`position.x`, `position.y` and `position.z`) will be cancelled as well.

@@ -175,7 +175,7 @@ go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNC
 
 ```lua
 -- Stop euler z rotation animation on the current game object
-go.cancel_animation(".", "euler.z")
+go.cancel_animations(".", "euler.z")
 ```
 
 Εάν ακυρώσετε την κινούμενη εικόνα μιας σύνθετης ιδιότητας, όπως `position`, θα ακυρωθούν επίσης κινούμενες εικόνες των υπο-στοιχείων (`position.x`, `position.y` και `position.z`).
