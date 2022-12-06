@@ -150,7 +150,6 @@ A camera has a number of different properties that can be manipulated using `go.
 
 ## Third-party camera solutions
 
-There are a few library camera solutions that implements common camera features such as game object follow, screen shake, screen to world coordinate conversion and so on. They are available from the Defold community assets portal:
+There is a library camera solution that implements common camera features such as game object follow, screen shake, screen to world coordinate conversion and so on. It is available from the Defold community assets portal:
 
-- [Rendercam](https://defold.com/assets/rendercam/) (2D & 3D) by Ross Grams.
-- [Ortographic camera](https://defold.com/assets/orthographic/) (2D only) by Björn Ritzl.
+- [Orthographic camera](https://defold.com/assets/orthographic/) (2D only) by Björn Ritzl.
