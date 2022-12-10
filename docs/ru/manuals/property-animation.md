@@ -25,7 +25,7 @@ go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNC
 
 ```lua
 -- Остановить анимацию эйлерова вращения по Z для текущего игрового объекта 
-go.cancel_animation(".", "euler.z")
+go.cancel_animations(".", "euler.z")
 ```
 
 При отмене анимации составного свойства, такого как например `position`, вся анимация его составляющих компонент (`position.x`, `position.y` и `position.z`) будет также отменена.

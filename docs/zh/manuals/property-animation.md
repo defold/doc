@@ -25,7 +25,7 @@ go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNC
 
 ```lua
 -- 停止当前游戏对象欧拉 z 轴旋转动画
-go.cancel_animation(".", "euler.z")
+go.cancel_animations(".", "euler.z")
 ```
 
 如果取消组合属性的动画, 例如 `position`, 其所有子属性 (`position.x`, `position.y` 和 `position.z`) 动画也会一同取消.

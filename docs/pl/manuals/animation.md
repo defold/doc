@@ -290,7 +290,7 @@ Aby zatrzymać wszystkie animacje danej właściwości, wywołaj `go.cancel_anim
 
 ```lua
 -- Stop euler z rotation animation on the current game object
-go.cancel_animation(".", "euler.z")
+go.cancel_animations(".", "euler.z")
 ```
 
 Jeśli zatrzymasz animacje właściwości, która jest właściwością "kompozytową" (składającą się z kilku osobnych wartości, jak np. `vector3 position`), osobne animacje każdego z elementów składowych danej właściwości (`position.x`, `position.y` i `position.z`) zostaną zatrzymane.
