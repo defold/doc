@@ -149,7 +149,6 @@ end
 
 ## 第三方摄像机解决方案
 
-有一些第三方库实现了诸如游戏对象跟随, 屏幕抖动, 屏幕与世界坐标转换等摄像机功能. 可以在 Defold 社区资源库找到:
+有一个第三方库实现了诸如游戏对象跟随, 屏幕抖动, 屏幕与世界坐标转换等摄像机功能. 可以在 Defold 社区资源库找到:
 
-- [Rendercam](https://defold.com/assets/rendercam/) (2D 和 3D) 由 Ross Grams 开发.
 - [Ortographic camera](https://defold.com/assets/orthographic/) (仅 2D) 由 Björn Ritzl 开发.

@@ -146,7 +146,7 @@ go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNC
 
 ```lua
 -- 현재 게임오브젝트에서 오일러(euler) z축의 회전 애니메이션을 중지함
-go.cancel_animation(".", "euler.z")
+go.cancel_animations(".", "euler.z")
 ```
 
 만약 "position"과 같이 복합적인(composite) 속성의 애니메이션을 취소하면, 하위 요소들("position.x", "position.y", "position.z")의 애니메이션도 함께 취소됩니다.
