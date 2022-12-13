@@ -49,7 +49,7 @@ The basic theme is divided into three groups of colors (with darker and lighter 
 * Component color - buttons, scroll bar handles, text field outlines
 * Text color - text and icons
 
-As an example, if you add this to your custom `editor.scss` stylesheet in `.defold` folder in user home:
+As an example, if you add this to your custom `editor.css` stylesheet in `.defold` folder in user home:
 
 ```
 * {
@@ -97,7 +97,7 @@ Text.strong {
 and so on...
 ```
 
-The main font is defined in a root element which makes it quite easy to replace the font in most places. Add this to your `editor.scss`:
+The main font is defined in a root element which makes it quite easy to replace the font in most places. Add this to your `editor.css`:
 
 ```
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
