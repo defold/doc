@@ -47,5 +47,11 @@
             "translation": "Demetrij87G",
             "active": true
         }
+        "fa":
+        {
+            "name": "فارسی (Persian)",
+            "translation":"TheUnderName",
+            "active":true
+        }
     }
 }
