@@ -76,7 +76,7 @@ brief: 本教程介绍了 Defold 如何处理和在游戏中使用字体.
 : 对于位图字体, 此设置代表文字阴影叠加计算次数. 对于 distance field 字体, 此设置代表文字阴影宽度像素数.
 
 *Shadow X/Y*
-: 阴影水平和垂直偏移. 只在输出格式为 `MODE_MULTI_LAYER` 时有效.
+: 阴影水平和垂直偏移. 只在渲染模式为 `MODE_MULTI_LAYER` 时有效.
 
 *Extra Characters*
 : 默认字体包含 ASCII 字母表字符 (字符码 32-126). 如果需要更多字符, 需要手动在这里输入.
