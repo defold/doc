@@ -76,7 +76,7 @@ Shadow support is enabled by the built-in font material shaders and handles both
 : For bitmap fonts, this setting indicates the number of times a small blur kernel will be applied to each font glyph. For distance field fonts, this setting equals the actual pixel width of the blur.
 
 *Shadow X/Y*
-: The horizontal and vertical offset in pixels of the generated shadow. This setting will only affect the glyph shadow when the output format is set to `MODE_MULTI_LAYER`.
+: The horizontal and vertical offset in pixels of the generated shadow. This setting will only affect the glyph shadow when the Render Mode is set to `MODE_MULTI_LAYER`.
 
 *Extra Characters*
 : By default the font will include the ASCII printable characters (character codes 32-126). To manually include additional characters, list them in this property field.
