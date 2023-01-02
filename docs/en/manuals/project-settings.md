@@ -546,7 +546,11 @@ If set, use the specified public key file when bundling live update content. If 
 ### Native extension
 
 #### _App Manifest_
-If set, use the app manifest to customize the engine build. This allows you to remove unneeded parts from the engine making it possible to decrease the final binary size. Note that this feature is in alpha state. Please visit [the forum](https://forum.defold.com/t/native-extensions/4946/142) for information on how to proceed.
+If set, use the app manifest to customize the engine build. This allows you to remove unneeded parts from the engine making it possible to decrease the final binary size.
+
+![](images/app-manifest/create-app-manifest.png)
+
+![](images/app-manifest/app-manifest.png)
 
 ---
 
