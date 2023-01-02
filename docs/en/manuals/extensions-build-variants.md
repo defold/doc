@@ -33,9 +33,9 @@ This executable runs without any graphics and sound. It means that you can run t
 
 Not only can you add native code to the engine with the Native Extensions feature, you can also remove standard parts of the engine. E.g. if you don't need a physics engine, you can remove that from the executable.
 
-![](images/app-manifest/create-app-manifest.png)
+![](images/app_manifest/create-app-manifest.png)
 
-![](images/app-manifest/app-manifest.png)
+![](images/app_manifest/app-manifest.png)
 
 ### Combined context
 

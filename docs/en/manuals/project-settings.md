@@ -548,9 +548,9 @@ If set, use the specified public key file when bundling live update content. If 
 #### _App Manifest_
 If set, use the app manifest to customize the engine build. This allows you to remove unneeded parts from the engine making it possible to decrease the final binary size.
 
-![](images/app-manifest/create-app-manifest.png)
+![](images/app_manifest/create-app-manifest.png)
 
-![](images/app-manifest/app-manifest.png)
+![](images/app_manifest/app-manifest.png)
 
 ---
 
