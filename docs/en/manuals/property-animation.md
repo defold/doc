@@ -7,8 +7,8 @@ brief: This manual describes how to use property animations in Defold.
 
 All numeric properties (numbers, vector3, vector4 and quaterions) and shader constants can be animated with the built-in animation system, using the function `go.animate()`. The engine will automatically "tween" properties for you according to given playback modes and easing functions. You can also specify custom easing functions.
 
-  ![Property animation](images/animation/property_animation.png){.inline srcset="images/animation/property_animation@2x.png 2x"}
-  ![Bounce loop](images/animation/bounce.gif){.inline}
+  ![Property animation](images/animation/property_animation.png)
+  ![Bounce loop](images/animation/bounce.gif)
 
 ## Property animation
 
@@ -105,47 +105,47 @@ The following are valid easing values for `gui.animate()`:
 | gui.EASING_INQUINT | gui.EASING_OUTQUINT |
 | gui.EASING_INOUTQUINT | gui.EASING_OUTINQUINT |
 
-![Linear interpolation](images/properties/easing_linear.png){.inline}
-![In back](images/properties/easing_inback.png){.inline}
-![Out back](images/properties/easing_outback.png){.inline}
-![In-out back](images/properties/easing_inoutback.png){.inline}
-![Out-in back](images/properties/easing_outinback.png){.inline}
-![In bounce](images/properties/easing_inbounce.png){.inline}
-![Out bounce](images/properties/easing_outbounce.png){.inline}
-![In-out bounce](images/properties/easing_inoutbounce.png){.inline}
-![Out-in bounce](images/properties/easing_outinbounce.png){.inline}
-![In elastic](images/properties/easing_inelastic.png){.inline}
-![Out elastic](images/properties/easing_outelastic.png){.inline}
-![In-out elastic](images/properties/easing_inoutelastic.png){.inline}
-![Out-in elastic](images/properties/easing_outinelastic.png){.inline}
-![In sine](images/properties/easing_insine.png){.inline}
-![Out sine](images/properties/easing_outsine.png){.inline}
-![In-out sine](images/properties/easing_inoutsine.png){.inline}
-![Out-in sine](images/properties/easing_outinsine.png){.inline}
-![In exponential](images/properties/easing_inexpo.png){.inline}
-![Out exponential](images/properties/easing_outexpo.png){.inline}
-![In-out exponential](images/properties/easing_inoutexpo.png){.inline}
-![Out-in exponential](images/properties/easing_outinexpo.png){.inline}
-![In circlic](images/properties/easing_incirc.png){.inline}
-![Out circlic](images/properties/easing_outcirc.png){.inline}
-![In-out circlic](images/properties/easing_inoutcirc.png){.inline}
-![Out-in circlic](images/properties/easing_outincirc.png){.inline}
-![In quadratic](images/properties/easing_inquad.png){.inline}
-![Out quadratic](images/properties/easing_outquad.png){.inline}
-![In-out quadratic](images/properties/easing_inoutquad.png){.inline}
-![Out-in quadratic](images/properties/easing_outinquad.png){.inline}
-![In cubic](images/properties/easing_incubic.png){.inline}
-![Out cubic](images/properties/easing_outcubic.png){.inline}
-![In-out cubic](images/properties/easing_inoutcubic.png){.inline}
-![Out-in cubic](images/properties/easing_outincubic.png){.inline}
-![In quartic](images/properties/easing_inquart.png){.inline}
-![Out quartic](images/properties/easing_outquart.png){.inline}
-![In-out quartic](images/properties/easing_inoutquart.png){.inline}
-![Out-in quartic](images/properties/easing_outinquart.png){.inline}
-![In quintic](images/properties/easing_inquint.png){.inline}
-![Out quintic](images/properties/easing_outquint.png){.inline}
-![In-out quintic](images/properties/easing_inoutquint.png){.inline}
-![Out-in quintic](images/properties/easing_outinquint.png){.inline}
+![Linear interpolation](images/properties/easing_linear.png)
+![In back](images/properties/easing_inback.png)
+![Out back](images/properties/easing_outback.png)
+![In-out back](images/properties/easing_inoutback.png)
+![Out-in back](images/properties/easing_outinback.png)
+![In bounce](images/properties/easing_inbounce.png)
+![Out bounce](images/properties/easing_outbounce.png)
+![In-out bounce](images/properties/easing_inoutbounce.png)
+![Out-in bounce](images/properties/easing_outinbounce.png)
+![In elastic](images/properties/easing_inelastic.png)
+![Out elastic](images/properties/easing_outelastic.png)
+![In-out elastic](images/properties/easing_inoutelastic.png)
+![Out-in elastic](images/properties/easing_outinelastic.png)
+![In sine](images/properties/easing_insine.png)
+![Out sine](images/properties/easing_outsine.png)
+![In-out sine](images/properties/easing_inoutsine.png)
+![Out-in sine](images/properties/easing_outinsine.png)
+![In exponential](images/properties/easing_inexpo.png)
+![Out exponential](images/properties/easing_outexpo.png)
+![In-out exponential](images/properties/easing_inoutexpo.png)
+![Out-in exponential](images/properties/easing_outinexpo.png)
+![In circlic](images/properties/easing_incirc.png)
+![Out circlic](images/properties/easing_outcirc.png)
+![In-out circlic](images/properties/easing_inoutcirc.png)
+![Out-in circlic](images/properties/easing_outincirc.png)
+![In quadratic](images/properties/easing_inquad.png)
+![Out quadratic](images/properties/easing_outquad.png)
+![In-out quadratic](images/properties/easing_inoutquad.png)
+![Out-in quadratic](images/properties/easing_outinquad.png)
+![In cubic](images/properties/easing_incubic.png)
+![Out cubic](images/properties/easing_outcubic.png)
+![In-out cubic](images/properties/easing_inoutcubic.png)
+![Out-in cubic](images/properties/easing_outincubic.png)
+![In quartic](images/properties/easing_inquart.png)
+![Out quartic](images/properties/easing_outquart.png)
+![In-out quartic](images/properties/easing_inoutquart.png)
+![Out-in quartic](images/properties/easing_outinquart.png)
+![In quintic](images/properties/easing_inquint.png)
+![Out quintic](images/properties/easing_outquint.png)
+![In-out quintic](images/properties/easing_inoutquint.png)
+![Out-in quintic](images/properties/easing_outinquint.png)
 
 ## Custom easing
 
