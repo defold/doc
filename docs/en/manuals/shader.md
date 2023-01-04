@@ -93,6 +93,80 @@ Varying variables
 
   ![Varying interpolation](images/shader/varying.png){srcset="images/shader/varying@2x.png 2x"}
 
+## Including snippets into shaders
+
+Shaders in Defold support including source code from files within the project that have have the `.glsl` extension. To include a glsl file from a shader, use the `#include "path-to-file.glsl"` pragma. Includes must have either project relative paths or a path that is relative from the file that is including it:
+
+```glsl
+// In file /main/my-shader.fs
+
+// Absolute path
+#include "/main/my-snippet.glsl"
+// The file is in the same folder
+#include "my-snippet.glsl"
+// The file is in a sub-folder on the same level as 'my-shader'
+#include "sub-folder/my-snippet.glsl"
+// The file is in a sub-folder on the parent directory, i.e /some-other-folder/my-snippet.glsl
+#include "../some-other-folder/my-snippet.glsl"
+// The file is on the parent directory, i.e /root-level-snippet.glsl
+#include "../root-level-snippet.glsl"
+```
+
+There are some caveats to how includes are picked up:
+
+  - Include statements are only supported by using double quotations, meaning `<my-file.glsl>` and `'my-file.glsl'` will not be picked up by the preprocessor
+  - Files must be project relative, meaning that you can only include files that are located within the project. Any absolute path must be specified with a leading `/`
+  - You can include code anywhere in the file, but you cannot include a file inline in a statement. E.g `const float #include "my-float-name.glsl" = 1.0` will not work
+
+### Header guards
+
+Snippets can themselves include other `.glsl` files, which means that the final produced shader can potentially include the same code several times, and depending on the contents of the files you can end up with compile issues due to having the same symbols stated more than once. To avoid this, you can use *header guards*, which is a common concept in several programming languages. Example:
+
+```glsl
+// In my-shader.vs
+#include "math-functions.glsl"
+#include "pi.glsl"
+
+// In math-functions.glsl
+#include "pi.glsl"
+
+// In pi.glsl
+const float PI = 3.14159265359;
+```
+
+In this example, the `PI` constant will be defined twice, which will cause compiler errors when running the project. You should instead protect the contents with header guards:
+
+```glsl
+// In pi.glsl
+#ifndef PI_GLSL_H
+#define PI_GLSL_H
+
+const float PI = 3.14159265359;
+
+#endif // PI_GLSL_H
+```
+
+The code from `pi.glsl` will be expanded twice in `my-shader.vs`, but since you have wrapped it in header guards the PI symbol will only be defined once and the shader will compile successfully.
+
+However, this is not always strict necessary depending of use-case. If instead you want to reuse code locally in a function or elsewhere where you don't need the values to be globally available in the shader code, you should probably not use header guards. Example:
+
+```glsl
+// In red-color.glsl
+vec3 my_red_color = vec3(1.0, 0.0, 0.0);
+
+// In my-shader.fs
+vec3 get_red_color()
+{
+  #include "red-color.glsl"
+  return my_red_color;
+}
+
+vec3 get_red_color_inverted()
+{
+  #include "red-color.glsl"
+  return 1.0 - my_red_color;
+}
+```
 
 ## The rendering process
 
