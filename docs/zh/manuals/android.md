@@ -88,11 +88,7 @@ Defold 引擎需要一些权限来运行各种功能. 权限在 `AndroidManifest
 
 
 ## 使用 AndroidX
-AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以主动关闭它:
-
-1. 如果已存在應用清單文件要在 `armv7-android` 和 `arm64-android` 裏加入 `jetifier: false`.
-
-2. 如果還沒有應用清單文件可以去 [Defold App Manifest generator](https://britzl.github.io/manifestation/) 生成一個, 記得勾選 "Use Android Support lib" 選項.
+AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以在 Defold Manifest 文件里勾選 "Use Android Support lib" 選項.
 
 ![](images/android/enable_supportlibrary.png)
 
