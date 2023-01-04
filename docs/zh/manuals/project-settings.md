@@ -543,7 +543,12 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 ### Native extension
 
 #### _App Manifest_
-如果设置了, 则在自定义引擎编译时使用指定的 manifest. 此设置可以让你移除引擎不必要的部分来减小包体. 注意此设置尚在测试中. 使用方法详情请见 [这个帖子](https://forum.defold.com/t/native-extensions/4946/142).
+如果设置了, 则在自定义引擎编译时使用指定的 manifest. 此设置可以让你移除引擎不必要的部分来减小包体.
+
+
+![](images/app_manifest/create-app-manifest.png)
+
+![](images/app_manifest/app-manifest.png)
 
 ---
 
