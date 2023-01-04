@@ -182,9 +182,9 @@ We decided to limit lifecycle hooks to single editor script file because order i
 Every lifecycle hook can return actions or write to files in project directory.
 
 Existing lifecycle hooks that `/hooks.editor_script` may specify:
-- `on_build_started(opts)` — executed when game is Built to run locally or on some remote target. Your changes, be it returned actions or updated file contents, will appear in a built game. Raising an error from this hook will abort a build. `opts` is a table that contains following keys:
+- `on_build_started(opts)` — executed when game is Built to run locally or on some remote target using either the Project Build or Debug Start options. Your changes, be it returned actions or updated file contents, will appear in a built game. Raising an error from this hook will abort a build. `opts` is a table that contains following keys:
   - `platform` — a string in `%arch%-%os%` format describing what platform it's built for, currently always the same value as in `editor.platform`.
-- `on_build_finished(opts)` — executed when build is finished, be at successful or failed. `opts` is a table with following keys:
+- `on_build_finished(opts)` — executed when build is finished, be it successful or failed. `opts` is a table with following keys:
   - `platform` — same as in `on_build_started`
   - `success` — whether build is successful, either `true` or `false`
 - `on_bundle_started(opts)` — executed when you create a bundle or Build HTML5 version of a game. As with `on_build_started`, changes triggered by this hook will appear in a bundle, and errors will abort a bundle. `opts` will have these keys:
