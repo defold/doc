@@ -64,7 +64,7 @@ Defold executes Lua scripts as part of the engine lifecycle and exposes the life
   ```
 
 `fixed_update(self, dt)`
-: Frame-rate independent update. `dt` contains the delta time since the last update. Useful when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation. Requires that `physics.use_fixed_timestep` is enabled in *game.project*.
+: Frame-rate independent update. `dt` contains the delta time since the last update. This function is called when `engine.fixed_update_frequency` is enabled (!= 0). Useful when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation when `physics.use_fixed_timestep` is enabled in *game.project*.
 
   ```lua
   function fixed_update(self, dt)
