@@ -64,7 +64,7 @@ Defold 把 Lua 脚本作为引擎生命周期的一部分来执行并且向脚�
   ```
 
 `fixed_update(self, dt)`
-: 不基于 update 的固定帧率更新. `dt` 是从上一帧到这一帧的时差. 主要用于对物理对象进行一个稳定的交互模拟的情形. 需要在 *game.project* 文件里设置 `physics.use_fixed_timestep`.
+: 不基于 update 的固定帧率更新. `dt` 是从上一帧到这一帧的时差. 当 `engine.fixed_update_frequency` 开启 (!= 0) 时该函数会被调用. 当 *game.project* 文件里开启了 `physics.use_fixed_timestep` 的时候, 该函数可以用于对物理对象进行一个稳定的模拟.
 
   ```lua
   function fixed_update(self, dt)
