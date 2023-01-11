@@ -25,6 +25,6 @@ function update(self, dt)
 end
 ```
 
-::: 注意
+::: sidenote
 结果不包括射线起始点位置的碰撞物体. 这是 Box2D 做的限制.
 :::

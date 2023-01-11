@@ -53,7 +53,7 @@ Defold 支持声音但是不那么强大. 要注意两个概念:
 sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
 
-::: 注意
+::: sidenote
 即使声音组件所在游戏对象被删除了, 声音也会继续播放. 可以通过调用 [`sound.stop()`](/ref/sound/#sound.stop:url) 函数停止播放 (见下文).
 :::
 只要发送消息到声音组件都会造成新声音实例的播放, 直到声音缓存满溢引擎报错. 所以建议自己实现一个控制或者分组机制.
@@ -98,7 +98,7 @@ end
 
 ![Sound group mixer](images/sound/sound_mixer.png)
 
-::: 注意
+::: sidenote
 代码里不要依赖字符串组名因为编译后不保存字符串组名.
 :::
 
@@ -182,7 +182,7 @@ end
 msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#explosion1", gain = 1.0 })
 ```
 
-::: 注意
+::: sidenote
 对于 `play_sound` 消息没法过滤因为该消息由 Defold 引擎内部保留. 如果使用引擎保留消息名会造成运行不正确.
 :::
 

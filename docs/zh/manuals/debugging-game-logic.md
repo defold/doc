@@ -66,7 +66,7 @@ Step Over
 
   ![step](images/debugging/step.png){srcset="images/debugging/step@2x.png 2x"}
 
-::: 注意
+::: sidenote
 一行Lua代码不一定就是一句Lua表达式. 调试器按表达式步进, 也就是说有可能出现一行多个表达式的情况就要多按几下步进才会运行到下一行.
 :::
 

@@ -139,7 +139,7 @@ end
 
 ![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
 
-::: 注意
+::: sidenote
 开发者经常会忘记发送 `acquire_input_focus` 来使集合代理所在的游戏对象获得输入焦点. 不这么做的话此集合代理加载的所有游戏世界都无法获得输入消息.
 :::
 

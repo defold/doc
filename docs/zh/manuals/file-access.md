@@ -32,7 +32,7 @@ Defold 提供如下函数用以存取文件/文件夹:
 
 2. **打包资源文件** - 在 *game.project* 配置文件的 [*Bundle Resources* 项](https://defold.com/manuals/project-settings/#bundle-resources) 进行设置. 然后可以使用 [`sys.get_application_path()`](https://defold.com/ref/stable/sys/#sys.get_application_path:) 得到应用的实际路径. 再基于应用路径得到资源文件的完整路径. 之后就可以使用 `io.*` 和 `os.*` 的功能函数进行访问 (参见上文).
 
- ::: 注意
+ ::: sidenote
  基于安全考虑浏览器 (及浏览器里运行的 JavaScript 插件) 不允许访问本地文件. 虽然 HTML5 游戏也能运行, 但是只能用浏览器提供的 IndexedDB API 在 "虚拟文件系统" 中存取数据. 也就是说不允许使用 `io.*` 和 `os.*` 下的函数. 但是可以用 `http.request()` 请求在线资源文件.
  :::
 

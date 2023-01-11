@@ -39,7 +39,7 @@ local request_id = webview.open(webview_id, "http://www.defold.com") --广告无
 
 如果一切顺利你将看到神奇的网页占满了屏幕, 就是 Defold 官方首页.
 
-::: 注意
+::: sidenote
 要在 iOS 里访问的网页必须遵循在 `Info.plist` 文件中的 `NSAppTransportSecurity` 里面设置好的键值对.
 ```
 <key>NSAllowsArbitraryLoads</key>

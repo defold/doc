@@ -30,10 +30,6 @@ Device Models
 
 ![Settings](images/gui-layouts/settings.png){srcset="images/gui-layouts/settings@2x.png 2x"}
 
-::: 注意
-目前 iOS 版开发用app的 *Dynamic Orientation* 设置不起作用, 不论设置为什么值, 应用屏幕都会自动旋转.
-:::
-
 勾选 *Dynamic Orientation* 选项可以使引用在屏幕上自动旋转以适应横屏竖屏. 游戏引擎也会根据横屏竖屏选取合适的界面布局.
 
 ## GUI 布局

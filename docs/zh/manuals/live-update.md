@@ -153,7 +153,7 @@ end
 
 从用户角度来看, 验证过程不必深入了解, 但是要知道验证内容, 以便遇到错误时可以及时修复.
 
-::: 注意
+::: sidenote
 如果遇到 "ERROR:RESOURCE: Byte mismatch in decrypted manifest signature. Different keys used for signing?" 错误很有可能是因为你的服务器对包外资源和清单文件的 MIME 类型设置错误. 确保 MIME 类型为 `application/octet-stream`. 可以使用 `.htaccess` 文件加上一条 `AddType application/octet-stream .` 关联到资源和清单文件所在文件夹.
 :::
 
@@ -314,7 +314,7 @@ end
 
     完成之后你会得到 *Access key ID* 和 *Secret access key*.
 
-    ::: 注意
+    ::: sidenote
     保存好密匙 *非常重要* 因为离开 Amazon 页面后就无法再次获得密匙了.
     :::
 

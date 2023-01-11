@@ -41,7 +41,7 @@ end
 
 id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprite组件叫做 "body", 控制这个对象的脚本组件叫做 "controller".
 
-::: 注意
+::: sidenote
 如果你不手动命名, 编辑器会自动设置一个命名. 每当新建一个游戏对象或组件, 系统会将唯一 *Id* 赋值给它.
 
 - 游戏对象就是go后面跟一个数字 ("go2", "go3" 以此类推).
@@ -58,7 +58,7 @@ id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprit
 
 ![bean](images/addressing/bean_shield.png)
 
-::: 注意
+::: sidenote
 如果你非要设置成一样的id, 系统会提示错误阻止你这样做:
 
 ![bean](images/addressing/name_collision.png)
@@ -68,7 +68,7 @@ id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprit
 
 ![bean](images/addressing/bean_buddy.png)
 
-::: 注意
+::: sidenote
 这两个脚本组件都叫 "controller", 但是由于唯一性是对每个游戏对象来说的, 所以这样做是可以的.
 :::
 
@@ -129,7 +129,7 @@ Defold 提供两种简化写法用来简化消息传递时需要输入的完整�
 - /team_2/bean
 - /team_2/buddy
 
-::: 注意
+::: sidenote
 游戏里的各种id存储为哈希值. 包括集合里的相对路径也哈希成绝对路径.
 :::
 

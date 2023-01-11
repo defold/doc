@@ -27,7 +27,7 @@ API 文档在 [推送通知扩展项目](https://defold.github.io/extension-push
 
 ## iOS 配置
 
-::: 注意
+::: sidenote
 为了更好地使用 Apple Push Notification 服务, 最好先熟读 [Apple 的官方文档](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html).
 :::
 
@@ -134,7 +134,7 @@ DEBUG:SCRIPT:
 
 ## Android 配置
 
-::: 注意
+::: sidenote
 建议首先阅读 Firebase Cloud Messaging 服务文档. 文档在这里 https://firebase.google.com/docs/cloud-messaging/
 :::
 
@@ -143,7 +143,7 @@ Android 上, 推送通知需要做以下准备:
 * Firebase CM Sender ID 和应用 ID. 这些id会打包到应用中去.
 * 用于使用 Firebase 服务的服务器 API Key.
 
-::: 注意
+::: sidenote
 如果你的应用使用了 Google Cloud Messaging 平台, 现在需要导入 Firebase Cloud Messaging 平台中. 把应用从 Google dashboard 导入到 Firebase 即可. 导入后 *sender id* 保持不变, 你的 `game.project` 文件需要更新使用 `Firebase Application ID` (见下文).
 :::
 

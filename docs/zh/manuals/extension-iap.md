@@ -10,7 +10,7 @@ Defold 提供了方便的 iOS Appstore "in-app purchases" 和 Google Play 及 Am
 * 标准应用内支付 (一次性购买) 的消耗品和非消耗品
 * 订阅 (自动循环购买)
 
-::: 注意
+::: sidenote
 目前 Defold 接口可以与 Apple 的 Storekit 完整交互. 对于 Google Play 和 Facebook Canvas, 接口是一致的, 这有助于代码跨平台. 但是不同平台需要的流程有所不同. 而且注意目前没有针对 macOS 系统上 Mac Appstore 的支付接口.
 :::
 

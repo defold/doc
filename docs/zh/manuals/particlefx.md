@@ -226,7 +226,7 @@ particlefx.play("#particles")
 particlefx.stop("#particles")
 ```
 
-::: 注意
+::: sidenote
 即使粒子特效组件依附的游戏对象被删除, 粒子效果也不会停止播放.
 :::
 详情请见 [粒子特效索引文档](/ref/particlefx).

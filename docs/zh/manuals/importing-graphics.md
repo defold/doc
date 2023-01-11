@@ -9,7 +9,7 @@ Defold 支持2D游戏常见的可视内容. 可以使用 Defold 制作静态或�
 
 ![Importing files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
 
-::: 注意
+::: sidenote
 Defold 支持 PNG 和 JPEG 图片格式. 其他格式要先转换成支持格式后使用.
 :::
 

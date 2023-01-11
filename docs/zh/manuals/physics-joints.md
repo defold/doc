@@ -17,7 +17,7 @@ Defold 支持物理关节. 一个关键基于某种限制连接两个物体. 支
 
 目前只能使用 [`physics.create_joint()`](/ref/physics/#physics.create_joint:joint_type-collisionobject_a-joint_id-position_a-collisionobject_b-position_b-[properties]) 函数手动建立关节:
 
-::: 注意
+::: sidenote
 编辑器可视环境下创建关节的功能在开发计划中但发布时间未知.
 :::
 
