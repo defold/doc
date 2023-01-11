@@ -41,6 +41,6 @@ brief: 在编辑器新建项目窗口中可以加入自定义模板.
 
 这样就建立好了如上图的模板列表.
 
-::: 注意
+::: sidenote
 模板图片只能使用 [编辑器自带的图片](https://github.com/defold/defold/tree/dev/editor/resources/welcome/images).
 :::

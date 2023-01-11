@@ -46,7 +46,7 @@ profiler.view_recorded_frame()
 
 ![Web profiler](images/profiling/webprofiler_page.png)
 
-::: 注意
+::: sidenote
 同时使用多个目标设备时, 可以随时手动切换. 方法是修改页面上方 Connection Address 框内的地址来匹配控制台输出的远程分析器 URL:
 
 ```

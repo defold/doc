@@ -13,13 +13,13 @@ Android 要求每个 APK 文件在被安装到设备上或者在设备上更新�
 
 从 Defold 编辑器或者 [命令行工具](/manuals/bob) 打包安卓包需要提供一个 keystore (包括证书和公匙), 然后对应用签名时还要用到私匙. 没有的话, Defold 会自动生成一个临时调试用 keystore 用于打包和签名.
 
-::: 注意
+::: sidenote
 千万 **不要** 带着调试签名就上传到 Google Play 上去. 开发者必须自己制作属于自己的签名.
 :::
 
 ## 制作 keystore
 
-::: 注意
+::: sidenote
 Defold 应对安卓应用包签名的改变是从 1.2.173 版开始的, 就是使用单独的证书和密码来合成 keystore. [详见论坛帖子](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
@@ -31,7 +31,7 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 
 这个命令会生成一个叫做 `mykeystore.keystore` 的签名, 其中包含了证书和密码. 密匙 `5Up3r_53cR3t` 保护其不备破解. 这个签名有效期为 25 年 (9125 天). 这个签名的id叫做 `myAlias`.
 
-::: 注意
+::: sidenote
 要把签名和密匙保存好. 如果要手动上传 Google Play 但是签名密码丢失的话就没办法使用 Google Play 来更新你的应用了. 图省事的话就用 Google Play App Signing 搞定签名吧.
 :::
 

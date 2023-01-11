@@ -82,7 +82,7 @@ end
 
 ![Spawned game object with property and scaling](images/factory/factory_spawned2.png)
 
-::: 注意
+::: sidenote
 Defold 目前不支持碰撞形状的非等比缩放. 如果赋了非等比值, 比如 `vmath.vector3(1.0, 2.0, 1.0)` 则 sprite 会正确缩放但是碰撞形状不会正确缩放.
 :::
 
@@ -99,7 +99,7 @@ local function create_hunter(target_id)
 end
 ```
 
-::: 注意
+::: sidenote
 发给游戏对象而非组件的消息会传遍对象上的所有组件. 一般不会造成问题, 但是处理消息时要明白这一点.
 :::
 

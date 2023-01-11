@@ -5,7 +5,7 @@ brief: 本教程介绍了如何在 Defold 里编译运行 iOS 设备应用.
 
 # iOS 开发
 
-::: 注意
+::: sidenote
 必須使用 Mac版 Defold編輯器 才能打包 iOS 項目.
 :::
 
@@ -33,7 +33,7 @@ Provisioning Profiles
 
 在 Defold 中给应用做签名时, 需要提供加密证书和提供商档案文件.
 
-::: 注意
+::: sidenote
 Member Center 页面的一些功能在 Xcode 里也可以进行---前提是先安装好Xcode.
 :::
 
@@ -88,7 +88,7 @@ Device identifier (UDID)
 
 选择证书和档案. 设置架构 (32 bit, 64 bit 和 iOS 模拟器) 再选择打包模式 (Debug 或者 Release). 也可以取消选择 `Sign application` 跳过签名步骤留待后面完成.
 
-::: 注意
+::: sidenote
 要在模拟器中测试游戏 **必须取消** `Sign application` 选项. 否则的话游戏能安装却不能运行.
 :::
 
@@ -130,7 +130,7 @@ Device identifier (UDID)
 
 摆放好位置定义好组件, 比如可以加个标签什么的. 配置好之后选择 "Build -> Any iOS Device (arm64, armv7)"(或者 "Generic iOS Device") 然后 Product -> Build. 等待编译完成.
 
-::: 注意
+::: sidenote
 如果你的 "Any iOS Device (arm64)" 里只有一个 `arm64` 选项, 则需要把 "Project -> Basic -> Deployment" 里的 `iOS Deployment target` 设置为 10.3. 这样你的 storyboard 才能支持 `armv7` 设备 (比如 iPhone5c)  
 :::
 
@@ -144,7 +144,7 @@ Device identifier (UDID)
 
     /Library/Developer/Xcode/DerivedData/YOUR-PRODUCT-NAME-cbqnwzfisotwygbybxohrhambkjy/Build/Intermediates.noindex/YOUR-PRODUCT-NAME.build/Debug-iphonesimulator/YOUR-PRODUCT-NAME.build/Base.lproj/LaunchScreen.storyboardc
 
-::: 注意
+::: sidenote
 社区牛人 Sergey Lerg 已把上述步骤 [录成了视频](https://www.youtube.com/watch?v=6jU8wGp3OwA&feature=emb_logo) 供大家参考.
 :::
 
@@ -153,7 +153,7 @@ Device identifier (UDID)
 
 ### 建立圖標資源列表
 
-::: 注意
+::: sidenote
 從 Defold 1.2.175 版本開始需要這個設置.
 :::
 
@@ -173,13 +173,13 @@ Apple 建議使用圖標資源列表來管理應用圖標. 這也是能讓你的
 
 ![Add icons](images/ios/xcode_icons_add_icons.png)
 
-::: 注意
+::: sidenote
 Notifications, Settings 和 Spotlight 這三項不要拖放圖標.
 :::
 
 完成之后, 配置好之后选择 "Build -> Any iOS Device (arm64, armv7)"(或者 "Generic iOS Device") 然后 Product -> Build. 等待编译完成.
 
-::: 注意
+::: sidenote
 确保编译目标为 "Any iOS Device (arm64)" 或者 "Generic iOS Device", 否则上传游戏时会报 `ERROR ITMS-90704` 错误.
 :::
 
@@ -193,7 +193,7 @@ Notifications, Settings 和 Spotlight 這三項不要拖放圖標.
 
 ![Add icon and asset catalog to game.project](images/ios/defold_icons_game_project.png)
 
-::: 注意
+::: sidenote
 無需在 *game.project* 裏設置 App Store 的圖標. App 上傳到 iTunes Connect 時, 圖標會自動從 `Assets.car` 文件中選取並解壓出來.
 :::
 

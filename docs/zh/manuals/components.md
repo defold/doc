@@ -81,7 +81,7 @@ Defold 组件属性各不相同.在 [Outline 面板](/manuals/editor/#Outline �
 
 匹配某个优先级的组件在一起渲染, 它们之间的渲染顺序取决于组件的 z 值. 组件的最终z值是由组件的z值, 游戏对象和其父级游戏对象的z值之和.
 
-::: 注意
+::: sidenote
 各个 GUI 组件的渲染顺序 **不是** 由 GUI 组件的z值决定的. GUI 组件的渲染顺序由 [gui.set_render_order()](/ref/gui/#gui.set_render_order:order) 函数控制.
 :::
 
@@ -97,7 +97,7 @@ Defold 组件属性各不相同.在 [Outline 面板](/manuals/editor/#Outline �
 
 在上述定义中 B 的sprite组件最终z值是 2 + 1 + 0.5 = 3.5.
 
-::: 注意
+::: sidenote
 如果两个组件 z 值相同则可能造成两个组件来回穿梭闪烁或者不同平台顺序不同的结果.
 
 渲染脚本为 z 值定义了极近端和极远端平面. z值在此范围之外的组件不会被渲染. 默认范围是 -1 到 1 但是 [可以任意修改](/manuals/render/#默认视口映射).

@@ -82,7 +82,7 @@ $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/
 * HTML5 - 在 `build/js-web` 或 `build/wasm-web` 下的 `dmengine.js.symbols` 中包含有 HTML5 编译用 debug symbols.
 
 
-::: 注意
+::: sidenote
 对于游戏的每个发布版本一定要保留一套对应的调试数据. 不然的话原生扩展上线以后出错误就没法调试! 为了方便查看调用堆栈, 也要保存好对应的游戏引擎.
 :::
 

@@ -54,7 +54,7 @@ android:targetSandboxVersion="2"
 ### android:targetSandboxVersion="2"
 
 如果在可安装主游戏里设置 `android:targetSandboxVersion="2"` 就可以像 instant 游戏一样访问数据 (比如存取同一个文件). 但是这样一来主游戏程序就可能会受到一些限制. 详情请见 [官方文档](https://developer.android.com/guide/topics/manifest/manifest-element#targetSandboxVersion).
-::: 注意
+::: sidenote
 游戏一旦安装, 它的目标沙箱值只能增加. 要想降级, 只能把游戏删除再覆盖安装 manifest 属性里目标沙箱值较小的版本.
 :::
 即使在可安装游戏和 instant 游戏里的 `android:targetSandboxVersion` 设置了不同的值, 仍然可以使用 `instantapp.set_cookie()` 和 `instantapp.get_cookie()` 来进行游戏版本间通信.

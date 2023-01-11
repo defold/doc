@@ -58,7 +58,7 @@ local color = gui.get_color(node)
 | *euler*    | 游戏对象的旋转, 以欧拉角表示. | `vector3` | `get+set`{.mark} |
 | *scale*    | 游戏对象的非等比缩放, 以向量表示. 比如在 x 和 y 方向放大2倍, 就是 vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
 
-::: 注意
+::: sidenote
 对于位移专用的函数也是有的; 即 `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()` 和 `go.set_scale()`.
 :::
 

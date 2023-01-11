@@ -13,7 +13,7 @@ Debug  模式下编译的任何 iOS 或 Android 应用都可以作为开发用ap
 
 ![launch](images/dev-app/launch.png)
 
-::: 注意
+::: sidenote
 只有在不使用 [原生扩展](/manuals/extensions/) 的项目可以使用我们提供的开发用apk. 否则你需要自己手动打debug包并且加入你所使用的原生扩展.
 :::
 

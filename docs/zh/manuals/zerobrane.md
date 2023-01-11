@@ -38,7 +38,7 @@ Defold 自带内置调试器, 但是还可以使用免费开源的 Lua 编辑器
 
 调试可以在 Defold 应用生命周期任何阶段开始, 但是需要在 Lua 脚本中显式开启. 开启调试的 Lua 脚本像这样:
 
-::: 注意
+::: sidenote
 如果调用 `dbg.start()` 时游戏已经退出, 可能是由于 ZeroBrane 检测到了问题然后向游戏发送了退出指令. 另外, ZeroBrane 调试时需要打开一个脚本文件, 否则就会报错:
 "Can't start debugging without an opened file or with the current file not being saved 'untitled.lua')."
 在 ZeroBrane 中, 打开含有 `dbg.start()` 的文件即可解决这个报错.
@@ -59,7 +59,7 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 
 现在即可使用 ZeroBrane 的调试功能; 步进, 检查, 增加移除断点之类的.
 
-::: 注意
+::: sidenote
 调试只在其初始化位置开启调试lua上下文. 在 game.project 中打开 "shared_state" 就可以在任意位置调试整个应用.
 :::
 
