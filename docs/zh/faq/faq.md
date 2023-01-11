@@ -61,7 +61,7 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
   | Ubuntu 18.04 (64 bit)(1)   | 编辑器                |
   | Linux (64 bit)(2)          | 游戏引擎              |
   | iOS 9.0                    | 游戏引擎              |
-  | Android 4.1 (API level 16) | 游戏引擎              |
+  | Android 4.4 (API level 19) | 游戏引擎              |
   | HTML5                      | 游戏引擎              |
 
   (1 编辑器在 64-bit Ubuntu 18.04 平台上通过编译和测试. 其他版本应该同样可以运行但是未经过测试.)

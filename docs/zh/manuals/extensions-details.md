@@ -24,7 +24,7 @@ brief: 本教程介绍了有关编译系统用来编译原生扩展的一些细�
 
 ### SDK 版本
 
-* Android: NDK 20r, Build Tools 23.0.2, Api Level 16 for armv7 and Api level 21 for arm64
+* Android: NDK r25b, Build Tools 33.0.1, Api Level 19 for armv7 and Api level 21 for arm64
 * iOS: iPhoneOS13.5.sdk
 * macOS: MacOSX10.15.sdk
 * Windows: WindowsKits 10.0, Microsoft Visual Studio 2019
@@ -34,7 +34,7 @@ brief: 本教程介绍了有关编译系统用来编译原生扩展的一些细�
 ### C++ 版本 + ABI 兼容
 
 * Linux: `clang 9`
-* Android:`clang` using `NDK r20`
+* Android:`clang` using `NDK r25b`
 * Html5: `Emscripten 1.39.16`
 * Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
 * iOS/macOS: `apple-clang` (`clang 9` on build server)
