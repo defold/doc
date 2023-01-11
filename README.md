@@ -67,3 +67,17 @@ References to Defold API functions, messages or ids should not be translated:
 
 #### Do NOT translate code snippets
 Comments in code snippets should not be translated
+
+
+#### Do NOT translate special markup
+The `::: sidenote` and `::: Important` markup should not be translate (although the content inside should of course still be translated):
+
+```
+::: sidenote
+This text inside the sidenote should be translated but NOT 'sidenote' above
+:::
+
+::: important
+This text inside important note should be translated but NOT 'important' above
+:::
+```
