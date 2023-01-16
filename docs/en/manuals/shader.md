@@ -95,7 +95,7 @@ Varying variables
 
 ## Including snippets into shaders
 
-Shaders in Defold support including source code from files within the project that have have the `.glsl` extension. To include a glsl file from a shader, use the `#include "path-to-file.glsl"` pragma. Includes must have either project relative paths or a path that is relative from the file that is including it:
+Shaders in Defold support including source code from files within the project that have have the `.glsl` extension. To include a glsl file from a shader, use the `#include` pragma either with double quotations or brackets. Includes must have either project relative paths or a path that is relative from the file that is including it:
 
 ```glsl
 // In file /main/my-shader.fs
@@ -114,7 +114,6 @@ Shaders in Defold support including source code from files within the project th
 
 There are some caveats to how includes are picked up:
 
-  - Include statements are only supported by using double quotations, meaning `<my-file.glsl>` and `'my-file.glsl'` will not be picked up by the preprocessor
   - Files must be project relative, meaning that you can only include files that are located within the project. Any absolute path must be specified with a leading `/`
   - You can include code anywhere in the file, but you cannot include a file inline in a statement. E.g `const float #include "my-float-name.glsl" = 1.0` will not work
 
