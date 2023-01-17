@@ -93,6 +93,80 @@ Varying 变量
 
   ![Varying interpolation](images/shader/varying.png){srcset="images/shader/varying@2x.png 2x"}
 
+## 在 shader 中引入代码片段
+
+Defold 中的 shader 支持引入项目文件内以 `.glsl` 为扩展名的着色器代码. 要将 glsl 代码引入 shader, 请使用 `#include` 关键字后跟双引号或小括号. 引入的文件要么是基于项目的相对路径, 要么是基于引入文件的相对路径:
+
+```glsl
+// 需要引入代码的文件 /main/my-shader.fs
+
+// 完整路径
+#include "/main/my-snippet.glsl"
+// 同目录文件
+#include "my-snippet.glsl"
+// 文件位于 'my-shader' 下的子目录中
+#include "sub-folder/my-snippet.glsl"
+// 文件位于父级的子目录中, 例如 /some-other-folder/my-snippet.glsl
+#include "../some-other-folder/my-snippet.glsl"
+// 文件位于父级目录中, 例如 /root-level-snippet.glsl
+#include "../root-level-snippet.glsl"
+```
+
+寻找引入文件注意以下几点:
+
+  - 文件必须在基于项目目录的相对路径, 也就是说被引入文件必须存在于项目中. 基于项目目录的相对路径开头应该是 `/`
+  - 文件任何地方都可以声明引入, 只是不能把引入写进语句中. 比如 `const float #include "my-float-name.glsl" = 1.0` 就不行
+
+### Header guards
+
+被引入片段仍然可以引入其他 `.glsl` 文件, 也就是说成品 shader 可以引入同一片段代码很多次, 而这样有可能导致重复定义元素的错误. 为了避免这样的错误, 可以使用 *header guards*, 这是很多编程语言中的一个通用的概念. 比如:
+
+```glsl
+// In my-shader.vs
+#include "math-functions.glsl"
+#include "pi.glsl"
+
+// In math-functions.glsl
+#include "pi.glsl"
+
+// In pi.glsl
+const float PI = 3.14159265359;
+```
+
+本例中, `PI` 常量被定义了两次, 运行时将导致编译错误. 这种情况下可以使用 header guards 来保护常量定义:
+
+```glsl
+// In pi.glsl
+#ifndef PI_GLSL_H
+#define PI_GLSL_H
+
+const float PI = 3.14159265359;
+
+#endif // PI_GLSL_H
+```
+
+`pi.glsl` 在 `my-shader.vs` 被引用了两次, 但是通过 header guards 的保护 PI 实际上只被定义了一次, 所以编译会顺利通过.
+
+然而, 根据不同用法这也不一定是必须的. 如果你的 shader 想在本地函数里使用或者在某处不需要使用全局有效的值的时候, 大体不必用到 header guards. 比如:
+
+```glsl
+// In red-color.glsl
+vec3 my_red_color = vec3(1.0, 0.0, 0.0);
+
+// In my-shader.fs
+vec3 get_red_color()
+{
+  #include "red-color.glsl"
+  return my_red_color;
+}
+
+vec3 get_red_color_inverted()
+{
+  #include "red-color.glsl"
+  return 1.0 - my_red_color;
+}
+```
+
 
 ## 渲染过程
 
