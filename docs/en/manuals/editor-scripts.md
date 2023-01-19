@@ -25,7 +25,11 @@ Every editor script should return a module, like that:
 local M = {}
 
 function M.get_commands()
-  -- TODO
+  -- TODO - define editor commands
+end
+
+function M.get_language_servers() 
+  -- TODO - define language servers
 end
 
 return M
@@ -202,3 +206,32 @@ Please note that lifecycle hooks currently are an editor-only feature, and they 
 You can publish libraries for other people to use that contain commands, and they will be automatically picked up by editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks as simple functions in `.lua` files, so users of your library can require and use them in their `/hooks.editor_script`.
 
 Also note that although dependencies are shown in Assets view, they do not exist as files (they are entries in a zip archive), so there is currently no easy way to execute a shell script you provide in a dependency. If you absolutely need it, you'll have to extract provided scripts by getting their text using `editor.get()` and then writing them somewhere with `file:write()`, for example in a `build/editor-scripts/your-extension-name` folder.
+
+A simpler way to extract the necessary files is to use native extensions' plugins system.
+To do it, you need to create `ext.mainfest` file in your library folder, and then create `plugins/bin/${platform}` folder in the same folder where the `ext.manifest` file is located. Files in that folder will be automatically extracted to `/build/plugins/${extension-path}/plugins/bin/${platform}` folder, so your editor scripts can reference them.
+
+## Language servers
+
+The editor supports a small subset of [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). While we aim to expand the editor's support for LSP features in the future, currently it can only show diagnostics (i.e. lints) in the edited files.
+
+To define the language server, you need to edit your editor script's `get_language_servers` function like so:
+
+```lua
+function M.get_language_servers()
+    return {
+      {
+        languages = {'lua'},
+        watched_files = {
+          { pattern = '**/.luacheckrc' }
+        },
+        command = {'build/plugins/my-ext/plugins/bin/x86_64-macos/lua-lsp.sh', '--stdio'}
+      }
+    }
+end
+```
+The editor will start the language server using the specified `command`, using the server process's standard input and output for communication.
+
+Language server table may specify:
+- `languages` (required) — a list of languages the server is interested in, as defined [here](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) (file extensions also work);
+- `command` (required) - an array of command and its arguments
+- `watched_files` - an array of tables with `pattern` keys (a glob) that will trigger the server's [watched files changed](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles) notification.
