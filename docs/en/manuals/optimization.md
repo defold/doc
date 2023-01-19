@@ -27,7 +27,7 @@ According to a 2017 study it was shown that "For every 6 MB increase to an APKâ€
 To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#build-reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
 
 ### Reducing engine size
-You can use an [application manifest file](https://defold.com/manuals/project-settings/#app-manifest) to remove engine components that you do not need. You can for instance remove the included physics engines if your game doesn't use physics. Use the [Manifestation online tool](https://britzl.github.io/manifestation/) to generate an application manifest.
+You can use an [application manifest file](https://defold.com/manuals/project-settings/#app-manifest) to remove engine components that you do not need. You can for instance remove the included physics engines if your game doesn't use physics.
 
 ### Optimize sounds
 Defold supports .ogg and .wav files where .ogg is typically used for music and .wav for sound effects. Sounds must be 16-bit with a sampling rate of 44100 so any optimizations must be done on the sounds before encoding them. You can edit the sounds in an external sound editor software to reduce the quality or convert from .wav to .ogg.
