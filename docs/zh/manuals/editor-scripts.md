@@ -25,34 +25,38 @@ brief: 本教程介绍了如何使用 Lua 扩展编辑器功能
 local M = {}
 
 function M.get_commands()
-  -- TODO
+  -- TODO - 定义编辑器命令
+end
+
+function M.get_language_servers() 
+  -- TODO - 定义语言服务器
 end
 
 return M
 ```
 然后编辑器会收集项目中和共享库里的所有的编辑器脚本, 把它们加载到Lua虚拟机中并在需要的时候调用它们 (详情请见 [commands](#commands) 和 [lifecycle hooks](#lifecycle-hooks) 部分).
 
-## Editor API
+## 编辑器 API
 
 可以使用API中 `editor` 包与编辑器进行交互:
 - `editor.platform` —字符串, 在Windows上是 `"x86_64-win32"`, 在macOS上是 `"x86_64-darwin"`, 在Linux上是 `"x86_64-linux"`.
-- `editor.get(node_id, property)` — 得到编辑器里某些节点的值. 编辑器里的节点是可变实体, 比如脚本或者集合文件, 集合中的游戏对象, 作为资源加载的 json 文件, 等等. `node_id` is a userdata that is passed to the editor script by the editor. Alternatively, you can pass resource path instead of node id, for example `"/main/game.script"`. `property` is a string. Currently these properties are supported:
-  - `"path"` — file path from the project folder for *resources* — entities that exist as files. Example of returned value: `"/main/game.script"`
-  - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
-  - some properties that are shown in the Properties view when you have selected something in the Outline view. These types of outline properties supported:
+- `editor.get(node_id, property)` — 得到编辑器里某些节点的值. 编辑器里的节点是可变实体, 比如脚本或者集合文件, 集合中的游戏对象, 作为资源加载的 json 文件, 等等. `node_id` 是由编辑器发往编辑器脚本的一个 userdata. 或者, 可以用资源路径代替节点 id, 比如 `"/main/game.script"`. `property` 是一个字符串. 目前支持以下属性:
+  - `"path"` — 基于项目文件夹对 *resources* 的相对路径 — 资源即代表文件. 有效值举例: `"/main/game.script"`
+  - `"text"` — 可编辑文本资源文件 (比如脚本文件或者 json). 有效值举例: `"function init(self)\nend"`. 注意这里跟用 `io.open()` 读取文件不同, 文本资源可以只编辑不保存, 这些编辑仅在访问 `"text"` 属性时有效.
+  - 在大纲试图做点选操作时, 有些属性可以在属性面板显示出来. 可以显示的属性有:
     - strings
     - booleans
     - numbers
     - vec2/vec3/vec4
     - resources
 
-    Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts. You can set resource properties to nil by supplying `""` value.
-- `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error
-- `editor.can_set(node_id, property)` — check if `"set"` action with this property won't throw an error
+    注意这些属性有的不是只读的, 而且基于上下文有些可能不可用, 所以要在读取之前执行 `editor.can_get`, 设置之前执行 `editor.can_set`. 属性面板里用鼠标悬停在属性名上会显示一个信息提示标明该属性在编辑器脚本里是如何命名的. 资源属性赋值为 `""` 代表 nil 值.
+- `editor.can_get(node_id, property)` — 检查属性是否可读, 确保 `editor.get()` 不会报错
+- `editor.can_set(node_id, property)` — 检查属性是否可写, 确保设置操作不会报错
 
-## Commands
+## Command
 
-If editor script module defines function `get_commands`, it will be called on extension reload, and returned commands will be available for use inside the editor in menu bar or in context menus in Assets and Outline panes. Example:
+如果编辑器脚本模块定义了 `get_commands` 函数, 它会在扩展重载时被调用, 返回的命令可以在编辑器菜单栏或者资源和大纲视图的右键菜单里使用. 例如:
 ```lua
 local M = {}
 
@@ -104,29 +108,29 @@ end
 
 return M
 ```
-Editor expects `get_commands()` to return an array of tables, each describing a separate command. Command description consists of:
+编辑器需要 `get_commands()` 返回一组 table, 每个 table 描述一个命令. 命令描述由以下部分组成:
 
-- `label` (required) — text on a menu item that will be displayed to the user
-- `locations` (required) — an array of either `"Edit"`, `"View"`, `"Assets"` or `"Outline"`, describes a place where this command should be available. `"Edit"` and `"View"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, and `"Outline"` means context menu in Outline pane.
-- `query` — a way for command to ask editor for relevant information and define what data it operates on. For every key in `query` table there will be corresponding key in `opts` table that `active` and `run` callbacks receive as argument. Supported keys:
-  - `selection` means this command is valid when there is something selected, and it operates on this selection.
-    - `type` is a type of selected nodes command is interested in, currently these types are allowed:
-      - `"resource"` — in Assets and Outline, resource is selected item that has a corresponding file. In menu bar (Edit or View), resource is a currently open file;
-      - `"outline"` — something that can be shown in the Outline. In Outline it's a selected item, in menu bar it's a currently open file;
-    - `cardinality` defines how many selected items there should be. If `"one"`, selection passed to command callback will be a single node id. If `"many"`, selection passed to command callback will be an array of one or more node ids.
-- `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
-- `run` - a callback that is executed when user selects menu item, expected to return an array of [actions](#actions).
+- `label` (必要) — 显示在菜单栏项上的文字
+- `locations` (必要) — 包含 `"Edit"`, `"View"`, `"Assets"` 或者 `"Outline"` 的数组, 描述该命令在哪里生效. `"Edit"` 和 `"View"` 表示菜单栏最高层, `"Assets"` 表示在资源视图右键菜单里, "Outline"` 表示在大纲视图右键菜单里.
+- `query` — 命令向编辑器查询信息并定义被操作数据的地方. 在 `query` 表里的每个键都会一一对应包裹在 `opts` 表里, 作为参数传给 `active` 和 `run` 回调函数. 支持的 key 有:
+  - `selection` 意思是在选择了什么时可用, 操作将作用于被选择的东西上.
+    - `type` 命令能作用于选择节点的类型, 目前支持以下几种:
+      - `"resource"` — 大纲视图或者资源视图里, 被选择资源对应的文件. 在菜单栏 (Edit 或 View), 资源是当前打开了的文件;
+      - `"outline"` — 在大纲视图显示的东西. 在大纲视图被选择的项, 在菜单栏是当前打开了的文件;
+    - `cardinality` 定义备选项的个数. 如果是 `"one"`, 将传给命令回调一个节点 id. 如果是 `"many"`, 将传给命令回调一个数组, 包含一个或多个节点 id.
+- `active` - 检测命令是否可用的回调, 返回布尔值. 如果 `locations` 包含 `"Assets"` 或 `"Outline"`, `active` 会在显示右键菜单时被调用. 如果包含 `"Edit"` 或 `"View"`, 它会在每个用户交互时被调用, 比如按键盘或者点鼠标的时候, 所以 `active` 应该快速执行完毕.
+- `run` - 用户点选菜单项时运行的回调, 返回包含 [actions](#actions) 的数组.
 
-## Actions
+## Action
 
-Action is a table describing what editor should do. Every action has an `action` key. Actions come in 2 flavors: undoable and non-undoable.
+行为是描述编辑器要做什么的表. 每个行为包含一个 `action` 键. 行为有两种: 可撤销行为和不可撤销行为.
 
-### Undoable actions
+### 可撤销行为
 
-Undoable action can be undone after it is executed. If a command returns multiple undoable actions, they are performed together, and get undone together. You should use undoable actions if you can. Their downside is that they are more limited.
+可撤销行为在执行后可以撤销. 如果一个命令返回了多个可撤销行为, 它们会一起执行, 撤销时也一起被撤销. 应尽量使用可撤销行为. 只是可撤销行为有更多一些限制.
 
-Existing undoable actions:
-- `"set"` — set a property of a node in the editor to some value. Example:
+目前的可撤销行为有:
+- `"set"` — 设置编辑器里一个节点的属性为指定值. 例如:
   ```lua
   {
     action = "set",
@@ -135,17 +139,17 @@ Existing undoable actions:
     value = "current time is " .. os.date()
   }
   ```
-  `"set"` action requires these keys:
-  - `node_id` — node id userdata. Alternatively, you can use resource path here instead of node id you received from the editor, for example `"/main/game.script"`;
-  - `property` — a property of a node to set, currently only `"text"` is supported;
-  - `value` — new value for a property. For `"text"` property it should be a string.
+  `"set"` 行为有如下键:
+  - `node_id` — 表示节点 id 的 userdata. 或者, 可以用资源路径代替编辑器发来的节点 id, 例如 `"/main/game.script"`;
+  - `property` — 要设置的节点属性, 目前只支持 `"text"`;
+  - `value` — 给节点属性设置的新值. 对于 `"text"` 属性来说该值应该是一个字符串.
 
-### Non-undoable actions
+### 不可撤销行为
 
-Non-undoable action clears undo history, so if you want to undo such action, you will have to use other means, such as version control.
+不可撤销行为会清空可撤销历史, 所以要撤销这种行为, 必须使用其他特殊方法, 比如版本控制系统.
 
-Existing non-undoable actions:
-- `"shell"` — execute a shell script. Example:
+目前可用的不可撤销行为:
+- `"shell"` — 执行一个 shell 脚本. 例如:
   ```lua
   {
     action = "shell",
@@ -155,17 +159,17 @@ Existing non-undoable actions:
     }
   }
   ```
-  `"shell"` action requires `command` key, which is an array of command and it's arguments. Main difference with `os.execute` is that since this is a potentially dangerous operation, editor will show a confirmation dialog asking user if they want to execute this command. It will remember each command that user already allowed.
+  `"shell"` 行为要有一个 `command` 键, 它是一组命令连同其参数. 它与 `os.execute` 主要区别在于, 鉴于它是一种潜在危险操作, 编辑器会弹出一个对话框询问用户是否确认进行此操作. 用户允许的每个命令授权都会被记住.
 
-### Mixing actions and side effects
+### 行为混用及其副作用
 
-You can mix undoable and non-undoable actions. Actions are executed sequentially, hence depending on an order of actions you will end up losing ability to undo parts of that command.
+可以混用可撤销行为和不可撤销行为. 行为是依次执行的, 根据执行顺序撤销操作会停在不可撤销行为上.
 
-Instead of returning actions from functions that expect them, you can just read and write to files directly using `io.open()`. This will trigger a resource reload that will clear undo history.
+除了从函数返回行为, 还可以直接用 `io.open()` 读写文件. 这会触发资源重载并且清空撤销历史记录.
 
 ## Lifecycle hooks
 
-There is a specially treated editor script file: `hooks.editor_script`, located in a root of your project, in the same directory as `game.project`. This and only this editor script will receive lifecycle events from the editor. Example of such file:
+有一个特殊的编辑器脚本文件: `hooks.editor_script`, 位于项目根目录, 就是跟 `game.project` 并存于同一目录. 只有这个编辑器脚本会从编辑器获得生命周期事件. 脚本文件举例:
 ```lua
 local M = {}
 
@@ -177,28 +181,61 @@ end
 
 return M
 ```
-We decided to limit lifecycle hooks to single editor script file because order in which build hooks happen is more important than how easy it is to add another build step. Commands are independent from each other, so it does not really matter in what order they are shown in the menu, in the end user executes a particular command they selected. If it was possible to specify build hooks in different editor scripts, it would create a problem: in which order do hooks execute? You probably want to create a checksums of content after you compress it... And having a single file that establishes order of build steps by calling each step function explicitly is a way to solve this problem.
+我们决定将生命周期事件只发给这个文件, 这里构建事件顺序比加入构建步骤容易度更重要. 命令互相独立, 所以它们在菜单里的次序并不重要, 用户回选择需要的命令来执行. 编译事件也可以发给多个脚本, 但这会产生一个问题: 事件顺序是什么样的? 你可能希望压缩资源后检查校验和... 用单一文件通过每步的函数配置好构建步骤不失为一种解决方案.
 
-Every lifecycle hook can return actions or write to files in project directory.
+生命周期函数可以返回行为或者在项目文件夹的文件里写入数据.
 
-Existing lifecycle hooks that `/hooks.editor_script` may specify:
-- `on_build_started(opts)` — executed when game is Built to run locally or on some remote target. Your changes, be it returned actions or updated file contents, will appear in a built game. Raising an error from this hook will abort a build. `opts` is a table that contains following keys:
-  - `platform` — a string in `%arch%-%os%` format describing what platform it's built for, currently always the same value as in `editor.platform`.
-- `on_build_finished(opts)` — executed when build is finished, be at successful or failed. `opts` is a table with following keys:
-  - `platform` — same as in `on_build_started`
-  - `success` — whether build is successful, either `true` or `false`
-- `on_bundle_started(opts)` — executed when you create a bundle or Build HTML5 version of a game. As with `on_build_started`, changes triggered by this hook will appear in a bundle, and errors will abort a bundle. `opts` will have these keys:
-  - `output_directory` — a file path pointing to a directory with bundle output, for example `"/path/to/project/build/default/__htmlLaunchDir"`
-  - `platform` — platform the game is bundled for. See a list of possible platform values in [Bob manual](/manuals/bob).
-  - `variant` — bundle variant, either `"debug"`, `"release"` or `"headless"`
-- `on_bundle_finished(opts)` — executed when bundle is finished, be it successful or not. `opts` is a table with the same data as `opts` in `on_bundle_started`, plus `success` key indicating whether build is successful.
-- `on_target_launched(opts)` — executed when user launched a game and it successfully started. `opts` contains an `url` key pointing to a launched engine service, for example, `"http://127.0.0.1:35405"`
-- `on_target_terminated(opts)` — executed when launched game is closed, has same opts as `on_target_launched`
+目前的生命周期脚本 `/hooks.editor_script` 可以指定:
+- `on_build_started(opts)` — 游戏开始构建到本地或某远程设备上时执行. 你的更改, 不论是返回行为还是更新文件内容, 都会反应在构建好的游戏中. 在这里抛出错误的话会导致构建终止. `opts` 是包含如下 key 的表:
+  - `platform` — `%arch%-%os%` 格式的字符串, 描述了构建的目标平台, 目前其值与 `editor.platform` 中的值相同.
+- `on_build_finished(opts)` — 构建完成时执行, 无论构建成功与否. `opts` 是包含如下 key 的表:
+  - `platform` — 与 `on_build_started` 中的值相同
+  - `success` — 构建是否成功, 其值为 `true` 或 `false`
+- `on_bundle_started(opts)` — 当游戏打包或生成 HTML5 游戏版本时执行. 像 `on_build_started` 一样, 这里做出的更改会反应在打包好的游戏中, 抛出错误的话会导致打包终止. `opts` 包含如下 key:
+  - `output_directory` — 指定打包输出的文件路径, 比如 `"/path/to/project/build/default/__htmlLaunchDir"`
+  - `platform` — 打包的目标平台. 支持的平台值详见 [Bob 教程](/manuals/bob).
+  - `variant` — 打包变体, 可以是 `"debug"`, `"release"` 或 `"headless"`
+- `on_bundle_finished(opts)` — 打包完成时执行, 无论打包成功与否. `opts` 与 `on_bundle_started` 里的 `opts` 相同, 加上 `success` 键代表打包是否成功.
+- `on_target_launched(opts)` — 游戏成功启动时执行. `opts` 包含一个 `url` 键指定已启动引擎的服务地址, 例如, `"http://127.0.0.1:35405"`
+- `on_target_terminated(opts)` — 已启动的游戏关闭时执行, 参数与 `on_target_launched` 相同.
 
-Please note that lifecycle hooks currently are an editor-only feature, and they are not executed by Bob when bundling from command line.
+注意目前生命周期处理脚本只是编辑器特性, 使用 Bob 以命令行编译打包时该脚本不会被执行.
 
 ## Editor scripts in libraries
 
-You can publish libraries for other people to use that contain commands, and they will be automatically picked up by editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks as simple functions in `.lua` files, so users of your library can require and use them in their `/hooks.editor_script`.
+可以为他人发布包含命令的库, 编辑器会自动配置它们. 事件处理脚本除外, 因为它要放在项目根目录, 而库则是解压在子目录里. 这是为了在构建处理时提供更多控制权: 可以在 `.lua` 文件里提供简单的事件处理函数, 库用户则可以在他们的 `/hooks.editor_script` 文件里引入并使用它们.
 
-Also note that although dependencies are shown in Assets view, they do not exist as files (they are entries in a zip archive), so there is currently no easy way to execute a shell script you provide in a dependency. If you absolutely need it, you'll have to extract provided scripts by getting their text using `editor.get()` and then writing them somewhere with `file:write()`, for example in a `build/editor-scripts/your-extension-name` folder.
+还要注意虽然依赖库显示在资源视窗里, 它们却不是文件 (而是 zip 包), 所以目前没办法从依赖库里执行 shell 脚本. 如果实在要执行, 需要先用 `editor.get()` 读取脚本, 然后用 `file:write()` 写入脚本文件, 比如写到 `build/editor-scripts/your-extension-name` 目录下.
+
+更简单的办法是使用原生扩展插件系统.
+首先在库目录创建 `ext.manifest` 文件, 然后在 `ext.manifest` 文件所在文件夹里创建 `plugins/bin/${platform}`. 该文件夹下的文件会被自动提取到 `/build/plugins/${extension-path}/plugins/bin/${platform}` 目录下, 可以在编辑器脚本中引用它们.
+
+## Language servers
+
+编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的小子集. 我们计划以后全面支持 LSP 特性, 但是目前只支持显示编辑文件的代码审查 (比如 lints).
+
+要定义 language server, 需要设置编辑器脚本的 `get_language_servers` 函数如下:
+
+```lua
+function M.get_language_servers()
+  local command = 'build/plugins/my-ext/plugins/bin/' .. editor.platform .. '/lua-lsp'
+  if editor.platform == 'x86_64-win32' then
+    command = command .. '.exe'
+  end
+  return {
+    {
+      languages = {'lua'},
+      watched_files = {
+        { pattern = '**/.luacheckrc' }
+      },
+      command = {command, '--stdio'}
+    }
+  }
+end
+```
+编辑器会使用指定 `command` 启动 language server, 使用服务器进程的标准输入和输出进行通信.
+
+Language server 定义表可以指定:
+- `languages` (必要) — 服务器支持的语言列表, 详见 [这里](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers) (支持文件扩展名);
+- `command` (必要) - 命令及其参数列表
+- `watched_files` - 一组带有 `pattern` 键 (a glob) 的表, 用来激活服务器的 [监视文件更改](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles) 通知功能.
