@@ -78,8 +78,17 @@ go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1), go.EASING_LINEAR, 2)
 ```
 
+CONSTANT_TYPE_USER_MATRIX4
+: A matrix4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). You can also retrieve the value with [go.get()](/ref/stable/go/#go.get). Changing a material constant of a single component instance [breaks render batching and will result in additional draw calls](/manuals/render/#draw-calls-and-batching).
+
+Example:
+
+```lua
+go.set("#sprite", "m", vmath.matrix4())
+```
+
 ::: sidenote
-In order for a material constant of type `CONSTANT_TYPE_USER` to be available using `go.get()` and `go.set()` it has to be used in the shader program. If the constant is defined in the material but not used in the program it will be removed from the material and it will not be available at run-time.
+In order for a material constant of type `CONSTANT_TYPE_USER` or `CONSTANT_TYPE_MATRIX4` to be available using `go.get()` and `go.set()` it has to be used in the shader program. If the constant is defined in the material but not used in the program it will be removed from the material and it will not be available at run-time.
 :::
 
 ## Samplers
