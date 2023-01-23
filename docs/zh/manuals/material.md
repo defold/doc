@@ -78,6 +78,19 @@ go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1), go.EASING_LINEAR, 2)
 ```
 
+CONSTANT_TYPE_USER_MATRIX4
+: 一个 matrix4 常量用以向你的着色器程序传递用户自定义数据. 在常量定义时可以赋初值, 而其值可以通过 [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 修改. 还可以通过 [go.get()](/ref/stable/go/#go.get) 获取其值. 改变单一组件实例得材质常量会 [打断渲染合批导致更多得 draw call](/manuals/render/#draw-calls-and-batching).
+
+举例:
+
+```lua
+go.set("#sprite", "m", vmath.matrix4())
+```
+
+::: sidenote
+要使 `CONSTANT_TYPE_USER` 或 `CONSTANT_TYPE_MATRIX4` 类型的常量能使用 `go.get()` 和 `go.set()` 存取, 在着色器程序中必须使用到该常量. 如果常量在材质中定义了却没在着色器程序中使用, 它将被自动删除无法在运行时使用.
+:::
+
 ## 采样器
 
 采样器用于从纹理 (瓷砖图源或者图集) 中取得颜色数据. 颜色数据用于在着色器程序中参与计算.
