@@ -42,7 +42,7 @@ A script API definition file has the extension `.script_api`. It must be in [YAM
 ```
 
 Types can be any of `table, string , boolean, number, function`. If a value can have multiple types it is written as `[type1, type2, type3]`.
-:::sidenote
+::: sidenote
 Types are currently not shown in the editor. It is recommended to still provide them so that they are available once the editor has support for showing type information.
 :::
 
