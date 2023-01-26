@@ -98,7 +98,7 @@ Varying variables
 Shaders in Defold support including source code from files within the project that have have the `.glsl` extension. To include a glsl file from a shader, use the `#include` pragma either with double quotations or brackets. Includes must have either project relative paths or a path that is relative from the file that is including it:
 
 ```glsl
-// In file /main/my-shader.fs
+// In file /main/my-shader.fp
 
 // Absolute path
 #include "/main/my-snippet.glsl"
@@ -111,6 +111,10 @@ Shaders in Defold support including source code from files within the project th
 // The file is on the parent directory, i.e /root-level-snippet.glsl
 #include "../root-level-snippet.glsl"
 ```
+
+::: sidenote
+Shader includes are available starting from version 1.4.2
+:::
 
 There are some caveats to how includes are picked up:
 
@@ -153,7 +157,7 @@ However, this is not always strict necessary depending of use-case. If instead y
 // In red-color.glsl
 vec3 my_red_color = vec3(1.0, 0.0, 0.0);
 
-// In my-shader.fs
+// In my-shader.fp
 vec3 get_red_color()
 {
   #include "red-color.glsl"
