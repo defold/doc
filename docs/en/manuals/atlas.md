@@ -121,7 +121,7 @@ Starting from Defold 1.4.2 it is possible to create a texture and an atlas at ru
 
 ### Creating a Texture resource at runtime
 
-Use (`resource.create_texture(path, params)`)[https://defold.com/ref/stable/resource/#resource.create_texture:path-table] to create a new texture resource:
+Use [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table) to create a new texture resource:
 
 ```lua
   local params = {
@@ -133,7 +133,7 @@ Use (`resource.create_texture(path, params)`)[https://defold.com/ref/stable/reso
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-Once the texture has been created you can use (`resource.set_texture(path, params, buffer)`)[https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer] to set the pixels of the texture:
+Once the texture has been created you can use [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) to set the pixels of the texture:
 
 ```lua
   local width = 128
