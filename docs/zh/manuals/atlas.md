@@ -114,3 +114,92 @@ Playback
   - `Loop Forward` 从第一张图片到最后一张图片循环播放.
   - `Loop Backward` 从最后一张图片到第一张图片循环播放.
   - `Loop Ping Pong` 从第一张图片播放到最后一张图片再反向循环播放.
+
+## 运行时纹理及图集建立
+
+自从 Defold 1.4.2 版本, 可以在运行时创建纹理和图集.
+
+### 在运行时创建纹理资源
+
+使用 (`resource.create_texture(path, params)`)[https://defold.com/ref/stable/resource/#resource.create_texture:path-table] 创建纹理资源:
+
+```lua
+  local params = {
+    width  = 128,
+    height = 128,
+    type   = resource.TEXTURE_TYPE_2D,
+    format = resource.TEXTURE_FORMAT_RGBA,
+  }
+  local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
+```
+
+纹理创建好之后就可以用 (`resource.set_texture(path, params, buffer)`)[https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer] 设置纹理的像素:
+
+```lua
+  local width = 128
+  local height = 128
+  local buf = buffer.create(width * height, { { name=hash("rgba"), type=buffer.VALUE_TYPE_UINT8, count=4 } } )
+  local stream = buffer.get_stream(buf, hash("rgba"))
+  for y=1, height do
+      for x=1, width do
+          local index = (y-1) * width * 4 + (x-1) * 4 + 1
+          stream[index + 0] = 0xff
+          stream[index + 1] = 0x80
+          stream[index + 2] = 0x10
+          stream[index + 3] = 0xFF
+      end
+  end
+  local params = { width=width, height=height, x=0, y=0, type=resource.TEXTURE_TYPE_2D, format=resource.TEXTURE_FORMAT_RGBA, num_mip_maps=1 }
+  resource.set_texture(my_texture_id, params, buf)
+```
+
+:::sidenote
+可以使用 `resource.set_texture()` 更新局部纹理, 方法是设置 buffer 的 width 和 height 小于纹理完整尺寸, 然后指定 `resource.set_texture()` 的 x 和 y 参数.
+:::
+
+纹理可以用 `go.set()` 直接应用于 [模型组件](/manuals/model/) 上:
+
+```lua
+  go.set("#model", "texture0", my_texture_id)
+```
+
+### 运行时创建图集
+
+如果纹理要用在 [sprite 组件](/manuals/sprite/) 上, 要先转换成图集. 使用 [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table) 创建图集:
+
+```lua
+  local params = {
+    texture = texture_id,
+    animations = {
+      {
+        id          = "my_animation",
+        width       = width,
+        height      = height,
+        frame_start = 1,
+        frame_end   = 2,
+      }
+    },
+    geometries = {
+      {
+        vertices  = {
+          0,     0,
+          0,     height,
+          width, height,
+          width, 0
+        },
+        uvs = {
+          0,     0,
+          0,     height,
+          width, height,
+          width, 0
+        },
+        indices = {0,1,2,0,2,3}
+      }
+    }
+  }
+  local my_atlas_id = resource.create_atlas("/my_atlas.texturesetc", params)
+  -- 给当前游戏对象上的 'sprite' 组件指定图集
+  go.set("#sprite", "image", my_atlas_id)
+  -- 播放 "逐帧动画"
+  sprite.play_flipbook("#sprite", "my_animation")
+```
