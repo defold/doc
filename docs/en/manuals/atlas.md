@@ -114,3 +114,97 @@ Playback
   - `Loop Forward` plays the animation repeatedly from the first to the last image.
   - `Loop Backward` plays the animation repeatedly from the last to the first image.
   - `Loop Ping Pong` plays the animation repeatedly from the first to the last image and then back to the first image.
+
+## Runtime Texture and Atlas creation
+
+Starting from Defold 1.4.2 it is possible to create a texture and an atlas at runtime.
+
+### Creating a Texture resource at runtime
+
+Use (`resource.create_texture(path, params)`)[https://defold.com/ref/stable/resource/#resource.create_texture:path-table] to create a new texture resource:
+
+```lua
+  local params = {
+    width  = 128,
+    height = 128,
+    type   = resource.TEXTURE_TYPE_2D,
+    format = resource.TEXTURE_FORMAT_RGBA,
+  }
+  local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
+```
+
+Once the texture has been created you can use (`resource.set_texture(path, params, buffer)`)[https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer] to set the pixels of the texture:
+
+```lua
+  local width = 128
+  local height = 128
+  local buf = buffer.create(width * height, { { name=hash("rgba"), type=buffer.VALUE_TYPE_UINT8, count=4 } } )
+  local stream = buffer.get_stream(buf, hash("rgba"))
+
+  for y=1, height do
+      for x=1, width do
+          local index = (y-1) * width * 4 + (x-1) * 4 + 1
+          stream[index + 0] = 0xff
+          stream[index + 1] = 0x80
+          stream[index + 2] = 0x10
+          stream[index + 3] = 0xFF
+      end
+  end
+
+  local params = { width=width, height=height, x=0, y=0, type=resource.TEXTURE_TYPE_2D, format=resource.TEXTURE_FORMAT_RGBA, num_mip_maps=1 }
+  resource.set_texture(my_texture_id, params, buf)
+```
+
+:::sidenote
+It is possible to use `resource.set_texture()` to also update a sub-region of the texture by using a buffer width and height less than the full size of the texture and by changing the x and y parameters to `resource.set_texture()`.
+:::
+
+The texture can be used directly on a [model component](/manuals/model/) using `go.set()`:
+
+```lua
+  go.set("#model", "texture0", my_texture_id)
+```
+
+### Creating an Atlas at runtime
+
+If the texture should be used on a [sprite component](/manuals/sprite/) it first needs to be used by an atlas. Use [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table) to create an Atlas:
+
+```lua
+  local params = {
+    texture = texture_id,
+    animations = {
+      {
+        id          = "my_animation",
+        width       = width,
+        height      = height,
+        frame_start = 1,
+        frame_end   = 2,
+      }
+    },
+    geometries = {
+      {
+        vertices  = {
+          0,     0,
+          0,     height,
+          width, height,
+          width, 0
+        },
+        uvs = {
+          0,     0,
+          0,     height,
+          width, height,
+          width, 0
+        },
+        indices = {0,1,2,0,2,3}
+      }
+    }
+  }
+  local my_atlas_id = resource.create_atlas("/my_atlas.texturesetc", params)
+
+  -- assign the atlas to the 'sprite' component on the same go
+  go.set("#sprite", "image", my_atlas_id)
+
+  -- play the "animation"
+  sprite.play_flipbook("#sprite", "my_animation")
+
+```
