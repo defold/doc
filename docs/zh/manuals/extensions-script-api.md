@@ -42,7 +42,7 @@ Defold 编辑器为所有 Defold API 功能以及用户引用的Lua模块提供�
 ```
 
 数据类型有 `table, string , boolean, number, function` 几种. 如果一个值有多个类型则这样写 `[type1, type2, type3]`.
-:::注意
+::: sidenote
 目前编辑器里不显示类型. 但是还是鼓励输入类型以便以后编辑器可以显示出来.
 :::
 

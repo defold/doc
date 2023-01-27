@@ -98,7 +98,7 @@ Varying 变量
 Defold 中的 shader 支持引入项目文件内以 `.glsl` 为扩展名的着色器代码. 要将 glsl 代码引入 shader, 请使用 `#include` 关键字后跟双引号或小括号. 引入的文件要么是基于项目的相对路径, 要么是基于引入文件的相对路径:
 
 ```glsl
-// 需要引入代码的文件 /main/my-shader.fs
+// 需要引入代码的文件 /main/my-shader.fp
 
 // 完整路径
 #include "/main/my-snippet.glsl"
@@ -153,7 +153,7 @@ const float PI = 3.14159265359;
 // In red-color.glsl
 vec3 my_red_color = vec3(1.0, 0.0, 0.0);
 
-// In my-shader.fs
+// In my-shader.fp
 vec3 get_red_color()
 {
   #include "red-color.glsl"
