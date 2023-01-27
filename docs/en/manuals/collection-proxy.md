@@ -174,7 +174,7 @@ DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 
 `update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
 
-:::sidenote
+::: sidenote
 You can use the collection time step functionality to pause your game, for instance while showing a popup or when the window has lost focus. Use `msg.post("#myproxy", "set_time_step", {factor = 0, mode = 0})` to pause and `msg.post("#myproxy", "set_time_step", {factor = 1, mode = 1})` to resume.
 :::
 
