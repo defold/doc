@@ -174,7 +174,7 @@ DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 
 `update()` 仍然是每秒调用 60 次, 但是 `dt` 值变了. 可以看到只有 1/5 (0.2) 的 `update()` 调用包含 1/60 秒的 `dt` 参数, 其他都是 0. 物理模拟也基于 dt 每 5 帧步进一次.
 
-:::注意
+::: sidenote
 可以使用集合的时间步功能来暂停游戏, 例如弹出窗口或者游戏窗口失去焦点时, 使用 `msg.post("#myproxy", "set_time_step", {factor = 0, mode = 0})` 暂停游戏, 然后使用 `msg.post("#myproxy", "set_time_step", {factor = 1, mode = 1})` 继续游戏.
 :::
 

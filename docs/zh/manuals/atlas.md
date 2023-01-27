@@ -121,7 +121,7 @@ Playback
 
 ### 在运行时创建纹理资源
 
-使用 (`resource.create_texture(path, params)`)[https://defold.com/ref/stable/resource/#resource.create_texture:path-table] 创建纹理资源:
+使用 [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table) 创建纹理资源:
 
 ```lua
   local params = {
@@ -133,7 +133,7 @@ Playback
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-纹理创建好之后就可以用 (`resource.set_texture(path, params, buffer)`)[https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer] 设置纹理的像素:
+纹理创建好之后就可以用 [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) 设置纹理的像素:
 
 ```lua
   local width = 128
@@ -153,7 +153,7 @@ Playback
   resource.set_texture(my_texture_id, params, buf)
 ```
 
-:::sidenote
+::: sidenote
 可以使用 `resource.set_texture()` 更新局部纹理, 方法是设置 buffer 的 width 和 height 小于纹理完整尺寸, 然后指定 `resource.set_texture()` 的 x 和 y 参数.
 :::
 
