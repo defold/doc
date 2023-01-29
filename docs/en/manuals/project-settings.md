@@ -613,6 +613,7 @@ To further optimize memory usage the Defold build process will analyse the conte
 
 * If a collection doesn't contain any factory components the exact amount of each component will be allocated and the max count values will be ignored.
 * If a collection contains a factory component the spawned objects will be analysed and the max count will be used for components that can be spawned from the factories.
+* If a collection contains a factory or a collection factory with activated "Dynamic Prototype" option, this collection will use the max counters.
 
 
 ## Custom project settings
