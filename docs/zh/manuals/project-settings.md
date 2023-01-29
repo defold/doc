@@ -300,7 +300,7 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 ### Sprite
 
 #### Max Count
-每个集合最大sprite数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
+每个集合最大sprite数目, 默认是 `128`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 #### Subpixels
 开启后允许sprite不与像素对齐, 默认开启.
@@ -310,7 +310,7 @@ HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
 ### Tilemap
 
 #### Max Count
-每个集合的瓷砖地图最大数目, 默认是 `16`. [(参见最大组件数优化)](#component_max_count_optimizations).
+每个集合的瓷砖地图最大数目, 默认是 `16`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 #### Max Tile Count
 每个集合可同时显示的瓷砖最大数目, 默认是 `2048`.
@@ -327,21 +327,21 @@ spine 模型最大数目, 默认是 `128`.
 ### Mesh
 
 #### Max Count
-每个集合最大容纳3D模型面数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
+每个集合最大容纳3D模型面数, 默认是 `128`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 ---
 
 ### Model
 
 #### Max Count
-每个集合最大容纳3D模型组件个数, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
+每个集合最大容纳3D模型组件个数, 默认是 `128`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 ---
 
 ### GUI
 
 #### Max Count
-GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimizations).
+GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 #### Max Particlefx Count
 同一时间粒子发射器最大数目, 默认是 `64`.
@@ -354,7 +354,7 @@ GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#compone
 ### Label
 
 #### Max Count
-label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimizations).
+label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 #### Subpixels
 开启后允许 lables 不与像素对齐, 默认开启.
@@ -364,7 +364,7 @@ label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_m
 ### Particle FX
 
 #### Max Count
-同一时间粒子发射器最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_max_count_optimizations).
+同一时间粒子发射器最大数目, 默认是 `64`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 #### Max Particle Count
 同一时间粒子最大数目, 默认是 `1024`.
@@ -374,21 +374,21 @@ label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component_m
 ### Collection proxy
 
 #### Max Count
-集合代理最大数目, 默认是 `8`. [(参见最大组件数优化)](#component_max_count_optimizations).
+集合代理最大数目, 默认是 `8`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 ---
 
 ### Collection factory
 
 #### Max Count
-集合工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
+集合工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 ---
 
 ### Factory
 
 #### Max Count
-游戏对象工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component_max_count_optimizations).
+游戏对象工厂最大数目, 默认是 `128`. [(参见最大组件数优化)](#component-max-count-optimizations).
 
 ---
 
