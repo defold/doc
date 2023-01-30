@@ -36,7 +36,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 注意一般调试信息都需要实时更新所以把它们放在 `update()` 函数中是个好主意.
 
-## 运行调试器
+## Running the debugger
 
 一种办法是通过 <kbd>Debug ▸ Run with Debugger</kbd> 运行游戏并且自动接入调试器, 另一种是通过 <kbd>Debug ▸ Attach Debugger</kbd> 把调试器接入正在运行中的游戏上.
 
