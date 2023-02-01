@@ -7,8 +7,8 @@ brief: 本教程介绍了如何在 Defold 中使用逐帧动画.
 
 逐帧动画就是由一些列静态图片轮流显示生成的动画. 这种技术类似于老式翻页动画 (详见 http://en.wikipedia.org/wiki/Traditional_animation). 由于每帧的独立性使得这种技术很自由. 但是每帧一张图片会很耗费内存. 相似图片越多动画过渡越平滑同时也带来了巨大的工作量. Defold 逐帧动画使用来自于 [图集](/manuals/atlas), 或者 [瓷砖图源](/manuals/tilesource) 里水平排列的图片.
 
-![Animation sheet](images/animation/animsheet.png){.inline}
-![Run loop](images/animation/runloop.gif){.inline}
+  ![Animation sheet](images/animation/animsheet.png){.inline}
+  ![Run loop](images/animation/runloop.gif){.inline}
 
 ## 播放逐帧动画
 

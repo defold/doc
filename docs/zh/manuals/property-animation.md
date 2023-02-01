@@ -7,8 +7,8 @@ brief: 本教程介绍了如何在 Defold 中使用属性动画.
 
 数值类的属性 (numbers, vector3, vector4 和 quaterions) 以及着色器常量都可以由内置的属性动画系统制作属性动画, 即使用 `go.animate()` 函数. 引擎会在属性值之间进行 "补间" 依照指定的播放和缓动模式进行播放. 你也可以自定义缓动函数.
 
-![Property animation](images/animation/property_animation.png){.inline srcset="images/animation/property_animation@2x.png 2x"}
-![Bounce loop](images/animation/bounce.gif){.inline}
+  ![Property animation](images/animation/property_animation.png)
+  ![Bounce loop](images/animation/bounce.gif)
 
 ## 属性动画
 

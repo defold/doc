@@ -59,7 +59,7 @@ INFO:ENGINE: Loading data from: build/default
 Sample Timeline
 : 采样时间轴显示出引擎采样数据的帧, 一个进程对应一个横向时间轴. Main 表示游戏逻辑和引擎代码运行的主线程. Remotery 表示分析器自身. Sound 表示混音和播放进程. 可以放大缩小 (用鼠标滚轮) 并选择某一帧来分析在 Frame Data view 中所展示的该帧的详细数据.
 
-  ![Frames overview](images/profiling/webprofiler_frames_overview.png)
+  ![Sample Timeline](images/profiling/webprofiler_sample_timeline.png)
 
 Frame Data
 : 帧数据显示了当前选择帧的所有详细数据表格. 这里还可以看到每个游戏循环耗费的毫秒数.
