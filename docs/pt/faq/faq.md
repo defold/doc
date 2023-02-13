@@ -45,7 +45,7 @@ R: As seguintes plataformas são suportadas para o editor/ferramentas e o tempo 
 
   | Sistema                    | Suportado            |
   | -------------------------- | -------------------- |
-  | macOS 10.12 Sierra         | Editor               |
+  | macOS 11 Big Sur           | Editor               |
   | macOS 10.7 Lion            | Runtime              |
   | Windows Vista              | Editor e runtime     |
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
