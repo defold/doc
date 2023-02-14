@@ -62,7 +62,7 @@ A: Las siguientes plataformas tienen soporte para el editor/herramientas y el ru
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |
   | iOS 9.0                    | Runtime              |
-  | Android 4.1 (API level 16) | Runtime              |
+  | Android 4.4 (API level 19) | Runtime              |
   | HTML5                      | Runtime              |
 
   (1 El editor fue creado y probad para 64-bit Ubuntu 18.04. Debe funcionar en otras distribuciones pero no damos garantía de ello.)
