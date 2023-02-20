@@ -441,7 +441,7 @@ Specifies which payload JSON field should be used as notification text. If left 
 An integer value indicating the version of the app. Increase the value for each subsequent update.
 
 #### Package
-Package identifier.
+Package identifier. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters or the underscore character.
 
 #### Gcm Sender Id
 Google Cloud Messaging Sender Id. Set this to the string assigned by Google to enable push notifications.
