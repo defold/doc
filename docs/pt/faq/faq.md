@@ -51,7 +51,7 @@ R: As seguintes plataformas são suportadas para o editor/ferramentas e o tempo 
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |
   | iOS 9.0                    | Runtime              |
-  | Android 4.1 (API level 16) | Runtime              |
+  | Android 4.4 (API level 19) | Runtime              |
   | HTML5                      | Runtime              |
 
   (1 O editor é construído e testado para Ubuntu 18.04 64-bit. Deve funcionar em outras distribuições também, mas não damos garantias.)
