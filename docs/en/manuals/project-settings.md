@@ -404,7 +404,7 @@ Storyboard file (.storyboard). Learn more about how to create one in the [iOS ma
 (iOS 6 and earlier) Check if your icons are pre-rendered. If this is unchecked the icons will get a glossy highlight added automatically.
 
 #### Bundle Identifier
-The bundle identifier lets iOS recognize any updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps.
+The bundle identifier lets iOS recognize any updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters, the underscore or hypen (-) character.
 
 #### Info.plist
 If specified, use this info.plist file when bundling your app.
@@ -441,7 +441,7 @@ Specifies which payload JSON field should be used as notification text. If left 
 An integer value indicating the version of the app. Increase the value for each subsequent update.
 
 #### Package
-Package identifier.
+Package identifier. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters or the underscore character.
 
 #### Gcm Sender Id
 Google Cloud Messaging Sender Id. Set this to the string assigned by Google to enable push notifications.
@@ -472,7 +472,7 @@ Image file (.png) to use as application icon on macOS.
 If set, use the specified info.plist file when bundling.
 
 #### Bundle Identifier
-The bundle identifier lets macOS recognize updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps.
+The bundle identifier lets macOS recognize updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters, the underscore or hypen (-) character.
 
 #### Default Language
 The language used if the application doesn't have user's preferred language in `Localizations` list (see [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
