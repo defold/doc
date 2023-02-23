@@ -116,6 +116,12 @@ Size (box, text and pie nodes)
 Size Mode (box and pie nodes)
 : If set to `Automatic` the editor will set a size for the node. If set to `Manual` you can set the size yourself.
 
+Enabled
+: If unchecked, the node is not rendered, not animated and can not be picked using `gui.pick_node()`. Use `gui.set_enabled()` and `gui.is_enabled()` to programmatically change and check this property.
+
+Visible
+: If unchecked, the node is not rendered, but can still be animated and picked using `gui.pick_node()`. Use `gui.set_visible()` and `gui.get_visible()` to programmatically change and check this property.
+
 Text (text nodes)
 : The text to display on the node.
 
