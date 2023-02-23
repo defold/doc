@@ -116,6 +116,12 @@ Size (box, text 和 pie 节点)
 Size Mode (box 和 pie 节点)
 : 如果设为 `Automatic` 则自动计算并设置节点尺寸. 如果设为 `Manual` 则需手动设置节点尺寸.
 
+Enabled
+: 如果未选中, 则节点不会被渲染, 不会被动画驱动且不能使用 `gui.pick_node()` 返回节点. 可以使用 `gui.set_enabled()` 和 `gui.is_enabled()` 函数手动打开或检查该属性.
+
+Visible
+: 如果未选中, 则节点不会被渲染, 但是可以被动画驱动且可以使用 `gui.pick_node()` 返回节点. 可以使用 `gui.set_visible()` 和 `gui.get_visible()` 函数手动打开或检查该属性.
+
 Text (text 节点)
 : 节点上显示的文字.
 
