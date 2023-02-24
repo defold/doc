@@ -14,6 +14,18 @@
                 "description": "This is a generic guide for Defold beginners and enthusiasts, but also for anyone interested in what components are used in video games."
             },
             {
+                "path": "https://www.youtube.com/embed/_JDKVSTt1Fo",
+                "name": "Defold Render Script Explained",
+                "author": "Unfolding Defold",
+                "description": "As a natural continuation of explaining how computer graphics are rendered, in this tutorial we dive into Defold Render Script."
+            },
+            {
+                "path": "https://www.youtube.com/embed/oLiJTcdBCkM",
+                "name": "How graphics works? Render pipeline explained. Example OpenGL + Defold",
+                "author": "Unfolding Defold",
+                "description": "Do you want to create breathtaking visual effects? Photrealistic or stylized games? You need to dig into how rendering works!"
+            },
+            {
                 "path": "https://www.youtube.com/embed/HjJ-oDz-GcI",
                 "name": "Defold Space Shooter - Gamedev Tutorial for Beginners - Part 1 - Sprites, Inputs, Scripts",
                 "author": "Unfolding Defold",
