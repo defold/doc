@@ -981,7 +981,7 @@
                 ]
             },
             {
-                "name": "File I/O",
+                "name": "Files",
                 "items": [
                     {
                         "path": "/manuals/file-access",
