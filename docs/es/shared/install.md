@@ -9,7 +9,7 @@ Ve a la [página de descarga de Defold](https://defold.com/download/) donde enco
 Instalación en macOS
 : El archivo descargado es una imagen DMG que contiene el programa.
 
-  1. Localiza el archivo "Defold-x86_64-darwin.dmg" y haz doble click para abrir la imagen.
+  1. Localiza el archivo "Defold-x86_64-macos.dmg" y haz doble click para abrir la imagen.
   2. Arrastra la aplicación "Defold" a la carpeta "Applications".
 
   Para iniciar el editor, abre tu carpeta de "Applications" y haz <kbd>doble click</kbd> al archivo "Defold".
@@ -55,7 +55,7 @@ Toda versión estable de Defold también están [lanzadas en GitHub](https://git
 Puedes descargar e instalar una versión antigua del editor utilizando el siguiente patrón de ligas:
 
 * Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
-* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-darwin.dmg
+* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-macos.dmg
 * Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
 
 Reemplaza `%sha1%` por el hash de lanzamiento representando la versión en cuestión. El hash de cada versión de Defold puede verse en los vínculos de la versión lanzada en la página de descarga en https://d.defold.com/stable/ (asegúrate de remover el caracter # inicial y solo copia la parte alfanumérica):

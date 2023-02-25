@@ -141,7 +141,7 @@ usage: bob [options] [commands]
 
 #### x86-darwin
 macOS
-#### x86_64-darwin
+#### x86_64-macos
 macOS 64 bit
 #### x86-win32
 Windows

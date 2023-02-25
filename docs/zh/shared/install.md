@@ -9,7 +9,7 @@
 在 macOS 上安装
 : 下载完成后是一个 DMG 镜像文件.
 
-  1. 双击 "Defold-x86_64-darwin.dmg" 开启镜像打开文件夹.
+  1. 双击 "Defold-x86_64-macos.dmg" 开启镜像打开文件夹.
   2. 把 "Defold" 拖拽到 "Applications" 文件夹里去.
 
   打开 "Applications" 文件夹 <kbd>双击</kbd> "Defold" 文件即可启动.
@@ -55,7 +55,7 @@ Defold 各版本也 [发布在 GitHub 上](https://github.com/defold/defold/rele
 下载链接遵循以下模式:
 
 * Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
-* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-darwin.dmg
+* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-macos.dmg
 * Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
 
 把上面的 `%sha1%` 换成你需要的版本 hash. 这些 hash 可以在 https://d.defold.com/stable/ 上找到 (不要开头 # 号, 只要后面的字符):

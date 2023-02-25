@@ -79,9 +79,9 @@ If you get a callstack from either a `_crash` file or a [log file](/manuals/debu
 It is important that you match the correct engine with the callstack, otherwise it's very likely to send you debugging the incorrect things! Use the flag [`--with-symbols`](https://www.defold.com/manuals/bob/) when bundling with [bob](https://www.defold.com/manuals/bob/) or check the "Generate debug symbols" checkbox from the bundle dialog in the editor:
 
 * iOS - the `dmengine.dSYM.zip` folder in `build/arm64-ios` contains the debug symbols for iOS builds.
-* macOS - the `dmengine.dSYM.zip` folder in `build/x86_64-darwin` contains the debug symbols for macOS builds.
+* macOS - the `dmengine.dSYM.zip` folder in `build/x86_64-macos` contains the debug symbols for macOS builds.
 * Android - the `projecttitle.apk.symbols/lib/` bundle output folder contains the debug symbols for the target architectures.
-* Linux - the executable contain the debug symbols. 
+* Linux - the executable contain the debug symbols.
 * Windows - the `dmengine.pdb` file in `build/x86_64-win32` contains the debug symbols for Windows builds.
 * HTML5 - the `dmengine.js.symbols` file in `build/js-web` or `build/wasm-web` contains the debug symbols for HTML5 builds.
 
