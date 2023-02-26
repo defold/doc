@@ -75,9 +75,9 @@ $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/
 注意引擎版本要选择正确. 不然映射会错乱. 使用 [bob](https://www.defold.com/manuals/bob/) 编译时命令行加入 [--with-symbols](https://www.defold.com/manuals/bob/) 或者在编辑器打包对话框里点选 "Generate debug symbols":
 
 * iOS - 在 `build/arm64-ios` 下的 `dmengine.dSYM.zip` 中包含有 iOS 编译用 debug symbols.
-* macOS - 在 `build/x86_64-darwin` 下的 `dmengine.dSYM.zip` 中包含有 macOS 编译用 debug symbols.
+* macOS - 在 `build/x86_64-macos` 下的 `dmengine.dSYM.zip` 中包含有 macOS 编译用 debug symbols.
 * Android - 在打包输出目录 `projecttitle.apk.symbols/lib/` 下包含有各架构编译用 debug symbols.
-* Linux - 可执行文件本身包含 debug symbols. 
+* Linux - 可执行文件本身包含 debug symbols.
 * Windows - 在 `build/x86_64-win32` 下的 `dmengine.pdb` 中包含有 Windows 编译用 debug symbols.
 * HTML5 - 在 `build/js-web` 或 `build/wasm-web` 下的 `dmengine.js.symbols` 中包含有 HTML5 编译用 debug symbols.
 

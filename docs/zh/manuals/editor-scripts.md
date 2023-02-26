@@ -28,7 +28,7 @@ function M.get_commands()
   -- TODO - 定义编辑器命令
 end
 
-function M.get_language_servers() 
+function M.get_language_servers()
   -- TODO - 定义语言服务器
 end
 
@@ -39,7 +39,7 @@ return M
 ## 编辑器 API
 
 可以使用API中 `editor` 包与编辑器进行交互:
-- `editor.platform` —字符串, 在Windows上是 `"x86_64-win32"`, 在macOS上是 `"x86_64-darwin"`, 在Linux上是 `"x86_64-linux"`.
+- `editor.platform` —字符串, 在Windows上是 `"x86_64-win32"`, 在macOS上是 `"x86_64-macos"`, 在Linux上是 `"x86_64-linux"`.
 - `editor.get(node_id, property)` — 得到编辑器里某些节点的值. 编辑器里的节点是可变实体, 比如脚本或者集合文件, 集合中的游戏对象, 作为资源加载的 json 文件, 等等. `node_id` 是由编辑器发往编辑器脚本的一个 userdata. 或者, 可以用资源路径代替节点 id, 比如 `"/main/game.script"`. `property` 是一个字符串. 目前支持以下属性:
   - `"path"` — 基于项目文件夹对 *resources* 的相对路径 — 资源即代表文件. 有效值举例: `"/main/game.script"`
   - `"text"` — 可编辑文本资源文件 (比如脚本文件或者 json). 有效值举例: `"function init(self)\nend"`. 注意这里跟用 `io.open()` 读取文件不同, 文本资源可以只编辑不保存, 这些编辑仅在访问 `"text"` 属性时有效.
