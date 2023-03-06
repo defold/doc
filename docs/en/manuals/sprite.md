@@ -27,6 +27,14 @@ Apart from the properties *Id*, *Position* and *Rotation* the following componen
 *Blend Mode*
 : The blend mode to use when rendering the sprite.
 
+*Size Mode*
+: If set to `Automatic` the editor will set a size of the sprite. If set to `Manual` you can set the size yourself.
+
+*Slice 9*
+: Set to preserve the pixel size of the sprite's texture around the edges when the sprite is resized.
+
+:[Slice-9](../shared/slice-9-texturing.md)
+
 ### Blend modes
 :[blend-modes](../shared/blend-modes.md)
 
@@ -55,7 +63,7 @@ A sprite also has a number of different properties that can be manipulated using
 : The non-uniform scale of the sprite (`vector3`).
 
 `size`
-: The size of the sprite (`vector3`) (READ ONLY).
+: The size of the sprite (`vector3`). Can only be changed if sprite size-mode is set to manual.
 
 ## Material constants
 
