@@ -32,6 +32,6 @@ If you change scale parameter of the box node or sprite (or on the game object) 
 ### Mipmaps and slice-9
 Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes exhibit artifacts. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
 
-![Slice 9 mipmapping](../shared/images/gui-box/gui_slice9_mipmap.png){srcset="../shared/images/gui-box/gui_slice9_mipmap@2x.png 2x"}
+![Slice 9 mipmapping](../shared/images/gui_slice9_mipmap.png){srcset="../shared/images/gui_slice9_mipmap@2x.png 2x"}
 
 To avoid this problem, make sure that the texture's segments that will be scaled are small enough never to be scaled down, only up.
