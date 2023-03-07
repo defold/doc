@@ -26,6 +26,12 @@
                 "description": "Do you want to create breathtaking visual effects? Photrealistic or stylized games? You need to dig into how rendering works!"
             },
             {
+                "path": "https://www.youtube.com/embed/sLFHDihszfc",
+                "name": "Simple Lighting in Defold - Screen Space Light Maps",
+                "author": "Unfolding Defold",
+                "description": "This video tackles a very frequently asked question - How to make lighting? Watch this video to learn how to add post-processing to your game with Screen Space Light Maps and implement it in Defold!"
+            },
+            {
                 "path": "https://www.youtube.com/embed/HjJ-oDz-GcI",
                 "name": "Defold Space Shooter - Gamedev Tutorial for Beginners - Part 1 - Sprites, Inputs, Scripts",
                 "author": "Unfolding Defold",
