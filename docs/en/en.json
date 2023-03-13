@@ -585,6 +585,10 @@
             {
                 "path": "https://jcash.github.io/",
                 "name": "JCash demos"
+            },
+            {
+                "path": "https://exercism.org/tracks/lua",
+                "name": "Exercism - Learn Lua"
             }
         ],
         "manuals":
