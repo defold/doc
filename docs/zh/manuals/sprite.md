@@ -27,6 +27,14 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 *Blend Mode*
 : 组件渲染时使用的混合模式.
 
+*Size Mode*
+: 如果设置为 `Automatic` 则编辑器会自动为 sprite 设置尺寸. 如果设置为 `Manual` 则可以手动设置尺寸.
+
+*Slice 9*
+: 设置在更改 sprite 大小时, 保留其周围边缘纹理的像素大小.
+
+:[Slice-9](../shared/slice-9-texturing.md)
+
 ### 混合模式
 :[blend-modes](../shared/blend-modes.md)
 
@@ -55,7 +63,7 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 : Sprite缩放 (`vector3`).
 
 `size`
-: Sprite大小 (`vector3`) (只读).
+: Sprite大小 (`vector3`). 只有 sprite 的 size-mode 设置为 manual 时可以更改.
 
 ## 材质常量
 
