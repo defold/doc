@@ -36,7 +36,7 @@ brief: В этом руководстве описаны некоторые по
 * Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
 * iOS/macOS: `apple-clang` (`clang 9` on build server)
 
-Для iOS/macOS мы используем `-miphoneos-version-min=9.0` и `-mmacosx-version-min=10.7` соответственно.
+Для iOS/macOS мы используем `-miphoneos-version-min=11.0` и `-mmacosx-version-min=10.13` соответственно.
 
 Мы не указываем конкретную версию C++, поэтому используем версию по умолчанию каждого компилятора.
 
