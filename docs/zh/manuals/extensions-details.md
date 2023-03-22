@@ -39,7 +39,7 @@ brief: 本教程介绍了有关编译系统用来编译原生扩展的一些细�
 * Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
 * iOS/macOS: `apple-clang` (`clang 9` on build server)
 
-对于 iOS/macOS, 我们分别使用了 `-miphoneos-version-min=9.0` 和 `-mmacosx-version-min=10.7` 参数.
+对于 iOS/macOS, 我们分别使用了 `-miphoneos-version-min=11.0` 和 `-mmacosx-version-min=10.13` 参数.
 
 由于我们不指定 C++ 版本, 所以各个编译器都使用了默认设置.
 
