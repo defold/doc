@@ -36,7 +36,7 @@ For the most accurate list of versions, check the [build.py](./scripts/build.py)
 * Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
 * iOS/macOS: `apple-clang` (`clang 9` on build server)
 
-For iOS/macOS, we use `-miphoneos-version-min=9.0` and `-mmacosx-version-min=10.7` respectively.
+For iOS/macOS, we use `-miphoneos-version-min=11.0` and `-mmacosx-version-min=10.13` respectively.
 
 We don't specify a specific C++ version, so we use the default of each compiler.
 
