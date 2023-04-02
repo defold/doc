@@ -56,11 +56,11 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
   | 系统                        | 支持                  |
   | -------------------------- | -------------------- |
   | macOS 11 Big Sur           | 编辑器                |
-  | macOS 10.7 Lion            | 游戏引擎               |
+  | macOS 10.13 High Sierra    | 游戏引擎               |
   | Windows Vista              | 编辑器与游戏引擎        |
   | Ubuntu 18.04 (64 bit)(1)   | 编辑器                |
   | Linux (64 bit)(2)          | 游戏引擎              |
-  | iOS 9.0                    | 游戏引擎              |
+  | iOS 11.0                   | 游戏引擎              |
   | Android 4.4 (API level 19) | 游戏引擎              |
   | HTML5                      | 游戏引擎              |
 
