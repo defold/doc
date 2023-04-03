@@ -2,6 +2,12 @@
     "navigation": {
         "videos": [
             {
+                "path": "https://www.youtube.com/embed/DT4D0d47udA",
+                "name": "How does Messaging and Addressing Systems work in Defold?",
+                "author": "Unfolding Defold",
+                "description": "This video explains the Messaging and Addressing system in Defold."
+            },
+            {
                 "path": "https://www.youtube.com/embed/YGBSXMPd4jc",
                 "name": "Defold Building Blocks - objects and components, editor and lifecycle overview",
                 "author": "Unfolding Defold",
