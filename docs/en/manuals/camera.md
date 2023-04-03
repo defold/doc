@@ -20,7 +20,7 @@ To create a camera, <kbd>right click</kbd> a game object and select <kbd>Add Com
 
 ![create camera component](images/camera/create.png)
 
-The camera component has the following properties that defines the camera *frustum* (perspective camera only):
+The camera component has the following properties that defines the camera *frustum*:
 
 ![camera settings](images/camera/settings.png)
 
@@ -34,10 +34,10 @@ Fov
 : (**Perspective camera only**) - The *vertical* camera field of view expressed in _radians_. The wider the field of view, the more the camera will see. Note that the current default value (45) is misleading. For a 45 degree field of view, change the value to 0.785 (`π / 4`).
 
 Near Z
-: (**Perspective camera only**) - The Z-value of the near clipping plane.
+: The Z-value of the near clipping plane.
 
 Far Z
-: (**Perspective camera only**) - The Z-value of the far clipping plane.
+: The Z-value of the far clipping plane.
 
 Auto Aspect Ratio
 : (**Perspective camera only**) - Set this to let the camera automatically calculate the aspect ratio.
