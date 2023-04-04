@@ -263,6 +263,15 @@ The max number of resources that can be loaded at the same time, `1024` by defau
 #### Http Timeout
 The HTTP timeout in seconds. Set to `0` to disable timeout, which is the default.
 
+#### Http Thread Count
+The number of worker threads for the HTTP service.
+
+#### Http Cache Enabled
+Check to enable the HTTP cache for network requests (using `http.request()`. The HTTP cache will store the response associated with a request and reuse the stored response for subsequent requests. The HTTP cache supports the `ETag` and `Cache-Control: max-age` HTTP response headers.
+
+#### SSL Certificates
+File containing SSL root certificates to use when verifying the certificate chain during SSL handshakes.
+
 ---
 
 ### Collection
