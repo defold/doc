@@ -261,7 +261,16 @@ debug顶点最大数目. 用于物理形状渲染与其他一些功能, 默认�
 ### Network
 
 #### Http Timeout
-HTTP超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
+HTTP 超时秒数. 设置为 `0` 则关闭超时, 默认关闭.
+
+#### Http Thread Count
+HTTP 服务的工作线程个数.
+
+#### Http Cache Enabled
+为网络请求 (使用 `http.request()`) 打开 HTTP 缓存. HTTP 缓存会保存请求的响应并对随后的请求重用这个响应. HTTP 缓存支持 `ETag` 和 `Cache-Control: max-age` HTTP 响应头部.
+
+#### SSL Certificates
+该文件包含在 SSL 握手过程中用来验证证书链的 SSL 根证书.
 
 ---
 
