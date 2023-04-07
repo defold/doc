@@ -71,7 +71,7 @@ Which render setup file to use, which defines the render pipeline, `/builtins/re
 ### Library
 
 #### Include Dirs
-A space separated list of directories that should be shared from your project via library sharing.
+A space separated list of directories that should be shared from your project via library sharing. Refer to the [Libraries manual](/manuals/libraries/) for more information.
 
 ---
 
