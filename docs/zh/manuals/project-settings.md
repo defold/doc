@@ -71,7 +71,7 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 ### Library
 
 #### Include Dirs
-使用库共享机制从项目中共享出去的以逗号分隔的目录列表.
+使用库共享机制从项目中共享出去的以逗号分隔的目录列表. 详情参见 [库使用教程](/manuals/libraries/).
 
 ---
 
