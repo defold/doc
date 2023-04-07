@@ -46,24 +46,7 @@ Mesh 组件包含一些列属性:
 
 ## 运行时操作
 
-可以使用 Defold 缓存在运行时修改3D网格.
-
-## 材质常量
-
-{% include shared/material-constants.md component='mesh' variable='tint' %}
-
-`tint`
-: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
-
-## 顶点的局部/世界坐标空间
-如果3D网格材质的坐标空间设为局部坐标空间, 则数据会原封不动传入着色器, 这样通常要在着色器程序里进行GPU顶点/法线的转换.
-
-如果3D网格材质的坐标空间设为世界坐标空间, 则必须要么提供默认的 “位置” 和 “法线”, 流, 要么在编辑3D网格时, 在下拉菜单中选择好. 这样便于引擎把同样是世界坐标系的3D网格进行数据合批.
-
-## 举例
-关于3D网格操作及示例项目和代码片段请参考 [这个论坛帖子](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137).
-
-用三角形建立方块的例子:
+可以使用 Defold 缓存在运行时修改3D网格. 下面是一个使用三角面生成方块的例子:
 
 ```Lua
 
@@ -100,3 +83,25 @@ end
 local res = go.get("#mesh", "vertices")
 resource.set_buffer(res, buf)
 ```
+
+关于如何使用 Mesh 组件, 示例项目和代码片段, 详情参见 [论坛发布帖子](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137).
+
+## 视锥体剔除
+
+Mesh 不会被自动剔除, 因为它们具有动态特性, 而且无法确定位置数据的编码方式. 为了剔除网格, 需要使用 6 个浮点数, 把轴对齐的边界框设置为缓存元数据 (AABB 最小/最大):
+
+```lua
+buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_FLOAT32)
+```
+
+## 材质常量
+
+{% include shared/material-constants.md component='mesh' variable='tint' %}
+
+`tint`
+: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
+
+## 顶点的局部/世界坐标空间
+如果3D网格材质的坐标空间设为局部坐标空间, 则数据会原封不动传入着色器, 这样通常要在着色器程序里进行GPU顶点/法线的转换.
+
+如果3D网格材质的坐标空间设为世界坐标空间, 则必须要么提供默认的 “位置” 和 “法线”, 流, 要么在编辑3D网格时, 在下拉菜单中选择好. 这样便于引擎把同样是世界坐标系的3D网格进行数据合批.
