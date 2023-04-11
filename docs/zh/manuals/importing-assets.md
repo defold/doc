@@ -25,7 +25,7 @@ Defold 支持 PNG 和 JPEG 图片格式. 其中 PNG 图片必须是 32 位 RGBA 
 * 图片可以用来实现2D游戏常见的各种可视内容. 详情请见 [如何导入和使用2D图像](/manuals/importing-graphics).
 * 声音文件可以用 [声音组件](/manuals/sound)来播放.
 * 字体文件 可以用于 [Label 组件](/manuals/label) 和GUI中的 [text 节点](/manuals/gui-text).
-* Collada 模型可以用于 [Model 组件](/manuals/model) 来显示3D模型和动画. [关于3D模型导入详见这里](/manuals/importing-models).
+* glTF 和 Collada 模型可以用于 [Model 组件](/manuals/model) 来显示3D模型和动画. [关于3D模型导入详见这里](/manuals/importing-models).
 
 
 ## 编辑外部资源
