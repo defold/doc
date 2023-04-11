@@ -23,7 +23,7 @@ Model 组件和其他游戏对象组件一样, 两种创建办法:
 除了常见的 *Id*, *Position* 和 *Rotation* 属性, 模型组件还有如下特有属性:
 
 *Mesh*
-: 这个属性指定 Collada *.dae* 文件的模型网格. 如果文件包含多组网格, 只读取第一个.
+: 这个属性指定 glTF *.gltf* 或者 Collada *.dae* 文件的模型网格. 如果文件包含多组网格, 只读取第一个.
 
 *Material*
 : 添加合适的材质. 一开始可以使用默认的 *model.material* 材质.
@@ -32,7 +32,7 @@ Model 组件和其他游戏对象组件一样, 两种创建办法:
 : 指定适当的纹理.
 
 *Skeleton*
-: 指定 Collada *.dae* 文件里的骨骼. 注意Defold只支持一个骨骼树.
+: 指定 glTF *.gltf* 或者 Collada *.dae* 文件里的骨骼. 注意Defold只支持一个骨骼树.
 
 *Animations*
 : 指定模型的 *动画集文件*.
@@ -90,7 +90,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 
 ## 材质
 
-3D 一半都有给网格赋予材质的功能, 比如颜色和贴图. 在 Collada *.dae* 文件输出时, 这些信息被写入文件. 应该基于游戏需要选择或者建造 _高性能_ 材质. 材质由 _着色器程序_ 及其若干相关属性组成.
+3D 一半都有给网格赋予材质的功能, 比如颜色和贴图. 这些信息保存在由 3D 软件输出的 glTF *.gltf* 或者 Collada *.dae* 文件中. 应该基于游戏需要选择或者建造 _高性能_ 材质. 材质由 _着色器程序_ 及其若干相关属性组成.
 
 在内置材质文件夹里有一个3D模型材质. 如果需要自定义材质, 请参考 [材质文档](/manuals/material). [着色器教程](/manuals/shader) 介绍了着色器程序的工作方式.
 
