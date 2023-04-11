@@ -235,13 +235,32 @@ end
   end
   ```
 
+## 动态 Prototype
+
+factory 组件里有 *Dynamic Prototype* 选项, 点选之后可以在运行时更改 factory 的原型.
+
+![动态 prototype](images/factory/dynamic_prototype.png)
+
+factory 组件 *Dynamic Prototype* 被点选之后可以使用 `factory.set_prototype()` 函数更改其原型. 例如:
+
+```lua
+factory.unload("#factory") -- 卸载之前的资源
+factory.set_prototype("#factory", "/main/levels/enemyA.goc")
+local enemy_id = factory.create("#factory")
+```
+
+::: important
+当 *Dynamic Prototype* 被点选后, 集合组件数目将失去限制, factory 所在的集合将使用 *game.project* 文件指定的默认组件限制数目.
+:::
+
+
 ## 实例限制
 
 项目设置 *Collection related settings* 部分 *max_instances* 限制了游戏世界 (启动集合 main.collection 或者通过集合代理加载的集合) 中游戏对象的最大数目. 不论是子编辑器里创建的还是用脚本动态创建的游戏对象综合不得超过这个最大值.
 
 ![Max instances](images/factory/factory_max_instances.png)
 
-比如如果把 *max_instances* 设置为 1024 然后手动拖放 24 游戏对象到主集合, 那么最多还能创建 1000 个游戏对象. 如果删除一个对象, 就能再创建一个对象.
+如果把 *max_instances* 设置为 1024 然后手动拖放 24 游戏对象到主集合, 那么最多还能创建 1000 个游戏对象. 如果删除一个对象, 就能再创建一个对象.
 
 ## 游戏对象池
 
