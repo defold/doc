@@ -134,7 +134,7 @@ Device identifier (UDID)
 如果你的 "Any iOS Device (arm64)" 里只有一个 `arm64` 选项, 则需要把 "Project -> Basic -> Deployment" 里的 `iOS Deployment target` 设置为 10.3. 这样你的 storyboard 才能支持 `armv7` 设备 (比如 iPhone5c)  
 :::
 
-在 storyboard 里使用的图片不会自动包含进 `LaunchScreen.storyboardc` 里. 要在 `game.project` 的 `Bundle Resources` 选项中配置需要包含的图片资源.
+在 storyboard 里使用的图片不会自动包含进 `LaunchScreen.storyboardc` 里. 要在 *game.project* 的 `Bundle Resources` 选项中配置需要包含的图片资源.
 例如, 在 Defold 项目目录下有个 `LaunchScreen` 文件夹, 里面包含 `ios` 文件夹 (`ios` 文件夹下的文件只针对 ios 打包使用), 所以先要把资源文件放入 `LaunchScreen/ios/`. 然后配置 `Bundle Resources` 为此路径.
 
 ![](images/ios/bundle_res.png)

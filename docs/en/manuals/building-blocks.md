@@ -24,7 +24,7 @@ Component
 
 Collections are tree structures that hold game objects and other collections. A collection is always stored on file.
 
-When the Defold engine starts, it loads a single _bootstrap collection_ as specified in the "game.project" settings file. The bootstrap collection is often named "main.collection" but you are free to use any name you like.
+When the Defold engine starts, it loads a single _bootstrap collection_ as specified in the *game.project* settings file. The bootstrap collection is often named "main.collection" but you are free to use any name you like.
 
 A collection can contain game objects and other collections (by reference to the sub-collection's file), nested arbitrarily deep. Here is an example file called "main.collection". It contains one game object (with the id "can") and one sub-collection (with the id "bean"). The sub-collection, in turn, contains two game objects: "bean" and "shield".
 

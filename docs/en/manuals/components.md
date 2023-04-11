@@ -102,3 +102,6 @@ If two components have the exact same z-value the order is undefined and you may
 
 The render script defines a near and far plane for z-values. Any component with a z-value that falls outside of this range will not be rendered. The default range is -1 to 1 but [it can easily be changed](/manuals/render/#default-view-projection). The numerical precision on the Z values with a near and far limit of -1 and 1 is very high. When working with 3D assets, you may need to change the near and far limits of the default projection in a custom render script. See the [Render manual](/manuals/render/) for more information.
 :::
+
+
+:[Component max count optimizations](../shared/component-max-count-optimizations.md)

@@ -38,7 +38,7 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 
 ## 安卓应用打包
 
-编辑器打包安卓包十分方便. 打包之前可以为应用指定图标, 设置版本号等等, 都在 "game.project" [项目配置文件](/manuals/project-settings/#Android) 里设置.
+编辑器打包安卓包十分方便. 打包之前可以为应用指定图标, 设置版本号等等, 都在 *game.project* [项目配置文件](/manuals/project-settings/#Android) 里设置.
 
 选择菜单栏 <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> 就可以打包了.
 
@@ -75,7 +75,7 @@ Success
 
 ## 权限
 
-Defold 引擎需要一些权限来运行各种功能. 权限在 `AndroidManifest.xml` 文件中定义, 并在 "game.project" [项目配置文件](/manuals/project-settings/#Android) 中配置. 关于 Android 权限详见 [官方文档](https://developer.android.com/guide/topics/permissions/overview). 默认配置需要如下权限:
+Defold 引擎需要一些权限来运行各种功能. 权限在 `AndroidManifest.xml` 文件中定义, 并在 *game.project* [项目配置文件](/manuals/project-settings/#Android) 中配置. 关于 Android 权限详见 [官方文档](https://developer.android.com/guide/topics/permissions/overview). 默认配置需要如下权限:
 
 ### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
 允许应用打开网络连接访问互联网. 需要上网时需要此权限. 见 ([Android 官方文档-网络](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) 和 ([Android 官方文档-网络状态](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).

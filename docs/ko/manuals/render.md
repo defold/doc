@@ -21,7 +21,7 @@ title: Defold manual
 1. "default.render" 파일과 "default.render_script" 파일을 복사합니다.
 2. 복사한 파일들을 당신의 프로젝트의 아무데나 ("render" 폴더 같은 곳)에 붙여 넣기 합니다.
 3. 복사한 "default.render" 파일을 연 후 (이름 바꿔도 됨) **script** 속성을 변경하여 복사한 렌더 스크립트 파일을 참조합니다.
-4. "game.project" 설정 파일에서 **Bootstrap** 항목 아래의 **render** 속성을 변경하여 위에서 복사한 "default.render" 오브젝트를 참조합니다.
+4. *game.project* 설정 파일에서 **Bootstrap** 항목 아래의 **render** 속성을 변경하여 위에서 복사한 "default.render" 오브젝트를 참조합니다.
 
 물론 그냥 처음부터 렌더 스크립트 파일을 새로 생성해도 되지만, Defold와 OpenGL ES 렌더링을 처음 다뤄보는 사용자라면 기존 스크립트에서 복사해서 편집하는 방식이 좋은 접근법입니다.
 

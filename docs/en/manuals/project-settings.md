@@ -11,7 +11,7 @@ Every setting in the file belongs to a category. When you open the file Defold p
 
 ![Project settings](images/project-settings/settings.jpg)
 
-Below are all the available settings, arranged by section. Some settings are not yet exposed in the settings editor (these are marked "hidden setting" below), but can be set manually by right clicking "game.project" and selecting <kbd>Open With ▸ Text Editor</kbd>.
+Below are all the available settings, arranged by section. Some settings are not yet exposed in the settings editor (these are marked "hidden setting" below), but can be set manually by right clicking *game.project* and selecting <kbd>Open With ▸ Text Editor</kbd>.
 
 ## Sections and settings
 
@@ -663,4 +663,4 @@ my_property.private = 1 // boolean value 1 or 0
 ``` 
 
 
-At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the `game.project` viewer. 
+At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the *game.project* viewer. 

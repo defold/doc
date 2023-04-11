@@ -72,18 +72,18 @@ Each time the application is exported, this content is created afresh. If you wi
 More information about every option is available in [project settings manual](/manuals/project-settings/#html5).
 
 ::: important
-You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in `game.project`.
+You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in *game.project*.
 :::
 
 ::: important
 The canvas shouldn't be styled with any border or padding. If you do, mouse input coordinates will be wrong.
 :::
 
-In `game.project` it is possible to turn-off the `Fullscreen` button and the `Made with Defold` link.
+In *game.project* it is possible to turn-off the `Fullscreen` button and the `Made with Defold` link.
 Defold provides a dark and light theme for the index.html. The light theme is set by default but it is possible to change by changing `Custom CSS` file. There is also four predefined scale modes to chose from in the `Scale Mode` field.
 
 ::: important
-The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in `game.project` (`Display` section)
+The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in *game.project* (`Display` section)
 :::
 
 ### Downscale Fit and Fit
@@ -99,7 +99,7 @@ For the `Stretch` mode canvas size will be changed to fully fill the inner size 
 ![HTML5 Section](images/html5/html5_stretch.png)
 
 ### No Scale
-With `No Scale` mode the canvas size is exactly the same as you predefined in `game.project` file, `[display]` section.
+With `No Scale` mode the canvas size is exactly the same as you predefined in *game.project* file, `[display]` section.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
@@ -111,11 +111,11 @@ We use [Mustache template language](https://mustache.github.io/mustache.5.html) 
 More information about Mustache template language is available in [manual](https://mustache.github.io/mustache.5.html).
 :::
 
-Any `game.project` can be a token. For example, if you want to use `Width` value from `Display` section:
+Any *game.project* can be a token. For example, if you want to use `Width` value from `Display` section:
 
 ![Display section](images/html5/html5_display.png)
 
-Open `game.project` as a text and check `[section_name]` and name of the field you want to use. Then you can use it as a token: `{{section_name.field}}` or `{{{section_name.field}}}`.
+Open *game.project* as a text and check `[section_name]` and name of the field you want to use. Then you can use it as a token: `{{section_name.field}}` or `{{{section_name.field}}}`.
 
 ![Display section](images/html5/html5_game_project.png)
 
@@ -131,7 +131,7 @@ function doSomething() {
 Also, we have the following custom tokens:
 
 DEFOLD_SPLASH_IMAGE
-: Writes the filename of the splash image file or `false` if `html5.splash_image` in `game.project` is empty
+: Writes the filename of the splash image file or `false` if `html5.splash_image` in *game.project* is empty
 
 
 ```css
@@ -145,7 +145,7 @@ exe-name
 
 
 DEFOLD_CUSTOM_CSS_INLINE
-: This is the place when we inline of the CSS file specified in your `game.project` settings.
+: This is the place when we inline of the CSS file specified in your *game.project* settings.
 
 
 ```html
@@ -171,10 +171,10 @@ DEFOLD_SCALE_MODE_IS_STRETCH
 : This token is `true` if `html5.scale_mode` is `Stretch`.
 
 DEFOLD_HEAP_SIZE
-: Heap size specified in `game.project` `html5.heap_size` converted to bytes.
+: Heap size specified in *game.project* `html5.heap_size` converted to bytes.
 
 DEFOLD_ENGINE_ARGUMENTS
-: Engine arguments specified in `game.project` `html5.engine_arguments` separated by `,` symbol.
+: Engine arguments specified in *game.project* `html5.engine_arguments` separated by `,` symbol.
 
 
 ## Extra parameters
@@ -239,7 +239,7 @@ It is possible to specify additional engine arguments when the engine is configu
     }
 ```
 
-You can also add `"–config=foo1=bar1","--config=foo2=bar2"` to the engine arguments field in the HTML5 section of `game.project` and it will be injected into the generated index.html file.
+You can also add `"–config=foo1=bar1","--config=foo2=bar2"` to the engine arguments field in the HTML5 section of *game.project* and it will be injected into the generated index.html file.
 
 At runtime you get the values like this:
 

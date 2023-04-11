@@ -23,7 +23,7 @@ Defold 应用或者游戏的生命周期相当简单. 引擎切换运行三种�
 
 ![Lifecycle overview](images/application_lifecycle/application_lifecycle_init.png)
 
-其实初始化阶段启动集合被加载之前引擎还做了许多别的工作. 内存分析, 接口, 图像, HID (输入设备), 声音, 物理等等的初始化. 应用配置文件 ("game.project") 也在此时被加载.
+其实初始化阶段启动集合被加载之前引擎还做了许多别的工作. 内存分析, 接口, 图像, HID (输入设备), 声音, 物理等等的初始化. 应用配置文件 (*game.project*) 也在此时被加载.
 
 最开始的用户可控的操作, 是在引擎初始化结束后, 对于渲染脚本 `init()` 函数的调用.
 

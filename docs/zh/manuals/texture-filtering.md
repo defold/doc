@@ -31,4 +31,4 @@ default_texture_mag_filter = nearest
 
 如果不赋值, 默认都是 `linear`.
 
-注意 "game.project" 由默认采样器使用. 如果你在自定义材质里指定了特殊的采样器, 可以对每个采样器采用不同的过滤方法. 详情请见 [材质教程](/manuals/material/).
+注意 *game.project* 由默认采样器使用. 如果你在自定义材质里指定了特殊的采样器, 可以对每个采样器采用不同的过滤方法. 详情请见 [材质教程](/manuals/material/).

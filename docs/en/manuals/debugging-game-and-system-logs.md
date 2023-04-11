@@ -84,7 +84,7 @@ This will install the app on your device, start it and automatically attach a LL
 
 ## Reading the game log from the log file
 
-If you enable the *Write Log* setting in "game.project", any game output will be written to disk, to a file called "log.txt". Here is how you extract the file if you run the game on device:
+If you enable the *Write Log* setting in *game.project*, any game output will be written to disk, to a file called "log.txt". Here is how you extract the file if you run the game on device:
 
 iOS
 : Connect your device to a computer with macOS and Xcode installed.

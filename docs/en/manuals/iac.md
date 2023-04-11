@@ -16,7 +16,7 @@ In the case when the application is launched from a link, notification or when i
 
 ## Installing the extension
 
-To start using the Inter-app communication extension you need to add it as a dependency to your `game.project` file. The latest stable version is available with the dependency URL:
+To start using the Inter-app communication extension you need to add it as a dependency to your *game.project* file. The latest stable version is available with the dependency URL:
 ```
 https://github.com/defold/extension-iac/archive/master.zip
 ```

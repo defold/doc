@@ -19,7 +19,7 @@ Defold는 자동 텍스쳐 프로세싱과 이미지 데이터 압축(**Atlas, T
 텍스쳐 압축을 추가하려면:
 
 1. **File > New > Other…** 메뉴를 선택하고 "Texture Profiles File"를 선택해서 새 텍스쳐 프로파일 파일을 생성함(또는 "default.texture_profiles"를 "builtins"의 외부로 복사함)
-2. "game.project"의 **texture_profiles** 항목을 새 파일을 지정하도록 수정
+2. *game.project*의 **texture_profiles** 항목을 새 파일을 지정하도록 수정
 3. **.texture_profiles** 파일을 열어서 원하는 대로 수정함
 
 ![New profiles file](images/texture_profiles/texture_profiles_new_file.png)

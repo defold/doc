@@ -9,7 +9,7 @@ Defold支持可自动适应移动设备上屏幕方向变化的GUI.通过使用�
 
 ## 新建显示档案
 
-"game.project" 默认使用内置显示档案文件 ("builtins/render/default.display_profiles"). 默认 "横屏" (1280 像素宽 720 像素高) 和 "竖屏" (720 像素宽 1280 像素高). 未指定显示器型号以便适应各种设备.
+*game.project* 默认使用内置显示档案文件 ("builtins/render/default.display_profiles"). 默认 "横屏" (1280 像素宽 720 像素高) 和 "竖屏" (720 像素宽 1280 像素高). 未指定显示器型号以便适应各种设备.
 
 要新建显示档案文件, 要么把 "builtins" 文件夹拷贝出来, 要么在  *Assets* 视图中 <kbd>右键点击</kbd> 然后选择 <kbd>New... ▸ Display Profiles</kbd>. 输入文件名然后点击 <kbd>Ok</kbd>.
 
@@ -26,7 +26,7 @@ Device Models
 
 ![New display profiles](images/gui-layouts/new_profiles.png){srcset="images/gui-layouts/new_profiles@2x.png 2x"}
 
-别忘了指定引擎使用你自己的档案文件. 打开 "game.project" 在 *display* 部分 *Display Profiles* 项里进行设置:
+别忘了指定引擎使用你自己的档案文件. 打开 *game.project* 在 *display* 部分 *Display Profiles* 项里进行设置:
 
 ![Settings](images/gui-layouts/settings.png){srcset="images/gui-layouts/settings@2x.png 2x"}
 

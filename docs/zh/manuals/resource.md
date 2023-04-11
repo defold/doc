@@ -14,7 +14,7 @@ brief: 本教程介绍了 Defold 如何自动管理资源以及如何手动加�
 - 游戏对象和组件数据 (图集, 声音之类的).
 - 工厂组件原型 (游戏对象和集合).
 - 集合代理组件数据 (集合).
-- 在 "game.project" 中定义的用户数据.
+- 在 *game.project* 中定义的用户数据.
 
 ![Resource tree](images/resource/resource_tree.png)
 
@@ -29,7 +29,7 @@ brief: 本教程介绍了 Defold 如何自动管理资源以及如何手动加�
 但是, 运行时引擎不会自动读入以下资源:
 
 - 集合代理未加载内容. 这些内容需要在代码里手动实施加载和卸载. 详情请见 [集合代理教程](/manuals/collection-proxy).
-- 在 "game.project" 文件中 *Custom Resources* 里的资源. 这些资源需要手动使用 [sys.load_resource()](/ref/sys/#sys.load_resource) 函数加载.
+- 在 *game.project* 文件中 *Custom Resources* 里的资源. 这些资源需要手动使用 [sys.load_resource()](/ref/sys/#sys.load_resource) 函数加载.
 
 Defold 打包和加载资源的方法可以被修改具体到如何, 何时把资源读入内存.
 

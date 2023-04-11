@@ -89,7 +89,7 @@ Android 장치에서 게임을 실행하려면, dmengine 앱과 에디터가 동
 
 ![Android Application Package file](images/android/apk_file.png)
 
-에디터는 Android 어플리케이션 번들인 **.apk** 파일을 생성합니다. 이 파일은 adb 도구를 사용해 기기로 복사하거나 [Google Play developer console](https://play.google.com/apps/publish/) 을 통해서 Google Play에도 복사할 수 있습니다.  "game.project" 프로젝트 설정 파일에서 버전 코드나 앱에서 사용할 아이콘 등을 지정할 수 있습니다.
+에디터는 Android 어플리케이션 번들인 **.apk** 파일을 생성합니다. 이 파일은 adb 도구를 사용해 기기로 복사하거나 [Google Play developer console](https://play.google.com/apps/publish/) 을 통해서 Google Play에도 복사할 수 있습니다.  *game.project* 프로젝트 설정 파일에서 버전 코드나 앱에서 사용할 아이콘 등을 지정할 수 있습니다.
 
 ### 어플리케이션 번들 디버깅하기
 엔진의 디버그 모드 버전(번들 생성시에 "Release mode"를 체크 해제 했을 경우)으로 빌드된 번들은 모든 콘솔 출력(console output)을 Android 시스템 로그로 보냅니다. 이 로그는 adb 도구에 "logcat" 명령어를 사용해서 액세스 할 수 있으며 태그("-s [tagname]")를 사용해서 출력을 필터링 할 수도 있습니다.

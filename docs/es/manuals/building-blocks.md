@@ -24,7 +24,7 @@ Componente (Component)
 
 Las colecciones son estructuras de arbol que contienen objetos y otras colecciones. Una colección siempre estará guardada en archivo.
 
-Cuando el motor Defold inicia, carga una _colección bootstrap_ especificado en el archivo de configuración "game.project".La colección bootstrap es normalmente llamada "main.collection" pero eres libre de elegir cualquier nombre que prefieras.
+Cuando el motor Defold inicia, carga una _colección bootstrap_ especificado en el archivo de configuración *game.project*.La colección bootstrap es normalmente llamada "main.collection" pero eres libre de elegir cualquier nombre que prefieras.
 
 Una colección puede contener objetos y otras colecciones (por referencia al archivo de subcolecciones), anidados abritrariamente profundos. Aquí hay un archivo ejemplo llamado "main.collection". Contiene un objeto (con la id "can") y una sub-colección (con la id "bean"). La sub-colección, en turno, contiene dos objetos: "bean" y "shield".
 

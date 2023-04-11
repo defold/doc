@@ -26,7 +26,7 @@ Diagram poniżej zawiera szczegółowe rozplanowanie kroków inicjalizacji. Krok
 
 ![Lifecycle overview](images/application_lifecycle/application_lifecycle_init.png)
 
-Silnik w zasadzie podejmuje więcej kroków podczas inicjalizacji, jeszcze przed załadowaniem głównej kolekcji. Inicjalizowane są: profiler pamięci (memory profiler), gniazda (sockets), grafika, urządzenia wejścia (HID), dźwięk, fizyka i wiele innych modułów. Plik konfiguracyjny ("game.project") jest wtedy również wczytywany i wykorzystywany.
+Silnik w zasadzie podejmuje więcej kroków podczas inicjalizacji, jeszcze przed załadowaniem głównej kolekcji. Inicjalizowane są: profiler pamięci (memory profiler), gniazda (sockets), grafika, urządzenia wejścia (HID), dźwięk, fizyka i wiele innych modułów. Plik konfiguracyjny (*game.project*) jest wtedy również wczytywany i wykorzystywany.
 
 Pierwszym punktem wejściowym, w którym użytkownik przejmuje kontrolę, już na samym końcu fazy inicjalizacji, jest funkcja `init()` specjalnego skryptu do renderowania (ang. render script).
 
@@ -103,7 +103,7 @@ Ostatnim krokiem pętli aktualizacyjnej jest obsługa wiadomości kolejnego, spe
 
 ## Klatki na sekundę i krok czasowy kolekcji
 
-Liczba klatek na sekundę (równa liczbie pętli aktualizacyjnych na sekundę) może być ustawiona w pliku konfiguracyjnym projektu (`game.project`) lub dynamicznie przez wysłanie wiadomości `set_update_frequency` do specjalnego gniazda `@system`. Dodatkowo, możliwe jest ustawienie kroku czasowego (ang. _time step_) dla pełnomocników kolekcji indywidualnie poprzez wysłanie wiadomości `set_time_step`. Zmiana czasu kroku kolekcji nie wpływa na liczbę klatek na sekundę - jedynie na aktualizację fizyki oraz wartość `dt` przekazywaną do funkcji `update().` Zauważ również, że zmiana kroku czasowego nie zmienia samej liczby wywołań funkcji `update()`, które są wywoływane w każdej klatce - a ta nie ulega zmianie.
+Liczba klatek na sekundę (równa liczbie pętli aktualizacyjnych na sekundę) może być ustawiona w pliku konfiguracyjnym projektu (*game.project*) lub dynamicznie przez wysłanie wiadomości `set_update_frequency` do specjalnego gniazda `@system`. Dodatkowo, możliwe jest ustawienie kroku czasowego (ang. _time step_) dla pełnomocników kolekcji indywidualnie poprzez wysłanie wiadomości `set_time_step`. Zmiana czasu kroku kolekcji nie wpływa na liczbę klatek na sekundę - jedynie na aktualizację fizyki oraz wartość `dt` przekazywaną do funkcji `update().` Zauważ również, że zmiana kroku czasowego nie zmienia samej liczby wywołań funkcji `update()`, które są wywoływane w każdej klatce - a ta nie ulega zmianie.
 
 (Szczegóły znajdziesz w [Instrukcji do pełnomocników kolekcji](/manuals/collection-proxy) i [`set_time_step`](/ref/collectionproxy#set-time-step))
 

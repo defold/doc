@@ -39,7 +39,7 @@ Creating a macOS application bundle (.app file) is documented in the [macOS manu
 
 ### Linux
 
-Creating a Linux application bundle requires no specific setup and no optional platform specific configuration in the "game.project" [project settings file](/manuals/project-settings/#linux).
+Creating a Linux application bundle requires no specific setup and no optional platform specific configuration in the *game.project* [project settings file](/manuals/project-settings/#linux).
 
 ### Windows
 

@@ -29,7 +29,7 @@ http://studio.zerobrane.com 에서 "ZeroBrane Studio"를 다운로드 하세요.
 ### ZeroBrane configuration
 ZeroBrane이 프로젝트의 파일들을 찾으려면, Defold 프로젝트 디렉토리의 위치를 알려줘야 합니다. 간단한 방법으로는 Defold project에서 **Show in Finder/Explorer** 메뉴로 찾을 수 있습니다.
 
-1. "game.project" 에서 마우스 오른쪽 클릭
+1. *game.project* 에서 마우스 오른쪽 클릭
 2. macOS에서 **Show in Finder** 선택, Windows에서 **Show in Explorer** 선택
 
 macOS:

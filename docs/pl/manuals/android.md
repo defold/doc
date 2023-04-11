@@ -36,7 +36,7 @@ Upewnij się, że przechowywujesz certyfikaty i klucze w bezpiecznym miejscu. Je
 
 ## Tworzenie paczki - Android application bundle
 
-Edytor Defold umożliwia łatwe stworzenie paczki z aplikacją. Przed pakowaniem określasz, których ikon należy używać, wersję produktu itd. w pliku "game.project". Więcej tutaj: [plik konfiguracyjny projektu](/manuals/project-settings/#android).
+Edytor Defold umożliwia łatwe stworzenie paczki z aplikacją. Przed pakowaniem określasz, których ikon należy używać, wersję produktu itd. w pliku *game.project*. Więcej tutaj: [plik konfiguracyjny projektu](/manuals/project-settings/#android).
 
 Aby stworzyć paczkę kliknij <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> w menu.
 
@@ -73,7 +73,7 @@ Plik *.aab* może być załadowany do Google Play poprzez [Google Play developer
 
 ## Pozwolenia
 
-Silnik Defold wymaga niektórych pozwoleń, aby wszystkie jego elementy mogły działać. Pozwolenia są zdefiniowane w pliku `AndroidManifest.xml`, wybranym w pliku "game.project": [plik konfiguracyjny projektu](/manuals/project-settings/#android). Możesz dowiedzieć się więcej na temat pozwoleń w systemie Android w [oficjalnej dokumenetacji](https://developer.android.com/guide/topics/permissions/overview). Następujące pozwolenia są wymagane przy użyciu domyślnego pliku manifest:
+Silnik Defold wymaga niektórych pozwoleń, aby wszystkie jego elementy mogły działać. Pozwolenia są zdefiniowane w pliku `AndroidManifest.xml`, wybranym w pliku *game.project*: [plik konfiguracyjny projektu](/manuals/project-settings/#android). Możesz dowiedzieć się więcej na temat pozwoleń w systemie Android w [oficjalnej dokumenetacji](https://developer.android.com/guide/topics/permissions/overview). Następujące pozwolenia są wymagane przy użyciu domyślnego pliku manifest:
 
 ### android.permission.INTERNET i android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
 Pozwala aplikacji na otwieranie połączeń internetowych i uzyskiwaniu informacji na temat sieci. Potrzebne są przy dostępie do Internetu. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) i ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).

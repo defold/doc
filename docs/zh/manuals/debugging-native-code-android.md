@@ -9,7 +9,7 @@ brief: 本教程介绍了在使用 Android Studio 调试游戏的方法.
 
 ## Android Studio
 
-* 在 `game.project` 中设置 `android.debuggable`
+* 在 *game.project* 中设置 `android.debuggable`
 
 	![android.debuggable](images/extensions/debugging/android/game_project_debuggable.png)
 

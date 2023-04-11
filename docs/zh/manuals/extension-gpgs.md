@@ -9,7 +9,7 @@ brief: 本教程介绍了配置使用 Google Play Game 服务的方法
 
 ## 安装扩展
 
-要使用 Google Play Game 服务扩展你需要在 `game.project` 文件中加入依赖. 最新稳定版地址:
+要使用 Google Play Game 服务扩展你需要在 *game.project* 文件中加入依赖. 最新稳定版地址:
 ```
 https://github.com/defold/extension-gpgs/archive/master.zip
 ```

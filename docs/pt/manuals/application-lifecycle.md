@@ -23,7 +23,7 @@ O diagrama contem uma simplificação mais detalhada dos passos de incializaçã
 
 ![Visão geral do Ciclo de vida](images/application_lifecycle/application_lifecycle_init.png)
 
-A engine atualmente requer muito mais passos durante a inicialização, antes da coleção principal ser carregada. O perfilador de memôria, os sockets,os gráficos, os HID (dispositivos de entrada), os sons, a física e muito mais são settados. A configuração da aplicação ("game.project") também é carregada e settada.
+A engine atualmente requer muito mais passos durante a inicialização, antes da coleção principal ser carregada. O perfilador de memôria, os sockets,os gráficos, os HID (dispositivos de entrada), os sons, a física e muito mais são settados. A configuração da aplicação (*game.project*) também é carregada e settada.
 
 O primeiro ponto de entrada controlavel pelo usuário, no fim da inicialização da engine, é a chamada para a função do script de renderização `init()`. 
 

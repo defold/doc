@@ -16,7 +16,7 @@ brief: 应用内通信可以让你获得应用启动时的启动参数信息. �
 
 ## 安装扩展
 
-要使用应用内通信扩展程序你需要在你的 `game.project` 里添加一个依赖. 此依赖的URL是:
+要使用应用内通信扩展程序你需要在你的 *game.project* 里添加一个依赖. 此依赖的URL是:
 ```
 https://github.com/defold/extension-iac/archive/master.zip
 ```

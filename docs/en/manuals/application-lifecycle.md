@@ -23,7 +23,7 @@ This diagram contains a more detailed breakdown of the initialization steps. The
 
 ![Lifecycle overview](images/application_lifecycle/application_lifecycle_init.png)
 
-The engine actually takes many more steps during initialization, before the main collection is loaded. The memory profiler, sockets, graphics, HID (input devices), sound, physics and much more are set up. The application configuration ("game.project") is also loaded and set up.
+The engine actually takes many more steps during initialization, before the main collection is loaded. The memory profiler, sockets, graphics, HID (input devices), sound, physics and much more are set up. The application configuration (*game.project*) is also loaded and set up.
 
 The first user-controllable entry point, at the end of engine initialization, is the call to the current render script’s `init()` function.
 

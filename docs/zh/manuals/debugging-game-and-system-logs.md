@@ -84,7 +84,7 @@ ios-deploy --debug --bundle <path_to_game.app> # 注意: 不是 .ipa 文件
 
 ## 从日志文件中读取日志信息
 
-如果你在 "game.project" 文件里打开了 *Write Log* 项, 所有游戏输出都会被记录到硬盘上, 保存为 "log.txt" 文件. 下面介绍了从设备上获取日志文件的方法:
+如果你在 *game.project* 文件里打开了 *Write Log* 项, 所有游戏输出都会被记录到硬盘上, 保存为 "log.txt" 文件. 下面介绍了从设备上获取日志文件的方法:
 
 iOS
 : 把设备连接到安装有 macOS 和 Xcode 的电脑上.
