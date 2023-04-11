@@ -125,7 +125,7 @@ msg.post("#weapon", "disable")
 
 ## Model
 
-![Model](images/icons/model.png){.left} 3D 模型组件支持在游戏中使用 Collada 网格模型, 骨骼和动画. 详情请见 [模型教程](/manuals/model/).
+![Model](images/icons/model.png){.left} 3D 模型组件支持在游戏中使用 glTF 和 Collada 网格模型, 骨骼和动画. 详情请见 [模型教程](/manuals/model/).
 
 ## ParticleFX
 

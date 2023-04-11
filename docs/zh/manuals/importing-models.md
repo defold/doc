@@ -4,12 +4,22 @@ brief: 本教程介绍了通过模型组件导入 3D 模型的方法.
 ---
 
 # 导入3D模型
-Defold 目前只支持 Collada *.dae* 格式的骨骼和动画模型. 可以使用类似 Maya, 3D Max, Sketchup 和 Blender 的软件保存或者转换3D模型为Collada格式. Blender 是一个著名的3D建模, 动画及渲染软件. 它在 Windows, macOS 和 Linux 都能运行并且在 http://www.blender.org 上免费下载.
+Defold 目前支持 GL Transmission Format *.glTF* 和 Collada *.dae* 格式的模型,骨骼和动画. 可以使用类似 Maya, 3D Max, Sketchup 和 Blender 的软件保存或者转换3D模型为Collada格式. Blender 是一个著名的3D建模, 动画及渲染软件. 它在 Windows, macOS 和 Linux 都能运行并且在 http://www.blender.org 上免费下载.
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
-## 导出 Collada 格式文件
-导出的 Collada 格式文件扩展名是 *.dae*. 此文件包含模型所有的点, 边和面的信息, 如果模型贴了图, 同时还包含 _UV 坐标_ (用于确定纹理如何铺在模型表面), 以及骨架骨骼和动画数据.
+## 导入模型到 Defold
+要导入模型, 只需将 *.gltf* 文件或者 *.dae* 文件及其相应贴图拖拽至 *资源面板* 即可.
+
+![导入模型资源](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
+
+
+## 使用模型
+当模型导入到 Defold 之后即可在 [模型组件](/manuals/model) 上使用它.
+
+
+## 导出 glTF 和 Collada 格式文件
+导出的 *.gltf* 或 *.dae* 文件包含模型所有的点, 边和面的信息, 如果模型贴了图, 同时还包含 _UV 坐标_ (用于确定纹理如何铺在模型表面), 以及骨架骨骼和动画数据.
 
 * 关于多边形网格的解释详见 http://en.wikipedia.org/wiki/Polygon_mesh.
 
@@ -25,13 +35,12 @@ Defold 对于导出的动画作了一些限制:
 
 
 ### 需求
-对于导出的 Collada 格式模型需遵循以下需求:
+导出模型的时候需遵循以下需求:
 
 * 模型必须由单个网格组成
 * 模型必须使用单个材质
+* 导出的 *.gltf* 文件要嵌入网格数据. 附带于其他文件的二进制网格数据不受支持. 
 
-
-#### 网格组合
 可以使用 Blender 来组合多个网格. 选中所有网格, 按 `CTRL`/`CMD` + `J` 来进行组合操作.
 
 ![组合网格](images/model/blender_join_meshes.png)
@@ -43,7 +52,7 @@ Defold 对于导出的动画作了一些限制:
 ![删除材质](images/model/blender_remove_materials.png)
 
 
-#### 导出纹理
+### 导出纹理
 如果模型没有纹理, 可以使用 Blender 来生成一个. 这个工作要在删除多余材质之前完成. 从选择网格及其所有的点开始:
 
 ![Select all](images/model/blender_select_all_vertices.png)
@@ -61,17 +70,7 @@ Defold 对于导出的动画作了一些限制:
 ![Export UV layout result](images/model/blender_export_uv_layout_result.png)
 
 
-## 从 Blender 中导出
-从导出菜单选项中导出 Collada 格式文件. 选中模型然后点选 导出为 Collada 菜单项, 选中 "Selection Only" 选项即可导出文件.
+### 从 Blender 中导出
+从导出菜单选项中导出模型文件. 选中模型然后点选导出模型菜单项, 选中 "Selection Only" 选项即可导出文件.
 
 ![Exporting using Blender](images/model/blender_export.png)
-
-
-## 导入到 Defold 中
-要导入模型, 只需要把 *.dae* 文件及其相应纹理图片拖放到 *资源面板* 里即可.
-
-![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
-
-
-## 使用模型
-模型导入 Defold 后就可以使用 [模型组件](/manuals/model) 了.
