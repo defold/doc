@@ -9,7 +9,7 @@ brief: 本教程介绍了如何调试运行在 Android 设备上的应用.
 
 ## Android Studio
 
-* 打包前在  `game.project` 打开 `android.debuggable` 选项
+* 打包前在  *game.project* 打开 `android.debuggable` 选项
 
 	![android.debuggable](images/extensions/debugging/android/game_project_debuggable.png)
 

@@ -72,18 +72,18 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
 关于每个选项详情请见 [形目设置教程](/manuals/project-settings/#HTML5).
 
 ::: sidenote
-`builtins` 文件夹下的默认 html/css 模板文件是不能直接修改的. 要先从 `builtins` 里把文件拷贝出来然后再在 `game.project` 文件里指明要使用的文件的位置.
+`builtins` 文件夹下的默认 html/css 模板文件是不能直接修改的. 要先从 `builtins` 里把文件拷贝出来然后再在 *game.project* 文件里指明要使用的文件的位置.
 :::
 
 ::: sidenote
 网页 canvas 不能有 border 或者 padding. 否则的话, 鼠标输入坐标会产生偏差.
 :::
 
-可以在 `game.project` 文件里禁用 `Fullscreen` 按钮以及 `Made with Defold` 链接.
+可以在 *game.project* 文件里禁用 `Fullscreen` 按钮以及 `Made with Defold` 链接.
 Defold 提供了 index.html 文件的亮暗两种风格. 默认亮风格但是可以在 `Custom CSS` 修改成暗风格. 在 `Scale Mode` 部分还预定义了四种缩放模式可供选择.
 
 ::: sidenote
-各种缩放模式计算时考虑了当前屏幕 DPI 以支持 `game.project` 里的 `High Dpi` 选项 (在 `Display` 部分)
+各种缩放模式计算时考虑了当前屏幕 DPI 以支持 *game.project* 里的 `High Dpi` 选项 (在 `Display` 部分)
 :::
 
 ### Fit 和 Downscale Fit
@@ -99,7 +99,7 @@ Defold 提供了 index.html 文件的亮暗两种风格. 默认亮风格但是�
 ![HTML5 Section](images/html5/html5_stretch.png)
 
 ### No Scale
-使用 `No Scale` 模式游戏 canvas 大小保持在 `game.project` 文件里 `[display]` 部分设置的值.
+使用 `No Scale` 模式游戏 canvas 大小保持在 *game.project* 文件里 `[display]` 部分设置的值.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
@@ -111,11 +111,11 @@ Defold 提供了 index.html 文件的亮暗两种风格. 默认亮风格但是�
 关于 Mustache 模板语言详情请见 [官方手册](https://mustache.github.io/mustache.5.html).
 :::
 
-`game.project` 里的设置都可以使用标注来引用. 比如说, 引用 `Display` 里 `Width` 的值:
+*game.project* 里的设置都可以使用标注来引用. 比如说, 引用 `Display` 里 `Width` 的值:
 
 ![Display section](images/html5/html5_display.png)
 
-用普通文本编辑器打开 `game.project` 找到想引用的 `[section_name]` 部分. 像这样引用设置的值: `{{section_name.field}}` 或者 `{{{section_name.field}}}`.
+用普通文本编辑器打开 *game.project* 找到想引用的 `[section_name]` 部分. 像这样引用设置的值: `{{section_name.field}}` 或者 `{{{section_name.field}}}`.
 
 ![Display section](images/html5/html5_game_project.png)
 
@@ -131,7 +131,7 @@ function doSomething() {
 而且, 我们还可以自定义标注:
 
 DEFOLD_SPLASH_IMAGE
-: 溅射屏幕图片文件名, 如果 `game.project` 里的 `html5.splash_image` 为空, 则设置为 `false`.
+: 溅射屏幕图片文件名, 如果 *game.project* 里的 `html5.splash_image` 为空, 则设置为 `false`.
 
 
 ```css
@@ -145,7 +145,7 @@ exe-name
 
 
 DEFOLD_CUSTOM_CSS_INLINE
-: 这里就是在 `game.project` 里设置的内联 CSS 文件的地方.
+: 这里就是在 *game.project* 里设置的内联 CSS 文件的地方.
 
 
 ```html
@@ -171,10 +171,10 @@ DEFOLD_SCALE_MODE_IS_STRETCH
 : 如果 `html5.scale_mode` 是 `Stretch` 的话则值为 `true`.
 
 DEFOLD_HEAP_SIZE
-: 在 `game.project` 里设置的内存大小, `html5.heap_size` 的值以字节为单位.
+: 在 *game.project* 里设置的内存大小, `html5.heap_size` 的值以字节为单位.
 
 DEFOLD_ENGINE_ARGUMENTS
-: 在 `game.project` 里设置的引擎参数, `html5.engine_arguments` 以逗号 `,` 分隔.
+: 在 *game.project* 里设置的引擎参数, `html5.engine_arguments` 以逗号 `,` 分隔.
 
 
 ## 额外参数
@@ -237,7 +237,7 @@ HTML5 支持 `sys.save()`, `sys.load()` 和 `io.open()` 之类的文件操作, �
     }
 ```
 
-也可以在项目 `game.project` 的 HTML5 部分加入如 `"–config=foo1=bar1","--config=foo2=bar2"` 的引擎参数, 它们会被注入到自动生成的 index.html 文件中.
+也可以在项目 *game.project* 的 HTML5 部分加入如 `"–config=foo1=bar1","--config=foo2=bar2"` 的引擎参数, 它们会被注入到自动生成的 index.html 文件中.
 
 运行时可以这样取得引擎参数:
 

@@ -29,7 +29,7 @@ brief: 热更新允许游戏运行时获取和存储编译时并不存在的资�
 
 ## 热更新配置
 
-游戏打包时需要知道把包外的资源保存在哪里了. 项目设置里的热更新配置明确了这个保存位置. 点击 <kbd>Project ▸ Live update Settings...</kbd> 来创建热更新配置文件. 在 `game.project` 里, 指定打包时所使用的热更新配置文件. 不同运行环境可以对于不同配置, 比如游戏环境, 测试环境, 开发环境等.
+游戏打包时需要知道把包外的资源保存在哪里了. 项目设置里的热更新配置明确了这个保存位置. 点击 <kbd>Project ▸ Live update Settings...</kbd> 来创建热更新配置文件. 在 *game.project* 里, 指定打包时所使用的热更新配置文件. 不同运行环境可以对于不同配置, 比如游戏环境, 测试环境, 开发环境等.
 
 ![Live update settings](images/live-update/aws-settings.png)
 

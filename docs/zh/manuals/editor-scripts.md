@@ -169,7 +169,7 @@ return M
 
 ## Lifecycle hooks
 
-有一个特殊的编辑器脚本文件: `hooks.editor_script`, 位于项目根目录, 就是跟 `game.project` 并存于同一目录. 只有这个编辑器脚本会从编辑器获得生命周期事件. 脚本文件举例:
+有一个特殊的编辑器脚本文件: `hooks.editor_script`, 位于项目根目录, 就是跟 *game.project* 并存于同一目录. 只有这个编辑器脚本会从编辑器获得生命周期事件. 脚本文件举例:
 ```lua
 local M = {}
 

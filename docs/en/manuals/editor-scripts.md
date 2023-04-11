@@ -169,7 +169,7 @@ Instead of returning actions from functions that expect them, you can just read 
 
 ## Lifecycle hooks
 
-There is a specially treated editor script file: `hooks.editor_script`, located in a root of your project, in the same directory as `game.project`. This and only this editor script will receive lifecycle events from the editor. Example of such file:
+There is a specially treated editor script file: `hooks.editor_script`, located in a root of your project, in the same directory as *game.project*. This and only this editor script will receive lifecycle events from the editor. Example of such file:
 ```lua
 local M = {}
 

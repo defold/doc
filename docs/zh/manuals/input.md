@@ -36,7 +36,7 @@ Consuming input
 
 ## 输入绑定设置
 
-输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, 在 *Assets* 视图中 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Input Binding</kbd>. 然后修改 "game.project" 里 *Game Binding* 项对输入绑定文件的引用.
+输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, 在 *Assets* 视图中 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Input Binding</kbd>. 然后修改 *game.project* 里 *Game Binding* 项对输入绑定文件的引用.
 
 ![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
 

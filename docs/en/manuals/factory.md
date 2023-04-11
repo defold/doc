@@ -236,13 +236,33 @@ Asynchronous loading
   end
   ```
 
+## Dynamic prototype
+
+It is possible to change which *Prototype* a factory can create by checking the *Dynamic Prototype* checkbox in the factory properties.
+
+![Dynamic prototype](images/factory/dynamic_prototype.png)
+
+When the *Dynamic Prototype* option is checked the factory component can change prototype using the `factory.set_prototype()` function. Example:
+
+```lua
+factory.unload("#factory") -- unload the previous resources
+factory.set_prototype("#factory", "/main/levels/enemyA.goc")
+local enemy_id = factory.create("#factory")
+```
+
+::: important
+When the *Dynamic Prototype* option is set the collection component count cannot be optimized, and the owning collection will use the default component counts from the *game.project* file.
+:::
+
+
 ## Instance limits
 
 The project setting *max_instances* in *Collection related settings* limits the total number of game object instances that can exist in a world (the main.collection loaded at startup or any world loaded via a collection proxy). All game objects that exist in the world are counted agaist that limit and it does not matter if they are placed by hand in the editor or spawned in runtime through a script.
 
 ![Max instances](images/factory/factory_max_instances.png)
 
-So if you set *max_instances* to 1024 and have 24 manually placed game objects in your main collection, you can spawn an additional 1000 game objects. As soon as you delete a game object, you are free to spawn another instance.
+If you set *max_instances* to 1024 and have 24 manually placed game objects in your main collection, you can spawn an additional 1000 game objects. As soon as you delete a game object, you are free to spawn another instance.
+
 
 ## Pooling of game objects
 

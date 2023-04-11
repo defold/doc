@@ -9,7 +9,7 @@ Defold supports GUIs that automatically adapt to screen orientation changes on m
 
 ## Creating display profiles
 
-By default, the "game.project" settings specify that a built-in display profiles settings file ("builtins/render/default.display_profiles") is used. The default profiles are "Landscape" (1280 pixels wide and 720 pixels high) and "Portrait" (720 pixels wide and 1280 pixels high). No device models are set on the profiles so they will match on any device.
+By default, the *game.project* settings specify that a built-in display profiles settings file ("builtins/render/default.display_profiles") is used. The default profiles are "Landscape" (1280 pixels wide and 720 pixels high) and "Portrait" (720 pixels wide and 1280 pixels high). No device models are set on the profiles so they will match on any device.
 
 To create a new profiles settings file, either copy the one from the "builtins" folder or <kbd>right click</kbd> a suitable location in the *Assets* view and select <kbd>New... ▸ Display Profiles</kbd>. Give the new file a suitable name and click <kbd>Ok</kbd>.
 
@@ -26,7 +26,7 @@ Device Models
 
 ![New display profiles](images/gui-layouts/new_profiles.png){srcset="images/gui-layouts/new_profiles@2x.png 2x"}
 
-You also need to specify that the engine should use your new profiles. Open "game.project" and select the display profiles file in the *Display Profiles* setting under *display*:
+You also need to specify that the engine should use your new profiles. Open *game.project* and select the display profiles file in the *Display Profiles* setting under *display*:
 
 ![Settings](images/gui-layouts/settings.png){srcset="images/gui-layouts/settings@2x.png 2x"}
 

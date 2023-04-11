@@ -12,7 +12,7 @@ Facebook API 作为 [原生扩展](/manuals/extensions/) 提供. 此扩展使得
 
 ## 安装扩展
 
-要使用 Facebook 扩展, 需要在 `game.project` 文件中设置依赖. 最新稳定版的 URL 是:
+要使用 Facebook 扩展, 需要在 *game.project* 文件中设置依赖. 最新稳定版的 URL 是:
 ```
 https://github.com/defold/extension-facebook/archive/master.zip
 ```

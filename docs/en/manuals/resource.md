@@ -14,7 +14,7 @@ When you build a game in Defold, you statically declare the resource tree. Every
 - Game object and component data (atlases, sounds etc).
 - Factory component prototypes (game objects and collections).
 - Collection proxy component references (collections).
-- Custom resources declared in "game.project".
+- Custom resources declared in *game.project*.
 
 ![Resource tree](images/resource/resource_tree.png)
 
@@ -29,7 +29,7 @@ When the game is *run*, the engine starts at the bootstrap root of the tree and 
 However, the engine will not automatically load the following types of referenced resources at runtime:
 
 - Game world collections referenced through collection proxies. Game worlds are relatively large so you will need to manually trigger loading and unloading of these in code. See [the Collection proxy manual](/manuals/collection-proxy) for details.
-- Files added via the *Custom Resources* setting in "game.project". These files are manually loaded with the [sys.load_resource()](/ref/sys/#sys.load_resource) function.
+- Files added via the *Custom Resources* setting in *game.project*. These files are manually loaded with the [sys.load_resource()](/ref/sys/#sys.load_resource) function.
 
 The default way Defold bundles and loads resources can be altered to give fine grained control over how and when resources enter memory.
 

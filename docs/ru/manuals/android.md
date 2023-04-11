@@ -38,7 +38,7 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 
 ## Создание пакета приложений для Android
 
-Редактор позволяет легко создать отдельный пакет приложений для вашей игры. Перед созданием пакета вы можете указать, какую иконку (иконки) использовать для приложения, установить код версии и т.д. в "game.project" [файл настроек проекта](/manuals/project-settings/#android).
+Редактор позволяет легко создать отдельный пакет приложений для вашей игры. Перед созданием пакета вы можете указать, какую иконку (иконки) использовать для приложения, установить код версии и т.д. в *game.project* [файл настроек проекта](/manuals/project-settings/#android).
 
 Для создания пакета выберите в меню <kbd>Project ▸ Bundle... ▸ Android Application...</kbd>.
 
@@ -75,7 +75,7 @@ $ adb install Defold\ examples.apk
 
 ## Разрешения
 
-Движок Defold требует ряд различных разрешений для работы всех функций движка. Разрешения определяются в `AndroidManifest.xml`, указанном в "game.project" [файл настроек проекта](/manuals/project-settings/#android). Подробнее о разрешениях Android можно прочитать в [официальных документах](https://developer.android.com/guide/topics/permissions/overview). В манифесте по умолчанию запрашиваются следующие разрешения:
+Движок Defold требует ряд различных разрешений для работы всех функций движка. Разрешения определяются в `AndroidManifest.xml`, указанном в *game.project* [файл настроек проекта](/manuals/project-settings/#android). Подробнее о разрешениях Android можно прочитать в [официальных документах](https://developer.android.com/guide/topics/permissions/overview). В манифесте по умолчанию запрашиваются следующие разрешения:
 
 ### android.permission.INTERNET и android.permission.ACCESS_NETWORK_STATE (Уровень защиты: нормальный)
 Позволяет приложениям открывать сетевые сокеты и получать доступ к информации о сетях. Эти разрешения необходимы для доступа в Интернет. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) и ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).

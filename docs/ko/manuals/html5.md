@@ -6,7 +6,7 @@ title: Defold manual
 이 매뉴얼은 HTML5 캔버스 어플리케이션을 개발하는 과정에 대해 설명하고, 알려진 이슈들과 몇 가지 제약사항에 대해 설명합니다.
 
 ## Project configuration
-"game.project" 파일에는 HTML5 을 위한 몇 가지 특정 설정값이 있으며  **html5** 섹션에서 찾을 수 있습니다.
+*game.project* 파일에는 HTML5 을 위한 몇 가지 특정 설정값이 있으며  **html5** 섹션에서 찾을 수 있습니다.
 
 ![Project settings](images/html5/html5_project_settings.png)
 
@@ -188,7 +188,7 @@ function doSomething() {
 > 만약 Facebook SDK 를 사용하려 한다면 이 태그를 로드하기 위해 "DEFOLD_JS_INIT" 태그 앞에 있어야 합니다. 또한 이 매크로는 HTML 태그가 포함되어 있으므로 이스케이프 하지 않기 위해 3중 중괄호로 둘러 싸야 합니다.
 
 ## HTML5 Memory Tracker
-개발 중에는 간단한 메모리 추적 도구를 포함하는 HTML5 번들을 생성할 수 있습니다. 어플리케이션에 이 도구를 포함시키기 위해서는 우선 "game.project" 파일을 열어 **html5** 섹션으로 이동해야 합니다.
+개발 중에는 간단한 메모리 추적 도구를 포함하는 HTML5 번들을 생성할 수 있습니다. 어플리케이션에 이 도구를 포함시키기 위해서는 우선 *game.project* 파일을 열어 **html5** 섹션으로 이동해야 합니다.
 
 ![Include devtool](images/html5/html5_devtool_include.png)
 

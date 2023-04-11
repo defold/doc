@@ -40,7 +40,7 @@ Now, if you haven't already downloaded and installed the Defold editor, it's tim
 When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template.
 
 ::: sidenote
-This tutorial uses Spine features, which has been moved to its own extension post Defold 1.2.188. If you are on a newer version, please add the [Spine Extension](https://github.com/defold/extension-spine) to the dependencies section of `game.project`.
+This tutorial uses Spine features, which has been moved to its own extension post Defold 1.2.188. If you are on a newer version, please add the [Spine Extension](https://github.com/defold/extension-spine) to the dependencies section of *game.project*.
 :::
 
 ## The editor
@@ -89,7 +89,7 @@ When you are done editing a file you have to save it. Select <kbd>File ▸ Save<
 
 ## Setting up the project
 
-Before we begin, let's set up several settings for our projects. Open the `game.project` asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively. You also need to add the Spine extension to the project so that we can animate the hero character. Add the following URL to your game.project dependencies:
+Before we begin, let's set up several settings for our projects. Open the *game.project* asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively. You also need to add the Spine extension to the project so that we can animate the hero character. Add the following URL to your game.project dependencies:
 
 [https://github.com/defold/extension-spine/archive/main.zip](https://github.com/defold/extension-spine/archive/main.zip)
 

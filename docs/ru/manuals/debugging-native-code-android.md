@@ -9,7 +9,7 @@ brief: В этом руководстве описывается, как отл�
 
 ## Android Studio
 
-* Подготовьте бандл, установив параметр `android.debuggable` в `game.project`
+* Подготовьте бандл, установив параметр `android.debuggable` в *game.project*
 
 	![android.debuggable](images/extensions/debugging/android/game_project_debuggable.png)
 

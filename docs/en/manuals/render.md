@@ -28,7 +28,7 @@ To set up a custom renderer:
 
 2. Edit your copy of the "default.render" file and change the *Script* property to refer to your copy of the render script.
 
-3. Change the *Render* property (under *bootstrap*) in the "game.project" settings file to refer to your copy of the "default.render" file.
+3. Change the *Render* property (under *bootstrap*) in the *game.project* settings file to refer to your copy of the "default.render" file.
 
 
 ## Render predicates
@@ -50,7 +50,7 @@ The default render script is configured to use an orthographic projection suitab
 
 ### Stretch projection
 
-The stretch projection will always draw an area of your game that is equal to the dimensions set in "game.project", even when the window is resized. If the aspect ratio changes it will result in game content being stretched either vertically or horizontally:
+The stretch projection will always draw an area of your game that is equal to the dimensions set in *game.project*, even when the window is resized. If the aspect ratio changes it will result in game content being stretched either vertically or horizontally:
 
 ![Stretch projection](images/render/stretch_projection.png)
 
@@ -68,7 +68,7 @@ msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 
 ### Fixed fit projection
 
-Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in "game.project", but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be shown vertically or horizontally:
+Just like the stretch projection the fixed fit projection will always show an area of the game that is equal to the dimensions set in *game.project*, but if the window is resized and the aspect ratio changes the game content will retain the original aspect ratio and additional game content will be shown vertically or horizontally:
 
 ![Fixed fit projection](images/render/fixed_fit_projection.png)
 
@@ -90,7 +90,7 @@ msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 
 ### Fixed projection
 
-The fixed projection will retain the original aspect ratio and render your game content with a fixed zoom level. This means that it if the zoom level is set to something other than 100% it will show more or less than the area of the game defined by the dimensions in "game.project":
+The fixed projection will retain the original aspect ratio and render your game content with a fixed zoom level. This means that it if the zoom level is set to something other than 100% it will show more or less than the area of the game defined by the dimensions in *game.project*:
 
 ![Fixed projection](images/render/fixed_projection_zoom_2_0.png)
 

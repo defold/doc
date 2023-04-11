@@ -147,11 +147,11 @@ default_texture_mag_filter = nearest
 
 如果不设置, 两项默认都是 `linear`.
 
-注意默认采样器使用 "game.project" 里的设置. 如果你为自定义材质指定了采样器, 你可以为每个采样器单独指定过滤方法. 详情请见 [Materials manual](/manuals/material/).
+注意默认采样器使用 *game.project* 里的设置. 如果你为自定义材质指定了采样器, 你可以为每个采样器单独指定过滤方法. 详情请见 [Materials manual](/manuals/material/).
 
 ## 材质和着色器
 
-默认材质和着色器文件位于项目的 "/builtins/materials/" 下. Sprite, 瓷砖, spine 模型 和 3D模型的默认材质从 "game.project" 中设置的采样和过滤中查找纹理. 片元着色器还使用与纹理颜色相乘的叫做 `tint` 的常量.
+默认材质和着色器文件位于项目的 "/builtins/materials/" 下. Sprite, 瓷砖, spine 模型 和 3D模型的默认材质从 *game.project* 中设置的采样和过滤中查找纹理. 片元着色器还使用与纹理颜色相乘的叫做 `tint` 的常量.
 
 当游戏运行时, 你可以使用 [`sprite.set_constant()`](/ref/sprite#sprite.set_constant) 和 [`sprite.reset_constant()`](/ref/sprite#sprite.reset_constant) 函数设置 `tint` 和其他着色常量设置 `tint` 和其他着色常量. sprite 以外的组件也有相应的函数.
 

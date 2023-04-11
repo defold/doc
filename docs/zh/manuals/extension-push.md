@@ -11,7 +11,7 @@ brief: 本教程介绍了如何配置和实现游戏中的本地和远程 iOS �
 
 ## 安装扩展
 
-使用之前要在 `game.project` 文件里配置扩展依赖. 最新稳定版依赖的 URL 是:
+使用之前要在 *game.project* 文件里配置扩展依赖. 最新稳定版依赖的 URL 是:
 
 ```
 https://github.com/defold/extension-push/archive/master.zip
@@ -144,7 +144,7 @@ Android 上, 推送通知需要做以下准备:
 * 用于使用 Firebase 服务的服务器 API Key.
 
 ::: sidenote
-如果你的应用使用了 Google Cloud Messaging 平台, 现在需要导入 Firebase Cloud Messaging 平台中. 把应用从 Google dashboard 导入到 Firebase 即可. 导入后 *sender id* 保持不变, 你的 `game.project` 文件需要更新使用 `Firebase Application ID` (见下文).
+如果你的应用使用了 Google Cloud Messaging 平台, 现在需要导入 Firebase Cloud Messaging 平台中. 把应用从 Google dashboard 导入到 Firebase 即可. 导入后 *sender id* 保持不变, 你的 *game.project* 文件需要更新使用 `Firebase Application ID` (见下文).
 :::
 
 基本配置很简单. 登录 [https://console.firebase.google.com](https://console.firebase.google.com), 选择或者新建应用. 然后进入 *Grow* 的 *Cloud Messaging* 页面.
@@ -166,7 +166,7 @@ Android 上, 推送通知需要做以下准备:
 
 下面两步可以跳过, *Add Firebase SDK* 和 *Run your app to verify installation*. SDK 已打包进 Defold, 无需手动添加.
 
-用文本编辑器打开 `google-services.json` 文件, 找到 *`project_number`* 和 *`mobilesdk_app_id`*. 把这俩id考入 `game.project` 文件, 对应 *android* 部分, `Gcm Sender Id` (`project_number`) 和 `Fcm Application Id` (`mobilesdk_app_id`).
+用文本编辑器打开 `google-services.json` 文件, 找到 *`project_number`* 和 *`mobilesdk_app_id`*. 把这俩id考入 *game.project* 文件, 对应 *android* 部分, `Gcm Sender Id` (`project_number`) 和 `Fcm Application Id` (`mobilesdk_app_id`).
 
 ```
 {

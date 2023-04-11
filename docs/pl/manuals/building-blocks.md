@@ -24,7 +24,7 @@ Komponent (Component)
 
 Kolekcje mają strukturę drzewa, która przechowuje obiekty i inne kolekcje. Kolekcje są zawsze przechowywane w formie pliku.
 
-Kiedy Defold startuje, wczytuje pojedynczą, główną _kolekcję bootrstrapową_ określoną w pliku "game.project". Kolekcja bootstrapowa jest często nazywana "main.collection" (i tak jest też domyślnie nazwana po otwarciu każdego nowego projektu), ale oczywiście możesz używać dowolnej nazwy.
+Kiedy Defold startuje, wczytuje pojedynczą, główną _kolekcję bootrstrapową_ określoną w pliku *game.project*. Kolekcja bootstrapowa jest często nazywana "main.collection" (i tak jest też domyślnie nazwana po otwarciu każdego nowego projektu), ale oczywiście możesz używać dowolnej nazwy.
 
 Kolekcja może zawierać obiekty i inne kolekcje (przez referencję do pliku sub-kolekcji) zagnieżdżone na dowolną "głębokość". Poniżej jest przykład kolekcji "main.collection". Zawiera ona jeden obiekt gry (z id "can")i jedną sub-kolekcję (z id "bean"). Sub-kolekcja ta zawiera z kolei obiekty "bean" i "shield".
 

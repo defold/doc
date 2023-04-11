@@ -31,4 +31,4 @@ default_texture_mag_filter = nearest
 
 If you don’t specify anything, both are set to `linear` by default.
 
-Note that the setting in "game.project" is used by in the default samplers. If you specify samplers in a custom material, you can set the filter method on each sampler specifically. See the [Materials manual](/manuals/material/) for details.
+Note that the setting in *game.project* is used by in the default samplers. If you specify samplers in a custom material, you can set the filter method on each sampler specifically. See the [Materials manual](/manuals/material/) for details.

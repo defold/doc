@@ -11,7 +11,7 @@ Every setting in the file belongs to a category. When you open the file Defold p
 
 ![Project settings](images/project-settings/settings.jpg)
 
-Below are all the available settings, arranged by section. Some settings are not yet exposed in the settings editor (these are marked "hidden setting" below), but can be set manually by right clicking "game.project" and selecting <kbd>Open With ▸ Text Editor</kbd>.
+Below are all the available settings, arranged by section. Some settings are not yet exposed in the settings editor (these are marked "hidden setting" below), but can be set manually by right clicking *game.project* and selecting <kbd>Open With ▸ Text Editor</kbd>.
 
 ## Sections and settings
 
@@ -619,16 +619,7 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 ```
 
 
-## Component max count optimizations
-The `game.project` settings file contains many values specifying the maximum number of a certain resource that can exist at the same time, often counted per loaded collection (also called world). The Defold engine will use these max values to preallocate memory for this amount of memory to avoid dynamic allocations and memory fragmentation while the game is running.
-
-The Defold data structures used to represent components and other resources are optimized to use as little memory as possible but care should still be taken when setting the values to avoid allocating more memory than is actually necessary.
-
-To further optimize memory usage the Defold build process will analyse the content of the game and override the max counts if it is possible to know for certain the exact amount:
-
-* If a collection doesn't contain any factory components the exact amount of each component will be allocated and the max count values will be ignored.
-* If a collection contains a factory component the spawned objects will be analysed and the max count will be used for components that can be spawned from the factories.
-* If a collection contains a factory or a collection factory with activated "Dynamic Prototype" option, this collection will use the max counters.
+:[Component max count optimizations](../shared/component-max-count-optimizations.md)
 
 
 ## Custom project settings
@@ -663,4 +654,4 @@ my_property.private = 1 // boolean value 1 or 0
 ``` 
 
 
-At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the `game.project` viewer. 
+At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the *game.project* viewer. 

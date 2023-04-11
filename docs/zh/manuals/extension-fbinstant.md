@@ -15,7 +15,7 @@ Instant Games 可以让玩家在 Facebook 平台上随时玩到游戏的新方�
 
 1. 在 [Facebook App Dashboard](https://developers.facebook.com/apps) 里创建 Instant Games 应用. 详情请见 [Instant Games 入门指南](https://developers.facebook.com/docs/games/instant-games/getting-started/game-setup).
 
-2. 在你的 "game.project" 文件中添加 Instant Games 扩展依赖. 即把 "https://github.com/defold/extension-fbinstant/archive/master.zip" 添加到 *Dependencies* 属性中.
+2. 在你的 *game.project* 文件中添加 Instant Games 扩展依赖. 即把 "https://github.com/defold/extension-fbinstant/archive/master.zip" 添加到 *Dependencies* 属性中.
 
    ![Project settings](images/instant-games/game_project.png)
 
@@ -68,7 +68,7 @@ end)
 Facebook Instant Games [最佳实践](https://developers.facebook.com/docs/games/instant-games/best-practices) 建议游戏首次载入时间不得超过5秒. 这对 Defold 来说有点勉强, 好在还有一些方法能减小游戏体积:
 
 去掉未使用引擎特性
-: HTML5 版的标准 Defold 引擎用gzip压缩后小于 1.2MB, 但是可以通过去掉不必要的引擎特效来达到减少包体的效果. 在 "app.manifest" 文件中可以指定去掉引擎哪方面特性, 此文件在 "game.project" 文件的 [Native Extension 部分](/manuals/project-settings/#Native extension) 引用.
+: HTML5 版的标准 Defold 引擎用gzip压缩后小于 1.2MB, 但是可以通过去掉不必要的引擎特效来达到减少包体的效果. 在 "app.manifest" 文件中可以指定去掉引擎哪方面特性, 此文件在 *game.project* 文件的 [Native Extension 部分](/manuals/project-settings/#Native extension) 引用.
 
   此功能尚处于测试阶段且没有说明文档. 这里: https://forum.defold.com/t/stripping-appmanifest-maker/16059 有一个可以自动生成 app.manifests 文件的工具.
 

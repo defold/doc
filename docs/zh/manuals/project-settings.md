@@ -11,7 +11,7 @@ brief: 本教程介绍了如何在 Defold 中进行项目配置工作.
 
 ![Project settings](images/project-settings/settings.jpg)
 
-下面是根据不同模块排序的各种设置. 其中有一些不在编辑器中显示 (标注为 "隐藏设置"), 但是可以右键点击 "game.project" 然后选择 <kbd>Open With ▸ Text Editor</kbd> 来进行手动编辑.
+下面是根据不同模块排序的各种设置. 其中有一些不在编辑器中显示 (标注为 "隐藏设置"), 但是可以右键点击 *game.project* 然后选择 <kbd>Open With ▸ Text Editor</kbd> 来进行手动编辑.
 
 ## 各类设置
 
@@ -617,7 +617,7 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 ```
 
 ## 最大组件数优化
-配置文件 `game.project` 包含针对各种资源同时存在的最大数目的配置项, 容器大都是每个载入的集合 (也叫做游戏世界). Defold 引擎使用这些最大值来预分配内存以避免游戏运行时内存动态分配及内存碎片化.
+配置文件 *game.project* 包含针对各种资源同时存在的最大数目的配置项, 容器大都是每个载入的集合 (也叫做游戏世界). Defold 引擎使用这些最大值来预分配内存以避免游戏运行时内存动态分配及内存碎片化.
 
 用于表示组件和其他资源的 Defold 数据结构优化为尽可能少用内存, 但当配置这些最大值时仍要留意是否保证了满足游戏运行的需求.
 
@@ -660,4 +660,4 @@ my_property.private = 1 // 布尔值 1 或 0
 ``` 
 
 
-元属性目前仅由 `bob.jar` 做应用打包时使用, 但是以后会应用于编辑器与 `game.project` 概览视图中. 
+元属性目前仅由 `bob.jar` 做应用打包时使用, 但是以后会应用于编辑器与 *game.project* 概览视图中. 

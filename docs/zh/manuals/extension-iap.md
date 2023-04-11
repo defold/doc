@@ -23,7 +23,7 @@ Defold 提供了方便的 iOS Appstore "in-app purchases" 和 Google Play 及 Am
 
 ## 安装扩展
 
-首先要在 `game.project` 文件中加入内支付扩展依赖. 最新稳定版本地址如下:
+首先要在 *game.project* 文件中加入内支付扩展依赖. 最新稳定版本地址如下:
 ```
 https://github.com/defold/extension-iap/archive/master.zip
 ```

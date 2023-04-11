@@ -10,7 +10,7 @@ Here we describe how to debug a build using [Android Studio](https://developer.a
 
 ## Android Studio
 
-* Prepare the bundle by setting the `android.debuggable` option in `game.project`
+* Prepare the bundle by setting the `android.debuggable` option in *game.project*
 
 	![android.debuggable](images/extensions/debugging/android/game_project_debuggable.png)
 

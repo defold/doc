@@ -11,7 +11,7 @@ brief: Данное руководство описывает настройки
 
 ![Project settings](images/project-settings/settings.jpg)
 
-Ниже приведены все доступные настройки, упорядоченные по секциям. Некоторые параметры на данный момент не отображаются в редакторе настроек (они помечены ниже как "скрытые настройки"), но их можно настроить вручную, кликнув правой кнопкой мыши на "game.project" и выбрав <kbd>Open With ▸ Text Editor</kbd>.
+Ниже приведены все доступные настройки, упорядоченные по секциям. Некоторые параметры на данный момент не отображаются в редакторе настроек (они помечены ниже как "скрытые настройки"), но их можно настроить вручную, кликнув правой кнопкой мыши на *game.project* и выбрав <kbd>Open With ▸ Text Editor</kbd>.
 
 ## Project
 
@@ -505,7 +505,7 @@ local my_value = tonumber(sys.get_config("test.my_value"))
 ## Vsync, frame cap, and swap interval
 The first thing of note is that on desktop platforms vsync can be controlled globally by graphics card settings. If for example vsync is force-enabled in the graphics control panel it is not user controllable, e.g. the setting cannot be accessed or modified from Defold. Most mobile devices also has vsync enabled by default.
 
-With `Vsync` checked in `game.project` the engine relies on hardware vsync and uses a fixed time step `dt` based on any detected monitor refresh rate. This is the default setting. With `Vsync` checked and `Frame cap` > 0, the rate will be clamped to a swap interval that matches any detected main monitor refresh rate. With `Vsync` unchecked and `Frame cap` 0, the time step is not fixed but instead uses actual elapsed time difference for `dt`. With `Vsync` unchecked and `Frame cap` > 0, timers are used to respect the set frame cap value. There is no guarantee that the frame cap will be achieved depending on platform specifics and hardware settings.
+With `Vsync` checked in *game.project* the engine relies on hardware vsync and uses a fixed time step `dt` based on any detected monitor refresh rate. This is the default setting. With `Vsync` checked and `Frame cap` > 0, the rate will be clamped to a swap interval that matches any detected main monitor refresh rate. With `Vsync` unchecked and `Frame cap` 0, the time step is not fixed but instead uses actual elapsed time difference for `dt`. With `Vsync` unchecked and `Frame cap` > 0, timers are used to respect the set frame cap value. There is no guarantee that the frame cap will be achieved depending on platform specifics and hardware settings.
 
 Swap interval is the interval with which to swap the front and back buffers in sync with vertical blanks (v-blank), the hardware event where the screen image is updated with data from the front buffer. A value of 1 swaps the buffers at every v-blank, a value of 2 swaps the buffers every other v-blank and so on. A value of 0 disables waiting for v-blank before swapping the buffers\*. Setting `swap_interval` is done by calling the [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval) function.
 

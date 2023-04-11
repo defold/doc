@@ -28,7 +28,7 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 2. 编辑 "default.render" 文件, 指定 *Script* 项为自定义的脚本.
 
-3. 在 "game.project" 的 *bootstrap* 部分里的 *Render* 项上设置刚才修改好的 "default.render" 文件.
+3. 在 *game.project* 的 *bootstrap* 部分里的 *Render* 项上设置刚才修改好的 "default.render" 文件.
 
 
 ## 渲染优先级
@@ -50,7 +50,7 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 ### Stretch
 
-无论应用窗口怎样改变, 渲染视口大小总是等于在 "game.project" 里面设置的分辨率. 所以一旦宽高比例改变, 就会造成视口拉伸现象:
+无论应用窗口怎样改变, 渲染视口大小总是等于在 *game.project* 里面设置的分辨率. 所以一旦宽高比例改变, 就会造成视口拉伸现象:
 
 ![Stretch projection](images/render/stretch_projection.png)
 
@@ -68,7 +68,7 @@ msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 
 ### Fixed Fit
 
-跟 Stretch 一样 Fixed Fit 也是使用 "game.project" 里设置的分辨率, 不同的是一旦窗口大小改变游戏内容会缩放但是始终保持原比例, 这样一来本来不应被渲染的内容也可能会被显示出来:
+跟 Stretch 一样 Fixed Fit 也是使用 *game.project* 里设置的分辨率, 不同的是一旦窗口大小改变游戏内容会缩放但是始终保持原比例, 这样一来本来不应被渲染的内容也可能会被显示出来:
 
 ![Fixed fit projection](images/render/fixed_fit_projection.png)
 
@@ -90,7 +90,7 @@ msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 
 ### Fixed
 
-以一个固定倍数按比例缩放视口. 也就是说倍数不是 100% 的话就会自行多显示或少显示内容, 而不按照 "game.project" 的设定分辨率渲染:
+以一个固定倍数按比例缩放视口. 也就是说倍数不是 100% 的话就会自行多显示或少显示内容, 而不按照 *game.project* 的设定分辨率渲染:
 
 ![Fixed projection](images/render/fixed_projection_zoom_2_0.png)
 

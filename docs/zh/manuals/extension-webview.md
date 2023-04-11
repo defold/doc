@@ -9,7 +9,7 @@ WebView 提供了一套特殊的 API 用来在手机上显示一个网页层. �
 
 ## 安装扩展
 
-在你的 `game.project` 文件中设置 webview 依赖.
+在你的 *game.project* 文件中设置 webview 依赖.
 最新版本位于如下 URL:
 ```
 https://github.com/defold/extension-webview/archive/master.zip
