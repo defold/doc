@@ -4,12 +4,23 @@ brief: This manual covers how to import 3D models used by the model component.
 ---
 
 # Importing 3D models
-Defold currently only support models, skeletons and animations in the Collada *.dae* format. You can use tools such as Maya, 3D Max, Sketchup and Blender to create and/or convert 3D models into Collada format. Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, macOS and Linux and is freely available for download at http://www.blender.org
+Defold currently support models, skeletons and animations in GL Transmission Format *.glTF* and Collada *.dae* format. You can use tools such as Maya, 3D Max, Sketchup and Blender to create and/or convert 3D models into glTF and Collada format. Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, macOS and Linux and is freely available for download at http://www.blender.org
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
-## Exporting to Collada
-When you export a model to Collada format you get a file with the *.dae* file extension. This file contain all the vertices, edges and faces that make up the model, as well as _UV coordinates_ (what part of the texture image maps to a certain part of the mesh) if you have defined them, the bones in the skeleton and animation data.
+
+## Importing to Defold
+To import the model, simply drag and drop the *.gltf* file or *.dae* file and the corresponding texture image into the *Assets Pane* somewhere.
+
+![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
+
+
+## Using a model
+Once you have the model imported into Defold you can use it in a [Model component](/manuals/model).
+
+
+## Exporting to glTF and Collada
+The exported *.gltf* or *.dae* file contain all the vertices, edges and faces that make up the model, as well as _UV coordinates_ (what part of the texture image maps to a certain part of the mesh) if you have defined them, the bones in the skeleton and animation data.
 
 * A detailed description on polygon meshes can be found on http://en.wikipedia.org/wiki/Polygon_mesh.
 
@@ -25,25 +36,23 @@ Defold imposes some limitations on exported animation data:
 
 
 ### Requirements
-When you export a model to Collada format you need to make sure that it fulfills the following requirements:
+When you export a model you need to make sure that it fulfills the following requirements:
 
 * The model must consist of a single mesh
 * The model must use a single material
+* The exported *.gltf* file must use embedded mesh data. Mesh data in a separate binary file is not supported. 
 
 
-#### Joining multiple meshes
 You can use Blender to join multiple meshes. Select all of the meshes and press `CTRL`/`CMD` + `J` to join them.
 
 ![Join meshes](images/model/blender_join_meshes.png)
 
-
-#### Removing materials
 You can use Blender to remove extra materials from the model. Select the material to remove and press the `-` button.
 
 ![Remove materials](images/model/blender_remove_materials.png)
 
 
-#### Exporting a texture
+### Exporting a texture
 If you do not already have a texture for your model you can use Blender to generate a texture. You should do this before you remove extra materials from the model. Start by selecting the mesh and all of its vertices:
 
 ![Select all](images/model/blender_select_all_vertices.png)
@@ -61,17 +70,8 @@ You can then proceed to export the UV layout to an image that can be used as a t
 ![Export UV layout result](images/model/blender_export_uv_layout_result.png)
 
 
-## Exporting using Blender
-You export your model into Collada format using the Export menu option. Select the model before you select the Export to Collada menu option and check "Selection Only" to only export the model.
+### Exporting using Blender
+You export your model using the Export menu option. Select the model before you select the Export menu option and check "Selection Only" to only export the model.
 
 ![Exporting using Blender](images/model/blender_export.png)
 
-
-## Importing to Defold
-To import the model, simply drag and drop the *.dae* file and the corresponding texture image into the *Assets Pane* somewhere.
-
-![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
-
-
-## Using a model
-Once you have the model imported into Defold you can use it in a [Model component](/manuals/model).
