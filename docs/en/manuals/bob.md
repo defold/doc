@@ -38,8 +38,10 @@ usage: bob [options] [commands]
                                          binary will be placed. Default is
                                          "<build-output>/<platform>/"
  -bo,--bundle-output <arg>               Bundle output directory
- -br,--build-report <arg>                Filepath where to save a build
-                                         report as JSON
+ -br,--build-report <arg>                DEPRECATED in Defold 1.4.6! 
+                                         Use --build-report-json instead
+ -brjson,--build-report-json <arg>       Filepath where to save a build
+                                         report as JSON (from Defold 1.4.6)
  -brhtml,--build-report-html <arg>       Filepath where to save a build
                                          report as HTML
     --build-artifacts <arg>              If left out, will default to
