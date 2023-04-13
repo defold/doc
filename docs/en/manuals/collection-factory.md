@@ -148,3 +148,23 @@ Asynchronous loading
       collectionfactory.unload("#factory")
   end
   ```
+
+
+## Dynamic prototype
+
+It is possible to change which *Prototype* a collection factory can create by checking the *Dynamic Prototype* checkbox in the collection factory properties.
+
+![Dynamic prototype](images/collection_factory/dynamic_prototype.png)
+
+When the *Dynamic Prototype* option is checked the collection factory component can change prototype using the `collectionfactory.set_prototype()` function. Example:
+
+```lua
+collectionfactory.unload("#factory") -- unload the previous resources
+collectionfactory.set_prototype("#factory", "/main/levels/level1.collectionc")
+local ids = collectionfactory.create("#factory")
+```
+
+::: important
+When the *Dynamic Prototype* option is set the collection component count cannot be optimized, and the owning collection will use the default component counts from the *game.project* file.
+:::
+
