@@ -32,7 +32,10 @@ usage: bob [options] [commands]
     --binary-output <arg>               指定可执行文件存放地址, 默认地址是
                                         "<build-output>/<platform>/"
 -bo,--bundle-output <arg>               打包输出目录
--br,--build-report <arg>                指定编译生成的JSON报告的存放地址
+-br,--build-report <arg>                自从 Defold 1.4.6 版本后已弃用! 
+                                        使用 --build-report-json 代替
+-brjson,--build-report-json <arg>       保存 JSON 编译报告的文件路径位置
+                                        (自从 Defold 1.4.6 版本启用)
 -brhtml,--build-report-html <arg>       指定编译生成的HTML报告的存放地址
     --build-artifacts <arg>             不指定的话默认为编译engine.
                                         可选项为 'engine', 'plugins'.
