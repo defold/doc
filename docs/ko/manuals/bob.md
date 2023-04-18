@@ -14,7 +14,6 @@ Bob은 빌드에 필요한 모든 것을 포함하는 Java JAR 파일 형식으�
 Bob은 쉘이나 커맨드 라인에서 "java"(또는 Windows에서는 "java.exe") 호출시 bob java 파일을 인수로 넘겨서 실행할 수 있습니다.
 
 ```
-$ java -jar bob.jar --help
 usage: bob [options] [commands]
  -a,--archive                            Build archive
  -ar,--architectures <arg>               Comma separated list of
@@ -30,16 +29,20 @@ usage: bob [options] [commands]
                                          binary will be placed. Default is
                                          "<build-output>/<platform>/"
  -bo,--bundle-output <arg>               Bundle output directory
- -br,--build-report <arg>                Filepath where to save a build
-                                         report as JSON
+ -br,--build-report <arg>                DEPRECATED! Use
+                                         --build-report-json instead
  -brhtml,--build-report-html <arg>       Filepath where to save a build
                                          report as HTML
+ -brjson,--build-report-json <arg>       Filepath where to save a build
+                                         report as JSON
     --build-artifacts <arg>              If left out, will default to
                                          build the engine. Choices:
                                          'engine', 'plugins'. Comma
                                          separated list.
     --build-server <arg>                 The build server (when using
                                          native extensions)
+    --build-server-header <arg>          Additional build server header to
+                                         set
  -ce,--certificate <arg>                 DEPRECATED! Use --keystore
                                          instead
  -d,--debug                              DEPRECATED! Use --variant=debug
@@ -77,6 +80,8 @@ usage: bob [options] [commands]
                                          manifest and archive.
     --manifest-public-key <arg>          Public key to use when signing
                                          manifest and archive.
+    --max-cpu-threads <arg>              Max count of threads that bob.jar
+                                         can use
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
  -o,--output <arg>                       Output directory. Default is
                                          "build/default"
@@ -108,6 +113,9 @@ usage: bob [options] [commands]
     --use-async-build-server             Use an async build process for
                                          the build server (when using
                                          native extensions)
+    --use-lua-bytecode-delta             Use byte code delta compression
+                                         when building for multiple
+                                         architectures
     --use-uncompressed-lua-source        Use uncompressed and unencrypted
                                          Lua source code instead of byte
                                          code
