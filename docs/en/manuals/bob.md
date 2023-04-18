@@ -43,7 +43,7 @@ usage: bob [options] [commands]
  -brhtml,--build-report-html <arg>       Filepath where to save a build
                                          report as HTML
  -brjson,--build-report-json <arg>       Filepath where to save a build
-                                         report as JSON
+                                         report as JSON (from Defold 1.4.6)
     --build-artifacts <arg>              If left out, will default to
                                          build the engine. Choices:
                                          'engine', 'plugins'. Comma
@@ -90,7 +90,7 @@ usage: bob [options] [commands]
     --manifest-public-key <arg>          Public key to use when signing
                                          manifest and archive.
     --max-cpu-threads <arg>              Max count of threads that bob.jar
-                                         can use
+                                         can use (from Defold 1.4.6)
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
  -o,--output <arg>                       Output directory. Default is
                                          "build/default"
