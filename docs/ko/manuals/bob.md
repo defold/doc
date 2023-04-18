@@ -30,16 +30,20 @@ usage: bob [options] [commands]
                                          binary will be placed. Default is
                                          "<build-output>/<platform>/"
  -bo,--bundle-output <arg>               Bundle output directory
- -br,--build-report <arg>                Filepath where to save a build
-                                         report as JSON
+ -br,--build-report <arg>                DEPRECATED in Defold 1.4.6! Use
+                                         --build-report-json instead
  -brhtml,--build-report-html <arg>       Filepath where to save a build
                                          report as HTML
+ -brjson,--build-report-json <arg>       Filepath where to save a build
+                                         report as JSON (from Defold 1.4.6)
     --build-artifacts <arg>              If left out, will default to
                                          build the engine. Choices:
                                          'engine', 'plugins'. Comma
                                          separated list.
     --build-server <arg>                 The build server (when using
                                          native extensions)
+    --build-server-header <arg>          Additional build server header to
+                                         set
  -ce,--certificate <arg>                 DEPRECATED! Use --keystore
                                          instead
  -d,--debug                              DEPRECATED! Use --variant=debug
@@ -77,6 +81,8 @@ usage: bob [options] [commands]
                                          manifest and archive.
     --manifest-public-key <arg>          Public key to use when signing
                                          manifest and archive.
+    --max-cpu-threads <arg>              Max count of threads that bob.jar
+                                         can use (from Defold 1.4.6)
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
  -o,--output <arg>                       Output directory. Default is
                                          "build/default"
@@ -108,6 +114,9 @@ usage: bob [options] [commands]
     --use-async-build-server             Use an async build process for
                                          the build server (when using
                                          native extensions)
+    --use-lua-bytecode-delta             Use byte code delta compression
+                                         when building for multiple
+                                         architectures
     --use-uncompressed-lua-source        Use uncompressed and unencrypted
                                          Lua source code instead of byte
                                          code
