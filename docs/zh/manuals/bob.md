@@ -41,6 +41,7 @@ usage: bob [options] [commands]
                                         可选项为 'engine', 'plugins'.
                                         以逗号分隔.
     --build-server <arg>                编译服务器 (使用原生扩展时需指定)
+    --build-server-header <arg>         设置 build server header
 -ce,--certificate <arg>                 已弃用! 使用 --keystore 代替
 -d,--debug                              已弃用! 使用 --variant=debug 代替
     --debug-ne-upload                   把文件打包為upload.zip后上傳到
@@ -63,7 +64,8 @@ usage: bob [options] [commands]
     --manifest-private-key <arg>        用来签名 manifest 和 archive 的私钥
 
     --manifest-public-key <arg>         用来签名 manifest 和 archive 的公钥
-
+    --max-cpu-threads <arg>             设置 bob.jar 使用的最多线程数
+                                        (自从 Defold 1.4.6 版本启用)
 -mp,--mobileprovisioning <arg>          指定 mobileprovisioning profile (iOS)
 -o,--output <arg>                       输出目录. 默认是 "build/default"
 -p,--platform <arg>                     发布平台 (打包时)
@@ -80,6 +82,7 @@ usage: bob [options] [commands]
 -tp,--texture-profiles <arg>            已弃用! 使用 --texture-compression 代替
 -u,--auth <arg>                         用户认证令牌
    --use-async-build-server             为编译服务器启用异步编译处理 (使用原生扩展时)
+   --use-lua-bytecode-delta             为多平台编译时使用字节码 delta 压缩
    --use-uncompressed-lua-source        使用未压缩未加密的明文Lua源代码代替二进制文件
    --use-vanilla-lua                    已弃用! 使用 --use-uncompressed-lua-source 代替
 
