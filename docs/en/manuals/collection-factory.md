@@ -107,7 +107,7 @@ Synchronous loading
       -- No factory resources are loaded when the collection factory’s
       -- parent collection is loaded. Calling create without
       -- having called load will create the resources synchronously.
-      self.go_ids = collecionfactory.create("#collectionfactory")
+      self.go_ids = collectionfactory.create("#collectionfactory")
   end
 
   function final(self)  
