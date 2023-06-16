@@ -131,9 +131,9 @@ Frustum culling is implemented in the engine per component type. Current status 
 | Model       | YES       |
 | Mesh        | YES (1)   |
 | Label       | YES       |
+| Spine       | YES       |
 | Particle fx | NO        |
 | Tilemap     | NO        |
-| Spine       | NO        |
 | Rive        | NO        |
 
 1 = Mesh bounding box needs to be set by the developer. [Learn more](/manuals/mesh/#frustum-culling).
