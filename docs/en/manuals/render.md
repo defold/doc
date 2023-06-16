@@ -9,7 +9,7 @@ Every object that is shown on screen by the engine: sprites, models, tiles, part
 
 ### Render pipeline - What, when and where?
 
-The render pipeline controls what to render, when to render it and also where to render it. What to render is controlled by [render predicates](#render-predicates). When to render a predicate is controlled in the [render script](#the-render-script) and where to render a predicate is controlled by the [view projection](#default-view-projection).
+The render pipeline controls what to render, when to render it and also where to render it. What to render is controlled by [render predicates](#render-predicates). When to render a predicate is controlled in the [render script](#the-render-script) and where to render a predicate is controlled by the [view projection](#default-view-projection). The render pipeline can also cull the graphics drawn by a render predicate that lies outside of a defined bounding box or frustum. This process is called frustum culling.
 
 
 ## The default render
@@ -119,6 +119,26 @@ msg.post("@render:", "use_camera_projection")
 ```
 
 
+## Frustum culling
+
+The render API in Defold lets developers perform something called frustum culling. When frustum culling is enabled any graphics that lies outside of a defined bounding box or frustum will be ignored. In a large game world where only a portion is visible at a time, frustum culling can dramatically reduce the amount of data that needs to be sent to the GPU for rendering, thus increasing performance and saving battery (on mobile devices). It is common to use the view and projection of the camera to create the bounding box. The default render script uses the view and projection (from the camera) to calculate a frustum.
+
+Frustum culling is implemented in the engine per component type. Current status (Defold 1.4.7):
+
+| Component   | Supported |
+|-------------|-----------|
+| Sprite      | YES       |
+| Model       | YES       |
+| Mesh        | YES (1)   |
+| Label       | YES       |
+| Particle fx | NO        |
+| Tilemap     | NO        |
+| Spine       | NO        |
+| Rive        | NO        |
+
+1 = Mesh bounding box needs to be set by the developer. [Learn more](/manuals/mesh/#frustum-culling).
+
+
 ## Coordinate systems
 
 When components are rendered you usually talk of in which coordinate system the components are rendered. In most games you have some components drawn in world space and some in screen space.
@@ -135,114 +155,111 @@ Below is the code for a custom render script that is a slightly modified version
 init()
 : The function `init()` is used to set up the predicates, the view and clear color. These variables will be used during the actual rendering.
 
-  ```lua
-  function init(self)
-      -- Define the render predicates. Each predicate is drawn by itself and
-      -- that allows us to change the state of OpenGL between the draws.
-      self.tile_pred = render.predicate({"tile"})
-      self.gui_pred = render.predicate({"gui"})
-      self.text_pred = render.predicate({"text"})
-      self.particle_pred = render.predicate({"particle"})
-      self.model_pred = render.predicate({"model"})
+```lua
+function init(self)
+    -- Define the render predicates. Each predicate is drawn by itself and
+    -- that allows us to change the state of OpenGL between the draws.
+    self.tile_pred = render.predicate({"tile"})
+    self.gui_pred = render.predicate({"gui"})
+    self.text_pred = render.predicate({"text"})
+    self.particle_pred = render.predicate({"particle"})
+    self.model_pred = render.predicate({"model"})
 
-      self.clear_color = vmath.vector4(0, 0, 0, 0)
-      self.clear_color.x = sys.get_config("render.clear_color_red", 0)
-      self.clear_color.y = sys.get_config("render.clear_color_green", 0)
-      self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
-      self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
+    self.clear_color = vmath.vector4(0, 0, 0, 0)
+    self.clear_color.x = sys.get_config("render.clear_color_red", 0)
+    self.clear_color.y = sys.get_config("render.clear_color_green", 0)
+    self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
+    self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
 
-      -- Define a view matrix to use. If we have a camera object, it will
-      -- send "set_view_projection" messages to the render script and we
-      -- can update the view matrix with the value the camera provides.
-      self.view = vmath.matrix4()
-  end
-  ```
+    -- Define a view matrix to use. If we have a camera object, it will
+    -- send "set_view_projection" messages to the render script and we
+    -- can update the view matrix with the value the camera provides.
+    self.view = vmath.matrix4()
+end
+```
 
 update()
 : The `update()` function is called once each frame. Its function is to perform the actual drawing by calling the underlying OpenGL ES APIs (OpenGL Embedded Systems API). To properly understand what's going on in the `update()` function, you need to understand how OpenGL works. There are many great resources on OpenGL ES available. The official site is a good starting place. You find it at https://www.khronos.org/opengles/
 
   This example contains the setup necessary to draw 3D models. The `init()` function defined a `self.model_pred` predicate. Elsewhere a material with the tag "model" has been created. There are also some model components that use the material:
 
-  ```lua
-  function update(self)
-      -- Set the depth mask which allows us to modify the depth buffer.
-      render.set_depth_mask(true)
+```lua
+function update(self)
+    local window_width = render.get_window_width()
+    local window_height = render.get_window_height()
+    if window_width == 0 or window_height == 0 then
+        return
+    end
 
-      -- Clear the color buffer with the clear color value and set the depth buffer to 1.0.
-      -- The normal depth values are between 0.0 (near) and 1.0 (far) so maximizing the values
-      -- throughout the buffer means that every pixel you draw will be nearer than 1.0 and thus
-      -- it will be properly drawn and depth testing will work from thereon.
-      render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [  render.BUFFER_STENCIL_BIT] = 0})  
+    -- clear screen buffers
+    --
+    render.set_depth_mask(true)
+    render.set_stencil_mask(0xff)
+    render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0})
 
-      -- Set the viewport to the window dimensions.
-      render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+    -- render world (sprites, tilemaps, particles etc)
+    --
+    local proj = get_projection(self)
+    local frustum = proj * self.view
 
-      -- Set the view to the stored view value (can be set by a camera object)
-      render.set_view(self.view)
+    render.set_viewport(0, 0, window_width, window_height)
+    render.set_view(self.view)
+    render.set_projection(proj)
 
-      -- Render 2D space
-      render.set_depth_mask(false)
-      render.disable_state(render.STATE_DEPTH_TEST)
-      render.disable_state(render.STATE_STENCIL_TEST)
-      render.enable_state(render.STATE_BLEND)
-      render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
-      render.disable_state(render.STATE_CULL_FACE)
+    render.set_depth_mask(false)
+    render.disable_state(render.STATE_DEPTH_TEST)
+    render.disable_state(render.STATE_STENCIL_TEST)
+    render.enable_state(render.STATE_BLEND)
+    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
+    render.disable_state(render.STATE_CULL_FACE)
 
-      -- Set the projection to orthographic and only render between -200 and 200 Z-depth
-      render.set_projection(vmath.matrix4_orthographic(0, render.get_width(), 0,   render.get_height(), -200, 200))  
+    render.draw(self.tile_pred, {frustum = frustum})
+    render.draw(self.particle_pred, {frustum = frustum})
+    render.draw_debug3d()
 
-      render.draw(self.tile_pred)
-      render.draw(self.particle_pred)
+    -- render GUI
+    --
+    local view_gui = vmath.matrix4()
+    local proj_gui = vmath.matrix4_orthographic(0, window_width, 0, window_height, -1, 1)
+    local frustum_gui = proj_gui * view_gui
 
-      -- Render 3D space, but still orthographic
-      -- Face culling and depth test should be enabled
-      render.enable_state(render.STATE_CULL_FACE)
-      render.enable_state(render.STATE_DEPTH_TEST)
-      render.set_depth_mask(true)
-      render.draw(self.model_pred)
-      render.draw_debug3d()
+    render.set_view(view_gui)
+    render.set_projection(proj_gui)
 
-      -- Render the GUI last
-      render.set_view(vmath.matrix4())
-      render.set_projection(vmath.matrix4_orthographic(0, render.get_window_width(), 0,   render.get_window_height(), -1, 1))  
-
-      render.enable_state(render.STATE_STENCIL_TEST)
-      render.draw(self.gui_pred)
-      render.draw(self.text_pred)
-      render.disable_state(render.STATE_STENCIL_TEST)
-
-      render.set_depth_mask(false)
-      render.draw_debug2d()
-  end
-  ```
+    render.enable_state(render.STATE_STENCIL_TEST)
+    render.draw(self.gui_pred, {frustum = frustum_gui})
+    render.draw(self.text_pred, {frustum = frustum_gui})
+    render.disable_state(render.STATE_STENCIL_TEST)
+end
+```
 
 So far this is a simple and straightforward render script. It draws in the same manner every single frame. However, it is sometimes desirable to be able to introduce state into the render script and perform different operations depending on the state. It may also be desirable to communicate with the render script from other parts of the game code.
 
 on_message()
 : A render script can define an `on_message()` function and receive messages from other parts of your game or app. A common case where an external component sends information to the render script is the _camera_. A camera component that has acquired camera focus will automatically send its view and projection to the render script each frame. This message is named `"set_view_projection"`:
 
-  ```lua
-  function on_message(self, message_id, message)
-      if message_id == hash("clear_color") then
-          -- Someone sent us a new clear color to be used.
-          self.clear_color = message.color
-      elseif message_id == hash("set_view_projection") then
-          -- The camera component that has camera focus will sent set_view_projection
-          -- messages to the @render socket. We can use the camera information to
-          -- set view (and possibly projection) of the rendering.
-          -- Currently, we're rendering orthogonally so there's no need for camera
-          -- projection.
-          self.view = message.view
-      end
-  end
-  ```
+```lua
+function on_message(self, message_id, message)
+    if message_id == hash("clear_color") then
+        -- Someone sent us a new clear color to be used.
+        self.clear_color = message.color
+    elseif message_id == hash("set_view_projection") then
+        -- The camera component that has camera focus will sent set_view_projection
+        -- messages to the @render socket. We can use the camera information to
+        -- set view (and possibly projection) of the rendering.
+        -- Currently, we're rendering orthogonally so there's no need for camera
+        -- projection.
+        self.view = message.view
+    end
+end
+```
 
-  However, any script of GUI script can send messages to the render script though the special `@render` socket:
+However, any script of GUI script can send messages to the render script though the special `@render` socket:
 
-  ```lua
-  -- Change the clear color.
-  msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
-  ```
+```lua
+-- Change the clear color.
+msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
+```
 
 ## Supported graphics APIs
 The Defold render script API translates render operations into the following graphics APIs:
@@ -258,34 +275,34 @@ The Defold render script API translates render operations into the following gra
 `"window_resized"`
 : The engine will send this message on changes of the window size. You can listen to this message to alter rendering when the target window size changes. On desktop this means that the actual game window has been resized and on mobile devices this message is sent whenever an orientation change happens.
 
-  ```lua
-  function on_message(self, message_id, message)
-    if message_id == hash("window_resized") then
-      -- The window was resized. message.width and message.height contain the new dimensions.
-      ...
-    end
+```lua
+function on_message(self, message_id, message)
+  if message_id == hash("window_resized") then
+    -- The window was resized. message.width and message.height contain the new dimensions.
+    ...
   end
-  ```
+end
+```
 
 `"draw_line"`
 : Draw debug line. Use to visualize ray_casts, vectors and more. Lines are drawn with the `render.draw_debug3d()` call.
 
-  ```lua
-  -- draw a white line
-  local p1 = vmath.vector3(0, 0, 0)
-  local p2 = vmath.vector3(1000, 1000, 0)
-  local col = vmath.vector4(1, 1, 1, 1)
-  msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )  
-  ```
+```lua
+-- draw a white line
+local p1 = vmath.vector3(0, 0, 0)
+local p2 = vmath.vector3(1000, 1000, 0)
+local col = vmath.vector4(1, 1, 1, 1)
+msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )  
+```
 
 `"draw_text"`
 : Draw debug text. Use to print debug information. The text is drawn with the built-in "system_font" font. The system font has a material with tag "text" and is rendered with other text in the default render script.
 
-  ```lua
-  -- draw a text message
-  local pos = vmath.vector3(500, 500, 0)
-  msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  
-  ```
+```lua
+-- draw a text message
+local pos = vmath.vector3(500, 500, 0)
+msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  
+```
 
 The visual profiler accessible through the `"toggle_profile"` message sent to the `@system` socket is not part of the scriptable renderer. It is drawn separate from your render script.
 
