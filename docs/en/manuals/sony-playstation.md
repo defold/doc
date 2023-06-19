@@ -11,7 +11,7 @@ Defold currently only provides support for the PS4 console. Games made for PlayS
 :::
 
 ## Registering as developer for PS4 development
-You can register as a game developer for PS4 development from the PlayStation™ Partners page (https://register.playstation.net/partnership)
+You can register as a game developer for PS4 development from the [PlayStation™ Partners page](https://register.playstation.net/partnership)
 
 When you have been approved by Sony you will get access to the Playstation 4 DevNet. Navigate to Development > Tools & Middleware > Tools & Middleware directory > Defold. Click the 'Confirm Status' button.
 
