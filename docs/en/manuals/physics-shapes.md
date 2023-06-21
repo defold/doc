@@ -51,7 +51,7 @@ Note that the *Group* property is **not** used here since the collision groups a
 :::
 
 ## Convex hull shape
-Defold includes a feature allowing you to create a convex hull shape from three or more points. You can use an external tool such as the [Defold Polygon Editor](/assets/defoldpolygoneditor/) or the [Physics Body Editor](/assets/physicsbodyeditor/) to create a convex hull shape.
+Defold includes a feature allowing you to create a convex hull shape from three or more points. You can use an external tool such as the [Defold Polygon Editor](/assets/defoldpolygoneditor/) or the [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) to create a convex hull shape.
 
 1. Create convex hull shape file (file extension `.convexshape`) using an external editor.
 2. Instead of adding shapes to the collision object component, set the *Collision Shape* property to the *convex shape* file.
