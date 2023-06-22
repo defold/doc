@@ -5,7 +5,7 @@ brief: This manual highlights some things to consider when porting a game to a n
 
 # Porting guidelines
 
-Porting a Defold game to a new platform is usually a very straight forward process. In theory it is enough to make sure that the relevant sections are configured in the *game.project* file, but to make the most out of each platform it is recommended to adapt the game to the specifics of each platform. This manual contains some best practices for porting in general and some specifics for some of the platforms.
+Porting a Defold game to a new platform is usually a straight forward process. In theory it is enough to make sure that the relevant sections are configured in the *game.project* file, but to make the most out of each platform it is recommended to adapt the game to the specifics of each platform. This manual contains some best practices for porting in general and some specifics for some of the platforms.
 
 
 ## Best practices
@@ -16,6 +16,34 @@ Make sure to adapt the game to the input methods of the platform. Consider addin
 
 ### Localization
 Localise/translate any text in the game as well as the text in the store page as this will have a positive impact on sales! For the localization, make sure it is possible to easily swap between different languages in-game (via the pause menu).
+
+
+### Save games
+
+#### Save games on desktop, mobile and web
+Save games and other saved state can be stored using Defold API function `sys.save(filename, data)` and loaded using `sys.load(filename)`. You can use `sys.get_save_file(application_id, name)` to get a path to an operating system specific location where files can be saved, typically in the logged in users home folder.
+
+#### Save games on console
+Using `sys.get_save_file()` and `sys.save()` works well on most platforms, but on consoles it is recommended to take a different approach. Console platforms typically associate a user with each connected controller, and as such save games, achievements and other features should be associated with their respective user.
+
+The gamepad input events will contain a user id which can be used to associate the actions of a controller with a user on the console.
+
+The console platforms and their native extensions will expose platform specific API functions to save and load data associated with a specific user. Use these APIs when saving and loading on console.
+
+Console platform APIs for file operations are typically asynchronous. When developing a cross platform game targeted for console it is recommended to design your game such that all file operations are asynchronous, regardless of platform. Example:
+
+```lua
+local function save_game(data, user_id, cb)
+	if console then
+		local filename = "savegame"
+		consoleapi.save(user_id, filename, data, cb)
+	else
+		local filename = sys.get_save_file("mygame", "savegame" .. user_id)
+		local success = sys.save(filename, data)
+		cb(success)
+	end
+end
+```
 
 
 ### Performance
@@ -33,9 +61,13 @@ It has become increasingly popular to use a small lens cut-out on the display sc
 
 
 ### Nintendo Switch
-Integrate platform specific code - For Nintendo Switch there's a separate extension with some helper functionality for user selection etc
+Integrate platform specific code - For Nintendo Switch there's a separate extension with some helper functionality for user selection etc.
 
 Defold for Nintendo Switch uses Vulkan as the graphics backend - Make sure to test the game using the [Vulkan graphics backend](https://github.com/defold/extension-vulkan).
+
+
+### PlayStation®4
+Integrate platform specific code - For PlayStation®4 there's a separate extension with some helper functionality for user selection etc.
 
 
 ### HTML5

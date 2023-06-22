@@ -17,7 +17,7 @@ Depending on where a property is found, you access it via a generic function, or
 Composite properties of type `vector3`, `vector4` or `quaternion` also expose their sub-components (`x`, `y`, `z` and `w`). You can address the components individually by suffixing the name with a dot (`.`) and the name of the component. For example, to set the x-component of a game object's position:
 
 ```lua
--- Set the x positon of "game_object" to 10.
+-- Set the x position of "game_object" to 10.
 go.set("game_object", "position.x", 10)
 ```
 

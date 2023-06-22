@@ -71,7 +71,9 @@ end
 ```
 1. The message posted from the camera component includes a view matrix and a projection matrix.
 
-The camera component supplies the render script with either a perspective or orthographic projection matrix depending on the *Orthographic Projection* property of the camera.
+The camera component supplies the render script with either a perspective or orthographic projection matrix depending on the *Orthographic Projection* property of the camera. The projection matrix also takes into account the defined near and far clipping plane, the field of view and the aspect ratio settings of the camera.
+
+The view matrix provided by the camera defines the position and orientation of the camera. A camera with an *Orthographic Projection* will center the view on the position of the game object it is attached to, while a camera with a *Perspective Projection* will have the lower left corner of the view positioned on the game object it is attached to.
 
 ::: important
 For reasons of backwards compatibility the default render script ignores the projection provided by the camera and always uses an orthographic stretch projection. Learn more about the render script and the view and projection matrices in the [Render manual](/manuals/render/#default-view-projection).

@@ -112,8 +112,9 @@ end
 
 -- Randomize the order of a the elements in a table list
 local function scramble(t)
-    for i=1, #t do
-        t = swap(t, i, math.random(#t))
+    local n = #t
+    for i = 1, n - 1 do
+        t = swap(t, i, math.random(i, n))
     end
     return t
 end

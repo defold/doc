@@ -128,6 +128,22 @@ The tool will ask you to press different buttons on your connected controller. I
 
 When a gamepad is connected and no mapping exists for the gamepad the gamepad will only generate "connected", "disconnected" and "raw" actions. In this case you need to manually map the raw gamepad data to actions in your game.
 
+(From Defold 1.4.8)
+
+It is possible to check if an input action for a gamepad is from an unknown gamepad or not by reading the `gamepad_unknown` value from the action:
+
+```lua
+function on_input(self, action_id, action)
+    if action_is == hash("connected") then
+        if action.gamepad_unknown then
+            print("The connected gamepad is unidentified and will only generate raw input")
+        else
+            print("The connected gamepad is known and will generate input actions for buttons and sticks")
+        end
+    end
+end
+``` 
+
 ## Gamepads in HTML5
 Gamepads are supported in HTML5 builds and generate the same input events as on other platforms. Support for gamepads is based on the [Gamepad API](https://www.w3.org/TR/gamepad/) which is supported in most browsers ([refer to this support chart](https://caniuse.com/?search=gamepad)). If the browser doesn't support the Gamepad API Defold will silently ignore any Gamepad triggers in your project. You can check if the browser supports the Gamepad API by checking if the `getGamepads` function exists on the `navigator` object:
 
