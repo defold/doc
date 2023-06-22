@@ -70,9 +70,11 @@ end
 ```
 1. 这个消息中包含一个视口矩阵和一个映射矩阵.
 
-摄像机组件支持基于摄像机属性 *Orthographic Projection* 的, 使用透视或者平视透视矩阵的渲染脚本.
+摄像机组件支持基于摄像机属性 *Orthographic Projection* 的, 使用透视或者平视透视矩阵的渲染脚本. 投射矩阵还参考了定义好的远近裁切平面和摄像机的视角及宽高比.
 
-::: sidenote
+摄相机提供的视图矩阵定义了摄相机的位置和方向. *Orthographic Projection* 的摄像机基于其父游戏对象的位置居中视口, 而 *Perspective Projection* 的摄像机会基于其父游戏对象的位置确定视口左下角的位置.
+
+::: important
 出于向后兼容性的原因，默认渲染脚本会忽略相机提供的透视，并始终使用平视透视. 关于渲染脚本, 视口和透视矩阵更多详情参见 [渲染教程](/manuals/render/#default-view-projection).
 :::
 
