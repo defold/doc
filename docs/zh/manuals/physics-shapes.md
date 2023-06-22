@@ -52,7 +52,7 @@ Defold 包含一个功能就是从瓷砖地图中自动生成瓷磚圖源的物�
 :::
 
 ## 凸多边形
-Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以使用资源 [Defold 多边形编辑器](/assets/defoldpolygoneditor/) 或者 [物理刚体编辑器](/assets/physicsbodyeditor/) 来创建凸多边形.
+Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以使用资源 [Defold 多边形编辑器](/assets/defoldpolygoneditor/) 或者 [物理刚体编辑器](https://selimanac.github.io/physics-body-editor/) 来创建凸多边形.
 
 1. 新建凸多边形文件 (扩展名 `.convexshape`).
 2. 不在碰撞对象上加入形状, 而是设置 *Collision Shape* 属性为 *凸多边形文件*.
