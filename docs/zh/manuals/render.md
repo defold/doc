@@ -9,7 +9,7 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 ### 渲染管线是什么东东?
 
-渲染管线决定了渲染什么, 何时渲染以及渲染哪里. 渲染什么由 [渲染优先级](#render-predicates) 决定. 什么时候渲染由 [渲染脚本](#the-render-script) 决定, 渲染哪里由 [视口映射](#default-view-projection) 决定.
+渲染管线决定了渲染什么, 何时渲染以及渲染哪里. 渲染什么由 [渲染优先级](#render-predicates) 决定. 什么时候渲染由 [渲染脚本](#the-render-script) 决定, 渲染哪里由 [视口映射](#default-view-projection) 决定. 渲染管线还能剔除基于渲染优先级所渲染的的那些位于边界框或视锥体之外的图像. 这个过程称为视锥体剔除.
 
 
 ## 默认渲染器
@@ -119,6 +119,26 @@ msg.post("@render:", "use_camera_projection")
 ```
 
 
+## 视锥体剔除
+
+Defold 的渲染 API 能让开发者做到叫做视锥体剔除的功能. 视锥体剔除能忽视位于定义好的边界框之外或者视锥体之外的图像. 在超大游戏世界中每次只显示其中一部分, 视锥体剔除能极大地减少发送给 GPU 的待渲染数据, 从而提高了效率并节省了电量 (移动设备中). 常见用摄像机视口和透视映射来创建边界框. 默认渲染脚本使用视口和透视映射 (来自摄像机) 的数据计算出视锥体.
+
+视锥体剔除在引擎里的实现基于组件类型. 目前的状况是 (Defold 1.4.7):
+
+| 组件          | 是否支持  |
+|-------------|-------|
+| Sprite      | 是     |
+| Model       | 是     |
+| Mesh        | 是 (1) |
+| Label       | 是     |
+| Spine       | 是     |
+| Particle fx | 否     |
+| Tilemap     | 否    |
+| Rive        | 否    |
+
+1 = Mesh 的边界框需要开发者手动设置. [详情请见](/manuals/mesh/#frustum-culling).
+
+
 ## 坐标系统
 
 提到渲染就不得不说其基于的坐标系统. 一般游戏都有世界坐标系和屏幕坐标系.
@@ -135,113 +155,110 @@ Sprite, 瓷砖地图和其他游戏组件都是使用游戏世界坐标系. 既�
 init()
 : 函数 `init()` 用来设定优先级, 视口和视口颜色. 这些渲染时都会被用到.
 
-  ```lua
-  function init(self)
-      -- 定义渲染优先级. 每个优先级的绘制不相干所以绘制时可以任意修改 OpenGL 的状态.
-      self.tile_pred = render.predicate({"tile"})
-      self.gui_pred = render.predicate({"gui"})
-      self.text_pred = render.predicate({"text"})
-      self.particle_pred = render.predicate({"particle"})
-      self.model_pred = render.predicate({"model"})
+```lua
+function init(self)
+  -- 定义渲染优先级. 每个优先级的绘制不相干所以绘制时可以任意修改 OpenGL 的状态.
+  self.tile_pred = render.predicate({"tile"})
+  self.gui_pred = render.predicate({"gui"})
+  self.text_pred = render.predicate({"text"})
+  self.particle_pred = render.predicate({"particle"})
+  self.model_pred = render.predicate({"model"})
 
-      self.clear_color = vmath.vector4(0, 0, 0, 0)
-      self.clear_color.x = sys.get_config("render.clear_color_red", 0)
-      self.clear_color.y = sys.get_config("render.clear_color_green", 0)
-      self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
-      self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
+  self.clear_color = vmath.vector4(0, 0, 0, 0)
+  self.clear_color.x = sys.get_config("render.clear_color_red", 0)
+  self.clear_color.y = sys.get_config("render.clear_color_green", 0)
+  self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
+  self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
 
-      -- 视口矩阵. 如果使用了摄像机, 摄像机就会
-      -- 把 "set_view_projection" 信息发送给渲染脚本
-      -- 以便我们根据摄像机提供的参数更新视口矩阵.
-      self.view = vmath.matrix4()
-  end
-  ```
+  -- 视口矩阵. 如果使用了摄像机, 摄像机就会
+  -- 把 "set_view_projection" 信息发送给渲染脚本
+  -- 以便我们根据摄像机提供的参数更新视口矩阵.
+  self.view = vmath.matrix4()
+end
+```
 
 update()
 : 函数 `update()` 每帧都会被调用. 用于调用底层 OpenGL ES API (OpenGL 嵌入系统 API) 以实现渲染. 想了解 `update()` 函数, 先要了解 OpenGL 工作原理. 对于 OpenGL ES 有许多教程. 官方网站就是个不错的学习之地. 参考 https://www.khronos.org/opengles/
 
   本例中函数里设置了渲染 3D 模型必须的两部分内容. `init()` 定义了 `self.model_pred` 优先级. 含有 "model" 标签的材质被建立. 以及使用此材质的模型组件:
 
-  ```lua
-  function update(self)
-      -- 设置深度蒙版以便修改深度缓存.
-      render.set_depth_mask(true)
+```lua
+function update(self)
+    local window_width = render.get_window_width()
+    local window_height = render.get_window_height()
+    if window_width == 0 or window_height == 0 then
+        return
+    end
 
-      -- 使用背景清空渲染缓存然后设置其深度为 1.0.
-      -- 通常深度范围为 0.0 (近端) 到 1.0 (远端) 要全包括所以设置为 1.0
-      -- 缓存只保持并渲染比 1.0 近的物体
-      -- 这样的配置就很合乎逻辑.
-      render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [  render.BUFFER_STENCIL_BIT] = 0})  
+    -- clear screen buffers
+    --
+    render.set_depth_mask(true)
+    render.set_stencil_mask(0xff)
+    render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0})
 
-      -- 视口大小设置为窗体大小.
-      render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+    -- render world (sprites, tilemaps, particles etc)
+    --
+    local proj = get_projection(self)
+    local frustum = proj * self.view
 
-      -- 填充视口 (摄像机会自动填充)
-      render.set_view(self.view)
+    render.set_viewport(0, 0, window_width, window_height)
+    render.set_view(self.view)
+    render.set_projection(proj)
 
-      -- 渲染 2D 空间
-      render.set_depth_mask(false)
-      render.disable_state(render.STATE_DEPTH_TEST)
-      render.disable_state(render.STATE_STENCIL_TEST)
-      render.enable_state(render.STATE_BLEND)
-      render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
-      render.disable_state(render.STATE_CULL_FACE)
+    render.set_depth_mask(false)
+    render.disable_state(render.STATE_DEPTH_TEST)
+    render.disable_state(render.STATE_STENCIL_TEST)
+    render.enable_state(render.STATE_BLEND)
+    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
+    render.disable_state(render.STATE_CULL_FACE)
 
-      -- 设定正交映射及Z轴范围为 -200 到 200
-      render.set_projection(vmath.matrix4_orthographic(0, render.get_width(), 0,   render.get_height(), -200, 200))  
+    render.draw(self.tile_pred, {frustum = frustum})
+    render.draw(self.particle_pred, {frustum = frustum})
+    render.draw_debug3d()
 
-      render.draw(self.tile_pred)
-      render.draw(self.particle_pred)
+    -- render GUI
+    --
+    local view_gui = vmath.matrix4()
+    local proj_gui = vmath.matrix4_orthographic(0, window_width, 0, window_height, -1, 1)
+    local frustum_gui = proj_gui * view_gui
 
-      -- 渲染 3D 空间, 此时仍是正交映射
-      -- 需要打开面剔除和深度测试
-      render.enable_state(render.STATE_CULL_FACE)
-      render.enable_state(render.STATE_DEPTH_TEST)
-      render.set_depth_mask(true)
-      render.draw(self.model_pred)
-      render.draw_debug3d()
+    render.set_view(view_gui)
+    render.set_projection(proj_gui)
 
-      -- 最后渲染 GUI
-      render.set_view(vmath.matrix4())
-      render.set_projection(vmath.matrix4_orthographic(0, render.get_window_width(), 0,   render.get_window_height(), -1, 1))  
-
-      render.enable_state(render.STATE_STENCIL_TEST)
-      render.draw(self.gui_pred)
-      render.draw(self.text_pred)
-      render.disable_state(render.STATE_STENCIL_TEST)
-
-      render.set_depth_mask(false)
-      render.draw_debug2d()
-  end
-  ```
+    render.enable_state(render.STATE_STENCIL_TEST)
+    render.draw(self.gui_pred, {frustum = frustum_gui})
+    render.draw(self.text_pred, {frustum = frustum_gui})
+    render.disable_state(render.STATE_STENCIL_TEST)
+end
+```
 
 上面是一个简单版的渲染脚本. 每帧工作都一样. 然而有些时候需要对不同的游戏状态进行不同的渲染操作. 可能还需要与游戏代码脚本进行交互.
 
 on_message()
 : 渲染脚本有一个 `on_message()` 函数用来接收游戏其他脚本发来的消息. 典型的例子比如 _摄像机_. 摄像机组件每一帧都把视口和映射发给渲染脚本. 消息名为 `"set_view_projection"`:
 
-  ```lua
-  function on_message(self, message_id, message)
-      if message_id == hash("clear_color") then
-          -- 根据消息命令清空屏幕.
-          self.clear_color = message.color
-      elseif message_id == hash("set_view_projection") then
-          -- 焦点摄像机每一帧都发送 set_view_projection
-          -- 消息到 @render 端口. 使用摄像机发来的数据可以
-          -- 设置渲染视口 (及映射).
-          -- 这里使用默认正交映射所以
-          -- 不使用消息传输映射.
-          self.view = message.view
-      end
+```lua
+function on_message(self, message_id, message)
+  if message_id == hash("clear_color") then
+      -- 根据消息命令清空屏幕.
+      self.clear_color = message.color
+  elseif message_id == hash("set_view_projection") then
+      -- 焦点摄像机每一帧都发送 set_view_projection
+      -- 消息到 @render 端口. 使用摄像机发来的数据可以
+      -- 设置渲染视口 (及映射).
+      -- 这里使用默认正交映射所以
+      -- 不使用消息传输映射.
+      self.view = message.view
   end
-  ```
+end
+```
 
-  GUI 脚本同样可以向 `@render` 端口发送消息:
+GUI 脚本同样可以向 `@render` 端口发送消息:
 
-  ```lua
-  -- 更改清屏颜色.
-  msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
-  ```
+```lua
+-- 更改清屏颜色.
+msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
+```
 
 ## 系统消息
 
@@ -251,34 +268,34 @@ on_message()
 `"window_resized"`
 : 窗体大小变化时系统发送给渲染脚本的消息. 监听此消息以便在窗体大小变化时采取相应的渲染方案. 桌面设备窗口大小改变和移动设备屏幕方向改变都会触发此消息发送.
 
-  ```lua
-  function on_message(self, message_id, message)
-    if message_id == hash("window_resized") then
-      -- 窗体变化. message.width 与 message.height 保存了变化后的窗体尺寸.
-      ...
-    end
+```lua
+function on_message(self, message_id, message)
+  if message_id == hash("window_resized") then
+    -- 窗体变化. message.width 与 message.height 保存了变化后的窗体尺寸.
+  ...
   end
-  ```
+end
+```
 
 `"draw_line"`
 : 调试用画线. 可以用来检查射线, 向量等等. 线的绘制调用了 `render.draw_debug3d()` 函数.
 
-  ```lua
-  -- 绘制白线
-  local p1 = vmath.vector3(0, 0, 0)
-  local p2 = vmath.vector3(1000, 1000, 0)
-  local col = vmath.vector4(1, 1, 1, 1)
-  msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )  
-  ```
+```lua
+-- 绘制白线
+local p1 = vmath.vector3(0, 0, 0)
+local p2 = vmath.vector3(1000, 1000, 0)
+local col = vmath.vector4(1, 1, 1, 1)
+msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = col } )  
+```
 
 `"draw_text"`
 : 调试用文字绘制. 可以用来展示一些调试信息. 文字使用自带 "system_font" 字体. 使用材质标签 "text" 于渲染脚本里进行绘制.
 
-  ```lua
-  -- 文字信息绘制
-  local pos = vmath.vector3(500, 500, 0)
-  msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  
-  ```
+```lua
+-- 文字信息绘制
+local pos = vmath.vector3(500, 500, 0)
+msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })  
+```
 
 可视分析器通过发送 `"toggle_profile"` 消息到 `@system` 端口显示出来, 它不是在渲染脚本里进行绘制的, 而是在系统内部其他脚本里进行绘制的.
 

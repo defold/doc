@@ -107,7 +107,7 @@ end
       -- 集合工厂父级集合加载时
       -- 集合工厂资源不会被加载. 调用 create 函数
       -- 会把资源进行同步加载.
-      self.go_ids = collecionfactory.create("#collectionfactory")
+      self.go_ids = collectionfactory.create("#collectionfactory")
   end
 
   function final(self)  
