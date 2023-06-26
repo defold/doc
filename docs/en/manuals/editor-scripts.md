@@ -40,6 +40,9 @@ Editor then collects all editor scripts defined in project and libraries, loads 
 
 You can interact with the editor using `editor` package that defines this API:
 - `editor.platform` — a string, either `"x86_64-win32"` for Windows, `"x86_64-macos"` for macOS or `"x86_64-linux"` for Linux.
+- `editor.version` — a string, version name of Defold, e.g. `"1.4.8"`
+- `editor.engine_sha1` — a string, SHA1 of Defold engine
+- `editor.editor_sha1` — a string, SHA1 of Defold editor
 - `editor.get(node_id, property)` — get a value of some node inside the editor. Nodes in the editor are various entities, such as script or collection files, game objects inside collections, json files loaded as resources, etc. `node_id` is a userdata that is passed to the editor script by the editor. Alternatively, you can pass resource path instead of node id, for example `"/main/game.script"`. `property` is a string. Currently these properties are supported:
   - `"path"` — file path from the project folder for *resources* — entities that exist as files. Example of returned value: `"/main/game.script"`
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
