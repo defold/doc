@@ -103,6 +103,19 @@ Press *Create Bundle* and you will then be prompted to specify where on your com
 
 You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
 
+## Installing and launching bundle on a connected iPhone
+
+You can install and launch the built bundle using editor's "Install on connected device" and "Launch installed app" check-boxes in the Bundle dialog:
+
+![Install and launch iOS bundle](images/ios/install_and_launch.png)
+
+You need [ios-deploy](https://github.com/ios-control/ios-deploy) command lint tool installed for this feature to work. The simplest way to install it is using Homebrew:
+```
+$ brew install ios-deploy
+```
+
+If the editor can't detect the install location of the ios-deploy tool, you will need to specify it in [Preferences](/manuals/editor-preferences/#tools). 
+
 ### Creating a storyboard
 
 You create a storyboard file using Xcode. Start Xcode and create a new project. Select iOS and Single View App:

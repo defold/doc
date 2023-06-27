@@ -57,3 +57,13 @@ Build Server
 
 Build Server Headers
 : additional headers to the build server when building native extensions. It's important for using CloudFlare service or similar services with extender.
+
+## Tools
+
+![](images/editor/preferences_tools.png){srcset="images/editor/preferences_tools@2x.png 2x"}
+
+ADB path
+: Path to [ADB](https://developer.android.com/tools/adb) command line tool installed on this system. If you have ADB installed on your system, the Defold editor will use it to install and run bundled Android APKs to a connected Android Device. By default, the editor checks if ADB is installed in well-known locations, so you only need to specify the path if you have ADB installed in a custom location.
+
+ios-deploy path
+: Path to [ios-deploy](https://github.com/ios-control/ios-deploy) command line tools installed on this system (only relevant for macOS). Similarly to the ADB path, the Defold editor will use this tool to install and run bundled iOS applications on a connected iPhone. By default, the editor checks if ios-deploy is installed in well-known locations, so you only need to specify the path if you use a custom installation of os-deploy.

@@ -58,7 +58,7 @@ Press <kbd>Create Bundle</kbd> when you have configured the application bundle s
 
 ### Installing an Android application bundle
 
-### Installing an APK
+#### Installing an APK
 
 An *.apk* file can be copied to your device with the `adb` tool, or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
 
@@ -70,6 +70,14 @@ $ adb install Defold\ examples.apk
   pkg: /data/local/tmp/my_app.apk
 Success
 ```
+
+#### Installing an APK using editor
+
+You can install and launch an *.apk* file using the editor's "Install on connected device" and "Launch installed app" check-boxes in the Bundle dialog:
+
+![Install and Launch APK](images/android/install_and_launch.png)
+
+For this feature to work, you will need ADB installed and *USB debugging* enabled on the connected device. If the editor can't detect the install location of the ADB command line tool, you will need to specify it in [Preferences](/manuals/editor-preferences/#tools).
 
 #### Installing an AAB
 
