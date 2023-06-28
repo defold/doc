@@ -149,6 +149,15 @@ A camera has a number of different properties that can be manipulated using `go.
 `orthographic_zoom`
 : The orthographic camera zoom (`number`).
 
+`aspect_ratio`
+: Added in Defold 1.4.8. The ratio between the frustum width and height. Used when calculating the projection of a perspective camera. (`number`).
+
+`view`
+: Added in Defold 1.4.8. The calculated view matrix of the camera. READ ONLY. (`matrix4`).
+
+`projection`
+: Added in Defold 1.4.8. The calculated projection matrix of the camera. READ ONLY. (`matrix4`).
+
 
 ## Third-party camera solutions
 
