@@ -48,10 +48,10 @@ Creating HTML5 content with Defold is simple and follows the same pattern as all
 
 ![Create HTML5 bundle](images/html5/html5_bundle.png)
 
-You can chose to include both an `asm.js` and a WebAssembly version of the Defold engine in HTML5 bundle. In most cases it is enough to chose WebAssembly (wasm) since [all modern browsers support WebAssembly](https://caniuse.com/wasm).
+You can chose to include both an `asm.js` and a WebAssembly (wasm) version of the Defold engine in HTML5 bundle. In most cases it is enough to chose WebAssembly since [all modern browsers support WebAssembly](https://caniuse.com/wasm).
 
 ::: important
-Even if you include both `asm.js` and `wasm` versions of the engine only one of them will be downloaded by the browser when launching the game. The WebAssembly version will be downloaded if the browser supports WebAssembly and the asm.js version be used as a fallback in the rare case that WebAssembly is not.
+Even if you include both `asm.js` and `wasm` versions of the engine only one of them will be downloaded by the browser when launching the game. The WebAssembly version will be downloaded if the browser supports WebAssembly and the asm.js version will be used as a fallback in the rare case that WebAssembly is not supported.
 :::
 
 When you click on the <kbd>Create bundle</kbd> button you will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.
