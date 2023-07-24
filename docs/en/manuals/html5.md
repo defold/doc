@@ -185,14 +185,13 @@ DEFOLD_ENGINE_ARGUMENTS
 
 ## Extra parameters
 
-If you create your custom template, you can specify extra parameters for the engine loader:
+If you create your custom template, you can specify extra parameters for the engine loader.
+
+`Module.runApp("canvas", extra_params)` - Starts the application given a canvas element id and the `extra_params` object.
+
+Object `extra_params` is an optional object that can have the following fields:
+
 ```
-`Module.runApp("canvas", extra_params) - Starts the
-    application given a canvas element id
-
-'extra_params' is an optional object that can have the
-    following fields:
-
 'archive_location_filter':
     Filter function that will run for each archive path.
 
@@ -212,7 +211,7 @@ If you create your custom template, you can specify extra parameters for the eng
     Disables the right-click context menu on the canvas element if true.
 
 'retry_time':
-    Pause before retry file loading after error.
+    Pause in seconds before retry file loading after error.
 
 'retry_count':
     How many attempts we do when trying to download a file.
