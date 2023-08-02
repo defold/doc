@@ -358,6 +358,9 @@ The max number of concurrent emitters, `64` by default.
 #### Max Particle Count
 The max number of concurrent particles, `1024` by default.
 
+#### Max Animation Count
+The max number of active animations in gui, `1024` by default.
+
 ---
 
 ### Label
