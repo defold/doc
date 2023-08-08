@@ -79,7 +79,7 @@ Następnie, możesz również z tego samego menu kontekstowego wybrać opcje <kb
 
 Kliknij dwukrotnie lewym przyciskiem myszki na kolekcji lub obiekcie gry, żeby otworzyć *Edytor Sceny*:
 
-![Select object](images/editor/select.jpg)
+![Select object](images/editor/select.png)
 
 Wybieranie obiektów:
 : Kliknij na obiekt w głównym oknie, żeby go wybrać. Prostokąt wokół wybranego obiektu zostanie podświetlony na zielono. Wybrany obiekty zostanie również podświetlony w widoku *Outline* po prawej stronie.
@@ -95,7 +95,7 @@ Narzędzie przesuwania (Move)
 : ![Move tool](images/editor/icon_move.png){.left}
   Do przesuwania obiektów można użyć narzędzia przesuwania *Move*. Znajdziesz je w pasku narzędzi w prawym górnym rogu edytora sceny lub klikając klawisz <kbd>W</kbd>.
 
-  ![Move object](images/editor/move.jpg)
+  ![Move object](images/editor/move.png)
 
   Nad wybranym obiektem wyświetla się zestaw wizualnych manipulatorów (kwadraty i strzałki). Klikaj i przeciągaj środkowym kwadratem, aby dowolnie przesuwać obiektem po ekranie lub klikaj i przeciągaj pojedyncze strzałki, aby przesuwać obiekt tylko wzdłuż wybranej osi. Są tutaj również kwadratowe wskaźniki umożliwiające poruszanie się po płaszczyznach XY oraz X-Z i Y-Z (widoczne po obróceniu kamery).
 
@@ -103,7 +103,7 @@ Narzędzie obracania (Rotate)
 : ![Rotate tool](images/editor/icon_rotate.png){.left}
   Do obracania obiektów, można użyć narzędzia obracania *Rotate* wybierając je z górnego paska narzędzi lub naciskając klawisz <kbd>E</kbd>.
 
-  ![Move object](images/editor/rotate.jpg)
+  ![Move object](images/editor/rotate.png)
 
   Nad wybranym obiektem wyświetla się zestaw wizualnych, okrągłych manipulatorów. Pomarańczowy manipulator obraca obiektem w płaszczyźnie ekranu, a pozostałe wokół osi X, Y i Z. Pamiętaj, że domyślny widok jest prostopadły do osi X i Y, więc okręgi służące do obrotu wokół tych osi są widoczne wtedy po prostu jako linie.
 
@@ -111,7 +111,7 @@ Narzędzie skalowania (Scale)
 : ![Scale tool](images/editor/icon_scale.png){.left}
   Do skalowania obiektów, można użyć narzędzia skalowania *Scale* wybierając je z górnego paska narzędzi lub naciskając klawisz <kbd>R</kbd>.
 
-  ![Scale object](images/editor/scale.jpg)
+  ![Scale object](images/editor/scale.png)
 
   Nad wybranym obiektem wyświetla się zestaw wizualnych, kwadratowych manipulatorów. Środkowy kwadrat skaluje obiekt jednakowo wzdłuż każdej z osi (włącznie z osią Z), a pozostałe odpowiednio wokół osi X, Y i Z. Oprócz tego pokazane są wtedy również kwadraty pozwalające na skalowanie wzdłuż dwóch osi jednocześnie, parami: X-Y, X-Z i Y-Z.
 
