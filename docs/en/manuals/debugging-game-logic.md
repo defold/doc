@@ -87,6 +87,13 @@ Setting and clearing breakpoints
 
   To set or clear a breakpoint, click in the column just right of the line numbers in the code editor. You can also select <kbd>Edit ▸ Toggle Breakpoint</kbd> from the menu.
 
+Setting conditional breakpoints
+: You can configure your breakpoint to contain a condition that needs to evaluate to true for the breakpoint to trigger. The condition can access local variables available at the line during code execution.
+
+  ![edit breakpoint](images/debugging/edit_breakpoint.png){srcset="images/debugging/edit_breakpoint@2x.png 2x"}
+
+  To edit the breakpoint condition, right-click in the column just right of the line numbers in the code editor, or select <kbd>Edit ▸ Edit Breakpoint</kbd> from the menu.
+
 Evaluating Lua expressions
 : With the debugger attached and the game stopped at a breakpoint, a Lua runtime is available with the current context. Type Lua expressions in the bottom of the console and press <kbd>Enter</kbd> to evaluate them:
 
