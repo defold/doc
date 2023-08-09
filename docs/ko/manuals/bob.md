@@ -111,9 +111,8 @@ usage: bob [options] [commands]
  -tp,--texture-profiles <arg>            DEPRECATED! Use
                                          --texture-compression instead
  -u,--auth <arg>                         User auth token
-    --use-async-build-server             Use an async build process for
-                                         the build server (when using
-                                         native extensions)
+    --use-async-build-server             DEPRECATED! Asynchronous build
+                                         is now the default.
     --use-lua-bytecode-delta             Use byte code delta compression
                                          when building for multiple
                                          architectures

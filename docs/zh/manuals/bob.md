@@ -81,7 +81,8 @@ usage: bob [options] [commands]
 -tc,--texture-compression <arg>         使用纹理档案中指定的纹理压缩
 -tp,--texture-profiles <arg>            已弃用! 使用 --texture-compression 代替
 -u,--auth <arg>                         用户认证令牌
-   --use-async-build-server             为编译服务器启用异步编译处理 (使用原生扩展时)
+   --use-async-build-server             DEPRECATED! Asynchronous build
+                                         is now the default.
    --use-lua-bytecode-delta             为多平台编译时使用字节码 delta 压缩
    --use-uncompressed-lua-source        使用未压缩未加密的明文Lua源代码代替二进制文件
    --use-vanilla-lua                    已弃用! 使用 --use-uncompressed-lua-source 代替
