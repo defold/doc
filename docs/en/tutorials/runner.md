@@ -242,7 +242,7 @@ We also need to import the Spine animation data and set up a *Spine Scene* for i
 ![Hero spinescene](images/runner/2/hero_spinescene.png)
 
 ::: sidenote
-The file *hero.spinejson* has been exported in Spine JSON format. You will need the Spine or Dragon Bones animation software to be able to create such files. If you want to use other animation software you can export your animations as sprite-sheets and use them as flip-book animations either from *Tile Source* or *Atlas* resources. See the manual on [Animation](/manuals/animation) for more information.
+The file *hero.spinejson* has been exported in Spine JSON format. You will need the Spine animation software to be able to create such files. If you want to use other animation software you can export your animations as sprite-sheets and use them as flip-book animations either from *Tile Source* or *Atlas* resources. See the manual on [Animation](/manuals/animation) for more information.
 :::
 
 ### Building the game object
