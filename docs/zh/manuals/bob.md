@@ -50,7 +50,7 @@ usage: bob [options] [commands]
 -e,--email <arg>                        用户电邮
 -ea,--exclude-archive                   要从打包中排除的资源档案. 以此创建空应用用作编译目标
     --exclude-build-folder              DEPRECATED from Defold 1.5.1! Use
-                                         '.defignore' file instead
+                                        '.defignore' file instead
 -h,--help                               该命令的帮助文档
 -i,--input <arg>                        指定源目录, 默认是当前目录
     --identity <arg>                    指定签名 (iOS)
