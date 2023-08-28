@@ -58,8 +58,8 @@ usage: bob [options] [commands]
                                          create an empty Defold
                                          application for use as a build
                                          target
-    --exclude-build-folder <arg>         Comma separated list of folders
-                                         to exclude from the build
+    --exclude-build-folder <arg>         DEPRECATED from Defold 1.5.1! Use
+                                         '.defignore' file instead
  -h,--help                               This help message
  -i,--input <arg>                        Source directory. Default is
                                          current directory
