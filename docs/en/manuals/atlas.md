@@ -81,7 +81,7 @@ Size
 : The width and height of the image (read-only).
 
 Sprite Trim Mode
-: How the sprite is rendered. The default is to render the sprite as a rectangle (Sprite Trim Mode set to Off). If the sprite contains a lot of transparent pixels it may be more efficient to render the sprite as a non rectangular shape using between 4 and 8 vertices.
+: How the sprite is rendered. The default is to render the sprite as a rectangle (Sprite Trim Mode set to Off). If the sprite contains a lot of transparent pixels it may be more efficient to render the sprite as a non rectangular shape using between 4 and 8 vertices. Note that sprite trimming does not work together with slice-9 sprites.
 
 Image
 : Path to the image itself.

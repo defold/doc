@@ -28,6 +28,10 @@ The *Slice9* texture scaling described above is only applied when you change box
 If you change scale parameter of the box node or sprite (or on the game object) - the node or sprite and texture is scaled without applying *Slice9* parameters.
 :::
 
+::: important
+When using slice-9 texturing on Sprites the [Sprite Trim Mode of the image](https://defold.com/manuals/atlas/#image-properties) must be set to Off.
+:::
+
 
 ### Mipmaps and slice-9
 Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes exhibit artifacts. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
