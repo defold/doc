@@ -45,6 +45,57 @@ Samplers
 Tags
 : The tags associated with the material. Tags are represented in the engine as a _bitmask_ that is used by [`render.predicate()`](/ref/render#render.predicate) to collect components that should be drawn together. See the [Render documentation](/manuals/render) on how to do that. The maximum number of tags you can use in a project is 32.
 
+## Attributes
+
+Shader attributes (also referred to as vertex streams), is a mechanism for how the GPU retrieves vertices from memory in order to render geometry. The vertex shader specifies a set of streams by using the `attribute` keyword and in most cases Defold produces and binds the data automatically under the hood based on the names of the streams. However, in some cases you might want to forward more data per vertex to achieve a specific effect that the engine does not produce. A vertex attribute can be configured with the following fields:
+
+Name
+: The attribute name. Similar to shader constants, the attribute configuration will only be used if it matches an attribute specified in the vertex program.
+
+Semantic type
+: A semantic type indicates the semantic meaning of *what* the attribute is and/or *how* it should be shown in the editor. For example, specifying an attribute with a `SEMANTIC_TYPE_COLOR` will show a color picker in the editor, while the data will still be passed in as-is from the engine to the shader.
+
+  - `SEMANTIC_TYPE_NONE` The default semantic type. Does not have any other effect on the attribute other than passing the material data for the attribute directly to the vertex buffer.
+  - `SEMANTIC_TYPE_POSITION` Produces per-vertex position data for the attribute. Can be used together with coordinate space to tell the engine how the positions will be calculated.
+  - `SEMANTIC_TYPE_TEXCOORD` Produces per-vertex texture coordinates for the attribute.
+  - `SEMANTIC_TYPE_PAGE_INDEX` Produces per-vertex page indices for the attribute.
+  - `SEMANTIC_TYPE_COLOR` Affects how the editor interprets the attribute. If an attribute is configured with a color semantic, a color picked widget will be shown in the inspector.
+
+::: sidenote
+The material system will assign a default semantic type automatically based on the name of the attribute during run-time for a specific set of names: position, texcoord0, page_index. If you have entries for these attributes in the material, the default semantic type will be overridden with whatever you have configured in the material editor!
+:::
+
+Data type
+: The data type of the backing data for the attribute.
+
+  - `TYPE_BYTE` Signed 8-bit byte values
+  - `TYPE_UNSIGNED_BYTE` Unsigned 8-bit byte values
+  - `TYPE_SHORT` Signed 16-bit short values
+  - `TYPE_UNSIGNED_SHORT` Unsigned 16-bit short values
+  - `TYPE_INT` Signed integer values
+  - `TYPE_UNSIGNED_INT` Unsigned integer values
+  - `TYPE_FLOAT` Floating point values
+
+Count
+: The *element count* of the attribute, e.g number of values in the attribute. A `vec4` in the shader has four elements and a `float` has one element. Note: Even if the shader has specified an attribute to be a `vec4` you can still specify a smaller count if you know you need less than four elements which can be useful to trim memory footprint.
+
+Normalize
+: If true, the attribute values will be normalized by the GPU driver. This can be useful when you don't need full precision, but want to calculate something without knowing the specific limits. E.g a color vector typically only need byte values of 0..255 while still being treated as a 0..1 value in the shader.
+
+Coordinate space
+: Some semantic types support supplying data in different coordinate spaces. To implement a billboarding effect with sprites, you typically want a position attribute in local space as well as a fully transformed position in world space for most effective batching.
+
+Value
+: The value of the attribute. Attribute values can be overridden on a per-component basis, but otherwise this will act as the default value of the vertex attribute. Note: for *default* attributes (position, texture coordinates and page indices) the value will be ignored.
+
+::: sidenote
+Custom attributes can also be used to trim memory footprint on both CPU and GPU by reconfiguring the streams to use a smaller data type, or a different element count.
+:::
+
+::: important
+Custom attributes are available starting from Defold 1.4.8!
+:::
+
 ## Vertex and fragment constants
 
 Shader constants, or "uniforms" are values that are passed from the engine to vertex and fragment shader programs. To use a constant you define it in the material file as either a *Vertex Constant* property or a *Fragment Constant* property. Corresponding `uniform` variables need to be defined in the shader program. The following constants can be set in a material:
