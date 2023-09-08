@@ -1205,6 +1205,10 @@
                         "name": "Inter-app communication"
                     },
                     {
+                        "path": "/extension-ironsource",
+                        "name": "IronSource ad mediation"
+                    },
+                    {
                         "path": "/extension-push",
                         "name": "Push notifications"
                     },
@@ -1256,6 +1260,10 @@
                     {
                         "path": "/manuals/iac",
                         "name": "Inter-app communication"
+                    },
+                    {
+                        "path": "/extension-ironsource",
+                        "name": "IronSource ad mediation"
                     },
                     {
                         "path": "/extension-push",
