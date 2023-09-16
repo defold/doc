@@ -1,15 +1,15 @@
-,---
-title: Addressing in Defold
-brief: This manual explains how Defold has solved the problem of addressing.
+---
+Titre: L'adressage dans Defold
+En résumé: Ce manuel explique comment Defold a résolu le problème d'adressage.
 ---
 
-# Addressing
+# Adressage
 
-Code that controls a running game must be able to reach every object and component in order to move, scale, animate, delete and manipulate what the player sees and hears. Defold's addressing mechanism makes this possible.
+Le code qui contrôle un jeu en cours d'exécution doit être capable d'atteindre chaque objet et composant afin de déplacer, mettre à l'échelle, animer, supprimer et manipuler ce que le joueur voit et entend. C'est rendu possible grâce au mécanisme d'adressage de Defold.
 
-## Identifiers
+## Identifiants
 
-Defold uses addresses (or URLs, but let's ignore that for now) to refer to game objects and components. These addresses consist of identifiers. The following are all examples of how Defold uses addresses. Through this manual we are going to examine in detail how they work:
+Defold utilise des adresses (ou des URL, mais on va mettre ça de côté pour le moment) pour faire référence aux objets et composants du jeu. Ces adresses sont constituées d'identifiants. Voici des exemples sur la façon dont Defold utilise les adresses. À travers ce manuel, nous allons examiner leur fonctionnement plus en détail:
 
 ```lua
 local id = factory.create("#enemy_factory")
