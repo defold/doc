@@ -96,11 +96,11 @@ Ajoutez une deuxième instance de "team.collection" (nommez-la "team_2"), le cod
 
 ![image](https://github.com/unlitcolor/doc/assets/9135915/73a455d2-9379-492c-ae0d-54a80351c82b)
 
-## Relative addressing
+## Adressage relatif
 
-The address `"buddy#controller"` works for the game objects in both collections because it is a *relative* address. Each of the collections "team_1" and "team_2" creates a new naming context, or "namespace" if you will. Defold avoids naming collisions by taking the naming context a collection creates into consideration for addressing:
+L'adresse `"buddy#controller"` fonctionne pour les GameObjects dans les deux collections car il s'agit d'une adresse *relative*. Chacune des collections "team_1" et "team_2" crée un nouveau contexte de dénomination, ou "namespace" (espace de nom) si vous préférez. Defold évite les collisions de noms en prenant en compte le contexte de dénomination créé par une collection pour l'adressage:
 
-![relative id](images/addressing/relative_same.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/80f64a03-6d8d-47df-b336-2e8084f76139)
 
 - Within the naming context "team_1", the game objects "bean" and "buddy" are uniquely identified.
 - Similarly, within the naming context "team_2", the game objects "bean" and "buddy" are also uniquely identified.
