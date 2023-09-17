@@ -1,15 +1,15 @@
 ---
 Titre: L'adressage dans Defold
-En résumé: Ce manuel explique comment Defold a résolu le problème d'adressage.
+En résumé: Ce guide explique comment Defold résoud le problème d'adressage.
 ---
 
 # Adressage
 
-Le code qui contrôle un jeu en cours d'exécution doit être capable d'atteindre chaque objet et composant afin de déplacer, mettre à l'échelle, animer, supprimer et manipuler ce que le joueur voit et entend. C'est rendu possible grâce au mécanisme d'adressage de Defold.
+Le code qui contrôle un jeu en cours d'exécution doit être capable d'atteindre chaque objet et composant afin de déplacer, mettre à l'échelle, animer, supprimer et manipuler ce que le joueur voit et entend. C'est possible grâce au mécanisme d'adressage de Defold.
 
 ## Identifiants
 
-Defold utilise des adresses (ou des URL, mais on va mettre ça de côté pour le moment) pour faire référence aux objets et composants du jeu. Ces adresses sont constituées d'identifiants. Voici des exemples sur la façon dont Defold utilise les adresses. À travers ce manuel, nous allons examiner leur fonctionnement plus en détail:
+Defold utilise des adresses (ou des URL, mais mettons cela de côté pour le moment) pour faire référence aux GameObjects (objets de jeu) et composants. Ces adresses sont constituées d'identifiants (id). Voici des exemples sur la façon dont Defold utilise les adresses. À travers ce guide, nous allons examiner leur fonctionnement plus en détail:
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -22,44 +22,44 @@ msg.post("#", "hello_there")
 local id = go.get_id(".")
 ```
 
-Let's start with a very simple example. Suppose that you have a game object with a single sprite component. You also have a script component to control the game object. The setup in the editor would look something like this:
+Commençons par un exemple très simple. Vous avez un GameObject avec un seul sprite (un composant du nom de "body"). Vous disposez également d'un script (un autre composant dont le nom est "controller") pour contrôler le GameObject. La configuration dans l'éditeur ressemble à ceci:
 
-![bean in editor](images/addressing/bean_editor.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/287609c7-32e4-43cc-bc79-3ea9ca065805)
 
-Now you want to disable the sprite when the game starts, so you can make it appear later. That is easily done by putting the following code in "controller.script":
+Pour désactiver le sprite au démarrage du jeu et le faire apparaître plus tard, cela se fait facilement en plaçant le code suivant dans "controller.script":
 
 ```lua
 function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-1. Don't worry if you're puzzled by the '#' character. We'll get to that soon.
+1. Ne vous préoccupez pas du caractère «#», nous y reviendrons plus tard.
 
-This will work as expected. When the game starts, the script component *addresses* the sprite component by its identifier "body" and uses that address to send it a *message* with the "disable". The effect of this special engine message is that the sprite component hides the sprite graphics. Schematically, the setup looks like this:
+Tout fonctionne comme prévu. Lorsque le jeu démarre, le composant script *adresse* le composant sprite via son identifiant "body" et utilise cette adresse pour lui envoyer un *message* contenant "disable" (désactiver). L'effet de ce message spécial est que le sprite cache son graphisme. Schématiquement, cela ressemble à ça:
 
-![bean](images/addressing/bean.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/c9851e7b-8365-4854-a49c-a225bfcbfdb9)
 
-The identifiers in the setup are arbitrary. Here we have chosen to give the game object the identifier "bean", its sprite component has been named "body", and the script component that controls the character has been named "controller".
+Les identifiants dans la configuration sont arbitraires. Ici, nous avons choisi de donner au GameObject l'id «bean» (haricot), son sprite a été nommé «body», et le script qui contrôle le personnage s'appelle «contrôleur».
 
-::: sidenote
-If you don't choose a name, the editor will. Whenever you create a new game object or component in the editor, a unique *Id* property is automatically set.
-
-- Game objects automatically get an id called "go" with an enumerator ("go2", "go3" etc).
-- Components get an id corresponding to the component type ("sprite", "sprite2" etc).
-
-You can stick to these automatically assigned names if you want to, but we encourage you to change the identifiers into good, descriptive names.
+> NOTE:
+>Si vous ne mettez pas un nom à l'id, l'éditeur le fera. Chaque fois que vous créez un nouveau GameObject ou composant, une propriété *Id* unique est automatiquement définie.
+>
+>- Les GameObjects reçoivent automatiquement un identifiant appelé "go" avec un énumérateur ("go2", "go3" etc).
+>- Les composants reçoivent un identifiant correspondant à leur type ("sprite", "sprite2" etc).
+>
+>Vous pouvez vous en tenir à ces noms attribués de manière automatique si vous le souhaitez, mais nous vous encourageons à les remplacer par des noms plus appropriés et descriptifs.
 :::
 
-Now, let's add another sprite component and give the bean a shield:
+Ajoutons un nouveau sprite et donnons un bouclier au haricot (bean):
 
-![bean](images/addressing/bean_shield_editor.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/79f3e091-0414-46eb-80d9-485da7e64842)
 
-The new component must be uniquely identified within the game object. If you would give it the name "body" the script code would be ambiguous as to which sprite it should send the "disable" message. Therefore we pick the unique (and descriptive) identifier "shield". Now we can enable and disable the "body" and "shield" sprites at will.
+Ce nouveau composant doit être identifié de manière unique dans le GameObject. Si vous lui donnez le nom «body» (corps), le script ne comprendra pas quel sprite devra recevoir le message «disable». C'est pourquoi nous choisissons un id unique (et descriptif) "shield" (bouclier). Nous pouvons désormais activer et désactiver les sprites «body» et «shield» à volonté.
 
-![bean](images/addressing/bean_shield.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/6a0c44dd-6aa1-45b3-a30c-14ec9ea1efd5)
 
-::: sidenote
-If you do try to use an identifier more than once, the editor will signal an error so this is never a problem in practice:
+> NOTE:
+>Si vous essayez d'utiliser un identifiant plus d'une fois, l'éditeur signalera une erreur donc cela ne pose jamais de problème en pratique :
 
 ![bean](images/addressing/name_collision.png)
 :::
