@@ -98,40 +98,39 @@ Ajoutez une deuxième instance de "team.collection" (nommez-la "team_2"), le cod
 
 ## Adressage relatif
 
-L'adresse `"buddy#controller"` fonctionne pour les GameObjects dans les deux collections car il s'agit d'une adresse *relative*. Chacune des collections "team_1" et "team_2" crée un nouveau contexte de dénomination, ou "namespace" (espace de nom) si vous préférez. Defold évite les collisions de noms en prenant en compte le contexte de dénomination créé par une collection pour l'adressage:
+L'adresse `"buddy#controller"` fonctionne pour les GameObjects dans les deux collections car il s'agit d'une adresse *relative*. Chacune des collections "team_1" et "team_2" crée un nouveau contexte de dénomination, ou "namespace" (espace de nom). Defold évite les collisions de noms en prenant en compte le contexte de dénomination créé par une collection pour l'adressage:
 
 ![image](https://github.com/unlitcolor/doc/assets/9135915/80f64a03-6d8d-47df-b336-2e8084f76139)
 
-- Within the naming context "team_1", the game objects "bean" and "buddy" are uniquely identified.
-- Similarly, within the naming context "team_2", the game objects "bean" and "buddy" are also uniquely identified.
+- Dans le contexte de dénomination "team_1", les GameObjects "bean" et "buddy" sont identifiés de manière unique.
+- De même, dans "team_2", "bean" et "buddy" sont également identifiés de manière unique.
 
-Relative addressing works by automatically prepending the current naming context when resolving a target address. This is again immensely useful and powerful because you can create groups of game objects with code and reuse those efficiently throughout the game.
+L'adressage relatif fonctionne en ajoutant automatiquement le contexte de dénomination actuel lors de la résolution d'une adresse cible. Ce qui est très utile et puissant car vous pouvez créer des groupes de GameObjects avec du code et les réutiliser efficacement tout au long du jeu.
 
-### Shorthands
+### Raccourcis
 
-Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
+Defold fournit deux raccourcis pratiques que vous pouvez utiliser pour envoyer un message sans spécifier l'URL complète:
 
-:[Shorthands](../shared/url-shorthands.md)
+:[Raccourcis](../shared/url-shorthands.md)
 
-## Game object paths
+## Les chemins des GameObjects
 
-To correctly understand the naming mechanism, let's look at what happens when you build and run the project:
+Pour comprendre correctement le mécanisme de dénomination, regardons ce qui se passe lorsque vous créez et exécutez le projet :
 
-1. The editor reads the bootstrap collection ("main.collection") and all its content (game objects and other collections).
-2. For each static game object, the compiler creates an identifier. These are built as "paths" starting at the bootstrap root, down the collection hierarchy to the object. A '/' character is added at each level.
+1. L'éditeur lit la collection en partant de la racine ("main.collection") et tout son contenu (GameObjects et autres collections).
+2. Pour chaque GameObject statique, le compilateur crée un identifiant. Ceux-ci sont construits sous forme de «paths» (chemins) commençant par la racine et descendant dans la hiérarchie de la collection jusqu'au GameObject. Un caractère '/' est ajouté à chaque niveau.
 
-For our example above, the game will run with the following 4 game objects:
+Dans l'exemple ci-dessus, le jeu se déroule avec les 4 GameObjects suivants :
 
 - /team_1/bean
 - /team_1/buddy
 - /team_2/bean
 - /team_2/buddy
 
-::: sidenote
-Identities are stored as hashed values. The runtime also stores the hash state for each collection identity which is used to continue hashing relative string to an absolute id.
-:::
+>NOTE:
+>Les ids sont stockées sous forme de "valeurs hachées". L'exécution conserve l'état de hachage pour chaque id de collection utilisé pour continuer le hachage de chaîne relative en un id absolu.
 
-In runtime, the collection grouping does not exist. There is no way to find out what collection a specific game object belonged to before compilation. Nor is it possible to manipulate all the objects in a collection at once. If you need to do such operations, you can easily do the tracking yourself in code. Each object's identifier is static, it is guaranteed to stay fixed throughout the object's lifetime. This means that you can safely store the identity of an object and use it later.
+Au moment de l'exécution, le regroupement de collections n'existe pas. Il n'existe aucun moyen de savoir à quelle collection appartenait un GameObject spécifique avant la compilation. Il n’est pas non plus possible de manipuler tous les objets d’une collection à la fois. Pour effectuer de telles opérations, vous pouvez facilement effectuer le suivi vous-même, dans le code. Chaque id reste fixe pendant toute la durée de vie du GameObject auquel il est associé. Vous pouvez stocker en toute sécurité l'id d'un GameObject et l'utiliser plus tard.
 
 ## Absolute addressing
 
