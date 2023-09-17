@@ -59,20 +59,18 @@ Ce nouveau composant doit être identifié de manière unique dans le GameObject
 ![image](https://github.com/unlitcolor/doc/assets/9135915/6a0c44dd-6aa1-45b3-a30c-14ec9ea1efd5)
 
 > NOTE:
->Si vous essayez d'utiliser un identifiant plus d'une fois, l'éditeur signalera une erreur donc cela ne pose jamais de problème en pratique :
+>Si vous utilisez un même identifiant plus d'une fois, l'éditeur signalera une erreur, donc vous n'aurez jamais de problème:
 
-![bean](images/addressing/name_collision.png)
-:::
+![image](https://github.com/unlitcolor/doc/assets/9135915/8c8d0e3e-c6fd-4818-9f98-649ffc921432)
 
-Now, let's look at what happens if you add more game objects. Suppose you want to pair two "beans" into a small team. You decide to call one of the bean game objects "bean" and the other one "buddy". Furthermore, when "bean" has been idle for a while, it should tell "buddy" to start dancing. That is done by sending a custom message called "dance" from the "controller" script component in "bean" to the "controller" script in "buddy":
+Voyons ce qu'il se passe lorsque vous ajoutez plus de GameObjects. Supposons que vous associez deux «beans» dans une petite équipe. Vous nommez l'un des GameObjects "Bean" et l'autre "Buddy". Lorsque «bean» est inactif, après un certain temps, il doit dire à «buddy» de commencer à danser. On va envoyer un message personnalisé contenant le mot "dance" à partir du script "controller" dans "bean" vers le script "controller" dans "buddy" :
 
-![bean](images/addressing/bean_buddy.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/403f5c0f-faf8-433b-8371-1b921c0e4c64)
 
-::: sidenote
-There are two separate components named "controller", one in each game object but this is perfectly legal since each game object creates a new naming context.
-:::
+>NOTE:
+>Nous avons deux composants «controller» distincts, un dans chaque GameObject, rien d'anormal puisque chaque GameObject crée un nouveau contexte de dénomination.
 
-Since the addressee of the message is outside the game object sending the message ("bean"), the code needs to specify which "controller" should receive the message. It needs to specify both the target game object id as well as the component id. The full address to the component becomes `"buddy#controller"` and this address consists of two separate parts.
+Puisque le destinataire du message se trouve en dehors de l'objet de jeu qui envoie le message (« bean »), le code doit spécifier quel « contrôleur » doit recevoir le message. Il doit spécifier à la fois l’identifiant de l’objet de jeu cible ainsi que l’identifiant du composant. L'adresse complète du composant devient « buddy#controller » et cette adresse se compose de deux parties distinctes.
 
 - First come the identity of the target game object ("buddy"),
 - then follows the game object/component separator character ("#"),
