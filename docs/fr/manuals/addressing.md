@@ -128,33 +128,33 @@ Dans l'exemple ci-dessus, le jeu se déroule avec les 4 GameObjects suivants :
 - /team_2/buddy
 
 >NOTE:
->Les ids sont stockées sous forme de "valeurs hachées". L'exécution conserve l'état de hachage pour chaque id de collection utilisé pour continuer le hachage de chaîne relative en un id absolu.
+>Les ids sont stockées sous forme de "valeurs hachées". L'exécution conserve l'état de hachage pour chaque id de collection utilisé pour continuer le hachage d'une chaîne de caractères relative en un id absolu.
 
 Au moment de l'exécution, le regroupement de collections n'existe pas. Il n'existe aucun moyen de savoir à quelle collection appartenait un GameObject spécifique avant la compilation. Il n’est pas non plus possible de manipuler tous les objets d’une collection à la fois. Pour effectuer de telles opérations, vous pouvez facilement effectuer le suivi vous-même, dans le code. Chaque id reste fixe pendant toute la durée de vie du GameObject auquel il est associé. Vous pouvez stocker en toute sécurité l'id d'un GameObject et l'utiliser plus tard.
 
-## Absolute addressing
+## L'adressage absolu
 
-It is possible to use the full identifiers described above when addressing. In most cases relative addressing is preferred since it allows for content reuse, but there are cases where absolutely addressing becomes necessary.
+Il est possible d'utiliser les ids complets décrits ci-dessus lors de l'adressage. En général, l'adressage relatif est conseillé car il permet de réutiliser du contenu, mais il existe des cas où un adressage absolu devient nécessaire.
 
-For example, suppose that you want an AI manager that tracks the state of each bean object. You want beans to report to their active status to the manager, and the manager makes tactical decisions and gives orders to the beans based on their status. It would make perfect sense in this case to create a single manager game object with a script component and place that alongside the team collections in the bootstrap collection.
+Par exemple, vous voulez un gestionnaire d'IA qui suit l'état de chaque GameObject bean. Vous voulez que les beans rendent compte de leur statut actif au gestionnaire, que ce dernier prenne des décisions tactiques et donne des ordres aux beans en fonction de leur statut. Dans ce cas, il est logique de créer un GameObject manager (gestionnaire) unique avec un composant script et de le placer avec les collections d'équipe dans la collection racine.
 
-![manager object](images/addressing/manager_editor.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/27faa1fb-6035-41cc-a440-49be11f17603)
 
-Each bean is then responsible for sending status messages to the manager: "contact" if it spots an enemy or "ouch!" if it is hit and takes damage. For this to work, the bean controller script uses absolute addressing to send messages to the component "controller" in "manager".
+Chaque bean doit envoyer des messages de statut au manager: «contact» un ennemi est repéré ou «ouch!» s'il est touché et subit des dégâts. Pour que cela fonctionne, le script controller du bean utilise l'adressage absolu pour envoyer des messages au composant «controller» dans «manager».
 
-Any address that starts with a '/' will be resolved from the root of the game world. This corresponds to the root of the *bootstrap collection* that is loaded on game start.
+Toute adresse commençant par un «/» sera résolue à partir de la racine dans le jeu. Cela correspond à la *collection racine* chargée au démarrage du jeu.
 
-The absolute address of the manager script is `"/manager#controller"` and this absolute address will resolve to the right component no matter where it is used.
+L'adresse absolue du script du manager est `"/manager#controller"` et cette adresse absolue sera résolue en composant approprié, quel que soit l'endroit où il est utilisé.
 
-![teams and manager](images/addressing/teams_manager.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/cd3cefa8-52ef-4eef-9cec-d02b1723a8eb)
 
-![absolute addressing](images/addressing/absolute.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/7f352f0b-44cd-4e82-9e2b-7adce736a222)
 
-## Hashed identifiers
+## Identifiants hachés
 
-The engine stores all identifiers as hashed values. All functions that take as argument a component or a game object accepts a string, hash or an URL object. We have seen how to use strings for addressing above.
+Le moteur stocke tous les identifiants sous forme de valeurs hachées. Toutes les fonctions qui prennent en argument un composant ou un GameObject acceptent une chaîne de caractères (string en anglais), un hachage ou un objet URL. Nous avons vu ci-dessus comment utiliser les strings pour l'adressage.
 
-When you get the identifier of a game object, the engine will always return an absolute path identifier that is hashed:
+Lorsque vous obtenez l'id d'un GameObject, le moteur renverra toujours un identifiant de chemin absolu qui est haché :
 
 ```lua
 local my_id = go.get_id()
@@ -164,11 +164,10 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-You can use such an identifier in place of a string id, or construct one yourself. Note though that a hashed id corresponds to the path to the object, i.e. an absolute address:
+Vous pouvez utiliser un identifiant de ce genre à la place d'un id string ou en construire un vous-même. Notez cependant qu'un id haché correspond au chemin d'accès au GameObject, c'est à dire une adresse absolue :
 
-::: sidenote
-The reason relative addresses must be given as strings is because the engine will compute a new hash id based on the hash state of the current naming context (collection) with the given string added to the hash.
-:::
+>NOTE:
+La raison pour laquelle les adresses relatives doivent être données sous forme de strings est que le moteur calculera un nouvel id de hachage en fonction de l'état de hachage du contexte de dénomination actuel (collection) avec le string ajoutée au hachage.
 
 ```lua
 local spawned_id = factory.create("#some_factory")
@@ -183,32 +182,32 @@ local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```
 
-## URLs
+## Les URL
 
-To complete the picture, let's look at the full format of Defold addresses: the URL.
+Avant de terminer, regardons le format complet des adresses Defold: l'URL.
 
-An URL is an object, usually written as specially formatted strings. A generic URL consists of three parts:
+Une URL est un GameObject, généralement écrit sous forme de strings spécialement formatées. Une URL générique se compose de trois parties :
 
 `[socket:][path][#fragment]`
 
-socket
-: Identifies the game world of the target. This is important when working with [Collection Proxies](/manuals/collection-proxy) and is then used to identify the _dynamically loaded collection_.
+Socket (prise)
+: Identifie le "game world" (monde de jeu) de la cible (ex: les niveaux, les menus, écrans de chargement...). Ceci est important lorsque vous travaillez avec des [Proxies de collection](/manuals/collection-proxy) et est ensuite utilisé pour identifier la _collection chargée dynamiquement_.
 
 path
-: This part of the URL contains the full id of the target game object.
+: Cette partie de l'URL contient l'id complet du GameObject cible.
 
 fragment
-: The identity of the target component within the specified game object.
+: L'identité du composant cible dans le GameObject spécifié.
 
-As we have seen above, you can leave out some, or most of this information in the majority of cases. You almost never need to specify the socket, and you often, but not always, have to specify the path. In those cases when you do need to address things in another game world then you need to specify the socket part of the URL. For instance, the full URL string for the "controller" script in the "manager" game object above is:
+Comme nous l'avons vu ci-dessus, vous pouvez omettre une partie, voire la plupart de ces informations dans la majorité des cas. Vous n'aurez presque jamais besoin de spécifier le socket, mais vous devez souvent (mais pas toujours) spécifier le chemin. Dans les cas où vous devez aborder des choses dans un autre game world, vous devez spécifier la partie socket de l'URL. Par exemple, le string URL complet du script «controller» dans le GameObject «manager» ci-dessus est:
 
 `"main:/manager#controller"`
 
-and the buddy controller in team_2 is:
+et le controller buddy dans team_2 est :
 
 `"main:/team_2/buddy#controller"`
 
-We can send messages to them:
+Nous pouvons leur envoyer des messages :
 
 ```lua
 -- Send "hello" to the manager script and team buddy bean
@@ -216,9 +215,9 @@ msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
 
-## Constructing URL objects
+## Construction d'objets URL
 
-URL objects can also be constructed programmatically in Lua code:
+Les objets URL peuvent également être construits en code Lua :
 
 ```lua
 -- Construct URL object from a string:
