@@ -70,31 +70,31 @@ Voyons ce qu'il se passe lorsque vous ajoutez plus de GameObjects. Supposons que
 >NOTE:
 >Nous avons deux composants «controller» distincts, un dans chaque GameObject, rien d'anormal puisque chaque GameObject crée un nouveau contexte de dénomination.
 
-Puisque le destinataire du message se trouve en dehors de l'objet de jeu qui envoie le message (« bean »), le code doit spécifier quel « contrôleur » doit recevoir le message. Il doit spécifier à la fois l’identifiant de l’objet de jeu cible ainsi que l’identifiant du composant. L'adresse complète du composant devient « buddy#controller » et cette adresse se compose de deux parties distinctes.
+Puisque le destinataire du message se trouve en dehors du GameObject «bean» (l'expéditeur), le code doit indiquer quel «controller» doit recevoir le message. Il doit spécifier à la fois l’id du GameObject cible ainsi que celui du composant. L'adresse complète du composant devient « buddy#controller » et cette adresse se compose de deux parties distinctes.
 
-- First come the identity of the target game object ("buddy"),
-- then follows the game object/component separator character ("#"),
-- and finally you write the identity of the target component ("controller").
+- Première partie: L'identité du GameObject cible («buddy»),
+- Le caractère séparateur GameObject/Composant ("#"),
+- Deuxième partie: L'identité du composant cible ("controller").
 
-Going back to the previous example with a single game object we see that by leaving out the game object identifier part of the target address, the code can address components in the *current game object*.
+En revenant à l'exemple précédent contenant un seul GameObject, nous voyons qu'en laissant de côté l'identifiant du GameObject de l'adresse cible, le code peut adresser des composants dans *le GameObject actuel*.
 
-For example, `"#body"` denotes the address to the component "body" in the current game object. This is very useful because this code will work in *any* game object, as long as there is a "body" component present.
+Par exemple, `"#body"` désigne l'adresse du composant "body" dans le GameObject actuel. Ceci est très utile car ce code fonctionnera dans *n'importe quel* GameObject, tant qu'un composant "body" est présent.
 
 ## Collections
 
-Collections makes it possible to create groups, or hierarchies, of game objects and reuse them in a controlled way. You use collection files as templates (or "prototypes" or "prefabs") in the editor when you populate your game with content.
+Les Collections permettent de créer des groupes ou des hiérarchies de GameObjects et de les réutiliser de manière contrôlée. Vous utilisez des fichiers de collection comme modèles ("prototypes" ou "prefabs") dans l'éditeur lorsque vous peuplez votre jeu avec du contenu.
 
-Suppose that you want to create a great number of bean/buddy teams. A good way to do that is to create a template in a new *collection file* (name it "team.collection"). Build the team game objects in the collection file and save it. Then put an instance of that collection file's contents in your main bootstrap collection and give the instance an identifier (name it "team_1"):
+Supposons que vous souhaitiez créer un grand nombre d’équipes bean/buddy. Un bon moyen de le faire est de créer un modèle dans un nouveau fichier de collection *collection file* (nommez-le «team.collection»). Créez les GameObjects d'équipe dans la collection et enregistrez. Ensuite, placez une instance de team.collection dans la collection principale et donnez à l'instance un identifiant (nommez-la "team_1") :
 
-![bean](images/addressing/team_editor.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/fcb05a56-6a92-4ed0-812a-47952fb507b0)
 
-With this structure, the "bean" game object can still refer to the "controller" component in "buddy" by the address `"buddy#controller"`.
+Avec cette structure, le GameObject "bean" peut toujours faire référence au composant "controller" dans "buddy" par l'adresse `"buddy#controller"`.
 
-![bean](images/addressing/collection_team.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/74b76f07-c828-4f42-8545-5e0206707598)
 
-And if you add a second instance of "team.collection" (name it "team_2"), the code running inside the "team_2" script components will work just as well. The "bean" game object instance from collection "team_2" can still address the "controller" component in "buddy" by the address `"buddy#controller"`.
+Ajoutez une deuxième instance de "team.collection" (nommez-la "team_2"), le code exécuté dans les composants du script "team_2" fonctionnera tout aussi bien. L'instance du GameObject "bean" de la collection "team_2" peut toujours adresser le composant "controller" dans "buddy" par l'adresse `"buddy#controller"`.
 
-![bean](images/addressing/teams_editor.png)
+![image](https://github.com/unlitcolor/doc/assets/9135915/73a455d2-9379-492c-ae0d-54a80351c82b)
 
 ## Relative addressing
 
