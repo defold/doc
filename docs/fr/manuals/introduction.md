@@ -1,6 +1,6 @@
 ---
-Titre: Introduction à Defold
-En résumé: Une brève introduction à Defold.
+Title: Introduction à Defold
+brief: Une brève introduction à Defold.
 ---
 
 # Bienvenue sur Defold
