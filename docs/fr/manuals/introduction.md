@@ -1,5 +1,5 @@
 ---
-Title: Introduction à Defold
+title: Introduction à Defold
 brief: Une brève introduction à Defold.
 ---
 
