@@ -24,7 +24,7 @@ local id = go.get_id(".")
 
 Commençons par un exemple très simple. Vous avez un GameObject avec un seul sprite (un composant du nom de "body"). Vous disposez également d'un script (un autre composant dont le nom est "controller") pour contrôler le GameObject. La configuration dans l'éditeur ressemble à ceci:
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/287609c7-32e4-43cc-bc79-3ea9ca065805)
+![bean in editor](images/addressing/bean_editor.png)
 
 Pour désactiver le sprite au démarrage du jeu et le faire apparaître plus tard, cela se fait facilement en plaçant le code suivant dans "controller.script":
 
@@ -37,7 +37,7 @@ end
 
 Tout fonctionne comme prévu. Lorsque le jeu démarre, le composant script *adresse* le composant sprite via son identifiant "body" et utilise cette adresse pour lui envoyer un *message* contenant "disable" (désactiver). L'effet de ce message spécial est que le sprite cache son graphisme. Schématiquement, cela ressemble à ça:
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/c9851e7b-8365-4854-a49c-a225bfcbfdb9)
+![bean](images/addressing/bean.png)
 
 Les identifiants dans la configuration sont arbitraires. Ici, nous avons choisi de donner au GameObject l'id «bean» (haricot), son sprite a été nommé «body», et le script qui contrôle le personnage s'appelle «contrôleur».
 
@@ -52,20 +52,21 @@ Vous pouvez vous en tenir à ces noms attribués de manière automatique si vous
 
 Ajoutons un nouveau sprite et donnons un bouclier au haricot (bean):
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/79f3e091-0414-46eb-80d9-485da7e64842)
+![bean](images/addressing/bean_shield_editor.png)
 
 Ce nouveau composant doit être identifié de manière unique dans le GameObject. Si vous lui donnez le nom «body» (corps), le script ne comprendra pas quel sprite devra recevoir le message «disable». C'est pourquoi nous choisissons un id unique (et descriptif) "shield" (bouclier). Nous pouvons désormais activer et désactiver les sprites «body» et «shield» à volonté.
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/6a0c44dd-6aa1-45b3-a30c-14ec9ea1efd5)
+
+![bean](images/addressing/bean_shield.png)
 
 ::: sidenote
 <br>Si vous utilisez un même identifiant plus d'une fois, l'éditeur signalera une erreur, donc vous n'aurez jamais de problème: :::
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/8c8d0e3e-c6fd-4818-9f98-649ffc921432)
+![bean](images/addressing/name_collision.png)
 
 Voyons ce qu'il se passe lorsque vous ajoutez plus de GameObjects. Supposons que vous associez deux «beans» dans une petite équipe. Vous nommez l'un des GameObjects "Bean" et l'autre "Buddy". Lorsque «bean» est inactif, après un certain temps, il doit dire à «buddy» de commencer à danser. On va envoyer un message personnalisé contenant le mot "dance" à partir du script "controller" dans "bean" vers le script "controller" dans "buddy" :
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/403f5c0f-faf8-433b-8371-1b921c0e4c64)
+![bean](images/addressing/bean_buddy.png)
 
 ::: sidenote
 <br>Nous avons deux composants «controller» distincts, un dans chaque GameObject, rien d'anormal puisque chaque GameObject crée un nouveau contexte de dénomination. :::
@@ -86,21 +87,21 @@ Les Collections permettent de créer des groupes ou des hiérarchies de GameObje
 
 Supposons que vous souhaitiez créer un grand nombre d’équipes bean/buddy. Un bon moyen de le faire est de créer un modèle dans un nouveau fichier de collection *collection file* (nommez-le «team.collection»). Créez les GameObjects d'équipe dans la collection et enregistrez. Ensuite, placez une instance de team.collection dans la collection principale et donnez à l'instance un identifiant (nommez-la "team_1") :
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/fcb05a56-6a92-4ed0-812a-47952fb507b0)
+![bean](images/addressing/team_editor.png)
 
 Avec cette structure, le GameObject "bean" peut toujours faire référence au composant "controller" dans "buddy" par l'adresse `"buddy#controller"`.
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/74b76f07-c828-4f42-8545-5e0206707598)
+![bean](images/addressing/collection_team.png)
 
 Ajoutez une deuxième instance de "team.collection" (nommez-la "team_2"), le code exécuté dans les composants du script "team_2" fonctionnera tout aussi bien. L'instance du GameObject "bean" de la collection "team_2" peut toujours adresser le composant "controller" dans "buddy" par l'adresse `"buddy#controller"`.
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/73a455d2-9379-492c-ae0d-54a80351c82b)
+![bean](images/addressing/teams_editor.png)
 
 ## Adressage relatif
 
 L'adresse `"buddy#controller"` fonctionne pour les GameObjects dans les deux collections car il s'agit d'une adresse *relative*. Chacune des collections "team_1" et "team_2" crée un nouveau contexte de dénomination, ou "namespace" (espace de nom). Defold évite les collisions de noms en prenant en compte le contexte de dénomination créé par une collection pour l'adressage:
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/80f64a03-6d8d-47df-b336-2e8084f76139)
+![relative id](images/addressing/relative_same.png)
 
 - Dans le contexte de dénomination "team_1", les GameObjects "bean" et "buddy" sont identifiés de manière unique.
 - De même, dans "team_2", "bean" et "buddy" sont également identifiés de manière unique.
@@ -138,7 +139,7 @@ Il est possible d'utiliser les ids complets décrits ci-dessus lors de l'adressa
 
 Par exemple, vous voulez un gestionnaire d'IA qui suit l'état de chaque GameObject bean. Vous voulez que les beans rendent compte de leur statut actif au gestionnaire, que ce dernier prenne des décisions tactiques et donne des ordres aux beans en fonction de leur statut. Dans ce cas, il est logique de créer un GameObject manager (gestionnaire) unique avec un composant script et de le placer avec les collections d'équipe dans la collection racine.
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/27faa1fb-6035-41cc-a440-49be11f17603)
+![manager object](images/addressing/manager_editor.png)
 
 Chaque bean doit envoyer des messages de statut au manager: «contact» un ennemi est repéré ou «ouch!» s'il est touché et subit des dégâts. Pour que cela fonctionne, le script controller du bean utilise l'adressage absolu pour envoyer des messages au composant «controller» dans «manager».
 
@@ -146,9 +147,9 @@ Toute adresse commençant par un «/» sera résolue à partir de la racine dans
 
 L'adresse absolue du script du manager est `"/manager#controller"` et cette adresse absolue sera résolue en composant approprié, quel que soit l'endroit où il est utilisé.
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/cd3cefa8-52ef-4eef-9cec-d02b1723a8eb)
+![teams and manager](images/addressing/teams_manager.png)
 
-![image](https://github.com/unlitcolor/doc/assets/9135915/7f352f0b-44cd-4e82-9e2b-7adce736a222)
+![absolute addressing](images/addressing/absolute.png)
 
 ## Identifiants hachés
 
