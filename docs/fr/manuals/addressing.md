@@ -41,14 +41,12 @@ Tout fonctionne comme prévu. Lorsque le jeu démarre, le composant script *adre
 
 Les identifiants dans la configuration sont arbitraires. Ici, nous avons choisi de donner au GameObject l'id «bean» (haricot), son sprite a été nommé «body», et le script qui contrôle le personnage s'appelle «contrôleur».
 
-::: sidenote
-<br>Si vous ne mettez pas un nom à l'id, l'éditeur le fera. Chaque fois que vous créez un nouveau GameObject ou composant, une propriété *Id* unique est automatiquement définie.
+::: sidenote Si vous ne mettez pas un nom à l'id, l'éditeur le fera. Chaque fois que vous créez un nouveau GameObject ou composant, une propriété *Id* unique est automatiquement définie.
 
 - Les GameObjects reçoivent automatiquement un identifiant appelé "go" avec un énumérateur ("go2", "go3" etc).
 - Les composants reçoivent un identifiant correspondant à leur type ("sprite", "sprite2" etc).
 
-Vous pouvez vous en tenir à ces noms attribués de manière automatique si vous le souhaitez, mais nous vous encourageons à les remplacer par des noms plus appropriés et descriptifs.
-:::
+Vous pouvez vous en tenir à ces noms attribués de manière automatique si vous le souhaitez, mais nous vous encourageons à les remplacer par des noms plus appropriés et descriptifs. :::
 
 Ajoutons un nouveau sprite et donnons un bouclier au haricot (bean):
 
@@ -59,8 +57,7 @@ Ce nouveau composant doit être identifié de manière unique dans le GameObject
 
 ![bean](images/addressing/bean_shield.png)
 
-::: sidenote
-<br>Si vous utilisez un même identifiant plus d'une fois, l'éditeur signalera une erreur, donc vous n'aurez jamais de problème: :::
+::: sidenote Si vous utilisez un même identifiant plus d'une fois, l'éditeur signalera une erreur, donc vous n'aurez jamais de problème: :::
 
 ![bean](images/addressing/name_collision.png)
 
@@ -68,8 +65,7 @@ Voyons ce qu'il se passe lorsque vous ajoutez plus de GameObjects. Supposons que
 
 ![bean](images/addressing/bean_buddy.png)
 
-::: sidenote
-<br>Nous avons deux composants «controller» distincts, un dans chaque GameObject, rien d'anormal puisque chaque GameObject crée un nouveau contexte de dénomination. :::
+::: sidenote Nous avons deux composants «controller» distincts, un dans chaque GameObject, rien d'anormal puisque chaque GameObject crée un nouveau contexte de dénomination. :::
 
 Puisque le destinataire du message se trouve en dehors du GameObject «bean» (l'expéditeur), le code doit indiquer quel «controller» doit recevoir le message. Il doit spécifier à la fois l’id du GameObject cible ainsi que celui du composant. L'adresse complète du composant devient « buddy#controller » et cette adresse se compose de deux parties distinctes.
 
@@ -128,8 +124,7 @@ Dans l'exemple ci-dessus, le jeu se déroule avec les 4 GameObjects suivants :
 - /team_2/bean
 - /team_2/buddy
 
-::: sidenote
-<br>Les ids sont stockées sous forme de "valeurs hachées". L'exécution conserve l'état de hachage pour chaque id de collection utilisé pour continuer le hachage d'une chaîne de caractères relative en un id absolu. :::
+::: sidenote Les ids sont stockées sous forme de "valeurs hachées". L'exécution conserve l'état de hachage pour chaque id de collection utilisé pour continuer le hachage d'une chaîne de caractères relative en un id absolu. :::
 
 Au moment de l'exécution, le regroupement de collections n'existe pas. Il n'existe aucun moyen de savoir à quelle collection appartenait un GameObject spécifique avant la compilation. Il n’est pas non plus possible de manipuler tous les objets d’une collection à la fois. Pour effectuer de telles opérations, vous pouvez facilement effectuer le suivi vous-même, dans le code. Chaque id reste fixe pendant toute la durée de vie du GameObject auquel il est associé. Vous pouvez stocker en toute sécurité l'id d'un GameObject et l'utiliser plus tard.
 
@@ -167,8 +162,7 @@ print(spawned_id) --> hash: [/instance42]
 
 Vous pouvez utiliser un identifiant de ce genre à la place d'un id string ou en construire un vous-même. Notez cependant qu'un id haché correspond au chemin d'accès au GameObject, c'est à dire une adresse absolue :
 
-::: sidenote
-<br>La raison pour laquelle les adresses relatives doivent être données sous forme de strings est que le moteur calculera un nouvel id de hachage en fonction de l'état de hachage du contexte de dénomination actuel (collection) avec le string ajoutée au hachage. :::
+::: sidenote La raison pour laquelle les adresses relatives doivent être données sous forme de strings est que le moteur calculera un nouvel id de hachage en fonction de l'état de hachage du contexte de dénomination actuel (collection) avec le string ajoutée au hachage. :::
 
 ```lua
 local spawned_id = factory.create("#some_factory")
