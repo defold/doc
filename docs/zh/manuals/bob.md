@@ -117,6 +117,8 @@ usage: bob [options] [commands]
 `x86_64-darwin` (Defold 1.3.5 及更老版本)
 `x86_64-macos` (Defold 1.3.6 及更新版本)
 : macOS 64 bit
+`arm64-macos` (Defold 1.5.0 and older)
+: macOS Apple Silicon (ARM)
 
 `x86_64-win32`
 : Windows 64 bit

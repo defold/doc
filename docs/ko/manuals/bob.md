@@ -151,6 +151,8 @@ usage: bob [options] [commands]
 macOS
 #### x86_64-macos
 macOS 64 bit
+#### arm64-macos
+macOS Apple Silicon (ARM)
 #### x86-win32
 Windows
 #### x86-linux

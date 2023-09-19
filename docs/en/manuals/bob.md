@@ -166,6 +166,8 @@ Available platforms and architectures:
 `x86_64-darwin` (Defold 1.3.5 and older)
 `x86_64-macos` (Defold 1.3.6 and newer)
 : macOS 64 bit
+`arm64-macos` (Defold 1.5.0 and older)
+: macOS Apple Silicon (ARM)
 
 `x86_64-win32`
 : Windows 64 bit
