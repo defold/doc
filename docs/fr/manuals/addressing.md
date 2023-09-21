@@ -124,7 +124,7 @@ Dans l'exemple ci-dessus, le jeu se déroule avec les 4 GameObjects suivants :
 - /team_2/bean
 - /team_2/buddy
 
-::: sidenote Les ids sont stockées sous forme de "valeurs hachées". L'exécution conserve l'état de hachage pour chaque id de collection utilisé pour continuer le hachage d'une chaîne de caractères relative en un id absolu. :::
+::: sidenote Les ids sont stockés sous forme de "valeurs hachées". L'exécution conserve l'état de hachage pour chaque id de collection utilisé pour continuer le hachage d'une chaîne de caractères relative en un id absolu. :::
 
 Au moment de l'exécution, le regroupement de collections n'existe pas. Il n'existe aucun moyen de savoir à quelle collection appartenait un GameObject spécifique avant la compilation. Il n’est pas non plus possible de manipuler tous les objets d’une collection à la fois. Pour effectuer de telles opérations, vous pouvez facilement effectuer le suivi vous-même, dans le code. Chaque id reste fixe pendant toute la durée de vie du GameObject auquel il est associé. Vous pouvez stocker en toute sécurité l'id d'un GameObject et l'utiliser plus tard.
 
