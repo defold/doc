@@ -649,6 +649,10 @@
                         "name": "Overview"
                     },
                     {
+                        "path": "/manuals/writing-code",
+                        "name": "Code editor"
+                    },
+                    {
                         "path": "/manuals/editor-templates",
                         "name": "Custom project templates"
                     },
