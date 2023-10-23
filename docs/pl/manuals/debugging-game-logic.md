@@ -35,7 +35,7 @@ Wizualne komunikaty debugowania dodają dane do potoku (pipeline) renderowania i
 * `"draw_debug_text"` jest to to samo co `"draw_text"`, ale jest renderowany w kolorze niestandardowym.
 Zauważ, że prawdopodobnie chcesz aktualizować te dane co klatkę, więc przesyłanie wiadomości do skryptu renderowania w funkcji `update()` jest dobrym pomysłem.
 
-## Uruchamianie debugger
+## Uruchamianie debuggera
 
 Aby uruchomić wbudowany debugger wraz z grą klkinij menu <kbd>Debug ▸ Run with Debugger</kbd> lub wybierz <kbd>Debug ▸ Attach Debugger</kbd>, aby dołączyć debugger do aktualnie uruchomionej gry.
 
@@ -78,6 +78,7 @@ Step Into
 Step Out
 : ![step out](images/debugging/step_out.svg){width=60px .left}
   Kontynuuj działanie do momentu zakończenia bieżącej funkcji. Jeśli wykonanie jest w funkcji, naciśnięcie przycisku "Step Out" spowoduje kontynuowanie działania do momentu zakończenia funkcji.
+
 
 Ustawianie i usuwanie punktów przerwania (breakpoints)
 : Możesz ustawić dowolną liczbę punktów przerwania w kodzie Lua. Gdy gra działa z podłączonym debugerem, zatrzyma się na następnym punkcie przerwania i poczeka na dalsze interakcje z tobą.
