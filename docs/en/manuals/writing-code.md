@@ -22,6 +22,17 @@ Defold has a built-in code editor that allows you to open and edit Lua files (.l
 ![](/images/editor/code-editor.png)
 
 
+### Code completion
+
+The built-in code editor will show code completion of functions while writing code:
+
+![](/images/editor/codecompletion.png)
+
+Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information about functions, arguments and return values:
+
+![](/images/editor/apireference.png)
+
+
 ### Adding Lua code linting using LSP
 
 Defold supports a subset of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) which can be used to analyse your code and highlight programmatic and stylistic errors, a process also known as linting.
