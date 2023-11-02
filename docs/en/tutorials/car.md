@@ -299,7 +299,7 @@ function update(self, dt)
 	...
   -- Calculate new velocity based on current acceleration
 	self.velocity = self.velocity + self.acceleration * dt
-  ...
+	...
 end
 ```
 
@@ -310,11 +310,11 @@ function update(self, dt)
 	local speed = vmath.length_sqr(self.velocity)
 
 	-- Apply drag
-	self.acceleration = self.acceleration - speed * self.direction * drag
+	self.acceleration = self.acceleration - speed * self.velocity * drag
 
 	-- Stop if we are already slow enough
 	if speed < 0.5 then self.velocity = vmath.vector3(0) end
-  ...
+	...
 end
 ```
 
