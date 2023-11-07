@@ -1217,6 +1217,10 @@
                         "name": "Push notifications"
                     },
                     {
+                        "path": "/extension-safearea",
+                        "name": "Safe Area"
+                    },
+                    {
                         "path": "/extension-webview",
                         "name": "Webview"
                     },
@@ -1272,6 +1276,10 @@
                     {
                         "path": "/extension-push",
                         "name": "Push notifications"
+                    },
+                    {
+                        "path": "/extension-safearea",
+                        "name": "Safe Area"
                     },
                     {
                         "path": "/extension-webview",
