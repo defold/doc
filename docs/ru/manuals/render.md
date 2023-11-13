@@ -146,80 +146,80 @@ init()
   function init(self)
       -- Задаем рендер предикаты. Каждый предикат отрисовывается сам по себе и
       -- это позволяет нам менять состояние OpenGL между отрисовками.
-      self.tile_pred = render.predicate({"tile"})
-      self.gui_pred = render.predicate({"gui"})
-      self.text_pred = render.predicate({"text"})
-      self.particle_pred = render.predicate({"particle"})
-      self.model_pred = render.predicate({"model"})
+    self.predicates = create_predicates("tile", "gui", "text", "particle", "model")
 
-      self.clear_color = vmath.vector4(0, 0, 0, 0)
-      self.clear_color.x = sys.get_config("render.clear_color_red", 0)
-      self.clear_color.y = sys.get_config("render.clear_color_green", 0)
-      self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
-      self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
-
-      -- Задаем какую матрицу вида использовать. Если у нас есть объект камеры, он будет
-      -- посылать сообщения "set_view_projection" рендер скрипту и мы
-      -- можем обновлять матрицу вида значением предоставляемым камерой.
-      self.view = vmath.matrix4()
+    -- Создание и заполнение таблиц которые будут использованы в update()
+    local state = create_state()
+    self.state = state
+    local camera_world = create_camera(state, "camera_world", true)
+    init_camera(camera_world, get_stretch_projection)
+    local camera_gui = create_camera(state, "camera_gui")
+    init_camera(camera_gui, get_gui_projection)
+    update_state(state)
   end
   ```
 
 update()
 : Функция `update()` вызывается один раз каждый кадр. Ее назначение --- это производить реальную отрисовку вызывая нижележащие API OpenGL ES (OpenGL Embedded Systems API). Чтобы как следует понять, что происходит в функции `update()`, вам нужно понять как работает OpenGL. Есть множество качественных источников по OpenGL ES. Официальный сайт является неплохой стартовой точкой. Он располагается по адресу https://www.khronos.org/opengles/ 
 
-  Данный пример содержит настройки необходимые для отрисовки 3D моделей. В функции `init()` задан предикат `self.model_pred`. В другом месте был создан материал с тегом "model". В примере присутствуют также компоненты моделей, которые используют этот материал:
+  Данный пример содержит настройки необходимые для отрисовки 3D моделей. В функции `init()` задан предикат `self.predicates.model`. В другом месте был создан материал с тегом "model". В примере присутствуют также компоненты моделей, которые используют этот материал:
 
   ```lua
   function update(self)
-      -- Устанавливаем маску глубины, которая позволяет нам изменять буфер глубины. 
-      render.set_depth_mask(true)
+     local state = self.state
+     if not state.valid then
+        if not update_state(state) then
+            return
+        end
+    end
 
-      -- Очищаем цветовой буффер цветом очистки и устанавливаем буфер глубины в 1.0.
-      -- Нормальные значения глубины находятся в диапазоне от 0,0 (близко) до 1,0 (далеко), поэтому максимизирование значений 
-      -- через буфер означает, что каждый пиксель, которые вы рисуете будет ближе чем 1.0 и поэтому
-      -- он будет отрисован должным образом и на его основе будет проводиться тестирование глубины
-      render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [  render.BUFFER_STENCIL_BIT] = 0})  
+    local predicates = self.predicates
+    -- Очищаем цветовой буффер цветом очистки и устанавливаем буфер глубины.
+    --
+    render.set_depth_mask(true)
+    render.set_stencil_mask(0xff)
+    render.clear(state.clear_buffers)
 
-      -- Выставляем область просмотра в размеры окна.
-      render.set_viewport(0, 0, render.get_window_width(), render.get_window_height())
+    local camera_world = state.cameras.camera_world
+    render.set_viewport(0, 0, state.window_width, state.window_height)
+    render.set_view(camera_world.view)
+    render.set_projection(camera_world.proj)
 
-      -- Устанавливаем отображение в сохраненное значение (может быть установлено с помощью объекта камеры) 
-      render.set_view(self.view)
 
-      -- Рендерим 2D пространство
-      render.set_depth_mask(false)
-      render.disable_state(render.STATE_DEPTH_TEST)
-      render.disable_state(render.STATE_STENCIL_TEST)
-      render.enable_state(render.STATE_BLEND)
-      render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
-      render.disable_state(render.STATE_CULL_FACE)
+    -- Рендерим 3D модели
+    --
+    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
+    render.enable_state(render.STATE_CULL_FACE)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_depth_mask(true)
+    render.draw(predicates.model_pred)
+    render.set_depth_mask(false)
+    render.disable_state(render.STATE_DEPTH_TEST)
+    render.disable_state(render.STATE_CULL_FACE)
 
-      -- Выставляем проекцию в ортографическую и рендерим только для Z-глубины в пределах от -200 до 200
-      render.set_projection(vmath.matrix4_orthographic(0, render.get_width(), 0,   render.get_height(), -200, 200))  
+     -- Рендерим 2D пространство(sprites, tilemaps, particles etc)
+     --
+    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.enable_state(render.STATE_STENCIL_TEST)
+    render.enable_state(render.STATE_BLEND)
+    render.draw(predicates.tile)
+    render.draw(predicates.particle)
+    render.disable_state(render.STATE_STENCIL_TEST)
+    render.disable_state(render.STATE_DEPTH_TEST)
 
-      render.draw(self.tile_pred)
-      render.draw(self.particle_pred)
+    -- debug
+    render.draw_debug3d()
 
-      -- Рендерим 3D пространство, но по-прежнему ортографически
-      -- Должны быть включены отбраковка граней и проверка глубины 
-      render.enable_state(render.STATE_CULL_FACE)
-      render.enable_state(render.STATE_DEPTH_TEST)
-      render.set_depth_mask(true)
-      render.draw(self.model_pred)
-      render.draw_debug3d()
-
-      -- Последним в очереди рендерим GUI
-      render.set_view(vmath.matrix4())
-      render.set_projection(vmath.matrix4_orthographic(0, render.get_window_width(), 0,   render.get_window_height(), -1, 1))  
-
-      render.enable_state(render.STATE_STENCIL_TEST)
-      render.draw(self.gui_pred)
-      render.draw(self.text_pred)
-      render.disable_state(render.STATE_STENCIL_TEST)
-
-      render.set_depth_mask(false)
-      render.draw_debug2d()
+    -- -- Рендерим GUI
+    --
+    local camera_gui = state.cameras.camera_gui
+    render.set_view(camera_gui.view)
+    render.set_projection(camera_gui.proj)
+    render.enable_state(render.STATE_STENCIL_TEST)
+    render.draw(predicates.gui, camera_gui.frustum)
+    render.draw(predicates.text, camera_gui.frustum)
+    render.disable_state(render.STATE_STENCIL_TEST)
   end
   ```
 
@@ -229,18 +229,22 @@ on_message()
 : Рендер скрипт может определить функцию `on_message()` и получать сообщения из других частей вашей игры. Типовой сценарий, где внешний компонент посылает информацию рендер скрипту --- это _камера_. Компонент камеры, который захватил фокус, будет автоматически в каждом кадре посылать свой вид и проекцию рендер скрипту. Это сообщение называется `"set_view_projection"`:
 
   ```lua
+local MSG_CLEAR_COLOR =         hash("clear_color")
+local MSG_WINDOW_RESIZED =      hash("window_resized")
+local MSG_SET_VIEW_PROJ =       hash("set_view_projection")
+
   function on_message(self, message_id, message)
-      if message_id == hash("clear_color") then
+      if message_id == MSG_CLEAR_COLOR then
           -- Ктото послал нам новый цвет очистки для использования.
           self.clear_color = message.color
-      elseif message_id == hash("set_view_projection") then
+      elseif message_id == MSG_SET_VIEW_PROJ then
           -- Компонент камеры, завладевший фокусом будет посылать сообщения set_view_projection
           -- в сокет @render. Мы можем использовать информацию о камере
           -- для выставления отображения (и возможно проекции) для рендеринга.
           -- Сейчас мы рендерим ортографически, поэтому здесь нет нужды в проекции камеры.
-          -- Currently, we're rendering orthogonally so there's
-          -- no need for camera
-          self.view = message.view
+          camera.view = message.view
+          self.camera_projection = message.projection or vmath.matrix4()
+          update_camera(camera, state)
       end
   end
   ```
@@ -261,8 +265,10 @@ on_message()
 : Движок пошлет это сообщение по изменению размеров окна. Вы можете прослушивать это сообщение для изменения рендеринга когда целевое окно меняет размеры. На десктопе это означает, что реальные размеры игрового окна были изменены, а на мобильных устройствах это сообщение посылается каждый раз, когда происходит смена ориентации.
 
   ```lua
+  local MSG_WINDOW_RESIZED =      hash("window_resized")
+
   function on_message(self, message_id, message)
-    if message_id == hash("window_resized") then
+    if message_id == MSG_WINDOW_RESIZED then
       -- Были изменены размеры окна. message.width и message.height содержат новые размеры.
       ...
     end
