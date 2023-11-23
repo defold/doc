@@ -461,7 +461,8 @@
             {
                 "path": "/tutorials/texture-scrolling",
                 "name": "Texture scrolling",
-                "description": "In this tutorial you will learn how to use a shader to scroll a repeating texture."
+                "description": "In this tutorial you will learn how to use a shader to scroll a repeating texture.",
+                "image": "/tutorials/images/icons/screen_texture_scrolling.png"
             },
             {
                 "path": "/tutorials/runner",
@@ -499,7 +500,8 @@
             {
                 "path": "https://defold.com/2020/10/19/Shaders-for-beginners/",
                 "name": "Shaders for Beginners",
-                "description": "In this guest tutorial Paweł Jarosz, developer of Witchcrafter: Empire Legends, share his experience learning shader programming in general and for Defold in particular."
+                "description": "In this guest tutorial Paweł Jarosz, developer of Witchcrafter: Empire Legends, share his experience learning shader programming in general and for Defold in particular.",
+                "image": "/tutorials/images/icons/screen_shaders_for_beginners.png"
             },
             {
                 "path": "/tutorials/grading",
@@ -527,22 +529,26 @@
             {
                 "path": "https://github.com/defold/sample-roids",
                 "name": "Asteroids",
-                "description": "This is a very simple 'Asteroids' clone where you turn the ship left and right with the arrow keys and fire at incoming meteors with space."
+                "description": "This is a very simple 'Asteroids' clone where you turn the ship left and right with the arrow keys and fire at incoming meteors with space.",
+                "image": "/tutorials/images/icons/screen_asteroids.png"
             },
             {
                 "path": "https://github.com/defold/sample-linker",
                 "name": "Linker",
-                "description": "This sample project shows how to create a linker game. Click and drag and link three or more fish of the same color together to remove them from the board. Long chains of fish yields boosters."
+                "description": "This sample project shows how to create a linker game. Click and drag and link three or more fish of the same color together to remove them from the board. Long chains of fish yields boosters.",
+                "image": "/tutorials/images/icons/screen_linker.png"
             },
             {
                 "path": "https://github.com/defold/sample-shadertoy",
                 "name": "Shadertoy",
-                "description": "This sample project shows how to port a Shadertoy shader to to Defold."
+                "description": "This sample project shows how to port a Shadertoy shader to to Defold.",
+                "image": "/tutorials/images/shadertoy/quad_material.png"
             },
             {
                 "path": "https://github.com/defold/sample-rpgmap",
                 "name": "RPG Map",
-                "description": "This sample shows one method of creating very large screen based RPG maps in Defold."
+                "description": "This sample shows one method of creating very large screen based RPG maps in Defold.",
+                "image": "/tutorials/images/icons/screen_rpgmap.png"
             },
             {
                 "path": "/tutorials/platformer",
@@ -552,23 +558,27 @@
             },
             {
                 "path": "/tutorials/main-menu",
-                "name": "Main menu (OLD)",
-                "description": "In this sample, you learn effects to present a main menu."
+                "name": "Main menu",
+                "description": "In this sample, you learn effects to present a main menu.",
+                "image": "/tutorials/images/icons/screen_menu_animation.png"
             },
             {
                 "path": "/tutorials/parallax",
-                "name": "Parallax (OLD)",
-                "description": "In this sample, you learn how to use a parallax effect to simulate depth in the game world."
+                "name": "Parallax",
+                "description": "In this sample, you learn how to use a parallax effect to simulate depth in the game world.",
+                "image": "/tutorials/images/icons/screen_parallax.png"
             },
             {
                 "path": "/tutorials/hud",
-                "name": "Hud (OLD)",
-                "description": "In this sample, you learn effects for score counting."
+                "name": "Hud",
+                "description": "In this sample, you learn effects for score counting.",
+                "image": "/tutorials/images/icons/screen_hud.png"
             },
             {
                 "path": "/tutorials/level-complete",
-                "name": "Level complete (OLD)",
-                "description": "In this sample, you learn effects to show the score counting that could occur when a level has been completed."
+                "name": "Level complete",
+                "description": "In this sample, you learn effects to show the score counting that could occur when a level has been completed.",
+                "image": "/tutorials/images/icons/screen_lvlcomplete.png"
             }
         ],
         "resources": [

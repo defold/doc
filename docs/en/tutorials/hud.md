@@ -2,9 +2,9 @@
 title: HUD code sample
 brief: In this sample, you learn effects for score counting.
 ---
-# HUD
+# HUD - sample project
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bcU9PCrPAeY" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NoPHHG2kbOk" frameborder="0" allowfullscreen></iframe>
 
 In this sample, we demonstrate effects for score counting. The scores appear randomly over the screen, simulating a game where the player obtains scores at different positions.
 
@@ -140,6 +140,25 @@ function on_message(self, message_id, message, sender)
         -- float
         local offset = vmath.vector3(0, 20, 0)
         gui.animate(node, gui.PROP_POSITION, gui.get_position(node) + offset, gui.EASING_NONE, 0.5, 0.0, float_done)
+    end
+end
+```
+
+In the main.script we take in touch/mouse input then send a message to the gui script creating new scores using the touch position.
+
+```lua
+-- On click/touch get touch position and send it via message to hud gui script as well as the scored point amount.
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function on_input(self, action_id, action)
+    local pos = vmath.vector3(action.x, action.y, 0) -- use input action.x & action.y as x & y positions of touch
+    if action_id == hash("touch") then
+        if action.pressed then
+            msg.post("main:/hud#hud", "add_score" , { position = pos, amount = 1500})
+        end
     end
 end
 ```

@@ -42,6 +42,8 @@ Installation on Linux
   $ ./Defold
   ```
 
+  There is a helper to install a desktop entry on the `Help > Create Desktop Entry` menu.
+
   If you run into any problems starting the editor, opening a project or running a Defold game please refer to the [Linux section of the FAQ](/faq/faq#linux-questions).
 
 ## Install an old version

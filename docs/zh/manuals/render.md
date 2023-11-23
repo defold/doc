@@ -158,76 +158,79 @@ init()
 ```lua
 function init(self)
   -- 定义渲染优先级. 每个优先级的绘制不相干所以绘制时可以任意修改 OpenGL 的状态.
-  self.tile_pred = render.predicate({"tile"})
-  self.gui_pred = render.predicate({"gui"})
-  self.text_pred = render.predicate({"text"})
-  self.particle_pred = render.predicate({"particle"})
-  self.model_pred = render.predicate({"model"})
+    self.predicates = create_predicates("tile", "gui", "text", "particle", "model")
 
-  self.clear_color = vmath.vector4(0, 0, 0, 0)
-  self.clear_color.x = sys.get_config("render.clear_color_red", 0)
-  self.clear_color.y = sys.get_config("render.clear_color_green", 0)
-  self.clear_color.z = sys.get_config("render.clear_color_blue", 0)
-  self.clear_color.w = sys.get_config("render.clear_color_alpha", 0)
-
-  -- 视口矩阵. 如果使用了摄像机, 摄像机就会
-  -- 把 "set_view_projection" 信息发送给渲染脚本
-  -- 以便我们根据摄像机提供的参数更新视口矩阵.
-  self.view = vmath.matrix4()
+    -- Create and fill data tables will be used in update()
+    local state = create_state()
+    self.state = state
+    local camera_world = create_camera(state, "camera_world", true)
+    init_camera(camera_world, get_stretch_projection)
+    local camera_gui = create_camera(state, "camera_gui")
+    init_camera(camera_gui, get_gui_projection)
+    update_state(state)
 end
 ```
 
 update()
 : 函数 `update()` 每帧都会被调用. 用于调用底层 OpenGL ES API (OpenGL 嵌入系统 API) 以实现渲染. 想了解 `update()` 函数, 先要了解 OpenGL 工作原理. 对于 OpenGL ES 有许多教程. 官方网站就是个不错的学习之地. 参考 https://www.khronos.org/opengles/
 
-  本例中函数里设置了渲染 3D 模型必须的两部分内容. `init()` 定义了 `self.model_pred` 优先级. 含有 "model" 标签的材质被建立. 以及使用此材质的模型组件:
+  本例中函数里设置了渲染 3D 模型必须的两部分内容. `init()` 定义了 `self.predicates.model` 优先级. 含有 "model" 标签的材质被建立. 以及使用此材质的模型组件:
 
 ```lua
 function update(self)
-    local window_width = render.get_window_width()
-    local window_height = render.get_window_height()
-    if window_width == 0 or window_height == 0 then
-        return
+    local state = self.state
+     if not state.valid then
+        if not update_state(state) then
+            return
+        end
     end
 
+    local predicates = self.predicates
     -- clear screen buffers
     --
     render.set_depth_mask(true)
     render.set_stencil_mask(0xff)
-    render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0})
+    render.clear(state.clear_buffers)
 
-    -- render world (sprites, tilemaps, particles etc)
+    local camera_world = state.cameras.camera_world
+    render.set_viewport(0, 0, state.window_width, state.window_height)
+    render.set_view(camera_world.view)
+    render.set_projection(camera_world.proj)
+
+
+    -- render models
     --
-    local proj = get_projection(self)
-    local frustum = proj * self.view
-
-    render.set_viewport(0, 0, window_width, window_height)
-    render.set_view(self.view)
-    render.set_projection(proj)
-
+    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
+    render.enable_state(render.STATE_CULL_FACE)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_depth_mask(true)
+    render.draw(predicates.model_pred)
     render.set_depth_mask(false)
     render.disable_state(render.STATE_DEPTH_TEST)
-    render.disable_state(render.STATE_STENCIL_TEST)
-    render.enable_state(render.STATE_BLEND)
-    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
     render.disable_state(render.STATE_CULL_FACE)
 
-    render.draw(self.tile_pred, {frustum = frustum})
-    render.draw(self.particle_pred, {frustum = frustum})
+     -- render world (sprites, tilemaps, particles etc)
+     --
+    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
+    render.enable_state(render.STATE_DEPTH_TEST)
+    render.enable_state(render.STATE_STENCIL_TEST)
+    render.enable_state(render.STATE_BLEND)
+    render.draw(predicates.tile)
+    render.draw(predicates.particle)
+    render.disable_state(render.STATE_STENCIL_TEST)
+    render.disable_state(render.STATE_DEPTH_TEST)
+
+    -- debug
     render.draw_debug3d()
 
     -- render GUI
     --
-    local view_gui = vmath.matrix4()
-    local proj_gui = vmath.matrix4_orthographic(0, window_width, 0, window_height, -1, 1)
-    local frustum_gui = proj_gui * view_gui
-
-    render.set_view(view_gui)
-    render.set_projection(proj_gui)
-
+    local camera_gui = state.cameras.camera_gui
+    render.set_view(camera_gui.view)
+    render.set_projection(camera_gui.proj)
     render.enable_state(render.STATE_STENCIL_TEST)
-    render.draw(self.gui_pred, {frustum = frustum_gui})
-    render.draw(self.text_pred, {frustum = frustum_gui})
+    render.draw(predicates.gui, camera_gui.frustum)
+    render.draw(predicates.text, camera_gui.frustum)
     render.disable_state(render.STATE_STENCIL_TEST)
 end
 ```
@@ -238,17 +241,23 @@ on_message()
 : 渲染脚本有一个 `on_message()` 函数用来接收游戏其他脚本发来的消息. 典型的例子比如 _摄像机_. 摄像机组件每一帧都把视口和映射发给渲染脚本. 消息名为 `"set_view_projection"`:
 
 ```lua
+local MSG_CLEAR_COLOR =         hash("clear_color")
+local MSG_WINDOW_RESIZED =      hash("window_resized")
+local MSG_SET_VIEW_PROJ =       hash("set_view_projection")
+
 function on_message(self, message_id, message)
-  if message_id == hash("clear_color") then
+  if message_id == MSG_CLEAR_COLOR then
       -- 根据消息命令清空屏幕.
       self.clear_color = message.color
-  elseif message_id == hash("set_view_projection") then
+  elseif message_id == MSG_SET_VIEW_PROJ then
       -- 焦点摄像机每一帧都发送 set_view_projection
       -- 消息到 @render 端口. 使用摄像机发来的数据可以
       -- 设置渲染视口 (及映射).
       -- 这里使用默认正交映射所以
       -- 不使用消息传输映射.
-      self.view = message.view
+      camera.view = message.view
+      self.camera_projection = message.projection or vmath.matrix4()
+      update_camera(camera, state)
   end
 end
 ```
@@ -269,8 +278,10 @@ msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 : 窗体大小变化时系统发送给渲染脚本的消息. 监听此消息以便在窗体大小变化时采取相应的渲染方案. 桌面设备窗口大小改变和移动设备屏幕方向改变都会触发此消息发送.
 
 ```lua
+local MSG_WINDOW_RESIZED =      hash("window_resized")
+  
 function on_message(self, message_id, message)
-  if message_id == hash("window_resized") then
+  if message_id == MSG_WINDOW_RESIZED then
     -- 窗体变化. message.width 与 message.height 保存了变化后的窗体尺寸.
   ...
   end
