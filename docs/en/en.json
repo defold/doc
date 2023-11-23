@@ -1322,6 +1322,10 @@
                     {
                         "path": "/extension-fbinstant",
                         "name": "Facebook Instant Games"
+                    },
+                    {
+                        "path": "/extension-poki-sdk",
+                        "name": "Poki"
                     }
                 ]
             },
