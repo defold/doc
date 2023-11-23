@@ -9,4 +9,4 @@ $ python -m SimpleHTTPServer [port]
 
 #### Q: Why does my game crash with error "Unexpected data size" while loading?
 
-A: This usually happens when you are using Windows and make a build and commit it to Git. If you have the wrong line-ending configuration in Git it will change your line endings and thus also the data size. Follow these instructions to solve the problem: https://docs.github.com/en/free-pro-team@latest/github/using-git/configuring-git-to-handle-line-endings
+A: This usually happens when you are using Windows and make a build and commit it to Git. If you have the wrong line-ending configuration in Git it will change your line endings and thus also the data size. Follow these instructions to solve the problem: [https://docs.github.com/en/free-pro-team@latest/github/using-git/configuring-git-to-handle-line-endings](https://docs.github.com/en/free-pro-team@latest/github/using-git/configuring-git-to-handle-line-endings)
