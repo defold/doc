@@ -56,8 +56,7 @@ A: The following platforms are supported for the editor/tools and the engine run
 
   | System                     | Supported            |
   | -------------------------- | -------------------- |
-  | macOS 11 Big Sur           | Editor               |
-  | macOS 10.13 High Sierra    | Runtime              |
+  | macOS 11 Big Sur           | Editor and runtime   |
   | Windows Vista              | Editor and runtime   |
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |

@@ -56,8 +56,7 @@ A: Las siguientes plataformas tienen soporte para el editor/herramientas y el ru
 
   | Sistema                    | Soporte              |
   | -------------------------- | -------------------- |
-  | macOS 11 Big Sur           | Editor               |
-  | macOS 10.13 High Sierra    | Runtime              | 
+  | macOS 11 Big Sur           | Editor y runtime     |
   | Windows Vista              | Editor y runtime     |
   | Ubuntu 18.04 (64 bit)(1)   | Editor               |
   | Linux (64 bit)(2)          | Runtime              |
