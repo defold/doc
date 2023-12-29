@@ -154,7 +154,7 @@ You can create custom easing curves by defining a `vector` with a set of values 
 For example, the vector:
 
 ```lua
-local values = { 0, 0.4, 0.2, 0.2, 0.5. 1 }
+local values = { 0, 0.4, 0.2, 0.2, 0.5, 1 }
 local my_easing = vmath.vector(values)
 ```
 
