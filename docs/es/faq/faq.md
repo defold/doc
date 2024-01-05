@@ -54,15 +54,15 @@ shaders.
 
 A: Las siguientes plataformas tienen soporte para el editor/herramientas y el runtime del motor:
 
-  | Sistema                    | Soporte              |
-  | -------------------------- | -------------------- |
-  | macOS 11 Big Sur           | Editor y runtime     |
-  | Windows Vista              | Editor y runtime     |
-  | Ubuntu 18.04 (64 bit)(1)   | Editor               |
-  | Linux (64 bit)(2)          | Runtime              |
-  | iOS 11.0                   | Runtime              |
-  | Android 4.4 (API level 19) | Runtime              |
-  | HTML5                      | Runtime              |
+  | System             | Version            | Architectures  | Supported            |
+  | ------------------ | ------------------ | -------------- | -------------------- |
+  | macOS              | 11 Big Sur         | x86-64, arm-64 | Editor and Engine    |
+  | Windows            | Vista              | x86-32, x86-64 | Editor and Engine    |
+  | Ubuntu (1)         | 18.04              | x86-64         | Editor               |
+  | Linux (2)          | Any                | x86-64         | Engine               |
+  | iOS                | 11.0               | arm-64         | Engine               |
+  | Android            | 4.4 (API level 19) | arm-32, arm-64 | Engine               |
+  | HTML5              |                    | asm.js, wasm   | Engine               |
 
   (1 El editor fue creado y probad para 64-bit Ubuntu 18.04. Debe funcionar en otras distribuciones pero no damos garantía de ello.)
 
