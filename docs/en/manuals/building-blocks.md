@@ -48,7 +48,7 @@ A collection is always added to another collection as a reference to a collectio
 
 ## Game objects
 
-Game objects are simple objects that each have a separate lifespan during the execution of your game. Game objects have a position, rotation, and scale that each of which can be manipulated and animatied at runtime.
+Game objects are simple objects that each have a separate lifespan during the execution of your game. Game objects have a position, rotation, and scale that each of which can be manipulated and animated at runtime.
 
 ```lua
 -- animate X position of "can" game object
