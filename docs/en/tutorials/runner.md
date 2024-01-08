@@ -89,11 +89,17 @@ When you are done editing a file you have to save it. Select <kbd>File ▸ Save<
 
 ## Setting up the project
 
-Before we begin, let's set up several settings for our projects. Open the *game.project* asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively. You also need to add the Spine extension to the project so that we can animate the hero character. Add the following URL to your game.project dependencies:
+Before we begin, let's set up several settings for our projects. Open the *game.project* asset from the `Assets Pane` and scroll down to the Display section. Set the `width` and `height` of the project to `1280` and `720` respectively.
 
-[https://github.com/defold/extension-spine/archive/main.zip](https://github.com/defold/extension-spine/archive/main.zip)
+You also need to add the Spine extension to the project so that we can animate the hero character. Add a version of the Spine extension which is compatible with the version of the Defold editor which you have installed. Available Spine versions can be seen here:
 
-When the Spine extension has been updated you also need to restart the editor to activate the editor integration included with the Spine extension.
+[https://github.com/defold/extension-spine/releases](https://github.com/defold/extension-spine/releases)
+
+Right click on the link to the zip file for the release you want to use:
+
+![Right click and copy link to release](images/runner/extension-spine-releases.png)
+
+Add the link to the release to your list of [game.project dependencies](/manuals/libraries/#setting-up-library-dependencies). When the Spine extension has been added you also need to restart the editor to activate the editor integration included with the Spine extension.
 
 
 ## STEP 2 - Creating the ground
