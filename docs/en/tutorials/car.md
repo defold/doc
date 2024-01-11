@@ -52,9 +52,9 @@ Console
 
 ## Running the game
 
-The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
+The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build</kbd> to build the project and launch the game.
 
-![Build and launch](images/car/start_build_and_launch.png)
+![Build](images/car/start_build_and_launch.png)
 
 A black screen is perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 

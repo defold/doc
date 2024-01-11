@@ -15,7 +15,9 @@ When you bundle a game, you need to choose what type of engine you wish to use.
 
 These different versions are also referred to as `Build variants`
 
-Note: When you choose `Build and run` you'll get the debug version.
+::: sidenote
+When you choose <kbd>Project ▸ Build</kbd> you'll get the debug version.
+:::
 
 ### Debug
 

@@ -68,7 +68,7 @@ Make a note of the bundle identifier as you must use the same bundle identifier 
 
    ![](images/ios/xcode_certificates.png)
 
-7. Build and launch the app on your device. The first time, Xcode will ask you to enable Developer mode and will prepare the device with debugger support. This may take a while.
+7. Build the app on your device. The first time, Xcode will ask you to enable Developer mode and will prepare the device with debugger support. This may take a while.
 8. When you have verified that the app works, find it on your disk. You can see the build location in the Build report in the "Report Navigator".
 
    ![](images/ios/app_location.png)
