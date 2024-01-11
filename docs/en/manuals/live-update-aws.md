@@ -1,3 +1,8 @@
+---
+title: Live update content uploads to AWS
+brief: This section will explain how to create a new user with limited access on Amazon Web Services that can be used together with the Defold editor to automatically upload Live update resources when you bundle your game.
+---
+
 # Setting up Amazon Web Service
 
 To use the Defold Live update feature together with Amazon services you need an Amazon Web Services account. If you don't already have an account you can create one here https://aws.amazon.com/.
