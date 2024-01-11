@@ -73,9 +73,9 @@ Console
 
 ## Running the game
 
-The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
+The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build</kbd> to build the project and launch the game.
 
-![Build and launch](images/runner/1/build_and_launch.png)
+![Build](images/runner/1/build_and_launch.png)
 
 A black screen is perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 
@@ -143,7 +143,7 @@ Let's take the first baby steps and create an arena for our character, or rather
 
 8. Save the file, then add *ground.collection* to the *main.collection* file: first double click the *main.collection* file, then right-click the root object in the *Outline* view and select <kbd>Add Collection From File</kbd>. In the dialog, select *ground.collection* and click *OK*. Make sure you place *ground.collection* in position 0, 0, 0 or it will be offset visually. Save it.
 
-9. Start up the game (<kbd>Project ▸ Build and Launch</kbd> to see that everything is in place.
+9. Start up the game (<kbd>Project ▸ Build</kbd> to see that everything is in place.
 
   ![Still ground](images/runner/1/still_ground.png)
 
@@ -488,7 +488,7 @@ At this point we should add physics collision for the ground:
 
 ![Ground collision](images/runner/2/ground_collision.png)
 
-Now you should be able to try running the game (<kbd>Project ▸ Build and Launch</kbd>). The hero character should run on the ground and it should be possible to jump with the  kbd:[Space] button. If you run the game on a mobile device, you can jump by tapping on the screen.
+Now you should be able to try running the game (<kbd>Project ▸ Build</kbd>). The hero character should run on the ground and it should be possible to jump with the  kbd:[Space] button. If you run the game on a mobile device, you can jump by tapping on the screen.
 
 To make life in our game world a little less dull, we should add platforms to jump on.
 
@@ -588,7 +588,7 @@ end
 1- Predefined values for the Y position to spawn platforms on.
 2- The `update()` function is called once every frame and we use that to decide whether to spawn a regular or long platform at certain intervals (to avoid overlaps) and heights. It's easy to experiment with various spawning algorithms to create different gameplay.
 
-Now run the game (<kbd>Project ▸ Build and Launch</kbd>).
+Now run the game (<kbd>Project ▸ Build</kbd>).
 
 Wow, this is starting to turn into something (almost) playable...
 
