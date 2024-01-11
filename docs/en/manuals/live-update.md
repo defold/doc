@@ -47,7 +47,7 @@ There are currently two ways that Defold can store the resources. Choose the met
 : This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
 
 `Amazon`
-: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name.  You can read more on how to setup an AWS account in this [aws guide](./live-update-aws.md)
+: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name.  You can read more on how to setup an AWS account in this [aws guide](/manuals/live-update-aws.md)
 
 ## Bundling with Live update
 
@@ -100,7 +100,7 @@ Thus, the developer can remove the archive at any time, and the mount will also 
 ## Scripting with Live Update
 
 To actually use the liveupdate content, you need to download and mount the data to your game.
-Read more about about how to [script with liveupdate here](./live-update-scripting.md).
+Read more about about how to [script with liveupdate here](/manuals/live-update-scripting.md).
 
 ## Development caveats
 
