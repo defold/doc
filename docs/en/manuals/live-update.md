@@ -39,7 +39,7 @@ Any resources referenced by the base game package, will not be excluded.
 
 ## Live update settings
 
-When the bundler creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In *game.project*, select which liveupdate settings file to use when bundling. This allows for using different liveupdate settings for different environments, for example for live, QA, dev etc.
+When the bundler creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In *game.project*, select which live-update settings file to use when bundling. This allows for using different live-update settings for different environments, for example for live, QA, dev etc.
 
 ![Live update settings](images/live-update/05-liveupdate-settings-zip.png)
 
@@ -67,19 +67,19 @@ Click *Package* and select a location for the application bundle. Now you can st
 
 ## The .zip archives
 
-A liveupdate .zip file contains files that were excluded from the base game package.
+A live update .zip file contains files that were excluded from the base game package.
 
 While our current pipeline only supports creating a single .zip file, it is in fact possible to split that zip file into smaller .zip files. This allows for smaller downloads for a game: level packs, seasonal content etc. Each .zip file also contains a manifest file that describes the meta data for each resource contained within the .zip file.
 
 ## Content verification
 
-One of the major features of the our live update system, is that you can use now use many content archives, potentially from many different Defold versions.
+One of the major features of the live update system, is that you can now use many content archives, potentially from many different Defold versions.
 
 The `liveupdate.add_mount()` default behavior, is to add an engine version check when attaching a mount.
-This means that both the game base archive and liveupdate archive(s) need to be created at the same time with the same engine version. This will invalidate any previously downloaded archives by the client, forcing them to redownload the content.
+This means that both the game base archive and live update archive(s) need to be created at the same time  with the same engine version, using the bundle option. This will invalidate any previously downloaded archives by the client, forcing them to redownload the content.
 
 This behavior can be turned off with an options flag.
-When turned off, the content verification responsibility lies entirely with the developer, to guarantuee that each liveupdate archive will work with the running engine.
+When turned off, the content verification responsibility lies entirely with the developer, to guarantee that each live update archive will work with the running engine.
 
 We recommend storing some metadata for each mount, so that _directly upon startup_, the developer can decide if the mount/archive should be removed.
 One way to do so is to add an extra file to the zip archive after the game has been bundled. For instance by inserting a `metadata.json` with any relevant information that the game requires. Then, at startup, the game can retrieve with `sys.load_resource("/metadata.json")`. _Note that you will need a unique name for each mount's custom data, or the mounts will give you the file with the topmost priority_
@@ -103,8 +103,8 @@ Mounting an archive doesn't copy or move the archive. The engine only stores the
 
 ## Scripting with Live Update
 
-To actually use the liveupdate content, you need to download and mount the data to your game.
-Read more about about how to [script with liveupdate here](/manuals/live-update-scripting.md).
+To actually use the live update content, you need to download and mount the data to your game.
+Read more about about how to [script with live update here](/manuals/live-update-scripting.md).
 
 ## Development caveats
 
@@ -120,6 +120,6 @@ Debugging
 Forcing re-download of resources
 : The developer can download the content to any file/folder they wish, but often they're located under the application path. The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
 
-  The file liveupdate.mounts is located under the "local storage", and it's path is output to the console at start "INFO:LIVEUPDATE: Liveupdate folder located at: ..."
+  The file liveupdate.mounts is located under the "local storage", and it's path is output to the console at start "INFO:LIVEUPDATE: Live update folder located at: ..."
 
   ![Local storage](images/live-update/local-storage.png)
