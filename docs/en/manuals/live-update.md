@@ -31,7 +31,9 @@ To have the engine load such a collection dynamically, we can simply add a colle
 
 This is done by simply checking the *Exclude* checkbox in the collection proxy properties, telling the bundler to leave any content in *monalisa.collection* out when creating an application bundle.
 
-Note that any resources referenced by the base game package, will not be excluded.
+::: important
+Any resources referenced by the base game package, will not be excluded.
+:::
 
 ![Collection proxy excluded](images/live-update/proxy-excluded.png)
 
@@ -47,11 +49,13 @@ There are currently two ways that Defold can store the resources. Choose the met
 : This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
 
 `Amazon`
-: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name.  You can read more on how to setup an AWS account in this [aws guide](./live-update-aws.md)
+: This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name.  You can read more on how to setup an AWS account in this [aws guide](/manuals/live-update-aws.md)
 
 ## Bundling with Live update
 
-_NOTE:_ Currently, the editor `Build & Run` does not support Live Update. Thus this bundling step is required for testing.
+::: important
+Building and running from the editor (<kbd>Project ▸ Build</kbd>) does not support Live Update. In order to test Live Update you need to bundle the project.
+:::
 
 To bundle with Live update is easy. Select <kbd>Project ▸ Bundle ▸ ...</kbd> and then the platform you want to create an application bundle for. This opens the bundling dialog:
 
@@ -93,13 +97,14 @@ The engine doesn't keep a reference to any resource in a mount. Once a resource 
 
 The mounts are automatically readded upon engine restart.
 
-_NOTE:_ Mounting an archive doesn't copy or move the archive. The engine only stores the path to the archive.
-Thus, the developer can remove the archive at any time, and the mount will also be removed at next startup.
+::: sidenote
+Mounting an archive doesn't copy or move the archive. The engine only stores the path to the archive. Thus, the developer can remove the archive at any time, and the mount will also be removed at next startup.
+:::
 
 ## Scripting with Live Update
 
 To actually use the liveupdate content, you need to download and mount the data to your game.
-Read more about about how to [script with liveupdate here](./live-update-scripting.md).
+Read more about about how to [script with liveupdate here](/manuals/live-update-scripting.md).
 
 ## Development caveats
 

@@ -181,7 +181,7 @@ DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinaliz
 
 注意 `DM_DECLARE_EXTENSION` 宏用来声明扩展程序执行入口. 第一个参数 `symbol` 要与 *ext.manifest* 上的扩展名一致. 本例中没有用到 "update" 或 "on_event" 执行入口, 所以用 `0` 填充了宏的相应参数.
 
-现在就差编译运行了 (<kbd>Project ▸ Build and Launch</kbd>). 带原生扩展的项目会被上传到云编译服务器编译. 如果编译出错, 将会弹出一个包含错误信息的窗口.
+现在就差编译运行了 (<kbd>Project ▸ Build</kbd>). 带原生扩展的项目会被上传到云编译服务器编译. 如果编译出错, 将会弹出一个包含错误信息的窗口.
 
 测试扩展运行, 新建一个游戏对象和一个脚本组件, 再写一些测试代码:
 

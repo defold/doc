@@ -1,3 +1,8 @@
+---
+title: Scripting Live Update content
+brief: To use the live update content, you need to download and mount the data to your game. Learn how to script with live update in this manual.
+---
+
 # Scripting Live Update
 
 The api only consists of a few functions:
