@@ -115,7 +115,8 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-1. The `liveupdate.add_mount()` mounts a single archive using a specified name, priority and a zip file.
+1. The `liveupdate.add_mount()` mounts a single archive using a specified name, priority and a zip file. The data is then immediately available for loading (there is no need to restart the engine).
+The mount info is stored and will be automatically readded upon next engine restart (no need to call liveupdate.add_mount() again on the same mount)
 2. You need to store the archive online (e.g. on S3), where you can download it from.
 3. Given a collection proxy name, you need to figure our which archive(s) to download, and how to mount them
 4. At startup, we try to load the level.
@@ -123,6 +124,6 @@ end
 6. If there are resources missing, then we need to download the archive and mount it.
 7. Make a http request and download the archive to `download_path`
 8. The data is downloaded, and it's time to mount it to the running engine.
-The next time the game is restarted, the mount is automatically readded.
+
 
 With the loading code in place, we can test the application. However, running it from the editor will not download anything. This is because Live update is a bundle feature. When running in the editor environment no resources are ever excluded. To make sure everything works fine, we need to create a bundle.

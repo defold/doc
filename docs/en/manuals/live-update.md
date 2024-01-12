@@ -64,9 +64,8 @@ Click *Package* and select a location for the application bundle. Now you can st
 ## The .zip archives
 
 A liveupdate .zip file contains files that were excluded from the base game package.
-The .zip file also contains a manifest file that describes the meta data for each resource within the .zip file.
 
-While our current pipeline only supports creating a single .zip file, it is in fact possible to split that zip file into smaller .zip files. This allows for smaller downloads for a game: level packs, seasonal content etc.
+While our current pipeline only supports creating a single .zip file, it is in fact possible to split that zip file into smaller .zip files. This allows for smaller downloads for a game: level packs, seasonal content etc. Each .zip file also contains a manifest file that describes the meta data for each resource contained within the .zip file.
 
 ## Content verification
 
@@ -114,12 +113,8 @@ Debugging
   ![Console output](images/live-update/run-bundle-console.png)
 
 Forcing re-download of resources
-: When an application stores resources, they end up on disk on the local computer or handheld device. If you restart the application, the resources are there and ready. When developing you might want to remove resources and force the application to download them again.
-
-  Defold creates a folder with the name of the hash of the created bundle on the device in the application support folder. If you delete the files in this folder, the application will invalidate the resources from the manifest and you can download and store them again.
+: The developer can download the content to any file/folder they wish, but often they're located under the application path. The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
 
   The file liveupdate.mounts is located under the "local storage", and it's path is output to the console at start "INFO:LIVEUPDATE: Liveupdate folder located at: ..."
-
-  The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
 
   ![Local storage](images/live-update/local-storage.png)
