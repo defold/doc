@@ -52,6 +52,11 @@
             "name": "Русский (Russian)",
             "translation": "Translation by Demetrij87G",
             "active": true
+        },
+        "uk":
+        {
+            "name": "Українська (Ukranian)",
+            "active": true
         }
     }
 }
