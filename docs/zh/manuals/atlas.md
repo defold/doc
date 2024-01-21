@@ -66,6 +66,15 @@ Inner Padding
 Extrude Borders
 : 每个图片四周的边缘挤出. 片元着色器采样图片边缘的时候, 相邻图片 (同个图集) 边缘可能会被采集到. 挤出边缘就可以解决这个问题.
 
+Max Page Size
+: 多页图集的最大尺寸. 可以用来把一个图集切分成多页来限制图集尺寸以便只用一个 draw call. 它必须与`/builtins/materials/*_paged_atlas.material` 里开启 multi-page atlas enabled materials 一起使用.
+
+![Multi-page atlas](images/atlas/multipage_atlas.png)
+
+Rename Patterns
+: 以逗号 (´,´) 分隔的搜索和替换用的表达式列表, 每个表达式的形式为 `search=replace`.
+图片的原始名字 (文件名) 会用这些表达式改变. (比如 表达式 `hat=cat,_normal=`, 会重命名 `hat_normal` 为 `cat`). 这在多图集间匹配动画时很有用.
+
 这里用四个 64x64 正方形图片做图集不同属性设置的演示. 注意这里图集一旦超过 128x128 就会跳到 256x256, 从而造成了资源浪费.
 
 ![Atlas properties](images/atlas/atlas_properties.png){srcset="images/atlas/atlas_properties@2x.png 2x"}
@@ -149,6 +158,7 @@ Playback
           stream[index + 3] = 0xFF
       end
   end
+
   local params = { width=width, height=height, x=0, y=0, type=resource.TEXTURE_TYPE_2D, format=resource.TEXTURE_FORMAT_RGBA, num_mip_maps=1 }
   resource.set_texture(my_texture_id, params, buf)
 ```

@@ -148,3 +148,23 @@ end
       collectionfactory.unload("#factory")
   end
   ```
+
+
+## 动态 prototype
+
+可以通过点选集合工厂的 *Dynamic Prototype* 选项来更改它的 *Prototype*.
+
+![动态 prototype](images/collection_factory/dynamic_prototype.png)
+
+当 *Dynamic Prototype* 选项被选中, 则集合工厂组件就可使用 `collectionfactory.set_prototype()` 函数更改其原型. 例如:
+
+```lua
+collectionfactory.unload("#factory") -- 卸载之前的资源
+collectionfactory.set_prototype("#factory", "/main/levels/level1.collectionc")
+local ids = collectionfactory.create("#factory")
+```
+
+::: important
+当 *Dynamic Prototype* 被选中, 集合组件数优化则不可使用, 宿主集合将使用 *game.project* 文件中定义的默认最大组件数目.
+:::
+

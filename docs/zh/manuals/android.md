@@ -69,7 +69,15 @@ $ adb install Defold\ examples.apk
 Success
 ```
 
-#### Installing an AAB
+#### 使用编辑器安装 APK
+
+你可以在编辑器的打包对话框中勾选 "Install on connected device" 和 "Launch installed app"  安装并启动 *.apk*:
+
+![Install and Launch APK](images/android/install_and_launch.png)
+
+为了顺利运行, 你要安装好 ADB 并打开连接设备的 *USB debugging*. 如果编辑器无法找到 ADB 命令行工具的地址, 你要在 [Preferences](/manuals/editor-preferences/#tools) 中指定好.
+
+#### 安装 AAB
 
 对于 *.aab* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传给 Google Play. 也可以使用 *.aab* 文件制作 *.apk* 以便使用 [Android 打包工具](https://developer.android.com/studio/command-line/bundletool) 在本地安装.
 
@@ -80,15 +88,12 @@ Defold 引擎需要一些权限来运行各种功能. 权限在 `AndroidManifest
 ### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
 允许应用打开网络连接访问互联网. 需要上网时需要此权限. 见 ([Android 官方文档-网络](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) 和 ([Android 官方文档-网络状态](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
-### android.permission.WRITE_EXTERNAL_STORAGE (Protection level: dangerous)
-允许应用写入外部存储器. 从 API level 19 开始, 读写 Context.getExternalFilesDir(String) 和 Context.getExternalCacheDir() 返回的应用目录不需要此权限. 需要 (使用 io.* 或 sys.save/load) 读写 [sys.get_save_file()](/ref/sys/#sys.get_save_file:application_id-file_name) 之外的目录文件以及 Android manifest 里设置 `android:minSdkVersion` 小于 19 时需要此权限. ([[Android 官方文档-外存写入](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
-
 ### android.permission.WAKE_LOCK (Protection level: normal)
 允许应用阻止屏幕息屏和调光. 接收通知保持亮屏时需要此权限. ([[Android 官方文档-亮屏锁定](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
 
 ## 使用 AndroidX
-AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以在 Defold Manifest 文件里勾選 "Use Android Support lib" 選項.
+AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以创建新的 app manifest 文件或在 Defold Manifest 文件里勾選 "Use Android Support lib" 選項.
 
 ![](images/android/enable_supportlibrary.png)
 
