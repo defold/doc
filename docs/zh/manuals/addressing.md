@@ -137,27 +137,27 @@ Defold 提供两种简化写法用来简化消息传递时需要输入的完整�
 
 ## 绝对地址
 
-定位的时候完全可以使用绝对地址. 多数情况下相对地址有助于代码重用, 但是有些情况下还得使用绝对地址定位.
+定位的时候完全可以使用上述完整的标记. 多数情况下相对地址有助于代码重用, 但是有些情况下还得使用绝对地址定位.
 
 比如, 你需要一个 AI 管理器管理每个豆子先生. 豆子先生要向管理器报告自身的激活状态, 管理器根据它们的状态决定它们的排序. 这就需要创建一个带脚本的管理器对象然后把它放在引导启动集合的根目录下.
 
 ![manager object](images/addressing/manager_editor.png)
 
-Each bean is then responsible for sending status messages to the manager: "contact" if it spots an enemy or "ouch!" if it is hit and takes damage. For this to work, the bean controller scrips use absolute addressing to send messages to the component "controller" in "manager".
+然后每个豆子先生负责向管理器发送状态消息: "contact" 表明碰到了敌人, 或者 "ouch!" 表明受到了袭击. 为了这项工作, 豆子控制器脚本使用相对地址向 "manager" 里的 "controller" 组件发送消息.
 
-Any address that starts with a '/' will be resolved from the root of the game world. This corresponds to the root of the *bootstrap collection* that is loaded on game start.
+任何以 '/' 开头的地址都从游戏世界的根上进行索引. 这对应了游戏启动时载入的 *bootstrap collection* 的根.
 
-The absolute address of the manager script is `"/manager#controller"` and this absolute address will resolve to the right component no matter where it is used.
+控制器脚本的绝对地址是`"/manager#controller"` 而且不管组件用在哪里该绝对地址总能定位到该组件.
 
 ![teams and manager](images/addressing/teams_manager.png)
 
 ![absolute addressing](images/addressing/absolute.png)
 
-## Hashed identifiers
+## 哈希标记
 
-The engine stores all identifiers as hashed values. All functions that take as argument a component or a game object accepts a string, hash or an URL object. We have seen how to use strings for addressing above.
+引擎把每个标记都存为哈希值. 所有以组件或游戏对象为参数的方法可以接受字符串, 哈希或者 URL 对象. 我们已经在上面看到如何使用字符串进行定位了.
 
-When you get the identifier of a game object, the engine will always return an absolute path identifier that is hashed:
+当你获取游戏对象的标记, 引擎总是返回一个绝对路径标记的哈希值:
 
 ```lua
 local my_id = go.get_id()
@@ -167,10 +167,10 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-You can use such an identifier in place of a string id, or construct one yourself. Note though that a hashed id corresponds to the path to the object, i.e. an absolute address:
+你可以用该标记代替字符串 id, 或者自己写一个. 注意虽然哈希化 id 对应了对象的路径, 比如绝对地址:
 
 ::: sidenote
-The reason relative addresses must be given as strings is because the engine will compute a new hash id based on the hash state of the current naming context (collection) with the given string added to the hash.
+相对地址必须作为字符串使用因为引擎会基于当前命名上下文(集合)的哈希状态, 把字符串添加到哈希后面, 计算出新的哈希id.
 :::
 
 ```lua
@@ -188,30 +188,30 @@ go.set_position(pos, relative_id)
 
 ## URLs
 
-To complete the picture, let's look at the full format of Defold addresses: the URL.
+最后我们来看 Defold 定位的完全体: URL.
 
-An URL is an object, usually written as specially formatted strings. A generic URL consists of three parts:
+URL 是一个对象, 通常用特定格式的字符串表示. 一般一个 URL 包含三个部分:
 
 `[socket:][path][#fragment]`
 
 socket
-: Identifies the game world of the target. This is important when working with [Collection Proxies](/manuals/collection-proxy) and is then used to identify the _dynamically loaded collection_.
+: 代表目标的游戏世界. 使用 [集合代理](/manuals/collection-proxy) 时, 它用来表示 _动态加载的集合_.
 
 path
-: This part of the URL contains the full id of the target game object.
+: 该部分包含目标游戏对象的完整 id.
 
 fragment
-: The identity of the target component within the specified game object.
+: 标志了指定游戏对象内的目标组件.
 
-As we have seen above, you can leave out some, or most of this information in the majority of cases. You almost never need to specify the socket, and you often, but not always, have to specify the path. In those cases when you do need to address things in another game world then you need to specify the socket part of the URL. For instance, the full URL string for the "controller" script in the "manager" game object above is:
+上面已经看到, 你可以省略一些, 或者大多数情况下省略许多部分. 几乎可以不用到 socket, 经常, 不是所有情况下, 需要指定路径. 需要定位其他游戏世界里的东西的情况下需要指定 URL 的 socket 部分. 例如,  上述 "manager" 游戏对象里的 "controller" 脚本的完整 URL 字符串为:
 
 `"main:/manager#controller"`
 
-and the buddy controller in team_2 is:
+然后 team_2 里的 buddy 控制器为:
 
 `"main:/team_2/buddy#controller"`
 
-We can send messages to them:
+我们可以向它们发送消息:
 
 ```lua
 -- Send "hello" to the manager script and team buddy bean
@@ -219,9 +219,9 @@ msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
 
-## Constructing URL objects
+## 构建 URL 对象
 
-URL objects can also be constructed programmatically in Lua code:
+URL 对象也可以使用 Lua 代码构建:
 
 ```lua
 -- Construct URL object from a string:

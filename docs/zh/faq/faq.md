@@ -70,13 +70,14 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 
 #### 问: Defold 能输出哪些平台的游戏?
 
-答: 可以一键发布 任天堂 Switch, iOS, Android 和 HTML5 游戏, 外加 macOS, Windows 和 Linux 游戏. 真正的一套代码平台通用.
+答: 可以一键发布到 PS4™, 任天堂 Switch, iOS, Android 和 HTML5 游戏, 外加 macOS, Windows 和 Linux 游戏. 真正的一套代码平台通用.
 
 
 #### 问: Defold 基于何种渲染引擎?
 
-A: Defold 在 HTML5 中使用 WebGL, iOS 和 macOS 中使用 Metal, 其他平臺中使用 Vulkan 或者 OpenGL ES 2.0. 作爲開發者只需要關心可編程渲染管綫所支持的一種渲染 API 即可.
+A: 作爲開發者只需要關心可編程渲染管綫所支持的一種渲染 API [完全可程式化渲染管线](/manuals/render/). Defold 渲染脚本 API 会把渲染操作转换为如下图形 API:
 
+:[图形 API](../shared/graphics-api.md)
 
 #### 问: 如何获取 Defold 版本信息?
 
@@ -137,10 +138,10 @@ A: Defold 在 HTML5 中使用 WebGL, iOS 和 macOS 中使用 Metal, 其他平臺
 
 ## Defold 报错
 
-
 #### 问: 游戏无法启动也没有报错. 怎么办?
 
 答: 如果二次编译不通过很肯能由你最后做的改动导致. 从菜单栏选择 *Project > Rebuild And Launch* 试试.
+
 
 
 ## 游戏内容相关
@@ -174,7 +175,7 @@ A: 精灵默认着色程序包含 "tint" 属性:
   local green = 0.3
   local blue = 0.55
   local alpha = 1
-  sprite.set_constant("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
+  go.set("#sprite", "tint", vmath.vector4(red, green, blue, alpha))
   ```
 
 
