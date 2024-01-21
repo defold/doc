@@ -49,6 +49,10 @@ Defold 几经测试鲜有崩溃情况出现. 但是崩溃这种事谁能保证�
 
 可以使用 [崩溃模块](https://www.defold.com/ref/crash/) 帮助分析这个文件. 推荐你阅读, 收集信息, 打印信息到控制台, 然后把信息发送到 [第三方分析服务](/tags/stars/analytics/) 上去.
 
+::: important
+在 Windows 上还有个 `_crash.dmp` 文件被创建. 这个文件在调试崩溃时很有用.
+:::
+
 ### 从设备上获取崩溃日志
 
 手机上的崩溃日志可以下载到本地以便查看.
@@ -82,7 +86,7 @@ $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/
 * HTML5 - 在 `build/js-web` 或 `build/wasm-web` 下的 `dmengine.js.symbols` 中包含有 HTML5 编译用 debug symbols.
 
 
-::: sidenote
+::: important
 对于游戏的每个发布版本一定要保留一套对应的调试数据. 不然的话原生扩展上线以后出错误就没法调试! 为了方便查看调用堆栈, 也要保存好对应的游戏引擎.
 :::
 

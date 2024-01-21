@@ -87,6 +87,13 @@ Step Out
 
   设置/清除断点, 可以在代码编辑器里行号右边右键点击. 还可以从菜单中选择 <kbd>Edit ▸ Toggle Breakpoint</kbd>.
 
+设置条件断点
+: 可以设置需要计算条件为真才触发的断点. 条件可以读取随着代码执行当前行的本地变量.
+
+  ![edit breakpoint](images/debugging/edit_breakpoint.png){srcset="images/debugging/edit_breakpoint@2x.png 2x"}
+
+  要编辑断电条件, 右键点击代码编辑器行号的右边的列, 或者从菜单栏点选 <kbd>Edit ▸ Edit Breakpoint</kbd>.
+
 执行Lua表达式
 : 调试器停在断点上时, 可以直接使用包含有当前上下文的 Lua 运行时. 在控制台底部输入表达式后按 <kbd>回车键</kbd> 来运行:
 

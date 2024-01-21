@@ -7,6 +7,7 @@ brief: 本教程介绍了在使用 Android Studio 调试游戏的方法.
 
 下面介绍了如何使用 [Android Studio](https://developer.android.com/studio/), 即 Google 的 Android 操作系统的官方 IDE, 来调试游戏的方法.
 
+
 ## Android Studio
 
 * 在 *game.project* 中设置 `android.debuggable`
@@ -45,7 +46,7 @@ brief: 本教程介绍了在使用 Android Studio 调试游戏的方法.
 
 * 注意一定要获取与你所用版本完全一致的引擎版本
 
-		defold$ git checkout 1.2.148
+	defold$ git checkout 1.2.148
 
 * 点击 `Apply changes`
 

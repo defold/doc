@@ -87,7 +87,7 @@ Defold 组件属性各不相同.在 [Outline 面板](/manuals/editor/#Outline �
 
 例如: 两个游戏对象 A 和 B. B 是 A 的子集. B 有一个sprite组件.
 
-| 元素     | z值      |
+| 元素      | z值     |
 |----------|---------|
 | A        | 2       |
 | B        | 1       |
@@ -103,3 +103,5 @@ Defold 组件属性各不相同.在 [Outline 面板](/manuals/editor/#Outline �
 渲染脚本为 z 值定义了极近端和极远端平面. z值在此范围之外的组件不会被渲染. 默认范围是 -1 到 1 但是 [可以任意修改](/manuals/render/#默认视口映射).
 Z 值得极近与极远坐标范围是 -1 到 1 的话, 需要很高的数值精度. 在处理 3D 资源时, 可能需要在你的自定义渲染脚本中修改极近和极远的坐标范围. 详情请见 [渲染教程](/manuals/render/).
 :::
+
+:[组件最大数配置](../shared/component-max-count-optimizations.md)
