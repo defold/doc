@@ -52,9 +52,9 @@ Console
 
 ## Running the game
 
-The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build and Launch</kbd> to build the project and launch the game.
+The "Empty" project template actually is completely empty. Nonetheless, select <kbd>Project ▸ Build</kbd> to build the project and launch the game.
 
-![Build and launch](images/car/start_build_and_launch.png)
+![Build](images/car/start_build_and_launch.png)
 
 A black screen is perhaps not very exciting, but it's a running Defold game application and we can easily modify it into something more interesting. So let's do that.
 
@@ -299,7 +299,7 @@ function update(self, dt)
 	...
   -- Calculate new velocity based on current acceleration
 	self.velocity = self.velocity + self.acceleration * dt
-  ...
+	...
 end
 ```
 
@@ -310,11 +310,11 @@ function update(self, dt)
 	local speed = vmath.length_sqr(self.velocity)
 
 	-- Apply drag
-	self.acceleration = self.acceleration - speed * self.direction * drag
+	self.acceleration = self.acceleration - speed * self.velocity * drag
 
 	-- Stop if we are already slow enough
 	if speed < 0.5 then self.velocity = vmath.vector3(0) end
-  ...
+	...
 end
 ```
 

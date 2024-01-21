@@ -53,16 +53,15 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 
 答: 下表列出了编辑器工具与游戏引擎运行环境的支持情况:
 
-  | 系统                        | 支持                  |
-  | -------------------------- | -------------------- |
-  | macOS 11 Big Sur           | 编辑器                |
-  | macOS 10.13 High Sierra    | 游戏引擎               |
-  | Windows Vista              | 编辑器与游戏引擎        |
-  | Ubuntu 18.04 (64 bit)(1)   | 编辑器                |
-  | Linux (64 bit)(2)          | 游戏引擎              |
-  | iOS 11.0                   | 游戏引擎              |
-  | Android 4.4 (API level 19) | 游戏引擎              |
-  | HTML5                      | 游戏引擎              |
+  | System             | Version            | Architectures  | Supported            |
+  | ------------------ | ------------------ | -------------- | -------------------- |
+  | macOS              | 11 Big Sur         | x86-64, arm-64 | Editor and Engine    |
+  | Windows            | Vista              | x86-32, x86-64 | Editor and Engine    |
+  | Ubuntu (1)         | 18.04              | x86-64         | Editor               |
+  | Linux (2)          | Any                | x86-64         | Engine               |
+  | iOS                | 11.0               | arm-64         | Engine               |
+  | Android            | 4.4 (API level 19) | arm-32, arm-64 | Engine               |
+  | HTML5              |                    | asm.js, wasm   | Engine               |
 
   (1 编辑器在 64-bit Ubuntu 18.04 平台上通过编译和测试. 其他版本应该同样可以运行但是未经过测试.)
 

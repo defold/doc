@@ -17,10 +17,16 @@
             "name": "Español (Spanish)",
             "active": true
         },
+        "fr":
+        {
+            "name": "Français (French)",
+            "translation": "Translation by Gregory S",
+            "active": true
+        },
         "gr":
         {
             "name": "Νεοελληνική γλώσσα (Greek)",
-            "translation": "Gkikas Elpidoforos",
+            "translation": "Translation by Gkikas Elpidoforos",
             "active": true
         },
         "ko":
@@ -44,7 +50,12 @@
         "ru":
         {
             "name": "Русский (Russian)",
-            "translation": "Demetrij87G",
+            "translation": "Translation by Demetrij87G",
+            "active": true
+        },
+        "uk":
+        {
+            "name": "Українська (Ukranian)",
             "active": true
         }
     }

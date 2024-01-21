@@ -137,7 +137,7 @@ table.insert(self.spawned_coins, id)
 And then later:
 
 ```lua
--- coin.script
+-- spawner.script
 -- Delete all spawned coins.
 for _, coin_id in ipairs(self.spawned_coins) do
     go.delete(coin_id)

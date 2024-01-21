@@ -2,9 +2,9 @@
 title: Level complete code sample
 brief: In this sample, you learn effects to show the score counting that could occur when a level has been completed.
 ---
-# Level complete
+# Level complete - sample project
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/t9I9gqbmyj8" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tSdTSvku1o8" frameborder="0" allowfullscreen></iframe>
 
 In this sample, we demonstrate effects to show the score counting that could occur when a level has been completed. A total score is counted up and three stars appears when different levels have been reached. The sample also uses the reload functionality for fast turn-around when tweaking values.
 

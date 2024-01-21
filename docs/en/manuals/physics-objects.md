@@ -110,4 +110,4 @@ A physics object has a number of different properties that can be read and chang
 : The current linear velocity of the collision object component (`vector3`). [API reference](/ref/physics/#linear_velocity).
 
 `mass`
-: The defined physical mass of the collision object component (`number`). [API reference](/ref/physics/#mass).
+: The defined physical mass of the collision object component. READ ONLY. (`number`). [API reference](/ref/physics/#mass).

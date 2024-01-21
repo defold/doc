@@ -9,13 +9,13 @@ Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
 
 Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
 
-Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 您需要安装 OpenJDK 11.
+Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 您需要安装 OpenJDK 17.
 
-下载 OpenJDK 11 的地址:
-* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
-* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
+下载 OpenJDK 17 的地址:
+* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17
+* https://github.com/adoptium/temurin17-binaries/releases / https://adoptium.net/
 
-比如在 Windows 平台上, 需要下载 OpenJDK 11 的 .msi 安装包.
+比如在 Windows 平台上, 需要下载 OpenJDK 17 的 .msi 安装包.
 
 ## 用法
 
@@ -49,7 +49,8 @@ usage: bob [options] [commands]
     --defoldsdk <arg>                   指定 defold sdk (sha1) 使用版本
 -e,--email <arg>                        用户电邮
 -ea,--exclude-archive                   要从打包中排除的资源档案. 以此创建空应用用作编译目标
-    --exclude-build-folder              逗号分割的排除目錄列表
+    --exclude-build-folder              DEPRECATED from Defold 1.5.1! Use
+                                        '.defignore' file instead
 -h,--help                               该命令的帮助文档
 -i,--input <arg>                        指定源目录, 默认是当前目录
     --identity <arg>                    指定签名 (iOS)
@@ -81,7 +82,8 @@ usage: bob [options] [commands]
 -tc,--texture-compression <arg>         使用纹理档案中指定的纹理压缩
 -tp,--texture-profiles <arg>            已弃用! 使用 --texture-compression 代替
 -u,--auth <arg>                         用户认证令牌
-   --use-async-build-server             为编译服务器启用异步编译处理 (使用原生扩展时)
+   --use-async-build-server             DEPRECATED! Asynchronous build
+                                         is now the default.
    --use-lua-bytecode-delta             为多平台编译时使用字节码 delta 压缩
    --use-uncompressed-lua-source        使用未压缩未加密的明文Lua源代码代替二进制文件
    --use-vanilla-lua                    已弃用! 使用 --use-uncompressed-lua-source 代替
@@ -115,6 +117,9 @@ usage: bob [options] [commands]
 `x86_64-darwin` (Defold 1.3.5 及更老版本)
 `x86_64-macos` (Defold 1.3.6 及更新版本)
 : macOS 64 bit
+
+`arm64-macos` (Defold 1.5.0 and older)
+: macOS Apple Silicon (ARM)
 
 `x86_64-win32`
 : Windows 64 bit

@@ -29,6 +29,7 @@ brief: This manual shows the current keyboard shortcuts and how to customize the
 | Delete to end of line | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Delete</kbd> | <kbd>Cmd</kbd>+<kbd>Delete</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Delete</kbd> |
 | Documentation | <kbd>F1</kbd> | <kbd>F1</kbd> | <kbd>F1</kbd> |
 | Down | <kbd>Down</kbd> | <kbd>Down</kbd> | <kbd>Down</kbd> |
+| Edit breakpoint | <kbd>Alt</kbd>+<kbd>F9</kbd> | <kbd>Alt</kbd>+<kbd>F9</kbd> | <kbd>Alt</kbd>+<kbd>F9</kbd> |
 | End of file | <kbd>Ctrl</kbd>+<kbd>End</kbd> | <kbd>Cmd</kbd>+<kbd>Down</kbd> | <kbd>Ctrl</kbd>+<kbd>End</kbd> |
 | End of line | <kbd>End</kbd> | <kbd>Ctrl</kbd>+<kbd>E</kbd> | <kbd>End</kbd> |
 | Enter | <kbd>Enter</kbd> | <kbd>Enter</kbd> | <kbd>Enter</kbd> |
@@ -36,8 +37,10 @@ brief: This manual shows the current keyboard shortcuts and how to customize the
 | Escape | <kbd>Esc</kbd> | <kbd>Esc</kbd> | <kbd>Esc</kbd> |
 | Find next | <kbd>Ctrl</kbd>+<kbd>G</kbd>, <kbd>Enter</kbd> | <kbd>Cmd</kbd>+<kbd>G</kbd>, <kbd>Enter</kbd> | <kbd>Ctrl</kbd>+<kbd>G</kbd>, <kbd>Enter</kbd> |
 | Find prev | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>G</kbd>, <kbd>Shift</kbd>+<kbd>Enter</kbd> | <kbd>Shift</kbd>+<kbd>Cmd</kbd>+<kbd>G</kbd>, <kbd>Shift</kbd>+<kbd>Enter</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>G</kbd>, <kbd>Shift</kbd>+<kbd>Enter</kbd> |
+| Find references | <kbd>Shift</kbd>+<kbd>F12</kbd> | <kbd>Shift</kbd>+<kbd>F12</kbd> | <kbd>Shift</kbd>+<kbd>F12</kbd> |
 | Find text | <kbd>Ctrl</kbd>+<kbd>F</kbd> | <kbd>Cmd</kbd>+<kbd>F</kbd> | <kbd>Ctrl</kbd>+<kbd>F</kbd> |
 | Frame selection | <kbd>F</kbd> | <kbd>F</kbd> | <kbd>F</kbd> |
+| Goto definition | <kbd>F12</kbd> | <kbd>F12</kbd> | <kbd>F12</kbd> |
 | Goto line | <kbd>Ctrl</kbd>+<kbd>L</kbd> | <kbd>Cmd</kbd>+<kbd>L</kbd> | <kbd>Ctrl</kbd>+<kbd>L</kbd> |
 | Hide selected | <kbd>Ctrl</kbd>+<kbd>E</kbd> | <kbd>Cmd</kbd>+<kbd>E</kbd> | <kbd>Ctrl</kbd>+<kbd>E</kbd> |
 | Hot reload | <kbd>Ctrl</kbd>+<kbd>R</kbd> | <kbd>Cmd</kbd>+<kbd>R</kbd> | <kbd>Ctrl</kbd>+<kbd>R</kbd> |

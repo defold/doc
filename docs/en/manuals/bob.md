@@ -9,13 +9,17 @@ Bob is a command line tool for building Defold projects outside of the normal ed
 
 Bob is able to build data (corresponding to the build step of selecting the editor menu item <kbd>Project ▸ Build</kbd>), create data archives and create standalone, distributable application bundles (corresponding to the editor menu item <kbd>Project ▸ Bundle ▸ ...</kbd> options)
 
-Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. To run the Bob tool, you need OpenJDK 11 installed on your computer. 
+Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. If you are using Defold 1.4.8, you will need OpenJDK 17 to run it. For older versions of Defold, you will need openJDK 11.
 
-Compatible OpenJDK 11 mirrors:
+Compatible OpenJDK 17 mirrors (from Defold 1.4.8):
+* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17
+* https://github.com/adoptium/temurin17-binaries/releases / https://adoptium.net/
+
+Compatible OpenJDK 11 mirrors (up to Defold 1.4.7):
 * https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
 * https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
 
-If you are on Windows you want the .msi file installer for OpenJDK 11.
+If you are on Windows you want the .msi file installer for OpenJDK.
 
 ## Usage
 
@@ -66,8 +70,8 @@ usage: bob [options] [commands]
                                          create an empty Defold
                                          application for use as a build
                                          target
-    --exclude-build-folder <arg>         Comma separated list of folders
-                                         to exclude from the build
+    --exclude-build-folder <arg>         DEPRECATED from Defold 1.5.1! Use
+                                         '.defignore' file instead
  -h,--help                               This help message
  -i,--input <arg>                        Source directory. Default is
                                          current directory
@@ -119,9 +123,8 @@ usage: bob [options] [commands]
  -tp,--texture-profiles <arg>            DEPRECATED! Use
                                          --texture-compression instead
  -u,--auth <arg>                         User auth token
-    --use-async-build-server             Use an async build process for
-                                         the build server (when using
-                                         native extensions)
+    --use-async-build-server             DEPRECATED! Asynchronous build
+                                         is now the default.
     --use-lua-bytecode-delta             Use byte code delta compression
                                          when building for multiple
                                          architectures
@@ -163,6 +166,9 @@ Available platforms and architectures:
 `x86_64-darwin` (Defold 1.3.5 and older)
 `x86_64-macos` (Defold 1.3.6 and newer)
 : macOS 64 bit
+
+`arm64-macos` (Defold 1.5.0 and older)
+: macOS Apple Silicon (ARM)
 
 `x86_64-win32`
 : Windows 64 bit

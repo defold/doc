@@ -220,7 +220,7 @@ function init(self)
     go.set_scale(0.18)        -- render scaled down
 
     if self.color ~= nil then
-        msg.post("#sprite", "play_animation", { id = self.color })
+        sprite.play_flipbook("#sprite", self.color)
     else
         msg.post("#sprite", "disable")
     end
@@ -280,9 +280,9 @@ The messages `make_orange` and `make_green` are only temporary to get visual fee
 -- block.script
 function on_message(self, message_id, message, sender)
     if message_id == hash("make_orange") then
-        msg.post("#sprite", "play_animation", { id = hash("orange") })
+        sprite.play_flipbook("#sprite", hash("orange"))
     elseif message_id == hash("make_green") then
-        msg.post("#sprite", "play_animation", { id = hash("green") })
+        sprite.play_flipbook("#sprite", hash("green"))
     end
 end
 ```
@@ -560,7 +560,7 @@ function init(self)
     msg.post("#cover", "disable")
 
     if self.color ~= nil then
-        msg.post("#sprite", "play_animation", { id = self.color })
+        sprite.play_flipbook("#sprite", self.color)
     else
         msg.post("#sprite", "disable")
     end
@@ -581,13 +581,13 @@ function on_message(self, message_id, message, sender)
         self.color = hash("magic")
         msg.post("#cover", "enable")
         msg.post("#sprite", "enable")
-        msg.post("#sprite", "play_animation", { id = hash("magic-sphere_layer1") })
+        sprite.play_flipbook("#sprite", hash("magic-sphere_layer1"))
 
         self.fx1 = factory.create("#fxfactory", p, nil, { direction = hash("left") })
         self.fx2 = factory.create("#fxfactory", p, nil, { direction = hash("right") })
 
-        msg.post(self.fx1, "set_parent", { parent_id = go.get_id() })
-        msg.post(self.fx2, "set_parent", { parent_id = go.get_id() })
+        go.set_parent(self.fx1, go.get_id())
+        go.set_parent(self.fx2, go.get_id())
 
         go.set(self.fx1, "position.z", 0.01)
         go.set(self.fx1, "scale", 1)

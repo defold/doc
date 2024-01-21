@@ -47,11 +47,21 @@ You have several options when it comes to optimizing the graphics used by your g
   * iPhone 4s, 5, 6+, 6s: 4096x4096
 * Max texture size on Android varies greatly but in general all reasonably new devices support 4096x4096.
 
-If an atlas is too large you need to either split it into several smaller atlases or scale the entire atlas using a texture profile. The texture profile system in Defold allows you to not only scale entire atlases but also to apply compression algorithms to reduce the size of the atlas on disk. You can [read more about texture profiles in the manual](/manuals/texture-profiles/).
+If an atlas is too large you need to either split it into several smaller atlases or scale the entire atlas using a texture profile. The texture profile system in Defold allows you to not only scale entire atlases but also to apply compression algorithms to reduce the size of the atlas on disk. You can [read more about texture profiles in the manual](/manuals/texture-profiles/). If you don’t know what to use, try to start with these settings as a starting point for further customizations:
+
+* mipmaps: false
+* premultiply_alpha: true
+* format: TEXTURE_FORMAT_RGBA
+* compression_level: NORMAL
+* compression_type: COMPRESSION_TYPE_BASIS_UASTC
 
 ::: sidenote
 You can read more about how to optimize and manage textures in [this forum post](https://forum.defold.com/t/texture-management-in-defold/8921).
 :::
+
+### Optimize fonts
+The size of your fonts will be smaller if you specify what symbols you are going to use and set this in [Extra Characters](/manuals/font/#properties) instead of using the All Chars checkbox.
+
 
 ### Exclude content for download on demand
 Another way of reducing initial application size is to exclude parts of the game content from the application bundle and make this content downloadable on demand. Excluded content can be anything from entire levels to unlockable characters, skins, weapons or vehicles. Defold provides a system called Live Update for excluding content for download on demand. Learn more in the [Live Update manual](/manuals/live-update/).
@@ -151,6 +161,13 @@ This section is not yet finished. Topics that will be covered:
 * [Dynamic loading of collections](https://www.defold.com/manuals/collection-proxy/)
 * [Dynamic loading of factories](https://www.defold.com/manuals/collection-factory/#dynamic-loading-of-factory-resources)
 * [Profiling](/manuals/profiling/)
+
+
+### Tweak component counters
+Check counters for components in `game.project`. Use the [profiler](/manuals/profiling/) to get accurate component and resource usage and configure your game to use max values that are closer to the real count of components and resources. This will reduce the amount of memory your game is using (refer to information about component [max count optimizations](/manuals/project-settings/#component-max-count-optimizations)).
+
+### Heap size (HTML5 only)
+Make sure you set a minimal heap size for your game. Launch your game and play the game in the most "resource heavy" level or section. Open the developer tools of your browser and write `HEAP8.length / 1024 / 1024` in the console. Take this number add 10-15% and set it as your [Heap Size](/manuals/project-settings/#heap-size) in `game.project`.
 
 
 ## Optimize battery usage

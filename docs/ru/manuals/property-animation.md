@@ -154,7 +154,7 @@ gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 К примеру, данный вектор:
 
 ```lua
-local values = { 0, 0.4, 0.2, 0.2, 0.5. 1 }
+local values = { 0, 0.4, 0.2, 0.2, 0.5, 1 }
 local my_easing = vmath.vector(values)
 ```
 

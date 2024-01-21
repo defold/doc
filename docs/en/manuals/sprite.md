@@ -72,6 +72,18 @@ A sprite also has a number of different properties that can be manipulated using
 `tint`
 : The color tint of the sprite (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
 
+## Material attributes
+
+A sprite can override vertex attributes from the currently assigned material and will be passed into the vertex shader from the component (refer to the [Material manual for more details](/manuals/material/#attributes)).
+
+The attributes specified in the material will show up as regular properties in the inspector and can be set on individual sprite components. If any of the attributes are overridden, it will show up as an overridden property and stored in the sprite file on disk:
+
+![sprite-attributes](../images/graphics/sprite-attributes.png)
+
+::: sidenote
+Custom attributes are available starting from Defold 1.4.8!
+:::
+
 ## Project configuration
 
 The *game.project* file has a few [project settings](/manuals/project-settings#sprite) related to sprites.

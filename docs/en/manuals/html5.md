@@ -44,11 +44,17 @@ If you see a "wasm streaming compile failed: TypeError: Failed to execute ‘com
 
 ## Creating HTML5 bundle
 
-Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd> from the menu:
+Creating HTML5 content with Defold is simple and follows the same pattern as all other supported platforms: select <kbd>Project ▸ Bundle... ▸ HTML5 Application...</kbd> from the menu:
 
-![Application files](images/html5/html5_bundle.png)
+![Create HTML5 bundle](images/html5/html5_bundle.png)
 
-You will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.
+You can chose to include both an `asm.js` and a WebAssembly (wasm) version of the Defold engine in HTML5 bundle. In most cases it is enough to chose WebAssembly since [all modern browsers support WebAssembly](https://caniuse.com/wasm).
+
+::: important
+Even if you include both `asm.js` and `wasm` versions of the engine only one of them will be downloaded by the browser when launching the game. The WebAssembly version will be downloaded if the browser supports WebAssembly and the asm.js version will be used as a fallback in the rare case that WebAssembly is not supported.
+:::
+
+When you click on the <kbd>Create bundle</kbd> button you will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.
 
 ## Known issues and limitations
 
@@ -179,14 +185,13 @@ DEFOLD_ENGINE_ARGUMENTS
 
 ## Extra parameters
 
-If you create your custom template, you can specify extra parameters for the engine loader:
+If you create your custom template, you can specify extra parameters for the engine loader.
+
+`Module.runApp("canvas", extra_params)` - Starts the application given a canvas element id and the `extra_params` object.
+
+Object `extra_params` is an optional object that can have the following fields:
+
 ```
-`Module.runApp("canvas", extra_params) - Starts the
-    application given a canvas element id
-
-'extra_params' is an optional object that can have the
-    following fields:
-
 'archive_location_filter':
     Filter function that will run for each archive path.
 
@@ -206,7 +211,7 @@ If you create your custom template, you can specify extra parameters for the eng
     Disables the right-click context menu on the canvas element if true.
 
 'retry_time':
-    Pause before retry file loading after error.
+    Pause in seconds before retry file loading after error.
 
 'retry_count':
     How many attempts we do when trying to download a file.

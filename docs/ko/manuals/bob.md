@@ -58,8 +58,8 @@ usage: bob [options] [commands]
                                          create an empty Defold
                                          application for use as a build
                                          target
-    --exclude-build-folder <arg>         Comma separated list of folders
-                                         to exclude from the build
+    --exclude-build-folder <arg>         DEPRECATED from Defold 1.5.1! Use
+                                         '.defignore' file instead
  -h,--help                               This help message
  -i,--input <arg>                        Source directory. Default is
                                          current directory
@@ -111,9 +111,8 @@ usage: bob [options] [commands]
  -tp,--texture-profiles <arg>            DEPRECATED! Use
                                          --texture-compression instead
  -u,--auth <arg>                         User auth token
-    --use-async-build-server             Use an async build process for
-                                         the build server (when using
-                                         native extensions)
+    --use-async-build-server             DEPRECATED! Asynchronous build
+                                         is now the default.
     --use-lua-bytecode-delta             Use byte code delta compression
                                          when building for multiple
                                          architectures
@@ -152,6 +151,8 @@ usage: bob [options] [commands]
 macOS
 #### x86_64-macos
 macOS 64 bit
+#### arm64-macos
+macOS Apple Silicon (ARM)
 #### x86-win32
 Windows
 #### x86-linux

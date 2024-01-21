@@ -172,6 +172,22 @@ end
 This is cleaner and easier to follow. We get rid of internal state variables that are often hard to follow through the logic---and which might lead to subtle bugs. We also dispose of the `update()` function completely. That relieves the engine from calling our script 60 times a second, even if it's just idling.
 
 
+## Preprocessing
+
+It is possible to use a Lua preprocessor and special markup to conditionally include code based on the build variant. Example:
+
+```lua
+-- Use one of the following keywords: RELEASE, DEBUG or HEADLESS
+--#IF DEBUG
+local lives_num = 999
+--#ELSE 
+local lives_num = 3
+--#ENDIF
+```
+
+The preprocessor is available as a build extension. Learn more about how to install and use it on the [extension page on GitHub](https://github.com/defold/extension-lua-preprocessor).
+
+
 ## Editor support
 
 The Defold editor supports Lua script editing with syntax coloring and auto-completion. To fill out Defold function names, press *Ctrl+Space* to bring up a list of the functions matching what you are typing.

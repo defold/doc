@@ -19,26 +19,12 @@ When you have been approved by Nintendo you will get access to the Tools and Mid
 
 ## Nintendo Switch access in Defold
 
-Once we have confirmed your status as an approved Nintendo Switch developer we offer two tiers of Nintendo Switch access in Defold:
+Once we have confirmed your status as an approved Nintendo Switch developer we will provide you with access to the following:
 
-1. Standard access - Nintendo Switch extension, build tools and support.
-2. Source code access - Nintendo Switch extension, build tools and support AND source code access to the Nintendo Switch specific parts of the Defold engine.
-
-
-### Standard access
-
-Access to versions of Defold with Nintendo Switch support is provided free of charge to all developers approved by Nintendo. As an approved developer we will provide you with access to:
-
-* Extension with Nintendo Switch specific API integrations.
-* [Command line tool](/manuals/bob) with support for bundling to the Nintendo Switch platform.
+* Source code access to the Nintendo Switch extension with console specific API integrations.
+* Source code access to the Nintendo Switch enabled version of the Defold game engine. Note that the source code access is not required to build games for Nintendo Switch, but we provide access in case you wish to make source contributions to the engine core.
+* [Command line tool](/manuals/bob) with support for bundling to the Nintendo Switch platform. Bundling from the Defold editor is not supported.
 * Forum where you are able to get Nintendo Switch specific support.
-
-
-### Source code access
-
-Source code access is only provided to approved developer with an [active monthly community donation](/community-donations/) for an amount which gives you source code access.
-
-![](images/nintendo-switch/register-defold.png)
 
 
 ## FAQ

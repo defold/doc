@@ -70,7 +70,7 @@ Comments in code snippets should not be translated
 
 
 #### Do NOT translate special markup
-The `::: sidenote` and `::: Important` markup should not be translate (although the content inside should of course still be translated):
+The `::: sidenote` and `::: important` markup should not be translate (although the content inside should of course still be translated):
 
 ```
 ::: sidenote
