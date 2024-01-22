@@ -21,4 +21,8 @@ brief: 本教程介绍了如何使用 GUI 方块节点.
 
 即使没有纹理设置, 方块节点也会被渲染, 或者不论把 alpha 设置成 `0`, 还是把 sized 设置成 `0, 0, 0`. 方块节点应该设置纹理以便渲染器合批而减少 draw call.
 
+## 播放动画
+
+Box 节点可以由其图集或者瓷砖图源内容来播放动画. 详情请见 [逐帧动画教程](/manuals/flipbook-animation).
+
 :[Slice-9](../shared/slice-9-texturing.md)

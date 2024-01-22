@@ -34,11 +34,11 @@ Python 3:
 或者
 > python3 -m http.server
 
-::: sidenote
+::: important
 不能直接用浏览器打开 HTML5 游戏的 `index.html` 文件. 要通过服务器访问打开.
 :::
 
-::: sidenote
+::: important
 如果在控制台见到 "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." 错误, 请确保你的服务器设置了 `application/wasm` MIME 类型对应 .wasm 文件.
 :::
 

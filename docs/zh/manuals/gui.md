@@ -302,24 +302,24 @@ end
 父节点先于子节点进行绘制. 使用层可以改变这个顺序还可以优化性能 (见下文).
 
 
-## 层与 drawcall
+## 层与 draw call
 
-Layers 可以方便控制节点绘制顺序以及减少drawcall. 引擎绘制界面前, 会根据以下规则合批渲染:
+Layers 可以方便控制节点绘制顺序以及减少draw call. 引擎绘制界面前, 会根据以下规则合批渲染:
 
 - 节点类型相同.
 - 节点纹理源自同一张图集或瓷砖图源.
 - 节点的渲染模式相同.
 - 节点使用的字体相同.
 
-如果有一条不符合, 就会破坏合批产生另一个drawcall. 蒙版和被蒙节点必然会破坏合批产生drawcall.
+如果有一条不符合, 就会破坏合批产生另一个 draw call. 蒙版和被蒙节点必然会破坏合批产生draw call.
 
 树形结构对于节点管理非常方便. 但是不同类型节点的混合一定会打破合批渲染:
 
 ![Breaking batch hierarchy](images/gui/break_batch.png){srcset="images/gui/break_batch@2x.png 2x"}
 
-渲染管线被迫为不同类型的节点建立不同的渲染批次. 这三个按钮就会产生6次drawcall.
+渲染管线被迫为不同类型的节点建立不同的渲染批次. 这三个按钮就会产生6次 draw call.
 
-要是使用层, 就可以重塑节点的绘制顺序, 渲染管线就能更好地进行合批减少drawcall. 第一步新建层. 在 *Outline* 的 "Layers" 文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ Layer</kbd>. 在 *Properties* 视图中填充 *Name* 属性给层命名.
+要是使用层, 就可以重塑节点的绘制顺序, 渲染管线就能更好地进行合批减少 draw call. 第一步新建层. 在 *Outline* 的 "Layers" 文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ Layer</kbd>. 在 *Properties* 视图中填充 *Name* 属性给层命名.
 
 ![Layers](images/gui/layers.png){srcset="images/gui/layers@2x.png 2x"}
 
@@ -337,6 +337,6 @@ Layers 可以方便控制节点绘制顺序以及减少drawcall. 引擎绘制界
   5. "button-text-2"
   6. "button-text-3"
 
-这样一来合批就成形了, 不再需要那么多drawcall了!
+这样一来合批就成形了, 不再需要那么多 draw call 了!
 
 注意如果子节点没有设置分配层默认继承分配父节点所在的层. 没有设置分配层的节点会被归为 "null" 层, 这个层最先被绘制.
