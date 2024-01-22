@@ -36,6 +36,7 @@ Defold 提供如下函数用以存取文件/文件夹:
  基于安全考虑浏览器 (及浏览器里运行的 JavaScript 插件) 不允许访问本地文件. 虽然 HTML5 游戏也能运行, 但是只能用浏览器提供的 IndexedDB API 在 "虚拟文件系统" 中存取数据. 也就是说不允许使用 `io.*` 和 `os.*` 下的函数. 但是可以用 `http.request()` 请求在线资源文件.
  :::
 
+
 #### 用户资源与打包资源对比
 
 | 特点              | 用户资源                          | 打包资源                              |
@@ -49,6 +50,9 @@ Defold 提供如下函数用以存取文件/文件夹:
 ### 操作系统文件处理
 基于安全考虑操作系统所管理的文件存取被严格限制. 可以使用 [`extension-directiories`](https://defold.com/assets/extensiondirectories/) 原生扩展来存取某些地方的绝对路径 (例如 documents, resource, temp). 然后用 `sys.*`, `io.*` 和 `os.*` 函数处理文件/文件夹 (见上文).
 
+::: sidenote
+出于安全考虑浏览器 (连同浏览器里运行的 JavaScript 扩展程序) 不可访问系统文件. Defold 的 HTML5 文件存取程序依然工作, 但只是在浏览器以 IndexedDB API 提供的 "虚拟文件系统" 上. 这意味着 HTML5 应用不能真正存取系统文件.
+:::
 
 ## 相关原生扩展
 在 [资源中心](https://defold.com/assets/) 里有些原生扩展能简化文件存取的工作. 例如:
