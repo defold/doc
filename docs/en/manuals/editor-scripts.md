@@ -56,6 +56,7 @@ You can interact with the editor using `editor` package that defines this API:
     Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts. You can set resource properties to nil by supplying `""` value.
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error
 - `editor.can_set(node_id, property)` — check if `"set"` action with this property won't throw an error
+- `editor.create_directory(resource_path)` — create a directory if it does not exist, and all non-existent parent directories
 
 ## Commands
 

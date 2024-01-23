@@ -5,7 +5,7 @@ brief: Ta instrukcja prezentuje fizykę w Defoldzie.
 
 # Fizyka
 
-Defold zawiera zmodyfikowaną wersję silnika fizycznego [Box2D](http://www.box2d.org) (wersja 2.1) do symulacji fizyki 2D oraz silnik fizyczny Bullet (wersja 2.77) do fizyki 3D. Pozwala to na symulację oddziaływań fizyki klasycznej Newtona między różnymi rodzajami obiektów kolizji (_collision objects_). Ta instrukcja wyjaśnia, jak to działa.
+Defold zawiera zmodyfikowaną wersję silnika fizycznego [Box2D](http://www.box2d.org) (wersja 2.2.1) do symulacji fizyki 2D oraz silnik fizyczny Bullet (wersja 2.77) do fizyki 3D. Pozwala to na symulację oddziaływań fizyki klasycznej Newtona między różnymi rodzajami obiektów kolizji (_collision objects_). Ta instrukcja wyjaśnia, jak to działa.
 
 Główne koncepcje silników fizycznych używanych w Defoldzie to:
 

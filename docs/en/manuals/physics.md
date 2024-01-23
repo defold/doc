@@ -5,7 +5,7 @@ brief: Defold includes physics engines for 2D and 3D. They allow you to simulate
 
 # Physics
 
-Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine (version 2.1) for 2D physics simulations and the Bullet physics engine (version 2.77) for 3D physics. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
+Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine (version 2.2.1) for 2D physics simulations and the Bullet physics engine (version 2.77) for 3D physics. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
 
 The main concepts of the physics engines used in Defold are:
 
