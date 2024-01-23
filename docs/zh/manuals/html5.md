@@ -44,11 +44,17 @@ Python 3:
 
 ## HTML5游戏打包
 
-Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <kbd>Project ▸ Bundle...​ ▸ HTML5 Application...</kbd>:
+Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <kbd>Project ▸ Bundle... ▸ HTML5 Application...</kbd> :
 
-![Application files](images/html5/html5_bundle.png)
+![Create HTML5 bundle](images/html5/html5_bundle.png)
 
-会弹出提示框让你选择游戏存放位置. 打包结束后, 就可以看到输出的所有文件.
+可以选择让 HTML5 包含 `asm.js` 和一个 Defold 引擎 WebAssembly (wasm) 双版本. 多数情况下选择 WebAssembly 版就够了, 因为 [所有主流浏览器都支持 WebAssembly](https://caniuse.com/wasm).
+
+::: important
+即使包含了 `asm.js` 和 `wasm` 双版本, 浏览器加载游戏时也只是下载其中一个. 如果浏览器支持 WebAssembly 则优先下载 WebAssembly 版, 否则回撤下载 asm.js 版.
+:::
+
+当点选 <kbd>Create bundle</kbd> 按钮会弹出目录对话框让你选择应用的保存位置. 等输出工作完成, 你会获得应用所需的所有文件.
 
 ## 已知问题和局限性
 
@@ -59,7 +65,7 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
   * Full screen - 全屏模式在浏览器中不可靠.
 * Chrome
   * Slow debug builds - 为了在 HTML5 平台更好地调试我们开启了校验所有 WebGL 图像调用来检测错误. 但是这样做在 Chrome 上会运行缓慢. 可以把 *game.project* 里的 *Engine Arguments* 部分设置为 `–-verify-graphics-calls=false` 来关闭图像调用校验.
-* 游戏手柄支持 - 对于 HTML5 平台的游戏手柄支持与配置参见[这篇教程](/manuals/input-gamepads/#gamepads-in-html5).
+* 游戏手柄支持 - 对于 HTML5 平台的游戏手柄支持与配置[参见手柄教程](/manuals/input-gamepads/#gamepads-in-html5).
 
 ## 自定义HTML5打包
 
@@ -71,18 +77,18 @@ Defold 打包 HTML5 游戏很简单, 跟其他平台一样: 从菜单栏选择 <
 
 关于每个选项详情请见 [形目设置教程](/manuals/project-settings/#HTML5).
 
-::: sidenote
+::: important
 `builtins` 文件夹下的默认 html/css 模板文件是不能直接修改的. 要先从 `builtins` 里把文件拷贝出来然后再在 *game.project* 文件里指明要使用的文件的位置.
 :::
 
-::: sidenote
+::: important
 网页 canvas 不能有 border 或者 padding. 否则的话, 鼠标输入坐标会产生偏差.
 :::
 
 可以在 *game.project* 文件里禁用 `Fullscreen` 按钮以及 `Made with Defold` 链接.
 Defold 提供了 index.html 文件的亮暗两种风格. 默认亮风格但是可以在 `Custom CSS` 修改成暗风格. 在 `Scale Mode` 部分还预定义了四种缩放模式可供选择.
 
-::: sidenote
+::: important
 各种缩放模式计算时考虑了当前屏幕 DPI 以支持 *game.project* 里的 `High Dpi` 选项 (在 `Display` 部分)
 :::
 
@@ -180,11 +186,12 @@ DEFOLD_ENGINE_ARGUMENTS
 ## 额外参数
 
 要创建自定义模板, 可以为引擎加载提供额外参数:
+
+`Module.runApp("canvas", extra_params)` - 通过指定canvas启动游戏
+
+'extra_params' 可选的额外参数对象, 包含如下属性:
+
 ```
-`Module.runApp("canvas", extra_params) - 通过指定canvas启动游戏
-
-'extra_params' 可选的额外参数, 如下:
-
 'archive_location_filter':
     包地址过滤.
 
