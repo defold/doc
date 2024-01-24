@@ -155,6 +155,7 @@ Defold 提供两种简化写法用来简化消息传递时需要输入的完整�
 
 :[Shorthands](../shared/url-shorthands.md)
 
+
 ## 接收消息
 
 接收消息由 `on_message()` 函数完成. 函数接收4个参数:
