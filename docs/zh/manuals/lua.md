@@ -12,10 +12,28 @@ Defold 引擎嵌入了 Lua 语言用以编写脚本. Lua 是一种轻量级脚�
 ## Lua 版本
 我们力争让 Defold 在各个平台表现一致, 但是不同平台对于 Lua 版本使用略有不同. 对 HTML5 和 iOS 64 bit 平台我们使用 Lua 5.1 对其他平台我们使用 LuaJIT. LuaJIT 基于 5.1 还包含了一些特有功能.
 
-::: sidenote
+| Platform        | Lua version         | JIT Enabled |
+|-----------------|---------------------|-------------|
+| Windows         | LuaJIT 2.1.0-beta3  | Yes         |
+| macOS           | LuaJIT 2.1.0-beta3  | Yes         |
+| Linux           | LuaJIT 2.1.0-beta3  | Yes         |
+| Android         | LuaJIT 2.1.0-beta3  | Yes         |
+| iOS             | LuaJIT 2.1.0-beta3  | No*         |
+| Nintendo Switch | LuaJIT 2.1.0-beta3  | No*         |
+| HTML5           | Lua 5.1.4           | N/A         |
+
+*=JIT compiled code is not allowed
+
+[LuaJIT](https://luajit.org/) is a highly optimized version of Lua, suitable for use in games and other performance critical software. LuaJIT is fully upwards-compatible with Lua 5.1. It supports all standard Lua library functions and the full set of Lua/C API functions.
+
+LuaJIT also adds a number of [language extensions](https://luajit.org/extensions.html) and some features from Lua 5.2.
+
+::: important
 要真正做到跨所有平台建议只使用 Lua 5.1 功能.
 :::
 
+
+### 标准库和扩展
 Defold 包含所有 [Lua 5.1 标准库](http://www.lua.org/manual/5.1/manual.html#5) 连同 socket 和少量操作系统功能库:
 
   - base (`assert()`, `error()`, `print()`, `ipairs()`, `require()` 等等)
@@ -138,7 +156,7 @@ string
   print(my_string .. another_string) --> "helloworld"
 
   print("10.2" + 1) --> 11.2
-  print(my_string + 1) -- error, can't convert "hello"
+  print(my_string + 1) -- 报错, 不能转换为 "hello"
   print(my_string .. 1) --> "hello1"
 
   print("one\nstring") --> one

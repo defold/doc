@@ -99,7 +99,7 @@ brief: This section will explain how to create a new user with limited access on
 
     完成之后你会得到 *Access key ID* 和 *Secret access key*.
 
-    ::: sidenote
+    ::: important
     保存好密匙 *非常重要* 因为离开 Amazon 页面后就无法再次获得密匙了.
     :::
 
@@ -125,24 +125,3 @@ brief: This section will explain how to create a new user with limited access on
     服务器名, 本例中是 _defold-liveupdate-example_, 在 Defold 编辑器热更新配置里也要提供.
 
     ![Live update settings](images/live-update/05-liveupdate-settings.png)
-
-## 开发注意事项
-
-调试
-: 运行打包游戏, 不要直接接入控制台. 这在调试时会产生错误. 但是当你使用命令行或者双击启动的方式启动游戏:
-
-  ![Running a bundle application](images/live-update/run-bundle.png)
-
-  这样游戏里的 `print()` 语句输出都会被打印到控制台上:
-
-  ![Console output](images/live-update/run-bundle-console.png)
-
-强制重新下载资源
-: 游戏保存资源时, 文件被保存在设备本地硬盘上. 重启游戏, 资源文件并不消失. 开发阶段可能会希望删掉这些文件然后强制重新下载.
-
-  Defold 在设备上的应用文件夹下创建了一个以游戏包哈希值为名字的文件夹. 如果删除这个文件夹下的文件, 游戏会自动把清单资源作废然后就可以重新下载重新保存了.
-
-  ![Local storage](images/live-update/local-storage.png)
-
-  这个应用文件夹的位置基于操作系统有所不同. 可以运行 `print(sys.get_save_file("", ""))` 脚本查看其路径.
-  
