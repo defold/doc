@@ -105,6 +105,7 @@ local color = gui.get_color(node)
 | *material* | 文本标签所用材质. | `hash` | `get+set`{.mark}|
 | *font* | 文本标签所用字体. | `hash` | `get+set`{.mark}|
 
+
 ## GUI 节点属性
 
 GUI 节点也有属性, 但是要使用特定的读写函数. 每个属性都有对应的 get- 和 set- 函数. 还有一系列预定义常量可以用于属性动画. 引用属性可以使用属性名字符串, 或者属性名字符串hash.
