@@ -113,7 +113,10 @@ CONSTANT_TYPE_VIEWPROJ
 : A matrix with the view and projection matrices already multiplied.
 
 CONSTANT_TYPE_WORLDVIEW
-: A matrix with the world and view projection matrices already multiplied.
+: A matrix with the world and view matrices already multiplied.
+
+CONSTANT_TYPE_WORLDVIEWPROJ
+: A matrix with the world, view and projection matrices already multiplied.
 
 CONSTANT_TYPE_NORMAL
 : A matrix to compute normal orientation. The world transform might include non-uniform scaling, which breaks the orthogonality of the combined world-view transform. The normal matrix is used to avoid issues with the direction when transforming normals. (The normal matrix is the transpose inverse of the world-view matrix).
