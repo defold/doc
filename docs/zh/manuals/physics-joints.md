@@ -12,6 +12,7 @@ Defold 支持物理关节. 一个关键基于某种限制连接两个物体. 支
 * **Weld (physics.JOINT_TYPE_WELD)** - 用於完全保持對象之間的位置關係的關節. 通過調整頻率和阻尼率軟化的焊接關節可以產生類似彈簧的效果. 在 Box2D 被称为焊接关节.
 * **Spring (physics.JOINT_TYPE_SPRING)** - 限制两个物体之间距离范围的弹簧关节. 弹簧关节通过设定其频率和阻尼比可以让物体像是被软弹簧连接. 在 Box2D 被称为距离关节.
 * **Slider (physics.JOINT_TYPE_SLIDER)** - 限制两物体只能在某个指定轴上相对移动而不允许相对转动的滑动关节. 在 Box2D 被称为活塞关节.
+* **Wheel (physics.JOINT_TYPE_WHEEL)** - 轮子关节从 bodyB 上的一个点约束到 bodyA 上的一条线. 轮子关节还提供了悬架弹簧. 在 Box2D 里称作焊接关节.
 
 ## 建立关节
 
