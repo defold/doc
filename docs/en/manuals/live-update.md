@@ -87,7 +87,7 @@ The resource graph is stored in `build/default/game.graph.json` and it is automa
 
 Each entry has a `path` which represents the unique path of the resource within the project. The `hexDigest` represents the cryptographic fingerprint of the resource and it will be the filename used in the liveupdate .zip archive. Finally the `children` field is a list of other dependencies which this resource depends on. In the example above the `/game/player.goc` has a dependency to a sprite and a script component.
 
-You can use a scripting language of your choice to parse the `game.graph.json` file and use this information to identify groups of entries in the resource graph and store their corresponding resources in separate archives.
+You can use a scripting language of your choice to parse the `game.graph.json` file and use this information to identify groups of entries in the resource graph and store their corresponding resources in separate archives along with the original manifest file (the manifest file will be pruned at runtime so that it contains only the files in the archive).
 
 ## Content verification
 
