@@ -66,7 +66,7 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 ```
 
-### Fixed Fit
+### Fixed Fit 映射
 
 跟 Stretch 一样 Fixed Fit 也是使用 *game.project* 里设置的分辨率, 不同的是一旦窗口大小改变游戏内容会缩放但是始终保持原比例, 这样一来本来不应被渲染的内容也可能会被显示出来:
 
@@ -88,7 +88,7 @@ msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 ```
 
-### Fixed
+### Fixed 映射
 
 以一个固定倍数按比例缩放视口. 也就是说倍数不是 100% 的话就会自行多显示或少显示内容, 而不按照 *game.project* 的设定分辨率渲染:
 
@@ -253,8 +253,6 @@ function on_message(self, message_id, message)
       -- 焦点摄像机每一帧都发送 set_view_projection
       -- 消息到 @render 端口. 使用摄像机发来的数据可以
       -- 设置渲染视口 (及映射).
-      -- 这里使用默认正交映射所以
-      -- 不使用消息传输映射.
       camera.view = message.view
       self.camera_projection = message.projection or vmath.matrix4()
       update_camera(camera, state)
@@ -268,6 +266,12 @@ GUI 脚本同样可以向 `@render` 端口发送消息:
 -- 更改清屏颜色.
 msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
+
+## 受支持的图像 API
+Defold 渲染脚本 API 把渲染操作转换为如下图像 API:
+
+:[Graphics API](../shared/graphics-api.md)
+
 
 ## 系统消息
 

@@ -72,6 +72,18 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 `tint`
 : 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
 
+## 材质属性
+
+Sprite 可以覆盖当前分配材质中的顶点属性, 并将从组件传递到顶点着色器 (更多信息参见 [材质教程](/manuals/material/#attributes)).
+
+材质中指定的属性将在检查器中显示为常规属性, 并且可以在单个 Sprite 组件上设置. 如果任何属性被覆盖, 它将显示为被覆盖的属性, 并存储在磁盘上的 sprite 文件中:
+
+![sprite-attributes](../images/graphics/sprite-attributes.png)
+
+::: sidenote
+自定义属性自从 Defold 1.4.8 版本可用!
+:::
+
 ## 相关项目配置
 
 在 *game.project* 文件里有些关于Sprite的 [设置项目](/manuals/project-settings#sprite).
