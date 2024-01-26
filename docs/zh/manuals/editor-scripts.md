@@ -53,6 +53,7 @@ return M
     注意这些属性有的不是只读的, 而且基于上下文有些可能不可用, 所以要在读取之前执行 `editor.can_get`, 设置之前执行 `editor.can_set`. 属性面板里用鼠标悬停在属性名上会显示一个信息提示标明该属性在编辑器脚本里是如何命名的. 资源属性赋值为 `""` 代表 nil 值.
 - `editor.can_get(node_id, property)` — 检查属性是否可读, 确保 `editor.get()` 不会报错
 - `editor.can_set(node_id, property)` — 检查属性是否可写, 确保设置操作不会报错
+- `editor.create_directory(resource_path)` — 新建文件夹, 及其所有父文件夹
 
 ## Command
 

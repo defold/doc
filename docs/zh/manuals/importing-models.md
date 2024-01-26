@@ -8,6 +8,7 @@ Defold 目前支持 GL Transmission Format *.glTF* 和 Collada *.dae* 格式的�
 
 ![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
 
+
 ## 导入模型到 Defold
 要导入模型, 只需将 *.gltf* 文件或者 *.dae* 文件及其相应贴图拖拽至 *资源面板* 即可.
 

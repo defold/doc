@@ -17,7 +17,6 @@ vmargs = -Dglass.gtk.uiScale=192dpi,-Dfile.encoding=UTF-8,...
 
 此值的意义参见 [Arch Linux HiDPI wiki 文章](https://wiki.archlinux.org/title/HiDPI#JavaFX).
 
-
 #### Q:在 Elementary OS 上使用 Defold 编辑器, 鼠标点选上的都是后面的东西?
 
 A: 尝试这样启动编辑器:
@@ -29,9 +28,7 @@ $ GTK_CSD=0 ./Defold
 
 #### Q: 在 Defold 编辑器里打开集合或者游戏对象时崩溃报关于 "com.jogamp.opengl" 的错误.
 
-A: 某些Linux版本 (如 Ubuntu 18) 下 [Mesa](https://docs.mesa3d.org/) 版所使用的 jogamp/jogl Defold 版本有冲突.
-可以在调用 `glGetString(GL_VERSION)` 是设置`MESA_GL_VERSION_OVERRIDE` 为2.1或者更高的值以覆盖 GL 默认的驱动版本.
-可以使用如下命令查看系统上支持 `glxinfo` 的最高 OpenGL 版本:
+A: 某些Linux版本 (如 Ubuntu 18) 下 [Mesa](https://docs.mesa3d.org/) 版所使用的 jogamp/jogl Defold 版本有冲突. 可以在调用 `glGetString(GL_VERSION)` 是设置`MESA_GL_VERSION_OVERRIDE` 为2.1或者更高的值以覆盖 GL 默认的驱动版本. 可以使用如下命令查看系统上支持 `glxinfo` 的最高 OpenGL 版本:
 
 ```bash
 glxinfo | grep version
@@ -67,18 +64,18 @@ $ MESA_GL_VERSION_OVERRIDE=4.6 ./Defold
 ```
 
 
+#### Q: 打开 Defold 时报错 "com.jogamp.opengl.GLException: Graphics configuration failed"?
+
 A: 某些Linux版本 (如 Ubuntu 20.04) 在運行 Defold 時會出現新的 [Mesa](https://docs.mesa3d.org/) 驅動程序 (Iris) 的問題. 可以嘗試使用舊版本驅動程序:
 
 ```bash
-$ export MESA_LOADER_DRIVER_OVERRIDE=i965
-$ ./Defold
+$ export MESA_LOADER_DRIVER_OVERRIDE=i965 ./Defold
 ```
 
 
 #### Q: 在 Defold 编辑器里打开集合或者游戏对象时崩溃报关于 "libffi.so" 的错误.
 
-A: 这是由于Linux系统的 [libffi](https://sourceware.org/libffi/) 版本与 Defold (版本 6 或 7) 需要的版本不一致.
-确保 `libffi.so.6` 或 `libffi.so.7` 已安装在 `/usr/lib/x86_64-linux-gnu` 路径下. 可以使用如下命令下载 `libffi.so.7`:
+A: 这是由于Linux系统的 [libffi](https://sourceware.org/libffi/) 版本与 Defold (版本 6 或 7) 需要的版本不一致. 确保 `libffi.so.6` 或 `libffi.so.7` 已安装在 `/usr/lib/x86_64-linux-gnu` 路径下. 可以使用如下命令下载 `libffi.so.7`:
 
 ```bash
 $ wget http://ftp.br.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-6_amd64.deb

@@ -128,4 +128,4 @@ end
 
 ## 相关项目配置
 
-在 *game.project* 文件里有些关于标签的 [设置项目](/manuals/project-settings#label).
+在 *game.project* 文件里有些关于标签的 [配置项目](/manuals/project-settings#label).

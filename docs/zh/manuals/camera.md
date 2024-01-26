@@ -148,6 +148,15 @@ end
 `orthographic_zoom`
 : 平视摄像机缩放 (`number`).
 
+`aspect_ratio`
+: 自从 Defold 1.4.8 加入. 视口宽高比. 在计算透视摄像机投射时使用. (`number`).
+
+`view`
+: 自从 Defold 1.4.8 加入. 摄像机视口矩阵值. 只读. (`matrix4`).
+
+`projection`
+: 自从 Defold 1.4.8 加入. 摄像机投射矩阵值. 只读. (`matrix4`).
+
 
 ## 第三方摄像机解决方案
 

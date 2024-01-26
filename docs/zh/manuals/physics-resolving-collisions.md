@@ -40,7 +40,9 @@ end
 
 ![Projection](images/physics/projection.png){srcset="images/physics/projection@2x.png 2x"}
 
-$$l = vmath.project(A, B) \times vmath.length(B)$$
+```
+l = vmath.project(A, B) * vmath.length(B)
+```
 
 补偿向量等于 *B* 向量减去 *l* 向量. 所以计算位移的时候, 对于每个碰撞点, 可以引入矫正向量按以下步骤进行矫正:
 

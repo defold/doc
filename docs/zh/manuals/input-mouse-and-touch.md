@@ -16,7 +16,7 @@ brief: 本教程介绍了鼠标和触摸输入的功能.
 鼠标按键输入 `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` 和 `MOUSE_BUTTON_MIDDLE` 等同于 `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` 和 `MOUSE_BUTTON_3`.
 :::
 
-::: sidenote
+::: important
 下面的例子中使用了上图的映射绑定配置. 映射与命名可以根据项目需要自由设置.
 :::
 
@@ -35,7 +35,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-::: sidenote
+::: important
 单点触摸也会触发 `MOUSE_BUTTON_LEFT` (或 `MOUSE_BUTTON_1`) 事件.
 :::
 

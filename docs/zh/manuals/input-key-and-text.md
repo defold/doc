@@ -33,13 +33,15 @@ end
 `text` 捕获一般字符输入. 事件 `text` 项保存了输入的字符. 动作由按下按钮时触发, 不存在 `release` 和 `repeated` 事件.
 
   ```lua
-  if action_id == hash("text") then
-    -- 收集输入字符填充 "user" 节点...
-    local node = gui.get_node("user")
-    local name = gui.get_text(node)
-    name = name .. action.text
-    gui.set_text(node, name)
-  end
+function on_input(self, action_id, action)
+    if action_id == hash("text") then
+        -- 收集输入字符填充 "user" 节点...
+        local node = gui.get_node("user")
+        local name = gui.get_text(node)
+        name = name .. action.text
+        gui.set_text(node, name)
+    end
+end 
   ```
 
 ## Marked text

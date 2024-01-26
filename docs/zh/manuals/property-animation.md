@@ -32,7 +32,6 @@ go.cancel_animations(".", "euler.z")
 
 [属性教程](/manuals/properties) 涵盖游戏对象, 组件和 GUI 节点的所有属性.
 
-
 ## GUI 节点属性动画
 
 几乎所有 GUI 节点属性都可以制作动画. 比如说, 把一个节点的 `color` 设置成透明看不见然后制作属性动画到全白使其可见 (也就是没有染色).

@@ -9,13 +9,7 @@ brief: 本教程介绍了如何在设备上安装开发用app以方便开发流�
 
 ## 安装开发用app
 
-Debug  模式下编译的任何 iOS 或 Android 应用都可以作为开发用app. 事实上, 我们推荐这么做因为开发用app包含正确的项目配置而且拥有和开发时使用的相同的 [原生扩展](/manuals/extensions/). 还有 [Defold 的独立项目](https://github.com/defold/dev-app) (不包含原生扩展的项目) 也设计做为开发用app使用.
-
-![launch](images/dev-app/launch.png)
-
-::: sidenote
-只有在不使用 [原生扩展](/manuals/extensions/) 的项目可以使用我们提供的开发用apk. 否则你需要自己手动打debug包并且加入你所使用的原生扩展.
-:::
+Debug 模式下编译的任何 iOS 或 Android 应用都可以作为开发用app. 事实上, 我们推荐这么做因为开发用app包含正确的项目配置而且拥有和开发时使用的相同的 [原生扩展](/manuals/extensions/).
 
 从 Defold 1.4.0 版本开始可以给项目打空的 debug 包. 使用这个选项可以创建带原生扩展的应用版本, 适合于教程里提到的开发迭代.
 

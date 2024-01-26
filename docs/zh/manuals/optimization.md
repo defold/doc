@@ -45,16 +45,35 @@ Defold 支持 .ogg 和 .wav 文件其中 .ogg 一般用于音乐 .wav 一般用�
   * iPhone 4: 2048x2048
   * iPad 2, 3, Mini, Air, Pro: 4096x4096
   * iPhone 4s, 5, 6+, 6s: 4096x4096
-* Android 各不相同但是新设备基本都支持 4096x4096.
+* Android 最大纹理尺寸各不相同但是新设备基本都支持 4096x4096.
 
 如果图集太大就需要切分成小图集或者使用 texture profile 缩小整个图集. Defold 的 texture profile 系统不但可以缩小图集还可以通过应用压缩算法减小图集占用空间. 详见 [纹理档教程](/manuals/texture-profiles/).
+
+* mipmaps: false
+* premultiply_alpha: true
+* format: TEXTURE_FORMAT_RGBA
+* compression_level: NORMAL
+* compression_type: COMPRESSION_TYPE_BASIS_UASTC
 
 ::: sidenote
 优化和管理纹理可以参考 [这个帖子](https://forum.defold.com/t/texture-management-in-defold/8921).
 :::
 
+### 优化字体
+如果在 [Extra Characters](/manuals/font/#properties) 里指定文字而不是勾选包含所有字符, 字体大小就会减小.
+
+
 ### 排除内容按需下载
 另一个减小包体的办法是打包时把部分内容排除在外, 需要时再下载. 一开始被排除的东西可以是锁住的关卡, 未激活的角色, 皮肤, 武器或者是车辆. Defold 提供了叫做热更新的按需下载内容的方案. 详情请见 [热更新教程](/manuals/live-update/).
+
+### Android 大小优化
+Android 包必须支持 32-bit 和 64-bit CPU 架构. 当 [打包 Android](/manuals/android) 时你可以指定包含哪种 CPU 架构:
+
+![Signing Android bundle](images/android/sign_bundle.png)
+
+Google Play 支持同一个游戏的 [多 APKs 包](https://developer.android.com/google/play/publishing/multiple-apks), 所以你可以用生成连个 APKs 的方法减小包体, 每种 CPU 架构生成一个, 然后把这两个都上传至 Google Play.
+
+还有一种方法是结合 [APK 扩展文件](https://developer.android.com/google/play/expansion-files) 和 [热更新内容](/manuals/live-update). 谢谢 [资源大厅的 APKX 扩展](https://defold.com/assets/apkx/).
 
 
 ## 应用运行速度优化
@@ -142,6 +161,13 @@ end
 * [动态加载集合](https://www.defold.com/manuals/collection-proxy/)
 * [动态加载工厂资源](https://www.defold.com/manuals/collection-factory/#dynamic-loading-of-factory-resources)
 * [性能分析](/manuals/profiling/)
+
+
+### 微调组件计数
+检查 `game.project` 里的组件计数. 使用 [调试器](/manuals/profiling/) 获取准确的组件和资源使用情况, 并将游戏配置为使用更接近组件和资源实际计数的最大值. 这将减少游戏使用内存量 (参考组件 [最大数优化](/manuals/project-settings/#component-max-count-optimizations)).
+
+### Heap 大小 (仅 HTML5)
+确定给游戏设置最小的 heap 尺寸. 打开游戏玩最多 "资源展示" 的一关. 开启浏览器的开发者工具, 在控制台上写入 `HEAP8.length / 1024 / 1024`. 用这个数据加上 10-15% 来 `game.project` 里设置 [Heap 大小](/manuals/project-settings/#heap-size).
 
 
 ## 优化耗电

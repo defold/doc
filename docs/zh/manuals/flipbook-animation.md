@@ -73,10 +73,6 @@ end
 给节点选择图片或者动画时, 实际上也同时指定了图片来源 (图集或者瓷砖图源) 以及默认动画. 节点图源是静态的, 但是当前播放的动画是可以在运行时指定的. 静态图片被视作单帧动画, 所以运行时切换图片相当于播放另一个动画:
 
 ```lua
-local function flipbook_done(self)
-    msg.post("#", "jump_completed")
-end
-
 function init(self)
     local character_node = gui.get_node("character")
     -- 新动画/图片播放时

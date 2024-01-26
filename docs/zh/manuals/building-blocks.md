@@ -86,6 +86,10 @@ go.animate("can", "position.x", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR
 
 修改了原型文件, 那么它的所有实例都能一同被修改.
 
+![GO changing prototype](images/building_blocks/go_change_blueprint.png){srcset="images/building_blocks/go_change_blueprint@2x.png 2x"}
+
+这里原型的 sprite 图片被更改, 同时所有使用该文件的实例都被更新:
+
 ![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
 
 ## 游戏对象层级
@@ -107,6 +111,6 @@ local parent = go.get_id("bean")
 msg.post("child_bean", "set_parent", { parent_id = parent })
 ```
 
-::: sidenote
+::: important
 一个常见的误解是对象层级改变了那么它的定位地址也会改变. 但是, 这其实是两码事. 父子关系改变的是场景的层级. 集合嵌套关系才决定对象地址. 在对象整个生命周期中, 地址是不会变化的.
 :::

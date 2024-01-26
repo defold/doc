@@ -173,6 +173,22 @@ end
 这样就简单易懂多了. 不需要导出调整状态变量 --- 不小心就出错. 我们还完全离开了 `update()` 功能. 这样就不必让引擎每秒白白调用 60 次函数, 尽管里面没代码.
 
 
+## 预处理
+
+可以使用 Lua 预处理器特殊标记, 用于有条件地包含基于编译变体的代码. 例如:
+
+```lua
+-- 使用关键字: RELEASE, DEBUG 或 HEADLESS
+--#IF DEBUG
+local lives_num = 999
+--#ELSE 
+local lives_num = 3
+--#ENDIF
+```
+
+预处理器作为编译扩展存在. 详情请参见 [GitHub 上的扩展页面](https://github.com/defold/extension-lua-preprocessor).
+
+
 ## 编辑器支持
 
 Defold 编辑器支持 Lua 脚本编辑, 还提供语法高亮和自动补全功能. 要让 Defold 补全函数名, 按 *Ctrl+Space* 会弹出相关函名数列表.

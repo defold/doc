@@ -358,6 +358,9 @@ GUI 组件最大数目, 默认是 `64`. [(参见最大组件数优化)](#compone
 #### Max Particle Count
 同一时间粒子最大数目, 默认是 `1024`.
 
+#### Max Animation Count
+gui 里最大活动动画数量, 默认是 `1024`.
+
 ---
 
 ### Label
@@ -408,9 +411,6 @@ label 最大数目, 默认是 `64`. [(参见最大组件数优化)](#component-m
 
 #### Launch Screen
 Storyboard 文件 (.storyboard). 其创建方法详情请见 [iOS 教程](/manuals/ios/#创建 storyboard).
-
-#### Launch Image 320x480--2436x1125
-用于应用启动图的图片 (.png) 文件, 宽高分辨率表示为 `W` &times; `H`. iOS 基于启动图选择分辨率.
 
 #### Pre Rendered Icons
 (iOS 6 及更早) 设置图标是否预渲染. 如果关闭则图标自动添加平滑高光效果.
@@ -492,6 +492,12 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 #### Bundle Identifier
 打包id使得 macOS 认识你的应用的版本更新. 你的打包 ID 必须在 Apple 注册且确保应用唯一性. iOS 与 macOS 应用不可以使用同一id. 它至少由两部分组成. 用点号连接. 每部分必须以字母开头, 由字母数字下划线或者连字符(-)组成.
 
+#### Default Language
+如果用户语言不在 `Localizations` 列表的话要使用的语言 (参见 [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). 如果用户语言可用则使用两字母 ISO 639-1 标准或者三字母标准 ISO 639-2.
+
+#### Localizations
+该项包含以逗号分割的字符串代表了受支持的语言名或者本地 ISO 语言符号 (参见 [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
+
 ---
 
 ### Windows
@@ -559,7 +565,6 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 
 #### _App Manifest_
 如果设置了, 则在自定义引擎编译时使用指定的 manifest. 此设置可以让你移除引擎不必要的部分来减小包体.
-
 
 ![](images/app_manifest/create-app-manifest.png)
 

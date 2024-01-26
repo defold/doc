@@ -65,6 +65,11 @@ Clipping Inverted
 
 ![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
 
-这里蒙版节点 "ocular" 层设置为 "layer3" 然后 "bean" 节点设置成 "layer1". 所以被 ocular 剪裁的纹理显示在了 bean 的上层.
+本例中, 节点 "Donut BG" 和 "BG" 都使用了 layer 1. 它们的渲染顺序遵循层级即 "Donut BG" 先于 "BG" 渲染. 然而, 子节点 "Donut Shadow" 归为 layer 2 即更高层级, 则它的渲染晚于这两个节点. 这种情况下, 渲染顺序为:
 
-节点 "shield" 设置为 "layer2", 但是在显示顺序上与 "ocular" 和 "bean" 并不冲突. 要更改 "shield" 的显示顺序, 设置层级顺序即可.
+- Donut BG
+- BG
+- BG Frame
+- Donut Shadow
+
+可见 "Donut Shadow" 对象基于层级被两个蒙版节点裁剪, 即使它是蒙版节点的唯一子节点.

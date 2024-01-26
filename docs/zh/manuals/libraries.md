@@ -27,7 +27,7 @@ brief: 项目间可以使用库共享资源. 本教程解释了其工作方式.
 
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
-::: sidenote
+::: important
 最好使用库项目的发布地址而不是主分支来引用库. 作为开发者你要决定什么时候该合并更新而不是时刻保持主分支最新代码 (使用主分支最新版可能引入潜在的不稳定性).
 :::
 
@@ -73,7 +73,7 @@ GitHub 具体步骤:
 
 此时这个只读用户的信息就可以放心公开在依赖库上. 这样就可以将私有库公开化而不用担心被恶意篡改.
 
-::: sidenote
+::: important
 使用这种只读用户的 token 可以访问所有依赖私有库的游戏.
 :::
 

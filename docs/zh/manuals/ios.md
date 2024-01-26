@@ -59,6 +59,11 @@ Device identifier (UDID)
 3. 在 Xcode 注册并登录 Apple ID.
 4. 新建项目. 最简单的 "Single View App" 就好.
 5. 选择 "Team" (自动生成) 并为app设置 bundle identifier.
+
+::: important
+请牢记 bundle identifier 因为在 Defold 项目中需要配置同样的 bundle identifier.
+:::
+
 6. 确保 Xcode 为app生成了 *Provisioning Profile* 和 *Signing Certificate*.
 
    ![](images/ios/Xcode_certificates.png)
@@ -88,7 +93,7 @@ Device identifier (UDID)
 
 选择证书和档案. 设置架构 (32 bit, 64 bit 和 iOS 模拟器) 再选择打包模式 (Debug 或者 Release). 也可以取消选择 `Sign application` 跳过签名步骤留待后面完成.
 
-::: sidenote
+::: important
 要在模拟器中测试游戏 **必须取消** `Sign application` 选项. 否则的话游戏能安装却不能运行.
 :::
 
@@ -97,6 +102,19 @@ Device identifier (UDID)
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
 可以在 *game.project* 项目配置文件的 [iOS 部分](/manuals/project-settings/#iOS) 设置应用的图标, 启动屏幕 storyboard 等等.
+
+## 在已连接的 iPhone 上安装和运行应用
+
+选择编辑器中的 "Install on connected device" 和打包对话框的 "Launch installed app" 即可安装和运行应用:
+
+![Install and launch iOS bundle](images/ios/install_and_launch.png)
+
+这个特性需要你先安装好 [ios-deploy](https://github.com/ios-control/ios-deploy) 命令行工具. 最简单的方法是使用 Homebrew:
+```
+$ brew install ios-deploy
+```
+
+如果编辑器无法自动找到 ios-deploy 工具, 你需要在 [Preferences](/manuals/editor-preferences/#tools) 中手动指定. 
 
 ### 创建 storyboard
 

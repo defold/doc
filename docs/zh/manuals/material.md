@@ -45,7 +45,58 @@ Samplers
 Tags
 : 标签与材质相关. 标签在引擎内部表现为 _bitmask_ 并由 [`render.predicate()`](/ref/render#render.predicate) 来收集需要渲染的组件. 如何渲染请见 [Render documentation](/manuals/render). 每个项目最多可以使用32个标签.
 
-## 着色器常量
+## Attributes
+
+Shader 属性 (也叫 vertex streams), 是一个 GPU 从内存获取顶点来渲染几何图形的机制. 顶点着色器使用 `attribute` 关键字指定一系列流而且多数情况下 Defold 在流名称上自动创建并绑定数据. 然而, 有些情况下你会想传递顶点数据来实现一个引擎没有的特效. 顶点属性有如下配置:
+
+Name
+: 属性名. 与着色器常量类似, 属性配置只在顶点程序里匹配指定属性的时候使用.
+
+Semantic type
+: 语义类型是指属性 *是什么* 或者 *如何* 在编辑器中显示的语义. 例如, 指定属性为 `SEMANTIC_TYPE_COLOR` 会在编辑器中显示一个颜色拾取器, 同时数据会从引擎原样发送至着色器.
+
+  - `SEMANTIC_TYPE_NONE` 默认语义类型. 除了给属性传送材质数据到顶点缓存以外没有其他效果.
+  - `SEMANTIC_TYPE_POSITION` 给属性创建每个顶点位置数据. 可以连同坐标空间一起告诉引擎位置应该如何计算.
+  - `SEMANTIC_TYPE_TEXCOORD` 给属性创建每个顶点的纹理坐标.
+  - `SEMANTIC_TYPE_PAGE_INDEX` 给属性创建每个顶点的页码.
+  - `SEMANTIC_TYPE_COLOR` 决定编辑器如何解释属性. 如果属性被配置为颜色语义, 则会在检视面板上显示一个颜色拾取器.
+
+::: sidenote
+材质系统会在运行时基于特定属性名给属性分配默认语义: position, texcoord0, page_index. 如果材质中有这些名字, 则默认语义类型会覆盖你在材质编辑器的手动配置!
+:::
+
+Data type
+: 属性数据类型.
+
+  - `TYPE_BYTE` 有符号 8 位值
+  - `TYPE_UNSIGNED_BYTE` 无符号 8 位值
+  - `TYPE_SHORT` 有符号 16 位短值
+  - `TYPE_UNSIGNED_SHORT` 无符号 16 位短值
+  - `TYPE_INT` 有符号整数
+  - `TYPE_UNSIGNED_INT` 无符号整数
+  - `TYPE_FLOAT` 浮点值
+
+Count
+: 属性的 *元素数*, 比如属性值的个数. 着色器里一个 `vec4` 有四个元素, 一个 `float` 有一个元素. 注意: 即使在着色器里制定了属性是一个 `vec4`, 你还是能给它指定元素更少的值, 这可以帮助减少内存占用.
+
+Normalize
+: 如果是 true, 属性值会被 GPU 驱动程序规范化. 当你不需要全精度, 又想在不知特定范围情况下计算时会很有用. 比如一个颜色向量一般只需 0..255 的 byte 值同时在着色器里被当作 0..1 的值.
+
+Coordinate space
+: 有些语义类型支持在不同坐标空间里提供数据. 要给 sprite 实现一个 billboarding 效果, 一般需要本地坐标系的位置属性加上世界坐标系的位置属性以实现更有效的合批.
+
+Value
+: 属性值. 可以基于每个组件覆盖属性值, 但除此之外, 这就是顶点属性的默认值. 注意: 对于 *默认* 属性 (position, texture coordinates 和 page indices) 该值被忽略.
+
+::: sidenote
+自定义属性也可以在 CPU 和 GPU 上帮助减少内存占用, 方法是重构流以使用更小的数据类型, 或更少的元素.
+:::
+
+::: important
+自定义属性从 Defold 1.4.8 版本开始可用!
+:::
+
+## 顶点和片元常量
 
 着色器常量, 或称 "uniforms" 是从引擎传输给顶点和片元着色器程序的数据. 要使用常量,您可以在材质文件中将其定义为一个 *顶点常量* 属性或 *片元常量* 属性.需要在着色器程序中定义相应的 `uniform` 变量.材质中可以设置以下常量：
 
@@ -63,6 +114,9 @@ CONSTANT_TYPE_VIEWPROJ
 
 CONSTANT_TYPE_WORLDVIEW
 : 世界与视口映射矩阵相乘后的矩阵.
+
+CONSTANT_TYPE_WORLDVIEWPROJ
+: 世界, 视口与映射矩阵相乘后的矩阵.
 
 CONSTANT_TYPE_NORMAL
 : 用于计算法方向的矩阵. 世界移动转换可能包含非等比缩放, 这样会打破世界-视口转换的正交性. 变换法线时使用发方向可以避免这个问题. (法矩阵是世界-视口矩阵的转置逆).

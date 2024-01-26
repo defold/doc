@@ -9,11 +9,15 @@ Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
 
 Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
 
-Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 运行这个工具, 您需要安装 OpenJDK 17.
+Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 如果你使用的是 Defold 1.4.8, 您需要安装 OpenJDK 17. 对于 Defold 老版本, 你需要 openJDK 11.
 
-下载 OpenJDK 17 的地址:
+兼容 OpenJDK 17 镜像 (自从 Defold 1.4.8):
 * https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17
 * https://github.com/adoptium/temurin17-binaries/releases / https://adoptium.net/
+
+兼容 OpenJDK 11 镜像 (最高到 Defold 1.4.7):
+* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
+* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
 
 比如在 Windows 平台上, 需要下载 OpenJDK 17 的 .msi 安装包.
 
@@ -34,9 +38,8 @@ usage: bob [options] [commands]
 -bo,--bundle-output <arg>               打包输出目录
 -br,--build-report <arg>                自从 Defold 1.4.6 版本后已弃用! 
                                         使用 --build-report-json 代替
--brjson,--build-report-json <arg>       保存 JSON 编译报告的文件路径位置
-                                        (自从 Defold 1.4.6 版本启用)
 -brhtml,--build-report-html <arg>       指定编译生成的HTML报告的存放地址
+-brjson,--build-report-json <arg>       保存 JSON 编译报告的文件路径位置 (自从 Defold 1.4.6 版本启用)
     --build-artifacts <arg>             不指定的话默认为编译engine.
                                         可选项为 'engine', 'plugins'.
                                         以逗号分隔.
@@ -49,8 +52,8 @@ usage: bob [options] [commands]
     --defoldsdk <arg>                   指定 defold sdk (sha1) 使用版本
 -e,--email <arg>                        用户电邮
 -ea,--exclude-archive                   要从打包中排除的资源档案. 以此创建空应用用作编译目标
-    --exclude-build-folder              DEPRECATED from Defold 1.5.1! Use
-                                        '.defignore' file instead
+    --exclude-build-folder              自从 Defold 1.5.1 已弃用! 使用
+                                        '.defignore' 文件代替
 -h,--help                               该命令的帮助文档
 -i,--input <arg>                        指定源目录, 默认是当前目录
     --identity <arg>                    指定签名 (iOS)
@@ -140,7 +143,8 @@ usage: bob [options] [commands]
 `armv7-android`
 : Android 支持 32 bit `armv7-android` 和 64 bit `arm64-android` 架构. 默认情况下, `--architectures` 参数值为 `armv7-android,arm64-android`.
 
-`js-web` : HTML5 支持 `js-web` 和 `wasm-web` 架构. 默认情况下, `--architectures` 参数值为 `js-web,wasm-web`.
+`js-web`
+: HTML5 支持 `js-web` 和 `wasm-web` 架构. 默认情况下, `--architectures` 参数值为 `js-web,wasm-web`.
 
 默认情况下, Bob 在当前目录下寻找项目来编译. 切换到 Defold 项目目录下使用 bob, 它会把数据编译到默认输出 *build/default* 目录下.
 
