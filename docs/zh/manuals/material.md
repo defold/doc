@@ -115,6 +115,9 @@ CONSTANT_TYPE_VIEWPROJ
 CONSTANT_TYPE_WORLDVIEW
 : 世界与视口映射矩阵相乘后的矩阵.
 
+CONSTANT_TYPE_WORLDVIEWPROJ
+: 世界, 视口与映射矩阵相乘后的矩阵.
+
 CONSTANT_TYPE_NORMAL
 : 用于计算法方向的矩阵. 世界移动转换可能包含非等比缩放, 这样会打破世界-视口转换的正交性. 变换法线时使用发方向可以避免这个问题. (法矩阵是世界-视口矩阵的转置逆).
 
