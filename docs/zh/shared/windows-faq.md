@@ -9,3 +9,19 @@ A: 试试以管理员身份打开 Defold. 右键点击 Defold 可执行程序选
 #### Q: 爲什麽在 Windows 上使用 Intel UHD 集成 GPU 渲染不正常 (但是 HTML5 版本正常)?
 
 A: 確保你的驅動版本大於等於 27.20.100.8280. 參見 [Intel Driver Support Asistant](https://www.intel.com/content/www/us/en/search.html?ws=text#t=Downloads&layout=table&cf:Downloads=%5B%7B%22actualLabel%22%3A%22Graphics%22%2C%22displayLabel%22%3A%22Graphics%22%7D%2C%7B%22actualLabel%22%3A%22Intel%C2%AE%20UHD%20Graphics%20Family%22%2C%22displayLabel%22%3A%22Intel%C2%AE%20UHD%20Graphics%20Family%22%7D%2C%7B%22actualLabel%22%3A%22Intel%C2%AE%20UHD%20Graphics%20630%22%2C%22displayLabel%22%3A%22Intel%C2%AE%20UHD%20Graphics%20630%22%7D%5D). 更多信息請見 [這個帖子](https://forum.defold.com/t/sprite-game-object-is-not-rendering/69198/35?u=britzl).
+
+#### Q: Defold 编辑器崩溃, 日志显示 AWTError: Assistive Technology not found
+
+如果编辑器崩溃, 日志提示 `Caused by: java.awt.AWTError: Assistive Technology not found: com.sun.java.accessibility.AccessBridge` 请参考如下步骤:
+
+* 打开 `C:\Users\<username>`
+* 使用标准文本编辑器 (Notepad is fine) 打开名为 `.accessibility.properties` 的文件
+* 在 config 下找到如下几行:
+
+```
+assistive_technologies=com.sun.java.accessibility.AccessBridge
+screen_magnifier_present=true
+```
+
+* 在这几行的行首加入井号 (`#``)
+* 保存文件重启 Defold
