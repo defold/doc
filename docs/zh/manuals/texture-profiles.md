@@ -80,7 +80,7 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 *Platforms*
 : 指定平台. `OS_ID_GENERIC` 匹配所有平台, `OS_ID_WINDOWS` 对应 Windows 平台, `OS_ID_IOS` 对应 iOS 平台. 注意如果使用 `OS_ID_GENERIC`, 设定将会对所有平台生效.
 
-::: sidenote
+::: important
 如果两个 [路径样式](#path-settings) 匹配一个文件并且这两个路径分别指定不同的平台, 那么这两个档案 **都会** 生效, 所以会生成 **两个** 纹理.
 :::
 
