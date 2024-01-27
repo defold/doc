@@ -20,7 +20,7 @@ end)
 
 ## Event Data Structure
 
-Each physics event provides a `data` table containing specific information relevant to the event. The structure of `a` and `b` objects within this data varies based on the event type:
+Each physics event provides a `data` table containing specific information relevant to the event.
 
 1. **Contact Point Event (`contact_point_event`):**
 This event reports a contact point between two collision objects. It is useful for detailed collision handling, such as calculating impact forces or custom collision responses.
