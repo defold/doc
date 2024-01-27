@@ -71,6 +71,24 @@ A live update .zip file contains files that were excluded from the base game pac
 
 While our current pipeline only supports creating a single .zip file, it is in fact possible to split that zip file into smaller .zip files. This allows for smaller downloads for a game: level packs, seasonal content etc. Each .zip file also contains a manifest file that describes the meta data for each resource contained within the .zip file.
 
+## Splitting .zip archives
+
+It is often desireable to split the excluded content into several smaller archives for more granular control over resource usage. One such example is to split a level based game into multiple level packs. Another is to put different holiday themed UI decorations into separate archives and load and mount only the theme currently active in the calendar.
+
+The resource graph is stored in `build/default/game.graph.json` and it is automatically generated each time the project is bundled. The generated file contains a list of all resources in the project and the dependencies of each resource. Example entry:
+
+```json
+{
+  "path" : "/game/player.goc",
+  "hexDigest" : "caa342ec99794de45b63735b203e83ba60d7e5a1",
+  "children" : [ "/game/ship.spritec", "/game/player.scriptc" ]
+}
+```
+
+Each entry has a `path` which represents the unique path of the resource within the project. The `hexDigest` represents the cryptographic fingerprint of the resource and it will be the filename used in the liveupdate .zip archive. Finally the `children` field is a list of other dependencies which this resource depends on. In the example above the `/game/player.goc` has a dependency to a sprite and a script component.
+
+You can parse the `game.graph.json` file and use this information to identify groups of entries in the resource graph and store their corresponding resources in separate archives along with the original manifest file (the manifest file will be pruned at runtime so that it contains only the files in the archive).
+
 ## Content verification
 
 One of the major features of the live update system, is that you can now use many content archives, potentially from many different Defold versions.
