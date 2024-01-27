@@ -68,8 +68,6 @@ This event is sent when a raycast does not hit any object.
 
 ## Example Usage
 
-To utilize this new functionality, you can set up a listener function like so:
-
 ```lua
 local function physics_world_listener(self, event, data)
     if event == hash("contact_point_event") then
