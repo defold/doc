@@ -930,6 +930,10 @@
                         "name": "Collision messages"
                     },
                     {
+                        "path": "/manuals/physics-events",
+                        "name": "Collision events listener"
+                    },
+                    {
                         "path": "/manuals/physics-resolving-collisions",
                         "name": "Resolving collisions"
                     },
