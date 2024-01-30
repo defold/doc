@@ -16,10 +16,11 @@ The Sprite component can use either an [Atlas](/manuals/atlas) or a [Tile Source
 Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
 
 *Image*
-: The atlas or tilesource resource to use for the sprite.
+: If the shader has a single sampler, this field is named `Image`. Otherwise, each slot is named after the texture sampler in the material.
+Each slot specifies the atlas or tilesource resource to use for the sprite on that texture sampler.
 
 *DefaultAnimation*
-: The animation to use for the sprite.
+: The animation to use for the sprite. The animation information is taken from the first atlas or tilesource.
 
 *Material*
 : The material to use for rendering the sprite.
@@ -87,3 +88,50 @@ Custom attributes are available starting from Defold 1.4.8!
 ## Project configuration
 
 The *game.project* file has a few [project settings](/manuals/project-settings#sprite) related to sprites.
+
+## Multi textured sprites
+
+When a sprite uses multiple textures there are some things to note.
+
+### Animations
+
+The animation data (fps, frame names) is currently taken from the first texture. We'll call this the "driving animation".
+
+The image id's of the driving animation are used to lookup the images in another texture.
+So it's important to make sure the frame ids match between textures.
+
+E.g. if your `diffuse.atlas` has a `run` animation like so:
+
+```
+run:
+    /main/images/hero_run_color_1.png
+    /main/images/hero_run_color_2.png
+    ...
+```
+
+Then the frame id's would be `run/hero_run_color_1` which is not likely to be found in for instance a `normal.atlas`:
+
+```
+run:
+    /main/images/hero_run_normal_1.png
+    /main/images/hero_run_normal_2.png
+    ...
+```
+
+So we use the `Rename patterns` in the [atlas](/manuals/material/) to rename them.
+Set `_color=` and `_normal=` in the corresponding atlases, and you'll get frame names like this in both atlases:
+
+```
+run/hero_run_1
+run/hero_run_2
+...
+```
+
+### UVs
+
+The UVs are taken from the first texture. Since there is only one set of vertices, we cannot guarantuee
+a good match anyways if the secondary textures have either more UV coordinates or a different shape.
+
+This is important to note, so make sure the images have similar enough shapes, or you might experience texture bleeding.
+
+The dimensions of the images in each texture may be different.
