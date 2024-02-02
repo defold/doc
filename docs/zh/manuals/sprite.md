@@ -16,10 +16,11 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 除了 *Id*, *Position* 和 *Rotation* 还有如下属性:
 
 *Image*
-: sprite所使用的图集或者瓷砖图源资源.
+: 如果着色器有单个采样器, 该属性叫做 `Image`. 否则, 每个槽都以材质中的纹理采样器命名.
+  每个槽是指该 sprite 用于纹理采样器的图集或者瓷砖图源资源.
 
 *DefaultAnimation*
-: sprite的默认动画.
+: sprite的默认动画. 动画信息取自第一个图集或者瓷砖图源.
 
 *Material*
 : sprite的渲染材质.
@@ -87,3 +88,50 @@ Sprite 可以覆盖当前分配材质中的顶点属性, 并将从组件传递�
 ## 相关项目配置
 
 在 *game.project* 文件里有些关于Sprite的 [设置项目](/manuals/project-settings#sprite).
+
+## 多纹理 sprites
+
+当一个 sprite 使用多个纹理时有些问题需要注意.
+
+### 动画
+
+动画数据 (fps, 帧名) 目前取自第一个纹理. 我们把它叫做 "驱动动画".
+
+驱动动画的图片 id 用来查找其他纹理所用图片.
+所以确保纹理间的帧 id 匹配是很重要的.
+
+比如你的 `diffuse.atlas` 有一个 `run` 动画如下:
+
+```
+run:
+    /main/images/hero_run_color_1.png
+    /main/images/hero_run_color_2.png
+    ...
+```
+
+那么帧 id 就是 `run/hero_run_color_1` 这难以在比如 `normal.atlas` 里找到:
+
+```
+run:
+    /main/images/hero_run_normal_1.png
+    /main/images/hero_run_normal_2.png
+    ...
+```
+
+所以我们在 [图集](/manuals/material/) 里使用 `Rename patterns` 来重命名它们.
+在相应图集里设置 `_color=` 和 `_normal=`, 然后你就能在两个图集里得到这样的帧名:
+
+```
+run/hero_run_1
+run/hero_run_2
+...
+```
+
+### UVs
+
+UVs 取自第一个纹理. 因为只有一套顶点, 我们不能保证
+如果第二个纹理有更多 UV 坐标或者有不同形状都能匹配得当.
+
+所以要记住, 确保图片有足够相似的形状, 否则您可能会遇到纹理渗色.
+
+每个纹理中图像的尺寸可以不同.
