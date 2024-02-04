@@ -201,9 +201,6 @@ DEFOLD_ENGINE_ARGUMENTS
 'engine_arguments':
     传入引擎的参数列表 (字符串).
 
-'persistent_storage':
-    是否使用持久化存储的布尔值.
-
 'custom_heap_size':
     自定义内存使用的大小.
 
