@@ -30,4 +30,4 @@ The above example describes a stream of positions in three dimensions, represent
 
 Buffer resources are typically created using external tools or scripts, for instance when exporting from modeling tools such as Blender. 
 
-A Buffer resource can be used as input to a [Mesh component](/manuals/mesh). Buffers resources can also be created at runtime using the `buffer.create()` and [related API functions](/ref/stable/buffer/#buffer.create:element_count-declaration). 
+A Buffer resource can be used as input to a [Mesh component](/manuals/mesh). Buffer resources can also be created at runtime using the `buffer.create()` and [related API functions](/ref/stable/buffer/#buffer.create:element_count-declaration). 
