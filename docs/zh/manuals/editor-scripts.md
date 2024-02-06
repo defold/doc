@@ -54,6 +54,7 @@ return M
 - `editor.can_get(node_id, property)` — 检查属性是否可读, 确保 `editor.get()` 不会报错
 - `editor.can_set(node_id, property)` — 检查属性是否可写, 确保设置操作不会报错
 - `editor.create_directory(resource_path)` — 新建文件夹, 及其所有父文件夹
+- `editor.delete_directory(resource_path)` — 删除文件夹, 及其所有子文件夹和文件.
 
 ## Command
 

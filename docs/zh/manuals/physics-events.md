@@ -92,3 +92,34 @@ function init(self)
     physics.set_listener(physics_world_listener)
 end
 ```
+
+## 局限性
+
+监听器在事件发生时同步调用. 发生在 timestep 之中, 这意味着物理世界是锁定的. 这就不能使用改变物理世界的函数, 比如  `physics.create_joint()`.
+
+这里有个能绕过这个限制的例子:
+```lua
+local function physics_world_listener(self, event, data)
+    if event == hash("contact_point_event") then
+        local position_a = event.a.normal * SIZE
+        local position_b =  event.b.normal * SIZE
+        local url_a = msg.url(nil, event.a.id, "collisionobject")
+        local url_b = msg.url(nil, event.b.id, "collisionobject")
+        -- 填充将被发送到 `physics.create_joint()` 的消息
+        local message = {physics.JOINT_TYPE_FIXED, url_a, "joind_id", position_a, url_b, position_b, {max_length = SIZE}}
+        -- 发送消息到本对象
+        msg.post(".", "create_joint", message)
+    end
+end
+
+function on_message(self, message_id, message)
+    if message_id == hash("create_joint") then
+        -- 从函数参数解包消息
+        physics.create_joint(unpack(message))
+    end
+end
+
+function init(self)
+    physics.set_listener(physics_world_listener)
+end
+```
