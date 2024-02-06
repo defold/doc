@@ -51,7 +51,7 @@ Note that the *Group* property is **not** used here since the collision groups a
 :::
 
 ## Convex hull shape
-Defold includes a feature allowing you to create a convex hull shape from three or more points. You can use an external tool such as the [Defold Polygon Editor](/assets/defoldpolygoneditor/) or the [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) to create a convex hull shape.
+Defold includes a feature allowing you to create a convex hull shape from three or more points. You can use an external tool such as the [Defold Polygon Editor](https://rossgrams.itch.io/defold-polygon-editor) or the [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) to create a convex hull shape.
 
 1. Create convex hull shape file (file extension `.convexshape`) using an external editor.
 2. Instead of adding shapes to the collision object component, set the *Collision Shape* property to the *convex shape* file.
@@ -60,6 +60,37 @@ Defold includes a feature allowing you to create a convex hull shape from three 
 The shape will not be drawn in the editor. You can [enable Physics debugging](/manuals/debugging/#debugging-problems-with-physics) at runtime to see the shape.
 :::
 
+### File Format
+The convex hull file format uses the same data format as all other Defold files, ie the protobuf text format. A convex hull shape defines the points of the hull in a counter clockwise order. Example:
+
+```
+shape_type: TYPE_HULL
+data: 200.000
+data: 100.000
+data: 0.0
+data: 400.000
+data: 100.000
+data: 0.0
+data: 400.000
+data: 300.000
+data: 0.0
+data: 200.000
+data: 300.000
+data: 0.0
+```
+
+The above example defines the four corners of a rectangle:
+
+```
+ 200x300   400x300
+    4---------3
+    |         |
+    |         |
+    |         |
+    |         |
+    1---------2
+ 200x100   400x100
+```
 
 # Scaling collision shapes
 The collision object and its shapes inherit the scale of the game object. To disable this behaviour uncheck the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project*. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
