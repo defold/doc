@@ -57,6 +57,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error
 - `editor.can_set(node_id, property)` — check if `"set"` action with this property won't throw an error
 - `editor.create_directory(resource_path)` — create a directory if it does not exist, and all non-existent parent directories
+- `editor.delete_directory(resource_path)` — delete a directory if it exists, and all existent child directories and files.
 
 ## Commands
 

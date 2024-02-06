@@ -92,3 +92,34 @@ function init(self)
     physics.set_listener(physics_world_listener)
 end
 ```
+
+## Limitations
+
+The listener calls synchronously at the moment it occurs. It happens in the middle of a timestep, which means that the physics world is locked. This makes it impossible to use functions that may affect physics world simulations, e.g., `physics.create_joint()`.
+
+Here is a small example of how to avoid these limitations:
+```lua
+local function physics_world_listener(self, event, data)
+    if event == hash("contact_point_event") then
+        local position_a = event.a.normal * SIZE
+        local position_b =  event.b.normal * SIZE
+        local url_a = msg.url(nil, event.a.id, "collisionobject")
+        local url_b = msg.url(nil, event.b.id, "collisionobject")
+        -- fill the message in the same way arguments should be passed to `physics.create_joint()`
+        local message = {physics.JOINT_TYPE_FIXED, url_a, "joind_id", position_a, url_b, position_b, {max_length = SIZE}}
+        -- send message to the object itself
+        msg.post(".", "create_joint", message)
+    end
+end
+
+function on_message(self, message_id, message)
+    if message_id == hash("create_joint") then
+        -- unpack message with function arguments
+        physics.create_joint(unpack(message))
+    end
+end
+
+function init(self)
+    physics.set_listener(physics_world_listener)
+end
+```
