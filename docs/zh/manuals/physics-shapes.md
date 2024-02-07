@@ -51,7 +51,7 @@ Defold 包含一个功能就是从瓷砖地图中自动生成瓷磚圖源的物�
 :::
 
 ## 凸多边形
-Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以使用资源 [Defold 多边形编辑器](/assets/defoldpolygoneditor/) 或者 [物理刚体编辑器](https://selimanac.github.io/physics-body-editor/) 来创建凸多边形.
+Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以使用工具 [Defold 多边形编辑器](https://rossgrams.itch.io/defold-polygon-editor) 或者 [物理刚体编辑器](https://selimanac.github.io/physics-body-editor/) 来创建凸多边形.
 
 1. 新建凸多边形文件 (扩展名 `.convexshape`).
 2. 不在碰撞对象上加入形状, 而是设置 *Collision Shape* 属性为 *凸多边形文件*.
@@ -60,6 +60,37 @@ Defold 有一个功能就是让你用3个或多个点建立凸多边形. 可以�
 编辑器里不显示形状. 只有 [开启物理调试](/manuals/debugging-game-logic/#物理引擎调试) 才能在运行时看到形状.
 :::
 
+### 文件格式
+凸多边形文件使用和 Defold 里其他资源文件一样的格式, 即 protobuf 文本格式. 凸多边形定义了逆时针顺序的顶点. 例如:
+
+```
+shape_type: TYPE_HULL
+data: 200.000
+data: 100.000
+data: 0.0
+data: 400.000
+data: 100.000
+data: 0.0
+data: 400.000
+data: 300.000
+data: 0.0
+data: 200.000
+data: 300.000
+data: 0.0
+```
+
+上例中定义了如下的矩形的四个角:
+
+```
+ 200x300   400x300
+    4---------3
+    |         |
+    |         |
+    |         |
+    |         |
+    1---------2
+ 200x100   400x100
+```
 
 # 缩放碰撞形状
 碰撞對象及其形狀繼承于游戲對象. 不想要該功能的話可以取消勾選 *game.project* 中物理部分下的 [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms). 注意只有等比縮放受支持, 數值不等比的話以最小的一項數值為准.
