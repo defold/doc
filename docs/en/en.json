@@ -746,6 +746,10 @@
                         "name": "Atlas"
                     },
                     {
+                        "path": "/manuals/buffer",
+                        "name": "Buffer"
+                    },
+                    {
                         "path": "/manuals/font",
                         "name": "Font"
                     },
