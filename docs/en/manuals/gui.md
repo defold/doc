@@ -178,6 +178,7 @@ Blend mode
   - `Alpha` alpha blends the pixel values of the node with the background. This corresponds to "Normal" blend mode in graphics software.
   - `Add` adds the pixel values of the node with the background. This corresponds to "Linear dodge" in some graphics software.
   - `Multiply` multiplies the pixel values of the node with the background.
+  - `Screen` inversely multiplies the pixel values of the node with the background. This corresponds to "Screen" blend mode in graphics software.
 
 Pivot
 : Sets the pivot point for the node. This can be seen as the "center point" of the node. Any rotation, scaling or size change will happen around this point.
