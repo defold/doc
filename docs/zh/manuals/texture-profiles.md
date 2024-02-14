@@ -88,7 +88,7 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 : 纹理格式. 如果指定多个, 每个格式都会生效. 引擎会在运行时选择合适的纹理格式.
 
 *Mipmaps*
-: 是否生成mipmap. 默认勾选.
+: 是否生成mipmap. 默认不勾选.
 
 *Premultiply alpha*
 : 是否预乘alpha. 默认勾选.
@@ -116,7 +116,7 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 :::
 
 *Type*
-: 压缩类型, 可选值有 `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` 和 `COMPRESSION_TYPE_WEBP_LOSSY`. 详见下文 [压缩类型](#compression-types).
+: 压缩类型, 可选值有 `COMPRESSION_TYPE_DEFAULT` 或 `COMPRESSION_TYPE_BASIS_UASTC`. 详见下文 [压缩类型](#compression-types).
 
 ## 纹理格式
 
@@ -126,22 +126,8 @@ Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*
 `TEXTURE_FORMAT_RGB`, `TEXTURE_FORMAT_RGBA`, `TEXTURE_FORMAT_RGB_16BPP`, `TEXTURE_FORMAT_RGBA_16BPP`, `TEXTURE_FORMAT_LUMINANCE` 与 `TEXTURE_FORMAT_LUMINANCE_ALPHA`.
 
 基础通用压缩解码支持各种输出格式, 例如 `ASTC4x4`, `BCx`, `ETC2`, `ETC1` 与 `PVRTC1`.
-更多更新详情请见
-
-::: sidenote
-为了引入基础通用编码器, 目前指定硬件输出格式关闭.
-
-如何同时支持这两种格式还在探索当中.
-远期未来目标是引入内容管线插件来解决这个问题.
-:::
 
 目前支持以下有损压缩格式:
-
-PVRTC
-: 也是一种图块压缩方法. 在4比特模式 (4BPP) 下每个图块 4×4 像素. 在2比特模式 (2BPP) 下每个图块 8×4 像素. 每个图块占用 64 比特 (8 字节) 内存空间.  这种格式原本用于 iPhone, iPod Touch, 和 iPad. 目前使用 PowerVR GPU 的 Android 设备, 也支持这种格式. Defold 支持 PVRTC1, 在格式id中用后缀 "V1" 表示.
-
-ETC
-: 爱立信纹理压缩格式. 4×4 像素块再次压缩为 64 比特数据. 4×4 像素块一分为二然后给每块指定一个基础颜色. 每个像素编码为这个基础颜色的四通道偏移量. Android 从 2.2 版 (Froyo) 开始支持 ETC1. Defold 支持 ETC1 纹理压缩格式.
 
 | 格式                            | 压缩 | 描述  |
 | --------------------------------- | ----------- | -------------------------------- | ---- |
@@ -151,11 +137,6 @@ ETC
 | `TEXTURE_FORMAT_RGBA_16BPP`       | none        | 3 颜色通道和 1 alpha 通道. 4+4+4+4 比特. |
 | `TEXTURE_FORMAT_LUMINANCE`        | none        | 1 灰度通道, 无 alpha 通道. RGB 编码为 1 颜色通道. Alpha 被丢弃. |
 | `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | none        | 1 灰度通道和 1 alpha 通道. RGB 编码为 1 颜色通道. |
-| `TEXTURE_FORMAT_RGB_PVRTC2BPPV1`  | 1:16 固定. | 无 alpha 通道. 正方形图片. 非正方形图片会被裁剪. |
-| `TEXTURE_FORMAT_RGB_PVRTC4BPPV1`  | 1:8 固定   | 无 alpha 通道. 正方形图片. 非正方形图片会被裁剪. |
-| `TEXTURE_FORMAT_RGBA_PVRTC2BPPV1` | 1:16 固定 | 预乘 alpha. 正方形图片. 非正方形图片会被裁剪. |
-| `TEXTURE_FORMAT_RGBA_PVRTC4BPPV1` | 1:8 固定. | 预乘 alpha. 正方形图片. 非正方形图片会被裁剪. |
-| `TEXTURE_FORMAT_RGB_ETC1`         | 1:6 固定  | 无 alpha 通道. |
 
 
 ## 压缩类型
@@ -163,9 +144,7 @@ ETC
 支持以下软件压缩类型. 载入内存时需要解压.
 
 ::: sidenote
-目前 `WEBP` 压缩会回退为 `BASIS_UASTC` 压缩.
-
-如何同时支持这两种格式还在探索当中.
+我们目前正在研究重新支持硬件格式以及读取 WEBP 压缩格式.
 远期未来目标是引入内容管线插件来解决这个问题.
 :::
 
@@ -173,11 +152,6 @@ ETC
 | --------------------------------- | ------------------------- | ---- |
 | `COMPRESSION_TYPE_DEFAULT`        | All formats               | 常见有损压缩. 默认类型. |
 | `COMPRESSION_TYPE_BASIS_UASTC`    | All RGB/RGBA formats      | 基础通用高质, 有损压缩. 质量等级越低体积越小. |
-| `COMPRESSION_TYPE_WEBP`           | All formats               | WebP 无损压缩. 质量等级越高体积越小. |
-| `COMPRESSION_TYPE_WEBP_LOSSY`     | All non hardware compressed formats. | WebP 有损压缩. 质量等级越低体积越小. |
-
-对于硬件压缩纹理格式PVRTC或ETC, WebP无损压缩过程使用内部中间格式将压缩的硬件纹理格式数据转换为更适合WebP图像压缩的数据. 然后在运行时加载时将其转换回压缩的硬件纹理格式. 硬件压缩纹理格式PVRTC和ETC目前不支持WebP有损类型.
-
 
 ## 图片压缩测试
 
