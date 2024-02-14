@@ -37,7 +37,12 @@ Auto Aspect Ratio
 
 ## Использование камеры
 
-Чтобы активировать камеру и передать ее матрицы вида и проекции в рендер-скрипт, компоненту посылается сообщение acquire_camera_focus:
+Чтобы активировать камеру и передать ее матрицы вида и проекции в рендер-скрипт, нужно вызвать функцию `camera.acquire_focus` или отправить компоненту сообщение acquire_camera_focus:
+
+```lua
+camera.acquire_focus("#camera")
+```
+или
 
 ```lua
 msg.post("#camera", "acquire_camera_focus")
