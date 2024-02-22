@@ -197,10 +197,10 @@ debug线的不透明度, `0`--`1`. 默认是 `0.9`.
 ### Graphics
 
 #### Default Texture Min Filter
-设置缩小过滤方式, `linear` (默认) 或者 `nearest`.
+设置缩小过滤方式, `linear` (默认).
 
 #### Default Texture Mag Filter
-设置放大过滤方式, `linear` (默认) 或者 `nearest`.
+设置放大过滤方式, `linear` (默认).
 
 #### Max Draw Calls
 渲染请求最大数目, 默认是 `1024`.

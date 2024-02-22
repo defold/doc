@@ -21,7 +21,7 @@ default_texture_min_filter
 default_texture_mag_filter
 : 当图素大于屏幕像素大小, 要放大时使用的过滤效果.
 
-这两项取值都是 `linear` 或者 `nearest`. 比如:
+这两项取值都是 `linear`, `nearest`, `nearest_mipmap_nearest`, `nearest_mipmap_linear`, `linear_mipmap_nearest` 或者 `linear_mipmap_linear`. 比如:
 
 ```ini
 [graphics]

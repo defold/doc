@@ -204,7 +204,7 @@ Defold는 텍스쳐 샘플링을 위해 두가지 방식을 지원하고 있습�
 #### default_texture_mag_filter
 확대 필터링(Magnifying filtering)은 텍셀이 화면 픽셀보다 클 때 적용됩니다.
 
-두 설정값 모두 linear나 nearest 값으로 설정할 수 있습니다. 예를 들어:
+두 설정값 모두 `linear`, `nearest`, `nearest_mipmap_nearest`, `nearest_mipmap_linear`, `linear_mipmap_nearest`나 `linear_mipmap_linear` 값으로 설정할 수 있습니다. 예를 들어:
 
 ```
 [graphics]

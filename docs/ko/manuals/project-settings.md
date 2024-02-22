@@ -116,9 +116,9 @@ triad나 normal과 같은 물리에서의 단위 오브젝트를 얼마나 크�
 
 ## Graphics
 #### default_texture_min_filter
-최소화 필터링(min filtering)에 사용할 필터링 종류, linear(기본값) 또는 nearest
+최소화 필터링(min filtering)에 사용할 필터링 종류, linear(기본값)
 #### default_texture_mag_filter
-최대화 필터링(mag filtering)에 사용할 필터링 종류, linear(기본값) 또는 nearest
+최대화 필터링(mag filtering)에 사용할 필터링 종류, linear(기본값)
 #### max_debug_vertices
 디버그용 버텍스(vertices)의 최대 개수. 물리 모형(physics shape)을 렌더링 하는데 사용됨, 기본값 10000
 #### texture_profiles
