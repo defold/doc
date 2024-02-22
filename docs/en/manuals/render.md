@@ -268,6 +268,31 @@ However, any script of GUI script can send messages to the render script though 
 msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
+## Render Resources
+To pass in certain engine resources into the render script, you can add these into the `Render Resoures` table in the .render file assigned to the project:
+
+![Render resources](images/render/render_resources.png)
+
+Using these resources in a render script:
+
+```lua
+-- "my_material" will now be used for all draw calls associated with the predicate
+render.enable_material("my_material")
+-- anything drawn by the predicate will end up in "my_render_target"
+render.set_render_target("my_render_target")
+render.draw(self.my_full_screen_predicate)
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.disable_material()
+
+-- bind the render target result texture to whatever is getting rendered via the predicate
+render.enable_texture(0, "my_render_target", render.BUFFER_COLOR0_BIT)
+render.draw(self.my_tile_predicate)
+```
+
+::: sidenote
+Defold currently only supports `Materials` and `Render Targets` as referenced render resources, but over time more resource types will be supported by this system.
+:::
+
 ## Supported graphics APIs
 The Defold render script API translates render operations into the following graphics APIs:
 
