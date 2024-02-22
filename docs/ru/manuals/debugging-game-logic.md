@@ -31,7 +31,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 Сообщения визуальной отладки добавляют данные в пайплайн рендеринга и отрисовываются как часть обычного рендер пайплайна.
 
 * `"draw_line"` добавляет данные, которые выводятся с помощью функции `render.draw_debug3d()` в рендер-скрипте.
-* `"draw_text"` рендерится с помощью "/builtins/fonts/system_font.font", который использует материал "/builtins/fonts/system_font.material".
+* `"draw_text"` рендерится с помощью `/builtins/fonts/debug/always_on_top.font`, который использует материал `/builtins/fonts/debug/always_on_top_font.material`.
 * `"draw_debug_text"` это то же самое, что и `"draw_text"`, но отображается в пользовательском цвете.
 
 Следует отметить, что, вероятно, потребуется обновлять эти данные каждый кадр, поэтому размещение сообщений в функции `update()` является хорошей идеей.

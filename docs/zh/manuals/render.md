@@ -304,7 +304,7 @@ msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = co
 ```
 
 `"draw_text"`
-: 调试用文字绘制. 可以用来展示一些调试信息. 文字使用自带 "system_font" 字体. 使用材质标签 "text" 于渲染脚本里进行绘制.
+: 调试用文字绘制. 可以用来展示一些调试信息. 文字使用自带 "always_on_top.font" 字体. 使用材质标签 "debug_text" 于渲染脚本里进行绘制.
 
 ```lua
 -- 文字信息绘制
