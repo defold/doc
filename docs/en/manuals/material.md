@@ -201,7 +201,6 @@ Wrap U/W
 Filter Min/Mag
 : The filtering for magnification and minification. Nearest filtering requires less computation than linear interpolation, but can result in aliasing artifacts. Linear interpolation often provides smoother results:
 
- Corrected Version:
   - `Default` uses the default filter option specified in the `game.project` file under `Graphics`  as `Default Texture Min Filter` and `Default Texture Mag Filter` .
   - `FILTER_MODE_NEAREST` uses the texel with coordinates nearest the center of the pixel.
   - `FILTER_MODE_LINEAR` sets a weighted linear average of the 2x2 array of texels that lie nearest to the center of the pixel.
