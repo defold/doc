@@ -268,6 +268,66 @@ However, any script of GUI script can send messages to the render script though 
 msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
+## Render Resources
+To pass in certain engine resources into the render script, you can add these into the `Render Resoures` table in the .render file assigned to the project:
+
+![Render resources](images/render/render_resources.png)
+
+Using these resources in a render script:
+
+```lua
+-- "my_material" will now be used for all draw calls associated with the predicate
+render.enable_material("my_material")
+-- anything drawn by the predicate will end up in "my_render_target"
+render.set_render_target("my_render_target")
+render.draw(self.my_full_screen_predicate)
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.disable_material()
+
+-- bind the render target result texture to whatever is getting rendered via the predicate
+render.enable_texture(0, "my_render_target", render.BUFFER_COLOR0_BIT)
+render.draw(self.my_tile_predicate)
+```
+
+::: sidenote
+Defold currently only supports `Materials` and `Render Targets` as referenced render resources, but over time more resource types will be supported by this system.
+:::
+
+## Texture handles
+
+Textures in Defold are represented internally as a handle, which essentially equates to a number that should uniquely identify a texture object anywhere in the engine. This means that you can bridge the gameobject world with the rendering world by passing these handles between the render system and a gameobject script. For example, a script can create a dynamic texture in a script attached to a gameobject and send this to the renderer to be used as a global texture in a draw command.
+
+In a `.script` file:
+
+```lua
+local my_texture_resource = resource.create_texture("/my_texture.texture", tparams)
+-- note: my_texture_resource is a hash to the resource path, which can't be used as a handle!
+local my_texture_handle = resource.get_texture_info(my_texture_resource)
+-- my_texture_handle contains information about the texture, such as width, height and so on
+-- it does also contain the handle, which is what we are after
+msg.post("@render:", "set_texture", { handle = my_texture_handle.handle })
+```
+
+In a .render_script file:
+
+```lua
+function on_message(self, message_id, message)
+    if message_id == hash("set_texture") then
+        self.my_texture = message.handle
+    end
+end
+
+function update(self)
+    -- bind the custom texture to the draw state
+    render.enable_texture(0, self.my_texture)
+    -- do drawing..
+end
+```
+
+::: sidenote
+There is currently no way of changing which texture a resource should point to, you can only use raw handles like this in the render script.
+:::
+
 ## Supported graphics APIs
 The Defold render script API translates render operations into the following graphics APIs:
 
