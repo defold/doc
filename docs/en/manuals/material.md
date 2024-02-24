@@ -92,8 +92,20 @@ Value
 Custom attributes can also be used to trim memory footprint on both CPU and GPU by reconfiguring the streams to use a smaller data type, or a different element count.
 :::
 
-::: important
-Custom attributes are available starting from Defold 1.4.8!
+Similar to user defined shader constants, you can also update vertex attributes in runtime by calling go.get, go.set and go.animate:
+
+![Custom material attribute](images/materials/set_custom_attribute.png)
+
+```lua
+go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
+
+go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1), go.EASING_LINEAR, 2)
+```
+
+There are some caveats to updating the vertex attributes however, wether or not a component can use the value depends on the semantic type of the attribute. For example, a sprite component supports the `SEMANTIC_TYPE_POSITION` so if you update an attribute that has this semantic type, the component will ignore the overridden value since the semantic type dictates that the data should always be produced by the sprites position.
+
+::: sidenote
+Setting custom vertex data in runtime is currently only supported for sprite components.
 :::
 
 ## Vertex and fragment constants

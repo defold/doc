@@ -51,7 +51,12 @@ Orthographic Zoom
 
 ## Using the camera
 
-To activate a camera and have it feed its view and projection matrices to the render script, you send the component an `acquire_camera_focus` message:
+To activate a camera and have it feed its view and projection matrices to the render script, you call `camera.acquire_focus` or send the component an `acquire_camera_focus` message:
+
+```lua
+camera.acquire_focus("#camera")
+```
+or
 
 ```lua
 msg.post("#camera", "acquire_camera_focus")
