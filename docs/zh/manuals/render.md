@@ -160,7 +160,7 @@ function init(self)
   -- 定义渲染优先级. 每个优先级的绘制不相干所以绘制时可以任意修改 OpenGL 的状态.
     self.predicates = create_predicates("tile", "gui", "text", "particle", "model")
 
-    -- Create and fill data tables will be used in update()
+    -- 创建和填充数据表将在 update() 中使用
     local state = create_state()
     self.state = state
     local camera_world = create_camera(state, "camera_world", true)
@@ -266,6 +266,66 @@ GUI 脚本同样可以向 `@render` 端口发送消息:
 -- 更改清屏颜色.
 msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
+
+## 渲染资源
+要将某些引擎资源传入渲染脚本, 你可以把它们添加进项目 .render 文件里的 `Render Resoures` 表里:
+
+![Render resources](images/render/render_resources.png)
+
+在渲染脚本里使用这些资源:
+
+```lua
+-- "my_material" 现在将用于优先级关联的所有绘制调用
+render.enable_material("my_material")
+-- 谓词绘制的任何内容都将以 "my_render_target" 结尾
+render.set_render_target("my_render_target")
+render.draw(self.my_full_screen_predicate)
+render.set_render_target(render.RENDER_TARGET_DEFAULT)
+render.disable_material()
+
+-- 将渲染目标结果纹理绑定到通过优先级渲染的任何内容
+render.enable_texture(0, "my_render_target", render.BUFFER_COLOR0_BIT)
+render.draw(self.my_tile_predicate)
+```
+
+::: sidenote
+Defold 目前仅支持 `Materials` 和 `Render Targets` 作为引用的渲染资源, 但后续会加入支持更多资源类型.
+:::
+
+## 纹理句柄
+
+Defold 中的纹理在内部表示为一个句柄, 这实质上等同于一个数字, 该数字应该唯一地标识引擎中任何位置的纹理对象. 这意味着你可以通过在渲染系统和游戏对象脚本之间传递这些句柄来桥接游戏对象世界和渲染世界. 比如, 脚本可以在附加到游戏对象的脚本中动态创建纹理, 并将其发送到渲染器, 以用作绘制命令中的全局纹理.
+
+在 `.script` 文件中:
+
+```lua
+local my_texture_resource = resource.create_texture("/my_texture.texture", tparams)
+-- 注意: my_texture_resource 是资源路径的哈希值, 不能用作句柄!
+local my_texture_handle = resource.get_texture_info(my_texture_resource)
+-- my_texture_handle 包含纹理的信息, 比如宽度, 高度等等
+-- 它还包含句柄, 这就是我们所需要的
+msg.post("@render:", "set_texture", { handle = my_texture_handle.handle })
+```
+
+In a .render_script file:
+
+```lua
+function on_message(self, message_id, message)
+    if message_id == hash("set_texture") then
+        self.my_texture = message.handle
+    end
+end
+
+function update(self)
+    -- 将自定义纹理绑定到绘制状态
+    render.enable_texture(0, self.my_texture)
+    -- 进行绘制..
+end
+```
+
+::: sidenote
+目前无法更改资源应指向的纹理, 你只能在渲染脚本中使用这样的原始句柄.
+:::
 
 ## 受支持的图像 API
 Defold 渲染脚本 API 把渲染操作转换为如下图像 API:

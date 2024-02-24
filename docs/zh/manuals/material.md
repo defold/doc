@@ -92,9 +92,20 @@ Value
 自定义属性也可以在 CPU 和 GPU 上帮助减少内存占用, 方法是重构流以使用更小的数据类型, 或更少的元素.
 :::
 
-::: important
-自定义属性从 Defold 1.4.8 版本开始可用!
-:::
+与用户自定义着色器常量类似, 你也可以通过调用 go.get, go.set 和 go.animate 在运行时更新顶点属性:
+	
+![Custom material attribute](images/materials/set_custom_attribute.png)
+
+```lua
+go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
+
+go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1), go.EASING_LINEAR, 2)
+```
+
+更新顶点属性有一些注意事项, 组件是否可以使用该值取决于属性的语义类型. 比如, sprite 组件支持 `SEMANTIC_TYPE_POSITION` 所以如果你更新有该语义类型的属性, 该组件将忽略覆盖的值, 因为语义类型规定数据应始终由 sprites 位置生成.
+
+::: sidenote
+目前仅 sprite 组件支持在运行时设置自定义顶点数据.
 
 ## 顶点和片元常量
 
@@ -201,6 +212,7 @@ Wrap U/V
 Filter Min/Mag
 : 缩放过滤. 就近过滤比线性插值过滤省资源, 但是可能产生不良效果. 一般线性插值过滤结果比较平滑:
 
+  - `Default` 使用 `game.project` 文件里 `Graphics`  下的 `Default Texture Min Filter` 和 `Default Texture Mag Filter` 作为默认过滤选项.
   - `FILTER_MODE_NEAREST` 使用位于像素中心最近的图素.
   - `FILTER_MODE_LINEAR` 使用位于像素中心最近的的2x2图素矩阵的加权线性平均值.
   - `FILTER_MODE_NEAREST_MIPMAP_NEAREST` 使用位于单个mipmap上最近的图素值.
