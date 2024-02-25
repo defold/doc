@@ -21,7 +21,7 @@ default_texture_min_filter
 default_texture_mag_filter
 : Filtrowanie przy powiększaniu jest stosowane, gdy texel jest większy niż piksel na ekranie.	
 
-Oba ustawienia mogą przyjmować wartości `linear` lub `nearest`. Na przykład:
+Oba ustawienia mogą przyjmować wartości `linear`, `nearest`, `nearest_mipmap_nearest`, `nearest_mipmap_linear`, `linear_mipmap_nearest` lub `linear_mipmap_linear` . Na przykład:
 
 ```ini
 [graphics]

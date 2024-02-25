@@ -21,7 +21,7 @@ default_texture_min_filter
 default_texture_mag_filter
 : Увеличивающая фильтрация применяется всякий раз, когда тексель больше пикселя экрана.
 
-Оба параметра принимают значения `linear` или `nearest`. Например:
+Оба параметра принимают значения `linear`, `nearest`, `nearest_mipmap_nearest`, `nearest_mipmap_linear`, `linear_mipmap_nearest` или `linear_mipmap_linear`. Например:
 
 ```ini
 [graphics]
