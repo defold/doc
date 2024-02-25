@@ -365,7 +365,7 @@ msg.post("@render:", "draw_line", { start_point = p1, end_point = p2, color = co
 ```
 
 `"draw_text"`
-: Draw debug text. Use to print debug information. The text is drawn with the built-in "system_font" font. The system font has a material with tag "text" and is rendered with other text in the default render script.
+: Draw debug text. Use to print debug information. The text is drawn with the built-in `always_on_top.font` font. The system font has a material with tag `debug_text` and is rendered with other text in the default render script.
 
 ```lua
 -- draw a text message

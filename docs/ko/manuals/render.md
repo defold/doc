@@ -175,6 +175,6 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = vmath.vect
 
 * draw_line 메세지를 통해 씬(scene)에 추가된 모든 선(line)들은 render.draw_debug3d() 호출에 의해 그려집니다.
 
-* draw_text 메세지를 통해 씬(scene)에 추가된 모든 텍스트(text)들은 내장된 "system_font"로 그려집니다. 시스템 폰트는 "text" 태그가 있는 메터리얼을 가지므로 위의 렌더 스크립트 내용중에서  "self.text_pred" predicate에 그려집니다.
+* draw_text 메세지를 통해 씬(scene)에 추가된 모든 텍스트(text)들은 내장된 `always_on_top.font` 로 그려집니다. 시스템 폰트는 "text" 태그가 있는 메터리얼을 가지므로 위의 렌더 스크립트 내용중에서  `debug_text` predicate에 그려집니다.
 
 > toggle_profile 메세지를 @system 소켓으로 보내서 접근 할 수 있는 비주얼 프로파일러(visual profiler)는 스크립트로 처리 가능한 렌더러와는 다른 파트이므로 당신의 렌더 스크립트와는 분리되어 그려집니다.

@@ -31,7 +31,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 调试绘制与普通的渲染处于同一个渲染管线之上.
 
 * `"draw_line"` 实际是是使用渲染脚本的 `render.draw_debug3d()` 函数进行绘制的.
-* `"draw_text"` 使用的是 "/builtins/fonts/system_font.font" 字体和 "/builtins/fonts/system_font.material" 材质.
+* `"draw_text"` 使用的是 `/builtins/fonts/debug/always_on_top.font` 字体和 `/builtins/fonts/debug/always_on_top_font.material` 材质.
 * `"draw_debug_text"` 与 `"draw_text"` 类似, 只是可以自定义文字颜色.
 
 注意一般调试信息都需要实时更新所以把它们放在 `update()` 函数中是个好主意.
