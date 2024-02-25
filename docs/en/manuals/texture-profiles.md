@@ -88,7 +88,7 @@ If two [path settings](#path-settings) matches the same file and the path uses d
 : One or more texture formats to generate. If several formats are specified, textures for each format are generated and included in the bundle. The engine selects textures of a format that is supported by the runtime platform.
 
 *Mipmaps*
-: If checked, mipmaps are generated for the platform. Checked by default.
+: If checked, mipmaps are generated for the platform. Unchecked by default.
 
 *Premultiply alpha*
 : If checked, alpha is premultiplied into the texture data. Checked by default.
@@ -116,7 +116,7 @@ Since 1.2.185 we've redefined these enums, since they are a bit ambiguous.
 :::
 
 *Type*
-: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` or `COMPRESSION_TYPE_WEBP_LOSSY`. See [Compression Types](#compression-types) below for more details.
+: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT` or `COMPRESSION_TYPE_BASIS_UASTC`. See [Compression Types](#compression-types) below for more details.
 
 ## Texture formats
 
@@ -126,22 +126,8 @@ Since Basis Universal compression transcoding is dependent on the device's GPU c
 `TEXTURE_FORMAT_RGB`, `TEXTURE_FORMAT_RGBA`, `TEXTURE_FORMAT_RGB_16BPP`, `TEXTURE_FORMAT_RGBA_16BPP`, `TEXTURE_FORMAT_LUMINANCE` and `TEXTURE_FORMAT_LUMINANCE_ALPHA`.
 
 The Basis Universal transcoder supports many output formats, like `ASTC4x4`, `BCx`, `ETC2`, `ETC1` and `PVRTC1`.
-For a complete, up-to-date list, see
-
-::: sidenote
-The hardware specific output formats are currently disable due to the recent upgrade to our usage of Basis Universal encoder.
-
-We are currently looking into how to reintroduce support for both these formats, as well as readding support for WEBP compression.
-Our current long running task of introducing content pipeline plugins aim to fix this.
-:::
 
 The following lossy compression formats are currently supported:
-
-PVRTC
-: Textures are compressed in blocks. In 4 bit mode (4BPP) each block is 4×4 pixels. In 2 bit mode (2BPP) each block is 8×4 pixels. Each block always occupies 64 bits (8 bytes) of memory space.  The format is used in all generations of the iPhone, iPod Touch, and iPad. (certain Android devices, that use PowerVR GPUs, also support the format). Defold supports PVRTC1, as indicated by the suffix "V1" in the format identifiers.
-
-ETC
-: Ericsson Texture Compression. Blocks of 4×4 pixels are compressed into a single 64-bit word. The 4×4 block is divided in half and each half is assigned a base color. Each pixel is then encoded as one of four offset values from the base color of its half. Android supports ETC1 since version 2.2 (Froyo). Defold compresses ETC1 textures.
 
 | Format                            | Compression | Details  |
 | --------------------------------- | ----------- | -------------------------------- | ---- |
@@ -151,11 +137,6 @@ ETC
 | `TEXTURE_FORMAT_RGBA_16BPP`       | none        | 3 channel color and full alpha. 4+4+4+4 bits. |
 | `TEXTURE_FORMAT_LUMINANCE`        | none        | 1 channel gray-scale, no alpha. RGB channels multiplied into one. Alpha is discarded. |
 | `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | none        | 1 channel gray-scale and full alpha. RGB channels multiplied into one. |
-| `TEXTURE_FORMAT_RGB_PVRTC2BPPV1`  | 1:16 fixed. | No alpha. Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGB_PVRTC4BPPV1`  | 1:8 fixed   | No alpha. Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGBA_PVRTC2BPPV1` | 1:16 fixed | Pre-multiplied alpha. Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGBA_PVRTC4BPPV1` | 1:8 fixed. | Pre-multiplied alpha. Requires square images. Non square images will be resized. |
-| `TEXTURE_FORMAT_RGB_ETC1`         | 1:6 fixed  | No alpha |
 
 
 ## Compression types
@@ -163,9 +144,7 @@ ETC
 The following software image compression types are supported. The data is uncompressed when the texture file is loaded into memory.
 
 ::: sidenote
-Currently the `WEBP` compression will always fallback to `BASIS_UASTC` compression.
-
-We are currently looking into how to reintroduce support for both these formats, as well as readding support for WEBP compression.
+We are currently looking into how to reintroduce support for hardware formats, as well as readding support for WEBP compression.
 Our current long running task of introducing content pipeline plugins aim to fix this.
 :::
 
@@ -173,11 +152,6 @@ Our current long running task of introducing content pipeline plugins aim to fix
 | --------------------------------- | ------------------------- | ---- |
 | `COMPRESSION_TYPE_DEFAULT`        | All formats               | Generic lossless data compression. Default. |
 | `COMPRESSION_TYPE_BASIS_UASTC`    | All RGB/RGBA formats      | Basis Universal high quality, lossy compression. Lower quality level results in smaller size. |
-| `COMPRESSION_TYPE_WEBP`           | All formats               | WebP lossless compression. Higher quality level results in smaller size. |
-| `COMPRESSION_TYPE_WEBP_LOSSY`     | All non hardware compressed formats. | WebP lossy compression. Lower quality level results in smaller size. |
-
-For hardware compressed texture formats PVRTC or ETC, the WebP lossless compression process transforms the compressed hardware texture format data into data more suitable for WebP image compression using an internal intermediate format. This is then transformed back into the compressed hardware texture format when loaded by the run-time. WebP lossy type is currently not supported for hardware compressed texture formats PVRTC and ETC.
-
 
 ## Example image
 

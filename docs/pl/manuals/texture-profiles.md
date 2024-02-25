@@ -86,7 +86,7 @@ Jeśli dwa [ustawienia ścieżki](#path-settings) pasują do tego samego pliku i
 : Jedna lub więcej formatów tekstury do wygenerowania. Jeśli określono wiele formatów, zostaną wygenerowane tekstury dla każdego formatu i dołączone do paczki. Silnik wybiera tekstury formatu obsługiwanego przez platformę uruchomieniową.
 
 *Mipmaps*
-: Jeśli zaznaczone, generowane są [mipmapy](https://pl.wikipedia.org/wiki/Mipmapping) dla platformy. Domyślnie jest zaznaczone.
+: Jeśli zaznaczone, generowane są [mipmapy](https://pl.wikipedia.org/wiki/Mipmapping) dla platformy. Domyślnie nie jest zaznaczone.
 
 *Premultiply alpha*
 : Jeśli zaznaczone, alfa, czyli wskaźnik przezroczystości, jest wstępnie mnożona do danych tekstury. Domyślnie jest zaznaczone.
@@ -114,7 +114,7 @@ Od wersji 1.2.185 nazwy te zostały zmienione - zredefiniowane, aby uniknąć ni
 :::
 
 *Type*
-: Pozwala określić typ kompresji dla obrazów, `COMPRESSION_TYPE_DEFAULT`, `COMPRESSION_TYPE_WEBP` albo `COMPRESSION_TYPE_WEBP_LOSSY`. Zobacz [Typy Kompresji tutaj](#compression-types).
+: Pozwala określić typ kompresji dla obrazów, `COMPRESSION_TYPE_DEFAULT` albo `COMPRESSION_TYPE_BASIS_UASTC`. Zobacz [Typy Kompresji tutaj](#compression-types).
 
 ## Formaty tekstur
 
@@ -125,20 +125,7 @@ Ponieważ transkodowanie kompresji Basis Universal zależy od możliwości karty
 
 Transkoder Basis Universal obsługuje wiele formatów wyjściowych, takich jak: `ASTC4x4`, `BCx`, `ETC2`, `ETC1` i `PVRTC1`.
 
-::: sidenote
-Specyficzne formaty wyjściowe sprzętu są obecnie wyłączone z powodu ostatniej aktualizacji naszego kodera Basis Universal.
-
-Obecnie analizujemy, jak ponownie wprowadzić obsługę tych formatów, a także dodatkową obsługę kompresji WEBP.
-Nasze obecne długotrwałe zadanie polegające na wprowadzeniu wtyczek do przetwarzania treści ma na celu rozwiązanie tego problemu.
-:::
-
 Obecnie obsługiwane są następujące formaty kompresji stratnej:
-
-PVRTC
-: [PowerVR Texture Compression](https://en.wikipedia.org/wiki/PVRTC) - tekstury są kompresowane w blokach. W trybie 4-bitowym (4BPP) każdy blok ma rozmiar 4x4 pikseli. W trybie 2-bitowym (2BPP) każdy blok ma rozmiar 8x4 pikseli. Każdy blok zawsze zajmuje 64 bity (8 bajtów) miejsca w pamięci. Format ten jest używany we wszystkich generacjach iPhone'a, iPoda Touch i iPada (niektóre urządzenia Androida, korzystające z układów graficznych PowerVR, również obsługują ten format). Defold obsługuje PVRTC1, oznaczane przyrostkiem "V1" w identyfikatorach formatów.
-
-ETC
-: [Ericsson Texture Compression](https://en.wikipedia.org/wiki/Ericsson_Texture_Compression) - bloki 4x4 pikseli są kompresowane do jednego słowa o rozmiarze 64 bitów. Blok 4x4 jest dzielony na pół, a każda połowa jest przypisana do podstawowego koloru. Następnie każdy piksel jest kodowany jako jedna z czterech wartości przesunięcia od koloru podstawowego swojej połowy. Android obsługuje ETC1 od wersji 2.2 (Froyo). Defold kompresuje tekstury ETC1.
 
 | Format                            | Kompresja   | Szczegóły  |
 | --------------------------------- | ----------- | -------------------------------- | ---- |
@@ -148,11 +135,6 @@ ETC
 | `TEXTURE_FORMAT_RGBA_16BPP`       | brak        | Kolor 3-kanałowy i pełna alfa. 4+4+4+4 bity. |
 | `TEXTURE_FORMAT_LUMINANCE`        | brak        | Skala szarości 1-kanałowa, brak alfy. Kanały RGB pomnożone przez siebie. Alfa jest usuwana. |
 | `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | brak        | Skala szarości 1-kanałowa i pełna alfa. Kanały RGB pomnożone przez siebie. |
-| `TEXTURE_FORMAT_RGB_PVRTC2BPPV1`  | 1:16 stała  | Brak alfy. Wymagane obrazy kwadratowe. Obrazy niekwadratowe zostaną przeskalowane. |
-| `TEXTURE_FORMAT_RGB_PVRTC4BPPV1`  | 1:8 stała   | Brak alfy. Wymagane obrazy kwadratowe. Obrazy niekwadratowe zostaną przeskalowane. |
-| `TEXTURE_FORMAT_RGBA_PVRTC2BPPV1` | 1:16 stała  | Wstępnie pomnożona alfa. Wymagane obrazy kwadratowe. Obrazy niekwadratowe zostaną przeskalowane. |
-| `TEXTURE_FORMAT_RGBA_PVRTC4BPPV1` | 1:8 stała   | Wstępnie pomnożona alfa. Wymagane obrazy kwadratowe. Obrazy niekwadratowe zostaną przeskalowane. |
-| `TEXTURE_FORMAT_RGB_ETC1`         | 1:6 stała   | Brak alfy |
 
 
 ## Typy kompresji
@@ -160,9 +142,7 @@ ETC
 Obsługiwane są następujące typy programowych kompresji obrazów. Dane są rozpakowywane, gdy plik tekstury jest ładowany do pamięci.
 
 ::: sidenote
-Aktualnie kompresja `WEBP` zawsze przekierowuje do kompresji `BASIS_UASTC`.
-
-Obecnie analizujemy, jak ponownie wprowadzić obsługę obu tych formatów, a także dodatkową obsługę kompresji WEBP.
+Obecnie analizujemy, jak ponownie wprowadzić obsługę sprzętowa formatów, a także dodatkową obsługę kompresji WEBP.
 Nasze obecne długotrwałe zadanie polegające na wprowadzeniu wtyczek do przetwarzania treści ma na celu rozwiązanie tego problemu.
 :::
 
@@ -170,10 +150,6 @@ Nasze obecne długotrwałe zadanie polegające na wprowadzeniu wtyczek do przetw
 | --------------------------------- | -------------------------- | --------- |
 | `COMPRESSION_TYPE_DEFAULT`        | Wszystkie formaty          | Ogólna kompresja danych bez utraty. Domyślna. |
 | `COMPRESSION_TYPE_BASIS_UASTC`    | Wszystkie formaty RGB/RGBA | Wysoka jakość kompresji Basis Universal, utrata jakości. Niższy poziom jakości prowadzi do mniejszego rozmiaru. |
-| `COMPRESSION_TYPE_WEBP`           | Wszystkie formaty          | Kompresja WEBP bez utraty. Wyższy poziom jakości prowadzi do mniejszego rozmiaru. |
-| `COMPRESSION_TYPE_WEBP_LOSSY`     | Wszystkie formaty niekompresowane sprzętowo. | Kompresja WEBP z utratą jakości. Niższy poziom jakości prowadzi do mniejszego rozmiaru. |
-
-Dla sprzętowo skompresowanych formatów tekstury PVRTC lub ETC, proces bezstratnej kompresji WebP przekształca dane sprzętowo skompresowanej tekstury na dane bardziej odpowiednie do kompresji obrazu WebP za pomocą wewnętrznego formatu pośredniego. Następnie jest on przekształcany z powrotem na sprzętowo skompresowany format tekstury podczas ładowania podczas czasu wykonywania programu. Aktualnie typ stratny WebP nie jest obsługiwany dla sprzętowo skompresowanych formatów tekstury PVRTC i ETC.
 
 ## Przykładowy obraz
 

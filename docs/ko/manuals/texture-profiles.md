@@ -90,8 +90,3 @@ Ericsson Texture Compression. 4x4 픽셀 그룹은 단일 64비트 word 형식�
 | TEXTURE_FORMAT_LUMINANCE | none  | One channel gray-scale, no alpha | RGB 채널이 하나로 곱해짐. Alpha는 버려짐 |
 | TEXTURE_FORMAT_RGB | none | 3 channel color | Alpha는 버려짐 |
 | TEXTURE_FORMAT_RGBA | none | 3 channel color and full alpha | - |
-| TEXTURE_FORMAT_RGB_PVRTC2BPPV1 | 1:16 fixed | No alpha | 정사각형 이미지 필요. 정사각형이 아닌 이미지는 리사이징 됨 |
-| TEXTURE_FORMAT_RGB_PVRTC4BPPV1 | 1:8 fixed | No alpha | 정사각형 이미지 필요. 정사각형이 아닌 이미지는 리사이징 됨 |
-| TEXTURE_FORMAT_RGBA_PVRTC2BPPV1 | 1:16 fixed | Pre-multiplied alpha | 정사각형 이미지 필요. 정사각형이 아닌 이미지는 리사이징 됨 |
-| TEXTURE_FORMAT_RGBA_PVRTC4BPPV1 | 1:8 fixed | Pre-multiplied alpha | 정사각형 이미지 필요. 정사각형이 아닌 이미지는 리사이징 됨 |
-| TEXTURE_FORMAT_RGB_ETC1 | 1:6 fixed | No alpha | - |
