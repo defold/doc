@@ -1,6 +1,6 @@
 ---
-title: Defold development for PlayStation®4
-brief: This manual describes how to get PlayStation®4 access
+title: Defold development for PlayStation®4 and PlayStation®5
+brief: This manual describes how to get PlayStation®4 and PlayStation®5 access
 ---
 
 # Game development for PlayStation®4 and PlayStation®5 consoles 
