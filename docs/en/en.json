@@ -1321,6 +1321,10 @@
                         "name": "PlayStation®4"
                     },
                     {
+                        "path": "/manuals/sony-playstation",
+                        "name": "PlayStation®5"
+                    },
+                    {
                         "path": "/manuals/microsoft-xbox",
                         "name": "Microsoft Xbox"
                     }
