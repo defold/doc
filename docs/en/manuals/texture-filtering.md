@@ -21,7 +21,7 @@ default_texture_min_filter
 default_texture_mag_filter
 : Magnifying filtering applies whenever the texel is larger than the screen pixel.
 
-Both settings accept the values `linear` or `nearest`. For example:
+Both settings accept the values `linear`, `nearest`, `nearest_mipmap_nearest`, `nearest_mipmap_linear`, `linear_mipmap_nearest` or `linear_mipmap_linear`. For example:
 
 ```ini
 [graphics]

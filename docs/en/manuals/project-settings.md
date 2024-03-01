@@ -197,10 +197,10 @@ The maximum number of overlapping physics triggers. `16` by default.
 ### Graphics
 
 #### Default Texture Min Filter
-Specifies which filtering to use for minification filtering, `linear` (default) or `nearest`.
+Specifies which filtering to use for minification filtering, `linear` by default.
 
 #### Default Texture Mag Filter
-Specifies which filtering to use for magnification filtering, `linear` (default) or `nearest`.
+Specifies which filtering to use for magnification filtering, `linear` by default.
 
 #### Max Draw Calls
 The max number of render calls, `1024` by default.

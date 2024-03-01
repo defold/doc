@@ -18,6 +18,10 @@ end)
 
 ```
 
+::: important
+If a listener is set, [physics messages](/manuals/physics-messages) will no longer be sent.
+:::
+
 ## Event Data Structure
 
 Each physics event provides a `data` table containing specific information relevant to the event.

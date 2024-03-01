@@ -31,7 +31,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 The visual debug messages adds data to the rendering pipeline and is drawn as part of the regular render pipeline.
 
 * `"draw_line"` adds data that is rendered with the `render.draw_debug3d()` function in the render script.
-* `"draw_text"` is rendered with the "/builtins/fonts/system_font.font" that uses the "/builtins/fonts/system_font.material" material.
+* `"draw_text"` is rendered with the `/builtins/fonts/debug/always_on_top.font` that uses the `/builtins/fonts/debug/always_on_top_font.material` material.
 * `"draw_debug_text"` is the same as `"draw_text"`, but it's rendered in a custom color.
 
 Note that you probably want to update this data every frame so posting the messages in the `update()` function is a good idea.
