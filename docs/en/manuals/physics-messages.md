@@ -5,11 +5,11 @@ brief: When two objects collide, the engine will broadcast messages to all compo
 
 # Collision messages
 
-When two objects collide, the engine will broadcast messages to all components in both objects:
+When two objects collide, the engine will broadcast messages to both objects:
 
 ## Collision response
 
-The `"collision_response"` message is sent for all collision objects. It has the following fields set:
+The `"collision_response"` message is sent when one of the colliding objects is of type "dynamic", "kinematic" or "static". It has the following fields set:
 
 `other_id`
 : the id of the instance the collision object collided with (`hash`)
@@ -37,7 +37,7 @@ end
 
 ## Contact point response
 
-The `"contact_point_response"` message is sent when one of the colliding objects is dynamic or kinematic. It has the following fields set:
+The `"contact_point_response"` message is sent when one of the colliding objects is of type "dynamic" or "kinematic" and the other is of type "dynamic", "kinematic" or "static". It has the following fields set:
 
 `position`
 : world position of the contact point (`vector3`).
@@ -91,10 +91,7 @@ end
 
 ## Trigger response
 
-The `"trigger_response"`  message is sent when a colliding object is of type "trigger".
-
-
-In a trigger collision `"collision_response"` messages are sent. In addition, triggers also send a special `"trigger_response"` message when the collision begins and ends. The message has the following fields:
+The `"trigger_response"`  message is sent when one of the colliding objects is of type "trigger". The message will be sent once when the collision is first detected and then once more when the objects are no longer colliding. It has the following fields:
 
 `other_id`
 : the id of the instance the collision object collided with (`hash`).
