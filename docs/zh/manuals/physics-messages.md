@@ -5,11 +5,11 @@ brief: 当两个碰撞对象接触, 引擎会向这两个对象上的所有组�
 
 # 碰撞消息
 
-当两个碰撞对象接触, 引擎会向这两个对象上的所有组件广播碰撞消息:
+当两个碰撞对象接触, 引擎会向这两个对象广播碰撞消息:
 
 ## 碰撞响应
 
-所有碰撞物体都会收到 `"collision_response"` 消息. 消息包含如下内容:
+如果碰撞一方是 "dynamic", "kinematic" 或 "static" 类型时会收到 `"collision_response"` 消息. 消息包含如下内容:
 
 `other_id`
 : 另一个碰撞物的id (`hash`过的)
@@ -37,7 +37,7 @@ end
 
 ## 碰撞点响应
 
-如果碰撞一方是 dynamic 或 kinematic 对象, 那么它会收到 `"contact_point_response"` 消息. 消息包含如下内容:
+如果碰撞一方是 dynamic 或 kinematic 对象, 而另一方是 "dynamic", "kinematic" 或 "static" 类型时, 会收到 `"contact_point_response"` 消息. 消息包含如下内容:
 
 `position`
 : 接触点世界坐标 (`vector3`类型).
@@ -91,8 +91,7 @@ end
 
 ## 触发器响应
 
-作为 "trigger" 类型的碰撞对象会收到 `"trigger_response"` 消息.
-触发器与碰撞对象接触时会收到 `"collision_response"` 消息. 而且, 接触开始和结束时都会收到 `"trigger_response"` 消息. 消息包含如下信息:
+如果碰撞一方是 "trigger" 类型则会收到 `"trigger_response"`. 碰撞开始时和碰撞结束时都会发送一次消息. 消息包含如下内容:
 
 `other_id`
 : 另一个物体的id (`hash`过的).
