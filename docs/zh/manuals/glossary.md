@@ -129,7 +129,7 @@ msg.post("#weapon", "disable")
 
 ## ParticleFX
 
-![ParticleFX](images/icons/particlefx.png){.left} 粒子特效用来实现游戏里的某些视觉效果. 包括雾, 烟, 火, 雨或者落叶等等. Defold 自带了一个功能强大的例子编辑器用来创建和实时调整粒子效果. 详情请见 [粒子教程](/manuals/particlefx).
+![ParticleFX](images/icons/particlefx.png){.left} 粒子特效用来实现游戏里的某些视觉效果. 包括雾, 烟, 火, 雨或者落叶等等. Defold 自带了一个功能强大的粒子编辑器用来创建和实时调整粒子效果. 详情请见 [粒子教程](/manuals/particlefx).
 
 ## Profiling
 
