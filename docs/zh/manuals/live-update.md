@@ -49,7 +49,7 @@ brief: 热更新允许游戏运行时获取和存储编译时并不存在的资�
 : 让 Defold 把包外资源打成 zip 包. 并且在配置里 *Export path* 项指定存放路径.
 
 `Amazon`
-: 让 Defold 自动把包外资源上传到 Amazon Web Service (AWS) S3 服务器上. 填写 AWS *凭证* 名, 选择合适的 *服务器* 在提供一个 *前缀* 名. [关于 AWS 账户注册请见下文](#setting_up_amazon_web_service).
+: 让 Defold 自动把包外资源上传到 Amazon Web Service (AWS) S3 服务器上. 填写 AWS *凭证* 名, 选择合适的 *服务器* 在提供一个 *前缀* 名. 关于 AWS 账户注册请见 [该教程](/manuals/live-update-aws).
 
 ## 热更新应用打包
 
@@ -122,7 +122,7 @@ mounts 在引擎重启时会被自动重新读取.
 ## 热更新脚本
 
 使用热更新更新内容, 必须下载并挂载游戏数据.
-参见 [这里的热更新脚本教程](/manuals/live-update-scripting.md).
+参见 [这里的热更新脚本教程](/manuals/live-update-scripting).
 
 ## 开发警告
 
