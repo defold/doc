@@ -64,6 +64,9 @@ All libraries are documented in the [reference API documentation](/ref/go).
 * [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - Also available online (see above)
 * [Beginning Lua Programming](https://www.amazon.com/Beginning-Lua-Programming-Kurt-Jung/dp/0470069171)
 
+### Videos
+* [Learn Lua in one video](https://www.youtube.com/watch?v=iMacxZQMPXs)
+
 ## Syntax
 
 Programs have simple, easy to read syntax. Statements are written one on each line and there is no need to mark the end of a statement. You can optionally use semicolons `;` to separate statements. Blocks of code are keyword delimited, ending with the `end` keyword. Comments can be either block or until the end of the line:
