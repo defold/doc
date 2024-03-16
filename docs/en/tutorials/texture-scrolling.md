@@ -16,8 +16,8 @@ There is also a [demo of the example project on itch.io](https://flexyourbrain.i
 
 The project is setup like this:
 
-* One subdivided 3D plane (.dea) that will be used to display the scrolling texture.
-* One model component with the 3D plane (.dea file) assigned.
+* One subdivided 3D plane (.dae) that will be used to display the scrolling texture.
+* One model component with the 3D plane (.dae file) assigned.
 * Two 64x64 texture images (water_bg.png and water_wave.png) created to seamlessly tile are assigned in the .model properties.
 * One shader (Material + Vertex Program + Fragment Program) that is assigned to the plane model.
 * One constant set in materials and the shader.
