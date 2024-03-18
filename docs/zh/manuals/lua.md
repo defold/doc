@@ -65,6 +65,9 @@ Defold 包含所有 [Lua 5.1 标准库](http://www.lua.org/manual/5.1/manual.htm
 * [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - 同時具有在綫資源 (見上文)
 * [Beginning Lua Programming](https://www.amazon.com/Beginning-Lua-Programming-Kurt-Jung/dp/0470069171)
 
+### 视频
+* [Learn Lua in one video](https://www.youtube.com/watch?v=iMacxZQMPXs)
+
 ## 语法
 
 程序拥有简单易读的语法. 语句每行一句后面不需要结尾符. 也可以使用分号 `;` 作为语句结尾. 关键字界定代码块, 以 `end` 关键字作为结尾. 注释可以是块注释也可以是行注释:
