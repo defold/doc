@@ -185,11 +185,18 @@ DEFOLD_ENGINE_ARGUMENTS
 
 ## Extra parameters
 
-If you create your custom template, you can specify extra parameters for the engine loader.
+If you create your custom template, you can redefine set of parameters for the engine loader. To achieve that you need to add `<script>` section and redefine values inside `CUSTOM_PARAMETERS`. For example:
 
-`Module.runApp("canvas", extra_params)` - Starts the application given a canvas element id and the `extra_params` object.
+```
+    <script id='custom_setup' type='text/javascript'>
+        CUSTOM_PARAMETERS['disable_context_menu'] = false;
+        CUSTOM_PARAMETERS['unsupported_webgl_callback'] = function() {
+            console.log("Oh-oh. WebGL not supported...");
+        }
+    </script>
+```
 
-Object `extra_params` is an optional object that can have the following fields:
+`CUSTOM_PARAMETERS` may contains following fields:
 
 ```
 'archive_location_filter':
