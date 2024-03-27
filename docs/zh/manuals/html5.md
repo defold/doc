@@ -185,13 +185,18 @@ DEFOLD_ENGINE_ARGUMENTS
 
 ## 额外参数
 
-要创建自定义模板, 可以为引擎加载提供额外参数:
-
-`Module.runApp("canvas", extra_params)` - 通过指定canvas启动游戏
-
-'extra_params' 可选的额外参数对象, 包含如下属性:
-
+要创建自定义模板, 可以为引擎加载预定义额外参数. 预定义参数需要在 `<script>` 标签下, 把参数定义到 `CUSTOM_PARAMETERS`里, 例如:
 ```
+    <script id='custom_setup' type='text/javascript'>
+        CUSTOM_PARAMETERS['disable_context_menu'] = false;
+        CUSTOM_PARAMETERS['unsupported_webgl_callback'] = function() {
+            console.log("Oh-oh. WebGL not supported...");
+        }
+    </script>
+```
+
+`CUSTOM_PARAMETERS` 可包含如下参数:
+
 'archive_location_filter':
     包地址过滤.
 
