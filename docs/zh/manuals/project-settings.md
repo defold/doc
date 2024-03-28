@@ -427,6 +427,9 @@ Storyboard 文件 (.storyboard). 其创建方法详情请见 [iOS 教程](/manua
 #### Info.plist
 如果设置了, 则打包应用时使用此 info.plist 文件.
 
+#### Privacy Manifest
+该应用的 Apple 隐私清单. 默认指向 `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
+
 #### Custom Entitlements
 如果设置了, 则打包应用会把这里的配置与档案文件 (.entitlements, .xcent, .plist) 里面设置的权限相混合.
 
@@ -488,6 +491,9 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 
 #### Info.plist
 如果设置了, 则编译时使用指定的 info.plist 文件.
+
+#### Privacy Manifest
+该应用的 Apple 隐私清单. 默认指向 `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
 
 #### Bundle Identifier
 打包id使得 macOS 认识你的应用的版本更新. 你的打包 ID 必须在 Apple 注册且确保应用唯一性. iOS 与 macOS 应用不可以使用同一id. 它至少由两部分组成. 用点号连接. 每部分必须以字母开头, 由字母数字下划线或者连字符(-)组成.
