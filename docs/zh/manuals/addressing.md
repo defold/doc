@@ -76,7 +76,7 @@ id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprit
 
 - 首先需要指定目标对象的id ("buddy"),
 - 然后是对象/组件分隔符 ("#"),
-- 组后是组件的id ("controller").
+- 最后是组件的id ("controller").
 
 回过头来看上个例子我们没有指定对象的id, 系统默认对象就是脚本所在的 *当前游戏对象*.
 
@@ -155,9 +155,9 @@ Defold 提供两种简化写法用来简化消息传递时需要输入的完整�
 
 ## 哈希标记
 
-引擎把每个标记都存为哈希值. 所有以组件或游戏对象为参数的方法可以接受字符串, 哈希或者 URL 对象. 我们已经在上面看到如何使用字符串进行定位了.
+引擎把每个 id 都存为哈希值. 所有以组件或游戏对象为参数的方法可以接受字符串, 哈希或者 URL 对象. 我们已经在上面看到如何使用字符串进行定位了.
 
-当你获取游戏对象的标记, 引擎总是返回一个绝对路径标记的哈希值:
+当你获取游戏对象的 id , 引擎总是返回一个绝对路径 id 的哈希值:
 
 ```lua
 local my_id = go.get_id()
@@ -181,7 +181,7 @@ go.set_position(pos, spawned_id)
 local other_id = hash("/path/to/the/object")
 go.set_position(pos, other_id)
 
--- This will not work! Relative addresses must be given as strings.
+-- 这样无法工作! 相对地址必须使用字符串.
 local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```

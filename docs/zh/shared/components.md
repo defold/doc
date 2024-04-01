@@ -2,7 +2,7 @@
 
 ![Components](../shared/images/components.png){srcset="../shared/images/components@2x.png 2x"}
 
-许多组件含有某些属性是可以在运行时控制的, 根据组件属性的不同类型, 调用交换的函数也不一样:
+许多组件含有某些属性是可以在运行时控制的, 根据组件属性的不同类型, 调用交互的函数也不一样:
 
 ```lua
 -- 关闭 "body" 精灵
