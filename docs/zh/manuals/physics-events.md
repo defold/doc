@@ -9,17 +9,24 @@ brief: 集中使用 `physics.set_listener()` 进行碰撞监听, 传导碰撞和
 
 ## 设置物理世界监听器
 
-要使用这个新方法, 需要使用 `physics.set_listener` 函数. 这个函数的参数是一个回调函数, 物理世界中的所有交互发生时就会调用该函数. 一般语法如下:
+Defold 中, 各个集合代理创建各自的物理世界. 所以操作多个集合代理的时候, 保持各个物理世界的独立性很重要. 为确保物理事件在各个物理世界中正确处理, 必须对每个集合代理的世界分别设置监听器.
+
+这钟机制意味着物理事件的侦听器必须在代理集合的上下文中设置. 这样就可以将侦听器直接与相关的物理世界关联起来, 使其能够准确地处理物理事件.
+
+以下是在集合代理里设置物理世界监听器的例子:
 
 ```lua
-physics.set_listener(function(self, event, data)
-    -- Event handling logic goes here
-end)
-
+	function init(self)
+    -- 假设此脚本附加到了代理加载集合中的游戏对象里
+    -- 为此集合代理的物理世界设置物理世界侦听器
+    physics.set_listener(physics_world_listener)
+end
 ```
 
+通过实现此方法, 就可以确保集合代理生成的每个物理世界都有其专用的侦听器. 这对于使用多个集合代理的项目里能有效处理物理事件很重要.
+
 ::: important
-如果设置了监听器, [物理消息](/manuals/physics-messages) 就不会再发送了.
+如果设置了监听器, [物理消息](/manuals/physics-messages) 就不会再发送给有监听器的物理世界了.
 :::
 
 ## 事件数据结构
