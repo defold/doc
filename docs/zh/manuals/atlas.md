@@ -67,7 +67,7 @@ Extrude Borders
 : 每个图片四周的边缘挤出. 片元着色器采样图片边缘的时候, 相邻图片 (同个图集) 边缘可能会被采集到. 挤出边缘就可以解决这个问题.
 
 Max Page Size
-: 多页图集的最大尺寸. 可以用来把一个图集切分成多页来限制图集尺寸以便只用一个 draw call. 它必须与`/builtins/materials/*_paged_atlas.material` 里开启 multi-page atlas enabled materials 一起使用.
+: 多页图集的最大尺寸. 可以用来把一个图集切分成多页来限制图集尺寸同时仍然只用一个 draw call. 它必须与`/builtins/materials/*_paged_atlas.material` 里开启 multi-page atlas enabled materials 一起使用.
 
 ![Multi-page atlas](images/atlas/multipage_atlas.png)
 
