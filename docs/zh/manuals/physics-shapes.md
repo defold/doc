@@ -96,6 +96,28 @@ data: 0.0
 碰撞對象及其形狀繼承于游戲對象. 不想要該功能的話可以取消勾選 *game.project* 中物理部分下的 [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms). 注意只有等比縮放受支持, 數值不等比的話以最小的一項數值為准.
 
 
+# 改变碰撞形状
+运行时可以使用 `physics.set_shape()` 改变碰撞形状. 例如:
+
+```lua
+-- 胶囊形状数据
+local data = {}
+data.diameter = 10
+data.height = 20
+physics.set_shape("#collisionobject", "my_capsule_shape", data)
+
+-- 圆形数据
+data = {}
+data.diameter = 10
+physics.set_shape("#collisionobject", "my_sphere_shape", data)
+
+-- 矩形数据
+data = {}
+data.dimensions = vmath.vector3(10, 10, 5)
+physics.set_shape("#collisionobject", "my_box_shape", data)
+```
+
+
 # 旋转碰撞形状
 
 ## 在3D物理世界中旋转碰撞形状

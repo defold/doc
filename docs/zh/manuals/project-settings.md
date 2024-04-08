@@ -38,7 +38,7 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 
 #### Custom Resources
 `custom_resources`
-项目中包含的以逗号分隔的资源列表. 如指定的是目录, 则目录下所有文件及其子目录都会包含进去. 这些资源可以通过 [`sys.load_resource()`](/ref/sys/#sys.load_resource) 载入.
+项目中包含的以逗号分隔的资源列表. 如指定的是目录, 则目录下所有文件及其子目录都会包含进去. 这些资源可以通过 [`sys.load_resource()`](/ref/sys/#sys.load_resource) 载入. 自定义资源的加载详情请见 [文件存取教程](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
 #### Bundle Resources
 `bundle_resources`
@@ -49,7 +49,7 @@ $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 支持包含名为 `common` 的文件夹, 可以在其中加入各平台公用的资源文件.
 
 不同平台访问 bundle 资源的方法不一样. 使用 Lua 的 `io` 模块是可行的. 但是要特别注意写对各平台的文件路径.
-(举例: 在安卓平台上要这么写 "file:///android_asset/")
+(举例: 在安卓平台上要这么写 "file:///android_asset/"). 文件的加载详情请见 [文件存取教程](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
 #### Bundle Exclude Resources
 `bundle_exclude_resources`
