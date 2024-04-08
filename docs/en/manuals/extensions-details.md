@@ -22,19 +22,19 @@ When creating libraries (such as extensions), it's good to keep the lowest commo
 For the most accurate list of versions, check the [build.py](./scripts/build.py).
 
 * Android: NDK r25b, Build Tools 33.0.1, Api Level 19 for armv7 and Api level 21 for arm64
-* iOS: iPhoneOS13.5.sdk
-* macOS: MacOSX10.15.sdk
-* Windows: WindowsKits 10.0, Microsoft Visual Studio 2019
-* Linux: Ubuntu 16.04, clang 9, libssl-dev, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
-* Html5: Emscripten 1.39.16
+* iOS: iPhoneOS17.2.sdk
+* macOS: MacOSX14.2.sdk
+* Windows: WindowsKits 10.0, Microsoft Visual Studio 2022
+* Linux: Ubuntu 20.04, clang 17, locales, libssl-dev, openssl, libtool, autoconf, automake, build-essential, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
+* Html5: Emscripten 3.1.55
 
 ### C++ version + ABI compatibility
 
-* Linux: `clang 9`
+* Linux: `clang 17`
 * Android:`clang` using `NDK r25b`
-* Html5: `Emscripten 1.39.16`
-* Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
-* iOS/macOS: `apple-clang` (`clang 9` on build server)
+* Html5: `Emscripten 3.1.55`
+* Win32: `Microsoft Visual Studio 2012` (`clang 17` on build server)
+* iOS/macOS: `apple-clang` (`clang 17` on build server)
 
 For iOS/macOS, we use `-miphoneos-version-min=11.0` and `-mmacosx-version-min=10.13` respectively.
 
