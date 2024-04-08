@@ -93,7 +93,7 @@ Defold 为每个瓷砖 *Collision* 属性指定一个图片用于生成一个碰
 
 outline 视图会显示出你加在瓷砖图源上的碰撞组. 新创建的瓷砖图源默认加在 "default" 碰撞组上. 在 *Outline* 视图 <kbd>右键点击</kbd> 瓷砖图源根节点, 选择 <kbd>Add ▸ Collision Group</kbd> 以添加新的碰撞组.
 
-要指定一个组的碰撞形状, 在 *outline 视图* 中选中碰撞组, 然后点击希望加入该组的瓷砖. 瓷砖轮廓颜色会变得和碰撞组颜色一直. 编辑器会为每个碰撞组自动分配颜色.
+要指定一个组的碰撞形状, 在 *outline 视图* 中选中碰撞组, 然后点击希望加入该组的瓷砖. 瓷砖轮廓颜色会变得和碰撞组颜色一致. 编辑器会为每个碰撞组自动分配颜色.
 
 ![碰撞形状](images/tilemap/collision.png){srcset="images/tilemap/collision@2x.png 2x"}
 

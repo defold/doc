@@ -14,9 +14,13 @@ brief: 本教程介绍了 Defold 如何自动管理资源以及如何手动加�
 - 游戏对象和组件数据 (图集, 声音之类的).
 - 工厂组件原型 (游戏对象和集合).
 - 集合代理组件数据 (集合).
-- 在 *game.project* 中定义的用户数据.
+- 在 *game.project* 中声明的 [自定义资源](/manuals/project-settings/#custom-resources).
 
 ![Resource tree](images/resource/resource_tree.png)
+
+::: sidenote
+Defold 还有一个 [捆绑资源](/manuals/project-settings/#bundle-resources) 的概念. 捆绑资源存在于应用包体内, 但不存在于资源树之上. 捆绑资源可以是从平台特定的支持文件到 [文件系统加载](/manuals/file-access/#how-to-access-files-bundled-with-the-application) 的游戏所用的任何外部文件的数据 (例如 FMOD 声音库).
+:::
 
 游戏 *打包时*, 只保留资源树链接了的内容. 没被链接到的被剔除. 所以打包时不必手动选择哪些资源需要打包哪些资源不需要打包.
 
