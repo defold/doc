@@ -96,6 +96,28 @@ The above example defines the four corners of a rectangle:
 The collision object and its shapes inherit the scale of the game object. To disable this behaviour uncheck the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project*. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
 
 
+# Resizing collision shapes
+The shapes of a collision object can be resized at runtime using `physics.set_shape()`. Example:
+
+```lua
+-- set capsule shape data
+local data = {}
+data.diameter = 10
+data.height = 20
+physics.set_shape("#collisionobject", "my_capsule_shape", data)
+
+-- set sphere shape data
+data = {}
+data.diameter = 10
+physics.set_shape("#collisionobject", "my_sphere_shape", data)
+
+-- set box shape data
+data = {}
+data.dimensions = vmath.vector3(10, 10, 5)
+physics.set_shape("#collisionobject", "my_box_shape", data)
+```
+
+
 # Rotating collision shapes
 
 ## Rotating collision shapes in 3D physics
