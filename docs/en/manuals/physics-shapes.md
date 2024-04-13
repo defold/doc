@@ -101,21 +101,31 @@ The shapes of a collision object can be resized at runtime using `physics.set_sh
 
 ```lua
 -- set capsule shape data
-local data = {}
-data.diameter = 10
-data.height = 20
-physics.set_shape("#collisionobject", "my_capsule_shape", data)
+local capsule_data = {
+  type = physics.SHAPE_TYPE_CAPSULE,
+  diameter = 10,
+  height = 20,
+}
+physics.set_shape("#collisionobject", "my_capsule_shape", capsule_data)
 
 -- set sphere shape data
-data = {}
-data.diameter = 10
-physics.set_shape("#collisionobject", "my_sphere_shape", data)
+local sphere_data = {
+  type = physics.SHAPE_TYPE_SPHERE,
+  diameter = 10,
+}
+physics.set_shape("#collisionobject", "my_sphere_shape", sphere_data)
 
 -- set box shape data
-data = {}
-data.dimensions = vmath.vector3(10, 10, 5)
-physics.set_shape("#collisionobject", "my_box_shape", data)
+local box_data = {
+  type = physics.SHAPE_TYPE_BOX,
+  dimensions = vmath.vector3(10, 10, 5),
+}
+physics.set_shape("#collisionobject", "my_box_shape", box_data)
 ```
+
+::: sidenote
+A shape of the correct type with the specified id must already exist on the collision object.
+:::
 
 
 # Rotating collision shapes

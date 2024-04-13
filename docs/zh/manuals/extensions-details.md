@@ -20,19 +20,19 @@ brief: 本教程介绍了有关编译系统用来编译原生扩展的一些细�
 ### SDK 版本
 
 * Android: NDK r25b, Build Tools 33.0.1, Api Level 19 for armv7 and Api level 21 for arm64
-* iOS: iPhoneOS13.5.sdk
-* macOS: MacOSX10.15.sdk
-* Windows: WindowsKits 10.0, Microsoft Visual Studio 2019
-* Linux: Ubuntu 16.04, clang 9, libssl-dev, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
-* Html5: Emscripten 1.39.16
+* iOS: iPhoneOS17.2.sdk
+* macOS: MacOSX14.2.sdk
+* Windows: WindowsKits 10.0, Microsoft Visual Studio 2022
+* Linux: Ubuntu 20.04, clang 17, locales, libssl-dev, openssl, libtool, autoconf, automake, build-essential, uuid-dev, libxi-dev, libopenal-dev, libgl1-mesa-dev, libglw1-mesa-dev, freeglut3-dev
+* Html5: Emscripten 3.1.55
 
 ### C++ 版本 + ABI 兼容
 
-* Linux: `clang 9`
+* Linux: `clang 17`
 * Android:`clang` using `NDK r25b`
-* Html5: `Emscripten 1.39.16`
-* Win32: `Microsoft Visual Studio 2019` (`clang 9` on build server)
-* iOS/macOS: `apple-clang` (`clang 9` on build server)
+* Html5: `Emscripten 3.1.55`
+* Win32: `Microsoft Visual Studio 2022` (`clang 17` on build server)
+* iOS/macOS: `apple-clang` (`clang 17` on build server)
 
 对于 iOS/macOS, 我们分别使用了 `-miphoneos-version-min=11.0` 和 `-mmacosx-version-min=10.13` 参数.
 

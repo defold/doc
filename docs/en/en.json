@@ -401,6 +401,25 @@
             },
 
 
+            {
+                "path": "https://www.youtube.com/embed/XvSfdu7bcF8",
+                "name": "Exporting Tiled Tilemaps to Defold",
+                "author": "OURABIG",
+                "description": "Comprehensive tutorial on exporting tilemaps created in Tiled to the Defold game engine."
+            },
+            {
+                "path": "https://www.youtube.com/embed/C4JhmQ5bJEI",
+                "name": "Customize Game Background Colors in Defold",
+                "author": "OURABIG",
+                "description": "Discover the secrets of customizing your game's background color in the Defold game engine."
+            },
+            {
+                "path": "https://www.youtube.com/embed/W0KaY-ucN_U",
+                "name": "How to make 3D controller in the Defold game engine",
+                "author": "OURABIG",
+                "description": "Learn how to make 3D controller."
+            },
+
 
             {
                 "path": "https://www.youtube.com/embed/scF9qR9nzME",
