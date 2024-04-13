@@ -101,21 +101,31 @@ data: 0.0
 
 ```lua
 -- 胶囊形状数据
-local data = {}
-data.diameter = 10
-data.height = 20
-physics.set_shape("#collisionobject", "my_capsule_shape", data)
+local capsule_data = {
+  type = physics.SHAPE_TYPE_CAPSULE,
+  diameter = 10,
+  height = 20,
+}
+physics.set_shape("#collisionobject", "my_capsule_shape", capsule_data)
 
--- 圆形数据
-data = {}
-data.diameter = 10
-physics.set_shape("#collisionobject", "my_sphere_shape", data)
+-- 球形数据
+local sphere_data = {
+  type = physics.SHAPE_TYPE_SPHERE,
+  diameter = 10,
+}
+physics.set_shape("#collisionobject", "my_sphere_shape", sphere_data)
 
 -- 矩形数据
-data = {}
-data.dimensions = vmath.vector3(10, 10, 5)
-physics.set_shape("#collisionobject", "my_box_shape", data)
+local box_data = {
+  type = physics.SHAPE_TYPE_BOX,
+  dimensions = vmath.vector3(10, 10, 5),
+}
+physics.set_shape("#collisionobject", "my_box_shape", box_data)
 ```
+
+::: sidenote
+碰撞对象上必须存在指定 id 的正确形状.
+:::
 
 
 # 旋转碰撞形状
