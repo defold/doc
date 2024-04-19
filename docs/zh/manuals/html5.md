@@ -185,7 +185,11 @@ DEFOLD_ENGINE_ARGUMENTS
 
 ## 额外参数
 
-要创建自定义模板, 可以为引擎加载预定义额外参数. 预定义参数需要在 `<script>` 标签下, 把参数定义到 `CUSTOM_PARAMETERS`里, 例如:
+要创建自定义模板, 可以为引擎加载预定义额外参数. 预定义参数需要在 `<script>` 标签下, 把参数定义到 `CUSTOM_PARAMETERS`里. 
+::: important
+你的 `<script>` 要放在引用 dmloader.js 的`<script>`之后, 调用 `EngineLoader.load` 函数之前.
+:::
+例如:
 ```
     <script id='custom_setup' type='text/javascript'>
         CUSTOM_PARAMETERS['disable_context_menu'] = false;
@@ -197,6 +201,7 @@ DEFOLD_ENGINE_ARGUMENTS
 
 `CUSTOM_PARAMETERS` 可包含如下参数:
 
+```
 'archive_location_filter':
     包地址过滤.
 
@@ -220,7 +225,9 @@ DEFOLD_ENGINE_ARGUMENTS
 
 'can_not_download_file_callback':
     如果重试次数已满但是仍没有得到文件则需调用的回调函数.
-*/
+
+'resize_window_callback':
+    当屏幕 改变大小/改变方向/改变焦点 时调用.
 ```
 
 ## HTML5 的文件操作
