@@ -113,27 +113,41 @@ go.set("#camera", "orthographic_zoom", 2)
 
 ### 鼠标位置转换为世界坐标
 
-摄像机平移缩放后 `on_input()` 函数提供的鼠标位置就不再与世界坐标匹配了. 此时需要进行手动矫正. 默认渲染脚本里把鼠标/屏幕坐标转换为世界坐标的代码如下:
+摄像机平移缩放后 `on_input()` 函数提供的鼠标位置就不再与世界坐标匹配了. 此时需要进行手动矫正. 把鼠标/屏幕坐标转换到世界坐标的代码如下:
 
 ::: sidenote
 [本教程第三方摄像机解决方案部分](/manuals/camera/#第三方摄像机解决方案) 提供了坐标转换方法.
 :::
 
 ```Lua
--- builtins/render/default.render_script
---
-local function screen_to_world(x, y, z)
-	local inv = vmath.inv(self.projection * self.view)
-	x = (2 * x / render.get_width()) - 1
-	y = (2 * y / render.get_height()) - 1
-	z = (2 * z) - 1
-	local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-	local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-	local z1 = x * inv.m20 + y * inv.m21 + z * inv.m22 + inv.m23
-	return x1, y1, z1
+-- 从屏幕坐标变换到世界坐标
+-- @param sx 屏幕 x
+-- @param sy 屏幕 y
+-- @param sz 屏幕 z
+-- @param window_width 窗口宽度 (使用 render.get_width() 或 window.get_size().x)
+-- @param window_height 窗口高度 (使用 render.get_height() 或 window.get_size().y)
+-- @param projection Camera/render 映射 (使用 go.get("#camera", "projection"))
+-- @param view Camera/render 视口 (使用 go.get("#camera", "view"))
+-- @return wx 世界 x
+-- @return wy 世界 y
+-- @return wz 世界 z
+local function screen_to_world(sx, sy, sz, window_width, window_height, projection, view)
+	local inv = vmath.inv(projection * view)
+	sx = (2 * sx / window_width) - 1
+	sy = (2 * sy / window_height) - 1
+	sz = (2 * sz) - 1
+	local wx = sx * inv.m00 + sy * inv.m01 + sz * inv.m02 + inv.m03
+	local wy = sx * inv.m10 + sy * inv.m11 + sz * inv.m12 + inv.m13
+	local wz = sx * inv.m20 + sy * inv.m21 + sz * inv.m22 + inv.m23
+	return wx, wy, wz
 end
 ```
 
+参见 [示例页面](https://defold.com/examples/render/screen_to_world/) 的屏幕坐标到世界坐标转换实例. 还有一个 [实例项目](https://github.com/defold/sample-screen-to-world-coordinates/) 介绍了屏幕坐标到世界坐标的转换.
+
+::: sidenote
+[本教程使用的第三方摄像机库](/manuals/camera/#third-party-camera-solutions) 提供了自屏幕坐标和到屏幕坐标的转换功能.
+:::
 
 ## 运行时控制
 可以通过一些消息和属性控制运行时的摄像机 (用法参考 [API 文档](/ref/camera/)).
