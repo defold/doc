@@ -115,27 +115,37 @@ An alternative way is to update the position of the game object the camera compo
 
 ### Converting mouse to world coordinates
 
-When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the `on_input()` lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. Converting from mouse/screen coordinates to world coordinates from the default render script is done like this:
+When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the `on_input()` lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. The code to convert from mouse/screen coordinates to world coordinates looks like this:
+
+```Lua
+--- Convert from screen to world coordinates
+-- @param sx Screen x
+-- @param sy Screen y
+-- @param sz Screen z
+-- @param window_width Width of the window (use render.get_width() or window.get_size().x)
+-- @param window_height Height of the window (use render.get_height() or window.get_size().y)
+-- @param projection Camera/render projection (use go.get("#camera", "projection"))
+-- @param view Camera/render view (use go.get("#camera", "view"))
+-- @return wx World x
+-- @return wy World y
+-- @return wz World z
+local function screen_to_world(sx, sy, sz, window_width, window_height, projection, view)
+	local inv = vmath.inv(projection * view)
+	sx = (2 * sx / window_width) - 1
+	sy = (2 * sy / window_height) - 1
+	sz = (2 * sz) - 1
+	local wx = sx * inv.m00 + sy * inv.m01 + sz * inv.m02 + inv.m03
+	local wy = sx * inv.m10 + sy * inv.m11 + sz * inv.m12 + inv.m13
+	local wz = sx * inv.m20 + sy * inv.m21 + sz * inv.m22 + inv.m23
+	return wx, wy, wz
+end
+```
+
+Visit the [Examples page](https://defold.com/examples/render/screen_to_world/) to see screen to world coordinate conversion in action. There is also a [sample project](https://github.com/defold/sample-screen-to-world-coordinates/) showing how to do screen to world coordinate conversion.
 
 ::: sidenote
 The [third-party camera solutions mentioned in this manual](/manuals/camera/#third-party-camera-solutions) provides functions for converting to and from screen coordinates.
 :::
-
-```Lua
--- builtins/render/default.render_script
---
-local function screen_to_world(x, y, z)
-	local inv = vmath.inv(self.projection * self.view)
-	x = (2 * x / render.get_width()) - 1
-	y = (2 * y / render.get_height()) - 1
-	z = (2 * z) - 1
-	local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-	local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-	local z1 = x * inv.m20 + y * inv.m21 + z * inv.m22 + inv.m23
-	return x1, y1, z1
-end
-```
-
 
 ## Runtime manipulation
 You can manipulate cameras in runtime through a number of different messages and properties (refer to the [API docs for usage](/ref/camera/)).
