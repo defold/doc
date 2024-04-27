@@ -42,22 +42,10 @@
   $ ./Defold
   ```
 
+  在 `Help > Create Desktop Entry` 菜单项有一个安装桌面入口的帮助.
+
   如果遇到问题, 请参考 [FAQ 的 Linux 部分](/faq/faq#linux-issues).
 
 ## 安装老版本
 
-### 从 Defold GitHub 发布页下载
-
-Defold 各版本也 [发布在 GitHub 上](https://github.com/defold/defold/releases).
-
-### 从 Defold 下载页下载
-
-下载链接遵循以下模式:
-
-* Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
-* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-macos.dmg
-* Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
-
-把上面的 `%sha1%` 换成你需要的版本 hash. 这些 hash 可以在 https://d.defold.com/stable/ 上找到 (不要开头 # 号, 只要后面的字符):
-
-![download editor](../shared/images/old_version_sha1.png)
+Defold 的各 beta 和 stable 版本也 [在 GitHub 上](https://github.com/defold/defold/releases).
