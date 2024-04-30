@@ -33,11 +33,7 @@ This executable runs without any graphics and sound. It means that you can run t
 
 ## App Manifest
 
-Not only can you add native code to the engine with the Native Extensions feature, you can also remove standard parts of the engine. E.g. if you don't need a physics engine, you can remove that from the executable.
-
-![](images/app_manifest/create-app-manifest.png)
-
-![](images/app_manifest/app-manifest.png)
+Not only can you add native code to the engine with the Native Extensions feature, you can also remove standard parts of the engine. E.g. if you don't need a physics engine, you can remove that from the executable. Learn how to exclude unused feature [in the application manifest manual](/manuals/app-manifest).
 
 ### Combined context
 
@@ -51,73 +47,71 @@ This is so the user can override the default behaviour of the engine and also ea
 
 	manifest = merge(game.appmanifest, build.yml)
 
-### Editing
-
-Currently, the process can be done manually, but we recommend our users to use the [Manifestation](https://britzl.github.io/manifestation/) tool to create their app manifest. Eventually, the creation and modification of the app manifests will be done in the Editor.
 
 ### Syntax
 
-Here is an example from the [Manifestation](https://britzl.github.io/manifestation/) tool for reference (Subject to change. Don't copy this file directly. Instead, use the online tool):
+Here is an example for reference:
 
-	platforms:
-	    x86_64-osx:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-linux:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    js-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    wasm-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-android:
-	        context:
-	            excludeLibs: []
-	            excludeJars: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    arm64-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-
+```yml
+platforms:
+    x86_64-osx:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-linux:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    js-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    wasm-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-android:
+        context:
+            excludeLibs: []
+            excludeJars: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    arm64-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+```
 
 #### White listing
 
