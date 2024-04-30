@@ -56,6 +56,8 @@ Defold 支持创建 APK 和 AAB 文件. 从打包格式下拉菜单中选择.
 
 ![Android Application Package file](images/android/apk_file.png)
 
+:[Build Variants](../shared/build-variants.md)
+
 ### 安装 Android 应用包
 
 #### 安装 APK

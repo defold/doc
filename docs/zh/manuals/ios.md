@@ -103,6 +103,8 @@ Device identifier (UDID)
 
 可以在 *game.project* 项目配置文件的 [iOS 部分](/manuals/project-settings/#iOS) 设置应用的图标, 启动屏幕 storyboard 等等.
 
+:[Build Variants](../shared/build-variants.md)
+
 ## 在已连接的 iPhone 上安装和运行应用
 
 选择编辑器中的 "Install on connected device" 和打包对话框的 "Launch installed app" 即可安装和运行应用:
