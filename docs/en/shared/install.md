@@ -48,18 +48,4 @@ Installation on Linux
 
 ## Install an old version
 
-### From Defold GitHub release page
-
-Every stable version of Defold is also [released on GitHub](https://github.com/defold/defold/releases).
-
-### From Defold download page
-
-You can download and install old editor versions using the following link pattern:
-
-* Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
-* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-macos.dmg
-* Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
-
-Replace `%sha1%` by the editor release hash representing the version in question. The hash of each Defold version can be seen in the links to the released version on the download page at https://d.defold.com/stable/ (make sure to remove the initial # character and only copy the alpha-numeric part):
-
-![download editor](../shared/images/old_version_sha1.png)
+Every beta and stable version of Defold is also [available on GitHub](https://github.com/defold/defold/releases).
