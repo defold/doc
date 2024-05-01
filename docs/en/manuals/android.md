@@ -56,6 +56,8 @@ Press <kbd>Create Bundle</kbd> when you have configured the application bundle s
 
 ![Android Application Package file](images/android/apk_file.png)
 
+:[Build Variants](../shared/build-variants.md)
+
 ### Installing an Android application bundle
 
 #### Installing an APK

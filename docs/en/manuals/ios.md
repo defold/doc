@@ -103,6 +103,8 @@ Press *Create Bundle* and you will then be prompted to specify where on your com
 
 You specify what icon to use for the app, the launch screen storyboard and so forth in the *game.project* project settings file in the [iOS section](/manuals/project-settings/#ios).
 
+:[Build Variants](../shared/build-variants.md)
+
 ## Installing and launching bundle on a connected iPhone
 
 You can install and launch the built bundle using editor's "Install on connected device" and "Launch installed app" check-boxes in the Bundle dialog:

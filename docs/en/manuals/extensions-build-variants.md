@@ -3,33 +3,7 @@ title: Native extensions - Build variants
 brief: This manual describes the different builds variants that Defold can create and how they interact with native extensions and the engine.
 ---
 
-# Native Extensions - Build Variants
-
-## Build Variants
-
-When you bundle a game, you need to choose what type of engine you wish to use.
-
-  * Debug
-  * Release
-  * Headless
-
-These different versions are also referred to as `Build variants`
-
-::: sidenote
-When you choose <kbd>Project ▸ Build</kbd> you'll get the debug version.
-:::
-
-### Debug
-
-This type of executable still has the debugging feature left inside it, such as profiling, logging and hot reload. This variant is chosen during development of the game.
-
-### Release
-
-This variant has the debugging features disabled. This options is chosen when the game is ready to be released to the app store.
-
-### Headless
-
-This executable runs without any graphics and sound. It means that you can run the game unit/smoke tests on a CI server, or even have it as a game server in the cloud.
+:[Build Variants](../shared/build-variants.md)
 
 ## App Manifest
 
