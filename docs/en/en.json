@@ -1420,6 +1420,10 @@
                         "name": "Build Variants"
                     },
                     {
+                        "path": "/manuals/app-manifest",
+                        "name": "App Manifests"
+                    },
+                    {
                         "path": "/manuals/extensions-manifest-merge-tool",
                         "name": "Manifest Merging"
                     },

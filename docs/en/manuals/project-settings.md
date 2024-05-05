@@ -570,11 +570,7 @@ If set, use the specified public key file when bundling live update content. If 
 ### Native extension
 
 #### _App Manifest_
-If set, use the app manifest to customize the engine build. This allows you to remove unneeded parts from the engine making it possible to decrease the final binary size.
-
-![](images/app_manifest/create-app-manifest.png)
-
-![](images/app_manifest/app-manifest.png)
+If set, use the app manifest to customize the engine build. This allows you to remove unused parts from the engine to decrease the final binary size. Learn how to exclude unused feature [in the application manifest manual](/manuals/app-manifest).
 
 ---
 

@@ -3,41 +3,11 @@ title: Native extensions - Build variants
 brief: This manual describes the different builds variants that Defold can create and how they interact with native extensions and the engine.
 ---
 
-# Native Extensions - Build Variants
-
-## Build Variants
-
-When you bundle a game, you need to choose what type of engine you wish to use.
-
-  * Debug
-  * Release
-  * Headless
-
-These different versions are also referred to as `Build variants`
-
-::: sidenote
-When you choose <kbd>Project ▸ Build</kbd> you'll get the debug version.
-:::
-
-### Debug
-
-This type of executable still has the debugging feature left inside it, such as profiling, logging and hot reload. This variant is chosen during development of the game.
-
-### Release
-
-This variant has the debugging features disabled. This options is chosen when the game is ready to be released to the app store.
-
-### Headless
-
-This executable runs without any graphics and sound. It means that you can run the game unit/smoke tests on a CI server, or even have it as a game server in the cloud.
+:[Build Variants](../shared/build-variants.md)
 
 ## App Manifest
 
-Not only can you add native code to the engine with the Native Extensions feature, you can also remove standard parts of the engine. E.g. if you don't need a physics engine, you can remove that from the executable.
-
-![](images/app_manifest/create-app-manifest.png)
-
-![](images/app_manifest/app-manifest.png)
+Not only can you add native code to the engine with the Native Extensions feature, you can also remove standard parts of the engine. E.g. if you don't need a physics engine, you can remove that from the executable. Learn how to exclude unused feature [in the application manifest manual](/manuals/app-manifest).
 
 ### Combined context
 
@@ -51,73 +21,71 @@ This is so the user can override the default behaviour of the engine and also ea
 
 	manifest = merge(game.appmanifest, build.yml)
 
-### Editing
-
-Currently, the process can be done manually, but we recommend our users to use the [Manifestation](https://britzl.github.io/manifestation/) tool to create their app manifest. Eventually, the creation and modification of the app manifests will be done in the Editor.
 
 ### Syntax
 
-Here is an example from the [Manifestation](https://britzl.github.io/manifestation/) tool for reference (Subject to change. Don't copy this file directly. Instead, use the online tool):
+Here is an example for reference:
 
-	platforms:
-	    x86_64-osx:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-linux:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    js-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    wasm-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-android:
-	        context:
-	            excludeLibs: []
-	            excludeJars: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    arm64-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-
+```yml
+platforms:
+    x86_64-osx:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-linux:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    js-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    wasm-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-android:
+        context:
+            excludeLibs: []
+            excludeJars: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    arm64-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+```
 
 #### White listing
 
