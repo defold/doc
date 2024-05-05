@@ -3,33 +3,7 @@ title: 原生扩展 - Build variants
 brief: 本教程介绍了 Defold 能创建的各种 Build variants 以及它们如何与原生扩展和引擎交互.
 ---
 
-# 原生扩展 - Build variants
-
-## Build variants
-
-打包游戏时, 需要选择你想用的引擎类型.
-
-  * Debug
-  * Release
-  * Headless
-
-不同类型即是 `Build variants`
-
-::: sidenote
-使用 <kbd>Project ▸ Build</kbd> 时使用的是 debug 版引擎.
-:::
-
-### Debug
-
-此版本保留调试功能, 例如 profiling, logging 和 hot reload. 开发阶段使用此版本.
-
-### Release
-
-此版本移除调试功能. 准备发布到应用商店时使用此版本.
-
-### Headless
-
-此版本没有图像和声音. 也就是说它可以 CI 服务器上进行 unit/smoke 测试, 甚至可以在云端作为服务器程序使用.
+:[Build Variants](../shared/build-variants.md)
 
 ## App Manifest
 
