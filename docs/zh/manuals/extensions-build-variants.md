@@ -33,11 +33,7 @@ brief: 本教程介绍了 Defold 能创建的各种 Build variants 以及它们�
 
 ## App Manifest
 
-不但可以为引擎加入原生扩展功能, 还可以从引擎中剔除一些部分. 比如你不需要物理引擎, 就可以从应用中去除.
-
-![](images/app_manifest/create-app-manifest.png)
-
-![](images/app_manifest/app-manifest.png)
+不但可以为引擎加入原生扩展功能, 还可以从引擎中剔除一些部分. 比如你不需要物理引擎, 就可以从应用中去除. 关于如何去除引擎功能参见 [应用清单教程](/manuals/app-manifest).
 
 ### 上下文组合
 
@@ -51,73 +47,70 @@ brief: 本教程介绍了 Defold 能创建的各种 Build variants 以及它们�
 
 	manifest = merge(game.appmanifest, build.yml)
 
-### 编辑
-
-目前, 这些文件可以手动编辑, 但是推荐使用 [Manifestation](https://britzl.github.io/manifestation/) 工具生成 app manifest. 最终, app manifest 文件的创建和修改功能会并入编辑器中.
-
 ### 语法
 
-这是 [Manifestation](https://britzl.github.io/manifestation/) 工具生成的一个结构 (很有可能会改变. 不要直接从这里拷贝. 而要使用最新的在线工具):
+这是一个参考示例:
 
-	platforms:
-	    x86_64-osx:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-linux:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    js-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    wasm-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-android:
-	        context:
-	            excludeLibs: []
-	            excludeJars: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    arm64-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-
+```yml
+platforms:
+    x86_64-osx:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-linux:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    js-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    wasm-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-android:
+        context:
+            excludeLibs: []
+            excludeJars: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    arm64-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+```
 
 #### 白名单
 
