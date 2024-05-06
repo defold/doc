@@ -3,41 +3,11 @@ title: 原生扩展 - Build variants
 brief: 本教程介绍了 Defold 能创建的各种 Build variants 以及它们如何与原生扩展和引擎交互.
 ---
 
-# 原生扩展 - Build variants
-
-## Build variants
-
-打包游戏时, 需要选择你想用的引擎类型.
-
-  * Debug
-  * Release
-  * Headless
-
-不同类型即是 `Build variants`
-
-::: sidenote
-使用 <kbd>Project ▸ Build</kbd> 时使用的是 debug 版引擎.
-:::
-
-### Debug
-
-此版本保留调试功能, 例如 profiling, logging 和 hot reload. 开发阶段使用此版本.
-
-### Release
-
-此版本移除调试功能. 准备发布到应用商店时使用此版本.
-
-### Headless
-
-此版本没有图像和声音. 也就是说它可以 CI 服务器上进行 unit/smoke 测试, 甚至可以在云端作为服务器程序使用.
+:[Build Variants](../shared/build-variants.md)
 
 ## App Manifest
 
-不但可以为引擎加入原生扩展功能, 还可以从引擎中剔除一些部分. 比如你不需要物理引擎, 就可以从应用中去除.
-
-![](images/app_manifest/create-app-manifest.png)
-
-![](images/app_manifest/app-manifest.png)
+不但可以为引擎加入原生扩展功能, 还可以从引擎中剔除一些部分. 比如你不需要物理引擎, 就可以从应用中去除. 关于如何去除引擎功能参见 [应用清单教程](/manuals/app-manifest).
 
 ### 上下文组合
 
@@ -51,73 +21,70 @@ brief: 本教程介绍了 Defold 能创建的各种 Build variants 以及它们�
 
 	manifest = merge(game.appmanifest, build.yml)
 
-### 编辑
-
-目前, 这些文件可以手动编辑, 但是推荐使用 [Manifestation](https://britzl.github.io/manifestation/) 工具生成 app manifest. 最终, app manifest 文件的创建和修改功能会并入编辑器中.
-
 ### 语法
 
-这是 [Manifestation](https://britzl.github.io/manifestation/) 工具生成的一个结构 (很有可能会改变. 不要直接从这里拷贝. 而要使用最新的在线工具):
+这是一个参考示例:
 
-	platforms:
-	    x86_64-osx:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-linux:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    js-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    wasm-web:
-	        context:
-	            excludeLibs: []
-	            excludeJsLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    x86_64-win32:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-android:
-	        context:
-	            excludeLibs: []
-	            excludeJars: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    armv7-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-	    arm64-ios:
-	        context:
-	            excludeLibs: []
-	            excludeSymbols: []
-	            libs: []
-	            linkFlags: []
-
+```yml
+platforms:
+    x86_64-osx:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-linux:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    js-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    wasm-web:
+        context:
+            excludeLibs: []
+            excludeJsLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    x86_64-win32:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-android:
+        context:
+            excludeLibs: []
+            excludeJars: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    armv7-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+    arm64-ios:
+        context:
+            excludeLibs: []
+            excludeSymbols: []
+            libs: []
+            linkFlags: []
+```
 
 #### 白名单
 
