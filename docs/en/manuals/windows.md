@@ -17,5 +17,17 @@ The application icon used for a Windows game must be in the .ico format. You can
 
 Source: [Microsoft - Windows app icon construction](https://learn.microsoft.com/en-us/windows/apps/design/style/iconography/app-icon-construction#icon-sizes-win32)
 
+### Creating .ico file locally using [ImageMagick](https://www.imagemagick.org/) software suite.
+Example for Linux:
+1. Instal ImageMagick:
+```
+sudo apt install imagemagick
+```
+3. Prepare your PNG icon.
+4. Convert PNG to ICO using [convert](https://www.imagemagick.org/script/convert.php) tool:
+```bash
+convert icon_256x256px.png -compress None -define icon:auto-resize=256,128,96,64,48,32,24,16 favicon.ico
+```
+
 ## FAQ
 :[Windows FAQ](../shared/windows-faq.md)
