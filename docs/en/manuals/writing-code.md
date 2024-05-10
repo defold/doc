@@ -11,6 +11,10 @@ While Defold allows you to create a lot of your game content using visual tools 
 
 Defold uses Lua 5.1 and LuaJIT (depending on target platform) and you need to follow the language specification for those specific versions of Lua when writing your game logic. For more details on how to work with Lua in Defold see our [Lua in Defold manual](/manuals/lua).
 
+## Using other languages that transpile to Lua
+
+Starting from version 1.8.1, Defold supports the use of transpilers that emit Lua code. With transpiler extension installed, you can use alternative languages — such as [Teal](https://github.com/defold/extension-teal) — to write statically-checked Lua. It is a preview feature that has limitations: current transpiler support does not expose the information about modules and functions defined in the Defold Lua runtime. It means that using Defold APIs like `go.animate` will require you to write external definitions yourself.
+
 ## Writing native code
 
 Defold allows you to extend the game engine with native code to access platform specific functionality not provided by the engine itself. You can also use native code when the performance of Lua isn't enough (resource intensive calculations, image processing etc). Refer to our [manuals on Native Extensions](/manuals/extensions/) to learn more.
