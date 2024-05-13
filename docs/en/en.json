@@ -1024,6 +1024,10 @@
                         "name": "Lua in Defold"
                     },
                     {
+                        "path": "/manuals/application-security/#source-code-obfuscation",
+                        "name": "Source code obfuscation"
+                    },
+                    {
                         "path": "/manuals/modules",
                         "name": "Modules"
                     },
