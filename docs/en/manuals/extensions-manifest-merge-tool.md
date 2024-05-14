@@ -6,7 +6,7 @@ brief: This manual describes how the merging of application manifests work
 # Application manifests
 
 For some platforms we support extensions supplying snippets (or stubs) of application manifests.
-It can me part of an `AndroidManifest.xml`, `Info.plist` or `engine_template.html`
+It can be part of an `AndroidManifest.xml`, `Info.plist` or `engine_template.html`
 
 Each extension manifest stub will be applied one after another, starting with the application base manifest.
 The base manifest is either the default one (in `builtins\manifests\<platforms>\...`), or a custom one supplied by the user.
