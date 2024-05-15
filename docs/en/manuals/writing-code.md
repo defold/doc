@@ -36,20 +36,6 @@ Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information abo
 
 ![](/images/editor/apireference.png)
 
-
-### Adding Lua code linting using LSP
-
-Defold supports a subset of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) which can be used to analyse your code and highlight programmatic and stylistic errors, a process also known as linting.
-
-The Lua language server and code linter is available as a plugin. Install the plugin by [adding it as a dependency](/manuals/libraries/#setting-up-library-dependencies):
-
-```
-https://github.com/defold/lua-language-server/releases/download/v0.0.5/release.zip
-```
-
-Available versions can be seen in the [release page](https://github.com/defold/lua-language-server/releases) for the plugin. Learn more about the plugin on the [plugin support page on the Defold forum](https://forum.defold.com/t/linting-in-the-code-editor/72465).
-
-
 ## Using an external code editor
 
 The code editor in Defold provides the basic functionality you need to write code, but for more advanced use cases or for power users with a favorite code editor it is possible to let Defold open files using an external editor. In the [Preferences window under the Code tab](/manuals/editor-preferences/#code) it is possible to define an external editor that should be used when editing code.
