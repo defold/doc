@@ -11,6 +11,10 @@ Defold 可以让你使用编辑器的可视工具来创建许多游戏必要的�
 
 Defold 使用 Lua 5.1 和 LuaJIT (与目标平台相关) 并且需要遵循 Lua 该版本的书写规范来编写代码. 关于 Defold 中 Lua 使用详情请见 [Defold中Lua使用教程](/manuals/lua).
 
+## 使用其他语言再转换为 Lua
+
+从 1.8.1 版本开始, Defold 支持使用生成 Lua 代码的翻译器. 安装了翻译器扩展, 你就能使用其他语言 — 比如 [Teal](https://github.com/defold/extension-teal) — 写出带静态检查的 Lua. 这还是个预览功能, 它有如下限制: 目前翻译器支持不暴露模块和定义在 Defold Lua 运行环境中的函数. 这意味着使用 Defold APIs 类似 `go.animate` 需要你自己手动去写外部定义.
+
 ## 编写原生代码
 
 Defold 允许使用原生代码来扩展游戏引擎以使用引擎所不具备的特定功能. 或者 Lua 性能不良时 (密集计算, 图像处理等) 考虑使用原生扩展. 详情请见 [原生扩展教程](/manuals/extensions/).
