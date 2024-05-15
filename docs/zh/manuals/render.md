@@ -133,7 +133,7 @@ Defold 的渲染 API 能让开发者做到叫做视锥体剔除的功能. 视锥
 | Label       | 是     |
 | Spine       | 是     |
 | Particle fx | 否     |
-| Tilemap     | 否    |
+| Tilemap     | 是    |
 | Rive        | 否    |
 
 1 = Mesh 的边界框需要开发者手动设置. [详情请见](/manuals/mesh/#frustum-culling).
