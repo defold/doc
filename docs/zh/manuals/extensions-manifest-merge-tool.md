@@ -8,7 +8,7 @@ brief: 本教程介绍了应用的 manifests 混合是如何工作的
 一些平台上需要提供 manifests 片段 (或称存根) 来为扩展提供支持.
 可以是部分 `AndroidManifest.xml`, `Info.plist` 或者 `engine_template.html`
 
-从应用基础 manifest 开始, 每个扩展 manifest 存根一个一个的被使用.
+从应用基础 manifest 开始, 每个扩展 manifest 存根一个一个的被应用.
 基础 manifest 可以是默认的 (位于 `builtins\manifests\<platforms>\...`), 也可以是由用户自定义的.
 
 ## 命名和结构
@@ -107,8 +107,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
 
 ## iOS / macOS
 
-对于 `Info.plist` 我们实现了专用的混合工具.
-列表和字典都是支持的.
+对于 `Info.plist` 我们实现了专用的工具混合列表和字典. 可以在键上指定混合属性 `merge`, `keep` 或 `replace`, 默认是 `merge`.
 
 ### 示例
 
@@ -119,23 +118,48 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
     <!DOCTYPE plist PUBLIC '-//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
     <plist version='1.0'>
     <dict>
-            <key>NSAppTransportSecurity</key>
+        <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSExceptionDomains</key>
             <dict>
-                <key>NSExceptionDomains</key>
+                <key>foobar.net</key>
                 <dict>
-                    <key>foobar.net</key>
-                    <dict>
-                        <key>testproperty</key>
-                        <true/>
-                    </dict>
+                    <key>testproperty</key>
+                    <true/>
                 </dict>
             </dict>
-            <key>INT</key>
-            <integer>8</integer>
-            <key>REAL</key>
-            <real>8.0</real>
-            <key>BASE64</key>
-            <data>SEVMTE8gV09STEQ=</data>
+        </dict>
+        <key>INT</key>
+        <integer>8</integer>
+
+        <key>REAL</key>
+        <real>8.0</real>
+
+        <!-- 即使扩展清单里有这个键也要保持该键 -->
+        <key merge='keep'>BASE64</key>
+        <data>SEVMTE8gV09STEQ=</data>
+
+        <!-- 如果扩展清单里也有这个键的数组那么所有字典值会与基本数组第一个字典值合并 -->
+        <key>Array1</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>a</string>
+                </array>
+            </dict>
+        </array>
+
+        <!-- 不要试图合并这个数组的值, 而应该把扩展清单的值添加到这个数组里去 -->
+        <key merge='keep'>Array2</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>a</string>
+                </array>
+            </dict>
+        </array>
     </dict>
     </plist>
 ```
@@ -162,6 +186,33 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
         </dict>
         <key>INT</key>
         <integer>42</integer>
+
+        <!-- 改写基础清单里已存在的值 -->
+        <key merge='replace'>REAL</key>
+        <integer>16.0</integer>
+
+        <key>BASE64</key>
+        <data>Rk9PQkFS</data>
+
+        <key>Array1</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>b</string>
+                </array>
+            </dict>
+        </array>
+
+        <key>Array2</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>b</string>
+                </array>
+            </dict>
+        </array>
     </dict>
     </plist>
 ```
@@ -172,6 +223,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
+        <!-- 嵌套合并基础清单和扩展清单的字典 -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -191,14 +243,51 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
                     </dict>
                 </dict>
             </dict>
+
+            <!-- 来自基础清单 -->
             <key>INT</key>
             <integer>8</integer>
+
+            <!-- 基础清单的值被改写因为扩展清单的合并标志是 "replace" -->
             <key>REAL</key>
-            <real>8.0</real>
+            <real>16.0</real>
+
+            <!-- 基础清单的值被使用因为基础清单的合并标志是 "keep" -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
+
+            <!-- 扩展清单的值被加入进来因为没有指定合并标志 -->
             <key>INT</key>
             <integer>42</integer>
+
+            <!-- 数组的字典值被合并因为基础清单默认合并标志是 "merge" -->
+            <key>Array1</key>
+            <array>
+                <dict>
+                    <key>Foobar</key>
+                    <array>
+                        <string>a</string>
+                        <string>b</string>
+                    </array>
+                </dict>
+            </array>
+
+            <!-- 字典值被加入到数组因为基础清单使用了 "keep" -->
+            <key>Array2</key>
+            <array>
+                <dict>
+                    <key>Foobar</key>
+                    <array>
+                        <string>a</string>
+                    </array>
+                </dict>
+                <dict>
+                    <key>Foobar</key>
+                    <array>
+                        <string>b</string>
+                    </array>
+                </dict>
+            </array>
         </dict>
     </plist>
 ```
