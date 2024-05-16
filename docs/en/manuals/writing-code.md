@@ -41,12 +41,12 @@ Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information abo
 The built-in code editor performs code linting using [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) and [Lua language server](https://luals.github.io/wiki/diagnostics/). To configure the Luacheck, create a `.luacheckrc` file in the project root. You can read the [Luacheck configuration page](https://luacheck.readthedocs.io/en/stable/config.html) for the list of the available options. Defold uses the following defaults for the Luacheck configuration:
 
 ```lua
-unused_args = false,     -- don't warn on unused arguments (common for .script files)
-max_line_length = false, -- don't warn on long lines
+unused_args = false      -- don't warn on unused arguments (common for .script files)
+max_line_length = false  -- don't warn on long lines
 ignore = {
     "611",               -- line contains only whitespace
     "612",               -- line contains trailing whitespace
-    "614",               -- trailing whitespace in a comment
+    "614"                -- trailing whitespace in a comment
 },
 ```
 
