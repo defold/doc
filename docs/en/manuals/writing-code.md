@@ -38,7 +38,7 @@ Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information abo
 
 ### Linting configuration
 
-The built-in code editor performs code linting using [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) and [Lua language server](https://luals.github.io/wiki/diagnostics/). To configure the Luacheck configuration, create a `.luacheckrc` file in the project root. You can read the [Luacheck configuration page](https://luacheck.readthedocs.io/en/stable/config.html) for the list of the available options. Defold uses the following defaults for the Luacheck configuration:
+The built-in code editor performs code linting using [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) and [Lua language server](https://luals.github.io/wiki/diagnostics/). To configure the Luacheck, create a `.luacheckrc` file in the project root. You can read the [Luacheck configuration page](https://luacheck.readthedocs.io/en/stable/config.html) for the list of the available options. Defold uses the following defaults for the Luacheck configuration:
 
 ```lua
 unused_args = false,     -- don't warn on unused arguments (common for .script files)
