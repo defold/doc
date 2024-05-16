@@ -36,19 +36,19 @@ Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information abo
 
 ![](/images/editor/apireference.png)
 
+### Linting configuration
 
-### Adding Lua code linting using LSP
+The built-in code editor performs code linting using [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) and [Lua language server](https://luals.github.io/wiki/diagnostics/). To configure the Luacheck, create a `.luacheckrc` file in the project root. You can read the [Luacheck configuration page](https://luacheck.readthedocs.io/en/stable/config.html) for the list of the available options. Defold uses the following defaults for the Luacheck configuration:
 
-Defold supports a subset of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) which can be used to analyse your code and highlight programmatic and stylistic errors, a process also known as linting.
-
-The Lua language server and code linter is available as a plugin. Install the plugin by [adding it as a dependency](/manuals/libraries/#setting-up-library-dependencies):
-
+```lua
+unused_args = false      -- don't warn on unused arguments (common for .script files)
+max_line_length = false  -- don't warn on long lines
+ignore = {
+    "611",               -- line contains only whitespace
+    "612",               -- line contains trailing whitespace
+    "614"                -- trailing whitespace in a comment
+},
 ```
-https://github.com/defold/lua-language-server/releases/download/v0.0.5/release.zip
-```
-
-Available versions can be seen in the [release page](https://github.com/defold/lua-language-server/releases) for the plugin. Learn more about the plugin on the [plugin support page on the Defold forum](https://forum.defold.com/t/linting-in-the-code-editor/72465).
-
 
 ## Using an external code editor
 
