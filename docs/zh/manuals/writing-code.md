@@ -36,20 +36,6 @@ Defold 中内建编辑器可以打开和编辑 Lua 文件 (.lua), Defold 脚本�
 
 ![](/images/editor/apireference.png)
 
-
-### 使用 LSP 进行 Lua 代码 linting
-
-Defold 支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的子集, 可用于分析代码并将程序语句和错误进行高光显示, 这个处理被叫做 linting.
-
-Lua language server 和 code linter 作为插件可用. 使用 [加入依赖](/manuals/libraries/#setting-up-library-dependencies) 的功能安装插件:
-
-```
-https://github.com/defold/lua-language-server/releases/download/v0.0.5/release.zip
-```
-
-可用的版本可以在插件的 [发布页面](https://github.com/defold/lua-language-server/releases) 上查看. 关于该插件详细信息参见 [Defold 论坛的插件支持页面](https://forum.defold.com/t/linting-in-the-code-editor/72465).
-
-
 ## 使用第三方代码编辑器
 
 尽管 Defold 提供了编写脚本的基本功能, 但是对于需求更多功能的专业开发者来说还是希望让 Defold 使用自己喜欢的第三方编辑器. 在 [Code 页下的 Preferences 窗口 ](/manuals/editor-preferences/#code) 中可以指定使用第三方编辑器.
