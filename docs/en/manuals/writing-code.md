@@ -36,6 +36,20 @@ Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information abo
 
 ![](/images/editor/apireference.png)
 
+### Linting configuration
+
+The built-in code editor performs code linting using [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) and [Lua language server](https://luals.github.io/wiki/diagnostics/). To configure the Luacheck configuration, create a `.luacheckrc` file in the project root. You can read the [Luacheck configuration page](https://luacheck.readthedocs.io/en/stable/config.html) for the list of the available options. Defold uses the following defaults for the Luacheck configuration:
+
+```lua
+unused_args = false,     -- don't warn on unused arguments (common for .script files)
+max_line_length = false, -- don't warn on long lines
+ignore = {
+    "611",               -- line contains only whitespace
+    "612",               -- line contains trailing whitespace
+    "614",               -- trailing whitespace in a comment
+},
+```
+
 ## Using an external code editor
 
 The code editor in Defold provides the basic functionality you need to write code, but for more advanced use cases or for power users with a favorite code editor it is possible to let Defold open files using an external editor. In the [Preferences window under the Code tab](/manuals/editor-preferences/#code) it is possible to define an external editor that should be used when editing code.
