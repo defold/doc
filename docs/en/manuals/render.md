@@ -37,9 +37,32 @@ To be able to control the draw order of objects, you create render _predicates_.
 
 Each object that is drawn onto the screen has a material attached to it that controls how the object should be drawn to the screen. In the material, you specify one or more _tags_ that should be associated with the material.
 
-In your render script, you can then create a *render predicate* and specify which tags should belong to that predicate. When you tell the engine to draw the predicate, each object with a material containing a tag matching the list specified for the predicate will be drawn.
+In your render script, you can then create a *render predicate* and specify which tags should belong to that predicate. When you tell the engine to draw the predicate, each object with a material containing all of the tags specified for the predicate will be drawn.
 
-![Render predicate](images/render/render_predicate.png){srcset="images/render/render_predicate@2x.png 2x"}
+```
+Sprite 1        Sprite 2        Sprite 3        Sprite 4
+Material A      Material A      Material B      Material C
+  outlined        outlined        greyscale       outlined
+  tree            tree            tree            house
+```
+
+```lua
+-- a predicate matching all sprites with tag "tree"
+local trees = render.predicate({"tree"})
+-- will draw Sprite 1, 2 and 3
+render.draw(trees)
+
+-- a predicate matching all sprites with tag "outlined"
+local outlined = render.predicate({"outlined"})
+-- will draw Sprite 1, 2 and 4
+render.draw(outlined)
+
+-- a predicate matching all sprites with tags "outlined" AND "tree"
+local outlined_trees = render.predicate({"outlined", "tree"})
+-- will draw Sprite 1 and 2
+render.draw(outlined_trees)
+```
+
 
 A detailed description on how materials work can be found in the [Material documentation](/manuals/material).
 
