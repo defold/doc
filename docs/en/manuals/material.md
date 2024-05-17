@@ -43,7 +43,7 @@ Samplers
 : You can optionally configure specific samplers in the materials file. Add a sampler, name it according to the name used in the shader program and set the wrap and filter settings to your liking.
 
 Tags
-: The tags associated with the material. Tags are represented in the engine as a _bitmask_ that is used by [`render.predicate()`](/ref/render#render.predicate) to collect components that should be drawn together. See the [Render documentation](/manuals/render) on how to do that. The maximum number of tags you can use in a project is 64.
+: The tags associated with the material. Tags are represented in the engine as a _bitmask_ that is used by [`render.predicate()`](/ref/render#render.predicate) to collect components that should be drawn together. See the [Render documentation](/manuals/render) on how to do that. The maximum number of tags you can use in a project is 32.
 
 ## Attributes
 
