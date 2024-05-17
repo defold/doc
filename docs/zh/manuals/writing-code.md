@@ -36,6 +36,20 @@ Defold 中内建编辑器可以打开和编辑 Lua 文件 (.lua), Defold 脚本�
 
 ![](/images/editor/apireference.png)
 
+### 检查配置
+
+内置代码编辑器使用 Luacheck 和 Lua language server 进行代码检查. 为了配置检查, 需要在项目根目录创建 .luacheckrc 文件. 可用的配置列表可以参考 Luacheck 配置页面. Defold 默认使用如下代码进行 Luacheck 配置:
+
+```lua
+unused_args = false      -- 未使用的参数不提示 (一般用于 .script 文件)
+max_line_length = false  -- 超长行不提示
+ignore = {
+    "611",               -- 行内只包含空白
+    "612",               -- 行尾包含空白
+    "614"                -- 注释结尾包含空白
+},
+```
+
 ## 使用第三方代码编辑器
 
 尽管 Defold 提供了编写脚本的基本功能, 但是对于需求更多功能的专业开发者来说还是希望让 Defold 使用自己喜欢的第三方编辑器. 在 [Code 页下的 Preferences 窗口 ](/manuals/editor-preferences/#code) 中可以指定使用第三方编辑器.
