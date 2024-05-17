@@ -19,7 +19,7 @@ Defold 使用 Lua 5.1 和 LuaJIT (与目标平台相关) 并且需要遵循 Lua 
 
 Defold 允许使用原生代码来扩展游戏引擎以使用引擎所不具备的特定功能. 或者 Lua 性能不良时 (密集计算, 图像处理等) 考虑使用原生扩展. 详情请见 [原生扩展教程](/manuals/extensions/).
 
-## Using the built-in code editor
+## 使用内置代码编辑器
 
 Defold 中内建编辑器可以打开和编辑 Lua 文件 (.lua), Defold 脚本文件 (.script, .gui_script 与 .render_script) 或者其他各类文件. 但只对Lua和脚本文件提供代码高亮.
 
@@ -35,6 +35,20 @@ Defold 中内建编辑器可以打开和编辑 Lua 文件 (.lua), Defold 脚本�
 按 <kbd>CTRL</kbd> + <kbd>Space</kbd> 会出现函数, 参数和返回值的相关信息:
 
 ![](/images/editor/apireference.png)
+
+### 检查配置
+
+内置代码编辑器使用 Luacheck 和 Lua language server 进行代码检查. 为了配置检查, 需要在项目根目录创建 .luacheckrc 文件. 可用的配置列表可以参考 Luacheck 配置页面. Defold 默认使用如下代码进行 Luacheck 配置:
+
+```lua
+unused_args = false      -- 未使用的参数不提示 (一般用于 .script 文件)
+max_line_length = false  -- 超长行不提示
+ignore = {
+    "611",               -- 行内只包含空白
+    "612",               -- 行尾包含空白
+    "614"                -- 注释结尾包含空白
+},
+```
 
 ## 使用第三方代码编辑器
 
