@@ -37,9 +37,31 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 可是对象都有材质用以确定如何在屏幕上进行绘制. 材质之中, 可以指定一个或多个 _标签_ 与材质相对应.
 
-渲染脚本中, 就可以决定什么样的标签拥有什么样的 *渲染优先级*. 引擎渲染时, 材质基于标签队列被赋予渲染优先级.
+在你的渲染脚本中, 你可以创建一组 *渲染优先级* 然后指定什么标签归于那个优先级. 当你告诉引擎渲染它们的时候, 每个材质里包含该优先级的所有标签的对象会被渲染.
 
-![Render predicate](images/render/render_predicate.png){srcset="images/render/render_predicate@2x.png 2x"}
+```
+Sprite 1        Sprite 2        Sprite 3        Sprite 4
+Material A      Material A      Material B      Material C
+  outlined        outlined        greyscale       outlined
+  tree            tree            tree            house
+```
+
+```lua
+-- 一个优先级对应所有标签为 "tree" 的 sprites
+local trees = render.predicate({"tree"})
+-- 渲染 Sprite 1, 2 和 3
+render.draw(trees)
+
+-- 一个优先级对应所有标签为 "outlined" 的 sprites
+local outlined = render.predicate({"outlined"})
+-- 渲染 Sprite 1, 2 和 4
+render.draw(outlined)
+
+-- 一个优先级对应所有包含标签为 "outlined" 的且包含标签为 "tree" 的 sprites
+local outlined_trees = render.predicate({"outlined", "tree"})
+-- 渲染 Sprite 1 和 2
+render.draw(outlined_trees)
+```
 
 关于材质详情请见 [材质教程](/manuals/material).
 
