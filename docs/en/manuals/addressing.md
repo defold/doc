@@ -139,7 +139,7 @@ In runtime, the collection grouping does not exist. There is no way to find out 
 
 It is possible to use the full identifiers described above when addressing. In most cases relative addressing is preferred since it allows for content reuse, but there are cases where absolutely addressing becomes necessary.
 
-For example, suppose that you want an AI manager that tracks the state of each bean object. You want beans to report to their active status to the manager, and the manager makes tactical decisions and gives orders to the beans based on their status. It would make perfect sense in this case to create a single manager game object with a script component and place that alongside the team collections in the bootstrap collection.
+For example, suppose that you want an AI manager that tracks the state of each bean object. You want beans to report their active status to the manager, and the manager makes tactical decisions and gives orders to the beans based on their status. It would make perfect sense in this case to create a single manager game object with a script component and place that alongside the team collections in the bootstrap collection.
 
 ![manager object](images/addressing/manager_editor.png)
 
@@ -167,7 +167,7 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-You can use such an identifier in place of a string id, or construct one yourself. Note though that a hashed id corresponds to the path to the object, i.e. an absolute address:
+You can use such an identifier in place of a string id, or construct one yourself. Note though that a hashed id corresponds to the path of the object, i.e. an absolute address:
 
 ::: sidenote
 The reason relative addresses must be given as strings is because the engine will compute a new hash id based on the hash state of the current naming context (collection) with the given string added to the hash.
