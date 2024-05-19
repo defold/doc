@@ -146,7 +146,7 @@ message_id
   ```
 
 ::: sidenote
-There is a hard limit to the `message` parameter table size. This limit is set to 2 kilobytes. There is currently no trivial way to figure out the exact memory size a table consumes but you can use `collectgarbage("count")` at before and after inserting the table to monitor memory use.
+There is a hard limit to the `message` parameter table size. This limit is set to 2 kilobytes. There is currently no trivial way to figure out the exact memory size a table consumes but you can use `collectgarbage("count")` before and after inserting the table to monitor memory use.
 :::
 
 ### Shorthands
