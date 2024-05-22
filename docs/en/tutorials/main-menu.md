@@ -31,26 +31,26 @@ local function anim5(self, node)
 		-- special case for background. animate alpha to 60%
 		local to_color = gui.get_color(node)
 		to_color.w = 0.6
-		gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_OUT, 2.4, 0.1)
+		gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_OUTCUBIC, 2.4, 0.1)
 	end
 end
 
 local function anim4(self, node)
 	-- animate scale to 100%
 	local s = 1
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUT, 0.24, 0, anim5)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim5)
 end
 
 local function anim3(self, node)
 	-- animate scale to 106%
 	local s = 1.06
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUT, 0.24, 0, anim4)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim4)
 end
 
 local function anim2(self, node)
 	-- animate scale to 98%
 	local s = 0.98
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUT, 0.24, 0, anim3)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim3)
 end
 
 local function anim1(node, d)
@@ -65,11 +65,11 @@ local function anim1(node, d)
 	gui.set_color(node, from_color)
 
 	-- animate alpha value from 0 to 1
-	gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_IN, 0.4, d)
+	gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_INOUTCUBIC, 0.4, d)
 
 	-- animate scale from %70 to 110%
 	local s = 1.1
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_IN, 0.4, d, anim2)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.4, d, anim2)
 end
 
 function init(self)
