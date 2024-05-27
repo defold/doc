@@ -34,6 +34,8 @@ brief: 本教程介绍了 Defold 对于瓷砖地图的支持.
 
 你可以直接从层里选择一块瓷砖当作笔刷. 按住 <kbd>Shift</kbd> 键点击瓷砖即可把它用作当前笔刷. 按住 <kbd>Shift</kbd> 键并拖动还可以选择一片瓷砖作为大笔刷.
 
+笔刷顺时针旋转快捷键 <kbd>Z</kbd>. 笔刷水平翻转快捷键 <kbd>X</kbd>, 笔刷垂直翻转快捷键 <kbd>Y</kbd>.
+
 ![选取瓷砖](images/tilemap/pick_tiles.png){srcset="images/tilemap/pick_tiles@2x.png 2x"}
 
 ## 把瓷砖地图加入到游戏中
