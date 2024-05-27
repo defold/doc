@@ -34,6 +34,8 @@ To paint tiles on your tile map:
 
 You can pick tiles directly from a layer and use the selection as a brush. Hold <kbd>Shift</kbd> and click a tile to pick it up as the current brush. While holding <kbd>Shift</kbd> you can also click and drag to select a block of tiles to use as a larger brush.
 
+For clockwise brush rotation, use <kbd>Z</kbd>. Use <kbd>X</kbd> for horizontal flipping and <kbd>Y</kbd> for vertical flipping of the brush.
+
 ![Picking tiles](images/tilemap/pick_tiles.png){srcset="images/tilemap/pick_tiles@2x.png 2x"}
 
 ## Adding a tile map to your game

@@ -99,6 +99,9 @@ brief: This manual shows the current keyboard shortcuts and how to customize the
 | Switch to next tab | <kbd>Ctrl</kbd>+<kbd>Tab</kbd> | <kbd>Ctrl</kbd>+<kbd>Tab</kbd> | <kbd>Ctrl</kbd>+<kbd>Tab</kbd> |
 | Switch to previous tab | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Tab</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Tab</kbd> | <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Tab</kbd> |
 | Tab | <kbd>Tab</kbd> | <kbd>Tab</kbd> | <kbd>Tab</kbd> |
+| Tilemap brush clockwise rotation | <kbd>Z</kbd> | <kbd>Z</kbd> | <kbd>Z</kbd> |
+| Tilemap brush horizontal flipping | <kbd>X</kbd> | <kbd>X</kbd> | <kbd>X</kbd> |
+| Tilemap brush vertical flipping | <kbd>Y</kbd> | <kbd>Y</kbd> | <kbd>Y</kbd> |
 | Toggle breakpoint | <kbd>F9</kbd> | <kbd>F9</kbd> | <kbd>F9</kbd> |
 | Toggle comment | <kbd>Ctrl</kbd>+<kbd>Slash</kbd> | <kbd>Cmd</kbd>+<kbd>Slash</kbd> | <kbd>Ctrl</kbd>+<kbd>Slash</kbd> |
 | Toggle component guides | <kbd>Ctrl</kbd>+<kbd>H</kbd> | <kbd>Ctrl</kbd>+<kbd>Cmd</kbd>+<kbd>H</kbd> | <kbd>Ctrl</kbd>+<kbd>H</kbd> |
