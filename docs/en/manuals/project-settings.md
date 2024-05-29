@@ -480,7 +480,10 @@ Specifies which method to use to get keyboard input on Android devices. Valid op
 If set, hides the navigation and status bars and lets your app capture all touch events on the screen.
 
 #### Debuggable
-Whether or not the application can be debugged using tools such as [GAPID](https://github.com/google/gapid) or [Android Studio](https://developer.android.com/studio/profile/android-profiler). This will set the `android:debuggable` flag in the Android manifest.
+Whether or not the application can be debugged using tools such as [GAPID](https://github.com/google/gapid) or [Android Studio](https://developer.android.com/studio/profile/android-profiler). This will set the `android:debuggable` flag in the Android manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#debug)).
+
+#### Extract Native Libs
+Specifies whether the package installer extracts native libraries from the APK to the file system. If set to `false`, your native libraries are stored uncompressed in the APK. Although your APK might be larger, your application loads faster because the libraries load directly from the APK at runtime. This will set the `android:extractNativeLibs` flag in the Android Manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)). `true` by default.
 
 ---
 
