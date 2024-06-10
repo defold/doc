@@ -600,6 +600,22 @@
                 "image": "/tutorials/images/icons/screen_lvlcomplete.png"
             }
         ],
+        "courses": [
+            {
+                "path": "https://academy.zenva.com/course/defold-101/",
+                "name": "Defold 101 – Open-Source Game Development",
+                "description": "In this course, you’ll dive into Defold, master how it works from scratch, and also explore essential fundamentals with the Lua scripting language. These skills will provide you the boost you need to start working with Defold in general and prepare you with the foundations for any sort of game you wish to build.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
+            },
+            {
+                "path": "https://academy.zenva.com/course/intro-to-defold/",
+                "name": "Learn Game Development with Defold from Scratch",
+                "description": "Through this course, you’ll explore the foundations of the Defold game engine from start to finish – including how to work with Lua scripting to program your game logic. These skills will give you the building blocks for developing your dream games with Defold and set you up for success in other genres.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
+            }
+        ],
         "resources": [
             {
                 "path": "https://github.com/benjames-171/defold-games",
