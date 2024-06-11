@@ -466,7 +466,16 @@
                 "name": "War battles",
                 "description": "In this tutorial you will create the embryo of a small shooter game. This is a good starting point if you are new to Defold.",
                 "image": "/tutorials/images/videos/war-battles.png",
-                "author": "Defold"
+                "author": "Defold",
+                "type": "tutorial"
+            },
+            {
+                "path": "https://gamedevacademy.org/defold-tutorial/",
+                "name": "How to Make a Game in Defold",
+                "description": "In this tutorial by Zenva, we will be going over the very basics of Defold, from installation to creating our very first game! If you are new to Defold, or have never touched game development in your life, then don’t worry, as we will guide you through and provide you with a complete introduction to the Defold game engine.",
+                "image": "/tutorials/images/zenva/zenva.png",
+                "author": "Zenva",
+                "type": "tutorial"
             },
             {
                 "path": "/tutorials/snake",
