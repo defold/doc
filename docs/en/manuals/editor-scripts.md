@@ -129,7 +129,9 @@ Inside the `run` handler, you can query and change the in-memory editor state. Q
   query = {selection = {type = "outline", cardinality = "one"}},
   active = function(opts)
     local node = opts.selection
-    return editor.can_set(node, "position") and editor.can_set(node, "rotation") and editor.can_set(node, "scale")
+    return editor.can_set(node, "position") 
+       and editor.can_set(node, "rotation") 
+       and editor.can_set(node, "scale")
   end,
   run = function(opts)
     local node = opts.selection
@@ -157,7 +159,7 @@ Inside the `run` handler, you can write to files (using `io` module) and execute
   run = function(opts)
     local text = editor.get(opts.selection, "text")
     local new_text = editor.execute("jq", "-n", "--argjson", "data", text, "$data", {
-      reload_resources = false, -- don't reload resources since `jq`  does not modify files on disk
+      reload_resources = false, -- don't reload resources since jq does not touch disk
       out = "capture" -- return text output instead of nothing
     })
     editor.transact({ editor.tx.set(opts.selection, "text", new_text) })
