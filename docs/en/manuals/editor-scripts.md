@@ -144,7 +144,7 @@ Inside the `run` handler, you can query and change the in-memory editor state. Q
 }
 ```
 
-### Use commands to change files
+### Use shell commands
 
 Inside the `run` handler, you can write to files (using `io` module) and execute shell commands (using `editor.execute()` command). When executing shell commands, it's possible to capture the output of a shell command as a string and then use it in code. For example, if you want to make a command for formatting JSON that shells out to globally installed [`jq`](https://jqlang.github.io/jq/), you can write the following command:
 ```lua
@@ -169,7 +169,7 @@ Inside the `run` handler, you can write to files (using `io` module) and execute
 Since this command invokes shell program in a read-only way (and notifies the editor about it using `reload_resources = false`), you get the benefit of making this action undoable.
 
 ::: sidenote
-If you want to make an editor script as a library, you might want to bundle the binary program for editor platforms with the dependency. See [Editor scripts in libraries](#editor-scripts-in-libraries) for more details on how to do it.
+If you want to distribute your editor script as a library, you might want to bundle the binary program for editor platforms within the dependency. See [Editor scripts in libraries](#editor-scripts-in-libraries) for more details on how to do it.
 :::
 
 ## Lifecycle hooks
