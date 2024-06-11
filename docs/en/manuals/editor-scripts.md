@@ -243,7 +243,7 @@ Also note that although dependencies are shown in Assets view, they do not exist
 ## Actions
 
 ::: sidenote
-Previously, the editor interacted with the Lua VM in a blocking way, so there was a hard requirement for editor scripts to not block, since some interactions ahve to be done from the UI thread. For that reason, there was e.g. no `editor.execute()` and `editor.transact()`. Executing scripts and changing the editor state was instead triggered by returning an array of "actions" from hooks and command `run` handlers.
+Previously, the editor interacted with the Lua VM in a blocking way, so there was a hard requirement for editor scripts to not block, since some interactions have to be done from the editor UI thread. For that reason, there was e.g. no `editor.execute()` and `editor.transact()`. Executing scripts and changing the editor state was instead triggered by returning an array of "actions" from hooks and command `run` handlers.
 
 Now the editor interacts with the Lua VM in a non-blocking way, so there is no need for these actions any more: using functions like `editor.execute()` is more convenient, concise, and powerful. The actions are now **DEPRECATED**, though we have no plans to remove them.
 :::
