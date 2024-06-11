@@ -1,12 +1,12 @@
 ---
 title: HUD code sample
-brief: In this sample, you learn effects for score counting.
+brief: In this sample project, you learn effects for score counting.
 ---
 # HUD - sample project
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/NoPHHG2kbOk" frameborder="0" allowfullscreen></iframe>
 
-In this sample, we demonstrate effects for score counting. The scores appear randomly over the screen, simulating a game where the player obtains scores at different positions.
+In this sample project which you can [open from the editor](/manuals/project-setup/) or ([download from GitHub](https://github.com/defold/sample-hud)), we demonstrate effects for score counting. The scores appear randomly over the screen, simulating a game where the player obtains scores at different positions.
 
 The scores float for a while after they appear. To achieve this, we set the scores to transparent and then fade in their color. We also animate them upwards. This is done in `on_message()` below.
 

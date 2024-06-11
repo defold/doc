@@ -1,12 +1,12 @@
 ---
 title: Main menu animation sample
-brief: In this sample, you learn effects to present a main menu.
+brief: In this sample project, you learn effects to present a main menu.
 ---
-# Main menu animation sample
+# Main menu animation - sample project
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dPQpSlt3ahw" frameborder="0" allowfullscreen></iframe>
 
-In this sample, we demonstrate effects to present a main menu. The menu contains a background and two menu items.
+In this sample project which you can [open from the editor](/manuals/project-setup/) or ([download from GitHub](https://github.com/defold/sample-main-menu-animation)), we demonstrate effects to present a main menu. The menu contains a background and two menu items.
 This project is ready setup with a menu.gui and menu.gui_script applied with code shown below. Image assets are added to an atlas named images.atlas and are applied to nodes in menu.gui.
 
 Each of the background and the two menu items, have the same animations applied to them, but with different delays. This is set up in `init()` below.

@@ -1,12 +1,12 @@
 ---
 title: Level complete code sample
-brief: In this sample, you learn effects to show the score counting that could occur when a level has been completed.
+brief: In this sample project, you learn effects to show the score counting that could occur when a level has been completed.
 ---
 # Level complete - sample project
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tSdTSvku1o8" frameborder="0" allowfullscreen></iframe>
 
-In this sample, we demonstrate effects to show the score counting that could occur when a level has been completed. A total score is counted up and three stars appears when different levels have been reached. The sample also uses the reload functionality for fast turn-around when tweaking values.
+In this sample project which you can [open from the editor](/manuals/project-setup/) or ([download from GitHub](https://github.com/defold/sample-levelcomplete)), we demonstrate effects to show the score counting that could occur when a level has been completed. A total score is counted up and three stars appears when different levels have been reached. The sample also uses the reload functionality for fast turn-around when tweaking values.
 
 The scene is triggered by a message from the game.
 The message contains the total score obtained and at which levels the three stars should appear.
