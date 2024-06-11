@@ -11,23 +11,23 @@ In this sample project which you can [open from the editor](/manuals/project-set
 3. The player's movement is restricted by obstacles on the map, so the level designer can lead the player between screens using trees, rocks, water and other obstacles.
 4. It should be possible to mix and match tilemaps, sprites and other visual content.
 
-First, [run the sample](defold://build) and walk through the 3x3 screen big world to get a feel for the sample's setup. You control the character with the arrow keys.
+First, run the sample and walk through the 3x3 screen big world to get a feel for the sample's setup. You control the character with the arrow keys.
 
 ## The main collection
 
-Open ["/main/main.collection"](defold://open?path=/main/main.collection) to view the bootstrap collection for this sample.
+Open "/main/main.collection" to view the bootstrap collection for this sample.
 
-<img src="doc/main_collection.png" srcset="doc/main_collection@2x.png 2x">
+![](images/rpgmap/main_collection.png)
 
 The main collection contains the player character game object, controlled in 8 directions with the arrow buttons, and a second game object called "game" that controls the flow of the game. The "game" object consists of a script and one collection factory for each screen in the game. The factories are named according to the screen grid naming scheme.
 
-The script ["/main/game.script"](defold://open?path=/main/game.script) tracks on which screen the player currently is. The script also reacts to a custom message called "load_screen". This message loads a new screen and swaps it with the current screen in the direction the hero moves. Initially, a screen is loaded into the center of the screen and there is no other screen to switch place with.
+The script "/main/game.script" tracks on which screen the player currently is. The script also reacts to a custom message called "load_screen". This message loads a new screen and swaps it with the current screen in the direction the hero moves. Initially, a screen is loaded into the center of the screen and there is no other screen to switch place with.
 
 ## Changing screens
 
-The hero is controlled by the script ["/main/hero.script"](defold://open?path=/main/hero.script). The script checks if the hero game object moves past a top, bottom, left or right line close to the screen edge:
+The hero is controlled by the script "/main/hero.script". The script checks if the hero game object moves past a top, bottom, left or right line close to the screen edge:
 
-<img src="doc/change_screen.png" srcset="doc/change_screen@2x.png 2x">
+![](images/rpgmap/change_screen.png)
 
 1. If the hero moves close enough to a screen edge, a message is sent to the "game" object script to load the next screen.
 2. The next screen collection is spawned by calling `factory.create()` on the correct collectionfactory component. The content of the collection is positioned outside the screen.
@@ -41,31 +41,31 @@ All of this happens within a second so the transition is smooth and non disrupti
 
 Each screen in the game world is built inside a separate collection containing the tilemap, collision object and other game objects that are unique to the screen. To facilitate management and loading of the screens the screen collections are named according to a simple scheme:
 
-<img src="doc/screens.png" srcset="doc/screens@2x.png 2x">
+![](images/rpgmap/screens.png)
 
 Each screen collection is named according to its position in the world grid. The first number is the X grid position and the second is the Y grid position.
 
-In the *Assets* view, navigate to and open the collection ["/main/screens/0-0.collection"](defold://open?path=/main/screens/0-0.collection) which describes the screen in the lowest left corner of the map:
+In the *Assets* view, navigate to and open the collection "/main/screens/0-0.collection" which describes the screen in the lowest left corner of the map:
 
-<img src="doc/screen_collection.png" srcset="doc/screen_collection@2x.png 2x">
+![](images/rpgmap/screen_collection.png)
 
 Notice that there is a game object named "root" that is the parent to all of the screen's content. This is another convention used in the sample and it serves a very important purpose: when a screen is brought into view, only the "root" game object needs to be moved. All child objects are automatically moved along with the root parent. If there are special game objects on a screen, they can also be freely animated since their movement is relative to the root parent. When the the screen is scrolled in or out, these children moves with the screen. Special code is only needed if an object needs to move between screens.
 
 The bees on screen 0-1 are simple showcases of this idea:
 
-<img src="doc/bees.png" srcset="doc/bees@2x.png 2x">
+![](images/rpgmap/bees.png)
 
 ## Editing screens in the world context
 
 Each screen has its own tilemap that can be edited in the built in tilemap editor. However, the main drawback of editing each screen in isolation is that it is not possible to easily see how it connects to its adjacent screens, which is an important aspect of creating continuity through the game world.
 
-For this reason, a special collection was created. Open ["/main/map/test_layout.collection"](defold://open?path=/main/map/test_layout.collection) to view this world test layout collection:
+For this reason, a special collection was created. Open "/main/map/test_layout.collection" to view this world test layout collection:
 
-<img src="doc/test_layout.png" srcset="doc/test_layout@2x.png 2x">
+![](images/rpgmap/test_layout.png)
 
 The only purpose of this collection is to be used as an editing tool during development. Editing a specific screen side by side with the test layout collection gives you context for the screen you currently work on and the editing process is much nicer:
 
-<img src="doc/side_by_side.png" srcset="doc/side_by_side@2x.png 2x">
+![](images/rpgmap/side_by_side.png)
 
 Any edits to the screen tilemap (here on the right hand pane) are immediately reflected in the test collection (in the left pane). Also note that the test layout collection is not added to the static hierarchy so it is automatically excluded from all builds.
 
