@@ -51,16 +51,18 @@ Orthographic Zoom
 
 ## Using the camera
 
-To activate a camera and have it feed its view and projection matrices to the render script, you call `camera.acquire_focus` or send the component an `acquire_camera_focus` message:
+All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. Since Defold 1.8.1 there is no longer a need to explicitly enable a camera via send a `acquire_camera_focus` message to the camera component. The messages are still available, but it is recommended to set the "enabled" and/or "disabled" properties via `go.set` like any other component.
+
+To list all currently available cameras, you can use camera.get_cameras():
 
 ```lua
-camera.acquire_focus("#camera")
+for k,v in pairs(camera.get_cameras()) do
+	-- the camera table contains the URLs of all cameras
+	render.set_camera(v)
+	-- do any rendering here
+end
 ```
-or
 
-```lua
-msg.post("#camera", "acquire_camera_focus")
-```
 
 Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the "@render" socket, i.e. it will arrive to your render script:
 
@@ -90,6 +92,13 @@ You can tell the render script to use the projection provided by the camera by s
 msg.post("@render:", "use_camera_projection")
 ```
 
+Alternatively, you can set a specific camera that should be used for rendering in a render script:
+
+```lua
+-- render.set_camera will automatically use the view and projection matrices
+-- for any rendering happening until render.set_camera(nil) is called.
+render.set_camera("main:/my_go#camera")
+```
 
 ### Panning the camera
 
