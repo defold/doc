@@ -111,21 +111,21 @@ To create a storage texture in Defold, you need to do this from a regular .scrip
 ```lua
 -- In a .script file:
 function init(self)
-	-- Create a texture resource like usual, but add the "storage" flag
-	-- so it can be used as the backing storage for compute programs
-	local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-		type   = resource.TEXTURE_TYPE_IMAGE_2D,
-		width  = 128,
-		height = 128,
-		format = resource.TEXTURE_FORMAT_RGBA32F,
-		flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
-	})
+    -- Create a texture resource like usual, but add the "storage" flag
+    -- so it can be used as the backing storage for compute programs
+    local t_backing = resource.create_texture("/my_backing_texture.texturec", {
+        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        width  = 128,
+        height = 128,
+        format = resource.TEXTURE_FORMAT_RGBA32F,
+        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+    })
 
-	-- get the texture handle from the resource
-	local t_backing_handle = resource.get_texture_info(t_backing).handle
+    -- get the texture handle from the resource
+    local t_backing_handle = resource.get_texture_info(t_backing).handle
 
-	-- notify the renderer of the backing texture, so it can be bound with render.enable_texture
-	msg.post("@render:", "set_backing_texture", { handle = t_backing_handle })
+    -- notify the renderer of the backing texture, so it can be bound with render.enable_texture
+    msg.post("@render:", "set_backing_texture", { handle = t_backing_handle })
 end
 ```
 
@@ -148,8 +148,8 @@ layout(rgba32f) uniform image2D texture_out;
 
 void main()
 {
-	// This isn't a particularly interesting shader, but it demonstrates
-	// how to read from a texture and constant buffer and write to a storage texture
+    // This isn't a particularly interesting shader, but it demonstrates
+    // how to read from a texture and constant buffer and write to a storage texture
 
     ivec2 tex_coord   = ivec2(gl_GlobalInvocationID.xy);
     vec4 output_value = vec4(0.0, 0.0, 0.0, 1.0);
@@ -172,23 +172,23 @@ void main()
 go.property("texture_in", resource.texture())
 
 function init(self)
-	-- Create a texture resource like usual, but add the "storage" flag
-	-- so it can be used as the backing storage for compute programs
-	local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-		type   = resource.TEXTURE_TYPE_IMAGE_2D,
-		width  = 128,
-		height = 128,
-		format = resource.TEXTURE_FORMAT_RGBA32F,
-		flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
-	})
+    -- Create a texture resource like usual, but add the "storage" flag
+    -- so it can be used as the backing storage for compute programs
+    local t_backing = resource.create_texture("/my_backing_texture.texturec", {
+        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        width  = 128,
+        height = 128,
+        format = resource.TEXTURE_FORMAT_RGBA32F,
+        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+    })
 
-	local textures = {
-		texture_in = resource.get_texture_info(self.texture_in).handle,
-		texture_out = resource.get_texture_info(t_backing).handle
-	}
+    local textures = {
+        texture_in = resource.get_texture_info(self.texture_in).handle,
+        texture_out = resource.get_texture_info(t_backing).handle
+    }
 
-	-- notify the renderer of the input and output textures
-	msg.post("@render:", "set_backing_texture", textures)
+    -- notify the renderer of the input and output textures
+    msg.post("@render:", "set_backing_texture", textures)
 end
 ```
 
@@ -197,24 +197,24 @@ end
 -- respond to the message "set_backing_texture"
 -- to set the backing texture for the compute program
 function on_message(self, message_id, message)
-	if message_id == hash("set_backing_texture") then
-		self.texture_in = message.texture_in
-		self.texture_out = message.texture_out
-	end
+    if message_id == hash("set_backing_texture") then
+        self.texture_in = message.texture_in
+        self.texture_out = message.texture_out
+    end
 end
 
 function update(self)
-	render.set_compute("compute")
-	-- We can bind textures to specific named constants
-	render.enable_texture(self.texture_in, "texture_in")
-	render.enable_texture(self.texture_out, "texture_out")
-	render.set_constant("color", vmath.vector4(0.5, 0.5, 0.5, 1.0))
-	-- Dispatch the compute program as many times as we have pixels.
-	-- This constitutes our "working group". The shader will be invoked
-	-- 128 x 128 x 1 times, or once per pixel.
-	render.dispatch_compute(128, 128, 1)
-	-- when we are done with the compute program, we need to unbind it
-	render.set_compute()
+    render.set_compute("compute")
+    -- We can bind textures to specific named constants
+    render.enable_texture(self.texture_in, "texture_in")
+    render.enable_texture(self.texture_out, "texture_out")
+    render.set_constant("color", vmath.vector4(0.5, 0.5, 0.5, 1.0))
+    -- Dispatch the compute program as many times as we have pixels.
+    -- This constitutes our "working group". The shader will be invoked
+    -- 128 x 128 x 1 times, or once per pixel.
+    render.dispatch_compute(128, 128, 1)
+    -- when we are done with the compute program, we need to unbind it
+    render.set_compute()
 end
 ```
 
