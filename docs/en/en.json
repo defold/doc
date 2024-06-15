@@ -1169,6 +1169,10 @@
                         "name": "Material"
                     },
                     {
+                        "path": "/manuals/compute",
+                        "name": "Compute"
+                    },
+                    {
                         "path": "/manuals/shader",
                         "name": "Shader"
                     },

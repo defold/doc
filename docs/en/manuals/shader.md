@@ -7,10 +7,11 @@ brief: This manual describes vertex and fragment shaders in detail and how to us
 
 Shader programs are at the core of graphics rendering. They are programs written in a C-like language called GLSL (GL Shading Language) that the graphics hardware run to perform operations on either the underlying 3D data (the vertices) or the pixels that end up on the screen (the "fragments"). Shaders are used for drawing sprites, lighting 3D models, creating full screen post effects and much, much more.
 
-This manual describes how Defold's rendering pipeline interfaces with vertex and fragment shaders. In order to create shaders for your content, you also need to understand the concept of materials, as well as how the render pipeline works.
+This manual describes how Defold's rendering pipeline interfaces with GPU shaders. In order to create shaders for your content, you also need to understand the concept of materials, as well as how the render pipeline works.
 
 * See the [Render manual](/manuals/render) for details on the render pipeline.
 * See the [Material manual](/manuals/material) for details on materials.
+* See the [Compute manual](/manuals/compute) for details on compute programs.
 
 Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at https://www.khronos.org/registry/gles/
 
@@ -32,6 +33,13 @@ Fragment shader
   The input of a fragment shader is constants (`uniforms`) as well as any `varying` variables that has been set by the verter shader.
 
   The output of the fragment shader is the color value for the particular fragment (`gl_FragColor`).
+
+Compute shader
+: A compute shader is a general purpose shader that can be used to perform any type of work on a GPU. It is not part of the graphics pipeline at all, compute shaders run in a separate execution context and is not dependant on input from any other shader.
+
+  The input of a compute shader is constant buffers (`uniforms`), texture images (`image2D`), samplers (`sampler2D`) and storage buffers (`buffer`).
+
+  The output of the compute shader is not explicitly defined, there is no specific output that needs to be produced as opposed to the vertex and the fragment shaders. As compute shaders are generic, it is up to the programmer to define what type of result the compute shader should produce.
 
 World matrix
 : The vertex positions of a model's shape are stored relative to the model's origin. This is called "model space". The game world, however, is a "world space" where the position, orientation and scale of each vertex is expressed relative to the world origin. By keeping these separate the game engine is able to move, rotate and scale each model without destroying the original vertex values stored in the model component.
@@ -69,7 +77,9 @@ Samplers
 : Shaders can declare *sampler* type uniform variables. Samplers are used to read values from an image source:
 
   - `sampler2D` samples from a 2D image texture.
+  - `sampler2DArray` samples from a 2D image array texture. This is mostly used for paged atlases.
   - `samplerCube` samples from a 6 image cubemap texture.
+  - `image2D` loads (and potentially stores) texture data to an image object. This is mostly used for compute shaders for storage.
 
   You can use a sampler only in the GLSL standard library's texture lookup functions. The [Material manual](/manuals/material) explains how to specify sampler settings.
 
