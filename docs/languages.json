@@ -29,6 +29,12 @@
             "translation": "Translation by Gkikas Elpidoforos",
             "active": true
         },
+        "it":
+        {
+            "name": "Italiano (Italian)",
+            "translation": "Translation by Fabrizio Codello",
+            "active": true
+        },
         "ko":
         {
             "name": "한국어 (Korean)",
