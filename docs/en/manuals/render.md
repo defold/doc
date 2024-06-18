@@ -37,9 +37,32 @@ To be able to control the draw order of objects, you create render _predicates_.
 
 Each object that is drawn onto the screen has a material attached to it that controls how the object should be drawn to the screen. In the material, you specify one or more _tags_ that should be associated with the material.
 
-In your render script, you can then create a *render predicate* and specify which tags should belong to that predicate. When you tell the engine to draw the predicate, each object with a material containing a tag matching the list specified for the predicate will be drawn.
+In your render script, you can then create a *render predicate* and specify which tags should belong to that predicate. When you tell the engine to draw the predicate, each object with a material containing all of the tags specified for the predicate will be drawn.
 
-![Render predicate](images/render/render_predicate.png){srcset="images/render/render_predicate@2x.png 2x"}
+```
+Sprite 1        Sprite 2        Sprite 3        Sprite 4
+Material A      Material A      Material B      Material C
+  outlined        outlined        greyscale       outlined
+  tree            tree            tree            house
+```
+
+```lua
+-- a predicate matching all sprites with tag "tree"
+local trees = render.predicate({"tree"})
+-- will draw Sprite 1, 2 and 3
+render.draw(trees)
+
+-- a predicate matching all sprites with tag "outlined"
+local outlined = render.predicate({"outlined"})
+-- will draw Sprite 1, 2 and 4
+render.draw(outlined)
+
+-- a predicate matching all sprites with tags "outlined" AND "tree"
+local outlined_trees = render.predicate({"outlined", "tree"})
+-- will draw Sprite 1 and 2
+render.draw(outlined_trees)
+```
+
 
 A detailed description on how materials work can be found in the [Material documentation](/manuals/material).
 
@@ -123,7 +146,7 @@ msg.post("@render:", "use_camera_projection")
 
 The render API in Defold lets developers perform something called frustum culling. When frustum culling is enabled any graphics that lies outside of a defined bounding box or frustum will be ignored. In a large game world where only a portion is visible at a time, frustum culling can dramatically reduce the amount of data that needs to be sent to the GPU for rendering, thus increasing performance and saving battery (on mobile devices). It is common to use the view and projection of the camera to create the bounding box. The default render script uses the view and projection (from the camera) to calculate a frustum.
 
-Frustum culling is implemented in the engine per component type. Current status (Defold 1.4.7):
+Frustum culling is implemented in the engine per component type. Current status (Defold 1.9.0):
 
 | Component   | Supported |
 |-------------|-----------|
@@ -133,7 +156,7 @@ Frustum culling is implemented in the engine per component type. Current status 
 | Label       | YES       |
 | Spine       | YES       |
 | Particle fx | NO        |
-| Tilemap     | NO        |
+| Tilemap     | YES       |
 | Rive        | NO        |
 
 1 = Mesh bounding box needs to be set by the developer. [Learn more](/manuals/mesh/#frustum-culling).

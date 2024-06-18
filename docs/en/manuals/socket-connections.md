@@ -5,7 +5,7 @@ brief: This manual explains how to connect to create socket connections.
 
 ## Socket connections
 
-Defold includes the [LuaSocket library](http://w3.impa.br/~diego/software/luasocket/) for creating TCP and UDP socket connections. Example of how to create a socket connection, sending some data and reading a response:
+Defold includes the [LuaSocket library](https://lunarmodules.github.io/luasocket/) for creating TCP and UDP socket connections. Example of how to create a socket connection, sending some data and reading a response:
 
 ```Lua
 local client = socket.tcp()
@@ -19,4 +19,4 @@ This will create a TCP socket, connect it to IP 127.0.0.1 (localhost) and port 8
 
 ### API Reference and examples
 
-Refer to the [API reference](/ref/socket/) to learn more about the functionality available via LuaSocket. The [official LuaSocket documentation](http://w3.impa.br/~diego/software/luasocket/) also contains many examples of how to work with the library. There is also some examples and helper modules in the [DefNet library](https://github.com/britzl/defnet/).
+Refer to the [API reference](/ref/socket/) to learn more about the functionality available via LuaSocket. The [official LuaSocket documentation](https://lunarmodules.github.io/luasocket/) also contains many examples of how to work with the library. There is also some examples and helper modules in the [DefNet library](https://github.com/britzl/defnet/).

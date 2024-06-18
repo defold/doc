@@ -480,7 +480,10 @@ Google Cloud Messaging Sender Id. 此值由 Google 签发, 设置后才能开启
 如果开启, 则隐藏导航条和状态条并且让你的应用获取屏幕上所有触碰信息.
 
 #### Debuggable
-指定应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或者 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具来调试. 这将开启 Android manifest 的 `android:debuggable` 选项.
+指定应用是否可以使用诸如 [GAPID](https://github.com/google/gapid) 或者 [Android Studio](https://developer.android.com/studio/profile/android-profiler) 之类的工具来调试. 这将开启 Android manifest 的 `android:debuggable` 选项 ([官方文档](https://developer.android.com/guide/topics/manifest/application-element#debug)).
+
+#### Extract Native Libs
+指定是否让包安装器把原生库从 APK 提取到文件系统里. 如果设置为 `false`, 你的原生库会以非压缩形态保存在 APK 中. 这样 APK 可能会更大, 但你的应用会载入更快因为运行时直接从 APK 加载库. 这会在安卓清单中设置 `android:extractNativeLibs` 标志 ([官方文档](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)). 默认为 `true`.
 
 ---
 

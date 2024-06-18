@@ -2,12 +2,12 @@
 title: Parallax code sample
 brief: In this sample, you learn how to use a parallax effect to simulate depth in the game world.
 ---
-# Parallax
+# Parallax - sample project
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UdNA7kanRQE" frameborder="0" allowfullscreen></iframe>
 
 
-In this sample, we demonstrate how to use a parallax effect to simulate depth in the game world.
+In this sample project which you can [open from the editor](/manuals/project-setup/) or [download from GitHub](https://github.com/defold/sample-parallax), we demonstrate how to use a parallax effect to simulate depth in the game world.
 There are two layers of clouds, where one of the layers has the appearance of being further back than the other. There is also an animated saucer for flavor.
 
 The cloud layers are built as two separate game objects, containing a *Tile Map* and *Script* each.

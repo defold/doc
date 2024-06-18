@@ -1,12 +1,12 @@
 ---
 title: Main menu animation sample
-brief: In this sample, you learn effects to present a main menu.
+brief: In this sample project, you learn effects to present a main menu.
 ---
-# Main menu animation sample
+# Main menu animation - sample project
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dPQpSlt3ahw" frameborder="0" allowfullscreen></iframe>
 
-In this sample, we demonstrate effects to present a main menu. The menu contains a background and two menu items.
+In this sample project which you can [open from the editor](/manuals/project-setup/) or [download from GitHub](https://github.com/defold/sample-main-menu-animation), we demonstrate effects to present a main menu. The menu contains a background and two menu items.
 This project is ready setup with a menu.gui and menu.gui_script applied with code shown below. Image assets are added to an atlas named images.atlas and are applied to nodes in menu.gui.
 
 Each of the background and the two menu items, have the same animations applied to them, but with different delays. This is set up in `init()` below.
@@ -31,26 +31,26 @@ local function anim5(self, node)
 		-- special case for background. animate alpha to 60%
 		local to_color = gui.get_color(node)
 		to_color.w = 0.6
-		gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_OUT, 2.4, 0.1)
+		gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_OUTCUBIC, 2.4, 0.1)
 	end
 end
 
 local function anim4(self, node)
 	-- animate scale to 100%
 	local s = 1
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUT, 0.24, 0, anim5)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim5)
 end
 
 local function anim3(self, node)
 	-- animate scale to 106%
 	local s = 1.06
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUT, 0.24, 0, anim4)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim4)
 end
 
 local function anim2(self, node)
 	-- animate scale to 98%
 	local s = 0.98
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUT, 0.24, 0, anim3)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim3)
 end
 
 local function anim1(node, d)
@@ -65,11 +65,11 @@ local function anim1(node, d)
 	gui.set_color(node, from_color)
 
 	-- animate alpha value from 0 to 1
-	gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_IN, 0.4, d)
+	gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_INOUTCUBIC, 0.4, d)
 
 	-- animate scale from %70 to 110%
 	local s = 1.1
-	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_IN, 0.4, d, anim2)
+	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.4, d, anim2)
 end
 
 function init(self)

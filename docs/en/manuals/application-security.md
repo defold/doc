@@ -56,6 +56,10 @@ Before Lua source files are added to the archive they are also optionally encryp
 It is possible to add custom encryption to Lua source files by implementing a Resource encryption plugin. A Resource encryption plugin consists of a build-time part to encrypt resources as part of the build process and a runtime part to decrypt resources when they are read from the game archive. A basic Resource Encryption plugin which can be used as the starting point for your own encryption is [available on GitHub](https://github.com/defold/extension-resource-encryption).
 
 
+### Encoding project configuration values
+The game.project file will be included as-is in your application bundle. Sometimes you may wish to store public API access keys or similar values, that are of a sensitive, but perhaps not private nature. To harden security for such values they can be included into the application binary, instead of stored in game.project, and still be accessible to Defold API functions such as `sys.get_config_string()` and similar functions. You can do so by adding a native extension in your game project and using the `DM_DECLARE_CONFIGFILE_EXTENSION` macro to provide your own overrides for getting config values using the Defold API functions. An example project that can be used as a starting point is [available on GitHub](https://github.com/defold/example-configfile-extension/tree/master).
+
+
 ## Securing your game against cheaters
 Cheating in video games has existed for as long as the games industry itself. Cheat codes used to be shared in popular video games magazines and special cheat cartridges were sold for the early home computers. As the industry and the games have evolved so have the cheaters and their methods. Some of the most popular cheating mechanism for games are:
 
