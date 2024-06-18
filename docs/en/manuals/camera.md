@@ -51,18 +51,60 @@ Orthographic Zoom
 
 ## Using the camera
 
-To activate a camera and have it feed its view and projection matrices to the render script, you call `camera.acquire_focus` or send the component an `acquire_camera_focus` message:
+All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. Since Defold 1.8.1 there is no longer a need to explicitly enable a camera via sending an `acquire_camera_focus` message to the camera component. The messages are still available, but it is recommended to set the "enabled" and/or "disabled" properties via `go.set`:
 
 ```lua
-camera.acquire_focus("#camera")
+go.set("#camera", "disable")
+go.set("#camera", "enable")
 ```
-or
+
+To list all currently available cameras, you can use camera.get_cameras():
 
 ```lua
-msg.post("#camera", "acquire_camera_focus")
+-- Note: The render calls are only available in a render script.
+--       The camera.get_cameras() function can be used anywhere,
+--       but render.set_camera can only be used in a render script.
+
+for k,v in pairs(camera.get_cameras()) do
+    -- the camera table contains the URLs of all cameras
+    render.set_camera(v)
+    -- do rendering here - anything rendered here that uses materials with
+    -- view and projection matrices specified, will use matrices from the camera.
+end
+-- to disable a camera, pass in nil (or no arguments at all) to render.set_camera.
+-- after this call, all render calls will use the view and projection matrices
+-- that are specified on the render context (render.set_view and render.set_projection)
+render.set_camera()
 ```
 
-Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the "@render" socket, i.e. it will arrive to your render script:
+The scripting `camera` module has multiple functions that can be used to manipulate the camera. Here's just a few functions that can be used, to see all of the available functions, please consult the manual at the [API docs](/ref/camera/)).
+
+```lua
+camera.get_aspect_ratio(camera) -- get aspect ratio
+camera.get_far_z(camera) -- get far z
+camera.get_fov(camera) -- get field of view
+camera.set_aspect_ratio(camera, ratio) -- set aspect ratio
+camera.set_far_z(camera, far_z) -- set far z
+camera.set_near_z(camera, near_z) -- set near z
+... And so forth
+```
+
+A camera is identified by a URL, which is the full scene path of the component, including the collection, the gameobject it belongs to and the component id. In this example, you would use the URL `/go#camera` to identify the camera component from within the same collection, and `main:/go#camera` when accessing a camera from a different collection, or the render script.
+
+![create camera component](images/camera/create.png)
+
+```lua
+-- Accessing a camera from a script in the same collection:
+camera.get_fov("/go#camera")
+
+-- Accessing a camera from a script in a different collection:
+camera.get_fov("main:/go#camera")
+
+-- Accessing a camera from the render script:
+render.set_camera("main:/go#camera")
+```
+
+Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the "@render" socket:
 
 ```lua
 -- builtins/render/default.render_script
@@ -90,6 +132,13 @@ You can tell the render script to use the projection provided by the camera by s
 msg.post("@render:", "use_camera_projection")
 ```
 
+Alternatively, you can set a specific camera that should be used for rendering in a render script:
+
+```lua
+-- render.set_camera will automatically use the view and projection matrices
+-- for any rendering happening until render.set_camera() is called.
+render.set_camera("main:/my_go#camera")
+```
 
 ### Panning the camera
 
@@ -130,14 +179,14 @@ When the camera has panned, zoomed or changed it's projection from the default o
 -- @return wy World y
 -- @return wz World z
 local function screen_to_world(sx, sy, sz, window_width, window_height, projection, view)
-	local inv = vmath.inv(projection * view)
-	sx = (2 * sx / window_width) - 1
-	sy = (2 * sy / window_height) - 1
-	sz = (2 * sz) - 1
-	local wx = sx * inv.m00 + sy * inv.m01 + sz * inv.m02 + inv.m03
-	local wy = sx * inv.m10 + sy * inv.m11 + sz * inv.m12 + inv.m13
-	local wz = sx * inv.m20 + sy * inv.m21 + sz * inv.m22 + inv.m23
-	return wx, wy, wz
+    local inv = vmath.inv(projection * view)
+    sx = (2 * sx / window_width) - 1
+    sy = (2 * sy / window_height) - 1
+    sz = (2 * sz) - 1
+    local wx = sx * inv.m00 + sy * inv.m01 + sz * inv.m02 + inv.m03
+    local wy = sx * inv.m10 + sy * inv.m11 + sz * inv.m12 + inv.m13
+    local wz = sx * inv.m20 + sy * inv.m21 + sz * inv.m22 + inv.m23
+    return wx, wy, wz
 end
 ```
 
