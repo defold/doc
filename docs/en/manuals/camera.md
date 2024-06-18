@@ -62,10 +62,10 @@ To list all currently available cameras, you can use camera.get_cameras():
 
 ```lua
 for k,v in pairs(camera.get_cameras()) do
-	-- the camera table contains the URLs of all cameras
-	render.set_camera(v)
-	-- do any rendering here, everything rendered that uses materials with
-	-- view and projection matrices specified will use the cameras view and projection matrices.
+    -- the camera table contains the URLs of all cameras
+    render.set_camera(v)
+    -- do rendering here - anything rendered here that uses materials with
+    -- view and projection matrices specified, will use matrices from the camera.
 end
 -- to disable a camera, pass in nil (or no arguments at all) to render.set_camera.
 -- after this call, all render calls will use the view and projection matrices
@@ -175,14 +175,14 @@ When the camera has panned, zoomed or changed it's projection from the default o
 -- @return wy World y
 -- @return wz World z
 local function screen_to_world(sx, sy, sz, window_width, window_height, projection, view)
-	local inv = vmath.inv(projection * view)
-	sx = (2 * sx / window_width) - 1
-	sy = (2 * sy / window_height) - 1
-	sz = (2 * sz) - 1
-	local wx = sx * inv.m00 + sy * inv.m01 + sz * inv.m02 + inv.m03
-	local wy = sx * inv.m10 + sy * inv.m11 + sz * inv.m12 + inv.m13
-	local wz = sx * inv.m20 + sy * inv.m21 + sz * inv.m22 + inv.m23
-	return wx, wy, wz
+    local inv = vmath.inv(projection * view)
+    sx = (2 * sx / window_width) - 1
+    sy = (2 * sy / window_height) - 1
+    sz = (2 * sz) - 1
+    local wx = sx * inv.m00 + sy * inv.m01 + sz * inv.m02 + inv.m03
+    local wy = sx * inv.m10 + sy * inv.m11 + sz * inv.m12 + inv.m13
+    local wz = sx * inv.m20 + sy * inv.m21 + sz * inv.m22 + inv.m23
+    return wx, wy, wz
 end
 ```
 
