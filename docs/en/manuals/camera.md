@@ -64,8 +64,13 @@ To list all currently available cameras, you can use camera.get_cameras():
 for k,v in pairs(camera.get_cameras()) do
 	-- the camera table contains the URLs of all cameras
 	render.set_camera(v)
-	-- do any rendering here
+	-- do any rendering here, everything rendered that uses materials with
+	-- view and projection matrices specified will use the cameras view and projection matrices.
 end
+-- to disable a camera, pass in nil (or no arguments at all) to render.set_camera.
+-- after this call, all render calls will use the view and projection matrices
+-- that are specified on the render context (render.set_view and render.set_projection)
+render.set_camera()
 ```
 
 The scripting `camera` module has multiple functions that can be used to manipulate the camera. Here's just a few functions that can be used, to see all of the available functions, please consult the manual at the [API docs](/ref/camera/)).
@@ -77,6 +82,7 @@ camera.get_fov(camera) -- get field of view
 camera.set_aspect_ratio(camera, ratio) -- set aspect ratio
 camera.set_far_z(camera, far_z) -- set far z
 camera.set_near_z(camera, near_z) -- set near z
+... And so forth
 ```
 
 A camera is identified by a URL, which is the full scene path of the component, including the collection, the gameobject it belongs to and the component id. In this example, you would use the URL `/go#camera` to identify the camera component from within the same collection, and `main:/go#camera` when accessing a camera from a different collection, or the render script.
