@@ -63,8 +63,33 @@ for k,v in pairs(camera.get_cameras()) do
 end
 ```
 
+The scripting `camera` module has multiple functions that can be used to manipulate the camera. Here's just a few functions that can be used, to see all of the available functions, please consult the manual at the [API docs](/ref/camera/)).
 
-Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the "@render" socket, i.e. it will arrive to your render script:
+```lua
+camera.get_aspect_ratio(camera) -- get aspect ratio
+camera.get_far_z(camera) -- get far z
+camera.get_fov(camera) -- get field of view
+camera.set_aspect_ratio(camera, ratio) -- set aspect ratio
+camera.set_far_z(camera, far_z) -- set far z
+camera.set_near_z(camera, near_z) -- set near z
+```
+
+A camera is identified by a URL, which is the full scene path of the component, including the collection, the gameobject it belongs to and the component id. In this example, you would use the URL `/go#camera` to identify the camera component from within the same collection, and `main:/go#camera` when accessing a camera from a different collection, or the render script.
+
+![create camera component](images/camera/create.png)
+
+```lua
+-- Accessing a camera from a script in the same collection:
+camera.get_fov("/go#camera")
+
+-- Accessing a camera from a script in a different collection:
+camera.get_fov("main:/go#camera")
+
+-- Accessing a camera from the render script:
+render.set_camera("main:/go#camera")
+```
+
+Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the "@render" socket:
 
 ```lua
 -- builtins/render/default.render_script
@@ -96,7 +121,7 @@ Alternatively, you can set a specific camera that should be used for rendering i
 
 ```lua
 -- render.set_camera will automatically use the view and projection matrices
--- for any rendering happening until render.set_camera(nil) is called.
+-- for any rendering happening until render.set_camera() is called.
 render.set_camera("main:/my_go#camera")
 ```
 
