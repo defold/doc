@@ -61,6 +61,10 @@ go.set("#camera", "enable")
 To list all currently available cameras, you can use camera.get_cameras():
 
 ```lua
+-- Note: The render calls are only available in a render script.
+--       The camera.get_cameras() function can be used anywhere,
+--       but render.set_camera can only be used in a render script.
+
 for k,v in pairs(camera.get_cameras()) do
     -- the camera table contains the URLs of all cameras
     render.set_camera(v)
