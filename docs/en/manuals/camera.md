@@ -51,7 +51,12 @@ Orthographic Zoom
 
 ## Using the camera
 
-All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. Since Defold 1.8.1 there is no longer a need to explicitly enable a camera via send a `acquire_camera_focus` message to the camera component. The messages are still available, but it is recommended to set the "enabled" and/or "disabled" properties via `go.set` like any other component.
+All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. Since Defold 1.8.1 there is no longer a need to explicitly enable a camera via sending an `acquire_camera_focus` message to the camera component. The messages are still available, but it is recommended to set the "enabled" and/or "disabled" properties via `go.set`:
+
+```lua
+go.set("#camera", "disable")
+go.set("#camera", "enable")
+```
 
 To list all currently available cameras, you can use camera.get_cameras():
 
