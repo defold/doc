@@ -2,12 +2,6 @@
     "navigation": {
         "videos": [
             {
-                "path": "https://www.youtube.com/embed/vfdyCzndWCM",
-                "name": "How to use Texture Packer Sprite Sheets and Animations with Defold?",
-                "author": "Andreas Loew",
-                "description": "This video explains how you can easily create Sprite Sheets in TexturePacker and use them in the Defold game engine."
-            },
-            {
                 "path": "https://www.youtube.com/embed/DT4D0d47udA",
                 "name": "How does Messaging and Addressing Systems work in Defold?",
                 "author": "Unfolding Defold",
@@ -67,6 +61,7 @@
                 "author": "Unfolding Defold",
                 "description": "Let's take a look at Arcweave - a web tool to create interactive and branching games narratives with an export for Defold game engine."
             },
+
 
 
             {
@@ -206,6 +201,15 @@
                 "name": "Build a Tower Defense game - Game Pause and Tutorial Wrap-up",
                 "author": "Tactx Studios",
                 "description": "This last video in our Tower Defense Series is going to focus on a couple pretty important concepts: (1) pausing a game using the Defold Collection Proxy Component, and (2) adjusting several game parameters within the game to achieve game balance."
+            },
+
+
+
+            {
+                "path": "https://www.youtube.com/embed/vfdyCzndWCM",
+                "name": "How to use Texture Packer Sprite Sheets and Animations with Defold?",
+                "author": "Andreas Loew",
+                "description": "This video explains how you can easily create Sprite Sheets in TexturePacker and use them in the Defold game engine."
             },
 
 
