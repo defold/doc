@@ -2,6 +2,12 @@
     "navigation": {
         "videos": [
             {
+                "path": "https://www.youtube.com/embed/vfdyCzndWCM",
+                "name": "How to use Texture Packer Sprite Sheets and Animations with Defold?",
+                "author": "Andreas Loew",
+                "description": "This video explains how you can easily create Sprite Sheets in TexturePacker and use them in the Defold game engine."
+            },
+            {
                 "path": "https://www.youtube.com/embed/DT4D0d47udA",
                 "name": "How does Messaging and Addressing Systems work in Defold?",
                 "author": "Unfolding Defold",
