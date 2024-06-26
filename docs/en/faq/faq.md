@@ -37,15 +37,55 @@ A: We log anonymous usage data from our websites and the Defold editor in order 
 A: Defold was created by Ragnar Svensson and Christian Murray. They started working on the engine, editor and servers in 2009. King and Defold started a partnership in 2013 and King acquired Defold in 2014. Read the full story [here](/about).
 
 
+## Game development questions
+
 #### Q: Can I do 3D games in Defold?
 
 A: Absolutely! The engine is a full blown 3D engine. However, the toolset is made for 2D so you will have to do a lot of heavy lifting yourself. Better 3D support is planned.
 
 
+## Programming language questions
+
 #### Q: What programming language do I work with in Defold?
 
-A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to extend the Defold engine with new functionality. When building custom materials, OpenGL ES SL shader language is used to write vertex and fragment
-shaders.
+A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to [extend the Defold engine with new functionality](/manuals/extensions/). When building [custom materials](/manuals/material/), OpenGL ES SL shader language is used to write vertex and fragment shaders.
+
+
+#### Q: Can I use C++ to write game logic?
+
+A: C++ support exists in Defold mainly to write native extensions which interface with third party SDKs or platform specific APIs. The [dmSDK](https://defold.com/ref/stable/dmGameObject/) (the C++ API for Defold used in native extensions) will be expanded during 2024 so that it is possible to write all game logic in C++ if a developer so wishes. Lua will still be the main language used for game logic, but with the expanded C++ API it will be possible to write game logic using C++ too. The work to expand the C++ API is mainly about moving existing private header files to the public section and cleaning up APIs for public use.
+
+
+#### Q: Can I use TypeScript with Defold?
+
+A: TypeScript is not officially supported. The community maintains a toolkit, [ts-defold](https://ts-defold.dev/), for writing TypeScript and transpiling it to Lua straight from VSCode.
+
+
+#### Q: Can I use Haxe with Defold?
+
+A: Haxe is not officially supported. The community maintains [hxdefold](https://github.com/hxdefold/hxdefold) for writing Haxe and transpiling it to Lua.
+
+
+#### Q: Can I use C# with Defold?
+
+A: The Defold Foundation will be adding C# support and make it available as a library dependency. C# is a widely adopted programming language and it will help studios and developers heavily invested in C# to transition to Defold.
+
+
+#### Q: I am concerned that adding C# support will have a negative impact on Defold. Should I be worried?
+
+Defold is NOT moving away from Lua as a the primary scripting language. C# support will be added as a new language for extensions. It will not impact the engine unless you choose to use C# extensions in your project.
+
+C# support will come at a price (executable size, runtime performance etc), but that's for the individual developer/studio to decide upon.
+
+As for C# itself, it's a relatively minor change, since the extension system already support many languages (C/C++/Java/Objective-C/Zig). The SDKs will be kept in sync by generating the C# bindings. This will keep the bindings up-to-date with minimal effort.
+
+The Defold Foundation has previously been against adding C# support in Defold, but has changed opinion for a number of reasons:
+
+* Studios and developer continue to request C# support.
+* C# support has been scoped down to extensions only (i.e. low effort).
+* The core engine will not be impacted.
+* The C# APIs can be kept in in sync with minimal effort if they are generated.
+* C# support will be based on DotNet 9 with NativeAOT, thus generating static libraries that the existing build pipeline can link against (just like any other Defold extension).
 
 
 ## Platform questions
