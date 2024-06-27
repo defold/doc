@@ -66,7 +66,7 @@ https://github-username:personal-access-token@github.com/defold/private/archive/
 To fetch from a private repository on GitLab you need to [generate a personal access token](https://docs.gitlab.com/ee/security/token_overview.html) and send as a URL parameter.
 
 ```
-https://gitlab.com/defold/private/-/archive/main/test-main.zip?private=personal-access-token
+https://gitlab.com/defold/private/-/archive/main/test-main.zip?private_token=personal-access-token
 ```
 
 ### Advanced access authentication
