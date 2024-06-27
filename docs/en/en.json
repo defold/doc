@@ -678,16 +678,37 @@
         ],
         "courses": [
             {
-                "path": "https://academy.zenva.com/course/defold-101/",
+                "path": "https://academy.zenva.com/product/defold-101/?utm_source=defold&utm_medium=referral&utm_campaign=defold&utm_content=defold-website",
                 "name": "Defold 101 – Open-Source Game Development",
                 "description": "In this course, you’ll dive into Defold, master how it works from scratch, and also explore essential fundamentals with the Lua scripting language. These skills will provide you the boost you need to start working with Defold in general and prepare you with the foundations for any sort of game you wish to build.",
                 "image": "/courses/images/zenva-free.png",
                 "author": "Zenva"
             },
             {
-                "path": "https://academy.zenva.com/course/intro-to-defold/",
+                "path": "https://academy.zenva.com/product/defold-game-development-academy/?utm_source=defold&utm_medium=referral&utm_campaign=defold&utm_content=defold-website",
+                "name": "Defold Game Development Academy",
+                "description": "This Learning Pathway is designed to take you from beginner to expert in using the Defold game engine. You'll learn Defold architecture, character control, collision detection, interactive objects, level design, and Lua game logic. These courses are project-based, feature video, interactive quizzes and source code.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
+            },
+            {
+                "path": "https://academy.zenva.com/product/intro-to-defold/?utm_source=defold&utm_medium=referral&utm_campaign=defold&utm_content=defold-website",
                 "name": "Learn Game Development with Defold from Scratch",
                 "description": "Through this course, you’ll explore the foundations of the Defold game engine from start to finish – including how to work with Lua scripting to program your game logic. These skills will give you the building blocks for developing your dream games with Defold and set you up for success in other genres.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
+            },
+            {
+                "path": "https://academy.zenva.com/product/defold-2d-platformer/?utm_source=defold&utm_medium=referral&utm_campaign=defold&utm_content=defold-website",
+                "name": "Build a Complete 2D Platformer in Defold",
+                "description": "This course teaches you to create a 2D platformer with Defold, covering tilemaps, player animations, collectables, enemy behavior, sound effects, and gameplay flow. Basic Defold and Lua knowledge is required. You'll build a complete game and gain skills for other genres.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
+            },
+            {
+                "path": "https://academy.zenva.com/product/defold-farming-rpg/?utm_source=defold&utm_medium=partners&utm_campaign=defold&utm_content=defold-website",
+                "name": "Make a Farming RPG from Scratch with Defold",
+                "description": "This course teaches you to build a farming RPG in Defold, covering player control, crop systems, day progression, sprite atlases, data management, and UI design. Basic Defold and Lua knowledge is needed. Gain skills for advanced and complex projects.",
                 "image": "/courses/images/zenva.png",
                 "author": "Zenva"
             }
