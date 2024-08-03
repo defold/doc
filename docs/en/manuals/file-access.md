@@ -10,8 +10,60 @@ There are many different ways to create and/or access files. The file paths and 
 Defold provides several different functions to work with files:
 
 * You can use the standard [`io.*` functions](https://defold.com/ref/stable/io/) to read and write files. These functions give you very fine-grained control over the entire I/O process.
+
+```lua
+-- open myfile.txt for writing in binary mode
+-- returns nil plus error message on failure
+local f, err = io.open("path/to/myfile.txt", "wb")
+if not f then
+	print("Something went wrong while opening the file", err)
+	return
+end
+
+-- write to the file, flush it to disk and then close the file
+f:write("Foobar")
+f:flush()
+f:close()
+
+-- open myfile.txt for reading in binary mode
+-- returns nil plus error message on failure
+local f, err = io.open("path/to/myfile.txt", "rb")
+if not f then
+	print("Something went wrong while opening the file", err)
+	return
+end
+
+-- read the entire file as a string
+-- returns nil on failure
+local s = f:read("*a")
+if not s then
+	print("Error while reading file")
+	return
+end
+
+print(s) -- Foobar
+```
+
 * You can use [`os.rename()`](https://defold.com/ref/stable/os/#os.rename:oldname-newname) and [`os.remove()`](https://defold.com/ref/stable/os/#os.remove:filename) to rename and remove files.
+
 * You can use [`sys.save()`](https://defold.com/ref/stable/sys/#sys.save:filename-table) and [`sys.load()`](https://defold.com/ref/stable/sys/#sys.load:filename) to read and write Lua tables. Additional [`sys.*`](https://defold.com/ref/stable/sys/) functions exist to help with platform independent file path resolution.
+
+```lua
+-- get a platform independent path to the file "highscore" for application "mygame"
+local path = sys.get_save_file("mygame", "highscore")
+
+-- save a Lua table with some data
+local ok = sys.save(path, { highscore = 100 })
+if not ok then
+	print("Failed to save", path)
+	return
+end
+
+-- load the data
+local data = sys.load(path)
+print(data.highscore) -- 100
+```
+
 
 ## File and folder locations
 File and folder locations can be divided into three categories:
