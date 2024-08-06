@@ -41,6 +41,10 @@ Exclude all input handling from the engine.
 Exclude the [Live Update functionality](/manuals/live-update) from the engine.
 
 
+## Exclude Image
+
+Exclude `image` script module [link](https://defold.com/ref/stable/image/) from the engine.
+
 ## Exclude Basis Universal
 
 Exclude the Basis Universal [texture compression library](/manuals/texture-profiles) from the engine.
