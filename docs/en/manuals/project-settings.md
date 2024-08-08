@@ -111,9 +111,9 @@ Check if the application should start full screen. If unchecked, the application
 
 #### Update Frequency
 The desired frame rate in Hertz. Set to 0 for variable frame rate. A value larger than 0 will result in a fixed frame rate capped at runtime towards the actual frame rate (which means that you cannot update the game loop twice in an engine frame). Use [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) to change this value at runtime.
- 
+
 #### Swap interval
-An integer setting that sets the [OpenGL swap interval](https://www.khronos.org/opengl/wiki/Swap_Interval). Does not work with Vulkan. 0 disables vsync. Default is 1.
+This integer value controls how the application deals with vsync. 0 disables vsync, and the default value is 1. When using an OpenGL adapter, this value sets the number of frames the window should [update between buffer swaps](https://www.khronos.org/opengl/wiki/Swap_Interval). For Vulkan, there is no built-in concept of swap interval, the value instead controls if vsync should be enabled or not.
 
 #### Display Profiles
 Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles).
@@ -659,7 +659,7 @@ my_property.default = string
 // `private` - private value used during the bundle process but will be removed from the bundle itself
 my_property.private = 1 // boolean value 1 or 0
 
-``` 
+```
 
 
-At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the *game.project* viewer. 
+At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the *game.project* viewer.
