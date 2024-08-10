@@ -80,9 +80,34 @@ When saving and loading application specific files such as high scores, user set
 ### How to access files bundled with the application
 You can bundle files with your application in two ways:
 
-1. **CUSTOM RESOURCES** - As part of the game archive using the [*Custom Resources* field](https://defold.com/manuals/project-settings/#custom-resources) in *game.project*. You can read these files using [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource). Note that these aren't actual files on the file system. Files included this way becomes part of the binary game archive and the only way to access them is through `sys.load_resource()`.
+1. **CUSTOM RESOURCES**
+:[Custom Resources](../shared/custom-resources.md)
 
-2. **BUNDLE RESOURES** - As additional files and folders located as a part of your application bundle using the [*Bundle Resources* field](https://defold.com/manuals/project-settings/#bundle-resources) in *game.project*. You can use [`sys.get_application_path()`](https://defold.com/ref/stable/sys/#sys.get_application_path:) to get the path to where the application is stored. Use this application base path to create the final absolute path to the files you need access to. Once you have the absolute path of these files you can use the `io.*` and `os.*` functions to access the files (see above).
+```lua
+-- Load level data into a string
+local data, error = sys.load_resource("/assets/level_data.json")
+-- Decode json string to a Lua table
+if data then
+  local data_table = json.decode(data)
+  pprint(data_table)
+else
+  print(error)
+end
+```
+
+2. **BUNDLE RESOURES**
+:[Bundle Resources](../shared/bundle-resources.md)
+
+```lua
+local path = sys.get_application_path()
+local f = io.open(path .. "/mycommonfile.txt", "rb")
+local txt, err = f:read("*a")
+if not txt then
+	print(err)
+	return
+end
+print(txt)
+```
 
 ::: sidenote
 For security reasons browsers (and by extension any JavaScript running in a browser) is prevented from accessing system files. File operations in HTML5 builds in Defold still work, but only on a "virtual file system" using the IndexedDB API in the browser. What this means is that there is no way to access bundle resources using `io.*` or `os.*` functions. You can however access bundle resources using `http.request()`.
@@ -94,9 +119,9 @@ For security reasons browsers (and by extension any JavaScript running in a brow
 | Characteristic              | Custom Resources                          | Bundle Resources                               |
 |-----------------------------|-------------------------------------------|------------------------------------------------|
 | Loading speed               | Faster - files loaded from binary archive | Slower - files loaded from filesystem          |
-| Load partial files          | No - only entire files                    | Yes - read arbitrary bytes from file           |
+| Load partial files          | No - only entire files                    | Yes - read arbitrary bytes from file           |
 | Modify files after bundling | No - files stored inside a binary archive | Yes - files stored on the local file system    |
-| HTML5 support               | Yes                                       | Yes - but access through http and not file I/O |
+| HTML5 support               | Yes                                       | Yes - but access through http and not file I/O |
 
 
 ### System file access
