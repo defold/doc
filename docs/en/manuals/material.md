@@ -47,7 +47,7 @@ Tags
 
 ## Attributes
 
-Shader attributes (also referred to as vertex streams), is a mechanism for how the GPU retrieves vertices from memory in order to render geometry. The vertex shader specifies a set of streams by using the `attribute` keyword and in most cases Defold produces and binds the data automatically under the hood based on the names of the streams. However, in some cases you might want to forward more data per vertex to achieve a specific effect that the engine does not produce. A vertex attribute can be configured with the following fields:
+Shader attributes (also referred to as vertex streams, or vertex attributes), is a mechanism for how the GPU retrieves vertices from memory in order to render geometry. The vertex shader specifies a set of streams by using the `attribute` keyword and in most cases Defold produces and binds the data automatically under the hood based on the names of the streams. However, in some cases you might want to forward more data per vertex to achieve a specific effect that the engine does not produce. A vertex attribute can be configured with the following fields:
 
 Name
 : The attribute name. Similar to shader constants, the attribute configuration will only be used if it matches an attribute specified in the vertex program.
@@ -55,15 +55,15 @@ Name
 Semantic type
 : A semantic type indicates the semantic meaning of *what* the attribute is and/or *how* it should be shown in the editor. For example, specifying an attribute with a `SEMANTIC_TYPE_COLOR` will show a color picker in the editor, while the data will still be passed in as-is from the engine to the shader.
 
-  - `SEMANTIC_TYPE_NONE` The default semantic type. Does not have any other effect on the attribute other than passing the material data for the attribute directly to the vertex buffer.
-  - `SEMANTIC_TYPE_POSITION` Produces per-vertex position data for the attribute. Can be used together with coordinate space to tell the engine how the positions will be calculated.
-  - `SEMANTIC_TYPE_TEXCOORD` Produces per-vertex texture coordinates for the attribute.
-  - `SEMANTIC_TYPE_PAGE_INDEX` Produces per-vertex page indices for the attribute.
-  - `SEMANTIC_TYPE_COLOR` Affects how the editor interprets the attribute. If an attribute is configured with a color semantic, a color picked widget will be shown in the inspector.
-
-::: sidenote
-The material system will assign a default semantic type automatically based on the name of the attribute during run-time for a specific set of names: position, texcoord0, page_index. If you have entries for these attributes in the material, the default semantic type will be overridden with whatever you have configured in the material editor!
-:::
+  - `SEMANTIC_TYPE_NONE` The default semantic type. Does not have any other effect on the attribute other than passing the material data for the attribute directly to the vertex buffer (default)
+  - `SEMANTIC_TYPE_POSITION` Produces per-vertex position data for the attribute. Can be used together with coordinate space to tell the engine how the positions will be calculated
+  - `SEMANTIC_TYPE_TEXCOORD` Produces per-vertex texture coordinates for the attribute
+  - `SEMANTIC_TYPE_PAGE_INDEX` Produces per-vertex page indices for the attribute
+  - `SEMANTIC_TYPE_COLOR` Affects how the editor interprets the attribute. If an attribute is configured with a color semantic, a color picked widget will be shown in the inspector
+  - `SEMANTIC_TYPE_NORMAL` Produces per-vertex normal data for the attribute
+  - `SEMANTIC_TYPE_TANGENT` Produces per-vertex tangent data for the attribute
+  - `SEMANTIC_TYPE_WORLD_MATRIX` Produces per-vertex world matrix data for the attribute
+  - `SEMANTIC_TYPE_NORMAL_MATRIX` Produces per-vertex normal matrix data for the attribute
 
 Data type
 : The data type of the backing data for the attribute.
@@ -74,10 +74,7 @@ Data type
   - `TYPE_UNSIGNED_SHORT` Unsigned 16-bit short values
   - `TYPE_INT` Signed integer values
   - `TYPE_UNSIGNED_INT` Unsigned integer values
-  - `TYPE_FLOAT` Floating point values
-
-Count
-: The *element count* of the attribute, e.g number of values in the attribute. A `vec4` in the shader has four elements and a `float` has one element. Note: Even if the shader has specified an attribute to be a `vec4` you can still specify a smaller count if you know you need less than four elements which can be useful to trim memory footprint.
+  - `TYPE_FLOAT` Floating point values (default)
 
 Normalize
 : If true, the attribute values will be normalized by the GPU driver. This can be useful when you don't need full precision, but want to calculate something without knowing the specific limits. E.g a color vector typically only need byte values of 0..255 while still being treated as a 0..1 value in the shader.
@@ -85,12 +82,47 @@ Normalize
 Coordinate space
 : Some semantic types support supplying data in different coordinate spaces. To implement a billboarding effect with sprites, you typically want a position attribute in local space as well as a fully transformed position in world space for most effective batching.
 
+Vector type
+: The vector type of the attribute.
+
+  - `VECTOR_TYPE_SCALAR` Single scalar value
+  - `VECTOR_TYPE_VEC2` 2D vector
+  - `VECTOR_TYPE_VEC3` 3D vector
+  - `VECTOR_TYPE_VEC4` 4D vector (default)
+  - `VECTOR_TYPE_MAT2` 2D matrix
+  - `VECTOR_TYPE_MAT3` 3D matrix
+  - `VECTOR_TYPE_MAT4` 4D matrix
+
+Step function
+: Specifies how the attribute data should be presented to the vertex function. This is only relevant for instancing.
+
+  - `Vertex` Once per vertex, e.g a position attribute will typically be given to the vertex function per vertex in the mesh (default)
+  - `Instance` Once per instance, e.g a world matrix attribute will typically be given to the vertex function once per instance
+
 Value
 : The value of the attribute. Attribute values can be overridden on a per-component basis, but otherwise this will act as the default value of the vertex attribute. Note: for *default* attributes (position, texture coordinates and page indices) the value will be ignored.
 
 ::: sidenote
 Custom attributes can also be used to trim memory footprint on both CPU and GPU by reconfiguring the streams to use a smaller data type, or a different element count.
 :::
+
+### Default attribute semantics
+
+The material system will assign a default semantic type automatically based on the name of the attribute in run-time for a specific set of names:
+
+  - `position` - semantic type: `SEMANTIC_TYPE_POSITION`
+  - `texcoord0` - semantic type: `SEMANTIC_TYPE_TEXCOORD`
+  - `texcoord1` - semantic type: `SEMANTIC_TYPE_TEXCOORD`
+  - `page_index` - semantic type: `SEMANTIC_TYPE_PAGE_INDEX`
+  - `color` - semantic type: `SEMANTIC_TYPE_COLOR`
+  - `normal` - semantic type: `SEMANTIC_TYPE_NORMAL`
+  - `tangent` - semantic type: `SEMANTIC_TYPE_TANGENT`
+  - `mtx_world` - semantic type: `SEMANTIC_TYPE_WORLD_MATRIX`
+  - `mtx_normal` - semantic type: `SEMANTIC_TYPE_NORMAL_MATRIX`
+
+If you have entries for these attributes in the material, the default semantic type will be overridden with whatever you have configured in the material editor.
+
+### Setting custom vertex attribute data
 
 Similar to user defined shader constants, you can also update vertex attributes in runtime by calling go.get, go.set and go.animate:
 
@@ -107,6 +139,52 @@ There are some caveats to updating the vertex attributes however, wether or not 
 ::: sidenote
 Setting custom vertex data in runtime is currently only supported for sprite components.
 :::
+
+### Instancing
+
+Instancing is a technique used to efficiently draw multiple copies of the same object in a scene. Instead of creating a separate copy of the object each time it's used, instancing allows the graphics engine to create a single object and then reuse it multiple times. For example, in a game with a large forest, instead of creating a separate tree model for each tree, instancing allows you to create one tree model and then place it hundreds or thousands of times with different positions and scales. The forest can now be rendered with a single draw call instead of individual draw calls for each tree.
+
+::: sidenote
+Instancing is currently only available for Model components.
+:::
+
+Instancing is enabled automatically when possible. Defold heavily relies on batching the draw state as much as possible - for instancing to work some requirements must be met:
+
+- The same material must be used for all instances. Instancing will still work if a custom material has been set by `render.enable_material`)
+- The material must be configured to use the 'local' vertex space
+- The material must have at least one vertex attribute that is repeated per instance
+- Constant values must be the same for all instances. Constant values can be put into custom vertex attributes or some other backing method instead (e.g a texture)
+- Shader resources, such as textures or storage buffers, must be the same for all instances
+
+Configuring a vertex attribute to be repeated per instance requires that the `Step function` is set to `Instance`. This is done automatically for certain semantic types based on name (see the `Default attribute semantics` table above), but it can also be set manually in the material editor by setting the `Step function` to `Instance`.
+
+As a simple example, the following scene has four gameobjects with a model component each:
+
+![Instancing setup](images/materials/instancing-setup.png){srcset="images/materials/instancing-setup@2x.png 2x"}
+
+The material is configured as such, with a single custom vertex attribute that is repeated per instance:
+
+![Instancing material](images/materials/instancing-material.png){srcset="images/materials/instancing-material@2x.png 2x"}
+
+The vertex shader has multiple per-instance attributes specified:
+
+```glsl
+// Per vertex attributes
+attribute highp vec4 position;
+attribute mediump vec2 texcoord0;
+attribute mediump vec3 normal;
+
+// Per instance attributes
+attribute mediump mat4 mtx_world;
+attribute mediump mat4 mtx_normal;
+attribute mediump vec4 instance_color;
+```
+
+Note that the mtx_world and mtx_normal will be configured to use the step function `Instance` by default. This can be changed in the material editor by adding an entry for them and setting the `Step function` to `Vertex`, which will make the attribute be repeated per vertex instead of per instance.
+
+To verify that the instancing works in this case, you can look at the web profiler. In this case, since the only thing that changes between the instances of the box is the per-instance attributes, it can be rendered with a single draw call:
+
+![Instancing draw calls](images/materials/instancing-draw-calls.png){srcset="images/materials/instancing-draw-calls@2x.png 2x"}
 
 ## Vertex and fragment constants
 
