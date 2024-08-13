@@ -186,6 +186,10 @@ To verify that the instancing works in this case, you can look at the web profil
 
 ![Instancing draw calls](images/materials/instancing-draw-calls.png){srcset="images/materials/instancing-draw-calls@2x.png 2x"}
 
+#### Backwards compatability
+
+On OpenGL based graphcis adapters, instancing requires at least OpenGL 3.1 for desktop and OpenGL ES 3.0 for mobile. This means that very old devices that are using OpenGL ES2 or older OpenGL versions might not support instancing. In this case, rendering will still work by default without any special care from the developer, but it may not be as performant as if actual instancing was used. Currently, there is no way of detecting if instancing is supported or not, but this functionality will be added in the future so that a cheaper material can be used, or things like foliage or clutter that typically would be good candidates for instancing, could be skipped completely.
+
 ## Vertex and fragment constants
 
 Shader constants, or "uniforms" are values that are passed from the engine to vertex and fragment shader programs. To use a constant you define it in the material file as either a *Vertex Constant* property or a *Fragment Constant* property. Corresponding `uniform` variables need to be defined in the shader program. The following constants can be set in a material:
