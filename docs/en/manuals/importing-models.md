@@ -36,21 +36,15 @@ Defold imposes some limitations on exported animation data:
 
 
 ### Requirements
-When you export a model you need to make sure that it fulfills the following requirements:
+When you export a model it's good to know that we don't yet support all features.
+Currently known issues/not supported features from the Gltf format:
 
-* The model must consist of a single mesh
-* The model must use a single material
-* The exported *.gltf* file must use embedded mesh data. Mesh data in a separate binary file is not supported. 
+* Morph target animations
+* Material properties
+* Embedded textures
 
-
-You can use Blender to join multiple meshes. Select all of the meshes and press `CTRL`/`CMD` + `J` to join them.
-
-![Join meshes](images/model/blender_join_meshes.png)
-
-You can use Blender to remove extra materials from the model. Select the material to remove and press the `-` button.
-
-![Remove materials](images/model/blender_remove_materials.png)
-
+While our ambition is to fully support the Gltf format, we're not fully there yet.
+If a feature is missing, please make a feature request for it in [our repo](https://github.com/defold/defold/issues)
 
 ### Exporting a texture
 If you do not already have a texture for your model you can use Blender to generate a texture. You should do this before you remove extra materials from the model. Start by selecting the mesh and all of its vertices:
