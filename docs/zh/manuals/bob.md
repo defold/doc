@@ -15,10 +15,6 @@ Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.j
 * https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17
 * https://github.com/adoptium/temurin17-binaries/releases / https://adoptium.net/
 
-兼容 OpenJDK 11 镜像 (最高到 Defold 1.4.7):
-* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
-* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
-
 比如在 Windows 平台上, 需要下载 OpenJDK 17 的 .msi 安装包.
 
 ## 用法
@@ -57,7 +53,6 @@ usage: bob [options] [commands]
 -h,--help                               该命令的帮助文档
 -i,--input <arg>                        指定源目录, 默认是当前目录
     --identity <arg>                    指定签名 (iOS)
--k,--keep-unused                        把未使用资源也打包进 output
 -kp,--key-pass <arg>                    如果开发密钥不同于部署密钥的话
                                         则在这里指定 (Android)
 -ks,--keystore <arg>                    用来签名 APKs (Android) 的部署密钥
