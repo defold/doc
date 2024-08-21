@@ -64,8 +64,6 @@ usage: bob [options] [commands]
  -i,--input <arg>                        Source directory. Default is
                                          current directory
     --identity <arg>                     Sign identity (iOS)
- -k,--keep-unused                        Keep unused resources in archived
-                                         output
  -kp,--key-pass <arg>                    Password of the deployment key if
                                          different from the keystore
                                          password (Android)

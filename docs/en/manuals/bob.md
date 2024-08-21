@@ -15,10 +15,6 @@ Compatible OpenJDK 17 mirrors (from Defold 1.4.8):
 * https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17
 * https://github.com/adoptium/temurin17-binaries/releases / https://adoptium.net/
 
-Compatible OpenJDK 11 mirrors (up to Defold 1.4.7):
-* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11
-* https://github.com/adoptium/temurin11-binaries/releases / https://adoptium.net/
-
 If you are on Windows you want the .msi file installer for OpenJDK.
 
 ## Usage
@@ -76,8 +72,6 @@ usage: bob [options] [commands]
  -i,--input <arg>                        Source directory. Default is
                                          current directory
     --identity <arg>                     Sign identity (iOS)
- -k,--keep-unused                        Keep unused resources in archived
-                                         output
  -kp,--key-pass <arg>                    Password of the deployment key if
                                          different from the keystore
                                          password (Android)
