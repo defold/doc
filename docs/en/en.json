@@ -436,6 +436,14 @@
                 "name": "Build a Pong with Defold - Beginner Series",
                 "author": "Galvia Games",
                 "description": "Let's build a Pong using the Defold game engine!"
+            },
+
+            
+            {
+                "path": "https://www.youtube.com/watch?v=affVW3XDsMk",
+                "name": "Complete Defold Course - Learn Beginner/Intermediate Level",
+                "author": "Zenva",
+                "description": "Master Defold - a free and powerful game engine for building 2D & 3D games!"
             }
         ],
         "tutorials": [
