@@ -112,7 +112,7 @@ Then you need to install *libopenal1*. The package name varies between distribut
 $ apt-get install libopenal-dev
 ```
 
-####  Q: Why does the top menu close before I can select something?
+#### Q: Why does the top menu close before I can select something?
 
 A: This is likely caused by the window manager used (for instance Qtile or i3). This is a [known issue in JavaFX](https://bugs.openjdk.org/browse/JDK-8251240?focusedCommentId=14362084&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-14362084) and it can either be solved by setting the `GDK_DISPLAY` environment variable to 1:¨
 
@@ -129,3 +129,7 @@ Or by modifying the `Defold/config` file and on the `vmargs` line add `-Djdk.gtk
 vmargs = -Djdk.gtk.version=2,-Dfile.encoding=UTF-8,...
 ```
 
+
+#### Q: Why am I not able to browse all available file locations when I select Open From Disk?
+
+A: If you are running Defold from [Steam using Flatpak](https://flathub.org/apps/com.valvesoftware.Steam) you need to give Steam permission to access your other drives. You can modify the permissions of your Flatpak applications using [Flatseal](https://flathub.org/apps/com.github.tchx84.Flatseal) or similar tool.

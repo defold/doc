@@ -103,6 +103,165 @@ Varying variables
 
   ![Varying interpolation](images/shader/varying.png){srcset="images/shader/varying@2x.png 2x"}
 
+## Writing modern GLSL shaders
+
+Since the Defold engine supports multiple platforms and graphics APIs, it must be simple for developers to write shaders that works everywhere. The asset pipeline achieves this in mainly two ways (denoted as `shader pipelines` from now on):
+
+1. The legacy pipeline, where shaders are written in ES2 compatible GLSL code.
+2. The modern pipeline, where shaders are written in SPIR-v compatible GLSL code.
+
+Starting with Defold 1.9.2, it is encouraged to write shaders that utilise the new pipeline, and to achieve this most shaders need to be migrated into shaders written in at least version 140 (OpenGL 3.1). To migrate a shader, make sure these requirements are met:
+
+### Version declaration
+Put at least #version 140 at the top of the shader:
+
+```glsl
+#version 140
+```
+
+This is how the shader pipeline is picked in the build process, which is why you can still use the old shaders. If no version preprocessor was found, Defold will fallback to the legacy pipeline.
+
+### Attributes
+In vertex shaders, replace the `attribute` keyword with `in`:
+
+```glsl
+// instead of:
+// attribute vec4 position;
+// do:
+in vec4 position;
+```
+
+Note: Fragment shaders (and compute shaders) does not take any vertex inputs.
+
+### Varyings
+In vertex shaders, varyings should be prefixed with `out`. In fragment shaders, varyings becomes `in`:
+
+```glsl
+// In a vertex shader, instead of:
+// varying vec4 var_color;
+// do:
+out vec4 var_color;
+
+// In a fragment shader, instead of:
+// varying vec4 var_color;
+// do:
+in vec4 var_color;
+```
+
+### Uniforms (called constants in Defold)
+
+Opaque uniform types (samplers, images, atomics, SSBOs) does not need any migration, you can use them as you do today:
+
+```glsl
+uniform sampler2D my_texture;
+uniform image2D my_image;
+```
+
+For non-opaque uniform types, you need to put them in a `uniform block`. A uniform block is simply a collection of uniform variables, and is declared with the `uniform` keyword:
+
+```glsl
+uniform vertex_inputs
+{
+    mat4 mtx_world;
+    mat4 mtx_proj;
+    mat4 mtx_view;
+    mat4 mtx_normal;
+    ...
+};
+
+void main()
+{
+    // Invididual members of the uniform block can be used as-is
+    gl_Position = mtx_proj * mtx_view * mtx_world * vec4(position, 1.0);
+}
+```
+
+All members in the uniform block is exposed to materials and components as invididual constants. No migration is needed for using render constant buffers, or `go.set` and `go.get`.
+
+### Built-in Variables
+
+In fragment shaders, gl_FragColor is deprecated starting with version 140. Use `out` instead:
+
+```glsl
+// instead of:
+// gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+// do:
+out vec4 color_out;
+
+void main()
+{
+    color_out = vec4(1.0, 0.0, 0.0, 1.0);
+}
+```
+
+### Texture functions
+
+Specific texture sampling functions such as `texture2D` and `texture2DArray` doesn't exist anymore. Instead, just use the `texture` function:
+
+```glsl
+uniform sampler2D my_texture;
+uniform sampler2DArray my_texture_array;
+
+// instead of:
+// vec4 sampler_2d = texture2D(my_texture, uv);
+// vec4 sampler_2d_array = texture2DArray(my_texture_array, vec3(uv, slice));
+// do:
+vec4 sampler_2d = texture(my_texture, uv);
+vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
+```
+
+### Precision
+
+Setting explicit precision for variables, inputs, outputs and so forth was previously required in order to be compliant with OpenGL ES contexts. This is not required anymore, precision is now set automatically for platforms that support it.
+
+### Putting it together
+
+As a final example where all of these rules are applied, here is the builtin sprite shaders converted into the new format:
+
+```glsl
+#version 140
+
+uniform vx_uniforms
+{
+    uniform mat4 view_proj;
+};
+
+// positions are in world space
+in vec4 position;
+in vec2 texcoord0;
+
+out vec2 var_texcoord0;
+
+void main()
+{
+    gl_Position = view_proj * vec4(position.xyz, 1.0);
+    var_texcoord0 = texcoord0;
+}
+```
+
+```glsl
+#version 140
+
+in vec2 var_texcoord0;
+
+out vec4 color_out;
+
+uniform sampler texture_sampler;
+
+uniform fs_uniforms
+{
+    vec4 tint;
+};
+
+void main()
+{
+    // Pre-multiply alpha since all runtime textures already are
+    vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);
+    color_out = texture(texture_sampler, var_texcoord0.xy) * tint_pm;
+}
+
+```
+
 ## Including snippets into shaders
 
 Shaders in Defold support including source code from files within the project that have have the `.glsl` extension. To include a glsl file from a shader, use the `#include` pragma either with double quotations or brackets. Includes must have either project relative paths or a path that is relative from the file that is including it:

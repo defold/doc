@@ -51,10 +51,11 @@ Note that the *Group* property is **not** used here since the collision groups a
 :::
 
 ## Convex hull shape
-Defold includes a feature allowing you to create a convex hull shape from three or more points. You can use an external tool such as the [Defold Polygon Editor](https://rossgrams.itch.io/defold-polygon-editor) or the [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) to create a convex hull shape.
+Defold includes a feature allowing you to create a convex hull shape from three or more points. 
 
 1. Create convex hull shape file (file extension `.convexshape`) using an external editor.
-2. Instead of adding shapes to the collision object component, set the *Collision Shape* property to the *convex shape* file.
+2. Edit the file manually using a text editor or external tool (see below)
+3. Instead of adding shapes to the collision object component, set the *Collision Shape* property to the *convex shape* file.
 
 ::: sidenote
 The shape will not be drawn in the editor. You can [enable Physics debugging](/manuals/debugging/#debugging-problems-with-physics) at runtime to see the shape.
@@ -91,6 +92,15 @@ The above example defines the four corners of a rectangle:
     1---------2
  200x100   400x100
 ```
+
+## External tools
+
+There are a number of different external tools that can be used to create collision shapes:
+
+* The [Physics Editor](https://www.codeandweb.com/physicseditor/tutorials/how-to-create-physics-shapes-for-defold) from CodeAndWeb can be used to create game objects with sprites and matching collision shapes.
+* [Defold Polygon Editor](https://rossgrams.itch.io/defold-polygon-editor) can be used to create convex hull shapes.
+* [Physics Body Editor](https://selimanac.github.io/physics-body-editor/) can be used to create convex hull shapes.
+
 
 # Scaling collision shapes
 The collision object and its shapes inherit the scale of the game object. To disable this behaviour uncheck the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project*. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.

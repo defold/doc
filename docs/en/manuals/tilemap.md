@@ -24,7 +24,7 @@ To create a new tile map:
 To paint tiles on your tile map:
 
 1. Select or create a *Layer* to paint on in the *Outline* view.
-2. Select a tile to use as brush (press <kbd>Space</kbd> to show the tile palette)
+2. Select a tile to use as a brush (press <kbd>Space</kbd> to show the tile palette) or select a few tiles by clicking and dragging in the palette to create a rectangle brush with multiple tiles.
 
    ![Palette](images/tilemap/palette.png){srcset="images/tilemap/palette@2x.png 2x"}
 
@@ -32,7 +32,7 @@ To paint tiles on your tile map:
 
    ![Painting tiles](images/tilemap/paint_tiles.png){srcset="images/tilemap/paint_tiles@2x.png 2x"}
 
-You can pick tiles directly from a layer and use the selection as a brush. Hold <kbd>Shift</kbd> and click a tile to pick it up as the current brush. While holding <kbd>Shift</kbd> you can also click and drag to select a block of tiles to use as a larger brush.
+You can pick tiles directly from a layer and use the selection as a brush. Hold <kbd>Shift</kbd> and click a tile to pick it up as the current brush. While holding <kbd>Shift</kbd> you can also click and drag to select a block of tiles to use as a larger brush. Also, it is possible to cut tiles in a similar way by holding <kbd>Shift+Ctrl</kbd> or erase them by holding <kbd>Shift+Alt</kbd>.
 
 For clockwise brush rotation, use <kbd>Z</kbd>. Use <kbd>X</kbd> for horizontal flipping and <kbd>Y</kbd> for vertical flipping of the brush.
 

@@ -26,6 +26,9 @@ Escape Quits Game
 Track Active Tab in Asset Browser
 : The file edited in selected tab in the *Editor* pane will be selected in the Asset Browser (also known as the *Asset* pane).
 
+Lint Code on Build
+: Enables [code linting](/manuals/writing-code/#linting-configuration) when the project is built. This option is enabled by default, but can be disabled if the linting in a large project takes too much time.
+
 Path to custom keymap
 : Absolute path to a file containing [custom keyboard shortcuts](/manuals/editor-keyboard-shortcuts).
 

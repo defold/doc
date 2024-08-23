@@ -15,6 +15,7 @@ Editor scripts run inside an editor, in a Lua VM emulated by Java VM. All script
 - there is no `os.tmpname` and `io.tmpfile` — currently editor scripts can access files only inside the project directory;
 - there is currently no `os.rename`, although we want to add it;
 - there is no `os.exit` and `os.setlocale`.
+- it's not allowed to use some long-running functions in contexts where the editor needs an immediate response from the script, see [Execution Modes](#execution-modes) for more details.
 
 All editor extensions defined in editor scripts are loaded when you open a project. When you fetch libraries, extensions are reloaded, since there might be new editor scripts in a libraries you depend on. During this reload, no changes in your own editor scripts are picked up, since you might be in the middle of changing them. To reload them as well, you should run **Project → Reload Editor Scripts** command.
 
@@ -239,6 +240,25 @@ Language server definition table may specify:
 You can publish libraries for other people to use that contain commands, and they will be automatically picked up by the editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks as simple functions in `.lua` files, so users of your library can require and use them in their `/hooks.editor_script`.
 
 Also note that although dependencies are shown in Assets view, they do not exist as files (they are entries in a zip archive). It's possible to make the editor extract some files from the dependencies into `build/plugins/` folder. To do it, you need to create `ext.manifest` file in your library folder, and then create `plugins/bin/${platform}` folder in the same folder where the `ext.manifest` file is located. Files in that folder will be automatically extracted to `/build/plugins/${extension-path}/plugins/bin/${platform}` folder, so your editor scripts can reference them.
+
+## Execution modes
+
+The editor script runtime uses 2 execution modes that are mostly transparent to editor scripts: **immediate** and **long-running**. 
+
+**Immediate** mode is used when the editor needs to receive a response from the script as fast as possible. For instance, menu commands' `active` callbacks are executed in immediate mode, because these checks are performed on the editors UI thread in response to user interacting with the editor, and should update the UI within the same frame. 
+
+**Long-running** mode is used when the editor doesn't need an instantaneous response from the script. For example, menu commands' `run` callbacks are executed in a **long-running** mode, allowing the script to take more time to complete its work.
+
+Some of the functions that the editor scripts can use may take a lot of time to run. For example, `editor.execute("git", "status", {reload_resources=false, out="capture"})` can take up to a second on sufficiently large projects. To maintain editor responsiveness and performance, functions that may be time-consuming are not allowed in contexts where the editor needs an immediate response. Attempting to use such a function in an immediate context will result in an error: `Cannot use long-running editor function in immediate context`. To resolve this error, avoid using such functions in immediate contexts.
+
+The following functions are considered long-running and cannot be used in immediate mode:
+- `editor.create_directory()`, `editor.delete_directory()`, `editor.save()`, `os.remove()` and `file:write()`: these functions modify the files on disc, causing the editor to synchronize its in-memory resource tree with the disc state, which can take seconds in large projects.
+- `editor.execute()`: execution of shell commands can take an unpredictable amount of time.
+- `editor.transact()`: large transactions on widely-referenced nodes may take hundreds of milliseconds, which is too slow for UI responsiveness.
+
+The following code execution contexts use immediate mode:
+- Menu command's `active` callbacks: the editor needs a response from the script within the same UI frame.
+- Top-level of editor scripts: we don't expect the act of reloading editor scripts to have any side effects.
 
 ## Actions
 
