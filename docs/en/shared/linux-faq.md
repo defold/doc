@@ -133,3 +133,12 @@ vmargs = -Djdk.gtk.version=2,-Dfile.encoding=UTF-8,...
 #### Q: Why am I not able to browse all available file locations when I select Open From Disk?
 
 A: If you are running Defold from [Steam using Flatpak](https://flathub.org/apps/com.valvesoftware.Steam) you need to give Steam permission to access your other drives. You can modify the permissions of your Flatpak applications using [Flatseal](https://flathub.org/apps/com.github.tchx84.Flatseal) or similar tool.
+
+
+#### Q: Why am I not able to open the web profiler or any other menu option which requires a browser?
+
+A: It is likely that an internal call to `Desktop.getDesktop().browse(new URI(url));` fails since no browser is detected on non-Gnome systems. Try installing `libgnome`.
+
+```bash
+$ apt-get install libgnome
+```
