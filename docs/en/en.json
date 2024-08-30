@@ -444,6 +444,13 @@
                 "name": "Complete Defold Course - Learn Beginner/Intermediate Level",
                 "author": "Zenva",
                 "description": "Master Defold - a free and powerful game engine for building 2D & 3D games!"
+            },
+
+            {
+                "path": "https://www.youtube.com/watch?v=fTQIVb1A68g",
+                "name": "Defold Platformer Mini-Course",
+                "author": "Zenva",
+                "description": "Create your own 2D platformer game with Defold!"
             }
         ],
         "tutorials": [
