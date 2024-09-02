@@ -36,9 +36,8 @@ The *Assets* pane
    - <kbd>Drag and drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
    - <kbd>Right click</kbd> to open a _context menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
 
-The *Editor* pane
-
-: The center view shows the currently open file in an editor for that file type. All visual editors allows you to change the camera view:
+### Editor pane
+The center view shows the currently open file in an editor for that file type. All visual editors allows you to change the camera view:
 
 - Pan: <kbd>Alt + left mouse button</kbd>.
 - Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
@@ -48,23 +47,28 @@ There is a toolbar in the top right corner of the scene view where you find obje
 
 ![toolbar](images/editor/toolbar.png)
 
-The *Outline* pane
-: This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
+### Outline pane
+
+This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
    - <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
    - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to child it.
    - <kbd>Right click</kbd> to open a _context menu_ from where you can add items, delete selected items etc.
 
-The *Properties* pane
-: This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
+### Properties pane
 
-The *Tools* pane
-: This view has several tabs. The *Console* tab shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing *Build Errors*, *Search Results* and the *Curve Editor* which is used when editing curves in the particle editor. The Tools pane is also used for interacting with the integrated debugger.
+This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
 
-The *Changed Files* pane
-: If your project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. You can learn more about Git in our [Version Control manual](/manuals/version-control/). Some file oriented operations can be performed in this view:
+### Tools pane
+
+This view has several tabs. The *Console* tab shows any error output or purposeful printing that you do while your game is running. Alongside the console are tabs containing *Build Errors*, *Search Results* and the *Curve Editor* which is used when editing curves in the particle editor. The Tools pane is also used for interacting with the integrated debugger.
+
+### Changed Files pane
+
+If your project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. You can learn more about Git in our [Version Control manual](/manuals/version-control/). Some file oriented operations can be performed in this view:
 
    - <kbd>Double click</kbd> a file to open a diff view of the file. The editor opens the file in a suitable editor, just like in the assets view.
    - <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.
+
 
 ## Side-by-side editing
 
@@ -80,8 +84,8 @@ Double clicking a collection or game object file brings up the *Scene Editor*:
 
 ![Select object](images/editor/select.png)
 
-Selecting objects
-: Click on objects in the main window to select them. The rectangle surrounding the object in the editor view will highlight green to indicate what item is selected. The selected object is also highlighted in the *Outline* view.
+### Selecting objects
+Click on objects in the main window to select them. The rectangle surrounding the object in the editor view will highlight green to indicate what item is selected. The selected object is also highlighted in the *Outline* view.
 
   You can also select objects by:
 
@@ -90,34 +94,36 @@ Selecting objects
 
   Hold <kbd>Shift</kbd> or <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) while clicking to expand the selection.
 
-The move tool
-: ![Move tool](images/editor/icon_move.png){.left}
-  To move objects, use the *Move Tool*. You find it in the toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
+### Move tool
+![Move tool](images/editor/icon_move.png){.left}
+To move objects, use the *Move Tool*. You find it in the toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
 
-  ![Move object](images/editor/move.png)
+![Move object](images/editor/move.png)
 
-  The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There arn also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
+The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There arn also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
 
-The rotate tool
-: ![Rotate tool](images/editor/icon_rotate.png){.left}
-  To rotate objects, use the *Rotate Tool* by selecting it in the toolbar, or by pressing the <kbd>E</kbd> key.
+### Rotate tool
+![Rotate tool](images/editor/icon_rotate.png){.left}
+To rotate objects, use the *Rotate Tool* by selecting it in the toolbar, or by pressing the <kbd>E</kbd> key.
 
-  ![Move object](images/editor/rotate.png)
+![Move object](images/editor/rotate.png)
 
-  This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
+This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
 
-The scale tool
-: ![Scale tool](images/editor/icon_scale.png){.left}
-  To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
 
-  ![Scale object](images/editor/scale.png)
+### Scale tool
+![Scale tool](images/editor/icon_scale.png){.left}
+To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
 
-  This tool consists of a set of square handles. The center one scales the object uniformly in all axes (including Z). There also one handle for scaling along each of the X, Y and Z axes and one handle for scaling in the X-Y plane, the X-Z plane and the Y-Z plane.
+![Scale object](images/editor/scale.png)
 
-Visibility filters
-: Toggle visibility of various component types as well as bounding boxes and guide lines.
+This tool consists of a set of square handles. The center one scales the object uniformly in all axes (including Z). There also one handle for scaling along each of the X, Y and Z axes and one handle for scaling in the X-Y plane, the X-Z plane and the Y-Z plane.
 
-  ![Visibility filters](images/editor/visibilityfilters.png)
+
+### Visibility filters
+Toggle visibility of various component types as well as bounding boxes and guide lines.
+
+![Visibility filters](images/editor/visibilityfilters.png)
 
 
 ## Creating new project files
