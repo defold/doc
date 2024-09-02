@@ -69,14 +69,14 @@ Fonts
 go.property("mybigfont", resource.font("/assets/mybig.font"))
 
 function init(self)
-  -- get the font currently assigned to the font property 'default'
-  print(go.get("#gui", "default")) -- /builtins/fonts/default.font
+  -- get the font file currently assigned to the font with id 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /builtins/fonts/default.font
 
-  -- set the font property 'default' to the font assigned to the resource property 'mybigfont'
-  go.set("#gui", "default", self.mybigfont)
+  -- set the font with id 'default' to the font file assigned to the resource property 'mybigfont'
+  go.set("#gui", "fonts", self.mybigfont, { key = "default" })
 
-  -- get the new font assigned to the font property 'default'
-  print(go.get("#gui", "default")) -- /assets/mybig.font
+  -- get the new font file assigned to the font with id 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /assets/mybig.font
 end
 ```
 
@@ -89,14 +89,14 @@ Materials
 go.property("myeffect", resource.font("/assets/myeffect.material"))
 
 function init(self)
-  -- get the material currently assigned to the material property 'effect'
-  print(go.get("#gui", "effect")) -- /effect.material
+  -- get the material file currently assigned to the material with id 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /effect.material
 
-  -- set the material property 'effect' to the material assigned to the resource property 'myeffect'
-  go.set("#gui", "effect", self.myeffect)
+  -- set the material id 'effect' to the material file assigned to the resource property 'myeffect'
+  go.set("#gui", "materials", self.myeffect, { key = "effect" })
 
-  -- get the new material assigned to the material property 'effect'
-  print(go.get("#gui", "effect")) -- /assets/myeffect.material
+  -- get the new material file assigned to the material with id 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /assets/myeffect.material
 end
 ```
 
@@ -109,14 +109,14 @@ Textures
 go.property("mytheme", resource.font("/assets/mytheme.atlas"))
 
 function init(self)
-  -- get the texture currently assigned to the texture property 'theme'
-  print(go.get("#gui", "theme")) -- /theme.atlas
+  -- get the texture file currently assigned to the texture with id 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /theme.atlas
 
-  -- set the texture property 'theme' to the texture assigned to the resource property 'mytheme'
-  go.set("#gui", "theme", self.mytheme)
+  -- set the texture with id 'theme' to the texture file assigned to the resource property 'mytheme'
+  go.set("#gui", "textures", self.mytheme, { key = "theme" })
 
-  -- get the new texture assigned to the texture property 'theme'
-  print(go.get("#gui", "theme")) -- /assets/mytheme.atlas
+  -- get the new texture file assigned to the texture with id 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /assets/mytheme.atlas
 
 end
 ```
