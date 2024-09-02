@@ -58,41 +58,66 @@ Selecting the root "Gui" node in the *Outline* shows the *Properties* for the GU
 
 ## Runtime manipulation
 
-You can manipulate GUI properties in runtime using `go.get()` and `go.set()`:
+You can manipulate GUI properties in runtime from a script component using `go.get()` and `go.set()`:
 
 Fonts
 : Get or set a font used in a GUI.
+
+![get_set_font](images/gui/get_set_font.png)
 
 ```lua
 go.property("mybigfont", resource.font("/assets/mybig.font"))
 
 function init(self)
-  local current_font = go.get("#gui", "bigfont")
-  go.set("#gui", "bigfont", self.mybigfont)
+  -- get the font currently assigned to the font property 'default'
+  print(go.get("#gui", "default")) -- /builtins/fonts/default.font
+
+  -- set the font property 'default' to the font assigned to the resource property 'mybigfont'
+  go.set("#gui", "default", self.mybigfont)
+
+  -- get the new font assigned to the font property 'default'
+  print(go.get("#gui", "default")) -- /assets/mybig.font
 end
 ```
 
 Materials
 : Get or set a material used in a GUI.
 
+![get_set_material](images/gui/get_set_material.png)
+
 ```lua
-go.property("mymaterial", resource.font("/assets/my.material"))
+go.property("myeffect", resource.font("/assets/myeffect.material"))
 
 function init(self)
-  local current_material = go.get("#gui", "specialmaterial")
-  go.set("#gui", "specialmaterial", self.mymaterial)
+  -- get the material currently assigned to the material property 'effect'
+  print(go.get("#gui", "effect")) -- /effect.material
+
+  -- set the material property 'effect' to the material assigned to the resource property 'myeffect'
+  go.set("#gui", "effect", self.myeffect)
+
+  -- get the new material assigned to the material property 'effect'
+  print(go.get("#gui", "effect")) -- /assets/myeffect.material
 end
 ```
 
 Textures
 : Get or set a texture (atlas) used in a GUI.
 
+![get_set_texture](images/gui/get_set_texture.png)
+
 ```lua
-go.property("myatlas", resource.font("/assets/my.atlas"))
+go.property("mytheme", resource.font("/assets/mytheme.atlas"))
 
 function init(self)
-  local current_atlas = go.get("#gui", "theme")
-  go.set("#gui", "theme", self.myatlas)
+  -- get the texture currently assigned to the texture property 'theme'
+  print(go.get("#gui", "theme")) -- /theme.atlas
+
+  -- set the texture property 'theme' to the texture assigned to the resource property 'mytheme'
+  go.set("#gui", "theme", self.mytheme)
+
+  -- get the new texture assigned to the texture property 'theme'
+  print(go.get("#gui", "theme")) -- /assets/mytheme.atlas
+
 end
 ```
 
