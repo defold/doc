@@ -9,7 +9,7 @@ This manual explains how to create interactive UI elements in the editor using e
 
 ## Hello world
 
-All UI-related functionality exists in the `editor.ui` module. Here is the simplest example of an editor script to get started:
+All UI-related functionality exists in the `editor.ui` module. Here is the simplest example of an editor script with a custom UI to get started:
 ```lua
 local M = {}
 
@@ -49,7 +49,7 @@ This code snippet defines a **View → Do with confirmation** command. When you 
 
 
 
-Finally, after pressing <kbd>Enter</kbd> (or clicking on the `Perform` button), you'll see the following line in th editor console:
+Finally, after pressing <kbd>Enter</kbd> (or clicking on the `Perform` button), you'll see the following line in the editor console:
 ```
 Perform action:	true
 ```
@@ -60,9 +60,13 @@ Perform action:	true
 
 The editor provides various UI **components** that can be composed to create the desired UI. By convention, all components are configured using a single table called **props**. The components themselves are not tables, but **immutable userdatas** used by the editor for creating the UI.
 
+### Props
+
+**Props** are tables that define inputs into components. Props should be treated as immutable: mutating the props table in-place will not cause the component to re-render, but using a different table will. UI is updated when the component instance receives a props table that is not shallow-equal to the previous one.
+
 ### Alignment
 
-When the component gets assigned some bounds in the UI, it will fill it wholly, though it does not mean that the visible part of the component will stretch. Instead, the visible part will be take the space it needs, and then it will be aligned within the assigned bounds. Therefore, most built-in components define an `alignment` prop.
+When the component gets assigned some bounds in the UI, it consume the whole space, though it does not mean that the visible part of the component will stretch. Instead, the visible part will take the space it needs, and then it will be aligned within the assigned bounds. Therefore, most built-in components define an `alignment` prop.
 
 For example, consider this label component:
 ```lua
@@ -72,7 +76,7 @@ editor.ui.label({
 })
 ```
 The visible part is the `Hello` text, and it's aligned within the assigned component bounds:
-<div align="center"><img src="images/editor_scripts/alignment.png"></div>
+<div align="center"><img src="images/editor_scripts/alignment.png" width="50%" height="50%"></div>
 
 ## Built-in components
 
@@ -81,7 +85,9 @@ The editor defines various built-in components that can be used together to buil
 ### Layout components
 
 Layout components are used for placing other components next to each other. Main layout components are **`horizontal`**, **`vertical`** and **`grid`**. These components also define props such as **padding** and **spacing**, where padding is an empty space from the edge of the assigned bounds to the content, and spacing is an empty space between children:
-<div align="center"><img src="images/editor_scripts/padding_and_spacing.png"></div>
+<div align="center"><img src="images/editor_scripts/padding_and_spacing.png" width="50%" height="50%"></div>
+
+Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of the same individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. With paddings, `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
 
 A **`horizontal`** container places its children one after another horizontally, always expanding the height every child to fill the available space. By default, the width of every child is kept to a minimum, though it's possible to expand it by setting `expand` prop to `true` on a child.
 
@@ -106,11 +112,11 @@ When shown, the dialog will look like this:
 <div align="center"><img src="images/editor_scripts/rename_dialog.png" width="50%" height="50%"></div>
 
 Text field input has a bigger height than label, so label needs to be centered within its assigned bounds to align nicely:
-<div align="center"><img src="images/editor_scripts/rename_dialog_wireframe.png"></div>
+<div align="center"><img src="images/editor_scripts/rename_dialog_wireframe.png" width="50%" height="50%"></div>
 
 A **`vertical`** container is similar to horizontal, but with the axes switched.
 
-Finally, **`grid`** is a container component that lays out its children in a 2D grid, like a table. The `expand` setting in a grid applies to the whole rows or columns, therefore it's set not on a child, but on column configuration table. Children in a grid may be configured to span multiple rows or columns with `row_span` and `column_span` props. Grids are useful for creating multi-input forms:
+Finally, **`grid`** is a container component that lays out its children in a 2D grid, like a table. The `expand` setting in a grid applies to rows or columns, therefore it's set not on a child, but on column configuration table. Also, children in a grid may be configured to span multiple rows or columns with `row_span` and `column_span` props. Grids are useful for creating multi-input forms:
 ```lua
 editor.ui.grid({
     padding = editor.ui.PADDING_LARGE,
@@ -149,7 +155,6 @@ Text and label also define variants that control the color of the text. The vari
 - `editor.ui.TEXT_VARIANT_HINT` - less noticeable hint
 - `editor.ui.TEXT_VARIANT_WARNING` - text communicates a warning
 - `editor.ui.TEXT_VARIANT_ERROR` - text communicates an error
-
 
 ### Input components
 
@@ -192,7 +197,7 @@ end
 ```
 Here is a list of built-in input components:
 - **`text_field`** - single-line text input with an `on_text_changed` callback that is invoked on every typed characted
-- **`value_field`** - single-line value input field, requires `to_value` and `to_string` props that convert input text from string to value anb back. `on_value_changed` is invoked only on explicit submit, i.e. on <kbd>Enter</kbd> or when focus leaves the component
+- **`value_field`** - single-line value input field, requires `to_value` and `to_string` props that convert input text from string to value and back. `on_value_changed` is invoked only on explicit submit, i.e. on <kbd>Enter</kbd> or when focus leaves the component
 - **`string_field`**, **`integer_field`** and **`number_field`** are variations of `value_field` that define appropriate `to_value` and `to_string` props
 - **`select_box`** is used for selecting an option from predefined array of options with a dropdown control.
 - **`check_box`** is a boolean input field with `on_value_changed` callback
@@ -211,9 +216,9 @@ Here is a demo of all inputs with their variants:
 
 ### Dialog-related components
 
-To show a dialog, you need to use `editor.ui.show_dialog` function. It expects a **`dialog`** component function expects a component, which defines the main structure of Defold dialogs: `title`, `header`, `content` and `buttons`. Dialog component is a bit special, because you can't use it as a child of another component, because it represents a window, not a UI element. `header` and `content` are usual components though.
+To show a dialog, you need to use `editor.ui.show_dialog` function. It expects a **`dialog`** component that defines the main structure of Defold dialogs: `title`, `header`, `content` and `buttons`. Dialog component is a bit special: you can't use it as a child of another component, because it represents a window, not a UI element. `header` and `content` are usual components though.
 
-Dialog buttons are special too: they are created using **`dialog_button`** component. Unlike usual buttons, dialog buttons don't have `on_pressed` callback. Instead, they define a `result` prop with a value that will be returned by the `editor.ui.show_dialog` function when the dialog is closed. Dialog buttons also define `cancel` and `default` boolean props: button with a `cancel` prop is triggered when user presses <kbd>Escape</kbd> or closes the dialog with the OS close button, and `default` button is triggered when the user presses <kbd>Enter</kbd>. Same Dialog button may have both `cancel` and `default` props set to `true`.
+Dialog buttons are special too: they are created using **`dialog_button`** component. Unlike usual buttons, dialog buttons don't have `on_pressed` callback. Instead, they define a `result` prop with a value that will be returned by the `editor.ui.show_dialog` function when the dialog is closed. Dialog buttons also define `cancel` and `default` boolean props: button with a `cancel` prop is triggered when user presses <kbd>Escape</kbd> or closes the dialog with the OS close button, and `default` button is triggered when the user presses <kbd>Enter</kbd>. A dialog button may have both `cancel` and `default` props set to `true` at the same time.
 
 ### Utility components
 
@@ -229,7 +234,7 @@ Since components are **immutable userdatas**, it's impossible to change them aft
 The editor scripting UI draws inspiration from [React](https://react.dev/) library, so knowing about reactive UI and React hooks will help. 
 :::
 
-In the most simple terms, a reactive component is a component with a Lua function that receives data (props) and returns view (another component). Reactive component function may use **hooks**: special functions in the `editor.ui` module that add features to your components. By convention, all hooks have a name that starts with `use_`.
+In the most simple terms, a reactive component is a component with a Lua function that receives data (props) and returns view (another component). Reactive component function may use **hooks**: special functions in the `editor.ui` module that add reactive features to your components. By convention, all hooks have a name that starts with `use_`.
 
 To create a reactive component, use `editor.ui.component()` function. 
 
@@ -282,7 +287,7 @@ end
 When you execute a menu command that runs this code, the editor will show a dialog with disabled `"Create File"` dialog at the start, but as soon as you start typing, it will become enabled:
 <div align="center"><img src="images/editor_scripts/reactive_new_file_dialog.png" width="50%" height="50%"></div>
 
-So, how does it work? On the very first render, `use_state` hook creates a local state associated with the component and returns it with the setter of the state. When the setter function is invoked, it schedules a component re-render. On subsequent re-render, the component function is invoked again, and `use_state` returns the updated state. The view component returned by the reactive component is then diffed against the old one, and the UI is updated where the changes were detected.
+So, how does it work? On the very first render, `use_state` hook creates a local state associated with the component and returns it with a setter for the state. When the setter function is invoked, it schedules a component re-render. On subsequent re-renders, the component function is invoked again, and `use_state` returns the updated state. New view component returned by the component function is then diffed against the old one, and the UI is updated where the changes were detected.
 
 This reactive approach greatly simplifies building interactive UIs and keeping them in sync: instead of explicitly updating all affected UI components on user input, the view is defined as a pure function of the input (props and local state), and the editor handles all the updates itself.
 
@@ -291,8 +296,8 @@ This reactive approach greatly simplifies building interactive UIs and keeping t
 The editor expects reactive function components to behave nicely for them to work:
 
 1. Component functions must be pure. There is no guarantee on when or how often the component function will be invoked. All side-effects should be outside of rendering, e.g. in callbacks
-2. Props and local state must be immutable. Don't store and mutate props. If your local state is a table, don't mutate it in-place, but create a new one pass it to the setter when the state needs to change.
-3. Component functions must call the same hooks in the same order on every invokation. Don't call hooks inside loops, if/then blocks, after early returns etc. It is a best practice to call hooks in the beginning of the component function, before any other code.
+2. Props and local state must be immutable. Don't mutate props. If your local state is a table, don't mutate it in-place, but create a new one and pass it to the setter when the state needs to change.
+3. Component functions must call the same hooks in the same order on every invokation. Don't call hooks inside loops, in conditional blocks, after early returns etc. It is a best practice to call hooks in the beginning of the component function, before any other code.
 4. Only call hooks from component functions. Hooks work in a context of a reactive component, so it's only allowed to call them in the component function (or another function called directly by the component function).
 
 ### Hooks
@@ -301,9 +306,9 @@ The editor expects reactive function components to behave nicely for them to wor
 If you are familiar with [React](https://react.dev/), you will notice that hooks in the editor have slightly different semantics when it comes to hook dependencies.
 :::
 
-The editor defines 2 hooks: `use_memo` and `use_state`.
+The editor defines 2 hooks: **`use_memo`** and **`use_state`**.
 
-### `use_state`
+### **`use_state`**
 
 Local state can be created in 2 ways: with a default value or with an initializer function:
 ```lua
@@ -343,10 +348,11 @@ local counter = editor.ui.component(function(props)
 end)
 ```
 
-Finally, the state may be **reset**. The state is reset when any of the arguments to `editor.ui.use_state()` change, chacked with `==`. Because of this, you should not use literal tables or literal initializer functions as arguments to `use_state` hook: this will cause the state to reset on every re-render. To illustrate:
+Finally, the state may be **reset**. The state is reset when any of the arguments to `editor.ui.use_state()` change, checked with `==`. Because of this, you must not use literal tables or literal initializer functions as arguments to `use_state` hook: this will cause the state to reset on every re-render. To illustrate:
 ```lua
 -- ❌ BAD: literal table detault causes state reset on every re-render
 local user, set_user = editor.ui.use_state({ first_name = props.first_name, last_name = props.last_name})
+
 -- ✅ GOOD: use initializer function outside of component function to create table state
 local function create_user(first_name, last_name) 
     return { first_name = first_name, last_name = last_name}
@@ -357,11 +363,12 @@ local user, set_user = editor.ui.use_state(create_user, props.first_name, props.
 
 -- ❌ BAD: literal initializer function causes state reset on every re-render
 local id, set_id = editor.ui.use_state(function() return string.lower(props.name) end)
+
 -- ✅ GOOD: use referenced initializer function to create the state
 local id, set_id = editor.ui.use_state(string.lower, props.name)
 ```
 
-### `use_memo`
+### **`use_memo`**
 
 You can use `use_memo` hook to improve performance. It is common to perform some computations in the render functions, e.g. to check if the user input is valid. `use_memo` hook can be used in cases where checking if arguments to the computation function have changed is cheaper than invoking the computation function. The hook will call the computation function on first render, and will re-use the computed value on subsequent re-renders if all the args to `use_memo` are unchanged:
 ```lua
