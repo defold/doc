@@ -818,6 +818,10 @@
                         "name": "Editor scripts"
                     },
                     {
+                        "path": "/manuals/editor-scripts-ui",
+                        "name": "Editor scripts: UI"
+                    },
+                    {
                         "path": "/manuals/debugging-game-logic/#running-the-debugger",
                         "name": "Debugger"
                     },
