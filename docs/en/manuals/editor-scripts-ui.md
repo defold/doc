@@ -76,7 +76,7 @@ editor.ui.label({
 })
 ```
 The visible part is the `Hello` text, and it's aligned within the assigned component bounds:
-<div align="center"><img src="images/editor_scripts/alignment.png" width="50%" height="50%"></div>
+<div align="center"><img src="images/editor_scripts/alignment.png" width="141px" height="104px"></div>
 
 ## Built-in components
 
@@ -85,7 +85,7 @@ The editor defines various built-in components that can be used together to buil
 ### Layout components
 
 Layout components are used for placing other components next to each other. Main layout components are **`horizontal`**, **`vertical`** and **`grid`**. These components also define props such as **padding** and **spacing**, where padding is an empty space from the edge of the assigned bounds to the content, and spacing is an empty space between children:
-<div align="center"><img src="images/editor_scripts/padding_and_spacing.png" width="50%" height="50%"></div>
+<div align="center"><img src="images/editor_scripts/padding_and_spacing.png" width="151px" height="100px"></div>
 
 Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of an individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. With paddings, `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
 
@@ -109,10 +109,10 @@ editor.ui.horizontal({
 })
 ```
 When shown, the dialog will look like this:
-<div align="center"><img src="images/editor_scripts/rename_dialog.png" width="50%" height="50%"></div>
+<div align="center"><img src="images/editor_scripts/rename_dialog.png" width="652px" height="405px"></div>
 
 Text field input has a bigger height than label, so label needs to be centered within its assigned bounds to align nicely:
-<div align="center"><img src="images/editor_scripts/rename_dialog_wireframe.png" width="50%" height="50%"></div>
+<div align="center"><img src="images/editor_scripts/rename_dialog_wireframe.png" width="600px" height="111px"></div>
 
 A **`vertical`** container is similar to horizontal, but with the axes switched.
 
@@ -141,7 +141,7 @@ editor.ui.grid({
 })
 ```
 The code above will produce the following dialog form:
-<div align="center"><img src="images/editor_scripts/new_level_dialog.png" width="50%" height="50%"></div>
+<div align="center"><img src="images/editor_scripts/new_level_dialog.png" width="652px" height="439px"></div>
 
 ### Data presentation components
 
@@ -212,7 +212,7 @@ All components except buttons also define variants:
 - `editor.ui.INPUT_VARIANT_ERROR` - input communicates an error
 
 Here is a demo of all inputs with their variants:
-<div align="center"><img src="images/editor_scripts/inputs_demo.png" width="50%" height="50%"></div>
+<div align="center"><img src="images/editor_scripts/inputs_demo.png" width="652px" height="885px"></div>
 
 ### Dialog-related components
 
@@ -285,7 +285,7 @@ end
 ```
 
 When you execute a menu command that runs this code, the editor will show a dialog with disabled `"Create File"` dialog at the start, but as soon as you start typing, it will become enabled:
-<div align="center"><img src="images/editor_scripts/reactive_new_file_dialog.png" width="50%" height="50%"></div>
+<div align="center"><img src="images/editor_scripts/reactive_new_file_dialog.png" width="652px" height="405px"></div>
 
 So, how does it work? On the very first render, `use_state` hook creates a local state associated with the component and returns it with a setter for the state. When the setter function is invoked, it schedules a component re-render. On subsequent re-renders, the component function is invoked again, and `use_state` returns the updated state. New view component returned by the component function is then diffed against the old one, and the UI is updated where the changes were detected.
 
