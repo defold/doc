@@ -15,6 +15,9 @@ The application manifest is used to exclude or control which features to include
 
 Control which physics engine to use, or select None to exclude physics completely.
 
+## Rig + Model
+
+Control rig and model functionality, or select None to exclude model and rig completely. (See [`Model`](https://defold.com/manuals/model/#model-component) documentation).
 
 ## Exclude Record
 
