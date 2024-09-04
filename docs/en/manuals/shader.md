@@ -246,7 +246,7 @@ in vec2 var_texcoord0;
 
 out vec4 color_out;
 
-uniform sampler texture_sampler;
+uniform sampler2D texture_sampler;
 
 uniform fs_uniforms
 {
