@@ -1326,10 +1326,6 @@
                     {
                         "path": "/extension-iap",
                         "name": "In-app purchases"
-                    },
-                    {
-                        "path": "/extension-webmonetization",
-                        "name": "Web Monetization"
                     }
                 ],
                 "divider": true
