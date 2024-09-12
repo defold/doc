@@ -17,6 +17,7 @@ There are two variants how to run local build server (aka 'Extender'):
 * **google account**
 
 ### How to use ready-to-use Docker images
+**Note for Windows users**: use git bash terminal for executing commands below.
 1. Authorize to Google Cloud and create Application default credentials
    ```sh
    gcloud auth application-default login
@@ -84,7 +85,7 @@ where *profile* can be:
 * **metrics** - runs VictoriaMetrics + Grafana as metrics backend and tool for visualization
 For more information about `docker compose` argumets see https://docs.docker.com/reference/cli/docker/compose/.
 
-When docker compose is up you can use **http://localhost:9000** as Build server address in Editor's prefence or as `--build-server` value if you use Bob to build the project.
+When docker compose is up you can use **http://localhost:9000** as Build server address in Editor's preference or as `--build-server` value if you use Bob to build the project.
 
 Several profiles can be passed to command line. For example:
 ```sh
