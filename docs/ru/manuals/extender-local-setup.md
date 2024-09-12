@@ -26,7 +26,7 @@ brief: Руководство описывает как установить и 
    ```
 3. Проверяем, что все сконфигурировано корректно путем скачивания базового образа. Запустите
    ```sh
-   docker pull europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
+   docker pull --platform linux/amd64  europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
    ```
 4. Клонируем репозиторий `Extender` и переходим в корневую директорию склонированного репозитория
    ```sh

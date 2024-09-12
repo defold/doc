@@ -27,7 +27,7 @@ There are two variants how to run local build server (aka 'Extender'):
    ```
 3. Check that everything set up correctly by pulling base image. Run
    ```sh
-   docker pull europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
+   docker pull --platform linux/amd64 europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
    ```
 4. Clone `Extender` repository and switch to cloned repository root folder
    ```sh
