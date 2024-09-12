@@ -24,16 +24,17 @@ brief: Руководство описывает как установить и 
    ```sh
    gcloud auth configure-docker europe-west1-docker.pkg.dev
    ```
-3. Проверяем, что все сконфигурировано корректно путем скачивания базового образа. Запустите
+3. Проверить, что Docker запущен.
+4. Проверяем, что все сконфигурировано корректно путем скачивания базового образа. Запустите
    ```sh
    docker pull --platform linux/amd64  europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
    ```
-4. Клонируем репозиторий `Extender` и переходим в корневую директорию склонированного репозитория
+5. Клонируем репозиторий `Extender` и переходим в корневую директорию склонированного репозитория
    ```sh
    git clone https://github.com/defold/extender.git
    cd extender/
    ```
-5. Скачиваем готовые jar файлы:
+6. Скачиваем готовые jar файлы:
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
@@ -65,7 +66,7 @@ brief: Руководство описывает как установить и 
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep server-${EXTENDER_VERSION}.jar) ${APPLICATION_DIR}/extender.jar
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep manifestmergetool-${MANIFESTMERGETOOL_VERSION}.jar) ${APPLICATION_DIR}/manifestmergetool.jar
    ```
-6. Запускаем docker compose
+7. Запускаем docker compose
 главная команда
 ```sh
 docker compose -p extender -f server/docker/docker-compose.yml --profile <profile> up

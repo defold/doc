@@ -25,16 +25,17 @@ There are two variants how to run local build server (aka 'Extender'):
    ```sh
    gcloud auth configure-docker europe-west1-docker.pkg.dev
    ```
-3. Check that everything set up correctly by pulling base image. Run
+3. Check that Docker is running.
+4. Check that everything set up correctly by pulling base image. Run
    ```sh
    docker pull --platform linux/amd64 europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
    ```
-4. Clone `Extender` repository and switch to cloned repository root folder
+5. Clone `Extender` repository and switch to cloned repository root folder
    ```sh
    git clone https://github.com/defold/extender.git
    cd extender
    ```
-5. Download prebuilt jars:
+6. Download prebuilt jars:
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
@@ -66,7 +67,7 @@ There are two variants how to run local build server (aka 'Extender'):
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep server-${EXTENDER_VERSION}.jar) ${APPLICATION_DIR}/extender.jar
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep manifestmergetool-${MANIFESTMERGETOOL_VERSION}.jar) ${APPLICATION_DIR}/manifestmergetool.jar
    ```
-6. Run docker compose:
+7. Run docker compose:
 main command
 ```sh
 docker compose -p extender -f server/docker/docker-compose.yml --profile <profile> up
