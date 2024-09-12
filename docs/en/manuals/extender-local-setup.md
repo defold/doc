@@ -84,6 +84,8 @@ where *profile* can be:
 * **metrics** - runs VictoriaMetrics + Grafana as metrics backend and tool for visualization
 For more information about `docker compose` argumets see https://docs.docker.com/reference/cli/docker/compose/.
 
+When docker compose is up you can use **http://localhost:9000** as Build server address in Editor's prefence or as `--build-server` value if you use Bob to build the project.
+
 Several profiles can be passed to command line. For example:
 ```sh
 docker compose -p extender -f server/docker/docker-compose.yml --profile android --profile web --profile windows up

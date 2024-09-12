@@ -83,6 +83,8 @@ docker compose -p extender -f server/docker/docker-compose.yml --profile <profil
 * **metrics** - запускает VictoriaMetrics + Grafana в качестве сервиса для сбора метрик и их визуализации
 Для дополнительной информации о том, какие аргументы могут быть переданы команде `docker compose` смотрите https://docs.docker.com/reference/cli/docker/compose/.
 
+Когда docker compose запустить, то можно использовать адрес **http://localhost:9000** как адрес сервера сборки в настройках Редактора или как значение для аргумента `--build-server`, если Вы используете Bob для сборки проекта.
+
 Несколько профилей может быть одновременно передано в командную строку. Например:
 ```sh
 docker compose -p extender -f server/docker/docker-compose.yml --profile android --profile web --profile windows up
