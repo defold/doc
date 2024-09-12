@@ -66,13 +66,13 @@ The editor provides various UI **components** that can be composed to create the
 
 ### Alignment
 
-When the component gets assigned some bounds in the UI, it consume the whole space, though it does not mean that the visible part of the component will stretch. Instead, the visible part will take the space it needs, and then it will be aligned within the assigned bounds. Therefore, most built-in components define an `alignment` prop.
+When the component gets assigned some bounds in the UI, it will consume the whole space, though it does not mean that the visible part of the component will stretch. Instead, the visible part will take the space it needs, and then it will be aligned within the assigned bounds. Therefore, most built-in components define an `alignment` prop.
 
 For example, consider this label component:
 ```lua
 editor.ui.label({
     text = "Hello",
-    alignment = editor.ui.ALIGNMENT_RIGHT
+    alignment = editor.ui.ALIGNMENT.RIGHT
 })
 ```
 The visible part is the `Hello` text, and it's aligned within the assigned component bounds:
@@ -87,53 +87,29 @@ The editor defines various built-in components that can be used together to buil
 Layout components are used for placing other components next to each other. Main layout components are **`horizontal`**, **`vertical`** and **`grid`**. These components also define props such as **padding** and **spacing**, where padding is an empty space from the edge of the assigned bounds to the content, and spacing is an empty space between children:
 <div align="center"><img src="images/editor_scripts/padding_and_spacing.png" width="151px" height="100px"></div>
 
-Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of an individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. With paddings, `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
+Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of an individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. Default spacing is `medium`. With paddings, `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
 
-A **`horizontal`** container places its children one after another horizontally, always expanding the height every child to fill the available space. By default, the width of every child is kept to a minimum, though it's possible to expand it by setting `expand` prop to `true` on a child.
-
-Consider an example of a Rename File dialog with the following `content` prop:
-```lua
-editor.ui.horizontal({
-    padding = editor.ui.PADDING_LARGE,
-    spacing = editor.ui.SPACING_MEDIUM,
-    children = {
-        editor.ui.label({ 
-            text = "New File Name",
-            alignment = editor.ui.ALIGNMENT_CENTER
-        }),
-        editor.ui.text_field({ 
-            expand = true,
-            text = "foo.txt"
-        })
-    }
-})
-```
-When shown, the dialog will look like this:
-<div align="center"><img src="images/editor_scripts/rename_dialog.png" width="652px" height="405px"></div>
-
-Text field input has a bigger height than label, so label needs to be centered within its assigned bounds to align nicely:
-<div align="center"><img src="images/editor_scripts/rename_dialog_wireframe.png" width="600px" height="111px"></div>
+A **`horizontal`** container places its children one after another horizontally, always making the height every child fill the available space. By default, the width of every child is kept to a minimum, though it's possible to make it take as much space as possible by setting `grow` prop to `true` on a child.
 
 A **`vertical`** container is similar to horizontal, but with the axes switched.
 
-Finally, **`grid`** is a container component that lays out its children in a 2D grid, like a table. The `expand` setting in a grid applies to rows or columns, therefore it's set not on a child, but on column configuration table. Also, children in a grid may be configured to span multiple rows or columns with `row_span` and `column_span` props. Grids are useful for creating multi-input forms:
+Finally, **`grid`** is a container component that lays out its children in a 2D grid, like a table. The `grow` setting in a grid applies to rows or columns, therefore it's set not on a child, but on column configuration table. Also, children in a grid may be configured to span multiple rows or columns with `row_span` and `column_span` props. Grids are useful for creating multi-input forms:
 ```lua
 editor.ui.grid({
-    padding = editor.ui.PADDING_LARGE,
-    spacing = editor.ui.SPACING_MEDIUM,
-    columns = {{}, {expand = true}}, -- expand 2nd column
+    padding = editor.ui.PADDING.LARGE, -- add padding around dialog edges
+    columns = {{}, {grow = true}}, -- make 2nd column grow
     children = {
         {
             editor.ui.label({ 
                 text = "Level Name",
-                alignment = editor.ui.ALIGNMENT_RIGHT
+                alignment = editor.ui.ALIGNMENT.RIGHT
             }),
             editor.ui.text_field({})
         },
         {
             editor.ui.label({ 
                 text = "Author",
-                alignment = editor.ui.ALIGNMENT_RIGHT
+                alignment = editor.ui.ALIGNMENT.RIGHT
             }),
             editor.ui.text_field({})
         }
@@ -147,18 +123,18 @@ The code above will produce the following dialog form:
 
 The editor defines 3 data presentation components:
 - **`label`** — basic text label, intended to use for e.g. form inputs.
-- **`text`** — text element intended for presenting a paragraph of text. The difference with label is that text supports word wrapping: if the assigned bounds are too small horizontally, the text will wrap, and possibly will be shortened with `"..."` if it can't fit in the view.
+- **`text`** — text element intended for presenting a paragraph of text. The main difference with label is that text supports word wrapping: if the assigned bounds are too small horizontally, the text will wrap, and possibly will be shortened with `"..."` if it can't fit in the view.
 - **`icon`** — currently, it can only be used for presenting a small set of predefined icons, but we intend to allow more icons in the future.
 
 Text and label also define variants that control the color of the text. The variants are:
-- `editor.ui.TEXT_VARIANT_DEFAULT` - this is the default text variant
-- `editor.ui.TEXT_VARIANT_HINT` - less noticeable hint
-- `editor.ui.TEXT_VARIANT_WARNING` - text communicates a warning
-- `editor.ui.TEXT_VARIANT_ERROR` - text communicates an error
+- `editor.ui.TEXT_VARIANT.DEFAULT` - this is the default text variant
+- `editor.ui.TEXT_VARIANT.HINT` - less noticeable hint
+- `editor.ui.TEXT_VARIANT.WARNING` - text communicates a warning
+- `editor.ui.TEXT_VARIANT.ERROR` - text communicates an error
 
 ### Input components
 
-Input components are made for the user to interact with the UI. All input components support a `disabled` prop to disable the interaction, and define various callback props that notify the editor script on interaction.
+Input components are made for the user to interact with the UI. All input components support `enabled` prop to control if the interaction is enabled or not, and define various callback props that notify the editor script on interaction.
 
 If you create a static UI, it's enough to define callbacks that simply modify locals. For dynamic UIs and more advanced interactions, see [reactivity](#reactivity).
 
@@ -169,15 +145,15 @@ local file_name = ""
 local create_file = editor.ui.show_dialog(editor.ui.dialog({
     title = "Create New File",
     content = editor.ui.horizontal({
-        padding = editor.ui.PADDING_LARGE,
-        spacing = editor.ui.SPACING_MEDIUM,
+        padding = editor.ui.PADDING.LARGE,
+        spacing = editor.ui.SPACING.MEDIUM,
         children = {
             editor.ui.label({
                 text = "New File Name",
-                alignment = editor.ui.ALIGNMENT_CENTER
+                alignment = editor.ui.ALIGNMENT.CENTER
             }),
             editor.ui.text_field({
-                expand = true,
+                grow = true,
                 text = file_name,
                 -- Typing callback:
                 on_text_changed = function(new_text)
@@ -196,23 +172,22 @@ if create_file then
 end
 ```
 Here is a list of built-in input components:
-- **`text_field`** - single-line text input with an `on_text_changed` callback that is invoked on every typed characted
-- **`value_field`** - single-line value input field, requires `to_value` and `to_string` props that convert input text from string to value and back. `on_value_changed` is invoked only on explicit submit, i.e. on <kbd>Enter</kbd> or when focus leaves the component
+- **`text_field`** - single-line text input with an `on_text_changed` callback that is invoked on every typed character
+- **`value_field`** - single-line value input field, requires `to_value` and `to_string` props that convert input text from string to value and back. `on_value_changed` is invoked only on explicit submit, i.e. on <kbd>Enter</kbd> or when focus leaves the component. Additionally, pressing `Escape` clears the unsubmitted edit.
 - **`string_field`**, **`integer_field`** and **`number_field`** are variations of `value_field` that define appropriate `to_value` and `to_string` props
 - **`select_box`** is used for selecting an option from predefined array of options with a dropdown control.
 - **`check_box`** is a boolean input field with `on_value_changed` callback
-- **`text_check_box`** is a convenience component that uses label as a child component displayed near the check box itself (while the original `check_box` expects a full component definition as a child)
 - **`button`** with `on_press` callback that gets invoked on button press.
-- **`text_button`** and **`icon_button`** are convenience components that define specializations of a `button` with `label` or `icon`.
 - **`external_file_field`** is a component intended for selecting a file path on the computer. It consists of a text field and a button that opens a file selection dialog.
+- **`resource_field`** is a component intended for selecting a resource in the project.
 
 All components except buttons also define variants:
-- `editor.ui.INPUT_VARIANT_DEFAULT` - default input state
-- `editor.ui.INPUT_VARIANT_WARNING` - input communicates a warning
-- `editor.ui.INPUT_VARIANT_ERROR` - input communicates an error
+- `editor.ui.INPUT_VARIANT.DEFAULT` - default input state
+- `editor.ui.INPUT_VARIANT.WARNING` - input communicates a warning
+- `editor.ui.INPUT_VARIANT.ERROR` - input communicates an error
 
 Here is a demo of all inputs with their variants:
-<div align="center"><img src="images/editor_scripts/inputs_demo.png" width="652px" height="885px"></div>
+<div align="center"><img src="images/editor_scripts/inputs_demo.png" width="652px" height="881px"></div>
 
 ### Dialog-related components
 
@@ -222,7 +197,7 @@ Dialog buttons are special too: they are created using **`dialog_button`** compo
 
 ### Utility components
 
-Additionally, the editor define some utility components: 
+Additionally, the editor defines some utility components: 
 - **`separator`** is a thin line used for delimiting blocks of content
 - **`scroll`** is a wrapper component that shows scroll bars when the wrapped component does not fit in the assigned space
 
@@ -249,7 +224,7 @@ local dialog = editor.ui.component(function(props)
     return editor.ui.dialog({ 
         title = props.title,
         content = editor.ui.vertical({
-            padding = editor.ui.PADDING_LARGE,
+            padding = editor.ui.PADDING.LARGE,
             children = { 
                 editor.ui.text_field({ 
                     text = name,
@@ -265,8 +240,8 @@ local dialog = editor.ui.component(function(props)
             }),
             editor.ui.dialog_button({ 
                 text = "Create File",
-                -- 4. creation is disabled when the name is empty
-                disabled = name == "",
+                -- 4. creation is enabled when the name exists
+                enabled = name ~= "",
                 default = true,
                 -- 5. result is the name
                 result = name
@@ -328,12 +303,12 @@ local counter = editor.ui.component(function(props)
     local count, set_count = editor.ui.use_state(0)
     
     return editor.ui.horizontal({
-        spacing = editor.ui.SPACING_SMALL,
+        spacing = editor.ui.SPACING.SMALL,
         children = {
             editor.ui.label({
                 text = tostring(count),
-                alignment = editor.ui.ALIGNMENT_LEFT,
-                expand = true
+                alignment = editor.ui.ALIGNMENT.LEFT,
+                grow = true
             }),
             editor.ui.text_button({
                 text = "+1",
@@ -350,7 +325,7 @@ end)
 
 Finally, the state may be **reset**. The state is reset when any of the arguments to `editor.ui.use_state()` change, checked with `==`. Because of this, you must not use literal tables or literal initializer functions as arguments to `use_state` hook: this will cause the state to reset on every re-render. To illustrate:
 ```lua
--- ❌ BAD: literal table detault causes state reset on every re-render
+-- ❌ BAD: literal table initializer causes state reset on every re-render
 local user, set_user = editor.ui.use_state({ first_name = props.first_name, last_name = props.last_name})
 
 -- ✅ GOOD: use initializer function outside of component function to create table state
