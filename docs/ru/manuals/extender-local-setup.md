@@ -16,21 +16,22 @@ brief: Руководство описывает как установить и 
 * **google account**
 
 ### Как использовать готовые образы Docker
-1. Клонируем репозиторий `Extender`
-   ```sh
-   git clone https://github.com/defold/extender.git
-   ```
-2. Авторизуемся в Google Cloud и создаем учетные данные приложения по умолчанию (Application default credentials/ADC)
+1. Авторизуемся в Google Cloud и создаем учетные данные приложения по умолчанию (Application default credentials/ADC)
    ```sh
    gcloud auth application-default login
    ```
-3. Конфигурируем Docker для использования реестра Артефактов
+2. Конфигурируем Docker для использования реестра Артефактов
    ```sh
    gcloud auth configure-docker europe-west1-docker.pkg.dev
    ```
-4. Проверяем, что все сконфигурировано корректно путем скачивания базового образа. Запустите
+3. Проверяем, что все сконфигурировано корректно путем скачивания базового образа. Запустите
    ```sh
    docker pull europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
+   ```
+4. Клонируем репозиторий `Extender` и переходим в корневую директорию склонированного репозитория
+   ```sh
+   git clone https://github.com/defold/extender.git
+   cd extender/
    ```
 5. Скачиваем готовые jar файлы:
    ```sh

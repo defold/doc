@@ -17,21 +17,22 @@ There are two variants how to run local build server (aka 'Extender'):
 * **google account**
 
 ### How to use ready-to-use Docker images
-1. Clone `Extender` repository
-   ```sh
-   git clone https://github.com/defold/extender.git
-   ```
-2. Authorize to Google Cloud and create Application default credentials
+1. Authorize to Google Cloud and create Application default credentials
    ```sh
    gcloud auth application-default login
    ```
-3. Configure Docker to use Artifact registries
+2. Configure Docker to use Artifact registries
    ```sh
    gcloud auth configure-docker europe-west1-docker.pkg.dev
    ```
-4. Check that everything set up correctly by pulling base image. Run
+3. Check that everything set up correctly by pulling base image. Run
    ```sh
    docker pull europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
+   ```
+4. Clone `Extender` repository and switch to cloned repository root folder
+   ```sh
+   git clone https://github.com/defold/extender.git
+   cd extender
    ```
 5. Download prebuilt jars:
    ```sh
