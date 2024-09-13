@@ -33,28 +33,100 @@ The central editing area shows the GUI. The toolbar in the top right corner of t
 
 A white rectangle shows the bounds of the currently selected layout, of the default display width and height as set in the project settings.
 
+## Gui properties
+
 Selecting the root "Gui" node in the *Outline* shows the *Properties* for the GUI component:
 
-Script
+*Script*
 : The GUI script bound to this GUI component.
 
-Material
-: The material used when rendering this GUI.
+*Material*
+: The material used when rendering this GUI. Note that it is also possible to add multiple materials to a Gui from the Outline panel and assign these to individual nodes.
 
-Adjust Reference
+*Adjust Reference*
 : Controls how each node's *Adjust Mode* should be calculated:
 
   - `Per Node` adjusts each node against the adjusted size of the parent node, or the resized screen.
   - `Disable` turns off node adjust mode. This forces all nodes to keep their set size.
 
-Max Nodes
+*Max Nodes*
 : The maximum number of nodes for this GUI.
+
+*Max Dynamic Textures*
+: The maximum number of textures that can be created using [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip)
+
+
+## Runtime manipulation
+
+You can manipulate GUI properties in runtime from a script component using `go.get()` and `go.set()`:
+
+Fonts
+: Get or set a font used in a GUI.
+
+![get_set_font](images/gui/get_set_font.png)
+
+```lua
+go.property("mybigfont", resource.font("/assets/mybig.font"))
+
+function init(self)
+  -- get the font file currently assigned to the font with id 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /builtins/fonts/default.font
+
+  -- set the font with id 'default' to the font file assigned to the resource property 'mybigfont'
+  go.set("#gui", "fonts", self.mybigfont, { key = "default" })
+
+  -- get the new font file assigned to the font with id 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /assets/mybig.font
+end
+```
+
+Materials
+: Get or set a material used in a GUI.
+
+![get_set_material](images/gui/get_set_material.png)
+
+```lua
+go.property("myeffect", resource.font("/assets/myeffect.material"))
+
+function init(self)
+  -- get the material file currently assigned to the material with id 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /effect.material
+
+  -- set the material id 'effect' to the material file assigned to the resource property 'myeffect'
+  go.set("#gui", "materials", self.myeffect, { key = "effect" })
+
+  -- get the new material file assigned to the material with id 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /assets/myeffect.material
+end
+```
+
+Textures
+: Get or set a texture (atlas) used in a GUI.
+
+![get_set_texture](images/gui/get_set_texture.png)
+
+```lua
+go.property("mytheme", resource.font("/assets/mytheme.atlas"))
+
+function init(self)
+  -- get the texture file currently assigned to the texture with id 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /theme.atlas
+
+  -- set the texture with id 'theme' to the texture file assigned to the resource property 'mytheme'
+  go.set("#gui", "textures", self.mytheme, { key = "theme" })
+
+  -- get the new texture file assigned to the texture with id 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /assets/mytheme.atlas
+
+end
+```
+
 
 ## Dependencies
 
 The resource tree in a Defold game is static so any dependencies that you need for your GUI nodes need to be added to the component. The *Outline* groups all dependencies by type under "folders":
 
-![dependencies](images/gui/dependencies.png){srcset="images/gui/dependencies@2x.png 2x"}
+![dependencies](images/gui/dependencies.png)
 
 To add a new dependency, <kbd>right click</kbd> the "Gui" root in the *Outline*, then select <kbd>Add ▸ [type]</kbd> from the popup context menu.
 
@@ -133,6 +205,9 @@ Font (text nodes)
 
 Texture (box and pie nodes)
 : The texture to draw on the node. This is a reference to an image or animation in an atlas or tile source.
+
+Material (box, pie nodes, text and particlefx nodes)
+: The material to use when drawing the node. This can either be a material added to the Materials section of the outline or left blank to use the default material assigned to the GUI component.
 
 Slice 9 (box nodes)
 : Set to preserve the pixel size of the node's texture around the edges when the node is resized. See the [Box node documentation](/manuals/gui-box) for details.
