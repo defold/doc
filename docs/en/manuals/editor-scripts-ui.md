@@ -121,16 +121,14 @@ The code above will produce the following dialog form:
 
 ### Data presentation components
 
-The editor defines 3 data presentation components:
-- **`label`** — basic text label, intended to use for e.g. form inputs.
-- **`text`** — text element intended for presenting a paragraph of text. The main difference with label is that text supports word wrapping: if the assigned bounds are too small horizontally, the text will wrap, and possibly will be shortened with `"..."` if it can't fit in the view.
+The editor defines 4 data presentation components:
+- **`label`** — text label, intended to use for form inputs. Label comes in 2 variants: `editor.ui.LABEL_VARIANT.DEFAULT` (ordinary label) and `editor.ui.LABEL_VARIANT.OVERRIDDEN` (denotes that the accompanying input's value overriddes some other value)
 - **`icon`** — currently, it can only be used for presenting a small set of predefined icons, but we intend to allow more icons in the future.
+- typography components:
+    - **`heading`** — text element intended for presenting a heading line of text in e.g. a form or a dialog. Similarly to HTML's h1-h6 tags, heading has a `level` prop: integer from 1 to 6.
+    - **`paragraph`** — text element intended for presenting a paragraph of text. The main difference with `label` is that paragraph supports word wrapping: if the assigned bounds are too small horizontally, the text will wrap, and possibly will be shortened with `"..."` if it can't fit in the view.
 
-Text and label also define variants that control the color of the text. The variants are:
-- `editor.ui.TEXT_VARIANT.DEFAULT` - this is the default text variant
-- `editor.ui.TEXT_VARIANT.HINT` - less noticeable hint
-- `editor.ui.TEXT_VARIANT.WARNING` - text communicates a warning
-- `editor.ui.TEXT_VARIANT.ERROR` - text communicates an error
+  Typography components define 4 variants in `editor.ui.TYPOGRAPHY_VARIANT` table: `DEFAULT` (ordinary text), `HINT` (greyed-out text with optional information), `WARNING` (orange warning text) and `ERROR` (red error text). 
 
 ### Input components
 
