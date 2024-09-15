@@ -223,7 +223,7 @@ As a final example where all of these rules are applied, here is the builtin spr
 
 uniform vx_uniforms
 {
-    uniform mat4 view_proj;
+    mat4 view_proj;
 };
 
 // positions are in world space
