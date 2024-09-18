@@ -87,6 +87,9 @@ Allow the engine to continue running while the application window is iconified (
 #### Fixed Update Frequency
 The update frequency of the `fixed_update(self, dt)` lifecycle function. In Hertz. 60 by default.
 
+#### Max Time Step
+If the time step becomes too large during a single frame, it will be capped to this max value. Seconds. 0.5 by default.
+
 ---
 
 ### Display
