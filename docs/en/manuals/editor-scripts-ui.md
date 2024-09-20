@@ -122,13 +122,10 @@ The code above will produce the following dialog form:
 ### Data presentation components
 
 The editor defines 4 data presentation components:
-- **`label`** — text label, intended to use for form inputs. Label comes in 2 variants: `editor.ui.LABEL_VARIANT.DEFAULT` (ordinary label) and `editor.ui.LABEL_VARIANT.OVERRIDDEN` (denotes that the accompanying input's value overriddes some other value)
-- **`icon`** — currently, it can only be used for presenting a small set of predefined icons, but we intend to allow more icons in the future.
-- typography components:
-    - **`heading`** — text element intended for presenting a heading line of text in e.g. a form or a dialog. Similarly to HTML's h1-h6 tags, heading has a `level` prop: integer from 1 to 6.
-    - **`paragraph`** — text element intended for presenting a paragraph of text. The main difference with `label` is that paragraph supports word wrapping: if the assigned bounds are too small horizontally, the text will wrap, and possibly will be shortened with `"..."` if it can't fit in the view.
-
-  Typography components define 4 variants in `editor.ui.TYPOGRAPHY_VARIANT` table: `DEFAULT` (ordinary text), `HINT` (greyed-out text with optional information), `WARNING` (orange warning text) and `ERROR` (red error text). 
+- **`label`** — text label, intended to be used with form inputs.
+- **`icon`** — an icon; currently, it can only be used for presenting a small set of predefined icons, but we intend to allow more icons in the future.
+- **`heading`** — text element intended for presenting a heading line of text in e.g. a form or a dialog. The `editor.ui.HEADING_STYLE` enum defines various heading styles that include HTML's `H1`-`H6` heading, as well as editor-specific `DIALOG` and `FORM`.
+- **`paragraph`** — text element intended for presenting a paragraph of text. The main difference with `label` is that paragraph supports word wrapping: if the assigned bounds are too small horizontally, the text will wrap, and possibly will be shortened with `"..."` if it can't fit in the view.
 
 ### Input components
 
@@ -170,21 +167,20 @@ if create_file then
 end
 ```
 Here is a list of built-in input components:
-- **`text_field`** - single-line text input with an `on_text_changed` callback that is invoked on every typed character
-- **`value_field`** - single-line value input field, requires `to_value` and `to_string` props that convert input text from string to value and back. `on_value_changed` is invoked only on explicit submit, i.e. on <kbd>Enter</kbd> or when focus leaves the component. Additionally, pressing `Escape` clears the unsubmitted edit.
-- **`string_field`**, **`integer_field`** and **`number_field`** are variations of `value_field` that define appropriate `to_value` and `to_string` props
+- **`string_field`**, **`integer_field`** and **`number_field`** are variations of a single-line text field that allow editing strings, integeres, and numbers.
 - **`select_box`** is used for selecting an option from predefined array of options with a dropdown control.
 - **`check_box`** is a boolean input field with `on_value_changed` callback
 - **`button`** with `on_press` callback that gets invoked on button press.
 - **`external_file_field`** is a component intended for selecting a file path on the computer. It consists of a text field and a button that opens a file selection dialog.
 - **`resource_field`** is a component intended for selecting a resource in the project.
 
-All components except buttons also define variants:
-- `editor.ui.INPUT_VARIANT.DEFAULT` - default input state
-- `editor.ui.INPUT_VARIANT.WARNING` - input communicates a warning
-- `editor.ui.INPUT_VARIANT.ERROR` - input communicates an error
+All components except buttons allow setting an `issue` prop that displays the issue related to the component (either `"error"` or `"warning"`), e.g.:
+```lua
+issue = {severity = "warning", message = "This value is deprecated"}
+```
+When issue is specified, it changes how the input component looks, and adds a tooltip with the issue message.
 
-Here is a demo of all inputs with their variants:
+Here is a demo of all inputs with their issue variants:
 <div align="center"><img src="images/editor_scripts/inputs_demo.png" width="652"></div>
 
 ### Dialog-related components
