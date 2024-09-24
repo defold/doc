@@ -45,9 +45,8 @@ return M
 ```
 
 This code snippet defines a **View → Do with confirmation** command. When you execute it, you will see the following dialog:
-<div align="center"><img src="/manuals/images/editor_scripts/perform_action_dialog.png" width="652"></div>
 
-
+![Hello world dialog](images/editor_scripts/perform_action_dialog@2x.png)
 
 Finally, after pressing <kbd>Enter</kbd> (or clicking on the `Perform` button), you'll see the following line in the editor console:
 ```
@@ -76,7 +75,8 @@ editor.ui.label({
 })
 ```
 The visible part is the `Hello` text, and it's aligned within the assigned component bounds:
-<div align="center"><img src="/manuals/images/editor_scripts/alignment.png" width="141"></div>
+
+![Alignment](images/editor_scripts/alignment@2x.png)
 
 ## Built-in components
 
@@ -85,7 +85,8 @@ The editor defines various built-in components that can be used together to buil
 ### Layout components
 
 Layout components are used for placing other components next to each other. Main layout components are **`horizontal`**, **`vertical`** and **`grid`**. These components also define props such as **padding** and **spacing**, where padding is an empty space from the edge of the assigned bounds to the content, and spacing is an empty space between children:
-<div align="center"><img src="/manuals/images/editor_scripts/padding_and_spacing.png" width="151"></div>
+
+![Padding and Spacing](images/editor_scripts/padding_and_spacing@2x.png)
 
 Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of an individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. Default spacing is `medium`. With paddings, `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
 
@@ -117,7 +118,8 @@ editor.ui.grid({
 })
 ```
 The code above will produce the following dialog form:
-<div align="center"><img src="/manuals/images/editor_scripts/new_level_dialog.png" width="652"></div>
+
+![New Level Dialog](images/editor_scripts/new_level_dialog@2x.png)
 
 ### Data presentation components
 
@@ -181,7 +183,8 @@ issue = {severity = editor.ui.ISSUE_SEVERITY.WARNING, message = "This value is d
 When issue is specified, it changes how the input component looks, and adds a tooltip with the issue message.
 
 Here is a demo of all inputs with their issue variants:
-<div align="center"><img src="/manuals/images/editor_scripts/inputs_demo.png" width="652"></div>
+
+![Inputs](images/editor_scripts/inputs_demo@2x.png)
 
 ### Dialog-related components
 
@@ -220,10 +223,10 @@ local dialog = editor.ui.component(function(props)
         content = editor.ui.vertical({
             padding = editor.ui.PADDING.LARGE,
             children = { 
-                editor.ui.text_field({ 
-                    text = name,
-                    -- 3. typing updates the local state
-                    on_text_changed = set_name 
+                editor.ui.string_field({ 
+                    value = name,
+                    -- 3. typing + Enter updates the local state
+                    on_value_changed = set_name 
                 }) 
             }
         }),
@@ -253,8 +256,9 @@ else
 end
 ```
 
-When you execute a menu command that runs this code, the editor will show a dialog with disabled `"Create File"` dialog at the start, but as soon as you start typing, it will become enabled:
-<div align="center"><img src="/manuals/images/editor_scripts/reactive_new_file_dialog.png" width="652"></div>
+When you execute a menu command that runs this code, the editor will show a dialog with disabled `"Create File"` dialog at the start, but, when you type a name and press <kbd>Enter</kbd>, it will become enabled:
+
+![New File Dialog](images/editor_scripts/reactive_new_file_dialog@2x.png)
 
 So, how does it work? On the very first render, `use_state` hook creates a local state associated with the component and returns it with a setter for the state. When the setter function is invoked, it schedules a component re-render. On subsequent re-renders, the component function is invoked again, and `use_state` returns the updated state. New view component returned by the component function is then diffed against the old one, and the UI is updated where the changes were detected.
 
