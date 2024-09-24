@@ -174,9 +174,9 @@ Here is a list of built-in input components:
 - **`external_file_field`** is a component intended for selecting a file path on the computer. It consists of a text field and a button that opens a file selection dialog.
 - **`resource_field`** is a component intended for selecting a resource in the project.
 
-All components except buttons allow setting an `issue` prop that displays the issue related to the component (either `"error"` or `"warning"`), e.g.:
+All components except buttons allow setting an `issue` prop that displays the issue related to the component (either `editor.ui.ISSUE_SEVERITY.ERROR` or `editor.ui.ISSUE_SEVERITY.WARNING`), e.g.:
 ```lua
-issue = {severity = "warning", message = "This value is deprecated"}
+issue = {severity = editor.ui.ISSUE_SEVERITY.WARNING, message = "This value is deprecated"}
 ```
 When issue is specified, it changes how the input component looks, and adds a tooltip with the issue message.
 
