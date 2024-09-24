@@ -7,18 +7,16 @@ brief: Manual described how to setup and run local build server
 
 There are two variants how to run local build server (aka 'Extender'):
 1. Run local build server with preconfigured artifacts.
-2. Build all necessary artifacts locally and use it to run local build server.
+2. Run local build server with locally built artifacts.
 
 ## How to run local Extender with preconfigured artifacts
 
-### Prerequisites
 Before you can run a local cloud builder you need to install the following software:
 
 * [Docker](https://www.docker.com/) - Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers. To run the cloud builders on your local development machine you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 * Google Cloud CLI - The Google Cloud CLI is a set of tools to create and manage Google Cloud resources. The tools can be [installed directly from Google](https://cloud.google.com/sdk/docs/install) or from a package manager such as Brew, Chocolatey or Snap.
 * You also need a Google account to download the containers with the platform specific build servers.
 
-### How to use ready-to-use Docker images
 Once you have the above mentioned software installed follow these steps to install and run the Defold cloud builders:
 
 **Note for Windows users**: use git bash terminal for executing commands below.
@@ -123,5 +121,11 @@ If you want to pull latest versions of jars you can use following command to det
         --format="get(name)" | awk -F'/' '{print $NF}')
 ```
 
-## What about macOS and iOS?
+### What about macOS and iOS?
+
 The macOS and iOS builds are done on real Apple hardware using a build server running in stand-alone mode without Docker. Instead XCode, Java and other required tools are installed directly on the machine and the build server is running as a normal Java process. You can learn how to set this up in the [build server documentation on GitHub](https://github.com/defold/extender?tab=readme-ov-file#running-as-a-stand-alone-server-on-macos).
+
+
+## How to run local Extender with locally built artifacts
+
+Please follow the [instructions in the Extender repository on GitHub](https://github.com/defold/extender) to manually build and run a local build server.
