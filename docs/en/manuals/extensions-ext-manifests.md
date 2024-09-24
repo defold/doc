@@ -1,9 +1,9 @@
 ---
-title: Native extensions - extension manifest
-brief: This manual describes the extension manifest and how it correlates to the application manifest.
+title: Native extensions - extension manifests
+brief: This manual describes the extension manifest and how it correlates to the application manifest and engine manifest.
 ---
 
-# Extension manifest
+# Extension, Application and Engine manifest files
 
 The extension manifest is a configuration file with flags and defines used when building a single extension. This configuration is combined with an application level configuration and a base level configuration for the Defold engine itself.
 
