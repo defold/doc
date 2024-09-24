@@ -62,6 +62,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.execute(cmd, [...args], [options])` — run a shell command, optionally capturing its output.
 - `editor.save()` — persist all unsaved changed to disk.
 - `editor.transact(txs)` — modify the editor in-memory state using 1 or more transaction steps created with `editor.tx.*` functions.
+- `editor.ui.*` — various UI-related functions, see [UI manual](/manuals/editor-scripts-ui).
 
 ## Commands
 
