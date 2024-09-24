@@ -17,7 +17,7 @@ Defold provides a zero setup entry point to native extensions with a cloud based
 
 ![Cloud build](images/extensions/cloud_build.png)
 
-Defold provides the cloud build server free of charge, without any usage restrictions. The server is hosted in Europe, and the URL to which native code is sent is configured in the [Editor Preferences window](/manuals/editor-preferences/#extensions) or through the `--build-server` command line option to [bob](/manuals/bob/#usage). If you wish to learn more about the cloud build server or how to set up your own server please refer to the [instructions on GitHub](https://github.com/defold/extender).
+Defold provides the cloud build server free of charge, without any usage restrictions. The server is hosted in Europe, and the URL to which native code is sent is configured in the [Editor Preferences window](/manuals/editor-preferences/#extensions) or through the `--build-server` command line option to [bob](/manuals/bob/#usage). If you wish to set up your own server please [follow these instructions](/manuals/extender-local-setup).
 
 ## Project layout
 
@@ -232,47 +232,6 @@ The following identifiers are defined by the builder on each respective platform
 ## Build server logs
 
 Build server logs are available when the project is using native extensions. The build server log (`log.txt`) is downloaded together with the custom engine when the project is built and stored inside the file `.internal/%platform%/build.zip` and also unpacked to the build folder of your project.
-
-
-## The ext.manifest file
-
-Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libs and frameworks. If the *ext.manifest* file does not contain a "platforms" segment, or a platform is missing from the list, the platform you bundle for will still build, but without any extra flags set.
-
-Here is an example:
-
-```yaml
-name: "AdExtension"
-
-platforms:
-    arm64-ios:
-        context:
-            frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
-            flags:      ["-stdlib=libc++"]
-            linkFlags:  ["-ObjC"]
-            libs:       ["z", "c++", "sqlite3"]
-            defines:    ["MY_DEFINE"]
-
-    armv7-ios:
-        context:
-            frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
-            flags:      ["-stdlib=libc++"]
-            linkFlags:  ["-ObjC"]
-            libs:       ["z", "c++", "sqlite3"]
-            defines:    ["MY_DEFINE"]
-```
-
-### Allowed keys
-
-Allowed keys are for platform specific compile flags are:
-
-* `frameworks` - Apple frameworks to include when building (iOS and OSX)
-* `flags` - Flags that should be passed to the compiler
-* `linkFlags` - Flags that should be passed to the linker
-* `libs` - Libraries to include when linking
-* `defines` - Defines to set when building
-* `aaptExtraPackages` - Extra package name that should be generated (Android)
-* `aaptExcludePackages` - Regexp (or exact names) of packages to exclude (Android)
-* `aaptExcludeResourceDirs` - Regexp (or exact names) of resource dirs to exclude (Android)
 
 ## Example extensions
 

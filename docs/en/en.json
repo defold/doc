@@ -1552,8 +1552,8 @@
                         "name": "Debugging"
                     },
                     {
-                        "path": "/manuals/extensions-build-variants",
-                        "name": "Build Variants"
+                        "path": "/manuals/extensions-ext-manifest",
+                        "name": "Extension Manifests"
                     },
                     {
                         "path": "/manuals/app-manifest",
@@ -1564,7 +1564,7 @@
                         "name": "Manifest Merging"
                     },
                     {
-                        "path": "https://lua.msys.ch/lua-integration-guide.html#_the_lua_c_api",
+                        "path": "https://www.lua.org/pil/contents.html#P4",
                         "name": "The Lua C API (external)"
                     },
                     {

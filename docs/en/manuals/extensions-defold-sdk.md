@@ -45,4 +45,4 @@ The available SDK functions are documented in our [API reference](/ref/dmExtensi
 * [Shared Library](/ref/sharedlibrary/) - Utility functions for shared library export/import.
 * [Sony vector Math Library](../assets/Vector_Math_Library-Overview.pdf) - The Sony Vector Math library mainly provides functions used in 3-D graphics for 3-D and 4-D vector operations, matrix operations, and quaternion operations.
 
-If you need the `dmsdk/sdk.h` header file for code completion in your editor of choice it can be found [here in the main GitHub repository for Defold](https://github.com/defold/defold/blob/dev/engine/sdk/src/dmsdk/sdk.h) with [header files for the individual namespaces here](https://github.com/defold/defold/tree/dev/engine/dlib/src/dmsdk/dlib).
+The Defold SDK headers are included as a separate `defoldsdk_headers.zip` archive for each Defold [release on GitHub](https://github.com/defold/defold/releases). You can use these headers for code completion in your editor of choice.
