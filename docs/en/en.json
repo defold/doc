@@ -1532,10 +1532,6 @@
                         "name": "Introduction"
                     },
                     {
-                        "path": "/manuals/extensions-details",
-                        "name": "Details"
-                    },
-                    {
                         "path": "/manuals/extensions-defold-sdk",
                         "name": "Defold SDK"
                     },
