@@ -78,13 +78,13 @@ So for instance, put platform specific libraries under:
 
 ## Writing native code
 
-In the Defold source C++ is used very sparingly. In fact, most code is very C-like. There is hardly any templates, except for a few container classes, due to the fact that templates both incurs a cost on compilation times as well as executable size.
+In the Defold source, C++ is used very sparingly and most code is very C-like. There is hardly any templates, except for a few container classes, since templates incurs a cost on compilation times as well as executable size.
 
 ### C++ version
 
 The Defold source is built with the default C++ version of each compiler. The Defold source itself uses no C++ version higher than C++98. While it is possible to use a higher version to build an extension, a higher version might come with ABI changes. This might make it impossible to use one extension in conjunction with an extensions in the engine or from the [asset portal](/assets).
 
-The Defold source avoids using the latest features or versions of C++. Mostly because there is not need for new features when building a game engine, but also because keeping track of the latest features of C++ is a time consuming task, and to really master those features will require a lot of precious time.
+The Defold source avoids using the latest features or versions of C++. Mostly because there is no need for new features when building a game engine, but also because keeping track of the latest features of C++ is a time consuming task, and to really master those features will require a lot of precious time.
 
 It also has the added benefit for extension developers that Defold maintains a stable ABI. Also worth pointing out is that using the latest C++ features may prevent the code from compiling on different platforms due to varying support.
 
@@ -94,7 +94,7 @@ Defold does not make use of any exceptions in the engine. Exceptions are general
 
 ### Standard Template Libraries - STL
 
-Since the Defold engine doesn't use any STL code, except for some algorithms and math (std::sort, std::upper_bound etc), it may work for you to use STL in your extension.
+Since the Defold engine doesn't use any STL code, except for some algorithms and math (`std::sort`, `std::upper_bound` etc), it may work for you to use STL in your extension.
 
 Again, bear in mind that ABI incompatibilites may hinder you when using your extension in conjunction with other extensions or 3rd party libraries.
 
