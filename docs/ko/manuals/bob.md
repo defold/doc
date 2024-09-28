@@ -30,16 +30,16 @@ usage: bob [options] [commands]
                                          binary will be placed. Default is
                                          "<build-output>/<platform>/"
  -bo,--bundle-output <arg>               Bundle output directory
- -br,--build-report <arg>                DEPRECATED in Defold 1.4.6! Use
+ -br,--build-report <arg>                DEPRECATED! Use
                                          --build-report-json instead
  -brhtml,--build-report-html <arg>       Filepath where to save a build
                                          report as HTML
  -brjson,--build-report-json <arg>       Filepath where to save a build
-                                         report as JSON (from Defold 1.4.6)
+                                         report as JSON
     --build-artifacts <arg>              If left out, will default to
                                          build the engine. Choices:
-                                         'engine', 'plugins'. Comma
-                                         separated list.
+                                         'engine', 'plugins', 'library'.
+                                         Comma separated list.
     --build-server <arg>                 The build server (when using
                                          native extensions)
     --build-server-header <arg>          Additional build server header to
@@ -50,6 +50,8 @@ usage: bob [options] [commands]
                                          instead
     --debug-ne-upload                    Outputs the files sent to build
                                          server as upload.zip
+    --debug-output-spirv <arg>           Force build SPIR-V shaders
+    --debug-output-wgsl <arg>            Force build WGSL shaders
     --defoldsdk <arg>                    What version of the defold sdk
                                          (sha1) to use
  -e,--email <arg>                        User email
@@ -58,11 +60,10 @@ usage: bob [options] [commands]
                                          create an empty Defold
                                          application for use as a build
                                          target
-    --exclude-build-folder <arg>         DEPRECATED from Defold 1.5.1! Use
-                                         '.defignore' file instead
+    --exclude-build-folder <arg>         DEPRECATED! Use '.defignore' file
+                                         instead
  -h,--help                               This help message
- -i,--input <arg>                        Source directory. Default is
-                                         current directory
+ -i,--input <arg>                        DEPRECATED! Use --root instead
     --identity <arg>                     Sign identity (iOS)
  -kp,--key-pass <arg>                    Password of the deployment key if
                                          different from the keystore
@@ -80,8 +81,13 @@ usage: bob [options] [commands]
     --manifest-public-key <arg>          Public key to use when signing
                                          manifest and archive.
     --max-cpu-threads <arg>              Max count of threads that bob.jar
-                                         can use (from Defold 1.4.6)
+                                         can use
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
+    --ne-build-dir <arg>                 Specify a folder with includes or
+                                         source, to build a specific
+                                         library. More than one occurrance
+                                         is allowed.
+    --ne-output-name <arg>               Specify a library target name
  -o,--output <arg>                       Output directory. Default is
                                          "build/default"
  -p,--platform <arg>                     Platform (when building and
@@ -98,9 +104,9 @@ usage: bob [options] [commands]
     --resource-cache-remote-user <arg>   Username to authenticate access
                                          to the remote resource cache.
     --settings <arg>                     Path to a game project settings
-                                         file. More than one occurrance
-                                         are allowed. The settings files
-                                         are applied left to right.
+                                         file. More than one occurrance is
+                                         allowed. The settings files are
+                                         applied left to right.
     --strip-executable                   Strip the dmengine of debug
                                          symbols (when bundling iOS or
                                          Android)
@@ -109,8 +115,8 @@ usage: bob [options] [commands]
  -tp,--texture-profiles <arg>            DEPRECATED! Use
                                          --texture-compression instead
  -u,--auth <arg>                         User auth token
-    --use-async-build-server             DEPRECATED! Asynchronous build
-                                         is now the default.
+    --use-async-build-server             DEPRECATED! Asynchronous build is
+                                         now the default.
     --use-lua-bytecode-delta             Use byte code delta compression
                                          when building for multiple
                                          architectures

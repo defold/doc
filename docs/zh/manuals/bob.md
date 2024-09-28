@@ -24,73 +24,124 @@ Bob 运行于命令行界面 `java` (再Windows上是 `java.exe`) 后跟bob的ja
 ```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
--a,--archive                            编译数据包
--ar,--architectures <arg>               逗号分割的发布平台包含的架构列表
-    --archive-resource-padding <arg>    游戏包中的资源对齐间隔. 默认值为4.
--bf,--bundle-format <arg>               逗号分割的发布平台格式列表
-                                        (Android: 'apk' 和 'aab')
-    --binary-output <arg>               指定可执行文件存放地址, 默认地址是
-                                        "<build-output>/<platform>/"
--bo,--bundle-output <arg>               打包输出目录
--br,--build-report <arg>                自从 Defold 1.4.6 版本后已弃用! 
-                                        使用 --build-report-json 代替
--brhtml,--build-report-html <arg>       指定编译生成的HTML报告的存放地址
--brjson,--build-report-json <arg>       保存 JSON 编译报告的文件路径位置 (自从 Defold 1.4.6 版本启用)
-    --build-artifacts <arg>             不指定的话默认为编译engine.
-                                        可选项为 'engine', 'plugins'.
-                                        以逗号分隔.
-    --build-server <arg>                编译服务器 (使用原生扩展时需指定)
-    --build-server-header <arg>         设置 build server header
--ce,--certificate <arg>                 已弃用! 使用 --keystore 代替
--d,--debug                              已弃用! 使用 --variant=debug 代替
-    --debug-ne-upload                   把文件打包為upload.zip后上傳到
-                                        編譯服務器
-    --defoldsdk <arg>                   指定 defold sdk (sha1) 使用版本
--e,--email <arg>                        用户电邮
--ea,--exclude-archive                   要从打包中排除的资源档案. 以此创建空应用用作编译目标
-    --exclude-build-folder              自从 Defold 1.5.1 已弃用! 使用
-                                        '.defignore' 文件代替
--h,--help                               该命令的帮助文档
--i,--input <arg>                        指定源目录, 默认是当前目录
-    --identity <arg>                    指定签名 (iOS)
--kp,--key-pass <arg>                    如果开发密钥不同于部署密钥的话
-                                        则在这里指定 (Android)
--ks,--keystore <arg>                    用来签名 APKs (Android) 的部署密钥
--ksa,--keystore-alias <arg>             用来签名 (Android) 的 key+cert 别名
--ksp,--keystore-pass <arg>              用来签名 (Android) 的部署密钥密码
--l,--liveupdate <arg>                   要在发布后使用热更新功能, 该参数填 yes
-
-    --manifest-private-key <arg>        用来签名 manifest 和 archive 的私钥
-
-    --manifest-public-key <arg>         用来签名 manifest 和 archive 的公钥
-    --max-cpu-threads <arg>             设置 bob.jar 使用的最多线程数
-                                        (自从 Defold 1.4.6 版本启用)
--mp,--mobileprovisioning <arg>          指定 mobileprovisioning profile (iOS)
--o,--output <arg>                       输出目录. 默认是 "build/default"
--p,--platform <arg>                     发布平台 (打包时)
--pk,--private-key <arg>                 已弃用! 使用 --keystore 代替
--r,--root <arg>                         指定编译根目录. 默认是当前目录
-    --resource-cache-local <arg>        本地资源缓存地址.
-    --resource-cache-remote <arg>       远程资源缓存URL.
-    --resource-cache-remote-pass <arg>  远程资源存取认证的密码/令牌.
-    --resource-cache-remote-user <arg>  远程资源存取认证的用户名.
-    --settings <arg>                    指定项目配置文件的路径. 可以使用多个
-                                        文件. 配置文件从左到右依次被应用.
-    --strip-executable                  去掉dmengine的debug信息 (编译 iOS 或 Android时)
--tc,--texture-compression <arg>         使用纹理档案中指定的纹理压缩
--tp,--texture-profiles <arg>            已弃用! 使用 --texture-compression 代替
--u,--auth <arg>                         用户认证令牌
-   --use-async-build-server             DEPRECATED! Asynchronous build
-                                         is now the default.
-   --use-lua-bytecode-delta             为多平台编译时使用字节码 delta 压缩
-   --use-uncompressed-lua-source        使用未压缩未加密的明文Lua源代码代替二进制文件
-   --use-vanilla-lua                    已弃用! 使用 --use-uncompressed-lua-source 代替
-
--v,--verbose                            冗余输出
-    --variant <arg>                     指定使用 debug, release 或者 headless
-                                        的dmengine版本 (编译时)
-    --version                           打印输出版本号
-    --with-symbols                      生成标记文件 (如果可用)
+ -a,--archive                            Build archive
+ -ar,--architectures <arg>               Comma separated list of
+                                         architectures to include for the
+                                         platform
+    --archive-resource-padding <arg>     The alignment of the resources in
+                                         the game archive. Default is 4
+ -bf,--bundle-format <arg>               Which formats to create the
+                                         application bundle in. Comma
+                                         separated list. (Android: 'apk'
+                                         and 'aab')
+    --binary-output <arg>                Location where built engine
+                                         binary will be placed. Default is
+                                         "<build-output>/<platform>/"
+ -bo,--bundle-output <arg>               Bundle output directory
+ -br,--build-report <arg>                DEPRECATED! Use
+                                         --build-report-json instead
+ -brhtml,--build-report-html <arg>       Filepath where to save a build
+                                         report as HTML
+ -brjson,--build-report-json <arg>       Filepath where to save a build
+                                         report as JSON
+    --build-artifacts <arg>              If left out, will default to
+                                         build the engine. Choices:
+                                         'engine', 'plugins', 'library'.
+                                         Comma separated list.
+    --build-server <arg>                 The build server (when using
+                                         native extensions)
+    --build-server-header <arg>          Additional build server header to
+                                         set
+ -ce,--certificate <arg>                 DEPRECATED! Use --keystore
+                                         instead
+ -d,--debug                              DEPRECATED! Use --variant=debug
+                                         instead
+    --debug-ne-upload                    Outputs the files sent to build
+                                         server as upload.zip
+    --debug-output-spirv <arg>           Force build SPIR-V shaders
+    --debug-output-wgsl <arg>            Force build WGSL shaders
+    --defoldsdk <arg>                    What version of the defold sdk
+                                         (sha1) to use
+ -e,--email <arg>                        User email
+ -ea,--exclude-archive                   Exclude resource archives from
+                                         application bundle. Use this to
+                                         create an empty Defold
+                                         application for use as a build
+                                         target
+    --exclude-build-folder <arg>         DEPRECATED! Use '.defignore' file
+                                         instead
+ -h,--help                               This help message
+ -i,--input <arg>                        DEPRECATED! Use --root instead
+    --identity <arg>                     Sign identity (iOS)
+ -kp,--key-pass <arg>                    Password of the deployment key if
+                                         different from the keystore
+                                         password (Android)
+ -ks,--keystore <arg>                    Deployment keystore used to sign
+                                         APKs (Android)
+ -ksa,--keystore-alias <arg>             The alias of the signing key+cert
+                                         you want to use (Android)
+ -ksp,--keystore-pass <arg>              Password of the deployment
+                                         keystore (Android)
+ -l,--liveupdate <arg>                   Yes if liveupdate content should
+                                         be published
+    --manifest-private-key <arg>         Private key to use when signing
+                                         manifest and archive.
+    --manifest-public-key <arg>          Public key to use when signing
+                                         manifest and archive.
+    --max-cpu-threads <arg>              Max count of threads that bob.jar
+                                         can use
+ -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
+    --ne-build-dir <arg>                 Specify a folder with includes or
+                                         source, to build a specific
+                                         library. More than one occurrance
+                                         is allowed.
+    --ne-output-name <arg>               Specify a library target name
+ -o,--output <arg>                       Output directory. Default is
+                                         "build/default"
+ -p,--platform <arg>                     Platform (when building and
+                                         bundling)
+ -pk,--private-key <arg>                 DEPRECATED! Use --keystore
+                                         instead
+ -r,--root <arg>                         Build root directory. Default is
+                                         current directory
+    --resource-cache-local <arg>         Path to local resource cache.
+    --resource-cache-remote <arg>        URL to remote resource cache.
+    --resource-cache-remote-pass <arg>   Password/token to authenticate
+                                         access to the remote resource
+                                         cache.
+    --resource-cache-remote-user <arg>   Username to authenticate access
+                                         to the remote resource cache.
+    --settings <arg>                     Path to a game project settings
+                                         file. More than one occurrance is
+                                         allowed. The settings files are
+                                         applied left to right.
+    --strip-executable                   Strip the dmengine of debug
+                                         symbols (when bundling iOS or
+                                         Android)
+ -tc,--texture-compression <arg>         Use texture compression as
+                                         specified in texture profiles
+ -tp,--texture-profiles <arg>            DEPRECATED! Use
+                                         --texture-compression instead
+ -u,--auth <arg>                         User auth token
+    --use-async-build-server             DEPRECATED! Asynchronous build is
+                                         now the default.
+    --use-lua-bytecode-delta             Use byte code delta compression
+                                         when building for multiple
+                                         architectures
+    --use-uncompressed-lua-source        Use uncompressed and unencrypted
+                                         Lua source code instead of byte
+                                         code
+    --use-vanilla-lua                    DEPRECATED! Use
+                                         --use-uncompressed-lua-source
+                                         instead.
+ -v,--verbose                            Verbose output
+    --variant <arg>                      Specify debug, release or
+                                         headless version of dmengine
+                                         (when bundling)
+    --version                            Prints the version number to the
+                                         output
+    --with-symbols                       Generate the symbol file (if
+                                         applicable)
 ```
 
 支持的命令:
