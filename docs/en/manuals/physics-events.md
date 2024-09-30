@@ -39,7 +39,8 @@ This event reports a contact point between two collision objects. It is useful f
    - `applied_impulse`: The impulse resulting from the contact.
    - `distance`: The penetration distance between the objects.
    - `a` and `b`: Objects representing the colliding entities, each containing:
-     - `position`: World position (vector3).
+     - `position`: World position of contact point (vector3).
+     - `instance_position`: World position game object instance (vector3).
      - `id`: Instance ID (hash).
      - `group`: Collision group (hash).
      - `relative_velocity`: Velocity relative to the other object (vector3).
