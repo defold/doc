@@ -71,7 +71,10 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 
 ### iOS
 
-You can use the [Console tool](https://support.apple.com/guide/console/welcome/mac) to read game and system log. You can use the LLDB debugger to attach to a game running on device. To debug a game it needs to be signed with a “Apple Developer Provisioning Profile” that include the device you want to debug on. Bundle the game from the editor and supply the provisioning profile in the bundle dialog (bundling for iOS is only available on macOS).
+You have multiple options to read game and system logs on iOS:
+
+1. You can use the [Console tool](https://support.apple.com/guide/console/welcome/mac) to read game and system log.
+2. You can use the LLDB debugger to attach to a game running on device. To debug a game it needs to be signed with a “Apple Developer Provisioning Profile” that include the device you want to debug on. Bundle the game from the editor and supply the provisioning profile in the bundle dialog (bundling for iOS is only available on macOS).
 
 To launch the game and attach the debugger you will need a tool called [ios-deploy](https://github.com/phonegap/ios-deploy). Install and debug your game by running the following in a terminal:
 
