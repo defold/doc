@@ -64,6 +64,8 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.transact(txs)` — modify the editor in-memory state using 1 or more transaction steps created with `editor.tx.*` functions.
 - `editor.ui.*` — various UI-related functions, see [UI manual](/manuals/editor-scripts-ui).
 
+You can find the full editor API reference [here](https://defold.com/ref/alpha/editor/).
+
 ## Commands
 
 If editor script module defines function `get_commands`, it will be called on extension reload, and returned commands will be available for use inside the editor in menu bar or in context menus in Assets and Outline panes. Example:

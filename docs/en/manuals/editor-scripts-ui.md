@@ -5,7 +5,7 @@ brief: This manual explains how to create UI elements in the editor using Lua
 
 # Editor scripts and UI
 
-This manual explains how to create interactive UI elements in the editor using editor scripts written in Lua. To get started with editor scripts, see [Editor Scripts manual](/manuals/editor-scripts). Currently, it's only possible to create interactive dialogs, though we want to expand the UI scripting support to the rest of the editor in the future.
+This manual explains how to create interactive UI elements in the editor using editor scripts written in Lua. To get started with editor scripts, see [Editor Scripts manual](/manuals/editor-scripts). You can find the full editor API reference [here](https://defold.com/ref/alpha/editor/). Currently, it's only possible to create interactive dialogs, though we want to expand the UI scripting support to the rest of the editor in the future.
 
 ## Hello world
 
@@ -46,7 +46,7 @@ return M
 
 This code snippet defines a **View → Do with confirmation** command. When you execute it, you will see the following dialog:
 
-![Hello world dialog](images/editor_scripts/perform_action_dialog@2x.png)
+![Hello world dialog](images/editor_scripts/perform_action_dialog.png){srcset="images/editor_scripts/perform_action_dialog@2x.png 2x"}
 
 Finally, after pressing <kbd>Enter</kbd> (or clicking on the `Perform` button), you'll see the following line in the editor console:
 ```
@@ -76,7 +76,7 @@ editor.ui.label({
 ```
 The visible part is the `Hello` text, and it's aligned within the assigned component bounds:
 
-![Alignment](images/editor_scripts/alignment@2x.png)
+![Alignment](images/editor_scripts/alignment.png){srcset="images/editor_scripts/alignment@2x.png 2x"}
 
 ## Built-in components
 
@@ -86,7 +86,7 @@ The editor defines various built-in components that can be used together to buil
 
 Layout components are used for placing other components next to each other. Main layout components are **`horizontal`**, **`vertical`** and **`grid`**. These components also define props such as **padding** and **spacing**, where padding is an empty space from the edge of the assigned bounds to the content, and spacing is an empty space between children:
 
-![Padding and Spacing](images/editor_scripts/padding_and_spacing@2x.png)
+![Padding and Spacing](images/editor_scripts/padding_and_spacing.png){srcset="images/editor_scripts/padding_and_spacing@2x.png 2x"}
 
 Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of an individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. Default spacing is `medium`. With paddings, `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
 
@@ -119,7 +119,7 @@ editor.ui.grid({
 ```
 The code above will produce the following dialog form:
 
-![New Level Dialog](images/editor_scripts/new_level_dialog@2x.png)
+![New Level Dialog](images/editor_scripts/new_level_dialog.png){srcset="images/editor_scripts/new_level_dialog@2x.png 2x"}
 
 ### Data presentation components
 
@@ -184,7 +184,7 @@ When issue is specified, it changes how the input component looks, and adds a to
 
 Here is a demo of all inputs with their issue variants:
 
-![Inputs](images/editor_scripts/inputs_demo@2x.png)
+![Inputs](images/editor_scripts/inputs_demo.png){srcset="images/editor_scripts/inputs_demo@2x.png 2x"}
 
 ### Dialog-related components
 
@@ -258,7 +258,7 @@ end
 
 When you execute a menu command that runs this code, the editor will show a dialog with disabled `"Create File"` dialog at the start, but, when you type a name and press <kbd>Enter</kbd>, it will become enabled:
 
-![New File Dialog](images/editor_scripts/reactive_new_file_dialog@2x.png)
+![New File Dialog](images/editor_scripts/reactive_new_file_dialog.png){srcset="images/editor_scripts/reactive_new_file_dialog@2x.png 2x"}
 
 So, how does it work? On the very first render, `use_state` hook creates a local state associated with the component and returns it with a setter for the state. When the setter function is invoked, it schedules a component re-render. On subsequent re-renders, the component function is invoked again, and `use_state` returns the updated state. New view component returned by the component function is then diffed against the old one, and the UI is updated where the changes were detected.
 
