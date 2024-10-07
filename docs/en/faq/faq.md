@@ -48,7 +48,7 @@ A: Absolutely! The engine is a full blown 3D engine. However, the toolset is mad
 
 #### Q: What programming language do I work with in Defold?
 
-A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to [extend the Defold engine with new functionality](/manuals/extensions/). When building [custom materials](/manuals/material/), OpenGL ES SL shader language is used to write vertex and fragment shaders.
+A: Game logic in your Defold project is primarily written using the Lua language (specifically Lua 5.1/LuaJIT, refer to the [Lua manual](/manuals/lua) for details). Lua is a lightweight dynamic language that is fast and very powerful. Starting from version 1.8.1, Defold supports the use of transpilers that emit Lua code. With transpiler extension installed, you can use alternative languages — such as [Teal](https://github.com/defold/extension-teal) — to write statically-checked Lua. You can also use native code (C/C++, Objective-C, Java and JavaScript depending on the platform) to [extend the Defold engine with new functionality](/manuals/extensions/). When building [custom materials](/manuals/material/), OpenGL ES SL shader language is used to write vertex and fragment shaders.
 
 
 #### Q: Can I use C++ to write game logic?
