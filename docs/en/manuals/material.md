@@ -122,6 +122,71 @@ The material system will assign a default semantic type automatically based on t
 
 If you have entries for these attributes in the material, the default semantic type will be overridden with whatever you have configured in the material editor.
 
+### Advanced usage of custom attributes
+
+As previously mentioned, the data being passed into a vertex shader is comprised of one or more attributes. This collection of attributes is typically called a `vertex declaration`, which specifies the layout of each input in terms of data and vector type and size. The actual data of the geometry will be stored in a `vertex buffer`, and the memory size of the vertex buffer will be dictated by the amount of vertices of the mesh together with the layout of the vertex declaration.
+
+For example, a simple shader that declares three such inputs would look like something like this in shader code:
+
+```glsl
+in vec3 position;
+in vec2 texcoord0;
+in vec3 normal;
+```
+
+In this case, the default matching vertex declaration would look something like this (in pseudo-code):
+
+```
+Attributes = [
+  { name = “position”, type = vec3, data_type = float, semantic_type = SEMANTIC_TYPE_POSITION },
+  { name = “texcoord0”, type = vec2, data_type = float, semantic_type = SEMANTIC_TYPE_TEXCOORD },
+  { name = “color”, type = vec4, data_type = float, semantic_type = SEMANTIC_TYPE_COLOR },
+]
+Total byte size per vertex: 9 floats => 36 bytes
+```
+
+But with the advent of custom vertex format, the layout of the inputs can be fully reconfigured so that the data that is being sent into the shader is more custom. For example, the vertex declaration presented above can be trimmed down even further by customising the vertex attributes to use a smaller vertex declaration:
+
+```
+Attributes = [
+  { name = “position”, type = vec2, data_type = float, semantic_type = SEMANTIC_TYPE_POSITION },
+  { name = “texcoord0”, type = vec2, data_type = float, semantic_type = SEMANTIC_TYPE_TEXCOORD },
+  { name = “color”, type = vec4, data_type = unsigned_byte semantic_type = SEMANTIC_TYPE_COLOR },
+]
+Total byte size per vertex: 4 floats + 4 unsigned byte => 20 bytes
+```
+
+As you can see, this is quite an improvement on buffer sizes. Even though it seems like it’s just 16 bytes difference, it can have a serious impact if your game is producing hundreds of thousands of vertices.
+
+::: sidenote
+in some cases the engine will populate the vertex buffer on the CPU side before copying it into the GPU. In this case, the memory consumption will have an even higher impact of the memory consumption!
+:::
+
+In the most basic case, data will be populated based on the vertex declaration in the following order:
+
+* Does the engine deliver the data for this attribute? For example, a vertex attribute with a “position” semantic is typically always provided by a component
+* Does the component instance have a dynamically overridden attribute? E.g sprites can set vertex attribute data via go.set
+* Does the component resource have an override of the vertex attribute? Some components support overriding the data on a resource level, i.e sprites, models and particlefx components can override attributes from the editor.
+* Does the material deliver data for this attribute?
+* Otherwise, the data provided will follow the regular ruleset
+
+For example, a “sprite” component doesn’t have a color semantic, but a “model” component does. In the case that the component(s) are using a material where there is an attribute with a color semantic type present, the engine cannot deliver an internal color value for the sprite but it can for the model. For the sprite, this means that the color value will be taken from either the component resource, instance or the material. 
+
+Note: In the model case, the engine can only provide a color value if the input mesh contains data for it. For example, if the mesh has been exported from Blender without color data, the engine will not provide any for that mesh and will follow the order presented above.
+
+### Ruleset for converting between vertex layouts
+
+In some cases, the engine doesn’t have enough data to populate the vertex buffers based on the vertex declaration. For example, most components represent positions as a float vector with three components, but if it’s used in a shader that requires four components the engine needs to fill the rest of the data with some values that make sense. In the case of positions and colors, if the shader expects four components but only three is provided (as declared by the custom vertex attributes), a fourth component will be written with a value of 1. Furthermore, there might be situations where you have access to a larger vector type, but the shader can only use a smaller vector type (e.g using a 4x4 normal matrix as a 3x3 matrix in the shader).
+
+With this in mind, this is the ruleset Defold currently has implemented to adress such scenarios:
+
+* Converting from a scalar or vector to a smaller scalar or vector will truncate values from the end of the source value.
+* Converting from a scalar or vector to a larger vector will zero-fill at the end, unless the semantic-type is position, color or tangent, in which case the W component will be one.
+* Converting from a scalar or vector to a larger matrix will zero-fill at the end.
+* Converting from a matrix to a smaller matrix will use the top-left portion of the source matrix.
+* Converting from a matrix to a larger matrix will write into the top-left portion of the destination matrix, and fill the remaining space with the identity matrix.
+* Converting from a matrix to a vector will truncate values from the end of the source matrix.
+
 ### Setting custom vertex attribute data
 
 Similar to user defined shader constants, you can also update vertex attributes in runtime by calling go.get, go.set and go.animate:
