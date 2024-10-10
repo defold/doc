@@ -16,7 +16,12 @@ Common use cases are to set the health or speed of a specific enemy AI, the tint
 
 ## Defining a script property
 
-Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any callback-functions like `init()` and `update()`. The default value provided for the property governs the type of the property: number, boolean, hash, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
+Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any callback-functions like `init()` and `update()`. The default value provided for the property governs the type of the property: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
+
+::: important
+Script properties are parsed when building the project. Value expressions are not evaluated. This means that something like `go.property("hp", 3+6)` will not work while `go.property("hp", 9)` will.
+:::
+
 
 ```lua
 -- can.script
