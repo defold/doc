@@ -2,106 +2,165 @@
     "navigation": {
         "videos": [
             {
-                "path": "https://www.youtube.com/embed/DT4D0d47udA",
+                "path": "https://www.youtube.com/watch?v=R4oEB6e8G0A",
+                "embed": "https://www.youtube.com/embed/R4oEB6e8G0A",
+                "name": "Platformer Defold Tutorial 1 - Sprites, Tilemaps, Basic Setup",
+                "author": "Unfolding Gamedev",
+                "description": "A beginner-friendly tutorial series on creating a 2D platformer game in the Defold game engine, aiming to help viewers gradually learn game development. Introduction to creating a platformer game in Defold, covering sprites, tilemaps, and basic setup."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=iRDa8NAJtzQ",
+                "embed": "https://www.youtube.com/embed/iRDa8NAJtzQ",
+                "name": "Platformer Defold Tutorial 2 - Inputs, Scripting, Movement",
+                "author": "Unfolding Gamedev",
+                "description": "Part 2 of the series. Setting up inputs, scripting, and character movement."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=V3iJtpvAOxU",
+                "embed": "https://www.youtube.com/embed/V3iJtpvAOxU",
+                "name": "Platformer Defold Tutorial 3 - Gravity, Velocity, Collisions",
+                "author": "Unfolding Gamedev",
+                "description": "Part 3 of the series. Implementing gravity, velocity, and collision handling."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=F5XMemcAwmE",
+                "embed": "https://www.youtube.com/embed/F5XMemcAwmE",
+                "name": "Platformer Defold Tutorial 4 - Jumping, debugging",
+                "author": "Unfolding Gamedev",
+                "description": "Part 4 of the series. Adding jumping mechanics and debugging code."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=XCLh54jkzCw",
+                "embed": "https://www.youtube.com/embed/XCLh54jkzCw",
+                "name": "Platformer Defold Tutorial 5 - Particles, Sound",
+                "author": "Unfolding Gamedev",
+                "description": "Part 5 of the series. Adding particle effects and sound, with a detailed explanation of compensation functionality."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=9OTxUPEu_s4",
+                "embed": "https://www.youtube.com/embed/9OTxUPEu_s4",
+                "name": "Platformer Defold Tutorial 6 - Camera",
+                "author": "Unfolding Gamedev",
+                "description": "Part 6 of the series. Adding and handling the camera in the game."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=DT4D0d47udA",
+                "embed": "https://www.youtube.com/embed/DT4D0d47udA",
                 "name": "How does Messaging and Addressing Systems work in Defold?",
-                "author": "Unfolding Defold",
+                "author": "Unfolding Gamedev",
                 "description": "This video explains the Messaging and Addressing system in Defold."
             },
             {
-                "path": "https://www.youtube.com/embed/YGBSXMPd4jc",
+                "path": "https://www.youtube.com/watch?v=YGBSXMPd4jc",
+                "embed": "https://www.youtube.com/embed/YGBSXMPd4jc",
                 "name": "Defold Building Blocks - objects and components, editor and lifecycle overview",
-                "author": "Unfolding Defold",
+                "author": "Unfolding Gamedev",
                 "description": "This time we just familiarize ourselves with Defold - it's core principles and basic building blocks - game objects, collections of those and components."
             },
             {
-                "path": "https://www.youtube.com/embed/SXdkXXWJk4s",
+                "path": "https://www.youtube.com/watch?v=SXdkXXWJk4s",
+                "embed": "https://www.youtube.com/embed/SXdkXXWJk4s",
                 "name": "Defold Components - generic overview, beginners tutorial",
-                "author": "Unfolding Defold",
+                "author": "Unfolding Gamedev",
                 "description": "This is a generic guide for Defold beginners and enthusiasts, but also for anyone interested in what components are used in video games."
             },
             {
-                "path": "https://www.youtube.com/embed/_JDKVSTt1Fo",
+                "path": "https://www.youtube.com/watch?v=_JDKVSTt1Fo",
+                "embed": "https://www.youtube.com/embed/_JDKVSTt1Fo",
                 "name": "Defold Render Script Explained",
-                "author": "Unfolding Defold",
+                "author": "Unfolding Gamedev",
                 "description": "As a natural continuation of explaining how computer graphics are rendered, in this tutorial we dive into Defold Render Script."
             },
             {
-                "path": "https://www.youtube.com/embed/oLiJTcdBCkM",
+                "path": "https://www.youtube.com/watch?v=oLiJTcdBCkM",
+                "embed": "https://www.youtube.com/embed/oLiJTcdBCkM",
                 "name": "How graphics works? Render pipeline explained. Example OpenGL + Defold",
-                "author": "Unfolding Defold",
+                "author": "Unfolding Gamedev",
                 "description": "Do you want to create breathtaking visual effects? Photrealistic or stylized games? You need to dig into how rendering works!"
             },
             {
-                "path": "https://www.youtube.com/embed/sLFHDihszfc",
+                "path": "https://www.youtube.com/watch?v=sLFHDihszfc",
+                "embed": "https://www.youtube.com/embed/sLFHDihszfc",
                 "name": "Simple Lighting in Defold - Screen Space Light Maps",
-                "author": "Unfolding Defold",
+                "author": "Unfolding Gamedev",
                 "description": "This video tackles a very frequently asked question - How to make lighting? Watch this video to learn how to add post-processing to your game with Screen Space Light Maps and implement it in Defold!"
             },
             {
-                "path": "https://www.youtube.com/embed/HjJ-oDz-GcI",
-                "name": "Defold Space Shooter - Gamedev Tutorial for Beginners - Part 1 - Sprites, Inputs, Scripts",
-                "author": "Unfolding Defold",
+                "path": "https://www.youtube.com/watch?v=HjJ-oDz-GcI",
+                "embed": "https://www.youtube.com/embed/HjJ-oDz-GcI",
+                "name": "Defold Space Shooter - Gamedev Tutorial for Beginners - 1/3 Sprites, Inputs, Scripts",
+                "author": "Unfolding Gamedev",
                 "description": "This video begins a tutorial series on making a simple space shooter game in Defold - similar to Galaga or Warblade, with a top down view and hordes of enemies you can shoot of with lasers and rockets."
             },
             {
-                "path": "https://www.youtube.com/embed/CcgunSGKkYE",
-                "name": "Defold Space Shooter - Gamedev Tutorial for Beginners - Part 2 - Collisions, Factories",
-                "author": "Unfolding Defold",
+                "path": "https://www.youtube.com/watch?v=CcgunSGKkYE",
+                "embed": "https://www.youtube.com/embed/CcgunSGKkYE",
+                "name": "Defold Space Shooter - Gamedev Tutorial for Beginners - 2/3 Collisions, Factories",
+                "author": "Unfolding Gamedev",
                 "description": "Continuing the tutorial series on making a simple space shooter game in Defold! This time you will learn how to utilize collisions for detecting if enemy ships were hit by a projectile."
             },
             {
-                "path": "https://www.youtube.com/embed/4r-L51jen_I",
-                "name": "Defold Space Shooter - Gamedev Tutorial for Beginners -  3/3 Particle Effects, Sounds, GUI",
-                "author": "Unfolding Defold",
+                "path": "https://www.youtube.com/watch?v=4r-L51jen_I",
+                "embed": "https://www.youtube.com/embed/4r-L51jen_I",
+                "name": "Defold Space Shooter - Gamedev Tutorial for Beginners - 3/3 Particle Effects, Sounds, GUI",
+                "author": "Unfolding Gamedev",
                 "description": "This is the 3rd, last part of the tutorial on making a very simple space shooter game like Galaga or Warblade in Defold! This concludes our effort to start game development with a quick project."
             },
             {
-                "path": "https://www.youtube.com/embed/NtKziaBR11k",
+                "path": "https://www.youtube.com/watch?v=NtKziaBR11k",
+                "embed": "https://www.youtube.com/embed/NtKziaBR11k",
                 "name": "How to make branching interactive dialogs in your game?",
-                "author": "Unfolding Defold",
+                "author": "Unfolding Gamedev",
                 "description": "Let's take a look at Arcweave - a web tool to create interactive and branching games narratives with an export for Defold game engine."
             },
 
 
 
             {
-                "path": "https://www.youtube.com/embed/Ri2KStY-mfE",
+                "path": "https://www.youtube.com/watch?v=Ri2KStY-mfE",
+                "embed": "https://www.youtube.com/embed/Ri2KStY-mfE",
                 "name": "Defold Installation and Overview",
                 "author": "Tactx Studios",
                 "description": "In this session you’ll learn about how to install Defold on your desktop (Mac or Windows) as well as get oriented to the Defold Editor."
             },
             {
-                "path": "https://www.youtube.com/embed/GfOrjyeC5b8",
+                "path": "https://www.youtube.com/watch?v=GfOrjyeC5b8",
+                "embed": "https://www.youtube.com/embed/GfOrjyeC5b8",
                 "name": "Defold Image Procedures",
                 "author": "Tactx Studios",
                 "description": "This session will provide instructions on how to load images to your Defold game project as well as how to position them within your game.  Some basic animation techniques are also described."
             },
             {
-                "path": "https://www.youtube.com/embed/83TcgJyv9vk",
+                "path": "https://www.youtube.com/watch?v=83TcgJyv9vk",
+                "embed": "https://www.youtube.com/embed/83TcgJyv9vk",
                 "name": "Defold Drag and Drop",
                 "author": "Tactx Studios",
                 "description": "A walkthough is provided on how you can support a user selecting a specific game object and dragging it to a new location within your game."
             },
             {
-                "path": "https://www.youtube.com/embed/nLKKbxTDaas",
+                "path": "https://www.youtube.com/watch?v=nLKKbxTDaas",
+                "embed": "https://www.youtube.com/embed/nLKKbxTDaas",
                 "name": "Defold Movement",
                 "author": "Tactx Studios",
                 "description": "This tutorial describes the procedures needed to move a Game Object using either a pre-defined path, or based on user inputs via mouse or touch."
             },
             {
-                "path": "https://www.youtube.com/embed/lxw7vhnaJxc",
+                "path": "https://www.youtube.com/watch?v=lxw7vhnaJxc",
+                "embed": "https://www.youtube.com/embed/lxw7vhnaJxc",
                 "name": "Defold Physics",
                 "author": "Tactx Studios",
                 "description": "Leveraging Defold’s Physics Engine – this tutorial reviews the concept of a collision object, used to trigger when one game object touches another, effects of gravity and bounce features."
             },
             {
-                "path": "https://www.youtube.com/embed/VU2aJSLmo7Y",
+                "path": "https://www.youtube.com/watch?v=VU2aJSLmo7Y",
+                "embed": "https://www.youtube.com/embed/VU2aJSLmo7Y",
                 "name": "Defold GUI",
                 "author": "Tactx Studios",
                 "description": "A detailed description is provided on how you can incorporate button animations within the GUI as well as text notifications to users."
             },
             {
-                "path": "https://www.youtube.com/embed/ri1xa-3nG3U",
+                "path": "https://www.youtube.com/watch?v=ri1xa-3nG3U",
+                "embed": "https://www.youtube.com/embed/ri1xa-3nG3U",
                 "name": "Defold Levels and Lua Modules",
                 "author": "Tactx Studios",
                 "description": "The final tutorial in this introductory series provides an explanation on how to accommodate multiple game levels to support different scenes or game chapters – as well as how to exchange information between game components."
@@ -110,55 +169,64 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/4XGbQ92FzRI",
+                "path": "https://www.youtube.com/watch?v=4XGbQ92FzRI",
+                "embed": "https://www.youtube.com/embed/4XGbQ92FzRI",
                 "name": "Series Introduction",
                 "author": "Game from Scratch",
                 "description": "This game programming series by Game from Scratch covers covers all aspects of 2D game development in Defold. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/PrkmFn86E5Y",
+                "path": "https://www.youtube.com/watch?v=PrkmFn86E5Y",
+                "embed": "https://www.youtube.com/embed/PrkmFn86E5Y",
                 "name": "Getting Started",
                 "author": "Game from Scratch",
                 "description": "In this part of our ongoing Defold Tutorial Series, we look at the initial getting started process. We download and run the tools, create then run our first project. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/eAnXnsoab-Q",
+                "path": "https://www.youtube.com/watch?v=eAnXnsoab-Q",
+                "embed": "https://www.youtube.com/embed/eAnXnsoab-Q",
                 "name": "Application Basics",
                 "author": "Game from Scratch",
                 "description": "Welcome to the second tutorial in the Defold Game Engine series by Game from Scratch. Today we look at how a Defold application works. How collections, game objects and components are used together to create games. We then look at attaching a script and how the game lifecycle is resolved. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/REA3dsuZpkw",
+                "path": "https://www.youtube.com/watch?v=REA3dsuZpkw",
+                "embed": "https://www.youtube.com/embed/REA3dsuZpkw",
                 "name": "Sprites and Animations",
                 "author": "Game from Scratch",
                 "description": "In this part of the tutorial we look at creating flipbook style sprite animations. We look at the two ways it is supported, Atlas based and tilesheet based sprites. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/ha1Wq2FB7L0",
+                "path": "https://www.youtube.com/watch?v=ha1Wq2FB7L0",
+                "embed": "https://www.youtube.com/embed/ha1Wq2FB7L0",
                 "name": "Input, Scripting and Messages",
                 "author": "Game from Scratch",
                 "description": "In the next part of our ongoing Defold Game Engine tutorial, we look at how you script. In addition we look at handling input and how message passing works, a critical concept. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/CDggJOQmlPI",
+                "path": "https://www.youtube.com/watch?v=CDggJOQmlPI",
+                "embed": "https://www.youtube.com/embed/CDggJOQmlPI",
                 "name": "Sound and Music",
                 "author": "Game from Scratch",
                 "description": "In this part of the Defold Game Engine tutorial series we are going to look at audio programming. Specifically how to play ogg and wav files using components and code. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/eH_2X0tVesw",
+                "path": "https://www.youtube.com/watch?v=eH_2X0tVesw",
+                "embed": "https://www.youtube.com/embed/eH_2X0tVesw",
                 "name": "Tilemaps",
                 "author": "Game from Scratch",
                 "description": "In this tutorial we look at quickly and easily creating 2D levels using the Defold editor and tile maps. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/o6LNvXSnvGM",
+                "path": "https://www.youtube.com/watch?v=o6LNvXSnvGM",
+                "embed": "https://www.youtube.com/embed/o6LNvXSnvGM",
                 "name": "Physics",
                 "author": "Game from Scratch",
                 "description": "In this tutorial on using the Defold Game Engine, we explore how to use the integrated Box2D physics. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
             },
             {
-                "path": "https://www.youtube.com/embed/99gKlgl1nR0",
+                "path": "https://www.youtube.com/watch?v=99gKlgl1nR0",
+                "embed": "https://www.youtube.com/embed/99gKlgl1nR0",
                 "name": "UI Programming",
                 "author": "Game from Scratch",
                 "description": "In this tutorial we look at GUI/UI programming in the Defold game engine. DISCLAIMER: This tutorial series shows the old editor and website. The new website does not require any login and account setup to create a project."
@@ -167,37 +235,43 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/7P4Qj-OCLF8",
+                "path": "https://www.youtube.com/watch?v=7P4Qj-OCLF8",
+                "embed": "https://www.youtube.com/embed/7P4Qj-OCLF8",
                 "name": "Build a Tower Defense game - Opening Sequence",
                 "author": "Tactx Studios",
                 "description": "This Tower Defense Tutorial will teach you the basics on how to incorporate the following features into a game: (1) splashscreens, (2) level selection menus, (3) help screens, (4) tank strikes, (5) tower placement, (6) fire exchange, (7) health resources, and (8) victory conditions."
             },
             {
-                "path": "https://www.youtube.com/embed/no0PEgUJPSE",
+                "path": "https://www.youtube.com/watch?v=no0PEgUJPSE",
+                "embed": "https://www.youtube.com/embed/no0PEgUJPSE",
                 "name": "Build a Tower Defense game - Tanks and Objectives",
                 "author": "Tactx Studios",
                 "description": "This second video in our Tower Defense Series will focus on the design of Tank Collections and a Game Object representing the Enemy Tank's Final Objective."
             },
             {
-                "path": "https://www.youtube.com/embed/GVsdtgoFiCw",
+                "path": "https://www.youtube.com/watch?v=GVsdtgoFiCw",
+                "embed": "https://www.youtube.com/embed/GVsdtgoFiCw",
                 "name": "Build a Tower Defense game - Tower Deployment",
                 "author": "Tactx Studios",
                 "description": "Hang on for this third video in our Tower Defense Series – it focuses on game design techniques that facilitate the spawning of both Defensive Positions and Tower Collections, as well as supporting the ability to drag and drop Tower Objects across the game screen."
             },
             {
-                "path": "https://www.youtube.com/embed/-mB5QiRab7w",
+                "path": "https://www.youtube.com/watch?v=-mB5QiRab7w",
+                "embed": "https://www.youtube.com/embed/-mB5QiRab7w",
                 "name": "Build a Tower Defense game - Fire Exchange",
                 "author": "Tactx Studios",
                 "description": "You just can’t have a Tower Defense game with modeling the exchange of gun fires between your deployed Towers…and the series of Tank Strikes that move toward their objective."
             },
             {
-                "path": "https://www.youtube.com/embed/IyX0tGC1GuE",
+                "path": "https://www.youtube.com/watch?v=IyX0tGC1GuE",
+                "embed": "https://www.youtube.com/embed/IyX0tGC1GuE",
                 "name": "Build a Tower Defense game - Scoring and Tower Upgrade Process",
                 "author": "Tactx Studios",
                 "description": "This fifth video in our Tower Defense Series will focus on design mechanics that support the inclusion of both a Resource as well as Health set of Scoring criteria. Additionally, it will address the addition of a popup that will let you either repair a tower, upgrade a tower or sell it outright."
             },
             {
-                "path": "https://www.youtube.com/embed/DEKHx3somkA",
+                "path": "https://www.youtube.com/watch?v=DEKHx3somkA",
+                "embed": "https://www.youtube.com/embed/DEKHx3somkA",
                 "name": "Build a Tower Defense game - Game Pause and Tutorial Wrap-up",
                 "author": "Tactx Studios",
                 "description": "This last video in our Tower Defense Series is going to focus on a couple pretty important concepts: (1) pausing a game using the Defold Collection Proxy Component, and (2) adjusting several game parameters within the game to achieve game balance."
@@ -206,7 +280,8 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/vfdyCzndWCM",
+                "path": "https://www.youtube.com/watch?v=vfdyCzndWCM",
+                "embed": "https://www.youtube.com/embed/vfdyCzndWCM",
                 "name": "How to use Texture Packer Sprite Sheets and Animations with Defold?",
                 "author": "Andreas Loew",
                 "description": "This video explains how you can easily create Sprite Sheets in TexturePacker and use them in the Defold game engine."
@@ -215,13 +290,15 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/iMacxZQMPXs",
+                "path": "https://www.youtube.com/watch?v=iMacxZQMPXs",
+                "embed": "https://www.youtube.com/embed/iMacxZQMPXs",
                 "name": "Lua Tutorial",
                 "author": "Derek Bananas",
                 "description": "Learn Lua in one hour."
             }, 
             {
-                "path": "https://www.youtube.com/embed/jUuqBZwwkQw",
+                "path": "https://www.youtube.com/watch?v=jUuqBZwwkQw",
+                "embed": "https://www.youtube.com/embed/jUuqBZwwkQw",
                 "name": "Lua in 100 seconds",
                 "author": "Fireship",
                 "description": "An overview of the Lua language."
@@ -229,50 +306,58 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/6Et67K4qZpI",
+                "path": "https://www.youtube.com/watch?v=6Et67K4qZpI",
+                "embed": "https://www.youtube.com/embed/6Et67K4qZpI",
                 "name": "Scrolling background",
                 "author": "Mahri2D",
                 "description": "How to create a scrolling background."
             },
             {
-                "path": "https://www.youtube.com/embed/BVfa18KV5VQ",
+                "path": "https://www.youtube.com/watch?v=BVfa18KV5VQ",
+                "embed": "https://www.youtube.com/embed/BVfa18KV5VQ",
                 "name": "Top Down Movement",
                 "author": "Mahri2D",
                 "description": "How to create a top-down player movement controller."
             },
             {
-                "path": "https://www.youtube.com/embed/WUNsBa0nPbE",
+                "path": "https://www.youtube.com/watch?v=WUNsBa0nPbE",
+                "embed": "https://www.youtube.com/embed/WUNsBa0nPbE",
                 "name": "Follow mouse",
                 "author": "Mahri2D",
                 "description": "How to make an object follow the mouse pointer or finger."
             },
             {
-                "path": "https://www.youtube.com/embed/WhO2k52Xl0s",
+                "path": "https://www.youtube.com/watch?v=WhO2k52Xl0s",
+                "embed": "https://www.youtube.com/embed/WhO2k52Xl0s",
                 "name": "Rotate to mouse",
                 "author": "Mahri2D",
                 "description": "How to make an object rotate towards the mouse pointer or finger."
             },
 
             {
-                "path": "https://www.youtube.com/embed/2sxj1Ggc4jQ",
+                "path": "https://www.youtube.com/watch?v=2sxj1Ggc4jQ",
+                "embed": "https://www.youtube.com/embed/2sxj1Ggc4jQ",
                 "name": "Introduction to Defold",
                 "author": "Game Developers",
                 "description": "In this first lesson, we are going over the game engine IDE, its main blocks and its capabilities as engine to create multiplatform games."
             },
             {
-                "path": "https://www.youtube.com/embed/Q_R8Zt8giGg",
+                "path": "https://www.youtube.com/watch?v=Q_R8Zt8giGg",
+                "embed": "https://www.youtube.com/embed/Q_R8Zt8giGg",
                 "name": "Creating a platformer protoype",
                 "author": "Game Developers",
                 "description": "In this video, we will start to take a look at the building blocks of creating a game for the engine."
             },
             {
-                "path": "https://www.youtube.com/embed/3kjkAThCLc0",
+                "path": "https://www.youtube.com/watch?v=3kjkAThCLc0",
+                "embed": "https://www.youtube.com/embed/3kjkAThCLc0",
                 "name": "Enemy movement and animations",
                 "author": "Game Developers",
                 "description": "In this video, we are implementing an enemy with a basic behavior of walking forward until colliding with a wall and then flipping into the opposite direction. We will add animations to the enemy and to the player that was implemented in the previous video."
             },
             {
-                "path": "https://www.youtube.com/embed/-ESjvMqY8Bw",
+                "path": "https://www.youtube.com/watch?v=-ESjvMqY8Bw",
+                "embed": "https://www.youtube.com/embed/-ESjvMqY8Bw",
                 "name": "Enemy melee attack",
                 "author": "Game Developers",
                 "description": "In this video, we are continuing from the previous video and build a detect and attack behavior for our skeleton enemy. For this to work, we have to implement trigger detection, collision enabling and disabling, frame count detection to synchronize the hitbox enabling with the frame animation, and finally applying the damage to the player."
@@ -281,25 +366,29 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/nv1xZe0BAic",
+                "path": "https://www.youtube.com/watch?v=nv1xZe0BAic",
+                "embed": "https://www.youtube.com/embed/nv1xZe0BAic",
                 "name": "Procedural 2D Terrain with Climate",
                 "author": "Sergey Lerg",
                 "description": "Procedural 2D terrain generation with procedural climate change animation using Defold engine and Lua programming language."
             },
             {
-                "path": "https://www.youtube.com/embed/NedBomX5TFw",
+                "path": "https://www.youtube.com/watch?v=NedBomX5TFw",
+                "embed": "https://www.youtube.com/embed/NedBomX5TFw",
                 "name": "AdMob extension for Defold",
                 "author": "Sergey Lerg",
                 "description": "How to use AdMob in Defold."
             },
             {
-                "path": "https://www.youtube.com/embed/sK4pJ8A3YS4",
+                "path": "https://www.youtube.com/watch?v=sK4pJ8A3YS4",
+                "embed": "https://www.youtube.com/embed/sK4pJ8A3YS4",
                 "name": "Taxi Town and Lunar Orbit - Technical breakdown",
                 "author": "Sergey Lerg",
                 "description": "A Technical breakdown of how Taxi Town and Lunar Orbit were created using Defold."
             },
             {
-                "path": "https://www.youtube.com/embed/PRQca8TqPJI",
+                "path": "https://www.youtube.com/watch?v=PRQca8TqPJI",
+                "embed": "https://www.youtube.com/embed/PRQca8TqPJI",
                 "name": "Grids and Arrays",
                 "author": "Sergey Lerg",
                 "description": "Tutorial on making grids and working with arrays in Defold."
@@ -308,25 +397,29 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "path": "https://www.youtube.com/watch?v=slTEz6555Ts",
+                "embed": "https://www.youtube.com/embed/slTEz6555Ts",
                 "name": "Cellular Automata and Procedural Map Generation",
                 "author": "Klayton Kowalski",
                 "description": "In this video, Klayton explain what a cellular automaton is, how it works, and how to implement it."
             },
             {
-                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "path": "https://www.youtube.com/watch?v=slTEz6555Ts",
+                "embed": "https://www.youtube.com/embed/slTEz6555Ts",
                 "name": "Diamond Square and Procedural Map Generation",
                 "author": "Klayton Kowalski",
                 "description": "In this video, Klayton explain what a cellular automaton is, how it works, and how to implement it."
             },
             {
-                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "path": "https://www.youtube.com/watch?v=slTEz6555Ts",
+                "embed": "https://www.youtube.com/embed/slTEz6555Ts",
                 "name": "Cellular Automata and Procedural Map Generation",
                 "author": "Klayton Kowalski",
                 "description": "In this video, Klayton explain what the diamond square algorithm is, how it works, and how to implement it."
             },
             {
-                "path": "https://www.youtube.com/embed/slTEz6555Ts",
+                "path": "https://www.youtube.com/watch?v=slTEz6555Ts",
+                "embed": "https://www.youtube.com/embed/slTEz6555Ts",
                 "name": "Lazy Flood Fill and Procedural Map Generation",
                 "author": "Klayton Kowalski",
                 "description": "In this video, Klayton explain what the lazy flood fill algorithm algorithm is, how it works, and how to implement it."
@@ -335,49 +428,57 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/aXIaijThcHM",
+                "path": "https://www.youtube.com/watch?v=aXIaijThcHM",
+                "embed": "https://www.youtube.com/embed/aXIaijThcHM",
                 "name": "Defold Team Explains #1 - Collection Proxies and memory management",
                 "author": "Defold",
                 "description": "In this video we explain how to better design scene and level loading in your game? How does Defold manage memory under the hood?"
             },
             {
-                "path": "https://www.youtube.com/embed/Q4slGOd7Og4",
+                "path": "https://www.youtube.com/watch?v=Q4slGOd7Og4",
+                "embed": "https://www.youtube.com/embed/Q4slGOd7Og4",
                 "name": "Defold Team Explains #2 - App Manifest in Defold and the manifestation tool",
                 "author": "Defold",
                 "description": "In this video we explain how to use an app manifest to reduce the size of your game."
             },
             {
-                "path": "https://www.youtube.com/embed/1kiLHUkL8HI",
+                "path": "https://www.youtube.com/watch?v=1kiLHUkL8HI",
+                "embed": "https://www.youtube.com/embed/1kiLHUkL8HI",
                 "name": "Defold Team Explains #3 - The basics of addressing and message passing",
                 "author": "Defold",
                 "description": "In this video we explain the concept of message passing and the basics of game object addressing."
             },
             {
-                "path": "https://www.youtube.com/embed/bG1IJDBHwHg",
+                "path": "https://www.youtube.com/watch?v=bG1IJDBHwHg",
+                "embed": "https://www.youtube.com/embed/bG1IJDBHwHg",
                 "name": "Defold Team Explains #4 - How to add post effects to a Defold game",
                 "author": "Defold",
                 "description": "How to modify the rendering pipeline of Defold. Overview of the render script, Shaders, materials and how to modify them. Implementing a full screen post effect."
             },
             {
-                "path": "https://www.youtube.com/embed/aFLhNqst7j8",
+                "path": "https://www.youtube.com/watch?v=aFLhNqst7j8",
+                "embed": "https://www.youtube.com/embed/aFLhNqst7j8",
                 "name": "Defold Team Explains #5 - Talking to objects created by Collection Factories",
                 "author": "Defold",
                 "description": "In this video we explain addressing in the context of factory created game objects and in nested collections. We also discuss the performance of message passing."
             },
             {
-                "path": "https://www.youtube.com/embed/va3UWbDkTK4",
+                "path": "https://www.youtube.com/watch?v=va3UWbDkTK4",
+                "embed": "https://www.youtube.com/embed/va3UWbDkTK4",
                 "name": "Defold Team Explains #6 - Why Live Update is essential for your game",
                 "author": "Defold",
                 "description": "In this video we explain what Live Update is and how to use it."
             },
             {
-                "path": "https://www.youtube.com/embed/a5788qHAiO0",
+                "path": "https://www.youtube.com/watch?v=a5788qHAiO0",
+                "embed": "https://www.youtube.com/embed/a5788qHAiO0",
                 "name": "Defold Team Explains #7 - Constructing and deconstructing URLs, caching senders",
                 "author": "Defold",
                 "description": "How are message URLs constructed and what are the parts that make up a full URL to an object in Defold?"
             },
             {
-                "path": "https://www.youtube.com/embed/_0YM2QTYN5Y",
+                "path": "https://www.youtube.com/watch?v=_0YM2QTYN5Y",
+                "embed": "https://www.youtube.com/embed/_0YM2QTYN5Y",
                 "name": "Defold Team Explains #8 - How to push new content to live games",
                 "author": "Defold",
                 "description": "In this video we explain how to use Live Update to push new content to live games."
@@ -386,25 +487,29 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/Tz-AinJGDIM",
+                "path": "https://www.youtube.com/watch?v=Tz-AinJGDIM",
+                "embed": "https://www.youtube.com/embed/Tz-AinJGDIM",
                 "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 1",
                 "author": "ShapeShift Games",
                 "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. In part 1 you will create the project and do some initial setup (11 steps)."
             },
             {
-                "path": "https://www.youtube.com/embed/6zgh2r2I6dQ",
+                "path": "https://www.youtube.com/watch?v=6zgh2r2I6dQ",
+                "embed": "https://www.youtube.com/embed/6zgh2r2I6dQ",
                 "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 2",
                 "author": "ShapeShift Games",
                 "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. In part 2 you will create the start screen (9 steps)."
             },
             {
-                "path": "https://www.youtube.com/embed/wuQgTNBmxhI",
+                "path": "https://www.youtube.com/watch?v=wuQgTNBmxhI",
+                "embed": "https://www.youtube.com/embed/wuQgTNBmxhI",
                 "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 3",
                 "author": "ShapeShift Games",
                 "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. In part 3 you will create the fully functioning game (35 steps)."
             },
             {
-                "path": "https://www.youtube.com/embed/p9ZzM3VRDXw",
+                "path": "https://www.youtube.com/watch?v=p9ZzM3VRDXw",
+                "embed": "https://www.youtube.com/embed/p9ZzM3VRDXw",
                 "name": "How To Make a Hyper Casual Game - Square Fall Tutorial Part 4",
                 "author": "ShapeShift Games",
                 "description": "This is a four part tutorial for making a simple hyper casual game called Square Fall. Part 4 is the final video. In this part you will create the gameover screen (11 steps)."
@@ -412,19 +517,22 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/XvSfdu7bcF8",
+                "path": "https://www.youtube.com/watch?v=XvSfdu7bcF8",
+                "embed": "https://www.youtube.com/embed/XvSfdu7bcF8",
                 "name": "Exporting Tiled Tilemaps to Defold",
                 "author": "OURABIG",
                 "description": "Comprehensive tutorial on exporting tilemaps created in Tiled to the Defold game engine."
             },
             {
-                "path": "https://www.youtube.com/embed/C4JhmQ5bJEI",
+                "path": "https://www.youtube.com/watch?v=C4JhmQ5bJEI",
+                "embed": "https://www.youtube.com/embed/C4JhmQ5bJEI",
                 "name": "Customize Game Background Colors in Defold",
                 "author": "OURABIG",
                 "description": "Discover the secrets of customizing your game's background color in the Defold game engine."
             },
             {
-                "path": "https://www.youtube.com/embed/W0KaY-ucN_U",
+                "path": "https://www.youtube.com/watch?v=W0KaY-ucN_U",
+                "embed": "https://www.youtube.com/embed/W0KaY-ucN_U",
                 "name": "How to make 3D controller in the Defold game engine",
                 "author": "OURABIG",
                 "description": "Learn how to make 3D controller."
@@ -432,7 +540,8 @@
 
 
             {
-                "path": "https://www.youtube.com/embed/scF9qR9nzME",
+                "path": "https://www.youtube.com/watch?v=scF9qR9nzME",
+                "embed": "https://www.youtube.com/embed/scF9qR9nzME",
                 "name": "Build a Pong with Defold - Beginner Series",
                 "author": "Galvia Games",
                 "description": "Let's build a Pong using the Defold game engine!"
@@ -441,6 +550,7 @@
             
             {
                 "path": "https://www.youtube.com/watch?v=affVW3XDsMk",
+                "embed": "https://www.youtube.com/embed/affVW3XDsMk",
                 "name": "Complete Defold Course - Learn Beginner/Intermediate Level",
                 "author": "Zenva",
                 "description": "Master Defold - a free and powerful game engine for building 2D & 3D games!"
@@ -448,6 +558,7 @@
 
             {
                 "path": "https://www.youtube.com/watch?v=fTQIVb1A68g",
+                "embed": "https://www.youtube.com/embed/fTQIVb1A68g",
                 "name": "Defold Platformer Mini-Course",
                 "author": "Zenva",
                 "description": "Create your own 2D platformer game with Defold!"
