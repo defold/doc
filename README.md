@@ -81,3 +81,17 @@ This text inside the sidenote should be translated but NOT 'sidenote' above
 This text inside important note should be translated but NOT 'important' above
 :::
 ```
+
+# Defold videos
+
+The [videos](https://defold.com/videos/) on Defold's website are generated based on the [en.json](/defold/doc/blob/master/docs/en/en.json).
+
+## Add new video
+
+Add new video entry into [en.json](/defold/doc/blob/master/docs/en/en.json). You may do it "by hand" or try using the following [fetch_youtube_video_metadata.py](/defold/doc/blob/master/scripts/fetch_youtube_video_metadata.py) script to generate multiple entries. 
+
+```bash
+python3 ./scripts/fetch_youtube_video_metadata.py "https://www.youtube.com/watch?v=R4oEB6e8G0A" "https://www.youtube.com/watch?v=iRDa8NAJtzQ"
+```
+
+Pro tip: use https://chatgpt.com or similar to summarize video descriptions
