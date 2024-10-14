@@ -134,7 +134,7 @@ go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1), go.EASING_LINEAR, 2)
 ```
 
-There are some caveats to updating the vertex attributes however, wether or not a component can use the value depends on the semantic type of the attribute. For example, a sprite component supports the `SEMANTIC_TYPE_POSITION` so if you update an attribute that has this semantic type, the component will ignore the overridden value since the semantic type dictates that the data should always be produced by the sprites position.
+There are some caveats to updating the vertex attributes however, whether or not a component can use the value depends on the semantic type of the attribute. For example, a sprite component supports the `SEMANTIC_TYPE_POSITION` so if you update an attribute that has this semantic type, the component will ignore the overridden value since the semantic type dictates that the data should always be produced by the sprites position.
 
 ::: sidenote
 Setting custom vertex data in runtime is currently only supported for sprite components.
@@ -158,7 +158,7 @@ Instancing is enabled automatically when possible. Defold heavily relies on batc
 
 Configuring a vertex attribute to be repeated per instance requires that the `Step function` is set to `Instance`. This is done automatically for certain semantic types based on name (see the `Default attribute semantics` table above), but it can also be set manually in the material editor by setting the `Step function` to `Instance`.
 
-As a simple example, the following scene has four gameobjects with a model component each:
+As a simple example, the following scene has four game objects with a model component each:
 
 ![Instancing setup](images/materials/instancing-setup.png){srcset="images/materials/instancing-setup@2x.png 2x"}
 
@@ -186,9 +186,9 @@ To verify that the instancing works in this case, you can look at the web profil
 
 ![Instancing draw calls](images/materials/instancing-draw-calls.png){srcset="images/materials/instancing-draw-calls@2x.png 2x"}
 
-#### Backwards compatability
+#### Backwards compatibility
 
-On OpenGL based graphcis adapters, instancing requires at least OpenGL 3.1 for desktop and OpenGL ES 3.0 for mobile. This means that very old devices that are using OpenGL ES2 or older OpenGL versions might not support instancing. In this case, rendering will still work by default without any special care from the developer, but it may not be as performant as if actual instancing was used. Currently, there is no way of detecting if instancing is supported or not, but this functionality will be added in the future so that a cheaper material can be used, or things like foliage or clutter that typically would be good candidates for instancing, could be skipped completely.
+On OpenGL based graphics adapters, instancing requires at least OpenGL 3.1 for desktop and OpenGL ES 3.0 for mobile. This means that very old devices that are using OpenGL ES2 or older OpenGL versions might not support instancing. In this case, rendering will still work by default without any special care from the developer, but it may not be as performant as if actual instancing was used. Currently, there is no way of detecting if instancing is supported or not, but this functionality will be added in the future so that a cheaper material can be used, or things like foliage or clutter that typically would be good candidates for instancing, could be skipped completely.
 
 ## Vertex and fragment constants
 
