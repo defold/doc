@@ -144,7 +144,7 @@ The following lossy compression formats are currently supported:
 The following software image compression types are supported. The data is uncompressed when the texture file is loaded into memory.
 
 ::: sidenote
-We are currently looking into how to reintroduce support for hardware formats, as well as readding support for WEBP compression.
+We are currently looking into how to reintroduce support for hardware formats, as well as reading support for WEBP compression.
 Our current long running task of introducing content pipeline plugins aim to fix this.
 :::
 

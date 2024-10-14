@@ -93,7 +93,7 @@ usage: bob [options] [commands]
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
     --ne-build-dir <arg>                 Specify a folder with includes or
                                          source, to build a specific
-                                         library. More than one occurrance
+                                         library. More than one occurrence
                                          is allowed.
     --ne-output-name <arg>               Specify a library target name
  -o,--output <arg>                       Output directory. Default is
@@ -112,7 +112,7 @@ usage: bob [options] [commands]
     --resource-cache-remote-user <arg>   Username to authenticate access
                                          to the remote resource cache.
     --settings <arg>                     Path to a game project settings
-                                         file. More than one occurrance is
+                                         file. More than one occurrence is
                                          allowed. The settings files are
                                          applied left to right.
     --strip-executable                   Strip the dmengine of debug

@@ -4,7 +4,7 @@ brief: This manual explains how key and text input works.
 ---
 
 ::: sidenote
-It is recommended that you familiarise yourself with the general way in which input works in Defold, how to receive input and in which order input is received in your script files. Learn more about the input system in the [Input Overview manual](/manuals/input).
+It is recommended that you familiarize yourself with the general way in which input works in Defold, how to receive input and in which order input is received in your script files. Learn more about the input system in the [Input Overview manual](/manuals/input).
 :::
 
 # Key Triggers
@@ -45,7 +45,7 @@ end
 ```
 
 ## Marked text
-The `marked-text` is used primarily for asian keyboards where multiple keypresses can map to single inputs. For example, with the iOS "Japanese-Kana" keyboard, the user can type combinations and the top of the keyboard will display avaliable symbols or sequences of symbols that can be entered.
+The `marked-text` is used primarily for Asian keyboards where multiple keypresses can map to single inputs. For example, with the iOS "Japanese-Kana" keyboard, the user can type combinations and the top of the keyboard will display available symbols or sequences of symbols that can be entered.
 
 ![Input marked text](images/input/marked_text.png){srcset="images/input/marked_text@2x.png 2x"}
 

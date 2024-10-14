@@ -71,7 +71,7 @@ https://gitlab.com/defold/private/-/archive/main/test-main.zip?private_token=per
 
 ### Advanced access authentication
 
-When using the basic access authentication a user's access token and username will be shared on any repository used for the project.  With a greater than 1 man team this can be an issue. To solve this issue a "read only" user needs to be used for library access to the repository, on GitHub this requires an organisation, a team and a user who doesn't need to edit the repo (hence read only).
+When using the basic access authentication a user's access token and username will be shared on any repository used for the project.  With a greater than 1 man team this can be an issue. To solve this issue a "read only" user needs to be used for library access to the repository, on GitHub this requires an organization, a team and a user who doesn't need to edit the repo (hence read only).
 
 GitHub Steps:
 * [Create an organisation](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch)

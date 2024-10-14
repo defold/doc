@@ -136,4 +136,4 @@ If you have problems with physics and collisions aren't working as expected it i
 
 When this checkbox is enabled Defold will draw all collision shapes and contact points of collisions:
 
-![physics debug visualisation](images/debugging/physics_debug_visualisation.png)
+![physics debug visualization](images/debugging/physics_debug_visualisation.png)

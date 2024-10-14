@@ -121,7 +121,7 @@ end
 ```
 
 1. The `liveupdate.add_mount()` mounts a single archive using a specified name, priority and a zip file. The data is then immediately available for loading (there is no need to restart the engine).
-The mount info is stored and will be automatically readded upon next engine restart (no need to call liveupdate.add_mount() again on the same mount)
+The mount info is stored and will be automatically re-added upon next engine restart (no need to call liveupdate.add_mount() again on the same mount)
 2. You need to store the archive online (e.g. on S3), where you can download it from.
 3. Given a collection proxy name, you need to figure our which archive(s) to download, and how to mount them
 4. At startup, we try to load the level.

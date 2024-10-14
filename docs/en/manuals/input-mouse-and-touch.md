@@ -4,7 +4,7 @@ brief: This manual explains how mouse and touch input works.
 ---
 
 ::: sidenote
-It is recommended that you familiarise yourself with the general way in which input works in Defold, how to receive input and in which order input is received in your script files. Learn more about the input system in the [Input Overview manual](/manuals/input).
+It is recommended that you familiarize yourself with the general way in which input works in Defold, how to receive input and in which order input is received in your script files. Learn more about the input system in the [Input Overview manual](/manuals/input).
 :::
 
 # Mouse Triggers

@@ -73,7 +73,7 @@ While our current pipeline only supports creating a single .zip file, it is in f
 
 ## Splitting .zip archives
 
-It is often desireable to split the excluded content into several smaller archives for more granular control over resource usage. One such example is to split a level based game into multiple level packs. Another is to put different holiday themed UI decorations into separate archives and load and mount only the theme currently active in the calendar.
+It is often desirable to split the excluded content into several smaller archives for more granular control over resource usage. One such example is to split a level based game into multiple level packs. Another is to put different holiday themed UI decorations into separate archives and load and mount only the theme currently active in the calendar.
 
 The resource graph is stored in `build/default/game.graph.json` and it is automatically generated each time the project is bundled. The generated file contains a list of all resources in the project and the dependencies of each resource. Example entry:
 
@@ -94,7 +94,7 @@ You can parse the `game.graph.json` file and use this information to identify gr
 One of the major features of the live update system, is that you can now use many content archives, potentially from many different Defold versions.
 
 The `liveupdate.add_mount()` default behavior, is to add an engine version check when attaching a mount.
-This means that both the game base archive and live update archive(s) need to be created at the same time  with the same engine version, using the bundle option. This will invalidate any previously downloaded archives by the client, forcing them to redownload the content.
+This means that both the game base archive and live update archive(s) need to be created at the same time  with the same engine version, using the bundle option. This will invalidate any previously downloaded archives by the client, forcing them to re-download the content.
 
 This behavior can be turned off with an options flag.
 When turned off, the content verification responsibility lies entirely with the developer, to guarantee that each live update archive will work with the running engine.
@@ -113,7 +113,7 @@ If two archives have the same file `sprite.texturec`, the engine will load the f
 
 The engine doesn't keep a reference to any resource in a mount. Once a resource is loaded into memory, the archive may be unmounted. The resource will remain in memory until it is unloaded.
 
-The mounts are automatically readded upon engine restart.
+The mounts are automatically re-added upon engine restart.
 
 ::: sidenote
 Mounting an archive doesn't copy or move the archive. The engine only stores the path to the archive. Thus, the developer can remove the archive at any time, and the mount will also be removed at next startup.

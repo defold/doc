@@ -96,13 +96,13 @@ Defold does not make use of any exceptions in the engine. Exceptions are general
 
 Since the Defold engine doesn't use any STL code, except for some algorithms and math (`std::sort`, `std::upper_bound` etc), it may work for you to use STL in your extension.
 
-Again, bear in mind that ABI incompatibilites may hinder you when using your extension in conjunction with other extensions or 3rd party libraries.
+Again, bear in mind that ABI incompatibilities may hinder you when using your extension in conjunction with other extensions or 3rd party libraries.
 
 Avoiding the (heavily templated) STL libraries, also improves on our build times, and more importantly, the executable size.
 
 #### Strings
 
-In the Defold engine `const char*` is used instead of `std::string`. The use `std::string` is a common pitfall when mixing different versions of C++ or compiler versions since it may resultin an ABI mismatch. Using `const char*` and a few helper functions will avoid this.
+In the Defold engine `const char*` is used instead of `std::string`. The use `std::string` is a common pitfall when mixing different versions of C++ or compiler versions since it may result in an ABI mismatch. Using `const char*` and a few helper functions will avoid this.
 
 ### Make functions hidden
 

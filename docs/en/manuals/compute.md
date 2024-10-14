@@ -34,7 +34,7 @@ Procedural Generation
 
 Rendering effects
   - Global illumination: Simulating realistic lighting by approximating the way light bounces around a scene.
-  - Voxelisation: Create a 3D voxel grid from mesh data.
+  - Voxelization: Create a 3D voxel grid from mesh data.
 
 ## How does compute shaders work?
 

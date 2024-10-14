@@ -30,12 +30,12 @@ Vertex shader
 Fragment shader
 : After the vertex shader is done, it is the job of the fragment shader to decide the coloring of each fragment (or pixel) of the resulting primitives.
 
-  The input of a fragment shader is constants (`uniforms`) as well as any `varying` variables that has been set by the verter shader.
+  The input of a fragment shader is constants (`uniforms`) as well as any `varying` variables that has been set by the vertex shader.
 
   The output of the fragment shader is the color value for the particular fragment (`gl_FragColor`).
 
 Compute shader
-: A compute shader is a general purpose shader that can be used to perform any type of work on a GPU. It is not part of the graphics pipeline at all, compute shaders run in a separate execution context and is not dependant on input from any other shader.
+: A compute shader is a general purpose shader that can be used to perform any type of work on a GPU. It is not part of the graphics pipeline at all, compute shaders run in a separate execution context and is not dependent on input from any other shader.
 
   The input of a compute shader is constant buffers (`uniforms`), texture images (`image2D`), samplers (`sampler2D`) and storage buffers (`buffer`).
 
@@ -110,7 +110,7 @@ Since the Defold engine supports multiple platforms and graphics APIs, it must b
 1. The legacy pipeline, where shaders are written in ES2 compatible GLSL code.
 2. The modern pipeline, where shaders are written in SPIR-v compatible GLSL code.
 
-Starting with Defold 1.9.2, it is encouraged to write shaders that utilise the new pipeline, and to achieve this most shaders need to be migrated into shaders written in at least version 140 (OpenGL 3.1). To migrate a shader, make sure these requirements are met:
+Starting with Defold 1.9.2, it is encouraged to write shaders that utilize the new pipeline, and to achieve this most shaders need to be migrated into shaders written in at least version 140 (OpenGL 3.1). To migrate a shader, make sure these requirements are met:
 
 ### Version declaration
 Put at least #version 140 at the top of the shader:
@@ -171,12 +171,12 @@ uniform vertex_inputs
 
 void main()
 {
-    // Invididual members of the uniform block can be used as-is
+    // Individual members of the uniform block can be used as-is
     gl_Position = mtx_proj * mtx_view * mtx_world * vec4(position, 1.0);
 }
 ```
 
-All members in the uniform block is exposed to materials and components as invididual constants. No migration is needed for using render constant buffers, or `go.set` and `go.get`.
+All members in the uniform block is exposed to materials and components as individual constants. No migration is needed for using render constant buffers, or `go.set` and `go.get`.
 
 ### Built-in Variables
 
@@ -420,7 +420,7 @@ void main()
 ```
 1. The varying texture coordinate variable is declared. The value of this variable will be interpolated for each fragment between the values set for each vertex in the shape.
 2. A `sampler2D` uniform variable is declared. The sampler, together with the interpolated texture coordinates, is used to perform texture lookup so the sprite can be textured properly. Since this is a sprite, the engine will assign this sampler to the image set in the sprite's *Image* property.
-3. A constant of type `CONSTANT_TYPE_USER` is defined in the material and declared as a `uniform`. Its valueis used to allow color tinting of the sprite. The default is pure white.
+3. A constant of type `CONSTANT_TYPE_USER` is defined in the material and declared as a `uniform`. Its value is used to allow color tinting of the sprite. The default is pure white.
 4. The color value of the tint gets pre-multiplied with its alpha value since all runtime textures already contain pre-multiplied alpha.
 5. Sample the texture at the interpolated coordinate and return the sampled value.
 6. `gl_FragColor` is set to the output color for the fragment: the diffuse color from the texture multiplied with the tint value.

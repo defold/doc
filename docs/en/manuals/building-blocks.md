@@ -94,7 +94,7 @@ Here the sprite image of the prototype file is changed and immediately all insta
 
 ## Childing game objects
 
-In a collection file, you can build hierarchies of game objects so that one or more game objects are children to a single parent game object. By simply <kbd>dragging</kbd> one game object and <kbd>dropping</kbd> it onto another, the dragged game object is childed under the target:
+In a collection file, you can build hierarchies of game objects so that one or more game objects are children to a single parent game object. By simply <kbd>dragging</kbd> one game object and <kbd>dropping</kbd> it onto another, the dragged game object becomes a child of the target:
 
 ![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
 
