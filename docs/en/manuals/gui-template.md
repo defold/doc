@@ -7,7 +7,7 @@ brief: This manual explains the Defold GUI template system that is used to creat
 
 GUI template nodes provide a powerful mechanism to create reusable GUI components based on shared templates or "prefabs". This manual explains the feature and how to use it.
 
-A GUI template is a GUI scene that is instanciated, node for node, in another GUI scene. Any property values in the original template nodes can then be overridden.
+A GUI template is a GUI scene that is instantiated, node for node, in another GUI scene. Any property values in the original template nodes can then be overridden.
 
 ## Creating a template
 
@@ -59,4 +59,4 @@ end
 
 There is no node corresponding to the template instance itself. If you need a root node for an instance, add it to the template.
 
-If a script is associated with a template GUI scene, the script is not part of the instance node tree. You may attach one single script to each GUI scene so your script logic needs to sit on the GUI scene where you have instanciated your templates.
+If a script is associated with a template GUI scene, the script is not part of the instance node tree. You may attach one single script to each GUI scene so your script logic needs to sit on the GUI scene where you have instantiated your templates.

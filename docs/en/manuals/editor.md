@@ -49,7 +49,7 @@ There is a toolbar in the top right corner of the scene view where you find obje
 
 ### Outline pane
 
-This view shows the content of the file currently being edited, but in a hierarchial tree structure. The outline reflects the editor view and allows you to perform operations on your items:
+This view shows the content of the file currently being edited, but in a hierarchical tree structure. The outline reflects the editor view and allows you to perform operations on your items:
    - <kbd>Click</kbd> to select an item. Hold <kbd>Shift</kbd> or <kbd>Option</kbd> to expand the selection.
    - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to child it.
    - <kbd>Right click</kbd> to open a _context menu_ from where you can add items, delete selected items etc.
@@ -100,7 +100,7 @@ To move objects, use the *Move Tool*. You find it in the toolbar in the top righ
 
 ![Move object](images/editor/move.png)
 
-The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There arn also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
+The selected object shows a set of manipulators (squares and arrows). Click and drag the green center square handle to move the object freely in screen space, click and drag the arrows to move the object along the X, Y or Z-axis. There are also square handles for moving the object in the X-Y plane and (visible if rotating the camera in 3D) for moving the object in the X-Z and Y-Z planes.
 
 ### Rotate tool
 ![Rotate tool](images/editor/icon_rotate.png){.left}
@@ -108,7 +108,7 @@ To rotate objects, use the *Rotate Tool* by selecting it in the toolbar, or by p
 
 ![Move object](images/editor/rotate.png)
 
-This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is peripendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
+This tool consists of four circular manipulators. An orange manipulator that rotates the object in screen space and one for rotation around each of the X, Y and Z axes. Since the view is perpendicular to the X- and Y-axis, the circles only appear as two lines crossing the object.
 
 
 ### Scale tool

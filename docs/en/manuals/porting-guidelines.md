@@ -73,7 +73,7 @@ Read the [Optimization manual](/manuals/optimizations) on how to optimize your a
 
 
 ## Performance
-Always test on target hardware! Check game performance and optimise if needed. Use the [profiler](/manuals/profiling) to find bottlenecks in the code.
+Always test on target hardware! Check game performance and optimize if needed. Use the [profiler](/manuals/profiling) to find bottlenecks in the code.
 
 
 ## Screen resolution and refresh rate

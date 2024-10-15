@@ -63,7 +63,7 @@ $ adb logcat -s defold
 I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
 I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
 I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
+I/defold  ( 6210): INFO:ENGINE: Initialized sound device 'default'
 I/defold  ( 6210):
 D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...

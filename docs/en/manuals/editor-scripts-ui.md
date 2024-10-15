@@ -270,7 +270,7 @@ The editor expects reactive function components to behave nicely for them to wor
 
 1. Component functions must be pure. There is no guarantee on when or how often the component function will be invoked. All side-effects should be outside of rendering, e.g. in callbacks
 2. Props and local state must be immutable. Don't mutate props. If your local state is a table, don't mutate it in-place, but create a new one and pass it to the setter when the state needs to change.
-3. Component functions must call the same hooks in the same order on every invokation. Don't call hooks inside loops, in conditional blocks, after early returns etc. It is a best practice to call hooks in the beginning of the component function, before any other code.
+3. Component functions must call the same hooks in the same order on every invocation. Don't call hooks inside loops, in conditional blocks, after early returns etc. It is a best practice to call hooks in the beginning of the component function, before any other code.
 4. Only call hooks from component functions. Hooks work in a context of a reactive component, so it's only allowed to call them in the component function (or another function called directly by the component function).
 
 ### Hooks

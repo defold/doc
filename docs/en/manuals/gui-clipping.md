@@ -72,4 +72,4 @@ In this example, both the clipper nodes "Donut BG" and "BG" are using the same l
 - BG Frame
 - Donut Shadow
 
-Here you can see that the "Donut Shadow" object will be clipped by both clipping nodes due to the layering, eventhough it is only a child to one of them.
+Here you can see that the "Donut Shadow" object will be clipped by both clipping nodes due to the layering, even though it is only a child to one of them.

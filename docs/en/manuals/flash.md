@@ -13,7 +13,7 @@ Some of the key advantages of Flash were the accessibility and low barriers to e
 
 Flash games are programmed in ActionScript (with 3.0 being the most recent version), while Defold scripting is done in Lua. This guide will not go into a detailed comparison of Lua and Actionscript 3.0. The [Defold manual](/manuals/lua) provides a good introduction to Lua programming in Defold, and references the tremendously useful [Programming in Lua](https://www.lua.org/pil/) (first edition) which is freely available online.
 
-An article by Jesse Warden provides a [basic comparison of Actionscript and Lua](http://jessewarden.com/2011/01/lua-for-actionscript-developers.html), which may serve as a good starting point. Note thought that there are deeper differences in how Defold and Flash are constructed than what is visible at the language level. Actionscript and Flash is object oriented in the classical sense with classes and inheritance. Defold does not have classes, nor inheritance. It includes the concept of a *game object* which can contain audivisual representation, behavior and data. Operations on game objects are done with *functions* available in the Defold APIs. Furthermore, Defold encourages the use of *messages* to communicate between objects. Messages are a higher level construct than method calls and are not intended to be used as such. These differences are important and takes a while to get used to, but will not be covered in detail in this guide.
+An article by Jesse Warden provides a [basic comparison of Actionscript and Lua](http://jessewarden.com/2011/01/lua-for-actionscript-developers.html), which may serve as a good starting point. Note thought that there are deeper differences in how Defold and Flash are constructed than what is visible at the language level. Actionscript and Flash is object oriented in the classical sense with classes and inheritance. Defold does not have classes, nor inheritance. It includes the concept of a *game object* which can contain audiovisual representation, behavior and data. Operations on game objects are done with *functions* available in the Defold APIs. Furthermore, Defold encourages the use of *messages* to communicate between objects. Messages are a higher level construct than method calls and are not intended to be used as such. These differences are important and takes a while to get used to, but will not be covered in detail in this guide.
 
 Instead, this guide explores some of the key concepts of game development in Flash, and outlines what the closest Defold equivalents are. Similarities and differences are discussed, along with common pitfalls, to enable you to get off to a running start in transitioning from Flash to Defold.
 
@@ -37,7 +37,7 @@ In Flash, instances of movie clips can be added to your scene manually by draggi
 
 ## Defold—manually creating game objects
 
-As mentioned previously, Defold does not have a timeline concept. Instead, game objects are organised in collections. Collections are containers (or prefabs) that hold game objects and other collections. At the most basic level, a game can consist of only one collection. More frequently, Defold games make use of multiple collections, either added manually to the bootstrap “main” collection or dynamically loaded via [collection proxies](/manuals/collection-proxy). This concept of loading "levels" or "screens" does not have a direct Flash equivalent.
+As mentioned previously, Defold does not have a timeline concept. Instead, game objects are organized in collections. Collections are containers (or prefabs) that hold game objects and other collections. At the most basic level, a game can consist of only one collection. More frequently, Defold games make use of multiple collections, either added manually to the bootstrap “main” collection or dynamically loaded via [collection proxies](/manuals/collection-proxy). This concept of loading "levels" or "screens" does not have a direct Flash equivalent.
 
 In the example below, the "main" collection contains three instances (listed on the right, in the *Outline* window) of the "logo" game object (seen on the left, in the *Assets* browser window):
 
@@ -136,7 +136,7 @@ Motion tweens allow the animation of various properties of an object, including 
 
 Defold works with pixel images as opposed to vector graphics, thus it does not have an equivalent for shape tweening. However, motion tweening has a powerful equivalent in [property animation](/ref/go/#go.animate). This is accomplished via script, using the `go.animate()` function. The go.animate() function tweens a property (such as color, scale, rotation or position) from the starting value to the desired end value, using one of many available easing functions (including custom ones). Where Flash required user implementation of more advanced easing functions, Defold includes [many easing functions](/manuals/animation/#easing) built-into the engine.
 
-Where Flash makes use of keyframes of graphics on a timeline for animation, one of the main methods of graphic animation in Defold is by flipbook animation of imported image sequences. Animations are organised in a game object component known as an atlas. In this instance we have an atlas for a game character with an animation sequence called "run". This consists of a series of png files:
+Where Flash makes use of keyframes of graphics on a timeline for animation, one of the main methods of graphic animation in Defold is by flipbook animation of imported image sequences. Animations are organized in a game object component known as an atlas. In this instance we have an atlas for a game character with an animation sequence called "run". This consists of a series of png files:
 
 ![flipbook](images/flash/flipbook.png)
 
@@ -251,7 +251,7 @@ Event objects and their associated listeners are used to detect various events (
 The Defold equivalent of the Flash event handling system consists of a few aspects. Firstly, each script component comes with a set of callback-functions that detect specific events. These are:
 
 init
-:   Called when the script component is initialised. Equivalent to the constructor function in Flash.
+:   Called when the script component is initialized. Equivalent to the constructor function in Flash.
 
 final
 :   Called when the script component is destroyed (e.g. a spawned game object is removed).

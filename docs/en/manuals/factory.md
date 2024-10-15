@@ -257,7 +257,7 @@ When the *Dynamic Prototype* option is set the collection component count cannot
 
 ## Instance limits
 
-The project setting *max_instances* in *Collection related settings* limits the total number of game object instances that can exist in a world (the main.collection loaded at startup or any world loaded via a collection proxy). All game objects that exist in the world are counted agaist that limit and it does not matter if they are placed by hand in the editor or spawned in runtime through a script.
+The project setting *max_instances* in *Collection related settings* limits the total number of game object instances that can exist in a world (the main.collection loaded at startup or any world loaded via a collection proxy). All game objects that exist in the world are counted against that limit and it does not matter if they are placed by hand in the editor or spawned in runtime through a script.
 
 ![Max instances](images/factory/factory_max_instances.png)
 

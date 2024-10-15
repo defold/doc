@@ -37,13 +37,13 @@ Defold imposes some limitations on exported animation data:
 
 ### Requirements
 When you export a model it's good to know that we don't yet support all features.
-Currently known issues/not supported features from the Gltf format:
+Currently known issues/not supported features from the glTF format:
 
 * Morph target animations
 * Material properties
 * Embedded textures
 
-While our ambition is to fully support the Gltf format, we're not fully there yet.
+While our ambition is to fully support the glTF format, we're not fully there yet.
 If a feature is missing, please make a feature request for it in [our repo](https://github.com/defold/defold/issues)
 
 ### Exporting a texture

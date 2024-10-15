@@ -129,7 +129,7 @@ run/hero_run_2
 
 ### UVs
 
-The UVs are taken from the first texture. Since there is only one set of vertices, we cannot guarantuee
+The UVs are taken from the first texture. Since there is only one set of vertices, we cannot guarantee
 a good match anyways if the secondary textures have either more UV coordinates or a different shape.
 
 This is important to note, so make sure the images have similar enough shapes, or you might experience texture bleeding.

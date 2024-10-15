@@ -40,7 +40,7 @@ The Frame profiler allows you to sample your game while it is running and analyz
 1. Start your game on your target device.
 2. Select <kbd> Debug ▸ Open Web Profiler</kbd> menu.
 
-The frame profiler is divided into several sections that all give different views into the runing game. Press the Pause button in the top right corner to temporarily stop the profiler from updating the views.
+The frame profiler is divided into several sections that all give different views into the running game. Press the Pause button in the top right corner to temporarily stop the profiler from updating the views.
 
 ![Web profiler](images/profiling/webprofiler_page.png)
 
@@ -130,7 +130,7 @@ OpenGL profiler (macOS)
 Android Profiler (Android)
 : https://developer.android.com/studio/profile/android-profiler.html
 
-  A set of profiling tools that captures realtime data of your game's CPU, memory, and network activity. You can perform sample-based method tracing of code execution, capture heap dumps, view memory allocations, and inspect the details of network-transmitted files. Using the tool requires that you set `android:debuggable="true"` in "AndroidManifest.xml".
+  A set of profiling tools that captures real-time data of your game's CPU, memory, and network activity. You can perform sample-based method tracing of code execution, capture heap dumps, view memory allocations, and inspect the details of network-transmitted files. Using the tool requires that you set `android:debuggable="true"` in "AndroidManifest.xml".
 
   ![android profiler](images/profiling/android_profiler.png)
 
