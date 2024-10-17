@@ -105,14 +105,14 @@ editor.ui.grid({
                 text = "Level Name",
                 alignment = editor.ui.ALIGNMENT.RIGHT
             }),
-            editor.ui.text_field({})
+            editor.ui.string_field({})
         },
         {
             editor.ui.label({ 
                 text = "Author",
                 alignment = editor.ui.ALIGNMENT.RIGHT
             }),
-            editor.ui.text_field({})
+            editor.ui.string_field({})
         }
     }
 })
@@ -149,7 +149,7 @@ local create_file = editor.ui.show_dialog(editor.ui.dialog({
                 text = "New File Name",
                 alignment = editor.ui.ALIGNMENT.CENTER
             }),
-            editor.ui.text_field({
+            editor.ui.string_field({
                 grow = true,
                 text = file_name,
                 -- Typing callback:
