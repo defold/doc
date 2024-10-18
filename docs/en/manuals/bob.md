@@ -12,8 +12,8 @@ Bob is able to build data (corresponding to the build step of selecting the edit
 Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. If you are using Defold 1.4.8, you will need OpenJDK 17 to run it. For older versions of Defold, you will need openJDK 11.
 
 Compatible OpenJDK 17 mirrors (from Defold 1.4.8):
-* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17
-* https://github.com/adoptium/temurin17-binaries/releases / https://adoptium.net/
+* [OpenJDK 17 by Microsoft](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17)
+* [OpenJDK 17 by Adoptium Working Group](https://github.com/adoptium/temurin17-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
 If you are on Windows you want the .msi file installer for OpenJDK.
 
