@@ -30,6 +30,9 @@ When checked, the engine will write a log file *log.txt* in the project root. Wh
 $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 ```
 
+#### Minimum Log Level
+Specify the minimum log level for the logging system. Only logs at or above this level will be shown.
+
 #### Compress Archive
 Enables compression of archives when bundling. Note that this currently applies to all platforms except Android where the apk already contains all data compressed.
 

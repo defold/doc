@@ -49,6 +49,9 @@ Selecting the root "Gui" node in the *Outline* shows the *Properties* for the GU
   - `Per Node` adjusts each node against the adjusted size of the parent node, or the resized screen.
   - `Disable` turns off node adjust mode. This forces all nodes to keep their set size.
 
+*Current Nodes*
+: The number of nodes currently being used in this GUI.
+
 *Max Nodes*
 : The maximum number of nodes for this GUI.
 
