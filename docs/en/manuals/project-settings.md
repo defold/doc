@@ -281,7 +281,7 @@ File containing SSL root certificates to use when verifying the certificate chai
 ### Collection
 
 #### Max Instances
-Max number of game object instances in a collection, `1024` by default.
+Max number of game object instances in a collection, `1024` by default. [(See information about component max count optimizations)](#component-max-count-optimizations).
 
 #### Max Input Stack Entries
 Max number of game objects in the input stack, `16` by default.
