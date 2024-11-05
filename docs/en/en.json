@@ -1604,6 +1604,10 @@
                         "name": "Introduction"
                     },
                     {
+                        "path": "/extension-crazygames",
+                        "name": "CrazyGames"
+                    },
+                    {
                         "path": "/extension-facebook",
                         "name": "Facebook"
                     },
