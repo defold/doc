@@ -1681,6 +1681,10 @@
                     {
                         "path": "/manuals/extender-local-setup",
                         "name": "Setup local build server"
+                    },
+                    {
+                        "path": "/manuals/extender-docker-iamges",
+                        "name": "Avaialble Docker images to run Extender"
                     }
                 ]
             }

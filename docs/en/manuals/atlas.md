@@ -89,6 +89,9 @@ Id
 Size
 : The width and height of the image (read-only).
 
+Pivot
+: The pivot point of the image (in units). Top left is (0,0) and bottom right is (1,1). Default is (0.5, 0.5). The pivot may be outside of the 0-1 range. The pivot point is where the image will be centered when used in e.g. a sprite.
+
 Sprite Trim Mode
 : How the sprite is rendered. The default is to render the sprite as a rectangle (Sprite Trim Mode set to Off). If the sprite contains a lot of transparent pixels it may be more efficient to render the sprite as a non rectangular shape using between 4 and 8 vertices. Note that sprite trimming does not work together with slice-9 sprites.
 

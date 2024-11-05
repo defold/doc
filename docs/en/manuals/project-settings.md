@@ -30,6 +30,9 @@ When checked, the engine will write a log file *log.txt* in the project root. Wh
 $ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
 ```
 
+#### Minimum Log Level
+Specify the minimum log level for the logging system. Only logs at or above this level will be shown.
+
 #### Compress Archive
 Enables compression of archives when bundling. Note that this currently applies to all platforms except Android where the apk already contains all data compressed.
 
@@ -278,7 +281,7 @@ File containing SSL root certificates to use when verifying the certificate chai
 ### Collection
 
 #### Max Instances
-Max number of game object instances in a collection, `1024` by default.
+Max number of game object instances in a collection, `1024` by default. [(See information about component max count optimizations)](#component-max-count-optimizations).
 
 #### Max Input Stack Entries
 Max number of game objects in the input stack, `16` by default.
