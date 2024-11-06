@@ -89,7 +89,7 @@ Materials
 ![get_set_material](images/gui/get_set_material.png)
 
 ```lua
-go.property("myeffect", resource.font("/assets/myeffect.material"))
+go.property("myeffect", resource.material("/assets/myeffect.material"))
 
 function init(self)
   -- get the material file currently assigned to the material with id 'effect'
@@ -109,7 +109,7 @@ Textures
 ![get_set_texture](images/gui/get_set_texture.png)
 
 ```lua
-go.property("mytheme", resource.font("/assets/mytheme.atlas"))
+go.property("mytheme", resource.atlas("/assets/mytheme.atlas"))
 
 function init(self)
   -- get the texture file currently assigned to the texture with id 'theme'
