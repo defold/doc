@@ -251,7 +251,7 @@ Also note that although dependencies are shown in Assets view, they do not exist
 
 ## Prefs
 
-Editor scripts can define and use preferences — persistent, uncommitted pieces data stored on the user's computer. These preferences have three key characteristics:
+Editor scripts can define and use preferences — persistent, uncommitted pieces of data stored on the user's computer. These preferences have three key characteristics:
 - typed: every preference has a schema definition that includes the data type and other metadata like default value
 - scoped: prefs are scoped either per project or per user
 - nested: every preference key is a dot-separated string, where the first path segment identifies an editor script, and the rest 
