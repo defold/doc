@@ -67,7 +67,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.save()` — persist all unsaved changed to disk.
 - `editor.transact(txs)` — modify the editor in-memory state using 1 or more transaction steps created with `editor.tx.*` functions.
 - `editor.ui.*` — various UI-related functions, see [UI manual](/manuals/editor-scripts-ui).
-- `editor.prefs.*` — function for interaction with editor preferences, see [prefs](#prefs).
+- `editor.prefs.*` — functions for interacting with editor preferences, see [prefs](#prefs).
 
 You can find the full editor API reference [here](https://defold.com/ref/alpha/editor/).
 
@@ -251,12 +251,12 @@ Also note that although dependencies are shown in Assets view, they do not exist
 
 ## Prefs
 
-Editor scripts may define and use preferences — small pieces of data that are scoped either per PC user or per Defold project. Preferences are:
+Editor scripts can define and use preferences — persistent, uncommitted pieces data stored on the user's computer. These preferences have three key characteristics:
 - typed: every preference has a schema definition that includes the data type and other metadata like default value
 - scoped: prefs are scoped either per project or per user
 - nested: every preference key is a dot-separated string, where the first path segment identifies an editor script, and the rest 
 
-Every preference needs to be registered beforehand, e.g.:
+All preferences must be registered by defining their schema:
 ```lua
 function M.get_prefs_schema()
   return {
@@ -268,19 +268,26 @@ end
 ```
 After such editor script is reloaded, the editor registers this schema. Then the editor script can get and set the prefs, e.g.:
 ```lua
--- get:
-editor.prefs.get("my_json_formatter.indent.type") 
-=> "spaces"
-editor.prefs.get("my_json_formatter") 
-=> {
-  jq_path = "",
-  indent = {
-    size = 2,
-    type = "spaces"
-  }
-}
--- set:
-editor.prefs.set("my_json_formatter.indent", {type = "tabs", size = 1})
+-- Get a specific preference
+editor.prefs.get("my_json_formatter.indent.type")
+-- Returns: "spaces"
+
+-- Get an entire preference group
+editor.prefs.get("my_json_formatter")
+-- Returns:
+-- {
+--   jq_path = "",
+--   indent = {
+--     size = 2,
+--     type = "spaces"
+--   }
+-- }
+
+-- Set multiple nested preferences at once
+editor.prefs.set("my_json_formatter.indent", {
+    type = "tabs",
+    size = 1
+})
 ```
 
 ## Execution modes
