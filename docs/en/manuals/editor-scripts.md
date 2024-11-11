@@ -33,6 +33,10 @@ function M.get_language_servers()
   -- TODO - define language servers
 end
 
+function M.get_prefs_schema()
+  -- TODO - define preferences
+end
+
 return M
 ```
 Editor then collects all editor scripts defined in project and libraries, loads them into single Lua VM and calls into them when needed (more on that in [commands](#commands) and [lifecycle hooks](#lifecycle-hooks) sections).
@@ -63,6 +67,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.save()` — persist all unsaved changed to disk.
 - `editor.transact(txs)` — modify the editor in-memory state using 1 or more transaction steps created with `editor.tx.*` functions.
 - `editor.ui.*` — various UI-related functions, see [UI manual](/manuals/editor-scripts-ui).
+- `editor.prefs.*` — function for interaction with editor preferences, see [prefs](#prefs).
 
 You can find the full editor API reference [here](https://defold.com/ref/alpha/editor/).
 
@@ -243,6 +248,40 @@ Language server definition table may specify:
 You can publish libraries for other people to use that contain commands, and they will be automatically picked up by the editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks as simple functions in `.lua` files, so users of your library can require and use them in their `/hooks.editor_script`.
 
 Also note that although dependencies are shown in Assets view, they do not exist as files (they are entries in a zip archive). It's possible to make the editor extract some files from the dependencies into `build/plugins/` folder. To do it, you need to create `ext.manifest` file in your library folder, and then create `plugins/bin/${platform}` folder in the same folder where the `ext.manifest` file is located. Files in that folder will be automatically extracted to `/build/plugins/${extension-path}/plugins/bin/${platform}` folder, so your editor scripts can reference them.
+
+## Prefs
+
+Editor scripts may define and use preferences — small pieces of data that are scoped either per PC user or per Defold project. Preferences are:
+- typed: every preference has a schema definition that includes the data type and other metadata like default value
+- scoped: prefs are scoped either per project or per user
+- nested: every preference key is a dot-separated string, where the first path segment identifies an editor script, and the rest 
+
+Every preference needs to be registered beforehand, e.g.:
+```lua
+function M.get_prefs_schema()
+  return {
+    ["my_json_formatter.jq_path"] = editor.prefs.schema.string(),
+    ["my_json_formatter.indent.size"] = editor.prefs.schema.integer({default = 2, scope = editor.prefs.SCOPE.PROJECT}),
+    ["my_json_formatter.indent.type"] = editor.prefs.schema.enum({values = {"spaces", "tabs"}, scope = editor.prefs.SCOPE.PROJECT}),
+  }
+end
+```
+After such editor script is reloaded, the editor registers this schema. Then the editor script can get and set the prefs, e.g.:
+```lua
+-- get:
+editor.prefs.get("my_json_formatter.indent.type") 
+=> "spaces"
+editor.prefs.get("my_json_formatter") 
+=> {
+  jq_path = "",
+  indent = {
+    size = 2,
+    type = "spaces"
+  }
+}
+-- set:
+editor.prefs.set("my_json_formatter.indent", {type = "tabs", size = 1})
+```
 
 ## Execution modes
 
