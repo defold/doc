@@ -16,6 +16,12 @@ Fonts added to your project are automatically converted into a texture format th
 - Bitmap
 - Distance field
 
+## Runtime generated fonts
+
+For the developers that are looking to minimize the download size and runtime consumption, we have recently added a way to generate font glyphs at runtime using a .ttf font.
+
+[Runtime Fonts](/extension-font) - Use a .ttf font at runtime
+
 ## Creating a font
 
 To create a font for use in Defold, create a new Font file by selecting <kbd>File ▸ New...</kbd> from the menu, then select <kbd>Font</kbd>. You can also <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New... ▸ Font</kbd>.

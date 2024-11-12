@@ -1016,6 +1016,10 @@
                         "name": "Font"
                     },
                     {
+                        "path": "/extension-font",
+                        "name": "Runtime TTF Font"
+                    },
+                    {
                         "path": "/manuals/resource",
                         "name": "Resource management"
                     },
