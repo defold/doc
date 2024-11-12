@@ -1016,7 +1016,7 @@
                         "name": "Font"
                     },
                     {
-                        "path": "/extension-font",
+                        "path": "/extension-fontgen",
                         "name": "Runtime TTF Font"
                     },
                     {

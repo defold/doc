@@ -20,7 +20,7 @@ Fonts added to your project are automatically converted into a texture format th
 
 For the developers that are looking to minimize the download size and runtime consumption, we have recently added a way to generate font glyphs at runtime using a .ttf font.
 
-[Runtime Fonts](/extension-font) - Use a .ttf font at runtime
+[Runtime Fonts](/extension-fontgen) - Use a .ttf font at runtime
 
 ## Creating a font
 
