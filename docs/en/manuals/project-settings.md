@@ -552,8 +552,17 @@ Enables Fullscreen Button in `index.html` file. By default `true`.
 #### Show Made With Defold
 Enables Made With Defold link in `index.html` file. By default `true`.
 
+#### Show Console Banner
+When enabled this option will print information about the engine and engine version in the browser console (using `console.log()`) when the engine starts.
+
 #### Scale Mode
 Specifies which method to use to scale the game canvas. By default `Downscale Fit`.
+
+#### Retry Count
+The number of attempts to download a file when the engine starts (see `Retry Time`).
+
+#### Retry Time
+The number of seconds to wait between attempts to download a file when the download failed (see `Retry Count`).
 
 ---
 
