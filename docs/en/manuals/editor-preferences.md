@@ -32,6 +32,15 @@ Lint Code on Build
 Path to custom keymap
 : Absolute path to a file containing [custom keyboard shortcuts](/manuals/editor-keyboard-shortcuts).
 
+Engine Arguments
+: Arguments that will be passed to the dmengine executables when the editor builds and runs.
+ Use one argument per line. For example:
+ ```
+--config=bootstrap.main_collection=/my dir/1.collectionc
+--verbose
+--graphics-adapter=vulkan
+```
+
 
 ## Code
 
