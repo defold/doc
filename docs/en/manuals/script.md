@@ -1,27 +1,27 @@
 ---
 title: Writing game logic in scripts
-brief: This manual describes how to add game logic using the script component.
+brief: This manual describes how to add game logic using script components.
 ---
 
 # Scripts
 
-The Script component allows you to create game logic using the [Lua programming language](/manuals/lua). Scripts are added to game objects exactly like any other [component](/manuals/components) and Defold will execute the Lua code as part of the engine lifecycle functions.
+Script components allows you to create game logic using the [Lua programming language](/manuals/lua).
 
 
 ## Script types
 
 There are three types of Lua script in Defold, each has different Defold libraries available.
 
-Logic scripts
-: Extension _.script_. Run by script components in game objects. Logic scripts are usually used to control game objects and the logic that binds the game together with level loading, game rules and so forth. Logic scripts have access to all Defold library functions except [GUI](/ref/gui) and [Render](/ref/render) functions.
+Game Object scripts
+: Extension _.script_. These scripts are added to game objects exactly like any other [component](/manuals/components) and Defold will execute the Lua code as part of the engine lifecycle functions. Game Object scripts are usually used to control game objects and the logic that binds the game together with level loading, game rules and so forth. Game Object scripts have access to the [GO](/ref/go) functions and all Defold library functions except the [GUI](/ref/gui) and [Render](/ref/render) functions.
 
 
 GUI scripts
-: Extension _.gui_script_. Run by GUI components and usually containing the logic required to display GUI elements like heads up displays, menus etc. GUI scripts have access to the [GUI](/ref/gui) library functions.
+: Extension _.gui_script_. Run by GUI components and usually containing the logic required to display GUI elements like heads up displays, menus etc. Defold will execute the Lua code as part of the engine lifecycle functions. GUI scripts have access to the [GUI](/ref/gui) functions and all Defold library functions except the [GO](/ref/go) and [Render](/ref/render) functions.
 
 
 Render scripts
-: Extension _.render_script_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. Render scripts have access to the [Render](/ref/render) library functions.
+: Extension _.render_script_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. Defold will execute the Lua code as part of the engine lifecycle functions. Render scripts have access to the [Render](/ref/render) functions and all Defold library functions except the [GO](/ref/go) and [GUI](/ref/gui) functions.
 
 
 ## Script execution, callbacks and self
