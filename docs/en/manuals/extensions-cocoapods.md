@@ -23,5 +23,5 @@ The build server will collect the `Podfile` files from all the extensions and us
 
 Examples:
 
-* https://github.com/defold/extension-firebase/blob/master/firebase/manifests/ios/Podfile
-* https://github.com/defold/extension-facebook/blob/master/facebook/manifests/ios/Podfile
+* [Firebase](https://github.com/defold/extension-firebase/blob/master/firebase/manifests/ios/Podfile)
+* [Facebook](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/ios/Podfile)
