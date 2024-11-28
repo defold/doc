@@ -221,12 +221,11 @@ The texture profiles file to use for this project, `/builtins/graphics/default.t
 #### Verify Graphics Calls
 Verify the return value after each graphics call and report any errors in the log.
 
----
+#### OpenGL Version Hint
+OpenGL context version hint. If a specific version is selected, this will used as the minimum version required (does not apply to OpenGL ES). Defaults to OpenGL 3.3.
 
-### Shader
-
-#### Output SPIR-V
-Compile and output SPIR-V shaders for use with Metal or Vulkan.
+#### OpenGL Core Profile Hint
+Set the 'core' OpenGL profile hint when creating the context. The core profile removes all deprecated features from OpenGL, such as immediate mode rendering. Does not apply to OpenGL ES. `true` by default.
 
 ---
 
