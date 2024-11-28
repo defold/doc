@@ -1655,6 +1655,14 @@
                         "name": "Defold SDK"
                     },
                     {
+                        "path": "/manuals/extensions-gradle",
+                        "name": "Gradle dependencies"
+                    },
+                    {
+                        "path": "/manuals/extensions-cocoapods",
+                        "name": "Cocoapod dependencies"
+                    },
+                    {
                         "path": "/manuals/extensions-script-api",
                         "name": "Adding auto-complete definition"
                     },
