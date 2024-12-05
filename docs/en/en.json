@@ -1695,7 +1695,7 @@
                         "name": "Setup local build server"
                     },
                     {
-                        "path": "/manuals/extender-docker-iamges",
+                        "path": "/manuals/extender-docker-images",
                         "name": "Avaialble Docker images to run Extender"
                     }
                 ]
