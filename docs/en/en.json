@@ -1430,6 +1430,22 @@
                         "name": "Optimizing an application"
                     },
                     {
+                        "path": "/manuals/optimization-size",
+                        "name": "Optimize game size"
+                    },
+                    {
+                        "path": "/manuals/optimization-speed",
+                        "name": "Optimize runtime performance"
+                    },
+                    {
+                        "path": "/manuals/optimization-battery",
+                        "name": "Optimize battery usage"
+                    },
+                    {
+                        "path": "/manuals/optimization-memory",
+                        "name": "Optimize memory usage"
+                    },
+                    {
                         "path": "/manuals/profiling",
                         "name": "Profiling"
                     }
