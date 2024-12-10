@@ -135,7 +135,7 @@ msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 
 ### Camera projection
 
-When using the default render script and there are there are enabled [Camera components](/manuals/camera) in the project, they will take precedence over any other projections set in the render script. To read more about how to work with camera components in render scripts, please consult the [Camera documentation](/manuals/camera).
+When using the default render script and there are enabled [Camera components](/manuals/camera) available in the project, they will take precedence over any other view / projections set in the render script. To read more about how to work with camera components in render scripts, please consult the [Camera documentation](/manuals/camera).
 
 ## Frustum culling
 
