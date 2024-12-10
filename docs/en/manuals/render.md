@@ -16,7 +16,7 @@ The render pipeline controls what to render, when to render it and also where to
 
 The render file contains a reference to the current render script as well as custom materials that should be made available in the render script (use with [`render.enable_material()`](/ref/render/#render.enable_material))
 
-At the heart of the rendering pipeline is the _render script_. This is a Lua script with the functions `init()`, `update()` and `on_message()` and it is primarily used to interact with the underlying OpenGL rendering API. The render script has a special place in the lifecycle of your game. Details can be found in the [Application lifecycle documentation](/manuals/application-lifecycle).
+At the heart of the rendering pipeline is the _render script_. This is a Lua script with the functions `init()`, `update()` and `on_message()` and it is primarily used to interact with the underlying graphics API. The render script has a special place in the lifecycle of your game. Details can be found in the [Application lifecycle documentation](/manuals/application-lifecycle).
 
 In the "Builtins" folder of your projects you can find the default render resource ("default.render") and the default render script ("default.render_script").
 
@@ -24,7 +24,7 @@ In the "Builtins" folder of your projects you can find the default render resour
 
 To set up a custom renderer:
 
-1. Copy the files "default.render" and "default.render_script" to a location in your project hierarchy. You can, of course, create a render script from scratch but it is a good idea to start with a copy of the default script, especially if you are new to Defold and/or OpenGL ES rendering.
+1. Copy the files "default.render" and "default.render_script" to a location in your project hierarchy. You can, of course, create a render script from scratch but it is a good idea to start with a copy of the default script, especially if you are new to Defold and/or graphics programming.
 
 2. Edit your copy of the "default.render" file and change the *Script* property to refer to your copy of the render script.
 

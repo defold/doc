@@ -21,7 +21,7 @@ GUI scripts
 
 
 Render scripts
-: Extension _.render_script_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. Defold will execute the Lua code as part of the engine lifecycle functions. Render scripts have access to the [Render](/ref/render) functions and all Defold library functions except the [GO](/ref/go) and [GUI](/ref/gui) functions.
+: Extension _.render_script_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. The render script has a special place in the lifecycle of your game. Details can be found in the [Application lifecycle documentation](/manuals/application-lifecycle). Render scripts have access to the [Render](/ref/render) functions and all Defold library functions except the [GO](/ref/go) and [GUI](/ref/gui) functions.
 
 
 ## Script execution, callbacks and self
