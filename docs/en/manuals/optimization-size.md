@@ -7,17 +7,22 @@ brief: This manual describes how to optimize the size of a Defold game.
 
 The size of your game can be a critical success factor for platforms such as web and mobile, while it is of less importance on desktop and consoles where disk space is cheap and often plentiful.
 
-* Apple and Google has defined application size limits when downloading over mobile networks (as opposed to downloading over Wifi).
-  * In the summer of 2019 these limits were 100 MB for Google Play and 150 MB for the Apple App Store.
-* Poki and many other web game platforms recommend that the initial download should be no larger than 5 MB.
-* Facebook has a recommendation that a Facebook Instant Game should start in less than 5 seconds and preferably less than 3 seconds.
-  * What this means for actual application size is not clearly defined but we are talking size in the range of up to 20 MB.
-* Playable ads are usually limited to between 2 and 5 MB depending on the ad network.
+### iOS and Android
+Apple and Google has defined application size limits when downloading over mobile networks (as opposed to downloading over Wifi). For Android this limit is 200 MB for apps published with [app bundles](https://developer.android.com/guide/app-bundle#size_restrictions). For iOS users will get a warning if the application is larger than 200 MB, but can still proceed to download it.
 
 ::: sidenote
 According to a 2017 study it was shown that "For every 6 MB increase to an APK’s size, we see a decrease in the install conversion rate of 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
 :::
 
+### HTML5
+Poki and many other web game platforms recommend that the initial download should be no larger than 5 MB.
+
+Facebook has a recommendation that a Facebook Instant Game should start in less than 5 seconds and preferably less than 3 seconds. What this means for actual application size is not clearly defined but we are talking size in the range of up to 20 MB.
+
+Playable ads are usually limited to between 2 and 5 MB depending on the ad network.
+
+
+## Size optimization strategies
 You can optimize the application size in two ways; by reducing the size of the engine and/or by reducing the size of the game assets.
 
 To get a better understanding of what makes up the size of your application you can [generate a build report](/manuals/bundling/#build-reports) when bundling. It is quite common that sounds and graphics is what takes up the bulk of the size of any game.
