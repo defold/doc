@@ -1,4 +1,4 @@
-## Heap size
+## Heap size (HTML5)
 The heap size of a Defold HTML5 game can be configured from the [`heap_size` field](/manuals/project-settings/#heap-size) in *game.project*. Make sure to optimize memory usage of your game and set a minimal heap size.
 
 For small games, 32 MB is an achievable heap size. For larger games, aim for 64–128 MB. If, for example, you're at 58 MB and further optimization isn't feasible, you can settle on 64 MB without overthinking it. There’s no strict target size — it depends on the game. Just aim for smaller sizes, ideally in steps of powers of two. 
