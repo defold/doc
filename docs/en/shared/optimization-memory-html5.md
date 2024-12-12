@@ -18,4 +18,4 @@ You can also open the developer tools of your browser and write the following in
 HEAP8.length / 1024 / 1024
 ```
 
-If the memory usage remains at 32 MB, that's great! If not, follow the steps to [optimize memory usage](/manuals/optimization-memory).
+If the memory usage remains at 32 MB, that's great! If not, follow the steps to [optimize the size of the engine itself and large assets such as sounds and textures](/manuals/optimization-size).
