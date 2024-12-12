@@ -135,12 +135,7 @@ msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 
 ### Camera projection
 
-You can also use the projection provided by a [Camera component](/manuals/camera). You enable the camera projection by sending a message to the render script:
-
-```lua
-msg.post("@render:", "use_camera_projection")
-```
-
+When using the default render script and there are enabled [Camera components](/manuals/camera) available in the project, they will take precedence over any other view / projections set in the render script. To read more about how to work with camera components in render scripts, please consult the [Camera documentation](/manuals/camera).
 
 ## Frustum culling
 
