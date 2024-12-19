@@ -16,7 +16,7 @@ Fonts added to your project are automatically converted into a texture format th
 - Bitmap
 - Distance field
 
-::: important
+::: sidenote
 It is possible to [generate font glyphs at runtime](/extension-fontgen) from a bundled TrueType font instead of generating and including a font texture in the application bundle. This approach can greatly reduce the download size and runtime memory consumption of a Defold game.
 :::
 
