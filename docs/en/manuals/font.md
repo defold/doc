@@ -83,8 +83,8 @@ Shadow support is enabled by the built-in font material shaders and handles both
 *Shadow X/Y*
 : The horizontal and vertical offset in pixels of the generated shadow. This setting will only affect the glyph shadow when the Render Mode is set to `MODE_MULTI_LAYER`.
 
-*Extra Characters*
-: By default the font will include the ASCII printable characters (character codes 32-126). To manually include additional characters, list them in this property field.
+*Characters*
+: Which characters to include in the font. By default this field include the ASCII printable characters (character codes 32-126). You can add or remove characters from this field to include more or less characters in the font..
 
 ::: sidenote
 The ASCII printable characters are:
