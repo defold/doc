@@ -41,12 +41,6 @@ Instancja szablonu jest wylistowana jako składana pozycja w widoku *Outline*. J
 
 Węzły, które są częścią instancji szablonu, są automatycznie nazwane przyrostkiem i ukośnikiem (`"/"`) do ich *Id*. Przyrostek ten to *Id* ustawione w instancji szablonu.
 
-::: important
-Zastępowanie właściwości węzłów instancji szablonu w *Layouts* nie działa obecnie w Edytorze.
-
-Zobacz https://github.com/defold/editor2-issues/issues/1124
-:::
-
 ## Modyfikowanie szablonów w czasie działania programu
 
 Skrypty, które manipulują lub sprawdzają węzły dodane za pomocą szablonów, muszą uwzględniać tylko nazwy węzłów instancji i uwzględniać *Id* instancji szablonu jako prefiks nazwy węzła:
