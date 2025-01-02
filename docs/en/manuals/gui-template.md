@@ -41,12 +41,6 @@ The template instance is listed as a collapsible entry in the *Outline* view. Ho
 
 Nodes that are part of a template instance are automatically named with a prefix and a slash (`"/"`) attached to their *Id*. The prefix is the *Id* set in the template instance.
 
-::: important
-Overriding template instance node values in *Layouts* is currently not working in Editor 2. If you need to use layouts in conjunction with templates, please use Editor 1 until the issue is resolved.
-
-See https://github.com/defold/editor2-issues/issues/1124
-:::
-
 ## Modifying templates in runtime
 
 Scripts that manipulate or query nodes added through the templating mechanism only need to consider the naming of instance nodes and include the template instance *Id* as a node name prefix:
