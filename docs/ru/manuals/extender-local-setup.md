@@ -19,7 +19,7 @@ brief: Руководство описывает как установить и 
 **Примечание для пользователей Windows**: используйте git bash для выполнения команд описанных ниже.
 1. Авторизуемся в Google Cloud и создаем учетные данные приложения по умолчанию (Application default credentials/ADC)
    ```sh
-   gcloud auth application-default login
+   gcloud auth login
    ```
 2. Конфигурируем Docker для использования реестра Артефактов
    ```sh
