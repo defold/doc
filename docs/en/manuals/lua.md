@@ -7,10 +7,10 @@ brief: This manual will give a quick introduction to the basics of Lua programmi
 
 The Defold engine has the Lua language embedded for scripting. Lua is a lightweight dynamic language that is powerful, fast, and easy to embed. It is widely used as a videogame scripting language. Lua programs are written in a simple procedural syntax. The language is dynamically typed and is run by a bytecode interpreter. It features automatic memory management with incremental garbage collection.
 
-This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript or a similar dynamic language you will get going pretty quickly. If you are totally new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
+This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript, or a similar dynamic language you will get going pretty quickly. If you are new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
 
 ## Lua versions
-We aim to keep Defold the same across all platforms, but we currently have a few minor discrepancies in Lua language version between platforms:
+We aim to keep Defold the same across all platforms, but we currently have a few minor discrepancies in the Lua language version between platforms:
 
 | Platform        | Lua version         | JIT Enabled |
 |-----------------|---------------------|-------------|
@@ -24,9 +24,9 @@ We aim to keep Defold the same across all platforms, but we currently have a few
 
 *=JIT compiled code is not allowed
 
-[LuaJIT](https://luajit.org/) is a highly optimized version of Lua, suitable for use in games and other performance critical software. LuaJIT is fully upwards-compatible with Lua 5.1. It supports all standard Lua library functions and the full set of Lua/C API functions.
+[LuaJIT](https://luajit.org/) is a highly optimized version of Lua suitable for use in games and other performance-critical software. It is fully upwards compatible with Lua 5.1 and supports all standard Lua library functions and the full set of Lua/C API functions.
 
-LuaJIT also adds a number of [language extensions](https://luajit.org/extensions.html) and some features from Lua 5.2.
+LuaJIT also adds several [language extensions](https://luajit.org/extensions.html) and some Lua 5.2 and 5.3 features.
 
 ::: important
 To guarantee that your game works across all supported platforms we strongly recommend that you ONLY use language features from Lua 5.1.
@@ -60,7 +60,7 @@ All libraries are documented in the [reference API documentation](/ref/go).
 
 ### Books
 * [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Programming in Lua is the official book about the language, providing a solid base to any programmer who wants to use Lua. Authored by Roberto Ierusalimschy, the chief architect of the language.
-* [Lua programming gems](https://www.amazon.com/Programming-Gems-Luiz-Henrique-Figueiredo/dp/8590379841) - This collection of articles record some of the existing wisdom and practice on how to program well in Lua.
+* [Lua programming gems](https://www.amazon.com/Programming-Gems-Luiz-Henrique-Figueiredo/dp/8590379841) - This collection of articles records some of the existing wisdom and practice on how to program well in Lua.
 * [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - Also available online (see above)
 * [Beginning Lua Programming](https://www.amazon.com/Beginning-Lua-Programming-Kurt-Jung/dp/0470069171)
 
@@ -69,7 +69,7 @@ All libraries are documented in the [reference API documentation](/ref/go).
 
 ## Syntax
 
-Programs have simple, easy to read syntax. Statements are written one on each line and there is no need to mark the end of a statement. You can optionally use semicolons `;` to separate statements. Blocks of code are keyword delimited, ending with the `end` keyword. Comments can be either block or until the end of the line:
+Programs have simple, easy-to-read syntax. Statements are written one on each line and there is no need to mark the end of a statement. You can optionally use semicolons `;` to separate statements. Blocks of code are keyword delimited, ending with the `end` keyword. Comments can be either written in a block or until the end of the line:
 
 ```lua
 --[[
@@ -89,10 +89,13 @@ end
 
 ## Variables and data types
 
-Lua is dynamically typed which means that variables do not have types, but values do. Unlike in typed languages, you can assign any value to any variable as you like. There are eight basic types in Lua:
+Lua is dynamically typed, meaning variables do not have types, but values do. 
+Unlike in statically typed languages, you can assign any value to any variable as you like. 
+
+There are eight basic types in Lua:
 
 `nil`
-: This type only has the value `nil`. It usually represents the absence of a useful value, for example unassigned variables.
+: This type only has the value `nil`. It usually represents the absence of a useful value, for example, unassigned variables.
 
   ```lua
   print(my_var) -- will print 'nil' since 'my_var' is not yet assigned a value
@@ -173,7 +176,7 @@ string
   ```
 
 function
-: Functions are first class values in Lua, meaning that you can pass them as parameters to functions and return them as values. Variables assigned to a function contain a reference to the function. You can assign variables to anonymous functions, but Lua provides syntactic sugar (`function name(param1, param2) ... end`) for convenience.
+: Functions are first-class values in Lua, meaning that you can pass them as parameters to functions and return them as values. Variables assigned to a function contain a reference to the function. You can assign variables to anonymous functions, but Lua provides syntactic sugar (`function name(param1, param2) ... end`) for convenience.
 
   ```lua
   -- Assign 'my_plus' to function
@@ -211,7 +214,7 @@ function
   ```
 
 table
-: Tables are the only data-structuring type in Lua. They are associative array _objects_ that are used to represent lists, arrays, sequences, symbol tables, sets, records, graphs, trees etc. Tables are always anonymous and variables you assign a table to do not contain the table itself, but a reference to it. When initializing a table as a sequence, the first index is `1`, not `0`.
+: Tables are the only data-structuring type in Lua. They are associative array _objects_ that are used to represent lists, arrays, sequences, symbol tables, sets, records, graphs, trees, etc. Tables are always anonymous and variables you assign a table to do not contain the table itself, but a reference to it. When initializing a table as a sequence, the first index is `1`, not `0`.
 
   ```lua
   -- Initialize a table as a sequence
@@ -411,7 +414,7 @@ for
   ```
 
 break and return
-: Use the `break` statement to break out of an inner block of a `for`, `while` or `repeat` loop. Use `return` to return a value from a function or to finish execution of a function and return to the caller. `break` or `return` can appear only as the last statement of a block.
+: Use the `break` statement to break out of an inner block of a `for`, `while` or `repeat` loop. Use `return` to return a value from a function or to finish the execution of a function and return to the caller. `break` or `return` can appear only as the last statement of a block.
 
   ```lua
   a = 1
@@ -433,7 +436,7 @@ break and return
 
 All variables that you declare are by default global, meaning that they are available through all parts of the Lua runtime context. You can explicitly declare variables `local`, meaning that the variable will only exist within the current scope.
 
-Each Lua source file defines a separate scope. Local declarations on the topmost level in a file means the variable is local to the Lua script file. Each function creates another nested scope and each control structure block creates additional scopes. You can explicitly create scope with the `do` and `end` keywords. Lua is lexically scoped, meaning that a scope has full access to _local_ variables from the enclosing scope. Note that the local variables must be declared prior to their use.
+Each Lua source file defines a separate scope. Local declarations on the topmost level in a file mean the variable is local to the Lua script file. Each function creates another nested scope and each control structure block creates additional scopes. You can explicitly create a scope with the `do` and `end` keywords. Lua is lexically scoped, meaning that a scope has full access to _local_ variables from the enclosing scope. Note that the local variables must be declared before their use.
 
 ```lua
 function my_func(a, b)
@@ -518,7 +521,7 @@ end
 
 ## Coroutines
 
-Functions execute from beginning to end and there is no way to stop them midway through. Coroutines allow you to do that, which can be very convenient in some cases. Suppose we want to create a very specific frame-by-frame animation where we move a game object from y position `0` to some very specific y positions from frame 1 to frame 5. We could solve that with a counter in the `update()` function (see below) and a list of the positions. However, with a coroutine we get a very clean implementation that is easy to extend and work with. All state is contained within the coroutine itself.
+Functions execute from beginning to end and there is no way to stop them midway through. Coroutines allow you to do that, which can be very convenient in some cases. Suppose we want to create a very specific frame-by-frame animation where we move a game object from y position `0` to some very specific y positions from frame 1 to frame 5. We could solve that with a counter in the `update()` function (see below) and a list of the positions. However, with a coroutine, we get a very clean implementation that is easy to extend and work with. All state is contained within the coroutine itself.
 
 When a coroutine yields it returns control back to the caller but remembers its execution point so it can continue from there later on.
 
@@ -549,11 +552,11 @@ end
 
 ## Lua contexts in Defold
 
-All variables that you declare are by default global, meaning that they are available through all parts of the Lua runtime context. Defold has a setting *shared_state* setting in *game.project* that controls this context. If the option is set, all scripts, GUI scripts and the render script are evaluated in the same Lua context and global variables are visible everywhere. If the option is not set, the engine executes scripts, GUI scripts and the render script in separate contexts.
+All variables that you declare are by default global, meaning that they are available through all parts of the Lua runtime context. Defold has a setting *shared_state* setting in *game.project* that controls this context. If the option is set, all scripts, GUI scripts, and the render script are evaluated in the same Lua context and global variables are visible everywhere. If the option is not set, the engine executes scripts, GUI scripts, and the render script in separate contexts.
 
 ![Contexts](images/lua/lua_contexts.png)
 
-Defold allows you to use the same script file in several separate game object components. Any locally declared variables are shared between components that runs the same script file.
+Defold allows you to use the same script file in several separate game object components. Any locally declared variables are shared between components that run the same script file.
 
 ```lua
 -- 'my_global_value' will be available from all scripts, gui_scripts, render script and modules (Lua files)
@@ -581,9 +584,9 @@ end
 
 ## Performance considerations
 
-In a high performance game that is intended to run at a smooth 60 FPS small performance mistakes can have a large impact on the experience. There are some simple general things to consider and some things that might not seem problematic.
+In a high-performance game that is intended to run at a smooth 60 FPS small performance mistakes can have a large impact on the experience. There are some simple general things to consider and some things that might not seem problematic.
 
-Beginning with the simple things. It is generally a good idea to write code that is straightforward and that does not contain unnecessary loops. Sometimes you do need to iterate over lists of things, but be careful if the list of things is sufficiently large. This example runs in slightly over 1 millisecond on a pretty decent laptop, which can make all the difference if each frame is only 16 milliseconds long (at 60 FPS) and with the engine, render script, physics simulation and so forth eating up a chunk of that.
+Beginning with the simple things. It is generally a good idea to write straightforward code that does not contain unnecessary loops. Sometimes you do need to iterate over lists of things, but be careful if the list of things is sufficiently large. This example runs in slightly over 1 millisecond on a pretty decent laptop, which can make all the difference if each frame is only 16 milliseconds long (at 60 FPS) and with the engine, render script, physics simulation, and so forth eating up a chunk of that.
 
 ```lua
 local t = socket.gettime()
@@ -600,13 +603,13 @@ Use the value returned from `socket.gettime()` (seconds since system epoch) to b
 
 ## Memory and garbage collection
 
-Lua's garbage collection runs automatically in the background by default and reclaims memory that the Lua runtime has allocated. Collecting lots of garbage can be a time consuming task so it is good to keep down the number of objects that needs to be garbage collected:
+Lua's garbage collection runs automatically in the background by default and reclaims memory that the Lua runtime has allocated. Collecting lots of garbage can be a time-consuming task so it is good to keep down the number of objects that need to be garbage collected:
 
 * Local variables are in themselves free and will not generate garbage. (i.e. `local v = 42`)
 * Each _new unique_ string creates a new object. Writing `local s = "some_string"` will create a new object and assign `s` to it. The local `s` itself will not generate garbage, but the string object will. Using the same string multiple times adds no additional memory cost.
 * Each time a table constructor is executed (`{ ... }`) a new table is created.
 * Executing a _function statement_ creates a closure object. (i.e. executing the statement `function () ... end`, not calling a defined function)
-* Vararg functions (`function(v, ...) end`) create a table for the ellipsis each time the function is _called_ (in Lua prior to version 5.2, or if not using LuaJIT).
+* Vararg functions (`function(v, ...) end`) create a table for the ellipsis each time the function is _called_ (in Lua before version 5.2, or if not using LuaJIT).
 * `dofile()` and `dostring()`
 * Userdata objects
 
@@ -644,7 +647,7 @@ self.velocity.y = 0
 self.velocity.z = 0
 ```
 
-The default garbage collecting scheme may not be optimal for some time critical applications. If you see stutter in your game or app, you might want to tune how Lua collects garbage through the [`collectgarbage()`](/ref/base/#collectgarbage) Lua function. You can, for instance, run the collector for a short time every frame with a low `step` value. To get an idea how much memory your game or app is eating, you can print the current amount of garbage bytes with:
+The default garbage-collecting scheme may not be optimal for some time-critical applications. If you see a stutter in your game or app, you might want to tune how Lua collects garbage through the [`collectgarbage()`](/ref/base/#collectgarbage) Lua function. You can, for instance, run the collector for a short time every frame with a low `step` value. To get an idea how much memory your game or app is eating, you can print the current amount of garbage bytes with:
 
 ```lua
 print(collectgarbage("count") * 1024)
@@ -655,7 +658,7 @@ print(collectgarbage("count") * 1024)
 A common implementation design consideration is how to structure code for shared behaviors. Several approaches are possible.
 
 Behaviors in a module
-: Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects are a necessity (or lead to cleaner design). If you have to store internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
+: Encapsulating a behavior in a module allows you to easily share code between different game objects’ script components (and GUI scripts). When writing module functions it is generally best to write strictly functional code. There are cases where stored state or side effects are a necessity (or lead to cleaner design). If you have to store the internal state in the module, be aware that components share Lua contexts. See the [Modules documentation](/manuals/modules) for details.
 
   ![Module](images/lua/lua_module.png)
 
@@ -667,10 +670,10 @@ A helper game object with encapsulated behavior
   ![Helper](images/lua/lua_helper.png)
 
 Grouping game object with helper behavior object inside a collection
-: In this design you can create a behavior game object that automatically acts upon another target game object, either by a predefined name (the user has to rename the target game object to match), or through a `go.property()` URL that points to the target game object.
+: In this design, you can create a behavior game object that automatically acts upon another target game object, either by a predefined name (the user has to rename the target game object to match) or through a `go.property()` URL that points to the target game object.
 
   ![Collection](images/lua/lua_collection.png)
 
-  The benefit with this setup is that you can drop a behavior game object into a collection containing the target object. Zero additional code is needed.
+  The benefit of this setup is that you can drop a behavior game object into a collection containing the target object. Zero additional code is needed.
 
   In situations where you need to manage large quantities of game objects, this design is not preferable since the behavior object is duplicated for each instance and each object will cost memory.
