@@ -105,20 +105,22 @@ if docker compose was run in detached mode (e.g. '-d' flag was passed to `docker
 If you want to pull latest versions of jars you can use following command to determine latest version
 ```sh
     EXTENDER_VERSION=$(gcloud artifacts versions list \
+        --project=extender-426409 \
         --location=europe-west1 \
         --repository=extender-maven \
         --package="com.defold.extender:server" \
         --sort-by="~createTime" \
         --limit=1 \
-        --format="get(name)" | awk -F'/' '{print $NF}')
+        --format="value(name)")
 
     MANIFESTMERGETOOL_VERSION=$(gcloud artifacts versions list \
+        --project=extender-426409 \
         --location=europe-west1 \
         --repository=extender-maven \
         --package="com.defold.extender:manifestmergetool" \
         --sort-by="~createTime" \
         --limit=1 \
-        --format="get(name)" | awk -F'/' '{print $NF}')
+        --format="value(name)")
 ```
 
 ### What about macOS and iOS?

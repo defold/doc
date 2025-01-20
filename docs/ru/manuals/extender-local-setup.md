@@ -101,18 +101,20 @@ docker compose -p extender down
 Если вы хотите скачать последние версии jar файлов, то вы можете использовать следующие команды для определения последних доступных для скачивания версий
 ```sh
     EXTENDER_VERSION=$(gcloud artifacts versions list \
+        --project=extender-426409 \
         --location=europe-west1 \
         --repository=extender-maven \
         --package="com.defold.extender:server" \
         --sort-by="~createTime" \
         --limit=1 \
-        --format="get(name)" | awk -F'/' '{print $NF}')
+        --format="value(name)")
 
     MANIFESTMERGETOOL_VERSION=$(gcloud artifacts versions list \
+        --project=extender-426409 \
         --location=europe-west1 \
         --repository=extender-maven \
         --package="com.defold.extender:manifestmergetool" \
         --sort-by="~createTime" \
         --limit=1 \
-        --format="get(name)" | awk -F'/' '{print $NF}')
+        --format="value(name)")
 ```
