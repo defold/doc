@@ -11,18 +11,18 @@ This manual will give a quick introduction to the basics of Lua programming in g
 
 ## Lua versions
 
-Defold uses a custom fork of [LuaJIT](https://luajit.org/), a highly optimized version of Lua suitable for use in games and other performance-critical software. It is fully upwards compatible with Lua 5.1 and supports all standard Lua library functions and the full set of Lua/C API functions.
+Defold uses [LuaJIT](https://luajit.org/), a highly optimized version of Lua suitable for use in games and other performance-critical software. It is fully upwards compatible with Lua 5.1 and supports all standard Lua library functions and the full set of Lua/C API functions.
 
 LuaJIT also adds several [language extensions](https://luajit.org/extensions.html) and some Lua 5.2 and 5.3 features.
-
-::: important
-To guarantee that your game works across all supported platforms we strongly recommend that you ONLY use language features from Lua 5.1.
-:::
 
 We aim to keep Defold the same across all platforms, but we currently have a few minor discrepancies in the Lua language version between platforms:
 * iOS does not allow JIT compilation.
 * Nintendo Switch does not allow JIT compilation.
 * HTML5 uses Lua 5.1.4 instead of LuaJIT.
+
+::: important
+To guarantee that your game works across all supported platforms we strongly recommend that you ONLY use language features from Lua 5.1.
+:::
 
 ### Standard libraries and extensions
 Defold includes all of the [Lua 5.1 standard libraries](http://www.lua.org/manual/5.1/manual.html#5) as well as a socket and a bit operation library:
