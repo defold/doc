@@ -10,28 +10,19 @@ The Defold engine has the Lua language embedded for scripting. Lua is a lightwei
 This manual will give a quick introduction to the basics of Lua programming in general and what you need to consider when working with Lua in Defold. If you have some experience with Python, Perl, Ruby, Javascript, or a similar dynamic language you will get going pretty quickly. If you are new to programming you might want to start with a Lua book aimed at beginners. There are plenty to choose from.
 
 ## Lua versions
-We aim to keep Defold the same across all platforms, but we currently have a few minor discrepancies in the Lua language version between platforms:
 
-| Platform        | Lua version         | JIT Enabled |
-|-----------------|---------------------|-------------|
-| Windows         | LuaJIT 2.1.0-beta3  | Yes         |
-| macOS           | LuaJIT 2.1.0-beta3  | Yes         |
-| Linux           | LuaJIT 2.1.0-beta3  | Yes         |
-| Android         | LuaJIT 2.1.0-beta3  | Yes         |
-| iOS             | LuaJIT 2.1.0-beta3  | No*         |
-| Nintendo Switch | LuaJIT 2.1.0-beta3  | No*         |
-| HTML5           | Lua 5.1.4           | N/A         |
-
-*=JIT compiled code is not allowed
-
-[LuaJIT](https://luajit.org/) is a highly optimized version of Lua suitable for use in games and other performance-critical software. It is fully upwards compatible with Lua 5.1 and supports all standard Lua library functions and the full set of Lua/C API functions.
+Defold uses [LuaJIT](https://luajit.org/), a highly optimized version of Lua suitable for use in games and other performance-critical software. It is fully upwards compatible with Lua 5.1 and supports all standard Lua library functions and the full set of Lua/C API functions.
 
 LuaJIT also adds several [language extensions](https://luajit.org/extensions.html) and some Lua 5.2 and 5.3 features.
+
+We aim to keep Defold the same across all platforms, but we currently have a few minor discrepancies in the Lua language version between platforms:
+* iOS does not allow JIT compilation.
+* Nintendo Switch does not allow JIT compilation.
+* HTML5 uses Lua 5.1.4 instead of LuaJIT.
 
 ::: important
 To guarantee that your game works across all supported platforms we strongly recommend that you ONLY use language features from Lua 5.1.
 :::
-
 
 ### Standard libraries and extensions
 Defold includes all of the [Lua 5.1 standard libraries](http://www.lua.org/manual/5.1/manual.html#5) as well as a socket and a bit operation library:
