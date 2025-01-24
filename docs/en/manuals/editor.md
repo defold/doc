@@ -167,7 +167,7 @@ If you run into a problem with the editor and need to [report an issue](/manuals
 
   * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
   * macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
-  * Linux: `$XDG_STATE_HOME` or `~/.local/state` or `~/.Defold`
+  * Linux: `$XDG_STATE_HOME/Defold` or `~/.local/state/Defold`
 
 You can also get access to editor logs while the editor is running if it is started from a terminal/command prompt. To launch the editor from the terminal on macOS:
 
