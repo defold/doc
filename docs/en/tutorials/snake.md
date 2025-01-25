@@ -130,7 +130,7 @@ Find the `update()` function in *snake.script* and change the code to the follow
 ```lua
 function update(self, dt)
     self.t = self.t + dt -- <1>
-    if self.t >= 1.0 / self.speed then -- <2>        
+    if self.t >= 1.0 / self.speed then -- <2>
         local head = self.segments[#self.segments] -- <3>
         local newhead = {x = head.x + self.dir.x, y = head.y + self.dir.y} -- <4>
 
