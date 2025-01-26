@@ -92,6 +92,15 @@ Group
 Mask
 : The other _groups_ this object should collide with. You can name one group or specify multiple groups in a comma separated list. If you leave the Mask field empty, the object will not collide with anything. [Learn more about collision groups](/manuals/physics-groups).
 
+Generate Collision Events
+: If enabled, will allow this object to send collision events
+
+Generate Contact Events
+: If enabled, will allow this object to send contact events
+
+Generate Trigger Events
+: If enabled, will allow this object to send trigger events
+
 
 ## Runtime properties
 
