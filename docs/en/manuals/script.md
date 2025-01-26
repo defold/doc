@@ -32,7 +32,7 @@ Defold executes Lua scripts as part of the engine lifecycle and exposes the life
 `self` is a userdata object that acts like a Lua table but you can't iterate over it with `pairs()` or `ipairs()` and you can't print it using `pprint()`.
 :::
 
-##### init(self)
+#### init(self)
 Called when the component is initialized.
 
 ```lua
@@ -43,7 +43,7 @@ function init(self)
 end
 ```
 
-##### final(self)
+#### final(self)
 Called when the component is deleted. This is useful for cleaning up purposes, for instance if you have spawned game objects that should be deleted when the component is deleted.
 
 ```lua
@@ -54,7 +54,7 @@ function final(self)
 end
 ```
 
-##### update(self, dt)
+#### update(self, dt)
 Called once each frame. `dt` contains the delta time since the last frame.
 
 ```lua
@@ -63,7 +63,7 @@ function update(self, dt)
 end
 ```
 
-##### fixed_update(self, dt)
+#### fixed_update(self, dt)
 Frame-rate independent update. `dt` contains the delta time since the last update. This function is called when `engine.fixed_update_frequency` is enabled (!= 0). Useful when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation when `physics.use_fixed_timestep` is enabled in *game.project*.
 
 ```lua
@@ -72,7 +72,7 @@ function fixed_update(self, dt)
 end
 ```
 
-##### on_message(self, message_id, message, sender)
+#### on_message(self, message_id, message, sender)
 When messages are sent to the script component through [`msg.post()`](/ref/msg#msg.post) the engine calls this function of the receiver component. Learn [more about message passing](/manuals/message-passing).
 
 ```lua
@@ -83,7 +83,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-##### on_input(self, action_id, action)
+#### on_input(self, action_id, action)
 If this component has acquired input focus (see [`acquire_input_focus`](/ref/go/#acquire_input_focus)) the engine calls this function when input is registered. Learn [more about input handling](/manuals/input).
 
 ```lua
@@ -94,7 +94,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-##### on_reload(self)
+#### on_reload(self)
 This function is called when the script is reloaded through the hot reload editor function (<kbd>Edit ▸ Reload Resource</kbd>). It is very useful for debugging, testing and tweaking purposes. Learn [more about hot-reload](/manuals/hot-reload).
 
 ```lua
