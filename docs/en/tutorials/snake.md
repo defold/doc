@@ -220,7 +220,7 @@ elseif action_id == hash("down") and self.dir.y ~= 1 and action.pressed then
     ...
 ```
 
-However, if the snake is moving left and the playes *quickly* presses first <kbd>up</kbd>, then <kbd>right</kbd> before the next movement step happens, only the <kbd>right</kbd> press will have an effect and the snake will move into itself. With the conditions added to the `if` clauses shown above, the input will be ignored. *Not good!*
+However, if the snake is moving left and the player *quickly* presses first <kbd>up</kbd>, then <kbd>right</kbd> before the next movement step happens, only the <kbd>right</kbd> press will have an effect and the snake will move into itself. With the conditions added to the `if` clauses shown above, the input will be ignored. *Not good!*
 
 A proper solution to this problem is to store the input in a queue and pull entries from that queue as the snake moves:
 
