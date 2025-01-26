@@ -11,7 +11,7 @@ To control the logic of your GUI and animate nodes you use Lua scripts. GUI scri
 
 To add a script to a GUI, first create a GUI script file by <kbd>right clicking</kbd> a location in the *Assets* browser and selecting <kbd>New ▸ Gui Script</kbd> from the popup context menu.
 
-The editor automatically opens the new script file. It is based on a template and comes equipped with empty lifetime functions, just like game object scripts:
+The editor automatically opens the new script file. It is based on a template and comes equipped with empty lifecycle functions, just like game object scripts:
 
 ```lua
 function init(self)
