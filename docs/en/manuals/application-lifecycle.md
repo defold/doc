@@ -84,7 +84,7 @@ If a [fixed timestep is used for physics simulation](/manuals/physics/#physics-u
 The order in which game object component `update()` functions are called is unspecified. You should not assume that the engine updates objects belonging to the same collection in a certain order.
 :::
 
-In the next step all posted messages are dispatched. Since any receiver components’ `on_message()` code can post additional messages the message dispatcher will continue to dispatch posted messaged until the message queue is empty. There is, however, a limit to how many runs through the message queue the message dispatcher performs. See [Message passing](/manuals/message-passing) and the section "Advanced topics" for details.
+In the next step all posted messages are dispatched. Since any receiver components’ `on_message()` code can post additional messages the message dispatcher will continue to dispatch posted messaged until the message queue is empty. There is, however, a limit to how many runs through the message queue the message dispatcher performs. See [Message Chains](/manuals/message-passing#message-chains) for details.
 
 For collision object components, physics messages (collisions, triggers, ray_cast responses etc) are dispatched throughout the encompassing game object to all components that contain a script with an `on_message()` function.
 
