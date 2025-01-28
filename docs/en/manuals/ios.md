@@ -251,15 +251,14 @@ When you submit your game to the App Store you will be asked to provide Export C
 
 "When you submit your app to TestFlight or the App Store, you upload your app to a server in the United States. If you distribute your app outside the U.S. or Canada, your app is subject to U.S. export laws, regardless of where your legal entity is based. If your app uses, accesses, contains, implements, or incorporates encryption, this is considered an export of encryption software, which means your app is subject to U.S. export compliance requirements, as well as the import compliance requirements of the countries where you distribute your app."
 
-Additional documentation:
-
-* Export compliance overview - https://help.apple.com/app-store-connect/#/dev88f5c7bf9
-* Determining your export compliance requirements - https://help.apple.com/app-store-connect/#/dev63c95e436
-
-The Defold game engine use encryption for the following purposes:
+The Defold game engine uses encryption for the following purposes:
 
 * Making calls over secure channels (i.e. HTTPS and SSL)
-* Copyright protection of Lua code
+* Copyright protection of Lua code (to prevent duplication)
+
+These uses of encyption in the Defold engine are exempt from export compliance document requirements under United States and European Union law. Most Defold projects will remain exempt, but the addition of other cryptographic methods may change this status. It is your responsiblity to ensure that your project meets the requirements of these laws and the App Store's rules. See Apple's [Export Compliance Overview](https://help.apple.com/app-store-connect/#/dev88f5c7bf9) for more information.
+
+Some users have reported being asked to upload a French Encryption Delaration when uploading to the App Store in France. Despite your app being exempt, Apple may still require you to submit a form to the French Cybersecurity Agency and upload their response. The form and directions are available directly from the [French Cybersecurity Agency](https://cyber.gouv.fr/controle-reglementaire-sur-la-cryptographie-les-formulaires).
 
 
 ## FAQ
