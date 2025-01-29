@@ -212,3 +212,7 @@ resource.set_sound(path, boom)
 ## Project configuration
 
 The *game.project* file has a few [project settings](/manuals/project-settings#sound) related to sound components.
+
+## Sound Streaming
+
+It is also possible to support [streaming sounds](/manuals/sound-streaming)
