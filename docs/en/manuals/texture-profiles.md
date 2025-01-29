@@ -19,6 +19,10 @@ Since all available hardware texture compression is lossy, you will get artifact
 
 You can select what software image compression is applied on the final texture data (compressed or raw) in the bundle archives. Defold supports [Basis Universal](https://github.com/BinomialLLC/basis_universal) and [ASTC](https://www.khronos.org/opengl/wiki/ASTC_Texture_Compression) compression formats.
 
+::: sidenote
+Compression is a resource intensive and time consuming operation that can cause _very_ long build times depending on the number of texture images to compress and also the chosen texture formats and type of software compression.
+:::
+
 ### Basis Universal
 
 Basis Universal (or BasisU for short) compresses the image into a intermediary format that is transcoded at runtime to a hardware format appropriate for the current device's GPU. The Basis Universal format is a high quality but lossy format.
@@ -48,7 +52,7 @@ ASTC supports various block sizes, from 4×4 to 12×12 texels, corresponding to 
 | 12x12                       | 0.89           |
 
 ::: sidenote
-Compression is a resource intensive and time consuming operation that can cause _very_ long build times depending on the number of texture images to compress and also the chosen texture formats and type of software compression.
+While ASTC provides great results, it is not supported on all hardware.
 :::
 
 ## Texture profiles
