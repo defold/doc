@@ -100,4 +100,5 @@ The game project supports these settings:
 * `sound.stream_enabled` (default 0) - If enabled, enables streaming of all sound files
 * `sound.stream_cache_size` (default 2097152 bytes) - The max size of the cache containing _all_ chunks.
 * `sound.stream_chunk_size` (default 16384 bytes) - Determines size of each chunk that is loaded from a file at a time
+* `sound.stream_preload_size` (default 16384 bytes) - Determines size of initial chunk read from each found file in the archive
 

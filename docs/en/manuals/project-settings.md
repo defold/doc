@@ -318,6 +318,9 @@ Otherwise, you risk evicting new chunks each frame.
 #### Stream Chunk Size
 The size of each streamed chunk. `16384` bytes by default.
 
+#### Stream Preload Size
+Determines the size of the initial chunk for sound files read from the archive.
+
 ---
 
 ### Sprite
