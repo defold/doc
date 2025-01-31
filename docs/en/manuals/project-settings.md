@@ -307,6 +307,20 @@ Max number of concurrent sound instances, i.e. actual sounds played at the same 
 #### Use Thread
 If checked, the sound system will use threads for sound playback to reduce risk of stutter when the main thread is under heavy load. Checked by default.
 
+#### Stream Enabled
+If checked, the sound system will use streaming to load source files.
+
+#### Stream Cache Size
+The max size of the sound chunk cache containing _all_ chunks. `2097152` bytes by default.
+This number should be larger than the number of loaded sound files times the stream chunk size.
+Otherwise, you risk evicting new chunks each frame.
+
+#### Stream Chunk Size
+The size of each streamed chunk. `16384` bytes by default.
+
+#### Stream Preload Size
+Determines the size of the initial chunk for sound files read from the archive.
+
 ---
 
 ### Sprite

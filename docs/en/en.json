@@ -1225,6 +1225,10 @@
                         "name": "Sound"
                     },
                     {
+                        "path": "/manuals/sound-streaming",
+                        "name": "Sound Streaming"
+                    },
+                    {
                         "path": "https://defold.com/assets/fmod/",
                         "name": "FMOD"
                     }
