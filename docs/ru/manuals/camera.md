@@ -144,5 +144,5 @@ msg.post("@render:", "use_camera_projection")
 
 Существует несколько библиотечных решений, реализующих общие функции камеры, такие как следование за игровым объектом, преобразование координат экрана в мировые и так далее. Они доступны на портале ассетов сообщества Defold:
 
-- [Rendercam](https://defold.com/assets/rendercam/) (2D & 3D), автор Ross Grams.
-- [Ortographic camera](https://defold.com/assets/orthographic/) (2D only), автор Björn Ritzl.
+- [Orthographic camera](https://defold.com/assets/orthographic/) (2D only) by Björn Ritzl.
+- [Defold Rendy](https://defold.com/assets/defold-rendy/) (2D and 3D) by Klayton Kowalski.

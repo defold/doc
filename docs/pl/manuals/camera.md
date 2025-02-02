@@ -163,4 +163,5 @@ Kamera ma wiele różnych właściwości (properties), które można manipulowa�
 
 Istnieje biblioteka wspomagająca kamery, która implementuje wspólne funkcje, takie jak śledzenie obiektu gry, trzęsienie ekranu, konwersja współrzędnych ekranu na współrzędne świata i inne. Jest dostępna na portalu zasobów społeczności Defold (Assets portal):
 
-- [Orthographic Camera](https://defold.com/assets/orthographic/) - tylko 2D, autor: Björn Ritzl.
+- [Orthographic camera](https://defold.com/assets/orthographic/) (2D only) by Björn Ritzl.
+- [Defold Rendy](https://defold.com/assets/defold-rendy/) (2D and 3D) by Klayton Kowalski.
