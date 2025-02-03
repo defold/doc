@@ -51,9 +51,19 @@ ASTC supports various block sizes, from 4×4 to 12×12 texels, corresponding to 
 | 12x10                       | 1.07           |
 | 12x12                       | 0.89           |
 
-::: sidenote
-While ASTC provides great results, it is not supported on all hardware.
-:::
+
+#### Supported devices
+
+While ASTC provides great results, it is not supported by all graphics cards. Here is a small list of supported devices based on vendor:
+
+| GPU vendor         | Support                                                               |
+| ------------------ | --------------------------------------------------------------------- |
+| ARM (Mali)         | All ARM Mali GPUs that support OpenGL ES 3.2 or Vulkan support ASTC.  |
+| Qualcomm (Adreno)  | Adreno GPUs supporting OpenGL ES 3.2 or Vulkan support ASTC.          |
+| Apple              | Apple GPUs since the A8 chip support ASTC.                            |
+| NVIDIA             | ASTC support is mostly for mobile GPUs (e.g., Tegra-based chips).     |
+| AMD (Radeon)       | AMD GPUs that support Vulkan generally support ASTC via software.     |
+| Intel (Integrated) | ASTC is supported in modern Intel GPUs via software.                  |
 
 ## Texture profiles
 
