@@ -17,13 +17,53 @@ The processing of textures is configured through a specific texture profile. In 
 
 Since all available hardware texture compression is lossy, you will get artifacts in your texture data. These artifacts are highly dependent on how your source material looks and what compression method is used. You should test your source material and experiment to get the best results. Google is your friend here.
 
-You can select what software image compression is applied on the final texture data (compressed or raw) in the bundle archives. Defold supports [Basis Universal](https://github.com/BinomialLLC/basis_universal) texture compression, which compresses the image into a intermediary format. This format is transcoded at runtime to a hardware format appropriate for the current device's GPU.
-The Basis Universal format is a high quality but lossy format.
-All images are also compressed using LZ4 for further reduction of file size when we store them into the game archive.
+You can select what software image compression is applied on the final texture data (compressed or raw) in the bundle archives. Defold supports [Basis Universal](https://github.com/BinomialLLC/basis_universal) and [ASTC](https://www.khronos.org/opengl/wiki/ASTC_Texture_Compression) compression formats.
 
 ::: sidenote
 Compression is a resource intensive and time consuming operation that can cause _very_ long build times depending on the number of texture images to compress and also the chosen texture formats and type of software compression.
 :::
+
+### Basis Universal
+
+Basis Universal (or BasisU for short) compresses the image into a intermediary format that is transcoded at runtime to a hardware format appropriate for the current device's GPU. The Basis Universal format is a high quality but lossy format.
+All images are also compressed using LZ4 for further reduction of file size when stored in the game archive.
+
+### ASTC
+
+ASTC is a flexible and efficient texture compression format developed by ARM and standardized by the Khronos Group. It offers a wide range of block sizes and bit rates, allowing developers to balance image quality and memory usage effectively. ASTC supports various block sizes, from 4×4 to 12×12 texels, corresponding to bit rates ranging from 8 bits per texel down to 0.89 bits per texel. This flexibility enables fine-grained control over the trade-off between texture quality and storage requirements.
+
+ASTC supports various block sizes, from 4×4 to 12×12 texels, corresponding to bit rates ranging from 8 bits per texel down to 0.89 bits per texel. This flexibility enables fine-grained control over the trade-off between texture quality and storage requirements. The following table shows the supported block sizes and their corresponding bit rates:
+
+| Block Size (width x height) | Bits per pixel |
+| --------------------------- | -------------- |
+| 4x4                         | 8.00           |
+| 5x4                         | 6.40           |
+| 5x5                         | 5.12           |
+| 6x5                         | 4.27           |
+| 6x6                         | 3.56           |
+| 8x5                         | 3.20           |
+| 8x6                         | 2.67           |
+| 10x5                        | 2.56           |
+| 10x6                        | 2.13           |
+| 8x8                         | 2.00           |
+| 10x8                        | 1.60           |
+| 10x10                       | 1.28           |
+| 12x10                       | 1.07           |
+| 12x12                       | 0.89           |
+
+
+#### Supported devices
+
+While ASTC provides great results, it is not supported by all graphics cards. Here is a small list of supported devices based on vendor:
+
+| GPU vendor         | Support                                                               |
+| ------------------ | --------------------------------------------------------------------- |
+| ARM (Mali)         | All ARM Mali GPUs that support OpenGL ES 3.2 or Vulkan support ASTC.  |
+| Qualcomm (Adreno)  | Adreno GPUs supporting OpenGL ES 3.2 or Vulkan support ASTC.          |
+| Apple              | Apple GPUs since the A8 chip support ASTC.                            |
+| NVIDIA             | ASTC support is mostly for mobile GPUs (e.g., Tegra-based chips).     |
+| AMD (Radeon)       | AMD GPUs that support Vulkan generally support ASTC via software.     |
+| Intel (Integrated) | ASTC is supported in modern Intel GPUs via software.                  |
 
 ## Texture profiles
 
@@ -101,22 +141,21 @@ The *Formats* added to a profile each have the following properties:
 *Format*
 : The format to use when encoding the texture. See below for all available texture formats.
 
-*Compression*
-: Selects the quality level for the resulting compressed image.
+*Compressor*
+: The compressor to use when encoding the texture.
 
-| LEVEL    | Note                                          |
-| -------- | --------------------------------------------- |
-| `FAST`   | Fastest compression. Low image quality        |
-| `NORMAL` | Default compression. Best image quality       |
-| `HIGH`   | Slowest compression. Smaller file size        |
-| `BEST`   | Slow compression. Smallest file size          |
+*Compressor Preset*
+: Selects a compression preset to use for encoding the resulting compressed image. Each compressor preset is unique to the compressor and its settings depend on the compressor itself. To simplify these settings, the current compression presets come in four levels:
 
-::: sidenote
-Since 1.2.185 we've redefined these enums, since they are a bit ambiguous.
-:::
+| Preset    | Note                                          |
+| --------- | --------------------------------------------- |
+| `LOW`     | Fastest compression. Low image quality        |
+| `MEDIUM`  | Default compression. Best image quality       |
+| `HIGH`    | Slowest compression. Smaller file size        |
+| `HIGHEST` | Slow compression. Smallest file size          |
 
-*Type*
-: Selects the type of compression used for the resulting compressed image, `COMPRESSION_TYPE_DEFAULT` or `COMPRESSION_TYPE_BASIS_UASTC`. See [Compression Types](#compression-types) below for more details.
+Note that the `uncompressed` compressor only has one preset called `uncompressed`, which means no compression will be applied to the textures.
+To see the list of available compressors, see [Compressors](#compressors)
 
 ## Texture formats
 
@@ -138,20 +177,39 @@ The following lossy compression formats are currently supported:
 | `TEXTURE_FORMAT_LUMINANCE`        | none        | 1 channel gray-scale, no alpha. RGB channels multiplied into one. Alpha is discarded. |
 | `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | none        | 1 channel gray-scale and full alpha. RGB channels multiplied into one. |
 
+For ASTC, the number of channels will always be 4 (RGB + alpha), and the format itself defines the size of the block compression.
+Note that these formats are only compatible with an ASTC compressor - any other combination will produce a build error.
 
-## Compression types
+`TEXTURE_FORMAT_RGBA_ASTC_4X4`
+`TEXTURE_FORMAT_RGBA_ASTC_5X4`
+`TEXTURE_FORMAT_RGBA_ASTC_5X5`
+`TEXTURE_FORMAT_RGBA_ASTC_6X5`
+`TEXTURE_FORMAT_RGBA_ASTC_6X6`
+`TEXTURE_FORMAT_RGBA_ASTC_8X5`
+`TEXTURE_FORMAT_RGBA_ASTC_8X6`
+`TEXTURE_FORMAT_RGBA_ASTC_8X8`
+`TEXTURE_FORMAT_RGBA_ASTC_10X5`
+`TEXTURE_FORMAT_RGBA_ASTC_10X6`
+`TEXTURE_FORMAT_RGBA_ASTC_10X8`
+`TEXTURE_FORMAT_RGBA_ASTC_10X10`
+`TEXTURE_FORMAT_RGBA_ASTC_12X10`
+`TEXTURE_FORMAT_RGBA_ASTC_12X12`
 
-The following software image compression types are supported. The data is uncompressed when the texture file is loaded into memory.
+
+## Compressors
+
+The following texture compressors are supported by default. The data is uncompressed when the texture file is loaded into memory.
+
+| Name                              | Formats                   | Note                                                                                          |
+| --------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------- |
+| `Uncompressed`                    | All formats               | No compression will be applied. Default.                                                      |
+| `BasisU`                          | All RGB/RGBA formats      | Basis Universal high quality, lossy compression. Lower quality level results in smaller size. |
+| `ASTC`                            | All ASTC formats          | ASTC lossy compression. Lower quality level results in smaller size.                          |
 
 ::: sidenote
-We are currently looking into how to reintroduce support for hardware formats, as well as reading support for WEBP compression.
-Our current long running task of introducing content pipeline plugins aim to fix this.
+Defold 1.9.7 refactored the texture compressor pipeline to support installable compressors, which is the first step in
+enabling implementing a texture compression algorithm in an extension (such as WEBP, or something completely custom).
 :::
-
-| Type                              | Formats                   | Note |
-| --------------------------------- | ------------------------- | ---- |
-| `COMPRESSION_TYPE_DEFAULT`        | All formats               | Generic lossless data compression. Default. |
-| `COMPRESSION_TYPE_BASIS_UASTC`    | All RGB/RGBA formats      | Basis Universal high quality, lossy compression. Lower quality level results in smaller size. |
 
 ## Example image
 
@@ -163,51 +221,51 @@ Base image (1024x512):
 
 ### Compression times
 
-| Level      | Compression time | Relative time   |
+| Preset     | Compression time | Relative time   |
 | ----------------------------- | --------------- |
-| `FAST`     | 0m0.143s         | 0.5x            |
-| `NORMAL`   | 0m0.294s         | 1.0x            |
-| `HIGH`     | 0m1.764s         | 6.0x            |
-| `BEST`     | 0m1.109s         | 3.8x            |
+| `LOW`     | 0m0.143s         | 0.5x            |
+| `MEDIUM`  | 0m0.294s         | 1.0x            |
+| `HIGH`    | 0m1.764s         | 6.0x            |
+| `HIGHEST` | 0m1.109s         | 3.8x            |
 
 ### Signal loss
 
 The comparison is done using the `basisu` tool (measuring the PSNR)
 100 dB means no signal loss (i.e. it's the same as the original image).
 
-| Level      | Signal                                          |
+| Preset     | Signal                                          |
 | ------------------------------------------------------------ |
-| `FAST`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
-| `NORMAL`   | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
-| `HIGH`     | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
-| `BEST`     | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
+| `LOW`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
+| `MEDIUM`  | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
+| `HIGH`    | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
+| `HIGHEST` | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
 
 ### Compression file sizes
 
 Original file size is 1572882 bytes.
 
-| Level      | File Sizes | Ratio    |
+| Preset     | File Sizes | Ratio    |
 | ---------------------------------- |
-| `FAST`     | 357225     | 22.71 %  |
-| `NORMAL`   | 365548     | 23.24 %  |
-| `HIGH`     | 277186     | 17.62 %  |
-| `BEST`     | 254380     | 16.17 %  |
+| `LOW`     | 357225     | 22.71 %  |
+| `MEDIUM`  | 365548     | 23.24 %  |
+| `HIGH`    | 277186     | 17.62 %  |
+| `HIGHEST` | 254380     | 16.17 %  |
 
 
 ### Image quality
 
 Here are the resulting images (retrieved from the ASTC encoding using the `basisu` tool)
 
-`FAST`
-![fast compression level](images/texture_profiles/kodim03_pow2.fast.png)
+`LOW`
+![low compression preset](images/texture_profiles/kodim03_pow2.fast.png)
 
-`NORMAL`
-![normal compression level](images/texture_profiles/kodim03_pow2.normal.png)
+`MEDIUM`
+![medium compression preset](images/texture_profiles/kodim03_pow2.normal.png)
 
 `HIGH`
-![high compression level](images/texture_profiles/kodim03_pow2.high.png)
+![high compression preset](images/texture_profiles/kodim03_pow2.high.png)
 
-`BEST`
-![best compression level](images/texture_profiles/kodim03_pow2.best.png)
+`HIGHEST`
+![best compression preset](images/texture_profiles/kodim03_pow2.best.png)
 
 
