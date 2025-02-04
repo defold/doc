@@ -12,6 +12,9 @@ Also application manifest contains some options to control compiling code for HT
 
 ![](images/app_manifest/app-manifest.png)
 
+# Applying the manifest
+
+In `game.project`, assign the manifest to `Native Extensions` -> `App Manifest`.
 
 ## Physics
 
