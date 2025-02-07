@@ -258,8 +258,7 @@ The Defold game engine uses encryption for the following purposes:
 
 These uses of encyption in the Defold engine are exempt from export compliance document requirements under United States and European Union law. Most Defold projects will remain exempt, but the addition of other cryptographic methods may change this status. It is your responsiblity to ensure that your project meets the requirements of these laws and the App Store's rules. See Apple's [Export Compliance Overview](https://help.apple.com/app-store-connect/#/dev88f5c7bf9) for more information.
 
-Some users have reported being asked to upload a French Encryption Delaration when uploading to the App Store in France. Despite your app being exempt, Apple may still require you to submit a form to the French Cybersecurity Agency and upload their response. The form and directions are available directly from the [French Cybersecurity Agency](https://cyber.gouv.fr/controle-reglementaire-sur-la-cryptographie-les-formulaires).
-
+If you believe your project is exempt, set the [ITSAppUsesNonExemptEncryption](https://developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption) key to `False` in the project's `Info.plist` see [Application Manifests](/manuals/extensions-manifest-merge-tool) for more details.
 
 ## FAQ
 :[iOS FAQ](../shared/ios-faq.md)
