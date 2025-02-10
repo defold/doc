@@ -226,6 +226,8 @@ particlefx.play("#particles")
 particlefx.stop("#particles")
 ```
 
+To start and stop a particle effect from a GUI script see the [GUI Particle FX manual](/manuals/gui-particlefx#controlling-the-effect) for more information.
+
 ::: sidenote
 A particle effect will continue to emit particles even if the game object the particle effect component belonged to is deleted.
 :::
