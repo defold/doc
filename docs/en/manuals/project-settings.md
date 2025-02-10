@@ -11,9 +11,46 @@ Every setting in the file belongs to a category. When you open the file Defold p
 
 ![Project settings](images/project-settings/settings.jpg)
 
-Below are all the available settings, arranged by section. Some settings are not yet exposed in the settings editor (these are marked "hidden setting" below), but can be set manually by right clicking *game.project* and selecting <kbd>Open With ▸ Text Editor</kbd>.
+
+## File format
+
+The settings in *game.project* are usually changed from within Defold, but the file can also be edited in any standard text editor. The file follows the INI file format standard and looks like this:
+
+```ini
+[category1]
+setting1 = value
+setting2 = value
+[category2]
+...
+```
+
+A real example is:
+
+```ini
+[bootstrap]
+main_collection = /main/main.collectionc
+```
+
+which means that the setting *main_collection* belongs to the *bootstrap* category. Whenever a file reference is used, like the example above, the path needs to be appended with a 'c' character, which means you're referencing the compiled version of the file. Also note that the folder containing *game.project* will be the project root, which is why there is an initial '/' in the setting path.
+
+
+## Runtime access
+
+It is possible to read any value from *game.project* at runtime using [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) and [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Examples:
+
+```lua
+local title = sys.get_config_string("project.title")
+local gravity_y = sys.get_config_number("physics.gravity_y")
+```
+
+::: sidenote
+The key is a combination of the category and setting name, separated by a dot, and written in lowercase letters with any space characters replaced by underscores. Examples: The field "Title" from the "Project" category becomes `project.title` and the "Gravity Y" field from the "Physics" category becomes `physics.gravity_y`.
+:::
+
 
 ## Sections and settings
+
+Below are all the available settings, arranged by category.
 
 ### Project
 
@@ -148,8 +185,14 @@ Clear color alpha channel, used by the render script and when the window is crea
 #### Type
 Which type of physics to use, `2D` (default) or `3D`.
 
+#### Gravity X
+World gravity along x-axis, `0` by default.
+
 #### Gravity Y
 World gravity along y-axis, `-10` by default (natural gravity)
+
+#### Gravity Z
+World gravity along z-axis, `0` by default.
 
 #### Debug
 Check if physics should be visualized for debugging.
@@ -159,12 +202,6 @@ Alpha component value for visualized physics, `0`--`1`. The value is `0.9` by de
 
 #### World Count
 Max number of concurrent physics worlds, `4` by default. If you load more than 4 worlds simultaneously through collection proxies you need to increase this value. Be aware that each physics world allocates a fair amount of memory.
-
-#### Gravity X
-World gravity along x-axis, `0` by default.
-
-#### Gravity Z
-World gravity along z-axis, `0` by default.
 
 #### Scale
 Tells the physics engine how to scale the physics worlds in relation to the game world for numerical precision, `0.01`--`1.0`. If the value is set to `0.02`, it means that the physics engine will view 50 units as 1 meter ($1 / 0.02$). The default value is `1.0`.
@@ -610,30 +647,6 @@ If checked, enable CPU profiling in release versions of the builds. Normally, yo
 
 ---
 
-## File format
-
-The format of the settings file is simple text (INI format) and can be edited by any standard text editor. The format looks like this:
-
-```ini
-[category1]
-setting1 = value
-setting2 = value
-[category2]
-...
-```
-
-A real example is:
-
-```ini
-[bootstrap]
-main_collection = /main/main.collectionc
-```
-
-which means that the setting *main_collection* belongs to the *bootstrap* category.
-Whenever a file reference is used, like the example above, the path needs to be appended with a 'c' character, which means you're referencing the compiled version of the file.
-Also note that the folder containing *game.project* will be the project root, which is why there is an initial '/' in the setting path.
-
-
 ## Setting config values on engine startup
 
 When the engine starts, it is possible to provide config values from the command line that override the *game.project* settings:
@@ -643,13 +656,14 @@ When the engine starts, it is possible to provide config values from the command
 $ dmengine --config=bootstrap.main_collection=/my.collectionc
 
 # Set two custom config values
-$ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
+$ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
-Custom values can---just like any other config value---be read with [`sys.get_config()`](/ref/sys/#sys.get_config):
+Custom values can---just like any other config value---be read with [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) or [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
 
 ```lua
-local my_value = tonumber(sys.get_config("test.my_value"))
+local my_value = sys.get_config_number("test.my_value")
+local my_value2 = sys.get_config_string("test.my_value2")
 ```
 
 
