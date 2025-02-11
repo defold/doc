@@ -54,6 +54,10 @@ This view shows the content of the file currently being edited, but in a hierarc
    - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to child it.
    - <kbd>Right click</kbd> to open a _context menu_ from where you can add items, delete selected items etc.
 
+It is possible to toggle the visibility of game objects and visual components by clicking on the little eye icon to the right of an element in the list (Defold 1.9.8 and newer).
+
+![toolbar](images/editor/outline.png)
+
 ### Properties pane
 
 This view shows properties associated with the currently selected item, like Position, Rotation, Animation etc, etc.
