@@ -167,6 +167,77 @@
             },
 
 
+            {
+                "path": "https://www.youtube.com/watch?v=Sekx4ckbYzI",
+                "embed": "https://www.youtube.com/embed/Sekx4ckbYzI",
+                "name": "Zelda Style Camera With Defold - Smooth Room Transition Camera",
+                "author": "Asatte Games",
+                "description": "Learn how to create a camera solution with smooth room transitions."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=1pxi8wDoagU",
+                "embed": "https://www.youtube.com/embed/1pxi8wDoagU",
+                "name": "Change Scenes with Defold - Use Lua Modules, Load new Scene, Control on Factories",
+                "author": "Asatte Games",
+                "description": "Learn how to changes scenes within your game."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=mHr-rxhdMAc",
+                "embed": "https://www.youtube.com/embed/mHr-rxhdMAc",
+                "name": "Sounds with Defold - Play Background Music, Coin Collect sound, Walk Sound etc",
+                "author": "Asatte Games",
+                "description": "Learn how to play background music and sound effects in Defold."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=tYRGEnwFbCE",
+                "embed": "https://www.youtube.com/embed/tYRGEnwFbCE",
+                "name": "Defold Factories - Spawn Game Objects",
+                "author": "Asatte Games",
+                "description": "Learn how to spawn objects such as coins, enemies etc in Defold."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=DYQ-Ku_W73I",
+                "embed": "https://www.youtube.com/embed/DYQ-Ku_W73I",
+                "name": "Defold Trigger Collision - Collectibles and Area Enter",
+                "author": "Asatte Games",
+                "description": "Learn how to use Trigger Collision objects in Defold."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=3t4EXqdLPxI",
+                "embed": "https://www.youtube.com/embed/3t4EXqdLPxI",
+                "name": "Defold Simple Collisions Without coding - Top-Down Tilemap and Player Collisions",
+                "author": "Asatte Games",
+                "description": "Learn how to use dynamic collision objects and tilemaps to automatically resolve collisions."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=xgJfSJ6BPMk",
+                "embed": "https://www.youtube.com/embed/xgJfSJ6BPMk",
+                "name": "Defold Camera - How to Make the camera follow the player?",
+                "author": "Asatte Games",
+                "description": "Learn how to make the camera smoothly follow the player."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=vahBtJxSeCA",
+                "embed": "https://www.youtube.com/embed/vahBtJxSeCA",
+                "name": "Tiled - How to use Tiled with Defold=",
+                "author": "Asatte Games",
+                "description": "Learn how to use the Tiled tilemap editor with Defold."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=03Qfm14rQAw",
+                "embed": "https://www.youtube.com/embed/03Qfm14rQAw",
+                "name": "Tilemaps - How to use built-in tilemaps with Defold?",
+                "author": "Asatte Games",
+                "description": "Learn how to use the tilemap system in Defold."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=D8nuGF-ymJQ",
+                "embed": "https://www.youtube.com/embed/D8nuGF-ymJQ",
+                "name": "Sprite sheet animations - How to use sprite sheet animations in Defold?",
+                "author": "Asatte Games",
+                "description": "Learn how to use the sprite sheet animations in Defold."
+            },
+
 
             {
                 "path": "https://www.youtube.com/watch?v=4XGbQ92FzRI",
