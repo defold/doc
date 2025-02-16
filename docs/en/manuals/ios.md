@@ -251,16 +251,14 @@ When you submit your game to the App Store you will be asked to provide Export C
 
 "When you submit your app to TestFlight or the App Store, you upload your app to a server in the United States. If you distribute your app outside the U.S. or Canada, your app is subject to U.S. export laws, regardless of where your legal entity is based. If your app uses, accesses, contains, implements, or incorporates encryption, this is considered an export of encryption software, which means your app is subject to U.S. export compliance requirements, as well as the import compliance requirements of the countries where you distribute your app."
 
-Additional documentation:
-
-* Export compliance overview - https://help.apple.com/app-store-connect/#/dev88f5c7bf9
-* Determining your export compliance requirements - https://help.apple.com/app-store-connect/#/dev63c95e436
-
-The Defold game engine use encryption for the following purposes:
+The Defold game engine uses encryption for the following purposes:
 
 * Making calls over secure channels (i.e. HTTPS and SSL)
-* Copyright protection of Lua code
+* Copyright protection of Lua code (to prevent duplication)
 
+These uses of encyption in the Defold engine are exempt from export compliance document requirements under United States and European Union law. Most Defold projects will remain exempt, but the addition of other cryptographic methods may change this status. It is your responsiblity to ensure that your project meets the requirements of these laws and the App Store's rules. See Apple's [Export Compliance Overview](https://help.apple.com/app-store-connect/#/dev88f5c7bf9) for more information.
+
+If you believe your project is exempt, set the [ITSAppUsesNonExemptEncryption](https://developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption) key to `False` in the project's `Info.plist` see [Application Manifests](/manuals/extensions-manifest-merge-tool) for more details.
 
 ## FAQ
 :[iOS FAQ](../shared/ios-faq.md)
