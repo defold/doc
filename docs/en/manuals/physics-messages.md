@@ -1,11 +1,42 @@
 ---
 title: Collision messages in Defold
-brief: When two objects collide, the engine will broadcast messages to all components in both objects.
+brief: When two objects collide, the engine may call the event listener or broad cast messages.
 ---
 
 # Collision messages
 
-When two objects collide, the engine will broadcast messages to both objects:
+When two objects collide, the engine will may send an event to the event callback, or broadcast messages to both objects.
+
+## Event filtering
+
+The types of events generated may be controlled using the flags for each object:
+
+* "Generate Collision Events"
+* "Generate Contact Events"
+* "Generate Trigger Events"
+
+These are all `true` by default.
+When two collision objects interact, we check if we should send a message to the user, given these checkboxes.
+
+E.g. given the "Generate Contact Events" checkboxes:
+
+When using `physics.set_listener()`:
+
+| Component A | Component B | Send Message |
+|-------------|-------------|--------------|
+| ✅︎          | ✅︎          | Yes          |
+| ❌          | ✅︎          | Yes          |
+| ✅︎          | ❌          | Yes          |
+| ❌          | ❌          | No           |
+
+When using the default message handler:
+
+| Component A | Component B | Send Message(s)   |
+|-------------|-------------|-------------------|
+| ✅︎          | ✅︎          | Yes (A,B) + (B,A) |
+| ❌          | ✅︎          | Yes (B,A)         |
+| ✅︎          | ❌          | Yes (A,B)         |
+| ❌          | ❌          | No                |
 
 ## Collision response
 
