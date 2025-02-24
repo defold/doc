@@ -80,7 +80,7 @@ function M.get_commands()
       end
     },
     {
-      label = "Minify JSON"
+      label = "Minify JSON",
       locations = {"Assets"},
       query = {
         selection = {type = "resource", cardinality = "one"}
