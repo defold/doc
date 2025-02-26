@@ -61,11 +61,18 @@ The title of the application.
 The version of the application.
 
 #### Write Log
-When checked, the engine will write a log file *log.txt* in the project root. When running on iOS, the log file can be accessed through iTunes and the *Apps* tab and the *File Sharing* section. On Android, the file is stored in the app's external storage. When running the *dmengine* development app, you can view the log with:
+When checked, the engine will write a log file. If running more than one instance from the editor the file will be named *instance_2_log.txt* with `2` being the instance index. If running a single instance or from a bundle the file will be named *log.txt* The location of the log file will be one of the following paths (tested in order):
 
-```bash
-$ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
-```
+1. The path specified in *project.log_dir*
+2. The system log path:
+  * macOS/iOS: `NSDocumentDirectory`
+  * Android: `getExternalFilesDir()`
+  * Others: Application root
+3. The application support path
+  * macOS/iOS: `NSApplicationSupportDirectory`
+  * Windows: `CSIDL_APPDATA` (eg C:\Users\<username>\AppData\Roaming)
+  * Android: `getFilesDir()`
+  * Linux: `HOME` environment variable
 
 #### Minimum Log Level
 Specify the minimum log level for the logging system. Only logs at or above this level will be shown.
