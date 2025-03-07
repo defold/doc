@@ -1,4 +1,8 @@
 Defold
+Defolding
+Colorslide
+README
+png
 github
 https
 TCP
@@ -13,3 +17,7 @@ sidenote
 config
 AWTError
 UHD
+scroller
+platformer
+Rodrigo
+Monteiro

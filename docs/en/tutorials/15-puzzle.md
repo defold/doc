@@ -384,7 +384,7 @@ end
 
 function on_reload(self)
     self.done = false
-    msg.post("#done", "disable")    
+    msg.post("#done", "disable")
 end
 ```
 
