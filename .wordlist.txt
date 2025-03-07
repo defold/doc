@@ -63,6 +63,7 @@ JavaFX
 IDFA
 SHA
 NativeAOT
+AdMob
 DotNet
 Haxe
 VSCode
@@ -72,6 +73,7 @@ libffi
 HiDPI
 ParticleFx
 json
+spinejson
 hxdefold
 transpiling
 transcoding
@@ -79,3 +81,6 @@ lossy
 Mipmaps
 codesign
 profiler
+filetype
+Radeon
+Zig
