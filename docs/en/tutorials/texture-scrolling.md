@@ -106,7 +106,7 @@ The `local animate` float 1.0 is our target value we are animating in "animation
 
 ## Next steps
 
-As an exercise you can try to animate the `water_bg` texcoords in the opposite direction like in the example demo!
+As an exercise you can try to animate the `water_bg` texture coordinates in the opposite direction like in the example demo!
 
 Hope this helps. If you do make something scroll please share!
 

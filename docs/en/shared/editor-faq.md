@@ -16,13 +16,13 @@ Discussed [here on the Defold forum](https://forum.defold.com/t/editor-endless-l
 A: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the macOS version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
 
 
-#### Q: Why am I getting an error saying "sun.security.validator.ValidatorException: PKIX path building failed" when launching the editor?
+#### Q: Why am I getting an error saying `sun.security.validator.ValidatorException: PKIX path building failed` when launching the editor?
 A: This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
 
 See [this link](https://github.com/defold/defold/blob/master/editor/README_TROUBLESHOOTING_PKIX.md) for details on this error.
 
 
-#### Q: Why am I am getting a "java.lang.OutOfMemoryError: Java heap space" when performing certain operations?
+#### Q: Why am I am getting a `java.lang.OutOfMemoryError: Java heap space` when performing certain operations?
 A: The Defold editor is built using Java and in some cases the default memory configuration of Java might not be sufficient. If this happens you can manually configure the editor to allocate more memory by editing the editor configuration file. The configuration file, named `config`, is located in the `Defold.app/Contents/Resources/` folder on macOS. On Windows it is located next to `Defold.exe` executable and on Linux next to the `Defold` executable. Open the `config` file and add `-Xmx6gb` to the line starting with `vmargs`. Adding `-Xmx6gb` will set the max heap size to 6 gigabytes (the default is usually 4Gb). It should look something like this:
 
 ```

@@ -130,8 +130,8 @@ If two [path settings](#path-settings) matches the same file and the path uses d
 *Mipmaps*
 : If checked, mipmaps are generated for the platform. Unchecked by default.
 
-*Premultiply alpha*
-: If checked, alpha is premultiplied into the texture data. Checked by default.
+*Pre-multiply alpha*
+: If checked, alpha is pre-multiplied into the texture data. Checked by default.
 
 *Max Texture Size*
 : If set to a non-zero value, textures are limited in pixel size to the specified number. Any texture that has a width or height larger than the specified value will be scaled down.
