@@ -180,7 +180,7 @@ Now, given these two numbers it is possible to tell if a puzzle state is solvabl
 
 Each legal move moves a piece by switching its place with the empty square either horizontally or vertically.
 
-Moving a piece horizontally does not change the number of inversions, nor does it change the row number where you find the empy square.
+Moving a piece horizontally does not change the number of inversions, nor does it change the row number where you find the empty square.
 
 Moving a piece vertically, however, changes the parity of the number of inversions (from odd to even, or from even to odd). It also changes the parity of the empty square row.
 

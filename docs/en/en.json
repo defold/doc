@@ -76,7 +76,7 @@
                 "embed": "https://www.youtube.com/embed/oLiJTcdBCkM",
                 "name": "How graphics works? Render pipeline explained. Example OpenGL + Defold",
                 "author": "Unfolding Gamedev",
-                "description": "Do you want to create breathtaking visual effects? Photrealistic or stylized games? You need to dig into how rendering works!"
+                "description": "Do you want to create breathtaking visual effects? Photorealistic or stylized games? You need to dig into how rendering works!"
             },
             {
                 "path": "https://www.youtube.com/watch?v=sLFHDihszfc",
@@ -135,7 +135,7 @@
                 "embed": "https://www.youtube.com/embed/83TcgJyv9vk",
                 "name": "Defold Drag and Drop",
                 "author": "Tactx Studios",
-                "description": "A walkthough is provided on how you can support a user selecting a specific game object and dragging it to a new location within your game."
+                "description": "A walkthrough is provided on how you can support a user selecting a specific game object and dragging it to a new location within your game."
             },
             {
                 "path": "https://www.youtube.com/watch?v=nLKKbxTDaas",
@@ -1787,7 +1787,7 @@
                     },
                     {
                         "path": "/manuals/extender-docker-images",
-                        "name": "Avaialble Docker images to run Extender"
+                        "name": "Available Docker images to run Extender"
                     }
                 ]
             }

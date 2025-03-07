@@ -9,7 +9,7 @@ brief: This manual describes how to optimize memory usage of a Defold game.
 The use of texture compression will not only reduce the size of resources within your game archive, but compressed textures may also reduce the amount of GPU memory required.
 
 ## Dynamic loading
-Most game have at least some content that is used infrequently. From a memory usage stand point it does not make sense to have such content loaded in memory at all times, but rather load and unload it when it is neded. This will obviously be a trade-off between having something readily accessible at the cost of runtime memory and loading something at the cost of loading time.
+Most game have at least some content that is used infrequently. From a memory usage stand point it does not make sense to have such content loaded in memory at all times, but rather load and unload it when it is needed. This will obviously be a trade-off between having something readily accessible at the cost of runtime memory and loading something at the cost of loading time.
 
 Defold has several different ways of loading content dynamically:
 

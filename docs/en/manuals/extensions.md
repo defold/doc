@@ -52,7 +52,7 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains any include files.
 
 *lib*
-: This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecure-platform`, depending on what architectures are supported by your libraries.
+: This optional folder contains any compiled libraries that the extension depends on. Library files should be placed in subfolders named by `platform`, or `architecture-platform`, depending on what architectures are supported by your libraries.
 
   :[platforms](../shared/platforms.md)
 
@@ -60,7 +60,7 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains additional files used in the build or bundling process. See below for details.
 
 *res*
-: This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecure-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
+: This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecture-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
 
 ### Manifest files
 

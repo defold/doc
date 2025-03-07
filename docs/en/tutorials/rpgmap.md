@@ -7,7 +7,7 @@ brief: In this sample project, you learn one method of creating very large RPG m
 In this sample project which you can [open from the editor](/manuals/project-setup/) or [download from GitHub](https://github.com/defold/sample-rpgmap), we show one method of creating very large RPG maps in Defold. The design is based on the following assumptions:
 
 1. The world is presented one screen at a time. This allows the game to naturally contain enemies and NPC characters within the boundaries of a single screen. The level designer has full control over how the world is presented on the player's screen.
-2. The player character should be able to travel arbitrarily far without the game exhibiting floating point precision issues. These typically cause objects to flutter stangely when they move far from origin.
+2. The player character should be able to travel arbitrarily far without the game exhibiting floating point precision issues. These typically cause objects to flutter strangely when they move far from origin.
 3. The player's movement is restricted by obstacles on the map, so the level designer can lead the player between screens using trees, rocks, water and other obstacles.
 4. It should be possible to mix and match tilemaps, sprites and other visual content.
 
