@@ -3,17 +3,18 @@ name: Trigger site rebuild
 on: [push]
 
 jobs:
-  build:
-
+  spellcheck:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: rojopolis/spellcheck-github-actions@0.47.0
 
-    steps: [{
-        name: 'Repository dispatch',
-        uses: defold/repository-dispatch@1.2.1,
-        with: {
-            repo: 'defold/defold.github.io',
-            token: '${{ secrets.SERVICES_GITHUB_TOKEN }}',
-            user: 'services@defold.se',
-            action: 'docs'
-        }
-    }]
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: defold/repository-dispatch@1.2.1
+      with:
+        repo: defold/defold.github.io
+        token: ${{ secrets.SERVICES_GITHUB_TOKEN }}
+        user: services@defold.se
+        action: docs
