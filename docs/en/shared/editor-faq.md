@@ -6,7 +6,7 @@ A: The editor will use up to 75% of the available memory of the system. On a com
 A: Yes. The Defold beta editor checks for an update at startup, just like the Defold stable version does.
 
 
-#### Q: Why am I getting an error saying "java.awt.AWTError: Assistive Technology not found" when launching the editor?
+#### Q: Why am I getting an error saying `java.awt.AWTError: Assistive Technology not found` when launching the editor?
 A: This error is related to problems with Java assistive technology such as the [NVDA screen reader](https://www.nvaccess.org/download/). You probably have an `.accessibility.properties` file in your home folder. Remove the file and try launching the editor again. (Note: If you do use any assistive technology and require that file to be present then please reach out to us at info@defold.se to discuss alternative solutions).
 
 Discussed [here on the Defold forum](https://forum.defold.com/t/editor-endless-loading-windows-10-1-2-169-solved/65481/3).
