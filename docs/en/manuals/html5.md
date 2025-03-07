@@ -254,7 +254,7 @@ It is possible to specify additional engine arguments when the engine is configu
     }
 ```
 
-You can also add `"–config=foo1=bar1","--config=foo2=bar2"` to the engine arguments field in the HTML5 section of *game.project* and it will be injected into the generated index.html file.
+You can also add `--config=foo1=bar1, --config=foo2=bar2` to the engine arguments field in the HTML5 section of *game.project* and it will be injected into the generated index.html file.
 
 At runtime you get the values like this:
 
