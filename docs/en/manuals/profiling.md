@@ -92,11 +92,11 @@ Resources view
 ## Build reports
 When bundling your game there is an option to create a build report. This is very useful to get a grip on the size of all the assets that are part of your game bundle. Simply check the *Generate build report* checkbox when bundling the game.
 
-![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
+![build report](images/profiling/build_report.png)
 
 The builder will produce a file called "report.html" alongside the game bundle. Open the file in a web browser to inspect the report:
 
-![build report](images/profiling/build_report_html.png){srcset="images/profiling/build_report_html@2x.png 2x"}
+![build report](images/profiling/build_report_html.png)
 
 The *Overview* gives an over all visual breakdown of the project size based on resource type.
 
@@ -118,14 +118,14 @@ ProFi (Lua)
 Instruments (macOS and iOS)
 : This is a performance analyzer and visualizer that is part of Xcode. It allows you to trace and inspect the behavior of one or more apps or processes, examine device specific features (like Wi-Fi and Bluetooth) and much more.
 
-  ![instruments](images/profiling/instruments.png){srcset="images/profiling/instruments@2x.png 2x"}
+  ![instruments](images/profiling/instruments.png)
 
 OpenGL profiler (macOS)
 : Part of the package "Additional Tools for Xcode" that you can download from Apple (select <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd> in the Xcode menu).
 
   This tool allows you to inspect a running Defold application and see how it uses OpenGL. It allows you to do traces of OpenGL function calls, set breakpoints on OpenGL functions, investigate application resources (textures, programs, shaders etc), look at buffer contents, and check other aspects of the OpenGL state.
 
-  ![opengl profiler](images/profiling/opengl.png){srcset="images/profiling/opengl@2x.png 2x"}
+  ![opengl profiler](images/profiling/opengl.png)
 
 Android Profiler (Android)
 : https://developer.android.com/studio/profile/android-profiler.html

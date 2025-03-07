@@ -17,7 +17,7 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 
 2. 设置 *Collection* 属性来引用一个集合, 就是你希望动态加载进运行环境的集合. 这些引用是静态的, 所以确保把游戏所需的各个部分都通过集合引用到.
 
-![add proxy component](images/collection-proxy/create_proxy.png){srcset="images/collection-proxy/create_proxy@2x.png 2x"}
+![add proxy component](images/collection-proxy/create_proxy.png)
 
 (也可以编译时排除一部分内容需要的时候用代码下载而不使用 *Exclude* 选项和 [热更新功能](/manuals/live-update/).)
 
@@ -25,13 +25,13 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 
 当 Defold 引擎开始工作最先把 *启动集合* 导入运行环境并对其中的所有游戏对象进行初始化. 然后开启游戏对象和它们的组件. 在 [项目配置](/manuals/project-settings/#Main Collection) 里设置把哪个集合作为启动集合使用. 依照惯例启动集合都叫做 "main.collection".
 
-![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
+![bootstrap](images/collection-proxy/bootstrap.png)
 
 启动集合实例化时引擎会为 "游戏世界" 里的游戏对象和组件分配足够的内存空间. 对于物理模拟和碰撞对象, 引擎会为其建立另一个游戏世界.
 
 因为脚本要能定位任何地方的游戏对象, 包括启动集合之外的集合里的对象, 所以集合必须有独立的属性: *Name*:
 
-![bootstrap](images/collection-proxy/collection_id.png){srcset="images/collection-proxy/collection_id@2x.png 2x"}
+![bootstrap](images/collection-proxy/collection_id.png)
 
 如果被加载集合里还有集合代理, 代理引用的集合 *不会* 被自动加载. 需要手动写代码进行加载.
 
@@ -44,7 +44,7 @@ Defold 把所有游戏对象组织在集合里. 集合可以包含游戏对象�
 msg.post("#myproxy", "load")
 ```
 
-![load](images/collection-proxy/proxy_load.png){srcset="images/collection-proxy/proxy_load@2x.png 2x"}
+![load](images/collection-proxy/proxy_load.png)
 
 集合代理会告诉引擎需要为新游戏世界分配多大空间内存. 另一个物理世界也被建立起来连同集合 "mylevel.collection" 里的游戏对象都会被实例化.
 
@@ -90,7 +90,7 @@ end
 msg.post("main:/loader#script", "load_level", { level_id = 2 })
 ```
 
-![load](images/collection-proxy/message_passing.png){srcset="images/collection-proxy/message_passing@2x.png 2x"}
+![load](images/collection-proxy/message_passing.png)
 
 ## 新游戏世界卸载
 

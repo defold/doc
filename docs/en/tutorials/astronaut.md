@@ -16,7 +16,7 @@ The tutorial is integrated with the Defold editor and easily accessible:
 4. Select the "Walking astronaut tutorial"
 5. Select a location for the project on your local drive and click *Create New Project*.
 
-![new project](images/new-astronaut.png){srcset="images/new-astronaut@2x.png 2x"}
+![new project](images/new-astronaut.png)
 
 The editor automatically opens the "README" file from the project root, containing the full tutorial text.
 

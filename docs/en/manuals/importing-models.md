@@ -6,13 +6,13 @@ brief: This manual covers how to import 3D models used by the model component.
 # Importing 3D models
 Defold currently support models, skeletons and animations in GL Transmission Format *.glTF* and Collada *.dae* format. You can use tools such as Maya, 3D Max, Sketchup and Blender to create and/or convert 3D models into glTF and Collada format. Blender is a powerful and popular 3D modeling, animation and rendering program. It runs on Windows, macOS and Linux and is freely available for download at http://www.blender.org
 
-![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
+![Model in Blender](images/model/blender.png)
 
 
 ## Importing to Defold
 To import the model, simply drag and drop the *.gltf* file or *.dae* file and the corresponding texture image into the *Assets Pane* somewhere.
 
-![Imported model assets](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
+![Imported model assets](images/model/assets.png)
 
 
 ## Using a model

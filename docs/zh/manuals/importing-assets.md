@@ -12,7 +12,7 @@ brief: 本教程介绍了导入, 编辑资源的方法.
 
 Defold 要求其所用资源全部位于项目文件夹内. 先导入后使用. 导入方法很简单, 从文件系统任意位置拖动任意文件放入 Defold 编辑器 _资源面板_ 里即可.
 
-![Importing files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
+![Importing files](images/graphics/import.png)
 
 ::: sidenote
 Defold 支持 PNG 和 JPEG 图片格式. 其中 PNG 图片必须是 32 位 RGBA 格式的. 其他格式要先转换成支持格式后再使用.

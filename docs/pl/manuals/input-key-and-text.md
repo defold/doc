@@ -51,7 +51,7 @@ end
 
 Wyzwalacz marked-text jest używany głównie w klawiaturach azjatyckich, gdzie wiele naciśnięć klawiszy może mapować się na pojedyncze wprowadzone znaki. Na przykład w klawiaturze iOS "Japanese-Kana" użytkownik może wprowadzać kombinacje, a górna część klawiatury wyświetla dostępne symbole lub sekwencje symboli, które można wprowadzić.
 
-![Input marked text](images/input/marked_text.png){srcset="images/input/marked_text@2x.png 2x"}
+![Input marked text](images/input/marked_text.png)
 
 - Każde naciśnięcie klawisza generuje osobną akcję i ustawia pole text akcji na obecnie wprowadzoną sekwencję symboli (tzw. "oznaczony tekst").
 - Gdy użytkownik wybierze symbol lub kombinację symboli, wysłana zostanie osobna akcja typu `text` (jeśli jest ona skonfigurowana na liście przypisań wejścia). Oddzielna akcja ustawia pole text akcji na ostateczną sekwencję symboli.

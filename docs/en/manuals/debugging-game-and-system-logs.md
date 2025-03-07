@@ -98,7 +98,7 @@ iOS
 
   Click the cog icon below the list and select <kbd>Download Container...</kbd>.
 
-  ![download container](images/debugging/download_container.png){srcset="images/debugging/download_container@2x.png 2x"}
+  ![download container](images/debugging/download_container.png)
 
   Once the container has been extracted it will be shown in *Finder*. Right click the container and select <kbd>Show Package Content</kbd>. Locate the file "log.txt", which should be located in "AppData/Documents/".
 

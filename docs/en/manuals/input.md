@@ -9,7 +9,7 @@ All user input is captured by the engine and dispatched as actions to script- an
 
 The input system uses a set of simple and powerful concepts, allowing you to manage input as you see fit for your game.
 
-![Input bindings](images/input/overview.png){srcset="images/input/overview@2x.png 2x"}
+![Input bindings](images/input/overview.png)
 
 Devices
 : Input devices that are either part of, or plugged into, your computer or mobile device provide raw system level input to the Defold runtime. The following device types are supported:
@@ -38,11 +38,11 @@ Consuming input
 
 The input bindings is a project wide table that allows you to specify how device input should translate into named *actions* before they are dispatched to your script components and GUI scripts. You can create a new input binding file, <kbd>right click</kbd> a location in the *Assets* view and select <kbd>New... ▸ Input Binding</kbd>. To make the engine use the new file, change the *Game Binding* entry in *game.project*.
 
-![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
+![Input binding setting](images/input/setting.png)
 
 A default input binding file is automatically created with all new project templates so there is usually no need to create a new binding file. The default file is called "game.input_binding" and can be found in the "input" folder in the project root. <kbd>Double click</kbd> the file to open it in the editor:
 
-![Input set bindings](images/input/input_binding.png){srcset="images/input/input_binding@2x.png 2x"}
+![Input set bindings](images/input/input_binding.png)
 
 To create a new binding, click the <kbd>+</kbd> button at the bottom of the relevant trigger type section. Each entry has two fields:
 
@@ -94,7 +94,7 @@ msg.post(".", "acquire_input_focus")
 
 This message instructs the engine to add input capable components (script components, GUI components and collection proxies) in the game objects to the *input stack*. The game object components are put on top of the input stack; the component that is added last will be top of the stack. Note that if the game object contains more than one input capable component, all components will be added to the stack:
 
-![Input stack](images/input/input_stack.png){srcset="images/input/input_stack@2x.png 2x"}
+![Input stack](images/input/input_stack.png)
 
 If a game object that has already acquired input focus does so again, its component(s) will be moved to the top of the stack.
 
@@ -103,7 +103,7 @@ If a game object that has already acquired input focus does so again, its compon
 
 Input actions are dispatched according to the input stack, from the top to the bottom.
 
-![Action dispatch](images/input/actions.png){srcset="images/input/actions@2x.png 2x"}
+![Action dispatch](images/input/actions.png)
 
 Any component that is on the stack containing an `on_input()` function will have that function called, once for each input action during the frame, with the following arguments:
 
@@ -137,7 +137,7 @@ end
 
 Each game world that is dynamically loaded through a collection proxy has its own input stack. For action dispatch to reach the loaded world's input stack, the proxy component must be on the main world's input stack. All components on a loaded world's stack are handled before dispatch continues down the main stack:
 
-![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
+![Action dispatch to proxies](images/input/proxy.png)
 
 ::: important
 It is a common error to forget to send `acquire_input_focus` to the game object holding the collection proxy component. Skipping this step prevents input from reaching any of the components on the loaded world's input stack.
@@ -161,11 +161,11 @@ A component's `on_input()` can actively control whether actions should be passed
 - If `on_input()` returns `false`, or a return is omitted (this implies a `nil` return which is a false value in Lua) input actions will be passed on to the next component on the input stack.
 - If `on_input()` returns `true` input is consumed. No component further down the input stack will receive the input. Note that this applies to *all* input stacks. A component on a proxy-loaded world's stack can consume input preventing components on the main stack to receive input:
 
-![consuming input](images/input/consuming.png){srcset="images/input/consuming@2x.png 2x"}
+![consuming input](images/input/consuming.png)
 
 There are many good use cases where input consumption provides a simple and powerful way to shift input between different parts of a game. For example, if you need a pop-up menu that temporarily is the only part of the game that listens to input:
 
-![consuming input](images/input/game.png){srcset="images/input/game@2x.png 2x"}
+![consuming input](images/input/game.png)
 
 The pause menu is initially hidden (disabled) and when the player touches the "PAUSE" HUD item, it is enabled:
 
@@ -182,7 +182,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-![pause menu](images/input/game_paused.png){srcset="images/input/game_paused@2x.png 2x"}
+![pause menu](images/input/game_paused.png)
 
 The pause menu GUI acquires input focus and consumes input, preventing any input other than what's relevant for the pop-up menu:
 

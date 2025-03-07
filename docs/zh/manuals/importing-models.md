@@ -6,13 +6,13 @@ brief: 本教程介绍了通过模型组件导入 3D 模型的方法.
 # 导入3D模型
 Defold 目前支持 GL Transmission Format *.glTF* 和 Collada *.dae* 格式的模型,骨骼和动画. 可以使用类似 Maya, 3D Max, Sketchup 和 Blender 的软件保存或者转换3D模型为Collada格式. Blender 是一个著名的3D建模, 动画及渲染软件. 它在 Windows, macOS 和 Linux 都能运行并且在 http://www.blender.org 上免费下载.
 
-![Model in Blender](images/model/blender.png){srcset="images/model/blender@2x.png 2x"}
+![Model in Blender](images/model/blender.png)
 
 
 ## 导入模型到 Defold
 要导入模型, 只需将 *.gltf* 文件或者 *.dae* 文件及其相应贴图拖拽至 *资源面板* 即可.
 
-![导入模型资源](images/model/assets.png){srcset="images/model/assets@2x.png 2x"}
+![导入模型资源](images/model/assets.png)
 
 
 ## 使用模型

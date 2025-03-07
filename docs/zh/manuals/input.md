@@ -9,7 +9,7 @@ brief: 本教程介绍了输入系统如何工作, 如何捕获输入行为和�
 
 输入系统包含一些概念, 用以让开发者直观地处理游戏逻辑.
 
-![Input bindings](images/input/overview.png){srcset="images/input/overview@2x.png 2x"}
+![Input bindings](images/input/overview.png)
 
 Devices
 : 不管是插上的, 连上的, 有线无线的, 操作系统级别的底层能够进行输入的设备. Defold 支持以下设备:
@@ -38,11 +38,11 @@ Consuming input
 
 输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, 在 *Assets* 视图中 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Input Binding</kbd>. 然后修改 *game.project* 里 *Game Binding* 项对输入绑定文件的引用.
 
-![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
+![Input binding setting](images/input/setting.png)
 
 每个新建项目都会自动生成默认输入绑定文件. 默认叫做 "game.input_binding", 位于项目根目录下 "input" 文件夹内. <kbd>双击</kbd> 即可在编辑器中打开此文件:
 
-![Input set bindings](images/input/input_binding.png){srcset="images/input/input_binding@2x.png 2x"}
+![Input set bindings](images/input/input_binding.png)
 
 点击相关触发类型底部的 <kbd>+</kbd> 按钮, 即可新建一个绑定项. 每一项有两个部分:
 
@@ -94,7 +94,7 @@ msg.post(".", "acquire_input_focus")
 
 此消息让引擎把可接收输入的游戏对象组件 (脚本, GUI 和集合代理) 压入 *输入栈*. 这些组件位于栈顶; 最后入栈的组件位于栈顶. 注意如果一个游戏对象包含多个输入组件, 所有组件都会入栈:
 
-![Input stack](images/input/input_stack.png){srcset="images/input/input_stack@2x.png 2x"}
+![Input stack](images/input/input_stack.png)
 
 如果已获得输入焦点的游戏对象再次请求输入焦点, 那么其组件会被移至输入栈顶端.
 
@@ -103,7 +103,7 @@ msg.post(".", "acquire_input_focus")
 
 输入事件在输入栈上, 从上到下传递.
 
-![Action dispatch](images/input/actions.png){srcset="images/input/actions@2x.png 2x"}
+![Action dispatch](images/input/actions.png)
 
 每个入栈组件都有 `on_input()` 函数, 一帧中每个输入都调用一次该函数, 连同如下参数:
 
@@ -137,7 +137,7 @@ end
 
 由集合代理动态载入的游戏世界都有自己的输入栈. 为了让被载入的游戏世界获得输入信息, 集合代理组件必须位于主游戏世界的输入栈里. 被加载的游戏世界优先于主游戏世界获得输入信息:
 
-![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
+![Action dispatch to proxies](images/input/proxy.png)
 
 ::: sidenote
 开发者经常会忘记发送 `acquire_input_focus` 来使集合代理所在的游戏对象获得输入焦点. 不这么做的话此集合代理加载的所有游戏世界都无法获得输入消息.
@@ -161,11 +161,11 @@ msg.post(".", "release_input_focus")
 - 如果 `on_input()` 返回 `false`, 或者未返回值 (此时默认返回 `nil` 也被看作是false) 输入动作会继续传播.
 - 如果 `on_input()` 返回 `true` 输入就此销毁. 再无组件可以接收到这个消息. 作用于 *全部* 输入栈. 也就是说集合代理加载的组件销毁输入那么主栈的组件就收不到这个输入消息了:
 
-![consuming input](images/input/consuming.png){srcset="images/input/consuming@2x.png 2x"}
+![consuming input](images/input/consuming.png)
 
 输入消耗可以使游戏变得灵活, 控制性更强. 例如, 如果需要弹出菜单暂时只有部分界面可以接受点击:
 
-![consuming input](images/input/game.png){srcset="images/input/game@2x.png 2x"}
+![consuming input](images/input/game.png)
 
 菜单开始是隐藏的 (disabled) 玩家点击 "PAUSE" 组件, 菜单被激活:
 
@@ -182,7 +182,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-![pause menu](images/input/game_paused.png){srcset="images/input/game_paused@2x.png 2x"}
+![pause menu](images/input/game_paused.png)
 
 此时弹出的暂停菜单获得输入焦点并且消耗输入, 以防止点击穿透:
 

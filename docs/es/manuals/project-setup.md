@@ -11,7 +11,7 @@ Puedes crear fácilmente un proyeto desde el editor Defold. También tienes la o
 
 Haz click en la opción <kbd>New Project</kbd> y selecciona que tipo de proyecto te gustaría crear. Especifica una ruta en tu disco duro donde el proyecto se mantendrá guardado. Haz click en <kbd>Create New Project</kbd> para crear el proyecto en la ruta que elegiste.Puedes crear un nuevo proyecto desde una plantilla:
 
-![Abrir proyecto](images/workflow/open_project.png){srcset="images/workflow/open_project@2x.png 2x"}
+![Abrir proyecto](images/workflow/open_project.png)
 
 O desde un Tutorial con instrucciones paso a paso:
 

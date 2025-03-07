@@ -24,7 +24,7 @@ Clipping Inverted
 
 然后把被裁剪节点作为蒙版子节点加入进来.
 
-![Create clipping](images/gui-clipping/create.png){srcset="images/gui-clipping/create@2x.png 2x"}
+![Create clipping](images/gui-clipping/create.png)
 
 ## 裁剪蒙版
 
@@ -34,7 +34,7 @@ Clipping Inverted
 - 如果一个蒙版节点有父蒙版那么它会继续裁剪父蒙版. 子蒙版不会 _继承_ 当前蒙版, 只会继续剪裁当前蒙版.
 - 非蒙版节点作为蒙版的子节点的话, 会被父蒙版层级裁剪渲染.
 
-![Clipping hierarchy](images/gui-clipping/setup.png){srcset="images/gui-clipping/setup@2x.png 2x"}
+![Clipping hierarchy](images/gui-clipping/setup.png)
 
 这里, 我们建立了节点的三层结构:
 
@@ -44,7 +44,7 @@ Clipping Inverted
 
 这种结构下可以有四种裁剪方式. 绿色标志出园被裁剪以后的样子. 结果如下所示:
 
-![Stencil masks](images/gui-clipping/modes.png){srcset="images/gui-clipping/modes@2x.png 2x"}
+![Stencil masks](images/gui-clipping/modes.png)
 
 ## 蒙版局限性
 
@@ -63,7 +63,7 @@ Clipping Inverted
 蒙版节点及其层级有层设置的话会优先显示, 没有设置的话按照普通顺序显示.
 :::
 
-![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
+![Layers and clipping](images/gui-clipping/layers.png)
 
 本例中, 节点 "Donut BG" 和 "BG" 都使用了 layer 1. 它们的渲染顺序遵循层级即 "Donut BG" 先于 "BG" 渲染. 然而, 子节点 "Donut Shadow" 归为 layer 2 即更高层级, 则它的渲染晚于这两个节点. 这种情况下, 渲染顺序为:
 

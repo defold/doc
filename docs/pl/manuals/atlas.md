@@ -26,11 +26,11 @@ Dodawanie pojedynczych obrazów
 
   Pojawi się okno dialogowe, z którego możesz znaleźć i wybrać obrazy, które chcesz dodać do atlasu. Zauważ, że możesz filtrować pliki obrazów i wybierać je wielokrotnie.
 
-  ![Creating an atlas, adding images](images/atlas/add.png){srcset="images/atlas/add@2x.png 2x"}
+  ![Creating an atlas, adding images](images/atlas/add.png)
 
   Dodane obrazy są wymienione w *Outline*, a pełny atlas można zobaczyć w centrum widoku edytora. Może być konieczne naciśnięcie <kbd>F</kbd> (<kbd>View ▸ Frame Selection</kbd> w menu), aby dopasować zaznaczenie.
 
-  ![Images added](images/atlas/single_images.png){srcset="images/atlas/single_images@2x.png 2x"}
+  ![Images added](images/atlas/single_images.png)
 
 Dodawanie animacji flipbook
 : Kliknij <kbd>przyciskiem myszy</kbd> główny wpis Atlas w panelu *Outline*.
@@ -43,11 +43,11 @@ Dodawanie animacji flipbook
 
   Pojawi się okno dialogowe, z którego możesz znaleźć i wybrać obrazy, które chcesz dodać do grupy animacji.
 
-  ![Creating an atlas, adding images](images/atlas/add_animation.png){srcset="images/atlas/add_animation@2x.png 2x"}
+  ![Creating an atlas, adding images](images/atlas/add_animation.png)
 
   Naciśnij <kbd>Spację</kbd> z wybraną grupą animacji, aby ją obejrzeć. Dostosuj właściwości animacji w obszarze *Properties* według potrzeb (patrz poniżej).
 
-  ![Animation group](images/atlas/animation_group.png){srcset="images/atlas/animation_group@2x.png 2x"}
+  ![Animation group](images/atlas/animation_group.png)
 
 Możesz zmieniać kolejność obrazów w Outline, wybierając je i naciskając <kbd>Alt + W górę/w dół</kbd>. Możesz również łatwo tworzyć duplikaty, kopiując i wklejając obrazy w zarysie (z menu <kbd>Edit</kbd>, menu kontekstowego po kliknięciu prawym przyciskiem myszy lub za pomocą skrótów klawiszowych).
 
@@ -69,7 +69,7 @@ Extrude Borders (Wytłoczenie granic)
 
 Oto przykłady różnych ustawień właściwości z czterema kwadratowymi obrazami o wymiarach 64x64 pikseli dodanymi do atlasu. Zauważ, jak atlas przeskakuje do rozmiaru 256x256, kiedy tylko obrazy nie mieszczą się w 128x128, co skutkuje marnowaniem dużej przestrzeni tekstury.
 
-![Atlas properties](images/atlas/atlas_properties.png){srcset="images/atlas/atlas_properties@2x.png 2x"}
+![Atlas properties](images/atlas/atlas_properties.png)
 
 ## Właściwości Obrazu
 
@@ -87,7 +87,7 @@ Sprite Trim Mode (Trymowanie Sprite'a)
 Image (Obraz)
 : Ścieżka do samego obrazu.
 
-![Image properties](images/atlas/image_properties.png){srcset="images/atlas/image_properties@2x.png 2x"}
+![Image properties](images/atlas/image_properties.png)
 
 ## Właściwości Animacji
 

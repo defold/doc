@@ -107,7 +107,7 @@ end
 ## 手柄配置文件
 每种手柄分别对应一份映射文件, 可以在 *gamepads* 配置文件中设置. Defold 自带一个通用的手柄映射配置文件:
 
-![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
+![Gamepad settings](images/input/gamepads.png)
 
 如需自定义文件, 可以配合使用这个工具:
 
@@ -121,7 +121,7 @@ end
 
 这个工具通过收集连接控制器的输入自动生成映射文件. 新的映射文件可以在 *game.project* 里进行指定或者混合使用:
 
-![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
+![Gamepad settings](images/input/gamepad_setting.png)
 
 ### 未映射手柄
 (更新于 Defold 1.2.186)

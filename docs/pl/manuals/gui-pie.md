@@ -11,7 +11,7 @@ Węzły pierścieniowe - "pie" są używane do tworzenia obiektów okrągłych l
 
 Kliknij <kbd>prawym przyciskiem myszy</kbd> w sekcji *Nodes* w panelu *Outline* i wybierz <kbd>Add ▸ Pie</kbd>. Nowy węzeł pie zostaje zaznaczony, i możesz modyfikować jego właściwości.
 
-![Create pie node](images/gui-pie/create.png){srcset="images/gui-pie/create@2x.png 2x"}
+![Create pie node](images/gui-pie/create.png)
 
 Następujące właściwości są unikalne dla węzłów pie:
 
@@ -30,7 +30,7 @@ Perimeter Vertices
 Pie Fill Angle
 : Kąt wypełnienia - określa, ile z placka ma zostać wypełnione. Wyrażane jako kąt przeciwny do ruchu wskazówek zegara, zaczynając od prawej strony.
 
-![Properties](images/gui-pie/properties.png){srcset="images/gui-pie/properties@2x.png 2x"}
+![Properties](images/gui-pie/properties.png)
 
 Jeśli ustawisz teksturę na węźle, obraz tekstury jest używany "płasko", tak aby rogi tekstury korelowały z rogami obwiedni węzła.
 

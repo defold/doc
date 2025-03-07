@@ -9,7 +9,7 @@ The physics engine allows you to group your physics objects and filter how they 
 
 For a collision between two objects to register both objects must mutually specify each other's groups in their *Mask* field.
 
-![Physics collision group](images/physics/collision_group.png){srcset="images/physics/collision_group@2x.png 2x"}
+![Physics collision group](images/physics/collision_group.png)
 
 The *Mask* field can contain multiple group names, allowing for complex interaction scenarios.
 

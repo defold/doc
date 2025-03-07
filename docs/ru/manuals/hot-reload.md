@@ -18,23 +18,23 @@ Defold позволяет выполнять горячую перезагруз
 
 Чтобы затем перезагрузить обновленный ресурс, просто выберите пункт меню <kbd> File ▸ Hot Reload </kbd> или нажмите соответствующую комбинацию на клавиатуре: 
 
-![Reloading resources](images/hot-reload/menu.png){srcset="images/hot-reload/menu@2x.png 2x"}
+![Reloading resources](images/hot-reload/menu.png)
 
 ## Горячая перезагрузка на устройстве
 
 Горячая перезагрузка работает как на устройстве, так и на компьютере. Чтобы использовать её на устройстве, запустите отладочную сборку своей игры или [приложение для разработки](/manuals/dev-app) на своем мобильном устройстве, затем выберите его в качестве цели в редакторе: 
 
-![target device](images/hot-reload/target.png){srcset="images/hot-reload/target@2x.png 2x"}
+![target device](images/hot-reload/target.png)
 
 Теперь при сборке и запуске редактор загружает все ассеты в работающее приложение на устройстве и запускает игру. После этого любой файл, который вы загружаете в горячем режиме, будет обновлен на устройстве.
 
 Например, чтобы добавить пару кнопок в графический интерфейс, который отображается в запущенной игре на вашем телефоне, просто откройте файл графического интерфейса: 
 
-![reload gui](images/hot-reload/gui.png){srcset="images/hot-reload/gui@2x.png 2x"}
+![reload gui](images/hot-reload/gui.png)
 
 Добавьте новые кнопки, сохраните и перезагрузите GUI-файл в горячем режиме. Теперь вы можете видеть новые кнопки на экране телефона: 
 
-![reloaded gui](images/hot-reload/gui-reloaded.png){srcset="images/hot-reload/gui-reloaded@2x.png 2x"}
+![reloaded gui](images/hot-reload/gui-reloaded.png)
 
 При горячей перезагрузке файла движок выведет в консоль каждый перезагруженный файл ресурсов. 
 

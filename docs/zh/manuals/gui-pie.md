@@ -11,7 +11,7 @@ brief: 本教程介绍了在 Defold GUI 场景中如何使用饼状图节点.
 
 <kbd>右键点击</kbd>  *Outline* 中的 *Nodes* 部分, 选择 <kbd>Add ▸ Pie</kbd>. 饼状图就创建好了.
 
-![创建饼状图节点](images/gui-pie/create.png){srcset="images/gui-pie/create@2x.png 2x"}
+![创建饼状图节点](images/gui-pie/create.png)
 
 以下属性是饼状图节点的特有属性:
 
@@ -30,7 +30,7 @@ Perimeter Vertices
 Pie Fill Angle
 : 饼状图的填充. 从右侧开始按逆时针方向.
 
-![属性](images/gui-pie/properties.png){srcset="images/gui-pie/properties@2x.png 2x"}
+![属性](images/gui-pie/properties.png)
 
 如果为节点设置了纹理, 那么纹理图会和边界框的角对应起来平铺.
 

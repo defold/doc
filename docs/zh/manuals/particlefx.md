@@ -7,7 +7,7 @@ brief: 本教程介绍了粒子特效组件的使用以及特效的编辑方法.
 
 粒子特效用以为游戏呈现视觉效果.可以用来表现爆炸, 喷血, 拖尾, 天气等等效果.
 
-![ParticleFX Editor](images/particlefx/editor.png){srcset="images/particlefx/editor@2x.png 2x"}
+![ParticleFX Editor](images/particlefx/editor.png)
 
 粒子特效包含一些发射器以及可选的修改器:
 
@@ -23,15 +23,15 @@ Modifier
 
 在 *Outline* 面板中显示出默认粒子发射器. 点选发射器 *Properties* 面板会对应更新.
 
-![Default particles](images/particlefx/default.png){srcset="images/particlefx/default@2x.png 2x"}
+![Default particles](images/particlefx/default.png)
 
 新建发射器, <kbd>右键点击</kbd> *Outline* 视图, 从上下文菜单中选择 <kbd>Add Emitter ▸ [type]</kbd>. 其中发射器类型可以创建后在属性里更改.
 
 新建修改器, <kbd>右键点击</kbd> *Outline* 视图里的发射器, 从上下文菜单中选择 <kbd>Add Modifier</kbd>, 再选择修改器类型.
 
-![Add modifier](images/particlefx/add_modifier.png){srcset="images/particlefx/add_modifier@2x.png 2x"}
+![Add modifier](images/particlefx/add_modifier.png)
 
-![Add modifier select](images/particlefx/add_modifier_select.png){srcset="images/particlefx/add_modifier_select@2x.png 2x"}
+![Add modifier select](images/particlefx/add_modifier_select.png)
 
 在根节点 (而不是发射器子级) 上添加的修改器会作用域所有粒子.
 
@@ -106,7 +106,7 @@ Emitter Type
 
   - `Cone` 从锥体的内部随机位置发射粒子. 发射方向为锥顶到锥底. 宽度基于 *发射器 Size 的X值*, 高度基于 *Y值*.
 
-  ![emitter types](images/particlefx/emitter_types.png){srcset="images/particlefx/emitter_types@2x.png 2x"}
+  ![emitter types](images/particlefx/emitter_types.png)
 
 Particle Orientation
 : 粒子移动方向:
@@ -127,15 +127,15 @@ Stretch With Velocity
 
 这种属性分为两个部分: 一个数值和一个抖动. 抖动就是施加于粒子上的随机数值. 比如数值是 50 抖动是 3, 则最终值的范围就是 47 到 53 (50 +/- 3).
 
-![Property](images/particlefx/property.png){srcset="images/particlefx/property@2x.png 2x"}
+![Property](images/particlefx/property.png)
 
 点击关键帧按钮, 则属性值由一条曲线决定. 恢复数值加抖动模式, 取消点选关键帧按钮即可.
 
-![Property keyed](images/particlefx/key.png){srcset="images/particlefx/key@2x.png 2x"}
+![Property keyed](images/particlefx/key.png)
 
 *曲线编辑器* (位于视口下方) 用以修改曲线. 这种属性不会显示在 *属性* 视图中, 只能显示在 *曲线编辑器* 中. 通过 <kbd>点击拖动</kbd> 控制点与其切线来修改曲线形状. <kbd>双击</kbd> 曲线添加控制点. <kbd>双击</kbd> 控制点可以删除它.
 
-![ParticleFX Curve Editor](images/particlefx/curve_editor.png){srcset="images/particlefx/curve_editor@2x.png 2x"}
+![ParticleFX Curve Editor](images/particlefx/curve_editor.png)
 
 自动缩放显示完整曲线快捷键为 <kbd>F</kbd>.
 
@@ -201,7 +201,7 @@ Life Angular Velocity
 `Vortex`
 : 让粒子圆周运动或者漩涡式弧线运动.
 
-  ![modifiers](images/particlefx/modifiers.png){srcset="images/particlefx/modifiers@2x.png 2x"}
+  ![modifiers](images/particlefx/modifiers.png)
 
 ## 修改器属性
 

@@ -114,7 +114,7 @@ end
 
 Konfiguracja wejścia od gamepadów wykorzystuje osobny plik mapujący dla każdego rodzaju sprzętowego gamepada. Mapowania gamepadów dla konkretnych typów gamepadów sprzętowych są ustawiane w pliku *gamepads*. Wraz z Defold dostarczany jest wbudowany plik gamepadów z ustawieniami dla popularnych gamepadów:
 
-![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
+![Gamepad settings](images/input/gamepads.png)
 
 Jeśli musisz utworzyć nowy plik z ustawieniami gamepadów, udostępniamy proste narzędzie do pomocy:
 
@@ -128,7 +128,7 @@ Narzędzie to zawiera pliki binarne dla systemów Windows, Linux i macOS. Urucho
 
 Narzędzie poprosi cię o naciśnięcie różnych przycisków na podłączonym kontrolerze. Następnie wygeneruje nowy plik z ustawieniami gamepadów z prawidłowymi mapowaniami dla twojego kontrolera. Zapisz nowy plik lub połącz go z istniejącym plikiem ustawień gamepadów, a następnie zaktualizuj ustawienie w *game.project*:
 
-![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
+![Gamepad settings](images/input/gamepad_setting.png)
 
 ### Niezidentyfikowane gamepady
 

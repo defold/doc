@@ -31,7 +31,7 @@ brief: Объект столкновения --- это компонент, пр
 3. Используйте инструменты перемещения, поворота и масштабирования для редактирования форм.
 4. Выберите компонент в представлении *Outline* и отредактируйте *свойства* объекта столкновения.
 
-![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
+![Physics collision object](images/physics/collision_object.png)
 
 
 ## Добавление формы столкновения

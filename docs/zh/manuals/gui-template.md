@@ -13,7 +13,7 @@ GUI 模板是 GUI 某个场景的实例化版本. GUI 模板里节点的设置�
 
 GUI 模板也是一种场景, 创建和普通场景一样. 在 *Assets* 面板里某位置上 <kbd>右键点击</kbd> 然后选择 <kbd>New... ▸ Gui</kbd>.
 
-![Create template](images/gui-templates/create.png){srcset="images/gui-templates/create@2x.png 2x"}
+![Create template](images/gui-templates/create.png)
 
 输入名称并保存. 注意节点都是参照模板原点设置位置的, 所以模板位置也最好设置成 0, 0, 0.
 
@@ -21,21 +21,21 @@ GUI 模板也是一种场景, 创建和普通场景一样. 在 *Assets* 面板�
 
 一个模板可以创建许多实例. 先创建或者打开 GUI 场景, 然后 <kbd>右键点击</kbd> *Outline* 视图里的 *Nodes* 部分, 然后选择 <kbd>Add ▸ Template</kbd>.
 
-![Create instance](images/gui-templates/create_instance.png){srcset="images/gui-templates/create_instance@2x.png 2x"}
+![Create instance](images/gui-templates/create_instance.png)
 
 然后便可以在GUI场景里设置 *Template* 的属性.
 
 一个模板可以创建多个实例节点, 实例里的每个节点都可以修改自身属性, 比如位置,  颜色, 大小, 纹理之类的.
 
-![Instances](images/gui-templates/instances.png){srcset="images/gui-templates/instances@2x.png 2x"}
+![Instances](images/gui-templates/instances.png)
 
 更改了的属性会以蓝色显示. 点击重置按钮可以退回成原始的模板属性:
 
-![Properties](images/gui-templates/properties.png){srcset="images/gui-templates/properties@2x.png 2x"}
+![Properties](images/gui-templates/properties.png)
 
 被修改了属性的节点也会在 *Outline* 视图中以蓝色显示:
 
-![Outline](images/gui-templates/outline.png){srcset="images/gui-templates/outline@2x.png 2x"}
+![Outline](images/gui-templates/outline.png)
 
 这些模板实例以折叠方式在 *Outline* 视图中显示. 然而, 你要明确它 *不是一个普通节点*. 同样, 运行时也没有模板的概念, 只是其所有节点存在着.
 

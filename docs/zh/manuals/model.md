@@ -44,7 +44,7 @@ Model 组件和其他游戏对象组件一样, 两种创建办法:
 
 有了模型组件就可以使用随意使用组件功能同时可以使用 *Scene Editor* 工具移动, 旋转和缩放模型游戏对象了.
 
-![Wiggler ingame](images/model/ingame.png){srcset="images/model/ingame@2x.png 2x"}
+![Wiggler ingame](images/model/ingame.png)
 
 ## 运行时操作
 

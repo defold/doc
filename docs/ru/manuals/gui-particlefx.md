@@ -13,7 +13,7 @@ brief: Это руководство объясняет, как работают
 
 Можно использовать эффекты частиц, добавленные в GUI, в качестве источника для эффекта. Добавьте эффекты частиц <kbd>кликнув ПКМ</kbd> на папке *Particle FX* в *Outline* и выберите <kbd>Add ▸ Particle FX...</kbd>. Затем задайте свойство *Particlefx* для ноды:
 
-![Particle fx](images/gui-particlefx/create.png){srcset="images/gui-particlefx/create@2x.png 2x"}
+![Particle fx](images/gui-particlefx/create.png)
 
 ## Управление эффектом
 

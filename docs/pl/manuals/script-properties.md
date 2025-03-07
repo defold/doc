@@ -43,11 +43,11 @@ end
 ```
 Dowolna instancja komponentu skryptu utworzona z tego skryptu może następnie ustawiać wartości właściwości.
 
-![Component with properties](images/script-properties/component.png){srcset="images/script-properties/component@2x.png 2x"}
+![Component with properties](images/script-properties/component.png)
 
 Wybierz komponent skryptu w widoku *Outline* w Edytorze, a właściwości pojawią się w widoku *Properties*, pozwalając na ich edycję:
 
-![Properties](images/script-properties/properties.png){srcset="images/script-properties/properties@2x.png 2x"}
+![Properties](images/script-properties/properties.png)
 
 Każda właściwość, która zostanie zastąpiona nową wartością określoną dla danej instancji, jest oznaczana kolorem niebieskim. Kliknij przycisk resetowania obok nazwy właściwości, aby przywrócić wartość domyślną (ustawioną w skrypcie).
 

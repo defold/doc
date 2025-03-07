@@ -15,6 +15,6 @@ Defold 可以通过跟踪资源如何使用来帮助重构. 它能自动更新�
 
 即使这样, 如果某引用因为删除之类的操作丢失了, 编辑器不能解决这个问题, 但是能提供有帮助的报错信息. 例如, 如果你删除了图集的动画但是动画在游戏中有使用到, Defold会在游戏启动时报错. 编辑器也会提示你哪里出错了来帮助你快速定位问题:
 
-![重构报错](images/workflow/delete_error.png){srcset="images/workflow/delete_error@2x.png 2x"}
+![重构报错](images/workflow/delete_error.png)
 
 编译错误显示在编辑器底部的 *Build Errors* 面板中. <kbd>右键点击</kbd>错误可以提示出报错位置.

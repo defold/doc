@@ -44,7 +44,7 @@ Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące wł
 
 Mając komponent Modelu, możesz swobodnie edytować i manipulować komponentem lub otaczającym obiektem gry za pomocą zwykłych narzędzi Edytora Sceny (*Scene Editor*), aby dostosować model do swoich potrzeb.
 
-![Wiggler w grze](images/model/ingame.png){srcset="images/model/ingame@2x.png 2x"}
+![Wiggler w grze](images/model/ingame.png)
 
 ## Manipulacja w czasie rzeczywistym
 

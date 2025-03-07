@@ -21,3 +21,4 @@ scroller
 platformer
 Rodrigo
 Monteiro
+solvability

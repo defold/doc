@@ -20,7 +20,7 @@ brief: 本教程介绍了 Defold 的渲染流程及其编程方法.
 
 在 "Builtins" 文件夹中放有默认渲染器资源文件 ("default.render") 和默认渲染脚本 ("default.render_script").
 
-![Builtin render](images/render/builtin.png){srcset="images/render/builtin@2x.png 2x"}
+![Builtin render](images/render/builtin.png)
 
 使用自定义渲染器:
 

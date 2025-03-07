@@ -11,7 +11,7 @@ brief: Настоящее руководство описывает процес
 
 Кликните опцию <kbd>NEW PROJECT</kbd> (в стартовом окне) и выберите тип проекта, который хотите создать. Укажите расположение на жестком диске, где будут храниться файлы проекта. Кликните <kbd>Create New Project</kbd>, чтобы создать проект в выбранном расположении. Новый проект можно создать из шаблона:
 
-![open project](images/workflow/open_project.png){srcset="images/workflow/open_project@2x.png 2x"}
+![open project](images/workflow/open_project.png)
 
 Или из учебника с пошаговыми инструкциями:
 

@@ -38,12 +38,12 @@ World matrix
 
   把模型放置于游戏世界时, 模型顶点要改成基于世界坐标系的. 这就需要一个 *世界变换矩阵* 来确定多少移动, 旋转和缩放应该应用于模型顶点以修正其基于世界坐标系的位置.
 
-  ![World transform](images/shader/world_transform.png){srcset="images/shader/world_transform@2x.png 2x"}
+  ![World transform](images/shader/world_transform.png)
 
 View 和 projection matrix
 : 为了把游戏世界物体投射到屏幕上, 每个矩阵的3D坐标先是转换为基于摄像机的坐标. 这时使用的是 _视口矩阵_. 然后, 顶点再被转换为屏幕空间坐标, 这时使用的是 _投射矩阵_:
 
-  ![Projection](images/shader/projection.png){srcset="images/shader/projection@2x.png 2x"}
+  ![Projection](images/shader/projection.png)
 
 Attributes
 : 顶点上的相关属性. 属性经由引擎传送给着色器. 只要在着色程序中声明一下即可使用. 不同类型组件有不同的属性:
@@ -76,7 +76,7 @@ Samplers
 UV 坐标
 : 2D纹理上的坐标. 用于将纹理对应到顶点组成的模型上.
 
-  ![UV coordinates](images/shader/uv_map.png){srcset="images/shader/uv_map@2x.png 2x"}
+  ![UV coordinates](images/shader/uv_map.png)
 
   UV图由3D建模软件生成并且存储在网格之中. 每个顶点的纹理坐标作为属性提供给顶点着色器. 然后用 varying 变量来给从顶点数据插值产生的片元顶点查找UV坐标.
 
@@ -87,11 +87,11 @@ Varying 变量
   2. 在栅格化期间, 将为被渲染物每个片元间内插该值. 插值取决于片元到顶点间的距离.
   3. 此变量在每次调用片元着色器时被设置传递可以用来进行片元着色计算.
 
-  ![Varying interpolation](images/shader/varying_vertex.png){srcset="images/shader/varying_vertex@2x.png 2x"}
+  ![Varying interpolation](images/shader/varying_vertex.png)
 
   比如说设定 varying 为三角面的顶点赋予 `vec3` RGB 颜色, 那么这个面上的片元都会根据此变量进行插值. 类似地, 设置四顶点平面的纹理采样坐标 (或称 *UV坐标*) 就可以让片元着色器查找到整个平面各个片元的颜色.
 
-  ![Varying interpolation](images/shader/varying.png){srcset="images/shader/varying@2x.png 2x"}
+  ![Varying interpolation](images/shader/varying.png)
 
 ## 在 shader 中引入代码片段
 
@@ -176,11 +176,11 @@ vec3 get_red_color_inverted()
 
 数据被投入屏幕之前, 要经过一系列步骤:
 
-![Render pipeline](images/shader/pipeline.png){srcset="images/shader/pipeline@2x.png 2x"}
+![Render pipeline](images/shader/pipeline.png)
 
 可视组件 (sprite, GUI 节点, 粒子特效和模型) 都由顶点构成, 位于3D坐标系的顶点描述了组件的形状. 好处是从任何角度任何距离都可以观察这些组件. 顶点着色器的工作就是获取每个顶点并把它转换成视口坐标系的坐标以便投射到屏幕上. 对于一个四顶点形状来说, 顶点着色器要并行运行四次.
 
-![vertex shader](images/shader/vertex_shader.png){srcset="images/shader/vertex_shader@2x.png 2x"}
+![vertex shader](images/shader/vertex_shader.png)
 
 顶点着色程序输入的是顶点位置 (及顶点属性数据) 而输出的是一个新的顶点坐标 (`gl_Position`) 连同片元间插值的 `varying` 变量.
 
@@ -221,7 +221,7 @@ void main()
 
 顶点着色器运行完, 组件的屏幕投射形状已被计算出来: 原始形状生成并被栅格化, 就是显卡把要显示的东西分解成 *片元*, 或理解为像素. 然后运行片元着色器, 每个片元处理运行一次. 对于屏幕上显示的 16x24 像素大小的图片, 片元着色程序要并行运行384次.
 
-![fragment shader](images/shader/fragment_shader.png){srcset="images/shader/fragment_shader@2x.png 2x"}
+![fragment shader](images/shader/fragment_shader.png)
 
 片元着色程序输入的是渲染管线和顶点着色器发来的数据, 一般是片元的 *uv坐标*, 染色颜色之类的. 而输出的是最终颜色值 (`gl_FragColor`).
 

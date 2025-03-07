@@ -11,7 +11,7 @@ Defold is built intended for small teams that work in intense collaboration to c
 
 When you save changes in your local working copy, Defold tracks all changes in the *Changed Files* editor pane, listing each file that has either been added, deleted or modified.
 
-![changed files](images/workflow/changed_files.png){srcset="images/workflow/changed_files@2x.png 2x"}
+![changed files](images/workflow/changed_files.png)
 
 Select a file in the list and click <kbd>Diff</kbd> to view the changes that you have done to the file or <kbd>Revert</kbd> to undo all changes and restore the file to the state it had after the last synchronization.
 

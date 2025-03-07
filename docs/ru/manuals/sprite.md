@@ -7,7 +7,7 @@ brief: Данное руководство описывает, как отобр
 
 Компонент Sprite --- это простое изображение или мултикадровая анимация, отображаемая на экране.
 
-![sprite](images/graphics/sprite.png){srcset="images/graphics/sprite@2x.png 2x"}
+![sprite](images/graphics/sprite.png)
 
 Спрайт может брать графику либо из [атласа](/manuals/atlas), либо из [источника тайлов](/manuals/tilesource).
 

@@ -47,7 +47,7 @@ end
 
 Aby przypiąć skrypt do komponentu GUI, otwórz prototyp komponentu GUI (inaczej nazywane "prefabami" lub "szablonami" w innych silnikach) i wybierz korzeń (root) w *Outline*, aby wywołać Właściwości (*Properties*) GUI. Ustaw właściwość *Script* na plik skryptu.
 
-![Script](images/gui-script/set_script.png){srcset="images/gui-script/set_script@2x.png 2x"}
+![Script](images/gui-script/set_script.png)
 
 Jeśli komponent GUI został dodany do obiektu gry w dowolnym miejscu gry, skrypt zostanie teraz uruchomiony.
 
@@ -79,13 +79,13 @@ local stats = { score = 4711, stars = 3, health = 6 }
 msg.post("hud#gui", "set_stats", stats)
 ```
 
-![message passing](images/gui-script/message_passing.png){srcset="images/gui-script/message_passing@2x.png 2x"}
+![message passing](images/gui-script/message_passing.png)
 
 ## Adresowanie węzłów
 
 Węzły GUI mogą być manipulowane przez skrypt GUI przypisany do komponentu. Każdy węzeł musi mieć unikalne *Id*, które jest ustawiane w edytorze:
 
-![message passing](images/gui-script/node_id.png){srcset="images/gui-script/node_id@2x.png 2x"}
+![message passing](images/gui-script/node_id.png)
 
 *Id* pozwala skryptowi uzyskać dostęp do węzła i manipulować nim za pomocą [funkcji przestrzeni nazw gui](/ref/gui):
 
@@ -114,7 +114,7 @@ gui.set_font(new_textnode, "sourcesans")
 gui.set_color(new_textnode, vmath.vector4(0.69, 0.6, 0.8, 1.0))
 ```
 
-![dynamic node](images/gui-script/dynamic_nodes.png){srcset="images/gui-script/dynamic_nodes@2x.png 2x"}
+![dynamic node](images/gui-script/dynamic_nodes.png)
 
 Alternatywnym sposobem na tworzenie nowych węzłów jest klonowanie istniejącego węzła za pomocą funkcji `gui.clone()` lub drzewa węzłów za pomocą funkcji `gui.clone_tree()`:
 

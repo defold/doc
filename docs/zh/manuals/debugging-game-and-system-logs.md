@@ -95,7 +95,7 @@ iOS
 
   点击列表下方的齿轮图标选择 <kbd>Download Container...</kbd>.
 
-  ![download container](images/debugging/download_container.png){srcset="images/debugging/download_container@2x.png 2x"}
+  ![download container](images/debugging/download_container.png)
 
   容器被下载解压之后就可以在 *Finder* 中看到了. 右键单击容器选择 <kbd>Show Package Content</kbd>. 找到 "log.txt", 一般位于 "AppData/Documents/".
 

@@ -44,7 +44,7 @@ Apart from the properties *Id*, *Position* and *Rotation* the following componen
 
 With the model component in place you are free to edit and manipulate the component and/or the encapsulating game object with the regular *Scene Editor* tools to move, rotate and scale the model to your liking.
 
-![Wiggler ingame](images/model/ingame.png){srcset="images/model/ingame@2x.png 2x"}
+![Wiggler ingame](images/model/ingame.png)
 
 ## Runtime manipulation
 

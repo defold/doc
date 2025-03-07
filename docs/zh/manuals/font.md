@@ -20,11 +20,11 @@ brief: 本教程介绍了 Defold 如何处理和在游戏中使用字体.
 
 在 Defold 中, 可以通过菜单栏 <kbd>File ▸ New...</kbd> 然后旋转 <kbd>Font</kbd> 来新建字体. 或者在 *Assets* 浏览器中 <kbd>右键点击</kbd> , 选择 <kbd>New... ▸ Font</kbd>.
 
-![New font name](images/font/new_font_name.png){srcset="images/font/new_font_name@2x.png 2x"}
+![New font name](images/font/new_font_name.png)
 
 填写字体名并点击 <kbd>Ok</kbd>. 字体编辑器会自动打开.
 
-![New font](images/font/new_font.png){srcset="images/font/new_font@2x.png 2x"}
+![New font](images/font/new_font.png)
 
 把字体文件拖放到 *Assets* 浏览器中.
 
@@ -98,7 +98,7 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 Distance field 字体不存储位图像素而是存储像素到纹理边缘的距离. 这样在渲染文字时, 专用的着色器会通过距离数据渲染文字. Distance field 字体往往比位图数据量大, 但是对于尺寸控制更为灵活.
 
-![Distance field font](images/font/df_font.png){srcset="images/font/df_font@2x.png 2x"}
+![Distance field font](images/font/df_font.png)
 
 这种字体要确保 *Material* 属性设置为 *builtins/fonts/font-df.material* (或其他 distance field 数据专用材质) --- 否则的话渲染会不正确.
 
@@ -120,7 +120,7 @@ Defold 还支持 "BMFont" 格式字体. 这种字体的字符都是由位图组�
 * [bmGlyph](https://www.bmglyph.com), Sovapps 开发的付费 macOS 应用.
 :::
 
-![BMfont](images/font/bm_font.png){srcset="images/font/bm_font@2x.png 2x"}
+![BMfont](images/font/bm_font.png)
 
 要使用位图字体, 别忘了将其材质设置为 *builtins/fonts/font-fnt.material*.
 
@@ -130,15 +130,15 @@ Defold 还支持 "BMFont" 格式字体. 这种字体的字符都是由位图组�
 
 Distance field 字体适用于需要放大文字的地方. 相对的位图字体放大需要填充更多像素会导致模糊的效果. 下例是字体尺寸 48 像素, 放大 4 倍.
 
-![Fonts scaled up](images/font/scale_up.png){srcset="images/font/scale_up@2x.png 2x"}
+![Fonts scaled up](images/font/scale_up.png)
 
 位图字体缩小的时候没有什么问题,  GPU 还会帮助抗锯齿. 位图字体颜色保持得比 distance field 字体好. 下例是字体尺寸 48 像素, 缩小到 1/5:
 
-![Fonts scaled down](images/font/scale_down.png){srcset="images/font/scale_down@2x.png 2x"}
+![Fonts scaled down](images/font/scale_down.png)
 
 Distance field 需要足够多的数据信息才能较好地显示出文字边角部位. 下例是字体尺寸 18  像素, 放大 10 倍. 可以看到边角信息严重不足:
 
-![Distance field artifacts](images/font/df_artifacts.png){srcset="images/font/df_artifacts@2x.png 2x"}
+![Distance field artifacts](images/font/df_artifacts.png)
 
 如果不需要文字阴影和描边, 要将这两种属性设置为0. 否则, 阴影和描边仍然会生成, 造成不必要的内存浪费.
 

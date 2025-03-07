@@ -18,23 +18,23 @@ Defold 允许资源的热重载. 开发游戏时此功能可以大大节省时�
 
 选择菜单项 <kbd>File ▸ Hot Reload</kbd> 或者通过键盘快捷键实现热重载:
 
-![Reloading resources](images/hot-reload/menu.png){srcset="images/hot-reload/menu@2x.png 2x"}
+![Reloading resources](images/hot-reload/menu.png)
 
 ## 设备上的热重载
 
 除了桌面设备, 热重载也可以其他设备上使用. 要在设备上使用热重载, 在移动设备上运行游戏的调试（debug）版本, 或者运行 [开发应用](/manuals/dev-app) , 然后在编辑器中选择目标设备:
 
-![target device](images/hot-reload/target.png){srcset="images/hot-reload/target@2x.png 2x"}
+![target device](images/hot-reload/target.png)
 
 当编译运行时, 编辑器会把所有资源上传到设备上运行着的游戏里. 也就是说, 热重载的所有文件都会在设备上进行更新.
 
 比如, 想在手机上运行着的游戏 GUI 上添加几个按钮, 仅需要打开 GUI 文件:
 
-![reload gui](images/hot-reload/gui.png){srcset="images/hot-reload/gui@2x.png 2x"}
+![reload gui](images/hot-reload/gui.png)
 
 加入按钮, 保存并热重载 GUI 文件. 然后在手机上就能看见新建的按钮了:
 
-![reloaded gui](images/hot-reload/gui-reloaded.png){srcset="images/hot-reload/gui-reloaded@2x.png 2x"}
+![reloaded gui](images/hot-reload/gui-reloaded.png)
 
 当你将某个文件进行热重载, 游戏引擎会在控制台列出每个被热重载了的资源文件.
 

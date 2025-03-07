@@ -11,7 +11,7 @@ Pie nodes are used to create circular or ellipsoid objects ranging from plain ci
 
 <kbd>Right click</kbd> the *Nodes* section in the *Outline* and select <kbd>Add ▸ Pie</kbd>. The new pie node is selected and you can modify its properties.
 
-![Create pie node](images/gui-pie/create.png){srcset="images/gui-pie/create@2x.png 2x"}
+![Create pie node](images/gui-pie/create.png)
 
 The following properties are unique to pie nodes:
 
@@ -30,7 +30,7 @@ Perimeter Vertices
 Pie Fill Angle
 : How much of the pie should be filled. Expressed as a counter-clockwise angle starting from the right.
 
-![Properties](images/gui-pie/properties.png){srcset="images/gui-pie/properties@2x.png 2x"}
+![Properties](images/gui-pie/properties.png)
 
 If you set a texture on the node, the texture image is applied flat, with the corners of the texture correlating to the corners of the node bounding box.
 

@@ -4,16 +4,16 @@
 
 Обычно движок масштабирует текстуру, чтобы она соответствовала границам ноды Box, но, определив краевые области Slice9, можно определить границы того, какие части текстуры должны масштабироваться:
 
-![GUI scaling](../shared/images/gui_slice9_scaling.png){srcset="../shared/images/gui_slice9_scaling.png@2x.png 2x"}
+![GUI scaling](../shared/images/gui_slice9_scaling.png)
 
 
 Нода Box *Slice9* включает в себя 4 числа, которые определяют количество пикселей для левого, верхнего, правого и нижнего полей, которые не должны подвергаться регулярному масштабированию:
 
-![Slice 9 properties](../shared/images/gui_slice9_properties.png){srcset="../shared/images/gui_slice9_properties@2x.png 2x"}
+![Slice 9 properties](../shared/images/gui_slice9_properties.png)
 
 Поля устанавливаются по часовой стрелке, начиная с левого края:
 
-![Slice 9 sections](../shared/images/gui_slice9.png){srcset="../shared/images/gui_slice9@2x.png 2x"}
+![Slice 9 sections](../shared/images/gui_slice9.png)
 
 - Угловые сегменты никогда не масштабируются.
 - Краевые сегменты масштабируются вдоль одной оси. Левый и правый краевые сегменты масштабируются по вертикали. Верхний и нижний краевые сегменты масштабируются по горизонтали.
@@ -21,12 +21,12 @@
 
 Описанное выше масштабирование текстуры *Slice9* применяется только при изменении размера ноды Box:
 
-![GUI box node size](../shared/images/gui_slice9_size.png){srcset="../shared/images/gui_slice9_size@2x.png 2x"}
+![GUI box node size](../shared/images/gui_slice9_size.png)
 
 Если изменить параметр Scale ноды Box --- нода и текстура будут масштабироваться без применения параметров *Slice9*.
 
 Из-за того, как работает мипмаппинг в рендере, при масштабировании сегментов текстуры иногда могут возникать артефакты. Это происходит при _масштабировании_ сегментов ниже исходного размера текстуры. Затем рендерер выбирает для сегмента мипмап с более низким разрешением, что приводит к появлению визуальных артефактов.
 
-![Slice 9 mipmapping](../shared/images/gui_slice9_mipmap.png){srcset="../shared/images/gui_slice9_mipmap@2x.png 2x"}
+![Slice 9 mipmapping](../shared/images/gui_slice9_mipmap.png)
 
 Чтобы избежать этой проблемы, убедитесь, что сегменты текстуры, которые будут масштабироваться, достаточно малы, чтобы никогда не масштабироваться в меньшую сторону, а только в большую.

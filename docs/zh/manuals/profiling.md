@@ -92,11 +92,11 @@ Resources view
 
 编译游戏时有个选项可以生成编译报告. 通过报告可以整体把握游戏包中各个资源的空间占用情况. 编译游戏时开启 *Generate build report* 选项即可.
 
-![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
+![build report](images/profiling/build_report.png)
 
 游戏编译完成后将生成 "report.html" 文件. 用浏览器打开这个文件进行查阅:
 
-![build report](images/profiling/build_report_html.png){srcset="images/profiling/build_report_html@2x.png 2x"}
+![build report](images/profiling/build_report_html.png)
 
 *Overview* 按资源类别给出空间占用饼图.
 
@@ -118,14 +118,14 @@ ProFi (Lua)
 Instruments (macOS and iOS)
 : Xcode 包含一个性能分析可视化工具. 使用它可以跟踪检查一个或多个应用或进程的行为, 测试设备功能 (比如 Wi-Fi 和 Bluetooth) 等等.
 
-  ![instruments](images/profiling/instruments.png){srcset="images/profiling/instruments@2x.png 2x"}
+  ![instruments](images/profiling/instruments.png)
 
 OpenGL 分析器 (macOS)
 : 可以将 OpenGL 分析器作为 "Additional Tools for Xcode" 下载下来 (Xcode 菜单选择 <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd>).
 
   此工具可以用来分析运行中的 Defold 应用如何使用 OpenGL. 可以用来跟踪 OpenGL 函数调用, 在 OpenGL 函数上打断点, 调查应用资源 (纹理, 程序, 着色器之类的), 查看缓存内容, 以及 OpenGL 的各方面状态.
 
-  ![opengl profiler](images/profiling/opengl.png){srcset="images/profiling/opengl@2x.png 2x"}
+  ![opengl profiler](images/profiling/opengl.png)
 
 Android 分析器 (Android)
 : https://developer.android.com/studio/profile/android-profiler.html

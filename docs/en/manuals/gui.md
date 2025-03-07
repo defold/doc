@@ -19,17 +19,17 @@ GUI components are rendered independently of the game view. Because of this it i
 
 GUI components are created from a GUI scene prototype file (also known as "prefabs" or "blueprints" in other engines). To create a new GUI component, <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New ▸ Gui</kbd>. Type a name for the new GUI file and press <kbd>Ok</kbd>.
 
-![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
+![New gui file](images/gui/new_gui_file.png)
 
 Defold now automatically opens the file in the GUI scene editor.
 
-![New gui](images/gui/new_gui.png){srcset="images/gui/new_gui@2x.png 2x"}
+![New gui](images/gui/new_gui.png)
 
 The *Outline* lists all the GUI's content: it's list of nodes and any dependencies (see below).
 
 The central editing area shows the GUI. The toolbar in the top right corner of the editing area contains *Move*, *Rotate* and *Scale* tools, as well as a [layout](/manuals/gui-layouts) selector.
 
-![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
+![toolbar](images/gui/toolbar.png)
 
 A white rectangle shows the bounds of the currently selected layout, of the default display width and height as set in the project settings.
 
@@ -171,7 +171,7 @@ ParticleFX node
 
 Add nodes by right-clicking on the *Nodes* folder and selecting <kbd>Add ▸</kbd> and then <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> or <kbd>ParticleFx</kbd>.
 
-![Add nodes](images/gui/add_node.png){srcset="images/gui/add_node@2x.png 2x"}
+![Add nodes](images/gui/add_node.png)
 
 You can also press <kbd>A</kbd> and select the type you want to add to the GUI.
 
@@ -263,14 +263,14 @@ Pivot
 
   Possible values are `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` or `South East`.
 
-  ![pivot point](images/gui/pivot.png){srcset="images/gui/pivot@2x.png 2x"}
+  ![pivot point](images/gui/pivot.png)
 
   If you change the pivot of a node, the node will be moved so that the new pivot will be at the node's position. Text nodes are aligned so that `Center` sets the text center-aligned, `West` sets the text left-aligned and `East` sets the text right-aligned.
 
 X Anchor, Y Anchor
 : Anchoring controls how the node's vertical and horizontal position is altered when the scene boundaries, or the parent node's boundaries are stretched to fit the physical screen size.
 
-  ![Anchor unadjusted](images/gui/anchoring_unadjusted.png){srcset="images/gui/anchoring_unadjusted@2x.png 2x"}
+  ![Anchor unadjusted](images/gui/anchoring_unadjusted.png)
 
   The following anchoring modes are available:
 
@@ -278,14 +278,14 @@ X Anchor, Y Anchor
   - `Left` or `Right` (*X Anchor*) scales the horizontal position of the node so it keeps the position from the left and right edges of the parent node or scene at the same percentage.
   - `Top` or `Bottom` (*Y Anchor*) scales the vertical position of the node so it keeps the position from the top and bottom edges of the parent node or scene at the same percentage.
 
-  ![Anchoring](images/gui/anchoring.png){srcset="images/gui/anchoring@2x.png 2x"}
+  ![Anchoring](images/gui/anchoring.png)
 
 Adjust Mode
 : Sets the adjust mode for the node. The adjust mode setting controls what happens to a node when the scene boundaries, or the parent node's boundaries, are adjusted to fit the physical screen size.
 
   A node created in a scene where the logical resolution is a typical landscape resolution:
 
-  ![Unadjusted](images/gui/unadjusted.png){srcset="images/gui/unadjusted@2x.png 2x"}
+  ![Unadjusted](images/gui/unadjusted.png)
 
   Fitting the scene to a portrait screen causes the scene to be stretched. Each node's bounding box is similarly stretched. However, by setting the adjust mode, the aspect ratio of the node's content can be kept intact. The following modes are available:
 
@@ -293,7 +293,7 @@ Adjust Mode
   - `Zoom` scales the node content so that it is equal to the stretched bounding box width or height, whichever is largest. In other words, the content will fully cover the stretched node bounding box.
   - `Stretch` stretches the node content so it fills the stretched node bounding box.
 
-  ![Adjust modes](images/gui/adjusted.png){srcset="images/gui/adjusted@2x.png 2x"}
+  ![Adjust modes](images/gui/adjusted.png)
 
   If the GUI scene property *Adjust Reference* is set to `Disabled`, this setting will be ignored.
 
@@ -357,7 +357,7 @@ If we change the Pivot point from Center to West for the box on the left and to 
 
 All nodes are rendered in the order they are listed under the "Nodes" folder. The node at the top of the list is drawn first and will thus appear behind every other node. The last node in the list is drawn last, meaning it will appear in front of all other nodes. Altering the Z-value on a node does not control its draw order; however, if you set the Z-value outside of your render script's render range the node will no longer be rendered to screen. You can override the index ordering of nodes with layers (see below).
 
-![Draw order](images/gui/draw_order.png){srcset="images/gui/draw_order@2x.png 2x"}
+![Draw order](images/gui/draw_order.png)
 
 Select a node and press <kbd>Alt + Up/Down</kbd> to move a node up or down and change its index order.
 
@@ -376,7 +376,7 @@ end
 
 A node is made the child of another node by dragging it onto the node that you wish to be the child's parent. A node with a parent inherits the transform (position, rotation and scale) applied to the parent and relative to the parent pivot.
 
-![Parent child](images/gui/parent_child.png){srcset="images/gui/parent_child@2x.png 2x"}
+![Parent child](images/gui/parent_child.png)
 
 Parents are drawn before their children. Use layers to change the draw order of parent and child nodes and to optimize the rendering of nodes (see below).
 
@@ -394,13 +394,13 @@ If a node differs from the previous one on any of these points, it will break th
 
 The ability to arrange nodes in hierarchies makes it easy to group nodes into manageable units. But hierarchies can effectively break batch rendering if you mix different node types:
 
-![Breaking batch hierarchy](images/gui/break_batch.png){srcset="images/gui/break_batch@2x.png 2x"}
+![Breaking batch hierarchy](images/gui/break_batch.png)
 
 When the rendering pipeline walks through the list of nodes, it is forced to set up a separate batch for each separate node because the types are different. All in all these three buttons will require six draw calls.
 
 By assigning layers to the nodes, they can be ordered differently, allowing the render pipeline to group the nodes together in fewer draw calls. Start by adding the layers you need to the scene. <kbd>Right click</kbd> the "Layers" folder icon in the *Outline* and select <kbd>Add ▸ Layer</kbd>. Mark the new layer and assign it a *Name* property in the *Properties* view.
 
-![Layers](images/gui/layers.png){srcset="images/gui/layers@2x.png 2x"}
+![Layers](images/gui/layers.png)
 
 Then set the *Layer* property on each node to the corresponding layer. The layer drawing order takes precedence over the regular indexed node order, so setting the button graphics box-nodes to "graphics" and the button text nodes to "text" will result in the following draw order:
 

@@ -192,4 +192,4 @@ The preprocessor is available as a build extension. Learn more about how to inst
 
 The Defold editor supports Lua script editing with syntax coloring and auto-completion. To fill out Defold function names, press *Ctrl+Space* to bring up a list of the functions matching what you are typing.
 
-![Auto completion](images/script/completion.png){srcset="images/script/completion@2x.png 2x"}
+![Auto completion](images/script/completion.png)

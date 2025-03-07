@@ -20,11 +20,11 @@ Fonty dodane do projektu są automatycznie konwertowane na format tekstury, któ
 
 Aby stworzyć czcionkę do użycia w Defold, utwórz nowy plik fontu, wybierając opcję <kbd>File ▸ New...</kbd> z menu, a następnie wybierz <kbd>Font</kbd>. Możesz również kliknąć <kbd>prawy przycisk myszy</kbd> w lokalizacji w panelu *Assets* i wybrać <kbd>New... ▸ Font</kbd>.
 
-![New font name](images/font/new_font_name.png){srcset="images/font/new_font_name@2x.png 2x"}
+![New font name](images/font/new_font_name.png)
 
 Nadaj nowemu plikowi fontu nazwę i kliknij <kbd>OK</kbd>. Nowy plik fontu otworzy się teraz w edytorze.
 
-![New font](images/font/new_font.png){srcset="images/font/new_font@2x.png 2x"}
+![New font](images/font/new_font.png)
 
 Przeciągnij font, który chcesz użyć do panelu *Assets* i upuść ją we właściwym miejscu.
 
@@ -98,7 +98,7 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 Fonty pola odległości przechowują odległość od krawędzi glifu w teksturze zamiast danych w postaci mapy bitowej. Gdy silnik renderuje font, wymagany jest specjalny shader do interpretowania danych odległości i ich wykorzystania do rysowania glifu. Fonty pola odległości są bardziej wymagające pod względem zasobów niż fonty bitmapowe, ale pozwalają na większą elastyczność skalowania.
 
-![Distance field font](images/font/df_font.png){srcset="images/font/df_font@2x.png 2x"}
+![Distance field font](images/font/df_font.png)
 
 Upewnij się, że zmieniasz właściwość *Material* czcionki na *builtins/fonts/font-df.material* (lub inny materiał, który może obsługiwać dane pola odległości) podczas tworzenia fontu, w przeciwnym razie czcionka nie będzie używać odpowiedniego shadera podczas renderowania na ekranie.
 
@@ -120,7 +120,7 @@ Aby stworzyć font BMFont, musisz użyć narzędzia, które może generować odp
 * [bmGlyph](https://www.bmglyph.com), komercyjne narzędzie dla platformy macOS od Sovapps.
 :::
 
-![BMfont](images/font/bm_font.png){srcset="images/font/bm_font@2x.png 2x"}
+![BMfont](images/font/bm_font.png)
 
 Aby font renderował się poprawnie, nie zapomnij ustawić właściwości materiału na *builtins/fonts/font-fnt.material* podczas tworzenia czcionki.
 
@@ -130,15 +130,15 @@ Ogólnie rzecz biorąc, fonty bitmapowe są najlepsze, gdy font jest renderowany
 
 Fonty pola odległości bardzo dobrze reagują na skalowanie w górę. Z kolei fonty bitmapowe, będąc jedynie pikselowymi obrazami, zwiększają swoją wielkość wraz ze skalowaniem czcionki, co prowadzi do efektów blokowych artefaktów. Oto przykład fontu o rozmiarze 48 pikseli, powiększonej 4-krotnie.
 
-![Fonts scaled up](images/font/scale_up.png){srcset="images/font/scale_up@2x.png 2x"}
+![Fonts scaled up](images/font/scale_up.png)
 
 Podczas zmniejszania rozmiaru, tekstury fontów bitmapowych mogą być ładnie i efektywnie zmniejszone i wygładzone przez GPU. Font bitmapowy lepiej utrzymuje swoją kolorystykę niż font pola odległości. Oto przybliżenie tej samej próbki fontu o rozmiarze 48 pikseli, zmniejszonego do 1/5 rozmiaru:
 
-![Fonts scaled down](images/font/scale_down.png){srcset="images/font/scale_down@2x.png 2x"}
+![Fonts scaled down](images/font/scale_down.png)
 
 Fonty pola odległości muszą być renderowane w celu uzyskania docelowego rozmiaru, który jest wystarczająco duży, aby pomieścić informacje o odległości, które mogą wyrazić krzywizny glifów fontu. To ta sama czcionka, co powyżej, ale o rozmiarze 18 pikseli i powiększona 10-krotnie. Wyraźnie widać, że jest to zbyt małe, aby zakodować kształty tego fontu:
 
-![Distance field artifacts](images/font/df_artifacts.png){srcset="images/font/df_artifacts@2x.png 2x"}
+![Distance field artifacts](images/font/df_artifacts.png)
 
 Jeśli nie potrzebujesz obsługi cieni lub konturów, ustaw ich odpowiednie wartości alfa na zero. W przeciwnym razie dane cienia i konturu nadal zostaną generowane, zajmując zbędną pamięć.
 

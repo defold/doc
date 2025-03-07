@@ -7,7 +7,7 @@ brief: 本教程详述游戏对象, 组件和集合是如何工作的.
 
 理解 Defold 核心设计中的各种概念是很重要的. 本教程介绍了 Defold 游戏的各个组成部分. 看完本教程后, 可以去参考 [定位教程](/manuals/addressing) 和 [消息传递教程](/manuals/message-passing). 编辑器中提供了一些 [教程](/tutorials/getting-started) 也可以帮助学习理解.
 
-![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
+![Building blocks](images/building_blocks/building_blocks.png)
 
 Defold 游戏主要由三大部分组成:
 
@@ -28,11 +28,11 @@ Defold 游戏引擎启动时, 首先导入一个 *game.project* 配置文件中�
 
 集合可以包含游戏对象和其他集合 (通过引用子集合文件), 它们可以随意嵌套. 下面是一个 "main.collection" 集合示例. 它包含了一个游戏对象 (id 叫做 "can") 和一个子集合 (id 叫做 "bean"). 这个子集合, 又包含了两个游戏对象: "bean" 和 "shield".
 
-![Collection](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
+![Collection](images/building_blocks/collection.png)
 
 注意这个 id 叫做 "bean" 的子集合也是一个集合文件, 路径是 "/main/bean.collection", 这个文件被 "main.collection" 引用:
 
-![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
+![Bean collection](images/building_blocks/bean_collection.png)
 
 运行时无法用集合的 id 对 "main" 和 "bean" 这样的集合定位. 但是, 使用 _路径_ 引用游戏对象时可能会用到集合的 id (详情请见 [定位教程](/manuals/addressing)):
 
@@ -78,29 +78,29 @@ go.animate("can", "position.x", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR
 2. "bean" 子集合里 "bean" 对象的 "bean" 脚本组件.
 3. "can" 游戏对象的 "can" 脚本组件.
 
-![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
+![Instance](images/building_blocks/instance.png)
 
 如果你有许多游戏对象或者集合的实例, 这种基于文件的设计就很方便:
 
-![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
+![GO instances](images/building_blocks/go_instance.png)
 
 修改了原型文件, 那么它的所有实例都能一同被修改.
 
-![GO changing prototype](images/building_blocks/go_change_blueprint.png){srcset="images/building_blocks/go_change_blueprint@2x.png 2x"}
+![GO changing prototype](images/building_blocks/go_change_blueprint.png)
 
 这里原型的 sprite 图片被更改, 同时所有使用该文件的实例都被更新:
 
-![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
+![GO instances updated](images/building_blocks/go_instance2.png)
 
 ## 游戏对象层级
 
 在集合文件中, 可以将游戏对象设置成父子层级关系. 只需要 <kbd>拖拽</kbd> 游戏对象到父级对象 <kbd>放开鼠标</kbd> 即可完成父子层级的建立:
 
-![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
+![Childing game objects](images/building_blocks/childing.png)
 
 这种动态的父子关系影响了它们的变化方式. 不论是在编辑器还是运行时, 父级的各种变化 (包括位置, 旋转和缩放) 都会自动应用到它的所有子级上:
 
-![Child transform](images/building_blocks/child_transform.png){srcset="images/building_blocks/child_transform@2x.png 2x"}
+![Child transform](images/building_blocks/child_transform.png)
 
 反过来说, 子级的变化都基于父级的坐标空间. 在编辑器中, 你可以使用 <kbd>Edit ▸ World Space</kbd> (默认设置) 或者 <kbd>Edit ▸ Local Space</kbd> 来设置一个对象变化基于的坐标空间.
 

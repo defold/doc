@@ -39,7 +39,7 @@ Zauważ, że prawdopodobnie chcesz aktualizować te dane co klatkę, więc przes
 
 Aby uruchomić wbudowany debugger wraz z grą klkinij menu <kbd>Debug ▸ Run with Debugger</kbd> lub wybierz <kbd>Debug ▸ Attach Debugger</kbd>, aby dołączyć debugger do aktualnie uruchomionej gry.
 
-![overview](images/debugging/overview.png){srcset="images/debugging/overview@2x.png 2x"}
+![overview](images/debugging/overview.png)
 
 Gdy debugger jest podłączony, masz kontrolę nad wykonaniem gry za pomocą przycisków sterowania debugerem w konsoli lub za pomocą menu <kbd>Debug</kbd>:
 
@@ -47,13 +47,13 @@ Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
   Natychmiastowa przerwa wykonania gry. Gra zostanie zatrzymana w bieżącym punkcie. Teraz można sprawdzić stan gry, przejść do przodu krok po kroku lub kontynuować jej działanie do kolejnego punktu przerwania (breakpoint). Aktualny punkt wykonania jest oznaczony w edytorze kodu:
 
-  ![script](images/debugging/script.png){srcset="images/debugging/script@2x.png 2x"}
+  ![script](images/debugging/script.png)
 
 Continue
 : ![play](images/debugging/play.svg){width=60px .left}
   Kontynuuj działanie gry. Kod gry będzie kontynuował działanie, aż naciśniesz pauzę lub wykonanie dojdzie do ustawionego punktu przerwania (breakpoint). Jeśli wykonanie zostanie przerwane na ustawionym punkcie przerwania, punkt wykonania jest oznaczony w edytorze kodu na szczycie znacznika punktu przerwania:
 
-  ![break](images/debugging/break.png){srcset="images/debugging/break@2x.png 2x"}
+  ![break](images/debugging/break.png)
 
 Stop
 : ![stop](images/debugging/stop.svg){width=60px .left}
@@ -63,7 +63,7 @@ Step Over
 : ![step over](images/debugging/step_over.svg){width=60px .left}
   Przesuń wykonanie programu o jeden krok. Jeśli wykonanie obejmuje uruchomienie innego skryptu Lua, wykonanie *nie* wejdzie do funkcji , ale będzie kontynuować działanie i zatrzyma się na kolejnej linii poniżej wywołania funkcji. W tym przykładzie, jeśli użytkownik naciśnie "Step Over", debugger wykonuje kod i zatrzymuje się na instrukcji `end` poniżej linii z wywołaniem funkcji `nextspawn()`:
 
-  ![step](images/debugging/step.png){srcset="images/debugging/step@2x.png 2x"}
+  ![step](images/debugging/step.png)
 
 ::: sidenote
 Jedna linia kodu Lua nie odpowiada jednemu wyrażeniu. Krok w debuggerze przesuwa się o jedno wyrażenie naraz, co oznacza, że obecnie możesz musieć nacisnąć przycisk kroku więcej niż raz, aby przejść do następnej linii.
@@ -73,7 +73,7 @@ Step Into
 : ![step in](images/debugging/step_in.svg){width=60px .left}
   Przesuń wykonanie programu o jeden krok. Jeśli wykonanie obejmuje uruchomienie innej funkcji Lua, wykonanie wejdzie do funkcji. Wywołanie funkcji dodaje wpis na stosie wywołań. Możesz kliknąć każdy wpis na liście stosu wywołań, aby wyświetlić punkt wejścia i zawartość wszystkich zmiennych w tej zamknięciu. Tutaj użytkownik wszedł do funkcji `nextspawn()`:
 
-  ![step into](images/debugging/step_into.png){srcset="images/debugging/step_into@2x.png 2x"}
+  ![step into](images/debugging/step_into.png)
 
 Step Out
 : ![step out](images/debugging/step_out.svg){width=60px .left}
@@ -83,21 +83,21 @@ Step Out
 Ustawianie i usuwanie punktów przerwania (breakpoints)
 : Możesz ustawić dowolną liczbę punktów przerwania w kodzie Lua. Gdy gra działa z podłączonym debugerem, zatrzyma się na następnym punkcie przerwania i poczeka na dalsze interakcje z tobą.
 
-  ![add breakpoint](images/debugging/add_breakpoint.png){srcset="images/debugging/add_breakpoint@2x.png 2x"}
+  ![add breakpoint](images/debugging/add_breakpoint.png)
 
   Aby ustawić lub usunąć punkt przerwania, kliknij w kolumnie tuż po prawej stronie numerów wierszy w edytorze kodu. Możesz także wybrać opcję <kbd>Edit ▸ Toggle Breakpoint</kbd> z menu.
 
 Ustawianie punktów przerwania warunkowych
 : Możesz skonfigurować punkt przerwania tak, aby zawierał warunek, który musi być spełniony, aby punkt przerwania został uruchomiony. Warunek może uzyskiwać dostęp do zmiennych lokalnych dostępnych w danym momencie wykonania kodu.
 
-  ![edit breakpoint](images/debugging/edit_breakpoint.png){srcset="images/debugging/edit_breakpoint@2x.png 2x"}
+  ![edit breakpoint](images/debugging/edit_breakpoint.png)
 
   Aby edytować warunek punktu przerwania, kliknij prawym przyciskiem myszy w kolumnie tuż po prawej stronie numerów wierszy w edytorze kodu lub wybierz opcję <kbd>Edit ▸ Edit Breakpoint</kbd> z menu.
 
 Wykonywanie wyrażeń Lua
 : Z podłączonym debuggerem i zatrzymaną grą na punkcie przerwania dostępna jest przestrzeń wykonawcza Lua z bieżącym kontekstem. Wpisz wyrażenia Lua na dole konsoli i naciśnij <kbd>Enter</kbd>, aby je wykonać:
 
-  ![console](images/debugging/console.png){srcset="images/debugging/console@2x.png 2x"}
+  ![console](images/debugging/console.png)
 
   Obecnie nie można modyfikować zmiennych za pomocą ewaluatora.
 

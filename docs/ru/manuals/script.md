@@ -167,4 +167,4 @@ end
 
 Редактор Defold поддерживает редактирование Lua-скриптов с подсветкой синтаксиса и автозаполнением. Чтобы заполнить имена функций Defold, нажмите *Ctrl+Space*, чтобы вызвать список функций, соответствующих тому, что вы вводите.
 
-![Auto completion](images/script/completion.png){srcset="images/script/completion@2x.png 2x"}
+![Auto completion](images/script/completion.png)

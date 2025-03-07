@@ -7,7 +7,7 @@ brief: Instrukcja ta opisuje jak pokazywać dwuwymiarowe grafiki używając komp
 
 Komponent typu Sprite (z ang. dosłownie: chochlik/duszek/krasnoludek - popularna w gamedevie od lat nazwa obrazków 2D w grach - przyp.tłum.) to dwuwymiarowa reprezentacja wizualna w grafice komputerowej wyświetlana jako pojedynczy obrazek lub animacja poklatkowa (flipbook animation).
 
-![sprite](images/graphics/sprite.png){srcset="images/graphics/sprite@2x.png 2x"}
+![sprite](images/graphics/sprite.png)
 
 Komponent typu Sprite może wykorzystywać jako teksturę galerię obrazów, tzw. [Atlas](/manuals/atlas) lub [Źródło kafelków - Tile Source](/manuals/tilesource).
 

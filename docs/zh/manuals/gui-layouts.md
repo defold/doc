@@ -24,11 +24,11 @@ Height
 Device Models
 : 以逗号分隔的设备型号名称表. 型号名只要匹配设备型号的开头就算匹配成功, 例如 `iPhone10` 匹配 "iPhone10,\*" 的所有设备. 型号名带逗号的要使用双引号包裹, 例如 `"iPhone10,3", "iPhone10,6"` 匹配 iPhone X 那两种设备 (参考 https://www.theiphonewiki.com/wiki/Models). 注意调用 `sys.get_sys_info()` 函数在 Android 和 iOS 会返回设备名. 其他平台返回空字符, 也就是说这样的设备对于限定了设备型号的档案都无法匹配.
 
-![New display profiles](images/gui-layouts/new_profiles.png){srcset="images/gui-layouts/new_profiles@2x.png 2x"}
+![New display profiles](images/gui-layouts/new_profiles.png)
 
 别忘了指定引擎使用你自己的档案文件. 打开 *game.project* 在 *display* 部分 *Display Profiles* 项里进行设置:
 
-![Settings](images/gui-layouts/settings.png){srcset="images/gui-layouts/settings@2x.png 2x"}
+![Settings](images/gui-layouts/settings.png)
 
 勾选 *Dynamic Orientation* 选项可以使引用在屏幕上自动旋转以适应横屏竖屏. 游戏引擎也会根据横屏竖屏选取合适的界面布局.
 
@@ -36,17 +36,17 @@ Device Models
 
 显示档案里可以为用户界面设置各种布局. 为 GUI 常见添加布局, 在 *Outline* 视图的 *Layouts* 图标上右键点击然后选择 <kbd>Add ▸ Layout ▸ ...</kbd>:
 
-![Add layout to scene](images/gui-layouts/add_layout.png){srcset="images/gui-layouts/add_layout@2x.png 2x"}
+![Add layout to scene](images/gui-layouts/add_layout.png)
 
 编辑用户界面时, 每个操作都是针对一种布局而进行. 即针对在 GUI 场景的工具栏的下拉框中选中的布局进行编辑操作. 如果未选择任何布局, 默认操作的是 *Default* 布局.
 
-![Layouts toolbar](images/gui-layouts/toolbar.png){srcset="images/gui-layouts/toolbar@2x.png 2x"}
+![Layouts toolbar](images/gui-layouts/toolbar.png)
 
-![portrait edit](images/gui-layouts/portrait.png){srcset="images/gui-layouts/portrait@2x.png 2x"}
+![portrait edit](images/gui-layouts/portrait.png)
 
 选择指定布局之后每个节点的属性编辑都会 _覆盖_ *Default* 布局里的属性. 被覆盖的属性以蓝色高亮显示. 其节点同样以蓝色高亮显示. 属性旁边的重置按钮用来恢复默认属性值.
 
-![landscape edit](images/gui-layouts/landscape.png){srcset="images/gui-layouts/landscape@2x.png 2x"}
+![landscape edit](images/gui-layouts/landscape.png)
 
 布局不会增加或减少节点, 只会覆盖节点属性. 如果某个布局需要减少节点可以把它移到屏幕之外或者使用脚本删除掉. 注意不要忘记当前选择的布局. 新建布局之后编辑器会自动把它设置为当前布局. 而且复制粘贴节点的时候尤其要考虑当前选择的布局, 包括复制节点的时候 *和* 粘贴节点的时候.
 

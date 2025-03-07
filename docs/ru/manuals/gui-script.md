@@ -47,7 +47,7 @@ end
 
 Чтобы прикрепить скрипт к компоненту GUI, откройте файл компонента GUI и выделите его корень в *Outline*, чтобы вызвать *свойства* GUI. Задайте свойству *Script* требуемый файл скрипта.
 
-![Script](images/gui-script/set_script.png){srcset="images/gui-script/set_script@2x.png 2x"}
+![Script](images/gui-script/set_script.png)
 
 Если компонент GUI был добавлен к игровому объекту где-либо в игре, скрипт будет запущен.
 
@@ -79,13 +79,13 @@ local stats = { score = 4711, stars = 3, health = 6 }
 msg.post("hud#gui", "set_stats", stats)
 ```
 
-![message passing](images/gui-script/message_passing.png){srcset="images/gui-script/message_passing@2x.png 2x"}
+![message passing](images/gui-script/message_passing.png)
 
 ## Обращение к нодам
 
 GUI-нодами можно манипулировать с помощью GUI-скрипта, прикрепленного к компоненту. Каждая нода должна иметь уникальный *Id*, который задается в редакторе:
 
-![message passing](images/gui-script/node_id.png){srcset="images/gui-script/node_id@2x.png 2x"}
+![message passing](images/gui-script/node_id.png)
 
 *Id* позволяет скрипту получить ссылку на ноду и манипулировать ею с помощью функций [пространства имен gui](/ref/gui):
 
@@ -114,7 +114,7 @@ gui.set_font(new_textnode, "sourcesans")
 gui.set_color(new_textnode, vmath.vector4(0.69, 0.6, 0.8, 1.0))
 ```
 
-![dynamic node](images/gui-script/dynamic_nodes.png){srcset="images/gui-script/dynamic_nodes@2x.png 2x"}
+![dynamic node](images/gui-script/dynamic_nodes.png)
 
 Альтернативным способом создания новых нод является клонирование существующей ноды с помощью функции `gui.clone()` или дерева нод с помощью функции `gui.clone_tree()`:
 

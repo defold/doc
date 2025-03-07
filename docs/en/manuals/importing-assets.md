@@ -12,7 +12,7 @@ A game project usually consists of a large number of external assets that are pr
 
 Defold needs all the assets used in your project to be located somewhere in the project hierarchy. You therefore need to import all assets before you can use them. To import assets, simply drag the files from the file system on your computer and drop them in an appropriate place in the Defold editor *Assets pane*.
 
-![Importing files](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
+![Importing files](images/graphics/import.png)
 
 ::: sidenote
 Defold supports images in the PNG and JPEG image formats. PNG images must be in 32 bit RGBA format. Other image formats need to be converted before they can be used.

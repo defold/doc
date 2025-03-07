@@ -12,7 +12,7 @@ Projekt gry zazwyczaj składa się z wielkiej liczby różnego rodzaju zasobów 
 
 Defold wymaga, aby pliki używane w projekcie znajdowały się w hierarchii katalogu projektu. Należy więc zaimportować tam uprzednio wszystkie zasoby, zanim będzie można ich użyć. Aby zaimporotwać zasoby przenieś pliki w Twoim systemie operacyjnym do katalogu projektu lub bezpośrednio przeciągnij nad panel *Assets pane* edytora Defold w odpowiednim katalogu.
 
-![Importowanie plików](images/graphics/import.png){srcset="images/graphics/import@2x.png 2x"}
+![Importowanie plików](images/graphics/import.png)
 
 ::: sidenote
 Defold wspiera pliki graficzne w formatach PNG i JPEG. Pliki PNG muszą być w formacie 32-bitowym RGBA. Inne pliki graficzne muszą być przekonwertowane do wspieranych, aby móc ich użyć.

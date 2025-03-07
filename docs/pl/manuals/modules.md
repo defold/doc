@@ -11,7 +11,7 @@ Moduły Lua pozwalają na strukturyzację projektu i tworzenie wielokrotnie uży
 
 Kod Lua przechowywany w plikach z rozszerzeniem ".lua" w dowolnym miejscu w strukturze projektu gry może być wymagany (dołączony) w plikach skryptowych i plikach skryptów GUI. Aby utworzyć nowy plik modułu Lua, kliknij prawym przyciskiem myszy folder, w którym chcesz go utworzyć w widoku *Assets*, a następnie wybierz <kbd>New... ▸ Lua Module</kbd>. Nadaj plikowi unikalną nazwę i naciśnij <kbd>Ok</kbd>:
 
-![new file](images/modules/new_name.png){srcset="images/modules/new_name@2x.png 2x"}
+![new file](images/modules/new_name.png)
 
 Załóżmy, że poniższy kod jest dodany do pliku "main/anim.lua":
 

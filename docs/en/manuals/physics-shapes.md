@@ -44,7 +44,7 @@ To add collision to a tile map:
 3. Instead of adding shapes to the component, set the *Collision Shape* property to the *tilemap* file.
 4. Set up the collision object component *Properties* as usual.
 
-![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
+![Tilesource collision](images/physics/collision_tilemap.png)
 
 ::: important
 Note that the *Group* property is **not** used here since the collision groups are defined in the tile map's tile source.

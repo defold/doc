@@ -18,7 +18,7 @@ When you run the Defold editor, you are presented with a project selection and c
 5. Select a location for the project on your local drive.
 6. Click *Create New Project*.
 
-![create project](images/getting-started/new-project.png){srcset="images/getting-started/new-project@2x.png 2x"}
+![create project](images/getting-started/new-project.png)
 
 The editor now automatically downloads the tutorial project, opens it in the editor and opens the tutorial text (the "README" file in the project root).
 

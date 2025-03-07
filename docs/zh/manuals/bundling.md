@@ -21,7 +21,7 @@ brief: 本教程介绍了如何打包应用.
 
 有一个编译选项控制编译时是否生成报告. 从报告中可以方便检查游戏包中各个资源占用的空间. 在编译时打开 *Generate build report* 选项即可.
 
-![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
+![build report](images/profiling/build_report.png)
 
 关于编译报告详情请见 [调试教程](/manuals/profiling/#编译报告).
 

@@ -17,7 +17,7 @@ Home
 New Project
 : Позволяет создать новый проект Defold. Здесь вам необходимо выбрать, хотите ли вы использовать базовый шаблон (из вкладки *From Template*), следовать учебнику (вкладка *From Tutorial*) или попробовать один из проектов-примеров (вкладка *From Sample*).
 
-  ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
+  ![new project](images/editor/new_project.png)
 
   При создании новый проект сохраняется на локальном диске, и все сделанные изменения сохраняются локально.
 
@@ -46,7 +46,7 @@ New Project
 
 В правом верхнем углу представления сцены расположен тулбар, на котором можно найти инструменты манипулирования объектами: *Move*, *Rotate* и *Scale*.
 
-![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
+![toolbar](images/editor/toolbar.png)
 
 Панель *Outline*
 : Это представление отображает содержимое редактируемого в данный момент файла в виде иерархической древовидной структуры. Outline отражает представление редактора, позволяя выполнять операции с элементами:
@@ -70,7 +70,7 @@ New Project
 
 Когда открыто несколько файлов, для каждого из них в верхней части окна редактора отображается отдельная вкладка. Рядом друг с другом можно открыть 2 представления редактора. Выполните <kbd>клик ПКМ</kbd> по вкладке редактора, который хотите переместить, и выберите <kbd>Move to Other Tab Pane</kbd>.
 
-![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
+![2 panes](images/editor/2-panes.png)
 
 С помощью меню вкладок можно также поменять местами две панели или объединить их в одну.
 
@@ -120,25 +120,25 @@ New Project
 
 Выполните <kbd>клик ПКМ</kbd> в целевом расположении в браузере *ассетов*, затем выберите <kbd>New... ▸ [тип файла]</kbd>:
 
-![create file](images/editor/create_file.png){srcset="images/editor/create_file@2x.png 2x"}
+![create file](images/editor/create_file.png)
 
 Введите подходящее имя для нового файла. Полное имя файла, включая суффикс типа файла, отображается в диалоге в строке *Path*:
 
-![create file name](images/editor/create_file_name.png){srcset="images/editor/create_file_name@2x.png 2x"}
+![create file name](images/editor/create_file_name.png)
 
 ## Импортирование файлов в проект
 
 Добавление в проект файлов ассетов (изображений, звуков, моделей и т.д.) осуществляется простым перетаскиванием их в нужную позицию в браузер *ассетов*. При этом создаются _копии_ файлов в выбранном расположении файловой структуры проекта. За подробностями обращайтесь к [нашему руководству по импортированию ассетов](/manuals/importing-assets/).
 
-![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
+![Import files](images/editor/import.png)
 
 ## Обновление редактора
 
 Редактор будет автоматически проверять наличие обновлений. При обнаружении обновление будет отображаться в правом нижнем углу окна редактора и на экране выбора проекта. При клике по ссылке Update Available будет произведена загрузка и обновление редактора.
 
-![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
+![Update from project selection](images/editor/update-project-selection.png)
 
-![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
+![Update from editor](images/editor/update-main.png)
 
 ## Клавиатурные сокращения
 

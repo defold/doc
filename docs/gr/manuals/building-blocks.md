@@ -7,7 +7,7 @@ brief: Αυτό το εγχειρίδιο σκάβει τις λεπτομέρε
 
 Στον πυρήνα του σχεδιασμού του Defold υπάρχουν μερικές έννοιες που μπορεί να χρειαστούν λίγη ώρα για να αποκτήσετε εμπειρία μαζί τουε. Αυτό το εγχειρίδιο εξηγεί ποια είναι τα δομικά στοιχεία του Defold. Αφού διαβάσετε αυτό το εγχειρίδιο, προχωρήστε στο [εγχειρίδιο διευθύνσεων](/manuals/addressing) και το [εγχειρίδιο διαβίβασης μηνυμάτων](/manuals/message-passing). Υπάρχει επίσης ένα σετ [tutorials](/tutorials/getting-started) διαθέσιμα μέσα από το κειμενογράφο για να ξεκινήσετε γρήγορα.
 
-![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
+![Building blocks](images/building_blocks/building_blocks.png)
 
 There are three basic types of building blocks that you use to construct a Defold game:
 
@@ -28,11 +28,11 @@ There are three basic types of building blocks that you use to construct a Defol
 
 Μια συλλογή μπορεί να περιέχει αντικείμενα παιχνιδιού και άλλες συλλογές (με αναφορά στο αρχείο της υπο-συλλογής), ένθετα και αυθαίρετα βαθιά. Εδώ είναι ένα παράδειγμα αρχείου που ονομάζεται "main.collection". Περιέχει ένα αντικείμενο παιχνιδιού (με το αναγνωριστικό "can") και μία υπο-συλλογή (με το id "bean"). Η υπο-συλλογή, με τη σειρά της, περιέχει δύο αντικείμενα παιχνιδιού: "bean" και "shield".
 
-![Collection](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
+![Collection](images/building_blocks/collection.png)
 
 Σημειώστε ότι η υπο-συλλογή με id "bean" αποθηκεύεται στο δικό της αρχείο, που ονομάζεται "/main/bean.collection" και αναφέρεται μόνο στο "main.collection":
 
-![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
+![Bean collection](images/building_blocks/bean_collection.png)
 
 Δεν μπορείτε να διευθύνετε τις συλλογές οι ίδιοι, καθώς δεν υπάρχουν αντικείμενα κατά την ώρα του χρόνου εκτέλεσης που να αντιστοιχούν στις συλλογές "main" και "bean". Ωστόσο, μερικές φορές πρέπει να χρησιμοποιήσετε την ταυτότητα μιας συλλογής ως μέρος του _path_ σε ένα αντικείμενο παιχνιδιού(See the [addressing manual](/manuals/addressing) for details):
 
@@ -77,25 +77,25 @@ go.animate("can", "position.x", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR
 2. Το στοιχείο script "bean" στο αντικείμενο παιχνιδιού "bean" στην υπο-συλλογή "bean".
 3. Το στοιχείο script "μπορεί" στο αντικείμενο παιχνιδιού "μπορεί".
 
-![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
+![Instance](images/building_blocks/instance.png)
 
 Το όφελος από τη δημιουργία αρχείων blueprint γίνεται εμφανές όταν έχετε πολλές παρουσίες ενός αντικειμένου παιχνιδιού ή μιας συλλογής και επιθυμείτε να τα αλλάξετε όλα:
 
-![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
+![GO instances](images/building_blocks/go_instance.png)
 
 Αλλάζοντας το αρχείο blueprint, κάθε περίπτωση που χρησιμοποιεί αυτό το αρχείο θα ενημερωθεί αμέσως.
 
-![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
+![GO instances updated](images/building_blocks/go_instance2.png)
 
 ## Childing game objects
 
 Σε ένα αρχείο συλλογής, μπορείτε να δημιουργήσετε ιεραρχίες αντικειμένων παιχνιδιού, έτσι ώστε ένα ή περισσότερα αντικείμενα παιχνιδιού να είναι παιδιά σε ένα αντικείμενο γονικού παιχνιδιού. Απλώς <kbd>dropping</kbd> πάνω σε ένα άλλο, το αντικείμενο παιχνιδιού που σύρεται είναι παιδικό κάτω από τον στόχο:
 
-![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
+![Childing game objects](images/building_blocks/childing.png)
 
 Οι ιεραρχίες γονέα-παιδιού αντικειμένου είναι μια δυναμική σχέση που επηρεάζει τον τρόπο με τον οποίο τα αντικείμενα αντιδρούν σε μετασχηματισμούς. Οποιοσδήποτε μετασχηματισμός (κίνηση, περιστροφή ή κλιμάκωση) που εφαρμόζεται σε ένα αντικείμενο θα εφαρμοστεί με τη σειρά του στα παιδιά του αντικειμένου, τόσο στο πρόγραμμα επεξεργασίας όσο και στο χρόνο εκτέλεσης:
 
-![Child transform](images/building_blocks/child_transform.png){srcset="images/building_blocks/child_transform@2x.png 2x"}
+![Child transform](images/building_blocks/child_transform.png)
 
 Αντίθετα, οι μεταφράσεις ενός παιδιού γίνονται στον τοπικό χώρο του γονέα. Στο πρόγραμμα επεξεργασίας, μπορείτε να επιλέξετε να επεξεργαστείτε ένα αντικείμενο παιδικού παιχνιδιού στον τοπικό χώρο ή στον παγκόσμιο χώρο επιλέγοντας <kbd>Edit ▸ World Space</kbd> (the default) or <kbd>Edit ▸ Local Space</kbd>.
 

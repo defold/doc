@@ -47,7 +47,7 @@ end
 
 要把脚本添加到 GUI 组件, 打开 GUI 蓝图文件, 在 *Outline* 里选择根节点显示出 GUI *Properties*. 把 *Script* 属性设置为脚本文件即可.
 
-![Script](images/gui-script/set_script.png){srcset="images/gui-script/set_script@2x.png 2x"}
+![Script](images/gui-script/set_script.png)
 
 如果这个 GUI 组件被添加到游戏中的游戏对象里, 它上面的脚本就可以运行了.
 
@@ -79,13 +79,13 @@ local stats = { score = 4711, stars = 3, health = 6 }
 msg.post("hud#gui", "set_stats", stats)
 ```
 
-![message passing](images/gui-script/message_passing.png){srcset="images/gui-script/message_passing@2x.png 2x"}
+![message passing](images/gui-script/message_passing.png)
 
 ## 定位节点
 
 GUI 中的节点可由脚本控制. 在编辑器中每个节点都有唯一 *Id*:
 
-![message passing](images/gui-script/node_id.png){srcset="images/gui-script/node_id@2x.png 2x"}
+![message passing](images/gui-script/node_id.png)
 
 *Id* 使得脚本引用节点并对其使用 [gui 命名空间函数](/ref/gui) 进行控制:
 
@@ -114,7 +114,7 @@ gui.set_font(new_textnode, "sourcesans")
 gui.set_color(new_textnode, vmath.vector4(0.69, 0.6, 0.8, 1.0))
 ```
 
-![dynamic node](images/gui-script/dynamic_nodes.png){srcset="images/gui-script/dynamic_nodes@2x.png 2x"}
+![dynamic node](images/gui-script/dynamic_nodes.png)
 
 第二种方法是通过调用 `gui.clone()` 函数克隆一个已存在的节点或者通过调用 `gui.clone_tree()` 函数克隆一个已存在的节点树:
 

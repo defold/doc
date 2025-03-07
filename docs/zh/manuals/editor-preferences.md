@@ -9,7 +9,7 @@ brief: 可以通过设置窗口修改编辑器配置.
 
 ## General
 
-![](images/editor/preferences_general.png){srcset="images/editor/preferences_general@2x.png 2x"}
+![](images/editor/preferences_general.png)
 
 Load External Changes on App Focus
 : 当编辑器获得焦点时扫描外部文件改变.

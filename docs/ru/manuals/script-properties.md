@@ -44,11 +44,11 @@ end
 
 Любой экземпляр компонента Script, созданный на основе этого скрипта, может затем устанавливать значения свойств.
 
-![Component with properties](images/script-properties/component.png){srcset="images/script-properties/component@2x.png 2x"}
+![Component with properties](images/script-properties/component.png)
 
  Выберите компонент Script в представлении *Outline* в редакторе, и свойства появятся в представлении *Properties*, позволяя вам редактировать их:
 
-![Properties](images/script-properties/properties.png){srcset="images/script-properties/properties@2x.png 2x"}
+![Properties](images/script-properties/properties.png)
 
 Любое свойство, которое переопределяется новым значением для конкретного экземпляра, отмечено синим цветом. Кликните кнопку сброса рядом с именем свойства, чтобы вернуть значение по умолчанию (как установлено в скрипте).
 

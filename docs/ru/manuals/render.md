@@ -19,7 +19,7 @@ brief: Данное руководство объясняет, как работ
 
 В папке "Builtins" вашего проекта вы можете найти рендеринг ресурс по-умолчанию ("default.render"), а также рендер скрипт по-умолчанию ("default.render_script").
 
-![Builtin render](images/render/builtin.png){srcset="images/render/builtin@2x.png 2x"}
+![Builtin render](images/render/builtin.png)
 
 Для настройки пользовательского рендерера:
 
@@ -40,7 +40,7 @@ brief: Данное руководство объясняет, как работ
 
 В вашем рендер скрипте вы далее можете создать *рендер предикат* и задать, какие теги должны принадлежать этому предикату. Когда вы просите движок отрисовать предикат, каждый объект с материалом, содержащим тег, совпадающий со списком заданным для предиката, будет отрисован.
 
-![Render predicate](images/render/render_predicate.png){srcset="images/render/render_predicate@2x.png 2x"}
+![Render predicate](images/render/render_predicate.png)
 
 Детальное описание работы материалов может быть найдено в [Документации по материалам](/manuals/material).
 

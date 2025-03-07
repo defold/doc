@@ -11,7 +11,7 @@ Lua modules allow you to structure your project and create reusable library code
 
 Lua code stored in files with file ending ".lua" somewhere in your game project structure can be required into script and gui script files. To create a new Lua module file, right click the folder you want to create it in in the *Assets* view, then select <kbd>New... ▸ Lua Module</kbd>. Give the file a unique name and press <kbd>Ok</kbd>:
 
-![new file](images/modules/new_name.png){srcset="images/modules/new_name@2x.png 2x"}
+![new file](images/modules/new_name.png)
 
 Suppose the following code is added to the file "main/anim.lua":
 

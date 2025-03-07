@@ -11,7 +11,7 @@ Pie nodes are used to create circular or ellipsoid objects ranging from plain ci
 
 <kbd>Кликните ПКМ</kbd> на папке *Nodes* в *Outline* и выберите <kbd>Add ▸ Pie</kbd>. Новая нода Pie будет выделена, и теперь можно изменять ее свойства.
 
-![Create pie node](images/gui-pie/create.png){srcset="images/gui-pie/create@2x.png 2x"}
+![Create pie node](images/gui-pie/create.png)
 
 Следующие свойства уникальны для ноды Pie:
 
@@ -30,7 +30,7 @@ Perimeter Vertices
 Pie Fill Angle
 : Доля заполнения. Выражается как угол против часовой стрелки, начиная справа.
 
-![Properties](images/gui-pie/properties.png){srcset="images/gui-pie/properties@2x.png 2x"}
+![Properties](images/gui-pie/properties.png)
 
 Если для ноды задана текстура, изображение текстуры накладывается плоско, при этом углы текстуры коррелируются с углами ограничивающей рамки ноды.
 

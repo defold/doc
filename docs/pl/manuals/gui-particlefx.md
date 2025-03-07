@@ -13,7 +13,7 @@ Dodaj nowe węzły cząsteczkowe, <kbd>klikając prawym przyciskiem myszy</kbd> 
 
 Możesz użyć efektów cząsteczkowych, które dodałeś do GUI jako źródła efektu. Dodaj efekty cząsteczkowe, <kbd>klikając prawym przyciskiem myszy</kbd> na ikonie folderu *Particle FX* w widoku *Outline* i wybierając <kbd>Add ▸ Particle FX...</kbd>. Następnie ustaw właściwość *Particlefx* na węźle:
 
-![Particle fx](images/gui-particlefx/create.png){srcset="images/gui-particlefx/create@2x.png 2x"}
+![Particle fx](images/gui-particlefx/create.png)
 
 ## Kontrolowanie efektu
 

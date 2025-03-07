@@ -24,7 +24,7 @@ Clipping Inverted
 
 Затем добавьте ноду(ы), которую нужно клипировать, в качестве дочерней к ноде клипирования.
 
-![Create clipping](images/gui-clipping/create.png){srcset="images/gui-clipping/create@2x.png 2x"}
+![Create clipping](images/gui-clipping/create.png)
 
 ## Трафаретная маска
 
@@ -34,7 +34,7 @@ Clipping Inverted
 - Если у клипирующей ноды есть клипирующий родитель, то вместо этого она будет клипировать клипирующую маску родителя. Клипирующая дочерняя нода никогда не будет _расширять_ текущую маску клипирования, только клипировать ее дальш.
 - Ноды без клипирования, которые являются дочерними для клипируемых нод, будут рендериться с маской клипирования, созданной родительской иерархией.
 
-![Clipping hierarchy](images/gui-clipping/setup.png){srcset="images/gui-clipping/setup@2x.png 2x"}
+![Clipping hierarchy](images/gui-clipping/setup.png)
 
 Здесь три ноды расположены в иерархической структуре:
 
@@ -44,7 +44,7 @@ Clipping Inverted
 
 Для этой иерархии возможны четыре комбинации нормальных и инвертированных клиперов. Зеленая область отмечает часть окружности, которая рендерится. Остальная часть маскируется:
 
-![Stencil masks](images/gui-clipping/modes.png){srcset="images/gui-clipping/modes@2x.png 2x"}
+![Stencil masks](images/gui-clipping/modes.png)
 
 ## Ограничения по использованию трафарета
 
@@ -66,7 +66,7 @@ Clipping Inverted
 Нода клипирования и ее иерархия будут отрисованы первыми, если ей назначен слой, и в обычном порядке, если слой не назначен.
 :::
 
-![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
+![Layers and clipping](images/gui-clipping/layers.png)
 
 Здесь нода клиппера "ocular" установлена в "layer3", а нода "bean" --- в "layer1". Поэтому текстура клиппера "ocular" отрисовывается поверх обрезанного bean'.
 

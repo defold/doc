@@ -183,4 +183,4 @@ Preprocesor jest dostępny jako rozszerzenie budowania. Dowiedz się więcej na 
 
 Edytor Defold obsługuje edycję skryptów Lua z kolorowaniem składni i autouzupełnianiem. Aby wyświetlić nazwy funkcji Defold, naciśnij <kbd>Ctrl</kbd>+<kbd>Spacja</kbd>, aby wyświetlić listę funkcji pasujących do tego, co wpisujesz.
 
-![Automatyczne uzupełnianie](images/script/completion.png){srcset="images/script/completion@2x.png 2x"}
+![Automatyczne uzupełnianie](images/script/completion.png)

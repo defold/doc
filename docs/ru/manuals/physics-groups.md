@@ -9,7 +9,7 @@ brief: Физический движок позволяет группирова
 
 Для регистрации факта столкновения между двумя объектами, оба объекта должны взаимоисключающим образом включать группы друг друга в своем поле *Mask*.
 
-![Physics collision group](images/physics/collision_group.png){srcset="images/physics/collision_group@2x.png 2x"}
+![Physics collision group](images/physics/collision_group.png)
 
 Поле *Mask* может содержать множество имен групп, допуская сложные сценарии взаимодействия.
 

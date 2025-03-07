@@ -30,7 +30,7 @@ Aby dodać komponent obiektu kolizji do obiektu gry:
 3. Użyj narzędzi do przesuwania, obracania i skalowania, aby edytować Kształty.
 4. Wybierz komponent w panelu *Outline* i edytuj *Properties* obiektu kolizji.
 
-![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
+![Physics collision object](images/physics/collision_object.png)
 
 ## Dodawanie kształtu kolizji
 Komponent kolizji może używać kilku podstawowych kształtów (primitive shapes) lub pojedynczego, skomplikowanego kształtu. Dowiedz się więcej o różnych kształtach i jak je dodawać do komponentu kolizji w [instrukcji do Kształtów Kolizji](/manuals/physics-shapes).

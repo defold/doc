@@ -16,11 +16,11 @@ A material holds _tags_, information that is used in the rendering pipeline to s
 
 To create a material, <kbd>right click</kbd> a target folder in the *Assets* browser and select <kbd>New... ▸ Material</kbd>. (You can also select <kbd>File ▸ New...</kbd> from the menu, and then select <kbd>Material</kbd>). Name the new material file and press <kbd>Ok</kbd>.
 
-![Material file](images/materials/material_file.png){srcset="images/materials/material_file@2x.png 2x"}
+![Material file](images/materials/material_file.png)
 
 The new material will open in the *Material Editor*.
 
-![Material editor](images/materials/material.png){srcset="images/materials/material@2x.png 2x"}
+![Material editor](images/materials/material.png)
 
 The material file contains the following information:
 
@@ -160,11 +160,11 @@ Configuring a vertex attribute to be repeated per instance requires that the `St
 
 As a simple example, the following scene has four game objects with a model component each:
 
-![Instancing setup](images/materials/instancing-setup.png){srcset="images/materials/instancing-setup@2x.png 2x"}
+![Instancing setup](images/materials/instancing-setup.png)
 
 The material is configured as such, with a single custom vertex attribute that is repeated per instance:
 
-![Instancing material](images/materials/instancing-material.png){srcset="images/materials/instancing-material@2x.png 2x"}
+![Instancing material](images/materials/instancing-material.png)
 
 The vertex shader has multiple per-instance attributes specified:
 
@@ -184,7 +184,7 @@ Note that the mtx_world and mtx_normal will be configured to use the step functi
 
 To verify that the instancing works in this case, you can look at the web profiler. In this case, since the only thing that changes between the instances of the box is the per-instance attributes, it can be rendered with a single draw call:
 
-![Instancing draw calls](images/materials/instancing-draw-calls.png){srcset="images/materials/instancing-draw-calls@2x.png 2x"}
+![Instancing draw calls](images/materials/instancing-draw-calls.png)
 
 #### Backwards compatibility
 
@@ -245,7 +245,7 @@ Samplers are used to sample the color information from a texture (a tile source 
 
 Sprite, tilemap, GUI and particle effect components automatically gets a `sampler2D` set. The first declared `sampler2D` in the shader program is automatically bound to the image referenced in the graphics component. Therefore there is currently no need to specify any samplers in the materials file for those components. Furthermore, those component types currently only support a single texture. (If you need multiple textures in a shader, you can use [`render.enable_texture()`](/ref/render/#render.enable_texture) and set texture samplers manually from your render script.)
 
-![Sprite sampler](images/materials/sprite_sampler.png){srcset="images/materials/sprite_sampler@2x.png 2x"}
+![Sprite sampler](images/materials/sprite_sampler.png)
 
 ```glsl
 -- mysprite.fp
@@ -259,11 +259,11 @@ void main()
 
 You can specify a component's sampler settings by adding the sampler by name in the materials file. If you don't set up your sampler in the materials file, the global *graphics* project settings are used.
 
-![Sampler settings](images/materials/my_sampler.png){srcset="images/materials/my_sampler@2x.png 2x"}
+![Sampler settings](images/materials/my_sampler.png)
 
 For model components, you need to specify your samplers in the material file with the settings you want. The editor will then allow you to set textures for any model component that use the material:
 
-![Model samplers](images/materials/model_samplers.png){srcset="images/materials/model_samplers@2x.png 2x"}
+![Model samplers](images/materials/model_samplers.png)
 
 ```glsl
 -- mymodel.fp
@@ -278,7 +278,7 @@ void main()
 }
 ```
 
-![Model](images/materials/model.png){srcset="images/materials/model@2x.png 2x"}
+![Model](images/materials/model.png)
 
 ## Sampler settings
 

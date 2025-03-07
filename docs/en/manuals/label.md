@@ -11,15 +11,15 @@ A *Label* component renders a piece of text on screen, in game space. By default
 
 To create a Label component, <kbd>right click</kbd> the game object and selecting <kbd>Add Component ▸ Label</kbd>.
 
-![Add label](images/label/add_label.png){srcset="images/label/add_label@2x.png 2x"}
+![Add label](images/label/add_label.png)
 
 (If you want to instantiate several labels from the same template you can alternatively make a new label component file: <kbd>right click</kbd> a folder in the *Assets* browser and select <kbd>New... ▸ Label</kbd>, then add the file as component to any game objects)
 
-![New label](images/label/label.png){srcset="images/label/label@2x.png 2x"}
+![New label](images/label/label.png)
 
 Set the *Font* property to the font you want to use and make sure to set the *Material* property to a material that matches the font type:
 
-![Font and material](images/label/font_material.png){srcset="images/label/font_material@2x.png 2x"}
+![Font and material](images/label/font_material.png)
 
 ## Label properties
 
@@ -81,7 +81,7 @@ By setting the *Pivot* property you can change the alignment mode for the text.
 *Right*
 : If the pivot is set to any of the `East` modes, the text is right-aligned.
 
-![Text alignment](images/label/align.png){srcset="images/label/align@2x.png 2x"}
+![Text alignment](images/label/align.png)
 
 ## Runtime manipulation
 

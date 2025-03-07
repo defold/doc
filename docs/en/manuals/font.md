@@ -25,11 +25,11 @@ It is possible to [generate font glyphs at runtime](/extension-fontgen) from a b
 
 To create a font for use in Defold, create a new Font file by selecting <kbd>File ▸ New...</kbd> from the menu, then select <kbd>Font</kbd>. You can also <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New... ▸ Font</kbd>.
 
-![New font name](images/font/new_font_name.png){srcset="images/font/new_font_name@2x.png 2x"}
+![New font name](images/font/new_font_name.png)
 
 Give the new font file a name and click <kbd>Ok</kbd>. The new font file now opens in the editor.
 
-![New font](images/font/new_font.png){srcset="images/font/new_font@2x.png 2x"}
+![New font](images/font/new_font.png)
 
 Drag the font you wish to use into the *Assets* browser and drop it in a good spot.
 
@@ -103,7 +103,7 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 Distance field fonts store the distance to the edge of the glyph in the texture instead of bitmap data. When the engine renders the font, a special shader is required to interpret the distance data and use that to draw the glyph. Distance field fonts are more resource intensive than bitmap fonts, but allow for greater sizing flexibility.
 
-![Distance field font](images/font/df_font.png){srcset="images/font/df_font@2x.png 2x"}
+![Distance field font](images/font/df_font.png)
 
 Make sure to change the *Material* property of the font to *builtins/fonts/font-df.material* (or any other material that can handle the distance field data) when you create the font---or the font will not use the correct shader when it is rendered to screen.
 
@@ -125,7 +125,7 @@ To create a BMFont, you need to use a tool that can generate the appropriate fil
 * [bmGlyph](https://www.bmglyph.com), a commercial macOS tool from Sovapps.
 :::
 
-![BMfont](images/font/bm_font.png){srcset="images/font/bm_font@2x.png 2x"}
+![BMfont](images/font/bm_font.png)
 
 For the font to render correctly, don't forget to set the material property to *builtins/fonts/font-fnt.material* when you create the font.
 
@@ -135,15 +135,15 @@ Generally, bitmap fonts are best when the font is rendered with no scaling. They
 
 Distance field fonts respond very good to upscaling. Bitmap fonts, on the other hand, being just pixelated images will increase in size so the pixels will grow as the font is scaled, resulting in blocky artifacts. The following is a sample at font size 48 pixels, scaled up 4 times.
 
-![Fonts scaled up](images/font/scale_up.png){srcset="images/font/scale_up@2x.png 2x"}
+![Fonts scaled up](images/font/scale_up.png)
 
 When scaling down, bitmap textures can be nicely and efficiently scaled down and antialiased by the GPU. A bitmap font keeps its color better than a distance field font. Here is a zoom of the same sample font at size 48 pixels, scaled down to 1/5 of the size:
 
-![Fonts scaled down](images/font/scale_down.png){srcset="images/font/scale_down@2x.png 2x"}
+![Fonts scaled down](images/font/scale_down.png)
 
 Distance field fonts need to be rendered to a target size that is big enough to hold distance information that can express the curves of the font glyphs. This is the same font as above, but at 18 pixels size and scaled up 10 times. It is clear that this is too small to encode the shapes of this typeface:
 
-![Distance field artifacts](images/font/df_artifacts.png){srcset="images/font/df_artifacts@2x.png 2x"}
+![Distance field artifacts](images/font/df_artifacts.png)
 
 If you don't want shadow or outline support, set their respective alpha values to zero. Otherwise, shadow and outline data will still be generated, taking up unnecessary memory.
 

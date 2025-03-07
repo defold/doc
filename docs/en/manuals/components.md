@@ -77,7 +77,7 @@ Each component is assigned a [material](/manuals/material/) and each material ha
 ### Component z-value
 All game objects and components are positioned in 3D space with positions expressed as vector3 objects. When you view your game's graphics content in 2D, the X and Y value determine the position of an object along the "width" and "height" axis, and the Z position determines the position along the "depth" axis. The Z position allows you to control the visibility of overlapping objects: a sprite with a Z value of 1 will appear in front of a sprite at Z position 0. By default, Defold uses a coordinate system allowing Z values between -1 and 1:
 
-![model](images/graphics/z-order.png){srcset="images/graphics/z-order@2x.png 2x"}
+![model](images/graphics/z-order.png)
 
 The components matching a [render predicate](/manuals/render/#render-predicates) are drawn together, and the order in which they are drawn depends on the final z-value of the component. The final z-value of a component is the sum of the z-values of the component itself, the game object it belongs to and the z-value of any parent game objects.
 

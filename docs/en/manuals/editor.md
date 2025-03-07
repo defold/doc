@@ -17,7 +17,7 @@ Home
 New Project
 : Click if you want to create a new Defold project, then select if you want to base your project on a basic template (from the *From Template* tab), if you would like to follow a tutorial (the *From Tutorial* tab), or try one of the sample projects (the *From Sample* tab).
 
-  ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
+  ![new project](images/editor/new_project.png)
 
   When you create a new project it is stored on your local drive and any edits you do are saved locally.
 
@@ -78,7 +78,7 @@ If your project uses the distributed version-control system Git this view lists 
 
 If you have multiple files open, a separate tab for each file is shown at the top of the editor view. It is possible to open 2 editor views side by side. <kbd>Right click</kbd> the tab for the editor you want to move and select <kbd>Move to Other Tab Pane</kbd>.
 
-![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
+![2 panes](images/editor/2-panes.png)
 
 You can also use the tab menu to swap the position of the two panes and join them to a single pane.
 
@@ -136,11 +136,11 @@ To create new resource files, either select <kbd>File ▸ New...</kbd> and then 
 
 <kbd>Right click</kbd> the target location in the *Assets* browser, then select <kbd>New... ▸ [file type]</kbd>:
 
-![create file](images/editor/create_file.png){srcset="images/editor/create_file@2x.png 2x"}
+![create file](images/editor/create_file.png)
 
 Type a suitable name for the new file. The full file name including the file type suffix is shown under *Path* in the dialog:
 
-![create file name](images/editor/create_file_name.png){srcset="images/editor/create_file_name@2x.png 2x"}
+![create file name](images/editor/create_file_name.png)
 
 It is possible to specify custom templates for each project. To do so, create a new folder named `templates` in the project’s root directory, and add new files named `default.*` with the desired extensions, such as `/templates/default.gui` or `/templates/default.script`. Additionally, if the `{{NAME}}` token is used in these files, it will be replaced with the filename specified in the file creation window.
 
@@ -148,15 +148,15 @@ It is possible to specify custom templates for each project. To do so, create a 
 
 To add asset files (images, sounds, models etc) to your project, simply drag and drop them to the correct position in the *Assets* browser. This will make _copies_ of the files at the selected location in the project file structure. Read more about [how to import assets in our manual](/manuals/importing-assets/).
 
-![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
+![Import files](images/editor/import.png)
 
 ## Updating the editor
 
 The editor will automatically check for updates. When an update is detected it will be shown in the lower right corner of the editor window and on the project selection screen. Pressing the Update Available link will download and update the editor.
 
-![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
+![Update from project selection](images/editor/update-project-selection.png)
 
-![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
+![Update from editor](images/editor/update-main.png)
 
 ## Preferences
 

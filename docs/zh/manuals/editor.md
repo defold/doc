@@ -17,7 +17,7 @@ Home
 New Project
 : 创建新的项目, 然后会让你 (从 *Template* 窗口) 选择是否需要基于模板创建新项目, 还可以选择是否要参考 (*Tutorial* 窗口) 里的教程, 或者学习 (*Sample* 窗口) 里的示例项目.
 
-  ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
+  ![new project](images/editor/new_project.png)
 
   新建项目完成后所有项目文件都保存在了本地硬盘上.
 
@@ -70,7 +70,7 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 如果同时打开了多个文件, 编辑器视图上方就会出现多个标签. 要想两个视图对照着同时进行编辑工作. <kbd>右键点击</kbd> 想要移动的视图标签, 然后选择 <kbd>Move to Other Tab Pane</kbd>.
 
-![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
+![2 panes](images/editor/2-panes.png)
 
 使用视图标签还可以让两个视图交换位置或者把多个面板合为一组.
 
@@ -126,25 +126,25 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 在 *资源* 浏览器目标位置 <kbd>右键单击</kbd> , 选择 <kbd>New... ▸ [file type]</kbd> 按钮:
 
-![create file](images/editor/create_file.png){srcset="images/editor/create_file@2x.png 2x"}
+![create file](images/editor/create_file.png)
 
 为新文件取一个有意义的名字. 完整文件名包括类型扩展名会显示在 *路径* 对话框内:
 
-![create file name](images/editor/create_file_name.png){srcset="images/editor/create_file_name@2x.png 2x"}
+![create file name](images/editor/create_file_name.png)
 
 ## 向项目添加资源文件
 
 要向项目添加资源 (图片, 声音, 模型等) 文件, 只需把文件拖放到 *资源* 浏览器里适当的位置上. 这样做实际上是把文件系统中的资源文件 _拷贝_ 到项目中来. 详情请见 [导入资源教程](/manuals/importing-assets/).
 
-![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
+![Import files](images/editor/import.png)
 
 ## 编辑器更新
 
 编辑器自动检查更新. 检测到新版本的话就会在编辑器右下角或者项目选择视图里显示出来. 点击即可自动更新.
 
-![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
+![Update from project selection](images/editor/update-project-selection.png)
 
-![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
+![Update from editor](images/editor/update-main.png)
 
 ## 配置
 

@@ -7,7 +7,7 @@ brief: Instrukcja ta przedstawia podstawowe elementy służące do budowania apl
 
 W samym sercu koncepcji silnika Defold znajduje się kilka elementów, których zrozumienie ułatwia dalszą pracę z silnikiem. Instrukcja ta wyjaśnia czym są takie bloki służące do budowania aplikacji. Po zapoznaniu się z poniższą instrukcją, warto przejść do [Instrukcji adresowania](/manuals/addressing) i [przesyłania wiadomości](/manuals/message-passing). Na stronie Defold znajdziesz również [tutoriale](/tutorials/getting-started) dla początkujących dostępne nawet z poziomu edytora, aby umożliwić Ci szybki start z silnikiem Defold.
 
-![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
+![Building blocks](images/building_blocks/building_blocks.png)
 
 Przy budowaniu gier na silniku Defold używa się trzech podstawowych elementów:
 
@@ -28,11 +28,11 @@ Kiedy Defold startuje, wczytuje pojedynczą, główną _kolekcję bootrstrapową
 
 Kolekcja może zawierać obiekty i inne kolekcje (przez referencję do pliku sub-kolekcji) zagnieżdżone na dowolną "głębokość". Poniżej jest przykład kolekcji "main.collection". Zawiera ona jeden obiekt gry (z id "can")i jedną sub-kolekcję (z id "bean"). Sub-kolekcja ta zawiera z kolei obiekty "bean" i "shield".
 
-![Collection](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
+![Collection](images/building_blocks/collection.png)
 
 Zauważ, że sub-kolekcja z id "bean" jest przechowywana w osobnym pliku nazwanym "/main/bean.collection", a kolekcja nadrzędna "main.collection" zawiera do tego pliku jedynie referencję:
 
-![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
+![Bean collection](images/building_blocks/bean_collection.png)
 
 Nie można zaadresować kolekcji samej w sobie, ponieważ nie istnieją obiekty w czasie rzeczywistym, które reprezentują kolekcje "main" czy "bean" - nie można więc wysłać wiadomości do kolekcji samej w sobie, a tylko do obiektów i komponentów. Jednak czasem chcesz wysłać wiadomość do obiektu z innej kolekcji niż kolekcja, w której nadawca się znajduje, więc dlatego określą się ścieżkę (ang. _path_) do takiego obiektu z uwzględnieniem id kolekcji (Szczegóły znajdziesz w [Instrukcji adresowania](/manuals/addressing)):
 
@@ -80,25 +80,25 @@ W panelu *Outline* możesz zobaczyć na jakim pliku bazuje dana instancja, jeśl
 2. Komponent typu skrypt "bean" w obiekcie "bean"  w sub-kolekcji "bean".
 3. Komponent typu skrypt "can" w obiekcie "can".
 
-![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
+![Instance](images/building_blocks/instance.png)
 
 Korzyścią z używania szablonów/plików jest zdecydowanie możliwość stworzenia wielu instancji obiektu gry lub kolekcji i zmiana ich wszystkich naraz w jednym pliku:
 
-![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
+![GO instances](images/building_blocks/go_instance.png)
 
 Przy zmianie pliku każda instancja utworzona z tego pliku zostaje natychmiastowo zaktualizowana:
 
-![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
+![GO instances updated](images/building_blocks/go_instance2.png)
 
 ## Hierarchia obiektów gry - relacja rodzic-dziecko
 
 W pliku kolekcji możesz tworzyć hierarchie obiektów gry (game objects) w ten sposób, że jeden z obiektów jest dzieckiem innego obiektu - rodzica. Po prostu <kbd>przeciągnij</kbd> jeden z obiektów gry i <kbd>upuść</kbd> nad innym obiektem - zostanie on umieszczony w drzewku pod tym obiektem i stanie się jego dzieckiem:
 
-![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
+![Childing game objects](images/building_blocks/childing.png)
 
 Relacja rodzic-dziecko jest dynamiczną relacją wpływającą na zmianę pozycji, orientacji i skali obu obiektów. Każda transformacja tych wartości zaaplikowana do obiektu rodzica zostanie następnie zaaplikowana do obiektu dziecka, aby ich wzajemna, względna pozycja/orientacja/skala pozostała taka sama, 1:1, zarówno w edytorze jak i w czasie działania programu:
 
-![Child transform](images/building_blocks/child_transform.png){srcset="images/building_blocks/child_transform@2x.png 2x"}
+![Child transform](images/building_blocks/child_transform.png)
 
 Z kolei wszystkie transformacje na obiekcie dziecku są wykonywane w układzie odniesienia rodzica. W edytorze Defold możesz wybrać, czy operacje na obiekcie dziecku są wykonywane w układzie lokalnym rodzica (local space) czy w głównym układzie odniesienia (world space) klikając <kbd>Edit ▸ World Space</kbd> (domyślnie ustawione) lub <kbd>Edit ▸ Local Space</kbd>.
 

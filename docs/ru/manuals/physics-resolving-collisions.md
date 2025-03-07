@@ -19,7 +19,7 @@ end
 
 Данный код отделяет кинематический объект от другого объекта, в который тот проникает, но такое разделение часто промахивается и вы можете увидеть дребезг во многих случаях. Чтобы лучше понять суть проблемы, представьте следующий сценарий, где игровой персонаж столкнулся с двумя объектами, *A* и *B*:
 
-![Physics collision](images/physics/collision_multi.png){srcset="images/physics/collision_multi@2x.png 2x"}
+![Physics collision](images/physics/collision_multi.png)
 
 Физический движок пошлет несколько сообщений `"contact_point_response"`, одно для объекта *A* и одно для объекта *B*, в том кадре, где произошло столкновение. Если вы подвинете персонажа в ответ на каждое проникновение, как в коде выше, результирующее разделение будет следующим:
 
@@ -28,17 +28,17 @@ end
 
 Порядок этих действий случаен, но результат будет одинаковым в обоих случаях: итоговое разделение, которое является *суммой отдельных векторов проникновения*:
 
-![Physics separation naive](images/physics/separation_naive.png){srcset="images/physics/separation_naive@2x.png 2x"}
+![Physics separation naive](images/physics/separation_naive.png)
 
 Чтобы надлежащим образом отделить персонажа от объектов *A* и *B*, вам нужно обработать расстояние проникновения для каждой точки контакта и проверить, не привели ли уже предыдущие действия, полностью или частично, к нужному разделению.
 
 Предположим, что первое сообщение контакта приходит от объекта *A* и вы двигаете персонажа наружу из *A* по его вектору проникновения:
 
-![Physics separation step 1](images/physics/separation_step1.png){srcset="images/physics/separation_step1@2x.png 2x"}
+![Physics separation step 1](images/physics/separation_step1.png)
 
 Далее персонаж уже был частично отделен от *B*. Необходимое окончательное компенсирование, которое нужно применить для полного отделения от объекта *B*, обозначено черной стрелкой выше. Длина компенсирующего вектора может быть вычислена проекцией вектора проекции *A* на вектор проекции *B*:
 
-![Projection](images/physics/projection.png){srcset="images/physics/projection@2x.png 2x"}
+![Projection](images/physics/projection.png)
 
 ```
 l = vmath.project(A, B) * vmath.length(B)

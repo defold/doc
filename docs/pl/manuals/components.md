@@ -72,7 +72,7 @@ Każdy komponent ma przypisany [materiał](/manuals/material/), a każdy materia
 ### Wartość współrzędnej Z
 Wszystkie obiekty gry i komponenty są umieszczone w przestrzeni 3D z pozycją jako wektor trzech współrzędnych. Kiedy oglądasz swoją grę w 2D, wspołrzędne X i Y pozycję elementu na ekranie wzdłuż szerokości i wysokości, a współrzędna Z określa głębokość. Umożliwia to więc określanie pozycji nachodzących się na siebie kształtów: sprite z wartością Z = 1 pojawi się przed sprite'm z pozycją Z = 0. Domyślnie, Defold umożliwia rysowanie obiektów na osi Z o wartościach z przedziału -1 i 1:
 
-![model](images/graphics/z-order.png){srcset="images/graphics/z-order@2x.png 2x"}
+![model](images/graphics/z-order.png)
 
 Komponenty, których materiały mają tagi określone dla danego [predykatu](/manuals/render/#render-predicates) są rysowane razem, a kolejność ich rysowania zależy od ostatecznej wartości współrzędnej Z. Ostateczna wartość Z jest sumą wartości Z komponentu, obiektu gry i każdego obiektu, do którego należy dany obiektu (rodzica).
 

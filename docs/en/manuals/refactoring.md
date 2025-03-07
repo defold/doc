@@ -15,6 +15,6 @@ Automatic refactoring will only work if changes are made from within the editor.
 
 However, if you break a reference by, for instance, deleting an asset, the editor can't resolve the problem, but will provide helpful error signals. For example, if you delete an animation from an atlas and that animation is in use somewhere, Defold will signal an error when you try to start the game. The editor will also mark where the errors occur to help you quickly locate the problem:
 
-![Refactoring error](images/workflow/delete_error.png){srcset="images/workflow/delete_error@2x.png 2x"}
+![Refactoring error](images/workflow/delete_error.png)
 
 Build errors appear in the *Build Errors* pane at the bottom of the editor. <kbd>Double clicking</kbd> an error takes you to the location of the problem.

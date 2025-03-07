@@ -13,11 +13,11 @@ Dodaj nowe węzły box, <kbd>klikając prawym przyciskiem myszy</kbd> w widoku "
 
 Możesz używać obrazów i animacji z atlasów lub źródeł kafelków, które zostały dodane do GUI. Dodaj tekstury, klikając prawym przyciskiem myszy na ikonę folderu "Textures" w widoku "Outline" i wybierając <kbd>Add ▸ Textures...</kbd>. Następnie ustaw właściwość *Texture* węzłu box na daną teksturę:
 
-![Textures](images/gui-box/create.png){srcset="images/gui-box/create@2x.png 2x"}
+![Textures](images/gui-box/create.png)
 
 Należy zauważyć, że kolor węzła box będzie barwił (ang. tint) grafikę. Kolor barwienia jest mnożony przez dane obrazu, co oznacza, że jeśli ustawisz kolor na biały (domyślny), w praktyce nie zostanie zastosowane barwienie.
 
-![Tinted texture](images/gui-box/tinted.png){srcset="images/gui-box/tinted@2x.png 2x"}
+![Tinted texture](images/gui-box/tinted.png)
 
 Węzły box są zawsze renderowane, nawet jeśli nie mają przypisanej tekstury, mają ustawioną wartość alfa na `0` lub mają rozmiar `0, 0, 0`. Węzły box powinny zawsze mieć przypisaną do nich teksturę, aby renderer mógł je właściwie grupować i zmniejszać liczbę wywołań rysowania (ang. draw calls).
 

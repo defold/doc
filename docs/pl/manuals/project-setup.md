@@ -11,7 +11,7 @@ Możesz z łatwością utworzyć nowy projekt z poziomu Edytora Defold. Masz ró
 
 Kliknij <kbd>New Project</kbd> (Nowy Projekt) i wybierz jaki rodzaj projektu chcesz utworzyć. Określ lokalizację plików na dysku twardym. Kliknij <kbd>Create New Project</kbd> (Utwórz nowy projekt) aby utworzyć wybrany projekt w wybranej lokalizacji. Możesz utworzyć projekt z szablonów:
 
-![open project](images/workflow/open_project.png){srcset="images/workflow/open_project@2x.png 2x"}
+![open project](images/workflow/open_project.png)
 
 lub z oficjalnych tutoriali z inrtukcjami krok po kroku:
 

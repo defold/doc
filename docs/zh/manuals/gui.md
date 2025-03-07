@@ -19,17 +19,17 @@ Defold 的图形用户界面是被放在集合里的, 依附于游戏对象的 G
 
 GUI 的创建基于一个模板文件. 要新建GUI文件, 在 *Assets* 浏览器中 <kbd>右键点击</kbd> 然后选择 <kbd>New ▸ Gui</kbd>. 为文件命名然后点击 <kbd>Ok</kbd>.
 
-![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
+![New gui file](images/gui/new_gui_file.png)
 
 Defold 会自动启动场景编辑器打开这个文件.
 
-![New gui](images/gui/new_gui.png){srcset="images/gui/new_gui@2x.png 2x"}
+![New gui](images/gui/new_gui.png)
 
 *大纲* 视图里列出了所有 GUI:s 内容: 节点及其资源列表(见下文).
 
 中间编辑区显示 GUI. 右上角的工具栏有 *移动*, *旋转* 和 *缩放* 工具, 以及一个 [布局](/manuals/gui-layouts) 选择器.
 
-![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
+![toolbar](images/gui/toolbar.png)
 
 当前布局用白色方框表示, 其宽度高度是在项目配置文件里设置的.
 
@@ -54,7 +54,7 @@ Max Nodes
 
 界面的结构与集合不同, 是分门别类的. *Outline* 视图中可以看到所有资源都被按照其类型分配到 "子文件夹" 下:
 
-![dependencies](images/gui/dependencies.png){srcset="images/gui/dependencies@2x.png 2x"}
+![dependencies](images/gui/dependencies.png)
 
 要添加资源, <kbd>右键点击k</kbd> *Outline* 里的 "Gui" 根节点, 然后从上下文菜单中选择 <kbd>Add ▸ [资源类型]</kbd>.
 
@@ -96,7 +96,7 @@ ParticleFX node
 
 右键点击 *Nodes* 文件夹选择 <kbd>Add ▸</kbd> 然后点击 <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> 或 <kbd>ParticleFx</kbd> 即可创建节点.
 
-![Add nodes](images/gui/add_node.png){srcset="images/gui/add_node@2x.png 2x"}
+![Add nodes](images/gui/add_node.png)
 
 还可以用快捷键 <kbd>A</kbd> 来创建节点.
 
@@ -185,14 +185,14 @@ Pivot
 
   可选值有 `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` 和 `South East`.
 
-  ![pivot point](images/gui/pivot.png){srcset="images/gui/pivot@2x.png 2x"}
+  ![pivot point](images/gui/pivot.png)
 
   如果修改了节点的轴点, 节点会适当移动以保证坐标位置不变. 对于文本节点来说 `Center` 意味着文字居中对齐, `West` 意味着文字左对齐, `East` 意味着文字右对齐.
 
 X Anchor, Y Anchor
 : 锚点控制着当窗体或者父节点拉伸时当前节点位置如何处理.
 
-  ![Anchor unadjusted](images/gui/anchoring_unadjusted.png){srcset="images/gui/anchoring_unadjusted@2x.png 2x"}
+  ![Anchor unadjusted](images/gui/anchoring_unadjusted.png)
 
   可选值有:
 
@@ -200,14 +200,14 @@ X Anchor, Y Anchor
   - `Left` 或 `Right` (*X轴*) 缩放水平方向位置以便保持其相对于窗体或者父节点宽度方向上的百分比位置不变.
   - `Top` 或 `Bottom` (*Y轴*) 缩放垂直方向位置以便保持其相对于窗体或者父节点高度方向上的百分比位置不变.
 
-  ![Anchoring](images/gui/anchoring.png){srcset="images/gui/anchoring@2x.png 2x"}
+  ![Anchoring](images/gui/anchoring.png)
 
 Adjust Mode
 : 节点调整模式. 调整模式控制着当窗体或者父节点拉伸时当前节点尺寸如何处理.
 
   这里有一个节点放置在逻辑分辨率为横屏的场景中:
 
-  ![Unadjusted](images/gui/unadjusted.png){srcset="images/gui/unadjusted@2x.png 2x"}
+  ![Unadjusted](images/gui/unadjusted.png)
 
   当场景需要填充竖屏时. 每个节点都会被拉伸. 但是如果使用了适当的调整模式, 节点内容的长宽比可以保持不变. 可选值有:
 
@@ -215,7 +215,7 @@ Adjust Mode
   - `Zoom` 缩放节点内容,使其等于拉伸的边界框宽度或高度, 以数值最大者为准. 换句话说, 内容将超越过父级的边界.
   - `Stretch` 拉伸节点内容, 使其填充父级的边界框.
 
-  ![Adjust modes](images/gui/adjusted.png){srcset="images/gui/adjusted@2x.png 2x"}
+  ![Adjust modes](images/gui/adjusted.png)
 
   如果场景的 *Adjust Reference* 设置为 `Disabled` 的话, 此设置被忽略.
 
@@ -279,7 +279,7 @@ Clipping Inverted (box 和 pie 节点)
 
 节点基于 "Nodes" 文件夹的排序进行绘制. 最高处节点最先绘制, 也就是会被放置于其他节点的后面. 最下面的节点最后绘制, 即它会位于其他节点前面. 至于节点 Z 值并不影响绘制顺序; 但是记得如果Z值超过了渲染脚本的渲染范围就不被渲染了. 可以使用层来覆盖这个默认的绘制顺序 (见下文).
 
-![Draw order](images/gui/draw_order.png){srcset="images/gui/draw_order@2x.png 2x"}
+![Draw order](images/gui/draw_order.png)
 
 选中节点按 <kbd>Alt + Up/Down</kbd> 移动其在列表中的排序.
 
@@ -298,7 +298,7 @@ end
 
 把节点拖放到另一节点上就组成了一个父子结构. 子节点基于父节点轴点继承父节点的位移 (位置, 旋转和缩放).
 
-![Parent child](images/gui/parent_child.png){srcset="images/gui/parent_child@2x.png 2x"}
+![Parent child](images/gui/parent_child.png)
 
 父节点先于子节点进行绘制. 使用层可以改变这个顺序还可以优化性能 (见下文).
 
@@ -316,13 +316,13 @@ Layers 可以方便控制节点绘制顺序以及减少draw call. 引擎绘制�
 
 树形结构对于节点管理非常方便. 但是不同类型节点的混合一定会打破合批渲染:
 
-![Breaking batch hierarchy](images/gui/break_batch.png){srcset="images/gui/break_batch@2x.png 2x"}
+![Breaking batch hierarchy](images/gui/break_batch.png)
 
 渲染管线被迫为不同类型的节点建立不同的渲染批次. 这三个按钮就会产生6次 draw call.
 
 要是使用层, 就可以重塑节点的绘制顺序, 渲染管线就能更好地进行合批减少 draw call. 第一步新建层. 在 *Outline* 的 "Layers" 文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ Layer</kbd>. 在 *Properties* 视图中填充 *Name* 属性给层命名.
 
-![Layers](images/gui/layers.png){srcset="images/gui/layers@2x.png 2x"}
+![Layers](images/gui/layers.png)
 
 现在给每个节点的 *Layer* 属性都分配适当的层. 层的绘制顺序优先级高于默认情况, 所以把按钮底图都分配给 "graphics" 层, 文本节点都分配给 "text" 层, 那么界面绘制的顺序就是这样的:
 

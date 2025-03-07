@@ -7,7 +7,7 @@ brief: Esse manual mostra detalhes relacionados ao funcionameno de objetos compo
 
 No núcleo de design do Defold existem alguns conceitos que demandão um certo tempo para se acostumar. Esse manual explica como os building blocks do Defold funcionam. Após ler esse manual, vá para o [addressing manual](/manuals/addressing) e o [message passing manual](/manuals/message-passing). Existem também alguns [tutorials](/tutorials/getting-started) no editor, tutoriais esses que o farão decolar na utilização do Defold.
 
-![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
+![Building blocks](images/building_blocks/building_blocks.png)
 
 Existem três tipos basicos de building blocks que você utilizará para construir um jogo no Defold:
 
@@ -28,11 +28,11 @@ Quando a engine do Defold se inicias, ela carrega uma única _bootstrap collecti
 
 Uma collection pode conter game objects e outras collections (por referência ao arquivo sub-collection's), que se encontrar alojado profundamente.Aqui vai um arqivo de exemplo chamado "main.collection". Ele contem um game object (com o id "can") e uma sub-collection (com o id "bean"). A sub-collection, citada, têm dois game objects: "bean" e "shield".
 
-![Collection](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
+![Collection](images/building_blocks/collection.png)
 
 Perceba que a sub-collection com o id "bean" está guardada em seu próprio arquivo, chamado "/main/bean.collection" qque só é referenciado em "main.collection":
 
-![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
+![Bean collection](images/building_blocks/bean_collection.png)
 
 Você não pode endereçar collections para elas mesmas uma vez que não tem runtime objects correspondendo ao "main" e ao "bean" collections. De qualquer forma, de vez em quando você precisa usar o id de uma collection como parte do _path_ para um game object (olhe o [addressing manual](/manuals/addressing) para detalhes):
 
@@ -78,25 +78,25 @@ Você pode ver em qual arquivo um object instance se baseia a partir da outline 
 2. O "bean" script component no "bean" game object no "bean" sub-collection.
 3. A "can" script component no "can" game object.
 
-![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
+![Instance](images/building_blocks/instance.png)
 
 O benefício de criar blueprint files se mostra quando você tem multiplas instancias de game objects ou collections e quer trocar todas elas:
 
-![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
+![GO instances](images/building_blocks/go_instance.png)
 
 Ao trocar o blueprint file,todas as instancias que o utilizam são atualizadas imediatamente.
 
-![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
+![GO instances updated](images/building_blocks/go_instance2.png)
 
 ## Childing game objects
 
 Em um collection file, você pode criar hierarquias de game objects para que um ou mais game objects sejam children(filhas) para um único parent game object. Basta <kbd>dragging</kbd> um game object e <kbd>dropping</kbd> em outro dragged game object que é childed embaixo do target:
 
-![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
+![Childing game objects](images/building_blocks/childing.png)
 
 AS Hierarquias de Object parent-child são relações dinamicas que afetam como os objects reagem a transformações.Qualquer transformação(movimento,rotação ou escala) aplicadas ao object irão ser aplicadas também aos object's children, ambos no editor e no runtime :
 
-![Child transform](images/building_blocks/child_transform.png){srcset="images/building_blocks/child_transform@2x.png 2x"}
+![Child transform](images/building_blocks/child_transform.png)
 
 Inversamente, um child's translations é realizado no espaço local do parent. No editor, você pode escolher editar um child game object no espaço local ou espaço do mundo selecionando <kbd>Edit ▸ World Space</kbd> (o padrão) ou <kbd>Edit ▸ Local Space</kbd>.
 

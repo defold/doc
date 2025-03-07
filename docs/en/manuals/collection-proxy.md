@@ -17,7 +17,7 @@ Collection proxies differ from [collection factory components](/manuals/collecti
 
 2. Set the *Collection* property to reference a collection that you wish to dynamically load into the runtime at a later point. The reference is static and makes sure that all the content of the referenced collection end up in the final game.
 
-![add proxy component](images/collection-proxy/create_proxy.png){srcset="images/collection-proxy/create_proxy@2x.png 2x"}
+![add proxy component](images/collection-proxy/create_proxy.png)
 
 (You can exclude the content in the build and download it with code instead by checking the *Exclude* box and using the [Live update feature](/manuals/live-update/).)
 
@@ -25,13 +25,13 @@ Collection proxies differ from [collection factory components](/manuals/collecti
 
 When the Defold engine starts it loads and instantiates all game objects from a *bootstrap collection* into the runtime. It then initializes and enables the game objects and their components. Which bootstrap collection the engine should use is set in the [project settings](/manuals/project-settings/#main-collection). By convention this collection file is usually named "main.collection".
 
-![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
+![bootstrap](images/collection-proxy/bootstrap.png)
 
 To fit the game objects and their components the engine allocates the memory needed for the whole "game world" into which the contents of the bootstrap collection are instantiated. A separate physics world is also created for any collision objects and physics simulation.
 
 Since script components need to be able to address all objects in the game, even from outside the bootstrap world, it is given a unique name: the *Name* property that you set in the collection file:
 
-![bootstrap](images/collection-proxy/collection_id.png){srcset="images/collection-proxy/collection_id@2x.png 2x"}
+![bootstrap](images/collection-proxy/collection_id.png)
 
 If the collection that is loaded contains collection proxy components, the collections that those refer to are *not* loaded automatically. You need to control the loading of these resources through scripts.
 
@@ -44,7 +44,7 @@ Dynamically loading a collection via proxy is done by sending a message called `
 msg.post("#myproxy", "load")
 ```
 
-![load](images/collection-proxy/proxy_load.png){srcset="images/collection-proxy/proxy_load@2x.png 2x"}
+![load](images/collection-proxy/proxy_load.png)
 
 The proxy component will instruct the engine to allocate space for a new world. A separate runtime physics world is also created and all the game objects in the collection "mylevel.collection" are instantiated.
 
@@ -90,7 +90,7 @@ The *Name* set in the collection file properties is used to address game objects
 msg.post("main:/loader#script", "load_level", { level_id = 2 })
 ```
 
-![load](images/collection-proxy/message_passing.png){srcset="images/collection-proxy/message_passing@2x.png 2x"}
+![load](images/collection-proxy/message_passing.png)
 
 ## Unloading a world
 

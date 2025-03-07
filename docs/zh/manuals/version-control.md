@@ -11,7 +11,7 @@ Defold 为密切合作的小游戏团队而设计. 团队成员可以并行工�
 
 本地项目文件改变时, Defold 在 *Changed Files* 面板中追踪这些改变, 把每个新增, 删除或者修改了的文件罗列出来.
 
-![changed files](images/workflow/changed_files.png){srcset="images/workflow/changed_files@2x.png 2x"}
+![changed files](images/workflow/changed_files.png)
 
 选中一个文件点击 <kbd>Diff</kbd> 来查看更改, 或者点击 <kbd>Revert</kbd> 来把文件还原回上次同步后的状态.
 

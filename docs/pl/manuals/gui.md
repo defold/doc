@@ -18,17 +18,17 @@ Graficzny interfejs użytkownika w Defoldzie to komponent, który tworzysz i prz
 
 Komponenty GUI są tworzone na podstawie pliku prototypu sceny GUI (nazywanego również "prefabem", "szablonem" lub "blueprintem" w innych silnikach). Aby utworzyć nowy komponent GUI, <kbd>kliknij prawym przyciskiem myszy</kbd> w panelu *Assets* i wybierz <kbd>New ▸ Gui</kbd>. Wprowadź nazwę nowego pliku GUI i naciśnij <kbd>OK</kbd>.
 
-![New gui file](images/gui/new_gui_file.png){srcset="images/gui/new_gui_file@2x.png 2x"}
+![New gui file](images/gui/new_gui_file.png)
 
 Teraz Defold automatycznie otwiera plik w edytorze sceny GUI.
 
-![New gui](images/gui/new_gui.png){srcset="images/gui/new_gui@2x.png 2x"}
+![New gui](images/gui/new_gui.png)
 
 W panelu *Outline* znajdziesz wszystkie elementy GUI: listę węzłów (nodes) i wszelkie zależności (patrz niżej).
 
 Centralny obszar edycji pokazuje GUI. W pasku narzędziowym w prawym górnym rogu obszaru edycji znajdują się narzędzia *Move*, *Rotate* i *Scale* (odpowiednio Przesuń, Obróć i Skaluj), a także selektor układu [layout](/manuals/gui-layouts).
 
-![toolbar](images/gui/toolbar.png){srcset="images/gui/toolbar@2x.png 2x"}
+![toolbar](images/gui/toolbar.png)
 
 Biały prostokąt pokazuje obszar wybranego layoutu, o domyślnej szerokości i wysokości ekranu ustawionej w ustawieniach projektu.
 
@@ -53,7 +53,7 @@ Max Nodes
 
 Drzewo zasobów w grze Defold jest statyczne, więc wszelkie zależności, które potrzebujesz dla swoich węzłów GUI, muszą być dodane do komponentu. W panelu *Outline* grupuje się wszystkie zależności według typu w "folderach":
 
-![dependencies](images/gui/dependencies.png){srcset="images/gui/dependencies@2x.png 2x"}
+![dependencies](images/gui/dependencies.png)
 
 Aby dodać nową zależność, <kbd>kliknij prawym przyciskiem myszy</kbd> root "Gui" w panelu *Outline*, a następnie wybierz <kbd>Add ▸ [typ]</kbd> z kontekstowego menu.
 
@@ -95,7 +95,7 @@ ParticleFX node
 
 Aby dodać węzły, kliknij prawym przyciskiem myszy na folderze *Nodes* i wybierz <kbd>Add ▸</kbd>, a następnie <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> lub <kbd>ParticleFx</kbd>.
 
-![Add nodes](images/gui/add_node.png){srcset="images/gui/add_node@2x.png 2x"}
+![Add nodes](images/gui/add_node.png)
 
 Możesz także nacisnąć <kbd>A</kbd> i wybrać typ, który chcesz dodać do GUI.
 
@@ -184,14 +184,14 @@ Pivot
 
 Możliwe wartości to `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` lub `South East`.
 
-  ![pivot point](images/gui/pivot.png){srcset="images/gui/pivot@2x.png 2x"}
+  ![pivot point](images/gui/pivot.png)
 
 Jeśli zmienisz punkt obrotu węzła, węzeł zostanie przesunięty tak, że nowy punkt obrotu będzie znajdować się w pozycji węzła. Węzły tekstowe są ustawiane tak, że `Center` ustawia środek tekstu, `West` ustawia tekst wyrównany do lewej, a `East` ustawia tekst wyrównany do prawej.
 
 X Anchor, Y Anchor
 : Kotwiczenie kontroluje, w jaki sposób wertykalna i pozioma pozycja węzła jest zmieniana, gdy granice sceny lub granice węzła nadrzędnego są rozciągane, aby pasować do rzeczywistego rozmiaru ekranu.
 
-  ![Anchor unadjusted](images/gui/anchoring_unadjusted.png){srcset="images/gui/anchoring_unadjusted@2x.png 2x"}
+  ![Anchor unadjusted](images/gui/anchoring_unadjusted.png)
 
   Dostępne są następujące tryby kotwiczenia:
 
@@ -199,14 +199,14 @@ X Anchor, Y Anchor
   - `Left` lub `Right` (*X Anchor*) skaluje poziomą pozycję węzła, aby zachować pozycję z lewego i prawego brzegu węzła nadrzędnego lub sceny w tej samej proporcji.
   - `Top` lub `Bottom` skaluje pionową pozycję węzła, aby zachować pozycję z górnego i dolnego brzegu węzła nadrzędnego lub sceny w tej samej proporcji.
 
-  ![Anchoring](images/gui/anchoring.png){srcset="images/gui/anchoring@2x.png 2x"}
+  ![Anchoring](images/gui/anchoring.png)
 
 Adjust Mode
 : Ustala tryb dostosowania węzła. Ustawienie trybu dostosowania kontroluje, co się dzieje z węzłem, gdy granice sceny lub granice węzła nadrzędnego są dostosowywane, aby pasować do rzeczywistego rozmiaru ekranu.
 
   Węzeł utworzony w scenie, w której rozdzielczość logiczna jest typową rozdzielczością krajobrazu:
 
-  ![Unadjusted](images/gui/unadjusted.png){srcset="images/gui/unadjusted@2x.png 2x"}
+  ![Unadjusted](images/gui/unadjusted.png)
 
   Dostępne są następujące tryby dostosowania:
 
@@ -214,7 +214,7 @@ Adjust Mode
   - `Zoom` skaluje zawartość węzła tak, aby była równa rozciągniętej szerokości lub wysokości prostokątnego obszaru ograniczającego, w zależności od tego, która jest większa. Innymi słowy, zawartość w pełni pokryje rozciągnięty obszar ograniczający węzła.
   - `Stretch` rozciąga zawartość węzła, tak aby wypełniła rozciągnięty obszar ograniczający węzła.
 
-  ![Adjust modes](images/gui/adjusted.png){srcset="images/gui/adjusted@2x.png 2x"}
+  ![Adjust modes](images/gui/adjusted.png)
 
   Jeśli właściwość sceny GUI *Adjust Reference* jest ustawiona na `Disabled`, czyli wyłaczona, to ustawienie to będzie ignorowane.
 
@@ -276,7 +276,7 @@ Jeśli zmienimy Pivot z Center na West dla lewej skrzynki i na East dla prawej s
 
 Wszystkie węzły są renderowane w kolejności, w jakiej są wymienione w folderze "Nodes". Węzeł na górze listy jest rysowany jako pierwszy i będzie więc wyglądać tak, jakby był za innymi węzłami. Ostatni węzeł na liście jest rysowany jako ostatni, co oznacza, że będzie wyglądać tak, jakby był z przodu względem wszystkich innych węzłów. Zmiana wartości Z na węźle nie kontroluje kolejności rysowania; jednakże, jeśli ustawisz wartość Z poza zakresem renderowania swojego skryptu renderującego, węzeł nie będzie już renderowany na ekranie. Możesz również nadpisać kolejność indeksów węzłów warstwami (patrz poniżej).
 
-![Draw order](images/gui/draw_order.png){srcset="images/gui/draw_order@2x.png 2x"}
+![Draw order](images/gui/draw_order.png)
 
 Wybierz węzeł i naciśnij <kbd>Alt + W górę/W dół</kbd>, aby przesunąć węzeł w górę lub w dół i zmienić kolejność indeksu.
 
@@ -295,7 +295,7 @@ end
 
 Węzeł staje się dzieckiem (ang. child) innego węzła, przeciągając go na węzeł, który chcesz, aby był rodzicem (ang. parent) dziecka. Węzeł z rodzicem dziedziczy transformację (pozycję, obrót i skalę) stosowaną do rodzica i względem punktu obrotu rodzica.
 
-![Parent child](images/gui/parent_child.png){srcset="images/gui/parent_child@2x.png 2x"}
+![Parent child](images/gui/parent_child.png)
 
 Rodzice są rysowani przed swoimi dziećmi. Wykorzystaj warstwy, aby zmienić kolejność rysowania węzłów rodzica i dziecka oraz zoptymalizować renderowanie węzłów (patrz poniżej).
 
@@ -312,13 +312,13 @@ Jeśli węzeł różni się od poprzedniego pod względem któregoś z tych punk
 
 Możliwość organizowania węzłów w hierarchie ułatwia grupowanie węzłów w jednostki łatwo zarządzalne. Jednak hierarchie mogą skutecznie przerywać renderowanie wskaźników, jeśli miesza się różne typy węzłów:
 
-![Breaking batch hierarchy](images/gui/break_batch.png){srcset="images/gui/break_batch@2x.png 2x"}
+![Breaking batch hierarchy](images/gui/break_batch.png)
 
 Kiedy potok renderowania (ang. rendering pipeline) przechodzi przez listę węzłów, zmuszony jest utworzyć oddzielny wskaźnik dla każdego oddzielnego węzła, ponieważ typy są różne. Ogólnie rzecz biorąc, te trzy przyciski będą wymagały sześciu wywołań rysowania.
 
 Przypisując węzłom warstwy, można je uporządkować w inny sposób, co pozwala potokowi renderowania grupować węzły w mniej wywołań rysowania. Zacznij od dodania potrzebnych warstw do sceny. Kliknij prawym przyciskiem na ikonę folderu "Layers" w widoku "Outline" i wybierz "Add ▸ Layer". Zaznacz nową warstwę i przypisz jej właściwość "Name" w widoku "Properties".
 
-![Layers](images/gui/layers.png){srcset="images/gui/layers@2x.png 2x"}
+![Layers](images/gui/layers.png)
 
 Następnie ustaw właściwość "Layer" dla każdego węzła na odpowiadającą mu warstwę. Kolejność rysowania warstw ma pierwszeństwo nad zwykłym porządkiem indeksów węzłów, więc ustawienie węzłów graficznych przycisku na warstwę "graphics" i węzłów tekstowych przycisku na warstwę "text" spowoduje następującą kolejność rysowania:
 

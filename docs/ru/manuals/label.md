@@ -11,15 +11,15 @@ brief: Это руководство объясняет, как использо
 
 Чтобы создать компонент Label, <kbd>кликните ПКМ</kbd> на игровом объекте и выберите <kbd>Add Component ▸ Label</kbd>.
 
-![Add label](images/label/add_label.png){srcset="images/label/add_label@2x.png 2x"}
+![Add label](images/label/add_label.png)
 
 (Если необходимо создать несколько текстовых меток из одного шаблона, лучше создать новый файл компонента Label: <kbd>кликните ПКМ</kbd> в папке в браузере *Assets* и выберите <kbd>New... ▸ Label</kbd>, затем добавьте этот файл в качестве компонента к любым игровым объектам.)
 
-![New label](images/label/label.png){srcset="images/label/label@2x.png 2x"}
+![New label](images/label/label.png)
 
 В свойстве *Font* укажите необходимый шрифт и убедитесь, что в свойстве *Material* установлен материал, соответствующий типу шрифта:
 
-![Font and material](images/label/font_material.png){srcset="images/label/font_material@2x.png 2x"}
+![Font and material](images/label/font_material.png)
 
 ## Свойства текстовой метки
 
@@ -81,7 +81,7 @@ brief: Это руководство объясняет, как использо
 *Right*
 : Если пивот установлен в какой-либо режим `East`, текст выравнивается по правому краю.
 
-![Text alignment](images/label/align.png){srcset="images/label/align@2x.png 2x"}
+![Text alignment](images/label/align.png)
 
 ## Манипулирование при выполнении
 

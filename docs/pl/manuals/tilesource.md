@@ -11,7 +11,7 @@ brief: Ta instrukcja opisuje jak korzystać ze Źródła Kafelków.
 
 Potrzebujesz obrazu zawierającego wszystkie kafelki. Każdy kafelek musi mieć dokładnie te same wymiary i być umieszczony w siatce. Defold obsługuje odstępy (_spacing_) między kafelkami oraz margines ( _margin_) wokół każdego kafelka.
 
-![Obraz dla Źródła Kafelków](images/tilemap/small_map.png){srcset="images/tilemap/small_map@2x.png 2x"}
+![Obraz dla Źródła Kafelków](images/tilemap/small_map.png)
 
 Gdy już masz utworzony obraz źródłowy, możesz stworzyć Źródło Kafelków (Tile Source):
 
@@ -22,7 +22,7 @@ Gdy już masz utworzony obraz źródłowy, możesz stworzyć Źródło Kafelków
 - Kliknij przycisk przeglądania obok właściwości *Image* (Obraz) i wybierz swój obraz. Teraz powinieneś widzieć obraz wyświetlony w edytorze.
 - Dostosuj Properties* (Właściwości) do obrazu źródłowego. Gdy wszystko jest poprawnie, kafelki będą idealnie do siebie pasować.
 
-![Tworzenie Źródła Kafelków](images/tilemap/tilesource.png){srcset="images/tilemap/tilesource@2x.png 2x"}
+![Tworzenie Źródła Kafelków](images/tilemap/tilesource.png)
 
 Size
 : Rozmiar obrazu źródłowego.
@@ -54,7 +54,7 @@ Aby zdefiniować animację poklatkową w Źródle Kafelków, kafelki animacji kl
 
 Wybierając animację, wyświetlane są *Properties* (Właściwości) animacji.
 
-![Animacje Źródła Kafelków](images/tilemap/animation.png){srcset="images/tilemap/animation@2x.png 2x"}
+![Animacje Źródła Kafelków](images/tilemap/animation.png)
 
 Id
 : Identyfikator animacji. Nazwa musi być unikalna w Źródle Kafelków.
@@ -95,6 +95,6 @@ W zarysie źródła kafelków są wymieniane grupy kolizji, które dodano do źr
 
 Aby wybrać kształty kafelków, które powinny należeć do określonej grupy, wybierz grupę w *Outline*, a następnie kliknij każdy kafelek, który chcesz przypisać do wybranej grupy. Kształt kafelka i kształt są wtedy zaznaczane kolorem grupy. Kolor jest automatycznie przypisywany do grupy w Edytorze.
 
-![Kształty kolizji](images/tilemap/collision.png){srcset="images/tilemap/collision@2x.png 2x"}
+![Kształty kolizji](images/tilemap/collision.png)
 
 Aby usunąć kafelek z grupy kolizji, wybierz element główny (root) Źródła Kafelków w *Outline*, a następnie kliknij kafelek odznaczając tym samym dotychczas wybraną grupę.

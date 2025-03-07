@@ -9,7 +9,7 @@ Wszystkie dane wejściowe użytkownika (z klawiatury, myszki, ekranu dotykowego 
 
 System wejściowy wykorzystuje zestaw prostych i potężnych koncepcji, pozwalających na zarządzanie danymi wejściowymi w sposób dostosowany do potrzeb Twojej gry.
 
-![Input bindings](images/input/overview.png){srcset="images/input/overview@2x.png 2x"}
+![Input bindings](images/input/overview.png)
 
 Devices
 : Urządzenia wejściowe, które są częścią lub podłączone do twojego komputera lub urządzenia mobilnego, dostarczają dane wejściowe na poziomie systemu operacyjnego, które przesyłane są do środowiska uruchomieniowego Defold. Obsługiwane są następujące typy urządzeń:
@@ -38,11 +38,11 @@ Consuming input
 
 Wiązania wejścia (input bindings) to tabela o zasięgu projektu, która pozwala określić, jak dane wejściowe z urządzenia powinny być tłumaczone na konkretne *akcje* przed ich przesłaniem do komponentów skryptów i skryptów GUI. Aby utworzyć nowy plik wiązań wejścia, <kbd>kliknij prawym przyciskiem myszy</kbd> w lokalizacji w panelu *Assets* i wybierz <kbd>New... ▸ Input Binding</kbd>. Aby użyć nowego pliku, zmień ustawienie *Game Binding* w pliku *game.project*.
 
-![Input binding setting](images/input/setting.png){srcset="images/input/setting@2x.png 2x"}
+![Input binding setting](images/input/setting.png)
 
 Domyślny plik wiązań wejścia jest automatycznie tworzony w każdym nowym projekcie, więc zazwyczaj nie ma potrzeby tworzenia nowego pliku wiązań. Domyślny plik nazywa się "game.input_binding" i znajduje się w folderze "input" w głównym katalogu projektu. <kbd>Kliknij dwukrotnie</kbd> na plik, aby otworzyć go w edytorze:
 
-![Input set bindings](images/input/input_binding.png){srcset="images/input/input_binding@2x.png 2x"}
+![Input set bindings](images/input/input_binding.png)
 
 Aby utworzyć nowe wiązanie, kliknij przycisk <kbd>+</kbd> u dołu odpowiedniego typu wyzwalacza (ang. trigger). Każde wprowadzenie ma dwie pola:
 
@@ -97,7 +97,7 @@ msg.post(".", "acquire_input_focus")
 
 Ta wiadomość nakazuje silnikowi dodać komponenty zdolne do obsługi wejścia (skrypty, komponenty GUI i pełnomocnicy kolekcji) w obiektach gry do stosu wejścia: *input stack*. Komponenty obiektu gry są umieszczane na szczycie stosu wejścia; komponent, który został dodany ostatni, będzie na górze stosu. Należy zauważyć, że jeśli obiekt gry zawiera więcej niż jeden składnik zdolny do obsługi wejścia, wszystkie składniki zostaną dodane do stosu:
 
-![Input stack](images/input/input_stack.png){srcset="images/input/input_stack@2x.png 2x"}
+![Input stack](images/input/input_stack.png)
 
 Jeśli obiekt gry, który już zdobył skupienie wejścia, robi to ponownie, jego komponenty zostaną przeniesione na górę stosu.
 
@@ -105,7 +105,7 @@ Jeśli obiekt gry, który już zdobył skupienie wejścia, robi to ponownie, jeg
 
 Akcje wejściowe są rozpakowywane ze stosu wejścia od góry do dołu.
 
-![Action dispatch](images/input/actions.png){srcset="images/input/actions@2x.png 2x"}
+![Action dispatch](images/input/actions.png)
 
 Dowolny komponent znajdujący się na stosie zawierający funkcję [on_input()](/ref/go#on_input) będzie miał tę funkcję wywoływaną dla każdej akcji wejściowej w trakcie klatki, z następującymi argumentami:
 
@@ -139,7 +139,7 @@ end
 
 Każdy świat gry, który jest dynamicznie ładowany za pomocą komponentu pełnomocnika kolekcji (collection proxy), posiada własny stos wejścia. Aby akcje trafiły na stos wejścia załadowanego świata, komponent proxy musi znajdować się na stosie wejścia głównego świata. Wszystkie składniki na stosie załadowanego świata obsługiwane są przed kontynuacją przekazywania akcji w dół stosu głównego:
 
-![Action dispatch to proxies](images/input/proxy.png){srcset="images/input/proxy@2x.png 2x"}
+![Action dispatch to proxies](images/input/proxy.png)
 
 ::: important
 To powszechny błąd, że zapomina się wysłać wiadomość `acquire_input_focus` do obiektu gry zawierającego komponent kolekcji proxy. Pominięcie tego kroku uniemożliwia odbieranie akcji wejścia przez składniki na stosie załadowanego świata.
@@ -162,11 +162,11 @@ Funkcja `on_input()` komponentu może aktywnie kontrolować, czy akcje powinny b
 - Jeśli `on_input()` zwraca `false`, lub nic nie jest zwracane (również zwracania wartości `nil` jest tak traktowane w Lua), akcje wejściowe zostaną przekazane do następnego komponentu na stosie wejścia.
 - Jeśli `on_input()` zwraca `true`, dane wejściowe zostaną skonsumowane, co oznacza, że żaden komponent na stosie wejścia nie otrzyma danych wejściowych. Należy zauważyć, że dotyczy to wszystkich stosów wejścia. Komponent na stosie załadowanego świata może zużyć dane wejściowe, uniemożliwiając komponentom na stosie głównym ich odbieranie:
 
-![consuming input](images/input/consuming.png){srcset="images/input/consuming@2x.png 2x"}
+![consuming input](images/input/consuming.png)
 
 Istnieje wiele dobrych przypadków użycia, w których konsumowanie danych wejściowych zapewnia prosty i potężny sposób na przesuwanie danych wejściowych między różnymi częściami gry. Na przykład, jeśli potrzebujesz menu wysuwane, które tymczasowo jest jedyną częścią gry nasłuchującą na wejście:
 
-![consuming input](images/input/game.png){srcset="images/input/game@2x.png 2x"}
+![consuming input](images/input/game.png)
 
 Menu pauzy jest początkowo ukryte i wyłączone (disabled), a gdy gracz dotknie elementu HUD "PAUSE", jest włączane:
 
@@ -183,7 +183,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-![pause menu](images/input/game_paused.png){srcset="images/input/game_paused@2x.png 2x"}
+![pause menu](images/input/game_paused.png)
 
 Menu pauzy GUI zdobywa skupienie wejścia i konsumuje dane wejściowe, uniemożliwiając odbieranie danych wejściowych innych niż te istotne dla menu wysuwanego:
 

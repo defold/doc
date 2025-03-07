@@ -25,7 +25,7 @@ Clipping Inverted
 
 Następnie dodaj węzeł lub węzły, które chcesz wyciąć jako dzieci węzła wycinającego.
 
-![Create clipping](images/gui-clipping/create.png){srcset="images/gui-clipping/create@2x.png 2x"}
+![Create clipping](images/gui-clipping/create.png)
 
 ## Maska wycinająca
 
@@ -35,7 +35,7 @@ Wycinanie działa poprzez zapisywanie węzłów do bufora wycinania (*stencil bu
 - Jeśli węzeł wycinający ma rodzica wycinającego, zamiast tego przycinany jest kształt maski wycinania rodzica. Węzeł dziecka wycinającego nie może _rozszerzać_ bieżącej maski wycinania, tylko ją dalej przycina.
 - Węzły, które nie są węzłami wycinającymi i są dziećmi węzłów wycinających, zostaną wyrenderowane z maską wycinania stworzoną przez hierarchię rodzica.
 
-![Clipping hierarchy](images/gui-clipping/setup.png){srcset="images/gui-clipping/setup@2x.png 2x"}
+![Clipping hierarchy](images/gui-clipping/setup.png)
 
 W tym przykładzie utworzono trzy węzły w hierarchii:
 
@@ -45,7 +45,7 @@ W tym przykładzie utworzono trzy węzły w hierarchii:
 
 Dla tej hierarchii możliwe są cztery kombinacje normalnych i odwróconych wycinaczy. Obszar zielony oznacza część koła, która jest renderowana. Reszta jest przycinana:
 
-![Stencil masks](images/gui-clipping/modes.png){srcset="images/gui-clipping/modes@2x.png 2x"}
+![Stencil masks](images/gui-clipping/modes.png)
 
 ## Ograniczenia maski wycinania
 
@@ -63,7 +63,7 @@ Warstwy można wykorzystać do kontrolowania kolejności renderowania (i grupowa
 Węzeł wycinania i jego hierarchia zostaną narysowane jako pierwsze, jeśli mają przypisaną warstwę, a w zwykłej kolejności, jeśli nie mają przypisanej warstwy.
 :::
 
-![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
+![Layers and clipping](images/gui-clipping/layers.png)
 
 W tym przykładzie zarówno węzły wycinające "Donut BG" i "BG" korzystają z tej samej warstwy 1. Kolejność renderowania między nimi będzie zgodna z kolejnością w hierarchii, gdzie "Donut BG" zostanie narysowane przed "BG". Jednak węzeł dziecka "Donut Shadow" jest przypisany do warstwy 2, która ma wyższy porządek warstw i zostanie narysowany po obu węzłach wycinających. W tym przypadku kolejność renderowania będzie następująca:
 

@@ -9,7 +9,7 @@ brief: 物理引擎使用组来划分物理对象碰撞双方.
 
 碰撞只发生在两个物体所处的组分别被包含在对方的 *碰撞掩码* 之中的情况下.
 
-![Physics collision group](images/physics/collision_group.png){srcset="images/physics/collision_group@2x.png 2x"}
+![Physics collision group](images/physics/collision_group.png)
 
 *掩码* 可包含多个组名, 以实现复杂的碰撞控制.
 

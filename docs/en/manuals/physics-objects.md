@@ -31,7 +31,7 @@ To add a collision object component to a game object:
 3. Use the move, rotate and scale tools to edit the shapes.
 4. Select the component in the *Outline* and edit the collision object's *Properties*.
 
-![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
+![Physics collision object](images/physics/collision_object.png)
 
 
 ## Adding a collision shape

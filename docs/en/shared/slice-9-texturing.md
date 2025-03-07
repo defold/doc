@@ -4,15 +4,15 @@ GUI box nodes and Sprite components sometimes feature elements that are context 
 
 Normally, the engine scales the texture to fit the rectangular boundaries, but by defining slice-9 edge areas it is possible to limit what parts of the texture that should scale:
 
-![GUI scaling](../shared/images/gui_slice9_scaling.png){srcset="../shared/images/gui_slice9_scaling.png@2x.png 2x"}
+![GUI scaling](../shared/images/gui_slice9_scaling.png)
 
 The *Slice9* box node consists of 4 numbers that specify the number of pixels for the left, top, right and bottom margin that should not be regularly scaled:
 
-![Slice 9 properties](../shared/images/gui_slice9_properties.png){srcset="../shared/images/gui_slice9_properties@2x.png 2x"}
+![Slice 9 properties](../shared/images/gui_slice9_properties.png)
 
 The margins are set clockwise, starting on the left edge:
 
-![Slice 9 sections](../shared/images/gui_slice9.png){srcset="../shared/images/gui_slice9@2x.png 2x"}
+![Slice 9 sections](../shared/images/gui_slice9.png)
 
 - Corner segments are never scaled.
 - Edge segments are scaled along a single axis. The left and right edge segments are scaled vertically. The top and bottom edge segments are scaled horizontally.
@@ -20,7 +20,7 @@ The margins are set clockwise, starting on the left edge:
 
 The *Slice9* texture scaling described above is only applied when you change box node's or sprite's size:
 
-![GUI box node size](../shared/images/gui_slice9_size.png){srcset="../shared/images/gui_slice9_size@2x.png 2x"}
+![GUI box node size](../shared/images/gui_slice9_size.png)
 
 ![Sprite size](../shared/images/sprite_slice9_size.png)
 
@@ -36,6 +36,6 @@ When using slice-9 texturing on Sprites the [Sprite Trim Mode of the image](http
 ### Mipmaps and slice-9
 Due to the way mipmapping works in the renderer, scaling of texture segments can sometimes exhibit artifacts. This happens when you _scale down_ segments below the original texture size. The renderer then selects a lower resolution mipmap for the segment, resulting in visual artifacts.
 
-![Slice 9 mipmapping](../shared/images/gui_slice9_mipmap.png){srcset="../shared/images/gui_slice9_mipmap@2x.png 2x"}
+![Slice 9 mipmapping](../shared/images/gui_slice9_mipmap.png)
 
 To avoid this problem, make sure that the texture's segments that will be scaled are small enough never to be scaled down, only up.

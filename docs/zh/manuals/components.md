@@ -77,7 +77,7 @@ Defold 组件属性各不相同.在 [Outline 面板](/manuals/editor/#Outline �
 ### 组件z值
 所有游戏对象都使用一个 vector3 作为其在 3D 空间中的位置. 如果是 2D 游戏, 则 X 和 Y 表示其在 "横向" 和 "纵向" 轴上的位置, 而 Z 值表示其在 "深度" 轴上的位置. 使用Z值可以操控游戏对象之间的层叠关系: Z 值是 1 的总是显示在 Z 值是 0 的对象上面. 默认情况下, Defold 使用 Z 值范围是 -1 到 1:
 
-![model](images/graphics/z-order.png){srcset="images/graphics/z-order@2x.png 2x"}
+![model](images/graphics/z-order.png)
 
 匹配某个优先级的组件在一起渲染, 它们之间的渲染顺序取决于组件的 z 值. 组件的最终z值是由组件的z值, 游戏对象和其父级游戏对象的z值之和.
 

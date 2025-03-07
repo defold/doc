@@ -17,7 +17,7 @@ Home (Strona domowa)
 New Project (Nowy Projekt)
 : Kliknij, jeśli chcesz stworzyć nowy projekt. Następnie wybierz bazę swojego projektu spośród dostępnych szablonów (z zakładki *From Template*), tutoriali (*From Tutorial*) lub wypróbować jecen z przykładowych projektów (*From Sample*).
 
-  ![new project](images/editor/new_project.png){srcset="images/editor/new_project@2x.png 2x"}
+  ![new project](images/editor/new_project.png)
 
   Kiedy utworzysz nowy projekt będzie on zapisany na Twoim lokalnym dysku, tak jak wszystkie zmiany, które w nim zrobisz.
 
@@ -46,7 +46,7 @@ Widok *Editor* (Edytor)
 
 W prawym górnym rogu Edytora aktualnie otwartego pliku (sceny) znajduje się zestaw narzędzi obsługi widoku kamery: *Move* (Przesuwanie), *Rotate* (Obracanie) and *Scale* (Skalowanie).
 
-![toolbar](images/editor/toolbar.png){srcset="images/editor/toolbar@2x.png 2x"}
+![toolbar](images/editor/toolbar.png)
 
 Widok *Outline* (Zawartość pliku)
 : Widok ten pokazuje zawartość aktualnie otwartego pliku, w strukturze drzewa. Odzwierciedla widok Edytora i pozwala na wykonywanie operacji na zawartości:
@@ -71,7 +71,7 @@ Widok *Changed Files* (Zmienione pliki):
 
 Jeśli masz otwartych kilka plików jednocześnie, dla każdego z nich pokazywana jest osobna zakładka na górnym pasku Edytora Defold. Możliwe jest również otworzenie dwóch Edytorów/.paneli naraz, jeden obok drugiego. Wybierz plik, <kbd>klikająć prawym przyciskiem myszy</kbd> na danej zakładce w górnym pasku i wybierz <kbd>Move to Other Tab Pane</kbd> z menu kontekstowego.
 
-![2 panes](images/editor/2-panes.png){srcset="images/editor/2-panes@2x.png 2x"}
+![2 panes](images/editor/2-panes.png)
 
 Następnie, możesz również z tego samego menu kontekstowego wybrać opcje <kbd>Swap With Other Tab Pane</kbd>, żeby zamienić panele miejscami lub <kbd>Join Tab Panes</kbd>, żeby z powrotem połączyć panele w jeden.
 
@@ -121,25 +121,25 @@ Narzędzie skalowania (Scale)
 
 <kbd>Kliknij prawy przycisk myszki</kbd> na docelowej lokalizacji w panelu *Assets* po lewej stronie i wybierz <kbd>New... ▸ [file type]</kbd>:
 
-![create file](images/editor/create_file.png){srcset="images/editor/create_file@2x.png 2x"}
+![create file](images/editor/create_file.png)
 
 Podaj odpowiednią nazwę dla pliku. Pełna nazwa pliku uwzględniająca końcówkę znajduję się w polu *Path* (ścieżka) w oknie dialogowym:
 
-![create file name](images/editor/create_file_name.png){srcset="images/editor/create_file_name@2x.png 2x"}
+![create file name](images/editor/create_file_name.png)
 
 ## Importowanie plików do projektu
 
 Aby dodać pliki (obrazki, dźwięki, modele, itp.) do Twojego projektu, po prostu przeciągnij i upuść je w odpowiednim miejscu w panelu *Assets* po lewej stronie. Utworzysz w ten sposób _kopię_ danego pliku w docelowej lokalizacji projektu. Przeczytaj więcej na temat [importowania plików w tej instrukcji](/manuals/importing-assets/).
 
-![Import files](images/editor/import.png){srcset="images/editor/import@2x.png 2x"}
+![Import files](images/editor/import.png)
 
 ## Aktualizowanie Edytora
 
 Edytor automatycznie wyszukuje aktualizacje, jeśli ma dostęp do internetu. Kiedy aktualizacja jest dostępna, informacja o możliwości zaktualizowania pojawi się w prawym dolnym rogu Edytora i na stronie startowej z wyborem projektu. Naciśnięcie przycisku `Update Available` spowoduje pobranie aktualizacji i zainstalowanie jej.
 
-![Update from project selection](images/editor/update-project-selection.png){srcset="images/editor/update-project-selection@2x.png 2x"}
+![Update from project selection](images/editor/update-project-selection.png)
 
-![Update from editor](images/editor/update-main.png){srcset="images/editor/update-main@2x.png 2x"}
+![Update from editor](images/editor/update-main.png)
 
 ## Skróty klawiszowe
 

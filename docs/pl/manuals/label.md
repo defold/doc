@@ -11,15 +11,15 @@ Komponent Etykieta (ang. Label) renderuje fragment tekstu na ekranie w przestrze
 
 Aby utworzyć komponent etykiety - label, <kbd>kliknij prawym przyciskiem myszy</kbd> na obiekcie gry i wybierz <kbd>Add Component ▸ Label</kbd>.
 
-![Dodaj etykietę](images/label/add_label.png){srcset="images/label/add_label@2x.png 2x"}
+![Dodaj etykietę](images/label/add_label.png)
 
 (Jeśli chcesz utworzyć kilka etykiet na podstawie tego samego szablonu, możesz także utworzyć nowy plik komponentu etykiety: <kbd>kliknij prawym przyciskiem myszy</kbd> na folder w panelu *Assets* i wybierz <kbd>New... ▸ Label</kbd>, a następnie dodaj plik jako komponent do dowolnych obiektów gry).
 
-![Nowa etykieta](images/label/label.png){srcset="images/label/label@2x.png 2x"}
+![Nowa etykieta](images/label/label.png)
 
 Ustaw właściwość *Font* na font, który chcesz użyć, i upewnij się, że właściwość *Material* ma materiał, który pasuje do rodzaju fontu:
 
-![Font i materiał](images/label/font_material.png){srcset="images/label/font_material@2x.png 2x"}
+![Font i materiał](images/label/font_material.png)
 
 ## Właściwości etykiety
 
@@ -81,7 +81,7 @@ Ustawiając właściwość *Pivot*, możesz zmienić tryb wyrównania tekstu.
 *Right*
 : Do prawej - jeśli pivot jest ustawiony na którykolwiek z trybów `East`, tekst jest wyrównywany do prawej.
 
-![Wyrównanie tekstu](images/label/align.png){srcset="images/label/align@2x.png 2x"}
+![Wyrównanie tekstu](images/label/align.png)
 
 ## Manipulacja etykietą w czasie rzeczywistym
 

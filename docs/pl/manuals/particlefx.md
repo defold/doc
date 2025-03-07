@@ -7,7 +7,7 @@ brief: Ta instrukcja wyjaśnia, jak działa komponent efektów cząsteczkowych i
 
 Efekty cząsteczkowe (ang. particle effects) to wydajne elementy wizualne złożone z wielu powtarzalnych lub nie elementów (cząsteczek) i służą do wizualnego wzbogacania gier. Możesz ich używać do tworzenia eksplozji, rozprysku krwi, śladów, efektów pogodowych i wielu innych.
 
-![Edytor ParticleFX](images/particlefx/editor.png){srcset="images/particlefx/editor@2x.png 2x"}
+![Edytor ParticleFX](images/particlefx/editor.png)
 
 Efekty cząsteczkowe składają się z wielu emiterów (emitters) i opcjonalnych modyfikatorów (modifiers):
 
@@ -23,15 +23,15 @@ Wybierz opcję <kbd>New... ▸ Particle FX</kbd> z menu kontekstowego w panelu *
 
 W panelu *Outline* wyświetlany jest domyślny emiter. Wybierz emiter, aby wyświetlić jego właściwości w dolnym panelu *Properties* (Właściwości).
 
-![Domyślne cząsteczki](images/particlefx/default.png){srcset="images/particlefx/default@2x.png 2x"}
+![Domyślne cząsteczki](images/particlefx/default.png)
 
 Aby dodać nowy emiter do efektu, <kbd>kliknij prawym przyciskiem myszy</kbd> na korzeniu (root) w panelu *Outline* i wybierz <kbd>Add Emitter ▸ [type]</kbd> z menu kontekstowego. Zauważ, że można nawet później zmienić typ emitera w jego właściwościach.
 
 Aby dodać nowy modyfikator, <kbd>kliknij prawym przyciskiem myszy</kbd> w miejscu modyfikatora w panelu *Outline* (korzeń efektu lub konkretny emiter) i wybierz <kbd>Add Modifier</kbd>, a następnie wybierz typ modyfikatora.
 
-![Dodaj modyfikator](images/particlefx/add_modifier.png){srcset="images/particlefx/add_modifier@2x.png 2x"}
+![Dodaj modyfikator](images/particlefx/add_modifier.png)
 
-![Wybór modyfikatora](images/particlefx/add_modifier_select.png){srcset="images/particlefx/add_modifier_select@2x.png 2x"}
+![Wybór modyfikatora](images/particlefx/add_modifier_select.png)
 
 Modyfikator osadzony na korzeniu efektu (nie jest dzieckiem emitera) wpływa na wszystkie cząsteczki w efekcie.
 
@@ -106,7 +106,7 @@ Emitter Type
 
   - `Cone` - Stożek - emituje cząsteczki z losowej lokalizacji wewnątrz stożka 3D. Cząsteczki kierują się na zewnątrz przez szeroki dysk stożka. *Emitter Size X* definiuje średnicę szerokiego dysku, a *Emitter Size Y* definiuje wysokość stożka.
 
-  ![Typy kształtów emiterów](images/particlefx/emitter_types.png){srcset="images/particlefx/emitter_types@2x.png 2x"}
+  ![Typy kształtów emiterów](images/particlefx/emitter_types.png)
 
 Particle Orientation
 : Orientacja Cząsteczek - jak są ustawione cząsteczki emitowane:
@@ -127,15 +127,15 @@ Rozciągnięcie z Prędkością - zaznacz, aby skalować rozciągnięcie cząste
 
 Te właściwości mają dwa pola: wartość (value) i rozprzestrzenienie (spread). Rozprzestrzenienie to zmienna losowa, która jest stosowana losowo dla każdej wygenerowanej cząsteczki. Na przykład, jeśli wartość wynosi 50, a rozprzestrzenienie wynosi 3, każda wygenerowana cząsteczka otrzyma wartość między 47 a 53 (50 +/- 3).
 
-![właściwości](images/particlefx/property.png){srcset="images/particlefx/property@2x.png 2x"}
+![właściwości](images/particlefx/property.png)
 
 Zaznaczając przycisk klucza (key button), wartość właściwości jest kontrolowana za pomocą krzywej w trakcie trwania emitera. Aby zresetować właściwość z klucza, odznacz przycisk klucza.
 
-![właściwości z kluczem](images/particlefx/key.png){srcset="images/particlefx/key@2x.png 2x"}
+![właściwości z kluczem](images/particlefx/key.png)
 
 Edytor Krzywej *Curve Editor* (dostępny w zakładkach w dolnym widoku) służy do modyfikacji krzywej. Właściwości z kluczem nie mogą być edytowane w widoku *Properties* , tylko w Edytorze Krzywej właśnie. <kbd>Kliknij i przeciągnij</kbd> punkty i styczne, aby zmodyfikować kształt krzywej. <kbd>Podwójne kliknięcie</kbd> na krzywej dodaje punkty kontrolne. Aby usunąć punkt kontrolny, podwójnie kliknij na niego.
 
-![Edytor Krzywej](images/particlefx/curve_editor.png){srcset="images/particlefx/curve_editor@2x.png 2x"}
+![Edytor Krzywej](images/particlefx/curve_editor.png)
 
 Aby automatycznie przybliżyć Edytor Krzywej w celu wyświetlenia wszystkich krzywych, naciśnij <kbd>F</kbd>.
 
@@ -201,7 +201,7 @@ Dostępne są cztery rodzaje modyfikatorów, które wpływają na prędkość cz
 `Vortex`
 : Wir - wpływa na cząsteczki w kierunku okręgu lub spiralnie wokół swojej pozycji.
 
-  ![modyfikatory](images/particlefx/modifiers.png){srcset="images/particlefx/modifiers@2x.png 2x"}
+  ![modyfikatory](images/particlefx/modifiers.png)
 
 ## Właściwości Modyfikatora
 

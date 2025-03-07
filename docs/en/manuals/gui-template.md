@@ -13,7 +13,7 @@ A GUI template is a GUI scene that is instantiated, node for node, in another GU
 
 A GUI template is a plain GUI scene so it is created just like any other GUI scene. <kbd>Right click</kbd> a location in the *Assets* pane and select <kbd>New... ▸ Gui</kbd>.
 
-![Create template](images/gui-templates/create.png){srcset="images/gui-templates/create@2x.png 2x"}
+![Create template](images/gui-templates/create.png)
 
 Create the template and save it. Note that the nodes of the instance will be placed relative to origin so it is a good idea to create the template at position 0, 0, 0.
 
@@ -21,21 +21,21 @@ Create the template and save it. Note that the nodes of the instance will be pla
 
 You can create any number of instances based on the instance. Create or open the GUI scene where you want to place the template, then <kbd>right click</kbd> the *Nodes* section in the *Outline* and select <kbd>Add ▸ Template</kbd>.
 
-![Create instance](images/gui-templates/create_instance.png){srcset="images/gui-templates/create_instance@2x.png 2x"}
+![Create instance](images/gui-templates/create_instance.png)
 
 Set the *Template* property to the template GUI scene file.
 
 You can add any number of template instances, and for each instance you can override the properties of each node and change instance node's position, coloring, size, texture and so forth.
 
-![Instances](images/gui-templates/instances.png){srcset="images/gui-templates/instances@2x.png 2x"}
+![Instances](images/gui-templates/instances.png)
 
 Any property that you change is marked blue in the editor. Press the reset button by the property to set its value to the template value:
 
-![Properties](images/gui-templates/properties.png){srcset="images/gui-templates/properties@2x.png 2x"}
+![Properties](images/gui-templates/properties.png)
 
 Any node that has overridden properties is also colored blue in the *Outline*:
 
-![Outline](images/gui-templates/outline.png){srcset="images/gui-templates/outline@2x.png 2x"}
+![Outline](images/gui-templates/outline.png)
 
 The template instance is listed as a collapsible entry in the *Outline* view. However, it is important to note that this item in the outline *is not a node*. The template instance does not exist in runtime either, but all nodes that are part of the instance does.
 

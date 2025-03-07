@@ -40,7 +40,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 一种办法是通过 <kbd>Debug ▸ Run with Debugger</kbd> 运行游戏并且自动接入调试器, 另一种是通过 <kbd>Debug ▸ Attach Debugger</kbd> 把调试器接入正在运行中的游戏上.
 
-![overview](images/debugging/overview.png){srcset="images/debugging/overview@2x.png 2x"}
+![overview](images/debugging/overview.png)
 
 调试器接入后, 就可以使用控制台上的调试控制按钮, 或者使用 <kbd>Debug</kbd> 菜单了:
 
@@ -48,13 +48,13 @@ Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
   立即断下游戏. 游戏于此点暂停. 此时可以观察游戏状态, 逐步运行, 或者运行到下一个断点. 断点会在代码编辑器上标识出来:
 
-  ![script](images/debugging/script.png){srcset="images/debugging/script@2x.png 2x"}
+  ![script](images/debugging/script.png)
 
 Continue
 : ![play](images/debugging/play.svg){width=60px .left}
   继续运行游戏. 直到按下暂停键或者遇到断点. 如果遇到断点停下, 运行点会在代码编辑器的断点标识之上标识出来:
 
-  ![break](images/debugging/break.png){srcset="images/debugging/break@2x.png 2x"}
+  ![break](images/debugging/break.png)
 
 Stop
 : ![stop](images/debugging/stop.svg){width=60px .left}
@@ -64,7 +64,7 @@ Step Over
 : ![step over](images/debugging/step_over.svg){width=60px .left}
   步越. 步进时如果运行到某个 Lua 函数, 步越 _不会进入这个函数_ 而是执行它然后停在函数下一行上. 图中, 如果用户按下 "step over", 调试器会执行代码直至调用 `nextspawn()` 函数下面的 `end` 位置处:
 
-  ![step](images/debugging/step.png){srcset="images/debugging/step@2x.png 2x"}
+  ![step](images/debugging/step.png)
 
 ::: sidenote
 一行Lua代码不一定就是一句Lua表达式. 调试器按表达式步进, 也就是说有可能出现一行多个表达式的情况就要多按几下步进才会运行到下一行.
@@ -74,7 +74,7 @@ Step Into
 : ![step in](images/debugging/step_in.svg){width=60px .left}
   步入. 步进时如果运行到某个 Lua 函数, 步入 _会进入这个函数_. 一个函数调用会在调用堆栈上增加一项. 可以在堆栈列表上点选来查看各函数入口及其所有变量信息. 图中, 用户步入了 `nextspawn()` 函数:
 
-  ![step into](images/debugging/step_into.png){srcset="images/debugging/step_into@2x.png 2x"}
+  ![step into](images/debugging/step_into.png)
 
 Step Out
 : ![step out](images/debugging/step_out.svg){width=60px .left}
@@ -83,21 +83,21 @@ Step Out
 设置/清除断点
 : 可以在代码中随意设置断点. 接入调试器的游戏运行时, 会在断点处暂停, 等待你的下一步交互.
 
-  ![add breakpoint](images/debugging/add_breakpoint.png){srcset="images/debugging/add_breakpoint@2x.png 2x"}
+  ![add breakpoint](images/debugging/add_breakpoint.png)
 
   设置/清除断点, 可以在代码编辑器里行号右边右键点击. 还可以从菜单中选择 <kbd>Edit ▸ Toggle Breakpoint</kbd>.
 
 设置条件断点
 : 可以设置需要计算条件为真才触发的断点. 条件可以读取随着代码执行当前行的本地变量.
 
-  ![edit breakpoint](images/debugging/edit_breakpoint.png){srcset="images/debugging/edit_breakpoint@2x.png 2x"}
+  ![edit breakpoint](images/debugging/edit_breakpoint.png)
 
   要编辑断电条件, 右键点击代码编辑器行号的右边的列, 或者从菜单栏点选 <kbd>Edit ▸ Edit Breakpoint</kbd>.
 
 执行Lua表达式
 : 调试器停在断点上时, 可以直接使用包含有当前上下文的 Lua 运行时. 在控制台底部输入表达式后按 <kbd>回车键</kbd> 来运行:
 
-  ![console](images/debugging/console.png){srcset="images/debugging/console@2x.png 2x"}
+  ![console](images/debugging/console.png)
 
   目前不支持用表达式来修改变量.
 

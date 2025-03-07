@@ -18,23 +18,23 @@ Start your game from the editor (<kbd>Project ▸ Build</kbd>).
 
 To then reload an updated resource  simply select the menu item <kbd>File ▸ Hot Reload</kbd> or press the corresponding shortcut on the keyboard:
 
-![Reloading resources](images/hot-reload/menu.png){srcset="images/hot-reload/menu@2x.png 2x"}
+![Reloading resources](images/hot-reload/menu.png)
 
 ## Hot reloading on device
 
 Hot reloading works on device as well as on desktop. To use it on device, run a debug build of your game, or the [development app](/manuals/dev-app) on your mobile device, then chose it as target in the editor:
 
-![target device](images/hot-reload/target.png){srcset="images/hot-reload/target@2x.png 2x"}
+![target device](images/hot-reload/target.png)
 
 Now when you build and run, the editor uploads all assets to the running app on the device and starts the game. From thereon, any file you hot reload will update on the device.
 
 For instance, to add a couple of buttons to a GUI that is being displayed in a running game on your phone, just open the GUI file:
 
-![reload gui](images/hot-reload/gui.png){srcset="images/hot-reload/gui@2x.png 2x"}
+![reload gui](images/hot-reload/gui.png)
 
 Add the new buttons, save and hot reload the GUI file. You can now see the new buttons on the phone screen:
 
-![reloaded gui](images/hot-reload/gui-reloaded.png){srcset="images/hot-reload/gui-reloaded@2x.png 2x"}
+![reloaded gui](images/hot-reload/gui-reloaded.png)
 
 When you hot reload a file, the engine will print each reloaded resource file in the console.
 

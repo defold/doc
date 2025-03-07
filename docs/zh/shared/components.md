@@ -1,6 +1,6 @@
 组件是用来给与游戏对象各种功能与表现的程序. 组件位于游戏对象之下, 游戏对象受控于组件:
 
-![Components](../shared/images/components.png){srcset="../shared/images/components@2x.png 2x"}
+![Components](../shared/images/components.png)
 
 许多组件含有某些属性是可以在运行时控制的, 根据组件属性的不同类型, 调用交互的函数也不一样:
 

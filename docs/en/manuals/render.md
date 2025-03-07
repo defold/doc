@@ -20,7 +20,7 @@ At the heart of the rendering pipeline is the _render script_. This is a Lua scr
 
 In the "Builtins" folder of your projects you can find the default render resource ("default.render") and the default render script ("default.render_script").
 
-![Builtin render](images/render/builtin.png){srcset="images/render/builtin@2x.png 2x"}
+![Builtin render](images/render/builtin.png)
 
 To set up a custom renderer:
 

@@ -7,7 +7,7 @@ brief: Это руководство объясняет, как работает
 
 Эффекты частиц используются для визуального обогащения игр. С их помощью можно создавать взрывы, брызги крови, следы, погодные условия или любые другие эффекты.
 
-![ParticleFX Editor](images/particlefx/editor.png){srcset="images/particlefx/editor@2x.png 2x"}
+![ParticleFX Editor](images/particlefx/editor.png)
 
 Эффекты частиц состоят из нескольких эмиттеров и, опционально, модификаторов:
 
@@ -23,15 +23,15 @@ brief: Это руководство объясняет, как работает
 
 Представление *Outline* отобразит эмиттер по умолчанию. Выделите эмиттер, чтобы отобразить его свойства в панели *Properties* ниже.
 
-![Default particles](images/particlefx/default.png){srcset="images/particlefx/default@2x.png 2x"}
+![Default particles](images/particlefx/default.png)
 
 Чтобы добавить новый эмиттер к эффекту, <kbd>кликните ПКМ</kbd> в корне компонента в *Outline* и выберите <kbd>Add Emitter ▸ [type]</kbd> из контекстного меню. Следует отметить, что тип эмиттера можно изменить в его свойствах.
 
 Чтобы добавить новый модификатор, <kbd>кликните ПКМ</kbd> в расположении модификатора в *Outline* (корень компонента или конкретный излучатель) и выберите <kbd>Add Modifier</kbd>, затем выберите тип модификатора.
 
-![Add modifier](images/particlefx/add_modifier.png){srcset="images/particlefx/add_modifier@2x.png 2x"}
+![Add modifier](images/particlefx/add_modifier.png)
 
-![Add modifier select](images/particlefx/add_modifier_select.png){srcset="images/particlefx/add_modifier_select@2x.png 2x"}
+![Add modifier select](images/particlefx/add_modifier_select.png)
 
 Модификатор в корне эффекта (не дочерний по отношению к эмиттеру), влияет на все частицы в этом эффекте.
 
@@ -106,7 +106,7 @@ Emitter Type
 
   - `Cone` --- испускает частицы из случайного места внутри трехмерного конуса. Частицы направляются наружу через верхний диск конуса. Свойство *Emitter Size X* определяет диаметр верхнего диска, *Y* --- высоту конуса.
 
-  ![emitter types](images/particlefx/emitter_types.png){srcset="images/particlefx/emitter_types@2x.png 2x"}
+  ![emitter types](images/particlefx/emitter_types.png)
 
 Particle Orientation
 : Ориентация испускаемых частиц:
@@ -127,15 +127,15 @@ Stretch With Velocity
 
 Эти свойства имеют два поля: значение и разброс. Разброс --- это вариация, которая применяется случайным образом для каждой порожденной частицы. Например, если значение равно 50, а разброс равен 3, каждая порожденная частица получит значение между 47 и 53 (50 +/- 3).
 
-![Property](images/particlefx/property.png){srcset="images/particlefx/property@2x.png 2x"}
+![Property](images/particlefx/property.png)
 
 Если активировать ключ-кнопку, значение свойства будет контролироваться посредством кривой в течение длительности действия эмиттера. Чтобы сбросить запрограммированное свойство, кликните ключ-кнопку снова.
 
-![Property keyed](images/particlefx/key.png){srcset="images/particlefx/key@2x.png 2x"}
+![Property keyed](images/particlefx/key.png)
 
 Редактор *Curve Editor* (доступен среди вкладок в нижнем представлении) используется для изменения кривой. Запрограммированные свойства нельзя редактировать в представлении *Properties*, только в *Curve Editor*. <kbd>Кликните и перетащите</kbd> поинты и тангенты для изменения формы кривой. <kbd>Двойным кликом</kbd> на кривой добавляйте управляющие поинты. Чтобы удалить управляющий поинт, сделайте <kbd>двойной клик</kbd> по нему.
 
-![ParticleFX Curve Editor](images/particlefx/curve_editor.png){srcset="images/particlefx/curve_editor@2x.png 2x"}
+![ParticleFX Curve Editor](images/particlefx/curve_editor.png)
 
 Чтобы автоматически масштабировать Curve Editor для отображения всех кривых, нажмите <kbd>F</kbd>.
 
@@ -201,7 +201,7 @@ Life Angular Velocity
 `Vortex`
 : Воздействует на частицы в круговом или спиралевидном направлении вокруг своей позиции.
 
-  ![modifiers](images/particlefx/modifiers.png){srcset="images/particlefx/modifiers@2x.png 2x"}
+  ![modifiers](images/particlefx/modifiers.png)
 
 ## Свойства модификатора
 

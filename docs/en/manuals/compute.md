@@ -52,11 +52,11 @@ The GPU executes the compute shader by launching many invocations across multipl
 
 To create a compute program, <kbd>right click</kbd> a target folder in the *Assets* browser and select <kbd>New... ▸ Compute</kbd>. (You can also select <kbd>File ▸ New...</kbd> from the menu, and then select <kbd>Compute</kbd>). Name the new compute file and press <kbd>Ok</kbd>.
 
-![Compute file](images/compute/compute_file.png){srcset="images/compute/compute_file@2x.png 2x"}
+![Compute file](images/compute/compute_file.png)
 
 The new compute will open in the *Compute Editor*.
 
-![Compute editor](images/compute/compute.png){srcset="images/compute/compute@2x.png 2x"}
+![Compute editor](images/compute/compute.png)
 
 The compute file contains the following information:
 
@@ -74,7 +74,7 @@ Samplers
 
 In contrast to materials, compute programs are not assigned to any components, and are not part of the normal render flow. A compute program must be `dispatched` in a render script to do any work. Before dispatching however, you need to make sure the render script has a reference to the compute program. Currently, the only way for a render script to know about the compute program is to add it into the .render file that holds the reference to your render script:
 
-![Compute render file](images/compute/compute_render_file.png){srcset="images/compute/compute_render_file@2x.png 2x"}
+![Compute render file](images/compute/compute_render_file.png)
 
 To use the compute program, it first needs to be bound to the render context. This is done in the same way as materials:
 

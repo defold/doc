@@ -44,7 +44,7 @@ brief: Объект столкновения может использовать
 3. Вместо добавления форм компоненту столкновений, задайте в качестве значения свойства *Collision Shape* файл *тайловой карты*
 4. Как обычно, задайте *свойства* объекта столкновения.
 
-![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
+![Tilesource collision](images/physics/collision_tilemap.png)
 
 ::: important
 Учтите, что свойство *Group* **не** учитывается в таком случае, так как группы столкновений задаются в источнике тайлов соответствующей тайловой карты.

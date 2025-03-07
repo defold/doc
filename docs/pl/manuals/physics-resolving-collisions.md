@@ -19,7 +19,7 @@ end
 
 Ten kod rozdzieli Twój obiekt kinematyczny od innych obiektów fizycznych, które penetruje, ale rozdzielenie często jest zbyt duże, co prowadzi do drgań w wielu przypadkach. Aby lepiej zrozumieć problem, rozważmy następujący przypadek, w którym postać gracza koliduje z dwoma obiektami, *A* i *B*:
 
-![Kolzja fizyczna](images/physics/collision_multi.png){srcset="images/physics/collision_multi@2x.png 2x"}
+![Kolzja fizyczna](images/physics/collision_multi.png)
 
 Silnik fizyki wyśle wiele wiadomości `"contact_point_response"`, jedną dla obiektu *A* i jedną dla obiektu *B* w klatce, w której wystąpiła kolizja. Jeśli przesuniesz postać w odpowiedzi na każde przeniknięcie, jak w prostym kodzie powyżej, to rozdzielenie będzie się prezentować następująco:
 
@@ -28,17 +28,17 @@ Silnik fizyki wyśle wiele wiadomości `"contact_point_response"`, jedną dla ob
 
 Kolejność tych działań jest dowolna, ale wynik jest taki sam w obu przypadkach: całkowite rozdzielenie, które stanowi *sumę wektorów penetracji* poszczególnych obiektów:
 
-![Proste rozdzielenie](images/physics/separation_naive.png){srcset="images/physics/separation_naive@2x.png 2x"}
+![Proste rozdzielenie](images/physics/separation_naive.png)
 
 Aby właściwie rozdzielić postać od obiektów *A* i *B*, musisz obsłużyć odległość penetracji punktów kontaktowych i sprawdzić, czy jakiekolwiek wcześniejsze rozdzielenia już całkowicie lub częściowo rozwiązały problem rozdzielenia.
 
 Załóżmy, że pierwsza wiadomość punktu kontaktowego pochodzi od obiektu *A* i przesuwasz postać poza obiekt *A* zgodnie z wektorem penetracji *A*:
 
-![Rozdzielenie krok 1](images/physics/separation_step1.png){srcset="images/physics/separation_step1@2x.png 2x"}
+![Rozdzielenie krok 1](images/physics/separation_step1.png)
 
 Wtedy postać zostaje już częściowo rozdzielona od obiektu *B*. Ostateczna korekta konieczna do pełnego rozdzielenia od obiektu *B* jest wskazana czarną strzałką powyżej. Długość wektora kompensacji (compensation vector) można obliczyć, projektując wektor penetracji *A* na wektor penetracji *B*:
 
-![Projekcja](images/physics/projection.png){srcset="images/physics/projection@2x.png 2x"}
+![Projekcja](images/physics/projection.png)
 
 ```
 l = vmath.project(A, B) * vmath.length(B)

@@ -40,7 +40,7 @@ Note that you probably want to update this data every frame so posting the messa
 
 To run the debugger, either <kbd>Debug ▸ Run with Debugger</kbd> which starts up the game with the debugger attached, or select <kbd>Debug ▸ Attach Debugger</kbd> to attach the debugger to an already running game.
 
-![overview](images/debugging/overview.png){srcset="images/debugging/overview@2x.png 2x"}
+![overview](images/debugging/overview.png)
 
 As soon as the debugger is attached, you have control of the execution of the game through the debugger control buttons in the console, or through the <kbd>Debug</kbd> menu:
 
@@ -48,13 +48,13 @@ Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
   Break execution of the game immediately. The game will break at its current point. You are now able to inspect the state of the game, advance the game step by step, or continue running it until the next breakpoint. The current point of execution is marked in the code editor:
 
-  ![script](images/debugging/script.png){srcset="images/debugging/script@2x.png 2x"}
+  ![script](images/debugging/script.png)
 
 Continue
 : ![play](images/debugging/play.svg){width=60px .left}
   Continue running the game. The game code will continue to run until you either press pause or the execution hits a breakpoint that you have set. If execution breaks at a set breakpoint, the the execution point is marked in the code editor on top of the breakpoint marker:
 
-  ![break](images/debugging/break.png){srcset="images/debugging/break@2x.png 2x"}
+  ![break](images/debugging/break.png)
 
 Stop
 : ![stop](images/debugging/stop.svg){width=60px .left}
@@ -64,7 +64,7 @@ Step Over
 : ![step over](images/debugging/step_over.svg){width=60px .left}
   Advance execution of the program one step. If the execution involves running another Lua function, the execution _will not step into the function_ but continue running and stop on the next line below the function call. In this example, if the user presses "step over", the debugger will execute code and stop at the `end` statement below the line with the call to the function `nextspawn()`:
 
-  ![step](images/debugging/step.png){srcset="images/debugging/step@2x.png 2x"}
+  ![step](images/debugging/step.png)
 
 ::: sidenote
 A line of Lua code does not correspond to a single expression. Stepping in the debugger moves ahead one expression at a time, meaning that currently you may have to hit the step button more than once to advance to the next line.
@@ -74,7 +74,7 @@ Step Into
 : ![step in](images/debugging/step_in.svg){width=60px .left}
   Advance execution of the program one step. If the execution involves running another Lua function, the execution _will step into the function_. Calling the function adds an entry to the call stack. You can click each entry in the call stack list to view the entry point and the content of all variables in that closure. Here, the user has stepped into the function `nextspawn()`:
 
-  ![step into](images/debugging/step_into.png){srcset="images/debugging/step_into@2x.png 2x"}
+  ![step into](images/debugging/step_into.png)
 
 Step Out
 : ![step out](images/debugging/step_out.svg){width=60px .left}
@@ -83,21 +83,21 @@ Step Out
 Setting and clearing breakpoints
 : You can set an arbitrary number of breakpoints in your Lua code. When the game runs with the debugger attached, it will stop execution at the next breakpoint it encounters and wait for further interaction from you.
 
-  ![add breakpoint](images/debugging/add_breakpoint.png){srcset="images/debugging/add_breakpoint@2x.png 2x"}
+  ![add breakpoint](images/debugging/add_breakpoint.png)
 
   To set or clear a breakpoint, click in the column just right of the line numbers in the code editor. You can also select <kbd>Edit ▸ Toggle Breakpoint</kbd> from the menu.
 
 Setting conditional breakpoints
 : You can configure your breakpoint to contain a condition that needs to evaluate to true for the breakpoint to trigger. The condition can access local variables available at the line during code execution.
 
-  ![edit breakpoint](images/debugging/edit_breakpoint.png){srcset="images/debugging/edit_breakpoint@2x.png 2x"}
+  ![edit breakpoint](images/debugging/edit_breakpoint.png)
 
   To edit the breakpoint condition, right-click in the column just right of the line numbers in the code editor, or select <kbd>Edit ▸ Edit Breakpoint</kbd> from the menu.
 
 Evaluating Lua expressions
 : With the debugger attached and the game stopped at a breakpoint, a Lua runtime is available with the current context. Type Lua expressions in the bottom of the console and press <kbd>Enter</kbd> to evaluate them:
 
-  ![console](images/debugging/console.png){srcset="images/debugging/console@2x.png 2x"}
+  ![console](images/debugging/console.png)
 
   It is currently not possible to modify variables through the evaluator.
 

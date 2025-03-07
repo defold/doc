@@ -19,7 +19,7 @@ end
 
 动画碰撞对象的确离开了碰撞穿透, 但是分离之后经常会过冲, 这在许多情况下会产生抖动. 为了便于理解, 想象游戏主角碰到了两个物体, *A* 和 *B*:
 
-![Physics collision](images/physics/collision_multi.png){srcset="images/physics/collision_multi@2x.png 2x"}
+![Physics collision](images/physics/collision_multi.png)
 
 碰撞发生的那一帧里, 物理引擎发出多个 `"contact_point_response"` 消息, 一个给 *A* 一个给 *B*. 如果按上面那样移动角色, 结果会是这样:
 
@@ -28,17 +28,17 @@ end
 
 顺序无所谓结果是一样的: 最终位移是 *每个穿透向量的矢量和*:
 
-![Physics separation naive](images/physics/separation_naive.png){srcset="images/physics/separation_naive@2x.png 2x"}
+![Physics separation naive](images/physics/separation_naive.png)
 
 要想正确地将角色移出 *A* 和 *B*, 需要处理碰撞点的穿透距离并检测上一个位移是否, 完全或部分, 分离了它们.
 
 假设第一次碰撞从 *A* 开始, 然后针对 *A* 做位移:
 
-![Physics separation step 1](images/physics/separation_step1.png){srcset="images/physics/separation_step1@2x.png 2x"}
+![Physics separation step 1](images/physics/separation_step1.png)
 
 这样一来角色也部分离开了 *B*. 最后只剩下 *B* 黑色箭头那点穿透. 这段位移应该是 *A* 向量映射到 *B* 剩余的补偿:
 
-![Projection](images/physics/projection.png){srcset="images/physics/projection@2x.png 2x"}
+![Projection](images/physics/projection.png)
 
 ```
 l = vmath.project(A, B) * vmath.length(B)

@@ -19,7 +19,7 @@ end
 
 This code will separate your kinematic object from other physics object it penetrates, but the separation often overshoots and you will see jitter in many cases. To understand the problem better, consider the following case where a player character has collided with two objects, *A* and *B*:
 
-![Physics collision](images/physics/collision_multi.png){srcset="images/physics/collision_multi@2x.png 2x"}
+![Physics collision](images/physics/collision_multi.png)
 
 The physics engine will send multiple `"contact_point_response"` message, one for object *A* and one for object *B* the frame the collision occurs. If you move the character in response to each penetration, as in the naive code above, the resulting separation would be:
 
@@ -28,17 +28,17 @@ The physics engine will send multiple `"contact_point_response"` message, one fo
 
 The order of these is arbitrary but the result is the same either way: a total separation that is the *sum of the individual penetration vectors*:
 
-![Physics separation naive](images/physics/separation_naive.png){srcset="images/physics/separation_naive@2x.png 2x"}
+![Physics separation naive](images/physics/separation_naive.png)
 
 To properly separate the character from objects *A* and *B*, you need to handle each contact point's penetration distance and check if any previous separations have already, wholly or partially, solved the separation.
 
 Suppose that the first contact point message comes from object *A* and that you move the character out by *A*'s penetration vector:
 
-![Physics separation step 1](images/physics/separation_step1.png){srcset="images/physics/separation_step1@2x.png 2x"}
+![Physics separation step 1](images/physics/separation_step1.png)
 
 Then the character has already been partially separated from *B*. The final compensation necessary to perform full separation from object *B* is indicated by the black arrow above. The length of the compensation vector can be calculated by projecting the penetration vector of *A* onto the penetration vector of *B*:
 
-![Projection](images/physics/projection.png){srcset="images/physics/projection@2x.png 2x"}
+![Projection](images/physics/projection.png)
 
 ```
 l = vmath.project(A, B) * vmath.length(B)

@@ -13,7 +13,7 @@ Add new particle nodes by either <kbd>right clicking</kbd> in the *Outline* and 
 
 You can use particle effects that you have added to the GUI as source for the effect. Add particle effects by <kbd>right clicking</kbd> the *Particle FX* folder icon in the *Outline* and selecting <kbd>Add ▸ Particle FX...</kbd>. Then set the *Particlefx* property on the node:
 
-![Particle fx](images/gui-particlefx/create.png){srcset="images/gui-particlefx/create@2x.png 2x"}
+![Particle fx](images/gui-particlefx/create.png)
 
 ## Controlling the effect
 

@@ -46,12 +46,12 @@ World matrix
 
   When a model is placed in the game world the model's local vertex coordinates must be translated to world coordinates. This translation is done by a *world transform matrix*, which tells what  translation (movement), rotation and scale should be applied to a model's vertices to be correctly placed in the game world's coordinate system.
 
-  ![World transform](images/shader/world_transform.png){srcset="images/shader/world_transform@2x.png 2x"}
+  ![World transform](images/shader/world_transform.png)
 
 View and projection matrix
 : In order to put the vertices of the game world onto the screen, each matrix' 3D coordinates is first translated into coordinates relative to the camera. This is done with a _view matrix_. Secondly, the vertices are projected onto the 2D screen space with a _projection matrix_:
 
-  ![Projection](images/shader/projection.png){srcset="images/shader/projection@2x.png 2x"}
+  ![Projection](images/shader/projection.png)
 
 Attributes
 : A value associated with an individual vertex. Attributes are passed to the shader by the engine and if you want to access an attribute you just declare it in your shader program. Different component types have a different set of attributes:
@@ -86,7 +86,7 @@ Samplers
 UV coordinates
 : A 2D coordinate is associated with a vertex and it maps to a point on a 2D texture. A portion, or the whole, of the texture can therefore be painted onto the shape described by a set of vertices.
 
-  ![UV coordinates](images/shader/uv_map.png){srcset="images/shader/uv_map@2x.png 2x"}
+  ![UV coordinates](images/shader/uv_map.png)
 
   A UV-map is typically generated in the 3D modeling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
 
@@ -97,11 +97,11 @@ Varying variables
   2. During rasterization this value is interpolated for each fragment on the primitive being rendered. The distance of the fragment to the shape's vertices dictates the interpolated value.
   3. The variable is set for each call to the fragment shader and can be used for fragment calculations.
 
-  ![Varying interpolation](images/shader/varying_vertex.png){srcset="images/shader/varying_vertex@2x.png 2x"}
+  ![Varying interpolation](images/shader/varying_vertex.png)
 
   For instance, setting a varying to a `vec3` RGB color value on each corners of a triangle will interpolate the colors across the whole shape. Similarly, setting texture map lookup coordinates (or *UV-coordinates*) on each vertex in a rectangle allows the fragment shader to look up texture color values for the whole area of the shape.
 
-  ![Varying interpolation](images/shader/varying.png){srcset="images/shader/varying@2x.png 2x"}
+  ![Varying interpolation](images/shader/varying.png)
 
 ## Writing modern GLSL shaders
 
@@ -344,11 +344,11 @@ vec3 get_red_color_inverted()
 
 Before ending up on the screen, the data that you create for your game goes through a series of steps:
 
-![Render pipeline](images/shader/pipeline.png){srcset="images/shader/pipeline@2x.png 2x"}
+![Render pipeline](images/shader/pipeline.png)
 
 All visual components (sprites, GUI nodes, particle effects or models) consists of vertices, points in 3D world that describe the shape of the component. The good thing by this is that it is possible to view the shape from any angle and distance. The job of the vertex shader program is to take a single vertex and translate it into a position in the viewport so the shape can end up on screen. For a shape with 4 vertices, the vertex shader program runs 4 times, each in parallel.
 
-![vertex shader](images/shader/vertex_shader.png){srcset="images/shader/vertex_shader@2x.png 2x"}
+![vertex shader](images/shader/vertex_shader.png)
 
 The input of the program is the vertex position (and other attribute data associated with the vertex) and the output is a new vertex position (`gl_Position`) as well as any `varying` variables that should be interpolated for each fragment.
 
@@ -389,7 +389,7 @@ void main()
 
 After vertex shading, the on screen shape of the component is decided: primitive shapes are generated and rasterized, meaning that the graphics hardware splits each shape into *fragments*, or pixels. It then runs the fragment shader program, once for each of the fragments. For an on screen image 16x24 pixels in size, the program runs 384 times, each in parallel.
 
-![fragment shader](images/shader/fragment_shader.png){srcset="images/shader/fragment_shader@2x.png 2x"}
+![fragment shader](images/shader/fragment_shader.png)
 
 The input of the program is whatever the rendering pipeline and the vertex shader sends, usually the *uv-coordinates* of the fragment, tint colors etc. The output is the final color of the pixel (`gl_FragColor`).
 

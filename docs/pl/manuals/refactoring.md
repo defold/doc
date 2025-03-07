@@ -15,6 +15,6 @@ Automatyczna refaktoryzacja będzie działać tylko wtedy, gdy zmiany zostaną d
 
 Jednakże, jeśli uszkodzisz odwołanie, na przykład usuwając zasób z posiomu systemu operacyjnego, Edytor nie będzie w stanie rozwiązać problemu, ale dostarczy pomocne sygnały błędów. Na przykład, jeśli usuniesz animację z atlasu, a ta animacja jest używana gdzieś, Defold zasygnalizuje błąd podczas próby uruchomienia gry. Edytor również oznaczy, gdzie występują błędy, aby pomóc Ci szybko zlokalizować problem:
 
-![Refactoring error](images/workflow/delete_error.png){srcset="images/workflow/delete_error@2x.png 2x"}
+![Refactoring error](images/workflow/delete_error.png)
 
 Błędy kompilacji pojawiają się w panelu *Build Errors* na dole edytora. <kbd>Double clicking</kbd> na błędzie, który jest linkiem, przenosi cię do miejsca, gdzie wystąpił problem.

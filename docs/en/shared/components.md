@@ -1,6 +1,6 @@
 Components are used to give specific expression and/or functionality to game objects. Components have to be contained inside game objects and are affected by the position, rotation and scale of the game object that contains the component:
 
-![Components](../shared/images/components.png){srcset="../shared/images/components@2x.png 2x"}
+![Components](../shared/images/components.png)
 
 Many components have type specific properties that can be manipulated and there are component type specific functions available for interacting with them in runtime:
 

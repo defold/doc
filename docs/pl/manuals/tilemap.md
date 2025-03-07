@@ -17,7 +17,7 @@ To create a new tile map:
 - Nazwij plik.
 - Nowa mapa automatycznie utworzy się w Edytorze map.
 
-  ![new tilemap](images/tilemap/tilemap.png){srcset="images/tilemap/tilemap@2x.png 2x"}
+  ![new tilemap](images/tilemap/tilemap.png)
 
 - Ustaw źródła - właściwość *Tile Source* tak, żeby wskazywała na wcześniej przygotowane źródło kafelków.
 
@@ -26,15 +26,15 @@ W edytorze możesz rysować kafelkami swoje mapy, niczym pędzlem w edytorach gr
 1. Wybierz lub utwórz nową warstwę (*Layer*) w panelu *Outline*.
 2. Wybierz kafelek do używania z palety otwieranej po naciśnięciu <kbd>Spacji</kbd>.
 
-   ![Palette](images/tilemap/palette.png){srcset="images/tilemap/palette@2x.png 2x"}
+   ![Palette](images/tilemap/palette.png)
 
 3. Maluj wybranym kafelkiem niczym pędzlem. Żeby wymazać kafelek albo wybierz pusty kafelek, żeby użyć go jak gumki, albo wybierz narzędzie gumki: <kbd>Edit ▸ Select Eraser</kbd>.
 
-   ![Painting tiles](images/tilemap/paint_tiles.png){srcset="images/tilemap/paint_tiles@2x.png 2x"}
+   ![Painting tiles](images/tilemap/paint_tiles.png)
 
 Możesz też pobierać kafelki bezpośrednio z warstwy na Twojej mapie i używać wybranego kafelka jak pędzla - naciśnij <kbd>Shift</kbd> i wybierz kafelek z mapy, żeby użyć go jako pędzla. Podczas trzymania klawisza <kbd>Shift</kbd> możesz wybrać więcej niż jeden kafelek - przeciągając zaznaczenie przez wiele z nich, żeby stworzyć większy pędzel składający się z kilku kafelków.
 
-![Picking tiles](images/tilemap/pick_tiles.png){srcset="images/tilemap/pick_tiles@2x.png 2x"}
+![Picking tiles](images/tilemap/pick_tiles.png)
 
 ## Dodawanie mapy kafelków do Twojej gry
 
@@ -44,7 +44,7 @@ Aby dodać mapę do Twojej gry:
 2. Kliknij prawym przyciskiem myszki na Twój obiekt i wybierz <kbd>Add Component File</kbd>.
 3. Wybierz plik z Twoją mapą kafelków.
 
-![Use tile map](images/tilemap/use_tilemap.png){srcset="images/tilemap/use_tilemap@2x.png 2x"}
+![Use tile map](images/tilemap/use_tilemap.png)
 
 ## Manipulacja w trakcie działania programu
 

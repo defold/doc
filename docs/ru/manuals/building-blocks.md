@@ -7,7 +7,7 @@ brief: В этом руководстве подробно описан прин
 
 В основу дизайна Defold заложены несколько концепций, качественное освоение которых может потребовать временных затрат. Это руководство объясняет, как устроены структурные элементы Defold. Прочитав это руководство, стоит перейти к [руководству по адрессации](/manuals/addressing) и [передачи сообщений](/manuals/message-passing). Также имеется набор [уроков](/tutorials/getting-started), доступных в редакторе и позволяющих быстрее приступить к работе.
 
-![Building blocks](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
+![Building blocks](images/building_blocks/building_blocks.png)
 
 В Defold существуют три основных типа структурных элементов, используемых для конструирования игр:
 
@@ -28,11 +28,11 @@ brief: В этом руководстве подробно описан прин
 
 Коллекция может содержать игровые объекты и другие коллекции (по ссылке на файл субколлекции), вложенные сколь угодно глубоко. Вот пример файла под названием "main.collection". Он содержит один игровой объект (с идентификатором "can") и одну субколлекцию (с идентификатором "bean"). Субколлекция, в свою очередь, содержит два игровых объекта: "bean" и "shield".
 
-![Collection](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
+![Collection](images/building_blocks/collection.png)
 
 Стоит заметить, что субколлекция с идентификатором "bean" хранится в собственном файле, называемом "/main/bean.collection", и на нее имеются ссылки только в "main.collection":
 
-![Bean collection](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
+![Bean collection](images/building_blocks/bean_collection.png)
 
 К самим коллекциям обращаться не возможно, поскольку во время выполнения не существует объектов, соответствующих коллекциям "main" и "bean". Тем не менее, иногда необходимо использовать идентификатор коллекции как часть _пути_ к игровому объекту (за подробностями обращайтесь к [руководству по адресации](/manuals/addressing)):
 
@@ -78,25 +78,25 @@ go.animate("can", "position.x", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR
 2. Скрипт "bean" в игровом объекте "bean" в субколлекции "bean".
 3. Скрипт "can" в игровом объекте "can".
 
-![Instance](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
+![Instance](images/building_blocks/instance.png)
 
 Преимущество создания файлов-шаблонов становится очевидным, когда имеются несколько экземпляров игрового объекта или коллекции и их все необходимо изменить:
 
-![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
+![GO instances](images/building_blocks/go_instance.png)
 
 При изменении файла шаблона любой экземпляр, использующий этот файл, будет немедленно обновлен.
 
-![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
+![GO instances updated](images/building_blocks/go_instance2.png)
 
 ## Подчинение игровых объектов
 
 В файле коллекции можно строить иерархии игровых объектов, так чтобы один или несколько игровых объектов становились дочерними по отношению к одному родительскому игровому объекту. Просто <kbd>перетащите</kbd> один игровой объект и <kbd>бросьте</kbd> его на другой, и перетаскиваемый игровой объект станет дочерним по отношении к целевому (но который бросили):
 
-![Childing game objects](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
+![Childing game objects](images/building_blocks/childing.png)
 
 Объектная иерархия "родительский-дочерний" --- это динамическое отношение, влияющее на то, как объекты реагируют на трансформации. Любые трансформации (перемещение, вращение или масштабирование), применяемые к объекту, будут, в свою очередь, применяться к дочерним элементам объекта, как в редакторе, так и во время выполнения:
 
-![Child transform](images/building_blocks/child_transform.png){srcset="images/building_blocks/child_transform@2x.png 2x"}
+![Child transform](images/building_blocks/child_transform.png)
 
 И наоборот, дочерние трансформации выполняются в локальном пространстве родителя. В редакторе можно выбрать, редактировать дочерние игровые объекты в локальном пространстве или в мировом, выполнив <kbd>Edit ▸ World Space</kbd> (по умолчанию) или <kbd>Edit ▸ Local Space</kbd>.
 

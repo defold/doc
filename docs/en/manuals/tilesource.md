@@ -11,7 +11,7 @@ A *Tile Source* can be used by a [Tilemap component](/manuals/tilemap) to paint 
 
 You need an image containing all the tiles. Each tile must have the exact same dimensions and be placed in a grid. Defold supports _spacing_ between the tiles and a _margin_ around each tile.
 
-![tile image](images/tilemap/small_map.png){srcset="images/tilemap/small_map@2x.png 2x"}
+![tile image](images/tilemap/small_map.png)
 
 Once you have the source image created, you can create a Tile Source:
 
@@ -22,7 +22,7 @@ Once you have the source image created, you can create a Tile Source:
 - Click the browse-button next to the *Image* property and select your image. Now you should see the image displayed in the editor.
 - Adjust the *Properties* to match the source image. When everything is correct the tiles will line up perfectly.
 
-![Creating a Tile Source](images/tilemap/tilesource.png){srcset="images/tilemap/tilesource@2x.png 2x"}
+![Creating a Tile Source](images/tilemap/tilesource.png)
 
 Size
 : The size of the source image.
@@ -54,7 +54,7 @@ To define an animation in a tile source the animation frame tiles must lie next 
 
 Selecting an animation displays the animation *Properties*.
 
-![Tile Source animation](images/tilemap/animation.png){srcset="images/tilemap/animation@2x.png 2x"}
+![Tile Source animation](images/tilemap/animation.png)
 
 Id
 : The identity of the animation. Must be unique for the tile source.
@@ -95,6 +95,6 @@ The tile source outline lists collision groups that you have added to the tile s
 
 To select the tile shapes that should belong to a certain group, select the group in th *Outline*, then click each tile that you wish to assign to the group. The outline of the tile and shape is colored with the group's color. The color is automatically assigned to the group in the editor.
 
-![Collision Shapes](images/tilemap/collision.png){srcset="images/tilemap/collision@2x.png 2x"}
+![Collision Shapes](images/tilemap/collision.png)
 
 To remove a tile from its collision group, select the tile source root element in the *Outline*, then click the tile.

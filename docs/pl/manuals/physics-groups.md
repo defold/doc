@@ -9,7 +9,7 @@ Silnik fizyczny pozwala na grupowanie obiektów fizycznych i określanie, jak po
 
 Aby kolizja między dwoma obiektami została zarejestrowana, oba obiekty muszą wzajemnie określić grupy, do których należą (określone w *Group*), w swoim polu *Mask*.
 
-![Physics collision group](images/physics/collision_group.png){srcset="images/physics/collision_group@2x.png 2x"}
+![Physics collision group](images/physics/collision_group.png)
 
 Pole *Mask* może zawierać wiele nazw grup, co pozwala na różne scenariusze interakcji.
 

@@ -11,7 +11,7 @@ brief: 本教程介绍了如何在 Defold 中创建和打开项目.
 
 点击 <kbd>New Project</kbd> 选项, 然后选择创建何种项目. 为项目指定一个硬盘保存位置. 点击 <kbd>Create New Project</kbd> 即完成项目创建. 还可以使用模板创建项目:
 
-![open project](images/workflow/open_project.png){srcset="images/workflow/open_project@2x.png 2x"}
+![open project](images/workflow/open_project.png)
 
 或者创建教程项目:
 

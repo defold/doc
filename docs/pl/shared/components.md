@@ -1,6 +1,6 @@
 Komponenty są używane, żeby nadać obiektom gry konkretne właściwości i funkcjonalności, takie jak reprezentacja graficzna, dźwiękowa czy logika gry. Komponenty muszą należeć do obiektu gry i są afektowane przez zmiany jego pozycji, orientacji i skali:
 
-![Components](../shared/images/components.png){srcset="../shared/images/components@2x.png 2x"}
+![Components](../shared/images/components.png)
 
 Wiele komponentów ma specyficzne właściwości, które mogą być modyfikowane. Istnieją trzy specyficzne funkcje do interakcji z nimi w trakcie działania programu:
 

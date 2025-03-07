@@ -84,7 +84,7 @@ iOS
 
    Щелкните значок шестеренки под списком и выберите <kbd>Download Container...</kbd>.
 
-  ![download container](images/debugging/download_container.png){srcset="images/debugging/download_container@2x.png 2x"}
+  ![download container](images/debugging/download_container.png)
 
   Как только контейнер будет извлечен, он появится в приложении *Finder*. Щелкните по контейнеру правой кнопкой мыши и выберите <kbd>Show Package Content</kbd>. Найдите файл «log.txt», который должен находиться в «AppData/Documents/». 
 

@@ -31,7 +31,7 @@ Triggers
 3. 可以使用移動, 旋轉, 縮放工具修改形狀.
 4. 點選組件后可在 *大綱* 視圖中編輯其 *屬性*.
 
-![Physics collision object](images/physics/collision_object.png){srcset="images/physics/collision_object@2x.png 2x"}
+![Physics collision object](images/physics/collision_object.png)
 
 
 ## 加入碰撞形状

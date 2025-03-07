@@ -89,11 +89,11 @@ Resources view
 
 При бандлинге вашей игры есть возможность создать отчет о сборке. Это очень полезно, чтобы получить представление о размере всех ассетов, входящих в бандл вашей игры. Просто установите флажок *Generate build report* при бандлинге игры. 
 
-![build report](images/profiling/build_report.png){srcset="images/profiling/build_report@2x.png 2x"}
+![build report](images/profiling/build_report.png)
 
 Сборщик создаст файл с именем «report.html» рядом с бандлом игры. Откройте файл в веб-браузере, чтобы изучить отчет: 
 
-![build report](images/profiling/build_report_html.png){srcset="images/profiling/build_report_html@2x.png 2x"}
+![build report](images/profiling/build_report_html.png)
 
 Раздел *Overview* дает общую визуальную разбивку размера проекта в зависимости от типа ресурса.
 
@@ -115,14 +115,14 @@ ProFi (Lua)
 Instruments (macOS и iOS) 
 : Это анализатор производительности и визуализатор, который является частью Xcode. Он позволяет отслеживать и проверять поведение одного или нескольких приложений или процессов, изучать определенные функции устройства (например, Wi-Fi и Bluetooth) и многое другое. 
 
-  ![instruments](images/profiling/instruments.png){srcset="images/profiling/instruments@2x.png 2x"}
+  ![instruments](images/profiling/instruments.png)
 
 OpenGL profiler (macOS)
 : Часть пакета "Additional Tools for Xcode", который можно загрузить из Apple (выберите <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd> в меню Xcode).
 
    Этот инструмент позволяет вам анализировать работающее Defold приложение и увидеть, как оно использует OpenGL. Он позволяет вам отслеживать вызовы функций OpenGL, устанавливать точки останова для функций OpenGL, исследовать ресурсы приложения (текстуры, программы, шейдеры и т. д.), просматривать содержимое буфера и проверять другие аспекты состояния OpenGL. 
 
-  ![opengl profiler](images/profiling/opengl.png){srcset="images/profiling/opengl@2x.png 2x"}
+  ![opengl profiler](images/profiling/opengl.png)
 
 Android Profiler (Android)
 : https://developer.android.com/studio/profile/android-profiler.html

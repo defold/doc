@@ -40,7 +40,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 Чтобы запустить отладчик, либо выберите <kbd>Debug ▸ Run with Debugger</kbd>, который запускает игру с подключенным отладчиком, либо <kbd>Debug ▸ Attach Debugger</kbd>, чтобы подключить отладчик к уже запущенной игре.
 
-![overview](images/debugging/overview.png){srcset="images/debugging/overview@2x.png 2x"}
+![overview](images/debugging/overview.png)
 
 Как только отладчик подключен, можно контролировать выполнение игры через кнопки управления отладчиком в консоли или через меню <kbd>Debug</kbd>:
 
@@ -48,13 +48,13 @@ Break
 : ![pause](images/debugging/pause.svg){width=60px .left}
   Немедленно прерывает выполнение игры. Игра прервется в текущей точке. После этого можно исследовать состояние игры, продвигать игру шаг за шагом или продолжить ее выполнение до следующей точки останова. Текущая точка выполнения отмечается в редакторе кода:
 
-  ![script](images/debugging/script.png){srcset="images/debugging/script@2x.png 2x"}
+  ![script](images/debugging/script.png)
 
 Continue
 : ![play](images/debugging/play.svg){width=60px .left}
   Продолжает выполнение игры. Код игры будет выполняться до тех пор, пока не будет нажата пауза или пока выполнение не достигнет точки останова, которую вы установили. Если выполнение прерывается в установленной точке останова, точка выполнения отмечается в редакторе кода поверх маркера точки останова:
 
-  ![break](images/debugging/break.png){srcset="images/debugging/break@2x.png 2x"}
+  ![break](images/debugging/break.png)
 
 Stop
 : ![stop](images/debugging/stop.svg){width=60px .left}
@@ -64,7 +64,7 @@ Step Over
 : ![step over](images/debugging/step_over.svg){width=60px .left}
   Продвинуть выполнение программы на один шаг. Если выполнение включает в себя запуск другой Lua-функции, выполнение _не перейдет в функцию_, а продолжит выполнение и остановится на следующей строке ниже вызова функции. В данном примере, если пользователь нажмет "step over", отладчик выполнит код и остановится на операторе `end` ниже строки с вызовом функции `nextspawn()`:
 
-  ![step](images/debugging/step.png){srcset="images/debugging/step@2x.png 2x"}
+  ![step](images/debugging/step.png)
 
 ::: sidenote
 Строка Lua-кода не соответствует одному выражению. Шаг в отладчике перемещается вперед по одному выражению за раз, что означает, что в настоящее время для перехода к следующей строке может потребоваться нажать кнопку шага несколько раз.
@@ -74,7 +74,7 @@ Step Into
 : ![step in](images/debugging/step_in.svg){width=60px .left}
   Продвигает выполнение программы на один шаг. Если выполнение включает в себя запуск другой Lua-функции, то выполнение _перейдет в эту функцию_. Вызов функции добавляет запись в стек вызовов. Можно кликнуть по каждой записи в списке стека вызовов, чтобы просмотреть точку входа и содержимое всех переменных в этом замыкании. Здесь пользователь перешел в функцию `nextspawn()`:
 
-  ![step into](images/debugging/step_into.png){srcset="images/debugging/step_into@2x.png 2x"}
+  ![step into](images/debugging/step_into.png)
 
 Step Out
 : ![step out](images/debugging/step_out.svg){width=60px .left}
@@ -83,14 +83,14 @@ Step Out
 Установка и очистка точек останова
 : В Lua-коде можно установить произвольное количество точек останова. Когда игра запускается с подключенным отладчиком, она остановит выполнение в следующей точке останова и будет ждать дальнейших действий со стороны пользователя.
 
-  ![add breakpoint](images/debugging/add_breakpoint.png){srcset="images/debugging/add_breakpoint@2x.png 2x"}
+  ![add breakpoint](images/debugging/add_breakpoint.png)
 
   Чтобы установить или убрать точку останова, кликните в колонке справа от номеров строк в редакторе кода. Также можно выбрать в меню <kbd>Edit ▸ Toggle Breakpoint</kbd>.
 
 Вычисление Lua-выражений
 : При подключенном отладчике и остановленной на точке останова игре доступна среда выполнения Lua с текущим контекстом. Введите выражения Lua в нижней части консоли и нажмите <kbd>Enter</kbd> для их вычисления:
 
-  ![console](images/debugging/console.png){srcset="images/debugging/console@2x.png 2x"}
+  ![console](images/debugging/console.png)
 
   В настоящее время нет возможности изменять переменные через функцию вычисления.
 

@@ -45,7 +45,7 @@ Aby dodać kolizję do mapy kafelków:
 3. Zamiast dodawać kształty do komponentu, ustaw właściwość Kształt kolizji na plik mapa kafelków (*tilemap*).
 4. Skonfiguruj *Properties* komponentu obiektu kolizji.
 
-![Kształt kolizji mapy kafelków](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
+![Kształt kolizji mapy kafelków](images/physics/collision_tilemap.png)
 
 ::: important
 Należy zauważyć, że właściwość *Group* **nie** jest tutaj używana, ponieważ grupy kolizji są definiowane w źródle kafelków (tile source) mapy kafelków.

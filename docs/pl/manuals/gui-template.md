@@ -13,7 +13,7 @@ Szablon GUI to scena GUI, która jest tworzona, węzeł po węźle, w innej scen
 
 Szablon GUI to zwykła scena GUI, więc tworzy się go tak samo jak każdą inną scenę GUI. <kbd>Kliknij prawym przyciskiem myszy</kbd> w odpowiednim miejscu w panelu Assets i wybierz <kbd>New... ▸ Gui</kbd>.
 
-![Create template](images/gui-templates/create.png){srcset="images/gui-templates/create@2x.png 2x"}
+![Create template](images/gui-templates/create.png)
 
 Utwórz szablon i zapisz go. Należy zauważyć, że węzły instancji tego szablonu zostaną umieszczone względem położenia początkowego, dlatego dobrym pomysłem jest utworzenie szablonu w pozycji 0, 0, 0.
 
@@ -21,21 +21,21 @@ Utwórz szablon i zapisz go. Należy zauważyć, że węzły instancji tego szab
 
 Możesz tworzyć dowolną liczbę instancji opartych na jednej instancji. Utwórz lub otwórz scenę GUI, w której chcesz umieścić szablon, a następnie <kbd>kliknij prawym przyciskiem myszy</kbd> sekcję *Nodes* w widoku *Outline* i wybierz <kbd>Add ▸ Template</kbd>.
 
-![Create instance](images/gui-templates/create_instance.png){srcset="images/gui-templates/create_instance@2x.png 2x"}
+![Create instance](images/gui-templates/create_instance.png)
 
 Ustaw właściwość *Template* na plik sceny GUI szablonu.
 
 Możesz dodać dowolną liczbę instancji szablonów, a dla każdej instancji można zastępować właściwości każdego węzła i zmieniać pozycję węzła instancji, kolorowanie, rozmiar, teksturę itp.
 
-![Instances](images/gui-templates/instances.png){srcset="images/gui-templates/instances@2x.png 2x"}
+![Instances](images/gui-templates/instances.png)
 
 Każda zmieniona właściwość jest oznaczona kolorem niebieskim w edytorze. Naciśnij przycisk resetowania przy właściwości, aby ustawić jej wartość na wartość z szablonu:
 
-![Properties](images/gui-templates/properties.png){srcset="images/gui-templates/properties@2x.png 2x"}
+![Properties](images/gui-templates/properties.png)
 
 Każdy węzeł, który ma zmienione właściwości, jest również kolorowany na niebiesko w widoku *Outline*:
 
-![Outline](images/gui-templates/outline.png){srcset="images/gui-templates/outline@2x.png 2x"}
+![Outline](images/gui-templates/outline.png)
 
 Instancja szablonu jest wylistowana jako składana pozycja w widoku *Outline*. Jednak należy zauważyć, że ten element w widoku *nie jest węzłem*. Instancja szablonu nie istnieje także w czasie wykonywania, ale wszystkie węzły, które są częścią instancji, istnieją.
 

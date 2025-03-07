@@ -7,7 +7,7 @@ brief: Este manual se adentra en los detalles de cómo los objetos, componentes 
 
 En el núcleo del diseño de Defold hay unos conceptos que pueden llevar tiempo dominarlos. Este manual explica en qué consisten los bloques de construcción de Defold. Después de leer este manual, sigue al [addressing manual](/manuals/addressing) y al [message passing manual](/manuals/message-passing). También hay una serie de [tutoriales](/tutorials/getting-started) disponibles desde el editor para tenerte listo rápidamente.
 
-![Bloques de construcción](images/building_blocks/building_blocks.png){srcset="images/building_blocks/building_blocks@2x.png 2x"}
+![Bloques de construcción](images/building_blocks/building_blocks.png)
 
 Hay tres tipos básicos de bloques de construcción que puedes usar para construir un juego de Defold:
 
@@ -28,11 +28,11 @@ Cuando el motor Defold inicia, carga una _colección bootstrap_ especificado en 
 
 Una colección puede contener objetos y otras colecciones (por referencia al archivo de subcolecciones), anidados abritrariamente profundos. Aquí hay un archivo ejemplo llamado "main.collection". Contiene un objeto (con la id "can") y una sub-colección (con la id "bean"). La sub-colección, en turno, contiene dos objetos: "bean" y "shield".
 
-![Colección](images/building_blocks/collection.png){srcset="images/building_blocks/collection@2x.png 2x"}
+![Colección](images/building_blocks/collection.png)
 
 Fíjate que la sub-colección con la id "bean" está guardada en su propio arcivo, llamado "/main/bean.collection" y es únicamente referenciado en "main.collection":
 
-![Colección Bean](images/building_blocks/bean_collection.png){srcset="images/building_blocks/bean_collection@2x.png 2x"}
+![Colección Bean](images/building_blocks/bean_collection.png)
 
 No puedes dirigir colecciones por sí mismas ya que no hay objetos runtime correspondiendo a las colecciones "main" y "bean". Sin embargo, a veces puedes usar la identidad de una colección como parte de una ruta(en inglés _path_) a un objeto (ver el [addressing manual](/manuals/addressing) para más detalles):
 
@@ -78,25 +78,25 @@ Puedes ver cual instancia de objeto está basado de cual archivo en outline view
 2. El componente script "bean" en el objeto de juego "bean" en la sub-colección "bean".
 3. El script "can" en el objeto de juego "can".
 
-![Instancia](images/building_blocks/instance.png){srcset="images/building_blocks/instance@2x.png 2x"}
+![Instancia](images/building_blocks/instance.png)
 
 El beneficio de crear archivos blueprint se vuelve aparente cuando tienes múltiples instancias de un objeto de juego o colección y deseas cambiar todos:
 
-![GO instances](images/building_blocks/go_instance.png){srcset="images/building_blocks/go_instance@2x.png 2x"}
+![GO instances](images/building_blocks/go_instance.png)
 
 Al cambiar el archivo file, cualquier instancia que usa ese archivo será actualizado inmediatamente.
 
-![GO instances updated](images/building_blocks/go_instance2.png){srcset="images/building_blocks/go_instance2@2x.png 2x"}
+![GO instances updated](images/building_blocks/go_instance2.png)
 
 ## Emparentando objetos de juego
 
 En un archivo de colección, puedes crear jerarquías de objetos de juego de tal forma que uno o más objetos sean hijos (children) de un objeto de juego padre (parent). Simplemente <kbd>arrastrando</kbd> un objeto de juego y <kbd>soltarlo</kbd> en otro el objeto de juego arrastrado se vuelve el hijo bajo el objeto seleccionado:
 
-![Emparentando objetos de juego](images/building_blocks/childing.png){srcset="images/building_blocks/childing@2x.png 2x"}
+![Emparentando objetos de juego](images/building_blocks/childing.png)
 
 Las jerarquías padre-hijo de objetos es una relación dinámica que afecta cómo los objetos reaccionan a las transformaciones. Cualquier transformación (movimiento, rotación o escalado) aplicado a un objeto será aplicado al hijo del objeto en turno, ambos en el editor y en la ejecución:
 
-![Transformación de hijos](images/building_blocks/child_transform.png){srcset="images/building_blocks/child_transform@2x.png 2x"}
+![Transformación de hijos](images/building_blocks/child_transform.png)
 
 De manera conversa, la traslación de un hijo será hecha en el espacio local del padre. En el editor, puedes elegir el editar un objeto de juego hijo en el espacio local o el mundo (world space) seleccionando <kbd>Edit ▸ World Space</kbd> (por defecto) o <kbd>Edit ▸ Local Space</kbd>.
 

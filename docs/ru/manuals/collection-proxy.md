@@ -17,7 +17,7 @@ Defold организует все игровые объекты в коллек
 
 2. В свойстве *Collection* укажите ссылку на коллекцию, которую необходимо динамически загрузить в среду выполнения позднее. Ссылка является статической и гарантирует, что все содержимое коллекции, на которую ссылаются, в конечном счете окажется в игре.
 
-![add proxy component](images/collection-proxy/create_proxy.png){srcset="images/collection-proxy/create_proxy@2x.png 2x"}
+![add proxy component](images/collection-proxy/create_proxy.png)
 
 (Содержимое можно исключить из сборки и загрузить вместо него код, отметив опцию *Exclude* и используя [Live-обновление](/manuals/live-update/).)
 
@@ -25,13 +25,13 @@ Defold организует все игровые объекты в коллек
 
 Когда движок Defold запускается, он загружает и инстанцирует все игровые объекты из *загрузочной (bootstrap) коллекции* в среду выполнения. Затем он инициализирует и активирует игровые объекты и их компоненты. Какая загрузочная коллекция должна использоваться движком, указывается в [настройках проекта](/manuals/project-settings/#main-collection). По договоренности этот файл коллекции обычно называется "main.collection".
 
-![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
+![bootstrap](images/collection-proxy/bootstrap.png)
 
 Для размещения игровых объектов и их компонентов движок выделяет память, необходимую для всего "игрового мира", в который инстанцируется содержимое загрузочной коллекции. Кроме того, создается отдельный физический мир для любых объектов столкновений и физических симуляций.
 
 Поскольку скрипты должны иметь возможность обращаться ко всем объектам в игре, даже извне загрузочного мира, им присваивается уникальное имя: свойство *Name*, которое задается в файле коллекции:
 
-![bootstrap](images/collection-proxy/collection_id.png){srcset="images/collection-proxy/collection_id@2x.png 2x"}
+![bootstrap](images/collection-proxy/collection_id.png)
 
 Если загружаемая коллекция содержит прокси-коллекции, коллекции, на которые они ссылаются, автоматически *не* загружаются. Необходимо контролировать загрузку этих ресурсов с помощью скриптов.
 
@@ -44,7 +44,7 @@ Defold организует все игровые объекты в коллек
 msg.post("#myproxy", "load")
 ```
 
-![load](images/collection-proxy/proxy_load.png){srcset="images/collection-proxy/proxy_load@2x.png 2x"}
+![load](images/collection-proxy/proxy_load.png)
 
 Прокси укажет движку выделить место для нового мира. Также будет создана отдельная среда выполнения физики и инстанцируются все игровые объекты в коллекции.
 
@@ -90,7 +90,7 @@ end
 msg.post("main:/loader#script", "load_level", { level_id = 2 })
 ```
 
-![load](images/collection-proxy/message_passing.png){srcset="images/collection-proxy/message_passing@2x.png 2x"}
+![load](images/collection-proxy/message_passing.png)
 
 ## Выгрузка мира
 

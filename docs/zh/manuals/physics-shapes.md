@@ -44,7 +44,7 @@ Defold 包含一个功能就是从瓷砖地图中自动生成瓷磚圖源的物�
 3. 不加入形状, 而是配置 *Collision Shape* 属性为 *瓷砖地图* 文件.
 4. 设置碰撞对象的其他 *属性*.
 
-![Tilesource collision](images/physics/collision_tilemap.png){srcset="images/physics/collision_tilemap@2x.png 2x"}
+![Tilesource collision](images/physics/collision_tilemap.png)
 
 ::: important
 这里的 *Group* 属性 **不会** 生效, 因为碰撞组已在瓷砖图源中定义好了.

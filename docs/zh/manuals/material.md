@@ -16,11 +16,11 @@ brief: 本教程介绍了如何使用材质, 着色器常量和采样.
 
 要创建材质, 在 *Assets* 浏览器里目标文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>New... ▸ Material</kbd>. (还可以从菜单选择 <kbd>File ▸ New...</kbd> , 再选择 <kbd>Material</kbd>). 给材质命名并点击 <kbd>Ok</kbd>.
 
-![Material file](images/materials/material_file.png){srcset="images/materials/material_file@2x.png 2x"}
+![Material file](images/materials/material_file.png)
 
 新材质会在 *材质编辑器* 里打开.
 
-![Material editor](images/materials/material.png){srcset="images/materials/material@2x.png 2x"}
+![Material editor](images/materials/material.png)
 
 材质文件包含以下信息:
 
@@ -162,7 +162,7 @@ go.set("#sprite", "m", vmath.matrix4())
 
 Sprite, tilemap, GUI 和 particle effect 组件自动获得 `sampler2D` 集. 着色程序里第一个声明的 `sampler2D` 与可视组件所引用的图片自动绑定. 也就是说这些组件不用特地指定材质文件. 而且目前这些组件只支持一个纹理. (如需在着色器中使用多纹理, 可以使用 [`render.enable_texture()`](/ref/render/#render.enable_texture) 在渲染脚本中手动设置采样器.)
 
-![Sprite sampler](images/materials/sprite_sampler.png){srcset="images/materials/sprite_sampler@2x.png 2x"}
+![Sprite sampler](images/materials/sprite_sampler.png)
 
 ```glsl
 -- mysprite.fp
@@ -176,11 +176,11 @@ void main()
 
 在材质文件中添加取样器名就指定了一个采样器. 要是材质文件里没有指定, 会使用项目全局设置里的 *graphics* 设置.
 
-![Sampler settings](images/materials/my_sampler.png){srcset="images/materials/my_sampler@2x.png 2x"}
+![Sampler settings](images/materials/my_sampler.png)
 
 对于3D模型组件, 还要在材质文件里设置采样器属性. 之后编辑器会让你选择使用该材质的3D模型纹理:
 
-![Model samplers](images/materials/model_samplers.png){srcset="images/materials/model_samplers@2x.png 2x"}
+![Model samplers](images/materials/model_samplers.png)
 
 ```glsl
 -- mymodel.fp
@@ -195,7 +195,7 @@ void main()
 }
 ```
 
-![Model](images/materials/model.png){srcset="images/materials/model@2x.png 2x"}
+![Model](images/materials/model.png)
 
 ## 采样器设置
 

@@ -24,7 +24,7 @@ Clipping Inverted
 
 Then add the node(s) you want to be clipped as children to the clipping node.
 
-![Create clipping](images/gui-clipping/create.png){srcset="images/gui-clipping/create@2x.png 2x"}
+![Create clipping](images/gui-clipping/create.png)
 
 ## Stencil mask
 
@@ -34,7 +34,7 @@ Clipping works by having nodes writing to a *stencil buffer*. This buffer contai
 - If a clipping node has a clipper parent it will instead clip the parent's clipping mask. A clipping child node can never _extend_ the current clipping mask, only clip it further.
 - Non clipper nodes that are children to clippers will be rendered with the clipping mask created by the parent hierarchy.
 
-![Clipping hierarchy](images/gui-clipping/setup.png){srcset="images/gui-clipping/setup@2x.png 2x"}
+![Clipping hierarchy](images/gui-clipping/setup.png)
 
 Here, three nodes are set up in a hierarchy:
 
@@ -44,7 +44,7 @@ Here, three nodes are set up in a hierarchy:
 
 Four combinations of normal and inverted clippers are possible for this hierarchy. The green area marks the part of the circle that is rendered. The rest is masked:
 
-![Stencil masks](images/gui-clipping/modes.png){srcset="images/gui-clipping/modes@2x.png 2x"}
+![Stencil masks](images/gui-clipping/modes.png)
 
 ## Stencil limitations
 
@@ -63,7 +63,7 @@ Layers can be used to control rendering order (and batching) of nodes. When usin
 A clipping node and its hierarchy will be drawn first if it has a layer assigned and in the regular order if no layer is assigned.
 :::
 
-![Layers and clipping](images/gui-clipping/layers.png){srcset="images/gui-clipping/layers@2x.png 2x"}
+![Layers and clipping](images/gui-clipping/layers.png)
 
 In this example, both the clipper nodes "Donut BG" and "BG" are using the same layer 1. The render order between them will be according to the same order in the hierarchy where "Donut BG" is rendered before "BG". However, the child node "Donut Shadow" is assigned to the layer 2 which has a higher layer order and thus will be rendered after the both clipping nodes. In this case, the render order will be:
 

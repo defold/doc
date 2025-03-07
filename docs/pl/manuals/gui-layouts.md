@@ -26,12 +26,12 @@ Height
 Device Models
 : Lista modeli urządzeń oddzielonych przecinkami. Nazwa modelu urządzenia pasuje do początku nazwy modelu urządzenia. Przykład: `iPhone10` pasuje do modeli "iPhone10,\*". Nazwy modeli z przecinkami powinny być umieszczone w cudzysłowie, np. `"iPhone10,3", "iPhone10,6"` pasuje do modeli iPhone X (https://www.theiphonewiki.com/wiki/Models). Należy zauważyć, że tylko platformy Android i iOS raportują nazwę modelu urządzenia podczas wywoływania funkcji `sys.get_sys_info`. Inne platformy zwracają pusty ciąg znaków i dlatego nigdy nie wybiorą profilu wyświetlania z kwalifikatorem modelu urządzenia.
 
-![New display profiles](images/gui-layouts/new_profiles.png){srcset="images/gui-layouts/new_profiles@2x.png 2x"}
+![New display profiles](images/gui-layouts/new_profiles.png)
 
 Należy również określić, że silnik powinien używać nowych profili. Otwórz *game.project* i wybierz plik z profilami wyświetlania w ustawieniach *Display Profiles* w sekcji *display*.
 
 
-![Settings](images/gui-layouts/settings.png){srcset="images/gui-layouts/settings@2x.png 2x"}
+![Settings](images/gui-layouts/settings.png)
 
 Jeśli chcesz, aby silnik automatycznie przełączał się między układami w orientacji pionowej i poziomej po obróceniu urządzenia, zaznacz opcję *Dynamic Orientation*. Silnik będzie dynamicznie wybierać pasujący układ i zmieniać wybór w razie zmiany orientacji urządzenia.
 
@@ -39,17 +39,17 @@ Jeśli chcesz, aby silnik automatycznie przełączał się między układami w o
 
 Obecny zestaw profili wyświetlania można wykorzystać do tworzenia wariantów układów (layouts) węzłów interfejsu. Aby dodać nowy układ do sceny interfejsu, kliknij prawym przyciskiem myszy na ikonie *Layouts* w widoku *Outline* i wybierz <kbd>Add ▸ Layout ▸ ...</kbd>.
 
-![Add layout to scene](images/gui-layouts/add_layout.png){srcset="images/gui-layouts/add_layout@2x.png 2x"}
+![Add layout to scene](images/gui-layouts/add_layout.png)
 
 Podczas edycji sceny interfejsu wszystkie węzły są edytowane w określonym układzie. Obecnie wybrany układ jest widoczny w rozwijanym menu układu sceny interfejsu w pasku narzędziowym. Jeśli nie wybrano żadnego układu, węzły są edytowane w układzie *Default*.
 
-![Layouts toolbar](images/gui-layouts/toolbar.png){srcset="images/gui-layouts/toolbar@2x.png 2x"}
+![Layouts toolbar](images/gui-layouts/toolbar.png)
 
-![portrait edit](images/gui-layouts/portrait.png){srcset="images/gui-layouts/portrait@2x.png 2x"}
+![portrait edit](images/gui-layouts/portrait.png)
 
 Każda zmiana właściwości węzła dokonana z wybranym układem, nadpisuje właściwość w odniesieniu do układu *Default*. Właściwości, które zostały nadpisane, są oznaczone kolorem niebieskim. Węzły z nadpisanymi właściwościami również są oznaczone kolorem niebieskim. Możesz kliknąć przycisk resetowania obok dowolnej nadpisanej właściwości, aby przywrócić ją do pierwotnej wartości.
 
-![landscape edit](images/gui-layouts/landscape.png){srcset="images/gui-layouts/landscape@2x.png 2x"}
+![landscape edit](images/gui-layouts/landscape.png)
 
 Układ nie może usuwać ani tworzyć nowych węzłów, może jedynie nadpisywać właściwości. Jeśli chcesz usunąć węzeł z układu, możesz albo przenieść węzeł poza obszar ekranu, albo usunąć go za pomocą logiki skryptu. Należy także zwrócić uwagę na obecnie wybrany układ. Jeśli dodasz układ do projektu, nowy układ będzie konfigurowany zgodnie z aktualnie wybranym układem. Kopiowanie i wklejanie węzłów uwzględnia obecnie wybrany układ zarówno podczas kopiowania, jak i podczas wklejania.
 

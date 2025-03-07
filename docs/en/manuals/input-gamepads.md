@@ -107,7 +107,7 @@ end
 ## Gamepads settings file
 Gamepad input setup uses a separate mapping file for each hardware gamepad type. Gamepad mappings for specific hardware gamepads are set in a *gamepads* file. Defold ships with a built-in gamepads file with settings for common gamepads:
 
-![Gamepad settings](images/input/gamepads.png){srcset="images/input/gamepads@2x.png 2x"}
+![Gamepad settings](images/input/gamepads.png)
 
 If you need to create a new gamepad settings file, we have a simple tool to help:
 
@@ -121,7 +121,7 @@ It includes binaries for Windows, Linux and macOS. Run it from the command line:
 
 The tool will ask you to press different buttons on your connected controller. It will then output a new gamepads file with correct mappings for your controller. Save the new file, or merge it with your existing gamepads file, then update the setting in *game.project*:
 
-![Gamepad settings](images/input/gamepad_setting.png){srcset="images/input/gamepad_setting@2x.png 2x"}
+![Gamepad settings](images/input/gamepad_setting.png)
 
 ### Unidentified gamepads
 (From Defold 1.2.186)

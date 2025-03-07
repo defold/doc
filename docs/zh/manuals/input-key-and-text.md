@@ -47,7 +47,7 @@ end
 ## Marked text
 `marked-text` 一般用于亚洲键盘可把多个按键事件合为一个输入事件. 比如说, iOS 里的 "Japanese-Kana" 键盘, 用户输入多个键时键盘上方就会显示出可供输入的文字或字符串.
 
-![Input marked text](images/input/marked_text.png){srcset="images/input/marked_text@2x.png 2x"}
+![Input marked text](images/input/marked_text.png)
 
 - 每个键被按下时触发事件, 动作 `text` 为目前已经输入了的字符串 (星号标记文本).
 - 用户选择了要提交的文字时, 一个 `text` 类型动作被触发 (证明当前触发器配置正确). 而这个动作的 `text` 项保存了用户最终提交的文字.

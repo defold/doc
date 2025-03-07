@@ -11,7 +11,7 @@ Defold поддерживает особый тип GUI-ноды, позволя
 
 Шрифты, которые планируется использовать в GUI-нодах Text, должны быть добавлены в компонент GUI. Кликните ПКМ на папке *Fonts*, используйте контекстное меню <kbd>GUI</kbd> или нажмите соответствующее клавиатурное сокращение.
 
-![Fonts](images/gui-text/fonts.png){srcset="images/gui-text/fonts@2x.png 2x"}
+![Fonts](images/gui-text/fonts.png)
 
 Нода Text обладает набором специфических свойств:
 
@@ -37,7 +37,7 @@ Defold поддерживает особый тип GUI-ноды, позволя
 *Right*
 : Если пивот установлен в один из режимов `East`, текст выравнивается по правому краю.
 
-![Text alignment](images/gui-text/align.png){srcset="images/gui-text/align@2x.png 2x"}
+![Text alignment](images/gui-text/align.png)
 
 ## Воздействие на ноду Text в рантайме
 

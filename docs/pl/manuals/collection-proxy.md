@@ -17,7 +17,7 @@ Pełnomocnicy kolekcji różnią się od [fabryk kolekcji](/manuals/collection-f
 
 2. Ustaw właściwość *Collection* do pliku kolekcji, którą chcesz przez danego pełnomocnika dynamicznie wczytywać w trakcie działania programu. Referencja do tego pliku jest statyczna, więc upewnij się, że wszystkie potrzebne w kolekcji zasoby będą znajdować się w ostatcznej wersji Twojej gry.
 
-![add proxy component](images/collection-proxy/create_proxy.png){srcset="images/collection-proxy/create_proxy@2x.png 2x"}
+![add proxy component](images/collection-proxy/create_proxy.png)
 
 (Możesz wyłączyć część zawartości Twojej gry ze zbudowanej aplikacji, a potem ściągnąć ją dynamicznie zaznaczając opcję *Exclude* i używając funkcjonalności [Live update](/manuals/live-update/).)
 
@@ -25,13 +25,13 @@ Pełnomocnicy kolekcji różnią się od [fabryk kolekcji](/manuals/collection-f
 
 Podczas startu aplikacji silnik Defold wczytuje i tworzy instancje wszystkich obiektów gry z głównej kolekcji (*bootstrap collection*). Następnie inicjalizuje i aktywuje te obiekty i ich komponenty. Można określić, która z kolekcji jest kolekcją startową w [ustawieniach projektu](/manuals/project-settings/#main-collection). Domyślnie i zgodnie z konwencją kolekcja ta nazwana jest "main.collection" (z ang. główna.kolekcja).
 
-![bootstrap](images/collection-proxy/bootstrap.png){srcset="images/collection-proxy/bootstrap@2x.png 2x"}
+![bootstrap](images/collection-proxy/bootstrap.png)
 
 Dla obiektów gry i ich komponentów silnik Defold alokuje pamięć potrzebną do stworzenia całego "świata gry", w którym instancje obiektów z głównej kolekcji są tworzone. Tworzony jest również osobny świat fizyki do obsługi kolizji i symulacji fizyki.
 
 Ponieważ komponenty typu skrypt muszą być w stanie adresować każdy obiekt w grze, nawet z innej kolekcji, każdy otrzymuje unikalne imię - takie jakie określisz we właściwości *Name* w pliku kolekcji:
 
-![bootstrap](images/collection-proxy/collection_id.png){srcset="images/collection-proxy/collection_id@2x.png 2x"}
+![bootstrap](images/collection-proxy/collection_id.png)
 
 Jeśli kolekcja, która jest załadowana posiada komponenty typu Pełnomocnik kolekcji, kolekcje do których te komponenty się odnoszą *NIE* są wtedy wczytywane automatycznie. Musisz jawnie kontrolować wczytywanie zasobów tych kolekcji w kodzie.
 
@@ -44,7 +44,7 @@ Dynamiczne wczytywanie kolekcji przez Pełnomocnika kolekcji jest osiągane prze
 msg.post("#myproxy", "load")
 ```
 
-![load](images/collection-proxy/proxy_load.png){srcset="images/collection-proxy/proxy_load@2x.png 2x"}
+![load](images/collection-proxy/proxy_load.png)
 
 Pełnomocnik kolekcji nakaże silnikowi zaalokować pamięć na nowy świat gry, jak i również świat fizyki. Następnie światy mogą być utworzone, a w nich instancje wszystkich obiektów danej kolekcji "mylevel.collection".
 
@@ -90,7 +90,7 @@ Właściwość *Name* ustawiona w pliku kolekcji jest używana do adresowania ka
 msg.post("main:/loader#script", "load_level", { level_id = 2 })
 ```
 
-![load](images/collection-proxy/message_passing.png){srcset="images/collection-proxy/message_passing@2x.png 2x"}
+![load](images/collection-proxy/message_passing.png)
 
 ## Zwalnianie pamięci po świecie gry
 
