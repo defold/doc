@@ -61,17 +61,17 @@ The title of the application.
 The version of the application.
 
 #### Write Log
-When checked, the engine will write a log file. If running more than one instance from the editor the file will be named *instance_2_log.txt* with `2` being the instance index. If running a single instance or from a bundle the file will be named *log.txt* The location of the log file will be one of the following paths (tested in order):
+When checked, the engine will write a log file. If running more than one instance from the editor the file will be named *instance_2_log.txt* with `2` being the instance index. If running a single instance or from a bundle the file will be named *log.txt* The location of the log file will be one of the following paths (tried in order):
 
-1. The path specified in *project.log_dir*
+1. The path specified in *project.log_dir* (hidden setting)
 2. The system log path:
   * macOS/iOS: `NSDocumentDirectory`
-  * Android: `getExternalFilesDir()`
+  * Android: `Context.getExternalFilesDir()`
   * Others: Application root
 3. The application support path
   * macOS/iOS: `NSApplicationSupportDirectory`
   * Windows: `CSIDL_APPDATA` (eg C:\Users\<username>\AppData\Roaming)
-  * Android: `getFilesDir()`
+  * Android: `Context.getFilesDir()`
   * Linux: `HOME` environment variable
 
 #### Minimum Log Level
