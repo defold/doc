@@ -34,7 +34,7 @@ Defold contains a built-in *Tilemap* component that is perfect for visualizing t
 
 But before you create the tilemap, you need a *Tilesource* that the tilemap will pull its tile images from.
 
-<kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Source</kbd>. Name the new file "monalisa.tilesource".
+<kbd>Right click</kbd> the *main* folder and select <kbd>New ▸ Tile Source</kbd>. Name the new file `monalisa.tilesource`.
 
 Set the tile *Width* and *Height* properties to 128. This will split the 512⨉512 pixel image into 16 tiles. The tiles will be numbered 1--16 when you put them on the tilemap.
 

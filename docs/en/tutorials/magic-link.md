@@ -106,8 +106,8 @@ There are a set of GUI images that are used to create GUI elements, like buttons
 
 The first step is to build the board logic. The board will reside in its own collection that will contain everything on screen during gameplay. For now, the only thing necessary is the "blockfactory" factory component and the script. Later, we will add a factory for connections, a main menu GUI components and finally loading mechanics to start gameplay from the main menu and a way to exit to the menu.
 
-1. Create *board.collection* in the *main* folder. Make sure to name it "board" so we can address it later. If you add the background sprite component, make sure to set its Z position to -1, or it won't be drawn behind all the blocks we'll spawn later.
-2. Temporarily set *Main Collection* (under *Bootstrap*) in *game.project* to "/main/board.collection" so we can easily test.
+1. Create *`board.collection`* in the *`main`* folder. Make sure to name it "board" so we can address it later. If you add the background sprite component, make sure to set its Z position to -1, or it won't be drawn behind all the blocks we'll spawn later.
+2. Temporarily set *Main Collection* (under *Bootstrap*) in *game.project* to `/main/board.collection` so we can easily test.
 
 ![Board collection](images/magic-link/linker_board_collection.png)
 
@@ -208,7 +208,7 @@ end
 ```
 1. Note that since the block graphics overlap, we need to draw them in the correct order. This is done by setting the z coordinate for each block. The value will stay well above -1 where we have the background sprite.
 
-The board logic spawns "block" game objects through the "blockfactory" factory component. We need to build the block game object for this to work. The block has a script and a sprite. We set the sprite's default animation to any of the colored blocks in *sprites.atlas*, then add code to *block.script* to make the block assume the right color when spawned:
+The board logic spawns "`block`" game objects through the "`blockfactory`" factory component. We need to build the block game object for this to work. The block has a script and a sprite. We set the sprite's default animation to any of the colored blocks in *`sprites.atlas`*, then add code to *`block.script`* to make the block assume the right color when spawned:
 
 ![Block game object](images/magic-link/linker_block.png)
 
@@ -511,13 +511,13 @@ function on_input(self, action_id, action)
 
 ## Magic block logic
 
-Now it's time to add the magic blocks to the mix. First of all, let's add the ability for a block to become a magic block. That way we can just do a separate path on the filled board and convert the blocks we want into magic ones. To spice the magic blocks up a bit, let's create an animated magic effect first in the form of a game object *magic_fx.go* that we can spawn from the magic block.
+Now it's time to add the magic blocks to the mix. First of all, let's add the ability for a block to become a magic block. That way we can just do a separate path on the filled board and convert the blocks we want into magic ones. To spice the magic blocks up a bit, let's create an animated magic effect first in the form of a game object *`magic_fx.go`* that we can spawn from the magic block.
 
 ![Magic_fx.go](images/magic-link/linker_magic_fx.png)
 
-This game object contains two sprites. One is the "magic" color (a sprite using the *magic-sphere_layer2.png* image) and the other is a "light" effect (a sprite using the *magic-sphere_layer3.png* image). The object is set to rotate when the object spawns, depending on the value of property "direction". We also make the object listen to two messages: "lights_on" and "lights_off" that control the light effect sprite.
+This game object contains two sprites. One is the "magic" color (a sprite using the *`magic-sphere_layer2.png`* image) and the other is a "light" effect (a sprite using the *`magic-sphere_layer3.png`* image). The object is set to rotate when the object spawns, depending on the value of property `direction`. We also make the object listen to two messages: `lights_on` and `lights_off` that control the light effect sprite.
 
-Create a new script and add it as a script component to "magic_fx.go":
+Create a new script and add it as a script component to *`magic_fx.go`*:
 
 ```lua
 -- magic_fx.script
@@ -543,11 +543,11 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Now, the magic block will spawn two "magic_fx" game objects upon message "make_magic". Each will rotate in opposite direction creating a nice color dance inside the blocks. We also add an additional sprite to *block.go* with the image *magic-sphere_layer4.png*. This image is put at a Z higher than the spawned effect and draw the shell or "cover" of the magic sphere.
+Now, the magic block will spawn two `magic_fx` game objects upon message `make_magic`. Each will rotate in opposite direction creating a nice color dance inside the blocks. We also add an additional sprite to *`block.go`* with the image *`magic-sphere_layer4.png`*. This image is put at a Z higher than the spawned effect and draw the shell or "cover" of the magic sphere.
 
 ![Cover sprite](images/magic-link/linker_cover.png)
 
-Note that we must add a *Factory* component to the block game object and tell it to use our *magic_fx.go* game object as *Prototype*. The block script need also to listen to messages `lights_on` and `lights_off` and propagate them down to the spawned objects. Note that the spawned objects need to be deleted when the block is deleted. This is taken care of in the block's `final()` function. All this happens in *block.script*.
+Note that we must add a *Factory* component to the block game object and tell it to use our *`magic_fx.go`* game object as *Prototype*. The block script need also to listen to messages `lights_on` and `lights_off` and propagate them down to the spawned objects. Note that the spawned objects need to be deleted when the block is deleted. This is taken care of in the block's `final()` function. All this happens in *`block.script`*.
 
 ```lua
 -- block.script
@@ -1045,7 +1045,7 @@ In our case we set the *Collection* property of the collection proxy component t
 
 ![main collection](images/magic-link/linker_main_collection.png)
 
-We should now open *game.project* and change the bootstrap *main_collection* to "/main/main.collectionc".
+We should now open *game.project* and change the bootstrap *main_collection* to `/main/main.collectionc`.
 
 ![bootstrap main collection](images/magic-link/linker_bootstrap_main.png)
 
