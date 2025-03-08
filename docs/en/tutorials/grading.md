@@ -268,7 +268,7 @@ Here `B` is the blue component value between 0 and 1 and `N` is the total number
 
 For example, the RGB value `(0.63, 0.83, 0.4)` is found in the cell containing all the colors with a blue value of `0.4`, which is cell number 6. Knowing that, the lookup of the final texture coordinates based on the green and red values is straightforward:
 
-![lut lookup](images/grading/lut_lookup.png)
+![lookup table](images/grading/lut_lookup.png)
 
 Note that we need to treat red and green values `(0, 0)` as being in the *center* of the bottom left pixel and the values `(1.0, 1.0)` as being in the *center* of the top right pixel.
 
@@ -278,7 +278,7 @@ The reason we read starting at the center of the lower left pixel and up to the 
 
 When sampling at these specific coordinates on the texture we see that we end up right between 4 pixels. So what color value will GL tell us that point has?
 
-![lut filtering](images/grading/lut_filtering.png)
+![lookup table filtering](images/grading/lut_filtering.png)
 
 The answer depends on how we have specified the sampler's *filtering* in the material.
 
@@ -296,15 +296,15 @@ Let's implement the texture lookup in the fragment shader:
 2. Add a second sampler called "lut" (for lookup table).
 3. Set the *Filter min* property to `FILTER_MODE_MIN_LINEAR` and the *Filter mag* property to `FILTER_MODE_MAG_LINEAR`.
 
-    ![lut sampler](images/grading/material_lut_sampler.png)
+    ![lookup table sampler](images/grading/material_lut_sampler.png)
 
 4. Download the following lookup table texture (*lut16.png*) and add it to your project.
 
-    ![16 colors lut lookup table](images/grading/lut16.png)
+    ![16 colors lookup table](images/grading/lut16.png)
 
 5. Open *main.collection* and set the *lut* texture property to the downloaded lookup texture.
 
-    ![quad model lut](images/grading/quad_lut.png)
+    ![quad model lookup table](images/grading/quad_lut.png)
 
 6. Finally, open *grade.fp* so we can add support for color lookup:
 
@@ -431,6 +431,7 @@ void main()
     gl_FragColor = graded_color;
 }
 ```
+
 1. Calculate the two adjacent cells to read from.
 2. Calculate two separate lookup positions, one for each cell.
 3. Sample the two colors from the cell positions.
@@ -448,7 +449,7 @@ Okay, that was a lot of work to draw something that looks exactly like the origi
 2. Open the screenshot in your favorite image manipulation program.
 3. Apply any number of color adjustments (brightness, contrast, color curves, white balance, exposure etc, etc).
 
-    ![world in Affinity](images/grading/world_graded_affinity.png)
+![world in Affinity](images/grading/world_graded_affinity.png)
 
 4. Apply the same color adjustments to the lookup table texture file (*lut16.png*).
 5. Save the color adjusted lookup table texture file.

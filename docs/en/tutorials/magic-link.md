@@ -293,7 +293,7 @@ Now, the blocks will be sprayed with first one `make_orange` message, then `make
 
 Now we need  assets for the marker that will be used to indicate when the blocks are linked by the player. The idea is to simply overlay a graphic on each block to show that it is linked.
 
-We need to create a "connector" game object, that holds the connector sprite image as well as a "connectorfactory" factory component in the "board" game object:
+We need to create a "connector" game object, that holds the connector sprite image as well as a "connector factory" factory component in the "board" game object:
 
 ![Connector game object](images/magic-link/linker_connector.png)
 

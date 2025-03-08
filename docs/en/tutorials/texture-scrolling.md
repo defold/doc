@@ -62,7 +62,7 @@ void main()
 }
 ```
 
-The model supplies the attribute `texcoord0` which is our texture UV coordinates. We declare our vec4 uniform named animation_time and we also have two vec2 varying texcoords 0 and 1 which we pass these to the fragment program after we assign them the attribute UV coords `texcoord0` in `void main()`. As you can see `var_texcoord1` is different because this one we are offsetting before it is sent to the fragment program. Assign a vec2 so that we can `animation_time` to the x and y separately if we want. In this case we only take `texcoord0.x` and subtract our constant `animation_time.x` which when animated will offset in the negative U axis (horizontal left), we set `texcoord0.y` to keep its attribute position. EZ PZ!
+The model supplies the attribute `texcoord0` which is our texture UV coordinates. We declare our vec4 uniform named animation_time and we also have two vec2 varying texcoords 0 and 1 which we pass to the fragment program after we assign them the attribute UV coordinates `texcoord0` in `void main()`. As you can see `var_texcoord1` is different because this one we are offsetting before it is sent to the fragment program. Assign a vec2 so that we can `animation_time` to the x and y separately if we want. In this case we only take `texcoord0.x` and subtract our constant `animation_time.x` which when animated will offset in the negative U axis (horizontal left), we set `texcoord0.y` to keep its attribute position. EZ PZ!
 
 
 ```glsl

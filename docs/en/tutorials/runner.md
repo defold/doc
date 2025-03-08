@@ -194,7 +194,7 @@ end
 7. Update the object's position with the new speed.
 
 ::: sidenote
-Defold is a fast engine core that manages your data and game objects. Any logic or behavior that you need for your game is created in the Lua language. Lua is a fast and light-weight programming language that is great for writing game logic. There are great resources available to learn the language, like the book http://www.lua.org/pil/[Programming in Lua] and the official http://www.lua.org/manual/5.3/[Lua reference manual].
+Defold is a fast engine core that manages your data and game objects. Any logic or behavior that you need for your game is created in the Lua language. Lua is a fast and light-weight programming language that is great for writing game logic. There are great resources available to learn the language, like the book [Programming in Lua](http://www.lua.org/pil/) and the official [Lua reference manual](http://www.lua.org/manual/5.3/).
 
 Defold adds a set of APIs on top of Lua, as well as a _message passing_ system that allows you to program communications between game objects. See the [Message passing manual](/manuals/message-passing) for details on how this works.
 :::
