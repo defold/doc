@@ -134,7 +134,7 @@ msg.post("@render:", "use_camera_projection")
 
 ### Render script
 
-Starting with Defold 1.9.6, when using the default render script Defold will automatically set the last enabled camera that should be used for rendering. Before this change, a script somewhere in the project needed to explicitly send the `use_camera_projection` message to the renderer to notify it that the view and projection from camera components should be used. This is no longer necesessary, but it is still possible to do so for backwards compatability purposes.
+Starting with Defold 1.9.6, when using the default render script Defold will automatically set the last enabled camera that should be used for rendering. Before this change, a script somewhere in the project needed to explicitly send the `use_camera_projection` message to the renderer to notify it that the view and projection from camera components should be used. This is no longer necessary, but it is still possible to do so for backwards compatibility purposes.
 
 Alternatively, you can set a specific camera that should be used for rendering in a render script. This could be useful in cases where you need to control more specifically which camera should be used for rendering, for example in a multiplayer game.
 

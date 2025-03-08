@@ -4,7 +4,7 @@ brief: Document described available Docker images and Defold versions that used 
 ---
 
 # Available Docker images
-Below is the list of all avaialble Docker images in public Registry. The images can be used to run Extender in environment with old SDKs that are no longer supported.
+Below is the list of all available Docker images in public Registry. The images can be used to run Extender in environment with old SDKs that are no longer supported.
 
 |SDK               |Image tag                                                                                              |Platform name (in Extender's config) |Defold version that used image |
 |------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------|-------------------------------|

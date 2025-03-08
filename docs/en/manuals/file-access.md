@@ -125,7 +125,7 @@ For security reasons browsers (and by extension any JavaScript running in a brow
 
 
 ### System file access
-Access to system files may be restricted by the operating system for security reasons. You can use the [`extension-directiories`](https://defold.com/assets/extensiondirectories/) native extension to get the absolute path to some common system directories (ie documents, resource, temp). Once you have the absolute path of these files you can use the `io.*` and `os.*` functions to access the files (see above).
+Access to system files may be restricted by the operating system for security reasons. You can use the [`extension-directories`](https://defold.com/assets/extensiondirectories/) native extension to get the absolute path to some common system directories (ie documents, resource, temp). Once you have the absolute path of these files you can use the `io.*` and `os.*` functions to access the files (see above).
 
 ::: sidenote
 For security reasons browsers (and by extension any JavaScript running in a browser) is prevented from accessing system files. File operations in HTML5 builds in Defold still work, but only on a "virtual file system" using the IndexedDB API in the browser. What this means is that there is no way to access system files in HTML5 builds.

@@ -244,7 +244,7 @@ function update(self, dt)
     go.set("#model", "time", vmath.vector4(self.t, 0, 0, 0)) -- <3>
 end
 ```
-1. Store a value `t` in the script component (`self`) and intialize to 0.
+1. Store a value `t` in the script component (`self`) and initialize to 0.
 2. Each frame increase the value of `self.t` with the number of seconds that has passed since the last frame. This value is available through the parameter `dt` (delta time) and is 1/60 (`update()` is called 60 times a second).
 3. Set the "time" constant on the model component. The constant is a `vector4` so we use the `x`component for the time value.
 4. Finally, add *star-nest.script* as a script component to the "star-nest" game object:

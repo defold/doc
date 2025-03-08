@@ -44,7 +44,7 @@ Once you have the above mentioned software installed follow these steps to insta
    ```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
-    # set nesessary version of Extender and Manifest merge tool
+    # set necessary version of Extender and Manifest merge tool
     # versions can be found at Github release page https://github.com/defold/extender/releases
     # or you can pull latest version (see code sample below)
     EXTENDER_VERSION=2.6.5
@@ -86,7 +86,7 @@ where *profile* can be:
 * **nintendo** - runs frontend instance + remote instances to build Nintendo Switch version
 * **playstation** - runs frontend instance + remote instances to build PS4/PS5 versions
 * **metrics** - runs VictoriaMetrics + Grafana as metrics backend and tool for visualization
-For more information about `docker compose` argumets see https://docs.docker.com/reference/cli/docker/compose/.
+For more information about `docker compose` arguments see https://docs.docker.com/reference/cli/docker/compose/.
 
 When docker compose is up you can use **http://localhost:9000** as Build server address in Editor's preference or as `--build-server` value if you use Bob to build the project.
 

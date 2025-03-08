@@ -158,7 +158,7 @@ self.spawned_drone = factory.create("#dronefactory", drone_position, nil, { pare
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("drone_dead") then
-        self.spawed_drone = nil
+        self.spawned_drone = nil
     end
 end
 ```

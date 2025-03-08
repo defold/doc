@@ -218,7 +218,7 @@ function update(self)
 end
 ```
 
-## Compatability
+## Compatibility
 
 Defold currently supports compute shaders in the following graphics adapters:
 

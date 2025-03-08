@@ -243,7 +243,7 @@ That was a huge function! But don't worry, this is how it all works:
 4. Here, we add the calculated acceleration to the velocity.
 5. Finally, we update the position of the car based on our current velocity.
 6. We slerp the steering angle based on our left/right input. This is done so that the wheels don't snap instantly whenever the input changes.
-7. The rotation of the the wheels is then set based on the current steer angle of the car. Similarily, the rotation of the car is set based on the direction it is currently moving in.
+7. The rotation of the the wheels is then set based on the current steer angle of the car. Similarly, the rotation of the car is set based on the direction it is currently moving in.
 8. Finally, we reset the acceleration and input vectors.
 
 Finally, it is time to make our car react to input. Update the `on_input` function so it looks like this:

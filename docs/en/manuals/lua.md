@@ -445,7 +445,7 @@ end
 local foo = "value 1"
 foo_global = "value 2"
 
-print(foo) --> "value 1". 'foo' is avalable in the topmost scope after declaration.
+print(foo) --> "value 1". 'foo' is available in the topmost scope after declaration.
 ```
 
 Note that if you declare functions `local` in a script file (which is generally a good idea) you need to watch out how you order the code. You can use forward declarations if you have functions that mutually call each other.

@@ -169,7 +169,7 @@ if create_file then
 end
 ```
 Here is a list of built-in input components:
-- **`string_field`**, **`integer_field`** and **`number_field`** are variations of a single-line text field that allow editing strings, integeres, and numbers.
+- **`string_field`**, **`integer_field`** and **`number_field`** are variations of a single-line text field that allow editing strings, integers, and numbers.
 - **`select_box`** is used for selecting an option from predefined array of options with a dropdown control.
 - **`check_box`** is a boolean input field with `on_value_changed` callback
 - **`button`** with `on_press` callback that gets invoked on button press.
