@@ -78,7 +78,9 @@ The path mappings are stored in the <project>.iml file in the Android Studio pro
 
 It's possible to get the job folder from the executable
 
-	$ arm-linux-androideabi-readelf --string-dump=.debug_str build/armv7-android/libdmengine.so | grep /job
+```sh
+$ arm-linux-androideabi-readelf --string-dump=.debug_str build/armv7-android/libdmengine.so | grep /job
+```
 
 The jobfolder is named like so `job1298751322870374150`, each time with a random number.
 
