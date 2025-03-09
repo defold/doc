@@ -10,7 +10,7 @@ matrix:
   pipeline:
   - pyspelling.filters.markdown:
       markdown_extensions:
-      - md4mathjax
+      - pymdownx.arithmatex
       - pymdownx.superfences
   - pyspelling.filters.html:
       comments: false
