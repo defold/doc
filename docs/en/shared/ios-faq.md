@@ -4,9 +4,13 @@ A: Make sure that you are using the same bundle identifier in your Defold projec
 #### Q: How can I check the entitlements of a bundled application?
 A: From [Inspect the entitlements of a built app](https://developer.apple.com/library/archive/technotes/tn2415/_index.html#//apple_ref/doc/uid/DTS40016427-CH1-APPENTITLEMENTS):
 
-> $ codesign -d --ent :- /path/to/the.app
+```sh
+codesign -d --ent :- /path/to/the.app
+```
 
 #### Q: How can I check the entitlements of a provisioning profile
 A: From [Inspecting a profile's entitlements](https://developer.apple.com/library/archive/technotes/tn2415/_index.html#//apple_ref/doc/uid/DTS40016427-CH1-PROFILESENTITLEMENTS):
 
-> $ security cms -D -i /path/to/iOSTeamProfile.mobileprovision
+```sh
+security cms -D -i /path/to/iOSTeamProfile.mobileprovision
+```

@@ -222,8 +222,8 @@ The App Store icon does not have to be referenced from *game.project*. It is aut
 The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use one of the following tools:
 
 * Xcode via the "Devices and Simulators" window
-* [ios-deploy](https://github.com/ios-control/ios-deploy) command line tool
-* [Apple Configurator 2](https://apps.apple.com/us/app/apple-configurator-2/) from the macOS App Store
+* [`ios-deploy`](https://github.com/ios-control/ios-deploy) command line tool
+* [`Apple Configurator 2`](https://apps.apple.com/us/app/apple-configurator-2/) from the macOS App Store
 * iTunes
 
 You can also use the `xcrun simctl` command line tool to work with the iOS simulators available via Xcode:

@@ -107,7 +107,7 @@ This example contains two path patterns and their corresponding profiles.
 `/**/*.atlas`
 : All *.atlas* files anywhere in the project will be process according to the profile "atlas".
 
-Note that the more generic path is put last. The matcher works top down. The first occurrence that matches the resource path will be used. A matching path expression further down the list never overrides the first match. Had the paths been put in the opposite order every atlas would have been processed with profile "atlas", even the ones in directory */gui*.
+Note that the more generic path is put last. The matching algorithm works top down. The first occurrence that matches the resource path will be used. A matching path expression further down the list never overrides the first match. Had the paths been put in the opposite order every atlas would have been processed with profile "atlas", even the ones in directory */gui*.
 
 Texture resources that _do not_ match any path in the profiles file will be compiled and rescaled to the closest power of 2, but will otherwise be left intact.
 

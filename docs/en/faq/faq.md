@@ -233,7 +233,7 @@ A: No. The only effect is precision. The z-buffer is logarithmic and have very f
 
 #### Q: There is no consistency to how angles are represented, why?
 
-A: Actually there is consistency. Angles are expressed as degrees everywhere in the editor and the game APIs. The math libs use radians. Currently the convention breaks for the `angular_velocity` physics property that is currently expressed as radians/s. That is expected to change.
+A: Actually there is consistency. Angles are expressed as degrees everywhere in the editor and the game APIs. The math libraries use radians. Currently the convention breaks for the `angular_velocity` physics property that is currently expressed as radians/s. That is expected to change.
 
 
 #### Q: When creating a GUI box-node with only color (no texture), how will it be rendered?
@@ -261,7 +261,7 @@ A: In general all resources are statically declared with the benefit that you ge
 A: No, it is currently not possible.
 
 
-#### Q: Is there any quick way to render the collision objects in my scene? (like Box2D's debugdraw)
+#### Q: Is there any quick way to render the collision objects in my scene? (like Box2D's debug draw)
 
 A: Yes, set *physics.debug* flag in *game.project*. (Refer to the official [Project settings documentation](/manuals/project-settings/#debug))
 
@@ -286,7 +286,7 @@ A: Each proxy loaded collection has their own input stack. Input is routed from 
 A: No. Defold supports properties of [hash](/ref/builtins#hash) types. These can be used to indicate types, state identifiers or keys of any kind. Hashes can also be used to store game object id's (paths) although [url](/ref/msg#msg.url) properties are often preferable since the editor automatically populate a drop-down with relevant URLs for you. See the [Script properties documentation](/manuals/script-properties) for details.
 
 
-#### Q: How do I access the individual cells of a matrix (created using [vmath.matrix4()](/ref/vmath/#vmath.matrix4:m1) or similar)?
+#### Q: How do I access the individual cells of a matrix (created using [`vmath.matrix4()`](/ref/vmath/#vmath.matrix4:m1) or similar)?
 
 A: You access the cells using `mymatrix.m11`, `mymatrix.m12`, `mymatrix.m21` etc
 
