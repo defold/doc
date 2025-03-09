@@ -101,7 +101,7 @@ end
 
 There are more than one ways of animating constant values, you can calculate delta time steps and update the constant with these values in the render script or a normal script if you wanted to. In this case we are only animating one shader and if you wanted a time step in several shaders calculating in an `update()` might be more ideal. However we will use `go.animate()` because we have a lot of functionality at our disposal. Using `go.animate()` we can animate just the x value of our constant using "animation_time.x". We also have duration, delay and easing to play with if we so choose. We can also set playback to loop or play once and cancel the animation if we needed to. These all come in very handy when animating our shaders.
 
-The `local animate` float 1.0 is our target value we are animating in "animation_time.x". In shaders for the most part we deal with normalized float values 0.0 to 1.0. Notice the default constant values in the material for our `animation_time` is (0,0,0,0) we are animating the first zero from 0.0 to 1.0. This means our offset UV coords will animate to the edge and then loop again over and over which is exactly what we want!
+The `local animate` float 1.0 is our target value we are animating in "animation_time.x". In shaders for the most part we deal with normalized float values 0.0 to 1.0. Notice the default constant values in the material for our `animation_time` is (0,0,0,0) we are animating the first zero from 0.0 to 1.0. This means our offset UV coordinates will animate to the edge and then loop again over and over which is exactly what we want!
 
 
 ## Next steps

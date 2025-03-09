@@ -13,7 +13,7 @@ Lua code stored in files with file ending ".lua" somewhere in your game project 
 
 ![new file](images/modules/new_name.png)
 
-Suppose the following code is added to the file "main/anim.lua":
+Suppose the following code is added to the file "`main/anim.lua`":
 
 ```lua
 function direction_animation(direction, char)

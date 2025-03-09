@@ -41,7 +41,7 @@ The available SDK functions are documented in our [API reference](/ref/dmExtensi
 * [Thread](/ref/dmThread/) - API for thread creation.
 * [Time](/ref/dmTime/) - API for universal time and timing functions.
 * [URI](/ref/dmURI/) - API for manipulation of URIs.
-* [Web Server](/ref/dmWebServer/) - API for a simple high-level single-threaded Web server based on dmHttpServer.
+* [Web Server](/ref/dmWebServer/) - API for a simple high-level single-threaded Web server based on `dmHttpServer`.
 * [Shared Library](/ref/sharedlibrary/) - Utility functions for shared library export/import.
 * [Sony vector Math Library](../assets/Vector_Math_Library-Overview.pdf) - The Sony Vector Math library mainly provides functions used in 3-D graphics for 3-D and 4-D vector operations, matrix operations, and quaternion operations.
 

@@ -62,7 +62,7 @@ Press <kbd>Create Bundle</kbd> when you have configured the application bundle s
 
 #### Installing an APK
 
-An *.apk* file can be copied to your device with the `adb` tool, or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
+An *`.apk`* file can be copied to your device with the `adb` tool, or to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/).
 
 :[Android ADB](../shared/android-adb.md)
 
@@ -75,7 +75,7 @@ Success
 
 #### Installing an APK using editor
 
-You can install and launch an *.apk* file using the editor's "Install on connected device" and "Launch installed app" check-boxes in the Bundle dialog:
+You can install and launch an *`.apk`* file using the editor's "Install on connected device" and "Launch installed app" check-boxes in the Bundle dialog:
 
 ![Install and Launch APK](images/android/install_and_launch.png)
 
@@ -83,7 +83,7 @@ For this feature to work, you will need ADB installed and *USB debugging* enable
 
 #### Installing an AAB
 
-An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *.apk* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
+An *.aab* file can be uploaded to Google Play via the [Google Play developer console](https://play.google.com/apps/publish/). It is also possible to generate an *`.apk`* file from an *.aab* file to install it locally using the [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
 ## Permissions
 

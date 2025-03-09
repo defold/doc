@@ -486,7 +486,7 @@ The bundle short name (15 characters) (see [`CFBundleName`](https://developer.ap
 The bundle version, either a number or x.y.z. (see [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-If specified, use this info.plist file when bundling your app.
+If specified, use this *`info.plist`* file when bundling your app.
 
 #### Privacy Manifest
 The Apple Privacy Manifest for the application. The field will default to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -543,7 +543,7 @@ If set, hides the navigation and status bars and lets your app capture all touch
 #### Debuggable
 Whether or not the application can be debugged using tools such as [GAPID](https://github.com/google/gapid) or [Android Studio](https://developer.android.com/studio/profile/android-profiler). This will set the `android:debuggable` flag in the Android manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### Extract Native Libs
+#### Extract Native Libariess
 Specifies whether the package installer extracts native libraries from the APK to the file system. If set to `false`, your native libraries are stored uncompressed in the APK. Although your APK might be larger, your application loads faster because the libraries load directly from the APK at runtime. This will set the `android:extractNativeLibs` flag in the Android Manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)). `true` by default.
 
 ---
@@ -563,7 +563,7 @@ The Apple Privacy Manifest for the application. The field will default to `/buil
 The bundle identifier lets macOS recognize updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters, the underscore or hyphen (-) character.
 
 #### Default Language
-The language used if the application doesn't have user's preferred language in `Localizations` list (see [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
+The language used if the application doesn't have user's preferred language in `Localizations` list (see [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
 
 #### Localizations
 This field contains comma-separated strings identifying the language name or ISO language designator of the supported localizations (see [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).

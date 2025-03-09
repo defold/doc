@@ -255,7 +255,7 @@ uniform fs_uniforms
 
 void main()
 {
-    // Pre-multiply alpha since all runtime textures already are
+    // Premultiply alpha since all runtime textures already are
     vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);
     color_out = texture(texture_sampler, var_texcoord0.xy) * tint_pm;
 }

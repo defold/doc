@@ -74,8 +74,8 @@ Using the [bundle_resources](https://defold.com/manuals/project-settings/#bundle
 You can control this per platform.
 
 The game assets are located in the `game.arcd` file, and they are individually compressed using LZ4 compression.
-Using the [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) setting, you can configure assets that should be placed (with compression) within the game.arcd.
-These assets can be accessed via the [sys.load_resource()](https://defold.com/ref/sys/#sys.load_resource) function.
+Using the [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) setting, you can configure assets that should be placed (with compression) within the `game.arcd`.
+These assets can be accessed via the [`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource) function.
 
 ## Release vs Debug
 

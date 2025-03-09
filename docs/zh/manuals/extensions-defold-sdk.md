@@ -41,7 +41,7 @@ Defold SDK 包含了应用运行的原生平台底层接口与高层Lua逻辑接
 * [Thread](/ref/dmThread/) - 线程创建功能.
 * [Time](/ref/dmTime/) - 时间与计时功能.
 * [URI](/ref/dmURI/) - URI管理功能.
-* [Web Server](/ref/dmWebServer/) - 基于dmHttpServer的高级单线程web服务器.
+* [Web Server](/ref/dmWebServer/) - 基于`dmHttpServer`的高级单线程web服务器.
 * [Shared Library](/ref/sharedlibrary/) - 共享库导入导出功能.
 * [Sony vector Math Library](../assets/Vector_Math_Library-Overview.pdf) - Sony 矢量计算库 主要为了3D图像和3D, 4D矢量运算, 矩阵运算和四元运算.
 

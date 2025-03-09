@@ -260,9 +260,9 @@ The resulting texture contains 16 cells (one for each blue color intensity) and 
 
 To look up a color is a matter of checking the blue component and figure out which cell to pick the red and green values from. The formula for finding the cell with the right red-green color set is simple:
 
-$$
+```math
 cell = \left \lfloor{B \times (N - 1)} \right \rfloor
-$$
+```
 
 Here `B` is the blue component value between 0 and 1 and `N` is the total number of cells. In our case the cell number will be in the range `0`--`15` where cell `0` contains all colors with the blue component at `0` and cell `15` all colors with the blue component at `1`.
 
@@ -367,41 +367,31 @@ To get better blue channel resolution, we can implement the interpolation oursel
 
 So, we should read from two cells:
 
-Inline $cell_{low} = \left \lfloor{B \times (N - 1)} \right \rfloor$
-
-$$cell_{low} = \left \lfloor{B \times (N - 1)} \right \rfloor$$
-
 ```math
 cell_{low} = \left \lfloor{B \times (N - 1)} \right \rfloor
 ```
 
-
-
-$$
-cell_{low} = \left \lfloor{B \times (N - 1)} \right \rfloor
-$$
-
 and:
 
-$$
+```math
 cell_{high} = \left \lceil{B \times (N - 1)} \right \rceil
-$$
+```
 
 Then we sample color values from each of these cells and interpolate the colors linearly, according to the formula:
 
-$$
+```math
 color = color_{low} \times (1 - C_{frac}) + color_{high} \times C_{frac}
-$$
+```
 
 Here `color`~low~ is the color sampled from the lower (leftmost) cell and `color`~high~ is the color sampled from the higher (rightmost) cell. The GLSL function `mix()` performs this linear interpolation for us.
 
 The value `C`~frac~ above is the fractional part of the blue channel value scaled to the `0`--`15` color range:
 
-$$
+```math
 C_{frac} = B \times (N - 1) - \left \lfloor{B \times (N - 1)} \right \rfloor
-$$
+```
 
-Again, there is a GLSL function that gives us the fractional part of a value. It's called `frac()`. The final implementation in the fragment shader (*grade.fp*) is quite straightforward:
+Again, there is a GLSL function that gives us the fractional part of a value. It's called `frac()`. The final implementation in the fragment shader (*`grade.fp`*) is quite straightforward:
 
 ```glsl
 varying mediump vec4 position;
@@ -463,7 +453,7 @@ Okay, that was a lot of work to draw something that looks exactly like the origi
 
 4. Apply the same color adjustments to the lookup table texture file (*`lut16.png`*).
 5. Save the color adjusted lookup table texture file.
-6. Replace the texture *lut16.png* used in your Defold project with the color adjusted one.
+6. Replace the texture *`lut16.png`* used in your Defold project with the color adjusted one.
 7. Run the game!
 
 ![world graded](images/grading/world_graded.png)

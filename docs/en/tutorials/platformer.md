@@ -219,7 +219,7 @@ local jump_takeoff_speed = 550
 -- time within a double tap must occur to be considered a jump (only used for mouse/touch controls)
 local touch_jump_timeout = 0.2
 
--- pre-hashing ids improves performance
+-- prehashing ids improves performance
 local msg_contact_point_response = hash("contact_point_response")
 local msg_animation_done = hash("animation_done")
 local group_obstacle = hash("obstacle")

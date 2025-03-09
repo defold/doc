@@ -118,7 +118,7 @@ The *profiles* section of the texture profiles file contains a list of named pro
 ![Profiles](images/texture_profiles/texture_profiles_profiles.png)
 
 *Platforms*
-: Specifies a matching platform. `OS_ID_GENERIC` matches all platforms including dev-app builds on device, `OS_ID_WINDOWS` matches Windows target bundles, `OS_ID_IOS` matches iOS bundles and so on. Note that if `OS_ID_GENERIC` is specified, it will be included for all platforms.
+: Specifies a matching platform. `OS_ID_GENERIC` matches all platforms, `OS_ID_WINDOWS` matches Windows target bundles, `OS_ID_IOS` matches iOS bundles and so on. Note that if `OS_ID_GENERIC` is specified, it will be included for all platforms.
 
 ::: important
 If two [path settings](#path-settings) matches the same file and the path uses different profiles with different platforms **both** profiles will be used and **two** texture will be generated.
@@ -130,7 +130,7 @@ If two [path settings](#path-settings) matches the same file and the path uses d
 *Mipmaps*
 : If checked, mipmaps are generated for the platform. Unchecked by default.
 
-*Pre-multiply alpha*
+*Premultiply alpha*
 : If checked, alpha is premultiplied into the texture data. Checked by default.
 
 *Max Texture Size*

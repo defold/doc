@@ -17,7 +17,7 @@ Make sure to adapt the game to the input methods of the platform. Consider addin
 Translate any text in the game. For release in Europe and Americas consider translating to at least EFIGS (English, French, Italian, German and Spanish). Make sure it is possible to easily swap between different languages in-game (via the pause menu).
 
 ::: important
-iOS only - Make sure you specify [Localizations](/manuals/project-settings/#localizations) in `game.project`, since sys.get_info() will never return language which isn’t in this list.
+iOS only - Make sure you specify [Localizations](/manuals/project-settings/#localizations) in `game.project`, since `sys.get_info()` will never return language which isn’t in this list.
 :::
 
 Translate the text on the store page as this will have a positive impact on sales! Some platforms require the text on the store page to be translated to the language of each country where the game is available.

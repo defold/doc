@@ -32,7 +32,7 @@ This allows the user to override the default behaviour of the engine and also ea
 
 ### The ext.manifest file
 
-Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libs and frameworks. If the *ext.manifest* file does not contain a "platforms" segment, or a platform is missing from the list, the platform you bundle for will still build, but without any extra flags set.
+Apart from the name of the extension, the manifest file can contain platform specific compile flags, link flags, libraries and frameworks. If the *ext.manifest* file does not contain a "platforms" segment, or a platform is missing from the list, the platform you bundle for will still build, but without any extra flags set.
 
 Here is an example:
 

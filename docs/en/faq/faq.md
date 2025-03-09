@@ -94,15 +94,15 @@ The Defold Foundation has previously been against adding C# support in Defold, b
 
 A: The following platforms are supported for the editor/tools and the engine runtime:
 
-  | System             | Version            | Architectures  | Supported            |
-  | ------------------ | ------------------ | -------------- | -------------------- |
-  | macOS              | 11 Big Sur         | x86-64, arm-64 | Editor and Engine    |
-  | Windows            | Vista              | x86-32, x86-64 | Editor and Engine    |
-  | Ubuntu (1)         | 18.04              | x86-64         | Editor               |
-  | Linux (2)          | Any                | x86-64         | Engine               |
-  | iOS                | 11.0               | arm-64         | Engine               |
-  | Android            | 4.4 (API level 19) | arm-32, arm-64 | Engine               |
-  | HTML5              |                    | asm.js, wasm   | Engine               |
+  | System             | Version            | Architectures      | Supported          |
+  | ------------------ | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor and Engine  |
+  | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine  |
+  | Ubuntu (1)         | 18.04              | `x86-64`           | Editor             |
+  | Linux (2)          | Any                | `x86-64`           |  Engine            |
+  | iOS                | 11.0               | `arm-64`           | Engine             |
+  | Android            | 4.4 (API level 19) | `arm-32`, `arm-64` | Engine             |
+  | HTML5              |                    | `asm.js`, `wasm`   | Engine             |
 
   (1 The editor is built and tested for 64-bit Ubuntu 18.04. It should work on other distributions as well but we give no guarantees.)
 

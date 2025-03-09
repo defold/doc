@@ -65,7 +65,7 @@ A clipping node and its hierarchy will be drawn first if it has a layer assigned
 
 ![Layers and clipping](images/gui-clipping/layers.png)
 
-In this example, both the clipper nodes "`Donut BG`" and "`BG`" are using the same layer 1. The render order between them will be according to the same order in the hierarchy where "`Donut BG`" is rendered before "`BG`". However, the child node "Donut Shadow" is assigned to the layer 2 which has a higher layer order and thus will be rendered after the both clipping nodes. In this case, the render order will be:
+In this example, both the clipper nodes "`Donut BG`" and "`BG`" are using the same layer 1. The render order between them will be according to the same order in the hierarchy where "`Donut BG`" is rendered before "`BG`". However, the child node "`Donut Shadow`" is assigned to the layer 2 which has a higher layer order and thus will be rendered after the both clipping nodes. In this case, the render order will be:
 
 - `Donut BG`
 - `BG`

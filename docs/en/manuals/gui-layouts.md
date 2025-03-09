@@ -52,7 +52,7 @@ A layout cannot delete or create new nodes, only override properties. If you nee
 
 ## Dynamic profile selection
 
-The dynamic layout matcher scores each display profile qualifier according to the following rules:
+The dynamic layout matching scores each display profile qualifier according to the following rules:
 
 1. If there is no device model set, or the device model matches, a score (S) is calculated for the qualifier.
 
@@ -93,4 +93,4 @@ function on_message(self, message_id, message)
 end
 ```
 
-When orientation is switched, the GUI layout manager will automatically rescale and reposition GUI nodes according to your layout and node properties. In-game content, however, is rendered in a separate pass (by default) with a stretch-fit projection into the current window. To change this behavior, either supply your own modified render script, or use a camera [library](/assets/).
+When orientation is switched, the GUI layout manager will automatically scale and reposition GUI nodes according to your layout and node properties. In-game content, however, is rendered in a separate pass (by default) with a stretch-fit projection into the current window. To change this behavior, either supply your own modified render script, or use a camera [library](/assets/).
