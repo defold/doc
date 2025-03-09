@@ -10,10 +10,13 @@ TCP
 RPG
 UHD
 NPC
+rgb
+rgba
 github
 https
 Lua
 moltenvk
+GLSL
 OpenGL
 OpenGLES
 vulkan

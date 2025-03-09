@@ -29,10 +29,10 @@ Blender is a free, open-source 3D software which can be downloaded from [blender
 
 ![quad in Blender](images/shadertoy/quad_blender.png)
 
-1. Export the model as a *Collada* file called *quad.dae* and drag it into a new Defold project.
+1. Export the model as a *Collada* file called *`quad.dae`* and drag it into a new Defold project.
 2. Open your "main.collection" file in Defold and create a new game object "star-nest".
 3. Add a *Model* component to "star-nest".
-4. Set the *Mesh* property to the *quad.dae* file.
+4. Set the *Mesh* property to the *`quad.dae`* file.
 5. The model is small (2⨉2 units) so we need to scale the "star-nest" game object to a reasonable size. 600⨉600 is a nice large size so set the X and Y scale to 300.
 
 The model should appear in the scene editor, but it is rendered all black. That is because it has no material set yet:
@@ -41,7 +41,7 @@ The model should appear in the scene editor, but it is rendered all black. That 
 
 ## Creating the material
 
-Create a new material file *star-nest.material*, a vertex shader program *star-nest.vp* and a fragment shader program *star-nest.fp*:
+Create a new material file *`star-nest.material`*, a vertex shader program *`star-nest.vp`* and a fragment shader program *`star-nest.fp`*:
 
 1. Open *star-nest.material*.
 2. Set the *Vertex Program* to `star-nest.vp`.
@@ -52,7 +52,7 @@ Create a new material file *star-nest.material*, a vertex shader program *star-n
 
     ![material](images/shadertoy/material.png)
 
-7. Open the vertex shader program file *star-nest.vp*. It should contain the following code. Leave the code as is.
+7. Open the vertex shader program file *`star-nest.vp`*. It should contain the following code. Leave the code as is.
 
     ```glsl
     // star-nest.vp
@@ -71,7 +71,7 @@ Create a new material file *star-nest.material*, a vertex shader program *star-n
     }
     ```
 
-8. Open the fragment shader program file *star-nest.fp* and modify the code so the fragment color is set based on the X and Y coordinates of the UV coordinates (`var_texcoord0`). We do this to make sure we have the model set up correctly:
+8. Open the fragment shader program file *`star-nest.fp`* and modify the code so the fragment color is set based on the X and Y coordinates of the UV coordinates (`var_texcoord0`). We do this to make sure we have the model set up correctly:
 
     ```glsl
     // star-nest.fp
@@ -231,7 +231,7 @@ void main()
 
 The final step is to feed a time value to the shader:
 
-1. Create a new script file *star-nest.script*.
+1. Create a new script file *`star-nest.script`*.
 2. Enter the following code:
 
 ```lua

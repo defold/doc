@@ -18,18 +18,18 @@ The project is setup like this:
 
 * One subdivided 3D plane (.dae) that will be used to display the scrolling texture.
 * One model component with the 3D plane (.dae file) assigned.
-* Two 64x64 texture images (water_bg.png and water_wave.png) created to seamlessly tile are assigned in the .model properties.
+* Two 64x64 texture images (`water_bg.png` and `water_wave.png`) created to seamlessly tile are assigned in the .model properties.
 * One shader (Material + Vertex Program + Fragment Program) that is assigned to the plane model.
 * One constant set in materials and the shader.
 * One script component attached to the model game object to start the animation loop.
 
 ![](images/texture-scrolling/model_setup.png)
 
-_Note: water_bg is assigned to tex0 slot and water_wave is set to tex1 slot. Two sampler slots are assigned in material sampler properties shown below._
+_Note: `water_bg` is assigned to `tex0` slot and `water_wave` is set to `tex1` slot. Two sampler slots are assigned in material sampler properties shown below._
 
 ![](images/texture-scrolling/material_setup.png)
 
-_Currently tex1 will be the texture that will be scrolling so Wrap U & V are set to Repeat._
+_Currently `tex1` will be the texture that will be scrolling so Wrap U & V are set to Repeat._
 
 That is the basic setup and now we can move on to the `water_scroll.vp` (vertex) and `water_scroll.fp` (fragment) programs. You can see in the image above these are set to the material.
 
@@ -62,7 +62,7 @@ void main()
 }
 ```
 
-The model supplies the attribute `texcoord0` which is our texture UV coordinates. We declare our vec4 uniform named animation_time and we also have two vec2 varying texcoords 0 and 1 which we pass to the fragment program after we assign them the attribute UV coordinates `texcoord0` in `void main()`. As you can see `var_texcoord1` is different because this one we are offsetting before it is sent to the fragment program. Assign a vec2 so that we can `animation_time` to the x and y separately if we want. In this case we only take `texcoord0.x` and subtract our constant `animation_time.x` which when animated will offset in the negative U axis (horizontal left), we set `texcoord0.y` to keep its attribute position. EZ PZ!
+The model supplies the attribute `texcoord0` which is our texture UV coordinates. We declare our vec4 uniform named animation_time and we also have two `vec2` varying `var_texcoord0` and `var_texcoord1` which we pass to the fragment program after we assign them the attribute UV coordinates `texcoord0` in `void main()`. As you can see `var_texcoord1` is different because this one we are offsetting before it is sent to the fragment program. Assign a `vec2` so that we can `animation_time` to the x and y separately if we want. In this case we only take `texcoord0.x` and subtract our constant `animation_time.x` which when animated will offset in the negative U axis (horizontal left), we set `texcoord0.y` to keep its attribute position.
 
 
 ```glsl
@@ -83,7 +83,7 @@ void main()
 }
 ```
 
-Now to the fragment program, we have a simple setup. Two "in" varying vec2’s that we sent from the vertex program `var_textcoord0` and `var_texcoord1` and then we supply uniforms for the sampler textures we set in our model and material they are named `tex0` and `tex1`. Then in `void main()` we create vector 4’s to assign to our textures using `texture2d()`, the images are in RGBA (red,green,blue,alpha) channel format. We assign sampler name and then the texture coordinates we want them to use. As you see in the image above "water_waves" has `var_texcoord1` assigned. this is the texture we are animating/scrolling and `var_texcoord0` assigned to water_bg we left as is. For the global reserved variable `gl_FragColor` this is where pixel colors are assigned with the same `vec4(r,g,b,a)` format. We want to combine the 2 textures together so we use addition to mix the rgb channels of each texture together, also we are not using the textures alpha channel so we assign a float value of 1.0 which equals full opacity.
+Now to the fragment program, we have a simple setup. Two "in" varying vec2’s that we sent from the vertex program `var_textcoord0` and `var_texcoord1` and then we supply uniforms for the sampler textures we set in our model and material they are named `tex0` and `tex1`. Then in `void main()` we create vector 4’s to assign to our textures using `texture2d()`, the images are in RGBA (red,green,blue,alpha) channel format. We assign sampler name and then the texture coordinates we want them to use. As you see in the image above "water_waves" has `var_texcoord1` assigned. this is the texture we are animating/scrolling and `var_texcoord0` assigned to `water_bg` we left as is. For the global reserved variable `gl_FragColor` this is where pixel colors are assigned with the same `vec4(r,g,b,a)` format. We want to combine the 2 textures together so we use addition to mix the rgb channels of each texture together, also we are not using the textures alpha channel so we assign a float value of 1.0 which equals full opacity.
 
 
 ## Shader animation script
