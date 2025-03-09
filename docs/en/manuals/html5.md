@@ -26,13 +26,22 @@ For testing, HTML5 build needs an HTTP server. Defold creates one for you if you
 
 If you want to test your bundle, just upload it to your remote HTTP server or create a local server, for example, using python in the bundle folder.
 Python 2:
-> python -m SimpleHTTPServer
+
+```sh
+python -m SimpleHTTPServer
+```
 
 Python 3:
-> python -m http.server
+
+```sh
+python -m http.server
+```
 
 or
-> python3 -m http.server
+
+```sh
+python3 -m http.server
+```
 
 ::: important
 You can't test the HTML5 bundle by opening `index.html` file in a browser. This requires HTTP server.

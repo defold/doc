@@ -23,5 +23,5 @@ assistive_technologies=com.sun.java.accessibility.AccessBridge
 screen_magnifier_present=true
 ```
 
-* Add a hashmark (`#``) in front of theses lines
+* Add a hash mark (`#``) in front of theses lines
 * Save your changes to the file and restart Defold

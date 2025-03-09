@@ -21,6 +21,7 @@ OpenGL
 OpenGLES
 vulkan
 WebGL
+WebGPU
 macos
 sidenote
 config
@@ -37,6 +38,7 @@ tilemap
 walkthrough
 excitemike
 thrusted
+playfield
 normals
 rosen
 wolfire
@@ -113,6 +115,7 @@ mipmaps
 codesign
 profiler
 filetype
+filesystem
 radeon
 zig
 windbg
