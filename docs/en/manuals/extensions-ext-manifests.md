@@ -61,14 +61,14 @@ platforms:
 
 Allowed keys are for platform specific compile flags are:
 
-* `frameworks` - Apple frameworks to include when building (iOS and OSX)
+* `frameworks` - Apple frameworks to include when building (iOS and macOS)
 * `flags` - Flags that should be passed to the compiler
 * `linkFlags` - Flags that should be passed to the linker
 * `libs` - Additional libraries to include when linking
 * `defines` - Defines to set when building
 * `aaptExtraPackages` - Extra package name that should be generated (Android)
 * `aaptExcludePackages` - Regexp (or exact names) of packages to exclude (Android)
-* `aaptExcludeResourceDirs` - Regexp (or exact names) of resource dirs to exclude (Android)
+* `aaptExcludeResourceDirs` - Regexp (or exact names) of resource directories to exclude (Android)
 * `excludeLibs`, `excludeJars`, `excludeSymbols` - These flags are used to remove things previously defined in the platform context.
 
 For all the keywords, we apply white listing filter. This is to avoid illegal path handling and accessing files outside of the build upload folder.

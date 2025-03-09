@@ -488,7 +488,7 @@ At this point we should add physics collision for the ground:
 
 ![Ground collision](images/runner/2/ground_collision.png)
 
-Now you should be able to try running the game (<kbd>Project ▸ Build</kbd>). The hero character should run on the ground and it should be possible to jump with the  kbd:[Space] button. If you run the game on a mobile device, you can jump by tapping on the screen.
+Now you should be able to try running the game (<kbd>Project ▸ Build</kbd>). The hero character should run on the ground and it should be possible to jump with the  <kbd>Space</kbd> button. If you run the game on a mobile device, you can jump by tapping on the screen.
 
 To make life in our game world a little less dull, we should add platforms to jump on.
 

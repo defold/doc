@@ -254,7 +254,7 @@ Specifies which filtering to use for magnification filtering, `linear` by defaul
 The max number of render calls, `1024` by default.
 
 #### Max Characters:
-The number of characters pre-allocated in the text rendering buffer, i.e. the number of characters that can be displayed each frame, `8192` by default.
+The number of characters preallocated in the text rendering buffer, i.e. the number of characters that can be displayed each frame, `8192` by default.
 
 #### Max Debug Vertices
 The maximum number of debug vertices. Used for physics shape rendering among other things, `10000` by default.

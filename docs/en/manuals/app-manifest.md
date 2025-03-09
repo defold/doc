@@ -81,32 +81,32 @@ Select which graphics backend to use.
 
 
 ## Minimum Safari version (js-web and wasm-web only)
-YAML field name: **minSafariVersion**
+YAML field name: **`minSafariVersion`**
 Default value: **90000**
 
 Minimum supported version of Safari. Cannot be less than 90000. For more information look Emscripten compiler options [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-safari-version).
 
 ## Minimum Firefox version (js-web and wasm-web only)
-YAML field name: **minFirefoxVersion**
+YAML field name: **`minFirefoxVersion`**
 Default value: **34**
 
 Minimum supported version of Firefox. Cannot be less than 34. For more information look Emscripten compiler options [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-firefox-version).
 
 ## Minimum Chrome version (js-web and wasm-web only)
-YAML field name: **minChromeVersion**
+YAML field name: **`minChromeVersion`**
 Default value: **32**
 
 Minimum supported version of Chrome. Cannot be less than 32. For more information look Emscripten compiler options [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-chrome-version).
 
 ## Initial memory (js-web and wasm-web only)
-YAML field name: **initialMemory**
+YAML field name: **`initialMemory`**
 Default value: **33554432**
 
 The size of memory that allocated for web application. In case if ALLOW_MEMORY_GROWTH=0 (js-web) - there is a total amount of memory that web application can use. for more information look [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Value in bytes. Note that value must be a multiple of WebAssembly page size (64KiB).
-That options relates to `html5.heap_size` in game.project [link](https://defold.com/manuals/html5/#heap-size). Option that configured via application manifest is set during compilation and used as default value for INITIAL_MEMORY option. Value from game.project overrides value from application manifest and used in runtime.
+That options relates to `html5.heap_size` in game.project [link](https://defold.com/manuals/html5/#heap-size). Option that configured via application manifest is set during compilation and used as default value for `INITIAL_MEMORY` option. Value from game.project overrides value from application manifest and used in runtime.
 
 ## Stack size (js-web and wasm-web only)
-YAML field name: **stackSize**
+YAML field name: **`stackSize`**
 Default value: **5242880**
 
 The stack size of application. For more information look [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#stack-size). Value in bytes.

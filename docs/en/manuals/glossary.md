@@ -57,7 +57,7 @@ At some point your game will behave in an unexpected way and you need to figure 
 
 ## Factory
 
-![Factory](images/icons/factory.png){.left} In some situations you cannot manually place all needed game objects in a collection, you have to create the game objects dynamically, on the fly. For instance, a player might fire bullets and each shot should be dynamically spawned and sent off whenever the player presses the trigger. To create game objects dynamically (from a pre-allocated pool of objects), you use a factory component. See the [Factory manual](/manuals/factory) for details.
+![Factory](images/icons/factory.png){.left} In some situations you cannot manually place all needed game objects in a collection, you have to create the game objects dynamically, on the fly. For instance, a player might fire bullets and each shot should be dynamically spawned and sent off whenever the player presses the trigger. To create game objects dynamically (from a preallocated pool of objects), you use a factory component. See the [Factory manual](/manuals/factory) for details.
 
 ## Font
 

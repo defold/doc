@@ -421,7 +421,7 @@ void main()
 1. The varying texture coordinate variable is declared. The value of this variable will be interpolated for each fragment between the values set for each vertex in the shape.
 2. A `sampler2D` uniform variable is declared. The sampler, together with the interpolated texture coordinates, is used to perform texture lookup so the sprite can be textured properly. Since this is a sprite, the engine will assign this sampler to the image set in the sprite's *Image* property.
 3. A constant of type `CONSTANT_TYPE_USER` is defined in the material and declared as a `uniform`. Its value is used to allow color tinting of the sprite. The default is pure white.
-4. The color value of the tint gets pre-multiplied with its alpha value since all runtime textures already contain pre-multiplied alpha.
+4. The color value of the tint gets premultiplied with its alpha value since all runtime textures already contain premultiplied alpha.
 5. Sample the texture at the interpolated coordinate and return the sampled value.
 6. `gl_FragColor` is set to the output color for the fragment: the diffuse color from the texture multiplied with the tint value.
 

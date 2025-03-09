@@ -86,13 +86,13 @@ You can turn on and off the use of texture profiles in the editor preferences. S
 
 ## Path Settings
 
-The *Path Settings* section of the texture profiles file contains a list of path patterns and which *profile* to use when processing resources that match the path. The paths are expressed as "Ant Glob" patterns (see http://ant.apache.org/manual/dirtasks.html#patterns for details). Patterns can be expressed using the following wildcards:
+The *Path Settings* section of the texture profiles file contains a list of path patterns and which *profile* to use when processing resources that match the path. The paths are expressed as "Ant Glob" patterns (see [documentation](http://ant.apache.org/manual/dirtasks.html#patterns) for details). Patterns can be expressed using the following wildcards:
 
 `*`
-: Matches zero or more characters. For instance `sprite*.png` matches the files *sprite.png*, *sprite1.png* and *sprite_with_a_long_name.png*.
+: Matches zero or more characters. For instance `sprite*.png` matches the files *`sprite.png`*, *`sprite1.png`* and *`sprite_with_a_long_name.png`*.
 
 `?`
-: Matches exactly one character. For instance: `sprite?.png` matches the files *sprite1.png*, *spriteA.png* but not *sprite.png* or *sprite_with_a_long_name.png*.
+: Matches exactly one character. For instance: `sprite?.png` matches the files *sprite1.png*, *`spriteA.png`* but not *`sprite.png`* or *`sprite_with_a_long_name.png`*.
 
 `**`
 : Matches a complete directory tree, or---when used as the name of a directory---zero or more directories. For instance: `/gui/**` matches all files in the directory */gui* and all its subdirectories.
@@ -102,14 +102,14 @@ The *Path Settings* section of the texture profiles file contains a list of path
 This example contains two path patterns and their corresponding profiles.
 
 `/gui/**/*.atlas`
-: All *.atlas* files in directory */gui* or any of its subdirectories will be processed according to profile "gui_atlas".
+: All *.atlas* files in directory *`/gui`* or any of its subdirectories will be processed according to profile "gui_atlas".
 
 `/**/*.atlas`
 : All *.atlas* files anywhere in the project will be process according to the profile "atlas".
 
-Note that the more generic path is put last. The matching algorithm works top down. The first occurrence that matches the resource path will be used. A matching path expression further down the list never overrides the first match. Had the paths been put in the opposite order every atlas would have been processed with profile "atlas", even the ones in directory */gui*.
+Note that the more generic path is put last. The matching algorithm works top down. The first occurrence that matches the resource path will be used. A matching path expression further down the list never overrides the first match. Had the paths been put in the opposite order every atlas would have been processed with profile "atlas", even the ones in directory *`/gui`*.
 
-Texture resources that _do not_ match any path in the profiles file will be compiled and rescaled to the closest power of 2, but will otherwise be left intact.
+Texture resources that _do not_ match any path in the profiles file will be compiled and scaled to the closest power of 2, but will otherwise be left intact.
 
 ## Profiles
 
@@ -131,7 +131,7 @@ If two [path settings](#path-settings) matches the same file and the path uses d
 : If checked, mipmaps are generated for the platform. Unchecked by default.
 
 *Pre-multiply alpha*
-: If checked, alpha is pre-multiplied into the texture data. Checked by default.
+: If checked, alpha is premultiplied into the texture data. Checked by default.
 
 *Max Texture Size*
 : If set to a non-zero value, textures are limited in pixel size to the specified number. Any texture that has a width or height larger than the specified value will be scaled down.

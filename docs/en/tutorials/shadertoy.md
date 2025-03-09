@@ -46,7 +46,7 @@ Create a new material file *`star-nest.material`*, a vertex shader program *`sta
 1. Open *star-nest.material*.
 2. Set the *Vertex Program* to `star-nest.vp`.
 3. Set the *Fragment Program* to `star-nest.fp`.
-4. Add a *Vertex Constant* and name it "view_proj" (for "view projection").
+4. Add a *Vertex Constant* and name it "`view_proj`" (for "view projection").
 5. Set its *Type* to `CONSTANT_TYPE_VIEWPROJ`.
 6. Add a tag "tile" to the *Tags*. This is so that the quad is included in the render pass when sprites and tiles are drawn.
 

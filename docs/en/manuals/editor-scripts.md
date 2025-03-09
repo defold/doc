@@ -52,11 +52,11 @@ You can interact with the editor using `editor` package that defines this API:
   - `"path"` — file path from the project folder for *resources* — entities that exist as files. Example of returned value: `"/main/game.script"`
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
   - some properties that are shown in the Properties view when you have selected something in the Outline view. These types of outline properties supported:
-    - strings
-    - booleans
-    - numbers
-    - vec2/vec3/vec4
-    - resources
+    - `strings`
+    - `booleans`
+    - `numbers`
+    - `vec2`/`vec3`/`vec4`
+    - `resources`
 
     Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts. You can set resource properties to `nil` by supplying `""` value.
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error.
@@ -67,7 +67,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.save()` — persist all unsaved changed to disk.
 - `editor.transact(txs)` — modify the editor in-memory state using 1 or more transaction steps created with `editor.tx.*` functions.
 - `editor.ui.*` — various UI-related functions, see [UI manual](/manuals/editor-scripts-ui).
-- `editor.prefs.*` — functions for interacting with editor preferences, see [prefs](#prefs).
+- `editor.prefs.*` — functions for interacting with editor preferences, see [preferences](#preferences).
 
 You can find the full editor API reference [here](https://defold.com/ref/alpha/editor/).
 
@@ -126,7 +126,7 @@ Editor expects `get_commands()` to return an array of tables, each describing a 
       - `"outline"` — something that can be shown in the Outline. In Outline it's a selected item, in menu bar it's a currently open file;
     - `cardinality` defines how many selected items there should be. If `"one"`, selection passed to command callback will be a single node id. If `"many"`, selection passed to command callback will be an array of one or more node ids.
   - `argument` — command argument. Currently, only commands in `"Bundle"` location receive an argument, which is `true` when the bundle command is selected explicitly and `false` on rebundle.
-- `id` - command identifier string, used e.g. for persisting the last used bundle command in prefs
+- `id` - command identifier string, used e.g. for persisting the last used bundle command in `prefs`
 - `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
 - `run` - a callback that is executed when user selects the menu item.
 
@@ -251,11 +251,11 @@ You can publish libraries for other people to use that contain commands, and the
 
 Also note that although dependencies are shown in Assets view, they do not exist as files (they are entries in a zip archive). It's possible to make the editor extract some files from the dependencies into `build/plugins/` folder. To do it, you need to create `ext.manifest` file in your library folder, and then create `plugins/bin/${platform}` folder in the same folder where the `ext.manifest` file is located. Files in that folder will be automatically extracted to `/build/plugins/${extension-path}/plugins/bin/${platform}` folder, so your editor scripts can reference them.
 
-## Prefs
+## Preferences
 
 Editor scripts can define and use preferences — persistent, uncommitted pieces of data stored on the user's computer. These preferences have three key characteristics:
 - typed: every preference has a schema definition that includes the data type and other metadata like default value
-- scoped: prefs are scoped either per project or per user
+- scoped: preferences are scoped either per project or per user
 - nested: every preference key is a dot-separated string, where the first path segment identifies an editor script, and the rest 
 
 All preferences must be registered by defining their schema:
@@ -268,7 +268,7 @@ function M.get_prefs_schema()
   }
 end
 ```
-After such editor script is reloaded, the editor registers this schema. Then the editor script can get and set the prefs, e.g.:
+After such editor script is reloaded, the editor registers this schema. Then the editor script can get and set the preferences, e.g.:
 ```lua
 -- Get a specific preference
 editor.prefs.get("my_json_formatter.indent.type")

@@ -28,7 +28,7 @@ $ GTK_CSD=0 ./Defold
 
 #### Q: The Defold editor crashes when opening a collection or game object and the crash refers to `com.jogamp.opengl`
 
-A: On certain distributions (like Ubuntu 18) there is an issue with the version of jogamp/jogl Defold uses vs. the version of [Mesa](https://docs.mesa3d.org/) on the system. You can override which GL version that gets reported when calling `glGetString(GL_VERSION)` by setting the `MESA_GL_VERSION_OVERRIDE` to 2.1 or a larger value but less than or equal to the version of your driver. You can check which is the maximum OpenGL version your driver supports using `glxinfo`:
+A: On certain distributions (like Ubuntu 18) there is an issue with the version of `jogamp`/`jogl` Defold uses vs. the version of [Mesa](https://docs.mesa3d.org/) on the system. You can override which GL version that gets reported when calling `glGetString(GL_VERSION)` by setting the `MESA_GL_VERSION_OVERRIDE` to 2.1 or a larger value but less than or equal to the version of your driver. You can check which is the maximum OpenGL version your driver supports using `glxinfo`:
 
 ```bash
 glxinfo | grep version
@@ -64,7 +64,7 @@ $ MESA_GL_VERSION_OVERRIDE=4.6 ./Defold
 ```
 
 
-#### Q: Why am I getting "com.jogamp.opengl.GLException: Graphics configuration failed" when launching Defold?
+#### Q: Why am I getting "`com.jogamp.opengl.GLException: Graphics configuration failed`" when launching Defold?
 
 A: On certain distributions (for instance Ubuntu 20.04) there is an issue with the new [Mesa](https://docs.mesa3d.org/) drivers (Iris) when running Defold. You can try using an older driver version when running Defold:
 
@@ -73,7 +73,7 @@ $ MESA_LOADER_DRIVER_OVERRIDE=i965 ./Defold
 ```
 
 
-#### Q: The Defold editor crashes when opening a collection or game object and the crash refers to libffi.so
+#### Q: The Defold editor crashes when opening a collection or game object and the crash refers to `libffi.so`
 
 A: The [libffi](https://sourceware.org/libffi/) version of your distribution and the one required by Defold (version 6 or 7) does not match. Make sure `libffi.so.6` or `libffi.so.7` is installed under `/usr/lib/x86_64-linux-gnu`. You can download `libffi.so.7` like this:  
 
@@ -106,7 +106,7 @@ A: Check the console output in the editor. If you get the following message:
 dmengine: error while loading shared libraries: libopenal.so.1: cannot open shared object file: No such file or directory
 ```
 
-Then you need to install *libopenal1*. The package name varies between distributions, and in some cases you might have to install the *openal* and *openal-dev* or *openal-devel* packages.
+Then you need to install *`libopenal1`*. The package name varies between distributions, and in some cases you might have to install the *`openal`* and *`openal-dev`* or *`openal-devel`* packages.
 
 ```bash
 $ apt-get install libopenal-dev
@@ -114,7 +114,7 @@ $ apt-get install libopenal-dev
 
 #### Q: Why does the top menu close before I can select something?
 
-A: This is likely caused by the window manager used (for instance Qtile or i3). This is a [known issue in JavaFX](https://bugs.openjdk.org/browse/JDK-8251240?focusedCommentId=14362084&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-14362084) and it can either be solved by setting the `GDK_DISPLAY` environment variable to 1:¨
+A: This is likely caused by the window manager used (for instance `Qtile` or i3). This is a [known issue in JavaFX](https://bugs.openjdk.org/browse/JDK-8251240?focusedCommentId=14362084&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-14362084) and it can either be solved by setting the `GDK_DISPLAY` environment variable to 1:¨
 
 ```bash
 $ GDK_DISPLAY=1 ./Defold
