@@ -278,6 +278,7 @@ templated
 profi
 ProFi
 "ProFi"
+Wi-Fi
 localhost
 Remotery
 Celtoys
