@@ -48,7 +48,7 @@ You can't test the HTML5 bundle by opening `index.html` file in a browser. This 
 :::
 
 ::: important
-If you see a "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." error in the console you must make sure that your server uses the `application/wasm` MIME type for `.wasm` files.
+If you see a `"wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’."` error in the console you must make sure that your server uses the `application/wasm` MIME type for `.wasm` files.
 :::
 
 ## Creating HTML5 bundle
@@ -196,7 +196,7 @@ DEFOLD_ENGINE_ARGUMENTS
 
 If you create your custom template, you can redefine set of parameters for the engine loader. To achieve that you need to add `<script>` section and redefine values inside `CUSTOM_PARAMETERS`. 
 ::: important
-Your custom `<script>` should be placed after `<script>` section with reference to dmloader.js but before call `EngineLoader.load` function.
+Your custom `<script>` should be placed after `<script>` section with reference to `dmloader.js` but before call `EngineLoader.load` function.
 :::
 For example:
 

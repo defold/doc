@@ -15,7 +15,7 @@ The game log will only show information in debug builds. The log will be complet
 
 ## Reading the game log from the editor
 
-When you run your game locally from the editor or connected to the [mobile dev app](/manuals/dev-app) all of the output will be shown in the console pane of the editor:
+When you run your game locally from the editor or connected to the [mobile development app](/manuals/dev-app) all of the output will be shown in the console pane of the editor:
 
 ![Editor 2](images/editor/editor2_overview.png)
 

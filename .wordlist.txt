@@ -42,6 +42,7 @@ ACL
 PEM
 IPv
 ZeroBrane
+ZeroBrane’s
 RPG
 UHD
 NPC
@@ -235,6 +236,7 @@ libdmengine
 exe
 apk
 apkx
+APK’s
 APKs
 aab
 androideabi
@@ -273,6 +275,7 @@ frontend
 liveupdate
 glyphs
 templated
+profi
 ProFi
 "ProFi"
 localhost
@@ -325,6 +328,7 @@ preconfigured
 preload
 preprocessor
 preprocessing
+prewarm
 reconfiguring
 checkboxes
 Sur
@@ -497,3 +501,4 @@ Antialias
 dSYM
 wget
 symbolicated
+

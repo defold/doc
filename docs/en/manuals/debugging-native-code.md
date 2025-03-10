@@ -40,7 +40,7 @@ Each tool can debug certain platforms:
 
 ## Use print debugging
 
-The simplest way to debug your native code is to use [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). Use the functions in the [dmLog namespace](/ref/stable/dmLog/) to watch variables or indicate the flow of execution. Using any of the log functions will print to the *Console* view in the editor and to the [game log](/manuals/debugging-game-and-system-logs).
+The simplest way to debug your native code is to use [print debugging](http://en.wikipedia.org/wiki/Debugging#Techniques). Use the functions in the [`dmLog` namespace](/ref/stable/dmLog/) to watch variables or indicate the flow of execution. Using any of the log functions will print to the *Console* view in the editor and to the [game log](/manuals/debugging-game-and-system-logs).
 
 
 ## Analyze a crash log

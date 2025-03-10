@@ -385,7 +385,7 @@ color = color_{low} \times (1 - C_{frac}) + color_{high} \times C_{frac}
 
 Here `color`~low~ is the color sampled from the lower (leftmost) cell and `color`~high~ is the color sampled from the higher (rightmost) cell. The GLSL function `mix()` performs this linear interpolation for us.
 
-The value `C`~frac~ above is the fractional part of the blue channel value scaled to the `0`--`15` color range:
+The value `C~frac~` above is the fractional part of the blue channel value scaled to the `0`--`15` color range:
 
 ```math
 C_{frac} = B \times (N - 1) - \left \lfloor{B \times (N - 1)} \right \rfloor
