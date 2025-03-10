@@ -294,7 +294,7 @@ end)
 ```
 Now, if you open e.g. `http://0.0.0.0:12345/my-extension/setting/project.title`, you'll see the title of your game taken from the `/game.project` file.
 
-In addition to a single segment paths pattern, you can also match the rest of the URL path using `{*name}` syntax. For example, here is a simple file server from the project root:
+In addition to a single segment paths pattern, you can also match the rest of the URL path using `{*name}` syntax. For example, here is a simple file server endpoint that serves files from the project root:
 ```lua
 http.server.route("/my-extension/files/{*file}", function(request)
   local attrs = editor.external_file_attributes(request.file)
