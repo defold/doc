@@ -81,9 +81,9 @@ function on_input(self, action_id, action)
         if action.gamepad == 0 then
           -- gamepad 0 was connected
         end
-    elseif action_id == hash("gamepad_dicconnected") then
+    elseif action_id == hash("gamepad_disconnected") then
         if action.gamepad == 0 then
-          -- gamepad 0 was dicconnected
+          -- gamepad 0 was disconnected
         end
     end
 end

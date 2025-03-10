@@ -84,7 +84,7 @@ function init(self)
     self.target = render.render_target("original", target_params) -- <2>
 end
 ```
-1. Set up color buffer parmeters for the render target. We use the game's target resolution.
+1. Set up color buffer parameters for the render target. We use the game's target resolution.
 2. Create the render target with the color buffer parameters.
 
 Now we just need to wrap the original rendering code with `render.set_render_target()` like this:
