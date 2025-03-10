@@ -269,9 +269,9 @@ end)
 ```
 You can test this endpoint in the command line using `curl` and `jq`:
 ```sh
-curl 'http://0.0.0.0:12345/my-extension/json?q=1' -X POST --data '{"input": "json"}' | jq
+curl 'http://0.0.0.0:12345/my-extension/echo-request?q=1' -X POST --data '{"input": "json"}' | jq
 {
-  "path": "/my-extension/json",
+  "path": "/my-extension/echo-request",
   "method": "POST",
   "query": "q=1",
   "headers": {
