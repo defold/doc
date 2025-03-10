@@ -245,6 +245,68 @@ Language server definition table may specify:
 - `command` (required) - an array of command and its arguments
 - `watched_files` - an array of tables with `pattern` keys (a glob) that will trigger the server's [watched files changed](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles) notification.
 
+## HTTP server
+
+Every running instance of the editor has an HTTP server running. The server can be extended using editor scripts. To extend the editor HTTP server, you need to add `get_server_routes` editor script function — it should return the additional routes:
+```lua
+print("My route: " .. http.server.url .. "/my-extension")
+
+function M.get_server_routes()
+  return {
+    http.server.route("/my-extension", "GET", function(request)
+      return http.server.response(200, "Hello world!")
+    end)
+  }
+end
+```
+After reloading the editor scripts, you'll see the following output in the console: `My route: http://0.0.0.0:12345/my-extension`. If you open this link in the browser, you'll see your `"Hello world!"` message.
+
+The input `request` argument is a simple Lua table with information about the request. It contains keys such as `path` (URL path segment that starts with `/`), request `method` (e.g. `"GET"`), `headers` (a table with lower-case header names), and optionally `query` (the query string) and `body` (if the route defines how to interpret the body). For example, if you want to make a route that accepts JSON body, you define it with a `"json"` converter parameter:
+```lua
+http.server.route("/my-extension/echo-request", "POST", "json", function(request)
+  return http.server.json_response(request)
+end)
+```
+You can test this endpoint in the command line using `curl` and `jq`:
+```sh
+curl 'http://0.0.0.0:12345/my-extension/json?q=1' -X POST --data '{"input": "json"}' | jq
+{
+  "path": "/my-extension/json",
+  "method": "POST",
+  "query": "q=1",
+  "headers": {
+    "host": "0.0.0.0:12345",
+    "content-type": "application/x-www-form-urlencoded",
+    "accept": "*/*",
+    "user-agent": "curl/8.7.1",
+    "content-length": "17"
+  },
+  "body": {
+    "input": "json"
+  }
+}
+```
+The route path supports patterns that can be extracted from the request path and provided to the handler function as a part of the request, e.g.:
+```lua
+http.server.route("/my-extension/setting/{category}.{key}", function(request)
+  return http.server.response(200, tostring(editor.get("/game.project", request.category .. "." .. request.key)))
+end)
+```
+Now, if you open e.g. `http://0.0.0.0:12345/my-extension/setting/project.title`, you'll see the title of your game taken from the `/game.project` file.
+
+In addition to a single segment paths pattern, you can also match the rest of the URL path using `{*name}` syntax. For example, here is a simple file server from the project root:
+```lua
+http.server.route("/my-extension/files/{*file}", function(request)
+  local attrs = editor.external_file_attributes(request.file)
+  if attrs.is_file then
+    return http.server.external_file_response(request.file)
+  else
+    return 404
+  end
+end)
+```
+Now, opening e.g. `http://0.0.0.0:12345/my-extension/files/main/main.collection` in the browser will display the contents of the `main/main.collection` file.
+
 ## Editor scripts in libraries
 
 You can publish libraries for other people to use that contain commands, and they will be automatically picked up by the editor. Hooks, on the other hand, can't be picked up automatically, since they have to be defined in a file that is in a root folder of a project, but libraries expose only subfolders. This is intended to give more control over build process: you still can create lifecycle hooks as simple functions in `.lua` files, so users of your library can require and use them in their `/hooks.editor_script`.
