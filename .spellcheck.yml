@@ -1,5 +1,10 @@
 matrix:
 - name: Markdown
+  hunspell:
+    lang: en
+    ignore-case: true
+    camel-case: true
+    run-together: true
   dictionary:
     wordlists:
     - .wordlist.txt
