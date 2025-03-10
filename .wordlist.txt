@@ -28,6 +28,8 @@ GLFW
 glTF
 glb
 WAV
+fp
+Fi
 NVDA
 PNG
 TCP
