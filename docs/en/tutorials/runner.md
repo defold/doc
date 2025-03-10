@@ -266,7 +266,7 @@ Now we can start constructing the hero gameobject:
 Now it's time to add physics for collision to work:
 
 1. Add a *Collision Object* component to the hero game object. (Right-click the root in the *Outline* and select <kbd>Add Component</kbd>, then select "Collision Object")
-2. Right-click the new component and select <kbd>Add Shape</kbd>. Add two shapes to cover the characters's body. A sphere and a box will do.
+2. Right-click the new component and select <kbd>Add Shape</kbd>. Add two shapes to cover the character's body. A sphere and a box will do.
 3. Click the shapes and use the *Move Tool* (<kbd>Scene ▸ Move Tool</kbd>) to move the shapes into good positions.
 4. Mark the *Collision Object* component and set the *Type* property to "Kinematic".
 
@@ -938,6 +938,6 @@ And now we have a simple, but functional game! If you make it this far you might
 
 > Download the completed version of the project [here](images/runner/sample-runner.zip)
 
-That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](//www.defold.com/learn) prepared to guide you, and if you get stuck, your're welcome to the [forum](//forum.defold.com).
+That concludes this introductory tutorial. Now go ahead and dive into Defold. We have lots of [manuals and tutorials](//www.defold.com/learn) prepared to guide you, and if you get stuck, you're welcome to the [forum](//forum.defold.com).
 
 Happy Defolding!

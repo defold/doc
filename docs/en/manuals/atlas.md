@@ -27,7 +27,7 @@ Adding single images
 
   ![Creating an atlas, adding images](images/atlas/add.png)
 
-  The added images are listed in the *Outline* and the full atlas can be seen in the center editor view. You may need to press <kbd>F</kbd> (<kbd>View ▸ Frame Selection</kbd> from the menu) to reframe the selection.
+  The added images are listed in the *Outline* and the full atlas can be seen in the center editor view. You may need to press <kbd>F</kbd> (<kbd>View ▸ Frame Selection</kbd> from the menu) to frame the selection.
 
   ![Images added](images/atlas/single_images.png)
 

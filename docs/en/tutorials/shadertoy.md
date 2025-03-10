@@ -95,7 +95,7 @@ Now everything is in place to start working on the actual shader code. Let's fir
 
 ![Star Nest shader code](images/shadertoy/starnest_code.png)
 
-1. Lines 5--18 defines a bunch of constants. We can leve these as is.
+1. Lines 5--18 defines a bunch of constants. We can leave these as is.
 
 2. Lines 21 and 63 contains the input fragment X and Y screen space texture coordinates (`in vec2 fragCoord`), and output fragment color (`out vec4 fragColor`).
 

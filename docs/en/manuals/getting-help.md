@@ -40,7 +40,7 @@ A clear and concise description of what you expected to happen.
  - OS: [e.g. iOS8.1, Windows 10, High Sierra]
  - Device: [e.g. iPhone6]
 
-**Minimal repro case project (OPTIONAL):**
+**Minimal reproduction case project (OPTIONAL):**
 Please attach a minimal project where the bug is reproduced. This will greatly help the person trying to investigate and fix the bug.
 
 **Logs (OPTIONAL):**

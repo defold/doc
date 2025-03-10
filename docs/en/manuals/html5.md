@@ -48,7 +48,7 @@ You can't test the HTML5 bundle by opening `index.html` file in a browser. This 
 :::
 
 ::: important
-If you see a "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." error in the console you must make sure that your server uses the `application/wasm` MIME type for .wasm files.
+If you see a "wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’." error in the console you must make sure that your server uses the `application/wasm` MIME type for `.wasm` files.
 :::
 
 ## Creating HTML5 bundle
@@ -60,7 +60,7 @@ Creating HTML5 content with Defold is simple and follows the same pattern as all
 You can chose to include both an `asm.js` and a WebAssembly (wasm) version of the Defold engine in HTML5 bundle. In most cases it is enough to chose WebAssembly since [all modern browsers support WebAssembly](https://caniuse.com/wasm).
 
 ::: important
-Even if you include both `asm.js` and `wasm` versions of the engine only one of them will be downloaded by the browser when launching the game. The WebAssembly version will be downloaded if the browser supports WebAssembly and the asm.js version will be used as a fallback in the rare case that WebAssembly is not supported.
+Even if you include both `asm.js` and `wasm` versions of the engine only one of them will be downloaded by the browser when launching the game. The WebAssembly version will be downloaded if the browser supports WebAssembly and the `asm.js` version will be used as a fallback in the rare case that WebAssembly is not supported.
 :::
 
 When you click on the <kbd>Create bundle</kbd> button you will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.

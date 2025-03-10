@@ -38,7 +38,7 @@ Set the *Font* property to the font file and set the font properties as needed.
 ## Properties
 
 *Font*
-: The TTF, OTF or *.fnt* file to use for generating the font data.
+: The TTF, OTF or *`.fnt`* file to use for generating the font data.
 
 *Material*
 : The material to use when rendering this font. Make sure to change this for distance field and BMFonts (see below for details).
@@ -46,7 +46,7 @@ Set the *Font* property to the font file and set the font properties as needed.
 *Output Format*
 : The type of font data that is generated.
 
-  - `TYPE_BITMAP` converts the imported OTF or TTF file into a font sheet texture where the bitmap data is used to render text nodes. The color channels are used to encode the face shape, outline and drop shadow. For *.fnt* files, the source texture bitmap is used as is.
+  - `TYPE_BITMAP` converts the imported OTF or TTF file into a font sheet texture where the bitmap data is used to render text nodes. The color channels are used to encode the face shape, outline and drop shadow. For *`.fnt`* files, the source texture bitmap is used as is.
   - `TYPE_DISTANCE_FIELD` The imported font is converted into a font sheet texture where the pixel data represents not screen pixels but distances to the font edge. See below for details.
 
 *Render Mode*
@@ -74,7 +74,7 @@ Set the *Font* property to the font file and set the font properties as needed.
 : The transparency of the generated shadow. 0.0--1.0.
 
 ::: sidenote
-Shadow support is enabled by the built-in font material shaders and handles both the single and multi layered render mode. If you don't need layered font rendering or shadow support, it is best to use a simpler shader such as the builtins/font-singlelayer.fp.
+Shadow support is enabled by the built-in font material shaders and handles both the single and multi layered render mode. If you don't need layered font rendering or shadow support, it is best to use a simpler shader such as the *`builtins/font-singlelayer.fp`*.
 :::
 
 *Shadow Blur*
@@ -105,15 +105,15 @@ Distance field fonts store the distance to the edge of the glyph in the texture 
 
 ![Distance field font](images/font/df_font.png)
 
-Make sure to change the *Material* property of the font to *builtins/fonts/font-df.material* (or any other material that can handle the distance field data) when you create the font---or the font will not use the correct shader when it is rendered to screen.
+Make sure to change the *Material* property of the font to *`builtins/fonts/font-df.material`* (or any other material that can handle the distance field data) when you create the font---or the font will not use the correct shader when it is rendered to screen.
 
 ## Bitmap BMFonts
 
-In addition to generated bitmaps Defold supports prebaked bitmap "BMFont" format fonts. These fonts consists of a PNG font sheet with all the glyphs. In addition, a *.fnt* file contains information on where on the sheet each glyph can be found as well as size and kerning information. (Note that Defold does not support the XML version of the *.fnt* format that is used by Phaser and some other tools)
+In addition to generated bitmaps Defold supports prebaked bitmap "BMFont" format fonts. These fonts consists of a PNG font sheet with all the glyphs. In addition, a *`.fnt`* file contains information on where on the sheet each glyph can be found as well as size and kerning information. (Note that Defold does not support the XML version of the *`.fnt`* format that is used by Phaser and some other tools)
 
 These types of fonts provide no performance improvement from bitmap fonts generated from TrueType or OpenType font files, but can include arbitrary graphics, coloring and shadows right in the image.
 
-Add the generated *.fnt* and *.png* files to your Defold project. These files should reside in the same folder. Create a new font file and set the *font* property to the *.fnt* file. Make sure that *output_format* is set to `TYPE_BITMAP`. Defold will not generate a bitmap but use the one provided in the PNG.
+Add the generated *`.fnt`* and *`.png`* files to your Defold project. These files should reside in the same folder. Create a new font file and set the *font* property to the *`.fnt`* file. Make sure that *output_format* is set to `TYPE_BITMAP`. Defold will not generate a bitmap but use the one provided in the PNG.
 
 ::: sidenote
 To create a BMFont, you need to use a tool that can generate the appropriate files. Several options exist:
@@ -127,7 +127,7 @@ To create a BMFont, you need to use a tool that can generate the appropriate fil
 
 ![BMfont](images/font/bm_font.png)
 
-For the font to render correctly, don't forget to set the material property to *builtins/fonts/font-fnt.material* when you create the font.
+For the font to render correctly, don't forget to set the material property to *`builtins/fonts/font-fnt.material`* when you create the font.
 
 ## Artifacts and best practices
 

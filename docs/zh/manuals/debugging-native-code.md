@@ -109,7 +109,7 @@ $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/
 
 	例如下面这个文件
 
-	#00 pc 00257224 libmy_game_name.so
+	`#00 pc 00257224 libmy_game_name.so`
 
 	其中 *00257224* 就是地址
 

@@ -9,7 +9,7 @@ brief: This manual explains how to build and run games and apps on iOS devices i
 Bundling a game for iOS is available only on Mac version of the Defold Editor.
 :::
 
-iOS requires that _any_ app that you build and want to run on your phone or tablet _must_ be signed with an Apple-issued certificate and provisioning profile. This manual explains the steps involved in bundling your game for iOS. During development, running your game through the [development app](/manuals/dev-app) is often preferred since it allows you to hot reload content and code wirelessly directly to your device.
+iOS requires that _any_ app that you build and want to run on your phone or tablet _must_ be signed with an Apple-issued certificate and provisioning profile. This manual explains the steps involved in bundling your game for iOS. During development, running your game through the [development app](/manuals/dev-app) is often preferred since it allows you to hot reload content and code directly to your device.
 
 ## Apple's code signing process
 

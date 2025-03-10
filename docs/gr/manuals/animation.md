@@ -25,16 +25,16 @@ brief: Αυτό το εγχειρίδιο περιγράφει την υποστ
 
   Για λεπτομέρειες σχετικά με τον τρόπο εισαγωγής δεδομένων 3D σε ένα μοντέλο για κινούμενα σχέδια, ανατρέξτε στο [Model documentation](/manuals/model).
 
-  ![Blender animation](images/animation/blender_animation.png){.inline srcset="images/animation/blender_animation@2x.png 2x"}
-  ![Wiggle loop](images/animation/suzanne.gif){.inline}
+  ![Blender animation](images/animation/blender_animation.png)
+  ![Wiggle loop](images/animation/suzanne.gif)
 
 
 ## Ιδιότητα Κινούμενων γραφικών 
 
 Όλες οι αριθμητικές ιδιότητες (numbers, vector3, vector4 and quaterions) και οι σταθερές shader μπορούν να κινούνται με το ενσωματωμένο σύστημα κινούμενης εικόνας, χρησιμοποιώντας τη συνάρτηση  `go.animate()`. η μηχανή θα "tween" ιδιότητες αυτόματα για εσάς σύμφωνα με δεδομένες λειτουργίες αναπαραγωγής και λειτουργίες χαλάρωσης. Μπορείτε επίσης να καθορίσετε προσαρμοσμένες λειτουργίες χαλάρωσης.
 
-  ![Property animation](images/animation/property_animation.png){.inline srcset="images/animation/property_animation@2x.png 2x"}
-  ![Bounce loop](images/animation/bounce.gif){.inline}
+  ![Property animation](images/animation/property_animation.png)
+  ![Bounce loop](images/animation/bounce.gif)
 
 ## Αναπαραγωγή κινούμενων εικόνων
 

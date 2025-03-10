@@ -16,7 +16,7 @@ In order for ZeroBrane to find the files in your project, you need to point it t
 1. Right click on *game.project*
 2. Choose <kbd>Show in Desktop</kbd>
 
-![Show in Finder](images/zerobrane/show_in_desktop.png){ srcset="images/zerobrane/show_in_desktop@2x.png 2x" }
+![Show in Finder](images/zerobrane/show_in_desktop.png)
 
 ## To set up ZeroBrane
 

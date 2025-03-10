@@ -13,7 +13,7 @@ This manual describes how Defold's rendering pipeline interfaces with GPU shader
 * See the [Material manual](/manuals/material) for details on materials.
 * See the [Compute manual](/manuals/compute) for details on compute programs.
 
-Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at [Kronos OpenGL Registry](https://www.khronos.org/registry/gles/).
+Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at [Khronos OpenGL Registry](https://www.khronos.org/registry/gles/).
 
 Observe that on desktop computers it is possible to write shaders using features not available on OpenGL ES 2.0. Your graphics card driver may happily compile and run shader code that will not work on mobile devices.
 
@@ -68,7 +68,7 @@ Constants
   - `CONSTANT_TYPE_WORLD` is the *world matrix* that maps from an object’s local coordinate space into world space.
   - `CONSTANT_TYPE_VIEW` is the *view matrix* that maps from world space to camera space.
   - `CONSTANT_TYPE_PROJECTION` is the *projection matrix* that maps from camera to screen space.
-  - Pre multiplied $world * view$, $view * projection$ and $world * view$ matrices are also available.
+  - Premultiplied $world * view$, $view * projection$ and $world * view$ matrices are also available.
   - `CONSTANT_TYPE_USER` is a `vec4` type constant that you can use as you wish.
 
   The [Material manual](/manuals/material) explains how to specify constants.

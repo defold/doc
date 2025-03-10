@@ -39,7 +39,7 @@ Any resources referenced by the base game package, will not be excluded.
 
 ## Live update settings
 
-When Defold creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In *game.project*, select which live-update settings file to use when bundling. This allows for using different live-update settings for different environments, for example for live, QA, dev etc.
+When Defold creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In *game.project*, select which live-update settings file to use when bundling. This allows for using different live-update settings for different environments, for example live, QA, development etc.
 
 ![Live update settings](images/live-update/05-liveupdate-settings-zip.png)
 

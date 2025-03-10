@@ -16,7 +16,7 @@ Defold 自带内置调试器, 但是还可以使用免费开源的 Lua 编辑器
 1. 右键点击 *game.project*
 2. 选择 <kbd>Show in Desktop</kbd>
 
-![Show in Finder](images/zerobrane/show_in_desktop.png){ srcset="images/zerobrane/show_in_desktop@2x.png 2x" }
+![Show in Finder](images/zerobrane/show_in_desktop.png)
 
 ## ZeroBrane 打开项目
 

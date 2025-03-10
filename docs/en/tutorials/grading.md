@@ -40,7 +40,7 @@ We need to modify the built-in render script and add the new rendering functiona
 
    ![game.project](images/grading/game_project.png)
 
-Now the game is set up to run with a new render pipeline that we can modify. To test that our render script copy is used by the engine, run your game, then do a modification to the render script that will give a visual result, and then reload the script. For example, you can disable the drawing of tiles and sprites, then press <kbd>⌘ + R</kbd> to hot-relad the "broken" render script into the running game:
+Now the game is set up to run with a new render pipeline that we can modify. To test that our render script copy is used by the engine, run your game, then do a modification to the render script that will give a visual result, and then reload the script. For example, you can disable the drawing of tiles and sprites, then press <kbd>⌘ + R</kbd> to hot-reload the "broken" render script into the running game:
 
 ```lua
 ...

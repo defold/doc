@@ -12,10 +12,6 @@ A: This error is related to problems with Java assistive technology such as the 
 Discussed [here on the Defold forum](https://forum.defold.com/t/editor-endless-loading-windows-10-1-2-169-solved/65481/3).
 
 
-#### Q: Why doesn't the editor start or open my project?
-A: Check if there are spaces in the path leading up to the Defold application. For instance, if you put the folder *Defold-macosx* containing the macOS version of the editor in your *Applications* folder, then you should be ok.  If you rename the folder *Defold macosx* the editor might not start anymore. On Windows, putting Defold under *C:\\Program Files\\* can trigger this problem. This is due to a known bug in the underlying Eclipse framework.
-
-
 #### Q: Why am I getting an error saying `sun.security.validator.ValidatorException: PKIX path building failed` when launching the editor?
 A: This exception occurs when the editor tries to make an https connection but the certificate chain provided by the server cannot be verified.
 
