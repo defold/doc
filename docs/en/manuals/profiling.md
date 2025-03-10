@@ -108,8 +108,8 @@ The *Structure* section shows sizes based on how resources are organized in the 
 ## External tools
 In addition to the built-in tools, there is a wide range of free high quality tracing and profiling tools available. Here is a selection:
 
-ProFi (Lua)
-: We do not ship any built-in Lua profiler but there are external libraries that are easy enough to use. To find where your scripts spend time, either insert time measures in your code yourself, or use a Lua profiling library like [ProFi](https://github.com/jgrahamc/ProFi).
+`ProFi` (Lua)
+: We do not ship any built-in Lua profiler but there are external libraries that are easy enough to use. To find where your scripts spend time, either insert time measures in your code yourself, or use a Lua profiling library like [`ProFi`](https://github.com/jgrahamc/ProFi).
 
   Note that pure Lua profilers add quite a lot of overhead with each hook they install. For this reason you should be a bit wary of the timing profiles you get from such a tool. Counting profiles are accurate enough though.
 

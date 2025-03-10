@@ -28,10 +28,10 @@ Name
 : The identity of the material. This name is used to list the material in the *Render* resource to include it in the build. The name is also used in the render API function `render.enable_material()`. The name should be unique.
 
 Vertex Program
-: The vertex shader program file (*.vp*) to use when rendering with the material. The vertex shader program is run on the GPU for each of a component's primitive vertices. It computes the screen position of each vertex and also optionally output "varying" variables that are interpolated and input to the fragment program.
+: The vertex shader program file (*`.vp`*) to use when rendering with the material. The vertex shader program is run on the GPU for each of a component's primitive vertices. It computes the screen position of each vertex and also optionally output "varying" variables that are interpolated and input to the fragment program.
 
 Fragment Program
-: The fragment shader program file (*.fp*) to use when rendering with the material. The program runs on the GPU for each of a primitive's fragments (pixels) and its purpose is to decide the color of each fragment. This is usually done by texture lookups and calculations based on input variables (varying variables or constants).
+: The fragment shader program file (*`.fp`*) to use when rendering with the material. The program runs on the GPU for each of a primitive's fragments (pixels) and its purpose is to decide the color of each fragment. This is usually done by texture lookups and calculations based on input variables (varying variables or constants).
 
 Vertex Constants
 : Uniforms that will be passed to the vertex shader program. See below for a list of available constants.
