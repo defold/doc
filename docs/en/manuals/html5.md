@@ -238,6 +238,12 @@ For example:
 
 'resize_window_callback':
     Function that is called when resize/orientationchanges/focus events happened
+
+'start_success':
+    Function that is called just before main is called upon successful load.
+
+'update_progress':
+    Function that is called as progress is updated. Parameter progress is updated 0-100.
 ```
 
 ## File operations in HTML5
