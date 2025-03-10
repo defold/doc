@@ -49,7 +49,7 @@ dbg = require "builtins.scripts.mobdebug"
 dbg.start()
 ```
 
-By inserting the above code into the application, it will connect to ZeroBrane's debugging server (through "localhost", by default) and pause at the next statement to be executed.
+By inserting the above code into the application, it will connect to ZeroBrane’s debugging server (through "localhost", by default) and pause at the next statement to be executed.
 
 ```txt
 Debugger server started at localhost:8172.
@@ -71,7 +71,7 @@ Should the connection attempt fail (possibly because the debugging server is not
 
 As debugging happens over regular network connections (TCP), this allows for debugging remotely. This means it is possible to debug your application while it is running on a mobile device.
 
-The only change needed is to the command which starts the debugging. By default, `start()` will try to connect to localhost, but for remote debugging, we need to manually specify the address to ZeroBrane's debugging server, like this:
+The only change needed is to the command which starts the debugging. By default, `start()` will try to connect to localhost, but for remote debugging, we need to manually specify the address to ZeroBrane’s debugging server, like this:
 
 ```lua
 dbg = require "builtins.scripts.mobdebug"
