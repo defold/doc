@@ -33,7 +33,7 @@ Path to custom keymap
 : Absolute path to a file containing [custom keyboard shortcuts](/manuals/editor-keyboard-shortcuts).
 
 Engine Arguments
-: Arguments that will be passed to the dmengine executables when the editor builds and runs.
+: Arguments that will be passed to the dmengine executable when the editor builds and runs.
  Use one argument per line. For example:
  ```
 --config=bootstrap.main_collection=/my dir/1.collectionc
@@ -47,7 +47,7 @@ Engine Arguments
 ![](images/editor/preferences_code.png)
 
 Custom Editor
-: Absolute path to an external editor. On macOS it should be the path to the executable inside the .app (eg `/Applications/Atom.app/Contents/MacOS/Atom`).
+: Absolute path to an external editor. On macOS it should be the path to the executable inside the .app (e.g. `/Applications/Atom.app/Contents/MacOS/Atom`).
 
 Open File
 : The pattern used by the custom editor to specify which file to open. The pattern `{file}` will be replaced by the filename to open.

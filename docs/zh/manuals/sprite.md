@@ -19,7 +19,7 @@ Sprite 组件使用 [图集](/manuals/atlas) 或者 [瓷砖图源](/manuals/tile
 : 如果着色器有单个采样器, 该属性叫做 `Image`. 否则, 每个槽都以材质中的纹理采样器命名.
   每个槽是指该 sprite 用于纹理采样器的图集或者瓷砖图源资源.
 
-*DefaultAnimation*
+*Default Animation*
 : sprite的默认动画. 动画信息取自第一个图集或者瓷砖图源.
 
 *Material*

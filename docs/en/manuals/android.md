@@ -97,7 +97,7 @@ Allows using PowerManager WakeLocks to keep processor from sleeping or screen fr
 
 
 ## Using AndroidX
-AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Most of the Android extensions in the [Asset Portal](/assets) support AndroidX. If you do not wish to use AndroidX you can explicitly disable it in favour of the old Android Support Library by creating a new app manifest file or editing an existing one and checking Use Android Support Libs.
+AndroidX is a major improvement to the original Android Support Library, which is no longer maintained. AndroidX packages fully replace the Support Library by providing feature parity and new libraries. Most of the Android extensions in the [Asset Portal](/assets) support AndroidX. If you do not wish to use AndroidX you can explicitly disable it in favour of the old Android Support Library by checking the `Use Android Support Lib` in the [application manifest](https://defold.com/manuals/app-manifest/).
 
 ![](images/android/enable_supportlibrary.png)
 

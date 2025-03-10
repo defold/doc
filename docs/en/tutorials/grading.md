@@ -119,8 +119,8 @@ Create a quadratic plane mesh in Blender (or any other 3D modelling program). Se
 ![game.project](images/grading/quad_blender.png)
 
 1. Export the model as a Collada file called *`quad.dae`* and drag it into your Defold project.
-2. Open *`main.collection`* and create a new game object called "grade".
-3. Add a Model component to the "grade" game object.
+2. Open *`main.collection`* and create a new game object called "`grade`".
+3. Add a Model component to the "`grade`" game object.
 3. Set the *Mesh* property of the model component to the *`quad.dae`* file.
 
 Leave the game object unscaled at origin. Later, when we render the quad we will project it so it fills the whole screen. But first we need a material and shader programs for the quad:
@@ -128,13 +128,13 @@ Leave the game object unscaled at origin. Later, when we render the quad we will
 1. Create a new material and call it *`grade.material`* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Material</kbd>.
 2. Create a vertex shader program called *`grade.vp`* and a fragment shader program called *`grade.fp`* by right clicking *main* in the *Asset* view and selecting <kbd>New ▸ Vertex program</kbd> and <kbd>New ▸ Fragment program</kbd>.
 3. Open *grade.material* and set the *Vertex program* and *Fragment program* properties to the new shader program files.
-4. Add a *Vertex constant* named "view_proj" of type `CONSTANT_TYPE_VIEWPROJ`. This is the view and projection matrix used in the vertex program for the quad vertices.
-5. Add a *Sampler* called "original". This will be used to sample pixels from the off-screen render target color buffer.
-6. Add a *Tag* called "grade". We will make a new *render predicate* in the render script matching this tag to draw the quad.
+4. Add a *Vertex constant* named "`view_proj`" of type `CONSTANT_TYPE_VIEWPROJ`. This is the view and projection matrix used in the vertex program for the quad vertices.
+5. Add a *Sampler* called "`original`". This will be used to sample pixels from the off-screen render target color buffer.
+6. Add a *Tag* called "`grade`". We will make a new *render predicate* in the render script matching this tag to draw the quad.
 
    ![grade.material](images/grading/grade_material.png)
 
-7. Open *`main.collection`*, select the model component in game object "grade" and set its *Material* property to "`/main/grade.material`".
+7. Open *`main.collection`*, select the model component in game object "`grade`" and set its *Material* property to "`/main/grade.material`".
 
    ![model properties](images/grading/model_properties.png)
 

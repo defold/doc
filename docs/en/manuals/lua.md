@@ -144,7 +144,7 @@ string
   | `\'`     | single quote   |
   | `\[`     | left square bracket    |
   | `\]`     | right square bracket   |
-  | `\ddd`   | character denoted by its numeric value where ddd is a sequence of up to three _decimal_ digits |
+  | `\ddd`   | character denoted by its numeric value where `ddd` is a sequence of up to three _decimal_ digits |
 
   ```lua
   my_string = "hello"
@@ -626,7 +626,7 @@ print(collectgarbage("count") * 1024)       -- 88611
 print(collectgarbage("count") * 1024)       -- 88633. 22 bytes allocated
 ```
 
-So a `vector3` weighs in at 70-22=48 bytes. That is not much, but if you create _one_ each frame in a 60 FPS game it's suddenly 2.8 kB of garbage per second. With 360 script components that each create one `vector3` every frame we're looking at 1 MB of garbage generated per second. The numbers can add upp very quickly. When the Lua runtime collects garbage it may eat up many precious milliseconds---especially on mobile platforms.
+So a `vector3` weighs in at 70-22=48 bytes. That is not much, but if you create _one_ each frame in a 60 FPS game it's suddenly 2.8 kB of garbage per second. With 360 script components that each create one `vector3` every frame we're looking at 1 MB of garbage generated per second. The numbers can add up very quickly. When the Lua runtime collects garbage it may eat up many precious milliseconds---especially on mobile platforms.
 
 One way to avoid allocations is to create a `vector3` and then keep working with the same object. For instance, to reset a `vector3` we can use the following construct:
 

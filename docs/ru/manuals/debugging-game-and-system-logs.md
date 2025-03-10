@@ -86,7 +86,7 @@ iOS
 
   ![download container](images/debugging/download_container.png)
 
-  Как только контейнер будет извлечен, он появится в приложении *Finder*. Щелкните по контейнеру правой кнопкой мыши и выберите <kbd>Show Package Content</kbd>. Найдите файл «log.txt», который должен находиться в «AppData/Documents/». 
+  Как только контейнер будет извлечен, он появится в приложении *Finder*. Щелкните по контейнеру правой кнопкой мыши и выберите <kbd>Show Package Content</kbd>. Найдите файл «log.txt», который должен находиться в «`AppData/Documents/`». 
 
 Android
 : Возможность извлечения файла "log.txt" зависит от версии ОС и производителя. Вот краткое и простое пошаговое руководство: [https://stackoverflow.com/a/48077004/129360](https://stackoverflow.com/a/48077004/129360).

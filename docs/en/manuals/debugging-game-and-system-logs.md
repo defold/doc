@@ -87,7 +87,7 @@ This will install the app on your device, start it and automatically attach a LL
 
 ## Reading the game log from the log file
 
-If you enable the *Write Log* setting in *game.project*, any game output will be written to disk, to a file called "log.txt". Here is how you extract the file if you run the game on device:
+If you enable the *Write Log* setting in *game.project*, any game output will be written to disk, to a file called "`log.txt`". Here is how you extract the file if you run the game on device:
 
 iOS
 : Connect your device to a computer with macOS and Xcode installed.
@@ -100,7 +100,7 @@ iOS
 
   ![download container](images/debugging/download_container.png)
 
-  Once the container has been extracted it will be shown in *Finder*. Right click the container and select <kbd>Show Package Content</kbd>. Locate the file "log.txt", which should be located in "AppData/Documents/".
+  Once the container has been extracted it will be shown in *Finder*. Right click the container and select <kbd>Show Package Content</kbd>. Locate the file "`log.txt`", which should be located in "`AppData/Documents/`".
 
 Android(
-: The ability to extract the "log.txt" depends on OS version and manufacturer. Here is a short and simple [step by step guide](https://stackoverflow.com/a/48077004/]129360).
+: The ability to extract the "`log.txt`" depends on OS version and manufacturer. Here is a short and simple [step by step guide](https://stackoverflow.com/a/48077004/]129360).

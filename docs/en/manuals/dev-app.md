@@ -25,35 +25,35 @@ Follow the [instructions in the Android manual](https://defold.com/manuals/andro
 
 ## Launching your game
 
-To launch your game on your device, the dev app and editor must be able to connect, over the same wifi network or using USB (see below).
+To launch your game on your device, the development app and editor must be able to connect, over the same wifi network or using USB (see below).
 
 1. Make sure the editor is up and running.
-2. Launch the dev app on the device.
+2. Launch the development app on the device.
 3. Select your device under <kbd>Project ▸ Targets</kbd> in the editor.
 4. Select <kbd>Project ▸ Build</kbd> to run the game. It may take a while for the game to start since the game content is streamed to the device over the network.
 5. While the game is running, you can use [hot reloading](/manuals/hot-reload/) as usual.
 
 ### Connecting to an iOS device using USB on Windows
 
-When connecting over USB on Windows to a dev app running on an iOS device you first need to [install iTunes](https://www.apple.com/lae/itunes/download/). When iTunes is installed you also need to [enable Personal Hotspot](https://support.apple.com/en-us/HT204023) on your iOS device from the Settings menu. If you see an alert that says tap "Trust This Computer?" tap Trust. The device should now show up under <kbd>Project ▸ Targets</kbd> when the dev app is running.
+When connecting over USB on Windows to a development app running on an iOS device you first need to [install iTunes](https://www.apple.com/lae/itunes/download/). When iTunes is installed you also need to [enable Personal Hotspot](https://support.apple.com/en-us/HT204023) on your iOS device from the Settings menu. If you see an alert that says tap "Trust This Computer?" tap Trust. The device should now show up under <kbd>Project ▸ Targets</kbd> when the development app is running.
 
 ### Connecting to an iOS device using USB on Linux
 
-On Linux you need to enable Personal Hotspot on your device from the Settings menu when connected using USB. If you see an alert that says tap "Trust This Computer?" tap Trust. The device should now show up under <kbd>Project ▸ Targets</kbd> when the dev app is running.
+On Linux you need to enable Personal Hotspot on your device from the Settings menu when connected using USB. If you see an alert that says tap "Trust This Computer?" tap Trust. The device should now show up under <kbd>Project ▸ Targets</kbd> when the development app is running.
 
 ### Connecting to an iOS device using USB on macOS
 
-On newer iOS versions the device will automatically open a new ethernet interface between the device and computer when connected using USB on macOS. The device should show up under <kbd>Project ▸ Targets</kbd> when the dev app is running.
+On newer iOS versions the device will automatically open a new ethernet interface between the device and computer when connected using USB on macOS. The device should show up under <kbd>Project ▸ Targets</kbd> when the development app is running.
 
-On older iOS versions you need to enable Personal Hotspot on your device from the Settings menu when connected using USB on macOS. If you see an alert that says tap "Trust This Computer?" tap Trust. The device should now show up under <kbd>Project ▸ Targets</kbd> when the dev app is running.
+On older iOS versions you need to enable Personal Hotspot on your device from the Settings menu when connected using USB on macOS. If you see an alert that says tap "Trust This Computer?" tap Trust. The device should now show up under <kbd>Project ▸ Targets</kbd> when the development app is running.
 
 ### Connecting to an Android device using USB on macOS
 
-On macOS it is possible to connect over USB to a running dev app on an Android device when the device is in USB Tethering Mode. On macOS you need to install a third-party driver such as [HoRNDIS](https://joshuawise.com/horndis#available_versions). When HoRNDIS is installed you also need to allow it to run via the Security & Privacy settings. Once USB Tethering is enabled the device will show up under <kbd>Project ▸ Targets</kbd> when the dev app is running.
+On macOS it is possible to connect over USB to a running development app on an Android device when the device is in USB Tethering Mode. On macOS you need to install a third-party driver such as [HoRNDIS](https://joshuawise.com/horndis#available_versions). When HoRNDIS is installed you also need to allow it to run via the Security & Privacy settings. Once USB Tethering is enabled the device will show up under <kbd>Project ▸ Targets</kbd> when the development app is running.
 
 ### Connecting to an Android device using USB on Windows or Linux
 
-On Windows and Linux it is possible to connect over USB to a running dev app on an Android device when the device is in USB Tethering Mode. Once USB Tethering is enabled the device will show up under <kbd>Project ▸ Targets</kbd> when the dev app is running.
+On Windows and Linux it is possible to connect over USB to a running development app on an Android device when the device is in USB Tethering Mode. Once USB Tethering is enabled the device will show up under <kbd>Project ▸ Targets</kbd> when the development app is running.
 
 ## Troubleshooting
 
@@ -61,7 +61,7 @@ Unable to download application
 : Make sure the your device UDID is included in the mobile provisioning that was used for signing the app.
 
 Your device does not appear in the Targets menu
-: Make sure that your device is connected to the same wifi network as your computer. Make sure the dev app is built in Debug mode.
+: Make sure that your device is connected to the same wifi network as your computer. Make sure the development app is built in Debug mode.
 
-The game does not start with a message about mis-matching versions
+The game does not start with a message about mismatching versions
 : This happens when you have upgraded the editor to the latest version. You need to build and install a new version.

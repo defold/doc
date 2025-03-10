@@ -15,7 +15,7 @@ Don't poll for changes if you can get a callback. Don't manually animate somethi
 ### Reduce garbage collection
 If you create loads of short lived objects such as Lua tables every frame this will eventually trigger the garbage collector of Lua. When this happens it can manifest itself as small hitches/spikes in frame time. Re-use tables where you can and really try to avoid creating Lua tables inside loops and similar constructs if possible.
 
-### Pre-hash message and action ids
+### Prehash message and action ids
 If you do a lot of message handling or have many input events to deal with it is recommended to prehash the strings. Consider this piece of code:
 
 ```

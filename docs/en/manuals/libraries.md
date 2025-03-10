@@ -15,9 +15,9 @@ Libraries are useful for the following purposes:
 
 ## Setting up library sharing
 
-Suppose you want to build a library containing shared sprites and tile sources. You start by [setting up a new project](/manuals/project-setup/). Decide what folders you want to share from the project and add the names of those folders to the *include_dirs* property in the Project settings. If you want to list more than one folder, separate the names with spaces:
+Suppose you want to build a library containing shared sprites and tile sources. You start by [setting up a new project](/manuals/project-setup/). Decide what folders you want to share from the project and add the names of those folders to the *`include_dirs`* property in the Project settings. If you want to list more than one folder, separate the names with spaces:
 
-![Include dirs](images/libraries/libraries_include_dirs.png)
+![Include directories](images/libraries/libraries_include_dirs.png)
 
 Before we can add this library to another project we need a way to locate the library.
 
@@ -109,6 +109,6 @@ Library sharing only includes files that are located under the shared folder(s).
 
 ## Name collisions
 
-Since you can list several project URLs in the *dependencies* project setting you might encounter a name collision. This happens if two or more of the dependent projects share a folder with the same name in the *include_dirs* project setting.
+Since you can list several project URLs in the *dependencies* project setting you might encounter a name collision. This happens if two or more of the dependent projects share a folder with the same name in the *`include_dirs`* project setting.
 
 Defold resolves name collisions by simply ignoring all but the last reference to folders of the same name in the order the project URLs are specified in the *dependencies* list. For instance. If you list 3 library project URLs in the dependencies and all of them share a folder named *items*, only one *items* folder will show up---the one belonging to the project that is last in the URL list.

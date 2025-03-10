@@ -50,7 +50,7 @@ Collision
 
 ## Tile source flip-book animations
 
-To define an animation in a tile source the animation frame tiles must lie next to each other in a sequence left to right. The sequence can wrap from one row to the next. All newly created tile sources have a default animation named "anim". You can add new animations by <kbd>right clicking</kbd> the tile source root in the *Outline* and selecting <kbd>Add ▸ Animation</kbd>.
+To define an animation in a tile source the animation frame tiles must lie next to each other in a sequence left to right. The sequence can wrap from one row to the next. All newly created tile sources have a default animation named "`anim`". You can add new animations by <kbd>right clicking</kbd> the tile source root in the *Outline* and selecting <kbd>Add ▸ Animation</kbd>.
 
 Selecting an animation displays the animation *Properties*.
 

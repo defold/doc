@@ -84,7 +84,7 @@ ios-deploy --debug --bundle <path_to_game.app> # 注意: 不是 .ipa 文件
 
 ## 从日志文件中读取日志信息
 
-如果你在 *game.project* 文件里打开了 *Write Log* 项, 所有游戏输出都会被记录到硬盘上, 保存为 "log.txt" 文件. 下面介绍了从设备上获取日志文件的方法:
+如果你在 *game.project* 文件里打开了 *Write Log* 项, 所有游戏输出都会被记录到硬盘上, 保存为 "`log.txt`" 文件. 下面介绍了从设备上获取日志文件的方法:
 
 iOS
 : 把设备连接到安装有 macOS 和 Xcode 的电脑上.
@@ -97,7 +97,7 @@ iOS
 
   ![download container](images/debugging/download_container.png)
 
-  容器被下载解压之后就可以在 *Finder* 中看到了. 右键单击容器选择 <kbd>Show Package Content</kbd>. 找到 "log.txt", 一般位于 "AppData/Documents/".
+  容器被下载解压之后就可以在 *Finder* 中看到了. 右键单击容器选择 <kbd>Show Package Content</kbd>. 找到 "`log.txt`", 一般位于 "`AppData/Documents/`".
 
 Android
-: "log.txt" 的获取取决于操作系统版本和制造商. 这里有一个简单的 [步骤教程](https://stackoverflow.com/a/48077004/129360).
+: "`log.txt`" 的获取取决于操作系统版本和制造商. 这里有一个简单的 [步骤教程](https://stackoverflow.com/a/48077004/129360).

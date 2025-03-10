@@ -104,9 +104,9 @@ You should not write code that relies on the string value of a sound group since
 
 All values are linear between 0 and 1.0 (0 dB). To convert to decibel, simply use the standard formula:
 
-$$
+```math
 db = 20 \times \log \left( gain \right)
-$$
+```
 
 ```lua
 for i, group_hash in ipairs(sound.get_groups()) do

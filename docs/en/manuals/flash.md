@@ -106,7 +106,7 @@ In Flash, we are familiar with the Timeline (top section of the screenshot below
 
 ![timeline and stage](images/flash/stage.png)
 
-As discussed in the movie clips section above, the Stage is essentially the top level container of a Flash game and is created each time a project is exported. The Stage will by default have one child, the *MainTimeline*. Each movie clip generated in the project will have its own timeline, and can serve as a container for other symbols (including movie clips).
+As discussed in the movie clips section above, the Stage is essentially the top level container of a Flash game and is created each time a project is exported. The Stage will by default have one child, the *`MainTimeline`*. Each movie clip generated in the project will have its own timeline, and can serve as a container for other symbols (including movie clips).
 
 ## Defold—collections
 
@@ -192,7 +192,7 @@ pos.z  = 0.5
 go.set_position(pos)
 ```
 
-## Flash—hitTestObject and hitTestPoint collision detection
+## Flash `hitTestObject` and `hitTestPoint` collision detection
 
 Basic collision detection in Flash is achieved by using the `hitTestObject()` method. In this example, we have two movie clips: "bullet" and "bullseye". These are illustrated in the screenshot below. The blue boundary box is visible when selecting the symbols in the Flash editor, and it is these boundary boxes that drive the result of the `hitTestObject()` method.
 
@@ -240,7 +240,7 @@ Note how the *Group* property is set to "target" and *Mask* is set to "bullet".
 
 In Flash, collision detection occurs only when explicitly called by the script. In Defold, collision detection occurs continuously in the background as long as a collision object remains enabled. When a collision occurs, messages are sent to all components of a game object (most relevantly, the script components). These are the [collision_response and contact_point_response](/manuals/physics-messages) messages, which contain all the information required to resolve the collision as desired.
 
-The advantage of Defold collision detection is that it is more advanced than that of Flash, with the ability to detect collisions between relatively complex shapes with very little setup effort. Collision detection is automatic, meaning looping through the various objects in the different collision groups and explicitly performing hit tests is not required. The main drawback is that there is no equivalent to the Flash shapeFlag. However, for most uses combinations of the basic box and sphere shapes suffice. For more complex scenarios, custom shapes [are possible](//forum.defold.com/t/does-defold-support-only-three-shapes-for-collision-solved/1985).
+The advantage of Defold collision detection is that it is more advanced than that of Flash, with the ability to detect collisions between relatively complex shapes with very little setup effort. Collision detection is automatic, meaning looping through the various objects in the different collision groups and explicitly performing hit tests is not required. The main drawback is that there is no equivalent to the Flash `shapeFlag`. However, for most uses combinations of the basic box and sphere shapes suffice. For more complex scenarios, custom shapes [are possible](//forum.defold.com/t/does-defold-support-only-three-shapes-for-collision-solved/1985).
 
 ## Flash—event handling
 
@@ -257,7 +257,7 @@ final
 :   Called when the script component is destroyed (e.g. a spawned game object is removed).
 
 update
-:   Called every frame. Equivalent to enterFrame in Flash.
+:   Called every frame. Equivalent to `enterFrame` in Flash.
 
 on_message
 :   Called when the script component receives a message.

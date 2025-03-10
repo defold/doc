@@ -106,7 +106,7 @@ Detaching the debugger
 
 ## Lua debug library
 
-Lua comes with a debug library that is useful in some situations, particularly if you need to inspect the innards of your Lua environment. You can find more information about it here: http://www.lua.org/pil/contents.html#23.
+Lua comes with a debug library that is useful in some situations, particularly if you need to inspect the innards of your Lua environment. You can find more information about it in [the chapter about the Debug Library in the Lua manual](http://www.lua.org/pil/contents.html#23).
 
 ## Debugging checklist
 

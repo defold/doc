@@ -216,7 +216,7 @@ Android 和其他平台一样支持手柄的输入事件. 手柄支持基于 [An
 | AKEYCODE_BUTTON_15          | 34    | 1.2.186 |
 | AKEYCODE_BUTTON_16          | 35    | 1.2.186 |
 
-([Android KeyEvent 定义](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
+([Android `KeyEvent` 定义](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 
 | 摇杆输入  | 事件编号 |
 |-----------------------------|-------|
@@ -229,6 +229,6 @@ Android 和其他平台一样支持手柄的输入事件. 手柄支持基于 [An
 | AMOTION_EVENT_AXIS_HAT_X    | 6     |
 | AMOTION_EVENT_AXIS_HAT_Y    | 7     |
 
-([Android MotionEvent 定义](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
+([Android `MotionEvent` 定义](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
 
 为了正确使用手柄事件映射请参考上表以及 Google Play Store 上的手柄映射测试小工具.

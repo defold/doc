@@ -229,7 +229,7 @@ Podczas dodawania dodatkowych przypisań gamepadów na platformie Android, może
 | AKEYCODE_BUTTON_15          | 34     | 1.2.186 |
 | AKEYCODE_BUTTON_16          | 35     | 1.2.186 |
 
-([Definicje zdarzeń Android KeyEvent](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
+([Definicje zdarzeń Android `KeyEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 
 | Ruch - indeks przycisku     | Indeks |
 |-----------------------------|--------|
@@ -242,6 +242,6 @@ Podczas dodawania dodatkowych przypisań gamepadów na platformie Android, może
 | AMOTION_EVENT_AXIS_HAT_X    | 6      |
 | AMOTION_EVENT_AXIS_HAT_Y    | 7      |
 
-([Definicje Android MotionEvent](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
+([Definicje Android `MotionEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
 
 Użyj tej tabelu w kombinacji z aplikacją testową dla gamepadów z Google Play Store, żeby zobaczyć jakie przyciski wywołują jakie wydarzenia na Twoim gamepadzie.

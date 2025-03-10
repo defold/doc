@@ -19,7 +19,7 @@ Apart from the properties *Id*, *Position* and *Rotation* the following componen
 : If the shader has a single sampler, this field is named `Image`. Otherwise, each slot is named after the texture sampler in the material.
 Each slot specifies the atlas or tilesource resource to use for the sprite on that texture sampler.
 
-*DefaultAnimation*
+*Default Animation*
 : The animation to use for the sprite. The animation information is taken from the first atlas or tilesource.
 
 *Material*

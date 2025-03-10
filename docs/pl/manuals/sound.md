@@ -116,9 +116,9 @@ Nie należy pisać kodu, który polega na wartości typu string grupy dźwiękow
 
 Wszystkie wartości są liniowe w zakresie od 0 do 1.0 (0 dB). Aby przeliczyć na decybele, wystarczy użyć standardowej formuły:
 
-$$
+```math
 db = 20 \times \log \left( gain \right)
-$$
+```
 
 ```lua
 for i, group_hash in ipairs(sound.get_groups()) do

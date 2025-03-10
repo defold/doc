@@ -82,7 +82,7 @@ Extensions are treated just like any other assets in your project and they can b
 
 ## A simple example extension
 
-Let's build a very simple extension. First, we create a new root folder *myextension* and add a file *ext.manifest* containing the name of the extension "MyExtension". Note that the name is a C++ symbol and must match the first argument to `DM_DECLARE_EXTENSION` (see below).
+Let's build a very simple extension. First, we create a new root folder *`myextension`* and add a file *`ext.manifest`* containing the name of the extension "`MyExtension`". Note that the name is a C++ symbol and must match the first argument to `DM_DECLARE_EXTENSION` (see below).
 
 ![Manifest](images/extensions/manifest.png)
 
@@ -91,7 +91,7 @@ Let's build a very simple extension. First, we create a new root folder *myexten
 name: "MyExtension"
 ```
 
-The extension consists of a single C++ file, *myextension.cpp* that is created in the "src" folder.
+The extension consists of a single C++ file, *`myextension.cpp`* that is created in the "`src`" folder.
 
 ![C++ file](images/extensions/cppfile.png)
 
@@ -225,12 +225,12 @@ The entry points will allow you to run code at various points in the lifecycle o
 
 The following identifiers are defined by the builder on each respective platform:
 
-* DM_PLATFORM_WINDOWS
-* DM_PLATFORM_OSX
-* DM_PLATFORM_IOS
-* DM_PLATFORM_ANDROID
-* DM_PLATFORM_LINUX
-* DM_PLATFORM_HTML5
+* `DM_PLATFORM_WINDOWS`
+* `DM_PLATFORM_OSX`
+* `DM_PLATFORM_IOS`
+* `DM_PLATFORM_ANDROID`
+* `DM_PLATFORM_LINUX`
+* `DM_PLATFORM_HTML5`
 
 ## Build server logs
 

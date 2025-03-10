@@ -51,9 +51,9 @@ Friction
 
   Siła tarcia jest proporcjonalna do siły normalnej (nazywa się to tarciem Coulomba). Gdy obliczana jest siła tarcia między dwoma kształtami (`A` i `B`), wartości tarcia obu obiektów są łączone za pomocą średniej geometrycznej:
 
-  $$
-  F = sqrt( F_A * F_B )
-  $$
+```math
+F = sqrt( F_A * F_B )
+```
 
   Oznacza to, że jeśli jeden z obiektów ma współczynnik tarcia równy zeru, to kontakt między nimi będzie miał tarcie równe zeru.
 
@@ -62,9 +62,9 @@ Restitution
 
   Wartości restytucji między dwoma kształtami (`A` i `B`) są łączone za pomocą następującej formuły:
 
-  $$
-  R = max( R_A, R_B )
-  $$
+```math
+R = max( R_A, R_B )
+```
 
   Gdy kształt ma wiele kontaktów, restytucja jest przybliżana, ponieważ Box2D (węwnetrznie używany silnik fizyki) używa rozwiązywania iteracyjnego. Box2D stosuje również kolizje anelastyczne, gdy prędkość kolizji jest mała, aby zapobiec drganiom odbicia (bounce-jitter).
 

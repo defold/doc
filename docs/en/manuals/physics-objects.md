@@ -55,9 +55,9 @@ Friction
 
   The friction strength is proportional to the normal force (this is called Coulomb friction). When the friction force is computed between two shapes (`A` and `B`), the friction values of both objects are combined by the geometric mean:
 
-  $$
-  F = sqrt( F_A * F_B )
-  $$
+```math
+F = sqrt( F_A * F_B )
+```
 
   This means that if one of the objects has zero friction then the contact between them will have zero friction.
 
@@ -66,14 +66,14 @@ Restitution
 
   Restitution values between two shapes (`A` and `B`) are combined using the following formula:
 
-  $$
-  R = max( R_A, R_B )
-  $$
+```math
+R = max( R_A, R_B )
+```
 
   When a shape develops multiple contacts, restitution is simulated approximately because Box2D uses an iterative solver. Box2D also uses inelastic collisions when the collision velocity is small to prevent bounce-jitter
 
 Linear damping
-: Linear damping reduces the linear velocity of the body. It is different from friction, which only occurs during contact, and can be used to give objects a floaty appearance, like they are moving through something thicker than air. Valid values are between 0 and 1.
+: Linear damping reduces the linear velocity of the body. It is different from friction, which only occurs during contact, and can be used to give objects a floating appearance, like they are moving through something thicker than air. Valid values are between 0 and 1.
 
   Box2D approximates damping for stability and performance. At small values, the damping effect is independent of the time step while at larger damping values, the damping effect varies with the time step. If you run your game with a fixed time step, this never becomes an issue.
 

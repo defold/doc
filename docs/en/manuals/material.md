@@ -180,7 +180,7 @@ attribute mediump mat4 mtx_normal;
 attribute mediump vec4 instance_color;
 ```
 
-Note that the mtx_world and mtx_normal will be configured to use the step function `Instance` by default. This can be changed in the material editor by adding an entry for them and setting the `Step function` to `Vertex`, which will make the attribute be repeated per vertex instead of per instance.
+Note that the `mtx_world` and `mtx_normal` will be configured to use the step function `Instance` by default. This can be changed in the material editor by adding an entry for them and setting the `Step function` to `Vertex`, which will make the attribute be repeated per vertex instead of per instance.
 
 To verify that the instancing works in this case, you can look at the web profiler. In this case, since the only thing that changes between the instances of the box is the per-instance attributes, it can be rendered with a single draw call:
 
@@ -194,28 +194,28 @@ On OpenGL based graphics adapters, instancing requires at least OpenGL 3.1 for d
 
 Shader constants, or "uniforms" are values that are passed from the engine to vertex and fragment shader programs. To use a constant you define it in the material file as either a *Vertex Constant* property or a *Fragment Constant* property. Corresponding `uniform` variables need to be defined in the shader program. The following constants can be set in a material:
 
-CONSTANT_TYPE_WORLD
+`CONSTANT_TYPE_WORLD`
 : The world matrix. Use to transform vertices into world space. For some component types, the vertices are already in world space when they arrive to the vertex program (due to batching). In those cases multiplying with the world matrix in the shader will yield the wrong results.
 
-CONSTANT_TYPE_VIEW
+`CONSTANT_TYPE_VIEW`
 : The view matrix. Use to transform vertices to view (camera) space.
 
-CONSTANT_TYPE_PROJECTION
+`CONSTANT_TYPE_PROJECTION`
 : The projection matrix. Use to transform vertices to screen space.
 
-CONSTANT_TYPE_VIEWPROJ
+`CONSTANT_TYPE_VIEWPROJ`
 : A matrix with the view and projection matrices already multiplied.
 
-CONSTANT_TYPE_WORLDVIEW
+`CONSTANT_TYPE_WORLDVIEW`
 : A matrix with the world and view matrices already multiplied.
 
-CONSTANT_TYPE_WORLDVIEWPROJ
+`CONSTANT_TYPE_WORLDVIEWPROJ`
 : A matrix with the world, view and projection matrices already multiplied.
 
-CONSTANT_TYPE_NORMAL
+`CONSTANT_TYPE_NORMAL`
 : A matrix to compute normal orientation. The world transform might include non-uniform scaling, which breaks the orthogonality of the combined world-view transform. The normal matrix is used to avoid issues with the direction when transforming normals. (The normal matrix is the transpose inverse of the world-view matrix).
 
-CONSTANT_TYPE_USER
+`CONSTANT_TYPE_USER`
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). You can also retrieve the value with [go.get()](/ref/stable/go/#go.get). Changing a material constant of a single component instance [breaks render batching and will result in additional draw calls](/manuals/render/#draw-calls-and-batching).
 
 Example:
@@ -226,7 +226,7 @@ go.set("#sprite", "tint", vmath.vector4(1,0,0,1))
 go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1), go.EASING_LINEAR, 2)
 ```
 
-CONSTANT_TYPE_USER_MATRIX4
+`CONSTANT_TYPE_USER_MATRIX4`
 : A matrix4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). You can also retrieve the value with [go.get()](/ref/stable/go/#go.get). Changing a material constant of a single component instance [breaks render batching and will result in additional draw calls](/manuals/render/#draw-calls-and-batching).
 
 Example:

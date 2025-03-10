@@ -70,7 +70,7 @@ When checked, the engine will write a log file. If running more than one instanc
   * Others: Application root
 3. The application support path
   * macOS/iOS: `NSApplicationSupportDirectory`
-  * Windows: `CSIDL_APPDATA` (eg C:\Users\<username>\AppData\Roaming)
+  * Windows: `CSIDL_APPDATA` (eg `C:\Users\<username>\AppData\Roaming`)
   * Android: `Context.getFilesDir()`
   * Linux: `HOME` environment variable
 
@@ -473,8 +473,8 @@ Image file (.png) to use as application icon at given width and height dimension
 #### Launch Screen
 Storyboard file (.storyboard). Learn more about how to create one in the [iOS manual](/manuals/ios/#creating-a-storyboard).
 
-#### Pre Rendered Icons
-(iOS 6 and earlier) Check if your icons are pre-rendered. If this is unchecked the icons will get a glossy highlight added automatically.
+#### Prerendered Icons
+(iOS 6 and earlier) Check if your icons are prerendered. If this is unchecked the icons will get a glossy highlight added automatically.
 
 #### Bundle Identifier
 The bundle identifier lets iOS recognize any updates to your app. Your bundle ID must be registered with Apple and be unique to your app. You cannot use the same identifier for both iOS and macOS apps. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters, the underscore or hyphen (-) character (see [`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
@@ -492,7 +492,7 @@ If specified, use this *`info.plist`* file when bundling your app.
 The Apple Privacy Manifest for the application. The field will default to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
 
 #### Custom Entitlements
-If specified, the entitlements in the supplied provisioning profile (.entitlements, .xcent, .plist) will be merged with the entitlements from the provisioning profile supplied when bundling the application.
+If specified, the entitlements in the supplied provisioning profile (`.entitlements`, `.xcent`, `.plist`) will be merged with the entitlements from the provisioning profile supplied when bundling the application.
 
 #### Override Entitlements
 If checked the Custom Entitlements will replace the ones in the provisioning profile when bundling. Must be used in combination with the Custom Entitlements setting above.
@@ -525,7 +525,7 @@ An integer value indicating the version of the app. Increase the value for each 
 #### Package
 Package identifier. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters or the underscore character.
 
-#### Gcm Sender Id
+#### GCM Sender Id
 Google Cloud Messaging Sender Id. Set this to the string assigned by Google to enable push notifications.
 
 #### Manifest
@@ -566,7 +566,7 @@ The bundle identifier lets macOS recognize updates to your app. Your bundle ID m
 The language used if the application doesn't have user's preferred language in `Localizations` list (see [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
 
 #### Localizations
-This field contains comma-separated strings identifying the language name or ISO language designator of the supported localizations (see [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
+This field contains comma-separated strings identifying the language name or ISO language designator of the supported localizations (see [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
 
 ---
 

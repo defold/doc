@@ -36,7 +36,7 @@ To use old environment you should go through following steps:
     Important fields are:
     * **profiles** - list of profiles that triggers service start. Profile names passed via `--profile <profile_name>` argument to `docker compose` command.
     * **networks** - list of networks that should used by Docker container. For running Extender used network with name `default`. Important to set service network aliases (it will be used in later Extender's configuration).
-2. Add definition of remote builder in [application-local-dev-app.yml](https://github.com/defold/extender/blob/dev/server/configs/application-local-dev-app.yml) in `extender.remote-builder.platforms` section. In our example it will looks like:
+2. Add definition of remote builder in [`application-local-dev-app.yml`](https://github.com/defold/extender/blob/dev/server/configs/application-local-dev-app.yml) in `extender.remote-builder.platforms` section. In our example it will looks like:
     ```yml
         emsdk-2011:
             url: http://emsdk-2011:9000

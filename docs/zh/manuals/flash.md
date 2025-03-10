@@ -257,7 +257,7 @@ final
 :   脚本组件析构时调用 (比如游戏对象被删除时).
 
 update
-:   在每一帧调用. 相当于 Flash 的 enterFrame.
+:   在每一帧调用. 相当于 Flash 的 `enterFrame`.
 
 on_message
 :   当脚本组件收到消息时调用.

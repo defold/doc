@@ -5,7 +5,7 @@ brief: This manual explains how to use pie nodes in Defold GUI scenes.
 
 # GUI pie nodes
 
-Pie nodes are used to create circular or ellipsoid objects ranging from plain circles to pies and square donut shapes.
+Pie nodes are used to create circular or ellipsoid objects ranging from plain circles to pies and square doughnut shapes.
 
 ## Creating a pie node
 

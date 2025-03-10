@@ -27,9 +27,9 @@ Suppose we are making a game containing large, high resolution image resources. 
 
 ![Mona Lisa collection](images/live-update/mona-lisa.png)
 
-To have the engine load such a collection dynamically, we can simply add a collection proxy component and point it to *monalisa.collection*. Now the game can choose when to load the content in the collection from storage into memory by sending a `load` message to the collection proxy. However, we want to go further and control the loading of the resources contained in the collection ourselves.
+To have the engine load such a collection dynamically, we can simply add a collection proxy component and point it to *`monalisa.collection`*. Now the game can choose when to load the content in the collection from storage into memory by sending a `load` message to the collection proxy. However, we want to go further and control the loading of the resources contained in the collection ourselves.
 
-This is done by simply checking the *Exclude* checkbox in the collection proxy properties, telling the bundler to leave any content in *monalisa.collection* out when creating an application bundle.
+This is done by simply checking the *Exclude* checkbox in the collection proxy properties, telling Defold to leave any content in *`monalisa.collection`* out when creating an application bundle.
 
 ::: important
 Any resources referenced by the base game package, will not be excluded.
@@ -39,7 +39,7 @@ Any resources referenced by the base game package, will not be excluded.
 
 ## Live update settings
 
-When the bundler creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In *game.project*, select which live-update settings file to use when bundling. This allows for using different live-update settings for different environments, for example for live, QA, dev etc.
+When Defold creates an application bundle it needs to store any excluded resources somewhere. The project settings for Live update govern the location for those resources. The settings are found under <kbd>Project ▸ Live update Settings...</kbd>. This will create a settings file if none exists. In *game.project*, select which live-update settings file to use when bundling. This allows for using different live-update settings for different environments, for example for live, QA, dev etc.
 
 ![Live update settings](images/live-update/05-liveupdate-settings-zip.png)
 

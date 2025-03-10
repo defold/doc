@@ -46,9 +46,9 @@ msg.post("#myproxy", "load")
 
 ![load](images/collection-proxy/proxy_load.png)
 
-The proxy component will instruct the engine to allocate space for a new world. A separate runtime physics world is also created and all the game objects in the collection "mylevel.collection" are instantiated.
+The proxy component will instruct the engine to allocate space for a new world. A separate runtime physics world is also created and all the game objects in the collection "`mylevel.collection`" are instantiated.
 
-The new world gets its name from the *Name* property in the collection file, in this example it is set to "mylevel". The name has to be unique. If the *Name* set in the collection file is already used for a loaded world, the engine will signal a name collision error:
+The new world gets its name from the *Name* property in the collection file, in this example it is set to "`mylevel`". The name has to be unique. If the *Name* set in the collection file is already used for a loaded world, the engine will signal a name collision error:
 
 ```txt
 ERROR:GAMEOBJECT: The collection 'default' could not be created since there is already a socket with the same name.
@@ -172,7 +172,7 @@ DEBUG:SCRIPT: update() with timestep (dt) 0
 DEBUG:SCRIPT: update() with timestep (dt) 0.016666667535901
 ```
 
-`update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that dt and advance only in one fifth of the frames.
+`update()` is still called 60 times a second, but the value of `dt` changes. We see that only 1/5 (0.2) of the calls to `update()` will have a `dt` of 1/60 (corresponding to 60 FPS)---the rest is zero. All physics simulations will also be updated according to that `dt` and advance only in one fifth of the frames.
 
 ::: sidenote
 You can use the collection time step functionality to pause your game, for instance while showing a popup or when the window has lost focus. Use `msg.post("#myproxy", "set_time_step", {factor = 0, mode = 0})` to pause and `msg.post("#myproxy", "set_time_step", {factor = 1, mode = 1})` to resume.

@@ -431,10 +431,10 @@ Storyboard 文件 (.storyboard). 其创建方法详情请见 [iOS 教程](/manua
 该应用的 Apple 隐私清单. 默认指向 `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
 
 #### Custom Entitlements
-如果设置了, 则打包应用会把这里的配置与档案文件 (.entitlements, .xcent, .plist) 里面设置的权限相混合.
+如果设置了, 则打包应用会把这里的配置与档案文件 (`.entitlements`, `.xcent`, `.plist`) 里面设置的权限相混合.
 
 #### Override Entitlements
-如果设置了, 则会覆盖档案文件 (.entitlements, .xcent, .plist) 里面设置的权限. 必须与上面的 Custom Entitlements 配置项一起使用.
+如果设置了, 则会覆盖档案文件 (`.entitlements`, `.xcent`, `.plist`) 里面设置的权限. 必须与上面的 Custom Entitlements 配置项一起使用.
 
 #### Default Language
 如果用户没有指定 `Localizations` 列表里的语言, 则使用此处设置的语言 (参见 [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).

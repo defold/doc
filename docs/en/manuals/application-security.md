@@ -27,7 +27,7 @@ Developers can add their own protection to make it harder, __but not impossible_
 ### Source code obfuscation
 Applying source code obfuscation is an automated process where the source code is deliberately made difficult for humans to understand, without impacting the program’s output. The purpose is usually to protect against theft, but also to make cheating harder.
 
-It is possible to apply source code obfuscation in Defold either as a pre-build step or as an integrated part of the Defold build process. With pre-build obfuscation the source code is obfuscated using an obfuscation tool before the Defold build process is started.
+It is possible to apply source code obfuscation in Defold either as a prebuild step or as an integrated part of the Defold build process. With prebuild obfuscation the source code is obfuscated using an obfuscation tool before the Defold build process is started.
 
 Build-time obfuscation on the other hand is integrated into the build process using a Lua builder plugin. A Lua builder plugin takes the raw source code as input and returns an obfuscated version of the source code as output. One example of build-time obfuscation is shown in the [Prometheus extension](https://github.com/defold/extension-prometheus), based on the Prometheus Lua obfuscator available on GitHub. Below you will find an example of using Prometheus to aggressively obfuscate a snippet of code (note that this kind of heavy obfuscation will have an impact on the runtime performance of the Lua code):
 

@@ -20,7 +20,7 @@ title: Defold manual
 
 이러한 컬렉션을 동적으로 로드하려면, 간단하게는 컬렉션 프록시 컴포넌트를 추가하고 "monalisa.collection"를 지정하면 됩니다. 이제 게임은 "load" 메세지를 컬렉션 프록시로 보내서 스토리지에서 메모리로 컬렉션에 있는 컨텐츠를 언제 로드할지 선택할 수 있습니다. 하지만 우리는 한 발 더 나아가서 컬렉션에 포함된 리소스의 로딩을 제어하려고 합니다.
 
-이 작업은 컬렉션 프록시 프로퍼티의 **Exclude** 체크박스를 체크하면, 어플리케이션 번들을 생성할때 번들러(bundler)에게  "monalisa.collection"의 모든 컨텐츠를 남겨 달라고 말해 줌으로써 수행됩니다.
+이 작업은 컬렉션 프록시 프로퍼티의 **Exclude** 체크박스를 체크하면, 어플리케이션 번들을 생성할때 번들러(bundler)에게  "`monalisa.collection`"의 모든 컨텐츠를 남겨 달라고 말해 줌으로써 수행됩니다.
 
 ![Collection proxy excluded](images/live-update/proxy-excluded.png)
 

@@ -12,7 +12,7 @@ Defold supports joints for 2D physics. A joint connects two collision objects us
 * **Weld (physics.JOINT_TYPE_WELD)** - A weld joint attempts to constrain all relative movement between two collision objects. The weld joint can be made soft like a spring with a frequency and damping ratio. In Box2D referred to as a [Weld joint](https://box2d.org/documentation/group__weld__joint.html#details).
 * **Spring (physics.JOINT_TYPE_SPRING)** - A spring joint keeps two collision objects at a constant distance from each other. The spring joint can be made soft like a spring with a frequency and damping ratio. In Box2D referred to as a [Distance joint](https://box2d.org/documentation/group__distance__joint.html#details).
 * **Slider (physics.JOINT_TYPE_SLIDER)** - A slider joint allows for relative translation of two collision objects along a specified axis and prevents relative rotation. In Box2D referred to as a [Prismatic joint](https://box2d.org/documentation/group__prismatic__joint.html#details).
-* **Wheel (physics.JOINT_TYPE_WHEEL)** - A wheel joint restricts a point on bodyB to a line on bodyA. The wheel joint also provides a suspension spring. In Box2D referred to as a  [Wheel joint](https://box2d.org/documentation/group__wheel__joint.html#details).
+* **Wheel (physics.JOINT_TYPE_WHEEL)** - A wheel joint restricts a point on `bodyB` to a line on `bodyA`. The wheel joint also provides a suspension spring. In Box2D referred to as a  [Wheel joint](https://box2d.org/documentation/group__wheel__joint.html#details).
 
 ## Creating joints
 

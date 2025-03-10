@@ -332,7 +332,7 @@ Clear color alpha channel, используется рендер скрипто�
 Если задано, этот файл info.plist используется при сборке бандла приложения.
 
 #### Custom Entitlements
-If specified, the entitlements in the supplied provisioning profile (.entitlements, .xcent, .plist) will be merged with the entitlements from the provisioning profile supplied when bundling the application.
+If specified, the entitlements in the supplied provisioning profile (`.entitlements`, `.xcent`, `.plist`) will be merged with the entitlements from the provisioning profile supplied when bundling the application.
 
 #### Override Entitlements
 If checked the Custom Entitlements will replace the ones in the provisioning profile when bundling. Must be used in combination with the Custom Entitlements setting above.

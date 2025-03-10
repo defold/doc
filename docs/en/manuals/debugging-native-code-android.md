@@ -74,7 +74,7 @@ is random for each build, making the path mapping invalid for each build.
 
 However, it works fine for a debugging session.
 
-The path mappings are stored in the <project>.iml file in the Android Studio project.
+The path mappings are stored in the project `.iml` file in the Android Studio project.
 
 It's possible to get the job folder from the executable
 

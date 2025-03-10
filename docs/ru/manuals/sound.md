@@ -104,9 +104,9 @@ end
 
 Все значения линейны в диапазоне от 0 до 1.0 (0 dB). Для преобразования в децибелы просто используйте стандартную формул:
 
-$$
+```math
 db = 20 \times \log \left( gain \right)
-$$
+```
 
 ```lua
 for i, group_hash in ipairs(sound.get_groups()) do

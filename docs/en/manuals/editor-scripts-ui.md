@@ -57,7 +57,7 @@ Perform action:	true
 
 ### Components
 
-The editor provides various UI **components** that can be composed to create the desired UI. By convention, all components are configured using a single table called **props**. The components themselves are not tables, but **immutable userdatas** used by the editor for creating the UI.
+The editor provides various UI **components** that can be composed to create the desired UI. By convention, all components are configured using a single table called **props**. The components themselves are not tables, but **immutable userdata** used by the editor for creating the UI.
 
 ### Props
 
@@ -88,7 +88,7 @@ Layout components are used for placing other components next to each other. Main
 
 ![Padding and Spacing](images/editor_scripts/padding_and_spacing.png)
 
-Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of an individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. Default spacing is `medium`. With paddings, `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
+Editor defines `small`, `medium` and `large` padding and spacing constants. When it comes to spacing, `small` is intended for spacing between different sub-elements of an individual UI element, `medium` is for spacing between individual UI elements, and `large` is a spacing between groups of elements. Default spacing is `medium`. A padding value of `large` means padding from the edges of the window to content, `medium` is padding from the edges of a significant UI element, and `small` is a padding from the edges of small UI elements like context menus and tooltips (not implemented yet).
 
 A **`horizontal`** container places its children one after another horizontally, always making the height every child fill the available space. By default, the width of every child is kept to a minimum, though it's possible to make it take as much space as possible by setting `grow` prop to `true` on a child.
 
@@ -169,7 +169,7 @@ if create_file then
 end
 ```
 Here is a list of built-in input components:
-- **`string_field`**, **`integer_field`** and **`number_field`** are variations of a single-line text field that allow editing strings, integeres, and numbers.
+- **`string_field`**, **`integer_field`** and **`number_field`** are variations of a single-line text field that allow editing strings, integers, and numbers.
 - **`select_box`** is used for selecting an option from predefined array of options with a dropdown control.
 - **`check_box`** is a boolean input field with `on_value_changed` callback
 - **`button`** with `on_press` callback that gets invoked on button press.
@@ -200,7 +200,7 @@ Additionally, the editor defines some utility components:
 
 ## Reactivity
 
-Since components are **immutable userdatas**, it's impossible to change them after they are created. How to make the UI change over time then? The answer: **reactive components**. 
+Since components are **immutable userdata**, it's impossible to change them after they are created. How to make the UI change over time then? The answer: **reactive components**. 
 
 ::: sidenote
 The editor scripting UI draws inspiration from [React](https://react.dev/) library, so knowing about reactive UI and React hooks will help. 
@@ -343,7 +343,7 @@ local id, set_id = editor.ui.use_state(string.lower, props.name)
 
 ### **`use_memo`**
 
-You can use `use_memo` hook to improve performance. It is common to perform some computations in the render functions, e.g. to check if the user input is valid. `use_memo` hook can be used in cases where checking if arguments to the computation function have changed is cheaper than invoking the computation function. The hook will call the computation function on first render, and will re-use the computed value on subsequent re-renders if all the args to `use_memo` are unchanged:
+You can use `use_memo` hook to improve performance. It is common to perform some computations in the render functions, e.g. to check if the user input is valid. `use_memo` hook can be used in cases where checking if arguments to the computation function have changed is cheaper than invoking the computation function. The hook will call the computation function on first render, and will re-use the computed value on subsequent re-renders if all the arguments to `use_memo` are unchanged:
 ```lua
 -- validation function outside of component function
 local function validate_password(password)

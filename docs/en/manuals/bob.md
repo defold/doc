@@ -15,7 +15,7 @@ Compatible OpenJDK 21 mirrors (from Defold 1.9.6):
 * [OpenJDK 21 by Microsoft](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-21)
 * [OpenJDK 21 by Adoptium Working Group](https://github.com/adoptium/temurin21-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
-If you are on Windows you want the .msi file installer for OpenJDK.
+If you are on Windows you want the `.msi` file installer for OpenJDK.
 
 ## Usage
 

@@ -13,7 +13,7 @@ This manual describes how Defold's rendering pipeline interfaces with GPU shader
 * See the [Material manual](/manuals/material) for details on materials.
 * See the [Compute manual](/manuals/compute) for details on compute programs.
 
-Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at https://www.khronos.org/registry/gles/
+Specifications of OpenGL ES 2.0 (OpenGL for Embedded Systems) and OpenGL ES Shading Language can be found at [Kronos OpenGL Registry](https://www.khronos.org/registry/gles/).
 
 Observe that on desktop computers it is possible to write shaders using features not available on OpenGL ES 2.0. Your graphics card driver may happily compile and run shader code that will not work on mobile devices.
 
@@ -180,7 +180,7 @@ All members in the uniform block is exposed to materials and components as indiv
 
 ### Built-in Variables
 
-In fragment shaders, gl_FragColor is deprecated starting with version 140. Use `out` instead:
+In fragment shaders, `gl_FragColor` is deprecated starting with version 140. Use `out` instead:
 
 ```glsl
 // instead of:

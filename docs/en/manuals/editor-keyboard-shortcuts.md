@@ -44,8 +44,8 @@ brief: This manual shows the current keyboard shortcuts and how to customize the
 | Flip brush horizontally | <kbd>X</kbd> | <kbd>X</kbd> | <kbd>X</kbd> |
 | Flip brush vertically | <kbd>Y</kbd> | <kbd>Y</kbd> | <kbd>Y</kbd> |
 | Frame selection | <kbd>F</kbd> | <kbd>F</kbd> | <kbd>F</kbd> |
-| Goto definition | <kbd>F12</kbd> | <kbd>F12</kbd> | <kbd>F12</kbd> |
-| Goto line | <kbd>Ctrl</kbd>+<kbd>L</kbd> | <kbd>Cmd</kbd>+<kbd>L</kbd> | <kbd>Ctrl</kbd>+<kbd>L</kbd> |
+| Go to definition | <kbd>F12</kbd> | <kbd>F12</kbd> | <kbd>F12</kbd> |
+| Go to line | <kbd>Ctrl</kbd>+<kbd>L</kbd> | <kbd>Cmd</kbd>+<kbd>L</kbd> | <kbd>Ctrl</kbd>+<kbd>L</kbd> |
 | Hide toggle selected | <kbd>Ctrl</kbd>+<kbd>E</kbd> | <kbd>Cmd</kbd>+<kbd>E</kbd> | <kbd>Ctrl</kbd>+<kbd>E</kbd> |
 | Hot reload | <kbd>Ctrl</kbd>+<kbd>R</kbd> | <kbd>Cmd</kbd>+<kbd>R</kbd> | <kbd>Ctrl</kbd>+<kbd>R</kbd> |
 | Left | <kbd>Left</kbd> | <kbd>Left</kbd> | <kbd>Left</kbd> |

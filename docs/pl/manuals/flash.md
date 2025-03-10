@@ -257,7 +257,7 @@ final
 :   Wywoływana przez skrypt w momencie zniszczenia i usunięcia komponentu.
 
 update
-:   Wywoływana w każdej ramce (frame). Odpowiednik funckji enterFrame we Flashu.
+:   Wywoływana w każdej ramce (frame). Odpowiednik funckji `enterFrame` we Flashu.
 
 fixed_update
 :   Wywoływana co stałą wartość czasu (zależną od FPS).

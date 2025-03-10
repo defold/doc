@@ -13,9 +13,9 @@ macOS specific application configuration is done from the [macOS section](/manua
 
 ## Application icon
 
-The application icon used for a macOS game must be in the .icns format. You can easily create a .icns file from a set of .png files collected as an iconset. Follow the [official instructions for creating a .icns file](https://developer.apple.com/library/archive/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html). Brief summary of the steps involved are:
+The application icon used for a macOS game must be in the .`icns` format. You can easily create a `.icns` file from a set of .png files collected as an iconset. Follow the [official instructions for creating a `.icns` file](https://developer.apple.com/library/archive/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html). Brief summary of the steps involved are:
 
-* Create an iconset folder, eg `game.iconset`
+* Create an iconset folder, e.g. `game.iconset`
 * Copy icon files to the created folder:
 
     * `icon_16x16.png`
@@ -29,7 +29,7 @@ The application icon used for a macOS game must be in the .icns format. You can 
     * `icon_512x512.png`
     * `icon_512x512@2x.png`
 
-* Convert the .iconset folder to a .icns file using the `iconutil` command line tool:
+* Convert the `.iconset` folder to a .icns file using the `iconutil` command line tool:
 
 ```
 iconutil -c icns -o game.icns game.iconset

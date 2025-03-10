@@ -19,9 +19,9 @@ Keystrokes, like the combination <kbd>⌘ + T</kbd> are written surrounded by `<
 
 For subscript and superscript you type `~subscript~` and `^superscript^`. For example: <code>X~N~ = y^N^ + O~N~</code> where `N` is a variable. For clarity, maths formulas can be put inside `<code>` tags, or even better---use the LaTeX math extension. Inline math is written surrounded by \$ signs. For instance, $\int\frac {d\theta}{1+\theta^2} = \tan^{-1} \theta+ C$. Separate math blocks are delimited by $$ pairs:
 
-$$
+```math
 \int\frac {d\theta}{1+\theta^2} = \tan^{-1} \theta+ C
-$$
+```
 
 For things that the user will type, like function names, message names, string values and similar, use the `code marker`. For instance, `go.some_function()` or a `variable` name, a `message_name` or a `"string value"`. For larger chunks of code or configuration text, use the code fences with language specification to enable syntax highlighting:
 

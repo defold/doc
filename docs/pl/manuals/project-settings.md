@@ -319,7 +319,7 @@ Identyfikator paczki - pozwala systemowi iOS rozpoznawać Twoją aplikację przy
 Jeśli podany - używany będzie określony plik info.plist podczas budowania paczki aplikacji.
 
 #### Entitlements
-Uprawnienia - jeśli podane, mogą nadpisać domyślne uprawnienia określone w profilach nadzorujących (.entitlements, .xcent, .plist).
+Uprawnienia - jeśli podane, mogą nadpisać domyślne uprawnienia określone w profilach nadzorujących (`.entitlements`, `.xcent`, `.plist`).
 
 #### Default Language
 Domyślny jeżyk aplikacji - używany, jeśli użytkownik nie posiada wybranego preferowanego języka domyślnego w liście `Localizations` (zobacz: [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Należy tutaj użyć dwuznakowego symbolu kraju zgodnego ze standardem ISO 639-1, jeśli preferowany język znajduje się w standardzie, w przeciwnym przypadku - trójznakowego symbolu ze standardu ISO 639-2.

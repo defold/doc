@@ -54,7 +54,7 @@ You have several options when it comes to optimizing the textures used by your g
 [This forum posts](https://forum.defold.com/t/texture-management-in-defold/8921/17?u=britzl) suggests several tips on how to resize multiple images using scripts or third party software.
 :::
 
-* Max texture size on HTML5: https://webglstats.com/webgl/parameter/MAX_TEXTURE_SIZE
+* Max texture size on HTML5 reported to the [Web3D Survey project](https://web3dsurvey.com/webgl/parameters/MAX_TEXTURE_SIZE)
 * Max texture size on iOS:
   * iPad: 2048x2048
   * iPhone 4: 2048x2048
