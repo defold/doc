@@ -11,7 +11,7 @@ The size of your game can be a critical success factor for platforms such as web
 Apple and Google has defined application size limits when downloading over mobile networks (as opposed to downloading over Wifi). For Android this limit is 200 MB for apps published with [app bundles](https://developer.android.com/guide/app-bundle#size_restrictions). For iOS users will get a warning if the application is larger than 200 MB, but can still proceed to download it.
 
 ::: sidenote
-According to a 2017 study it was shown that "For every 6 MB increase to an APK’s size, we see a decrease in the install conversion rate of 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
+According to a 2017 study it was shown that "For every 6 MB increase to an APK's size, we see a decrease in the install conversion rate of 1%." ([source](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2))
 :::
 
 ### HTML5

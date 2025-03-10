@@ -236,7 +236,7 @@ libdmengine
 exe
 apk
 apkx
-APK’s
+APK's
 APKs
 aab
 androideabi
