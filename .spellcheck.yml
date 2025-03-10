@@ -1,4 +1,4 @@
-spellchecker: hunspell
+spellchecker: aspell
 
 matrix:
 - name: Markdown
@@ -7,8 +7,6 @@ matrix:
     ignore-case: true
     camel-case: true
     run-together: true
-  hunspell:
-    d: .wordlist.txt
   dictionary:
     wordlists:
     - .wordlist.txt

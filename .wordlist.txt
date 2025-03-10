@@ -279,6 +279,8 @@ profi
 ProFi
 "ProFi"
 Wi-Fi
+Wi
+Fi
 localhost
 Remotery
 Celtoys
