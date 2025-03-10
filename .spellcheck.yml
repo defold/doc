@@ -4,6 +4,7 @@ matrix:
     lang: en
     ignore-case: true
     camel-case: true
+    run-together: true
   dictionary:
     wordlists:
     - .wordlist.txt
