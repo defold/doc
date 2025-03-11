@@ -247,11 +247,11 @@ Language server definition table may specify:
 
 ## HTTP server
 
-Every running instance of the editor has an HTTP server running. The server can be extended using editor scripts. To extend the editor HTTP server, you need to add `get_server_routes` editor script function — it should return the additional routes:
+Every running instance of the editor has an HTTP server running. The server can be extended using editor scripts. To extend the editor HTTP server, you need to add `get_http_server_routes` editor script function — it should return the additional routes:
 ```lua
 print("My route: " .. http.server.url .. "/my-extension")
 
-function M.get_server_routes()
+function M.get_http_server_routes()
   return {
     http.server.route("/my-extension", "GET", function(request)
       return http.server.response(200, "Hello world!")
