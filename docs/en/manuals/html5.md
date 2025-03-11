@@ -264,12 +264,12 @@ It is possible to specify additional engine arguments when the engine is configu
     <script id='engine-setup' type='text/javascript'>
     var extra_params = {
         ...,
-        engine_arguments: ["–config=foo1=bar1","--config=foo2=bar2"],
+        engine_arguments: ["--config=foo1=bar1","--config=foo2=bar2"],
         ...
     }
 ```
 
-You can also add `"–config=foo1=bar1","--config=foo2=bar2"` to the engine arguments field in the HTML5 section of *game.project* and it will be injected into the generated index.html file.
+You can also add `--config=foo1=bar1, --config=foo2=bar2` to the engine arguments field in the HTML5 section of *game.project* and it will be injected into the generated index.html file.
 
 At runtime you get the values like this:
 
