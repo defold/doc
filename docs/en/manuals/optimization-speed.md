@@ -82,3 +82,9 @@ Reducing the scene graph complexity is needed if the profiler shows high values 
 
 ## Frustum culling
 The render script can automatically ignore rendering of game object component that are outside of a defined bounding box (frustum). Learn more about Frustum Culling in the [Render Pipeline manual](/manuals/render/#frustum-culling).
+
+
+# Platform specific optimizations
+
+## Android Device Performance Framework
+Android Dynamic Performance Framework is a set of APIs that allow games and to interact more directly with power and thermal systems of Android devices. It is possible to monitor the dynamic behavior on Android systems and optimize game performance at a sustainable level that doesn’t overheat devices. Use the [Android Dynamic Performance Framework extension](https://defold.com/extension-adpf/) to monitor and optimize performance in your Defold game for Android devices.

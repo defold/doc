@@ -1556,6 +1556,10 @@
                         "name": "AdMob ads"
                     },
                     {
+                        "path": "/extension-adpf",
+                        "name": "Android Device Performance Framework"
+                    },
+                    {
                         "path": "/extension-review",
                         "name": "App review and ratings"
                     },
