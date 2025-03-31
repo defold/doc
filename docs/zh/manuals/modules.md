@@ -43,7 +43,7 @@ function update(self, dt)
     -- 设置方向动画
     local anim = direction_animation(self.dir, "player")
     if anim ~= self.current_anim then
-        msg.post("#sprite", "play_animation", { id = anim })
+        sprite.play_flipbook("#sprite", anim)
         self.current_anim = anim
     end
 end

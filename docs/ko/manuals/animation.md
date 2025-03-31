@@ -51,11 +51,11 @@ function on_input(self, action_id, action)
     -- 버튼입력시 "dodge" 동작을 시작함
     if action_id == hash("dodge") then
         if action.pressed then
-            msg.post("#sprite", "play_animation", {id = hash("start_dodge")})
+            sprite.play_flipbook("#sprite", "start_dodge")
             -- 회피동작 상태인지 기억하기
             self.dodge = true
         elseif action.released then
-            msg.post("#sprite", "play_animation", {id = hash("stop_dodge")})
+            sprite.play_flipbook("#sprite", "stop_dodge")
             -- 회피동작을 끝냄
             self.dodge = false
         end
@@ -66,9 +66,9 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("animation_done") then
         -- 애니메이션의 트랜지션이 끝나고 반복 애니메이션을 시작함
         if self.dodge then
-            msg.post("#sprite", "play_animation", {id = hash("dodge_idle")})
+            sprite.play_flipbook("#sprite", "dodge_idle")
         else
-            msg.post("#sprite", "play_animation", {id = hash("idle")})
+            sprite.play_flipbook("#sprite", "idle")
         end
     end
 end
