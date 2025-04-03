@@ -24,7 +24,7 @@ The created component has a set of properties that should be set:
 ![Select component](images/sound/sound_properties.png)
 
 *Sound*
-: Should be set to a sound file in your project. The file should be in _Wave_ or _Ogg Vorbis_ format. Defold supports sound files saved at 16bit bit depth and with a sampling rate of 44100.
+: Should be set to a sound file in your project. The file should be in _Wave_, _Ogg Vorbis_ or _Ogg Opus_ format. Defold supports sound files saved at 16bit bit depth.
 
 *Looping*
 : If checked the sound will play back in _Loopcount_ times or until explicitly stopped.
