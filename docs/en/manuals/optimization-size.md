@@ -45,7 +45,18 @@ A quick way to reduce the engine size is to remove functionality in the engine t
 The biggest wins in terms of asset size optimizations are usually gained by reducing the size of sounds and textures.
 
 ### Optimize sounds
-Defold supports .ogg and .wav files where .ogg is typically used for music and .wav for sound effects. Sounds must be 16-bit with a sampling rate of 44100 so any optimizations must be done on the sounds before encoding them. You can edit the sounds in an external sound editor software to reduce the quality or convert from .wav to .ogg. Also consider converting sounds from stereo to mono.
+Defold supports these formats:
+* .wav
+* .ogg
+* .opus
+
+Sounds files must be using 16-bit samples.
+Our sound decoders will up/downscale sounds sample rates as needed for the current sound device.
+
+Shorter sounds like sound effects are often compressed harder, whereas music files have less compression.
+No compression is done by Defold, so the developer will have to handle that specifically for each audio format.
+
+You can edit the sounds in an external sound editor software (or command line using e.g. [ffmpeg](https://ffmpeg.org)) to reduce the quality or convert between formats. Also consider converting sounds from stereo to mono to further reduce the size of the content.
 
 ### Optimize textures
 You have several options when it comes to optimizing the textures used by your game, but the first thing to do is to check the size of the images that gets added to an atlas or used as a tilesource. You should never use a larger size on the images than is actually needed in your game. Importing large images and scaling them down to the appropriate size is a waste of texture memory and should be avoided. Start by adjusting the size of the images using external image editing software to the actual size needed in your game. For things such as background images it might also be ok to use a small image and scale it up to the desired size. Once you have the images down to the correct size and added to atlases or used in tilesources you also need to consider the size of the atlases themselves. The maximum atlas size that can be used varies between platforms and graphics hardware.
