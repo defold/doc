@@ -38,7 +38,7 @@ Note that you probably want to update this data every frame so posting the messa
 
 ## Running the debugger
 
-To run the debugger, either <kbd>Debug ▸ Run with Debugger</kbd> which starts up the game with the debugger attached, or select <kbd>Debug ▸ Attach Debugger</kbd> to attach the debugger to an already running game.
+To run the debugger, select <kbd>Debug ▸ Start/Attach</kbd> which either starts up the game with the debugger attached or attaches the debugger to an already running game.
 
 ![overview](images/debugging/overview.png)
 
