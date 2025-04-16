@@ -81,7 +81,7 @@ function init(self)
 
     local level_name = "level1"
 
-    local info = get_lu_archive_for_level(level_name) -- <3>
+    local info = get_lu_info_for_level(level_name) -- <3>
 
     msg.post("#", "load_level", {level = "level1", info = info }) -- <4>
 end
@@ -109,7 +109,7 @@ function on_message(self, message_id, message, sender)
 				end)
 
 			else
-				print("Failed to download archive ", download_path, "from", url, ":", get_status_string(status))
+				print("Failed to download archive ", download_path, "from", url, ":", response.status)
 			end
 		end, nil, nil, {path=download_path})
 
