@@ -43,7 +43,7 @@ To create a new extension, create a folder in the project root. This folder will
 
 ```
 *ext.manifest*
-: The extension folder _must_ contain an *ext.manifest* file. This file is a YAML format file that is picked up by the extension builder. A minimal manifest file should contain the name of the extension.
+: The extension folder _must_ contain an *ext.manifest* file. This file is a configuration file with flags and defines used when building a single extension. File format definition can be found in the [Extension Manifest manual](https://defold.com/manuals/extensions-ext-manifests/).
 
 *src*
 : This folder should contain all source code files.
