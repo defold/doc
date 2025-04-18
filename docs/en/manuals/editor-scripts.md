@@ -118,7 +118,7 @@ return M
 Editor expects `get_commands()` to return an array of tables, each describing a separate command. Command description consists of:
 
 - `label` (required) — text on a menu item that will be displayed to the user
-- `locations` (required) — an array of either `"Edit"`, `"View"`, `"Assets"`, `"Bundle"` or `"Outline"`, describes a place where this command should be available. `"Edit"` and `"View"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, `"Outline"` means context menu in Outline pane, and `"Bundle"` means **Project → Bundle** submenu.
+- `locations` (required) — an array of either `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"` or `"Outline"`, describes a place where this command should be available. `"Edit"`, `"View"`, `"Project"` and `"Debug"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, `"Outline"` means context menu in Outline pane, and `"Bundle"` means **Project → Bundle** submenu.
 - `query` — a way for command to ask editor for relevant information and define what data it operates on. For every key in `query` table there will be corresponding key in `opts` table that `active` and `run` callbacks receive as argument. Supported keys:
   - `selection` means this command is valid when there is something selected, and it operates on this selection.
     - `type` is a type of selected nodes command is interested in, currently these types are allowed:
