@@ -38,23 +38,29 @@ The web server you're loading content from has to support [HTTP range requests](
 :::
 
 ```lua
+local function play_sound(self, hash)
+    go.set(self.component, "sound", hash) -- override the resource data on the component
+    sound.play(self.component)            -- start playing the sound
+end
+
 local function parse_range(s)
     local _, _, rstart, rend, size = string.find(s, "(%d+)-(%d+)/(%d+)") -- "bytes 0-16383/103277"
     return rstart, rend, size
 end
 
+-- Callback for the http response.
 local function http_result(self, _id, response, extra)
     if response.status == 200 or response.status == 206 then
+        -- Successful request
         local relative_path = self.filename
         local range = response.headers['content-range'] -- content-range = "bytes 0-16383/103277"
         local rstart, rend, filesize = parse_range(range)
-
-        -- Create the Defold resource, "partial" will enable the streaming mode
+        -- Create the Defold resource
+        --   "partial" will enable the streaming mode
         print("Creating resource", relative_path)
         local hash = resource.create_sound_data(relative_path, { data = response.response, filesize = filesize, partial = true })
-
-        go.set(self.component, "sound", hash) -- override the resource data on the component
-        sound.play(self.component) -- start the playing
+        -- send "play_sound" to the component
+        play_sound(self, hash)
     end
 end
 
@@ -69,10 +75,36 @@ end
 
 ## Resource providers
 
-You can of course use other means to load the initial chunk of the sound file. The important thing to remember is that the rest of the chunks are loaded from the resource system and it's resource providers.
+You can use other means to load the initial chunk of the sound file. The important thing to remember is that the rest of the chunks are loaded from the resource system and its resource providers. In this example, we add a new (http) file provider by adding a live update mount, by calling using [liveupdate.add_mount()](/ref/liveupdate/#liveupdate.add_mount).
 
-In this example, we have added a new file provider by adding a live update mount, by calling using [liveupdate.add_mount()](/ref/liveupdate/#liveupdate.add_mount).
+You can find a working example in [https://github.com/defold/example-sound-streaming](https://github.com/defold/example-sound-streaming).
 
+```lua
+-- See http_result() from above example
+
+local function load_web_sound(base_url, relative_path)
+    local url = base_url .. "/" .. relative_path
+    local headers = {}
+    -- Request the initial part of the file
+    headers['Range'] = string.format("bytes=%d-%d", 0, 16384-1)
+
+    http.request(url, "GET", http_result, headers, nil, { ignore_cache = true })
+end
+
+function init(self)
+    self.base_url = "http://my.server.com"
+    self.filename = "/path/to/sound.ogg"
+
+    liveupdate.add_mount("webmount", self.base_url, 100, function ()
+                    -- once the mount is ready, we can start our request for downloading the first chunk
+                    load_web_sound(self.base_url, self.filename)
+                end)
+end
+
+function final(self)
+    liveupdate.remove_mount("webmount")
+end
+```
 
 ## Sound chunk cache
 
