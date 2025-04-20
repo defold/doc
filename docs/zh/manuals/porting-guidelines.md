@@ -86,7 +86,7 @@ end
 * **Aspect ratios** - 在游戏设计屏幕比例之外的屏幕上是否显示正常?
   * 渲染脚本中使用的映射和 gui 中的布局会在这里发挥作用.
 * **Refresh rate** - 在刷新率高于 60 Hz 的屏幕上是否显示正常?
-  * 调整配置 game.project 里 Display 部分的 vsync 和 swap interval.  
+  * 调整配置 *game.project* 里 Display 部分的 vsync 和 swap interval.  
 
 
 ## 手机刘海和打孔屏

@@ -64,7 +64,7 @@ dbg.start()
 
 > dbg.start()가 호출되었을 때 게임이 종료되어 버린다면, ZeroBrane이 문제를 감지하여 게임으로 종료 커맨드(exit command)를 전송했기 때문일 수도 있습니다. 몇 가지 이유로 인해, ZeroBrane은 디버깅 세션을 시작하기 위해 어떤 파일을 열어야 할 필요도 있을 수 있습니다. 만약 ZeroBrane에서 "Can’t start debugging without an opened file or with the current file not being saved (untitled.lua)."(번역: 열린 파일이나 현재 파일이 저장되지 않은 상태에서 디버깅을 시작할 수 없습니다.) 에러가 발생하면 dbg.start() 가 추가된 해당 파일을 열어 이 에러를 수정하십시오.
 
-> 디버깅은 디버깅이 시작된 위치에서만 lua 컨텍스트를 활성화 할 수 있습니다. game.project에서 "shared_state"를 활성화 하면 디버깅이 시작된 위치와 상관없이 모든 어플리케이션을 디버깅 할 수 있습니다.
+> 디버깅은 디버깅이 시작된 위치에서만 lua 컨텍스트를 활성화 할 수 있습니다. *game.project*에서 "shared_state"를 활성화 하면 디버깅이 시작된 위치와 상관없이 모든 어플리케이션을 디버깅 할 수 있습니다.
 
 Debugging session started in "<defold-dir>/branches/1610/1159/Main/".
 (디버깅 세션이 "<defold-dir>/branches/1610/1159/Main/" 에서 시작되었습니다.)

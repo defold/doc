@@ -10,7 +10,7 @@ Jest wiele elementów do przemyślenia podczas dopasowywania gry do różnych wi
 * Czy jest to gra retro w niskiej rozdzielczości (pixel art)? Czy może nowoczesna gra z grafiką HD wysokiej jakości?
 * Jak gra powinna zachowywać się na różnej wielkości ekranach uruchomiona na pełnym ekranie?
   * Czy gracz powinien widzieć większy fragment mapy/gry przy większej rozdzielczości? Czy może grafika powinna być skalowana do rozdzielczości, ąby zawsze pokazywać ten sam fragment?
-* Jak gra powinna sobie radzić z różnymi proporcjami ekranu niż ta, którą podasz w ustawieniach game.project?
+* Jak gra powinna sobie radzić z różnymi proporcjami ekranu niż ta, którą podasz w ustawieniach *game.project*?
   * Czy gracz powinien widzieć większy fragment mapy/gry przy większej rozdzielczości? Czy może fragmenty poza proporcjami powinny być zasłonięte przez czarne paski? Czy elementy interfejsu (GUI) powinny być przeskalowane?
 * Jaki rodzaj menu i elementów interfejsu potrzebujesz? Jak powinny się adaptować do zmian rozdzielczości i orientacji?
   * Czy menu i elementy interfejsu powinny zmieniać rozplanowanie wraz ze zmianą orientacji i rozdzielczości czy utrzymywać stałą pozycję?

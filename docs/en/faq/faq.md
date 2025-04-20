@@ -273,7 +273,7 @@ A: Defold runs a modified version of Box2D in the background and the performance
 
 #### Q: What's the performance impact of having many particle effect components?
 
-A: It depends on if they are playing or not. A ParticleFx that isn't playing have zero performance cost. The performance implication of a playing ParticleFx must be evaluated using the profiler since its impact depends on how it is configured. As with most other things the memory is allocated up front for the number of ParticleFx defined as max_count in game.project.
+A: It depends on if they are playing or not. A ParticleFx that isn't playing have zero performance cost. The performance implication of a playing ParticleFx must be evaluated using the profiler since its impact depends on how it is configured. As with most other things the memory is allocated up front for the number of ParticleFx defined as max_count in *game.project*.
 
 
 #### Q: How do I receive input to a game object inside a collection loaded via a collection proxy?

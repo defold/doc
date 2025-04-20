@@ -19,7 +19,7 @@ The available SDK functions are documented in our [API reference](/ref/dmExtensi
 * [Array](/ref/dmArray/) - Templatized array with bounds checking.
 * [Buffer](/ref/dmBuffer/) - Buffer API for data buffers as the main way to communicate between systems. [Lua API](/ref/buffer/) for buffer creation also exists.
 * [Condition Variable](/ref/dmConditionVariable/) - API for platform independent mutex synchronization primitive.
-* [ConfigFile](/ref/dmConfigFile/) - Configuration file access functions. The configuration file is compiled version of the game.project file.
+* [ConfigFile](/ref/dmConfigFile/) - Configuration file access functions. The configuration file is compiled version of the *game.project* file.
 * [Connection Pool](/ref/dmConnectionPool/) - API for a pool of socket connections.
 * [Crypt](/ref/dmCrypt/) - API with cryptographic functions.
 * [DNS](/ref/dmDNS/) - API with DNS functions.

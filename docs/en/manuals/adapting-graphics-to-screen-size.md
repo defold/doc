@@ -10,7 +10,7 @@ There are several things to consider when adapting your game and graphics to dif
 * Is this a retro game with low resolution pixel perfect graphics or a modern game with HD quality graphics?
 * How should the game behave when played in full screen on different screen sizes?
   * Should the player see more of the game content on a high resolution screen or should the graphics adaptively zoom to always show the same content?
-* How should the game deal with aspect ratios other than the one you have set in game.project?
+* How should the game deal with aspect ratios other than the one you have set in *game.project*?
   * Should the player see more of the game content? Or maybe there should be black bars? Or maybe resized GUI elements?
 * What kind of menus and on-screen gui components do you need and how should they adapt to different screen sizes and screen orientations?
   * Should menus and other gui components change layout when the orientation changes or should they keep the same layout regardless of orientation?

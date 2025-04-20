@@ -57,7 +57,7 @@ It is possible to add custom encryption to Lua source files by implementing a Re
 
 
 ### Encoding project configuration values
-The game.project file will be included as-is in your application bundle. Sometimes you may wish to store public API access keys or similar values, that are of a sensitive, but perhaps not private nature. To harden security for such values they can be included into the application binary, instead of stored in game.project, and still be accessible to Defold API functions such as `sys.get_config_string()` and similar functions. You can do so by adding a native extension in your game project and using the `DM_DECLARE_CONFIGFILE_EXTENSION` macro to provide your own overrides for getting config values using the Defold API functions. An example project that can be used as a starting point is [available on GitHub](https://github.com/defold/example-configfile-extension/tree/master).
+The *game.project* file will be included as-is in your application bundle. Sometimes you may wish to store public API access keys or similar values, that are of a sensitive, but perhaps not private nature. To harden security for such values they can be included into the application binary, instead of stored in *game.project*, and still be accessible to Defold API functions such as `sys.get_config_string()` and similar functions. You can do so by adding a native extension in your *game.project* and using the `DM_DECLARE_CONFIGFILE_EXTENSION` macro to provide your own overrides for getting config values using the Defold API functions. An example project that can be used as a starting point is [available on GitHub](https://github.com/defold/example-configfile-extension/tree/master).
 
 
 ## Securing your game against cheaters

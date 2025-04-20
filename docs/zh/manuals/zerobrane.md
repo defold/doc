@@ -60,7 +60,7 @@ Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 现在即可使用 ZeroBrane 的调试功能; 步进, 检查, 增加移除断点之类的.
 
 ::: sidenote
-调试只在其初始化位置开启调试lua上下文. 在 game.project 中打开 "shared_state" 就可以在任意位置调试整个应用.
+调试只在其初始化位置开启调试lua上下文. 在 *game.project* 中打开 "shared_state" 就可以在任意位置调试整个应用.
 :::
 
 ![Stepping](images/zerobrane/code.png)

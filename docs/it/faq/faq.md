@@ -230,7 +230,7 @@ R: Defold esegue una versione modificata di Box2D in background e il costo delle
 
 #### D: Qual è l'impatto sulle prestazioni di avere molti componenti di effetti particellari?
 
-R: Dipende se stanno suonando o meno. Un ParticleFx che non sta suonando non ha alcun costo in termini di prestazioni. L'impatto sulle prestazioni di un ParticleFx in riproduzione deve essere valutato utilizzando il profilatore poiché il suo impatto dipende da come è configurato. Come per la maggior parte delle altre cose, la memoria è allocata in anticipo per il numero di ParticleFx definito come max_count in game.project.
+R: Dipende se stanno suonando o meno. Un ParticleFx che non sta suonando non ha alcun costo in termini di prestazioni. L'impatto sulle prestazioni di un ParticleFx in riproduzione deve essere valutato utilizzando il profilatore poiché il suo impatto dipende da come è configurato. Come per la maggior parte delle altre cose, la memoria è allocata in anticipo per il numero di ParticleFx definito come max_count in *game.project*.
 
 
 #### D: Come ricevo input su un oggetto di gioco all'interno di una collezione caricata tramite un proxy di collezione?

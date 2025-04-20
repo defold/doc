@@ -232,7 +232,7 @@ A: Defold utiliza una versión modificada de Box2D en el fondo y el costo de ren
 
 #### Q: ¿Cuál es el impacto en el rendimiento por tener muchos componentes de efectos de partículas?
 
-A: Depende de si están reproduciéndose o no. Un ParticleFx que no esté reproduciendo no tiene costo en el rendimiento. La implicación del rendimiento por reproducir ParticleFx debe ser evaluada usando el profiler pues su impacto depende en cómo está configurado. Como lo es con muchas otras cosas la memoria está asignada en el frente por el número de ParticleFx definido como max_count en game.project.
+A: Depende de si están reproduciéndose o no. Un ParticleFx que no esté reproduciendo no tiene costo en el rendimiento. La implicación del rendimiento por reproducir ParticleFx debe ser evaluada usando el profiler pues su impacto depende en cómo está configurado. Como lo es con muchas otras cosas la memoria está asignada en el frente por el número de ParticleFx definido como max_count en *game.project*.
 
 
 #### Q: ¿Cómo recibo input a un objeto del juego dentro de una colección cargada por un proxy de colección?

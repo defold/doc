@@ -19,7 +19,7 @@ Defold SDK 包含了应用运行的原生平台底层接口与高层Lua逻辑接
 * [Array](/ref/dmArray/) - 具有边界检测的模板化数组.
 * [Buffer](/ref/dmBuffer/) - 数据缓存功能是不同平台互相交流的主要途径. [Lua API](/ref/buffer/) 同样具有缓存功能.
 * [Condition Variable](/ref/dmConditionVariable/) - 条件变量.
-* [ConfigFile](/ref/dmConfigFile/) - 配置文件的存取功能. 配置文件是 game.project 文件的编译后版本.
+* [ConfigFile](/ref/dmConfigFile/) - 配置文件的存取功能. 配置文件是 *game.project* 文件的编译后版本.
 * [Connection Pool](/ref/dmConnectionPool/) - Socket连接池功能.
 * [Crypt](/ref/dmCrypt/) - 加密功能.
 * [DNS](/ref/dmDNS/) - DNS功能.

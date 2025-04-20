@@ -59,7 +59,7 @@ update(self, dt)
   ```
 
 fixed_update(self, dt)
-: Aktualizacja niezależna od liczby klatek. dt zawiera czas delta od ostatniej aktualizacji. Ta funkcja jest wywoływana, gdy engine.fixed_update_frequency jest włączony (!= 0) i jest przydatna, gdy chcesz manipulować obiektami fizycznymi w regularnych odstępach czasu, aby uzyskać stabilną symulację fizyki, gdy physics.use_fixed_timestep jest włączone w game.project.
+: Aktualizacja niezależna od liczby klatek. dt zawiera czas delta od ostatniej aktualizacji. Ta funkcja jest wywoływana, gdy engine.fixed_update_frequency jest włączony (!= 0) i jest przydatna, gdy chcesz manipulować obiektami fizycznymi w regularnych odstępach czasu, aby uzyskać stabilną symulację fizyki, gdy physics.use_fixed_timestep jest włączone w *game.project*.
 
   ```lua
   function fixed_update(self, dt)

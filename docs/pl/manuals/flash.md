@@ -333,7 +333,7 @@ Jeśli Twoja gra wykorzystuje detekcję kolizji, możesz również włączyć de
 msg.post("@system:", "toggle_physics_debug")
 ```
 
-Debugowanie fizyki może być również włączone/wyłączone w ustawieniach projektu w pliku game.project. Przed włączeniem debugowania fizyki:
+Debugowanie fizyki może być również włączone/wyłączone w ustawieniach projektu w pliku *game.project*. Przed włączeniem debugowania fizyki:
 
 ![no debug](images/flash/no_debug.png)
 
