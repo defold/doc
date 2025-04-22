@@ -107,8 +107,7 @@ Now the folders that you shared appear in the *Assets pane* and you can use ever
 
 Files in libraries cannot be saved. You can make changes, and the editor will be able to build with those changes, which is useful for testing. However, the file itself remains unchanged, and all modifications will be discarded when the file is closed.
 
-If you want to make changes to library files, make sure to create your own fork of the library and make changes there. Another option is to copy/paste the entire library folder into your project directory and use the local copy. In this case, your local folder will shadow the original dependency, and the dependency link should be removed from `game.project`  
-(don’t forget to choose <kbd>Project ▸ Fetch Libraries</kbd> afterward).
+If you want to make changes to library files, make sure to create your own fork of the library and make changes there. Another option is to copy/paste the entire library folder into your project directory and use the local copy. In this case, your local folder will shadow the original dependency, and the dependency link should be removed from `game.project` (don’t forget to choose <kbd>Project ▸ Fetch Libraries</kbd> afterward).
 
 `builtins` is also a library provided by the engine. If you want to edit files there, make sure to copy them into your project and use those instead of the original `builtins` files. For example, to modify `default.render_script`, copy both `/builtins/render/default.render` and `/builtins/render/default.render_script` into your project folder as `my_custom.render` and `my_custom.render_script`. Then, update your local `my_custom.render` to reference the `my_custom.render_script` instead of the built-in one, and set your custom `my_custom.render` in `game.project` under the Render setting.
 
