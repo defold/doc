@@ -71,7 +71,7 @@ https://gitlab.com/defold/private/-/archive/main/test-main.zip?private_token=per
 
 ### Advanced access authentication
 
-When using the basic access authentication a user's access token and username will be shared on any repository used for the project.  With a greater than 1 man team this can be an issue. To solve this issue a "read only" user needs to be used for library access to the repository, on GitHub this requires an organization, a team and a user who doesn't need to edit the repo (hence read only).
+When using the basic access authentication a user's access token and username will be shared on any repository used for the project. With a greater than 1 man team this can be an issue. To solve this issue a "read only" user needs to be used for library access to the repository, on GitHub this requires an organization, a team and a user who doesn't need to edit the repo (hence read only).
 
 GitHub Steps:
 * [Create an organisation](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch)
@@ -81,7 +81,7 @@ GitHub Steps:
 * [Create or select a user to be part of this team](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/organizing-members-into-teams)
 * Use the "basic access authentication" above to create a personal access token for this user
 
-At this point the new user's authentication details can be committed and pushed to the repository.  This will allow anyone working with your private repository to fetch it as a library without having edit permissions to the library itself.
+At this point the new user's authentication details can be committed and pushed to the repository. This will allow anyone working with your private repository to fetch it as a library without having edit permissions to the library itself.
 
 ::: important
 The read only user's token is fully accessible to anyone who can access the game repositories that are using the library.
@@ -102,6 +102,16 @@ Now, select <kbd>Project ▸ Fetch Libraries</kbd> to update library dependencie
 Now the folders that you shared appear in the *Assets pane* and you can use everything you shared. Any synchronized changes done to the library project will be available in your project.
 
 ![Library setup done](images/libraries/libraries_done.png)
+
+## Editing Files in Library Dependencies
+
+Files in libraries cannot be saved. You can make changes, and the editor will be able to build with those changes, which is useful for testing. However, the file itself remains unchanged, and all modifications will be discarded when the file is closed.
+
+If you want to make changes to library files, make sure to create your own fork of the library and make changes there. Another option is to copy/paste the entire library folder into your project directory and use the local copy. In this case, your local folder will shadow the original dependency, and the dependency link should be removed from `game.project` (don’t forget to choose <kbd>Project ▸ Fetch Libraries</kbd> afterward).
+
+`builtins` is also a library provided by the engine. If you want to edit files there, make sure to copy them into your project and use those instead of the original `builtins` files. For example, to modify `default.render_script`, copy both `/builtins/render/default.render` and `/builtins/render/default.render_script` into your project folder as `my_custom.render` and `my_custom.render_script`. Then, update your local `my_custom.render` to reference the `my_custom.render_script` instead of the built-in one, and set your custom `my_custom.render` in `game.project` under the Render setting.
+
+If you copy-paste a material and want to use it across all components of a certain type, it might be useful to use [per-project templates](/manuals/editor/#creating-new-project-files).
 
 ## Broken references
 
