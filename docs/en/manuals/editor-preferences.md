@@ -110,5 +110,5 @@ ios-deploy path
 You can configure the editor shortcuts, both adding custom and removing the built-in ones. Use context menu on individual commands in the shortcut table to edit the shortcuts, or double-click/press <kbd>Enter</kbd> to open a new shortcut popup.
 
 Some shortcuts might have warnings: they are displayed using orange color. Hover over the shortcut to see the warning. Typical warnings are:
-- typable shortcuts: the selected shortcut is typable in a text inputs. Make sure the command is off in the code editing / text input contexts. 
+- typeable shortcuts: the selected shortcut is typeable in a text inputs. Make sure the command is off in the code editing / text input contexts. 
 - conflicts: the same shortcut is assigned to multiple different commands. Make sure at most one command is enabled when the shortcut is invoked, otherwise the editor will execute one of the assigned commands in an undefined manner.
