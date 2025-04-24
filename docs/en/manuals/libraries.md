@@ -31,6 +31,10 @@ Libraries are referred to via a standard URL. For a project hosted on GitHub it 
 It is recommend to always depend on a specific release of a library project instead of on the master branch. This way it is up to you as a developer to decide when to incorporate changes from a library project as opposed to always getting the latest (and potentially breaking) changes from the master branch of a library project.
 :::
 
+::: important
+It is recommended to always review third-party libraries before use. Learn more [securing your use of third-party software](https://defold.com/manuals/application-security/#securing-your-use-of-third-party-software).
+:::
+
 ### Basic access authentication
 
 It is possible to add a username and password/token to the library URL to perform basic access authentication when using libraries that are not publicly available:
