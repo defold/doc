@@ -29,9 +29,6 @@ Track Active Tab in Asset Browser
 Lint Code on Build
 : Enables [code linting](/manuals/writing-code/#linting-configuration) when the project is built. This option is enabled by default, but can be disabled if the linting in a large project takes too much time.
 
-Path to custom keymap
-: Absolute path to a file containing [custom keyboard shortcuts](/manuals/editor-keyboard-shortcuts).
-
 Engine Arguments
 : Arguments that will be passed to the dmengine executable when the editor builds and runs.
  Use one argument per line. For example:
@@ -57,6 +54,9 @@ Open File at Line
 
 Code editor font
 : Name of a system installed font to use in the code editor.
+
+Zoom on Scroll
+: Whether to change the font size when scrolling in the code editor while holding Cmd/Ctrl button.
 
 
 ### Open script files in Visual Studio Code
@@ -84,6 +84,12 @@ The `.` character here is required to open the entire workspace, not an individu
 Build Server
 : URL to the build server used when building a project containing [native extensions](/manuals/extensions). It is possible to add a username and access token to the URL for authenticated access to the build server. Use the following notation to specify the username and access token: `username:token@build.defold.com`. Authenticated access is required for Nintendo Switch builds and when running your own build server instance with authentication enabled ([refer to the build server documentation](https://github.com/defold/extender/blob/dev/README_SECURITY.md) for more information). The username and password can also be set as the system environment variables `DM_EXTENDER_USERNAME` and `DM_EXTENDER_PASSWORD`.
 
+Build Server Username
+: username for authentication.
+
+Build Server Password
+: password for authentication, will be stored encrypted in the preferences file.
+
 Build Server Headers
 : additional headers to the build server when building native extensions. It's important for using CloudFlare service or similar services with extender.
 
@@ -96,3 +102,13 @@ ADB path
 
 ios-deploy path
 : Path to [ios-deploy](https://github.com/ios-control/ios-deploy) command line tools installed on this system (only relevant for macOS). Similarly to the ADB path, the Defold editor will use this tool to install and run bundled iOS applications on a connected iPhone. By default, the editor checks if ios-deploy is installed in well-known locations, so you only need to specify the path if you use a custom installation of ios-deploy.
+
+## Keymap
+
+![](images/editor/preferences_keymap.png)
+
+You can configure the editor shortcuts, both adding custom and removing the built-in ones. Use context menu on individual commands in the shortcut table to edit the shortcuts, or double-click/press <kbd>Enter</kbd> to open a new shortcut popup.
+
+Some shortcuts might have warnings: they are displayed using orange color. Hover over the shortcut to see the warning. Typical warnings are:
+- typeable shortcuts: the selected shortcut is typeable in a text inputs. Make sure the command is off in the code editing / text input contexts. 
+- conflicts: the same shortcut is assigned to multiple different commands. Make sure at most one command is enabled when the shortcut is invoked, otherwise the editor will execute one of the assigned commands in an undefined manner.

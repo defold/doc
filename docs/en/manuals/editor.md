@@ -162,10 +162,6 @@ The editor will automatically check for updates. When an update is detected it w
 
 You can modify the settings of the editor [from the Preferences window](/manuals/editor-preferences).
 
-## Keyboard shortcuts
-
-Keyboard shortcuts and how to customize them can be seen in the [keyboard shortcut manual](/manuals/editor-keyboard-shortcuts).
-
 ## Editor logs
 If you run into a problem with the editor and need to [report an issue](/manuals/getting-help/#getting-help) it is a good idea to provide log files from the editor itself. The editor logs files can be found here:
 
