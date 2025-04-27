@@ -96,10 +96,11 @@ A: The following platforms are supported for the editor/tools and the engine run
 
   | System             | Version            | Architectures      | Supported          |
   | ------------------ | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor and Engine  |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor             |
+  | macOS              | 10.15              | `x86-64`, `arm-64` | Engine             |
   | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine  |
   | Ubuntu (1)         | 18.04              | `x86-64`           | Editor             |
-  | Linux (2)          | Any                | `x86-64`           |  Engine            |
+  | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
   | iOS                | 11.0               | `arm-64`           | Engine             |
   | Android            | 4.4 (API level 19) | `arm-32`, `arm-64` | Engine             |
   | HTML5              |                    | `asm.js`, `wasm`   | Engine             |
