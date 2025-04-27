@@ -53,15 +53,16 @@ R: La logica di gioco nel tuo progetto Defold è scritta principalmente utilizza
 
 R: Le seguenti piattaforme sono supportate per l'editor/strumenti e il runtime del motore:
 
-  | Sistema            | Versione           | Architetture   | Supportato           |
-  | ------------------ | ------------------ | -------------- | -------------------- |
-  | macOS              | 11 Big Sur         | x86-64, arm-64 | Editor e Motore      |
-  | Windows            | Vista              | x86-32, x86-64 | Editor e Motore      |
-  | Ubuntu (1)         | 18.04              | x86-64         | Editor               |
-  | Linux (2)          | Qualsiasi          | x86-64         | Motore               |
-  | iOS                | 11.0               | arm-64         | Motore               |
-  | Android            | 4.4 (API level 19) | arm-32, arm-64 | Motore               |
-  | HTML5              |                    | asm.js, wasm   | Motore               |
+  | Sistema            | Versione           | Architetture       | Supportato           |
+  | ------------------ | ------------------ | ------------------ | -------------------- |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor               |
+  | macOS              | 10.15              | `x86-64`, `arm-64` | Motore               |
+  | Windows            | Vista              | `x86-32`, `x86-64` | Editor e Motore      |
+  | Ubuntu (1)         | 18.04              | `x86-64`           | Editor               |
+  | Linux (2)          | Qualsiasi          | `x86-64`, `arm-64` | Motore               |
+  | iOS                | 11.0               | `arm-64`           | Motore               |
+  | Android            | 4.4 (API level 19) | `arm-32`, `arm-64` | Motore               |
+  | HTML5              |                    | `asm.js`, `wasm`   | Motore               |
 
   (1 L'editor è costruito e testato per Ubuntu 18.04 a 64 bit. Dovrebbe funzionare anche su altre distribuzioni ma non diamo garanzie.)
 
