@@ -99,20 +99,20 @@ A: The following platforms are supported for the editor/tools and the engine run
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor             |
   | macOS              | 10.15              | `x86-64`, `arm-64` | Engine             |
   | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine  |
-  | Ubuntu (1)         | 18.04              | `x86-64`           | Editor             |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
   | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
   | iOS                | 11.0               | `arm-64`           | Engine             |
   | Android            | 4.4 (API level 19) | `arm-32`, `arm-64` | Engine             |
   | HTML5              |                    | `asm.js`, `wasm`   | Engine             |
 
-  (1 The editor is built and tested for 64-bit Ubuntu 18.04. It should work on other distributions as well but we give no guarantees.)
+  (1 The editor is built and tested for 64-bit Ubuntu. It should work on other distributions as well but we give no guarantees.)
 
   (2 The engine runtime should run on most 64-bit Linux distributions as long as graphics drivers are up to date, see below for more information on graphics APIs)
 
 
 #### Q: What target platforms can I develop games for with Defold?
 
-A: With one click you can publish to PS4™, Nintendo Switch, iOS, Android and HTML5 as well as macOS, Windows and Linux. It’s truly one codebase with multiple supported platforms.
+A: With one click you can publish to PS4™, PS5™, Nintendo Switch, iOS (64-bit), Android (32-bit and 64-bit) and HTML5 as well as macOS (x86-64 and arm64), Windows (32-bit and 64-bit) and Linux (x86-64 and arm64). It’s truly one codebase with multiple supported platforms.
 
 
 #### Q: What rendering API does Defold rely on?
