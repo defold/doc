@@ -153,7 +153,7 @@ local create_file = editor.ui.show_dialog(editor.ui.dialog({
                 grow = true,
                 text = file_name,
                 -- Typing callback:
-                on_text_changed = function(new_text)
+                on_value_changed = function(new_text)
                     file_name = new_text
                 end
             })
