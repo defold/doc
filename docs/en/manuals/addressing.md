@@ -111,7 +111,7 @@ Relative addressing works by automatically prepending the current naming context
 
 ### Shorthands
 
-Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
+Defold provides two handy shorthands that you can use to send messages without specifying a complete URL:
 
 :[Shorthands](../shared/url-shorthands.md)
 
@@ -155,7 +155,7 @@ The absolute address of the manager script is `"/manager#controller"` and this a
 
 ## Hashed identifiers
 
-The engine stores all identifiers as hashed values. All functions that take as argument a component or a game object accepts a string, hash or an URL object. We have seen how to use strings for addressing above.
+The engine stores all identifiers as hashed values. All functions that take as argument a component or a game object accepts a string, hash or a URL object. We have seen how to use strings for addressing above.
 
 When you get the identifier of a game object, the engine will always return an absolute path identifier that is hashed:
 
@@ -190,7 +190,7 @@ go.set_position(pos, relative_id)
 
 To complete the picture, let's look at the full format of Defold addresses: the URL.
 
-An URL is an object, usually written as specially formatted strings. A generic URL consists of three parts:
+A URL is an object, usually written as a specially formatted string. A generic URL consists of three parts:
 
 `[socket:][path][#fragment]`
 

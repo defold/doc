@@ -31,7 +31,7 @@ go.property("target", msg.url())
 
 function init(self)
   -- store initial position of target.
-  -- self.target is an url referencing another objects.
+  -- self.target is a url referencing another object.
   self.target_pos = go.get_position(self.target)
   ...
 end
@@ -78,7 +78,7 @@ function update(self, dt)
 end
 ```
 
-User-defined script properties can also be accessed through the getting, setting and animation functions, the same way as any other property:
+User-defined script properties can also be accessed through the get, set and animate functions, the same way as any other property:
 
 ```lua
 -- another.script
@@ -99,7 +99,7 @@ If you use a factory to create the game object, it is possible to set script pro
 local props = { health = 50, target = msg.url("player") }
 local id = factory.create("#can_factory", nil, nil, props)
 
--- Accessing to factory created script properties
+-- Accessing factory-created script properties
 local url = msg.url(nil, id, "can")
 local can_health = go.get(url, "health")
 ```
@@ -117,7 +117,7 @@ local ids = collectionfactory.create("#cangang_factory", nil, nil, props)
 
 The property values provided via `factory.create()` and `collectionfactory.create()` will override any value set in the prototype file as well as the default values in the script.
 
-If several script components attached to a game object defines the same property, each component will get initialized with the value provided to `factory.create()` or `collectionfactory.create()`.
+If several script components attached to a game object define the same property, each component will get initialized with the value provided to `factory.create()` or `collectionfactory.create()`.
 
 
 ## Resource properties

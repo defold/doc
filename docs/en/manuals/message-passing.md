@@ -20,7 +20,7 @@ Let's first look at a few simple usage examples. Suppose that you are building a
 ![Message passing structure](images/message_passing/message_passing_structure.png)
 
 ::: sidenote
-The content of this example lives in two separate files. There is one file for the main bootstrap collection and one for the collection with the id "level". However, file names _do not matter_ in Defold. The identity you assign instances does.
+The content of this example lives in two separate files. There is one file for the main bootstrap collection and one for the collection with the id "level". However, file names _do not matter_ in Defold. The identity you assign to instances does.
 :::
 
 The game contains a few simple mechanics that require communication between the objects:
@@ -110,7 +110,7 @@ The game contains a few simple mechanics that require communication between the 
 
 ## Sending messages
 
-The mechanics of sending a message is, as we have seen above, very simple. You call the function `msg.post()` which posts  your message to the message queue. Then, each frame, the engine runs through the queue and delivers each message to its target address. For some system messages (like `"enable"`, `"disable"`, `"set_parent"` etc) the engine code handles the message. The engine also produces some system messages (like `"collision_response"` on physics collisions) that are delivered to your objects. For user messages sent to script components, the engine simply calls a special Defold Lua function named `on_message()`.
+The mechanics of sending a message are, as we have seen above, very simple. You call the function `msg.post()` which posts  your message to the message queue. Then, each frame, the engine runs through the queue and delivers each message to its target address. For some system messages (like `"enable"`, `"disable"`, `"set_parent"` etc) the engine code handles the message. The engine also produces some system messages (like `"collision_response"` on physics collisions) that are delivered to your objects. For user messages sent to script components, the engine simply calls a special Defold Lua function named `on_message()`.
 
 You can send arbitrary messages to any existing object or component and it is up to the code on the recipient side to respond to the message. If you send a message to a script component and the script code ignores the message, that is fine. The responsibility of dealing with messages is fully on the receiving end.
 
@@ -151,7 +151,7 @@ There is a hard limit to the `message` parameter table size. This limit is set t
 
 ### Shorthands
 
-Defold provides two handy shorthands that you can use to send message without specifying a complete URL:
+Defold provides two handy shorthands that you can use to send messages without specifying a complete URL:
 
 :[Shorthands](../shared/url-shorthands.md)
 
@@ -203,7 +203,7 @@ A more in depth description on how proxies work can be found in the [Collection 
 
 ## Message chains
 
-When a message that has been posted is eventually dispatched the recipients’ `on_message()` is called. It is quite common that the reaction code post new messages, which are added to the message queue.
+When a message that has been posted is eventually dispatched, the recipients’ `on_message()` is called. It is quite common that the reaction code posts new messages, which are added to the message queue.
 
 When the engine starts dispatching it will work through the message queue and call each message recipient's `on_message()` function and go on until the message queue is empty. If the dispatching pass adds new messages to the queue, it will do another pass. There is, however, a hard limit to how many times the engine tries to empty the queue, which effectively puts a limit to how long message chains you can expect to be fully dispatched within a frame. You can easily test how many dispatch passes the engine performs between each `update()` with the following script:
 
