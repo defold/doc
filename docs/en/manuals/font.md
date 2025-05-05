@@ -120,7 +120,7 @@ To create a BMFont, you need to use a tool that can generate the appropriate fil
 
 * [Bitmap Font Generator](http://www.angelcode.com/products/bmfont/), a Windows only tool provided by AngelCode.
 * [Shoebox](http://renderhjs.net/shoebox/), a free Adobe Air based app for Windows and macOS.
-* [Hiero](https://github.com/libgdx/libgdx/wiki/Hiero), an open source Java based tool.
+* [Hiero](https://libgdx.com/wiki/tools/hiero), an open source Java based tool.
 * [Glyph Designer](https://71squared.com/glyphdesigner), a commercial macOS tool from 71 Squared.
 * [bmGlyph](https://www.bmglyph.com), a commercial macOS tool from Sovapps.
 :::
