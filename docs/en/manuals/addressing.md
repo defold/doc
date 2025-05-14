@@ -207,16 +207,24 @@ As we have seen above, you can leave out some, or most of this information in th
 
 `"main:/manager#controller"`
 
-and the buddy controller in team_2 is:
+and let's say the buddy controller is loaded in a collection-proxy named team_2:
 
-`"main:/team_2/buddy#controller"`
+`"team_2:/buddy#controller"`
 
 We can send messages to them:
 
 ```lua
--- Send "hello" to the manager script and team buddy bean
-msg.post("main:/manager#controller", "hello_manager")
-msg.post("main:/team_2/buddy#controller", "hello_buddy")
+-- Send "hello" to the manager script and from buddy bean
+msg.post("main:/manager#controller", "hello")
+-- Send "hello" to the buddy bean from manager script
+msg.post("team_2:/buddy#controller", "hello")
+```
+
+We cannot directly access game objects in the proxied world from the manager script in main:
+
+```lua
+go.get_position("team_2:/buddy")
+-- main/controller.script:42: function called can only access instances within the same collection.
 ```
 
 ## Constructing URL objects
