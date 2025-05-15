@@ -92,6 +92,22 @@ msg.post("main:/loader#script", "load_level", { level_id = 2 })
 
 ![load](images/collection-proxy/message_passing.png)
 
+And if you need to communicate with a game object in the loaded collection from the loader you can send a message using the [full URL to the object](/manuals/addressing/#urls):
+
+```lua
+msg.post("mylevel:/myobject", "hello")
+```
+
+::: important
+It is not possible to directly access game objects in a loaded collection from outside of the collection:
+
+```lua
+local position = go.get_position("mylevel:/myobject")
+-- loader.script:42: function called can only access instances within the same collection.
+```
+:::
+
+
 ## Unloading a world
 
 To unload a loaded collection, you send messages corresponding to the converse steps of the loading:
