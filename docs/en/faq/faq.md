@@ -53,7 +53,7 @@ A: Game logic in your Defold project is primarily written using the Lua language
 
 #### Q: Can I use C++ to write game logic?
 
-A: C++ support exists in Defold mainly to write native extensions which interface with third party SDKs or platform specific APIs. The [dmSDK](https://defold.com/ref/stable/dmGameObject/) (the C++ API for Defold used in native extensions) will be expanded during 2024 so that it is possible to write all game logic in C++ if a developer so wishes. Lua will still be the main language used for game logic, but with the expanded C++ API it will be possible to write game logic using C++ too. The work to expand the C++ API is mainly about moving existing private header files to the public section and cleaning up APIs for public use.
+A: C++ support exists in Defold mainly to write native extensions which interface with third party SDKs or platform specific APIs. The [dmSDK](https://defold.com/ref/stable/dmGameObject/) (the C++ API for Defold used in native extensions) will be gradually expanded with more functionality so that it is possible to write all game logic in C++ if a developer so wishes. Lua will still be the main language used for game logic, but with the expanded C++ API it will be possible to write game logic using C++ too. The work to expand the C++ API is mainly about moving existing private header files to the public section and cleaning up APIs for public use.
 
 
 #### Q: Can I use TypeScript with Defold?
