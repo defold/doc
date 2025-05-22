@@ -54,6 +54,8 @@ You can interact with the editor using `editor` package that defines this API:
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
   - for atlases: `images` (list of editor nodes for images in the atlas) and `animations` (list of animation nodes)
   - for atlas animations: `images` (same as `images` in atlas)
+  - for tilemaps: `layers` (list of editor nodes for layers in the tilemap)
+  - for tilemap layers: `tiles` (an unbounded 2d grid of tiles), see `tilemap.tiles.*` for more info
   - some properties that are shown in the Properties view when you have selected something in the Outline view. These types of outline properties supported:
     - `strings`
     - `booleans`
@@ -156,6 +158,115 @@ Inside the `run` handler, you can query and change the in-memory editor state. Q
     })
   end
 }
+```
+
+#### Editing atlases
+
+In addition to reading and writing properties of an atlas, you can read and modify atlas images and animations. Atlas defines `images` and `animations` node list properties, and animations define `images` node list property: you can use `editor.tx.add`, `editor.tx.remove` and `editor.tx.clear` transaction steps with these properties.
+
+For example, to add an image to an atlas, execute the following code in the command's `run` handler:
+```lua
+editor.transact({
+    editor.tx.add("/main.atlas", "images", {image="/assets/hero.png"})
+})
+```
+To find a set of all images in an atlas, execute the following code:
+```lua
+local all_images = {} ---@type table<string, true>
+-- first, collect all "bare" images
+local image_nodes = editor.get("/main.atlas", "images")
+for i = 1, #image_nodes do
+    all_images[editor.get(image_nodes[i], "image")] = true
+end
+-- second, collect all images used in animations
+local animation_nodes = editor.get("/main.atlas", "animations")
+for i = 1, #animation_nodes do
+    local animation_image_nodes = editor.get(animation_nodes[i], "images")
+    for j = 1, #animation_image_nodes do
+        all_images[editor.get(animation_image_nodes[j], "image")] = true
+    end
+end
+pprint(all_images)
+-- {
+--     ["/assets/hero.png"] = true,
+--     ["/assets/enemy.png"] = true,
+-- }}
+```
+To replace all animations in an atlas:
+```lua
+editor.transact({
+    editor.tx.clear("/main.atlas", "animations"),
+    editor.tx.add("/main.atlas", "animations", {
+        id = "hero_run",
+        images = {
+            {image = "/assets/hero_run_1.png"},
+            {image = "/assets/hero_run_2.png"},
+            {image = "/assets/hero_run_3.png"},
+            {image = "/assets/hero_run_4.png"}
+        }
+    })
+})
+```
+
+#### Editing tilesources
+
+In addition to outline properties, tilesources define the following properties:
+- `animations` - a list of animation nodes of the tilesource
+- `collision_groups` - a list of collision group nodes of the tilesource
+- `tile_collision_groups` - a table of collision group assignments for tiles in the tilesource
+
+For example, here is how you can setup a tilesource:
+```lua
+local tilesource = "/game/world.tilesource"
+editor.transact({
+    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1}),
+    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "collision_groups", {id = "player"}),
+    editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
+    editor.tx.set(tilesource, "tile_collision_groups", {
+        [1] = "player",
+        [7] = "obstacle",
+        [8] = "obstacle"
+    })
+})
+```
+
+#### Editing tilemaps
+
+Tilemaps define `layers` property, a node list of tilemap layers. Each layer also defines a `tiles` property that holds an unbounded 2d grid of tiles on this layer. This is different from the engine: tiles have no bounds and may be added anywhere, including negative coordinates. To edit tiles, the editor script API defines a `tilemap.tiles` module with the following functions:
+- `tilemap.tiles.new()` to create a fresh data structure that holds an unbounded 2d tile grid (in the editor, contrary to the engine, the tilemap is unbounded, and coordinates may be negative)
+- `tilemap.tiles.get_tile(tiles, x, y)` to get a tile index at a specific coordinate
+- `tilemap.tiles.get_info(tiles, x, y)` to get full tile information at a specific coordinate (the data shape is the same as in the engine's `tilemap.get_tile_info` function)
+- `tilemap.tiles.iterator(tiles)` to create an iterator over all tiles in the tilemap
+- `tilemap.tiles.clear(tiles)` to remove all tiles from the tilemap
+- `tilemap.tiles.set(tiles, x, y, tile_or_info)` to set a tile at a specific coordinate
+- `tilemap.tiles.remove(tiles, x, y)` to remove a tile at a specific coordinate
+
+For example, here is how you can print the contents of the whole tilemap:
+```lua
+local layers = editor.get("/level.tilemap", "layers")
+for i = 1, #layers do
+    local layer = layers[i]
+    local id = editor.get(layer, "id")
+    local tiles = editor.get(layer, "tiles")
+    print("layer " .. id .. ": {")
+    for x, y, tile in tilemap.tiles.iterator(tiles) do
+        print("  [" .. x .. ", " .. y .. "] = " .. tile)
+    end
+    print("}")
+end
+```
+
+Here is an example that shows how to add a layer with tiles to a tilemap:
+```lua
+local tiles = tilemap.tiles.new()
+tilemap.tiles.set(tiles, 1, 1, 2)
+editor.transact({
+    editor.tx.add("/level.tilemap", "layers", {
+        id = "new_layer",
+        tiles = tiles
+    })
+})
 ```
 
 ### Use shell commands
