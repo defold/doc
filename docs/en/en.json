@@ -1532,6 +1532,10 @@
                     {
                         "path": "/extension-iap",
                         "name": "In-app purchases"
+                    },
+                    {
+                        "path": "/extension-xsolla",
+                        "name": "Xsolla"
                     }
                 ],
                 "divider": true
