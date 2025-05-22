@@ -142,7 +142,7 @@ Możesz sprawdzić, czy akcja wejścia dla gamepada jest od nieznanego gamepada,
 
 ```lua
 function on_input(self, action_id, action)
-    if action_is == hash("connected") then
+    if action_id == hash("connected") then
         if action.gamepad_unknown then
             print("The connected gamepad is unidentified and will only generate raw input")
         else
