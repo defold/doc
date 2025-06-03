@@ -12,6 +12,8 @@ Defold exposes properties for game objects, components and GUI nodes that can be
 * GUI node properties
 * Shader constants defined in shaders and material files (see [Material documentation](/manuals/material) for details)
 
+Numeric properties display a drag handle when you hover over their input field. You can increase/decrease their value, by dragging the handle right/left or up/down respectively.
+
 Depending on where a property is found, you access it via a generic function, or a property-specific function. Many of the properties can be automatically animated. Animating properties through the built-in system is highly recommended over manipulating the properties yourself (inside an `update()` function), both for performance reasons as well as convenience.
 
 Composite properties of type `vector3`, `vector4` or `quaternion` also expose their sub-components (`x`, `y`, `z` and `w`). You can address the components individually by suffixing the name with a dot (`.`) and the name of the component. For example, to set the x-component of a game object's position:

@@ -43,7 +43,7 @@ The center view shows the currently open file in an editor for that file type. A
 - Zoom: <kbd>Alt + Right button</kbd> (three button mouse) or <kbd>Ctrl + Mouse button</kbd> (one button). If your mouse has a scroll wheel, it can be used to zoom.
 - Rotate in 3D: <kbd>Ctrl + left mouse button</kbd>.
 
-There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale* as well as *Camera Perspective* and *Visibility Filters*.
+There is a toolbar in the top right corner of the scene view where you find object manipulation tools: *Move*, *Rotate* and *Scale* as well as *2D Mode*, *Camera Perspective* and *Visibility Filters*.
 
 ![toolbar](images/editor/toolbar.png)
 

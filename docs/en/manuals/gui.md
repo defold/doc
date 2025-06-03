@@ -131,7 +131,9 @@ The resource tree in a Defold game is static so any dependencies that you need f
 
 ![dependencies](images/gui/dependencies.png)
 
-To add a new dependency, <kbd>right click</kbd> the "Gui" root in the *Outline*, then select <kbd>Add ▸ [type]</kbd> from the popup context menu.
+To add a new dependency, drag and drop it from the *Asset* pane to the editor view.
+
+Alternatively, <kbd>right click</kbd> the "Gui" root in the *Outline*, then select <kbd>Add ▸ [type]</kbd> from the popup context menu.
 
 You can also <kbd>right click</kbd> on the folder icon for the type you want to add and select <kbd>Add ▸ [type]</kbd>.
 

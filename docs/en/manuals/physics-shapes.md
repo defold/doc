@@ -57,12 +57,8 @@ Defold includes a feature allowing you to create a convex hull shape from three 
 2. Edit the file manually using a text editor or external tool (see below)
 3. Instead of adding shapes to the collision object component, set the *Collision Shape* property to the *convex shape* file.
 
-::: sidenote
-The shape will not be drawn in the editor. You can [enable Physics debugging](/manuals/debugging/#debugging-problems-with-physics) at runtime to see the shape.
-:::
-
 ### File Format
-The convex hull file format uses the same data format as all other Defold files, ie the protobuf text format. A convex hull shape defines the points of the hull in a counter clockwise order. Example:
+The convex hull file format uses the same data format as all other Defold files, ie the protobuf text format. A convex hull shape defines the points of the hull. In 2D physics, the points should be provided in a counter clockwise order. An abstract point cloud is used in 3D physics mode. 2D example:
 
 ```
 shape_type: TYPE_HULL
@@ -146,3 +142,7 @@ Collision shapes in 3D physics can be rotated around all axis.
 
 ## Rotating collision shapes in 2D physics
 Collision shapes in 2D physics can only be rotated around the z-axis. Rotation around the x or y axis will yield incorrect results and should be avoided, even when rotating 180 degrees to essentially flip the shape along the x or y axis. To flip a physics shape it is recommended to use [`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip) and [`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip).
+
+
+# Debugging
+You can [enable Physics debugging](/manuals/debugging/#debugging-problems-with-physics) to see the collision shapes at runtime.
