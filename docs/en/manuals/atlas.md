@@ -19,7 +19,10 @@ You need to populate an atlas with images or animations before you can use it as
 Make sure that you have added your images to the project (drag and drop image files to the right location in the *Assets* browser)
 
 Adding single images
-: <kbd>Right click</kbd> the root Atlas entry in the *Outline* pane.
+
+: Drag and drop images from the *Asset* pane to the editor view.
+  
+  Alternatively, <kbd>Right click</kbd> the root Atlas entry in the *Outline* pane.
 
   Select <kbd>Add Images</kbd> from the pop up context menu to add single images.
 
@@ -38,7 +41,9 @@ Adding flipbook animations
 
   A new, empty, animation group with a default name ("New Animation") is added to the atlas.
 
-  <kbd>Right click</kbd> then new group and select <kbd>Add Images</kbd> from the context menu.
+  Drag and drop images from the *Asset* pane to the editor view to add them to the currently selected group.
+  
+  Alternatively, <kbd>Right click</kbd> the new group and select <kbd>Add Images</kbd> from the context menu.
 
   A dialog opens from which you can find and select the images you want to add to the animation group.
 
@@ -90,7 +95,7 @@ Size
 : The width and height of the image (read-only).
 
 Pivot
-: The pivot point of the image (in units). Top left is (0,0) and bottom right is (1,1). Default is (0.5, 0.5). The pivot may be outside of the 0-1 range. The pivot point is where the image will be centered when used in e.g. a sprite.
+: The pivot point of the image (in units). Top left is (0,0) and bottom right is (1,1). Default is (0.5, 0.5). The pivot may be outside of the 0-1 range. The pivot point is where the image will be centered when used in e.g. a sprite. You can modify the pivot point by dragging the pivot handle on the editor view. The handle will be visible, only when a single image is selected. Snapping can be enabled on <kbd>Shift</kbd> down while dragging.
 
 Sprite Trim Mode
 : How the sprite is rendered. The default is to render the sprite as a rectangle (Sprite Trim Mode set to Off). If the sprite contains a lot of transparent pixels it may be more efficient to render the sprite as a non rectangular shape using between 4 and 8 vertices. Note that sprite trimming does not work together with slice-9 sprites.
