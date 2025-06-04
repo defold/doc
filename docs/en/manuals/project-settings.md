@@ -618,6 +618,9 @@ The number of attempts to download a file when the engine starts (see `Retry Tim
 #### Retry Time
 The number of seconds to wait between attempts to download a file when the download failed (see `Retry Count`).
 
+#### Transparent Graphics Context
+Check if you want the graphics context to have a transparent backdrop.
+
 ---
 
 ### IAP
