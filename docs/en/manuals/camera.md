@@ -172,6 +172,46 @@ You can zoom in and out when using an orthographic camera by changing the *Ortho
 go.set("#camera", "orthographic_zoom", 2)
 ```
 
+### Adaptive zoom
+
+The concept behind adaptive zoom is to adjust the camera zoom value when the resolution of the display change from the initial resolution set in *game.project*.
+
+Two common approaches to adaptive zoom are:
+
+1. Max zoom - Calculate a zoom value such that the content covered by the initial resolution in *game.project* will fill and expand beyond the screen bounds, possibly hiding some content to the sides or above and below.
+2. Min zoom - Calculate a zoom value such that the content covered by the initial resolution in *game.project* will be completely contained within the screen bounds, possibly showing additional content to the sides or above and below.
+
+Example:
+
+```lua
+local DISPLAY_WIDTH = sys.get_config_int("display.width")
+local DISPLAY_HEIGHT = sys.get_config_int("display.height")
+
+function init(self)
+    local initial_zoom = go.get("#camera", "orthographic_zoom")
+    local display_scale = window.get_display_scale()
+    window.set_listener(function(self, event, data)
+        if event == window.WINDOW_EVENT_RESIZED then
+            local window_width = data.width
+            local window_height = data.height
+            local design_width = DISPLAY_WIDTH / initial_zoom
+            local design_height = DISPLAY_HEIGHT / initial_zoom
+
+            -- max zoom: ensure that the initial design dimensions will fill and expand beyond the screen bounds
+            local zoom = math.max(window_width / design_width, window_height / design_height) / display_scale
+
+            -- min zoom: ensure that the initial design dimensions will shrink and be contained within the screen bounds
+            --local zoom = math.min(window_width / design_width, window_height / design_height) / display_scale
+            
+            go.set("#camera", "orthographic_zoom", zoom)
+        end
+    end)
+end
+```
+
+A complete example of adaptive zoom can be seen in [this sample project](https://github.com/defold/sample-adaptive-zoom).
+
+
 ### Following a game object
 
 You can have the camera follow a game object by setting the game object the camera component is attached to as a child of the game object to follow:
