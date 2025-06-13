@@ -225,26 +225,33 @@ An alternative way is to update the position of the game object the camera compo
 When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the `on_input()` lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. The code to convert from mouse/screen coordinates to world coordinates looks like this:
 
 ```Lua
---- Convert from screen to world coordinates
--- @param sx Screen x
--- @param sy Screen y
--- @param sz Screen z
--- @param window_width Width of the window (use render.get_width() or window.get_size().x)
--- @param window_height Height of the window (use render.get_height() or window.get_size().y)
--- @param projection Camera/render projection (use go.get("#camera", "projection"))
--- @param view Camera/render view (use go.get("#camera", "view"))
--- @return wx World x
--- @return wy World y
--- @return wz World z
-local function screen_to_world(sx, sy, sz, window_width, window_height, projection, view)
+--- Convert screen to world coordinates taking into account
+-- the view and projection of a specific camera
+-- @param camera URL of camera to use for conversion
+-- @param screen_x Screen x coordinate to convert
+-- @param screen_y Screen y coordinate to convert
+-- @param z optional z coordinate to pass through the conversion, defaults to 0
+-- @return world_x The resulting world x coordinate of the screen coordinate
+-- @return world_y The resulting world y coordinate of the screen coordinate
+-- @return world_z The resulting world z coordinate of the screen coordinate
+function M.screen_to_world(camera, screen_x, screen_y, z)
+    local projection = go.get(camera, "projection")
+    local view = go.get(camera, "view")
+    local w, h = window.get_size()
+    -- The window.get_size() function will return the scaled window size,
+    -- ie taking into account display scaling (Retina screens on macOS for
+    -- instance). We need to adjust for display scaling in our calculation.
+    local scale = window.get_display_scale()
+    w = w / scale
+    h = h / scale
+
+    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
     local inv = vmath.inv(projection * view)
-    sx = (2 * sx / window_width) - 1
-    sy = (2 * sy / window_height) - 1
-    sz = (2 * sz) - 1
-    local wx = sx * inv.m00 + sy * inv.m01 + sz * inv.m02 + inv.m03
-    local wy = sx * inv.m10 + sy * inv.m11 + sz * inv.m12 + inv.m13
-    local wz = sx * inv.m20 + sy * inv.m21 + sz * inv.m22 + inv.m23
-    return wx, wy, wz
+    local x = (2 * screen_x / w) - 1
+    local y = (2 * screen_y / h) - 1
+    local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
+    local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
+    return x1, y1, z or 0
 end
 ```
 
