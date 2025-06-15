@@ -122,15 +122,6 @@ The camera component supplies the render script with either a perspective or ort
 
 The view matrix provided by the camera defines the position and orientation of the camera. A camera with an *Orthographic Projection* will center the view on the position of the game object it is attached to, while a camera with a *Perspective Projection* will have the lower left corner of the view positioned on the game object it is attached to.
 
-::: important
-For reasons of backwards compatibility the default render script ignores the projection provided by the camera and always uses an orthographic stretch projection. Learn more about the render script and the view and projection matrices in the [Render manual](/manuals/render/#default-view-projection).
-:::
-
-You can tell the render script to use the projection provided by the camera by sending a message to the render script:
-
-```lua
-msg.post("@render:", "use_camera_projection")
-```
 
 ### Render script
 
