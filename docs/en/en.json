@@ -915,6 +915,13 @@
                 "description": "This course covers building a complete 2D action RPG in Defold, teaching core mechanics like player control, enemy AI, dynamic cameras, health bars, scene management, and spawning systems.",
                 "image": "/courses/images/zenva.png",
                 "author": "Zenva"
+            },
+            {
+                "path": "https://academy.zenva.com/product/defold-block-breaker-course/?utm_source=defold&utm_medium=partners&utm_campaign=defold&utm_content=defold-website",
+                "name": "Create a Block Breaker Game in Defold",
+                "description": "This course covers building a complete block breaker game in Defold, teaching physics-based gameplay, paddle and ball mechanics, and procedural block generation using scripting.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
             }
         ],
         "resources": [
