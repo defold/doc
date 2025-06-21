@@ -64,12 +64,22 @@ Defold поддерживает создание файлов APK и AAB. Выб
 
 Файл *.apk* можно скопировать на устройство с помощью инструмента `adb` (см. ниже) или в Google Play через [консоль разработчика Google Play](https://play.google.com/apps/publish/).
 
+:[Android ADB](../shared/android-adb.md)
+
 ```
 $ adb install Defold\ examples.apk
 4826 КБ/с (18774344 байта за 3,798 с)
   pkg: /data/local/tmp/my_app.apk
-Успех
+Success
 ```
+
+#### Установка APK с использованием редактора
+
+Вы можете установить и запустить файл *`.apk`*, используя опции редактора "Install on connected device" и "Launch installed app" в диалоговом окне создания пакета:
+
+![Установка и запуск APK](images/android/install_and_launch.png)
+
+Для работы этой функции необходимо, чтобы ADB был установлен, а на подключенном устройстве была включена *USB-отладка*. Если редактор не может определить расположение команды ADB, необходимо указать путь к ADB в разделе [Preferences](/manuals/editor-preferences/#tools).
 
 #### Установка AAB
 
@@ -82,72 +92,12 @@ $ adb install Defold\ examples.apk
 ### android.permission.INTERNET и android.permission.ACCESS_NETWORK_STATE (Уровень защиты: нормальный)
 Позволяет приложениям открывать сетевые сокеты и получать доступ к информации о сетях. Эти разрешения необходимы для доступа в Интернет. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) и ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
-### android.permission.WRITE_EXTERNAL_STORAGE (Уровень защиты: опасный)
-Позволяет приложению записывать данные во внешнее хранилище. Начиная с уровня API 19, это разрешение не требуется для чтения/записи файлов в специфических для вашего приложения каталогах, возвращаемых Context.getExternalFilesDir(String) и Context.getExternalCacheDir(). Это разрешение необходимо, если вы собираетесь сохранять/загружать файлы с диска (используя io.* или sys.save/load) за пределами папки, указанной [sys.get_save_file()](/ref/sys/#sys.get_save_file:application_id-file_name) и имеете `android:minSdkVersion`, установленный уровень менее 19 в манифесте Android. ([Официальные документы Android](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
-
 ### android.permission.WAKE_LOCK (Уровень защиты: нормальный)
 Позволяет использовать блокировку PowerManager WakeLocks для предотвращения засыпания процессора или затемнения экрана. Это разрешение необходимо для временного предотвращения засыпания устройства при получении push-уведомления. ([Официальные документы Android](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
-## Android Debug Bridge
-
-Инструмент командной строки `adb` - это простая в использовании и универсальная программа, которая используется для взаимодействия с устройствами Android. Вы можете загрузить и установить `adb` как часть Android SDK Platform-Tools, для Mac, Linux или Windows.
-
-Загрузите Android SDK Platform-Tools с сайта: https://developer.android.com/studio/releases/platform-tools. Вы найдете инструмент *adb* в */platform-tools/*. Также, пакеты для конкретной платформы можно установить через соответствующие менеджеры пакетов.
-
-Ubuntu Linux:
-
-```
-$ sudo apt-get install android-tools-adb
-```
-
-Fedora 18/19:
-
-```
-$ sudo yum install android-tools
-```
-
-macOS (Homebrew)
-
-```
-$ brew cask install android-platform-tools
-```
-
-Вы можете убедиться, что `adb` работает, подключив устройство Android к компьютеру через USB и выполнив следующую команду:
-
-```
-$ adb devices
-List of devices attached
-31002535c90ef000    device
-```
-
-Если устройство не отображается, убедитесь, что на устройстве Android включена *USB-отладка*. Откройте *Настройки* устройства и найдите *Опции разработчика* (или *Разработка*).
-
-![Включите отладку USB](images/android/usb_debugging.png)
-
-## Отладка пакета приложений
-
-Пакет, собранный в режиме отладки (т.е. "Debug" выбран в качестве варианта при сборке), будет отправлять весь свой консольный вывод в системный журнал Android. Получите доступ к журналу с помощью инструмента `adb` и дайте команду `logcat`. Возможно, вы захотите отфильтровать вывод по тегу (`-s [tagname]`):
-
-```
-$ adb logcat -s "defold"
---------- beginning of /dev/log/system
---------- beginning of /dev/log/main
-I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
-I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
-I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
-I/defold  ( 6210):
-D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
-...
-```
-
 
 ## Использование AndroidX
-AndroidX - это значительное улучшение оригинальной библиотеки поддержки Android, которая больше не поддерживается. Пакеты AndroidX полностью заменяют библиотеку поддержки, предоставляя паритет возможностей и новые библиотеки. Большинство расширений Android на [портале ассетов](/assets) поддерживают AndroidX. Если вы не хотите использовать AndroidX, вы можете отключить его в пользу старой библиотеки поддержки Android:
-
-1. Если у вас уже есть манифест приложения, добавьте `jetifier: false` в `armv7-android` и `arm64-android`.
-
-2. Если у вас нет файла манифеста приложения, перейдите по ссылке [Defold App Manifest generator](https://britzl.github.io/manifestation/) и установите флажок "Use Android Support lib".
+AndroidX — это значительное улучшение по сравнению с оригинальной Android Support Library, которая больше не поддерживается. Пакеты AndroidX полностью заменяют библиотеку поддержки, обеспечивая тот же функционал и предлагая новые библиотеки. Большинство Android-расширений на [портале ассетов](/assets) поддерживают AndroidX. Если вы не хотите использовать AndroidX, вы можете явно отключить его в пользу старой библиотеки поддержки Android, установив флажок `Use Android Support Lib` в [манифесте приложения](https://defold.com/manuals/app-manifest/).
 
 ![](images/android/enable_supportlibrary.png)
 
