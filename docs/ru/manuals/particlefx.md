@@ -226,6 +226,8 @@ particlefx.play("#particles")
 particlefx.stop("#particles")
 ```
 
+Чтобы запускать и останавливать эффект частиц из GUI-скрипта, см. [руководство по GUI Particle FX](/manuals/gui-particlefx#controlling-the-effect).
+
 ::: sidenote
 Эффект частиц будет продолжать испускать частицы, даже если игровой объект, к которому принадлежал этот компонент эффекта частиц, будет удален.
 :::

@@ -120,10 +120,8 @@ function init(self)
 
   -- get the new texture file assigned to the texture with id 'theme'
   print(go.get("#gui", "textures", { key = "theme" })) -- /assets/mytheme.atlas
-
 end
 ```
-
 
 ## Dependencies
 

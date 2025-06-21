@@ -8,12 +8,10 @@ Defold currently support models, skeletons and animations in GL Transmission For
 
 ![Model in Blender](images/model/blender.png)
 
-
 ## Importing to Defold
 To import the model, simply drag and drop the *.gltf* file or *.dae* file and the corresponding texture image into the *Assets Pane* somewhere.
 
 ![Imported model assets](images/model/assets.png)
-
 
 ## Using a model
 Once you have the model imported into Defold you can use it in a [Model component](/manuals/model).
@@ -33,7 +31,6 @@ Defold imposes some limitations on exported animation data:
 * Animations are also linearly interpolated. If you do more advanced curve interpolation the animations needs to be prebaked from the exporter.
 
 * Animation clips in Collada are not supported. To use multiple animations per model, export them into separate *.dae* files and gather the files into an *.animationset* file in Defold.
-
 
 ### Requirements
 When you export a model it's good to know that we don't yet support all features.
@@ -63,9 +60,7 @@ You can then proceed to export the UV layout to an image that can be used as a t
 
 ![Export UV layout result](images/model/blender_export_uv_layout_result.png)
 
-
 ### Exporting using Blender
 You export your model using the Export menu option. Select the model before you select the Export menu option and check "Selection Only" to only export the model.
 
 ![Exporting using Blender](images/model/blender_export.png)
-

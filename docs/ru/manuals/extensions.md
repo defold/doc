@@ -17,6 +17,8 @@ Defold предоставляет точку входа для нативных 
 
 ![Облачная сборка](images/extensions/cloud_build.png)
 
+Сервер сборки предоставляется бесплатно и без каких-либо ограничений на использование. Сервер размещён в Европе, а URL, на который отправляется нативный код, настраивается в [настройках редактора](/manuals/editor-preferences/#extensions) или через опцию командной строки `--build-server` инструмента [bob](/manuals/bob/#usage). Если вы хотите развернуть собственный сервер, пожалуйста, [следуйте этим инструкциям](/manuals/extender-local-setup).
+
 ## Планировка проекта
 
 Чтобы создать новое расширение, создайте папку в корне проекта. Эта папка будет содержать все настройки, исходный код, библиотеки и ресурсы, связанные с расширением. Конструктор расширений распознает структуру папок и соберет все исходные файлы и библиотеки.
@@ -41,7 +43,7 @@ Defold предоставляет точку входа для нативных 
 
 ```
 *ext.manifest*
-: Папка расширения _должна_ содержать файл *ext.manifest*. Этот файл представляет собой файл формата YAML, который подхватывается конструктором расширений. Минимальный файл манифеста должен содержать название расширения.
+: Папка расширения _должна_ содержать файл *ext.manifest*. Этот файл представляет собой конфигурационный файл с флагами и директивами, используемыми при сборке одного расширения. Определение формата файла можно найти в [руководстве по манифесту расширения](https://defold.com/manuals/extensions-ext-manifests/). Минимальный файл манифеста должен содержать название расширения.
 
 *src*
 : Эта папка должна содержать все файлы исходного кода.
@@ -64,8 +66,11 @@ Defold предоставляет точку входа для нативных 
 
 Опциональная папка *manifests* расширения содержит дополнительные файлы, используемые в процессе сборки и комплектации. Файлы должны быть помещены во вложенные папки, названные по `платформе`:
 
-* `android` - В эту папку помещается файл-заглушка манифеста, который будет объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)). Папка также может содержать файл `build.gradle` с зависимостями, которые должны быть разрешены Gradle ([пример](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)). Наконец, папка может также содержать ноль или более файлов ProGuard (экспериментально).
+* `android` - В эту папку помещается файл-заглушка манифеста, который будет объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
+  * Папка также может содержать файл `build.gradle` с зависимостями, которые должны быть [разрешены Gradle](/manuals/extensions-gradle) ([пример](https://github.com/defold/extension-facebook/blob/master/facebook/manifests/android/build.gradle)).
+  * Наконец, папка может также содержать ноль или более файлов ProGuard (экспериментально).
 * `ios` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
+  Папка также может содержать файл `Podfile` с зависимостями, которые должны быть [разрешены через Cocoapods](/manuals/extensions-cocoapods).
 * `osx` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
 * `web` - Эта папка принимает файл-заглушку манифеста, который должен быть объединен с основным приложением ([как описано здесь](/manuals/extensions-manifest-merge-tool)).
 
@@ -230,46 +235,6 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 ## Построение журналов сервера
 
 Журналы сервера сборки доступны, если проект использует нативные расширения. Журнал сервера сборки (`log.txt`) загружается вместе с движком при сборке проекта и хранится в файле `.internal/%platform%/build.zip`, а также распаковывается в папку сборки вашего проекта.
-
-## Файл ext.manifest
-
-Помимо названия расширения, файл манифеста может содержать флаги компиляции для конкретной платформы, флаги компоновки, библиотеки и фреймворки. Если файл *ext.manifest* не содержит сегмента "platforms", или платформа отсутствует в списке, платформа, для которой вы собираете пакет, будет собрана, но без дополнительных флагов.
-
-Вот пример:
-
-```yaml
-name: "AdExtension"
-
-platforms:
-    arm64-ios:
-        context:
-            frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
-            flags:      ["-stdlib=libc++"]
-            linkFlags:  ["-ObjC"]
-            libs:       ["z", "c++", "sqlite3"]
-            defines:    ["MY_DEFINE"]
-
-    armv7-ios:
-        context:
-            frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
-            flags:      ["-stdlib=libc++"]
-            linkFlags:  ["-ObjC"]
-            libs:       ["z", "c++", "sqlite3"]
-            defines:    ["MY_DEFINE"]
-```
-
-### Разрешенные ключи
-
-Допустимыми ключами для компиляционных флагов, специфичных для конкретной платформы, являются:
-
-* `frameworks` - Фреймворки Apple, которые необходимые для сборки (iOS и OSX)
-* `flags` - Флаги, которые должны быть переданы компилятору
-* `linkFlags` - Флаги, которые должны быть переданы компоновщику
-* `libs` - Библиотеки, необходимые включения при компоновке
-* `defines` - Определения установки при сборке
-* `aaptExtraPackages` - Отдельное имя пакета, которое должно быть сгенерировано (Android)
-* `aaptExcludePackages` - Регулярные выражения (или точные названия) пакетов для исключения (Android
-* `aaptExcludeResourceDirs` - Регулярные выражения (или точные названия) каталоги ресурсов для исключения (Android)
 
 ## Примеры расширений
 
