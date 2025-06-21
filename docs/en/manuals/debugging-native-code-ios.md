@@ -83,13 +83,13 @@ You have a few options to debug an app
 
 1. Either choose `Debug` -> `Attach to process...` and select the app from there
 
-1. Or choose the `Attach to process by PID or Process name`
+2. Or choose the `Attach to process by PID or Process name`
 
 	![select_device](images/extensions/debugging/ios/attach_to_process_name.png)
 
-1. Start the app on the device
+3. Start the app on the device
 
-1. In `Edit Scheme` add the <AppName>.app folder as the executable
+4. In `Edit Scheme` add the <AppName>.app folder as the executable
 
 ### Debug symbols
 
