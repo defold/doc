@@ -10,18 +10,14 @@ Script components allows you to create game logic using the [Lua programming lan
 
 ## Script types
 
-There are three types of Lua script in Defold, each has different Defold libraries available.
+Скрипты игровых объектов
+: Расширение _.script_. Эти скрипты добавляются к игровым объектам точно так же, как и любой другой [компонент](/manuals/components), и Defold будет выполнять Lua-код как часть функций жизненного цикла движка. Скрипты игровых объектов обычно используются для управления игровыми объектами и логикой, объединяющей игру воедино: загрузкой уровней, игровыми правилами и так далее. Скрипты имеют доступ к функциям [GO](/ref/go) и ко всем библиотечным функциям Defold, за исключением [GUI](/ref/gui) и [Render](/ref/render).
 
-Game Object scripts
-: Extension _.script_. These scripts are added to game objects exactly like any other [component](/manuals/components) and Defold will execute the Lua code as part of the engine lifecycle functions. Game Object scripts are usually used to control game objects and the logic that binds the game together with level loading, game rules and so forth. Game Object scripts have access to the [GO](/ref/go) functions and all Defold library functions except the [GUI](/ref/gui) and [Render](/ref/render) functions.
+Скрипты GUI
+: Расширение _.gui_script_. Выполняются компонентами GUI и обычно содержат логику, необходимую для отображения элементов GUI, таких как интерфейс, меню и т.п. Defold выполняет Lua-код как часть функций жизненного цикла движка. Скрипты GUI имеют доступ к функциям [GUI](/ref/gui) и ко всем библиотечным функциям Defold, за исключением [GO](/ref/go) и [Render](/ref/render).
 
-
-GUI scripts
-: Extension _.gui_script_. Run by GUI components and usually containing the logic required to display GUI elements like heads up displays, menus etc. Defold will execute the Lua code as part of the engine lifecycle functions. GUI scripts have access to the [GUI](/ref/gui) functions and all Defold library functions except the [GO](/ref/go) and [Render](/ref/render) functions.
-
-
-Render scripts
-: Extension _.render_script_. Run by the rendering pipeline and containing the logic required to render all app/game graphics each frame. The render script has a special place in the lifecycle of your game. Details can be found in the [Application lifecycle documentation](/manuals/application-lifecycle). Render scripts have access to the [Render](/ref/render) functions and all Defold library functions except the [GO](/ref/go) and [GUI](/ref/gui) functions.
+Скрипты рендера
+: Расширение _.render_script_. Выполняются в рамках пайплайна рендеринга и содержат логику, необходимую для отрисовки всей графики приложения/игры в каждом кадре. Скрипт рендера занимает особое место в жизненном цикле вашей игры. Подробнее см. в [документации по жизненному циклу приложения](/manuals/application-lifecycle). Скрипты рендера имеют доступ к функциям [Render](/ref/render) и ко всем библиотечным функциям Defold, за исключением [GO](/ref/go) и [GUI](/ref/gui).
 
 
 ## Script execution, callbacks and self
@@ -64,11 +60,11 @@ end
 ```
 
 #### `fixed_update(self, dt)`
-Frame-rate independent update. `dt` contains the delta time since the last update. This function is called when `engine.fixed_update_frequency` is enabled (!= 0). Useful when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation when `physics.use_fixed_timestep` is enabled in *game.project*.
+: Обновление, не зависящее от частоты кадров. `dt` содержит дельту времени с момента последнего обновления. Эта функция вызывается, когда включен параметр `engine.fixed_update_frequency` (!= 0). Полезна, когда вы хотите управлять физическими объектами с регулярными интервалами для достижения стабильной симуляции физики при включенном параметре `physics.use_fixed_timestep` в *game.project*.
 
 ```lua
 function fixed_update(self, dt)
-  msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+    msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
 end
 ```
 
