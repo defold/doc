@@ -102,13 +102,13 @@ You can [upload the debug symbols to Google Play](https://developer.android.com/
 	$ ls <project>/build/<platform>/[lib]dmengine[.exe|.so]
 ```
 
-1. Unzip to a folder:
+2. Unzip to a folder:
 
 ```sh
 	$ unzip dmengine.apk -d dmengine_1_2_105
 ```
 
-1. Find the callstack address
+3. Find the callstack address
 
 	E.g. in the non symbolicated callstack it could look like this
 
@@ -116,7 +116,7 @@ You can [upload the debug symbols to Google Play](https://developer.android.com/
 
 	Where *`00257224`* is the address
 
-1. Resolve the address
+4. Resolve the address
 
 ```sh
     $ arm-linux-androideabi-addr2line -C -f -e dmengine_1_2_105/lib/armeabi-v7a/libdmengine.so _address_
@@ -133,13 +133,13 @@ Note: If you get hold of a stack trace from the [Android logs](/manuals/debuggin
 	# it will produce a Contents/Resources/DWARF/dmengine
 ```
 
-1. If you're not using Native Extensions, download the vanilla symbols:
+2. If you're not using Native Extensions, download the vanilla symbols:
 
 ```sh
 	$ wget http://d.defold.com/archive/<sha1>/engine/arm64-darwin/dmengine.dSYM
 ```
 
-1. Symbolicate using load address
+3. Symbolicate using load address
 
 	For some reason, simply putting the address from the callstack doesn't work (i.e. load address 0x0)
 
