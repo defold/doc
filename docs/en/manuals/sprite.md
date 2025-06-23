@@ -81,10 +81,6 @@ The attributes specified in the material will show up as regular properties in t
 
 ![sprite-attributes](../images/graphics/sprite-attributes.png)
 
-::: sidenote
-Custom attributes are available starting from Defold 1.4.8!
-:::
-
 ## Project configuration
 
 The *game.project* file has a few [project settings](/manuals/project-settings#sprite) related to sprites.

@@ -11,13 +11,17 @@ brief: В этом руководстве описывается, как отл�
 
 * Соберите бандл приложения с помощью утилиты bob с ключом `--with-symbols` 
 
-		$ cd myproject
-		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
-		$ java -jar bob.jar --platform armv7-darwin build --with-symbols debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
+```sh
+$ cd myproject
+$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
+$ java -jar bob.jar --platform armv7-darwin build --with-symbols --variant debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
+```
 
 * Установите приложение с помощью `Xcode`,` iTunes` или [ios-deploy](https://github.com/ios-control/ios-deploy) 
 
-		$ ios-deploy -b <AppName>.ipa
+```sh
+$ ios-deploy -b <AppName>.ipa
+```
 
 * Получите папку `.dSYM` (т.е. отладочные символы) 
 
@@ -25,11 +29,12 @@ brief: В этом руководстве описывается, как отл�
 
 	* Если вы используете нативные расширения, то папка `.dSYM` генерируется при сборке с помощью утилиты [bob.jar](https://www.defold.com/manuals/bob/). Требуется только сборка (без архивации и бандлинга): 
 
-			$ cd myproject
-			$ unzip .internal/cache/arm64-ios/build.zip
-			$ mv dmengine.dSYM <AppName>.dSYM
-			$ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Resources/DWARF/<AppName>
-
+```sh
+$ cd myproject
+$ unzip .internal/cache/arm64-ios/build.zip
+$ mv dmengine.dSYM <AppName>.dSYM
+$ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Resources/DWARF/<AppName>
+```
 
 ### Создание проекта
 
@@ -48,13 +53,14 @@ brief: В этом руководстве описывается, как отл�
 
 	![add_files](images/extensions/debugging/ios/add_files.png)
 
-* Убедитесь, что флажок "Copy items if needed" снят. 
+* Убедитесь, что флажок «Copy items if needed» снят.
 
 	![add_source](images/extensions/debugging/ios/add_source.png)
 
 * Таков конечный результат
 
 	![added_source](images/extensions/debugging/ios/added_source.png)
+
 
 * Отключите шаг `Build`
 
@@ -77,13 +83,13 @@ brief: В этом руководстве описывается, как отл�
 
 1. Либо выберите `Debug` -> `Attach to process...` и выберите оттуда приложение.
 
-1. Либо выберите `Attach to process by PID or Process name`.
+2. Либо выберите `Attach to process by PID or Process name`.
 
 	![select_device](images/extensions/debugging/ios/attach_to_process_name.png)
 
-	1. Запустите приложение на устройстве
+3. Запустите приложение на устройстве
 
-1. В `Edit Scheme` добавьте папку <AppName>.app в качестве исполняемого файла 
+4. В `Edit Scheme` добавьте папку <AppName>.app в качестве исполняемого файла 
 
 ### Отладочные символы
 
@@ -91,34 +97,45 @@ brief: В этом руководстве описывается, как отл�
 
 * Добавьте путь `.dSYM` к lldb
 
-		(lldb) add-dsym <PathTo.dSYM> 
+```
+(lldb) add-dsym <PathTo.dSYM>
+```
 
 	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
 * Убедитесь, что `lldb` успешно прочитал символы
 
-		(lldb) image list <AppName>
+```
+(lldb) image list <AppName>
+```
 
 ### Сопоставления путей
 
 * Добавьте исходный код движка (подправьте путь по своему усмотрению) 
 
-		(lldb) settings set target.source-map /Users/builder/ci/builds/engine-ios-64-master/build /Users/mathiaswesterdahl/work/defold
-		(lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
+```
+(lldb) settings set target.source-map /Users/builder/ci/builds/engine-ios-64-master/build /Users/mathiaswesterdahl/work/defold
+(lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
+```
 
-	* Возможно получить папку с задачами из исполняемого файла.
-	Папка задачи называется так `job1298751322870374150`, каждый раз это имя со случайным номером. 
+* Возможно получить папку с задачами из исполняемого файла.
+	Папка задачи называется `job1298751322870374150`, каждый раз это имя со случайным номером. 
+```sh
+$ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
 
-			$ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
+```
 
 * Проверьте сопоставления исходников
 
-		(lldb) settings show target.source-map
+```
+(lldb) settings show target.source-map
+```
 
 Вы можете проверить, из какого исходного файла происходит отладочный символ, используя команду
 
-	(lldb) image lookup -va <SymbolName>
-
+```
+(lldb) image lookup -va <SymbolName>
+```
 
 ### Точки останова
 
@@ -132,4 +149,6 @@ brief: В этом руководстве описывается, как отл�
 
 Чтобы отладчик пустил папку `.dSYM`, UUID должен совпадать с UUID отлаживаемого исполняемого файла. Вы можете проверить UUID так:
 
-	$ dwarfdump -u <PathToBinary>
+```sh
+$ dwarfdump -u <PathToBinary>
+```

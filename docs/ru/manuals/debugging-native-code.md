@@ -78,35 +78,37 @@ Defold неплохо протестирован и очень редко дае
 
 Очень важно, чтобы вы сопоставили правильный движок со стеком вызовов. В противном случае очень вероятно, что вы получите неверную отладку. Если вы работаете с нативными расширениями, не забудьте добавить флаг [--with-symbols](https://www.defold.com/manuals/bob/) к [утилите bob](https://www.defold.com/manuals/bob/) или установите флажок "Generate debug symbols" в диалоговом окне пакета в редакторе, чтобы получить все необходимые данные с сервера сборки:
 
-* iOS и macOS - папка `dmengine.dSYM` в `build.zip` содержит символы отладки для сборок под iOS/macOS.
-* Android и Linux - сами исполняемые файлы содержат символы отладки.
-* Windows - файл `dmengine.pdb` в архиве ` build.zip` содержит символы отладки для сборок под Windows.
-* HTML5 - файл `dmengine.js.symbols` в архиве` build.zip` содержит символы отладки для сборок под HTML5.
-
-Если вы делаете сборки без нативных расширений, символы отладки доступны на [веб-сайте для скачивания Defold](http://d.defold.com):
-
-* iOS - Файлы `engine/armv7-darwin/dmengine_release.dSYM.zip` и` engine/arm64-darwin/dmengine_release.dSYM.zip` содержат символы отладки для 32- и 64-битных версий движка.
-* macOS - Файл `engine/x86_64-macos/dmengine_release.dSYM.zip` содержит символы отладки.
-* Android - Файлы движков `engine/armv7-android/dmengine.apk` и `engine/arm64-android/dmengine.apk` включают символы отладки для 32- и 64-битных версий движка.
-* Linux - Файл движка `engine/x86_64-linux/dmengine_release` включает символы отладки.
-* Windows - Файл `engine/x86_64-win32/dmengine_release.pdb` содержит символы отладки.
-* HTML5 - Файл `engine/js-web/dmengine_release.js.symbols` содержит символы отладки.
+* iOS — папка `dmengine.dSYM.zip` в `build/arm64-ios` содержит символы отладки для сборок iOS.
+* macOS — папка `dmengine.dSYM.zip` в `build/x86_64-macos` содержит символы отладки для сборок macOS.
+* Android — папка `projecttitle.apk.symbols/lib/` в выходном архиве сборки содержит символы отладки для целевых архитектур.
+* Linux — исполняемый файл содержит символы отладки.
+* Windows — файл `dmengine.pdb` в `build/x86_64-win32` содержит символы отладки для сборок Windows.
+* HTML5 — файл `dmengine.js.symbols` в `build/js-web` или `build/wasm-web` содержит символы отладки для сборок HTML5.
 
 ::: important
 Очень важно, чтобы вы сохранили где-нибудь символы отладки для каждого публичного релиза вашей игры, и чтобы вы знали, к какому релизу принадлежат отладочные символы. Вы не сможете отлаживать нативные сбои, если у вас не будет отладочных символов! Кроме того, вы должны держать под рукой включающую отладочные символы версию движка. Это позволяет лучше всего отображать стек вызовов.
 :::
 
+
+### Загрузка символов отладки в Google Play
+Вы можете [загрузить символы отладки в Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems), чтобы все сбои, зарегистрированные в Google Play, отображались с расшифрованными стеками вызовов. Заархивируйте содержимое папки `projecttitle.apk.symbols/lib/` из выходного архива сборки. Эта папка содержит одну или несколько подпапок с названиями архитектур, например `arm64-v8a` и `armeabi-v7a`.
+
+
 ### Генерация отладочных символов к стеку вызовов Android
 
 1. Получите его из папки сборки
 
+```sh
 	$ ls <project>/build/<platform>/[lib]dmengine[.exe|.so]
+```
 
-1. Распакуйте архив:
+2. Распакуйте архив:
 
+```sh
 	$ unzip dmengine.apk -d dmengine_1_2_105
+```
 
-1. Найдите адрес в стеке вызовов
+3. Найдите адрес в стеке вызовов
 
     Например, в стеке вызовов без отладочных символов это могло бы выглядеть так
 
@@ -114,9 +116,11 @@ Defold неплохо протестирован и очень редко дае
 
 	Где *00257224* это адрес
 
-1. Обработайте этот адрес командой
+4. Обработайте этот адрес командой
 
+```sh
     $ arm-linux-androideabi-addr2line -C -f -e dmengine_1_2_105/lib/armeabi-v7a/libdmengine.so _address_
+```
 
 Примечание: Если вы получите стектрейс из [логов Android](/manuals/debugging-game-and-system-logs), вы можете снабдить его отладочными символами с помощью [ndk-stack](https://developer.android.com/ndk/guides/ndk-stack.html).
 
@@ -124,24 +128,34 @@ Defold неплохо протестирован и очень редко дае
 
 1. Если вы используете нативные расширения, сервер может предоставить вам символы (.dSYM) (передайте ключ `--with-symbols` в bob.jar)
 
+```sh
 	$ unzip <project>/build/arm64-darwin/build.zip
 	# it will produce a Contents/Resources/DWARF/dmengine
+```
 
-1. Если вы не используете нативные расширения, скачайте стандартные отладочные символы:
+2. Если вы не используете нативные расширения, скачайте стандартные отладочные символы:
 
+```sh
 	$ wget http://d.defold.com/archive/<sha1>/engine/arm64-darwin/dmengine.dSYM
+```
 
-1. Получите отладочные символы, используя адрес загрузки
+3. Получите отладочные символы, используя адрес загрузки
 
-    По какой-то причине простое добавление адреса из стека вызовов не работает (т. е. адрес загрузки 0x0)
+	По какой-то причине простое добавление адреса из стека вызовов не работает (т. е. адрес загрузки 0x0)
 
+```sh
 		$ atos -arch arm64 -o Contents/Resources/DWARF/dmengine 0x1492c4
+```
 
 	# Также никакого результата не даст задание адреса загрузки напрямую
 
+```sh
 		$ atos -arch arm64 -o MyApp.dSYM/Contents/Resources/DWARF/MyApp -l0x100000000 0x1492c4
+```
 
-    Добавление адреса загрузки к адресу из стека вызовов даст нужный результат:
+	Добавление адреса загрузки к адресу из стека вызовов даст нужный результат:
 
+```sh
 		$ atos -arch arm64 -o MyApp.dSYM/Contents/Resources/DWARF/MyApp 0x1001492c4
 		dmCrash::OnCrash(int) (in MyApp) (backtrace_execinfo.cpp:27)
+```

@@ -281,10 +281,6 @@ Shaders in Defold support including source code from files within the project th
 #include "../root-level-snippet.glsl"
 ```
 
-::: sidenote
-Shader includes are available starting from version 1.4.2
-:::
-
 There are some caveats to how includes are picked up:
 
   - Files must be project relative, meaning that you can only include files that are located within the project. Any absolute path must be specified with a leading `/`

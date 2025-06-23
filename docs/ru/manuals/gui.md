@@ -33,6 +33,8 @@ Defold автоматически откроет файл в редакторе 
 
 Белый прямоугольник показывает границы текущей выбранной компоновки, ширину и высоту дисплея по умолчанию, установленные в настройках проекта.
 
+## Gui свойства
+
 Выделив корневую GUI-ноду, в *Outline* отображаются *свойства* компонента GUI:
 
 Script
@@ -47,8 +49,79 @@ Adjust Reference
   - `Per Node` --- подгоняет каждую ноду под измененный размер родительской ноды или измененный размер экрана.
   - `Disable` --- отключает режим адаптации нод. Заставляет все ноды сохранять заданный размер.
 
+Current Nodes
+: Текущее количество используемых нод в данном GUI.
+
 Max Nodes
 : Максимальное количество нод для данного GUI.
+
+Max Dynamic Textures
+: Максимальное количество текстур, которые можно создать с помощью [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip)
+
+
+## Работа со свойствами GUI во время выполнения
+
+Вы можете изменять свойства GUI во время выполнения из компонента скрипта с помощью `go.get()` и `go.set()`:
+
+Шрифты
+: Получение или установка шрифта, используемого в GUI.
+
+![get_set_font](images/gui/get_set_font.png)
+
+```lua
+go.property("mybigfont", resource.font("/assets/mybig.font"))
+
+function init(self)
+  -- получаем шрифт, назначенный идентификатору 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /builtins/fonts/default.font
+
+  -- устанавливаем шрифт 'default' в ресурс, указанный в 'mybigfont'
+  go.set("#gui", "fonts", self.mybigfont, { key = "default" })
+
+  -- получаем новый шрифт, назначенный идентификатору 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /assets/mybig.font
+end
+```
+
+Материалы
+: Получение или установка материала, используемого в GUI.
+
+![get_set_material](images/gui/get_set_material.png)
+
+```lua
+go.property("myeffect", resource.material("/assets/myeffect.material"))
+
+function init(self)
+  -- получаем материал, назначенный идентификатору 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /effect.material
+
+  -- устанавливаем материал 'effect' в ресурс, указанный в 'myeffect'
+  go.set("#gui", "materials", self.myeffect, { key = "effect" })
+
+  -- получаем новый материал, назначенный идентификатору 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /assets/myeffect.material
+end
+```
+
+Текстуры
+: Получение или установка текстуры (атласа), используемой в GUI.
+
+![get_set_texture](images/gui/get_set_texture.png)
+
+```lua
+go.property("mytheme", resource.atlas("/assets/mytheme.atlas"))
+
+function init(self)
+  -- получаем текстуру, назначенную идентификатору 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /theme.atlas
+
+  -- устанавливаем текстуру 'theme' в ресурс, указанный в 'mytheme'
+  go.set("#gui", "textures", self.mytheme, { key = "theme" })
+
+  -- получаем новую текстуру, назначенную идентификатору 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /assets/mytheme.atlas
+end
+```
 
 ## Зависимости
 
@@ -56,7 +129,9 @@ Max Nodes
 
 ![dependencies](images/gui/dependencies.png)
 
-Чтобы добавить новую зависимость, <kbd>кликните ПКМ</kbd> в корне "GUI" в *Outline*, затем выберите <kbd>Add ▸ [type]</kbd> из всплывающего контекстного меню.
+Чтобы добавить новую зависимость, перетащите её из панели Assets в окно редактора.
+
+Или же, чтобы добавить новую зависимость, <kbd>кликните ПКМ</kbd> в корне "GUI" в *Outline*, затем выберите <kbd>Add ▸ [type]</kbd> из всплывающего контекстного меню.
 
 Также можно <kbd>кликнуть ПКМ</kbd> на иконке папки для типа, который требуется добавить, и выбрать <kbd>Add ▸ [type]</kbd>.
 
@@ -88,12 +163,6 @@ Template
 
 <div style="clear: both;"></div>
 
-Spine
-: ![spine node](images/icons/spine-model.png){.left}
-  Отображает и анимирует Spine-модель. См. [руководство по ноде Spine](/manuals/gui-spine).
-
-<div style="clear: both;"></div>
-
 Particle FX
 : ![particlefx node](images/icons/particlefx.png){.left}
   Воспроизводит эффект частиц. См. [руководство по ноде Particle FX](/manuals/gui-particlefx).
@@ -122,6 +191,12 @@ Size (ноды Box, Text и Pie)
 Size Mode (ноды Box и Pie)
 : Если установлено значение `Automatic`, редактор сам устанавливает размер узла. Если установлено значение `Manual`, размер можно задавать самостоятельно.
 
+Enabled
+: Если флажок снят, нода не отображается, не анимируется и не может быть выбрана с помощью `gui.pick_node()`. Используйте `gui.set_enabled()` и `gui.is_enabled()` для программного управления этим свойством.
+
+Visible
+: Если флажок снят, нода не отображается, но всё ещё может быть анимирована и выбрана с помощью `gui.pick_node()`. Используйте `gui.set_visible()` и `gui.get_visible()` для программного управления этим свойством.
+
 Text (нода Text)
 : Текст, отображаемый в ноде.
 
@@ -133,6 +208,9 @@ Font (нода Text)
 
 Texture (ноды Box и Pie)
 : Текстура для отрисовки в ноде. Это ссылка на изображение или анимацию в атласе или тайловом источнике.
+
+Material (ноды Box, Pie, Text и Particle FX)
+: Материал, используемый при отрисовке ноды. Можно выбрать материал, добавленный в раздел *Materials* в Outline, либо оставить поле пустым, чтобы использовать материал по умолчанию, назначенный GUI-компоненту.
 
 Slice 9 (нода Box)
 : Устанавливается для сохранения размера пикселей текстуры ноды по краям при изменении размера ноды. За подробностями обращайтесь к [руководству по ноде Box](/manuals/gui-box).
@@ -151,15 +229,6 @@ Pie Fill Angle (нода Pie)
 
 Template (нода Template)
 : Файл GUIсцены, используемый в качестве шаблона для ноды. За подробностями обращайтесь к [руководству по ноде Template](/manuals/gui-template).
-
-Spine Scene (нода Spine)
-: Spine-сцена, используемая для данной ноды. За подробностями обращайтесь к [руководству по ноде Spine](/manuals/gui-spine).
-
-Default Animation (нода Spine)
-: Анимация, автоматически воспроизводимая в данной ноде. За подробностями обращайтесь к [руководству по ноде Spine](/manuals/gui-spine).
-
-Skin (нода Spine)
-: Скин, используемый для ноды. За подробностями обращайтесь к [руководству по ноде Spine](/manuals/gui-spine).
 
 ParticleFX (нода Particle FX)
 : Эффект частиц, который будет использоваться в данной ноде. За подробностями обращайтесь к [руководству по ноде Particle FX](/manuals/gui-particlefx).
@@ -187,6 +256,7 @@ Blend Mode
   - `Alpha` --- смешивает пиксельные значения ноды с фоном. Соответствует режиму наложения "Normal" в графических программах.
   - `Add` --- добавляет пиксельные значения ноды к фону. Соответствует "Linear dodge" в некоторых графических программах.
   - `Multiply` --- перемножает значения пикселей ноды с фоном.
+  - `Screen` --- инвертированное перемножение пикселей ноды с фоном. Соответствует режиму наложения "Screen" в графических программах.
 
 Pivot
 : Устанавливает пивот ноды. Это можно рассматривать как "центральную точку" ноды. Любое вращение, масштабирование или изменение размера будет происходить вокруг этой точки.
@@ -227,7 +297,7 @@ Adjust Mode
 
   Если свойство GUI-сцены *Adjust Reference* установлено в `Disabled`, эта настройка будет проигнорирована.
 
-Clipping Mode (ноды Box, Pie и Spine)
+Clipping Mode (ноды Box и Pie)
 : Устанавливает режим обрезки для ноды:
 
   - `None` --- отображает ноду как обычно.

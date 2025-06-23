@@ -86,7 +86,6 @@ resource.set_buffer(res, buf)
 
 Refer to the [forum announcement post for more information](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137) on how to use the Mesh component, including sample projects and code snippets.
 
-
 ## Frustum culling
 
 Mesh components are not automatically culled due to their dynamic nature and the fact that it is not possible to know for sure how the positional data is encoded. In order to cull a mesh the axis-aligned bounding box of the mesh needs to be set as meta data on the buffer using 6 floats (AABB min/max):
@@ -94,7 +93,6 @@ Mesh components are not automatically culled due to their dynamic nature and the
 ```lua
 buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_FLOAT32)
 ```
-
 
 ## Material constants
 

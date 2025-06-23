@@ -13,7 +13,7 @@ Defold uses Lua 5.1 and LuaJIT (depending on target platform) and you need to fo
 
 ## Using other languages that transpile to Lua
 
-Starting from version 1.8.1, Defold supports the use of transpilers that emit Lua code. With transpiler extension installed, you can use alternative languages — such as [Teal](https://github.com/defold/extension-teal) — to write statically-checked Lua. It is a preview feature that has limitations: current transpiler support does not expose the information about modules and functions defined in the Defold Lua runtime. It means that using Defold APIs like `go.animate` will require you to write external definitions yourself.
+Defold supports the use of transpilers that emit Lua code. With transpiler extension installed, you can use alternative languages — such as [Teal](https://github.com/defold/extension-teal) — to write statically-checked Lua. It is a preview feature that has limitations: current transpiler support does not expose the information about modules and functions defined in the Defold Lua runtime. It means that using Defold APIs like `go.animate` will require you to write external definitions yourself.
 
 ## Writing native code
 

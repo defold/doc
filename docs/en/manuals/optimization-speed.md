@@ -18,7 +18,7 @@ If you create loads of short lived objects such as Lua tables every frame this w
 ### Prehash message and action ids
 If you do a lot of message handling or have many input events to deal with it is recommended to prehash the strings. Consider this piece of code:
 
-```
+```lua
 function on_message(self, message_id, message, sender)
     if message_id == hash("message1") then
         msg.post(sender, hash("message3"))
@@ -30,7 +30,7 @@ end
 
 In the above scenario the hashed string would be recreated every time a message is received. This can be improved by creating the hashed strings once and use the hashed versions when handling messages:
 
-```
+```lua
 local MESSAGE1 = hash("message1")
 local MESSAGE2 = hash("message2")
 local MESSAGE3 = hash("message3")
@@ -48,7 +48,7 @@ end
 ### Prefer and cache URLs
 Message passing or in other ways addressing a game object or component can be done both by providing an id as a string or hash or as a URL. If a string or hash is used it will internally be translated into a URL. It is therefore recommended to cache URLs that are used often, to get the best possible performance out of the system. Consider the following:
 
-```
+```lua
     local pos = go.get_position("enemy")
     local pos = go.get_position(hash("enemy"))
     local pos = go.get_position(msg.url("enemy"))
@@ -57,7 +57,7 @@ Message passing or in other ways addressing a game object or component can be do
 
 In all three cases the position of a game object with id `enemy` would be retrieved. In the first and second case the id (string or hash) would be converted into a URL before being used. This tells us that it's better to cache URLs and use the cached version for the best possible performance:
 
-```
+```lua
     function init(self)
         self.enemy_url = msg.url("enemy")
     end
@@ -82,7 +82,6 @@ Reducing the scene graph complexity is needed if the profiler shows high values 
 
 ## Frustum culling
 The render script can automatically ignore rendering of game object component that are outside of a defined bounding box (frustum). Learn more about Frustum Culling in the [Render Pipeline manual](/manuals/render/#frustum-culling).
-
 
 # Platform specific optimizations
 
