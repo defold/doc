@@ -56,13 +56,17 @@ You can interact with the editor using `editor` package that defines this API:
   - for atlas animations: `images` (same as `images` in atlas)
   - for tilemaps: `layers` (list of editor nodes for layers in the tilemap)
   - for tilemap layers: `tiles` (an unbounded 2d grid of tiles), see `tilemap.tiles.*` for more info
+  - for particlefx: `emitters` (list of emitter editor nodes) and `modifiers` (list of modifier editor nodes)
+  - for particlefx emitters: `modifiers` (list of modifier editor nodes)
+  - for collision objects: `shapes` (list of collision shape editor nodes)
+  - for GUI files: `layers` (list of layer editor nodes)
   - some properties that are shown in the Properties view when you have selected something in the Outline view. These types of outline properties supported:
     - `strings`
     - `booleans`
     - `numbers`
     - `vec2`/`vec3`/`vec4`
     - `resources`
-
+    - `curves`
     Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts. You can set resource properties to `nil` by supplying `""` value.
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error.
 - `editor.can_set(node_id, property)` — check if `editor.tx.set()` transaction step with this property won't throw an error.
@@ -267,6 +271,141 @@ editor.transact({
         tiles = tiles
     })
 })
+```
+
+#### Editing particlefx
+
+You can edit particlefx using `modifiers` and `emitters` properties. For example, adding a circle emitter with acceleration modifier is done like this:
+```lua
+editor.transact({
+    editor.tx.add("/fire.particlefx", "emitters", {
+        type = "emitter-type-circle",
+        modifiers = {
+          {type = "modifier-type-acceleration"}
+        }
+    })
+})
+```
+Many particlefx properties are curves or curve spreads (i.e. curve + some randomizer value). Curves are represented as a table with a non-empty list of `points`, where each point is a table with the following properties:
+- `x` - the x coordinate of the point, should start at 0 and end at 1
+- `y` - the value of the point
+- `tx` (0 to 1) and `ty` (-1 to 1) - tangents of the point. E.g., for an 80-degree angle, `tx` should be `math.cos(math.rad(80))` and `ty` should be `math.sin(math.rad(80))`.
+Curve spreads additionally have a `spread` number property. 
+
+For example, setting a particle lifetime alpha curve for an already existing emitter might look like this:
+```lua
+local emitter = editor.get("/fire.particlefx", "emitters")[1]
+editor.transact({
+    editor.tx.set(emitter, "particle_key_alpha", { points = {
+        {x = 0,   y = 0, tx = 0.1, ty = 1}, -- start at 0, go up quickly
+        {x = 0.2, y = 1, tx = 1,   ty = 0}, -- reach 1 at 20% of a lifetime
+        {x = 1,   y = 0, tx = 1,   ty = 0}  -- slowly go down to 0
+    }})
+})
+```
+Of course, it's also possible to use the `particle_key_alpha` key in a table when creating an emitter. Additionally, you can use a single number instead to represent a "static" curve.
+
+#### Editing collision objects
+
+In addition to default outline properties, collision objects define `shapes` node list property. Adding new collision shapes is done like this:
+```lua
+editor.transact({
+    editor.tx.add("/hero.collisionobject", "shapes", {
+        type = "shape-type-box" -- or "shape-type-sphere", "shape-type-capsule"
+    })
+})
+```
+Shape's `type` property is required during creation and cannot be changed after the shape is added. There are 3 shape types:
+- `shape-type-box` - box shape with `dimensions` property
+- `shape-type-sphere` - sphere shape with `diameter` property
+- `shape-type-capsule` - capsule shape with `diameter` and `height` properties
+
+#### Editing GUI files
+
+In addition to outline properties, GUI nodes defines the following properties:
+- `layers` — list of layer editor nodes (reorderable)
+- `materials` — list of material editor nodes
+
+It's possible to edit GUI layers using editor `layers` property, e.g.:
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "layers", {name = "foreground"}),
+    editor.tx.add("/main.gui", "layers", {name = "background"})
+})
+```
+Additionally, it's possible to reorder layers:
+```lua
+local fg, bg = table.unpack(editor.get("/main.gui", "layers"))
+editor.transact({
+    editor.tx.reorder("/main.gui", "layers", {bg, fg})
+})
+```
+Similarly, fonts, materials, textures, and particlefxs are edited using `fonts`, `materials`, `textures`, and `particlefxs` properties:
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "fonts", {font = "/main.font"}),
+    editor.tx.add("/main.gui", "materials", {name = "shine", material = "/shine.material"}),
+    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.material"}),
+    editor.tx.add("/main.gui", "textures", {texture = "/ui.atlas"})
+})
+```
+These properties don't support reordering.
+
+Finally, you can edit GUI nodes using `nodes` list property, e.g.:
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "nodes", {
+        type = "gui-node-type-box",
+        position = {20, 20, 20}
+    }),
+    editor.tx.add("/main.gui", "nodes", {
+        type = "gui-node-type-template",
+        template = "/button.gui"
+    }),
+})
+```
+Built-in node types are:
+- `gui-node-type-box`
+- `gui-node-type-particlefx`
+- `gui-node-type-pie`
+- `gui-node-type-template`
+- `gui-node-type-text`
+
+If you are using spine extension, you can also use `gui-node-type-spine` node type.
+
+If the GUI file defines layouts, you can get and set the values from layouts using `layout:property` syntax, e.g.:
+```lua
+local node = editor.get("/main.gui", "nodes")[1]
+
+-- GET:
+local position = editor.get(node, "position")
+pprint(position) -- {20, 20, 20}
+local landscape_position = editor.get(node, "Landscape:position")
+pprint(landscape_position) -- {20, 20, 20}
+
+-- SET:
+editor.transact({
+    editor.tx.set(node, "Landscape:position", {30, 30, 30})
+})
+pprint(editor.get(node, "Landscape:position")) -- {30, 30, 30}
+```
+
+Layout properties that were set can be reset to their default values using `editor.tx.reset`:
+```lua
+print(editor.can_reset(node, "Landscape:position")) -- true
+editor.transact({
+    editor.tx.reset(node, "Landscape:position")
+})
+```
+Template node trees can be read, but not edited — you can only set node properties of the template node tree:
+```lua
+local template = editor.get("/main.gui", "nodes")[2]
+print(editor.can_add(template, "nodes")) -- false
+local node_in_template = editor.get(template, "nodes")[1]
+editor.transact({
+    editor.tx.set(node_in_template, "text", "Button text")
+})
+print(editor.can_reset(node_in_template, "text")) -- true (overrides a value in the template)
 ```
 
 ### Use shell commands
