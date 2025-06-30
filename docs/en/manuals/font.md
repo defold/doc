@@ -16,11 +16,6 @@ Fonts added to your project are automatically converted into a texture format th
 - Bitmap
 - Distance field
 
-::: sidenote
-It is possible to [generate font glyphs at runtime](/extension-fontgen) from a bundled TrueType font instead of generating and including a font texture in the application bundle. This approach can greatly reduce the download size and runtime memory consumption of a Defold game.
-:::
-
-
 ## Creating a font
 
 To create a font for use in Defold, create a new Font file by selecting <kbd>File ▸ New...</kbd> from the menu, then select <kbd>Font</kbd>. You can also <kbd>right click</kbd> a location in the *Assets* browser and select <kbd>New... ▸ Font</kbd>.
@@ -97,7 +92,7 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 *Cache Width/Height*
 : Constrains the size of the glyph cache bitmap. When the engine renders text, it looks up the glyph from the cache bitmap. If it does not exist there, it will be added to the cache before rendering. If the cache bitmap is too small to contain all the glyphs the engine is asked to render, an error is signalled (`ERROR:RENDER: Out of available cache cells! Consider increasing cache_width or cache_height for the font.`).
 
-  If set to 0 the cache size is set automatically.
+  If set to 0 the cache size is set automatically, and will grow to 2048x4096 max.
 
 ## Distance field fonts
 
@@ -167,3 +162,79 @@ For example - to generate a gradient in a shader fragment, simply write:
 `float horizontal_gradient = fract(var_texcoord0.y / texture_size_recip.w);`
 
 For more information about shader uniforms, see the [Shader manual](/manuals/shader).
+
+## Runtime generation
+
+It is possible to use runtime generation for SDF type fonts, when using TrueType (.ttf) fonts.
+This approach can greatly reduce the download size and runtime memory consumption of a Defold game.
+The small downside is a very small delay for each glyph generated at runtime.
+
+Enable the feature by setting `font.runtime_generation` in game.project.
+
+::: sidenote
+This feature is currently experimental, but with the intention to be used as the default workflow in the future.
+:::
+
+::: important
+This setting affects all .ttf fonts in the project.
+:::
+
+### Prewarming glyph cache
+
+In order to make the runtime fonts easier to use, they support prewarming of the glyph cache.
+This means the font will generate the glyphs listed in *Characters* in the font.
+
+::: sidenote
+If `All Chars` is selected, there will be no prewarming as it defeats the purpose of not having to generate load all glyphs at the same time.
+:::
+
+### Font Scripting
+
+For runtime fonts, it's possible to add or removed sub fonts.
+This is useful when a large font has been split up into multiple for different character sets (e.g. CJK)
+
+::: important
+Adding a subfont doesn't automatically load or render all the glyphs.
+:::
+
+```lua
+-- Add the range A-Z to the .fontc
+local font_hash = hash("/assets/fonts/roboto.fontc")
+local ttf_hash = hash("/assets/fonts/Roboto/Roboto-Bold.ttf")
+local codepoint_min = 0x00000041 -- A
+local codepoint_max = 0x0000005A -- Z
+font.add_source(font_hash, ttf_hash, codepoint_min, codepoint_max)
+```
+
+```lua
+-- Remove the associated ttf resource
+local font_hash = hash("/assets/fonts/roboto.fontc")
+local ttf_hash = hash("/assets/fonts/Roboto/Roboto-Bold.ttf")
+font.remove_source(font_hash, ttf_hash)
+```
+
+To load the glyphs to the font, you will need to call the `font.add_glyphs()`.
+It is an asynchronous operation, and once it's done, it's safe to progress to show any message containing the glyphs.
+
+```lua
+local function add_glyph_callback(self, id, result, errmsg)
+  if not result then
+    print("Request " .. id .." finished with error:", errmsg)
+  else
+    msg.post(some_url, "show_dialog")
+  end
+end
+
+-- Load glyphs into the font
+local font_hash = hash("/assets/fonts/roboto.fontc")
+local glyphs = "Some text to be shown!" -- for optimal performance, make this a list of unique glyphs
+local request_id = font.add_glyphs(font_hash, ttf_hash, add_glyph_callback)
+```
+
+And, once the characters aren't needed anymore, you can discard that memory:
+```lua
+-- Remove the associated ttf resource
+local font_hash = hash("/assets/fonts/roboto.fontc")
+font.remove_glyphs(font_hash, "All the characters in the set")
+```
+
