@@ -127,16 +127,17 @@ return M
 Editor expects `get_commands()` to return an array of tables, each describing a separate command. Command description consists of:
 
 - `label` (required) — text on a menu item that will be displayed to the user
-- `locations` (required) — an array of either `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"` or `"Outline"`, describes a place where this command should be available. `"Edit"`, `"View"`, `"Project"` and `"Debug"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, `"Outline"` means context menu in Outline pane, and `"Bundle"` means **Project → Bundle** submenu.
+- `locations` (required) — an array of either `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"`, `"Scene"` or `"Outline"`, describes a place where this command should be available. `"Edit"`, `"View"`, `"Project"` and `"Debug"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, `"Outline"` means context menu in Outline pane, and `"Bundle"` means **Project → Bundle** submenu.
 - `query` — a way for command to ask editor for relevant information and define what data it operates on. For every key in `query` table there will be corresponding key in `opts` table that `active` and `run` callbacks receive as argument. Supported keys:
   - `selection` means this command is valid when there is something selected, and it operates on this selection.
     - `type` is a type of selected nodes command is interested in, currently these types are allowed:
       - `"resource"` — in Assets and Outline, resource is selected item that has a corresponding file. In menu bar (Edit or View), resource is a currently open file;
       - `"outline"` — something that can be shown in the Outline. In Outline it's a selected item, in menu bar it's a currently open file;
+      - `"scene"` — something that can be rendered to the Scene.
     - `cardinality` defines how many selected items there should be. If `"one"`, selection passed to command callback will be a single node id. If `"many"`, selection passed to command callback will be an array of one or more node ids.
   - `argument` — command argument. Currently, only commands in `"Bundle"` location receive an argument, which is `true` when the bundle command is selected explicitly and `false` on rebundle.
 - `id` - command identifier string, used e.g. for persisting the last used bundle command in `prefs`
-- `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
+- `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"`, `"Scene"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
 - `run` - a callback that is executed when user selects the menu item.
 
 ### Use commands to change the in-memory editor state
