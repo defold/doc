@@ -185,13 +185,13 @@ In order to make the runtime fonts easier to use, they support prewarming of the
 This means the font will generate the glyphs listed in *Characters* in the font.
 
 ::: sidenote
-If `All Chars` is selected, there will be no prewarming as it defeats the purpose of not having to generate load all glyphs at the same time.
+If `All Chars` is selected, there will be no prewarming as it defeats the purpose of not having to generate all glyphs at the same time.
 :::
 
 ### Font Scripting
 
 For runtime fonts, it's possible to add or removed sub fonts.
-This is useful when a large font has been split up into multiple for different character sets (e.g. CJK)
+This is useful when a large font has been split up into multiple files for different character sets (e.g. CJK)
 
 ::: important
 Adding a subfont doesn't automatically load or render all the glyphs.
