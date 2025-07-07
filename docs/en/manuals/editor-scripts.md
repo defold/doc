@@ -409,6 +409,79 @@ editor.transact({
 print(editor.can_reset(node_in_template, "text")) -- true (overrides a value in the template)
 ```
 
+#### Editing game objects
+
+It's possible to edit components of a game object file using editor scripts. The components come in 2 flavors: referenced and embedded. Referenced components use type `component-reference` and act as references to other resources, only allowing overrides of go properties defined in scripts. Embedded components use types like `sprite`, `label`, etc., and allow editing of all properties defined in the component type, as well as adding sub-components like shapes of collision objects. For example, you can use the following code to set up a game object:
+```lua
+editor.transact({
+    editor.tx.add("/npc.go", "components", {
+        type = "sprite",
+        id = "view"
+    }),
+    editor.tx.add("/npc.go", "components", {
+        type = "collisionobject",
+        id = "collision",
+        shapes = {
+            {
+                type = "shape-type-box",
+                dimensions = {32, 32, 32}
+            }
+        }
+    }),
+    editor.tx.add("/npc.go", "components", {
+        type = "component-reference",
+        path = "/npc.script"
+        id = "controller",
+        __hp = 100 -- set a go property defined in the script
+    })
+})
+```
+
+#### Editing collections
+It's possible to edit collections using editor scripts. You can add game objects (embedded or referenced) and collections (referenced). For example:
+```lua
+local coll = "/char.collection"
+editor.transact({
+    editor.tx.add(coll, "children", {
+        -- embbedded game object
+        type = "go",
+        id = "root",
+        children = {
+            {
+                -- referenced game object
+                type = "go-reference",
+                path = "/char-view.go"
+                id = "view"
+            },
+            {
+                -- referenced collection
+                type = "collection-reference",
+                path = "/body-attachments.collection"
+                id = "attachments"
+            }
+        },
+        -- embedded gos can also have components
+        components = {
+            {
+                type = "collisionobject",
+                id = "collision",
+                shapes = {
+                    {type = "shape-type-box", dimensions = {2.5, 2.5, 2.5}}
+                }
+            },
+            {
+                type = "component-reference",
+                id = "controller",
+                path = "/char.script",
+                __hp = 100 -- set a go property defined in the script
+            }
+        }
+    })
+})
+```
+
+Like in the editor, referenced collections can only be added to the root of the edited collection, and game objects can only be added to embedded or referenced game objects, but not to referenced collections or game objects within these referenced collections.
+
 ### Use shell commands
 
 Inside the `run` handler, you can write to files (using `io` module) and execute shell commands (using `editor.execute()` command). When executing shell commands, it's possible to capture the output of a shell command as a string and then use it in code. For example, if you want to make a command for formatting JSON that shells out to globally installed [`jq`](https://jqlang.github.io/jq/), you can write the following command:
