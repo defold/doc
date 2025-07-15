@@ -21,7 +21,6 @@ Facebook has a recommendation that a Facebook Instant Game should start in less 
 
 Playable ads are usually limited to between 2 and 5 MB depending on the ad network.
 
-
 ## Size optimization strategies
 You can optimize the application size in two ways; by reducing the size of the engine and/or by reducing the size of the game assets.
 
@@ -31,7 +30,6 @@ To get a better understanding of what makes up the size of your application you 
 Defold will create a dependency tree when building and bundling your application. The build system will start from the bootstrap collection specified in the *game.project* file and inspect every referenced collection, game object and component to build a list of the assets that are in use. It is only these assets that will get included in the final application bundle. Anything not directly referenced will get excluded. While it is good to know that unused assets will not be included you as a developer still needs to consider what goes into the final application and the size of the individual assets and the total size of the application bundle. 
 :::
 
-
 ## Optimize engine size
 A quick way to reduce the engine size is to remove functionality in the engine that you do not use. This is done [application manifest file](https://defold.com/manuals/app-manifest/) where it is possible to remove engine components that you do not need. Examples:
 
@@ -39,7 +37,6 @@ A quick way to reduce the engine size is to remove functionality in the engine t
 * LiveUpdate - If your game does not use LiveUpdate it can be removed
 * Image loaded - If your game does not manually load and decode images using `image.load()`
 * BasisU - If your game has few textures, compare the build size without BasisU (removed via app manifest) and without texture compression versus a build with BasisU and compressed textures. For games with limited textures, it might be more beneficial to reduce the binary size and skip texture compression. Additionally, not using the transcoder can lower the amount of memory required to run your game.
-
 
 ## Optimize asset size
 The biggest wins in terms of asset size optimizations are usually gained by reducing the size of sounds and textures.
@@ -88,13 +85,10 @@ You can read more about how to optimize and manage textures in [this forum post]
 ### Optimize fonts
 The size of your fonts will be smaller if you specify what symbols you are going to use and set this in [Characters](/manuals/font/#properties) instead of using the All Chars checkbox.
 
-
 ### Exclude content for download on demand
 Another way of reducing initial application size is to exclude parts of the game content from the application bundle and download it on demand. Defold provides a system called Live Update for excluding content for download on demand.
 
 Excluded content can be anything from entire levels to unlockable characters, skins, weapons or vehicles. If your game has a lot of content, organize the loading process so that the bootstrap collection and the first level collection include the bare minimum resources required for that level. You achieve this by using collection proxies or factories with the "Exclude" checkbox enabled. Split resources according to the player's progress. This approach ensures efficient resource loading and keeps initial memory usage low. Learn more in the [Live Update manual](/manuals/live-update/).
-
-
 
 ## Android specific size optimizations
 Android builds must support both 32-bit and 64-bit CPU architectures. When you [bundle for Android](/manuals/android) you can specify which CPU architectures to include:

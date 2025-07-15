@@ -191,6 +191,9 @@ DEFOLD_HEAP_SIZE
 DEFOLD_ENGINE_ARGUMENTS
 : Engine arguments specified in *game.project* `html5.engine_arguments` separated by `,` symbol.
 
+build-timestamp
+: Current build timestamp in seconds.
+
 
 ## Extra parameters
 

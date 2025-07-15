@@ -281,10 +281,6 @@ Shaders in Defold support including source code from files within the project th
 #include "../root-level-snippet.glsl"
 ```
 
-::: sidenote
-Shader includes are available starting from version 1.4.2
-:::
-
 There are some caveats to how includes are picked up:
 
   - Files must be project relative, meaning that you can only include files that are located within the project. Any absolute path must be specified with a leading `/`
@@ -338,6 +334,27 @@ vec3 get_red_color_inverted()
   #include "red-color.glsl"
   return 1.0 - my_red_color;
 }
+```
+
+## Editor-specific shader code
+
+When shaders are rendered in the Defold Editor viewport, a preprocessor definition `EDITOR` is available. This allows you to write shader code that behaves differently when running in the editor versus when running in the actual game engine.
+
+This is particularly useful for:
+  - Adding debug visualizations that should only appear in the editor.
+  - Implementing editor-specific features like wireframe modes or material previews.
+  - Providing fallback rendering for materials that might not work properly in the editor viewport.
+
+Use the `#ifdef EDITOR` preprocessor directive to conditionally compile code that should only run in the editor:
+
+```glsl
+#ifdef EDITOR
+    // This code will only execute when the shader is rendered in the Defold Editor
+    color_out = vec4(1.0, 0.0, 1.0, 1.0); // Magenta color for editor preview
+#else
+    // This code will execute when running in the game
+    color_out = texture(texture_sampler, var_texcoord0) * tint_pm;
+#endif
 ```
 
 ## The rendering process

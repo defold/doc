@@ -92,6 +92,22 @@ msg.post("main:/loader#script", "load_level", { level_id = 2 })
 
 ![load](images/collection-proxy/message_passing.png)
 
+И если необходимо взаимодействовать с игровым объектом в загруженной коллекции из загрузчика, можно отправить сообщение, используя [полный URL объекта](/manuals/addressing/#urls):
+
+```lua
+msg.post("mylevel:/myobject", "hello")
+```
+
+::: important
+Невозможно напрямую обращаться к игровым объектам в загруженной коллекции извне этой коллекции:
+
+```lua
+local position = go.get_position("mylevel:/myobject")
+-- loader.script:42: function called can only access instances within the same collection.
+```
+:::
+
+
 ## Выгрузка мира
 
 Чтобы выгрузить загруженную коллекцию, необходимо отправить сообщения, соответствующие обратным этапам загрузки:

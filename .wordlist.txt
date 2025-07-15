@@ -290,6 +290,7 @@ OpenType
 OSX
 OTF
 particlefx
+particlefxs
 PEM
 performant
 Phaser

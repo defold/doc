@@ -4,42 +4,47 @@ brief: Руководство описывает как установить и 
 ---
 
 # Установка локального сервера сборки
-Существует два способа запуска локального сервера сборки (Extender):
-1. Запуск локального сервера сборки с готовыми артефактами.
-2. Сборка всех необходимых артефактов локально и использование этих артефактов для запуска локального сервера сборки.
 
-## Как запустить локальный сервер сборки с готовыми артефактами
+Существует два варианта запуска локального сервера сборки (также известного как 'Extender'):
+1. Запуск локального сервера сборки с заранее подготовленными артефактами.
+2. Запуск локального сервера сборки с артефактами, собранными локально.
 
-### Предустановки
-* **Docker** - https://www.docker.com/products/docker-desktop/
-* **gcloud cli** - https://cloud.google.com/sdk/docs/install
-* **google account**
+## Как запустить локальный Extender с заранее подготовленными артефактами
 
-### Как использовать готовые образы Docker
+Прежде чем вы сможете запустить локальный облачный сборщик, необходимо установить следующее программное обеспечение:
+
+* [Docker](https://www.docker.com/) — Docker — это набор платформенных сервисов, использующих виртуализацию на уровне операционной системы для доставки программного обеспечения в виде контейнеров. Чтобы запускать облачные сборщики на вашей локальной машине, необходимо установить [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* Google Cloud CLI — Набор инструментов для создания и управления ресурсами Google Cloud. CLI можно [установить напрямую с сайта Google](https://cloud.google.com/sdk/docs/install) или с помощью пакетного менеджера, такого как Brew, Chocolatey или Snap.
+* Также вам понадобится учетная запись Google для загрузки контейнеров с платформенными серверами сборки.
+
+После установки указанного выше программного обеспечения выполните следующие шаги для установки и запуска облачных сборщиков Defold:
+
 **Примечание для пользователей Windows**: используйте git bash для выполнения команд описанных ниже.
+
 1. Авторизуемся в Google Cloud и создаем учетные данные приложения по умолчанию (Application default credentials/ADC)
+
    ```sh
    gcloud auth login
    ```
-2. Конфигурируем Docker для использования реестра Артефактов
+2. __Настройте Docker для использования реестра артефактов__ — необходимо настроить Docker для использования `gcloud` в качестве помощника по учетным данным при загрузке образов контейнеров из публичного реестра `europe-west1-docker.pkg.dev`.
+
    ```sh
    gcloud auth configure-docker europe-west1-docker.pkg.dev
    ```
-3. Проверить, что Docker запущен.
-4. Проверяем, что все сконфигурировано корректно путем скачивания базового образа. Запустите
+3. __Убедитесь, что Docker и Google Cloud настроены корректно__ — Проверьте, что Docker и Google Cloud настроены правильно, выполнив загрузку базового образа, используемого всеми контейнерами сервера сборки. Убедитесь, что Docker Desktop запущен перед выполнением следующей команды:
    ```sh
-   docker pull --platform linux/amd64  europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
+   docker pull --platform linux/amd64 europe-west1-docker.pkg.dev/extender-426409/extender-public-registry/extender-base-env:latest
    ```
-5. Клонируем репозиторий `Extender` и переходим в корневую директорию склонированного репозитория
+4. __Клонируйте репозиторий Extender__ — После корректной настройки Docker и Google Cloud мы почти готовы к запуску серверов. Прежде чем запустить сервер, необходимо клонировать Git-репозиторий, содержащий сервер сборки:
    ```sh
    git clone https://github.com/defold/extender.git
-   cd extender/
+   cd extender
    ```
-6. Скачиваем готовые jar файлы:
-   ```sh
+5. Скачиваем готовые jar файлы:
+```sh
     TMP_DIR=$(pwd)/server/_tmp
     APPLICATION_DIR=$(pwd)/server/app
-    # set nesessary version of Extender and Manifest merge tool
+    # set necessary version of Extender and Manifest merge tool
     # versions can be found at Github release page https://github.com/defold/extender/releases
     # or you can pull latest version (see code sample below)
     EXTENDER_VERSION=2.6.5
@@ -67,8 +72,7 @@ brief: Руководство описывает как установить и 
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep server-${EXTENDER_VERSION}.jar) ${APPLICATION_DIR}/extender.jar
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep manifestmergetool-${MANIFESTMERGETOOL_VERSION}.jar) ${APPLICATION_DIR}/manifestmergetool.jar
    ```
-7. Запускаем docker compose
-главная команда
+6. __Запуск сервера__ — Теперь мы можем запустить сервер, выполнив основную команду docker compose:
 ```sh
 docker compose -p extender -f server/docker/docker-compose.yml --profile <profile> up
 ```
@@ -118,3 +122,12 @@ docker compose -p extender down
         --limit=1 \
         --format="value(name)")
 ```
+
+### Что насчёт macOS и iOS?
+
+Сборки для macOS и iOS выполняются на реальном оборудовании Apple с использованием сервера сборки, работающего в автономном режиме без Docker. Вместо этого XCode, Java и другие необходимые инструменты устанавливаются напрямую на машину, и сервер сборки запускается как обычный Java-процесс. Вы можете узнать, как настроить это, в [документации по серверу сборки на GitHub](https://github.com/defold/extender?tab=readme-ov-file#running-as-a-stand-alone-server-on-macos).
+
+
+## Как запустить локальный Extender с локально собранными артефактами
+
+Пожалуйста, следуйте [инструкции в репозитории Extender на GitHub](https://github.com/defold/extender), чтобы вручную собрать и запустить локальный сервер сборки.

@@ -72,7 +72,7 @@ Once you have the above mentioned software installed follow these steps to insta
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep server-${EXTENDER_VERSION}.jar) ${APPLICATION_DIR}/extender.jar
     cp ${TMP_DIR}/$(ls ${TMP_DIR} | grep manifestmergetool-${MANIFESTMERGETOOL_VERSION}.jar) ${APPLICATION_DIR}/manifestmergetool.jar
    ```
-7. __Start the server__ - We can now start the server by running the docker compose main command:
+6. __Start the server__ - We can now start the server by running the docker compose main command:
 ```sh
 docker compose -p extender -f server/docker/docker-compose.yml --profile <profile> up
 ```

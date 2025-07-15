@@ -908,6 +908,20 @@
                 "description": "This course teaches you to build a farming RPG in Defold, covering player control, crop systems, day progression, sprite atlases, data management, and UI design. Basic Defold and Lua knowledge is needed. Gain skills for advanced and complex projects.",
                 "image": "/courses/images/zenva.png",
                 "author": "Zenva"
+            },
+            {
+                "path": "https://academy.zenva.com/product/defold-action-rpg-course/?utm_source=defold&utm_medium=partners&utm_campaign=defold&utm_content=defold-website",
+                "name": "Make a Fully-Fledged 2D Action RPG in Defold",
+                "description": "This course covers building a complete 2D action RPG in Defold, teaching core mechanics like player control, enemy AI, dynamic cameras, health bars, scene management, and spawning systems.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
+            },
+            {
+                "path": "https://academy.zenva.com/product/defold-block-breaker-course/?utm_source=defold&utm_medium=partners&utm_campaign=defold&utm_content=defold-website",
+                "name": "Create a Block Breaker Game in Defold",
+                "description": "This course covers building a complete block breaker game in Defold, teaching physics-based gameplay, paddle and ball mechanics, and procedural block generation using scripting.",
+                "image": "/courses/images/zenva.png",
+                "author": "Zenva"
             }
         ],
         "resources": [

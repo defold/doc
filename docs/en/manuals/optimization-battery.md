@@ -11,7 +11,6 @@ Refer to the manuals on how to [optimize runtime performance](/manuals/optimizat
 ## Disable accelerometer
 If you are creating a mobile game which doesn't make use of the device accelerometer it is recommended to [disable it in *game.project*](/manuals/project-settings/#use-accelerometer) to reduce the number of generated input events.
 
-
 # Platform specific optimizations
 
 ## Android Device Performance Framework

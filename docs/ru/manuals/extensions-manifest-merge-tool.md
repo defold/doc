@@ -107,8 +107,7 @@ brief: В данном руководстве описывается работ�
 
 ## iOS / macOS
 
-Для `Info.plist` мы используем нашу собственную реализацию для объединения двух списков свойств.
-Они могут работать со списками и словарями.
+Для `Info.plist` мы используем собственную реализацию для объединения списков и словарей. Можно указывать атрибуты слияния `merge`, `keep` или `replace` для ключей, при этом значение по умолчанию — `merge`.
 
 ### Пример
 
@@ -119,23 +118,48 @@ brief: В данном руководстве описывается работ�
     <!DOCTYPE plist PUBLIC '-//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
     <plist version='1.0'>
     <dict>
-            <key>NSAppTransportSecurity</key>
+        <key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSExceptionDomains</key>
             <dict>
-                <key>NSExceptionDomains</key>
+                <key>foobar.net</key>
                 <dict>
-                    <key>foobar.net</key>
-                    <dict>
-                        <key>testproperty</key>
-                        <true/>
-                    </dict>
+                    <key>testproperty</key>
+                    <true/>
                 </dict>
             </dict>
-            <key>INT</key>
-            <integer>8</integer>
-            <key>REAL</key>
-            <real>8.0</real>
-            <key>BASE64</key>
-            <data>SEVMTE8gV09STEQ=</data>
+        </dict>
+        <key>INT</key>
+        <integer>8</integer>
+
+        <key>REAL</key>
+        <real>8.0</real>
+
+        <!-- Keep this value even if an extension manifest contains the same key -->
+        <key merge='keep'>BASE64</key>
+        <data>SEVMTE8gV09STEQ=</data>
+
+        <!-- If an extension manifest also has an array with this key then any dictionary values will be merged with the first dictionary value of the base array -->
+        <key>Array1</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>a</string>
+                </array>
+            </dict>
+        </array>
+
+        <!-- Do not attempt to merge the values of this array, instead values from extension manifests should be added to the end of the array -->
+        <key merge='keep'>Array2</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>a</string>
+                </array>
+            </dict>
+        </array>
     </dict>
     </plist>
 ```
@@ -162,6 +186,33 @@ brief: В данном руководстве описывается работ�
         </dict>
         <key>INT</key>
         <integer>42</integer>
+
+        <!-- Replace the existing value in the base manifest -->
+        <key merge='replace'>REAL</key>
+        <integer>16.0</integer>
+
+        <key>BASE64</key>
+        <data>Rk9PQkFS</data>
+
+        <key>Array1</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>b</string>
+                </array>
+            </dict>
+        </array>
+
+        <key>Array2</key>
+        <array>
+            <dict>
+                <key>Foobar</key>
+                <array>
+                    <string>b</string>
+                </array>
+            </dict>
+        </array>
     </dict>
     </plist>
 ```
@@ -172,6 +223,7 @@ brief: В данном руководстве описывается работ�
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
+        <!-- Nested merge of dictionaries from base and extension manifests -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -191,14 +243,51 @@ brief: В данном руководстве описывается работ�
                     </dict>
                 </dict>
             </dict>
+
+            <!-- From the base manifest -->
             <key>INT</key>
             <integer>8</integer>
+
+            <!-- The value from the base manifest was replaced since the merge marker was set to "replace" in the extension manifest -->
             <key>REAL</key>
-            <real>8.0</real>
+            <real>16.0</real>
+
+            <!-- The value from the base manifest was used since the merge marker was set to "keep" in the base manifest -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
+
+            <!-- The value from the extender manifest was added since no merge marker was specified -->
             <key>INT</key>
             <integer>42</integer>
+
+            <!-- The dictionary values of the array were merged since the base manifest defaults to "merge" -->
+            <key>Array1</key>
+            <array>
+                <dict>
+                    <key>Foobar</key>
+                    <array>
+                        <string>a</string>
+                        <string>b</string>
+                    </array>
+                </dict>
+            </array>
+
+            <!-- The dictionary values were added to the array since the base manifest used "keep" -->
+            <key>Array2</key>
+            <array>
+                <dict>
+                    <key>Foobar</key>
+                    <array>
+                        <string>a</string>
+                    </array>
+                </dict>
+                <dict>
+                    <key>Foobar</key>
+                    <array>
+                        <string>b</string>
+                    </array>
+                </dict>
+            </array>
         </dict>
     </plist>
 ```

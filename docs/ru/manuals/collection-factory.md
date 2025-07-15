@@ -148,3 +148,22 @@ end
       collectionfactory.unload("#factory")
   end
   ```
+
+  
+## Динамический прототип
+
+Можно изменить, какой *прототип* может создавать компонент фабрики коллекций, установив флажок *Dynamic Prototype* в свойствах компонента фабрики.
+
+![Dynamic prototype](images/collection_factory/dynamic_prototype.png)
+
+Когда включена опция *Dynamic Prototype*, компонент фабрики коллекций может менять прототип с помощью функции `collectionfactory.set_prototype()`. Пример:
+
+```lua
+collectionfactory.unload("#factory") -- выгрузить предыдущие ресурсы
+collectionfactory.set_prototype("#factory", "/main/levels/level1.collectionc")
+local ids = collectionfactory.create("#factory")
+```
+
+::: important
+Когда опция *Dynamic Prototype* включена, количество компонентов коллекции не может быть оптимизировано, и владеющая коллекция будет использовать значения по умолчанию из файла *game.project*.
+:::
