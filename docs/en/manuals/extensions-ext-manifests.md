@@ -62,6 +62,7 @@ platforms:
 Allowed keys are for platform specific compile flags are:
 
 * `frameworks` - Apple frameworks to include when building (iOS and macOS)
+* `weakFrameworks` - Apple frameworks to optionally include when building (iOS and macOS)
 * `flags` - Flags that should be passed to the compiler
 * `linkFlags` - Flags that should be passed to the linker
 * `libs` - Additional libraries to include when linking
