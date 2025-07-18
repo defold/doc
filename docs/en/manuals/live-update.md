@@ -48,6 +48,9 @@ There are currently two ways that Defold can store the resources. Choose the met
 `Zip`
 : This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
 
+`Folder`  
+: This option tells Defold to create a folder with all the excluded resources. It works exactly the same way as Zip, but uses a directory instead of an archive. This may be useful in cases where you need to post-process files before uploading and plan to pack them into an archive yourself.
+
 `Amazon`
 : This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name.  You can read more on how to setup an AWS account in this [aws guide](/manuals/live-update-aws)
 
