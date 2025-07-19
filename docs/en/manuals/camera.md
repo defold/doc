@@ -229,12 +229,6 @@ function M.screen_to_world(camera, screen_x, screen_y, z)
     local projection = go.get(camera, "projection")
     local view = go.get(camera, "view")
     local w, h = window.get_size()
-    -- The window.get_size() function will return the scaled window size,
-    -- ie taking into account display scaling (Retina screens on macOS for
-    -- instance). We need to adjust for display scaling in our calculation.
-    local scale = window.get_display_scale()
-    w = w / scale
-    h = h / scale
 
     -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
     local inv = vmath.inv(projection * view)
@@ -246,7 +240,7 @@ function M.screen_to_world(camera, screen_x, screen_y, z)
 end
 ```
 
-Visit the [Examples page](https://defold.com/examples/render/screen_to_world/) to see screen to world coordinate conversion in action. There is also a [sample project](https://github.com/defold/sample-screen-to-world-coordinates/) showing how to do screen to world coordinate conversion.
+Keep in mind that the values `action.screen_x` and `action.screen_y` from `on_input()` should be used as arguments for this function. Visit the [Examples page](https://defold.com/examples/render/screen_to_world/) to see screen to world coordinate conversion in action. There is also a [sample project](https://github.com/defold/sample-screen-to-world-coordinates/) showing how to do screen to world coordinate conversion.
 
 ::: sidenote
 The [third-party camera solutions mentioned in this manual](/manuals/camera/#third-party-camera-solutions) provides functions for converting to and from screen coordinates.
