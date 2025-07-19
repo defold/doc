@@ -226,17 +226,11 @@ end
 -- @return world_y мировая координата Y
 -- @return world_z мировая координата Z
 function M.screen_to_world(camera, screen_x, screen_y, z)
-	local projection = go.get(camera, "projection")
-	local view = go.get(camera, "view")
-	local w, h = window.get_size()
-	-- window.get_size() возвращает масштабированный размер окна,
-	-- учитывая дисплейный масштаб (например, Retina на macOS).
-	-- Нужно скорректировать размер с учётом масштаба.
-	local scale = window.get_display_scale()
-	w = w / scale
-	h = h / scale
+    local projection = go.get(camera, "projection")
+    local view = go.get(camera, "view")
+    local w, h = window.get_size()
 
-	-- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
+    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
     local inv = vmath.inv(projection * view)
     local x = (2 * screen_x / w) - 1
     local y = (2 * screen_y / h) - 1
@@ -246,7 +240,7 @@ function M.screen_to_world(camera, screen_x, screen_y, z)
 end
 ```
 
-На странице [Примеры](https://defold.com/examples/render/screen_to_world/) показано использование преобразования экранных координат в мировые. Также есть [примерный проект](https://github.com/defold/sample-screen-to-world-coordinates/) с демонстрацией этого процесса.
+Имейте в виду, что значения `action.screen_x` и `action.screen_y` из `on_input()` должны использоваться как аргументы для этой функции. На странице [Примеры](https://defold.com/examples/render/screen_to_world/) показано использование преобразования экранных координат в мировые. Также есть [примерный проект](https://github.com/defold/sample-screen-to-world-coordinates/) с демонстрацией этого процесса.
 
 ::: sidenote
 [Сторонние решения для камеры](/manuals/camera/#third-party-camera-solutions) предоставляют функции для преобразования координат между экраном и миром.
