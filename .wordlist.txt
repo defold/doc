@@ -71,6 +71,7 @@ cmd
 CocoaPods
 CodeAndWeb
 codebase
+CJK
 codesign
 collada
 collectionfactory
@@ -366,6 +367,7 @@ scroller
 SD
 SDK
 SDKs
+SDF
 Sergey
 sha
 shader
