@@ -95,6 +95,7 @@ customizable
 customizations
 cutscene
 cutscenes
+dt
 dae
 deadzone
 debuggable
@@ -129,6 +130,7 @@ esc
 excitemike
 exe
 ffmpeg
+FCM
 Fi
 filesystem
 filetype
@@ -161,6 +163,7 @@ Git's
 github
 gitlab
 GL
+GLES
 glb
 GLFW
 globals
@@ -187,6 +190,7 @@ hxdefold
 IAM
 IAP
 ico
+icns
 ICOConvert
 iconified
 idfa
