@@ -60,6 +60,12 @@ The title of the application.
 #### Version
 The version of the application.
 
+#### Publisher
+Publisher name.
+
+#### Developer
+Developer name.
+
 #### Write Log
 When checked, the engine will write a log file. If running more than one instance from the editor the file will be named *instance_2_log.txt* with `2` being the instance index. If running a single instance or from a bundle the file will be named *log.txt* The location of the log file will be one of the following paths (tried in order):
 
@@ -161,11 +167,17 @@ The desired frame rate in Hertz. Set to 0 for variable frame rate. A value large
 #### Swap interval
 This integer value controls how the application deals with vsync. 0 disables vsync, and the default value is 1. When using an OpenGL adapter, this value sets the number of frames the window should [update between buffer swaps](https://www.khronos.org/opengl/wiki/Swap_Interval). For Vulkan, there is no built-in concept of swap interval, the value instead controls if vsync should be enabled or not.
 
+#### Vsync
+Rely on hardware vsync for frame timing. Can be overridden depending on graphics driver and platform specifics. For deprecated 'variable_dt' behavior, uncheck this setting and set frame cap 0.
+
 #### Display Profiles
 Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles).
 
 #### Dynamic Orientation
 Check if the app should dynamically switch between portrait and landscape on device rotation. Note that the development app does not currently respect this setting.
+
+#### Display Device Info
+Output GPU info to console at startup.
 
 ---
 
@@ -185,7 +197,17 @@ Clear color alpha channel, used by the render script and when the window is crea
 
 ---
 
+### Font
+
+#### Runtime Generation
+Use runtime font generation.
+
+---
+
 ### Physics
+
+#### Max Collision Object Count
+Max number of collision objects.
 
 #### Type
 Which type of physics to use, `2D` or `3D`.
@@ -238,6 +260,12 @@ The max number of 3d ray cast requests per frame.
 #### Trigger Overlap Capacity
 The maximum number of overlapping physics triggers.
 
+#### Velocity Threshold
+Minimum velocity that will result in elastic collisions.
+
+#### Max Fixed Timesteps
+Max number of steps in the simulation when using fixed timestep (3D only).
+
 ---
 
 ### Graphics
@@ -254,6 +282,9 @@ The max number of render calls.
 #### Max Characters:
 The number of characters preallocated in the text rendering buffer, i.e. the number of characters that can be displayed each frame.
 
+#### Max Font Batches
+The maximum number of text batches that can be displayed each frame.
+
 #### Max Debug Vertices
 The maximum number of debug vertices. Used for physics shape rendering among other things.
 
@@ -268,6 +299,13 @@ OpenGL context version hint. If a specific version is selected, this will be use
 
 #### OpenGL Core Profile Hint
 Set the 'core' OpenGL profile hint when creating the context. The core profile removes all deprecated features from OpenGL, such as immediate mode rendering. Does not apply to OpenGL ES.
+
+---
+
+### Shader
+
+#### Exclude GLES 2.0
+Don't compile shaders for devices running OpenGLES 2.0 / WebGL 1.0.
 
 ---
 
@@ -334,6 +372,9 @@ Max number of game objects in the input stack.
 #### Gain
 Global gain (volume), `0`--`1`.
 
+#### Use Linear Gain
+If enabled, gain is linear. If disabled, uses an exponential curve.
+
 #### Max Sound Data
 Max number of sound resources, i.e the number of unique sound files at runtime.
 
@@ -345,6 +386,12 @@ Max number of sound resources, i.e the number of unique sound files at runtime.
 
 #### Max Sound Instances
 Max number of concurrent sound instances, i.e. actual sounds played at the same time.
+
+#### Max Component Count
+Max number of sound components per collection.
+
+#### Sample Frame Count
+Number of samples used for each audio update. 0 means automatic (1024 for 48 kHz, 768 for 44.1 kHz).
 
 #### Use Thread
 If checked, the sound system will use threads for sound playback to reduce risk of stutter when the main thread is under heavy load.
@@ -404,6 +451,15 @@ Max number of mesh components per collection. [(See information about component 
 #### Max Count
 Max number of model components per collection. [(See information about component max count optimizations)](#component-max-count-optimizations).
 
+#### Split Meshes
+Split meshes with more than 65536 vertices into new meshes.
+
+#### Max Bone Matrix Texture Width
+Maximum width of the bone matrix texture. Only the size needed for animations is used, rounded up to nearest power-of-two.
+
+#### Max Bone Matrix Texture Height
+Maximum height of the bone matrix texture. Only the size needed for animations is used, rounded up to nearest power-of-two.
+
 ---
 
 ### GUI
@@ -411,11 +467,8 @@ Max number of model components per collection. [(See information about component
 #### Max Count
 Max number of GUI components. [(See information about component max count optimizations)](#component-max-count-optimizations).
 
-#### Max Particlefx Count
-The max number of concurrent emitters.
-
 #### Max Particle Count
-The max number of concurrent particles.
+The max number of concurrent particles in GUI.
 
 #### Max Animation Count
 The max number of active animations in gui.
@@ -439,6 +492,19 @@ The max number of concurrent emitters. [(See information about component max cou
 
 #### Max Particle Count
 The max number of concurrent particles.
+
+---
+
+### Box2D
+
+#### Velocity Iterations
+Number of velocity iterations for the Box2D 2.2 physics solver.
+
+#### Position Iterations
+Number of position iterations for the Box2D 2.2 physics solver.
+
+#### Sub Step Count
+Number of sub-steps for the Box2D 3.x physics solver.
 
 ---
 
@@ -471,6 +537,9 @@ Image file (.png) to use as application icon at given width and height dimension
 #### Launch Screen
 Storyboard file (.storyboard). Learn more about how to create one in the [iOS manual](/manuals/ios/#creating-a-storyboard).
 
+#### Icons Asset
+The icons asset file (.car) containing app icons.
+
 #### Prerendered Icons
 (iOS 6 and earlier) Check if your icons are prerendered. If this is unchecked the icons will get a glossy highlight added automatically.
 
@@ -491,9 +560,6 @@ The Apple Privacy Manifest for the application. The field will default to `/buil
 
 #### Custom Entitlements
 If specified, the entitlements in the supplied provisioning profile (`.entitlements`, `.xcent`, `.plist`) will be merged with the entitlements from the provisioning profile supplied when bundling the application.
-
-#### Override Entitlements
-If checked the Custom Entitlements will replace the ones in the provisioning profile when bundling. Must be used in combination with the Custom Entitlements setting above.
 
 #### Default Language
 The language used if the application doesn't have user's preferred language in `Localizations` list (see [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Use the two-letter ISO 639-1 standard if preferred language is available there or the three-letter ISO 639-2.
@@ -520,11 +586,20 @@ Specifies which payload JSON field should be used as notification text. If left 
 #### Version Code
 An integer value indicating the version of the app. Increase the value for each subsequent update.
 
+#### Minimum SDK Version
+The minimum API Level required for the application to run (`android:minSdkVersion`).
+
+#### Target SDK Version
+The API Level that the application targets (`android:targetSdkVersion`).
+
 #### Package
 Package identifier. Must consist of two or more segments separated by a dot. Each segment must start with a letter. Each segment must only consist of alphanumeric letters or the underscore character.
 
 #### GCM Sender Id
 Google Cloud Messaging Sender Id. Set this to the string assigned by Google to enable push notifications.
+
+#### FCM Application Id
+Firebase Cloud Messaging Application Id.
 
 #### Manifest
 If set, use the specified Android manifest XML file when bundling.
@@ -538,8 +613,14 @@ Specifies which method to use to get keyboard input on Android devices. Valid op
 #### Immersive Mode
 If set, hides the navigation and status bars and lets your app capture all touch events on the screen.
 
+#### Display Cutout
+Extend to display cutout.
+
 #### Debuggable
 Whether or not the application can be debugged using tools such as [GAPID](https://github.com/google/gapid) or [Android Studio](https://developer.android.com/studio/profile/android-profiler). This will set the `android:debuggable` flag in the Android manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#debug)).
+
+#### ProGuard config
+Custom ProGuard file to help strip redundant Java classes from the final APK.
 
 #### Extract Native Libraries
 Specifies whether the package installer extracts native libraries from the APK to the file system. If set to `false`, your native libraries are stored uncompressed in the APK. Although your APK might be larger, your application loads faster because the libraries load directly from the APK at runtime. This will set the `android:extractNativeLibs` flag in the Android Manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -549,7 +630,7 @@ Specifies whether the package installer extracts native libraries from the APK t
 ### macOS
 
 #### App Icon
-Image file (.png) to use as application icon on macOS.
+Bundle icon file (.icns) to use as application icon on macOS.
 
 #### Info.plist
 If set, use the specified info.plist file when bundling.
@@ -600,6 +681,9 @@ Suffix to be appended to the archive files. Useful to, for instance, force non-c
 #### Engine Arguments
 List of arguments that will be passed to the engine.
 
+#### Wasm Streaming
+Enable streaming of the wasm file (faster and uses less memory, but requires the `application/wasm` MIME type).
+
 #### Show Fullscreen Button
 Enables Fullscreen Button in `index.html` file.
 
@@ -632,11 +716,11 @@ Check to automatically finish IAP transactions. If unchecked, you need to explic
 
 ### Live update
 
-#### Private Key
-If set, use the specified private key file when bundling live update content. If no key file is set, a key is generated.
+#### Settings
+Liveupdate settings resource file to use during bundling.
 
-#### Public Key
-If set, use the specified public key file when bundling live update content. If no key file is set, a key is generated.
+#### Mount On Start
+Enables auto-mount of previously mounted resources when the application starts.
 
 ---
 
@@ -649,8 +733,17 @@ If set, use the app manifest to customize the engine build. This allows you to r
 
 ### Profiler
 
+#### Enabled
+Enable the in-game profiler.
+
 #### Track Cpu
 If checked, enable CPU profiling in release versions of the builds. Normally, you can only access profiling information in debug builds.
+
+#### Sleep Between Server Updates
+Number of milliseconds to sleep between server updates.
+
+#### Performance Timeline Enabled
+Enable in-browser performance timeline (HTML5 only).
 
 ---
 
