@@ -60,6 +60,12 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Version
 Версия приложения.
 
+#### Publisher
+Название издателя.
+
+#### Developer
+Название разработчика.
+
 #### Write Log
 Если опция отмечена, движок будет записывать файл журнала. Если запущено несколько экземпляров из редактора, файл будет называться *instance_2_log.txt*, где `2` — индекс экземпляра. Если запущен один экземпляр или используется сборка, файл будет называться *log.txt*. Файл журнала будет сохранён в одном из следующих путей (в порядке приоритета):
 
@@ -161,11 +167,17 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Swap interval
 Целое значение, управляющее VSync. `0` — отключает, по умолчанию `1`. При использовании OpenGL это значение определяет количество кадров между обновлениями буфера ([swap interval](https://www.khronos.org/opengl/wiki/Swap_Interval)). Для Vulkan VSync контролируется напрямую этим значением, так как понятия swap interval нет.
 
+#### Vsync
+Использовать аппаратный VSync для тайминга кадров. Может быть переопределено драйвером графики и особенностями платформы. Для устаревшего поведения «variable_dt» отключите этот параметр и установите ограничение частоты кадров в `0`.
+
 #### Display Profiles
 Файл профилей дисплея. По умолчанию: `/builtins/render/default.display_profilesc`. Подробнее см. в [руководстве по GUI Layouts](/manuals/gui-layouts/#creating-display-profiles).
 
 #### Dynamic Orientation
 Если опция включена, приложение автоматически переключает ориентацию между альбомной и портретной при повороте устройства. Приложение разработки не поддерживает эту настройку.
+
+#### Display Device Info
+Выводить информацию о GPU в консоль при запуске.
 
 ---
 
@@ -185,7 +197,17 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 ---
 
+### Font
+
+#### Runtime Generation
+Использовать генерацию шрифтов во время выполнения.
+
+---
+
 ### Physics
+
+#### Max Collision Object Count
+Максимальное количество объектов столкновений.
 
 #### Type
 Тип физики: `2D` или `3D`.
@@ -238,6 +260,12 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Trigger Overlap Capacity
 Максимальное количество пересекающихся физических триггеров.
 
+#### Velocity Threshold
+Минимальная скорость, при которой столкновения считаются упругими.
+
+#### Max Fixed Timesteps
+Максимальное количество шагов симуляции при использовании фиксированного шага (только для 3D).
+
 ---
 
 ### Graphics
@@ -254,6 +282,9 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Max Characters
 Количество символов, заранее выделенных в буфере рендеринга текста — то есть сколько символов может быть отображено за кадр.
 
+#### Max Font Batches
+Максимальное количество батчей текста, которые могут быть отображены за кадр.
+
 #### Max Debug Vertices
 Максимальное количество отладочных вершин. Используется, в том числе, для отрисовки физических форм.
 
@@ -268,6 +299,13 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 #### OpenGL Core Profile Hint
 Устанавливает профиль OpenGL 'core' при создании контекста. Core-профиль исключает устаревшие функции OpenGL, такие как немедленный режим отрисовки (immediate mode). Не применяется к OpenGL ES.
+
+---
+  
+### Shader
+  
+#### Exclude GLES 2.0
+Не компилировать шейдеры для устройств, использующих OpenGLES 2.0 / WebGL 1.0.
 
 ---
 
@@ -334,6 +372,9 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Gain
 Глобальное усиление (громкость), от `0` до `1`.
 
+#### Use Linear Gain
+Если включено, усиление линейное. Если выключено, используется экспоненциальная кривая.
+
 #### Max Sound Data
 Максимальное количество звуковых ресурсов, то есть уникальных звуковых файлов во время выполнения.
 
@@ -345,6 +386,12 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 #### Max Sound Instances
 Максимальное количество одновременно воспроизводимых экземпляров звуков.
+
+#### Max Component Count
+Максимальное количество звуковых компонентов на коллекцию.
+
+#### Sample Frame Count
+Количество сэмплов, используемых на каждое обновление аудио. `0` — автоматически (1024 для 48 кГц, 768 для 44.1 кГц).
 
 #### Use Thread
 Если включено, система звука будет использовать потоки для воспроизведения, что снижает риск запинаний при высокой нагрузке на основной поток.
@@ -404,6 +451,15 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Max Count
 Максимальное количество компонентов Model на коллекцию. [(См. информацию по оптимизации количества компонентов)](#component-max-count-optimizations).
 
+#### Split Meshes
+Разбивать меши с более чем 65536 вершинами на новые меши.
+
+#### Max Bone Matrix Texture Width
+Максимальная ширина текстуры матриц костей. Только необходимый размер для анимаций используется, округляется до ближайшей степени двойки.
+
+#### Max Bone Matrix Texture Height
+Максимальная высота текстуры матриц костей. Только необходимый размер для анимаций используется, округляется до ближайшей степени двойки.
+
 ---
 
 ### GUI
@@ -413,9 +469,6 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 #### Max Particlefx Count
 Максимальное количество одновременно активных эмиттеров.
-
-#### Max Particle Count
-Максимальное количество одновременно отображаемых частиц.
 
 #### Max Animation Count
 Максимальное количество одновременно активных анимаций в GUI.
@@ -440,6 +493,19 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Max Particle Count
 Максимальное количество одновременно отображаемых частиц.
 
+---
+  
+### Box2D
+  
+#### Velocity Iterations
+Количество итераций по скоростям для солвера Box2D 2.2.
+  
+#### Position Iterations
+Количество итераций по позициям для солвера Box2D 2.2.
+  
+#### Sub Step Count
+Количество субшагов для солвера Box2D 3.x.
+  
 ---
 
 ### Collection proxy
@@ -471,6 +537,9 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Launch Screen
 Файл раскадровки (.storyboard). Подробнее о создании см. в [руководстве по iOS](/manuals/ios/#creating-a-storyboard).
 
+#### Icons Asset
+Файл ассетов иконок (.car), содержащий иконки приложения.
+
 #### Prerendered Icons
 (iOS 6 и ниже) Если опция не включена, иконки получат глянцевое покрытие автоматически. Если включена — иконки считаются уже готовыми к использованию.
 
@@ -491,9 +560,6 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 #### Custom Entitlements
 Если задано, права (entitlements) из предоставленного provisioning profile (`.entitlements`, `.xcent`, `.plist`) будут объединены с правами из профиля, указанного при сборке.
-
-#### Override Entitlements
-Если включено, пользовательские entitlements заменят права из provisioning profile. Используется только вместе с настройкой Custom Entitlements.
 
 #### Default Language
 Язык, используемый приложением, если в списке `Localizations` отсутствует предпочтительный язык пользователя (см. [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Используйте двухбуквенный ISO 639-1, если доступен, или трёхбуквенный ISO 639-2.
@@ -520,11 +586,20 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Version Code
 Целочисленное значение, указывающее версию приложения. Увеличивайте при каждом обновлении.
 
+#### Minimum SDK Version
+Минимальный уровень API, требуемый для запуска приложения (`android:minSdkVersion`).
+
+#### Target SDK Version
+Уровень API, на который нацелено приложение (`android:targetSdkVersion`).
+
 #### Package
 Идентификатор пакета. Должен состоять минимум из двух сегментов, разделённых точками. Каждый сегмент должен начинаться с буквы и содержать только буквенно-цифровые символы или подчёркивания.
 
 #### GCM Sender Id
 Sender Id для Google Cloud Messaging. Установите строку, выданную Google, чтобы включить push-уведомления.
+
+#### FCM Application Id
+Идентификатор приложения Firebase Cloud Messaging.
 
 #### Manifest
 Если указано, используется заданный Android-манифест (XML-файл) при сборке.
@@ -538,8 +613,14 @@ Sender Id для Google Cloud Messaging. Установите строку, вы
 #### Immersive Mode
 Если включено, скрывает навигационные и статус-бары и позволяет приложению обрабатывать все касания по экрану.
 
+#### Display Cutout
+Расширять область приложения в зону выреза экрана (display cutout).
+
 #### Debuggable
 Определяет, может ли приложение быть отлажено с помощью таких инструментов, как [GAPID](https://github.com/google/gapid) или [Android Studio](https://developer.android.com/studio/profile/android-profiler). Устанавливает флаг `android:debuggable` в Android-манифесте ([официальная документация](https://developer.android.com/guide/topics/manifest/application-element#debug)).
+
+#### ProGuard config
+Пользовательский файл ProGuard для удаления избыточных Java‑классов из итогового APK.
 
 #### Extract Native Libraries
 Указывает, должен ли установщик извлекать нативные библиотеки из APK в файловую систему. Если установлено в `false`, библиотеки остаются внутри APK в несжатом виде. Это увеличивает размер APK, но ускоряет загрузку, так как библиотеки загружаются напрямую. Устанавливает флаг `android:extractNativeLibs` в Android-манифесте ([официальная документация](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).
@@ -600,6 +681,9 @@ HTML-шаблон, используемый при сборке. По умолч
 #### Engine Arguments
 Список аргументов, передаваемых движку при запуске.
 
+#### Wasm Streaming
+Включить потоковую загрузку wasm‑файла (быстрее и использует меньше памяти, но требует корректного MIME‑типа `application/wasm`).
+
 #### Show Fullscreen Button
 Включает кнопку полноэкранного режима в `index.html`.
 
@@ -632,11 +716,11 @@ HTML-шаблон, используемый при сборке. По умолч
 
 ### Live update
 
-#### Private Key
-Если указано, используется заданный файл закрытого ключа при сборке live update-контента. Если ключ не задан, он будет сгенерирован автоматически.
+#### Settings
+Ресурс настроек Liveupdate, используемый при сборке.
 
-#### Public Key
-Если указано, используется заданный файл открытого ключа при сборке live update-контента. Если ключ не задан, он будет сгенерирован автоматически.
+#### Mount On Start
+Автоматически монтировать ранее смонтированные ресурсы при запуске приложения.
 
 ---
 
@@ -649,8 +733,17 @@ HTML-шаблон, используемый при сборке. По умолч
 
 ### Profiler
 
+#### Enabled
+Включить внутриигровой профайлер.
+
 #### Track Cpu
 Если включено, разрешается профилирование CPU в release-сборках. Обычно доступ к профилированию возможен только в debug-сборках.
+
+#### Sleep Between Server Updates
+Количество миллисекунд ожидания между обновлениями сервера.
+
+#### Performance Timeline Enabled
+Включить таймлайн производительности в браузере (только HTML5).
 
 ---
 
