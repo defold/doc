@@ -9,6 +9,7 @@ Using HTTP requests and socket connections allows you to connect to and interact
 ## General purpose
 * [Colyseus](https://defold.com/assets/colyseus/) - Multiplayer game client
 * [Nakama](https://defold.com/assets/nakama/) - Add authentication, matchmaking, analytics, cloud save, multiplayer, chat and more to your game
+* [Photon Realtime](https://defold.com/assets/photon-realtime/) - Photon Realtime offers scalable solutions for essential features such as authentication, matchmaking, and fast, reliable communication.
 * [PlayFab](https://defold.com/assets/playfabsdk/) - Add authentication, matchmaking, analytics, cloud save and more to your game
 * [AWS SDK](https://github.com/britzl/aws-sdk-lua) - Use Amazon Web Services from within your game
 
