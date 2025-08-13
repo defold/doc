@@ -71,6 +71,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error.
 - `editor.can_set(node_id, property)` — check if `editor.tx.set()` transaction step with this property won't throw an error.
 - `editor.create_directory(resource_path)` — create a directory if it does not exist, and all non-existent parent directories.
+- `editor.create_resources(resources)` — create 1 or more resources, either from templates or with custom content
 - `editor.delete_directory(resource_path)` — delete a directory if it exists, and all existent child directories and files.
 - `editor.execute(cmd, [...args], [options])` — run a shell command, optionally capturing its output.
 - `editor.save()` — persist all unsaved changed to disk.
@@ -692,7 +693,7 @@ The editor script runtime uses 2 execution modes that are mostly transparent to 
 Some of the functions that the editor scripts can use may take a lot of time to run. For example, `editor.execute("git", "status", {reload_resources=false, out="capture"})` can take up to a second on sufficiently large projects. To maintain editor responsiveness and performance, functions that may be time-consuming are not allowed in contexts where the editor needs an immediate response. Attempting to use such a function in an immediate context will result in an error: `Cannot use long-running editor function in immediate context`. To resolve this error, avoid using such functions in immediate contexts.
 
 The following functions are considered long-running and cannot be used in immediate mode:
-- `editor.create_directory()`, `editor.delete_directory()`, `editor.save()`, `os.remove()` and `file:write()`: these functions modify the files on disc, causing the editor to synchronize its in-memory resource tree with the disc state, which can take seconds in large projects.
+- `editor.create_directory()`, `editor.create_resources()`, `editor.delete_directory()`, `editor.save()`, `os.remove()` and `file:write()`: these functions modify the files on disc, causing the editor to synchronize its in-memory resource tree with the disc state, which can take seconds in large projects.
 - `editor.execute()`: execution of shell commands can take an unpredictable amount of time.
 - `editor.transact()`: large transactions on widely-referenced nodes may take hundreds of milliseconds, which is too slow for UI responsiveness.
 

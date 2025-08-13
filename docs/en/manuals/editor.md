@@ -175,6 +175,21 @@ You can also get access to editor logs while the editor is running if it is star
 $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ```
 
+## Editor server
+
+When the editor opens a project, it will start a web server on a random port. The server may be used to interact with the editor from other applications. Since 1.11.0, the port is written to the `.internal/editor.port` file.
+
+Additionally, since 1.11.0 the editor executable has a command line option `--port` (or `-p`), which allows specifying the port during launch, e.g.::
+```shell
+# on Windows
+.\Defold.exe --port 8181
+
+# on Linux:
+./Defold --port 8181
+
+# on macOS:
+./Defold.app/Contents/MacOS/Defold --port 8181
+```
 
 ## FAQ
 :[Editor FAQ](../shared/editor-faq.md)
