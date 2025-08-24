@@ -366,6 +366,7 @@ RMS
 Rodrigo
 Rosen
 RPG
+scalable
 scriptable
 scroller
 SD
