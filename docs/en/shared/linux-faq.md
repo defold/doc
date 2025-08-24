@@ -1,6 +1,6 @@
-#### Q: Why is the Defold editor super small when run on a 4k or HiDPI monitor when using GNOME?
+#### Q: Why is the Defold editor super small when run on a 4k or HiDPI monitor?
 
-A: Change the scaling factor before running Defold. [source](https://unix.stackexchange.com/a/552411)
+A: If you are using GNOME it's possible to change the scaling factor before running Defold. [source](https://unix.stackexchange.com/a/552411)
 
 ```bash
 $ gsettings set org.gnome.desktop.interface scaling-factor 2
@@ -16,6 +16,12 @@ vmargs = -Dglass.gtk.uiScale=192dpi,-Dfile.encoding=UTF-8,...
 ```
 
 More on this value in the [Arch Linux HiDPI wiki article](https://wiki.archlinux.org/title/HiDPI#JavaFX).
+
+A: If you are using KDE it's possible to set the `GDK_SCALE`:
+
+```bash
+$ GDK_SCALE=2 ./Defold
+```
 
 #### Q: Why does mouse clicks on Elementary OS go through the editor onto whatever is below?
 
