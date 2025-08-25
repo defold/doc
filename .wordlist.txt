@@ -158,6 +158,7 @@ GCM
 gdb
 gdbserver
 gdc
+GDK
 getter
 Git's
 github
@@ -217,6 +218,7 @@ jobfolder
 js
 json
 JVM
+KDE
 kerning
 keyable
 keyframe
