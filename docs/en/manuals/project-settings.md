@@ -787,18 +787,48 @@ The default meta file that is always applied is available [here](https://github.
 The following attributes are currently available:
 
 ```
-// `type` - used for the value string parsing (only in bob.jar for now)
+[my_extension]
+// `type` - used for the value string parsing
 my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
 // `help` - used as help tip in the editor (not used for now)
 my_property.help = string
 
-// `default` - value used as default if user didn't set value manually (only in bob.jar for now)
+// `default` - value used as default if user didn't set value manually
 my_property.default = string
 
 // `private` - private value used during the bundle process but will be removed from the bundle itself
 my_property.private = 1 // boolean value 1 or 0
 
+// `label` - editor input label
+my_property.label = My Awesome Property
+
+// `minimum` and/or `maximum` - valid range for numeric properties, validated in the editor UI
+my_property.minimum = 0
+my_property.maximum = 255
+
+// `options` - drop-down choices for the editor UI, comma-separated value[:label] pairs
+my_property.options = android: Android, ios: iOS
+
+// `resource` type only:
+my_property.filter = jpg,png // allowed file extensions for resource selector dialog
+my_property.preserve-extension = 1 // use original resource extension instead of a built one
+
+// deprecation
+my_property.deprecated = 1 // mark property as deprecated
+my_property.severity-default = warning // if deprecated property is specified, but set to a default value
+my_property.severity-override = error  // if deprecated property is specified and set to a non-default value
+
+```
+Additionally, you can set the following attributes on a setting category:
+```
+[my_extension]
+// `group` - game.project category group, e.g. Main, Platforms, Components, Runtime, Distribution
+group = Runtime
+// `title` - displayed category title
+title = My Awesome Extension
+// `help` - displayed category help
+help = Settings for My Awesome Extension
 ```
 
 
