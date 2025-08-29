@@ -58,9 +58,10 @@ All game objects, and some component types have properties that can be read and 
 | *rotation* | Local rotation of game object, expressed as a quaternion.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Local rotation of game object, Euler angles. | `vector3` | `get+set`{.mark} |
 | *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
+| *scale.xy*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along X and Y axis.| `vector3` | `get+set`{.mark} |
 
 ::: sidenote
-Specific functions for working with the game object transform also exist; they are `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()` and `go.set_scale()`.
+Specific functions for working with the game object transform also exist; they are `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()`, `go.set_scale()` and `go.set_scale_xy()`.
 :::
 
 *SPRITE COMPONENT PROPERTIES*
@@ -69,7 +70,8 @@ Specific functions for working with the game object transform also exist; they a
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *size*     | The non scaled size of the sprite---its size as taken from the source atlas. | `vector3` | `get`{.mark} |
 | *image* | The texture path hash of the sprite. | `hash` | `get`{.mark}|
-| *scale* | Non uniform scale of the sprite. | `vector3` | `get+set`{.mark}|
+| *scale* | Non uniform scale of the sprite . | `vector3` | `get+set`{.mark}|
+| *scale.xy* | Non uniform scale of the sprite along X and Y axis. | `vector3` | `get+set`{.mark}|
 | *material* | The material used by the sprite. | `hash` | `get+set`{.mark}|
 | *cursor* | Position (between 0--1) of playback cursor. | `number` | `get+set`{.mark}|
 | *playback_rate* | The framerate of the flipbook animation. | `number` | `get+set`{.mark}|
@@ -99,6 +101,7 @@ Specific functions for working with the game object transform also exist; they a
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *scale* | The scale of the label. | `vector3` | `get+set`{.mark} |
+| *scale.xy* | The scale of the label along X and Y axis. | `vector3` | `get+set`{.mark}|
 | *color*     | The color of the label. | `vector4` | `get+set`{.mark} |
 | *outline* | The outline color of the label. | `vector4` | `get+set`{.mark} |
 | *shadow* | The shadow color of the label. | `vector4` | `get+set`{.mark} |
