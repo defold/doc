@@ -1,13 +1,13 @@
-*Blend Mode* 属性定义了可视组件如何与其后面的图像混合. 以下列举了支持的混合模式及其混合算法:
+*Blend Mode* 属性定义了组件图形应如何与其后面的图形进行混合。以下是可用的混合模式及其计算方式：
 
 Alpha
-: 普通混合: `src.a * src.rgb + (1 - src.a) * dst.rgb`
+: 正常混合：`src.a * src.rgb + (1 - src.a) * dst.rgb`
 
 Add
-: 使用相应组件的像素颜色值提亮背景: `src.rgb + dst.rgb`
+: 使用组件相应像素的颜色值提亮背景：`src.rgb + dst.rgb`
 
 Multiply
-: 使用相应组件的像素颜色值调暗背景: `src.rgb * dst.rgb`
+: 使用组件相应像素的值调暗背景：`src.rgb * dst.rgb`
 
 Screen
-: Multiply 的反向操作. 使用相应组件的像素颜色值提亮背景: `src.rgb - dst.rgb * dst.rgb`
+: Multiply 的相反操作。提亮背景和组件相应像素的值：`src.rgb - dst.rgb * dst.rgb`

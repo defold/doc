@@ -1,64 +1,138 @@
 ---
-title: Defold 里的 GUI 场景
-brief: 本教程介绍了 Defold GUI 编辑器, 各种各样的 GUI 节点以及 GUI 脚本.
+title: GUI场景在Defold中
+brief: 本手册介绍了Defold GUI编辑器、各种类型的GUI节点和GUI脚本。
 ---
 
 # GUI
 
-Defold 提供了 GUI 编辑器以及与之配套的脚本用以实现用户界面.
+Defold为您提供了自定义的GUI编辑器和强大的脚本功能，这些功能专门用于构建和实现用户界面。
 
-Defold 的图形用户界面是被放在集合里的, 依附于游戏对象的 GUI 组件. 这种组件有如下特点:
+Defold中的图形用户界面是一个组件，您可以构建它并将其附加到游戏对象上，然后放置在集合中。该组件具有以下特性：
 
-* 简单且功能强大的布局功能, 可以适配各种分辨率和纵横比的屏幕
-* 通过 *GUI 脚本* 进行逻辑控制.
-* 界面 (默认) 被渲染于其他内容之上, 于视口摄像机无关, GUI 始终保持最上端显示. 这种特性可以根据需要手动修改.
+* 它具有简单但强大的布局功能，允许您的用户界面进行独立于分辨率和纵横比的渲染。
+* 它可以通过*GUI脚本*附加逻辑行为。
+* 它（默认情况下）在其他内容之上渲染，与摄像机视图无关，因此即使您有移动的摄像机，您的GUI元素也会保持在屏幕上的位置。渲染行为可以更改。
 
-界面独立于游戏内容. 所以集合编辑器里并不显示界面元素. 但是界面必须依附于一个游戏对象而这个游戏对象要被放在集合里. 具体放在集合什么位置上并不影响界面的位置.
+GUI组件独立于游戏视图渲染。因此，它不会放置在集合编辑器中的特定位置，也不会在集合编辑器中具有视觉表示。但是，GUI组件必须驻留在位于集合中的游戏对象中。更改该位置不会对GUI产生影响。
 
-## 创建界面文件
+## 创建GUI组件
 
-GUI 的创建基于一个模板文件. 要新建GUI文件, 在 *Assets* 浏览器中 <kbd>右键点击</kbd> 然后选择 <kbd>New ▸ Gui</kbd>. 为文件命名然后点击 <kbd>Ok</kbd>.
+GUI组件是从GUI场景原型文件（在其他引擎中也称为"prefabs"或"blueprints"）创建的。要创建新的GUI组件，在*Assets*浏览器中<kbd>右键点击</kbd>一个位置，然后选择<kbd>New ▸ Gui</kbd>。为新GUI文件键入一个名称，然后按<kbd>Ok</kbd>。
 
 ![New gui file](images/gui/new_gui_file.png)
 
-Defold 会自动启动场景编辑器打开这个文件.
+Defold现在会自动在GUI场景编辑器中打开该文件。
 
 ![New gui](images/gui/new_gui.png)
 
-*大纲* 视图里列出了所有 GUI:s 内容: 节点及其资源列表(见下文).
+*大纲*列出了所有GUI的内容：它的节点列表和任何依赖项（见下文）。
 
-中间编辑区显示 GUI. 右上角的工具栏有 *移动*, *旋转* 和 *缩放* 工具, 以及一个 [布局](/manuals/gui-layouts) 选择器.
+中央编辑区域显示GUI。编辑区域右上角的工具栏包含*移动*、*旋转*和*缩放*工具，以及一个[布局](/manuals/gui-layouts)选择器。
 
 ![toolbar](images/gui/toolbar.png)
 
-当前布局用白色方框表示, 其宽度高度是在项目配置文件里设置的.
+白色矩形显示当前选定布局的边界，即项目设置中设置的默认显示宽度和高度。
 
-在 *大纲* 视图中选中根节点 "Gui" 就会显示出当前GUI的 *属性*:
+## GUI属性
 
-Script
-: 当前界面的GUI脚本.
+在*大纲*中选择根"Gui"节点会显示GUI组件的*属性*：
 
-Material
-: 当前界面的渲染用材质.
+*Script*
+: 绑定到此GUI组件的GUI脚本。
 
-Adjust Reference
-: 控制节点的 *Adjust Mode* 算法:
+*Material*
+: 渲染此GUI时使用的材质。请注意，也可以从大纲面板向GUI添加多个材质，并将这些材质分配给各个节点。
 
-  - `Per Node` 当父节点或屏幕大小改变时, 调整各个节点大小.
-  - `Disable` 关闭调整. 各个节点保持不变.
+*Adjust Reference*
+: 控制如何计算每个节点的*Adjust Mode*：
 
-Max Nodes
-: 界面最大节点数.
+  - `Per Node` 根据父节点调整后的大小或调整后的屏幕大小调整每个节点。
+  - `Disable` 关闭节点调整模式。这将强制所有节点保持其设置的大小。
 
-## 资源
+*Current Nodes*
+: 此GUI中当前使用的节点数。
 
-界面的结构与集合不同, 是分门别类的. *Outline* 视图中可以看到所有资源都被按照其类型分配到 "子文件夹" 下:
+*Max Nodes*
+: 此GUI的最大节点数。
+
+*Max Dynamic Textures*
+: 可以使用[`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip)创建的最大纹理数。
+
+## 运行时操作
+
+您可以使用`go.get()`和`go.set()`从脚本组件在运行时操作GUI属性：
+
+字体
+: 获取或设置GUI中使用的字体。
+
+![get_set_font](images/gui/get_set_font.png)
+
+```lua
+go.property("mybigfont", resource.font("/assets/mybig.font"))
+
+function init(self)
+  -- 获取当前分配给id为'default'的字体的字体文件
+  print(go.get("#gui", "fonts", { key = "default" })) -- /builtins/fonts/default.font
+
+  -- 将id为'default'的字体设置为分配给资源属性'mybigfont'的字体文件
+  go.set("#gui", "fonts", self.mybigfont, { key = "default" })
+
+  -- 获取分配给id为'default'的新字体文件
+  print(go.get("#gui", "fonts", { key = "default" })) -- /assets/mybig.font
+end
+```
+
+材质
+: 获取或设置GUI中使用的材质。
+
+![get_set_material](images/gui/get_set_material.png)
+
+```lua
+go.property("myeffect", resource.material("/assets/myeffect.material"))
+
+function init(self)
+  -- 获取当前分配给id为'effect'的材质文件
+  print(go.get("#gui", "materials", { key = "effect" })) -- /effect.material
+
+  -- 将id为'effect'的材质设置为分配给资源属性'myeffect'的材质文件
+  go.set("#gui", "materials", self.myeffect, { key = "effect" })
+
+  -- 获取分配给id为'effect'的新材质文件
+  print(go.get("#gui", "materials", { key = "effect" })) -- /assets/myeffect.material
+end
+```
+
+纹理
+: 获取或设置GUI中使用的纹理（图集）。
+
+![get_set_texture](images/gui/get_set_texture.png)
+
+```lua
+go.property("mytheme", resource.atlas("/assets/mytheme.atlas"))
+
+function init(self)
+  -- 获取当前分配给id为'theme'的纹理文件
+  print(go.get("#gui", "textures", { key = "theme" })) -- /theme.atlas
+
+  -- 将id为'theme'的纹理设置为分配给资源属性'mytheme'的纹理文件
+  go.set("#gui", "textures", self.mytheme, { key = "theme" })
+
+  -- 获取分配给id为'theme'的新纹理文件
+  print(go.get("#gui", "textures", { key = "theme" })) -- /assets/mytheme.atlas
+end
+```
+
+## 依赖项
+
+Defold游戏中的资源树是静态的，因此您需要为GUI节点添加的任何依赖项都必须添加到组件中。*大纲*按类型将所有依赖项分组在"文件夹"下：
 
 ![dependencies](images/gui/dependencies.png)
 
-要添加资源, <kbd>右键点击k</kbd> *Outline* 里的 "Gui" 根节点, 然后从上下文菜单中选择 <kbd>Add ▸ [资源类型]</kbd>.
+要添加新的依赖项，将其从*Asset*窗格拖放到编辑器视图中。
 
-也可以在相应类型文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ [资源类型]</kbd>.
+或者，<kbd>右键点击</kbd>*大纲*中的"Gui"根节点，然后从弹出上下文菜单中选择<kbd>Add ▸ [type]</kbd>。
+
+您也可以<kbd>右键点击</kbd>要添加类型的文件夹图标，然后选择<kbd>Add ▸ [type]</kbd>。
 
 ## 节点类型
 
@@ -181,13 +255,13 @@ Blend mode
   - `Screen` 将节点的像素值与背景成反比. 这种混合模式在图形软件中称作 "Screen".
 
 Pivot
-: 节点的轴点. 可以看作是节点 "中心点". 各种旋转缩放等操作都基于这个轴点.
+: 设置节点的枢轴点。这可以看作是节点的"中心点"。任何旋转、缩放或大小更改都将围绕此点发生。
 
-  可选值有 `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` 和 `South East`.
+  可能的值是`Center`、`North`、`South`、`East`、`West`、`North West`、`North East`、`South West`或`South East`。
 
   ![pivot point](images/gui/pivot.png)
 
-  如果修改了节点的轴点, 节点会适当移动以保证坐标位置不变. 对于文本节点来说 `Center` 意味着文字居中对齐, `West` 意味着文字左对齐, `East` 意味着文字右对齐.
+  如果您更改节点的枢轴点，节点将移动，使新枢轴点位于节点的位置。文本节点对齐方式设置为`Center`表示文本居中对齐，`West`表示文本左对齐，`East`表示文本右对齐。
 
 X Anchor, Y Anchor
 : 锚点控制着当窗体或者父节点拉伸时当前节点位置如何处理.
@@ -234,56 +308,56 @@ Clipping Inverted (box 和 pie 节点)
 : 反转蒙版. 详情请见 [GUI clipping manual](/manuals/gui-clipping)
 
 
-## 原点, 锚点和调整模式
+## 枢轴、锚点和调整模式
 
-轴点, 锚点和调整模式互相配合可以给设计者很大的发挥空间. 但是但凭想象很难搞清楚它们对应的具体功能. 这里列举了一个具体的例子, 屏幕分辨率 640x1136 的界面:
+枢轴、锚点和调整模式的组合允许非常灵活的GUI设计，但如果不看具体示例，可能很难理解它们是如何工作的。让我们以这个为640x1136屏幕创建的GUI模型为例：
 
 ![](images/gui/adjustmode_example_original.png)
 
- 界面的 X 和 Y 锚点为 None 调整模式为 left. 上面板轴点为 North, 下面板轴点为 South 上面版里的进度条轴点为 West. 其他节点轴点都为 Center. 如果把窗体拉宽, 看看会发生什么:
+界面是使用X和Y锚点设置为None创建的，每个节点的调整模式保留为默认值Fit。顶部面板的枢轴点是North，底部面板的枢轴是South，顶部面板中的条的枢轴点设置为West。其余节点的枢轴点都设置为Center。如果我们将窗口调整得更宽，会发生以下情况：
 
 ![](images/gui/adjustmode_example_resized.png)
 
-如果我们希望上下面板保持屏幕宽度要怎么做? 可以把两个面板的调整模式设置为 Stretch:
+现在，如果我们希望顶部和底部条始终与屏幕一样宽怎么办？我们可以将顶部和底部的灰色背景面板的调整模式更改为Stretch：
 
 ![](images/gui/adjustmode_example_resized_stretch.png)
 
-出不多了. 上下两个面板会拉伸并一直保持屏幕宽度大小, 但是进度条和下面版的内容位置不太对. 要是想让进度条于上面版左对齐, 修改 X 锚点为 Left:
+这样更好。灰色背景面板现在将始终拉伸到窗口的宽度，但顶部面板中的条以及底部的两个框位置不正确。如果我们希望将顶部的条保持在左侧对齐，我们需要将X锚点从None更改为Left：
 
 ![](images/gui/adjustmode_example_top_anchor_left.png)
 
-上面版完美了. 进度条本身轴点是 West 也就是说让它们的左端 (轴点) 与父级面板左边缘 (X 锚点) 对齐.
+这正是我们想要的顶部面板。顶部面板中的条已经将其枢轴点设置为West，这意味着它们将很好地定位，条的左/西边缘（枢轴）锚定到父面板的左边缘（X锚点）。
 
-然后再把下面版左边方块的 X 锚点设置为 Left, 右边方块的 X 锚点设置为 Right, 就会变成这样:
+现在，如果我们将左侧框的X锚点设置为Left，右侧框的X锚点设置为Right，我们得到以下结果：
 
 ![](images/gui/adjustmode_example_bottom_anchor_left_right.png)
 
-结果还是不太对. 我们想让两个方块分别呆在下面版的左右两端. 但是轴点搞错了:
+这还不是预期的结果。两个框应该像顶部面板中的两个条一样保持靠近左右边缘。原因是枢轴点错误：
 
 ![](images/gui/adjustmode_example_bottom_pivot_center.png)
 
-两个方块的轴点都是 Center. 也就是说当窗体变宽时方块的位置 (轴点) 处于相对于边缘的固定位置上. 本例中左边方块在 640x1136 分辨率窗口中大约位于离左边界 17% 的地方:
+两个框的枢轴点都设置为Center。这意味着当屏幕变宽时，框的中心点（枢轴点）将保持与边缘相同的相对距离。对于左侧框，在原始的640x1136窗口中，它距离左边缘17%：
 
 ![](images/gui/adjustmode_example_original_ratio.png)
 
-屏幕缩放时它保持这个 17% 的位置:
+当屏幕调整大小时，左侧框的中心点保持与左边缘相同的17%距离：
 
 ![](images/gui/adjustmode_example_resized_stretch_ratio.png)
 
-如果把左边方块轴点设为 West, 右边方块设为 East 结果就是我们想要的样子了:
+如果我们将左侧框的枢轴点从Center更改为West，右侧框更改为East，并重新定位框，即使屏幕调整大小，我们也能得到我们想要的结果：
 
 ![](images/gui/adjustmode_example_bottom_pivot_west_east.png)
 
 
 ## 绘制顺序
 
-节点基于 "Nodes" 文件夹的排序进行绘制. 最高处节点最先绘制, 也就是会被放置于其他节点的后面. 最下面的节点最后绘制, 即它会位于其他节点前面. 至于节点 Z 值并不影响绘制顺序; 但是记得如果Z值超过了渲染脚本的渲染范围就不被渲染了. 可以使用层来覆盖这个默认的绘制顺序 (见下文).
+所有节点都按照它们在"Nodes"文件夹下列出的顺序进行渲染。列表顶部的节点首先绘制，因此将出现在所有其他节点的后面。列表中的最后一个节点最后绘制，意味着它将出现在所有其他节点的前面。更改节点上的Z值不会控制其绘制顺序；但是，如果您将Z值设置在渲染脚本的渲染范围之外，该节点将不再渲染到屏幕上。您可以使用层覆盖节点的索引顺序（见下文）。
 
 ![Draw order](images/gui/draw_order.png)
 
-选中节点按 <kbd>Alt + Up/Down</kbd> 移动其在列表中的排序.
+选择一个节点并按<kbd>Alt + Up/Down</kbd>向上或向下移动节点并更改其索引顺序。
 
-排序也可使用脚本控制:
+绘制顺序可以在脚本中更改：
 
 ```lua
 local bean_node = gui.get_node("bean")
@@ -294,50 +368,49 @@ if gui.get_index(shield_node) < gui.get_index(bean_node) then
 end
 ```
 
-## 父子结构
+## 父子层次结构
 
-把节点拖放到另一节点上就组成了一个父子结构. 子节点基于父节点轴点继承父节点的位移 (位置, 旋转和缩放).
+通过将一个节点拖放到您希望成为其父节点的节点上，使该节点成为另一个节点的子节点。具有父节点的节点继承应用于父节点的变换（位置、旋转和缩放），并相对于父节点枢轴点。
 
 ![Parent child](images/gui/parent_child.png)
 
-父节点先于子节点进行绘制. 使用层可以改变这个顺序还可以优化性能 (见下文).
+父节点在其子节点之前绘制。使用层来更改父节点和子节点的绘制顺序并优化节点的渲染（见下文）。
 
 
-## 层与 draw call
+## 层和绘制调用
 
-Layers 可以方便控制节点绘制顺序以及减少draw call. 引擎绘制界面前, 会根据以下规则合批渲染:
+层提供了对节点绘制方式的精细控制，可用于减少引擎绘制GUI场景必须创建的绘制调用次数。当引擎即将绘制GUI场景的节点时，它根据以下条件将节点分组到绘制调用批次中：
 
-- 节点类型相同.
-- 节点纹理源自同一张图集或瓷砖图源.
-- 节点的渲染模式相同.
-- 节点使用的字体相同.
+- 节点必须使用相同的类型。
+- 节点必须使用相同的图集或瓷砖图源。
+- 节点必须使用相同的混合模式渲染。
 
-如果有一条不符合, 就会破坏合批产生另一个 draw call. 蒙版和被蒙节点必然会破坏合批产生draw call.
+如果其中任何一个条件不满足，就会破坏合批并产生另一个绘制调用。蒙版和被蒙版节点必然会破坏合批并产生绘制调用。
 
-树形结构对于节点管理非常方便. 但是不同类型节点的混合一定会打破合批渲染:
+树形结构对于节点管理非常方便。但是混合不同类型的节点一定会破坏合批渲染：
 
 ![Breaking batch hierarchy](images/gui/break_batch.png)
 
-渲染管线被迫为不同类型的节点建立不同的渲染批次. 这三个按钮就会产生6次 draw call.
+渲染管线被迫为不同类型的节点建立不同的渲染批次。这三个按钮就会产生6次绘制调用。
 
-要是使用层, 就可以重塑节点的绘制顺序, 渲染管线就能更好地进行合批减少 draw call. 第一步新建层. 在 *Outline* 的 "Layers" 文件夹上 <kbd>右键点击</kbd> 然后选择 <kbd>Add ▸ Layer</kbd>. 在 *Properties* 视图中填充 *Name* 属性给层命名.
+如果使用层，可以重塑节点的绘制顺序，渲染管线就能更好地进行合批并减少绘制调用。第一步是创建新层。在*大纲*的"Layers"文件夹上<kbd>右键点击</kbd>，然后选择<kbd>Add ▸ Layer</kbd>。在*属性*视图中填写*Name*属性为层命名。
 
 ![Layers](images/gui/layers.png)
 
-现在给每个节点的 *Layer* 属性都分配适当的层. 层的绘制顺序优先级高于默认情况, 所以把按钮底图都分配给 "graphics" 层, 文本节点都分配给 "text" 层, 那么界面绘制的顺序就是这样的:
+现在为每个节点的*Layer*属性分配适当的层。层的绘制顺序优先级高于默认情况，所以将按钮背景都分配给"graphics"层，文本节点都分配给"text"层，那么界面绘制的顺序就是这样的：
 
-* 先绘制 "graphics" 层里的节点:
+* 首先绘制"graphics"层中的节点：
 
   1. "button-1"
   2. "button-2"
   3. "button-3"
 
-* 再绘制 "text" 层里的节点:
+* 然后绘制"text"层中的节点：
 
   4. "button-text-1"
   5. "button-text-2"
   6. "button-text-3"
 
-这样一来合批就成形了, 不再需要那么多 draw call 了!
+这样一来合批就形成了，不再需要那么多绘制调用！
 
-注意如果子节点没有设置分配层默认继承分配父节点所在的层. 没有设置分配层的节点会被归为 "null" 层, 这个层最先被绘制.
+注意，如果子节点没有设置分配层，默认会继承分配父节点所在的层。没有设置分配层的节点会被归为"null"层，这个层最先被绘制。

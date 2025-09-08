@@ -1,17 +1,17 @@
 ---
-title: Defold 中的 GUI 脚本 
-brief: 本教程介绍了 GUI 脚本.
+title: GUI脚本在Defold中
+brief: 本手册解释了GUI脚本。
 ---
 
-# GUI 脚本
+# GUI脚本
 
-为了控制 GUI 逻辑和动画节点要使用 Lua 脚本. GUI 脚本和游戏对象脚本一样, 但是扩展名不一样而且使用的函数集不一样: 使用 `gui` 模块函数.
+要控制GUI的逻辑和动画节点，您使用Lua脚本。GUI脚本与常规游戏对象脚本的工作方式相同，但保存为不同的文件类型，并且可以访问不同的函数集：`gui`模块函数。
 
-## 在 GUI 上添加脚本
+## 向GUI添加脚本
 
-要在 GUI 上添加脚本, 首先在 *Assets* 浏览器里<kbd>右键点击</kbd> 再在弹出菜单选择 <kbd>New ▸ Gui Script</kbd> 来创建 GUI 脚本.
+要向GUI添加脚本，首先通过在*Assets*浏览器中<kbd>右键点击</kbd>一个位置并从弹出上下文菜单中选择<kbd>New ▸ Gui Script</kbd>来创建GUI脚本文件。
 
-编辑器会自动打开脚本文件. 它基于一个模板, 各种空白生命周期函数齐全, 跟游戏对象脚本一样:
+编辑器会自动打开新的脚本文件。它基于一个模板，并配备了空的生命周期函数，就像游戏对象脚本一样：
 
 ```lua
 function init(self)
@@ -45,15 +45,15 @@ function on_reload(self)
 end
 ```
 
-要把脚本添加到 GUI 组件, 打开 GUI 蓝图文件, 在 *Outline* 里选择根节点显示出 GUI *Properties*. 把 *Script* 属性设置为脚本文件即可.
+要将脚本附加到GUI组件，请打开GUI组件原型文件（在其他引擎中也称为"prefabs"或"blueprints"），并在*Outline*中选择根节点以调出GUI*Properties*。将*Script*属性设置为脚本文件。
 
 ![Script](images/gui-script/set_script.png)
 
-如果这个 GUI 组件被添加到游戏中的游戏对象里, 它上面的脚本就可以运行了.
+如果GUI组件已添加到游戏中某处的游戏对象，脚本现在将运行。
 
-## "gui" 命名空间
+## "gui"命名空间
 
-GUI 脚本访问 `gui` 命名空间及其 [所有gui函数](/ref/gui). `go` 命名空间不可用, 所以要注意区分游戏对象的脚本组件以及二者间的消息传递. 尝试使用 `go` 函数会报错:
+GUI脚本可以访问`gui`命名空间和[所有gui函数](/ref/gui)。`go`命名空间不可用，因此您需要将游戏对象逻辑分离到脚本组件中，并在GUI和游戏对象脚本之间进行通信。任何尝试使用`go`函数的操作都会导致错误：
 
 ```lua
 function init(self)
@@ -70,9 +70,9 @@ stack traceback:
 
 ## 消息传递
 
-游戏运行时 GUI 脚本可与其他对象互相传递消息, 同其他脚本组件相同.
+任何附加了脚本的GUI组件都能够通过消息传递与游戏运行时环境中的其他对象通信，它的行为就像任何其他脚本组件一样。
 
-定位 GUI 组件也与其他脚本组件中定位方法相同:
+您可以像处理任何其他脚本组件一样寻址GUI组件：
 
 ```lua
 local stats = { score = 4711, stars = 3, health = 6 }
@@ -81,13 +81,13 @@ msg.post("hud#gui", "set_stats", stats)
 
 ![message passing](images/gui-script/message_passing.png)
 
-## 定位节点
+## 寻址节点
 
-GUI 中的节点可由脚本控制. 在编辑器中每个节点都有唯一 *Id*:
+GUI节点可以通过附加到组件的GUI脚本进行操作。每个节点必须在编辑器中设置唯一的*Id*：
 
 ![message passing](images/gui-script/node_id.png)
 
-*Id* 使得脚本引用节点并对其使用 [gui 命名空间函数](/ref/gui) 进行控制:
+*Id*允许脚本获取对节点的引用，并使用[gui命名空间函数](/ref/gui)对其进行操作：
 
 ```lua
 -- 扩展 10 单位血条
@@ -99,7 +99,7 @@ gui.set_size(healthbar_node, size)
 
 ## 动态创建节点
 
-在运行时使用脚本创建新节点有两种方法. 一种是通过调用 `gui.new_[type]_node()` 函数. 该函数返回新节点引用以便对其进行控制:
+要在运行时使用脚本创建新节点，您有两个选择。第一个选择是通过调用`gui.new_[type]_node()`函数从头创建节点。这些函数返回对新节点的引用，您可以使用该引用来操作节点：
 
 ```lua
 -- 新建节点
@@ -116,7 +116,7 @@ gui.set_color(new_textnode, vmath.vector4(0.69, 0.6, 0.8, 1.0))
 
 ![dynamic node](images/gui-script/dynamic_nodes.png)
 
-第二种方法是通过调用 `gui.clone()` 函数克隆一个已存在的节点或者通过调用 `gui.clone_tree()` 函数克隆一个已存在的节点树:
+创建新节点的另一种方法是使用`gui.clone()`函数克隆现有节点，或使用`gui.clone_tree()`函数克隆节点树：
 
 ```lua
 -- 克隆血条
@@ -136,14 +136,14 @@ root_position.x = root_position.x + 300
 gui.set_position(new_root, root_position)
 ```
 
-## 动态节点id
+## 动态节点ID
 
-动态创建的节点没有id. 设计上就是这样. 引用由 `gui.new_[type]_node()`, `gui.clone()` 和 `gui.clone_tree()` 函数返回, 这是访问动态节点的唯一途径, 记得保留好这个引用.
+动态创建的节点没有分配ID。这是设计上的选择。从`gui.new_[type]_node()`、`gui.clone()`和`gui.clone_tree()`返回的引用是访问节点所必需的唯一内容，您应该跟踪该引用。
 
 ```lua
 -- 添加文本节点
 local new_textnode = gui.new_text_node(vmath.vector3(100, 100, 0), "Hello!")
--- "new_textnode" 保存新节点的引用.
--- 新节点没有 id, 但是没关系. 得到节点的引用
--- 就没有必要使用 gui.get_node() 函数了.
+-- "new_textnode"包含对节点的引用。
+-- 节点没有ID，这很好。我们没有理由想要
+-- 在我们已经有引用的情况下使用gui.get_node()。
 ```

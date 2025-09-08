@@ -1,25 +1,25 @@
 ---
-title: Defold 项目编译教程
-brief: Bob 是用于 Defold 项目的命令行编译工具. 本教程详述如何使用这个工具.
+title: Defold 项目构建器手册
+brief: Bob 是用于构建 Defold 项目的命令行工具。本手册详述如何使用这个工具。
 ---
 
-# 编译器 Bob
+# 构建器 Bob
 
-Bob 是一个用于Defold项目编辑器之外的命令行编译工具.
+Bob 是一个命令行工具，用于在正常编辑器工作流程之外构建 Defold 项目。
 
-Bob 用来编译操作 (对应编辑器里的 <kbd>Project ▸ Build</kbd>), 来创建数据档或者创建可独立发布的应用 (对应编辑器里的 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项)
+Bob 能够构建数据（对应于选择编辑器菜单项 <kbd>Project ▸ Build</kbd> 的构建步骤），创建数据存档，并创建独立的、可分发的应用程序包（对应于编辑器菜单项 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项）。
 
-Bob 集合了编译所需的一切, 作为Java包 _JAR_ 发布. 最新的 *bob.jar* 发布在 [Defold 下载页](http://d.defold.com) 和 [GitHub 发布页](https://github.com/defold/defold/releases) 上. 选择一个版本, 下载 *bob/bob.jar*. 如果你使用的是 Defold 1.9.6, 您需要安装 OpenJDK 21. 对于 Defold 老版本, 你需要 openJDK 17.
+Bob 作为 Java _JAR_ 存档分发，其中包含构建所需的一切。您可以在 [GitHub 发布页面](https://github.com/defold/defold/releases) 上找到最新的 *bob.jar* 分发版本。选择一个发布版本，然后下载 *bob/bob.jar*。如果您使用的是 Defold 1.9.6，您将需要 OpenJDK 21 来运行它。对于旧版本的 Defold，您将需要 OpenJDK 17 或 11。
 
-兼容 OpenJDK 21 镜像 (自从 Defold 1.9.6):
-* https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-21
-* https://github.com/adoptium/temurin21-binaries/releases / https://adoptium.net/
+兼容的 OpenJDK 21 镜像（从 Defold 1.9.6 开始）：
+* [Microsoft 提供的 OpenJDK 21](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-21)
+* [Adoptium 工作组提供的 OpenJDK 21](https://github.com/adoptium/temurin21-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
-比如在 Windows 平台上, 需要下载 OpenJDK 21 的 .msi 安装包.
+如果您在 Windows 上，您需要 OpenJDK 的 `.msi` 文件安装程序。
 
 ## 用法
 
-Bob 运行于命令行界面 `java` (再Windows上是 `java.exe`) 后跟bob的jar包作为参数:
+Bob 通过在 shell 或命令行中调用 `java`（在 Windows 上是 `java.exe`）并提供 bob java 存档作为参数来运行：
 
 ```text
 $ java -jar bob.jar --help
@@ -144,55 +144,55 @@ usage: bob [options] [commands]
                                          applicable)
 ```
 
-支持的命令:
+可用命令：
 
 `clean`
-: 清空编译目录下的编译文件.
+: 删除构建目录中已构建的文件。
 
 `distclean`
-: 清空编译目录下的所有文件.
+: 删除构建目录中的所有文件。
 
 `build`
-: 编译所有项目文件. 加入 `--archive` 选项可生成编译数据包 (编译目录下生成 "game.darc" 文件).
+: 构建所有项目数据。添加 `--archive` 选项以构建数据存档文件（构建目录中的 "`game.darc`"）。
 
 `bundle`
-: 指定平台打包. 打包需要数据包已经编译生成 (`build` 加入 `--archive` 选项) 然后指定打包平台 (使用 `--platform` 选项). Bob 会把应用打包到编译目录下, 除非使用 `--bundle-output` 选项手动指定打包输出目录. 包名根据 *game.project* 文件中设置的项目名命名. 使用 `--variant` 指定打何种运行类型的包, 连同 `--strip-executable` 选项代替了老的 `--debug` 选项. 如果 `--variant` 没有指定, 默认时release类型的 (去除 Android 和 iOS 的debug信息). 把 `--variant` 设置为 debug 而省略 `--strip-executable` 选项, 就相当于老的 `--debug`选项.
+: 创建特定于平台的应用程序包。打包需要存在已构建的存档（使用 `--archive` 选项的 `build`）并指定目标平台（使用 `--platform` 选项）。除非使用 `--bundle-output` 选项指定不同的目录，否则 Bob 会在输出目录中创建包。包根据 *game.project* 中的项目名称设置命名。`--variant` 指定打包时构建哪种类型的可执行文件，它与 `--strip-executable` 选项一起取代了 `--debug` 选项。如果没有指定 `--variant`，您将获得引擎的发布版本（在 Android 和 iOS 上剥离符号）。将 `--variant` 设置为 debug 并省略 `--strip-executable` 会产生与 `--debug` 过去相同的可执行文件类型。
 
 `resolve`
-: 解析所有外部依赖库.
+: 解析所有外部库依赖项。
 
-支持平台和架构:
+可用平台和架构：
 
-`x86_64-darwin` (Defold 1.3.5 及更老版本)
+`x86_64-darwin` (Defold 1.3.5 及更早版本)
 `x86_64-macos` (Defold 1.3.6 及更新版本)
-: macOS 64 bit
+: macOS 64 位
 
-`arm64-macos` (Defold 1.5.0 and older)
+`arm64-macos` (Defold 1.5.0 及更早版本)
 : macOS Apple Silicon (ARM)
 
 `x86_64-win32`
-: Windows 64 bit
+: Windows 64 位
 
 `x86-win32`
-: Windows 32 bit
+: Windows 32 位
 
 `x86_64-linux`
-: Linux 64 bit
+: Linux 64 位
 
 `x86_64-ios`
-: iOS macOS 64 bit (iOS 模拟器)
+: iOS macOS 64 位 (iOS 模拟器)
 
-`armv7-darwin` (Defold 1.3.5 及更老版本)
+`armv7-darwin` (Defold 1.3.5 及更早版本)
 `armv7-ios` (Defold 1.3.6 及更新版本)
-: iOS 支持 32-bit `armv7-darwin` 和 64-bit `arm64-darwin` 架构. 默认情况下, `--architectures` 参数值为 `armv7-darwin,arm64-darwin`.
+: iOS，具有可用的 32 位 `armv7-darwin` 和 64 位 `arm64-darwin` 架构。默认情况下，`--architectures` 参数值为 `armv7-darwin,arm64-darwin`。
 
 `armv7-android`
-: Android 支持 32 bit `armv7-android` 和 64 bit `arm64-android` 架构. 默认情况下, `--architectures` 参数值为 `armv7-android,arm64-android`.
+: Android，具有可用的 32 位 `armv7-android` 和 64 位 `arm64-android` 架构。默认情况下，`--architectures` 参数值为 `armv7-android,arm64-android`。
 
 `js-web`
-: HTML5 支持 `js-web` 和 `wasm-web` 架构. 默认情况下, `--architectures` 参数值为 `js-web,wasm-web`.
+: HTML5，具有可用的 `js-web` 和 `wasm-web` 架构。默认情况下，`--architectures` 参数值为 `js-web,wasm-web`。
 
-默认情况下, Bob 在当前目录下寻找项目来编译. 切换到 Defold 项目目录下使用 bob, 它会把数据编译到默认输出 *build/default* 目录下.
+默认情况下，Bob 在当前目录中寻找要构建的项目。如果您将当前目录更改为 Defold 项目并调用 bob，它将在默认输出目录 *build/default* 中构建项目的数据。
 
 ```sh
 $ cd /Applications/Defold-beta/branches/14/4/main
@@ -201,7 +201,7 @@ $ java -jar bob.jar
 $
 ```
 
-还可以把命令连成一行一起执行. 下面的例子包含了解析库, 清理编译目录, 编译数据包然后打包成 macOS 应用 (命名为 *My Game.app*):
+您可以将命令串联在一起以一次性执行一系列任务。以下示例解析库，清除构建目录，构建存档数据并将 macOS 应用程序捆绑（命名为 *My Game.app*）：
 
 ```sh
 $ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle

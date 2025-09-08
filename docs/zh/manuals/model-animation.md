@@ -1,21 +1,21 @@
 ---
-title: Defold 中的 3D 动画
-brief: 本教程介绍了如何在 Defold 中使用 3D 动画.
+title: Defold 中的 3D 模型动画手册
+brief: 本手册介绍了如何在 Defold 中使用 3D 模型动画。
 ---
 
 # 3D 蒙皮动画
 
-3D 模型使用骨骼控制模型上各个三角形的移动.
+3D 模型的骨骼动画使用模型的骨骼对模型中的顶点应用变形。
 
-关于如何导入 3D 模型动画, 详情请见 [模型教程](/manuals/model).
+关于如何将 3D 数据导入到模型中以进行动画的详细信息，请参阅[模型文档](/manuals/model)。
 
   ![Blender animation](images/animation/blender_animation.png)
   ![Wiggle loop](images/animation/suzanne.gif)
 
 
-## 3D Model 动画
+## 播放动画
 
-通过调用 [`model.play_anim()`](/ref/model#model.play_anim) 函数播放模型动画:
+模型使用[`model.play_anim()`](/ref/model#model.play_anim)函数进行动画处理：
 
 ```lua
 function init(self)
@@ -24,48 +24,47 @@ function init(self)
 end
 ```
 
-::: sidenote
-Defold 目前只支持烘焙动画. 动画每个骨骼每一帧都要有矩阵数据, 而不是单独的位置, 旋转和缩放数据.
+::: important
+Defold 目前仅支持烘焙动画。动画需要为每个动画骨骼的每个关键帧设置矩阵，而不是将位置、旋转和缩放作为单独的键。
 
-动画是线性插值的. 如果需要曲线插值动画要在输出时烘焙.
+动画也是线性插值的。如果您进行更高级的曲线插值，动画需要从导出器进行预烘焙。
 
-不支持 Collada 中的动画剪辑. 想要一个模型多个动画, 就要分别导出为 *.dae* 文件然后在 Defold 里组成 *.animationset* 文件.
+不支持 Collada 中的动画剪辑。要对每个模型使用多个动画，请将它们导出到单独的 *.dae* 文件中，然后在 Defold 中将这些文件收集到一个 *.animationset* 文件中。
 :::
-
 
 ### 骨骼层级
 
-模型骨骼作为游戏对象展示出来.
+模型骨架中的骨骼在内部表示为游戏对象。
 
-通过骨骼名称, 就可以在运行时得到骨骼实例. 函数 [`model.get_go()`](/ref/model#model.get_go) 返回指定骨骼的 id.
+您可以在运行时检索骨骼游戏对象的实例 id。函数[`model.get_go()`](/ref/model#model.get_go)返回指定骨骼的游戏对象的 id。
 
 ```lua
--- 得到 wiggler 模型的中央骨骼
+-- 获取我们 wiggler 模型的中间骨骼游戏对象
 local bone_go = model.get_go("#wiggler", "Bone_002")
 
--- 然后可以任意操作该游戏对象...
+-- 现在可以对游戏对象做一些有用的操作...
 ```
 
-### 播放头
+### 游标动画
 
-除了调用 `model.play_anim()` 还有更高级的动画播放方法, 可以使用 `go.animate()` (详见 [属性动画](/manuals/property-animation)) 控制 *Model* 组件的 `cursor` 属性实现动画播放控制:
+除了使用`model.play_anim()`来推进模型动画外，*Model*组件还公开了一个"游标"属性，可以使用`go.animate()`进行操作（有关[属性动画](/manuals/property-animation)的更多信息）：
 
 ```lua
--- 设置 #model 上的动画但不播放
+-- 在 #model 上设置动画但不启动它
 model.play_anim("#model", "wiggle", go.PLAYBACK_NONE)
--- 把播放头设置为动画起始位置
+-- 将游标设置为动画的开头
 go.set("#model", "cursor", 0)
--- 基于 in-out quad 缓动对播放头进行从 0 到 1 的 pingpong 补间.
+-- 使用 in-out quad 缓动在 0 和 1 之间对游标进行 pingpong 补间。
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_INOUTQUAD, 3)
 ```
 
-## 播放完成回调函数
+## 完成回调
 
-动画函数 `model.play_anim()` 可以在最后一个参数上传入Lua回调函数. 当动画播放完成时会调用这个函数. 对于循环动画和用 `go.cancel_animations()` 手动取消播放的动画, 不会调用回调函数. 动画播放完成的回调函数里可以发送消息或者继续播放其他动画. 例如:
+模型动画`model.play_anim()`支持一个可选的 Lua 回调函数作为最后一个参数。当动画播放到结束时将调用此函数。对于循环动画，或者当动画通过`go.cancel_animations()`手动取消时，永远不会调用该函数。回调可用于在动画完成时触发事件或将多个动画链接在一起。
 
 ```lua
 local function wiggle_done(self, message_id, message, sender)
-    -- 播放完毕
+    -- 动画完成
 end
 
 function init(self)
@@ -75,12 +74,12 @@ end
 
 ## 播放模式
 
-动画可以单次播放也可以循环播放. 取决于播放模式:
+动画可以播放一次或循环播放。动画的播放方式由播放模式决定：
 
-* go.PLAYBACK_NONE
-* go.PLAYBACK_ONCE_FORWARD
-* go.PLAYBACK_ONCE_BACKWARD
-* go.PLAYBACK_ONCE_PINGPONG
-* go.PLAYBACK_LOOP_FORWARD
-* go.PLAYBACK_LOOP_BACKWARD
-* go.PLAYBACK_LOOP_PINGPONG
+* `go.PLAYBACK_NONE`
+* `go.PLAYBACK_ONCE_FORWARD`
+* `go.PLAYBACK_ONCE_BACKWARD`
+* `go.PLAYBACK_ONCE_PINGPONG`
+* `go.PLAYBACK_LOOP_FORWARD`
+* `go.PLAYBACK_LOOP_BACKWARD`
+* `go.PLAYBACK_LOOP_PINGPONG`

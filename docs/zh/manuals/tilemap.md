@@ -1,103 +1,115 @@
 ---
-title: Defold 瓷砖地图教程
-brief: 本教程介绍了 Defold 对于瓷砖地图的支持.
+title: Defold 瓦片地图手册
+brief: 本手册详细介绍了 Defold 对瓦片地图的支持。
 ---
 
-# Tile map （瓷砖地图）
+# 瓦片地图
 
-*瓷砖地图* 是一个可以借由瓷砖图源装配, 绘制成一个大网格地图的组件. 瓷砖地图一般用来作为游戏关卡环境. 你可以在地图上使用瓷砖图源里设置的 *碰撞形状* 来进行碰撞检测或者模拟物理效果 ([example](/examples/tilemap/collisions/)).
+*瓦片地图*是一个组件，允许您将*瓦片图源*中的瓦片组装或绘制到大网格区域上。瓦片地图通常用于构建游戏关卡环境。您还可以在地图中使用瓦片图源中的*碰撞形状*进行碰撞检测和物理模拟（[示例](/examples/tilemap/collisions/)）。
 
-创建瓷砖地图之前要先创建好瓷砖图源. 关于如何创建瓷砖图源, 详情请见 [瓷砖图源教程](/manuals/tilesource).
+在创建瓦片地图之前，您需要先创建瓦片图源。请参阅[瓦片图源手册](/manuals/tilesource)了解如何创建瓦片图源。
 
-## 创建瓷砖地图
+## 创建瓦片地图
 
-创建瓷砖地图的步骤:
+要创建新的瓦片地图：
 
-- 在 *Assets* 浏览器中<kbd>右键点击</kbd>, 然后选择 <kbd>New... ▸ Tile Map</kbd>).
-- 新的瓷砖地图会在瓷砖地图编辑器中打开.
-- 给新文件命名.
+- 在*资源*浏览器中<kbd>右键点击</kbd>一个位置，然后选择<kbd>新建... ▸ 瓦片地图</kbd>）。
+- 为文件命名。
+- 新的瓦片地图会自动在瓦片地图编辑器中打开。
 
-  ![新瓷砖地图](images/tilemap/tilemap.png)
+  ![新建瓦片地图](images/tilemap/tilemap.png)
 
-- 用事先准备好的瓷砖图源设置 *Tile Source* 属性.
+- 将*瓦片图源*属性设置为您已准备好的瓦片图源文件。
 
-在瓷砖地图上绘制瓷砖的方法:
+要在瓦片地图上绘制瓦片：
 
-1. 在 *Outline* 视图中选择或者创建一个 *Layer* 用于绘制瓷砖.
-2. 选取一个瓷砖当作笔刷 (按 <kbd>空格</kbd> 键显示瓷砖表)
+1. 在*大纲*视图中选择或创建一个*图层*进行绘制。
+2. 选择一个瓦片作为笔刷（按<kbd>空格键</kbd>显示瓦片调色板）或通过在调色板中点击并拖动选择几个瓦片来创建包含多个瓦片的矩形笔刷。
 
-   ![Palette](images/tilemap/palette.png)
+   ![调色板](images/tilemap/palette.png)
 
-3. 用选取的笔刷铺设瓷砖. 要清除一个瓷砖, 可以选择一个空白瓷砖当笔刷覆盖掉它, 也可以使用橡皮擦工具 (<kbd>Edit ▸ Select Eraser</kbd>).
+3. 使用选定的笔刷进行绘制。要擦除瓦片，可以选择一个空白瓦片作为笔刷使用，或选择橡皮擦（<kbd>编辑 ▸ 选择橡皮擦</kbd>）。
 
-   ![铺瓷砖](images/tilemap/paint_tiles.png)
+   ![绘制瓦片](images/tilemap/paint_tiles.png)
 
-你可以直接从层里选择一块瓷砖当作笔刷. 按住 <kbd>Shift</kbd> 键点击瓷砖即可把它用作当前笔刷. 按住 <kbd>Shift</kbd> 键并拖动还可以选择一片瓷砖作为大笔刷.
+您可以直接从图层中拾取瓦片并将选择用作笔刷。按住<kbd>Shift</kbd>并点击瓦片可将其拾取为当前笔刷。按住<kbd>Shift</kbd>时，您还可以点击并拖动以选择一块瓦片作为更大的笔刷。此外，还可以通过按住<kbd>Shift+Ctrl</kbd>以类似方式剪切瓦片，或通过按住<kbd>Shift+Alt</kbd>擦除它们。
 
-笔刷顺时针旋转快捷键 <kbd>Z</kbd>. 笔刷水平翻转快捷键 <kbd>X</kbd>, 笔刷垂直翻转快捷键 <kbd>Y</kbd>.
+要顺时针旋转笔刷，请使用<kbd>Z</kbd>。使用<kbd>X</kbd>进行水平翻转，使用<kbd>Y</kbd>进行垂直翻转笔刷。
 
-![选取瓷砖](images/tilemap/pick_tiles.png)
+![拾取瓦片](images/tilemap/pick_tiles.png)
 
-## 把瓷砖地图加入到游戏中
+## 将瓦片地图添加到游戏中
 
-把瓷砖地图加入游戏的步骤:
+要将瓦片地图添加到游戏中：
 
-1. 建立一个游戏对象用以承载瓷砖地图组件. 这个游戏对象可以来自文件或者直接在集合里创建.
-2. 右键点击游戏对象根节点选择 <kbd>Add Component File</kbd>.
-3. 选取瓷砖地图文件.
+1. 创建一个游戏对象来容纳瓦片地图组件。游戏对象可以在文件中或直接在集合中创建。
+2. 右键点击游戏对象的根节点，然后选择<kbd>添加组件文件</kbd>。
+3. 选择瓦片地图文件。
 
-![使用瓷砖地图](images/tilemap/use_tilemap.png)
+![使用瓦片地图](images/tilemap/use_tilemap.png)
 
 ## 运行时操作
 
-有一套用于在运行时修改瓷砖地图的方法和属性 (参见 [API文档](/ref/tilemap/)).
+您可以通过多种不同的函数和属性在运行时操作瓦片地图（请参阅[API文档了解用法](/ref/tilemap/)）。
 
-### 用脚本更改瓷砖
+### 从脚本更改瓦片
 
-游戏运行时可以使用脚本动态读写瓷砖地图的内容. 通过调用 [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) 和 [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) 函数:
+您可以在游戏运行时动态读取和写入瓦片地图的内容。为此，请使用[`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile)和[`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile)函数：
 
 ```lua
 local tile = tilemap.get_tile("/level#map", "ground", x, y)
 
 if tile == 2 then
-    -- Replace grass-tile (2) with dangerous hole tile (number 4).
+    -- 将草地瓦片（2）替换为危险的洞瓦片（编号4）。
     tilemap.set_tile("/level#map", "ground", x, y, 4)
 end
 ```
 
-## 瓷砖地图属性
+## 瓦片地图属性
 
-除了 *Id*, *Position*, *Rotation* 和 *Scale*, 瓷砖地图还有如下属性:
+除了*Id*、*Position*、*Rotation*和*Scale*属性外，还存在以下组件特定属性：
 
-*Tile Source*
-: 瓷砖地图的图源.
+*瓦片图源*
+: 用于瓦片地图的瓦片图源资源。
 
-*Material*
-: 瓷砖地图的材质.
+*材质*
+: 用于渲染瓦片地图的材质。
 
-*Blend Mode*
-: 瓷砖地图的混合模式.
+*混合模式*
+: 渲染瓦片地图时使用的混合模式。
 
 ### 混合模式
 :[blend-modes](../shared/blend-modes.md)
 
-### 修改属性
+### 更改属性
 
-使用 `go.get()` 和 `go.set()` 方法可以修改瓷砖地图的属性:
+瓦片地图有许多不同的属性，可以使用`go.get()`和`go.set()`进行操作：
 
 `tile_source`
-: 瓷砖图源 (`hash`). 可以使用 `go.set()` 方法指定瓷砖图源. 参见 [这个例子的 API 用法](/ref/tilemap/#tile_source).
+: 瓦片地图的瓦片图源（`hash`）。您可以使用瓦片图源资源属性和`go.set()`更改此属性。请参阅[API参考中的示例](/ref/tilemap/#tile_source)。
 
 `material`
-: 瓷砖地图材质 (`hash`). 可以使用 `go.set()` 方法指定瓷砖地图材质. 参见 [这个例子的 API 用法](/ref/tilemap/#material).
+: 瓦片地图的材质（`hash`）。您可以使用材质资源属性和`go.set()`更改此属性。请参阅[API参考中的示例](/ref/tilemap/#material)。
 
 ### 材质常量
 
 {% include shared/material-constants.md component='tilemap' variable='tint' %}
 
 `tint`
-: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
+: 瓦片地图的颜色色调（`vector4`）。vector4用于表示色调，x、y、z和w分别对应红色、绿色、蓝色和alpha色调。
 
-## 相关项目配置
+## 项目配置
 
-在 *game.project* 文件里有些关于瓷砖地图的 [设置项目](/manuals/project-settings#tilemap).
+*game.project*文件中有一些与瓦片地图相关的[项目设置](/manuals/project-settings#tilemap)。
+
+## 外部工具
+
+有一些外部地图/关卡编辑器可以直接导出到Defold瓦片地图：
+
+### Tiled
+
+[Tiled](https://www.mapeditor.org/)是一个知名且广泛使用的正交、等距和六边形地图编辑器。Tiled支持多种功能，可以[直接导出到Defold](https://doc.mapeditor.org/en/stable/manual/export-defold/)。在[Defold用户"goeshard"的这篇博客文章](https://goeshard.org/2025/01/01/using-tiled-object-layers-with-defold-tilemaps/)中了解更多关于如何导出瓦片地图数据和附加元数据的信息。
+
+### Tilesetter
+
+[Tilesetter](https://www.tilesetter.org/docs/exporting#defold)可用于从简单的基础瓦片自动创建完整的瓦片集，它有一个地图编辑器，可以直接导出到Defold。

@@ -1,8 +1,8 @@
 ---
-title: Defold 3D 图像教程
-brief: 本教程已过时
+title: Defold 3D 图形手册
+brief: 本手册已过时
 ---
 
-# 3D graphics
+# 3D 图形
 
-详见 [图像教程](/manuals/graphics).
+本手册已被 [图形概览手册](/manuals/graphics) 取代。

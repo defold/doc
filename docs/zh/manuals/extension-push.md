@@ -1,29 +1,29 @@
 ---
 title: Defold 的 iOS 和 Android 推送通知
-brief: 本教程介绍了如何配置和实现游戏中的本地和远程 iOS 与 Android 平台的推送通知.
+brief: 本手册介绍了如何配置和实现游戏中的本地和远程 iOS 与 Android 平台的推送通知。
 ---
 
 # 推送通知
 
-推送通知作为 [原生扩展](/manuals/extensions/) 在 iOS 和 Android 设备上用来给玩家提示修改和更新之类的信息. iOS 和 Android 实现方法基本一样但是也有一些平台相关的东西需要注意.
+推送通知作为 [原生扩展](/manuals/extensions/) 在 iOS 和 Android 设备上用来给玩家提示修改和更新之类的信息。iOS 和 Android 实现方法基本一样但是也有一些平台相关的东西需要注意。
 
-推送通知为了找到从服务器到目标设备的通路, 需要得到应用的一些信息. 最复杂的部分包括用于校验客户端接收通知的合法性的应用安全信息. 还需要用于 Apple 或者 Google 校验你发送通知合法性的服务器安全信息. 最后, 推送通知的时候, 你需要知道到用户设备的唯一路径. 为此你需要指定设备的唯一 token (用来分辨用户).
+推送通知为了找到从服务器到目标设备的通路，需要得到应用的一些信息。最复杂的部分包括用于校验客户端接收通知的合法性的应用安全信息。还需要用于 Apple 或者 Google 校验你发送通知合法性的服务器安全信息。最后，推送通知的时候，你需要知道到用户设备的唯一路径。为此你需要指定设备的唯一 token（用来分辨用户）。
 
 ## 安装扩展
 
-使用之前要在 *game.project* 文件里配置扩展依赖. 最新稳定版依赖的 URL 是:
+使用之前要在 *game.project* 文件里配置扩展依赖。最新稳定版依赖的 URL 是：
 
 ```
 https://github.com/defold/extension-push/archive/master.zip
 ```
 
-推荐使用 [指定版本](https://github.com/defold/extension-push/releases) 的zip包链接作为依赖.
+推荐使用 [指定版本](https://github.com/defold/extension-push/releases) 的 zip 包链接作为依赖。
 
 ```
 https://github.com/defold/extension-firebase-core/archive/master.zip
 ```
 
-API 文档在 [推送通知扩展项目](https://defold.github.io/extension-push/) 页上.
+API 文档在 [推送通知扩展项目](https://defold.github.io/extension-push/) 页上。
 
 ## iOS 配置
 
@@ -31,13 +31,13 @@ API 文档在 [推送通知扩展项目](https://defold.github.io/extension-push
 为了更好地使用 Apple Push Notification 服务, 最好先熟读 [Apple 的官方文档](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html).
 :::
 
-iOS 上, 推送通知需要做以下准备:
+iOS 上，推送通知需要做以下准备：
 
-* 要为 App ID 开启推送通知.
-* 需要包含此 App ID 的应用提供商档案.
-* 还需要一个 SSL 证书用来把数据从消息服务应用发送到 Apple 服务器.
+* 要为 App ID 开启推送通知。
+* 需要包含此 App ID 的应用提供商档案。
+* 还需要一个 SSL 证书用来把数据从消息服务应用发送到 Apple 服务器。
 
-准备就绪后登录到 [Apple 开发者中心](https://developer.apple.com/membercenter). 找到 AppID 打开通知推送服务.
+准备就绪后登录到 [Apple 开发者中心](https://developer.apple.com/membercenter)。找到 AppID 打开通知推送服务。
 
 ![AppID push notifications](images/push/push_ios_app_id.png)
 
@@ -45,20 +45,20 @@ iOS 上, 推送通知需要做以下准备:
 
 ![APN SSL certificate](images/push/push_ios_certificate.png)
 
-从你的服务器往通知推送服务器发送数据时需要这个证书. 开发调试时, 可以先在本地安装这个证书然后运行 [APNS-Pusher](https://github.com/KnuffApp/APNS-Pusher) 或者 [NWPusher](https://github.com/noodlewerk/NWPusher) 之类的测试工具.
+从你的服务器往通知推送服务器发送数据时需要这个证书。开发调试时，可以先在本地安装这个证书然后运行 [APNS-Pusher](https://github.com/KnuffApp/APNS-Pusher) 或者 [NWPusher](https://github.com/noodlewerk/NWPusher) 之类的测试工具。
 
-记得创建包含要推送通知 AppID 的供应商档案, 并且在档案中设置好开发设备. 可以在 "Member Center" 页面或者 Xcode 中进行这些操作.
+记得创建包含要推送通知 AppID 的供应商档案，并且在档案中设置好开发设备。可以在 "Member Center" 页面或者 Xcode 中进行这些操作。
 
 ![Provisioning profile](images/push/push_ios_provisioning_profile.png)
 
-注意 Apple 的沙盒服务器可能需要一段时间更新信息, 通知推送功能也许不能马上使用. 要有耐心.
+注意 Apple 的沙盒服务器可能需要一段时间更新信息，通知推送功能也许不能马上使用。要有耐心。
 
 推送通知测试代码如下:
 
 <a name="above-code"></a>
 ```lua
 local function push_listener(self, payload, origin)
-    -- 通知到达这里.
+    -- 通知到达这里。
     pprint(payload)
 end
 
@@ -80,7 +80,7 @@ function on_message(self, message_id, message)
                 for i = 1,#token do
                     t = t .. string.format("%02x", string.byte(token, i))
                 end
-                -- 打印设备token
+                -- 打印设备 token
                 print(t)
             else
                 -- 错误
@@ -91,7 +91,7 @@ function on_message(self, message_id, message)
     elseif message_id == hash("push_android") then
         push.register(nil, function (self, token, error)
             if token then
-                -- 打印设备token
+                -- 打印设备 token
                 print(token)
             else
                 -- 错误
@@ -103,17 +103,17 @@ function on_message(self, message_id, message)
 end
 ```
 
-如果一切顺利通知监听器会被注册然后打印出设备的 token:
+如果一切顺利通知监听器会被注册然后打印出设备的 token：
 
 ```txt
 DEBUG:SCRIPT: 1f8ba7869b84b10df69a07aa623cd7f55f62bca22cef61b51fedac643ec61ad8
 ```
 
-如果运行的是测试应用, 你现在就可以尝试使用设备token和通知服务SSL证书向你的设备推送通知了.
+如果运行的是测试应用，你现在就可以尝试使用设备 token 和通知服务 SSL 证书向你的设备推送通知了。
 
 ![Pusher test](images/push/push_ios_pusher.png)
 
-通知发送之后会被测试应用接收, 进入 `push_listener()` 函数:
+通知发送之后会被测试应用接收，进入 `push_listener()` 函数：
 
 ```txt
 DEBUG:SCRIPT:
@@ -126,11 +126,11 @@ DEBUG:SCRIPT:
 }
 ```
 
-同时 iOS 桌面会提示通知:
+同时 iOS 桌面会提示通知：
 
 ![iOS notification](images/push/push_ios_notification.png)
 
-如果要在图标上显示计数角标, 可以使用 `push.set_badge_count()` 函数.
+如果要在图标上显示计数角标，可以使用 `push.set_badge_count()` 函数。
 
 ## Android 配置
 
@@ -138,35 +138,35 @@ DEBUG:SCRIPT:
 建议首先阅读 Firebase Cloud Messaging 服务文档. 文档在这里 https://firebase.google.com/docs/cloud-messaging/
 :::
 
-Android 上, 推送通知需要做以下准备:
+Android 上，推送通知需要做以下准备：
 
-* Firebase CM Sender ID 和应用 ID. 这些id会打包到应用中去.
-* 用于使用 Firebase 服务的服务器 API Key.
+* Firebase CM Sender ID 和应用 ID。这些 id 会打包到应用中去。
+* 用于使用 Firebase 服务的服务器 API Key。
 
 ::: sidenote
-如果你的应用使用了 Google Cloud Messaging 平台, 现在需要导入 Firebase Cloud Messaging 平台中. 把应用从 Google dashboard 导入到 Firebase 即可. 导入后 *sender id* 保持不变, 你的 *game.project* 文件需要更新使用 `Firebase Application ID` (见下文).
+如果你的应用使用了 Google Cloud Messaging 平台，现在需要导入 Firebase Cloud Messaging 平台中。把应用从 Google dashboard 导入到 Firebase 即可。导入后 *sender id* 保持不变，你的 *game.project* 文件需要更新使用 `Firebase Application ID`（见下文）。
 :::
 
-基本配置很简单. 登录 [https://console.firebase.google.com](https://console.firebase.google.com), 选择或者新建应用. 然后进入 *Grow* 的 *Cloud Messaging* 页面.
+基本配置很简单。登录 [https://console.firebase.google.com](https://console.firebase.google.com)，选择或者新建应用。然后进入 *Grow* 的 *Cloud Messaging* 页面。
 
 ![Adding Cloud Messaging to a Firebase project](images/push/push_fcm_add_cm.png)
 
-点击 Android 图标开始配置通知推送.
+点击 Android 图标开始配置通知推送。
 
 
 ![Configure Cloud Messaging for Android](images/push/push_fcm_configure_android.png)
 
-根据提示, 输入 Defold 游戏项目使用的包名.
+根据提示，输入 Defold 游戏项目使用的包名。
 
 ![Android cloud services info](images/push/push_fcm_register.png)
 
-下载 `google-services.json`, 我们需要这个文件里面的一些信息.
+下载 `google-services.json`，我们需要这个文件里面的一些信息。
 
 ![Google Cloud Messaging sender ID](images/push/push_fcm_download_json.png)
 
-下面两步可以跳过, *Add Firebase SDK* 和 *Run your app to verify installation*. SDK 已打包进 Defold, 无需手动添加.
+下面两步可以跳过，*Add Firebase SDK* 和 *Run your app to verify installation*。SDK 已打包进 Defold，无需手动添加。
 
-用文本编辑器打开 `google-services.json` 文件, 找到 *`project_number`* 和 *`mobilesdk_app_id`*. 把这俩id考入 *game.project* 文件, 对应 *android* 部分, `Gcm Sender Id` (`project_number`) 和 `Fcm Application Id` (`mobilesdk_app_id`).
+用文本编辑器打开 `google-services.json` 文件，找到 *`project_number`* 和 *`mobilesdk_app_id`*。把这俩 id 考入 *game.project* 文件，对应 *android* 部分，`Gcm Sender Id`（`project_number`）和 `Fcm Application Id`（`mobilesdk_app_id`）。
 
 ```
 {
@@ -189,13 +189,13 @@ Android 上, 推送通知需要做以下准备:
 
 ![Settings applied to game.project](images/push/push_fcm_game_project.png)
 
-至此客户端准备就绪. [上面测试ios时用的代码](#above-code) 对 Android 同样有效. 运行并记录设备 token.
+至此客户端准备就绪。[上面测试 ios 时用的代码](#above-code) 对 Android 同样有效。运行并记录设备 token。
 
 ```txt
 DEBUG:SCRIPT: APA91bHkcKm0QHAMUCEQ_Dlpq2gzset6vh0cz46kDDV6230C5rFivyWZMCxGXcjxRDKg1PK4z1kWg3xnUVqSDiO_4_RiG8b8HeYJfaoW1ho4ukWYXjq5RE0Sy-JTyrhqRusUP_BxRTcE
 ```
 
-发送通知之前需要一个 Firebase 服务认证 key. 这个 key 位于 Firebase dashboard 的 *Settings* 的 *Cloud Messaging* 页面中.
+发送通知之前需要一个 Firebase 服务认证 key。这个 key 位于 Firebase dashboard 的 *Settings* 的 *Cloud Messaging* 页面中。
 
 ![Server Key location](images/push/push_fcm_server_key.png)
 

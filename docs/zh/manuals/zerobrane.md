@@ -1,47 +1,47 @@
 ---
-title: Debugging with ZeroBrane Studio
-brief: This manual explains how to use ZeroBrane Studio to debug Lua code in Defold.
+title: 使用 ZeroBrane Studio 进行调试
+brief: 本手册介绍了如何使用 ZeroBrane Studio 在 Defold 中调试 Lua 代码。
 ---
 
-# 在 ZeroBrane Studio 中调试 Lua 脚本 
+# 使用 ZeroBrane Studio 调试 Lua 脚本
 
-Defold 自带内置调试器, 但是还可以使用免费开源的 Lua 编辑器 _ZeroBrane Studio_ 作为第三方调试器. 首先需要安装 ZeroBrane Studio. 它是跨平台软件可以运行于 macOS 和 Windows 上.
+Defold 包含一个内置调试器，但也可以将免费开源的 Lua IDE _ZeroBrane Studio_ 作为外部调试器运行。要使用调试功能，需要安装 ZeroBrane Studio。该程序是跨平台的，可以在 macOS 和 Windows 上运行。
 
-从 http://studio.zerobrane.com 下载  "ZeroBrane Studio".
+从 http://studio.zerobrane.com 下载 "ZeroBrane Studio"。
 
-## ZeroBrane 设置
+## ZeroBrane 配置
 
-要使 ZeroBrane 找到你的项目, 你需要指定 Defold 项目目录. Defold 中, 可以很方便的打开项目根目录.
+为了让 ZeroBrane 找到您项目中的文件，您需要将其指向 Defold 项目目录的位置。找出此位置的一个便捷方法是使用 Defold 项目根目录中文件的 <kbd>在桌面中显示</kbd> 选项。
 
 1. 右键点击 *game.project*
-2. 选择 <kbd>Show in Desktop</kbd>
+2. 选择 <kbd>在桌面中显示</kbd>
 
 ![Show in Finder](images/zerobrane/show_in_desktop.png)
 
-## ZeroBrane 打开项目
+## 设置 ZeroBrane
 
-在 ZeroBrane 打开项目, 选择 <kbd>Project ▸ Project Directory ▸ Choose...</kbd>:
+要设置 ZeroBrane，请选择 <kbd>项目 ▸ 项目目录 ▸ 选择...</kbd>：
 
 ![Set up](images/zerobrane/setup.png)
 
-当指定了 Defold 项目目录之后, 就可以在 ZeroBrane 中看到 Defold 项目的结构, 可以跳转和打开文件.
+一旦设置完成以匹配当前的 Defold 项目目录，就应该能够在 ZeroBrane 中看到 Defold 项目的目录树，并导航和打开文件。
 
-另一个建议, 但不是必须的设置请见下文.
+文档后面部分可以找到其他推荐但非必需的配置更改。
 
 ## 启动调试服务器
 
-调试之前, 需要启动 ZeroBrane 内置调试服务器. 此选项位于菜单栏 <kbd>Project</kbd> 中. 选择 <kbd>Project ▸ Start Debugger Server</kbd> 即可:
+在开始调试会话之前，需要启动 ZeroBrane 内置的调试服务器。启动它的菜单选项可以在 <kbd>项目</kbd> 菜单下找到。只需选择 <kbd>项目 ▸ 启动调试器服务器</kbd>：
 
 ![Start debugger](images/zerobrane/startdebug.png)
 
-## 把应用连接到调试器
+## 将应用程序连接到调试器
 
-调试可以在 Defold 应用生命周期任何阶段开始, 但是需要在 Lua 脚本中显式开启. 开启调试的 Lua 脚本像这样:
+调试可以在 Defold 应用程序生命周期的任何时刻开始，但需要从 Lua 脚本中主动启动。启动调试会话的 Lua 代码如下所示：
 
 ::: sidenote
-如果调用 `dbg.start()` 时游戏已经退出, 可能是由于 ZeroBrane 检测到了问题然后向游戏发送了退出指令. 另外, ZeroBrane 调试时需要打开一个脚本文件, 否则就会报错:
+如果您的游戏在调用 `dbg.start()` 时退出，可能是因为 ZeroBrane 检测到问题并向游戏发送了退出命令。由于某种原因，ZeroBrane 需要打开一个文件才能开始调试会话，否则它将输出：
 "Can't start debugging without an opened file or with the current file not being saved 'untitled.lua')."
-在 ZeroBrane 中, 打开含有 `dbg.start()` 的文件即可解决这个报错.
+在 ZeroBrane 中，打开您添加了 `dbg.start()` 的文件以修复此错误。
 :::
 
 ```lua
@@ -49,7 +49,7 @@ dbg = require "builtins.scripts.mobdebug"
 dbg.start()
 ```
 
-在应用里插入上面的代码, 它会连接到 ZeroBrane 的调试服务器 (默认建立在 "localhost" 上) 然后中断运行等待调试.
+通过将上述代码插入应用程序，它将连接到 ZeroBrane 的调试服务器（默认通过 "localhost"）并在下一个要执行的语句处暂停。
 
 ```txt
 Debugger server started at localhost:8172.
@@ -57,37 +57,37 @@ Mapped remote request for '/' to '/Users/my_user/Documents/Projects/Defold_proje
 Debugging session started in '/Users/my_user/Documents/Projects/Defold_project'.
 ```
 
-现在即可使用 ZeroBrane 的调试功能; 步进, 检查, 增加移除断点之类的.
+现在可以使用 ZeroBrane 中提供的调试功能；您可以单步执行、检查、添加和删除断点等。
 
 ::: sidenote
-调试只在其初始化位置开启调试lua上下文. 在 *game.project* 中打开 "shared_state" 就可以在任意位置调试整个应用.
+调试仅在启动调试的 lua 上下文中启用。在 *game.project* 中启用 "shared_state" 意味着无论您从哪里启动，都可以调试整个应用程序。
 :::
 
 ![Stepping](images/zerobrane/code.png)
 
-如果连接失败 (可能由于调试服务器未启动), 你的应用会在尝试连接后继续运行.
+如果连接尝试失败（可能是因为调试服务器未运行），您的应用程序将在连接尝试完成后继续正常运行。
 
 ## 远程调试
 
-因为调试过程基于常规网络连接 (TCP), 这样就是远程调试成为可能. 这意味着当你的应用运行于移动设备时也可以进行调试.
+由于调试是通过常规网络连接（TCP）进行的，这允许进行远程调试。这意味着当您的应用程序在移动设备上运行时，也可以对其进行调试。
 
-开启调试的代码需要稍微修改. 默认, `start()` 会尝试连接 localhost, 但是对于远程调试, 我们需要指定 ZeroBrane 的调试服务器地址, 比如:
+唯一需要更改的是启动调试的命令。默认情况下，`start()` 将尝试连接到 localhost，但对于远程调试，我们需要手动指定 ZeroBrane 调试服务器的地址，如下所示：
 
 ```lua
 dbg = require "builtins.scripts.mobdebug"
 dbg.start("192.168.5.101")
 ```
 
-也就是说要确保到达设备的网络通畅, 还要让各种防火墙之类的软件允许使用 8172 端口的 TCP 连接. 否则的话你的应用可能会在尝试连接的时候宕机.
+这也意味着确保从远程设备有网络连接非常重要，并且任何防火墙或类似软件都允许通过端口 8172 的 TCP 连接。否则，当应用程序尝试连接到您的调试服务器时，可能会卡住。
 
-## 其他推荐 ZeroBrane 设置
+## 其他推荐的 ZeroBrane 设置
 
-调试时可以让 ZeroBrane 自动打开 Lua 脚本. 这样就不需要调试哪个文件先要手动打开哪个文件了.
+可以使 ZeroBrane 在调试期间自动打开 Lua 脚本文件。这使得可以单步执行到其他源文件中的函数，而无需手动打开它们。
 
-首先打开编辑器配置文件. 推荐修改配置文件的用户设置版本.
+第一步是访问编辑器配置文件。建议您更改该文件的用户版本。
 
-- 选择 <kbd>Edit ▸ Preferences ▸ Settings: User</kbd>
-- 为配置文件添加如下设置:
+- 选择 <kbd>编辑 ▸ 首选项 ▸ 设置：用户</kbd>
+- 将以下内容添加到配置文件中：
 
   ```txt
   - to automatically open files requested during debugging

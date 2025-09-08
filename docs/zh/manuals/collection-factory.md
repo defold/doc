@@ -1,57 +1,57 @@
 ---
-title: 集合工厂教程
-brief: 本教程介绍了如何使用集合工厂创建一组嵌套的游戏对象.
+title: 集合工厂手册
+brief: 本手册解释了如何使用集合工厂组件来生成游戏对象的层级结构.
 ---
 
 # 集合工厂
 
-集合工厂组件用于在游戏运行时创建一组保存于集合之中的嵌套的游戏对象.
+集合工厂组件用于将存储在集合文件中的游戏对象组和层级结构生成到运行中的游戏中。
 
-Defold 提供了集合或者称为 "prefabs" 的可重用模板机制 . 关于集合概述, 请见 [Defold 组成](/manuals/building-blocks#collections). 使用集合可以在编辑器, 或者在运行时动态插入游戏内容.
+集合提供了一种强大的机制来创建可重用的模板，或称为Defold中的"预制件"。有关集合的概述，请参阅[构建块文档](/manuals/building-blocks#collections)。集合可以放置在编辑器中，也可以动态插入到您的游戏中。
 
-使用集合工厂可以依照一个集合文件向游戏世界插入内容. 这与游戏对象工厂的做法类似只不过集合工厂能创建一组含有父子嵌套层级关系的游戏对象. 典型用法比如动态生成一组敌人 (敌人对象和其武器对象的组合).
+使用集合工厂组件，您可以将集合文件的内容生成到游戏世界中。这类似于对集合内的所有游戏对象执行工厂生成，然后在对象之间构建父子层级关系。一个典型的用例是生成由多个游戏对象组成的敌人（例如，敌人+武器）。
 
-## 创建集合
+## 生成集合
 
-假设有一个角色对象, 在它的子集有个盾牌对象. 我们就可以把这种含嵌套层级关系的组合保存为一个集合文件 "bean.collection".
+假设我们想要一个角色游戏对象和一个单独的盾牌游戏对象作为角色的子对象。我们在一个集合文件中构建游戏对象层级结构，并将其保存为"bean.collection"。
 
 ::: sidenote
-*集合代理* 组件用于创建基于集合的游戏世界, 里面可以包含独立的物理世界. 通过新建一个接口, 集合中的所有内容通过集合代理加载. 这样可以实现诸如切换关卡之类的功能. 游戏世界通常包含很多东西, 如果加载少量内容, 不要使用集合代理. 详情请见 [集合代理教程](/manuals/collection-proxy).
+*集合代理*组件用于基于集合创建新的游戏世界，包括单独的物理世界。新世界通过新的套接字访问。当您向代理发送消息开始加载时，集合中包含的所有资产都通过代理加载。这使得它们对于例如在游戏中切换关卡非常有用。然而，新的游戏世界带来了相当多的开销，因此不要将它们用于少量内容的动态加载。有关更多信息，请参阅[集合代理文档](/manuals/collection-proxy)。
 :::
 
 ![Collection to spawn](images/collection_factory/collection.png)
 
-把 *集合工厂* 加入游戏对象然后设置其 *原型* 为 "bean.collection":
+然后，我们将*集合工厂*添加到一个游戏对象中，该游戏对象将负责生成，并将"bean.collection"设置为组件的*原型*：
 
 ![Collection factory](images/collection_factory/factory.png)
 
-这样只需调用 `collectionfactory.create()` 函数即可创建角色加盾牌的组合了:
+现在，生成bean和shield只需要调用`collectionfactory.create()`函数：
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
 ```
 
-此函数有5个参数:
+该函数接受5个参数：
 
 `url`
-: 要使用的集合工厂组件的id.
+: 应该生成新游戏对象组的集合工厂组件的id。
 
 `[position]`
-: (可选) 新建游戏对象组合的世界坐标位置. 以 `vector3` 表示. 如果不指定位置, 默认位置是集合工厂所在游戏对象的位置.
+: （可选）生成的游戏对象的世界位置。这应该是一个`vector3`。如果您不指定位置，对象将在集合工厂组件的位置生成。
 
 `[rotation]`
-: (可选) 新创建游戏对象组合的世界坐标旋转. 以 `quat` 表示.
+: （可选）新游戏对象的世界旋转。这应该是一个`quat`。
 
 `[properties]`
-: (可选) 新创建游戏对象组合的 `id`-`table` 属性初始化 Lua 表. 关于此表结果见下文.
+: （可选）一个带有`id`-`table`对的Lua表，用于初始化生成的游戏对象。有关如何构造此表的信息，请参见下文。
 
 `[scale]`
-: (可选) 新创建游戏对象组合的等比缩放. 以 `number` (大于 0) 表示. 或者以 `vector3` 表示每个坐标轴上的非等比缩放.
+: （可选）生成的游戏对象的缩放比例。缩放可以表示为一个`number`（大于0），它指定所有轴上的均匀缩放。您也可以提供一个`vector3`，其中每个组件指定相应轴上的缩放。
 
-`collectionfactory.create()` 返回一个包含每个新建对象id的表. 表的内容是集合内每个对象id对应运行时每个对象id:
+`collectionfactory.create()`将生成的游戏对象的标识作为表返回。表键将每个对象的集合本地id的哈希映射到每个对象的运行时id：
 
 ::: sidenote
-"bean" 与 "shield" 的父子层级关系 *不会* 在表里反应出来. 只能从运行时画面看出这种层级关系, 即做变化时两个对象同时变化. 改变层级关系与游戏对象id无关.
+"bean"和"shield"之间的父子关系*不会*在返回的表中反映出来。这种关系仅存在于运行时场景图中，即对象如何一起变换。重新设置对象的父级永远不会改变其id。
 :::
 
 ```lua
@@ -64,11 +64,11 @@ pprint(bean_ids)
 --   hash: [/bean] = hash: [/collection0/bean],
 -- }
 ```
-1. 前缀 `/collection[N]/` 中, `[N]` 是计数器, 以确保每个id的唯一性:
+1. 添加了前缀`/collection[N]/`，其中`[N]`是一个计数器，以唯一标识每个实例：
 
 ## 属性
 
-创建集合的对象时, 可以把属性表作为参数传给集合工厂. 表里的键是对象id, 值是这个对象需要设置的属性表.
+生成集合时，您可以通过构造一个表来将属性参数传递给每个游戏对象，其中键是对象id，值是包含要设置的脚本属性的表。
 
 ```lua
 local props = {}
@@ -76,7 +76,7 @@ props[hash("/bean")] = { shield = false }
 local ids = collectionfactory.create("#bean_factory", nil, nil, props)
 ```
 
-假设 "bean.collection" 里的 "bean" 对象有一个叫 "shield" 的脚本属性. 关于脚本属性详情请见 [脚本属性教程](/manuals/script-properties).
+假设"bean.collection"中的"bean"游戏对象定义了"shield"属性。[脚本属性手册](/manuals/script-properties)包含有关脚本属性的信息。
 
 ```lua
 -- bean/controller.script
@@ -91,16 +91,16 @@ end
 
 ## 工厂资源的动态加载
 
-开启工厂属性的 *Load Dynamically*, 工厂资源将会被延迟加载.
+通过选中集合工厂属性中的*动态加载*复选框，引擎会推迟与工厂关联的资源的加载。
 
 ![Load dynamically](images/collection_factory/load_dynamically.png)
 
-关闭动态加载, 则加载集合工厂组件时会同时加载其需要的资源以便工厂可以尽快创建新游戏对象.
+取消选中该复选框时，引擎在加载集合工厂组件时加载原型资源，因此它们立即可用于生成。
 
-开启动态加载, 有两种用法:
+选中该复选框时，您有两种使用选项：
 
 同步加载
-: 调用 [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create:url-[position]-[rotation]-[properties]-[scale]) 函数创建新对象时. 资源会同步加载, 这意味着游戏可能会卡一下, 加载完成后再创建新对象.
+: 当您想要生成对象时调用[`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create:url-[position]-[rotation]-[properties]-[scale])。这将同步加载资源，这可能会导致卡顿，然后生成新实例。
 
   ```lua
   function init(self)
@@ -123,7 +123,7 @@ end
   ```
 
 异步加载
-: 调用 [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load:[url]-[complete_function]) 函数进行资源的异步加载. 资源加载完毕后, 回调用回调函数.
+: 调用[`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load:[url]-[complete_function])以异步方式显式加载资源。当资源准备好生成时，会收到一个回调。
 
   ```lua
   function load_complete(self, url, result)
@@ -150,13 +150,13 @@ end
   ```
 
 
-## 动态 prototype
+## 动态原型
 
-可以通过点选集合工厂的 *Dynamic Prototype* 选项来更改它的 *Prototype*.
+可以通过选中集合工厂属性中的*动态原型*复选框来更改集合工厂可以创建的*原型*。
 
-![动态 prototype](images/collection_factory/dynamic_prototype.png)
+![Dynamic prototype](images/collection_factory/dynamic_prototype.png)
 
-当 *Dynamic Prototype* 选项被选中, 则集合工厂组件就可使用 `collectionfactory.set_prototype()` 函数更改其原型. 例如:
+当*动态原型*选项被选中时，集合工厂组件可以使用`collectionfactory.set_prototype()`函数更改原型。示例：
 
 ```lua
 collectionfactory.unload("#factory") -- 卸载之前的资源
@@ -165,6 +165,6 @@ local ids = collectionfactory.create("#factory")
 ```
 
 ::: important
-当 *Dynamic Prototype* 被选中, 集合组件数优化则不可使用, 宿主集合将使用 *game.project* 文件中定义的默认最大组件数目.
+当设置*动态原型*选项时，集合组件计数无法优化，拥有集合将使用*game.project*文件中的默认组件计数。
 :::
 

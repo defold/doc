@@ -1,30 +1,26 @@
 
-#### 问: 运行编辑器需要什么硬件系统?
-答: 编辑器最多占用 75% 的空闲系统内存. 一般 4 GB 内存的电脑就可以运行 Defold 小项目了. 中大型项目建议配备 6 GB 或更多内存.
+#### Q: 编辑器的系统要求是什么？
+A: 编辑器将使用系统最多 75% 的可用内存。在具有 4 GB RAM 的计算机上，这应该足以满足较小的 Defold 项目。对于中型或大型项目，建议使用 6 GB 或更多的 RAM。
 
 
-#### 问: Defold 测试版会自动更新吗?
-答: Defold 测试版编辑器会在启动时检查并自动更新, 正式版也是.
+#### Q: Defold 测试版会自动更新吗？
+A: 是的。Defold 测试版编辑器会在启动时检查更新，就像 Defold 稳定版一样。
 
 
-#### Q: 打开编辑器报错 "java.awt.AWTError: Assistive Technology not found"?
-A: 该报错与 Java 辅助技术比如 [NVDA screen reader](https://www.nvaccess.org/download/) 相关. 在你的 home 文件夹下可能有个 `.accessibility.properties` 文件. 删除该文件尝试重新启动编辑器. (注意: 如果你确实用了辅助技术需要保留这个文件请发消息至 info@defold.se 来探讨其他解决办法).
+#### Q: 为什么启动编辑器时会出现 `java.awt.AWTError: Assistive Technology not found` 错误？
+A: 此错误与 Java 辅助技术（如 [NVDA 屏幕阅读器](https://www.nvaccess.org/download/)）相关的问题有关。您的主文件夹中可能有一个 `.accessibility.properties` 文件。删除该文件并尝试重新启动编辑器。（注意：如果您确实使用任何辅助技术并且需要该文件存在，请通过 info@defold.se 与我们联系以讨论替代解决方案）。
 
-在 [Defold 论坛这里](https://forum.defold.com/t/editor-endless-loading-windows-10-1-2-169-solved/65481/3) 讨论过.
-
-
-#### 问: 编辑器不启动, 项目不加载?
-答: 检查 Defold 安装路径里是否有空格. 比如, 把编辑器放在mac系统 *Applications* 中的 *Defold-macosx* 文件夹里, 就能运行.  改成 *Defold macosx* 就无法运行. 在 Windows 上, 像 *C:\\Program Files\\* 这样的路径都不行. 这归因于 Eclipse 框架的一个已知 bug.
+在 [Defold 论坛上讨论过](https://forum.defold.com/t/editor-endless-loading-windows-10-1-2-169-solved/65481/3)。
 
 
-#### 问: 启动 Defold 时报了 "sun.security.validator.ValidatorException: PKIX path building failed" 的错?
-答: 这个错是由于编辑器尝试建立 https 连接而服务器证书无法验证导致.
+#### Q: 为什么启动编辑器时会出现 `sun.security.validator.ValidatorException: PKIX path building failed` 错误？
+A: 当编辑器尝试建立 https 连接但服务器提供的证书链无法验证时，会发生此异常。
 
-详情请见 [这里](https://github.com/defold/defold/blob/master/editor/README_TROUBLESHOOTING_PKIX.md).
+有关此错误的详细信息，请参阅[此链接](https://github.com/defold/defold/blob/master/editor/README_TROUBLESHOOTING_PKIX.md)。
 
 
-#### 问: 操作中遇到 "java.lang.OutOfMemoryError: Java heap space" 报错?
-答: Defold 编辑器基于 Java, 所以某种情况下可能会造成内存不足. 可以尝试手动编辑配置文件来增加内存使用量. 配置文件叫做 `config`, 在 macOS 位于 `Defold.app/Contents/Resources/` 文件夹下. 在 Windows 位于 `Defold.exe` 可执行文件同一个文件夹下, 在 Linux 位于 `Defold` 可执行文件同一个文件夹下. 打开 `config` 文件, 在 `vmargs` 后顶头加入 `-Xmx6gb` 参数. 加入 `-Xmx6gb` 的意思是使用 6 GB 内存 (默认 4GB). 如下所示:
+#### Q: 为什么执行某些操作时会出现 `java.lang.OutOfMemoryError: Java heap space` 错误？
+A: Defold 编辑器是使用 Java 构建的，在某些情况下，Java 的默认内存配置可能不够。如果发生这种情况，您可以通过编辑编辑器配置文件手动配置编辑器分配更多内存。配置文件名为 `config`，在 macOS 上位于 `Defold.app/Contents/Resources/` 文件夹中。在 Windows 上，它位于 `Defold.exe` 可执行文件旁边，在 Linux 上位于 `Defold` 可执行文件旁边。打开 `config` 文件，并在以 `vmargs` 开头的行中添加 `-Xmx6gb`。添加 `-Xmx6gb` 会将最大堆大小设置为 6 GB（默认通常为 4GB）。它应该看起来像这样：
 
 ```
 vmargs = -Xmx6gb,-Dfile.encoding=UTF-8,-Djna.nosys=true,-Ddefold.launcherpath=${bootstrap.launcherpath},-Ddefold.resourcespath=${bootstrap.resourcespath},-Ddefold.version=${build.version},-Ddefold.editor.sha1=${build.editor_sha1},-Ddefold.engine.sha1=${build.engine_sha1},-Ddefold.buildtime=${build.time},-Ddefold.channel=${build.channel},-Ddefold.archive.domain=${build.archive_domain},-Djava.net.preferIPv4Stack=true,-Dsun.net.client.defaultConnectTimeout=30000,-Dsun.net.client.defaultReadTimeout=30000,-Djogl.texture.notexrect=true,-Dglass.accessible.force=false,--illegal-access=warn,--add-opens=java.base/java.lang=ALL-UNNAMED,--add-opens=java.desktop/sun.awt=ALL-UNNAMED,--add-opens=java.desktop/sun.java2d.opengl=ALL-UNNAMED,--add-opens=java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED

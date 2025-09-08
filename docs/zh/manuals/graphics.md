@@ -1,10 +1,10 @@
 ---
-title: Defold 图像教程
-brief: 本教程简述了 Defold 支持的图像组件.
+title: Defold 图形手册
+brief: 本手册概述了Defold对图形元素的支持.
 ---
 
-该教程已废弃!
+已弃用的手册！
 
-* 参见 [如何导入和使用 2D 图片](/manuals/importing-graphics)
-* 参见 [贴图滤镜](/manuals/texture-filtering)
-* 参见 [材质](/manuals/material)
+* 在[此处阅读有关如何导入和使用2D图形的更多信息](/manuals/importing-graphics)
+* 在[此处阅读有关纹理过滤的更多信息](/manuals/texture-filtering)
+* 在[此处阅读有关材质的更多信息](/manuals/material)

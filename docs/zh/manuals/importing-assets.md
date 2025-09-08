@@ -1,44 +1,42 @@
 ---
-title: 导入和编辑资源
-brief: 本教程介绍了导入, 编辑资源的方法.
+title: 资源导入和编辑在Defold中
+brief: 本手册介绍了如何导入和编辑资源.
 ---
 
-# 导入和编辑资源导入和编辑资源
+# 资源导入和编辑
 
-一个游戏项目通常包含了大量其他程序生成的资源文件, 比如图像, 3D 模型, 音乐文件, 动画之类的. Defold 工作流就包括使用第三方工具创建资源然后导入Defold中使用. 当这些资源导入之后就可以被Defold的各种组件使用, 比如 逐帧动画, 瓷砖地图, 粒子特效之类的:
+游戏项目通常包含大量外部资源，这些资源是在各种专业程序中制作的，用于制作图形、3D模型、声音文件、动画等。Defold专为这样的工作流程而构建：您在外部工具中工作，然后将资源导入到Defold中。
 
 
 ## 导入资源
 
-Defold 要求其所用资源全部位于项目文件夹内. 先导入后使用. 导入方法很简单, 从文件系统任意位置拖动任意文件放入 Defold 编辑器 _资源面板_ 里即可.
+Defold需要项目中使用的所有资源都位于项目层次结构中的某个位置。因此，您需要先导入所有资源，然后才能使用它们。要导入资源，只需将文件从计算机的文件系统中拖出，然后放到Defold编辑器的*资源面板*中的适当位置。
 
 ![Importing files](images/graphics/import.png)
 
 ::: sidenote
-Defold 支持 PNG 和 JPEG 图片格式. 其中 PNG 图片必须是 32 位 RGBA 格式的. 其他格式要先转换成支持格式后再使用.
+Defold支持PNG和JPEG图像格式。PNG图像必须是32位RGBA格式。其他图像格式需要先转换才能使用。
 :::
 
 ## 使用资源
 
-当资源文件导入 Defold 之后就可以使用各种组件来创造逐帧动画, 瓷砖地图, 粒子特效等各种内容:
+当资源导入到Defold后，它们可以被Defold支持的各种组件类型使用：
 
-* 图片可以用来实现2D游戏常见的各种可视内容. 详情请见 [如何导入和使用2D图像](/manuals/importing-graphics).
-* 声音文件可以用 [声音组件](/manuals/sound)来播放.
-* 字体文件 可以用于 [Label 组件](/manuals/label) 和GUI中的 [text 节点](/manuals/gui-text).
-* glTF 和 Collada 模型可以用于 [Model 组件](/manuals/model) 来显示3D模型和动画. [关于3D模型导入详见这里](/manuals/importing-models).
+* 图像可用于创建2D游戏中常用的多种视觉组件。阅读更多关于[如何导入和使用2D图形的内容](/manuals/importing-graphics)。
+* 声音可以被[声音组件](/manuals/sound)用来播放声音。
+* 字体被[标签组件](/manuals/label)和GUI中的[文本节点](/manuals/gui-text)使用。
+* glTF和Collada模型可以被[模型组件](/manuals/model)用来显示带动画的3D模型。阅读更多关于[如何导入和使用3D模型的内容](/manuals/importing-models)。
 
 
 ## 编辑外部资源
 
-Defold 并不提供图片, 声音, 模型 或者 动画文件的创建功能. 这些文件应该由 Defold 以外的工具创建好之后再导入到 Defold 里使用. Defold 自动检测资源文件的改动然后自动刷新到编辑器里. 之后 Defold 会自动进行资源文件的更新.
+Defold不提供用于图像、声音文件、模型或动画的编辑工具。此类资源需要在Defold之外的专业工具中创建，然后导入到Defold。Defold会自动检测项目文件中任何资源的更改，并相应地更新编辑器视图。
 
 
-## 编辑 Defold 资源
+## 编辑Defold资源
 
-Defold 编辑器自己生成的资源都是纯文本格式的以方便合并.甚至可以使用代码来修改 参见 [这个帖子](https://forum.defold.com/t/deftree-a-python-module-for-editing-defold-files/15210).
+编辑器将所有Defold资源保存在基于文本的文件中，这些文件易于合并。它们也易于使用简单脚本创建和修改。有关更多信息，请参阅[此论坛帖子](https://forum.defold.com/t/deftree-a-python-module-for-editing-defold-files/15210)。但请注意，我们不发布文件格式详细信息，因为它们偶尔会更改。您也可以使用[编辑器脚本](/manuals/editor-scripts/)来挂钩编辑器中的某些生命周期事件，以运行脚本来生成或修改资源。
 
-注意我们没有发布固定的资源文本格式, 因为格式可能随着升级不断变化. 你也可以使用 [编辑器脚本](/manuals/editor-scripts/) 在编辑器特定的生命周期中运行脚本来生成或者修改资源.
+通过文本编辑器或外部工具处理Defold资源文件时应格外小心。如果引入错误，可能会阻止文件在Defold编辑器中打开。
 
-另外要注意一点就是如果使用外部编辑器破坏了资源文本的话, 再回到 Defold 可能就无法打开这个文件了.
-
-某些第三方工具比如 [Tiled](/assets/tiled/) 和 [Tilesetter](https://www.tilesetter.org/beta) 也可以用来自动生成 Defold 资源.
+某些外部工具，如[Tiled](/assets/tiled/)和[Tilesetter](https://www.tilesetter.org/beta)，可用于自动生成Defold资源。

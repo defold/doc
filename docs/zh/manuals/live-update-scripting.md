@@ -1,62 +1,62 @@
 ---
-title: 热更新脚本
-brief: 使用热更新, 需要下载并挂载游戏数据. 本手册介绍了热更新脚本.
+title: Live Update 内容脚本编写
+brief: 要使用 live update 内容，您需要将数据下载并挂载到游戏中。在本手册中学习如何使用 live update 进行脚本编写。
 ---
 
-# 热更新脚本
-[live-update-scripting.md](live-update-scripting.md)
-热更新API只是如下几个函数:
+# Live Update 脚本编写
+
+API 仅包含几个函数：
 
 * `liveupdate.add_mount()`
 * `liveupdate.remove_mount()`
-* `liveupdate.get_mounts()`.
+* `liveupdate.get_mounts()`。
 
-## 得到 mounts
+## 获取挂载点
 
-如果使用一个以上的热更新卷, 推荐在启动时遍历每个 mount
-来检测这个 mount 是否还在使用中.
+如果您使用多个 live update 归档文件，建议在启动时遍历每个挂载点
+并确定是否仍应使用该挂载点。
 
-这很重要因为内容可能对于引擎来说不在可用, 因为文件格式改变了.
+这很重要，因为由于文件格式更改，内容可能对引擎不再有效。
 
 ```lua
 local function remove_old_mounts()
-	local mounts = liveupdate.get_mounts() -- 得到 mounts 表
+	local mounts = liveupdate.get_mounts() -- 包含挂载点的表
 
-    -- 每个 mount 包含: mount.uri, mount.priority, mount.name
+    -- 每个挂载点包含：mount.uri, mount.priority, mount.name
 	for _,mount in ipairs(mounts) do
 
-        -- 这需要文件名是唯一的, 以便我们不会从不同卷里获得同名文件
-        -- 这里数据由开发者创建作为给卷指定元数据的方法
+        -- 这需要文件名是唯一的，这样我们就不会从不同的归档文件中获取文件
+        -- 这些数据由开发人员创建，作为为归档文件指定元数据的方式
 		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
 
 		if version_data then
 			version_data = json.decode(version_data)
 		else
-			version_data = {version = 0} -- 没有版本文件的话, 很可能是老旧/不可用卷
+			version_data = {version = 0} -- 如果没有版本文件，它可能是旧的/无效的归档文件
 		end
 
-        -- 指定卷版本到游戏支持的版本
+        -- 验证归档文件版本与游戏支持的版本
         if version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- 不可用的话, 卸载它!
+            -- 它无效，所以我们卸载它！
             liveupdate.remove_mount(mount.name)
         end
 	end
 end
 ```
 
-## 排除的集合代理脚本
+## 使用排除的集合代理进行脚本编写
 
-被打包排除的集合代理使用上跟普通集合代理类似, 但有一个重要区别. 当它还有资源没就位的时候给它发送 `load` 消息会直接报错.
+被排除在打包之外的集合代理与普通集合代理的工作方式类似，但有一个重要区别。当它仍然有在捆绑存储中不可用的资源时，向它发送 `load` 消息将导致它失败。
 
-所以在给它发送 `load` 之前, 我们检查是否有遗漏的资源. 如果有, 我们需要下载包含这些资源的卷并保存起来.
+所以在向它发送 `load` 之前，我们需要检查是否有任何缺失的资源。如果有，我们必须下载包含这些资源的归档文件，然后存储它。
 
- 下例代码默认资源依照 `game.http_url` 的地址下可得到.
+以下示例代码假设资源可以通过设置 `game.http_url` 中指定的 URL 获得。
 
 ```lua
 
--- 你要跟踪哪个卷里有那些内容
--- 本例中, 我们只用一个热更新卷, 包含所有遗漏资源.
--- 如果需要用多个卷, 必须相应地构建好下载表
+-- 您需要跟踪哪个归档文件包含哪些内容
+-- 在本例中，我们只使用一个 liveupdate 归档文件，包含所有缺失的资源。
+-- 如果您使用多个归档文件，您需要相应地构建下载
 local lu_infos = {
     liveupdate = {
         name = "liveupdate",
@@ -81,7 +81,7 @@ function init(self)
 
     local level_name = "level1"
 
-    local info = get_lu_archive_for_level(level_name) -- <3>
+    local info = get_lu_info_for_level(level_name) -- <3>
 
     msg.post("#", "load_level", {level = "level1", info = info }) -- <4>
 end
@@ -101,34 +101,34 @@ function on_message(self, message_id, message, sender)
 		local download_path = sys.get_save_file("mygame", zip_filename)
         local url = self.http_url .. "/" .. zip_filename
 
-        -- 开始请求. 可以使用 credentials
+        -- 发出请求。您可以使用凭据
         http.request(url, "GET", function(self, id, response) -- <7>
 			if response.status == 200 or response.status == 304 then
 				mount_zip(self, message.info.name, message.info.priority, download_path, function(uri, path, status) -- <8>
-					msg.post("#", "load_level", message) -- 尝试重新加载 level
+					msg.post("#", "load_level", message) -- 再次尝试加载关卡
 				end)
 
 			else
-				print("Failed to download archive ", download_path, "from", url, ":", get_status_string(status))
+				print("Failed to download archive ", download_path, "from", url, ":", response.status)
 			end
 		end, nil, nil, {path=download_path})
 
-    elseif message_id == hash("proxy_loaded") then -- level 已加载, 可以 enable 了
+    elseif message_id == hash("proxy_loaded") then -- 关卡已加载，我们可以启用它
         msg.post(sender, "init")
         msg.post(sender, "enable")
     end
 end
 ```
 
-1. 依照指定名称, 优先级和 zip 文件, 使用 `liveupdate.add_mount()` 挂载一个卷. 数据马上便可以用于加载 (不用重启引擎).
-mount 信息被保存然后下次引擎重启便会被自动读取 (同一 mount 不必再一次调用 liveupdate.add_mount())
-2. 线上保存卷 (比如放在 S3 上), 以便等待下载.
-3. 提供集合代理名, 要指出哪个卷需要下载, 然后如何挂载
-4. 游戏开始, 尝试载入 level.
-5. 检查集合代理的所有资源已就位.
-6. 如果有遗漏资源, 需要下载卷然后挂载它.
-7. 提出 http 请求, 下载卷到 `download_path`
-8. 数据已下载, 应该给当前引擎挂载它.
+1. `liveupdate.add_mount()` 使用指定的名称、优先级和 zip 文件挂载单个归档文件。数据立即可用于加载（无需重启引擎）。
+挂载点信息被存储，并在下次引擎重启时自动重新添加（无需在同一挂载点上再次调用 liveupdate.add_mount()）
+2. 您需要将归档文件在线存储（例如在 S3 上），以便您可以从中下载。
+3. 给定集合代理名称，您需要确定要下载哪些归档文件，以及如何挂载它们
+4. 在启动时，我们尝试加载关卡。
+5. 检查集合代理是否具有所有可用资源。
+6. 如果有资源缺失，那么我们需要下载归档文件并挂载它。
+7. 发出 http 请求并将归档文件下载到 `download_path`
+8. 数据已下载，是时候将其挂载到正在运行的引擎上了。
 
 
-载入代码完成后, 我们就可以测试游戏了. 然而, 从编辑器里运行游戏不会下载任何东西. 这是因为热更新是一个游戏包特性. 在编辑器环境运行游戏所有资源都就位. 为了测试该特性, 我们需要打游戏包.
+有了加载代码，我们就可以测试应用程序了。但是，从编辑器运行它不会下载任何内容。这是因为 Live update 是一个捆绑功能。在编辑器环境中运行时，资源永远不会被排除。为了确保一切正常，我们需要创建一个捆绑包。

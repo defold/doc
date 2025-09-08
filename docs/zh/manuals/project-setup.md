@@ -1,42 +1,42 @@
 ---
-title: 项目设立
-brief: 本教程介绍了如何在 Defold 中创建和打开项目.
+title: 项目设置
+brief: 本手册涵盖了如何在 Defold 中创建或打开项目。
 ---
 
-# 项目设立
+# 项目设置
 
-使用 Defold 编辑器创建项目很简单. 同样也可以使用编辑器打开电脑中已存在的某个项目.
+您可以在 Defold 编辑器中轻松创建新项目。您也可以选择打开计算机上已有的现有项目。
 
-## 创建本地项目
+## 创建新的本地项目
 
-点击 <kbd>New Project</kbd> 选项, 然后选择创建何种项目. 为项目指定一个硬盘保存位置. 点击 <kbd>Create New Project</kbd> 即完成项目创建. 还可以使用模板创建项目:
+点击 <kbd>New Project</kbd> 选项，然后选择您想要创建的项目类型。在硬盘上指定一个位置来存储项目文件。点击 <kbd>Create New Project</kbd> 在您选择的位置创建项目。您可以从模板创建新项目：
 
 ![open project](images/workflow/open_project.png)
 
-或者创建教程项目:
+或者从带有分步说明的教程创建：
 
 ![create project from tutorial](images/workflow/create_from_tutorial.png)
 
-亦或是完整的示例项目:
+或者从完成的示例游戏创建：
 
 ![create project from sample](images/workflow/create_from_sample.png)
 
-### 上传项目至 GitHub
+### 将项目添加到 GitHub
 
-本地项目没有代码托管功能, 也就是说项目只存在于你的硬盘上. 要是不小心删改了文件, 没有备份就再也找不回来了. 所以推荐使用 Git 之类的版本控制系统管理你的项目. 版本控制同样有助于多人合作开发的情况. 向 GitHub 提交文件可以按下列步骤进行:
+本地项目不会有任何版本控制系统的集成，这意味着文件仅存在于您的硬盘上。您对文件所做的任何更改都是永久性的，无法恢复更改或恢复已删除的文件。建议使用版本控制系统（如 Git）来跟踪文件的更改。这也使得与他人协作项目变得非常容易。将本地项目上传到 GitHub 只需几个步骤即可完成：
 
-1. 在 [GitHub](https://github.com/) 上创建一个用户
-2. 使用 [New Repository](https://help.github.com/en/articles/creating-a-new-repository) 功能创建代码库
-3. 使用 [Upload Files](https://help.github.com/en/articles/adding-a-file-to-a-repository) 功能上传项目文件
+1. 在 [GitHub](https://github.com/) 上创建或登录账户
+2. 使用 [New Repository](https://help.github.com/en/articles/creating-a-new-repository) 选项创建仓库
+3. 通过 [Upload Files](https://help.github.com/en/articles/adding-a-file-to-a-repository) 选项上传所有项目文件
 
-此时项目已经由Github托管, 你可以通过 [clone项目](https://help.github.com/en/articles/cloning-a-repository) 到本地来开始开发工作.
+现在项目已处于版本控制之下，您应该将项目[克隆到本地硬盘](https://help.github.com/en/articles/cloning-a-repository)，并从这个新位置开始工作。
 
-## 打开已有项目
+## 打开现有项目
 
-点击 <kbd>Open From Disk</kbd> 选项以打开已有项目.
+点击 <kbd>Open From Disk</kbd> 选项以打开计算机上已有的项目。
 
 ![import project](images/workflow/open_from_disk.png)
 
-## 打开常用项目
+## 打开最近的项目
 
-项目打开后就会保存在常用项目列表里. 列表里的项目就是你最近常用的项目, 可以双击打开这些项目.
+一旦项目被打开一次，它就会显示在最近项目列表中。该列表将显示您最近处理过的项目，并允许您通过双击列表中的项目快速打开任何项目。

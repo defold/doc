@@ -1,13 +1,13 @@
-#### Q: 在 GNOME 上使用 Defold 编辑器在 4k 或 HiDPI 显示器上显得特别小?
+#### Q: 为什么在 4k 或 HiDPI 显示器上运行 Defold 编辑器时显得特别小？
 
-A: 启动 Defold 之前修改缩放参数. [参见](https://unix.stackexchange.com/a/552411)
+A: 如果您使用的是 GNOME，可以在运行 Defold 之前更改缩放因子。[来源](https://unix.stackexchange.com/a/552411)
 
 ```bash
 $ gsettings set org.gnome.desktop.interface scaling-factor 2
 $ ./Defold
 ```
 
-A: 另一种办法, 尤其是在你希望把界面放大到非整数倍时, 可以修改 `Defold/config` 文件, 在`vmargs` 一行加入 `glass.gtk.uiScale`: [source](https://forum.defold.com/t/4k-hidpi-monitor-support-solved/64108/12?u=britzl)
+A: 另一种解决方案，特别是当您希望按分数比例放大时，是修改 `Defold/config` 文件并在 `vmargs` 行添加 `glass.gtk.uiScale`：[来源](https://forum.defold.com/t/4k-hidpi-monitor-support-solved/64108/12?u=britzl)
 
 ```
 vmargs = -Dglass.gtk.uiScale=1.5,-Dfile.encoding=UTF-8,...
@@ -15,26 +15,32 @@ vmargs = -Dglass.gtk.uiScale=175%,-Dfile.encoding=UTF-8,...
 vmargs = -Dglass.gtk.uiScale=192dpi,-Dfile.encoding=UTF-8,...
 ```
 
-此值的意义参见 [Arch Linux HiDPI wiki 文章](https://wiki.archlinux.org/title/HiDPI#JavaFX).
+有关此值的更多信息，请参见 [Arch Linux HiDPI wiki 文章](https://wiki.archlinux.org/title/HiDPI#JavaFX)。
 
-#### Q:在 Elementary OS 上使用 Defold 编辑器, 鼠标点选上的都是后面的东西?
+A: 如果您使用的是 KDE，可以设置 `GDK_SCALE`：
 
-A: 尝试这样启动编辑器:
+```bash
+$ GDK_SCALE=2 ./Defold
+```
+
+#### Q: 为什么在 Elementary OS 上鼠标点击会穿过编辑器到达下面的任何内容？
+
+A: 像这样启动编辑器：
 
 ```bash
 $ GTK_CSD=0 ./Defold
 ```
 
 
-#### Q: 在 Defold 编辑器里打开集合或者游戏对象时崩溃报关于 "com.jogamp.opengl" 的错误.
+#### Q: 当打开集合或游戏对象时，Defold 编辑器崩溃，崩溃信息提到 `com.jogamp.opengl`
 
-A: 某些Linux版本 (如 Ubuntu 18) 下 [Mesa](https://docs.mesa3d.org/) 版所使用的 jogamp/jogl Defold 版本有冲突. 可以在调用 `glGetString(GL_VERSION)` 是设置`MESA_GL_VERSION_OVERRIDE` 为2.1或者更高的值以覆盖 GL 默认的驱动版本. 可以使用如下命令查看系统上支持 `glxinfo` 的最高 OpenGL 版本:
+A: 在某些发行版（如 Ubuntu 18）上，Defold 使用的 `jogamp`/`jogl` 版本与系统上的 [Mesa](https://docs.mesa3d.org/) 版本存在问题。您可以通过设置 `MESA_GL_VERSION_OVERRIDE` 为 2.1 或更大但小于或等于您驱动程序版本的值来覆盖调用 `glGetString(GL_VERSION)` 时报告的 GL 版本。您可以使用 `glxinfo` 检查您的驱动程序支持的最高 OpenGL 版本：
 
 ```bash
 glxinfo | grep version
 ```
 
-输出举例 (注意 "OpenGL version string: x.y"):
+示例输出（查找 "OpenGL version string: x.y"）：
 
 ```
 server glx version string: 1.4
@@ -53,7 +59,7 @@ OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
 GL_EXT_shader_implicit_conversions, GL_EXT_shader_integer_mix,
 ```
 
-使用版本 2.1 或者更高的匹配显卡的版本:
+使用版本 2.1 或匹配您的图形驱动程序的版本：
 
 ```bash
 $ MESA_GL_VERSION_OVERRIDE=2.1 ./Defold
@@ -64,65 +70,78 @@ $ MESA_GL_VERSION_OVERRIDE=4.6 ./Defold
 ```
 
 
-#### Q: 打开 Defold 时报错 "com.jogamp.opengl.GLException: Graphics configuration failed"?
+#### Q: 为什么启动 Defold 时出现 "`com.jogamp.opengl.GLException: Graphics configuration failed`" 错误？
 
-A: 某些Linux版本 (如 Ubuntu 20.04) 在運行 Defold 時會出現新的 [Mesa](https://docs.mesa3d.org/) 驅動程序 (Iris) 的問題. 可以嘗試使用舊版本驅動程序:
+A: 在某些发行版（例如 Ubuntu 20.04）上，运行 Defold 时新的 [Mesa](https://docs.mesa3d.org/) 驱动程序（Iris）存在问题。您可以尝试在运行 Defold 时使用较旧的驱动程序版本：
 
 ```bash
-$ export MESA_LOADER_DRIVER_OVERRIDE=i965 ./Defold
+$ MESA_LOADER_DRIVER_OVERRIDE=i965 ./Defold
 ```
 
 
-#### Q: 在 Defold 编辑器里打开集合或者游戏对象时崩溃报关于 "libffi.so" 的错误.
+#### Q: 当打开集合或游戏对象时，Defold 编辑器崩溃，崩溃信息提到 `libffi.so`
 
-A: 这是由于Linux系统的 [libffi](https://sourceware.org/libffi/) 版本与 Defold (版本 6 或 7) 需要的版本不一致. 确保 `libffi.so.6` 或 `libffi.so.7` 已安装在 `/usr/lib/x86_64-linux-gnu` 路径下. 可以使用如下命令下载 `libffi.so.7`:
+A: 您发行版的 [libffi](https://sourceware.org/libffi/) 版本与 Defold（版本 6 或 7）所需的版本不匹配。确保 `libffi.so.6` 或 `libffi.so.7` 安装在 `/usr/lib/x86_64-linux-gnu` 下。您可以像这样下载 `libffi.so.7`：
 
 ```bash
 $ wget http://ftp.br.debian.org/debian/pool/main/libf/libffi/libffi7_3.3-6_amd64.deb
 $ sudo dpkg -i libffi7_3.3-6_amd64.deb
 ```
 
-然后需要在环境变量 `LD_PRELOAD` 中指定安装路径再启动 Defold:
+接下来，在运行 Defold 时，在 `LD_PRELOAD` 环境变量中指定此版本的路径：
 
 ```bash
 $ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libffi.so.7 ./Defold
 ```
 
 
-#### Q: 我的 OpenGL 驱动过期了. 还能用 Defold 吗?
+#### Q: 我的 OpenGL 驱动程序已过时。我还能使用 Defold 吗？
 
-A: 能用, 但是需要打开 Defold 软件渲染. 可以设置环境变量 LIBGL_ALWAYS_SOFTWARE 值为 1:
+A: 是的，如果您启用软件渲染，可能仍然可以使用 Defold。您可以通过将 `LIBGL_ALWAYS_SOFTWARE` 环境变量设置为 1 来启用软件渲染：
 
 ```bash
-~/bin/Defold$ LIBGL_ALWAYS_SOFTWARE=1 ./Defold
+$ LIBGL_ALWAYS_SOFTWARE=1 ./Defold
 ```
 
 
-#### Q: 在 Linux 上启动 Defold 游戏无效?
+#### Q: 为什么我尝试在 Linux 上运行 Defold 游戏时无法启动？
 
-A: 看看 Defold 编辑器控制台. 如果有下面这样的输出:
+A: 检查编辑器中的控制台输出。如果您收到以下消息：
 
 ```
 dmengine: error while loading shared libraries: libopenal.so.1: cannot open shared object file: No such file or directory
 ```
 
-就需要安装 *libopenal1*. 不同版本包名不同, 另外某些用户也需要安装 *openal* 和 *openal-dev* 或者 *openal-devel* 包.
+那么您需要安装 *`libopenal1`*。软件包名称在不同发行版之间有所不同，在某些情况下，您可能需要安装 *`openal`* 和 *`openal-dev`* 或 *`openal-devel`* 软件包。
 
 ```bash
 $ apt-get install libopenal-dev
 ```
 
-####  Q: 还没等我选择什么选项菜单栏就关闭了?
+#### Q: 为什么顶部菜单在我选择某项之前就关闭了？
 
-A: 这很可能是窗口管理器 (比如 Qtile 或 i3) 造成的. 这是一个 [JavaFX 已知问题](https://bugs.openjdk.org/browse/JDK-8251240?focusedCommentId=14362084&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-14362084) 解决方法其一, 设置 `GDK_DISPLAY` 环境变量为 1:¨
+A: 这很可能是由使用的窗口管理器（例如 `Qtile` 或 i3）引起的。这是 [JavaFX 中的一个已知问题](https://bugs.openjdk.org/browse/JDK-8251240?focusedCommentId=14362084&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-14362084)，可以通过将 `GDK_DISPLAY` 环境变量设置为 1 来解决：
 
 ```bash
 $ GDK_DISPLAY=1 ./Defold
-D=2
 ```
 
-解决方法其二, 修改 `Defold/config` 文件在 `vmargs` 行添加 `-Djdk.gtk.version=2`:
+或者通过修改 `Defold/config` 文件并在 `vmargs` 行添加 `-Djdk.gtk.version=2`：
 
 ```
 vmargs = -Djdk.gtk.version=2,-Dfile.encoding=UTF-8,...
+```
+
+
+#### Q: 为什么当我选择从磁盘打开时无法浏览所有可用的文件位置？
+
+A: 如果您通过 [使用 Flatpak 的 Steam](https://flathub.org/apps/com.valvesoftware.Steam) 运行 Defold，您需要授予 Steam 访问其他驱动器的权限。您可以使用 [Flatseal](https://flathub.org/apps/com.github.tchx84.Flatseal) 或类似工具修改您的 Flatpak 应用程序的权限。
+
+
+#### Q: 为什么我无法打开 Web 分析器或任何其他需要浏览器的菜单选项？
+
+A: 这很可能是因为在非 Gnome 系统上没有检测到浏览器，导致对 `Desktop.getDesktop().browse(new URI(url));` 的内部调用失败。尝试安装 `libgnome`。
+
+```bash
+$ apt-get install libgnome
 ```

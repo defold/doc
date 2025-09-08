@@ -1,30 +1,29 @@
 ---
-title: Defold 中的物理投射
-brief: 投射用于收集延一条投射射线所遇到的物理世界的物体. 本教程介绍了其用法.
+title: Defold 中的射线投射
+brief: 射线投射用于沿线性射线读取物理世界。本手册解释了其工作原理。
 ---
 
-## 投射
+## 射线投射
 
-投射用于收集延一条投射射线所遇到的物理世界的物体. 只要提供起止点和 [碰撞组](/manuals/physics-groups) , 就可以投射射线了.
+射线投射用于沿线性射线读取物理世界。要将射线投射到物理世界中，您需要提供起始和结束位置以及[一组碰撞组](/manuals/physics-groups)来进行测试。
 
-射线碰到的物体数据都会被记录下来. 包括动态, 静态和动画碰撞对象. 不包括触发器对象.
-
+如果射线击中物理对象，您将获得有关它击中的对象的信息。射线与动态、运动学和静态对象相交。它们不与触发器交互。
 
 ```lua
 function update(self, dt)
-  -- 投射射线
+  -- 请求射线投射
   local my_start = vmath.vector3(0, 0, 0)
   local my_end = vmath.vector3(100, 1000, 1000)
   local my_groups = { hash("my_group1"), hash("my_group2") }
 
   local result = physics.raycast(my_start, my_end, my_groups)
   if result then
-      -- 处理射线碰撞结果 (所有数据参见 'ray_cast_response' 消息)
+      -- 对命中做出反应（所有值请参见 'ray_cast_response' 消息）
       print(result.id)
   end
 end
 ```
 
 ::: sidenote
-结果不包括射线起始点位置的碰撞物体. 这是 Box2D 做的限制.
+射线投射将忽略包含射线起始点的碰撞对象。这是 Box2D 中的一个限制。
 :::

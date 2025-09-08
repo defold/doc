@@ -1,111 +1,111 @@
 ---
 title: Defold 中的3D模型
-brief: 本教程介绍了如何将3D模型, 骨骼和动画带入你的游戏之中.
+brief: 本手册介绍了如何将3D模型、骨骼和动画带入您的游戏之中。
 ---
 
-# Model 组件
+# 模型组件
 
-Defold 核心是3D的. 就算只有2D材质的话渲染也是3D的, 只不过是映射到平面屏幕上而已.  Defold 允许在集合中使用 3D 资源, 或者称作 _模型_ . 你可以用Defold制作全3D的, 或者2D和3D混合的游戏.
+Defold 本质上是一个3D引擎。即使您只使用2D材质，所有渲染也是在3D中完成的，只是正交投影到屏幕上。Defold允许您通过在集合中包含3D资产或_模型_来充分利用完整的3D内容。您可以仅使用3D资产构建纯3D游戏，或者根据需要混合3D和2D内容。
 
-## 创建 model 组件
+## 创建模型组件
 
-Model 组件和其他游戏对象组件一样, 两种创建办法:
+模型组件的创建方式与任何其他游戏对象组件一样。您可以通过两种方式完成：
 
-- *Assets* 浏览器里 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Model</kbd> 创建 *Model 文件*.
-- 直接在 *Outline* 视图的游戏对象上 <kbd>右键点击</kbd> 然后选择 <kbd>Add Component ▸ Model</kbd>.
+- 在_资源_浏览器中<kbd>右键单击</kbd>一个位置，然后选择<kbd>新建... ▸ 模型</kbd>来创建_模型文件_。
+- 在_大纲_视图中<kbd>右键单击</kbd>一个游戏对象，然后选择<kbd>添加组件 ▸ 模型</kbd>，将组件直接嵌入到游戏对象中。
 
-![Model in game object](images/model/model.png)
+![游戏对象中的模型](images/model/model.png)
 
-模型组件需要设置一些属性:
+创建模型后，您需要指定多个属性：
 
 ### 模型属性
 
-除了常见的 *Id*, *Position* 和 *Rotation* 属性, 模型组件还有如下特有属性:
+除了_Id_、_位置_和_旋转_属性外，还存在以下组件特定属性：
 
-*Mesh*
-: 这个属性指定 glTF *.gltf* 或者 Collada *.dae* 文件的模型网格. 如果文件包含多组网格, 只读取第一个.
+*网格*
+: 此属性应引用包含要使用的网格的glTF *.gltf*或Collada *.dae*文件。如果文件包含多个网格，则只读取第一个。
 
-*Material*
-: 添加合适的材质. 一开始可以使用默认的 *model.material* 材质.
+*材质*
+: 将此属性设置为您创建的适合纹理3D对象的材质。有一个内置的*model.material*文件，您可以用它作为起点。
 
-*Texture*
-: 指定适当的纹理.
+*纹理*
+: 此属性应指向您想要应用于对象的纹理图像文件。
 
-*Skeleton*
-: 指定 glTF *.gltf* 或者 Collada *.dae* 文件里的骨骼. 注意Defold只支持一个骨骼树.
+*骨骼*
+: 此属性应引用包含用于动画的骨骼的glTF *.gltf*或Collada *.dae*文件。请注意，Defold要求您的层次结构中有一个单一的根骨骼。
 
-*Animations*
-: 指定模型的 *动画集文件*.
+*动画*
+: 将此设置为包含您想要在模型上使用的动画的_动画集文件_。
 
-*Default Animation*
-: 指定自动播放的默认动画 (从动画集之中) .
+*默认动画*
+: 这是将自动在模型上播放的动画（来自动画集）。
 
-## 编辑时操作
+## 编辑器操作
 
-有了模型组件就可以使用随意使用组件功能同时可以使用 *Scene Editor* 工具移动, 旋转和缩放模型游戏对象了.
+有了模型组件后，您就可以自由地使用常规的_场景编辑器_工具编辑和操作组件和/或封装游戏对象，以按照您的喜好移动、旋转和缩放模型。
 
-![Wiggler ingame](images/model/ingame.png)
+![游戏中的Wiggler](images/model/ingame.png)
 
 ## 运行时操作
 
-有一套用于在运行时修改模型的方法和属性 (参见 [API文档](/ref/model/)).
+您可以通过多种不同的函数和属性在运行时操作模型（有关用法请参阅[API文档](/ref/model/)）。
 
 ### 运行时动画
 
-Defold 提供了强大的运行时动画控制方法:
+Defold为在运行时控制动画提供了强大的支持。更多内容请参阅[模型动画手册](/manuals/model-animation)：
 
 ```lua
 local play_properties = { blend_duration = 0.1 }
-spine.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
+model.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
 ```
 
-可以手动播放动画甚至使用属性动画系统控制播放头:
+动画播放游标可以手动或通过属性动画系统进行动画处理：
 
 ```lua
--- set the run animation
+-- 设置运行动画
 model.play_anim("#model", "run", go.PLAYBACK_NONE)
--- animate the cursor
+-- 为游标设置动画
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
 ```
 
-### 修改属性
+### 更改属性
 
-使用 `go.get()` 和 `go.set()` 方法可以修改模型的属性:
+模型还有许多不同的属性，可以使用`go.get()`和`go.set()`进行操作：
 
 `animation`
-: 当前动画 (`hash`) (只读). 使用 `model.play_anim()` 方法来更改播放动画 (见上文).
+: 当前模型动画（`hash`）（只读）。您使用`model.play_anim()`更改动画（见上文）。
 
 `cursor`
-: 标准化动画头 (`number`).
+: 标准化的动画游标（`number`）。
 
 `material`
-: Spine模型材质 (`hash`). 可使用 `go.set()` 修改. 参见 [这个例子的 API 用法](/ref/model/#material).
+: 模型材质（`hash`）。您可以使用材质资源属性和`go.set()`更改此设置。有关示例，请参阅[API参考](/ref/model/#material)。
 
 `playback_rate`
-: 动画播放速率 (`number`).
+: 动画播放速率（`number`）。
 
 `textureN`
-: 模型材质. 其中 N 的范围是 0-7 (`hash`). 可使用 `go.set()` 修改. 参见 [这个例子的 API 用法](/ref/model/#textureN).
+: 模型纹理，其中N为0-7（`hash`）。您可以使用纹理资源属性和`go.set()`更改此设置。有关示例，请参阅[API参考](/ref/model/#textureN)。
 
 
 ## 材质
 
-3D 一半都有给网格赋予材质的功能, 比如颜色和贴图. 这些信息保存在由 3D 软件输出的 glTF *.gltf* 或者 Collada *.dae* 文件中. 应该基于游戏需要选择或者建造 _高性能_ 材质. 材质由 _着色器程序_ 及其若干相关属性组成.
+3D软件通常允许您在对象顶点上设置属性，比如着色和纹理。这些信息会进入您从3D软件导出的glTF *.gltf*或Collada *.dae*文件中。根据您游戏的需求，您必须为您的对象选择和/或创建合适的_高性能_材质。材质将_着色器程序_与一组用于对象渲染的参数结合起来。
 
-在内置材质文件夹里有一个3D模型材质. 如果需要自定义材质, 请参考 [材质文档](/manuals/material). [着色器教程](/manuals/shader) 介绍了着色器程序的工作方式.
+在内置材质文件夹中有一个简单的3D模型材质可用。如果您需要为模型创建自定义材质，请参阅[材质文档](/manuals/material)获取信息。[着色器手册](/manuals/shader)包含有关着色器程序如何工作的信息。
 
 
-## 材质常量
+### 材质常量
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: 3D网格颜色 (`vector4`). 四元数 x, y, z, 和 w 分别对应红, 绿, 蓝和不透明度.
+: 模型的颜色色调（`vector4`）。vector4用于表示色调，x、y、z和w分别对应红色、绿色、蓝色和alpha色调。
 
 
 ## 渲染
 
-默认的渲染脚本是为2D游戏而不是3D模型制作的. 但是你可以把默认渲染脚本拷贝出来, 自己加几行代码就能用来渲染模型. 比如:
+默认渲染脚本是为2D游戏量身定制的，不适用于3D模型。但是通过复制默认渲染脚本并向渲染脚本添加少量代码行，您就可以启用模型的渲染。例如：
 
   ```lua
 
@@ -125,4 +125,4 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
   end
   ```
 
-关于渲染脚本详情请见 [渲染教程](/manuals/render).
+有关渲染脚本如何工作的详细信息，请参阅[渲染文档](/manuals/render)。

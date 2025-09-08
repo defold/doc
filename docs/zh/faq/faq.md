@@ -42,9 +42,48 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
 答: 可以! 游戏引擎纯 3D. 然而, 工具都是针对 2D 游戏设计的, 所以 3D 游戏工具你得自己开发. 提升 3D 支持的计划进行中.
 
 
-#### 问: Defold 游戏开发用什么语言?
+## 编程语言相关问题
 
-答: Defold 项目游戏逻辑基本使用 Lua 语言 (特指 Lua 5.1/LuaJIT, 详情请见 [Lua 教程](/manuals/lua)). Lua 是一种强大快速的动态语言. 同时也支持使用原生 (C/C++, Objective-C, Java 和 JavaScript等) 语言来扩展 Defold 引擎功能. 自定义材质, 使用 OpenGL ES SL 语言编写的顶点和片元着色程序.
+#### 问: 在 Defold 中使用什么编程语言?
+
+答: Defold 项目中的游戏逻辑主要使用 Lua 语言编写（特别是 Lua 5.1/LuaJIT，详情请参考 [Lua 手册](/manuals/lua)）。Lua 是一种轻量级的动态语言，快速且非常强大。从 1.8.1 版本开始，Defold 支持使用能生成 Lua 代码的转译器。安装转译器扩展后，你可以使用替代语言——如 [Teal](https://github.com/defold/extension-teal)——来编写静态类型检查的 Lua。你也可以使用原生代码（根据平台不同，可以是 C/C++、Objective-C、Java 和 JavaScript）来[为 Defold 引擎扩展新功能](/manuals/extensions/)。在构建[自定义材质](/manuals/material/)时，使用 OpenGL ES SL 着色器语言来编写顶点和片段着色器。
+
+
+#### 问: 我可以使用 C++ 编写游戏逻辑吗?
+
+答: Defold 中的 C++ 支持主要用于编写与第三方 SDK 或平台特定 API 交互的原生扩展。[dmSDK](https://defold.com/ref/stable/dmGameObject/)（用于原生扩展的 Defold C++ API）将逐步扩展更多功能，使开发者可以选择完全使用 C++ 编写所有游戏逻辑。Lua 仍将是游戏逻辑的主要语言，但通过扩展的 C++ API，也可以使用 C++ 编写游戏逻辑。扩展 C++ API 的工作主要是将现有的私有头文件移至公共部分，并清理 API 以供公共使用。
+
+
+#### 问: 我可以在 Defold 中使用 TypeScript 吗?
+
+答: TypeScript 不是官方支持的。社区维护了一个工具包 [ts-defold](https://ts-defold.dev/)，用于编写 TypeScript 并直接从 VSCode 将其转译为 Lua。
+
+
+#### 问: 我可以在 Defold 中使用 Haxe 吗?
+
+答: Haxe 不是官方支持的。社区维护了 [hxdefold](https://github.com/hxdefold/hxdefold) 用于编写 Haxe 并将其转译为 Lua。
+
+
+#### 问: 我可以在 Defold 中使用 C# 吗?
+
+答: Defold 基金会将添加 C# 支持并将其作为库依赖项提供。C# 是一种广泛采用的编程语言，它将帮助那些大量投资于 C# 的工作室和开发者过渡到 Defold。
+
+
+#### 问: 我担心添加 C# 支持会对 Defold 产生负面影响。我应该担心吗?
+
+答: Defold 不会放弃将 Lua 作为主要脚本语言。C# 支持将作为扩展的新语言添加。除非你在项目中选择使用 C# 扩展，否则它不会影响引擎。
+
+C# 支持是有代价的（可执行文件大小、运行时性能等），但这由个别开发者/工作室来决定。
+
+至于 C# 本身，这是一个相对较小的变化，因为扩展系统已经支持多种语言（C/C++/Java/Objective-C/Zig）。SDK 将通过生成 C# 绑定来保持同步。这将使绑定以最小的努力保持最新。
+
+Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多种原因改变了看法：
+
+* 工作室和开发者继续要求 C# 支持。
+* C# 支持的范围已缩小到仅扩展（即工作量小）。
+* 核心引擎不会受到影响。
+* 如果生成 C# API，可以以最小的努力保持同步。
+* C# 支持将基于带有 NativeAOT 的 DotNet 9，从而生成现有构建管道可以链接的静态库（就像任何其他 Defold 扩展一样）。
 
 
 ## 平台相关
@@ -58,38 +97,38 @@ brief: 有关 Defold 游戏引擎和编辑器及平台的常见问题和解答.
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor               |
   | macOS              | 10.15              | `x86-64`, `arm-64` | Engine               |
   | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine    |
-  | Ubuntu (1)         | 18.04              | `x86-64`           | Editor               |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor               |
   | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine               |
   | iOS                | 11.0               | `arm-64`           | Engine               |
   | Android            | 4.4 (API level 19) | `arm-32`, `arm-64` | Engine               |
   | HTML5              |                    | `asm.js`, `wasm`   | Engine               |
 
-  (1 编辑器在 64-bit Ubuntu 18.04 平台上通过编译和测试. 其他版本应该同样可以运行但是未经过测试.)
+  (1 编辑器在 64-bit Ubuntu 22.04 LTS 平台上通过编译和测试. 其他版本应该同样可以运行但是未经过测试.)
 
   (2 游戏引擎在大多数 64-bit Linux 版本上只要更新显卡驱动支持 OpenGL ES 2.0 的基本都能运行.)
 
 
 #### 问: Defold 能输出哪些平台的游戏?
 
-答: 可以一键发布到 PS4™, 任天堂 Switch, iOS, Android 和 HTML5 游戏, 外加 macOS, Windows 和 Linux 游戏. 真正的一套代码平台通用.
+答: 可以一键发布到 PS4™, PS5™, 任天堂 Switch, iOS (64位), Android (32位和64位) 和 HTML5 游戏, 外加 macOS (x86-64和arm64), Windows (32位和64位) 和 Linux (x86-64和arm64) 游戏. 真正的一套代码平台通用.
 
 
 #### 问: Defold 基于何种渲染引擎?
 
-A: 作爲開發者只需要關心可編程渲染管綫所支持的一種渲染 API [完全可程式化渲染管线](/manuals/render/). Defold 渲染脚本 API 会把渲染操作转换为如下图形 API:
+答: 作为开发者只需要关心可编程渲染管线所支持的一种渲染 API [完全可程式化渲染管线](/manuals/render/). Defold 渲染脚本 API 会把渲染操作转换为如下图形 API:
 
 :[图形 API](../shared/graphics-api.md)
 
 #### 问: 如何获取 Defold 版本信息?
 
-答: 点击菜单栏 "About" 项. 弹出窗口详细列出了 Defold 版本号, 和文件哈希 SHA1. 对于游戏引擎版本, 调用 [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info) 获取.
+答: 点击帮助菜单 "About" 项. 弹出窗口详细列出了 Defold 版本号, 和文件哈希 SHA1. 对于游戏引擎版本, 调用 [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info) 获取.
 
 最新测试版位于 http://d.defold.com/beta 可以查看 http://d.defold.com/beta/info.json (正式版同样也有: http://d.defold.com/stable/info.json) 文件获取最新版本信息.
 
 
 #### 问: 运行时如何获取系统信息?
 
-答: 调用 [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info) 获取.
+答: 调用 [`sys.get_sys_info()`](/ref/sys/#sys.get_sys_info) 获取.
 
 
 ## 編輯器相關
@@ -129,7 +168,7 @@ A: 作爲開發者只需要關心可編程渲染管綫所支持的一種渲染 A
   2. 用广告提升安装量
   3. 用广告提升点击量
 
-  如果选择第一个, 编辑会在你的游戏里找广告. 如果没找到, 游戏很可能会被拒. Defold 本身不使用广告商id.
+  如果选择第一个, 应用审核人员会在你的游戏里找广告. 如果没找到, 游戏很可能会被拒. Defold 本身不使用广告商id.
 
 
 #### 问: 怎么用游戏获利?
@@ -169,7 +208,7 @@ A: 作爲開發者只需要關心可編程渲染管綫所支持的一種渲染 A
 
 #### 问: 精灵变色, 透明效果如何制作?
 
-A: 精灵默认着色程序包含 "tint" 属性:
+答: 精灵默认着色程序包含 "tint" 属性:
 
   ```lua
   local red = 1
@@ -197,12 +236,12 @@ A: 精灵默认着色程序包含 "tint" 属性:
 
 #### 问: 只有颜色没有纹理的GUI节点如何渲染?
 
-答: 作为顶点着色形状渲染, 注意其性能消耗.
+答: 它只是一个顶点着色的形状. 请记住它仍然会消耗填充率.
 
 
 #### 问: 如何释放资源所占用的内存?
 
-答: 引擎对所有资源都有引用计数. 一旦引用为0则资源自动被释放.
+答: 所有资源在内部都有引用计数. 一旦引用计数为0, 资源就会被释放.
 
 
 #### 问: 不用游戏对象能播放声音吗?
@@ -259,14 +298,16 @@ A: 精灵默认着色程序包含 "tint" 属性:
 
 #### 问: 我能在论坛上打广告吗?
 
-答: 可以! 论坛有一个 ["Work for hire" 类目](https://forum.defold.com/c/work-for-hire). 能充实社区论坛的所有信息都欢迎, 这里可以发布求职广告.
+答: 当然可以! 我们有一个专门的 ["Work for hire" 类目](https://forum.defold.com/c/work-for-hire). 我们总是鼓励任何有益于社区的事情, 向社区提供你的服务---无论是否收费---就是一个很好的例子.
 
 
-#### 问: 可以无限打广告?
+#### 问: 我发布了一个帖子并添加了我的作品，我可以添加更多吗?
 
-答: 为避免 "Work for hire" 类目论坛被爆, 至少14天内不许再加广告 (除非有人回复找你, 此时你可以立即回复这个人). 14天内, 只能通过更新帖子的方式加入新内容.
+答: 为了减少 "Work for hire" 帖子的刷屏, 你在自己的帖子中每14天只能发布一次 (除非是对帖子中评论的直接回复, 这种情况下你可以回复). 如果你想在14天内向你的帖子添加更多作品, 你必须编辑现有帖子来添加内容.
 
 
-#### 问: 我能发布招聘广告吗?
+#### 问: 我可以使用 "Work for hire" 类目来发布招聘信息吗?
 
-答: 可以, 自己找! 招聘也行求职也行, 比如 “程序员找美工; 高价求不差钱”.
+答: 当然可以, 随意使用! 它可以用于发布招聘信息, 也可以用于求职, 例如 "程序员寻找2D像素艺术家; 我很有钱, 会给你很好的报酬".
+
+```

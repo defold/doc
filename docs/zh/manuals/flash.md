@@ -1,21 +1,21 @@
 ---
-title: Flash 开发者 Defold 过渡教程
-brief: 本教程针对 Flash 游戏开发者对比介绍了 Defold 相对应的概念和方法.
+title: Defold for Flash users
+brief: 本指南为 Flash 游戏开发者介绍了 Defold 作为替代方案。它涵盖了 Flash 游戏开发中使用的一些关键概念，并解释了 Defold 中相应的工具和方法。
 ---
 
-# Flash 开发者 Defold 过渡
+# Defold for Flash users
 
-本教程针对 Flash 游戏开发者对比介绍了 Defold 相对应的概念和方法.
+本指南为 Flash 游戏开发者介绍了 Defold 作为替代方案。它涵盖了 Flash 游戏开发中使用的一些关键概念，并解释了 Defold 中相应的工具和方法。
 
-## 介绍
+## Introduction
 
-Flash 上手快门槛低. 新用户开发方便入门, 短时间内就可以开发出简单的游戏. Defold 针对游戏开发提供了类似的易用工具集, 此外还对高端开发者提供了更自由的发挥空间 (比如自己编写渲染脚本).
+Flash 的一些主要优势是易用性和低入门门槛。新用户可以快速学习该程序，并能在有限的时间投入内创建基本游戏。Defold 通过提供一套专门用于游戏设计的工具提供了类似的优势，同时使高级开发者能够为更复杂的需求创建高级解决方案（例如允许开发者编辑默认渲染脚本）。
 
-Flash 用 ActionScript (最新 3.0 版) 写脚本, Defold 用 Lua 写脚本. 本教程不涉及 Lua 和 Actionscript 3.0 编程. [Defold Lua 教程](/manuals/lua) 介绍了 Defold 中的 lua 脚本, [Programming in Lua](https://www.lua.org/pil/) (第一版) 有在线免费版可供学习.
+Flash 游戏使用 ActionScript 编程（3.0 是最新版本），而 Defold 脚本使用 Lua 编写。本指南不会详细比较 Lua 和 Actionscript 3.0。[Defold 手册](/manuals/lua) 提供了 Defold 中 Lua 编程的良好介绍，并引用了非常有用的 [Programming in Lua](https://www.lua.org/pil/)（第一版），该书可在线免费获取。
 
-Jesse Warden 写了一篇 [Actionscript 与 Lua 简要对比](http://jessewarden.com/2011/01/lua-for-actionscript-developers.html) 的文章, 可以先看看这个. 注意 Defold 和 Flash 架构上的不同比起脚本语言的区别更多. Actionscript 和 Flash 是标准的面向对象的架构. Defold 却没有类也没有集成的概念. 它有着叫做 *游戏对象* 的概念, 用来表达视听, 行为和数据. 脚本通过调用 Defold API *函数* 进行逻辑编写. 而且, Defold 推荐使用 *消息* 机制进行对象间的互相通信. 消息机制比函数调用更高级别. 这些概念需要一段时间掌握, 本教程不做讲解.
+Jesse Warden 的一篇文章提供了 [Actionscript 和 Lua 的基本比较](http://jessewarden.com/2011/01/lua-for-actionscript-developers.html)，这可以作为一个很好的起点。但请注意，Defold 和 Flash 在构建方式上的差异比语言层面可见的差异更深。Actionscript 和 Flash 在经典意义上是面向对象的，具有类和继承。Defold 没有类，也没有继承。它包含 *游戏对象* 的概念，可以包含视听表示、行为和数据。对游戏对象的操作是通过 Defold API 中可用的 *函数* 完成的。此外，Defold 鼓励使用 *消息* 在对象之间进行通信。消息是比方法调用更高级的构造，并不打算用作方法调用。这些差异很重要，需要一段时间才能适应，但本指南不会详细讨论。
 
-本教程, 主要是寻找 Flash 开发中的关键技术, 然后在 Defold 中找到对应的解决方案. 我们将探讨相似处和区别以及一些注意事项, 让你快速从 Flash 过渡到 Defold.
+相反，本指南探讨了 Flash 游戏开发的一些关键概念，并概述了 Defold 中最接近的等价物。讨论了相似性和差异，以及常见的陷阱，使你能够从 Flash 过渡到 Defold 时快速上手。
 
 ## 影片剪辑和游戏对象
 
@@ -63,7 +63,7 @@ Defold 通过地址引用所有对象. 多数情况下使用快捷地址或者�
 
 ![game object id](images/flash/game_object_id.png)
 
-::: sidenote
+::: important
 对象的id可以使用脚本: `print(go.get_id())` 查看. 它会在控制台打印出当前游戏对象的id.
 :::
 
@@ -158,13 +158,13 @@ addChild(logo2);
 addChild(logo3);
 ```
 
-显示列表索引位置决定了它们的显示层次. 如果交互两个图标的索引, 比如:
+一个对象是显示在另一个对象上方还是下方，取决于它们在显示列表索引中的相对位置。交换两个对象的索引位置很好地说明了这一点，例如：
 
 ```as
 swapChildren(logo2,logo3);
 ```
 
-结果如下 (索引已更新):
+结果将如下所示（索引位置已更新）：
 
 ![depth index](images/flash/depth_index_2.png)
 
@@ -172,7 +172,7 @@ swapChildren(logo2,logo3);
 
 Defold 里游戏对象的位置向量包含三部分: x, y, 和 z. 其中 z 轴位置决定了其深度. 在默认 [渲染脚本](/manuals/render) 中, z 轴位置范围是 -1 到 1.
 
-::: sidenote
+::: important
 如果游戏对象的 z 轴位置不在 -1 到 1 的范围内就不会被渲染也就是不可见. Defold 新手经常会因为这个感到困惑, 所以如果发现该显示的东西不显示想想是不是这个原因.
 :::
 
@@ -204,7 +204,7 @@ Flash 中使用 `hitTestObject()` 方法进行基本碰撞检测. 举个例子, 
 bullet.hitTestObject(bullseye);
 ```
 
-这样检测可能会不准确, 比如如下的情况:
+在这种情况下使用边界框是不合适的，因为在以下场景中会注册到碰撞：
 
 ![hit test bounding box](images/flash/hitboundingbox.png)
 
@@ -214,7 +214,7 @@ bullet.hitTestObject(bullseye);
 bullseye.hitTestPoint(bullet.x, bullet.y, true);
 ```
 
-这样通过子弹 x 和 y 坐标 (子弹图片左上角) 对靶子形状进行碰撞检测. 因为 `hitTestPoint()` 是点对形状的碰撞检测, 哪个 (或哪些) 点需要检测是要考虑的关键.
+这样通过子弹 x 和 y 坐标（子弹图片左上角）对靶子形状进行碰撞检测。因为 `hitTestPoint()` 是检查点与形状的碰撞，检查哪个点（或哪些点！）是一个关键的考虑因素。
 
 ## Defold—碰撞对象
 
@@ -242,52 +242,52 @@ Flash 里, 需要脚本调用才会进行碰撞检测. Defold 里, 只要碰撞�
 
 Defold 的碰撞检测比 Flash 的要高级, 毫不费力就能检测复杂形状间的碰撞. 碰撞检测是自动的, 也就是说不需要手动遍历各个对象然后挨个进行碰撞检测. 但是没有 Flash 的 shapeFlag. 但是对于复杂图形可以使用简单图形组合达成. 更复杂的需求下, 还可以使用 [自定义图形](//forum.defold.com/t/does-defold-support-only-three-shapes-for-collision-solved/1985).
 
-## Flash—事件监听
+## Flash—事件处理
 
-事件对象及其监听器用来检测各种事件 (比如说 鼠标点击, 按钮按下, 剪辑加载) 并在反馈里处理行为. 包括许许多多的事件.
+事件对象及其关联的监听器用于检测各种事件（例如鼠标点击、按钮按下、剪辑加载）并触发相应的操作。有许多类型的事件可以使用。
 
-## Defold—回调函数和消息
+## Defold—回调函数和消息传递
 
-Defold 跟 Flash 比有几个地方差不多. 首先, 每个脚本组件都包含一组特定事件的回调函数. 具体有:
+Defold 中与 Flash 事件处理系统等价的几个方面包括：首先，每个脚本组件都附带一组检测特定事件的回调函数。这些函数包括：
 
 init
-:   脚本组件初始化时调用. 相当于 Flash 的构造函数.
+:   脚本组件初始化时调用。相当于 Flash 中的构造函数。
 
 final
-:   脚本组件析构时调用 (比如游戏对象被删除时).
+:   脚本组件被销毁时调用（例如，生成的游戏对象被移除）。
 
 update
-:   在每一帧调用. 相当于 Flash 的 `enterFrame`.
+:   每帧调用。相当于 Flash 中的 `enterFrame`。
 
 on_message
-:   当脚本组件收到消息时调用.
+:   脚本组件收到消息时调用。
 
 on_input
-:   当用户输入 (比如鼠标或键盘) 发送到得到 [输入焦点](/ref/go/#acquire_input_focus) 的游戏对象上时调用, 得到输入焦点的游戏对象会接收并反馈所有输入.
+:   当用户输入（例如鼠标或键盘）发送到具有 [输入焦点](/ref/go/#acquire_input_focus) 的游戏对象时调用，这意味着该对象接收所有输入并可以对其做出反应。
 
 on_reload
-:   脚本组件重载时调用.
+:   脚本组件重新加载时调用。
 
-这些都是可选回调函数如果不需要可以删除. 关于如何接收输入, 详情请见 [输入教程](/manuals/input). 有一个关于集合代理易用错的地方 - 详情请见输入教程的 [这一章](/manuals/input/#输入调度和 on_input() 函数).
+上面列出的回调函数都是可选的，如果不使用可以删除。有关如何设置输入的详细信息，请参阅 [输入手册](/manuals/input)。使用集合代理时会出现一个常见的陷阱 - 请参阅输入手册的 [此部分](/manuals/input/#输入调度和 on_input) 获取更多信息。
 
-就像碰撞检测部分说的那样, 碰撞事件被发送到相关游戏对象上进行处理. 各个脚本组件的 on_message 回调函数会被调用.
+正如碰撞检测部分所讨论的，碰撞事件通过向涉及的游戏对象发送消息来处理。它们各自的脚本组件在其 on_message 回调函数中接收消息。
 
-## Flash—按钮剪辑
+## Flash—按钮符号
 
-Flash 为按钮使用了一种特殊剪辑. 按钮监听到用户交互时使用特殊的事件处理方法 (比如 `click` 和 `buttonDown`) 来运行指定行为. 按钮 "Hit" 部分的图形决定了按钮的可点击区域.
+Flash 使用专门的符号类型用于按钮。按钮使用特定的事件处理方法（例如 `click` 和 `buttonDown`）在检测到用户交互时执行操作。按钮符号的 "Hit" 部分中的图形形状决定了按钮的点击区域。
 
 ![button](images/flash/button.png)
 
 ## Defold—GUI场景和脚本
 
-Defold 没有内置按钮组件, 也不像 Flash 那样使用游戏对象的图形进行方便的点击检测. 使用 [GUI](/manuals/gui) 组件是一个通用方案, 部分因为 Defold GUI 组件的位置不受游戏中摄像机 (如果有使用). GUI API 还包含在 GUI 组件的范围内检测用户输入例如点击和触摸事件的功能.
+Defold 不包括原生按钮组件，也不能像 Flash 中处理按钮那样轻松检测给定游戏对象形状的点击。使用 [GUI](/manuals/gui) 组件是最常见的解决方案，部分原因是 Defold GUI 组件的位置不受游戏内摄像机（如果使用的话）的影响。GUI API 还包含检测用户输入（如点击和触摸事件）是否在 GUI 元素边界内的功能。
 
 ## 调试
 
 在 Flash 里, 用 `trace()` 命令帮助调试. 在 Defold 里相应的是 `print()`, 跟使用 `trace()` 方法一样:
 
 ```lua
-print("Hello world!"")
+print("Hello world!")
 ```
 
 可以调用一次 `print()` 函数输出多个变量:
@@ -344,12 +344,12 @@ msg.post("@system:", "toggle_physics_debug")
 
 最后, 关于检测 CPU 和内存使用情况详情请见 [性能分析教程](/ref/profiler/). 更高级的调试技术, 详情请见 Defold 手册的 [调试部分](/manuals/debugging).
 
-## 更多参考
+## 从这里开始
 
-- [Defold examples](/examples)
-- [Tutorials](/tutorials)
-- [Manuals](/manuals)
-- [Reference](/ref)
-- [FAQ](/faq)
+- [Defold 示例](/examples)
+- [教程](/tutorials)
+- [手册](/manuals)
+- [参考](/ref/go)
+- [常见问题](/faq/faq)
 
-如果你有疑问, [Defold 论坛](//forum.defold.com) 是一个获取帮助的好地方.
+如果你有问题或遇到困难，[Defold 论坛](//forum.defold.com) 是寻求帮助的好地方。

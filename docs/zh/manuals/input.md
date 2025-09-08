@@ -1,120 +1,120 @@
 ---
-title: Defold 的设备输入操作
-brief: 本教程介绍了输入系统如何工作, 如何捕获输入行为和相关脚本代码.
+title: 设备输入在Defold中
+brief: 本手册解释了输入如何工作，如何捕获输入操作并创建交互式脚本反应。
 ---
 
 # 输入
 
-输入由引擎捕获并转化为输入行为传送到获取了输入焦点并且实现了 `on_input()` 函数的游戏对象脚本组件中去. 本教程介绍了捕获输入绑定行为的方法以及如何用代码对输入做出响应.
+所有用户输入都由引擎捕获，并作为操作分派给已获取输入焦点并实现了`on_input()`函数的游戏对象中的脚本和GUI脚本组件。本手册解释了如何设置绑定以捕获输入，以及如何创建响应输入的代码。
 
-输入系统包含一些概念, 用以让开发者直观地处理游戏逻辑.
+输入系统使用一组简单而强大的概念，允许您按照适合游戏的方式管理输入。
 
 ![Input bindings](images/input/overview.png)
 
-Devices
-: 不管是插上的, 连上的, 有线无线的, 操作系统级别的底层能够进行输入的设备. Defold 支持以下设备:
+设备
+: 输入设备是计算机或移动设备的一部分或插入其中的设备，为Defold运行时提供原始系统级输入。支持以下设备类型：
 
   1. 键盘 (包括按键输入和文本输入)
   2. 鼠标 (位置, 按键, 滚轮输入)
   3. 单点/多点触摸屏 (iOS, Android 设备和 HTML5 手机端)
   4. 游戏手柄 (操作系统负责将其输入发送给游戏然后映射给脚本. 详见 [游戏手柄配置文件](#gamepads-settings-file))
 
-Input bindings
-: 发送给脚本之前设备原始输入信号要通过映射表转化为有意义的 *动作* 指令.
+输入绑定
+: 在输入发送到脚本之前，来自设备的原始输入通过输入绑定表转换为有意义的*操作*。
 
-Actions
-: 动作是列在输入绑定文件里的 (哈希过的) 名字. 每种动作还包括其相关数据: 比如按钮是被按下还是抬起, 鼠标或触摸屏幕坐标等等.
+操作
+: 操作通过您在输入绑定文件中列出的（哈希）名称来标识。每个操作还包含有关输入的相关数据：按钮是按下还是释放，鼠标和触摸的坐标等。
 
-Input listeners
-: 脚本可以得到 *获取了输入焦点的* 组件的输入消息. 一个输入信息可以同时激活多个输入监听器.
+输入监听器
+: 任何脚本组件或GUI脚本都可以通过*获取输入焦点*来接收输入操作。可以同时激活多个监听器。
 
-Input stack
-: 首个获取输入焦点的组件位于最下端, 最后一个获取输入焦点的组件位于最上端的输入监听器堆栈.
+输入栈
+: 输入监听器列表，第一个获取焦点的组件在栈底，最后一个获取焦点的组件在栈顶。
 
-Consuming input
-: 脚本消耗了输入信息, 不再让输入栈的深层监听器得到这个信息.
+消耗输入
+: 脚本可以选择消耗接收到的输入，阻止栈中更下方的监听器接收它。
 
-## 输入绑定设置
+## 设置输入绑定
 
-输入绑定是整个项目通用的, 记录如何把设备输入映射为带名字的 *动作* 以方便脚本使用的列表. 新建输入绑定文件, 在 *Assets* 视图中 <kbd>右键点击</kbd> 选择 <kbd>New... ▸ Input Binding</kbd>. 然后修改 *game.project* 里 *Game Binding* 项对输入绑定文件的引用.
+输入绑定是项目范围的表，允许您指定设备输入在分派到脚本组件和GUI脚本之前如何转换为命名的*操作*。您可以创建一个新的输入绑定文件，在*Assets*视图中<kbd>右键点击</kbd>一个位置并选择<kbd>New... ▸ Input Binding</kbd>。要使引擎使用新文件，请更改*game.project*中的*Game Binding*条目。
 
 ![Input binding setting](images/input/setting.png)
 
-每个新建项目都会自动生成默认输入绑定文件. 默认叫做 "game.input_binding", 位于项目根目录下 "input" 文件夹内. <kbd>双击</kbd> 即可在编辑器中打开此文件:
+所有新项目模板都会自动创建一个默认的输入绑定文件，因此通常不需要创建新的绑定文件。默认文件名为"game.input_binding"，可以在项目根目录的"input"文件夹中找到。<kbd>双击</kbd>该文件在编辑器中打开：
 
 ![Input set bindings](images/input/input_binding.png)
 
-点击相关触发类型底部的 <kbd>+</kbd> 按钮, 即可新建一个绑定项. 每一项有两个部分:
+要创建新绑定，点击相关触发类型部分底部的<kbd>+</kbd>按钮。每个条目有两个字段：
 
-*Input*
-: 需要监听的底层输入信号, 从滚动列表里选择.
+*输入*
+: 要监听的原始输入，从可用输入的滚动列表中选择。
 
-*Action*
-: 输入对应的用于发送给脚本的动作名. 一个动作可以对应多个输入. 例如, 可以设置按下 <kbd>空格</kbd> 键和游戏手柄 "A" 按钮都是 `jump` 动作. 可是触屏输入的动作名必须是唯一值.
+*操作*
+: 给输入操作指定的名称，当它们被创建并分派到您的脚本时使用。可以将相同的操作名称分配给多个输入。例如，您可以将<kbd>空格</kbd>键和游戏手柄"A"按钮绑定到操作`jump`。请注意，存在一个已知错误，即触摸输入不幸不能与其他输入具有相同的操作名称。
 
 ## 触发器类型
 
-触发器有五种类型:
+您可以创建五种设备特定的触发器类型：
 
-Key Triggers
-: 键盘单键输入. 每个键分别映射为指定的动作. 一一对应. 详情请见 [键盘按键输入教程](/manuals/input-key-and-text).
+键触发器
+: 单键键盘输入。每个键分别映射到相应的操作。在[键和文本输入手册](/manuals/input-key-and-text)中了解更多。
 
-Text Triggers
-: 文本触发器用来读取输入的文字. 详情请见 [键盘按键输入教程](/manuals/input-key-and-text).
+文本触发器
+: 文本触发器用于读取任意文本输入。在[键和文本输入手册](/manuals/input-key-and-text)中了解更多。
 
-Mouse Triggers
-: 来自鼠标按键和滚轮的输入. 详情请见 [鼠标和触摸输入教程](/manuals/input-mouse-and-touch).
+鼠标触发器
+: 来自鼠标按钮和滚轮的输入。在[鼠标和触摸输入手册](/manuals/input-mouse-and-touch)中了解更多。
 
-Touch Triggers
-: iOS 和 Android 设备上运行的原生应用与HTML5应用都支持单点和多点触摸输入. 详情请见 [鼠标和触摸输入教程](/manuals/input-mouse-and-touch).
+触摸触发器
+: 单点和多点触摸类型触发器在iOS和Android设备上的原生应用程序和HTML5包中可用。在[鼠标和触摸手册](/manuals/input-mouse-and-touch)中了解更多。
 
-Gamepad Triggers
-: 这种触发器可以绑定标准手柄输入到游戏功能的映射. 详情请见 [游戏手柄输入教程](/manuals/input-gamepads).
+游戏手柄触发器
+: 游戏手柄触发器允许您将标准游戏手柄输入绑定到游戏功能。在[游戏手柄手册](/manuals/input-gamepads)中了解更多。
 
 ### 加速度计输入
 
-除了上述五种输入触发器, Defold 还支持 Android 和 iOS 原生系统加速度计输入. 需要勾选 *game.project* 配置文件中输入部分里的 Use Accelerometer.
+除了上面列出的五种不同触发器类型外，Defold还在原生Android和iOS应用程序中支持加速度计输入。在*game.project*文件的Input部分中勾选Use Accelerometer框。
 
 ```lua
 function on_input(self, action_id, action)
     if action.acc_x and action.acc_y and action.acc_z then
-        -- 读取加速度计数据
+        -- 对加速度计数据做出反应
     end
 end
 ```
 
 ## 输入焦点
 
-脚本要想获得输入消息, 就要把 `acquire_input_focus` 消息发给其所在的游戏对象:
+要在脚本组件或GUI脚本中监听输入操作，应将`acquire_input_focus`消息发送到持有该组件的游戏对象：
 
 ```lua
--- 告诉当前游戏对象 (".") 要接收输入消息了
+-- 告诉当前游戏对象（"."）获取输入焦点
 msg.post(".", "acquire_input_focus")
 ```
 
-此消息让引擎把可接收输入的游戏对象组件 (脚本, GUI 和集合代理) 压入 *输入栈*. 这些组件位于栈顶; 最后入栈的组件位于栈顶. 注意如果一个游戏对象包含多个输入组件, 所有组件都会入栈:
+此消息指示引擎将游戏对象中具有输入功能的组件（脚本组件、GUI组件和集合代理）添加到*输入栈*中。游戏对象组件被放在输入栈的顶部；最后添加的组件将位于栈顶。请注意，如果游戏对象包含多个具有输入功能的组件，所有组件都将被添加到栈中：
 
 ![Input stack](images/input/input_stack.png)
 
-如果已获得输入焦点的游戏对象再次请求输入焦点, 那么其组件会被移至输入栈顶端.
+如果已经获取输入焦点的游戏对象再次这样做，其组件将被移动到栈顶。
 
 
-## 输入调度和 on_input() 函数
+## 输入分派和 on_input()
 
-输入事件在输入栈上, 从上到下传递.
+输入操作根据输入栈进行分派，从顶部到底部。
 
 ![Action dispatch](images/input/actions.png)
 
-每个入栈组件都有 `on_input()` 函数, 一帧中每个输入都调用一次该函数, 连同如下参数:
+栈上任何包含`on_input()`函数的组件都将调用该函数，在帧期间每个输入操作调用一次，并带有以下参数：
 
 `self`
-: 当前脚本实例引用.
+: 当前脚本实例。
 
 `action_id`
-: 动作名哈希串, 与输入映射配置的名称一致.
+: 操作的哈希名称，如在输入绑定中设置的那样。
 
 `action`
-: 有关动作的表, 包含比如输入值, 位置和移动距离, 按键是不是 `按下` 状态等等. 详情请见 [on_input() 函数](/ref/go#on_input).
+: 包含有关操作的有用数据的表，如输入的值、其位置（绝对和增量位置）、按钮输入是否`按下`等。有关可用操作字段的详细信息，请参阅[on_input()](/ref/go#on_input)。
 
 ```lua
 function on_input(self, action_id, action)
@@ -133,49 +133,49 @@ end
 ```
 
 
-### 输入焦点与集合代理组件
+### 输入焦点和集合代理组件
 
-由集合代理动态载入的游戏世界都有自己的输入栈. 为了让被载入的游戏世界获得输入信息, 集合代理组件必须位于主游戏世界的输入栈里. 被加载的游戏世界优先于主游戏世界获得输入信息:
+每个通过集合代理动态加载的游戏世界都有自己的输入栈。为了使操作分派到达加载世界的输入栈，代理组件必须位于主世界的输入栈上。加载世界栈上的所有组件都在分派继续向下主栈之前被处理：
 
 ![Action dispatch to proxies](images/input/proxy.png)
 
-::: sidenote
-开发者经常会忘记发送 `acquire_input_focus` 来使集合代理所在的游戏对象获得输入焦点. 不这么做的话此集合代理加载的所有游戏世界都无法获得输入消息.
+::: important
+忘记发送`acquire_input_focus`给持有集合代理组件的游戏对象是一个常见错误。跳过这一步将阻止输入到达加载世界输入栈上的任何组件。
 :::
 
 
-### 释放输入焦点
+### 释放输入
 
-要取消动作监听, 发送 `release_input_focus` 消息给游戏对象即可. 这样该游戏对象的所有组件都会从输入栈中移除:
+要停止监听输入操作，请将`release_input_focus`消息发送到游戏对象。此消息将从输入栈中移除游戏对象的任何组件：
 
 ```lua
--- 告诉当前游戏对象 (".") 释放输入焦点.
+-- 告诉当前游戏对象（"."）释放输入焦点。
 msg.post(".", "release_input_focus")
 ```
 
 
-## 输入传播
+## 消耗输入
 
-每个 `on_input()` 函数都能决定当前动作是否要阻止其继续传播下去:
+组件的`on_input()`可以主动控制操作是否应该进一步传递到栈的下方：
 
-- 如果 `on_input()` 返回 `false`, 或者未返回值 (此时默认返回 `nil` 也被看作是false) 输入动作会继续传播.
-- 如果 `on_input()` 返回 `true` 输入就此销毁. 再无组件可以接收到这个消息. 作用于 *全部* 输入栈. 也就是说集合代理加载的组件销毁输入那么主栈的组件就收不到这个输入消息了:
+- 如果`on_input()`返回`false`，或者省略返回值（这暗示了一个`nil`返回，在Lua中是假值），输入操作将被传递到输入栈上的下一个组件。
+- 如果`on_input()`返回`true`，输入被消耗。输入栈中更下方的任何组件都不会接收到输入。请注意，这适用于*所有*输入栈。代理加载世界栈上的组件可以消耗输入，阻止主栈上的组件接收输入：
 
 ![consuming input](images/input/consuming.png)
 
-输入消耗可以使游戏变得灵活, 控制性更强. 例如, 如果需要弹出菜单暂时只有部分界面可以接受点击:
+有许多很好的用例，其中输入消耗提供了一种简单而强大的方式，在游戏的不同部分之间转移输入。例如，如果您需要一个弹出菜单，暂时是游戏中唯一监听输入的部分：
 
 ![consuming input](images/input/game.png)
 
-菜单开始是隐藏的 (disabled) 玩家点击 "PAUSE" 组件, 菜单被激活:
+暂停菜单最初是隐藏的（禁用的），当玩家触摸"PAUSE" HUD项时，它被启用：
 
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("mouse_press") and action.pressed then
-        -- 玩家点击了 PAUSE?
+        -- 玩家按下了PAUSE吗？
         local pausenode = gui.get_node("pause")
         if gui.pick_node(pausenode, action.x, action.y) then
-            -- 弹出暂停菜单.
+            -- 告诉暂停菜单接管。
             msg.post("pause_menu", "show")
         end
     end
@@ -184,16 +184,16 @@ end
 
 ![pause menu](images/input/game_paused.png)
 
-此时弹出的暂停菜单获得输入焦点并且消耗输入, 以防止点击穿透:
+暂停菜单GUI获取输入焦点并消耗输入，防止除弹出菜单相关之外的任何输入：
 
 ```lua
 function on_message(self, message_id, message, sender)
   if message_id == hash("show") then
-    -- 显示暂停菜单.
+    -- 显示暂停菜单。
     local node = gui.get_node("pause_menu")
     gui.set_enabled(node, true)
 
-    -- 获得输入焦点.
+    -- 获取输入。
     msg.post(".", "acquire_input_focus")
   end
 end
@@ -201,7 +201,7 @@ end
 function on_input(self, action_id, action)
   if action_id == hash("mouse_press") and action.pressed then
 
-    -- 这里做其他游戏逻辑...
+    -- 做一些事情...
 
     local resumenode = gui.get_node("resume")
     if gui.pick_node(resumenode, action.x, action.y) then
@@ -209,13 +209,13 @@ function on_input(self, action_id, action)
         local node = gui.get_node("pause_menu")
         gui.set_enabled(node, false)
 
-        -- 释放输入焦点.
+        -- 释放输入。
         msg.post(".", "release_input_focus")
     end
   end
 
-  -- 消耗掉输入. 输入栈里其他组件
-  -- 不会得到输入, 直到脚本释放输入焦点.
+  -- 消耗所有输入。输入栈中位于我们下方的任何内容
+  -- 在我们释放输入焦点之前都不会看到输入。
   return true
 end
 ```

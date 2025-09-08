@@ -1,11 +1,11 @@
 ---
 title: Socket 连接
-brief: 本教程介绍了建立 socket 连接的方法.
+brief: 本手册介绍了如何创建 socket 连接。
 ---
 
 ## Socket 连接
 
-Defold 包含 [LuaSocket 库](https://lunarmodules.github.io/luasocket/) 来建立 TCP 和 UDP socket 连接. 比如说, 上传和读取数据的例子:
+Defold 包含 [LuaSocket 库](https://lunarmodules.github.io/luasocket/) 用于创建 TCP 和 UDP socket 连接。以下是如何创建 socket 连接、发送一些数据并读取响应的示例：
 
 ```Lua
 local client = socket.tcp()
@@ -15,8 +15,8 @@ client:send("foobar")
 local response = client:receive("*l")
 ```
 
-这样就建立了一个 TCP socket 并连接到 IP 127.0.0.1 (localhost) 的 8123 端口. 超时为 0 确保 socket 不会卡住程序, 然后上传 "foobar" 信息数据. 然后再读取一行服务器的回复 (读取字节直到换行符). 注意本例没有考虑错误处理.
+这将创建一个 TCP socket，将其连接到 IP 127.0.0.1（本地主机）和端口 8123。它将超时设置为 0 以使 socket 变为非阻塞模式，并通过 socket 发送字符串 "foobar"。它还将从 socket 读取一行数据（以换行符结尾的字节）。请注意，上面的示例不包含任何错误处理。
 
-### API 文档与示例
+### API 参考和示例
 
-请参考 [API 文档](/ref/socket/) 了解 LuaSocket 功能. 在 [官方 LuaSocket 教程](https://lunarmodules.github.io/luasocket/) 中也含有库的许多用例. 在 [DefNet 库](https://github.com/britzl/defnet/) 里也有许多示例和帮助信息.
+请参考 [API 参考](/ref/socket/) 以了解有关 LuaSocket 可用功能的更多信息。[官方 LuaSocket 文档](https://lunarmodules.github.io/luasocket/) 也包含许多有关如何使用该库的示例。在 [DefNet 库](https://github.com/britzl/defnet/) 中也有一些示例和辅助模块。

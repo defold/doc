@@ -1,136 +1,155 @@
 ---
 title: 在 iOS/macOS 中调试
-brief: 本教程介绍了如何使用 Xcode 进行调试.
+brief: 本手册描述了如何使用 Xcode 调试构建版本。
 ---
 
 # 在 iOS/macOS 中调试
 
-这里我们介绍如何使用 [Xcode](https://developer.apple.com/Xcode/), Apple的 macOS 和 iOS 首选开发环境来调试应用.
+这里我们描述如何使用 [Xcode](https://developer.apple.com/xcode/)（Apple 的 macOS 和 iOS 首选 IDE）来调试构建版本。
 
 ## Xcode
 
-* 使用 bob, 加上 `--with-symbols` 选项打包应用 ([更多详情](/manuals/debugging-native-code/#symbolicate-a-callstack)):
+* 使用 bob，通过 `--with-symbols` 选项打包应用 ([更多信息](/manuals/debugging-native-code/#symbolicate-a-callstack))：
 
-		$ cd myproject
-		$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
-		$ java -jar bob.jar --platform armv7-darwin build --with-symbols --variant debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
+```sh
+$ cd myproject
+$ wget http://d.defold.com/archive/<sha1>/bob/bob.jar
+$ java -jar bob.jar --platform armv7-darwin build --with-symbols --variant debug --archive bundle -bo build/ios -mp <app>.mobileprovision --identity "iPhone Developer: Your Name (ID)"
+```
 
-* 安装应用, 可以通过 `Xcode`, `iTunes` 或者 [ios-deploy](https://github.com/ios-control/ios-deploy)
+* 安装应用，可以通过 `Xcode`、`iTunes` 或 [ios-deploy](https://github.com/ios-control/ios-deploy)
 
-		$ ios-deploy -b <AppName>.ipa
+```sh
+$ ios-deploy -b <AppName>.ipa
+```
 
-* 得到 `.dSYM` 文件夹 (即调试 symbols)
+* 获取 `.dSYM` 文件夹（即调试符号）
 
-	* 如果没使用原生扩展, 可以从 [d.defold.com](http://d.defold.com) 下载 `.dSYM` 文件
+	* 如果没有使用原生扩展，可以从 [d.defold.com](http://d.defold.com) 下载 `.dSYM` 文件
 
-	* 如果使用了原生扩展, 可以使用 [bob.jar](https://www.defold.com/manuals/bob/) 生成 `.dSYM` 文件夹. 只需要 building (不需要 archive 和 bundling):
+	* 如果您正在使用原生扩展，那么在使用 [bob.jar](https://www.defold.com/manuals/bob/) 构建时会生成 `.dSYM` 文件夹。只需要构建（不需要打包或捆绑）：
 
-			$ cd myproject
-			$ unzip .internal/cache/arm64-ios/build.zip
-			$ mv dmengine.dSYM <AppName>.dSYM
-			$ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Resources/DWARF/<AppName>
+```sh
+$ cd myproject
+$ unzip .internal/cache/arm64-ios/build.zip
+$ mv dmengine.dSYM <AppName>.dSYM
+$ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Resources/DWARF/<AppName>
+```
 
 
 ### 创建项目
 
-要正确的调试, 我们需要一个项目, 以及一个代码映射（source map）.
-这次项目不是用来编译的, 只是调试举例.
+要正确调试，我们需要有一个项目和映射的源代码。
+我们不是使用这个项目来构建东西，只是用于调试。
 
-*新建 Xcode 项目, 选择 `Game` 模板
+* 创建新的 Xcode 项目，选择 `Game` 模板
 
 	![project_template](images/extensions/debugging/ios/project_template.png)
 
-* 指定一个名字 (例如 `debug`) 并且使用默认设置
+* 选择一个名称（例如 `debug`）和默认设置
 
-* 选择一个存放项目的目录
+* 选择一个文件夹来保存项目
 
-* 为应用加入代码文件
+* 将您的代码添加到应用中
 
 	![add_files](images/extensions/debugging/ios/add_files.png)
 
-* 确保 "Copy items if needed" 未选中.
+* 确保 "Copy items if needed" 未被选中。
 
 	![add_source](images/extensions/debugging/ios/add_source.png)
 
-* 结果是这样
+* 这是最终结果
 
 	![added_source](images/extensions/debugging/ios/added_source.png)
 
 
-* 关闭 `Build` 步骤
+* 禁用 `Build` 步骤
 
 	![edit_scheme](images/extensions/debugging/ios/edit_scheme.png)
 
 	![disable_build](images/extensions/debugging/ios/disable_build.png)
 
-* 设置 `Deployment target` 版本
+* 设置 `Deployment target` 版本，使其大于您设备的 iOS 版本
 
 	![deployment_version](images/extensions/debugging/ios/deployment_version.png)
 
-* 设置目标设备
+* 选择目标设备
 
 	![select_device](images/extensions/debugging/ios/select_device.png)
 
 
 ### 启动调试器
 
-调试应用有如下方法
+您有几种选项来调试应用
 
-1. 可以使用 `Debug` -> `Attach to process...` 然后选择要调试应用
+1. 选择 `Debug` -> `Attach to process...` 并从那里选择应用
 
-1. 也可以选择 `Attach to process by PID or Process name`
+2. 或者选择 `Attach to process by PID or Process name`
 
 	![select_device](images/extensions/debugging/ios/attach_to_process_name.png)
 
-1. 从设备上启动应用
+3. 在设备上启动应用
 
-1. 在 `Edit Scheme` 中加入 <AppName>.app 作为可运行文件夹
+4. 在 `Edit Scheme` 中将 <AppName>.app 文件夹添加为可执行文件
 
-### 调试 symbols
+### 调试符号
 
-**要使用 lldb, 运行必须先暂停**
+**要使用 lldb，执行必须暂停**
 
-* 把 `.dSYM` 目录加入到 lldb 中
+* 将 `.dSYM` 路径添加到 lldb
 
-		(lldb) add-dsym <PathTo.dSYM>
+```
+(lldb) add-dsym <PathTo.dSYM>
+```
 
 	![add_dsym](images/extensions/debugging/ios/add_dsym.png)
 
-* 确认 `lldb` 成功读取 symbols
+* 验证 `lldb` 是否成功读取了符号
 
-		(lldb) image list <AppName>
+```
+(lldb) image list <AppName>
+```
 
 ### 路径映射
 
-* 加入引擎路径 (根据你的安装目录自行调整)
+* 添加引擎源代码（根据您的需求进行相应更改）
 
-		(lldb) settings set target.source-map /Users/builder/ci/builds/engine-ios-64-master/build /Users/mathiaswesterdahl/work/defold
-		(lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
+```
+(lldb) settings set target.source-map /Users/builder/ci/builds/engine-ios-64-master/build /Users/mathiaswesterdahl/work/defold
+(lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
+```
 
-	* 从可运行文件夹里可以得到 job 文件夹.
-	job 文件夹命名类似这样 `job1298751322870374150`, 每次都是随机数字.
+* 可以从可执行文件获取作业文件夹。作业文件夹命名为 `job1298751322870374150`，每次都有随机数。
 
-			$ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
+```sh
+$ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
+```
 
-* 验证路径映射
+* 验证源代码映射
 
-		(lldb) settings show target.source-map
+```
+(lldb) settings show target.source-map
+```
 
-可以使用如下命令确定 symbol 的源代码文件
+您可以使用以下命令检查符号源自哪个源文件
 
-	(lldb) image lookup -va <SymbolName>
+```
+(lldb) image lookup -va <SymbolName>
+```
 
 
 ### 断点
 
-* 从 project 视图打开一个文件, 然后设置断点
+* 在项目视图中打开一个文件，并设置断点
 
 	![breakpoint](images/extensions/debugging/ios/breakpoint.png)
 
-## 注意
+## 注意事项
 
-### 检查二进制文件 UUID
+### 检查二进制文件的 UUID
 
-为了让调试器接受 `.dSYM` 文件夹, UUID 需要与可运行文件的 UUID 相匹配. 你可以这样检查 UUID:
+为了让调试器接受 `.dSYM` 文件夹，UUID 需要与正在调试的可执行文件的 UUID 匹配。您可以像这样检查 UUID：
 
-	$ dwarfdump -u <PathToBinary>
+```sh
+$ dwarfdump -u <PathToBinary>
+```

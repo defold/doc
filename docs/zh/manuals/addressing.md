@@ -1,15 +1,15 @@
 ---
-title: Defold 定位
-brief: 本教程解释了 Defold 如何实现地址定位功能.
+title: Defold 中的寻址
+brief: 本手册解释了 Defold 如何解决寻址问题.
 ---
 
-# 定位
+# 寻址
 
-为了让代码能够控制每个对象和组件的移动, 缩放, 播放动画或者添加删除各种视听元素, Defold 提供了地址定位机制.
+控制运行游戏的代码必须能够访问每个对象和组件，以便移动、缩放、制作动画、删除和操作玩家看到和听到的内容。Defold的寻址机制使这成为可能。
 
-## 标志
+## 标识符
 
-Defold 使用地址 (称为 URL, 暂且不表) 来引用游戏对象和组件. 地址里包含各种标志. 下面列举了 Defold 使用地址的例子. 本教程将详述地址的用法:
+Defold使用地址（或URL，但我们暂时忽略这一点）来引用游戏对象和组件。这些地址由标识符组成。以下是Defold如何使用地址的所有示例。在本手册中，我们将详细研究它们的工作原理：
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -33,21 +33,21 @@ function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-1. 不知道 '#' 是什么意思没关系, 一会儿就谈到.
+<1> 如果你对'#'字符感到困惑，不用担心，我们很快会讲到它。
 
-就像设计的那样, 游戏一开始脚本组件 *定位* 到了sprite组件 "body" 对其地址发出了一个  "disable" 的 *消息* . 这个消息的结果就是把sprite隐藏了. 也就是说, 整个流程是这样的:
+这将按预期工作。当游戏启动时，脚本组件通过其标识符"body"*寻址*到精灵组件，并使用该地址向其发送一条带有"disable"的*消息*。这个特殊引擎消息的效果是精灵组件隐藏精灵图形。从示意图上看，设置如下：
 
 ![bean](images/addressing/bean.png)
 
-id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprite组件叫做 "body", 控制这个对象的脚本组件叫做 "controller".
+设置中的标识符是任意的。在这里，我们选择给游戏对象命名为"bean"，其精灵组件命名为"body"，而控制角色的脚本组件命名为"controller"。
 
 ::: sidenote
-如果你不手动命名, 编辑器会自动设置一个命名. 每当新建一个游戏对象或组件, 系统会将唯一 *Id* 赋值给它.
+如果你不选择名称，编辑器会为你选择。每当你在编辑器中创建新的游戏对象或组件时，会自动设置一个唯一的*Id*属性。
 
-- 游戏对象就是go后面跟一个数字 ("go2", "go3" 以此类推).
-- 组件就是组件名后面跟一个数字 ("sprite", "sprite2" 以此类推).
+- 游戏对象自动获得一个名为"go"的id，后面跟着枚举器（"go2"、"go3"等）。
+- 组件获得一个对应于组件类型的id（"sprite"、"sprite2"等）。
 
-自动命名虽然能用, 但是我们鼓励你自己将命名设计的更好, 更有意义.
+自动命名虽然能用，但是我们鼓励你自己将命名设计的更好，更有意义。
 :::
 
 现在, 再增加一个sprite来给豆子先生添加一个盾牌:
@@ -80,7 +80,7 @@ id可以随意设置. 当前我们对游戏对象设置了一个id "bean", sprit
 
 回过头来看上个例子我们没有指定对象的id, 系统默认对象就是脚本所在的 *当前游戏对象*.
 
-比如, `"#body"` 就是在当前游戏对象里找 "body" 组件. 这就很方便因为脚本可以在 *任何* 游戏对象上运行, 只要它有 "body" 组件.
+在上述示例中，脚本组件使用相对地址"#body"来寻址精灵组件。该地址是相对的，因为它是从脚本组件所在位置开始解析的。地址中的"#"字符表示"当前游戏对象中的组件"。因此，整个地址"#body"应解释为"当前游戏对象中标识符为'body'的组件"。
 
 ## 集合
 
@@ -145,7 +145,7 @@ Defold 提供两种简化写法用来简化消息传递时需要输入的完整�
 
 然后每个豆子先生负责向管理器发送状态消息: "contact" 表明碰到了敌人, 或者 "ouch!" 表明受到了袭击. 为了这项工作, 豆子控制器脚本使用相对地址向 "manager" 里的 "controller" 组件发送消息.
 
-任何以 '/' 开头的地址都从游戏世界的根上进行索引. 这对应了游戏启动时载入的 *bootstrap collection* 的根.
+绝对地址是从游戏世界的根（即"集合"）开始解析的。绝对地址以"/"字符开头，表示"从根开始"。
 
 控制器脚本的绝对地址是`"/manager#controller"` 而且不管组件用在哪里该绝对地址总能定位到该组件.
 
@@ -153,9 +153,9 @@ Defold 提供两种简化写法用来简化消息传递时需要输入的完整�
 
 ![absolute addressing](images/addressing/absolute.png)
 
-## 哈希标记
+## 哈希ID
 
-引擎把每个 id 都存为哈希值. 所有以组件或游戏对象为参数的方法可以接受字符串, 哈希或者 URL 对象. 我们已经在上面看到如何使用字符串进行定位了.
+Defold引擎将每个标识符转换为64位哈希值，用于内部寻址。这比使用字符串更节省内存和CPU。然而，有时你需要手动计算哈希值，例如在将游戏状态保存到文件时。所有以组件或游戏对象为参数的方法可以接受字符串, 哈希或者 URL 对象. 我们已经在上面看到如何使用字符串进行定位了.
 
 当你获取游戏对象的 id , 引擎总是返回一个绝对路径 id 的哈希值:
 
@@ -186,13 +186,20 @@ local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```
 
-## URLs
+## URL格式
 
-最后我们来看 Defold 定位的完全体: URL.
+Defold中的URL遵循以下格式：
 
-URL 是一个对象, 通常用特定格式的字符串表示. 一般一个 URL 包含三个部分:
+```
+[socket:][path][#fragment]
+```
 
-`[socket:][path][#fragment]`
+其中：
+- `socket` - 用于网络通信（可选）
+- `path` - 游戏对象和集合的路径
+- `fragment` - 组件的标识符（以"#"开头）
+
+URL是一个对象，通常用特定格式的字符串表示。一般一个URL包含三个部分：
 
 socket
 : 代表目标的游戏世界. 使用 [集合代理](/manuals/collection-proxy) 时, 它用来表示 _动态加载的集合_.
@@ -243,4 +250,75 @@ my_url.fragment = "controller" -- specify as string or hash
 
 -- Post to target specified by URL
 msg.post(my_url, "hello_manager!")
+
+```
+
+### URL示例
+
+| URL | 描述 |
+|-----|------|
+| `"#"` | 当前游戏对象 |
+| `"#body"` | 当前游戏对象中标识符为"body"的组件 |
+| `"/level1/main/bean#body"` | "level1"集合中"main"集合里"bean"游戏对象的"body"组件 |
+| `"main:/bean#body"` | 在"main"socket中，"bean"游戏对象的"body"组件 |
+
+### URL对象
+
+你可以使用`msg.url()`函数创建URL对象：
+
+```lua
+local my_url = msg.url("#body")
+```
+
+这将返回一个URL对象，可以用于寻址或存储。URL对象也可以从字符串、哈希值或其他URL对象构造：
+
+```lua
+local my_url1 = msg.url("#body") -- 从字符串构造
+local my_url2 = msg.url(my_url1) -- 从另一个URL对象构造
+local my_url3 = msg.url(nil, "/level1/main/bean", hash("body")) -- 从路径和哈希值构造
+```
+
+### 发送消息
+
+你可以使用`msg.post()`函数向URL发送消息：
+
+```lua
+msg.post("#body", "disable")
+```
+
+这将向当前游戏对象中标识符为"body"的组件发送一条"disable"消息。你也可以使用URL对象：
+
+```lua
+local my_url = msg.url("#body")
+msg.post(my_url, "disable")
+```
+
+### URL字符串
+
+你可以使用`tostring()`函数将URL对象转换为字符串：
+
+```lua
+local my_url = msg.url("#body")
+print(tostring(my_url)) -- 输出: "#body"
+```
+
+### URL哈希
+
+你可以使用`msg.url()`函数将URL对象转换为哈希值：
+
+```lua
+local my_url = msg.url("#body")
+print(my_url) -- 输出: 哈希值
+```
+
+### URL比较
+
+你可以使用`==`运算符比较两个URL对象：
+
+```lua
+local my_url1 = msg.url("#body")
+local my_url2 = msg.url("#body")
+if my_url1 == my_url2 then
+    print("URLs are equal")
+end
 ```

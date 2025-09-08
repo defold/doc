@@ -1,11 +1,11 @@
 ---
 title: 原生扩展 - Defold SDK
-brief: 本教程介绍了创建原生扩展时如何使用 Defold SDK.
+brief: 本手册介绍了创建原生扩展时如何使用 Defold SDK.
 ---
 
 # Defold SDK
 
-Defold SDK 包含了应用运行的原生平台底层接口与高层Lua逻辑接口来实现原生扩展的功能.
+Defold SDK 包含了声明原生扩展所需的功能，以及与应用运行的原生平台底层接口和创建游戏逻辑的高层Lua层进行交互的功能.
 
 ## 用法
 
@@ -13,7 +13,7 @@ Defold SDK 包含了应用运行的原生平台底层接口与高层Lua逻辑接
 
     #include <dmsdk/sdk.h>
 
-可用的SDK功能都在 [API文档](/ref/dmExtension/) 里写明了. SDK包含以下命名空间和功能:
+可用的SDK功能和命名空间在我们的 [API参考文档](/ref/overview_cpp) 中有详细说明. Defold SDK头文件作为单独的 `defoldsdk_headers.zip` 压缩包包含在每个Defold [GitHub发布版本](https://github.com/defold/defold/releases)中. 你可以在你选择的编辑器中使用这些头文件进行代码补全.
 
 * [Align](/ref/dmAlign/) - 公共宏. 用来保证编译器兼容
 * [Array](/ref/dmArray/) - 具有边界检测的模板化数组.
@@ -44,6 +44,4 @@ Defold SDK 包含了应用运行的原生平台底层接口与高层Lua逻辑接
 * [Web Server](/ref/dmWebServer/) - 基于`dmHttpServer`的高级单线程web服务器.
 * [Shared Library](/ref/sharedlibrary/) - 共享库导入导出功能.
 * [Sony vector Math Library](../assets/Vector_Math_Library-Overview.pdf) - Sony 矢量计算库 主要为了3D图像和3D, 4D矢量运算, 矩阵运算和四元运算.
-
-如果需要 `dmsdk/sdk.h` 头文件请到 [Defold 官方 Github 库](https://github.com/defold/defold/blob/dev/engine/sdk/src/dmsdk/sdk.h) 查询, 这里有 [各种命名空间的头文件](https://github.com/defold/defold/tree/dev/engine/dlib/src/dmsdk/dlib).
 

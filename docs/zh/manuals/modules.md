@@ -1,19 +1,19 @@
 ---
 title: Defold 中的 Lua 模块
-brief: Lua 模块使你的项目更具结构化还可以创建可重用库代码. 本教程介绍了其在 Defold 中的用法.
+brief: Lua 模块允许您构建项目结构并创建可重用的库代码. 本手册介绍了如何在 Defold 中实现这一点.
 ---
 
 # Lua 模块
 
-Lua 模块使你的项目更具结构化还可以创建可重用库代码. 这是降低项目复杂度的好办法. Defold 可以使用 Lua 模块功能把脚本引入到其他脚本中去. 它可以封装函数 (和数据) 到专门的文件以便由游戏对象和 GUI 脚本重用.
+Lua 模块允许您构建项目结构并创建可重用的库代码. 通常来说，在项目中避免重复是一个好主意. Defold 允许您使用 Lua 的模块功能将脚本文件包含到其他脚本文件中. 这使您能够将功能（和数据）封装在外部脚本文件中，以便在游戏对象和 GUI 脚本文件中重用.
 
 ## 引入 Lua 文件
 
-Lua 代码保存在游戏项目中的 ".lua" 文件里, 可以由脚本和gui脚本引入. 创建Lua模块, 在 *Assets* 视图右键点击, 选择 <kbd>New... ▸ Lua Module</kbd>. 输入文件名点击 <kbd>Ok</kbd>:
+存储在项目结构中某处以".lua"为文件扩展名的 Lua 代码可以被引入到脚本和 GUI 脚本文件中. 要创建新的 Lua 模块文件，请在 *Assets* 视图中右键单击您想要创建它的文件夹，然后选择 <kbd>New... ▸ Lua Module</kbd>. 给文件一个唯一的名称并按 <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
-假设 "main/anim.lua" 有如下代码:
+假设以下代码被添加到文件"main/anim.lua"中：
 
 ```lua
 function direction_animation(direction, char)
@@ -31,16 +31,16 @@ function direction_animation(direction, char)
 end
 ```
 
-这样其他脚本就能引入这个文件使用其中的函数:
+然后任何脚本都可以引入这个文件并使用该函数：
 
 ```lua
 require "main.anim"
 
 function update(self, dt)
-    -- 更新位置, 设置方向之类的
+    -- 更新位置，设置方向等
     ...
 
-    -- 设置方向动画
+    -- 设置动画
     local anim = direction_animation(self.dir, "player")
     if anim ~= self.current_anim then
         sprite.play_flipbook("#sprite", anim)
@@ -49,15 +49,15 @@ function update(self, dt)
 end
 ```
 
-关键字 `require` 引入了模块. 先从 `package.loaded` 表中查找模块是否已被加载. 找到后, `require` 返回 `package.loaded[module_name]` 的值. 否则, 使用加载其加载并处理模块文件.
+函数 `require` 加载给定的模块. 它首先查看 `package.loaded` 表来确定模块是否已经加载. 如果已经加载，则 `require` 返回存储在 `package.loaded[module_name]` 中的值. 否则，它会通过加载器加载并评估文件.
 
-`require` 接文件名的语法有点特别. Lua 把文件名中的 '.' 替换为路径分隔符: 在 macOS 和 Linux 上是 '/' , 在 Windows 上是 '\\' .
+提供给 `require` 的文件名字符串的语法有点特殊. Lua 将文件名字符串中的 '.' 字符替换为路径分隔符：在 macOS 和 Linux 上是 '/'，在 Windows 上是 '\'。
 
-注意尽量不要像上例那样在全局范围保存数据和定义函数. 这样可能会造成命名冲突, 暴露模块数据或者增加模块调用者间的耦合.
+请注意，像我们上面那样使用全局作用域来存储状态和定义函数通常是一个坏主意. 您可能会遇到命名冲突，暴露模块的状态或在模块用户之间引入耦合.
 
 ## 模块
 
-Lua 使用 _模块_ 封装数据和函数. Lua 模块是用来保存函数和数据的普通表. 这个表被定义在本地而不是全局范围:
+为了封装数据和函数，Lua 使用 _模块_。Lua 模块是一个常规的 Lua 表，用于包含函数和数据。该表被声明为局部变量，以避免污染全局作用域：
 
 ```lua
 local M = {}
@@ -72,7 +72,7 @@ end
 return M
 ```
 
-这样就定义好了模块. 使用时也是, 最好把模块定义为本地变量:
+然后可以使用该模块。同样，最好将其分配给局部变量：
 
 ```lua
 local m = require "mymodule"
@@ -81,36 +81,36 @@ m.hello() --> "Hello world!"
 
 ## 模块热重载
 
-假设有如下模块:
+考虑一个简单的模块：
 
 ```lua
 -- module.lua
-local M = {} -- 本地表
+local M = {} -- 在局部作用域中创建一个新表
 M.value = 4711
 return M
 ```
 
-然后使用这个模块: 
+以及该模块的使用者：
 
 ```lua
 local m = require "module"
-print(m.value) --> "4711" (如果 "module.lua" 更改了此值并且完成热重载这个值仍然不变)
+print(m.value) --> "4711" (即使 "module.lua" 被更改并热重载)
 ```
 
-如果 "module.lua" 更改了此值并且完成热重载 `m.value` 仍然不变. 为什么呢?
+如果您热重载模块文件，代码会再次运行，但 `m.value` 没有任何变化。为什么会这样？
 
-首先, "module.lua" 表建立在本地环境下作为 _引用_ 返回. 重载 "module.lua" 模块时解析了代码但是新建了另一个本地表 `m` 却没有更新对它的引用.
+首先，在 "module.lua" 中创建的表是在局部作用域中创建的，并且该表的 _引用_ 被返回给用户。重新加载 "module.lua" 会再次评估模块代码，但这会在局部作用域中创建一个新表，而不是更新 `m` 所引用的表。
 
-其次, Lua 加载了模块. 文件第一次被加载时, 会被放入 [`package.loaded`](/ref/package/#package.loaded) 表中便于后续快速访问. 如果把模块设置为 nil 可以强制它重新加载: `package.loaded["my_module"] = nil`.
+其次，Lua 缓存所需的文件。当文件第一次被需要时，它被放在 [`package.loaded`](/ref/package/#package.loaded) 表中，以便在后续需要时可以更快地读取。您可以通过将文件的条目设置为 nil 来强制文件从磁盘重新读取：`package.loaded["my_module"] = nil`。
 
-要想正确热重载模块, 需要先加载模块, 重置缓存然后更新每个引用模块的文件. 这不利于优化.
+要正确地热重载模块，您需要重新加载模块，重置缓存，然后重新加载所有使用该模块的文件。这远非最佳选择。
 
-一定需要的话可以考虑在 _开发时_ 使用一个解决方法: 把模块表放入全局空间然后返回 `M` 的引用. 重载时会更新全局表:
+相反，您可以考虑在 _开发期间_ 使用的解决方法：将模块表放在全局作用域中，并让 `M` 引用全局表，而不是在每次文件评估时创建一个新表。重新加载模块会更改全局表的内容：
 
 ```lua
 --- module.lua
 
--- 测试完了还是替换成 local M = {}
+-- 完成后替换为 local M = {}
 uniquevariable12345 = uniquevariable12345 or {}
 local M = uniquevariable12345
 
@@ -118,14 +118,14 @@ M.value = 4711
 return M
 ```
 
-## 模块和缓存
+## 模块和状态
 
-带缓存模块的数据表在所有调用者之间共享:
+有状态的模块在模块的所有用户之间共享一个内部状态，可以与单例相比：
 
 ```lua
 local M = {}
 
--- 所有调用者共享此表
+-- 模块的所有用户将共享此表
 local state = {}
 
 function M.do_something(foobar)
@@ -135,10 +135,10 @@ end
 return M
 ```
 
-无缓存模块内部不存储缓存数据. 但是它可以把实例缓存作为本地表暴露给调用者. 有若干种方式实现这样的功能:
+另一方面，无状态的模块不保留任何内部状态。相反，它提供了一种机制，将状态外部化到模块用户本地的单独表中。以下是实现此目的的几种不同方法：
 
-使用数据表
-: 构造函数返回包含一个值的缓存表. 每个缓存相关函数都需要把实例作为第一个参数传入.
+使用状态表
+: 也许最简单的方法是使用一个构造函数，它返回一个只包含状态的新表。状态作为每个操作状态表的函数的第一个参数显式传递给模块。
 
   ```lua
   local M = {}
@@ -161,7 +161,7 @@ return M
   return M
   ```
   
-  调用如下:
+  像这样使用模块：
   
   ```lua
   local m = require "main.mymodule"
@@ -170,14 +170,14 @@ return M
   print(m.get_state(my_state)) --> 43
   ```
 
-使用元数据表
-: 构造函数返回缓存表以及所有缓存相关函数:
+使用元表
+: 另一种方法是使用一个构造函数，每次调用时返回一个包含状态和模块公共函数的新表：
 
   ```lua
   local M = {}
   
   function M:alter_state(v)
-      -- 使用 : 声明函数会自动添加第一个参数self
+      -- 使用冒号表示法时，self 被添加为第一个参数
       self.value = self.value + v
   end
   
@@ -195,17 +195,17 @@ return M
   return M
   ```
 
-  调用如下:
+  像这样使用模块：
 
   ```lua
   local m = require "main.mymodule"
   local my_state = m.new(42)
-  my_state:alter_state(1) -- 使用 : 调用函数会自动添加第一个参数"my_state"
+  my_state:alter_state(1) -- 使用冒号表示法时，"my_state" 被添加为第一个参数
   print(my_state:get_state()) --> 43
   ```
 
 使用闭包
-:  构造函数返回缓存表及所有相关函数. 无需传入实例作为第一个参数 (无需显式传入也无需用冒号隐式传入). 这种方法运行较快因为不必从元数据 `__index` 查找函数, 但是每个闭包都包含全套功能所以占用内存稍多.
+: 第三种方法是返回一个包含所有状态和函数的闭包。不需要像使用元表那样将实例作为参数传递（显式或使用冒号运算符隐式传递）。这种方法也比使用元表稍快，因为函数调用不需要通过 `__index` 元方法，但每个闭包都包含自己的方法副本，因此内存消耗更高。
 
   ```lua
   local M = {}
@@ -229,7 +229,7 @@ return M
   return M
   ```
 
-  调用如下:
+  像这样使用模块：
 
   ```lua
   local m = require "main.mymodule"

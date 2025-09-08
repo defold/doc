@@ -1,23 +1,23 @@
 ---
-title: Defold里的GUI粒子特效
-brief: 本教程解释了 Defold GUI 的粒子特效如何工作.
+title: GUI粒子特效在Defold中
+brief: 本手册解释了Defold GUI中粒子特效的工作原理。
 ---
 
-# GUI ParticleFX 节点
+# GUI ParticleFX节点
 
-粒子特效节点用来在 GUI 屏幕空间中实现粒子特效.
+粒子特效节点用于在GUI屏幕空间中播放粒子特效系统。
 
-## 添加 Particle FX 节点
+## 添加ParticleFX节点
 
-在 *outline 视图* 中点击 <kbd>鼠标右键</kbd> 选择 <kbd>Add ▸ ParticleFX</kbd>, 或者按 <kbd>A</kbd> 选择 <kbd>ParticleFX</kbd> 来添加新粒子节点.
+通过在*Outline*中<kbd>右键点击</kbd>并选择<kbd>Add ▸ ParticleFX</kbd>，或按<kbd>A</kbd>并选择<kbd>ParticleFX</kbd>来添加新的粒子节点。
 
-也可以使用 GUI 里已经存在的资源创建粒子特效. 在 *outline 视图* 的 *Particle FX* 文件夹上点击 <kbd>鼠标右键</kbd> 选择 <kbd>Add ▸ Particle FX...</kbd>. 然后设置节点的 *Particlefx* 属性:
+您可以使用已添加到GUI中的粒子特效作为效果的源。通过在*Outline*中的*Particle FX*文件夹图标上<kbd>右键点击</kbd>并选择<kbd>Add ▸ Particle FX...</kbd>来添加粒子特效。然后在节点上设置*Particlefx*属性：
 
 ![Particle fx](images/gui-particlefx/create.png)
 
-## 控制特效
+## 控制效果
 
-可以使用脚本控制节点上的特效:
+您可以通过脚本控制节点来启动和停止效果：
 
 ```lua
 -- start the particle effect
@@ -31,4 +31,4 @@ local particles_node = gui.get_node("particlefx")
 gui.stop_particlefx(particles_node)
 ```
 
-详情请见 [粒子特效教程](/manuals/particlefx).
+有关粒子特效工作原理的详细信息，请参阅[粒子特效手册](/manuals/particlefx)。
