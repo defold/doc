@@ -573,29 +573,7 @@ function update(self, dt)
 end
 ```
 
-```lua
--- 'my_global_value' 将在所有脚本、gui_scripts、渲染脚本和模块（Lua 文件）中可用
-my_global_value = "global scope"
 
--- 这个值将在所有使用此特定脚本文件的组件实例之间共享
-local script_value = "script scope"
-
-function init(self, dt)
-    -- 这个值将在此脚本组件实例上可用
-    self.foo = "self scope"
-
-    -- 这个值将在 init() 内部及其声明之后可用
-    local local_foo = "local scope"
-    print(local_foo)
-end
-
-function update(self, dt)
-    print(self.foo)
-    print(my_global_value)
-    print(script_value)
-    print(local_foo) -- 将打印 nil，因为 local_foo 只在 init() 中可见
-end
-```
 
 ## 性能考虑
 

@@ -148,7 +148,7 @@ $ brew install ios-deploy
 
 ![](images/ios/xcode_storyboard_select_image.png)
 
-定位图像并进行你需要的任何其他调整，也许添加标签或其他 UI 元素。完成后，将活动方案设置为"Build -> Any iOS Device (arm64, armv7)"（或"Generic iOS Device"）并选择 Product -> Build。等待构建过程完成。
+定位图像并进行你需要的任何其他调整，也许添加标签或其他 UI 元素。完成后，将活动方案设置为"Build -> Any iOS Device (`arm64`, `armv7`)"（或"Generic iOS Device"）并选择 Product -> Build。等待构建过程完成。
 
 ::: sidenote
 如果"Any iOS Device (arm64)"中只有 `arm64` 选项，请在"Project -> Basic -> Deployment"设置中将 `iOS Deployment target` 更改为 10.3。这将使你的故事板与 `armv7` 设备（例如 iPhone5c）兼容。

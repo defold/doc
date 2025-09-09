@@ -1,6 +1,6 @@
 ---
 title: Fonts in Defold manual
-brief: 本手册描述了Defold如何处理字体以及如何在游戏中将字体显示在屏幕上.
+brief: 本手册描述了Defold如何处理字体以及如何在游戏中将字体显示在屏幕上。
 ---
 
 # 字体文件
@@ -33,7 +33,7 @@ brief: 本手册描述了Defold如何处理字体以及如何在游戏中将字�
 ## 属性
 
 *字体*
-: 用于生成字体数据的TTF、OTF或*.fnt*文件。
+: 用于生成字体数据的TTF、OTF或*`.fnt`*文件。
 
 *材质*
 : 渲染此字体时使用的材质。确保为距离场和BMFonts更改此材质（详见下文）。
@@ -41,7 +41,7 @@ brief: 本手册描述了Defold如何处理字体以及如何在游戏中将字�
 *输出格式*
 : 生成的字体数据类型。
 
-  - `TYPE_BITMAP` 将导入的OTF或TTF文件转换为字体表纹理，其中位图数据用于渲染文本节点。颜色通道用于编码字体形状、轮廓和阴影。对于*.fnt*文件，直接使用源纹理位图。
+  - `TYPE_BITMAP` 将导入的OTF或TTF文件转换为字体表纹理，其中位图数据用于渲染文本节点。颜色通道用于编码字体形状、轮廓和阴影。对于*`.fnt`*文件，直接使用源纹理位图。
   - `TYPE_DISTANCE_FIELD` 导入的字体被转换为字体表纹理，其中像素数据表示的不是屏幕像素，而是到字体边缘的距离。详见下文。
 
 *渲染模式*
@@ -68,7 +68,7 @@ brief: 本手册描述了Defold如何处理字体以及如何在游戏中将字�
 *阴影透明度*
 : 生成的阴影的透明度。0.0--1.0。
 
-::: important
+::: sidenote
 阴影支持由内置字体材质着色器启用，并处理单层和多层渲染模式。如果您不需要分层字体渲染或阴影支持，最好使用更简单的着色器，如*`builtins/font-singlelayer.fp`*。
 :::
 
@@ -81,7 +81,7 @@ brief: 本手册描述了Defold如何处理字体以及如何在游戏中将字�
 *字符*
 : 字体中包含哪些字符。默认情况下，此字段包含ASCII可打印字符（字符代码32-126）。您可以从此字段添加或删除字符，以在字体中包含更多或更少的字符。
 
-::: important
+::: sidenote
 ASCII可打印字符是：
 space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ \` a b c d e f g h i j k l m n o p q r s t u v w x y z { | } ~
 :::
@@ -104,13 +104,13 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 
 ## 位图BMFonts
 
-除了生成的位图外，Defold还支持预烘焙的位图"BMFont"格式字体。这些字体由包含所有字形的PNG字体表组成。此外，*.fnt*文件包含有关在表上可以找到每个字形的位置以及大小和字距调整信息的信息。（请注意，Defold不支持Phaser和其他一些工具使用的*.fnt*格式的XML版本）
+除了生成的位图外，Defold还支持预烘焙的位图"BMFont"格式字体。这些字体由包含所有字形的PNG字体表组成。此外，*`.fnt`*文件包含有关在表上可以找到每个字形的位置以及大小和字距调整信息的信息。（请注意，Defold不支持Phaser和其他一些工具使用的*`.fnt`*格式的XML版本）
 
 这些类型的字体与从TrueType或OpenType字体文件生成的位图字体相比没有性能改进，但可以在图像中直接包含任意图形、颜色和阴影。
 
-将生成的*.fnt*和*.png*文件添加到您的Defold项目中。这些文件应该位于同一文件夹中。创建一个新的字体文件，并将*字体*属性设置为*.fnt*文件。确保*output_format*设置为`TYPE_BITMAP`。Defold不会生成位图，而是使用PNG中提供的位图。
+将生成的*`.fnt`*和*`.png`*文件添加到您的Defold项目中。这些文件应该位于同一文件夹中。创建一个新的字体文件，并将*字体*属性设置为*`.fnt`*文件。确保*output_format*设置为`TYPE_BITMAP`。Defold不会生成位图，而是使用PNG中提供的位图。
 
-::: important
+::: sidenote
 要创建BMFont，您需要使用能够生成适当文件的工具。存在几个选项：
 
 * [Bitmap Font Generator](http://www.angelcode.com/products/bmfont/)，AngelCode提供的仅限Windows的工具。
@@ -165,59 +165,75 @@ Defold中的字体资源在运行时会产生两个东西，一个纹理和字�
 
 ## 运行时生成
 
-Defold支持在运行时生成SDF（有符号距离场）字体纹理。这意味着您可以在游戏运行时动态生成字体纹理，而不必在构建时预先生成所有字体纹理。
+可以对SDF类型字体使用运行时生成，当使用TrueType (.ttf)字体时。
+这种方法可以大大减少Defold游戏的下载大小和运行时内存消耗。
+小小的缺点是为每个在运行时生成的字形会有非常小的延迟。
 
-要启用运行时生成，请在game.project文件中设置以下属性：
+通过设置`font.runtime_generation`在game.project中启用此功能。
 
-```
-[font]
-runtime_generate = 1
-```
+::: sidenote
+此功能目前是实验性的，但打算在未来用作默认工作流程。
+:::
 
-## 预热字形缓存
+::: important
+此设置影响项目中的所有.ttf字体。
+:::
 
-为了避免在游戏运行时出现字体渲染的卡顿，您可以预热字形缓存。这意味着在游戏开始时，您可以预先加载所有可能用到的字形，这样在游戏运行时就不会因为需要生成新的字形而出现卡顿。
+### 预热字形缓存
 
-要预热字形缓存，您可以使用以下代码：
+为了使运行时字体更易于使用，它们支持预热字形缓存。
+这意味着字体将生成字体中列出的*字符*中的字形。
 
-```lua
-local font = ... -- 获取字体资源
-local text = "所有需要预热的文本" -- 包含所有需要预热的字符
-font.add_glyphs(font, text)
-```
+::: sidenote
+如果选择了`所有字符`，将不会有预热，因为这违背了不必同时生成所有字形的目的。
+:::
 
-## 字体脚本API
+### 字体脚本
 
-Defold提供了一系列用于操作字体的API函数。以下是一些常用的函数：
+对于运行时字体，可以添加或删除子字体。
+当大字体已被拆分为多个文件用于不同字符集时（例如CJK），这很有用。
 
-### font.add_source
-
-```lua
-font.add_source(font, source)
-```
-
-添加一个新的字体源。`font`是字体资源，`source`是字体源文件路径。
-
-### font.add_glyphs
+::: important
+添加子字体不会自动加载或渲染所有字形。
+:::
 
 ```lua
-font.add_glyphs(font, text)
+-- 将范围A-Z添加到.fontc
+local font_hash = hash("/assets/fonts/roboto.fontc")
+local ttf_hash = hash("/assets/fonts/Roboto/Roboto-Bold.ttf")
+local codepoint_min = 0x00000041 -- A
+local codepoint_max = 0x0000005A -- Z
+font.add_source(font_hash, ttf_hash, codepoint_min, codepoint_max)
 ```
-
-添加字形到字体缓存。`font`是字体资源，`text`是包含需要添加的字形的文本。
-
-### font.get_glyph_cache_size
 
 ```lua
-local width, height = font.get_glyph_cache_size(font)
+-- 删除关联的ttf资源
+local font_hash = hash("/assets/fonts/roboto.fontc")
+local ttf_hash = hash("/assets/fonts/Roboto/Roboto-Bold.ttf")
+font.remove_source(font_hash, ttf_hash)
 ```
 
-获取字体缓存的大小。`font`是字体资源，返回缓存宽度和高度。
-
-### font.set_glyph_cache_size
+要将字形加载到字体中，您需要调用`font.add_glyphs()`。
+这是一个异步操作，一旦完成，就可以安全地继续显示包含字形的任何消息。
 
 ```lua
-font.set_glyph_cache_size(font, width, height)
+local function add_glyph_callback(self, id, result, errmsg)
+  if not result then
+    print("Request " .. id .." finished with error:", errmsg)
+  else
+    msg.post(some_url, "show_dialog")
+  end
+end
+
+-- 将字形加载到字体中
+local font_hash = hash("/assets/fonts/roboto.fontc")
+local glyphs = "Some text to be shown!" -- 为了最佳性能，使其成为唯一字形列表
+local request_id = font.add_glyphs(font_hash, ttf_hash, add_glyph_callback)
 ```
 
-设置字体缓存的大小。`font`是字体资源，`width`和`height`是新的缓存尺寸。
+而且，当不再需要字符时，您可以丢弃该内存：
+```lua
+-- 删除关联的ttf资源
+local font_hash = hash("/assets/fonts/roboto.fontc")
+font.remove_glyphs(font_hash, "集合中的所有字符")
+```

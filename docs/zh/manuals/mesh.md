@@ -14,6 +14,8 @@ Defold 的核心是一个3D引擎。即使您只使用2D材质，所有渲染也
 - 通过在 *Assets* 浏览器中右键点击一个位置并选择 <kbd>New... ▸ Mesh</kbd> 来创建*网格文件*。
 - 通过在 *Outline* 视图中右键点击游戏对象并选择 <kbd>Add Component ▸ Mesh</kbd> 来直接将组件嵌入到游戏对象中。
 
+![Mesh in game object](images/mesh/mesh.png)
+
 创建网格后，您需要指定多个属性：
 
 ### 网格属性
@@ -46,71 +48,40 @@ Defold 的核心是一个3D引擎。即使您只使用2D材质，所有渲染也
 
 您可以使用Defold缓冲区在运行时操作网格。下面是一个使用三角形带创建立方体的示例：
 
-```lua
+```Lua
+
 -- 立方体
 local vertices = {
-    -- 前面
-    -0.5, -0.5,  0.5,  0.0, 0.0, 1.0,  0.0, 0.0,
-     0.5, -0.5,  0.5,  0.0, 0.0, 1.0,  1.0, 0.0,
-     0.5,  0.5,  0.5,  0.0, 0.0, 1.0,  1.0, 1.0,
-    -0.5,  0.5,  0.5,  0.0, 0.0, 1.0,  0.0, 1.0,
-    -- 后面
-    -0.5, -0.5, -0.5,  0.0, 0.0, -1.0,  1.0, 0.0,
-    -0.5,  0.5, -0.5,  0.0, 0.0, -1.0,  1.0, 1.0,
-     0.5,  0.5, -0.5,  0.0, 0.0, -1.0,  0.0, 1.0,
-     0.5, -0.5, -0.5,  0.0, 0.0, -1.0,  0.0, 0.0,
-    -- 顶面
-    -0.5,  0.5, -0.5,  0.0, 1.0, 0.0,  0.0, 1.0,
-    -0.5,  0.5,  0.5,  0.0, 1.0, 0.0,  0.0, 0.0,
-     0.5,  0.5,  0.5,  0.0, 1.0, 0.0,  1.0, 0.0,
-     0.5,  0.5, -0.5,  0.0, 1.0, 0.0,  1.0, 1.0,
-    -- 底面
-    -0.5, -0.5, -0.5,  0.0, -1.0, 0.0,  0.0, 0.0,
-     0.5, -0.5, -0.5,  0.0, -1.0, 0.0,  1.0, 0.0,
-     0.5, -0.5,  0.5,  0.0, -1.0, 0.0,  1.0, 1.0,
-    -0.5, -0.5,  0.5,  0.0, -1.0, 0.0,  0.0, 1.0,
-    -- 右面
-     0.5, -0.5, -0.5,  1.0, 0.0, 0.0,  1.0, 0.0,
-     0.5,  0.5, -0.5,  1.0, 0.0, 0.0,  1.0, 1.0,
-     0.5,  0.5,  0.5,  1.0, 0.0, 0.0,  0.0, 1.0,
-     0.5, -0.5,  0.5,  1.0, 0.0, 0.0,  0.0, 0.0,
-    -- 左面
-    -0.5, -0.5, -0.5, -1.0, 0.0, 0.0,  0.0, 0.0,
-    -0.5, -0.5,  0.5, -1.0, 0.0, 0.0,  1.0, 0.0,
-    -0.5,  0.5,  0.5, -1.0, 0.0, 0.0,  1.0, 1.0,
-    -0.5,  0.5, -0.5, -1.0, 0.0, 0.0,  0.0, 1.0
-}
-
-local indices = {
-    -- 前面
-    0, 1, 2, 0, 2, 3,
-    -- 后面
-    4, 5, 6, 4, 6, 7,
-    -- 顶面
-    8, 9, 10, 8, 10, 11,
-    -- 底面
-    12, 13, 14, 12, 14, 15,
-    -- 右面
-    16, 17, 18, 16, 18, 19,
-    -- 左面
-    20, 21, 22, 20, 22, 23
+	0, 0, 0,
+	0, 1, 0,
+	1, 0, 0,
+	1, 1, 0,
+	1, 1, 1,
+	0, 1, 0,
+	0, 1, 1,
+	0, 0, 1,
+	1, 1, 1,
+	1, 0, 1,
+	1, 0, 0,
+	0, 0, 1,
+	0, 0, 0,
+	0, 1, 0
 }
 
 -- 创建带有位置流的缓冲区
-local buf = render.buffer(vertices, {
-    { name = hash("position"), type = render.FORMAT_FLOAT32, components = 3 },
-    { name = hash("normal"), type = render.FORMAT_FLOAT32, components = 3 },
-    { name = hash("texcoord0"), type = render.FORMAT_FLOAT32, components = 2 }
+local buf = buffer.create(#vertices / 3, {
+	{ name = hash("position"), type=buffer.VALUE_TYPE_FLOAT32, count = 3 }
 })
 
 -- 获取位置流并写入顶点
-local position_stream = render.get_stream(buf, hash("position"))
-render.set_stream(position_stream, vertices)
+local positions = buffer.get_stream(buf, "position")
+for i, value in ipairs(vertices) do
+	positions[i] = vertices[i]
+end
 
 -- 将带有顶点的缓冲区设置到网格上
-local mesh_component = "/go#mesh"
-go.set(mesh_component, "vertices", buf)
-go.set(mesh_component, "primitive_type", go.get(mesh_component, "primitive_type"))
+local res = go.get("#mesh", "vertices")
+resource.set_buffer(res, buf)
 ```
 
 有关如何使用网格组件的更多信息，包括示例项目和代码片段，请参阅[论坛公告帖子](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137)。
@@ -120,9 +91,7 @@ go.set(mesh_component, "primitive_type", go.get(mesh_component, "primitive_type"
 网格组件由于其动态特性以及无法确定位置数据的编码方式，因此不会自动剔除。为了剔除网格，需要使用6个浮点数将网格的轴对齐边界框设置为缓冲区上的元数据（AABB最小/最大）：
 
 ```lua
--- 设置AABB元数据
-local aabb = { -0.5, -0.5, -0.5, 0.5, 0.5, 0.5 }
-render.set_buffer_metadata(buf, render.BUFFER_METADATA_KEY_AABB, aabb)
+buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_FLOAT32)
 ```
 
 ## 材质常量

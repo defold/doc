@@ -41,8 +41,8 @@ Defold编辑器会为所有Defold API函数提供自动补全建议，并会为�
     ...
 ```
 
-类型可以是`table`、`string`、`boolean`、`number`、`function`中的任意一种。如果一个值可以有多个类型，则写为`[type1, type2, type3]`。
-::: important
+类型可以是`table, string, boolean, number, function`中的任意一种。如果一个值可以有多个类型，则写为`[type1, type2, type3]`。
+::: sidenote
 目前编辑器中不显示类型。但仍建议提供类型信息，以便编辑器在支持显示类型信息时可以使用。
 :::
 

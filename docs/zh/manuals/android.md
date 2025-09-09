@@ -1,5 +1,5 @@
 ---
-title: Defold 的 Android 平台开发
+title: Android 平台开发
 brief: 本手册描述了如何在 Android 设备上构建和运行 Defold 应用程序
 ---
 
@@ -83,24 +83,24 @@ Success
 
 #### 安装 AAB
 
-一个 *`.aab`* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传到 Google Play。也可以使用 *`.aab`* 文件制作 *`.apk`* 以便使用 [Android 打包工具](https://developer.android.com/studio/command-line/bundletool) 在本地安装。
+一个 *.aab* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传到 Google Play。也可以使用 *.aab* 文件制作 *.apk* 以便使用 [`bundletool`](https://developer.android.com/studio/command-line/bundletool) 在本地安装。
 
 ## 权限
 
 Defold 引擎需要许多不同的权限才能使所有引擎功能正常工作。权限在 `AndroidManifest.xml` 中定义，在 *game.project* [项目设置文件](/manuals/project-settings/#android) 中指定。你可以在[官方文档](https://developer.android.com/guide/topics/permissions/overview)中阅读更多关于 Android 权限的信息。默认清单中请求以下权限：
 
-### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
+### android.permission.INTERNET 和 android.permission.ACCESS_NETWORK_STATE (保护级别: normal)
 
 允许应用程序打开网络套接字并访问网络信息。这些权限是访问互联网所必需的。（[Android 官方文档](https://developer.android.com/reference/android/Manifest.permission#INTERNET)）和（[Android 官方文档](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)）。
 
-### android.permission.WAKE_LOCK (Protection level: normal)
+### android.permission.WAKE_LOCK (保护级别: normal)
 
 允许使用 PowerManager WakeLocks 来防止处理器休眠或屏幕变暗。在接收推送通知时暂时防止设备休眠需要此权限。（[Android 官方文档](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK)）
 
 
 ## 使用 AndroidX
 
-AndroidX 是对原始 Android 支持库的重大改进，该支持库已不再维护。AndroidX 包通过提供功能对等和新库完全取代了支持库。[资源门户](/assets) 中的大多数 Android 扩展都支持 AndroidX。如果你不想使用 AndroidX，可以通过在[应用程序清单](https://defold.com/manuals/app-manifest/)中勾选 `Use Android Support Lib` 来明确禁用它，转而使用旧的 Android 支持库。
+AndroidX 是对原始 Android 支持库重大改进，该支持库已不再维护。AndroidX 包通过提供功能对等和新库完全取代了支持库。[资源门户](/assets) 中的大多数 Android 扩展都支持 AndroidX。如果你不想使用 AndroidX，可以通过在[应用程序清单](https://defold.com/manuals/app-manifest/)中勾选 `Use Android Support Lib` 来明确禁用它，转而使用旧的 Android 支持库。
 
 ![](images/android/enable_supportlibrary.png)
 

@@ -102,5 +102,5 @@ iOS
 
   容器提取后，它将显示在*Finder*中。右键单击容器并选择<kbd>Show Package Content</kbd>。找到文件"`log.txt`"，它应该位于"`AppData/Documents/`"中。
 
-Android(
+Android
 : 提取"`log.txt`"的能力取决于操作系统版本和制造商。这里有一个简短的简单的[逐步指南](https://stackoverflow.com/a/48077004/]129360)。

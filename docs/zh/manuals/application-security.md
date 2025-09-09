@@ -1,5 +1,5 @@
 ---
-title: 应用安全手册
+title: 应用程序安全手册
 brief: 本手册涵盖了安全开发实践的若干方面。
 ---
 
@@ -76,7 +76,7 @@ Defold在引擎或工具中不提供任何反作弊解决方案，而是将这�
 Defold套接字和HTTP通信支持安全套接字连接。建议对任何服务器通信使用安全连接，以验证服务器并保护在客户端到服务器以及服务器到客户端传输过程中任何交换数据的隐私和完整性。Defold使用流行且广泛采用的TLS和SSL协议开源实现[Mbed TLS](https://github.com/Mbed-TLS/mbedtls)。Mbed TLS由ARM及其技术合作伙伴开发。
 
 ### SSL证书验证
-为了防止网络通信中的中间人攻击，可以在与服务器协商连接时的SSL握手期间验证证书链。这可以通过在Defold中向网络客户端提供公钥列表来实现。有关保护网络通信的更多信息，请阅读[网络手册](https://defold.com/manuals/networking/#secure-connections)中关于SSL验证的部分。
+为了防止网络通信中的中间人攻击，可以在与服务器协商连接时的SSL握手期间验证证书链。这可以通过在Defold中向网络客户端提供公钥列表来实现。有关保护网络通信的更多信息，请阅读[网络手册](/manuals/networking/#secure-connections)中关于SSL验证的部分。
 
 
 ## 保护您对第三方软件的使用
@@ -105,5 +105,5 @@ Defold的Live Update系统允许开发者将内容从主游戏包中排除，以
 * 下载的内容是否使用了正确的公私钥对进行签名？
 * 下载的内容是否完整且没有遗漏任何文件？
 
-您可以在[Live Update手册](https://defold.com/manuals/live-update/#manifest-verification)中阅读有关此过程的更多信息。
+您可以在[Live Update手册](/manuals/live-update/#manifest-verification)中阅读有关此过程的更多信息。
 

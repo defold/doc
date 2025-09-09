@@ -13,7 +13,7 @@ macOS 特定的应用程序配置是在 *game.project* 设置文件的 [macOS �
 
 ## 应用图标
 
-macOS 游戏使用的应用图标必须是 .icns 格式。您可以轻松地从一组收集为 .iconset 的 .png 文件创建 .icns 文件。请遵循[创建 .icns 文件的官方说明](https://developer.apple.com/library/archive/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html)。涉及的步骤简要总结如下：
+macOS 游戏使用的应用图标必须是 .`icns` 格式。您可以轻松地创建 `.icns` 文件，从一组 `.png` 文件收集为 `.iconset`。请遵循[创建 .icns 文件的官方说明](https://developer.apple.com/library/archive/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html)。涉及的步骤简要总结如下：
 
 * 为图标创建一个文件夹，例如 `game.iconset`
 * 将图标文件复制到创建的文件夹中：
@@ -29,7 +29,7 @@ macOS 游戏使用的应用图标必须是 .icns 格式。您可以轻松地从�
     * `icon_512x512.png`
     * `icon_512x512@2x.png`
 
-* 使用 `iconutil` 命令行工具将 .iconset 文件夹转换为 .icns 文件：
+* 使用 `iconutil` 命令行工具将 `.iconset` 文件夹转换为 `.icns` 文件：
 
 ```
 iconutil -c icns -o game.icns game.iconset
@@ -61,8 +61,8 @@ $ chmod +x Game.app/Contents/MacOS/Game
 </plist>
 ```
 
-  * `com.apple.security.cs.allow-jit` - 表示应用程序是否可以使用 MAP_JIT 标志创建可写和可执行的内存
-  * `com.apple.security.cs.allow-unsigned-executable-memory` - 表示应用程序是否可以在不使用 MAP_JIT 标志施加的限制的情况下创建可写和可执行的内存
+  * `com.apple.security.cs.allow-jit` - 表示应用程序是否可以使用 `MAP_JIT` 标志创建可写和可执行的内存
+  * `com.apple.security.cs.allow-unsigned-executable-memory` - 表示应用程序是否可以在不使用 `MAP_JIT` 标志施加的限制的情况下创建可写和可执行的内存
   * `com.apple.security.cs.allow-dyld-environment-variables` - 表示应用程序是否可能受到动态链接器环境变量的影响，您可以使用这些变量向应用程序的进程注入代码
 
 某些应用程序可能还需要额外的授权。Steamworks 扩展需要这个额外的授权：

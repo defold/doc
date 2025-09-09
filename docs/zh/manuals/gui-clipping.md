@@ -65,11 +65,11 @@ Clipping Inverted
 
 ![Layers and clipping](images/gui-clipping/layers.png)
 
-在此示例中，裁剪节点"Donut BG"和"BG"都使用相同的层1。它们之间的渲染顺序将按照层级中的相同顺序，其中"Donut BG"在"BG"之前渲染。但是，子节点"Donut Shadow"被分配到具有更高层顺序的层2，因此将在两个裁剪节点之后渲染。在这种情况下，渲染顺序将是：
+在此示例中，裁剪节点`Donut BG`和`BG`都使用相同的层1。它们之间的渲染顺序将按照层级中的相同顺序，其中`Donut BG`在`BG`之前渲染。但是，子节点`Donut Shadow`被分配到具有更高层顺序的层2，因此将在两个裁剪节点之后渲染。在这种情况下，渲染顺序将是：
 
-- Donut BG
-- BG
-- BG Frame
-- Donut Shadow
+- `Donut BG`
+- `BG`
+- `BG Frame`
+- `Donut Shadow`
 
-在这里，您可以看到"Donut Shadow"对象将由于分层而被两个裁剪节点裁剪，即使它只是其中一个的子节点。
+在这里，您可以看到`Donut Shadow`对象将由于分层而被两个裁剪节点裁剪，即使它只是其中一个的子节点。

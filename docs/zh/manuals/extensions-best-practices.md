@@ -5,7 +5,74 @@ brief: 本手册介绍了开发原生扩展的最佳实践。
 
 # 最佳实践
 
-编写跨平台代码可能很困难，但是通过一些方法可以更易于开发与维护。
+编写跨平台代码可能很困难，但是通过一些方法可以更易于开发与维护这样的代码。
+
+## 项目结构
+
+创建扩展时，有几件事可以帮助开发和维护它。
+
+### Lua API
+
+应该只有一个 Lua API，并且只有一个实现。这使得在所有平台上具有相同的行为变得更加容易。
+
+如果相关平台不支持该扩展，建议根本不注册 Lua 模块。这样你可以通过检查 nil 来检测支持：
+
+```lua
+    if myextension ~= nil then
+        myextension.do_something()
+    end
+```
+
+### 文件夹结构
+
+以下文件夹结构经常用于扩展：
+
+```
+    /root
+        /input
+        /main                            -- 实际示例项目的所有文件
+            /...
+        /myextension                     -- 扩展的实际根文件夹
+            ext.manifest
+            /include                     -- 外部包含，其他扩展使用
+            /libs
+                /<platform>              -- 所有支持平台的外部库
+            /src
+                myextension.cpp          -- 扩展的 Lua api 和扩展生命周期函数
+                                            还包含你的 Lua api 函数的通用实现。
+                myextension_private.h    -- 每个平台将实现的内部 api（即 `myextension_Init` 等）
+                myextension.mm           -- 如果 iOS/macOS 需要原生调用。为 iOS/macOS 实现 `myextension_Init` 等
+                myextension_android.cpp  -- 如果 Android 需要 JNI 调用。为 Android 实现 `myextension_Init` 等
+                /java
+                    /<platform>          -- Android 需要的任何 java 文件
+            /res                         -- 平台需要的任何资源
+            /external
+                README.md                -- 关于如何构建或打包任何外部库的说明/脚本
+        /bundleres                       -- 应该为（参见 game.project 和 [bundle_resources 设置]([physics scale setting](/manuals/project-settings/#project))）捆绑的资源
+            /<platform>
+        game.project
+        game.appmanifest                 -- 任何额外的应用配置信息
+```
+
+注意，`myextension.mm` 和 `myextension_android.cpp` 只有在为该平台进行特定的原生调用时才需要。
+
+#### 平台文件夹
+
+在某些地方，平台架构被用作文件夹名称，以了解在编译/捆绑应用程序时使用哪些文件。这些形式如下：
+
+    <architecture>-<platform>
+
+当前列表是：
+
+    arm64-ios, armv7-ios, x86_64-ios, arm64-android, armv7-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
+
+因此，例如，将平台特定的库放在：
+
+    /libs
+        /arm64-ios
+                            /libFoo.a
+        /arm64-android
+                            /libFoo.a
 
 ## 编写原生代码
 
@@ -18,6 +85,10 @@ Defold 源码是使用每个编译器的默认 C++ 版本构建的。Defold 源�
 Defold 源码避免使用 C++ 的最新功能或版本。主要是因为在构建游戏引擎时不需要新功能，而且追踪 C++ 的最新功能是一项耗时的任务，真正掌握这些功能需要大量宝贵时间。
 
 这对扩展开发者还有一个额外的好处，即 Defold 维护了稳定的 ABI。还值得指出的是，使用最新的 C++ 功能可能会由于不同平台的支持程度不同而阻止代码在不同平台上编译。
+
+### 无 C++ 异常
+
+Defold 在引擎中不使用任何异常。游戏引擎通常避免使用异常，因为数据（大部分）在开发期间就已知。移除对 C++ 异常的支持可以减小可执行文件大小并提高运行时性能。
 
 ### 标准模板库 - STL
 
@@ -46,74 +117,8 @@ Defold 源码避免使用 C++ 的最新功能或版本。主要是因为在构�
 * 支持 - 库的状态如何？它是否有很多未解决的问题？它是否仍在维护？
 * 许可证 - 是否可以在这个项目中使用？
 
-
 ## 开源依赖
 
 始终确保你可以访问你的依赖项。例如，如果你依赖于 GitHub 上的某些内容，没有什么可以阻止该存储库被删除，或者突然改变方向或所有权。你可以通过分叉存储库并使用你的分叉而不是上游项目来减轻这种风险。
 
 记住，库中的代码将被注入到你的游戏中，所以确保库做了它应该做的事情，而不是其他事情！
-
-
-## 项目结构
-
-创建扩展时，有几件事可以帮助开发和维护它。
-
-### Lua API
-
-应该只有一个 Lua API，并且只有一个实现。这使得在所有平台上具有相同的行为变得更加容易。
-
-如果相关平台不支持该扩展，建议根本不注册 Lua 模块。这样你可以通过检查 nil 来检测支持：
-
-    if myextension ~= nil then
-        myextension.do_something()
-    end
-
-### 文件夹结构
-
-以下文件夹结构经常用于扩展：
-
-    /root
-        /input
-        /main                            -- 实际示例项目的所有文件
-            /...
-        /myextension                     -- 扩展的实际根文件夹
-            ext.manifest
-            /include                     -- 外部包含，其他扩展使用
-            /libs
-                /<platform>              -- 所有支持平台的外部库
-            /src
-                myextension.cpp          -- 扩展的 Lua api 和扩展生命周期函数
-                                            还包含你的 Lua api 函数的通用实现。
-                myextension_private.h    -- 每个平台将实现的内部 api（即 `myextension_Init` 等）
-                myextension.mm           -- 如果 iOS/macOS 需要原生调用。为 iOS/macOS 实现 `myextension_Init` 等
-                myextension_android.cpp  -- 如果 Android 需要 JNI 调用。为 Android 实现 `myextension_Init` 等
-                /java
-                    /<platform>          -- Android 需要的任何 java 文件
-            /res                         -- 平台需要的任何资源
-            /external
-                README.md                -- 关于如何构建或打包任何外部库的说明/脚本
-        /bundleres                       -- 应该为（参见 game.project 和 [bundle_resources 设置]([physics scale setting](/manuals/project-settings/#project))）捆绑的资源
-            /<platform>
-        game.project
-        game.appmanifest                 -- 任何额外的应用配置信息
-
-
-注意，`myextension.mm` 和 `myextension_android.cpp` 只有在为该平台进行特定的原生调用时才需要。
-
-#### 平台文件夹
-
-在某些地方，平台架构被用作文件夹名称，以了解在编译/捆绑应用程序时使用哪些文件。这些形式如下：
-
-    <architecture>-<platform>
-
-当前列表是：
-
-    arm64-ios, armv7-ios, x86_64-ios, arm64-android, armv7-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
-
-因此，例如，将平台特定的库放在：
-
-    /libs
-        /arm64-ios
-                            /libFoo.a
-        /arm64-android
-                            /libFoo.a

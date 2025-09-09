@@ -1,15 +1,15 @@
 ---
 title: Defold 中的寻址
-brief: 本手册解释了 Defold 如何解决寻址问题.
+brief: 本手册解释了 Defold 如何解决寻址问题。
 ---
 
 # 寻址
 
-控制运行游戏的代码必须能够访问每个对象和组件，以便移动、缩放、制作动画、删除和操作玩家看到和听到的内容。Defold的寻址机制使这成为可能。
+控制运行游戏的代码必须能够到达每个对象和组件，以便移动、缩放、制作动画、删除和操作玩家看到和听到的内容。Defold的寻址机制使这成为可能。
 
 ## 标识符
 
-Defold使用地址（或URL，但我们暂时忽略这一点）来引用游戏对象和组件。这些地址由标识符组成。以下是Defold如何使用地址的所有示例。在本手册中，我们将详细研究它们的工作原理：
+Defold使用地址（或URL，但我们暂时忽略这一点）来引用游戏对象和组件。这些地址由标识符组成。以下是Defold如何使用地址的所有示例。通过本手册，我们将详细研究它们的工作原理：
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -22,20 +22,20 @@ msg.post("#", "hello_there")
 local id = go.get_id(".")
 ```
 
-先看一个简单的例子. 比如你有一个含有Sprite的游戏对象. 然后附加一个脚本来控制这个对象. 在编辑器里的设置就差不多这样:
+让我们从一个非常简单的例子开始。假设你有一个带有单个精灵组件的游戏对象。你还有一个脚本组件来控制这个游戏对象。编辑器中的设置看起来会像这样：
 
 ![bean in editor](images/addressing/bean_editor.png)
 
-你想开始先关闭这个sprite, 留待以后显示. 我们来简单创建一个脚本 "controller.script":
+现在你想在游戏开始时禁用精灵，以便稍后让它出现。这可以通过在"controller.script"中放入以下代码轻松完成：
 
 ```lua
 function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-<1> 如果你对'#'字符感到困惑，不用担心，我们很快会讲到它。
+1. 如果你对'#'字符感到困惑，不用担心，我们很快会讲到它。
 
-这将按预期工作。当游戏启动时，脚本组件通过其标识符"body"*寻址*到精灵组件，并使用该地址向其发送一条带有"disable"的*消息*。这个特殊引擎消息的效果是精灵组件隐藏精灵图形。从示意图上看，设置如下：
+这将按预期工作。当游戏启动时，脚本组件*通过其标识符"body"寻址*到精灵组件，并使用该地址向其发送一条带有"disable"的*消息*。这个特殊引擎消息的效果是精灵组件隐藏精灵图形。从示意图上看，设置如下：
 
 ![bean](images/addressing/bean.png)
 
@@ -47,82 +47,82 @@ end
 - 游戏对象自动获得一个名为"go"的id，后面跟着枚举器（"go2"、"go3"等）。
 - 组件获得一个对应于组件类型的id（"sprite"、"sprite2"等）。
 
-自动命名虽然能用，但是我们鼓励你自己将命名设计的更好，更有意义。
+如果你愿意，可以坚持使用这些自动分配的名称，但我们鼓励你将标识符改为好的、描述性的名称。
 :::
 
-现在, 再增加一个sprite来给豆子先生添加一个盾牌:
+现在，让我们添加另一个精灵组件并给豆子一个盾牌：
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-每个游戏对象的组件id必须唯一. 再叫 "body" 的话脚本就不知道该给谁发送 "disable" 信息了. 所以我们选择了 (更具意义的) id "shield". 这样不管是 "body" 还是 "shield" 我们都能自由控制了.
+新组件必须在游戏对象内唯一标识。如果你给它命名为"body"，脚本代码将不清楚应该向哪个精灵发送"disable"消息。因此我们选择了唯一（且描述性）的标识符"shield"。现在我们可以随意启用和禁用"body"和"shield"精灵。
 
 ![bean](images/addressing/bean_shield.png)
 
 ::: sidenote
-如果你非要设置成一样的id, 系统会提示错误阻止你这样做:
+如果你确实尝试多次使用同一标识符，编辑器会发出错误信号，因此在实践中这永远不会成为问题：
 
 ![bean](images/addressing/name_collision.png)
 :::
 
-现在再多加一些游戏对象进来试试. 假设你要让两个 "豆子先生" 组个队. 一个叫 "bean" 另一个叫 "buddy". 然后, 当 "bean" 等待一段时间后, 它就让 "buddy" 开始跳舞. 也就是从 "bean" 的脚本组件 "controller" 发送一个自定义消息 "dance" 到 "buddy" 的 "controller" :
+现在，让我们看看如果添加更多游戏对象会发生什么。假设你想将两个"豆子"配对成一个小队。你决定将其中一个豆子游戏对象命名为"bean"，另一个命名为"buddy"。此外，当"bean"闲置一段时间后，它应该告诉"buddy"开始跳舞。这是通过从"bean"中的"controller"脚本组件向"buddy"中的"controller"脚本发送一个名为"dance"的自定义消息来完成的：
 
 ![bean](images/addressing/bean_buddy.png)
 
 ::: sidenote
-这两个脚本组件都叫 "controller", 但是由于唯一性是对每个游戏对象来说的, 所以这样做是可以的.
+有两个名为"controller"的独立组件，每个游戏对象中一个，但这是完全合法的，因为每个游戏对象都创建了一个新的命名上下文。
 :::
 
-这次的消息是发给本游戏对象 ("bean") 之外的地方, 代码需要知道哪个 "controller" 来接收这个消息. 既需要对象id也需要组件id. 完整的地址是 `"buddy#controller"` 它包含两个方面内容.
+由于消息的接收者在发送消息的游戏对象（"bean"）之外，代码需要指定哪个"controller"应该接收消息。它需要指定目标游戏对象id以及组件id。组件的完整地址变为`"buddy#controller"`，这个地址由两个独立部分组成。
 
-- 首先需要指定目标对象的id ("buddy"),
-- 然后是对象/组件分隔符 ("#"),
-- 最后是组件的id ("controller").
+- 首先是目标游戏对象的标识（"buddy"），
+- 然后是游戏对象/组件分隔符（"#"），
+- 最后你写上目标组件的标识（"controller"）。
 
-回过头来看上个例子我们没有指定对象的id, 系统默认对象就是脚本所在的 *当前游戏对象*.
+回到前面只有一个游戏对象的例子，我们看到通过省略目标地址的游戏对象标识符部分，代码可以寻址*当前游戏对象*中的组件。
 
-在上述示例中，脚本组件使用相对地址"#body"来寻址精灵组件。该地址是相对的，因为它是从脚本组件所在位置开始解析的。地址中的"#"字符表示"当前游戏对象中的组件"。因此，整个地址"#body"应解释为"当前游戏对象中标识符为'body'的组件"。
+例如，`"#body"`表示当前游戏对象中组件"body"的地址。这非常有用，因为这段代码可以在*任何*游戏对象中工作，只要存在"body"组件。
 
 ## 集合
 
-集合可以用来创建一组游戏对象, 或者嵌套游戏对象然后在需要的时候使用它们. 当你在编辑器里做实例化操作时集合文件就可作为模板 (有的叫 "prototypes" 有的叫 "prefabs").
+集合使得创建游戏对象的组或层次结构，并以受控方式重用它们成为可能。当你在游戏中填充内容时，可以在编辑器中使用集合文件作为模板（或"原型"或"预制件"）。
 
-比如你想建立许多 bean/buddy 二人组. 最好把它们做成 *集合文件* (命名为 "team.collection"). 编译并保存好. 然后在引导启动集合里就可以实例化并命名 (比如 "team_1"):
+假设你想要创建大量的bean/buddy团队。一个好的方法是在一个新的*集合文件*中创建一个模板（命名为"team.collection"）。在集合文件中构建团队游戏对象并保存它。然后将该集合文件内容的实例放入你的主引导集合中，并给该实例一个标识符（命名为"team_1"）：
 
 ![bean](images/addressing/team_editor.png)
 
-这种结构下, "bean" 游戏对象依旧可以使用地址 `"buddy#controller"` 来引用"buddy"的"controller"组件.
+有了这种结构，"bean"游戏对象仍然可以通过地址`"buddy#controller"`引用"buddy"中的"controller"组件。
 
 ![bean](images/addressing/collection_team.png)
 
-如果你再实例化一个 "team.collection" (命名 "team_2"), 那么 "team_2" 的脚本也能顺利运行. "team_2"中的"bean" 对象同样使用地址 `"buddy#controller"` 来引用"buddy"的"controller"组件.
+如果你添加"team.collection"的第二个实例（命名为"team_2"），在"team_2"脚本组件中运行的代码将同样工作良好。来自集合"team_2"的"bean"游戏对象实例仍然可以通过地址`"buddy#controller"`寻址"buddy"中的"controller"组件。
 
 ![bean](images/addressing/teams_editor.png)
 
-## 相对地址
+## 相对寻址
 
-地址 `"buddy#controller"` 在两组实例下都能运行因为它是一个 *相对* 地址. 集合 "team_1" 和 "team_2" 都有自己的上下文, 或者叫做 "命名空间". Defold 认为集合内这样的相对地址与命名是合理的:
+地址`"buddy#controller"`对两个集合中的游戏对象都有效，因为它是一个*相对*地址。每个集合"team_1"和"team_2"都创建了一个新的命名上下文，或者如果你愿意，可以称为"命名空间"。Defold通过考虑集合创建的命名上下文来避免命名冲突：
 
 ![relative id](images/addressing/relative_same.png)
 
-- "team_1"的命名空间里 "bean" 和 "buddy" 都是唯一id.
-- 同样在"team_2"的命名空间里 "bean" 和 "buddy" 也都是唯一id.
+- 在命名上下文"team_1"中，游戏对象"bean"和"buddy"被唯一标识。
+- 类似地，在命名上下文"team_2"中，游戏对象"bean"和"buddy"也被唯一标识。
 
-实际上相对地址在后台已经把上下文考虑在内. 这同样很方便因为你可以用同样的代码创建很多个集合的实例.
+相对寻址通过在解析目标地址时自动添加当前命名上下文来工作。这再次非常有用和强大，因为你可以创建带有代码的游戏对象组，并在整个游戏中高效地重用它们。
 
 ### 简化符
 
-Defold 提供两种简化写法用来简化消息传递时需要输入的完整地址:
+Defold提供了两个方便的简化符，你可以使用它们来发送消息而无需指定完整的URL：
 
 :[Shorthands](../shared/url-shorthands.md)
 
 ## 游戏对象路径
 
-为了正确理解命名机制, 我们来看看游戏编译运行时发生了什么:
+为了正确理解命名机制，让我们看看当你构建和运行项目时会发生什么：
 
-1. 编辑器读取引导启动集合 ("main.collection") 与其所有内容 (游戏对象和其他集合).
-2. 对于每个静态的游戏对象, 编译器分配唯一id. 游戏对象 "路径" 从引导启动集合根节点起, 到嵌套关系里找到这个对象为止. 每个 '/' 符号代表嵌套的每一层.
+1. 编辑器读取引导集合（"main.collection"）及其所有内容（游戏对象和其他集合）。
+2. 对于每个静态游戏对象，编译器创建一个标识符。这些被构建为从引导根开始，沿着集合层次结构到对象的"路径"。每层都添加一个'/'字符。
 
-如上示例, 游戏里就有四个游戏对象路径:
+对于我们上面的示例，游戏将运行以下4个游戏对象：
 
 - /team_1/bean
 - /team_1/buddy
@@ -130,34 +130,34 @@ Defold 提供两种简化写法用来简化消息传递时需要输入的完整�
 - /team_2/buddy
 
 ::: sidenote
-游戏里的各种id存储为哈希值. 包括集合里的相对路径也哈希成绝对路径.
+标识符存储为哈希值。运行时还存储每个集合标识符的哈希状态，用于将相对字符串哈希到绝对id。
 :::
 
-运行时, 不存在集合的概念. 编译前, 对象是不属于集合的. 也无法对集合本身施加操作. 有必要的话, 需要用代码维护集合里的对象. 每个对象id都是静态的, 并且在它们的生命周期中都保持不变. 所以保存一个对象的id后总可以使用此id引用它.
+在运行时，集合分组不存在。无法找出特定游戏对象在编译前属于哪个集合。也不可能一次操作集合中的所有对象。如果你需要执行此类操作，你可以在代码中轻松地自己进行跟踪。每个对象的标识符是静态的，保证在整个对象生命周期内保持不变。这意味着你可以安全地存储对象的标识符并在以后使用它。
 
-## 绝对地址
+## 绝对寻址
 
-定位的时候完全可以使用上述完整的标记. 多数情况下相对地址有助于代码重用, 但是有些情况下还得使用绝对地址定位.
+在寻址时可以使用上述的完整标识符。在大多数情况下，相对寻址是首选的，因为它允许内容重用，但在某些情况下，绝对寻址变得必要。
 
-比如, 你需要一个 AI 管理器管理每个豆子先生. 豆子先生要向管理器报告自身的激活状态, 管理器根据它们的状态决定它们的排序. 这就需要创建一个带脚本的管理器对象然后把它放在引导启动集合的根目录下.
+例如，假设你想要一个AI管理器来跟踪每个豆子对象的状态。你希望豆子向管理器报告它们的活跃状态，管理器根据它们的状态做出战术决策并向豆子下达命令。在这种情况下，创建一个带有脚本组件的单个管理器游戏对象并将其与团队集合一起放在引导集合中是完全合理的。
 
 ![manager object](images/addressing/manager_editor.png)
 
-然后每个豆子先生负责向管理器发送状态消息: "contact" 表明碰到了敌人, 或者 "ouch!" 表明受到了袭击. 为了这项工作, 豆子控制器脚本使用相对地址向 "manager" 里的 "controller" 组件发送消息.
+然后每个豆子负责向管理器发送状态消息：如果发现敌人则发送"contact"，如果被击中并受到伤害则发送"ouch!"。为了使这个工作，豆子控制器脚本使用绝对寻址向"manager"中的"controller"组件发送消息。
 
-绝对地址是从游戏世界的根（即"集合"）开始解析的。绝对地址以"/"字符开头，表示"从根开始"。
+任何以'/'开头的地址将从游戏世界的根解析。这对应于游戏启动时加载的*引导集合*的根。
 
-控制器脚本的绝对地址是`"/manager#controller"` 而且不管组件用在哪里该绝对地址总能定位到该组件.
+管理器脚本的绝对地址是`"/manager#controller"`，这个绝对地址将解析到正确的组件，无论它在哪里使用。
 
 ![teams and manager](images/addressing/teams_manager.png)
 
 ![absolute addressing](images/addressing/absolute.png)
 
-## 哈希ID
+## 哈希标识符
 
-Defold引擎将每个标识符转换为64位哈希值，用于内部寻址。这比使用字符串更节省内存和CPU。然而，有时你需要手动计算哈希值，例如在将游戏状态保存到文件时。所有以组件或游戏对象为参数的方法可以接受字符串, 哈希或者 URL 对象. 我们已经在上面看到如何使用字符串进行定位了.
+引擎将所有标识符存储为哈希值。所有以组件或游戏对象为参数的函数接受字符串、哈希或URL对象。我们已经在上文看到了如何使用字符串进行寻址。
 
-当你获取游戏对象的 id , 引擎总是返回一个绝对路径 id 的哈希值:
+当你获取游戏对象的标识符时，引擎将总是返回一个哈希化的绝对路径标识符：
 
 ```lua
 local my_id = go.get_id()
@@ -167,10 +167,10 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-你可以用该标记代替字符串 id, 或者自己写一个. 注意虽然哈希化 id 对应了对象的路径, 比如绝对地址:
+你可以在字符串id的地方使用这样的标识符，或者自己构造一个。但请注意，哈希id对应于对象的路径，即绝对地址：
 
 ::: sidenote
-相对地址必须作为字符串使用因为引擎会基于当前命名上下文(集合)的哈希状态, 把字符串添加到哈希后面, 计算出新的哈希id.
+相对地址必须作为字符串给出，因为引擎将基于当前命名上下文（集合）的哈希状态，通过将给定字符串添加到哈希中来计算新的哈希id。
 :::
 
 ```lua
@@ -186,39 +186,32 @@ local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```
 
-## URL格式
+## URL
 
-Defold中的URL遵循以下格式：
+为了完整理解，让我们看看Defold地址的完整格式：URL。
 
-```
-[socket:][path][#fragment]
-```
+URL是一个对象，通常写为特殊格式的字符串。通用URL由三部分组成：
 
-其中：
-- `socket` - 用于网络通信（可选）
-- `path` - 游戏对象和集合的路径
-- `fragment` - 组件的标识符（以"#"开头）
-
-URL是一个对象，通常用特定格式的字符串表示。一般一个URL包含三个部分：
+`[socket:][path][#fragment]`
 
 socket
-: 代表目标的游戏世界. 使用 [集合代理](/manuals/collection-proxy) 时, 它用来表示 _动态加载的集合_.
+: 标识目标的游戏世界。在使用[集合代理](/manuals/collection-proxy)时这很重要，然后用于标识_动态加载的集合_。
 
 path
-: 该部分包含目标游戏对象的完整 id.
+: URL的这部分包含目标游戏对象的完整id。
 
 fragment
-: 标志了指定游戏对象内的目标组件.
+: 指定游戏对象内目标组件的标识。
 
-上面已经看到, 你可以省略一些, 或者大多数情况下省略许多部分. 几乎可以不用到 socket, 经常, 不是所有情况下, 需要指定路径. 需要定位其他游戏世界里的东西的情况下需要指定 URL 的 socket 部分. 例如,  上述 "manager" 游戏对象里的 "controller" 脚本的完整 URL 字符串为:
+正如我们在上面看到的，在大多数情况下，你可以省略部分或大部分信息。你几乎不需要指定socket，你经常（但不总是）需要指定路径。在你确实需要寻址另一个游戏世界中的事物的情况下，你需要指定URL的socket部分。例如，上面"manager"游戏对象中"controller"脚本的完整URL字符串是：
 
 `"main:/manager#controller"`
 
-然后 team_2 里的 buddy 控制器为:
+而team_2中的buddy控制器是：
 
 `"main:/team_2/buddy#controller"`
 
-我们可以向它们发送消息:
+我们可以向它们发送消息：
 
 ```lua
 -- Send "hello" to the manager script and team buddy bean
@@ -226,9 +219,9 @@ msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
 
-## 构建 URL 对象
+## 构建URL对象
 
-URL 对象也可以使用 Lua 代码构建:
+URL对象也可以在Lua代码中以编程方式构造：
 
 ```lua
 -- Construct URL object from a string:
@@ -250,75 +243,4 @@ my_url.fragment = "controller" -- specify as string or hash
 
 -- Post to target specified by URL
 msg.post(my_url, "hello_manager!")
-
-```
-
-### URL示例
-
-| URL | 描述 |
-|-----|------|
-| `"#"` | 当前游戏对象 |
-| `"#body"` | 当前游戏对象中标识符为"body"的组件 |
-| `"/level1/main/bean#body"` | "level1"集合中"main"集合里"bean"游戏对象的"body"组件 |
-| `"main:/bean#body"` | 在"main"socket中，"bean"游戏对象的"body"组件 |
-
-### URL对象
-
-你可以使用`msg.url()`函数创建URL对象：
-
-```lua
-local my_url = msg.url("#body")
-```
-
-这将返回一个URL对象，可以用于寻址或存储。URL对象也可以从字符串、哈希值或其他URL对象构造：
-
-```lua
-local my_url1 = msg.url("#body") -- 从字符串构造
-local my_url2 = msg.url(my_url1) -- 从另一个URL对象构造
-local my_url3 = msg.url(nil, "/level1/main/bean", hash("body")) -- 从路径和哈希值构造
-```
-
-### 发送消息
-
-你可以使用`msg.post()`函数向URL发送消息：
-
-```lua
-msg.post("#body", "disable")
-```
-
-这将向当前游戏对象中标识符为"body"的组件发送一条"disable"消息。你也可以使用URL对象：
-
-```lua
-local my_url = msg.url("#body")
-msg.post(my_url, "disable")
-```
-
-### URL字符串
-
-你可以使用`tostring()`函数将URL对象转换为字符串：
-
-```lua
-local my_url = msg.url("#body")
-print(tostring(my_url)) -- 输出: "#body"
-```
-
-### URL哈希
-
-你可以使用`msg.url()`函数将URL对象转换为哈希值：
-
-```lua
-local my_url = msg.url("#body")
-print(my_url) -- 输出: 哈希值
-```
-
-### URL比较
-
-你可以使用`==`运算符比较两个URL对象：
-
-```lua
-local my_url1 = msg.url("#body")
-local my_url2 = msg.url("#body")
-if my_url1 == my_url2 then
-    print("URLs are equal")
-end
 ```

@@ -1,5 +1,5 @@
 ---
-title: GUI场景在Defold中
+title: Defold中的GUI场景
 brief: 本手册介绍了Defold GUI编辑器、各种类型的GUI节点和GUI脚本。
 ---
 
@@ -33,7 +33,7 @@ Defold现在会自动在GUI场景编辑器中打开该文件。
 
 白色矩形显示当前选定布局的边界，即项目设置中设置的默认显示宽度和高度。
 
-## GUI属性
+## Gui属性
 
 在*大纲*中选择根"Gui"节点会显示GUI组件的*属性*：
 
@@ -136,123 +136,126 @@ Defold游戏中的资源树是静态的，因此您需要为GUI节点添加的�
 
 ## 节点类型
 
-界面有节点组成. 节点是一种类似游戏对象的元素. 可以进行位移 (移动, 旋转和缩放) 并且以父子树形结构排列. 有以下几种节点类型:
+GUI组件由一组节点构建而成。节点是简单的元素。它们可以被平移（移动、缩放和旋转），并在编辑器中或通过脚本在运行时按父子层次结构排序。存在以下节点类型：
 
 Box node
 : ![box node](images/icons/gui-box-node.png){.left}
-  显示为纯色, 纹理或者逐帧动画的矩形. 详情请见 [方块节点教程](/manuals/gui-box).
+  具有单一颜色、纹理或翻书动画的矩形节点。详情请参见[Box节点文档](/manuals/gui-box)。
 
 <div style="clear: both;"></div>
 
 Text node
 : ![text node](images/icons/gui-text-node.png){.left}
-  显示文字. 详情请见 [文本节点教程](/manuals/gui-text).
+  显示文本。详情请参见[Text节点文档](/manuals/gui-text)。
 
 <div style="clear: both;"></div>
 
 Pie node
 : ![pie node](images/icons/gui-pie-node.png){.left}
-  圆形或椭圆饼图. 详情请见 [饼图节点教程](/manuals/gui-pie).
+  可以部分填充或反转的圆形或椭圆节点。详情请参见[Pie节点文档](/manuals/gui-pie)。
 
 <div style="clear: both;"></div>
 
 Template node
 : ![template node](images/icons/gui.png){.left}
-  模板用来基于其他界面文件创建节点实例. 详情请见 [模板节点教程](/manuals/gui-template).
+  模板用于基于其他GUI场景文件创建实例。详情请参见[Template节点文档](/manuals/gui-template)。
 
 <div style="clear: both;"></div>
 
 ParticleFX node
 : ![particlefx node](images/icons/particlefx.png){.left}
-  显示粒子特效. 详情请见 [粒子特效节点教程](/manuals/gui-particlefx).
+  播放粒子效果。详情请参见[ParticleFX节点文档](/manuals/gui-particlefx)。
 
 <div style="clear: both;"></div>
 
-右键点击 *Nodes* 文件夹选择 <kbd>Add ▸</kbd> 然后点击 <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> 或 <kbd>ParticleFx</kbd> 即可创建节点.
+通过右键点击*Nodes*文件夹并选择<kbd>Add ▸</kbd>，然后选择<kbd>Box</kbd>、<kbd>Text</kbd>、<kbd>Pie</kbd>、<kbd>Template</kbd>或<kbd>ParticleFx</kbd>来添加节点。
 
 ![Add nodes](images/gui/add_node.png)
 
-还可以用快捷键 <kbd>A</kbd> 来创建节点.
+您也可以按<kbd>A</kbd>并选择要添加到GUI的类型。
 
 ## 节点属性
 
-节点有自身属性:
+每个节点都有一组广泛的属性来控制其外观：
 
 Id
-: 节点id. 每个id是这个界面中的唯一值.
+: 节点的标识。此名称在GUI场景中必须是唯一的。
 
 Position, Rotation and Scale
-: 节点位移. 可以使用 *移动*, *旋转* 和 *缩放* 工具自由修改. 也可以用脚本动画形式控制这些值.
+: 控制节点的位置、方向和拉伸。您可以使用*移动*、*旋转*和*缩放*工具更改这些值。这些值可以从脚本中动画化（[了解更多](/manuals/property-animation)）。
 
-Size (box, text 和 pie 节点)
-: 默认尺寸设置为自动, 如果需要手动设定尺寸可以设置 *Size Mode* 为 `Manual`. 节点尺寸决定了节点接收输入操作的范围. 此值也可使用脚本动画进行控制.
+Size (box, text和pie节点)
+: 节点的大小默认为自动，但通过将*Size Mode*设置为`Manual`，您可以更改该值。大小定义了节点的边界，并在进行输入选择时使用。此值可以从脚本中动画化（[了解更多](/manuals/property-animation)）。
 
-Size Mode (box 和 pie 节点)
-: 如果设为 `Automatic` 则自动计算并设置节点尺寸. 如果设为 `Manual` 则需手动设置节点尺寸.
+Size Mode (box和pie节点)
+: 如果设置为`Automatic`，编辑器将为节点设置大小。如果设置为`Manual`，您可以自己设置大小。
 
 Enabled
-: 如果未选中, 则节点不会被渲染, 不会被动画驱动且不能使用 `gui.pick_node()` 返回节点. 可以使用 `gui.set_enabled()` 和 `gui.is_enabled()` 函数手动打开或检查该属性.
+: 如果未选中，节点不会被渲染，不会被动画化，也不能使用`gui.pick_node()`进行选择。使用`gui.set_enabled()`和`gui.is_enabled()`以编程方式更改和检查此属性。
 
 Visible
-: 如果未选中, 则节点不会被渲染, 但是可以被动画驱动且可以使用 `gui.pick_node()` 返回节点. 可以使用 `gui.set_visible()` 和 `gui.get_visible()` 函数手动打开或检查该属性.
+: 如果未选中，节点不会被渲染，但仍然可以被动画化，并且可以使用`gui.pick_node()`进行选择。使用`gui.set_visible()`和`gui.get_visible()`以编程方式更改和检查此属性。
 
-Text (text 节点)
-: 节点上显示的文字.
+Text (text节点)
+: 要在节点上显示的文本。
 
-Line Break (text 节点)
-: 文字基于节点宽度换行.
+Line Break (text节点)
+: 设置文本根据节点的宽度进行换行。
 
-Font (text 节点)
-: 文字字体.
+Font (text节点)
+: 渲染文本时要使用的字体。
 
-Texture (box 和 pie 节点)
-: 节点上显示的纹理. 可以使用图集和瓷砖图源的图片或动画.
+Texture (box和pie节点)
+: 要在节点上绘制的纹理。这是对图集或瓷砖图源中的图像或动画的引用。
 
-Slice 9 (box 节点)
-: 缩放九宫格. 详情请见 [box 节点教程](/manuals/gui-box).
+Material (box, pie节点, text和particlefx节点)
+: 绘制节点时要使用的材质。这可以是添加到大纲的材质部分的材质，或者留空以使用分配给GUI组件的默认材质。
 
-Inner Radius (pie 节点)
-: 节点内半径, 延 X 轴. 详情请见 [pie 节点教程](/manuals/gui-pie).
+Slice 9 (box节点)
+: 设置当节点调整大小时保留节点纹理边缘周围的像素大小。详情请参见[Box节点文档](/manuals/gui-box)。
 
-Outer Bounds (pie 节点)
-: 节点外轮廓. 详情请见 [pie 节点教程](/manuals/gui-pie).
+Inner Radius (pie节点)
+: 节点的内半径，沿X轴表示。详情请参见[Pie节点文档](/manuals/gui-pie)。
 
-Perimeter Vertices (pie 节点)
-: 图形的分段数, 就是360度一圈需要的顶点数. 详情请见 [Pie 节点教程](/manuals/gui-pie)
+Outer Bounds (pie节点)
+: 控制外边界的行为。详情请参见[Pie节点文档](/manuals/gui-pie)。
 
-Pie Fill Angle (pie 节点)
-: 饼状图的填充. 详情请见 [Pie 节点教程](/manuals/gui-pie)
+Perimeter Vertices (pie节点)
+: 将用于构建形状的段数。详情请参见[Pie节点文档](/manuals/gui-pie)。
 
-Template (template 节点)
-: 节点模板界面文件. 详情请见 [Template 节点教程](/manuals/gui-template)
+Pie Fill Angle (pie节点)
+: 饼图应该填充多少。详情请参见[Pie节点文档](/manuals/gui-pie)。
 
-ParticleFX (particlefx 节点)
-: 节点上显示的粒子特效. 详情请见 [ParticleFX 节点教程](/manuals/gui-particlefx)
+Template (template节点)
+: 用作节点模板的GUI场景文件。详情请参见[Template节点文档](/manuals/gui-template)。
+
+ParticleFX (particlefx节点)
+: 在此节点上使用的粒子效果。详情请参见[ParticleFX节点文档](/manuals/gui-particlefx)。
 
 Color
-: 节点颜色. 如果用纹理填充, 则对纹理进行染色. 颜色可由脚本动画控制.
+: 节点的颜色。如果节点有纹理，颜色会着色纹理。颜色可以从脚本中动画化（[了解更多](/manuals/property-animation)）。
 
 Alpha
-: 节点不透明度. 不透明度可由脚本动画控制.
+: 节点的半透明性。alpha值可以从脚本中动画化（[了解更多](/manuals/property-animation)）。
 
 Inherit Alpha
-: 继承父节点不透明度. 最终结果是父节点与此节点不透明度的叠加.
+: 设置此复选框使节点继承父节点的alpha值。然后节点的alpha值将与父节点的alpha值相乘。
 
-Leading (text 节点)
-: 每行开头空白. `0` 无空白. 默认值为 `1`.
+Leading (text节点)
+: 行间距的缩放数字。值为`0`表示没有行间距。`1`（默认值）是正常行间距。
 
-Tracking (text 节点)
-: 字符间距缩放值. 默认值为 0.
+Tracking (text节点)
+: 字母间距的缩放数字。默认为0。
 
 Layer
-: 把此节点分配给层. 详情请见下文.
+: 为节点分配层会覆盖正常的绘制顺序，而是遵循层顺序。详情请参见下文。
 
 Blend mode
-: 混合模式控制其与下层颜色混合后的结果:
-  - `Alpha` 覆盖下层颜色. 有的软件将其称作 "普通" 混合模式.
-  - `Add` 叠加下层颜色. 有的软件将其称作 "增强" 混合模式.
-  - `Multiply` 与下层颜色相乘.
-  - `Screen` 将节点的像素值与背景成反比. 这种混合模式在图形软件中称作 "Screen".
+: 控制节点图形与背景图形的混合方式：
+  - `Alpha` 将节点的像素值与背景进行alpha混合。这对应于图形软件中的"正常"混合模式。
+  - `Add` 将节点的像素值与背景相加。这对应于某些图形软件中的"线性减淡"。
+  - `Multiply` 将节点的像素值与背景相乘。
+  - `Screen` 将节点的像素值与背景成反比相乘。这对应于图形软件中的"屏幕"混合模式。
 
 Pivot
 : 设置节点的枢轴点。这可以看作是节点的"中心点"。任何旋转、缩放或大小更改都将围绕此点发生。
@@ -264,53 +267,53 @@ Pivot
   如果您更改节点的枢轴点，节点将移动，使新枢轴点位于节点的位置。文本节点对齐方式设置为`Center`表示文本居中对齐，`West`表示文本左对齐，`East`表示文本右对齐。
 
 X Anchor, Y Anchor
-: 锚点控制着当窗体或者父节点拉伸时当前节点位置如何处理.
+: 锚点控制当场景边界或父节点边界被拉伸以适应物理屏幕大小时节点的垂直和水平位置如何改变。
 
   ![Anchor unadjusted](images/gui/anchoring_unadjusted.png)
 
-  可选值有:
+  以下锚点模式可用：
 
-  - `None` (*X轴* 和 *Y轴*) 相对于窗体或者父节点的中心, 保持自身位置.
-  - `Left` 或 `Right` (*X轴*) 缩放水平方向位置以便保持其相对于窗体或者父节点宽度方向上的百分比位置不变.
-  - `Top` 或 `Bottom` (*Y轴*) 缩放垂直方向位置以便保持其相对于窗体或者父节点高度方向上的百分比位置不变.
+  - `None`（对于*X Anchor*和*Y Anchor*）保持节点相对于父节点或场景中心的位置，相对于其*调整后*的大小。
+  - `Left`或`Right`（*X Anchor*）缩放节点的水平位置，使其与父节点或场景的左边缘和右边缘保持相同的百分比距离。
+  - `Top`或`Bottom`（*Y Anchor*）缩放节点的垂直位置，使其与父节点或场景的顶部和底部边缘保持相同的百分比距离。
 
   ![Anchoring](images/gui/anchoring.png)
 
 Adjust Mode
-: 节点调整模式. 调整模式控制着当窗体或者父节点拉伸时当前节点尺寸如何处理.
+: 设置节点的调整模式。调整模式设置控制当场景边界或父节点边界被调整以适应物理屏幕大小时节点会发生什么。
 
-  这里有一个节点放置在逻辑分辨率为横屏的场景中:
+  在为典型横向分辨率创建的场景中创建的节点：
 
   ![Unadjusted](images/gui/unadjusted.png)
 
-  当场景需要填充竖屏时. 每个节点都会被拉伸. 但是如果使用了适当的调整模式, 节点内容的长宽比可以保持不变. 可选值有:
+  使场景适应纵向屏幕会导致场景被拉伸。每个节点的边界框同样被拉伸。但是，通过设置调整模式，可以保持节点内容的纵横比不变。以下模式可用：
 
-  - `Fit` 缩放节点内容,使其等于拉伸的边界框宽度或高度, 以数值最小者为准. 换句话说, 内容将拉伸到父级的边界.
-  - `Zoom` 缩放节点内容,使其等于拉伸的边界框宽度或高度, 以数值最大者为准. 换句话说, 内容将超越过父级的边界.
-  - `Stretch` 拉伸节点内容, 使其填充父级的边界框.
+  - `Fit` 缩放节点内容，使其等于拉伸的边界框宽度或高度，以较小者为准。换句话说，内容将适合拉伸的节点边界框内。
+  - `Zoom` 缩放节点内容，使其等于拉伸的边界框宽度或高度，以较大者为准。换句话说，内容将完全覆盖拉伸的节点边界框。
+  - `Stretch` 拉伸节点内容，使其填充拉伸的节点边界框。
 
   ![Adjust modes](images/gui/adjusted.png)
 
-  如果场景的 *Adjust Reference* 设置为 `Disabled` 的话, 此设置被忽略.
+  如果GUI场景属性*Adjust Reference*设置为`Disabled`，此设置将被忽略。
 
-Clipping Mode (box 和 pie 节点)
-: 剔除模式:
+Clipping Mode (box和pie节点)
+: 设置节点上的裁剪模式：
 
-  - `None` 正常渲染.
-  - `Stencil` 以当前节点边框作为子节点蒙版.
+  - `None` 正常渲染节点。
+  - `Stencil` 使节点边界定义用于裁剪节点子节点的模板蒙版。
 
-  详情请见 [GUI 蒙版教程](/manuals/gui-clipping)
+  详情请参见[GUI裁剪手册](/manuals/gui-clipping)。
 
-Clipping Visible (box 和 pie 节点)
-: 蒙版可见. 详情请见 [GUI clipping manual](/manuals/gui-clipping)
+Clipping Visible (box和pie节点)
+: 设置为在模板区域中渲染节点内容。详情请参见[GUI裁剪手册](/manuals/gui-clipping)。
 
-Clipping Inverted (box 和 pie 节点)
-: 反转蒙版. 详情请见 [GUI clipping manual](/manuals/gui-clipping)
+Clipping Inverted (box和pie节点)
+: 反转模板蒙版。详情请参见[GUI裁剪手册](/manuals/gui-clipping)。
 
 
 ## 枢轴、锚点和调整模式
 
-枢轴、锚点和调整模式的组合允许非常灵活的GUI设计，但如果不看具体示例，可能很难理解它们是如何工作的。让我们以这个为640x1136屏幕创建的GUI模型为例：
+枢轴、锚点和调整模式属性的组合允许非常灵活的GUI设计，但如果不看具体示例，可能很难理解它们是如何工作的。让我们以这个为640x1136屏幕创建的GUI模型为例：
 
 ![](images/gui/adjustmode_example_original.png)
 
@@ -384,6 +387,7 @@ end
 - 节点必须使用相同的类型。
 - 节点必须使用相同的图集或瓷砖图源。
 - 节点必须使用相同的混合模式渲染。
+- 它们必须使用相同的字体。
 
 如果其中任何一个条件不满足，就会破坏合批并产生另一个绘制调用。蒙版和被蒙版节点必然会破坏合批并产生绘制调用。
 

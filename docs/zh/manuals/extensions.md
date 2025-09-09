@@ -5,7 +5,7 @@ brief: 本手册解释了如何为Defold游戏引擎编写原生扩展，以及�
 
 # 原生扩展
 
-如果您需要与外部软件或硬件进行底层交互，而Lua本身无法满足需求，Defold SDK允许您使用C、C++、Objective C、Java或Javascript（取决于目标平台）为引擎编写扩展。原生扩展的典型用例包括：
+如果您需要与外部软件或硬件进行底层交互，而Lua无法满足需求，Defold SDK允许您使用C、C++、Objective C、Java或Javascript（取决于目标平台）为引擎编写扩展。原生扩展的典型用例包括：
 
 - 与特定硬件交互，例如手机摄像头。
 - 与外部底层API交互，例如不允许通过网络API进行交互的广告网络API，而Luasocket本可以用于此类交互。
@@ -82,7 +82,7 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 
 ## 一个简单的扩展示例
 
-让我们构建一个非常简单的扩展。首先，我们创建一个新的根文件夹*`myextension`*并添加一个包含扩展名"MyExtension"的*`ext.manifest`*文件。请注意，该名称是一个C++符号，必须与`DM_DECLARE_EXTENSION`的第一个参数匹配（见下文）。
+让我们构建一个非常简单的扩展。首先，我们创建一个新的根文件夹*`myextension`*并添加一个包含扩展名"`MyExtension`"的*`ext.manifest`*文件。请注意，该名称是一个C++符号，必须与`DM_DECLARE_EXTENSION`的第一个参数匹配（见下文）。
 
 ![Manifest](images/extensions/manifest.png)
 
@@ -91,7 +91,7 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 name: "MyExtension"
 ```
 
-该扩展由一个C++文件*`myextension.cpp`*组成，该文件在"`src`"文件夹中创建。
+该扩展由一个 C++ 文件 *`myextension.cpp`* 组成，该文件在 "`src`" 文件夹中创建。
 
 ![C++ file](images/extensions/cppfile.png)
 
@@ -182,7 +182,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-请注意用于声明扩展代码中各种入口点的宏`DM_DECLARE_EXTENSION`。第一个参数`symbol`必须与*ext.manifest*中指定的名称匹配。对于这个简单的示例，不需要任何"update"或"on_event"入口点，因此在这些位置向宏提供了`0`。
+请注意用于声明扩展代码中各种入口点的宏 `DM_DECLARE_EXTENSION`。第一个参数 `symbol` 必须与 *ext.manifest* 中指定的名称匹配。对于这个简单的示例，不需要任何 "update" 或 "on_event" 入口点，因此在这些位置向宏提供了 `0`。
 
 现在只需构建项目（<kbd>Project ▸ Build</kbd>）。这将把扩展上传到扩展构建器，构建器将生成一个包含新扩展的自定义引擎。如果构建器遇到任何错误，将显示一个包含构建错误的对话框。
 
@@ -199,7 +199,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 
 ## 扩展生命周期
 
-如上所述，`DM_DECLARE_EXTENSION`宏用于声明扩展代码中的各种入口点：
+如上所述，`DM_DECLARE_EXTENSION` 宏用于声明扩展代码中的各种入口点：
 
 `DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)`
 
@@ -209,15 +209,15 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
   * 引擎系统正在启动
   * 扩展 `app_init`
   * 扩展 `init` - 所有Defold API已初始化。这是扩展生命周期中推荐的创建扩展代码Lua绑定的点。
-  * 脚本初始化 - 脚本文件的`init()`函数被调用。
+  * 脚本初始化 - 脚本文件的 `init()` 函数被调用。
 * 引擎循环
   * 引擎更新
     * 扩展 `update`
-    * 脚本更新 - 脚本文件的`update()`函数被调用。
+    * 脚本更新 - 脚本文件的 `update()` 函数被调用。
   * 引擎事件（窗口最小化/最大化等）
     * 扩展 `on_event`
 * 引擎关闭（或重启）
-  * 脚本最终 - 脚本文件的`final()`函数被调用。
+  * 脚本最终 - 脚本文件的 `final()` 函数被调用。
   * 扩展 `final`
   * 扩展 `app_final`
 
@@ -225,16 +225,16 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 
 构建器在每个相应平台上定义了以下标识符：
 
-* DM_PLATFORM_WINDOWS
-* DM_PLATFORM_OSX
-* DM_PLATFORM_IOS
-* DM_PLATFORM_ANDROID
-* DM_PLATFORM_LINUX
-* DM_PLATFORM_HTML5
+* `DM_PLATFORM_WINDOWS`
+* `DM_PLATFORM_OSX`
+* `DM_PLATFORM_IOS`
+* `DM_PLATFORM_ANDROID`
+* `DM_PLATFORM_LINUX`
+* `DM_PLATFORM_HTML5`
 
 ## 构建服务器日志
 
-当项目使用原生扩展时，构建服务器日志可用。构建服务器日志（`log.txt`）在项目构建时与自定义引擎一起下载，并存储在项目的`.internal/%platform%/build.zip`文件中，同时也解压到项目的构建文件夹中。
+当项目使用原生扩展时，构建服务器日志可用。构建服务器日志（`log.txt`）在项目构建时与自定义引擎一起下载，并存储在项目的 `.internal/%platform%/build.zip` 文件中，同时也解压到项目的构建文件夹中。
 
 
 ## 扩展示例

@@ -15,7 +15,7 @@ Home
 : 点击显示您最近打开的项目，以便您可以快速访问它们。这是默认视图。
 
 New Project
-: 如果您想创建一个新的 Defold 项目，请点击此选项，然后选择您是否希望基于基本模板创建项目（来自*From Template*标签页），是否想要按照教程操作（*From Tutorial*标签页），或者尝试其中一个示例项目（*From Sample*标签页）。
+: 如果您想创建一个新的 Defold 项目，请点击此选项，然后选择您是否希望基于基本模板创建项目（来自 *来自模板* 标签页），是否想要按照教程操作（*来自教程* 标签页），或者尝试其中一个示例项目（*来自示例* 标签页）。
 
   ![new project](images/editor/new_project.png)
 
@@ -57,71 +57,70 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 ![toolbar](images/editor/outline.png)
 
-*Properties* 面板
-: 这个视图显示出当前选中物体的属性, 比如位置, 旋转, 动画等等.
+### Properties面板
+此视图显示与当前所选项目相关联的属性，如位置、旋转、动画等。
 
-*Tools* 面板
-: 这个视图分为几个组. *Console* 组显示游戏输出和报错信息. 旁边是显示 *编译错误*, *查找结果* 和编辑粒子曲线数据时用到的 *曲线编辑器*. 同时工具面板也负责与调试器进行交互.
+### Tools面板
+此视图有几个标签。*控制台* 标签显示游戏运行时产生的任何错误输出或您有意打印的内容。控制台旁边是包含 *构建错误*、*搜索结果* 和 *曲线编辑器* 的标签，后者用于在粒子编辑器中编辑曲线。Tools 面板还用于与集成调试器交互。
 
-*Changed Files* 面板
-: 如果你的项目使用 Git 做版本控制, 这个视图会列出项目中被修改, 添加或者删除的文件. 同步机制会把你的本地项目文件与 Git 托管项目进行同步, 这种机制方便团队合作开发, 而且云端备份可以保证项目不易损坏丢失. 关于 Git 详见 [版本控制教程](/manuals/version-control/). 相关操作:
+### Changed Files面板
+如果你的项目使用 Git 做版本控制, 这个视图会列出项目中被修改, 添加或者删除的文件. 同步机制会把你的本地项目文件与 Git 托管项目进行同步, 这种机制方便团队合作开发, 而且云端备份可以保证项目不易损坏丢失. 关于 Git 详见 [版本控制教程](/manuals/version-control/). 相关操作:
 
    - <kbd>双击</kbd> 文件显示版本区别窗口. 同样, 编辑器会根据文件类型选择合适的显示窗口.
    - <kbd>右键点击</kbd> 文件弹出的上下文菜单中, 可以进行显示版本区别窗口, 回退文件的更改, 打开文件系统浏览器显示文件位置等操作.
 
 ## 同时编辑
 
-如果同时打开了多个文件, 编辑器视图上方就会出现多个标签. 要想两个视图对照着同时进行编辑工作. <kbd>右键点击</kbd> 想要移动的视图标签, 然后选择 <kbd>Move to Other Tab Pane</kbd>.
+如果同时打开了多个文件, 编辑器视图上方就会出现多个标签. 可以并排打开2个编辑器视图。<kbd>右键单击</kbd>想要移动的编辑器标签并选择<kbd>移动到另一个标签面板</kbd>。
 
 ![2 panes](images/editor/2-panes.png)
 
-使用视图标签还可以让两个视图交换位置或者把多个面板合为一组.
+您还可以使用标签菜单交换两个面板的位置并将它们合并为单个面板。
 
 ## 场景编辑器
 
-双击集合文件或者游戏对象文件就会打开 *场景编辑器*:
+双击集合或游戏对象文件会打开*场景编辑器*：
 
 ![Select object](images/editor/select.png)
 
-选择物体
-: 在主视图中点选可以选中单个物体. 框选可以选中绿色方框套住的多个物体. 被选中的物体则在 *大纲* 视图中被高亮显示.
+### 选择对象
+点击主窗口中的对象来选择它们。编辑器视图中围绕对象的矩形将高亮显示为绿色，以指示选择了哪个项目。所选对象也在*大纲*视图中高亮显示。
 
-  大纲中还可以:
+  您还可以通过以下方式选择对象：
 
-  - <kbd>点击左键拖拉</kbd> 框选中多个物体.
-  - <kbd>单击</kbd> 选中单个物体.
+  - <kbd>单击并拖动</kbd>以选择选择区域内的所有对象。
+  - <kbd>单击</kbd>大纲视图中的对象。
 
-  按住 <kbd>Shift</kbd> 或 <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) 键可以在已选中物体的基础上增选物体.
+  按住<kbd>Shift</kbd>或<kbd>⌘</kbd>(Mac)/<kbd>Ctrl</kbd>(Win/Linux)键的同时单击以扩展选择。
 
-移动工具
-: ![Move tool](images/editor/icon_move.png){.left}
-  使用 *移动工具* 来移动物体. 移动工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>W</kbd>.
+### 移动工具
+![Move tool](images/editor/icon_move.png){.left}
+要移动对象，请使用*移动工具*。您可以在场景编辑器右上角的工具栏中找到它，或按<kbd>W</kbd>键。
 
-  ![Move object](images/editor/move.png)
+![Move object](images/editor/move.png)
 
-  被选中的物体会显示出坐标轴 (方块和箭头). 拖拽绿方块可以在屏幕空间内任意移动这个物体, 拖拽箭头则是让这个物体在 X, Y 或 Z 轴上进行移动. 拖拽别的方块则可以让这个物体在 X-Y 平面上 (在3D视图中可见) 移动或者在 X-Z , Y-Z 平面上移动.
+所选对象显示一组操纵器（方块和箭头）。单击并拖动绿色中心方块手柄可在屏幕空间中自由移动对象，单击并拖动箭头可沿X、Y或Z轴移动对象。还有一些方形手柄用于在X-Y平面中移动对象，以及（如果在3D中旋转相机可见）用于在X-Z和Y-Z平面中移动对象。
 
-旋转工具
-: ![Rotate tool](images/editor/icon_rotate.png){.left}
-  使用 *旋转工具* 来旋转物体. 旋转工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>E</kbd>.
+### 旋转工具
+![Rotate tool](images/editor/icon_rotate.png){.left}
+要旋转对象，请通过在工具栏中选择它或按<kbd>E</kbd>键来使用*旋转工具*。
 
-  ![Move object](images/editor/rotate.png)
+![Move object](images/editor/rotate.png)
 
-  旋转工具的坐标轴显示为圆形. 拖拽橙色的圆可以在屏幕空间内任意旋转这个物体, 可以沿着 X, Y 和 Z 轴旋转. 因为 X 和 Y 轴的位置关系, 在2D视图上仅显示为穿过物体的两条线.
+该工具由四个圆形操纵器组成。一个橙色操纵器在屏幕空间中旋转对象，以及围绕X、Y和Z轴中的每一个旋转的操纵器。由于视图垂直于X轴和Y轴，因此圆仅显示为穿过对象的两条线。
 
-缩放工具
-: ![Scale tool](images/editor/icon_scale.png){.left}
-  使用 *缩放工具* 来缩放物体. 缩放工具位于场景编辑器右上角的工具栏内, 快捷键是 <kbd>R</kbd>.
+### 缩放工具
+![Scale tool](images/editor/icon_scale.png){.left}
+要缩放对象，请通过在工具栏中选择它或按<kbd>R</kbd>键来使用*缩放工具*。
 
-  ![Scale object](images/editor/scale.png)
+![Scale object](images/editor/scale.png)
 
-  缩放工具坐标轴显示为一组方块. 拖拽中间的方块可以将物体等比缩放 (包括Z轴). 同样也可以沿着 X, Y 和 Z 轴方向, 以及 X-Y , X-Z 和 Y-Z 平面上进行缩放.
+该工具由一组方形手柄组成。中心一个在所有轴（包括Z）中均匀缩放对象。每个X、Y和Z轴还有一个手柄用于缩放，以及一个用于在X-Y平面、X-Z平面和Y-Z平面中缩放的手柄。
 
-可见性过滤
-: 各种组件类型的可视性开关, 包括边界框和基准线.
+### 可见性过滤器
+切换各种组件类型以及边界框和指南的可见性。
 
-  ![Visibility filters](images/editor/visibilityfilters.png)
-
+![Visibility filters](images/editor/visibilityfilters.png)
 
 ## 创建新的项目文件
 
@@ -137,27 +136,23 @@ Defold 编辑器被划分为许多面板, 或称视图, 以展示和编辑数据
 
 可以为每个项目指定自定义模板。为此，请在项目根目录中创建一个名为`templates`的新文件夹，并添加名为`default.*`的新文件，并带有所需的扩展名，例如`/templates/default.gui`或`/templates/default.script`。此外，如果在这些文件中使用了`{{NAME}}`标记，它将被文件创建窗口中指定的文件名替换。
 
-## 向项目添加资源文件
+## 导入文件到项目
 
-要向项目添加资源 (图片, 声音, 模型等) 文件, 只需把文件拖放到 *资源* 浏览器里适当的位置上. 这样做实际上是把文件系统中的资源文件 _拷贝_ 到项目中来. 详情请见 [导入资源教程](/manuals/importing-assets/).
+要向项目添加资源文件（图像、声音、模型等），只需将它们拖放到*资源*浏览器中的正确位置。这将在项目文件结构的选定位置创建文件的副本。阅读更多关于[如何在手册中导入资源](/manuals/importing-assets/)的信息。
 
 ![Import files](images/editor/import.png)
 
-## 编辑器更新
+## 更新编辑器
 
-编辑器自动检查更新. 检测到新版本的话就会在编辑器右下角或者项目选择视图里显示出来. 点击即可自动更新.
+编辑器将自动检查更新。当检测到更新时，它将在编辑器窗口的右下角和项目选择屏幕上显示。按可用更新链接将下载并更新编辑器。
 
 ![Update from project selection](images/editor/update-project-selection.png)
 
 ![Update from editor](images/editor/update-main.png)
 
-## 配置
+## 首选项
 
-可以 [通过设置窗口](/manuals/editor-preferences) 修改编辑器配置.
-
-## 键盘快捷键
-
-键盘快捷键及自定义方法详见 [键盘快捷键教程](/manuals/editor-keyboard-shortcuts).
+您可以从[首选项窗口](/manuals/editor-preferences)修改编辑器的设置。
 
 ## 编辑器日志
 如果您在使用编辑器时遇到问题并需要[报告问题](/manuals/getting-help/#getting-help)，最好提供编辑器本身的日志文件。编辑器日志文件可以在以下位置找到：
@@ -174,7 +169,7 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 ## 编辑器服务器
 
-当编辑器打开项目时，它会在随机端口上启动一个Web服务器。该服务器可用于从其他应用程序与编辑器交互。从1.11.0版本开始，端口被写入`.internal/editor.port`文件中。
+当编辑器打开项目时，它会在随机端口上启动Web服务器。该服务器可用于从其他应用程序与编辑器交互。从1.11.0版本开始，端口被写入`.internal/editor.port`文件中。
 
 此外，从1.11.0版本开始，编辑器可执行文件有一个命令行选项`--port`（或`-p`），允许在启动时指定端口，例如：
 ```shell
@@ -187,7 +182,6 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 # 在macOS上：
 ./Defold.app/Contents/MacOS/Defold --port 8181
 ```
-
 
 ## 常见问题
 :[Editor FAQ](../shared/editor-faq.md)

@@ -179,55 +179,55 @@ Android构建中支持游戏手柄，并生成与其他平台相同的输入事�
 
 | 按键事件到按钮索引   | 索引 | 版本 |
 |-----------------------------|-------|---------|
-| AKEYCODE_BUTTON_A           | 0     | 1.2.183 |
-| AKEYCODE_BUTTON_B           | 1     | 1.2.183 |
-| AKEYCODE_BUTTON_C           | 2     | 1.2.183 |
-| AKEYCODE_BUTTON_X           | 3     | 1.2.183 |
-| AKEYCODE_BUTTON_L1          | 4     | 1.2.183 |
-| AKEYCODE_BUTTON_R1          | 5     | 1.2.183 |
-| AKEYCODE_BUTTON_Y           | 6     | 1.2.183 |
-| AKEYCODE_BUTTON_Z           | 7     | 1.2.183 |
-| AKEYCODE_BUTTON_L2          | 8     | 1.2.183 |
-| AKEYCODE_BUTTON_R2          | 9     | 1.2.183 |
-| AKEYCODE_DPAD_CENTER        | 10    | 1.2.183 |
-| AKEYCODE_DPAD_DOWN          | 11    | 1.2.183 |
-| AKEYCODE_DPAD_LEFT          | 12    | 1.2.183 |
-| AKEYCODE_DPAD_RIGHT         | 13    | 1.2.183 |
-| AKEYCODE_DPAD_UP            | 14    | 1.2.183 |
-| AKEYCODE_BUTTON_START       | 15    | 1.2.183 |
-| AKEYCODE_BUTTON_SELECT      | 16    | 1.2.183 |
-| AKEYCODE_BUTTON_THUMBL      | 17    | 1.2.183 |
-| AKEYCODE_BUTTON_THUMBR      | 18    | 1.2.183 |
-| AKEYCODE_BUTTON_MODE        | 19    | 1.2.183 |
-| AKEYCODE_BUTTON_1           | 20    | 1.2.186 |
-| AKEYCODE_BUTTON_2           | 21    | 1.2.186 |
-| AKEYCODE_BUTTON_3           | 22    | 1.2.186 |
-| AKEYCODE_BUTTON_4           | 23    | 1.2.186 |
-| AKEYCODE_BUTTON_5           | 24    | 1.2.186 |
-| AKEYCODE_BUTTON_6           | 25    | 1.2.186 |
-| AKEYCODE_BUTTON_7           | 26    | 1.2.186 |
-| AKEYCODE_BUTTON_8           | 27    | 1.2.186 |
-| AKEYCODE_BUTTON_9           | 28    | 1.2.186 |
-| AKEYCODE_BUTTON_10          | 29    | 1.2.186 |
-| AKEYCODE_BUTTON_11          | 30    | 1.2.186 |
-| AKEYCODE_BUTTON_12          | 31    | 1.2.186 |
-| AKEYCODE_BUTTON_13          | 32    | 1.2.186 |
-| AKEYCODE_BUTTON_14          | 33    | 1.2.186 |
-| AKEYCODE_BUTTON_15          | 34    | 1.2.186 |
-| AKEYCODE_BUTTON_16          | 35    | 1.2.186 |
+| `AKEYCODE_BUTTON_A`           | 0     | 1.2.183 |
+| `AKEYCODE_BUTTON_B`           | 1     | 1.2.183 |
+| `AKEYCODE_BUTTON_C`           | 2     | 1.2.183 |
+| `AKEYCODE_BUTTON_X`           | 3     | 1.2.183 |
+| `AKEYCODE_BUTTON_L1`          | 4     | 1.2.183 |
+| `AKEYCODE_BUTTON_R1`          | 5     | 1.2.183 |
+| `AKEYCODE_BUTTON_Y`           | 6     | 1.2.183 |
+| `AKEYCODE_BUTTON_Z`           | 7     | 1.2.183 |
+| `AKEYCODE_BUTTON_L2`          | 8     | 1.2.183 |
+| `AKEYCODE_BUTTON_R2`          | 9     | 1.2.183 |
+| `AKEYCODE_DPAD_CENTER`        | 10    | 1.2.183 |
+| `AKEYCODE_DPAD_DOWN`          | 11    | 1.2.183 |
+| `AKEYCODE_DPAD_LEFT`          | 12    | 1.2.183 |
+| `AKEYCODE_DPAD_RIGHT`         | 13    | 1.2.183 |
+| `AKEYCODE_DPAD_UP`            | 14    | 1.2.183 |
+| `AKEYCODE_BUTTON_START`       | 15    | 1.2.183 |
+| `AKEYCODE_BUTTON_SELECT`      | 16    | 1.2.183 |
+| `AKEYCODE_BUTTON_THUMBL`      | 17    | 1.2.183 |
+| `AKEYCODE_BUTTON_THUMBR`      | 18    | 1.2.183 |
+| `AKEYCODE_BUTTON_MODE`        | 19    | 1.2.183 |
+| `AKEYCODE_BUTTON_1`           | 20    | 1.2.186 |
+| `AKEYCODE_BUTTON_2`           | 21    | 1.2.186 |
+| `AKEYCODE_BUTTON_3`           | 22    | 1.2.186 |
+| `AKEYCODE_BUTTON_4`           | 23    | 1.2.186 |
+| `AKEYCODE_BUTTON_5`           | 24    | 1.2.186 |
+| `AKEYCODE_BUTTON_6`           | 25    | 1.2.186 |
+| `AKEYCODE_BUTTON_7`           | 26    | 1.2.186 |
+| `AKEYCODE_BUTTON_8`           | 27    | 1.2.186 |
+| `AKEYCODE_BUTTON_9`           | 28    | 1.2.186 |
+| `AKEYCODE_BUTTON_10`          | 29    | 1.2.186 |
+| `AKEYCODE_BUTTON_11`          | 30    | 1.2.186 |
+| `AKEYCODE_BUTTON_12`          | 31    | 1.2.186 |
+| `AKEYCODE_BUTTON_13`          | 32    | 1.2.186 |
+| `AKEYCODE_BUTTON_14`          | 33    | 1.2.186 |
+| `AKEYCODE_BUTTON_15`          | 34    | 1.2.186 |
+| `AKEYCODE_BUTTON_16`          | 35    | 1.2.186 |
 
 ([Android `KeyEvent` 定义](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 
 | 运动事件到轴索引  | 索引 |
 |-----------------------------|-------|
-| AMOTION_EVENT_AXIS_X        | 0     |
-| AMOTION_EVENT_AXIS_Y        | 1     |
-| AMOTION_EVENT_AXIS_Z        | 2     |
-| AMOTION_EVENT_AXIS_RZ       | 3     |
-| AMOTION_EVENT_AXIS_LTRIGGER | 4     |
-| AMOTION_EVENT_AXIS_RTRIGGER | 5     |
-| AMOTION_EVENT_AXIS_HAT_X    | 6     |
-| AMOTION_EVENT_AXIS_HAT_Y    | 7     |
+| `AMOTION_EVENT_AXIS_X`        | 0     |
+| `AMOTION_EVENT_AXIS_Y`        | 1     |
+| `AMOTION_EVENT_AXIS_Z`        | 2     |
+| `AMOTION_EVENT_AXIS_RZ`       | 3     |
+| `AMOTION_EVENT_AXIS_LTRIGGER` | 4     |
+| `AMOTION_EVENT_AXIS_RTRIGGER` | 5     |
+| `AMOTION_EVENT_AXIS_HAT_X`    | 6     |
+| `AMOTION_EVENT_AXIS_HAT_Y`    | 7     |
 
 ([Android `MotionEvent` 定义](https://developer.android.com/ndk/reference/group/input#group___input_1ga157d5577a5b2f5986037d0d09c7dc77d))
 

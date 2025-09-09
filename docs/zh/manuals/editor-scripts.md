@@ -83,14 +83,14 @@ return M
 
 ## 命令
 
-如果编辑器脚本模块定义了 `get_commands` 函数，它将在扩展重新加载时被调用，返回的命令将在编辑器菜单栏或资源和大纲视图的上下文菜单中可用。例如：
+如果编辑器脚本模块定义了函数 `get_commands`，它将在扩展重新加载时被调用，返回的命令将在编辑器的菜单栏或资源和大纲窗格的上下文菜单中可用。例如：
 ```lua
 local M = {}
 
 function M.get_commands()
   return {
     {
-      label = "Remove Comments",
+      label = "删除注释",
       locations = {"Edit", "Assets"},
       query = {
         selection = {type = "resource", cardinality = "one"}
@@ -107,7 +107,7 @@ function M.get_commands()
       end
     },
     {
-      label = "Minify JSON",
+      label = "压缩 JSON",
       locations = {"Assets"},
       query = {
         selection = {type = "resource", cardinality = "one"}
@@ -125,278 +125,395 @@ end
 
 return M
 ```
-编辑器期望 `get_commands()` 返回一个表数组，每个表描述一个单独的命令。命令描述包含：
+编辑器期望 `get_commands()` 返回一个表数组，每个表描述一个单独的命令。命令描述包括：
 
 - `label`（必需）— 将显示给用户的菜单项上的文本
-- `locations`（必需）— 包含 `"Edit"`、`"View"`、`"Project"`、`"Debug"`、`"Assets"`、`"Bundle"`、`"Scene"` 或 `"Outline"` 的数组，描述此命令应该可用的位置。`"Edit"`、`"View"`、`"Project"` 和 `"Debug"` 表示顶部的菜单栏，`"Assets"` 表示资源视图中的上下文菜单，`"Outline"` 表示大纲视图中的上下文菜单，`"Bundle"` 表示 **Project → Bundle** 子菜单。
-- `query` — 命令向编辑器询问相关信息并定义其操作数据的方式。对于 `query` 表中的每个键，`active` 和 `run` 回调接收的 `opts` 表中将有相应的键。支持的键：
-  - `selection` 表示当有选中内容时此命令有效，并且它对该选择进行操作。
-    - `type` 是命令感兴趣的选中节点类型，目前允许这些类型：
-      - `"resource"` — 在资源和大纲视图中，资源是具有相应文件的选中项。在菜单栏（Edit 或 View）中，资源是当前打开的文件；
-      - `"outline"` — 可以在大纲视图中显示的内容。在大纲视图中是选中项，在菜单栏中是当前打开的文件；
+- `locations`（必需）— 一个数组，包含 `"Edit"`、`"View"`、`"Project"`、`"Debug"`、`"Assets"`、`"Bundle"`、`"Scene"` 或 `"Outline"` 中的一个或多个，描述了该命令应该可用的位置。`"Edit"`、`"View"`、`"Project"` 和 `"Debug"` 表示顶部的菜单栏，`"Assets"` 表示资源窗格中的上下文菜单，`"Outline"` 表示大纲窗格中的上下文菜单，`"Bundle"` 表示 **Project → Bundle** 子菜单。
+- `query` — 命令向编辑器询问相关信息并定义它操作的数据的一种方式。对于 `query` 表中的每个键，`opts` 表中将有相应的键，`active` 和 `run` 回调将作为参数接收。支持的键：
+  - `selection` 表示此命令在有选择内容时有效，并且它对该选择进行操作。
+    - `type` 是命令感兴趣的所选节点类型，目前允许的类型有：
+      - `"resource"` — 在资源和大纲中，资源是具有相应文件的选定项。在菜单栏（编辑或视图）中，资源是当前打开的文件；
+      - `"outline"` — 可以在大纲中显示的内容。在大纲中它是选定项，在菜单栏中它是当前打开的文件；
       - `"scene"` — 可以渲染到场景中的内容。
-    - `cardinality` 定义应该有多少个选中项。如果是 `"one"`，传递给命令回调的选择将是单个节点 id。如果是 `"many"`，传递给命令回调的选择将是一个或多个节点 id 的数组。
+    - `cardinality` 定义应该有多少个选定项。如果是 `"one"`，传递给命令回调的选择将是单个节点 id。如果是 `"many"`，传递给命令回调的选择将是一个或多个节点 id 的数组。
   - `argument` — 命令参数。目前，只有 `"Bundle"` 位置中的命令接收参数，当明确选择打包命令时为 `true`，在重新打包时为 `false`。
 - `id` - 命令标识符字符串，例如用于在 `prefs` 中持久化最后使用的打包命令
-- `active` - 一个回调函数，用于检查命令是否处于活动状态，预期返回布尔值。如果 `locations` 包括 `"Assets"`、`"Scene"` 或 `"Outline"`，在显示上下文菜单时将调用 `active`。如果位置包括 `"Edit"` 或 `"View"`，将在每次用户交互（例如键盘输入或鼠标点击）时调用 active，因此请确保 `active` 相对较快。
-- `run` - 当用户选择菜单项时执行的回调。
+- `active` - 一个回调函数，用于检查命令是否处于活动状态，预期返回布尔值。如果 `locations` 包括 `"Assets"`、`"Scene"` 或 `"Outline"`，在显示上下文菜单时将调用 `active`。如果位置包括 `"Edit"` 或 `"View"`，则会在每次用户交互时调用 active，例如键盘输入或鼠标点击，因此请确保 `active` 相对较快。
+- `run` - 当用户选择菜单项时执行的回调函数。
 
-## 事务
+### 使用命令更改编辑器内存状态
 
-事务是修改编辑器状态的方法。它们是原子的，这意味着它们要么全部成功，要么全部失败。事务由一个或多个步骤组成，每个步骤都是对编辑器状态的单个修改。您可以使用 `editor.tx.*` 函数创建事务步骤。以下是可用的事务步骤：
-
-- `editor.tx.set(node_id, property, value)` — 设置节点的属性值。
-- `editor.tx.create(resource_path, template_path, [data])` — 创建新资源。如果指定了 `template_path`，则从模板创建资源。`data` 是一个可选表，包含要传递给模板的数据。
-- `editor.tx.delete(resource_path)` — 删除资源。
-- `editor.tx.rename(resource_path, new_name)` — 重命名资源。
-- `editor.tx.move(resource_path, new_path)` — 移动资源。
-- `editor.tx.copy(resource_path, new_path)` — 复制资源。
-- `editor.tx.duplicate(resource_path, [new_name])` — 复制资源。如果指定了 `new_name`，则使用该名称作为新资源的名称。
-- `editor.tx.set_resource_property(resource_path, property, value)` — 设置资源的属性值。
-- `editor.tx.set_resource_properties(resource_path, properties)` — 设置资源的多个属性值。
-- `editor.tx.set_game_object_property(game_object_id, property, value)` — 设置游戏对象的属性值。
-- `editor.tx.set_game_object_properties(game_object_id, properties)` — 设置游戏对象的多个属性值。
-- `editor.tx.set_component_property(component_id, property, value)` — 设置组件的属性值。
-- `editor.tx.set_component_properties(component_id, properties)` — 设置组件的多个属性值。
-- `editor.tx.set_input_binding_property(input_binding_id, property, value)` — 设置输入绑定的属性值。
-- `editor.tx.set_input_binding_properties(input_binding_id, properties)` — 设置输入绑定的多个属性值。
-- `editor.tx.set_input_binding_game_object_property(input_binding_id, game_object_id, property, value)` — 设置输入绑定游戏对象的属性值。
-- `editor.tx.set_input_binding_game_object_properties(input_binding_id, game_object_id, properties)` — 设置输入绑定游戏对象的多个属性值。
-- `editor.tx.set_input_binding_component_property(input_binding_id, component_id, property, value)` — 设置输入绑定组件的属性值。
-- `editor.tx.set_input_binding_component_properties(input_binding_id, component_id, properties)` — 设置输入绑定组件的多个属性值。
-- `editor.tx.set_input_binding_input_property(input_binding_id, input_id, property, value)` — 设置输入绑定输入的属性值。
-- `editor.tx.set_input_binding_input_properties(input_binding_id, input_id, properties)` — 设置输入绑定输入的多个属性值。
-- `editor.tx.set_input_binding_input_game_object_property(input_binding_id, input_id, game_object_id, property, value)` — 设置输入绑定输入游戏对象的属性值。
-- `editor.tx.set_input_binding_input_game_object_properties(input_binding_id, input_id, game_object_id, properties)` — 设置输入绑定输入游戏对象的多个属性值。
-- `editor.tx.set_input_binding_input_component_property(input_binding_id, input_id, component_id, property, value)` — 设置输入绑定输入组件的属性值。
-- `editor.tx.set_input_binding_input_component_properties(input_binding_id, input_id, component_id, properties)` — 设置输入绑定输入组件的多个属性值。
-- `editor.tx.set_tilemap_layer_property(tilemap_id, layer_id, property, value)` — 设置瓦片地图图层的属性值。
-- `editor.tx.set_tilemap_layer_properties(tilemap_id, layer_id, properties)` — 设置瓦片地图图层的多个属性值。
-- `editor.tx.set_tilemap_tile_property(tilemap_id, layer_id, x, y, property, value)` — 设置瓦片地图瓦片的属性值。
-- `editor.tx.set_tilemap_tile_properties(tilemap_id, layer_id, x, y, properties)` — 设置瓦片地图瓦片的多个属性值。
-- `editor.tx.set_particlefx_emitter_property(particlefx_id, emitter_id, property, value)` — 设置粒子效果发射器的属性值。
-- `editor.tx.set_particlefx_emitter_properties(particlefx_id, emitter_id, properties)` — 设置粒子效果发射器的多个属性值。
-- `editor.tx.set_particlefx_modifier_property(particlefx_id, emitter_id, modifier_id, property, value)` — 设置粒子效果修改器的属性值。
-- `editor.tx.set_particlefx_modifier_properties(particlefx_id, emitter_id, modifier_id, properties)` — 设置粒子效果修改器的多个属性值。
-- `editor.tx.set_collisionobject_shape_property(collisionobject_id, shape_id, property, value)` — 设置碰撞对象形状的属性值。
-- `editor.tx.set_collisionobject_shape_properties(collisionobject_id, shape_id, properties)` — 设置碰撞对象形状的多个属性值。
-- `editor.tx.set_gui_layer_property(gui_id, layer_id, property, value)` — 设置 GUI 图层的属性值。
-- `editor.tx.set_gui_layer_properties(gui_id, layer_id, properties)` — 设置 GUI 图层的多个属性值。
-- `editor.tx.set_gui_node_property(gui_id, node_id, property, value)` — 设置 GUI 节点的属性值。
-- `editor.tx.set_gui_node_properties(gui_id, node_id, properties)` — 设置 GUI 节点的多个属性值。
-
-> **注意：** 事务系统已弃用，请使用编辑器 API 函数代替。
-
-要执行事务，请使用 `editor.transact(txs)` 函数，其中 `txs` 是事务步骤的列表。例如：
+在 `run` 处理程序中，您可以查询和更改编辑器的内存状态。查询使用 `editor.get()` 函数完成，您可以在其中询问编辑器有关文件和选择的当前状态（如果使用 `query = {selection = ...}`）。您可以获取脚本文件的 `"text"` 属性，以及属性视图中显示的一些属性 — 将鼠标悬停在属性名称上以查看工具提示，其中包含有关该属性在编辑器脚本中如何命名的信息。更改编辑器状态使用 `editor.transact()` 完成，您可以在其中将 1 个或多个修改捆绑在一个可撤销的步骤中。例如，如果您希望能够重置游戏对象的变换，您可以编写如下命令：
 ```lua
-local txs = {}
-txs[#txs + 1] = editor.tx.set(node_id, "position", vmath.vector3(100, 100, 0))
-txs[#txs + 1] = editor.tx.set(node_id, "rotation", vmath.quat_rotation_z(math.rad(45)))
-editor.transact(txs)
+{
+  label = "重置变换",
+  locations = {"Outline"},
+  query = {selection = {type = "outline", cardinality = "one"}},
+  active = function(opts)
+    local node = opts.selection
+    return editor.can_set(node, "position") 
+       and editor.can_set(node, "rotation") 
+       and editor.can_set(node, "scale")
+  end,
+  run = function(opts)
+    local node = opts.selection
+    editor.transact({
+      editor.tx.set(node, "position", {0, 0, 0}),
+      editor.tx.set(node, "rotation", {0, 0, 0}),
+      editor.tx.set(node, "scale", {1, 1, 1})
+    })
+  end
+}
 ```
+
+#### 编辑图集
+
+除了读取和写入图集的属性外，您还可以读取和修改图集图像和动画。图集定义了 `images` 和 `animations` 节点列表属性，动画定义了 `images` 节点列表属性：您可以将 `editor.tx.add`、`editor.tx.remove` 和 `editor.tx.clear` 事务步骤与这些属性一起使用。
+
+例如，要向图集添加图像，请在命令的 `run` 处理程序中执行以下代码：
+```lua
+editor.transact({
+    editor.tx.add("/main.atlas", "images", {image="/assets/hero.png"})
+})
+```
+要查找图集中的所有图像集，请执行以下代码：
+```lua
+local all_images = {} ---@type table<string, true>
+-- 首先，收集所有"裸"图像
+local image_nodes = editor.get("/main.atlas", "images")
+for i = 1, #image_nodes do
+    all_images[editor.get(image_nodes[i], "image")] = true
+end
+-- 其次，收集动画中使用的所有图像
+local animation_nodes = editor.get("/main.atlas", "animations")
+for i = 1, #animation_nodes do
+    local animation_image_nodes = editor.get(animation_nodes[i], "images")
+    for j = 1, #animation_image_nodes do
+        all_images[editor.get(animation_image_nodes[j], "image")] = true
+    end
+end
+pprint(all_images)
+-- {
+--     ["/assets/hero.png"] = true,
+--     ["/assets/enemy.png"] = true,
+-- }}
+```
+要替换图集中的所有动画：
+```lua
+editor.transact({
+    editor.tx.clear("/main.atlas", "animations"),
+    editor.tx.add("/main.atlas", "animations", {
+        id = "hero_run",
+        images = {
+            {image = "/assets/hero_run_1.png"},
+            {image = "/assets/hero_run_2.png"},
+            {image = "/assets/hero_run_3.png"},
+            {image = "/assets/hero_run_4.png"}
+        }
+    })
+})
+```
+
+#### 编辑瓦片源
+
+除了大纲属性外，瓦片源还定义了以下属性：
+- `animations` - 瓦片源的动画节点列表
+- `collision_groups` - 瓦片源的碰撞组节点列表
+- `tile_collision_groups` - 瓦片源中瓦片的碰撞组分配表
+
+例如，以下是设置瓦片源的方法：
+```lua
+local tilesource = "/game/world.tilesource"
+editor.transact({
+    editor.tx.add(tilesource, "animations", {id = "idle", start_tile = 1, end_tile = 1}),
+    editor.tx.add(tilesource, "animations", {id = "walk", start_tile = 2, end_tile = 6, fps = 10}),
+    editor.tx.add(tilesource, "collision_groups", {id = "player"}),
+    editor.tx.add(tilesource, "collision_groups", {id = "obstacle"}),
+    editor.tx.set(tilesource, "tile_collision_groups", {
+        [1] = "player",
+        [7] = "obstacle",
+        [8] = "obstacle"
+    })
+})
+```
+
+#### 编辑瓦片地图
+
+瓦片地图定义了 `layers` 属性，即瓦片地图图层的节点列表。每个图层还定义了 `tiles` 属性，该属性保存此图层上瓦片的无限 2D 网格。这与引擎不同：瓦片没有边界，可以添加到任何位置，包括负坐标。要编辑瓦片，编辑器脚本 API 定义了一个 `tilemap.tiles` 模块，具有以下功能：
+- `tilemap.tiles.new()` 创建一个新的数据结构，用于保存无限的 2D 瓦片网格（在编辑器中，与引擎相反，瓦片地图是无限的，坐标可以是负数）
+- `tilemap.tiles.get_tile(tiles, x, y)` 获取特定坐标处的瓦片索引
+- `tilemap.tiles.get_info(tiles, x, y)` 获取特定坐标处的完整瓦片信息（数据形状与引擎的 `tilemap.get_tile_info` 函数相同）
+- `tilemap.tiles.iterator(tiles)` 创建一个遍历瓦片地图中所有瓦片的迭代器
+- `tilemap.tiles.clear(tiles)` 从瓦片地图中移除所有瓦片
+- `tilemap.tiles.set(tiles, x, y, tile_or_info)` 在特定坐标处设置瓦片
+- `tilemap.tiles.remove(tiles, x, y)` 移除特定坐标处的瓦片
+
+例如，以下是打印整个瓦片地图内容的方法：
+```lua
+local layers = editor.get("/level.tilemap", "layers")
+for i = 1, #layers do
+    local layer = layers[i]
+    local id = editor.get(layer, "id")
+    local tiles = editor.get(layer, "tiles")
+    print("layer " .. id .. ": {")
+    for x, y, tile in tilemap.tiles.iterator(tiles) do
+        print("  [" .. x .. ", " .. y .. "] = " .. tile)
+    end
+    print("}")
+end
+```
+
+以下示例显示如何向瓦片地图添加带有瓦片的图层：
+```lua
+local tiles = tilemap.tiles.new()
+tilemap.tiles.set(tiles, 1, 1, 2)
+editor.transact({
+    editor.tx.add("/level.tilemap", "layers", {
+        id = "new_layer",
+        tiles = tiles
+    })
+})
+```
+
+#### 编辑粒子效果
+
+您可以使用 `modifiers` 和 `emitters` 属性编辑粒子效果。例如，添加带有加速度修改器的圆形发射器的方法如下：
+```lua
+editor.transact({
+    editor.tx.add("/fire.particlefx", "emitters", {
+        type = "emitter-type-circle",
+        modifiers = {
+          {type = "modifier-type-acceleration"}
+        }
+    })
+})
+```
+许多粒子效果属性是曲线或曲线扩展（即曲线 + 一些随机值）。曲线表示为具有非空 `points` 列表的表，其中每个点是具有以下属性的表：
+- `x` - 点的 x 坐标，应从 0 开始，以 1 结束
+- `y` - 点的值
+- `tx`（0 到 1）和 `ty`（-1 到 1）- 点的切线。例如，对于 80 度角，`tx` 应该是 `math.cos(math.rad(80))`，`ty` 应该是 `math.sin(math.rad(80))`。
+曲线扩展还具有 `spread` 数字属性。
+
+例如，为现有发射器设置粒子生命周期 alpha 曲线可能如下所示：
+```lua
+local emitter = editor.get("/fire.particlefx", "emitters")[1]
+editor.transact({
+    editor.tx.set(emitter, "particle_key_alpha", { points = {
+        {x = 0,   y = 0, tx = 0.1, ty = 1}, -- 从 0 开始，快速上升
+        {x = 0.2, y = 1, tx = 1,   ty = 0}, -- 在生命周期的 20% 处达到 1
+        {x = 1,   y = 0, tx = 1,   ty = 0}  -- 缓慢下降到 0
+    }})
+})
+```
+当然，也可以在创建发射器时在表中使用 `particle_key_alpha` 键。此外，您可以使用单个数字来表示"静态"曲线。
+
+#### 编辑碰撞对象
+
+除了默认的大纲属性外，碰撞对象还定义了 `shapes` 节点列表属性。添加新的碰撞形状的方法如下：
+```lua
+editor.transact({
+    editor.tx.add("/hero.collisionobject", "shapes", {
+        type = "shape-type-box" -- 或 "shape-type-sphere", "shape-type-capsule"
+    })
+})
+```
+形状的 `type` 属性在创建期间是必需的，并且在添加形状后不能更改。有 3 种形状类型：
+- `shape-type-box` - 具有 `dimensions` 属性的盒形
+- `shape-type-sphere` - 具有 `diameter` 属性的球形
+- `shape-type-capsule` - 具有 `diameter` 和 `height` 属性的胶囊形
+
+#### 编辑 GUI 文件
+
+除了大纲属性外，GUI 节点还定义了以下属性：
+- `layers` — 图层编辑器节点列表（可重新排序）
+- `materials` — 材质编辑器节点列表
+
+可以使用编辑器的 `layers` 属性编辑 GUI 图层，例如：
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "layers", {name = "foreground"}),
+    editor.tx.add("/main.gui", "layers", {name = "background"})
+})
+```
+此外，可以重新排序图层：
+```lua
+local fg, bg = table.unpack(editor.get("/main.gui", "layers"))
+editor.transact({
+    editor.tx.reorder("/main.gui", "layers", {bg, fg})
+})
+```
+类似地，使用 `fonts`、`materials`、`textures` 和 `particlefxs` 属性编辑字体、材质、纹理和粒子效果：
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "fonts", {font = "/main.font"}),
+    editor.tx.add("/main.gui", "materials", {name = "shine", material = "/shine.material"}),
+    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.material"}),
+    editor.tx.add("/main.gui", "textures", {texture = "/ui.atlas"})
+})
+```
+这些属性不支持重新排序。
+
+最后，您可以使用 `nodes` 列表属性编辑 GUI 节点，例如：
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "nodes", {
+        type = "gui-node-type-box",
+        position = {20, 20, 20}
+    }),
+    editor.tx.add("/main.gui", "nodes", {
+        type = "gui-node-type-template",
+        template = "/button.gui"
+    }),
+})
+```
+内置节点类型有：
+- `gui-node-type-box`
+- `gui-node-type-particlefx`
+- `gui-node-type-pie`
+- `gui-node-type-template`
+- `gui-node-type-text`
+
+如果您使用spine扩展，还可以使用`gui-node-type-spine`节点类型。
+
+如果GUI文件定义了布局，您可以使用`layout:property`语法从布局中获取和设置值，例如：
+```lua
+local node = editor.get("/main.gui", "nodes")[1]
+
+-- GET:
+local position = editor.get(node, "position")
+pprint(position) -- {20, 20, 20}
+local landscape_position = editor.get(node, "Landscape:position")
+pprint(landscape_position) -- {20, 20, 20}
+
+-- SET:
+editor.transact({
+    editor.tx.set(node, "Landscape:position", {30, 30, 30})
+})
+pprint(editor.get(node, "Landscape:position")) -- {30, 30, 30}
+```
+
+可以使用`editor.tx.reset`重置已设置的布局属性为默认值：
+```lua
+print(editor.can_reset(node, "Landscape:position")) -- true
+editor.transact({
+    editor.tx.reset(node, "Landscape:position")
+})
+```
+
+模板节点树可以被读取，但不能编辑 — 您只能设置模板节点树的节点属性：
+```lua
+local template = editor.get("/main.gui", "nodes")[2]
+print(editor.can_add(template, "nodes")) -- false
+local node_in_template = editor.get(template, "nodes")[1]
+editor.transact({
+    editor.tx.set(node_in_template, "text", "Button text")
+})
+print(editor.can_reset(node_in_template, "text")) -- true (覆盖模板中的值)
+```
+
+#### 编辑游戏对象
+
+可以使用编辑器脚本编辑游戏对象文件的组件。组件有两种类型：引用型和嵌入型。引用型组件使用`component-reference`类型，作为对其他资源的引用，只允许覆盖脚本中定义的go属性。嵌入型组件使用`sprite`、`label`等类型，允许编辑组件类型中定义的所有属性，以及添加子组件（如碰撞对象的形状）。例如，您可以使用以下代码设置游戏对象：
+```lua
+editor.transact({
+    editor.tx.add("/npc.go", "components", {
+        type = "sprite",
+        id = "view"
+    }),
+    editor.tx.add("/npc.go", "components", {
+        type = "collisionobject",
+        id = "collision",
+        shapes = {
+            {
+                type = "shape-type-box",
+                dimensions = {32, 32, 32}
+            }
+        }
+    }),
+    editor.tx.add("/npc.go", "components", {
+        type = "component-reference",
+        path = "/npc.script",
+        id = "controller",
+        __hp = 100 -- 设置脚本中定义的go属性
+    })
+})
+```
+
+#### 编辑集合
+
+可以使用编辑器脚本编辑集合。您可以添加游戏对象（嵌入型或引用型）和集合（引用型）。例如：
+```lua
+local coll = "/char.collection"
+editor.transact({
+    editor.tx.add(coll, "children", {
+        -- 嵌入式游戏对象
+        type = "go",
+        id = "root",
+        children = {
+            {
+                -- 引用型游戏对象
+                type = "go-reference",
+                path = "/char-view.go",
+                id = "view"
+            },
+            {
+                -- 引用型集合
+                type = "collection-reference",
+                path = "/body-attachments.collection",
+                id = "attachments"
+            }
+        },
+        -- 嵌入式游戏对象也可以有组件
+        components = {
+            {
+                type = "collisionobject",
+                id = "collision",
+                shapes = {
+                    {type = "shape-type-box", dimensions = {2.5, 2.5, 2.5}}
+                }
+            },
+            {
+                type = "component-reference",
+                id = "controller",
+                path = "/char.script",
+                __hp = 100 -- 设置脚本中定义的go属性
+            }
+        }
+    })
+})
+```
+
+与编辑器中一样，引用型集合只能添加到被编辑集合的根目录，而游戏对象只能添加到嵌入式或引用型游戏对象，但不能添加到引用型集合或这些引用型集合中的游戏对象。
+
+### 使用 shell 命令
+
+在`run`处理程序中，您可以写入文件（使用`io`模块）并执行shell命令（使用`editor.execute()`命令）。执行shell命令时，可以将shell命令的输出捕获为字符串，然后在代码中使用它。例如，如果您想创建一个格式化JSON的命令，该命令使用全局安装的[`jq`](https://jqlang.github.io/jq/)，您可以编写以下命令：
+```lua
+{
+  label = "Format JSON",
+  locations = {"Assets"},
+  query = {selection = {type = "resource", cardinality = "one"}},
+  action = function(opts)
+    local path = editor.get(opts.selection, "path")
+    return path:match(".json$") ~= nil
+  end,
+  run = function(opts)
+    local text = editor.get(opts.selection, "text")
+    local new_text = editor.execute("jq", "-n", "--argjson", "data", text, "$data", {
+      reload_resources = false, -- 不要重新加载资源，因为jq不接触磁盘
+      out = "capture" -- 返回文本输出而不是无输出
+    })
+    editor.transact({ editor.tx.set(opts.selection, "text", new_text) })
+  end
+}
+```
+由于此命令以只读方式调用shell程序（并使用`reload_resources = false`通知编辑器），您可以使此操作可撤销。
+
+::: sidenote
+如果您想将编辑器脚本作为库分发，您可能希望将编辑器平台的二进制程序捆绑在依赖项中。有关如何执行此操作的更多详细信息，请参阅[库中的编辑器脚本](#editor-scripts-in-libraries)。
+:::
 
 ## 生命周期钩子
-
-您可以通过在 `hooks.editor_script` 文件中定义函数来响应编辑器中的各种事件：
-
-```lua
-function on_build_started()
-  print("Build started")
-end
-
-function on_build_completed()
-  print("Build completed")
-end
-
-function on_build_failed()
-  print("Build failed")
-end
-
-function on_editor_started()
-  print("Editor started")
-end
-
-function on_editor_exiting()
-  print("Editor exiting")
-end
-
-function on_editor_shutdown()
-  print("Editor shutdown")
-end
-```
-
-可用的事件：
-- `on_build_started()` — 当构建开始时调用。
-- `on_build_completed()` — 当构建完成时调用。
-- `on_build_failed()` — 当构建失败时调用。
-- `on_editor_started()` — 当编辑器启动时调用。
-- `on_editor_exiting()` — 当编辑器即将退出时调用。
-- `on_editor_shutdown()` — 当编辑器关闭时调用。
-
-## 执行模式
-
-编辑器脚本支持两种执行模式：
-
-### 即时模式
-
-在即时模式下，脚本会立即执行，并阻塞编辑器直到完成。这是默认模式。
-
-### 长时间运行模式
-
-在长时间运行模式下，脚本会在后台执行，不会阻塞编辑器。要启用长时间运行模式，请在脚本开头添加以下代码：
-
-```lua
-editor.set_async(true)
-```
-
-长时间运行模式有以下限制：
-- 不能使用 `editor.transact()` 函数。
-- 不能使用 `editor.get()` 函数。
-- 不能使用 `editor.set()` 函数。
-- 不能使用 `editor.create()` 函数。
-- 不能使用 `editor.delete()` 函数。
-- 不能使用 `editor.reorder()` 函数。
-- 不能使用 `editor.add()` 函数。
-- 不能使用 `editor.remove()` 函数。
-- 不能使用 `editor.clear()` 函数。
-- 不能使用 `editor.execute()` 函数。
-- 不能使用 `editor.prefs()` 函数。
-- 不能使用 `editor.message()` 函数。
-- 不能使用 `editor.confirm()` 函数。
-- 不能使用 `editor.input()` 函数。
-- 不能使用 `editor.select()` 函数。
-- 不能使用 `editor.open()` 函数。
-- 不能使用 `editor.save()` 函数。
-- 不能使用 `editor.close()` 函数。
-- 不能使用 `editor.reload()` 函数。
-- 不能使用 `editor.exit()` 函数。
-
-## 首选项
-
-您可以使用 `editor.prefs()` 函数来访问和修改编辑器首选项：
-
-```lua
--- 获取首选项
-local value = editor.prefs("key")
-
--- 设置首选项
-editor.prefs("key", value)
-```
-
-首选项是持久化的，即使编辑器关闭后也会保留。
-
-如果编辑器脚本模块定义了 `get_commands` 函数, 它会在扩展重载时被调用, 返回的命令可以在编辑器菜单栏或者资源和大纲视图的右键菜单里使用. 例如:
-```lua
-local M = {}
-
-function M.get_commands()
-  return {
-    {
-      label = "Remove Comments",
-      locations = {"Edit", "Assets"},
-      query = {
-        selection = {type = "resource", cardinality = "one"}
-      },
-      active = function(opts)
-        local path = editor.get(opts.selection, "path")
-        return ends_with(path, ".lua") or ends_with(path, ".script")
-      end,
-      run = function(opts)
-        local text = editor.get(opts.selection, "text")
-        return {
-          {
-            action = "set",
-            node_id = opts.selection,
-            property = "text",
-            value = strip_comments(text)
-          }
-        }
-      end
-    },
-    {
-      label = "Minify JSON",
-      locations = {"Assets"},
-      query = {
-        selection = {type = "resource", cardinality = "one"}
-      },
-      active = function(opts)
-        return ends_with(editor.get(opts.selection, "path"), ".json")
-      end,
-      run = function(opts)
-        local path = editor.get(opts.selection, "path")
-        return {
-          {
-            action = "shell",
-            command = {"./scripts/minify-json.sh", path:sub(2)}
-          }
-        }
-      end
-    }
-  }
-end
-
-return M
-```
-编辑器需要 `get_commands()` 返回一组 table, 每个 table 描述一个命令. 命令描述由以下部分组成:
-
-- `label` (必要) — 显示在菜单栏项上的文字
-- `locations` (必要) — 包含 `"Edit"`, `"View"`, `"Assets"` 或者 `"Outline"` 的数组, 描述该命令在哪里生效. `"Edit"` 和 `"View"` 表示菜单栏最高层, `"Assets"` 表示在资源视图右键菜单里, "Outline"` 表示在大纲视图右键菜单里.
-- `query` — 命令向编辑器查询信息并定义被操作数据的地方. 在 `query` 表里的每个键都会一一对应包裹在 `opts` 表里, 作为参数传给 `active` 和 `run` 回调函数. 支持的 key 有:
-  - `selection` 意思是在选择了什么时可用, 操作将作用于被选择的东西上.
-    - `type` 命令能作用于选择节点的类型, 目前支持以下几种:
-      - `"resource"` — 大纲视图或者资源视图里, 被选择资源对应的文件. 在菜单栏 (Edit 或 View), 资源是当前打开了的文件;
-      - `"outline"` — 在大纲视图显示的东西. 在大纲视图被选择的项, 在菜单栏是当前打开了的文件;
-    - `cardinality` 定义备选项的个数. 如果是 `"one"`, 将传给命令回调一个节点 id. 如果是 `"many"`, 将传给命令回调一个数组, 包含一个或多个节点 id.
-- `active` - 检测命令是否可用的回调, 返回布尔值. 如果 `locations` 包含 `"Assets"` 或 `"Outline"`, `active` 会在显示右键菜单时被调用. 如果包含 `"Edit"` 或 `"View"`, 它会在每个用户交互时被调用, 比如按键盘或者点鼠标的时候, 所以 `active` 应该快速执行完毕.
-- `run` - 用户点选菜单项时运行的回调, 返回包含 [actions](#actions) 的数组.
-
-## Action
-
-行为是描述编辑器要做什么的表. 每个行为包含一个 `action` 键. 行为有两种: 可撤销行为和不可撤销行为.
-
-### 可撤销行为
-
-可撤销行为在执行后可以撤销. 如果一个命令返回了多个可撤销行为, 它们会一起执行, 撤销时也一起被撤销. 应尽量使用可撤销行为. 只是可撤销行为有更多一些限制.
-
-目前的可撤销行为有:
-- `"set"` — 设置编辑器里一个节点的属性为指定值. 例如:
-  ```lua
-  {
-    action = "set",
-    node_id = opts.selection,
-    property = "text",
-    value = "current time is " .. os.date()
-  }
-  ```
-  `"set"` 行为有如下键:
-  - `node_id` — 表示节点 id 的 userdata. 或者, 可以用资源路径代替编辑器发来的节点 id, 例如 `"/main/game.script"`;
-  - `property` — 要设置的节点属性, 目前只支持 `"text"`;
-  - `value` — 给节点属性设置的新值. 对于 `"text"` 属性来说该值应该是一个字符串.
-
-### 不可撤销行为
-
-不可撤销行为会清空可撤销历史, 所以要撤销这种行为, 必须使用其他特殊方法, 比如版本控制系统.
-
-目前可用的不可撤销行为:
-- `"shell"` — 执行一个 shell 脚本. 例如:
-  ```lua
-  {
-    action = "shell",
-    command = {
-      "./scripts/minify-json.sh",
-      editor.get(opts.selection, "path"):sub(2) -- trim leading "/"
-    }
-  }
-  ```
-  `"shell"` 行为要有一个 `command` 键, 它是一组命令连同其参数. 它与 `os.execute` 主要区别在于, 鉴于它是一种潜在危险操作, 编辑器会弹出一个对话框询问用户是否确认进行此操作. 用户允许的每个命令授权都会被记住.
-
-### 行为混用及其副作用
-
-可以混用可撤销行为和不可撤销行为. 行为是依次执行的, 根据执行顺序撤销操作会停在不可撤销行为上.
-
-除了从函数返回行为, 还可以直接用 `io.open()` 读写文件. 这会触发资源重载并且清空撤销历史记录.
-
-## Lifecycle hooks
 
 有一个特殊的编辑器脚本文件: `hooks.editor_script`, 位于项目根目录, 就是跟 *game.project* 并存于同一目录. 只有这个编辑器脚本会从编辑器获得生命周期事件. 脚本文件举例:
 ```lua
@@ -404,7 +521,7 @@ local M = {}
 
 function M.on_build_started(opts)
   local file = io.open("assets/build.json", "w")
-  file:write("{\"build_time\": \"".. os.date() .."\"}")
+  file:write('{"build_time": "' .. os.date() .. '"}')
   file:close()
 end
 
@@ -412,9 +529,7 @@ return M
 ```
 我们决定将生命周期事件只发给这个文件, 这里构建事件顺序比加入构建步骤容易度更重要. 命令互相独立, 所以它们在菜单里的次序并不重要, 用户回选择需要的命令来执行. 编译事件也可以发给多个脚本, 但这会产生一个问题: 事件顺序是什么样的? 你可能希望压缩资源后检查校验和... 用单一文件通过每步的函数配置好构建步骤不失为一种解决方案.
 
-生命周期函数可以返回行为或者在项目文件夹的文件里写入数据.
-
-目前的生命周期脚本 `/hooks.editor_script` 可以指定:
+现有的生命周期钩子 `/hooks.editor_script` 可以指定:
 - `on_build_started(opts)` — 游戏开始构建到本地或某远程设备上时执行. 你的更改, 不论是返回行为还是更新文件内容, 都会反应在构建好的游戏中. 在这里抛出错误的话会导致构建终止. `opts` 是包含如下 key 的表:
   - `platform` — `%arch%-%os%` 格式的字符串, 描述了构建的目标平台, 目前其值与 `editor.platform` 中的值相同.
 - `on_build_finished(opts)` — 构建完成时执行, 无论构建成功与否. `opts` 是包含如下 key 的表:
@@ -430,18 +545,39 @@ return M
 
 注意目前生命周期处理脚本只是编辑器特性, 使用 Bob 以命令行编译打包时该脚本不会被执行.
 
-## Editor scripts in libraries
+## 语言服务器
 
-可以为他人发布包含命令的库, 编辑器会自动配置它们. 事件处理脚本除外, 因为它要放在项目根目录, 而库则是解压在子目录里. 这是为了在构建处理时提供更多控制权: 可以在 `.lua` 文件里提供简单的事件处理函数, 库用户则可以在他们的 `/hooks.editor_script` 文件里引入并使用它们.
+编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的子集。虽然我们旨在未来扩展编辑器对 LSP 功能的支持，但目前它只能在编辑的文件中显示诊断（即 lints）并提供补全。
 
-还要注意虽然依赖库显示在资源视窗里, 它们却不是文件 (而是 zip 包), 所以目前没办法从依赖库里执行 shell 脚本. 如果实在要执行, 需要先用 `editor.get()` 读取脚本, 然后用 `file:write()` 写入脚本文件, 比如写到 `build/editor-scripts/your-extension-name` 目录下.
+要定义语言服务器，您需要像这样编辑编辑器脚本的 `get_language_servers` 函数：
 
-更简单的办法是使用原生扩展插件系统.
-首先在库目录创建 `ext.manifest` 文件, 然后在 `ext.manifest` 文件所在文件夹里创建 `plugins/bin/${platform}`. 该文件夹下的文件会被自动提取到 `/build/plugins/${extension-path}/plugins/bin/${platform}` 目录下, 可以在编辑器脚本中引用它们.
+```lua
+function M.get_language_servers()
+  local command = 'build/plugins/my-ext/plugins/bin/' .. editor.platform .. '/lua-lsp'
+  if editor.platform == 'x86_64-win32' then
+    command = command .. '.exe'
+  end
+  return {
+    {
+      languages = {'lua'},
+      watched_files = {
+        { pattern = '**/.luacheckrc' }
+      },
+      command = {command, '--stdio'}
+    }
+  }
+end
+```
+编辑器将使用指定的 `command` 启动语言服务器，使用服务器进程的标准输入和输出进行通信。
+
+语言服务器定义表可以指定：
+- `languages`（必需）— 服务器感兴趣的语言列表，如[此处](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)所定义（文件扩展名也可以工作）；
+- `command`（必需）- 命令及其参数的数组
+- `watched_files` - 带有 `pattern` 键（glob）的表数组，将触发服务器的[监视文件更改](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles)通知。
 
 ## HTTP 服务器
 
-每个运行的编辑器实例都有一个 HTTP 服务器在运行。服务器可以通过编辑器脚本进行扩展。要扩展编辑器 HTTP 服务器，您需要添加 `get_http_server_routes` 编辑器脚本函数 — 它应该返回额外的路由：
+每个运行的编辑器实例都有一个正在运行的 HTTP 服务器。可以使用编辑器脚本扩展该服务器。要扩展编辑器 HTTP 服务器，您需要添加 `get_http_server_routes` 编辑器脚本函数 — 它应该返回额外的路由：
 ```lua
 print("My route: " .. http.server.url .. "/my-extension")
 
@@ -453,9 +589,9 @@ function M.get_http_server_routes()
   }
 end
 ```
-重新加载编辑器脚本后，您将在控制台中看到以下输出：`My route: http://0.0.0.0:12345/my-extension`。如果您在浏览器中打开此链接，您将看到您的 `"Hello world!"` 消息。
+重新加载编辑器脚本后，您将在控制台中看到以下输出：`My route: http://0.0.0.0:12345/my-extension`。如果在浏览器中打开此链接，您将看到您的 `"Hello world!"` 消息。
 
-输入的 `request` 参数是一个包含请求信息的简单 Lua 表。它包含诸如 `path`（以 `/` 开头的 URL 路径段）、请求 `method`（例如 `"GET"`）、`headers`（带有小写标题名称的表）以及可选的 `query`（查询字符串）和 `body`（如果路由定义了如何解释正文）等键。例如，如果您想创建一个接受 JSON 正文的路由，您可以使用 `"json"` 转换器参数定义它：
+输入的 `request` 参数是一个包含请求信息的简单 Lua 表。它包含诸如 `path`（以 `/` 开头的 URL 路径段）、请求 `method`（例如 `"GET"`）、`headers`（带有小写标题名称的表）以及可选的 `query`（查询字符串）和 `body`（如果路由定义了如何解释正文）等键。例如，如果您想创建一个接受 JSON 正文的路由，可以使用 `"json"` 转换器参数定义它：
 ```lua
 http.server.route("/my-extension/echo-request", "POST", "json", function(request)
   return http.server.json_response(request)
@@ -501,35 +637,11 @@ end)
 ```
 现在，在浏览器中打开例如 `http://0.0.0.0:12345/my-extension/files/main/main.collection` 将显示 `main/main.collection` 文件的内容。
 
-## Language servers
+## 库中的编辑器脚本
 
-编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的子集。虽然我们旨在未来扩展编辑器对 LSP 功能的支持，但目前它只能在编辑的文件中显示诊断（即 lints）并提供补全。
+您可以发布包含命令的库供他人使用，编辑器会自动获取这些命令。另一方面，钩子不能自动获取，因为它们必须定义在项目根目录的文件中，而库只公开子文件夹。这是为了在构建过程中提供更多控制：您仍然可以在 `.lua` 文件中创建生命周期钩子作为简单函数，以便库的用户可以在他们的 `/hooks.editor_script` 中 require 并使用它们。
 
-要定义语言服务器，您需要像这样编辑编辑器脚本的 `get_language_servers` 函数：
-
-```lua
-function M.get_language_servers()
-  local command = 'build/plugins/my-ext/plugins/bin/' .. editor.platform .. '/lua-lsp'
-  if editor.platform == 'x86_64-win32' then
-    command = command .. '.exe'
-  end
-  return {
-    {
-      languages = {'lua'},
-      watched_files = {
-        { pattern = '**/.luacheckrc' }
-      },
-      command = {command, '--stdio'}
-    }
-  }
-end
-```
-编辑器将使用指定的 `command` 启动语言服务器，使用服务器进程的标准输入和输出进行通信。
-
-语言服务器定义表可以指定：
-- `languages`（必需）— 服务器感兴趣的语言列表，如[此处](https://code.visualstudio.com/docs/languages/identifiers#_known-language-identifiers)所定义（文件扩展名也可以工作）；
-- `command`（必需）- 命令及其参数的数组
-- `watched_files` - 带有 `pattern` 键（glob）的表数组，将触发服务器的[监视文件更改](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles)通知。
+还要注意，尽管依赖项显示在资源视图中，但它们并不作为文件存在（它们是 zip 存档中的条目）。可以使编辑器从依赖项中提取一些文件到 `build/plugins/` 文件夹中。为此，您需要在库文件夹中创建 `ext.manifest` 文件，然后在 `ext.manifest` 文件所在的同一文件夹中创建 `plugins/bin/${platform}` 文件夹。该文件夹中的文件将自动提取到 `/build/plugins/${extension-path}/plugins/bin/${platform}` 文件夹，因此您的编辑器脚本可以引用它们。
 
 ## 首选项
 
@@ -574,9 +686,9 @@ editor.prefs.set("my_json_formatter.indent", {
 
 ## 执行模式
 
-编辑器脚本运行时使用两种执行模式，这些模式对编辑器脚本基本上是透明的：**即时**和**长时间运行**。
+编辑器脚本运行时使用两种执行模式，这些模式对编辑器脚本基本上是透明的：**即时**和**长时间运行**。 
 
-**即时**模式用于编辑器需要尽快从脚本接收响应的情况。例如，菜单命令的 `active` 回调在即时模式下执行，因为这些检查是在编辑器 UI 线程上响应与编辑器的用户交互而执行的，并且应该在同一帧内更新 UI。
+**即时**模式用于编辑器需要尽快从脚本接收响应的情况。例如，菜单命令的 `active` 回调在即时模式下执行，因为这些检查是在编辑器 UI 线程上响应与编辑器的用户交互而执行的，并且应该在同一帧内更新 UI。 
 
 **长时间运行**模式用于编辑器不需要脚本即时响应的情况。例如，菜单命令的 `run` 回调在**长时间运行**模式下执行，允许脚本有更多时间来完成其工作。
 
@@ -591,7 +703,7 @@ editor.prefs.set("my_json_formatter.indent", {
 - 菜单命令的 `active` 回调：编辑器需要在同一 UI 帧内从脚本接收响应。
 - 编辑器脚本的顶层：我们不期望重新加载编辑器脚本的行为有任何副作用。
 
-## Actions
+## 操作
 
 ::: sidenote
 以前，编辑器以阻塞方式与 Lua VM 交互，因此编辑器脚本有一个硬性要求，即不能阻塞，因为某些交互必须从编辑器 UI 线程完成。因此，例如没有 `editor.execute()` 和 `editor.transact()`。执行脚本和更改编辑器状态是通过从钩子和命令 `run` 处理程序返回一个 "actions" 数组来触发的。
@@ -647,8 +759,8 @@ editor.prefs.set("my_json_formatter.indent", {
   ```
   `"shell"` 操作需要 `command` 键，它是命令及其参数的数组。
 
-### 混合操作和副作用
+### 操作混用及其副作用
 
-您可以混合可撤销和不可撤销操作。操作是按顺序执行的，因此根据操作的顺序，您将最终失去撤销该命令部分的能力。
+您可以混合使用可撤销和不可撤销操作。操作是按顺序执行的，因此根据操作的顺序，您将失去撤销该命令部分操作的能力。
 
-除了从期望它们的函数返回操作外，您可以直接使用 `io.open()` 读写文件。这将触发资源重新加载，从而清除撤销历史记录。
+除了从期望它们的函数返回操作外，您可以直接使用 `io.open()` 读写文件。这将触发资源重载，从而清除撤销历史记录。

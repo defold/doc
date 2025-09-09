@@ -1,11 +1,11 @@
 ---
 title: Defold glossary
-brief: 本手册列出了在Defold工作中遇到的所有内容及其简要描述.
+brief: 本手册列出了在Defold工作中遇到的所有内容及其简要描述。
 ---
 
 # Defold glossary
 
-本词汇表简要介绍了您在Defold中遇到的所有内容.在大多数情况下,您会找到更多深入文档的链接.
+本词汇表简要介绍了您在Defold中遇到的所有内容。在大多数情况下，您会找到更多深入文档的链接。
 
 ## Animation set
 
@@ -41,7 +41,7 @@ brief: 本手册列出了在Defold工作中遇到的所有内容及其简要描�
 
 ## Collection proxy
 
-![Collection proxy](images/icons/collection-proxy.png){.left} 集合代理用于在应用程序或游戏运行时动态加载和启用集合。集合代理最常见的用例是在游戏进行时加载关卡。有关详细信息，请参阅[集合代理文档](/manuals/collection-proxy)。
+![Collection](images/icons/collection.png){.left} 集合代理用于在应用程序或游戏运行时动态加载和启用集合。集合代理最常见的用例是在游戏进行时加载关卡。有关详细信息，请参阅[集合代理文档](/manuals/collection-proxy)。
 
 ## Cubemap
 
@@ -73,92 +73,100 @@ brief: 本手册列出了在Defold工作中遇到的所有内容及其简要描�
 
 ## Game object
 
-![Game object](images/icons/game-object.png){.left} 游戏对象是游戏世界中的基本构建块。它具有位置、旋转和缩放，并且可以包含提供图形、行为等的组件。游戏对象可以组织成层次结构，其中父游戏对象的变换会影响其子对象。有关游戏对象的描述，请参阅[构建块手册](/manuals/building-blocks)。
+![Game object](images/icons/game-object.png){.left} 游戏对象是简单对象，在游戏执行期间具有独立的生命周期。游戏对象是容器，通常配备有视觉或可听组件，如声音或精灵。它们也可以通过脚本组件配备行为。您在编辑器中创建游戏对象并将其放置在集合中，或者在运行时使用工厂动态生成它们。有关游戏对象的描述，请参阅[构建块手册](/manuals/building-blocks)。
 
 ## GUI
 
-![GUI](images/icons/gui.png){.left} GUI资源用于创建用户界面。GUI资源包含一个节点树，每个节点可以设置位置、旋转、缩放、大小、颜色、纹理、字体等属性。GUI资源由GUI组件使用。有关详细信息，请参阅[GUI手册](/manuals/gui)。
+![GUI component](images/icons/gui.png){.left} GUI组件包含用于构建用户界面的元素：文本以及有颜色和/或有纹理的块。元素可以组织成层次结构，进行脚本化和动画化。GUI组件通常用于创建抬头显示器、菜单系统和屏幕通知。GUI组件由GUI脚本控制，这些脚本定义GUI的行为并控制用户与GUI的交互。在[GUI文档](/manuals/gui)中阅读更多内容。
 
 ## GUI script
 
-![GUI script](images/icons/script.png){.left} GUI脚本是一种Lua脚本，用于控制GUI节点的行为。GUI脚本可以控制节点的位置、旋转、缩放、颜色等属性，还可以处理用户输入事件。有关详细信息，请参阅[GUI手册](/manuals/gui)。
+![GUI script](images/icons/script.png){.left} GUI脚本用于控制GUI组件的行为。它们控制GUI动画以及用户如何与GUI交互。有关Lua脚本在Defold中如何使用的详细信息，请参阅[Defold中的Lua手册](/manuals/lua)。
 
 ## Hot reload
 
-![Hot reload](images/icons/hot-reload.png){.left} 热重载是一项功能，允许您在开发应用程序时更改资源并立即看到结果，而无需重新启动应用程序。这大大提高了开发速度。有关更多信息，请参阅[热重载手册](/manuals/hot-reload)。
+Defold编辑器允许您在已经运行的游戏中更新内容，无论是在桌面还是设备上。此功能非常强大，可以大大改善开发工作流程。有关更多信息，请参阅[热重载手册](/manuals/hot-reload)。
 
 ## Input binding
 
-![Input binding](images/icons/input-binding.png){.left} 输入绑定资源文件用于将输入设备上的各种输入（如键盘按键、鼠标按钮、游戏手柄按钮或触摸屏上的触摸）映射到一组触发器。例如，键盘上的空格键、游戏手柄上的A按钮和触摸屏上的触摸都可以映射到同一个"jump"触发器。游戏逻辑代码只需关心"jump"触发器，而不必关心具体的输入设备。有关详细信息，请参阅[输入手册](/manuals/input)。
+![Input binding](images/icons/input-binding.png){.left} 输入绑定文件定义了游戏应该如何解释硬件输入（鼠标、键盘、触摸屏和游戏手柄）。该文件将硬件输入绑定到高级输入_动作_，如"跳跃"和"向前移动"。在监听输入的脚本组件中，您能够编写游戏或应用程序在给定某些输入时应该采取的动作的脚本。有关详细信息，请参阅[输入文档](/manuals/input)。
 
 ## Label
 
-![Label](images/icons/label.png){.left} 标签组件用于显示文本。标签组件使用字体资源，可以设置文本内容、颜色、大小、对齐方式等属性。有关详细信息，请参阅[GUI手册](/manuals/gui)。
+![Label](images/icons/label.png){.left} 标签组件允许您将文本内容附加到任何游戏对象。它在屏幕上的游戏空间中渲染一段带有特定字体的文本。有关更多信息，请参阅[标签手册](/manuals/label)。
 
 ## Library
 
-![Library](images/icons/library.png){.left} 库是Defold编辑器的一部分，用于显示和管理项目中的所有资源文件。有关详细信息，请参阅[编辑器手册](/manuals/editor)。
+![Game object](images/icons/builtins.png){.left} Defold允许您通过强大的库机制在项目之间共享数据。您可以使用它来设置可从所有项目访问的共享库，无论是为您自己还是整个团队。在[库文档](/manuals/libraries)中阅读有关库机制的更多信息。
 
 ## Lua language
 
-![Lua](images/icons/lua.png){.left} Lua是一种轻量级、高效的脚本语言，Defold使用Lua作为游戏逻辑编程语言。有关详细信息，请参阅[Lua手册](/manuals/lua)。
+Lua编程语言在Defold中用于创建游戏逻辑。Lua是一种强大、高效、非常小的脚本语言。它支持过程式编程、面向对象编程、函数式编程、数据驱动编程和数据描述。您可以在官方Lua主页https://www.lua.org/上阅读有关该语言的更多信息，并在[Defold中的Lua手册](/manuals/lua)中阅读相关信息。
 
 ## Lua module
 
-![Lua module](images/icons/lua-module.png){.left} Lua模块是包含Lua代码的文件，可以被其他Lua文件引用。有关详细信息，请参阅[Lua手册](/manuals/lua)。
+![Lua module](images/icons/lua-module.png){.left} Lua模块允许您构建项目结构并创建可重用的库代码。在[Lua模块手册](/manuals/modules/)中阅读更多相关信息。
 
 ## Material
 
-![Material](images/icons/material.png){.left} 材质资源定义了模型如何渲染。材质包含着色器程序和渲染状态。有关详细信息，请参阅[材质手册](/manuals/material)。
+![Material](images/icons/material.png){.left} 材质通过指定着色器及其属性来定义不同对象应该如何渲染。有关更多信息，请参阅[材质手册](/manuals/material)。
 
 ## Message
 
-![Message](images/icons/message.png){.left} 消息是Defold中对象间通信的机制。游戏对象可以通过发送消息来与其他游戏对象或组件通信。有关详细信息，请参阅[消息手册](/manuals/message)。
+组件通过消息传递相互通信和与其他系统通信。组件还响应一组预定义的消息，这些消息会改变它们或触发特定动作。您发送消息来隐藏图形或推动物理对象。引擎还使用消息来通知组件事件，例如当物理形状碰撞时。消息传递机制需要为每个发送的消息指定接收者。因此，游戏中的一切都被唯一寻址。为了允许对象之间进行通信，Defold扩展了Lua的消息传递功能。Defold还提供了一组有用的函数库。
+
+例如，在游戏对象上隐藏精灵组件所需的Lua代码如下：
+
+```lua
+msg.post("#weapon", "disable")
+```
+
+这里，`"#weapon"`是当前对象精灵组件的地址。`"disable"`是精灵组件响应的消息。有关消息传递如何工作的深入解释，请参阅[消息传递文档](/manuals/message-passing)。
 
 ## Model
 
-![Model](images/icons/model.png){.left} 模型组件用于显示3D模型。模型组件使用模型资源和材质资源。有关详细信息，请参阅[模型手册](/manuals/model)。
+![Model](images/icons/model.png){.left} 3D模型组件可以将glTF和Collada网格、骨骼和动画资源导入到您的游戏中。有关更多信息，请参阅[模型手册](/manuals/model/)。
 
 ## ParticleFX
 
-![ParticleFX](images/icons/particlefx.png){.left} 粒子特效组件用于显示粒子特效。粒子特效组件使用粒子特效资源。有关详细信息，请参阅[粒子特效手册](/manuals/particlefx)。
+![ParticleFX](images/icons/particlefx.png){.left} 粒子在创建漂亮的视觉效果方面非常有用，特别是在游戏中。您可以使用它们来创建雾、烟、火、雨或落叶。Defold包含一个强大的粒子效果编辑器，允许您在游戏中实时运行效果时构建和调整效果。[ParticleFX文档](/manuals/particlefx)为您提供了其工作原理的详细信息。
 
 ## Profiling
 
-![Profiling](images/icons/profiling.png){.left} 性能分析是用于找出游戏性能瓶颈的工具。有关详细信息，请参阅[性能分析手册](/manuals/profiling)。
+良好的性能是游戏的关键，您必须能够进行性能和内存分析来测量您的游戏并识别需要修复的性能瓶颈和内存问题。有关Defold可用的分析工具的更多信息，请参阅[分析手册](/manuals/profiling)。
 
 ## Render
 
-![Render](images/icons/render.png){.left} 渲染文件包含把游戏渲染到屏幕所需的设置和参数。渲染文件决定了使用哪个渲染脚本和哪个材质资源。有关详细信息，请参阅[渲染手册](/manuals/render/)。
+![Render](images/icons/render.png){.left} 渲染文件包含将游戏渲染到屏幕时使用的设置。渲染文件定义了用于渲染的渲染脚本以及要使用的材质。有关更多详细信息，请参阅[渲染手册](/manuals/render/)。
 
 ## Render script
 
-![Render script](images/icons/render-script.png){.left} 渲染脚本是一种Lua脚本，用于控制渲染过程。渲染脚本可以设置渲染目标、视口、清屏颜色等属性。有关详细信息，请参阅[渲染手册](/manuals/render)。
+![Render script](images/icons/script.png){.left} 渲染脚本是一个Lua脚本，用于控制游戏或应用程序应该如何渲染到屏幕。有一个默认的渲染脚本涵盖了最常见的情况，但如果您需要自定义光照模型和其他效果，您可以编写自己的渲染脚本。有关渲染管道如何工作的更多详细信息，请参阅[渲染手册](/manuals/render/)，有关Lua脚本在Defold中如何使用的详细信息，请参阅[Defold中的Lua手册](/manuals/lua)。
 
 ## Script
 
-![Script](images/icons/script.png){.left} 脚本是一种Lua脚本，用于控制游戏对象的行为。脚本可以处理输入事件、发送消息、修改游戏对象属性等。有关详细信息，请参阅[脚本手册](/manuals/script)。
+![Script](images/icons/script.png){.left} 脚本是一个组件，包含定义游戏对象行为的程序。通过脚本，您可以指定游戏的规则，对象应该如何响应各种交互（与玩家以及其他对象）。所有脚本都用Lua编程语言编写。为了能够使用Defold工作，您或您团队中的某人需要学习如何用Lua编程。有关Lua的概述以及Lua脚本在Defold中如何使用的详细信息，请参阅[Defold中的Lua手册](/manuals/lua)。
 
 ## Sound
 
-![Sound](images/icons/sound.png){.left} 声音组件用于播放声音。目前 Defold 支持 WAV 和 Ogg Vorbis 格式的声音文件。有关详细信息，请参阅[声音手册](/manuals/sound)。
+![Sound](images/icons/sound.png){.left} 声音组件负责播放特定的声音。目前，Defold支持WAV和Ogg Vorbis格式的声音文件。有关更多信息，请参阅[声音手册](/manuals/sound)。
 
 ## Sprite
 
-![Sprite](images/icons/sprite.png){.left} 精灵组件用于显示2D图像。精灵组件使用图集资源和材质资源。有关详细信息，请参阅[精灵手册](/manuals/sprite)。
+![Sprite](images/icons/sprite.png){.left} 精灵是一个组件，用图形扩展游戏对象。它显示来自瓦片源或图集的图像。精灵内置支持翻页和骨骼动画。精灵通常用于角色和物品。
 
 ## Texture profiles
 
-![Texture profiles](images/icons/texture-profiles.png){.left} 纹理配置文件资源用于定义在不同平台和设备上如何优化纹理。有关详细信息，请参阅[纹理配置文件手册](/manuals/texture-profiles)。
+![Texture profiles](images/icons/texture-profiles.png){.left} 纹理配置文件资源文件用于在打包过程中自动处理和压缩图像数据（图集、瓦片源、立方体贴图和用于模型、GUI等的独立纹理）。在[纹理配置文件手册](/manuals/texture-profiles)中阅读更多相关信息。
 
 ## Tile map
 
-![Tile map](images/icons/tile-map.png){.left} 瓦片地图组件用于显示2D瓦片地图。瓦片地图组件使用瓦片地图资源和瓦片图源资源。有关详细信息，请参阅[瓦片地图手册](/manuals/tile-map)。
+![Tile map](images/icons/tilemap.png){.left} 瓦片地图组件在一个或多个重叠网格中显示来自瓦片源的图像。它们最常用于构建游戏环境：地面、墙壁、建筑物和障碍物。瓦片地图可以显示几个层叠在一起的层，具有指定的混合模式。这很有用，例如，将叶子放在草地背景瓦片上。还可以动态更改瓦片中显示的图像。这允许您，例如，通过简单地用描绘破损桥梁的瓦片替换瓦片并包含相应的物理形状，来摧毁一座桥梁并使其无法通行。有关更多信息，请参阅[瓦片地图文档](/manuals/tilemap)。
 
 ## Tile source
 
-![Tile source](images/icons/tilesource.png){.left} 瓦片图源资源用于定义瓦片地图中使用的瓦片。瓦片图源资源使用图像资源。有关详细信息，请参阅[瓦片图源手册](/manuals/tile-source)。
+![Tile source](images/icons/tilesource.png){.left} 瓦片源描述了一种纹理，该纹理由多个较小图像组成，每个图像大小相同。您可以从瓦片源中的一系列图像定义翻页动画。瓦片源还可以自动从图像数据计算碰撞形状。这对于创建对象可以碰撞和交互的瓦片化关卡非常有用。瓦片源由瓦片地图组件（以及精灵和粒子效果）使用，以共享图形资源。请注意，图集通常比瓦片源更适合。有关更多信息，请参阅[瓦片地图文档](/manuals/tilemap)。
 
 ## Vertex shader
 
-![Vertex shader](images/icons/vertex-shader.png){.left} 顶点着色器是一种运行于显卡上的用于处理多边形顶点的渲染程序。顶点着色器可以修改顶点的位置、颜色、纹理坐标等属性。有关详细信息，请参阅[着色器手册](/manuals/shader)。
+![Vertex shader](images/icons/vertex-shader.png){.left} 顶点着色器计算组件原始多边形形状的屏幕几何图形。对于任何类型的视觉组件，无论是精灵、瓦片地图还是模型，形状都由一组多边形顶点位置表示。顶点着色器程序处理每个顶点（在世界空间中）并计算原始顶点应该具有的结果坐标。有关更多信息，请参阅[着色器手册](/manuals/shader)。

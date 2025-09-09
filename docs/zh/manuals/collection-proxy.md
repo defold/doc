@@ -46,9 +46,9 @@ msg.post("#myproxy", "load")
 
 ![load](images/collection-proxy/proxy_load.png)
 
-代理组件将指示引擎为新世界分配空间。还会创建一个单独的运行时物理世界，并且集合"mylevel.collection"中的所有游戏对象都被实例化。
+代理组件将指示引擎为新世界分配空间。还会创建一个单独的运行时物理世界，并且集合`"mylevel.collection"`中的所有游戏对象都被实例化。
 
-新世界从集合文件中的*Name*属性获取其名称，在本示例中设置为"mylevel"。名称必须是唯一的。如果在集合文件中设置的*Name*已被用于已加载的世界，引擎将发出名称冲突错误：
+新世界从集合文件中的*Name*属性获取其名称，在本示例中设置为`"mylevel"`。名称必须是唯一的。如果在集合文件中设置的*Name*已被用于已加载的世界，引擎将发出名称冲突错误：
 
 ```txt
 ERROR:GAMEOBJECT: The collection 'default' could not be created since there is already a socket with the same name.
@@ -70,10 +70,10 @@ end
 ```
 
 `"load"`
-: 此消息告诉集合代理组件开始将其集合加载到新世界中。完成后，代理将发送回一个名为`"proxy_loaded"`的消息。
+: 此消息告诉集合代理组件开始将其集合加载到新世界中。完成后，代理将发送回一个名为 `"proxy_loaded"` 的消息。
 
 `"async_load"`
-: 此消息告诉集合代理组件开始在后台将其集合加载到新世界中。完成后，代理将发送回一个名为`"proxy_loaded"`的消息。
+: 此消息告诉集合代理组件开始在后台将其集合加载到新世界中。完成后，代理将发送回一个名为 `"proxy_loaded"` 的消息。
 
 `"init"`
 : 此消息告诉集合代理组件所有已实例化的游戏对象和组件应该被初始化。此时会调用所有脚本的`init()`函数。
