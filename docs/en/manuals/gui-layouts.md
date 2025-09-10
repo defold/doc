@@ -32,6 +32,10 @@ You also need to specify that the engine should use your new profiles. Open *gam
 
 If you want the engine to automatically switch between portrait and landscape layouts on device rotation, check the *Dynamic Orientation* box. The engine will dynamically select a matching layout and also change the selection if the device changes orientation.
 
+### Auto Layout Selection (Display Profiles)
+
+Display Profiles resource has an “Auto Layout Selection” option (ON by default). When ON, the engine automatically selects the best matching GUI layout both when the scene is created and when the window/display size changes. When OFF, the engine will not change layouts automatically—use `gui.set_layout()` from your GUI script to switch layouts manually. This setting is stored in the Display Profiles file and affects all GUI scene.
+
 ## GUI layouts
 
 The current set of display profiled can be used to create layout variants of your GUI node setup. To add a new layout to a GUI scene, right-click the *Layouts* icon in the *Outline* view and select <kbd>Add ▸ Layout ▸ ...</kbd>:
@@ -52,7 +56,7 @@ A layout cannot delete or create new nodes, only override properties. If you nee
 
 ## Dynamic profile selection
 
-The dynamic layout matching scores each display profile qualifier according to the following rules:
+When Auto Layout Selection is enabled, the engine automatically selects the best matching layout. The dynamic layout matching scores each display profile qualifier according to the following rules:
 
 1. If there is no device model set, or the device model matches, a score (S) is calculated for the qualifier.
 
@@ -70,7 +74,7 @@ Since the *Default* layout is used as fallback in runtime if there are no better
 
 ## Layout change messages
 
-When the engine switches layout as a result of device rotation, a `layout_changed` message is posted to the GUI components' scripts that are affected by the change. The message contains the hashed id of the layout so the script can perform logic depending on which layout is selected:
+When the layout changes, a `layout_changed` message is posted to the GUI component’s script. This happens when the engine changes layout automatically (Auto Layout Selection ON) or when your script calls `gui.set_layout()` and the layout actually changes. The message contains the hashed id of the layout so the script can perform logic depending on which layout is selected:
 
 ```lua
 function on_message(self, message_id, message, sender)
@@ -94,3 +98,42 @@ end
 ```
 
 When orientation is switched, the GUI layout manager will automatically scale and reposition GUI nodes according to your layout and node properties. In-game content, however, is rendered in a separate pass (by default) with a stretch-fit projection into the current window. To change this behavior, either supply your own modified render script, or use a camera [library](/assets/).
+
+## Manual layout selection (Lua)
+
+When Auto Layout Selection is OFF for the Display Profiles in use, the engine won’t switch layouts automatically. Use these functions from a GUI script to manage layouts manually:
+
+### gui.set_layout(layout)
+
+- Accepts a string or hash (layout id).
+- Returns boolean: `true` if the layout exists in the scene and was applied; `false` otherwise.
+- If the layout exists in Display Profiles, updates the scene resolution to the profile’s width/height.
+- Emits `layout_changed` when the layout actually changes.
+
+Example:
+
+```lua
+function init(self)
+    -- Manually apply the "Portrait" layout
+    local ok = gui.set_layout("Portrait")
+    if not ok then
+        print("Portrait layout not found in this scene")
+    end
+end
+```
+
+### gui.get_layouts()
+
+- Returns a table mapping each layout id hash to `vmath.vector3(width, height, 0)`.
+- For the default layout, returns the current scene resolution.
+
+Example:
+
+```lua
+local layouts = gui.get_layouts()
+for id, size in pairs(layouts) do
+    print(id, size.x, size.y)
+end
+```
+
+Note: If a GUI layout exists in the scene but is not present in Display Profiles, `gui.set_layout()` still applies the per-layout node overrides but does not change the scene resolution.
