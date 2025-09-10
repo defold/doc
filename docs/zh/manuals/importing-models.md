@@ -1,5 +1,5 @@
 ---
-title: 模型导入在Defold中
+title: Defold模型导入
 brief: 本手册介绍了如何导入模型组件使用的3D模型。
 ---
 
@@ -10,7 +10,7 @@ Defold目前支持GL传输格式*.glTF*和Collada*.dae*格式的模型、骨骼�
 
 
 ## 导入到Defold
-要导入模型，只需将*.gltf*文件或*.dae*文件以及相应的纹理图像拖放到*资源面板*中的某个位置。
+要导入模型，只需将*.gltf*文件或*.dae*文件以及相应的纹理图像拖放到*Assets*面板中的某个位置。
 
 ![导入模型资源](images/model/assets.png)
 
@@ -52,11 +52,11 @@ Defold对导出的动画数据施加了一些限制：
 
 ![Select all](images/model/blender_select_all_vertices.png)
 
-选中所有点后即可展开UV:
+当所有顶点被选中后，您可以展开网格以获取UV布局：
 
 ![Unwrap mesh](images/model/blender_unwrap_mesh.png)
 
-接下来就可以把它保存为图片文件作为网格纹理:
+然后您可以继续将UV布局导出为可用作纹理的图像：
 
 ![Export UV layout](images/model/blender_export_uv_layout.png)
 
@@ -66,6 +66,6 @@ Defold对导出的动画数据施加了一些限制：
 
 
 ### 使用Blender导出
-您使用导出菜单选项导出模型。在选择导出菜单选项之前选择模型，并勾选"仅选择"以仅导出模型。
+您使用导出菜单选项导出模型。在选择导出菜单选项之前选择模型，并勾选"Selection Only"以仅导出模型。
 
 ![Exporting using Blender](images/model/blender_export.png)

@@ -1,11 +1,11 @@
 ---
-title: 2D图形导入和使用在Defold中
-brief: 本手册介绍了如何导入和使用2D图形.
+title: Defold 2D图形导入和使用
+brief: 本手册介绍了如何导入和使用2D图形。
 ---
 
 # 导入2D图形
 
-Defold支持2D游戏中常用的多种视觉组件。您可以使用Defold创建静态和动画精灵、UI组件、粒子效果、瓦片地图和位图字体。在创建任何这些视觉组件之前，您需要导入包含您希望使用的图形的图像文件。要导入图像文件，只需将文件从计算机的文件系统中拖出，然后放到Defold编辑器的*资源面板*中的适当位置。
+Defold支持2D游戏中常用的多种视觉组件。您可以使用Defold创建静态和动画精灵、UI组件、粒子效果、瓦片地图和位图字体。在创建任何这些视觉组件之前，您需要导入包含您希望使用的图形的图像文件。要导入图像文件，只需将文件从计算机的文件系统中拖出，然后放到Defold编辑器的*Assets*面板中的适当位置。
 
 ![Importing files](images/graphics/import.png)
 
@@ -35,7 +35,7 @@ Defold支持PNG和JPEG图像格式。其他图像格式需要先转换才能使�
 ![bitmap font](images/icons/font.png){.icon} 位图字体
 : 位图字体将其字形包含在PNG字体表中。这些类型的字体与从TrueType或OpenType字体文件生成的字体相比没有性能改进，但可以在图像中直接包含任意图形、颜色和阴影。
 
-在[字体手册](/manuals/font/#位图-bmfonts)中了解更多关于位图字体的信息。
+在[字体手册](/manuals/font/#bitmap-bmfonts)中了解更多关于位图字体的信息。
 
   ![BMfont](images/font/bm_font.png)
 

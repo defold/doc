@@ -1,5 +1,5 @@
 ---
-title: 在Defold中使用库项目
+title: Defold库项目
 brief: 库功能允许您在项目之间共享资源。本手册解释了其工作原理。
 ---
 
@@ -103,7 +103,7 @@ GitHub步骤：
 
 ![Fetch Libraries](images/libraries/libraries_fetch_libraries.png)
 
-现在，您共享的文件夹出现在*资源面板*中，您可以使用您共享的所有内容。对库项目所做的任何同步更改都将在您的项目中可用。
+现在，您共享的文件夹出现在*Assets*面板中，您可以使用您共享的所有内容。对库项目所做的任何同步更改都将在您的项目中可用。
 
 ![Library setup done](images/libraries/libraries_done.png)
 

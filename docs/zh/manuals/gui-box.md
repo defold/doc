@@ -23,6 +23,6 @@ brief: 本手册介绍了如何使用GUI方块节点。
 
 ## 播放动画
 
-方块节点可以播放图集或瓦片图源中的动画。有关详细信息，请参阅[翻页动画手册](/manuals/flipbook-animation)。
+方块节点可以播放图集或瓦片图源中的动画。有关详细信息，请参阅[逐帧动画手册](/manuals/flipbook-animation)。
 
 :[Slice-9](../shared/slice-9-texturing.md)

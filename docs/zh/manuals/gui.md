@@ -25,7 +25,7 @@ Defold现在会自动在GUI场景编辑器中打开该文件。
 
 ![New gui](images/gui/new_gui.png)
 
-*大纲*列出了所有GUI的内容：它的节点列表和任何依赖项（见下文）。
+*Outline*列出了所有GUI的内容：它的节点列表和任何依赖项（见下文）。
 
 中央编辑区域显示GUI。编辑区域右上角的工具栏包含*移动*、*旋转*和*缩放*工具，以及一个[布局](/manuals/gui-layouts)选择器。
 
@@ -35,7 +35,7 @@ Defold现在会自动在GUI场景编辑器中打开该文件。
 
 ## Gui属性
 
-在*大纲*中选择根"Gui"节点会显示GUI组件的*属性*：
+在*Outline*中选择根"Gui"节点会显示GUI组件的*Properties*：
 
 *Script*
 : 绑定到此GUI组件的GUI脚本。
@@ -124,13 +124,13 @@ end
 
 ## 依赖项
 
-Defold游戏中的资源树是静态的，因此您需要为GUI节点添加的任何依赖项都必须添加到组件中。*大纲*按类型将所有依赖项分组在"文件夹"下：
+Defold游戏中的资源树是静态的，因此您需要为GUI节点添加的任何依赖项都必须添加到组件中。*Outline*按类型将所有依赖项分组在"文件夹"下：
 
 ![dependencies](images/gui/dependencies.png)
 
 要添加新的依赖项，将其从*Asset*窗格拖放到编辑器视图中。
 
-或者，<kbd>右键点击</kbd>*大纲*中的"Gui"根节点，然后从弹出上下文菜单中选择<kbd>Add ▸ [type]</kbd>。
+或者，<kbd>右键点击</kbd>*Outline*中的"Gui"根节点，然后从弹出上下文菜单中选择<kbd>Add ▸ [type]</kbd>。
 
 您也可以<kbd>右键点击</kbd>要添加类型的文件夹图标，然后选择<kbd>Add ▸ [type]</kbd>。
 
@@ -209,7 +209,7 @@ Texture (box和pie节点)
 : 要在节点上绘制的纹理。这是对图集或瓷砖图源中的图像或动画的引用。
 
 Material (box, pie节点, text和particlefx节点)
-: 绘制节点时要使用的材质。这可以是添加到大纲的材质部分的材质，或者留空以使用分配给GUI组件的默认材质。
+: 绘制节点时要使用的材质。这可以是添加到大纲的Materials部分的材质，或者留空以使用分配给GUI组件的默认材质。
 
 Slice 9 (box节点)
 : 设置当节点调整大小时保留节点纹理边缘周围的像素大小。详情请参见[Box节点文档](/manuals/gui-box)。
@@ -264,7 +264,7 @@ Pivot
 
   ![pivot point](images/gui/pivot.png)
 
-  如果您更改节点的枢轴点，节点将移动，使新枢轴点位于节点的位置。文本节点对齐方式设置为`Center`表示文本居中对齐，`West`表示文本左对齐，`East`表示文本右对齐。
+  如果您更改节点的pivot，节点将移动，使新pivot位于节点的位置。文本节点对齐方式设置为`Center`表示文本居中对齐，`West`表示文本左对齐，`East`表示文本右对齐。
 
 X Anchor, Y Anchor
 : 锚点控制当场景边界或父节点边界被拉伸以适应物理屏幕大小时节点的垂直和水平位置如何改变。
@@ -317,7 +317,7 @@ Clipping Inverted (box和pie节点)
 
 ![](images/gui/adjustmode_example_original.png)
 
-界面是使用X和Y锚点设置为None创建的，每个节点的调整模式保留为默认值Fit。顶部面板的枢轴点是North，底部面板的枢轴是South，顶部面板中的条的枢轴点设置为West。其余节点的枢轴点都设置为Center。如果我们将窗口调整得更宽，会发生以下情况：
+界面是使用X和Y锚点设置为None创建的，每个节点的调整模式保留为默认值Fit。顶部面板的pivot是North，底部面板的pivot是South，顶部面板中的条的pivot设置为West。其余节点的pivot都设置为Center。如果我们将窗口调整得更宽，会发生以下情况：
 
 ![](images/gui/adjustmode_example_resized.png)
 
@@ -335,11 +335,11 @@ Clipping Inverted (box和pie节点)
 
 ![](images/gui/adjustmode_example_bottom_anchor_left_right.png)
 
-这还不是预期的结果。两个框应该像顶部面板中的两个条一样保持靠近左右边缘。原因是枢轴点错误：
+这还不是预期的结果。两个框应该像顶部面板中的两个条一样保持靠近左右边缘。原因是pivot错误：
 
 ![](images/gui/adjustmode_example_bottom_pivot_center.png)
 
-两个框的枢轴点都设置为Center。这意味着当屏幕变宽时，框的中心点（枢轴点）将保持与边缘相同的相对距离。对于左侧框，在原始的640x1136窗口中，它距离左边缘17%：
+两个框的pivot都设置为Center。这意味着当屏幕变宽时，框的中心点（pivot）将保持与边缘相同的相对距离。对于左侧框，在原始的640x1136窗口中，它距离左边缘17%：
 
 ![](images/gui/adjustmode_example_original_ratio.png)
 
@@ -347,7 +347,7 @@ Clipping Inverted (box和pie节点)
 
 ![](images/gui/adjustmode_example_resized_stretch_ratio.png)
 
-如果我们将左侧框的枢轴点从Center更改为West，右侧框更改为East，并重新定位框，即使屏幕调整大小，我们也能得到我们想要的结果：
+如果我们将左侧框的pivot从Center更改为West，右侧框更改为East，并重新定位框，即使屏幕调整大小，我们也能得到我们想要的结果：
 
 ![](images/gui/adjustmode_example_bottom_pivot_west_east.png)
 
@@ -373,7 +373,7 @@ end
 
 ## 父子层次结构
 
-通过将一个节点拖放到您希望成为其父节点的节点上，使该节点成为另一个节点的子节点。具有父节点的节点继承应用于父节点的变换（位置、旋转和缩放），并相对于父节点枢轴点。
+通过将一个节点拖放到您希望成为其父节点的节点上，使该节点成为另一个节点的子节点。具有父节点的节点继承应用于父节点的变换（位置、旋转和缩放），并相对于父节点pivot。
 
 ![Parent child](images/gui/parent_child.png)
 
@@ -397,7 +397,7 @@ end
 
 渲染管线被迫为不同类型的节点建立不同的渲染批次。这三个按钮就会产生6次绘制调用。
 
-如果使用层，可以重塑节点的绘制顺序，渲染管线就能更好地进行合批并减少绘制调用。第一步是创建新层。在*大纲*的"Layers"文件夹上<kbd>右键点击</kbd>，然后选择<kbd>Add ▸ Layer</kbd>。在*属性*视图中填写*Name*属性为层命名。
+如果使用层，可以重塑节点的绘制顺序，渲染管线就能更好地进行合批并减少绘制调用。第一步是创建新层。在*大纲*的"Layers"文件夹上<kbd>右键点击</kbd>，然后选择<kbd>Add ▸ Layer</kbd>。在*Properties*视图中填写*Name*属性为层命名。
 
 ![Layers](images/gui/layers.png)
 

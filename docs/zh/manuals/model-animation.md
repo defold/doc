@@ -1,5 +1,5 @@
 ---
-title: Defold 中的 3D 模型动画手册
+title: Defold 3D模型动画
 brief: 本手册介绍了如何在 Defold 中使用 3D 模型动画。
 ---
 

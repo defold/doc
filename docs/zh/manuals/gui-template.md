@@ -11,19 +11,19 @@ GUI模板是在另一个GUI场景中逐个节点实例化的GUI场景。然后�
 
 ## 创建模板
 
-GUI 模板也是一种场景, 创建和普通场景一样. 在 *Assets* 面板里某位置上 <kbd>右键点击</kbd> 然后选择 <kbd>New... ▸ Gui</kbd>.
+GUI模板是一个普通的GUI场景，因此它的创建方式与任何其他GUI场景相同。在 *Assets* 面板中<kbd>右键点击</kbd>一个位置并选择 <kbd>New... ▸ Gui</kbd>。
 
 ![Create template](images/gui-templates/create.png)
 
-输入名称并保存. 注意节点都是参照模板原点设置位置的, 所以模板位置也最好设置成 0, 0, 0.
+创建模板并保存。注意，实例的节点将相对于原点放置，因此在 0, 0, 0 位置创建模板是一个好主意。
 
 ## 从模板创建实例
 
-您可以根据模板创建任意数量的实例。创建或打开要放置模板的GUI场景，然后在*大纲*视图中右键单击*节点*部分，并选择<kbd>添加 ▸ 模板</kbd>。
+您可以根据模板创建任意数量的实例。创建或打开要放置模板的GUI场景，然后在*Outline*视图中<kbd>右键点击</kbd>*Nodes*部分，并选择<kbd>Add ▸ Template</kbd>。
 
 ![Create instance](images/gui-templates/create_instance.png)
 
-将*模板*属性设置为模板GUI场景文件。
+将*Template*属性设置为模板GUI场景文件。
 
 您可以添加任意数量的模板实例，并且对于每个实例，您可以覆盖每个节点的属性，并更改实例节点的位置、颜色、大小、纹理等。
 
@@ -33,11 +33,11 @@ GUI 模板也是一种场景, 创建和普通场景一样. 在 *Assets* 面板�
 
 ![Properties](images/gui-templates/properties.png)
 
-任何具有覆盖属性的节点在*大纲*视图中也会以蓝色显示：
+任何具有覆盖属性的节点在*Outline*视图中也会以蓝色显示：
 
 ![Outline](images/gui-templates/outline.png)
 
-模板实例在*大纲*视图中列为可折叠条目。但是，需要注意的是，大纲中的此项*不是一个节点*。模板实例在运行时也不存在，但属于实例的所有节点都存在。
+模板实例在*Outline*视图中列为可折叠条目。但是，需要注意的是，大纲中的此项*不是一个节点*。模板实例在运行时也不存在，但属于实例的所有节点都存在。
 
 属于模板实例的节点会自动在其*Id*前附加前缀和斜杠（`"/"`）。前缀是在模板实例中设置的*Id*。
 
@@ -47,7 +47,7 @@ GUI 模板也是一种场景, 创建和普通场景一样. 在 *Assets* 面板�
 
 ```lua
 if gui.pick_node(gui.get_node("button_1/button"), x, y) then
-    -- Do something...
+    -- 做些什么...
 end
 ```
 

@@ -1,5 +1,5 @@
 ---
-title: 游戏手柄输入在Defold中
+title: Defold游戏手柄输入
 brief: 本手册解释了游戏手柄输入的工作原理。
 ---
 
@@ -29,9 +29,9 @@ brief: 本手册解释了游戏手柄输入的工作原理。
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_lpad_left") then
         if action.pressed then
-            -- 向左移动
+            -- 开始向左移动
         elseif action.released then
-            -- 停止移动
+            -- 停止向左移动
         end
     end
 end
@@ -43,8 +43,8 @@ end
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_lstick_down") then
-        -- 左摇杆向下拨动
-        print(action.value) -- 取值范围 0.0 到 -1.0
+        -- 左摇杆向下移动
+        print(action.value) -- 0.0到-1.0之间的值
     end
 end
 ```
@@ -54,7 +54,7 @@ end
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_lstick_down") and action.pressed then
-        -- 左摇杆向下拨动到头
+        -- 左摇杆被移动到极端向下位置
     end
 end
 ```
@@ -66,7 +66,7 @@ Defold通过主机操作系统支持多个游戏手柄，操作会将操作表�
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_start") then
         if action.gamepad == 0 then
-          -- 手柄0号玩家申请加入游戏
+          -- 游戏手柄0想要加入游戏
         end
     end
 end
@@ -79,11 +79,11 @@ end
 function on_input(self, action_id, action)
     if action_id == hash("gamepad_connected") then
         if action.gamepad == 0 then
-          -- 手柄0号已连接
+          -- 游戏手柄0已连接
         end
     elseif action_id == hash("gamepad_disconnected") then
         if action.gamepad == 0 then
-          -- 手柄0号已断开
+          -- 游戏手柄0已断开连接
         end
     end
 end
@@ -136,9 +136,9 @@ end
 function on_input(self, action_id, action)
     if action_id == hash("connected") then
         if action.gamepad_unknown then
-            print("The connected gamepad is unidentified and will only generate raw input")
+            print("The connected gamepad is unidentified and will only generate raw input") -- 连接的游戏手柄未被识别，只会生成原始输入
         else
-            print("The connected gamepad is known and will generate input actions for buttons and sticks")
+            print("The connected gamepad is known and will generate input actions for buttons and sticks") -- 连接的游戏手柄已知，将为按钮和摇杆生成输入操作
         end
     end
 end
@@ -151,8 +151,9 @@ HTML5构建中支持游戏手柄，并生成与其他平台相同的输入事件
 local function supports_gamepads()
     return not html5 or (html5.run('typeof navigator.getGamepads === "function"') == "true")
 end
+
 if supports_gamepads() then
-    print("Platform supports gamepads")
+    print("Platform supports gamepads") -- 平台支持游戏手柄
 end
 ```
 

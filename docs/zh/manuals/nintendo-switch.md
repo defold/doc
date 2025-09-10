@@ -1,5 +1,5 @@
 ---
-title: Nintendo Switch 的 Defold 开发
+title: Nintendo Switch平台Defold开发
 brief: 本手册介绍了如何获取 Nintendo Switch 访问权限
 ---
 

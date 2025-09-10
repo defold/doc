@@ -61,7 +61,7 @@ Defold 经过充分测试，在正常情况下应该很少崩溃。然而，无�
 
 如果应用是 [可调试的](/manuals/project-settings/#android)，您可以使用 [Android Debug Bridge (ADB) 工具](https://developer.android.com/studio/command-line/adb.html) 和 `adb shell` 命令获取崩溃日志：
 
-```sh
+```
 $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/files/_crash'" > ./_crash
 ```
 

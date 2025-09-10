@@ -1,5 +1,5 @@
 ---
-title: Defold 中的 Live Update 内容
+title: Defold Live Update
 brief: Live Update 功能提供了一种机制，允许运行时获取和存储在构建时有意排除在应用程序包之外的资源。本手册解释了其工作原理。
 ---
 

@@ -1,6 +1,6 @@
 
 ---
-title: Defold Linux 平台开发
+title: Linux平台Defold开发
 brief: 本手册描述了如何在 Linux 上构建和运行 Defold 应用程序
 ---
 

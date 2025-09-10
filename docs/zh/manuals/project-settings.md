@@ -1,194 +1,512 @@
-# Defold 项目设置
+---
+title: Defold 项目设置
+brief: 本手册介绍了 Defold 中项目特定设置的工作方式。
+---
 
-本手册描述了 Defold 中项目特定设置的工作方式。
+# 项目设置
 
-Defold 项目设置保存在项目根目录下的 `game.project` 文件中。这些设置控制引擎的各个方面，从显示和渲染到物理和输入。
+文件 *game.project* 包含所有项目级别的设置。它必须保存在项目的根文件夹中，并且必须命名为 *game.project*。引擎在启动和运行您的游戏时做的第一件事就是查找这个文件。
+
+文件中的每个设置都属于一个类别。当您打开文件时，Defold 会将所有设置按类别分组展示。
+
+![Project settings](images/project-settings/settings.jpg)
+
+
+## 文件格式
+
+*game.project* 中的设置通常在 Defold 内部修改，但该文件也可以在任何标准文本编辑器中编辑。该文件遵循 INI 文件格式标准，如下所示：
+
+```ini
+[category1]
+setting1 = value
+setting2 = value
+[category2]
+...
+```
+
+一个真实的例子是：
+
+```ini
+[bootstrap]
+main_collection = /main/main.collectionc
+```
+
+这意味着设置 *main_collection* 属于 *bootstrap* 类别。每当使用文件引用时（如上面的例子），路径需要附加一个 'c' 字符，这意味着您引用的是文件的编译版本。还要注意，包含 *game.project* 的文件夹将成为项目根目录，这就是为什么在设置路径中有一个初始 '/'。
+
 
 ## 运行时访问
 
-您可以在运行时通过 [`sys.get_config()`](/ref/sys/#sys.get_config) 函数访问设置值：
+可以在运行时使用 [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string)、[`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) 和 [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int) 从 *game.project* 中读取任何值。例子：
 
 ```lua
-local width = tonumber(sys.get_config("display.width"))
+local title = sys.get_config_string("project.title")
+local gravity_y = sys.get_config_number("physics.gravity_y")
 ```
 
-## 设置类别
+::: sidenote
+键是类别和设置名称的组合，用点分隔，并用小写字母书写，任何空格字符用下划线替换。例子：“Project”类别中的“Title”字段变成 `project.title`，“Physics”类别中的“Gravity Y”字段变成 `physics.gravity_y`。
+:::
+
+
+## 部分和设置
+
+下面是所有可用的设置，按类别排列。
+
+### Project
+
+#### Title
+应用程序的标题。
+
+#### Version
+应用程序的版本。
+
+#### Publisher
+发布商名称。
+
+#### Developer
+开发商名称。
+
+#### Write Log
+勾选时，引擎将写入日志文件。如果从编辑器运行多个实例，文件将被命名为 *instance_2_log.txt*，其中 `2` 是实例索引。如果运行单个实例或从打包运行，文件将被命名为 *log.txt*。日志文件的位置将是以下路径之一（按顺序尝试）：
+
+1. 在 *project.log_dir* 中指定的路径（隐藏设置）
+2. 系统日志路径：
+  * macOS/iOS: `NSDocumentDirectory`
+  * Android: `Context.getExternalFilesDir()`
+  * 其他: 应用程序根目录
+3. 应用程序支持路径
+  * macOS/iOS: `NSApplicationSupportDirectory`
+  * Windows: `CSIDL_APPDATA` （例如 `C:\Users\<username>\AppData\Roaming`）
+  * Android: `Context.getFilesDir()`
+  * Linux: `HOME` 环境变量
+
+#### Minimum Log Level
+指定日志系统的最低日志级别。只有在此级别或以上的日志才会显示。
+
+#### Compress Archive
+在打包时启用存档压缩。请注意，这目前适用于除 Android 以外的所有平台，因为 apk 已经包含所有压缩数据。
+
+#### Dependencies
+项目 *库 URL* 的 URL 列表。有关更多信息，请参阅[库手册](/manuals/libraries/)。
+
+#### Custom Resources
+`custom_resources`
+:[Custom Resources](../shared/custom-resources.md)
+
+加载自定义资源在[文件访问手册](/manuals/file-access/#how-to-access-files-bundled-with-the-application)中有更详细的介绍。
+
+#### Bundle Resources
+`bundle_resources`
+:[Bundle Resources](../shared/bundle-resources.md)
+
+加载打包资源在[文件访问手册](/manuals/file-access/#how-to-access-files-bundled-with-the-application)中有更详细的介绍。
+
+#### Bundle Exclude Resources
+`bundle_exclude_resources`
+一个逗号分隔的资源列表，这些资源不应包含在打包中。即，它们从 `bundle_resources` 步骤的集合结果中被删除。
+
+---
 
 ### Bootstrap
 
 #### Main Collection
-
-指定游戏启动时要加载的主集合。这通常是您的游戏世界或菜单的集合。
+用于启动应用程序的集合文件引用，默认为 `/logic/main.collection`。
 
 #### Render
+要使用的渲染设置文件，它定义了渲染管道，默认为 `/builtins/render/default.render`。
 
-指定游戏启动时要加载的渲染脚本。这通常是您的游戏渲染脚本，但如果您有多个渲染脚本，则可以指定一个不同的脚本用于启动。
-
-#### Collection Proxies
-
-指定游戏启动时要加载的集合代理列表。这通常用于加载游戏资源，如图像、声音等。
-
-### Display
-
-#### Width
-
-游戏画布的宽度（以像素为单位）。
-
-#### Height
-
-游戏画布的高度（以像素为单位）。
-
-#### High Dpi
-
-如果设置，将启用高 DPI 支持。这意味着在高 DPI 设备上，游戏将以更高的分辨率渲染，从而提供更清晰的图像。
-
-#### Samples
-
-多重采样抗锯齿的样本数。值越高，图像质量越好，但性能开销也越大。
-
-#### Fullscreen
-
-如果设置，游戏将以全屏模式启动。
-
-#### Project Orientation
-
-指定项目的方向。有效值为 `Default`、`Landscape`、`Landscape Flipped`、`Portrait` 和 `Portrait Flipped`。
-
-#### Dynamic Orientation
-
-如果设置，将启用动态方向支持。这意味着游戏将根据设备方向自动旋转。
-
-#### Clear Color Red, Green, Blue
-
-指定清除颜色的红色、绿色和蓝色分量。值范围为 0.0 到 1.0。
-
-#### Clear Color Alpha
-
-指定清除颜色的 alpha 分量。值范围为 0.0 到 1.0。
-
-### Engine
-
-#### Version
-
-指定要使用的引擎版本。这可以是特定版本号，也可以是 `stable`、`beta` 或 `alpha`。
-
-#### Fixed Delta
-
-如果设置，将使用固定的时间步长。这意味着游戏将以固定的帧率运行，而不管实际帧率如何。
-
-#### Fixed Update Frequency
-
-指定固定更新的频率（以 Hz 为单位）。这仅在使用固定时间步长时使用。
-
-#### Max Frame Pacing
-
-指定最大帧间隔（以毫秒为单位）。这用于限制帧率，从而减少电池消耗。
-
-#### Vsync
-
-如果设置，将启用垂直同步。这意味着游戏将与显示器的刷新率同步，从而减少撕裂。
-
-#### Collection Proxies
-
-指定要加载的集合代理列表。这通常用于加载游戏资源，如图像、声音等。
-
-### Input
-
-#### Repeat Delay
-
-指定重复按键的延迟（以毫秒为单位）。这用于控制按键重复的频率。
-
-#### Repeat Interval
-
-指定重复按键的间隔（以毫秒为单位）。这用于控制按键重复的频率。
-
-#### Gamepads
-
-如果设置，将启用游戏手柄支持。
-
-#### Gamepad Deadzone
-
-指定游戏手柄的死区。这用于控制游戏手柄的灵敏度。
-
-#### Touch Deadzone
-
-指定触摸的死区。这用于控制触摸的灵敏度。
-
-#### Mouse Deadzone
-
-指定鼠标的死区。这用于控制鼠标的灵敏度。
+---
 
 ### Library
 
 #### Include Dirs
+应通过库共享从您的项目中共享的目录的空格分隔列表。有关更多信息，请参阅[库手册](/manuals/libraries/)。
 
-指定要包含的目录列表。这用于指定包含头文件的目录。
+---
 
-#### Library Dirs
+### Script
 
-指定要链接的库目录列表。这用于指定包含库文件的目录。
+#### Shared State
+勾选以在所有脚本类型之间共享单个 Lua 状态。
 
-#### Libraries
+---
 
-指定要链接的库列表。这用于指定要链接的库文件。
+### Engine
 
-### Logging
+#### Run While Iconified
+允许引擎在应用程序窗口最小化时继续运行（仅限桌面平台）。
 
-#### Level
+#### Fixed Update Frequency
+`fixed_update(self, dt)` 生命周期函数的更新频率。以赫兹为单位。
 
-指定日志级别。有效值为 `DEBUG`、`INFO`、`WARNING`、`ERROR` 和 `FATAL`。
+#### Max Time Step
+如果单帧期间时间步长变得太大，它将被限制为此最大值。以秒为单位。
 
-#### Minimum Log Level
+---
 
-指定最小日志级别。有效值为 `DEBUG`、`INFO`、`WARNING`、`ERROR` 和 `FATAL`。
+### Display
 
-#### To Console
+#### Width
+应用程序窗口的宽度（以像素为单位）。
 
-如果设置，将启用控制台日志记录。
+#### Height
+应用程序窗口的高度（以像素为单位）。
 
-#### To File
+#### High Dpi
+在支持的显示器上创建高 dpi 后缓冲区。通常游戏将以比*宽度*和*高度*设置中设置的分辨率高一倍的分辨率渲染，这仍然是脚本和属性中使用的逻辑分辨率。
 
-如果设置，将启用文件日志记录。
+#### Samples
+用于超级采样抗锯齿的样本数量。它设置 GLFW_FSAA_SAMPLES 窗口提示。值为 `0` 表示关闭抗锯齿。
+
+#### Fullscreen
+勾选应用程序是否应全屏启动。如果未勾选，应用程序将在窗口模式下运行。
+
+#### Update Frequency
+所需的帧率（以赫兹为单位）。设置为 0 表示可变帧率。大于 0 的值将导致固定帧率，在运行时上限为实际帧率（这意味着您不能在引擎帧中更新游戏循环两次）。使用 [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) 在运行时更改此值。此设置也适用于无头构建。
+
+#### Swap interval
+此整数值控制应用程序如何处理垂直同步。0 禁用垂直同步，默认值为 1。使用 OpenGL 适配器时，此值设置窗口应在[缓冲区交换之间更新](https://www.khronos.org/opengl/wiki/Swap_Interval)的帧数。对于 Vulkan，没有内置的交换间隔概念，该值控制是否应启用垂直同步。
+
+#### Vsync
+依赖硬件垂直同步进行帧时序。可以根据图形驱动程序和平台特性进行覆盖。对于已弃用的 'variable_dt' 行为，请取消勾选此设置并将帧上限设置为 0。
+
+#### Display Profiles
+指定要使用的显示配置文件，默认为 `/builtins/render/default.display_profilesc`。在[GUI 布局手册](/manuals/gui-layouts/#creating-display-profiles)中了解更多信息。
+
+#### Dynamic Orientation
+勾选应用程序是否应在设备旋转时动态切换纵向和横向。请注意，开发应用程序目前不遵守此设置。
+
+#### Display Device Info
+在启动时将 GPU 信息输出到控制台。
+
+---
+
+### Render
+
+#### Clear Color Red
+清除颜色红色通道，由渲染脚本和创建窗口时使用。
+
+#### Clear Color Green
+清除颜色绿色通道，由渲染脚本和创建窗口时使用。
+
+#### Clear Color Blue
+清除颜色蓝色通道，由渲染脚本和创建窗口时使用。
+
+#### Clear Color Alpha
+清除颜色 Alpha 通道，由渲染脚本和创建窗口时使用。
+
+---
+
+### Font
+
+#### Runtime Generation
+使用运行时字体生成。
+
+---
+
+### Physics
+
+#### Max Collision Object Count
+碰撞对象的最大数量。
+
+#### Type
+要使用的物理类型，`2D` 或 `3D`。
+
+#### Gravity X
+沿 x 轴的世界重力。以米每秒为单位。
+
+#### Gravity Y
+沿 y 轴的世界重力。以米每秒为单位。
+
+#### Gravity Z
+沿 z 轴的世界重力。以米每秒为单位。
+
+#### Debug
+勾选是否应可视化物理以进行调试。
+
+#### Debug Alpha
+可视化物理的 Alpha 分量值，`0`--`1`。
+
+#### World Count
+并发物理世界的最大数量，默认为 `4`。如果您通过集合代理同时加载超过 4 个世界，则需要增加此值。请注意，每个物理世界都会分配相当多的内存。
+
+#### Scale
+告诉物理引擎如何相对于游戏世界缩放物理世界以获得数值精度，`0.01`--`1.0`。如果值设置为 `0.02`，这意味着物理引擎将把 50 个单位视为 1 米（$1 / 0.02$）。
+
+#### Allow Dynamic Transforms
+勾选物理引擎是否应将游戏对象的变换应用于任何附加的碰撞对象组件。这可用于移动、缩放和旋转碰撞形状，即使是动态的。
+
+#### Use Fixed Timestep
+勾选物理引擎是否应使用固定和与帧率无关的更新。将此设置与 `fixed_update(self, dt)` 生命周期函数和 `engine.fixed_update_frequency` 项目设置结合使用，以定期与物理引擎交互。对于新项目，推荐的设置是 `true`。
+
+#### Debug Scale
+在物理中绘制单位对象的大小，如三元组和法线。
+
+#### Max Collisions
+将报告回脚本的碰撞数量。
+
+#### Max Contacts
+将报告回脚本的接触点数量。
+
+#### Contact Impulse Limit
+忽略值小于此设置的接触冲量。
+
+#### Ray Cast Limit 2d
+每帧 2d 射线投射请求的最大数量。
+
+#### Ray Cast Limit 3d
+每帧 3d 射线投射请求的最大数量。
+
+#### Trigger Overlap Capacity
+重叠物理触发器的最大数量。
+
+#### Velocity Threshold
+将导致弹性碰撞的最小速度。
+
+#### Max Fixed Timesteps
+使用固定时间步长时模拟中的最大步数（仅限 3D）。
+
+---
+
+### Graphics
+
+#### Default Texture Min Filter
+指定用于缩小过滤的过滤方式。
+
+#### Default Texture Mag Filter
+指定用于放大过滤的过滤方式。
+
+#### Max Draw Calls
+渲染调用的最大数量。
+
+#### Max Characters:
+文本渲染缓冲区中预分配的字符数，即每帧可以显示的字符数。
+
+#### Max Font Batches
+每帧可以显示的文本批次的最大数量。
+
+#### Max Debug Vertices
+调试顶点的最大数量。用于物理形状渲染等。
+
+#### Texture Profiles
+用于此项目的纹理配置文件，默认为 `/builtins/graphics/default.texture_profiles`。
+
+#### Verify Graphics Calls
+验证每次图形调用后的返回值并在日志中报告任何错误。
+
+#### OpenGL Version Hint
+OpenGL 上下文版本提示。如果选择了特定版本，这将用作所需的最低版本（不适用于 OpenGL ES）。
+
+#### OpenGL Core Profile Hint
+创建上下文时设置 'core' OpenGL 配置文件提示。核心配置文件删除了 OpenGL 的所有已弃用功能，例如立即模式渲染。不适用于 OpenGL ES。
+
+---
+
+### Shader
+
+#### Exclude GLES 2.0
+不为运行 OpenGLES 2.0 / WebGL 1.0 的设备编译着色器。
+
+---
+
+### Input
+
+#### Repeat Delay
+等待按住输入开始重复的秒数。
+
+#### Repeat Interval
+按住输入的每次重复之间等待的秒数。
+
+#### Gamepads
+游戏手柄配置文件的文件引用，它将游戏手柄信号映射到操作系统，默认为 `/builtins/input/default.gamepads`。
+
+#### Game Binding
+输入配置文件的文件引用，它将硬件输入映射到操作，默认为 `/input/game.input_binding`。
+
+#### Use Accelerometer
+勾选以使引擎每帧接收加速计输入事件。禁用加速计输入可能会带来一些性能好处。
+
+---
+
+### Resource
+
+#### Http Cache
+如果勾选，将为通过网络更快地加载资源到设备上运行的引擎启用 HTTP 缓存。
+
+#### Uri
+在哪里找到项目构建数据，采用 URI 格式。
+
+#### Max Resources
+可以同时加载的资源的最大数量。
+
+---
 
 ### Network
 
 #### Http Timeout
+HTTP 超时（以秒为单位）。设置为 `0` 以禁用超时。
 
-指定 HTTP 请求的超时时间（以秒为单位）。
+#### Http Thread Count
+HTTP 服务的工作线程数。
 
-### Physics
+#### Http Cache Enabled
+勾选以启用网络请求的 HTTP 缓存（使用 `http.request()`）。HTTP 缓存将存储与请求关联的响应，并为后续请求重用存储的响应。HTTP 缓存支持 `ETag` 和 `Cache-Control: max-age` HTTP 响应头。
 
-#### Type
+#### SSL Certificates
+包含在 SSL 握手期间验证证书链时要使用的 SSL 根证书的文件。
 
-指定物理引擎的类型。有效值为 `2D`、`3D` 和 `2D_3D`。
+---
 
-#### Gravity X, Y, Z
+### Collection
 
-指定重力的 X、Y 和 Z 分量。
+#### Max Instances
+集合中游戏对象实例的最大数量，默认为 `1024`。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
 
-#### World Scale
+#### Max Input Stack Entries
+输入堆栈中游戏对象的最大数量。
 
-指定物理世界的比例。这用于控制物理世界的缩放。
+---
 
-#### Debug
+### Sound
 
-如果设置，将启用物理调试模式。这意味着物理对象将显示为线框。
+#### Gain
+全局增益（音量），`0`--`1`。
 
-#### Debug Alpha
+#### Use Linear Gain
+如果启用，增益是线性的。如果禁用，使用指数曲线。
 
-指定物理调试模式的 alpha 值。值范围为 0.0 到 1.0。
+#### Max Sound Data
+声音资源的最大数量，即运行时唯一声音文件的数量。
+
+#### Max Sound Buffers
+（当前未使用）并发声音缓冲区的最大数量。
+
+#### Max Sound Sources
+（当前未使用）并发播放声音的最大数量。
+
+#### Max Sound Instances
+并发声音实例的最大数量，即同时播放的实际声音。
+
+#### Max Component Count
+每个集合的声音组件的最大数量。
+
+#### Sample Frame Count
+每次音频更新使用的样本数。0 表示自动（48 kHz 为 1024，44.1 kHz 为 768）。
+
+#### Use Thread
+如果勾选，声音系统将使用线程进行声音播放，以减少主线程负载过重时的卡顿风险。
+
+#### Stream Enabled
+如果勾选，声音系统将使用流式传输来加载源文件。
+
+#### Stream Cache Size
+包含_所有_块的声音块缓存的最大大小。默认为 `2097152` 字节。
+此数字应该大于加载的声音文件数乘以流块大小。
+否则，您就有风险每帧都要逐出新块。
+
+#### Stream Chunk Size
+流音频的块大小（以字节为单位）。
+
+#### Stream Preload Size
+流音频的预加载大小（以字节为单位）。
+
+---
+
+### Sprite
+
+#### Max Count
+精灵组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Subpixels
+允许精灵子像素定位。
+
+---
+
+### Tilemap
+
+#### Max Count
+瓦片地图组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Max Tile Count
+瓦片的最大数量。
+
+---
+
+### Spine
+
+#### Max Count
+Spine 模型组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+---
+
+### Mesh
+
+#### Max Count
+网格组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+---
+
+### Model
+
+#### Max Count
+模型组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Split Meshes
+将具有多个材质的网格拆分为多个网格。启用时，拥有多个材质的模型将被分解为每个材质一个网格。禁用时，整个模型将使用单个材质进行渲染。
+
+#### Max Bone Matrix Texture Width
+骨骼矩阵纹理的最大宽度。
+
+#### Max Bone Matrix Texture Height
+骨骼矩阵纹理的最大高度。
+
+---
+
+### GUI
+
+#### Max Count
+GUI 组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Max Particle Count
+GUI 粒子效果的最大粒子数量。
+
+#### Max Animation Count
+GUI 动画的最大数量。
+
+---
+
+### Label
+
+#### Max Count
+标签组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Subpixels
+允许标签子像素定位。
+
+---
+
+### Particle FX
+
+#### Max Count
+粒子 FX 组件的最大数量。[(参见组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+#### Max Particle Count
+粒子的最大数量。
+
+---
+
+### Box2D
 
 #### Velocity Iterations
-
-Box2D 2.2 物理求解器的速度迭代次数。
+Box2D 求解器速度迭代。
 
 #### Position Iterations
-
-Box2D 2.2 物理求解器的位置迭代次数。
+Box2D 求解器位置迭代。
 
 #### Sub Step Count
+Box2D 步骤计数。
 
-Box2D 3.x 物理求解器的子步数。
+---
 
 ### Collection proxy
 

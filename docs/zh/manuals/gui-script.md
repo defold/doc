@@ -1,5 +1,5 @@
 ---
-title: GUI脚本在Defold中
+title: Defold中的GUI脚本
 brief: 本手册解释了GUI脚本。
 ---
 
@@ -15,33 +15,33 @@ brief: 本手册解释了GUI脚本。
 
 ```lua
 function init(self)
-   -- Add initialization code here
-   -- Remove this function if not needed
+   -- 在此添加初始化代码
+   -- 如果不需要，请删除此函数
 end
 
 function final(self)
-   -- Add finalization code here
-   -- Remove this function if not needed
+   -- 在此添加最终化代码
+   -- 如果不需要，请删除此函数
 end
 
 function update(self, dt)
-   -- Add update code here
-   -- Remove this function if not needed
+   -- 在此添加更新代码
+   -- 如果不需要，请删除此函数
 end
 
 function on_message(self, message_id, message, sender)
-   -- Add message-handling code here
-   -- Remove this function if not needed
+   -- 在此添加消息处理代码
+   -- 如果不需要，请删除此函数
 end
 
 function on_input(self, action_id, action)
-   -- Add input-handling code here
-   -- Remove this function if not needed
+   -- 在此添加输入处理代码
+   -- 如果不需要，请删除此函数
 end
 
 function on_reload(self)
-   -- Add input-handling code here
-   -- Remove this function if not needed
+   -- 在此添加输入处理代码
+   -- 如果不需要，请删除此函数
 end
 ```
 
@@ -90,7 +90,7 @@ GUI节点可以通过附加到组件的GUI脚本进行操作。每个节点必�
 *Id*允许脚本获取对节点的引用，并使用[gui命名空间函数](/ref/gui)对其进行操作：
 
 ```lua
--- 扩展 10 单位血条
+-- 扩展血条10个单位
 local healthbar_node = gui.get_node("healthbar")
 local size = gui.get_size(healthbar_node)
 size.x = size.x + 10
@@ -102,13 +102,13 @@ gui.set_size(healthbar_node, size)
 要在运行时使用脚本创建新节点，您有两个选择。第一个选择是通过调用`gui.new_[type]_node()`函数从头创建节点。这些函数返回对新节点的引用，您可以使用该引用来操作节点：
 
 ```lua
--- 新建节点
+-- 创建新方框节点
 local new_position = vmath.vector3(400, 300, 0)
 local new_size = vmath.vector3(450, 400, 0)
 local new_boxnode = gui.new_box_node(new_position, new_size)
 gui.set_color(new_boxnode, vmath.vector4(0.2, 0.26, 0.32, 1))
 
--- 新建文本节点
+-- 创建新文本节点
 local new_textnode = gui.new_text_node(new_position, "Hello!")
 gui.set_font(new_textnode, "sourcesans")
 gui.set_color(new_textnode, vmath.vector4(0.69, 0.6, 0.8, 1.0))
@@ -127,10 +127,10 @@ local healthbar_node_2 = gui.clone(healthbar_node)
 local button = gui.get_node("my_button")
 local new_button_nodes = gui.clone_tree(button)
 
--- 获得节点树根节点
+-- 获取新树的根节点
 local new_root = new_button_nodes["my_button"]
 
--- 向右移动根节点 (及其子节点) 300 像素
+-- 将根节点（及其子节点）向右移动300个单位
 local root_position = gui.get_position(new_root)
 root_position.x = root_position.x + 300
 gui.set_position(new_root, root_position)

@@ -17,7 +17,7 @@ brief: 您可以在新建项目窗口中添加自己的自定义项目模板。
   * 在 Linux 上：`~/.defold`
 * 在 `.defold` 文件夹中创建一个 `welcome.edn` 文件。
 
-`welcome.edn` 文件使用可扩展数据表示法（Extensible Data Notation）格式。例如：
+`welcome.edn` 文件使用可扩展数据表示法（Extensible Data Notation）格式。示例：
 
 ```
 {:new-project

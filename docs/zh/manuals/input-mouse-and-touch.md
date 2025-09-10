@@ -1,6 +1,6 @@
 ---
-title: 鼠标和触摸输入在Defold中
-brief: 本手册解释了鼠标和触摸输入的工作原理.
+title: Defold鼠标和触摸输入
+brief: 本手册解释了鼠标和触摸输入的工作原理。
 ---
 
 ::: sidenote
@@ -29,7 +29,7 @@ function on_input(self, action_id, action)
         if action.pressed then
             -- 鼠标左键按下
         elseif action.released then
-            -- 鼠标左键抬起
+            -- 鼠标左键释放
         end
     end
 end
@@ -60,7 +60,7 @@ end
 ```lua
 function on_input(self, action_id, action)
     if action.x and action.y then
-        -- 游戏对象跟随鼠标/触摸
+        -- 让游戏对象跟随鼠标/触摸移动
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)
     end
@@ -81,7 +81,7 @@ end
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("touch_multi") then
-        -- 在触摸点的位置生成游戏对象
+        -- 在每个触摸点生成
         for i, touchdata in ipairs(action.touch) do
             local pos = vmath.vector3(touchdata.x, touchdata.y, 0)
             factory.create("#factory", pos)

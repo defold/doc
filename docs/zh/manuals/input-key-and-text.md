@@ -1,5 +1,5 @@
 ---
-title: 键和文本输入在Defold中
+title: Defold键和文本输入
 brief: 本手册解释了键和文本输入的工作原理。
 ---
 

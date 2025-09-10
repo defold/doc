@@ -5,6 +5,6 @@ brief: 本手册概述了Defold对图形元素的支持.
 
 已弃用的手册！
 
-* 在[此处阅读有关如何导入和使用2D图形的更多信息](/manuals/importing-graphics)
-* 在[此处阅读有关纹理过滤的更多信息](/manuals/texture-filtering)
-* 在[此处阅读有关材质的更多信息](/manuals/material)
+* 阅读更多关于[如何导入和使用2D图形](/manuals/importing-graphics)的信息
+* 阅读更多关于[纹理过滤](/manuals/texture-filtering)的信息
+* 阅读更多关于[材质](/manuals/material)的信息

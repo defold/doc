@@ -1,6 +1,13 @@
-# 无尽跑酷游戏教程
+---
+title: 无尽跑酷游戏教程
+brief: 本教程将从一个空项目开始，构建一个完整的跑酷游戏，包含动画角色、物理碰撞、收集品和计分系统。
+---
 
-本教程将引导您创建一个简单的无尽跑酷游戏。游戏将包含一个不断向前奔跑的英雄角色，玩家需要控制角色跳跃避开障碍物。我们将使用Defold游戏引擎和Lua脚本语言来实现这个游戏。
+# 跑酷游戏教程
+
+在本教程中，我们从一个空项目开始，构建一个完整的跑酷游戏，包含动画角色、物理碰撞、收集品和计分系统。
+
+学习新的游戏引擎时有很多内容需要消化，所以我们创建了这个教程来帮助您开始。这是一个相当完整的教程，详细介绍了引擎和编辑器的工作原理。我们假设您对编程有一定的了解。
 
 如果您需要Lua编程入门，请查看我们的[Lua in Defold手册](/manuals/lua)。
 
@@ -8,7 +15,17 @@
 
 如果您更喜欢观看视频教程，请查看[YouTube上的视频版本](https://www.youtube.com/playlist?list=PLXsXu5srjNlxtYPQ_YJQSxJG2AN9OVS5b)。
 
+我们使用了来自其他两个教程的游戏资源，并进行了一些小的修改。教程分为几个步骤，每一部分都让我们朝着最终游戏迈出重要一步。
+
+最终结果将是一个游戏，您控制一个英雄角色在环境中奔跑，收集硬币并避开障碍物。英雄角色以固定速度奔跑，玩家只能通过按下单个按钮（或在移动设备上触摸屏幕）来控制英雄角色的跳跃。关卡由无穷无尽的平台流组成，供玩家跳跃——以及要收集的硬币。
+
 如果您在本教程或创建游戏时遇到困难，请不要犹豫，在[Defold论坛](//forum.defold.com)上向我们寻求帮助。在论坛中，您可以讨论Defold，向Defold团队寻求帮助，了解其他游戏开发者如何解决他们的问题，并找到新的灵感。立即开始吧。
+
+::: sidenote
+在整个教程中，对概念的详细描述以及如何执行某些操作的详细说明都标记为此段落。如果您觉得这些部分过于详细，请跳过它们。
+:::
+
+那么让我们开始吧。我们希望您在完成本教程的过程中会有很多乐趣，并且它能帮助您开始使用Defold。
 
 > 下载本教程的资源[这里](https://github.com/defold/sample-runner/tree/main/def-runner)。
 
@@ -374,7 +391,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-1. 将脚本作为*Script*组件添加到英雄对象（右键单击*hero.go*中的根目录，然后选择<kbd>Add Component From File</kbd>，然后选择*hero.script*文件）。
+1. 将脚本作为*Script*组件添加到英雄对象（右键单击*hero.go*中的*Outline*中的根目录，然后选择<kbd>Add Component From File</kbd>，然后选择*hero.script*文件）。
 
 如果您愿意，现在可以尝试将英雄角色临时添加到主集合中并运行游戏，看看它穿过世界。
 
@@ -475,14 +492,14 @@ end
 为了使我们的游戏世界生活不那么枯燥，我们应该添加可以跳跃的平台。
 
 1. 将图像文件*rock_planks.png*从资源包拖到*level/images*子文件夹。
-2. 打开*level.atlas*并将新图像添加到图集中（右键单击并选择<kbd>Add Images</kbd>）。
+2. 打开*level.atlas*并将新图像添加到图集中（右键单击*Outline*中的根目录并选择<kbd>Add Images</kbd>）。
 3. 保存文件。
 4. 在*level*文件夹中创建一个新的*Game Object*文件，名为*platform.go*。（右键单击*Assets pane*中的*level*，然后选择<kbd>New ▸ Game Object File</kbd>）
 5. 向游戏对象添加一个*Sprite*组件（右键单击*Outline*视图中的根目录，然后选择<kbd>Add Component</kbd>，然后选择*Sprite*）。
 6. 将*Image*属性设置为引用文件*level.atlas*，并将*Default Animation*设置为"rock_planks"。为方便起见，将关卡对象保存在子文件夹"level/objects"中。
 7. 向平台游戏对象添加一个*Collision Object*组件（右键单击*Outline*视图中的根目录，然后选择<kbd>Add Component</kbd>）。
 8. 确保将组件的*Type*设置为"Kinematic"，并将*Group*和*Mask*分别设置为"geometry"和"hero"
-9. 向*Collision Object*组件添加一个*Box Shape*。（右键单击组件，然后选择<kbd>Add Shape</kbd>，然后选择*Box*）。
+9. 向*Collision Object*组件添加一个*Box Shape*。（右键单击*Collision Object*组件，然后选择<kbd>Add Shape</kbd>，然后选择*Box*）。
 10. 使用*Move Tool*和*Scale Tool*（<kbd>Scene ▸ Move Tool</kbd>和<kbd>Scene ▸ Scale Tool</kbd>）使*Collision Object*组件中的形状覆盖平台。
 11. 创建一个*Script*文件*platform.script*（右键单击*Assets pane*，然后选择<kbd>New ▸ Script File</kbd>），并将以下代码放入文件中，然后保存它：
 
@@ -814,7 +831,7 @@ go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, go.get_position().y - 20
     end
     ```
 
-10. 将脚本文件作为*Script*组件添加到硬币对象（在*Outline*中右键单击根目录，然后选择*Add Component from File*）。
+10. 将脚本文件作为*Script*组件添加到硬币对象（在*Outline*中右键单击根目录，然后选择<kbd>Add Component from File</kbd>）。
 
     ![硬币游戏对象](images/runner/3/coin.png)
 

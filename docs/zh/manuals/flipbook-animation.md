@@ -1,5 +1,5 @@
 ---
-title: Flip-book animation
+title: Defold 中的逐帧动画手册
 brief: 本手册描述了如何在 Defold 中使用逐帧动画.
 ---
 
@@ -20,7 +20,7 @@ brief: 本手册描述了如何在 Defold 中使用逐帧动画.
 GUI方块节点
 : 要在运行时运行动画，您可以使用 [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]) 函数。请参见下面的示例。
 
-::: important
+::: sidenote
 ping-pong 播放模式会将动画播放到最后一帧，然后反转顺序并播放回动画的**第二帧**，而不是回到第一帧。这样做是为了使动画链接更容易。
 :::
 

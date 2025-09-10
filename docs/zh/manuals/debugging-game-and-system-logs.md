@@ -7,7 +7,7 @@ brief: 本手册解释了如何读取游戏和系统日志。
 
 游戏日志显示了引擎、原生扩展和游戏逻辑的所有输出。您可以从脚本和Lua模块中使用[print()](/ref/stable/base/#print:...)和[pprint()](/ref/stable/builtins/?q=pprint#pprint:v)命令在游戏日志中显示信息。您可以使用[`dmLog`命名空间](/ref/stable/dmLog/)中的函数从原生扩展写入游戏日志。游戏日志可以从编辑器、终端窗口、使用平台特定工具或从日志文件中读取。
 
-系统日志由操作系统生成，它可以提供帮助您 pinpoint 问题的附加信息。系统日志可以包含崩溃的堆栈跟踪和低内存警告。
+系统日志由操作系统生成，它可以提供帮助您定位问题的附加信息。系统日志可以包含崩溃的堆栈跟踪和低内存警告。
 
 ::: important
 游戏日志只会在调试构建中显示信息。在发布构建中，日志将完全为空。
@@ -63,7 +63,7 @@ $ adb logcat -s defold
 I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
 I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
 I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
+I/defold  ( 6210): INFO:ENGINE: Initialized sound device 'default'
 I/defold  ( 6210):
 D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 ...
@@ -79,7 +79,7 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 要启动游戏并附加调试器，您需要一个名为[ios-deploy](https://github.com/phonegap/ios-deploy)的工具。通过在终端中运行以下命令来安装和调试您的游戏：
 
 ```txt
-ios-deploy --debug --bundle <path_to_game.app> # 注意: 不是 .ipa 文件
+$ ios-deploy --debug --bundle <path_to_game.app> # 注意: 不是 .ipa 文件
 ```
 
 这将在您的设备上安装应用程序，启动它并自动将LLDB调试器附加到它。如果您是LLDB的新手，请阅读[LLDB入门](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html)。

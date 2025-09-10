@@ -1,5 +1,5 @@
 ---
-title: How to get help
+title: 如何获取帮助
 brief: 本手册介绍了使用Defold遇到问题时如何获取帮助.
 ---
 
@@ -80,7 +80,7 @@ print("Hello code!")
 
 选择此菜单选项将带您到GitHub上的问题跟踪器。提供[日志文件](#日志文件)、有关您操作系统的信息、复现问题的步骤、可能的变通方法等。
 
-::: important
+::: sidenote
 您需要GitHub帐户才能以这种方式提交错误报告。
 :::
 

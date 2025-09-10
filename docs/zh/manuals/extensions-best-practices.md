@@ -48,7 +48,7 @@ brief: 本手册介绍了开发原生扩展的最佳实践。
             /res                         -- 平台需要的任何资源
             /external
                 README.md                -- 关于如何构建或打包任何外部库的说明/脚本
-        /bundleres                       -- 应该为（参见 game.project 和 [bundle_resources 设置]([physics scale setting](/manuals/project-settings/#project))）捆绑的资源
+        /bundleres                       -- 应该打包的资源（参见 game.project 和 [bundle_resources 设置](/manuals/project-settings/#project)）
             /<platform>
         game.project
         game.appmanifest                 -- 任何额外的应用配置信息
@@ -122,3 +122,5 @@ Defold 在引擎中不使用任何异常。游戏引擎通常避免使用异常�
 始终确保你可以访问你的依赖项。例如，如果你依赖于 GitHub 上的某些内容，没有什么可以阻止该存储库被删除，或者突然改变方向或所有权。你可以通过分叉存储库并使用你的分叉而不是上游项目来减轻这种风险。
 
 记住，库中的代码将被注入到你的游戏中，所以确保库做了它应该做的事情，而不是其他事情！
+
+

@@ -1,5 +1,5 @@
 ---
-title: HTML5开发在Defold中
+title: Defold HTML5平台开发
 brief: 本手册描述了创建HTML5游戏的过程，以及已知问题和局限性。
 ---
 
@@ -301,14 +301,14 @@ print(url)
 ```lua
 local function get_query_parameters()
     local url = html5.run("window.location")
-    -- get the query part of the url (the bit after ?)
+    -- 获取url的查询部分（？号后面的部分）
     local query = url:match(".*?(.*)")
     if not query then
         return {}
     end
 
     local params = {}
-    -- iterate over all key value pairs
+    -- 迭代所有键值对
     for kvp in query:gmatch("([^&]+)") do
         local key, value = kvp:match("(.+)=(.+)")
         params[key] = value

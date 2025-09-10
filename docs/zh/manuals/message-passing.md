@@ -1,5 +1,5 @@
 ---
-title: Defold 中的消息传递
+title: Defold消息传递
 brief: 消息传递是 Defold 用于允许松耦合对象进行通信的机制。本手册深入描述了这一机制。
 ---
 

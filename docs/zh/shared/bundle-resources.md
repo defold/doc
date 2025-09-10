@@ -1,5 +1,3 @@
-## 捆绑资源
-
 捆绑资源是使用 *game.project* 文件中的[*Bundle Resources* 字段](/manuals/project-settings/#bundle-resources)作为应用程序包一部分存放的附加文件和文件夹。
 
 *Bundle Resources* 字段应包含一个以逗号分隔的目录列表，这些目录包含资源文件和文件夹，在打包时应原样复制到最终包中。目录必须使用从项目根目录开始的绝对路径指定，例如 `/res`。资源目录必须包含以 `platform` 或 `architecture-platform` 命名的子文件夹。

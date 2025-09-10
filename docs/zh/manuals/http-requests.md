@@ -1,5 +1,5 @@
 ---
-title: HTTP请求在Defold中
+title: Defold HTTP请求
 brief: 本手册解释了如何进行HTTP请求。
 ---
 

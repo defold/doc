@@ -1,11 +1,11 @@
 ---
 title: 编辑器风格
-brief: 您可以使用自定义 stylesheet 修改编辑器配色, 文本及其他可视元素.
+brief: 您可以使用自定义样式表修改编辑器的颜色、字体排版及其他视觉元素。
 ---
 
 # 编辑器风格
 
-您可以使用自定义 stylesheet 修改编辑器配色, 文本及其他可视元素:
+您可以使用自定义样式表修改编辑器的颜色、字体排版及其他视觉元素：
 
 * 在用户目录下创建文件夹并命名为 `.defold`.
    * Windows 路径 `C:\Users\**Your Username**\.defold`
@@ -13,7 +13,7 @@ brief: 您可以使用自定义 stylesheet 修改编辑器配色, 文本及其�
    * Linux 路径 `~/.defold`
  *  在 `.defold` 目录下创建一个 `editor.css` 文件.
 
-编辑器启动时会加载您的自定义 stylesheet 作为优先默认风格. 编辑器使用 JavaFX 编写用户界面所以 stylesheets 几乎等价于浏览器里支持的网页 CSS 文件. 官方默认的 stylesheets 保存于 [GitHub 上](https://github.com/defold/defold/tree/editor-dev/editor/styling/stylesheets/base).
+编辑器启动时会加载您的自定义样式表并将其应用在默认样式之上。编辑器使用 JavaFX 编写用户界面，所以样式表几乎等价于浏览器中用于网页的 CSS 文件。官方默认的样式表保存于 [GitHub 上](https://github.com/defold/defold/tree/editor-dev/editor/styling/stylesheets/base)。
 
 ## 修改颜色
 
@@ -43,13 +43,13 @@ brief: 您可以使用自定义 stylesheet 修改编辑器配色, 文本及其�
   and so on...
 ```
 
-基本配色主题分为三大部分 (分为深色浅色两种方案):
+基本配色主题分为三大部分（分为深色和浅色两种方案）：
 
-* Background color - 面板, 窗口, 对话框的背景颜色
-* Component color - 按钮, 卷动条手柄, 文字描边颜色
-* Text color - 文字和图标颜色
+* Background color - 面板、窗口、对话框的背景颜色
+* Component color - 按钮、滚动条手柄、文本框边框颜色
+* Text color - 文本和图标颜色
 
-默认情况下, 如果在系统用户目录下的 `.defold` 文件夹下提供自定义 `editor.css` stylesheet:
+作为一个例子，如果您在用户主目录下的`.defold`文件夹中的自定义`editor.css`样式表中添加以下内容：
 
 ```
 * {
@@ -68,7 +68,7 @@ brief: 您可以使用自定义 stylesheet 修改编辑器配色, 文本及其�
 
 ## 修改字体
 
-编辑器使用两种字体: 代码编写和单行距文本(报错文字)用 `Dejavu Sans Mono`, 其他 UI 用 `Source Sans Pro`. 文字定义主要保存在 [`_typography.scss`](https://github.com/defold/defold/blob/editor-dev/editor/styling/stylesheets/base/_typography.scss) 中, 如下所示:
+编辑器使用两种字体：代码编写和等宽文本（错误信息）使用`Dejavu Sans Mono`，其他UI使用`Source Sans Pro`。字体定义主要保存在[`_typography.scss`](https://github.com/defold/defold/blob/editor-dev/editor/styling/stylesheets/base/_typography.scss)中，如下所示：
 
 ```
 @font-face {
@@ -97,7 +97,7 @@ Text.strong {
 and so on...
 ```
 
-主要字体定义在树形结构根部以便于调整修改. 将如下 `editor.css` 应用后:
+主要字体定义在根元素中，这使得在大多数地方替换字体变得相当容易。将以下内容添加到您的`editor.css`中：
 
 ```
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
@@ -107,11 +107,11 @@ and so on...
 }
 ```
 
-则您的编辑器文本会如下图所示:
+您的编辑器字体将会如下图所示：
 
 ![](images/editor/editor-styling-fonts.png)
 
-使用本地字体代替网络字体也是可以的:
+也可以使用本地字体而不是网络字体：
 
 ```
 @font-face {

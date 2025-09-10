@@ -7,7 +7,7 @@ brief: 本指南为 Flash 游戏开发者介绍了 Defold 作为替代方案。�
 
 本指南为 Flash 游戏开发者介绍了 Defold 作为替代方案。它涵盖了 Flash 游戏开发中使用的一些关键概念，并解释了 Defold 中相应的工具和方法。
 
-## Introduction
+## 介绍
 
 Flash 的一些主要优势是易用性和低入门门槛。新用户可以快速学习该程序，并能在有限的时间投入内创建基本游戏。Defold 通过提供一套专门用于游戏设计的工具提供了类似的优势，同时使高级开发者能够为更复杂的需求创建高级解决方案（例如允许开发者编辑默认渲染脚本）。
 
@@ -35,7 +35,7 @@ Jesse Warden 的一篇文章提供了 [Actionscript 和 Lua 的基本比较](htt
 
 ![manual movie clips](images/flash/manual_movie_clips.png)
 
-## Defold—manually creating game objects
+## Defold—手动创建游戏对象
 
 Defold 中，游戏对象可以在编辑器里手动创建，也可以运行时动态创建。手动创建的游戏对象需要给唯一 id，才能在代码里引用。
 
@@ -65,7 +65,7 @@ Defold 通过地址引用所有对象. 多数情况下使用快捷地址或者�
 
 ![game object id](images/flash/game_object_id.png)
 
-::: important
+::: sidenote
 对象的id可以使用脚本: `print(go.get_id())` 查看. 它会在控制台打印出当前游戏对象的id.
 :::
 
@@ -102,13 +102,13 @@ local logo_id = factory.create("factories#logo_factory")
 
 URL 是 `factory.create()` 函数的必要参数. 此外, 还有可选参数用以设置位置, 旋转, 缩放, 和其他属性. 工厂组件详情请见 [工厂教程](/manuals/factory). 注意调用 `factory.create()` 可返回被创建游戏对象的id. 可以把这个id放入表中留待以后引用 (Lua 的表相当于其他语言的数组).
 
-## Flash—stage
+## Flash—舞台
 
-In Flash, we are familiar with the Timeline (top section of the screenshot below) and the Stage (visible below the Timeline):
+在 Flash 中，我们熟悉时间轴（下图的上部）和舞台（时间轴下方可见）：
 
 ![timeline and stage](images/flash/stage.png)
 
-As discussed in the movie clips section above, the Stage is essentially the top level container of a Flash game and is created each time a project is exported. The Stage will by default have one child, the *`MainTimeline`*. Each movie clip generated in the project will have its own timeline, and can serve as a container for other symbols (including movie clips).
+如上面影片剪辑部分所讨论的，舞台本质上是 Flash 游戏的顶级容器，在每次导出项目时创建。舞台默认情况下有一个子对象，即 *`MainTimeline`*。项目中生成的每个影片剪辑都有自己的时间轴，并且可以作为其他符号（包括影片剪辑）的容器。
 
 ## Defold—collections
 
@@ -122,17 +122,15 @@ Defold 的集合类似于舞台. 引擎启动时集合文件的内容组成了�
 
 有时, 你需要载入完整的游戏世界. [集合代理](/manuals/collection-proxy/) 组件能让你基于集合文件内容创建一个新的游戏世界. 这在诸如需要加载关卡, 迷你游戏, 或者过场动画之类的功能时很有用.
 
-## Flash—时间轴和属性动画
+## Flash—时间轴
 
-Flash 使用时间轴创建动画。可以在时间轴上添加关键帧并设置对象的属性，如位置、大小、透明度等。Flash 会自动在关键帧之间创建补间动画。
+Flash 时间轴主要用于动画，使用各种逐帧技术或形状/运动补间。项目的整体 FPS（每秒帧数）设置定义了帧显示的时间长度。高级用户可以修改游戏的整体 FPS，甚至单个影片剪辑的 FPS。
 
-Flash 的时间轴以帧为单位，默认帧率是 24 FPS（帧每秒）。可以通过修改帧率来改变动画速度。
-
-形状补间可以在矢量图的两个状态间进行插值。这主要针对简单的图形和应用，比如下例中把方块补间成三角：
+形状补间允许在矢量图形的两个状态之间进行插值。它主要适用于简单的形状和应用，如下例中将正方形补间成三角形所示：
 
 ![timeline](images/flash/timeline.png)
 
-运动补间可以应用于对象属性，包括大小、位置和旋转。下例中这些属性都进行了补间。
+运动补间允许对对象的各种属性进行动画，包括大小、位置和旋转。在下面的例子中，所有列出的属性都被修改了。
 
 ![motion tween](images/flash/tween.png)
 
@@ -146,29 +144,29 @@ Flash 在时间轴上用关键帧做动画，Defold 动画功能之一是用导�
 
 ## Flash—depth index
 
-在 Flash 里，深度索引（显示列表索引）决定影片剪辑的显示顺序。每个容器（如舞台）都维护一个显示列表，索引值越大，对象越靠前显示。对象通过 `addChild()` 方法加入显示列表，索引从 0 开始递增。下图展示了三个 "logo" 影片剪辑的深度索引：
+在 Flash 中，显示列表决定显示什么以及以什么顺序显示。容器（如舞台）中对象的排序通过索引处理。使用 `addChild()` 方法添加到容器的对象将自动占据索引的顶部位置，从 0 开始，每个额外对象都会递增。在下面的截图中，我们生成了三个 "logo" 影片剪辑的实例：
 
 ![depth index](images/flash/depth_index.png)
 
-示例代码将三个图标按顺序加入显示列表：
+显示列表中的位置由每个标志实例旁边的数字指示。忽略处理影片剪辑 x/y 位置的任何代码，上述内容可以如下生成：
 
 ```as
 var logo1:Logo = new Logo();
 var logo2:Logo = new Logo();
 var logo3:Logo = new Logo();
 
-addChild(logo1); // 索引 0
-addChild(logo2); // 索引 1
-addChild(logo3); // 索引 2
+addChild(logo1);
+addChild(logo2);
+addChild(logo3);
 ```
 
-通过 swapChildren() 可交换对象的深度索引，例如：
+对象是显示在另一个对象之上还是之下，是由它们在显示列表索引中的相对位置决定的。通过交换两个对象的索引位置可以很好地说明这一点，例如：
 
 ```as
-swapChildren(logo2, logo3); // 交换索引 1 和 2
+swapChildren(logo2,logo3);
 ```
 
-交换后效果如下：
+结果将如下所示（索引位置已更新）：
 
 ![depth index](images/flash/depth_index_2.png)
 
@@ -176,7 +174,7 @@ swapChildren(logo2, logo3); // 交换索引 1 和 2
 
 Defold 使用 z 轴位置控制游戏对象的显示顺序。每个游戏对象的位置向量包含 x、y、z 三个分量，其中 z 值越大，对象越靠前显示。在默认 [渲染脚本](/manuals/render) 中，z 轴有效范围为 -1 到 1。
 
-::: important
+::: sidenote
 若游戏对象的 z 值超出 [-1, 1] 范围将不会被渲染（不可见）。这是新手常见困惑点，若对象未显示请优先检查 z 值。
 :::
 
@@ -195,29 +193,29 @@ pos.z = 0.5  -- 设置 z 轴位置
 go.set_position(pos)
 ```
 
-## Flash `hitTestObject` and `hitTestPoint` collision detection
+## Flash `hitTestObject` 和 `hitTestPoint` 碰撞检测
 
-Basic collision detection in Flash is achieved by using the `hitTestObject()` method. In this example, we have two movie clips: "bullet" and "bullseye". These are illustrated in the screenshot below. The blue boundary box is visible when selecting the symbols in the Flash editor, and it is these boundary boxes that drive the result of the `hitTestObject()` method.
+Flash 中的基本碰撞检测通过使用 `hitTestObject()` 方法实现。在这个例子中，我们有两个影片剪辑："bullet" 和 "bullseye"。下图中展示了这两个对象。在 Flash 编辑器中选择符号时可见的蓝色边界框，正是驱动 `hitTestObject()` 方法结果的边界框。
 
 ![hit test](images/flash/hittest.png)
 
-Using `hitTestObject()` for collision detection:
+使用 `hitTestObject()` 进行碰撞检测：
 
 ```as
 bullet.hitTestObject(bullseye);
 ```
 
-In this case, the use of boundary boxes is inappropriate, as the following scenario would register a collision:
+在这种情况下使用边界框并不合适，因为下面的场景会登记为碰撞：
 
 ![hit test bounding box](images/flash/hitboundingbox.png)
 
-In addition to `hitTestObject()`, there is also the `hitTestPoint()` method. This method includes a `shapeFlag` parameter that provides pixel-perfect collision detection against the actual shape of the target. Using `hitTestPoint()` for collision detection:
+除了 `hitTestObject()` 之外，还有 `hitTestPoint()` 方法。这个方法包含一个 `shapeFlag` 参数，允许针对对象的实际像素进行碰撞测试，而不是边界框。使用 `hitTestPoint()` 进行碰撞检测可以如下所示：
 
 ```as
 bullseye.hitTestPoint(bullet.x, bullet.y, true);
 ```
 
-This performs collision detection between the bullet's x and y coordinates (the top-left corner of the bullet image) and the bullseye shape. Since `hitTestPoint()` checks for collisions between a point and a shape, determining which point (or points!) to check is a crucial consideration.
+这一行会检查子弹的 x 和 y 位置（在这种情况下是左上角）与目标形状的碰撞。由于 `hitTestPoint()` 检查的是点与形状的碰撞，因此检查哪个点（或哪些点！）是一个关键考虑。
 
 ## Defold—collision objects
 
@@ -245,9 +243,9 @@ Flash 里，需要脚本调用才会进行碰撞检测。Defold 里，只要碰�
 
 Defold 的碰撞检测比 Flash 的要高级，毫不费力就能检测复杂形状间的碰撞。碰撞检测是自动的，也就是说不需要手动遍历各个对象然后挨个进行碰撞检测。但是没有 Flash 的 `shapeFlag`。但是对于复杂图形可以使用简单图形组合达成。更复杂的需求下，还可以使用 [自定义图形](https://forum.defold.com/t/does-defold-support-only-three-shapes-for-collision-solved/1985)。
 
-## Flash—event handling
+## Flash—事件处理
 
-In Flash, event handling is done through event listeners. You can use the addEventListener() method to add event listeners.
+Flash 中，事件处理通过事件监听器来完成。您可以使用 addEventListener() 方法来添加事件监听器。
 
 ## Defold—call-back functions and messaging
 
@@ -275,31 +273,31 @@ on_reload
 
 如碰撞检测部分所述，碰撞事件通过向涉及的游戏对象发送消息来处理。它们各自的脚本组件在其 on_message 回调函数中接收消息。
 
-## Flash—button symbols
+## Flash—按钮符号
 
-Flash uses a dedicated symbol type for buttons. Buttons use specific event handling methods (such as `click` and `buttonDown`) to perform actions when user interaction is detected. The graphic shape in the "Hit" part of a button symbol determines the clickable area of the button.
+Flash 使用专用的按钮符号类型。按钮使用特定的事件处理方法（如 `click` 和 `buttonDown`）在检测到用户交互时执行动作。按钮符号中“点击”部分的图形形状决定了按钮的点击区域。
 
 ![button](images/flash/button.png)
 
-## Defold—GUI scenes and scripts
+## Defold—GUI 场景和脚本
 
-Defold does not include a native button component, nor can it detect clicks on a given game object's shape as easily as you can in Flash. Using [GUI](/manuals/gui) components is the most common solution, partly because Defold GUI components are positioned independently of any in-game camera (if one is used). The GUI API also includes functions to detect if user input (such as click and touch events) falls within the bounds of a GUI element.
+Defold 不包含原生按钮组件，也不能像 Flash 中那样轻易地检测对特定游戏对象形状的点击。使用 [GUI](/manuals/gui) 组件是最常见的解决方案，部分原因是 Defold GUI 组件的位置不受游戏内摄像机影响（如果使用的话）。GUI API 还包含检测用户输入（如点击和触摸事件）是否在 GUI 元素边界内的函数。
 
-## Debugging
+## 调试
 
-In Flash, you use the `trace()` command to help with debugging. The equivalent in Defold is `print()`, which works the same way as `trace()`:
+在 Flash 中，您使用 `trace()` 命令来帮助调试。Defold 中的等效函数是 `print()`，它的使用方式与 `trace()` 相同：
 
 ```lua
 print("Hello world!")
 ```
 
-You can print multiple variables with a single `print()` call:
+您可以在一次 `print()` 调用中打印多个变量：
 
 ```lua
 print(score, health, ammo)
 ```
 
-There's also a `pprint()` function (pretty print) for printing tables. This function outputs the contents of a table, including nested tables. Consider the following script:
+还有一个 `pprint()` 函数（美化打印）用于打印表。这个函数输出表的内容，包括嵌套表。考虑以下脚本：
 
 ```lua
 factions = {"red", "green", "blue"}
@@ -307,13 +305,13 @@ world = {name = "Terra", teams = factions}
 pprint(world)
 ```
 
-Here we embed a table (`factions`) into another table (`world`). Using the regular `print()` command would only output the table's id, not its contents:
+这里我们将一个表（`factions`）嵌入到另一个表（`world`）中。使用常规的 `print()` 命令只会输出表的 id，而不是其内容：
 
 ```
 DEBUG:SCRIPT: table: 0x7ff95de63ce0
 ```
 
-Using the `pprint()` function shows much more useful information:
+使用 `pprint()` 函数显示更有用的信息：
 
 ```
 DEBUG:SCRIPT:
@@ -327,17 +325,17 @@ DEBUG:SCRIPT:
 }
 ```
 
-If your game uses collision detection, you can toggle physics debugging with the following message:
+如果您的游戏使用碰撞检测，您可以使用以下消息切换物理调试：
 
 ```lua
 msg.post("@system:", "toggle_physics_debug")
 ```
 
-You can also enable physics debugging in the project settings. Before enabling physics debugging, our project looks like this:
+您也可以在项目设置中启用物理调试。在启用物理调试之前，我们的项目看起来像这样：
 
 ![no debug](images/flash/no_debug.png)
 
-With physics debugging enabled, the collision objects in the project are shown:
+启用物理调试后，项目中的碰撞对象会显示出来：
 
 ![with debug](images/flash/with_debug.png)
 
@@ -347,7 +345,7 @@ With physics debugging enabled, the collision objects in the project are shown:
 
 最后，关于检测 CPU 和内存使用情况详情请见 [性能分析教程](/ref/profiler/)。更高级的调试技术，详情请见 Defold 手册的 [调试部分](/manuals/debugging)。
 
-## Where to go from here
+## 从这里开始
 
 - [Defold 示例](/examples)
 - [教程](/tutorials)
@@ -355,4 +353,4 @@ With physics debugging enabled, the collision objects in the project are shown:
 - [参考](/ref/go)
 - [常见问题](/faq/faq)
 
-如果你有问题或遇到困难，[Defold 论坛](https://forum.defold.com) 是寻求帮助的好地方。
+如果你有问题或遇到困难，[Defold 论坛](//forum.defold.com) 是寻求帮助的好地方。

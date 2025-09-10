@@ -1,5 +1,5 @@
 ---
-title: Defold 中的 Lua 编程
+title: Defold Lua编程
 brief: 本手册简要介绍了 Lua 编程基础以及在 Defold 中使用 Lua 的注意事项.
 ---
 

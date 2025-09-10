@@ -1,5 +1,5 @@
 ---
-title: Defold 材质手册
+title: Defold材质
 brief: 本手册介绍了如何使用材质、着色器常量和采样器。
 ---
 

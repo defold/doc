@@ -1,5 +1,5 @@
 ---
-title: 热重载在Defold中
+title: Defold热重载
 brief: 本手册解释了Defold中的热重载功能。
 ---
 
@@ -81,7 +81,7 @@ my_module.val = 10
 require "my_module"
 
 function update(self, dt)
-    print(my_module.val) -- hot reload "my_module.lua" and the new value will print
+    print(my_module.val) -- 热重载 "my_module.lua"，新值将被打印
 end
 ```
 
@@ -89,7 +89,7 @@ end
 
 ```lua
 --- my_module.lua
-local M = {} -- a new table object is created here
+local M = {} -- 在这里创建一个新的表对象
 M.val = 10
 return M
 ```
@@ -99,7 +99,7 @@ return M
 local mm = require "my_module"
 
 function update(self, dt)
-    print(mm.val) -- will print 10 even if you change and hot reload "my_module.lua"
+    print(mm.val) -- 即使您更改并热重载 "my_module.lua"，仍将打印 10
 end
 ```
 

@@ -1,6 +1,6 @@
 ---
-title: Fonts in Defold manual
-brief: 本手册描述了Defold如何处理字体以及如何在游戏中将字体显示在屏幕上。
+title: Defold 处理字体手册
+brief: 本手册描述了 Defold 如何处理字体以及如何在游戏中将字体显示在屏幕上。
 ---
 
 # 字体文件
@@ -235,5 +235,5 @@ local request_id = font.add_glyphs(font_hash, ttf_hash, add_glyph_callback)
 ```lua
 -- 删除关联的ttf资源
 local font_hash = hash("/assets/fonts/roboto.fontc")
-font.remove_glyphs(font_hash, "集合中的所有字符")
+font.remove_glyphs(font_hash, "All the characters in the set")
 ```

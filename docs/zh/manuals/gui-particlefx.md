@@ -1,5 +1,5 @@
 ---
-title: GUI粒子特效在Defold中
+title: Defold中的GUI粒子特效
 brief: 本手册解释了Defold GUI中粒子特效的工作原理。
 ---
 
@@ -20,13 +20,13 @@ brief: 本手册解释了Defold GUI中粒子特效的工作原理。
 您可以通过脚本控制节点来启动和停止效果：
 
 ```lua
--- start the particle effect
+-- 启动粒子特效
 local particles_node = gui.get_node("particlefx")
 gui.play_particlefx(particles_node)
 ```
 
 ```lua
--- stop the particle effect
+-- 停止粒子特效
 local particles_node = gui.get_node("particlefx")
 gui.stop_particlefx(particles_node)
 ```

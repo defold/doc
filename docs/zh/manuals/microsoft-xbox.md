@@ -1,5 +1,5 @@
 ---
-title: Microsoft Xbox 的 Defold 开发
+title: Microsoft Xbox平台Defold开发
 brief: 本手册介绍了如何访问 Microsoft Xbox
 ---
 

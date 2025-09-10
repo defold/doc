@@ -123,7 +123,7 @@ brief: 在本教程中，您将构建一个完整的小型益智游戏，包含�
 
 在构建游戏板后，我们将使用两个包含所有方块的不同数据集，`self.blocks`和`self.board`：
 
-```lua
+```
 -- board.script
 go.property("timer", 0)     -- 用于计时事件
 local blocksize = 80        -- 方块中心之间的距离
@@ -208,11 +208,11 @@ end
 ```
 1. 注意，由于方块图形重叠，我们需要以正确的顺序绘制它们。这是通过为每个方块设置z坐标来完成的。该值将保持在-1以上，我们在那里有背景精灵。
 
-游戏板逻辑通过"blockfactory"工厂组件生成"block"游戏对象。我们需要构建方块游戏对象才能使其工作。方块有一个脚本和一个精灵。我们将精灵的默认动画设置为*sprites.atlas*中的任何彩色方块，然后在*block.script*中添加代码，使方块在生成时采用正确的颜色：
+游戏板逻辑通过"`blockfactory`"工厂组件生成"`block`"游戏对象。我们需要构建方块游戏对象才能使其工作。方块有一个脚本和一个精灵。我们将精灵的默认动画设置为*`sprites.atlas`*中的任何彩色方块，然后在*`block.script`*中添加代码，使方块在生成时采用正确的颜色：
 
 ![Block 游戏对象](images/magic-link/linker_block.png)
 
-```lua
+```
 -- block.script
 go.property("color", hash("none"))
 
@@ -245,7 +245,7 @@ end
 
 处理输入的工作落在游戏板上，因此我们需要在*board.script*中添加代码：
 
-```lua
+```
 -- board.script
 function on_input(self, action_id, action)
     if action_id == hash("touch") and action.value == 1 then
@@ -276,7 +276,7 @@ end
 
 消息`make_orange`和`make_green`只是临时的，以获得代码工作的视觉反馈。我们需要在*block.script*中添加代码来处理这些消息：
 
-```lua
+```
 -- block.script
 function on_message(self, message_id, message, sender)
     if message_id == hash("make_orange") then
@@ -301,7 +301,7 @@ end
 
 这个游戏对象的脚本很小，它只需要缩放图形使其与游戏的其余部分匹配，并正确设置Z顺序。
 
-```lua
+```
 -- connector.script
 function init(self)
     go.set_scale(0.18)              -- 设置此游戏对象的比例。
@@ -346,7 +346,7 @@ end
 
 我们在`on_input()`中的触摸和拖动输入期间使用这些函数来构建触摸的方块链接。我们在这里测试并忽略魔法方块，即使还没有任何魔法方块：
 
-```lua
+```
 -- board.script
 function on_input(self, action_id, action)
 
@@ -386,7 +386,7 @@ function on_input(self, action_id, action)
 
 最后，在触摸释放时，视觉上移除所有链接连接器。
 
-```lua
+```
 -- board.script
 function on_input(self, action_id, action)
 
@@ -402,7 +402,6 @@ function on_input(self, action_id, action)
         end
         self.connectors = {}
     end
-end
 ```
 
 ![游戏中的连接器](images/magic-link/linker_connector_screen.png)
@@ -411,7 +410,7 @@ end
 
 现在我们已经有了允许链接相同颜色方块的逻辑，简单地移除链接的方块很容易。我们将游戏板上的位置设置为`hash("removing")`而不仅仅是`nil`的原因是，稍后当我们执行魔法方块逻辑时，我们需要确保魔法方块只滑动到新移除的方块中。如果我们将游戏板上的位置设置为`nil`，我们就无法区分新移除的方块和之前移除的方块。
 
-```lua
+```
 -- board.script
 -- 移除当前选定的方块链
 --
@@ -427,7 +426,7 @@ end
 
 我们还需要一个函数来实际移除（设置为 `nil`）游戏板上已设置为 `hash("removing")` 的位置：
 
-```lua
+```
 -- board.script
 --
 -- 将移除的方块设置为 nil
@@ -445,7 +444,7 @@ end
 
 我们还创建一个函数，当它们下方的方块被移除（设置为 `nil`）时，将剩余的方块向下滑动。我们从左到右逐列遍历游戏板，并从下到上遍历每一列。如果我们遇到一个空的（`nil`）位置，将该位置上方的所有方块向下滑动。
 
-```lua
+```
 -- board.script
 --
 -- 对所有方块应用向下移动逻辑。
@@ -483,7 +482,7 @@ end
 
 现在我们可以在 `on_input()` 中简单地添加对这些函数的调用，当触摸被释放并且 `self.chain` 中有方块时。
 
-```lua
+```
 -- board.script
 function on_input(self, action_id, action)
 
@@ -518,7 +517,7 @@ function on_input(self, action_id, action)
 
 创建一个新脚本并将其作为脚本组件添加到 *`magic_fx.go`*：
 
-```lua
+```
 -- magic_fx.script
 go.property("direction", hash("left"))
 
@@ -548,7 +547,7 @@ end
 
 请注意，我们必须向方块游戏对象添加一个 *Factory* 组件，并告诉它使用我们的 *`magic_fx.go`* 游戏对象作为 *Prototype*。方块脚本还需要监听消息 `lights_on` 和 `lights_off` 并将它们传播到生成的对象。请注意，生成的对象在方块被删除时需要被删除。这在方块的 `final()` 函数中得到处理。所有这些都发生在 *`block.script`* 中。
 
-```lua
+```
 -- block.script
 function init(self)
     go.set_scale(0.18) -- 渲染缩小
@@ -607,7 +606,7 @@ end
 
 用方块填充游戏板的代码现在需要更改，以便我们在那里得到一些魔法方块：
 
-```lua
+```
 -- board.script
 local function build_board(self)
 
@@ -641,7 +640,7 @@ end
     1. 如果魔法方块下面有一个 `hash("removing")` 方块位置，只需将其从列表 `M` 中移除。
     2. 如果魔法方块侧面有一个标记为 `hash("removing")` 的孔，将其滑到那里，将其旧位置设置为 `hash("removing")`，然后将其从列表 `M` 中移除。
 
-```lua
+```
 -- board.script
 -- 将移动逻辑应用于魔法方块。仅滑动到标记为
 -- hash("removing") 的移除位置
@@ -695,7 +694,7 @@ end
 
 我们可以通过在 `on_input()` 中添加对函数的调用来尝试这个机制：
 
-```lua
+```
 -- board.script
 function on_input(self, action_id, action)
 
@@ -736,7 +735,7 @@ function on_input(self, action_id, action)
 
 这是算法的实现：
 
-```lua
+```
 -- board.script
 --
 -- 构建所有当前魔法方块的列表。
@@ -804,7 +803,7 @@ end
 
 我们还创建函数，允许我们计算魔法方块之间的区域数量。如果区域数量为 1，我们就知道所有魔法方块都已连接。此外，我们添加一个函数来关闭所有魔法方块中的灯光，以及一个函数来打开有邻居魔法方块的魔法方块中的光效：
 
-```lua
+```
 -- board.script
 --
 -- 计算魔法方块之间连接区域的数量。
@@ -844,7 +843,7 @@ end
 
 现在我们可以将这些逻辑位插入到整体流程中。首先，由于游戏板生成是随机的，它有很小的几率会以获胜状态开始。如果发生这种情况，我们只需丢弃游戏板并重新构建它：
 
-```lua
+```
 -- board.script
 --
 -- 清除游戏板
@@ -879,7 +878,7 @@ end
 
 其余的逻辑适合 `on_input()`。仍然没有处理 `level_completed` 消息的代码，但现在没关系：
 
-```lua
+```
 -- board.script
 function on_input(self, action_id, action)
 
@@ -912,7 +911,6 @@ function on_input(self, action_id, action)
         end
         self.connectors = {}
     end
-```
 
 现在可以玩游戏并达到获胜状态，即使当您链接所有魔法方块时还没有发生任何事情。
 
@@ -1017,25 +1015,8 @@ end
 
 由于启动游戏的工作很快将由主菜单脚本完成，请移除 *board.script* 中 `init()` 中的临时游戏板设置调用：
 
-```lua
--- board.script
---
--- INIT
---
-function init(self)
-    self.board = {}                -- 包含游戏板结构
-    self.blocks = {}            -- 所有方块的列表。用于在选择时轻松过滤。
+```
 
-    self.chain = {}                -- 当前选择链
-    self.connectors = {}        -- 标记选择链的连接器元素
-    self.num_magic = 3            -- 游戏板上魔法方块的数量
-
-    self.drops = 1                -- 您可用的掉落数量
-
-    self.magic_blocks = {}        -- 排列好的魔法方块
-
-    self.dragging = false        -- 拖动触摸输入
-end
 ```
 
 主脚本将保持整体游戏状态并根据请求启动游戏。我们在这里要做的是让 *main.collection* 只包含启动时需要显示的最小数量的资产。我们通过让 *main.collection* 包含一个 "main" 游戏对象来实现这一点，该游戏对象包含主菜单 GUI、一个脚本组件，最重要的是一个 *Collection Proxy* 组件。
@@ -1052,7 +1033,7 @@ end
 
 现在，启动游戏意味着向我们的集合代理发送消息以加载、初始化和启用游戏板，然后禁用主菜单（使其不显示）。回到主菜单则相反（假设代理已加载集合）：
 
-```lua
+```
 -- main.script
 function init(self)
     msg.post("#", "to_main_menu")
@@ -1089,7 +1070,7 @@ end
 
 游戏板 GUI 的脚本在点击时向重启 GUI 对话元素发送消息，并在点击 *DROP* 时发送回游戏板脚本本身：
 
-```lua
+```
 -- board.gui_script
 function init(self)
     msg.post("#", "show")
@@ -1128,7 +1109,7 @@ end
 
 ![重启 GUI](images/magic-link/linker_restart_gui.png)
 
-```lua
+```
 -- restart.gui_script
 function on_message(self, message_id, message, sender)
     if message_id == hash("hide") then
@@ -1167,7 +1148,7 @@ end
 
 ![关卡完成对话框](images/magic-link/linker_level_complete_gui.png)
 
-```lua
+```
 -- level_complete.gui_script
 function init(self)
     msg.post("#", "hide")
@@ -1201,7 +1182,7 @@ end
 
 ![呈现关卡 GUI](images/magic-link/linker_present_level_gui.png)
 
-```lua
+```
 -- present_level.gui_script
 function init(self)
     msg.post("#", "hide")
@@ -1222,7 +1203,7 @@ end
 
 ![无掉落空间 GUI](images/magic-link/linker_no_drop_room_gui.png)
 
-```lua
+```
 -- no_drop_room.gui_script
 function init(self)
     msg.post("#", "hide")
@@ -1268,7 +1249,7 @@ end
 `drop`
 : 检查可以在哪里进行掉落。如果没有可能的位置，显示 "no_drop_room" GUI 对话框，否则执行掉落（如果玩家还有掉落），减少掉落计数器并更新计数器的视觉表示。
 
-```lua
+```
 -- board.script
 function on_message(self, message_id, message, sender)
     if message_id == hash("start_level") then

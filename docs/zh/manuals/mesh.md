@@ -1,5 +1,5 @@
 ---
-title: Defold 中的3D网格
+title: Defold 3D网格
 brief: 本手册介绍了如何在您的游戏中运行时创建3D网格。
 ---
 
