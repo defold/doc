@@ -4,16 +4,16 @@ import sys
 
 def collect_files(directory):
     """
-    收集指定目录下的所有文件路径
+    Collect all file paths under the specified directory
     
-    参数:
-        directory: 要遍历的目录路径
+    Parameters:
+        directory: Directory path to traverse
         
-    返回:
-        set: 包含所有文件相对路径的集合
+    Returns:
+        set: Set containing all file relative paths
     """
     files = set()
-    print(f"正在收集 {directory} 中的文件...")
+    print(f"Collecting files in {directory}...")
     
     for root, dirs, files_in_dir in os.walk(directory):
         for file in files_in_dir:
@@ -26,28 +26,28 @@ def collect_files(directory):
 
 def get_file_info(file_path, base_dir):
     """
-    获取文件信息
+    Get file information
     
-    参数:
-        file_path: 文件相对路径
-        base_dir: 文件基础目录
+    Parameters:
+        file_path: File relative path
+        base_dir: File base directory
         
-    返回:
-        dict: 包含文件信息的字典
+    Returns:
+        dict: Dictionary containing file information
     """
-    # 获取文件后缀
+    # Get file extension
     file_ext = os.path.splitext(file_path)[1].lower()
     if not file_ext:
-        file_ext = "[无后缀]"
+        file_ext = "[No Extension]"
     
-    # 获取最顶级目录
+    # Get top level directory
     path_parts = file_path.split(os.sep)
     if len(path_parts) > 1:
         top_dir = path_parts[0]
     else:
-        top_dir = "[根目录]"
+        top_dir = "[Root Directory]"
     
-    # 获取文件大小
+    # Get file size
     file_size = ""
     full_path = os.path.join(base_dir, file_path)
     if os.path.exists(full_path):
@@ -62,30 +62,30 @@ def get_file_info(file_path, base_dir):
 
 def read_file_content(file_path):
     """
-    读取文件内容
+    Read file content
     
-    参数:
-        file_path: 文件路径
+    Parameters:
+        file_path: File path
         
-    返回:
-        str: 文件内容，如果读取失败则返回None
+    Returns:
+        str: File content, returns None if reading fails
     """
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     except Exception as e:
-        print(f"读取文件 {file_path} 时出错: {str(e)}")
+        print(f"Error reading file {file_path}: {str(e)}")
         return None
 
 
 def setup_console_encoding():
     """
-    设置控制台编码，解决中文乱码问题
+    Set console encoding to resolve Chinese character display issues
     """
     if sys.platform == "win32":
-        # Windows系统下设置控制台编码为UTF-8
+        # Set console encoding to UTF-8 on Windows systems
         sys.stdout.reconfigure(encoding='utf-8')
         sys.stderr.reconfigure(encoding='utf-8')
         
-    # 强制刷新输出缓冲区，确保中文立即显示
+    # Force flush output buffer to ensure Chinese characters are displayed immediately
     sys.stdout.flush()

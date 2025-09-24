@@ -6,104 +6,109 @@ from .excel_handler import create_workbook, get_status_fills, write_file_info, w
 from .markdown_handler import compare_markdown_syntax_trees
 
 
-# 默认目录和输出文件路径
-en_dir = "g:\\temp\\defold_doc\\docs\\en"
-zh_dir = "g:\\temp\\defold_doc\\docs\\zh"
+# Default directory and output file path
+source_dir = "g:\\temp\\defold_doc\\docs\\source"
+target_dir = "g:\\temp\\defold_doc\\docs\\target"
 output_file = "docs_structure_comparison_updated.xlsx"
 
 
-def main(en_dir=None, zh_dir=None, output_file=None):
-    # 使用传入的参数或默认值
-    if en_dir is None:
-        en_dir = globals().get('en_dir', "g:\\temp\\defold_doc\\docs\\en")
-    if zh_dir is None:
-        zh_dir = globals().get('zh_dir', "g:\\temp\\defold_doc\\docs\\zh")
-    if output_file is None:
-        output_file = globals().get('output_file', "docs_structure_comparison_updated.xlsx")
+def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
+    # Use passed parameters or default values
+    # Note: Keeping parameter names as source_dir_path and target_dir_path for clarity
+    if source_dir_path is None:
+        source_dir_path = globals().get('source_dir', "g:\\temp\\defold_doc\\docs\\source")
         
-    # 设置控制台编码，解决中文乱码问题
+    if target_dir_path is None:
+        target_dir_path = globals().get('target_dir', "g:\\temp\\defold_doc\\docs\\target")
+        
+    if output_file_path is None:
+        output_file_path = globals().get('output_file', "docs_structure_comparison_updated.xlsx")
+        
+    # Set console encoding to resolve character display issues
     setup_console_encoding()
 
-    # 创建Excel工作簿
+    # Create Excel workbook
     wb, ws = create_workbook()
     
-    # 获取状态填充颜色
+    # Get status fill colors
     status_fills = get_status_fills()
 
-    # 行计数器
+    # Row counter
     row_num = 2
     
-    # 收集所有文件路径
-    en_files = collect_files(en_dir)
-    zh_files = collect_files(zh_dir)
+    # Collect all file paths
+    source_files = collect_files(source_dir_path)
+    target_files = collect_files(target_dir_path)
     
-    # 获取所有唯一的文件路径
-    all_files = en_files.union(zh_files)
+    # Get all unique file paths
+    all_files = source_files.union(target_files)
     
-    # 对比文件结构
-    print("正在对比文件结构...")
+    # Compare file structure
+    print("Comparing file structure...")
     for file_path in sorted(all_files):
-        en_exists = file_path in en_files
-        zh_exists = file_path in zh_files
+        source_exists = file_path in source_files
+        target_exists = file_path in target_files
         
-        # 获取文件信息
-        en_file_info = get_file_info(file_path, en_dir) if en_exists else {}
-        zh_file_info = get_file_info(file_path, zh_dir) if zh_exists else {}
+        # Get file information
+        source_file_info = get_file_info(file_path, source_dir_path) if source_exists else {}
+        target_file_info = get_file_info(file_path, target_dir_path) if target_exists else {}
         
-        # 如果文件不存在，使用默认信息
-        if not en_exists:
-            en_file_info = get_file_info(file_path, "")
-        if not zh_exists:
-            zh_file_info = get_file_info(file_path, "")
+        # If file doesn't exist, use default information
+        if not source_exists:
+            source_file_info = get_file_info(file_path, "")
+        if not target_exists:
+            target_file_info = get_file_info(file_path, "")
         
-        # 写入文件基本信息
-        status = write_file_info(ws, row_num, file_path, en_file_info, en_exists, zh_exists, status_fills)
+        # Write file basic information
+        status = write_file_info(ws, row_num, file_path, source_file_info, source_exists, target_exists, status_fills)
         
-        # 写入文件大小
-        write_file_sizes(ws, row_num, en_file_info, zh_file_info)
+        # Write file sizes
+        write_file_sizes(ws, row_num, source_file_info, target_file_info)
         
-        # 检查Markdown语法标记一致性
+        # Check Markdown syntax consistency
         markdown_consistency = ""
-        if en_exists and zh_exists and en_file_info.get('extension') == ".md":
+        if source_exists and target_exists and source_file_info.get('extension') == ".md":
             try:
-                en_full_path = os.path.join(en_dir, file_path)
-                zh_full_path = os.path.join(zh_dir, file_path)
+                source_full_path = os.path.join(source_dir_path, file_path)
+                target_full_path = os.path.join(target_dir_path, file_path)
                 
-                en_content = read_file_content(en_full_path)
-                zh_content = read_file_content(zh_full_path)
+                source_content = read_file_content(source_full_path)
+                target_content = read_file_content(target_full_path)
                 
-                if en_content is not None and zh_content is not None:
-                    # 构建Markdown语法树并比较
-                    markdown_consistency = compare_markdown_syntax_trees(en_content, zh_content, file_path)
+                if source_content is not None and target_content is not None:
+                    # Build Markdown syntax tree and compare
+                    markdown_consistency = compare_markdown_syntax_trees(source_content, target_content, file_path)
                 else:
-                    markdown_consistency = "文件读取失败"
+                    markdown_consistency = "File read failed"
             except Exception as e:
-                markdown_consistency = f"检查出错: {str(e)}"
-        elif en_exists and zh_exists and en_file_info.get('extension') != ".md":
-            markdown_consistency = "非Markdown文件"
+                markdown_consistency = f"Check error: {str(e)}"
+        elif source_exists and target_exists and source_file_info.get('extension') != ".md":
+            markdown_consistency = "Non-Markdown file"
         
-        # 写入Markdown一致性检查结果
+        # Write Markdown consistency check results
         write_markdown_consistency(ws, row_num, markdown_consistency)
         
-        # 写入公式列
-        write_formula_text(ws, row_num, file_path)
+        # Write formula column
+        write_formula_text(ws, row_num, file_path, 
+                          source_dir=os.path.basename(source_dir_path), 
+                          target_dir=os.path.basename(target_dir_path))
         
         row_num += 1
-        print(f"已处理: {file_path} - {status}")
-        # 强制刷新输出缓冲区，确保中文立即显示
+        print(f"Processed: {file_path} - {status}")
+        # Force flush output buffer to ensure characters are displayed immediately
         sys.stdout.flush()
 
-    # 调整列宽
+    # Adjust column widths
     adjust_column_widths(ws)
     
-    # 保存Excel文件
-    save_success = save_workbook(wb, output_file)
+    # Save Excel file
+    save_success = save_workbook(wb, output_file_path)
     
     if save_success:
-        # 打印统计结果
+        # Print statistics results
         print_statistics(ws, row_num)
     
-    # 强制刷新输出缓冲区，确保中文立即显示
+    # Force flush output buffer to ensure characters are displayed immediately
     sys.stdout.flush()
 
 
