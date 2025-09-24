@@ -1,58 +1,58 @@
 ---
-title: Defold 的 Android 平台开发
-brief: 本教程介绍了如何在 Defold 中进行 Android 设备应用的开发
+title: Android 平台开发
+brief: 本手册描述了如何在 Android 设备上构建和运行 Defold 应用程序
 ---
 
 # Android 开发
 
-Android 设备允许自由允许你开发的应用. 可以很容易地编译好游戏拷贝到 Android 设备上. 本手册介绍了对于 Android 游戏的打包步骤. 推荐开发时, 从 [开发应用](/manuals/dev-app) 上运行游戏因为可以通过无线连接设备进行代码和内容的热重载.
+Android 设备允许你自由运行自己的应用程序。构建游戏版本并将其复制到 Android 设备上非常容易。本手册解释了为 Android 打包游戏所涉及的步骤。在开发过程中，通过[开发应用](/manuals/dev-app)运行游戏通常是首选，因为它允许你直接将内容和代码热重载到设备上。
 
-## Android 和 Google Play 签名
+## Android 和 Google Play 签名流程
 
-Android 要求每个 APK 文件在被安装到设备上或者在设备上更新之前必须进行数字签名. 如果你是安卓开发者, 只需要在把程序包上传到 Play Console 之前, 经过 [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play) 的自动处理即可. 然而, 你还可以选择手动对程序包进行签名以便上传到 Google Play, 其他应用商店以及在整个互联网上传播.
+Android 要求所有 APK 在安装到设备上或更新之前都必须使用证书进行数字签名。如果你使用 Android App Bundles，只需在上传到 Play Console 之前对你的应用包进行签名，[Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play)会处理其余部分。但是，你也可以手动为应用签名，以便上传到 Google Play、其他应用商店以及在任何商店之外分发。
 
-从 Defold 编辑器或者 [命令行工具](/manuals/bob) 打包安卓包需要提供一个 keystore (包括证书和公匙), 然后对应用签名时还要用到私匙. 没有的话, Defold 会自动生成一个临时调试用 keystore 用于打包和签名.
+当你从 Defold 编辑器或[命令行工具](/manuals/bob)创建 Android 应用包时，你可以提供一个密钥库（包含你的证书和密钥）和密钥库密码，这些将在签名你的应用程序时使用。如果你不提供，Defold 会生成一个调试密钥库并在签名应用程序包时使用它。
 
-::: sidenote
-千万 **不要** 带着调试签名就上传到 Google Play 上去. 开发者必须自己制作属于自己的签名.
+::: important
+你**绝对不应该**将使用调试密钥库签名的应用程序上传到 Google Play。始终使用你自己创建的专用密钥库。
 :::
 
-## 制作 keystore
+## 创建密钥库
 
 ::: sidenote
-Defold 应对安卓应用包签名的改变是从 1.2.173 版开始的, 就是使用单独的证书和密码来合成 keystore. [详见论坛帖子](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
+Defold 中的 Android 签名流程在版本 1.2.173 中发生了变化，从使用独立的密钥和证书改为使用密钥库。[更多信息请参阅此论坛帖子](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084)。
 :::
 
-也可以 [使用 Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) 或者通过使用控制台命令来生成签名:
+你可以[使用 Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key)或从终端/命令提示符创建密钥库：
 
 ```bash
 keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, L=Unknown, ST=Nevada, C=US" -keystore mykeystore.keystore -storepass 5Up3r_53cR3t -alias myAlias -keyalg RSA -validity 9125
 ```
 
-这个命令会生成一个叫做 `mykeystore.keystore` 的签名, 其中包含了证书和密码. 密匙 `5Up3r_53cR3t` 保护其不备破解. 这个签名有效期为 25 年 (9125 天). 这个签名的id叫做 `myAlias`.
+这将创建一个名为 `mykeystore.keystore` 的密钥库文件，其中包含一个密钥和证书。对密钥和证书的访问将受到密码 `5Up3r_53cR3t` 的保护。密钥和证书将在 25 年（9125 天）内有效。生成的密钥和证书将通过别名 `myAlias` 进行标识。
 
-::: sidenote
-要把签名和密匙保存好. 如果要手动上传 Google Play 但是签名密码丢失的话就没办法使用 Google Play 来更新你的应用了. 图省事的话就用 Google Play App Signing 搞定签名吧.
+::: important
+确保将密钥库和相关密码存储在安全的地方。如果你自己签名并将应用程序上传到 Google Play，而密钥库或密钥库密码丢失，你将无法在 Google Play 上更新应用程序。你可以通过使用 Google Play App Signing 并让 Google 为你签名应用程序来避免这种情况。
 :::
 
 
-## 安卓应用打包
+## 创建 Android 应用包
 
-编辑器打包安卓包十分方便. 打包之前可以为应用指定图标, 设置版本号等等, 都在 *game.project* [项目配置文件](/manuals/project-settings/#Android) 里设置.
+编辑器允许你轻松地为游戏创建独立的应用包。在打包之前，你可以在 *game.project* [项目设置文件](/manuals/project-settings/#android) 中指定要使用的图标、设置版本代码等。
 
-选择菜单栏 <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> 就可以打包了.
+要从菜单中选择打包，请选择 <kbd>Project ▸ Bundle... ▸ Android Application...</kbd>。
 
-要让编辑器自动生成调试用签名, 只需把 *Keystore* 和 *Keystore password* 字段留空即可:
+如果你希望编辑器自动创建随机调试证书，请将 *Keystore* 和 *Keystore password* 字段留空：
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-要让编辑器使用你自己指定的签名打包, 就要设置好 *Keystore* 和 *Keystore password* 字段. *Keystore* 的扩展名是 `.keystore`, 而密码要保存成文本 `.txt` 文件. 如果 keystore 里的 key 使用了自己的密码, 也可在 *Key password* 里指定:
+如果你想使用特定的密钥库为你的包签名，请指定 *Keystore* 和 *Keystore password*。*Keystore* 预期具有 `.keystore` 文件扩展名，而密码预期存储在具有 `.txt` 扩展名的文本文件中。如果密钥库中的密钥使用与密钥库本身不同的密码，也可以指定 *Key password*：
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-Defold 支持创建 APK 和 AAB 文件. 从打包格式下拉菜单中选择.
+Defold 支持创建 APK 和 AAB 文件。从 Bundle Format 下拉菜单中选择 APK 或 AAB。
 
-点击 <kbd>Create Bundle</kbd> 会提示选择打包文件存放位置.
+配置好应用包设置后，按 <kbd>Create Bundle</kbd>。然后系统会提示你指定在计算机上创建包的位置。
 
 ![Android Application Package file](images/android/apk_file.png)
 
@@ -62,7 +62,9 @@ Defold 支持创建 APK 和 AAB 文件. 从打包格式下拉菜单中选择.
 
 #### 安装 APK
 
-编辑器生成 Android 应用包 *.apk* 文件. 应用包可以通过 `adb` 工具安装到设备上, 或者通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 发布到 Google Play 上.
+一个 *`.apk`* 文件可以使用 `adb` 工具复制到你的设备上，或者通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 复制到 Google Play。
+
+:[Android ADB](../shared/android-adb.md)
 
 ```
 $ adb install Defold\ examples.apk
@@ -73,29 +75,32 @@ Success
 
 #### 使用编辑器安装 APK
 
-你可以在编辑器的打包对话框中勾选 "Install on connected device" 和 "Launch installed app"  安装并启动 *.apk*:
+你可以使用编辑器打包对话框中的"在连接的设备上安装"和"启动已安装的应用"复选框来安装和启动 *`.apk`* 文件：
 
 ![Install and Launch APK](images/android/install_and_launch.png)
 
-为了顺利运行, 你要安装好 ADB 并打开连接设备的 *USB debugging*. 如果编辑器无法找到 ADB 命令行工具的地址, 你要在 [Preferences](/manuals/editor-preferences/#tools) 中指定好.
+要使此功能正常工作，你需要安装 ADB 并在连接的设备上启用 *USB 调试*。如果编辑器无法检测到 ADB 命令行工具的安装位置，你需要在[首选项](/manuals/editor-preferences/#tools)中指定它。
 
 #### 安装 AAB
 
-对于 *.aab* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传给 Google Play. 也可以使用 *.aab* 文件制作 *.apk* 以便使用 [Android 打包工具](https://developer.android.com/studio/command-line/bundletool) 在本地安装.
+一个 *.aab* 文件可以通过 [Google Play 开发者控制台](https://play.google.com/apps/publish/) 上传到 Google Play。也可以使用 *.aab* 文件制作 *.apk* 以便使用 [`bundletool`](https://developer.android.com/studio/command-line/bundletool) 在本地安装。
 
 ## 权限
 
-Defold 引擎需要一些权限来运行各种功能. 权限在 `AndroidManifest.xml` 文件中定义, 并在 *game.project* [项目配置文件](/manuals/project-settings/#Android) 中配置. 关于 Android 权限详见 [官方文档](https://developer.android.com/guide/topics/permissions/overview). 默认配置需要如下权限:
+Defold 引擎需要许多不同的权限才能使所有引擎功能正常工作。权限在 `AndroidManifest.xml` 中定义，在 *game.project* [项目设置文件](/manuals/project-settings/#android) 中指定。你可以在[官方文档](https://developer.android.com/guide/topics/permissions/overview)中阅读更多关于 Android 权限的信息。默认清单中请求以下权限：
 
-### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
-允许应用打开网络连接访问互联网. 需要上网时需要此权限. 见 ([Android 官方文档-网络](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) 和 ([Android 官方文档-网络状态](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+### android.permission.INTERNET 和 android.permission.ACCESS_NETWORK_STATE (保护级别: normal)
 
-### android.permission.WAKE_LOCK (Protection level: normal)
-允许应用阻止屏幕息屏和调光. 接收通知保持亮屏时需要此权限. ([[Android 官方文档-亮屏锁定](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
+允许应用程序打开网络套接字并访问网络信息。这些权限是访问互联网所必需的。（[Android 官方文档](https://developer.android.com/reference/android/Manifest.permission#INTERNET)）和（[Android 官方文档](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)）。
+
+### android.permission.WAKE_LOCK (保护级别: normal)
+
+允许使用 PowerManager WakeLocks 来防止处理器休眠或屏幕变暗。在接收推送通知时暂时防止设备休眠需要此权限。（[Android 官方文档](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK)）
 
 
 ## 使用 AndroidX
-AndroidX 一個較大改動就是, 不再維護 Android Support Library 了. AndroidX 應用使用雲計算功能和新庫完整取代了 Support Library. [Asset Portal](/assets) 裏的绝大多数擴展包已經支持 AndroidX. 如果希望使用旧版安卓库而不是 AndroidX, 可以创建新的 app manifest 文件或在 Defold Manifest 文件里勾選 "Use Android Support lib" 選項.
+
+AndroidX 是对原始 Android 支持库重大改进，该支持库已不再维护。AndroidX 包通过提供功能对等和新库完全取代了支持库。[资源门户](/assets) 中的大多数 Android 扩展都支持 AndroidX。如果你不想使用 AndroidX，可以通过在[应用程序清单](https://defold.com/manuals/app-manifest/)中勾选 `Use Android Support Lib` 来明确禁用它，转而使用旧的 Android 支持库。
 
 ![](images/android/enable_supportlibrary.png)
 

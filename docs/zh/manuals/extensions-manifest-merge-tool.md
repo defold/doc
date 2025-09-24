@@ -1,19 +1,19 @@
 ---
-title: 原生扩展 - Manifest 混合工具
-brief: 本教程介绍了应用的 manifests 混合是如何工作的
+title: 原生扩展 - 清单合并工具
+brief: 本手册介绍了应用清单的合并工作原理
 ---
 
-# Application manifests
+# 应用清单
 
-一些平台上需要提供 manifests 片段 (或称存根) 来为扩展提供支持.
-可以是部分 `AndroidManifest.xml`, `Info.plist` 或者 `engine_template.html`
+一些平台上需要提供清单片段（或称存根）来为扩展提供支持。
+可以是部分 `AndroidManifest.xml`、`Info.plist` 或者 `engine_template.html`。
 
-从应用基础 manifest 开始, 每个扩展 manifest 存根一个一个的被应用.
-基础 manifest 可以是默认的 (位于 `builtins\manifests\<platforms>\...`), 也可以是由用户自定义的.
+从应用基础清单开始，每个扩展清单存根依次被应用。
+基础清单可以是默认的（位于 `builtins\manifests\<platforms>\...`），也可以是由用户自定义的。
 
 ## 命名和结构
 
-扩展 manifests 必须被放置在适当的指定位置才能生效.
+扩展清单必须被放置在适当的指定位置才能生效。
 
     /myextension
         ext.manifest
@@ -30,12 +30,12 @@ brief: 本教程介绍了应用的 manifests 混合是如何工作的
 
 ## Android
 
-Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.jar` 中使用此工具混合 Manifest.
-关于 Android manifests 的详细信息, 参见 [官方文档](https://developer.android.com/studio/build/manifest-merge)
+Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.jar` 中使用此工具合并清单。
+关于 Android 清单的详细信息，请参见[官方文档](https://developer.android.com/studio/build/manifest-merge)
 
-::: sidenote
-如果扩展 manifest 中没有设置应用的 `android:targetSdkVersion` , 下列权限会被自动加入:  `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`. 详情请见 [此文档](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions).
-我们推荐这么设置: `<uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />`
+::: important
+如果扩展清单中没有设置应用的 `android:targetSdkVersion`，下列权限会被自动加入：`WRITE_EXTERNAL_STORAGE`、`READ_PHONE_STATE`、`READ_EXTERNAL_STORAGE`。详情请见[此文档](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions)。
+我们推荐这样设置：`<uses-sdk android:targetSdkVersion="{{android.target_sdk_version}}" />`
 :::
 ### 示例
 
@@ -74,7 +74,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
     </manifest>
 ```
 
-混合结果
+合并结果
 
 ```xml
     <?xml version='1.0' encoding='utf-8'?>
@@ -107,7 +107,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
 
 ## iOS / macOS
 
-对于 `Info.plist` 我们实现了专用的工具混合列表和字典. 可以在键上指定混合属性 `merge`, `keep` 或 `replace`, 默认是 `merge`.
+对于 `Info.plist`，我们使用自己的实现来合并列表和字典。可以在键上指定合并标记属性 `merge`、`keep` 或 `replace`，默认是 `merge`。
 
 ### 示例
 
@@ -135,11 +135,11 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
         <key>REAL</key>
         <real>8.0</real>
 
-        <!-- 即使扩展清单里有这个键也要保持该键 -->
+        <!-- 即使扩展清单包含相同的键，也要保留此值 -->
         <key merge='keep'>BASE64</key>
         <data>SEVMTE8gV09STEQ=</data>
 
-        <!-- 如果扩展清单里也有这个键的数组那么所有字典值会与基本数组第一个字典值合并 -->
+        <!-- 如果扩展清单也包含此键的数组，则任何字典值将与基础数组的第一个字典值合并 -->
         <key>Array1</key>
         <array>
             <dict>
@@ -150,7 +150,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
             </dict>
         </array>
 
-        <!-- 不要试图合并这个数组的值, 而应该把扩展清单的值添加到这个数组里去 -->
+        <!-- 不要尝试合并此数组的值，而是应将扩展清单的值添加到数组末尾 -->
         <key merge='keep'>Array2</key>
         <array>
             <dict>
@@ -187,7 +187,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
         <key>INT</key>
         <integer>42</integer>
 
-        <!-- 改写基础清单里已存在的值 -->
+        <!-- 替换基础清单中的现有值 -->
         <key merge='replace'>REAL</key>
         <integer>16.0</integer>
 
@@ -217,13 +217,13 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
     </plist>
 ```
 
-混合结果:
+合并结果:
 
 ```xml
     <?xml version='1.0'?>
     <!DOCTYPE plist SYSTEM 'file://localhost/System/Library/DTDs/PropertyList.dtd'>
     <plist version='1.0'>
-        <!-- 嵌套合并基础清单和扩展清单的字典 -->
+        <!-- 基础清单和扩展清单的字典的嵌套合并 -->
         <dict>
             <key>NSAppTransportSecurity</key>
             <dict>
@@ -248,19 +248,19 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
             <key>INT</key>
             <integer>8</integer>
 
-            <!-- 基础清单的值被改写因为扩展清单的合并标志是 "replace" -->
+            <!-- 基础清单的值被替换，因为扩展清单中的合并标记设置为 "replace" -->
             <key>REAL</key>
             <real>16.0</real>
 
-            <!-- 基础清单的值被使用因为基础清单的合并标志是 "keep" -->
+            <!-- 使用基础清单的值，因为基础清单中的合并标记设置为 "keep" -->
             <key>BASE64</key>
             <data>SEVMTE8gV09STEQ=</data>
 
-            <!-- 扩展清单的值被加入进来因为没有指定合并标志 -->
+            <!-- 添加扩展清单的值，因为没有指定合并标记 -->
             <key>INT</key>
             <integer>42</integer>
 
-            <!-- 数组的字典值被合并因为基础清单默认合并标志是 "merge" -->
+            <!-- 数组的字典值被合并，因为基础清单默认使用 "merge" -->
             <key>Array1</key>
             <array>
                 <dict>
@@ -272,7 +272,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
                 </dict>
             </array>
 
-            <!-- 字典值被加入到数组因为基础清单使用了 "keep" -->
+            <!-- 字典值被添加到数组，因为基础清单使用了 "keep" -->
             <key>Array2</key>
             <array>
                 <dict>
@@ -295,8 +295,8 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
 
 ## HTML5
 
-对于 html 模板, 我们给各部分命名, 以便混合时相匹配 (比如 "engine-start").
-标签属性可以是 `merge` 或者 `keep`. `merge` 是默认值.
+对于html模板，我们为每个部分命名，以便能够匹配（例如"engine-start"）。
+然后可以指定属性 `merge` 或 `keep`。`merge` 是默认值。
 
 ### 示例
 
@@ -335,7 +335,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
     </html>
 ```
 
-混合结果
+合并结果
 
 ```html
     <!doctype html>
@@ -345,7 +345,7 @@ Android 平台提供了 manifest 混合工具 (基于 `ManifestMerger2`), `bob.j
         <script id='engine-loader' type='text/javascript' src='mydmloader.js'></script>
         <script id='engine-setup' type='text/javascript'>
             function load_engine() {
-                var engineJSdocument.createElement('script');
+                var engineJS = document.createElement('script');
                 engineJS.type = 'text/javascript';
                 engineJS.src = '{{exe-name}}_wasm.js';
                 document.head.appendChild(engineJS);

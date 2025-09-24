@@ -1,6 +1,6 @@
 ---
-title: Defold GUI Spine 节点
-brief: 本教程介绍了 Defold GUI 场景中骨骼动画 Spine 节点的使用.
+title: Defold GUI Spine节点
+brief: 本手册解释了如何在Defold GUI场景中使用骨骼动画Spine节点。
 ---
 
-[该教程已被移至这里](/extension-spine).
+[此手册已移至](/extension-spine)。

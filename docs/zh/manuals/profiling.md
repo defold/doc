@@ -1,26 +1,26 @@
 ---
-title: Defold 性能分析
-brief: 本教程介绍了 Defold 内置的性能分析工具.
+title: Defold 中的性能分析
+brief: 本手册解释了 Defold 中存在的性能分析工具。
 ---
 
 # 性能分析
 
-Defold 引擎内置了性能分析工具. 这些工具用来分析查找性能和内存占用的问题. 内置分析器只在打包 debug 版应用中可用. Defold 的逐帧分析使用了 [Celtoys 出品的远程分析器](https://github.com/Celtoys/Remotery).
+Defold 包含一组与引擎和构建流程集成的性能分析工具。这些工具旨在帮助发现性能和内存使用方面的问题。内置的性能分析器仅在调试版本中可用。Defold 中使用的帧性能分析器是 [Celtoys 的 Remotery 性能分析器](https://github.com/Celtoys/Remotery)。
 
-## 运行时可视分析器
+## 运行时可视化性能分析器
 
-Debug 应用包含运行时可视分析工具可以在应用最上层把分析信息显示出来:
+调试版本具有运行时可视化性能分析器，显示实时信息并渲染在运行应用程序的顶部：
 
 ```lua
 function on_reload(self)
-    -- 热重载时打开分析表.
+    -- 在热重载时切换可视化性能分析器。
     profiler.enable_ui(true)
 end
 ```
 
 ![Visual profiler](images/profiling/visual_profiler.png)
 
-此分析器提供了一些函数用来改变其数据显示方式:
+可视化性能分析器提供了许多不同的功能，可用于改变可视化性能分析器呈现其数据的方式：
 
 ```lua
 
@@ -29,25 +29,24 @@ profiler.set_ui_view_mode()
 profiler.view_recorded_frame()
 ```
 
-详情请见 [分析器 API 文档](/ref/stable/profiler/).
+有关性能分析器功能的更多信息，请参阅[性能分析器 API 参考](/ref/stable/profiler/)。
 
-## 网页版分析器
+## Web 性能分析器
 
-运行debug版游戏时, 可以用浏览器访问一个基于网页的分析器.
+运行游戏的调试版本时，可以通过浏览器访问基于 Web 的交互式性能分析器。
 
-### 逐帧分析器
-逐帧分析器可以对正在运行中的游戏进行采样然后逐帧进行分析. 访问分析器的方法
+### 帧性能分析器
+帧性能分析器允许您在游戏运行时对其进行采样，并详细分析各个帧。要访问性能分析器：
 
-1. 在目标设备上启动游戏.
-2. 选择菜单 <kbd> Debug ▸ Open Web Profiler</kbd>.
+1. 在目标设备上启动您的游戏。
+2. 选择 <kbd> Debug ▸ Open Web Profiler</kbd> 菜单。
 
-逐帧分析器分为若干视图. 每个视图给出当前运行游戏某个方面的数据.
-点击右上角的暂停按钮可暂停视图数据的更新.
+帧性能分析器分为几个部分，都提供对运行游戏的不同视图。按右上角的暂停按钮可以暂时停止性能分析器更新视图。
 
 ![Web profiler](images/profiling/webprofiler_page.png)
 
 ::: sidenote
-同时使用多个目标设备时, 可以随时手动切换. 方法是修改页面上方 Connection Address 框内的地址来匹配控制台输出的远程分析器 URL:
+当您同时使用多个目标时，可以通过更改页面顶部的连接地址字段以匹配目标启动时控制台中显示的 Remotery 性能分析器 URL 来手动切换它们：
 
 ```
 INFO:ENGINE: Defold Engine 1.3.4 (80b1b73)
@@ -56,89 +55,91 @@ INFO:ENGINE: Loading data from: build/default
 ```
 :::
 
-Sample Timeline
-: 采样时间轴显示出引擎采样数据的帧, 一个进程对应一个横向时间轴. Main 表示游戏逻辑和引擎代码运行的主线程. Remotery 表示分析器自身. Sound 表示混音和播放进程. 可以放大缩小 (用鼠标滚轮) 并选择某一帧来分析在 Frame Data view 中所展示的该帧的详细数据.
+采样时间轴
+: 采样时间轴将显示在引擎中捕获的数据帧，每个线程一个水平时间轴。Main 是运行所有游戏逻辑和大部分引擎代码的主线程。Remotery 用于性能分析器本身，Sound 用于声音混合和播放线程。您可以放大和缩小（使用鼠标滚轮）并选择单个帧以在帧数据视图中查看帧的详细信息。
 
   ![Sample Timeline](images/profiling/webprofiler_sample_timeline.png)
 
-Frame Data
-: 帧数据显示了当前选择帧的所有详细数据表格. 这里还可以看到每个游戏循环耗费的毫秒数.
+
+帧数据
+: 帧数据视图是一个表格，其中当前选定帧的所有数据都被分解为详细信息。您可以查看在每个引擎作用域中花费了多少毫秒。
 
   ![Frame data](images/profiling/webprofiler_frame_data.png)
 
-Global Properties
-: 全局属性视图显示了一组计数器. 可以方便地跟踪 draw call 数或者某一类型的组件数等.
+
+全局属性
+: 全局属性视图显示一个计数器表。它们使您可以轻松地，例如，跟踪绘制调用的数量或特定类型组件的数量。
 
   ![Global Properties](images/profiling/webprofiler_global_properties.png)
 
 
-### 资源分析器
-资源分析器可以检查并详细分析当前运行游戏的资源使用情况. 访问分析器的方法:
+### 资源性能分析器
+资源性能分析器允许您在游戏运行时检查它并详细分析资源使用情况。要访问性能分析器：
 
-1. 在目标设备上启动游戏.
-2. 打开浏览器并访问 http://localhost:8002
+1. 在目标设备上启动您的游戏。
+2. 打开浏览器并浏览到 http://localhost:8002
 
-资源分析图表分为2个部分, 一个是集合层级关系, 显示了游戏中所有对象和组件实例, 另一个展示了加载的各种资源.
+资源性能分析器分为 2 个部分，一个显示游戏中当前实例化的集合、游戏对象和组件的层次视图，另一个显示所有当前加载的资源。
 
 ![Resource profiler](images/profiling/webprofiler_resources_page.png)
 
-Collection view
-: 集合视图展示了游戏里各个集合下所实例化出的各个游戏对象和组件的层级关系. 便于查找实例化对象与其原型的对应关系.
+集合视图
+: 集合视图显示游戏中当前实例化的所有游戏对象和组件的层次列表，以及它们来自哪个集合。当您需要深入了解并了解在任何给定时间在游戏中实例化了什么以及对象来自何处时，这是一个非常有用的工具。
 
-Resources view
-: 资源视图展示了当前内存中加载的各种资源, 每个资源的空间占用和引用计数. 便于了解资源加载和优化内存使用.
+资源视图
+: 资源视图显示当前加载到内存中的所有资源、它们的大小以及对每个资源的引用数量。当您需要了解在任何给定时间加载到内存中的内容时，这对于优化应用程序中的内存使用非常有用。
 
-## 编译报告
 
-编译游戏时有个选项可以生成编译报告. 通过报告可以整体把握游戏包中各个资源的空间占用情况. 编译游戏时开启 *Generate build report* 选项即可.
+## 构建报告
+
+打包游戏时，可以选择创建构建报告。这对于了解游戏包中所有资产的大小非常有用。只需在打包游戏时勾选*生成构建报告*复选框。
 
 ![build report](images/profiling/build_report.png)
 
-游戏编译完成后将生成 "report.html" 文件. 用浏览器打开这个文件进行查阅:
+构建器将在游戏包旁边生成一个名为"report.html"的文件。在 Web 浏览器中打开该文件以检查报告：
 
 ![build report](images/profiling/build_report_html.png)
 
-*Overview* 按资源类别给出空间占用饼图.
+*概述*根据资源类型提供项目大小的整体视觉分解。
 
-*Resources* 给出更详细的数据表格可以用来按照大小, 压缩比, 加密与否, 类别和目录进行排序. 使用 "search" 框还可以对这些数据进行过滤.
+*资源*显示您可以按大小、压缩比、加密、类型和目录名称排序的资源的详细列表。使用"搜索"字段过滤显示的资源条目。
 
-*Structure* 基于项目结构给出空间占用树状图. 基于资源文件和目录从绿色 (占用小) 过渡到蓝色 (占用大).
+*结构*部分显示基于资源在项目文件结构中组织的大小。条目根据文件和目录内容的相对大小从绿色（轻）到蓝色（重）进行颜色编码。
+
 
 ## 外部工具
 
-除了内置工具, 还有许多免费高效的分析跟踪工具. 举例如下:
+除了内置工具外，还有各种免费的高质量跟踪和性能分析工具可用。以下是其中的一些选择：
 
 ProFi (Lua)
-: 内置工具里没有针对 Lua 的分析器但是使用外部工具可以做到这一点. 要测量脚本执行时间, 要么在代码里自己编写时间测试代码, 要么使用 ProFi 之类的 Lua 库.
+: 我们不提供任何内置的 Lua 性能分析器，但有足够容易使用的外部库。要找出您的脚本在哪里花费时间，可以在代码中自己插入时间测量，或者使用像 [ProFi](https://github.com/jgrahamc/ProFi) 这样的 Lua 性能分析库。
 
-  https://github.com/jgrahamc/ProFi
-
-  注意纯 Lua 分析器使用时会为代码执行增加一些负担. 这可能会造成测量结果不准确. 虽然计数器工具还是蛮准确的.
+  请注意，纯 Lua 性能分析器会为它们安装的每个钩子增加相当多的开销。因此，您应该对从这样的工具获得的计时配置文件持谨慎态度。不过，计数配置文件是足够准确的。
 
 Instruments (macOS and iOS)
-: Xcode 包含一个性能分析可视化工具. 使用它可以跟踪检查一个或多个应用或进程的行为, 测试设备功能 (比如 Wi-Fi 和 Bluetooth) 等等.
+: 这是 Xcode 的一部分的性能分析器和可视化工具。它允许您跟踪和检查一个或多个应用程序或进程的行为，检查设备特定功能（如 Wi-Fi 和蓝牙）等等。
 
   ![instruments](images/profiling/instruments.png)
 
-OpenGL 分析器 (macOS)
-: 可以将 OpenGL 分析器作为 "Additional Tools for Xcode" 下载下来 (Xcode 菜单选择 <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd>).
+OpenGL 性能分析器 (macOS)
+: 您可以从 Apple 下载的"Xcode 附加工具"包的一部分（在 Xcode 菜单中选择 <kbd>Xcode ▸ Open Developer Tool ▸ More Developer Tools...</kbd>）。
 
-  此工具可以用来分析运行中的 Defold 应用如何使用 OpenGL. 可以用来跟踪 OpenGL 函数调用, 在 OpenGL 函数上打断点, 调查应用资源 (纹理, 程序, 着色器之类的), 查看缓存内容, 以及 OpenGL 的各方面状态.
+  此工具允许您检查正在运行的 Defold 应用程序并查看它如何使用 OpenGL。它允许您跟踪 OpenGL 函数调用，在 OpenGL 函数上设置断点，调查应用程序资源（纹理、程序、着色器等），查看缓冲区内容，并检查 OpenGL 状态的其他方面。
 
   ![opengl profiler](images/profiling/opengl.png)
 
-Android 分析器 (Android)
+Android 性能分析器 (Android)
 : https://developer.android.com/studio/profile/android-profiler.html
 
-  Android 分析器是一组能够试试捕捉游戏 CPU, 内存及网络使用情况的工具. 可以基于取样跟踪代码执行, 堆栈使用, 内存分配及网络文件传输. 要使用这个工具需要在 "AndroidManifest.xml" 里设置 `android:debuggable="true"`.
+  一组性能分析工具，可捕获游戏 CPU、内存和网络活动的实时数据。您可以执行基于采样的代码执行方法跟踪，捕获堆转储，查看内存分配，并检查网络传输文件的详细信息。使用该工具需要您在"AndroidManifest.xml"中设置 `android:debuggable="true"`。
 
   ![android profiler](images/profiling/android_profiler.png)
 
-  注意: 從 Android Studio 版本 4.1 開始, 也可以 [不用運行 Android Studio 而直接進行分析](https://developer.android.com/studio/profile/android-profiler.html#standalone-profilers).
+  注意：从 Android Studio 4.1 开始，也可以[在不启动 Android Studio 的情况下运行性能分析工具](https://developer.android.com/studio/profile/android-profiler.html#standalone-profilers)。
 
-图像 API 调试器 (Android)
+Graphics API 调试器 (Android)
 : https://github.com/google/gapid
 
-  这组工具可以用来查看, 微调和重放从程序到显卡驱动的功能调用. 要使用这个工具需要在 "AndroidManifest.xml" 里设置 `android:debuggable="true"`.
+  这是一组工具，允许您检查、调整和重放从应用程序到图形驱动程序的调用。要使用该工具需要您在"AndroidManifest.xml"中设置 `android:debuggable="true"`。
 
   ![graphics api debugger](images/profiling/gapid.png)

@@ -1,11 +1,11 @@
 ---
-title: 缓存教程
-brief: 本教程介绍了 Defold 的缓存资源.
+title: Buffer手册
+brief: 本手册介绍了Defold中的Buffer资源的工作原理.
 ---
 
 # Buffer
 
-缓存资源用来描述一个或多个数据流, 比如位置或颜色. 每种流有名字, 数据类型, 数目及数据自身. 例如:
+Buffer资源用于描述一个或多个值流，例如位置或颜色。每个流都有名称、数据类型、计数和数据本身。示例：
 
 ```
 [
@@ -26,8 +26,8 @@ brief: 本教程介绍了 Defold 的缓存资源.
 ]
 ```
 
-上例描述了三维位置数据流, 用 32-bit 浮点数表示. 缓存类型是 JSON, 文件扩展名是 `.buffer`.
+上面的示例描述了三维位置流，表示为32位浮点数。Buffer文件的格式为JSON，文件扩展名为`.buffer`。
 
-缓存资源一般由扩展工具或脚本创建, 比如用 Blender 导出模型时创建. 
+Buffer资源通常使用外部工具或脚本创建，例如从Blender等建模工具导出时。 
 
-缓存资源可以用作 [模型资源](/manuals/mesh) 的数据. 缓存资源还可以使用 `buffer.create()` 和 [相关 API 函数](/ref/stable/buffer/#buffer.create:element_count-declaration) 在运行时创建. 
+Buffer资源可用作[Mesh组件](/manuals/mesh)的输入。也可以使用`buffer.create()`和[相关API函数](/ref/stable/buffer/#buffer.create:element_count-declaration)在运行时创建Buffer资源。

@@ -1,152 +1,151 @@
 ---
 title: 使用脚本编写游戏逻辑
-brief: 本教程介绍了如何使用脚本组件加入游戏逻辑
+brief: 本手册描述了如何使用脚本组件添加游戏逻辑。
 ---
 
 # 脚本
 
-脚本组件使用 [Lua 编程语言](/manuals/lua) 编程. 脚本像其他 [组件](/manuals/components) 一样附加到游戏对象上, Defold 会在引擎声明循环周期中运行这些 Lua 代码.
+脚本组件允许您使用 [Lua 编程语言](/manuals/lua) 创建游戏逻辑。
 
 
 ## 脚本类型
 
-Defold 里有三种脚本, 每种脚本对应各自的 Defold 函数库.
+Defold 中有三种类型的 Lua 脚本，每种脚本都有不同的 Defold 库可用。
 
-Logic scripts
-: 扩展名 _.script_. 在游戏对象的脚本组件里运行. 逻辑脚本通常用于控制游戏对象, 加载关卡, 制定游戏规则之类的. 逻辑脚本可以使用除了 [GUI](/ref/gui) 和 [Render](/ref/render) 函数库以外的所有代码库.
-
-
-GUI scripts
-: 扩展名 _.gui_script_. 在 GUI 组件里使用, 通常用来显示比如对话框, 菜单之类的 GUI 组件. GUI 脚本对应使用 [GUI](/ref/gui) 函数库.
+游戏对象脚本
+: 扩展名 _.script_。这些脚本像任何其他[组件](/manuals/components)一样添加到游戏对象上，Defold 会将 Lua 代码作为引擎生命周期函数的一部分执行。游戏对象脚本通常用于控制游戏对象以及将游戏与关卡加载、游戏规则等绑定的逻辑。游戏对象脚本可以访问 [GO](/ref/go) 函数和所有 Defold 库函数，除了 [GUI](/ref/gui) 和 [Render](/ref/render) 函数。
 
 
-Render scripts
-: 扩展名 _.render_script_. 通过渲染流程运行, 包含渲染每帧所有图像的逻辑. 渲染脚本对应使用 [Render](/ref/render) 函数库.
+GUI 脚本
+: 扩展名 _.gui_script_。由 GUI 组件运行，通常包含显示 GUI 元素（如平视显示器、菜单等）所需的逻辑。Defold 会将 Lua 代码作为引擎生命周期函数的一部分执行。GUI 脚本可以访问 [GUI](/ref/gui) 函数和所有 Defold 库函数，除了 [GO](/ref/go) 和 [Render](/ref/render) 函数。
 
 
-## 脚本运行, 回调和 self
+渲染脚本
+: 扩展名 _.render_script_。由渲染管线运行，包含每帧渲染所有应用/游戏图形所需的逻辑。渲染脚本在游戏生命周期中具有特殊位置。详细信息可在[应用程序生命周期文档](/manuals/application-lifecycle)中找到。渲染脚本可以访问 [Render](/ref/render) 函数和所有 Defold 库函数，除了 [GO](/ref/go) 和 [GUI](/ref/gui) 函数。
 
-Defold 把 Lua 脚本作为引擎生命周期的一部分来执行并且向脚本暴露了一些生命周期函数. 当你把脚本组件附加到游戏对象上时这个脚本就变成了游戏对象及其组件的生命周期的一部分. 脚本加载后先进行上下文评估, 然后引擎开始执行以下函数同时传递一个当前组件实例的引用作参数. 这个参数就是 `self` , 可以用来保存组件实例上的各种状态.
 
-::: sidenote
-`self` 是一个 userdata 对象, 可以用作 Lua 表但是不能使用 `pairs()` 或者 `ipairs()`迭代, 而且也不能使用 `pprint()` 输出其内容.
+## 脚本执行、回调和 self
+
+Defold 将 Lua 脚本作为引擎生命周期的一部分执行，并通过一组预定义的回调函数暴露生命周期。当您将脚本组件添加到游戏对象时，该脚本成为游戏对象及其组件生命周期的一部分。脚本在加载时在 Lua 上下文中评估，然后引擎执行以下函数，并将对当前脚本组件实例的引用作为参数传递。您可以使用这个 `self` 引用在组件实例中存储状态。
+
+::: important
+`self` 是一个 userdata 对象，其行为类似于 Lua 表，但您不能使用 `pairs()` 或 `ipairs()` 对其进行迭代，也不能使用 `pprint()` 打印它。
 :::
 
-`init(self)`
-: 组件初始化时调用.
-
-  ```lua
-  function init(self)
-      -- 这些变量会在组件生命周期中一直存在
-      self.my_var = "something"
-      self.age = 0
-  end
-  ```
-
-`final(self)`
-: 组件被删除时调用. 用以进行析构操作, 比如说把早先创建的对象一并删除掉.
-
-  ```lua
-  function final(self)
-      if self.my_var == "something" then
-          -- 做一些清理工作
-      end
-  end
-  ```
-
-`update(self, dt)`
-: 每帧调用一次. `dt` 是从上一帧到这一帧的时差.
-
-  ```lua
-  function update(self, dt)
-      self.age = self.age + dt -- 把每帧时差加到 age 上
-  end
-  ```
-
-`fixed_update(self, dt)`
-: 不基于 update 的固定帧率更新. `dt` 是从上一帧到这一帧的时差. 当 `engine.fixed_update_frequency` 开启 (!= 0) 时该函数会被调用. 当 *game.project* 文件里开启了 `physics.use_fixed_timestep` 的时候, 该函数可以用于对物理对象进行一个稳定的模拟.
-
-  ```lua
-  function fixed_update(self, dt)
-      msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
-  end
-  ```
-
-`on_message(self, message_id, message, sender)`
-: 当使用 [`msg.post()`](/ref/msg#msg.post) 把消息发送到脚本组件上时, 接收方组件的脚本中此函数被调用.
-
-    ```lua
-    function on_message(self, message_id, message, sender)
-        if message_id == hash("increase_score") then
-            self.total_score = self.total_score + message.score
-        end
-    end
-    ```
-    
-`on_input(self, action_id, action)`
-: 如果组件掌握输入焦点 (见 [`acquire_input_focus`](/ref/go/#acquire_input_focus)) 那么当输入触发时此函数被引擎调用.
-
-
-    ```lua
-    function on_input(self, action_id, action)
-        if action_id == hash("touch") and action.pressed then
-            print("Touch", action.x, action.y)
-        end
-    end
-    ```
-    
-`on_reload(self)`
-: 当使用编辑器的热重载功能 (<kbd>Edit ▸ Reload Resource</kbd>) 重载脚本时此函数被调用. 这对于调试, 测试和微调看效果等需求非常方便. 详情请见 [热重载教程](/manuals/hot-reload).
-
-  ```lua
-  function on_reload(self)
-      print(self.age) -- 输出对象的 age
-  end
-  ```
-
-
-## 链式逻辑
-
-带脚本的游戏对象可以实现一些逻辑. 通常, 逻辑是否触发取决于一些条件. 玩家走到敌人一定距离之内才会触发敌人AI; 关闭的们只有在玩家交互之后才能打开等等等等.
-
-在 `update()` 函数中可以实现复杂的行为定义比如每帧运行的状态机---有时这是不错的用法. 但是每帧调用一个 `update()` 一点点计时有点浪费. 可以的话最好自己实现一个不依靠update _链式逻辑_. 它不是被动等待时间累计而是主动设置触发时间目标. 此外, 链式逻辑的设计往往需要尽量简洁稳定易于实现.
-
-来看一个具体实例. 假设你希望一个脚本初始化2秒后发出一个消息. 然后等待消息被收到, 之后过5秒再发一个消息. 非链式逻辑代码看起里像这样:
+#### `init(self)`
+组件初始化时调用。
 
 ```lua
 function init(self)
-    -- 计时器.
+  -- 这些变量在组件实例的整个生命周期中都可用
+  self.my_var = "something"
+  self.age = 0
+end
+```
+
+#### `final(self)`
+组件被删除时调用。这对于清理目的很有用，例如，如果您生成了应该在组件被删除时删除的游戏对象。
+
+```lua
+function final(self)
+  if self.my_var == "something" then
+      -- 进行一些清理
+  end
+end
+```
+
+#### `update(self, dt)`
+每帧调用一次。`dt` 包含自上一帧以来的增量时间。
+
+```lua
+function update(self, dt)
+  self.age = self.age + dt -- 使用时间步长增加年龄
+end
+```
+
+#### `fixed_update(self, dt)`
+与帧率无关的更新。`dt` 包含自上次更新以来的增量时间。当启用 `engine.fixed_update_frequency`（!= 0）时调用此函数。当在 *game.project* 中启用 `physics.use_fixed_timestep` 时，如果您希望以固定间隔操作物理对象以实现稳定的物理模拟，这很有用。
+
+```lua
+function fixed_update(self, dt)
+  msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+end
+```
+
+#### on_message(self, message_id, message, sender)
+当通过 [`msg.post()`](/ref/msg#msg.post) 将消息发送到脚本组件时，引擎会调用接收器组件的此函数。了解更多关于[消息传递](/manuals/message-passing)的信息。
+
+```lua
+function on_message(self, message_id, message, sender)
+    if message_id == hash("increase_score") then
+        self.total_score = self.total_score + message.score
+    end
+end
+```
+
+#### `on_input(self, action_id, action)`
+如果此组件已获取输入焦点（请参阅 [`acquire_input_focus`](/ref/go/#acquire_input_focus)），则在注册输入时引擎会调用此函数。了解更多关于[输入处理](/manuals/input)的信息。
+
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        print("Touch", action.x, action.y)
+    end
+end
+```
+
+#### `on_reload(self)`
+当通过热重载编辑器功能（<kbd>Edit ▸ Reload Resource</kbd>）重载脚本时调用此函数。这对于调试、测试和调整目的非常有用。了解更多关于[热重载](/manuals/hot-reload)的信息。
+
+```lua
+function on_reload(self)
+  print(self.age) -- 打印此游戏对象的年龄
+end
+```
+
+
+## 反应式逻辑
+
+带有脚本组件的游戏对象实现了一些逻辑。通常，该逻辑依赖于某些外部因素。敌人 AI 可能会对玩家位于 AI 一定半径内做出反应；门可能因玩家交互而解锁和打开，等等。
+
+`update()` 函数允许您实现定义为每帧运行的状态机的复杂行为——有时这是足够的方法。但是每次调用 `update()` 都有关联的成本。除非您确实需要该函数，否则应该删除它，而是尝试以_反应式_方式构建您的逻辑。被动等待某些消息触发响应比主动探测游戏世界以获取要响应的数据更便宜。此外，以反应式方式解决设计问题通常也会导致更清洁、更稳定的设计和实现。
+
+让我们看一个具体的例子。假设您希望脚本组件在初始化后 2 秒发送一条消息。然后它应该等待某个响应消息，并在收到响应后 5 秒再发送另一条消息。非反应式代码看起来像这样：
+
+```lua
+function init(self)
+    -- 用于跟踪时间的计数器
     self.counter = 0
-    -- 状态.
+    -- 我们需要这个来跟踪我们的状态
     self.state = "first"
 end
 
 function update(self, dt)
     self.counter = self.counter + dt
     if self.counter >= 2.0 and self.state == "first" then
-        -- 2 秒后发送消息
+        -- 2秒后发送消息
         msg.post("some_object", "some_message")
         self.state = "waiting"
     end
     if self.counter >= 5.0 and self.state == "second" then
-        -- 状态改变后 5 秒再发送一个消息
+        -- 收到"response"后5秒发送消息
         msg.post("another_object", "another_message")
-        --再次改变状态以避免再次进入这里的代码.
+        -- 将状态设为nil，这样我们就不会再次到达这个状态块
         self.state = nil
     end
 end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("response") then
-        -- 第一个消息收到, 改变状态
+        -- "first"状态完成。进入下一个
         self.state = "second"
-        -- 清空计时器
+        -- 将计数器归零
         self.counter = 0
     end
 end
 ```
 
-本来逻辑挺简单, 代码却麻烦的一塌糊涂. 其实使用携程 (见下文) 就能大大简化代码复杂度, 这回先用内置计时器功能改写一下.
+即使在这个相当简单的情况下，我们的逻辑也变得相当复杂。借助模块中的协程（见下文）可以使这看起来更好，但让我们尝试使其成为反应式的并使用内置的计时机制。
 
 ```lua
 local function send_first()
@@ -154,7 +153,7 @@ local function send_first()
 end
 
 function init(self)
-	-- 等 2 秒后调用 send_first()
+	-- 等待2秒然后调用send_first()
 	timer.delay(2, false, send_first)
 end
 
@@ -164,21 +163,21 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("response") then
-		-- 等 5 秒后调用 send_second()
+		-- 等待5秒然后调用send_second()
 		timer.delay(5, false, send_second)
 	end
 end
 ```
 
-这样就简单易懂多了. 不需要导出调整状态变量 --- 不小心就出错. 我们还完全离开了 `update()` 功能. 这样就不必让引擎每秒白白调用 60 次函数, 尽管里面没代码.
+这更清洁，更容易理解。我们摆脱了在逻辑中通常难以跟踪的内部状态变量——这可能导致微妙的错误。我们还完全摆脱了 `update()` 函数。这使引擎免于每秒调用我们的脚本 60 次，即使它只是在空闲状态。
 
 
 ## 预处理
 
-可以使用 Lua 预处理器特殊标记, 用于有条件地包含基于编译变体的代码. 例如:
+可以使用 Lua 预处理器和特殊标记根据构建变体有条件地包含代码。示例：
 
 ```lua
--- 使用关键字: RELEASE, DEBUG 或 HEADLESS
+-- 使用以下关键字之一：RELEASE、DEBUG 或 HEADLESS
 --#IF DEBUG
 local lives_num = 999
 --#ELSE 
@@ -186,11 +185,11 @@ local lives_num = 3
 --#ENDIF
 ```
 
-预处理器作为编译扩展存在. 详情请参见 [GitHub 上的扩展页面](https://github.com/defold/extension-lua-preprocessor).
+预处理器作为构建扩展可用。在 [GitHub 上的扩展页面](https://github.com/defold/extension-lua-preprocessor) 了解更多关于如何安装和使用它的信息。
 
 
 ## 编辑器支持
 
-Defold 编辑器支持 Lua 脚本编辑, 还提供语法高亮和自动补全功能. 要让 Defold 补全函数名, 按 *Ctrl+Space* 会弹出相关函名数列表.
+Defold 编辑器支持带有语法着色和自动补全功能的 Lua 脚本编辑。要填写 Defold 函数名，请按 *Ctrl+Space* 弹出与您正在键入的内容匹配的函数列表。
 
 ![Auto completion](images/script/completion.png)

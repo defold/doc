@@ -1,13 +1,13 @@
 ---
-title: 废弃的 3D 模型教程
-brief: 本教程已过时
+title: 废弃3D模型文档
+brief: 本文档已被替换
 ---
 
 # 模型
 
-详情请见:
+本文档已被以下手册替代：
 
-* [3D 图像概览](/manuals/3dgraphics)
-* [3D 模型组件教程](/manuals/model)
-* [动画教程](/manuals/animation)
+* [3D 图形概览](/manuals/3dgraphics)
+* [3D 模型组件手册](/manuals/model)
+* [3D 模型动画手册](/manuals/model-animation)
 

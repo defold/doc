@@ -1,146 +1,311 @@
 ---
 title: Defold 中的着色器编程
-brief: 本教程介绍了顶点和片元着色器及其在 Defold 中的使用方法.
+brief: 本手册详细介绍了顶点和片段着色器以及如何在 Defold 中使用它们。
 ---
 
-# Shaders
+# 着色器
 
-着色程序是图像渲染的核心. 由类似 C 语言的 GLSL (GL 着色语言) 语言编写而成供图形设备和操作系统操作 3D 数据 (称为顶点) 和屏幕上的像素 (称为片元). 着色器可以用来渲染图像, 3D 模型, 灯光和全屏的后期特效等等等等.
+着色器程序是图形渲染的核心。它们是用一种称为 GLSL（GL 着色语言）的类 C 语言编写的程序，由图形硬件运行，用于对底层的 3D 数据（顶点）或最终显示在屏幕上的像素（"片段"）执行操作。着色器可用于绘制精灵、为 3D 模型添加光照、创建全屏后期效果等等。
 
-本教程介绍了 Defold 的渲染管线中的顶点/片元着色器接口. 为了编写着色器, 你还需要理解材质的概念, 以及渲染管线工作原理.
+本手册描述了 Defold 的渲染管线如何与 GPU 着色器接口。为了为您的内容创建着色器，您还需要理解材质的概念，以及渲染管线的工作原理。
 
-* 关于渲染管线详情请见 [渲染教程](/manuals/render).
-* 关于材质详情请见 [材质教程](/manuals/material).
+* 有关渲染管线的详细信息，请参阅[渲染手册](/manuals/render)。
+* 有关材质的详细信息，请参阅[材质手册](/manuals/material)。
+* 有关计算程序的详细信息，请参阅[计算手册](/manuals/compute)。
 
-OpenGL ES 2.0 (OpenGL for Embedded Systems) 和 OpenGL ES 着色语言官方说明请见 https://www.khronos.org/registry/gles/
+OpenGL ES 2.0（嵌入式系统 OpenGL）和 OpenGL ES 着色语言的规范可在 [Khronos OpenGL 注册表](https://www.khronos.org/registry/gles/)中找到。
 
-注意桌面设备渲染功能大于 OpenGL ES 2.0. 电脑显卡支持的效果在移动设备上可能无法使用.
+请注意，在台式计算机上，可以使用 OpenGL ES 2.0 不可用的功能编写着色器。您的显卡驱动程序可能会愉快地编译和运行在移动设备上无法工作的着色器代码。
 
 
 ## 概念
 
-Vertex shader
-: 顶点着色器不新建也不删除顶点, 只是计算顶点的位置. 顶点着色器一般用于把3D空间的顶点位置转换到2D屏幕空间之中.
+顶点着色器
+: 顶点着色器不能创建或删除顶点，只能改变顶点的位置。顶点着色器通常用于将顶点的位置从 3D 世界空间转换到 2D 屏幕空间。
 
-  输入的是顶点数据 (以 `attributes` 的形式) 和常量 (`uniforms`). 通常常量是用于位置转换计算的矩阵.
+  顶点着色器的输入是顶点数据（以 `attributes` 的形式）和常量（`uniforms`）。常见的常量是将顶点位置转换和投影到屏幕空间所需的矩阵。
 
-  输出的是屏幕空间顶点坐标 (`gl_Position`). 也可以通过 `varying` 变量向片元着色器传递数据.
+  顶点着色器的输出是顶点的计算出的屏幕位置（`gl_Position`）。也可以通过 `varying` 变量将数据从顶点着色器传递到片段着色器。
 
-Fragment shader
-: 顶点处理结束后, 由片元着色器来接手处理每个片元 (像素) 的颜色数据.
+片段着色器
+: 顶点着色器完成后，片段着色器的工作是决定结果图元的每个片段（或像素）的颜色。
 
-  输入的是常量 (`uniforms`) 还有从顶点着色器发来的 `varying` 变量.
+  片段着色器的输入是常量（`uniforms`）以及由顶点着色器设置的任何 `varying` 变量。
 
-  输出的是单个片元的颜色 (`gl_FragColor`).
+  片段着色器的输出是特定片段的颜色值（`gl_FragColor`）。
 
-World matrix
-: 模型顶点的位置基于模型原点. 这被称作 "模型空间". 而游戏使用的是 "世界空间" 也就是每个点的位置旋转和缩放都是基于世界坐标系原点的. 把两者区别开便于引擎实现导入模型的移动, 旋转和缩放而不会破坏模型组件里存储的顶点数据.
+计算着色器
+: 计算着色器是一种通用着色器，可用于在 GPU 上执行任何类型的工作。它完全不属于图形管线的一部分，计算着色器在单独的执行上下文中运行，不依赖于来自任何其他着色器的输入。
 
-  把模型放置于游戏世界时, 模型顶点要改成基于世界坐标系的. 这就需要一个 *世界变换矩阵* 来确定多少移动, 旋转和缩放应该应用于模型顶点以修正其基于世界坐标系的位置.
+  计算着色器的输入是常量缓冲区（`uniforms`）、纹理图像（`image2D`）、采样器（`sampler2D`）和存储缓冲区（`buffer`）。
+
+  计算着色器的输出没有明确定义，与顶点和片段着色器不同，没有需要产生的特定输出。由于计算着色器是通用的，由程序员定义计算着色器应该产生什么类型的结果。
+
+世界矩阵
+: 模型形状的顶点位置是相对于模型原点存储的。这被称为"模型空间"。然而，游戏世界是一个"世界空间"，其中每个顶点的位置、方向和缩放都是相对于世界原点表达的。通过将这些分开，游戏引擎能够移动、旋转和缩放每个模型，而不会破坏存储在模型组件中的原始顶点值。
+
+  当模型放置在游戏世界中时，模型的局部顶点坐标必须转换为世界坐标。这种转换是通过*世界变换矩阵*完成的，它告诉应该对模型的顶点应用什么转换（移动）、旋转和缩放，以便正确放置在游戏世界的坐标系中。
 
   ![World transform](images/shader/world_transform.png)
 
-View 和 projection matrix
-: 为了把游戏世界物体投射到屏幕上, 每个矩阵的3D坐标先是转换为基于摄像机的坐标. 这时使用的是 _视口矩阵_. 然后, 顶点再被转换为屏幕空间坐标, 这时使用的是 _投射矩阵_:
+视图和投影矩阵
+: 为了将游戏世界的顶点放到屏幕上，每个矩阵的 3D 坐标首先被转换为相对于摄像机的坐标。这是通过_视图矩阵_完成的。其次，顶点通过_投影矩阵_投影到 2D 屏幕空间上：
 
   ![Projection](images/shader/projection.png)
 
-Attributes
-: 顶点上的相关属性. 属性经由引擎传送给着色器. 只要在着色程序中声明一下即可使用. 不同类型组件有不同的属性:
-  - Sprite 有 `position` 和 `texcoord0`.
-  - Tilegrid 有 `position` 和 `texcoord0`.
-  - GUI node 有 `position`, `textcoord0` 和 `color`.
-  - ParticleFX 有 `position`, `texcoord0` 和 `color`.
-  - Model 有 `position`, `texcoord0` 和 `normal`.
-  - Font 有 `position`, `texcoord0`, `face_color`, `outline_color` 和 `shadow_color`.
+属性
+: 与单个顶点关联的值。属性由引擎传递给着色器，如果您想访问属性，只需在着色器程序中声明它。不同组件类型有不同的属性集：
+  - 精灵有 `position` 和 `texcoord0`。
+  - 瓦片网格有 `position` 和 `texcoord0`。
+  - GUI 节点有 `position`、`textcoord0` 和 `color`。
+  - 粒子特效有 `position`、`texcoord0` 和 `color`。
+  - 模型有 `position`、`texcoord0` 和 `normal`。
+  - 字体有 `position`、`texcoord0`、`face_color`、`outline_color` 和 `shadow_color`。
 
-Constants
-: 着色器常量保持在渲染器的一个 draw call 之内. 常量位于材质的 *Constants* 部分并且在着色器程序里声明为 `uniform`. 取样器位于材质的 *Samplers* 部分并且在着色程序里声明为 `uniform`. 在顶点着色器里作为常量提供矩阵是执行顶点转换所必需的:
+常量
+: 着色器常量在渲染绘制调用的持续时间内保持不变。常量被添加到材质文件的*常量*部分，然后在着色器程序中声明为 `uniform`。采样器 uniform 被添加到材质的*采样器*部分，然后在着色器程序中声明为 `uniform`。在顶点着色器中执行顶点变换所需的矩阵可作为常量使用：
 
-  - `CONSTANT_TYPE_WORLD` 是 *world matrix* 用于把物体本地空间坐标映射到世界坐标系中.
-  - `CONSTANT_TYPE_VIEW` 是 *view matrix* 用于世界空间到摄像机空间的映射.
-  - `CONSTANT_TYPE_PROJECTION` 是 *projection matrix* 用于摄像机空间到屏幕空间的映射.
-  -  还有预乘的 $world * view$, $view * projection$ 和 $world * view$ 矩阵都可使用.
-  - `CONSTANT_TYPE_USER` 是 `vec4` 可以自由使用的四元组.
+  - `CONSTANT_TYPE_WORLD` 是*世界矩阵*，将对象从局部坐标空间映射到世界空间。
+  - `CONSTANT_TYPE_VIEW` 是*视图矩阵*，将世界空间映射到摄像机空间。
+  - `CONSTANT_TYPE_PROJECTION` 是*投影矩阵*，将摄像机空间映射到屏幕空间。
+  - 预乘的 $world * view$、$view * projection$ 和 $world * view$ 矩阵也可用。
+  - `CONSTANT_TYPE_USER` 是一个 `vec4` 类型常量，您可以按需使用。
 
-  关于着色器常量的用法详情请见 [材质教程](/manuals/material).
+  [材质手册](/manuals/material)解释了如何指定常量。
 
-Samplers
-: 着色器可以声明 *采样器* 类型 uniform 变量. 采样器用于从图片中读取数值:
+采样器
+: 着色器可以声明*采样器*类型的 uniform 变量。采样器用于从图像源读取值：
 
-  - `sampler2D` 从2D纹理中采样.
-  - `samplerCube` 从六图 cubemap 纹理中采样.
+  - `sampler2D` 从 2D 图像纹理中采样。
+  - `sampler2DArray` 从 2D 图像数组纹理中采样。这主要用于分页图集。
+  - `samplerCube` 从 6 图像立方体贴图纹理中采样。
+  - `image2D` 将（并可能存储）纹理数据加载到图像对象。这主要用于计算着色器的存储。
 
-  只能在 GLSL 标准库的纹理查找函数里使用采样器. 关于采样器设置详情请见 [材质教程](/manuals/material).
+  您只能在 GLSL 标准库的纹理查找函数中使用采样器。[材质手册](/manuals/material)解释了如何指定采样器设置。
 
 UV 坐标
-: 2D纹理上的坐标. 用于将纹理对应到顶点组成的模型上.
+: 2D 坐标与顶点关联，它映射到 2D 纹理上的一个点。因此，纹理的一部分或整个部分可以绘制到由一组顶点描述的形状上。
 
   ![UV coordinates](images/shader/uv_map.png)
 
-  UV图由3D建模软件生成并且存储在网格之中. 每个顶点的纹理坐标作为属性提供给顶点着色器. 然后用 varying 变量来给从顶点数据插值产生的片元顶点查找UV坐标.
+  UV 图通常在 3D 建模程序中生成并存储在网格中。每个顶点的纹理坐标作为属性提供给顶点着色器。然后使用 varying 变量来查找每个片段的 UV 坐标，这些坐标是从顶点值插值的。
 
 Varying 变量
-: Varying 变量被用作从顶点到片元程序的数据传递媒介.
+: Varying 类型的变量用于在顶点阶段和片段阶段之间传递信息。
 
-  1. varying 由顶点着色器为每个顶点所设立.
-  2. 在栅格化期间, 将为被渲染物每个片元间内插该值. 插值取决于片元到顶点间的距离.
-  3. 此变量在每次调用片元着色器时被设置传递可以用来进行片元着色计算.
+  1. 在顶点着色器中为每个顶点设置 varying 变量。
+  2. 在光栅化期间，为正在渲染的图元上的每个片段插值此值。片段到形状顶点的距离决定了插值。
+  3. 该变量为每次对片段着色器的调用设置，可用于片段计算。
 
   ![Varying interpolation](images/shader/varying_vertex.png)
 
-  比如说设定 varying 为三角面的顶点赋予 `vec3` RGB 颜色, 那么这个面上的片元都会根据此变量进行插值. 类似地, 设置四顶点平面的纹理采样坐标 (或称 *UV坐标*) 就可以让片元着色器查找到整个平面各个片元的颜色.
+  例如，在三角形的每个角上将 varying 设置为 `vec3` RGB 颜色值将在整个形状上插值颜色。类似地，在矩形中的每个顶点上设置纹理贴图查找坐标（或*UV 坐标*）允许片段着色器为形状的整个区域查找纹理颜色值。
 
   ![Varying interpolation](images/shader/varying.png)
 
-## 在 shader 中引入代码片段
+## 编写现代 GLSL 着色器
 
-Defold 中的 shader 支持引入项目文件内以 `.glsl` 为扩展名的着色器代码. 要将 glsl 代码引入 shader, 请使用 `#include` 关键字后跟双引号或小括号. 引入的文件要么是基于项目的相对路径, 要么是基于引入文件的相对路径:
+由于 Defold 引擎支持多个平台和图形 API，开发人员必须能够简单地在任何地方编写有效的着色器。资源管线主要通过两种方式实现这一点（从现在起表示为`着色器管线`）：
+
+1. 传统管线，其中着色器使用与 ES2 兼容的 GLSL 代码编写。
+2. 现代管线，其中着色器使用与 SPIR-v 兼容的 GLSL 代码编写。
+
+从 Defold 1.9.2 开始，鼓励编写利用新管线的着色器，为此，大多数着色器需要迁移到至少版本 140（OpenGL 3.1）编写的着色器。要迁移着色器，请确保满足这些要求：
+
+### 版本声明
+在着色器顶部至少放置 #version 140：
 
 ```glsl
-// 需要引入代码的文件 /main/my-shader.fp
+#version 140
+```
 
-// 完整路径
+这就是构建过程中选择着色器管线的方式，这就是为什么您仍然可以使用旧着色器。如果没有找到版本预处理器，Defold 将回退到传统管线。
+
+### 属性
+在顶点着色器中，将 `attribute` 关键字替换为 `in`：
+
+```glsl
+// 而不是：
+// attribute vec4 position;
+// 应该：
+in vec4 position;
+```
+
+注意：片段着色器（和计算着色器）不接受任何顶点输入。
+
+### Varyings
+在顶点着色器中，varyings 应该以 `out` 为前缀。在片段着色器中，varyings 变为 `in`：
+
+```glsl
+// 在顶点着色器中，而不是：
+// varying vec4 var_color;
+// 应该：
+out vec4 var_color;
+
+// 在片段着色器中，而不是：
+// varying vec4 var_color;
+// 应该：
+in vec4 var_color;
+```
+
+### Uniform（在 Defold 中称为常量）
+
+不透明的 uniform 类型（采样器、图像、原子、SSBO）不需要任何迁移，您可以像今天一样使用它们：
+
+```glsl
+uniform sampler2D my_texture;
+uniform image2D my_image;
+```
+
+对于非不透明的 uniform 类型，您需要将它们放在 `uniform 块`中。uniform 块只是 uniform 变量的集合，使用 `uniform` 关键字声明：
+
+```glsl
+uniform vertex_inputs
+{
+    mat4 mtx_world;
+    mat4 mtx_proj;
+    mat4 mtx_view;
+    mat4 mtx_normal;
+    ...
+};
+
+void main()
+{
+    // uniform 块的各个成员可以按原样使用
+    gl_Position = mtx_proj * mtx_view * mtx_world * vec4(position, 1.0);
+}
+```
+
+uniform 块中的所有成员都作为单独的常量暴露给材质和组件。使用渲染常量缓冲区或 `go.set` 和 `go.get` 不需要迁移。
+
+### 内置变量
+
+在片段着色器中，从版本 140 开始，`gl_FragColor` 已被弃用。使用 `out` 代替：
+
+```glsl
+// 而不是：
+// gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+// 应该：
+out vec4 color_out;
+
+void main()
+{
+    color_out = vec4(1.0, 0.0, 0.0, 1.0);
+}
+```
+
+### 纹理函数
+
+特定的纹理采样函数，如 `texture2D` 和 `texture2DArray` 不再存在。相反，只需使用 `texture` 函数：
+
+```glsl
+uniform sampler2D my_texture;
+uniform sampler2DArray my_texture_array;
+
+// 而不是：
+// vec4 sampler_2d = texture2D(my_texture, uv);
+// vec4 sampler_2d_array = texture2DArray(my_texture_array, vec3(uv, slice));
+// 应该：
+vec4 sampler_2d = texture(my_texture, uv);
+vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
+```
+
+### 精度
+
+以前需要为变量、输入、输出等设置显式精度，以符合 OpenGL ES 上下文。这不再是必需的，现在对于支持它的平台自动设置精度。
+
+### 整合
+
+作为应用所有这些规则的最终示例，这里是转换为新格式的内置精灵着色器：
+
+```glsl
+#version 140
+
+uniform vx_uniforms
+{
+    mat4 view_proj;
+};
+
+// 位置在世界空间中
+in vec4 position;
+in vec2 texcoord0;
+
+out vec2 var_texcoord0;
+
+void main()
+{
+    gl_Position = view_proj * vec4(position.xyz, 1.0);
+    var_texcoord0 = texcoord0;
+}
+```
+
+```glsl
+#version 140
+
+in vec2 var_texcoord0;
+
+out vec4 color_out;
+
+uniform sampler2D texture_sampler;
+
+uniform fs_uniforms
+{
+    vec4 tint;
+};
+
+void main()
+{
+    // 预乘 alpha，因为所有运行时纹理都已经预乘了
+    vec4 tint_pm = vec4(tint.xyz * tint.w, tint.w);
+    color_out = texture(texture_sampler, var_texcoord0.xy) * tint_pm;
+}
+
+```
+
+## 在着色器中包含代码片段
+
+Defold 中的着色器支持从项目中具有 `.glsl` 扩展名的文件中包含源代码。要从着色器包含 glsl 文件，请使用 `#include` pragma，使用双引号或方括号。包含必须具有相对于项目的路径或相对于包含文件的路径：
+
+```glsl
+// 在文件 /main/my-shader.fp 中
+
+// 绝对路径
 #include "/main/my-snippet.glsl"
-// 同目录文件
+// 文件在同一文件夹中
 #include "my-snippet.glsl"
-// 文件位于 'my-shader' 下的子目录中
+// 文件在 'my-shader' 同一级的子文件夹中
 #include "sub-folder/my-snippet.glsl"
-// 文件位于父级的子目录中, 例如 /some-other-folder/my-snippet.glsl
+// 文件在父目录的子文件夹中，即 /some-other-folder/my-snippet.glsl
 #include "../some-other-folder/my-snippet.glsl"
-// 文件位于父级目录中, 例如 /root-level-snippet.glsl
+// 文件在父目录中，即 /root-level-snippet.glsl
 #include "../root-level-snippet.glsl"
 ```
 
-::: sidenote
-着色器导入语句自从 1.4.2 版本可用
-:::
+关于如何拾取包含有一些注意事项：
 
-寻找引入文件注意以下几点:
+  - 文件必须是相对于项目的，意味着您只能包含位于项目内的文件。任何绝对路径必须以 `/` 开头指定
+  - 您可以在文件中的任何位置包含代码，但不能在语句中内联包含文件。例如 `const float #include "my-float-name.glsl" = 1.0` 将不起作用
 
-  - 文件必须在基于项目目录的相对路径, 也就是说被引入文件必须存在于项目中. 基于项目目录的相对路径开头应该是 `/`
-  - 文件任何地方都可以声明引入, 只是不能把引入写进语句中. 比如 `const float #include "my-float-name.glsl" = 1.0` 就不行
+### 头文件保护
 
-### Header guards
-
-被引入片段仍然可以引入其他 `.glsl` 文件, 也就是说成品 shader 可以引入同一片段代码很多次, 而这样有可能导致重复定义元素的错误. 为了避免这样的错误, 可以使用 *header guards*, 这是很多编程语言中的一个通用的概念. 比如:
+片段本身可以包含其他 `.glsl` 文件，这意味着最终生成的着色器可能多次包含相同的代码，根据文件的内容，您可能最终会因为多次声明相同的符号而导致编译问题。为了避免这种情况，您可以使用*头文件保护*，这是几种编程语言中的常见概念。示例：
 
 ```glsl
-// In my-shader.vs
+// 在 my-shader.vs 中
 #include "math-functions.glsl"
 #include "pi.glsl"
 
-// In math-functions.glsl
+// 在 math-functions.glsl 中
 #include "pi.glsl"
 
-// In pi.glsl
+// 在 pi.glsl 中
 const float PI = 3.14159265359;
 ```
 
-本例中, `PI` 常量被定义了两次, 运行时将导致编译错误. 这种情况下可以使用 header guards 来保护常量定义:
+在这个例子中，`PI` 常量将被定义两次，这将在运行项目时导致编译器错误。您应该使用头文件保护来保护内容：
 
 ```glsl
-// In pi.glsl
+// 在 pi.glsl 中
 #ifndef PI_GLSL_H
 #define PI_GLSL_H
 
@@ -149,15 +314,15 @@ const float PI = 3.14159265359;
 #endif // PI_GLSL_H
 ```
 
-`pi.glsl` 在 `my-shader.vs` 被引用了两次, 但是通过 header guards 的保护 PI 实际上只被定义了一次, 所以编译会顺利通过.
+来自 `pi.glsl` 的代码将在 `my-shader.vs` 中扩展两次，但由于您已经用头文件保护包装了它，PI 符号将只被定义一次，着色器将成功编译。
 
-然而, 根据不同用法这也不一定是必须的. 如果你的 shader 想在本地函数里使用或者在某处不需要使用全局有效的值的时候, 大体不必用到 header guards. 比如:
+然而，根据用例，这并不总是严格必要的。如果您想在本地函数中重用代码或在不需要值在着色器代码中全局可用的其他地方，您可能不应该使用头文件保护。示例：
 
 ```glsl
-// In red-color.glsl
+// 在 red-color.glsl 中
 vec3 my_red_color = vec3(1.0, 0.0, 0.0);
 
-// In my-shader.fp
+// 在 my-shader.fp 中
 vec3 get_red_color()
 {
   #include "red-color.glsl"
@@ -171,20 +336,40 @@ vec3 get_red_color_inverted()
 }
 ```
 
+## 编辑器特定的着色器代码
+
+当在 Defold 编辑器视口中渲染着色器时，预处理器定义 `EDITOR` 可用。这允许您编写在编辑器中运行与在实际游戏引擎中运行时行为不同的着色器代码。
+
+这对于以下情况特别有用：
+  - 添加只应在编辑器中显示的调试可视化。
+  - 实现编辑器特定功能，如线框模式或材质预览。
+  - 为在编辑器视口中可能无法正常工作的材质提供回退渲染。
+
+使用 `#ifdef EDITOR` 预处理器指令有条件地编译只应在编辑器中运行的代码：
+
+```glsl
+#ifdef EDITOR
+    // 此代码仅在着色器在 Defold 编辑器中渲染时执行
+    color_out = vec4(1.0, 0.0, 1.0, 1.0); // 编辑器预览的洋红色
+#else
+    // 此代码在游戏中运行时执行
+    color_out = texture(texture_sampler, var_texcoord0) * tint_pm;
+#endif
+```
 
 ## 渲染过程
 
-数据被投入屏幕之前, 要经过一系列步骤:
+在最终显示在屏幕上之前，您为游戏创建的数据会经过一系列步骤：
 
 ![Render pipeline](images/shader/pipeline.png)
 
-可视组件 (sprite, GUI 节点, 粒子特效和模型) 都由顶点构成, 位于3D坐标系的顶点描述了组件的形状. 好处是从任何角度任何距离都可以观察这些组件. 顶点着色器的工作就是获取每个顶点并把它转换成视口坐标系的坐标以便投射到屏幕上. 对于一个四顶点形状来说, 顶点着色器要并行运行四次.
+所有视觉组件（精灵、GUI 节点、粒子效果或模型）都由顶点组成，这些顶点是描述组件形状的 3D 世界中的点。这样做的好处是可以从任何角度和距离查看形状。顶点着色器程序的工作是获取单个顶点并将其转换为视口中的位置，以便形状可以最终显示在屏幕上。对于具有 4 个顶点的形状，顶点着色器程序运行 4 次，每次都是并行的。
 
 ![vertex shader](images/shader/vertex_shader.png)
 
-顶点着色程序输入的是顶点位置 (及顶点属性数据) 而输出的是一个新的顶点坐标 (`gl_Position`) 连同片元间插值的 `varying` 变量.
+程序的输入是顶点位置（以及与顶点关联的其他属性数据），输出是新的顶点位置（`gl_Position`）以及应该为每个片段插值的任何 `varying` 变量。
 
-最简单的顶点着色程序大概就是全部输出为0坐标 (没啥用):
+最简单的顶点着色器程序只是将输出的位置设置为零顶点（这不是很有用）：
 
 ```glsl
 void main()
@@ -193,7 +378,7 @@ void main()
 }
 ```
 
-复杂点的像sprite的顶点着色程序:
+一个更完整的例子是内置的精灵顶点着色器：
 
 ```glsl
 -- sprite.vp
@@ -210,22 +395,21 @@ void main()
   var_texcoord0 = texcoord0;                            // [5]
 }
 ```
-1. 一个 uniform (常量) 包含视口和投射预乘矩阵.
-2. 顶点属性. `position` 已被转换为世界坐标. `texcoord0` 包含顶点的UV坐标.
-3. 声明输出变量. 变量基于顶点数据为每个片元插值然后传送给片元着色器.
-4. `gl_Position` 被设置为当前顶点在投射空间的输出坐标. 包含四项: `x`, `y`, `z` 和 `w`. 其中 `w` 用于计算透视校正插值. 应用转换矩阵前一般都取值为 1.0.
-5. 设置当前顶点的 varying UV 坐标. 栅格化之后它会为每个片元进行插值计算然后发送给片元着色器.
+1. 包含视图和投影矩阵相乘的 uniform（常量）。
+2. 精灵顶点的属性。`position` 已经被转换为世界空间。`texcoord0` 包含顶点的 UV 坐标。
+3. 声明一个 varying 输出变量。这个变量将为每个片段在每个顶点设置的值之间进行插值，并发送到片段着色器。
+4. `gl_Position` 被设置为投影空间中当前顶点的输出位置。这个值有 4 个组件：`x`、`y`、`z` 和 `w`。`w` 组件用于计算透视校正插值。在任何变换矩阵应用之前，这个值通常对于每个顶点都是 1.0。
+5. 为这个顶点位置设置 varying UV 坐标。光栅化后，它将为每个片段进行插值，并发送到片段着色器。
 
 
 
-
-顶点着色器运行完, 组件的屏幕投射形状已被计算出来: 原始形状生成并被栅格化, 就是显卡把要显示的东西分解成 *片元*, 或理解为像素. 然后运行片元着色器, 每个片元处理运行一次. 对于屏幕上显示的 16x24 像素大小的图片, 片元着色程序要并行运行384次.
+顶点着色后，组件的屏幕形状已经确定：生成基本图元并进行光栅化，这意味着图形硬件将每个形状分割成*片段*，或像素。然后它运行片段着色器程序，每个片段一次。对于屏幕上 16x24 像素大小的图像，程序运行 384 次，每次都是并行的。
 
 ![fragment shader](images/shader/fragment_shader.png)
 
-片元着色程序输入的是渲染管线和顶点着色器发来的数据, 一般是片元的 *uv坐标*, 染色颜色之类的. 而输出的是最终颜色值 (`gl_FragColor`).
+程序的输入是渲染管线和顶点着色器发送的任何内容，通常是片段的*uv 坐标*、染色颜色等。输出是像素的最终颜色（`gl_FragColor`）。
 
-最简单的片元着色程序大概就是把每个像素设置为黑色 (还是没什么用):
+最简单的片段着色器程序只是将每个像素的颜色设置为黑色（同样，不是很有用的程序）：
 
 ```glsl
 void main()
@@ -234,7 +418,7 @@ void main()
 }
 ```
 
-复杂一点的比如sprite的片元着色程序:
+同样，一个更完整的例子是内置的精灵片段着色器：
 
 ```glsl
 // sprite.fp
@@ -250,21 +434,21 @@ void main()
   gl_FragColor = diff * tint_pm;                                // [6]
 }
 ```
-1. 声明 varying 纹理坐标变量. 此变量基于形状顶点为每个片元进行插值.
-2. 声明 `sampler2D` uniform 变量. 取样器, 连同插值纹理坐标, 用于sprite的纹理采样. 对于sprite来说, 引擎会自动把要采样的纹理对应到sprite的 *Image* 属性上.
-3. 定义 `CONSTANT_TYPE_USER` 材质常量并且声明为 `uniform`. 用来给sprite设置染色颜色. 默认值纯白.
-4. 染色颜色于其不透明度相乘, 因为运行时纹理颜色都是经过不透明度预乘的.
-5. 在插值坐标处采样并返回颜色值.
-6. `gl_FragColor` 代表片元最终颜色结果: 漫反射纹理颜色于其染色颜色的乘积.
+1. 声明 varying 纹理坐标变量。这个变量将基于形状的顶点为每个片段进行插值。
+2. 声明 `sampler2D` uniform 变量。采样器，连同插值的纹理坐标，用于精灵的纹理采样。对于精灵，引擎会自动将采样的纹理映射到精灵的*图像*属性上。
+3. 定义 `CONSTANT_TYPE_USER` 材质常量并声明为 `uniform`。用于为精灵设置染色颜色。默认值为纯白色。
+4. 将染色颜色与其不透明度相乘，因为运行时纹理颜色都是经过不透明度预乘的。
+5. 在插值坐标处采样并返回颜色值。
+6. `gl_FragColor` 代表片段的最终颜色结果：漫反射纹理颜色与其染色颜色的乘积。
 
-得到片元的最终颜色后还要经过一系列测试. 常见的有 *深度检测*, 看片元深度值是否与像素深度缓存相匹配. 经过测试后, 片元可能被丢弃或者深度缓存被赋予新的值. 这个检测常用于计算远离摄像机物体的渲染剔除工作.
+获得片段的最终颜色后，它还要经过一系列测试。常见的是*深度测试*，看片段的深度值是否与像素深度缓冲区匹配。经过测试后，片段可能被丢弃或深度缓冲区被赋予新值。这个测试通常用于计算远离摄像机物体的渲染剔除工作。
 
-如果这个片元被保留下来, 它还要与早先进入帧缓存的像素数据进行 *混合*. 渲染脚本基于混合参数将源颜色 (片元着色器输出颜色) 与目标颜色 (帧缓存里已有颜色) 进行混合计算. 混合计算常见用法如显示半透明图像等.
+如果这个片段被保留下来，它还要与早先进入帧缓冲区的像素数据进行*混合*。渲染脚本基于混合参数将源颜色（片段着色器输出颜色）与目标颜色（帧缓冲区中已有颜色）进行混合计算。混合计算常见用法如显示半透明图像等。
 
 ## 深入学习
 
-- [Shadertoy](https://www.shadertoy.com) 上有大量开发者开源着色器. 可以通过学习各种着色技术作为自己的灵感源泉. 其中很多着色器改改就能应用到 Defold 中去. [Shadertoy 教程](https://www.defold.com/tutorials/shadertoy/) 介绍了把网站着色器用于 Defold 的具体步骤.
+- [Shadertoy](https://www.shadertoy.com) 上有大量开发者开源着色器。可以通过学习各种着色技术作为自己的灵感源泉。其中很多着色器改改就能应用到 Defold 中去。[Shadertoy 教程](https://www.defold.com/tutorials/shadertoy/) 介绍了把网站着色器用于 Defold 的具体步骤。
 
-- [渐变教程](https://www.defold.com/tutorials/grading/) 介绍了使用纹理采样进行全屏颜色渐变效果的编写方法.
+- [渐变教程](https://www.defold.com/tutorials/grading/) 介绍了使用纹理采样进行全屏颜色渐变效果的编写方法。
 
-- [The Book of Shaders](https://thebookofshaders.com/00/) 介紹了將著色器應用於項目的方法, 有利於提高性能和視覺效果.
+- [The Book of Shaders](https://thebookofshaders.com/00/) 介紹了將著色器應用於項目的方法, 有利於提高性能和視覺效果。

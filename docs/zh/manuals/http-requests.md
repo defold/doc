@@ -1,15 +1,15 @@
 ---
-title: HTTP 请求
-brief: 本教程介绍了发布 HTTP 请求的方法.
+title: Defold HTTP请求
+brief: 本手册解释了如何进行HTTP请求。
 ---
 
-## HTTP 请求
+## HTTP请求
 
-Defold 可以使用 `http.request()` 函数发布普通 HTTP 请求.
+Defold可以使用`http.request()`函数进行常规HTTP请求。
 
 ### HTTP GET
 
-这是最常见的获得信息的请求类型. 举个例子:
+这是从服务器获取一些数据的最基本请求。示例：
 
 ```Lua
 local function handle_response(self, id, response)
@@ -19,15 +19,15 @@ end
 http.request("https://www.defold.com", "GET", handle_response)
 ```
 
-这段代码向 https://www.defold.com 发送了一个 HTTP GET 请求. 函数是异步的所以不会把游戏卡住. 一接到服务器回复便会调用回调函数. 回调函数里可以获取服务器返回的所有信息, 包括状态码和回复头信息.
+这将向https://www.defold.com发出HTTP GET请求。该函数是异步的，在发出请求时不会阻塞。一旦请求完成并收到服务器响应，它将调用提供的回调函数。回调函数将接收完整的服务器响应，包括状态码和响应头。
 
 ::: sidenote
-为了提高效率, HTTP 请求会自动缓存在客户端. 缓存文件保存在一个叫 `defold/http-cache` 的文件夹里, 其路径根据操作系统不同而不同. 一般来说不必关心缓存的存在, 除非你需要手动清除缓存文件. macOS 系统路径是 `%HOME%/Library/Application Support/Defold/http-cache/` , Windows 系统路径是 `%APP_DATA%/defold/http-cache`.
+HTTP请求会自动缓存在客户端以提高网络性能。缓存的文件存储在操作系统特定的应用程序支持路径中，位于名为`defold/http-cache`的文件夹中。您通常不需要关心HTTP缓存，但如果在开发过程中需要清除缓存，可以手动删除包含缓存文件的文件夹。在macOS上，此文件夹位于`%HOME%/Library/Application Support/Defold/http-cache/`，在Windows上位于`%APP_DATA%/defold/http-cache`。
 :::
 
 ### HTTP POST
 
-当需要传输数据, 比如上传分数或者认证信息到服务器时, 通常需要发布 POST 请求:
+当向服务器发送数据，如分数或某些认证数据时，通常使用POST请求：
 
 ```Lua
 local function handle_response(self, id, response)
@@ -41,14 +41,14 @@ local body = "foo=bar"
 http.request("https://httpbin.org/post", "POST", handle_response, headers, body)
 ```
 
-### 其他 HTTP 请求类型
+### 其他HTTP方法
 
-Defold HTTP 请求支持 HEAD, DELETE 和 PUT 类型.
+Defold HTTP请求还支持HEAD、DELETE和PUT方法。
 
-### API 文档
+### API参考
 
-请参考 [API 文档](/ref/http/).
+请参考[API参考](/ref/http/)了解更多。
 
 ### 扩展
 
-有一个第三方实现的 HTTP 请求扩展库叫做 [TinyHTTP extension](https://defold.com/assets/tinyhttp/).
+替代的HTTP请求实现可以在[TinyHTTP扩展](https://defold.com/assets/tinyhttp/)中找到。

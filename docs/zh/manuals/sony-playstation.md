@@ -1,24 +1,23 @@
 ---
-title: PlayStation®4 的 Defold 开发
-brief: 本教程介绍了如何访问 PlayStation®4
+title: PlayStation®4 和 PlayStation®5 的 Defold 开发
+brief: 本手册描述了如何获取 PlayStation®4 和 PlayStation®5 的访问权限
 ---
 
-# PlayStation®4 和 PlayStation®5 开发
-基于 Sony 许可证限制, Defold 标准版不支持 PS4 和 PS5 平台的开发. 要获取支持PS4 和 PS5 的 Defold 特殊版本首先必须分别成为 PS4 和 PS5 的正式开发者.
+# PlayStation®4 和 PlayStation®5 游戏机开发
+由于许可证限制，支持在 PS4 和 PS5 上开发的 Defold 版本未包含在 Defold 的标准版本中。要获取支持 PS4 和 PS5 游戏开发的 Defold 版本，您需要分别注册为获得许可的 PS4 和 PS5 游戏开发者。
 
-## 注册成为 PS4 和 PS5 开发者
+## 注册为 PS4 和 PS5 游戏开发者
+您可以从 [PlayStation™ 合作伙伴页面](https://register.playstation.net/partnership)注册成为 PS4™ 和 PS5™ 游戏开发者。
 
-可以在 [Sony PlayStation® Partner page](https://register.playstation.net/partnership) 注册成为 PS4 和 PS5 开发者:
+当您获得索尼批准后，您将可以访问 Playstation 5 DevNet 和/或 Playstation 4 DevNet。导航到 Development > Tools & Middleware > Tools & Middleware directory > Defold。点击"Confirm Status"按钮。
 
-Sony 审核通过后就可以访问 Playstation5 DevNet 和 Playstation 4 DevNet. 导航到 Development > Tools & Middleware > Tools & Middleware directory > Defold. 点击 'Confirm Status' 按钮.
+## Defold 中的 PS4™ 和 PS5™ 访问权限
+一旦我们收到您作为 PS4™ 和 PS5™ 许可开发者的确认，我们将为您提供以下访问权限：
 
-## PS4™ 和 PS5™ 的 Defold 访问
-当我们确定开发者是正式 PS4™ 和 PS5™ 开发者时, 我们会在 Defold 中提供如下访问:
-
-* PS4™ 和 PS5™ 扩展源码连同控制台 API 整合.
-* PS4™ 和 PS5™ 可用的 Defold 游戏引擎源码只提供给 PS5™ 注册游戏开发者. 注意这些源码不用作游戏编译, 如果你想对引擎核心做贡献可以使用这些源码.
-* 编译到 PS4™ 和 PS5™ 平台的 [命令行工具](/manuals/bob). 不支持从 Defold 编辑器进行编译.
-* PS4™ 和 PS5™ 特定论坛技术支持.
+* 包含控制台特定 API 集成的 PS4™ 和 PS5™ 扩展的源代码访问权限。
+* 支持 PS4™ 和 PS5™ 的 Defold 游戏引擎版本的源代码访问权限将仅提供给 PS5™ 许可游戏开发者。请注意，源代码访问权限不是构建游戏所必需的，但我们提供访问权限以便您能够对引擎核心做出源代码贡献。
+* 支持打包到 PS4™ 和 PS5™ 平台的[命令行工具](/manuals/bob)。不支持从 Defold 编辑器进行打包。
+* 您可以在其中获取 PS4™ 和 PS5™ 特定支持的论坛。
 
 ## 常见问题
 :[Consoles FAQ](../shared/consoles-faq.md)

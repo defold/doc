@@ -1,66 +1,66 @@
 ---
 title: Defold 中的声音
-brief: 本教程介绍了如果把声音带入 Defold 项目, 进行播放和控制.
+brief: 本手册介绍了如何将声音带入 Defold 项目，进行播放和控制。
 ---
 
 # 声音
 
-Defold 支持声音但是不那么强大. 要注意两个概念:
+Defold 的声音实现简单但强大。您只需要了解两个概念：
 
 声音组件
-: 实际包含声音播放声音的组件.
+: 这些组件包含应该播放的实际声音，并且能够播放声音。
 
 声音组
-: 每个声音组件在设计上都属于一个 _组_. 组比单独控制声音组件更方便. 比如, 建立一个 "sound_fx" 组可以调用一次函数关闭其中所有声音.
+: 每个声音组件可以被指定属于一个 _组_。组提供了一种直观的方式来管理属于一起的声音。例如，可以设置一个 "sound_fx" 组，任何属于该组的声音都可以通过简单的函数调用进行减弱。
 
 ## 创建声音组件
 
-声音组件只能在游戏对象里创建. 创建好游戏对象, 在其上面右键点击选择 <kbd>Add Component ▸ Sound</kbd> 然后点击 *OK*.
+声音组件只能在游戏对象中原地实例化。创建一个新的游戏对象，右键单击它并选择 <kbd>Add Component ▸ Sound</kbd>，然后按 *OK*。
 
 ![Select component](images/sound/sound_add_component.jpg)
 
-声音组件有一系列属性可以设置:
+创建的组件有一组应该设置的属性：
 
 ![Select component](images/sound/sound_properties.png)
 
 *Sound*
-: 从项目中选择一个声音文件. 文件需要 _Wave_ 或者 _Ogg Vorbis_ 格式. Defold 支持 16bit 位深和 44100 采样率的声音文件.
+: 应该设置为项目中的声音文件。文件应该是 _Wave_、_Ogg Vorbis_ 或 _Ogg Opus_ 格式。Defold 支持以 16bit 位深保存的声音文件。
 
 *Looping*
-: 开启此选项声音会循环播放除非循環次數達到 _Loopcount_ 或者手动停止.
+: 如果选中，声音将播放 _Loopcount_ 次或直到明确停止。
 
 *Loopcount*
-: 停止前要循環播放的次數 (0 表示除非手動停止否則永遠循環).
+: 循环声音在停止前将播放的次数（0 表示声音应该循环直到明确停止）。
 
 *Group*
-: 声音属于的组. 如果置空, 此声音默认归属 "master" 组.
+: 声音应该属于的声音组的名称。如果此属性留空，声音将被分配到内置的 "master" 组。
 
 *Gain*
-: 声音增益. 可以在这里直接设置声音增益而不用从声音软件再导出. 增益算法见下文.
+: 您可以直接在组件上设置声音的增益。这使您可以轻松调整声音的增益，而无需返回声音程序并重新导出。有关增益计算方式的详细信息，请参见下文。
 
 *Pan*
-: 声音生像. 范围从 -1 (左 -45 度) 到 1 (右 45 度).
+: 您可以直接在组件上设置声音的声像值。声像必须是介于 -1（左 45 度）和 1（右 45 度）之间的值。
 
 *Speed*
-: 声音速度. 一般速度为 1.0, 0.5 是半倍速 2.0 是二倍速.
+: 您可以直接在组件上设置声音的速度值。1.0 的值是正常速度，0.5 是半速，2.0 是双倍速度。
 
 
 ## 播放声音
 
-设置好声音属性之后, 可以通过调用 [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]) 函数播放声音:
+当您正确设置了声音组件后，可以通过调用 [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]) 使其播放声音：
 
 ```lua
 sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
 
 ::: sidenote
-即使声音组件所在游戏对象被删除了, 声音也会继续播放. 可以通过调用 [`sound.stop()`](/ref/sound/#sound.stop:url) 函数停止播放 (见下文).
+即使声音组件所属的游戏对象被删除，声音也会继续播放。您可以调用 [`sound.stop()`](/ref/sound/#sound.stop:url) 来停止声音（见下文）。
 :::
-只要发送消息到声音组件都会造成新声音实例的播放, 直到声音缓存满溢引擎报错. 所以建议自己实现一个控制或者分组机制.
+发送到组件的每条消息都会导致它播放另一个声音实例，直到可用的声音缓冲区已满，引擎将在控制台中打印错误。建议您实现某种门控和声音分组机制。
 
-## 停止播放声音
+## 停止声音
 
-可以通过调用 [`sound.stop()`](/ref/sound/#sound.stop:url) 函数停止播放声音:
+如果您希望停止播放声音，可以调用 [`sound.stop()`](/ref/sound/#sound.stop:url)：
 
 ```lua
 sound.stop("go#sound")
@@ -70,23 +70,23 @@ sound.stop("go#sound")
 
 ![Gain](images/sound/sound_gain.png)
 
-声音系统有 4 级增益:
+声音系统有 4 级增益：
 
-- 声音组件增益属性设置.
-- 调用 `sound.play()` 函数或者直接调用 `sound.set_gain()` 函数设置的增益.
-- 调用 [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) 函数设置的增益.
-- "master" 组上设置的增益. 可以通过调用 `sound.set_group_gain(hash("master"))` 函数修改设置.
+- 在声音组件上设置的增益。
+- 在通过调用 `sound.play()` 启动声音时或通过调用 `sound.set_gain()` 更改声音上的增益时设置的增益。
+- 通过 [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) 函数调用在组上设置的增益。
+- 在 "master" 组上设置的增益。这可以通过 `sound.set_group_gain(hash("master"))` 来更改。
 
-结果是4级增益的乘积. 默认每个增益都是 1.0 (0 dB).
+输出增益是这 4 个增益相乘的结果。默认增益在任何地方都是 1.0（0 dB）。
 
 ## 声音组
 
-在声音组件上设置组名就把这个声音归到了那个组里. 如果不设置组名默认归到 "master" 组里. 设置组名为 "master" 效果相同.
+任何指定了声音组名称的声音组件都将被放入具有该名称的声音组中。如果您不指定组，声音将被分配到 "master" 组。您还可以将声音组件上的组显式设置为 "master"，这具有相同的效果。
 
-有一系列函数用于获得声音组, 声音名, 获得/设置增益, 均方根 (见 http://en.wikipedia.org/wiki/Root_mean_square) 和峰值. 还有一个函数用于检测设备播放器是否正在运行:
+有一些函数可用于获取所有可用的组，获取字符串名称，获取和设置增益、均方根（参见 http://en.wikipedia.org/wiki/Root_mean_square）和峰值增益。还有一个函数允许您测试目标设备的音乐播放器是否正在运行：
 
 ```lua
--- 如果 iPhone/Android 设备的播放器正在播放引用, 则所有游戏声音静音
+-- 如果在此 iPhone/Android 设备上播放声音，请将所有内容静音
 if sound.is_music_playing() then
     for i, group_hash in ipairs(sound.get_groups()) do
         sound.set_group_gain(group_hash, 0)
@@ -94,64 +94,63 @@ if sound.is_music_playing() then
 end
 ```
 
-组名是个哈希值. 其字符串值可以使用 [`sound.get_group_name()`](/ref/sound#sound.get_group_name) 获得, 可以用来显示音轨名称.
+组通过哈希值标识。字符串名称可以通过 [`sound.get_group_name()`](/ref/sound#sound.get_group_name) 检索，可用于在开发工具中显示组名称，例如用于测试组电平的混音器。
 
 ![Sound group mixer](images/sound/sound_mixer.png)
 
-::: sidenote
-代码里不要依赖字符串组名因为编译后不保存字符串组名.
+::: important
+您不应该编写依赖声音组的字符串值的代码，因为它们在发布版本中不可用。
 :::
 
-所有值都是线性 0 到 1.0 (0 dB) 的范围. 要转换为分贝数, 可使用标准转换公式:
+所有值在 0 和 1.0（0 dB）之间都是线性的。要转换为分贝，只需使用标准公式：
 
-$$
+```math
 db = 20 \times \log \left( gain \right)
-$$
+```
 
 ```lua
 for i, group_hash in ipairs(sound.get_groups()) do
-    -- 字符串组名只在调试时可用. 发布后会变成 "unknown_*".
+    -- 字符串名称仅在调试中可用。在发布版本中返回 "unknown_*"。
     local name = sound.get_group_name(group_hash)
     local gain = sound.get_group_gain(group_hash)
 
-    -- 转换为分贝.
+    -- 转换为分贝。
     local db = 20 * math.log10(gain)
 
-    -- 得到 RMS (增益均方根). 左右声道分开计算.
+    -- 获取 RMS（增益均方根）。左右声道分别计算。
     local left_rms, right_rms = sound.get_rms(group_hash, 2048 / 65536.0)
     left_rmsdb = 20 * math.log10(left_rms)
     right_rmsdb = 20 * math.log10(right_rms)
 
-    -- 得到峰值. 左右声道分开计算.
+    -- 获取增益峰值。左右声道分别计算。
     left_peak, right_peak = sound.get_peak(group_hash, 2048 * 10 / 65536.0)
     left_peakdb = 20 * math.log10(left_peak)
     right_peakdb = 20 * math.log10(right_peak)
 end
 
--- 设置主声道增益为 +6 dB (math.pow(10, 6/20)).
+-- 将主增益设置为 +6 dB（math.pow(10, 6/20)）。
 sound.set_group_gain("master", 1.995)
 ```
 
-## 控制声音
+## 声音门控
 
-如果用什么事件来触发声音播放, 就有可能造成同时播放2个或多个重复的声音. 这样的话, 声音会产生 _偏移重叠_ 现象效果非常不好.
+如果您的游戏在某个事件上播放相同的声音，并且该事件经常被触发，您可能会冒着几乎同时播放相同声音两次或更多次的风险。如果发生这种情况，声音将 _相位偏移_，这可能导致一些非常明显的伪影。
 
 ![Phase shift](images/sound/sound_phase_shift.png)
 
-最简单的办法是设置一个过滤时间段对最近播放过的声音进行过滤:
+处理这个问题的最简单方法是构建一个门控，过滤声音消息，不允许在设定的时间间隔内多次播放相同的声音：
 
 ```lua
--- 在一定 "过滤时间段" 内不允许再次播放同一声音.
+-- 不允许在 "gate_time" 间隔内播放相同的声音。
 local gate_time = 0.3
 
 function init(self)
-    -- 把计时器保存到一个表里然后每帧计时递减
-    -- 直到过了 "过滤时间段". 再删除它.
+    -- 将播放的声音计时器存储在一个表中，每帧倒计时，直到它们在表中存在了 "gate_time" 秒。然后删除它们。
     self.sounds = {}
 end
 
 function update(self, dt)
-    -- 计时器递减
+    -- 倒计时存储的计时器
     for k,_ in pairs(self.sounds) do
         self.sounds[k] = self.sounds[k] - dt
         if self.sounds[k] < 0 then
@@ -162,45 +161,45 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("play_gated_sound") then
-        -- 表里没有才能播放.
+        -- 只播放当前不在门控表中的声音。
         if self.sounds[message.soundcomponent] == nil then
-            -- 保存计时器
+            -- 将声音计时器存储在表中
             self.sounds[message.soundcomponent] = gate_time
             -- 播放声音
             sound.play(message.soundcomponent, { gain = message.gain })
         else
-            -- 过滤表里有的声音
+            -- 尝试播放声音被门控
             print("gated " .. message.soundcomponent)
         end
     end
 end
 ```
 
-这样, 只要把 `play_gated_sound` 消息连同增益发送给声音组件. 使用 `sound.play()` 播放函数前就会对声音进行过滤:
+要使用门控，只需向其发送 `play_gated_sound` 消息并指定目标声音组件和声音增益。如果门控打开，门控将使用目标声音组件调用 `sound.play()`：
 
 ```lua
 msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#explosion1", gain = 1.0 })
 ```
 
-::: sidenote
-对于 `play_sound` 消息没法过滤因为该消息由 Defold 引擎内部保留. 如果使用引擎保留消息名会造成运行不正确.
+::: important
+让门控监听 `play_sound` 消息是行不通的，因为该名称由 Defold 引擎保留。如果您使用保留的消息名称，将会得到意外的行为。
 :::
 
 
-## 运行时控制
-可以通关一些列属性在运行时控制声音 (用法参见 [API](/ref/sound/)). 以下属性可以使用 `go.get()` 和 `go.set()` 来进行操作:
+## 运行时操作
+您可以通过许多不同的属性在运行时操作声音（有关用法，请参阅 [API 文档](/ref/sound/)）。可以使用 `go.get()` 和 `go.set()` 操作以下属性：
 
 `gain`
-: 声音组件音量 (`number`).
+: 声音组件的增益（`number`）。
 
 `pan`
-: 声音组件角度 (`number`). 取值从 -1 (向左-45度) 到 1 (向右45度).
+: 声音组件的声像（`number`）。声像必须是介于 -1（左 45 度）和 1（右 45 度）之间的值。
 
 `speed`
-: 声音组件速度 (`number`). 取值 1.0 为一般速度, 0.5 半速, 2.0 两倍速.
+: 声音组件的速度（`number`）。1.0 的值是正常速度，0.5 是半速，2.0 是双倍速度。
 
 `sound`
-: 声音资源路径 (`hash`). 可以使用 `resource.set_sound(path, buffer)` 来变更声音资源. 例如:
+: 声音的资源路径（`hash`）。您可以使用资源路径通过 `resource.set_sound(path, buffer)` 更改声音。示例：
 
 ```lua
 local boom = sys.load_resource("/sounds/boom.wav")
@@ -209,6 +208,10 @@ resource.set_sound(path, boom)
 ```
 
 
-## 相关项目配置
+## 项目配置
 
-在 *game.project* 文件里有些关于声音组件的 [设置项目](/manuals/project-settings#sound).
+*game.project* 文件有一些与声音组件相关的[项目设置](/manuals/project-settings#sound)。
+
+## 声音流传输
+
+也可以支持[声音流传输](/manuals/sound-streaming)

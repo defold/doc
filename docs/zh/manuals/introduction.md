@@ -1,36 +1,36 @@
 ---
 title: Defold 介绍
-brief: Defold 简介.
+brief: Defold 简要介绍。
 ---
 
 # 欢迎来到 Defold
 
-Defold 是提供设计, 编译和发布游戏功能的一站式工具. 具体功能详见 [Product Overview](/product).
+Defold 是一个一站式解决方案，提供了设计、构建和发布游戏所需的一切。支持功能的完整列表可以在我们的[产品概述](/product)中查看。
 
-我们致力于使游戏开发阶段尽可能的有效率, 这使得 Defold 在诸多游戏引擎中脱颖而出. 请看 [使用 Defold 的理由](/why).
+我们投入了大量时间和精力，确保游戏开发过程中的某些关键元素尽可能顺畅和轻松，我们相信这使得 Defold 在众多引擎中脱颖而出。了解[我们为什么认为您应该使用 Defold](/why)。
 
-## 从哪开始?
+## 从哪里开始？
 
-我们建议你先尝试一下, 学习手册, 阅读教程和 API 文档, 然后到官方论坛里向他人积极取经并且关注 Defold 的每次更新公告. 教程材料多多, 如果还不知道从哪下手, 建议学学下面的内容:
+我们鼓励您进行实验、跟随教程、阅读我们的手册和 API 文档，并在论坛上积极活动，以向其他用户学习并关注 Defold 的开发。有相当多的文档可用，包括手册、API 参考文档、示例和教程。如果您不知道从哪里开始，这里有一些指引：
 
 #### 编辑器
-![Editor overview](images/introduction/editor.png){.left} [编辑器概述](/manuals/editor/) 是个能让你快速入门的介绍, 使用可视的工具进行创作和代码编写. 如果你对 3D 建模软件和各种代码编辑器比较熟悉, 那我们的编辑器看起来会很亲切, 虽说可能在某些地方还是和你想象的稍有区别.
+![Editor overview](images/introduction/editor.png){.left} [编辑器概述](/manuals/editor/)很好地介绍了编辑器，将帮助您熟悉环境、使用可视化工具和编写代码。如果您熟悉 3D 建模程序和编程 IDE，应该不会有太多意外，但总会有一些与您最喜欢的软件不同的地方。
 
-#### 简单实例
-![Examples](images/introduction/examples.jpg){.left} [简单实例集](/examples/) 直接展示出了各个功能运行时的小例子. 在这里你可以看到这些功能在Defold里是如何实现的.
+#### 简单示例
+![Examples](images/introduction/examples.jpg){.left} [我们的简单示例集合](/examples/)很好地介绍了如何将各个部分组合成有效的东西。您将找到如何在 Defold 中实现各种常见事物的最小示例。
 
 #### Lua 语言
-![Lua overview](images/introduction/lua.png){.left} [Defold 使用 Lua](/manuals/lua/) 来控制所有游戏逻辑. 引擎是高效 C++ 程序, 但是其控制脚本是高层 Lua 语言. 如果你编写过 Python, Javascript 或者其他高级语言代码, 你就会发现 Lua 非常好理解. 没写过脚本程序的, 可以先从Lua教程开始学.
+![Lua overview](images/introduction/lua.png){.left} [Defold 使用 Lua](/manuals/lua/)进行所有逻辑控制。引擎是一个快速的 C++ 机器，但在高层次上由 Lua 程序控制。如果您使用过 Python、Javascript 或任何其他高级语言进行编程，您会发现 Lua 相当容易掌握，并且可能可以很好地跟随教程。否则，请通读我们的 Lua 手册，然后从那里开始。
 
 #### 游戏教程
-![Tutorials](images/introduction/tutorials.jpg){.left} 我们相信做是学的最好方法. 这就是我们花费很多精力在Defold [编辑器](/manuals/editor/) 里集成一些教程和复杂关卡的原因.打开一两个教程跟着做一遍就知道 Defold 是怎么编译和工作的了.
+![Tutorials](images/introduction/tutorials.jpg){.left} 我们相信通过实践学习是最好的。这就是为什么我们直接从[编辑器](/manuals/editor/)中提供了各种技能和复杂程度级别的教程。启动它并跟随一两个教程，学习如何构建事物以及 Defold 是如何工作的。
 
-#### Defold 的资源组成
-![Building blocks](images/introduction/building_blocks.png){.left} [Defold 游戏由许多资源构成](/manuals/building-blocks/), 有些和其他游戏引擎类似. 还有另一些 Defold 里特有的, 用熟才感觉方便的东西. 要想知道Defold的底层工作方式可以先从资源教程学起.
+#### Defold 的构建块
+![Building blocks](images/introduction/building_blocks.png){.left} [Defold 游戏是通过组合简单块构建的](/manuals/building-blocks/)，如果您使用过其他引擎，其中一些看起来会很熟悉。有一些架构设计决策使 Defold 的块变得特殊，需要一些时间才能习惯使用它们。如果您觉得需要彻底理解它的工作原理，我们的构建块手册是一个很好的起点。
 
-#### 社区论坛
-![论坛](images/introduction/forum.jpg){.left} [论坛](//forum.defold.com/) 是一个互相学习的好地方. 我们的社区很友好, 我们的老司机在游戏开发, 尤其是 Defold 开发方面都很精通. 如果你卡壳了, 可以来论坛寻求帮助!
+#### 论坛
+![Forum](images/introduction/forum.jpg){.left} [向他人学习](//forum.defold.com/)通常是学习的最佳方式。我们的社区非常友好，对一般游戏开发和特别是 Defold 开发了解很多。如果您遇到困难，不要犹豫，请前往论坛寻求帮助！
 
-不管从哪开始学习 Defold, 都可以随时回来这个页面再深入理解 Defold 提供的功能和方法. 哪里不理解或者哪里写错了都可以跟我们说. 我们的初衷就是把这套教程做的尽善尽美.
+请记住，无论您选择哪种方式学习 Defold，您都可以随时回到这里，深入了解 Defold 提供的各种功能和概念。不要犹豫，指出您不理解或认为错误的地方。这些页面是为您准备的，我们希望使它们尽可能完善。
 
-希望你能使用 Defold 创作出绝妙的游戏来!
+我们希望您会喜欢在 Defold 中创作您的下一个精彩游戏！

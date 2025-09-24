@@ -1,93 +1,93 @@
 ---
-title: 打包应用
-brief: 本教程介绍了如何打包应用.
+title: 打包应用程序
+brief: 本手册介绍了如何创建应用程序包.
 ---
 
-# 打包应用
+# 打包应用程序
 
-开发项目时常常需要在目标平台上进行测试. 开发中越早发现性能问题越好解决. 同样鼓励在各平台间做测试以便发现诸如shader之类的兼容问题. 在做手机开发时可以使用 [手机开发应用](/manuals/dev-app/) 把内容推送到手机上, 避免反复的安装和卸载.
+在开发应用程序时，您应该养成在目标平台上尽可能频繁地测试游戏的习惯。您应该这样做是为了在开发过程的早期阶段发现性能问题，这些问题在此时更容易解决。还建议在所有目标平台上进行测试，以发现着色器等方面的差异。在移动设备上开发时，您可以选择使用[移动开发应用](/manuals/dev-app/)将内容推送到应用程序，而不必进行完整的打包和卸载/安装循环。
 
-你可以在 Defold 编辑器中生成其支持的所有平台应用, 不需要外界工具辅助. 也可以在控制台使用命令行工具打包应用. 如果应用里包含 [原生扩展](/manuals/extensions) 的话打包时需要网络连接.
+您可以在Defold编辑器本身中为Defold支持的所有平台创建应用程序包，无需任何外部工具。您也可以使用我们的命令行工具从命令行打包。如果您的项目包含一个或多个[原生扩展](/manuals/extensions)，应用程序打包需要网络连接。
 
 ## 从编辑器中打包
 
-使用 Project 菜单的 Bundle 选项进行打包:
+您可以通过项目菜单和Bundle选项创建应用程序包：
 
 ![](images/bundling/bundle_menu.png)
 
-选择不同的打包平台会出现不同的对话窗.
+选择任何菜单选项都会为该特定平台打开Bundle对话框。
 
-### 编译报告
+### 构建报告
 
-有一个编译选项控制编译时是否生成报告. 从报告中可以方便检查游戏包中各个资源占用的空间. 在编译时打开 *Generate build report* 选项即可.
+打包游戏时，有一个选项可以创建构建报告。这对于了解构成游戏包的所有资源的大小非常有用。只需在打包游戏时勾选*Generate build report*复选框即可。
 
 ![build report](images/profiling/build_report.png)
 
-关于编译报告详情请见 [调试教程](/manuals/profiling/#编译报告).
+要了解更多关于构建报告的信息，请参考[性能分析手册](/manuals/profiling/#build-reports)。
 
 
 ### Android
 
-建立安卓应用 (.apk 文件) 详见 [安卓教程](/manuals/android/#安卓应用打包).
+创建Android应用程序包（.apk文件）的文档记录在[Android手册](/manuals/android/#creating-an-android-application-bundle)中。
 
 ### iOS
 
-建立苹果移动应用 (.ipa 文件) 详见 [iOS 教程](/manuals/ios/#iOS应用打包).
+创建iOS应用程序包（.ipa文件）的文档记录在[iOS手册](/manuals/ios/#creating-an-ios-application-bundle)中。
 
 ### macOS
 
-建立Mac系统应用 (.app 文件) 详见 [macOS 教程](/manuals/macos).
+创建macOS应用程序包（.app文件）的文档记录在[macOS手册](/manuals/macos)中。
 
 ### Linux
 
-建立Linux应用无需特别设置.
+创建Linux应用程序包不需要特定设置，也不需要在*game.project*[项目设置文件](/manuals/project-settings/#linux)中进行可选的平台特定配置。
 
 ### Windows
 
-建立Windows应用 (.exe 文件) 详见 [Windows 教程](/manuals/windows).
+创建Windows应用程序包（.exe文件）的文档记录在[Windows手册](/manuals/windows)中。
 
 ### HTML5
 
-建立HTML5应用及其参数设置详见 [HTML5 教程](/manuals/html5/#HTML5游戏打包).
+创建HTML5应用程序包以及可选设置的文档记录在[HTML5手册](/manuals/html5/#creating-html5-bundle)中。
 
 #### Facebook Instant Games
 
-可以为 Facebook Instant Games 打包成 HTML5 应用的一种特殊版本. 这一过程详见 [Facebook Instant Games 教程](/manuals/instant-games/).
+可以为Facebook Instant Games创建一个特殊版本的HTML5应用程序包。这个过程在[Facebook Instant Games手册](/manuals/instant-games/)中有详细说明。
 
-## 命令行打包
+## 从命令行打包
 
-编辑器使用命令行工具 [Bob](/manuals/bob/) 进行应用打包.
+编辑器使用我们的命令行工具[Bob](/manuals/bob/)来打包应用程序。
 
-日常开发中一般使用 Defold 编辑器编译和打包应用. 如果需要自动生成机制, 比如发布新版本时批处理所有平台或者使用持续集成环境持续生成最新版本. 可以使用 [Bob 命令行工具](/manuals/bob/) 编译和打包.
+在进行应用程序的日常开发时，您可能会在Defold编辑器内进行构建和打包。在其他情况下，您可能希望自动生成应用程序包，例如在发布新版本时为所有目标进行批量构建，或者创建最新版本游戏的夜间构建，也许在CI环境中。应用程序的构建和打包可以在正常编辑器工作流程之外使用[Bob命令行工具](/manuals/bob/)完成。
 
-## Bundle 结构
+## 包布局
 
-Bundle 的逻辑结构是这样的:
+逻辑包布局结构如下：
 
 ![](images/bundling/bundle_schematic_01.png)
 
-Bundle 会被输出到一个文件夹. 不同平台位置各异, 还有可能作为 zip 文件包含进 `.apk` 或者 `.ipa` 中.
-Bundle 文件夹的内容每个平台也不一样.
+包被输出到一个文件夹中。根据平台的不同，该文件夹也可能被zip归档到`.apk`或`.ipa`中。
+文件夹的内容取决于平台。
 
-除了可执行文件, 打包过程中也会收集相关平台所必须的资源 (比如安卓平台用的 .xml 资源文件).
+除了可执行文件外，我们的打包过程还会收集平台所需的资源（例如Android的.xml资源文件）。
 
-通过 [bundle_resources](https://defold.com/manuals/project-settings/#bundle-resources) 项, 设置应打包进 bundle 里的资源.
-可以针对不同平台分别设置.
+使用[bundle_resources](https://defold.com/manuals/project-settings/#bundle-resources)设置，您可以配置应原样放置在包中的资源。
+您可以按平台控制这一点。
 
-游戏资源被保存在 `game.arcd` 文件中, 使用 LZ4 算法逐个压缩.
-通过 [custom_resources](https://defold.com/manuals/project-settings/#custom-resources) 项, 设置应打包 (同时也被压缩) 进 game.arcd 里的资源.
-这类资源可以使用 [sys.load_resource()](https://defold.com/ref/sys/#sys.load_resource) 函数来进行访问.
+游戏资源位于`game.arcd`文件中，它们使用LZ4压缩单独压缩。
+使用[custom_resources](https://defold.com/manuals/project-settings/#custom-resources)设置，您可以配置应放置（并压缩）在`game.arcd`中的资源。
+这些资源可以通过[`sys.load_resource()`](https://defold.com/ref/sys/#sys.load_resource)函数访问。
 
 ## Release 与 Debug
 
-打包游戏时有个选项允许选择创建 debug 还是 release 应用. 这两种应用包类似但是要记得两者存在如下区别:
+创建应用程序包时，您可以选择创建debug或release包。这两种包之间的差异很小，但重要的是要记住：
 
-* Release 包不包含 [性能分析器](/manuals/profiling)
-* Release 包不包含 [屏幕录制器](/ref/stable/sys/#start_record)
-* Release 不输出调用 `print()` 产生的信息也不输出原生扩展产生的任何信息
-* Release 包的 `sys.get_engine_info()` 中的 `is_debug` 被设置为 `false`
-* Release 包调用 `tostring()` 时不会反查 `hash` 值. 也就是说对于一个类型为 `url` 或 `hash` 值的 `tostring()` 不会返回原值字符串而是返回一个数字表示的字符串 (`'hash: [/camera_001]'` 对比 `'hash: [11844936738040519888 (unknown)]'`)
-* Release 包不支持编辑器中设置的用于 [热重载](/manuals/hot-reload) 和类似功能的 target
+* Release构建不包含[性能分析器](/manuals/profiling)
+* Release构建不包含[屏幕录制器](/ref/stable/sys/#start_record)
+* Release构建不显示任何对`print()`的调用的输出或任何原生扩展的输出
+* Release构建在`sys.get_engine_info()`中将`is_debug`值设置为`false`
+* Release构建在调用`tostring()`时不会对`hash`值进行反向查找。这在实践中意味着，对于类型为`url`或`hash`的值的`tostring()`将返回其数字表示，而不是原始字符串（`'hash: [/camera_001]'`对比`'hash: [11844936738040519888 (unknown)]'`）
+* Release构建不支持来自编辑器的[热重载](/manuals/hot-reload)和类似功能的targeting
 
 
 

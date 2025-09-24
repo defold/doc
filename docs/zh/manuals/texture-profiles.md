@@ -1,211 +1,267 @@
 ---
-title: Defold 中的纹理档案
-brief: Defold 支持自动纹理处理和数据压缩. 本教程介绍了这类功能.
+title: Defold 中的纹理配置文件
+brief: Defold 支持自动纹理处理和图像数据压缩。本手册介绍了可用的功能。
 ---
 
-# 纹理档案
+# 纹理配置文件
 
-Defold 可以自动把图片数据处理成纹理并进行压缩 (称为 *Atlas*, *Tile sources*, *Cubemaps* 和模型纹理, GUI资源等等).
+Defold 支持自动纹理处理和图像数据压缩（用于*图集*、*瓦片图源*、*立方体贴图*以及用于模型、GUI等的独立纹理）。
 
-压缩有两种, 图片软件压缩与纹理硬件压缩.
+有两种压缩类型，软件图像压缩和硬件纹理压缩。
 
-1. 软件压缩 (比如 PNG 和 JPEG) 减少了图片占用空间. 可以让成品打包小一点. 但是读取到内存的时候必须解压, 硬盘上很小的图片, 都可能占用大量内存空间.
+1. 软件压缩（如PNG和JPEG）减少了图像资源的存储大小。这使得最终打包大小更小。然而，当图像文件读入内存时需要解压，因此即使图像在磁盘上很小，它也可能占用大量内存空间。
 
-2. 硬件压缩也是减小图片占用空间. 区别于软件压缩的是, 纹理的内存占用也能减少. 这是因为图像硬件可以直接处理压缩图片而省去了解压过程.
+2. 硬件纹理压缩也减少了图像资源的存储大小。但是，与软件压缩不同，它减少了纹理的内存占用。这是因为图形硬件能够直接管理压缩纹理，而无需先解压它们。
 
-纹理的处理基于纹理档案的设定. _Profiles_ 描述了不同平台下使用哪种压缩格式和纹理类型. _Profiles_ 绑定了 _paths patterns_, 用以微调和确定实际的压缩算法.
+纹理的处理通过特定的纹理配置文件进行配置。在此文件中，您可以创建_配置文件_，表达在为特定平台创建包时应使用哪种压缩格式和类型。然后，_配置文件_与匹配的文件_路径模式_绑定，允许精细控制项目中哪些文件应该被压缩以及如何压缩。
 
-因为所有硬件压缩都是有损的, 纹理数据可能会不如压缩前好看. 造成这种现象的原因高度取决于材质和压缩算法. 为了得到最好的效果就需要多多尝试. 别忘了 Google 是你的好伙伴.
+由于所有可用的硬件纹理压缩都是有损的，您的纹理数据将会出现伪影。这些伪影高度依赖于您的源材料外观以及使用的压缩方法。您应该测试您的源材料并进行实验以获得最佳结果。Google是您的好帮手。
 
-软件压缩方面可以在打包时选择如何保存纹理数据 (压缩或者原图). Defold 支持 [基础通用](https://github.com/BinomialLLC/basis_universal) 纹理压缩, 它能把图片压缩为一个中间格式. 这种格式可以在运行时解码为适合硬件 GPU 使用的数据.
-基础通用格式是高质量有损格式.
-打包时还会使用 LZ4 算法进一步对图片进行压缩以减小包体.
+您可以选择在包存档中对最终纹理数据（压缩或原始）应用哪种软件图像压缩。Defold支持[Basis Universal](https://github.com/BinomialLLC/basis_universal)和[ASTC](https://www.khronos.org/opengl/wiki/ASTC_Texture_Compression)压缩格式。
 
 ::: sidenote
-压缩属于资源密集型耗时操作, 图片多的话可以 _大大_ 增加编译时间, 还取决于你选择的纹理格式和压缩类型.
+压缩是资源密集型和耗时的操作，根据要压缩的纹理图像数量以及所选纹理格式和软件压缩类型，可能会导致_非常_长的构建时间。
 :::
 
-## 纹理档案
+### Basis Universal
 
-每个项目都有 *.texture_profiles* 文件用来进行纹理压缩设置. 默认情况下, 这个文件位于 *builtins/graphics/default.texture_profiles* 并且设置为所有纹理都绑定一个档案就是使用 RGBA 不进行硬件压缩并且使用默认 ZLib 压缩算法.
+Basis Universal（简称BasisU）将图像压缩为中间格式，在运行时转码为适合当前设备GPU的硬件格式。Basis Universal格式是一种高质量但有损的格式。
+所有图像还使用LZ4进行压缩，以进一步减小存储在游戏存档中的文件大小。
 
-新增纹理压缩:
+### ASTC
 
-- 点击 <kbd>File ▸ New...</kbd> 选择 *Texture Profiles* 来新建纹理档案文件. (或者把 *default.texture_profiles* 拷贝到 *builtins* 之外的项目文件夹下)
-- 命名文件.
-- 在 *game.project* 里的 *texture_profiles* 项上引用这个文件.
-- 打开 *.texture_profiles* 文件进行自己需要的配置.
+ASTC是由ARM开发并由Khronos Group标准化的灵活高效的纹理压缩格式。它提供了广泛的块大小和比特率，允许开发人员有效地平衡图像质量和内存使用。ASTC支持各种块大小，从4×4到12×12个图素，对应的比特率从每个图素8位到每个图素0.89位不等。这种灵活性使得可以对纹理质量和存储需求之间的权衡进行细粒度控制。
 
-![New profiles file](images/texture_profiles/texture_profiles_new_file.png)
+ASTC支持各种块大小，从4×4到12×12个图素，对应的比特率从每个图素8位到每个图素0.89位不等。这种灵活性使得可以对纹理质量和存储需求之间的权衡进行细粒度控制。下表显示了支持的块大小及其对应的比特率：
 
-![Setting the texture profile](images/texture_profiles/texture_profiles_game_project.png)
+| 块大小（宽 x 高） | 每像素比特数 |
+| ----------------- | ------------ |
+| 4x4               | 8.00         |
+| 5x4               | 6.40         |
+| 5x5               | 5.12         |
+| 6x5               | 4.27         |
+| 6x6               | 3.56         |
+| 8x5               | 3.20         |
+| 8x6               | 2.67         |
+| 10x5              | 2.56         |
+| 10x6              | 2.13         |
+| 8x8               | 2.00         |
+| 10x8              | 1.60         |
+| 10x10             | 1.28         |
+| 12x10             | 1.07         |
+| 12x12             | 0.89         |
 
-你可以选择启用还是禁用纹理档案. 点击 <kbd>File ▸ Preferences...</kbd>. 在 *General* 部分就有 *Enable texture profiles* 选项.
+#### 支持的设备
 
-![Texture profiles preferences](images/texture_profiles/texture_profiles_preferences.png)
+虽然ASTC提供了很好的效果，但并非所有图形卡都支持它。以下是基于供应商的支持设备的小列表：
+
+| GPU供应商         | 支持                                                               |
+| ----------------- | ------------------------------------------------------------------ |
+| ARM (Mali)        | 所有支持OpenGL ES 3.2或Vulkan的ARM Mali GPU都支持ASTC。           |
+| Qualcomm (Adreno) | 支持OpenGL ES 3.2或Vulkan的Adreno GPU支持ASTC。                   |
+| Apple             | 自A8芯片以来的Apple GPU都支持ASTC。                                |
+| NVIDIA            | ASTC支持主要针对移动GPU（例如，基于Tegra的芯片）。                 |
+| AMD (Radeon)      | 支持Vulkan的AMD GPU通常通过软件支持ASTC。                         |
+| Intel (集成)      | 现代Intel GPU通过软件支持ASTC。                                    |
+
+## 纹理配置文件
+
+每个项目都包含一个特定的*.texture_profiles*文件，其中包含压缩纹理时使用的配置。默认情况下，此文件是*builtins/graphics/default.texture_profiles*，它具有将每个纹理资源匹配到使用RGBA且没有硬件纹理压缩并使用默认ZLib文件压缩的配置文件的配置。
+
+要添加纹理压缩：
+
+- 选择<kbd>文件 ▸ 新建...</kbd>并选择*纹理配置文件*来创建新的纹理配置文件。（或者将*default.texture_profiles*复制到*builtins*之外的位置）
+- 为新文件选择名称和位置。
+- 将*game.project*中的*texture_profiles*条目更改为指向新文件。
+- 打开*.texture_profiles*文件并根据您的要求进行配置。
+
+![新建配置文件](images/texture_profiles/texture_profiles_new_file.png)
+
+![设置纹理配置文件](images/texture_profiles/texture_profiles_game_project.png)
+
+您可以在编辑器偏好设置中打开和关闭纹理配置文件的使用。选择<kbd>文件 ▸ 偏好设置...</kbd>。*常规*选项卡包含一个复选框项目*启用纹理配置文件*。
+
+![纹理配置文件偏好设置](images/texture_profiles/texture_profiles_preferences.png)
 
 ## 路径设置
 
-纹理档案的 *Path Settings* 部分是一个 *profile* 表格用以引用各种档案路径. 路径使用 "Ant Glob" 样式 (详情请见 http://ant.apache.org/manual/dirtasks.html#patterns) 表示. 样式中可以使用通配符:
+纹理配置文件的*路径设置*部分包含路径模式列表以及处理匹配路径的资源时使用的*配置文件*。路径表示为"Ant Glob"模式（有关详细信息，请参阅[文档](http://ant.apache.org/manual/dirtasks.html#patterns)）。可以使用以下通配符表示模式：
 
 `*`
-: 匹配0个或多个字符. 例如 `sprite*.png` 匹配文件 *sprite.png*, *sprite1.png* 和 *sprite_with_a_long_name.png*.
+: 匹配零个或多个字符。例如，`sprite*.png`匹配文件*`sprite.png`*、*`sprite1.png`*和*`sprite_with_a_long_name.png`*。
 
 `?`
-: 匹配1个字符. 例如 `sprite?.png` 匹配文件 *sprite1.png*, *spriteA.png*, 但是不匹配文件 *sprite.png* 和 *sprite_with_a_long_name.png*.
+: 精确匹配一个字符。例如：`sprite?.png`匹配文件*sprite1.png*、*`spriteA.png`*，但不匹配*`sprite.png`*或*`sprite_with_a_long_name.png`*。
 
 `**`
-: 匹配一个目录树, 或者在目录名中使用时可匹配多个目录. 例如 `/gui/**` 匹配 */gui* 及其所有子目录下的文件.
+: 匹配完整的目录树，或者---当用作目录名时---零个或多个目录。例如：`/gui/**`匹配目录*`/gui`*及其所有子目录中的所有文件。
 
-![Paths](images/texture_profiles/texture_profiles_paths.png)
+![路径](images/texture_profiles/texture_profiles_paths.png)
 
-本例中引用了两个档案路径.
+此示例包含两个路径模式及其对应的配置文件。
 
 `/gui/**/*.atlas`
-: 在 */gui* 下及其子目录下的所有 *.atlas* 文件被描述为 "gui_atlas" 档案.
+: 目录*`/gui`*或其任何子目录中的所有*.atlas*文件将根据配置文件"gui_atlas"进行处理。
 
 `/**/*.atlas`
-: 项目中所有 *.atlas* 文件被描述为 "atlas" 档案.
+: 项目中任何位置的所有*.atlas*文件将根据配置文件"atlas"进行处理。
 
-注意把广泛匹配放在下面. 文件匹配是从上到下进行的. 上面的匹配优先与下面的. 下面的档案不会覆盖上面的. 否则的话所有 "atlas" 都被第二条匹配了, 包括第一条 */gui* 下的.
+请注意，更通用的路径放在最后。匹配算法从上到下工作。将使用匹配资源路径的第一个匹配项。列表中更下方的匹配路径表达式永远不会覆盖第一个匹配项。如果路径以相反的顺序放置，每个图集都将使用配置文件"atlas"进行处理，即使是目录*/gui*中的那些。
 
-对于 _没有被_ 匹配到的纹理会被编译且缩放为最近的2次方幂大小, 或者不做任何压缩处理.
+在配置文件中_不_匹配任何路径的纹理资源将被编译并缩放到最接近的2的幂，但否则将保持不变。
 
-## 档案
+## 配置文件
 
-*profiles* 包含与上述对应的档案表. 每个档案包含一个或多个 *platforms*, 每个平台又包括一系列属性设定.
+纹理配置文件的*配置文件*部分包含命名配置文件的列表。每个配置文件包含一个或多个*平台*，每个平台由属性列表描述。
 
-![Profiles](images/texture_profiles/texture_profiles_profiles.png)
+![配置文件](images/texture_profiles/texture_profiles_profiles.png)
 
-*Platforms*
-: 指定平台. `OS_ID_GENERIC` 匹配所有平台, `OS_ID_WINDOWS` 对应 Windows 平台, `OS_ID_IOS` 对应 iOS 平台. 注意如果使用 `OS_ID_GENERIC`, 设定将会对所有平台生效.
+*平台*
+: 指定匹配的平台。`OS_ID_GENERIC`匹配所有平台，`OS_ID_WINDOWS`匹配Windows目标包，`OS_ID_IOS`匹配iOS包等等。请注意，如果指定了`OS_ID_GENERIC`，它将包含在所有平台中。
 
 ::: important
-如果两个 [路径样式](#path-settings) 匹配一个文件并且这两个路径分别指定不同的平台, 那么这两个档案 **都会** 生效, 所以会生成 **两个** 纹理.
+如果两个[路径设置](#path-settings)匹配同一个文件并且路径使用具有不同平台的不同配置文件，**两个**配置文件都将被使用，并且将生成**两个**纹理。
 :::
 
-*Formats*
-: 纹理格式. 如果指定多个, 每个格式都会生效. 引擎会在运行时选择合适的纹理格式.
+*格式*
+: 要生成的一个或多个纹理格式。如果指定了多种格式，将为每种格式生成纹理并包含在包中。引擎选择运行时平台支持的格式的纹理。
 
-*Mipmaps*
-: 是否生成mipmap. 默认不勾选.
+*多级纹理*
+: 如果选中，将为平台生成多级纹理。默认情况下未选中。
 
-*Premultiply alpha*
-: 是否预乘alpha. 默认勾选.
+*预乘Alpha*
+: 如果选中，Alpha将预乘到纹理数据中。默认情况下选中。
 
-*Max Texture Size*
-: 如果填入非0值, 纹理将限制最大尺寸为填入值. 如果图片本身比填入值打, 纹理会被缩小.
+*最大纹理大小*
+: 如果设置为非零值，纹理的像素大小将限制为指定的数字。任何宽度或高度大于指定值的纹理都将缩小。
 
-对于每个档案的每个 *Formats*, 又有以下属性设定:
+添加到配置文件的每个*格式*都具有以下属性：
 
-*Format*
-: 纹理编码格式. 可用格式见下文.
+*格式*
+: 编码纹理时要使用的格式。有关所有可用的纹理格式，请参见下文。
 
-*Compression*
-: 选择图片压缩质量等级.
+*压缩器*
+: 编码纹理时要使用的压缩器。
 
-| 等级    |  说明                                         |
+*压缩器预设*
+: 选择用于编码结果压缩图像的压缩预设。每个压缩器预设对于压缩器是唯一的，其设置取决于压缩器本身。为了简化这些设置，当前的压缩预设有四个级别：
+
+| 预设     | 说明                                          |
 | -------- | --------------------------------------------- |
-| `FAST`   | 压缩速度最快. 图片质量最低        |
-| `NORMAL` | 默认压缩. 图片质量最高       |
-| `HIGH`   | 最慢压缩. 缩小图片文件大小        |
-| `BEST`   | 慢压缩. 图片文件大小最小          |
+| `LOW`    | 最快压缩。低图像质量                          |
+| `MEDIUM` | 默认压缩。最佳图像质量                        |
+| `HIGH`   | 最慢压缩。更小的文件大小                      |
+| `HIGHEST`| 慢压缩。最小的文件大小                        |
 
-::: sidenote
-为了避免歧义, 从版本 1.2.185 开始, 等级枚举用词做了调整.
-:::
-
-*Type*
-: 压缩类型, 可选值有 `COMPRESSION_TYPE_DEFAULT` 或 `COMPRESSION_TYPE_BASIS_UASTC`. 详见下文 [压缩类型](#compression-types).
+请注意，`uncompressed`压缩器只有一个名为`uncompressed`的预设，这意味着不会对纹理应用压缩。
+要查看可用压缩器的列表，请参见[压缩器](#compressors)
 
 ## 纹理格式
 
-硬件可以直接处理未压缩纹理以及 *有损* 压缩纹理. 固定硬件压缩意思是纹理大小是一定的, 而不论纹理的内容. 一定意义上原图内容决定了硬件压缩后纹理的质量.
+图形硬件纹理可以处理为未压缩或*有损*压缩数据，具有各种数量的通道和位深度。固定的硬件压缩意味着无论图像内容如何，结果图像将具有固定的大小。这意味着压缩期间的质量损失取决于原始纹理的内容。
 
-因为基础通用压缩解码取决于设备的 GPU 功能, 推荐配合基础通用压缩的格式为:
-`TEXTURE_FORMAT_RGB`, `TEXTURE_FORMAT_RGBA`, `TEXTURE_FORMAT_RGB_16BPP`, `TEXTURE_FORMAT_RGBA_16BPP`, `TEXTURE_FORMAT_LUMINANCE` 与 `TEXTURE_FORMAT_LUMINANCE_ALPHA`.
+由于Basis Universal压缩转码取决于设备的GPU功能，建议与Basis Universal压缩一起使用的格式是通用格式，如：
+`TEXTURE_FORMAT_RGB`、`TEXTURE_FORMAT_RGBA`、`TEXTURE_FORMAT_RGB_16BPP`、`TEXTURE_FORMAT_RGBA_16BPP`、`TEXTURE_FORMAT_LUMINANCE`和`TEXTURE_FORMAT_LUMINANCE_ALPHA`。
 
-基础通用压缩解码支持各种输出格式, 例如 `ASTC4x4`, `BCx`, `ETC2`, `ETC1` 与 `PVRTC1`.
+Basis Universal转码器支持许多输出格式，如`ASTC4x4`、`BCx`、`ETC2`、`ETC1`和`PVRTC1`。
 
-目前支持以下有损压缩格式:
+当前支持以下有损压缩格式：
 
-| 格式                            | 压缩 | 描述  |
-| --------------------------------- | ----------- | -------------------------------- | ---- |
-| `TEXTURE_FORMAT_RGB`              | none        | 3 颜色通道. Alpha 被丢弃 |
-| `TEXTURE_FORMAT_RGBA`             | none        | 3 颜色通道和 1 alpha 通道.    |
-| `TEXTURE_FORMAT_RGB_16BPP`        | none        | 3 颜色通道. 5+6+5 比特. |
-| `TEXTURE_FORMAT_RGBA_16BPP`       | none        | 3 颜色通道和 1 alpha 通道. 4+4+4+4 比特. |
-| `TEXTURE_FORMAT_LUMINANCE`        | none        | 1 灰度通道, 无 alpha 通道. RGB 编码为 1 颜色通道. Alpha 被丢弃. |
-| `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | none        | 1 灰度通道和 1 alpha 通道. RGB 编码为 1 颜色通道. |
+| 格式                            | 压缩 | 详细说明  |
+| ------------------------------- | ---- | -------------------------------- | ---- |
+| `TEXTURE_FORMAT_RGB`            | 无   | 3通道颜色。Alpha被丢弃           |
+| `TEXTURE_FORMAT_RGBA`           | 无   | 3通道颜色和完整alpha。           |
+| `TEXTURE_FORMAT_RGB_16BPP`      | 无   | 3通道颜色。5+6+5位。             |
+| `TEXTURE_FORMAT_RGBA_16BPP`     | 无   | 3通道颜色和完整alpha。4+4+4+4位。|
+| `TEXTURE_FORMAT_LUMINANCE`      | 无   | 1通道灰度，无alpha。RGB通道合并为一个。Alpha被丢弃。|
+| `TEXTURE_FORMAT_LUMINANCE_ALPHA`| 无   | 1通道灰度和完整alpha。RGB通道合并为一个。|
+
+对于ASTC，通道数将始终为4（RGB + alpha），格式本身定义了块压缩的大小。
+请注意，这些格式仅与ASTC压缩器兼容 - 任何其他组合都会产生构建错误。
+
+`TEXTURE_FORMAT_RGBA_ASTC_4X4`
+`TEXTURE_FORMAT_RGBA_ASTC_5X4`
+`TEXTURE_FORMAT_RGBA_ASTC_5X5`
+`TEXTURE_FORMAT_RGBA_ASTC_6X5`
+`TEXTURE_FORMAT_RGBA_ASTC_6X6`
+`TEXTURE_FORMAT_RGBA_ASTC_8X5`
+`TEXTURE_FORMAT_RGBA_ASTC_8X6`
+`TEXTURE_FORMAT_RGBA_ASTC_8X8`
+`TEXTURE_FORMAT_RGBA_ASTC_10X5`
+`TEXTURE_FORMAT_RGBA_ASTC_10X6`
+`TEXTURE_FORMAT_RGBA_ASTC_10X8`
+`TEXTURE_FORMAT_RGBA_ASTC_10X10`
+`TEXTURE_FORMAT_RGBA_ASTC_12X10`
+`TEXTURE_FORMAT_RGBA_ASTC_12X12`
 
 
-## 压缩类型
+## 压缩器
 
-支持以下软件压缩类型. 载入内存时需要解压.
+默认情况下支持以下纹理压缩器。当纹理文件加载到内存时，数据将被解压缩。
+
+| 名称             | 格式                   | 说明                                                                                          |
+| ---------------- | --------------------- | --------------------------------------------------------------------------------------------- |
+| `Uncompressed`   | 所有格式               | 不会应用压缩。默认。                                                                          |
+| `BasisU`         | 所有RGB/RGBA格式      | Basis Universal高质量，有损压缩。较低的质量级别导致较小的尺寸。                                |
+| `ASTC`           | 所有ASTC格式          | ASTC有损压缩。较低的质量级别导致较小的尺寸。                                                  |
 
 ::: sidenote
-我们目前正在研究重新支持硬件格式以及读取 WEBP 压缩格式.
-远期未来目标是引入内容管线插件来解决这个问题.
+Defold 1.9.7重构了纹理压缩器管道以支持可安装压缩器，这是在扩展中实现纹理压缩算法（如WEBP或完全自定义的算法）的第一步。
 :::
 
-| 类型                              | 格式                   | 说明 |
-| --------------------------------- | ------------------------- | ---- |
-| `COMPRESSION_TYPE_DEFAULT`        | All formats               | 常见有损压缩. 默认类型. |
-| `COMPRESSION_TYPE_BASIS_UASTC`    | All RGB/RGBA formats      | 基础通用高质, 有损压缩. 质量等级越低体积越小. |
+## 示例图像
 
-## 图片压缩测试
+为了更好地理解输出，这里有一个示例。
+请注意，图像质量、压缩时间和压缩大小始终取决于输入图像，可能会有所不同。
 
-为了便于更好地理解, 这里举了一个例子.
-注意图片质量, 压缩时间和压缩量取决于原始图片, 不同图片可能效果不同.
-
-原始图片 (1024x512):
-![New profiles file](images/texture_profiles/kodim03_pow2.png)
+基础图像（1024x512）：
+![新建配置文件](images/texture_profiles/kodim03_pow2.png)
 
 ### 压缩时间
 
-| 等级      | 压缩时间 | 倍率   |
-| ----------------------------- | --------------- |
-| `FAST`     | 0m0.143s         | 0.5x            |
-| `NORMAL`   | 0m0.294s         | 1.0x            |
-| `HIGH`     | 0m1.764s         | 6.0x            |
-| `BEST`     | 0m1.109s         | 3.8x            |
+| 预设     | 压缩时间     | 相对时间   |
+| -------- | ------------ | ---------- |
+| `LOW`    | 0分0.143秒   | 0.5x       |
+| `MEDIUM` | 0分0.294秒   | 1.0x       |
+| `HIGH`   | 0分1.764秒   | 6.0x       |
+| `HIGHEST`| 0分1.109秒   | 3.8x       |
 
-### 失真
+### 信号损失
 
-这里使用 `basisu` 工具进行比较 (比较参数 PSNR)
-100 dB 表示不失真 (也就是说和原始图片完全相同).
+比较是使用`basisu`工具完成的（测量PSNR）
+100 dB表示没有信号损失（即它与原始图像相同）。
 
-| 等级      | 数据                                          |
-| ------------------------------------------------------------ |
-| `FAST`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
-| `NORMAL`   | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
-| `HIGH`     | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
-| `BEST`     | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
+| 预设     | 信号                                          |
+| ------------------------------------------------------- |
+| `LOW`    | 最大值: 34 平均值: 0.470 均方根: 1.088 峰值信噪比: 47.399 dB |
+| `MEDIUM` | 最大值: 35 平均值: 0.439 均方根: 1.061 峰值信噪比: 47.620 dB |
+| `HIGH`   | 最大值: 37 平均值: 0.898 均方根: 1.606 峰值信噪比: 44.018 dB |
+| `HIGHEST`| 最大值: 51 平均值: 1.298 均方根: 2.478 峰值信噪比: 40.249 dB |
 
 ### 压缩文件大小
 
-原始文件 1572882 字节.
+原始文件大小为1572882字节。
 
-| 等级      | 文件大小 | 压缩率    |
-| ---------------------------------- |
-| `FAST`     | 357225     | 22.71 %  |
-| `NORMAL`   | 365548     | 23.24 %  |
-| `HIGH`     | 277186     | 17.62 %  |
-| `BEST`     | 254380     | 16.17 %  |
+| 预设     | 文件大小 | 比率    |
+| -------- | -------- | ------- |
+| `LOW`    | 357225   | 22.71%  |
+| `MEDIUM` | 365548   | 23.24%  |
+| `HIGH`   | 277186   | 17.62%  |
+| `HIGHEST`| 254380   | 16.17%  |
 
 
-### 图片质量
+### 图像质量
 
-下面给出压缩后的图片 (使用`basisu` 工具的 ASTC 编码进行了修正)
+以下是结果图像（使用`basisu`工具从ASTC编码中检索）
 
-`FAST`
-![fast compression level](images/texture_profiles/kodim03_pow2.fast.png)
+`LOW`
+![低压缩预设](images/texture_profiles/kodim03_pow2.fast.png)
 
-`NORMAL`
-![normal compression level](images/texture_profiles/kodim03_pow2.normal.png)
+`MEDIUM`
+![中压缩预设](images/texture_profiles/kodim03_pow2.normal.png)
 
 `HIGH`
-![high compression level](images/texture_profiles/kodim03_pow2.high.png)
+![高压缩预设](images/texture_profiles/kodim03_pow2.high.png)
 
-`BEST`
-![best compression level](images/texture_profiles/kodim03_pow2.best.png)
+`HIGHEST`
+![最佳压缩预设](images/texture_profiles/kodim03_pow2.best.png)

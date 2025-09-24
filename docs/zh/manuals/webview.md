@@ -1,6 +1,5 @@
 ---
 title: Defold 的 WebViews
-brief: WebViews 可以在你的手机上显示一个网页层. 同时支持在后台运行用户定义的js代码. 本教程介绍了 Defold 的官方 WebView 扩展, API 和功能.
+brief: WebViews 允许您在游戏中加载并显示网页作为覆盖层。它们还可以在后台运行用户提供的 JavaScript 代码。本手册介绍了 Defold 的官方 WebView 扩展、API 和功能。
 ---
-
-本教程已移至 [这里](/extension-webview).
+WebView 文档已移至 [此处](/extension-webview)。

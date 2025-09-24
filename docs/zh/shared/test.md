@@ -1,5 +1,5 @@
-This file can be used to test transclusion. This whole file will be transcluded as is, with whitespace preservation.
+此文件可用于测试文件包含。整个文件将按原样包含，并保留空白字符。
 
-Note that any file references need are relative to the document where the file is inserted.
+请注意，任何文件引用都需要相对于插入文件的位置。
 
-![shared image](../shared/images/logo.png)
+![共享图像](../shared/images/logo.png)

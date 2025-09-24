@@ -1,17 +1,17 @@
 ---
-title: Defold 动画教程
-brief: 本教程介绍了 Defold 的动画支持.
+title: Defold 中的动画
+brief: 本手册描述了 Defold 的动画支持。
 ---
 
 # 动画
 
-Defold 内置组件支持多种动画:
+Defold 内置支持多种类型的动画，你可以将其用作组件的图形源：
 
-* [逐帧动画](/manuals/flipbook-animation) - 按顺序显示图片而形成的动画
-* [3D 模型动画](/manuals/model-animation) - 3D 蒙皮动画
-* [属性动画](/manuals/property-animation) - 以position, scale, rotation 等属性插值变换而形成的动画
+* [翻页书动画](/manuals/flipbook-animation) - 按顺序播放一系列静态图像
+* [模型动画](/manuals/model-animation) - 播放 3D 蒙皮动画
+* [属性动画](/manuals/property-animation) - 对位置、缩放、旋转等许多属性进行动画处理
 
-其他动画格式要使用扩展支持:
+可以通过扩展添加其他动画格式：
 
-* [Rive animation](/extension-rive) - 播放基于矢量的 2D 骨骼动画
-* [Spine animation](/extension-spine) - 播放贴图 2D 骨骼动画
+* [Rive 动画](/extension-rive) - 播放基于矢量的 2D 骨骼动画
+* [Spine 动画](/extension-spine) - 播放带纹理的 2D 骨骼动画

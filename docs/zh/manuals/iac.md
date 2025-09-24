@@ -1,37 +1,37 @@
 ---
-title: Defold 的应用内通信
-brief: 应用内通信可以让你获得应用启动时的启动参数信息. 本教程解释了Defold中此功能的API.
+title: Defold应用间通信
+brief: 应用间通信允许您获取启动应用程序时使用的启动参数。本手册解释了Defold中用于此功能的API。
 ---
 
-# 应用内通信
+# 应用间通信
 
-大多数操作系统中应用可以由以下方式启动:
+应用程序在大多数操作系统上可以通过多种方式启动：
 
-* 从已安装应用表中启动
-* 从应用链接启动
-* 从推送消息中启动
-* 在安装程序最后一步启动.
+* 从已安装应用程序列表
+* 从应用程序特定链接
+* 从推送通知
+* 作为安装过程的最后一步。
 
-从链接, 通知, 安装程序启动应用时可以获得引用, 比如安装时的快捷方式或者超级链接, 通知里的长链接. Defold 使用一个native extension提供一个统一的方法来获得应用是如何启动的相关信息.
+在应用程序从链接、通知或安装启动的情况下，可以传递额外的参数，例如安装时的安装来源或从应用程序特定链接或通知启动时的深度链接。Defold提供了一种统一的方式来获取有关应用程序如何被调用的信息，使用原生扩展。
 
 ## 安装扩展
 
-要使用应用内通信扩展程序你需要在你的 *game.project* 里添加一个依赖. 此依赖的URL是:
+要开始使用应用间通信扩展，您需要将其作为依赖项添加到您的*game.project*文件中。最新稳定版本的依赖URL是：
 ```
 https://github.com/defold/extension-iac/archive/master.zip
 ```
 
-推荐使用 [指定版本](https://github.com/defold/extension-iac/releases) 的zip包链接作为依赖.
+我们建议使用[特定版本](https://github.com/defold/extension-iac/releases)的zip文件链接。
 
 ## 使用扩展
 
-API很简单. 提供给扩展程序一个回调用的监听器函数.
+API非常易于使用。您为扩展提供一个监听器函数并对监听器回调做出反应。
 
 ```
 local function iac_listener(self, payload, type)
      if type == iac.TYPE_INVOCATION then
-         -- This was an invocation
-         print(payload.origin) -- origin may be empty string if it could not be resolved
+         -- 这是一个调用
+         print(payload.origin) -- 如果无法解析，origin可能是空字符串
          print(payload.url)
      end
 end
@@ -41,4 +41,4 @@ function init(self)
 end
 ```
 
-API完整文档在[此页面](https://defold.github.io/extension-iac/).
+API的完整文档可在[扩展GitHub页面](https://defold.github.io/extension-iac/)上找到。

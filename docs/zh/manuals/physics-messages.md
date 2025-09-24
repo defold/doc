@@ -1,87 +1,118 @@
 ---
 title: Defold 中的碰撞消息
-brief: 当两个碰撞对象接触, 引擎会向这两个对象上的所有组件广播碰撞消息.
+brief: 当两个对象碰撞时，引擎将调用事件回调或广播消息。
 ---
 
 # 碰撞消息
 
-当两个碰撞对象接触, 引擎会向这两个对象广播碰撞消息:
+当两个对象碰撞时，引擎将向事件回调发送事件或向两个对象广播消息。
+
+## 事件过滤
+
+可以使用每个对象的标志来控制生成的事件类型：
+
+* "生成碰撞事件"
+* "生成接触事件"
+* "生成触发器事件"
+
+这些默认情况下都为 `true`。
+当两个碰撞对象交互时，我们会根据这些复选框检查是否应该向用户发送消息。
+
+例如，给定"生成接触事件"复选框：
+
+当使用 `physics.set_listener()` 时：
+
+| 组件 A | 组件 B | 发送消息 |
+|---------|---------|----------|
+| ✅︎      | ✅︎      | 是       |
+| ❌      | ✅︎      | 是       |
+| ✅︎      | ❌      | 是       |
+| ❌      | ❌      | 否       |
+
+当使用默认消息处理程序时：
+
+| 组件 A | 组件 B | 发送消息        |
+|---------|---------|-----------------|
+| ✅︎      | ✅︎      | 是 (A,B) + (B,A) |
+| ❌      | ✅︎      | 是 (B,A)        |
+| ✅︎      | ❌      | 是 (A,B)        |
+| ❌      | ❌      | 否              |
 
 ## 碰撞响应
 
-如果碰撞一方是 "dynamic", "kinematic" 或 "static" 类型时会收到 `"collision_response"` 消息. 消息包含如下内容:
+当碰撞对象之一是"动态"、"运动学"或"静态"类型时，将发送 `"collision_response"` 消息。它设置了以下字段：
 
 `other_id`
-: 另一个碰撞物的id (`hash`过的)
+: 碰撞对象碰撞到的实例的ID（`hash`）
 
 `other_position`
-: 另一个碰撞物的世界坐标 (`vector3`类型)
+: 碰撞对象碰撞到的实例的世界位置（`vector3`）
 
 `other_group`
-: 另一个碰撞物所在的碰撞组 (`hash`过的)
+: 另一个碰撞对象的碰撞组（`hash`）
 
 `own_group`
-: 碰撞物体的碰撞组 (`hash`过的)
+: 碰撞对象的碰撞组（`hash`）
 
-如果不需要很详细的信息, 碰撞响应消息就足够了, 比如检测子弹是否碰撞了敌人. 每帧每对碰撞物只有一个能收到此消息.
+碰撞响应消息仅适用于您不需要对象实际相交细节的碰撞情况，例如，如果您想检测子弹是否击中敌人。对于任何碰撞对象对，每帧只发送一条这样的消息。
 
 ```Lua
 function on_message(self, message_id, message, sender)
-    -- 辨识消息
+    -- 检查消息
     if message_id == hash("collision_response") then
-        -- 做出响应
+        -- 采取行动
         print("I collided with", message.other_id)
     end
 end
 ```
 
-## 碰撞点响应
+## 接触点响应
 
-如果碰撞一方是 dynamic 或 kinematic 对象, 而另一方是 "dynamic", "kinematic" 或 "static" 类型时, 会收到 `"contact_point_response"` 消息. 消息包含如下内容:
+当碰撞对象之一是"动态"或"运动学"类型，而另一个是"动态"、"运动学"或"静态"类型时，将发送 `"contact_point_response"` 消息。它设置了以下字段：
 
 `position`
-: 接触点世界坐标 (`vector3`类型).
+: 接触点的世界位置（`vector3`）。
 
 `normal`
-: 接触点世界坐标系法向量, 方向是从另一物体指向当前物体 (`vector3`类型).
+: 接触点在世界空间中的法线，从另一个对象指向当前对象（`vector3`）。
 
 `relative_velocity`
-: 两个接触物体之间的相对速度, 方向是从另一物体指向当前物体 (`vector3`类型).
+: 从另一个对象观察到的碰撞对象的相对速度（`vector3`）。
 
 `distance`
-: 两个接触物体之间穿透距离 -- 非负数 (`number`类型).
+: 对象之间的穿透距离——非负数（`number`）。
 
 `applied_impulse`
-: 两个接触物体间的冲量大小 (`number`类型).
+: 接触产生的冲量（`number`）。
 
 `life_time`
-: (*目前未使用*) 接触时长 (`number`类型).
+: （*目前未使用！*）接触的生命周期（`number`）。
 
 `mass`
-: 当前物体质量, 单位千克 (`number`类型).
+: 当前碰撞对象的质量，以千克为单位（`number`）。
 
 `other_mass`
-: 另一个物体质量, 单位千克 (`number`类型).
+: 另一个碰撞对象的质量，以千克为单位（`number`）。
 
 `other_id`
-: 另一个物体的id (`hash`过的).
+: 碰撞对象接触到的实例的ID（`hash`）。
 
 `other_position`
-: 另一个物体的世界坐标 (`vector3`类型).
+: 另一个碰撞对象的世界位置（`vector3`）。
 
-`group`
-: 另一个物体所处的碰撞组 (`hash`过的).
+`other_group`
+: 另一个碰撞对象的碰撞组（`hash`）。
 
 `own_group`
-: 碰撞物体的碰撞组 (`hash`过的).
+: 碰撞对象的碰撞组（`hash`）。
 
-要让相碰撞的物体好好分离, 用 `"contact_point_response"` 消息里的数据就够了. 注意每帧每对碰撞物可能不止收到一个 `"contact_point_response"` 消息, 这取决于接触的情况, 详见 [碰撞处理教程](/manuals/physics-resolving-collisions).
+对于需要完美分离对象的游戏或应用程序，`"contact_point_response"` 消息为您提供了您需要的所有信息。但是，请注意，对于任何给定的碰撞对，每帧可能会收到多个 `"contact_point_response"` 消息，这取决于碰撞的性质。有关更多信息，请参阅[解决碰撞](/manuals/physics-resolving-collisions)。
 
 ```Lua
 function on_message(self, message_id, message, sender)
-    -- check for the message
+    -- 检查消息
     if message_id == hash("contact_point_response") then
-        -- take action
+        -- 采取行动
         if message.other_mass > 10 then
             print("I collided with something weighing more than 10 kilos!")
         end
@@ -91,29 +122,29 @@ end
 
 ## 触发器响应
 
-如果碰撞一方是 "trigger" 类型则会收到 `"trigger_response"`. 碰撞开始时和碰撞结束时都会发送一次消息. 消息包含如下内容:
+当碰撞对象之一是"触发器"类型时，将发送 `"trigger_response"` 消息。当首次检测到碰撞时将发送一次消息，然后当对象不再碰撞时再发送一次。它具有以下字段：
 
 `other_id`
-: 另一个物体的id (`hash`过的).
+: 碰撞对象碰撞到的实例的ID（`hash`）。
 
 `enter`
-: 如果另一个物体进入触发器为 `true`, 离开为 `false`. (`boolean`类型).
+: 如果交互是进入触发器则为 `true`，如果是退出则为 `false`。（`boolean`）。
 
 `other_group`
-: 另一个物体所处的碰撞组 (`hash`过的).
+: 另一个碰撞对象的碰撞组（`hash`）。
 
 `own_group`
-: 碰撞物体的碰撞组 (`hash`过的).
+: 碰撞对象的碰撞组（`hash`）。
 
 ```Lua
 function on_message(self, message_id, message, sender)
-    -- check for the message
+    -- 检查消息
     if message_id == hash("trigger_response") then
         if message.enter then
-            -- take action for entry
+            -- 为进入采取行动
             print("I am now inside", message.other_id)
         else
-            -- take action for exit
+            -- 为退出采取行动
             print("I am now outside", message.other_id)
         end
     end

@@ -1,29 +1,29 @@
 ---
-title: Defold markdown test
-brief: This document uses all Markdown features (Commonmark + a couple of extensions) that the Defold docs use.
+title: Defold Markdown 测试
+brief: 本文档使用了 Defold 文档所使用的所有 Markdown 功能（Commonmark 以及一些扩展）。
 ---
 
-# Defold markdown test
+# Defold Markdown 测试
 
-All defold manuals and tutorials are written in Markdown. This document outlines how to use the various formatting for a consistent look on all documents.
+所有 Defold 手册和教程都是用 Markdown 编写的。本文档概述了如何使用各种格式，以确保所有文档的外观一致。
 
-Try to write as if you are talking to the user. Keep the language direct and active and refrain from stating opinions unless it is important to the matter. Try to write paragraphs that flow and do not break them unnecessarily.
+尝试以与用户交谈的方式写作。保持语言直接和主动，除非与问题相关，否则避免陈述意见。尝试写出流畅的段落，不要不必要地打断它们。
 
-You do have some typographic markers to your disposal. The simplest one is the *emphasis* marker. It puts some stress to a word, marking it as important. This marker should also be used to call attention to specific things that the user can encounter in Defold, like the names of properties, buttons etc. For example, a sprite component's *Position*, a button that says *Save...* etc. File names are also typed like that: *game.project* or *main/images/logo.png*.
+您确实有一些排版标记可供使用。最简单的是*强调*标记。它给单词增加了一些压力，将其标记为重要。此标记还应用于引起用户在 Defold 中可能遇到的特定事物的注意，例如属性、按钮等的名称。例如，精灵组件的*位置*，一个显示*保存...*的按钮等。文件名也是这样输入的：*game.project* 或 *main/images/logo.png*。
 
-Do not use the **bold text** emphasis. Do not ***ever*** mark anything with both bold and emphasis.
+不要使用**粗体文本**强调。不要***永远***用粗体和强调标记任何内容。
 
-Generally, when using quotes you can type straight quotes (`""`) and they get automatically converted to "nice typographically correct quotes". Also, the en and em-dashes are nice things to be able to type easily. You do that by typing `--` for en-dash and `---` for em-dash. So now you can get nicely typeset numeric intervals like 23--24, and if you want an em-dash as punctuation in a sentence---that's easy too. Just remember not to put spaces around them. A nice ellipsis character is also automatically inserted whenever you type more than two spaces in a row...
+通常，使用引号时，您可以输入直引号（`""`），它们会自动转换为"排版正确的漂亮引号"。此外，en 和 em 破折号是很容易输入的好东西。您可以通过输入 `--` 来输入 en 破折号，输入 `---` 来输入 em 破折号。所以现在您可以获得漂亮排版的数字间隔，如 23--24，如果您想在句子中使用 em 破折号作为标点符号---也很容易。只要记住不要在它们周围放置空格。每当您连续输入两个以上的空格时，也会自动插入一个漂亮的省略号字符...
 
-Keystrokes, like the combination <kbd>⌘ + T</kbd> are written surrounded by `<kbd>` tags, as are any references to menu options, like <kbd>File ▸ Save As...</kbd>. Note the small right-pointing triangle that makes menu options stand out a little.
+按键组合，如 <kbd>⌘ + T</kbd> 被写在 `<kbd>` 标签内，菜单选项的引用也是如此，如 <kbd>文件 ▸ 另存为...</kbd>。注意使菜单选项突出的小右指三角形。
 
-For subscript and superscript you type `~subscript~` and `^superscript^`. For example: <code>X~N~ = y^N^ + O~N~</code> where `N` is a variable. For clarity, maths formulas can be put inside `<code>` tags, or even better---use the LaTeX math extension. Inline math is written surrounded by \$ signs. For instance, $\int\frac {d\theta}{1+\theta^2} = \tan^{-1} \theta+ C$. Separate math blocks are delimited by $$ pairs:
+对于下标和上标，您输入 `~下标~` 和 `^上标^`。例如：<code>X~N~ = y^N^ + O~N~</code>，其中 `N` 是一个变量。为了清晰起见，数学公式可以放在 `<code>` 标签内，或者更好的是---使用 LaTeX 数学扩展。内联数学被写在 $ 符号之间。例如，$\int\frac {d\theta}{1+\theta^2} = \tan^{-1} \theta+ C$。单独的数学块由 $$ 对分隔：
 
 ```math
 \int\frac {d\theta}{1+\theta^2} = \tan^{-1} \theta+ C
 ```
 
-For things that the user will type, like function names, message names, string values and similar, use the `code marker`. For instance, `go.some_function()` or a `variable` name, a `message_name` or a `"string value"`. For larger chunks of code or configuration text, use the code fences with language specification to enable syntax highlighting:
+对于用户将输入的内容，如函数名、消息名、字符串值和类似内容，使用`代码标记`。例如，`go.some_function()` 或一个`变量`名，一个`message_name` 或一个`"字符串值"`。对于更大的代码块或配置文本，使用带有语言规范的代码围栏以启用语法高亮：
 
 ```lua
 local pieces = { "ground0", "ground1", "ground2", "ground3",
@@ -33,7 +33,7 @@ function init(self) -- <2>
     self.speed = 6
 end
 
--- This is a comment to the functionality of the function and it is running quite long to force a linebreak
+-- 这是对函数功能的注释，它运行得相当长以强制换行
 function update(self, dt)
     for i, p in ipairs(pieces) do -- <3>
         local pos = go.get_position(p)
@@ -44,89 +44,86 @@ function update(self, dt)
         go.set_position(pos, p)
     end
 end
--- This is a comment to the functionality of the function and it is running quite long to force a
+-- 这是对函数功能的注释，它运行得相当长以强制换行
 ```
-1. Note that the `-- <1>` in the source is changed to a numeric callout that is not part of
-   the source code anymore.
-2. Depending on the source language you type the callout differently. In a C like language
-   you would type `// <2>`
-3. In a shell-like language you would type `# <3>`.
+1. 注意，源代码中的 `-- <1>` 被更改为数字标注，不再是源代码的一部分。
+2. 根据您输入的源语言，标注的输入方式不同。在类似 C 的语言中，您会输入 `// <2>`
+3. 在类似 shell 的语言中，您会输入 `# <3>`。
 
-## Two levels of headings, lists and tables
+## 两个级别的标题、列表和表格
 
-Do not use more than two levels of headings. If you need to describe specific things that you feel call for a third level heading, use a definition list instead:
+不要使用超过两个级别的标题。如果您需要描述您认为需要第三级标题的特定事物，请改用定义列表：
 
-Some thing
-: Here you can explain what "Some thing" is, what it does and whatnot. You have access to all of markdown in the description, just make sure to indent properly:
-  - A bullet point
-  - Another bullet
+某事物
+: 在这里您可以解释"某事物"是什么，它做什么等等。您可以在描述中使用所有的 markdown，只需确保正确缩进：
+  - 一个要点
+  - 另一个要点
 
-Another thing to explain
-: Here you explain that other thing to explain. Try to be specific and avoid vague language when you describe things.
+另一个要解释的事物
+: 在这里您解释另一个要解释的事物。在描述事物时，请尽量具体，避免模糊的语言。
 
-Definition lists are great when you can put a name to each item. Sometimes a bullet list is better, or a numbered list. You can mix and match these:
+定义列表在您可以为每个项目命名时很有用。有时项目符号列表或编号列表更好。您可以混合搭配这些：
 
-- Bullet list, indicated with either a `-` or a `*` or a `+` at the start of the line.
-- Another item.
-- A third item. We can also make sub-items, either bullets or numbers:
-    1. A numbered sub-item. Number list items are written either `1.` or `1)`.
-    2. The numbers are increased automatically from the first one.
-- A fourth bullet item. This marks the end of the list.
+- 项目符号列表，用行首的 `-` 或 `*` 或 `+` 表示。
+- 另一个项目。
+- 第三个项目。我们也可以制作子项目，可以是项目符号或数字：
+    1. 一个编号的子项目。编号列表项目写作 `1.` 或 `1)`。
+    2. 数字从第一个开始自动增加。
+- 第四个项目符号项目。这标志着列表的结束。
 
-23. Let's create a numbered list that starts on the number 23.
-1. Another item. Note that this gets the number 24 no matter what I type.
-0. And this gets the number 25 no matter what I type.
+23. 让我们创建一个从数字 23 开始的编号列表。
+1. 另一个项目。注意，无论我输入什么，这都会得到数字 24。
+0. 无论我输入什么，这都会得到数字 25。
 
-Definition lists are good for free flow explanation of things. Sometimes a table would do the job better though. Left-aligned:
+定义列表对于事物的自由流解释很有用。有时表格可以更好地完成工作。左对齐：
 
-| Shortcut                  | Purpose               | Context        |
+| 快捷键                  | 目的               | 上下文        |
 | ------------------------- | --------------------- | -------------- |
-| <kbd>F11</kbd>            | Toggle fullscreen     | In application |
-| <kbd>⌘ + T</kbd>         | Open a new tab        | In application |
-| <kbd>⌘ + Shift + N</kbd> | New incognito window  | In application |
+| <kbd>F11</kbd>            | 切换全屏     | 在应用程序中 |
+| <kbd>⌘ + T</kbd>         | 打开新标签页        | 在应用程序中 |
+| <kbd>⌘ + Shift + N</kbd> | 新建隐身窗口  | 在应用程序中 |
 
-Or right-aligned
+或者右对齐
 
-| Shortcut                  | Purpose               | Context        |
+| 快捷键                  | 目的               | 上下文        |
 | ------------------------: | --------------------: | -------------: |
-| <kbd>F11</kbd>            | Toggle fullscreen     | In application |
-| <kbd>⌘ + T</kbd>         | Open a new tab        | In application |
-| <kbd>⌘ + Shift + N</kbd> | New incognito window  | In application |
+| <kbd>F11</kbd>            | 切换全屏     | 在应用程序中 |
+| <kbd>⌘ + T</kbd>         | 打开新标签页        | 在应用程序中 |
+| <kbd>⌘ + Shift + N</kbd> | 新建隐身窗口  | 在应用程序中 |
 
+## 注释和图像
 
-## Notes and images
-
-There are two types of notes that you can insert into the text. Since this is not a printed medium the idea of a footnote doesn't really work. Instead we keep the notes together with the text. Use the `::: sidenote` block for these.
+您可以在文本中插入两种类型的注释。由于这不是印刷媒体，脚注的概念并不真正适用。相反，我们将注释与文本保持在一起。对这些使用 `::: sidenote` 块。
 
 ::: sidenote
-The `::: sidenote` block is good for adding footnote-like information to the text. It can be used to add further explanation that is not vital or point to other resources. They are shown to the side of the text they precede.
+`::: sidenote` 块用于向文本添加类似脚注的信息。它可以用于添加不重要或指向其他资源的进一步解释。它们显示在它们前面的文本旁边。
 :::
 
-When you really want to make the user aware of something, use the `::: important` block:
+当您真的想让用户意识到某些事情时，使用 `::: important` 块：
 
 ::: important
-This is a block of text that the user will not miss. Use these sparingly for things that really needs a lot of attention. If you find that your document is littered with these, you might want to group the information a bit.
+这是用户不会错过的一段文本。请谨慎使用这些来处理确实需要大量注意的事情。如果您发现您的文档中充斥着这些，您可能想要对信息进行一些分组。
 :::
 
-Images are inserted into the document like this:
+图像是这样插入文档的：
 
-![A large image of sorts](images/test/large.png)
+![各种大图像](images/test/large.png)
 
-![A small image of sorts](images/test/tiny.png){.left} An image that is put at the start of a paragraph---inline with a class `.left`. This is useful for small images like icons and the like. The rendering of these is not optimal since the image size is needed to figure out image placement in relation to the text. Still, in some cases it can be useful, for paragraph decoration or similar.
+![各种小图像](images/test/tiny.png){.left} 放在段落开头的图像---带有 `.left` 类的内联图像。这对于小图像如图标等很有用。这些的渲染不是最佳的，因为需要图像大小来计算图像相对于文本的位置。尽管如此，在某些情况下它可能有用，用于段落装饰或类似用途。
 
-![A small image of sorts](images/test/tiny.png){.right} An image that is put at the start of a paragraph---inline with a class `.right`. This is useful for small images like icons and the like. The rendering of these is not optimal since the image size is needed to figure out image placement in relation to the text. Still, in some cases it can be useful, for paragraph decoration or similar.
+![各种小图像](images/test/tiny.png){.right} 放在段落开头的图像---带有 `.right` 类的内联图像。这对于小图像如图标等很有用。这些的渲染不是最佳的，因为需要图像大小来计算图像相对于文本的位置。尽管如此，在某些情况下它可能有用，用于段落装饰或类似用途。
 
-![A small icon](images/test/icon.svg){.icon} Images with class `.icon` are rendered inline aligned with the text. Use this to insert really small images (like ![A small icon](images/test/icon.svg){.icon}) into running text.
+![小图标](images/test/icon.svg){.icon} 带有 `.icon` 类的图像被渲染为与文本对齐的内联图像。使用它将非常小的图像（如 ![小图标](images/test/icon.svg){.icon}）插入到正在运行的文本中。
 
-Note that images are usually rendered centered in their own paragraph. Apply class `.inline` for inline behavior if you have several images as part of the same paragraph and you want to line up several images like this:
+请注意，图像通常在自己的段落中居中渲染。如果您有几个图像作为同一段落的一部分，并且您想要排列几个图像，请应用 `.inline` 类以获得内联行为，如下所示：
 
-![A small image of sorts](images/test/small.png){.inline}
-![A small image of sorts](images/test/small.png){.inline}
+![各种小图像](images/test/small.png){.inline}
+![各种小图像](images/test/small.png){.inline}
 
-## Transclusion
+## 包含
 
-Pieces of text that are used in multiple places can be transcluded into a document. See https://github.com/jamesramsay/hercule for details on the transcluder plugin used.
+在多个地方使用的文本片段可以包含到文档中。有关使用的包含插件的详细信息，请参阅 https://github.com/jamesramsay/hercule。
 
 :[link](../shared/test.md)
 
-The end
+结束

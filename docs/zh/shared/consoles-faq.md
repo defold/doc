@@ -1,8 +1,8 @@
-#### Q: 开发主机游戏需要什么别的工具吗?
+#### Q: 我需要安装额外的工具来为游戏主机构建游戏吗？
 
-A: 使用 Defold 编辑器和命令行工具都可以打包主机游戏. 一旦你取得了相应开发资格, 关于如何调试 PlayStation®4, PlayStation®5 和 Nintendo Switch 游戏的方法也会发送给你.
+A: 您将能够从编辑器和命令行工具创建应用程序包。当您获得相应平台的访问权限时，将向您提供有关如何在 PlayStation®4、PlayStation®5 和 Nintendo Switch 硬件上进行测试的信息。
 
 
-#### Q: 开发跨平台游戏加上主机游戏, 一个代码库够用吗?
+#### Q: 如果我决定也针对游戏主机进行开发，是否仍然容易使用单个代码库？
 
-A: 够用, 所有标准 Defold API 功能在主机游戏平台同样有效. 除此之外也许需要调用一些 PlayStation®4, PlayStation®5 和 Nintendo Switch 的原生功能, 但总体上讲一套代码跨平台没问题.
+A: 是的，所有标准的 Defold API 函数在游戏主机平台上同样可用。除了标准功能外，您还将能够访问一些 PlayStation®4、PlayStation®5 和 Nintendo Switch 特定的函数，但总体上讲，代码应该能够在多个平台上保持完全相同。

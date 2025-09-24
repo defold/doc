@@ -1,6 +1,6 @@
 ---
 title: 游戏对象组件
-brief: 本教程提供了游戏对象组件概览及其使用方法.
+brief: 本手册提供了组件概览及其使用方法.
 ---
 
 # 组件
@@ -9,99 +9,98 @@ brief: 本教程提供了游戏对象组件概览及其使用方法.
 
 ## 组件类型
 
-Defold 提供以下组件类型:
+Defold 支持以下组件类型：
 
-* [Collection factory](/manuals/collection-factory) - 创建集合实例
-* [Collection proxy](/manuals/collection-proxy) - 加载卸载集合
+* [Collection factory](/manuals/collection-factory) - 生成集合
+* [Collection proxy](/manuals/collection-proxy) - 加载和卸载集合
 * [Collision object](/manuals/physics) - 2D 和 3D 物理
-* [Camera](/manuals/camera) - 修改游戏世界的视口和映射
-* [Factory](/manuals/factory) - 创建游戏对象实例
+* [Camera](/manuals/camera) - 更改游戏世界的视口和投影
+* [Factory](/manuals/factory) - 生成游戏对象
 * [GUI](/manuals/gui) - 渲染图形用户界面
-* [Label](/manuals/label) - 渲染文本
-* [Mesh](/manuals/mesh) - 显示3D网格 (同时具有实时创建和维护功能)
-* [Model](/manuals/model) 显示3D模型 (可以带动画)
-* [Particle FX](/manuals/particlefx) -  创建粒子
+* [Label](/manuals/label) - 渲染一段文本
+* [Mesh](/manuals/mesh) - 显示3D网格（具有运行时创建和操作功能）
+* [Model](/manuals/model) - 显示3D模型（带有可选动画）
+* [Particle FX](/manuals/particlefx) - 生成粒子
 * [Script](/manuals/script) - 添加游戏逻辑
-* [Sound](/manuals/sound) - 播放音效音乐
-* [Sprite](/manuals/sprite) - 显示2D图像 (可以带逐帧动画)
-* [Tilemap](/manuals/tilemap) - 显示一组瓷砖图
+* [Sound](/manuals/sound) - 播放声音或音乐
+* [Sprite](/manuals/sprite) - 显示2D图像（带有可选翻页动画）
+* [Tilemap](/manuals/tilemap) - 显示瓦片网格
 
-其他组件可以通过载入扩展插件的方式导入项目:
+可以通过扩展添加其他组件：
 
-* [Rive model](/extension-rive) - 渲染 Rive 动画
-* [Spine model](/extension-spine) - 渲染 Spine 动画
+* [Rive model](/extension-rive) - 渲染Rive动画
+* [Spine model](/extension-spine) - 渲染Spine动画
 
 
-## 开启关闭组件
+## 启用和禁用组件
 
-游戏对象在创建时其组件是开启的. 如果需要关闭组件可以给组件发送 [`disable`](/ref/go/#disable) 消息:
+游戏对象的组件在游戏对象创建时被启用。如果您希望禁用组件，可以通过向组件发送[`disable`](/ref/go/#disable)消息来完成：
 
 ```lua
--- 把此脚本所在的游戏对象上 id 为 'weapon' 的组件关闭
+-- 禁用与此脚本在同一游戏对象上的id为'weapon'的组件
 msg.post("#weapon", "disable")
 
--- 关闭 'enemy' 游戏对象上 id 为 'shield' 的所有组件
+-- 禁用'enemy'游戏对象上id为'shield'的组件
 msg.post("enemy#shield", "disable")
 
--- 关闭当前游戏对象上的所有组件
+-- 禁用当前游戏对象上的所有组件
 msg.post(".", "disable")
 
--- 关闭 'enemy' 游戏对象上的所有组件
+-- 禁用'enemy'游戏对象上的所有组件
 msg.post("enemy", "disable")
 ```
 
-需要开启组件可以给组件发送 [`enable`](/ref/go/#enable) 消息:
+要再次启用组件，您可以向组件发送[`enable`](/ref/go/#enable)消息：
 
 ```lua
--- 开启 id 为 'weapon' 的组件
+-- 启用id为'weapon'的组件
 msg.post("#weapon", "enable")
 ```
 
 ## 组件属性
 
-Defold 组件属性各不相同.在 [Outline 面板](/manuals/editor/#Outline 面板) 中当前选中的组件属性会显示在编辑器的 [Properties 面板](/manuals/editor/#Properties 面板) 中. 可用组件的详细属性详情请见API教程.
+Defold组件类型都有不同的属性。编辑器中的[属性面板](/manuals/editor/#the-editor-views)将显示[大纲面板](/manuals/editor/#the-editor-views)中当前选定组件的属性。请参考不同组件类型的手册以了解有关可用组件属性的更多信息。
 
-## 位置, 旋转和缩放
+## 组件位置、旋转和缩放
 
-可视组件通常含有位置, 旋转以及缩放属性. 这些属性可以在编辑器里修改但是绝大多数情况下不能在运行时修改 (sprite 和 label 的缩放属性是例外情况).
+可视组件通常具有位置和旋转属性，大多数情况下还具有缩放属性。这些属性可以从编辑器中更改，并且在几乎所有情况下都不能在运行时更改（唯一的例外是精灵和标签组件缩放，可以在运行时更改）。
 
-如果需要在运行时修改组件的而不是组件所在游戏对象的位置, 旋转和缩放. 有个副作用就是游戏对象所有组件都会受影响. 如果你想维护游戏对象上的一个组件而不是多个, 建议将该组件移入另一个游戏对象并作为原来那个游戏对象的子对象.
+如果您需要在运行时更改组件的位置、旋转或缩放，您可以修改组件所属游戏对象的位置、旋转或缩放。这会产生副作用，即游戏对象上的所有组件都会受到影响。如果您希望只操作附加到游戏对象的多个组件中的一个，建议将相关组件移动到单独的游戏对象，并作为该组件原本所属的游戏对象的子游戏对象添加。
 
-## 组件渲染顺序
+## 组件绘制顺序
 
-可视组件的渲染顺序取决于两个方面:
+可视组件的绘制顺序取决于两个方面：
 
-### 渲染脚本的渲染优先级
-每个组件都有 [材质](/manuals/material/) 而且每个材质都有一个或多个标签. 渲染脚本依次定义一系列优先级, 每个优先级匹配一个或多个材质标签. 渲染脚本在 *update()* 函数里 [按优先级依次渲染](/manuals/render/#渲染优先级) , 匹配优先级标签的组件会被显示出来. 默认渲染脚本先绘制 sprites 和 tilemaps, 再渲染粒子特效, 二者都使用世界坐标系. 最后渲染脚本会在屏幕坐标系中渲染 GUI 组件.
+### 渲染脚本谓词
+每个组件都被分配一个[材质](/manuals/material/)，每个材质有一个或多个标签。渲染脚本反过来定义多个谓词，每个谓词匹配一个或多个材质标签。渲染脚本[谓词在渲染脚本的*update()*函数中逐个绘制](/manuals/render/#render-predicates)，匹配每个谓词中定义的标签的组件将被绘制。默认渲染脚本首先在一个通道中绘制精灵和瓦片地图，然后在另一个通道中绘制粒子效果，两者都在世界空间中。然后渲染脚本将继续在屏幕空间中的单独通道中绘制GUI组件。
 
 ### 组件z值
-所有游戏对象都使用一个 vector3 作为其在 3D 空间中的位置. 如果是 2D 游戏, 则 X 和 Y 表示其在 "横向" 和 "纵向" 轴上的位置, 而 Z 值表示其在 "深度" 轴上的位置. 使用Z值可以操控游戏对象之间的层叠关系: Z 值是 1 的总是显示在 Z 值是 0 的对象上面. 默认情况下, Defold 使用 Z 值范围是 -1 到 1:
+所有游戏对象和组件都使用vector3对象表示的位置定位在3D空间中。当您以2D查看游戏的图形内容时，X和Y值确定对象在"宽度"和"高度"轴上的位置，而Z位置确定对象在"深度"轴上的位置。Z位置允许您控制重叠对象的可见性：Z值为1的精灵将出现在Z位置0的精灵前面。默认情况下，Defold使用允许Z值在-1和1之间的坐标系：
 
 ![model](images/graphics/z-order.png)
 
-匹配某个优先级的组件在一起渲染, 它们之间的渲染顺序取决于组件的 z 值. 组件的最终z值是由组件的z值, 游戏对象和其父级游戏对象的z值之和.
+匹配[渲染谓词](/manuals/render/#render-predicates)的组件一起绘制，它们绘制的顺序取决于组件的最终z值。组件的最终z值是组件本身的z值、它所属的游戏对象的z值以及任何父游戏对象的z值之和。
 
 ::: sidenote
-各个 GUI 组件的渲染顺序 **不是** 由 GUI 组件的z值决定的. GUI 组件的渲染顺序由 [gui.set_render_order()](/ref/gui/#gui.set_render_order:order) 函数控制.
+多个GUI组件的绘制顺序**不是**由GUI组件的z值决定的。GUI组件绘制顺序由[gui.set_render_order()](/ref/gui/#gui.set_render_order:order)函数控制。
 :::
 
-例如: 两个游戏对象 A 和 B. B 是 A 的子集. B 有一个sprite组件.
+示例：两个游戏对象A和B。B是A的子对象。B有一个精灵组件。
 
-| 元素      | z值     |
-|----------|---------|
-| A        | 2       |
-| B        | 1       |
-| B#sprite | 0.5     |
+| 内容     | Z值 |
+|----------|-----|
+| A        | 2   |
+| B        | 1   |
+| B#sprite | 0.5 |
 
 ![](images/graphics/component-hierarchy.png)
 
-在上述定义中 B 的sprite组件最终z值是 2 + 1 + 0.5 = 3.5.
+使用上述层次结构，B上精灵组件的最终z值为2 + 1 + 0.5 = 3.5。
 
-::: sidenote
-如果两个组件 z 值相同则可能造成两个组件来回穿梭闪烁或者不同平台顺序不同的结果.
+::: important
+如果两个组件具有完全相同的z值，则顺序是未定义的，您可能会遇到组件来回闪烁或组件在一个平台上以一种顺序渲染而在另一个平台上以另一种顺序渲染的情况。
 
-渲染脚本为 z 值定义了极近端和极远端平面. z值在此范围之外的组件不会被渲染. 默认范围是 -1 到 1 但是 [可以任意修改](/manuals/render/#默认视口映射).
-Z 值得极近与极远坐标范围是 -1 到 1 的话, 需要很高的数值精度. 在处理 3D 资源时, 可能需要在你的自定义渲染脚本中修改极近和极远的坐标范围. 详情请见 [渲染教程](/manuals/render/).
+渲染脚本为z值定义了近裁剪面和远裁剪面。任何z值超出此范围的组件都不会被渲染。默认范围是-1到1，但[可以轻松更改](/manuals/render/#default-view-projection)。当近和远限制为-1和1时，Z值的数值精度非常高。在处理3D资源时，您可能需要在自定义渲染脚本中更改默认投影的近和远限制。有关更多信息，请参见[渲染手册](/manuals/render/)。
 :::
 
-:[组件最大数配置](../shared/component-max-count-optimizations.md)
+:[组件最大数量优化](../shared/component-max-count-optimizations.md)
