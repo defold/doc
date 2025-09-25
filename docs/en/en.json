@@ -991,6 +991,10 @@
                     {
                         "path": "/manuals/libraries",
                         "name": "Sharing projects"
+                    },
+                    {
+                        "path": "/manuals/project-defignore",
+                        "name": "Ignoring files"
                     }
                 ]
             },
