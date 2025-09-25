@@ -6,23 +6,33 @@ from .excel_handler import create_workbook, get_status_fills, write_file_info, w
 from .markdown_handler import compare_markdown_syntax_trees
 
 
-# Default directory and output file path
-source_dir = "g:\\temp\\defold_doc\\docs\\source"
-target_dir = "g:\\temp\\defold_doc\\docs\\target"
-output_file = "docs_structure_comparison_updated.xlsx"
-
-
 def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
-    # Use passed parameters or default values
-    # Note: Keeping parameter names as source_dir_path and target_dir_path for clarity
-    if source_dir_path is None:
-        source_dir_path = globals().get('source_dir', "g:\\temp\\defold_doc\\docs\\source")
-        
-    if target_dir_path is None:
-        target_dir_path = globals().get('target_dir', "g:\\temp\\defold_doc\\docs\\target")
-        
+    """
+    Main function for document consistency checking
+    
+    Parameters:
+        source_dir_path: Source document directory path (required)
+        target_dir_path: Target document directory path (required)
+        output_file_path: Output Excel file path (optional, defaults to docs_structure_comparison.xlsx)
+    """
+    # Check if required parameters are provided
+    if source_dir_path is None or target_dir_path is None:
+        print("Error: Both source_dir_path and target_dir_path parameters are required.")
+        print("Usage: main(source_dir_path='path/to/source', target_dir_path='path/to/target')")
+        return
+    
+    # Check if directories exist
+    if not os.path.exists(source_dir_path):
+        print(f"Error: Source directory does not exist: {source_dir_path}")
+        return
+    
+    if not os.path.exists(target_dir_path):
+        print(f"Error: Target directory does not exist: {target_dir_path}")
+        return
+    
+    # Set default output file path if not provided
     if output_file_path is None:
-        output_file_path = globals().get('output_file', "docs_structure_comparison_updated.xlsx")
+        output_file_path = "docs_structure_comparison.xlsx"
         
     # Set console encoding to resolve character display issues
     setup_console_encoding()
@@ -113,4 +123,7 @@ def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
 
 
 if __name__ == "__main__":
-    main()
+    # When run directly, provide usage information
+    print("This module is designed to be imported and used by docs_consistency_checker.py")
+    print("Usage: from main import main")
+    print("       main(source_dir_path='path/to/source', target_dir_path='path/to/target')")

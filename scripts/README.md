@@ -1,10 +1,10 @@
 # Documentation Consistency Checker
 
-A Python script designed to check consistency between English and Chinese documentation files in the Defold project. This tool compares file structures and Markdown syntax trees to ensure translations maintain the same structure and formatting.
+A Python script designed to check consistency between documentation files in different languages for the Defold project. This tool compares file structures and Markdown syntax trees to ensure translations maintain the same structure and formatting.
 
 ## Features
 
-- **File Structure Comparison**: Compares the directory structure between English and Chinese documentation
+- **File Structure Comparison**: Compares the directory structure between source and target documentation directories
 - **Markdown Syntax Tree Analysis**: Analyzes and compares Markdown syntax elements including:
   - Headers (h1, h2, h3, etc.)
   - Code blocks
@@ -34,40 +34,36 @@ A Python script designed to check consistency between English and Chinese docume
 
 ### Basic Usage
 
-To run a full comparison between English and Chinese documentation:
+To run a full comparison between source and target documentation directories:
 
 ```bash
-python scripts/docs_consistency_checker.py
+python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh
 ```
-
-This will:
-- Use default paths: `docs/en` for English documentation and `docs/zh` for Chinese documentation
-- Generate an output file named `docs_structure_comparison.xlsx`
 
 ### Advanced Usage
 
 #### Specify Custom Directories
 
 ```bash
-python scripts/docs_consistency_checker.py --en-dir /path/to/english/docs --zh-dir /path/to/chinese/docs
+python docs_consistency_checker.py --source-dir /path/to/source/docs --target-dir /path/to/target/docs
 ```
 
 #### Check a Specific File
 
 ```bash
-python scripts/docs_consistency_checker.py --file manuals/game-project/game-project.md
+python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh --file manuals/game-project/game-project.md
 ```
 
 #### Check Specific File Pairs
 
 ```bash
-python scripts/docs_consistency_checker.py --en-file /path/to/english/file.md --zh-file /path/to/chinese/file.md
+python docs_consistency_checker.py --source-file /path/to/source/file.md --target-file /path/to/target/file.md
 ```
 
 #### Specify Output File
 
 ```bash
-python scripts/docs_consistency_checker.py --output custom_comparison.xlsx
+python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh --output custom_comparison.xlsx
 ```
 
 ### Command Line Arguments
@@ -75,11 +71,12 @@ python scripts/docs_consistency_checker.py --output custom_comparison.xlsx
 | Argument | Description |
 |----------|-------------|
 | `--file` | Specify a particular file to check (relative to docs directory) |
-| `--en-dir` | Path to English documentation directory |
-| `--zh-dir` | Path to Chinese documentation directory |
+| `--source-dir` | Path to source documentation directory |
+| `--target-dir` | Path to target documentation directory |
 | `--output` | Path for the output Excel file |
-| `--en-file` | Path to a specific English file |
-| `--zh-file` | Path to a specific Chinese file |
+| `--source-file` | Path to a specific source file |
+| `--target-file` | Path to a specific target file |
+| `--help` | Show help message and exit |
 
 ## Output
 
@@ -88,21 +85,21 @@ The script generates an Excel file with the following columns:
 1. **File Path**: Relative path of the file
 2. **File Extension**: File extension type
 3. **Top Directory**: Top-level directory containing the file
-4. **English Version Exists**: Whether the file exists in English documentation
-5. **Chinese Version Exists**: Whether the file exists in Chinese documentation
+4. **Source Version Exists**: Whether the file exists in source documentation
+5. **Target Version Exists**: Whether the file exists in target documentation
 6. **Status**: 
    - "Consistent" - File exists in both versions
-   - "English Only" - File exists only in English version
-   - "Chinese Only" - File exists only in Chinese version
+   - "Source Only" - File exists only in source version
+   - "Target Only" - File exists only in target version
    - "Does Not Exist" - File doesn't exist in either version
-7. **English File Size (KB)**: Size of the English file
-8. **Chinese File Size (KB)**: Size of the Chinese file
+7. **Source File Size (KB)**: Size of the source file
+8. **Target File Size (KB)**: Size of the target file
 9. **Markdown Syntax Consistency**: Results of Markdown syntax comparison
 10. **Formula**: Recommended actions for ensuring translation consistency
 
 ## How It Works
 
-1. **File Collection**: The script recursively collects all files from both English and Chinese documentation directories.
+1. **File Collection**: The script recursively collects all files from both source and target documentation directories.
 2. **File Comparison**: It compares the file structures between the two directories.
 3. **Markdown Analysis**: For Markdown files that exist in both versions, the script:
    - Parses the Markdown content to build syntax trees
@@ -127,3 +124,23 @@ The script is organized into several modules:
 - `modules/file_handler.py`: File operations and utilities
 - `modules/markdown_handler.py`: Markdown parsing and comparison
 - `modules/excel_handler.py`: Excel report generation
+
+### Compare entire documentation directories
+```bash
+python docs_consistency_checker.py --source-dir ../docs/en --target-dir ../docs/zh
+```
+
+### Compare specific file
+```bash
+python docs_consistency_checker.py --source-dir ../docs/en --target-dir ../docs/zh --file manuals/introduction.md
+```
+
+### Compare direct file paths
+```bash
+python docs_consistency_checker.py --source-file ../docs/en/manuals/introduction.md --target-file ../docs/zh/manuals/introduction.md
+```
+
+### Get help
+```bash
+python docs_consistency_checker.py --help
+```
