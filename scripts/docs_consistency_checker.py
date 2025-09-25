@@ -31,16 +31,6 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
     # Set console encoding to resolve character display issues
     setup_console_encoding()
     
-    # Set default directories
-    if source_dir is None:
-        source_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "source")
-    
-    if target_dir is None:
-        target_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "target")
-    
-    if output_file is None:
-        output_file = "docs_structure_comparison.xlsx"
-    
     # If specific source and target file paths are specified, use these paths
     if source_file and target_file:
         print(f"Checking files: Source version {source_file}, Target version {target_file}")
@@ -127,8 +117,41 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
                     print(f"{i}. {issue}")
         else:
             print("No inconsistency issues found, document structure is consistent")
+        return
+    
+    # Check if source and target directories are provided for directory-based operations
+    if source_dir is None and target_dir is None:
+        # Try to use current working directory as a fallback
+        cwd = os.getcwd()
+        if os.path.exists(os.path.join(cwd, "docs")):
+            source_dir = os.path.join(cwd, "docs", "source")
+            target_dir = os.path.join(cwd, "docs", "target")
+            print(f"Using default directories based on current working directory:")
+            print(f"  Source directory: {source_dir}")
+            print(f"  Target directory: {target_dir}")
+        else:
+            print("Error: Source and target directories must be specified.")
+            print("Usage examples:")
+            print("  python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh")
+            print("  python docs_consistency_checker.py --source-file ./docs/en/manuals/introduction.md --target-file ./docs/zh/manuals/introduction.md")
+            print("  python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh --file manuals/introduction.md")
+            return
+    
+    # Check if source directory exists
+    if source_dir and not os.path.exists(source_dir):
+        print(f"Error: Source directory does not exist: {source_dir}")
+        return
+    
+    # Check if target directory exists
+    if target_dir and not os.path.exists(target_dir):
+        print(f"Error: Target directory does not exist: {target_dir}")
+        return
+    
+    if output_file is None:
+        output_file = "docs_structure_comparison.xlsx"
+    
     # If a specific file is specified, only check that file
-    elif specific_file:
+    if specific_file:
         print(f"Checking specific file: {specific_file}")
         
         # Build complete file paths

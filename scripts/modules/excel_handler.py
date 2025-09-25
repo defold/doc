@@ -113,7 +113,7 @@ def write_markdown_consistency(ws, row_num, consistency_result):
     ws.cell(row=row_num, column=9, value=consistency_result)
 
 
-def write_formula_text(ws, row_num, file_path, source_dir="docs\\source", target_dir="docs\\target"):
+def write_formula_text(ws, row_num, file_path, source_dir=None, target_dir=None):
     """
     Write formula column
     
@@ -121,11 +121,15 @@ def write_formula_text(ws, row_num, file_path, source_dir="docs\\source", target
         ws: Worksheet object
         row_num: Row number
         file_path: File path
-        source_dir: Source directory path
-        target_dir: Target directory path
+        source_dir: Source directory path (optional)
+        target_dir: Target directory path (optional)
     """
+    # Use provided directory names or default to generic names
+    source_dir_name = source_dir if source_dir else "source"
+    target_dir_name = target_dir if target_dir else "target"
+    
     # Generate formula text based on file path
-    formula_text = f"Compare {source_dir}\\{file_path} and {target_dir}\\{file_path} paragraph by paragraph with each heading as a paragraph, to ensure the target version is a complete and accurate translation of the source version."
+    formula_text = f"Compare {source_dir_name}\\{file_path} and {target_dir_name}\\{file_path} paragraph by paragraph with each heading as a paragraph, to ensure the target version is a complete and accurate translation of the source version."
     ws.cell(row=row_num, column=10, value=formula_text)
 
 
