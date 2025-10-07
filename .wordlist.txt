@@ -51,6 +51,7 @@ bmGlyph
 bodypart
 booleans
 breakpoint
+BRDF
 builtins
 bundler
 bundletool
@@ -124,6 +125,8 @@ dropdown
 dSYM
 EDN
 EFIGS
+Emissive
+emissive
 emscripten
 enum
 esc
