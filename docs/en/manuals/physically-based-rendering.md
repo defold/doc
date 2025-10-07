@@ -12,12 +12,16 @@ Defold’s PBR implementation follows the glTF 2.0 material specification and as
 PBR materials can include effects such as metallic reflections, surface roughness, transmission, clearcoat, subsurface scattering, iridescence, and more.
 
 ::: sidenote
-Embedded textures from GLTF files are not yet exposed or accessible for assignment in Defold. This will come at a later stage, for now only the material data is exposed to the shaders.
+Defold currently exposes PBR material data to shaders, but does not provide a built-in PBR lighting model. You can use this data in your own lighting and reflection shaders to achieve physically based rendering. A default PBR lighting model will be added to Defold at a later stage.
+:::
+
+::: sidenote
+Embedded textures from glTF files are currently not automatically assigned in Defold. Only material parameters are exposed to shaders. You can still manually assign textures to model components and sample them in your shader.
 :::
 
 ## Material properties overview
 
-The material properties are parsed from the GLTF 2.0 source files assigned to a model component. Not all properties are considered standard properties, some of these are explicitly exposed via GLTF extensions that may or may not be enabled by the application that exported the gltf files. The relevant extension is denoted in parentheses after the property name below.
+The material properties are parsed from the glTF 2.0 source files assigned to a model component. Not all properties are standard. Some are provided through optional glTF extensions that may or may not be included by the tool used to export the glTF file. The relevant extension is denoted in parentheses after the property name below.
 
 Metallic roughness
 : Describes how light interact with the material. The default PBR model.
@@ -79,7 +83,7 @@ Some of these properties provides hints on how the material should be rendered. 
 
 ## Shader integration
 
-The PBR material data is exposed to the shaders based on types and name convention. First of all, the base material struct must be a separate uniform block in the shader named 'PbrMaterial':
+The PBR material data is exposed to the shaders based on types and name convention. The PBR material system provides all parsed material parameters to shaders via a structured uniform block named `PbrMaterial`. Each supported glTF extension corresponds to a struct within this block, which can be conditionally compiled using #define flags.
 
 ```glsl
 uniform PbrMaterial
@@ -172,42 +176,7 @@ struct PbrIridescence
 };
 ```
 
-Texture usage is also exposed to the shaders, but as previously mentioned, textures from the GLTF containers are not automatically set during rendering. You need to assign the textures to the models yourself for this to properly work. Naming for textures are a bit differently since you cannot store texture uniforms inside structs. In this case, the naming scheme is `<feature>_texture`:
-
-```glsl
-// PbrMetallicRoughness
-uniform sampler2D PbrMetallicRoughness_baseColorTexture;
-uniform sampler2D PbrMetallicRoughness_metallicRoughnessTexture;
-
-// PbrSpecularGlossiness
-uniform sampler2D PbrSpecularGlossiness_diffuseTexture;
-uniform sampler2D PbrSpecularGlossiness_specularGlossinessTexture;
-
-// PbrClearCoat
-uniform sampler2D PbrClearcoat_clearcoatTexture;
-uniform sampler2D PbrClearcoat_clearcoatRoughnessTexture;
-uniform sampler2D PbrClearcoat_clearcoatNormalTexture;
-
-// PbrTransmission
-uniform sampler2D PbrTransmission_transmissionTexture;
-
-// PbrSpecular
-uniform sampler2D PbrSpecular_specularTexture;
-uniform sampler2D PbrSpecular_specularColorTexture;
-
-// PbrVolume
-uniform sampler2D PbrVolume_thicknessTexture;
-
-// PbrSheen
-uniform sampler2D PbrSheen_sheenColorTexture;
-uniform sampler2D PbrSheen_sheenRoughnessTexture;
-
-// PbrIridescence
-uniform sampler2D PbrEmissive_iridescenceTexture;
-uniform sampler2D PbrEmissive_iridescenceThicknessTexture;
-```
-
-The common properties are set on the material uniform itself (and once again, note the data packing into vec4). Textures follow a similar pattern as we've already seen:
+The common properties are set on the material uniform itself (and once again, note the data packing into vec4).
 
 ```glsl
 // Common textures
@@ -230,7 +199,7 @@ uniform PbrMaterial
 
 ### Example shader
 
-Here is an example shader that contains all textures and features. Note that you can turn off features simply by using defines around each member of the PbrMaterial itself, as shown in the example below:
+Here is an example shader that contains all features and a proposed naming scheme for texture bindings (again, this must be handled manually). Note that you can turn off features simply by using defines around each member of the PbrMaterial itself, as shown in the example below:
 
 ```glsl
 // Feature flags, comment or remove these to slim down the shader.
@@ -277,9 +246,9 @@ struct PbrSpecularGlossiness
 };
 
 // PbrClearCoat
-uniform sampler2D PbrClearcoat_clearcoatTexture;
-uniform sampler2D PbrClearcoat_clearcoatRoughnessTexture;
-uniform sampler2D PbrClearcoat_clearcoatNormalTexture;
+uniform sampler2D PbrClearCoat_clearcoatTexture;
+uniform sampler2D PbrClearCoat_clearcoatRoughnessTexture;
+uniform sampler2D PbrClearCoat_clearcoatNormalTexture;
 
 struct PbrClearCoat
 {
@@ -409,7 +378,16 @@ If specific data points in the material struct are not found, the data for those
 
 ### Constants
 
-Since all of the properties are represented internally by render constants, materials can specify different default values when these values are not present. To do this, you can use the following naming pattern: ´pbrFeature.structMember`:
+Each material property corresponds to an internal render constant in Defold. You can override default values by defining constants on the material resource itself, following the naming pattern `pbrFeature.structMember`. These values will be applied automatically if the matching data is missing in the glTF material.
 
 ![Material constants](images/physically-based-rendering/material-constants.png)
+
+## Next steps
+
+To use the material data for physically based lighting, implement a BRDF in your fragment shader using the parameters provided in the `PbrMaterial` block.
+See also:
+
+* [Shaders manual](/manuals/shader)
+* [Render manual](/manuals/render)
+* [glTF 2.0 specification](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)
 
