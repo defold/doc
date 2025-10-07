@@ -922,6 +922,27 @@
                 "description": "This course covers building a complete block breaker game in Defold, teaching physics-based gameplay, paddle and ball mechanics, and procedural block generation using scripting.",
                 "image": "/courses/images/zenva.png",
                 "author": "Zenva"
+            },
+            {
+                "path": "https://www.wisdevgames.com/course/02-deep-into-the-space/p1-lets-setup-our-game",
+                "name": "Deep Into the Space",
+                "description": "Through this course, you will program a spaceship that moves through space. This will be a great opportunity to learn the basics of the Defold engine",
+                "image": "/courses/images/wisdevgames01.png",
+                "author": "WisDevGames"
+            },
+            {
+                "path": "https://www.wisdevgames.com/course/03-shooting-in-space/p1-shoot-them-all",
+                "name": "Shootin in Space",
+                "description": "In this module, we’ll reuse the spaceship from the previous lesson to learn how to navigate through a field of asteroids, avoid collisions, and shoot them down. It’s a great opportunity to learn how collisions work in Defold and to continue practicing with factories",
+                "image": "/courses/images/wisdevgames02.png",
+                "author": "WisDevGames"
+            },
+            {
+                "path": "https://www.wisdevgames.com/course/04-tilemap-farm-adventure/p1-preparing-our-tilemap",
+                "name": "Tilemap Farm Adventure",
+                "description": "In this module, you’ll learn how to use Defold’s tilemap system to create a small environment, and you’ll be introduced to the concept of modules.",
+                "image": "/courses/images/wisdevgames03.png",
+                "author": "WisDevGames"
             }
         ],
         "resources": [
