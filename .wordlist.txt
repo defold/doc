@@ -51,6 +51,7 @@ bmGlyph
 bodypart
 booleans
 breakpoint
+BRDF
 builtins
 bundler
 bundletool
@@ -124,6 +125,8 @@ dropdown
 dSYM
 EDN
 EFIGS
+Emissive
+emissive
 emscripten
 enum
 esc
@@ -196,6 +199,8 @@ ICOConvert
 iconified
 idfa
 Ierusalimschy
+Ior
+ior
 ImageMagick
 ImageView
 imageview
@@ -227,6 +232,7 @@ keymap
 keypress
 keypresses
 keystore
+KHR
 khronos
 KiB
 Klayton
@@ -298,6 +304,9 @@ OSX
 OTF
 particlefx
 particlefxs
+PbrMaterial
+PBR
+pbrSpecularGlossiness
 PEM
 performant
 Phaser
@@ -390,6 +399,8 @@ SL
 slerp
 solvability
 Sovapps
+Specular
+specular
 spawner
 spinejson
 spinescene
@@ -400,6 +411,8 @@ SSL
 Stateful
 Steamworks
 STL
+struct
+structs
 stylesheet
 stylesheets
 subdirectories
@@ -475,6 +488,7 @@ UV
 UVs
 Vararg
 varyings
+vec
 VictoriaMetrics
 videogame
 videoplayer

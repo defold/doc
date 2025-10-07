@@ -1433,6 +1433,10 @@
                     {
                         "path": "/manuals/texture-filtering",
                         "name": "Texture filtering"
+                    },
+                    {
+                        "path": "/manuals/physically-based-rendering",
+                        "name": "Physically Based Rendering"
                     }
                 ],
                 "divider": true
