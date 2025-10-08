@@ -137,6 +137,20 @@ msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 
 When using the default render script and there are enabled [Camera components](/manuals/camera) available in the project, they will take precedence over any other view / projections set in the render script. To read more about how to work with camera components in render scripts, please consult the [Camera documentation](/manuals/camera).
 
+Orthographic cameras support an `Orthographic Mode` that controls how the camera adapts to the window:
+- `Fixed` uses the camera’s `Orthographic Zoom` value.
+- `Auto Fit` (contain) keeps the full design area visible.
+- `Auto Cover` (cover) fills the window and may crop.
+
+You can switch modes in the Editor or at runtime via the Camera API:
+
+```lua
+-- Use auto-fit behavior with an orthographic camera
+camera.set_orthographic_mode("main:/go#camera", camera.ORTHO_MODE_AUTO_FIT)
+-- Query current mode
+local mode = camera.get_orthographic_mode("main:/go#camera")
+```
+
 ## Frustum culling
 
 The render API in Defold lets developers perform something called frustum culling. When frustum culling is enabled any graphics that lies outside of a defined bounding box or frustum will be ignored. In a large game world where only a portion is visible at a time, frustum culling can dramatically reduce the amount of data that needs to be sent to the GPU for rendering, thus increasing performance and saving battery (on mobile devices). It is common to use the view and projection of the camera to create the bounding box. The default render script uses the view and projection (from the camera) to calculate a frustum.

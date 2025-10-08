@@ -48,6 +48,13 @@ Orthographic Projection
 Orthographic Zoom
 : (**Orthographic camera only**) - The zoom used for the orthographic projection (> 1 = zoom in, < 1 = zoom out).
 
+Orthographic Mode
+: (**Orthographic camera only**) - Controls how the orthographic camera determines zoom relative to the window size and your design resolution (the values in `game.project` → `display.width/height`).
+  - `Fixed` (uses constant zoom): Uses the current `Orthographic Zoom` value as-is.
+  - `Auto Fit` (contain): Automatically adjusts zoom so the full design area fits inside the window. May show extra content on sides or top/bottom.
+  - `Auto Cover` (cover): Automatically adjusts zoom so the design area covers the entire window. May crop on sides or top/bottom.
+  Available only when `Orthographic Projection` is enabled.
+
 
 ## Using the camera
 
@@ -83,9 +90,11 @@ The scripting `camera` module has multiple functions that can be used to manipul
 camera.get_aspect_ratio(camera) -- get aspect ratio
 camera.get_far_z(camera) -- get far z
 camera.get_fov(camera) -- get field of view
+camera.get_orthographic_mode(camera) -- get orthographic mode (one of camera.ORTHO_MODE_*)
 camera.set_aspect_ratio(camera, ratio) -- set aspect ratio
 camera.set_far_z(camera, far_z) -- set far z
 camera.set_near_z(camera, near_z) -- set near z
+camera.set_orthographic_mode(camera, camera.ORTHO_MODE_AUTO_FIT) -- set orthographic mode
 ... And so forth
 ```
 
@@ -125,7 +134,7 @@ The view matrix provided by the camera defines the position and orientation of t
 
 ### Render script
 
-Starting with Defold 1.9.6, when using the default render script Defold will automatically set the last enabled camera that should be used for rendering. Before this change, a script somewhere in the project needed to explicitly send the `use_camera_projection` message to the renderer to notify it that the view and projection from camera components should be used. This is no longer necessary, but it is still possible to do so for backwards compatibility purposes.
+When using the default render script Defold will automatically set the last enabled camera that should be used for rendering. Before this change, a script somewhere in the project needed to explicitly send the `use_camera_projection` message to the renderer to notify it that the view and projection from camera components should be used. This is no longer necessary, but it is still possible to do so for backwards compatibility purposes.
 
 Alternatively, you can set a specific camera that should be used for rendering in a render script. This could be useful in cases where you need to control more specifically which camera should be used for rendering, for example in a multiplayer game.
 
@@ -161,6 +170,22 @@ You can zoom in and out when using an orthographic camera by changing the *Ortho
 
 ```lua
 go.set("#camera", "orthographic_zoom", 2)
+```
+
+When using an orthographic camera you can also switch how zoom is determined using the `Orthographic Mode` setting or via script:
+
+```lua
+-- get current mode (one of camera.ORTHO_MODE_FIXED, _AUTO_FIT, _AUTO_COVER)
+local mode = camera.get_orthographic_mode("#camera")
+
+-- switch to auto-fit (contain) to always keep the full design area visible
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
+
+-- switch to auto-cover to ensure the design area covers the window
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
+
+-- switch back to fixed mode to control zoom manually via orthographic_zoom
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
 ### Adaptive zoom
@@ -201,6 +226,8 @@ end
 ```
 
 A complete example of adaptive zoom can be seen in [this sample project](https://github.com/defold/sample-adaptive-zoom).
+
+Note: With an orthographic camera you can now achieve contain/cover behavior without custom code by setting `Orthographic Mode` to `Auto Fit` (contain) or `Auto Cover` (cover). In these modes the effective zoom is computed automatically based on window size and your design resolution.
 
 
 ### Following a game object
@@ -264,13 +291,13 @@ A camera has a number of different properties that can be manipulated using `go.
 : The orthographic camera zoom (`number`).
 
 `aspect_ratio`
-: Added in Defold 1.4.8. The ratio between the frustum width and height. Used when calculating the projection of a perspective camera. (`number`).
+: The ratio between the frustum width and height. Used when calculating the projection of a perspective camera. (`number`).
 
 `view`
-: Added in Defold 1.4.8. The calculated view matrix of the camera. READ ONLY. (`matrix4`).
+: The calculated view matrix of the camera. READ ONLY. (`matrix4`).
 
 `projection`
-: Added in Defold 1.4.8. The calculated projection matrix of the camera. READ ONLY. (`matrix4`).
+: The calculated projection matrix of the camera. READ ONLY. (`matrix4`).
 
 
 ## Third-party camera solutions
