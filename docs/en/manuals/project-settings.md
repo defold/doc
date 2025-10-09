@@ -66,8 +66,14 @@ Publisher name.
 #### Developer
 Developer name.
 
-#### Write Log
-When checked, the engine will write a log file. If running more than one instance from the editor the file will be named *instance_2_log.txt* with `2` being the instance index. If running a single instance or from a bundle the file will be named *log.txt* The location of the log file will be one of the following paths (tried in order):
+#### Write Log File
+Controls when the engine writes a log file. Options:
+
+- "Never": Do not write a log file.
+- "Debug": Write a log file only for Debug builds.
+- "Always": Write a log file for both Debug and Release builds.
+
+If running more than one instance from the editor the file will be named *instance_2_log.txt* with `2` being the instance index. If running a single instance or from a bundle the file will be named *log.txt*. The location of the log file will be one of the following paths (tried in order):
 
 1. The path specified in *project.log_dir* (hidden setting)
 2. The system log path:

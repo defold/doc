@@ -21,12 +21,25 @@ Tytuł aplikacji
 #### Version
 Wersja aplikacji
 
-#### Write Log
-Kiedy opcja zapisu logów jest zaznaczona, silnik zapisze wszystkie logi do pliku *log.txt* w głównej lokalizacji Twojego projektu. Gdy uruchomisz grę na systemie iOS, plik można będzie otworzyć przez iTunes w zakładce *Apps* w sekcji *File Sharing*. W systemie Android natomiast, plik jest przechowywany w zewnętrznej lokalizacji aplikacji (ang. app's external storage). Podczas uruchamiania aplikacji deweloperskiej *dmengine*, możesz podejrzeć logi używając komendy:
+#### Write Log File
+Określa, kiedy silnik zapisuje log do pliku. Opcje:
 
-```bash
-$ adb shell cat /mnt/sdcard/Android/data/com.defold.dmengine/files/log.txt
-```
+- "Never": nie zapisuj pliku logu.
+- "Debug": zapisuj plik logu tylko dla buildów Debug.
+- "Always": zapisuj plik logu zarówno dla buildów Debug, jak i Release.
+
+Jeśli uruchamiasz więcej niż jedną instancję z edytora, plik będzie nazwany *instance_2_log.txt*, gdzie `2` to indeks instancji. Jeśli uruchamiasz pojedynczą instancję lub paczkę, plik będzie nazwany *log.txt*. Lokalizacja pliku logu będzie jedną z poniższych (sprawdzane w tej kolejności):
+
+1. Ścieżka określona w *project.log_dir* (ukryte ustawienie)
+2. Systemowa ścieżka logów:
+   * macOS/iOS: `NSDocumentDirectory`
+   * Android: `Context.getExternalFilesDir()`
+   * Inne: katalog aplikacji
+3. Ścieżka wsparcia aplikacji:
+   * macOS/iOS: `NSApplicationSupportDirectory`
+   * Windows: `CSIDL_APPDATA` (np. `C:\Users\<username>\AppData\Roaming`)
+   * Android: `Context.getFilesDir()`
+   * Linux: zmienna środowiskowa `HOME`
 
 #### Compress Archive
 Umożliwia kompresowanie archiwów podczas budowania paczki. Zauważ, że dotyczy to wszystkich platform oprócz systemu Android, gdzie plik apk zawiera od razy skompresowane dane.

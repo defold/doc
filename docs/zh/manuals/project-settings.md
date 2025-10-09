@@ -66,8 +66,14 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### Developer
 开发商名称。
 
-#### Write Log
-勾选时，引擎将写入日志文件。如果从编辑器运行多个实例，文件将被命名为 *instance_2_log.txt*，其中 `2` 是实例索引。如果运行单个实例或从打包运行，文件将被命名为 *log.txt*。日志文件的位置将是以下路径之一（按顺序尝试）：
+#### Write Log File
+控制引擎何时写入日志文件。选项：
+
+- “Never”：不写入日志文件。
+- “Debug”：仅在 Debug 构建中写入日志文件。
+- “Always”：在 Debug 和 Release 构建中都写入日志文件。
+
+如果从编辑器运行多个实例，文件将被命名为 *instance_2_log.txt*，其中 `2` 是实例索引。如果运行单个实例或从打包运行，文件将被命名为 *log.txt*。日志文件的位置将是以下路径之一（按顺序尝试）：
 
 1. 在 *project.log_dir* 中指定的路径（隐藏设置）
 2. 系统日志路径：
