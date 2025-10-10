@@ -71,6 +71,9 @@ Global Properties
 
   ![Global Properties](images/profiling/webprofiler_global_properties.png)
 
+::: sidenote
+The LuaMem value is the amount of memory in kilobytes used by the Lua VM as reported by the Lua garbage collector. Memory is the amount of memory in byytes used by the engine.
+:::
 
 ### Resource profiler
 The Resource profiler allows you to inspect your game while it is running and analyze resource use in detail. To access the profiler:
