@@ -47,7 +47,7 @@ Agora que o tamanho da janela é mais razoável, precisamos ajustar os gráficos
 msg.post("@render:", "use_fixed_projection", { zoom = 4 })
 ```
 
-::: Observação
+::: sidenote
 O mesmo resultado pode ser obtido anexando um [Componente de câmera](manuals/camera/) a um objeto de jogo, marcando *Orthographic Projection* e ajustando *Orthographic Zoom* para 4.0:
 
 <img width="800" height="918" alt="image" src="https://github.com/user-attachments/assets/0776ef75-7151-4b52-ae6b-b56629a16b16" />
