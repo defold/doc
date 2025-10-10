@@ -101,25 +101,25 @@ Isso cria um back buffer de alta DPI em displays que tenham suporte a isso. O jo
 
 ## Criando uma GUI adaptativa
 
-The system for creating GUI components is built around a number of basic building blocks, or [nodes](/manuals/gui/#node-types), and while it may seem overly simple it can be used to create anything from buttons to complex menus and popups. The GUIs that you create can be configured to automatically adapt to screen size and orientation changes. You can for instance keep nodes anchored to the top, bottom or sides of the screen and nodes can either keep their size or stretch. The relationship between nodes as well as their size and appearance can also be configured to change when the screen size or orientation changes.
+O sistema de criação de componentes GUI é baseado em blocos básicos, ou [nodes](/manuals/gui/#node-types), e embora pareça simples, ele permite criar desde botões até menus complexos e popups. As GUIs podem ser configuradas para se adaptarem automaticamente a mudanças de tamanho de tela e orientação. Você pode manter *nodes* ancorados ao topo, embaixo ou lados da tela, e eles podem manter seu tamanho ou se esticarem. A relação entre *nodes*, assim como seu tamanho e aparência, também pode mudar seguinfo mudanças na resolução ou orientação da tela.
 
-### Node properties
+### Propriedades dos *Nodes*
 
-Each node in a gui has a pivot point, a horizontal and vertical anchor as well as an adjust mode.
+Cada *node* em uma GUI possui um ponto de pivô, âncoras horizontais e verticais, e um modo de ajuste.
 
-* The pivot point defines the center point of a node.
-* The anchor mode controls how the node’s vertical and horizontal position is altered when the scene boundaries, or the parent node’s boundaries are stretched to fit the physical screen size.
-* The adjust mode setting controls what happens to a node when the scene boundaries, or the parent node’s boundaries, are adjusted to fit the physical screen size.
+* O ponto de pivô define o centro do *node*.
+* O modo de âncora controla como a posição vertical e horizontal do *node* muda quando os limites da cena ou do *node* pai são ajustados para caber na tela física.
+* O modo de ajuste define o que acontece com o *node* quando os limites da cena ou do *node* pai são ajustados para caber na tela física.
 
-You can learn more about these properties [in the GUI manual](/manuals/gui/#node-properties).
+Mais detalhes sobre essas propriedades estão [no Manual de GUI](/manuals/gui/#node-properties).
 
 ### Layouts
 
-Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design a GUI that can adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models. You can learn more about this system in the [GUI Layouts manual](/manuals/gui-layouts/)
+O Defold suporta GUIs que se adaptam automaticamente a mudanças de orientação em dispositivos móveis. Com isso, você pode criar uma GUI que se ajuste à orientação e proporção de vários tamanhos de tela. Também é possível criar layouts específicos para determinados modelos de dispositivos. Mais informações estão no [manual de Layouts de GUI](/manuals/gui-layouts/)
 
 
-## Testing different screen sizes
+## Testando diferentes tamanhos de tela
 
-The Debug menu contains an option to simulate the resolution of either a certain device model resolution or a custom resolution. While the application is running you can select <kbd>Debug->Simulate Resolution</kbd> and pick one of the device models from the list. The running application window will resize and you'll be able to see how your game looks in a different resolution or with a different aspect ratio.
+O menu *Debug* contém uma opção para simular a resolução de um modelo de dispositivo específico ou de uma resolução personalizada. Com o aplicativo em execução, selecione <kbd>Debug->Simulate Resolution</kbd> e escolha um modelo da lista. A janela do aplicativo será redimensionada e você poderá ver como o jogo se comporta em diferentes resoluções ou proporções de tela.
 
-![](images/screen_size/simulate-resolution.png)
+<img width="826" height="547" alt="image" src="https://github.com/user-attachments/assets/b526260c-a8c8-4dc8-bcaf-2b49f66f7a8c" />
