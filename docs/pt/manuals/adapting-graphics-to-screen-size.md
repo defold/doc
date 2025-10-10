@@ -18,89 +18,88 @@ Existem vários pontos a considerar ao adaptar seu jogo e gráficos a diferentes
 Este manual abordará alguns desses pontos e sugerirá boas práticas.
 
 
-## How to change how your content is rendered
+## Como alterar a forma como seu conteúdo é renderizado
 
-The Defold render script give you total control over the entire rendering pipeline. The render script decides the order as well as what and how to draw things. The default behavior of the render script is to always draw the same area of pixels, defined by the width and height in the *game.project* file, regardless if the window is resized or the actual screen resolution doesn't match. This will result in the content being stretched if the aspect ratio changes and zoomed in or out if the window size changes. In some games this might be acceptable, but it is more likely that you want to show more or less game content if the screen resolution or aspect ratio is different, or at least make sure to zoom the content without changing the aspect ratio. The default stretch behavior can easily be changed and you can read more about how to do this in the [Render manual](https://www.defold.com/manuals/render/#default-view-projection).
+O render script do Defold dá controle total sobre todo o pipeline de renderização. O script de renderização decide a ordem, o que desenhar e como desenhar. O comportamento padrão do script de renderização é sempre desenhar a mesma área de pixels, definida pela largura e altura no arquivo *game.project*, independentemente se a janela é redimensionada ou se a resolução da tela real não corresponde. Isso fará com que o conteúdo seja esticado se a proporção da tela mudar e ampliado ou reduzido se o tamanho da janela mudar. Em alguns jogos isso pode ser aceitável, mas na maioria dos casos você vai querer mostrar mais ou menos conteúdo do jogo se a resolução da tela ou a proporção forem diferentes, ou pelo menos garantir que o conteúdo seja ampliado sem alterar a proporção. O comportamento padrão de esticamento pode ser facilmente alterado, e você pode ler mais sobre como fazer isso no [Render manual](https://www.defold.com/manuals/render/#default-view-projection).
 
 
-## Retro/8-bit graphics
+## Gráficos retrô/8-bit
 
-Retro/8-bit graphics often refer to games emulating the graphical style of old game consoles or computers with their low resolution and limited color palette. As an example the Nintendo Entertainment System (NES) had a screen resolution of 256x240, the Commodore 64 had 320x200 and the Gameboy had 160x144, all of which are only a fraction of the size of modern screens. In order to make games emulating this graphical style and screen resolution playable on a modern high resolution screen the graphics has to be upscaled or zoomed several times. One simple way of doing this is to draw all of your graphics in the low resolution and style that you wish to emulate and zoom the graphics when it is rendered. This can easily be achieved in Defold using the render script and the [Fixed Projection](/manuals/render/#fixed-projection) set to a suitable zoom value.
+Gráficos retrô/8-bit geralmente se referem a jogos que emulam o estilo gráfico de antigos consoles ou computadores, com baixa resolução e paleta de cores limitada. Por exemplo, o Nintendo Entertainment System (NES) tinha resolução de 256x240, o Commodore 64 tinha 320x200 e o Gameboy tinha 160x144, todos muito menores que telas modernas. Para tornar jogos com esse estilo gráfico jogáveis em telas modernas de alta resolução, os gráficos precisam ser ampliados várias vezes. Uma maneira simples de fazer isso é desenhar todos os gráficos na baixa resolução que você deseja emular e ampliá-los durante a renderização. Isso pode ser feito facilmente no Defold usando o *render script* e a [Projeção Fixa](/manuals/render/#fixed-projection) configurada com o valor de zoom adequado.
 
-Let's take this tileset and player character ([source](https://ansimuz.itch.io/grotto-escape-game-art-pack)) and use them for an 8-bit retro game with a resolution of 320x200:
+Vamos pegar este tileset e personagem ([fonte](https://ansimuz.itch.io/grotto-escape-game-art-pack)) para um jogo retrô 8-bit com resolução de 320x200:
 
-![](images/screen_size/retro-player.png)
+<img width="64" height="32" alt="image" src="https://github.com/user-attachments/assets/fcb2d785-9060-4932-8b09-ca5e26820d1a" /><br>
 
-![](images/screen_size/retro-tiles.png)
+<img width="128" height="128" alt="image" src="https://github.com/user-attachments/assets/0ba54969-6f6c-4954-9ae1-3bb6f7f3e3ac" />
 
-Setting 320x200 in the *game.project* file and launching the game would look like this:
+Definir 320x200 no arquivo *game.project* e executar o jogo ficaria assim:
 
-![](images/screen_size/retro-original_320x200.png)
+<img width="216" height="167" alt="image" src="https://github.com/user-attachments/assets/f4c3d605-0ca2-472c-a980-94a85af5a85e" />
 
-The window is absolutely tiny on a modern high resolution screen! Increasing the window size four times to 1280x800 makes it more suitable for a modern screen:
+A janela é minúscula em uma tela moderna de alta resolução! Aumentar a janela quatro vezes para 1280x800 torna mais adequado a uma tela moderna:
 
-![](images/screen_size/retro-original_1280x800.png)
+<img width="696" height="467" alt="image" src="https://github.com/user-attachments/assets/e1be0521-d988-423f-8657-08ca36102b5f" />
 
-Now that the window size is more reasonable we also need to do something about the graphics. It's so small it's very hard to see what is going on in the game. We can use the render script to set a fixed and zoomed projection:
+Agora que o tamanho da janela é mais razoável, precisamos ajustar os gráficos. Eles estão tão pequenos que é difícil ver o que acontece no jogo. Podemos usar o render script para configurar uma projeção fixa e ampliada:
 
 ```Lua
 msg.post("@render:", "use_fixed_projection", { zoom = 4 })
 ```
 
-::: sidenote
-The same result can be achieved by attaching a [Camera component](manuals/camera/) to a game object and check *Orthographic Projection* and set *Orthographic Zoom* to 4.0:
+::: Observação
+O mesmo resultado pode ser obtido anexando um [Componente de câmera](manuals/camera/) a um objeto de jogo, marcando *Orthographic Projection* e ajustando *Orthographic Zoom* para 4.0:
 
-![](images/screen_size/retro-camera_zoom.png)
+<img width="800" height="918" alt="image" src="https://github.com/user-attachments/assets/0776ef75-7151-4b52-ae6b-b56629a16b16" />
 :::
 
-This will give the following result:
+O que resultará nisto:
 
-![](images/screen_size/retro-zoomed_1280x800.png)
+<img width="696" height="467" alt="image" src="https://github.com/user-attachments/assets/3fe5d3f5-4108-4d1e-8272-a4c1e9e4f14d" />
 
-This is better. The window and graphics both have a good size, but if we look closer there is an obvious problem:
+Assim está melhor. A janela e os gráficos têm um bom tamanho, mas se olharmos de perto, há um problema óbvio:
 
-![](images/screen_size/retro-zoomed_linear.png)
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/02f96ef3-be0a-4d5b-88e0-32d9921d4488" />
 
-The graphics look blurred! This is caused by the way the zoomed in graphics is sampled from the texture when rendered by the GPU. The default setting in the *game.project* file under the Graphics section is *linear*:
+Os gráficos ficam borrados! Isso ocorre devido à forma como a GPU amostra gráficos ampliados a partir da textura. A configuração padrão no arquivo *game.project* na seção *Graphics* é *linear*:
 
-![](images/screen_size/retro-settings_linear.png)
+<img width="770" height="306" alt="image" src="https://github.com/user-attachments/assets/6a4f040d-f98f-4b22-9bcf-0fcfea0baff5" />
 
-Changing this to *nearest* will give the result we are after:
+Alterar essa opção para *nearest* dará o resultado que queremos:
 
-![](images/screen_size/retro-settings_nearest.png)
+<img width="770" height="308" alt="image" src="https://github.com/user-attachments/assets/1213372b-6d5e-4021-97cb-c2d68dc57088" /><br>
 
-![](images/screen_size/retro-zoomed_nearest.png)
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/fa07c27e-73b9-423a-b84f-1d69bcc3b486" />
 
-Now we have crisp pixel-perfect graphics for our retro game. There are even more things to consider, such as disabling sub-pixels for sprites in *game.project*:
+Agora temos gráficos nítidos, *pixel-perfect*, para nosso jogo retrô. Há outros pontos a considerar, como desabilitar subpixels para sprites em *game.project*:
 
-![](images/screen_size/retro-subpixels.png)
+<img width="317" height="178" alt="image" src="https://github.com/user-attachments/assets/2f9a2bd5-3e0f-4ff8-969f-1ea3871df4c8" />
 
-When the Subpixels option is disabled sprites will never get rendered on half pixels and instead always snap to the nearest full pixel.
+Quando a opção *Subpixels* está desabilitada, os sprites nunca são renderizados em meio pixel e sempre se ajustam ao pixel completo mais próximo.
 
-## High resolution graphics
+## Gráficos em alta resolução
 
-When dealing with high resolution graphics we need to approach project and content setup in a different way than for retro/8-bit graphics. With bitmap graphics you need to create your content in such a way that it looks good on a high resolution screen when shown at a 1:1 scale.
+Para gráficos em alta resolução, o projeto e a configuração do conteúdo devem ser tratados de forma diferente dos gráficos retrô/8-bit. Com gráficos bitmap, você precisa criar seu conteúdo de forma que fique bom em uma tela de alta resolução quando exibido em escala 1:1.
 
-Just like for retro/8-bit graphics you need to change the render script. In this case you want the graphics to scale with the screen size while maintaining the original aspect ratio:
+Assim como nos gráficos retrô, você precisa alterar o render script. Neste caso, você quer que os gráficos escalem com o tamanho da tela, mantendo a proporção original:
 
 ```Lua
 msg.post("@render:", "use_fixed_fit_projection")
 ```
 
-This will make sure that the screen will resize to always show the same amount of content as specified in the *game.project* file, possibly with additional content shown above and below or to the sides, depending on if the aspect ratio differs or not.
+Isso garante que a tela seja redimensionada para sempre mostrar a mesma quantidade de conteúdo definida no arquivo *game.project*, possivelmente exibindo conteúdo adicional acima e abaixo ou nas laterais, dependendo da diferença de proporção.
 
-You should configure the width and height in the *game.project* file to a size that allows you to show your game content unscaled.
+Configure a largura e altura no arquivo *game.project* para permitir que o conteúdo do seu jogo seja exibido sem escalonamento.
 
-### High DPI setting and retina screens
+### Configuração de High DPI e telas Retina
 
-If you also wish to support high resolution retina screens you can enable this in the *game.project* file in the Display section:
+Se você deseja suportar telas Retina de alta resolução, pode ativar isso na seção Display do arquivo *game.project*:
 
-![](images/screen_size/highdpi-enabled.png)
+<img width="298" height="187" alt="image" src="https://github.com/user-attachments/assets/116d9e2a-2627-42a4-9e74-0725dd565df0" />
 
-This will create a high dpi back buffer on displays that support it. The game will render in double the resolution than what is set in the Width and Height settings, which will still be the logical resolution used in scripts and properties. This means that all measurements stay the same and any content that is rendered at 1x scale will look the same. But if you import high res images and scale them to 0.5x they will be high dpi on screen.
+Isso cria um back buffer de alta DPI em displays que tenham suporte a isso. O jogo será renderizado com o dobro da resolução configurada em Largura e Altura, mantendo a resolução lógica usada em scripts e propriedades. Isso significa que todas as medidas permanecem iguais e qualquer conteúdo renderizado em escala 1x parecerá igual. Mas se você importar imagens de alta resolução e escalá-las para 0,5x, elas serão exibidas em alta DPI.
 
-
-## Creating an adaptive GUI
+## Criando uma GUI adaptativa
 
 The system for creating GUI components is built around a number of basic building blocks, or [nodes](/manuals/gui/#node-types), and while it may seem overly simple it can be used to create anything from buttons to complex menus and popups. The GUIs that you create can be configured to automatically adapt to screen size and orientation changes. You can for instance keep nodes anchored to the top, bottom or sides of the screen and nodes can either keep their size or stretch. The relationship between nodes as well as their size and appearance can also be configured to change when the screen size or orientation changes.
 
