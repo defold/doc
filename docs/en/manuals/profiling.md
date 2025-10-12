@@ -72,7 +72,7 @@ Global Properties
   ![Global Properties](images/profiling/webprofiler_global_properties.png)
 
 ::: sidenote
-The LuaMem value is the amount of memory in kilobytes used by the Lua VM as reported by the Lua garbage collector. Memory is the amount of memory in bytes used by the engine.
+The LuaMem value is the amount of memory in kilobytes used by the Lua VM as reported by the Lua garbage collector. Memory is the amount of memory in kilobytes used by the engine.
 :::
 
 ### Resource profiler
