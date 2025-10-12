@@ -261,6 +261,7 @@ Lua's
 Luacheck
 luaj
 luajit
+LuaMem
 LuaSocket
 LZ
 LZ4
