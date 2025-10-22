@@ -92,6 +92,10 @@ Each entry has a `path` which represents the unique path of the resource within 
 
 You can parse the `game.graph.json` file and use this information to identify groups of entries in the resource graph and store their corresponding resources in separate archives along with the original manifest file (the manifest file will be pruned at runtime so that it contains only the files in the archive).
 
+## Live Update on Android
+
+It is possible to use Play Asset Delivery to download and mount Live Update content. Learn more [in the offical manual](https://defold.com/extension-pad/).
+
 ## Content verification
 
 One of the major features of the live update system, is that you can now use many content archives, potentially from many different Defold versions.
