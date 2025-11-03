@@ -94,7 +94,7 @@ You can parse the `game.graph.json` file and use this information to identify gr
 
 ## Live Update on Android
 
-It is possible to use Play Asset Delivery to download and mount Live Update content. Learn more [in the offical manual](https://defold.com/extension-pad/).
+It is possible to use Play Asset Delivery to download and mount Live Update content. Learn more [in the official manual](https://defold.com/extension-pad/).
 
 ## Content verification
 
