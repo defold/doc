@@ -190,7 +190,7 @@ Available platforms and architectures:
 : Android with available 32 bit `armv7-android` and 64 bit `arm64-android` architectures. By default, `--architectures` argument value is `armv7-android,arm64-android`.
 
 `js-web`
-: HTML5 with available `js-web` and `wasm-web` architectures. By default, `--architectures` argument value is `js-web,wasm-web`.
+: HTML5 with available `js-web`, `wasm-web` and `wasm_pthread-web` architectures. By default, `--architectures` argument value is `js-web,wasm-web`.
 
 By default, Bob looks in the current directory for a project to build. If you change the current dir to a Defold project and invoke bob, it builds the data for the project in the default output directory *build/default*.
 

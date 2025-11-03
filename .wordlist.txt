@@ -507,6 +507,7 @@ WakeLocks
 walkthrough
 WASD
 wasm
+wasm_pthread-web
 WAV
 WebAssembly
 webaudio
