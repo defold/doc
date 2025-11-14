@@ -26,7 +26,12 @@ Apart from the properties *Id*, *Position* and *Rotation* the following componen
 : This property should refer to the glTF *.gltf* or Collada *.dae* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
 
 *Material*
-: Set this property to a material you have created that is suitable for a textured 3D object. There is a built-in *model.material* file that you can use as a starting point.
+: Set this property to a material you have created that is suitable for a textured 3D object. There are a number of built-in materials that you can use as a starting point:
+
+  * Use *model.material* for static non-instanced models
+  * Use *model_instances.material* for static instanced models
+  * Use *model_skinned.material* for skinned (animated) non-instanced models
+  * Use *model_skinned_instances.material* for skinned (animated) instanced models
 
 *Texture*
 : This property should point to the texture image file that you want applied to the object.
@@ -92,7 +97,14 @@ A model also has a number of different properties that can be manipulated using 
 
 3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the glTF *.gltf* or Collada *.dae* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
 
-There is a simple 3D model material available in the built-in materials folder. If you need to create custom materials for your models, see the [Material documentation](/manuals/material) for information. The [Shader manual](/manuals/shader) contains information on how shader programs work.
+There are a number of built-in materials that you can use as a starting point:
+
+  * Use *model.material* for static non-instanced models
+  * Use *model_instances.material* for static instanced models
+  * Use *model_skinned.material* for skinned (animated) non-instanced models
+  * Use *model_skinned_instances.material* for skinned (animated) instanced models
+
+If you need to create custom materials for your models, see the [Material documentation](/manuals/material) for information. The [Shader manual](/manuals/shader) contains information on how shader programs work.
 
 
 ### Material constants
