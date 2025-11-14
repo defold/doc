@@ -34,8 +34,8 @@ See [Enabling Runtime Fonts](/manuals/font#enabling-runtime-fonts)
 The `.fontc` file format is also known as a font collection. In offline mode, only one font is associated with it.
 When using runtime fonts, you can associate more than one font file (.ttf) with the font collection.
 
-This allows for using the a font collection when rendering multiple texts in different languages, while also keeping the memory foot print low.
-E.g. loading a collection with the japanese font, then associate that font with the current main font, followed by unloading the japanese font collection.
+This allows for using the a font collection when rendering multiple texts in different languages, while also keeping the memory footprint low.
+E.g. loading a collection with the Japanese font, then associate that font with the current main font, followed by unloading the Japanese font collection.
 
 ## Creating a font
 
