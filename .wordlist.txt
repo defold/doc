@@ -182,6 +182,7 @@ Grafana
 GUI
 GUIs
 haxe
+HarfBuzz
 HD
 hercule
 hidpi
@@ -246,6 +247,7 @@ LFS
 LTS
 libdmengine
 libffi
+libunibreak
 lifecycle
 linkers
 liveupdate
@@ -360,6 +362,7 @@ Ragnar
 randomizer
 rasterization
 rasterized
+rasterize
 raycast
 reactively
 readme
@@ -390,12 +393,14 @@ sha
 shader
 shaders
 shadertoy
+SheenBidi
 shift
 Shoebox
 Shorthands
 sidenote
 sketchup
 skyboxes
+SkriBidi
 SL
 slerp
 solvability
