@@ -42,7 +42,7 @@ The Defold Editor is separated into a set of panes, or views, that display speci
 ### 1. Assets pane
 Lists all the files and folders that are part of your project in a tree structure, corresponding to the same structure on your disk. Click and scroll to navigate the list. All file oriented operations can be made in this view:
 
-   - <kbd>Left Mouse Click</kbd> to select any file or folder, and while holding <kbd>⇧ Shift</kbd> one can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> one can (un)select clicked.
+   - <kbd>Left Mouse Click</kbd> to select any file or folder, and while holding <kbd>⇧ Shift</kbd> you can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> you can (un)select clicked.
    - <kbd>Double Mouse Click</kbd> a file to open it in a specific editor for that file type.
    - <kbd>Drag and Drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
    - <kbd>Right Mouse Click</kbd> to open a _Context Menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
@@ -55,7 +55,7 @@ The center view shows the currently open file in a specific editor for that file
 - Rotate in 3D around selection: <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd>.
 
 #### Toolbar
-There is a toolbar in the top right corner of the scene view where one can find object manipulation tools (from left):
+There is a toolbar in the top right corner of the scene view where you can find object manipulation tools (from left):
 
 *Move* (<kbd>W</kbd>), *Rotate* (<kbd>E</kbd>), *Scale* (<kbd>R</kbd>), *Grid Settings* `▦`, *Align Camera 2D/3D* `2D`, *Camera Perspective/Orthographic Toggle* and *Visibility Filters* `👁`.
 
@@ -65,7 +65,7 @@ There is a toolbar in the top right corner of the scene view where one can find 
 
 This view shows the content of the file currently being edited, but in a hierarchical tree structure. The Outline reflects the editor view and allows you to perform operations on your items:
 
-   - <kbd>Left Mouse Click</kbd> to select an item, and while holding <kbd>⇧ Shift</kbd> one can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> one can (un)select clicked.
+   - <kbd>Left Mouse Click</kbd> to select an item, and while holding <kbd>⇧ Shift</kbd> you can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> you can (un)select clicked.
    - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to create a parent-child relationship.
    - <kbd>Right Mouse Click</kbd> to open a _Context Menu_ from where you can add items, delete selected items etc.
 
@@ -77,7 +77,7 @@ It is possible to toggle the visibility of game objects and visual components by
 
 This view shows properties associated with the currently selected item, like Id, URL, Position, Rotation, Scale, and/or other component specific properties and also custom properties for scripts.
 
-One can also <kbd>Drag</kbd> the `↕` Up-Down Arrow and move mouse to change value of the given numerical property (1.10.2+).
+You can also <kbd>Drag</kbd> the `↕` Up-Down Arrow and move mouse to change value of the given numerical property (1.10.2+).
 
 ![toolbar](images/editor/properties.png)
 
@@ -99,17 +99,17 @@ The Tools pane is also used for interacting with the integrated debugger. Read m
 
 If your project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. You can learn more about Git in our [Version Control manual](/manuals/version-control/). Some file oriented operations can be performed in this view:
 
-   - <kbd>Left Mouse Click</kbd> - to select a given file, and while holding <kbd>⇧ Shift</kbd> one can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> one can (un)select clicked. If a single changed file is selected one can click `Diff` to show the differences. One can click `Revert` to undo changes in all selected files.
+   - <kbd>Left Mouse Click</kbd> - to select a given file, and while holding <kbd>⇧ Shift</kbd> you can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> you can (un)select clicked. If a single changed file is selected you can click `Diff` to show the differences. You can click `Revert` to undo changes in all selected files.
    - <kbd>Double Left Mouse Click</kbd> a file to open a view of the file. The editor opens the file in a suitable editor, just like in the assets view.
    - <kbd>Right Mouse Click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more.
 
 ### Menu Bar
 
-On the top of the Editor view or in System Bar on Mac one can find Menu Bar with 6 menus: `File`, `Edit`, `View`, `Project`, `Debug`, `Help`. Their functions will be explained in the manuals.
+On the top of the Editor view or in System Bar on Mac you can find Menu Bar with 6 menus: `File`, `Edit`, `View`, `Project`, `Debug`, `Help`. Their functions will be explained in the manuals.
 
 ### Status Bar
 
-On the bottom bar of the Editor one can find a narrow space in which the Status is displayed, e.g.:
+On the bottom bar of the Editor you can find a narrow space in which the Status is displayed, e.g.:
 - when a new update is available a clickable button `Update Available` will be visible - check section Updating the Editor in this manual below.
 - when building or bundling a progress of it will be presented there.
 
@@ -166,16 +166,16 @@ If you are working with a 3D project it is worth to check the Toolbar and adjust
   You can also select objects by:
 
   - <kbd>Left Mouse Click</kbd> and <kbd>Drag</kbd> to select all objects inside the selection region.
-  - <kbd>Left Mouse Click</kbd> objects in the `Outline`, and while holding <kbd>⇧ Shift</kbd> one can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> one can (un)select clicked.
+  - <kbd>Left Mouse Click</kbd> objects in the `Outline`, and while holding <kbd>⇧ Shift</kbd> you can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> you can (un)select clicked.
 
 ### Move tool <kbd>W</kbd>
 
 ![Move tool](images/editor/icon_move.png){.left}
-To move objects, use the *Move Tool*. One can find it in the Toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
+To move objects, use the *Move Tool*. You can find it in the Toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
 
 ![Move object](images/editor/move.png){.inline}![Move object 3D](images/editor/move_3d.png){.inline}
 
-The gizmo changes and shows a set of manipulators - squares and arrows (selected manipulator will turn to orange color) that one can <kbd>Drag</kbd> to move:
+The gizmo changes and shows a set of manipulators - squares and arrows (selected manipulator will turn to orange color) that you can <kbd>Drag</kbd> to move:
 
 - one cyan center square handle to move the object only in the screen space,
 - 3 red, green and blue arrows along each axis to move the object only along the given X, Y or Z axis.
@@ -188,7 +188,7 @@ To rotate objects, use the *Rotate Tool* by selecting it in the Toolbar, or by p
 
 ![Rotate object](images/editor/rotate.png){.inline}![Rotate object 3D](images/editor/rotate_3d.png){.inline}
 
-This tool consists of four circular manipulators (selected manipulator will turn to orange color) that one can <kbd>Drag</kbd> to rotate:
+This tool consists of four circular manipulators (selected manipulator will turn to orange color) that you can <kbd>Drag</kbd> to rotate:
 
 - one cyan (outer, biggest circle) manipulator that rotates the object in the screen space
 - 3 smaller red, green and blue circle manipulators allowing rotation around each of the X, Y and Z axes separately. For 2D orthographic view, the 2 of them are perpendicular to the X- and Y-axis, so the circles only appear as two lines crossing the object.
@@ -201,7 +201,7 @@ To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pre
 
 ![Scale object](images/editor/scale.png){.inline}![Scale object 3D](images/editor/scale_3d.png){.inline}
 
-This tool consists of a set of square/cube manipulators (selected manipulator will turn to orange color) that one can <kbd>Drag</kbd> to scale:
+This tool consists of a set of square/cube manipulators (selected manipulator will turn to orange color) that you can <kbd>Drag</kbd> to scale:
 
 - one cyan cube in the center scales the object uniformly in all axes (including Z).
 - 3 red, blue and green cube manipulators scale the object along each of the X, Y and Z axes separately.
