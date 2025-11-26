@@ -51,8 +51,8 @@ Lists all the files and folders that are part of your project in a tree structur
 The center view shows the currently open file in a specific editor for that file type, for example script files are opened in the built-in Code Editor, while visual components - in 3D Visual Editor. All Visual Editors allows you to change the camera view:
 
 - Pan: <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Left Mouse Button</kbd> or <kbd>Right Mouse Button</kbd>
-- Zoom: <kbd>Scroll Mouse Wheel</kbd> or <kbd>Alt</kbd>/<kbd>Option</kbd> + <kbd>Right Mouse Button</kbd> (three button mouse) or <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>Left Mouse Button</kbd> (one button).
-- Rotate in 3D around selection: <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>Left Mouse Button</kbd>.
+- Zoom: <kbd>Scroll Mouse Wheel</kbd> or <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Right Mouse Button</kbd>.
+- Rotate in 3D around selection: <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd>.
 
 #### Toolbar
 There is a toolbar in the top right corner of the scene view where one can find object manipulation tools (from left):
