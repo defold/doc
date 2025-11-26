@@ -285,9 +285,6 @@ The editor logs files can be found here:
 You can also get access to editor logs while the Editor is running if it is started from a terminal/command prompt. To launch the Editor use command:
 
 ```shell
-# Windows:
-$ .\path\to\Defold\Defold.exe
-
 # Linux:
 $ ./path/to/Defold/Defold
 
