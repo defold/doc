@@ -26,8 +26,10 @@ MY PROJECTS
 TEMPLATES
 : Contains empty or almost empty basic projects made for quick start of a new Defold project for certain platforms or using certain extensions.
 
+
 TUTORIALS
 : Contains projects with guided tutorials to learn, play and modify, if you would like to follow a tutorial.
+
 
 SAMPLES
 : Contains projects prepared to showcase certain use cases.
@@ -143,7 +145,7 @@ In the `View` menu you can also toggle or change other visibility related settin
 If you have multiple files open, a separate tab for each file is shown at the top of the Editor view.  Tabs in a single pane can be moved around - <kbd>Drag and Drop</kbd> them to swap their positions inside the tabs bar. You can also:
 
 - <kbd>Right Mouse Click</kbd> on a tab to open a _Context Menu_,
-- Click `Close` (<<kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>W</kbd>) a single tab,
+- Click `Close` (<kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>W</kbd>) a single tab,
 - Click `Close Others` to close all tabs except the selected one,
 - Click `Close All` (<kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd>+<kbd>W</kbd>) to close all tabs in the active pane,
 - Select `➝| Open As` - to use other than default editor or associated external tool set in `File ▸ Preferences ▸ Code ▸ Custom Editor`. Check more in [Preferences manual](/manuals/editor-preferences).
