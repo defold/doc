@@ -34,7 +34,7 @@ TUTORIALS
 SAMPLES
 : Contains projects prepared to showcase certain use cases.
 
-  ![new project](images/editor/start_templates.png)
+  ![New project](images/editor/start_templates.png)
 
 When you create a new project it is stored on your local drive and any edits you do are saved locally.
 
@@ -44,7 +44,7 @@ You can learn more about the different options in the [Project Setup manual](htt
 
 In the bottom left corner of the starting screen you can see a Language selection - select from the available currently localizations (since Defold 1.11.2). This is also available in the Editor in `File ▸ Preferences ▸ General ▸ Editor Language`.
 
-![new project](images/editor/languages.png)
+![Languages](images/editor/languages.png)
 
 ## The Editor panes
 
@@ -72,7 +72,7 @@ There is a toolbar in the top right corner of the scene view where you can find 
 
 *Move* (<kbd>W</kbd>), *Rotate* (<kbd>E</kbd>), *Scale* (<kbd>R</kbd>), *Grid Settings* `▦`, *Align Camera 2D/3D* `2D`, *Camera Perspective/Orthographic Toggle* and *Visibility Filters* `👁`.
 
-![toolbar](images/editor/toolbar.png)
+![Toolbar](images/editor/toolbar.png)
 
 ### 3. Outline pane
 
@@ -84,7 +84,7 @@ This view shows the content of the file currently being edited, but in a hierarc
 
 It is possible to toggle the visibility of game objects and visual components by clicking on the little `👁` Eye Icon to the right of an element in the list (Defold 1.9.8 and newer).
 
-![toolbar](images/editor/outline.png)
+![Outline](images/editor/outline.png)
 
 ### 4. Properties pane
 
@@ -92,7 +92,7 @@ This view shows properties associated with the currently selected item, like Id,
 
 You can also <kbd>Drag</kbd> the `↕` Up-Down Arrow and move mouse to change value of the given numerical property (1.10.2+).
 
-![toolbar](images/editor/properties.png)
+![Properties](images/editor/properties.png)
 
 ### 5. Tools pane
 
