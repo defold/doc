@@ -1639,6 +1639,10 @@
                         "name": "Push notifications"
                     },
                     {
+                        "path": "/extension-pad/",
+                        "name": "Play Asset Delivery"
+                    },
+                    {
                         "path": "/extension-safearea",
                         "name": "Safe Area"
                     },
