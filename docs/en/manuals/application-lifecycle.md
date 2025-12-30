@@ -50,7 +50,7 @@ This pass carries out message delivery, the actual factory game object spawning 
 Studying the diagram above reveals that it is entirely possible to load a [collection proxy](/manuals/collection-proxy) during `init()`, ensure all its contained objects are initialized, and then unload the collection through the proxy - all this before the first component `update()` is called, i.e. before the engine has left the initialization stage and entered the update loop:
 
 ```lua
-function init(self)>
+function init(self)
     print("init()")
     msg.post("#collectionproxy", "load")
 end
