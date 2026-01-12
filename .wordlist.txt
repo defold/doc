@@ -342,6 +342,7 @@ preprocessor
 prerendered
 preselect
 prewarm
+Pre-initialization
 Pro
 procedurally
 profi

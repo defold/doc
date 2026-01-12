@@ -29,11 +29,11 @@ This is where your game starts and is the first step of the running game. It can
 
 ![Initizalization](images/application_lifecycle/initialization.png)
 
-### Pre Init
+### Pre-initialization
 
-During `Pre Init` phase, the engine takes many steps, before the main (bootstrap) collection is loaded. The memory profiler, sockets, graphics, HID (input devices), sound, physics and much more are set up. The application configuration (*game.project*) is also loaded and set up.
+During `Pre-initialization` phase, the engine takes many steps, before the main (bootstrap) collection is loaded. The memory profiler, sockets, graphics, HID (input devices), sound, physics and much more are set up. The application configuration (*game.project*) is also loaded and set up.
 
-![Pre Init](images/application_lifecycle/pre_init.png)
+![Pre-initialization](images/application_lifecycle/pre_init.png)
 
 The first user-controllable entry point, at the end of engine initialization, is the call to the current render script’s `init()` function.
 
@@ -51,7 +51,7 @@ The order in which game object component `init()` functions are called is unspec
 
 ### Post Update in Initialization
 
-The engine then performs a full `Post Update` pass - the same pass that is performed after each `Update Loop` step later on. It is performed at the end of intialization, because your `init()` code can post new messages, instruct factories to spawn new objects, mark objects for deletion, and perform other actions.
+The engine then performs a full `Post Update` pass - the same pass that is performed after each `Update Loop` step later on. It is performed at the end of initialization, because your `init()` code can post new messages, instruct factories to spawn new objects, mark objects for deletion, and perform other actions.
 
 ![Post Update](images/application_lifecycle/post_init.png)
 
