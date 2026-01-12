@@ -8,7 +8,7 @@ brief: This manual details the lifecycle of Defold games and applications.
 The lifecycle of a Defold application or game is, on the large scale, simple. The engine moves through three stages of execution: initialization, the update loop (where apps and games spend most of their time), and finalization.
 
 ::: sidenote
-The manual is regarding version 1.12.0+, were changes regarding lifecycle, and newly introduced `late_update()` function, were introduced. Please refer to the [Release Notes](https://forum.defold.com/t/defold-1-12-0-has-been-released/82214).
+The manual is regarding Defold versions from 1.12.0. In version 1.12.0 changes regarding lifecycle and new `late_update()` function were introduced.
 :::
 
 ![Lifecycle overview](images/application_lifecycle/application_lifecycle.png)
@@ -168,12 +168,10 @@ Then it loops:
 
 | Step | Engine Phase | Lua Callback | Comment |
 |-|-|-|-|
-| 1 | **Fixed Update** | `fixed_update()` | Called `0..N` times per frame depending on timing for each component type that implements Pre Fixed Update in the priority order (usually scripts). It includes *Physics* components Fixed Update steps. |
-| 2 | **Update** | `update()` | Called once per frame for each component type that implements Pre Update in the internal priority order (usually scripts components). Additionally GO property animations started with `go.animate()` are updated here as a separate component type. |
-| 3 | **Fixed Update** | | Called `0..N` times per frame depending on timing for each component type that implements fixed update in the internal priority order. Non-fixed **Physics** components tasks are updated here. |
-| 4 | **Update** | | Called once per frame for each component type that implements update in the internal priority order. For each enabled Collection Proxy the `Update` phase is called recursively from step 1. |
-| 5 | **Late Update** | `late_update()` | Called once per frame for each component type that implements late update in the internal priority order. |
-| 6 | **Transforms** | | One additional final transforms update is performed at the end for each component if needed. |
+| 1 | **Fixed Update** | | Called `0..N` times per frame depending on timing for each component type that implements Fixed Update in the internal priority order. It includes *Physics* components Fixed Update steps. |
+| 2 | **Update** | | Called once per frame for each component type that implements Update in the internal priority order. Additionally GO property animations started with `go.animate()` are updated here as a separate component type. For each enabled Collection Proxy the `Update` phase is called recursively from step 1. |
+| 3 | **Late Update** | `late_update()` | Called once per frame for each component type that implements late update in the internal priority order. |
+| 4 | **Transforms** | | One additional final transforms update is performed at the end for each component if needed. |
 
 If you ever need more details on how Defold works internally during the Update phase, it is worth reading the [`gameobject.cpp`](https://github.com/defold/defold/blob/dev/engine/gameobject/src/gameobject/gameobject.cpp) code itself.
 
@@ -209,7 +207,7 @@ The number of frame updates per second (which equals the number of update-loop r
 
 Defold 1.12.0 introduced an engine throttling API that can skip engine updates and rendering entirely, while still detecting input. Any input wakes up the engine again, and the engine can re-enter throttling after a cooldown.
 
-See `sys.set_engine_throttle()` in the [1.12.0 Release Notes](https://forum.defold.com/t/defold-1-12-0-has-been-released/82214) for details and usage examples.
+See `sys.set_engine_throttle()` API for details and usage examples.
 
 ## Finalization
 
