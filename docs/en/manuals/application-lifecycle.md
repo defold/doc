@@ -168,8 +168,8 @@ Then it loops:
 
 | Step | Engine Phase | Lua Callback | Comment |
 |-|-|-|-|
-| 1 | **Fixed Update** | | Called `0..N` times per frame depending on timing for each component type that implements Fixed Update in the internal priority order. It includes *Physics* components Fixed Update steps. |
-| 2 | **Update** | | Called once per frame for each component type that implements Update in the internal priority order. Additionally GO property animations started with `go.animate()` are updated here as a separate component type. For each enabled Collection Proxy the `Update` phase is called recursively from step 1. |
+| 1 | **Fixed Update** | `fixed_update()` | Called `0..N` times per frame depending on timing for each component type that implements Fixed Update in the internal priority order. It includes *Physics* components Fixed Update steps. |
+| 2 | **Update** | `update()` | Called once per frame for each component type that implements Update in the internal priority order. Additionally GO property animations started with `go.animate()` are updated here as a separate component type. For each enabled Collection Proxy the `Update` phase is called recursively from step 1. |
 | 3 | **Late Update** | `late_update()` | Called once per frame for each component type that implements late update in the internal priority order. |
 | 4 | **Transforms** | | One additional final transforms update is performed at the end for each component if needed. |
 
