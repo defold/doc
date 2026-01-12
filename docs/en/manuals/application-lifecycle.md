@@ -152,8 +152,8 @@ Note that after **each** component type’s update, all messages are dispatched 
 | Step | Engine Phase | Lua Callback | Comment |
 |-|-|-|-|
 | 1 | **Update** | `update()` | Called once per frame for each component type that implements Update in the internal priority order. Additionally GO property animations started with `go.animate()` are updated here as a separate component type. **Physics** components are updated here. For each enabled Collection Proxy the whole `Update` phase is called recursively from step 1. |
-| 3 | **Late Update** | `late_update()` | Called once per frame for each component type that implements Late Update  in the internal priority order. |
-| 4 | **Transforms** | | One additional final transforms update is performed at the end for each component if needed. |
+| 2 | **Late Update** | `late_update()` | Called once per frame for each component type that implements Late Update  in the internal priority order. |
+| 3 | **Transforms** | | One additional final transforms update is performed at the end for each component if needed. |
 
 #### Engine Update Phase with Fixed Timestep
 
