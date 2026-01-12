@@ -7,6 +7,10 @@ brief: This manual details the lifecycle of Defold games and applications.
 
 The lifecycle of a Defold application or game is, on the large scale, simple. The engine moves through three stages of execution: initialization, the update loop (where apps and games spend most of their time), and finalization.
 
+::: sidenote
+The manual is regarding version 1.12.0+, were changes regarding lifecycle, and newly introduced `late_update()` function, were introduced. Please refer to the [Release Notes](https://forum.defold.com/t/defold-1-12-0-has-been-released/82214).
+:::
+
 ![Lifecycle overview](images/application_lifecycle/application_lifecycle.png)
 
 In many cases only a rudimentary understanding of Defold’s inner workings is necessary. However, you might run into edge cases where the exact order Defold carries out its tasks becomes vital. This document describes how the engine runs an application from start to finish.
@@ -51,7 +55,7 @@ The engine then performs a full `Post Update` pass - the same pass that is perfo
 
 ![Post Update](images/application_lifecycle/post_init.png)
 
-This pass carries out message delivery, actual factory game object spawning, and object deletion. Note that the `Post Update` pass includes a "dispatch messages" sequence that not only delivers queued messages, but also processes messages sent to collection proxies. Any subsequent proxy updates (enable, disable, loading, and mark for unloading) are performed during those steps.
+This pass carries out message delivery, actual factory game object spawning, and object deletion. Note that the `Post Update` pass includes a "dispatch messages" sequence that not only delivers queued messages, but also processes messages sent to collection proxies. Any subsequent proxy updates (enable, disable, init, final, loading, and mark for unloading) are performed during those steps.
 
 It is entirely possible to load a [collection proxy](/manuals/collection-proxy) during `init()`, ensure all its contained objects are initialized, and then unload the collection through the proxy - all this before the first component `update()` is called, i.e. before the engine has left the initialization stage and entered the update loop:
 
@@ -102,7 +106,9 @@ Any game object that has acquired input focus and contains collection proxy comp
 
 The `Update` phase is a part of the Update Loop. It is started once for the root collection, and then runs recursively for each enabled collection proxy.
 
-Within a collection, Defold processes callbacks by a component type that implements Lua callbacks (most commonly script components): it iterates over all of them and calls the relevant Lua callback on each of them, then moves on to the next callback stage. The callback stages order is:
+Within a collection, Defold processes callbacks by component type: it iterates over all instances of a component type that implements the relevant stage, calls the Lua callback for each instance, flushes messages, then moves on to the next component type.
+
+The high-level order of *script* component Lua callback stages is:
 
 1. `fixed_update()` - called 0..N times per frame (if using fixed timestep)
 2. `update()` - called 1 time per frame
@@ -129,9 +135,15 @@ Before **each** component-type update, multiple times during the `Update Loop`, 
 
 There is one additional final transforms update at the end of the `Update Loop`, if needed.
 
-#### Engine Update Phase
+#### Engine Update Phase (no fixed updates)
 
-When `Use Fixed Timestep` is `false`, at the beginning of the phase it prepares `dt` and then loops:
+The tables below describe the *engine-level* update passes. They deliberately omit the exact internal component priority order (which is an engine implementation detail), but they reflect the ordering guarantees relevant to scripting:
+
+- `fixed_update()` runs before `update()`
+- `late_update()` runs after `update()`
+- posted messages are flushed between component-type updates, and also between the script callback stages
+
+When `Use Fixed Timestep` is `false` and/or Fixed Update Frequency is `0`, at the beginning of the phase it prepares `dt` and then the flow is as presented in the table below:
 
 :::sidenote
 Note that after **each** component type’s update, all messages are dispatched - this is not marked in the table below to keep it clean.
@@ -139,14 +151,14 @@ Note that after **each** component type’s update, all messages are dispatched 
 
 | Step | Engine Phase | Lua Callback | Comment |
 |-|-|-|-|
-| 1 | **Pre Update** | `update()` | Called once per frame for each component type that implements Pre Update in the internal priority order (usually scripts). Additionally GO property animations started with `go.animate()` are updated here as a separate component type. |
-| 2 | **Update** | | Called once per frame for each component type that implements Update in the internal priority order. **Physics** components are updated here. For each enabled Collection Proxy the whole `Update` phase is called recursively from step 1. |
-| 3 | **Late Update** | `late_update()` | Called once per frame for each component type that implements late update in the internal priority order. |
+| 1 | **Update** | `update()` | Called once per frame for each component type that implements Update (usually scripts) in the internal priority order (usually scripts). Additionally GO property animations started with `go.animate()` are updated here as a separate component type. |
+| 2 | **Update** (engine components) | | Called once per frame for each other component type that implements Update in the internal priority order. **Physics** components are updated here. For each enabled Collection Proxy the whole `Update` phase is called recursively from step 1. |
+| 3 | **Late Update** | `late_update()` | Called once per frame for each component type that implements Late Update  in the internal priority order. |
 | 4 | **Transforms** | | One additional final transforms update is performed at the end for each component if needed. |
 
 #### Engine Update Phase with Fixed Timestep
 
-When `Use Fixed Timestep` is `true`, at the beginning of the phase it prepares `dt` (delta time),  `fixed_dt` and `num_fixed_steps` (`0..N`) - so how many times fixed update will be called, determined by the time since last update to ensure there is a fixed amount of updates.
+When `Use Fixed Timestep` is `true` and Fixed Update Frequency is non-zero, at the beginning of the phase it prepares `dt` (delta time),  `fixed_dt` and `num_fixed_steps` (`0..N`) - so how many times fixed update will be called, determined by the time since last update to ensure there is a fixed amount of updates.
 
 :::sidenote
 Note that after **each** component type’s update, all messages are dispatched - this is not marked in the table below to keep it clean.
@@ -156,9 +168,9 @@ Then it loops:
 
 | Step | Engine Phase | Lua Callback | Comment |
 |-|-|-|-|
-| 1 | **Pre Fixed Update** | `fixed_update()` | Called `0..N` times per frame depending on timing for each component type that implements Pre Fixed Update in the priority order (usually scripts). |
-| 2 | **Pre Update** | `update()` | Called once per frame for each component type that implements Pre Update in the internal priority order (usually scripts components). Additionally GO property animations started with `go.animate()` are updated here as a separate component type. |
-| 3 | **Fixed Update** | | Called `0..N` times per frame depending on timing for each component type that implements fixed update in the internal priority order. **Physics** components are updated here. |
+| 1 | **Fixed Update** | `fixed_update()` | Called `0..N` times per frame depending on timing for each component type that implements Pre Fixed Update in the priority order (usually scripts). It includes *Physics* components Fixed Update steps. |
+| 2 | **Update** | `update()` | Called once per frame for each component type that implements Pre Update in the internal priority order (usually scripts components). Additionally GO property animations started with `go.animate()` are updated here as a separate component type. |
+| 3 | **Fixed Update** | | Called `0..N` times per frame depending on timing for each component type that implements fixed update in the internal priority order. Non-fixed **Physics** components tasks are updated here. |
 | 4 | **Update** | | Called once per frame for each component type that implements update in the internal priority order. For each enabled Collection Proxy the `Update` phase is called recursively from step 1. |
 | 5 | **Late Update** | `late_update()` | Called once per frame for each component type that implements late update in the internal priority order. |
 | 6 | **Transforms** | | One additional final transforms update is performed at the end for each component if needed. |
@@ -192,6 +204,12 @@ Then graphics are rendered, as is any rendering of the visual profiler (see the 
 The number of frame updates per second (which equals the number of update-loop runs per second) can be set in the project settings, or programmatically by sending a `set_update_frequency` message to the `@system` socket. In addition, it is possible to set the _time step_ for collection proxies individually by sending a `set_time_step` message to the proxy. Changing a collection’s time step does not affect the frame rate. It does affect the physics update time step as well as the `dt` variable passed to `update().` Also note that altering the time step does not alter the number of times `update()` will be called each frame --- it is always exactly once.
 
 (See the [Collection proxy manual](/manuals/collection-proxy) and [`set_time_step`](/ref/collectionproxy#set-time-step) for details)
+
+#### Engine throttling
+
+Defold 1.12.0 introduced an engine throttling API that can skip engine updates and rendering entirely, while still detecting input. Any input wakes up the engine again, and the engine can re-enter throttling after a cooldown.
+
+See `sys.set_engine_throttle()` in the [1.12.0 Release Notes](https://forum.defold.com/t/defold-1-12-0-has-been-released/82214) for details and usage examples.
 
 ## Finalization
 
