@@ -333,6 +333,7 @@ prebuild
 prebuilt
 preconfigured
 prehash
+preinitialization
 preload
 premultiplied
 premultiply
@@ -342,7 +343,6 @@ preprocessor
 prerendered
 preselect
 prewarm
-Pre-initialization
 Pro
 procedurally
 profi

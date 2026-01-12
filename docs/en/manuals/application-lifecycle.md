@@ -29,11 +29,11 @@ This is where your game starts and is the first step of the running game. It can
 
 ![Initizalization](images/application_lifecycle/initialization.png)
 
-### Pre-initialization
+### Preinitialization
 
-During `Pre-initialization` phase, the engine takes many steps, before the main (bootstrap) collection is loaded. The memory profiler, sockets, graphics, HID (input devices), sound, physics and much more are set up. The application configuration (*game.project*) is also loaded and set up.
+During `Preinitialization` phase, the engine takes many steps, before the main (bootstrap) collection is loaded. The memory profiler, sockets, graphics, HID (input devices), sound, physics and much more are set up. The application configuration (*game.project*) is also loaded and set up.
 
-![Pre-initialization](images/application_lifecycle/pre_init.png)
+![Preinitialization](images/application_lifecycle/pre_init.png)
 
 The first user-controllable entry point, at the end of engine initialization, is the call to the current render script’s `init()` function.
 
