@@ -1,11 +1,11 @@
 ---
 title: Defold 中的碰撞事件
-brief: 可以通过使用 `physics.set_listener()` 将碰撞事件处理集中化，将所有碰撞和交互消息定向到单个指定函数。
+brief: 可以通过使用 `physics.set_event_listener()` 将碰撞事件处理集中化，将所有碰撞和交互消息定向到单个指定函数。
 ---
 
 # Defold 物理事件处理
 
-以前，Defold 中的物理交互是通过向碰撞对象的所有组件广播消息来处理的。然而，从版本 1.6.4 开始，Defold 通过 `physics.set_listener()` 函数提供了一种更集中的方法。此函数允许您设置一个自定义监听器来在一个地方处理所有物理交互事件，从而简化代码并提高效率。
+以前，Defold 中的物理交互是通过向碰撞对象的所有组件广播消息来处理的。然而，从版本 1.6.4 开始，Defold 通过 `physics.set_event_listener()` 函数提供了一种更集中的方法。此函数允许您设置一个自定义监听器来在一个地方处理所有物理交互事件，从而简化代码并提高效率。
 
 ## 设置物理世界监听器
 
@@ -19,7 +19,7 @@ brief: 可以通过使用 `physics.set_listener()` 将碰撞事件处理集中�
 function init(self)
     -- 假设此脚本附加到代理加载的集合中的游戏对象上
     -- 为此集合代理的物理世界设置物理世界监听器
-    physics.set_listener(physics_world_listener)
+    physics.set_event_listener(physics_world_listener)
 end
 ```
 
@@ -101,7 +101,7 @@ local function physics_world_listener(self, event, data)
 end
 
 function init(self)
-    physics.set_listener(physics_world_listener)
+    physics.set_event_listener(physics_world_listener)
 end
 ```
 
@@ -132,6 +132,6 @@ function on_message(self, message_id, message)
 end
 
 function init(self)
-    physics.set_listener(physics_world_listener)
+    physics.set_event_listener(physics_world_listener)
 end
 ```

@@ -20,7 +20,7 @@ When two collision objects interact, we check if we should send a message to the
 
 E.g. given the "Generate Contact Events" checkboxes:
 
-When using `physics.set_listener()`:
+When using `physics.set_event_listener()`:
 
 | Component A | Component B | Send Message |
 |-------------|-------------|--------------|
