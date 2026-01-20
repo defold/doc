@@ -81,22 +81,24 @@ end
 ## 使用示例
 
 ```lua
-local function physics_world_listener(self, event, data)
-    if event == hash("contact_point_event") then
-        -- 处理详细的接触点数据
-        pprint(data)
-    elseif event == hash("collision_event") then
-        -- 处理一般碰撞数据
-        pprint(data)
-    elseif event == hash("trigger_event") then
-        -- 处理触发器交互数据
-        pprint(data)
-    elseif event == hash("ray_cast_response") then
-        -- 处理射线投射命中数据
-        pprint(data)
-    elseif event == hash("ray_cast_missed") then
-        -- 处理射线投射未命中数据
-        pprint(data)
+local function physics_world_listener(self, events)
+    for _,event in ipair(events) do
+        if event.type == hash("contact_point_event") then
+            -- 处理详细的接触点数据
+            pprint(event)
+        elseif event.type == hash("collision_event") then
+            -- 处理一般碰撞数据
+            pprint(event)
+        elseif event.type == hash("trigger_event") then
+            -- 处理触发器交互数据
+            pprint(event)
+        elseif event.type == hash("ray_cast_response") then
+            -- 处理射线投射命中数据
+            pprint(event)
+        elseif event.type == hash("ray_cast_missed") then
+            -- 处理射线投射未命中数据
+            pprint(event)
+        end
     end
 end
 
@@ -111,16 +113,18 @@ end
 
 以下是一个如何避免这些限制的小示例：
 ```lua
-local function physics_world_listener(self, event, data)
-    if event == hash("contact_point_event") then
-        local position_a = data.a.normal * SIZE
-        local position_b =  data.b.normal * SIZE
-        local url_a = msg.url(nil, data.a.id, "collisionobject")
-        local url_b = msg.url(nil, data.b.id, "collisionobject")
-        -- 填充消息，方式与传递给 `physics.create_joint()` 的参数相同
-        local message = {physics.JOINT_TYPE_FIXED, url_a, "joind_id", position_a, url_b, position_b, {max_length = SIZE}}
-        -- 向对象本身发送消息
-        msg.post(".", "create_joint", message)
+local function physics_world_listener(self, events)
+    for _,event in ipairs(events) do
+        if event.type == hash("contact_point_event") then
+            local position_a = event.a.normal * SIZE
+            local position_b =  event.b.normal * SIZE
+            local url_a = msg.url(nil, event.a.id, "collisionobject")
+            local url_b = msg.url(nil, event.b.id, "collisionobject")
+            -- 填充消息，方式与传递给 `physics.create_joint()` 的参数相同
+            local message = {physics.JOINT_TYPE_FIXED, url_a, "joind_id", position_a, url_b, position_b, {max_length = SIZE}}
+            -- 向对象本身发送消息
+            msg.post(".", "create_joint", message)
+        end
     end
 end
 

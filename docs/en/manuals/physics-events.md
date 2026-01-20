@@ -81,22 +81,24 @@ This event is sent when a raycast does not hit any object.
 ## Example Usage
 
 ```lua
-local function physics_world_listener(self, event, data)
-    if event == hash("contact_point_event") then
-        -- Handle detailed contact point data
-        pprint(data)
-    elseif event == hash("collision_event") then
-        -- Handle general collision data
-        pprint(data)
-    elseif event == hash("trigger_event") then
-        -- Handle trigger interaction data
-        pprint(data)
-    elseif event == hash("ray_cast_response") then
-        -- Handle raycast hit data
-        pprint(data)
-    elseif event == hash("ray_cast_missed") then
-        -- Handle raycast miss data
-        pprint(data)
+local function physics_world_listener(self, events)
+    for _,event in ipairs(events) do
+        if event.type == hash("contact_point_event") then
+            -- Handle detailed contact point data
+            pprint(event)
+        elseif event.type == hash("collision_event") then
+            -- Handle general collision data
+            pprint(event)
+        elseif event.type == hash("trigger_event") then
+            -- Handle trigger interaction data
+            pprint(event)
+        elseif event.type == hash("ray_cast_response") then
+            -- Handle raycast hit data
+            pprint(event)
+        elseif event.type == hash("ray_cast_missed") then
+            -- Handle raycast miss data
+            pprint(event)
+        end
     end
 end
 
@@ -111,16 +113,18 @@ The listener calls synchronously at the moment it occurs. It happens in the midd
 
 Here is a small example of how to avoid these limitations:
 ```lua
-local function physics_world_listener(self, event, data)
-    if event == hash("contact_point_event") then
-        local position_a = data.a.normal * SIZE
-        local position_b =  data.b.normal * SIZE
-        local url_a = msg.url(nil, data.a.id, "collisionobject")
-        local url_b = msg.url(nil, data.b.id, "collisionobject")
-        -- fill the message in the same way arguments should be passed to `physics.create_joint()`
-        local message = {physics.JOINT_TYPE_FIXED, url_a, "joind_id", position_a, url_b, position_b, {max_length = SIZE}}
-        -- send message to the object itself
-        msg.post(".", "create_joint", message)
+local function physics_world_listener(self, events)
+    for _,event in ipairs(events) do
+        if event.type == hash("contact_point_event") then
+            local position_a = event.a.normal * SIZE
+            local position_b =  event.b.normal * SIZE
+            local url_a = msg.url(nil, event.a.id, "collisionobject")
+            local url_b = msg.url(nil, event.b.id, "collisionobject")
+            -- fill the message in the same way arguments should be passed to `physics.create_joint()`
+            local message = {physics.JOINT_TYPE_FIXED, url_a, "joind_id", position_a, url_b, position_b, {max_length = SIZE}}
+            -- send message to the object itself
+            msg.post(".", "create_joint", message)
+        end
     end
 end
 
