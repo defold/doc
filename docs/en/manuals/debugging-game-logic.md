@@ -87,6 +87,11 @@ Setting and clearing breakpoints
 
   To set or clear a breakpoint, click in the column just right of the line numbers in the code editor. You can also select <kbd>Edit ▸ Toggle Breakpoint</kbd> from the menu.
 
+Disabling and enabling breakpoints
+: Breakpoints can be temporarily disabled without removing them. When disabled, they are ignored during execution but can be re-enabled at any time. Right-click it in the code editor gutter, then toggle the Enabled checkbox. Disabled breakpoints appear hollowed out to indicate they are inactive.
+
+  ![disable breakpoint](images/debugging/disable_breakpoint.png)
+
 Setting conditional breakpoints
 : You can configure your breakpoint to contain a condition that needs to evaluate to true for the breakpoint to trigger. The condition can access local variables available at the line during code execution.
 
@@ -103,6 +108,26 @@ Evaluating Lua expressions
 
 Detaching the debugger
 : Select <kbd>Debug ▸ Detach Debugger</kbd> to detach the debugger from the game. It will continue running immediately.
+
+## Breakpoints Tab
+
+  ![breakpoints tab](images/debugging/breakpoints_tab.png)
+
+  When working with multiple breakpoints across different scripts, the Breakpoints tab provides a centralized view for managing all your breakpoints in one place.
+
+##### Individual Breakpoint Controls
+
+  For working with individual breakpoints:
+  - Click the red trash icon to remove a breakpoint
+  - Double-click the row (outside the condition area) to navigate to that line in the Code View
+  - Double-click the condition cell or click the pen icon to edit conditional breakpoints
+  - Click the X clear button when hovering over a condition cell to clear the condition
+
+##### Batch Operations
+
+  Select multiple breakpoints using Ctrl/Cmd+click or Shift+click, then right-click to perform bulk actions. You can edit conditions across several breakpoints simultaneously, toggle their active state, or remove them entirely.
+
+  The toolbar buttons allow you to enable, disable, or toggle all breakpoints at once, useful when you want to run your game without stopping but don't want to lose their positions. You can also remove all when you're done with your debugging session.
 
 ## Lua debug library
 
