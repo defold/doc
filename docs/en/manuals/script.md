@@ -54,21 +54,30 @@ function final(self)
 end
 ```
 
-#### `update(self, dt)`
-Called once each frame. `dt` contains the delta time since the last frame.
+#### `fixed_update(self, dt)`
+Frame-rate independent update. Parameter `dt` contains the delta time since the last update. This function is called `0-N` times depending on a frame timing and the fixed update frequency. It is called only when `Physics`-->`Use Fixed Timestep` is enabled, and `Engine`-->`Fixed Update Frequency` is larger than 0 in *game.project*. Useful when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation.
 
 ```lua
+function fixed_update(self, dt)
+  msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+end
+```
+
+#### `update(self, dt)`
+Called once each frame after `fixed_update` callback of all scripts (if Fixed Timestep is enabled). Parameter `dt` contains the delta time since the last frame.
+
+```luadifferent
 function update(self, dt)
   self.age = self.age + dt -- increase age with the timestep
 end
 ```
 
-#### `fixed_update(self, dt)`
-Frame-rate independent update. `dt` contains the delta time since the last update. This function is called when `engine.fixed_update_frequency` is enabled (!= 0). Useful when you wish to manipulate physics objects at regular intervals to achieve a stable physics simulation when `physics.use_fixed_timestep` is enabled in *game.project*.
+#### `late_update(self, dt)`
+Called once each frame after `update` callback of all scripts, but just before render. Parameter `dt` contains the delta time since the last frame.
 
 ```lua
-function fixed_update(self, dt)
-  msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+function late_update(self, dt)
+  go.set_position("/camera", self.final_camera_position)
 end
 ```
 
