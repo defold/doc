@@ -140,6 +140,16 @@ There are some caveats to updating the vertex attributes however, whether or not
 Setting custom vertex data in runtime is currently only supported for sprite components.
 :::
 
+In the case that a vertex attribute is either a scalar or a vector type other than a `Vec4` you can still set the data using `go.set`:
+
+```lua
+-- The last two components in the vec4 will not be used!
+go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
+go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
+```
+
+The same is true for matrix attributes, if the attribute is a matrix type other than a `Mat4` you can still set the data using `go.set`.
+
 ### Instancing
 
 Instancing is a technique used to efficiently draw multiple copies of the same object in a scene. Instead of creating a separate copy of the object each time it's used, instancing allows the graphics engine to create a single object and then reuse it multiple times. For example, in a game with a large forest, instead of creating a separate tree model for each tree, instancing allows you to create one tree model and then place it hundreds or thousands of times with different positions and scales. The forest can now be rendered with a single draw call instead of individual draw calls for each tree.
