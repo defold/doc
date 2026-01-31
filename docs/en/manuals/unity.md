@@ -88,7 +88,7 @@ Other useful Editor related naming:
 | Console | Console | Shows prints, warnings, and errors, and supports log categories, filtering, searching, and clickable links. The Unity Console is detachable. Compilation errors are shown in the Unity Console, while in Defold they appear in a separate Build Errors tab. |
 | Build Errors | Compilation Errors in Console | Displays errors when building and bundling the project. Lua scripts are interpreted, while Unity scripts are compiled. Defold uses a Lua Language Server for static analysis. |
 | Search Results | Search / Project Search | Shows results from a global search across the whole project. Unity provides additional search filters by type and labels. |
-| Curve Editor | Unity Curve Editor | llows editing curves for particle effect properties. Unity also uses curve editors for animations. |
+| Curve Editor | Unity Curve Editor | Allows editing curves for particle effect properties. Unity also uses curve editors for animations. |
 | [Debugger](/manuals/debugging/) | Visual Studio Debugger | Lets you set, enable, disable, and remove breakpoints (including conditional ones) and step through code execution. It’s fully integrated in Defold out of the box. |
 
 ---
@@ -127,7 +127,7 @@ The table below presents similar Unity components for quick lookup:
 | Defold | Unity | Comment |
 |---|---|---|
 | [Sprite](/manuals/sprite/) | Sprite Renderer | Both support custom materials. In Defold, you can change the tint (color property) only via code. |
-| [Tilemap](/manuals/tilemap/) | Tilemap / Grid | DDefold’s Tilemap Editor supports only square grids (but there’s an extension for, e.g. [Hexagon](https://github.com/selimanac/defold-hexagon/)) and has no built-in tile rules, but tools like [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/) or [Sprite Fusion](https://defold.com/assets/spritefusion/) have export to Defold options. |
+| [Tilemap](/manuals/tilemap/) | Tilemap / Grid | Defold’s Tilemap Editor supports only square grids (but there’s an extension for, e.g. [Hexagon](https://github.com/selimanac/defold-hexagon/)) and has no built-in tile rules, but tools like [Tiled](https://defold.com/assets/tiled/), [TileSetter](https://defold.com/assets/tilesetter/) or [Sprite Fusion](https://defold.com/assets/spritefusion/) have export to Defold options. |
 | [Label](/manuals/label/) | Text / TextMeshPro | Defold has a [RichText extension](https://defold.com/assets/richtext/) for rich formatting (similar to TextMeshPro). |
 | [Sound](/manuals/sound/) | AudioSource | Defold has only a global sound source (not spatial). There is an [FMOD extension](https://github.com/defold/extension-fmod) for Defold. |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | In Defold, a Factory is a component with a specific prototype (prefab). In Unity, you can instantiate any prefab from code. |
@@ -346,9 +346,9 @@ Two useful shorthands are:
 
 Relative addressing and shorthands allow you to write URLs that are reusable in different contexts and game objects without specifying full paths.
 
-### Messagging to GUI and render
+### Messaging to GUI and render
 
-Because Defold separates the GUI world from the Game Object world, you can also send messages also from your game object `.scripts` to `.gui_scripts`.
+Because Defold separates the GUI world from the Game Object world, you can also send messages from your game object `.scripts` to `.gui_scripts`.
 
 You can also send messages to special system namespaces using an identifier that starts with `@`. For example, the render system can be addressed via `@render`: and you can use this to control certain built-in rendering features, such as changing the projection in the default render script:
 
@@ -522,7 +522,7 @@ When you open a `*.gui` component file in Defold, you are presented with canvas 
 
 ### GUI Script
 
-GUI component have a special property for GUI scripts - you assign one `*.gui_script` file per component and it allows to modify the bahaviour of the component, so it's very similar to regular scripts, except it doesn’t use the `go.*` namespace (which is for game object scripts). Instead, it uses a special `gui.*` namespace API that only works inside GUI scripts (`*.gui_script`). You can think of it like a separate Scene.ity UI (uGUI) with Canvas.
+GUI component have a special property for GUI scripts - you assign one `*.gui_script` file per component and it allows to modify the behaviour of the component, so it's very similar to regular scripts, except it doesn’t use the `go.*` namespace (which is for game object scripts). Instead, it uses a special `gui.*` namespace API that only works inside GUI scripts (`*.gui_script`). You can think of it like a separate Scene. Unity UI (uGUI) with Canvas.
 
 At its core, Defold’s GUI is a “world” separate from the game objects world, though it's very similar and duplicates a lot of behavior. It isn’t built with regular Game Objects that live in Collections - except, it's a separate Component on its own with GUI nodes organized in a tree and optional GUI script to define the behavior.
 
