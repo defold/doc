@@ -503,8 +503,6 @@ For further details read the [Application Lifecycle Manual](/manuals/application
 
 ## GUI
 
-Defold’s GUI system performs a specific role for handling on-screen User Interfaces - letting you design HUDs, menus, overlays, dialogs, and other elements, but it does so with a separate component and runtime API, similar to UI Toolkit / UnGUI
-
 Defold’s GUI system performs a specific role for handling on-screen User Interfaces - letting you design HUDs, menus, overlays, dialogs, and other elements, but it does so with a separate component and runtime API, similar to UI Toolkit / Unity UI (uGUI) with Canvas.
 
 At its core, Defold’s GUI is a “world” separate from the game objects world, though it's very similar and duplicates a lot of behavior. It isn’t built with regular Game Objects that live in Collections - except, it's a separate Component on its own with GUI nodes organized in a tree and optional GUI script to define the behavior.
@@ -523,23 +521,6 @@ When you open a `*.gui` component file in Defold, you are presented with canvas 
 ### GUI Script
 
 GUI component have a special property for GUI scripts - you assign one `*.gui_script` file per component and it allows to modify the behaviour of the component, so it's very similar to regular scripts, except it doesn’t use the `go.*` namespace (which is for game object scripts). Instead, it uses a special `gui.*` namespace API that only works inside GUI scripts (`*.gui_script`). You can think of it like a separate Scene. Unity UI (uGUI) with Canvas.
-
-At its core, Defold’s GUI is a “world” separate from the game objects world, though it's very similar and duplicates a lot of behavior. It isn’t built with regular Game Objects that live in Collections - except, it's a separate Component on its own with GUI nodes organized in a tree and optional GUI script to define the behavior.
-
-### GUI Nodes
-
-When you open a `*.gui` component file in Defold, you are presented with canvas where you place `"GUI nodes"`. These are the building blocks of the GUI. You can add GUI nodes of type:
-
-- Box (rectangular shape with any texture)
-- Text (with any font)
-- Pie (eliptical/circular/ring-like shaped "progress" element with texture)
-- ParticleFX
-- Template (another whole nested `.gui` file, like a GUI prefab)
-- and Spine node, when using Spine extension.
-
-### GUI Script
-
-GUI component have a special property for GUI scripts - you assign one `*.gui_script` file per component and it allows to modify the bahaviour of the component, so it's very similar to regular scripts, except it doesn’t use the `go.*` namespace (which is for game object scripts). Instead, it uses a special `gui.*` namespace API that only works inside GUI scripts (`*.gui_script`). You can think of it like a separate Scene.
 
 ### GUI Rendering
 
