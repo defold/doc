@@ -85,7 +85,7 @@ The Defold Editor is divided into 6 main panes. Below is a comparison of Defold 
 | 2. Main Editor | Scene View | The Defold Editor is context-sensitive (different editors for different file types), while Unity uses separate specialized windows (e.g., Animator, Shader Graph). Defold also has a built-in code editor. |
 | 3. Outline | Hierarchy | Defold reflects only the currently opened file or the selected element (game object or component), not a global hierarchy. |
 | 4. Properties | Inspector | Defold shows only the properties for the **current selection** in the Outline, not for all components in the game object. |
-| 5. Tools | Console | Defold provides tools in tabs such as Console, Curve Editor, Build Errors, Search Results, and the Debugger. |
+| 5. Tools | Console | Defold provides tools in tabs such as Console, Curve Editor, Build Errors, Search Results, Breakpoints, and the Debugger. |
 | 6. Changed Files | Unity Version Control (Plastic SCM) | In Defold, once Git is integrated into your project, changed files are shown here. You can still use Git externally. |
 
 Other useful Editor related naming:
@@ -99,7 +99,7 @@ Other useful Editor related naming:
 | Build Errors | Compilation Errors in Console | Lua scripts are interpreted, so there are no compilation errors. However, your project is built, and some errors may appear during the build. Defold also uses a Lua Language Server for static analysis for scripts. |
 | Search Results | Search / Project Search | Filtering by types and labels is not present in Defold. |
 | Curve Editor | Unity Curve Editor | Defold Curve Editor allows editing curves for particle effect properties only. |
-| [Debugger](/manuals/debugging/) | Visual Studio Debugger | Debugger is fully integrated in Defold out of the box. |
+| [Debugger](/manuals/debugging/) | Visual Studio Debugger | Debugger is fully integrated in Defold out of the box. There is an additional tab to track, enable and disable breakpoints. |
 
 ---
 
