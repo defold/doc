@@ -29,11 +29,10 @@ Blender is a free, open-source 3D software which can be downloaded from [blender
 
 ![quad in Blender](images/shadertoy/quad_blender.png)
 
-1. Export the model as a *Collada* file called *`quad.dae`* and drag it into a new Defold project.
-2. Open your "main.collection" file in Defold and create a new game object "star-nest".
-3. Add a *Model* component to "star-nest".
-4. Set the *Mesh* property to the *`quad.dae`* file.
-5. The model is small (2⨉2 units) so we need to scale the "star-nest" game object to a reasonable size. 600⨉600 is a nice large size so set the X and Y scale to 300.
+1. Open your "main.collection" file in Defold and create a new game object "star-nest".
+2. Add a *Model* component to "star-nest".
+3. Set the *Mesh* property to the *`quad.gltf`* file found in `builtins/assets/meshes`.
+4. The model is small (2⨉2 units) so we need to scale the "star-nest" game object to a reasonable size. 600⨉600 is a nice large size so set the X and Y scale to 300.
 
 The model should appear in the scene editor, but it is rendered all black. That is because it has no material set yet:
 

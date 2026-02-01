@@ -23,7 +23,21 @@ With the model created you need to specify a number of properties:
 Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
 
 *Mesh*
-: This property should refer to the glTF *.gltf* or Collada *.dae* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
+: This property should refer to the glTF *.gltf* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
+
+*Create GO Bones*
+: Check this to create a game object for every bone of the model. You can use the game objects to attach other game objects such as weapons to hand bones and so on. 
+
+*Skeleton*
+: This property should refer to the glTF *.gltf* file that contains the skeleton to use for animation. Note that Defold requires a single root bone in your hierarchy.
+
+*Animations*
+: Set this to the *Animation Set File* that contains the animations you want to use on the model.
+
+*Default Animation*
+: This is the animation (from the animation set) that will be automatically played on the model.
+
+In addition to the properties above there will also be a field to assign a material for every mesh of the model:
 
 *Material*
 : Set this property to a material you have created that is suitable for a textured 3D object. There are a number of built-in materials that you can use as a starting point:
@@ -33,17 +47,11 @@ Apart from the properties *Id*, *Position* and *Rotation* the following componen
   * Use *model_skinned.material* for skinned (animated) non-instanced models
   * Use *model_skinned_instances.material* for skinned (animated) instanced models
 
+Depending on the material there will be one or more texture properties:
+
 *Texture*
 : This property should point to the texture image file that you want applied to the object.
 
-*Skeleton*
-: This property should refer to the glTF *.gltf* or Collada *.dae* file that contains the skeleton to use for animation. Note that Defold requires a single root bone in your hierarchy.
-
-*Animations*
-: Set this to the *Animation Set File* that contains the animations you want to use on the model.
-
-*Default Animation*
-: This is the animation (from the animation set) that will be automatically played on the model.
 
 ## Editor manipulation
 
@@ -95,7 +103,7 @@ A model also has a number of different properties that can be manipulated using 
 
 ## Material
 
-3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the glTF *.gltf* or Collada *.dae* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
+3D software commonly allows you to set properties on your object vertices, like coloring and texturing. This information goes into the glTF *.gltf* file that you export from your 3D software. Depending on the requirements of your game you will have to select and/or create appropriate and _performant_ materials for your objects. A material combines _shader programs_ with a set of parameters for rendering of the object.
 
 There are a number of built-in materials that you can use as a starting point:
 

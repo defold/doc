@@ -114,14 +114,9 @@ That's all we need to do. If you run the game now it will draw everything to the
 
 To draw the pixels in the render target's color buffer onto the screen, we need to set something up that we can texture with the pixel data. For that purpose we are going to use a flat, quadratic 3D model.
 
-Create a quadratic plane mesh in Blender (or any other 3D modelling program). Set the vertex coordinates to -1 and 1 on the X-axis and -1 and 1 on the Y axis. Blender has the Z-axis up by default so you need to rotate the mesh 90° around the X-axis. You should also make sure that you generate correct UV-coordinates for the mesh. In Blender, enter Edit Mode with the mesh selected, then select <kbd>Mesh ▸ UV unwrap... ▸ Unwrap</kbd>.
-
-![game.project](images/grading/quad_blender.png)
-
-1. Export the model as a Collada file called *`quad.dae`* and drag it into your Defold project.
-2. Open *`main.collection`* and create a new game object called "`grade`".
-3. Add a Model component to the "`grade`" game object.
-3. Set the *Mesh* property of the model component to the *`quad.dae`* file.
+1. Open *`main.collection`* and create a new game object called "`grade`".
+2. Add a Model component to the "`grade`" game object.
+3. Set the *Mesh* property of the model component to the *`quad.gltf`* file found in `builtins/assets/meshes`.
 
 Leave the game object unscaled at origin. Later, when we render the quad we will project it so it fills the whole screen. But first we need a material and shader programs for the quad:
 

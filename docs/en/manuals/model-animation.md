@@ -28,8 +28,6 @@ end
 Defold currently supports only baked animations. Animations need to have matrices for each animated bone each keyframe, and not position, rotation and scale as separate keys.
 
 Animations are also linearly interpolated. If you do more advanced curve interpolation the animations needs to be prebaked from the exporter.
-
-Animation clips in Collada are not supported. To use multiple animations per model, export them into separate *.dae* files and gather the files into an *.animationset* file in Defold.
 :::
 
 ### The bone hierarchy
