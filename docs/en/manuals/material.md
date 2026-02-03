@@ -140,7 +140,7 @@ There are some caveats to updating the vertex attributes however, whether or not
 Setting custom vertex data in runtime is currently only supported for sprite components.
 :::
 
-In the case that a vertex attribute is either a scalar or a vector type other than a `Vec4` you can still set the data using `go.set`:
+In cases where that a vertex attribute is either a scalar or a vector type other than a `Vec4` you can still set the data using `go.set`:
 
 ```lua
 -- The last two components in the vec4 will not be used!
