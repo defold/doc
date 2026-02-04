@@ -82,6 +82,10 @@ Select which graphics backend to use.
 * Vulkan - Include only Vulkan.
 * OpenGL and Vulkan - Include both OpenGL and Vulkan. Vulkan will be the default and fall back to OpenGL if Vulkan is not available.
 
+## Use full text layout system
+
+If enabled (`true`), it will allow to use runtime generation for SDF type fonts, when using True Type Fonts (`.ttf`) in the project. Read more details in the [Font Manual](https://defold.com/manuals/font/#enabling-runtime-fonts).
+
 
 ## Minimum Safari version (js-web and wasm-web only)
 YAML field name: **`minSafariVersion`**
