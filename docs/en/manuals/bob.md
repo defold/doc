@@ -9,11 +9,11 @@ Bob is a command line tool for building Defold projects outside of the normal ed
 
 Bob is able to build data (corresponding to the build step of selecting the editor menu item <kbd>Project ▸ Build</kbd>), create data archives and create standalone, distributable application bundles (corresponding to the editor menu item <kbd>Project ▸ Bundle ▸ ...</kbd> options)
 
-Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. If you are using Defold 1.9.6, you will need OpenJDK 21 to run it. For older versions of Defold, you will need openJDK 17 or 11.
+Bob is distributed as a Java _JAR_ archive containing everything needed to build. You find the latest *bob.jar* distribution on the [GitHub Releases page](https://github.com/defold/defold/releases). Select a release, then download *bob/bob.jar*. If you are using Defold 1.12.0 or newer, you will need OpenJDK 25 to run it. For older versions of Defold, you will need openJDK 21.
 
-Compatible OpenJDK 21 mirrors (from Defold 1.9.6):
-* [OpenJDK 21 by Microsoft](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-21)
-* [OpenJDK 21 by Adoptium Working Group](https://github.com/adoptium/temurin21-binaries/releases) / [Adoptium.net](https://adoptium.net/)
+Compatible OpenJDK 25 mirrors (from Defold 1.12.0):
+* [OpenJDK 25 by Microsoft](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-25)
+* [OpenJDK 25 by Adoptium Working Group](https://github.com/adoptium/temurin25-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
 If you are on Windows you want the `.msi` file installer for OpenJDK.
 

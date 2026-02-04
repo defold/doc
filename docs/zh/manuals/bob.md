@@ -9,11 +9,11 @@ Bob 是一个命令行工具，用于在正常编辑器工作流程之外构建 
 
 Bob 能够构建数据（对应于选择编辑器菜单项 <kbd>Project ▸ Build</kbd> 的构建步骤），创建数据存档，并创建独立的、可分发的应用程序包（对应于编辑器菜单项 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项）。
 
-Bob 作为 Java _JAR_ 存档分发，其中包含构建所需的一切。您可以在 [GitHub 发布页面](https://github.com/defold/defold/releases) 上找到最新的 *bob.jar* 分发版本。选择一个发布版本，然后下载 *bob/bob.jar*。如果您使用的是 Defold 1.9.6，您将需要 OpenJDK 21 来运行它。对于旧版本的 Defold，您将需要 OpenJDK 17 或 11。
+Bob 作为 Java _JAR_ 存档分发，其中包含构建所需的一切。您可以在 [GitHub 发布页面](https://github.com/defold/defold/releases) 上找到最新的 *bob.jar* 分发版本。选择一个发布版本，然后下载 *bob/bob.jar*。如果您使用的是 Defold 1.12.0，您将需要 OpenJDK 25 来运行它。对于旧版本的 Defold，您将需要 OpenJDK 21 或 11。
 
-兼容的 OpenJDK 21 镜像（从 Defold 1.9.6 开始）：
-* [Microsoft 提供的 OpenJDK 21](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-21)
-* [Adoptium 工作组提供的 OpenJDK 21](https://github.com/adoptium/temurin21-binaries/releases) / [Adoptium.net](https://adoptium.net/)
+兼容的 OpenJDK 25 镜像（从 Defold 1.12.0 开始）：
+* [Microsoft 提供的 OpenJDK 25](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-25)
+* [Adoptium 工作组提供的 OpenJDK 25](https://github.com/adoptium/temurin25-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
 如果您在 Windows 上，您需要 OpenJDK 的 `.msi` 文件安装程序。
 
