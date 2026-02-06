@@ -46,26 +46,36 @@ Defold is updated frequently and does not have an “LTS” track. We recommend 
 
 ## Welcome screen
 
-Defold greets you with a welcome screen similar to the Unity Hub, where you can open recent projects or start a new one from:
+Defold greets you with a welcome screen similar to the Unity Hub, where you can open recent projects:
+
+![Welcome screen comparison](images/unity/unity_defold_start.png)
+
+Or start a new one from:
 - `Templates` - basic empty projects for quicker setup for a specific platform or genre,
 - `Tutorials` - guided learning tours that help you take your first steps,
 - `Samples` - official or community-contributed use cases and examples,
 
-![New project](images/editor/start_templates.png)
+![Welcome Templates comparison](images/unity/unity_defold_templates.png)
 
 When you create your first project and/or open it, it will open in the Defold Editor.
 
-### Hello World
+## Hello World
 
 This is a quick way to get something done in Defold quickly, follow the steps, and then get back to read the rest of the manual.
 
-1. Select an empty project from `Templates`, name it, choose location and create it, it will open in the Defold Editor.
-2. On the left side, in the `Assets` pane open `main` catalog and double click on the `main.collection`.
+1. Select an empty project from `Templates`, name it in `Title`, choose location and create it by clicking `Create New Project`. It will open in the Defold Editor.
+![Hello World Step 1](images/unity/helloworld_1.png)
+2. On the left side, in the `Assets` pane, open the `main` folder and double click on the `main.collection` to open it.
 3. On the right side, in the `Outline` pane right-click on the `Collection` and select `Add Game Object`.
+![Hello World Step 2](images/unity/helloworld_2.png)
 4. Right-click on the created `go` game object and select `Add Component`, and then `Label`.
+![Hello World Step 3](images/unity/helloworld_3.png)
 5. Below, on the left side, in the `Properties` pane type something in the `Text` property.
-6. In the main, central scene view, drag, move and drop the label to position around (100,100,0), or change it in `Properties`.
-7. Click `Project` -> `Build` or shortcut <kbd>Ctrl</kbd>+<kbd>B</kbd> (<kbd>Cmd</kbd>+<kbd>B</kbd> on Mac).
+6. In the main, central scene view, drag, move and drop the label to position around `(480,320,0)`, or change it in `Properties`: `Position`.
+![Hello World Step 4](images/unity/helloworld_4.png)
+7. After changing the label position, save the project by clicking `File` -> `Save All` or shortcut <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>Cmd</kbd>+<kbd>S</kbd> on Mac).
+8. Built your project by clicking `Project` -> `Build` or shortcut <kbd>Ctrl</kbd>+<kbd>B</kbd> (<kbd>Cmd</kbd>+<kbd>B</kbd> on Mac).
+![Hello World Step 5](images/unity/helloworld_5.png)
 
 You just build your first project in Defold and should see your text in the window. The concepts of game object and component should be familiar to you. The collections, outline, properties and why we needed to move the label a bit in the top-right direction are explained below.
 
@@ -73,11 +83,29 @@ You just build your first project in Defold and should see your text in the wind
 
 ## Defold Editor Overview
 
-We’ll present the Defold Editor here from the perspective of a Unity user, but we encourage you to check out the comprehensive [Editor Overview manual](/manuals/editor-overview).
+We’ll present the Defold Editor here from the perspective of what a Unity user might want to know at first, but we encourage you to check out the full [Editor Overview manual](/manuals/editor-overview) after.
+
+### Editors comparison
+
+The first difference you'll notice between Unity and Defold is the default Editor layout. Defold doesn't support undockable tabs, so we're showing a Unity Editor with a slightly modified layout to match Defold's default layout. They're placed side by side for easier visual comparison of the main panes, as you should more easily recognise the Unity tabs.
+
+![Editor Comparison](images/unity/defold_unity_editor.png)
+
+By default, the Defold Editor opens in a 2D orthographic preview. If you'll be working on a 3D project, or just want an experience closer to Unity --- we recommend switching from 2D to 3D by unchecking a `2D` toggle in the toolbar and changing the camera projection to perspective by checking `Perspective` toggle:
+
+![Defold Toolbar](images/unity/defold_2d.png)
+
+You can also adjust the `Grid Settings` in the toolbar to use the `Y` plane, as in Unity:
+
+![Defold 3D settings](images/unity/defold_3d.png)
+
+### Defold panes overview
+
+The Defold Editor is divided into 6 main panes.
 
 ![Editor 2](images/editor/editor_overview.png)
 
-The Defold Editor is divided into 6 main panes. Below is a comparison of Defold naming and functional differences:
+Below is a comparison of Defold naming and functional differences:
 
 | Defold | Unity | Differences |
 |---|---|---|
@@ -111,14 +139,7 @@ If you generalize enough, the key concepts behind most game engines are very sim
 
 Defold operates with just a few basic building blocks:
 
-![Building blocks](/images/building_blocks/building_blocks.png)
-
-Quick lookup:
-| Defold | Unity |
-|---|---|
-| Game Object | GameObject |
-| Component | Component|
-| Collection | Scene |
+![Building blocks](images/unity/blocks.png)
 
 For more details, check the full manual about [Defold building blocks](/manuals/building-blocks/).
 
@@ -212,7 +233,7 @@ Unity generates a `Library/` folder for imported assets. Defold doesn’t such a
 
 ## Code Writing
 
-A common pitfall for developers coming from Unity is treating Defold scripts like `MonoBehaviour` and attaching one to *every* game object. In Defold, scripts are best used as systems/managers. A single script can control hundreds or thousands of objects that have no scripts of their own, thanks to powerful addressing and messaging in Defold. Creating a separate script for each object is rarely necessary and can lead to a counterproductive complexity.
+A common pitfall for developers coming from Unity is treating Defold scripts like `MonoBehaviour` and attaching one to *every* game object. While you can definitely write in OOP way, there are even libraries to help you with this, the recommended way, especially with many same game objects is to use scripts as systems or managers. A single script can control hundreds or thousands of objects and their components, while having no scripts of their own, thanks to powerful addressing and messaging in Defold. Creating a separate script for each object is rarely necessary and can lead to a counterproductive complexity.
 
 Good manuals on code writing:
 - [Script manual](/manuals/script/)
@@ -560,7 +581,7 @@ But you shouldn’t mimic Unity Sorting Layers with lots of tags, because in Def
 
 ---
 
-## Where to go from here
+## Where to go from here?
 
 - [Defold examples](/examples)
 - [Tutorials](/tutorials)
@@ -568,4 +589,4 @@ But you shouldn’t mimic Unity Sorting Layers with lots of tags, because in Def
 - [API References](/ref/go)
 - [FAQ](/faq/faq)
 
-If you have questions or get stuck, the [Defold forums](//forum.defold.com) are a great place to reach out for help.
+If you have questions or get stuck, the [Defold Forum](//forum.defold.com) or [Discord](https://defold.com/discord/) are great places to reach out for help.
