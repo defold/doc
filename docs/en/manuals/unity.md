@@ -87,7 +87,7 @@ We’ll present the Defold Editor here from the perspective of what a Unity user
 
 ### Editors comparison
 
-The first difference you'll notice between Unity and Defold is the default Editor layout. Defold doesn't allow to undock tabs, so we're showing a Unity Editor with a slightly modified layout to match Defold's default layout. They're placed side by side for easier visual comparison of the main panes, as you should more easily recognise the Unity tabs.
+The first difference you'll notice between Unity and Defold is the default Editor layout. We're showing a Unity Editor with a slightly modified layout to match Defold's default layout. They're placed side by side for easier visual comparison of the main panes, as you should more easily recognise the Unity tabs.
 
 ![Editor Comparison](images/unity/defold_unity_editor.png)
 
