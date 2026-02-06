@@ -15,12 +15,12 @@ Defold is a completely free, truly cross-platform 3D game engine with an Editor 
 Defold is focused on performance, even on low-end devices. Its component-based and data-driven architecture is a bit similar to Unity’s DOTS approach.
 
 ### Size
-Defold is much smaller than Unity. Engine size with empty project is between 1-3 MB on all platforms, unoptimized. You can strip out additional parts of the engine, and move some game content into [Live Update](/manuals/live-update) to download separately later. A size comparison and other reasons to choose Defold are described on the [Why Defold webpage](https://defold.com/why/).
+Defold is much smaller than Unity. Engine size with empty project is between 1-3 MB on all platforms. You can strip out additional parts of the engine, and move some game content into [Live Update](/manuals/live-update) to download separately later. A size comparison and other reasons to choose Defold are described on the [Why Defold webpage](https://defold.com/why/).
 
 ### Customization
-To customize Defold to your needs, you can write your own or use exisiting:
+To customize Defold to your needs, you can write your own or use existing:
 
-1. Fully scriptable rendering pipeline (render script + materials/shaders) with easily swappable backends (OpenGL, Vulkan, etc.)
+1. Fully scriptable rendering pipeline (render script + materials/shaders) with few backends to choose from (OpenGL, Vulkan, etc.).
 2. Code and components as Native Extensions (C++/C#).
 3. Editor Scripts and UI widgets to customize Editor.
 3. Altered build of the engine and editor, as the full source code and a build pipeline is available.
@@ -87,7 +87,7 @@ We’ll present the Defold Editor here from the perspective of what a Unity user
 
 ### Editors comparison
 
-The first difference you'll notice between Unity and Defold is the default Editor layout. Defold doesn't support undockable tabs, so we're showing a Unity Editor with a slightly modified layout to match Defold's default layout. They're placed side by side for easier visual comparison of the main panes, as you should more easily recognise the Unity tabs.
+The first difference you'll notice between Unity and Defold is the default Editor layout. Defold doesn't allow to undock tabs, so we're showing a Unity Editor with a slightly modified layout to match Defold's default layout. They're placed side by side for easier visual comparison of the main panes, as you should more easily recognise the Unity tabs.
 
 ![Editor Comparison](images/unity/defold_unity_editor.png)
 
@@ -114,7 +114,7 @@ Below is a comparison of Defold naming and functional differences:
 | 3. Outline | Hierarchy | Defold reflects only the currently opened file or the selected element (game object or component), not a global hierarchy. |
 | 4. Properties | Inspector | Defold shows only the properties for the **current selection** in the Outline, not for all components in the game object. |
 | 5. Tools | Console | Defold provides tools in tabs such as Console, Curve Editor, Build Errors, Search Results, Breakpoints, and the Debugger. |
-| 6. Changed Files | Unity Version Control (Plastic SCM) | In Defold, once Git is integrated into your project, changed files are shown here. You can still use Git externally. |
+| 6. Changed Files | Unity Version Control (Plastic) | In Defold, once Git is integrated into your project, changed files are shown here. You can still use Git externally. |
 
 Other useful Editor related naming:
 
@@ -166,8 +166,8 @@ The table below presents similar Unity components for quick lookup, with links f
 | [Collision Object](/manuals/physics-object) | Rigidbody + Collider | In Defold, physics objects and collision shapes are combined in a single component. |
 | [Collision Shapes](/manuals/physics-shapes/)  | BoxCollider / SphereCollider / CapsuleCollider | In Defold, shapes (box, sphere, capsule) are configured inside the Collision Object component. Both support collision shapes from tilemaps and convex hull data. |
 | [Camera](/manuals/camera/) | Camera | In Unity, the camera has some more built-in rendering and post-processing settings, while Defold delegates it for custom control for user via the render script. |
-| [GUI](/manuals/gui/) | UI Toolkit / Unity UI / uGUI Canvas | Defold GUI is a powerful component for building complete UIs and templates. Unity doesn’t have an equivalent single UI component, rather multiple UI frameworks. Defold has an extension for [Dear ImGui](https://github.com/britzl/extension-imgui) too. |
-| [GUI Script](/manuals/gui-script/) | Unity UI / uGUI scripts / IMGUI | Defold GUI can be controlled via GUI scripts using the dedicated `gui` API. |
+| [GUI](/manuals/gui/) | UI Toolkit / Unity UI / uGUI Canvas | Defold GUI is a powerful component for building complete UIs and templates. Unity doesn’t have an equivalent single UI component, rather multiple UI frameworks. Defold has an extension for [Extension](https://github.com/britzl/extension-imgui) too. |
+| [GUI Script](/manuals/gui-script/) | Unity UI / uGUI scripts | Defold GUI can be controlled via GUI scripts using the dedicated `gui` API. |
 | [Model](/manuals/model/) | MeshRenderer + Material | In Defold, a Model component bundles a 3D model file, textures, and a material with shaders. |
 | [Mesh](/manuals/mesh/) | MeshRenderer / MeshFilter / Procedural Mesh | In Defold, Mesh is a component for managing a vertex set via code. It’s similar to a Defold Model, but even more low-level. |
 | [ParticleFX](/manuals/particlefx/) | Particle System | Defold’s particle editor supports 2D/3D particle effects with many properties, and lets you animate them over time using curves in the Curve Editor. It has no Trails or Collisions. |
@@ -179,7 +179,7 @@ Defold also has an official [Spine](/manuals/extension-spine/) and [Rive](/manua
 
 You can also create your own [custom Components](https://github.com/defold/extension-simpledata) using Native Extensions, like e.g. this community created [Object Interpolation Component](https://github.com/indiesoftby/defold-object-interpolation).
 
-Some Unity components have no out-of-the-box equivalent in Defold, for example: Audio Listener, Light, Terrain, LineRenderer, TrailRenderer, Cloth, Animator, or NavMeshAgent. However, all of this functionality can be implemented in scripts, and there are already solutions available—for example, different lighting pipelines, the Mesh component for generating arbitrary meshes (including terrain), or [Hyper Trails](https://defold.com/assets/hypertrails/) for customizable trail effects. Defold may also add new built-in components in the future, such as lights.
+Some Unity components have no out-of-the-box equivalent in Defold, for example: Audio Listener, Light, Terrain, LineRenderer, TrailRenderer, Cloth or Animator. However, all of this functionality can be implemented in scripts, and there are already solutions available—for example, different lighting pipelines, the Mesh component for generating arbitrary meshes (including terrain), or [Hyper Trails](https://defold.com/assets/hypertrails/) for customizable trail effects. Defold may also add new built-in components in the future, such as lights.
 
 ### Resources
 
@@ -201,7 +201,7 @@ A Collection in Defold is essentially a text file with a static scene descriptio
 #### Game Worlds
 
 Unity scenes share by default the same global game state and physics simulation, effectively the same *world*. In Defold, you have two options:
-1. Instantiate game objects from a single game object file via a `Factory` or a collection file via a `Collection Factory` to a given, instantiated alread *world*, like prefabs.
+1. Instantiate game objects from a single game object file via a `Factory` or a collection file via a `Collection Factory` to a given, instantiated already *world*, like prefabs.
 2. Create a separate game *world* at runtime, with its own game objects, physics world, engine operations and addressing namespace via a collection loaded at bootstrap or via a `Collection Proxy` component.
 
 Factories and Proxy components are also explained below.
@@ -233,7 +233,7 @@ Unity generates a `Library/` folder for imported assets. Defold doesn’t such a
 
 ## Code Writing
 
-A common pitfall for developers coming from Unity is treating Defold scripts like `MonoBehaviour` and attaching one to *every* game object. While you can definitely write in OOP way, there are even libraries to help you with this, the recommended way, especially with many same game objects is to use scripts as systems or managers. A single script can control hundreds or thousands of objects and their components, while having no scripts of their own, thanks to powerful addressing and messaging in Defold. Creating a separate script for each object is rarely necessary and can lead to a counterproductive complexity.
+A common pitfall for developers coming from Unity is treating Defold scripts like `MonoBehaviour` and attaching one to *every* game object. While you can definitely write in an object oriented way, there are even libraries to help you with this, the recommended way, especially with many same game objects is to use scripts as systems or managers. A single script can control hundreds or thousands of objects and their components, while having no scripts of their own, thanks to powerful addressing and messaging in Defold. Creating a separate script for each object is rarely necessary and can lead to a counterproductive complexity.
 
 Good manuals on code writing:
 - [Script manual](/manuals/script/)
@@ -516,7 +516,7 @@ Remember that Defold doesn't guarantee any order of execution between components
 
 Think of Defold’s `init()` as combining elements of Unity’s `Awake()`, `Start()` and `OnEnable()` into a single entry point where the engine has already set everything up and you can safely prepare your component state.
 
-### When messagges are handled?
+### When messages are handled?
 
 Because you can already post messages in `init()`, the messages are dispatched first just after the initialization.
 
@@ -542,7 +542,7 @@ For further details read the [Application Lifecycle Manual](/manuals/application
 
 ## GUI
 
-Defold’s GUI is a whole single dedicated framework for User Interfaces - HUDs, menus, overlays, dialogs, and other elements, similar to UI Toolkit or uGUI with Canvas.
+Defold’s GUI is a whole single dedicated framework for User Interfaces - menus, overlays, dialogs, and other elements, similar to UI Toolkit or uGUI with Canvas.
 
 GUI is a Component, and is separate from Game Objects and Collections. Instead of Game Objects, you work with GUI nodes arranged in a hierarchy, driven by a GUI script.
 
@@ -577,7 +577,7 @@ Instead, you typically combine:
 - Fine ordering via Z axis when using a default camera or depth when using a Camera component.
 - Coarse ordering via the render script using render predicates - to select what to draw by material tags.
 
-But you shouldn’t mimic Unity Sorting Layers with lots of tags, because in Defold, tags are a render-level mechanism. Overusing them can break batching and raise draw overhead, resulting in an unoptimized game.
+But you shouldn’t mimic Unity Sorting Layers with lots of tags, because in Defold, tags are a render-level mechanism. Overusing them can break batching and raise draw overhead.
 
 ---
 
