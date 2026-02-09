@@ -149,7 +149,7 @@ Defold uses **"Game Objects"**, similar to Unity. In both engines, game objects 
 You can create parent-child relationships between game objects. In Defold, this can be done only in the Editor inside a "Collection" (explained below) or dynamically in script. Game objects cannot contain other game objects as nested objects the way they can in Unity.
 
 ### Components
-In both engines, Game Objects can be extended with **"Components"**. Defold provides the minimal set of essential components. There is less distinction between 2D and 3D than in Unity (e.g., colliders), so there are fewer components overall, and some from Unity you may miss.
+In both engines, Game Objects can be extended with **"Components"**. Defold provides a minimal set of essential components. There is less distinction between 2D and 3D than in Unity (e.g., colliders), so there are fewer components overall, and some from Unity you may miss.
 
 Read more about [Defold Components here](/manuals/components/).
 
@@ -227,13 +227,15 @@ Most Defold resources are stored as text, which is version-control friendly.
 
 ### Library Cache
 
-Unity generates a `Library/` folder for imported assets. Defold doesn’t such a directory; assets are processed during builds, with cached outputs under the build folder (and optional local/remote build caches).
+Unity generates a `Library/` folder for imported assets. Defold doesn’t have such a directory; assets are processed during builds, with cached outputs under the build folder (and optional local/remote build caches).
 
 ---
 
 ## Code Writing
 
-A common pitfall for developers coming from Unity is treating Defold scripts like `MonoBehaviour` and attaching one to *every* game object. While you can definitely write in an object oriented way, there are even libraries to help you with this, the recommended way, especially with many same game objects is to use scripts as systems or managers. A single script can control hundreds or thousands of objects and their components, while having no scripts of their own, thanks to powerful addressing and messaging in Defold. Creating a separate script for each object is rarely necessary and can lead to a counterproductive complexity.
+A common pitfall for developers coming from Unity is treating Defold scripts like `MonoBehaviour` and attaching one to *every* game object. While you can definitely write in an object oriented way, there are even libraries to help you with this, the recommended way, especially with many of the same game objects is to use scripts as systems or managers. A single script can control hundreds or thousands of objects and their components, while having no scripts of their own, thanks to powerful addressing and messaging in Defold. Creating a separate script for each object is rarely necessary and can lead to a counterproductive complexity.
+
+An example showing how to utilise Defold script properties, factories, addressing, and messaging to control multiple units can be found [here](https://defold.com/examples/factory/spawn_manager/).
 
 Good manuals on code writing:
 - [Script manual](/manuals/script/)
@@ -288,7 +290,7 @@ Read more about materials in the [Materials manual](/manuals/material).
 
 In Defold, objects don’t hold direct references to each other. There’s no `GetComponent`, no cross-object method calls between scripts, and no global scene access like in Unity.
 
-Instead, scripts communicate via message passing: you send messages to URLs, rather than calling methods or accessing components directly. What those objects do with the messages is up to them.
+Instead, scripts communicate via message passing: you send messages to other scripts, rather than calling methods or accessing components directly. What those objects do with the messages is up to them.
 
 This can feel unfamiliar at first, but it promotes loose coupling and reduces tight interdependencies.
 
