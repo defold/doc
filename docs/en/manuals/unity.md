@@ -11,13 +11,10 @@ If you have prior experience with Unity, this guide helps you become productive 
 
 Defold is a completely free, truly cross-platform 3D game engine with an Editor for Windows, Linux, and macOS. The full source code is available on [Github](https://github.com/defold/defold/).
 
-### Performance first
 Defold is focused on performance, even on low-end devices. Its component-based and data-driven architecture is a bit similar to Unity’s DOTS approach.
 
-### Size
 Defold is much smaller than Unity. Engine size with empty project is between 1-3 MB on all platforms. You can strip out additional parts of the engine, and move some game content into [Live Update](/manuals/live-update) to download separately later. A size comparison and other reasons to choose Defold are described on the [Why Defold webpage](https://defold.com/why/).
 
-### Customization
 To customize Defold to your needs, you can write your own or use existing:
 
 1. Fully scriptable rendering pipeline (render script + materials/shaders) with few backends to choose from (OpenGL, Vulkan, etc.).
