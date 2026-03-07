@@ -38,7 +38,7 @@ msg.post("@render:", "draw_line", { start_point = start_p, end_point = end_p, co
 
 ## Запуск отладчика
 
-Чтобы запустить отладчик, выберите <kbd>Debug ▸ Start/Attach</kbd>, чтобы либо запустить игру с уже подключенным отладчиком, либо подключить отладчик к уже запущенной игре.
+Выберите <kbd>Debug ▸ Start/Attach</kbd>, чтобы либо запустить игру с уже подключенным отладчиком, либо подключить отладчик к уже запущенной игре.
 
 ![overview](images/debugging/overview.png)
 
