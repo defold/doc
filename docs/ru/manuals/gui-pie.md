@@ -5,7 +5,7 @@ brief: Это руководство объясняет, как использо
 
 # GUI-нода Pie
 
-Pie nodes are used to create circular or ellipsoid objects ranging from plain circles to pies and square donut shapes.
+Ноды Pie используются для создания круглых или эллипсоидных объектов: от простых кругов до секторов и квадратных кольцевых форм.
 
 ## Создание ноды Pie
 

@@ -56,17 +56,23 @@ return M
   - для анимаций атласа: `images` (то же, что и в атласе)
   - для тайлмапов: `layers` (список узлов слоёв в тайлмапе)
   - для слоёв тайлмапа: `tiles` (неограниченная двумерная сетка тайлов), см. `tilemap.tiles.*` для подробностей
+  - для particlefx: `emitters` (список узлов-эмиттеров в редакторе) и `modifiers` (список узлов-модификаторов)
+  - для эмиттеров particlefx: `modifiers` (список узлов-модификаторов)
+  - для collision object: `shapes` (список узлов форм столкновений)
+  - для GUI-файлов: `layers` (список узлов слоёв редактора)
   - свойства, отображаемые в панели Properties при выделении объекта в Outline. Поддерживаются следующие типы:
     - `strings`
     - `booleans`
     - `numbers`
-    - `vec2` / `vec3` / `vec4`
+    - `vec2`/`vec3`/`vec4`
     - `resources`
+    - `curves`
 
   Обратите внимание, что некоторые из этих свойств могут быть доступны только для чтения или недоступны в определённых контекстах, поэтому перед чтением используйте `editor.can_get`, а перед установкой — `editor.can_set`. Наведите курсор на имя свойства в панели Properties, чтобы увидеть подсказку с именем свойства для скриптов редактора. Чтобы задать свойству значение `nil`, передайте пустую строку `""`.
 - `editor.can_get(node_id, property)` — проверить, можно ли безопасно получить это свойство с помощью `editor.get()`, не вызвав ошибку.
 - `editor.can_set(node_id, property)` — проверить, приведёт ли попытка установки свойства с помощью `editor.tx.set()` к ошибке.
 - `editor.create_directory(resource_path)` — создать директорию (и все отсутствующие родительские директории), если она не существует.
+- `editor.create_resources(resources)` — создать один или несколько ресурсов, либо из шаблонов, либо с пользовательским содержимым.
 - `editor.delete_directory(resource_path)` — удалить директорию, если она существует, включая все вложенные директории и файлы.
 - `editor.execute(cmd, [...args], [options])` — выполнить shell-команду, при необходимости получив её вывод.
 - `editor.save()` — сохранить все несохранённые изменения на диск.
@@ -123,16 +129,17 @@ return M
 Редактор ожидает, что `get_commands()` вернёт массив таблиц, каждая из которых описывает отдельную команду. Описание команды состоит из следующих полей:
 
 - `label` (обязательный) — текст пункта меню, который будет отображён пользователю.
-- `locations` (обязательный) — массив из следующих значений: `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"` или `"Outline"`. Определяет, где команда должна быть доступна. `"Edit"`, `"View"`, `"Project"` и `"Debug"` относятся к верхнему меню, `"Assets"` — к контекстному меню в панели Assets, `"Outline"` — к контекстному меню в панели Outline, а `"Bundle"` — к подменю **Project → Bundle**.
+- `locations` (обязательный) — массив из следующих значений: `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"`, `"Scene"` или `"Outline"`. Определяет, где команда должна быть доступна. `"Edit"`, `"View"`, `"Project"` и `"Debug"` относятся к верхнему меню, `"Assets"` — к контекстному меню в панели Assets, `"Outline"` — к контекстному меню в панели Outline, а `"Bundle"` — к подменю **Project → Bundle**.
 - `query` — способ для команды запросить у редактора необходимую информацию и определить, с какими данными она работает. Для каждого ключа в таблице `query` будет соответствующий ключ в таблице `opts`, который обратные вызовы `active` и `run` получают в качестве аргумента. Поддерживаемые ключи:
   - `selection` — команда работает, когда есть выбранные элементы, и действует на них.
     - `type` — тип интересующих команду узлов. Поддерживаемые значения:
       - `"resource"` — в Assets и Outline: выбранный ресурс с файлом; в меню — открытый файл;
       - `"outline"` — элемент в панели Outline; в меню — открытый файл;
+      - `"scene"` — элемент, который может быть отрисован в Scene;
     - `cardinality` — количество выбранных элементов. Значение `"one"` означает, что в `opts.selection` передаётся один id узла. Значение `"many"` — массив из одного или нескольких id узлов.
   - `argument` — аргумент команды. В настоящее время используется только в командах, расположенных в `"Bundle"`. Значение `true` означает, что пользователь явно выбрал команду упаковки, а `false` — что она вызвана повторно.
 - `id` — строковый идентификатор команды, например, используется для запоминания последней использованной команды упаковки в `prefs`.
-- `active` — функция, вызываемая для определения, активна ли команда. Возвращает `true` или `false`. Для `Assets` и `Outline` вызывается при открытии контекстного меню. Для `Edit`, `View`, `Project` и `Debug` вызывается при каждом взаимодействии пользователя с редактором (клавиатура, мышь и т.д.), поэтому функция должна быть максимально быстрой.
+- `active` — функция, вызываемая для определения, активна ли команда. Возвращает `true` или `false`. Для `Assets`, `"Scene"` и `Outline` вызывается при открытии контекстного меню. Для `Edit`, `View`, `Project` и `Debug` вызывается при каждом взаимодействии пользователя с редактором (клавиатура, мышь и т.д.), поэтому функция должна быть максимально быстрой.
 - `run` — функция, вызываемая при выборе команды пользователем.
 
 ### Использование команд для изменения состояния редактора в памяти
@@ -170,7 +177,7 @@ editor.transact({
     editor.tx.add("/main.atlas", "images", {image="/assets/hero.png"})
 })
 ```
-To find a set of all images in an atlas, execute the following code:
+Чтобы найти множество всех изображений в атласе, выполните следующий код:
 ```lua
 local all_images = {} ---@type table<string, true>
 -- first, collect all "bare" images
@@ -192,7 +199,7 @@ pprint(all_images)
 --     ["/assets/enemy.png"] = true,
 -- }}
 ```
-To replace all animations in an atlas:
+Чтобы заменить все анимации в атласе, используйте следующий код:
 ```lua
 editor.transact({
     editor.tx.clear("/main.atlas", "animations"),
@@ -268,6 +275,224 @@ editor.transact({
     })
 })
 ```
+
+#### Редактирование particlefx
+
+Вы можете редактировать particlefx через свойства `modifiers` и `emitters`. Например, вот как добавить круговой эмиттер с модификатором ускорения:
+```lua
+editor.transact({
+    editor.tx.add("/fire.particlefx", "emitters", {
+        type = "emitter-type-circle",
+        modifiers = {
+          {type = "modifier-type-acceleration"}
+        }
+    })
+})
+```
+
+Многие свойства particlefx представляют собой кривые или curve spread (то есть кривую плюс значение случайного разброса). Кривые задаются таблицей с непустым списком `points`, где каждая точка является таблицей со следующими свойствами:
+- `x` — x-координата точки; должна начинаться с 0 и заканчиваться 1;
+- `y` — значение точки;
+- `tx` (от 0 до 1) и `ty` (от -1 до 1) — тангенсы точки. Например, для угла 80 градусов `tx` должен быть `math.cos(math.rad(80))`, а `ty` — `math.sin(math.rad(80))`.
+
+У curve spread также есть числовое свойство `spread`.
+
+Например, установка кривой альфа-канала времени жизни частиц для уже существующего эмиттера может выглядеть так:
+```lua
+local emitter = editor.get("/fire.particlefx", "emitters")[1]
+editor.transact({
+    editor.tx.set(emitter, "particle_key_alpha", { points = {
+        {x = 0,   y = 0, tx = 0.1, ty = 1}, -- start at 0, go up quickly
+        {x = 0.2, y = 1, tx = 1,   ty = 0}, -- reach 1 at 20% of a lifetime
+        {x = 1,   y = 0, tx = 1,   ty = 0}  -- slowly go down to 0
+    }})
+})
+```
+
+Разумеется, при создании эмиттера можно сразу задать ключ `particle_key_alpha` в таблице. Кроме того, вместо кривой можно использовать одно число, представляющее "статическую" кривую.
+
+#### Редактирование collision object
+
+Помимо стандартных свойств из Outline, collision object определяет свойство-список узлов `shapes`. Добавление новых форм столкновений выглядит так:
+```lua
+editor.transact({
+    editor.tx.add("/hero.collisionobject", "shapes", {
+        type = "shape-type-box" -- or "shape-type-sphere", "shape-type-capsule"
+    })
+})
+```
+
+Свойство `type` обязательно при создании формы и не может быть изменено после добавления. Поддерживаются 3 типа форм:
+- `shape-type-box` — прямоугольная форма со свойством `dimensions`;
+- `shape-type-sphere` — сферическая форма со свойством `diameter`;
+- `shape-type-capsule` — капсула со свойствами `diameter` и `height`.
+
+#### Редактирование GUI-файлов
+
+Помимо свойств из Outline, GUI-узлы определяют следующие свойства:
+- `layers` — список узлов слоёв редактора (с поддержкой переупорядочивания);
+- `materials` — список узлов материалов.
+
+Редактировать слои GUI можно через свойство `layers`, например:
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "layers", {name = "foreground"}),
+    editor.tx.add("/main.gui", "layers", {name = "background"})
+})
+```
+
+Также можно менять порядок слоёв:
+```lua
+local fg, bg = table.unpack(editor.get("/main.gui", "layers"))
+editor.transact({
+    editor.tx.reorder("/main.gui", "layers", {bg, fg})
+})
+```
+
+Аналогично шрифты, материалы, текстуры и particlefx редактируются через свойства `fonts`, `materials`, `textures` и `particlefxs`:
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "fonts", {font = "/main.font"}),
+    editor.tx.add("/main.gui", "materials", {name = "shine", material = "/shine.material"}),
+    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.material"}),
+    editor.tx.add("/main.gui", "textures", {texture = "/ui.atlas"})
+})
+```
+
+Эти свойства не поддерживают переупорядочивание.
+
+Наконец, вы можете редактировать GUI-узлы через список `nodes`, например:
+```lua
+editor.transact({
+    editor.tx.add("/main.gui", "nodes", {
+        type = "gui-node-type-box",
+        position = {20, 20, 20}
+    }),
+    editor.tx.add("/main.gui", "nodes", {
+        type = "gui-node-type-template",
+        template = "/button.gui"
+    }),
+})
+```
+
+Встроенные типы узлов:
+- `gui-node-type-box`
+- `gui-node-type-particlefx`
+- `gui-node-type-pie`
+- `gui-node-type-template`
+- `gui-node-type-text`
+
+Если вы используете расширение Spine, доступен также тип `gui-node-type-spine`.
+
+Если GUI-файл определяет layouts, вы можете получать и задавать значения из конкретных layout через синтаксис `layout:property`, например:
+```lua
+local node = editor.get("/main.gui", "nodes")[1]
+
+-- GET:
+local position = editor.get(node, "position")
+pprint(position) -- {20, 20, 20}
+local landscape_position = editor.get(node, "Landscape:position")
+pprint(landscape_position) -- {20, 20, 20}
+
+-- SET:
+editor.transact({
+    editor.tx.set(node, "Landscape:position", {30, 30, 30})
+})
+pprint(editor.get(node, "Landscape:position")) -- {30, 30, 30}
+```
+
+Значения свойств layout, которые были переопределены, можно сбросить к значениям по умолчанию через `editor.tx.reset`:
+```lua
+print(editor.can_reset(node, "Landscape:position")) -- true
+editor.transact({
+    editor.tx.reset(node, "Landscape:position")
+})
+```
+
+Деревья узлов шаблонов можно читать, но нельзя редактировать: разрешено только задавать свойства узлов внутри дерева шаблона:
+```lua
+local template = editor.get("/main.gui", "nodes")[2]
+print(editor.can_add(template, "nodes")) -- false
+local node_in_template = editor.get(template, "nodes")[1]
+editor.transact({
+    editor.tx.set(node_in_template, "text", "Button text")
+})
+print(editor.can_reset(node_in_template, "text")) -- true (overrides a value in the template)
+```
+
+#### Редактирование game object
+
+Скрипты редактора позволяют редактировать компоненты в файле game object. Компоненты бывают двух типов: referenced и embedded. Referenced-компоненты используют тип `component-reference` и выступают как ссылки на другие ресурсы, позволяя переопределять только go-свойства, определённые в скриптах. Embedded-компоненты используют типы вроде `sprite`, `label` и т.д. и позволяют редактировать все свойства, определённые в типе компонента, а также добавлять вложенные подкомпоненты, такие как формы collision object. Например, так можно настроить game object:
+```lua
+editor.transact({
+    editor.tx.add("/npc.go", "components", {
+        type = "sprite",
+        id = "view"
+    }),
+    editor.tx.add("/npc.go", "components", {
+        type = "collisionobject",
+        id = "collision",
+        shapes = {
+            {
+                type = "shape-type-box",
+                dimensions = {32, 32, 32}
+            }
+        }
+    }),
+    editor.tx.add("/npc.go", "components", {
+        type = "component-reference",
+        path = "/npc.script",
+        id = "controller",
+        __hp = 100 -- set a go property defined in the script
+    })
+})
+```
+
+#### Редактирование коллекций
+
+Скрипты редактора позволяют редактировать и коллекции. Можно добавлять game object (embedded или referenced) и коллекции (referenced). Например:
+```lua
+local coll = "/char.collection"
+editor.transact({
+    editor.tx.add(coll, "children", {
+        -- embbedded game object
+        type = "go",
+        id = "root",
+        children = {
+            {
+                -- referenced game object
+                type = "go-reference",
+                path = "/char-view.go",
+                id = "view"
+            },
+            {
+                -- referenced collection
+                type = "collection-reference",
+                path = "/body-attachments.collection",
+                id = "attachments"
+            }
+        },
+        -- embedded gos can also have components
+        components = {
+            {
+                type = "collisionobject",
+                id = "collision",
+                shapes = {
+                    {type = "shape-type-box", dimensions = {2.5, 2.5, 2.5}}
+                }
+            },
+            {
+                type = "component-reference",
+                id = "controller",
+                path = "/char.script",
+                __hp = 100 -- set a go property defined in the script
+            }
+        }
+    })
+})
+```
+
+Как и в редакторе, referenced-коллекции можно добавлять только в корень редактируемой коллекции, а game object можно добавлять только в embedded- или referenced-game object, но не внутрь referenced-коллекций или game object внутри таких referenced-коллекций.
 
 ### Использование shell-команд
 
@@ -479,7 +704,7 @@ editor.prefs.set("my_json_formatter.indent", {
 Некоторые функции, используемые в скриптах редактора, могут выполняться достаточно долго. Например, `editor.execute("git", "status", {reload_resources=false, out="capture"})` может занять до секунды на достаточно крупных проектах. Чтобы сохранить отзывчивость редактора и производительность, функции, которые могут выполняться долго, запрещены в контекстах, где от скрипта ожидается немедленный ответ. Попытка использовать такую функцию в немедленном контексте приведёт к ошибке: `Cannot use long-running editor function in immediate context`. Чтобы избежать этой ошибки, избегайте вызова таких функций в немедленных контекстах.
 
 Следующие функции считаются долгосрочными и не могут использоваться в немедленном режиме:
-- `editor.create_directory()`, `editor.delete_directory()`, `editor.save()`, `os.remove()` и `file:write()`: эти функции изменяют файлы на диске, вызывая необходимость синхронизации состояния ресурсов в памяти с данными на диске, что может занять несколько секунд в больших проектах.
+- `editor.create_directory()`, `editor.create_resources()`, `editor.delete_directory()`, `editor.save()`, `os.remove()` и `file:write()`: эти функции изменяют файлы на диске, вызывая необходимость синхронизации состояния ресурсов в памяти с данными на диске, что может занять несколько секунд в больших проектах.
 - `editor.execute()`: выполнение команд оболочки может занимать непредсказуемое количество времени.
 - `editor.transact()`: крупные транзакции с широко используемыми узлами могут занимать сотни миллисекунд, что слишком долго для обновления UI.
 

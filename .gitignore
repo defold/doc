@@ -6,3 +6,5 @@ deps/
 .idea/
 .vscode/
 .lite_project.lua
+*.cpython-311.pyc
+/docs_structure_comparison.xlsx
