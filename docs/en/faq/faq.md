@@ -101,7 +101,7 @@ A: The following platforms are supported for the editor/tools and the engine run
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
   | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
-  | Android            | 4.4 (API level 19) | `arm-32`, `arm-64` | Engine             |
+  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Engine             |
   | HTML5              |                    | `asm.js`, `wasm`   | Engine             |
 
   (1 The editor is built and tested for 64-bit Ubuntu. It should work on other distributions as well but we give no guarantees.)
