@@ -60,7 +60,7 @@ R: Le seguenti piattaforme sono supportate per l'editor/strumenti e il runtime d
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
   | Linux (2)          | Qualsiasi          | `x86-64`, `arm-64` | Motore             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Motore             |
-  | Android            | 4.4 (API level 19) | `arm-32`, `arm-64` | Motore             |
+  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Motore             |
   | HTML5              |                    | `asm.js`, `wasm`   | Motore             |
 
   (1 L'editor è costruito e testato per Ubuntu 18.04 a 64 bit. Dovrebbe funzionare anche su altre distribuzioni ma non diamo garanzie.)
