@@ -1,26 +1,59 @@
 ---
-title: Wiadomości kolizji w Defoldzie
+title: Wiadomości kolizji w silniku Defold
 brief: Kiedy obiekty się zderzają, silnik Defold wysyła wiadomości do komponentów tych obiektów.
 ---
 
 # Wiadomości kolizji
 
-Kiedy dwa obiekty kolizji kolidują ze sobą, silnik wysyła wiadomości do wszystkich komponentów w obu tych obiektach:
+Kiedy dwa obiekty kolizji pozostają w kontakcie, silnik wysyła zdarzenia do ich komponentów. Na przykład, wiadomość może być dostarczona do funkcji zwrotnej obsługi zdarzeń (`physics.set_event_listener()`) albo trafić do domyślnego odbiorcy wiadomości za pomocą `on_message()`.
+
+## Filtracja zdarzeń
+
+Rodzaje generowanych zdarzeń kontrolujesz przez przełączniki dla każdego obiektu kolizji:
+
+* "Generate Collision Events"
+* "Generate Contact Events"
+* "Generate Trigger Events"
+
+Wszystkie są domyślnie ustawione na `true`. Gdy dwa obiekty kolizji wchodzą w interakcję, sprawdzamy te przełączniki, żeby zdecydować, czy wysłać wiadomość do gry.
+
+Przykład dla zaznaczonych opcji "Generate Contact Events":
+
+Gdy korzystasz z `physics.set_event_listener()`:
+
+| Komponent A | Komponent B | Wyślij wiadomość |
+|-------------|-------------|------------------|
+| ✅︎          | ✅︎          | Tak              |
+| ❌          | ✅︎          | Tak              |
+| ✅︎          | ❌          | Tak              |
+| ❌          | ❌          | Nie              |
+
+Podstawowy handler wiadomości zachowuje się trochę inaczej:
+
+| Komponent A | Komponent B | Wyślij wiadomość(y)   |
+|-------------|-------------|------------------------|
+| ✅︎          | ✅︎          | Tak (A,B) + (B,A)      |
+| ❌          | ✅︎          | Tak (B,A)             |
+| ✅︎          | ❌          | Tak (A,B)             |
+| ❌          | ❌          | Nie                   |
 
 ## Odpowiedź na kolizję
 
-Odpowiedź na kolizję `"collision_response"` to wiadomość wysyłana do wszystkich obiektów w przypadku ich kolizji. Zawiera ona następujące pola:
+Wiadomość "collision_response" jest wysyłana, gdy przynajmniej jeden z kolidujących obiektów ma typ "dynamic", "kinematic" lub "static". Zawiera następujące pola:
 
 `other_id`
-: identyfikator innej instancji, z którą obiekt kolizji kolidował (typ `hash`).
+: identyfikator instancji, z którą obiekt kolizji kolidował (`hash`).
 
 `other_position`
-: pozycja innej instancji w przestrzeni świata gry (world position), z którą obiekt kolizji kolidował (typ `vector3`).
+: pozycja innej instancji w przestrzeni świata gry, z którą obiekt kolizji kolidował (`vector3`).
 
 `other_group`
-: grupa kolizyjna innego obiektu kolizji, z którą obiekt kolizji kolidował (typ `hash`).
+: grupa kolizyjna drugiego obiektu (`hash`).
 
-Wiadomość `"collision_response"` jest odpowiednia do rozwiązywania kolizji, gdzie nie potrzebujesz szczegółów dotyczących rzeczywistego przecięcia (intersection) obiektów, na przykład, jeśli chcesz wykryć tylko czy pocisk trafia wroga. W ciągu jednej klatki jest wysyłana tylko jedna z tych wiadomości dla każdej pary obiektów kolidujących ze sobą.
+`own_group`
+: grupa kolizyjna obiektu, który otrzymał wiadomość (`hash`).
+
+Wiadomość "collision_response" nadaje się do prostych detekcji kolizji, kiedy nie potrzebujesz szczegółów przecięcia, np. gdy chcesz sprawdzić, czy pocisk trafił wroga. W ciągu jednej klatki zostaje wysłana tylko jedna taka wiadomość dla każdej pary obiektów.
 
 ```Lua
 function on_message(self, message_id, message, sender)
@@ -34,42 +67,45 @@ end
 
 ## Odpowiedź punktu kontaktu
 
-Odpowiedź punktu kontaktu `"contact_point_response"` to wiadomość wysyłana, gdy jeden z kolidujących obiektów jest dynamiczny lub kinematyczny. Zawiera ona następujące pola:
+Wiadomość "contact_point_response" jest wysyłana wtedy, gdy jeden z kolidujących obiektów ma typ "dynamic" lub "kinematic", a drugi może być "dynamic", "kinematic" lub "static". Oto zestaw dostępnych pól:
 
 `position`
-: pozycja punktu kontaktu/styku w przestrzeni świata gry (world position) (typ `vector3`)
+: pozycja punktu kontaktu w przestrzeni świata gry (`vector3`).
 
 `normal`
-: wektor normalny w przestrzeni świata do punktu kontaktu/styku, który wskazuje od innego obiektu kolizji w kierunku bieżącego obiektu, czyli tego, który otrzymał tę wiadomość (typ `vector3`).
+: normalna w przestrzeni świata wskazująca od drugiego obiektu w kierunku aktualnego obiektu (`vector3`).
 
 `relative_velocity`
-: prędkość względna obiektu kolizji obserwowana z punktu widzenia innego obiektu kolizji, z którym obiekt, który otrzymał tę wiadomość kolidował (typ `vector3`).
+: prędkość względna obserwowana z punktu widzenia drugiego obiektu (`vector3`).
 
 `distance`
-: odległość penetracji między obiektami kolizji - nieujemna (typ `number`).
+: odległość penetracji między obiektami (nieujemna, `number`).
 
 `applied_impulse`
-: impuls, czyli siła która wynikała z kontaktu (typ `number`).
+: impuls powstały wskutek kontaktu (`number`).
 
 `life_time`
-: (*obecnie nieużywane!*) czas trwania kontaktu (typ `number`).
+: (*obecnie nieużywane!*) czas trwania kontaktu (`number`).
 
 `mass`
-: masa bieżącego obiektu kolizji w kilogramach (typ `number`).
+: masa bieżącego obiektu kolizji w kilogramach (`number`).
 
 `other_mass`
-: masa innego obiektu kolizji, z którym kolidował obiekt, który otrzymał tę wiadomość, w kilogramach (typ `number`).
+: masa drugiego obiektu kolizji (`number`).
 
 `other_id`
-: identyfikator instancji, z którą obiekt kolizji znajduje się w kontakcie (typ `hash`).
+: identyfikator instancji, z którą obiekt kolizji się styka (`hash`).
 
 `other_position`
-: pozycja w przestrzeni świata gry (world position) innego obiektu kolizji, z którym kolidował obiekt, który otrzymał tę wiadomość (typ `vector3`).
+: pozycja drugiego obiektu kolizji w przestrzeni świata (`vector3`).
 
-`group`
-: grupa kolizyjna innego obiektu kolizji, z którym kolidował obiekt, który otrzymał tę wiadomość (typ `hash`).
+`other_group`
+: grupa kolizyjna drugiego obiektu (`hash`).
 
-Dla gry lub aplikacji, w których potrzebujesz idealnie rozdzielać obiekty, wiadomość `"contact_point_response"` dostarcza wszystkie informacje, których potrzebujesz. Należy jednak zauważyć, że w przypadku danej pary kolizji, w zależności od charakteru kolizji, można otrzymać wiele wiadomości `"contact_point_response"` w jednej klatce. Zobacz szczegóły w [instrukcji do rozwiązywania kolizji](/manuals/physics-resolving-collisions).
+`own_group`
+: grupa kolizyjna obiektu, który otrzymał wiadomość (`hash`).
+
+Dla zastosowań wymagających najwyższej precyzji wiadomość "contact_point_response" dostarcza wszystkie potrzebne dane. Zwróć uwagę, że dla jednej pary kolidujących obiektów możesz otrzymać kilka takich wiadomości w jednej klatce, zależnie od natury kolizji. Zobacz [Resolving collisions for more information](/manuals/physics-resolving-collisions).
 
 ```Lua
 function on_message(self, message_id, message, sender)
@@ -85,15 +121,19 @@ end
 
 ## Odpowiedź na wyzwalacz
 
-Odpowiedź na wyzwalacz `"trigger_response"` to wiadomość wysyłana, gdy obiekt kolidujący ma typ `"trigger"` (wyzwalacz).
-
-W kolizji typu "trigger" są wysyłane wiadomości `"collision_response"`. Dodatkowo, wyzwalacze wysyłają również specjalną wiadomość `"trigger_response"` na początku i na końcu kolizji. Wiadomość ta zawiera następujące pola:
+Wiadomość "trigger_response" jest wysyłana, gdy jeden z kolidujących obiektów ma typ "trigger". Występuje raz na początku kolizji i raz po jej zakończeniu. Zawiera ona następujące pola:
 
 `other_id`
-: identyfikator instancji, z którą obiekt kolizji kolidował (typ `hash`).
+: identyfikator instancji, z którą obiekt kolizji kolidował (`hash`).
 
 `enter`
-: wejście - `true` jeśli interakcja była wejściem do wyzwalacza, `false`, jeśli była wyjściem (typ `boolean`).
+: `true`, jeśli wejście było wejściem do wyzwalacza, `false`, jeśli było wyjściem (`boolean`).
+
+`other_group`
+: grupa kolizyjna innego obiektu (`hash`).
+
+`own_group`
+: grupa kolizyjna obiektu, który otrzymał wiadomość (`hash`).
 
 ```Lua
 function on_message(self, message_id, message, sender)

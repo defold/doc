@@ -5,11 +5,11 @@ brief: Instrukcja wyjaśnia sposób adresowania w silniku Defold.
 
 # Adresowanie
 
-Kod, który kontroluje grę musi sięgać do wszystkich obiektów i komponentów, aby poruszać, skalować, animować, usuwać czy manipulować tym, co gracz widzi i słyszy. Umożliwia to mechanizm adresowania w silniku Defold.
+Kod, który steruje działającą grą, musi mieć możliwość dotarcia do każdego obiektu gry i komponentu, aby przesuwać, skalować, animować, usuwać i manipulować tym, co gracz widzi i słyszy. Mechanizm adresowania w silniku Defold sprawia, że jest to możliwe.
 
 ## Identyfikatory
 
-Defold wykorzystuje adresy (tzw. URL z ang. Uniform Resource Locator), aby odnosić się do obiektów i komponentów. Te adresy składają się z identyfikatorów (ID). Poniżej przedstawiono wszystkie przykłady tego, jak Defold wykorzystuje adresy. W tej instrukcji przeanalizujemy je szczegółowo:
+Defold wykorzystuje adresy (czyli URL-e, ale na razie odłóżmy tę kwestię na bok), aby odnosić się do obiektów gry i komponentów. Adresy te składają się z identyfikatorów. Poniżej znajdziesz przykłady zastosowań adresów w silniku Defold; w tej instrukcji przyjrzymy się im dokładnie:
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -22,107 +22,108 @@ msg.post("#", "hello_there")
 local id = go.get_id(".")
 ```
 
-Rozpocznijmy bardzo prostym przykładem. Załóżmy, że masz obiekt (game object) z pojedynczym komponentem typu sprite. Masz również pod tym obiektem komponent typu skrypt, który kontroluje ten obiekt. Taka hierarchia w edytorze powinna wyglądać tak:
+Zacznijmy od bardzo prostego przykładu. Załóżmy, że masz obiekt gry zawierający pojedynczy komponent typu sprite. Pod tym obiektem znajduje się komponent typu skrypt, który go kontroluje. Taki układ w edytorze wygląda mniej więcej tak:
 
 ![bean in editor](images/addressing/bean_editor.png)
 
-Załóżmy, że chcesz wyłączyć komponent typu sprite zaraz, gdy gra się uruchomi, aby pokazać go później. Można to z łatwością zrobić przez umieszczenie poniższego kodu w pliku *"controller.script"*:
+Chcesz wyłączyć sprite na starcie gry, żeby potem pokazać go ponownie. Wystarczy umieścić poniższy kod w pliku "controller.script":
 
 ```lua
 function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-1. Nie przejmuj się na tę chwilę znakiem '#'. Powrócimy do tego.
 
-Zadziała to tak, jak oczekiwaliśmy. Gdy gra się uruchomi, skrypt *adresując* komponent typu sprite poprzez jego identyfikator "body" użyje tego adresu, aby wysłać do niego specjalną *wiadomość* o treści "disable" (ang. wyłącz). Efektem tej specjalnej wiadomości silnika jest to, że w komponencie sprite zostanie ukryty/wyłączony. Wygląda to następująco:
+1. Nie przejmuj się na razie znakiem '#'. Wrócimy do tego za moment.
+
+Działa to zgodnie z oczekiwaniami. Gdy gra startuje, komponent skryptowy adresuje komponent sprite po identyfikatorze "body" i używa tego adresu, aby wysłać do niego wiadomość "disable". Efektem tej specjalnej wiadomości silnika jest to, że komponent sprite ukrywa grafikę. Schematycznie sytuacja wygląda następująco:
 
 ![bean](images/addressing/bean.png)
 
-Identyfkatory w takim ustawieniu są arbitralne. Tutaj, to my zdecydowaliśmy, aby nadać obiektowi identyfikator "bean" (ang. fasola), a jego komponentowi typu sprite - identyfikator "body" (ang. ciało). Skrypt kontrolujący postać został nazwany "controller".
+Identyfikatory w tym ustawieniu są dowolne. Tutaj zdecydowaliśmy się nadać obiektowi gry identyfikator "bean", jego komponentowi sprite identyfikator "body", a skrypt kontrolujący postać nazwaliśmy "controller".
 
 ::: sidenote
-Jeśli sam nie wybierzesz identyfikatora, edytor zrobi to za Ciebie. Kiedy tworzysz nowy obiekt lub komponent w edytorze, zostaje mu z góry przydzielony unikalny *Id*.
+Jeśli nie wybierzesz własnego identyfikatora, edytor zrobi to za Ciebie. Kiedy tworzysz nowy obiekt gry lub komponent, automatycznie ustawiane jest unikalne *Id*.
 
-- Obiekty (ang. game objects) mają z góry przypisane Id "go" z numerem ("go2", "go3" itd.).
-- Komponenty dostają Id odpowiadające typowi ("sprite", "sprite2", "label", "sound" itp.).
+- Obiekty gry otrzymują domyślnie identyfikator "go" z kolejnym numerem ("go2", "go3" itd.).
+- Komponenty dostają identyfikator odpowiadający typowi ("sprite", "sprite2", "label", "sound" itd.).
 
-Oczywiście możesz pozostać przy tak wygenerowanych nazwach, ale zachęcamy do ich zmiany na dobre, opisowe i znaczące nazwy.
+Możesz pozostać przy tych automatycznie przypisanych nazwach, ale zachęcamy do zmiany ich na opisowe, celowe identyfikatory.
 :::
 
-Teraz dodajmy kolejny komponent typu sprite dając postaci tarczę:
+Teraz dodajmy kolejny komponent sprite i wyposażmy fasolkę w tarczę:
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-Nowy komponent musi mieć unikalną nazwę w obrębie danego obiektu. Jeśli spróbujesz ponownie nazwać komponent "body", będzie to niejednoznaczne i skrypt nie będzie "wiedział", do którego "body" ma wysłać wiadomość "disable". Dlatego wybieramy nową, znaczącą i unikalną nazwę "shield" (ang. tarcza). Teraz można dowolnie włączać i wyłączać sprite'y "body" i "shield".
+Nowy komponent musi mieć unikatowy identyfikator w obrębie obiektu gry. Gdybyś ponownie nazwał go "body", kod byłby niejednoznaczny – nie wiadomo, do którego sprite'a wysłać wiadomość "disable". Dlatego wybieramy unikalny, opisowy identyfikator "shield". W ten sposób możemy włączać i wyłączać sprite'y "body" i "shield" niezależnie.
 
 ![bean](images/addressing/bean_shield.png)
 
 ::: sidenote
-Jeśli spróbujesz nadać nieunikalną nazwę, edytor i tak zasygnalizuje błąd, więc w praktyce to nigdy nie jest problem nie do zauważenia:
+Jeśli spróbujesz użyć tego samego identyfikatora dwa razy, edytor zgłosi błąd, więc w praktyce nigdy nie ma z tym problemu:
 
 ![bean](images/addressing/name_collision.png)
 :::
 
-Zobaczmy teraz co się stanie, gdy dodamy więcej obiektów. Załóżmy, że chcesz stworzyć małą drużynę "fasolek". Nazwaliśmy jeden z obiektów "bean", to drugi nazwijmy "buddy" (ang. kolega). Ponadto, kiedy "bean" będzie przez chwilę bezczynny, chcemy, żeby powiedział on swojemu koledze "buddy", aby zaczął tańczyć. Można to zrobić przez wysłanie niestandradowej wiadomości o treści "dance" (ang. tańcz) ze skryptu "controller" obiektu "bean" do skryptu "controller" obiektu "buddy":
+Przyjrzyjmy się teraz, co się stanie, gdy dodasz kolejne obiekty. Załóżmy, że chcesz połączyć dwie fasolki w mały zespół. Nazwijmy jeden obiekt "bean", a drugiemu nadajmy nazwę "buddy". Chcemy też, żeby gdy "bean" przez chwilę stoi w miejscu, powiedział "buddy", żeby zaczął tańczyć. Robimy to wysyłając niestandardową wiadomość "dance" ze skryptu "controller" obiektu "bean" do skryptu "controller" obiektu "buddy":
 
 ![bean](images/addressing/bean_buddy.png)
 
 ::: sidenote
-Są tutaj dwa komponenty typu skrypt nazwane "controller", ale każdy w osobnym obiekcie, więc jest to całkowicie dozwolone, ponieważ ich całkowite nazwy (adresy) uwzględniające identyfikatory obiektów są od siebie różne. Nowy obiekt tworzy więc tzw. nowy kontekst nazewniczy.
+Widzimy tu dwa komponenty skryptowe o nazwie "controller", ale każdy w innym obiekcie gry, więc jest to całkowicie legalne. Dla każdego obiektu tworzy się nowy kontekst nazewniczy.
 :::
 
-Ponieważ wysyłamy wiadomość do komponentu poza naszym obiektem ("bean"), w kodzie musimy dookreślić, do którego komponentu "controller" nasza wiadomość powinna być wysłana. Musimy więc w tym przypadku określić zarówno identyfikator obiektu (game object id) i komponentu (component id). Pełny adres komponentu "controller" z obiektu "buddy" brzmi więc: `"buddy#controller"` i adres ten składa się z dwóch części.
+Ponieważ adresat wiadomości znajduje się poza obiektem wysyłającym ("bean"), kod musi określić, który komponent "controller" powinien ją otrzymać. Trzeba więc podać zarówno identyfikator obiektu gry, jak i identyfikator komponentu. Pełny adres komponentu to `"buddy#controller"` i składa się z dwóch części.
 
-- Najpierw określamy identyfikator obiektu ("buddy"),
-- następnie wstawiamy wspomniany już znak oddzielenia id obiektu od komponentu ("#"),
-- i na końcu dodajemy identyfikator komponentu ("controller").
+- Najpierw określamy identyfikator obiektu gry ("buddy"),
+- następnie wstawiamy znak oddzielający obiekt i komponent ("#"),
+- a na końcu podajemy identyfikator komponentu ("controller").
 
-Wracając do poprzedniego przykładu z jednym obiektem (game object) widzimy, że zostawiając identyfikator obiektu pusty w adresie (brak id przed "#") jest automatycznie wnioskowany komponent z tego samego obiektu co skrypt, który wysyła taką wiadomość - kod adresuje więc komponenty z *własnego obiektu*.
+Wracając do poprzedniego przykładu z jednym obiektem gry, widzimy, że pomijając część identyfikującą obiekt (czyli nie wpisując nic przed "#"), kod odwołuje się do komponentów we *własnym obiekcie*.
 
-Przykładowo, `"#body"` oznacza, że adresujemy komponent "body" we własnym obiekcie. Jest to bardzo przydatne uproszczenie, ponieważ można dzięki temu stworzyć generyczny kod, który będzie działał jako skrypt dla *dowolnego* obiektu, jeśli tylko posiada on komponent "body".
+Na przykład `"#body"` to adres komponentu "body" wewnątrz tego samego obiektu gry. To bardzo wygodne uproszczenie, ponieważ pozwala pisać generyczny kod, który będzie działał dla *dowolnego* obiektu, jeśli tylko zawiera komponent "body".
 
 ## Kolekcje
 
-Kolekce (ang. collections) umożliwiają tworzenie grup i hierarchi obiektów (game objects) i wykorzystywania ich w kontrolowany sposób. Używa się plików typu kolekcja jak szablonów (tzw. "prototypów" czy "prefabów") w edytorze kiedy chcesz umieścić w grze obiekty.
+Kolekcje (ang. collections) pozwalają tworzyć grupy lub hierarchie obiektów gry i korzystać z nich wielokrotnie w kontrolowany sposób. W edytorze używa się plików kolekcji jako szablonów (czyli "prototypów" albo "prefabów") przy dodawaniu zawartości do gry.
 
-Załóżmy, że chcesz utworzyć grupę "fasolek" jak powyżej, ale do ogólnego użytku. Dobrym sposobem na to jest stworzenie szablonu w nowym pliku *collection file* (nazwij go "team.collection"). Umieść obiekty w tym pliku (w taki sam sposób jak tworzyłeś grupę powyżej w głównej kolekcji (main bootstrap collection)) i zapisz go. Następnie utwórz instancję tej kolekcji (tego pliku) w głównej kolekcji gry i nadaj mu identyfikator "team_1":
+Załóżmy, że chcesz wygenerować dużą liczbę duetów bean/buddy. Dobrym sposobem jest stworzenie nowego pliku kolekcji (nazwa "team.collection"), zbudowanie w nim obiektów i zapisanie go. Następnie umieść instancję tego pliku w głównej kolekcji bootstrapowej i nadaj instancji identyfikator, na przykład "team_1":
 
 ![bean](images/addressing/team_editor.png)
 
-Z taką strukturą obiekt "bean" może wciąż odnosić się do komponentu "controller" w skrypcie obiektu "buddy" poprzez adres `"buddy#controller"`.
+Dzięki takiej strukturze obiekt "bean" nadal może odwoływać się do komponentu "controller" obiektu "buddy" za pomocą adresu `"buddy#controller"`.
 
 ![bean](images/addressing/collection_team.png)
 
-I jeśli dodasz kolejną instancję kolekcji "team.collection" (nazwij ją "team_2"), kod uruchomiony wewnątrz kolekcji "team_2" również będzie działał. Obiekt "bean" z instancji kolekcji "team_2" może wciąż wysyłać wiadomości do skryptu "controller" w obiekcie "buddy" poprzez adres `"buddy#controller"`. Dzieje się tak z tego samego powodu, z którego mogliśmy to doprowadzić do działania w przypadku dwóch obiektów:
+Jeśli dodasz drugą instancję "team.collection" (nazwij ją "team_2"), kod działający wewnątrz komponentów skryptowych tej instancji zadziała dokładnie tak samo. Obiekt "bean" z instancji "team_2" dalej może wysyłać wiadomości do komponentu "controller" obiektu "buddy" przez adres `"buddy#controller"`.
 
 ![bean](images/addressing/teams_editor.png)
 
 ## Adresowanie relatywne
 
-Adres `"buddy#controller"` działa dla obiektów z obu kolekcji, ponieważ jest *relatywny* czy też względny. Każda z instancji kolekcji "team_1" i "team_2" tworzy nowy kotekst nazweniczy (czy też "namespace"). Defold omija więc duplikowanie nazw przez używanie zarówno identyfikatorów komponentów i obiektów jak i kolekcji w celu tworzenia adresu:
+Adres `"buddy#controller"` działa dla obiektów z obu kolekcji, ponieważ jest *relatywny*. Każda instancja kolekcji "team_1" i "team_2" tworzy własny kontekst nazewniczy, czyli przestrzeń nazw. Defold unika kolizji nazw, uwzględniając ten kontekst przy adresowaniu:
 
 ![relative id](images/addressing/relative_same.png)
 
-- W obrębie kontekstu nazewniczego kolekcji "team_1", obiekty "bean" i "buddy" mają unikalne adresy.
-- Analogicznie, w obrębie kontekstu nazewniczego kolekcji "team_2", obiekty "bean" i "buddy" mają również unikalne adresy.
+- W ramach kontekstu nazewniczego kolekcji "team_1" obiekty "bean" i "buddy" mają unikalne identyfikatory.
+- W analogiczny sposób w kontekście kolekcji "team_2" identyfikatory "bean" i "buddy" również są unikatowe.
 
-Adresowanie relatywne (względne) działa dzięki automatycznemu używaniu identyfikatora własnej, obecnej kolekcji (czy też własnego kontekstu nazewniczego) przy tworzeniu adresu każdego komponentu. Jest to również niezwykle przydatne, ponieważ możesz tworzyć grupy obiektów z tym samym kodem dla każdego z nich i wykorzystywać je wielokrotnie w grze.
+Adresowanie relatywne działa dzięki temu, że podczas rozwiązywania adresu Defold automatycznie dopisuje aktualny kontekst nazewniczy. To bardzo praktyczne, ponieważ pozwala tworzyć grupy obiektów z taką samą logiką i wielokrotnie wykorzystywać je w grze.
 
 ### Skróty
 
-Defold pozwala na używanie dwóch przydatnych skrótów przy tworzeniu adresu, bez określania konkretnego adresu URL komponentu ("#") czy obiektu ("."):
+Defold udostępnia dwa przydatne skróty, które pozwalają wysyłać wiadomości bez określania pełnego URL:
 
 :[Shorthands](../shared/url-shorthands.md)
 
 ## Ścieżki do obiektów
 
-Aby poprawnie zrozumieć mechanizm adresowania, spójrzmy co się stanie, gdy zbudujesz i uruchomisz projekt:
+Aby zrozumieć mechanizm nazewnictwa, spójrzmy, co się dzieje po zbudowaniu i uruchomieniu projektu:
 
-1. Edytor początkowo wczytuje kolekcję główną (bootstrap main collection) ("main.collection") i całą jej zawartość (obiekty i inne kolekcje wewnątrz).
-2. Dla każdego obiektu statycznego (którego instancja już istnieje), kompilator tworzy identyfikator (adres). Te są zbudowane korzystając ze "ścieżek" startując od źródła kolekcji bootstrapowej (root), w dół hierarchi aż do danego obiektu. Znak '/' jest dodawany przy każdym zejściu poziomu hierarchi.
+1. Edytor wczytuje kolekcję bootstrapową ("main.collection") i całą zawartość (obiekty gry i inne kolekcje).
+2. Dla każdego statycznego obiektu gry kompilator tworzy identyfikator. Tworzy się ścieżka, która zaczyna się w korzeniu kolekcji bootstrapowej i schodzi przez kolejne kolekcje aż do obiektu. Na każdym poziomie hierarchii dokleja się znak '/'.
 
-Dla przykładu powyżej, gra uruchomi się startując z 4 obiektami:
+W naszym przykładzie gra uruchomi się z czterema obiektami:
 
 - /team_1/bean
 - /team_1/buddy
@@ -130,24 +131,24 @@ Dla przykładu powyżej, gra uruchomi się startując z 4 obiektami:
 - /team_2/buddy
 
 ::: sidenote
-Adresy komponentów są przechowywane jako "posiekane" lub "skrócone" (ang. hashed - i może lepiej jako programista używać angielskiej nazwy (hash)[https://pl.wikipedia.org/wiki/Funkcja_skrótu]- przyp. tłumacza) wartości. W czasie działania program przechowuje adresy również jako "shaszowane" dla każdej instancji w kolekcji, która jest w użyciu, aby zachować ciągłość nazwy adresu absolutnego (bezwzględnego).
+Identyfikatory są przechowywane jako wartości haszowane. Runtime przechowuje również stan haszowania dla każdej kolekcji, co pozwala kontynuować przeliczanie relatywnych ciągów na identyfikatory absolutne.
 :::
 
-W czasie działania programu, grupowanie kolekcji nie istnieje. Nie ma sposobu na sprawdzenie do jakiej kolekcji przynależy dany obiekt przed kompilacją. Nie jest też możliwe manipulowanie wszystkimi obiektami w kolekcji naraz. Jeśli jednak potrzebujesz wykorzystywać takie operacje  możesz z łatwością śledzić adres w kodzie. Każdy identyfikator obiektu jest statyczny, jest więc gwarantowane, że zostanie stały przez cały cykl życia obiektu. Oznacza to, że można bezpiecznie przechować id obiektu i używać go później.
+W czasie działania grupowanie kolekcji znika. Nie da się ustalić, do której kolekcji należał dany obiekt przed kompilacją. Nie można też w prosty sposób manipulować wszystkimi obiektami z kolekcji naraz. Jeśli potrzebujesz takich operacji, samodzielnie je śledź w kodzie. Identyfikator każdego obiektu jest stały przez cały czas życia obiektu. Oznacza to, że bezpiecznie można go przechować i użyć później.
 
 ## Adresowanie absolutne
 
-Jest oczywiście możliwe używanie bezwzględnych (absolutnych) adresów komponentów podczas adresowania. W wielu przypadkach adresowanie relatywne jest prefereowane z powodu możliwości wielokrotnego wykorzystania kodu, ale są przypadki, gdzie wymagane jest adresowanie absolutne.
+Można też używać pełnych identyfikatorów opisanych powyżej. W większości przypadków preferuje się adresowanie relatywne, bo umożliwia ponowne użycie zawartości, ale zdarzają się sytuacje, gdy konieczne jest adresowanie absolutne.
 
-Na przykład, załóżmy, że chcesz stworzyć jeden manager AI, który będzie śledził stan wszytkich obiektów "fasolek". Chcesz, żeby "fasolki" raportowały swój status do managera, a manager podejmował taktyczne decyzje i wydawał rozkazy każdej "fasolce" bazując na jej stanie. W tym przypadku jest całkowicie sensowne użycie absolutnego adresowania do wysyłania wiadomości do managera, którego jedną instancję utworzysz w głównej kolekcji bootstrapowej obok wielu instancji "fasolek".
+Na przykład wyobraź sobie menedżera AI, który śledzi stan każdej fasolki. Chcesz, żeby fasolki raportowały swój status do menedżera, a on na podstawie tych informacji podejmował decyzje i wydawał rozkazy. W takim przypadku sensowne jest stworzenie jednego obiektu gry z komponentem skryptowym i umieszczenie go w głównej kolekcji bootstrapowej obok instancji zespołów.
 
 ![manager object](images/addressing/manager_editor.png)
 
-Każda "fasolka" jest odpowiedzialna za wysyłanie wiadomości ze statusem do managera AI: "contact", jeśli zauważy wroga lub "ouch!", gdy otrzyma obrażenia. Aby to działało, skrypt obiektu "fasolki" może użyć absolutnego adresu skryptu "controller" managera AI nazwanego pragmatycznie "manager".
+Każda fasolka odpowiada za wysyłanie wiadomości statusowych do menedżera: "contact" gdy zauważy wroga lub "ouch!" gdy dostanie obrażenia. Żeby to zadziałało, skrypt obiektu fasolki wykorzystuje absolutny adres, aby wysłać wiadomość do komponentu "controller" obiektu "manager".
 
-Każdy adres, który rozpoczyna się znakiem '/' będzie właśnie rozkodowywany od źródła kolekcji (root). W tym przypadku odpowiada to "rootowi" *kolekcji bootstrapowej*, która jest wczytywana wraz ze startem gry.
+Każdy adres rozpoczynający się od '/' jest rozwiązywany względem korzenia świata gry. Odpowiada to korzeniowi *kolekcji bootstrapowej*, która ładuje się przy starcie gry.
 
-Adres absolutny skryptu managera to `"/manager#controller"` i będzie on zawsze opisywał ten skrypt, niezależnie od tego, skąd wiadomość zostanie wysłana.
+Absolutnym adresem skryptu menedżera jest `"/manager#controller"` i niezależnie od miejsca użycia zawsze wskaże właściwy komponent.
 
 ![teams and manager](images/addressing/teams_manager.png)
 
@@ -155,9 +156,9 @@ Adres absolutny skryptu managera to `"/manager#controller"` i będzie on zawsze 
 
 ## Identyfikatory haszowane (skrócone)
 
-Silnik Defold przechowuje wszystkie identyfikatory jako "shaszowane" wartości. Wszystkie funkcje, które przyjmują jako argument komponent lub obiekt (game object) akceptują "obiekty" typu string, hash lub URL. Powyżej używaliśmy tylko stringów do adresowania.
+Silnik przechowuje wszystkie identyfikatory jako wartości haszowane. Wszystkie funkcje przyjmujące jako argument komponent lub obiekt gry akceptują string, hash lub obiekt URL. Powyżej pokazywaliśmy adresowanie z użyciem stringów.
 
-Kiedy pobierasz identyfikator obiektu, silnik Defold zawsze zwróci ścieżkę absolutną identyfkatora, która jest haszowana:
+Kiedy pobierasz identyfikator obiektu, silnik Defold zawsze zwraca haszowaną ścieżkę absolutną:
 
 ```lua
 local my_id = go.get_id()
@@ -167,10 +168,10 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-Możesz użyć takiego identyfikatora zamiast adresu w postaci stringa lub skonstruować go samemu. Pamiętaj jednak, że shaszowany identyfikator odpowiada adresowi utworzonemu ze ścieżki do obiektu, czyli adresowi absolutnemu:
+Możesz użyć takiego identyfikatora zamiast stringa albo samodzielnie go skonstruować. Pamiętaj jednak, że haszowany identyfikator odpowiada ścieżce do obiektu, czyli adresowi absolutnemu:
 
 ::: sidenote
-Powodem, dla którego musimy podać stringi do stworzenia adresu relatywnego jest tworzenie przez silnik Defold na nowo haszowanego id bazującego na haszowanym stanie danego kontekstu nazewniczego (kolekcji) z podanym stringiem dodanym do hasza.
+Powodem, dla którego adresy relatywne muszą być podawane jako stringi, jest fakt, że silnik buduje nowy identyfikator haszowany na podstawie stanu haszowania aktualnego kontekstu nazewniczego (kolekcji) z dopisanym ciągiem tekstowym.
 :::
 
 ```lua
@@ -188,30 +189,30 @@ go.set_position(pos, relative_id)
 
 ## URL
 
-Aby dopełnić obraz adresowania, spójrzmy na pełny format adresu w silniku Defold: adres URL.
+Żeby dopełnić obraz, spójrzmy na pełny format adresu w silniku Defold: URL.
 
-URL jest obiektem, zazwyczaj zapisywany jako specjalnie sformatowany string. Ogólny URL w Defoldzie składa się z trzech części:
+URL to obiekt, zwykle zapisywany jako specjalnie sformatowany string. Ogólny format URL-a wygląda tak:
 
 `[socket:][path][#fragment]`
 
 socket
-: Identyfikuje świat, w którym obiekt istnieje (instancję kolekcji). Jest to ważne podczas pracy z [Pełnomocnikami Kolekcji (Collection Proxy)](/manuals/collection-proxy) i jest później wykorzystywane do _dynamicznie załadowanej kolekcji_.
+: Identyfikuje świat gry, do którego należy cel (instancję kolekcji). Jest to istotne podczas pracy z [Pełnomocnikami kolekcji (Collection Proxy)](/manuals/collection-proxy) i służy do określenia _dynamicznie załadowanej kolekcji_.
 
 path
-: Część adresu URL zawierająca pełne id danego obiektu (game object).
+: Ta część adresu URL zawiera pełny identyfikator docelowego obiektu gry.
 
 fragment
-: Identyfkator danego komponentu pod danym obiektem.
+: Identyfikator komponentu znajdującego się pod wskazanym obiektem gry.
 
-Tak jak wcześniej, możesz zostawić niektóre pola puste pozwalając silnikowi na wydedukowanie, o jaki element chodzi zakładając domyślne wartości jak powyżej. Bardzo rzadko jest potrzeba określania gniazda (socket), za to często musisz określić ścieżkę (path). W przypadkach, gdy chcesz się odnieść do obiektu z innego świata (kolekcji) niż obecna, będziesz podawać socket. Przykładowo, pełny URL skryptu "controller" obiektu "manager" wygląda następująco:
+Jak widzieliśmy wcześniej, w większości przypadków można pominąć niektóre fragmenty adresu. Zwykle nie trzeba podawać socketu, a czasami nie trzeba też podawać ścieżki. Gdy jednak chcesz odwołać się do świata innego niż aktualny, musisz określić socket. Przykładowo pełny string URL-a skryptu "controller" obiektu "manager" to:
 
 `"main:/manager#controller"`
 
-a skrypt "controller" obiektu "buddy" w kolekcji "team_2" to:
+a kontroler kolegi z "team_2" to:
 
 `"main:/team_2/buddy#controller"`
 
-Możemy do nich wysłać wiadomości:
+Możemy wysyłać wiadomości do tych komponentów:
 
 ```lua
 -- Send "hello" to the manager script and team buddy bean
@@ -221,7 +222,7 @@ msg.post("main:/team_2/buddy#controller", "hello_buddy")
 
 ## Konstruowanie obiektów URL
 
-Obiekty URL mogą być również kontruowane w kodzie:
+Obiekty URL można także tworzyć programowo w kodzie Lua:
 
 ```lua
 -- Construct URL object from a string:
