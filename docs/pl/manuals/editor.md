@@ -1,163 +1,336 @@
 ---
-title: Edytor Defold
-brief: Ta instrukcja opisuje ogólnie Edytor Defold, jak wygląda i działa oraz jak w nim się poruszać.
+title: Przegląd edytora
+brief: Ta instrukcja przedstawia, jak wygląda i działa edytor Defold oraz jak się po nim poruszać.
 ---
 
-# Edytor Defold
+# Przegląd edytora
 
-Edytor Defold pozwala przeglądać i zarządzać plikami w Twoim projekcie w wydajny sposób. Edytowanie różnych plików otwiera odpowiednie widoki ukazujące wszystkie niezbędne informacje.
+Edytor pozwala sprawnie przeglądać i modyfikować wszystkie pliki oraz foldery w projekcie gry. Po otwarciu pliku edytor wybiera odpowiedni widok dla jego typu i pokazuje powiązane informacje w osobnych panelach.
 
 ## Uruchamianie Edytora
 
-Kiedy uruchamiasz Edytor Defold zostaje najpierw otwarte okno wyboru i tworzenia projektu. Wybierz spośród:
+Po uruchomieniu edytora Defold zobaczysz ekran wyboru i tworzenia projektu. Kliknij to, co chcesz zrobić:
 
-Home (Strona domowa)
-: Kliknij, żeby zobaczyć swoje ostatnio otwierane projekty. To jest domyślny widok.
+MY PROJECTS
+: Tutaj znajdziesz ostatnio otwierane projekty, dzięki czemu możesz szybko do nich wrócić. To domyślny widok ekranu startowego.
 
-New Project (Nowy Projekt)
-: Kliknij, jeśli chcesz stworzyć nowy projekt. Następnie wybierz bazę swojego projektu spośród dostępnych szablonów (z zakładki *From Template*), tutoriali (*From Tutorial*) lub wypróbować jecen z przykładowych projektów (*From Sample*).
+  Jeśli wcześniej nie otwierałeś żadnych projektów albo usunąłeś je z listy, zobaczysz dwa przyciski. `Open From Disk…` pozwala znaleźć i otworzyć projekt przez systemową przeglądarkę plików, a `Create New Project` przełącza do zakładki `TEMPLATES`.
 
-  ![new project](images/editor/new_project.png)
+  ![my projects](images/editor/start_no_projects.png)
 
-  Kiedy utworzysz nowy projekt będzie on zapisany na Twoim lokalnym dysku, tak jak wszystkie zmiany, które w nim zrobisz.
+  Jeśli wcześniej otwierałeś już projekty, zobaczysz ich listę, jak na ilustracji poniżej:
 
-Szczegóły dotyczące różnych zakładek znajdziesz w [instrukcji do rozpoczynania projektu](https://www.defold.com/manuals/project-setup/).
+  ![my projects](images/editor/start_my_projects.png)
 
-## Widoki w Edytorze
+TEMPLATES
+: Zawiera puste lub prawie puste projekty startowe, przygotowane do szybkiego rozpoczęcia nowego projektu Defold dla wybranych platform albo z użyciem określonych rozszerzeń.
 
-Edytor Defold jest podzielony na oddzielne widoki/sekcje, które zawierają specyficzne informacje.
+TUTORIALS
+: Zawiera projekty z samouczkami, które można uruchamiać, analizować i modyfikować, jeśli chcesz uczyć się krok po kroku.
 
-![Editor 2](images/editor/editor2_overview.png)
+SAMPLES
+: Zawiera projekty przygotowane do prezentowania określonych zastosowań.
 
-Widok *Assets* (Zasoby)
-: Zawiera listę wszystkich plików projektu, reprezentowaną podobnie do systemowego eksploratora plików, zgodnie z hierarchią katalogów. Możesz klikać, przewijać i rozwijać elementy:
+  ![New project](images/editor/start_templates.png)
 
-   - <kbd>Kliknij dwukrotnie lewym przyciskem myszki</kbd> nazwę pliku, żeby otworzyć go w Edytorze.
-   - <kbd>Przeciągaj i upuszczaj</kbd> pliki, aby zmieniać ich lokalizację w strukturze projektu lub dodawać nowe pliki z dysku.
-   - <kbd>Kliknij prawy przycisk myszki</kbd>, żeby otworzyć _menu kontekstowe_, z którego możesz utworzyć nowe pliki i foldery, zmienić nazwę, usunąć czy śledzić zależności i wiele więcej.
+Gdy utworzysz nowy projekt, zostanie on zapisany na lokalnym dysku, a wszystkie kolejne zmiany również będą zapisywane lokalnie.
 
-Widok *Editor* (Edytor)
+Więcej o dostępnych opcjach przeczytasz w [instrukcji o konfiguracji projektu](https://www.defold.com/manuals/project-setup/).
 
-: Centralna sekcja wyświetla aktualnie otwarty plik w Edytorze odpowiedniem dla danego typu pliku. Wszystkie rodzaje takich Edytorów, które są wizualne pozwalają na manipulację widokiem kamery:
+## Język edytora
 
-- Przesuwanie: <kbd>Alt + Lewy przycisk myszki</kbd>.
-- Oddalanie/przybliżanie: <kbd>Alt + Prawy przycisk myszki</kbd> (myszki trójprzyciskowe) lub <kbd>Ctrl + Lewy przycisk myszki</kbd> (jeden przycisk). Jeśli myszka ma kółko, może ono być również używane do przybliżania i oddalania.
-- Obracaj w 3D: <kbd>Ctrl + Lewy przycisk myszki</kbd>.
+W lewym dolnym rogu ekranu startowego znajduje się wybór języka. Możesz wybrać jedną z aktualnie dostępnych lokalizacji językowych od wersji Defold 1.11.2. Ta sama opcja jest dostępna także w edytorze w `File ▸ Preferences ▸ General ▸ Editor Language`.
 
-W prawym górnym rogu Edytora aktualnie otwartego pliku (sceny) znajduje się zestaw narzędzi obsługi widoku kamery: *Move* (Przesuwanie), *Rotate* (Obracanie) and *Scale* (Skalowanie).
+![Languages](images/editor/languages.png)
 
-![toolbar](images/editor/toolbar.png)
+## Panele edytora
 
-Widok *Outline* (Zawartość pliku)
-: Widok ten pokazuje zawartość aktualnie otwartego pliku, w strukturze drzewa. Odzwierciedla widok Edytora i pozwala na wykonywanie operacji na zawartości:
+Edytor Defold jest podzielony na zestaw paneli, czyli widoków pokazujących określone informacje.
 
-   - <kbd>Kliknij lewym przyciskem myszki</kbd> aby wybrać wskazany element. Przytrzymaj klawisz <kbd>Shift</kbd> lub <kbd>Option</kbd>, żeby zaznaczyć wiele elementów.
-   - <kbd>Przeciągaj i upuszczaj</kbd> elementy, żeby zmieniać ich położenie w strukturze. Upuść obiekty gry (game object) na innym obiekcie w kolekcji, żeby stworzyć relację rodzic-dziecko.
-   - <kbd>Kliknij prawy przycisk myszki</kbd>, żeby otworzyć _menu kontekstowe_, z którego możesz utworzyć nowe komponenty, usunąć wybrane i wiele więcej.
+![Editor 2](images/editor/editor_overview.png)
 
-Widok *Properties* (Właściwości))
-: Widok ten pokazuje właściwości aktualnie wybranego komponentu, takie jak Pozycja, Rotacja, Animacja, Id, etc.
+### 1. Panel Assets
 
-Widok *Tools* (Narzędzia)
-: Dolny widok pokazuje w zależności od wybranej zakładki: konsolę (ang. *Console*) wyświetlającą logi działającego programu, Edytor krzywych (ang. *Curve Editor*) umożliwiający edytowanie wykresu krzywej, używany np. przy tworzeniu efektów cząsteczkowych (particle fx), błędy budowania (ang. *Build Errors*) i wyniki wyszukiwania (ang. *Search Results*). Konsola jest również używana podczas używania zintegrowanego debuggera.
+Pokazuje wszystkie pliki i foldery należące do projektu w strukturze drzewa odpowiadającej układowi na dysku. Możesz klikać i przewijać, aby poruszać się po liście. W tym widoku wykonuje się wszystkie operacje związane z plikami:
 
-Widok *Changed Files* (Zmienione pliki):
-: Widok pokazuje wszystkie pliki, które zostały zmienione, dodane lub usunięte z Twojego projektu od ostatniej zapisanej w systemie kontroli wersji zmiany (commit). This view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if unfortune strikes. Some file oriented operations can be performed in this view:
+- <kbd>Left Mouse Click</kbd>, aby wybrać plik lub folder. Przytrzymując <kbd>⇧ Shift</kbd>, rozszerzysz zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczysz lub odznaczysz kliknięty element.
+- <kbd>Double Mouse Click</kbd> na pliku, aby otworzyć go w edytorze właściwym dla tego typu pliku.
+- <kbd>Drag and Drop</kbd>, aby dodać pliki z innych miejsc na dysku do projektu albo przenosić pliki i foldery w obrębie projektu.
+- <kbd>Right Mouse Click</kbd>, aby otworzyć _Context Menu_, z którego możesz tworzyć nowe pliki i foldery, zmieniać nazwy, usuwać elementy, śledzić zależności plików i wykonywać inne operacje.
 
-   - <kbd>Double click</kbd> a file to open a diff view of the file. Editor 2 opens the file in a suitable editor, just like in the assets view.
-   - <kbd>Right click</kbd> a file to open a pop up menu from where you can open a diff view, revert all changes done to the file, find the file on the filesystem and more (editor 2).
+### 2. Panel Editor
 
-## Edytowanie równolegle (Side-by-side)
+Środkowy widok pokazuje aktualnie otwarty plik w edytorze odpowiednim dla jego typu. Na przykład pliki skryptów otwierają się we wbudowanym Code Editor, a komponenty wizualne w trójwymiarowym Visual Editor. Wszystkie Visual Editors pozwalają zmieniać widok kamery:
 
-Jeśli masz otwartych kilka plików jednocześnie, dla każdego z nich pokazywana jest osobna zakładka na górnym pasku Edytora Defold. Możliwe jest również otworzenie dwóch Edytorów/.paneli naraz, jeden obok drugiego. Wybierz plik, <kbd>klikająć prawym przyciskiem myszy</kbd> na danej zakładce w górnym pasku i wybierz <kbd>Move to Other Tab Pane</kbd> z menu kontekstowego.
+- Przesuwanie: <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Left Mouse Button</kbd> lub <kbd>Right Mouse Button</kbd>
+- Przybliżanie i oddalanie: <kbd>Scroll Mouse Wheel</kbd> albo <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Right Mouse Button</kbd>
+- Obracanie w 3D wokół zaznaczenia: <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd>
+
+#### Pasek narzędzi
+
+W prawym górnym rogu widoku sceny znajduje się pasek narzędzi z narzędziami do manipulacji obiektami. Od lewej są to:
+
+*Move* (<kbd>W</kbd>), *Rotate* (<kbd>E</kbd>), *Scale* (<kbd>R</kbd>), *Grid Settings* `▦`, *Align Camera 2D/3D* `2D`, przełącznik *Camera Perspective/Orthographic* oraz *Visibility Filters* `👁`.
+
+![Toolbar](images/editor/toolbar.png)
+
+### 3. Panel Outline
+
+Ten widok pokazuje zawartość aktualnie edytowanego pliku w strukturze hierarchicznego drzewa. `Outline` odzwierciedla widok edytora i pozwala wykonywać operacje na elementach:
+
+- <kbd>Left Mouse Click</kbd>, aby zaznaczyć element. Przytrzymując <kbd>⇧ Shift</kbd>, rozszerzysz zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczysz lub odznaczysz kliknięty element.
+- <kbd>Drag and Drop</kbd>, aby przenosić elementy. Upuszczenie obiektu gry na inny obiekt gry w kolekcji tworzy relację rodzic-dziecko.
+- <kbd>Right Mouse Click</kbd>, aby otworzyć _Context Menu_, z którego możesz dodawać elementy, usuwać zaznaczone obiekty i wykonywać inne operacje.
+
+Widoczność obiektów gry i komponentów wizualnych można przełączać, klikając małą ikonę oka `👁` po prawej stronie elementu na liście. Funkcja jest dostępna od Defold 1.9.8.
+
+![Outline](images/editor/outline.png)
+
+### 4. Panel Properties
+
+Ten widok pokazuje właściwości powiązane z aktualnie zaznaczonym elementem, na przykład `Id`, `URL`, `Position`, `Rotation`, `Scale`, właściwości specyficzne dla komponentu oraz własne właściwości skryptów.
+
+Możesz też <kbd>Drag</kbd> ikonę strzałki `↕` i poruszać myszą, aby zmieniać wartość danej właściwości liczbowej. Ta funkcja jest dostępna od wersji 1.10.2.
+
+![Properties](images/editor/properties.png)
+
+### 5. Panel Tools
+
+Ten widok zawiera kilka kart:
+
+*Console*
+: pokazuje błędy, ostrzeżenia, informacje wypisywane przez silnik oraz komunikaty, które sam wypisujesz, gdy gra jest uruchomiona.
+
+*Build Errors*
+: pokazuje błędy z procesu budowania.
+
+*Search Results*
+: pokazuje wyniki wyszukiwania w całym projekcie po użyciu <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd>, jeśli klikniesz `Keep Results`.
+
+*Curve Editor*
+: jest używany podczas edytowania krzywych w [Particle Editor](/manuals/particlefx/).
+
+Panel `Tools` służy również do pracy ze zintegrowanym debuggerem. Więcej informacji znajdziesz w [instrukcji debugowania](/manuals/debugging/).
+
+### 6. Panel Changed Files
+
+Jeśli projekt używa rozproszonego systemu kontroli wersji Git, ten widok pokazuje wszystkie pliki zmienione, dodane lub usunięte w projekcie. Regularna synchronizacja projektu pozwala utrzymywać lokalną kopię zgodną z tym, co znajduje się w repozytorium Git projektu. Dzięki temu łatwiej pracować zespołowo i uniknąć utraty efektów pracy. Więcej o Git znajdziesz w [instrukcji kontroli wersji](/manuals/version-control/). W tym widoku można wykonywać część operacji na plikach:
+
+- <kbd>Left Mouse Click</kbd>, aby wybrać plik. Przytrzymując <kbd>⇧ Shift</kbd>, rozszerzysz zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczysz lub odznaczysz kliknięty element. Jeśli zaznaczony jest jeden zmieniony plik, możesz kliknąć `Diff`, aby zobaczyć różnice. Kliknięcie `Revert` cofa zmiany we wszystkich zaznaczonych plikach.
+- <kbd>Double Left Mouse Click</kbd> na pliku, aby otworzyć jego widok. Edytor otworzy plik w odpowiednim edytorze, tak jak w panelu `Assets`.
+- <kbd>Right Mouse Click</kbd> na pliku, aby otworzyć menu podręczne, z którego możesz wyświetlić `diff`, cofnąć wszystkie zmiany w pliku, znaleźć go w systemie plików i wykonać inne operacje.
+
+### Pasek menu
+
+Na górze widoku edytora, a na Macu w systemowym pasku menu, znajduje się pasek z sześcioma menu: `File`, `Edit`, `View`, `Project`, `Debug` i `Help`. Ich funkcje opisano w odpowiednich instrukcjach.
+
+### Pasek stanu
+
+Na dolnym pasku edytora znajduje się wąski obszar, w którym wyświetlany jest status, na przykład:
+
+- gdy dostępna jest nowa wersja, zobaczysz klikalny przycisk `Update Available`; patrz sekcja o aktualizowaniu edytora poniżej
+- podczas budowania lub bundlowania będzie tam widoczny postęp operacji
+
+## Rozmiar i widoczność paneli
+
+Rozmiar paneli można zmieniać w edytorze przez <kbd>Dragging</kbd> granic pomiędzy opisanymi wyżej sześcioma panelami.
+
+Widoczność paneli można przełączać z menu `View` albo skrótami:
+
+- `Toggle Assets Pane` (<kbd>F6</kbd>) przełącza widoczność paneli `Assets` i `Changed Files`
+- `Toggle Changed Files` przełącza widoczność samego panelu `Changed Files`
+- `Toggle Tools Pane` (<kbd>F7</kbd>) przełącza widoczność panelu `Tools`
+- `Toggle Properties Pane` (<kbd>F8</kbd>) przełącza widoczność paneli `Outline` i `Properties`
+
+![Panes Visibility](images/editor/editor_panes.png)
+
+W menu `View` możesz też przełączać lub zmieniać inne ustawienia widoczności, takie jak siatka, prowadnice czy kamera. Możesz też dopasować widok do zaznaczenia za pomocą `Frame Selection` lub klawisza <kbd>F</kbd>, a także przełączać się między domyślnym widokiem 2D i 3D za pomocą `Realign Camera` lub klawisza <kbd>.</kbd>. Wiele z tych funkcji jest również dostępnych z paska narzędzi albo przez skróty.
+
+## Zakładki
+
+Jeśli masz otwartych kilka plików, u góry panelu `Editor` pojawi się osobna zakładka dla każdego pliku. Zakładki w obrębie jednego panelu można przestawiać przez <kbd>Drag and Drop</kbd>, aby zamieniać ich kolejność. Możesz też:
+
+- <kbd>Right Mouse Click</kbd> na zakładce, aby otworzyć _Context Menu_
+- kliknąć `Close` (<kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>W</kbd>), aby zamknąć jedną zakładkę
+- kliknąć `Close Others`, aby zamknąć wszystkie zakładki poza wybraną
+- kliknąć `Close All` (<kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>), aby zamknąć wszystkie zakładki w aktywnym panelu
+- wybrać `➝| Open As`, aby użyć innego niż domyślny edytora albo zewnętrznego narzędzia ustawionego w `File ▸ Preferences ▸ Code ▸ Custom Editor`; więcej informacji znajdziesz w [instrukcji Preferences](/manuals/editor-preferences)
+
+![Tabs](images/editor/tabs_custom.png)
+
+## Edycja obok siebie
+
+Możliwe jest otwarcie dwóch widoków edytora obok siebie.
+
+- <kbd>Right Mouse Click</kbd> na zakładce edytora, który chcesz przenieść, a następnie wybierz `Move to Other Tab Pane`
 
 ![2 panes](images/editor/2-panes.png)
 
-Następnie, możesz również z tego samego menu kontekstowego wybrać opcje <kbd>Swap With Other Tab Pane</kbd>, żeby zamienić panele miejscami lub <kbd>Join Tab Panes</kbd>, żeby z powrotem połączyć panele w jeden.
+Z tego samego menu zakładki możesz też użyć `Swap with Other Tab Pane`, aby przenieść wybraną zakładkę między panelami, albo `Join Tab Panes`, aby z powrotem połączyć oba panele w jeden.
 
 ## Edytor sceny
 
-Kliknij dwukrotnie lewym przyciskiem myszki na kolekcji lub obiekcie gry, żeby otworzyć *Edytor Sceny*:
+Dwukrotne kliknięcie kolekcji, obiektu gry albo pliku komponentu wizualnego otwiera *Scene Editor*. Domyślnie wszystkie sceny wizualne otwierają się w ortograficznym widoku 2D:
 
-![Select object](images/editor/select.png)
+![Scene Editor](images/editor/2d_scene.png)
 
-Wybieranie obiektów:
-: Kliknij na obiekt w głównym oknie, żeby go wybrać. Prostokąt wokół wybranego obiektu zostanie podświetlony na zielono. Wybrany obiekty zostanie również podświetlony w widoku *Outline* po prawej stronie.
+Jeśli pracujesz nad projektem 3D, warto zajrzeć do paska narzędzi i dostosować `Grid Settings` `▦`, na przykład przełączyć wyrównanie kamery między 2D i 3D przez `2D` lub klawisz <kbd>.</kbd>, ustawić wyświetlanie siatki na płaszczyźnie `Y` albo innej, która będzie dla Ciebie bardziej intuicyjna, i przełączyć kamerę na perspektywiczną za pomocą przełącznika na pasku narzędzi albo `View ▸ Perspective Camera`:
 
-  Obiekty możesz wybierać również:
+![Scene Editor 3D](images/editor/3d_scene.png)
 
-  - <kbd>Klikając i przeciągając</kbd>, żeby wybrać wszystkie obiekty w zaznaczonym, prostokątnym obszarze.
-  - <kbd>Klikając</kbd> na obiekt w widoku Outline po prawej stronie.
+### Manipulowanie obiektami
 
-  Naciśnij i przytrzymaj <kbd>Shift</kbd> lub <kbd>⌘</kbd> (Mac) / <kbd>Ctrl</kbd> (Win/Linux) podczas wybierania obiektów, aby wybrać więcej na raz.
+<kbd>Left Mouse Click</kbd> na obiekcie w głównym oknie zaznacza go. Prostokąt lub prostopadłościan otaczający obiekt w widoku edytora zostanie podświetlony na kolor cyjan, aby wskazać zaznaczony element. Zaznaczony obiekt zostanie też podświetlony w widoku `Outline`, jak na ilustracji powyżej.
 
-Narzędzie przesuwania (Move)
-: ![Move tool](images/editor/icon_move.png){.left}
-  Do przesuwania obiektów można użyć narzędzia przesuwania *Move*. Znajdziesz je w pasku narzędzi w prawym górnym rogu Edytora sceny lub klikając klawisz <kbd>W</kbd>.
+Możesz też zaznaczać obiekty w następujący sposób:
 
-  ![Move object](images/editor/move.png)
+- <kbd>Left Mouse Click</kbd> i <kbd>Drag</kbd>, aby zaznaczyć wszystkie obiekty mieszczące się w obszarze zaznaczenia
+- <kbd>Left Mouse Click</kbd> na obiektach w `Outline`; przytrzymując <kbd>⇧ Shift</kbd>, rozszerzysz zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczysz lub odznaczysz kliknięty element
 
-  Nad wybranym obiektem wyświetla się zestaw wizualnych manipulatorów (kwadraty i strzałki). Klikaj i przeciągaj środkowym kwadratem, aby dowolnie przesuwać obiektem po ekranie lub klikaj i przeciągaj pojedyncze strzałki, aby przesuwać obiekt tylko wzdłuż wybranej osi. Są tutaj również kwadratowe wskaźniki umożliwiające poruszanie się po płaszczyznach XY oraz X-Z i Y-Z (widoczne po obróceniu kamery).
+#### Narzędzie Move
 
-Narzędzie obracania (Rotate)
-: ![Rotate tool](images/editor/icon_rotate.png){.left}
-  Do obracania obiektów, można użyć narzędzia obracania *Rotate* wybierając je z górnego paska narzędzi lub naciskając klawisz <kbd>E</kbd>.
+![Move tool](images/editor/icon_move.png){.left}
 
-  ![Move object](images/editor/rotate.png)
+Aby przesuwać obiekty, użyj *Move Tool*. Narzędzie znajduje się na pasku narzędzi w prawym górnym rogu edytora sceny albo możesz włączyć je klawiszem <kbd>W</kbd>.
 
-  Nad wybranym obiektem wyświetla się zestaw wizualnych, okrągłych manipulatorów. Pomarańczowy manipulator obraca obiektem w płaszczyźnie ekranu, a pozostałe wokół osi X, Y i Z. Pamiętaj, że domyślny widok jest prostopadły do osi X i Y, więc okręgi służące do obrotu wokół tych osi są widoczne wtedy po prostu jako linie.
+![Move object](images/editor/move.png){.inline}![Move object 3D](images/editor/move_3d.png){.inline}
 
-Narzędzie skalowania (Scale)
-: ![Scale tool](images/editor/icon_scale.png){.left}
-  Do skalowania obiektów, można użyć narzędzia skalowania *Scale* wybierając je z górnego paska narzędzi lub naciskając klawisz <kbd>R</kbd>.
+Gizmo zmienia się i pokazuje zestaw manipulatorów, czyli kwadratów i strzałek. Zaznaczony manipulator zmienia kolor na pomarańczowy. Możesz je <kbd>Drag</kbd>, aby przesuwać obiekty:
 
-  ![Scale object](images/editor/scale.png)
+- środkowy cyjanowy kwadrat przesuwa obiekt tylko w przestrzeni ekranu
+- trzy czerwone, zielone i niebieskie strzałki przesuwają obiekt tylko wzdłuż odpowiednio osi X, Y i Z
+- trzy czerwone, zielone i niebieskie kwadratowe uchwyty przesuwają obiekt tylko po wybranej płaszczyźnie, na przykład X-Y (niebieska), a po obróceniu kamery w 3D także X-Z (zielona) i Y-Z (czerwona)
 
-  Nad wybranym obiektem wyświetla się zestaw wizualnych, kwadratowych manipulatorów. Środkowy kwadrat skaluje obiekt jednakowo wzdłuż każdej z osi (włącznie z osią Z), a pozostałe odpowiednio wokół osi X, Y i Z. Oprócz tego pokazane są wtedy również kwadraty pozwalające na skalowanie wzdłuż dwóch osi jednocześnie, parami: X-Y, X-Z i Y-Z.
+#### Narzędzie Rotate
 
-## Tworzenie nowego pliku
+![Rotate tool](images/editor/icon_rotate.png){.left}
 
-Żeby utworzyć nowy plik kliknij z górnego menu <kbd>File ▸ New...</kbd> i wybierz typ pliku z menu lub użyj menu kontekstowego:
+Aby obracać obiekty, użyj *Rotate Tool*, wybierając je na pasku narzędzi albo naciskając <kbd>E</kbd>.
 
-<kbd>Kliknij prawy przycisk myszki</kbd> na docelowej lokalizacji w panelu *Assets* po lewej stronie i wybierz <kbd>New... ▸ [file type]</kbd>:
+![Rotate object](images/editor/rotate.png){.inline}![Rotate object 3D](images/editor/rotate_3d.png){.inline}
+
+To narzędzie składa się z czterech okrągłych manipulatorów, które możesz <kbd>Drag</kbd>, aby obracać obiekt. Zaznaczony manipulator zmienia kolor na pomarańczowy:
+
+- zewnętrzny, największy, cyjanowy manipulator obraca obiekt w płaszczyźnie ekranu
+- trzy mniejsze czerwone, zielone i niebieskie manipulatory pozwalają obracać osobno wokół osi X, Y i Z; w widoku ortograficznym 2D dwa z nich są prostopadłe do osi X i Y, więc są widoczne tylko jako linie przecinające obiekt
+
+#### Narzędzie Scale
+
+![Scale tool](images/editor/icon_scale.png){.left}
+
+Aby skalować obiekty, użyj *Scale Tool*, wybierając je na pasku narzędzi albo naciskając <kbd>R</kbd>.
+
+![Scale object](images/editor/scale.png){.inline}![Scale object 3D](images/editor/scale_3d.png){.inline}
+
+To narzędzie składa się z zestawu kwadratowych i sześciennych manipulatorów, które możesz <kbd>Drag</kbd>, aby skalować obiekty. Zaznaczony manipulator zmienia kolor na pomarańczowy:
+
+- środkowy cyjanowy sześcian skaluje obiekt równomiernie we wszystkich osiach, także w osi Z
+- trzy czerwone, niebieskie i zielone manipulatory składające się z sześcianów skalują obiekt osobno wzdłuż osi X, Y i Z
+- trzy czerwone, niebieskie i zielone manipulatory składające się z sześcianów skalują obiekt osobno w płaszczyznach X-Y, X-Z i Y-Z
+
+### Filtry widoczności
+
+Kliknij ikonę oka `👁` na pasku narzędzi, aby przełączać widoczność różnych typów komponentów oraz obwiedni i linii pomocniczych. `Component Guides` ma też skrót <kbd>Ctrl</kbd> + <kbd>H</kbd> w Windows/Linux lub <kbd>^ Ctrl</kbd> + <kbd>⌘ Cmd</kbd> + <kbd>H</kbd> na Macu.
+
+![Visibility filters](images/editor/visibilityfilters.png)
+
+## Tworzenie nowych plików projektu
+
+Aby utworzyć nowy plik zasobu, wybierz `File ▸ New…`, a następnie typ pliku z menu albo użyj menu kontekstowego:
+
+<kbd>Right Mouse Click</kbd> w docelowym miejscu w przeglądarce `Assets`, a następnie wybierz `New… ▸ [file type]`:
 
 ![create file](images/editor/create_file.png)
 
-Podaj odpowiednią nazwę dla pliku. Pełna nazwa pliku uwzględniająca końcówkę znajduję się w polu *Path* (ścieżka) w oknie dialogowym:
+Wpisz odpowiednią *Name* dla nowego pliku, a w razie potrzeby zmień *Location*. Pełna nazwa pliku wraz z rozszerzeniem jest pokazywana w polu *Preview* w oknie dialogowym:
 
 ![create file name](images/editor/create_file_name.png)
 
+## Szablony
+
+Możesz zdefiniować własne szablony dla każdego projektu. W tym celu utwórz w katalogu głównym projektu folder `templates` i dodaj do niego pliki `default.*` z odpowiednimi rozszerzeniami, na przykład `/templates/default.gui` albo `/templates/default.script`. Dodatkowo, jeśli w tych plikach użyjesz znacznika `{{NAME}}`, zostanie on zastąpiony nazwą pliku podaną w oknie tworzenia pliku.
+
+Jeśli dla danego typu pliku istnieje szablon, każdy nowo tworzony plik tego typu zostanie zainicjalizowany zawartością odpowiedniego pliku z katalogu `templates`.
+
+![Templates](images/editor/templates.png)
+
 ## Importowanie plików do projektu
 
-Aby dodać pliki (obrazki, dźwięki, modele, itp.) do Twojego projektu, po prostu przeciągnij i upuść je w odpowiednim miejscu w panelu *Assets* po lewej stronie. Utworzysz w ten sposób _kopię_ danego pliku w docelowej lokalizacji projektu. Przeczytaj więcej na temat [importowania plików w tej instrukcji](/manuals/importing-assets/).
+Aby dodać do projektu pliki zasobów, takie jak obrazy, dźwięki czy modele, po prostu przeciągnij je i upuść we właściwe miejsce w przeglądarce `Assets`. Spowoduje to utworzenie _kopii_ plików w wybranej lokalizacji w strukturze projektu. Więcej informacji znajdziesz w [instrukcji importowania zasobów](/manuals/importing-assets/).
 
 ![Import files](images/editor/import.png)
 
-## Aktualizowanie Edytora
+## Aktualizowanie edytora
 
-Edytor automatycznie wyszukuje aktualizacje, jeśli ma dostęp do internetu. Kiedy aktualizacja jest dostępna, informacja o możliwości zaktualizowania pojawi się w prawym dolnym rogu Edytora i na stronie startowej z wyborem projektu. Naciśnięcie przycisku `Update Available` spowoduje pobranie aktualizacji i zainstalowanie jej.
+Edytor automatycznie sprawdza aktualizacje, gdy ma połączenie z internetem. Gdy wykryje nową wersję, w lewym dolnym rogu ekranu wyboru projektu albo w prawym dolnym rogu okna edytora pojawi się niebieski klikalny odnośnik `Update Available`.
 
-![Update from project selection](images/editor/update-project-selection.png)
+![Update from project selection](images/editor/update_start.png)
+![Update from Editor](images/editor/update_available.png)
 
-![Update from editor](images/editor/update-main.png)
+Kliknij odnośnik `Update Available`, aby pobrać i zainstalować aktualizację. Pojawi się okno potwierdzenia z dodatkowymi informacjami. Kliknij `Download Update`, aby kontynuować.
 
-## Skróty klawiszowe
+![Update Editor popup](images/editor/update.png)
 
-Skróty opisane są w [instrukcji o skrótach klawiszowych](/manuals/editor-keyboard-shortcuts).
+Postęp pobierania będzie widoczny na dolnym pasku stanu:
 
-## Logi Edytora
-Jeśli napotkasz jakiekolwiek problemy z Edytorem Defold warto [to zaraportować](/manuals/getting-help/#getting-help). Dobrą pkratyką jest dodanie plików z logami z Edytora. Można je znaleźć tutaj:
+![Download progress](images/editor/download_status.png)
 
-  * Windows: `C:\Użytkownicy\ **Twoja nazwa użytkownika** \AppData\Local\Defold` (ang: `C:\Users\ **Your Username** \AppData\Local\Defold`)
-  * macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
-  * Linux: `~/.Defold`
+Po pobraniu aktualizacji niebieski odnośnik zmieni się na `Restart to Update`. Kliknij go, aby ponownie uruchomić i otworzyć zaktualizowany edytor.
 
-Można też dostać się do logów, kiedy Edytor jest uruchomiony z linii poleceń lub terminalu. Aby uruchomić Edytor z terminalu w systemie macOS użyj komendy:
+![Restart to update](images/editor/restart_to_update.png)
 
+## Preferences
+
+Ustawienia edytora możesz zmieniać w oknie `Preferences`. Aby je otworzyć, kliknij `File ▸ Preferences…` albo użyj skrótu <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> + <kbd>,</kbd>.
+
+Więcej szczegółów znajdziesz w [instrukcji Preferences](/manuals/editor-preferences).
+
+![Preferences](images/editor/preferences.png)
+
+## Logi edytora
+
+Jeśli napotkasz problem z edytorem i chcesz zgłosić błąd przez `Help ▸ Report Issue`, warto dołączyć pliki logów samego edytora. Aby otworzyć ich lokalizację w systemowej przeglądarce plików, kliknij `Help ▸ Show Logs`.
+
+Więcej informacji znajdziesz w [instrukcji uzyskiwania pomocy](/manuals/getting-help/#getting-help).
+
+![Show Logs](images/editor/show_logs.png)
+
+Pliki logów edytora można znaleźć tutaj:
+
+  * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
+  * macOS: `/Users/ **Your Username** /Library/Application Support/` albo `~/Library/Application Support/Defold`
+  * Linux: `$XDG_STATE_HOME/Defold` albo `~/.local/state/Defold`
+
+Możesz też uzyskać dostęp do logów edytora, gdy jest uruchomiony z terminala lub wiersza poleceń. Aby uruchomić edytor, użyj polecenia:
+
+```shell
+# Linux:
+$ ./path/to/Defold/Defold
+
+# macOS:
+$ ./path/to/Defold.app/Contents/MacOS/Defold
 ```
-$ > ./path/to/Defold.app/Contents/MacOS/Defold
+
+## Editor Server
+
+Gdy edytor otwiera projekt, uruchamia serwer WWW na losowym porcie. Serwer może służyć do komunikacji z edytorem z poziomu innych aplikacji. Od wersji 1.11.0 numer portu jest zapisywany w pliku `.internal/editor.port`.
+
+Dodatkowo od wersji 1.11.0 plik wykonywalny edytora obsługuje opcję wiersza poleceń `--port` lub `-p`, która pozwala wskazać port przy uruchamianiu. Na przykład:
+
+```shell
+# Windows
+.\path\to\Defold\Defold.exe --port 8181
+
+# Linux:
+./path/to/Defold/Defold --port 8181
+
+# macOS:
+./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
 ```
 
+## Stylizacja edytora
+
+Wygląd edytora można zmieniać za pomocą własnej stylizacji. Więcej informacji znajdziesz w [instrukcji stylizacji edytora](/manuals/editor-styling.md).
 
 ## FAQ
 :[Editor FAQ](../shared/editor-faq.md)
