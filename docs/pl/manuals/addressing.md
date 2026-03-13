@@ -45,7 +45,7 @@ Identyfikatory w tym ustawieniu są dowolne. Tutaj zdecydowaliśmy się nadać o
 ::: sidenote
 Jeśli nie wybierzesz własnego identyfikatora, edytor zrobi to za Ciebie. Kiedy tworzysz nowy obiekt gry lub komponent, automatycznie ustawiane jest unikalne *Id*.
 
-- Obiekty gry otrzymują domyślnie identyfikator "go" z kolejnym numerem ("go2", "go3" itd.).
+- Obiekty gry (ang. game objects) otrzymują domyślnie identyfikator "go" z kolejnym numerem ("go2", "go3" itd.).
 - Komponenty dostają identyfikator odpowiadający typowi ("sprite", "sprite2", "label", "sound" itd.).
 
 Możesz pozostać przy tych automatycznie przypisanych nazwach, ale zachęcamy do zmiany ich na opisowe, celowe identyfikatory.
