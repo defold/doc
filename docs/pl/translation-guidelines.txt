@@ -44,9 +44,13 @@ Do not keep English for normal article headings or link text just because the En
 
 Keep `Defold` unchanged as a brand name. Do not inflect it into forms like `Defoldzie`, `Defolda`, or `Defoldem`. Rewrite the sentence instead, for example: `w silniku Defold`, `w edytorze Defold`, `dla użytkowników Defold`.
 
+If something might feel vague for a Polish reader or had bad connotations in Polish try to use a version that involves Polish specific flexing of the English word, e.g.: "hashed" -> "hashowany" or "shashowany", "in the root of" -> "w root'cie", or leave an explanation in brackets about English origin, e.g.: "in the root collection" -> "w kolekcji głównej (ang. root collection)
+
+If a word is an official Defold terms, or is very specific to Defold naming, or is related to something that is in the Defold Editor, and it has a good Polish translation, use it, but in the first occurence also add an English origin in the brackets, e.g.: "in the game object" -> "w obiekcie gry (ang. game object)
+
 ## First Mention Pattern
 
-The existing Polish docs usually introduce official Defold concepts with the English name first and the Polish explanation in parentheses, or the reverse when the heading is already localized.
+The existing Polish docs usually introduce official Defold concepts with the English name first and the Polish explanation in parentheses, or the reverse when the heading is already localized. Keep in mind that the Editor is not localized to Polish, so people learning Defold from Polish manuals must get to know the English labeling, even if it's convenient to use a Polish translation of those.
 
 Use patterns like:
 
