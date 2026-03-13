@@ -7,7 +7,7 @@ brief: Krótki wstęp do silnika Defold.
 
 Defold to kompletne rozwiązanie, które oddaje w ręce twórców gry wszystkie potrzebne narzędzia, od projektowania po wdrożenie. Pełna lista możliwości platformy jest dostępna na stronie [przeglądu możliwości silnika Defold](/product).
 
-Spędziliśmy dużo czasu na wygładzeniu kluczowych elementów procesu tworzenia gier, tak aby praca w silniku Defold była możliwie sprawna. Uważamy, że właśnie to wyróżnia Defold, dlatego zachęcamy do zapoznania się z powodami, dla których uznajemy go za dobry wybór. Szczegóły znajdziesz na stronie [dlaczego uważamy, że warto używać silnika Defold](/why).
+Spędziliśmy dużo czasu na uproszczeniu kluczowych elementów procesu tworzenia gier, tak aby praca w silniku Defold była możliwie sprawna. Uważamy, że właśnie to wyróżnia Defold, dlatego zachęcamy do zapoznania się z powodami, dla których uznajemy go za dobry wybór. Szczegóły znajdziesz na stronie [dlaczego uważamy, że warto używać silnika Defold](/why).
 
 ## Od czego zacząć?
 
