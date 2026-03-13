@@ -26,7 +26,7 @@ Zachęcamy do eksperymentowania, korzystania z tutoriali, czytania podręcznikó
 ![Tutoriale](images/introduction/tutorials.jpg){.left} Uczysz się najlepiej, robiąc coś samodzielnie. Dlatego w [edytorze](/manuals/editor/) znajdziesz zestaw tutoriali o różnym poziomie trudności. Uruchom jeden z nich i przechodź kolejne kroki, aby zobaczyć, jak budować projekty i jak działa Defold.
 
 #### Podstawowe elementy silnika Defold
-![Podstawowe elementy](images/introduction/building_blocks.png){.left} [Gry w silniku Defold buduje się przez składanie prostych elementów](/manuals/building-blocks/), a niektóre pojawiają się też w innych silnikach. Istnieją jednak decyzje architektoniczne, które nadają naszym blokom specyficzny charakter, więc może minąć chwilę, zanim poczujesz się z nimi swobodnie. Instrukcja dotycząca podstawowych elementów to dobry punkt wyjścia, jeśli chcesz zrozumieć, jak działa alfabet silnika Defold.
+![Podstawowe elementy](images/introduction/building_blocks.png){.left} [Gry w silniku Defold buduje się przez składanie prostych elementów](/manuals/building-blocks/), a niektóre pojawiają się też w innych silnikach. Istnieją jednak decyzje architektoniczne, które nadają naszym blokom specyficzny charakter, więc może minąć chwilę, zanim poczujesz się z nimi swobodnie. Instrukcja dotycząca podstawowych elementów to dobry punkt wyjścia, jeśli chcesz zrozumieć, jak działa silnik Defold.
 
 #### Forum
 ![Forum](images/introduction/forum.jpg){.left} [Uczenie się od innych](//forum.defold.com/) często jest najskuteczniejszym sposobem na naukę. Nasza społeczność jest przyjazna i zna się na tworzeniu gier w ogóle, a szczególnie na pracy z Defold. Jeśli utkniesz, śmiało zajrzyj na forum i poproś o pomoc.
