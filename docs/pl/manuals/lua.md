@@ -1,42 +1,33 @@
 ---
-title: Programowanie Lua w Defoldzie
-brief: Ta instrukcja przedstawi krótkie wprowadzenie do podstaw programowania w języku Lua ogólnie oraz to, na co należy zwrócić uwagę podczas pracy z Lua w Defoldzie.
+title: Programowanie w Lua w silniku Defold
+brief: Ta instrukcja krótko wprowadza w podstawy programowania w języku Lua i wyjaśnia, na co zwracać uwagę podczas pracy z Lua w silniku Defold.
 ---
 
-# Lua w Defoldzie
+# Lua w silniku Defold
 
-Silnik Defold ma wbudowany język Lua do skryptowania. Lua to lekki język dynamiczny, który jest potężny, szybki i łatwy do osadzenia. Jest powszechnie używany jako język skryptowy w grach wideo. Programy w Lua są napisane w prostym składni proceduralnym. Język jest dynamicznie typowany i uruchamiany przez interpreter kodu bajtowego. Posiada automatyczne zarządzanie pamięcią z inkrementalnym zbieraniem śmieci.
+Silnik Defold ma wbudowany język Lua do skryptowania. Lua to lekki język dynamiczny, który jest wydajny, szybki i łatwy do osadzenia. Jest powszechnie używany jako język skryptowy w grach wideo. Programy w Lua zapisuje się prostą składnią proceduralną. Język jest dynamicznie typowany i wykonywany przez interpreter kodu bajtowego. Oferuje automatyczne zarządzanie pamięcią z inkrementalnym odśmiecaniem.
 
-Ta instrukcja przedstawi krótkie wprowadzenie do podstaw programowania w Lua ogólnie oraz to, na co należy zwrócić uwagę podczas pracy z Lua w Defoldzie. Jeśli masz pewne doświadczenie z Pythonem, Perlem, Rubym, Javascriptem lub podobnym językiem dynamicznym, szybko się dostosujesz. Jeśli jesteś zupełnie nowy w programowaniu, możesz rozpocząć od książki o Lua skierowanej dla początkujących. Jest ich wiele do wyboru.
+Ta instrukcja krótko wprowadza w podstawy programowania w Lua i wyjaśnia, na co zwracać uwagę podczas pracy z Lua w silniku Defold. Jeśli masz już doświadczenie z Pythonem, Perlem, Rubym, JavaScriptem lub podobnym językiem dynamicznym, szybko się odnajdziesz. Jeśli dopiero zaczynasz programować, warto sięgnąć po książkę o Lua dla początkujących. Do wyboru jest ich wiele.
 
 ## Wersje Lua
 
-Staramy się, aby Defold był taki sam na wszystkich platformach, ale obecnie mamy kilka drobnych rozbieżności w wersji języka Lua między platformami:
+[LuaJIT](https://luajit.org/) to mocno zoptymalizowana wersja Lua, dobrze nadająca się do gier i innego oprogramowania krytycznego pod względem wydajności. Jest w pełni kompatybilna w górę z Lua 5.1 i obsługuje wszystkie standardowe funkcje bibliotek Lua oraz pełny zestaw funkcji Lua/C API.
 
-| Platforma        | Wersja Lua          | JIT Włączony |
-|------------------|---------------------|--------------|
-| Windows          | LuaJIT 2.1.0-beta3  | Tak          |
-| macOS            | LuaJIT 2.1.0-beta3  | Tak          |
-| Linux            | LuaJIT 2.1.0-beta3  | Tak          |
-| Android          | LuaJIT 2.1.0-beta3  | Tak          |
-| iOS              | LuaJIT 2.1.0-beta3  | Nie*         |
-| Nintendo Switch  | LuaJIT 2.1.0-beta3  | Nie*         |
-| HTML5            | Lua 5.1.4           | N/A          |
+LuaJIT dodaje też kilka [rozszerzeń języka](https://luajit.org/extensions.html) oraz część funkcji z Lua 5.2 i 5.3.
 
-*=Kod kompilowany JIT nie jest dozwolony
-
-[LuaJIT](https://luajit.org/) to bardzo zoptymalizowana wersja Lua, odpowiednia do użycia w grach i innych krytycznych pod względem wydajności oprogramowaniu. LuaJIT jest w pełni kompatybilny w górę z Lua 5.1. Obsługuje wszystkie standardowe funkcje biblioteki Lua oraz pełen zestaw funkcji Lua/C API.
-
-LuaJIT dodaje również kilka [rozszerzeń języka](https://luajit.org/extensions.html) i niektóre funkcje z Lua 5.2.
+Chcemy, aby Defold zachowywał się tak samo na wszystkich platformach, ale obecnie istnieje kilka drobnych różnic dotyczących wersji Lua:
+* iOS nie pozwala na kompilację JIT.
+* Nintendo Switch nie pozwala na kompilację JIT.
+* HTML5 używa Lua 5.1.4 zamiast LuaJIT.
 
 ::: important
 Aby zagwarantować, że Twoja gra działa na wszystkich obsługiwanych platformach, gorąco zalecamy korzystanie TYLKO z funkcji języka z wersji Lua 5.1.
 :::
 
 ### Biblioteki standardowe i rozszerzenia
-Defold zawiera wszystkie [standardowe biblioteki Lua 5.1](http://www.lua.org/manual/5.1/manual.html#5), a także bibliotekę do operacji na gniazdach i operacji bitowych:
+Defold zawiera wszystkie [standardowe biblioteki Lua 5.1](http://www.lua.org/manual/5.1/manual.html#5), a także bibliotekę socket i bibliotekę operacji bitowych:
 
-  - base (`assert()`, `error()`, `print()`, `ipairs()`, `require()`, itp.)
+  - base (`assert()`, `error()`, `print()`, `ipairs()`, `require()` itd.)
   - coroutine
   - package
   - string
@@ -53,22 +44,23 @@ Wszystkie biblioteki są udokumentowane w [dokumentacji API](/ref/go).
 ## Książki i zasoby Lua
 
 ### Zasoby online
-* [Programowanie w Lua (pierwsza edycja)](http://www.lua.org/pil/contents.html) Dostępne są późniejsze edycje w wersji drukowanej.
-* [Podręcznik referencyjny Lua 5.1](http://www.lua.org/manual/5.1/)
-* [Naucz się Lua w 15 minut](http://tylerneylon.com/a/learn-lua/)
-* [Niesamowita Lua - sekcja z tutorialami](https://github.com/LewisJEllis/awesome-lua#tutorials)
+* [Programming in Lua (first edition)](http://www.lua.org/pil/contents.html) Późniejsze wydania są dostępne w druku.
+* [Lua 5.1 reference manual](http://www.lua.org/manual/5.1/)
+* [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
+* [Awesome Lua - tutorial section](https://github.com/LewisJEllis/awesome-lua#tutorials)
 
 ### Książki
-* [Programowanie w Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Programowanie w Lua to oficjalna książka o języku, stanowiąca solidną podstawę dla każdego programisty, który chce używać Lua. Autorstwa Roberto Ierusalimschy, głównego architekta języka.
-* [Lua programming gems](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Lua Programming Gems to zbiór krótkich i zrozumiałych przepisów, stworzonych przez różnych doświadczonych programistów Lua. Książka ta oferuje wiele przydatnych porad i trików dotyczących programowania w Lua.
-* [Beginning Lua Programming](https://www.amazon.com/gp/product/1484219602/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Ta książka zawiera wiele praktycznych przykładów i projektów, które pomogą Ci opanować język Lua. Jest odpowiednia dla początkujących programistów, ale oferuje także bardziej zaawansowane tematy dla tych, którzy chcą pogłębić swoją wiedzę.
-* [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Kolejna dobra książka na temat Lua, napisana przez Roberto Ierusalimschy, jednego z autorów języka Lua. Obejmuje wiele aspektów języka Lua i dostarcza praktyczne wskazówki oraz porady dotyczące programowania w nim.
+* [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - To oficjalna książka o języku, dająca solidne podstawy każdemu programiście chcącemu używać Lua. Jej autorem jest Roberto Ierusalimschy, główny architekt języka.
+* [Lua programming gems](https://www.amazon.com/Programming-Gems-Luiz-Henrique-Figueiredo/dp/8590379841) - Zbiór artykułów dokumentujących dobre praktyki i sprawdzone podejścia do programowania w Lua.
+* [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - Ta pozycja jest dostępna również online.
+* [Beginning Lua Programming](https://www.amazon.com/Beginning-Lua-Programming-Kurt-Jung/dp/0470069171)
 
-Oczywiście, istnieje wiele innych dostępnych materiałów i samouczków do nauki Lua, więc możesz wybrać te, które najlepiej odpowiadają Twoim potrzebom i poziomowi umiejętności.
+### Wideo
+* [Learn Lua in one video](https://www.youtube.com/watch?v=iMacxZQMPXs)
 
 ## Składnia języka Lua
 
-Programy w Lua mają prostą, czytelną składnię. Instrukcje zapisywane są jedna na każdej linii, i nie ma potrzeby oznaczania końca instrukcji. Opcjonalnie można używać średników `;` do oddzielania instrukcji. Bloki kodu są ograniczane słowem kluczowym `end`. Komentarze mogą być blokowe lub do końca linii:
+Programy w Lua mają prostą, czytelną składnię. Instrukcje zapisuje się po jednej w każdej linii i nie ma potrzeby oznaczania końca instrukcji. Opcjonalnie można używać średników `;` do oddzielania instrukcji. Bloki kodu są ograniczane słowem kluczowym `end`. Komentarze mogą być blokowe lub jednolinijkowe:
 
 ```lua
 --[[
@@ -91,7 +83,7 @@ end
 Lua jest językiem dynamicznym, co oznacza, że zmienne nie mają określonych typów, ale wartości już mają. W odróżnieniu od języków o typach statycznych, możesz przypisać dowolną wartość do dowolnej zmiennej. W Lua istnieje osiem podstawowych typów wartości:
 
 `nil`
-: Ten typ ma tylko jedna wartość, `nil`. Zazwyczaj reprezentuje brak przydatnej wartości, na przykład nieprzypisane zmienne.
+: Ten typ ma tylko jedną wartość: `nil`. Zazwyczaj reprezentuje brak przydatnej wartości, na przykład nieprzypisane zmienne.
 
   ```lua
   print(my_var) -- wyświetli 'nil', ponieważ 'moja_zmienna' nie ma jeszcze przypisanej wartości
@@ -251,7 +243,7 @@ function
   ```
 
 `userdata`
-: Userdata (dane użytkownika) pozwala na przechowywanie dowolnych danych C w zmiennych Lua. W Defoldzie, userdata Lua służy do przechowywania wartości Hash (`hash`), obiektów URL (`url`), obiektów Math (`vector3`, `vector4`, `matrix4`, `quaternion`), obiektów gry, węzłów GUI (`GUI node`), predykatów renderowania (`predicate`), celów renderowania (`render_target`) oraz buforów stałych renderowania (`constant_buffer`).
+: Userdata (dane użytkownika) pozwala przechowywać dowolne dane C w zmiennych Lua. W silniku Defold userdata Lua służy do przechowywania wartości Hash (`hash`), obiektów URL (`url`), obiektów Math (`vector3`, `vector4`, `matrix4`, `quaternion`), obiektów gry, węzłów GUI (`GUI node`), predykatów renderowania (`predicate`), celów renderowania (`render_target`) oraz buforów stałych renderowania (`constant_buffer`).
 
 `thread`
 : Wątki reprezentują niezależne wątki wykonywania i są używane do implementacji korygujących. Zobacz poniżej dla szczegółów.
@@ -360,7 +352,7 @@ while
   weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
               "Thursday", "Friday", "Saturday"}
 
-  -- Print each weekday
+  -- Wypisz każdy dzień tygodnia
   i = 1
   while weekdays[i] do
       print(weekdays[i])
@@ -375,7 +367,7 @@ repeat---until
   weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
               "Thursday", "Friday", "Saturday"}
 
-  -- Print each weekday
+  -- Wypisz każdy dzień tygodnia
   i = 0
   repeat
       i = i + 1
@@ -546,9 +538,9 @@ end
 ```
 
 
-## Konteksty Lua w Defoldzie
+## Konteksty Lua w silniku Defold
 
-Wszystkie zmienne, które deklarujesz, są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomienia Lua (ang. Lua runtime context). W Defoldzie istnieje opcja *shared_state* w pliku *game.project*, która kontroluje ten kontekst. Jeśli opcja jest ustawiona, wszystkie skrypty, skrypty GUI i skrypt renderowania są oceniane w tym samym kontekście Lua, a zmienne globalne są widoczne wszędzie. Jeśli opcja nie jest ustawiona, silnik wykonuje skrypty, skrypty GUI i skrypt renderowania w osobnych kontekstach.
+Wszystkie deklarowane zmienne są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomieniowego Lua (ang. Lua runtime context). W pliku *game.project* znajduje się opcja *shared_state*, która steruje tym zachowaniem. Jeśli jest włączona, wszystkie skrypty, skrypty GUI i skrypt renderowania są wykonywane w tym samym kontekście Lua, a zmienne globalne są widoczne wszędzie. Jeśli jest wyłączona, silnik wykonuje skrypty, skrypty GUI i skrypt renderowania w osobnych kontekstach.
 
 ![Contexts](images/lua/lua_contexts.png)
 
