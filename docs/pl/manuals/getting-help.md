@@ -60,7 +60,6 @@ Kiedy dzielisz się kodem, lepiej zamieścić go jako tekst zamiast zrzutu ekran
 
 Przykład:
 
-```
 print("Hello code!")
 ```
 
