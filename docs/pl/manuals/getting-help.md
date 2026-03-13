@@ -23,7 +23,7 @@ Użyj krótkiego i konkretnie opisującego problem tytułu. Dobry tytuł to np. 
 Jasny i zwięzły opis tego, co jest nie tak.
 
 **Odtworzenie problemu (WYMAGANE)**
-Kroki prowadzące do odtworzenia zachowania:
+Kroki prowadzące do odtworzenia zachowania (raportuj najlepiej w języku angielskim):
 1. Przejdź do '...'
 2. Kliknij '....'
 3. Przewiń do '....'
