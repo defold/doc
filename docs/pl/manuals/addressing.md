@@ -144,7 +144,7 @@ Na przykład wyobraź sobie menedżera AI, który śledzi stan każdej fasolki. 
 
 ![manager object](images/addressing/manager_editor.png)
 
-Każda fasolka odpowiada za wysyłanie wiadomości statusowych do menedżera: "contact" gdy zauważy wroga lub "ouch!" gdy dostanie obrażenia. Żeby to zadziałało, skrypt obiektu fasolki wykorzystuje absolutny adres, aby wysłać wiadomość do komponentu "controller" obiektu "manager".
+Każda "fasolka" odpowiada za wysyłanie wiadomości statusowych do menedżera: "contact" gdy zauważy wroga lub "ouch!" gdy dostanie obrażenia. Żeby to zadziałało, skrypt obiektu fasolki wykorzystuje absolutny adres, aby wysłać wiadomość do komponentu "controller" obiektu "manager".
 
 Każdy adres rozpoczynający się od '/' jest rozwiązywany względem korzenia świata gry. Odpowiada to korzeniowi *kolekcji bootstrapowej*, która ładuje się przy starcie gry.
 
