@@ -163,7 +163,7 @@ Dobra wydajność jest kluczowa, dlatego warto mierzyć wydajność i pamięć g
 
 ![Tile map](images/icons/tilemap.png){.left} Mapa kafelków wyświetla obrazy z Tile source na jednej lub kilku warstwach siatki. Można używać jej do tworzenia poziomów, ścian, budynków, przeszkód czy jaskiń. Obsługuje wiele warstw w różnych trybach mieszania i pozwala na dynamiczną podmianę pojedynczych kafelków (np. żeby zniszczyć most i zmienić kolizje). Więcej w [dokumentacji do Tile map](/manuals/tilemap).
 
-## Tile source (Galeria kafelków)
+## Tile source (Źródło kafelków)
 
 ![Tile source](images/icons/tilesource.png){.left} Tile source to tekstura składająca się z wielu mniejszych obrazów tej samej wielkości, czyli kafelków. Można z niej tworzyć animacje poklatkowe, a także automatycznie generować kształty kolizji. Tile source używa się w Tile mapach, ale też jako teksturę do sprite’ów i efektów cząsteczkowych. Więcej w [dokumentacji do Tile map](/manuals/tilemap).
 
