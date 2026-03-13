@@ -121,7 +121,7 @@ Defold udostępnia dwa przydatne skróty, które pozwalają wysyłać wiadomośc
 Aby zrozumieć mechanizm nazewnictwa, spójrzmy, co się dzieje po zbudowaniu i uruchomieniu projektu:
 
 1. Edytor wczytuje kolekcję bootstrapową ("main.collection") i całą zawartość (obiekty gry i inne kolekcje).
-2. Dla każdego statycznego obiektu gry kompilator tworzy identyfikator. Tworzy się ścieżka, która zaczyna się w korzeniu kolekcji bootstrapowej i schodzi przez kolejne kolekcje aż do obiektu. Na każdym poziomie hierarchii dokleja się znak '/'.
+2. Dla każdego statycznego obiektu gry kompilator tworzy identyfikator. Tworzy się ścieżka, która zaczyna się w "źródle" (ang. root - korzeń) kolekcji bootstrapowej i schodzi przez kolejne kolekcje aż do obiektu. Na każdym poziomie hierarchii dokleja się znak '/'.
 
 W naszym przykładzie gra uruchomi się z czterema obiektami:
 
