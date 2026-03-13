@@ -25,7 +25,7 @@ Jasny i zwięzły opis tego, co jest nie tak.
 **Odtworzenie problemu (WYMAGANE)**
 Kroki prowadzące do odtworzenia zachowania (raportuj najlepiej w języku angielskim):
 1. Go to '...'
-2. Kliknij '....'
+2. Click '....'
 3. Scroll down to '....'
 4. Zobacz błąd
 
