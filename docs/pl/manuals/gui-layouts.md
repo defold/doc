@@ -1,21 +1,19 @@
 ---
-title: Układy interfejsu w Defoldzie
-brief: Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. This document explains how the feature works.
+title: Układy GUI w silniku Defold
+brief: Defold obsługuje GUI, które automatycznie dostosowuje się do zmian orientacji ekranu na urządzeniach mobilnych. Ten dokument wyjaśnia, jak działa ta funkcja.
 ---
 
-# Układy interfejsu
+# Układy
 
-Układy interfejsu (ang. layouts) to wspierana przez Defold opcja automatycznego dostosowywania się do zmian orientacji ekranu na urządzeniach mobilnych. W tym dokumencie wyjaśniono, jak działa ta funkcjonalność.
-
-Defold supports GUIs that automatically adapt to screen orientation changes on mobile devices. By using this feature you can design GUIs that adapt to the orientation and aspect ratio of a range of screen sizes. It is also possible to create layouts that match particular device models.
+Defold obsługuje GUI, które automatycznie dostosowuje się do zmian orientacji ekranu na urządzeniach mobilnych. Dzięki tej funkcji możesz projektować GUI dopasowujące się do orientacji i proporcji obrazu na ekranach o różnych rozmiarach. Możliwe jest też tworzenie układów dopasowanych do konkretnych modeli urządzeń.
 
 ## Tworzenie profili wyświetlania
 
-Domyślnie, w ustawieniach *game.project*, używa się wbudowanego pliku z ustawieniami profili wyświetlania (ang. display profiles) ("builtins/render/default.display_profiles"). Domyślne profile to `"Landscape"` (1280 pikseli szerokości i 720 pikseli wysokości) i `"Portrait"` (720 pikseli szerokości i 1280 pikseli wysokości). W profilach tych nie ustawiono modeli urządzeń, dlatego pasują one do dowolnego urządzenia.
+Domyślnie ustawienia w pliku *game.project* wskazują wbudowany plik profili wyświetlania: `builtins/render/default.display_profiles`. Domyślne profile to `Landscape` (1280 pikseli szerokości i 720 pikseli wysokości) oraz `Portrait` (720 pikseli szerokości i 1280 pikseli wysokości). W tych profilach nie ustawiono modeli urządzeń, więc będą pasować do dowolnego urządzenia.
 
-Aby utworzyć nowy plik z ustawieniami profili, skopiuj istniejący z folderu "builtins" lub <kbd>kliknij prawym przyciskiem myszy</kbd> w odpowiednim miejscu w widoku *Assets* i wybierz <kbd>New... -> Display Profiles"</kbd>. Nadaj nowemu plikowi odpowiednią nazwę i kliknij <kbd>OK</kbd>.
+Aby utworzyć nowy plik profili, skopiuj istniejący z folderu `builtins` albo <kbd>kliknij prawym przyciskiem myszy</kbd> odpowiednie miejsce w widoku *Assets* i wybierz <kbd>New... ▸ Display Profiles</kbd>. Nadaj nowemu plikowi odpowiednią nazwę i kliknij <kbd>Ok</kbd>.
 
-Edytor otworzy teraz nowy plik do edycji. Dodaj nowe profile, klikając <kbd>+<kbd> na liście *Profiles*. Dla każdego profilu dodaj zestaw "kwalifikatorów" (*qualifiers*) dla profilu:
+Edytor otworzy teraz nowy plik do edycji. Dodaj nowe profile, klikając <kbd>+</kbd> na liście *Profiles*. Dla każdego profilu dodaj zestaw *qualifiers*:
 
 Width
 : Szerokość kwalifikatora w pikselach.
@@ -24,77 +22,118 @@ Height
 : Wysokość kwalifikatora w pikselach.
 
 Device Models
-: Lista modeli urządzeń oddzielonych przecinkami. Nazwa modelu urządzenia pasuje do początku nazwy modelu urządzenia. Przykład: `iPhone10` pasuje do modeli "iPhone10,\*". Nazwy modeli z przecinkami powinny być umieszczone w cudzysłowie, np. `"iPhone10,3", "iPhone10,6"` pasuje do modeli iPhone X (https://www.theiphonewiki.com/wiki/Models). Należy zauważyć, że tylko platformy Android i iOS raportują nazwę modelu urządzenia podczas wywoływania funkcji `sys.get_sys_info`. Inne platformy zwracają pusty ciąg znaków i dlatego nigdy nie wybiorą profilu wyświetlania z kwalifikatorem modelu urządzenia.
+: Lista modeli urządzeń oddzielonych przecinkami. Nazwa modelu dopasowuje początek nazwy modelu urządzenia, na przykład `iPhone10` dopasuje modele `iPhone10,*`. Nazwy modeli zawierające przecinki powinny być ujęte w cudzysłów, czyli `"iPhone10,3", "iPhone10,6"` dopasuje modele iPhone X (zobacz [iPhone wiki](https://www.theiphonewiki.com/wiki/Models)). Pamiętaj, że tylko platformy Android i iOS zwracają model urządzenia przy wywołaniu `sys.get_sys_info()`. Inne platformy zwracają pusty ciąg znaków, więc nigdy nie wybiorą profilu wyświetlania, który ma kwalifikator `Device Models`.
 
 ![New display profiles](images/gui-layouts/new_profiles.png)
 
-Należy również określić, że silnik powinien używać nowych profili. Otwórz *game.project* i wybierz plik z profilami wyświetlania w ustawieniach *Display Profiles* w sekcji *display*.
-
+Musisz też wskazać, że silnik ma używać nowego pliku profili. Otwórz *game.project* i ustaw plik profili wyświetlania w opcji *Display Profiles* w sekcji *display*:
 
 ![Settings](images/gui-layouts/settings.png)
 
-Jeśli chcesz, aby silnik automatycznie przełączał się między układami w orientacji pionowej i poziomej po obróceniu urządzenia, zaznacz opcję *Dynamic Orientation*. Silnik będzie dynamicznie wybierać pasujący układ i zmieniać wybór w razie zmiany orientacji urządzenia.
+Jeśli chcesz, aby silnik automatycznie przełączał się między układami pionowymi i poziomymi po obróceniu urządzenia, zaznacz pole *Dynamic Orientation*. Silnik będzie wtedy dynamicznie wybierał pasujący układ i zmieniał go przy zmianie orientacji urządzenia.
 
-## Układy interfejsu
+### Automatyczny wybór układu (Display Profiles)
 
-Obecny zestaw profili wyświetlania można wykorzystać do tworzenia wariantów układów (layouts) węzłów interfejsu. Aby dodać nowy układ do sceny interfejsu, kliknij prawym przyciskiem myszy na ikonie *Layouts* w widoku *Outline* i wybierz <kbd>Add ▸ Layout ▸ ...</kbd>.
+Zasób Display Profiles ma opcję `Auto Layout Selection` (domyślnie włączoną). Gdy jest włączona, silnik automatycznie wybiera najlepiej pasujący układ GUI zarówno podczas tworzenia sceny, jak i przy zmianie rozmiaru okna lub ekranu. Gdy jest wyłączona, silnik nie zmienia układów automatycznie. Wtedy do ręcznego przełączania układów z poziomu skryptu GUI używa się `gui.set_layout()`. To ustawienie jest zapisane w pliku Display Profiles i wpływa na wszystkie sceny GUI.
+
+## Układy GUI
+
+Aktualny zestaw profili wyświetlania można wykorzystać do tworzenia wariantów układów dla zestawu węzłów GUI. Aby dodać nowy układ do sceny GUI, kliknij prawym przyciskiem myszy ikonę *Layouts* w widoku *Outline* i wybierz <kbd>Add ▸ Layout ▸ ...</kbd>:
 
 ![Add layout to scene](images/gui-layouts/add_layout.png)
 
-Podczas edycji sceny interfejsu wszystkie węzły są edytowane w określonym układzie. Obecnie wybrany układ jest widoczny w rozwijanym menu układu sceny interfejsu w pasku narzędziowym. Jeśli nie wybrano żadnego układu, węzły są edytowane w układzie *Default*.
+Podczas edycji sceny GUI wszystkie węzły są edytowane w ramach konkretnego układu. Aktualnie wybrany układ jest widoczny na liście rozwijanej układów sceny GUI na pasku narzędzi. Jeśli nie wybierzesz żadnego układu, węzły są edytowane w układzie *Default*.
 
 ![Layouts toolbar](images/gui-layouts/toolbar.png)
 
 ![portrait edit](images/gui-layouts/portrait.png)
 
-Każda zmiana właściwości węzła dokonana z wybranym układem, nadpisuje właściwość w odniesieniu do układu *Default*. Właściwości, które zostały nadpisane, są oznaczone kolorem niebieskim. Węzły z nadpisanymi właściwościami również są oznaczone kolorem niebieskim. Możesz kliknąć przycisk resetowania obok dowolnej nadpisanej właściwości, aby przywrócić ją do pierwotnej wartości.
+Każda zmiana właściwości węzła, którą wykonasz przy wybranym układzie, *nadpisuje* tę właściwość względem układu *Default*. Nadpisane właściwości są oznaczane na niebiesko. Węzły z nadpisanymi właściwościami również są oznaczane na niebiesko. Możesz kliknąć przycisk resetowania obok dowolnej nadpisanej właściwości, aby przywrócić jej pierwotną wartość.
 
 ![landscape edit](images/gui-layouts/landscape.png)
 
-Układ nie może usuwać ani tworzyć nowych węzłów, może jedynie nadpisywać właściwości. Jeśli chcesz usunąć węzeł z układu, możesz albo przenieść węzeł poza obszar ekranu, albo usunąć go za pomocą logiki skryptu. Należy także zwrócić uwagę na obecnie wybrany układ. Jeśli dodasz układ do projektu, nowy układ będzie konfigurowany zgodnie z aktualnie wybranym układem. Kopiowanie i wklejanie węzłów uwzględnia obecnie wybrany układ zarówno podczas kopiowania, jak i podczas wklejania.
+Układ nie może usuwać ani tworzyć nowych węzłów, może jedynie nadpisywać właściwości. Jeśli chcesz usunąć węzeł z układu, możesz przenieść go poza ekran albo usunąć go w logice skryptu. Zwracaj też uwagę na aktualnie wybrany układ. Jeśli dodasz nowy układ do projektu, zostanie on skonfigurowany według układu wybranego w danej chwili. Kopiowanie i wklejanie węzłów również uwzględnia aktualnie wybrany układ, zarówno przy kopiowaniu, jak i przy wklejaniu.
 
 ## Dynamiczny wybór profilu
 
-Dynamiczny dopasowywacz układu ocenia każdy kwalifikator profilu wyświetlania według następujących reguł:
+Gdy `Auto Layout Selection` jest włączone, silnik automatycznie wybiera najlepiej pasujący układ. Mechanizm dynamicznego dopasowania ocenia każdy kwalifikator profilu wyświetlania według następujących reguł:
 
-1. Jeśli nie jest ustawiony model urządzenia albo model urządzenia jest i pasuje do profilu, obliczana jest ocena (S) dla kwalifikatora.
+1. Jeśli nie ustawiono modelu urządzenia albo model urządzenia pasuje, dla kwalifikatora obliczana jest ocena (S).
 
-2. Ocena (S) jest obliczana na podstawie powierzchni ekranu (`A`), powierzchni z kwalifikatora (`A_Q`), proporcji obrazu ekranu (`R`) i proporcji obrazu z kwalifikatora (`R_Q`).
+2. Ocena (S) jest obliczana na podstawie powierzchni ekranu (`A`), powierzchni z kwalifikatora (`A_Q`), proporcji obrazu ekranu (`R`) i proporcji obrazu kwalifikatora (`R_Q`):
 
 <img src="https://latex.codecogs.com/svg.latex?\inline&space;S=\left|1&space;-&space;\frac{A}{A_Q}\right|&space;&plus;&space;\left|1&space;-&space;\frac{R}{R_Q}\right|" title="S=\left|1 - \frac{A}{A_Q}\right| + \left|1 - \frac{R}{R_Q}\right|" />
 
-3. Profil z najniższą oceną jest wybierany, jeśli orientacja (landscape lub portrait) kwalifikatora pasuje do orientacji ekranu.
+3. Wybierany jest profil z kwalifikatorem o najniższej ocenie, jeśli orientacja kwalifikatora (landscape lub portrait) pasuje do orientacji ekranu.
 
-4. Jeśli nie znaleziono profilu z kwalifikatorem o tej samej orientacji, wybierany jest profil z najlepszą oceną kwalifikatora o innej orientacji.
+4. Jeśli nie znaleziono profilu z kwalifikatorem o tej samej orientacji, wybierany jest profil z najlepiej ocenionym kwalifikatorem o przeciwnej orientacji.
 
-5. Jeśli nie można wybrać żadnego profilu, stosowany jest profil awaryjny *Default*.
+5. Jeśli nie da się wybrać żadnego profilu, używany jest zapasowy profil *Default*.
 
-Ponieważ układ *Default* jest stosowany jako profil awaryjny w czasie rzeczywistym, jeśli nie ma lepszego pasującego układu, oznacza to, że jeśli dodasz układ *Landscape*, będzie to najlepsze dopasowanie dla wszystkich orientacji, dopóki nie dodasz także układu *Portrait*.
+Ponieważ układ *Default* jest używany w runtime jako fallback, gdy nie ma lepiej dopasowanego układu, oznacza to, że jeśli dodasz układ `Landscape`, będzie on najlepszym dopasowaniem dla *wszystkich* orientacji, dopóki nie dodasz także układu `Portrait`.
 
 ## Komunikaty o zmianie układu
 
-Kiedy silnik zmienia układ w wyniku obracania urządzenia, wysyłana jest wiadomość `layout_changed` do skryptów komponentów GUI, które są dotknięte zmianą. Komunikat zawiera zahaszowany identyfikator (hashed id) układu, dzięki czemu skrypt może wykonywać logikę zależnie od wybranego układu.
-
-When the engine switches layout as a result of device rotation, a `layout_changed` message is posted to the GUI components' scripts that are affected by the change. The message contains the hashed id of the layout so the script can perform logic depending on which layout is selected:
+Gdy układ się zmienia, do skryptu komponentu GUI wysyłana jest wiadomość `layout_changed`. Dzieje się tak, gdy silnik zmienia układ automatycznie (`Auto Layout Selection` jest włączone) albo gdy skrypt wywoła `gui.set_layout()` i układ rzeczywiście się zmieni. Wiadomość zawiera zahaszowane id układu, dzięki czemu skrypt może wykonać logikę zależnie od wybranego układu:
 
 ```lua
 function on_message(self, message_id, message, sender)
   if message_id == hash("layout_changed") and message.id == hash("My Landscape") then
-    --- zmieniono układ na landscape
+    -- zmiana układu na poziomy
   elseif message_id == hash("layout_changed") and message.id == hash("My Portrait") then
-    -- zmieniono układ na portrait
+    -- zmiana układu na pionowy
   end
 end
 ```
 
-Ponadto, bieżący skrypt renderowania otrzymuje komunikat za każdym razem, gdy zmienia się okno (widok gry), a to obejmuje zmiany orientacji.
+Dodatkowo aktualny skrypt renderowania otrzymuje wiadomość za każdym razem, gdy zmienia się okno (widok gry), a obejmuje to także zmiany orientacji.
 
 ```lua
 function on_message(self, message_id, message)
   if message_id == hash("window_resized") then
-    -- Okno zostało zmienione. message.width i message.height zawierają nowe wymiary okna.
+    -- Rozmiar okna się zmienił. message.width i message.height zawierają
+    -- nowe wymiary okna.
   end
 end
 ```
 
-Przy zmianie orientacji menedżer układu interfejsu automatycznie przeskalowuje i przemieszcza węzły GUI zgodnie z układem i właściwościami węzłów. Jednak treść gry jest renderowana w osobnym przebiegu (domyślnie) z projekcją rozciągania do bieżącego okna. Aby zmienić to zachowanie, należy dostarczyć własny zmodyfikowany skrypt renderowania lub skorzystać z [biblioteki kamer](/assets/).
+Przy zmianie orientacji menedżer układów GUI automatycznie przeskaluje i przemieści węzły GUI zgodnie z układem oraz właściwościami węzłów. Zawartość gry jest jednak domyślnie renderowana w osobnym przebiegu z projekcją stretch-fit do bieżącego okna. Aby zmienić to zachowanie, dostarcz własny zmodyfikowany skrypt renderowania albo skorzystaj z [biblioteki kamer](/assets/).
+
+## Ręczny wybór układu (Lua)
+
+Gdy `Auto Layout Selection` jest wyłączone dla używanych Display Profiles, silnik nie będzie przełączać układów automatycznie. W takim przypadku układami zarządza się ręcznie z poziomu skryptu GUI za pomocą następujących funkcji:
+
+### gui.set_layout(layout)
+
+- Przyjmuje `string` albo `hash` (id układu).
+- Zwraca wartość logiczną: `true`, jeśli układ istnieje w scenie i został zastosowany; w przeciwnym razie `false`.
+- Jeśli układ istnieje w Display Profiles, aktualizuje rozdzielczość sceny do szerokości i wysokości z profilu.
+- Wysyła `layout_changed`, gdy układ rzeczywiście się zmieni.
+
+Przykład:
+
+```lua
+function init(self)
+    -- Ręcznie zastosuj układ "Portrait"
+    local ok = gui.set_layout("Portrait")
+    if not ok then
+        print("Układ Portrait nie został znaleziony w tej scenie")
+    end
+end
+```
+
+### gui.get_layouts()
+
+- Zwraca tabelę mapującą każdy hash id układu na `vmath.vector3(width, height, 0)`.
+- Dla układu domyślnego zwraca bieżącą rozdzielczość sceny.
+
+Przykład:
+
+```lua
+local layouts = gui.get_layouts()
+for id, size in pairs(layouts) do
+    print(id, size.x, size.y)
+end
+```
+
+Uwaga: jeśli układ GUI istnieje w scenie, ale nie występuje w Display Profiles, `gui.set_layout()` nadal zastosuje nadpisania właściwości węzłów dla danego układu, ale nie zmieni rozdzielczości sceny.
