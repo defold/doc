@@ -46,7 +46,7 @@ https://username:password@github.com/defold/private/archive/main.zip
 Pola `username` i `password` zostaną wyciągnięte i dodane jako nagłówek żądania `Authorization`. Takie rozwiązanie działa na każdym serwerze obsługującym podstawowe uwierzytelnianie.
 
 ::: important
-Uważaj, żeby nie udostępniać ani nie wyciekać swojego tokena dostępu ani hasła, bo w niepowołanych rękach może to mieć poważne konsekwencje.
+Uważaj, żeby nie udostępniać swojego tokena dostępu ani hasła, żeby nie doszło do wycieku, ponieważ w niepowołanych rękach może to mieć poważne konsekwencje.
 :::
 
 Aby nie trzymać poświadczeń w jawnej postaci w adresie URL, możesz użyć wzorca do zamiany ciągu i przechowywać dane jako zmienne środowiskowe:
