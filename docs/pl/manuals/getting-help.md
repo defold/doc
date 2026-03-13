@@ -27,7 +27,7 @@ Kroki prowadzące do odtworzenia zachowania (raportuj najlepiej w języku angiel
 1. Go to '...'
 2. Click '....'
 3. Scroll down to '....'
-4. Zobacz błąd
+4. See error
 
 **Oczekiwane zachowanie (WYMAGANE)**
 Jasny opis tego, co powinno się wydarzyć.
