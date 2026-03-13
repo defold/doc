@@ -3,7 +3,7 @@ title: Fabryki kolekcji
 brief: Ta instrukcja wyjaśnia, jak używać komponentów Collection factory do tworzenia hierarchii obiektów gry.
 ---
 
-# Fabryki kolekcji
+# Fabryki kolekcji (Collection factory)
 
 Komponent Collection factory służy do tworzenia grup i hierarchii obiektów gry zapisanych w plikach kolekcji w działającej grze.
 
