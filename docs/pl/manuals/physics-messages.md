@@ -7,7 +7,7 @@ brief: Kiedy obiekty się zderzają, silnik Defold wysyła wiadomości do kompon
 
 Kiedy dwa obiekty kolizji pozostają w kontakcie, silnik wysyła zdarzenia do ich komponentów. Na przykład, wiadomość może być dostarczona do funkcji zwrotnej obsługi zdarzeń (`physics.set_event_listener()`) albo trafić do domyślnego odbiorcy wiadomości za pomocą `on_message()`.
 
-## Filtracja zdarzeń
+## Filtrowanie zdarzeń
 
 Rodzaje generowanych zdarzeń kontrolujesz przez przełączniki dla każdego obiektu kolizji:
 
