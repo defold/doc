@@ -131,7 +131,7 @@ W naszym przykładzie gra uruchomi się z czterema obiektami:
 - /team_2/buddy
 
 ::: sidenote
-Identyfikatory są przechowywane jako wartości haszowane. Runtime przechowuje również stan haszowania dla każdej kolekcji, co pozwala kontynuować przeliczanie relatywnych ciągów na identyfikatory absolutne.
+Identyfikatory są przechowywane jako wartości hashowane (ang. hashed - od nazwy (funkcji skrótu -hash)[https://pl.wikipedia.org/wiki/Funkcja_skrótu]). Runtime przechowuje również stan hashowania dla każdej kolekcji, co pozwala kontynuować przeliczanie relatywnych ciągów na identyfikatory absolutne.
 :::
 
 W czasie działania grupowanie kolekcji znika. Nie da się ustalić, do której kolekcji należał dany obiekt przed kompilacją. Nie można też w prosty sposób manipulować wszystkimi obiektami z kolekcji naraz. Jeśli potrzebujesz takich operacji, samodzielnie je śledź w kodzie. Identyfikator każdego obiektu jest stały przez cały czas życia obiektu. Oznacza to, że bezpiecznie można go przechować i użyć później.
