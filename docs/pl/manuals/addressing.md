@@ -73,7 +73,7 @@ Przyjrzyjmy się teraz, co się stanie, gdy dodasz kolejne obiekty. Załóżmy, 
 Widzimy tu dwa komponenty skryptowe o nazwie "controller", ale każdy w innym obiekcie gry, więc jest to całkowicie legalne. Dla każdego obiektu tworzy się nowy kontekst nazewniczy.
 :::
 
-Ponieważ adresat wiadomości znajduje się poza obiektem wysyłającym ("bean"), kod musi określić, który komponent "controller" powinien ją otrzymać. Trzeba więc podać zarówno identyfikator obiektu gry, jak i identyfikator komponentu. Pełny adres komponentu to `"buddy#controller"` i składa się z dwóch części.
+Ponieważ adresat wiadomości znajduje się poza obiektem wysyłającym ("bean"), kod musi określić, który komponent "controller" powinien ją otrzymać. Trzeba więc podać zarówno identyfikator (Id) obiektu gry, jak i identyfikator komponentu. Pełny adres komponentu to `"buddy#controller"` i składa się z dwóch części.
 
 - Najpierw określamy identyfikator obiektu gry ("buddy"),
 - następnie wstawiamy znak oddzielający obiekt i komponent ("#"),
