@@ -1,92 +1,95 @@
 ---
-title: Jak uzyskać pomoc?
-brief: Instrukcja opisuje jak efektywnie i szybko uzyskać pomoc, jeśli napotkasz jakiekolwiek problemy z Defoldem.
+title: Jak uzyskać pomoc
+brief: Ta instrukcja opisuje, jak uzyskać pomoc, gdy napotkasz problem podczas korzystania z silnika Defold.
 ---
 
-# Jak uzyskać pomoc?
+# Jak uzyskać pomoc
 
-Jeśli napotkasz jakiekolwiek problemy z Defoldem, służymy pomocą! Postaramy się naprawić błędy i rozwiązać problemy lub pomóc Ci znaleźć inne rozwiązanie! Jest kilka sposobów na zgłoszenie i przedystkutowanie problemów. Wybierz takim który jest dla Ciebie najwygodniejszy:
+Jeśli napotkasz problem podczas korzystania z silnika Defold, chcemy o tym wiedzieć, żeby móc go naprawić lub pomóc Ci znaleźć obejście. Istnieje kilka sposobów, aby omówić lub zgłosić problem. Wybierz ten, który najbardziej Ci odpowiada:
 
 ## Zgłoś problem na forum
 
-Dobrym sposobem na przedyskutowanie problemu jest zadanie pytania na naszym [forum](https://forum.defold.com). Zadaj pytanie w ogólnej kategorii: [Questions](https://forum.defold.com/c/questions) lub opisz błąd w kategorii: [Bugs](https://forum.defold.com/c/bugs). Pamiętaj też, że zawsze możesz spróbować przeszukać forum: [search](https://forum.defold.com/search) w poszukiwaniu odpowiedzi na nurtujące Cię pytania lub rozwiązania problemu, na który ktoś mógł już natrafić. (Forum jest anglojęzyczne, ale przykładowo na Discordzie Defolda możesz znaleźć polskojęzyczny kanał - przyp.tłum.)
+Dobrym sposobem na omówienie problemu i uzyskanie pomocy jest zadanie pytania na naszym [forum](https://forum.defold.com). Zamieść post w [Questions](https://forum.defold.com/c/questions) albo w [Bugs](https://forum.defold.com/c/bugs), w zależności od rodzaju problemu. Pamiętaj, żeby [wyszukać](https://forum.defold.com/search) swoje pytanie/zgłoszenie zanim zapytasz – być może ktoś już znalazł rozwiązanie.
 
-Jeśli masz więcej niż jedno pytanie, utwórz dla każdego z nich osobny post dla zachowania porządku.
+Jeśli masz kilka pytań, utwórz oddzielne posty. Nie zadawaj niezwiązanych pytań w tym samym wątku.
 
 ### Wymagane informacje
-Nie będziemy mogli udzielić Ci pomocy jeśli nie podasz paru ważnych informacji:
+Nie będziemy mogli udzielić pomocy, jeśli nie przekażesz potrzebnych informacji:
 
 **Tytuł**
-Post musi mieć krótki i opisujący problem tytuł. Dobrymi przykładami są "How do I move a game object in the direction it is rotated?" lub "How do I fade out a sprite?". Złymi przykładami natomiast są "I need some help using Defold!" albo "My game is not working!".
+Użyj krótkiego i konkretnie opisującego problem tytułu. Dobry tytuł to np. „How do I move a game object in the direction it is rotated?” albo „How do I fade out a sprite?”. Zły tytuł to „I need some help using Defold!” albo „My game is not working!”.
 
-**Opisz problem (WYMAGANE)**
-Jasny i dokładny opis problemu.
+**Opisz błąd (WYMAGANE)**
+Jasny i zwięzły opis tego, co jest nie tak.
 
 **Odtworzenie problemu (WYMAGANE)**
-Kroki, które trzeba wykonać, aby zreprodukować problem, np:
-  1. Przejdź do '...'
-  2. Kliknij na '...'
-  3. Przewiń do '...'
-  4. Zobaczysz błąd
-
-(Oczywiście po angielsku np:
-  1. Go to '...'
-  2. Click on '....'
-  3. Scroll down to '....'
-  4. See error
-)
+Kroki prowadzące do odtworzenia zachowania (raportuj najlepiej w języku angielskim):
+1. Go to '...'
+2. Click '....'
+3. Scroll down to '....'
+4. See error
 
 **Oczekiwane zachowanie (WYMAGANE)**
-Jasny i zwięzły opis czego oczekujesz po prawidłowym zachowaniu silnika/gry.
+Jasny opis tego, co powinno się wydarzyć.
 
-**Wersja Defolda (WYMAGANE):**
- - np: [Version 1.2.155]
+**Wersja Defold (WYMAGANE):**
+  - Version [e.g. 1.2.155]
 
 **Sprzęt i system operacyjny (WYMAGANE):**
- - Platforms: [np. iOS, Android, Windows, macOS, Linux, HTML5]
- - OS: [np. iOS8.1, Windows 10, High Sierra]
- - Device: [np. iPhone6]
+ - Platforms: [e.g. iOS, Android, Windows, macOS, Linux, HTML5]
+ - OS: [e.g. iOS8.1, Windows 10, High Sierra]
+ - Device: [e.g. iPhone6]
 
-**Repro case - mały projekt z reprodukcją błędu (OPCJONALNIE):**
-Możesz dołączyć mały, zrobiony na szybko projekt Defold, w którym podstawowe elementy są odtworzone w taki sposób, jak w Twoim głównym projekcie, przez co pojawia się ten sam błąd. Załączenie takiego projektu z pewnością znacząco ułatwi i przyspieszy jego rozwiązanie.
+**Minimal reproduction case project (OPCJONALNIE):**
+Dołącz minimalny projekt, który odtwarza błąd. Ułatwia to diagnozę i naprawę.
 
 **Logi (OPCJONALNIE):**
-Dołącz proszę ważne logi silnika, edytora lub serwera do budowania, które pojawiają się w konsoli lub są zapisywane do pliku: [tutaj](#log-files).
+Dodaj istotne logi z silnika, edytora lub serwera budowania. Dowiedz się, gdzie się znajdują, [tutaj](#log-files).
 
-**Workaround - obejście problemu (OPCJONALNIE):**
-Jeśli znasz jakikolwiek sposób na poradzenie sobie z problemem w inny, sprytny sposób, opisz go proszę w poście.
+**Workaround (OPCJONALNIE):**
+Jeśli znasz tymczasowe obejście, opisz je w poście.
 
-**Screenshots - zrzuty ekranu (OPCJONALNIE):**
-Jeśli zdjęcia jasno pokazują problem, możesz śmiało zamieścić je w poście.
+**Screenshots (OPCJONALNIE):**
+Jeśli obrazy pomagają wyjaśnić problem, dołącz je.
 
-**Dodatkowy kontekst (OPCJONALNIE):**
-Jeśli są jeszcze jakiekolwiek inne kwestie warte poruszenia, śmiało dopisz je.
+**Additional context (OPCJONALNIE):**
+Dodaj dowolny inny kontekst dotyczący problemu.
 
-## Zgłoś problem z poziomu Edytora Defold
+### Udostępnianie kodu
+Kiedy dzielisz się kodem, lepiej zamieścić go jako tekst zamiast zrzutu ekranu. Dzięki temu można go przeszukać, łatwiej wskazać błędy i zaproponować poprawki. Umieść kod wewnątrz potrójnych backticków (```) albo wcięciu o 4 spacje.
 
-Edytor umożliwia w łatwy sposób zgłosić problem. Wybierz <kbd>Help->Report Issue</kbd>.
+Przykład:
+
+print("Hello code!")
+
+Efekt:
+
+```
+print("Hello code!")
+```
+
+## Zgłoś problem z poziomu Edytora
+
+Edytor umożliwia wygodne zgłoszenie problemu. Wybierz <kbd>Help->Report Issue</kbd> z poziomu edytora, aby zgłosić błąd.
 
 ![](images/getting_help/report_issue.png)
 
-Wybranie tej opcji przeniesie Cię do strony ze śledzeniem zgłoszeń błędów na GitHubie. Dodaj [plik z logami](#log-files), informacje o Twoim sprzęcie i systemie operacyjnym, opisz kroki, które trzeba wykonać, aby zreprodukować problem, możliwe obejście itd.
+Wybranie tej opcji przeniesie Cię do strony zgłoszeń na GitHubie. Dołącz [pliki z logami](#log-files), informacje o systemie operacyjnym, kroki odtwarzające problem, możliwe obejście itd.
 
 ::: sidenote
 Musisz mieć konto na GitHubie, żeby zgłosić problem w ten sposób.
 :::
 
 
-## Przedysktuj problem na Discord
+## Przedyskutuj problem na Discord
 
-W razie problemów możesz również zadać pytanie na oficjalnym [Discord](https://www.defold.com/discord/), jednak pamiętaj, że zalecamy, aby skomplikowane kwestie i dogłębne dyskusje prowadzić na forum. Pamiętaj też, że nie przyjmujemy zgłoszeń bugów, problemów przez Discord.
+Jeśli napotkasz problem podczas korzystania z silnika Defold, możesz spróbować zadać pytanie na [Discord](https://www.defold.com/discord/). Zalecamy jednak, żeby złożone pytania i głębsze dyskusje prowadzić na forum. Nie przyjmujemy zgłoszeń błędów przesyłanych przez Discord.
 
 
-# Logi
+# Log files
 
-Silnik, Edytor i serwer do budowania Defolda generują logi (informacje), które mogą być bardzo przydatne podczas rozwiązywania problemów. Zawsze dodawaj pliki z logami do zgłaszanego problemu, których lokalizację możesz sprawdzić poniżej:
+Silnik, edytor i serwer budowania generują logi, które bardzo pomagają przy zgłaszaniu i rozwiązywaniu problemów. Zawsze dołącz pliki z logami, gdy zgłaszasz problem:
 
-* [Logi Silnika](/manuals/debugging-game-and-system-logs)
-* Logi Edytora
-  * Windows: `C:\Users\ **Your Username** \AppData\Local\Defold`
-  * macOS: `/Users/ **Your Username** /Library/Application Support/` or `~/Library/Application Support/Defold`
-  * Linux: `~/.Defold`
-* [Logi serwera do budowania](/manuals/extensions#build-server-logs)
+* [Engine logs](/manuals/debugging-game-and-system-logs)
+* [Editor logs](/manuals/editor#editor-logs)
+* [Build server logs](/manuals/extensions#build-server-logs)

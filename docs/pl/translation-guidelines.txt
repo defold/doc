@@ -1,0 +1,154 @@
+---
+title: Polish Translation Guide
+brief: Observed translation rules and terminology for the Polish Defold documentation.
+---
+
+# Polish Translation Guide
+
+This file is based on a review of the current Polish corpus in `docs/pl/manuals` and `docs/pl/shared`.
+
+## Core rule
+
+Translate the explanatory prose into natural Polish. Keep English only when it is the exact product term, UI label, API symbol, file name, path, message name, enum, or other literal value used by Defold.
+
+## Translate
+
+Translate these parts fully into Polish:
+
+- introductions, explanations, warnings, notes, and recommendations
+- table descriptions and property explanations
+- conceptual text around examples
+- section headings, subheadings, captions, and ordinary link labels
+- operational instructions and caveats from the source, including cases where the user must act in English
+- Polish glosses for official Defold terms on first mention
+
+Examples already used in the corpus:
+
+- `Game object` -> `obiekt gry`
+- `Collection proxy` -> `pełnomocnik kolekcji`
+- `Tile map` -> `mapa kafelków`
+- `Input binding` -> `wiązania wejść`
+
+## Keep In English
+
+Keep the original English for literal engine and editor values:
+
+- product and technology names: `Defold`, `Lua`, `Spine`, `Android`, `iOS`, `HTML5`
+- API and code symbols: `msg.post()`, `go.animate()`, `gui.get_node()`, `hash("jump")`
+- message names, constants, and enum values: `acquire_input_focus`, `disable`, `Vsync`, `PLAYBACK_LOOP_PINGPONG`
+- file names, paths, extensions, and config keys: `game.project`, `.gui_script`, `/builtins/render/default.render`, `display.update_frequency`
+- exact editor labels and menu commands: `Outline`, `Properties`, `Assets`, `Add Component`, `Open With ▸ Text Editor`
+- exact service or workflow labels the reader must click or type: forum categories such as `Questions` and `Bugs`, or other English-only labels visible in tools and services
+
+In settings reference pages, keep section names and property names exactly as they appear in Defold, then explain them in Polish.
+
+Do not keep English for normal article headings or link text just because the English source uses English. Translate those unless they are exact UI labels, code, API names, file names, or other literals.
+
+Keep `Defold` unchanged as a brand name. Do not inflect it into forms like `Defoldzie`, `Defolda`, or `Defoldem`. Rewrite the sentence instead, for example: `w silniku Defold`, `w edytorze Defold`, `dla użytkowników Defold`.
+
+## Natural Polish
+
+Prefer natural Polish over literal calques from English.
+
+- If a direct translation sounds vague, misleading, or unnatural in Polish, rewrite it.
+- Prefer established Polish technical wording over word-for-word copies from English.
+- If the English source term is important for orientation, keep the Polish wording and add the English origin on first mention in parentheses.
+
+Examples:
+
+- `game object` -> `obiekt gry (ang. game object)` on first mention
+- `root collection` -> `główna kolekcja (ang. root collection)` or another natural Polish phrasing, not a literal calque
+- `hashed` -> `hashowany`
+- prefer established Polish wording such as `filtrowanie`, not mechanically similar but less natural forms
+
+## First Mention Pattern
+
+The existing Polish docs usually introduce official Defold concepts with the English name first and the Polish explanation in parentheses, or the reverse when the heading is already localized. Keep in mind that the Defold Editor is not localized to Polish, so readers of Polish manuals still need exposure to the English labels they will see in the product.
+
+Use patterns like:
+
+- `Collection proxy (Pełnomocnik kolekcji)`
+- `Label (Etykieta)`
+- `Etykieta (Label)`
+- `Węzeł GUI typu box`
+
+After the first mention, use whichever form is clearer in context:
+
+- use the Polish form in narrative prose
+- switch back to English when referring to the literal asset type, menu item, setting name, or API object
+- for editor concepts and official Defold naming, prefer giving both on first mention so the reader can map the Polish explanation back to the English UI or terminology
+
+## UI And Code Formatting
+
+- Wrap literal UI commands in `<kbd>...</kbd>`.
+- Keep inline code, code blocks, hashes, message ids, and paths unchanged.
+- Do not translate URLs.
+- Do not rename files, extensions, resource ids, or code identifiers inside examples.
+- If the source instructs the reader to report something or interact in English, keep that instruction explicit in the Polish translation.
+
+Examples:
+
+- `<kbd>Add Component ▸ Label</kbd>`
+- `` `layout_changed` ``
+- `` `default.render_script` ``
+- `` `go.set("#sprite", "tint", vmath.vector4(1,0,0,1))` ``
+
+## Terminology To Reuse
+
+Prefer the terminology already established in `docs/pl/manuals/glossary.md` and the existing manuals:
+
+| English term | Preferred Polish form |
+|---|---|
+| Game object | obiekt gry |
+| Component | komponent |
+| Collection | kolekcja |
+| Collection factory | fabryka kolekcji |
+| Collection proxy | pełnomocnik kolekcji |
+| Collision object | obiekt kolizji |
+| Camera | kamera |
+| Factory | fabryka |
+| Label | etykieta |
+| Library | biblioteka |
+| Message | wiadomość |
+| Render script | skrypt do renderowania |
+| Script | skrypt |
+| Sound | dźwięk |
+| Sprite | obraz / sprite |
+| Tile map | mapa kafelków |
+| Tile source | źródło kafelków |
+| Texture profiles | profile teksturowania |
+| Display profiles | profile wyświetlania |
+| GUI script | skrypt GUI |
+| Hot reload | szybkie przeładowanie |
+| Input binding | wiązania wejść |
+
+For editor views and commands, keep the English literal and optionally add a Polish explanation on first mention:
+
+- `Outline` -> `Outline` (widok zawartości pliku)
+- `Properties` -> `Properties` (właściwości)
+- `Build Errors` -> `Build Errors` (błędy budowania)
+- `Search Results` -> `Search Results` (wyniki wyszukiwania)
+
+## English Leftovers In The Corpus
+
+Several Polish files still contain copied English fragments or comments. Treat those as leftovers from the source material, not as the preferred house style.
+
+Examples were found in:
+
+- `docs/pl/manuals/components.md`
+- `docs/pl/manuals/gui-layouts.md`
+- `docs/pl/manuals/message-passing.md`
+- `docs/pl/manuals/properties.md`
+- `docs/pl/manuals/editor.md`
+
+For new or updated translations:
+
+- translate surrounding prose into Polish
+- preserve literal code and UI strings in English
+- do not copy stray English sentences just because they already appear in one file
+
+## Practical Default
+
+If a phrase is visible in the Defold UI, API, config, file system, or code, keep it in English.
+
+If a phrase explains what that thing means or how to use it, translate it into Polish.

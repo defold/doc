@@ -1,43 +1,42 @@
 ---
-title: Przekazywanie wiadomości
-brief: Przekazywanie wiadomości (ang. message passing) w Defoldzie jest mechanizmem umożliwiającym komunikację luźnie połączonym ze sobą obiektom. Ta instrukcja dokładnie opisuje przekazywanie wiadomości.
+title: Przekazywanie wiadomości w silniku Defold
+brief: Przekazywanie wiadomości to mechanizm używany przez Defold, aby umożliwić komunikację luźno powiązanych obiektów. Ta instrukcja opisuje ten mechanizm dogłębnie.
 ---
 
 # Przekazywanie wiadomości
 
-Przekazywanie wiadomości to mechanizm umożliwiający obiektom gry (ang. game objects) w Defoldzie komunikację. Ten materiał wymaga uprzedniego zaznajomienia się z [mechanizmem adresowania](/manuals/addressing) i [podstawowymi elementami Defolda](/manuals/building-blocks).
+Przekazywanie wiadomości to mechanizm pozwalający obiektom gry w silniku Defold komunikować się między sobą. Ten materiał zakłada, że znasz podstawy [mechanizmu adresowania](/manuals/addressing) w silniku Defold oraz [podstawowych elementów budujących grę](/manuals/building-blocks).
 
-Defold nie jest zorientowany obiektowo w tym sensie, że aplikację zdefiniować można poprzez utworzenie hierarchii klas z dziedziczeniem i metodami w obiektach (jak np. w Javie, C++ czy C#). Zamiast tego, Defold rozszerza możliwości języka Lua o prosty i potężny mechanizm obiektowy, gdzie stan obiektów jest przetrzymywany wewnątrz skryptów (ang. script) dostępny przez referencję do siebie, tzw. `self`. Obiekty mogą być ponadto całkowicie odseparowane od mechanizmu przekazywania asynchronicznych wiadomości Objects can furthermore be fully decoupled with asynchronous message passing jako środka komunikacji między nimi.
-
+Defold nie realizuje programowania obiektowego w tym sensie, że definiujesz aplikację przez tworzenie hierarchii klas ze zdziedziczeniem i metodami członkowskimi w obiektach (jak w Javie, C++ czy C#). Zamiast tego Defold rozszerza Luę o prosty i skuteczny model obiektowy, w którym stan obiektów przechowywany jest wewnętrznie w komponentach skryptowych, dostępnym przez referencję `self`. Obiekty mogą być ponadto całkowicie odseparowane i komunikować się za pomocą asynchronicznego przekazywania wiadomości.
 
 ## Przykłady użycia
 
-Spójrzmy najpierw na kilka przykładów przekazywania wiadomości. Załóżmy, że budujesz grę, w której znajduje się:
+Najpierw przyjrzyjmy się kilku prostym przykładom. Załóżmy, że tworzysz grę składającą się z:
 
-1. Głowna kolekcja nazwana "main" z jednym obiektem gry z komponentem typu GUI nazwanym "interface" (z minimapą i licznikiem zdobytych punktów).
-2. Druga kolekcja nazwana "level" z dwoma obiektami gry: jednym dla postaci bohatera/gracza ("hero"), a drugim dla postaci przeciwnika ("enemy").
+1. Głównej kolekcji bootstrap zawierającej obiekt gry z komponentem GUI (GUI składa się z minimapy i licznika punktów). Znajduje się tam także kolekcja o identyfikatorze "level".
+2. Kolekcja nazwana "level" zawiera dwa obiekty gry: bohatera i przeciwnika.
 
-![Struktura przekazywania wiadomości](images/message_passing/message_passing_structure.png)
+![Message passing structure](images/message_passing/message_passing_structure.png)
 
 ::: sidenote
-Zawartość tego przykładu jest podzielona na dwa dwa osobne pliki - jeden dla kolekcji głównej "main" oraz drugi dla kolekcji "level". Pamiętaj jednak, że same nazwy plików _nie mają znaczenia_ w Defoldzie. Znaczenie ma identyfikator (id) przypisany do instancji.
+Treść tego przykładu mieści się w dwóch oddzielnych plikach. Jeden plik odpowiada głównej kolekcji bootstrap, drugi kolekcji o identyfikatorze "level". W silniku Defold nazwy plików _nie mają znaczenia_. Liczy się tożsamość, jaką nadajesz instancjom.
 :::
 
-Gra składa się z kilku prostych zasad, które wymagają komunikacji między obiektami:
+W grze występuje kilka prostych mechanik wymagających komunikacji między obiektami:
 
-![Przekazywanie wiadomości](images/message_passing/message_passing.png)
+![Message passing](images/message_passing/message_passing.png)
 
-① Bohater trafia przeciwnika
-: Dla tej funkcjonalności, wiadomość o nazwie `"punch"` (z ang. cios) jest wysłana ze skryptu obiektu gracza "hero" do skryptu obiektu przeciwnika "enemy". Ponieważ obydwa obiekty są w hierarchi tej samej kolekcji, można użyć adresowania pośredniego (bez nazwy kolekcji):
+① Bohater uderza przeciwnika
+: W ramach tej mechaniki komponent skryptowy bohatera wysyła wiadomość `"punch"` do komponentu skryptowego przeciwnika. Ponieważ oba obiekty żyją w tej samej gałęzi hierarchii kolekcji, preferowane jest adresowanie względne:
 
   ```lua
   -- Send "punch" from the "hero" script to "enemy" script
   msg.post("enemy#controller", "punch")
   ```
 
-  W grze jest tylko jeden rodzaj ruchu ataku, więc wiadomość nie musi zawierać żadnych innych informacji oprócz samej nazwy "punch".
+  W grze jest tylko jeden ruch zadający silny cios, więc wiadomość nie musi zawierać żadnych dodatkowych danych poza nazwą `"punch"`.
 
-  W skrypcie obiektu przeciwnika, utwórz funkcję do obsługi przysłanej wiadomości:
+  W komponencie skryptowym przeciwnika tworzysz funkcję odbierającą wiadomość:
 
   ```lua
   function on_message(self, message_id, message, sender)
@@ -47,10 +46,10 @@ Gra składa się z kilku prostych zasad, które wymagają komunikacji między ob
   end
   ```
 
-  W tym przypadku kod sprawdza nazwę wiadomości (wysłanej jak skrócony hash string w polu "message_id"). Kod nie bierze pod uwagę ani danych zawartych w wiadomości, ani kto był nadawcą - więc *każdy* wysyłający wiadomość "punch" spowoduje, że biedny przeciwnik otrzyma obrażenia.
+  W tym przypadku kod patrzy tylko na nazwę wiadomości (przekazywaną jako hashowany ciąg w parametrze `message_id`). Kod nie interesuje się danymi ani nadawcą — *każdy*, kto wyśle wiadomość `"punch"`, zada obrażenia biednemu przeciwnikowi.
 
 ② Bohater zdobywa punkty
-: Kiedy bohater pokona przeciwnika, licznik jego punktów wzrasta. Wiadomość nazwana `"update_score"` (z ang. zaktualizuj wynik) jest wysła ze skryptu obiektu gracza "hero" do komponentu "gui" obiektu "interface".
+: Kiedy gracz pokonuje przeciwnika, wynik gracza rośnie. Wiadomość `"update_score"` jest wysyłana z komponentu skryptowego obiektu gry bohatera do komponentu GUI w obiekcie gry "interface".
 
   ```lua
   -- Enemy defeated. Increase score counter by 100.
@@ -58,9 +57,9 @@ Gra składa się z kilku prostych zasad, które wymagają komunikacji między ob
   msg.post("/interface#gui", "update_score", { score = self.score })
   ```
 
-  W tym przypadku nie jest możliwe użycie pośredniego adresu, ponieważ obiekt "interface" jest w hierarchi w innej kolekcji, niż obiekt gracza "hero". Wiadomość zostaje wysłana do komponentu GUI, który ma dołączony do siebie skrypt GUI, więc w tym skrypcie możemy zareagować na otrzymaną wiadomość. Wiadomości możemy wysyłać dowolnie między wszystkimi trzema typami skyptów: skryptami, skryptami GUI oraz skryptami do renderowania (render script).
+  W tym przypadku nie da się użyć adresowania względnego, bo "interface" znajduje się w korzeniu hierarchii nazw, a "hero" nie. Wiadomość wysyłana jest do komponentu GUI, do którego dołączony jest skrypt, aby mógł odpowiednio zareagować. Wiadomości można wysyłać swobodnie między skryptami, skryptami GUI i skryptami renderującymi.
 
-  The message `"update_score"` is coupled with score data. The data is passed as a Lua table in the `message` parameter:
+  Wiadomość `"update_score"` zawiera dane o wyniku. Dane przesyłane są jako tabela Lua w parametrze `message`:
 
   ```lua
   function on_message(self, message_id, message, sender)
@@ -72,8 +71,8 @@ Gra składa się z kilku prostych zasad, które wymagają komunikacji między ob
   end
   ```
 
-③ Pozycja przeciwnika jest aktualizowana na minimapie.
-: Gracz patrząc na minmapę z pozycjami przeciwników może łatwiej ich zlokalizować i śledzić ruchy. Każdy przeciwniki sygnalizuje więc swoją pozycję, wysyłając wiadomość nazwaną `"update_minimap"` (z ang. zaktualizuj minimapę) do komponentu "gui" obiektu "interface":
+③ Pozycja przeciwnika na minimapie
+: Gracz ma na ekranie minimapę, która pomaga lokalizować i śledzić przeciwników. Każdy przeciwnik odpowiada za przekazywanie swojej pozycji, wysyłając wiadomość `"update_minimap"` do komponentu GUI w obiekcie gry "interface":
 
   ```lua
   -- Send the current position to update the interface minimap
@@ -81,7 +80,7 @@ Gra składa się z kilku prostych zasad, które wymagają komunikacji między ob
   msg.post("/interface#gui", "update_minimap", { position = pos })
   ```
 
-  Skrypt GUI musi śledzić pozycję każdego przeciwnika, a jeśli przeciwnik wyśle aktualizację swojej pozycji, to jego ostatnia pozycja musi być zaktualizowana. Nazwa nadawcy wiadomości (przekazana w polu `sender`) może być użyta jako klucz w tablicy Lua z pozycjami:
+  Skrypt GUI musi śledzić pozycje wszystkich przeciwników, a jeśli ten sam przeciwnik przekaże nową pozycję, starsza powinna zostać zastąpiona. Nadawca wiadomości (przekazany w parametrze `sender`) może posłużyć jako klucz tabeli Lua przechowującej pozycje:
 
   ```lua
   function init(self)
@@ -110,11 +109,11 @@ Gra składa się z kilku prostych zasad, które wymagają komunikacji między ob
 
 ## Wysyłanie wiadomości
 
-Mechanizm wysyłania wiadomości, jak w przykładach powyżej, jest bardzo prosty. Wywołujesz funkcję `msg.post()`, która przekierowuje wiadomość do kolejki wiadomości. Następnie, w każdej ramce, silnik Defold przegląda tę kolejkę i dostarcza każdą z wiadomości do odbiorców. Dla niektórych wiadomości systemowych (jak `"enable"`, `"disable"`, `"set_parent"` itd.) silnik sam odpowiada w odpowiedni sposób na taką wiadomość. Silnik tworzy również wiadomości systemowe (jak `"collision_response"` w przypadku kolizji fizycznych), które są rozsyłane do odpowiednich obiektów gry. W przypadku wiadomości użytkownika wysyłanych do skryptów silnik wywołuje specjalną funkcję `on_message()`.
+Mechanika wysyłania wiadomości jest, jak już widzieliśmy, bardzo prosta. Wywołujesz funkcję `msg.post()`, która umieszcza wiadomość w kolejce wiadomości. Następnie co klatkę silnik przetwarza kolejkę i doręcza każdą wiadomość do wskazanego adresata. W przypadku niektórych wiadomości systemowych (jak `"enable"`, `"disable"`, `"set_parent"` itp.) kod silnika obsługuje wiadomość. Silnik również generuje wiadomości systemowe (np. `"collision_response"` przy kolizjach fizycznych), które trafiają do twoich obiektów. W przypadku wiadomości użytkownika wysyłanych do komponentów skryptowych silnik po prostu wywołuje specjalną funkcję w języku Lua o nazwie `on_message()`.
 
-Możesz wysyłać dowolne wiadomości do istniejących obiektów lub komponentów, a już decyzja, czy i jak zareagować na daną wiadomość zależy od kodu funkcji. Jeśli wyślesz wiadomość do skryptu, a skrypt zignoruje ją, jest to w porządku. Odpowiedzialność za obsługę wiadomości leży w całości po stronie odbiorcy.
+Możesz wysłać dowolną wiadomość do istniejącego obiektu lub komponentu i to kod po stronie odbiorcy decyduje, jak na nią zareagować. Jeśli wiadomość trafi do komponentu skryptowego, który ją zignoruje, nic się nie stanie — obsługa komunikatów należy do odbiorcy.
 
-Silnik sprawdza docelowy adres wiadomości. Jeśli próbujesz wysłać wiadomość do nieznanego lub nieistniejącego odbiorcy, Defold powiadomi Cię o tym stosowną informacją z błędem w konsoli:
+Silnik sprawdza adresat wiadomości. Jeśli spróbujesz wysłać wiadomość do nieznanego odbiorcy, Defold zgłosi błąd w konsoli:
 
 ```lua
 -- Try to post to a non existing object
@@ -125,18 +124,18 @@ msg.post("dont_exist#script", "hello")
 ERROR:GAMEOBJECT: Instance '/dont_exists' could not be found when dispatching message 'hello' sent from main:/my_object#script
 ```
 
-Kompletna sygnatura dla funkcji `msg.post()` to:
+Pełna sygnatura wywołania `msg.post()` to:
 
 `msg.post(receiver, message_id, [message])`
 
 receiver
-: Odbiorca, id komponentu lub obiektu gry, do którego wiadomość ma być wysłana. Uwaga! Jeśli wiadomość jest wysłana do obiektu gry, a nie pojedynczego komponentu (np. skryptu), to każdy komponent w hierarchii ooiektu otrzymuje tę samą wiadomość.
+: Id celowego komponentu lub obiektu gry. Zwróć uwagę, że gdy adresatem jest obiekt gry, wiadomość zostanie rozesłana do wszystkich komponentów tego obiektu.
 
 message_id
-: Nazwa wiadomości, identyfikator będący skróconym ciągiem znaków (hash string).
+: Ciąg znaków lub hashowany ciąg z nazwą wiadomości.
 
 [message]
-: Opcjonalna tablica Lua z parami klucz-wartość zawierającymi dane. Niemal każdy typ danych może być załączony w tablicy Lua - możesz dołączyć liczby, string, boolean, adresy URL, hashe czy zagnieżdżone tablice Lua. Nie można dołączyć funkcji.
+: Opcjonalna tabela Lua zawierająca pary klucz-wartość z danymi wiadomości. W tabeli można przekazać niemal każdy typ danych: liczby, ciągi znaków, wartości logiczne, adresy URL, hashe i zagnieżdżone tabele. Nie można przekazać funkcji.
 
   ```lua
   -- Send table data containing a nested table
@@ -146,33 +145,32 @@ message_id
   ```
 
 ::: sidenote
-Istnieje konkretny i niezmienialny limit na wielkość danych przesyłanych jako tablica Lua w polu w wiadomości `message` i wynosi 2 kilobajty. Nie istnieje obecnie prosty sposób na sprawdzenie zajętej pamięci przez tablicę w Lua, ale można przykładowo porównać wartość zwracaną przez funkcję `collectgarbage("count")` z momentu przed dodaniem danych do tablicy oraz po ich umieszczeniu, aby monitorować użycie pamięci.
+Istnieje twardy limit rozmiaru tabeli przekazywanej jako parametr `message`. Limit wynosi 2 kilobajty. Obecnie nie ma prostego sposobu określenia, ile dokładnie pamięci zajmuje tabela, ale możesz użyć `collectgarbage("count")` przed i po dodaniu tabeli, aby monitorować zużycie pamięci.
 :::
 
 ### Skróty
 
-Defold wprowadza dwa przydatne skróty, których można używać, zamiast określania konretnego adresu (co pozwala na stworzenie bardziej ogólnej funkcji w jednym skrypcie, której można użyć np. w wielu, różnych obiektach):
+Defold udostępnia dwa wygodne skróty, dzięki którym możesz wysyłać wiadomości bez podawania pełnego adresu URL:
 
-:[Shorthands](../shared/url-shorthands.md)
-
+:[Skróty](../shared/url-shorthands.md)
 
 ## Odbieranie wiadomości
 
-Odbieranie wiadomości polega jedynie na zapewnieniu obsługi wiadomości w skrypcie przy użyciu specjalnej funkcji `on_message()`. Funkcja ta przyjmuje 4 parametry:
+Odbieranie wiadomości sprowadza się do zapewnienia, że docelowy komponent skryptowy zawiera funkcję `on_message()`. Funkcja przyjmuje cztery parametry:
 
 `function on_message(self, message_id, message, sender)`
 
 `self`
-: Referencja do własnej instancji skryptu, tablica unikalna dla każdego stworzonego skryptu.
+: Referencja do komponentu skryptowego.
 
 `message_id`
-: Nazwa wiadomości, unikalny _skrócony_ (hash) identyfikator.
+: Zawiera nazwę wiadomości. Nazwa jest _hashowana_.
 
 `message`
-: Zawiera dane wiadomości, tablicę Lua. Jeśli nie ma żadnych danych przekazanych w wiadomości, tablica jest, ale pusta.
+: Zawiera dane wiadomości. To tabela Lua. Jeśli brak danych, tabela jest pusta.
 
 `sender`
-: Zawiera pełny adres URL nadawcy.
+: Zawiera pełny URL nadawcy.
 
 ```lua
 function on_message(self, message_id, message, sender)
@@ -187,25 +185,26 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-## Wysyłanie wiadomości między światami gry (game worlds)
+## Wysyłanie wiadomości między światami gry
 
-Jeśli używasz pełnomocników kolekcji (collection proxy) to wczytywania nowych światów gry dynamicznie, możesz chcieć przesyłać do utworzonych światów wiadomości. Załóżmy, że wczytano kolekcję o nazwie "level" przy użyciu pełnomocnika kolekcji:
+Jeśli używasz komponentu pełnomocnika kolekcji (`collection proxy`), aby załadować nowy świat gry do runtime, będziesz chciał wymieniać wiadomości między światami gry. Załóżmy, że załadowałeś kolekcję przez pełnomocnika, a kolekcja ma ustawioną właściwość *Name* na "level":
 
-![Nazwa kolekcji](images/message_passing/collection_name.png)
+![Collection name](images/message_passing/collection_name.png)
 
-Kiedy tylko kolekcja zostanie wczytana, zainijcjalizowana i aktywowana, możesz wysyłać wiadomości do każdego z jej komponentów lub obiektów gry w tym nowym świecie poprzez określenie w adresie pola "socket":
+Gdy tylko kolekcja zostanie załadowana, zainicjowana i włączona, możesz wysyłać wiadomości do dowolnego komponentu lub obiektu w nowym świecie gry, podając nazwę świata gry w polu adresata `socket`:
 
 ```lua
 -- Send a message to the player in the new game world
 msg.post("level:/player#controller", "wake_up")
 ```
-Więcej szczegółów na temat działania pełnomocników kolekcji znajdziesz w tej [instrukcji do pełnomocników](/manuals/collection-proxy).
+
+Szczegółowy opis działania pełnomocników kolekcji znajdziesz w instrukcji [Collection Proxies](/manuals/collection-proxy).
 
 ## Łańcuchy wiadomości
 
-Kiedy wiadomość zostaje wysłana, może być odczytana przez jednego z odbiorców w wywołaniu funkcji `on_message()`. Możliwe i często stosowane jest przesłanie kolejnej wiadomości do kolejki wiadomości w odpowiedzi na odebraną wiadomość.
+Gdy wiadomość zostanie wrzucona do kolejki i ostatecznie doręczona, wywoływana jest funkcja `on_message()` odbiorcy. Często kod obsługujący wiadomość przesyła nowe wiadomości, które trafiają na koniec kolejki.
 
-Kiedy silnik rozpoczyna rozładowywanie kolejki wiadomości w danej ramce, dla każdej z nich wywoła funkcję `on_message()` nadawcy i tak do momentu, aż kolejka będzie pusta. Jeśli obecnie rozsyłana wiadomość doda nową wiadomość do kolejki, silnik będzie rozsyłał wiadomości z kolejki ponownie. Jest jednak stały, określony limit określający ile razy kolejka może być przez silnik rozładowywana, czego skutkiem jest również limit długości łańcucha wiadomości na ramkę. Możesz sprawdzić jak wiele wiadomości w łańcuchu silnik jest w stanie rozładować między kolejnymi wywołaniami funkcji `update()`, czyli w ciągu trwania jednej ramki, używajać poniższego skryptu:
+Gdy silnik zaczyna przetwarzać kolejkę, przechodzi po niej i wywołuje funkcję `on_message()` każdego odbiorcy, kontynuując tak długo, aż kolejka zostanie opróżniona. Jeśli podczas tego przejścia dodane zostaną nowe wiadomości, silnik wykona kolejne przejście. Istnieje jednak twardy limit liczby prób opróżnienia kolejki w jednej klatce, co skutkuje ograniczeniem długości łańcuchów wiadomości, które można spodziewać się, że zostaną w pełni przetworzone w ramach jednej klatki. Możesz łatwo sprawdzić, ile przejść po kolejce wykonuje silnik między kolejnymi wywołaniami `update()` przy pomocy poniższego skryptu:
 
 ```lua
 function init(self)
@@ -234,7 +233,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Uruchomienie skryptu powinno spowodować wypisanie podobnych informacji:
+Uruchomienie tego skryptu wypisze coś w rodzaju:
 
 ```txt
 DEBUG:SCRIPT: INIT
@@ -251,4 +250,4 @@ DEBUG:SCRIPT: UPDATE 5
 DEBUG:SCRIPT: 75 dispatch passes before this update.
 ```
 
-Widzimy, że ta wersja silnika Defold jest w stanie wykonać 10 przejść rozładowywania kolejki wiadomości między wywołaniem funkcji `init()` oraz pierwszym wywołaniem funkcji `update()`. Następnie jest w stanie wykonać 75 przejść kolejki w każdej ramce.
+Widzimy, że ta wersja silnika Defold wykonuje 10 przejść po kolejce wiadomości między `init()` a pierwszym wywołaniem `update()`. W kolejnych pętlach `update` liczba przejść wynosi 75.
