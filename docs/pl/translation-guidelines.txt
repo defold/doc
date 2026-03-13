@@ -19,6 +19,7 @@ Translate these parts fully into Polish:
 - table descriptions and property explanations
 - conceptual text around examples
 - section headings, subheadings, captions, and ordinary link labels
+- operational instructions and caveats from the source, including cases where the user must act in English
 - Polish glosses for official Defold terms on first mention
 
 Examples already used in the corpus:
@@ -37,6 +38,7 @@ Keep the original English for literal engine and editor values:
 - message names, constants, and enum values: `acquire_input_focus`, `disable`, `Vsync`, `PLAYBACK_LOOP_PINGPONG`
 - file names, paths, extensions, and config keys: `game.project`, `.gui_script`, `/builtins/render/default.render`, `display.update_frequency`
 - exact editor labels and menu commands: `Outline`, `Properties`, `Assets`, `Add Component`, `Open With ▸ Text Editor`
+- exact service or workflow labels the reader must click or type: forum categories such as `Questions` and `Bugs`, or other English-only labels visible in tools and services
 
 In settings reference pages, keep section names and property names exactly as they appear in Defold, then explain them in Polish.
 
@@ -44,13 +46,24 @@ Do not keep English for normal article headings or link text just because the En
 
 Keep `Defold` unchanged as a brand name. Do not inflect it into forms like `Defoldzie`, `Defolda`, or `Defoldem`. Rewrite the sentence instead, for example: `w silniku Defold`, `w edytorze Defold`, `dla użytkowników Defold`.
 
-If something might feel vague for a Polish reader or had bad connotations in Polish try to use a version that involves Polish specific flexing of the English word, e.g.: "hashed" -> "hashowany" or "shashowany", "in the root of" -> "w root'cie", or leave an explanation in brackets about English origin, e.g.: "in the root collection" -> "w kolekcji głównej (ang. root collection)
+## Natural Polish
 
-If a word is an official Defold terms, or is very specific to Defold naming, or is related to something that is in the Defold Editor, and it has a good Polish translation, use it, but in the first occurence also add an English origin in the brackets, e.g.: "in the game object" -> "w obiekcie gry (ang. game object)
+Prefer natural Polish over literal calques from English.
+
+- If a direct translation sounds vague, misleading, or unnatural in Polish, rewrite it.
+- Prefer established Polish technical wording over word-for-word copies from English.
+- If the English source term is important for orientation, keep the Polish wording and add the English origin on first mention in parentheses.
+
+Examples:
+
+- `game object` -> `obiekt gry (ang. game object)` on first mention
+- `root collection` -> `główna kolekcja (ang. root collection)` or another natural Polish phrasing, not a literal calque
+- `hashed` -> `hashowany`
+- prefer established Polish wording such as `filtrowanie`, not mechanically similar but less natural forms
 
 ## First Mention Pattern
 
-The existing Polish docs usually introduce official Defold concepts with the English name first and the Polish explanation in parentheses, or the reverse when the heading is already localized. Keep in mind that the Editor is not localized to Polish, so people learning Defold from Polish manuals must get to know the English labeling, even if it's convenient to use a Polish translation of those.
+The existing Polish docs usually introduce official Defold concepts with the English name first and the Polish explanation in parentheses, or the reverse when the heading is already localized. Keep in mind that the Defold Editor is not localized to Polish, so readers of Polish manuals still need exposure to the English labels they will see in the product.
 
 Use patterns like:
 
@@ -63,6 +76,7 @@ After the first mention, use whichever form is clearer in context:
 
 - use the Polish form in narrative prose
 - switch back to English when referring to the literal asset type, menu item, setting name, or API object
+- for editor concepts and official Defold naming, prefer giving both on first mention so the reader can map the Polish explanation back to the English UI or terminology
 
 ## UI And Code Formatting
 
@@ -70,6 +84,7 @@ After the first mention, use whichever form is clearer in context:
 - Keep inline code, code blocks, hashes, message ids, and paths unchanged.
 - Do not translate URLs.
 - Do not rename files, extensions, resource ids, or code identifiers inside examples.
+- If the source instructs the reader to report something or interact in English, keep that instruction explicit in the Polish translation.
 
 Examples:
 
