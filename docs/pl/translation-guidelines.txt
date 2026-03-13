@@ -96,7 +96,7 @@ Prefer the terminology already established in `docs/pl/manuals/glossary.md` and 
 | Sound | dźwięk |
 | Sprite | obraz / sprite |
 | Tile map | mapa kafelków |
-| Tile source | źródło kafelków / galeria kafelków |
+| Tile source | źródło kafelków |
 | Texture profiles | profile teksturowania |
 | Display profiles | profile wyświetlania |
 | GUI script | skrypt GUI |
