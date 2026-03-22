@@ -17,8 +17,8 @@ Oto przykład ustawienia słuchacza świata fizycznego w collection proxy:
 
 ```lua
 function init(self)
-    -- Assuming this script is attached to a game object within the collection loaded by the proxy
-    -- Set the physics world listener for the physics world of this collection proxy
+    -- Zakładamy, że ten skrypt jest dołączony do obiektu gry w kolekcji załadowanej przez proxy
+    -- Ustaw słuchacza świata fizyki dla świata fizycznego tego collection proxy
     physics.set_event_listener(physics_world_listener)
 end
 ```
@@ -84,19 +84,19 @@ To zdarzenie jest wysyłane, gdy rzut promienia nie trafi w żaden obiekt.
 local function physics_world_listener(self, events)
     for _,event in ipairs(events) do
         if event.type == hash("contact_point_event") then
-            -- Handle detailed contact point data
+            -- Obsłuż szczegółowe dane punktu kontaktu
             pprint(event)
         elseif event.type == hash("collision_event") then
-            -- Handle general collision data
+            -- Obsłuż ogólne dane kolizji
             pprint(event)
         elseif event.type == hash("trigger_event") then
-            -- Handle trigger interaction data
+            -- Obsłuż dane interakcji z wyzwalaczem
             pprint(event)
         elseif event.type == hash("ray_cast_response") then
-            -- Handle raycast hit data
+            -- Obsłuż dane trafienia raycastem
             pprint(event)
         elseif event.type == hash("ray_cast_missed") then
-            -- Handle raycast miss data
+            -- Obsłuż dane nietrafionego raycastu
             pprint(event)
         end
     end
@@ -120,9 +120,9 @@ local function physics_world_listener(self, events)
             local position_b =  event.b.normal * SIZE
             local url_a = msg.url(nil, event.a.id, "collisionobject")
             local url_b = msg.url(nil, event.b.id, "collisionobject")
-            -- fill the message in the same way arguments should be passed to `physics.create_joint()`
+            -- wypełnij wiadomość tak samo, jak powinny być przekazane argumenty do `physics.create_joint()`
             local message = {physics.JOINT_TYPE_FIXED, url_a, "joind_id", position_a, url_b, position_b, {max_length = SIZE}}
-            -- send message to the object itself
+            -- wyślij wiadomość do samego obiektu
             msg.post(".", "create_joint", message)
         end
     end
@@ -130,7 +130,7 @@ end
 
 function on_message(self, message_id, message)
     if message_id == hash("create_joint") then
-        -- unpack message with function arguments
+        -- rozpakuj wiadomość jako argumenty funkcji
         physics.create_joint(unpack(message))
     end
 end

@@ -55,7 +55,7 @@ Jeśli w konsoli zobaczysz błąd `"wasm streaming compile failed: TypeError: Fa
 
 Tworzenie zawartości HTML5 w Defold jest proste i odbywa się tak samo jak dla wszystkich innych obsługiwanych platform: wybierz z menu <kbd>Project ▸ Bundle... ▸ HTML5 Application...</kbd>.
 
-![Create HTML5 bundle](images/html5/html5_bundle.png)
+![Utwórz bundel HTML5](images/html5/html5_bundle.png)
 
 Możesz zdecydować, czy chcesz dołączyć do bundla HTML5 zarówno wersję silnika Defold `asm.js`, jak i WebAssembly (wasm). W większości przypadków wystarczy wybrać WebAssembly, ponieważ [wszystkie nowoczesne przeglądarki obsługują WebAssembly](https://caniuse.com/wasm).
 
@@ -67,14 +67,14 @@ Po kliknięciu przycisku <kbd>Create bundle</kbd> zostaniesz poproszony o wybran
 
 ## Znane problemy i ograniczenia
 
-* Hot Reload - szybkie przeładowanie nie działa w buildach HTML5. Aplikacje Defold muszą uruchamiać własny niewielki serwer WWW, aby odbierać aktualizacje z edytora, a nie jest to możliwe w buildzie HTML5.
+* Szybkie przeładowanie (Hot Reload) - szybkie przeładowanie nie działa w buildach HTML5. Aplikacje Defold muszą uruchamiać własny niewielki serwer WWW, aby odbierać aktualizacje z edytora, a nie jest to możliwe w buildzie HTML5.
 * Internet Explorer 11
   * Audio - Defold odtwarza dźwięk za pomocą HTML5 _WebAudio_ (zob. http://www.w3.org/TR/webaudio), którego Internet Explorer 11 obecnie nie obsługuje. W tej przeglądarce aplikacje przejdą na implementację bez dźwięku.
   * WebGL - Microsoft nie ukończył jeszcze pracy nad implementacją API _WebGL_ (zob. https://www.khronos.org/registry/webgl/specs/latest/). Z tego powodu działa ono gorzej niż w innych przeglądarkach.
-  * Full screen - tryb pełnoekranowy jest w przeglądarce zawodny.
+  * Tryb pełnoekranowy (Full screen) - tryb pełnoekranowy jest w przeglądarce zawodny.
 * Chrome
-  * Slow debug builds - w buildach debug HTML5 sprawdzamy wszystkie wywołania grafiki WebGL, aby wykrywać błędy. Niestety podczas testowania w Chrome jest to bardzo powolne. Można to wyłączyć, ustawiając pole *Engine Arguments* w *game.project* na `--verify-graphics-calls=false`.
-* Gamepad support - [Dokumentacja Gamepad](/manuals/input-gamepads/#gamepads-in-html5) zawiera szczególne uwagi i kroki, które mogą być potrzebne w HTML5.
+  * Powolne buildy debug (Slow debug builds) - w buildach debug HTML5 sprawdzamy wszystkie wywołania grafiki WebGL, aby wykrywać błędy. Niestety podczas testowania w Chrome jest to bardzo powolne. Można to wyłączyć, ustawiając pole *Engine Arguments* w *game.project* na `--verify-graphics-calls=false`.
+* Obsługa gamepadów (Gamepad support) - [dokumentacja gamepadów](/manuals/input-gamepads/#gamepads-in-html5) zawiera szczególne uwagi i kroki, które mogą być potrzebne w HTML5.
 
 ## Dostosowywanie bundla HTML5
 
@@ -82,7 +82,7 @@ Podczas generowania wersji HTML5 swojej gry Defold udostępnia domyślną stron�
 
 Za każdym razem, gdy aplikacja jest eksportowana, ta zawartość jest tworzona od nowa. Jeśli chcesz dostosować którykolwiek z tych elementów, musisz zmodyfikować ustawienia projektu. W tym celu otwórz *game.project* w edytorze Defold i przewiń do sekcji *html5*:
 
-![HTML5 Section](images/html5/html5_section.png)
+![Sekcja HTML5](images/html5/html5_section.png)
 
 Więcej informacji o każdej opcji znajdziesz w [instrukcji ustawień projektu](/manuals/project-settings/#html5).
 
@@ -105,19 +105,19 @@ Obliczenia dla wszystkich trybów skalowania uwzględniają bieżące DPI ekranu
 
 W trybie `Fit` rozmiar canvasu zostanie zmieniony tak, aby cały obszar gry był widoczny na ekranie przy zachowaniu oryginalnych proporcji. Jedyna różnica w `Downscale Fit` polega na tym, że rozmiar jest zmieniany tylko wtedy, gdy wewnętrzny rozmiar strony WWW jest mniejszy od oryginalnego canvasu gry, ale nie następuje powiększanie, gdy strona WWW jest większa od oryginalnego canvasu gry.
 
-![HTML5 Section](images/html5/html5_fit.png)
+![Sekcja HTML5](images/html5/html5_fit.png)
 
 ### Stretch
 
 W trybie `Stretch` rozmiar canvasu zostanie zmieniony tak, aby całkowicie wypełnić wewnętrzny rozmiar strony WWW.
 
-![HTML5 Section](images/html5/html5_stretch.png)
+![Sekcja HTML5](images/html5/html5_stretch.png)
 
 ### No Scale
 
 W trybie `No Scale` rozmiar canvasu jest dokładnie taki sam, jak zdefiniowany w pliku *game.project*, w sekcji `[display]`.
 
-![HTML5 Section](images/html5/html5_no_scale.png)
+![Sekcja HTML5](images/html5/html5_no_scale.png)
 
 ## Tokeny
 
@@ -129,11 +129,11 @@ Więcej informacji o języku szablonów Mustache znajdziesz w [instrukcji](https
 
 Każde ustawienie w *game.project* może być tokenem. Na przykład, jeśli chcesz użyć wartości `Width` z sekcji `Display`:
 
-![Display section](images/html5/html5_display.png)
+![Sekcja Display](images/html5/html5_display.png)
 
 Otwórz *game.project* jako tekst i sprawdź `[section_name]` oraz nazwę pola, którego chcesz użyć. Następnie możesz użyć go jako tokenu: `{{section_name.field}}` albo `{{{section_name.field}}}`.
 
-![Display section](images/html5/html5_game_project.png)
+![Sekcja Display](images/html5/html5_game_project.png)
 
 Na przykład w szablonie HTML w JavaScript:
 

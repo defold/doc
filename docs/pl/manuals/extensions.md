@@ -98,24 +98,24 @@ Rozszerzenie składa się z jednego pliku C++, *`myextension.cpp`*, który tworz
 Plik źródłowy rozszerzenia zawiera następujący kod:
 
 ```cpp
-// myextension.cpp
-// Extension lib defines
+// plik: myextension.cpp
+// Definicje biblioteki rozszerzenia
 #define LIB_NAME "MyExtension"
 #define MODULE_NAME "myextension"
 
-// include the Defold SDK
+// dołącz Defold SDK
 #include <dmsdk/sdk.h>
 
 static int Reverse(lua_State* L)
 {
-    // The number of expected items to be on the Lua stack
-    // once this struct goes out of scope
+    // Oczekiwana liczba elementów na stosie Lua
+    // po wyjściu tej struktury z zasięgu
     DM_LUA_STACK_CHECK(L, 1);
 
-    // Check and get parameter string from stack
+    // Sprawdź i pobierz parametr tekstowy ze stosu
     char* str = (char*)luaL_checkstring(L, 1);
 
-    // Reverse the string
+    // Odwróć łańcuch znaków
     int len = strlen(str);
     for(int i = 0; i < len / 2; i++) {
         const char a = str[i];
@@ -124,14 +124,14 @@ static int Reverse(lua_State* L)
         str[len - i - 1] = a;
     }
 
-    // Put the reverse string on the stack
+    // Umieść odwrócony łańcuch na stosie
     lua_pushstring(L, str);
 
-    // Return 1 item
+    // Zwróć 1 element
     return 1;
 }
 
-// Functions exposed to Lua
+// Funkcje udostępnione do Lua
 static const luaL_reg Module_methods[] =
 {
     {"reverse", Reverse},
@@ -142,7 +142,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
 
-    // Register lua names
+    // Zarejestruj nazwy w Lua
     luaL_register(L, MODULE_NAME, Module_methods);
 
     lua_pop(L, 1);
@@ -156,7 +156,7 @@ dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
-    // Init Lua
+    // Zainicjalizuj Lua
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
@@ -173,12 +173,12 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 }
 
 
-// Defold SDK uses a macro for setting up extension entry points:
+// Defold SDK używa makra do konfigurowania punktów wejścia rozszerzenia:
 //
 // DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
 
-// MyExtension is the C++ symbol that holds all relevant extension data.
-// It must match the name field in the `ext.manifest`
+// MyExtension to symbol C++, który przechowuje wszystkie istotne dane rozszerzenia.
+// Musi odpowiadać polu name w `ext.manifest`
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 

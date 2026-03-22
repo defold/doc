@@ -80,7 +80,7 @@ Aby użyć programu compute, trzeba go najpierw powiązać z kontekstem renderow
 
 ```lua
 render.set_compute("my_compute")
--- Do compute work here, call render.set_compute() to unbind
+-- Tutaj wykonuj obliczenia compute; wywołaj render.set_compute(), aby odwiązać program
 render.set_compute()
 ```
 
@@ -95,8 +95,8 @@ Aby uruchomić program w ustalonej przez siebie przestrzeni roboczej, musisz go 
 
 ```lua
 render.dispatch_compute(128, 128, 1)
--- dispatch_compute also accepts an options table as the last argument
--- you can use this argument table to pass in render constants to the dispatch call
+-- dispatch_compute przyjmuje też tabelę opcji jako ostatni argument
+-- tej tabeli możesz użyć do przekazania stałych renderowania do wywołania dispatch
 local constants = render.constant_buffer()
 constants.tint = vmath.vector4(1, 1, 1, 1)
 render.dispatch_compute(32, 32, 32, {constants = constants})
@@ -109,10 +109,10 @@ Obecnie generowanie dowolnego rodzaju danych wyjściowych z programu compute jes
 Aby utworzyć teksturę storage w Defold, musisz zrobić to ze zwykłego pliku `.script`. Skrypty do renderowania nie mają tej funkcjonalności, ponieważ tekstury dynamiczne trzeba tworzyć przez API zasobów, które jest dostępne tylko w zwykłych plikach `.script`.
 
 ```lua
--- In a .script file:
+-- W pliku .script:
 function init(self)
-    -- Create a texture resource like usual, but add the "storage" flag
-    -- so it can be used as the backing storage for compute programs
+    -- Utwórz zasób tekstury jak zwykle, ale dodaj flagę "storage",
+    -- aby można go było użyć jako tekstury bazowej dla programów compute
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
         type   = resource.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
@@ -121,10 +121,10 @@ function init(self)
         flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
-    -- get the texture handle from the resource
+    -- pobierz uchwyt tekstury z zasobu
     local t_backing_handle = resource.get_texture_info(t_backing).handle
 
-    -- notify the renderer of the backing texture, so it can be bound with render.enable_texture
+    -- powiadom renderer o teksturze bazowej, aby można było ją powiązać przez render.enable_texture
     msg.post("@render:", "set_backing_texture", { handle = t_backing_handle })
 end
 ```
@@ -134,22 +134,22 @@ end
 ### Program shadera
 
 ```glsl
-// compute.cp
+// plik: compute.cp
 #version 450
 
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 
-// specify the input resources
+// określ zasoby wejściowe
 uniform vec4 color;
 uniform sampler2D texture_in;
 
-// specify the output image
+// określ obraz wyjściowy
 layout(rgba32f) uniform image2D texture_out;
 
 void main()
 {
-    // This isn't a particularly interesting shader, but it demonstrates
-    // how to read from a texture and constant buffer and write to a storage texture
+    // To nie jest szczególnie ciekawy shader, ale pokazuje,
+    // jak czytać z tekstury i bufora stałych oraz zapisywać do tekstury storage
 
     ivec2 tex_coord   = ivec2(gl_GlobalInvocationID.xy);
     vec4 output_value = vec4(0.0, 0.0, 0.0, 1.0);
@@ -157,23 +157,23 @@ void main()
     vec4 input_value = texture(texture_in, tex_coord_uv);
     output_value.rgb = input_value.rgb * color.rgb;
 
-    // Write the output value to the storage texture
+    // Zapisz wartość wyjściową do tekstury storage
     imageStore(texture_out, tex_coord, output_value);
 }
 ```
 
 ### Komponent skryptu
 ```lua
--- In a .script file
+-- W pliku .script:
 
--- Here we specify the input texture that we later will bind to the
--- compute program. We can assign this texture to a model component,
--- or enable it to the render context in the render script.
+-- Tutaj określamy teksturę wejściową, którą później powiążemy
+-- z programem compute. Możemy przypisać tę teksturę do komponentu modelu
+-- albo włączyć ją w kontekście renderowania w skrypcie renderowania.
 go.property("texture_in", resource.texture())
 
 function init(self)
-    -- Create a texture resource like usual, but add the "storage" flag
-    -- so it can be used as the backing storage for compute programs
+    -- Utwórz zasób tekstury jak zwykle, ale dodaj flagę "storage",
+    -- aby można go było użyć jako tekstury bazowej dla programów compute
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
         type   = resource.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
@@ -187,15 +187,15 @@ function init(self)
         texture_out = resource.get_texture_info(t_backing).handle
     }
 
-    -- notify the renderer of the input and output textures
+    -- powiadom renderer o teksturach wejściowej i wyjściowej
     msg.post("@render:", "set_backing_texture", textures)
 end
 ```
 
 ### Skrypt do renderowania
 ```lua
--- respond to the message "set_backing_texture"
--- to set the backing texture for the compute program
+-- reaguj na wiadomość "set_backing_texture",
+-- aby ustawić teksturę bazową dla programu compute
 function on_message(self, message_id, message)
     if message_id == hash("set_backing_texture") then
         self.texture_in = message.texture_in
@@ -205,15 +205,15 @@ end
 
 function update(self)
     render.set_compute("compute")
-    -- We can bind textures to specific named constants
+    -- Możemy powiązać tekstury z konkretnymi nazwanymi stałymi
     render.enable_texture(self.texture_in, "texture_in")
     render.enable_texture(self.texture_out, "texture_out")
     render.set_constant("color", vmath.vector4(0.5, 0.5, 0.5, 1.0))
-    -- Dispatch the compute program as many times as we have pixels.
-    -- This constitutes our "working group". The shader will be invoked
+    -- Uruchom program compute tyle razy, ile mamy pikseli.
+    -- To stanowi naszą "grupę roboczą". Shader zostanie wywołany
     -- 128 x 128 x 1 times, or once per pixel.
     render.dispatch_compute(128, 128, 1)
-    -- when we are done with the compute program, we need to unbind it
+    -- gdy skończymy pracę z programem compute, musimy go odwiązać
     render.set_compute()
 end
 ```

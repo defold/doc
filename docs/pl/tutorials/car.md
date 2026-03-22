@@ -15,7 +15,7 @@ W całym samouczku szczegółowe opisy pojęć i sposobu wykonywania niektórych
 
 ## Tworzenie nowego projektu
 
-![New Project](images/new_empty.png)
+![Nowy projekt](images/new_empty.png)
 
 1. Uruchom Defold.
 2. Po lewej wybierz *New Project*.
@@ -28,17 +28,17 @@ W całym samouczku szczegółowe opisy pojęć i sposobu wykonywania niektórych
 
 Zacznij od utworzenia [nowego projektu](/manuals/project-setup/) i otwarcia go w edytorze. Jeśli dwukrotnie klikniesz plik *main/main.collection*, plik otworzy się w edytorze:
 
-![Editor overview](../manuals/images/editor/editor2_overview.png)
+![Przegląd edytora](../manuals/images/editor/editor2_overview.png)
 
 Edytor składa się z następujących głównych obszarów:
 
 Assets pane
 : To widok wszystkich plików w projekcie. Różne typy plików mają różne ikony. Kliknij plik dwukrotnie, aby otworzyć go w przypisanym edytorze dla tego typu pliku. Specjalny folder tylko do odczytu *builtins* jest wspólny dla wszystkich projektów i zawiera przydatne elementy, takie jak domyślny skrypt do renderowania, font, materiały do renderowania różnych komponentów i inne zasoby.
 
-Main Editor View
+Główny widok edytora
 : W zależności od typu aktualnie edytowanego pliku ten obszar pokaże odpowiedni edytor. Najczęściej używany jest widoczny tutaj edytor sceny. Każdy otwarty plik jest pokazany na osobnej karcie.
 
-Changed Files
+Zmienione pliki (Changed Files)
 : Zawiera listę wszystkich zmian wprowadzonych w Twojej gałęzi od ostatniej synchronizacji. Jeśli więc widzisz coś w tym panelu, masz zmiany, których nie ma jeszcze na serwerze. Z tego widoku możesz otworzyć tekstowy diff i cofnąć zmiany.
 
 Outline
@@ -54,7 +54,7 @@ Console
 
 Szablon projektu "Empty" jest w rzeczywistości całkowicie pusty. Mimo to wybierz <kbd>Project ▸ Build</kbd>, aby zbudować projekt i uruchomić grę.
 
-![Build](images/car/start_build_and_launch.png)
+![Budowanie](images/car/start_build_and_launch.png)
 
 Czarny ekran może nie jest szczególnie ekscytujący, ale to działająca aplikacja gry w Defold i łatwo możemy ją przerobić na coś ciekawszego. Zróbmy to.
 
@@ -63,7 +63,7 @@ Edytor Defold pracuje na plikach. Klikając dwukrotnie plik w *Assets pane*, otw
 
 Kiedy skończysz edytować plik, musisz go zapisać. Wybierz <kbd>File ▸ Save</kbd> w głównym menu. Edytor podpowiada to, dodając gwiazdkę `*` do nazwy pliku na karcie każdego pliku zawierającego niezapisane zmiany.
 
-![File with unsaved changes](images/car/file_changed.png)
+![Plik z niezapisanymi zmianami](images/car/file_changed.png)
 :::
 
 ## Składanie samochodu
@@ -72,7 +72,7 @@ Pierwszą rzeczą, którą zrobimy, będzie utworzenie nowej kolekcji. Kolekcja 
 
 Kliknij folder *main* w *Assets pane*, potem kliknij prawym przyciskiem myszy i wybierz <kbd>New ▸ Collection File</kbd>. Możesz też wybrać <kbd>File ▸ New ▸ Collection File</kbd> z głównego menu.
 
-![New Collection file](images/car/start_new_collection.png)
+![Nowy plik kolekcji](images/car/start_new_collection.png)
 
 Nazwij nowy plik kolekcji *car.collection* i otwórz go. Użyjemy tej nowej, pustej kolekcji, by zbudować mały samochód z kilku obiektów gry. Obiekt gry to kontener na komponenty (takie jak sprite'y, dźwięki, skrypty logiki itd.), których używasz do budowania gry. Każdy obiekt gry jest jednoznacznie identyfikowany w grze przez swoje id. Obiekty gry mogą komunikować się ze sobą przez przekazywanie wiadomości, ale o tym za chwilę.
 
@@ -80,7 +80,7 @@ Możliwe jest też tworzenie obiektu gry bezpośrednio w kolekcji, tak jak zrobi
 
 Natomiast obiekt gry zapisany w _pliku_ działa jak prototyp (w innych silnikach znany też jako "prefab" albo "blueprint"). Gdy umieszczasz w kolekcji instancje obiektu gry zapisanego w pliku, każdy obiekt jest umieszczany _przez referencję_ i stanowi klon oparty na prototypie. Jeśli uznasz, że prototyp wymaga zmiany, każda umieszczona instancja obiektu gry oparta na tym prototypie zostanie natychmiast zaktualizowana.
 
-![Add car gameobject](images/car/start_add_car_gameobject.png)
+![Dodawanie obiektu gry samochodu](images/car/start_add_car_gameobject.png)
 
 Zaznacz główny węzeł "Collection" w widoku *Outline*, kliknij prawym przyciskiem myszy i wybierz <kbd>Add Game Object</kbd>. W kolekcji pojawi się nowy obiekt gry o id "go". Zaznacz go i ustaw jego id na "car" w widoku *Properties*. Na razie "car" jest bardzo nieciekawy. Jest pusty, nie ma ani reprezentacji wizualnej, ani logiki. Aby dodać reprezentację wizualną, musimy dodać _komponent_ sprite'a.
 
@@ -88,7 +88,7 @@ Komponenty służą do rozszerzania obiektów gry o obecność (grafika, dźwię
 
 Pamiętaj, że komponentami nie manipuluje się bezpośrednio. Możesz przesuwać, obracać, skalować i animować właściwości obiektów gry, które z kolei zawierają komponenty.
 
-![Add car component](images/car/start_add_car_component.png)
+![Dodawanie komponentu samochodu](images/car/start_add_car_component.png)
 
 Zaznacz obiekt gry "car", kliknij prawym przyciskiem myszy i wybierz <kbd>Add Component</kbd>, następnie wybierz *Sprite* i kliknij *Ok*. Jeśli zaznaczysz sprite w widoku *Outline*, zobaczysz, że trzeba ustawić mu kilka właściwości:
 
@@ -97,14 +97,14 @@ Image
 
 Obrazy do naszej gry:
 
-![Car image](images/car/start_car.png)
-![Tire image](images/car/start_tire.png)
+![Obraz samochodu](images/car/start_car.png)
+![Obraz opony](images/car/start_tire.png)
 
 Dodaj te obrazy do atlasu:
 
-![Sprites atlas](images/car/start_sprites_atlas.png)
+![Atlas sprite'ów](images/car/start_sprites_atlas.png)
 
-![Sprite properties](images/car/start_sprite_properties.png)
+![Właściwości sprite'a](images/car/start_sprite_properties.png)
 
 Default Animation
 : Ustaw tę właściwość na "car" (albo jakkolwiek nazwałeś obraz samochodu). Każdy sprite potrzebuje domyślnej animacji odtwarzanej wtedy, gdy jest wyświetlany w grze. Gdy dodajesz obrazy do atlasu, Defold wygodnie tworzy dla każdego pliku obrazu jednoklatkowe (statyczne) animacje.
@@ -115,7 +115,7 @@ Następnie dodaj w kolekcji jeszcze dwa obiekty gry. Nazwij je "left_wheel" i "r
 
 Przesuń obiekty gry opon na miejsce, zaznaczając je, a następnie wybierając <kbd>Scene ▸ Move Tool</kbd>. Chwyć uchwyty strzałek albo zielony kwadrat pośrodku, aby przesunąć obiekt w odpowiednie miejsce. Ostatnią rzeczą, którą musimy zrobić, jest upewnienie się, że opony są rysowane pod samochodem. Osiągniemy to przez ustawienie składowej Z pozycji na -0.5. Każdy element wizualny w grze jest rysowany od tyłu do przodu, posortowany według wartości Z. Obiekt z wartością Z równą 0 zostanie narysowany nad obiektem z wartością Z równą -0.5. Ponieważ domyślna wartość Z obiektu gry samochodu wynosi 0, nowa wartość ustawiona dla obiektów opon umieści je pod obrazem samochodu.
 
-![Car collection complete](images/car/start_car_collection_complete.png)
+![Gotowa kolekcja samochodu](images/car/start_car_collection_complete.png)
 
 ## Skrypt samochodu
 
@@ -134,16 +134,16 @@ Na początek usuń funkcje `final`, `on_message` i `on_reload`, ponieważ w tym 
 Następnie dodaj poniższe linie kodu przed początkiem funkcji `init`.
 
 ```lua
--- Constants
-local turn_speed = 0.1                           									  -- Slerp factor
-local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 degrees
-local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)									  -- Zero degrees
-local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- Vector from center of back and front wheel pairs
+-- Stałe
+local turn_speed = 0.1                           									  -- Współczynnik slerp
+local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)     -- 30 stopni
+local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 stopni
+local steer_angle_zero = vmath.quat_rotation_z(0)									  -- Zero stopni
+local wheels_vector = vmath.vector3(0, 72, 0)         		        	-- Wektor od środka tylnej pary kół do środka przedniej
 
-local acceleration = 100 																						-- The acceleration of the car
+local acceleration = 100 																						-- Przyspieszenie samochodu
 
--- prehash the inputs
+-- Wstępnie zahaszuj wejścia
 local left = hash("left")
 local right = hash("right")
 local accelerate = hash("accelerate")
@@ -160,24 +160,25 @@ Następnie zmień funkcję `init`, tak aby zawierała poniższy kod:
 
 ```lua
 function init(self)
-	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
-	-- This changes the background color of the game. The vector4 contains color information
-	-- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
+	-- Wyślij wiadomość do skryptu renderowania (zobacz builtins/render/default.render_script),
+	-- aby ustawić kolor czyszczenia. Zmienia to kolor tła gry.
+	-- vector4 zawiera informacje o kolorze w kanałach od 0 do 1:
+	-- Red = 0.2, Green = 0.2, Blue = 0.2, Alpha = 1.0
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )		--<1>
 
-	-- Acquire input focus so we can react to input
+	-- Przejmij fokus wejścia, aby móc reagować na sterowanie
 	msg.post(".", "acquire_input_focus")		-- <2>
 
-	-- Some variables
+	-- Kilka zmiennych
 	self.steer_angle = vmath.quat()				 -- <3>
 	self.direction = vmath.quat()
 
-	-- Velocity and acceleration are car relative (not rotated)
+	-- Prędkość i przyspieszenie są względne wobec samochodu (bez obrotu)
 	self.velocity = vmath.vector3()
 	self.acceleration = vmath.vector3()
 
-	-- Input vector. This is modified later in the on_input function
-	-- to store the input.
+	-- Wektor wejścia. Później modyfikujemy go w funkcji on_input,
+	-- aby zapisać sterowanie.
 	self.input = vmath.vector3()
 end
 ```
@@ -192,27 +193,27 @@ To było łatwe, prawda? Teraz przejdźmy dalej i zmieńmy funkcję `update`, ta
 
 ```lua
 function update(self, dt)
-	-- Set acceleration to the y input
+		-- Ustaw przyspieszenie na podstawie wejścia w osi y
 	self.acceleration.y = self.input.y * acceleration				-- <1>
 
-	-- Calculate the new positions of front and back wheels
+		-- Oblicz nowe pozycje przednich i tylnych kół
 	local front_vel = vmath.rotate(self.steer_angle, self.velocity)
 	local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
 	local new_back_pos = vmath.rotate(self.direction, self.velocity)								-- <2>
 
-	-- Calculate the car's new direction
+		-- Oblicz nowy kierunek samochodu
 	local new_dir = vmath.normalize(new_front_pos - new_back_pos)
 	self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)			-- <3>
 
-	-- Calculate new velocity based on current acceleration
+		-- Oblicz nową prędkość na podstawie bieżącego przyspieszenia
 	self.velocity = self.velocity + self.acceleration * dt			-- <4>
 
-	-- Update position based on current velocity and direction
+		-- Zaktualizuj pozycję na podstawie bieżącej prędkości i kierunku
 	local pos = go.get_position()
 	pos = pos + vmath.rotate(self.direction, self.velocity)
 	go.set_position(pos)																			-- <5>
 
-	-- Interpolate the wheels using vmath.slerp
+		-- Interpoluj koła za pomocą vmath.slerp
 	if self.input.x > 0 then																		-- <6>
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
 	elseif self.input.x < 0 then
@@ -221,14 +222,14 @@ function update(self, dt)
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, steer_angle_zero)
 	end
 
-	-- Update the wheel rotation
+		-- Zaktualizuj obrót kół
 	go.set_rotation(self.steer_angle, "left_wheel")					-- <7>
 	go.set_rotation(self.steer_angle, "right_wheel")
 
-	-- Set the game object's rotation to the direction
+		-- Ustaw obrót obiektu gry zgodnie z kierunkiem
 	go.set_rotation(self.direction)
 
-	-- reset acceleration and input
+		-- Zresetuj przyspieszenie i wejście
 	self.acceleration = vmath.vector3()								-- <8>
 	self.input = vmath.vector3()
 end
@@ -249,7 +250,7 @@ Na koniec pora sprawić, by samochód reagował na wejście. Zmień funkcję `on
 
 ```lua
 function on_input(self, action_id, action)
-	-- set the input vector to correspond to the key press
+		-- Ustaw wektor wejścia zgodnie z naciśniętym klawiszem
 	if action_id == left then
 		self.input.x = -1
 	elseif action_id == right then
@@ -270,13 +271,13 @@ Nie zapomnij zapisać zmian.
 
 Nie ma jeszcze skonfigurowanych akcji wejściowych, więc to naprawmy. Otwórz plik */input/game.input_bindings* i dodaj wiązania *key_trigger* dla "accelerate", "brake", "left" i "right". Ustawiamy je na klawisze strzałek (`KEY_LEFT`, `KEY_RIGHT`, `KEY_UP` i `KEY_DOWN`):
 
-![Input bindings](images/car/start_input_bindings.png)
+![Wiązania wejść](images/car/start_input_bindings.png)
 
 ## Dodawanie samochodu do gry
 
 Teraz samochód jest gotowy do jazdy. Utworzyliśmy go wewnątrz "car.collection", ale nie istnieje jeszcze w grze. Dzieje się tak dlatego, że silnik obecnie ładuje przy starcie "main.collection". Aby to naprawić, wystarczy dodać *car.collection* do *main.collection*. Otwórz *main.collection*, zaznacz główny węzeł "Collection" w widoku *Outline*, kliknij prawym przyciskiem myszy i wybierz <kbd>Add Collection From File</kbd>, wybierz *car.collection* i kliknij *OK*. Teraz zawartość *car.collection* zostanie umieszczona w *main.collection* jako nowe instancje. Jeśli zmienisz zawartość *car.collection*, każda instancja kolekcji będzie aktualizowana automatycznie przy budowaniu gry.
 
-![Adding the car collection](images/car/start_adding_car_collection.png)
+![Dodawanie kolekcji samochodu](images/car/start_adding_car_collection.png)
 
 Teraz wybierz <kbd>Project ▸ Build</kbd> i przejedź się swoim nowym samochodem!
 Zauważysz, że możesz już sterować samochodem i poruszać nim zgodnie ze swoją wolą. Ale coś nadal nie działa poprawnie. Kiedy puszczasz sterowanie, samochód się nie zatrzymuje, a przecież powinien. Czas to dodać!
@@ -288,7 +289,7 @@ Kiedy obiekt porusza się w świecie rzeczywistym, działa na niego siła oporu,
 W sekcji stałych na początku skryptu dodaj następującą stałą:
 
 ```lua
-local drag = 1.1	        --the drag constant <1>
+local drag = 1.1	        -- stała oporu <1>
 ```
 
 Następnie w funkcji `update`, tuż nad tym wierszem, dodaj poniższe linie i zapisz plik.
@@ -296,7 +297,7 @@ Następnie w funkcji `update`, tuż nad tym wierszem, dodaj poniższe linie i za
 ```lua
 function update(self, dt)
 	...
-  -- Calculate new velocity based on current acceleration
+  -- Oblicz nową prędkość na podstawie bieżącego przyspieszenia
 	self.velocity = self.velocity + self.acceleration * dt
 	...
 end
@@ -305,13 +306,13 @@ end
 ```lua
 function update(self, dt)
 	...
-	-- Speed is the magnitude of the velocity
+		-- Szybkość to wartość prędkości
 	local speed = vmath.length_sqr(self.velocity)
 
-	-- Apply drag
+		-- Zastosuj opór
 	self.acceleration = self.acceleration - speed * self.velocity * drag
 
-	-- Stop if we are already slow enough
+		-- Zatrzymaj samochód, jeśli porusza się już wystarczająco wolno
 	if speed < 0.5 then self.velocity = vmath.vector3(0) end
 	...
 end
@@ -327,68 +328,69 @@ end
 Po wykonaniu powyższych kroków Twój *car.script* powinien wyglądać tak:
 
 ```lua
-local turn_speed = 0.1                           				          	-- Slerp factor
-local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 degrees
-local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 degrees
-local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- Zero degrees
-local wheels_vector = vmath.vector3(0, 72, 0)         				      -- Vector from center of back and front wheel pairs
+local turn_speed = 0.1                           				          	-- Współczynnik slerp
+local max_steer_angle_left = vmath.quat_rotation_z(math.pi / 6)	    -- 30 stopni
+local max_steer_angle_right = vmath.quat_rotation_z(-math.pi / 6)   -- -30 stopni
+local steer_angle_zero = vmath.quat_rotation_z(0)				          	-- Zero stopni
+local wheels_vector = vmath.vector3(0, 72, 0)         				      -- Wektor od środka tylnej pary kół do środka przedniej
 
-local acceleration = 100 		                      									-- The acceleration of the car
-local drag = 1.1                                                  	-- the drag constant
+local acceleration = 100 		                      									-- Przyspieszenie samochodu
+local drag = 1.1                                                  	-- Stała oporu
 
 function init(self)
-	-- Send a message to the render script (see builtins/render/default.render_script) to set the clear color.
-	-- This changes the background color of the game. The vector4 contains color information
-	-- by channel from 0-1: Red = 0.2. Green = 0.2, Blue = 0.2 and Alpha = 1.0
+		-- Wyślij wiadomość do skryptu renderowania (zobacz builtins/render/default.render_script),
+		-- aby ustawić kolor czyszczenia. Zmienia to kolor tła gry.
+		-- vector4 zawiera informacje o kolorze w kanałach od 0 do 1:
+		-- Red = 0.2, Green = 0.2, Blue = 0.2, Alpha = 1.0
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.2, 0.2, 0.2, 1.0) } )
 
-	-- Acquire input focus so we can react to input
+		-- Przejmij fokus wejścia, aby móc reagować na sterowanie
 	msg.post(".", "acquire_input_focus")
 
-	-- Some variables
+		-- Kilka zmiennych
 	self.steer_angle = vmath.quat()
 	self.direction = vmath.quat()
 
-	-- Velocity and acceleration are car relative (not rotated)
+		-- Prędkość i przyspieszenie są względne wobec samochodu (bez obrotu)
 	self.velocity = vmath.vector3()
 	self.acceleration = vmath.vector3()
 
-	-- Input vector. This is modified later in the on_input function
-	-- to store the input.
+		-- Wektor wejścia. Później modyfikujemy go w funkcji on_input,
+		-- aby zapisać sterowanie.
 	self.input = vmath.vector3()
 end
 
 function update(self, dt)
-	-- Set acceleration to the y input
+		-- Ustaw przyspieszenie na podstawie wejścia w osi y
 	self.acceleration.y = self.input.y * acceleration
 
-	-- Calculate the new positions of front and back wheels
+		-- Oblicz nowe pozycje przednich i tylnych kół
 	local front_vel = vmath.rotate(self.steer_angle, self.velocity)
 	local new_front_pos = vmath.rotate(self.direction, wheels_vector + front_vel)
 	local new_back_pos = vmath.rotate(self.direction, self.velocity)
 
-	-- Calculate the car's new direction
+		-- Oblicz nowy kierunek samochodu
 	local new_dir = vmath.normalize(new_front_pos - new_back_pos)
 	self.direction = vmath.quat_rotation_z(math.atan2(new_dir.y, new_dir.x) - math.pi / 2)
 
-	-- Speed is the magnitude of the velocity
+		-- Szybkość to wartość prędkości
 	local speed = vmath.length(self.velocity)
 
-	-- Apply drag
+		-- Zastosuj opór
 	self.acceleration = self.acceleration - speed * self.velocity * drag
 
-	-- Stop if we are already slow enough
+		-- Zatrzymaj samochód, jeśli porusza się już wystarczająco wolno
 	if speed < 0.5 then self.velocity = vmath.vector3() end
 
-	-- Calculate new velocity based on current acceleration
+		-- Oblicz nową prędkość na podstawie bieżącego przyspieszenia
 	self.velocity = self.velocity + self.acceleration * dt
 
-	-- Update position based on current velocity and direction
+		-- Zaktualizuj pozycję na podstawie bieżącej prędkości i kierunku
 	local pos = go.get_position()
 	pos = pos + vmath.rotate(self.direction, self.velocity)
 	go.set_position(pos)
 
-	-- Interpolate the wheels using vmath.slerp
+		-- Interpoluj koła za pomocą vmath.slerp
 	if self.input.x > 0 then
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, max_steer_angle_right)
 	elseif self.input.x < 0 then
@@ -397,20 +399,20 @@ function update(self, dt)
 		self.steer_angle = vmath.slerp(turn_speed, self.steer_angle, steer_angle_zero)
 	end
 
-	-- Update the wheel rotation
+		-- Zaktualizuj obrót kół
 	go.set_rotation(self.steer_angle, "left_wheel")
 	go.set_rotation(self.steer_angle, "right_wheel")
 
-	-- Set the game object's rotation to the direction
+		-- Ustaw obrót obiektu gry zgodnie z kierunkiem
 	go.set_rotation(self.direction)
 
-	-- reset acceleration and input
+		-- Zresetuj przyspieszenie i wejście
 	self.acceleration = vmath.vector3()
 	self.input = vmath.vector3()
 end
 
 function on_input(self, action_id, action)
-	-- set the input vector to correspond to the key press
+		-- Ustaw wektor wejścia zgodnie z naciśniętym klawiszem
 	if action_id == hash("left") then
 		self.input.x = -1
 	elseif action_id == hash("right") then

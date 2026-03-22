@@ -137,22 +137,22 @@ Jeśli tworzysz statyczne UI, wystarczy zdefiniować callbacki, które po prostu
 
 Na przykład można tak utworzyć proste, statyczne okno dialogowe tworzenia nowego pliku:
 ```lua
--- initial file name, will be replaced by the dialog
+-- początkowa nazwa pliku, zostanie zastąpiona przez dialog
 local file_name = ""
 local create_file = editor.ui.show_dialog(editor.ui.dialog({
-    title = "Create New File",
+    title = "Utwórz nowy plik",
     content = editor.ui.horizontal({
         padding = editor.ui.PADDING.LARGE,
         spacing = editor.ui.SPACING.MEDIUM,
         children = {
             editor.ui.label({
-                text = "New File Name",
+                text = "Nazwa nowego pliku",
                 alignment = editor.ui.ALIGNMENT.CENTER
             }),
             editor.ui.string_field({
                 grow = true,
                 text = file_name,
-                -- Typing callback:
+                -- Callback wywoływany podczas wpisywania:
                 on_value_changed = function(new_text)
                     file_name = new_text
                 end
@@ -160,8 +160,8 @@ local create_file = editor.ui.show_dialog(editor.ui.dialog({
         }
     }),
     buttons = {
-        editor.ui.dialog_button({ text = "Cancel", cancel = true, result = false }),
-        editor.ui.dialog_button({ text = "Create File", default = true, result = true })
+        editor.ui.dialog_button({ text = "Anuluj", cancel = true, result = false }),
+        editor.ui.dialog_button({ text = "Utwórz plik", default = true, result = true })
     }
 }))
 if create_file then
@@ -178,7 +178,7 @@ Oto lista wbudowanych komponentów wejściowych:
 
 Wszystkie komponenty poza przyciskami pozwalają ustawić pole `issue`, które wyświetla problem powiązany z komponentem (albo `editor.ui.ISSUE_SEVERITY.ERROR`, albo `editor.ui.ISSUE_SEVERITY.WARNING`), na przykład:
 ```lua
-issue = {severity = editor.ui.ISSUE_SEVERITY.WARNING, message = "This value is deprecated"}
+issue = {severity = editor.ui.ISSUE_SEVERITY.WARNING, message = "Ta wartość jest przestarzała"}
 ```
 Gdy `issue` jest określone, zmienia wygląd komponentu wejściowego i dodaje podpowiedź z komunikatem problemu.
 
@@ -213,9 +213,9 @@ Aby utworzyć komponent reaktywny, użyj funkcji `editor.ui.component()`.
 Spójrzmy na przykład: okno dialogowe tworzenia nowego pliku, które pozwala utworzyć plik tylko wtedy, gdy wpisana nazwa pliku nie jest pusta:
 
 ```lua
--- 1. dialog is a reactive component
+-- 1. dialog jest komponentem reaktywnym
 local dialog = editor.ui.component(function(props)
-    -- 2. the component defines a local state (file name) that defaults to empty string
+    -- 2. komponent definiuje stan lokalny (nazwę pliku), który domyślnie jest pustym łańcuchem
     local name, set_name = editor.ui.use_state("")
 
     return editor.ui.dialog({ 
@@ -225,30 +225,30 @@ local dialog = editor.ui.component(function(props)
             children = { 
                 editor.ui.string_field({ 
                     value = name,
-                    -- 3. typing + Enter updates the local state
+                    -- 3. wpisywanie + Enter aktualizują stan lokalny
                     on_value_changed = set_name 
                 }) 
             }
         }),
         buttons = {
             editor.ui.dialog_button({ 
-                text = "Cancel", 
+                text = "Anuluj", 
                 cancel = true 
             }),
             editor.ui.dialog_button({ 
-                text = "Create File",
-                -- 4. creation is enabled when the name exists
+                text = "Utwórz plik",
+                -- 4. tworzenie jest aktywne, gdy nazwa nie jest pusta
                 enabled = name ~= "",
                 default = true,
-                -- 5. result is the name
+                -- 5. wynikiem jest nazwa
                 result = name
             })
         }
     })
 end)
 
--- 6. show_dialog will either return non-empty file name or nil on cancel
-local file_name = editor.ui.show_dialog(dialog({ title = "New File Name" }))
+-- 6. show_dialog zwróci albo niepustą nazwę pliku, albo nil po anulowaniu
+local file_name = editor.ui.show_dialog(dialog({ title = "Nazwa nowego pliku" }))
 if file_name then 
     print("create " .. file_name)
 else
@@ -285,14 +285,14 @@ Edytor definiuje 2 haki: **`use_memo`** i **`use_state`**.
 
 Stan lokalny można utworzyć na 2 sposoby: z wartością domyślną albo z funkcją inicjalizującą:
 ```lua
--- default value
+-- wartość domyślna
 local enabled, set_enabled = editor.ui.use_state(true)
--- initializer function + args
+-- funkcja inicjalizująca + argumenty
 local id, set_id = editor.ui.use_state(string.lower, props.name)
 ```
 Podobnie setter można wywołać z nową wartością albo funkcją aktualizującą:
 ```lua
--- updater function
+-- funkcja aktualizująca
 local function increment_by(n, by)
     return n + by
 end
@@ -323,21 +323,21 @@ end)
 
 Na koniec: stan może zostać **zresetowany**. Dochodzi do tego, gdy zmieni się którykolwiek z argumentów przekazywanych do `editor.ui.use_state()`, sprawdzanych przez `==`. Z tego powodu nie wolno używać literałów tabel ani literałowych funkcji inicjalizujących jako argumentów haka `use_state`, bo spowoduje to reset stanu przy każdym ponownym renderowaniu. Dla zobrazowania:
 ```lua
--- ❌ BAD: literal table initializer causes state reset on every re-render
+-- ❌ ŹLE: literał tabeli w inicjalizatorze powoduje reset stanu przy każdym ponownym renderowaniu
 local user, set_user = editor.ui.use_state({ first_name = props.first_name, last_name = props.last_name})
 
--- ✅ GOOD: use initializer function outside of component function to create table state
+-- ✅ DOBRZE: użyj funkcji inicjalizującej poza funkcją komponentu, aby utworzyć stan tabeli
 local function create_user(first_name, last_name) 
     return { first_name = first_name, last_name = last_name}
 end
--- ...later, in component function:
+-- ...później, wewnątrz funkcji komponentu:
 local user, set_user = editor.ui.use_state(create_user, props.first_name, props.last_name)
 
 
--- ❌ BAD: literal initializer function causes state reset on every re-render
+-- ❌ ŹLE: literał funkcji inicjalizującej powoduje reset stanu przy każdym ponownym renderowaniu
 local id, set_id = editor.ui.use_state(function() return string.lower(props.name) end)
 
--- ✅ GOOD: use referenced initializer function to create the state
+-- ✅ DOBRZE: użyj referencji do funkcji inicjalizującej, aby utworzyć stan
 local id, set_id = editor.ui.use_state(string.lower, props.name)
 ```
 
@@ -345,22 +345,22 @@ local id, set_id = editor.ui.use_state(string.lower, props.name)
 
 Możesz użyć haka `use_memo`, aby poprawić wydajność. W funkcjach renderujących często wykonuje się pewne obliczenia, na przykład sprawdzanie poprawności danych wejściowych użytkownika. Hak `use_memo` przydaje się wtedy, gdy sprawdzenie, czy argumenty funkcji obliczeniowej się zmieniły, jest tańsze niż samo wywołanie tej funkcji. Hak wywoła funkcję obliczeniową przy pierwszym renderowaniu i ponownie wykorzysta obliczoną wartość podczas kolejnych renderowań, jeśli wszystkie argumenty `use_memo` pozostaną bez zmian:
 ```lua
--- validation function outside of component function
+-- funkcja walidująca poza funkcją komponentu
 local function validate_password(password)
     if #password < 8 then
-        return false, "Password must be at least 8 characters long."
+        return false, "Hasło musi mieć co najmniej 8 znaków."
     elseif not password:match("%l") then
-        return false, "Password must include at least one lowercase letter."
+        return false, "Hasło musi zawierać co najmniej jedną małą literę."
     elseif not password:match("%u") then
-        return false, "Password must include at least one uppercase letter."
+        return false, "Hasło musi zawierać co najmniej jedną wielką literę."
     elseif not password:match("%d") then
-        return false, "Password must include at least one number."
+        return false, "Hasło musi zawierać co najmniej jedną cyfrę."
     else
-        return true, "Password is valid."
+        return true, "Hasło jest poprawne."
     end
 end
 
--- ...later, in component function
+-- ...później, wewnątrz funkcji komponentu
 local username, set_username = editor.ui.use_state('')
 local password, set_password = editor.ui.use_state('')
 local valid, message = editor.ui.use_memo(validate_password, password)

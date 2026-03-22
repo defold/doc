@@ -13,7 +13,7 @@ Buildy debug zawierają profiler ekranowy działający w czasie rzeczywistym, kt
 
 ```lua
 function on_reload(self)
-    -- Toggle the visual profiler on hot reload.
+    -- Włącz profiler ekranowy po hot reloadzie.
     profiler.enable_ui(true)
 end
 ```
@@ -54,22 +54,22 @@ INFO:ENGINE: Loading data from: build/default
 ```
 :::
 
-Sample Timeline
+Oś czasu próbek (Sample Timeline)
 : `Sample Timeline` pokazuje klatki danych zebranych w silniku, z osobną poziomą osią czasu dla każdego wątku. `Main` to główny wątek, w którym uruchamiana jest cała logika gry i większość kodu silnika. `Remotery` służy samemu profilerowi, a `Sound` to wątek miksowania i odtwarzania dźwięku. Możesz przybliżać i oddalać widok kółkiem myszy oraz zaznaczać poszczególne klatki, aby zobaczyć ich szczegóły w widoku `Frame Data`.
 
-  ![Sample Timeline](images/profiling/webprofiler_sample_timeline.png)
+  ![Oś czasu próbek](images/profiling/webprofiler_sample_timeline.png)
 
 
-Frame Data
+Dane klatki (Frame Data)
 : Widok `Frame Data` jest tabelą, w której wszystkie dane dla aktualnie zaznaczonej klatki są rozbite na szczegóły. Możesz sprawdzić, ile milisekund jest zużywane w każdym zakresie silnika.
 
-  ![Frame data](images/profiling/webprofiler_frame_data.png)
+  ![Dane klatki](images/profiling/webprofiler_frame_data.png)
 
 
-Global Properties
+Właściwości globalne (Global Properties)
 : Widok `Global Properties` pokazuje tabelę liczników. Ułatwia to na przykład śledzenie liczby wywołań rysowania albo liczby komponentów określonego typu.
 
-  ![Global Properties](images/profiling/webprofiler_global_properties.png)
+  ![Właściwości globalne](images/profiling/webprofiler_global_properties.png)
 
 ::: sidenote
 Wartość `LuaMem` to ilość pamięci w kilobajtach używana przez maszynę wirtualną Lua, zgodnie z raportem garbage collectora Lua. `Memory` to ilość pamięci w kilobajtach używana przez silnik.
@@ -85,10 +85,10 @@ Profiler zasobów jest podzielony na 2 sekcje: jedna pokazuje hierarchiczny wido
 
 ![Profiler zasobów](images/profiling/webprofiler_resources_page.png)
 
-Collection view
+Widok kolekcji (Collection view)
 : Widok `Collection view` pokazuje hierarchiczną listę wszystkich obiektów gry i komponentów aktualnie utworzonych w grze oraz kolekcji, z których pochodzą. To bardzo przydatne narzędzie, gdy musisz dokładnie sprawdzić i zrozumieć, co zostało utworzone w grze w danym momencie i skąd pochodzą te obiekty.
 
-Resources view
+Widok zasobów (Resources view)
 : Widok `Resources view` pokazuje wszystkie zasoby aktualnie załadowane do pamięci, ich rozmiar oraz liczbę odwołań do każdego zasobu. Jest to przydatne podczas optymalizowania użycia pamięci w aplikacji, gdy musisz zrozumieć, co jest załadowane do pamięci w danym momencie.
 
 

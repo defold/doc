@@ -97,7 +97,7 @@ Wybierz tożsamość podpisywania kodu i wskaż plik profilu provisioningowego. 
 Musisz **odznaczyć** pole `Sign application`, gdy testujesz grę na symulatorze iOS. Aplikację będzie można zainstalować, ale nie uruchomi się.
 :::
 
-Naciśnij *Create Bundle*, a potem zostaniesz poproszony o wskazanie miejsca na komputerze, w którym bundle ma zostać utworzony.
+Naciśnij <kbd>Create Bundle</kbd>, a potem zostaniesz poproszony o wskazanie miejsca na komputerze, w którym bundle ma zostać utworzony.
 
 ![plik aplikacji ipa iOS](images/ios/ipa_file.png){.left}
 
@@ -107,7 +107,7 @@ Ikonę aplikacji, storyboard ekranu startowego i inne ustawienia określasz w pl
 
 ## Instalowanie i uruchamianie bundla na podłączonym iPhonie
 
-Zbudowany bundle możesz zainstalować i uruchomić, używając w oknie Bundle pól wyboru edytora "Install on connected device" i "Launch installed app":
+Zbudowany bundle możesz zainstalować i uruchomić, używając w oknie Bundle pól wyboru edytora <kbd>Install on connected device</kbd> i <kbd>Launch installed app</kbd>:
 
 ![Instalowanie i uruchamianie bundla iOS](images/ios/install_and_launch.png)
 
@@ -120,15 +120,15 @@ Jeśli edytor nie może wykryć lokalizacji instalacji narzędzia `ios-deploy`, 
 
 ### Tworzenie storyboardu
 
-Storyboard tworzysz w Xcode. Uruchom Xcode i utwórz nowy projekt. Wybierz iOS oraz Single View App:
+Storyboard tworzysz w Xcode. Uruchom Xcode i utwórz nowy projekt. Wybierz <kbd>iOS</kbd> oraz <kbd>Single View App</kbd>:
 
 ![Utwórz projekt](images/ios/xcode_create_project.png)
 
-Kliknij Next i przejdź do konfiguracji projektu. Wpisz Product Name:
+Kliknij <kbd>Next</kbd> i przejdź do konfiguracji projektu. Wpisz wartość w polu <kbd>Product Name</kbd>:
 
 ![Ustawienia projektu](images/ios/xcode_storyboard_create_project_settings.png)
 
-Kliknij Create, aby zakończyć proces. Projekt jest już utworzony i możemy przejść do tworzenia storyboardu:
+Kliknij <kbd>Create</kbd>, aby zakończyć proces. Projekt jest już utworzony i możemy przejść do tworzenia storyboardu:
 
 ![Widok projektu](images/ios/xcode_storyboard_project_view.png)
 
@@ -136,22 +136,22 @@ Przeciągnij i upuść obraz, aby zaimportować go do projektu. Następnie wybie
 
 ![Dodaj obraz](images/ios/xcode_storyboard_add_image.png)
 
-Otwórz `LaunchScreen.storyboard` i kliknij przycisk plusa (<kbd>+</kbd>). Wpisz "imageview" w oknie dialogowym, aby znaleźć komponent ImageView.
+Otwórz `LaunchScreen.storyboard` i kliknij przycisk plusa (<kbd>+</kbd>). Wpisz `imageview` w oknie dialogowym, aby znaleźć komponent <kbd>Image View</kbd>.
 
 ![Dodaj widok obrazu](images/ios/xcode_storyboard_add_imageview.png)
 
-Przeciągnij komponent Image View na storyboard:
+Przeciągnij komponent <kbd>Image View</kbd> na storyboard:
 
 ![Dodaj do storyboardu](images/ios/xcode_storyboard_add_imageview_to_storyboard.png)
 
-Wybierz obraz, który wcześniej dodałeś do `Assets.xcassets`, z listy Image:
+Wybierz obraz, który wcześniej dodałeś do `Assets.xcassets`, z listy <kbd>Image</kbd>:
 
 ![](images/ios/xcode_storyboard_select_image.png)
 
-Ustaw pozycję obrazu i wprowadź inne potrzebne poprawki, na przykład dodając `Label` albo inny element interfejsu. Gdy skończysz, ustaw aktywny schemat na "Build -> Any iOS Device (`arm64`, `armv7`)" (albo "Generic iOS Device") i wybierz Product -> Build. Poczekaj, aż proces budowania się zakończy.
+Ustaw pozycję obrazu i wprowadź inne potrzebne poprawki, na przykład dodając `Label` albo inny element interfejsu. Gdy skończysz, ustaw aktywny schemat na <kbd>Build ▸ Any iOS Device (`arm64`, `armv7`)</kbd> (albo <kbd>Generic iOS Device</kbd>) i wybierz <kbd>Product ▸ Build</kbd>. Poczekaj, aż proces budowania się zakończy.
 
 ::: sidenote
-Jeśli w opcji "Any iOS Device (arm64)" masz tylko `arm64`, zmień `iOS Deployment target` na 10.3 w ustawieniach "Project -> Basic -> Deployment". Dzięki temu storyboard będzie zgodny z urządzeniami `armv7` (na przykład iPhone5c).
+Jeśli w opcji <kbd>Any iOS Device (arm64)</kbd> masz tylko `arm64`, zmień `iOS Deployment target` na 10.3 w ustawieniach <kbd>Project ▸ Basic ▸ Deployment</kbd>. Dzięki temu storyboard będzie zgodny z urządzeniami `armv7` (na przykład iPhone5c).
 :::
 
 Jeśli używasz obrazów w storyboardzie, nie zostaną one automatycznie uwzględnione w `LaunchScreen.storyboardc`. Aby dołączyć zasoby, użyj pola `Bundle Resources` w *game.project*. Na przykład utwórz folder `LaunchScreen` w projekcie Defold oraz folder `ios` wewnątrz niego (`ios` jest potrzebny, aby dołączać te pliki tylko dla bundli iOS), a następnie umieść pliki w `LaunchScreen/ios/`. Dodaj tę ścieżkę w `Bundle Resources`.
@@ -175,15 +175,15 @@ Gdy masz już plik storyboardu, możesz odwołać się do niego w *game.project*
 Wymagane od Defold 1.2.175.
 :::
 
-Korzystanie z katalogu zasobów jest preferowanym przez Apple sposobem zarządzania ikonami aplikacji. W praktyce jest to jedyny sposób na dostarczenie ikony używanej w App Store. Katalog zasobów tworzysz tak samo jak storyboard, używając Xcode. Uruchom Xcode i utwórz nowy projekt. Wybierz iOS oraz Single View App:
+Korzystanie z katalogu zasobów jest preferowanym przez Apple sposobem zarządzania ikonami aplikacji. W praktyce jest to jedyny sposób na dostarczenie ikony używanej w App Store. Katalog zasobów tworzysz tak samo jak storyboard, używając Xcode. Uruchom Xcode i utwórz nowy projekt. Wybierz <kbd>iOS</kbd> oraz <kbd>Single View App</kbd>:
 
 ![Utwórz projekt](images/ios/xcode_create_project.png)
 
-Kliknij Next i przejdź do konfiguracji projektu. Wpisz Product Name:
+Kliknij <kbd>Next</kbd> i przejdź do konfiguracji projektu. Wpisz wartość w polu <kbd>Product Name</kbd>:
 
 ![Ustawienia projektu](images/ios/xcode_icons_create_project_settings.png)
 
-Kliknij Create, aby zakończyć proces. Projekt jest już utworzony i możemy przejść do tworzenia katalogu zasobów:
+Kliknij <kbd>Create</kbd>, aby zakończyć proces. Projekt jest już utworzony i możemy przejść do tworzenia katalogu zasobów:
 
 ![Widok projektu](images/ios/xcode_icons_project_view.png)
 
@@ -195,10 +195,10 @@ Przeciągnij i upuść obrazy do pustych pól odpowiadających różnym obsługi
 Nie dodawaj żadnych ikon dla `Notifications`, `Settings` ani `Spotlight`.
 :::
 
-Gdy skończysz, ustaw aktywny schemat na "Build -> Any iOS Device (arm64)" (albo "Generic iOS Device") i wybierz <kbd>Product</kbd> -> <kbd>Build</kbd>. Poczekaj, aż proces budowania się zakończy.
+Gdy skończysz, ustaw aktywny schemat na <kbd>Build ▸ Any iOS Device (arm64)</kbd> (albo <kbd>Generic iOS Device</kbd>) i wybierz <kbd>Product ▸ Build</kbd>. Poczekaj, aż proces budowania się zakończy.
 
 ::: sidenote
-Upewnij się, że budujesz dla "Any iOS Device (arm64)" albo "Generic iOS Device", bo w przeciwnym razie podczas wysyłania builda pojawi się błąd `ERROR ITMS-90704`.
+Upewnij się, że budujesz dla <kbd>Any iOS Device (arm64)</kbd> albo <kbd>Generic iOS Device</kbd>, bo w przeciwnym razie podczas wysyłania builda pojawi się błąd `ERROR ITMS-90704`.
 :::
 
 ![Zbuduj projekt](images/ios/xcode_icons_build.png)
@@ -220,7 +220,7 @@ Ikony App Store nie trzeba odwoływać w *game.project*. Są automatycznie wyodr
 
 Edytor zapisuje plik *.ipa*, który jest bundlem aplikacji iOS. Aby zainstalować ten plik na urządzeniu, możesz użyć jednego z poniższych narzędzi:
 
-* Xcode przez okno "Devices and Simulators"
+* Xcode przez okno <kbd>Devices and Simulators</kbd>
 * narzędzia wiersza poleceń [`ios-deploy`](https://github.com/ios-control/ios-deploy)
 * [`Apple Configurator 2`](https://apps.apple.com/us/app/apple-configurator-2/) z macOS App Store
 * iTunes
