@@ -124,20 +124,20 @@ Plik skryptu *board.script* będzie zawierał całą logikę samej planszy oraz 
 Po zbudowaniu planszy będziemy używać dwóch różnych zbiorów danych zawierających wszystkie bloki: `self.blocks` i `self.board`:
 
 ```lua
--- board.script
-go.property("timer", 0)     -- Use to time events
-local blocksize = 80        -- Distance between block centers
-local edge = 40             -- Left and right edge.
-local bottom_edge = 50      -- Bottom edge.
-local boardwidth = 7        -- Number of columns
-local boardheight = 9       -- Number of rows
-local centeroff = vmath.vector3(8, -8, 0) -- Center offset for connector gfx since there's shadow below in the block img
-local dropamount = 3        -- The number of blocks dropped on a "drop"
+-- plik: board.script
+go.property("timer", 0)     -- używane do odmierzania czasu zdarzeń
+local blocksize = 80        -- odległość między środkami bloków
+local edge = 40             -- lewa i prawa krawędź
+local bottom_edge = 50      -- dolna krawędź
+local boardwidth = 7        -- liczba kolumn
+local boardheight = 9       -- liczba wierszy
+local centeroff = vmath.vector3(8, -8, 0) -- przesunięcie środka dla grafiki connector, bo w obrazie bloku poniżej znajduje się cień
+local dropamount = 3        -- liczba bloków zrzucanych w ramach jednego zrzutu
 local colors = { hash("orange"), hash("pink"), hash("blue"), hash("yellow"), hash("green") }
 
 --
--- filter(function, table)
--- e.g: filter(is_even, {1,2,3,4}) -> {2,4}
+-- sygnatura: filter(function, table)
+-- np.: filter(is_even, {1,2,3,4}) -> {2,4}
 --
 local function filter(func, tbl)
     local new = {}
@@ -150,7 +150,7 @@ local function filter(func, tbl)
 end
 
 --
--- Build a list of blocks in 1 dimension for easy filtering
+-- Zbuduj jednowymiarową listę bloków, aby łatwo je filtrować
 --
 local function build_blocklist(self)
     self.blocks = {}
@@ -162,17 +162,17 @@ local function build_blocklist(self)
 end
 
 --
--- INIT
+-- INICJALIZACJA
 --
 function init(self)
-    self.board = {}             -- Contains the board structure
-    self.blocks = {}            -- List of all blocks. Used for easy filtering on selection.
-    self.chain = {}             -- Current selection chain
-    self.connectors = {}        -- Connector elements to mark the selection chain
-    self.num_magic = 3          -- Number of magic blocks on the board
-    self.drops = 1              -- Number of drops you have available
-    self.magic_blocks = {}      -- Magic blocks that are lined up
-    self.dragging = false       -- Drag touch input
+    self.board = {}             -- zawiera strukturę planszy
+    self.blocks = {}            -- lista wszystkich bloków; używana do prostego filtrowania zaznaczenia
+    self.chain = {}             -- bieżący łańcuch zaznaczenia
+    self.connectors = {}        -- elementy connector oznaczające łańcuch zaznaczenia
+    self.num_magic = 3          -- liczba magicznych bloków na planszy
+    self.drops = 1              -- liczba dostępnych zrzutów
+    self.magic_blocks = {}      -- magiczne bloki ustawione obok siebie
+    self.dragging = false       -- wejście przeciągania dotykiem
     msg.post(".", "acquire_input_focus")
     msg.post("#", "start_level")
 end
@@ -188,15 +188,15 @@ local function build_board(self)
         self.board[x] = {}
         for y = 0,boardheight-1 do
             pos.y = bottom_edge + blocksize / 2 + blocksize * y
-            -- Calc z
+            -- Oblicz z
             pos.z = x * -0.1 + y * 0.01 -- <1>
-            c = colors[math.random(#colors)]    -- Pick a random color
+            c = colors[math.random(#colors)]    -- wylosuj kolor
             local id = factory.create("#blockfactory", pos, null, { color = c })
             self.board[x][y] = { id = id, color = c,  x = x, y = y }
         end
     end
 
-    -- Build 1d list that we can easily filter.
+    -- Zbuduj jednowymiarową listę, którą da się łatwo filtrować.
     build_blocklist(self)
 end
 
@@ -213,11 +213,11 @@ Logika planszy tworzy obiekty gry „block” za pomocą komponentu fabryki „b
 ![Obiekt gry block](images/magic-link/linker_block.png)
 
 ```lua
--- block.script
+-- plik: block.script
 go.property("color", hash("none"))
 
 function init(self)
-    go.set_scale(0.18)        -- render scaled down
+    go.set_scale(0.18)        -- renderuj w pomniejszonej skali
 ```
 
 ## Oznaczanie połączeń
@@ -233,20 +233,20 @@ Musimy utworzyć obiekt gry „connector”, który zawiera obraz sprite'a conne
 Skrypt dla tego obiektu gry jest minimalny, potrzebuje tylko przeskalować grafikę, aby pasowała do reszty gry, i ustawić poprawnie kolejność Z.
 
 ```lua
--- connector.script
+-- plik: connector.script
 function init(self)
-    go.set_scale(0.18)              -- Set the scale of this game object.
-    go.set(".", "position.z", 1)    -- Put on top.
+    go.set_scale(0.18)              -- Ustaw skalę tego obiektu gry.
+    go.set(".", "position.z", 1)    -- Umieść go na wierzchu.
 end
 ```
 
 Funkcja `same_color_neighbors()` zwraca listę bloków sąsiadujących z danym blokiem (na pozycji x, y) i mających ten sam kolor. Funkcja ta korzysta z funkcji `filter()`, która jest stosowana do pełnej płaskiej listy bloków w `self.blocks`.
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Returns a list of neighbor blocks of the same color as the
--- block on x, y
+-- Zwraca listę sąsiednich bloków tego samego koloru,
+-- co blok na pozycji x, y
 --
 local function same_color_neighbors(self, x, y)
     local f = function (v)
@@ -262,9 +262,9 @@ end
 Funkcja pomocnicza `in_blocklist()` sprawdza, czy blok istnieje na liście bloków:
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Does the block exist in the list of blocks?
+-- Czy blok istnieje na liście bloków?
 --
 local function in_blocklist(blocks, block)
     for i, b in pairs(blocks) do
@@ -279,36 +279,36 @@ end
 Używamy tych funkcji podczas obsługi dotyku i przeciągania w `on_input()`, aby budować łańcuch dotkniętych bloków. Na razie testujemy i ignorujemy tu magiczne bloki, choć jeszcze ich nie ma:
 
 ```lua
--- board.script
+-- plik: board.script
 function on_input(self, action_id, action)
 
     ...
 
-    -- If trying to manipulate magic blocks, ignore.
+    -- Jeśli próbujesz manipulować magicznymi blokami, zignoruj to.
     if self.board[x][y].color == hash("magic") then
         return
     end
 
     if action.pressed then
-        -- List of neighbors of the same color as touched block
+        -- Lista sąsiadów tego samego koloru co dotknięty blok
         self.neighbors = same_color_neighbors(self, x, y)
         self.chain = {}
         table.insert(self.chain, self.board[x][y])
 
-        -- Mark block.
+        -- Oznacz blok.
         p = go.get_position(self.board[x][y].id)
         local id = factory.create("#connectorfactory", p + centeroff)
         table.insert(self.connectors, id)
 
         self.dragging = true
     elseif self.dragging then
-        -- then drag
+        -- obsłuż przeciąganie
         if in_blocklist(self.neighbors, self.board[x][y].id) and not in_blocklist(self.chain, self.board[x][y].id) then
-            -- dragging over a same-colored neighbor
+            -- przeciąganie nad sąsiadem o tym samym kolorze
             table.insert(self.chain, self.board[x][y])
             self.neighbors = same_color_neighbors(self, x, y)
 
-            -- Mark block.
+            -- Oznacz blok.
             p = go.get_position(self.board[x][y].id)
             local id = factory.create("#connectorfactory", p + centeroff)
             table.insert(self.connectors, id)
@@ -319,16 +319,16 @@ function on_input(self, action_id, action)
 Na koniec, po zwolnieniu dotyku, usuwamy wizualnie wszystkie łączniki.
 
 ```lua
--- board.script
+-- plik: board.script
 function on_input(self, action_id, action)
 
     ...
 
     elseif action_id == hash("touch") and action.released then
-        -- Player released touch.
+        -- Gracz puścił dotyk.
         self.dragging = false
 
-        -- Empty chain of connector graphics.
+        -- Wyczyść łańcuch grafiki connector.
         for i, c in ipairs(self.connectors) do
             go.delete(c)
         end
@@ -344,11 +344,11 @@ end
 Mamy już logikę, która pozwala łączyć bloki o tych samych kolorach, więc samo usuwanie połączonych bloków jest proste. Powodem, dla którego ustawiamy pozycję na planszy na `hash("removing")` zamiast po prostu na `nil`, jest to, że później, gdy dodamy logikę magicznych bloków, musimy dopilnować, aby magiczne bloki przesuwały się tylko do nowo usuniętych pól. Jeśli ustawimy tutaj pozycję na `nil`, nie będziemy mieli sposobu odróżnienia nowo usuniętych bloków od bloków usuniętych wcześniej.
 
 ```lua
--- board.script
--- Remove the currently selected block-chain
+-- plik: board.script
+-- Usuń aktualnie zaznaczony łańcuch bloków
 --
 local function remove_chain(self)
-    -- Delete all chained blocks
+    -- Usuń wszystkie bloki należące do łańcucha
     for i, c in ipairs(self.chain) do
         self.board[c.x][c.y] = hash("removing")
         go.delete(c.id)
@@ -360,9 +360,9 @@ end
 Będziemy też potrzebować funkcji, która faktycznie usuwa, czyli ustawia na `nil`, pozycje na planszy oznaczone jako `hash("removing")`:
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Set removed blocks to nil
+-- Ustaw usunięte bloki na nil
 --
 local function nilremoved(self)
     for y = 0,boardheight - 1 do
@@ -378,13 +378,13 @@ end
 Tworzymy też funkcję, która przesuwa pozostałe bloki w dół, gdy bloki pod nimi zostaną usunięte (ustawione na `nil`). Iterujemy po planszy kolumna po kolumnie od lewej do prawej i przechodzimy przez każdą kolumnę od dołu do góry. Jeśli napotkamy puste (`nil`) miejsce, przesuwamy wszystkie bloki powyżej tego miejsca w dół.
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Apply shift-down logic to all blocks.
+-- Zastosuj logikę przesuwania w dół do wszystkich bloków.
 --
 local function slide_board(self)
-    -- Slide all remaining blocks down into blank spots.
-    -- Going column by column makes this easy.
+    -- Przesuń wszystkie pozostałe bloki w dół do pustych miejsc.
+    -- Wykonywanie tego kolumna po kolumnie bardzo to upraszcza.
     local dy = 0
     local pos = vmath.vector3()
     for x = 0,boardwidth - 1 do
@@ -392,13 +392,13 @@ local function slide_board(self)
         for y = 0,boardheight - 1 do
             if self.board[x][y] ~= nil then
                 if dy > 0 then
-                    -- Move down dy steps
+                    -- Przesuń w dół o `dy` pól
                     self.board[x][y - dy] = self.board[x][y]
                     self.board[x][y] = nil
-                    -- Calc new position
+                    -- Oblicz nową pozycję
                     self.board[x][y - dy].y = self.board[x][y - dy].y - dy
                     go.animate(self.board[x][y-dy].id, "position.y", go.PLAYBACK_ONCE_FORWARD, bottom_edge + blocksize / 2 + blocksize * (y - dy), go.EASING_OUTBOUNCE, 0.3)
-                    -- Calc new z
+                    -- Oblicz nowe z
                     go.set(self.board[x][y-dy].id, "position.z", x * -0.1 + (y-dy) * 0.01)
                 end
             else
@@ -406,7 +406,7 @@ local function slide_board(self)
             end
         end
     end
-    -- blocklist needs updating
+    -- lista bloków wymaga aktualizacji
     build_blocklist(self)
 end
 ```
@@ -416,23 +416,23 @@ end
 Teraz możemy po prostu dodać wywołania tych funkcji w `on_input()`, gdy dotyk zostanie zwolniony i w `self.chain` znajdują się bloki.
 
 ```lua
--- board.script
+-- plik: board.script
 function on_input(self, action_id, action)
 
     ...
 
     elseif action_id == hash("touch") and action.released then
-        -- Player released touch.
+        -- Gracz puścił dotyk.
         self.dragging = false
 
         if #self.chain > 1 then
-            -- There is a chain of blocks. Remove it from board and slide the remaining blocks down.
+            -- Istnieje łańcuch bloków. Usuń go z planszy i przesuń pozostałe bloki w dół.
             remove_chain(self)
             nilremoved(self)
             slide_board(self)
         end
 
-        -- Empty chain of connector graphics.
+        -- Wyczyść łańcuch grafiki connector.
         for i, c in ipairs(self.connectors) do
             go.delete(c)
         end
@@ -444,14 +444,14 @@ function on_input(self, action_id, action)
 
 Teraz czas dodać do gry magiczne bloki. Najpierw dodajmy możliwość, aby blok mógł stać się magicznym blokiem. Dzięki temu możemy po prostu przejść osobną ścieżką po wypełnionej planszy i zamienić wybrane bloki w magiczne. Żeby nieco urozmaicić magiczne bloki, utwórzmy najpierw animowany efekt magiczny w postaci obiektu gry *`magic_fx.go`*, który będziemy mogli tworzyć z poziomu magicznego bloku.
 
-![Magic_fx.go](images/magic-link/linker_magic_fx.png)
+![Obiekt magic_fx.go](images/magic-link/linker_magic_fx.png)
 
 Ten obiekt gry zawiera dwa sprite'y. Jeden to kolor „magic” (sprite używający obrazu *`magic-sphere_layer2.png`*), a drugi to efekt „light” (sprite używający obrazu *`magic-sphere_layer3.png`*). Obiekt obraca się po utworzeniu, zależnie od wartości właściwości `direction`. Sprawiamy też, że obiekt reaguje na dwie wiadomości: `lights_on` i `lights_off`, które sterują sprite'em efektu świetlnego.
 
 Utwórz nowy skrypt i dodaj go jako komponent skryptu do *`magic_fx.go`*:
 
 ```lua
--- magic_fx.script
+-- plik: magic_fx.script
 go.property("direction", hash("left"))
 
 function init(self)
@@ -481,9 +481,9 @@ Teraz magiczny blok będzie tworzył dwa obiekty gry `magic_fx` po otrzymaniu wi
 Zwróć uwagę, że do obiektu gry block musimy dodać komponent *Factory* i ustawić go tak, aby używał naszego obiektu gry *`magic_fx.go`* jako *Prototype*. Skrypt bloku musi też reagować na wiadomości `lights_on` i `lights_off` i przekazywać je do utworzonych obiektów. Zwróć uwagę, że utworzone obiekty trzeba usunąć, gdy blok zostanie usunięty. Zajmuje się tym funkcja `final()` w skrypcie bloku. Wszystko to dzieje się w *`block.script`*.
 
 ```lua
--- block.script
+-- plik: block.script
 function init(self)
-    go.set_scale(0.18) -- render scaled down
+    go.set_scale(0.18) -- renderuj w pomniejszonej skali
 
     self.fx1 = nil
     self.fx2 = nil
@@ -533,17 +533,17 @@ end
 
 Teraz możemy tworzyć magiczne bloki, a także je podświetlać. Użyjemy tego efektu, aby wskazać, że magiczny blok stoi obok innego magicznego bloku.
 
-![Magic block bez światła i ze światłem](images/magic-link/linker_magic_blocks.png)
+![Magiczny blok bez światła i ze światłem](images/magic-link/linker_magic_blocks.png)
 
 Kod, który wypełnia planszę blokami, trzeba teraz zmodyfikować tak, aby pojawiały się na niej także magiczne bloki:
 
 ```lua
--- board.script
+-- plik: board.script
 local function build_board(self)
 
     ...
 
-    -- Distribute magic blocks.
+    -- Rozmieść magiczne bloki.
     local rand_x = 0
     local rand_y
     for y = 0, boardheight - 1, boardheight / self.num_magic do
@@ -559,7 +559,7 @@ local function build_board(self)
         end
     end
 
-    -- Build 1d list that we can easily filter.
+    -- Zbuduj jednowymiarową listę, którą da się łatwo filtrować.
     build_blocklist(self)
 end
 ```
@@ -572,17 +572,17 @@ Główną mechaniką magicznych bloków jest ich zdolność przesuwania się na 
     2. Jeśli magiczny blok ma po boku dziurę oznaczoną `hash("removing")`, przesuń go tam, ustaw jego starą pozycję na `hash("removing")`, a potem usuń go z listy `M`.
 
 ```lua
--- board.script
--- Apply the shifting logic to magic blocks. Only slide to positions
--- marked for removal with hash("removing")
+-- plik: board.script
+-- Zastosuj logikę przesuwania do magicznych bloków. Przesuwaj tylko na pozycje
+-- oznaczone do usunięcia przez hash("removing")
 --
 local function slide_magic_blocks(self)
-    -- Slide all magic blocks to the side that should slide first.
-    -- This works best going row by row!
+    -- Przesuń wszystkie magiczne bloki najpierw na tę stronę, która powinna ruszyć jako pierwsza.
+    -- Najlepiej działa to przy przechodzeniu wiersz po wierszu.
     local row_m
     for y = 0,boardheight - 1 do
         row_m = {}
-        -- Build list of magic blocks on this row.
+        -- Zbuduj listę magicznych bloków w tym wierszu.
         for x = 0,boardwidth - 1 do
             if self.board[x][y] ~= nil and self.board[x][y] ~= hash("removing") and self.board[x][y].color == hash("magic") then
                 table.insert(row_m, self.board[x][y])
@@ -590,31 +590,31 @@ local function slide_magic_blocks(self)
         end
 
         local mc = #row_m + 1
-        -- Go through list, slide and remove if possible. Reiterate until the list does not shrink.
+        -- Przechodź po liście, przesuwaj i usuwaj, jeśli to możliwe. Powtarzaj, aż lista przestanie się zmniejszać.
         while #row_m < mc do
             mc = #row_m
             for i, m in pairs(row_m) do
                 local x = m.x
                 if y > 0 and self.board[x][y-1] == hash("removing") then
-                    -- Hole below, do nothing.
+                    -- Pod spodem jest dziura, nic nie rób.
                     row_m[i] = nil
                 elseif x > 0 and self.board[x-1][y] == hash("removing") then
-                    -- Hole to the left! Slide magic block there
+                    -- Dziura po lewej! Przesuń tam magiczny blok
                     self.board[x-1][y] = self.board[x][y]
                     self.board[x-1][y].x = x - 1
                     go.animate(self.board[x][y].id, "position.x", go.PLAYBACK_ONCE_FORWARD, edge + blocksize / 2 + blocksize * (x - 1), go.EASING_OUTBOUNCE, 0.3)
-                    -- Calc new z
+                    -- Oblicz nowe z
                     go.set(self.board[x][y].id, "position.z", (x - 1) * -0.1 + y * 0.01)
-                    self.board[x][y] = hash("removing") -- Will be nilled later
+                    self.board[x][y] = hash("removing") -- później zostanie ustawione na nil
                     row_m[i] = nil
                 elseif x < boardwidth - 1 and self.board[x + 1][y] == hash("removing") then
-                    -- Hole to the right. Slide magic block there
+                    -- Dziura po prawej. Przesuń tam magiczny blok
                     self.board[x+1][y] = self.board[x][y]
                     self.board[x+1][y].x = x + 1
                     go.animate(self.board[x+1][y].id, "position.x", go.PLAYBACK_ONCE_FORWARD, edge + blocksize / 2 + blocksize * (x + 1), go.EASING_OUTBOUNCE, 0.3)
-                    -- Calc new z
+                    -- Oblicz nowe z
                     go.set(self.board[x+1][y].id, "position.z", (x + 1) * -0.1 + y * 0.01)
-                    self.board[x][y] = hash("removing") -- Will be nilled later
+                    self.board[x][y] = hash("removing") -- później zostanie ustawione na nil
                     row_m[i] = nil
                 end
             end
@@ -626,25 +626,25 @@ end
 Możemy przetestować tę mechanikę, dodając wywołanie funkcji w `on_input()`:
 
 ```lua
--- board.script
+-- plik: board.script
 function on_input(self, action_id, action)
 
     ...
 
     elseif action_id == hash("touch") and action.released then
-        -- Player released touch.
+        -- Gracz puścił dotyk.
         self.dragging = false
 
         if #self.chain > 1 then
-            -- There is a chain of blocks. Remove it from board
+            -- Istnieje łańcuch bloków. Usuń go z planszy.
             remove_chain(self)
             slide_magic_blocks(self)
             nilremoved(self)
-            -- Slide remaining blocks down.
+            -- Przesuń pozostałe bloki w dół.
             slide_board(self)
         end
         self.chain = {}
-        -- Empty chain clears connector graphics.
+        -- Wyczyść łańcuch grafiki connector.
         for i, c in ipairs(self.connectors) do
             go.delete(c)
         end
@@ -667,9 +667,9 @@ Teraz potrzebujemy logiki wykrywającej, czy magiczne bloki są połączone (sto
 Oto implementacja tego algorytmu:
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Build list of all current magic blocks.
+-- Zbuduj listę wszystkich aktualnych magicznych bloków.
 --
 local function magic_blocks(self)
     local magic = {}
@@ -684,7 +684,7 @@ local function magic_blocks(self)
 end
 
 --
--- Filter out adjacent magic blocks
+-- Odfiltruj sąsiednie magiczne bloki
 --
 local function adjacent_magic_blocks(blocks, block)
     return filter(function (e)
@@ -694,7 +694,7 @@ local function adjacent_magic_blocks(blocks, block)
 end
 
 --
--- Spread region to neighbors
+-- Rozprzestrzeń region na sąsiadów
 --
 local function mark_neighbors(blocks, block, region)
     local neighbors = adjacent_magic_blocks(blocks, block)
@@ -707,11 +707,11 @@ local function mark_neighbors(blocks, block, region)
 end
 
 --
--- Mark all magic block regions
+-- Oznacz wszystkie regiony magicznych bloków
 --
 local function mark_magic_regions(self)
     local m_blocks = magic_blocks(self)
-    -- 1. Clear all region marks and count neighbors
+    -- 1. Wyczyść wszystkie oznaczenia regionów i policz sąsiadów
     for i, m in pairs(m_blocks) do
         m.region = nil
         local n = 0
@@ -719,7 +719,7 @@ local function mark_magic_regions(self)
         m.neighbors = n
     end
 
-    -- 2. Assign regions and spread them
+    -- 2. Przypisz regiony i rozprzestrzeń je dalej
     local region = 1
     for i, m in pairs(m_blocks) do
         if m.region == nil then
@@ -735,9 +735,9 @@ end
 Tworzymy też funkcje, które pozwalają policzyć liczbę regionów wśród magicznych bloków. Jeśli liczba regionów wynosi 1, wiemy, że wszystkie magiczne bloki są połączone. Dodatkowo dodajemy funkcję, która wyłącza światła we wszystkich magicznych blokach, oraz funkcję, która włącza efekty świetlne w tych magicznych blokach, które mają sąsiednie magiczne bloki:
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Count the number of connected regions among the magic blocks.
+-- Policz liczbę połączonych regionów wśród magicznych bloków.
 --
 local function count_magic_regions(blocks)
     local maxr = 0
@@ -750,7 +750,7 @@ local function count_magic_regions(blocks)
 end
 
 --
--- Shut off lights on all listed magic blocks
+-- Wyłącz światła we wszystkich wymienionych magicznych blokach
 --
 local function shutdown_lined_up_magic(self)
     for i, m in ipairs(self.lined_up_magic) do
@@ -759,7 +759,7 @@ local function shutdown_lined_up_magic(self)
 end
 
 --
--- Set highlight for all magic blocks
+-- Ustaw podświetlenie dla wszystkich magicznych bloków
 --
 local function highlight_magic(blocks)
     for i, m in pairs(blocks) do
@@ -775,9 +775,9 @@ end
 Teraz możemy włączyć te fragmenty logiki do ogólnego przepływu. Po pierwsze, ponieważ generowanie planszy jest losowe, istnieje niewielka szansa, że zacznie się ona już w stanie wygranej. Jeśli tak się stanie, po prostu odrzucamy planszę i budujemy ją ponownie:
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Clear the board
+-- Wyczyść planszę
 --
 local function clear_board(self)
     for y = 0,boardheight - 1 do
@@ -794,12 +794,12 @@ local function build_board(self)
 
     ...
 
-    -- Build 1d list that we can easily filter.
+    -- Zbuduj jednowymiarową listę, którą da się łatwo filtrować.
     build_blocklist(self)
 
     local magic_blocks = mark_magic_regions(self)
     if count_magic_regions(magic_blocks) == 1 then
-        -- "Win" from start. Make new board.
+        -- Wygrana od startu. Utwórz nową planszę.
         clear_board(self)
         build_board(self)
     end
@@ -810,33 +810,33 @@ end
 Reszta logiki mieści się w `on_input()`. Nadal nie ma kodu obsługującego wiadomość `level_completed`, ale na razie to nie problem:
 
 ```lua
--- board.script
+-- plik: board.script
 function on_input(self, action_id, action)
 
     ...
 
     elseif action_id == hash("touch") and action.released then
-        -- Player released touch.
+        -- Gracz puścił dotyk.
         self.dragging = false
 
         if #self.chain > 1 then
-            -- There is a chain of blocks. Remove it from board and refill board.
+            -- Istnieje łańcuch bloków. Usuń go z planszy i uzupełnij planszę.
             remove_chain(self)
             slide_magic_blocks(self)
             nilremoved(self)
-            -- Slide remaining blocks down.
+            -- Przesuń pozostałe bloki w dół.
             slide_board(self)
 
             local magic_blocks = mark_magic_regions(self)
-            -- Highlight adjacent magic blocks.
+            -- Podświetl sąsiadujące magiczne bloki.
             if count_magic_regions(magic_blocks) == 1 then
-                -- Win!
+                -- Wygrana!
                 msg.post("#", "level_completed")
             end
             highlight_magic(magic_blocks)
         end
         self.chain = {}
-        -- Empty chain clears connector graphics.
+        -- Wyczyść łańcuch grafiki connector.
         for i, c in ipairs(self.connectors) do
             go.delete(c)
         end
@@ -853,9 +853,9 @@ Teraz można już zagrać i osiągnąć stan zwycięstwa, mimo że na razie nic 
 Pomysł z „dropem” polega na dodaniu prostej mechaniki postępu. Gracz może wykonać ograniczoną liczbę „dropów”, które po prostu zrzucają kilka nowych losowych elementów na planszę po naciśnięciu przycisku <kbd>DROP</kbd>. Gracz zaczyna z jednym dropem, a za każdym razem, gdy poziom zostanie ukończony, otrzymuje dodatkowy drop. Kod mechaniki dropów mieści się w dwóch funkcjach. Jedna zwraca listę możliwych miejsc, w których mogą wylądować dropy, a druga wykonuje sam drop wraz z animacją i całym resztą.
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- Find spots for a drop.
+-- Znajdź miejsca dla zrzutu.
 --
 local function dropspots(self)
     local spots = {}
@@ -867,7 +867,7 @@ local function dropspots(self)
             end
         end
     end
-    -- If more than dropamount, randomly remove a slot until dropamount
+    -- Jeśli miejsc jest więcej niż `dropamount`, losowo usuwaj je, aż zostanie `dropamount`
     for c = 1, #spots - dropamount do
         table.remove(spots, math.random(#spots))
     end
@@ -875,23 +875,23 @@ local function dropspots(self)
 end
 
 --
--- Perform the drop
+-- Wykonaj zrzut
 --
 local function drop(self, spots)
     for i, s in pairs(spots) do
         local pos = vmath.vector3()
         pos.x = edge + blocksize / 2 + blocksize * s.x
         pos.y = 1000
-        c = colors[math.random(#colors)]    -- Pick a random color
+        c = colors[math.random(#colors)]    -- wylosuj kolor
         local id = factory.create("#blockfactory", pos, null, { color = c })
         go.animate(id, "position.y", go.PLAYBACK_ONCE_FORWARD, bottom_edge + blocksize / 2 + blocksize * s.y, go.EASING_OUTBOUNCE, 0.5)
-        -- Calc new z
+        -- Oblicz nowe z
         go.set(id, "position.z", s.x * -0.1 + s.y * 0.01)
 
         self.board[s.x][s.y] = { id = id, color = c,  x = s.x, y = s.y }
     end
 
-    -- Rebuild blocklist
+    -- Odbuduj listę bloków
     build_blocklist(self)
 end
 ```
@@ -901,12 +901,12 @@ Możemy przetestować dropy, uruchamiając na przykład następujący kod w `on_
 ```lua
 s = dropspots(self)
 if #s > 0 then
-    -- Do the drop
+    -- Wykonaj zrzut
     drop(self, s)
 end
 ```
 
-![Drop](images/magic-link/linker_drop.png)
+![Mechanika zrzutu](images/magic-link/linker_drop.png)
 
 ## Główne menu
 
@@ -948,23 +948,23 @@ end
 Ponieważ uruchamianiem gry ma się wkrótce zająć skrypt głównego menu, usuń tymczasowe wywołanie konfigurujące planszę z `init()` w *board.script*:
 
 ```lua
--- board.script
+-- plik: board.script
 --
--- INIT
+-- INICJALIZACJA
 --
 function init(self)
-    self.board = {}                -- Contains the board structure
-    self.blocks = {}            -- List of all blocks. Used for easy filtering on selection.
+    self.board = {}             -- zawiera strukturę planszy
+    self.blocks = {}            -- lista wszystkich bloków; używana do prostego filtrowania zaznaczenia
 
-    self.chain = {}                -- Current selection chain
-    self.connectors = {}        -- Connector elements to mark the selection chain
-    self.num_magic = 3          -- Number of magic blocks on the board
+    self.chain = {}             -- bieżący łańcuch zaznaczenia
+    self.connectors = {}        -- elementy connector oznaczające łańcuch zaznaczenia
+    self.num_magic = 3          -- liczba magicznych bloków na planszy
 
-    self.drops = 1              -- Number of drops you have available
+    self.drops = 1              -- liczba dostępnych zrzutów
 
-    self.magic_blocks = {}        -- Magic blocks that are lined up
+    self.magic_blocks = {}      -- magiczne bloki ustawione obok siebie
 
-    self.dragging = false       -- Drag touch input
+    self.dragging = false       -- wejście przeciągania dotykiem
 end
 ```
 
@@ -983,7 +983,7 @@ Powinniśmy teraz otworzyć *game.project* i zmienić bootstrap *main_collection
 Od tej pory uruchomienie gry oznacza wysłanie wiadomości do naszego <kbd>Collection Proxy</kbd>, aby załadował, zainicjalizował i włączył planszę, a następnie wyłączył główne menu, żeby nie było widoczne. Powrót do głównego menu działa odwrotnie, o ile proxy załadował już kolekcję.
 
 ```lua
--- main.script
+-- plik: main.script
 function init(self)
     msg.post("#", "to_main_menu")
     self.state = "MAIN_MENU"
@@ -1000,7 +1000,7 @@ function on_message(self, message_id, message, sender)
         msg.post("#boardproxy", "load")
         msg.post("#menu", "disable")
     elseif message_id == hash("proxy_loaded") then
-        -- Board collection has loaded...
+        -- Kolekcja planszy została załadowana...
         msg.post(sender, "init")
         msg.post("board:/board#script", "start_level", { difficulty = 1 }) -- <2>
         msg.post(sender, "enable")
@@ -1020,7 +1020,7 @@ Zanim dodamy ostatni fragment logiki do skryptu planszy, powinniśmy dodać zest
 Skrypt GUI planszy wysyła wiadomości do elementu dialogu restartu po kliknięciu oraz do samego skryptu planszy po kliknięciu <kbd>DROP</kbd>:
 
 ```lua
--- board.gui_script
+-- plik: board.gui_script
 function init(self)
     msg.post("#", "show")
     msg.post("/restart#gui", "hide")
@@ -1044,7 +1044,7 @@ function on_input(self, action_id, action)
         local drop = gui.get_node("drop")
 
         if gui.pick_node(restart, action.x, action.y) then
-            -- Show the restart dialog box.
+            -- Pokaż okno dialogowe restartu.
             msg.post("/restart#gui", "show")
             msg.post("#", "hide")
         elseif gui.pick_node(drop, action.x, action.y) then
@@ -1056,7 +1056,7 @@ Dialog <kbd>RESTART</kbd> jest prosty. Budujemy go jako *restart.gui* i dołącz
 ![GUI restartu](images/magic-link/linker_restart_gui.png)
 
 ```lua
--- restart.gui_script
+-- plik: restart.gui_script
 function on_message(self, message_id, message, sender)
     if message_id == hash("hide") then
         msg.post("#", "disable")
@@ -1085,7 +1085,7 @@ function on_input(self, action_id, action)
             msg.post("#", "hide")
         end
     end
-    -- Consume all input until we're gone.
+    -- Przechwytuj całe wejście, dopóki ten dialog jest widoczny.
     return true
 end
 ```
@@ -1095,7 +1095,7 @@ Tworzymy też prosty dialog GUI informujący o ukończeniu poziomu w *level_comp
 ![Dialog ukończenia poziomu](images/magic-link/linker_level_complete_gui.png)
 
 ```lua
--- level_complete.gui_script
+-- plik: level_complete.gui_script
 function init(self)
     msg.post("#", "hide")
 end
@@ -1119,7 +1119,7 @@ function on_input(self, action_id, action)
             msg.post("#", "hide")
         end
     end
-    -- Consume all input until we're gone.
+    -- Przechwytuj całe wejście, dopóki ten dialog jest widoczny.
     return true
 end
 ```
@@ -1129,7 +1129,7 @@ Dialog używany do prezentacji bieżącego poziomu, ze skryptem, który tylko uk
 ![GUI prezentacji poziomu](images/magic-link/linker_present_level_gui.png)
 
 ```lua
--- present_level.gui_script
+-- plik: present_level.gui_script
 function init(self)
     msg.post("#", "hide")
 end
@@ -1139,7 +1139,7 @@ function on_message(self, message_id, message, sender)
         msg.post("#", "disable")
     elseif message_id == hash("show") then
         local n = gui.get_node("message")
-        gui.set_text(n, "Level " .. message.level)
+        gui.set_text(n, "Poziom " .. message.level)
         msg.post("#", "enable")
     end
 end
@@ -1147,10 +1147,10 @@ end
 
 Dodajemy też dialog, który pojawia się, jeśli gracz próbuje wykonać drop, ale nie ma już na niego miejsca.
 
-![GUI braku miejsca na drop](images/magic-link/linker_no_drop_room_gui.png)
+![GUI braku miejsca na zrzut](images/magic-link/linker_no_drop_room_gui.png)
 
 ```lua
--- no_drop_room.gui_script
+-- plik: no_drop_room.gui_script
 function init(self)
     msg.post("#", "hide")
     self.t = 0
@@ -1196,7 +1196,7 @@ Potrzebujemy kodu dla wszystkich wiadomości wysyłanych do i z planszy w `on_me
 : Sprawdź, gdzie można wykonać drop. Jeśli nie ma żadnych możliwych miejsc, pokaż dialog GUI `no_drop_room`, w przeciwnym razie wykonaj drop, jeśli gracz ma jeszcze dostępne dropy, zmniejsz licznik dropów i zaktualizuj wizualną reprezentację licznika.
 
 ```lua
--- board.script
+-- plik: board.script
 function on_message(self, message_id, message, sender)
     if message_id == hash("start_level") then
         self.num_magic = message.difficulty + 1
@@ -1205,7 +1205,7 @@ function on_message(self, message_id, message, sender)
         msg.post("#gui", "set_drop_counter", { drops = self.drops } )
 
         msg.post("present_level#gui", "show", { level = message.difficulty } )
-        -- Wait some...
+        -- Odczekaj chwilę...
         go.animate("#", "timer", go.PLAYBACK_ONCE_FORWARD, 1, go.EASING_LINEAR, 2, 0, function ()
             msg.post("present_level#gui", "hide")
             msg.post(".", "acquire_input_focus")
@@ -1217,29 +1217,29 @@ function on_message(self, message_id, message, sender)
         msg.post("#gui", "set_drop_counter", { drops = self.drops } )
         msg.post(".", "acquire_input_focus")
     elseif message_id == hash("level_completed") then
-        -- turn off input
+        -- wyłącz wejście
         msg.post(".", "release_input_focus")
 
-        -- Animate the magic!
+        -- Zaanimuj magię!
         for i, m in ipairs(magic_blocks(self)) do
             go.set_scale(0.17, m.id)
             go.animate(m.id, "scale", go.PLAYBACK_LOOP_PINGPONG, 0.19, go.EASING_INSINE, 0.5, 0)
         end
 
-        -- Show completion screen
+        -- Pokaż ekran ukończenia
         msg.post("level_complete#gui", "show")
     elseif message_id == hash("next_level") then
         clear_board(self)
         self.drops = self.drops + 1
-        -- Difficulty level is number of magic blocks - 1
+        -- Poziom trudności to liczba magicznych bloków minus 1
         msg.post("#", "start_level", { difficulty = self.num_magic })
     elseif message_id == hash("drop") then
         s = dropspots(self)
         if #s == 0 then
-            -- Can't perform drop
+            -- Nie da się wykonać zrzutu
             msg.post("no_drop_room#gui", "show")
         elseif self.drops > 0 then
-            -- Do the drop
+            -- Wykonaj zrzut
             drop(self, s)
             self.drops = self.drops - 1
             msg.post("#gui", "set_drop_counter", { drops = self.drops } )

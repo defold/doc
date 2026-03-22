@@ -19,16 +19,16 @@ W kolejnych animacjach skala jest zmieniana tam i z powrotem z 110% do 98%, pote
 Na końcu tło ma dodatkowo specjalny, delikatny efekt zmniejszenia widoczności, który jest realizowany w `anim5()`.
 
 ```lua
--- file: menu.gui_script
+-- plik: menu.gui_script
 
--- the functions animX represents the animation time-line
--- first is anim1 executed, when finished anim2 is executed, etc
--- anim1 to anim4 creates a bouncing rubber effect.
--- anim5 fades down alpha and is only used for the background
+-- funkcje animX reprezentują oś czasu animacji
+-- najpierw wykonywana jest anim1, po jej zakończeniu anim2 itd.
+-- anim1 do anim4 tworzą sprężysty efekt odbicia
+-- anim5 zmniejsza wartość alpha i jest używana tylko dla tła
 
 local function anim5(self, node)
 	if gui.get_node("background") == node then
-		-- special case for background. animate alpha to 60%
+		-- szczególny przypadek dla tła: animuj alpha do 60%
 		local to_color = gui.get_color(node)
 		to_color.w = 0.6
 		gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_OUTCUBIC, 2.4, 0.1)
@@ -36,46 +36,46 @@ local function anim5(self, node)
 end
 
 local function anim4(self, node)
-	-- animate scale to 100%
+	-- animuj skalę do 100%
 	local s = 1
 	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim5)
 end
 
 local function anim3(self, node)
-	-- animate scale to 106%
+	-- animuj skalę do 106%
 	local s = 1.06
 	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim4)
 end
 
 local function anim2(self, node)
-	-- animate scale to 98%
+	-- animuj skalę do 98%
 	local s = 0.98
 	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.24, 0, anim3)
 end
 
 local function anim1(node, d)
-	-- set scale to 70%
+	-- ustaw skalę na 70%
 	local start_scale = 0.7
 	gui.set_scale(node, vmath.vector4(start_scale, start_scale, start_scale, 0))
 
-	-- get current color and set alpha to 0 to fade up
+	-- pobierz bieżący kolor i ustaw alpha na 0, aby płynnie pokazać węzeł
 	local from_color = gui.get_color(node)
 	local to_color = gui.get_color(node)
 	from_color.w = 0
 	gui.set_color(node, from_color)
 
-	-- animate alpha value from 0 to 1
+	-- animuj wartość alpha od 0 do 1
 	gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_INOUTCUBIC, 0.4, d)
 
-	-- animate scale from %70 to 110%
+	-- animuj skalę od 70% do 110%
 	local s = 1.1
 	gui.animate(node, gui.PROP_SCALE, vmath.vector4(s, s, s, 0), gui.EASING_INOUTCUBIC, 0.4, d, anim2)
 end
 
 function init(self)
-	-- start animations for all nodes
-	-- background, button-boxes and text are animated equally
-	-- d is the animation start delay
+	-- uruchom animacje dla wszystkich węzłów
+	-- tło, pola przycisków i tekst są animowane w ten sam sposób
+	-- `d` to opóźnienie startu animacji
 	local d = 0.4
 	anim1(gui.get_node("new_game"), d)
 	anim1(gui.get_node("new_game_shadow"), d)

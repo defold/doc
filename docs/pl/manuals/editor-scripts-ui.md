@@ -46,7 +46,7 @@ return M
 
 Ten fragment kodu definiuje polecenie <kbd>View → Do with confirmation</kbd>. Gdy je uruchomisz, zobaczysz następujące okno dialogowe:
 
-![Okno dialogowe przykładu Hello world](images/editor_scripts/perform_action_dialog.png)
+![Okno dialogowe przykładu „Witaj świecie”](images/editor_scripts/perform_action_dialog.png)
 
 Na końcu, po naciśnięciu <kbd>Enter</kbd> (albo kliknięciu przycisku `Perform`), w konsoli edytora zobaczysz następujący wiersz:
 ```

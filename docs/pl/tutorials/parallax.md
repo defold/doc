@@ -14,17 +14,17 @@ Warstwy chmur są zbudowane z dwóch osobnych obiektów gry, z których każdy z
 Warstwy poruszają się z różnymi prędkościami, aby uzyskać efekt paralaksy. Robią to funkcje `update()` w plikach *background1.script* i *background2.script* poniżej.
 
 ```lua
--- file: background1.script
+-- plik: background1.script
 
 function init(self)
     msg.post("@render:", "clear_color", { color = vmath.vector4(0.52, 0.80, 1, 0) } )
 end
 
--- the background is a tilemap in a gameobject
--- we move the gameobject for the parallax effect
+-- tło jest tilemapą w obiekcie gry
+-- przesuwamy obiekt gry, aby uzyskać efekt paralaksy
 
 function update(self, dt)
-    -- decrease x-position by 1 units per frame for parallax effect
+    -- zwiększaj pozycję x o 1 jednostkę na klatkę, aby uzyskać efekt paralaksy
     local p = go.get_position()
     p.x = p.x + 1
     go.set_position(p)
@@ -32,13 +32,13 @@ end
 ```
 
 ```lua
--- file: background2.script
+-- plik: background2.script
 
--- the background is a tilemap in a gameobject
--- we move the gameobject for the parallax effect
+-- tło jest tilemapą w obiekcie gry
+-- przesuwamy obiekt gry, aby uzyskać efekt paralaksy
 
 function update(self, dt)
-    -- decrease x-position by 0.5 units per frame for parallax effect
+    -- zwiększaj pozycję x o 0.5 jednostki na klatkę, aby uzyskać efekt paralaksy
     local p = go.get_position()
     p.x = p.x + 0.5
     go.set_position(p)
@@ -50,33 +50,33 @@ Porusza się w lewo ze stałą prędkością. Ruch góra-dół uzyskuje się prz
 
 
 ```lua
--- file: spaceship.script
+-- plik: spaceship.script
 
 function init(self)
-    -- remeber initial y position such that we
-    -- can move the spaceship without changing the script
+    -- zapamiętaj początkową pozycję y,
+    -- aby można było przesuwać statek bez zmiany skryptu
     self.start_y = go.get_position().y
-    -- set counter to zero. use for sin-movement below
+    -- ustaw licznik na zero; będzie używany przez ruch sinusoidalny poniżej
     self.counter = 0
 end
 
 function update(self, dt)
-    -- decrease x-position by 2 units per frame
+    -- zmniejszaj pozycję x o 2 jednostki na klatkę
     local p = go.get_position()
     p.x = p.x - 2
 
-    -- move the y position around initial y
+    -- poruszaj pozycją y wokół wartości początkowej
     p.y = self.start_y + 8 * math.sin(self.counter * 0.08)
 
-    -- update position
+    -- zaktualizuj pozycję
     go.set_position(p)
 
-    -- remove shaceship when outside of screen
+    -- usuń statek, gdy znajdzie się poza ekranem
     if p.x < - 32 then
         go.delete()
     end
 
-    -- increase the counter
+    -- zwiększ licznik
     self.counter = self.counter + 1
 end
 ```

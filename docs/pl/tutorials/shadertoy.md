@@ -27,7 +27,7 @@ Zaczynamy od utworzenia kwadratowej siatki płaszczyzny w Blenderze (lub w dowol
 Blender to darmowy, otwartoźródłowy program 3D, który można pobrać z [blender.org](https://www.blender.org).
 :::
 
-![quad w Blenderze](images/shadertoy/quad_blender.png)
+![Kwadratowa siatka w Blenderze](images/shadertoy/quad_blender.png)
 
 1. Otwórz plik "main.collection" w projekcie Defold i utwórz nowy obiekt gry "star-nest".
 2. Dodaj komponent *Model* do obiektu gry "star-nest".
@@ -36,7 +36,7 @@ Blender to darmowy, otwartoźródłowy program 3D, który można pobrać z [blen
 
 Model powinien pojawić się w edytorze sceny, ale renderuje się całkowicie na czarno. Dzieje się tak, ponieważ nie przypisano mu jeszcze materiału:
 
-![quad w Defold](images/shadertoy/quad_no_material.png)
+![Kwadrat w Defold](images/shadertoy/quad_no_material.png)
 
 ## Tworzenie materiału
 
@@ -49,15 +49,15 @@ Utwórz nowy plik materiału *`star-nest.material`*, program shadera wierzchołk
 5. Ustaw jego *Type* na `CONSTANT_TYPE_VIEWPROJ`.
 6. Dodaj tag "`tile`" do *Tags*. Dzięki temu quad zostanie uwzględniony w przebiegu renderowania, gdy rysowane są sprite'y i kafelki.
 
-    ![material](images/shadertoy/material.png)
+    ![Materiał](images/shadertoy/material.png)
 
 7. Otwórz plik programu shadera wierzchołków *`star-nest.vp`*. Powinien zawierać poniższy kod. Zostaw go bez zmian.
 
     ```glsl
-    // star-nest.vp
+    // plik: star-nest.vp
     uniform mediump mat4 view_proj;
 
-    // positions are in world space
+    // pozycje są w przestrzeni świata
     attribute mediump vec4 position;
     attribute mediump vec2 texcoord0;
 
@@ -73,7 +73,7 @@ Utwórz nowy plik materiału *`star-nest.material`*, program shadera wierzchołk
 8. Otwórz plik programu shadera fragmentu *`star-nest.fp`* i zmodyfikuj kod tak, aby kolor fragmentu był ustawiany na podstawie składowych X i Y współrzędnych UV (`var_texcoord0`). Robimy to, żeby upewnić się, że model jest poprawnie skonfigurowany:
 
     ```glsl
-    // star-nest.fp
+    // plik: star-nest.fp
     varying mediump vec2 var_texcoord0;
 
     void main()
@@ -86,7 +86,7 @@ Utwórz nowy plik materiału *`star-nest.material`*, program shadera wierzchołk
 
 Teraz edytor powinien renderować model z nowym shaderem i możemy wyraźnie zobaczyć, czy współrzędne UV są poprawne. Lewy dolny róg powinien mieć kolor czarny (0, 0, 0), lewy górny zielony (0, 1, 0), prawy górny żółty (1, 1, 0), a prawy dolny czerwony (1, 0, 0):
 
-![quad w Defold](images/shadertoy/quad_material.png)
+![Kwadrat w Defold](images/shadertoy/quad_material.png)
 
 ## Shader Star Nest
 
@@ -117,8 +117,8 @@ Teraz wszystko jest już gotowe, by zająć się właściwym kodem shadera. Najp
 Przejście przez powyższe sekcje i wprowadzenie niezbędnych zmian daje następujący kod shadera. Został on nieco uporządkowany, aby był czytelniejszy. Różnice między wersją dla Defold a wersją z Shadertoy są oznaczone poniżej:
 
 ```glsl
-// Star Nest by Pablo Román Andrioli
-// This content is under the MIT License.
+// Star Nest autorstwa Pablo Román Andrioli
+// Ta treść jest objęta licencją MIT.
 
 #define iterations 17
 #define formuparam 0.53
@@ -139,7 +139,7 @@ varying mediump vec2 var_texcoord0; // <1>
 
 void main() // <2>
 {
-    // get coords and direction
+    // pobierz współrzędne i kierunek
     vec2 res = vec2(1.0, 1.0); // <3>
     vec2 uv = var_texcoord0.xy * res.xy - 0.5;
     vec3 dir = vec3(uv * zoom, 1.0);
@@ -156,33 +156,33 @@ void main() // <2>
     from.xz *= rot1;
     from.xy *= rot2;
 
-    //volumetric rendering
+    // renderowanie wolumetryczne
     float s = 0.1, fade = 1.0;
     vec3 v = vec3(0.0);
     for(int r = 0; r < volsteps; r++) {
         vec3 p = from + s * dir * 0.5;
-        // tiling fold
+        // składanie tilingu
         p = abs(vec3(tile) - mod(p, vec3(tile * 2.0)));
         float pa, a = pa = 0.0;
         for (int i=0; i < iterations; i++) {
-            // the magic formula
+            // magiczna formuła
             p = abs(p) / dot(p, p) - formuparam;
-            // absolute sum of average change
+            // bezwzględna suma średniej zmiany
             a += abs(length(p) - pa);
             pa = length(p);
         }
-        //dark matter
+        // ciemna materia
         float dm = max(0.0, darkmatter - a * a * 0.001);
         a *= a * a;
-        // dark matter, don't render near
+        // ciemna materia, nie renderuj blisko
         if(r > 6) fade *= 1.0 - dm;
         v += fade;
-        // coloring based on distance
+        // kolorowanie zależne od odległości
         v += vec3(s, s * s, s * s * s * s) * a * brightness * fade;
         fade *= distfading;
         s += stepsize;
     }
-    // color adjust
+    // korekta kolorów
     v = mix(vec3(length(v)), v, saturation);
     gl_FragColor = vec4(v * 0.01, 1.0); // <6>
 }
@@ -196,7 +196,7 @@ void main() // <2>
 
 Zapisz program shadera fragmentu. Model powinien teraz być ładnie oteksturowany gwiezdnym polem w edytorze sceny:
 
-![quad with starnest](images/shadertoy/quad_starnest.png)
+![Quad z efektem Star Nest](images/shadertoy/quad_starnest.png)
 
 
 ## Animacja
@@ -207,7 +207,7 @@ Ostatnim elementem układanki jest dodanie czasu, aby gwiazdy zaczęły się por
 2. Dodaj *Fragment Constant* i nadaj mu nazwę "time".
 3. Ustaw jego *Type* na `CONSTANT_TYPE_USER`. Składowe x, y, z i w pozostaw na 0.
 
-![time constant](images/shadertoy/time_constant.png)
+![Stała time](images/shadertoy/time_constant.png)
 
 Teraz musimy zmodyfikować kod shadera, aby zadeklarować nową stałą i z niej skorzystać:
 
@@ -218,7 +218,7 @@ uniform lowp vec4 time; // <1>
 
 void main()
 {
-    //get coords and direction
+    // pobierz współrzędne i kierunek
     vec2 res = vec2(2.0, 1.0);
     vec2 uv = var_texcoord0.xy * res.xy - 0.5;
     vec3 dir = vec3(uv * zoom, 1.0);
@@ -248,7 +248,7 @@ end
 3. Ustaw stałą "time" na komponencie modelu. Stała ma typ `vector4`, więc dla wartości czasu używamy składowej `x`.
 4. Na koniec dodaj *star-nest.script* jako komponent skryptowy do obiektu gry "star-nest":
 
-    ![script component](images/shadertoy/script_component.png)
+    ![Komponent skryptu](images/shadertoy/script_component.png)
 
 I to wszystko! Gotowe.
 

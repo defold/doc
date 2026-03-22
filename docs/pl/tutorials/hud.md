@@ -21,123 +21,123 @@ Następnie skala całkowitego wyniku jest animowana, aby uzyskać efekt odbicia.
 Za każdym razem, gdy suma jest zwiększana, tworzymy pewną liczbę mniejszych gwiazdek i animujemy je od całkowitego wyniku na zewnątrz. Gwiazdki są tworzone, animowane i usuwane w `spawn_stars()`, `fade_out_star()` i `delete_star()`.
 
 ```lua
--- file: hud.gui_script
--- how fast the score counts up per second
+-- plik: hud.gui_script
+-- jak szybko wynik narasta w ciągu sekundy
 local score_inc_speed = 1000
 
 function init(self)
-    -- the target score is the current score in the game
+    -- docelowy wynik odpowiada aktualnemu wynikowi w grze
     self.target_score = 0
-    -- the current score being counted up towards the target score
+    -- aktualny wynik, który rośnie w kierunku wyniku docelowego
     self.current_score = 0
-    -- the score as displayed in the hud
+    -- wynik wyświetlany w HUD-zie
     self.displayed_score = 0
-    -- keep a reference to the node displaying the score for later use below
+    -- zachowaj odwołanie do węzła wyświetlającego wynik do późniejszego użycia
     self.score_node = gui.get_node("score")
 end
 
 local function delete_star(self, star)
-    -- star has finished animation, delete it
+    -- gwiazdka zakończyła animację, usuń ją
     gui.delete_node(star)
 end
 
 local function fade_out_star(self, star)
-    -- fade out the star before deletion
+    -- wygaszaj gwiazdkę przed usunięciem
     gui.animate(star, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0), gui.EASING_INOUT, 0.2, 0.0, delete_star)
 end
 
 local function spawn_stars(self, amount)
-    -- position of the score node, to be used for placing the stars
+    -- pozycja węzła wyniku, używana do rozmieszczania gwiazdek
     local p = gui.get_position(self.score_node)
-    -- distance from the position where the star is spawned
+    -- odległość od miejsca, w którym pojawia się gwiazdka
     local start_distance = 0
-    -- distance where the star stops
+    -- odległość, na której gwiazdka się zatrzymuje
     local end_distance = 240
-    -- angle distance between each star in the star circle
+    -- odstęp kątowy między gwiazdkami w okręgu
     local angle_step = 2 * math.pi / amount
-    -- randomize start angle
+    -- wylosuj kąt początkowy
     local angle = angle_step * math.random()
     for i=1,amount do
-        -- increment the angle by the step to get an even distribution of stars
+        -- zwiększ kąt o krok, aby równomiernie rozłożyć gwiazdki
         angle = angle + angle_step
-        -- direction of the star movement
+        -- kierunek ruchu gwiazdki
         local dir = vmath.vector3(math.cos(angle), math.sin(angle), 0)
-        -- start/end positions of the star
+        -- pozycje początkowa i końcowa gwiazdki
         local start_p = p + dir * start_distance
         local end_p = p + dir * end_distance
-        -- create the star node
+        -- utwórz węzeł gwiazdki
         local star = gui.new_box_node(vmath.vector3(start_p.x, start_p.y, 0), vmath.vector3(30, 30, 0))
-        -- set its texture
+        -- ustaw jej teksturę
         gui.set_texture(star, "star")
-        -- set to transparent
+        -- ustaw pełną przezroczystość
         gui.set_color(star, vmath.vector4(1, 1, 1, 0))
-        -- fade in
+        -- pokaż płynnie
         gui.animate(star, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_OUT, 0.2, 0.0, fade_out_star)
-        -- animate position
+        -- animuj pozycję
         gui.animate(star, gui.PROP_POSITION, end_p, gui.EASING_NONE, 0.55)
     end
 end
 
 function update(self, dt)
-    -- check if the score needs to be updated
+    -- sprawdź, czy wynik wymaga aktualizacji
     if self.current_score < self.target_score then
-        -- increment the score for this timestep to grow towards the target score
+        -- zwiększ wynik w tym kroku czasu, aby zbliżał się do wyniku docelowego
         self.current_score = self.current_score + score_inc_speed * dt
-        -- clamp the score so it doesn't grow past the target score
+        -- ogranicz wynik, aby nie przekroczył wartości docelowej
         self.current_score = math.min(self.current_score, self.target_score)
-        -- floor the score so it can be displayed without decimals
+        -- zaokrąglij w dół, aby wyświetlać wynik bez miejsc po przecinku
         local floored_score = math.floor(self.current_score)
-        -- check if the displayed score should be updated
+        -- sprawdź, czy trzeba zaktualizować wyświetlany wynik
         if self.displayed_score ~= floored_score then
-            -- update displayed score
+            -- zaktualizuj wyświetlany wynik
             self.displayed_score = floored_score
-            -- update the text of the score node
+            -- zaktualizuj tekst węzła wyniku
             gui.set_text(self.score_node, string.format("%d p", self.displayed_score))
-            -- set the scale of the score node to be slightly bigger than normal
+            -- ustaw skalę węzła wyniku na nieco większą niż zwykle
             local s = 1.3
             gui.set_scale(self.score_node, vmath.vector3(s, s, s))
-            -- then animate the scale back to the original value
+            -- potem animuj skalę z powrotem do wartości początkowej
             s = 1.0
             gui.animate(self.score_node, gui.PROP_SCALE, vmath.vector3(s, s, s), gui.EASING_OUT, 0.2)
-            -- spawn stars
+            -- utwórz gwiazdki
             spawn_stars(self, 4)
         end
     end
 end
 
--- this function stores the added score so that the displayed score can be counted up in the update function
+-- ta funkcja zapisuje dodany wynik, aby wyświetlany wynik mógł narastać w `update()`
 local function swoosh_done(self, node)
-    -- retrieve score from node
+    -- pobierz wynik z węzła
     local amount = tonumber(gui.get_text(node))
-    -- increase the target score, see the update function for how the score is updated to match the target score
+    -- zwiększ wynik docelowy; sposób aktualizacji do tej wartości opisuje funkcja `update()`
     self.target_score = self.target_score + amount
-    -- remove the temp score
+    -- usuń tymczasowy wynik
     gui.delete_node(node)
 end
 
--- this function animates the node from having floated first to swoosh away towards the displayed total score
+-- ta funkcja animuje węzeł od fazy unoszenia do szybkiego przelotu w stronę łącznego wyniku
 local function float_done(self, node)
     local duration = 0.2
-    -- swoosh away towards the displayed score
+    -- przesuń szybko w stronę wyświetlanego wyniku
     gui.animate(node, gui.PROP_POSITION, gui.get_position(self.score_node), gui.EASING_IN, duration, 0.0, swoosh_done)
-    -- also fade out partially during the swoosh
+    -- dodatkowo częściowo wygaszaj podczas przelotu
     gui.animate(node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0.6), gui.EASING_IN, duration)
 end
 
 function on_message(self, message_id, message, sender)
-    -- register added score, this message could be sent by anyone wanting to increment the score
+    -- zarejestruj dodany wynik; tę wiadomość może wysłać każdy, kto chce zwiększyć wynik
     if message_id == hash("add_score") then
-        -- create a new temporary score node
+        -- utwórz nowy tymczasowy węzeł wyniku
         local node = gui.new_text_node(message.position, tostring(message.amount))
-        -- use the small font for it
+        -- użyj dla niego małej czcionki
         gui.set_font(node, "small_score")
-        -- initially transparent
+        -- początkowo ustaw przezroczystość
         gui.set_color(node, vmath.vector4(1, 1, 1, 0))
         gui.set_outline(node, vmath.vector4(0, 0, 0, 0))
-        -- fade in
+        -- pokaż płynnie
         gui.animate(node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_OUT, 0.3)
         gui.animate(node, gui.PROP_OUTLINE, vmath.vector4(0, 0, 0, 1), gui.EASING_OUT, 0.3)
-        -- float
+        -- unoś
         local offset = vmath.vector3(0, 20, 0)
         gui.animate(node, gui.PROP_POSITION, gui.get_position(node) + offset, gui.EASING_NONE, 0.5, 0.0, float_done)
     end
@@ -147,14 +147,14 @@ end
 W `main.script` pobieramy wejście dotyku/myszy, a następnie wysyłamy wiadomość do skryptu GUI, tworząc nowe wyniki z użyciem pozycji dotknięcia.
 
 ```lua
--- On click/touch get touch position and send it via message to hud gui script as well as the scored point amount.
+-- Po kliknięciu lub dotknięciu pobierz pozycję i wyślij ją wraz z liczbą punktów do skryptu GUI HUD-u.
 
 function init(self)
     msg.post(".", "acquire_input_focus")
 end
 
 function on_input(self, action_id, action)
-    local pos = vmath.vector3(action.x, action.y, 0) -- use input action.x & action.y as x & y positions of touch
+    local pos = vmath.vector3(action.x, action.y, 0) -- użyj `action.x` i `action.y` jako współrzędnych x i y dotknięcia
     if action_id == hash("touch") then
         if action.pressed then
             msg.post("main:/hud#hud", "add_score" , { position = pos, amount = 1500})

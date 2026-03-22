@@ -148,7 +148,7 @@ Grawitacja będzie nieustannie ściągać postać z powrotem w dół, tworząc p
 1. Gdy wejście zostanie wciśnięte, wykonaj:
 
     ```lua
-    -- jump_takeoff_speed is a constant defined elsewhere
+    -- jump_takeoff_speed to stała zdefiniowana w innym miejscu
     self.velocity.y = jump_takeoff_speed
     ```
 
@@ -157,9 +157,9 @@ Grawitacja będzie nieustannie ściągać postać z powrotem w dół, tworząc p
 2. Gdy wejście zostanie zwolnione, wykonaj:
 
     ```lua
-    -- cut the jump short if we are still going up
+    -- skróć skok, jeśli nadal poruszamy się w górę
     if self.velocity.y > 0 then
-        -- scale down the upwards speed
+        -- zmniejsz prędkość wznoszenia
         self.velocity.y = self.velocity.y * 0.5
     end
     ```
@@ -203,23 +203,23 @@ Stwórzcie świetną platformówkę, żebyśmy wszyscy mogli w nią zagrać! <3
 Oto zawartość pliku *player.script*:
 
 ```lua
--- player.script
+-- plik: player.script
 
--- these are the tweaks for the mechanics, feel free to change them for a different feeling
--- the acceleration to move right/left
+-- to są parametry dostrajające mechanikę; możesz je zmienić, aby uzyskać inne odczucie
+-- przyspieszenie ruchu w lewo i w prawo
 local move_acceleration = 3500
--- acceleration factor to use when air-borne
+-- współczynnik przyspieszenia używany w powietrzu
 local air_acceleration_factor = 0.8
--- max speed right/left
+-- maksymalna prędkość w lewo i w prawo
 local max_speed = 450
--- gravity pulling the player down in pixel units
+-- grawitacja ściągająca gracza w dół, wyrażona w pikselach
 local gravity = -1000
--- take-off speed when jumping in pixel units
+-- prędkość wybicia przy skoku, wyrażona w pikselach
 local jump_takeoff_speed = 550
--- time within a double tap must occur to be considered a jump (only used for mouse/touch controls)
+-- maksymalny odstęp czasu dla podwójnego dotknięcia, aby został uznany za skok (używane tylko przy sterowaniu myszą i dotykiem)
 local touch_jump_timeout = 0.2
 
--- prehashing ids improves performance
+-- wstępne haszowanie identyfikatorów poprawia wydajność
 local msg_contact_point_response = hash("contact_point_response")
 local msg_animation_done = hash("animation_done")
 local group_obstacle = hash("obstacle")
@@ -233,37 +233,37 @@ local anim_jump = hash("jump")
 local anim_fall = hash("fall")
 
 function init(self)
-    -- this lets us handle input in this script
+    -- dzięki temu możemy obsługiwać wejście w tym skrypcie
     msg.post(".", "acquire_input_focus")
 
-    -- initial player velocity
+    -- początkowa prędkość gracza
     self.velocity = vmath.vector3(0, 0, 0)
-    -- support variable to keep track of collisions and separation
+    -- zmienna pomocnicza do śledzenia kolizji i separacji
     self.correction = vmath.vector3()
-    -- if the player stands on ground or not
+    -- czy gracz stoi na ziemi
     self.ground_contact = false
-    -- movement input in the range [-1,1]
+    -- wejście ruchu w zakresie [-1,1]
     self.move_input = 0
-    -- the currently playing animation
+    -- aktualnie odtwarzana animacja
     self.anim = nil
-    -- timer that controls the jump-window when using mouse/touch
+    -- licznik czasu sterujący oknem skoku przy sterowaniu myszą i dotykiem
     self.touch_jump_timer = 0
 end
 
 local function play_animation(self, anim)
-    -- only play animations which are not already playing
+    -- odtwarzaj tylko animacje, które nie są już aktywne
     if self.anim ~= anim then
-        -- tell the sprite to play the animation
+        -- poleć sprite'owi odtworzyć animację
         sprite.play_flipbook("#sprite", anim)
-        -- remember which animation is playing
+        -- zapamiętaj, która animacja jest odtwarzana
         self.anim = anim
     end
 end
 
 local function update_animations(self)
-    -- make sure the player character faces the right way
+    -- dopilnuj, aby postać była zwrócona we właściwą stronę
     sprite.set_hflip("#sprite", self.move_input < 0)
-    -- make sure the right animation is playing
+    -- dopilnuj, aby odtwarzana była właściwa animacja
     if self.ground_contact then
         if self.velocity.x == 0 then
             play_animation(self, anim_idle)
@@ -280,48 +280,48 @@ local function update_animations(self)
 end
 
 function update(self, dt)
-    -- determine the target speed based on input
+    -- wyznacz docelową prędkość na podstawie wejścia
     local target_speed = self.move_input * max_speed
-    -- calculate the difference between our current speed and the target speed
+    -- oblicz różnicę między bieżącą a docelową prędkością
     local speed_diff = target_speed - self.velocity.x
-    -- the complete acceleration to integrate over this frame
+    -- pełne przyspieszenie, które całkujemy w tej klatce
     local acceleration = vmath.vector3(0, gravity, 0)
     if speed_diff ~= 0 then
-        -- set the acceleration to work in the direction of the difference
+        -- ustaw przyspieszenie tak, aby działało w kierunku tej różnicy
         if speed_diff < 0 then
             acceleration.x = -move_acceleration
         else
             acceleration.x = move_acceleration
         end
-        -- decrease the acceleration when air-borne to give a slower feel
+        -- zmniejsz przyspieszenie w powietrzu, aby ruch wydawał się wolniejszy
         if not self.ground_contact then
             acceleration.x = air_acceleration_factor * acceleration.x
         end
     end
-    -- calculate the velocity change this frame (dv is short for delta-velocity)
+    -- oblicz zmianę prędkości w tej klatce (`dv` to skrót od delta-velocity)
     local dv = acceleration * dt
-    -- check if dv exceeds the intended speed difference, clamp it in that case
+    -- sprawdź, czy `dv` przekracza zamierzoną różnicę prędkości, i w razie potrzeby ją ogranicz
     if math.abs(dv.x) > math.abs(speed_diff) then
         dv.x = speed_diff
     end
-    -- save the current velocity for later use
-    -- (self.velocity, which right now is the velocity used the previous frame)
+    -- zapisz bieżącą prędkość do późniejszego użycia
+    -- (`self.velocity` to w tym momencie prędkość użyta w poprzedniej klatce)
     local v0 = self.velocity
-    -- calculate the new velocity by adding the velocity change
+    -- oblicz nową prędkość przez dodanie zmiany prędkości
     self.velocity = self.velocity + dv
-    -- calculate the translation this frame by integrating the velocity
+    -- oblicz przemieszczenie w tej klatce przez całkowanie prędkości
     local dp = (v0 + self.velocity) * dt * 0.5
-    -- apply it to the player character
+    -- zastosuj je do postaci gracza
     go.set_position(go.get_position() + dp)
 
-    -- update the jump timer
+    -- zaktualizuj licznik czasu skoku
     if self.touch_jump_timer > 0 then
         self.touch_jump_timer = self.touch_jump_timer - dt
     end
 
     update_animations(self)
 
-    -- reset volatile state
+    -- zresetuj stan chwilowy
     self.correction = vmath.vector3()
     self.move_input = 0
     self.ground_contact = false
@@ -329,33 +329,33 @@ function update(self, dt)
 end
 
 local function handle_obstacle_contact(self, normal, distance)
-    -- project the correction vector onto the contact normal
-    -- (the correction vector is the 0-vector for the first contact point)
+    -- zrzutuj wektor korekty na normalną kontaktu
+    -- (dla pierwszego punktu kontaktu wektor korekty jest wektorem zerowym)
     local proj = vmath.dot(self.correction, normal)
-    -- calculate the compensation we need to make for this contact point
+    -- oblicz kompensację potrzebną dla tego punktu kontaktu
     local comp = (distance - proj) * normal
-    -- add it to the correction vector
+    -- dodaj ją do wektora korekty
     self.correction = self.correction + comp
-    -- apply the compensation to the player character
+    -- zastosuj kompensację do postaci gracza
     go.set_position(go.get_position() + comp)
-    -- check if the normal points enough up to consider the player standing on the ground
-    -- (0.7 is roughly equal to 45 degrees deviation from pure vertical direction)
+    -- sprawdź, czy normalna jest wystarczająco skierowana w górę, by uznać gracza za stojącego na ziemi
+    -- (0.7 odpowiada w przybliżeniu odchyleniu o 45 stopni od kierunku pionowego)
     if normal.y > 0.7 then
         self.ground_contact = true
     end
-    -- project the velocity onto the normal
+    -- zrzutuj prędkość na normalną
     proj = vmath.dot(self.velocity, normal)
-    -- if the projection is negative, it means that some of the velocity points towards the contact point
+    -- jeśli rzut jest ujemny, część prędkości jest skierowana w stronę punktu kontaktu
     if proj < 0 then
-        -- remove that component in that case
+        -- usuń w takim przypadku tę składową
         self.velocity = self.velocity - proj * normal
     end
 end
 
 function on_message(self, message_id, message, sender)
-    -- check if we received a contact point message
+    -- sprawdź, czy otrzymaliśmy wiadomość o punkcie kontaktu
     if message_id == msg_contact_point_response then
-        -- check that the object is something we consider an obstacle
+        -- sprawdź, czy obiekt jest czymś, co uznajemy za przeszkodę
         if message.group == group_obstacle then
             handle_obstacle_contact(self, message.normal, message.distance)
         end
@@ -363,20 +363,20 @@ function on_message(self, message_id, message, sender)
 end
 
 local function jump(self)
-    -- only allow jump from ground
-    -- (extend this with a counter to do things like double-jumps)
+    -- pozwól skakać tylko z ziemi
+    -- (rozszerz to o licznik, jeśli chcesz dodać na przykład podwójny skok)
     if self.ground_contact then
-        -- set take-off speed
+        -- ustaw prędkość wybicia
         self.velocity.y = jump_takeoff_speed
-        -- play animation
+        -- odtwórz animację
         play_animation(self, anim_jump)
     end
 end
 
 local function abort_jump(self)
-    -- cut the jump short if we are still going up
+    -- skróć skok, jeśli nadal poruszamy się w górę
     if self.velocity.y > 0 then
-        -- scale down the upwards speed
+        -- zmniejsz prędkość wznoszenia
         self.velocity.y = self.velocity.y * 0.5
     end
 end
@@ -393,20 +393,20 @@ function on_input(self, action_id, action)
             abort_jump(self)
         end
     elseif action_id == input_touch then
-        -- move towards the touch-point
+        -- poruszaj się w stronę punktu dotknięcia
         local diff = action.x - go.get_position().x
-        -- only give input when far away (more than 10 pixels)
+        -- przekazuj wejście tylko wtedy, gdy punkt jest dostatecznie daleko (ponad 10 pikseli)
         if math.abs(diff) > 10 then
-            -- slow down when less than 100 pixels away
+            -- zwalniaj, gdy odległość jest mniejsza niż 100 pikseli
             self.move_input = diff / 100
-            -- clamp input to [-1,1]
+            -- ogranicz wejście do zakresu [-1,1]
             self.move_input = math.min(1, math.max(-1, self.move_input))
         end
         if action.released then
-            -- start timing the last release to see if we are about to jump
+            -- zacznij odmierzać czas od ostatniego puszczenia, aby sprawdzić, czy zaraz nastąpi skok
             self.touch_jump_timer = touch_jump_timeout
         elseif action.pressed then
-            -- jump on double tap
+            -- wykonaj skok przy podwójnym dotknięciu
             if self.touch_jump_timer > 0 then
                 jump(self)
             end

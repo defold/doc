@@ -40,24 +40,24 @@ Dobrą praktyką jest unikanie wykonywania zbyt wielu obliczeń w programie frag
 
 
 ```glsl
-// water_scroll.vp
+// plik: water_scroll.vp
 
-// UV / Texture Scroll
+// Przewijanie UV / tekstury
 attribute highp vec4 position;
 attribute mediump vec2 texcoord0;
 
 uniform mediump mat4 mtx_worldview;
 uniform mediump mat4 mtx_proj;
-uniform mediump vec4 animation_time; // vertex constant set up in material as type user.
+uniform mediump vec4 animation_time; // stała wierzchołka skonfigurowana w materiale jako typ user
 
-varying mediump vec2 var_texcoord0; // setup var texcoord 0
-varying mediump vec2 var_texcoord1; // setup var texcoord 1
+varying mediump vec2 var_texcoord0; // skonfiguruj var_texcoord0
+varying mediump vec2 var_texcoord1; // skonfiguruj var_texcoord1
 
 void main()
 {
     vec4 p = mtx_worldview * vec4(position.xyz, 1.0);
     var_texcoord0 = texcoord0;
-    var_texcoord1 = vec2(texcoord0.x - animation_time.x, texcoord0.y); // Calculate var texcoord 1 uv offset on U(x) axis to fragment program 
+    var_texcoord1 = vec2(texcoord0.x - animation_time.x, texcoord0.y); // oblicz przesunięcie UV dla var_texcoord1 na osi U(x) przed przekazaniem do programu fragmentów
     gl_Position = mtx_proj * p;
 }
 ```
@@ -66,20 +66,20 @@ Model dostarcza atrybut `texcoord0`, czyli nasze współrzędne UV tekstury. Dek
 
 
 ```glsl
-// water_scroll.fp
+// plik: water_scroll.fp
 
-varying mediump vec2 var_texcoord0; // var texcoord 0 used with water_bg sampler
-varying mediump vec2 var_texcoord1; // var texcoord 1 used with water_waves sampler, UV animation calulation done in vertex program
+varying mediump vec2 var_texcoord0; // var_texcoord0 jest używane z samplerem water_bg
+varying mediump vec2 var_texcoord1; // var_texcoord1 jest używane z samplerem water_waves, a animacja UV jest liczona w programie wierzchołków
 
-uniform lowp sampler2D tex0; // Material sampler slot 0 = water background / set in plane.model
-uniform lowp sampler2D tex1; // Material sampler slot 1 = water waves / set in plane.model
+uniform lowp sampler2D tex0; // slot samplera materiału 0 = tło wody / ustawione w plane.model
+uniform lowp sampler2D tex1; // slot samplera materiału 1 = fale wody / ustawione w plane.model
 
 void main()
 {
     vec4 water_bg = texture2D(tex0, var_texcoord0.xy);
     vec4 water_waves = texture2D(tex1, var_texcoord1.xy);
     
-    gl_FragColor = vec4(water_bg.rgb + water_waves.rgb ,1.0); // add texture waves to bg using addition(+), alpha set to 1.0 as there is no transparency being used0
+    gl_FragColor = vec4(water_bg.rgb + water_waves.rgb ,1.0); // dodaj fale do tła przez sumowanie (+), a alpha ustaw na 1.0, ponieważ nie używamy przezroczystości
 }
 ```
 
@@ -89,10 +89,10 @@ Przechodząc do programu fragmentów, mamy prostą konfigurację. Dwa varying `v
 ## Skrypt animacji shadera
 
 ```lua
--- animate_shader.script
+-- plik: animate_shader.script
 local animate = 1.0
--- local float will be used to set animation_time constant in scroll material , only x constant value is used in the shader 
--- so there is no need to create a vector 4
+-- lokalna wartość float posłuży do ustawienia stałej `animation_time` w materiale przewijania
+-- w shaderze używana jest tylko składowa x, więc nie trzeba tworzyć `vector4`
 
 function init(self)
 	go.animate("/scroll#plane", "animation_time.x", go.PLAYBACK_LOOP_FORWARD, animate, go.EASING_LINEAR, 4.0)
