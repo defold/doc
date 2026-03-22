@@ -6,25 +6,25 @@ brief: W tym przykładowym projekcie poznasz efekty służące do prezentacji me
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dPQpSlt3ahw" frameborder="0" allowfullscreen></iframe>
 
-W tym przykładowym projekcie, który możesz [otworzyć z edytora](/manuals/project-setup/) albo [pobrać z repozytorium GitHub](https://github.com/defold/sample-main-menu-animation), pokazujemy efekty służące do prezentacji menu głównego. Menu zawiera tło i dwie pozycje menu.
-Projekt jest już skonfigurowany z `menu.gui` oraz `menu.gui_script`, do którego przypisano kod pokazany poniżej. Zasoby graficzne zostały dodane do atlasu `images.atlas` i przypisane do węzłów w `menu.gui`.
+W tym przykładowym projekcie, który możesz [otworzyć w edytorze](/manuals/project-setup/) albo [pobrać z GitHub](https://github.com/defold/sample-main-menu-animation), pokazujemy efekty służące do prezentacji menu głównego. Menu zawiera tło i dwie pozycje menu.
+Projekt jest gotowy: ma menu.gui oraz menu.gui_script, do których zastosowano kod pokazany poniżej. Zasoby graficzne zostały dodane do atlasu images.atlas i przypisane do węzłów w menu.gui.
 
-Do tła oraz obu pozycji menu zastosowano te same animacje, ale z różnymi opóźnieniami. Jest to skonfigurowane poniżej w `init()`.
+Do tła i obu pozycji menu zastosowano te same animacje, ale z różnymi opóźnieniami. Jest to skonfigurowane poniżej w `init()`.
 
-Pierwsza animacja powoduje, że każdy węzeł stopniowo się pojawia, a jednocześnie jego skala zmienia się z 70% do 110%.
+Pierwsza animacja polega na tym, że każdy węzeł płynnie się pojawia, a jednocześnie jego skala zmienia się z 70% do 110%.
 Jest to realizowane w `anim1()`.
 
-W kolejnych animacjach skala jest zmieniana tam i z powrotem z 110% do 98%, potem do 106%, a na końcu do 100%. Daje to efekt odbicia i jest realizowane w `anim2()`, `anim3()` oraz `anim4()`.
+W kolejnych animacjach skala zmienia się tam i z powrotem z 110% do 98%, potem do 106%, a następnie do 100%. Daje to efekt odbicia i jest realizowane w `anim2()`, `anim3()` oraz `anim4()`.
 
-Na końcu tło ma dodatkowo specjalny, delikatny efekt zmniejszenia widoczności, który jest realizowany w `anim5()`.
+Na końcu tło ma dodatkowo delikatny efekt zanikania, który jest realizowany w `anim5()`.
 
 ```lua
 -- plik: menu.gui_script
 
 -- funkcje animX reprezentują oś czasu animacji
 -- najpierw wykonywana jest anim1, po jej zakończeniu anim2 itd.
--- anim1 do anim4 tworzą sprężysty efekt odbicia
--- anim5 zmniejsza wartość alpha i jest używana tylko dla tła
+-- anim1 do anim4 tworzą sprężysty efekt odbicia.
+-- anim5 zmniejsza wartość alpha i jest używana tylko dla tła.
 
 local function anim5(self, node)
 	if gui.get_node("background") == node then
@@ -58,7 +58,7 @@ local function anim1(node, d)
 	local start_scale = 0.7
 	gui.set_scale(node, vmath.vector4(start_scale, start_scale, start_scale, 0))
 
-	-- pobierz bieżący kolor i ustaw alpha na 0, aby płynnie pokazać węzeł
+	-- pobierz bieżący kolor i ustaw alpha na 0, aby węzeł płynnie się pojawił
 	local from_color = gui.get_color(node)
 	local to_color = gui.get_color(node)
 	from_color.w = 0
@@ -74,8 +74,8 @@ end
 
 function init(self)
 	-- uruchom animacje dla wszystkich węzłów
-	-- tło, pola przycisków i tekst są animowane w ten sam sposób
-	-- `d` to opóźnienie startu animacji
+	-- tło, obszary przycisków i tekst są animowane w ten sam sposób
+	-- d to opóźnienie startu animacji
 	local d = 0.4
 	anim1(gui.get_node("new_game"), d)
 	anim1(gui.get_node("new_game_shadow"), d)

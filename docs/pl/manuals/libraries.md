@@ -1,61 +1,61 @@
 ---
-title: Praca z bibliotekami w Defold
-brief: Funkcja bibliotek pozwala dzielić zasoby między projektami. Ten podręcznik wyjaśnia, jak to działa.
+title: Praca z projektami bibliotek w Defold
+brief: Funkcja Libraries pozwala udostępniać zasoby między projektami. Ten podręcznik wyjaśnia, jak to działa.
 ---
 
-# Biblioteki (Libraries)
+# Biblioteki
 
-Funkcja Bibliotek pozwala dzielić zasoby między projektami. To proste, ale bardzo potężne narzędzie, które możesz wykorzystać na wiele sposobów.
+Funkcja Libraries pozwala udostępniać zasoby między projektami. To prosty, ale bardzo potężny mechanizm, który możesz wykorzystać na wiele sposobów.
 
 Biblioteki są przydatne w następujących sytuacjach:
 
-* aby skopiować zasoby z gotowego projektu do nowego. Jeśli tworzysz sequel swojej wcześniejszej gry, to łatwy sposób, aby szybko ruszyć z pracą.
-* aby stworzyć bibliotekę szablonów, które można kopiować do projektów i potem dostosowywać albo specjalizować.
-* aby zbudować jedną lub więcej bibliotek gotowych obiektów lub skryptów, do których można się odwołać bezpośrednio. To wygodne przy przechowywaniu wspólnych modułów skryptowych albo wspólnych zasobów graficznych, dźwiękowych i animacyjnych.
+* aby skopiować zasoby z ukończonego projektu do nowego. Jeśli tworzysz kontynuację wcześniejszej gry, to prosty sposób na szybki start.
+* aby zbudować bibliotekę szablonów, które można kopiować do projektów, a potem dostosowywać lub specjalizować.
+* aby zbudować jedną lub więcej bibliotek gotowych obiektów lub skryptów, do których można odwoływać się bezpośrednio. To bardzo wygodne do przechowywania wspólnych modułów skryptowych albo wspólnych zasobów graficznych, dźwiękowych i animacyjnych.
 
 ## Ustawianie udostępniania biblioteki
 
-Załóżmy, że chcesz zbudować bibliotekę zawierającą wspólne sprite’y oraz źródła kafelków (tile sources). Rozpocznij od [utworzenia nowego projektu](/manuals/project-setup/). Zdecyduj, które foldery chcesz udostępnić z projektu, i dopisz ich nazwy do właściwości *`include_dirs`* w ustawieniach projektu (w pliku *game.project*). Jeśli chcesz wymienić więcej niż jedną lokalizację, oddziel nazwy spacjami:
+Załóżmy, że chcesz zbudować bibliotekę zawierającą współdzielone sprite'y oraz źródła kafelków. Zacznij od [utworzenia nowego projektu](/manuals/project-setup/). Zdecyduj, które foldery chcesz udostępnić z projektu, i dodaj ich nazwy do właściwości *`include_dirs`* w ustawieniach projektu. Jeśli chcesz wymienić więcej niż jeden folder, oddziel nazwy spacjami:
 
 ![Include directories](images/libraries/libraries_include_dirs.png)
 
-Zanim dodasz tę bibliotekę do innego projektu, musisz podać sposób na jej znalezienie.
+Zanim dodasz tę bibliotekę do innego projektu, musisz mieć sposób na jej odnalezienie.
 
-## URL biblioteki
+## Adres URL biblioteki
 
-Biblioteki odwołują się przez standardowy adres URL. Dla projektu hostowanego na GitHubie będzie to adres URL do wydania projektu:
+Biblioteki wskazuje się za pomocą standardowego adresu URL. W przypadku projektu hostowanego na GitHubie będzie to adres URL do wydania projektu:
 
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
 ::: important
-Zalecane jest, żeby zawsze opierać się na konkretnym wydaniu (release) projektu biblioteki zamiast na gałęzi głównej (master). Dzięki temu to Ty decydujesz, kiedy wprowadzić zmiany z biblioteki do swojego projektu, zamiast automatycznie pobierać najnowsze (i potencjalnie łamiące) zmiany z gałęzi master.
+Zaleca się zawsze opierać na konkretnym wydaniu projektu biblioteki zamiast na gałęzi głównej (master). Dzięki temu to Ty decydujesz, kiedy wprowadzić zmiany z projektu biblioteki do swojego projektu, zamiast zawsze pobierać najnowsze, a potencjalnie łamiące zmiany z gałęzi master.
 :::
 
 ::: important
-Zaleca się zawsze przejrzeć biblioteki stron trzecich przed ich użyciem. Dowiedz się więcej o [bezpieczeństwie przy korzystaniu z bibliotek stron trzecich](https://defold.com/manuals/application-security/#securing-your-use-of-third-party-software).
+Zaleca się zawsze przejrzeć biblioteki stron trzecich przed ich użyciem. Dowiedz się więcej o [zabezpieczaniu korzystania z oprogramowania stron trzecich](https://defold.com/manuals/application-security/#securing-your-use-of-third-party-software).
 :::
 
 ### Podstawowe uwierzytelnianie
 
-Do adresu URL biblioteki możesz dodać nazwę użytkownika i hasło/token, aby wykonać podstawowe uwierzytelnianie, gdy biblioteka nie jest publicznie dostępna:
+Do adresu URL biblioteki możesz dodać nazwę użytkownika i hasło lub token, aby wykonać podstawowe uwierzytelnianie, gdy biblioteka nie jest publicznie dostępna:
 
 ```
 https://username:password@github.com/defold/private/archive/main.zip
 ```
 
-Pola `username` i `password` zostaną wyciągnięte i dodane jako nagłówek żądania `Authorization`. Takie rozwiązanie działa na każdym serwerze obsługującym podstawowe uwierzytelnianie.
+Pola `username` i `password` zostaną wyodrębnione i dodane jako nagłówek żądania `Authorization`. Takie rozwiązanie działa na każdym serwerze obsługującym podstawowe uwierzytelnianie dostępu.
 
 ::: important
-Uważaj, żeby nie udostępniać swojego tokena dostępu ani hasła, żeby nie doszło do wycieku, ponieważ w niepowołanych rękach może to mieć poważne konsekwencje.
+Uważaj, aby nie udostępnić ani przypadkowo nie ujawnić wygenerowanego tokena dostępu osobistego lub hasła, bo w niepowołanych rękach może to mieć poważne konsekwencje.
 :::
 
-Aby nie trzymać poświadczeń w jawnej postaci w adresie URL, możesz użyć wzorca do zamiany ciągu i przechowywać dane jako zmienne środowiskowe:
+Aby uniknąć przypadkowego ujawnienia poświadczeń zapisanych jawnym tekstem w adresie URL biblioteki, możesz użyć wzorca zamiany ciągu i przechowywać poświadczenia jako zmienne środowiskowe:
 
 ```
 https://__PRIVATE_USERNAME__:__PRIVATE_TOKEN__@github.com/defold/private/archive/main.zip
 ```
 
-W powyższym przykładzie nazwa użytkownika i token zostaną pobrane ze zmiennych środowiskowych `PRIVATE_USERNAME` i `PRIVATE_TOKEN`.
+W powyższym przykładzie nazwa użytkownika i token zostaną odczytane ze zmiennych środowiskowych `PRIVATE_USERNAME` i `PRIVATE_TOKEN`.
 
 #### Uwierzytelnianie GitHub
 
@@ -67,7 +67,7 @@ https://github-username:personal-access-token@github.com/defold/private/archive/
 
 #### Uwierzytelnianie GitLab
 
-Aby pobrać zawartość prywatnego repozytorium na GitLabie, musisz [wygenerować token dostępu osobistego](https://docs.gitlab.com/ee/security/token_overview.html) i przekazać go jako parametr w adresie URL.
+Aby pobrać zawartość prywatnego repozytorium na GitLabie, musisz [wygenerować token dostępu osobistego](https://docs.gitlab.com/ee/security/token_overview.html) i przekazać go jako parametr adresu URL.
 
 ```
 https://gitlab.com/defold/private/-/archive/main/test-main.zip?private_token=personal-access-token
@@ -75,54 +75,54 @@ https://gitlab.com/defold/private/-/archive/main/test-main.zip?private_token=per
 
 ### Zaawansowane uwierzytelnianie
 
-Podczas korzystania z podstawowego uwierzytelniania token i nazwa użytkownika są współdzielone ze wszystkimi repozytoriami używanymi przez projekt. W większym zespole może to stanowić problem. Rozwiązaniem jest użycie użytkownika „tylko do odczytu”, który ma dostęp do biblioteki, ale nie może jej edytować. Na GitHubie wymaga to organizacji, zespołu i użytkownika tylko do odczytu.
+Podczas korzystania z podstawowego uwierzytelniania token i nazwa użytkownika są współdzielone ze wszystkimi repozytoriami używanymi przez projekt. W zespole większym niż jedna osoba może to stanowić problem. Rozwiązaniem jest użycie użytkownika „tylko do odczytu”, który ma dostęp do biblioteki, ale nie może jej edytować. Na GitHubie wymaga to organizacji, zespołu i użytkownika, który nie musi edytować repozytorium.
 
-Kroki na GitHubie:
+Kroki w GitHubie:
 * [Utwórz organizację](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-new-organization-from-scratch)
 * [Utwórz zespół w ramach organizacji](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/creating-a-team)
 * [Przenieś wybrane prywatne repozytorium do organizacji](https://docs.github.com/en/github/administering-a-repository/transferring-a-repository)
 * [Nadaj zespołowi dostęp „tylko do odczytu” do repozytorium](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/managing-team-access-to-an-organization-repository)
-* [Dodaj lub wybierz użytkownika, który dołączy do zespołu](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/organizing-members-into-teams)
-* Użyj powyższego sposobu podstawowego uwierzytelniania, aby wygenerować token dla tego użytkownika
+* [Dodaj lub wybierz użytkownika, który ma należeć do tego zespołu](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/organizing-members-into-teams)
+* Użyj powyższego sposobu podstawowego uwierzytelniania, aby utworzyć token dostępu osobistego dla tego użytkownika
 
-W tym momencie dane uwierzytelniające nowego użytkownika można zatwierdzić i wypchnąć do repozytorium. Każda osoba pracująca z prywatnym repozytorium może pobierać je jako bibliotekę, nie mając jednocześnie praw do edycji.
+W tym momencie dane uwierzytelniające nowego użytkownika można zatwierdzić i wypchnąć do repozytorium. Każda osoba pracująca z Twoim prywatnym repozytorium będzie mogła pobierać je jako bibliotekę bez uprawnień do edycji samej biblioteki.
 
 ::: important
-Token użytkownika tylko do odczytu jest w pełni dostępny dla każdego, kto ma dostęp do repozytorium gry korzystającej z biblioteki.
+Token użytkownika tylko do odczytu jest w pełni dostępny dla każdego, kto ma dostęp do repozytoriów gry korzystających z tej biblioteki.
 :::
 
-Rozwiązanie to zostało opisane na forum Defold i [przedyskutowane w tym wątku](https://forum.defold.com/t/private-github-for-library-solved/67240).
+To rozwiązanie zostało zaproponowane na forum Defold i [omówione w tym wątku](https://forum.defold.com/t/private-github-for-library-solved/67240).
 
 ## Ustawianie zależności do biblioteki
 
-Otwórz projekt, w którym chcesz korzystać z biblioteki. W ustawieniach projektu dodaj adres URL biblioteki do właściwości *dependencies*. Możesz wskazać wiele projektów zależnych, dodając je jeden po drugim za pomocą przycisku `+` i usuwając przyciskiem `-`:
+Otwórz projekt, z którego chcesz korzystać z biblioteki. W ustawieniach projektu dodaj adres URL biblioteki do właściwości *dependencies*. Możesz wskazać wiele projektów zależnych, dodając je po kolei za pomocą przycisku `+` i usuwając przyciskiem `-`:
 
 ![Dependencies](images/libraries/libraries_dependencies.png)
 
-Potem wybierz <kbd>Project ▸ Fetch Libraries</kbd>, aby zaktualizować zależności biblioteczne. Odbywa się to automatycznie przy otwieraniu projektu, więc będziesz musiał wykonać tę operację tylko wtedy, gdy chcesz odświeżyć zależności bez ponownego otwierania projektu — np. gdy dodasz lub usuniesz bibliotekę albo gdy ktoś zsynchronizuje zmiany w jednej z bibliotek.
+Teraz wybierz <kbd>Project ▸ Fetch Libraries</kbd>, aby zaktualizować zależności biblioteki. Dzieje się to automatycznie przy każdym otwarciu projektu, więc tę operację trzeba wykonać tylko wtedy, gdy zależności zmienią się bez ponownego otwierania projektu. Tak będzie na przykład wtedy, gdy dodasz lub usuniesz bibliotekę zależną albo gdy ktoś zmieni i zsynchronizuje jeden z projektów bibliotek zależnych.
 
 ![Fetch Libraries](images/libraries/libraries_fetch_libraries.png)
 
-Teraz foldery, które udostępniłeś, pojawią się w panelu *Assets* i możesz korzystać z wszystkich zawartych tam zasobów. Wszelkie zsynchronizowane zmiany w projekcie biblioteki będą dostępne w Twoim projekcie.
+Teraz foldery, które udostępniłeś, pojawią się w panelu *Assets* i będziesz mógł korzystać ze wszystkich zawartych tam zasobów. Każda zsynchronizowana zmiana w projekcie biblioteki będzie dostępna w Twoim projekcie.
 
 ![Library setup done](images/libraries/libraries_done.png)
 
 ## Edytowanie plików w zależnościach bibliotek
 
-Pliki z bibliotek nie mogą być zapisane. Możesz wprowadzać zmiany, a edytor uwzględni je podczas budowania, co jest przydatne do testów. Sam plik pozostanie jednak niezmieniony, a wszystkie modyfikacje zostaną odrzucone po jego zamknięciu.
+Plików w bibliotekach nie można zapisać. Możesz wprowadzać zmiany, a edytor będzie mógł budować projekt z uwzględnieniem tych zmian, co bywa przydatne podczas testów. Sam plik pozostanie jednak niezmieniony, a wszystkie modyfikacje zostaną odrzucone po jego zamknięciu.
 
-Jeśli chcesz zmienić pliki biblioteki, utwórz własnego forka i wprowadź zmiany tam. Inną opcją jest skopiowanie całego katalogu biblioteki do katalogu projektu i korzystanie z lokalnej kopii. W takim przypadku lokalny folder zasłoni oryginalną zależność, więc usuń wpis w `game.project` z listy zależności (nie zapomnij potem wybrać <kbd>Project ▸ Fetch Libraries</kbd>).
+Jeśli chcesz zmienić pliki biblioteki, utwórz własnego forka i wprowadź zmiany tam. Inną opcją jest skopiowanie całego folderu biblioteki do katalogu projektu i korzystanie z lokalnej kopii. W takim przypadku lokalny folder zasłoni oryginalną zależność, więc usuń wpis z `game.project` z listy zależności. Nie zapomnij potem wybrać <kbd>Project ▸ Fetch Libraries</kbd>.
 
-`builtins` to też biblioteka dostarczana przez silnik. Jeśli chcesz edytować jej pliki, skopiuj je do projektu i korzystaj z lokalnych kopii zamiast oryginalnych plików `builtins`. Na przykład, aby zmodyfikować `default.render_script`, skopiuj zarówno `/builtins/render/default.render`, jak i `/builtins/render/default.render_script` do katalogu projektu jako `my_custom.render` i `my_custom.render_script`. Następnie edytuj lokalny `my_custom.render`, by odnosił się do `my_custom.render_script` zamiast domyślnego, a w ustawieniach Render w `game.project` ustaw swój `my_custom.render`.
+`builtins` to także biblioteka dostarczana przez silnik. Jeśli chcesz edytować jej pliki, skopiuj je do projektu i używaj lokalnych kopii zamiast oryginalnych plików `builtins`. Na przykład, aby zmodyfikować `default.render_script`, skopiuj zarówno `/builtins/render/default.render`, jak i `/builtins/render/default.render_script` do folderu projektu jako `my_custom.render` i `my_custom.render_script`. Następnie zaktualizuj lokalny `my_custom.render`, aby odwoływał się do `my_custom.render_script` zamiast do wbudowanego pliku, a w ustawieniach Render w `game.project` ustaw swój `my_custom.render`.
 
-Jeśli kopiujesz materiał i chcesz używać go we wszystkich komponentach pewnego typu, przydatne może być użycie [szablonów projektowych `per-project templates`](/manuals/editor/#creating-new-project-files).
+Jeśli skopiujesz materiał i chcesz używać go we wszystkich komponentach danego typu, pomocne mogą być [szablony dla poszczególnych projektów](/manuals/editor/#creating-new-project-files).
 
-## Zepsute zależności
+## Zerwane odwołania
 
-Udostępnianie bibliotek obejmuje tylko pliki znajdujące się w udostępnionych folderach. Jeśli stworzysz coś, co odwołuje się do zasobu spoza tej struktury, ścieżki referencji zostaną zerwane.
+Udostępnianie bibliotek obejmuje tylko pliki znajdujące się w udostępnionych folderach. Jeśli utworzysz coś, co odwołuje się do zasobu poza tą hierarchią, ścieżki odwołań zostaną zerwane.
 
 ## Kolizja nazw
 
-Ponieważ możesz podać wiele adresów URL projektów w polu *dependencies* ustawień projektu, może pojawić się kolizja nazw. Dzieje się tak wtedy, gdy dwie lub więcej zależnych bibliotek zawierają folder o tej samej nazwie w ustawieniu *`include_dirs`*.
+Ponieważ w ustawieniu projektu *dependencies* możesz podać kilka adresów URL projektów, może pojawić się kolizja nazw. Dzieje się tak wtedy, gdy dwa lub więcej projektów zależnych ma folder o tej samej nazwie w ustawieniu *`include_dirs`*.
 
-Defold rozwiązuje kolizje nazw, ignorując wszystko poza ostatnią referencją do folderu o danej nazwie w kolejności, w jakiej podano adresy URL w liście *dependencies*. Na przykład, jeżeli dodasz trzy biblioteki posiadające folder *items* w `include_dirs`, tylko jeden folder *items* będzie dostępny — ten z projektu będącego ostatnim na liście zależności.
+Defold rozwiązuje kolizje nazw, ignorując wszystko poza ostatnim odwołaniem do folderu o danej nazwie w kolejności, w jakiej adresy URL pojawiają się na liście *dependencies*. Na przykład, jeśli na tej liście podasz trzy adresy URL projektów bibliotek i każdy z nich udostępnia folder *items*, tylko jeden folder *items* będzie widoczny---ten należący do projektu, który jest ostatni na liście URL-i.

@@ -1,21 +1,21 @@
 ---
-title: Podręcznik narzędzia Bob do budowania projektów w Defold
-brief: Bob to narzędzie wiersza poleceń do budowania projektów w Defold. Ta instrukcja wyjaśnia, jak korzystać z tego narzędzia.
+title: Podręcznik Boba do budowania projektów w Defold
+brief: Bob to narzędzie wiersza poleceń do budowania projektów w Defold. Ten podręcznik wyjaśnia, jak korzystać z narzędzia.
 ---
 
 # Bob, narzędzie do budowania
 
-Bob to narzędzie wiersza poleceń służące do budowania projektów w Defold poza standardowym przepływem pracy w edytorze.
+Bob to narzędzie wiersza poleceń służące do budowania projektów w Defold poza normalnym przepływem pracy w edytorze.
 
-Bob potrafi budować dane projektu (co odpowiada działaniu <kbd>Project ▸ Build</kbd> w edytorze), tworzyć archiwa danych oraz tworzyć samodzielne, gotowe do dystrybucji pakiety aplikacji (co odpowiada opcjom z menu edytora <kbd>Project ▸ Bundle ▸ ...</kbd>).
+Bob potrafi budować dane projektu (co odpowiada wybraniu w edytorze pozycji <kbd>Project ▸ Build</kbd>), tworzyć archiwa danych oraz tworzyć samodzielne pakiety aplikacji gotowe do dystrybucji (co odpowiada opcjom menu edytora <kbd>Project ▸ Bundle ▸ ...</kbd>).
 
-Bob jest dystrybuowany jako archiwum Java _JAR_ zawierające wszystko, co potrzebne do budowania. Najnowszą wersję *bob.jar* znajdziesz na [stronie wydań GitHub Releases](https://github.com/defold/defold/releases). Wybierz wydanie, a następnie pobierz *bob/bob.jar*. Jeśli używasz Defold 1.12.0 lub nowszego, do uruchomienia potrzebujesz OpenJDK 25. Dla starszych wersji Defold potrzebujesz OpenJDK 21.
+Bob jest dystrybuowany jako archiwum Java _JAR_ zawierające wszystko, czego potrzeba do budowania. Najnowszą wersję *bob.jar* znajdziesz na [stronie wydań GitHub Releases](https://github.com/defold/defold/releases). Wybierz wydanie, a następnie pobierz *bob/bob.jar*. Jeśli używasz Defold 1.12.0 lub nowszego, do uruchomienia potrzebujesz OpenJDK 25. W przypadku starszych wersji Defold potrzebujesz OpenJDK 21.
 
 Zgodne dystrybucje OpenJDK 25 (dla Defold 1.12.0 i nowszego):
 * [OpenJDK 25 firmy Microsoft](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-25)
 * [OpenJDK 25 od Adoptium Working Group](https://github.com/adoptium/temurin25-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
-Jeśli korzystasz z systemu Windows, wybierz instalator `.msi` dla OpenJDK.
+Jeśli korzystasz z systemu Windows, wybierz instalator `.msi` OpenJDK.
 
 ## Użycie
 
@@ -147,7 +147,7 @@ usage: bob [options] [commands]
 Dostępne polecenia:
 
 `clean`
-: Usuwa pliki wygenerowane w katalogu build.
+: Usuwa zbudowane pliki z katalogu build.
 
 `distclean`
 : Usuwa wszystkie pliki z katalogu build.
@@ -156,7 +156,7 @@ Dostępne polecenia:
 : Buduje wszystkie dane projektu. Dodaj opcję `--archive`, aby zbudować archiwum danych (`game.darc` w katalogu build).
 
 `bundle`
-: Tworzy pakiet aplikacji dla konkretnej platformy. Utworzenie pakietu wymaga obecności zbudowanego archiwum (`build` z opcją `--archive`) oraz wskazania platformy docelowej za pomocą opcji `--platform`. Bob tworzy pakiet w katalogu wyjściowym, chyba że podasz inny katalog opcją `--bundle-output`. Nazwa pakietu wynika z ustawienia nazwy projektu w *game.project*. Opcja `--variant` określa, jaki typ pliku wykonywalnego zbudować podczas tworzenia pakietu, a razem z opcją `--strip-executable` zastępuje opcję `--debug`. Jeśli nie podasz `--variant`, otrzymasz wersję `release` silnika, która na Android i iOS jest pozbawiona symboli. Ustawienie `--variant` na `debug` przy pominięciu `--strip-executable` daje ten sam typ pliku wykonywalnego, jaki wcześniej zapewniała opcja `--debug`.
+: Tworzy pakiet aplikacji dla konkretnej platformy. Utworzenie pakietu wymaga zbudowanego archiwum (`build` z opcją `--archive`) oraz wskazania platformy docelowej za pomocą opcji `--platform`. Bob tworzy pakiet w katalogu wyjściowym, chyba że podasz inny katalog za pomocą opcji `--bundle-output`. Nazwa pakietu jest brana z ustawienia nazwy projektu w *game.project*. Opcja `--variant` określa, jaki typ pliku wykonywalnego zbudować podczas tworzenia pakietu, a razem z opcją `--strip-executable` zastępuje opcję `--debug`. Jeśli nie podasz `--variant`, otrzymasz wersję release silnika, która na Android i iOS jest pozbawiona symboli. Ustawienie `--variant` na debug przy pominięciu `--strip-executable` daje ten sam typ pliku wykonywalnego, jaki wcześniej zapewniała opcja `--debug`.
 
 `resolve`
 : Rozwiązuje wszystkie zależności bibliotek zewnętrznych.

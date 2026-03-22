@@ -5,18 +5,18 @@ brief: Ta instrukcja wyjaśnia, jak rozszerzać edytor Defold przy użyciu Lua.
 
 # Skrypty edytora
 
-Możesz tworzyć własne polecenia menu i haki cyklu życia edytora przy użyciu plików Lua ze specjalnym rozszerzeniem `.editor_script`. Dzięki temu mechanizmowi da się dostosować edytor tak, aby usprawnić własny workflow.
+Możesz tworzyć własne pozycje menu i hooki cyklu życia edytora przy użyciu plików Lua ze specjalnym rozszerzeniem `.editor_script`. Dzięki temu mechanizmowi da się dostosować edytor tak, aby usprawnić własny proces pracy.
 
 ## Środowisko uruchomieniowe skryptów edytora
 
-Skrypty edytora działają wewnątrz edytora, w maszynie wirtualnej Lua emulowanej przez JVM. Wszystkie skrypty współdzielą jedno środowisko, więc mogą ze sobą współpracować. Możesz używać modułów Lua przez `require()`, podobnie jak w plikach `.script`, ale wersja Lua uruchamiana w edytorze jest inna, dlatego współdzielony kod musi być z nią zgodny. Edytor używa Lua 5.2.x, a dokładniej środowiska [luaj](https://github.com/luaj/luaj), które obecnie jest jedynym sensownym sposobem uruchamiania Lua na JVM. Poza tym obowiązuje kilka ograniczeń:
+Skrypty edytora działają wewnątrz edytora, w maszynie wirtualnej Lua emulowanej przez JVM. Wszystkie skrypty współdzielą jedno środowisko, więc mogą ze sobą współpracować. Możesz używać modułów Lua przez require, podobnie jak w plikach `.script`, ale wersja Lua uruchamiana w edytorze jest inna, dlatego współdzielony kod musi być z nią zgodny. Edytor używa Lua 5.2.x, a dokładniej środowiska [luaj](https://github.com/luaj/luaj), które obecnie jest jedynym sensownym sposobem uruchamiania Lua na JVM. Poza tym obowiązuje kilka ograniczeń:
 
 - nie ma pakietu `debug`;
 - nie ma `os.execute`, ale dostępna jest podobna funkcja `editor.execute()`;
 - nie ma `os.tmpname` ani `io.tmpfile` — obecnie skrypty edytora mogą uzyskiwać dostęp tylko do plików wewnątrz katalogu projektu;
 - obecnie nie ma `os.rename`, choć planujemy je dodać;
 - nie ma `os.exit` ani `os.setlocale`;
-- w kontekstach, w których edytor potrzebuje natychmiastowej odpowiedzi od skryptu, nie wolno używać niektórych długo działających funkcji; szczegóły znajdziesz w sekcji [Execution modes](#execution-modes).
+- w kontekstach, w których edytor potrzebuje natychmiastowej odpowiedzi od skryptu, nie wolno używać niektórych długo działających funkcji; szczegóły znajdziesz w sekcji [Tryby wykonania](#tryby-wykonania).
 
 Wszystkie rozszerzenia edytora zdefiniowane w skryptach edytora są ładowane podczas otwierania projektu. Gdy pobierasz biblioteki, rozszerzenia są przeładowywane, ponieważ w zależnościach mogą pojawić się nowe skrypty edytora. Podczas takiego przeładowania zmiany w twoich własnych skryptach nie są wykrywane, bo możesz być akurat w trakcie ich edycji. Aby przeładować także je, uruchom polecenie **Project → Reload Editor Scripts**.
 
@@ -42,7 +42,7 @@ end
 return M
 ```
 
-Edytor zbiera wszystkie skrypty edytora zdefiniowane w projekcie i bibliotekach, ładuje je do jednej maszyny Lua i wywołuje wtedy, gdy są potrzebne. Więcej informacji znajdziesz w sekcjach [Commands](#commands) i [Lifecycle hooks](#lifecycle-hooks).
+Edytor zbiera wszystkie skrypty edytora zdefiniowane w projekcie i bibliotekach, ładuje je do jednej maszyny Lua i wywołuje wtedy, gdy są potrzebne. Więcej informacji znajdziesz w sekcjach [Polecenia](#commands) i [Hooki cyklu życia](#lifecycle-hooks).
 
 ## API edytora
 
@@ -64,14 +64,14 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
   - dla emiterów `particlefx`: `modifiers`;
   - dla obiektów kolizji: `shapes` (lista węzłów kształtów kolizji);
   - dla plików GUI: `layers` (lista węzłów warstw);
-  - część właściwości widocznych w panelu `Properties`, gdy w `Outline` coś jest zaznaczone. Obecnie obsługiwane są typy:
+  - część właściwości widocznych w panelu Properties, gdy w Outline coś jest zaznaczone. Obecnie obsługiwane są typy:
     - `strings`
     - `booleans`
     - `numbers`
     - `vec2`/`vec3`/`vec4`
     - `resources`
     - `curves`
-    Niektóre z tych właściwości mogą być tylko do odczytu albo niedostępne w danym kontekście, dlatego przed odczytem użyj `editor.can_get`, a przed zapisem `editor.can_set`. Po najechaniu kursorem na nazwę właściwości w panelu `Properties` zobaczysz podpowiedź z nazwą używaną w skryptach edytora. Właściwości zasobów możesz ustawić na `nil`, przekazując `""`.
+    Niektóre z tych właściwości mogą być tylko do odczytu albo niedostępne w danym kontekście, dlatego przed odczytem użyj `editor.can_get`, a przed zapisem `editor.can_set`. Po najechaniu kursorem na nazwę właściwości w panelu Properties zobaczysz podpowiedź z nazwą używaną w skryptach edytora. Właściwości zasobów możesz ustawić na `nil`, przekazując `""`.
 - `editor.can_get(node_id, property)` — sprawdza, czy odczyt danej właściwości przez `editor.get()` nie zakończy się błędem;
 - `editor.can_set(node_id, property)` — sprawdza, czy krok transakcji `editor.tx.set()` dla tej właściwości nie zakończy się błędem;
 - `editor.create_directory(resource_path)` — tworzy katalog, jeśli nie istnieje, wraz z brakującymi katalogami nadrzędnymi;
@@ -81,13 +81,13 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
 - `editor.save()` — zapisuje wszystkie niezapisane zmiany na dysk;
 - `editor.transact(txs)` — modyfikuje stan edytora w pamięci przy użyciu jednego lub wielu kroków transakcji utworzonych przez `editor.tx.*`;
 - `editor.ui.*` — funkcje związane z interfejsem; szczegóły w [instrukcji UI](/manuals/editor-scripts-ui);
-- `editor.prefs.*` — funkcje do pracy z preferencjami edytora; szczegóły w sekcji [Preferences](#preferences).
+- `editor.prefs.*` — funkcje do pracy z preferencjami edytora; szczegóły w sekcji [Preferencje](#preferences).
 
 Pełne API edytora znajdziesz [tutaj](https://defold.com/ref/alpha/editor/).
 
-## Commands
+## Polecenia
 
-Jeśli moduł skryptu edytora definiuje funkcję `get_commands`, zostanie ona wywołana podczas przeładowywania rozszerzeń, a zwrócone polecenia będą dostępne w pasku menu edytora albo w menu kontekstowych paneli `Assets` i `Outline`. Przykład:
+Jeśli moduł skryptu edytora definiuje funkcję `get_commands`, zostanie ona wywołana podczas przeładowywania rozszerzeń, a zwrócone polecenia będą dostępne w pasku menu edytora albo w menu kontekstowych paneli Assets i Outline. Przykład:
 
 ```lua
 local M = {}
@@ -134,13 +134,13 @@ return M
 Edytor oczekuje, że `get_commands()` zwróci tablicę tabel, z których każda opisuje jedno polecenie. Opis polecenia składa się z:
 
 - `label` (wymagane) — tekst pozycji menu widoczny dla użytkownika;
-- `locations` (wymagane) — tablica zawierająca `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"`, `"Scene"` albo `"Outline"`, określająca, gdzie polecenie ma być dostępne. `"Edit"`, `"View"`, `"Project"` i `"Debug"` oznaczają górny pasek menu, `"Assets"` oznacza menu kontekstowe panelu `Assets`, `"Outline"` oznacza menu kontekstowe panelu `Outline`, a `"Bundle"` oznacza podmenu **Project → Bundle**;
+- `locations` (wymagane) — tablica zawierająca `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"`, `"Scene"` albo `"Outline"`, określająca, gdzie polecenie ma być dostępne. `"Edit"`, `"View"`, `"Project"` i `"Debug"` oznaczają górny pasek menu, `"Assets"` oznacza menu kontekstowe panelu Assets, `"Outline"` oznacza menu kontekstowe panelu Outline, a `"Bundle"` oznacza podmenu **Project → Bundle**;
 - `query` — sposób, w jaki polecenie prosi edytor o potrzebne dane i definiuje, na czym operuje. Dla każdego klucza w tabeli `query` pojawi się odpowiadający klucz w tabeli `opts`, przekazywanej do funkcji `active` i `run`. Obsługiwane klucze:
   - `selection` oznacza, że polecenie działa na aktualnym zaznaczeniu.
     - `type` określa typ zaznaczonych węzłów. Obecnie dozwolone są:
-      - `"resource"` — w `Assets` i `Outline` oznacza zaznaczony element mający odpowiadający mu plik. W pasku menu (`Edit` lub `View`) oznacza aktualnie otwarty plik;
-      - `"outline"` — coś, co może być pokazane w `Outline`. W `Outline` to zaznaczony element, w pasku menu — aktualnie otwarty plik;
-      - `"scene"` — coś, co da się wyrenderować w `Scene`;
+      - `"resource"` — w Assets i Outline oznacza zaznaczony element mający odpowiadający mu plik. W pasku menu (Edit lub View) oznacza aktualnie otwarty plik;
+      - `"outline"` — coś, co może być pokazane w Outline. W Outline to zaznaczony element, w pasku menu — aktualnie otwarty plik;
+      - `"scene"` — coś, co da się wyrenderować w Scene;
     - `cardinality` określa liczbę zaznaczonych elementów. Dla `"one"` callback otrzyma pojedynczy `node_id`, a dla `"many"` — tablicę co najmniej jednego `node_id`;
   - `argument` — argument polecenia. Obecnie tylko polecenia z lokalizacją `"Bundle"` otrzymują argument: `true`, gdy użytkownik jawnie wybrał bundlowanie, i `false` przy rebundle;
 - `id` — identyfikator polecenia, używany na przykład do zapamiętywania ostatnio użytego polecenia bundlowania w `prefs`;
@@ -149,7 +149,7 @@ Edytor oczekuje, że `get_commands()` zwróci tablicę tabel, z których każda 
 
 ### Używanie poleceń do zmiany stanu edytora w pamięci
 
-Wewnątrz `run` możesz odczytywać i zmieniać stan edytora zapisany w pamięci. Odczyt odbywa się przez `editor.get()`, co pozwala pobierać aktualny stan plików i zaznaczenia. Możesz pobrać właściwość `"text"` plików skryptów oraz wybrane właściwości widoczne w panelu `Properties` — najedź kursorem na nazwę właściwości, aby zobaczyć, jak nazywa się w skryptach edytora. Zmiany w stanie edytora wykonuje się przez `editor.transact()`, gdzie grupujesz jedną lub więcej modyfikacji w pojedynczy krok z możliwością cofnięcia. Na przykład polecenie resetujące transformację obiektu gry może wyglądać tak:
+Wewnątrz `run` możesz odczytywać i zmieniać stan edytora zapisany w pamięci. Odczyt odbywa się przez `editor.get()`, co pozwala pobierać aktualny stan plików i zaznaczenia (jeśli używasz `query = {selection = ...}`). Możesz pobrać właściwość `"text"` plików skryptów oraz wybrane właściwości widoczne w panelu Properties — najedź kursorem na nazwę właściwości, aby zobaczyć, jak nazywa się w skryptach edytora. Zmiany w stanie edytora wykonuje się przez `editor.transact()`, gdzie grupujesz jedną lub więcej modyfikacji w pojedynczy krok z możliwością cofnięcia. Na przykład polecenie resetujące transformację obiektu gry może wyglądać tak:
 
 ```lua
 {
@@ -228,7 +228,7 @@ editor.transact({
 
 #### Edycja tilesource
 
-Poza zwykłymi właściwościami z `Outline`, tilesource definiuje jeszcze:
+Poza zwykłymi właściwościami z Outline, tilesource definiuje jeszcze:
 
 - `animations` — listę węzłów animacji tilesource;
 - `collision_groups` — listę węzłów grup kolizji tilesource;
@@ -294,7 +294,7 @@ editor.transact({
 
 #### Edycja particlefx
 
-`particlefx` możesz edytować przez właściwości `modifiers` i `emitters`. Na przykład dodanie emitera kołowego z modyfikatorem przyspieszenia wygląda tak:
+particlefx możesz edytować przez właściwości `modifiers` i `emitters`. Na przykład dodanie emitera kołowego z modyfikatorem przyspieszenia wygląda tak:
 
 ```lua
 editor.transact({
@@ -307,7 +307,7 @@ editor.transact({
 })
 ```
 
-Wiele właściwości `particlefx` to krzywe albo krzywe ze spreadem (czyli krzywa plus losowy rozrzut). Krzywe są reprezentowane jako tabela z niepustą listą `points`, gdzie każdy punkt jest tabelą z właściwościami:
+Wiele właściwości particlefx to krzywe albo krzywe ze spreadem (czyli krzywa plus losowy rozrzut). Krzywe są reprezentowane jako tabela z niepustą listą `points`, gdzie każdy punkt jest tabelą z właściwościami:
 
 - `x` — współrzędna x punktu; powinna zaczynać się od 0 i kończyć na 1;
 - `y` — wartość punktu;
@@ -332,7 +332,7 @@ Oczywiście można też użyć klucza `particle_key_alpha` bezpośrednio w tabel
 
 #### Edycja obiektów kolizji
 
-Poza domyślnymi właściwościami z `Outline` obiekty kolizji definiują listową właściwość `shapes`. Dodawanie nowych kształtów kolizji wygląda tak:
+Poza domyślnymi właściwościami z Outline obiekty kolizji definiują listową właściwość `shapes`. Dodawanie nowych kształtów kolizji wygląda tak:
 
 ```lua
 editor.transact({
@@ -350,7 +350,7 @@ Właściwość `type` kształtu jest wymagana podczas tworzenia i nie można jej
 
 #### Edycja plików GUI
 
-Poza właściwościami z `Outline` pliki GUI definiują:
+Poza właściwościami z Outline pliki GUI definiują:
 
 - `layers` — listę węzłów warstw GUI z możliwością zmiany kolejności;
 - `materials` — listę węzłów materiałów.
@@ -373,7 +373,7 @@ editor.transact({
 })
 ```
 
-Podobnie fonty, materiały, tekstury i `particlefx` są edytowane przez właściwości `fonts`, `materials`, `textures` i `particlefxs`:
+Podobnie fonty, materiały, tekstury i particlefx są edytowane przez właściwości `fonts`, `materials`, `textures` i `particlefxs`:
 
 ```lua
 editor.transact({
@@ -452,7 +452,7 @@ print(editor.can_reset(node_in_template, "text")) -- true (nadpisuje wartość z
 
 #### Edycja obiektów gry
 
-Skrypty edytora potrafią edytować komponenty pliku obiektu gry. Komponenty występują w dwóch wariantach: referencyjne i osadzone. Komponenty referencyjne mają typ `component-reference` i działają jako odwołania do innych zasobów, pozwalając jedynie nadpisywać właściwości `go` zdefiniowane w skryptach. Komponenty osadzone mają typy takie jak `sprite`, `label` itd. i pozwalają edytować wszystkie właściwości właściwe dla danego typu komponentu, a także dodawać podkomponenty, na przykład kształty obiektów kolizji. Przykładowa konfiguracja obiektu gry:
+Skrypty edytora potrafią edytować komponenty pliku obiektu gry. Komponenty występują w dwóch wariantach: referencyjne i osadzone. Komponenty referencyjne mają typ `component-reference` i działają jako odwołania do innych zasobów, pozwalając jedynie nadpisywać właściwości go zdefiniowane w skryptach. Komponenty osadzone mają typy takie jak `sprite`, `label` itd. i pozwalają edytować wszystkie właściwości właściwe dla danego typu komponentu, a także dodawać podkomponenty, na przykład kształty obiektów kolizji. Przykładowa konfiguracja obiektu gry:
 
 ```lua
 editor.transact({
@@ -553,12 +553,12 @@ Wewnątrz `run` możesz zapisywać pliki przy użyciu modułu `io` i uruchamiać
 Ponieważ to polecenie uruchamia program powłoki tylko do odczytu i informuje o tym edytor przez `reload_resources = false`, akcję nadal da się cofnąć.
 
 ::: sidenote
-Jeśli chcesz dystrybuować skrypt edytora jako bibliotekę, możesz chcieć dołączyć binarny program dla platform edytora w ramach zależności. Więcej informacji znajdziesz w sekcji [Editor scripts in libraries](#editor-scripts-in-libraries).
+Jeśli chcesz dystrybuować skrypt edytora jako bibliotekę, możesz chcieć dołączyć binarny program dla platform edytora w ramach zależności. Więcej informacji znajdziesz w sekcji [Skrypty edytora w bibliotekach](#editor-scripts-in-libraries).
 :::
 
-## Lifecycle hooks
+## Hooki cyklu życia
 
-Istnieje specjalnie traktowany plik skryptu edytora: `hooks.editor_script`, umieszczony w katalogu głównym projektu, obok pliku `game.project`. Tylko ten jeden skrypt edytora otrzymuje zdarzenia cyklu życia z edytora. Przykład:
+Istnieje specjalnie traktowany plik skryptu edytora: `hooks.editor_script`, umieszczony w katalogu głównym projektu, obok pliku *game.project*. Tylko ten jeden skrypt edytora otrzymuje zdarzenia cyklu życia z edytora. Przykład:
 
 ```lua
 local M = {}
@@ -572,11 +572,11 @@ end
 return M
 ```
 
-Zdecydowaliśmy się ograniczyć haki cyklu życia do jednego pliku skryptu edytora, ponieważ kolejność wykonywania kroków builda jest ważniejsza niż łatwość dodania kolejnego kroku. Polecenia są od siebie niezależne, więc kolejność wyświetlania ich w menu nie ma większego znaczenia — i tak użytkownik uruchamia konkretne wybrane polecenie. Gdyby haki builda dało się definiować w wielu skryptach edytora, pojawiłby się problem: w jakiej kolejności miałyby działać? Prawdopodobnie chcesz wyliczać sumy kontrolne dopiero po skompresowaniu zawartości. Jeden plik, który jawnie ustala kolejność kroków builda przez wywoływanie odpowiednich funkcji, rozwiązuje ten problem.
+Zdecydowaliśmy się ograniczyć hooki cyklu życia do jednego pliku skryptu edytora, ponieważ kolejność wykonywania kroków builda jest ważniejsza niż łatwość dodania kolejnego kroku. Polecenia są od siebie niezależne, więc kolejność wyświetlania ich w menu nie ma większego znaczenia — i tak użytkownik uruchamia konkretne wybrane polecenie. Gdyby hooki builda dało się definiować w wielu skryptach edytora, pojawiłby się problem: w jakiej kolejności miałyby działać? Prawdopodobnie chcesz wyliczać sumy kontrolne dopiero po skompresowaniu zawartości. Jeden plik, który jawnie ustala kolejność kroków builda przez wywoływanie odpowiednich funkcji, rozwiązuje ten problem.
 
 Istniejące haki cyklu życia, które może zdefiniować `/hooks.editor_script`:
 
-- `on_build_started(opts)` — wywoływany, gdy gra jest budowana do uruchomienia lokalnie albo na zdalnym urządzeniu przez `Project Build` lub `Debug Start`. Twoje zmiany pojawią się w zbudowanej grze. Wyrzucenie błędu z tego haka przerwie build. `opts` to tabela z kluczami:
+- `on_build_started(opts)` — wywoływany, gdy gra jest budowana do uruchomienia lokalnie albo na zdalnym urządzeniu przez Project Build lub Debug Start. Twoje zmiany pojawią się w zbudowanej grze. Wyrzucenie błędu z tego haka przerwie build. `opts` to tabela z kluczami:
   - `platform` — łańcuch w formacie `%arch%-%os%`, opisujący platformę docelową; obecnie zawsze taki sam jak `editor.platform`;
 - `on_build_finished(opts)` — wywoływany po zakończeniu builda, niezależnie od wyniku. `opts` zawiera:
   - `platform` — to samo co w `on_build_started`;
@@ -589,9 +589,9 @@ Istniejące haki cyklu życia, które może zdefiniować `/hooks.editor_script`:
 - `on_target_launched(opts)` — wywoływany, gdy użytkownik uruchomi grę i start zakończy się sukcesem. `opts` zawiera klucz `url` wskazujący uruchomioną usługę silnika, na przykład `"http://127.0.0.1:35405"`;
 - `on_target_terminated(opts)` — wywoływany po zamknięciu uruchomionej gry; otrzymuje taki sam `opts` jak `on_target_launched`.
 
-Pamiętaj, że haki cyklu życia są obecnie funkcją dostępną wyłącznie w edytorze i nie są wykonywane przez Boba podczas bundlowania z wiersza poleceń.
+Pamiętaj, że hooki cyklu życia są obecnie funkcją dostępną wyłącznie w edytorze i nie są wykonywane przez Boba podczas bundlowania z wiersza poleceń.
 
-## Language servers
+## Serwery językowe
 
 Edytor obsługuje podzbiór [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). Docelowo chcemy rozszerzyć obsługę funkcji LSP, ale obecnie edytor potrafi tylko pokazywać diagnostykę (czyli linty) w edytowanych plikach oraz podpowiedzi.
 
@@ -623,7 +623,7 @@ Tabela definicji serwera językowego może zawierać:
 - `command` (wymagane) — tablicę z poleceniem i argumentami;
 - `watched_files` — tablicę tabel z kluczami `pattern` (glob), które będą wyzwalały powiadomienie serwera o [zmianie obserwowanych plików](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles).
 
-## HTTP server
+## Serwer HTTP
 
 Każda uruchomiona instancja edytora ma aktywny serwer HTTP. Można go rozszerzać przy użyciu skryptów edytora. Aby dodać własne endpointy, zdefiniuj funkcję `get_http_server_routes`, która zwróci dodatkowe trasy:
 
@@ -670,7 +670,7 @@ curl 'http://0.0.0.0:12345/my-extension/echo-request?q=1' -X POST --data '{"inpu
 }
 ```
 
-Ścieżka trasy obsługuje wzorce, które można wyłuskać z `request.path` i przekazać do handlera jako część obiektu `request`, na przykład:
+Ścieżka trasy obsługuje wzorce, które można wyłuskać z request path i przekazać do handlera jako część obiektu request, na przykład:
 
 ```lua
 http.server.route("/my-extension/setting/{category}.{key}", function(request)
@@ -695,15 +695,15 @@ end)
 
 Po otwarciu adresu takiego jak `http://0.0.0.0:12345/my-extension/files/main/main.collection` w przeglądarce zobaczysz zawartość pliku `main/main.collection`.
 
-## Editor scripts in libraries
+## Skrypty edytora w bibliotekach
 
 Możesz publikować biblioteki zawierające polecenia dla innych użytkowników, a edytor wykryje je automatycznie. Haki nie mogą być jednak wykrywane automatycznie, bo muszą być zdefiniowane w pliku znajdującym się w katalogu głównym projektu, podczas gdy biblioteki udostępniają tylko podkatalogi. To celowe: użytkownik powinien mieć większą kontrolę nad procesem builda. Nadal możesz definiować haki cyklu życia jako zwykłe funkcje w plikach `.lua`, a użytkownicy biblioteki mogą je potem załadować i wykorzystać w swoim `/hooks.editor_script`.
 
-Warto też pamiętać, że choć zależności są widoczne w `Assets`, nie istnieją jako zwykłe pliki — są wpisami w archiwum zip. Edytor potrafi jednak wypakować wybrane pliki z zależności do katalogu `build/plugins/`. W tym celu utwórz plik `ext.manifest` w katalogu biblioteki, a następnie katalog `plugins/bin/${platform}` obok tego pliku. Zawartość tego katalogu zostanie automatycznie wypakowana do `/build/plugins/${extension-path}/plugins/bin/${platform}`, dzięki czemu skrypty edytora będą mogły się do niej odwoływać.
+Warto też pamiętać, że choć zależności są widoczne w Assets, nie istnieją jako zwykłe pliki — są wpisami w archiwum zip. Edytor potrafi jednak wypakować wybrane pliki z zależności do katalogu `build/plugins/`. W tym celu utwórz plik `ext.manifest` w katalogu biblioteki, a następnie katalog `plugins/bin/${platform}` w tym samym folderze, w którym znajduje się plik `ext.manifest`. Zawartość tego katalogu zostanie automatycznie wypakowana do `/build/plugins/${extension-path}/plugins/bin/${platform}`, dzięki czemu skrypty edytora będą mogły się do niej odwoływać.
 
-## Preferences
+## Preferencje
 
-Skrypty edytora mogą definiować i używać preferencji, czyli trwałych, niecommitowanych danych przechowywanych na komputerze użytkownika. Preferencje mają trzy główne cechy:
+Skrypty edytora mogą definiować i używać preferencji, czyli trwałych, niezatwierdzonych danych przechowywanych na komputerze użytkownika. Preferencje mają trzy główne cechy:
 
 - są typowane: każda preferencja ma definicję schematu zawierającą typ danych i dodatkowe metadane, takie jak wartość domyślna;
 - mają zakres: preferencje są ograniczone albo do projektu, albo do użytkownika;
@@ -746,7 +746,7 @@ editor.prefs.set("my_json_formatter.indent", {
 })
 ```
 
-## Execution modes
+## Tryby wykonania
 
 Środowisko uruchomieniowe skryptów edytora używa dwóch trybów wykonania, które w większości są przezroczyste dla samego skryptu: **immediate** i **long-running**.
 
@@ -754,7 +754,7 @@ Tryb **immediate** jest używany wtedy, gdy edytor potrzebuje odpowiedzi od skry
 
 Tryb **long-running** jest używany wtedy, gdy odpowiedź nie musi być natychmiastowa. Na przykład callbacki `run` poleceń menu działają w trybie **long-running**, więc skrypt może poświęcić więcej czasu na wykonanie zadania.
 
-Niektóre funkcje dostępne dla skryptów edytora mogą wykonywać się długo. Na przykład `editor.execute("git", "status", {reload_resources=false, out="capture"})` może w dużym projekcie działać nawet sekundę. Aby zachować responsywność i wydajność edytora, takich funkcji nie wolno używać w kontekstach wymagających natychmiastowej odpowiedzi. Próba użycia ich w takim kontekście zakończy się błędem: `Cannot use long-running editor function in immediate context`. Rozwiązaniem jest unikanie tych funkcji w trybie `immediate`.
+Niektóre funkcje dostępne dla skryptów edytora mogą wykonywać się długo. Na przykład `editor.execute("git", "status", {reload_resources=false, out="capture"})` może w dużym projekcie działać nawet sekundę. Aby zachować responsywność i wydajność edytora, takich funkcji nie wolno używać w kontekstach wymagających natychmiastowej odpowiedzi. Próba użycia ich w takim kontekście zakończy się błędem: `Cannot use long-running editor function in immediate context`. Rozwiązaniem jest unikanie tych funkcji w trybie immediate.
 
 Za długo działające uznawane są:
 
@@ -762,12 +762,12 @@ Za długo działające uznawane są:
 - `editor.execute()` — uruchamianie poleceń powłoki może zająć nieprzewidywalnie dużo czasu;
 - `editor.transact()` — duże transakcje na szeroko referencjonowanych węzłach mogą trwać setki milisekund, co jest zbyt wolne dla responsywnego UI.
 
-W trybie `immediate` działają:
+W trybie immediate działają:
 
 - callbacki `active` poleceń menu — edytor potrzebuje odpowiedzi w tej samej klatce UI;
 - kod wykonywany na najwyższym poziomie skryptów edytora — sam proces przeładowywania skryptów nie powinien powodować skutków ubocznych.
 
-## Actions
+## Akcje
 
 ::: sidenote
 Wcześniej edytor komunikował się z maszyną Lua w sposób blokujący, więc skrypty edytora nie mogły blokować działania edytora, bo część interakcji była wykonywana z wątku UI. Z tego powodu nie było na przykład `editor.execute()` ani `editor.transact()`. Uruchamianie skryptów i zmiany stanu edytora były wtedy inicjowane przez zwracanie tablicy "actions" z hooków i callbacków `run`.
@@ -779,15 +779,15 @@ Skrypty edytora mogą zwracać tablicę akcji z funkcji `run` poleceń albo z ho
 
 Action to tabela opisująca, co edytor ma zrobić. Każda akcja ma klucz `action`. Akcje występują w dwóch wariantach: z możliwością cofnięcia i bez możliwości cofnięcia.
 
-### Undoable actions
+### Akcje z możliwością cofnięcia
 
 ::: sidenote
 Preferuj używanie `editor.transact()`.
 :::
 
-Undoable action można cofnąć po jej wykonaniu. Jeśli polecenie zwraca kilka akcji tego typu, zostaną wykonane i cofnięte razem. W miarę możliwości warto ich używać, choć są bardziej ograniczone.
+Akcję z możliwością cofnięcia można cofnąć po jej wykonaniu. Jeśli polecenie zwraca kilka akcji tego typu, zostaną wykonane i cofnięte razem. W miarę możliwości warto ich używać, choć są bardziej ograniczone.
 
-Obecnie dostępne undoable actions:
+Obecnie dostępne akcje z możliwością cofnięcia:
 
 - `"set"` — ustawia właściwość węzła w edytorze na wybraną wartość. Przykład:
   ```lua
@@ -803,15 +803,15 @@ Obecnie dostępne undoable actions:
   - `property` — właściwości do ustawienia, na przykład `"text"`;
   - `value` — nowej wartości właściwości. Dla `"text"` powinna to być wartość typu string.
 
-### Non-undoable actions
+### Akcje bez możliwości cofnięcia
 
 ::: sidenote
 Preferuj używanie `editor.execute()`.
 :::
 
-Non-undoable action czyści historię cofania, więc jeśli chcesz ją odwrócić, musisz użyć innych metod, na przykład systemu kontroli wersji.
+Akcja bez możliwości cofnięcia czyści historię cofania, więc jeśli chcesz ją odwrócić, musisz użyć innych metod, na przykład systemu kontroli wersji.
 
-Obecnie dostępne non-undoable actions:
+Obecnie dostępne akcje bez możliwości cofnięcia:
 
 - `"shell"` — uruchamia skrypt powłoki. Przykład:
   ```lua
@@ -825,7 +825,7 @@ Obecnie dostępne non-undoable actions:
   ```
   Akcja `"shell"` wymaga klucza `command`, czyli tablicy z poleceniem i argumentami.
 
-### Mixing actions and side effects
+### Łączenie akcji i efektów ubocznych
 
 Możesz mieszać akcje z możliwością cofnięcia i bez niej. Akcje są wykonywane sekwencyjnie, więc w zależności od kolejności możesz utracić możliwość cofnięcia części polecenia.
 

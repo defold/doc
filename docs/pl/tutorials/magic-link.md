@@ -104,10 +104,10 @@ Istnieje też zestaw obrazów GUI używanych do tworzenia elementów interfejsu,
 
 ## Generowanie planszy
 
-Pierwszym krokiem jest zbudowanie logiki planszy. Plansza będzie znajdować się we własnej kolekcji, która będzie zawierała wszystko, co ma być widoczne na ekranie podczas rozgrywki. Na razie jedyną potrzebną rzeczą są komponent fabryki *blockfactory* i skrypt. Później dodamy fabrykę połączeń, komponenty GUI głównego menu oraz mechanikę ładowania rozpoczynającą grę z poziomu menu głównego i sposób wyjścia z powrotem do menu.
+Pierwszym krokiem jest zbudowanie logiki planszy. Plansza będzie znajdować się we własnej kolekcji, która będzie zawierała wszystko, co ma być widoczne na ekranie podczas rozgrywki. Na razie jedyną potrzebną rzeczą są komponent fabryki blockfactory i skrypt. Później dodamy fabrykę połączeń, komponenty GUI głównego menu oraz mechanikę ładowania rozpoczynającą grę z poziomu menu głównego i sposób wyjścia z powrotem do menu.
 
 1. Utwórz *`board.collection`* w folderze *`main`*. Upewnij się, że jej nazwa to `board`, aby można było się do niej później odwołać. Jeśli dodasz komponent sprite'a tła, ustaw jego pozycję Z na `-1`, bo inaczej nie będzie renderowany za wszystkimi blokami, które utworzymy później.
-2. Tymczasowo ustaw <kbd>Main Collection</kbd> (w sekcji <kbd>Bootstrap</kbd>) w *game.project* na `/main/board.collection`, aby łatwo można było testować.
+2. Tymczasowo ustaw *Main Collection* (w sekcji *Bootstrap*) w *game.project* na `/main/board.collection`, aby łatwo można było testować.
 
 ![Kolekcja planszy](images/magic-link/linker_board_collection.png)
 
@@ -206,9 +206,9 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-1. Zwróć uwagę, że ponieważ grafika bloków nachodzi na siebie, musimy rysować je we właściwej kolejności. Robimy to, ustawiając współrzędną z dla każdego bloku. Wartość pozostanie wyraźnie powyżej `-1`, gdzie mamy sprite tła.
+1. Zwróć uwagę, że ponieważ grafika bloków nachodzi na siebie, musimy rysować je we właściwej kolejności. Robimy to, ustawiając współrzędną z dla każdego bloku. Wartość pozostanie wyraźnie powyżej -1, gdzie mamy sprite tła.
 
-Logika planszy tworzy obiekty gry „block” za pomocą komponentu fabryki „blockfactory”. Aby to działało, musimy zbudować obiekt gry block. Ma on skrypt i sprite. Ustawiamy domyślną animację sprite'a na jedną z kolorowych bloków w *`sprites.atlas`*, a następnie dodajemy kod do *`block.script`*, aby blok przyjmował właściwy kolor po utworzeniu:
+Logika planszy tworzy obiekty gry `block` za pomocą komponentu fabryki `blockfactory`. Aby to działało, musimy zbudować obiekt gry block. Ma on skrypt i sprite. Ustawiamy domyślną animację sprite'a na jedną z kolorowych bloków w *`sprites.atlas`*, a następnie dodajemy kod do *`block.script`*, aby blok przyjmował właściwy kolor po utworzeniu:
 
 ![Obiekt gry block](images/magic-link/linker_block.png)
 
@@ -219,6 +219,68 @@ go.property("color", hash("none"))
 function init(self)
     go.set_scale(0.18)        -- renderuj w pomniejszonej skali
 ```
+
+Ustaw komponent fabryki "blockfactory" jako *Prototype* na nowy plik obiektu gry *block.go*.
+
+![Fabryka block](images/magic-link/linker_blockfactory.png)
+
+Teraz powinieneś być w stanie uruchomić grę i zobaczyć planszę wypełnioną losowo kolorowymi blokami:
+
+![Pierwszy zrzut ekranu](images/magic-link/linker_first_screenshot.png)
+
+## Interakcje
+
+Mamy już planszę, więc czas dodać interakcję użytkownika. Najpierw definiujemy wiązania wejść w pliku *game.input_binding* w folderze *input*. Upewnij się, że ustawienia *game.project* korzystają z tego pliku wiązań wejść.
+
+![Wiązania wejść](images/magic-link/linker_input_bindings.png)
+
+Potrzebujemy tylko jednego wiązania i przypisujemy `MOUSE_BUTTON_LEFT` do nazwy akcji "touch". Ta gra nie korzysta z wielodotyku, a dla wygody Defold tłumaczy jedno-dotykowe wejście na kliknięcia lewym przyciskiem myszy.
+
+Obsługa wejścia spoczywa na planszy, więc musimy dodać odpowiedni kod do *board.script*:
+
+```lua
+-- board.script
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.value == 1 then
+        -- Który blok został dotknięty albo przeciągnięty?
+        local x = math.floor((action.x - edge) / blocksize)
+        local y = math.floor((action.y - bottom_edge) / blocksize)
+
+        if x < 0 or x >= boardwidth or y < 0 or y >= boardheight or self.board[x][y] == nil then
+            -- poza planszą.
+            return
+        end
+
+        if action.pressed then
+            -- Gracz rozpoczął dotyk
+            msg.post(self.board[x][y].id, "make_orange")
+
+            self.dragging = true
+        elseif self.dragging then
+            -- potem przeciąganie
+            msg.post(self.board[x][y].id, "make_green")
+        end
+    elseif action_id == hash("touch") and action.released then
+        -- Gracz puścił dotyk.
+        self.dragging = false
+    end
+end
+```
+
+Wiadomości `make_orange` i `make_green` służą tylko tymczasowo do uzyskania wizualnego potwierdzenia, że kod działa. Musimy dodać obsługę tych wiadomości w *block.script*:
+
+```lua
+-- block.script
+function on_message(self, message_id, message, sender)
+    if message_id == hash("make_orange") then
+        sprite.play_flipbook("#sprite", hash("orange"))
+    elseif message_id == hash("make_green") then
+        sprite.play_flipbook("#sprite", hash("green"))
+    end
+end
+```
+
+Teraz bloki będą najpierw „spryskiwane” wiadomością `make_orange`, a potem wiadomościami `make_green` przez cały czas, gdy trzymasz dotyk (albo przycisk myszy), więc najpewniej bloki tylko migną na pomarańczowo, zanim staną się zielone. Ale przynajmniej wiemy, który blok gracz dotyka! Jeśli chcesz dokładniej prześledzić, jak obsługiwane jest wejście, wstaw do kodu wywołania `print()` albo `pprint()`.
 
 ## Oznaczanie połączeń
 
@@ -392,7 +454,7 @@ local function slide_board(self)
         for y = 0,boardheight - 1 do
             if self.board[x][y] ~= nil then
                 if dy > 0 then
-                    -- Przesuń w dół o `dy` pól
+                    -- Przesuń w dół o dy pól
                     self.board[x][y - dy] = self.board[x][y]
                     self.board[x][y] = nil
                     -- Oblicz nową pozycję
@@ -850,7 +912,7 @@ Teraz można już zagrać i osiągnąć stan zwycięstwa, mimo że na razie nic 
 
 ## Zrzuty
 
-Pomysł z „dropem” polega na dodaniu prostej mechaniki postępu. Gracz może wykonać ograniczoną liczbę „dropów”, które po prostu zrzucają kilka nowych losowych elementów na planszę po naciśnięciu przycisku <kbd>DROP</kbd>. Gracz zaczyna z jednym dropem, a za każdym razem, gdy poziom zostanie ukończony, otrzymuje dodatkowy drop. Kod mechaniki dropów mieści się w dwóch funkcjach. Jedna zwraca listę możliwych miejsc, w których mogą wylądować dropy, a druga wykonuje sam drop wraz z animacją i całym resztą.
+Pomysł z „dropem” polega na dodaniu prostej mechaniki postępu. Gracz może wykonać ograniczoną liczbę „dropów”, które po prostu zrzucają kilka nowych losowych elementów na planszę po naciśnięciu przycisku *DROP*. Gracz zaczyna z jednym dropem, a za każdym razem, gdy poziom zostanie ukończony, otrzymuje dodatkowy drop. Kod mechaniki dropów mieści się w dwóch funkcjach. Jedna zwraca listę możliwych miejsc, w których mogą wylądować dropy, a druga wykonuje sam drop wraz z animacją i całym resztą.
 
 ```lua
 -- plik: board.script
@@ -867,7 +929,7 @@ local function dropspots(self)
             end
         end
     end
-    -- Jeśli miejsc jest więcej niż `dropamount`, losowo usuwaj je, aż zostanie `dropamount`
+    -- Jeśli miejsc jest więcej niż dropamount, losowo usuwaj je, aż zostanie dropamount
     for c = 1, #spots - dropamount do
         table.remove(spots, math.random(#spots))
     end
@@ -910,7 +972,7 @@ end
 
 ## Główne menu
 
-Teraz czas złożyć wszystko w całość. Najpierw utwórzmy ekran startowy i oddzielmy go od planszy. Krok 1 to utworzenie *main_menu.gui* i skonfigurowanie go z przyciskiem <kbd>Start</kbd> (węzeł tekstowy i węzeł prostokątny z teksturą), węzłem tekstowym tytułu oraz kilkoma dekoracyjnymi blokami (węzłami prostokątnymi z teksturą). Skrypt *main_menu.gui_script*, który dołączamy do GUI, animuje dekoracyjne bloki w `init()`. Zawiera też `on_input()`, które wysyła wiadomość `start_game` do głównego skryptu. Za chwilę stworzymy ten skrypt.
+Teraz czas złożyć wszystko w całość. Najpierw utwórzmy ekran startowy i oddzielmy go od planszy. Krok 1 to utworzenie *main_menu.gui* i skonfigurowanie go z przyciskiem *Start* (węzeł tekstowy i węzeł prostokątny z teksturą), węzłem tekstowym tytułu oraz kilkoma dekoracyjnymi blokami (węzłami prostokątnymi z teksturą). Skrypt *main_menu.gui_script*, który dołączamy do GUI, animuje dekoracyjne bloki w `init()`. Zawiera też `on_input()`, które wysyła wiadomość `start_game` do głównego skryptu. Za chwilę stworzymy ten skrypt.
 
 ![GUI głównego menu](images/magic-link/linker_main_menu.png)
 
@@ -968,11 +1030,11 @@ function init(self)
 end
 ```
 
-Główny skrypt będzie przechowywał ogólny stan gry i uruchamiał grę na żądanie. Chcemy tu sprawić, aby *main.collection* zawierała tylko minimalną liczbę zasobów potrzebnych do wyświetlenia ekranu startowego. Robimy to, umieszczając w *main.collection* obiekt gry „main”, który zawiera GUI głównego menu, komponent skryptu oraz, co najważniejsze, komponent pełnomocnika kolekcji (<kbd>Collection Proxy</kbd>).
+Główny skrypt będzie przechowywał ogólny stan gry i uruchamiał grę na żądanie. Chcemy tu sprawić, aby *main.collection* zawierała tylko minimalną liczbę zasobów potrzebnych do wyświetlenia ekranu startowego. Robimy to, umieszczając w *main.collection* obiekt gry „main”, który zawiera GUI głównego menu, komponent skryptu oraz, co najważniejsze, komponent pełnomocnika kolekcji (*Collection Proxy*).
 
 Pełnomocnik kolekcji pozwala dynamicznie ładować i odłączać kolekcje w uruchomionej grze. Działa on w imieniu wskazanego pliku kolekcji, a dynamiczną kolekcję ładujemy, inicjalizujemy, włączamy, wyłączamy i odłączamy, wysyłając wiadomości do proxy. Pełny opis użycia znajdziesz w [dokumentacji Collection Proxy](/manuals/collection-proxy).
 
-W naszym przypadku ustawiamy właściwość <kbd>Collection</kbd> komponentu <kbd>Collection Proxy</kbd> na *board.collection*, która zawiera „level”.
+W naszym przypadku ustawiamy właściwość *Collection* komponentu Collection Proxy na *board.collection*, która zawiera „level”.
 
 ![Główna kolekcja](images/magic-link/linker_main_collection.png)
 
@@ -980,7 +1042,7 @@ Powinniśmy teraz otworzyć *game.project* i zmienić bootstrap *main_collection
 
 ![Bootstrap głównej kolekcji](images/magic-link/linker_bootstrap_main.png)
 
-Od tej pory uruchomienie gry oznacza wysłanie wiadomości do naszego <kbd>Collection Proxy</kbd>, aby załadował, zainicjalizował i włączył planszę, a następnie wyłączył główne menu, żeby nie było widoczne. Powrót do głównego menu działa odwrotnie, o ile proxy załadował już kolekcję.
+Od tej pory uruchomienie gry oznacza wysłanie wiadomości do naszego Collection Proxy, aby załadował, zainicjalizował i włączył planszę, a następnie wyłączył główne menu, żeby nie było widoczne. Powrót do głównego menu działa odwrotnie, o ile proxy załadował już kolekcję.
 
 ```lua
 -- plik: main.script
@@ -1013,11 +1075,11 @@ end
 
 ## GUI w grze
 
-Zanim dodamy ostatni fragment logiki do skryptu planszy, powinniśmy dodać zestaw elementów GUI do planszy. Najpierw, nad planszą, dodajemy przycisk <kbd>RESTART</kbd> i przycisk <kbd>DROP</kbd>.
+Zanim dodamy ostatni fragment logiki do skryptu planszy, powinniśmy dodać zestaw elementów GUI do planszy. Najpierw, nad planszą, dodajemy przycisk *RESTART* i przycisk *DROP*.
 
 ![GUI planszy](images/magic-link/linker_board_gui.png)
 
-Skrypt GUI planszy wysyła wiadomości do elementu dialogu restartu po kliknięciu oraz do samego skryptu planszy po kliknięciu <kbd>DROP</kbd>:
+Skrypt GUI planszy wysyła wiadomości do elementu dialogu restartu po kliknięciu oraz do samego skryptu planszy po kliknięciu *DROP*:
 
 ```lua
 -- plik: board.gui_script
@@ -1049,9 +1111,12 @@ function on_input(self, action_id, action)
             msg.post("#", "hide")
         elseif gui.pick_node(drop, action.x, action.y) then
             msg.post("/board#script", "drop")
+        end
+    end
+end
 ```
 
-Dialog <kbd>RESTART</kbd> jest prosty. Budujemy go jako *restart.gui* i dołączamy prosty skrypt, który nie robi nic, jeśli gracz kliknie <kbd>NO</kbd>, wysyła wiadomość `restart_level` do skryptu planszy, jeśli gracz kliknie <kbd>YES</kbd>, oraz wiadomość `to_main_menu` do skryptu głównego, jeśli gracz kliknie <kbd>Quit to main menu</kbd>:
+Dialog *RESTART* jest prosty. Budujemy go jako *restart.gui* i dołączamy prosty skrypt, który nie robi nic, jeśli gracz kliknie *NO*, wysyła wiadomość `restart_level` do skryptu planszy, jeśli gracz kliknie *YES*, oraz wiadomość `to_main_menu` do skryptu głównego, jeśli gracz kliknie *Quit to main menu*:
 
 ![GUI restartu](images/magic-link/linker_restart_gui.png)
 
@@ -1090,7 +1155,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-Tworzymy też prosty dialog GUI informujący o ukończeniu poziomu w *level_complete.gui* z prostym skryptem, który wysyła wiadomość `next_level` do skryptu planszy, gdy gracz kliknie <kbd>CONTINUE</kbd>:
+Tworzymy też prosty dialog GUI informujący o ukończeniu poziomu w *level_complete.gui* z prostym skryptem, który wysyła wiadomość `next_level` do skryptu planszy, gdy gracz kliknie *CONTINUE*:
 
 ![Dialog ukończenia poziomu](images/magic-link/linker_level_complete_gui.png)
 
@@ -1181,19 +1246,19 @@ Na koniec dodajemy te komponenty GUI do *board.collection* i dopisujemy potrzebn
 Potrzebujemy kodu dla wszystkich wiadomości wysyłanych do i z planszy w `on_message()`.
 
 `start_level`
-: Ustaw liczbę magicznych bloków zgodnie z parametrem trudności, zbuduj planszę, a następnie pokaż dialog GUI `present_level` na 2 sekundy przed rozpoczęciem gry, po czym usuń dialog i przechwyć wejście. Zwróć uwagę, że używamy `go.animate()` jako timera, animując wartość `timer`, która nie jest używana do niczego innego.
+: Ustaw liczbę magicznych bloków zgodnie z parametrem trudności, zbuduj planszę, a następnie pokaż dialog GUI present_level na 2 sekundy przed rozpoczęciem gry, po czym usuń dialog i przechwyć wejście. Zwróć uwagę, że używamy `go.animate()` jako timera, animując wartość timer, która nie jest używana do niczego innego.
 
 `restart_level`
-: To dzieje się, gdy gracz naciska i potwierdza przycisk GUI <kbd>RESTART</kbd>. Wyczyść i przebuduj planszę oraz zresetuj licznik dropów.
+: To dzieje się, gdy gracz naciska i potwierdza przycisk GUI *RESTART*. Wyczyść i przebuduj planszę oraz zresetuj licznik dropów.
 
 `level_completed`
-: Wysyłana natychmiast po wejściu planszy w stan zwycięstwa. Wyłącz wejście, animuj magiczne bloki i pokaż dialog GUI `level_complete`. Dialog odeśle wiadomość `next_level`, gdy gracz kliknie przycisk <kbd>CONTINUE</kbd>.
+: Wysyłana natychmiast po wejściu planszy w stan zwycięstwa. Wyłącz wejście, animuj magiczne bloki i pokaż dialog GUI level_complete. Dialog odeśle wiadomość `next_level`, gdy gracz kliknie przycisk *CONTINUE*.
 
 `next_level`
 : Gdy ta wiadomość zostanie odebrana, wyczyść planszę, zwiększ licznik dropów i wyślij `start_level` z ustawionym kolejnym poziomem trudności.
 
 `drop`
-: Sprawdź, gdzie można wykonać drop. Jeśli nie ma żadnych możliwych miejsc, pokaż dialog GUI `no_drop_room`, w przeciwnym razie wykonaj drop, jeśli gracz ma jeszcze dostępne dropy, zmniejsz licznik dropów i zaktualizuj wizualną reprezentację licznika.
+: Sprawdź, gdzie można wykonać drop. Jeśli nie ma żadnych możliwych miejsc, pokaż dialog GUI no_drop_room, w przeciwnym razie wykonaj drop, jeśli gracz ma jeszcze dostępne dropy, zmniejsz licznik dropów i zaktualizuj wizualną reprezentację licznika.
 
 ```lua
 -- plik: board.script
@@ -1247,3 +1312,20 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
+
+To tyle! Gra i cały samouczek są już ukończone. Miłej zabawy przy graniu!
+
+![Ukończona gra](images/magic-link/linker_game_finished.png)
+
+## Co dalej
+
+Ta mała gra ma kilka ciekawych właściwości i zachęcamy do eksperymentowania z nią. Oto lista ćwiczeń, które pomogą Ci lepiej poznać Defold:
+
+* Doprecyzuj interakcję. Nowy gracz może mieć trudność ze zrozumieniem, jak działa gra i z czym może wchodzić w interakcję. Poświęć trochę czasu na to, aby gra była czytelniejsza, bez dodawania elementów samouczka.
+* Dodaj dźwięki. Gra jest obecnie całkowicie niema i skorzystałaby z dobrego podkładu muzycznego oraz dźwięków interakcji.
+* Automatycznie wykrywaj koniec gry.
+* Wyniki najwyższe. Dodaj trwałą funkcję zapisywania najlepszego wyniku.
+* Zaimplementuj grę ponownie, używając wyłącznie API GUI.
+* Obecnie gra przechodzi dalej, dodając jeden magiczny blok przy każdym wzroście poziomu. To nie jest rozwiązanie, które da się stosować bez końca. Znajdź satysfakcjonujące rozwiązanie tego problemu.
+* Zoptymalizuj grę i zmniejsz maksymalną liczbę sprite'ów, ponownie wykorzystując sprite'y zamiast je usuwać i tworzyć od nowa.
+* Zaimplementuj renderowanie niezależne od rozdzielczości, aby gra wyglądała równie dobrze na ekranach o różnych rozdzielczościach i proporcjach.

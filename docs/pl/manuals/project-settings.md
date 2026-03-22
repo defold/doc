@@ -1,19 +1,19 @@
 ---
-title: Ustawienia projektu
-brief: Ta instrukcja opisuje, jak działają ustawienia specyficzne dla projektu w silniku Defold.
+title: Ustawienia projektu Defold
+brief: Ta instrukcja opisuje, jak działają ustawienia specyficzne dla projektu w Defold.
 ---
 
 # Ustawienia projektu
 
-Plik *game.project* zawiera wszystkie ustawienia obowiązujące w całym projekcie. Musi znajdować się w katalogu głównym projektu i musi mieć nazwę *game.project*. Jedną z pierwszych czynności wykonywanych przez silnik podczas uruchamiania gry jest odnalezienie właśnie tego pliku.
+Plik *game.project* zawiera wszystkie ustawienia obowiązujące w całym projekcie. Musi znajdować się w katalogu głównym projektu i musi mieć nazwę *game.project*. Pierwszą rzeczą, jaką silnik robi podczas uruchamiania gry, jest odszukanie tego pliku.
 
-Każde ustawienie w tym pliku należy do określonej kategorii. Po otwarciu pliku Defold wyświetla ustawienia pogrupowane według kategorii.
+Każde ustawienie w tym pliku należy do kategorii. Po otwarciu pliku Defold prezentuje wszystkie ustawienia pogrupowane według kategorii.
 
-![Project settings](images/project-settings/settings.jpg)
+![Ustawienia projektu](images/project-settings/settings.jpg)
 
-## File format
+## Format pliku
 
-Ustawienia w *game.project* najczęściej zmienia się bezpośrednio w Defold, ale sam plik można też edytować w dowolnym zwykłym edytorze tekstu. Plik używa formatu INI i wygląda następująco:
+Ustawienia w *game.project* zwykle zmienia się z poziomu Defold, ale plik można też edytować w dowolnym standardowym edytorze tekstu. Plik używa standardowego formatu INI i wygląda tak:
 
 ```ini
 [category1]
@@ -23,18 +23,18 @@ setting2 = value
 ...
 ```
 
-Rzeczywisty przykład:
+Prawdziwy przykład:
 
 ```ini
 [bootstrap]
 main_collection = /main/main.collectionc
 ```
 
-oznacza, że ustawienie *main_collection* należy do kategorii *bootstrap*. Gdy używasz odwołania do pliku, jak w powyższym przykładzie, ścieżka musi kończyć się literą `c`, co oznacza odwołanie do skompilowanej wersji pliku. Zwróć też uwagę, że katalog zawierający *game.project* jest katalogiem głównym projektu, dlatego ścieżka ustawienia zaczyna się od `/`.
+co oznacza, że ustawienie *main_collection* należy do kategorii *bootstrap*. Gdy używasz odwołania do pliku, jak w powyższym przykładzie, ścieżka musi zostać zakończona literą 'c', co oznacza odwołanie do skompilowanej wersji pliku. Zwróć też uwagę, że katalog zawierający *game.project* jest katalogiem głównym projektu, dlatego ścieżka ustawienia zaczyna się od /.
 
-## Runtime access
+## Dostęp w czasie działania
 
-Każdą wartość z *game.project* można odczytać w czasie działania za pomocą funkcji [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) i [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Przykład:
+Każdą wartość z *game.project* można odczytać w czasie działania za pomocą funkcji [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) i [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Przykłady:
 
 ```lua
 local title = sys.get_config_string("project.title")
@@ -42,10 +42,10 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 ```
 
 ::: sidenote
-Klucz składa się z nazwy kategorii i nazwy ustawienia, oddzielonych kropką, zapisanych małymi literami, a spacje zastępuje się znakami podkreślenia. Przykładowo pole `Title` z kategorii `Project` staje się `project.title`, a `Gravity Y` z kategorii `Physics` staje się `physics.gravity_y`.
+Klucz jest połączeniem nazwy kategorii i nazwy ustawienia, oddzielonych kropką, zapisanym małymi literami, a spacje zastępuje się znakami podkreślenia. Na przykład pole "Title" z kategorii "Project" staje się `project.title`, a pole "Gravity Y" z kategorii "Physics" staje się `physics.gravity_y`.
 :::
 
-## Sections and settings
+## Sekcje i ustawienia
 
 Poniżej znajdują się wszystkie dostępne ustawienia, uporządkowane według kategorii.
 
@@ -66,9 +66,9 @@ Nazwa dewelopera.
 #### Write Log File
 Określa, kiedy silnik zapisuje plik logu. Dostępne opcje:
 
-- `Never`: nie zapisuj pliku logu
-- `Debug`: zapisuj plik logu tylko dla buildów Debug
-- `Always`: zapisuj plik logu zarówno dla buildów Debug, jak i Release
+- "Never": nie zapisuj pliku logu.
+- "Debug": zapisuj plik logu tylko dla buildów Debug.
+- "Always": zapisuj plik logu zarówno dla buildów Debug, jak i Release.
 
 Jeśli uruchamiasz z edytora więcej niż jedną instancję, plik będzie miał nazwę *instance_2_log.txt*, gdzie `2` oznacza indeks instancji. Przy pojedynczej instancji lub uruchomieniu z bundla plik będzie miał nazwę *log.txt*. Lokalizacja pliku logu będzie jedną z poniższych ścieżek, sprawdzanych w tej kolejności:
 
@@ -94,11 +94,15 @@ Lista adresów URL do projektów będących *Library URL*. Więcej informacji zn
 
 #### Custom Resources
 `custom_resources`
-: Zasoby dołączane do głównego archiwum gry przez pole *Custom Resources* w *game.project*. Więcej o ich ładowaniu znajdziesz w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
+:[Zasoby niestandardowe](../shared/custom-resources.md)
+
+Ładowanie zasobów niestandardowych opisano dokładniej w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
 #### Bundle Resources
 `bundle_resources`
-: Dodatkowe pliki i katalogi dołączane bezpośrednio do bundla aplikacji przez pole *Bundle Resources* w *game.project*. Więcej o ich użyciu znajdziesz w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
+:[Zasoby bundla](../shared/bundle-resources.md)
+
+Ładowanie zasobów bundla opisano dokładniej w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
 
 #### Bundle Exclude Resources
 `bundle_exclude_resources`
@@ -109,7 +113,7 @@ Lista zasobów rozdzielonych przecinkami, które nie powinny zostać dołączone
 ### Bootstrap
 
 #### Main Collection
-Odwołanie do pliku kolekcji używanej przy uruchamianiu aplikacji. Domyślnie `/logic/main.collection`.
+Odwołanie do pliku kolekcji używanej do uruchamiania aplikacji. Domyślnie `/logic/main.collection`.
 
 #### Render
 Plik konfiguracji renderowania definiujący pipeline renderowania. Domyślnie `/builtins/render/default.render`.
@@ -152,22 +156,22 @@ Szerokość okna aplikacji w pikselach.
 Wysokość okna aplikacji w pikselach.
 
 #### High Dpi
-Tworzy bufor o wysokim DPI na wyświetlaczach, które to wspierają. Zwykle gra będzie renderowana w rozdzielczości dwukrotnie wyższej od ustawień *Width* i *Height*, ale wartości te nadal pozostaną logiczną rozdzielczością używaną w skryptach i właściwościach.
+Tworzy bufor o wysokim DPI na wyświetlaczach, które to obsługują. Zwykle gra będzie renderowana w rozdzielczości dwukrotnie wyższej od ustawień *Width* i *Height*, ale nadal będzie to logiczna rozdzielczość używana w skryptach i właściwościach.
 
 #### Samples
-Liczba próbek używanych do supersamplingu antyaliasingu. Ustawia wartość podpowiedzi okna `GLFW_FSAA_SAMPLES`. Wartość `0` wyłącza antyaliasing.
+Liczba próbek używanych do supersamplingu antyaliasingu. Ustawia wartość podpowiedzi okna GLFW_FSAA_SAMPLES. Wartość `0` wyłącza antyaliasing.
 
 #### Fullscreen
 Zaznacz, jeśli aplikacja ma startować w trybie pełnoekranowym. Gdy pole nie jest zaznaczone, aplikacja uruchomi się w oknie.
 
 #### Update Frequency
-Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw `0`, aby używać zmiennej liczby klatek. Wartość większa od `0` powoduje użycie stałej liczby klatek ograniczanej w czasie działania do rzeczywistej częstotliwości, co oznacza, że pętla gry nie może zostać wykonana dwa razy w ramach jednej klatki silnika. Wartość można zmieniać w czasie działania funkcją [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency). To ustawienie działa także w buildach headless.
+Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw 0, aby używać zmiennej liczby klatek. Wartość większa od 0 powoduje użycie stałej liczby klatek ograniczanej w czasie działania do rzeczywistej częstotliwości, co oznacza, że pętla gry nie może zostać wykonana dwa razy w ramach jednej klatki silnika. Wartość można zmieniać w czasie działania funkcją [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency). To ustawienie działa także w buildach headless.
 
 #### Swap interval
-Ta liczba całkowita steruje sposobem obsługi vsync. `0` wyłącza vsync, a wartością domyślną jest `1`. Przy adapterze OpenGL wartość określa liczbę klatek pomiędzy [zamianami buforów](https://www.khronos.org/opengl/wiki/Swap_Interval). W przypadku Vulkana nie istnieje wbudowane pojęcie swap interval, więc wartość określa po prostu, czy vsync ma być włączony.
+Ta liczba całkowita steruje sposobem obsługi vsync. 0 wyłącza vsync, a wartością domyślną jest 1. Przy adapterze OpenGL wartość określa liczbę klatek pomiędzy [zamianami buforów](https://www.khronos.org/opengl/wiki/Swap_Interval). W przypadku Vulkana nie istnieje wbudowane pojęcie swap interval, więc wartość określa po prostu, czy vsync ma być włączony.
 
 #### Vsync
-Polegaj na sprzętowym vsync przy wyznaczaniu czasu klatki. To ustawienie może zostać nadpisane przez sterownik graficzny lub specyfikę platformy. Aby uzyskać przestarzałe zachowanie `variable_dt`, odznacz tę opcję i ustaw limit liczby klatek na `0`.
+Polegaj na sprzętowym vsync przy wyznaczaniu czasu klatki. To ustawienie może zostać nadpisane przez sterownik graficzny lub specyfikę platformy. Aby uzyskać przestarzałe zachowanie 'variable_dt', odznacz tę opcję i ustaw limit liczby klatek na 0.
 
 #### Display Profiles
 Określa plik profili wyświetlania, którego należy użyć. Domyślnie `/builtins/render/default.display_profilesc`. Więcej informacji znajdziesz w [instrukcji GUI Layouts](/manuals/gui-layouts/#creating-display-profiles).
@@ -183,23 +187,23 @@ Wypisuje informacje o GPU do konsoli podczas uruchamiania.
 ### Render
 
 #### Clear Color Red
-Składowa czerwona koloru czyszczenia, używana przez skrypt renderujący i przy tworzeniu okna.
+Czerwony kanał koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
 
 #### Clear Color Green
-Składowa zielona koloru czyszczenia, używana przez skrypt renderujący i przy tworzeniu okna.
+Zielony kanał koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
 
 #### Clear Color Blue
-Składowa niebieska koloru czyszczenia, używana przez skrypt renderujący i przy tworzeniu okna.
+Niebieski kanał koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
 
 #### Clear Color Alpha
-Składowa alfa koloru czyszczenia, używana przez skrypt renderujący i przy tworzeniu okna.
+Kanał alfa koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
 
 ---
 
 ### Font
 
 #### Runtime Generation
-Włącz generowanie fontów w czasie działania.
+Używa generowania fontów w czasie działania.
 
 ---
 
@@ -288,7 +292,7 @@ Maksymalna liczba partii tekstu, które można wyświetlić w każdej klatce.
 Maksymalna liczba wierzchołków debugowania. Używana między innymi do renderowania kształtów fizyki.
 
 #### Texture Profiles
-Plik profili teksturowania używany przez projekt. Domyślnie `/builtins/graphics/default.texture_profiles`.
+Plik profili teksturowania używany przez projekt, domyślnie `/builtins/graphics/default.texture_profiles`.
 
 #### Verify Graphics Calls
 Sprawdza wartość zwrotną po każdym wywołaniu grafiki i raportuje błędy w logu.
@@ -297,7 +301,7 @@ Sprawdza wartość zwrotną po każdym wywołaniu grafiki i raportuje błędy w 
 Podpowiedź dotycząca wersji kontekstu OpenGL. Jeśli wybierzesz konkretną wersję, będzie ona używana jako minimalnie wymagana wersja. Nie dotyczy OpenGL ES.
 
 #### OpenGL Core Profile Hint
-Ustawia podpowiedź profilu `core` podczas tworzenia kontekstu. Profil core usuwa wszystkie przestarzałe funkcje OpenGL, takie jak renderowanie w trybie immediate. Nie dotyczy OpenGL ES.
+Ustawia podpowiedź profilu 'core' podczas tworzenia kontekstu. Profil core usuwa wszystkie przestarzałe funkcje OpenGL, takie jak renderowanie w trybie immediate. Nie dotyczy OpenGL ES.
 
 ---
 
@@ -390,7 +394,7 @@ Maksymalna liczba jednoczesnych instancji dźwięku, czyli rzeczywistych dźwię
 Maksymalna liczba komponentów dźwięku w jednej kolekcji.
 
 #### Sample Frame Count
-Liczba próbek używanych przy każdej aktualizacji audio. `0` oznacza tryb automatyczny (`1024` dla 48 kHz, `768` dla 44.1 kHz).
+Liczba próbek używanych przy każdej aktualizacji audio. 0 oznacza tryb automatyczny (1024 dla 48 kHz, 768 dla 44.1 kHz).
 
 #### Use Thread
 Po zaznaczeniu system dźwięku używa wątków do odtwarzania audio, aby zmniejszyć ryzyko zacięć, gdy główny wątek jest mocno obciążony.
@@ -399,7 +403,7 @@ Po zaznaczeniu system dźwięku używa wątków do odtwarzania audio, aby zmniej
 Po zaznaczeniu system dźwięku używa streamingu do ładowania plików źródłowych.
 
 #### Stream Cache Size
-Maksymalny rozmiar cache fragmentów dźwięku zawierającego *wszystkie* fragmenty. Domyślnie `2097152` bajty. Ta wartość powinna być większa niż liczba załadowanych plików dźwiękowych pomnożona przez rozmiar fragmentu streamingu, w przeciwnym razie nowe fragmenty mogą być usuwane z cache w każdej klatce.
+Maksymalny rozmiar cache fragmentów dźwięku zawierającego wszystkie fragmenty. Domyślnie `2097152` bajty. Ta wartość powinna być większa niż liczba załadowanych plików dźwiękowych pomnożona przez rozmiar fragmentu streamingu. W przeciwnym razie nowe fragmenty mogą być usuwane z cache w każdej klatce.
 
 #### Stream Chunk Size
 Rozmiar w bajtach każdego fragmentu ładowanego strumieniowo.
@@ -529,37 +533,37 @@ Maksymalna liczba fabryk obiektów gry. Zobacz też informacje o [optymalizacji 
 ### iOS
 
 #### App Icon 57x57--180x180
-Plik obrazu `.png` używany jako ikona aplikacji dla podanych wymiarów `W` &times; `H`.
+Plik obrazu .png używany jako ikona aplikacji dla podanych wymiarów `W` &times; `H`.
 
 #### Launch Screen
-Plik storyboard `.storyboard`. Więcej informacji o jego tworzeniu znajdziesz w [instrukcji iOS](/manuals/ios/#creating-a-storyboard).
+Plik storyboard .storyboard. Więcej informacji o tworzeniu storyboardu znajdziesz w [instrukcji iOS](/manuals/ios/#creating-a-storyboard).
 
 #### Icons Asset
-Plik zasobu ikon `.car` zawierający ikony aplikacji.
+Plik zasobu ikon .car zawierający ikony aplikacji.
 
 #### Prerendered Icons
-(iOS 6 i starsze) Zaznacz, jeśli ikony są prerenderowane. Gdy to pole nie jest zaznaczone, system automatycznie doda błyszczące podświetlenie.
+(iOS 6 i starsze) Zaznacz, jeśli ikony są prerenderowane. Gdy to pole nie jest zaznaczone, ikony zostaną automatycznie wzbogacone o błyszczący efekt.
 
 #### Bundle Identifier
-Identyfikator bundla pozwalający iOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (`-`). Zobacz [`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
+Identyfikator bundla pozwalający iOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (-). Zobacz [`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
 
 #### Bundle Name
 Krótka nazwa bundla, maksymalnie 15 znaków. Zobacz [`CFBundleName`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
 
 #### Bundle Version
-Wersja bundla zapisana jako liczba albo `x.y.z`. Zobacz [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
+Wersja bundla zapisana jako liczba albo x.y.z. Zobacz [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
 
 #### Info.plist
 Jeśli ustawiono, podczas bundlowania aplikacji zostanie użyty wskazany plik *`info.plist`*.
 
 #### Privacy Manifest
-Apple Privacy Manifest dla aplikacji. Domyślną wartością pola jest `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
+Apple Privacy Manifest dla aplikacji. Domyślna wartość pola to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
 
 #### Custom Entitlements
 Jeśli ustawiono, uprawnienia z dostarczonego profilu provisioning (`.entitlements`, `.xcent`, `.plist`) zostaną połączone z uprawnieniami z profilu provisioning podanego podczas bundlowania aplikacji.
 
 #### Default Language
-Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
+Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli preferowany język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
 
 #### Localizations
 Pole zawierające oddzielone przecinkami ciągi identyfikujące nazwę języka lub oznaczenie ISO dla obsługiwanych lokalizacji. Zobacz [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552).
@@ -569,10 +573,10 @@ Pole zawierające oddzielone przecinkami ciągi identyfikujące nazwę języka l
 ### Android
 
 #### App Icon 36x36--192x192
-Plik obrazu `.png` używany jako ikona aplikacji dla podanych wymiarów `W` &times; `H`.
+Plik obrazu .png używany jako ikona aplikacji dla podanych wymiarów `W` &times; `H`.
 
 #### Push Icon Small--LargeXxxhdpi
-Pliki obrazów `.png` używane jako własne ikony powiadomień push na Androidzie. Ikony będą automatycznie używane zarówno dla powiadomień lokalnych, jak i zdalnych. Jeśli nie są ustawione, domyślnie używana będzie ikona aplikacji.
+Pliki obrazów .png używane jako własne ikony powiadomień push na Androidzie. Ikony będą automatycznie używane zarówno dla powiadomień lokalnych, jak i zdalnych. Jeśli nie są ustawione, domyślnie używana będzie ikona aplikacji.
 
 #### Push Field Title
 Określa, które pole JSON z payloadu ma zostać użyte jako tytuł powiadomienia. Jeśli pole jest puste, jako tytuł używana jest nazwa aplikacji.
@@ -608,7 +612,7 @@ Określa, którego sklepu używać. Poprawne wartości to `Amazon` i `GooglePlay
 Określa metodę pobierania wejścia z klawiatury na urządzeniach z Androidem. Poprawne wartości to `KeyEvent` (stara metoda) oraz `HiddenInputField` (nowa).
 
 #### Immersive Mode
-Po włączeniu ukrywa pasek nawigacji i pasek statusu oraz pozwala aplikacji przechwytywać wszystkie zdarzenia dotyku na ekranie.
+Po włączeniu ukrywa pasek nawigacji i pasek stanu oraz pozwala aplikacji przechwytywać wszystkie zdarzenia dotyku na ekranie.
 
 #### Display Cutout
 Pozwala rozszerzyć obraz na obszar wycięcia ekranu.
@@ -627,19 +631,19 @@ Określa, czy instalator pakietu ma rozpakowywać biblioteki natywne z APK do sy
 ### macOS
 
 #### App Icon
-Plik ikony bundla `.icns` używany jako ikona aplikacji w macOS.
+Plik ikony bundla .icns używany jako ikona aplikacji w macOS.
 
 #### Info.plist
-Jeśli ustawiono, podczas bundlowania zostanie użyty wskazany plik `info.plist`.
+Jeśli ustawiono, podczas bundlowania zostanie użyty wskazany plik info.plist.
 
 #### Privacy Manifest
-Apple Privacy Manifest dla aplikacji. Domyślną wartością pola jest `/builtins/manifests/osx/PrivacyInfo.xcprivacy`.
+Apple Privacy Manifest dla aplikacji. Domyślna wartość pola to `/builtins/manifests/osx/PrivacyInfo.xcprivacy`.
 
 #### Bundle Identifier
-Identyfikator bundla pozwalający macOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (`-`).
+Identyfikator bundla pozwalający macOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (-).
 
 #### Default Language
-Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
+Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli preferowany język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
 
 #### Localizations
 Pole zawierające oddzielone przecinkami ciągi identyfikujące nazwę języka lub oznaczenie ISO dla obsługiwanych lokalizacji. Zobacz [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552).
@@ -649,7 +653,7 @@ Pole zawierające oddzielone przecinkami ciągi identyfikujące nazwę języka l
 ### Windows
 
 #### App Icon
-Plik obrazu `.ico` używany jako ikona aplikacji w Windows. Więcej informacji o tworzeniu plików `.ico` znajdziesz w [instrukcji Windows](/manuals/windows).
+Plik obrazu .ico używany jako ikona aplikacji w Windows. Więcej informacji o tworzeniu plików .ico znajdziesz w [instrukcji Windows](/manuals/windows).
 
 ---
 
@@ -734,7 +738,7 @@ Jeśli ustawiono, użyj manifestu aplikacji do dostosowania builda silnika. Pozw
 Włącza profiler w grze.
 
 #### Track Cpu
-Po zaznaczeniu włącza profilowanie CPU w buildach release. Normalnie informacje profilujące są dostępne tylko w buildach debug.
+Po zaznaczeniu włącza profilowanie CPU w buildach release. Zwykle informacje profilujące są dostępne tylko w buildach debug.
 
 #### Sleep Between Server Updates
 Liczba milisekund uśpienia pomiędzy aktualizacjami serwera.
@@ -744,7 +748,7 @@ Włącza przeglądarkową oś czasu wydajności. Dotyczy tylko HTML5.
 
 ---
 
-## Setting config values on engine startup
+## Ustawianie wartości konfiguracji podczas uruchamiania silnika
 
 Podczas uruchamiania silnika można przekazać z linii poleceń wartości konfiguracji, które nadpiszą ustawienia z *game.project*:
 
@@ -763,19 +767,9 @@ local my_value = sys.get_config_number("test.my_value")
 local my_value2 = sys.get_config_string("test.my_value2")
 ```
 
-## Component max count optimizations
+:[Optymalizacje liczników maksymalnych komponentów](../shared/component-max-count-optimizations.md)
 
-Plik ustawień *game.project* zawiera wiele wartości określających maksymalną liczbę określonego zasobu, który może istnieć jednocześnie, najczęściej w przeliczeniu na załadowaną kolekcję, nazywaną też światem. Silnik Defold używa tych wartości maksymalnych do wstępnej alokacji pamięci, aby ograniczyć dynamiczne alokacje i fragmentację pamięci podczas działania gry.
-
-Struktury danych Defold używane do reprezentowania komponentów i innych zasobów są zoptymalizowane pod kątem jak najmniejszego zużycia pamięci, ale przy ustawianiu tych wartości nadal trzeba zachować ostrożność, aby nie przydzielać więcej pamięci, niż naprawdę potrzeba.
-
-Aby dodatkowo zoptymalizować zużycie pamięci, proces builda Defold analizuje zawartość gry i nadpisuje wartości maksymalne tam, gdzie można z całkowitą pewnością określić dokładną liczbę:
-
-* Jeśli kolekcja nie zawiera żadnych komponentów Factory, zostanie zaalokowana dokładna liczba każdego komponentu i obiektu gry, a wartości maksymalne zostaną zignorowane.
-* Jeśli kolekcja zawiera komponent Factory, obiekty tworzone przez tę fabrykę zostaną przeanalizowane i dla komponentów możliwych do utworzenia przez Factory oraz dla obiektów gry zostaną użyte wartości max count.
-* Jeśli kolekcja zawiera komponent Factory albo Collection factory z włączoną opcją `Dynamic Prototype`, ta kolekcja będzie używać liczników maksymalnych.
-
-## Custom project settings
+## Własne ustawienia projektu
 
 Można definiować własne ustawienia dla głównego projektu albo dla [native extension](/manuals/extensions/). Własne ustawienia dla głównego projektu należy zdefiniować w pliku `game.properties` w katalogu głównym projektu. W przypadku rozszerzenia natywnego należy je zdefiniować w pliku `ext.properties` obok pliku `ext.manifest`.
 
@@ -793,19 +787,19 @@ Obecnie dostępne są następujące atrybuty:
 
 ```
 [my_extension]
-// `type` - używany przy parsowaniu łańcucha wartości
+// `type` - używany przy parsowaniu wartości tekstowej
 my_property.type = string // jedna z wartości: bool, string, number, integer, string_array, resource
 
 // `help` - używany jako podpowiedź pomocy w edytorze (na razie nieużywany)
 my_property.help = string
 
-// `default` - wartość domyślna używana, jeśli użytkownik nie ustawił wartości ręcznie
+// `default` - wartość używana jako domyślna, jeśli użytkownik nie ustawił jej ręcznie
 my_property.default = string
 
-// `private` - wartość prywatna używana podczas bundlowania, ale usuwana z samego bundla
+// `private` - wartość prywatna używana podczas procesu bundlowania, ale usuwana z samego bundla
 my_property.private = 1 // wartość logiczna 1 albo 0
 
-// `label` - etykieta pola w edytorze
+// `label` - etykieta pola wejściowego w edytorze
 my_property.label = My Awesome Property
 
 // `minimum` i/lub `maximum` - prawidłowy zakres dla właściwości liczbowych, walidowany w UI edytora
@@ -823,10 +817,9 @@ my_property.preserve-extension = 1 // użyj oryginalnego rozszerzenia zasobu zam
 my_property.deprecated = 1 // oznacz właściwość jako przestarzałą
 my_property.severity-default = warning // gdy przestarzała właściwość jest ustawiona, ale ma wartość domyślną
 my_property.severity-override = error  // gdy przestarzała właściwość jest ustawiona i ma wartość inną niż domyślna
+
 ```
-
 Dodatkowo na kategorii ustawień można ustawić następujące atrybuty:
-
 ```
 [my_extension]
 // `group` - grupa kategorii w game.project, np. Main, Platforms, Components, Runtime, Distribution

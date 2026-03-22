@@ -3,21 +3,21 @@ title: Przesyłanie zawartości Live update do AWS
 brief: Ta sekcja wyjaśnia, jak utworzyć nowego użytkownika z ograniczonym dostępem w Amazon Web Services, którego można używać razem z edytorem Defold do automatycznego wysyłania zasobów Live update podczas bundlowania gry.
 ---
 
-# Konfigurowanie Amazon Web Services
+# Konfigurowanie usług Amazon Web Services
 
 Aby korzystać z funkcji Live update razem z usługami Amazon, potrzebujesz konta Amazon Web Services. Jeśli jeszcze go nie masz, możesz je utworzyć tutaj: https://aws.amazon.com/.
 
-Ta sekcja wyjaśnia, jak utworzyć nowego użytkownika z ograniczonym dostępem w Amazon Web Services, którego można używać razem z edytorem Defold do automatycznego wysyłania zasobów Live update podczas bundlowania gry, a także jak skonfigurować Amazon S3, aby klienci gry mogli pobierać zasoby. Dodatkowe informacje o konfiguracji Amazon S3 znajdziesz w [dokumentacji Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html).
+Ta sekcja wyjaśnia, jak utworzyć nowego użytkownika z ograniczonym dostępem w Amazon Web Services, którego można używać razem z edytorem Defold do automatycznego przesyłania zasobów Live update podczas bundlowania gry, a także jak skonfigurować Amazon S3, aby klienci gry mogli pobierać zasoby. Dodatkowe informacje o konfiguracji Amazon S3 znajdziesz w [dokumentacji Amazon S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html).
 
 1. Utwórz bucket dla zasobów Live update
 
-    Otwórz menu <kbd>Services</kbd> i wybierz <kbd>S3</kbd>, które znajduje się w kategorii _Storage_ ([Amazon S3 Console](https://console.aws.amazon.com/s3)). Zobaczysz wszystkie istniejące buckety oraz opcję utworzenia nowego bucketa. Choć można użyć istniejącego bucketa, zalecamy utworzenie nowego bucketa dla zasobów Live update, aby łatwiej ograniczyć dostęp.
+    Otwórz menu `Services` i wybierz `S3`, które znajduje się w kategorii _Storage_ ([Amazon S3 Console](https://console.aws.amazon.com/s3)). Zobaczysz listę istniejących bucketów oraz opcję utworzenia nowego bucketa. Choć można użyć istniejącego bucketa, zalecamy utworzenie nowego bucketa dla zasobów Live update, aby łatwiej ograniczyć dostęp.
 
     ![Utwórz bucket](images/live-update/01-create-bucket.png)
 
 2. Dodaj politykę bucketa
 
-    Wybierz bucket, którego chcesz użyć, otwórz panel <kbd>Properties</kbd> i rozwiń w nim opcję <kbd>Permissions</kbd>. Otwórz politykę bucketa, klikając przycisk <kbd>Add bucket policy</kbd>. Polityka bucketa w tym przykładzie pozwoli anonimowemu użytkownikowi pobierać pliki z bucketa, co umożliwi klientowi gry pobieranie zasobów Live update wymaganych przez grę. Dodatkowe informacje o politykach bucketa znajdziesz w [dokumentacji Amazon](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
+    Wybierz bucket, którego chcesz użyć, otwórz panel *Properties* i rozwiń w nim opcję *Permissions*. Otwórz politykę bucketu, klikając przycisk *Add bucket policy*. Polityka bucketu w tym przykładzie pozwoli anonimowemu użytkownikowi pobierać pliki z bucketa, co umożliwi klientowi gry pobieranie zasobów Live update wymaganych przez grę. Dodatkowe informacje o politykach bucketów znajdziesz w [dokumentacji Amazon](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html).
 
     ```json
     {
@@ -36,11 +36,11 @@ Ta sekcja wyjaśnia, jak utworzyć nowego użytkownika z ograniczonym dostępem 
 
     ![Polityka bucketa](images/live-update/02-bucket-policy.png)
 
-3. Dodaj do bucketu konfigurację CORS (opcjonalnie)
+3. Dodaj do bucketa konfigurację CORS (Opcjonalnie)
 
     [Cross-Origin Resource Sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) to mechanizm, który pozwala stronie internetowej pobierać zasoby z innej domeny przy użyciu JavaScriptu. Jeśli zamierzasz opublikować grę jako klienta HTML5, musisz dodać do bucketa konfigurację CORS.
 
-    Wybierz bucket, którego chcesz użyć, otwórz panel <kbd>Properties</kbd> i rozwiń w nim opcję <kbd>Permissions</kbd>. Otwórz konfigurację CORS, klikając przycisk <kbd>Add CORS Configuration</kbd>. Konfiguracja z tego przykładu pozwoli na dostęp z dowolnej strony internetowej dzięki użyciu symbolu wieloznacznego dla domeny, choć można ten dostęp ograniczyć bardziej, jeśli wiesz, na jakich domenach Twoja gra będzie dostępna. Dodatkowe informacje o konfiguracji CORS w Amazon znajdziesz w [dokumentacji Amazon](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
+    Wybierz bucket, którego chcesz użyć, otwórz panel *Properties* i rozwiń w nim opcję *Permissions*. Otwórz konfigurację CORS, klikając przycisk *Add CORS Configuration*. Ta konfiguracja pozwoli na dostęp z dowolnej strony internetowej dzięki użyciu symbolu wieloznacznego dla domeny, choć można ten dostęp ograniczyć bardziej, jeśli wiesz, na jakich domenach Twoja gra będzie dostępna. Dodatkowe informacje o konfiguracji CORS w Amazon znajdziesz w [dokumentacji Amazon](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html).
 
     ```xml
     <?xml version="1.0" encoding="UTF-8"?>
@@ -56,9 +56,9 @@ Ta sekcja wyjaśnia, jak utworzyć nowego użytkownika z ograniczonym dostępem 
 
 4. Utwórz politykę IAM
 
-    Otwórz menu <kbd>Services</kbd> i wybierz <kbd>IAM</kbd>, które znajduje się w kategorii _Security, Identity & Compliance_ ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Wybierz <kbd>Policies</kbd> w menu po lewej stronie, a zobaczysz wszystkie istniejące polityki oraz opcję utworzenia nowej polityki.
+    Otwórz menu *Services* i wybierz *IAM*, które znajduje się w kategorii _Security, Identity & Compliance_ ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Wybierz *Policies* w menu po lewej stronie, a zobaczysz wszystkie istniejące polityki oraz opcję utworzenia nowej polityki.
 
-    Kliknij przycisk <kbd>Create Policy</kbd>, a następnie wybierz <kbd>Create Your Own Policy</kbd>. Polityka z tego przykładu pozwoli użytkownikowi wyświetlać listę wszystkich bucketów, co jest potrzebne tylko podczas konfigurowania projektu Defold dla Live update. Pozwoli też użytkownikowi pobrać Access Control List (ACL) i wysyłać zasoby do konkretnego bucketa używanego dla zasobów Live update. Dodatkowe informacje o Amazon Identity and Access Management (IAM) znajdziesz w [dokumentacji Amazon](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
+    Kliknij przycisk *Create Policy*, a następnie wybierz _Create Your Own Policy_. Ta polityka pozwoli użytkownikowi wyświetlać listę wszystkich bucketów, co jest potrzebne tylko podczas konfigurowania projektu Defold dla Live update. Pozwoli też użytkownikowi pobrać Access Control List (ACL) i wysyłać zasoby do konkretnego bucketa używanego dla zasobów Live update. Dodatkowe informacje o Amazon Identity and Access Management (IAM) znajdziesz w [dokumentacji Amazon](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
 
     ```json
     {
@@ -93,14 +93,14 @@ Ta sekcja wyjaśnia, jak utworzyć nowego użytkownika z ograniczonym dostępem 
 
 5. Utwórz użytkownika do dostępu programowego
 
-    Otwórz menu <kbd>Services</kbd> i wybierz <kbd>IAM</kbd>, które znajduje się w kategorii _Security, Identity & Compliance_ ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Wybierz <kbd>Users</kbd> w menu po lewej stronie, a zobaczysz wszystkich istniejących użytkowników oraz opcję dodania nowego użytkownika. Choć można użyć istniejącego użytkownika, zalecamy utworzenie nowego użytkownika dla zasobów Live update, aby łatwiej ograniczyć dostęp.
+    Otwórz menu *Services* i wybierz *IAM*, które znajduje się w kategorii _Security, Identity & Compliance_ ([Amazon IAM Console](https://console.aws.amazon.com/iam)). Wybierz *Users* w menu po lewej stronie, a zobaczysz listę istniejących użytkowników oraz opcję dodania nowego użytkownika. Choć można użyć istniejącego użytkownika, zalecamy utworzenie nowego użytkownika dla zasobów Live update, aby łatwiej ograniczyć dostęp.
 
-    Kliknij przycisk <kbd>Add User</kbd>, podaj nazwę użytkownika i wybierz <kbd>Programmatic access</kbd> jako <kbd>Access type</kbd>, a następnie naciśnij <kbd>Next: Permissions</kbd>. Wybierz <kbd>Attach existing policies directly</kbd> i wskaż politykę utworzoną w kroku 4.
+    Kliknij przycisk *Add User*, podaj nazwę użytkownika i wybierz *Programmatic access* jako *Access type*, a następnie naciśnij *Next: Permissions*. Wybierz *Attach existing policies directly* i wskaż politykę utworzoną w kroku 4.
 
-    Po zakończeniu procesu otrzymasz <kbd>Access key ID</kbd> oraz <kbd>Secret access key</kbd>.
+    Po zakończeniu procesu otrzymasz *Access key ID* oraz *Secret access key*.
 
     ::: important
-    Bardzo ważne jest, aby zapisać te klucze, ponieważ po opuszczeniu tej strony nie będzie można ich odzyskać z Amazon.
+    To jest *bardzo ważne*, aby zapisać te klucze, ponieważ po opuszczeniu tej strony nie będzie można ich odzyskać z Amazon.
     :::
 
 6. Utwórz plik profilu poświadczeń
@@ -114,7 +114,7 @@ Ta sekcja wyjaśnia, jak utworzyć nowego użytkownika z ograniczonym dostępem 
     $ touch ~/.aws/credentials
     ```
 
-    Plik *~/.aws/credentials* będzie zawierał Twoje poświadczenia do uzyskiwania dostępu do Amazon Web Services przez dostęp programowy i jest standardowym sposobem zarządzania poświadczeniami AWS. Otwórz plik w edytorze tekstu i wpisz swój <kbd>Access key ID</kbd> oraz <kbd>Secret access key</kbd> w formacie pokazanym poniżej.
+    Plik *~/.aws/credentials* będzie zawierał Twoje poświadczenia do uzyskiwania dostępu do Amazon Web Services przez dostęp programowy i jest standardowym sposobem zarządzania poświadczeniami AWS. Otwórz plik w edytorze tekstu i wpisz swój *Access key ID* oraz *Secret access key* w formacie pokazanym poniżej.
 
     ```ini
     [defold-liveupdate-example]

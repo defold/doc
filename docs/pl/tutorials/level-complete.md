@@ -1,27 +1,27 @@
 ---
-title: Przykład kodu ukończenia poziomu
-brief: W tym przykładowym projekcie poznasz efekty pokazujące zliczanie wyniku, które może pojawić się po ukończeniu poziomu.
+title: Przykładowy kod ukończenia poziomu
+brief: W tym przykładowym projekcie poznasz efekty pokazujące zliczanie wyniku po ukończeniu poziomu.
 ---
 # Ukończenie poziomu - przykładowy projekt
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tSdTSvku1o8" frameborder="0" allowfullscreen></iframe>
 
-W tym przykładowym projekcie, który możesz [otworzyć w edytorze](/manuals/project-setup/) albo [pobrać z GitHub](https://github.com/defold/sample-levelcomplete), pokazujemy efekty wizualne prezentujące zliczanie wyniku po ukończeniu poziomu. Łączny wynik jest stopniowo zliczany, a po osiągnięciu kolejnych progów pojawiają się trzy gwiazdki. Przykład korzysta też z funkcji przeładowania, aby przyspieszyć iterację podczas dostrajania wartości.
+W tym przykładowym projekcie, który możesz [otworzyć w edytorze](/manuals/project-setup/) albo [pobrać z GitHub](https://github.com/defold/sample-levelcomplete), pokazujemy efekty służące do prezentowania zliczania wyniku po ukończeniu poziomu. Łączny wynik jest stopniowo zwiększany, a po osiągnięciu kolejnych progów pojawiają się trzy gwiazdki. Przykład korzysta też z funkcji szybkiego przeładowania, żeby przyspieszyć iterowanie podczas dostrajania wartości.
 
-Scena jest wyzwalana wiadomością z gry.
-Wiadomość zawiera uzyskany łączny wynik oraz progi, przy których powinny pojawić się trzy gwiazdki.
-Gdy to nastąpi, tekst nagłówka ("Poziom ukończony!") zaczyna stopniowo się pojawiać, jednocześnie zmniejszając skalę do normalnego rozmiaru (100%). Dzieje się to w `on_message()` poniżej.
+Scena jest uruchamiana wiadomością z gry.
+Wiadomość zawiera uzyskany łączny wynik oraz poziomy, przy których powinny pojawić się trzy gwiazdki.
+Gdy to się dzieje, tekst nagłówka ("Level completed!") zaczyna stopniowo się pojawiać, jednocześnie zmniejszając się do normalnego rozmiaru (100%). Dzieje się to w `on_message()` poniżej.
 
-Po zakończeniu animacji tekstu nagłówka zaczyna się zliczanie całkowitego wyniku. Za każdym razem aktualny wynik jest zwiększany o mały krok. Następnie sprawdzamy, czy został przekroczony któryś z progów gwiazdek; jeśli tak, uruchamia się animacja gwiazdki (patrz niżej). Dopóki nie osiągniemy docelowego wyniku, całkowity wynik jest animowany z efektem odbicia.
-Wraz ze zbliżaniem się do docelowego wyniku jego skala także rośnie do wartości maksymalnej. W ten sam sposób kolor stopniowo zmienia się z białego na zielony. To odbywa się w `inc_score()`.
+Po zakończeniu animacji nagłówka zaczyna się zliczanie całkowitego wyniku. Za każdym razem bieżący wynik jest zwiększany o niewielki krok. Potem sprawdzamy, czy został przekroczony któryś z poziomów gwiazdek; jeśli tak, uruchamia się animacja gwiazdki (patrz niżej). Dopóki nie osiągniemy wyniku docelowego, całkowity wynik jest animowany z efektem odbicia.
+Im bliżej wyniku docelowego, tym jego skala rośnie aż do wartości maksymalnej. W podobny sposób kolor stopniowo zmienia się z białego na zielony. Dzieje się to w `inc_score()`.
 
 Za każdym razem, gdy pojawia się gwiazdka, najpierw stopniowo się pokazuje, a potem zmniejsza do normalnego rozmiaru. To dzieje się w `animate_star()`.
 
-Gdy animacja gwiazdki dobiegnie końca, wokół większej gwiazdki tworzone są mniejsze gwiazdki ułożone po okręgu. To odbywa się w `spawn_small_stars()`.
+Gdy animacja gwiazdki dobiegnie końca, wokół większej gwiazdki pojawiają się mniejsze gwiazdki rozmieszczone po okręgu. Dzieje się to w `spawn_small_stars()`.
 
-Następnie są animowane tak, aby losowo wystrzeliły ze środka gwiazdki. Ich prędkość i skala są losowane, gdy rozszerzają się na zewnątrz. Potem stopniowo zanikają i ostatecznie są usuwane. To dzieje się w `animate_small_star()` i `delete_small_star()`.
+Następnie są animowane tak, aby losowo wystrzeliły z gwiazdki. Ich prędkość i skala są losowane podczas rozszerzania się na zewnątrz. Potem stopniowo zanikają i ostatecznie są usuwane. Dzieje się to w `animate_small_star()` i `delete_small_star()`.
 
-Gdy wynik osiągnie wartość docelową, znak high score stopniowo się pojawia i wraca do właściwego miejsca. Jest to uruchamiane na końcu `inc_score()`, a wykonywane w `animate_imprint()`.
+Gdy wynik osiągnie wartość docelową, odcisk high score stopniowo się pojawia i wraca na swoje miejsce. Jest to uruchamiane na końcu `inc_score()` i wykonywane w `animate_imprint()`.
 
 Funkcja `setup()` dba o to, aby węzły miały poprawne wartości początkowe. Wywołując `setup()` z `on_reload()`, upewniamy się, że wszystko zostanie poprawnie skonfigurowane przy każdym przeładowaniu skryptu z Defold Editor.
 
@@ -64,7 +64,7 @@ local function setup(self)
     for i=1,#self.stars do
         gui.set_color(self.stars[i], vmath.vector4(1, 1, 1, 0))
     end
-    -- ustaw `imprint` jako przezroczysty
+    -- ustaw imprint jako przezroczysty
     gui.set_color(self.imprint, vmath.vector4(1, 1, 1, 0))
     -- wynik aktualnie wyświetlany na ekranie
     self.current_score = 0
@@ -145,9 +145,9 @@ local function animate_star(self, star)
     gui.animate(star, gui.PROP_SCALE, vmath.vector4(1, 1, 1, 0), gui.EASING_IN, fade_in, 0, spawn_small_stars)
 end
 
--- rozpocznij animację pojawiania się `imprint`
+-- rozpocznij animację pojawiania się imprint
 local function animate_imprint(self)
-    -- chwilę odczekaj, zanim pojawi się `imprint`
+    -- chwilę odczekaj, zanim pojawi się imprint
     local delay = 0.8
     -- czas płynnego pojawiania się
     local fade_in = 0.2
@@ -191,7 +191,7 @@ local function inc_score(self, node)
         gui.set_scale(self.score, vmath.vector4(sp, sp, 1, 0))
         gui.animate(self.score, gui.PROP_SCALE, vmath.vector4(s, s, 1, 0), gui.EASING_NONE, dt)
     else
-        -- gotowe, pokaż płynnie `imprint`
+        -- gotowe, pokaż płynnie imprint
         -- UWAGA! w prawdziwym przypadku należałoby to sprawdzić względem faktycznie zapisanego rekordu
         animate_imprint(self)
     end
@@ -203,7 +203,7 @@ function on_message(self, message_id, message, sender)
         -- pobierz uzyskany wynik oraz progi punktowe dla wyświetlenia gwiazdek
         self.target_score = message.score
         self.star_levels = message.star_levels
-        -- pokaż płynnie nagłówek ("poziom ukończony")
+        -- pokaż płynnie nagłówek ("Level completed!")
         local c = gui.get_color(self.heading)
         c.w = 1
         gui.animate(self.heading, gui.PROP_COLOR, c, gui.EASING_IN, dt, 0.0, inc_score)
@@ -216,7 +216,7 @@ function on_message(self, message_id, message, sender)
 end
 
 -- ta funkcja jest wywoływana przy przeładowaniu skryptu
--- ustawiając scenę i symulując ukończenie poziomu, uzyskujemy bardzo szybki workflow do strojenia
+-- ustawiając scenę i symulując ukończenie poziomu, uzyskujemy bardzo szybki przebieg pracy do strojenia
 function on_reload(self)
     -- dopilnuj, by uwzględnić wszelkie zmiany w konfiguracji
     setup(self)

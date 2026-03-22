@@ -1,94 +1,87 @@
 ---
-title: Wejścia myszki i dotykowe w silniku Defold
-brief: Ta instrukcja wyjaśnia, jak działa wejście za pomocą myszki i dotyku na urządzeniach dotykowych w silniku Defold.
+title: Wejście z myszy i dotyku w Defold
+brief: Ta instrukcja wyjaśnia, jak działa wejście z myszy i dotyku.
 ---
 
 ::: sidenote
-Zalecamy zapoznanie się z ogólnym sposobem działania wejścia w Defoldzie, jak przechwytuje się wejście, jak wiążę z akcjami oraz w jakiej kolejności skrypty odbierają dane wejściowe. Dowiedz się więcej na temat systemu wejść w [ogólnej instrukcji na temat Wejść](/manuals/input).
+Zaleca się najpierw zapoznać z ogólnym sposobem działania wejścia w Defold, z tym, jak odbiera się wejście i w jakiej kolejności skrypty je otrzymują. Więcej informacji znajdziesz w [instrukcji ogólnej o wejściu](/manuals/input).
 :::
 
-# Obsługa myszki
-
-Wyzwalacze myszy pozwalają na przypisanie akcji gry do klawiszy myszy i kółka przewijania.
+# Wyzwalacze myszy
+Wyzwalacze myszy pozwalają przypisać wejście z przycisków myszy i kółka przewijania do akcji gry.
 
 ![](images/input/mouse_bindings.png)
 
 ::: sidenote
-Przyciski myszy `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` i `MOUSE_BUTTON_MIDDLE` są równoznaczne z `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` i `MOUSE_BUTTON_3`.
+Wejścia z przycisków myszy `MOUSE_BUTTON_LEFT`, `MOUSE_BUTTON_RIGHT` i `MOUSE_BUTTON_MIDDLE` są równoważne `MOUSE_BUTTON_1`, `MOUSE_BUTTON_2` i `MOUSE_BUTTON_3`.
 :::
 
 ::: important
-Poniższe przykłady korzystają z akcji pokazanych na powyższym obrazku. Możesz dowolnie nazywać akcje wejściowe - użyj takich, jakie są dla Ciebie najlepsze.
+Poniższe przykłady używają akcji pokazanych na obrazku powyżej. Jak w przypadku każdego wejścia, możesz nazwać swoje akcje wejściowe dowolnie.
 :::
 
-## Przyciski myszki
-
-Klawisze myszy generują zdarzenia wciśnięcia, zwolnienia i powtarzania. Przykład pokazuje, jak wykrywać wejście z lewego klawisza myszy (czy wciśnięty lub zwolniony):
+## Przyciski myszy
+Przyciski myszy generują zdarzenia naciśnięcia, zwolnienia i powtórzenia. Poniższy przykład pokazuje, jak wykryć wejście z lewego przycisku myszy (zarówno przy naciśnięciu, jak i przy zwolnieniu):
 
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("mouse_button_left") then
         if action.pressed then
-            -- wciśnięto lewy przycisk myszy
+            -- lewy przycisk myszy naciśnięty
         elseif action.released then
-            -- wciśnięto prawy przycisk myszy
+            -- lewy przycisk myszy zwolniony
         end
     end
 end
 ```
 
 ::: important
-Akcje wejścia `MOUSE_BUTTON_LEFT` (lub `MOUSE_BUTTON_1`) są również wysyłane dla pojedynczego dotyku na urządzeniach dotykowych.
+Akcje wejścia `MOUSE_BUTTON_LEFT` (lub `MOUSE_BUTTON_1`) są wysyłane także dla pojedynczego dotyku.
 :::
 
-## Kółko myszki
-
-Wejścia kółka myszy wykrywają akcje przewijania. Pole `action.value` wynosi `1`, jeśli kółko zostało przewinięte, a w przeciwnym przypadku `0` (akcje przewijania traktowane są tak, jak gdyby były to naciśnięcia klawiszy). Aktualnie Defold nie obsługuje dokładnego przewijania palcem na urządzeniach dotykowych.
+## Kółko myszy
+Wejścia z kółka myszy wykrywają przewijanie. Pole `action.value` ma wartość `1`, jeśli kółko zostało przewinięte, i `0` w przeciwnym razie. Zdarzenia przewijania są traktowane jak naciśnięcia przycisków. Obecnie Defold nie obsługuje precyzyjnego przewijania na gładzikach.
 
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("mouse_wheel_up") then
         if action.value == 1 then
-            -- przewinięcie kółka myszy w górę
+            -- kółko myszy przewinięte w górę
         end
     end
 end
 ```
 
-## Ruch myszki
+## Ruch myszy
+Ruch myszy jest obsługiwany osobno. Zdarzenia ruchu myszy nie są odbierane, jeśli nie skonfigurujesz przynajmniej jednego wyzwalacza myszy.
 
-Ruch myszy jest obsługiwany osobno. Zdarzenia ruchu myszy nie są normalnie odbierane, chyba że w twoich przypisaniach wejścia jest ustawiony przynajmniej jeden wyzwalacz myszy.
-
-Ruch myszy nie jest opisywany w ustawieniach *input bindings*, dlatego `action_id` jest ustawiane na `nil`, a tabela `action` jest wypełniana pozycją i zmianą pozycji myszy, kiedy mysz jest poruszona.
+Ruch myszy nie jest powiązany w <kbd>input bindings</kbd>, ale `action_id` ma wartość `nil`, a tabela `action` zawiera położenie myszy oraz zmianę jej położenia.
 
 ```lua
 function on_input(self, action_id, action)
     if action.x and action.y then
-        -- pozwól obiektowi gry śledzić ruch myszy/dotyku
+        -- pozwól obiektowi gry podążać za ruchem myszy/dotyku
         local pos = vmath.vector3(action.x, action.y, 0)
         go.set_position(pos)
     end
 end
 ```
 
-# Obsługa urządzeń dotykowych
-
-Wyzwalacze dotyku (pojedynczego i wielodotykowego (ang. multitouch)) są dostępne na urządzeniach iOS i Android w aplikacjach natywnych oraz w grach przeglądarkowych HTML5.
+# Wyzwalacze dotyku
+Wyzwalacze pojedynczego dotyku i wielodotyku są dostępne na urządzeniach iOS i Android w aplikacjach natywnych oraz w pakietach HTML5.
 
 ![](images/input/touch_bindings.png)
 
-## Pojedyncze dotknięcie
+## Pojedynczy dotyk
+Wyzwalacze pojedynczego dotyku nie są konfigurowane w sekcji <kbd>Touch Triggers</kbd> w <kbd>input bindings</kbd>. Zamiast tego są **automatycznie konfigurowane**, gdy masz ustawione wejście myszy dla `MOUSE_BUTTON_LEFT` lub `MOUSE_BUTTON_1`.
 
-Wyzwalacze pojedynczego dotyku nie są konfigurowane z poziomu sekcji *Touch Triggers* w przypisaniach wejścia (input bindings). Zamiast tego, wyzwalacze pojedynczego dotyku są **automatycznie konfigurowane**, gdy masz skonfigurowane wejście z klawiszem myszy `MOUSE_BUTTON_LEFT` lub `MOUSE_BUTTON_1`.
-
-## Multi-touch
-
-Wyzwalacze dotyku wielokrotnego wypełniają tabelę w tabeli akcji o nazwie `touch`. Elementy w tabeli są indeksowane liczbami całkowitymi od `1` do `N`, gdzie `N` to liczba punktów dotyku. Każdy element tabeli zawiera pola z danymi wejściowymi:
+## Wielodotyk
+Wyzwalacze wielodotyku wypełniają tabelę `touch` w tabeli akcji. Elementy w tabeli są indeksowane liczbami całkowitymi od `1` do `N`, gdzie `N` to liczba punktów dotyku. Każdy element zawiera pola z danymi wejściowymi:
 
 ```lua
 function on_input(self, action_id, action)
     if action_id == hash("touch_multi") then
-        -- Twórz w każdym punkcie dotyku
+        -- Twórz obiekt w każdym punkcie dotyku
         for i, touchdata in ipairs(action.touch) do
             local pos = vmath.vector3(touchdata.x, touchdata.y, 0)
             factory.create("#factory", pos)
@@ -98,34 +91,30 @@ end
 ```
 
 ::: important
-Multi-touch nie może być przypisany do tej samej akcji co wejście klawisza myszy `MOUSE_BUTTON_LEFT` lub `MOUSE_BUTTON_1`. Przypisanie tej samej akcji efektywnie nadpisze wyzwalacze pojedynczego dotyku i uniemożliwi otrzymanie jakichkolwiek zdarzeń pojedyncze dotknięcie.
+Multi-touch nie może być przypisany do tej samej akcji co wejście myszy `MOUSE_BUTTON_LEFT` lub `MOUSE_BUTTON_1`. Przypisanie tej samej akcji w praktyce nadpisze pojedynczy dotyk i uniemożliwi otrzymywanie jakichkolwiek zdarzeń pojedynczego dotyku.
 :::
 
 ::: sidenote
-Gotowe rozwiązania do używania elementów sterowania na ekranie dotykowym (on-screen controls) czy ogólnie do obsługi przycisków i gałek analgowych z obsługą przeciągania i kliknięcia można znaleźć w bibliotece [Defold-Input](https://defold.com/assets/defoldinput/).
+Biblioteka [Defold-Input asset](https://defold.com/assets/defoldinput/) może posłużyć do łatwego ustawienia wirtualnych elementów sterowania na ekranie, takich jak przyciski i analogowe gałki, z obsługą wielodotyku.
 :::
 
-
-## Detekcja kliknięć i dotknięć na obiekcie
-
-Wykrywanie kliknięć lub dotknięć na komponentach wizualnych to bardzo częsta operacja, którą można znaleźć w wielu grach. Może to być interakcja użytkownika z przyciskiem lub innym elementem interfejsu użytkownika, a także interakcja z obiektem gry, takim jak jednostka kontrolowana przez gracza w grze strategicznej, skarb na poziomie w grze typu dungeon crawler czy postać oferująca zadanie w grze RPG. Sposób użycia różni się w zależności od rodzaju komponentu wizualnego.
+## Wykrywanie kliknięć lub stuknięć na obiektach
+Wykrywanie, kiedy użytkownik kliknął lub stuknął element wizualny, to bardzo częsta operacja potrzebna w wielu grach. Może dotyczyć interakcji z przyciskiem lub innym elementem interfejsu użytkownika albo interakcji z obiektem gry, takim jak jednostka kontrolowana przez gracza w grze strategicznej, skarb na poziomie w grze typu dungeon crawler albo zleceniodawca zadania w RPG. Sposób działania zależy od rodzaju elementu wizualnego.
 
 ### Wykrywanie interakcji z węzłami GUI
-
-Dla elementów interfejsu użytkownika istnieje funkcja `gui.pick_node(node, x, y)`, która zwraca wartość `true` lub `false`, w zależności od tego, czy określona współrzędna mieści się w granicach węzła GUI. Aby dowiedzieć się więcej, zajrzyj do [dokumentacji API](/ref/gui/#gui.pick_node:node-x-y), [przykładu nawigacji wskaźnikiem myszy](/examples/gui/pointer_over/) lub [przykładu z przyciskiem](/examples/gui/button/.
+W przypadku elementów UI dostępna jest funkcja `gui.pick_node(node, x, y)`, która zwraca true albo false zależnie od tego, czy podana współrzędna mieści się w granicach węzła GUI. Zobacz [dokumentację API](/ref/gui/#gui.pick_node:node-x-y), [przykład wykrywania wskaźnika](/examples/gui/pointer_over/) lub [przykład przycisku](/examples/gui/button/) aby dowiedzieć się więcej.
 
 ### Wykrywanie interakcji z obiektami gry
+W przypadku obiektów gry jest to bardziej złożone, ponieważ takie czynniki jak przesunięcie kamery i projekcja w skrypcie renderowania wpływają na wymagane obliczenia. Istnieją dwa ogólne podejścia do wykrywania interakcji z obiektami gry:
 
-W przypadku obiektów gry (game objects) jest bardziej skomplikowane wykrywanie interakcji, ponieważ takie rzeczy jak przekształcenia kamery i projekcje renderowania mogą wpłynąć na wymagane obliczenia. Istnieją dwa ogólne podejścia do wykrywania interakcji z obiektami gry:
-
-  1. Śledzenie pozycji i rozmiaru obiektów gry, z którymi użytkownik może współdziałać, i sprawdzanie, czy współrzędne myszy lub dotyku mieszczą się w granicach któregoś z tych obiektów.
-  2. Dołączanie obiektów kolizji do obiektów gry, z którymi użytkownik może współdziałać, oraz jednego obiektu kolizji, który podąża za myszą lub palcem i sprawdzanie kolizji między nimi.
+  1. Śledzić pozycję i rozmiar obiektów gry, z którymi użytkownik może wejść w interakcję, i sprawdzać, czy współrzędne myszy lub dotyku mieszczą się w granicach któregokolwiek z tych obiektów.
+  2. Dołączyć obiekty kolizji do obiektów gry, z którymi użytkownik może wejść w interakcję, oraz jeden obiekt kolizji podążający za myszą lub palcem, a następnie sprawdzać kolizje między nimi.
 
 ::: sidenote
-Gotowe rozwiązanie do używania obiektów kolizji do wykrywania wejścia użytkownika z obsługą przeciągania i kliknięcia można znaleźć w elemencie [Defold-Input](https://defold.com/assets/defoldinput/).
+Gotowe rozwiązanie wykorzystujące obiekty kolizji do wykrywania wejścia użytkownika z obsługą przeciągania i kliknięć można znaleźć w [Defold-Input asset](https://defold.com/assets/defoldinput/).
 :::
 
-W obu przypadkach konieczne jest przeliczenie współrzędnych przestrzeni ekranu myszy lub dotyku na współrzędne przestrzeni gry. Można to zrobić na kilka różnych sposobów:
+W obu przypadkach trzeba przeliczyć współrzędne ekranu dla zdarzenia myszy lub dotyku na współrzędne świata obiektów gry. Można to zrobić na kilka sposobów:
 
-  * Ręczne śledzenie, który widok i projekcja są używane przez skrypt renderujący i wykorzystaj to do przeliczenia współrzędnych na współrzędne przestrzeni gry. Zobacz [instrukcję kamery](/manuals/camera/#converting-mouse-to-world-coordinates).
-  * Użyj [bibliotek dla kamery](/manuals/camera/#third-party-camera-solutions) i skorzystaj z dostarczonych funkcji konwersji z ekranu na świat.
+  * Ręcznie śledzić, jaki widok i jaka projekcja są używane przez skrypt renderowania, a następnie wykorzystać je do przeliczania między współrzędnymi świata i ekranu. Zobacz [instrukcję o kamerze](/manuals/camera/#converting-mouse-to-world-coordinates) jako przykład.
+  * Użyć [rozwiązania kamery innej firmy](/manuals/camera/#third-party-camera-solutions) i skorzystać z dostarczonych funkcji konwersji z ekranu do świata.

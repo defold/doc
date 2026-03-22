@@ -1,22 +1,22 @@
 ---
 title: Instrukcja komponentu Factory
-brief: Ta instrukcja wyjaśnia, jak używać komponentów Factory do dynamicznego tworzenia obiektów gry w runtime.
+brief: Ta instrukcja wyjaśnia, jak używać komponentów Factory do dynamicznego tworzenia obiektów gry w czasie działania.
 ---
 
 # Komponenty Factory
 
 Komponenty Factory służą do dynamicznego tworzenia obiektów gry z puli obiektów w działającej grze.
 
-Gdy dodajesz komponent Factory do obiektu gry, we właściwości *Prototype* określasz, którego pliku obiektu gry fabryka ma używać jako prototypu. W innych silnikach taki prototyp bywa nazywany również prefabem albo blueprintem. Na tej podstawie tworzone są wszystkie nowe obiekty gry.
+Gdy dodajesz komponent Factory do obiektu gry, we właściwości *Prototype* określasz, którego pliku obiektu gry fabryka ma używać jako prototypu dla wszystkich nowych obiektów, które tworzy. W innych silnikach taki prototyp bywa nazywany również "prefabem" albo "blueprintem".
 
 ![Factory component](images/factory/factory_collection.png)
 
 ![Factory component](images/factory/factory_component.png)
 
-Aby utworzyć obiekt gry, wywołaj `factory.create()`:
+Aby uruchomić tworzenie obiektu gry, wywołaj `factory.create()`:
 
 ```lua
--- plik factory.script
+-- factory.script
 local p = go.get_position()
 p.y = vmath.lerp(math.random(), min_y, max_y)
 local component = "#star_factory"
@@ -31,32 +31,32 @@ factory.create(component, p)
 : Id komponentu Factory, który ma utworzyć nowy obiekt gry.
 
 `[position]`
-: (opcjonalnie) Pozycja nowego obiektu gry w przestrzeni świata. Powinien to być `vector3`. Jeśli nie podasz pozycji, obiekt zostanie utworzony w pozycji komponentu Factory.
+: (opcjonalnie) Pozycja nowego obiektu gry w przestrzeni świata. Powinien to być `vector3`. Jeśli nie podasz pozycji, obiekt gry pojawi się w pozycji komponentu Factory.
 
 `[rotation]`
 : (opcjonalnie) Obrót nowego obiektu gry w przestrzeni świata. Powinien to być `quat`.
 
 `[properties]`
-: (opcjonalnie) Tabela Lua z wartościami właściwości skryptu, którymi ma zostać zainicjowany obiekt gry. Informacje o właściwościach skryptu znajdziesz w [instrukcji Script property](/manuals/script-properties).
+: (opcjonalnie) Tabela Lua z wartościami właściwości skryptu, którymi ma zostać zainicjowany obiekt gry. Więcej informacji o właściwościach skryptu znajdziesz w [instrukcji Script property](/manuals/script-properties).
 
 `[scale]`
-: (opcjonalnie) Skala utworzonego obiektu gry. Skalę można podać jako `number` większy od 0, co oznacza jednakowe skalowanie we wszystkich osiach. Możesz też przekazać `vector3`, gdzie każdy składnik określa skalowanie w odpowiadającej osi.
+: (opcjonalnie) Skala utworzonego obiektu gry. Skalę można podać jako `number` większy od 0, co oznacza jednolite skalowanie we wszystkich osiach. Możesz też przekazać `vector3`, w którym każdy składnik określa skalowanie w odpowiadającej osi.
 
 Na przykład:
 
 ```lua
--- plik factory.script
+-- factory.script
 local p = go.get_position()
 p.y = vmath.lerp(math.random(), min_y, max_y)
 local component = "#star_factory"
--- Utwórz bez obrotu, ale z podwójną skalą.
+-- Utwórz obiekt bez obrotu, ale z podwójną skalą.
 -- Ustaw wartość właściwości score gwiazdy na 10.
 factory.create(component, p, nil, { score = 10 }, 2.0) -- <1>
 ```
-1. Ustawia właściwość `"score"` obiektu gry gwiazdy.
+1. Ustawia właściwość "score" obiektu gry gwiazdy.
 
 ```lua
--- plik star.script
+-- star.script
 go.property("score", 1) -- <1>
 
 local speed = -240
@@ -77,8 +77,8 @@ function on_message(self, message_id, message, sender)
     end
 end
 ```
-1. Właściwość skryptu `"score"` jest zdefiniowana z wartością domyślną.
-2. Odwołuje się do właściwości skryptu `"score"` jako do wartości przechowywanej w `self`.
+1. Właściwość skryptu "score" jest zdefiniowana z wartością domyślną.
+2. Odwołuje się do właściwości skryptu "score" jako do wartości przechowywanej w `self`.
 
 ![Spawned game object with property and scaling](images/factory/factory_spawned2.png)
 
@@ -88,7 +88,7 @@ Defold nie obsługuje obecnie niejednorodnego skalowania kształtów kolizji. Je
 
 ## Adresowanie obiektów utworzonych przez Factory
 
-Mechanizm adresowania Defold pozwala uzyskać dostęp do każdego obiektu i komponentu w działającej grze. [Instrukcja Addressing](/manuals/addressing/) szczegółowo wyjaśnia, jak ten system działa. Tego samego mechanizmu można używać również dla utworzonych obiektów gry i ich komponentów. Często wystarczy użycie id utworzonego obiektu, na przykład przy wysyłaniu wiadomości:
+Mechanizm adresowania Defold pozwala uzyskać dostęp do każdego obiektu i komponentu w działającej grze. [Instrukcja Addressing](/manuals/addressing/) szczegółowo wyjaśnia, jak ten system działa. Tego samego mechanizmu można używać również dla utworzonych obiektów gry i ich komponentów. Często wystarczy użyć id utworzonego obiektu, na przykład podczas wysyłania wiadomości:
 
 ```lua
 local function create_hunter(target_id)
@@ -117,12 +117,12 @@ local function create_guard(unarmed)
 end
 ```
 
-## Śledzenie utworzonych obiektów i obiektów nadrzędnych
+## Śledzenie utworzonych obiektów i obiektu nadrzędnego
 
-Gdy wywołasz `factory.create()`, otrzymasz z powrotem id nowego obiektu gry, dzięki czemu możesz zachować je do późniejszego użycia. Często wykorzystuje się to do tworzenia obiektów i dodawania ich id do tabeli, aby później usunąć je wszystkie, na przykład przy resetowaniu układu poziomu:
+Gdy wywołasz `factory.create()`, otrzymasz z powrotem id nowego obiektu gry, dzięki czemu możesz zachować je do późniejszego użycia. Jednym z typowych zastosowań jest tworzenie obiektów i dodawanie ich id do tabeli, aby później usunąć je wszystkie, na przykład podczas resetowania układu poziomu:
 
 ```lua
--- plik spawner.script
+-- spawner.script
 self.spawned_coins = {}
 
 ...
@@ -135,7 +135,7 @@ table.insert(self.spawned_coins, id)
 A później:
 
 ```lua
--- plik spawner.script
+-- spawner.script
 -- Usuń wszystkie utworzone monety.
 for _, coin_id in ipairs(self.spawned_coins) do
     go.delete(coin_id)
@@ -145,11 +145,11 @@ end
 go.delete(self.spawned_coins)
 ```
 
-Często chcesz też, aby utworzony obiekt wiedział, który obiekt gry go utworzył. Jednym z przykładów jest autonomiczny obiekt, który może istnieć tylko w jednej instancji naraz. Taki obiekt musi poinformować spawner, że został usunięty lub zdezaktywowany, aby można było utworzyć kolejny:
+Zdarza się też, że chcesz, aby utworzony obiekt wiedział, który obiekt gry go utworzył. Jednym z przykładów jest autonomiczny obiekt, który może istnieć tylko w jednej instancji naraz. Taki obiekt musi poinformować spawner, że został usunięty lub zdezaktywowany, aby można było utworzyć kolejny:
 
 ```lua
--- plik spawner.script
--- Utwórz drona i ustaw jego rodzica na URL tego komponentu skryptu
+-- spawner.script
+-- Utwórz drona i ustaw jego parent na URL tego komponentu skryptu
 self.spawned_drone = factory.create("#dronefactory", drone_position, nil, { parent = msg.url() })
 
 ...
@@ -161,16 +161,16 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-A logika utworzonego obiektu wygląda tak:
+Logika utworzonego obiektu wygląda tak:
 
 ```lua
--- plik drone.script
+-- drone.script
 go.property("parent", msg.url())
 
 ...
 
 function final(self)
-    -- Koniec działania obiektu.
+    -- Umieram.
     msg.post(self.parent, "drone_dead")
 end
 ```
@@ -197,7 +197,7 @@ Gdy pole jest zaznaczone, masz dwa sposoby użycia:
   end
 
   function final(self)
-      -- Usuń obiekty gry. Zmniejszy to licznik referencji zasobów.
+      -- Usuń obiekt gry. Zmniejszy to licznik referencji zasobów.
       -- W tym przypadku zasoby zostaną usunięte, ponieważ komponent
       -- fabryki nie trzyma już do nich referencji.
       go.delete(self.go_id)
@@ -208,7 +208,7 @@ Gdy pole jest zaznaczone, masz dwa sposoby użycia:
   ```
 
 Ładowanie asynchroniczne
-: Wywołaj [`factory.load()`](/ref/factory/#factory.load), aby jawnie załadować zasoby asynchronicznie. Gdy zasoby będą gotowe do tworzenia obiektów, otrzymasz callback.
+: Wywołaj [`factory.load()`](/ref/factory/#factory.load), aby jawnie załadować zasoby asynchronicznie. Gdy zasoby będą gotowe do tworzenia obiektów, otrzymasz wywołanie zwrotne.
 
   ```lua
   function load_complete(self, url, result)
@@ -237,7 +237,7 @@ Gdy pole jest zaznaczone, masz dwa sposoby użycia:
 
 ## Dynamiczny prototyp
 
-Można zmienić prototyp tworzony przez Factory przez zaznaczenie pola *Dynamic Prototype* we właściwościach komponentu.
+Można zmienić, który *Prototype* fabryka może tworzyć, zaznaczając pole *Dynamic Prototype* we właściwościach komponentu.
 
 ![Dynamic prototype](images/factory/dynamic_prototype.png)
 
@@ -245,22 +245,22 @@ Gdy opcja *Dynamic Prototype* jest włączona, komponent Factory może zmieniać
 
 ```lua
 factory.unload("#factory") -- zwolnij poprzednie zasoby
-factory.set_prototype("#factory", "/main/levels/enemy.go")
-local id = factory.create("#factory")
+factory.set_prototype("#factory", "/main/levels/enemyA.goc")
+local enemy_id = factory.create("#factory")
 ```
 
 ::: important
-Gdy opcja *Dynamic Prototype* jest włączona, liczba komponentów w kolekcji nie może zostać zoptymalizowana, a kolekcja właściciela będzie używać domyślnych limitów komponentów z pliku *game.project*.
+Gdy opcja *Dynamic Prototype* jest włączona, liczby komponentów w kolekcji nie można zoptymalizować, a kolekcja właściciela będzie używać domyślnych liczników komponentów z pliku *game.project*.
 :::
 
 ## Limity instancji
 
-Ustawienie projektu *max_instances* w sekcji *Collection related settings* ogranicza łączną liczbę instancji obiektów gry, które mogą istnieć w jednym świecie. Dotyczy to zarówno `main.collection` wczytywanej przy starcie, jak i dowolnego świata załadowanego przez Collection proxy. Do tego limitu wliczają się wszystkie obiekty gry istniejące w świecie, niezależnie od tego, czy zostały ręcznie umieszczone w edytorze, czy utworzone w czasie działania przez skrypt.
+Ustawienie projektu *max_instances* w sekcji *Collection related settings* ogranicza łączną liczbę instancji obiektów gry, które mogą istnieć w świecie. Dotyczy to main.collection wczytywanej przy starcie i każdego świata załadowanego przez pełnomocnika kolekcji. Do tego limitu wliczają się wszystkie obiekty gry istniejące w świecie, niezależnie od tego, czy zostały ręcznie umieszczone w edytorze, czy utworzone w czasie działania przez skrypt.
 
-![Limit instancji](images/factory/factory_max_instances.png)
+![Maksymalna liczba instancji](images/factory/factory_max_instances.png)
 
-Jeśli ustawisz *max_instances* na `1024` i masz 24 obiekty gry ręcznie umieszczone w głównej kolekcji, możesz dodatkowo utworzyć 1000 obiektów gry. Gdy tylko usuniesz jakiś obiekt gry, możesz utworzyć kolejną instancję.
+Jeśli ustawisz *max_instances* na 1024 i masz 24 ręcznie umieszczone obiekty gry w głównej kolekcji, możesz utworzyć jeszcze 1000 obiektów gry. Gdy tylko usuniesz jakiś obiekt gry, możesz utworzyć kolejną instancję.
 
-## Pula obiektów gry
+## Ponowne używanie obiektów gry
 
-Może się wydawać, że dobrym pomysłem jest przechowywanie utworzonych obiektów gry w puli i ponowne ich wykorzystywanie. Silnik i tak stosuje jednak pooling obiektów wewnętrznie, więc dodatkowa warstwa narzutu tylko spowolni działanie. Szybciej i czyściej jest usuwać obiekty gry i tworzyć nowe.
+Może się wydawać, że dobrym pomysłem jest przechowywanie utworzonych obiektów gry w puli i ponowne ich wykorzystywanie. Silnik i tak wykonuje takie ponowne używanie obiektów wewnętrznie, więc dodatkowy narzut tylko spowolni działanie. Szybciej i czyściej jest usuwać obiekty gry i tworzyć nowe.

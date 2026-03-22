@@ -5,18 +5,18 @@ brief: Ta instrukcja opisuje działanie komponentu Camera w silniku Defold.
 
 # Kamery
 
-Kamera (ang. camera) w silniku Defold jest komponentem, który zmienia obszar widoczny i projekcję świata gry. Komponent Camera definiuje prostą kamerę perspektywiczną albo ortograficzną i przekazuje do skryptu renderującego macierz widoku oraz macierz projekcji.
+Kamera (ang. camera) w silniku Defold jest komponentem, który zmienia obszar widoczny i projekcję świata gry. Komponent Camera definiuje podstawową kamerę perspektywiczną albo ortograficzną i przekazuje do skryptu renderującego macierz widoku oraz macierz projekcji.
 
 Kamera perspektywiczna jest zwykle używana w grach 3D, gdzie widok kamery oraz rozmiar i perspektywa obiektów zależą od bryły widoku (frustum), odległości od kamery i kąta patrzenia na obiekty w grze.
 
-W grach 2D często pożądane jest renderowanie sceny z użyciem projekcji ortograficznej. Oznacza to, że widok kamery nie jest już wyznaczany przez bryłę widoku, lecz przez prostopadłościenny obszar. Projekcja ortograficzna jest niefotorealistyczna, ponieważ nie zmienia rozmiaru obiektów zależnie od ich odległości. Obiekt oddalony o 1000 jednostek zostanie narysowany w takim samym rozmiarze jak obiekt znajdujący się tuż przed kamerą.
+W grach 2D często pożądane jest renderowanie sceny z użyciem projekcji ortograficznej. Oznacza to, że widok kamery nie jest już wyznaczany przez bryłę widoku, lecz przez prostokątny obszar. Projekcja ortograficzna jest niefotorealistyczna, ponieważ nie zmienia rozmiaru obiektów zależnie od ich odległości. Obiekt oddalony o 1000 jednostek zostanie narysowany w takim samym rozmiarze jak obiekt znajdujący się tuż przed kamerą.
 
 ![projections](images/camera/projections.png)
 
 
 ## Tworzenie kamery
 
-Aby utworzyć kamerę, <kbd>kliknij prawym przyciskiem myszy</kbd> obiekt gry i wybierz <kbd>Add Component ▸ Camera</kbd>. Możesz też utworzyć plik komponentu w hierarchii projektu i dodać ten plik komponentu do obiektu gry.
+Aby utworzyć kamerę, <kbd>right click</kbd> obiekt gry i wybierz <kbd>Add Component ▸ Camera</kbd>. Możesz też utworzyć plik komponentu w hierarchii projektu i dodać ten plik komponentu do obiektu gry.
 
 ![create camera component](images/camera/create.png)
 
@@ -25,16 +25,16 @@ Komponent Camera ma następujące właściwości definiujące jego *frustum*:
 ![camera settings](images/camera/settings.png)
 
 Id
-: Identyfikator (Id) komponentu.
+: Id komponentu.
 
 Aspect Ratio
-: (**Tylko dla kamery perspektywicznej**) Stosunek szerokości bryły widoku do jej wysokości. `1.0` oznacza widok kwadratowy. `1.33` dobrze pasuje do widoku 4:3, takiego jak 1024x768. `1.78` dobrze pasuje do widoku 16:9. To ustawienie jest ignorowane, jeśli włączone jest *Auto Aspect Ratio*.
+: (**Tylko dla kamery perspektywicznej**) Stosunek szerokości bryły widoku do jej wysokości. 1.0 oznacza widok kwadratowy. 1.33 dobrze pasuje do widoku 4:3, takiego jak 1024x768. 1.78 dobrze pasuje do widoku 16:9. To ustawienie jest ignorowane, jeśli włączone jest *Auto Aspect Ratio*.
 
 Fov
 : (**Tylko dla kamery perspektywicznej**) *Pionowe* pole widzenia kamery wyrażone w radianach. Im szersze pole widzenia, tym większy obszar zobaczy kamera.
 
 Near Z
-: Wartość Z bliskiej płaszczyzny odcięcia (ang. clipping plane).
+: Wartość Z bliskiej płaszczyzny odcięcia.
 
 Far Z
 : Wartość Z dalekiej płaszczyzny odcięcia.
@@ -46,26 +46,26 @@ Orthographic Projection
 : Włącz tę opcję, aby przełączyć kamerę na projekcję ortograficzną.
 
 Orthographic Zoom
-: (**Tylko dla kamery ortograficznej**) Powiększenie używane w projekcji ortograficznej (`> 1` = przybliżenie, `< 1` = oddalenie).
+: (**Tylko dla kamery ortograficznej**) Powiększenie używane w projekcji ortograficznej (> 1 = przybliżenie, < 1 = oddalenie).
 
 Orthographic Mode
 : (**Tylko dla kamery ortograficznej**) Określa, jak kamera ortograficzna wyznacza zoom względem rozmiaru okna i rozdzielczości projektowej, czyli wartości `game.project` → `display.width/height`.
-  - `Fixed` (stały zoom): używa bieżącej wartości *Orthographic Zoom* bez zmian.
+  - `Fixed` (stały zoom): używa bieżącej wartości `Orthographic Zoom` bez zmian.
   - `Auto Fit` (contain): automatycznie dopasowuje zoom tak, aby cały obszar projektowy mieścił się w oknie. Może pokazać dodatkową zawartość po bokach albo u góry i na dole.
   - `Auto Cover` (cover): automatycznie dopasowuje zoom tak, aby obszar projektowy wypełniał całe okno. Może przycinać zawartość po bokach albo u góry i na dole.
-  Ta opcja jest dostępna tylko wtedy, gdy włączone jest *Orthographic Projection*.
+  Ta opcja jest dostępna tylko wtedy, gdy włączone jest `Orthographic Projection`.
 
 
 ## Używanie kamery
 
-Wszystkie kamery są automatycznie włączane i aktualizowane w każdej klatce, a moduł Lua `camera` jest dostępny we wszystkich kontekstach skryptowych. Od Defold 1.8.1 nie trzeba już jawnie włączać kamery przez wysłanie do komponentu wiadomości `acquire_camera_focus`. Stare wiadomości acquire i release nadal istnieją, ale zaleca się używanie wiadomości `enable` i `disable`, tak samo jak w przypadku innych komponentów, które chcesz włączać i wyłączać:
+Wszystkie kamery są automatycznie włączane i aktualizowane w każdej klatce, a moduł Lua `camera` jest dostępny we wszystkich kontekstach skryptowych. Od Defold 1.8.1 nie trzeba już jawnie włączać kamery przez wysłanie do komponentu wiadomości `acquire_camera_focus`. Stare wiadomości acquire i release nadal istnieją, ale zaleca się używanie wiadomości enable i disable, tak samo jak w przypadku innych komponentów, które chcesz włączać i wyłączać:
 
 ```lua
 msg.post("#camera", "disable")
 msg.post("#camera", "enable")
 ```
 
-Aby wyświetlić listę wszystkich obecnie dostępnych kamer, możesz użyć `camera.get_cameras()`:
+Aby wyświetlić listę wszystkich obecnie dostępnych kamer, możesz użyć camera.get_cameras():
 
 ```lua
 -- Uwaga: wywołania render są dostępne tylko w skrypcie renderującym.
@@ -114,7 +114,7 @@ camera.get_fov("main:/go#camera")
 render.set_camera("main:/go#camera")
 ```
 
-W każdej klatce komponent kamery, który ma aktualnie fokus kamery, wysyła wiadomość `set_view_projection` do gniazda `"@render"`:
+W każdej klatce komponent kamery, który ma aktualnie fokus kamery, wysyła wiadomość `set_view_projection` do gniazda "@render":
 
 ```lua
 -- builtins/render/default.render_script
@@ -130,14 +130,14 @@ end
 
 Komponent Camera dostarcza skryptowi renderującemu macierz projekcji perspektywicznej albo ortograficznej, zależnie od właściwości *Orthographic Projection*. Macierz projekcji uwzględnia też ustawione bliską i daleką płaszczyznę odcięcia, pole widzenia oraz współczynnik proporcji kamery.
 
-Macierz widoku dostarczana przez kamerę definiuje położenie i orientację kamery. Kamera z włączonym *Orthographic Projection* centruje widok na pozycji obiektu gry, do którego jest podłączona, natomiast kamera z projekcją perspektywiczną ma lewy dolny róg widoku ustawiony w pozycji obiektu gry, do którego jest podłączona.
+Macierz widoku dostarczana przez kamerę definiuje położenie i orientację kamery. Kamera z włączonym *Orthographic Projection* centruje widok na pozycji obiektu gry, do którego jest podłączona, natomiast kamera z *Perspective Projection* będzie miała lewy dolny róg widoku ustawiony w pozycji obiektu gry, do którego jest podłączona.
 
 
-### Render script
+### Skrypt do renderowania
 
-Podczas używania domyślnego skryptu renderującego Defold automatycznie ustawia ostatnią włączoną kamerę, która ma być używana do renderowania. Wcześniej skrypt w projekcie musiał jawnie wysyłać do renderera wiadomość `use_camera_projection`, aby poinformować go, że ma korzystać z widoku i projekcji z komponentów kamery. Nie jest to już konieczne, ale nadal można tak robić dla zachowania kompatybilności wstecznej.
+Podczas używania domyślnego skryptu do renderowania Defold automatycznie ustawia ostatnią włączoną kamerę, która ma być używana do renderowania. Wcześniej skrypt w projekcie musiał jawnie wysyłać do renderera wiadomość `use_camera_projection`, aby poinformować go, że ma korzystać z widoku i projekcji z komponentów kamery. Nie jest to już konieczne, ale nadal można tak robić dla zachowania zgodności wstecznej.
 
-Alternatywnie możesz ustawić w skrypcie renderującym konkretną kamerę, której należy użyć do renderowania. Przydaje się to wtedy, gdy chcesz dokładniej kontrolować, która kamera jest używana, na przykład w grze wieloosobowej.
+Alternatywnie możesz ustawić w skrypcie do renderowania konkretną kamerę, której należy użyć do renderowania. Przydaje się to wtedy, gdy chcesz dokładniej kontrolować, która kamera jest używana, na przykład w grze wieloosobowej.
 
 ```lua
 -- render.set_camera będzie automatycznie używać macierzy widoku i projekcji
@@ -173,7 +173,7 @@ W przypadku kamery ortograficznej możesz przybliżać i oddalać widok przez zm
 go.set("#camera", "orthographic_zoom", 2)
 ```
 
-Przy użyciu kamery ortograficznej możesz też przełączać sposób wyznaczania zoomu za pomocą ustawienia *Orthographic Mode* albo z poziomu skryptu:
+Przy użyciu kamery ortograficznej możesz też przełączać sposób wyznaczania zoomu za pomocą ustawienia `Orthographic Mode` albo z poziomu skryptu:
 
 ```lua
 -- pobierz bieżący tryb (jedna z wartości camera.ORTHO_MODE_FIXED, _AUTO_FIT, _AUTO_COVER)
@@ -189,11 +189,11 @@ camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
-### Adaptive zoom
+### Adaptacyjny zoom
 
-Idea adaptive zoom polega na dostosowywaniu wartości zoomu kamery, gdy rozdzielczość ekranu zmienia się względem początkowej rozdzielczości ustawionej w *game.project*.
+Idea adaptacyjnego zoomu polega na dostosowywaniu wartości zoomu kamery, gdy rozdzielczość wyświetlacza zmienia się względem początkowej rozdzielczości ustawionej w *game.project*.
 
-Dwa częste podejścia do adaptive zoom to:
+Dwa częste podejścia do adaptacyjnego zoomu to:
 
 1. Maksymalny zoom: oblicz taką wartość zoomu, aby obszar zawartości odpowiadający początkowej rozdzielczości z *game.project* wypełniał ekran i wykraczał poza jego krawędzie, co może ukryć część zawartości po bokach albo u góry i na dole.
 2. Minimalny zoom: oblicz taką wartość zoomu, aby obszar zawartości odpowiadający początkowej rozdzielczości z *game.project* w całości mieścił się w granicach ekranu, co może pokazać dodatkową zawartość po bokach albo u góry i na dole.
@@ -221,16 +221,16 @@ function init(self)
             -- minimalny zoom: upewnij się, że początkowe wymiary projektu
             -- zmieszczą się w granicach ekranu
             --local zoom = math.min(window_width / design_width, window_height / design_height) / display_scale
-
+            
             go.set("#camera", "orthographic_zoom", zoom)
         end
     end)
 end
 ```
 
-Pełny przykład adaptive zoom znajdziesz w [tym projekcie przykładowym](https://github.com/defold/sample-adaptive-zoom).
+Pełny przykład adaptacyjnego zoomu znajdziesz w [tym projekcie przykładowym](https://github.com/defold/sample-adaptive-zoom).
 
-Uwaga: przy użyciu kamery ortograficznej możesz teraz uzyskać zachowanie contain/cover bez własnego kodu, ustawiając *Orthographic Mode* na `Auto Fit` (contain) albo `Auto Cover` (cover). W tych trybach efektywny zoom jest obliczany automatycznie na podstawie rozmiaru okna i rozdzielczości projektowej.
+Uwaga: przy użyciu kamery ortograficznej możesz teraz uzyskać zachowanie contain/cover bez własnego kodu, ustawiając `Orthographic Mode` na `Auto Fit` (contain) albo `Auto Cover` (cover). W tych trybach efektywny zoom jest obliczany automatycznie na podstawie rozmiaru okna i rozdzielczości projektowej.
 
 
 ### Śledzenie obiektu gry
@@ -283,25 +283,25 @@ Kamerami można manipulować w czasie działania za pomocą różnych wiadomośc
 Kamera ma kilka właściwości, którymi można sterować przy użyciu `go.get()` i `go.set()`:
 
 `fov`
-: Pole widzenia kamery (typ `number`).
+: Pole widzenia kamery (`number`).
 
 `near_z`
-: Bliska wartość Z kamery (typ `number`).
+: Bliska wartość Z kamery (`number`).
 
 `far_z`
-: Daleka wartość Z kamery (typ `number`).
+: Daleka wartość Z kamery (`number`).
 
 `orthographic_zoom`
-: Zoom kamery ortograficznej (typ `number`).
+: Zoom kamery ortograficznej (`number`).
 
 `aspect_ratio`
 : Stosunek szerokości bryły widoku do jej wysokości. Używany przy obliczaniu projekcji kamery perspektywicznej (`number`).
 
 `view`
-: Obliczona macierz widoku kamery. TYLKO DO ODCZYTU (`matrix4`).
+: Obliczona macierz widoku kamery. Tylko do odczytu (`matrix4`).
 
 `projection`
-: Obliczona macierz projekcji kamery. TYLKO DO ODCZYTU (`matrix4`).
+: Obliczona macierz projekcji kamery. Tylko do odczytu (`matrix4`).
 
 
 ## Rozwiązania kamer od społeczności

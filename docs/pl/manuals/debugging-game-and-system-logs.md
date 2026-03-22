@@ -1,13 +1,13 @@
 ---
 title: Debugowanie - logi gry i systemu
-brief: Ta instrukcja wyjaśnia, jak odczytywać logi gry i systemu.
+brief: Ta instrukcja wyjaśnia, jak czytać logi gry i systemu.
 ---
 
-# Log gry i systemu
+# Logi gry i systemu
 
-Log gry (ang. game log) pokazuje całe wyjście z silnika, rozszerzeń natywnych i logiki gry. Funkcji [print()](/ref/stable/base/#print:...) oraz [pprint()](/ref/stable/builtins/?q=pprint#pprint:v) można używać w skryptach i modułach Lua, aby wyświetlać informacje w logu gry. Możesz też używać funkcji z przestrzeni nazw [`dmLog`](/ref/stable/dmLog/), aby zapisywać do logu gry z poziomu rozszerzeń natywnych. Log gry można odczytywać w edytorze, w oknie terminala, przy użyciu narzędzi specyficznych dla platformy albo z pliku logu.
+Log gry pokazuje całe wyjście z silnika, rozszerzeń natywnych i logiki gry. Polecenia [print()](/ref/stable/base/#print:...) oraz [pprint()](/ref/stable/builtins/?q=pprint#pprint:v) można wywoływać ze skryptów i modułów Lua, aby wyświetlać informacje w logu gry. Z poziomu rozszerzeń natywnych możesz używać funkcji w przestrzeni nazw [`dmLog` namespace](/ref/stable/dmLog/), aby zapisywać do logu gry. Log gry można odczytać w edytorze, w oknie terminala, przy użyciu narzędzi specyficznych dla platformy albo z pliku logu.
 
-Logi systemowe są generowane przez system operacyjny i mogą dostarczać dodatkowych informacji pomagających ustalić źródło problemu. Logi systemowe mogą zawierać ślady stosu po awariach oraz ostrzeżenia o małej ilości pamięci.
+Logi systemowe są generowane przez system operacyjny i mogą dostarczyć dodatkowych informacji, które pomagają namierzyć problem. Mogą też zawierać ślady stosu po awariach oraz ostrzeżenia o niskim poziomie pamięci.
 
 ::: important
 Logowanie do konsoli/na ekranie pokazuje informacje tylko w buildach Debug. W buildach Release log konsoli jest pusty, ale możesz włączyć logowanie do pliku w Release, ustawiając opcję projektu "Write Log File" na "Always". Szczegóły poniżej.
@@ -15,13 +15,13 @@ Logowanie do konsoli/na ekranie pokazuje informacje tylko w buildach Debug. W bu
 
 ## Odczytywanie logu gry w edytorze
 
-Gdy uruchamiasz grę lokalnie z edytora albo na urządzeniu połączonym z [development app](/manuals/dev-app), całe wyjście będzie widoczne w panelu konsoli (console pane) edytora:
+Gdy uruchamiasz grę lokalnie z edytora albo na urządzeniu połączonym z [mobilną aplikacją deweloperską](/manuals/dev-app), całe wyjście będzie widoczne w panelu konsoli edytora:
 
 ![Edytor 2](images/editor/editor2_overview.png)
 
 ## Odczytywanie logu gry z terminala
 
-Gdy uruchamiasz grę Defold z terminala, log będzie wyświetlany bezpośrednio w samym oknie terminala. W systemach Windows i Linux wpisujesz w terminalu nazwę pliku wykonywalnego, aby uruchomić grę. W macOS musisz uruchomić silnik z wnętrza pliku `.app`:
+Gdy uruchamiasz grę Defold z terminala, log będzie wyświetlany bezpośrednio w samym oknie terminala. W systemach Windows i Linux wpisujesz w terminalu nazwę pliku wykonywalnego, aby uruchomić grę. W macOS musisz uruchomić silnik z wnętrza pliku .app:
 
 ```
 $ > ./mygame.app/Contents/MacOS/mygame
@@ -40,7 +40,7 @@ Logi można odczytywać przy użyciu narzędzi deweloperskich dostępnych w wię
 
 ### Android
 
-Do wyświetlania logów gry i systemu możesz użyć narzędzia Android Debug Bridge (ADB).
+Do podglądu logów gry i systemu możesz użyć narzędzia Android Debug Bridge (ADB).
 
 :[Android ADB](../shared/android-adb.md)
 
@@ -51,9 +51,9 @@ $ cd <path_to_android_sdk>/platform-tools/
 $ adb logcat
 ```
 
-Urządzenie wypisze wtedy całe wyjście do bieżącego terminala, wraz z komunikatami wypisywanymi przez grę.
+Urządzenie wypisze wtedy całe wyjście do bieżącego terminala, wraz z komunikatami z gry.
 
-Jeśli chcesz widzieć tylko wyjście aplikacji Defold, użyj tego polecenia:
+Jeśli chcesz widzieć wyłącznie wyjście aplikacji Defold, użyj tego polecenia:
 
 ```txt
 $ cd <path_to_android_sdk>/platform-tools/
@@ -71,27 +71,27 @@ D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
 
 ### iOS
 
-Masz kilka możliwości odczytywania logów gry i systemu w iOS:
+Masz kilka sposobów odczytywania logów gry i systemu na iOS:
 
-1. Możesz użyć narzędzia [Console](https://support.apple.com/guide/console/welcome/mac), aby odczytywać logi gry i systemu.
-2. Możesz użyć debuggera LLDB, aby podłączyć się do gry uruchomionej na urządzeniu. Aby debugować grę, musi ona być podpisana profilem „Apple Developer Provisioning Profile”, który obejmuje urządzenie, na którym chcesz debugować. Spakuj grę z edytora i podaj provisioning profile w oknie dialogowym bundlowania (bundlowanie dla iOS jest dostępne tylko w macOS).
+1. Możesz użyć narzędzia [Console](https://support.apple.com/guide/console/welcome/mac), aby czytać logi gry i systemu.
+2. Możesz użyć debuggera LLDB, aby dołączyć do gry uruchomionej na urządzeniu. Aby debugować grę, musi ona być podpisana profilem „Apple Developer Provisioning Profile”, który obejmuje urządzenie, na którym chcesz debugować. Spakuj grę z edytora i podaj provisioning profile w oknie dialogowym bundlowania (bundlowanie dla iOS jest dostępne tylko na macOS).
 
-Aby uruchomić grę i podłączyć debugger, potrzebujesz narzędzia [ios-deploy](https://github.com/phonegap/ios-deploy). Zainstaluj je i uruchom debugowanie gry, wpisując w terminalu:
+Aby uruchomić grę i dołączyć debugger, potrzebujesz narzędzia [ios-deploy](https://github.com/phonegap/ios-deploy). Zainstaluj je i uruchom debugowanie gry, wpisując w terminalu:
 
 ```txt
 $ ios-deploy --debug --bundle <path_to_game.app> # UWAGA: to nie jest plik .ipa
 ```
 
-To polecenie zainstaluje aplikację na urządzeniu, uruchomi ją i automatycznie podłączy do niej debugger LLDB. Jeśli dopiero zaczynasz z LLDB, przeczytaj [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).
+To polecenie zainstaluje aplikację na urządzeniu, uruchomi ją i automatycznie dołączy do niej debugger LLDB. Jeśli dopiero zaczynasz z LLDB, przeczytaj [Getting Started with LLDB](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html).
 
 
 ## Odczytywanie logu gry z pliku logu
 
 Użyj ustawienia projektu "Write Log File" w pliku *game.project*, aby sterować logowaniem do pliku:
 
-- "Never": nie zapisuj pliku logu.
-- "Debug": zapisuj plik logu tylko dla buildów Debug.
-- "Always": zapisuj plik logu zarówno dla buildów Debug, jak i Release.
+- "Never": Nie zapisuj pliku logu.
+- "Debug": Zapisuj plik logu tylko dla buildów Debug.
+- "Always": Zapisuj plik logu zarówno dla buildów Debug, jak i Release.
 
 Po włączeniu całe wyjście gry będzie zapisywane na dysku do pliku o nazwie "`log.txt`". Oto jak pobrać ten plik, jeśli uruchamiasz grę na urządzeniu:
 

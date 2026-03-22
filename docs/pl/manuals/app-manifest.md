@@ -1,12 +1,12 @@
 ---
 title: Manifest aplikacji
-brief: Ta instrukcja opisuje, jak manifest aplikacji może służyć do wykluczania funkcji z silnika.
+brief: Ta instrukcja wyjaśnia, jak manifest aplikacji służy do wykluczania funkcji z silnika.
 ---
 
 # Manifest aplikacji
 
-Manifest aplikacji służy do wykluczania funkcji z silnika albo określania, które funkcje mają zostać do niego dołączone. Wykluczanie nieużywanych funkcji silnika to zalecana praktyka, ponieważ zmniejsza końcowy rozmiar pliku binarnego gry.
-Manifest aplikacji zawiera też kilka opcji sterujących kompilacją kodu dla platformy HTML5, takich jak minimalna obsługiwana wersja przeglądarki czy ustawienia pamięci. Te ustawienia również mogą wpływać na rozmiar wynikowego pliku binarnego.
+Manifest aplikacji służy do wykluczania funkcji z silnika albo do określania, które z nich mają zostać do niego dołączone. Wykluczanie nieużywanych funkcji silnika to zalecana praktyka, ponieważ zmniejsza końcowy rozmiar pliku binarnego gry.
+Manifest aplikacji zawiera też kilka opcji sterujących kompilacją kodu dla platformy HTML5, takich jak minimalna obsługiwana wersja przeglądarki i ustawienia pamięci. Te opcje również mogą wpływać na rozmiar wynikowego pliku binarnego.
 
 ![](images/app_manifest/create-app-manifest.png)
 
@@ -14,11 +14,11 @@ Manifest aplikacji zawiera też kilka opcji sterujących kompilacją kodu dla pl
 
 # Stosowanie manifestu
 
-W pliku `game.project` przypisz manifest w polu <kbd>Native Extensions</kbd> -> <kbd>App Manifest</kbd>.
+W pliku `game.project` przypisz manifest w <kbd>`Native Extensions`</kbd> -> <kbd>`App Manifest`</kbd>.
 
 ## Physics
 
-Określa, którego silnika fizyki użyć, albo pozwala wybrać `None`, aby całkowicie wykluczyć fizykę.
+Określa, którego silnika fizyki użyć, albo pozwala wybrać None, aby całkowicie wykluczyć fizykę.
 
 ## Physics 2d
 
@@ -26,7 +26,7 @@ Wybiera, której wersji Box2D użyć.
 
 ## Rig + Model
 
-Steruje funkcjami `rig` i `model` albo pozwala wybrać `None`, aby całkowicie wykluczyć model i rig. Zobacz dokumentację [`Model`](https://defold.com/manuals/model/#model-component).
+Steruje funkcjami rig i model albo pozwala wybrać None, aby całkowicie wykluczyć model i rig. Zobacz dokumentację [`Model`](https://defold.com/manuals/model/#model-component).
 
 
 ## Exclude Record
@@ -36,7 +36,7 @@ Wyklucza z silnika możliwość nagrywania wideo (zobacz dokumentację wiadomoś
 
 ## Exclude Profiler
 
-Wyklucza profiler z silnika. Profiler służy do zbierania danych o wydajności oraz liczników użycia. Więcej informacji o korzystaniu z profilera znajdziesz w [instrukcji profilowania](/manuals/profiling/).
+Wyklucza profiler z silnika. Profiler służy do zbierania danych o wydajności oraz liczników użycia. Więcej informacji o korzystaniu z profilera znajdziesz w [podręczniku profilowania](/manuals/profiling/).
 
 
 ## Exclude Sound
@@ -84,33 +84,33 @@ Określa, którego backendu graficznego użyć.
 
 ## Use full text layout system
 
-Jeśli ta opcja jest włączona (`true`), umożliwia generowanie w czasie działania fontów typu SDF przy użyciu fontów TrueType (`.ttf`) w projekcie. Więcej szczegółów znajdziesz w [instrukcji fontów](https://defold.com/manuals/font/#enabling-runtime-fonts).
+Jeśli ta opcja jest włączona (`true`), umożliwia generowanie w czasie działania fontów typu SDF przy użyciu fontów TrueType (`.ttf`) w projekcie. Więcej szczegółów znajdziesz w [podręczniku fontów](https://defold.com/manuals/font/#enabling-runtime-fonts).
 
 
 ## Minimum Safari version (js-web and wasm-web only)
 Nazwa pola YAML: **`minSafariVersion`**
 Wartość domyślna: **90000**
 
-Minimalna wspierana wersja Safari. Nie może być mniejsza niż 90000. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-safari-version).
+Minimalna obsługiwana wersja Safari. Nie może być mniejsza niż 90000. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-safari-version).
 
 ## Minimum Firefox version (js-web and wasm-web only)
 Nazwa pola YAML: **`minFirefoxVersion`**
 Wartość domyślna: **34**
 
-Minimalna wspierana wersja Firefoxa. Nie może być mniejsza niż 34. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-firefox-version).
+Minimalna obsługiwana wersja Firefoxa. Nie może być mniejsza niż 34. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-firefox-version).
 
 ## Minimum Chrome version (js-web and wasm-web only)
 Nazwa pola YAML: **`minChromeVersion`**
 Wartość domyślna: **32**
 
-Minimalna wspierana wersja Chrome. Nie może być mniejsza niż 32. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-chrome-version).
+Minimalna obsługiwana wersja Chrome. Nie może być mniejsza niż 32. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-chrome-version).
 
 ## Initial memory (js-web and wasm-web only)
 Nazwa pola YAML: **`initialMemory`**
 Wartość domyślna: **33554432**
 
-Rozmiar pamięci przydzielanej aplikacji webowej. Jeśli `ALLOW_MEMORY_GROWTH=0` (`js-web`), jest to całkowita ilość pamięci, z której może korzystać aplikacja webowa. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Wartość podawana jest w bajtach. Zwróć uwagę, że wartość musi być wielokrotnością rozmiaru strony WebAssembly (`64KiB`).
-Ta opcja odnosi się do `html5.heap_size` w *game.project* ([więcej informacji](https://defold.com/manuals/html5/#heap-size)). Opcja skonfigurowana w manifeście aplikacji jest ustawiana podczas kompilacji i używana jako domyślna wartość opcji `INITIAL_MEMORY`. Wartość z *game.project* nadpisuje wartość z manifestu aplikacji i jest używana w czasie działania.
+Rozmiar pamięci przydzielanej aplikacji webowej. Jeśli ALLOW_MEMORY_GROWTH=0 (js-web), jest to całkowita ilość pamięci dostępna dla aplikacji webowej. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Wartość podawana jest w bajtach. Zwróć uwagę, że musi ona być wielokrotnością rozmiaru strony WebAssembly (64KiB).
+Ta opcja odnosi się do `html5.heap_size` w *game.project* ([więcej informacji](https://defold.com/manuals/html5/#heap-size)). Opcja skonfigurowana w manifeście aplikacji jest ustawiana podczas kompilacji i używana jako domyślna wartość `INITIAL_MEMORY`. Wartość z *game.project* nadpisuje wartość z manifestu aplikacji i jest używana w czasie działania.
 
 ## Stack size (js-web and wasm-web only)
 Nazwa pola YAML: **`stackSize`**

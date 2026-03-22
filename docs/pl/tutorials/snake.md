@@ -1,36 +1,36 @@
 ---
-title: Tworzenie gry Snake w Defold
-brief: Jeśli dopiero zaczynasz pracę z Defold, ten przewodnik pomoże ci zacząć pracę z logiką skryptów oraz kilkoma podstawowymi elementami składowymi Defold.
+title: Budowanie gry Snake w Defold
+brief: Jeśli dopiero zaczynasz pracę z Defold, ten przewodnik pomoże ci wejść w logikę skryptów i poznać kilka podstawowych elementów Defold.
 ---
 
-# Wąż
+# Snake
 
-Ten samouczek przeprowadzi cię przez proces tworzenia jednej z najpopularniejszych klasycznych gier, którą możesz spróbować odtworzyć. Istnieje wiele wariantów tej gry, a ten przedstawia węża, który zjada „jedzenie” i rośnie tylko wtedy, gdy coś zje. Wąż pełza też po planszy gry, na której znajdują się przeszkody.
+Ten samouczek przeprowadzi cię przez proces tworzenia jednej z najpopularniejszych klasycznych gier, którą możesz spróbować odtworzyć. Istnieje wiele wariantów tej gry, a ta wersja zawiera węża, który zjada „jedzenie” i rośnie tylko wtedy, gdy coś zje. Wąż pełza też po planszy gry, na której znajdują się przeszkody.
 
 ## Tworzenie projektu
 
 1. Uruchom Defold.
 2. Po lewej stronie wybierz *New Project*.
 3. Wybierz kartę *From Template*.
-4. Wybierz *Empty Project*
+4. Wybierz *Empty Project*.
 5. Wybierz lokalizację projektu na lokalnym dysku.
-6. Kliknij *Create New Project*.
+6. Kliknij <kbd>Create New Project</kbd>.
 
-Otwórz plik ustawień *game.project* i ustaw wymiary gry na 768⨉768 albo na inną wielokrotność 16. Chcesz to zrobić, ponieważ gra będzie rysowana na siatce, na której każdy segment ma rozmiar 16x16 pikseli, a w ten sposób ekran gry nie utnie żadnych częściowych segmentów.
+Otwórz plik ustawień *game.project* i ustaw wymiary gry na 768⨉768 albo na inną wielokrotność 16. Warto to zrobić, ponieważ gra będzie rysowana na siatce, na której każdy segment ma rozmiar 16x16 pikseli, a dzięki temu ekran gry nie odetnie żadnych częściowych segmentów.
 
 ## Dodawanie grafiki do gry
 
-Do warstwy wizualnej potrzeba naprawdę niewiele. Jeden segment 16x16 dla węża, jeden dla przeszkód i jeden dla jedzenia. Ten obrazek to jedyny zasób, którego potrzebujesz. <kbd>Kliknij prawym przyciskiem myszy</kbd> obrazek, zapisz go na lokalnym dysku i przeciągnij do lokalizacji w folderze projektu.
+Do warstwy wizualnej potrzeba naprawdę niewiele. Jeden segment 16x16 dla węża, jeden dla przeszkód i jeden dla jedzenia. Ten obrazek to jedyny zasób, którego potrzebujesz. <kbd>Right click</kbd> obrazek, zapisz go na lokalnym dysku i przeciągnij do lokalizacji w folderze projektu.
 
 ![sprite'y węża](images/snake/snake.png)
 
-Defold zawiera wbudowany komponent *Tilemap* (mapa kafelków), którego użyjesz do utworzenia planszy gry. Mapa kafelków pozwala ustawiać i odczytywać pojedyncze kafelki, więc ten projekt pasuje do niej idealnie. Ponieważ mapa kafelków pobiera grafikę z zasobu *Tilesource* (źródło kafelków), musisz taki zasób utworzyć:
+Defold ma wbudowany komponent *Tilemap* (mapa kafelków), którego użyjesz do utworzenia planszy gry. Mapa kafelków pozwala ustawiać i odczytywać pojedyncze kafelki, więc ten projekt pasuje do niej idealnie. Ponieważ mapa kafelków pobiera grafiki z *Tilesource* (źródła kafelków), musisz takie źródło utworzyć:
 
-<kbd>Kliknij prawym przyciskiem myszy</kbd> folder *main* i wybierz <kbd>New ▸ Tile Source</kbd>. Nazwij nowy plik "snake" (edytor zapisze plik jako "snake.tilesource").
+<kbd>Right click</kbd> folder *main* i wybierz <kbd>New ▸ Tile Source</kbd>. Nazwij nowy plik "snake" (edytor zapisze plik jako "snake.tilesource").
 
 Ustaw właściwość *Image* na plik grafiki, który właśnie zaimportowałeś.
 
-Właściwości *Width* i *Height* powinny pozostać ustawione na 16. Spowoduje to podział obrazu 32⨉32 piksele na 4 kafelki ponumerowane od 1 do 4.
+Właściwości *Width* i *Height* powinny pozostać ustawione na 16. To podzieli obraz 32⨉32 piksele na 4 kafelki ponumerowane od 1 do 4.
 
 ![źródło kafelków](images/snake/tilesource.png)
 
@@ -40,9 +40,9 @@ Zwróć uwagę, że właściwość *Extrude Borders* ma ustawioną wartość 1 p
 
 Teraz masz już gotowe źródło kafelków, więc czas utworzyć komponent mapy kafelków planszy:
 
-<kbd>Kliknij prawym przyciskiem myszy</kbd> folder *main* i wybierz <kbd>New ▸ Tile Map</kbd>. Nazwij nowy plik "grid" (edytor zapisze plik jako "grid.tilemap").
+<kbd>Right click</kbd> folder *main* i wybierz <kbd>New ▸ Tile Map</kbd>. Nazwij nowy plik "grid" (edytor zapisze plik jako "grid.tilemap").
 
-![ustaw źródło kafelków](images/snake/set_tilesource.png)
+![Set tilesource](images/snake/set_tilesource.png)
 
 Ustaw właściwość *Tile Source* nowej mapy kafelków na "snake.tilesource".
 
@@ -54,27 +54,27 @@ Wybierz opcję menu <kbd>Edit ▸ Select Tile...</kbd>, aby wyświetlić paletę
 
 Namaluj obramowanie wokół krawędzi ekranu i kilka przeszkód.
 
-![mapa kafelków](images/snake/tilemap.png)
+![tilemap](images/snake/tilemap.png)
 
 Zapisz mapę kafelków, gdy skończysz.
 
 ## Dodawanie mapy kafelków i skryptu do gry
 
-Teraz otwórz *main.collection*. To główna kolekcja bootstrapowa, ładowana przy starcie silnika. <kbd>Kliknij prawym przyciskiem myszy</kbd> węzeł główny w *Outline* i wybierz <kbd>Add Game Object</kbd>, co utworzy nowy obiekt gry w kolekcji ładowanej wraz ze startem gry.
+Teraz otwórz *main.collection*. To główna kolekcja bootstrapowa ładowana przy starcie silnika. <kbd>Right click</kbd> korzeń w *Outline* i wybierz <kbd>Add Game Object</kbd>, aby utworzyć nowy obiekt gry w kolekcji ładowanej wraz ze startem gry.
 
-![dodawanie obiektu gry](images/snake/add_game_object.png)
+![add game object](images/snake/add_game_object.png)
 
-Następnie <kbd>Kliknij prawym przyciskiem myszy</kbd> nowy obiekt gry i wybierz <kbd>Add Component File</kbd>. Wskaż plik "grid.tilemap", który właśnie utworzyłeś.
+Następnie <kbd>Right click</kbd> nowy obiekt gry i wybierz <kbd>Add Component File</kbd>. Wskaż plik "grid.tilemap", który właśnie utworzyłeś.
 
-![dodawanie komponentu](images/snake/add_component_file.png)
+![add component](images/snake/add_component_file.png)
 
-<kbd>Kliknij prawym przyciskiem myszy</kbd> folder *main* w przeglądarce *Assets* i wybierz <kbd>New ▸ Script</kbd>. Nazwij nowy plik skryptu "snake" (zostanie zapisany jako "snake.script"). Ten plik będzie przechowywał całą logikę gry.
+<kbd>Right click</kbd> folder *main* w przeglądarce *Assets* i wybierz <kbd>New ▸ Script</kbd>. Nazwij nowy plik skryptu "snake" (zostanie zapisany jako "snake.script"). Ten plik będzie przechowywał całą logikę gry.
 
-Wróć do *main.collection* i <kbd>Kliknij prawym przyciskiem myszy</kbd> obiekt gry zawierający mapę kafelków. Wybierz <kbd>Add Component File</kbd> i wskaż plik "snake.script".
+Wróć do *main.collection* i <kbd>Right click</kbd> obiekt gry zawierający mapę kafelków. Wybierz <kbd>Add Component File</kbd> i wskaż plik "snake.script".
 
 Teraz masz już na miejscu komponent mapy kafelków i skrypt. Jeśli uruchomisz grę, powinieneś zobaczyć planszę taką, jaką narysowałeś na mapie kafelków.
 
-![główna kolekcja](images/snake/main_collection_no_gui.png)
+![main collection](images/snake/main_collection_no_gui.png)
 
 ## Skrypt gry - inicjalizacja
 
@@ -164,11 +164,11 @@ Jeśli teraz uruchomisz grę, powinieneś zobaczyć węża o długości 4 segmen
 
 ## Wejście gracza
 
-Zanim dodasz kod reagujący na wejście gracza, musisz skonfigurować wiązania wejść. Znajdź plik *input/game.input_binding* w przeglądarce *Assets* i <kbd>Kliknij dwukrotnie</kbd>, aby go otworzyć. Dodaj zestaw wiązań *Key Trigger* dla ruchu w górę, w dół, w lewo i w prawo.
+Zanim dodasz kod reagujący na wejście gracza, musisz skonfigurować wiązania wejść. Znajdź plik *input/game.input_binding* w przeglądarce *Assets* i <kbd>double click</kbd>, aby go otworzyć. Dodaj zestaw wiązań *Key Trigger* dla ruchu w górę, w dół, w lewo i w prawo.
 
 ![wejście](images/snake/input.png)
 
-Plik wiązań wejść mapuje rzeczywiste wejście użytkownika (klawisze, ruchy myszy itd.) na nazwy akcji, które trafiają do skryptów proszących o przechwycenie wejścia. Gdy wiązania są już gotowe, otwórz *snake.script* i dodaj następujący kod:
+Plik wiązań wejść mapuje rzeczywiste wejście użytkownika (klawisze, ruchy myszy itd.) na *nazwy* akcji, które trafiają do skryptów proszących o przechwycenie wejścia. Gdy wiązania są już gotowe, otwórz *snake.script* i dodaj następujący kod:
 
 ```lua
 function init(self)
@@ -211,7 +211,7 @@ Uruchom grę ponownie i sprawdź, czy możesz sterować wężem.
 
 Zwróć teraz uwagę, że jeśli naciśniesz dwa klawisze jednocześnie, spowoduje to dwa wywołania `on_input()`, po jednym dla każdego naciśnięcia. W kodzie zapisanym powyżej tylko wywołanie, które nastąpi jako ostatnie, wpłynie na kierunek węża, ponieważ kolejne wywołania `on_input()` nadpiszą wartości w `self.dir`.
 
-Zwróć też uwagę, że jeśli wąż porusza się w lewo i naciśniesz klawisz <kbd>right</kbd>, wąż skręci w samego siebie. Pozornie oczywistym rozwiązaniem tego problemu jest dodanie dodatkowego warunku do klauzul `if` w `on_input()`:
+Zwróć też uwagę, że jeśli wąż porusza się w lewo i naciśniesz klawisz <kbd>right</kbd>, wąż skręci w samego siebie. *Pozornie* oczywistym rozwiązaniem tego problemu jest dodanie dodatkowego warunku do klauzul `if` w `on_input()`:
 
 ```lua
 if action_id == hash("up") and self.dir.y ~= -1 and action.pressed then
@@ -314,7 +314,7 @@ function init(self)
     put_food(self) -- <5>
 end
 ```
-1. Zadeklaruj nową funkcję `put_food()`, która umieszcza na mapie porcję jedzenia.
+1. Zdefiniuj nową funkcję `put_food()`, która umieszcza na mapie porcję jedzenia.
 2. Zapisz losową pozycję X i Y w zmiennej `self.food`.
 3. Ustaw kafelek w pozycji X i Y na wartość 3, która odpowiada grafice kafelka jedzenia.
 4. Zanim zaczniesz pobierać losowe wartości za pomocą `math.random()`, ustaw ziarno generatora losowego, bo w przeciwnym razie będzie generowana ta sama sekwencja losowych wartości. To ziarno powinno być ustawione tylko raz.
@@ -376,7 +376,7 @@ function update(self, dt)
         end
 
         for i, s in ipairs(self.segments) do
-            tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)            
+            tilemap.set_tile("#grid", "layer1", s.x, s.y, 2)
         end
 
         self.t = 0
@@ -387,11 +387,11 @@ end
 2. Zanim narysujesz coś na mapie kafelków, odczytaj to, co znajduje się w miejscu, w które trafi nowa głowa węża.
 3. Jeśli kafelek jest przeszkodą albo inną częścią węża, gra się kończy!
 4. Jeśli kafelek jest jedzeniem, zwiększ prędkość, a następnie umieść nowe jedzenie.
-5. Zwróć uwagę, że ogon jest usuwany tylko wtedy, gdy nie dochodzi do kolizji. Oznacza to, że jeśli gracz zje jedzenie, wąż urośnie o jeden segment, ponieważ w tym ruchu ogon nie zostanie usunięty.
+5. Zwróć uwagę, że usunięcie ogona następuje tylko wtedy, gdy nie dochodzi do kolizji. Oznacza to, że jeśli gracz zje jedzenie, wąż urośnie o jeden segment, ponieważ w tym ruchu ogon nie zostanie usunięty.
 
 Teraz spróbuj uruchomić grę i upewnij się, że działa dobrze!
 
-Na tym kończy się samouczek, ale zachęcam do dalszych eksperymentów z grą i rozwiązania kilku ćwiczeń poniżej!
+Na tym kończy się samouczek, ale zachęcamy do dalszych eksperymentów z grą i wykonania kilku ćwiczeń poniżej!
 
 ## Pełny skrypt
 
@@ -473,9 +473,9 @@ end
 
 ## Ćwiczenia
 
-Wersja gry, którą możesz zagrać na początku tego samouczka, zawiera kilka dodatkowych usprawnień. Dobrym ćwiczeniem będzie spróbować je zaimplementować:
+Wersja gry, którą możesz zagrać na początku tego samouczka, zawiera kilka dodatkowych usprawnień. Dobrym ćwiczeniem będzie spróbowanie zaimplementowania tych ulepszeń:
 
 1. Dodaj punktację i licznik punktów.
 2. Funkcja `put_food()` nie uwzględnia pozycji węża ani tego, gdzie znajdują się przeszkody. Napraw to.
-3. Jeśli gra się kończy, pokaż komunikat „game over”, a potem pozwól graczowi spróbować ponownie.
+3. Jeśli gra się kończy, pokaż komunikat "game over", a potem pozwól graczowi spróbować ponownie.
 4. Dodatkowe punkty: dodaj węża dla gracza 2.

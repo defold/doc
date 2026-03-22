@@ -1,24 +1,24 @@
 ---
-title: Tworzenie aplikacji Defold na platformie Windows
-brief: Ta instrukcja opisuje, jak budować i uruchamiać aplikacje Defold w systemie Windows
+title: Tworzenie aplikacji Defold na Windows
+brief: Ta instrukcja opisuje, jak budować i uruchamiać aplikacje Defold na Windows
 ---
 
-# Tworzenie dla platformy Windows
+# Tworzenie aplikacji na Windows
 
-Tworzenie aplikacji Defold na platformę Windows jest prostym procesem i wymaga bardzo niewielu dodatkowych uwag.
+Tworzenie aplikacji Defold na Windows jest prostym procesem i wymaga niewielu dodatkowych uwag.
 
 ## Ustawienia projektu
 
-Konfigurację aplikacji specyficzną dla Windows ustawiasz w sekcji [Windows](/manuals/project-settings/#windows) pliku ustawień *game.project*.
+Konfigurację aplikacji dla Windows wykonuje się w sekcji [Windows](/manuals/project-settings/#windows) pliku ustawień *game.project*.
 
 ## Ikona aplikacji
 
-Ikona aplikacji używana w grze przeznaczonej na Windows musi mieć format `.ico`. Plik `.ico` można łatwo utworzyć z pliku `.png` za pomocą narzędzia online, takiego jak [ICOConvert](https://www.icoconverter.com/) lub [AConvert](https://www.aconvert.com/icon/png-to-ico/). Prześlij obraz i użyj co najmniej następujących rozmiarów ikony: 16x16, 24x24, 32x32, 48x48, 256x256.
+Ikona aplikacji używana w grze na Windows musi być w formacie .ico. Plik .ico można łatwo utworzyć z pliku .png za pomocą narzędzia online, takiego jak [ICOConvert](https://www.icoconverter.com/) lub [AConvert](https://www.aconvert.com/icon/png-to-ico/). Prześlij obraz i użyj co najmniej następujących rozmiarów ikon: 16x16, 24x24, 32x32, 48x48, 256x256.
 
-Źródło: [Microsoft - budowa ikon aplikacji Windows](https://learn.microsoft.com/en-us/windows/apps/design/style/iconography/app-icon-construction#icon-sizes-win32)
+Źródło: [Microsoft - tworzenie ikon aplikacji Windows](https://learn.microsoft.com/en-us/windows/apps/design/style/iconography/app-icon-construction#icon-sizes-win32)
 
-### Tworzenie lokalnego pliku `.ico` za pomocą pakietu ImageMagick
-[ImageMagick](https://www.imagemagick.org/) to darmowy, otwartoźródłowy zestaw narzędzi używany do edycji i przetwarzania obrazów cyfrowych.
+### Tworzenie lokalnego pliku .ico za pomocą ImageMagick
+[ImageMagick](https://www.imagemagick.org/) to darmowy, otwartoźródłowy zestaw narzędzi do edycji i przetwarzania obrazów cyfrowych.
 
 1. Zainstaluj ImageMagick
   * Linux: Zainstaluj za pomocą `apt`

@@ -1,14 +1,14 @@
 ---
 title: Animacja właściwości
-brief: Ta instrukcja opisuje, jak używać animacji właściwości w silniku Defold.
+brief: Ta instrukcja opisuje, jak używać animacji właściwości w Defold.
 ---
 
 # Animacja właściwości
 
-Wszystkie właściwości liczbowe, czyli `number`, `vector3`, `vector4` i kwaterniony, a także stałe shaderów, można animować za pomocą wbudowanego systemu animacji i funkcji `go.animate()`. Silnik automatycznie interpoluje wartości zgodnie z wybranym trybem odtwarzania i funkcją easing. Możesz też definiować własne funkcje easing.
+Wszystkie właściwości liczbowe, czyli number, vector3, vector4 i kwaterniony, a także stałe shaderów, można animować za pomocą wbudowanego systemu animacji i funkcji `go.animate()`. Silnik automatycznie interpoluje wartości zgodnie z wybranym trybem odtwarzania i funkcją easing. Możesz też definiować własne funkcje easing.
 
-  ![Property animation](images/animation/property_animation.png)
-  ![Bounce loop](images/animation/bounce.gif)
+  ![Animacja właściwości](images/animation/property_animation.png)
+  ![Pętla z odbiciem](images/animation/bounce.gif)
 
 ## Animacja właściwości
 
@@ -47,11 +47,11 @@ gui.animate(node, "outline.x", 1, gui.EASING_INOUTQUAD, 0.5)
 gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 ```
 
-## Callbacki zakończenia
+## Wywołania zwrotne po zakończeniu
 
-Funkcje animacji właściwości `go.animate()` i `gui.animate()` obsługują opcjonalną funkcję callback jako ostatni argument. Zostanie ona wywołana po zakończeniu animacji. Callback nigdy nie jest wywoływany dla animacji zapętlonych ani wtedy, gdy animacja została ręcznie anulowana przez `go.cancel_animations()` lub `gui.cancel_animation()`. Można go używać do wyzwalania zdarzeń po zakończeniu animacji albo do łączenia kilku animacji w sekwencję.
+Funkcje animacji właściwości `go.animate()` i `gui.animate()` obsługują opcjonalną funkcję zwrotną jako ostatni argument. Zostanie ona wywołana po zakończeniu animacji. Taka funkcja zwrotna nigdy nie jest wywoływana dla animacji zapętlonych ani wtedy, gdy animacja została ręcznie anulowana przez `go.cancel_animations()` lub `gui.cancel_animation()`. Można jej używać do wyzwalania zdarzeń po zakończeniu animacji albo do łączenia kilku animacji w sekwencję.
 
-## Easing
+## Krzywe easing
 
 Easing określa, jak animowana wartość zmienia się w czasie. Poniższe obrazy pokazują funkcje używane do tworzenia poszczególnych krzywych easing.
 
@@ -105,51 +105,51 @@ Poniżej znajdują się poprawne wartości easing dla `gui.animate()`:
 | `gui.EASING_INQUINT` | `gui.EASING_OUTQUINT` |
 | `gui.EASING_INOUTQUINT` | `gui.EASING_OUTINQUINT` |
 
-![Linear interpolation](images/properties/easing_linear.png)
-![In back](images/properties/easing_inback.png)
-![Out back](images/properties/easing_outback.png)
-![In-out back](images/properties/easing_inoutback.png)
-![Out-in back](images/properties/easing_outinback.png)
-![In bounce](images/properties/easing_inbounce.png)
-![Out bounce](images/properties/easing_outbounce.png)
-![In-out bounce](images/properties/easing_inoutbounce.png)
-![Out-in bounce](images/properties/easing_outinbounce.png)
-![In elastic](images/properties/easing_inelastic.png)
-![Out elastic](images/properties/easing_outelastic.png)
-![In-out elastic](images/properties/easing_inoutelastic.png)
-![Out-in elastic](images/properties/easing_outinelastic.png)
-![In sine](images/properties/easing_insine.png)
-![Out sine](images/properties/easing_outsine.png)
-![In-out sine](images/properties/easing_inoutsine.png)
-![Out-in sine](images/properties/easing_outinsine.png)
-![In exponential](images/properties/easing_inexpo.png)
-![Out exponential](images/properties/easing_outexpo.png)
-![In-out exponential](images/properties/easing_inoutexpo.png)
-![Out-in exponential](images/properties/easing_outinexpo.png)
-![In circlic](images/properties/easing_incirc.png)
-![Out circlic](images/properties/easing_outcirc.png)
-![In-out circlic](images/properties/easing_inoutcirc.png)
-![Out-in circlic](images/properties/easing_outincirc.png)
-![In quadratic](images/properties/easing_inquad.png)
-![Out quadratic](images/properties/easing_outquad.png)
-![In-out quadratic](images/properties/easing_inoutquad.png)
-![Out-in quadratic](images/properties/easing_outinquad.png)
-![In cubic](images/properties/easing_incubic.png)
-![Out cubic](images/properties/easing_outcubic.png)
-![In-out cubic](images/properties/easing_inoutcubic.png)
-![Out-in cubic](images/properties/easing_outincubic.png)
-![In quartic](images/properties/easing_inquart.png)
-![Out quartic](images/properties/easing_outquart.png)
-![In-out quartic](images/properties/easing_inoutquart.png)
-![Out-in quartic](images/properties/easing_outinquart.png)
-![In quintic](images/properties/easing_inquint.png)
-![Out quintic](images/properties/easing_outquint.png)
-![In-out quintic](images/properties/easing_inoutquint.png)
-![Out-in quintic](images/properties/easing_outinquint.png)
+![Interpolacja liniowa](images/properties/easing_linear.png)
+![Wchodząca back](images/properties/easing_inback.png)
+![Wychodząca back](images/properties/easing_outback.png)
+![Wchodząca i wychodząca back](images/properties/easing_inoutback.png)
+![Wychodząca i wchodząca back](images/properties/easing_outinback.png)
+![Wchodząca bounce](images/properties/easing_inbounce.png)
+![Wychodząca bounce](images/properties/easing_outbounce.png)
+![Wchodząca i wychodząca bounce](images/properties/easing_inoutbounce.png)
+![Wychodząca i wchodząca bounce](images/properties/easing_outinbounce.png)
+![Wchodząca elastic](images/properties/easing_inelastic.png)
+![Wychodząca elastic](images/properties/easing_outelastic.png)
+![Wchodząca i wychodząca elastic](images/properties/easing_inoutelastic.png)
+![Wychodząca i wchodząca elastic](images/properties/easing_outinelastic.png)
+![Wchodząca sine](images/properties/easing_insine.png)
+![Wychodząca sine](images/properties/easing_outsine.png)
+![Wchodząca i wychodząca sine](images/properties/easing_inoutsine.png)
+![Wychodząca i wchodząca sine](images/properties/easing_outinsine.png)
+![Wchodząca exponential](images/properties/easing_inexpo.png)
+![Wychodząca exponential](images/properties/easing_outexpo.png)
+![Wchodząca i wychodząca exponential](images/properties/easing_inoutexpo.png)
+![Wychodząca i wchodząca exponential](images/properties/easing_outinexpo.png)
+![Wchodząca circlic](images/properties/easing_incirc.png)
+![Wychodząca circlic](images/properties/easing_outcirc.png)
+![Wchodząca i wychodząca circlic](images/properties/easing_inoutcirc.png)
+![Wychodząca i wchodząca circlic](images/properties/easing_outincirc.png)
+![Wchodząca quadratic](images/properties/easing_inquad.png)
+![Wychodząca quadratic](images/properties/easing_outquad.png)
+![Wchodząca i wychodząca quadratic](images/properties/easing_inoutquad.png)
+![Wychodząca i wchodząca quadratic](images/properties/easing_outinquad.png)
+![Wchodząca cubic](images/properties/easing_incubic.png)
+![Wychodząca cubic](images/properties/easing_outcubic.png)
+![Wchodząca i wychodząca cubic](images/properties/easing_inoutcubic.png)
+![Wychodząca i wchodząca cubic](images/properties/easing_outincubic.png)
+![Wchodząca quartic](images/properties/easing_inquart.png)
+![Wychodząca quartic](images/properties/easing_outquart.png)
+![Wchodząca i wychodząca quartic](images/properties/easing_inoutquart.png)
+![Wychodząca i wchodząca quartic](images/properties/easing_outinquart.png)
+![Wchodząca quintic](images/properties/easing_inquint.png)
+![Wychodząca quintic](images/properties/easing_outquint.png)
+![Wchodząca i wychodząca quintic](images/properties/easing_inoutquint.png)
+![Wychodząca i wchodząca quintic](images/properties/easing_outinquint.png)
 
-## Własne funkcje easing
+## Własne krzywe easing
 
-Możesz tworzyć własne krzywe easing, definiując `vector` z zestawem wartości i przekazując go zamiast jednej z predefiniowanych stałych easing opisanych wyżej. Wartości wektora opisują krzywą od wartości początkowej (`0`) do wartości docelowej (`1`). W czasie działania silnik próbuje próbki z wektora i liniowo interpoluje wartości pomiędzy punktami opisanymi w tym wektorze.
+Możesz tworzyć własne krzywe easing, definiując `vector` z zestawem wartości i przekazując go zamiast jednej z predefiniowanych stałych easing opisanych wyżej. Wartości wektora opisują krzywą od wartości początkowej (`0`) do wartości docelowej (`1`). W czasie działania silnik pobiera próbki z wektora i liniowo interpoluje wartości pomiędzy punktami opisanymi w tym wektorze.
 
 Na przykład taki wektor:
 
@@ -160,9 +160,9 @@ local my_easing = vmath.vector(values)
 
 da następującą krzywą:
 
-![Custom curve](images/animation/custom_curve.png)
+![Własna krzywa](images/animation/custom_curve.png)
 
-W kolejnym przykładzie pozycja `y` obiektu gry będzie przeskakiwać między bieżącą pozycją a wartością `200` zgodnie z przebiegiem przypominającym falę prostokątną:
+W kolejnym przykładzie pozycja y obiektu gry będzie przeskakiwać między bieżącą pozycją a wartością 200 zgodnie z przebiegiem przypominającym falę prostokątną:
 
 ```lua
 local values = { 0, 0, 0, 0, 0, 0, 0, 0,
@@ -177,4 +177,4 @@ local square_easing = vmath.vector(values)
 go.animate("go", "position.y", go.PLAYBACK_LOOP_PINGPONG, 200, square_easing, 2.0)
 ```
 
-![Square curve](images/animation/square_curve.png)
+![Krzywa prostokątna](images/animation/square_curve.png)

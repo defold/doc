@@ -1,27 +1,27 @@
 ---
 title: Fabryki kolekcji
-brief: Ta instrukcja wyjaśnia, jak używać komponentów Collection factory do tworzenia hierarchii obiektów gry.
+brief: Ta instrukcja wyjaśnia, jak używać komponentów fabryki kolekcji do tworzenia hierarchii obiektów gry.
 ---
 
-# Fabryki kolekcji (Collection factory)
+# Fabryki kolekcji
 
-Komponent Collection factory służy do tworzenia grup i hierarchii obiektów gry zapisanych w plikach kolekcji w działającej grze.
+Komponent fabryki kolekcji służy do tworzenia grup i hierarchii obiektów gry zapisanych w plikach kolekcji w działającej grze.
 
-Kolekcje są w Defold wygodnym mechanizmem tworzenia szablonów wielokrotnego użytku, czyli odpowiednika prefabów. Przegląd kolekcji znajdziesz w [dokumentacji o blokach budujących](/manuals/building-blocks#collections). Kolekcje można umieszczać w edytorze albo dynamicznie wstawiać do gry.
+Kolekcje są w Defold wygodnym mechanizmem tworzenia szablonów wielokrotnego użytku, czyli odpowiednika prefabów. Przegląd kolekcji znajdziesz w [dokumentacji o blokach składowych](/manuals/building-blocks#collections). Kolekcje można umieszczać w edytorze albo dynamicznie wstawiać do gry.
 
-Za pomocą komponentu Collection factory możesz tworzyć w świecie gry zawartość pliku kolekcji. To odpowiednik utworzenia przez Factory wszystkich obiektów gry zapisanych w kolekcji, a następnie odtworzenia relacji rodzic-dziecko pomiędzy nimi. Typowym zastosowaniem jest tworzenie przeciwników złożonych z wielu obiektów gry, na przykład wroga i jego broni.
+Za pomocą komponentu fabryki kolekcji możesz tworzyć w świecie gry zawartość pliku kolekcji. To odpowiednik utworzenia przez fabrykę wszystkich obiektów gry zapisanych w kolekcji, a następnie odtworzenia relacji rodzic-dziecko pomiędzy nimi. Typowym zastosowaniem jest tworzenie przeciwników złożonych z wielu obiektów gry, na przykład wroga i jego broni.
 
 ## Tworzenie kolekcji
 
-Załóżmy, że chcemy mieć obiekt gry postaci oraz osobny obiekt gry tarczy będący dzieckiem tej postaci. Budujemy taką hierarchię w pliku kolekcji i zapisujemy ją jako `bean.collection`.
+Załóżmy, że chcemy mieć obiekt gry postaci oraz osobny obiekt gry tarczy będący dzieckiem tej postaci. Budujemy taką hierarchię w pliku kolekcji i zapisujemy ją jako "bean.collection".
 
 ::: sidenote
-Komponent *collection proxy* służy do tworzenia nowego świata gry, w tym osobnego świata fizyki, na podstawie kolekcji. Nowy świat jest dostępny przez nowe gniazdo adresowe. Wszystkie zasoby zawarte w kolekcji są ładowane przez pełnomocnika po wysłaniu do niego wiadomości rozpoczynającej ładowanie. To bardzo przydatne na przykład przy zmianie poziomów w grze. Nowe światy gry mają jednak spory narzut, więc nie należy ich używać do dynamicznego ładowania małych elementów. Więcej informacji znajdziesz w [dokumentacji Collection proxy](/manuals/collection-proxy).
+Komponent *Collection proxy* (pełnomocnik kolekcji) służy do tworzenia nowego świata gry, w tym osobnego świata fizyki, na podstawie kolekcji. Nowy świat jest dostępny przez nowe gniazdo. Wszystkie zasoby zawarte w kolekcji są ładowane przez pełnomocnika po wysłaniu do niego wiadomości rozpoczynającej ładowanie. To bardzo przydatne na przykład przy zmianie poziomów w grze. Nowe światy gry mają jednak spory narzut, więc nie należy ich używać do dynamicznego ładowania niewielkich rzeczy. Więcej informacji znajdziesz w [dokumentacji Collection proxy](/manuals/collection-proxy).
 :::
 
 ![Collection to spawn](images/collection_factory/collection.png)
 
-Następnie dodajemy *Collection factory* do obiektu gry, który ma odpowiadać za tworzenie instancji, i ustawiamy `bean.collection` jako *Prototype* komponentu:
+Następnie dodajemy komponent *Collection factory* do obiektu gry, który ma odpowiadać za tworzenie instancji, i ustawiamy "bean.collection" jako właściwość *<kbd>Prototype</kbd>* komponentu:
 
 ![Collection factory](images/collection_factory/factory.png)
 
@@ -34,10 +34,10 @@ local bean_ids = collectionfactory.create("#bean_factory")
 Funkcja przyjmuje 5 parametrów:
 
 `url`
-: Id komponentu Collection factory, który ma utworzyć nowy zestaw obiektów gry.
+: Id komponentu fabryki kolekcji, który ma utworzyć nowy zestaw obiektów gry.
 
 `[position]`
-: Opcjonalna pozycja tworzonych obiektów gry w przestrzeni świata. Powinna mieć typ `vector3`. Jeśli jej nie podasz, obiekty zostaną utworzone w pozycji komponentu Collection factory.
+: Opcjonalna pozycja tworzonych obiektów gry w przestrzeni świata. Powinna mieć typ `vector3`. Jeśli jej nie podasz, obiekty zostaną utworzone w pozycji komponentu fabryki kolekcji.
 
 `[rotation]`
 : Opcjonalny obrót tworzonych obiektów gry w przestrzeni świata. Powinien mieć typ `quat`.
@@ -48,10 +48,10 @@ Funkcja przyjmuje 5 parametrów:
 `[scale]`
 : Opcjonalna skala tworzonych obiektów gry. Może być podana jako `number` większy od 0, co oznacza jednolite skalowanie we wszystkich osiach. Możesz też przekazać `vector3`, gdzie każdy komponent określa skalę na odpowiedniej osi.
 
-`collectionfactory.create()` zwraca tabelę z identyfikatorami utworzonych obiektów gry. Klucze tabeli mapują hash lokalnego id obiektu w kolekcji na runtime id danego obiektu:
+`collectionfactory.create()` zwraca tabelę z identyfikatorami utworzonych obiektów gry. Klucze tabeli mapują hash lokalnego id obiektu w kolekcji na id w czasie działania danego obiektu:
 
 ::: sidenote
-Relacja rodzic-dziecko między `bean` i `shield` *nie* jest odzwierciedlona w zwracanej tabeli. Ta relacja istnieje tylko w runtime scene-graph, czyli w sposobie, w jaki obiekty są razem transformowane. Zmiana rodzica nigdy nie zmienia id obiektu.
+Relacja rodzic-dziecko między "bean" i "shield" *nie* jest odzwierciedlona w zwracanej tabeli. Ta relacja istnieje tylko w runtime scene-graph, czyli w sposobie, w jaki obiekty są razem transformowane. Zmiana rodzica nigdy nie zmienia id obiektu.
 :::
 
 ```lua
@@ -76,7 +76,7 @@ props[hash("/bean")] = { shield = false }
 local ids = collectionfactory.create("#bean_factory", nil, nil, props)
 ```
 
-Załóżmy, że obiekt gry `bean` w `bean.collection` definiuje właściwość `shield`. [Instrukcja o właściwościach skryptu](/manuals/script-properties) zawiera więcej informacji o takich właściwościach.
+Załóżmy, że obiekt gry "bean" w "bean.collection" definiuje właściwość "shield". [Instrukcja o właściwościach skryptu](/manuals/script-properties) zawiera więcej informacji o takich właściwościach.
 
 ```lua
 -- plik bean/controller.script
@@ -91,11 +91,11 @@ end
 
 ## Dynamiczne ładowanie zasobów fabryki
 
-Po zaznaczeniu pola *Load Dynamically* we właściwościach Collection factory silnik opóźni ładowanie zasobów powiązanych z fabryką.
+Po zaznaczeniu pola *<kbd>Load Dynamically</kbd>* we właściwościach komponentu fabryki kolekcji silnik opóźni ładowanie zasobów powiązanych z fabryką.
 
 ![Load dynamically](images/collection_factory/load_dynamically.png)
 
-Gdy pole nie jest zaznaczone, silnik ładuje zasoby prototypu podczas ładowania komponentu Collection factory, dzięki czemu są one od razu gotowe do tworzenia instancji.
+Gdy pole nie jest zaznaczone, silnik ładuje zasoby prototypu podczas ładowania komponentu fabryki kolekcji, dzięki czemu są one od razu gotowe do tworzenia instancji.
 
 Gdy pole jest zaznaczone, masz dwa sposoby użycia:
 
@@ -105,7 +105,7 @@ Wczytywanie synchroniczne
   ```lua
   function init(self)
       -- Zasoby fabryki nie są ładowane, gdy ładowana jest kolekcja
-      -- nadrzędna komponentu Collection factory. Wywołanie create
+      -- nadrzędna komponentu fabryki kolekcji. Wywołanie create
       -- bez wcześniejszego load wczyta zasoby synchronicznie.
       self.go_ids = collectionfactory.create("#collectionfactory")
   end
@@ -113,7 +113,7 @@ Wczytywanie synchroniczne
   function final(self)
       -- Usuń obiekty gry. To zmniejszy licznik referencji zasobów.
       -- W tym przypadku zasoby zostaną usunięte, ponieważ komponent
-      -- Collection factory nie trzyma już do nich referencji.
+      -- fabryki kolekcji nie trzyma już do nich referencji.
       go.delete(self.go_ids)
 
       -- Wywołanie unload nic nie zrobi, ponieważ fabryka
@@ -123,7 +123,7 @@ Wczytywanie synchroniczne
   ```
 
 Wczytywanie asynchroniczne
-: Wywołaj [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load:[url]-[complete_function]), aby jawnie załadować zasoby asynchronicznie. Gdy zasoby będą gotowe do tworzenia obiektów, otrzymasz callback.
+: Wywołaj [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load:[url]-[complete_function]), aby jawnie załadować zasoby asynchronicznie. Gdy zasoby będą gotowe do tworzenia obiektów, otrzymasz funkcję zwrotną.
 
   ```lua
   function load_complete(self, url, result)
@@ -133,7 +133,7 @@ Wczytywanie asynchroniczne
 
   function init(self)
       -- Zasoby fabryki nie są ładowane, gdy ładowana jest kolekcja
-      -- nadrzędna komponentu Collection factory. Wywołanie load
+      -- nadrzędna komponentu fabryki kolekcji. Wywołanie load
       -- spowoduje ich załadowanie.
       collectionfactory.load("#factory", load_complete)
   end
@@ -141,7 +141,7 @@ Wczytywanie asynchroniczne
   function final(self)
       -- Usuń obiekty gry. To zmniejszy licznik referencji zasobów.
       -- W tym przypadku zasoby nie zostaną usunięte, ponieważ komponent
-      -- Collection factory nadal trzyma do nich referencję.
+      -- fabryki kolekcji nadal trzyma do nich referencję.
       go.delete(self.go_ids)
 
       -- Wywołanie unload zmniejszy licznik referencji zasobów
@@ -150,13 +150,14 @@ Wczytywanie asynchroniczne
   end
   ```
 
+
 ## Dynamiczny prototyp
 
-Możesz zmienić to, jaki *Prototype* potrafi tworzyć Collection factory, zaznaczając pole *Dynamic Prototype* we właściwościach komponentu.
+Możesz zmienić to, jaki *<kbd>Prototype</kbd>* potrafi tworzyć komponent fabryki kolekcji, zaznaczając pole *<kbd>Dynamic Prototype</kbd>* we właściwościach komponentu.
 
 ![Dynamic prototype](images/collection_factory/dynamic_prototype.png)
 
-Gdy opcja *Dynamic Prototype* jest włączona, komponent Collection factory może zmieniać prototyp za pomocą `collectionfactory.set_prototype()`. Przykład:
+Gdy opcja *<kbd>Dynamic Prototype</kbd>* jest włączona, komponent fabryki kolekcji może zmieniać prototyp za pomocą `collectionfactory.set_prototype()`. Przykład:
 
 ```lua
 collectionfactory.unload("#factory") -- zwolnij poprzednie zasoby
@@ -165,5 +166,5 @@ local ids = collectionfactory.create("#factory")
 ```
 
 ::: important
-Gdy opcja *Dynamic Prototype* jest włączona, liczba komponentów w kolekcji nie może zostać zoptymalizowana i kolekcja właściciela będzie używać domyślnych limitów komponentów z pliku *game.project*.
+Gdy opcja *<kbd>Dynamic Prototype</kbd>* jest włączona, liczba komponentów w kolekcji nie może zostać zoptymalizowana i kolekcja właściciela będzie używać domyślnych limitów komponentów z pliku *game.project*.
 :::

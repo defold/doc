@@ -71,7 +71,7 @@ Stałe
   - Dostępne są też macierze `world * view`, `view * projection` oraz `world * view * projection`.
   - `CONSTANT_TYPE_USER` to stała typu `vec4`, której możesz używać dowolnie.
 
-  Instrukcja do materiałów wyjaśnia, jak określać stałe.
+  [Instrukcja do materiałów](/manuals/material) wyjaśnia, jak określać stałe.
 
 Samplery
 : Shadery mogą deklarować zmienne uniform typu *sampler*. Samplery służą do odczytu wartości ze źródła obrazu:
@@ -81,14 +81,14 @@ Samplery
   - `samplerCube` pobiera próbki z sześciennej tekstury cubemap złożonej z 6 obrazów.
   - `image2D` wczytuje (i potencjalnie zapisuje) dane tekstury do obiektu obrazu. Najczęściej używa się tego w shaderach obliczeniowych do przechowywania danych.
 
-  Samplera możesz używać tylko w funkcjach wyszukiwania tekstur z biblioteki standardowej GLSL. Instrukcja do materiałów wyjaśnia, jak określać ustawienia samplerów.
+  Samplera możesz używać tylko w funkcjach wyszukiwania tekstur z biblioteki standardowej GLSL. [Instrukcja do materiałów](/manuals/material) wyjaśnia, jak określać ustawienia samplerów.
 
 Współrzędne UV
 : Dwuwymiarowa współrzędna jest powiązana z wierzchołkiem i mapuje się na punkt w dwuwymiarowej teksturze. Dzięki temu część tekstury, albo cała tekstura, może zostać nałożona na kształt opisany przez zestaw wierzchołków.
 
   ![Współrzędne UV](images/shader/uv_map.png)
 
-  Mapa UV jest zwykle generowana w programie do modelowania 3D i przechowywana w siatce. Współrzędne tekstury dla każdego wierzchołka są przekazywane do shadera wierzchołków jako atrybut. Następnie zmienna `varying` służy do wyznaczenia współrzędnej UV dla każdego fragmentu przez interpolację z wartości wierzchołków.
+  Mapa UV jest zwykle generowana w programie do modelowania 3D i przechowywana w siatce. Współrzędne tekstury dla każdego wierzchołka są przekazywane do shadera wierzchołków jako atrybut. Następnie zmienna varying służy do wyznaczenia współrzędnej UV dla każdego fragmentu przez interpolację z wartości wierzchołków.
 
 Zmienne varying
 : Zmienne typu varying służą do przekazywania informacji między etapem wierzchołków a etapem fragmentów.
@@ -105,7 +105,7 @@ Zmienne varying
 
 ## Pisanie nowoczesnych shaderów GLSL
 
-Ponieważ silnik Defold obsługuje wiele platform i interfejsów API grafiki, pisanie shaderów działających wszędzie musi być dla twórców proste. Potok zasobów realizuje to głównie na dwa sposoby, dalej nazywane potokami shaderów:
+Ponieważ silnik Defold obsługuje wiele platform i interfejsów API grafiki, pisanie shaderów działających wszędzie musi być dla twórców proste. Potok zasobów realizuje to głównie na dwa sposoby, dalej nazywane `shader pipelines`:
 
 1. Starszy potok, w którym shadery są pisane w kodzie GLSL zgodnym z ES2.
 2. Nowoczesny potok, w którym shadery są pisane w kodzie GLSL zgodnym ze SPIR-V.
@@ -113,7 +113,7 @@ Ponieważ silnik Defold obsługuje wiele platform i interfejsów API grafiki, pi
 Od Defold 1.9.2 zaleca się pisać shadery korzystające z nowego potoku. Aby to osiągnąć, większość shaderów trzeba przepisać do wersji co najmniej 140 (OpenGL 3.1). Aby przenieść shader, upewnij się, że spełnione są następujące wymagania:
 
 ### Deklaracja wersji
-Umieść `#version 140` na początku shadera:
+Umieść #version 140 na początku shadera:
 
 ```glsl
 #version 140
@@ -263,7 +263,7 @@ void main()
 
 ## Dołączanie fragmentów kodu do shaderów
 
-Shadery w Defold obsługują dołączanie kodu źródłowego z plików w projekcie, które mają rozszerzenie `.glsl`. Aby dołączyć plik `.glsl` z poziomu shadera, użyj dyrektywy `#include` z cudzysłowami albo nawiasami ostrymi. Dołączane pliki muszą mieć ścieżkę względną względem projektu albo ścieżkę względną względem pliku, który wykonuje dołączenie:
+Shadery w Defold obsługują dołączanie kodu źródłowego z plików w projekcie, które mają rozszerzenie `.glsl`. Aby dołączyć plik GLSL z poziomu shadera, użyj dyrektywy `#include` z cudzysłowami albo nawiasami ostrymi. Dołączane pliki muszą mieć ścieżkę względną względem projektu albo ścieżkę względną względem pliku, który wykonuje dołączenie:
 
 ```glsl
 // W pliku /main/my-shader.fp
@@ -280,7 +280,7 @@ Shadery w Defold obsługują dołączanie kodu źródłowego z plików w projekc
 #include "../root-level-snippet.glsl"
 ```
 
-Do sposobu działania `#include` obowiązują pewne zastrzeżenia:
+Do sposobu działania dołączeń obowiązują pewne zastrzeżenia:
 
   - Pliki muszą być względne względem projektu, co oznacza, że można dołączać tylko pliki znajdujące się w projekcie. Każda ścieżka bezwzględna musi zaczynać się od `/`.
   - Kod można dołączać w dowolnym miejscu pliku, ale nie można dołączać pliku w środku instrukcji. Na przykład `const float #include "my-float-name.glsl" = 1.0` nie zadziała.
@@ -313,7 +313,7 @@ const float PI = 3.14159265359;
 #endif // PI_GLSL_H
 ```
 
-Kod z `pi.glsl` zostanie rozwinięty dwa razy w `my-shader.vs`, ale ponieważ został opakowany osłonami nagłówkowymi, symbol `PI` zostanie zdefiniowany tylko raz i shader skompiluje się poprawnie.
+Kod z `pi.glsl` zostanie rozwinięty dwa razy w `my-shader.vs`, ale ponieważ został opakowany osłonami nagłówkowymi, symbol PI zostanie zdefiniowany tylko raz i shader skompiluje się poprawnie.
 
 Nie zawsze jest to jednak konieczne, zależnie od przypadku użycia. Jeśli chcesz ponownie wykorzystać kod lokalnie, wewnątrz funkcji albo gdzieś indziej, gdzie nie potrzebujesz globalnej dostępności wartości w kodzie shadera, prawdopodobnie nie powinieneś używać osłon nagłówkowych. Przykład:
 
@@ -441,9 +441,9 @@ void main()
 5. Pobierz próbkę tekstury pod interpolowaną współrzędną i zwróć pobraną wartość.
 6. `gl_FragColor` zostaje ustawione na kolor wyjściowy fragmentu: kolor diffuse z tekstury pomnożony przez wartość tint.
 
-Wynikowy fragment następnie przechodzi przez testy. Częstym testem jest test głębi, w którym wartość głębi fragmentu jest porównywana z wartością bufora głębi dla piksela, który jest testowany. W zależności od wyniku testu fragment może zostać odrzucony albo nowa wartość zostanie zapisana do bufora głębi. Częstym zastosowaniem tego testu jest pozwolenie, aby grafika bliżej kamery zasłaniała grafikę znajdującą się dalej.
+Wynikowy fragment następnie przechodzi przez testy. Częstym testem jest *depth test*, w którym wartość głębi fragmentu jest porównywana z wartością bufora głębi dla piksela, który jest testowany. W zależności od wyniku testu fragment może zostać odrzucony albo nowa wartość zostanie zapisana do bufora głębi. Częstym zastosowaniem tego testu jest pozwolenie, aby grafika bliżej kamery zasłaniała grafikę znajdującą się dalej.
 
-Jeśli test uzna, że fragment ma zostać zapisany do bufora ramki, zostanie zmieszany z już obecnymi w buforze danymi pikseli. Parametry mieszania ustawione w skrypcie renderowania pozwalają połączyć kolor źródłowy (wartość zapisaną przez shader fragmentów) i kolor docelowy (kolor z obrazu w buforze ramki) na różne sposoby. Częstym zastosowaniem mieszania jest umożliwienie renderowania przezroczystych obiektów.
+Jeśli test uzna, że fragment ma zostać zapisany do bufora ramki, zostanie *blended* z już obecnymi w buforze danymi pikseli. Parametry mieszania ustawione w skrypcie renderowania pozwalają połączyć kolor źródłowy (wartość zapisaną przez shader fragmentów) i kolor docelowy (kolor z obrazu w buforze ramki) na różne sposoby. Częstym zastosowaniem mieszania jest umożliwienie renderowania przezroczystych obiektów.
 
 ## Dalsza lektura
 

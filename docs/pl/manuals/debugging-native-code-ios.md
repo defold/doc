@@ -1,6 +1,6 @@
 ---
 title: Debugowanie na iOS/macOS
-brief: Ta instrukcja opisuje, jak debugować kompilację za pomocą Xcode.
+brief: Ta instrukcja opisuje, jak debugować build za pomocą Xcode.
 ---
 
 # Debugowanie na iOS/macOS
@@ -9,7 +9,7 @@ Tutaj opisujemy, jak debugować kompilację za pomocą [Xcode](https://developer
 
 ## Xcode
 
-* Zbundluj aplikację za pomocą bob, używając opcji `--with-symbols` ([więcej informacji](/manuals/debugging-native-code/#symbolicate-a-callstack)):
+* Zbuduj pakiet aplikacji za pomocą bob, używając opcji `--with-symbols` ([więcej informacji](/manuals/debugging-native-code/#symbolicate-a-callstack)):
 
 ```sh
 $ cd myproject
@@ -25,9 +25,9 @@ $ ios-deploy -b <AppName>.ipa
 
 * Pobierz folder `.dSYM` (czyli symbole debugowania)
 
-    * Jeśli nie używasz rozszerzeń natywnych (Native Extensions), możesz pobrać plik `.dSYM` z [d.defold.com](http://d.defold.com)
+	* Jeśli projekt nie używa rozszerzeń natywnych (Native Extensions), możesz pobrać plik `.dSYM` z [d.defold.com](http://d.defold.com)
 
-    * Jeśli używasz rozszerzenia natywnego, folder `.dSYM` jest generowany podczas budowania za pomocą [bob.jar](https://www.defold.com/manuals/bob/). Wymagane jest tylko zbudowanie projektu (bez archiwizacji ani bundlowania):
+	* Jeśli używasz rozszerzenia natywnego, folder `.dSYM` jest generowany podczas budowania za pomocą [bob.jar](https://www.defold.com/manuals/bob/). Wystarczy samo zbudowanie projektu, bez archiwizacji ani bundlowania:
 
 ```sh
 $ cd myproject
@@ -41,7 +41,7 @@ $ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Re
 Aby poprawnie debugować, potrzebujemy projektu oraz zmapowanego kodu źródłowego.
 Nie używamy tego projektu do budowania, a jedynie do debugowania.
 
-* Utwórz nowy projekt Xcode i wybierz szablon `Game`
+* Utwórz nowy projekt Xcode i wybierz szablon <kbd>Game</kbd>
 
     ![project_template](images/extensions/debugging/ios/project_template.png)
 
@@ -53,22 +53,22 @@ Nie używamy tego projektu do budowania, a jedynie do debugowania.
 
     ![add_files](images/extensions/debugging/ios/add_files.png)
 
-* Upewnij się, że opcja "Copy items if needed" jest odznaczona.
+* Upewnij się, że opcja <kbd>Copy items if needed</kbd> jest odznaczona.
 
     ![add_source](images/extensions/debugging/ios/add_source.png)
 
-* To jest efekt końcowy
+* Oto efekt końcowy
 
     ![added_source](images/extensions/debugging/ios/added_source.png)
 
 
-* Wyłącz krok `Build`
+* Wyłącz krok <kbd>Build</kbd>
 
     ![edit_scheme](images/extensions/debugging/ios/edit_scheme.png)
 
     ![disable_build](images/extensions/debugging/ios/disable_build.png)
 
-* Ustaw wersję `Deployment target` tak, aby była większa niż wersja iOS na Twoim urządzeniu
+* Ustaw wersję <kbd>Deployment target</kbd> tak, aby była większa niż wersja iOS na Twoim urządzeniu
 
     ![deployment_version](images/extensions/debugging/ios/deployment_version.png)
 
@@ -81,19 +81,19 @@ Nie używamy tego projektu do budowania, a jedynie do debugowania.
 
 Masz kilka opcji debugowania aplikacji:
 
-1. Wybierz `Debug` -> `Attach to process...` i wybierz z listy aplikację
+1. Wybierz <kbd>Debug</kbd> -> <kbd>Attach to process...</kbd> i wybierz z listy aplikację
 
-2. Albo wybierz `Attach to process by PID or Process name`
+2. Albo wybierz <kbd>Attach to process by PID or Process name</kbd>
 
     ![select_device](images/extensions/debugging/ios/attach_to_process_name.png)
 
 3. Uruchom aplikację na urządzeniu
 
-4. W `Edit Scheme` dodaj folder <AppName>.app jako plik wykonywalny
+4. W <kbd>Edit Scheme</kbd> dodaj folder <AppName>.app jako plik wykonywalny
 
 ### Symbole debugowania
 
-**Aby użyć lldb, wykonywanie musi być wstrzymane**
+**Aby użyć lldb, wykonanie musi być wstrzymane**
 
 * Dodaj ścieżkę `.dSYM` do lldb
 
@@ -118,7 +118,7 @@ Masz kilka opcji debugowania aplikacji:
 (lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
 ```
 
-* Folder zadania (job folder) można ustalić na podstawie pliku wykonywalnego. Ten folder ma nazwę `job1298751322870374150` i za każdym razem zawiera losowy numer.
+* Folder zadania można ustalić na podstawie pliku wykonywalnego. Ten folder ma nazwę `job1298751322870374150` i za każdym razem zawiera losowy numer.
 
 ```sh
 $ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job

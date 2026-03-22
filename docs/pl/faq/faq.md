@@ -9,22 +9,22 @@ brief: Najczęściej zadawane pytania o silnik gry Defold, edytor i platformę.
 
 #### P: Czy Defold naprawdę jest darmowy?
 
-A: Tak, silnik i edytor Defold z pełną funkcjonalnością są całkowicie bezpłatne. Bez ukrytych kosztów, opłat ani tantiem. Po prostu za darmo.
+A: Tak, silnik Defold i edytor z pełną funkcjonalnością są całkowicie bezpłatne. Bez ukrytych kosztów, opłat ani tantiem. Po prostu za darmo.
 
 
-#### P: Dlaczego Defold Foundation miałaby udostępniać Defold za darmo?
+#### P: Dlaczego na świecie Defold Foundation oddaje Defold za darmo?
 
 A: Jednym z celów [Defold Foundation](/foundation) jest zapewnienie, że oprogramowanie Defold będzie dostępne dla deweloperów na całym świecie, a kod źródłowy będzie dostępny bezpłatnie.
 
 
 #### P: Jak długo będziecie wspierać Defold?
 
-A: Jesteśmy mocno zaangażowani w Defold. [Defold Foundation](/foundation) została powołana tak, aby przez wiele kolejnych lat pozostawać odpowiedzialnym właścicielem silnika Defold. Nie zniknie.
+A: Jesteśmy mocno zaangażowani w Defold. [Defold Foundation](/foundation) została powołana tak, by przez wiele kolejnych lat pozostać odpowiedzialnym właścicielem Defold. To się nie skończy.
 
 
-#### P: Czy mogę zaufać Defold w profesjonalnej produkcji?
+#### P: Czy mogę zaufać Defold w profesjonalnym tworzeniu gier?
 
-A: Oczywiście. Defold jest używany przez coraz większą liczbę profesjonalnych twórców gier i studiów. Zobacz [galerię gier](/showcase), aby znaleźć przykłady gier stworzonych w Defold.
+A: Zdecydowanie. Defold jest używany przez coraz większą liczbę profesjonalnych twórców gier i studiów. Zobacz [galerię gier](/showcase), aby znaleźć przykłady gier stworzonych w Defold.
 
 
 #### P: Jakiego rodzaju śledzenie użytkowników prowadzicie?
@@ -34,7 +34,7 @@ A: Rejestrujemy anonimowe dane użycia z naszych stron internetowych i edytora D
 
 #### P: Kto stworzył Defold?
 
-A: Defold został stworzony przez Ragnara Svenssona i Christiana Murraya. Zaczęli pracować nad silnikiem, edytorem i serwerami w 2009 roku. W 2013 roku King nawiązało współpracę z Defold, a w 2014 roku przejęło Defold. Przeczytaj pełną historię [tutaj](/about).
+A: Defold został stworzony przez Ragnara Svenssona i Christiana Murraya. Zaczęli pracować nad silnikiem, edytorem i serwerami w 2009 roku. W 2013 roku King i Defold rozpoczęły współpracę, a w 2014 roku King przejął Defold. Przeczytaj pełną historię [tutaj](/about).
 
 
 ## Pytania o tworzenie gier
@@ -77,12 +77,12 @@ A: Defold NIE odchodzi od Lua jako głównego języka skryptowego. Obsługa C# z
 
 Obsługa C# będzie miała swoją cenę, na przykład większy rozmiar pliku wykonywalnego czy wpływ na wydajność w czasie działania, ale to już decyzja konkretnego dewelopera lub studia.
 
-Samo dodanie C# to stosunkowo niewielka zmiana, ponieważ system rozszerzeń już obsługuje wiele języków (C/C++, Java, Objective-C, Zig). Generowane wiązania C# pozwolą utrzymać SDK w synchronizacji. Dzięki temu te wiązania pozostaną aktualne przy minimalnym nakładzie pracy.
+Samo C# to stosunkowo niewielka zmiana, ponieważ system rozszerzeń już obsługuje wiele języków (C/C++, Java, Objective-C, Zig). Generowane wiązania C# pozwolą utrzymać SDK w synchronizacji. Dzięki temu te wiązania pozostaną aktualne przy minimalnym nakładzie pracy.
 
 Defold Foundation wcześniej była przeciwna dodaniu obsługi C# w Defold, ale zmieniła zdanie z kilku powodów:
 
 * Studia i deweloperzy nadal proszą o obsługę C#.
-* Obsługa C# została ograniczona wyłącznie do rozszerzeń, czyli przy niskim nakładzie pracy.
+* Obsługa C# została ograniczona wyłącznie do rozszerzeń, więc wymaga niewielkiego nakładu pracy.
 * Główny silnik nie ulegnie zmianie.
 * API C# można utrzymywać w synchronizacji przy minimalnym nakładzie pracy, jeśli jest generowane.
 * Obsługa C# będzie oparta na DotNet 9 z NativeAOT, co wygeneruje biblioteki statyczne, do których istniejący potok budowania może linkować, tak jak do każdego innego rozszerzenia Defold.
@@ -116,13 +116,13 @@ A: Jednym kliknięciem możesz publikować na PS4™, PS5™, Nintendo Switch, i
 
 #### P: Jakiego API renderowania używa Defold?
 
-A: Jako deweloper pracujesz tylko z jednym API renderowania, korzystając z [w pełni skryptowalnego potoku renderowania](/manuals/render/). API skryptu renderowania w Defold tłumaczy operacje renderowania na następujące API graficzne:
+A: Jako deweloper pracujesz tylko z jednym API renderowania, korzystając z [w pełni skryptowalnego potoku renderowania](/manuals/render/). Skrypt renderowania Defold tłumaczy operacje renderowania na następujące API graficzne:
 
 :[API graficzne](../shared/graphics-api.md)
 
 #### P: Czy mogę sprawdzić, jaką wersję uruchamiam?
 
-A: Tak, wybierz opcję <kbd>Help ▸ About</kbd> w menu <kbd>Help</kbd>. Okno wyraźnie pokazuje wersję beta Defold i, co ważniejsze, konkretny SHA1 wydania. Aby odczytać wersję środowiska uruchomieniowego, użyj [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
+A: Tak, wybierz opcję "About" w menu Help. Okno wyraźnie pokazuje wersję beta Defold i, co ważniejsze, konkretny SHA1 wydania. Aby odczytać wersję środowiska uruchomieniowego, użyj [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
 Najnowszą wersję beta dostępną do pobrania z http://d.defold.com/beta można sprawdzić, otwierając http://d.defold.com/beta/info.json. Ten sam plik istnieje także dla wersji stabilnych: http://d.defold.com/stable/info.json
 
@@ -133,31 +133,31 @@ A: Tak, zobacz [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 
 
 ## Pytania o edytor
-:[FAQ dotyczące edytora](../shared/editor-faq.md)
+:[FAQ edytora](../shared/editor-faq.md)
 
 
 ## Pytania o Linuksa
-:[FAQ dotyczące Linuksa](../shared/linux-faq.md)
+:[FAQ Linuksa](../shared/linux-faq.md)
 
 
 ## Pytania o Androida
-:[FAQ dotyczące Androida](../shared/android-faq.md)
+:[FAQ Androida](../shared/android-faq.md)
 
 
 ## Pytania o HTML5
-:[FAQ dotyczące HTML5](../shared/html5-faq.md)
+:[FAQ HTML5](../shared/html5-faq.md)
 
 
 ## Pytania o iOS
-:[FAQ dotyczące iOS](../shared/ios-faq.md)
+:[FAQ iOS](../shared/ios-faq.md)
 
 
 ## Pytania o Windows
-:[FAQ dotyczące Windows](../shared/windows-faq.md)
+:[FAQ Windows](../shared/windows-faq.md)
 
 
 ## Pytania o konsole
-:[FAQ dotyczące konsol](../shared/consoles-faq.md)
+:[FAQ konsol](../shared/consoles-faq.md)
 
 
 ## Publikowanie gier
@@ -178,11 +178,11 @@ A: Podczas przesyłania aplikacji Apple pokazuje trzy pola wyboru dla trzech pop
 A: Defold obsługuje zakupy w aplikacji oraz różne rozwiązania reklamowe. Sprawdź kategorię [Monetization](https://defold.com/tags/stars/monetization/) w Asset Portal, aby zobaczyć aktualną listę dostępnych opcji monetyzacji.
 
 
-## Błędy podczas korzystania z Defold
+## Błędy w Defold
 
 #### P: Nie mogę uruchomić gry i nie ma błędu budowania. Co jest nie tak?
 
-A: Proces budowania może w rzadkich przypadkach nie przebudować plików, jeśli wcześniej wystąpiły błędy budowania, które już naprawiłeś. Wymuś pełną przebudowę, wybierając <kbd>Project ▸ Rebuild And Launch</kbd> z menu.
+A: Proces budowania może w rzadkich przypadkach nie przebudować plików, jeśli wcześniej wystąpiły błędy budowania, które już naprawiłeś. Wymuś pełną przebudowę, wybierając *Project ▸ Rebuild And Launch* z menu.
 
 
 
@@ -205,12 +205,12 @@ A: Relacje rodzic-dziecko wyrażają wyłącznie relacje transformacji w grafie 
 
 #### P: Dlaczego widzę artefakty wizualne wokół krawędzi moich sprite'ów?
 
-A: To artefakt wizualny nazywany `edge bleeding`, w którym piksele z krawędzi sąsiednich obrazów w atlasie przenikają do obrazu przypisanego do sprite'a. Rozwiązaniem jest dodanie dodatkowych wierszy i kolumn identycznych pikseli na obrzeżach obrazów atlasu. Na szczęście można to zrobić automatycznie w edytorze atlasu w Defold. Otwórz atlas i ustaw wartość <kbd>Extrude Borders</kbd> na `1`.
+A: To artefakt wizualny nazywany "edge bleeding", w którym piksele z krawędzi sąsiednich obrazów w atlasie przenikają do obrazu przypisanego do sprite'a. Rozwiązaniem jest dodanie dodatkowych wierszy i kolumn identycznych pikseli na obrzeżach obrazów atlasu. Na szczęście można to zrobić automatycznie w edytorze atlasu w Defold. Otwórz atlas i ustaw wartość *Extrude Borders* na 1.
 
 
 #### P: Czy mogę barwić sprite'y albo uczynić je przezroczystymi, czy muszę napisać do tego własny shader?
 
-A: Wbudowany shader sprite'a, używany domyślnie dla wszystkich sprite'ów, ma zdefiniowaną stałą `tint`:
+A: Wbudowany shader sprite'a, używany domyślnie dla wszystkich sprite'ów, ma zdefiniowaną stałą "tint":
 
   ```lua
   local red = 1
@@ -263,17 +263,17 @@ A: Nie, obecnie nie jest to możliwe.
 
 #### P: Czy istnieje jakiś szybki sposób na renderowanie obiektów kolizji w mojej scenie? (jak debug draw w Box2D)
 
-A: Tak, ustaw flagę `physics.debug` w `game.project`. (Zobacz oficjalną [dokumentację ustawień projektu](/manuals/project-settings/#debug))
+A: Tak, ustaw flagę *physics.debug* w *game.project*. (Zobacz oficjalną [dokumentację ustawień projektu](/manuals/project-settings/#debug))
 
 
 #### P: Jakie są koszty wydajnościowe wielu kontaktów i kolizji?
 
-A: Defold uruchamia w tle zmodyfikowaną wersję Box2D, więc koszt wydajnościowy powinien być bardzo podobny. Zawsze możesz sprawdzić, ile czasu silnik spędza na fizyce, otwierając [profiler](/manuals/debugging). Powinieneś też wziąć pod uwagę, jakich obiektów kolizji używasz. Na przykład obiekty statyczne są tańsze wydajnościowo. Zobacz oficjalną [dokumentację fizyki](/manuals/physics) w Defold, aby uzyskać więcej szczegółów.
+A: Defold uruchamia w tle zmodyfikowaną wersję Box2D, więc koszt wydajnościowy powinien być bardzo podobny. Zawsze możesz sprawdzić, ile czasu silnik spędza na fizyce, otwierając [profiler](/manuals/debugging). Powinieneś też wziąć pod uwagę, jakiego rodzaju obiekty kolizji używasz. Na przykład obiekty statyczne są tańsze wydajnościowo. Zobacz oficjalną [dokumentację fizyki](/manuals/physics) w Defold, aby uzyskać więcej szczegółów.
 
 
 #### P: Jaki jest wpływ na wydajność wielu komponentów efektów cząsteczkowych?
 
-A: To zależy od tego, czy są odtwarzane, czy nie. ParticleFX, który nie jest odtwarzany, nie ma żadnego kosztu wydajnościowego. Wpływ odtwarzanego ParticleFX trzeba ocenić za pomocą profilera, ponieważ zależy od jego konfiguracji. Jak w większości innych przypadków pamięć jest rezerwowana z góry dla liczby komponentów ParticleFX zdefiniowanej jako `max_count` w `game.project`.
+A: To zależy od tego, czy są odtwarzane, czy nie. Nieodtwarzany ParticleFX nie ma kosztu wydajnościowego. Wpływ odtwarzanego ParticleFX trzeba ocenić za pomocą profilera, ponieważ zależy od jego konfiguracji. Jak w większości innych przypadków pamięć jest przydzielana z góry dla liczby komponentów ParticleFX zdefiniowanej jako max_count w *game.project*.
 
 
 #### P: Jak mogę odbierać wejście w obiekcie gry wewnątrz kolekcji załadowanej przez pełnomocnika kolekcji?
@@ -293,7 +293,7 @@ A: Dostęp do komórek uzyskujesz przez `mymatrix.m11`, `mymatrix.m12`, `mymatri
 
 #### P: Dostaję komunikat `Not enough resources to clone the node` podczas używania [gui.clone()](/ref/gui/#gui.clone:node) lub [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
 
-A: Zwiększ wartość `Max Nodes` komponentu GUI. Znajdziesz ją w panelu `Properties`, gdy zaznaczysz korzeń komponentu w `Outline`.
+A: Zwiększ wartość `Max Nodes` komponentu GUI. Znajdziesz ją w panelu Properties, gdy zaznaczysz korzeń komponentu w Outline.
 
 
 ## Forum

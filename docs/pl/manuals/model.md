@@ -1,108 +1,131 @@
 ---
-title: Modele 3D w Defoldzie
-brief: Ta instrukcja opisuje, jak wprowadzać modele 3D, szkielety i animacje do gry.
+title: Modele 3D w Defold
+brief: Ta instrukcja opisuje, jak przenosić do gry modele 3D, szkielety i animacje.
 ---
 
-# Modele 3D
+# Komponent Model
 
-Defold to od podstaw silnik 3D. Nawet gdy pracujesz tylko z materiałami 2D, całe renderowanie odbywa się w 3D, ale jest rzutowane ortograficznie na ekran. Defold pozwala na wykorzystywanie pełnej zawartości 3D poprzez dodawanie aktywów 3D lub Modeli do swoich kolekcji. Możesz budować gry wyłącznie w 3D, korzystając tylko z aktywów 3D, lub łączyć zawartość 3D i 2D, jak sobie życzysz. Komponent typu Model jest jednym z komponentów do obsługi elementów trójwymiarowych.
+Defold jest w swej istocie silnikiem 3D. Nawet gdy pracujesz wyłącznie z materiałami 2D, całe renderowanie odbywa się w 3D, ale jest rzutowane na ekran w projekcji ortograficznej. Defold pozwala korzystać z pełnej zawartości 3D przez dodawanie zasobów 3D, czyli _Models_, do kolekcji. Możesz budować gry wyłącznie w 3D, używając tylko zasobów 3D, albo łączyć zawartość 3D i 2D według własnych potrzeb.
 
-## Tworzenie komponentu Modelu
+## Tworzenie komponentu modelu
 
-Komponenty Modelu tworzy się tak samo jak każdy inny komponent obiektu gry. Możesz to zrobić na dwa sposoby:
+Komponenty modelu tworzy się tak samo jak każdy inny komponent obiektu gry. Możesz to zrobić na dwa sposoby:
 
-- Utwórz plik Modelu, klikając prawym przyciskiem myszy w przeglądarki Aktywów i wybierając opcję <kbd>New... ▸ Model</kbd>.
-- Utwórz komponent osadzony bezpośrednio w obiekcie gry, klikając prawym przyciskiem myszy w obiekcie gry w widoku Konspekt i wybierając <kbd>Add Component ▸ Model</kbd>.
+- Utwórz plik *Model* przez <kbd>kliknięcie prawym przyciskiem myszy</kbd> lokalizacji w przeglądarce *Assets* i wybranie <kbd>New... ▸ Model</kbd>.
+- Utwórz komponent osadzony bezpośrednio w obiekcie gry przez <kbd>kliknięcie prawym przyciskiem myszy</kbd> obiektu gry w widoku *Outline* i wybranie <kbd>Add Component ▸ Model</kbd>.
 
 ![Model w obiekcie gry](images/model/model.png)
 
-Po utworzeniu siatki musisz określić szereg właściwości (properties):
+Gdy model jest już utworzony, musisz określić kilka właściwości:
 
-### Właściwości Modeli
+### Właściwości modelu
 
-Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące właściwości specyficzne dla komponentu typu Mesh:
+Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące właściwości specyficzne dla komponentu:
 
 *Mesh*
-: Siatka - ta właściwość powinna odnosić się do pliku glTF *.gltf* lub Collada *.dae*, który zawiera siatkę trójwymiarową, którą chcesz użyć. Jeśli plik zawiera wiele siatek, zostanie odczytana tylko pierwsza.
+: Ta właściwość powinna wskazywać plik glTF *.gltf* zawierający siatkę, której chcesz użyć. Jeśli plik zawiera wiele siatek, odczytywana jest tylko pierwsza z nich.
 
-*Material*
-: Materiał - ustaw tę właściwość na materiał, który utworzyłeś i nadaje się do tekstur obiektu 3D. Dostępny jest wbudowany plik *model.material*, który można użyć jako punkt wyjścia.
-
-*Texture*
-: Tekstura - ta właściwość powinna wskazywać na plik obrazu tekstury, który chcesz zastosować do obiektu.
+*Create GO Bones*
+: Zaznacz tę opcję, aby utworzyć obiekt gry dla każdej kości modelu. Takie obiekty gry możesz wykorzystać do dołączania innych obiektów, na przykład broni do kości dłoni.
 
 *Skeleton*
-: Szkielet - ta właściwość powinna odnosić się do pliku glTF *.gltf* lub Collada *.dae*, który zawiera szkielet do użycia w animacji. Należy zauważyć, że Defold wymaga jednego korzenia hierarchii kostnej (root bone).
+: Ta właściwość powinna wskazywać plik glTF *.gltf* zawierający szkielet używany do animacji. Pamiętaj, że Defold wymaga pojedynczej kości głównej w hierarchii.
 
 *Animations*
-: Animacje - ustaw to na Plik zestawu animacji (*Animation Set*), który zawiera animacje, które chcesz użyć na modelu.
+: Ustaw tę właściwość na *Animation Set File* zawierający animacje, których chcesz używać na modelu.
 
 *Default Animation*
-: Domyślna Animacja - to animacja (z zestawu animacji), która będzie najpierw automatycznie odtwarzana na modelu.
+: To animacja z zestawu animacji, która będzie automatycznie odtwarzana na modelu.
 
-## Manipulacja w Edytorze
+Oprócz właściwości powyżej będzie też pole, w którym można przypisać materiał do każdej siatki modelu:
 
-Mając komponent Modelu, możesz swobodnie edytować i manipulować komponentem lub otaczającym obiektem gry za pomocą zwykłych narzędzi Edytora Sceny (*Scene Editor*), aby dostosować model do swoich potrzeb.
+*Material*
+: Ustaw tę właściwość na materiał, który utworzyłeś i który nadaje się do teksturowanego obiektu 3D. Jako punkt wyjścia możesz wykorzystać kilka wbudowanych materiałów:
+
+  * Use *model.material* for static non-instanced models
+  * Use *model_instances.material* for static instanced models
+  * Use *model_skinned.material* for skinned (animated) non-instanced models
+  * Use *model_skinned_instances.material* for skinned (animated) instanced models
+
+W zależności od materiału będzie dostępna jedna lub więcej właściwości tekstury:
+
+*Texture*
+: Ta właściwość powinna wskazywać plik obrazu tekstury, który ma zostać zastosowany do obiektu.
+
+
+## Modyfikowanie w edytorze
+
+Mając komponent modelu na miejscu, możesz swobodnie edytować i przekształcać komponent albo otaczający go obiekt gry za pomocą zwykłych narzędzi *Scene Editor*, aby przesuwać, obracać i skalować model według własnego uznania.
 
 ![Wiggler w grze](images/model/ingame.png)
 
-## Manipulacja w czasie rzeczywistym
+## Modyfikowanie w czasie działania
 
-Możesz manipulować modelami w czasie działania programu za pomocą różnych funkcji i właściwości (zobacz [dokumentację API](/ref/model/)) w celu uzyskania informacji na temat użycia).
+Możesz manipulować modelami w czasie działania gry za pomocą wielu różnych funkcji i właściwości (zobacz [dokumentację API dotyczącą użycia](/ref/model/)).
 
-### Animacja w czasie rzeczywistym
+### Animacja w czasie działania
 
-Defold oferuje wsparcie dla kontroli animacji w czasie działania programu. Więcej informacji można znaleźć w [instrukcji dotyczącej animacji modelu](/manuals/model-animation):
+Defold zapewnia rozbudowane wsparcie dla sterowania animacją w czasie działania gry. Więcej informacji znajdziesz w [instrukcji animacji modelu](/manuals/model-animation):
 
 ```lua
 local play_properties = { blend_duration = 0.1 }
 model.play_anim("#model", "jump", go.PLAYBACK_ONCE_FORWARD, play_properties)
 ```
 
-Kursor odtwarzania animacji można animować ręcznie lub za pomocą systemu animacji właściwości:
+Kursor odtwarzania animacji można animować ręcznie albo za pomocą systemu animacji właściwości:
 
 ```lua
 -- ustaw animację biegu
 model.play_anim("#model", "run", go.PLAYBACK_NONE)
--- animuj kursor animacji
+-- animuj kursor
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
 ```
 
-### Modyfikacja właściwości Modelu
+### Zmienianie właściwości
 
-Model ma również wiele różnych właściwości, które można manipulować za pomocą funkcji `go.get()` i `go.set()`:
+Model ma też kilka właściwości, którymi można manipulować za pomocą `go.get()` i `go.set()`:
 
 `animation`
-: aktualna animacja modelu (typ `hash`) (TYLKO DO ODCZYTU). Zmieniasz animację, używając `model.play_anim()` (patrz wyżej).
+: Bieżąca animacja modelu (`hash`) (TYLKO DO ODCZYTU). Animację zmieniasz za pomocą `model.play_anim()` (zobacz wyżej).
 
 `cursor`
-: znormalizowany kursor animacji (typ `number`).
+: Znormalizowany kursor animacji (`number`).
 
 `material`
-: materiał modelu (typ `hash`). Możesz to zmieniać za pomocą właściwości zasobów materiału i `go.set()`. Obejrzyj [dokumentację API](/ref/model/#material) w celu uzyskania przykładu.
+: Materiał modelu (`hash`). Możesz go zmieniać za pomocą właściwości zasobu materiału i `go.set()`. Przykład znajdziesz w [dokumentacji API](/ref/model/#material).
 
 `playback_rate`
-: prędkość odtwarzania animacji (typ `number`).
+: Szybkość odtwarzania animacji (`number`).
 
 `textureN`
-: tekstury modelu, gdzie N to 0-7 (typ `hash`). Możesz to zmieniać za pomocą właściwości zasobów tekstury i `go.set()`. Obejrzyj [dokumentację API](/ref/model/#textureN) w celu uzyskania przykładu.
+: Tekstury modelu, gdzie N ma wartość od 0 do 7 (`hash`). Możesz je zmieniać za pomocą właściwości zasobu tekstury i `go.set()`. Przykład znajdziesz w [dokumentacji API](/ref/model/#textureN).
 
-## Materiały
 
-Oprogramowanie 3D zwykle pozwala na ustawienie właściwości wierzchołków obiektu, takie jak kolor i nakładanie tekstur. Te informacje trafiają do pliku glTF *.gltf* lub Collada *.dae*, który eksportujesz z oprogramowania 3D. W zależności od wymagań gry będziesz musiał wybrać lub utworzyć odpowiednie i _wydajne_ materiały dla swoich obiektów. Materiał łączy w sobie programy cieniowania (shadery) z zestawem parametrów do renderowania obiektu.
+## Materiał
 
-Dostępny jest prosty materiał modelu 3D w wbudowanym folderze materiałów. Jeśli potrzebujesz tworzyć niestandardowe materiały dla swoich modeli, zobacz [dokumentację materiałów](/manuals/material) w celu uzyskania dalszych informacji. W [dokumentacji shaderów](/manuals/shader) znajdziesz informacje na temat działania takich programów cieniowania.
+Oprogramowanie 3D zwykle pozwala ustawiać na wierzchołkach obiektu właściwości, takie jak kolor i teksturowanie. Informacje te trafiają do pliku glTF *.gltf*, który eksportujesz z programu 3D. W zależności od potrzeb gry musisz wybrać i/lub utworzyć odpowiednie i _wydajne_ materiały dla swoich obiektów. Materiał łączy _programy cieniujące_ z zestawem parametrów renderowania obiektu.
+
+Istnieje kilka wbudowanych materiałów, których możesz użyć jako punktu wyjścia:
+
+  * Use *model.material* for static non-instanced models
+  * Use *model_instances.material* for static instanced models
+  * Use *model_skinned.material* for skinned (animated) non-instanced models
+  * Use *model_skinned_instances.material* for skinned (animated) instanced models
+
+Jeśli chcesz tworzyć własne materiały dla modeli, zajrzyj do [dokumentacji materiałów](/manuals/material), aby uzyskać więcej informacji. [Instrukcja shaderów](/manuals/shader) zawiera informacje o tym, jak działają programy cieniujące.
+
 
 ### Stałe materiału
 
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: Kolor modelu (type `vector4`). Wektor 4-składnikowy jest używany do reprezentacji odcienia z wartościami X, Y, Z i W odpowiadającymi za czerwień, zielony, niebieski i kolor alfa (przezroczystości).
+: Odcień kolorystyczny modelu (`vector4`). Wektor typu vector4 służy do reprezentowania odcienia, a składowe x, y, z i w odpowiadają odpowiednio za odcień czerwony, zielony, niebieski i alfa.
+
 
 ## Renderowanie
 
-Domyślny skryp renderowanie (render script) jest napisany pod gry 2D i nie działa dobrze z modelami 3D. Kopiując domyślny skrypt i dodając kilka lini kodu możesz szybko włączyć renderowanie obiektów trójwymiarowych dla Twoich Modeli. Na przykład:
+Domyślny skrypt do renderowania jest zaprojektowany specjalnie z myślą o grach 2D i nie działa z modelami 3D. Jednak po skopiowaniu domyślnego skryptu do renderowania i dodaniu kilku linii kodu możesz włączyć renderowanie modeli. Na przykład:
 
   ```lua
 
@@ -115,11 +138,11 @@ Domyślny skryp renderowanie (render script) jest napisany pod gry 2D i nie dzia
     ...
     render.set_depth_mask(true)
     render.enable_state(render.STATE_DEPTH_TEST)
-    render.set_projection(stretch_projection(-1000, 1000))  -- orthographic
+    render.set_projection(stretch_projection(-1000, 1000))  -- ortograficzna
     render.draw(self.model_pred)
     render.set_depth_mask(false)
     ...
   end
   ```
 
-Zobacz [dokumnetację renderowania](/manuals/render) w celu uzyskania dalszych informacji o skryptach renderowania.
+Szczegóły działania skryptów do renderowania znajdziesz w [dokumentacji renderowania](/manuals/render).

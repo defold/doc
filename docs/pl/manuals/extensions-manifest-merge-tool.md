@@ -6,10 +6,10 @@ brief: Ta instrukcja opisuje, jak działa scalanie manifestów aplikacji
 # Manifesty aplikacji
 
 Dla niektórych platform obsługujemy rozszerzenia, które dostarczają fragmenty manifestów aplikacji.
-Może to być część `AndroidManifest.xml`, `Info.plist` albo `engine_template.html`.
+Może to być fragment `AndroidManifest.xml`, `Info.plist` albo `engine_template.html`.
 
-Każdy fragment manifestu rozszerzenia będzie stosowany jeden po drugim, zaczynając od bazowego manifestu aplikacji.
-Manifest bazowy jest albo domyślny (w `builtins\manifests\<platforms>\...`), albo niestandardowy, dostarczony przez użytkownika.
+Każdy fragment manifestu rozszerzenia jest stosowany kolejno, począwszy od bazowego manifestu aplikacji.
+Manifest bazowy jest albo domyślnym manifestem (w `builtins\manifests\<platforms>\...`), albo niestandardowym manifestem dostarczonym przez użytkownika.
 
 ## Nazewnictwo i struktura
 
@@ -30,7 +30,7 @@ Manifesty rozszerzeń muszą być umieszczone w określonej strukturze, aby rozs
 
 ## Android
 
-Platforma Android ma już narzędzie do scalania manifestów, oparte na `ManifestMerger2`, a my używamy go w `bob.jar` do scalania manifestów.
+Platforma Android ma już narzędzie do scalania manifestów oparte na `ManifestMerger2`, a my używamy go w `bob.jar` do tego samego zadania.
 Pełny zestaw instrukcji dotyczących modyfikowania manifestów Androida znajdziesz w [ich dokumentacji](https://developer.android.com/studio/build/manifest-merge).
 
 ::: important
@@ -295,7 +295,7 @@ Wynik:
 
 ## HTML5
 
-Dla szablonu HTML nazwaliśmy każdą sekcję, aby można było je dopasowywać, na przykład `"engine-start"`.
+Dla szablonu HTML oznaczyliśmy każdą sekcję, aby można było je dopasowywać, na przykład "engine-start".
 Następnie można określić atrybuty `merge` albo `keep`. `merge` jest domyślny.
 
 ### Przykład

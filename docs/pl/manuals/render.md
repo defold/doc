@@ -3,28 +3,27 @@ title: Potok renderowania w Defold
 brief: Ta instrukcja wyjaśnia, jak działa potok renderowania w Defold i jak można go programować.
 ---
 
-# Renderowanie
+# Render
 
-Każdy obiekt pokazywany przez silnik na ekranie, taki jak sprite'y, modele, kafelki, cząsteczki lub węzły GUI, jest rysowany przez renderer. W centrum renderera znajduje się skrypt do renderowania, który steruje potokiem renderowania. Domyślnie każdy obiekt 2D jest rysowany z odpowiednią bitmapą, z określonym mieszaniem i na właściwej głębokości Z, więc poza kolejnością rysowania i prostym mieszaniem możesz nigdy nie musieć myśleć o renderowaniu. W większości gier 2D domyślny potok działa dobrze, ale twoja gra może mieć szczególne wymagania. W takim przypadku Defold pozwala napisać potok renderowania dopasowany do jej potrzeb.
+Każdy obiekt wyświetlany przez silnik na ekranie, taki jak sprite'y, modele, mapy kafelków, cząsteczki albo węzły GUI, jest rysowany przez renderer. W samym sercu renderera znajduje się skrypt do renderowania, który steruje potokiem renderowania. Domyślnie każdy obiekt 2D jest rysowany z właściwą bitmapą, przy użyciu określonego mieszania i na właściwej głębokości Z, więc poza kolejnością rysowania i prostym mieszaniem możesz nigdy nie musieć myśleć o renderowaniu. W większości gier 2D domyślny potok działa dobrze, ale twoja gra może mieć szczególne wymagania. W takim przypadku Defold pozwala napisać własny, dopasowany do potrzeb potok renderowania.
 
 ### Potok renderowania - co, kiedy i gdzie?
 
-Potok renderowania kontroluje, co ma zostać wyrenderowane, kiedy ma to nastąpić i gdzie ma trafić. To, co ma być renderowane, kontrolują [predykaty renderowania](#predykaty-renderowania). To, kiedy renderować predykat, jest kontrolowane w [skrypcie do renderowania](#skrypt-do-renderowania), a to, gdzie go renderować, jest kontrolowane przez [projekcję widoku](#domyślna-projekcja-widoku). Potok renderowania może też odrzucać grafiki rysowane przez predykat renderowania, które leżą poza zdefiniowaną bryłą ograniczającą lub bryłą widokową. Ten proces nazywa się odrzucaniem poza bryłą widokową (frustum culling).
-
+Potok renderowania kontroluje, co należy wyrenderować, kiedy to zrobić i gdzie to narysować. To, co ma być renderowane, kontrolują [predykaty renderowania](#render-predicates). To, kiedy renderować predykat, jest kontrolowane w [skrypcie do renderowania](#the-render-script), a to, gdzie go renderować, jest kontrolowane przez [projekcję widoku](#default-view-projection). Potok renderowania może też odrzucać grafiki rysowane przez predykat renderowania, które znajdują się poza zdefiniowaną bryłą ograniczającą albo bryłą widokową. Ten proces nazywa się odrzucaniem poza bryłą widokową (frustum culling).
 
 ## Domyślny render
 
-Plik render zawiera odwołanie do bieżącego skryptu do renderowania, a także do niestandardowych materiałów, które powinny być dostępne w skrypcie do renderowania (użyj [`render.enable_material()`](/ref/render/#render.enable_material))
+Plik render zawiera odwołanie do bieżącego skryptu do renderowania, a także do niestandardowych materiałów, które mają być dostępne w skrypcie do renderowania (użyj [`render.enable_material()`](/ref/render/#render.enable_material))
 
-W centrum potoku renderowania znajduje się _skrypt do renderowania_. To skrypt Lua z funkcjami `init()`, `update()` i `on_message()`, używany głównie do pracy z niskopoziomowym API graficznym. Skrypt do renderowania zajmuje szczególne miejsce w cyklu życia gry. Szczegóły znajdziesz w [dokumentacji cyklu życia aplikacji](/manuals/application-lifecycle).
+W samym sercu potoku renderowania znajduje się _skrypt do renderowania_. To skrypt Lua z funkcjami `init()`, `update()` i `on_message()`, używany przede wszystkim do współpracy z niskopoziomowym API graficznym. Skrypt do renderowania zajmuje szczególne miejsce w cyklu życia gry. Szczegóły znajdziesz w [dokumentacji cyklu życia aplikacji](/manuals/application-lifecycle).
 
-W folderze "Builtins" projektu znajdziesz domyślny zasób render (`default.render`) oraz domyślny skrypt do renderowania (`default.render_script`).
+W folderze "Builtins" projektu znajdziesz domyślny zasób render ("default.render") oraz domyślny skrypt do renderowania ("default.render_script").
 
 ![Wbudowany render](images/render/builtin.png)
 
 Aby skonfigurować własny renderer:
 
-1. Skopiuj pliki "default.render" i "default.render_script" do wybranego miejsca w hierarchii projektu. Oczywiście możesz też utworzyć skrypt do renderowania od zera, ale dobrym pomysłem jest rozpoczęcie od kopii domyślnego skryptu, zwłaszcza jeśli dopiero zaczynasz pracę z Defold albo z programowaniem grafiki.
+1. Skopiuj pliki "default.render" i "default.render_script" do wybranego miejsca w hierarchii projektu. Oczywiście możesz też utworzyć skrypt do renderowania od zera, ale dobrym pomysłem jest zacząć od kopii domyślnego skryptu, zwłaszcza jeśli dopiero zaczynasz pracę z Defold albo z programowaniem grafiki.
 
 2. Otwórz swoją kopię pliku "default.render" i zmień właściwość *Script*, aby wskazywała na twoją kopię skryptu do renderowania.
 
@@ -35,7 +34,7 @@ Aby skonfigurować własny renderer:
 
 Aby kontrolować kolejność rysowania obiektów, tworzysz predykaty renderowania. Predykat określa, co ma zostać narysowane, na podstawie wybranych tagów materiału.
 
-Każdy obiekt rysowany na ekranie ma przypisany materiał, który kontroluje, jak ma on być rysowany na ekranie. W materiale określasz jeden lub więcej tagów, które mają być z nim powiązane.
+Każdy obiekt rysowany na ekranie ma przypisany materiał, który kontroluje, jak ma być rysowany. W materiale określasz jeden lub więcej tagów, które mają być z nim powiązane.
 
 W skrypcie do renderowania możesz następnie utworzyć *predykat renderowania* i określić, które tagi mają do niego należeć. Gdy każesz silnikowi narysować predykat, zostanie narysowany każdy obiekt z materiałem zawierającym wszystkie tagi określone dla tego predykatu.
 
@@ -73,7 +72,7 @@ Domyślny skrypt do renderowania jest skonfigurowany tak, aby używać projekcji
 
 ### Projekcja Stretch
 
-Projekcja Stretch zawsze narysuje obszar gry o wymiarach ustawionych w *game.project*, nawet gdy rozmiar okna zostanie zmieniony. Jeśli zmieni się współczynnik proporcji, zawartość gry zostanie rozciągnięta w pionie albo w poziomie:
+Projekcja Stretch zawsze narysuje obszar gry o wymiarach ustawionych w *game.project*, nawet po zmianie rozmiaru okna. Jeśli zmieni się współczynnik proporcji, zawartość gry zostanie rozciągnięta pionowo albo poziomo:
 
 ![Projekcja Stretch](images/render/stretch_projection.png)
 
@@ -81,7 +80,7 @@ Projekcja Stretch zawsze narysuje obszar gry o wymiarach ustawionych w *game.pro
 
 ![Projekcja Stretch po zmianie rozmiaru](images/render/stretch_projection_resized.png)
 
-*Projekcja Stretch z oknem rozciągniętym poziomo*
+*Projekcja Stretch z poziomo rozciągniętym oknem*
 
 Projekcja Stretch jest projekcją domyślną, ale jeśli ją zmieniłeś i chcesz wrócić, zrobisz to, wysyłając wiadomość do skryptu do renderowania:
 
@@ -91,7 +90,7 @@ msg.post("@render:", "use_stretch_projection", { near = -1, far = 1 })
 
 ### Projekcja Fixed Fit
 
-Tak jak projekcja Stretch, projekcja Fixed Fit zawsze pokazuje obszar gry o wymiarach ustawionych w *game.project*, ale jeśli okno zostanie zmienione i współczynnik proporcji się zmieni, zawartość gry zachowa oryginalny współczynnik proporcji, a dodatkowa zawartość gry będzie widoczna w pionie albo w poziomie:
+Tak jak projekcja Stretch, projekcja Fixed Fit zawsze pokaże obszar gry o wymiarach ustawionych w *game.project*, ale jeśli okno zostanie zmienione i współczynnik proporcji się zmieni, zawartość gry zachowa oryginalny współczynnik proporcji, a dodatkowa część gry będzie widoczna pionowo albo poziomo:
 
 ![Projekcja Fixed Fit](images/render/fixed_fit_projection.png)
 
@@ -99,7 +98,7 @@ Tak jak projekcja Stretch, projekcja Fixed Fit zawsze pokazuje obszar gry o wymi
 
 ![Projekcja Fixed Fit po zmianie rozmiaru](images/render/fixed_fit_projection_resized.png)
 
-*Projekcja Fixed Fit z oknem rozciągniętym poziomo*
+*Projekcja Fixed Fit z poziomo rozciągniętym oknem*
 
 ![Projekcja Fixed Fit po zmniejszeniu](images/render/fixed_fit_projection_resized_smaller.png)
 
@@ -113,7 +112,7 @@ msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 
 ### Projekcja Fixed
 
-Projekcja Fixed zachowa oryginalny współczynnik proporcji i będzie renderować zawartość gry z ustalonym zoomem. Oznacza to, że jeśli zoom zostanie ustawiony na wartość inną niż 100%, zobaczysz większą lub mniejszą część obszaru gry zdefiniowanego przez wymiary w *game.project*:
+Projekcja Fixed zachowa oryginalny współczynnik proporcji i będzie renderować zawartość gry z ustalonym poziomem zoomu. Oznacza to, że jeśli zoom zostanie ustawiony na wartość inną niż 100%, zobaczysz większy albo mniejszy obszar gry zdefiniowany przez wymiary w *game.project*:
 
 ![Projekcja Fixed](images/render/fixed_projection_zoom_2_0.png)
 
@@ -153,20 +152,20 @@ local mode = camera.get_orthographic_mode("main:/go#camera")
 
 ## Odrzucanie poza bryłą widokową
 
-API renderowania w Defold pozwala programistom wykonywać coś, co nazywa się odrzucaniem poza bryłą widokową. Gdy ta funkcja jest włączona, każda grafika znajdująca się poza zdefiniowanym pudełkiem ograniczającym lub bryłą widokową zostanie zignorowana. W dużym świecie gry, w którym jednocześnie widoczna jest tylko część obszaru, odrzucanie poza bryłą widokową może znacznie zmniejszyć ilość danych, które trzeba wysłać do GPU w celu renderowania, a tym samym zwiększyć wydajność i oszczędzać baterię (na urządzeniach mobilnych). Do utworzenia pudełka ograniczającego często używa się widoku i projekcji kamery. Domyślny skrypt do renderowania używa widoku i projekcji (z kamery), aby obliczyć bryłę widokową.
+API renderowania w Defold pozwala programistom wykonywać coś, co nazywa się odrzucaniem poza bryłą widokową. Gdy ta funkcja jest włączona, każda grafika znajdująca się poza zdefiniowanym pudełkiem ograniczającym albo bryłą widokową zostanie zignorowana. W dużym świecie gry, w którym jednocześnie widoczna jest tylko część obszaru, odrzucanie poza bryłą widokową może znacznie zmniejszyć ilość danych, które trzeba wysłać do GPU w celu renderowania, a tym samym zwiększyć wydajność i oszczędzać baterię na urządzeniach mobilnych. Do utworzenia pudełka ograniczającego często używa się widoku i projekcji kamery. Domyślny skrypt do renderowania używa widoku i projekcji z kamery, aby obliczyć bryłę widokową.
 
 Odrzucanie poza bryłą widokową jest w silniku implementowane osobno dla każdego typu komponentu. Aktualny stan (Defold 1.9.0):
 
-| Komponent   | Obsługiwane |
-|-------------|-------------|
-| Sprite      | TAK       |
-| Model       | TAK       |
-| Mesh        | TAK (1)   |
-| Label       | TAK       |
-| Spine       | TAK       |
-| Particle fx | NIE       |
-| Tilemap     | TAK       |
-| Rive        | NIE       |
+| Component   | Supported |
+|-------------|-----------|
+| Sprite      | YES       |
+| Model       | YES       |
+| Mesh        | YES (1)   |
+| Label       | YES       |
+| Spine       | YES       |
+| Particle fx | NO        |
+| Tilemap     | YES       |
+| Rive        | NO        |
 
 1 = Pudełko ograniczające siatki musi zostać ustawione przez dewelopera. [Dowiedz się więcej](/manuals/mesh/#frustum-culling).
 
@@ -175,9 +174,9 @@ Odrzucanie poza bryłą widokową jest w silniku implementowane osobno dla każd
 
 Gdy komponenty są renderowane, zwykle mówi się o tym, w jakim układzie współrzędnych są renderowane. W większości gier część komponentów jest rysowana w przestrzeni świata, a część w przestrzeni ekranu.
 
-Komponenty GUI i ich węzły są zwykle rysowane w układzie współrzędnych przestrzeni ekranu, gdzie lewy dolny róg ekranu ma współrzędne (0,0), a prawy górny róg to (szerokość ekranu, wysokość ekranu). Układ współrzędnych przestrzeni ekranu nigdy nie jest przesuwany ani w inny sposób transformowany przez kamerę. Dzięki temu węzły GUI zawsze będą rysowane na ekranie niezależnie od tego, jak renderowany jest świat.
+Komponenty GUI i ich węzły są zwykle rysowane w układzie współrzędnych przestrzeni ekranu, gdzie lewy dolny róg ekranu ma współrzędne (0,0), a prawy górny róg to (szerokość ekranu, wysokość ekranu). Układ współrzędnych przestrzeni ekranu nigdy nie jest przesuwany ani w inny sposób przekształcany przez kamerę. Dzięki temu węzły GUI zawsze będą rysowane na ekranie niezależnie od tego, jak renderowany jest świat.
 
-Sprite'y, mapy kafelków i inne komponenty używane przez obiekty gry istniejące w twoim świecie gry są zwykle rysowane w układzie współrzędnych przestrzeni świata. Jeśli nie wprowadzisz zmian do skryptu do renderowania i nie użyjesz komponentu kamery do zmiany projekcji widoku, ten układ jest taki sam jak układ współrzędnych przestrzeni ekranu, ale gdy tylko dodasz kamerę i przesuniesz ją albo zmienisz projekcję widoku, oba układy zaczną się różnić. Gdy kamera się porusza, lewy dolny róg ekranu będzie przesunięty względem (0, 0), aby renderować inne części świata. Jeśli zmieni się projekcja, współrzędne zostaną zarówno przetransformowane, tj. przesunięte względem (0, 0), jak i przeskalowane.
+Sprite'y, mapy kafelków i inne komponenty używane przez obiekty gry istniejące w twoim świecie gry są zwykle rysowane w układzie współrzędnych przestrzeni świata. Jeśli nie wprowadzisz żadnych zmian do skryptu do renderowania i nie użyjesz komponentu kamery do zmiany projekcji widoku, ten układ jest taki sam jak układ współrzędnych przestrzeni ekranu, ale gdy tylko dodasz kamerę i przesuniesz ją albo zmienisz projekcję widoku, oba układy zaczną się różnić. Gdy kamera się porusza, lewy dolny róg ekranu będzie przesunięty względem (0, 0), aby renderować inne części świata. Jeśli zmieni się projekcja, współrzędne zostaną zarówno przekształcone, czyli przesunięte względem (0, 0), jak i przeskalowane.
 
 
 ## Skrypt do renderowania
@@ -193,7 +192,7 @@ function init(self)
     -- dzięki temu możemy zmieniać stan OpenGL między kolejnymi rysowaniami.
     self.predicates = create_predicates("tile", "gui", "text", "particle", "model")
 
-    -- Utwórz i wypełnij tabele danych używane w `update()`
+    -- Utwórz i wypełnij tabele danych używane w update()
     local state = create_state()
     self.state = state
     local camera_world = create_camera(state, "camera_world", true)
@@ -205,7 +204,7 @@ end
 ```
 
 update()
-: Funkcja `update()` jest wywoływana raz na każdą klatkę. Jej zadaniem jest wykonanie właściwego rysowania przez wywołanie niskopoziomowych interfejsów OpenGL ES (OpenGL Embedded Systems API). Aby dobrze zrozumieć, co dzieje się w funkcji `update()`, trzeba znać zasady działania OpenGL. Dostępnych jest wiele świetnych materiałów o OpenGL ES. Oficjalna strona to dobre miejsce na start. Znajdziesz ją pod adresem https://www.khronos.org/opengles/
+: Funkcja `update()` jest wywoływana raz na każdą klatkę. Jej zadaniem jest wykonanie właściwego rysowania przez wywołanie niskopoziomowych interfejsów API OpenGL ES. Aby dobrze zrozumieć, co dzieje się w funkcji `update()`, trzeba znać zasady działania OpenGL. Dostępnych jest wiele świetnych materiałów o OpenGL ES. Oficjalna strona to dobre miejsce na start. Znajdziesz ją pod adresem https://www.khronos.org/opengles/
 
   Ten przykład zawiera konfigurację potrzebną do rysowania modeli 3D. Funkcja `init()` zdefiniowała predykat `self.predicates.model`. Gdzie indziej został utworzony materiał z tagiem "model". Są też komponenty modelu, które używają tego materiału:
 
@@ -253,7 +252,7 @@ function update(self)
     render.disable_state(render.STATE_STENCIL_TEST)
     render.disable_state(render.STATE_DEPTH_TEST)
 
-    -- Debugowanie
+    -- Debug
     render.draw_debug3d()
 
     -- Renderuj GUI
@@ -268,10 +267,10 @@ function update(self)
 end
 ```
 
-Jak dotąd jest to prosty i przejrzysty skrypt do renderowania. Rysuje w ten sam sposób w każdej klatce. Czasami jednak pożądane jest wprowadzenie stanu do skryptu do renderowania i wykonywanie różnych operacji w zależności od tego stanu. Może też być potrzebna komunikacja ze skryptem do renderowania z innych części kodu gry.
+Jak dotąd jest to prosty i przejrzysty skrypt do renderowania. Rysuje w ten sam sposób w każdej pojedynczej klatce. Czasem jednak warto wprowadzić stan do skryptu do renderowania i wykonywać różne operacje w zależności od tego stanu. Przydatna może też być komunikacja ze skryptem do renderowania z innych części kodu gry.
 
 on_message()
-: Skrypt do renderowania może zdefiniować funkcję `on_message()` i odbierać wiadomości z innych części gry lub aplikacji. Częstym przypadkiem, w którym zewnętrzny komponent wysyła informacje do skryptu do renderowania, jest _kamera_. Komponent kamery, który zdobył fokus kamery, automatycznie będzie wysyłał swój widok i projekcję do skryptu do renderowania w każdej klatce. Ta wiadomość nazywa się `"set_view_projection"`:
+: Skrypt do renderowania może zdefiniować funkcję `on_message()` i odbierać wiadomości z innych części gry lub aplikacji. Częstym przypadkiem, gdy zewnętrzny komponent wysyła informacje do skryptu do renderowania, jest _kamera_. Komponent kamery, który przejął fokus kamery, automatycznie będzie wysyłał swój widok i projekcję do skryptu do renderowania w każdej klatce. Ta wiadomość nazywa się `"set_view_projection"`:
 
 ```lua
 local MSG_CLEAR_COLOR =         hash("clear_color")
@@ -283,7 +282,7 @@ function on_message(self, message_id, message)
         -- Ktoś wysłał nam nowy kolor czyszczenia do użycia.
         update_clear_color(state, message.color)
     elseif message_id == MSG_SET_VIEW_PROJ then
-        -- Komponent kamery, który ma fokus kamery, będzie wysyłał wiadomości set_view_projection
+        -- Komponent kamery z przechwyconym fokusem kamery będzie wysyłał wiadomości set_view_projection
         -- do gniazda @render. Możemy użyć informacji o kamerze, aby
         -- ustawić widok (i ewentualnie projekcję) renderowania.
         camera.view = message.view
@@ -293,7 +292,7 @@ function on_message(self, message_id, message)
 end
 ```
 
-Jednak każdy skrypt lub skrypt GUI może wysyłać wiadomości do skryptu do renderowania przez specjalne gniazdo `@render`:
+Każdy skrypt lub skrypt GUI może jednak wysyłać wiadomości do skryptu do renderowania przez specjalne gniazdo `@render`:
 
 ```lua
 -- Zmień kolor czyszczenia.
@@ -325,7 +324,7 @@ render.draw(self.my_tile_predicate)
 Obecnie Defold obsługuje jako odwoływane zasoby renderowania tylko `Materials` i `Render Targets`, ale z czasem system ten będzie obsługiwał więcej typów zasobów.
 :::
 
-## Uchwyty tekstur
+## Uchwyt tekstur
 
 W Defold tekstury są wewnętrznie reprezentowane jako uchwyt, który w praktyce odpowiada liczbie mającej jednoznacznie identyfikować obiekt tekstury w dowolnym miejscu silnika. Oznacza to, że możesz połączyć świat obiektów gry ze światem renderowania, przekazując te uchwyty między systemem renderowania a skryptem obiektu gry. Na przykład skrypt może utworzyć dynamiczną teksturę w skrypcie dołączonym do obiektu gry i wysłać ją do renderera, aby użyć jej jako globalnej tekstury w poleceniu rysowania.
 
@@ -333,14 +332,14 @@ W pliku `.script`:
 
 ```lua
 local my_texture_resource = resource.create_texture("/my_texture.texture", tparams)
--- uwaga: `my_texture_resource` to hash ścieżki zasobu, którego nie można użyć jako uchwytu!
+-- uwaga: my_texture_resource to hash ścieżki zasobu, którego nie można użyć jako uchwytu!
 local my_texture_handle = resource.get_texture_info(my_texture_resource)
--- `my_texture_handle` zawiera informacje o teksturze, takie jak szerokość, wysokość itd.
+-- my_texture_handle zawiera informacje o teksturze, takie jak szerokość, wysokość itd.
 -- zawiera też uchwyt, o który nam chodzi
 msg.post("@render:", "set_texture", { handle = my_texture_handle.handle })
 ```
 
-W pliku `.render_script`:
+W pliku .render_script:
 
 ```lua
 function on_message(self, message_id, message)
@@ -386,7 +385,7 @@ end
 ```
 
 `"draw_line"`
-: Rysuje linię debugowania. Użyj jej, aby wizualizować rzuty promienia, wektory i inne rzeczy. Linie są rysowane za pomocą wywołania `render.draw_debug3d()`.
+: Rysuje linię debugowania. Użyj jej, aby wizualizować ray_casty, wektory i inne rzeczy. Linie są rysowane za pomocą wywołania `render.draw_debug3d()`.
 
 ```lua
 -- narysuj białą linię
@@ -423,9 +422,9 @@ Renderowanie odbywa się zgodnie z kolejnością Z, od niskiej do wysokiej. Siln
 * Jest tego samego typu komponentu (sprite, particle fx, tilemap itd.)
 * Używa tej samej tekstury (atlasu albo źródła kafelków)
 * Ma ten sam materiał
-* Ma te same stałe shaderów (takie jak `tint`)
+* Ma te same stałe shaderów (takie jak tint)
 
-Oznacza to, że jeśli dwa komponenty sprite w tym samym pełnomocniku kolekcji mają sąsiadujące lub identyczne wartości Z (a więc znajdują się obok siebie na posortowanej liście), używają tej samej tekstury, materiału i stałych, zostaną zgrupowane w to samo wywołanie rysowania.
+Oznacza to, że jeśli dwa komponenty sprite w tym samym pełnomocniku kolekcji mają sąsiadujące albo identyczne wartości Z (a więc znajdują się obok siebie na posortowanej liście), używają tej samej tekstury, materiału i stałych, zostaną zgrupowane w to samo wywołanie rysowania.
 
 
 ### Zasady grupowania dla komponentów GUI
@@ -434,7 +433,7 @@ Renderowanie węzłów w komponencie GUI odbywa się od góry do dołu listy wę
 
 * Jest tego samego typu (box, text, pie itd.)
 * Używa tej samej tekstury (atlasu albo źródła kafelków)
-* Ma ten sam tryb mieszania.
+* Ma ten sam tryb mieszania
 * Ma ten sam font (tylko dla węzłów tekstowych)
 * Ma te same ustawienia stencil
 

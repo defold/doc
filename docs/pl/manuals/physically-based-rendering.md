@@ -1,18 +1,18 @@
 ---
-title: Renderowanie oparte na modelu fizycznym w Defold
-brief: Ta instrukcja wyjaśnia podstawy dostępu do danych materiału dla renderowania opartego na modelu fizycznym w Defold.
+title: Renderowanie oparte na zasadach fizycznych w Defold
+brief: Ta instrukcja wyjaśnia podstawy dostępu do danych materiału dla renderowania opartego na zasadach fizycznych w Defold.
 ---
 
-# Renderowanie oparte na modelu fizycznym (PBR)
+# Renderowanie oparte na zasadach fizycznych (PBR)
 
-Renderowanie oparte na modelu fizycznym (Physically Based Rendering, PBR) to podejście do cieniowania, które modeluje interakcję światła z powierzchniami w oparciu o rzeczywiste zasady fizyczne. Zapewnia spójne, realistyczne oświetlenie w różnych środowiskach i pozwala zasobom wyglądać poprawnie w szerokim zakresie warunków oświetleniowych.
+Renderowanie oparte na zasadach fizycznych (Physically Based Rendering, PBR) to podejście do cieniowania, które modeluje interakcję światła z powierzchniami na podstawie rzeczywistych zasad fizyki. Zapewnia spójne, realistyczne oświetlenie w różnych środowiskach i pozwala zasobom wyglądać poprawnie w szerokim zakresie warunków oświetleniowych.
 
-Implementacja PBR w Defold opiera się na specyfikacji materiałów glTF 2.0 oraz powiązanych rozszerzeniach Khronos. Gdy importujesz zasoby glTF do Defold, właściwości materiału są automatycznie odczytywane i zapisywane jako uporządkowane dane materiału, do których można odwołać się w shaderach w czasie działania programu.
+Implementacja PBR w Defold opiera się na specyfikacji materiałów glTF 2.0 oraz powiązanych rozszerzeniach Khronos. Gdy importujesz zasoby glTF do Defold, właściwości materiału są automatycznie analizowane i zapisywane jako uporządkowane dane materiału, do których można odwołać się w shaderach w czasie działania programu.
 
-Materiały PBR mogą obejmować efekty takie jak metaliczne odbicia, chropowatość powierzchni, transmisję, clearcoat, rozpraszanie podpowierzchniowe, iryzację i wiele innych.
+Materiały PBR mogą obejmować efekty takie jak metaliczne odbicia, chropowatość powierzchni, transmisję, clearcoat, rozpraszanie podpowierzchniowe, irydescencję i wiele innych.
 
 ::: sidenote
-Defold obecnie udostępnia shaderom dane materiału PBR, ale nie zapewnia wbudowanego modelu oświetlenia PBR. Możesz użyć tych danych we własnych shaderach oświetlenia i odbić, aby uzyskać renderowanie oparte na modelu fizycznym. Domyślny model oświetlenia PBR zostanie dodany do Defold na późniejszym etapie.
+Defold obecnie udostępnia shaderom dane materiału PBR, ale nie zapewnia wbudowanego modelu oświetlenia PBR. Możesz użyć tych danych we własnych shaderach oświetlenia i odbić, aby uzyskać renderowanie oparte na zasadach fizycznych. Domyślny model oświetlenia PBR zostanie dodany do Defold na późniejszym etapie.
 :::
 
 ::: sidenote
@@ -24,7 +24,7 @@ Osadzone tekstury z plików glTF nie są obecnie automatycznie przypisywane w De
 Właściwości materiału są odczytywane z plików źródłowych glTF 2.0 przypisanych do komponentu modelu. Nie wszystkie właściwości są standardowe. Niektóre są dostarczane przez opcjonalne rozszerzenia glTF, które mogą, ale nie muszą, zostać dołączone przez narzędzie użyte do eksportu pliku glTF. Odpowiednie rozszerzenie jest oznaczone w nawiasie po nazwie właściwości poniżej.
 
 Metallic roughness
-: Opisuje sposób interakcji światła z materiałem. Domyślny model PBR.
+: Opisuje sposób interakcji światła z materiałem. To domyślny model PBR.
 
 Specular glossiness (KHR_materials_pbrSpecularGlossiness)
 : Alternatywa dla metallic roughness. Często używana w starszych zasobach.
@@ -36,7 +36,7 @@ Ior (KHR_materials_ior)
 : Dodaje współczynnik załamania światła.
 
 Specular (KHR_materials_specular)
-: Dodaje osobne kanały intensywności i koloru odbić lustrzanych.
+: Dodaje osobny kanał intensywności odbić lustrzanych i koloru.
 
 Iridescence (KHR_materials_iridescence)
 : Symuluje interferencję cienkich warstw w materiałach takich jak bańki mydlane lub perły.
@@ -78,12 +78,12 @@ Unlit
 : Jeśli ma wartość true, materiał pomija obliczenia oświetlenia.
 
 ::: sidenote
-Niektóre z tych właściwości dostarczają wskazówek, jak materiał powinien być renderowany. Dane dla właściwości (`alpha cutoff`, `alpha mode`, `double sided` i `unlit`) są dostępne w shaderach, ale nie wpływają na to, jak materiał jest renderowany w Defold.
+Niektóre z tych właściwości dostarczają wskazówek, jak materiał powinien być renderowany. Dane dla właściwości (alpha cutoff, alpha mode, double sided i unlit) są dostępne w shaderach, ale nie wpływają na to, jak materiał jest renderowany w Defold.
 :::
 
 ## Integracja ze shaderami
 
-Dane materiału PBR są udostępniane shaderom na podstawie typów i konwencji nazewnictwa. System materiałów PBR przekazuje wszystkie odczytane parametry materiału do shaderów przez uporządkowany blok uniformów o nazwie `PbrMaterial`. Każde obsługiwane rozszerzenie glTF odpowiada strukturze w tym bloku, którą można kompilować warunkowo za pomocą znaczników `#define`.
+Dane materiału PBR są udostępniane shaderom na podstawie typów i konwencji nazewnictwa. System materiałów PBR przekazuje wszystkie odczytane parametry materiału do shaderów przez uporządkowany blok uniformów o nazwie `PbrMaterial`. Każde obsługiwane rozszerzenie glTF odpowiada strukturze w tym bloku, którą można kompilować warunkowo za pomocą znaczników #define.
 
 ```glsl
 uniform PbrMaterial
@@ -92,7 +92,7 @@ uniform PbrMaterial
 };
 ```
 
-Różne cechy materiału są w shaderze opisane jako stałe struktury. Dane zostały spakowane do `vec4` w maksymalnym możliwym stopniu, ponieważ w ten sposób stałe są wewnętrznie ustawiane w Defold. W przypadkach, w których dane zostały spakowane, zostało to oznaczone komentarzami w przykładach shaderów dla każdej funkcji poniżej:
+Różne cechy materiału są w shaderze opisane jako stałe struktury. Dane zostały spakowane do vec4 w maksymalnym możliwym stopniu, ponieważ w ten sposób stałe są wewnętrznie ustawiane w Defold. W przypadkach, w których dane zostały spakowane, zostało to oznaczone komentarzami w przykładach shaderów dla każdej funkcji poniżej:
 
 ```glsl
 struct PbrMetallicRoughness
@@ -176,7 +176,7 @@ struct PbrIridescence
 };
 ```
 
-Wspólne właściwości są ustawiane w samym uniformie materiału (i ponownie warto zwrócić uwagę na pakowanie danych do `vec4`).
+Wspólne właściwości są ustawiane w samym uniformie materiału (i ponownie warto zwrócić uwagę na pakowanie danych do vec4).
 
 ```glsl
 // Wspólne tekstury
@@ -199,7 +199,7 @@ uniform PbrMaterial
 
 ### Przykładowy shader
 
-Poniżej znajduje się przykład shadera zawierającego wszystkie funkcje oraz proponowany schemat nazewnictwa dla powiązań tekstur (tę część również trzeba obsłużyć ręcznie). Zwróć uwagę, że możesz wyłączyć poszczególne funkcje, używając `#define` wokół każdego elementu `PbrMaterial`, tak jak pokazano w przykładzie poniżej:
+Poniżej znajduje się przykład shadera zawierającego wszystkie funkcje oraz proponowany schemat nazewnictwa dla powiązań tekstur (tę część również trzeba obsłużyć ręcznie). Zwróć uwagę, że możesz wyłączyć poszczególne funkcje, używając #define wokół każdego elementu PbrMaterial, tak jak pokazano w przykładzie poniżej:
 
 ```glsl
 // Flagi funkcji, zakomentuj je lub usuń, aby odchudzić shader.
@@ -214,12 +214,12 @@ Poniżej znajduje się przykład shadera zawierającego wszystkie funkcje oraz p
 #define PBR_EMISSIVE_STRENGTH
 #define PBR_IRIDESCENCE
 
-// Część wspólna
+// Wspólne
 uniform sampler2D PbrMaterial_normalTexture;
 uniform sampler2D PbrMaterial_occlusionTexture;
 uniform sampler2D PbrMaterial_emissiveTexture;
 
-// Struktura PbrMetallicRoughness
+// PbrMetallicRoughness
 uniform sampler2D PbrMetallicRoughness_baseColorTexture;
 uniform sampler2D PbrMetallicRoughness_metallicRoughnessTexture;
 
@@ -232,113 +232,113 @@ struct PbrMetallicRoughness
     vec4 metallicRoughnessTextures;
 };
 
-// Struktura PbrSpecularGlossiness
+// PbrSpecularGlossiness
 uniform sampler2D PbrSpecularGlossiness_diffuseTexture;
 uniform sampler2D PbrSpecularGlossiness_specularGlossinessTexture;
 
 struct PbrSpecularGlossiness
 {
-    vec4 diffuseFactor;
-    // RGB: specular (domyślnie=1.0), A: glossiness (domyślnie=1.0)
-    vec4 specularAndSpecularGlossinessFactor;
-    // R: użyj diffuseTexture, G: użyj specularGlossinessTexture
-    vec4 specularGlossinessTextures;
+	vec4 diffuseFactor;
+	// RGB: specular (domyślnie=1.0), A: glossiness (domyślnie=1.0)
+	vec4 specularAndSpecularGlossinessFactor;
+	// R: użyj diffuseTexture, G: użyj specularGlossinessTexture
+	vec4 specularGlossinessTextures;
 };
 
-// Struktura PbrClearCoat
+// PbrClearCoat
 uniform sampler2D PbrClearCoat_clearCoatTexture;
 uniform sampler2D PbrClearCoat_clearCoatRoughnessTexture;
 uniform sampler2D PbrClearCoat_clearCoatNormalTexture;
 
 struct PbrClearCoat
 {
-    // R: clearCoat (domyślnie=0.0), G: clearCoatRoughness (domyślnie=0.0)
-    vec4 clearCoatAndClearCoatRoughnessFactor;
-    // R: użyj clearCoatTexture, G: użyj clearCoatRoughnessTexture, B: użyj clearCoatNormalTexture
-    vec4 clearCoatTextures;
+	// R: clearCoat (domyślnie=0.0), G: clearCoatRoughness (domyślnie=0.0)
+	vec4 clearCoatAndClearCoatRoughnessFactor;
+	// R: użyj clearCoatTexture, G: użyj clearCoatRoughnessTexture, B: użyj clearCoatNormalTexture
+	vec4 clearCoatTextures;
 };
 
-// Struktura PbrTransmission
+// PbrTransmission
 uniform sampler2D PbrTransmission_transmissionTexture;
 
 struct PbrTransmission
 {
-		// R: transmission (domyślnie=0.0)
-		vec4 transmissionFactor;
-		// R: użyj transmissionTexture
-		vec4 transmissionTextures;
+	// R: transmission (domyślnie=0.0)
+	vec4 transmissionFactor;
+	// R: użyj transmissionTexture
+	vec4 transmissionTextures;
 };
 
 struct PbrIor
 {
-		// R: ior (domyślnie=0.0)
-		vec4 ior;
+	// R: ior (domyślnie=0.0)
+	vec4 ior;
 };
 
-// Struktura PbrSpecular
+// PbrSpecular
 uniform sampler2D PbrSpecular_specularTexture;
 uniform sampler2D PbrSpecular_specularColorTexture;
 
 struct PbrSpecular
 {
-		// RGB: specularColor, A: specularFactor (domyślnie=1.0);
-		vec4 specularColorAndSpecularFactor;
-		// R: użyj specularTexture, G: użyj specularColorTexture
-		vec4 specularTextures;
+	// RGB: specularColor, A: specularFactor (domyślnie=1.0);
+	vec4 specularColorAndSpecularFactor;
+	// R: użyj specularTexture, G: użyj specularColorTexture
+	vec4 specularTextures;
 };
 
-// Struktura PbrVolume
+// PbrVolume
 uniform sampler2D PbrVolume_thicknessTexture;
 
 struct PbrVolume
 {
-		// R: thicknessFactor (domyślnie=0.0), RGB: attenuationColor
-		vec4 thicknessFactorAndAttenuationColor;
-		// R: attentuationDistance (domyślnie=-1.0)
-		vec4 attenuationDistance;
-		// R: użyj thicknessTexture
-		vec4 volumeTextures;
+	// R: thicknessFactor (domyślnie=0.0), RGB: attenuationColor
+	vec4 thicknessFactorAndAttenuationColor;
+	// R: attentuationDistance (domyślnie=-1.0)
+	vec4 attenuationDistance;
+	// R: użyj thicknessTexture
+	vec4 volumeTextures;
 };
 
-// Struktura PbrSheen
+// PbrSheen
 uniform sampler2D PbrSheen_sheenColorTexture;
 uniform sampler2D PbrSheen_sheenRoughnessTexture;
 
 struct PbrSheen
 {
-		// RGB: sheenColor, A: sheenRoughnessFactor (domyślnie=0.0)
-		vec4 sheenColorAndRoughnessFactor;
-		// R: użyj sheenColorTexture, G: użyj sheenRoughnessTexture
-		vec4 sheenTextures;
+	// RGB: sheenColor, A: sheenRoughnessFactor (domyślnie=0.0)
+	vec4 sheenColorAndRoughnessFactor;
+	// R: użyj sheenColorTexture, G: użyj sheenRoughnessTexture
+	vec4 sheenTextures;
 };
 
 struct PbrEmissiveStrength
 {
-		// R: emissiveStrength (domyślnie=1.0)
-		vec4 emissiveStrength;
+	// R: emissiveStrength (domyślnie=1.0)
+	vec4 emissiveStrength;
 };
 
-// Struktura PbrIridescence
+// PbrIridescence
 uniform sampler2D PbrEmissive_iridescenceTexture;
 uniform sampler2D PbrEmissive_iridescenceThicknessTexture;
 
 struct PbrIridescence
 {
-		// R: iridescenceFactor (domyślnie=0.0), G: iridescenceIor (domyślnie=1.3), B: iridescenceThicknessMin (domyślnie=100.0), A: iridescenceThicknessMax (domyślnie=400.0)
-		vec4 iridescenceFactorAndIorAndThicknessMinMax;
-		// R: użyj iridescenceTexture, G: użyj iridescenceThicknessTexture
-		vec4 iridescenceTextures;
+	// R: iridescenceFactor (domyślnie=0.0), G: iridescenceIor (domyślnie=1.3), B: iridescenceThicknessMin (domyślnie=100.0), A: iridescenceThicknessMax (domyślnie=400.0)
+	vec4 iridescenceFactorAndIorAndThicknessMinMax;
+	// R: użyj iridescenceTexture, G: użyj iridescenceThicknessTexture
+	vec4 iridescenceTextures;
 };
 
 uniform PbrMaterial
 {
-		// Wspólne właściwości
-		// R: alphaCutoff (domyślnie=0.5), G: doubleSided (domyślnie=false), B: unlit (domyślnie=false)
-		vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
-		// R: użyj normalTexture, G: użyj occlusionTexture, B: użyj emissiveTexture
-		vec4 pbrCommonTextures;
+	// Wspólne właściwości
+	// R: alphaCutoff (domyślnie=0.5), G: doubleSided (domyślnie=false), B: unlit (domyślnie=false)
+	vec4 pbrAlphaCutoffAndDoubleSidedAndIsUnlit;
+	// R: użyj normalTexture, G: użyj occlusionTexture, B: użyj emissiveTexture
+	vec4 pbrCommonTextures;
 
-		// Funkcje
+	// Funkcje
 #ifdef PBR_METALLIC_ROUGHNESS
 	PbrMetallicRoughness  pbrMetallicRoughness;
 #endif
@@ -373,18 +373,18 @@ uniform PbrMaterial
 ```
 
 ::: sidenote
-Jeśli w strukturze materiału nie zostaną znalezione określone punkty danych, dane dla tych funkcji nie zostaną ustawione. Na przykład jeśli w strukturze materiału nie ma `pbrClearCoat`, dane clear coat nie zostaną ustawione. Jeśli blok uniformów nie zostanie znaleziony, podczas renderowania nie zostaną ustawione żadne dane.
+Jeśli w strukturze materiału nie zostaną znalezione określone punkty danych, dane dla tych funkcji nie zostaną ustawione. Na przykład jeśli w strukturze materiału nie ma `pbrClearCoat`, dane clearcoat nie zostaną ustawione. Jeśli blok uniformów nie zostanie znaleziony, podczas renderowania nie zostaną ustawione żadne dane.
 :::
 
 ### Stałe
 
-Każda właściwość materiału odpowiada wewnętrznej stałej renderowania w Defold. Możesz nadpisać wartości domyślne, definiując stałe bezpośrednio w zasobie materiału, zgodnie ze wzorcem nazewnictwa `pbrFeature.structMember`. Te wartości zostaną zastosowane automatycznie, jeśli odpowiadające im dane są nieobecne w materiale glTF.
+Każda właściwość materiału odpowiada wewnętrznej stałej renderowania w Defold. Możesz nadpisać wartości domyślne, definiując stałe w samym zasobie materiału, zgodnie ze wzorcem nazewnictwa `pbrFeature.structMember`. Te wartości zostaną zastosowane automatycznie, jeśli odpowiadające im dane będą nieobecne w materiale glTF.
 
 ![Stałe materiału](images/physically-based-rendering/material-constants.png)
 
 ## Następne kroki
 
-Aby użyć danych materiału do renderowania opartego na modelu fizycznym, zaimplementuj BRDF w shaderze fragmentu, korzystając z parametrów udostępnionych w bloku `PbrMaterial`.
+Aby użyć danych materiału do renderowania opartego na zasadach fizycznych, zaimplementuj BRDF w shaderze fragmentu, korzystając z parametrów udostępnionych w bloku `PbrMaterial`.
 Zobacz także:
 
 * [Instrukcja do shaderów](/manuals/shader)

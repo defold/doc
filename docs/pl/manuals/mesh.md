@@ -5,14 +5,14 @@ brief: Ta instrukcja opisuje, jak tworzyć siatki 3D w czasie działania gry.
 
 # Komponent Mesh
 
-Defold jest w swojej istocie silnikiem 3D. Nawet gdy pracujesz wyłącznie z materiałami 2D, całe renderowanie odbywa się w 3D, a następnie jest rzutowane ortograficznie na ekran. Defold pozwala korzystać z pełnej zawartości 3D przez dodawanie i tworzenie siatek 3D w czasie działania w kolekcjach. Możesz tworzyć gry całkowicie trójwymiarowe albo dowolnie łączyć zawartość 3D i 2D.
+Defold jest w swojej istocie silnikiem 3D. Nawet jeśli pracujesz wyłącznie z materiałami 2D, całe renderowanie odbywa się w 3D, a następnie jest rzutowane ortograficznie na ekran. Defold pozwala wykorzystywać pełną zawartość 3D, dodając i tworząc siatki 3D w czasie działania w kolekcjach. Możesz budować gry wyłącznie w 3D albo dowolnie łączyć zawartość 3D i 2D.
 
 ## Tworzenie komponentu Mesh
 
 Komponenty Mesh tworzy się tak samo jak inne komponenty obiektów gry. Można to zrobić na dwa sposoby:
 
-- Utwórz plik *Mesh* przez <kbd>kliknięcie prawym przyciskiem myszy</kbd> w wybranym miejscu panelu *Assets* i wybranie <kbd>New... ▸ Mesh</kbd>.
-- Utwórz komponent osadzony bezpośrednio w obiekcie gry przez <kbd>kliknięcie prawym przyciskiem myszy</kbd> obiektu gry w widoku *Outline* i wybranie <kbd>Add Component ▸ Mesh</kbd>.
+- Utwórz plik *Mesh* przez <kbd>right-clicking</kbd> w wybranym miejscu panelu *Assets* i wybierz <kbd>New... ▸ Mesh</kbd>.
+- Utwórz komponent osadzony bezpośrednio w obiekcie gry przez <kbd>right-clicking</kbd> obiektu gry w widoku *Outline* i wybierz <kbd>Add Component ▸ Mesh</kbd>.
 
 ![Mesh in game object](images/mesh/mesh.png)
 
@@ -29,16 +29,16 @@ Poza właściwościami *Id*, *Position* i *Rotation* dostępne są następujące
 : Plik bufora opisujący dane siatki dla poszczególnych strumieni.
 
 *Primitive Type*
-: Linie, Triangles albo Triangle Strip.
+: Lines, Triangles lub Triangle Strip.
 
 *Position Stream*
-: Nazwa strumienia *position*. Ten strumień jest automatycznie przekazywany do vertex shadera.
+: Nazwa strumienia *position*. Ten strumień jest automatycznie przekazywany jako wejście do vertex shadera.
 
 *Normal Stream*
-: Nazwa strumienia *normal*. Ten strumień jest automatycznie przekazywany do vertex shadera.
+: Nazwa strumienia *normal*. Ten strumień jest automatycznie przekazywany jako wejście do vertex shadera.
 
 *tex0*
-: Tekstura używana przez siatkę.
+: Ustaw to na teksturę używaną przez siatkę.
 
 ## Edycja w edytorze
 
@@ -86,7 +86,7 @@ resource.set_buffer(res, buf)
 
 Więcej informacji o korzystaniu z komponentu Mesh, wraz z przykładowymi projektami i fragmentami kodu, znajdziesz w [poście ogłoszeniowym na forum](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137).
 
-## Frustum culling
+## Odrzucanie spoza bryły widokowej
 
 Komponenty Mesh nie są automatycznie odrzucane, ponieważ mają dynamiczny charakter i nie da się jednoznacznie określić, jak zakodowano dane pozycyjne. Aby włączyć odrzucanie siatki, trzeba zapisać w metadanych bufora ograniczający ją axis-aligned bounding box za pomocą 6 liczb zmiennoprzecinkowych (AABB min/max):
 
@@ -99,10 +99,10 @@ buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_F
 {% include shared/material-constants.md component='mesh' variable='tint' %}
 
 `tint`
-: Odcień koloru siatki (`vector4`). Wektor `vector4` reprezentuje odcień, gdzie `x`, `y`, `z` i `w` odpowiadają odpowiednio kanałom czerwieni, zieleni, błękitu i alfa.
+: Odcień koloru siatki (`vector4`). Wektor vector4 reprezentuje odcień, gdzie x, y, z i w odpowiadają odpowiednio kanałom czerwieni, zieleni, błękitu i alfa.
 
 ## Lokalna przestrzeń wierzchołków a przestrzeń świata
 
-Jeśli ustawienie *Vertex Space* materiału siatki ma wartość *Local Space*, dane zostaną przekazane do shadera bez zmian i musisz samodzielnie przekształcać wierzchołki oraz normalne na GPU, tak jak zwykle.
+Jeśli ustawienie Vertex Space materiału siatki ma wartość Local Space, dane zostaną przekazane do shadera bez zmian i musisz samodzielnie przekształcać wierzchołki oraz normalne na GPU, tak jak zwykle.
 
-Jeśli ustawienie *Vertex Space* materiału siatki ma wartość *World Space*, musisz albo dostarczyć domyślny strumień `position` i `normal`, albo wybrać go z listy rozwijanej podczas edycji siatki. Dzięki temu silnik może przekształcić dane do przestrzeni świata i batchować je razem z innymi obiektami.
+Jeśli ustawienie Vertex Space materiału siatki ma wartość World Space, musisz albo dostarczyć domyślny strumień "position" i "normal", albo wybrać go z listy rozwijanej podczas edycji siatki. Dzięki temu silnik może przekształcić dane do przestrzeni świata i zgrupować je podczas renderowania razem z innymi obiektami.

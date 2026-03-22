@@ -1,19 +1,19 @@
 ---
 title: Uruchamianie development app na urządzeniu
-brief: Ta instrukcja wyjaśnia, jak umieścić development app na urządzeniu, aby iteracyjnie tworzyć i testować projekt bezpośrednio na nim.
+brief: Ta instrukcja wyjaśnia, jak zainstalować development app na urządzeniu, aby wygodnie rozwijać projekt iteracyjnie bezpośrednio na nim.
 ---
 
-# Development app na urządzeniu mobilnym
+# Mobilna development app
 
-Development app (aplikacja do tworzenia i testowania gry na urządzeniu) pozwala przesyłać do niej zawartość przez Wi-Fi. Znacznie skraca to czas iteracji, ponieważ nie trzeba za każdym razem tworzyć paczki aplikacji i jej instalować, gdy chcesz sprawdzić swoje zmiany. Instalujesz development app na urządzeniu lub urządzeniach, uruchamiasz aplikację, a następnie wybierasz urządzenie jako cel builda w edytorze.
+Development app (aplikacja do tworzenia i testowania gry na urządzeniu) pozwala przesyłać do niej zawartość przez Wi-Fi. Dzięki temu znacznie skraca się czas iteracji, bo nie trzeba za każdym razem budować i instalować aplikacji, gdy chcesz sprawdzić zmiany. Instalujesz development app na urządzeniu lub urządzeniach, uruchamiasz ją, a potem wybierasz urządzenie jako cel budowania w edytorze.
 
 ## Instalowanie development app
 
-Każda aplikacja na iOS lub Androida zbudowana w wariancie Debug może działać jako development app. Jest to wręcz zalecane rozwiązanie, ponieważ taka development app będzie miała poprawne ustawienia projektu i będzie używać tych samych [rozszerzeń natywnych](/manuals/extensions/) co projekt, nad którym pracujesz.
+Każda aplikacja na iOS lub Androidzie zbudowana w wariancie Debug może działać jako development app. To zalecane rozwiązanie, ponieważ taka development app ma poprawne ustawienia projektu i korzysta z tych samych [rozszerzeń natywnych](/manuals/extensions/) co projekt, nad którym pracujesz.
 
 Od wersji Defold 1.4.0 można zbudować wariant Debug projektu bez żadnej zawartości. Użyj tej opcji, aby utworzyć wersję aplikacji z rozszerzeniami natywnymi, odpowiednią do iteracyjnego tworzenia i testowania opisanego w tej instrukcji.
 
-![bundle bez zawartości](images/dev-app/contentless-bundle.png)
+![paczka bez zawartości](images/dev-app/contentless-bundle.png)
 
 ### Instalowanie na iOS
 
@@ -35,17 +35,17 @@ Aby uruchomić grę na urządzeniu, development app i edytor muszą móc połąc
 
 ### Łączenie z urządzeniem iOS przez USB w systemie Windows
 
-Jeśli łączysz się przez USB w systemie Windows z development app działającą na urządzeniu iOS, najpierw musisz [zainstalować iTunes](https://www.apple.com/lae/itunes/download/). Po zainstalowaniu iTunes musisz też włączyć na urządzeniu iOS funkcję [Personal Hotspot](https://support.apple.com/en-us/HT204023) w ustawieniach urządzenia. Jeśli zobaczysz alert z pytaniem <kbd>Trust This Computer?</kbd>, stuknij <kbd>Trust</kbd>. Gdy development app działa, urządzenie powinno teraz pojawić się w menu <kbd>Project ▸ Targets</kbd>.
+Jeśli łączysz się przez USB w systemie Windows z development app działającą na urządzeniu iOS, najpierw musisz [zainstalować iTunes](https://www.apple.com/lae/itunes/download/). Po zainstalowaniu iTunes musisz też [włączyć Personal Hotspot](https://support.apple.com/en-us/HT204023) na urządzeniu iOS w ustawieniach urządzenia. Jeśli zobaczysz alert z pytaniem <kbd>Trust This Computer?</kbd>, stuknij <kbd>Trust</kbd>. Gdy development app działa, urządzenie powinno teraz pojawić się w menu <kbd>Project ▸ Targets</kbd>.
 
 ### Łączenie z urządzeniem iOS przez USB w systemie Linux
 
-W systemie Linux musisz włączyć na urządzeniu funkcję <kbd>Personal Hotspot</kbd> w ustawieniach urządzenia, gdy jest ono podłączone przez USB. Jeśli zobaczysz alert z pytaniem <kbd>Trust This Computer?</kbd>, stuknij <kbd>Trust</kbd>. Gdy development app działa, urządzenie powinno teraz pojawić się w menu <kbd>Project ▸ Targets</kbd>.
+W systemie Linux musisz włączyć Personal Hotspot na urządzeniu w ustawieniach urządzenia, gdy jest ono podłączone przez USB. Jeśli zobaczysz alert z pytaniem <kbd>Trust This Computer?</kbd>, stuknij <kbd>Trust</kbd>. Gdy development app działa, urządzenie powinno teraz pojawić się w menu <kbd>Project ▸ Targets</kbd>.
 
 ### Łączenie z urządzeniem iOS przez USB w systemie macOS
 
-W nowszych wersjach iOS urządzenie po podłączeniu przez USB do macOS automatycznie otworzy nowy interfejs ethernet między urządzeniem a komputerem. Gdy development app działa, urządzenie powinno pojawić się w menu <kbd>Project ▸ Targets</kbd>.
+W nowszych wersjach iOS urządzenie po podłączeniu przez USB do macOS automatycznie otworzy nowy interfejs Ethernet między urządzeniem a komputerem. Gdy development app działa, urządzenie powinno pojawić się w menu <kbd>Project ▸ Targets</kbd>.
 
-W starszych wersjach iOS musisz włączyć na urządzeniu funkcję <kbd>Personal Hotspot</kbd> w ustawieniach urządzenia, gdy jest ono podłączone przez USB do macOS. Jeśli zobaczysz alert z pytaniem <kbd>Trust This Computer?</kbd>, stuknij <kbd>Trust</kbd>. Gdy development app działa, urządzenie powinno teraz pojawić się w menu <kbd>Project ▸ Targets</kbd>.
+W starszych wersjach iOS musisz włączyć Personal Hotspot na urządzeniu w ustawieniach urządzenia, gdy jest ono podłączone przez USB do macOS. Jeśli zobaczysz alert z pytaniem <kbd>Trust This Computer?</kbd>, stuknij <kbd>Trust</kbd>. Gdy development app działa, urządzenie powinno teraz pojawić się w menu <kbd>Project ▸ Targets</kbd>.
 
 ### Łączenie z urządzeniem Android przez USB w systemie macOS
 
@@ -57,7 +57,7 @@ W systemach Windows i Linux można połączyć się przez USB z działającą de
 
 ## Rozwiązywanie problemów
 
-Nie można pobrać aplikacji (`Unable to download application`)
+Nie można pobrać aplikacji (Unable to download application)
 : Upewnij się, że UDID urządzenia znajduje się w profilu provisioning użytym do podpisania aplikacji.
 
 Urządzenie nie pojawia się w menu <kbd>Project ▸ Targets</kbd>

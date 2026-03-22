@@ -9,51 +9,51 @@ Komponent obiektu kolizji może używać kilku kształtów podstawowych albo jed
 
 ### Kształty podstawowe
 
-Kształty podstawowe to *box*, *sphere* i *capsule*. Aby dodać kształt podstawowy, <kbd>kliknij prawym przyciskiem myszy</kbd> obiekt kolizji i wybierz <kbd>Add Shape</kbd>:
+Kształty podstawowe to *box*, *sphere* i *capsule*. Aby dodać kształt podstawowy, kliknij prawym przyciskiem myszy obiekt kolizji i wybierz <kbd>Add Shape</kbd>:
 
-![Add a primitive shape](images/physics/add_shape.png)
+![Dodawanie kształtu podstawowego](images/physics/add_shape.png)
 
-## Kształt prostokątny (box)
+## Kształt prostopadłościanu
 
-Kształt prostokątny (box) ma pozycję, obrót i wymiary: szerokość, wysokość oraz głębokość:
+Kształt prostopadłościanu ma pozycję, obrót i wymiary: szerokość, wysokość oraz głębokość:
 
-![Box shape](images/physics/box.png)
+![Kształt prostopadłościanu](images/physics/box.png)
 
-## Kształt sfery (sphere)
+## Kształt sfery
 
-Kształt sfery (sphere) ma pozycję, obrót i średnicę:
+Kształt sfery ma pozycję, obrót i średnicę:
 
-![Sphere shape](images/physics/sphere.png)
+![Kształt sfery](images/physics/sphere.png)
 
-## Kształt kapsuły (capsule)
+## Kształt kapsuły
 
-Kształt kapsuły (capsule) ma pozycję, obrót, średnicę i wysokość:
+Kształt kapsuły ma pozycję, obrót, średnicę i wysokość:
 
-![Sphere shape](images/physics/capsule.png)
+![Kształt kapsuły](images/physics/capsule.png)
 
 ::: important
-Kształty capsule są obsługiwane tylko przy korzystaniu z fizyki 3D, skonfigurowanej w sekcji *Physics* pliku *game.project*.
+Kształty kapsuły są obsługiwane tylko w fizyce 3D, skonfigurowanej w sekcji Physics pliku *game.project*.
 :::
 
 ### Kształty złożone
 
-Kształt złożony można utworzyć albo z komponentu Tile map (mapy kafelków), albo z kształtu convex hull.
+Kształt złożony można utworzyć albo z komponentu mapy kafelków, albo z kształtu convex hull.
 
-## Kształt kolizji Tile map
+## Kształt kolizji mapy kafelków
 
-Defold zawiera funkcję, która pozwala łatwo generować kształty fizyki dla Tile source używanego przez Tile map. W [instrukcji Tile source](/manuals/tilesource/#tile-source-collision-shapes) wyjaśniono, jak dodawać grupy kolizji do Tile source i przypisywać kafelki do grup kolizji ([przykład](/examples/tilemap/collisions/)).
+Defold zawiera funkcję, która pozwala łatwo generować kształty fizyki dla źródła kafelków używanego przez mapę kafelków. W [instrukcji Tile source](/manuals/tilesource/#tile-source-collision-shapes) wyjaśniono, jak dodawać grupy kolizji do źródła kafelków i przypisywać kafelki do grup kolizji ([przykład](/examples/tilemap/collisions/)).
 
-Aby dodać kolizję do Tile map:
+Aby dodać kolizję do mapy kafelków:
 
-1. Dodaj Tile map do obiektu gry, <kbd>klikając prawym przyciskiem myszy</kbd> obiekt gry i wybierając <kbd>Add Component File</kbd>. Następnie wybierz plik Tile map.
-2. Dodaj komponent obiektu kolizji do obiektu gry, <kbd>klikając prawym przyciskiem myszy</kbd> obiekt gry i wybierając <kbd>Add Component ▸ Collision Object</kbd>.
+1. Dodaj mapę kafelków do obiektu gry, klikając prawym przyciskiem myszy obiekt gry i wybierając <kbd>Add Component File</kbd>. Następnie wybierz plik mapy kafelków.
+2. Dodaj komponent obiektu kolizji do obiektu gry, klikając prawym przyciskiem myszy obiekt gry i wybierając <kbd>Add Component ▸ Collision Object</kbd>.
 3. Zamiast dodawać kształty do komponentu, ustaw właściwość *Collision Shape* na plik *tilemap*.
 4. Skonfiguruj *Properties* komponentu obiektu kolizji jak zwykle.
 
-![Tilesource collision](images/physics/collision_tilemap.png)
+![Kolizja mapy kafelków](images/physics/collision_tilemap.png)
 
 ::: important
-Zwróć uwagę, że właściwość *Group* **nie** jest tutaj używana, ponieważ grupy kolizji są definiowane w Tile source mapy kafelków.
+Zwróć uwagę, że właściwość *Group* **nie** jest tutaj używana, ponieważ grupy kolizji są definiowane w źródle kafelków mapy.
 :::
 
 ## Kształt wypukły (convex hull)
@@ -108,14 +108,14 @@ Istnieje kilka narzędzi zewnętrznych, których można użyć do tworzenia kszt
 
 # Skalowanie kształtów kolizji
 
-Obiekt kolizji i jego kształty dziedziczą skalę obiektu gry. Aby wyłączyć to zachowanie, odznacz pole [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) w sekcji *Physics* pliku *game.project*. Zwróć uwagę, że obsługiwane jest tylko skalowanie jednolite, a jeśli skala nie jest jednolita, użyta zostanie najmniejsza wartość skali.
+Obiekt kolizji i jego kształty dziedziczą skalę obiektu gry. Aby wyłączyć to zachowanie, odznacz pole [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) w sekcji Physics pliku *game.project*. Zwróć uwagę, że obsługiwane jest tylko skalowanie jednolite, a jeśli skala nie jest jednolita, użyta zostanie najmniejsza wartość skali.
 
 # Zmienianie rozmiaru kształtów kolizji
 
 Rozmiar kształtów obiektu kolizji można zmieniać w czasie działania przy użyciu `physics.set_shape()`. Przykład:
 
 ```lua
--- ustaw dane kształtu capsule
+-- ustaw dane kształtu kapsuły
 local capsule_data = {
   type = physics.SHAPE_TYPE_CAPSULE,
   diameter = 10,
@@ -123,14 +123,14 @@ local capsule_data = {
 }
 physics.set_shape("#collisionobject", "my_capsule_shape", capsule_data)
 
--- ustaw dane kształtu sphere
+-- ustaw dane kształtu sfery
 local sphere_data = {
   type = physics.SHAPE_TYPE_SPHERE,
   diameter = 10,
 }
 physics.set_shape("#collisionobject", "my_sphere_shape", sphere_data)
 
--- ustaw dane kształtu box
+-- ustaw dane kształtu prostopadłościanu
 local box_data = {
   type = physics.SHAPE_TYPE_BOX,
   dimensions = vmath.vector3(10, 10, 5),

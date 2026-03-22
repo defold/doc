@@ -1,31 +1,31 @@
 ---
 title: Pisanie logiki gry w skryptach
-brief: Ta instrukcja opisuje, jak dodawać logikę gry za pomocą komponentów Script.
+brief: Ta instrukcja opisuje, jak dodawać logikę gry za pomocą komponentów skryptowych.
 ---
 
 # Skrypty
 
-Komponenty Script pozwalają tworzyć logikę gry przy użyciu [języka Lua](/manuals/lua).
+Komponenty skryptowe pozwalają tworzyć logikę gry przy użyciu [języka Lua](/manuals/lua).
 
 ## Typy skryptów
 
-W Defold występują trzy typy skryptów Lua. Każdy z nich ma dostęp do innego zestawu bibliotek Defold.
+W Defold istnieją trzy typy skryptów Lua, a każdy z nich ma dostęp do innego zestawu bibliotek Defold.
 
 Skrypty obiektów gry
-: Rozszerzenie _.script_. Te skrypty dodaje się do obiektów gry dokładnie tak samo jak każdy inny [komponent](/manuals/components), a Defold wykonuje kod Lua w ramach funkcji cyklu życia silnika. Skrypty obiektów gry są zwykle używane do sterowania obiektami gry oraz logiką spajającą całą grę, taką jak ładowanie poziomów, reguły gry i podobne elementy. Skrypty obiektów gry mają dostęp do funkcji [GO](/ref/go) oraz do wszystkich bibliotek Defold poza [GUI](/ref/gui) i [Render](/ref/render).
+: Rozszerzenie _.script_. Te skrypty dodaje się do obiektów gry dokładnie tak samo jak każdy inny [komponent](/manuals/components), a Defold wykonuje kod Lua w ramach funkcji cyklu życia silnika. Skrypty obiektów gry zwykle służą do sterowania obiektami gry oraz logiką, która spaja grę z ładowaniem poziomów, regułami gry i innymi podobnymi elementami. Skrypty obiektów gry mają dostęp do funkcji [GO](/ref/go) oraz do wszystkich bibliotek Defold poza funkcjami [GUI](/ref/gui) i [Render](/ref/render).
 
 Skrypty GUI
-: Rozszerzenie _.gui_script_. Są uruchamiane przez komponenty GUI i zwykle zawierają logikę potrzebną do wyświetlania elementów interfejsu, takich jak HUD-y, menu i podobne elementy. Defold wykonuje kod Lua w ramach funkcji cyklu życia silnika. Skrypty GUI mają dostęp do funkcji [GUI](/ref/gui) oraz do wszystkich bibliotek Defold poza [GO](/ref/go) i [Render](/ref/render).
+: Rozszerzenie _.gui_script_. Są uruchamiane przez komponenty GUI i zwykle zawierają logikę potrzebną do wyświetlania elementów interfejsu, takich jak HUD-y, menu itp. Defold wykonuje kod Lua w ramach funkcji cyklu życia silnika. Skrypty GUI mają dostęp do funkcji [GUI](/ref/gui) oraz do wszystkich bibliotek Defold poza funkcjami [GO](/ref/go) i [Render](/ref/render).
 
 Skrypty renderowania
-: Rozszerzenie _.render_script_. Są uruchamiane przez potok renderowania i zawierają logikę potrzebną do renderowania całej grafiki aplikacji lub gry w każdej klatce. Skrypt renderowania zajmuje szczególne miejsce w cyklu życia gry. Szczegóły znajdziesz w [dokumentacji cyklu życia aplikacji](/manuals/application-lifecycle). Skrypty renderowania mają dostęp do funkcji [Render](/ref/render) oraz do wszystkich bibliotek Defold poza [GO](/ref/go) i [GUI](/ref/gui).
+: Rozszerzenie _.render_script_. Są uruchamiane przez potok renderowania i zawierają logikę potrzebną do renderowania całej grafiki aplikacji lub gry w każdej klatce. Skrypt renderowania zajmuje szczególne miejsce w cyklu życia gry. Szczegóły znajdziesz w [dokumentacji cyklu życia aplikacji](/manuals/application-lifecycle). Skrypty renderowania mają dostęp do funkcji [Render](/ref/render) oraz do wszystkich bibliotek Defold poza funkcjami [GO](/ref/go) i [GUI](/ref/gui).
 
-## Wykonywanie skryptów, callbacki i `self`
+## Wykonywanie skryptów, wywołania zwrotne i `self`
 
-Defold wykonuje skrypty Lua jako część cyklu życia silnika i udostępnia ten cykl przez zestaw predefiniowanych funkcji callback. Gdy dodasz komponent skryptu do obiektu gry, skrypt staje się częścią cyklu życia tego obiektu i jego komponentów. Skrypt jest interpretowany w kontekście Lua podczas wczytywania, a następnie silnik wywołuje poniższe funkcje, przekazując referencję do bieżącej instancji komponentu skryptu. Możesz używać tej referencji `self` do przechowywania stanu instancji komponentu.
+Defold wykonuje skrypty Lua jako część cyklu życia silnika i udostępnia ten cykl za pomocą zestawu predefiniowanych funkcji wywołania zwrotnego. Gdy dodasz komponent skryptu do obiektu gry, skrypt staje się częścią cyklu życia tego obiektu oraz jego komponentów. Skrypt jest interpretowany w kontekście Lua podczas wczytywania, a następnie silnik wywołuje poniższe funkcje i przekazuje referencję do bieżącej instancji komponentu skryptu jako parametr. Możesz używać tej referencji `self` do przechowywania stanu w instancji komponentu.
 
 ::: important
-`self` jest obiektem userdata, który zachowuje się podobnie do tabeli Lua, ale nie można po nim iterować za pomocą `pairs()` ani `ipairs()` i nie można go wypisać przez `pprint()`.
+`self` jest obiektem userdata, który zachowuje się jak tabela Lua, ale nie można po nim iterować za pomocą `pairs()` ani `ipairs()` i nie można go wypisać przez `pprint()`.
 :::
 
 #### `init(self)`
@@ -51,7 +51,7 @@ end
 ```
 
 #### `fixed_update(self, dt)`
-Aktualizacja niezależna od liczby klatek. Parametr `dt` zawiera czas, jaki upłynął od poprzedniej aktualizacji. Ta funkcja jest wywoływana `0-N` razy, zależnie od czasu trwania klatki i częstotliwości aktualizacji stałokrokowej. Jest wywoływana tylko wtedy, gdy w *game.project* włączone jest <kbd>Physics ▸ Use Fixed Timestep</kbd>, a <kbd>Engine ▸ Fixed Update Frequency</kbd> ma wartość większą od 0. Jest przydatna, gdy chcesz manipulować obiektami fizycznymi w regularnych odstępach, aby uzyskać stabilną symulację fizyki.
+Aktualizacja niezależna od liczby klatek. Parametr `dt` zawiera czas, jaki upłynął od poprzedniej aktualizacji. Ta funkcja jest wywoływana `0-N` razy, zależnie od czasu trwania klatki i częstotliwości aktualizacji stałokrokowej. Jest wywoływana tylko wtedy, gdy `Physics`-->`Use Fixed Timestep` jest włączone, a `Engine`-->`Fixed Update Frequency` ma wartość większą od 0 w *game.project*. Jest przydatna, gdy chcesz manipulować obiektami fizycznymi w regularnych odstępach, aby uzyskać stabilną symulację fizyki.
 
 ```lua
 function fixed_update(self, dt)
@@ -60,9 +60,9 @@ end
 ```
 
 #### `update(self, dt)`
-Wywoływana raz na każdą klatkę po callbacku `fixed_update` wszystkich skryptów, jeśli włączony jest Fixed Timestep. Parametr `dt` zawiera czas, jaki upłynął od poprzedniej klatki.
+Wywoływana raz na każdą klatkę po callbacku `fixed_update` wszystkich skryptów, jeśli włączono Fixed Timestep. Parametr `dt` zawiera czas, jaki upłynął od poprzedniej klatki.
 
-```lua
+```luadifferent
 function update(self, dt)
   self.age = self.age + dt -- zwiększ wiek o krok czasu
 end
@@ -89,7 +89,7 @@ end
 ```
 
 #### `on_input(self, action_id, action)`
-Jeśli komponent przejął fokus wejścia, zobacz [`acquire_input_focus`](/ref/go/#acquire_input_focus), silnik wywołuje tę funkcję po zarejestrowaniu wejścia. Więcej informacji znajdziesz w [instrukcji o obsłudze wejścia](/manuals/input).
+Jeśli komponent przechwycił fokus wejścia (zob. [`acquire_input_focus`](/ref/go/#acquire_input_focus)), silnik wywołuje tę funkcję, gdy wejście zostanie zarejestrowane. Więcej informacji znajdziesz w [instrukcji o obsłudze wejścia](/manuals/input).
 
 ```lua
 function on_input(self, action_id, action)
@@ -100,7 +100,7 @@ end
 ```
 
 #### `on_reload(self)`
-Ta funkcja jest wywoływana, gdy skrypt zostaje przeładowany przez funkcję hot reload edytora (<kbd>Edit ▸ Reload Resource</kbd>). Jest bardzo przydatna podczas debugowania, testowania i strojenia. Więcej informacji znajdziesz w [instrukcji o szybkim przeładowaniu](/manuals/hot-reload).
+Ta funkcja jest wywoływana, gdy skrypt zostaje przeładowany przez funkcję szybkiego przeładowania edytora (<kbd>Edit ▸ Reload Resource</kbd>). Jest bardzo przydatna podczas debugowania, testowania i strojenia. Więcej informacji znajdziesz w [instrukcji o szybkim przeładowaniu](/manuals/hot-reload).
 
 ```lua
 function on_reload(self)
@@ -110,11 +110,11 @@ end
 
 ## Logika reaktywna
 
-Obiekt gry z komponentem skryptu implementuje pewną logikę. Często zależy ona od zewnętrznych czynników. Sztuczna inteligencja przeciwnika może reagować na gracza znajdującego się w określonym promieniu od niej, drzwi mogą się odblokować i otworzyć w wyniku interakcji gracza itd.
+Obiekt gry z komponentem skryptowym implementuje jakąś logikę. Często zależy ona od czynników zewnętrznych. Sztuczna inteligencja przeciwnika może reagować na to, że gracz znajdzie się w określonym promieniu, drzwi mogą się odblokować i otworzyć w wyniku interakcji gracza itd.
 
-Funkcja `update()` pozwala implementować złożone zachowania zdefiniowane jako automat stanów wykonywany w każdej klatce. Czasami jest to właściwe podejście. Każde wywołanie `update()` ma jednak swój koszt. Jeśli naprawdę nie potrzebujesz tej funkcji, usuń ją i spróbuj budować logikę w sposób _reaktywny_. Taniej jest biernie czekać na wiadomość, która wywoła reakcję, niż aktywnie sondować świat gry w poszukiwaniu danych do obsługi. Dodatkowo reaktywne rozwiązanie problemu projektowego często prowadzi do czytelniejszego i stabilniejszego projektu oraz implementacji.
+Funkcja `update()` pozwala implementować złożone zachowania zdefiniowane jako automat stanów uruchamiany w każdej klatce. Czasami jest to właściwe podejście. Każde wywołanie `update()` wiąże się jednak z kosztem. Jeśli naprawdę nie potrzebujesz tej funkcji, usuń ją i spróbuj zbudować logikę _reaktywnie_. Taniej jest biernie czekać, aż wiadomość wywoła reakcję, niż aktywnie sprawdzać świat gry w poszukiwaniu danych do obsługi. Co więcej, reaktywne rozwiązanie problemu projektowego często prowadzi do czytelniejszego i stabilniejszego projektu oraz implementacji.
 
-Spójrzmy na konkretny przykład. Załóżmy, że chcesz, aby komponent skryptu wysłał wiadomość 2 sekundy po inicjalizacji. Następnie powinien zaczekać na określoną wiadomość odpowiedzi i po jej otrzymaniu wysłać kolejną wiadomość 5 sekund później. Kod niereaktywny wyglądałby mniej więcej tak:
+Spójrzmy na konkretny przykład. Załóżmy, że chcesz, aby komponent skryptu wysłał wiadomość 2 sekundy po uruchomieniu. Następnie ma poczekać na określoną wiadomość odpowiedzi, a po jej otrzymaniu wysłać kolejną wiadomość 5 sekund później. Kod niereaktywny wyglądałby mniej więcej tak:
 
 ```lua
 function init(self)
@@ -141,7 +141,7 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("response") then
-        -- Zakończono stan "first", przejdź do następnego
+        -- Zakończono stan "first". Przejdź do następnego.
         self.state = "second"
         -- Wyzeruj licznik
         self.counter = 0
@@ -149,7 +149,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-Nawet w tak prostym przypadku logika dość szybko się komplikuje. Można ją uporządkować przy pomocy korutyn w module, zobacz niżej, ale spróbujmy zamiast tego podejścia reaktywnego i użyjmy wbudowanego mechanizmu odmierzania czasu.
+Nawet w tak prostym przypadku logika bardzo szybko się komplikuje. Można ją uporządkować przy pomocy korutyn w module, zobacz niżej, ale spróbujmy zamiast tego podejścia reaktywnego i użyjmy wbudowanego mechanizmu odmierzania czasu.
 
 ```lua
 local function send_first()
@@ -173,11 +173,11 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-To podejście jest czytelniejsze i łatwiejsze do śledzenia. Pozbywamy się wewnętrznych zmiennych stanu, które często trudno przeanalizować w toku logiki i które mogą prowadzić do subtelnych błędów. Dodatkowo całkowicie usuwamy funkcję `update()`. Dzięki temu silnik nie musi wywoływać naszego skryptu 60 razy na sekundę, nawet jeśli nic się w nim nie dzieje.
+To podejście jest czytelniejsze i łatwiejsze do śledzenia. Pozbywamy się wewnętrznych zmiennych stanu, które często trudno prześledzić w toku logiki i które mogą prowadzić do subtelnych błędów. Dodatkowo całkowicie usuwamy funkcję `update()`. Dzięki temu silnik nie musi wywoływać naszego skryptu 60 razy na sekundę, nawet jeśli nic się w nim nie dzieje.
 
-## Preprocessing
+## Wstępne przetwarzanie
 
-Można używać preprocesora Lua i specjalnych znaczników, aby warunkowo dołączać kod zależnie od wariantu builda. Przykład:
+Można używać preprocesora Lua i specjalnych znaczników, aby warunkowo dołączać kod zależnie od wariantu kompilacji. Przykład:
 
 ```lua
 -- Użyj jednego z następujących słów kluczowych: RELEASE, DEBUG lub HEADLESS
@@ -188,10 +188,10 @@ local lives_num = 3
 --#ENDIF
 ```
 
-Preprocesor jest dostępny jako rozszerzenie builda. Więcej informacji o instalacji i użyciu znajdziesz na [stronie rozszerzenia w GitHub](https://github.com/defold/extension-lua-preprocessor).
+Preprocesor jest dostępny jako rozszerzenie procesu budowania. Więcej informacji o instalacji i użyciu znajdziesz na [stronie rozszerzenia na GitHubie](https://github.com/defold/extension-lua-preprocessor).
 
 ## Wsparcie edytora
 
-Edytor Defold obsługuje edycję skryptów Lua z kolorowaniem składni i autouzupełnianiem. Aby uzupełnić nazwy funkcji Defold, naciśnij <kbd>Ctrl+Space</kbd>, by wyświetlić listę funkcji pasujących do wpisywanego tekstu.
+Edytor Defold obsługuje edycję skryptów Lua z kolorowaniem składni i autouzupełnianiem. Aby uzupełnić nazwy funkcji Defold, naciśnij *Ctrl+Space*, aby wyświetlić listę funkcji pasujących do wpisywanego tekstu.
 
 ![Auto completion](images/script/completion.png)

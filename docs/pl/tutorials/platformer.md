@@ -13,7 +13,7 @@ Zdecydowanie polecamy przeczytanie jej, jeśli dopiero zaczynasz tworzyć platfo
 
 Zakładamy, że znasz choć trochę matematykę wektorową (algebrę liniową). Jeśli nie, warto się z nią zapoznać, bo jest niesamowicie przydatna w tworzeniu gier. David Rosen z Wolfire napisał bardzo dobrą serię na ten temat [tutaj](http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-1/).
 
-Jeśli już używasz Defold, możesz utworzyć nowy projekt oparty na szablonie projektu _Platformer_ i poeksperymentować z nim podczas czytania tego artykułu.
+Jeśli już pracujesz w Defold, możesz utworzyć nowy projekt oparty na szablonie projektu _Platformer_ i poeksperymentować z nim podczas czytania tego artykułu.
 
 ::: sidenote
 Niektórzy czytelnicy zwrócili uwagę, że proponowana przez nas metoda nie jest możliwa przy domyślnej implementacji Box2D. Wprowadziliśmy kilka modyfikacji do Box2D, aby to zadziałało:
@@ -40,13 +40,13 @@ Silnik fizyczny przechowuje stany obiektów fizycznych wraz z ich kształtami, a
 
 W takiej grze chcemy uzyskać coś przypominającego fizyczne zachowanie z prawdziwego świata, ale znacznie ważniejsze są responsywne sterowanie i dobrze wyważone mechaniki. Skok, który daje dobre wrażenie, nie musi być fizycznie dokładny ani zachowywać się zgodnie z rzeczywistą grawitacją. [Ta](http://hypertextbook.com/facts/2007/mariogravity.shtml) analiza pokazuje jednak, że grawitacja w grach z Mario zbliża się do 9,8 m/s<sup>2</sup> w każdej wersji. :-)
 
-Ważne jest, abyśmy mieli pełną kontrolę nad tym, co się dzieje, dzięki czemu możemy projektować i dostrajać mechaniki tak, aby osiągnąć zamierzony efekt. Dlatego modelujemy postać gracza jako obiekt kinematyczny. Dzięki temu możemy swobodnie poruszać postacią gracza, bez konieczności radzenia sobie z siłami fizycznymi. Oznacza to, że separację między postacią a geometrią poziomu będziemy musieli rozwiązać samodzielnie (więcej o tym później), ale jest to kompromis, który jesteśmy gotowi zaakceptować. Postać gracza będziemy reprezentować w świecie fizyki przez kształt pudełka.
+Ważne jest, abyśmy mieli pełną kontrolę nad tym, co się dzieje, dzięki czemu możemy projektować i dostrajać mechaniki tak, aby osiągnąć zamierzony efekt. Dlatego modelujemy postać gracza jako obiekt kinematyczny. Dzięki temu możemy swobodnie poruszać postacią gracza, bez konieczności radzenia sobie z siłami fizycznymi. Oznacza to, że problem separacji między postacią a geometrią poziomu będziemy musieli rozwiązać sami (więcej o tym później), ale jest to kompromis, który jesteśmy gotowi zaakceptować. W świecie fizyki postać gracza będziemy reprezentować jako kształt pudełka.
 
 ## Ruch
 
 Skoro zdecydowaliśmy, że postać gracza będzie reprezentowana przez obiekt kinematyczny, możemy swobodnie przemieszczać ją, ustawiając pozycję. Zacznijmy od ruchu w lewo i w prawo.
 
-Ruch będzie oparty na przyspieszeniu, aby nadać postaci pewien ciężar. Podobnie jak w przypadku zwykłego pojazdu przyspieszenie określa, jak szybko postać gracza może osiągnąć maksymalną prędkość i zmienić kierunek. Przyspieszenie działa w czasie kroku klatki - zwykle przekazywanym w parametrze `dt` (delta-`t`) - a następnie jest dodawane do prędkości. Analogicznie, prędkość działa w trakcie klatki, a wynikowe przemieszczenie jest dodawane do pozycji. W matematyce nazywa się to [całkowaniem w czasie](http://en.wikipedia.org/wiki/Integral).
+Ruch będzie oparty na przyspieszeniu, aby nadać postaci pewien ciężar. Podobnie jak w przypadku zwykłego pojazdu przyspieszenie określa, jak szybko postać gracza może osiągnąć maksymalną prędkość i zmienić kierunek. Przyspieszenie działa w trakcie kroku klatki - zwykle przekazywanego w parametrze `dt` (delta-`t`) - a następnie jest dodawane do prędkości. Analogicznie, prędkość działa w trakcie klatki, a wynikowe przemieszczenie jest dodawane do pozycji. W matematyce nazywa się to [całkowaniem w czasie](http://en.wikipedia.org/wiki/Integral).
 
 ![Przybliżone całkowanie prędkości](images/platformer/integration.png)
 
@@ -92,7 +92,7 @@ W ten sposób całkujemy przyspieszenie i prędkość, aby poruszać postacią w
 
 Jeśli nie wiesz, jak obsługiwać wejście w Defold, znajdziesz o tym poradnik [tutaj](/manuals/input).
 
-Na tym etapie możemy poruszać postacią w lewo i w prawo, a sterowanie ma przyjemne, płynne odczucie z wyczuwalnym ciężarem. Teraz dodajmy grawitację!
+Na tym etapie możemy poruszać postacią w lewo i w prawo, a sterowanie jest płynne i sprawia wrażenie wyraźnie cięższego. Teraz dodajmy grawitację!
 
 Grawitacja także jest przyspieszeniem, ale działa na postać wzdłuż osi y. Oznacza to, że będzie stosowana w taki sam sposób jak opisane wyżej przyspieszenie ruchu. Jeśli po prostu zamienimy powyższe obliczenia na wektory i dopilnujemy, aby w kroku 3) uwzględnić grawitację w składowej y przyspieszenia, wszystko po prostu zadziała. Kochamy matematykę wektorową! :-)
 
@@ -203,9 +203,9 @@ Stwórzcie świetną platformówkę, żebyśmy wszyscy mogli w nią zagrać! <3
 Oto zawartość pliku *player.script*:
 
 ```lua
--- plik: player.script
+-- player.script
 
--- to są parametry dostrajające mechanikę; możesz je zmienić, aby uzyskać inne odczucie
+-- to są ustawienia dostrajające mechanikę; możesz je zmienić, żeby uzyskać inne odczucie
 -- przyspieszenie ruchu w lewo i w prawo
 local move_acceleration = 3500
 -- współczynnik przyspieszenia używany w powietrzu
@@ -253,7 +253,7 @@ end
 local function play_animation(self, anim)
     -- odtwarzaj tylko animacje, które nie są już aktywne
     if self.anim ~= anim then
-        -- poleć sprite'owi odtworzyć animację
+        -- każ sprite'owi odtworzyć animację
         sprite.play_flipbook("#sprite", anim)
         -- zapamiętaj, która animacja jest odtwarzana
         self.anim = anim
@@ -298,14 +298,14 @@ function update(self, dt)
             acceleration.x = air_acceleration_factor * acceleration.x
         end
     end
-    -- oblicz zmianę prędkości w tej klatce (`dv` to skrót od delta-velocity)
+    -- oblicz zmianę prędkości w tej klatce (dv to skrót od delta-velocity)
     local dv = acceleration * dt
-    -- sprawdź, czy `dv` przekracza zamierzoną różnicę prędkości, i w razie potrzeby ją ogranicz
+    -- sprawdź, czy dv przekracza zamierzoną różnicę prędkości, i w razie potrzeby ją ogranicz
     if math.abs(dv.x) > math.abs(speed_diff) then
         dv.x = speed_diff
     end
     -- zapisz bieżącą prędkość do późniejszego użycia
-    -- (`self.velocity` to w tym momencie prędkość użyta w poprzedniej klatce)
+    -- (self.velocity to w tym momencie prędkość użyta w poprzedniej klatce)
     local v0 = self.velocity
     -- oblicz nową prędkość przez dodanie zmiany prędkości
     self.velocity = self.velocity + dv

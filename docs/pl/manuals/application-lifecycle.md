@@ -1,63 +1,63 @@
 ---
-title: Cykl życia aplikacji w silniku Defold
-brief: Przewodnik wyjaśnia cykl życia aplikacji zbudowanej w silniku Defold od uruchomienia do zamknięcia.
+title: Podręcznik cyklu życia aplikacji Defold
+brief: Ten podręcznik opisuje cykl życia gier i aplikacji w Defold.
 ---
 
 # Cykl życia aplikacji
 
-Cykl życia aplikacji lub gry w silniku Defold jest zasadniczo prosty. Silnik przechodzi przez trzy główne fazy: inicjalizację, pętlę aktualizacyjną (gdzie aplikacja spędza większość czasu) oraz finalizację.
+Cykl życia aplikacji lub gry w Defold jest w dużej skali prosty. Silnik przechodzi przez trzy etapy działania: inicjalizację, pętlę aktualizacji, w której aplikacja spędza większość czasu, oraz finalizację.
 
 ::: sidenote
-Instrukcja odnosi się do wersji Defold 1.12.0. W tej wersji wprowadzono zmiany w procesie cyklu życia oraz nową funkcję `late_update()`.
+Podręcznik dotyczy wersji Defold od 1.12.0. W wersji 1.12.0 wprowadzono zmiany związane z cyklem życia oraz nową funkcję `late_update()`.
 :::
 
-![Lifecycle overview](images/application_lifecycle/application_lifecycle.png)
+![Przegląd cyklu życia](images/application_lifecycle/application_lifecycle.png)
 
-W wielu przypadkach wystarczy ogólna wiedza o tym, jak działa silnik Defold. Jednak czasem trzeba poznać dokładną kolejność wykonywanych operacji. Ten dokument opisuje przebieg działania silnika od startu do zakończenia aplikacji.
+W wielu przypadkach wystarcza podstawowe rozumienie wewnętrznego działania Defold. Czasem jednak można trafić na sytuacje brzegowe, w których kluczowa staje się dokładna kolejność wykonywania zadań przez silnik. Ten dokument opisuje, jak silnik uruchamia aplikację od startu do zakończenia.
 
-Aplikacja zaczyna się od przygotowania wszystkiego, co jest potrzebne do działania silnika. Główna kolekcja zostaje załadowana, a silnik Defold wywołuje [`init()`](/ref/go#init) dla wszystkich załadowanych komponentów, które posiadają tę funkcję (zarówno w skryptach obiektów, jak i skryptach GUI). Dzięki temu można przeprowadzić własną inicjalizację.
+Aplikacja zaczyna od zainicjalizowania wszystkiego, co jest potrzebne do uruchomienia silnika. Ładuje główną kolekcję i wywołuje [`init()`](/ref/go#init) na wszystkich załadowanych komponentach, które mają funkcję `init()` w Lua, czyli na komponentach skryptowych i komponentach GUI ze skryptami GUI. Dzięki temu można wykonać własną inicjalizację.
 
-Następnie aplikacja wchodzi w pętlę aktualizacyjną, w której spędza większość swojego czasu. Każda klatka aktualizuje obiekty gry i komponenty. Wywoływane są funkcje [`update()`](/ref/go#update) zarówno w skryptach, jak i w skryptach GUI. Podczas tej fazy wiadomości są rozsyłane do odbiorców, odtwarzane są dźwięki, a wszystkie elementy graficzne są renderowane.
+Następnie aplikacja przechodzi do pętli aktualizacji, w której spędza większość swojego czasu. W każdej klatce aktualizowane są obiekty gry i zawarte w nich komponenty. Wywoływane są funkcje [`update()`](/ref/go#update) w skryptach i skryptach GUI. W trakcie pętli aktualizacji wiadomości są rozsyłane do odbiorców, odtwarzane są dźwięki, a cała grafika jest renderowana.
 
-W pewnym momencie cykl życia dobiega końca. Zanim aplikacja się zakończy, silnik wychodzi z pętli aktualizacyjnej i przechodzi do fazy finalizacyjnej. Przygotowuje wszystkie obiekty gry do usunięcia. Funkcje [`final()`](/ref/go#final) każdego komponentu są uruchamiane, co pozwala na własne procedury sprzątania. Potem obiekty są usuwane, a główna kolekcja zostaje zwolniona.
+W pewnym momencie cykl życia aplikacji dobiega końca. Zanim aplikacja zostanie zamknięta, silnik wychodzi z pętli aktualizacji i wchodzi w etap finalizacji. Przygotowuje wszystkie załadowane obiekty gry do usunięcia. Wywoływane są funkcje [`final()`](/ref/go#final) wszystkich komponentów obiektów, co pozwala na własne sprzątanie. Potem obiekty są usuwane, a główna kolekcja zostaje zwolniona.
 
-Wszystkie kroki zawarte w przejściu „dispatch messages” są pokazane osobno na końcu tego podręcznika, a na diagramach oznaczone ikoną koperty ze strzałką 📩.
+Kroki wykonywane w przejściu ["dispatch messages"](#dispatching-messages) są dla przejrzystości pokazane na osobnym diagramie na końcu tego podręcznika i oznaczone na diagramach małą ikoną koperty ze strzałką 📩.
 
-## Faza inicjalizacyjna
+## Inicjalizacja
 
-To tutaj zaczyna się gra, i jest to pierwszy etap uruchomienia. Można go podzielić na trzy podfazy:
+To tutaj zaczyna się gra i jest to pierwszy krok działania uruchomionej aplikacji. Można go podzielić na 3 fazy:
 
-![Initizalization](images/application_lifecycle/initialization.png)
+![Inicjalizacja](images/application_lifecycle/initialization.png)
 
-### Przedinicjalizacja (Preinitialization)
+### Preinitialization
 
-W fazie `Preinitialization` silnik wykonuje wiele działań zanim załaduje główną (bootstrapową) kolekcję. Konfigurowany jest profiler pamięci, gniazda, grafika, wejścia (HID), dźwięk, fizyka i wiele innych subsystemów. Wczytywany jest także plik konfiguracyjny (*game.project*).
+W fazie `Preinitialization` silnik wykonuje wiele kroków, zanim zostanie załadowana główna kolekcja bootstrapowa. Konfigurowane są profiler pamięci, gniazda, grafika, HID (urządzenia wejściowe), dźwięk, fizyka i wiele innych elementów. Ładowana i konfigurowana jest też konfiguracja aplikacji (*game.project*).
 
 ![Preinitialization](images/application_lifecycle/pre_init.png)
 
-Pierwszym punktem, w którym użytkownik kontroluje przepływ, jest wywołanie `init()` aktualnego render scriptu.
+Pierwszym punktem wejścia, nad którym użytkownik ma kontrolę pod koniec inicjalizacji silnika, jest wywołanie funkcji `init()` bieżącego render scriptu.
 
-Główna kolekcja zostaje wtedy załadowana i zainicjalizowana.
+Następnie ładowana i inicjalizowana jest główna kolekcja.
 
-### Inicjalizacja kolekcji (Collection Init)
+### Collection Init
 
-Podczas fazy `Collection Init` wszystkie obiekty gry w kolekcji przypisują transformacje – przesunięcie, obrót i skalowanie – swoim dzieciom. Następnie wywoływane są funkcje `init()` wszystkich komponentów, które ją udostępniają.
+W fazie `Collection Init` wszystkie obiekty gry w kolekcji przekazują swoje transformacje, czyli przesunięcie, obrót i skalę, swoim dzieciom. Potem wywoływane są funkcje `init()` wszystkich istniejących komponentów.
 
 ![Collection Init](images/application_lifecycle/collection_init.png)
 
 ::: sidenote
-Kolejność wywołań funkcji `init()` komponentów obiektów gry nie jest określona. Nie należy zakładać konkretnej kolejności inicjalizacji w obrębie tej samej kolekcji.
+Kolejność wywoływania funkcji `init()` komponentów obiektów gry nie jest określona. Nie należy zakładać, że silnik inicjalizuje obiekty należące do tej samej kolekcji w jakiejkolwiek konkretnej kolejności.
 :::
 
-### Post Update podczas inicjalizacji
+### Post Update w inicjalizacji
 
-Po inicjalizacji silnik wykonuje pełne przejście `Post Update` – to samo, które odbywa się po każdym kroku pętli `Update Loop`. Szczególnie ważne jest to, że w tej fazie można zainicjalizować nowo tworzone obiekty, wysłać wiadomości, oznaczyć obiekty do usunięcia itd.
+Silnik wykonuje wtedy pełne przejście `Post Update` - dokładnie to samo, które później następuje po każdym kroku `Update Loop`. Jest ono wykonywane na końcu inicjalizacji, ponieważ kod w `init()` może wysyłać nowe wiadomości, polecać fabrykom tworzenie nowych obiektów, oznaczać obiekty do usunięcia i wykonywać inne działania.
 
 ![Post Update](images/application_lifecycle/post_init.png)
 
-Ten etap zajmuje się dostarczeniem wiadomości, tworzeniem nowych obiektów przez fabryki oraz usuwaniem obiektów. Przejście `Post Update` zawiera sekwencję „dispatch messages”, która nie tylko rozsyła zakolejkowane wiadomości, ale także obsługuje wiadomości skierowane do pełnomocników kolekcji (collection proxies). W kolejnych krokach aktualizowane są stany proxy (enable, disable, init, final, loading, mark for unloading).
+To przejście obsługuje dostarczanie wiadomości, faktyczne tworzenie obiektów przez fabryki oraz usuwanie obiektów. Zwróć uwagę, że przejście `Post Update` obejmuje sekwencję „dispatch messages”, która nie tylko dostarcza zakolejkowane wiadomości, ale także przetwarza wiadomości wysyłane do collection proxy. Wszystkie kolejne aktualizacje proxy, takie jak enable, disable, init, final, loading i mark for unloading, są wykonywane w tych krokach.
 
-Możliwe jest załadowanie [collection proxy](/manuals/collection-proxy) w trakcie `init()`, zainicjalizowanie jego obiektów, a następnie zwolnienie kolekcji – i to wszystko jeszcze zanim zostanie wywołana pierwsza funkcja `update()` komponentu, czyli zanim silnik opuści fazę inicjalizacji i wejdzie w pętlę aktualizacyjną:
+Możliwe jest załadowanie [collection proxy](/manuals/collection-proxy) w trakcie `init()`, upewnienie się, że wszystkie zawarte w nim obiekty zostały zainicjalizowane, a następnie wyładowanie kolekcji przez proxy - i wszystko to przed wywołaniem pierwszego `update()` komponentu, czyli zanim silnik opuści etap inicjalizacji i wejdzie do pętli aktualizacji:
 
 ```lua
 function init(self)
@@ -66,7 +66,7 @@ function init(self)
 end
 
 function update(self, dt)
-    -- The proxy collection is unloaded before this code is reached.
+    -- Kolekcja proxy jest wyładowana, zanim ten kod zostanie wykonany.
     print("update()")
 end
 
@@ -76,164 +76,164 @@ function on_message(self, message_id, message, sender)
         msg.post("#collectionproxy", "init")
         msg.post("#collectionproxy", "enable")
         msg.post("#collectionproxy", "unload")
-        -- The proxy collection objects’ init() and final() functions
-        -- are called before we reach this object’s update()
+        -- Funkcje init() i final() obiektów w kolekcji proxy
+        -- są wywoływane, zanim dotrzemy do update() tego obiektu
     end
 end
 ```
 
-## Pętla aktualizacyjna (Update Loop)
+## Pętla aktualizacji
 
-Pętla aktualizacyjna przebiega według określonej sekwencji w każdej klatce. Jej przebieg podzielony jest na pięć głównych faz:
+Pętla aktualizacji przebiega w każdej klatce według określonej sekwencji. Można ją podzielić na 5 głównych faz:
 
-![Update Loop](images/application_lifecycle/update_loop.png)
+![Pętla aktualizacji](images/application_lifecycle/update_loop.png)
 
-1. Input (odczyt i obsługa)
-2. Update (obejmuje Fixed, Regular, Late oraz aktualizacje komponentów silnika)
+1. Input (przetwarzanie i obsługa)
+2. Update (w tym aktualizacje Fixed, Regular, Late oraz komponentów silnika)
 3. Render Update
-4. Post Update (zwalnianie kolekcji, tworzenie i usuwanie obiektów)
-5. Frame Render (ostatnie renderowanie grafiki)
+4. Post Update (wyładowywanie collection proxy, tworzenie i usuwanie obiektów gry)
+5. Frame Render (końcowe renderowanie grafiki)
 
-### Faza wejść (Input Phase)
+### Faza wejścia
 
-Wejścia są odczytywane z dostępnych urządzeń, mapowane zgodnie z [input bindings](/manuals/input) i rozsyłane dalej. Każdy obiekt gry, który zdobył `acquire_input_focus`, otrzymuje wejścia w funkcje `on_input()` wszystkich swoich komponentów. Jeżeli obiekt posiada zarówno skrypt komponentu, jak i komponent GUI, oba dostaną wejścia, pod warunkiem że oba mają przechwytywanie wejścia.
+Wejście jest odczytywane z dostępnych urządzeń, mapowane zgodnie z [input bindings](/manuals/input), a następnie rozsyłane. Każdy obiekt gry, który przechwycił fokus wejścia, otrzymuje wejście we wszystkich swoich komponentach przez funkcje `on_input()`. Obiekt gry ze skryptem komponentu i komponentem GUI ze skryptem GUI otrzyma wejście w obu funkcjach `on_input()`, o ile są zdefiniowane i o ile obiekt przechwycił fokus wejścia.
 
-![Input Phase](images/application_lifecycle/input_phase.png)
+![Faza wejścia](images/application_lifecycle/input_phase.png)
 
-Jeżeli obiekt gry, który ma fokus wejścia, zawiera pełnomocników kolekcji, wejścia są przekazywane do komponentów wewnątrz tych proxy. Proces ten rekurencyjnie działa dla wszystkich włączonych proxy w obrębie włączonych proxy.
+Każdy obiekt gry, który przechwycił fokus wejścia i zawiera komponenty collection proxy, przekazuje wejście do komponentów wewnątrz kolekcji proxy. Proces ten jest następnie wykonywany rekurencyjnie w kolejnych włączonych collection proxy.
 
-### Faza aktualizacji (Update Phase)
+### Faza aktualizacji
 
-Faza `Update` zaczyna się dla głównej kolekcji, a następnie jest wywoływana rekurencyjnie dla każdego włączonego collection proxy.
+Faza `Update` jest częścią pętli aktualizacji. Zaczyna się raz dla głównej kolekcji, a następnie działa rekurencyjnie dla każdego włączonego collection proxy.
 
-W obrębie kolekcji silnik Defold przetwarza callbacki według typu komponentu: dla każdego typu iteruje po wszystkich instancjach, które implementują daną fazę, wywołuje funkcję Lua, opróżnia wiadomości, a potem przechodzi do następnego typu.
+W obrębie kolekcji Defold przetwarza callbacki według typu komponentu: iteruje po wszystkich instancjach typu komponentu, który implementuje daną fazę, wywołuje callback Lua dla każdej instancji, opróżnia wiadomości, a potem przechodzi do następnego typu komponentu.
 
-Wysoki poziom kolejności callbacków Lua w komponentach typu *script* wygląda następująco:
+Ogólna kolejność faz callbacków Lua dla komponentów *script* jest następująca:
 
-1. `fixed_update()` – wywoływane `0..N` razy na klatkę (gdy używany jest stały krok czasu)
-2. `update()` – wywoływane raz na klatkę
-3. `late_update()` – wywoływane raz na klatkę
+1. `fixed_update()` - wywoływane 0..N razy na klatkę (jeśli używany jest stały krok czasowy)
+2. `update()` - wywoływane 1 raz na klatkę
+3. `late_update()` - wywoływane 1 raz na klatkę
 
-![Update Phase](images/application_lifecycle/update_phase.png)
+![Faza aktualizacji](images/application_lifecycle/update_phase.png)
 
-Każdy komponent obiektu gry w głównej kolekcji jest odwiedzany. Jeśli którykolwiek komponent posiada `fixed_update()`/`update()`/`late_update()`, to są one uruchamiane. Jeżeli komponent jest collection proxy, wszystkie komponenty tej kolekcji proxy są aktualizowane rekurencyjnie we wszystkich krokach fazy `Update`.
+Każdy komponent obiektu gry w głównej kolekcji jest odwiedzany. Jeśli którykolwiek z tych komponentów ma skrypt z funkcją `fixed_update()`/`update()`/`late_update()`, to zostanie ona wywołana. Jeśli komponentem jest collection proxy, każdy komponent w kolekcji proxy jest aktualizowany rekurencyjnie we wszystkich krokach fazy `Update`.
 
 ::: sidenote
-Kolejność wywołań funkcji `update()` komponentów nie jest określona. Nie należy zakładać konkretnego porządku aktualizacji obiektów należących do tej samej kolekcji. To samo dotyczy `fixed_update()` i `late_update()` (od wersji 1.12.0).
+Kolejność wywoływania funkcji `update()` komponentów obiektów gry nie jest określona. Nie należy zakładać, że silnik aktualizuje obiekty należące do tej samej kolekcji w jakiejkolwiek konkretnej kolejności. To samo dotyczy `fixed_update()` i `late_update()` (od 1.12.0).
 :::
 
 #### Fizyka
 
-Dla komponentów collision object wiadomości fizyki (kolizje, wyzwalacze, odpowiedzi ray cast itd.) są rozsyłane do wszystkich komponentów, które implementują `on_message()` w obrębie danego obiektu gry.
+Dla komponentów obiektów kolizji wiadomości fizyki, takich jak kolizje, wyzwalacze, odpowiedzi ray cast itd., są rozsyłane przez obejmujący je obiekt gry do wszystkich komponentów, które zawierają skrypt z funkcją `on_message()`.
 
-Jeżeli do symulacji fizyki używany jest [fixed timestep](/manuals/physics/#physics-updates), to funkcje `fixed_update()` są wywoływane we wszystkich komponentach skryptowych. Ta funkcja jest przydatna do stabilnego sterowania obiektami fizycznymi.
+Jeśli do symulacji fizyki używany jest [fixed timestep](/manuals/physics/#physics-updates), może też dojść do wywołania funkcji `fixed_update()` we wszystkich komponentach skryptowych. Ta funkcja jest przydatna w grach opartych na fizyce, gdy chcesz manipulować obiektami fizycznymi w regularnych odstępach czasu, aby uzyskać stabilną symulację.
 
-#### Transformaty
+#### Transforms
 
-Przed każdą aktualizacją typu komponentu, wielokrotnie w trakcie `Update Loop`, jeśli jest to potrzebne, aktualizowane są transformaty – przesunięcie, obrót i skala obiektów, ich komponentów i obiektów potomnych.
+Przed **każdą** aktualizacją typu komponentu, wielokrotnie w trakcie `Update Loop`, jeśli jest to potrzebne, aktualizowane są transformacje, czyli zastosowanie ruchu, obrotu i skali obiektów gry do każdego komponentu obiektu gry i do wszystkich potomnych komponentów obiektów gry.
 
-Na końcu `Update Loop` wykonywana jest jeszcze jedna finalna aktualizacja transformacji, jeśli jest to wymagane.
+Na końcu `Update Loop` wykonywana jest jeszcze jedna końcowa aktualizacja transformacji, jeśli jest to potrzebne.
 
-#### Faza silnika bez fixed update
+#### Faza aktualizacji silnika bez fixed updates
 
-Poniższe tabele opisują aktualizacje na poziomie silnika. Pomijają dokładną kolejność priorytetów komponentów (to szczegół implementacji), ale oddają gwarancje ważne dla skryptów:
+Poniższe tabele opisują przejścia aktualizacji na poziomie *engine-level*. Celowo pomijają dokładną wewnętrzną kolejność priorytetów komponentów, ponieważ jest to szczegół implementacyjny silnika, ale pokazują gwarancje istotne dla skryptów:
 
 - `fixed_update()` działa przed `update()`
 - `late_update()` działa po `update()`
-- wiadomości są rozsyłane między aktualizacjami typu komponentu oraz między etapami callbacków skryptowych
+- wiadomości są opróżniane między aktualizacjami typów komponentów oraz między etapami callbacków skryptowych
 
-Gdy `Use Fixed Timestep` jest ustawione na `false` i/lub `Fixed Update Frequency` wynosi `0`, na początku faza przygotowuje `dt`, a następnie przebieg jest następujący:
+Gdy `Use Fixed Timestep` ma wartość `false` i/lub Fixed Update Frequency ma wartość `0`, na początku fazy przygotowywane jest `dt`, a potem przebieg wygląda tak, jak w tabeli poniżej:
 
-::: sidenote
-Po każdej aktualizacji typu komponentu wszystkie wiadomości są rozsyłane – w tabelach nie pokazano tego dla przejrzystości.
+:::sidenote
+Zwróć uwagę, że po **każdej** aktualizacji typu komponentu wszystkie wiadomości są rozsyłane - nie zaznaczono tego w tabeli poniżej, żeby zachować jej czytelność.
 :::
 
 | Krok | Faza silnika | Callback Lua | Komentarz |
 |-|-|-|-|
-| 1 | **Update** | `update()` | Wywoływane raz na klatkę dla każdego typu komponentu implementującego Update według wewnętrznego priorytetu. Animacje właściwości GO zaczęte przez `go.animate()` działają tu jako oddzielny typ komponentu. Aktualizowane są również komponenty fizyki. Dla każdego włączonego collection proxy cała faza `Update` jest wykonywana rekurencyjnie od kroku 1. |
-| 2 | **Late Update** | `late_update()` | Wywoływane raz na klatkę dla każdego typu komponentu implementującego Late Update zgodnie z priorytetem. |
-| 3 | **Transforms** |  | Na końcu przeprowadzana jest dodatkowa aktualizacja transformacji dla każdego komponentu, jeśli jest to potrzebne. |
+| 1 | **Update** | `update()` | Wywoływane raz na klatkę dla każdego typu komponentu, który implementuje Update, zgodnie z wewnętrzną kolejnością priorytetów. Dodatkowo animacje właściwości GO uruchomione przez `go.animate()` są tu aktualizowane jako oddzielny typ komponentu. Aktualizowane są tu również komponenty **Physics**. Dla każdego włączonego Collection Proxy cała faza `Update` jest wywoływana rekurencyjnie od kroku 1. |
+| 2 | **Late Update** | `late_update()` | Wywoływane raz na klatkę dla każdego typu komponentu, który implementuje Late Update, zgodnie z wewnętrzną kolejnością priorytetów. |
+| 3 | **Transforms** | | Na końcu wykonywana jest jeszcze jedna końcowa aktualizacja transformacji dla każdego komponentu, jeśli jest to potrzebne. |
 
-#### Faza silnika z fixed timestep
+#### Faza aktualizacji silnika ze stałym krokiem czasowym
 
-Gdy `Use Fixed Timestep` ma wartość `true`, a `Fixed Update Frequency` jest różna od zera, na początku faza przygotowuje `dt`, `fixed_dt` oraz `num_fixed_steps` (`0..N`) – czyli ile razy zostanie wywołana funkcja fixed update, określone przez czas od ostatniej aktualizacji, aby zachować stałą liczbę kroków.
+Gdy `Use Fixed Timestep` ma wartość `true`, a Fixed Update Frequency jest różne od zera, na początku fazy przygotowywane są `dt` (delta time), `fixed_dt` i `num_fixed_steps` (`0..N`) - czyli liczba wywołań fixed update, wyznaczona na podstawie czasu od ostatniej aktualizacji, aby zachować stałą liczbę aktualizacji.
 
-::: sidenote
-Po każdej aktualizacji typu komponentu wszystkie wiadomości są rozsyłane – tabelki tego nie pokazują dla przejrzystości.
+:::sidenote
+Zwróć uwagę, że po **każdej** aktualizacji typu komponentu wszystkie wiadomości są rozsyłane - nie zaznaczono tego w tabeli poniżej, żeby zachować jej czytelność.
 :::
 
-Potem faza przebiega w pętli:
+Potem faza działa w pętli:
 
 | Krok | Faza silnika | Callback Lua | Komentarz |
 |-|-|-|-|
-| 1 | **Fixed Update** | `fixed_update()` | Wywoływana `0..N` razy na klatkę dla każdego typu komponentu implementującego Fixed Update według priorytetu. Zawiera również Fixed Update komponentów fizyki. |
-| 2 | **Update** | `update()` | Wywoływana raz na klatkę dla każdego typu komponentu implementującego Update według priorytetu. Animacje właściwości GO uruchomione przez `go.animate()` działają tu jako oddzielny typ komponentu. Dla każdego włączonego collection proxy faza `Update` jest wykonywana rekurencyjnie, zaczynając od kroku 1. |
-| 3 | **Late Update** | `late_update()` | Wywoływana raz na klatkę dla każdego typu komponentu implementującego Late Update według priorytetu. |
-| 4 | **Transforms** |  | Na końcu przeprowadzana jest dodatkowa aktualizacja transformacji dla każdego komponentu, jeśli jest to potrzebne. |
+| 1 | **Fixed Update** | `fixed_update()` | Wywoływane `0..N` razy na klatkę, zależnie od czasu, dla każdego typu komponentu, który implementuje Fixed Update, zgodnie z wewnętrzną kolejnością priorytetów. Obejmuje to etapy Fixed Update komponentów *Physics*. |
+| 2 | **Update** | `update()` | Wywoływane raz na klatkę dla każdego typu komponentu, który implementuje Update, zgodnie z wewnętrzną kolejnością priorytetów. Dodatkowo animacje właściwości GO uruchomione przez `go.animate()` są tu aktualizowane jako oddzielny typ komponentu. Dla każdego włączonego Collection Proxy faza `Update` jest wywoływana rekurencyjnie od kroku 1. |
+| 3 | **Late Update** | `late_update()` | Wywoływane raz na klatkę dla każdego typu komponentu, który implementuje Late Update, zgodnie z wewnętrzną kolejnością priorytetów. |
+| 4 | **Transforms** | | Na końcu wykonywana jest jeszcze jedna końcowa aktualizacja transformacji dla każdego komponentu, jeśli jest to potrzebne. |
 
-W razie potrzeby więcej informacji o wewnętrznym działaniu fazy Update można znaleźć w kodzie [`gameobject.cpp`](https://github.com/defold/defold/blob/dev/engine/gameobject/src/gameobject/gameobject.cpp).
+Jeśli chcesz poznać więcej szczegółów o wewnętrznym działaniu Defold w fazie Update, warto przeczytać sam kod [`gameobject.cpp`](https://github.com/defold/defold/blob/dev/engine/gameobject/src/gameobject/gameobject.cpp).
 
-### Faza renderowania (Render Update Phase)
+### Faza aktualizacji renderowania
 
-W bloku `Render Update` najpierw przetwarzane są wszystkie wiadomości wysłane na gniazdo `@render` (np. wiadomości `set_view_projection`, `set_clear_color` itd.). Następnie wywoływana jest funkcja `update()` skryptu renderującego.
+Blok aktualizacji renderowania najpierw rozsyła wszystkie wiadomości wysłane do gniazda `@render` (na przykład wiadomości `set_view_projection`, `set_clear_color` itd.). Następnie wywoływana jest funkcja `update()` skryptu renderującego.
 
-![Render Update Phase](images/application_lifecycle/render_update_phase.png)
+![Faza aktualizacji renderowania](images/application_lifecycle/render_update_phase.png)
 
-### Faza post-aktualizacji (Post update Phase)
+### Faza post update
 
-Po aktualizacjach uruchamiana jest sekwencja post-aktualizacji. Z pamięci są zwalniani collection proxy oznaczeni do wyładowania (co następuje podczas sekwencji `dispatch messages`). Wszystkie obiekty oznaczone do usunięcia wywołują `final()` we wszystkich komponentach je posiadających. Kod w tych funkcjach może wysyłać kolejne wiadomości, stąd po `final()` ponownie uruchamiana jest sekwencja rozsyłania wiadomości.
+Po aktualizacjach uruchamiana jest sekwencja post update. Wyładowuje ona z pamięci collection proxy oznaczone do wyładowania (dzieje się to podczas sekwencji "dispatch messages"). Każdy obiekt gry oznaczony do usunięcia wywołuje wszystkie funkcje `final()` swoich komponentów, jeśli takie istnieją. Kod w funkcjach `final()` często wysyła nowe wiadomości do kolejki, więc po tym uruchamiane jest ponownie przejście "dispatch messages".
 
-![Post Update Phase](images/application_lifecycle/post_update_phase.png)
+![Faza post update](images/application_lifecycle/post_update_phase.png)
 
-Następnie komponenty fabryki, które miały zostać uruchomione, tworzą obiekty. Na końcu obiekty oznaczone do usunięcia są faktycznie usuwane.
+Każdy komponent fabryki, który dostał polecenie utworzenia obiektu gry, zrobi to w następnym kroku. Na końcu obiekty gry oznaczone do usunięcia są faktycznie usuwane.
 
-### Faza renderowania (Render Phase)
+### Faza renderowania
 
-Ostatnim krokiem pętli aktualizacyjnej jest obsłużenie wiadomości wysyłanych do gniazda `@system` (`exit`, `reboot`, przełączanie profilera, uruchamianie i zatrzymywanie nagrywania wideo itd.).
+Ostatni krok pętli aktualizacji obejmuje rozsyłanie wiadomości `@system` (`exit`, `reboot`, przełączanie profilera, uruchamianie i zatrzymywanie przechwytywania wideo itd.).
 
-![Render Phase](images/application_lifecycle/render_phase.png)
+![Faza renderowania](images/application_lifecycle/render_phase.png)
 
-Następnie grafika jest renderowana, w tym wizualizacja profilera (zobacz [dokumentację debugowania](/manuals/debugging)). Zaraz po renderowaniu następuje przechwytywanie wideo.
+Potem grafika jest renderowana, podobnie jak wizualizacja profilera (zobacz [dokumentację debugowania](/manuals/debugging)). Po renderowaniu grafiki wykonywane jest przechwytywanie wideo.
 
 #### Liczba klatek i krok czasowy kolekcji
 
-Liczba klatek na sekundę (odpowiednio liczba przebiegów pętli aktualizacyjnej) jest ustawiana w ustawieniach projektu albo dynamicznie przez wysłanie wiadomości `set_update_frequency` do gniazda `@system`. Można też ustawić _time step_ dla każdego collection proxy przez `set_time_step`. Zmiana kroku kolekcji nie wpływa na liczbę klatek (czyli ilość wywołań `update()` w każdej klatce), ale zmienia czas kroków fizyki oraz wartość `dt` przekazywaną do `update()`.
+Liczbę aktualizacji klatki na sekundę, czyli liczbę przebiegów pętli aktualizacji na sekundę, można ustawić w ustawieniach projektu albo programowo, wysyłając wiadomość `set_update_frequency` do gniazda `@system`. Można też osobno ustawić _time step_ dla collection proxy, wysyłając do proxy wiadomość `set_time_step`. Zmiana kroku czasowego kolekcji nie wpływa na liczbę klatek. Wpływa natomiast na krok czasowy aktualizacji fizyki oraz na wartość `dt` przekazywaną do `update()`. Pamiętaj też, że zmiana kroku czasowego nie zmienia liczby wywołań `update()` w każdej klatce - zawsze jest ono wywoływane dokładnie raz.
 
-(Zobacz [Instrukcję pełnomocników kolekcji](/manuals/collection-proxy) i [`set_time_step`](/ref/collectionproxy#set-time-step) po więcej szczegółów)
+(Szczegóły znajdziesz w [podręczniku collection proxy](/manuals/collection-proxy) oraz przy [`set_time_step`](/ref/collectionproxy#set-time-step))
 
 #### Ograniczanie pracy silnika
 
-W Defold 1.12.0 dodano API ograniczające pracę silnika, które może pominąć aktualizacje i renderowanie, jednocześnie wykrywając wejście. Każde wejście budzi silnik i po okresie chłodzenia można ponownie wejść w ograniczoną pracę.
+W Defold 1.12.0 wprowadzono API ograniczania pracy silnika, które może całkowicie pominąć aktualizacje silnika i renderowanie, a mimo to nadal wykrywać wejście. Każde wejście wybudza silnik, a po czasie wyciszenia silnik może ponownie wejść w tryb ograniczania.
 
-Zobacz `sys.set_engine_throttle()` dla szczegółów i przykładów użycia.
+Szczegóły i przykłady użycia znajdziesz w API `sys.set_engine_throttle()`.
 
-## Faza finalizacyjna
+## Finalizacja
 
-Gdy aplikacja kończy pracę, najpierw dokańcza ostatnią sekwencję pętli aktualizacyjnej, która zwalnia collection proxy – finalizując i usuwając obiekty wewnątrz nich.
+Gdy aplikacja się zamyka, najpierw kończy ostatnią sekwencję pętli aktualizacji, która wyładuje collection proxy: finalizując i usuwając wszystkie obiekty gry w każdej kolekcji proxy.
 
-Po tym silnik przechodzi do samej finalizacji, która dotyczy głównej kolekcji i jej obiektów:
+Gdy to się skończy, silnik wchodzi w sekwencję finalizacji obsługującą główną kolekcję i jej obiekty:
 
-![Finalization](images/application_lifecycle/finalization.png)
+![Finalizacja](images/application_lifecycle/finalization.png)
 
-Na początku wywoływane są funkcje `final()` wszystkich komponentów. Później uruchamiana jest sekwencja rozsyłania wiadomości. Na końcu wszystkie obiekty są usuwane, a główna kolekcja zostaje zwolniona.
+Najpierw wywoływane są funkcje `final()` komponentów. Potem następuje kolejne przejście rozsyłania wiadomości. Na końcu wszystkie obiekty gry są usuwane, a główna kolekcja zostaje zwolniona.
 
-Silnik dalej kończy pracę wewnętrznych subsystemów, np. usuwa konfigurację projektu, zatrzymuje profiler pamięci itd.
+Silnik przechodzi potem do zamykania podsystemów działających w tle: usuwa konfigurację projektu, wyłącza profiler pamięci i tak dalej.
 
-Aplikacja jest wtedy całkowicie zamknięta.
+Aplikacja jest teraz całkowicie zamknięta.
 
-## Rozsyłanie wiadomości (Dispatching Messages)
+## Rozsyłanie wiadomości
 
-`Dispatching Messages` to specjalne przejście wykonywane po **każdej** aktualizacji typu komponentu (np. aktualizacji sprite’a, skryptów itp.). W tym kroku wszystkie zgromadzone wiadomości są rozsyłane. Diagram oznacza te działania ikoną koperty ze strzałką 📩.
+**Rozsyłanie wiadomości** to specjalne przejście wykonywane po **każdej** aktualizacji typu komponentu, na przykład po aktualizacji sprite'ów, skryptów i każdej innej operacji, która może wysyłać wiadomości. W trakcie wykonywania wszystkie zakolejkowane wiadomości są rozsyłane. Na diagramach są oznaczone małymi ikonami koperty ze strzałką 📩.
 
-![Dispatch Messages](images/application_lifecycle/dispatch_messages.png)
+![Rozsyłanie wiadomości](images/application_lifecycle/dispatch_messages.png)
 
-Po tym, jak wszystkie **wiadomości użytkownika** zostaną dostarczone przez wywołanie `on_message()`, silnik obsługuje specjalne wiadomości Defold w następującej kolejności (przy każdym collection proxy):
+Po rozesłaniu wszystkich **wiadomości użytkownika** przez wywołanie `on_message()` dla każdego komponentu Defold obsługuje specjalne wiadomości w następującej kolejności, dla każdego collection proxy:
 
-1. `load` – ładuje pełnomocniki oznaczone do wczytania, wysyła z powrotem `proxy_loaded`.
-2. `unload` – zwalnia pełnomocniki oznaczone do zwolnienia, wysyła `proxy_unloaded`.
-3. `init` – wywołuje fazę `Collection Init` dla proxy zaznaczonych do inicjalizacji.
-4. `final` – wywołuje `final()` dla wszystkich komponentów proxy oznaczonych do zamknięcia.
-5. `enable` – aktywuje collection proxy, żeby w następnej klatce wykonać dla niego `Update Loop`; to też uruchamia `init()` dla składników proxy.
-6. `disable` – dezaktywuje collection proxy, więc pętla aktualizacyjna nie będzie dla niego wykonywana.
+1. wiadomości `load` - ładują collection proxy oznaczone do wczytania i odsyłają wiadomość `proxy_loaded`.
+2. wiadomości `unload` - wyładowują collection proxy oznaczone do wyładowania i odsyłają wiadomość `proxy_unloaded`.
+3. wiadomości `init` - uruchamiają fazę `Collection Init` dla wszystkich collection proxy, które mają zostać zainicjalizowane.
+4. wiadomości `final` - wywołują `final()` na wszystkich komponentach proxy oznaczonych do finalizacji.
+5. wiadomości `enable` - włączają collection proxy, więc w następnej klatce zostanie dla niego wykonana pętla `Update Loop`; to niejawnie uruchamia `init()` dla każdego komponentu w tej kolekcji.
+6. wiadomości `disable` - wyłączają collection proxy, więc w następnej klatce nie zostanie dla niego wykonana pętla `Update Loop`; całkowicie zatrzymuje to działanie `Update Loop` dla tego proxy.
 
-Ponieważ kod odbiorców `on_message()` może publikować kolejne wiadomości, dispatcher kontynuuje przetwarzanie kolejki aż do jej opróżnienia. Jednak dispatcher ma limit liczby przejść przez kolejkę. Więcej informacji znaleźć można w rozdziale [Message Chains](/manuals/message-passing).
+Ponieważ kod komponentów odbierających wiadomości w `on_message()` może wysyłać kolejne wiadomości, dispatcher będzie dalej rozsyłał wiadomości rekurencyjnie, aż kolejka będzie pusta. Istnieje jednak limit liczby przejść przez kolejkę wiadomości. Szczegóły znajdziesz w [Message Chains](/manuals/message-passing).

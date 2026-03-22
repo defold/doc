@@ -14,7 +14,7 @@ Materiał przechowuje _tagi_, czyli informacje używane w potoku renderowania do
 
 ## Tworzenie materiału
 
-Aby utworzyć materiał, <kbd>kliknij prawym przyciskiem myszy</kbd> docelowy folder w przeglądarce *Assets* i wybierz <kbd>New... ▸ Material</kbd>. (Możesz też wybrać <kbd>File ▸ New...</kbd> z menu, a następnie <kbd>Material</kbd>). Nadaj nowemu plikowi materiału nazwę i naciśnij <kbd>Ok</kbd>.
+Aby utworzyć materiał, <kbd>right click</kbd> docelowy folder w przeglądarce *Assets* i wybierz <kbd>New... ▸ Material</kbd>. (Możesz też wybrać <kbd>File ▸ New...</kbd> z menu, a następnie <kbd>Material</kbd>). Nadaj nowemu plikowi materiału nazwę i naciśnij <kbd>Ok</kbd>.
 
 ![Plik materiału](images/materials/material_file.png)
 
@@ -53,10 +53,10 @@ Name
 : Nazwa atrybutu. Podobnie jak w przypadku stałych shaderów, konfiguracja atrybutu zostanie użyta tylko wtedy, gdy będzie zgodna z atrybutem określonym w programie wierzchołków.
 
 Semantic type
-: Typ semantyczny określa znaczenie semantyczne tego, _czym_ jest atrybut i/lub _jak_ powinien być wyświetlany w edytorze. Na przykład wskazanie atrybutu z `SEMANTIC_TYPE_COLOR` spowoduje, że w edytorze pojawi się wybierak koloru, a dane nadal będą przekazywane bez zmian z silnika do shadera.
+: Typ semantyczny określa znaczenie semantyczne tego, *czym* jest atrybut i/lub *jak* powinien być wyświetlany w edytorze. Na przykład wskazanie atrybutu z `SEMANTIC_TYPE_COLOR` spowoduje, że w edytorze pojawi się wybierak koloru, a dane nadal będą przekazywane bez zmian z silnika do shadera.
 
   - `SEMANTIC_TYPE_NONE` Domyślny typ semantyczny. Nie ma żadnego innego wpływu na atrybut poza bezpośrednim przekazaniem danych materiału dla tego atrybutu do bufora wierzchołków (domyślnie)
-  - `SEMANTIC_TYPE_POSITION` Generuje dane pozycji dla atrybutu na poziomie wierzchołka. Może być używany razem z przestrzenią współrzędnych, aby powiedzieć silnikowi, jak będą obliczane pozycje
+  - `SEMANTIC_TYPE_POSITION` Generuje dane pozycji dla atrybutu na poziomie wierzchołka. Można go łączyć z przestrzenią współrzędnych, aby określić silnikowi sposób obliczania pozycji
   - `SEMANTIC_TYPE_TEXCOORD` Generuje współrzędne tekstury dla atrybutu na poziomie wierzchołka
   - `SEMANTIC_TYPE_PAGE_INDEX` Generuje indeksy stron dla atrybutu na poziomie wierzchołka
   - `SEMANTIC_TYPE_COLOR` Wpływa na sposób interpretacji atrybutu przez edytor. Jeśli atrybut ma semantykę koloru, w inspektorze pojawi się widżet wyboru koloru
@@ -68,10 +68,10 @@ Semantic type
 Data type
 : Typ danych, na których oparty jest atrybut.
 
-  - `TYPE_BYTE` Wartości bajtowe ze znakiem, 8-bitowe
-  - `TYPE_UNSIGNED_BYTE` Wartości bajtowe bez znaku, 8-bitowe
-  - `TYPE_SHORT` Wartości krótkie ze znakiem, 16-bitowe
-  - `TYPE_UNSIGNED_SHORT` Wartości krótkie bez znaku, 16-bitowe
+  - `TYPE_BYTE` Wartości 8-bitowe ze znakiem
+  - `TYPE_UNSIGNED_BYTE` Wartości 8-bitowe bez znaku
+  - `TYPE_SHORT` Wartości 16-bitowe ze znakiem
+  - `TYPE_UNSIGNED_SHORT` Wartości 16-bitowe bez znaku
   - `TYPE_INT` Wartości całkowite ze znakiem
   - `TYPE_UNSIGNED_INT` Wartości całkowite bez znaku
   - `TYPE_FLOAT` Wartości zmiennoprzecinkowe (domyślnie)
@@ -120,11 +120,11 @@ System materiałów automatycznie przypisze domyślny typ semantyczny na podstaw
   - `mtx_world` - semantic type: `SEMANTIC_TYPE_WORLD_MATRIX`
   - `mtx_normal` - semantic type: `SEMANTIC_TYPE_NORMAL_MATRIX`
 
-Jeśli w materiale masz wpisy dla tych atrybutów, domyślny typ semantyczny zostanie zastąpiony tym, który skonfigurowałeś w *Material Editor*.
+Jeśli w materiale masz wpisy dla tych atrybutów, domyślny typ semantyczny zostanie zastąpiony tym, który skonfigurowałeś w Material Editor.
 
-### Ustawianie własnych danych atrybutu wierzchołka
+### Ustawianie własnych danych atrybutów wierzchołka
 
-Podobnie jak w przypadku stałych shaderów zdefiniowanych przez użytkownika, możesz też aktualizować atrybuty wierzchołków w czasie działania, wywołując `go.get()`, `go.set()` i `go.animate()`:
+Podobnie jak w przypadku stałych shaderów zdefiniowanych przez użytkownika, możesz też aktualizować atrybuty wierzchołków w czasie działania, wywołując go.get(), go.set() i go.animate():
 
 ![Własny atrybut materiału](images/materials/set_custom_attribute.png)
 
@@ -168,7 +168,7 @@ Instancing jest włączane automatycznie, gdy to możliwe. Defold mocno opiera s
 
 Aby skonfigurować atrybut wierzchołka tak, żeby był powtarzany dla każdej instancji, trzeba ustawić `Step function` na `Instance`. Dla niektórych typów semantycznych dzieje się to automatycznie na podstawie nazwy (zobacz tabelę `Default attribute semantics` powyżej), ale można też ustawić to ręcznie w edytorze materiałów, ustawiając `Step function` na `Instance`.
 
-Dla prostego przykładu poniższa scena ma cztery obiekty gry, każdy z komponentem modelu:
+W prostym przykładzie poniższa scena ma cztery obiekty gry, każdy z komponentem modelu:
 
 ![Konfiguracja instancing](images/materials/instancing-setup.png)
 
@@ -176,7 +176,7 @@ Materiał jest skonfigurowany w ten sposób, z jednym własnym atrybutem wierzch
 
 ![Materiał instancing](images/materials/instancing-material.png)
 
-Program shadera wierzchołków ma zdefiniowanych kilka atrybutów per instancja:
+Program shadera wierzchołków ma zdefiniowanych kilka atrybutów per instancję:
 
 ```glsl
 // Atrybuty per wierzchołek
@@ -192,7 +192,7 @@ attribute mediump vec4 instance_color;
 
 Zwróć uwagę, że `mtx_world` i `mtx_normal` będą domyślnie skonfigurowane do używania funkcji kroku `Instance`. Można to zmienić w edytorze materiałów, dodając dla nich wpis i ustawiając `Step function` na `Vertex`, co sprawi, że atrybut będzie powtarzany dla każdego wierzchołka zamiast dla każdej instancji.
 
-Aby sprawdzić, czy instancing działa w tym przypadku, możesz zajrzeć do web profiler. Ponieważ jedyną rzeczą, która różni się między instancjami pudełka, są atrybuty per instancja, całość można wyrenderować jednym wywołaniem rysowania:
+Aby sprawdzić, czy instancing działa w tym przypadku, możesz zajrzeć do web profiler. Ponieważ jedyną rzeczą, która różni się między instancjami pudełka, są atrybuty per instancję, całość można wyrenderować jednym wywołaniem rysowania:
 
 ![Wywołania rysowania instancing](images/materials/instancing-draw-calls.png)
 

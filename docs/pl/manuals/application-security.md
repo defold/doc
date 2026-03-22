@@ -5,7 +5,7 @@ brief: Ten podręcznik omawia kilka obszarów związanych z bezpiecznymi praktyk
 
 # Bezpieczeństwo aplikacji
 
-Bezpieczeństwo aplikacji to szeroki temat, obejmujący zarówno bezpieczne praktyki tworzenia oprogramowania, jak i zabezpieczanie zawartości gry po jej wydaniu. Ten podręcznik omawia kilka obszarów i osadza je w kontekście bezpieczeństwa aplikacji podczas korzystania z silnika, narzędzi i usług Defold:
+Bezpieczeństwo aplikacji to szeroki temat, obejmujący zarówno bezpieczne praktyki tworzenia oprogramowania, jak i zabezpieczanie zawartości gry po jej wydaniu. Ten podręcznik omawia kilka obszarów i umieszcza je w kontekście bezpieczeństwa aplikacji podczas korzystania z silnika Defold, narzędzi i usług:
 
 * Ochrona własności intelektualnej
 * Rozwiązania przeciwdziałające oszustwom
@@ -18,16 +18,16 @@ Bezpieczeństwo aplikacji to szeroki temat, obejmujący zarówno bezpieczne prak
 ## Ochrona własności intelektualnej przed kradzieżą
 Jedną z głównych obaw wielu twórców jest to, jak chronić swoją twórczość przed kradzieżą. Z prawnego punktu widzenia prawa autorskie, patenty i znaki towarowe mogą służyć do ochrony różnych aspektów własności intelektualnej gier wideo. Prawa autorskie dają właścicielowi wyłączne prawo do rozpowszechniania utworu, patenty chronią wynalazki, a znaki towarowe chronią nazwy, symbole i logotypy.
 
-Można też chcieć zastosować techniczne środki ostrożności, aby chronić zawartość gry stanowiącą efekt pracy twórczej. Trzeba jednak pamiętać, że gdy gra trafi już w ręce gracza, da się znaleźć sposoby na wyodrębnienie zasobów. Można to osiągnąć przez inżynierię wsteczną aplikacji i plików gry, ale też przy użyciu narzędzi do wyodrębniania tekstur i modeli w momencie, gdy są wysyłane do GPU albo gdy inne zasoby są ładowane do pamięci.
+Można też chcieć zastosować techniczne środki ostrożności, aby chronić twórczą zawartość gry. Trzeba jednak pamiętać, że gdy gra trafi już w ręce gracza, da się znaleźć sposoby na wyciągnięcie zasobów. Można to osiągnąć przez inżynierię wsteczną aplikacji i plików gry, ale też przy użyciu narzędzi do wyciągania tekstur i modeli w momencie, gdy są wysyłane do GPU albo gdy inne zasoby są ładowane do pamięci.
 
-Z tego powodu zakładamy, że jeśli użytkownicy są zdeterminowani, by wyodrębnić zasoby gry, ostatecznie będą w stanie to zrobić.
+Z tego powodu przyjmujemy, że jeśli użytkownicy są zdeterminowani, by wyciągnąć zasoby gry, ostatecznie będą w stanie to zrobić.
 
-Twórcy mogą dodać własne zabezpieczenia, aby utrudnić wyodrębnienie zasobów, __ale nie uczynić go niemożliwym__. Zwykle obejmuje to różne metody szyfrowania i obfuskacji, które mają chronić i ukrywać zasoby gry.
+Twórcy mogą dodać własne zabezpieczenia, aby utrudnić wyciągnięcie zasobów, __ale nie uczynić tego niemożliwym__. Zwykle obejmuje to różne metody szyfrowania i obfuskacji, które mają chronić i ukrywać zasoby gry.
 
 ### Obfuskacja kodu źródłowego
 Obfuskacja kodu źródłowego to zautomatyzowany proces, w którym kod źródłowy jest celowo przekształcany tak, aby był trudny do zrozumienia dla człowieka, bez wpływu na wynik działania programu. Celem jest zwykle ochrona przed kradzieżą, ale też utrudnienie oszukiwania.
 
-W Defold obfuskację kodu źródłowego można zastosować albo jako krok wykonywany przed budowaniem, albo jako zintegrowaną część procesu budowania. W przypadku obfuskacji wykonywanej przed budowaniem kod źródłowy jest przetwarzany przez narzędzie do obfuskacji, zanim rozpocznie się proces budowania w Defold.
+W Defold obfuskację kodu źródłowego można zastosować albo jako krok wykonywany przed budowaniem, albo jako zintegrowaną część procesu budowania. W przypadku obfuskacji wykonywanej przed budowaniem kod źródłowy jest przetwarzany przez narzędzie do obfuskacji, zanim rozpocznie się sam proces budowania.
 
 Z kolei obfuskacja w czasie budowania jest zintegrowana z procesem budowania za pomocą wtyczki budowania Lua (Lua builder plugin). Taka wtyczka pobiera surowy kod źródłowy i zwraca jego obfuskowaną wersję. Przykład obfuskacji w czasie budowania pokazano w [rozszerzeniu Prometheus](https://github.com/defold/extension-prometheus), opartym na obfuskatorze Lua Prometheus dostępnym na GitHubie. Poniżej znajduje się przykład użycia Prometheus do agresywnej obfuskacji fragmentu kodu (zwróć uwagę, że tak silna obfuskacja wpłynie na wydajność kodu Lua w czasie działania):
 
@@ -47,7 +47,7 @@ local v={"+qdW","ZK0tEKf=";"XP/IX3+="}for o,J in ipairs({{1;3};{1,1},{2,3}})do w
 ```
 
 ### Szyfrowanie zasobów
-W trakcie procesu budowania w Defold zasoby gry są przetwarzane i przekształcane do formatów odpowiednich do użycia przez silnik Defold w czasie działania. Tekstury są kompilowane do formatu Basis Universal, kolekcje, obiekty gry i komponenty są konwertowane z czytelnej dla człowieka postaci tekstowej do binarnych odpowiedników, a kod źródłowy Lua jest przetwarzany i kompilowany do bajtkodu. Inne zasoby, takie jak pliki dźwiękowe, są używane bez zmian.
+Podczas budowania w Defold zasoby gry są przetwarzane i zamieniane na formaty odpowiednie do użycia przez silnik w czasie działania. Tekstury są kompilowane do formatu Basis Universal, kolekcje, obiekty gry i komponenty są konwertowane z czytelnej dla człowieka postaci tekstowej do binarnych odpowiedników, a kod źródłowy Lua jest przetwarzany i kompilowany do bajtkodu. Inne zasoby, takie jak pliki dźwiękowe, są używane bez zmian.
 
 Po zakończeniu tego procesu zasoby są dodawane do archiwum gry, jeden po drugim. Archiwum gry to duży plik binarny, a położenie każdego zasobu w archiwum jest zapisywane w pliku indeksu archiwum. Format opisano [tutaj](https://github.com/defold/defold/blob/dev/engine/docs/ARCHIVE_FORMAT.md).
 
@@ -57,20 +57,20 @@ Można dodać własne szyfrowanie do plików źródłowych Lua, implementując w
 
 
 ### Kodowanie wartości konfiguracji projektu
-Plik *game.project* zostanie dołączony bez zmian do pakietu aplikacji. Czasami możesz chcieć przechowywać publiczne klucze dostępu do API lub podobne wartości, które są wrażliwe, choć niekoniecznie poufne. Aby zwiększyć bezpieczeństwo takich wartości, można umieścić je w pliku binarnym aplikacji zamiast w *game.project*, a mimo to nadal mieć do nich dostęp za pomocą funkcji API Defold, takich jak `sys.get_config_string()` i podobnych. Można to zrobić, dodając natywne rozszerzenie w *game.project* i używając makra `DM_DECLARE_CONFIGFILE_EXTENSION`, aby dostarczyć własne nadpisania mechanizmu pobierania wartości konfiguracji używanego przez funkcje API Defold. Przykładowy projekt, który może służyć jako punkt wyjścia, jest [dostępny na GitHubie](https://github.com/defold/example-configfile-extension/tree/master).
+Plik *game.project* zostanie dołączony bez zmian do pakietu aplikacji. Czasami możesz chcieć przechowywać publiczne klucze API lub podobne wartości, które są wrażliwe, choć niekoniecznie poufne. Aby zwiększyć bezpieczeństwo takich wartości, można umieścić je w binarnym pliku aplikacji zamiast w *game.project*, a mimo to nadal mieć do nich dostęp za pomocą funkcji API Defold, takich jak `sys.get_config_string()` i podobnych. Można to zrobić, dodając natywne rozszerzenie w *game.project* i używając makra `DM_DECLARE_CONFIGFILE_EXTENSION`, aby dostarczyć własny sposób pobierania wartości konfiguracji przez funkcje API Defold. Przykładowy projekt, który może służyć jako punkt wyjścia, jest [dostępny na GitHubie](https://github.com/defold/example-configfile-extension/tree/master).
 
 
 ## Ochrona gry przed oszustami
-Oszukiwanie w grach wideo istnieje tak długo, jak sama branża gier. Kody do cheatów były kiedyś drukowane w popularnych magazynach o grach wideo, a do wczesnych komputerów domowych sprzedawano specjalne kartridże z cheatami. Wraz z rozwojem branży i samych gier ewoluowali także oszuści i ich metody. Do najpopularniejszych mechanizmów oszukiwania w grach należą:
+Oszukiwanie w grach wideo istnieje tak długo, jak sama branża gier. Kody cheatowe były kiedyś drukowane w popularnych magazynach o grach wideo, a do wczesnych komputerów domowych sprzedawano specjalne kartridże z cheatami. Wraz z rozwojem branży i samych gier ewoluowali także oszuści i ich metody. Do najpopularniejszych mechanizmów oszukiwania w grach należą:
 
 * przepakowywanie zawartości gry w celu wstrzyknięcia własnej logiki
 * speed hacki, które przyspieszają lub spowalniają grę względem normalnego tempa
 * automatyzacja i analiza obrazu do automatycznego celowania oraz botów
-* wstrzykiwanie kodu i pamięci w celu modyfikowania wyników, żyć, amunicji itd.
+* wstrzykiwanie kodu i manipulowanie pamięcią w celu modyfikowania wyników, żyć, amunicji itd.
 
-Ochrona przed oszustami jest trudna, wręcz graniczy z niemożliwością. Nawet granie w chmurze, w którym gry są uruchamiane na zdalnych serwerach i strumieniowane bezpośrednio na urządzenie użytkownika, nie jest całkowicie wolne od oszustów.
+Ochrona przed oszustami jest trudna i niemal niemożliwa. Nawet granie w chmurze, w którym gry są uruchamiane na zdalnych serwerach i strumieniowane bezpośrednio na urządzenie użytkownika, nie jest całkowicie wolne od oszustów.
 
-Defold nie oferuje w silniku ani w narzędziach żadnych rozwiązań anti-cheat; takie kwestie pozostawia firmom specjalizującym się w dostarczaniu rozwiązań anti-cheat dla gier.
+Defold nie oferuje w silniku ani w narzędziach żadnych rozwiązań anti-cheat i zamiast tego pozostawia taką pracę firmom specjalizującym się w dostarczaniu rozwiązań anti-cheat dla gier.
 
 
 ## Bezpieczna komunikacja sieciowa
@@ -85,15 +85,15 @@ Choć do stworzenia gry nie trzeba używać bibliotek firm trzecich ani natywnyc
 
 Żaden zasób z Asset Portal nie został zweryfikowany przez Defold Foundation. Fundacja nie ponosi odpowiedzialności za szkody w systemie komputerowym lub innym urządzeniu ani za utratę danych wynikające z użycia zasobów pozyskanych za pośrednictwem Asset Portal. Szczegóły znajdziesz w naszych [Warunkach i zasadach](https://defold.com/terms-and-conditions/#3-no-warranties).
 
-Zalecamy, aby przed użyciem przejrzeć każdy zasób, a gdy uznasz go za odpowiedni do projektu, utworzyć jego fork lub kopię, aby mieć pewność, że nie zmieni się bez Twojej wiedzy.
+Zalecamy, aby przed użyciem sprawdzić każdy zasób, a gdy uznasz go za odpowiedni do projektu, utworzyć jego fork lub kopię, aby mieć pewność, że nie zmieni się bez Twojej wiedzy.
 
 
 ## Bezpieczne korzystanie z chmurowych serwerów budowania
-Chmurowe serwery budowania Defold (czyli serwery Extender) zostały stworzone po to, by pomóc twórcom dodawać nową funkcjonalność do silnika Defold bez konieczności przebudowy samego silnika. Gdy projekt Defold zawierający kod natywny jest budowany po raz pierwszy, kod natywny i wszelkie powiązane zasoby są wysyłane do chmurowych serwerów budowania, gdzie tworzona jest niestandardowa wersja silnika Defold, a następnie odsyłana do twórcy. Ten sam proces stosuje się, gdy projekt jest budowany z użyciem własnego manifestu aplikacji (application manifest), aby usunąć z silnika niewykorzystywane komponenty.
+Chmurowe serwery budowania Defold (czyli serwery Extender) zostały stworzone po to, by pomóc twórcom dodawać nową funkcjonalność do silnika Defold bez konieczności przebudowy samego silnika. Gdy projekt Defold zawierający kod natywny jest budowany po raz pierwszy, kod natywny i wszelkie powiązane zasoby są wysyłane do chmurowych serwerów budowania, gdzie tworzona jest niestandardowa wersja silnika Defold, a następnie odsyłana do twórcy. Ten sam proces stosuje się, gdy projekt jest budowany z użyciem własnego manifestu aplikacji, aby usunąć niewykorzystywane komponenty z silnika.
 
-Chmurowe serwery budowania są hostowane w AWS i zaprojektowane zgodnie z najlepszymi praktykami bezpieczeństwa. Defold Foundation nie gwarantuje jednak, że spełnią Twoje wymagania, będą wolne od wad i wirusów, bezpieczne lub pozbawione błędów ani że korzystanie z nich będzie nieprzerwane lub bezpieczne. Szczegóły znajdziesz w naszych [Warunkach i zasadach](https://defold.com/terms-and-conditions/#3-no-warranties).
+Chmurowe serwery budowania są hostowane w AWS i tworzone zgodnie z najlepszymi praktykami bezpieczeństwa. Defold Foundation nie gwarantuje jednak, że spełnią Twoje wymagania, będą wolne od wad, wolne od wirusów, bezpieczne, bezbłędne ani że korzystanie z nich będzie nieprzerwane lub bezpieczne. Szczegóły znajdziesz w naszych [Warunkach i zasadach](https://defold.com/terms-and-conditions/#3-no-warranties).
 
-Jeśli martwisz się o bezpieczeństwo i dostępność serwerów budowania, zalecamy skonfigurowanie własnych prywatnych serwerów budowania. Instrukcje dotyczące konfiguracji własnego serwera znajdziesz w [głównym pliku README](https://github.com/defold/extender) repozytorium `extender` na GitHubie.
+Jeśli martwisz się o bezpieczeństwo i dostępność serwerów budowania, zalecamy skonfigurowanie własnych prywatnych serwerów budowania. Instrukcje dotyczące konfiguracji własnego serwera znajdziesz w [głównym pliku README](https://github.com/defold/extender) repozytorium extender na GitHubie.
 
 
 ## Zabezpieczanie zawartości do pobrania

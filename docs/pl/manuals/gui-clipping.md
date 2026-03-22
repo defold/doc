@@ -1,75 +1,75 @@
 ---
-title: Wycinanie GUI w Defoldzie
-brief: Ta instrukcja wyjaśnia jak działa przycinanie i maskowanie GUI w Defoldzie
+title: Instrukcja wycinania GUI
+brief: Ta instrukcja opisuje, jak tworzyć węzły GUI maskujące inne węzły za pomocą wycinania stencil.
 ---
 
-# Wycinanie GUI
+# Wycinanie
 
-Węzły GUI można wykorzystać jako węzły wycinające (*clipping* nodes) - maski kontrolujące, jak renderowane są inne węzły. Ta instrukcja wyjaśnia, jak działa ta funkcjonalność.
+Węzły GUI można wykorzystać jako węzły *clipping* - maski kontrolujące sposób renderowania innych węzłów. Ta instrukcja wyjaśnia, jak działa ta funkcjonalność.
 
 ## Tworzenie węzła wycinającego
 
-Węzły typu Box, Text i Pie można wykorzystać jako węzły wycinające. Aby utworzyć węzeł wycinający, dodaj węzeł do swojego GUI, a następnie ustaw jego właściwości odpowiednio:
+Węzły Box, Text i Pie można wykorzystać do wycinania. Aby utworzyć węzeł wycinający, dodaj węzeł w GUI, a następnie ustaw jego właściwości:
 
 Clipping Mode
 : Tryb używany do wycinania.
 
-  - `None` renderuje węzeł bez jakiegokolwiek wycinania.
-  - `Stencil` - maska - sprawia, że węzeł zapisuje bieżącą maskę wycięcia.
+  - `None` renderuje węzeł bez wycinania.
+  - `Stencil` sprawia, że węzeł zapisuje do bieżącej maski stencil.
 
 Clipping Visible
 : Zaznacz, aby renderować zawartość węzła.
 
 Clipping Inverted
-: Zaznacz, aby zapisać odwrócenie kształtu węzła w masce.
+: Zaznacz, aby zapisać odwróconą wersję kształtu węzła w masce.
 
-Następnie dodaj węzeł lub węzły, które chcesz wyciąć jako dzieci węzła wycinającego.
+Następnie dodaj węzeł lub węzły, które chcesz wycinać, jako dzieci węzła wycinającego.
 
-![Create clipping](images/gui-clipping/create.png)
+![Utworzenie wycinania](images/gui-clipping/create.png)
 
-## Maska wycinająca
+## Maska stencil
 
-Wycinanie działa poprzez zapisywanie węzłów do bufora wycinania (*stencil buffer*). Ten bufor zawiera maski wycinania: informacje, które mówią karcie graficznej, czy dany piksel powinien być renderowany, czy nie.
+Wycinanie działa przez zapisywanie przez węzły do *stencil buffer*. Ten bufor zawiera maski wycinania, czyli informacje mówiące karcie graficznej, czy dany piksel ma zostać wyrenderowany.
 
-- Węzeł bez rodzica wycinającego, ale z ustawionym trybem wycinania `Stencil`, zapisuje swój kształt (lub odwrotny kształt) do nowej maski wycinania przechowywanej w buforze wycinania.
-- Jeśli węzeł wycinający ma rodzica wycinającego, zamiast tego przycinany jest kształt maski wycinania rodzica. Węzeł dziecka wycinającego nie może _rozszerzać_ bieżącej maski wycinania, tylko ją dalej przycina.
-- Węzły, które nie są węzłami wycinającymi i są dziećmi węzłów wycinających, zostaną wyrenderowane z maską wycinania stworzoną przez hierarchię rodzica.
+- Węzeł bez rodzica wycinającego, ale z ustawionym trybem wycinania `Stencil`, zapisuje swój kształt (lub jego odwróconą wersję) do nowej maski wycinania przechowywanej w buforze stencil.
+- Jeśli węzeł wycinający ma rodzica wycinającego, zamiast tego przycinana jest maska wycinania rodzica. Węzeł podrzędny wycinający nie może _rozszerzyć_ bieżącej maski wycinania, może ją tylko dalej przycinać.
+- Węzły, które nie są węzłami wycinającymi i są dziećmi węzłów wycinających, zostaną wyrenderowane z maską wycinania utworzoną przez hierarchię rodziców.
 
-![Clipping hierarchy](images/gui-clipping/setup.png)
+![Hierarchia wycinania](images/gui-clipping/setup.png)
 
-W tym przykładzie utworzono trzy węzły w hierarchii:
+W tej hierarchii skonfigurowano trzy węzły:
 
-- Kształty szesciokąta i kwadratu to węzły przycinające stencil.
-- Sześciokąt tworzy nową maskę wycinania, a kwadrat ją dodatkowo przycina.
-- Węzeł koła to zwykły węzeł typu pie, więc zostanie wyrenderowany z maską wycinania utworzoną przez węzły nadrzędne.
+- Kształty sześciokąta i kwadratu są węzłami wycinającymi stencil.
+- Sześciokąt tworzy nową maskę wycinania, a kwadrat przycina ją dalej.
+- Węzeł koła jest zwykłym węzłem Pie, więc zostanie wyrenderowany z maską wycinania utworzoną przez nadrzędne węzły wycinające.
 
-Dla tej hierarchii możliwe są cztery kombinacje normalnych i odwróconych wycinaczy. Obszar zielony oznacza część koła, która jest renderowana. Reszta jest przycinana:
+W tej hierarchii możliwe są cztery kombinacje zwykłych i odwróconych węzłów wycinających. Zielony obszar oznacza część koła, która jest renderowana. Reszta jest maskowana:
 
-![Stencil masks](images/gui-clipping/modes.png)
+![Maski stencil](images/gui-clipping/modes.png)
 
-## Ograniczenia maski wycinania
+## Ograniczenia stencil
 
-- Całkowita liczba wycinaczy maski nie może przekroczyć 256.
-- Maksymalna głębokość zagnieżdżenia węzłów dzieci o typie _stencil_ wynosi 8 poziomów (tylko węzły z wycinaniem typu stencil się w to wliczają).
-- Maksymalna liczba rodzeństwa węzłów maski wynosi 127. Dla każdego poziomu w dół hierarchii maski wycinania maksymalne ograniczenie jest dzielone na pół.
-- Węzły odwrócone są droższe. Istnieje limit 8 węzłów wycinania z odwróceniem, a każdy z nich zmniejszy maksymalną liczbę węzłów wycinania bez odwracania na pół.
-- Wycinacze renderują maskę wycinania z _geometrii_ węzła (nie tekstury). Możliwe jest odwrócenie maski, ustawiając właściwość *Inverted clipper*.
+- Całkowita liczba węzłów wycinających stencil nie może przekroczyć 256.
+- Maksymalna głębokość zagnieżdżenia węzłów podrzędnych typu _stencil_ wynosi 8 poziomów. (Liczą się tylko węzły z wycinaniem stencil.)
+- Maksymalna liczba węzłów rodzeństwa typu stencil wynosi 127. Na każdym kolejnym poziomie hierarchii stencil limit jest dzielony na pół.
+- Węzły odwrócone są droższe. Istnieje limit 8 odwróconych węzłów wycinających, a każdy z nich zmniejsza o połowę maksymalną liczbę niewywróconych węzłów wycinających.
+- Węzły stencil renderują maskę stencil z _geometrii_ węzła, a nie z tekstury. Maskę można odwrócić, ustawiając właściwość *Inverted clipper*.
 
 ## Warstwy
 
-Warstwy można wykorzystać do kontrolowania kolejności renderowania (i grupowania) węzłów. Podczas korzystania z warstw i węzłów wycinających standardowa kolejność warstw jest nadpisywana. Kolejność warstw zawsze ma pierwszeństwo przed kolejnością wycinania - jeśli przypisanie warstw jest łączone z węzłami wycinającymi, wycinanie może odbywać się poza kolejnością, jeśli węzeł nadrzędny z wycinaniem jest przypisany do wyższej warstwy niż jego dzieci. Dzieci bez przypisanej warstwy nadal będą przestrzegać hierarchii i zostaną narysowane i przycięte po rodzicu.
+Warstwy można wykorzystać do kontrolowania kolejności renderowania i grupowania węzłów. Podczas używania warstw i węzłów wycinających zwykła kolejność warstw zostaje nadpisana. Kolejność warstw zawsze ma pierwszeństwo przed kolejnością wycinania - jeśli przypisanie warstw zostanie połączone z węzłami wycinającymi, wycinanie może nastąpić poza kolejnością, gdy węzeł nadrzędny z włączonym wycinaniem należy do wyższej warstwy niż jego dzieci. Dzieci bez przypisanej warstwy nadal będą respektować hierarchię i zostaną narysowane oraz przycięte po rodzicu.
 
 ::: sidenote
-Węzeł wycinania i jego hierarchia zostaną narysowane jako pierwsze, jeśli mają przypisaną warstwę, a w zwykłej kolejności, jeśli nie mają przypisanej warstwy.
+Węzeł wycinający i jego hierarchia zostaną narysowane jako pierwsze, jeśli mają przypisaną warstwę, a w zwykłej kolejności, jeśli warstwa nie jest przypisana.
 :::
 
-![Layers and clipping](images/gui-clipping/layers.png)
+![Warstwy i wycinanie](images/gui-clipping/layers.png)
 
-W tym przykładzie zarówno węzły wycinające "Donut BG" i "BG" korzystają z tej samej warstwy 1. Kolejność renderowania między nimi będzie zgodna z kolejnością w hierarchii, gdzie "Donut BG" zostanie narysowane przed "BG". Jednak węzeł dziecka "Donut Shadow" jest przypisany do warstwy 2, która ma wyższy porządek warstw i zostanie narysowany po obu węzłach wycinających. W tym przypadku kolejność renderowania będzie następująca:
+W tym przykładzie oba węzły wycinające "`Donut BG`" i "`BG`" korzystają z tej samej warstwy 1. Kolejność renderowania między nimi będzie zgodna z kolejnością w hierarchii, w której "`Donut BG`" jest renderowany przed "`BG`". Jednak węzeł podrzędny "`Donut Shadow`" ma przypisaną warstwę 2, która ma wyższy priorytet, więc zostanie wyrenderowany po obu węzłach wycinających. W takim przypadku kolejność renderowania będzie następująca:
 
-- Donut BG
-- BG
-- BG Frame
-- Donut Shadow
+- `Donut BG`
+- `BG`
+- `BG Frame`
+- `Donut Shadow`
 
-Widzisz, że obiekt "Donut Shadow" zostanie przycięty przez oba węzły wycinające ze względu na warstwę, chociaż jest tylko dzieckiem jednego z nich.
+Widać tu, że obiekt `Donut Shadow` zostanie przycięty przez oba węzły wycinające z powodu warstw, mimo że jest dzieckiem tylko jednego z nich.

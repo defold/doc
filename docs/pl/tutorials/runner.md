@@ -82,14 +82,14 @@ Czarny ekran może nie wyglądać zbyt ekscytująco, ale to działająca aplikac
 ::: sidenote
 Edytor Defold pracuje na plikach. Dwukrotne kliknięcie pliku w *Assets pane* otwiera go w odpowiednim edytorze. Następnie możesz pracować z zawartością tego pliku.
 
-Gdy skończysz edycję pliku, musisz go zapisać. Wybierz <kbd>File ▸ Save</kbd> z głównego menu. Edytor daje podpowiedź, dodając gwiazdkę `'*'` do nazwy pliku na karcie każdego pliku, który zawiera niezapisane zmiany.
+Gdy skończysz edycję pliku, musisz go zapisać. Wybierz <kbd>File ▸ Save</kbd> z głównego menu. Edytor daje podpowiedź, dodając gwiazdkę '*' do nazwy pliku na karcie każdego pliku, który zawiera niezapisane zmiany.
 
 ![Plik z niezapisanymi zmianami](images/runner/1/file_changed.png)
 :::
 
 ## Konfiguracja projektu
 
-Zanim zaczniemy, ustawmy kilka parametrów naszego projektu. Otwórz zasób *game.project* z panelu *Assets pane* i przewiń do sekcji Display. Ustaw `width` i `height` projektu odpowiednio na `1280` i `720`.
+Zanim zaczniemy, ustawmy kilka parametrów naszego projektu. Otwórz zasób *game.project* z panelu `Assets Pane` i przewiń do sekcji Display. Ustaw `width` i `height` projektu odpowiednio na `1280` i `720`.
 
 Musisz też dodać do projektu rozszerzenie Spine, abyśmy mogli animować postać bohatera. Dodaj wersję rozszerzenia Spine zgodną z wersją edytora Defold, którą masz zainstalowaną. Dostępne wersje Spine możesz zobaczyć tutaj:
 
@@ -421,7 +421,7 @@ Jak mogłeś już zauważyć, hierarchia plików widoczna w *Assets pane* jest o
 Jeśli chcesz przenieść plik w nowe miejsce, Defold pomaga automatycznie aktualizując odwołania do pliku (refaktoryzacja). Podczas tworzenia złożonego oprogramowania, takiego jak gra, możliwość zmieniania struktury projektu wraz z jego wzrostem i zmianami jest niezwykle pomocna. Defold zachęca do tego i sprawia, że proces przebiega płynnie, więc nie bój się przestawiać plików!
 :::
 
-Powinniśmy też dodać obiekt gry `controller` z komponentem skryptu do kolekcji poziomu:
+Powinniśmy też dodać obiekt gry controller z komponentem skryptu do kolekcji poziomu:
 
 1. Utwórz nowy plik skryptu. Kliknij prawym przyciskiem folder *level* w *Assets pane* i wybierz <kbd>New ▸ Script File</kbd>. Nazwij plik *controller.script*.
 2. Otwórz plik skryptu, skopiuj do niego poniższy kod i zapisz plik:
@@ -495,7 +495,8 @@ Aby trochę urozmaicić życie w naszym świecie gry, powinniśmy dodać platfor
 1. Przeciągnij plik obrazu *rock_planks.png* z paczki zasobów do podfolderu *level/images*.
 2. Otwórz *level.atlas* i dodaj nowy obraz do atlasu (kliknij prawym przyciskiem korzeń w *Outline* i wybierz <kbd>Add Images</kbd>).
 3. Zapisz plik.
-4. Utwórz nowy plik *Game Object* o nazwie *platform.go* w folderze *level*. (Kliknij prawym przyciskiem *level* w *Assets pane*, a następnie wybierz <kbd>New ▸ Game Object File</kbd>)
+4. Utwórz nowy plik *Game Object* o nazwie *platform.go* w folderze *level*. (Kliknij prawym przyciskiem *level*
+ w *Assets pane* i wybierz <kbd>New ▸ Game Object File</kbd>)
 5. Dodaj komponent *Sprite* do obiektu gry (kliknij prawym przyciskiem korzeń w widoku *Outline* i wybierz <kbd>Add Component</kbd>, a następnie *Sprite*).
 6. Ustaw właściwość *Image* tak, aby wskazywała plik *level.atlas*, i ustaw *Default Animation* na "rock_planks". Dla wygody trzymaj obiekty poziomu w podfolderze "level/objects".
 7. Dodaj komponent *Collision Object* do obiektu gry platformy (kliknij prawym przyciskiem korzeń w widoku *Outline* i wybierz <kbd>Add Component</kbd>).
@@ -584,8 +585,8 @@ function update(self, dt) -- <2>
     end
 end
 ```
-1. Wstępnie zdefiniowane wartości położenia Y, na których będą tworzone platformy.
-2. Funkcja `update()` jest wywoływana raz na klatkę i używamy jej do decydowania, czy utworzyć zwykłą czy długą platformę w określonych odstępach czasu i na określonych wysokościach, aby uniknąć nakładania się obiektów. Łatwo można eksperymentować z różnymi algorytmami tworzenia, aby uzyskać różne sposoby rozgrywki.
+1- Wstępnie zdefiniowane wartości położenia Y, na których będą tworzone platformy.
+2- Funkcja `update()` jest wywoływana raz na klatkę i używamy jej do decydowania, czy utworzyć zwykłą czy długą platformę w określonych odstępach czasu i na określonych wysokościach, aby uniknąć nakładania się obiektów. Łatwo można eksperymentować z różnymi algorytmami tworzenia, aby uzyskać różne sposoby rozgrywki.
 
 Teraz uruchom grę (<kbd>Project ▸ Build</kbd>).
 
@@ -637,7 +638,7 @@ Pierwszą rzeczą, którą zrobimy, jest tchnienie życia w bohatera. W tej chwi
 ![Wstaw kod bohatera](images/runner/insert_hero_code.png)
 
 ::: sidenote
-Lua ma dla zmiennych lokalnych "zakres leksykalny" i jest wrażliwa na kolejność, w jakiej umieszczasz lokalne funkcje. Funkcja `update()` wywołuje lokalne funkcje `update_animation()` i `play_animation()`, co oznacza, że runtime musi już znać te lokalne funkcje, aby móc je wywołać. Dlatego musimy umieścić je przed `update()`. Jeśli zmienisz kolejność funkcji, otrzymasz błąd. Zwróć uwagę, że dotyczy to tylko zmiennych `local`. Więcej o regułach zakresu w Lua i lokalnych funkcjach przeczytasz na http://www.lua.org/pil/6.2.html
+Lua ma dla zmiennych `local` "zakres leksykalny" i jest wrażliwa na kolejność, w jakiej umieszczasz lokalne funkcje. Funkcja `update()` wywołuje lokalne funkcje `update_animation()` i `play_animation()`, co oznacza, że runtime musi już znać te lokalne funkcje, aby móc je wywołać. Dlatego musimy umieścić je przed `update()`. Jeśli zmienisz kolejność funkcji, otrzymasz błąd. Zwróć uwagę, że dotyczy to tylko zmiennych `local`. Więcej o regułach zakresu w Lua i lokalnych funkcjach przeczytasz na http://www.lua.org/pil/6.2.html
 :::
 
 To wszystko, czego potrzeba, aby dodać do bohatera animacje skoku i upadku. Jeśli uruchomisz grę, zauważysz, że gra się od razu przyjemniej. Możesz też zauważyć, że platformy niestety potrafią zepchnąć bohatera poza ekran. To efekt uboczny obsługi kolizji, ale rozwiązanie jest proste: dodajmy trochę przemocy i sprawmy, by krawędzie platform były niebezpieczne!
@@ -808,7 +809,8 @@ Pomysł jest taki, aby umieszczać w poziomie monety do zebrania przez gracza. P
 2. Otwórz *level.atlas* i dodaj obraz (kliknij prawym przyciskiem i wybierz <kbd>Add Images</kbd>).
 3. Utwórz plik *Game Object* o nazwie *coin.go* w folderze *level* (kliknij prawym przyciskiem *level* w *Assets pane* i wybierz <kbd>New ▸ Game Object File</kbd>).
 4. Otwórz *coin.go* i dodaj komponent *Sprite* (kliknij prawym przyciskiem i wybierz <kbd>Add Component</kbd> w *Outline*). Ustaw *Image* na *level.atlas* i *Default Animation* na "coin".
-5. Dodaj *Collision Object* (kliknij prawym przyciskiem w *Outline* i wybierz <kbd>Add Component</kbd>) i dodaj *Sphere* shape obejmujący obraz (kliknij prawym przyciskiem komponent i wybierz <kbd>Add Shape</kbd>).
+5. Dodaj *Collision Object* (kliknij prawym przyciskiem w *Outline* i wybierz <kbd>Add Component</kbd>)
+ i dodaj *Sphere* shape obejmujący obraz (kliknij prawym przyciskiem komponent i wybierz <kbd>Add Shape</kbd>).
 6. Użyj *Move Tool* (<kbd>Scene ▸ Move Tool</kbd>) i *Scale Tool*, aby kula obejmowała obraz monety.
 7. Ustaw *Type* obiektu kolizji na "Kinematic", *Group* na "pickup", a *Mask* na "hero".
 8. Otwórz *hero.go* i dodaj "pickup" do właściwości *Mask* komponentu *Collision Object*, a następnie zapisz plik.
