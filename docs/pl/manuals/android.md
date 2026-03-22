@@ -61,7 +61,7 @@ Naciśnij <kbd>Create Bundle</kbd>, gdy skonfigurujesz ustawienia pakietu aplika
 
 #### Instalowanie APK
 
-Plik *`.apk`* można skopiować na urządzenie za pomocą narzędzia `adb` albo przesłać do Google Play przez [Google Play developer console](https://play.google.com/apps/publish/).
+Plik *`.apk`* można skopiować na urządzenie za pomocą narzędzia `adb` albo przesłać do Google Play przez [konsolę deweloperską Google Play](https://play.google.com/apps/publish/).
 
 :[Android ADB](../shared/android-adb.md)
 
@@ -74,28 +74,28 @@ Success
 
 #### Instalowanie APK z poziomu edytora
 
-Plik *`.apk`* możesz zainstalować i uruchomić za pomocą pól wyboru edytora "Install on connected device" i "Launch installed app" w oknie Bundle:
+Plik *`.apk`* możesz zainstalować i uruchomić za pomocą pól wyboru edytora <kbd>Install on connected device</kbd> i <kbd>Launch installed app</kbd> w oknie <kbd>Bundle</kbd>:
 
-![Install and Launch APK](images/android/install_and_launch.png)
+![instalowanie i uruchamianie APK](images/android/install_and_launch.png)
 
-Aby ta funkcja działała, musisz mieć zainstalowany ADB oraz włączone *USB debugging* na podłączonym urządzeniu. Jeśli edytor nie potrafi wykryć lokalizacji narzędzia wiersza poleceń ADB, musisz ją wskazać w [Preferences](/manuals/editor-preferences/#tools).
+Aby ta funkcja działała, musisz mieć zainstalowany ADB oraz włączone <kbd>USB debugging</kbd> na podłączonym urządzeniu. Jeśli edytor nie potrafi wykryć lokalizacji narzędzia wiersza poleceń ADB, musisz ją wskazać w [preferencjach edytora](/manuals/editor-preferences/#tools).
 
 #### Instalowanie AAB
 
-Plik *.aab* można przesłać do Google Play przez [Google Play developer console](https://play.google.com/apps/publish/). Można też wygenerować plik *`.apk`* z pliku *.aab*, aby zainstalować go lokalnie za pomocą [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
+Plik *.aab* można przesłać do Google Play przez [konsolę deweloperską Google Play](https://play.google.com/apps/publish/). Można też wygenerować plik *`.apk`* z pliku *.aab*, aby zainstalować go lokalnie za pomocą [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
 ## Uprawnienia
 
 Silnik Defold wymaga szeregu różnych uprawnień, aby działały wszystkie jego funkcje. Uprawnienia są definiowane w pliku `AndroidManifest.xml`, wskazanym w pliku *game.project* [plik ustawień projektu](/manuals/project-settings/#android). Więcej o uprawnieniach Androida można przeczytać w [oficjalnej dokumentacji](https://developer.android.com/guide/topics/permissions/overview). W domyślnym manifeście są wymagane następujące uprawnienia:
 
 ### android.permission.INTERNET i android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
-Pozwalają aplikacjom otwierać gniazda sieciowe i uzyskiwać informacje o sieciach. Te uprawnienia są potrzebne do korzystania z Internetu. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) oraz ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+Pozwalają aplikacjom otwierać gniazda sieciowe i uzyskiwać informacje o sieciach. Te uprawnienia są potrzebne do korzystania z Internetu. ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) oraz ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
 ### android.permission.WAKE_LOCK (Protection level: normal)
-Pozwala używać PowerManager WakeLocks, aby zapobiec usypianiu procesora lub wygaszaniu ekranu. To uprawnienie jest potrzebne do tymczasowego powstrzymania urządzenia przed przejściem w stan uśpienia podczas odbierania powiadomienia push. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
+Pozwala używać PowerManager WakeLocks, aby zapobiec usypianiu procesora lub wygaszaniu ekranu. To uprawnienie jest potrzebne do tymczasowego powstrzymania urządzenia przed przejściem w stan uśpienia podczas odbierania powiadomienia push. ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
-## Using AndroidX
-AndroidX to duże ulepszenie oryginalnej Android Support Library, która nie jest już rozwijana. Pakiety AndroidX całkowicie zastępują Support Library, zapewniając pełną zgodność funkcji i nowe biblioteki. Większość rozszerzeń Androida w [Asset Portal](/assets) obsługuje AndroidX. Jeśli nie chcesz używać AndroidX, możesz je jawnie wyłączyć na rzecz starej Android Support Library, zaznaczając `Use Android Support Lib` w [application manifest](https://defold.com/manuals/app-manifest/).
+## Korzystanie z AndroidX
+AndroidX to duże ulepszenie oryginalnej Android Support Library, która nie jest już rozwijana. Pakiety AndroidX całkowicie zastępują Support Library, zapewniając pełną zgodność funkcji i nowe biblioteki. Większość rozszerzeń Androida w [Portalu zasobów (Asset Portal)](/assets) obsługuje AndroidX. Jeśli nie chcesz używać AndroidX, możesz je jawnie wyłączyć na rzecz starej Android Support Library, zaznaczając `Use Android Support Lib` w [manifeście aplikacji](https://defold.com/manuals/app-manifest/).
 
 ![](images/android/enable_supportlibrary.png)
 

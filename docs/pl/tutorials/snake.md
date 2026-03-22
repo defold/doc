@@ -3,7 +3,7 @@ title: Budowanie gry Snake w Defold
 brief: Jeśli dopiero zaczynasz pracę z Defold, ten przewodnik pomoże ci wejść w logikę skryptów i poznać kilka podstawowych elementów Defold.
 ---
 
-# Snake
+# Gra Snake
 
 Ten samouczek przeprowadzi cię przez proces tworzenia jednej z najpopularniejszych klasycznych gier, którą możesz spróbować odtworzyć. Istnieje wiele wariantów tej gry, a ta wersja zawiera węża, który zjada „jedzenie” i rośnie tylko wtedy, gdy coś zje. Wąż pełza też po planszy gry, na której znajdują się przeszkody.
 
@@ -20,13 +20,13 @@ Otwórz plik ustawień *game.project* i ustaw wymiary gry na 768⨉768 albo na i
 
 ## Dodawanie grafiki do gry
 
-Do warstwy wizualnej potrzeba naprawdę niewiele. Jeden segment 16x16 dla węża, jeden dla przeszkód i jeden dla jedzenia. Ten obrazek to jedyny zasób, którego potrzebujesz. <kbd>Right click</kbd> obrazek, zapisz go na lokalnym dysku i przeciągnij do lokalizacji w folderze projektu.
+Do warstwy wizualnej potrzeba naprawdę niewiele. Jeden segment 16x16 dla węża, jeden dla przeszkód i jeden dla jedzenia. Ten obrazek to jedyny zasób, którego potrzebujesz. Kliknij obrazek prawym przyciskiem myszy, zapisz go na lokalnym dysku i przeciągnij do wybranego miejsca w folderze projektu.
 
 ![sprite'y węża](images/snake/snake.png)
 
 Defold ma wbudowany komponent *Tilemap* (mapa kafelków), którego użyjesz do utworzenia planszy gry. Mapa kafelków pozwala ustawiać i odczytywać pojedyncze kafelki, więc ten projekt pasuje do niej idealnie. Ponieważ mapa kafelków pobiera grafiki z *Tilesource* (źródła kafelków), musisz takie źródło utworzyć:
 
-<kbd>Right click</kbd> folder *main* i wybierz <kbd>New ▸ Tile Source</kbd>. Nazwij nowy plik "snake" (edytor zapisze plik jako "snake.tilesource").
+Kliknij prawym przyciskiem myszy folder *main* i wybierz <kbd>New ▸ Tile Source</kbd>. Nazwij nowy plik "snake" (edytor zapisze plik jako "snake.tilesource").
 
 Ustaw właściwość *Image* na plik grafiki, który właśnie zaimportowałeś.
 
@@ -40,9 +40,9 @@ Zwróć uwagę, że właściwość *Extrude Borders* ma ustawioną wartość 1 p
 
 Teraz masz już gotowe źródło kafelków, więc czas utworzyć komponent mapy kafelków planszy:
 
-<kbd>Right click</kbd> folder *main* i wybierz <kbd>New ▸ Tile Map</kbd>. Nazwij nowy plik "grid" (edytor zapisze plik jako "grid.tilemap").
+Kliknij prawym przyciskiem myszy folder *main* i wybierz <kbd>New ▸ Tile Map</kbd>. Nazwij nowy plik "grid" (edytor zapisze plik jako "grid.tilemap").
 
-![Set tilesource](images/snake/set_tilesource.png)
+![ustawianie właściwości Tile Source](images/snake/set_tilesource.png)
 
 Ustaw właściwość *Tile Source* nowej mapy kafelków na "snake.tilesource".
 
@@ -54,27 +54,27 @@ Wybierz opcję menu <kbd>Edit ▸ Select Tile...</kbd>, aby wyświetlić paletę
 
 Namaluj obramowanie wokół krawędzi ekranu i kilka przeszkód.
 
-![tilemap](images/snake/tilemap.png)
+![mapa kafelków](images/snake/tilemap.png)
 
 Zapisz mapę kafelków, gdy skończysz.
 
 ## Dodawanie mapy kafelków i skryptu do gry
 
-Teraz otwórz *main.collection*. To główna kolekcja bootstrapowa ładowana przy starcie silnika. <kbd>Right click</kbd> korzeń w *Outline* i wybierz <kbd>Add Game Object</kbd>, aby utworzyć nowy obiekt gry w kolekcji ładowanej wraz ze startem gry.
+Teraz otwórz *main.collection*. To główna kolekcja bootstrapowa ładowana przy starcie silnika. Kliknij prawym przyciskiem myszy korzeń w *Outline* i wybierz <kbd>Add Game Object</kbd>, aby utworzyć nowy obiekt gry w kolekcji ładowanej wraz ze startem gry.
 
-![add game object](images/snake/add_game_object.png)
+![dodawanie obiektu gry](images/snake/add_game_object.png)
 
-Następnie <kbd>Right click</kbd> nowy obiekt gry i wybierz <kbd>Add Component File</kbd>. Wskaż plik "grid.tilemap", który właśnie utworzyłeś.
+Następnie kliknij prawym przyciskiem myszy nowy obiekt gry i wybierz <kbd>Add Component File</kbd>. Wskaż plik "grid.tilemap", który właśnie utworzyłeś.
 
-![add component](images/snake/add_component_file.png)
+![dodawanie komponentu](images/snake/add_component_file.png)
 
-<kbd>Right click</kbd> folder *main* w przeglądarce *Assets* i wybierz <kbd>New ▸ Script</kbd>. Nazwij nowy plik skryptu "snake" (zostanie zapisany jako "snake.script"). Ten plik będzie przechowywał całą logikę gry.
+Kliknij prawym przyciskiem myszy folder *main* w przeglądarce *Assets* i wybierz <kbd>New ▸ Script</kbd>. Nazwij nowy plik skryptu "snake" (zostanie zapisany jako "snake.script"). Ten plik będzie przechowywał całą logikę gry.
 
-Wróć do *main.collection* i <kbd>Right click</kbd> obiekt gry zawierający mapę kafelków. Wybierz <kbd>Add Component File</kbd> i wskaż plik "snake.script".
+Wróć do *main.collection* i kliknij prawym przyciskiem myszy obiekt gry zawierający mapę kafelków. Wybierz <kbd>Add Component File</kbd> i wskaż plik "snake.script".
 
 Teraz masz już na miejscu komponent mapy kafelków i skrypt. Jeśli uruchomisz grę, powinieneś zobaczyć planszę taką, jaką narysowałeś na mapie kafelków.
 
-![main collection](images/snake/main_collection_no_gui.png)
+![główna kolekcja](images/snake/main_collection_no_gui.png)
 
 ## Skrypt gry - inicjalizacja
 
@@ -164,7 +164,7 @@ Jeśli teraz uruchomisz grę, powinieneś zobaczyć węża o długości 4 segmen
 
 ## Wejście gracza
 
-Zanim dodasz kod reagujący na wejście gracza, musisz skonfigurować wiązania wejść. Znajdź plik *input/game.input_binding* w przeglądarce *Assets* i <kbd>double click</kbd>, aby go otworzyć. Dodaj zestaw wiązań *Key Trigger* dla ruchu w górę, w dół, w lewo i w prawo.
+Zanim dodasz kod reagujący na wejście gracza, musisz skonfigurować wiązania wejść. Znajdź plik *input/game.input_binding* w przeglądarce *Assets* i kliknij go dwukrotnie, aby go otworzyć. Dodaj zestaw wiązań *Key Trigger* dla ruchu w górę, w dół, w lewo i w prawo.
 
 ![wejście](images/snake/input.png)
 

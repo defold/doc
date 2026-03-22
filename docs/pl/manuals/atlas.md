@@ -11,16 +11,16 @@ W Defold zasób atlasu to lista oddzielnych plików obrazów, które są automat
 
 ## Tworzenie atlasu
 
-Wybierz <kbd>New... ▸ Atlas</kbd> z menu kontekstowego w *Assets* browserze. Nadaj nazwę nowemu plikowi atlasu. Edytor otworzy teraz plik w edytorze atlasu. Właściwości atlasu są widoczne w panelu *Properties*, więc możesz je edytować (szczegóły znajdziesz poniżej).
+Wybierz <kbd>New... ▸ Atlas</kbd> z menu kontekstowego w przeglądarce *Assets*. Nadaj nazwę nowemu plikowi atlasu. Edytor otworzy teraz plik w edytorze atlasu. Właściwości atlasu są widoczne w panelu *Properties*, więc możesz je edytować (szczegóły znajdziesz poniżej).
 
 Musisz najpierw wypełnić atlas obrazami lub animacjami, zanim użyjesz go jako źródła grafiki dla komponentów obiektu, takich jak Sprite i ParticleFX.
 
-Upewnij się, że dodałeś obrazy do projektu, przeciągając pliki obrazów w odpowiednie miejsce w *Assets* browserze.
+Upewnij się, że dodałeś obrazy do projektu, przeciągając pliki obrazów w odpowiednie miejsce w przeglądarce *Assets*.
 
 Dodawanie pojedynczych obrazów
-: Przeciągnij obrazy z panelu *Asset* do widoku edytora.
+: Przeciągnij obrazy z panelu *Assets* do widoku edytora.
 
-  Alternatywnie kliknij <kbd>Right click</kbd> główny wpis Atlas w panelu *Outline*.
+  Alternatywnie kliknij prawym przyciskiem myszy główny wpis atlasu w panelu *Outline*.
 
   Wybierz <kbd>Add Images</kbd> z menu kontekstowego, aby dodać pojedyncze obrazy.
 
@@ -32,16 +32,16 @@ Dodawanie pojedynczych obrazów
 
   ![Dodane obrazy](images/atlas/single_images.png)
 
-Adding flipbook animations
-: Kliknij <kbd>Right click</kbd> główny wpis Atlas w panelu *Outline*.
+Dodawanie animacji flipbook
+: Kliknij prawym przyciskiem myszy główny wpis atlasu w panelu *Outline*.
 
   Wybierz <kbd>Add Animation Group</kbd> z menu kontekstowego, aby utworzyć grupę animacji flipbook.
 
   Do atlasu zostanie dodana nowa, pusta grupa animacji z domyślną nazwą ("New Animation").
 
-  Przeciągnij obrazy z panelu *Asset* do widoku edytora, aby dodać je do aktualnie zaznaczonej grupy.
+  Przeciągnij obrazy z panelu *Assets* do widoku edytora, aby dodać je do aktualnie zaznaczonej grupy.
 
-  Alternatywnie kliknij <kbd>Right click</kbd> nową grupę i wybierz <kbd>Add Images</kbd> z menu kontekstowego.
+  Alternatywnie kliknij prawym przyciskiem myszy nową grupę i wybierz <kbd>Add Images</kbd> z menu kontekstowego.
 
   Otworzy się okno dialogowe, w którym możesz znaleźć i zaznaczyć obrazy, które chcesz dodać do grupy animacji.
 
@@ -51,14 +51,14 @@ Adding flipbook animations
 
   ![Grupa animacji](images/atlas/animation_group.png)
 
-Możesz zmieniać kolejność obrazów w Outline, zaznaczając je i naciskając <kbd>Alt + Up/down</kbd>. Możesz też łatwo tworzyć duplikaty, kopiując i wklejając obrazy w outline (z menu <kbd>Edit</kbd>, z menu kontekstowego po kliknięciu prawym przyciskiem myszy lub skrótami klawiaturowymi).
+Możesz zmieniać kolejność obrazów w panelu *Outline*, zaznaczając je i naciskając <kbd>Alt + Up/down</kbd>. Możesz też łatwo tworzyć duplikaty, kopiując i wklejając obrazy w panelu *Outline* (z menu <kbd>Edit</kbd>, z menu kontekstowego po kliknięciu prawym przyciskiem myszy lub skrótami klawiaturowymi).
 
 ## Właściwości atlasu
 
 Każdy zasób atlasu ma zestaw właściwości. Są one widoczne w panelu *Properties*, gdy zaznaczysz element główny w widoku *Outline*.
 
 Size
-: Pokazuje obliczony łączny rozmiar wynikowego zasobu tekstury. Szerokość i wysokość są ustawiane na najbliższą potęgę dwójki. Jeśli włączysz kompresję tekstury, niektóre formaty wymagają tekstur kwadratowych. Tekstury niekwadratowe zostaną wtedy przeskalowane i wypełnione pustą przestrzenią, aby stały się kwadratowe. Szczegóły znajdziesz w [Texture profiles manual](/manuals/texture-profiles/).
+: Pokazuje obliczony łączny rozmiar wynikowego zasobu tekstury. Szerokość i wysokość są ustawiane na najbliższą potęgę dwójki. Jeśli włączysz kompresję tekstury, niektóre formaty wymagają tekstur kwadratowych. Tekstury niekwadratowe zostaną wtedy przeskalowane i wypełnione pustą przestrzenią, aby stały się kwadratowe. Szczegóły znajdziesz w [podręczniku profili tekstur](/manuals/texture-profiles/).
 
 Margin
 : Liczba pikseli, które należy dodać między każdym obrazem.
@@ -174,7 +174,7 @@ Gdy tekstura zostanie utworzona, użyj [`resource.set_texture(path, params, buff
 Możliwe jest również użycie `resource.set_texture()`, aby zaktualizować podregion tekstury, korzystając z bufora o szerokości i wysokości mniejszych niż pełny rozmiar tekstury oraz zmieniając parametry x i y przekazywane do `resource.set_texture()`.
 :::
 
-Teksturę można użyć bezpośrednio na [model component](/manuals/model/) za pomocą `go.set()`:
+Teksturę można użyć bezpośrednio na [komponencie modelu](/manuals/model/) za pomocą `go.set()`:
 
 ```lua
   go.set("#model", "texture0", my_texture_id)
@@ -182,7 +182,7 @@ Teksturę można użyć bezpośrednio na [model component](/manuals/model/) za p
 
 ### Tworzenie atlasu w czasie działania programu
 
-Jeśli tekstura ma być używana na [sprite component](/manuals/sprite/), najpierw musi zostać użyta przez atlas. Użyj [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table), aby utworzyć atlas:
+Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), najpierw musi zostać użyta przez atlas. Użyj [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table), aby utworzyć atlas:
 
 ```lua
   local params = {

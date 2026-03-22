@@ -38,7 +38,7 @@ Pamiętaj, że prawdopodobnie chcesz aktualizować te dane co klatkę, więc wys
 
 ## Uruchamianie debugera
 
-Aby uruchomić debuger, wybierz <kbd>Debug ▸ Start/Attach</kbd>, co uruchomi grę z dołączonym debugerem albo dołączy debuger do już uruchomionej gry.
+Aby uruchomić debuger, wybierz <kbd>Debug ▸ Start/Attach</kbd>. To polecenie uruchomi grę z dołączonym debugerem albo dołączy debuger do już uruchomionej gry.
 
 ![overview](images/debugging/overview.png)
 
@@ -80,60 +80,60 @@ Step Out
 : ![step out](images/debugging/step_out.svg){width=60px .left}
   Kontynuuje wykonywanie do momentu powrotu z bieżącej funkcji. Jeśli wszedłeś do funkcji podczas debugowania, naciśnięcie przycisku "step out" będzie kontynuować wykonanie aż do momentu zwrócenia przez funkcję.
 
-Setting and clearing breakpoints
+Ustawianie i usuwanie breakpointów
 : Możesz ustawić dowolną liczbę breakpointów w kodzie Lua. Gdy gra działa z dołączonym debugerem, zatrzyma się na następnym napotkanym breakpointcie i poczeka na dalszą interakcję z twojej strony.
 
   ![add breakpoint](images/debugging/add_breakpoint.png)
 
   Aby ustawić lub usunąć breakpoint, kliknij w kolumnie bezpośrednio po prawej stronie numerów linii w edytorze kodu. Możesz też wybrać <kbd>Edit ▸ Toggle Breakpoint</kbd> z menu.
 
-Disabling and enabling breakpoints
-: Breakpointy można tymczasowo wyłączyć bez ich usuwania. Gdy są wyłączone, są ignorowane podczas wykonywania, ale można je włączyć ponownie w dowolnym momencie. Kliknij je prawym przyciskiem myszy w marginesie edytora kodu, a następnie przełącz pole wyboru Enabled. Wyłączone breakpointy są pokazane jako puste, aby zaznaczyć, że są nieaktywne.
+Wyłączanie i włączanie breakpointów
+: Breakpointy można tymczasowo wyłączyć bez ich usuwania. Gdy są wyłączone, są ignorowane podczas wykonywania, ale można je włączyć ponownie w dowolnym momencie. Kliknij je prawym przyciskiem myszy w marginesie edytora kodu, a następnie przełącz pole wyboru <kbd>Enabled</kbd>. Wyłączone breakpointy są pokazane jako puste, aby zaznaczyć, że są nieaktywne.
 
   ![disable breakpoint](images/debugging/disable_breakpoint.png)
 
-Setting conditional breakpoints
+Ustawianie breakpointów warunkowych
 : Możesz skonfigurować breakpoint tak, aby zawierał warunek, który musi zostać spełniony, żeby breakpoint został wyzwolony. Warunek może korzystać z lokalnych zmiennych dostępnych w danym wierszu podczas wykonywania kodu.
 
   ![edit breakpoint](images/debugging/edit_breakpoint.png)
 
   Aby edytować warunek breakpointa, kliknij prawym przyciskiem myszy w kolumnie bezpośrednio po prawej stronie numerów linii w edytorze kodu albo wybierz <kbd>Edit ▸ Edit Breakpoint</kbd> z menu.
 
-Evaluating Lua expressions
+Obliczanie wyrażeń Lua
 : Gdy debuger jest dołączony, a gra zatrzymana na breakpointcie, dostępne jest środowisko wykonawcze Lua z bieżącym kontekstem. Wpisz wyrażenia Lua na dole konsoli i naciśnij <kbd>Enter</kbd>, aby je ocenić:
 
   ![console](images/debugging/console.png)
 
   Obecnie nie można modyfikować zmiennych za pomocą ewaluatora.
 
-Detaching the debugger
+Odłączanie debugera
 : Wybierz <kbd>Debug ▸ Detach Debugger</kbd>, aby odłączyć debuger od gry. Gra będzie natychmiast kontynuowana.
 
-## Breakpoints Tab
+## Karta Breakpoints
 
   ![breakpoints tab](images/debugging/breakpoints_tab.png)
 
-  Podczas pracy z wieloma breakpointami w różnych skryptach karta Breakpoints zapewnia scentralizowany widok do zarządzania wszystkimi breakpointami w jednym miejscu.
+  Podczas pracy z wieloma breakpointami w różnych skryptach karta <kbd>Breakpoints</kbd> zapewnia scentralizowany widok do zarządzania wszystkimi breakpointami w jednym miejscu.
 
-##### Individual Breakpoint Controls
+##### Sterowanie pojedynczym breakpointem
 
   Do pracy z pojedynczymi breakpointami:
   - Kliknij czerwoną ikonę kosza, aby usunąć breakpoint
-  - Kliknij dwukrotnie wiersz poza obszarem warunku, aby przejść do tej linii w Code View
-  - Kliknij dwukrotnie komórkę warunku albo kliknij ikonę pióra, aby edytować conditional breakpoints
-  - Kliknij przycisk X clear, gdy najedziesz na komórkę warunku, aby wyczyścić warunek
+  - Kliknij dwukrotnie wiersz poza obszarem warunku, aby przejść do tej linii w widoku kodu
+  - Kliknij dwukrotnie komórkę warunku albo kliknij ikonę pióra, aby edytować breakpointy warunkowe
+  - Kliknij przycisk czyszczenia `X`, gdy najedziesz na komórkę warunku, aby wyczyścić warunek
 
-##### Batch Operations
+##### Operacje zbiorcze
 
   Zaznacz wiele breakpointów za pomocą Ctrl/Cmd+klik lub Shift+klik, a następnie kliknij prawym przyciskiem myszy, aby wykonać operacje zbiorcze. Możesz jednocześnie edytować warunki kilku breakpointów, przełączać ich stan aktywności albo usuwać je całkowicie.
 
   Przyciski na pasku narzędzi pozwalają włączyć, wyłączyć lub przełączyć wszystkie breakpointy naraz, co jest przydatne, gdy chcesz uruchomić grę bez zatrzymywania, ale nie chcesz stracić ich położeń. Możesz też usunąć wszystkie, gdy skończysz sesję debugowania.
 
-## Lua debug library
+## Biblioteka debugowania Lua
 
-Lua zawiera bibliotekę debugowania, która bywa przydatna w niektórych sytuacjach, szczególnie gdy trzeba zajrzeć do wnętrza środowiska Lua. Więcej informacji znajdziesz w [rozdziale o Debug Library w podręczniku Lua](http://www.lua.org/pil/contents.html#23).
+Lua zawiera bibliotekę debugowania, która bywa przydatna w niektórych sytuacjach, szczególnie gdy trzeba zajrzeć do wnętrza środowiska Lua. Więcej informacji znajdziesz w [rozdziale o bibliotece debugowania (Debug Library) w podręczniku Lua](http://www.lua.org/pil/contents.html#23).
 
-## Debugging checklist
+## Lista kontrolna debugowania
 
 Jeśli napotkasz błąd albo gra nie zachowuje się zgodnie z oczekiwaniami, skorzystaj z poniższej listy kontrolnej debugowania:
 
@@ -141,7 +141,7 @@ Jeśli napotkasz błąd albo gra nie zachowuje się zgodnie z oczekiwaniami, sko
 
 2. Dodaj do kodu instrukcje print, aby potwierdzić, że kod rzeczywiście się wykonuje.
 
-3. Jeśli kod się nie wykonuje, sprawdź, czy w edytorze wykonano wszystkie wymagane czynności konfiguracyjne. Czy skrypt został dodany do właściwego obiektu gry? Czy skrypt przechwycił input focus? Czy input triggers są poprawne? Czy kod shadera został dodany do materiału? I tak dalej.
+3. Jeśli kod się nie wykonuje, sprawdź, czy w edytorze wykonano wszystkie wymagane czynności konfiguracyjne. Czy skrypt został dodany do właściwego obiektu gry? Czy skrypt przechwycił fokus wejścia? Czy wyzwalacze wejścia są poprawne? Czy kod shadera został dodany do materiału? I tak dalej.
 
 4. Jeśli kod zależy od wartości zmiennych, na przykład w instrukcji `if`, wypisz te wartości tam, gdzie są używane lub sprawdzane, albo zbadaj je za pomocą debugera.
 
@@ -153,7 +153,7 @@ Czasami znalezienie błędu jest trudnym i czasochłonnym procesem, który wymag
 
 Powodzenia w poszukiwaniach!
 
-## Debugging problems with physics
+## Debugowanie problemów z fizyką
 
 Jeśli masz problemy z fizyką i kolizje nie działają zgodnie z oczekiwaniami, zaleca się włączenie debugowania fizyki. Zaznacz pole wyboru *Debug* w sekcji *Physics* pliku *game.project*:
 

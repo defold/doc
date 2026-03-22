@@ -122,7 +122,7 @@ A: Jako deweloper pracujesz tylko z jednym API renderowania, korzystając z [w p
 
 #### P: Czy mogę sprawdzić, jaką wersję uruchamiam?
 
-A: Tak, wybierz opcję "About" w menu Help. Okno wyraźnie pokazuje wersję beta Defold i, co ważniejsze, konkretny SHA1 wydania. Aby odczytać wersję środowiska uruchomieniowego, użyj [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
+A: Tak, wybierz opcję <kbd>About</kbd> w menu <kbd>Help</kbd>. Okno wyraźnie pokazuje wersję beta Defold i, co ważniejsze, konkretny SHA1 wydania. Aby odczytać wersję środowiska uruchomieniowego, użyj [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
 Najnowszą wersję beta dostępną do pobrania z http://d.defold.com/beta można sprawdzić, otwierając http://d.defold.com/beta/info.json. Ten sam plik istnieje także dla wersji stabilnych: http://d.defold.com/stable/info.json
 
@@ -182,7 +182,7 @@ A: Defold obsługuje zakupy w aplikacji oraz różne rozwiązania reklamowe. Spr
 
 #### P: Nie mogę uruchomić gry i nie ma błędu budowania. Co jest nie tak?
 
-A: Proces budowania może w rzadkich przypadkach nie przebudować plików, jeśli wcześniej wystąpiły błędy budowania, które już naprawiłeś. Wymuś pełną przebudowę, wybierając *Project ▸ Rebuild And Launch* z menu.
+A: Proces budowania może w rzadkich przypadkach nie przebudować plików, jeśli wcześniej wystąpiły błędy budowania, które już naprawiłeś. Wymuś pełną przebudowę, wybierając <kbd>Project ▸ Rebuild And Launch</kbd> z menu.
 
 
 
@@ -205,12 +205,12 @@ A: Relacje rodzic-dziecko wyrażają wyłącznie relacje transformacji w grafie 
 
 #### P: Dlaczego widzę artefakty wizualne wokół krawędzi moich sprite'ów?
 
-A: To artefakt wizualny nazywany "edge bleeding", w którym piksele z krawędzi sąsiednich obrazów w atlasie przenikają do obrazu przypisanego do sprite'a. Rozwiązaniem jest dodanie dodatkowych wierszy i kolumn identycznych pikseli na obrzeżach obrazów atlasu. Na szczęście można to zrobić automatycznie w edytorze atlasu w Defold. Otwórz atlas i ustaw wartość *Extrude Borders* na 1.
+A: To artefakt wizualny nazywany `edge bleeding`, w którym piksele z krawędzi sąsiednich obrazów w atlasie przenikają do obrazu przypisanego do sprite'a. Rozwiązaniem jest dodanie dodatkowych wierszy i kolumn identycznych pikseli na obrzeżach obrazów atlasu. Na szczęście można to zrobić automatycznie w edytorze atlasu w Defold. Otwórz atlas i ustaw wartość właściwości `Extrude Borders` na 1.
 
 
 #### P: Czy mogę barwić sprite'y albo uczynić je przezroczystymi, czy muszę napisać do tego własny shader?
 
-A: Wbudowany shader sprite'a, używany domyślnie dla wszystkich sprite'ów, ma zdefiniowaną stałą "tint":
+A: Wbudowany shader sprite'a, używany domyślnie dla wszystkich sprite'ów, ma zdefiniowaną stałą `tint`:
 
   ```lua
   local red = 1
@@ -293,7 +293,7 @@ A: Dostęp do komórek uzyskujesz przez `mymatrix.m11`, `mymatrix.m12`, `mymatri
 
 #### P: Dostaję komunikat `Not enough resources to clone the node` podczas używania [gui.clone()](/ref/gui/#gui.clone:node) lub [gui.clone_tree()](/ref/gui/#gui.clone_tree:node)
 
-A: Zwiększ wartość `Max Nodes` komponentu GUI. Znajdziesz ją w panelu Properties, gdy zaznaczysz korzeń komponentu w Outline.
+A: Zwiększ wartość `Max Nodes` komponentu GUI. Znajdziesz ją w panelu <kbd>Properties</kbd>, gdy zaznaczysz korzeń komponentu w <kbd>Outline</kbd>.
 
 
 ## Forum
