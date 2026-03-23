@@ -64,6 +64,7 @@ Semantic type
   - `SEMANTIC_TYPE_TANGENT` Produces per-vertex tangent data for the attribute
   - `SEMANTIC_TYPE_WORLD_MATRIX` Produces per-vertex world matrix data for the attribute
   - `SEMANTIC_TYPE_NORMAL_MATRIX` Produces per-vertex normal matrix data for the attribute
+  - `SEMANTIC_TYPE_TEXTURE_TRANSFORM_2D` Produces a per-vertex 3x3 texture transform matrix for the attribute. For particle components, the engine provides a matrix that transforms coordinates into atlas space for the image property on the component. For sprite components, the engine provides a matrix for each image the component is using (when using multi-texturing). For model components, an identity matrix is provided.
 
 Data type
 : The data type of the backing data for the attribute.
@@ -119,6 +120,7 @@ The material system will assign a default semantic type automatically based on t
   - `tangent` - semantic type: `SEMANTIC_TYPE_TANGENT`
   - `mtx_world` - semantic type: `SEMANTIC_TYPE_WORLD_MATRIX`
   - `mtx_normal` - semantic type: `SEMANTIC_TYPE_NORMAL_MATRIX`
+  - `mtx_texture_transform_2d` - semantic type: `SEMANTIC_TYPE_TEXTURE_TRANSFORM_2D`
 
 If you have entries for these attributes in the material, the default semantic type will be overridden with whatever you have configured in the material editor.
 
@@ -136,10 +138,6 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 There are some caveats to updating the vertex attributes however, whether or not a component can use the value depends on the semantic type of the attribute. For example, a sprite component supports the `SEMANTIC_TYPE_POSITION` so if you update an attribute that has this semantic type, the component will ignore the overridden value since the semantic type dictates that the data should always be produced by the sprites position.
 
-::: sidenote
-Setting custom vertex data in runtime is currently only supported for sprite components.
-:::
-
 In cases where that a vertex attribute is either a scalar or a vector type other than a `Vec4` you can still set the data using `go.set`:
 
 ```lua
@@ -149,6 +147,42 @@ go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vec
 ```
 
 The same is true for matrix attributes, if the attribute is a matrix type other than a `Mat4` you can still set the data using `go.set`.
+
+### Examples of using custom vertex attributes
+
+Using a texture transform attribute to convert UV coordinates to atlas space:
+
+```glsl
+#version 140
+
+in vec3 position;
+in vec4 texcoord0;
+in mat3 texture_transform_2d;
+
+out vec2 var_texcoord0;
+
+void main()
+{
+  // Extract position from the transform
+  vec2 atlas_pos = texture_transform_2d[2].xy;
+  // Extract the scale from the transform
+  vec2 atlas_size = vec2(
+      length(texture_transform_2d[0].xy),
+      length(texture_transform_2d[1].xy)
+  );
+  // convert to local UV (0..1)
+  vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
+
+  // Alternatively, if the UV coordinates already are in the 0..1 range,
+  // you can transform into atlas space directly by multiplying the transform:
+  vec2 transformedUv = texture_transform_2d * texcoord0;
+
+  // Pass the value into the fragment shader
+  var_texcoord0 = localUV;
+
+  // ... rest of vertex shader
+}
+```
 
 ### Instancing
 
