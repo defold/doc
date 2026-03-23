@@ -13,7 +13,7 @@ Manifest приложения (файл с расширением `.appmanifest`
 
 ## Engine manifest
 
-У движка Defold есть manifest сборки (`build.yml`), который включен в каждый релиз движка и Defold SDK. Этот manifest управляет тем, какие версии SDK использовать, какие компиляторы, линкеры и другие инструменты запускать, а также какие build- и link-флаги по умолчанию передавать этим инструментам. Этот manifest можно найти в `share/extender/build_input.yml` [на GitHub](https://github.com/defold/defold/blob/dev/share/extender/build_input.yml).
+У движка Defold есть manifest сборки (`build.yml`), который включен в каждый релиз движка и Defold SDK. Этот manifest управляет тем, какие версии SDK использовать, какие компиляторы, линкеры и другие инструменты запускать, а также какие build- и link-флаги по умолчанию передавать этим инструментам. Этот manifest можно найти в share/extender/build_input.yml [на GitHub](https://github.com/defold/defold/blob/dev/share/extender/build_input.yml).
 
 ## Extension Manifest
 
@@ -32,7 +32,7 @@ Manifest расширения (`ext.manifest`), в свою очередь, пр
 
 ### Файл ext.manifest
 
-Помимо имени расширения, manifest-файл может содержать платформо-зависимые compile flags, link flags, библиотеки и frameworks. Если файл *ext.manifest* не содержит секцию `"platforms"` или в списке отсутствует какая-то платформа, сборка для этой платформы все равно пройдет, но без каких-либо дополнительных флагов.
+Помимо имени расширения, manifest-файл может содержать платформо-зависимые compile flags, link flags, библиотеки и frameworks. Если файл *ext.manifest* не содержит секцию "platforms" или в списке отсутствует какая-то платформа, сборка для этой платформы все равно пройдет, но без каких-либо дополнительных флагов.
 
 Пример:
 

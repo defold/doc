@@ -109,4 +109,4 @@ iOS
   Once the container has been extracted it will be shown in *Finder*. Right click the container and select <kbd>Show Package Content</kbd>. Locate the file "`log.txt`", which should be located in "`AppData/Documents/`".
 
 Android(
-: The ability to extract the "`log.txt`" depends on OS version and manufacturer. Here is a short and simple [step by step guide](https://stackoverflow.com/a/48077004/]129360).
+: The ability to extract the "`log.txt`" depends on OS version and manufacturer. Here is a short and simple [step by step guide](https://stackoverflow.com/a/48077004/129360).
