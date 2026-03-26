@@ -1,19 +1,19 @@
 ---
-title: Moduły Lua w Defoldzie
-brief: Ta instrukcja wyjaśnia czym są i jak działają moduły Lua w Defoldzie.
+title: Moduły Lua w silniku Defold
+brief: Moduły Lua pozwalają strukturyzować projekt i tworzyć wielokrotnego użytku kod biblioteczny. Ta instrukcja wyjaśnia, jak robić to w silniku Defold.
 ---
 
 # Moduły Lua
 
-Moduły Lua pozwalają na strukturyzację projektu i tworzenie wielokrotnie używanego kodu bibliotecznego. Ogólnie warto unikać duplikacji w projektach. Defold pozwala korzystać z funkcjonalności modułu Lua, aby dołączać pliki skryptowe do innych plików skryptowych. Dzięki temu można zawierać funkcje (i dane) w zewnętrznym pliku skryptowym, aby ponownie używać ich w plikach skryptów obiektów gry i plikach skryptów GUI.
+Moduły Lua pozwalają strukturyzować projekt i tworzyć wielokrotnego użytku kod biblioteczny. Zazwyczaj warto unikać duplikacji w projektach. Defold pozwala korzystać z funkcjonalności modułów Lua, aby wczytywać pliki skryptowe do innych plików skryptowych. Dzięki temu można enkapsulować funkcje (i dane) w zewnętrznym pliku skryptowym, aby ponownie wykorzystywać je w plikach skryptów obiektów gry i plikach skryptów GUI.
 
-## Wymaganie/załączanie plików Lua
+## Wczytywanie plików Lua
 
-Kod Lua przechowywany w plikach z rozszerzeniem ".lua" w dowolnym miejscu w strukturze projektu gry może być wymagany (dołączony) w plikach skryptowych i plikach skryptów GUI. Aby utworzyć nowy plik modułu Lua, kliknij prawym przyciskiem myszy folder, w którym chcesz go utworzyć w widoku *Assets*, a następnie wybierz <kbd>New... ▸ Lua Module</kbd>. Nadaj plikowi unikalną nazwę i naciśnij <kbd>Ok</kbd>:
+Kod Lua przechowywany w plikach z rozszerzeniem ".lua" w dowolnym miejscu struktury projektu gry można wczytać do plików skryptowych i plików skryptów GUI. Aby utworzyć nowy plik modułu Lua, kliknij prawym przyciskiem myszy folder, w którym chcesz go utworzyć w widoku *Assets*, a następnie wybierz <kbd>New... ▸ Lua Module</kbd>. Nadaj plikowi unikalną nazwę i naciśnij <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
-Załóżmy, że poniższy kod jest dodany do pliku "main/anim.lua":
+Załóżmy, że poniższy kod został dodany do pliku `main/anim.lua`:
 
 ```lua
 function direction_animation(direction, char)
@@ -31,7 +31,7 @@ function direction_animation(direction, char)
 end
 ```
 
-Następnie dowolny skrypt może zażądać (ang. require) tego pliku i używać funkcji:
+Następnie dowolny skrypt może wczytać ten plik za pomocą require i używać funkcji:
 
 ```lua
 require "main.anim"
@@ -49,20 +49,20 @@ function update(self, dt)
 end
 ```
 
-Funkcja `require` wczytuje podany moduł. Na początek przegląda tabelę [`package.loaded`](/ref/package/#package.loaded), aby sprawdzić, czy moduł jest już załadowany. Jeśli tak, funkcja `require` zwraca wartość przechowywaną w `package.loaded[module_name]`. W przeciwnym przypadku wczytuje i ewaluuje plik za pomocą ładowacza (ang. loader).
+Funkcja `require` wczytuje podany moduł. Na początek przegląda tabelę `package.loaded`, aby sprawdzić, czy moduł jest już załadowany. Jeśli tak, `require` zwraca wartość przechowywaną w `package.loaded[module_name]`. W przeciwnym razie wczytuje i wykonuje plik za pomocą ładowacza (ang. loader).
 
-Składnia łańcucha nazwy pliku (filename string) przekazywanej do require jest nieco specjalna. Lua zamienia znaki `"."` w łańcuchu nazwy pliku na znaki separatora ścieżki: `'/'` na macOS i Linux oraz `'\'` na systemie Windows.
+Łańcuch nazwy pliku przekazywany do `require` ma nieco szczególną składnię. Lua zamienia znaki "." w nazwie pliku na separatory ścieżki: "/" w macOS i Linux oraz "\" w Windows.
 
-Należy zauważyć, że zazwyczaj nie jest dobrym pomysłem używanie zakresu globalnego do przechowywania stanu i definiowania funkcji, tak jak w przykładzie powyżej. Istnieje ryzyko kolizji nazw, ujawnienia stanu modułu lub wprowadzenia zależności między użytkownikami modułu.
+Warto zauważyć, że zwykle nie jest dobrym pomysłem przechowywanie stanu i definiowanie funkcji w zakresie globalnym, tak jak w przykładzie powyżej. Grozi to kolizjami nazw, ujawnieniem stanu modułu albo wprowadzeniem sprzężenia między użytkownikami modułu.
 
-## Modułu
+## Moduły
 
-Aby inkapsulować dane i funkcje, Lua używa _modułów_. Moduł Lua to zwykła tabela Lua służąca do zawierania funkcji i danych. Tabela jest deklarowana jako lokalna, aby nie zanieczyszczać zakresu globalnego:
+Aby enkapsulować dane i funkcje, Lua używa _modułów_. Moduł Lua to zwykła tabela Lua służąca do przechowywania funkcji i danych. Tabela jest deklarowana jako lokalna, aby nie zanieczyszczać zakresu globalnego:
 
 ```lua
 local M = {}
 
--- private
+-- prywatne
 local message = "Hello world!"
 
 function M.hello()
@@ -72,14 +72,14 @@ end
 return M
 ```
 
-Moduł można następnie używać. Ponownie, preferuje się przypisanie go do zmiennej lokalnej:
+Moduł można następnie używać. Ponownie, najlepiej przypisać go do zmiennej lokalnej:
 
 ```lua
 local m = require "mymodule"
 m.hello() --> "Hello world!"
 ```
 
-## Ładowanie modułów w trakcie działania (hot reloading)
+## Szybkie przeładowanie modułów
 
 Rozważmy prosty moduł:
 
@@ -90,27 +90,27 @@ M.value = 4711
 return M
 ```
 
-I użytkownika modułu:
+A teraz przykład użycia modułu:
 
 ```lua
 local m = require "module"
 print(m.value) --> "4711" (nawet jeśli plik "module.lua" zostanie zmieniony i na nowo załadowany)
 ```
 
-Jeśli ponownie załadujesz plik modułu, kod zostanie uruchomiony ponownie, ale nic się nie dzieje z `m.value`. Dlaczego?
+Jeśli ponownie załadujesz plik modułu, kod zostanie uruchomiony ponownie, ale z `m.value` nic się nie dzieje. Dlaczego?
 
-Po pierwsze, tabela utworzona w pliku "module.lua" jest tworzona w zakresie lokalnym, a odniesienie do tej tabeli jest zwracane użytkownikowi. Ponowne wczytanie pliku "module.lua" ocenia kod modułu ponownie, ale tworzy nową tabelę w zakresie lokalnym zamiast aktualizować tabelę `m`.
+Po pierwsze, tabela utworzona w pliku "module.lua" powstaje w zakresie lokalnym, a użytkownikowi zwracane jest _odwołanie_ do tej tabeli. Ponowne wczytanie pliku "module.lua" wykonuje kod modułu jeszcze raz, ale tworzy nową tabelę w zakresie lokalnym zamiast aktualizować tabelę `m`.
 
-Po drugie, Lua przechowuje w pamięci podręcznej załadowane pliki. Pierwszym razem, gdy plik jest wymagany, jest on dodawany do tabeli [`package.loaded`](/ref/package/#package.loaded), aby można go było szybciej odczytywać podczas kolejnych wymagań. Aby wymusić ponowne odczytanie pliku z dysku, można ustawić wpis pliku na `nil`: `package.loaded["my_module"] = nil`.
+Po drugie, Lua przechowuje w pamięci podręcznej wczytane pliki. Gdy plik jest wczytywany po raz pierwszy, trafia do tabeli [`package.loaded`](/ref/package/#package.loaded), aby kolejne wczytania mogły być szybsze. Aby wymusić ponowne odczytanie pliku z dysku, można ustawić wpis pliku na `package.loaded["my_module"] = nil`.
 
-Aby prawidłowo ponownie załadować moduł, musisz ponownie załadować moduł, zresetować pamięć podręczną i następnie ponownie załadować wszystkie pliki, które używają modułu. Jest to jednak dalekie od optymalnego.
+Aby poprawnie przeładować moduł, trzeba przeładować sam moduł, wyczyścić pamięć podręczną, a następnie ponownie załadować wszystkie pliki, które z niego korzystają. To jednak dalekie od optymalnego rozwiązania.
 
-Zamiast tego możesz rozważyć obejście do użycia w _trakcie rozwoju programu_: umieścić tabelę modułu w zakresie globalnym i spowodować, aby `M` odnosiło się do globalnej tabeli, zamiast tworzyć nową tabelę za każdym razem, gdy plik jest używany ponownie. Ponowne wczytanie modułu zmienia zawartość globalnej tabeli:
+Zamiast tego można rozważyć obejście używane _na czas pracy nad projektem_: umieścić tabelę modułu w zakresie globalnym i sprawić, aby `M` odwoływało się do globalnej tabeli zamiast tworzyć nową tabelę za każdym razem, gdy plik jest wykonywany ponownie. Przeładowanie modułu zmienia wtedy zawartość globalnej tabeli:
 
 ```lua
 --- module.lua
 
--- Zamiast tego użyj "local M = {}" w ostatecznej wersji
+-- Zamiast tego użyj "local M = {}" po zakończeniu pracy
 uniquevariable12345 = uniquevariable12345 or {}
 local M = uniquevariable12345
 
@@ -118,9 +118,9 @@ M.value = 4711
 return M
 ```
 
-## Moduły a stan
+## Moduły i stan
 
-Moduły z zachowaniem stanu przechowują stan wewnętrzny, który jest współdzielony między wszystkimi użytkownikami modułu i można go porównać do singletonów:
+Moduły ze stanem przechowują stan wewnętrzny, który jest współdzielony przez wszystkich użytkowników modułu, i można je porównać do singletonów:
 
 ```lua
 local M = {}
@@ -135,10 +135,10 @@ end
 return M
 ```
 
-Z kolei moduł bezstanowy nie przechowuje wewnętrznego stanu. Zamiast tego dostarcza mechanizm do wyeksternalizowania stanu do osobnej tabeli lokalnej dla użytkownika modułu. Oto kilka różnych sposobów, aby to zaimplementować:
+Z kolei moduł bez stanu nie przechowuje stanu wewnętrznego. Zamiast tego udostępnia mechanizm wyniesienia stanu do osobnej tabeli lokalnej dla użytkownika modułu. Oto kilka różnych sposobów, by to zaimplementować:
 
 Korzystanie z tabeli stanu
-: Być może najprostszym podejściem jest użycie funkcji konstruktora, która zwraca nową tabelę zawierającą tylko stan. Stan jest jawnie przekazywany do modułu jako pierwszy parametr każdej funkcji manipulującej tabelą stanu.
+: Być może najprostszym podejściem jest użycie funkcji konstruktora, która zwraca nową tabelę zawierającą wyłącznie stan. Stan jest jawnie przekazywany do modułu jako pierwszy parametr każdej funkcji, która manipuluje tabelą stanu.
 
   ```lua
   local M = {}
@@ -171,7 +171,7 @@ Korzystanie z tabeli stanu
   ```
 
 Korzystanie z metatablic
-: Innym podejściem jest użycie funkcji konstruktora, która zwraca nową tabelę ze stanem oraz publiczne funkcje modułu za każdym razem, gdy jest wywoływana:
+: Innym podejściem jest użycie funkcji konstruktora, która przy każdym wywołaniu zwraca nową tabelę ze stanem oraz publicznymi funkcjami modułu:
 
   ```lua
   local M = {}
@@ -195,7 +195,7 @@ Korzystanie z metatablic
   return M
   ```
 
-  Use the module like this:
+  Użyj modułu w ten sposób:
 
   ```lua
   local m = require "main.mymodule"
@@ -205,7 +205,7 @@ Korzystanie z metatablic
   ```
 
 Korzystanie z domknięć
-: Trzeci sposób to zwrócenie domknięcia (ang. closure) zawierającego cały stan i funkcje. Nie trzeba przekazywać instancji jako argumentu (ani jawnie, ani niejawnie, używając operatora dwukropka), jak w przypadku użycia metatablic. Metoda ta jest również nieco szybsza niż korzystanie z metatablic (ang. metatables), ponieważ wywołania funkcji nie muszą przechodzić przez metametodę `__index`, ale każde domknięcie zawiera własną kopię funkcji, co zwiększa zużycie pamięci.
+: Trzeci sposób polega na zwróceniu domknięcia (ang. closure) zawierającego cały stan i funkcje. Nie trzeba przekazywać instancji jako argumentu, ani jawnie, ani niejawnie za pomocą operatora dwukropka, jak w przypadku metatablic. Ta metoda jest też nieco szybsza niż korzystanie z metatablic (ang. metatables), ponieważ wywołania funkcji nie muszą przechodzić przez metametodę `__index`, ale każde domknięcie zawiera własną kopię metod, więc zużycie pamięci jest większe.
 
   ```lua
   local M = {}

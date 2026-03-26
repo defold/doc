@@ -1,120 +1,126 @@
 ---
-title: Adaptacja do różnych wielkości ekranów
-brief: Instrukcja opisuje jak dopasować grę i grafikę do różnych wielkości ekranów.
+title: Dostosowywanie grafiki do różnych rozmiarów ekranu
+brief: Ta instrukcja wyjaśnia, jak dopasować grę i grafikę do różnych rozmiarów ekranu.
 ---
 
 # Wprowadzenie
 
-Jest wiele elementów do przemyślenia podczas dopasowywania gry do różnych wielkości ekranów:
+Podczas dostosowywania gry i grafiki do różnych rozmiarów ekranu warto wziąć pod uwagę kilka kwestii:
 
-* Czy jest to gra retro w niskiej rozdzielczości (pixel art)? Czy może nowoczesna gra z grafiką HD wysokiej jakości?
-* Jak gra powinna zachowywać się na różnej wielkości ekranach uruchomiona na pełnym ekranie?
-  * Czy gracz powinien widzieć większy fragment mapy/gry przy większej rozdzielczości? Czy może grafika powinna być skalowana do rozdzielczości, ąby zawsze pokazywać ten sam fragment?
-* Jak gra powinna sobie radzić z różnymi proporcjami ekranu niż ta, którą podasz w ustawieniach *game.project*?
-  * Czy gracz powinien widzieć większy fragment mapy/gry przy większej rozdzielczości? Czy może fragmenty poza proporcjami powinny być zasłonięte przez czarne paski? Czy elementy interfejsu (GUI) powinny być przeskalowane?
-* Jaki rodzaj menu i elementów interfejsu potrzebujesz? Jak powinny się adaptować do zmian rozdzielczości i orientacji?
-  * Czy menu i elementy interfejsu powinny zmieniać rozplanowanie wraz ze zmianą orientacji i rozdzielczości czy utrzymywać stałą pozycję?
+* Czy jest to gra retro z niską rozdzielczością i pikselową grafiką, czy nowoczesna gra z grafiką HD wysokiej jakości?
+* Jak gra powinna się zachowywać w trybie pełnoekranowym na ekranach o różnych rozmiarach?
+  * Czy gracz powinien widzieć więcej zawartości gry na ekranie o wysokiej rozdzielczości, czy grafika powinna skalować się adaptacyjnie, aby zawsze pokazywać ten sam obszar?
+* Jak gra powinna radzić sobie z proporcjami obrazu innymi niż te ustawione w pliku *game.project*?
+  * Czy gracz powinien widzieć więcej zawartości gry? A może powinny pojawić się czarne pasy? A może elementy GUI powinny zostać przeskalowane?
+* Jakiego rodzaju menu i elementy GUI na ekranie są potrzebne i jak powinny się dostosowywać do różnych rozmiarów ekranu oraz orientacji?
+  * Czy menu i inne elementy GUI powinny zmieniać układ po zmianie orientacji, czy raczej zachowywać ten sam układ niezależnie od orientacji?
 
-Ta instrukcja próbuje odpowiedzieć na poniższe pytania i wskazać najlepsze praktyki.
-
-
-## Jak zmienić sposób wyświetlania grafiki
-
-Defold wykorzystuje skrypt do renderowania (opracowywania, rysowania i wyświetlania grafiki), tzw. "*render script*", który daje całkowitą kontrolę nad sposobem wyświetlania grafiki na ekranie. Render script definiuje kolejność rysowania elementów oraz co i jak ma być rysowane. Domyślne zachowanie skryptu to rysowanie takiej samej ilości pikseli określonej przez wysokość i szerokość wpisaną w ustawieniach w pliku *game.project* file, niezależnie od tego, czy rozmiar okna został zmieniony lub rozdzielczość urządzenia jest inna. Powoduje to rozciągnięcie obrazu, gdy współczynnik proporcji ekranu się zmieni oraz przeskalowany, kiedy rozmiar okna ulegnie zmianie. W niektórych grach jest to oczywiście akceptowalne, ale  jest bardziej prawdopodobne, że chcesz pokazać w takich przypadkach większą lub mniejszą część zawartości ekranu lub przynajmniej przeskalować grafikę bez zmieniania współczynnika proporcji. Domyślny sposób renderowania może więc być z łatwością zmieniony, a więcej o tym możesz się dowiedzieć tutaj: [Instrukcja renderowania](https://www.defold.com/manuals/render/#default-view-projection).
+Ta instrukcja omawia część z tych zagadnień i podaje zalecane praktyki.
 
 
-## Retro/Grafika 8-bitowa/Pixel art
+## Jak zmienić sposób renderowania zawartości
 
-Retro grafika często odnosi się do gier naśladujących styl graficzny starych gier z okresy urządzeń z ekranami o niskiej rozdzielczości i ograniczonej palecie barw. Jako przykład Nintendo Entertainment System (NES) ma rozdzielczość 256x240, Commodore 64 - 320x200, a Gameboy - 160x144, a rozdzielczości te są tylko ułamkiem rozdzielczości współczesnych ekranów. Aby umożliwić wyświetlanie takiej grafiki na nich musi ona być przeskalowana kilkukrotnie. Jednym z prostszych sposobów na wyświetlanie takiej grafiki jest wyrysowanie całej grafiki w niskiej rozdzielczości i przybliżenie widoku w momencie renderowania. Można to łatwo zrobić w Defoldzie używając render scriptu i [Stałej Projekcji](/manuals/render/#fixed-projection) ustawionej z odpowiednim zoomem.
+Skrypt do renderowania Defold daje pełną kontrolę nad całym potokiem renderowania. Skrypt renderowania decyduje zarówno o kolejności, jak i o tym, co oraz w jaki sposób jest rysowane. Domyślne zachowanie skryptu renderowania polega na tym, że zawsze rysuje ten sam obszar pikseli, zdefiniowany przez szerokość i wysokość w pliku *game.project*, niezależnie od tego, czy rozmiar okna został zmieniony albo rzeczywista rozdzielczość ekranu się nie zgadza. W efekcie zawartość rozciągnie się, jeśli zmieni się proporcja obrazu, albo zostanie przybliżona lub oddalona, jeśli zmieni się rozmiar okna. W niektórych grach może to być akceptowalne, ale częściej zależy nam na pokazaniu większej lub mniejszej części zawartości gry, gdy rozdzielczość lub proporcje obrazu są inne, albo przynajmniej na zachowaniu proporcji podczas skalowania. Domyślne zachowanie rozciągania można łatwo zmienić, a więcej informacji na ten temat znajdziesz w [instrukcji renderowania](https://www.defold.com/manuals/render/#default-view-projection).
 
-Weźmy ten zestaw kafelków i postać ([stąd](https://ansimuz.itch.io/grotto-escape-game-art-pack)) i użyjmy do stworzenia gry w rozdzielczości 320x200:
+
+## Grafika retro/8-bitowa
+
+Grafika retro/8-bitowa często oznacza gry naśladujące styl graficzny starych konsol i komputerów, z ich niską rozdzielczością oraz ograniczoną paletą kolorów. Na przykład Nintendo Entertainment System (NES) miał rozdzielczość 256x240, Commodore 64 - 320x200, a Gameboy - 160x144, czyli wszystkie te wartości stanowią tylko ułamek rozdzielczości współczesnych ekranów. Aby gry naśladujące ten styl graficzny i taką rozdzielczość były grywalne na nowoczesnym ekranie o wysokiej rozdzielczości, grafikę trzeba kilkukrotnie przeskalować lub przybliżyć. Jednym z prostych sposobów jest tworzenie całej grafiki w niskiej rozdzielczości i stylu, który chcesz naśladować, a następnie powiększanie jej podczas renderowania. W Defold można to łatwo osiągnąć, używając skryptu renderowania i [Fixed Projection](/manuals/render/#fixed-projection) ustawionej na odpowiednią wartość zoom.
+
+Weźmy ten tileset i postać ([źródło](https://ansimuz.itch.io/grotto-escape-game-art-pack)) i użyjmy ich w 8-bitowej grze retro w rozdzielczości 320x200:
 
 ![](images/screen_size/retro-player.png)
 
 ![](images/screen_size/retro-tiles.png)
 
-Ustaw rozdzielczość 320x200 w pliku *game.project* i uruchom grę - po uruchomieniu ujrzysz:
+Ustawienie 320x200 w pliku *game.project* i uruchomienie gry da taki efekt:
 
 ![](images/screen_size/retro-original_320x200.png)
 
-Okno na nowoczesnym monitorze o wysokiej rozdzielczości jest niezwykle małe! Powiększając rozmiar okna czterokrotnie do 1280x800 będzie bardziej przystępne:
+Okno jest na nowoczesnym ekranie o wysokiej rozdzielczości bardzo małe! Zwiększenie rozmiaru okna czterokrotnie, do 1280x800, sprawia, że staje się ono bardziej odpowiednie dla współczesnego monitora:
 
 ![](images/screen_size/retro-original_1280x800.png)
 
-Rozmiar okna jest w porządku, więc teraz potrzeba zmienić sposób wyświetlania grafiki wewnątrz, ponieważ w chwili oecnej jest zbyt mała i ciężko jest zobaczyć cokolwiek co się dzieje w grze. Możemy użyć render scriptu aby ustawić stałą i przybliżoną projekcję:
+Skoro rozmiar okna jest już bardziej sensowny, musimy jeszcze zrobić coś z grafiką. Jest tak mała, że trudno zorientować się, co dzieje się w grze. Możemy użyć skryptu renderowania, aby ustawić stałą, powiększoną projekcję:
 
 ```Lua
 msg.post("@render:", "use_fixed_projection", { zoom = 4 })
 ```
 
-Co da nam rezultat:
+::: sidenote
+Ten sam efekt można uzyskać, podłączając [komponent Camera](manuals/camera/) do obiektu gry, zaznaczając *Orthographic Projection* i ustawiając *Orthographic Zoom* na 4.0:
+
+![](images/screen_size/retro-camera_zoom.png)
+:::
+
+To da następujący wynik:
 
 ![](images/screen_size/retro-zoomed_1280x800.png)
 
-Jest lepiej. Okno i grafika mają odpowiedni rozmiar, ale po przyjrzeniu się bliżej widzimy problem:
+Jest lepiej. Okno i grafika mają już sensowny rozmiar, ale po bliższym przyjrzeniu się widać wyraźny problem:
 
 ![](images/screen_size/retro-zoomed_linear.png)
 
-Obraz jest rozmazany! Jest to spowodowane domyślnym sposobem próbkowania grafiki renderowanej przez GPU podczas przybliżania widoku. Domyślne ustawienie w pliku *game.project* w sekcji *Graphics* to *linear* (liniowe):
+Grafika jest rozmyta! Wynika to ze sposobu próbkowania powiększonej grafiki z tekstury podczas renderowania przez GPU. Domyślne ustawienie w pliku *game.project* w sekcji Graphics to *linear*:
 
 ![](images/screen_size/retro-settings_linear.png)
 
-Zmiana na *nearest* (najbliższy) da nam rezultat:
+Zmiana tego ustawienia na *nearest* daje oczekiwany rezultat:
 
 ![](images/screen_size/retro-settings_nearest.png)
 
 ![](images/screen_size/retro-zoomed_nearest.png)
 
-I mamy przejrzystą grafikę pikselową do naszej gry retro! Jest nawet więcej elementów do rozważenia, jak na przykład wyłączenie sub-pikseli dla sprite'ów w *game.project*:
+Teraz mamy ostrą, pikselową grafikę naszej retro gry. Jest jeszcze więcej rzeczy do rozważenia, na przykład wyłączenie subpikseli dla sprite'ów w pliku *game.project*:
 
 ![](images/screen_size/retro-subpixels.png)
 
-Gdy opcja Subpixels jest wyłączona grafiki nigdy nie będą wyświetlana w częściach piskeli, a zamiast tego przystosowane do siatki pełnych pikseli.
+Gdy opcja Subpixels jest wyłączona, sprite'y nigdy nie są renderowane na półpikselach i zawsze są przyciągane do najbliższego pełnego piksela.
 
-## Grafika w wysokiej rozdzielczości (HD)
+## Grafika o wysokiej rozdzielczości
 
-Podczas pracy z grafiką w wysokiej rozdzielczości należy podejść do ustawień w inny sposób niż do grafiki retro. Z grafiką bitmapową musisz przygotować obrazy w takiej rozdzielczości, aby wyglądały ostro i przejrzyście na monitorach o wysokiej rozdzielczości wyświetlone w skali 1:1.
+W przypadku grafiki o wysokiej rozdzielczości trzeba podejść do konfiguracji projektu i zawartości inaczej niż przy grafice retro/8-bitowej. W przypadku grafiki bitmapowej należy tworzyć zasoby w taki sposób, aby dobrze wyglądały na ekranie o wysokiej rozdzielczości przy skali 1:1.
 
-Tutaj również należy wprowadzić zmiany w skrypcie renderowania. W tym przypadku należy skalować grafikę razem ze zmianą rozdzielczości z zachowaniem oryginalnego współczynnika proporcji ekranu:
+Podobnie jak w przypadku grafiki retro/8-bitowej trzeba zmienić skrypt renderowania. Tutaj zależy nam na tym, aby grafika skalowała się wraz z rozmiarem ekranu, zachowując oryginalne proporcje obrazu:
 
 ```Lua
 msg.post("@render:", "use_fixed_fit_projection")
 ```
 
-Zapewni to zmianę przybliżenia widoku w taki sposób, że na ekranie będzie widoczna zawsze taka sama część grafiki/zawartości określona w pliku *game.project*, lub tylko z dodatkowym obszarem wyświetlonym nad i pod lub obok oryginalnego obrazu w zależności od tego czy współczynnik proporcji ekranu będzie inny niż oryginalny.
+Dzięki temu ekran będzie się zmieniał tak, aby zawsze pokazywać tę samą ilość zawartości określoną w pliku *game.project*, ewentualnie z dodatkową zawartością widoczną nad i pod głównym obszarem albo po bokach, zależnie od tego, czy proporcje obrazu są inne.
 
-Powinno się określić wysokość i szerokość obrazu w pliku *game.project* do rozmiaru, który pozwoli na wyświetlenie Twoich grafik bez przeskalowania.
+Powinieneś skonfigurować szerokość i wysokość w pliku *game.project* na taki rozmiar, który pozwoli wyświetlać zawartość gry bez skalowania.
 
 ### Ustawienie High DPI i ekrany Retina
 
-Jeśli chcesz również wspierać ekrany Retina możesz to włączyć w pliku *game.project* w sekcji *Display*(Wyświetlacz):
+Jeśli chcesz także wspierać ekrany Retina, możesz włączyć tę opcję w pliku *game.project* w sekcji Display:
 
 ![](images/screen_size/highdpi-enabled.png)
 
-Pozwoli to na tworzenie bufora High DPI na wyświetlaczach/ekranach, które wspierają taką technologię. Gra będzie wyświetlana w rozdzielczości dwukrotnie większej niż ta ustawiona oryginalnie, która jednak nadal pozostanie rozdzielczościa postrzeganą przez logikę gry. Oznacza to, że wszystkie pomiary pozostają takie same i zawartość renderowana w skali 1x również. Ale gdy zaimportujesz obrazy w wysokiej rozdzielczości i zmniejszysz dwukrotnie, będą nadal wyświetlane jako High DPI na ekranie.
+Spowoduje to utworzenie bufora wysokiego DPI na ekranach, które to obsługują. Gra będzie renderowana w rozdzielczości dwukrotnie większej niż ta ustawiona w polach Width i Height, które nadal pozostaną logiczną rozdzielczością używaną w skryptach i właściwościach. Oznacza to, że wszystkie wartości pomiarów pozostaną takie same, a zawartość renderowana w skali 1x będzie wyglądała tak samo. Jeśli jednak zaimportujesz obrazy w wysokiej rozdzielczości i przeskalujesz je do 0.5x, będą one wyświetlane na ekranie jako High DPI.
 
 
-## Tworzenie interfejsu adaptacyjnego
+## Tworzenie adaptacyjnego GUI
 
-System do tworzenia elementów interfejsu użytkownika (GUI - ang. Graphical User Interface) opiera się na kilku podstawowych blokach, tzw. [węzłach](/manuals/gui/#node-types), i mimo, że wygląda na uproszczony, można dzięki niemu stworzyć zaawansowane elementy, przyciski, indykatory, menusy i pop-upy. Tworzone przez Ciebie GUI może być skonfigurowane do automatycznej adaptacji do różnych wielkości ekranów i zmian orientacji. Możesz przykłądowo zachować węzły zakotwiczone do góru, dołu lub boków ekranu i mogą one zachowywać lub zmieniać swój rozmiar i skalę. Zależności pomiędzy węzłami, jak i również ich rozmiarami mogą być również skonfigurowane, aby dostosować się do zmian rozdzielczości i orientacji.
+System tworzenia komponentów GUI opiera się na kilku podstawowych elementach, czyli [węzłach](/manuals/gui/#node-types). Choć może wydawać się uproszczony, można go wykorzystać do tworzenia wszystkiego, od przycisków po złożone menu i popupy. Tworzone GUI można skonfigurować tak, aby automatycznie dostosowywało się do zmian rozmiaru ekranu i orientacji. Na przykład można przypinać węzły do górnej, dolnej lub bocznych krawędzi ekranu, a węzły mogą zachowywać swój rozmiar albo się rozciągać. Relację między węzłami, a także ich rozmiar i wygląd, można również skonfigurować tak, aby zmieniały się wraz ze zmianą rozmiaru ekranu lub orientacji.
 
 ### Właściwości węzłów
 
-Każdy węzeł w systemie GUI ma swoją oś (ang. pivot), horyzontalne i wertykalne zakotwiczenie (ang. anchor) oraz tryb dopasowania (ang. adjust mode).
+Każdy węzeł w GUI ma punkt pivot, poziome i pionowe zakotwiczenie oraz tryb dopasowania.
 
-* *Pivot* definiuje punkt środkowy węzła.
-* *Anchor* (kotwica) kontroluje zmianę położenia pionowego lub poziomego kiedy granice sceny, lub granice węzła-rodzica są rozciągnięte, aby dostosować się do zmiany rozmiaru ekranu.
-* *Adjust mode* (tryb dopasowania) kontroluje co dzieje się z węzłem, gdy granice sceny lub węzła-rodzica są dopasowane do wypełnienia ekranu.
+* Punkt pivot określa środek węzła.
+* Tryb anchor określa, jak zmienia się pozycja pionowa i pozioma węzła, gdy granice sceny lub granice węzła nadrzędnego są rozciągane tak, aby dopasować się do fizycznego rozmiaru ekranu.
+* Ustawienie adjust mode określa, co dzieje się z węzłem, gdy granice sceny lub granice węzła nadrzędnego są dopasowywane do fizycznego rozmiaru ekranu.
 
-Więcej o tych właściwościach możesz przeczytać [w tej instrukcji do GUI](/manuals/gui/#node-properties).
+Więcej informacji o tych właściwościach znajdziesz w [instrukcji GUI](/manuals/gui/#node-properties).
 
-### Rozplanowanie elementów (Layouts)
+### Układy
 
-Defold oferuje interfejsy GUI, które automatycznie dopasowują się do różnych wielkości ekranów i orientacji na urządzeniach mobilnych. Używając tych właściwości możesz zaprojektować GUI, które adaptuje się do zmian współczynnika proporcji i orientacji ekranu na ekranach o różnych rozmiarach. Można również skonfigurować rozplanowanie elementów dla konkretnych modeli urządzeń. Możesz się dowiedzieć o tym więcej [w tej instrukcji do layout'ów GUI](/manuals/gui-layouts/)
+Defold obsługuje GUI, które automatycznie dostosowują się do zmian orientacji ekranu na urządzeniach mobilnych. Dzięki tej funkcji możesz zaprojektować GUI, które dopasowuje się do orientacji i proporcji obrazu na szerokim zakresie rozmiarów ekranów. Można też tworzyć układy odpowiadające konkretnym modelom urządzeń. Więcej informacji o tym systemie znajdziesz w [instrukcji GUI Layouts](/manuals/gui-layouts/)
 
 
-## Testowanie ekranów o różnych wielkościach
+## Testowanie różnych rozmiarów ekranu
 
-Defold oferuje menu do debugowania, które zawiera opcję symulowania rozdzielczości konretnego urządzenia lub dowolnej rozdzielczości. Gdy aplikacja jest uruchomiona możesz kliknąć <kbd>Debug->Simulate Resolution</kbd> i wybrać jedno z urządzeń z listy. Okno aplikacji zmieni rozmiar i będziesz widzieć, jak Twoja gra wygląda na ekranie o danej rozdzielczości z danym współczynnikiem proporcji.
+Menu Debug zawiera opcję symulowania rozdzielczości konkretnego modelu urządzenia albo własnej rozdzielczości. Gdy aplikacja jest uruchomiona, możesz wybrać <kbd>Debug->Simulate Resolution</kbd> i wskazać jeden z modeli urządzeń z listy. Okno uruchomionej aplikacji zmieni rozmiar i będziesz mógł sprawdzić, jak gra wygląda w innej rozdzielczości lub przy innych proporcjach obrazu.
 
 ![](images/screen_size/simulate-resolution.png)

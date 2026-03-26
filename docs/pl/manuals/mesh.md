@@ -1,56 +1,56 @@
 ---
-title: Komponent Mesh w Defoldzie
-brief: Ta instrukcja opisuje jak działają komponenty typu Mesh służące do wyśweitlania obiektów 3D.
+title: Siatki 3D w Defold
+brief: Ta instrukcja opisuje, jak tworzyć siatki 3D w czasie działania gry.
 ---
 
-# Komponent Mesh (Siatka)
+# Komponent Mesh
 
-Defold to od podstaw silnik 3D. Nawet w przypadku pracy tylko z materiałem 2D, całe renderowanie jest wykonywane w 3D, ale rzutowane ortograficznie na ekran. Defold pozwala na korzystanie z pełnej zawartości 3D poprzez dodawanie i tworzenie komponentów 3D w czasie wykonywania w kolekcjach. Możesz tworzyć gry w czystym 3D, korzystając tylko z aktywów 3D, lub mieszać zawartość 3D i 2D według własnych preferencji. Komponent typu Mesh - Siatka jest jednym z komponentów do obsługi elementów trójwymiarowych.
+Defold jest w swojej istocie silnikiem 3D. Nawet jeśli pracujesz wyłącznie z materiałami 2D, całe renderowanie odbywa się w 3D, a następnie jest rzutowane ortograficznie na ekran. Defold pozwala wykorzystywać pełną zawartość 3D, dodając i tworząc siatki 3D w czasie działania w kolekcjach. Możesz budować gry wyłącznie w 3D albo dowolnie łączyć zawartość 3D i 2D.
 
-## Tworzenie komponentu Siatki
+## Tworzenie komponentu Mesh
 
-Komponenty Siatki - mesh są tworzone tak samo jak każdy inny komponent obiektu gry. Możesz to zrobić na dwa sposoby:
+Komponenty Mesh tworzy się tak samo jak inne komponenty obiektów gry. Można to zrobić na dwa sposoby:
 
-- Utwórz plik Mesh <kbd>klikając prawym przyciskiem myszy</kbd> w lokalizacji w panelu *Assets* i wybierając <kbd>New... ▸ Mesh</kbd>.
-- Utwórz komponent osadzony bezpośrednio w obiekcie gry <kbd>klikając prawym przyciskiem myszy</kbd> na obiekcie gry w panelu *Outline* i wybierając <kbd>Add Component ▸ Mesh</kbd>.
+- Utwórz plik *Mesh* przez <kbd>right-clicking</kbd> w wybranym miejscu panelu *Assets* i wybierz <kbd>New... ▸ Mesh</kbd>.
+- Utwórz komponent osadzony bezpośrednio w obiekcie gry przez <kbd>right-clicking</kbd> obiektu gry w widoku *Outline* i wybierz <kbd>Add Component ▸ Mesh</kbd>.
 
-![Mesh w obiekcie gry](images/mesh/mesh.png)
+![Mesh in game object](images/mesh/mesh.png)
 
-Po utworzeniu Siatki musisz określić szereg właściwości (properties):
+Po utworzeniu siatki musisz ustawić kilka właściwości:
 
-### Właściwości Siatki
+### Właściwości komponentu Mesh
 
-Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące właściwości specyficzne dla komponentu typu Mesh:
+Poza właściwościami *Id*, *Position* i *Rotation* dostępne są następujące właściwości specyficzne dla tego komponentu:
 
 *Material*
-: Materiał do użycia podczas renderowania Siatki trójwymiarowej.
+: Materiał używany do renderowania siatki.
 
 *Vertices*
-: Plik bufora opisujący dane Siatki dla strumienia.
+: Plik bufora opisujący dane siatki dla poszczególnych strumieni.
 
 *Primitive Type*
-: Typ prymitywu: Linie, Trójkąty lub Trójkąty Strip (Lines, Triangles or Triangle Strip).
+: Lines, Triangles lub Triangle Strip.
 
 *Position Stream*
-: Strumień pozycji - ta właściwość powinna zawierać nazwę strumienia *position*. Strumień jest automatycznie dostarczany jako wejście do vertex shadera (shadera wierzchołków).
+: Nazwa strumienia *position*. Ten strumień jest automatycznie przekazywany jako wejście do vertex shadera.
 
 *Normal Stream*
-: Strumień normalnych - ta właściwość powinna zawierać nazwę strumienia *normal*. Strumień jest automatycznie dostarczany jako wejście do vertex shadera.
+: Nazwa strumienia *normal*. Ten strumień jest automatycznie przekazywany jako wejście do vertex shadera.
 
 *tex0*
-: Ustaw to na teksturę do użycia na siatce.
+: Ustaw to na teksturę używaną przez siatkę.
 
-## Manipulacja w Edytorze
+## Edycja w edytorze
 
-Dzięki komponentowi typu Mesh możesz swobodnie edytować i manipulować komponentem i/lub otaczającym obiektem gry za pomocą standardowych narzędzi Edytora sceny (*Scene Editor*), aby dostosować pozycję, obrót i skalowanie Siatki według swojego uznania.
+Po dodaniu komponentu Mesh możesz edytować i przekształcać zarówno sam komponent, jak i obiekt gry, który go zawiera, za pomocą standardowych narzędzi *Scene Editor*, aby przesuwać, obracać i skalować siatkę według potrzeb.
 
-## Manipulacja w czasie rzeczywistym
+## Modyfikacja w czasie działania
 
-Możesz manipulować meshami w czasie wykonania programu, korzystając z buforów Defolda. Oto przykład tworzenia sześcianu z pasów trójkątów:
+Siatki można modyfikować w czasie działania przy użyciu buforów Defold. Przykład utworzenia sześcianu z pasów trójkątów:
 
 ```Lua
 
--- definicja wierzchołków sześcianu
+-- sześcian
 local vertices = {
 	0, 0, 0,
 	0, 1, 0,
@@ -68,7 +68,7 @@ local vertices = {
 	0, 1, 0
 }
 
--- utwórz bufor z danymi pozycji
+-- utwórz bufor ze strumieniem pozycji
 local buf = buffer.create(#vertices / 3, {
 	{ name = hash("position"), type=buffer.VALUE_TYPE_FLOAT32, count = 3 }
 })
@@ -79,29 +79,30 @@ for i, value in ipairs(vertices) do
 	positions[i] = vertices[i]
 end
 
--- ustaw bufor z wierzchołkami w siatce
+-- ustaw bufor z wierzchołkami w komponencie Mesh
 local res = go.get("#mesh", "vertices")
 resource.set_buffer(res, buf)
 ```
 
-Aby uzyskać więcej informacji na temat korzystania z komponentu Mesh, w tym projektów przykładowych i fragmentów kodu, zapoznaj się z [postem ogłoszeniowym na forum](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137.
+Więcej informacji o korzystaniu z komponentu Mesh, wraz z przykładowymi projektami i fragmentami kodu, znajdziesz w [poście ogłoszeniowym na forum](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137).
 
-## Frustum culling
+## Odrzucanie spoza bryły widokowej
 
-Frustum culling, czyli odrzucanie widoku spoza bryły widoku to funkcjonalność pozwalająca usuwać powierzchnie spoza widoku określonego przez specjalną bryłę (frustum) w celu zyskiwaniu na szybkości renderowania. Komponenty typu Mesh nie są automatycznie odrzucane ze względu na ich dynamiczną naturę i fakt, że niemożliwe jest dokładne ustalenie, w jaki sposób dane pozycyjne są kodowane. Aby odrzucić mesh, należy ustawić prostopadłościenne obramowanie otaczające mesh jako metadane w buforze za pomocą 6 liczb zmiennoprzecinkowych (AABB min/max):
+Komponenty Mesh nie są automatycznie odrzucane, ponieważ mają dynamiczny charakter i nie da się jednoznacznie określić, jak zakodowano dane pozycyjne. Aby włączyć odrzucanie siatki, trzeba zapisać w metadanych bufora ograniczający ją axis-aligned bounding box za pomocą 6 liczb zmiennoprzecinkowych (AABB min/max):
 
 ```lua
 buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_FLOAT32)
 ```
 
-## Stałe materiałowe
+## Stałe materiału
 
 {% include shared/material-constants.md component='mesh' variable='tint' %}
 
 `tint`
-: odcień/barwa Siatki (typu `vector4`). Wektor 4-składnikowy jest używany do reprezentowania odcienia z X, Y, Z i W odpowiadającymi kolorami czerwonym, zielonym, niebieskim i alfa (przezroczystości).
+: Odcień koloru siatki (`vector4`). Wektor vector4 reprezentuje odcień, gdzie x, y, z i w odpowiadają odpowiednio kanałom czerwieni, zieleni, błękitu i alfa.
 
-## Przestrzeń wierzchołkowa lokalna a przestrzeń świata
-Jeśli ustawienia Przestrzeni wierzchołka (Vertex Space setting) materiału Siatki są ustawione na Przestrzeń lokalną (vertex local space), dane zostaną dostarczone do shadera w postaci, w jakiej są, i będziesz musiał przekształcać wierzchołki/normalne na GPU, tak jak zwykle.
+## Lokalna przestrzeń wierzchołków a przestrzeń świata
 
-Jeśli ustawienia Przestrzeni wierzchołka materiału meshu są ustawione na Przestrzeń świata (world space), musisz albo dostarczyć domyślny strumień "position" i "normal", albo wybrać go z listy rozwijanej podczas edycji Siatki. Ma to na celu przekształcenie danych do przestrzeni świata w celu ich grupowania z innymi obiektami.
+Jeśli ustawienie Vertex Space materiału siatki ma wartość Local Space, dane zostaną przekazane do shadera bez zmian i musisz samodzielnie przekształcać wierzchołki oraz normalne na GPU, tak jak zwykle.
+
+Jeśli ustawienie Vertex Space materiału siatki ma wartość World Space, musisz albo dostarczyć domyślny strumień "position" i "normal", albo wybrać go z listy rozwijanej podczas edycji siatki. Dzięki temu silnik może przekształcić dane do przestrzeni świata i zgrupować je podczas renderowania razem z innymi obiektami.

@@ -1,28 +1,28 @@
 ---
-title: Węzły prostokątne - box w Defoldzie
-brief: Ta instrukcja wyjaśnia jak używać węzłów typu box.
+title: Węzły GUI typu box w Defold
+brief: Ta instrukcja wyjaśnia, jak używać węzłów GUI typu box.
 ---
 
-# Węzeł GUI typu box
+# Węzły GUI typu box
 
-Węzeł prostokątny box to prostokąt wypełniony kolorem, teksturą lub animacją.
+Węzeł GUI typu box to prostokąt wypełniony kolorem, teksturą lub animacją.
 
 ## Dodawanie węzłów box
 
-Dodaj nowe węzły box, <kbd>klikając prawym przyciskiem myszy</kbd> w widoku "Outline" i wybierając <kbd>Add ▸ Box</kbd>, lub naciśnij klawisz <kbd>A</kbd> i wybierz <kbd>Box</kbd>.
+Dodaj nowe węzły box, klikając prawym przyciskiem myszy w *Outline* i wybierając <kbd>Add ▸ Box</kbd>, albo naciśnij <kbd>A</kbd> i wybierz <kbd>Box</kbd>.
 
-Możesz używać obrazów i animacji z atlasów lub źródeł kafelków, które zostały dodane do GUI. Dodaj tekstury, klikając prawym przyciskiem myszy na ikonę folderu "Textures" w widoku "Outline" i wybierając <kbd>Add ▸ Textures...</kbd>. Następnie ustaw właściwość *Texture* węzłu box na daną teksturę:
+Możesz używać obrazów i animacji z atlasów lub źródeł kafelków dodanych do GUI. Aby dodać tekstury, kliknij prawym przyciskiem myszy ikonę folderu *Textures* w *Outline* i wybierz <kbd>Add ▸ Textures...</kbd>. Następnie ustaw właściwość *Texture* węzła box:
 
-![Textures](images/gui-box/create.png)
+![Tekstury](images/gui-box/create.png)
 
-Należy zauważyć, że kolor węzła box będzie barwił (ang. tint) grafikę. Kolor barwienia jest mnożony przez dane obrazu, co oznacza, że jeśli ustawisz kolor na biały (domyślny), w praktyce nie zostanie zastosowane barwienie.
+Zwróć uwagę, że kolor węzła box zabarwia grafikę. Kolor zabarwienia jest mnożony przez dane obrazu, więc jeśli ustawisz kolor na biały (domyślny), nie zostanie zastosowane zabarwienie.
 
-![Tinted texture](images/gui-box/tinted.png)
+![Teksturowany obraz](images/gui-box/tinted.png)
 
-Węzły box są zawsze renderowane, nawet jeśli nie mają przypisanej tekstury, mają ustawioną wartość alfa na `0` lub mają rozmiar `0, 0, 0`. Węzły box powinny zawsze mieć przypisaną do nich teksturę, aby renderer mógł je właściwie grupować i zmniejszać liczbę wywołań rysowania (ang. draw calls).
+Węzły box są zawsze renderowane, nawet jeśli nie mają przypisanej tekstury, mają ustawioną alfę na `0` albo mają rozmiar `0, 0, 0`. Węzły box powinny zawsze mieć przypisaną teksturę, aby renderer mógł je poprawnie grupować i zmniejszać liczbę wywołań rysowania.
 
 ## Odtwarzanie animacji
 
-Węzły pudełkowe mogą odtwarzać animacje z atlasów lub źródeł kafelków. Aby dowiedzieć się więcej, zajrzyj do [instrukcji do animacji flipbook](/manuals/flipbook-animation).
+Węzły box mogą odtwarzać animacje z atlasów lub źródeł kafelków. Więcej informacji znajdziesz w [instrukcji animacji flipbook](/manuals/flipbook-animation).
 
 :[Slice-9](../shared/slice-9-texturing.md)

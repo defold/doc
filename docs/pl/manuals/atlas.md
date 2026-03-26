@@ -1,128 +1,142 @@
 ---
-title: Atlas (Galeria obrazów)
-brief: Ta instrukcja wyjaśnia jak działa atlas w Defoldzie.
+title: Podręcznik atlasu
+brief: Ten podręcznik wyjaśnia, jak działają zasoby atlasu w Defold.
 ---
 
-# Atlas (Galeria obrazów)
+# Atlas
 
-Chociaż pojedyncze obrazy często są używane jako źródło dla sprite'ów, ze względów wydajnościowych obrazy muszą być łączone w większe zestawy obrazów, nazywane atlasy. Kombinowanie zestawów mniejszych obrazów w atlasy jest szczególnie ważne na urządzeniach mobilnych, gdzie pamięć i moc obliczeniowa są przeważnie mniejsze niż na komputerach stacjonarnych lub dedykowanych konsolach do gier.
+Chociaż pojedyncze obrazy są często używane jako źródło sprite'ów, ze względów wydajnościowych obrazy trzeba łączyć w większe zestawy, zwane atlasami. Łączenie mniejszych obrazów w atlasy jest szczególnie ważne na urządzeniach mobilnych, gdzie pamięć i moc obliczeniowa są mniejsze niż na komputerach stacjonarnych lub konsolach do gier.
 
-W Defoldzie zasób atlasu to lista oddzielnych plików obrazów, które automatycznie są łączone w większy obraz.
+W Defold zasób atlasu to lista oddzielnych plików obrazów, które są automatycznie łączone w jeden większy obraz.
 
+## Tworzenie atlasu
 
-## Tworzenie Atlasu
+Wybierz <kbd>New... ▸ Atlas</kbd> z menu kontekstowego w przeglądarce *Assets*. Nadaj nazwę nowemu plikowi atlasu. Edytor otworzy teraz plik w edytorze atlasu. Właściwości atlasu są widoczne w panelu *Properties*, więc możesz je edytować (szczegóły znajdziesz poniżej).
 
-Wybierz <kbd>New... ▸ Atlas</kbd> z menu kontekstowego w panelu *Assets*. Nazwij nowy plik atlasu. Edytor otworzy teraz plik w edytorze atlasu. Właściwości atlasu są widoczne w
-panelu *Properties* (Właściwości), dzięki czemu możesz je edytować (szczegóły poniżej).
+Musisz najpierw wypełnić atlas obrazami lub animacjami, zanim użyjesz go jako źródła grafiki dla komponentów obiektu, takich jak Sprite i ParticleFX.
 
-Musisz wypełnić atlas obrazami lub animacjami, zanim będziesz mógł go użyć jako źródła grafiki dla komponentów obiektu, takich jak Sprite'y i komponenty ParticleFX.
-
-Upewnij się, że dodałeś obrazy do projektu (przeciągnij i upuść pliki obrazów we właściwe miejsce w panelu *Assets*).
+Upewnij się, że dodałeś obrazy do projektu, przeciągając pliki obrazów w odpowiednie miejsce w przeglądarce *Assets*.
 
 Dodawanie pojedynczych obrazów
-: Kliknij <kbd>prawym przyciskiem myszy</kbd> główny wpis Atlas w panelu *Outline*.
+: Przeciągnij obrazy z panelu *Assets* do widoku edytora.
+
+  Alternatywnie kliknij prawym przyciskiem myszy główny wpis atlasu w panelu *Outline*.
 
   Wybierz <kbd>Add Images</kbd> z menu kontekstowego, aby dodać pojedyncze obrazy.
 
-  Pojawi się okno dialogowe, z którego możesz znaleźć i wybrać obrazy, które chcesz dodać do atlasu. Zauważ, że możesz filtrować pliki obrazów i wybierać je wielokrotnie.
+  Otworzy się okno dialogowe, w którym możesz znaleźć i zaznaczyć obrazy, które chcesz dodać do atlasu. Zwróć uwagę, że możesz filtrować pliki obrazów i wybierać wiele plików naraz.
 
-  ![Creating an atlas, adding images](images/atlas/add.png)
+  ![Tworzenie atlasu, dodawanie obrazów](images/atlas/add.png)
 
-  Dodane obrazy są wymienione w *Outline*, a pełny atlas można zobaczyć w centrum widoku edytora. Może być konieczne naciśnięcie <kbd>F</kbd> (<kbd>View ▸ Frame Selection</kbd> w menu), aby dopasować zaznaczenie.
+  Dodane obrazy są wyświetlane w *Outline*, a cały atlas można zobaczyć w środkowym widoku edytora. Może być konieczne naciśnięcie <kbd>F</kbd> (<kbd>View ▸ Frame Selection</kbd> z menu), aby dopasować widok do zaznaczenia.
 
-  ![Images added](images/atlas/single_images.png)
+  ![Dodane obrazy](images/atlas/single_images.png)
 
 Dodawanie animacji flipbook
-: Kliknij <kbd>przyciskiem myszy</kbd> główny wpis Atlas w panelu *Outline*.
+: Kliknij prawym przyciskiem myszy główny wpis atlasu w panelu *Outline*.
 
   Wybierz <kbd>Add Animation Group</kbd> z menu kontekstowego, aby utworzyć grupę animacji flipbook.
 
-  Nowa, pusta grupa animacji o domyślnej nazwie ("New Animation") zostaje dodana do atlasu.
+  Do atlasu zostanie dodana nowa, pusta grupa animacji z domyślną nazwą ("New Animation").
 
-  Kliknij <kbd>prawym przyciskiem myszy</kbd> na nową grupę i wybierz <kbd>dd Images</kbd> z menu kontekstowego.
+  Przeciągnij obrazy z panelu *Assets* do widoku edytora, aby dodać je do aktualnie zaznaczonej grupy.
 
-  Pojawi się okno dialogowe, z którego możesz znaleźć i wybrać obrazy, które chcesz dodać do grupy animacji.
+  Alternatywnie kliknij prawym przyciskiem myszy nową grupę i wybierz <kbd>Add Images</kbd> z menu kontekstowego.
 
-  ![Creating an atlas, adding images](images/atlas/add_animation.png)
+  Otworzy się okno dialogowe, w którym możesz znaleźć i zaznaczyć obrazy, które chcesz dodać do grupy animacji.
 
-  Naciśnij <kbd>Spację</kbd> z wybraną grupą animacji, aby ją obejrzeć. Dostosuj właściwości animacji w obszarze *Properties* według potrzeb (patrz poniżej).
+  ![Tworzenie atlasu, dodawanie obrazów](images/atlas/add_animation.png)
 
-  ![Animation group](images/atlas/animation_group.png)
+  Naciśnij <kbd>Space</kbd> z zaznaczoną grupą animacji, aby ją podejrzeć, i użyj <kbd>Ctrl/Cmd+T</kbd>, aby zamknąć podgląd. Dostosuj *Properties* animacji według potrzeb (patrz poniżej).
 
-Możesz zmieniać kolejność obrazów w Outline, wybierając je i naciskając <kbd>Alt + W górę/w dół</kbd>. Możesz również łatwo tworzyć duplikaty, kopiując i wklejając obrazy w zarysie (z menu <kbd>Edit</kbd>, menu kontekstowego po kliknięciu prawym przyciskiem myszy lub za pomocą skrótów klawiszowych).
+  ![Grupa animacji](images/atlas/animation_group.png)
 
-## Właściwości Atlasu
+Możesz zmieniać kolejność obrazów w panelu *Outline*, zaznaczając je i naciskając <kbd>Alt + Up/down</kbd>. Możesz też łatwo tworzyć duplikaty, kopiując i wklejając obrazy w panelu *Outline* (z menu <kbd>Edit</kbd>, z menu kontekstowego po kliknięciu prawym przyciskiem myszy lub skrótami klawiaturowymi).
 
-Każdy zasób atlasu posiada zestaw właściwości, które są widoczne w obszarze *Properties*, gdy wybierasz główny element w panelu *Outline*.
+## Właściwości atlasu
 
-Size (Rozmiar)
-: Pokazuje obliczony łączny rozmiar wynikowego zasobu tekstury. Szerokość i wysokość są ustawiane na najbliższą potęgę dwójki. Zauważ, że jeśli włączysz kompresję tekstury, niektóre formaty wymagają tekstur kwadratowych. Niekwadratowe tekstury zostaną wtedy zmienione rozmiarem i wypełnione pustą przestrzenią, aby stworzyć teksturę kwadratową. Szczegóły można znaleźć w [instrukcji do profilów tekstur](/manuals/texture-profiles/)
+Każdy zasób atlasu ma zestaw właściwości. Są one widoczne w panelu *Properties*, gdy zaznaczysz element główny w widoku *Outline*.
 
-Margin (Margines)
-: Liczba pikseli, która powinna być dodawana między każdym obrazem.
+Size
+: Pokazuje obliczony łączny rozmiar wynikowego zasobu tekstury. Szerokość i wysokość są ustawiane na najbliższą potęgę dwójki. Jeśli włączysz kompresję tekstury, niektóre formaty wymagają tekstur kwadratowych. Tekstury niekwadratowe zostaną wtedy przeskalowane i wypełnione pustą przestrzenią, aby stały się kwadratowe. Szczegóły znajdziesz w [podręczniku profili tekstur](/manuals/texture-profiles/).
 
-Inner Padding (Wewnętrzny margines)
-: Liczba pustych pikseli, która powinna być wypełniana wokół każdego obrazu.
+Margin
+: Liczba pikseli, które należy dodać między każdym obrazem.
 
-Extrude Borders (Wytłoczenie granic)
-: Liczba krawędziowych pikseli, która powinna być wielokrotnie dodawana wokół każdego obrazu. Kiedy fragment shader próbuje pobierać piksele na krawędzi obrazu, piksele z obrazu sąsiada (na tym samym atlasie tekstury) mogą się przeniknąć. Wydłużenie krawędzi rozwiązuje ten problem.
+Inner Padding
+: Liczba pustych pikseli, które należy dodać wokół każdego obrazu.
 
-Oto przykłady różnych ustawień właściwości z czterema kwadratowymi obrazami o wymiarach 64x64 pikseli dodanymi do atlasu. Zauważ, jak atlas przeskakuje do rozmiaru 256x256, kiedy tylko obrazy nie mieszczą się w 128x128, co skutkuje marnowaniem dużej przestrzeni tekstury.
+Extrude Borders
+: Liczba pikseli krawędzi, które należy wielokrotnie dodać wokół każdego obrazu. Gdy fragment shader próbuje próbkować piksele na krawędzi obrazu, piksele sąsiedniego obrazu (na tej samej teksturze atlasu) mogą „przeciekać”. Wyekstrudowanie krawędzi rozwiązuje ten problem.
 
-![Atlas properties](images/atlas/atlas_properties.png)
+Max Page Size
+: Maksymalny rozmiar strony w atlasie wielostronicowym. Można tego użyć do podzielenia atlasu na wiele stron tego samego atlasu, aby ograniczyć jego rozmiar, a jednocześnie korzystać tylko z jednego draw call. Ta funkcja musi być używana razem z materiałami obsługującymi atlas wielostronicowy, znajdującymi się w `/builtins/materials/*_paged_atlas.material`.
 
-## Właściwości Obrazu
+![Atlas wielostronicowy](images/atlas/multipage_atlas.png)
 
-Każdy obraz w atlasie posiada zestaw właściwości:
+Rename Patterns
+: Przecinkiem (´,´) rozdzielona lista wzorców wyszukiwania i zamiany, gdzie każdy wzorzec ma postać `search=replace`.
+  Oryginalna nazwa każdego obrazu (nazwa bazowa pliku) zostanie przekształcona przy użyciu tych wzorców. Na przykład wzorzec `hat=cat,_normal=` zmieni nazwę obrazu `hat_normal` na `cat`. Jest to przydatne przy dopasowywaniu animacji między atlasami.
+
+Oto przykłady różnych ustawień właściwości z czterema kwadratowymi obrazami 64x64 dodanymi do atlasu. Zwróć uwagę, jak atlas przeskakuje do 256x256, gdy obrazy przestają mieścić się w 128x128, co powoduje duże marnotrawstwo miejsca w teksturze.
+
+![Właściwości atlasu](images/atlas/atlas_properties.png)
+
+## Właściwości obrazu
+
+Każdy obraz w atlasie ma zestaw właściwości:
 
 Id
-: Identyfikator obrazu (tylko do odczytu).
+: Id obrazu (tylko do odczytu).
 
-Size (Rozmiar)
+Size
 : Szerokość i wysokość obrazu (tylko do odczytu).
 
-Sprite Trim Mode (Trymowanie Sprite'a)
-: Sposób renderowania sprite'a. Domyślnie sprite jest renderowany jako prostokąt (Trymowanie Sprite'a ustawione na Off - Wyłączone). Jeśli sprite zawiera wiele przezroczystych pikseli, może być bardziej wydajne, aby renderować sprite jako kształt nierektangularny, używając od 4 do 8 wierzchołków. Zauważ, że trymowanie sprite'a nie działa razem z sprite'ami typu slice-9.
+Pivot
+: Punkt pivot obrazu (w jednostkach). Lewy górny róg ma wartość (0,0), a prawy dolny (1,1). Domyślna wartość to (0.5, 0.5). Pivot może znajdować się poza zakresem 0-1. To właśnie w tym punkcie obraz zostanie wyśrodkowany, gdy będzie użyty np. w spricie. Możesz zmienić pivot, przeciągając uchwyt pivot w widoku edytora. Uchwyt będzie widoczny tylko wtedy, gdy zaznaczony jest jeden obraz. Przypinanie można włączyć, przytrzymując <kbd>Shift</kbd> podczas przeciągania.
 
-Image (Obraz)
+Sprite Trim Mode
+: Sposób renderowania sprite'a. Domyślnie sprite jest renderowany jako prostokąt (Sprite Trim Mode ustawiony na Off). Jeśli sprite zawiera dużo przezroczystych pikseli, bardziej wydajne może być renderowanie go jako kształtu nieprostokątnego przy użyciu od 4 do 8 wierzchołków. Zwróć uwagę, że przycinanie sprite'a nie działa razem ze sprite'ami slice-9.
+
+Image
 : Ścieżka do samego obrazu.
 
-![Image properties](images/atlas/image_properties.png)
+![Właściwości obrazu](images/atlas/image_properties.png)
 
-## Właściwości Animacji
+## Właściwości animacji
 
-Oprócz listy obrazów, które są częścią grupy animacyjnej (Animation Group), dostępny jest zestaw właściwości:
+Oprócz listy obrazów należących do grupy animacji dostępny jest zestaw właściwości:
 
 Id
-: Identyfikator/nazwa animacji.
+: Nazwa animacji.
 
 Fps
-: Szybkość odtwarzania animacji wyrażona w klatkach na sekundę (Frames Per Second).
+: Szybkość odtwarzania animacji, wyrażona w klatkach na sekundę (FPS).
 
-Flip horizontal (Odbicie w poziomie)
+Flip horizontal
 : Odbija animację w poziomie.
 
-Flip vertical (Odbicie w pionie)
+Flip vertical
 : Odbija animację w pionie.
 
-Playback (Odtwarzanie)
-: Określa, w jaki sposób animacja ma być odtwarzana:
+Playback
+: Określa, jak animacja ma być odtwarzana:
 
-  - `None` - animacja nie jest odtwarzana wcale, wyświetlany jest pierwszy obraz.
-  - `Once Forward` - odtwarza animację raz od pierwszego do ostatniego obrazu.
-  - `Once Backward` - odtwarza animację raz od ostatniego do pierwszego obrazu.
-  - `Once Ping Pong` - odtwarza animację raz od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
-  - `Loop Forward` - odtwarza animację cyklicznie od pierwszego do ostatniego obrazu.
-  - `Loop Backward` - odtwarza animację cyklicznie od ostatniego do pierwszego obrazu.
-  - `Loop Ping Pong` - odtwarza animację cyklicznie od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
+  - `None` nie odtwarza niczego, wyświetlany jest pierwszy obraz.
+  - `Once Forward` odtwarza animację raz od pierwszego do ostatniego obrazu.
+  - `Once Backward` odtwarza animację raz od ostatniego do pierwszego obrazu.
+  - `Once Ping Pong` odtwarza animację raz od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
+  - `Loop Forward` odtwarza animację wielokrotnie od pierwszego do ostatniego obrazu.
+  - `Loop Backward` odtwarza animację wielokrotnie od ostatniego do pierwszego obrazu.
+  - `Loop Ping Pong` odtwarza animację wielokrotnie od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
 
-## Tworzenie tekstury i atlasu w czasie wykonania programu (Runtime)
+## Tworzenie tekstury i atlasu w czasie działania programu
 
-Począwszy od Defold 1.4.2 możliwe jest tworzenie zasobu tekstury i atlasu w czasie wykonania.
+Począwszy od Defold 1.4.2 można tworzyć teksturę i atlas w czasie działania programu.
 
-### Tworzenie zasobu tekstury w czasie wykonania
+### Tworzenie zasobu tekstury w czasie działania programu
 
-Użyj funkcji [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table), aby utworzyć nowy zasób tekstury:
+Użyj [`resource.create_texture(path, params)`](https://defold.com/ref/stable/resource/#resource.create_texture:path-table), aby utworzyć nowy zasób tekstury:
 
 ```lua
   local params = {
@@ -134,7 +148,7 @@ Użyj funkcji [`resource.create_texture(path, params)`](https://defold.com/ref/s
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
 
-Kiedy tekstura jest utworzona użyj funkcji [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer) w celu ustawienia pikseli tekstury:
+Gdy tekstura zostanie utworzona, użyj [`resource.set_texture(path, params, buffer)`](https://defold.com/ref/stable/resource/#resource.set_texture:path-table-buffer), aby ustawić piksele tekstury:
 
 ```lua
   local width = 128
@@ -157,7 +171,7 @@ Kiedy tekstura jest utworzona użyj funkcji [`resource.set_texture(path, params,
 ```
 
 ::: sidenote
-Istnieje także możliwość użycia funkcji `resource.set_texture()`, aby zaktualizować podregion tekstury, korzystając z szerokości i wysokości bufora mniejszych niż pełny rozmiar tekstury i zmieniając parametry x i y w funkcji resource.set_texture().
+Możliwe jest również użycie `resource.set_texture()`, aby zaktualizować podregion tekstury, korzystając z bufora o szerokości i wysokości mniejszych niż pełny rozmiar tekstury oraz zmieniając parametry x i y przekazywane do `resource.set_texture()`.
 :::
 
 Teksturę można użyć bezpośrednio na [komponencie modelu](/manuals/model/) za pomocą `go.set()`:
@@ -166,9 +180,9 @@ Teksturę można użyć bezpośrednio na [komponencie modelu](/manuals/model/) z
   go.set("#model", "texture0", my_texture_id)
 ```
 
-### Tworzenie atlasu w czasie wykonania
+### Tworzenie atlasu w czasie działania programu
 
-Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), musi najpierw zostać użyta w atlasie. Użyj funckji [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table), aby utworzyć atlas:
+Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), najpierw musi zostać użyta przez atlas. Użyj [`resource.create_atlas(path, params)`](https://defold.com/ref/stable/resource/#resource.create_atlas:path-table), aby utworzyć atlas:
 
 ```lua
   local params = {
@@ -202,10 +216,10 @@ Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), mu
   }
   local my_atlas_id = resource.create_atlas("/my_atlas.texturesetc", params)
 
-  -- assign the atlas to the 'sprite' component on the same go
+  -- przypisz atlas do komponentu 'sprite' w tym samym obiekcie gry
   go.set("#sprite", "image", my_atlas_id)
 
-  -- play the "animation"
+  -- odtwórz "animację"
   sprite.play_flipbook("#sprite", "my_animation")
 
 ```

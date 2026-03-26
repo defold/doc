@@ -1,101 +1,115 @@
 ---
-title: Mapy kafelków w Defoldzie
-brief: Instrukcja ta wyjaśnia szczegóły dotyczące map kafelków (tile maps) w Defoldzie.
+title: Podręcznik map kafelków w Defoldzie
+brief: Ten podręcznik opisuje obsługę map kafelków w Defoldzie.
 ---
 
-# Tile map
+# Mapa kafelków
 
-Mapa kafelków, czyli *Tile Map* jest komponentem pozwalającym składać większe obrazy z mniejszych kafelków (tiles) z dostępnego źródła kafelków (*Tile Source*) na kanwie o stałej siatce rozmieszczenia kafelków. Mapy te są często używane do budowania poziomów w grach (np. platformowych). Możesz również używać kształtu kolizji (*Collision Shapes*) pojedynczych kafelków ze źródła w Twojej mapie do wykrywania kolizji między poziomem a innymi obiektami fizyki ([- sprawdź przykład](/examples/tilemap/collisions/)).
+Mapa kafelków, czyli *Tile Map*, to komponent pozwalający układać albo malować kafelki z *Tile Source* na dużym obszarze siatki. Mapy kafelków są często używane do budowy poziomów w grach. Możesz też korzystać z *Collision Shapes* ze źródła kafelków w swoich mapach do wykrywania kolizji i symulacji fizyki ([przykład](/examples/tilemap/collisions/)).
 
-Zanim utworzysz mapę kafelków musisz utworzyć ich źródło - galerię kafelków (Tile Source). Więcej szczegółów na temat tworzenia źródła kafelków znajdziesz w [tej instrukcji](/manuals/tilesource).
+Zanim utworzysz mapę kafelków, musisz najpierw utworzyć Tile Source. Zajrzyj do [podręcznika Tile Source](/manuals/tilesource), aby dowiedzieć się, jak utworzyć takie źródło.
 
 ## Tworzenie mapy kafelków
 
-To create a new tile map:
+Aby utworzyć nową mapę kafelków:
 
-- <kbd>Kliknij prawym przyciskiem myszki</kbd> na wybraną lokację w panel *Assets* i wybierz <kbd>New... ▸ Tile Map</kbd>).
-- Nazwij plik.
-- Nowa mapa automatycznie utworzy się w Edytorze map.
+- <kbd>Right click</kbd> w wybranym miejscu w przeglądarce *Assets*, a następnie wybierz <kbd>New... ▸ Tile Map</kbd>.
+- Nadaj plikowi nazwę.
+- Nowa mapa kafelków automatycznie otworzy się w edytorze map kafelków.
 
   ![new tilemap](images/tilemap/tilemap.png)
 
-- Ustaw źródła - właściwość *Tile Source* tak, żeby wskazywała na wcześniej przygotowane źródło kafelków.
+- Ustaw właściwość *Tile Source* na plik źródła kafelków, który przygotowałeś.
 
-W edytorze możesz rysować kafelkami swoje mapy, niczym pędzlem w edytorach graficznych:
+Aby malować kafelki na mapie:
 
-1. Wybierz lub utwórz nową warstwę (*Layer*) w panelu *Outline*.
-2. Wybierz kafelek do używania z palety otwieranej po naciśnięciu <kbd>Spacji</kbd>.
+1. Wybierz lub utwórz *Layer* do malowania w widoku *Outline*.
+2. Wybierz kafelek, który ma służyć jako pędzel (naciśnij <kbd>Space</kbd>, aby wyświetlić paletę kafelków), albo zaznacz kilka kafelków, przeciągając po palecie, aby utworzyć prostokątny pędzel z wieloma kafelkami.
 
    ![Palette](images/tilemap/palette.png)
 
-3. Maluj wybranym kafelkiem niczym pędzlem. Żeby wymazać kafelek albo wybierz pusty kafelek, żeby użyć go jak gumki, albo wybierz narzędzie gumki: <kbd>Edit ▸ Select Eraser</kbd>.
+3. Maluj wybranym pędzlem. Aby usunąć kafelek, możesz wybrać pusty kafelek i użyć go jako pędzla albo wybrać gumkę (<kbd>Edit ▸ Select Eraser</kbd>).
 
    ![Painting tiles](images/tilemap/paint_tiles.png)
 
-Możesz też pobierać kafelki bezpośrednio z warstwy na Twojej mapie i używać wybranego kafelka jak pędzla - naciśnij <kbd>Shift</kbd> i wybierz kafelek z mapy, żeby użyć go jako pędzla. Podczas trzymania klawisza <kbd>Shift</kbd> możesz wybrać więcej niż jeden kafelek - przeciągając zaznaczenie przez wiele z nich, żeby stworzyć większy pędzel składający się z kilku kafelków.
+Możesz też pobierać kafelki bezpośrednio z warstwy i używać zaznaczenia jako pędzla. Przytrzymaj <kbd>Shift</kbd> i kliknij kafelek, aby przejąć go jako aktualny pędzel. Trzymając <kbd>Shift</kbd>, możesz też kliknąć i przeciągnąć, aby zaznaczyć blok kafelków i użyć go jako większego pędzla. Możesz również wycinać kafelki w podobny sposób, przytrzymując <kbd>Shift+Ctrl</kbd>, albo usuwać je, przytrzymując <kbd>Shift+Alt</kbd>.
+
+Aby obrócić pędzel zgodnie z ruchem wskazówek zegara, użyj <kbd>Z</kbd>. <kbd>X</kbd> służy do poziomego odbicia pędzla, a <kbd>Y</kbd> do odbicia pionowego.
 
 ![Picking tiles](images/tilemap/pick_tiles.png)
 
-## Dodawanie mapy kafelków do Twojej gry
+## Dodawanie mapy kafelków do gry
 
-Aby dodać mapę do Twojej gry:
+Aby dodać mapę kafelków do gry:
 
-1. Utwórz obiekt gry. Nie jest istotne czy będzie to obiekt gry z prototypem zapisanym w pliku czy utworzonym bezpośrednio w kolekcji.
-2. Kliknij prawym przyciskiem myszki na Twój obiekt i wybierz <kbd>Add Component File</kbd>.
-3. Wybierz plik z Twoją mapą kafelków.
+1. Utwórz obiekt gry, który będzie zawierał komponent mapy kafelków. Obiekt gry może być zapisany w pliku albo utworzony bezpośrednio w kolekcji.
+2. Kliknij prawym przyciskiem myszy główny element obiektu gry i wybierz <kbd>Add Component File</kbd>.
+3. Wybierz plik mapy kafelków.
 
 ![Use tile map](images/tilemap/use_tilemap.png)
 
-## Manipulacja w trakcie działania programu
+## Modyfikowanie w czasie działania
 
-Możesz też manipulować mapami w trakcie działania programu poprzez kilka funkcji i właściwości (sprawdź więcej szczegółów w [API](/ref/tilemap/)).
+Możesz modyfikować mapy kafelków w czasie działania programu za pomocą kilku różnych funkcji i właściwości (zobacz [dokumentację API](/ref/tilemap/) po przykłady użycia).
 
-### Zmienianie pojedynczych kafelków z poziomu skryptu
+### Zmiana kafelków ze skryptu
 
-Możesz zarówno odczytać kafelek z danego miejsca na mapie i zapisać inny kafelek w danym miejscu mapy dynamicznie. Używa się do tego funkcji [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) i [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile) functions:
+Możesz dynamicznie odczytywać i zapisywać zawartość mapy kafelków, gdy gra działa. W tym celu użyj funkcji [`tilemap.get_tile()`](/ref/tilemap/#tilemap.get_tile) i [`tilemap.set_tile()`](/ref/tilemap/#tilemap.set_tile):
 
 ```lua
 local tile = tilemap.get_tile("/level#map", "ground", x, y)
 
 if tile == 2 then
-    -- Zamień kafelek trawy (2) z kafelkiem z niebezpieczną dziurą (4).
+    -- Zamień kafelek trawy (2) na niebezpieczną dziurę (liczba 4).
     tilemap.set_tile("/level#map", "ground", x, y, 4)
 end
 ```
 
-## Właściwości map kafelków
+## Właściwości mapy kafelków
 
-Poza właściwościami takimi jak *Id*, *Position* i *Rotation* komponenty te posiadają swoje specyficzne właściwości:
+Oprócz właściwości *Id*, *Position*, *Rotation* i *Scale* istnieją też następujące właściwości specyficzne dla tego komponentu:
 
 *Tile Source*
-: Źródło kafelków - galeria z mniejszymi obrazkami/kafelkami.
+: Zasób Tile Source używany przez mapę kafelków.
 
 *Material*
-: Materiał służący do renderowania.
+: Materiał używany do renderowania mapy kafelków.
 
 *Blend Mode*
-: Tryb "mieszania"/blendowania używany również przy renderowaniu. Więcej szczegółów poniżej.
+: Tryb mieszania używany podczas renderowania mapy kafelków.
 
-### Blend modes - tryby blendowania
+### Tryby mieszania
 :[blend-modes](../shared/blend-modes.md)
 
-### Zmiana właściwości w trakcie działania programu
+### Zmiana właściwości
 
-Mapa kafelków ma kilka różnych właściwości, które można odczytywać i zmieniać w trakcie działania programu używając funkcji `go.get()` i `go.set()`:
+Mapa kafelków ma kilka właściwości, którymi można sterować za pomocą `go.get()` i `go.set()`:
 
 `tile_source`
-: Źródło kafelków (`hash`). Możesz użyć tej właściwości do podmiany źródła kafelków na inne, które mogą być właściwościami zasobu (resource property) i ustawić używając `go.set()`. Sprawdź szczegóły i przykłady w [API](/ref/tilemap/#tile_source).
+: Źródło kafelków mapy kafelków (`hash`). Możesz zmienić tę wartość za pomocą właściwości zasobu źródła kafelków i `go.set()`. Zobacz [przykład w dokumentacji API](/ref/tilemap/#tile_source).
 
 `material`
-: Materiał mapy (`hash`). Możesz podmienić materiał korzystając z właściwości zasobu (resource property) i ustawić używając `go.set()`. Sprawdź szczegóły i przykłady w [API](/ref/tilemap/#material).
+: Materiał mapy kafelków (`hash`). Możesz zmienić tę wartość za pomocą właściwości zasobu materiału i `go.set()`. Zobacz [przykład w dokumentacji API](/ref/tilemap/#material).
 
 ### Stałe materiału
 
 {% include shared/material-constants.md component='tilemap' variable='tint' %}
 
 `tint`
-: Kolor zabarwienia/odcienia mapy (`vector4`). Wektor czterech komponentów reprezentuje zabarwienie, gdzie komponenty x, y, z, w odpowiadają składowym: czerwony, zielony, niebieski i przezroczystość (red, green, blue, alpha).
+: Kolor zabarwienia mapy kafelków (`vector4`). Wartość vector4 reprezentuje zabarwienie za pomocą składowych x, y, z i w, odpowiadających kolejno czerwieni, zieleni, niebieskiemu i alfie.
 
 ## Konfiguracja projektu
 
-Plik *game.project* zawiera [te ustawienia](/manuals/project-settings#tilemap) dotyczące map kafelków.
+Plik *game.project* zawiera kilka [ustawień projektu](/manuals/project-settings#tilemap) związanych z mapami kafelków.
+
+## Narzędzia zewnętrzne
+
+Istnieją zewnętrzne edytory map i poziomów, które mogą eksportować dane bezpośrednio do map kafelków Defold:
+
+### Tiled
+
+[Tiled](https://www.mapeditor.org/) to dobrze znany i szeroko używany edytor map dla map ortogonalnych, izometrycznych i heksagonalnych. Tiled obsługuje wiele różnych funkcji i może [eksportować bezpośrednio do Defold](https://doc.mapeditor.org/en/stable/manual/export-defold/). Więcej informacji o eksportowaniu danych map kafelków i dodatkowych metadanych znajdziesz w [tym wpisie na blogu użytkownika Defold o nazwie "goeshard"](https://goeshard.org/2025/01/01/using-tiled-object-layers-with-defold-tilemaps/).
+
+### Tilesetter
+
+[Tilesetter](https://www.tilesetter.org/docs/exporting#defold) może automatycznie tworzyć kompletne zestawy kafelków z prostych kafelków bazowych i ma edytor map, który może eksportować bezpośrednio do Defold.

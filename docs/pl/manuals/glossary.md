@@ -1,172 +1,172 @@
 ---
 title: Słowniczek Defold
-brief: Ten słowniczek zawiera terminy Defold z krótkimi objaśnieniami.
+brief: Ten słowniczek zawiera krótkie opisy wszystkiego, co możesz napotkać podczas pracy w Defold.
 ---
 
 # Słowniczek Defold
 
-Ten słowniczek udziela krótkich wyjaśnień dla terminów, które napotkasz podczas pracy z silnikiem Defold. W większości przypadków zamieszczamy też odnośniki do obszerniejszych opisów.
+Ten słowniczek daje krótkie opisy wszystkich rzeczy, z którymi możesz się spotkać podczas pracy w Defold. W większości przypadków znajdziesz też odnośnik do bardziej szczegółowej dokumentacji.
 
-## Animation set (Zestaw do animowania)
+## Animation set (Zestaw animacji)
 
-![Animation set](images/icons/animationset.png){.left} Zestaw do animowania zawiera listę plików `.dae` lub innych plików `.animationset`, z których odczytywane są animacje. Dodawanie jednego pliku `.animationset` do drugiego jest przydatne, gdy chcesz udostępnić fragmenty animacji kilku modelom. Szczegóły znajdziesz w [instrukcji do animacji modeli 3D](/manuals/model-animation/).
+![Animation set](images/icons/animationset.png){.left} Zasób Animation set zawiera listę plików .dae lub innych plików .animationset, z których odczytywane są animacje. Dodawanie jednego pliku .animationset do drugiego jest wygodne, jeśli chcesz współdzielić częściowe zestawy animacji między kilkoma modelami. Szczegóły znajdziesz w [instrukcji animacji modeli](/manuals/model-animation/).
 
-## Atlas (Galeria obrazów)
+## Atlas (Atlas)
 
-![Atlas](images/icons/atlas.png){.left} Atlas to zbiór osobnych obrazów skompilowanych w większy arkusz, co poprawia wydajność i oszczędza pamięć. Atlasy mogą zawierać statyczne grafiki lub zestawy klatek animacji poklatkowej. Różne komponenty korzystają z atlasów, aby współdzielić zasoby graficzne. Więcej w [dokumentacji do Atlasów](/manuals/atlas).
+![Atlas](images/icons/atlas.png){.left} Atlas to zbiór osobnych obrazów skompilowanych w większy arkusz ze względów wydajnościowych i pamięciowych. Może zawierać nieruchome obrazy albo sekwencje obrazów tworzące animację poklatkową. Atlasy są używane przez różne komponenty do współdzielenia zasobów graficznych. Więcej w [dokumentacji Atlasa](/manuals/atlas).
 
-## Builtins (Wbudowane elementy)
+## Builtins (Wbudowane zasoby)
 
-![Builtins](images/icons/builtins.png){.left} Folder `builtins` w projekcie zawiera domyślne, tylko do odczytu zasoby. Znajdziesz tam domyślny renderer, skrypt renderujący, materiały i inne elementy. Jeśli potrzebujesz zmodyfikować któryś z tych zasobów, skopiuj go do projektu i edytuj według potrzeb.
+![Builtins](images/icons/builtins.png){.left} Folder projektu builtins jest tylko do odczytu i zawiera przydatne domyślne zasoby. Znajdziesz w nim domyślny renderer, render script, materiały i inne elementy. Jeśli potrzebujesz własnych modyfikacji któregoś z tych zasobów, po prostu skopiuj go do projektu i edytuj według potrzeb.
 
 ## Camera (Kamera)
 
-![Camera](images/icons/camera.png){.left} Komponent kamery decyduje, która część świata gry ma być widoczna i jak ma być rzutowana. Powszechną praktyką jest przypinać kamerę do obiektu gracza albo tworzyć osobny obiekt, który podąża za graczem z dodatkowym wygładzaniem. Więcej w [dokumentacji do Kamery](/manuals/camera).
+![Camera](images/icons/camera.png){.left} Komponent kamery pomaga określić, która część świata gry ma być widoczna i jak ma być rzutowana. Często przypina się kamerę do obiektu gry gracza albo tworzy osobny obiekt gry z kamerą, która podąża za graczem z użyciem wygładzania. Więcej w [dokumentacji kamery](/manuals/camera).
 
 ## Collision object (Obiekt kolizji)
 
-![Collision object](images/icons/collision-object.png){.left} Obiekty kolizji rozszerzają obiekty gry o właściwości fizyczne, takie jak kształt przestrzenny, masa, tarcie i tłumienie. To one decydują, jak dany obiekt reaguje na kontakt z innymi. Najczęściej spotykane typy to obiekty kinematyczne, dynamiczne i wyzwalacze. Kinematyczny obiekt dostarcza szczegółowe informacje o kolizji, które możesz obsłużyć ręcznie, dynamiczny obiekt jest symulowany przez silnik fizyki zgodnie z prawami Newtona, a wyzwalacze wykrywają tylko wejście lub wyjście innych kształtów. Szczegóły w [dokumentacji do Fizyki](/manuals/physics).
+![Collision object](images/icons/collision-object.png){.left} Obiekty kolizji rozszerzają obiekty gry o właściwości fizyczne, takie jak kształt przestrzenny, masa, tarcie i odbicie. Te właściwości decydują o tym, jak obiekt kolizji ma zderzać się z innymi obiektami kolizji. Najczęściej spotykane typy obiektów kolizji to obiekty kinematyczne, dynamiczne i wyzwalacze. Obiekt kinematyczny daje szczegółowe informacje o kolizji, na które musisz zareagować ręcznie, a obiekt dynamiczny jest automatycznie symulowany przez silnik fizyki zgodnie z prawami Newtona. Wyzwalacze to proste kształty wykrywające wejście lub wyjście innych kształtów. Szczegóły znajdziesz w [dokumentacji Fizyki](/manuals/physics).
 
 ## Component (Komponent)
 
-Komponenty nadają obiektom gry konkretną ekspresję lub funkcjonalność, na przykład grafikę, animację, zachowanie zdefiniowane skryptem czy dźwięk. Nie żyją osobno — muszą należeć do obiektów gry. W silniku Defold dostępnych jest wiele rodzajów komponentów, opisanych w [instrukcji o blokach budujących](/manuals/building-blocks).
+Komponenty służą do nadawania obiektom gry konkretnej formy lub funkcjonalności, takiej jak grafika, animacja, zachowanie opisane skryptem czy dźwięk. Nie istnieją samodzielnie, tylko muszą być częścią obiektów gry. W Defold dostępnych jest wiele rodzajów komponentów. Opis znajdziesz w [instrukcji o blokach budujących](/manuals/building-blocks).
 
 ## Collection (Kolekcja)
 
-![Collection](images/icons/collection.png){.left} Kolekcje to mechanizm pozwalający tworzyć szablony (prefaby) zawierające hierarchie obiektów gry. Są strukturami drzewa przechowującymi obiekty gry i inne kolekcje. Kolekcje przechowywane są jako pliki i wprowadza się je do gry statycznie przez edytor lub dynamicznie przez generowanie. Więcej w [instrukcji o blokach budujących](/manuals/building-blocks).
+![Collection](images/icons/collection.png){.left} Kolekcje są mechanizmem Defold do tworzenia szablonów, czyli tego, co w innych silnikach nazywa się prefabami, w których można wielokrotnie używać hierarchii obiektów gry. Są to struktury drzewiaste zawierające obiekty gry i inne kolekcje. Kolekcja jest zawsze zapisana w pliku i trafia do gry albo statycznie, gdy umieścisz ją ręcznie w edytorze, albo dynamicznie, gdy ją utworzysz w locie. Więcej w [instrukcji o blokach budujących](/manuals/building-blocks).
 
 ## Collection factory (Fabryka kolekcji)
 
-![Collection factory](images/icons/collection-factory.png){.left} Fabryka kolekcji pozwala dynamicznie tworzyć hierarchie obiektów gry zgodne z opisem w kolekcji. Szczegóły w [instrukcji do Fabryki kolekcji](/manuals/collection-factory).
+![Collection factory](images/icons/collection-factory.png){.left} Komponent Collection factory służy do dynamicznego tworzenia hierarchii obiektów gry w uruchomionej grze. Szczegóły znajdziesz w [instrukcji fabryki kolekcji](/manuals/collection-factory).
 
 ## Collection proxy (Pełnomocnik kolekcji)
 
-![Collection](images/icons/collection.png){.left} Pełnomocnik kolekcji służy do ładowania i aktywowania kolekcji w trakcie działania aplikacji. Najczęściej używa się go do wczytywania kolejnych poziomów. Zobacz [dokumentację do Pełnomocników kolekcji](/manuals/collection-proxy).
+![Collection](images/icons/collection.png){.left} Collection proxy służy do wczytywania i aktywowania kolekcji w locie, gdy aplikacja lub gra działa. Najczęściej używa się go do wczytywania poziomów przed ich uruchomieniem. Szczegóły znajdziesz w [dokumentacji pełnomocnika kolekcji](/manuals/collection-proxy).
 
-## Cubemap (Tekstura sześcienna)
+## Cubemap (Cubemap)
 
-![Cubemap](images/icons/cubemap.png){.left} Tekstura sześcienna (cubemap) to specjalny typ tekstury złożony z sześciu osobnych obrazów mapowanych na ściany sześcianu. Przydatna do renderowania skyboxów oraz map odbić i oświetlenia.
+![Cubemap](images/icons/cubemap.png){.left} Cubemap to specjalny typ tekstury złożony z 6 różnych tekstur mapowanych na ściany sześcianu. Jest to przydatne przy renderowaniu skyboxów oraz różnych map odbić i oświetlenia.
 
 ## Debugging (Debugowanie)
 
-Kiedy gra zaczyna zachowywać się nieoczekiwanie, musisz odnaleźć przyczynę. Nauka debugowania jest sztuką, a Defold oferuje wbudowany debugger, który ułatwia to zadanie. Więcej w [instrukcji do Debugowania](/manuals/debugging).
+W pewnym momencie gra zacznie zachowywać się w nieoczekiwany sposób i trzeba będzie ustalić, co jest nie tak. Nauka debugowania to sztuka, a na szczęście Defold ma wbudowany debugger, który pomaga w tej pracy. Więcej w [instrukcji debugowania](/manuals/debugging).
 
 ## Display profiles (Profile wyświetlania)
 
-![Display profiles](images/icons/display-profiles.png){.left} Plik profilu wyświetlania pozwala określić układy GUI zależne od orientacji, proporcji obrazu lub modelu urządzenia. Dzięki temu można dostosować interfejs do różnorodnych ekranów. Więcej w [instrukcji do Układów](/manuals/gui-layouts).
+![Display profiles](images/icons/display-profiles.png){.left} Plik zasobu display profiles służy do określania układów GUI zależnych od orientacji, proporcji obrazu lub modelu urządzenia. Pomaga to dostosować UI do różnych urządzeń. Więcej w [instrukcji układów GUI](/manuals/gui-layouts).
 
 ## Factory (Fabryka)
 
-![Factory](images/icons/factory.png){.left} Czasem nie chcesz tworzyć wszystkich obiektów gry ręcznie w kolekcji — potrzebujesz ich w czasie działania gry. Fabryka umożliwia dynamiczne tworzenie takich obiektów z wcześniej przygotowanej puli. Zobacz [instrukcję do Fabryki](/manuals/factory).
+![Factory](images/icons/factory.png){.left} W niektórych sytuacjach nie da się ręcznie umieścić wszystkich potrzebnych obiektów gry w kolekcji, więc trzeba tworzyć je dynamicznie, w locie. Na przykład gracz może wystrzeliwać pociski i każdy strzał powinien być tworzony oraz wysyłany dalej, gdy gracz naciska spust. Do tworzenia obiektów gry dynamicznie, z wcześniej przygotowanej puli obiektów, służy komponent factory. Szczegóły znajdziesz w [instrukcji factory](/manuals/factory).
 
 ## Font (Czcionka)
 
-![Font file](images/icons/font.png){.left} Zasób typu Font powstaje na podstawie pliku TrueType lub OpenType i określa rozmiar oraz dekoracje (np. obrys, cień) renderowanej czcionki. Fonty wykorzystują komponenty GUI i Label. Więcej w [instrukcji do Fontów](/manuals/font/).
+![Font file](images/icons/font.png){.left} Zasób Font powstaje z pliku czcionki TrueType lub OpenType. Określa rozmiar renderowanej czcionki oraz rodzaj dekoracji, takich jak obrys i cień. Fonty są używane przez komponenty GUI i Label. Szczegóły znajdziesz w [instrukcji fontu](/manuals/font/).
 
-## Fragment shader (Shader fragmentu)
+## Fragment shader (Fragment shader)
 
-![Fragment shader](images/icons/fragment-shader.png){.left} Shader fragmentu to program uruchamiany na procesorze graficznym dla każdego piksela (fragmentu) rysowanego wielokąta. Określa kolor wynikowego fragmentu, wykonując obliczenia, odczyty tekstur lub ich kombinacje. Szczegóły w [instrukcji do Shaderów](/manuals/shader).
+![Fragment shader](images/icons/fragment-shader.png){.left} To program uruchamiany na procesorze graficznym dla każdego piksela, czyli fragmentu, wielokąta podczas jego rysowania na ekranie. Zadaniem fragment shader jest określenie koloru każdego wynikowego fragmentu. Można to zrobić przez obliczenia, odczyty z tekstur, albo połączenie obu metod. Więcej w [instrukcji shaderów](/manuals/shader).
 
-## Gamepads (Kontrolery)
+## Gamepads (Gamepads)
 
-![Gamepads](images/icons/gamepad.png){.left} Plik Gamepads definiuje sposób mapowania wejść ze konkretnych kontrolerów na wyzwalacze wejścia dostępne dla danej platformy. Więcej w [instrukcji do Wejść](/manuals/input).
+![Gamepads](images/icons/gamepad.png){.left} Plik zasobu gamepads określa, jak wejścia z konkretnych urządzeń gamepad są mapowane na wyzwalacze wejścia dla danej platformy. Szczegóły znajdziesz w [instrukcji wejścia](/manuals/input).
 
 ## Game object (Obiekt gry)
 
-![Game object](images/icons/game-object.png){.left} Obiekty gry to kontenery ze swoim cyklem życia podczas działania gry. Zazwyczaj zawierają komponenty wizualne albo dźwiękowe oraz mogą mieć zachowanie opisane skryptem. Tworzy się je w edytorze, umieszczając w kolekcjach, albo dynamicznie przez fabryki. Szczegóły w [instrukcji o blokach budujących](/manuals/building-blocks).
+![Game object](images/icons/game-object.png){.left} Obiekty gry to proste obiekty mające własny cykl życia podczas działania gry. Są kontenerami i zwykle zawierają komponenty wizualne albo dźwiękowe, takie jak sound lub sprite. Mogą też mieć zachowanie dodane przez komponenty skryptowe. Tworzysz je i umieszczasz w kolekcjach w edytorze albo generujesz dynamicznie w czasie działania za pomocą factory. Więcej w [instrukcji o blokach budujących](/manuals/building-blocks).
 
-## GUI (Interfejs graficzny użytkownika)
+## GUI (GUI)
 
-![GUI component](images/icons/gui.png){.left} Komponent GUI zawiera elementy interfejsu: tekst, kolorowe lub teksturowane bloki. Elementy można organizować hierarchicznie, skryptować i animować. GUI służy do HUD, menu i powiadomień. Steruje nim skrypt GUI, który opisuje zachowanie i interakcje użytkownika. Więcej w [dokumentacji do GUI](/manuals/gui).
+![GUI component](images/icons/gui.png){.left} Komponent GUI zawiera elementy służące do budowy interfejsów użytkownika: tekst oraz kolorowe lub teksturowane bloki. Elementy można organizować hierarchicznie, skryptować i animować. Komponenty GUI zwykle służą do tworzenia HUD-ów, systemów menu i powiadomień na ekranie. Sterują nimi skrypty GUI, które definiują zachowanie GUI i obsługę interakcji użytkownika. Więcej w [dokumentacji GUI](/manuals/gui).
 
 ## GUI script (Skrypt GUI)
 
-![GUI script](images/icons/script.png){.left} Skrypty GUI kontrolują zachowanie komponentów GUI — animacje, reakcje na wejścia i inne interakcje. Zobacz [instrukcję o Lua w silniku Defold](/manuals/lua), aby dowiedzieć się, jak są wykorzystywane.
+![GUI script](images/icons/script.png){.left} Skrypty GUI służą do sterowania zachowaniem komponentów GUI. Kontrolują animacje GUI i sposób, w jaki użytkownik wchodzi z nimi w interakcję. Szczegóły znajdziesz w [instrukcji Lua w Defold](/manuals/lua).
 
 ## Hot reload (Szybkie przeładowanie)
 
-Edytor Defold pozwala aktualizować zawartość w uruchomionym programie na desktopie i urządzeniach mobilnych. Ta funkcja przyspiesza pracę przy rozwoju gry. Więcej w [instrukcji do Hot reload](/manuals/hot-reload).
+Edytor Defold pozwala aktualizować zawartość już uruchomionej gry na desktopie i urządzeniach. Ta funkcja jest bardzo potężna i może znacząco usprawnić proces tworzenia. Więcej w [instrukcji hot reload](/manuals/hot-reload).
 
 ## Input binding (Wiązania wejść)
 
-![Input binding](images/icons/input-binding.png){.left} Pliki wiązań wejść określają, jak interpretować sygnały z myszy, klawiatury, ekranu dotykowego czy gamepada. Wiążą sprzętowe wejścia z wysokopoziomowymi akcjami, takimi jak `jump` czy `move_forward`. Skrypty nasłuchujące wejść reagują na te akcje w sposób określony przez twórcę. Więcej w [instrukcji do Wejść](/manuals/input).
+![Input binding](images/icons/input-binding.png){.left} Pliki Input binding określają, jak gra ma interpretować wejścia sprzętowe, takie jak mysz, klawiatura, ekran dotykowy i gamepad. Plik mapuje wejścia sprzętowe na wysokopoziomowe akcje wejściowe, takie jak jump i move_forward. W komponentach skryptowych nasłuchujących wejścia możesz opisać, jakie działania ma wykonać gra lub aplikacja po otrzymaniu określonego wejścia. Szczegóły znajdziesz w [instrukcji wejścia](/manuals/input).
 
 ## Label (Etykieta)
 
-![Label](images/icons/label.png){.left} Komponent Label umożliwia przypisanie tekstu do obiektu gry. Renderuje go przy użyciu wybranego fontu, w przestrzeni gry (nie GUI). Więcej w [instrukcji do Etykiet](/manuals/label).
+![Label](images/icons/label.png){.left} Komponent Label pozwala dołączyć tekst do dowolnego obiektu gry. Renderuje fragment tekstu przy użyciu określonego fontu, w przestrzeni gry. Więcej w [instrukcji etykiety](/manuals/label).
 
 ## Library (Biblioteka)
 
-![Game object](images/icons/builtins.png){.left} Defold pozwala współdzielić dane między projektami za pomocą bibliotek. Możesz z nich korzystać w wielu projektach, dla siebie lub zespołu. Szczegóły w [dokumentacji do Bibliotek](/manuals/libraries).
+![Game object](images/icons/builtins.png){.left} Defold pozwala współdzielić dane między projektami za pomocą mechanizmu bibliotek. Możesz z niego korzystać, aby tworzyć współdzielone biblioteki dostępne we wszystkich projektach, dla siebie albo dla całego zespołu. Więcej w [dokumentacji bibliotek](/manuals/libraries).
 
 ## Lua language (Język Lua)
 
-Lua to język skryptowy wykorzystywany do tworzenia logiki gry w silniku Defold. Jest mały, wydajny i wspiera programowanie proceduralne, obiektowe, funkcyjne oraz data-driven. Więcej na oficjalnej stronie https://www.lua.org/ oraz w [instrukcji do Lua](/manuals/lua).
+Język programowania Lua jest używany w Defold do tworzenia logiki gry. Lua to mały, wydajny i bardzo elastyczny język skryptowy. Obsługuje programowanie proceduralne, obiektowe, funkcyjne, oparte na danych oraz opis danych. Więcej o języku znajdziesz na oficjalnej stronie Lua: https://www.lua.org/ oraz w [instrukcji Lua w Defold](/manuals/lua).
 
 ## Lua module (Moduł Lua)
 
-![Lua module](images/icons/lua-module.png){.left} Moduły Lua pozwalają tworzyć struktury wielokrotnego użytku i czytelnie organizować kod. Więcej w [instrukcji do modułów Lua](/manuals/modules/).
+![Lua module](images/icons/lua-module.png){.left} Moduły Lua pozwalają strukturyzować projekt i tworzyć wielokrotnego użytku kod biblioteczny. Więcej w [instrukcji modułów Lua](/manuals/modules/).
 
 ## Material (Materiał)
 
-![Material](images/icons/material.png){.left} Materiały opisują sposób renderowania obiektów przez przypisanie shaderów i ich właściwości. Więcej w [instrukcji do Materiałów](/manuals/material).
+![Material](images/icons/material.png){.left} Materiały definiują sposób renderowania różnych obiektów przez określenie shaderów i ich właściwości. Więcej w [instrukcji materiałów](/manuals/material).
 
 ## Message (Wiadomość)
 
-Komponenty komunikują się poprzez przesyłanie wiadomości silnika Defold. Mogą też automatycznie reagować na określone wiadomości, np. włączać/wyłączać grafikę, kolizje, animacje, efekty cząsteczkowe lub dźwięk. Silnik używa wiadomości do informowania o zdarzeniach, jak kolizje. System wiadomości potrzebuje odbiorcy, więc wszystko w grze ma unikalny adres. Aby ułatwić komunikację, Defold rozszerza Lua o mechanizm przechwytywania i wysyłania wiadomości oraz dostarcza przydatne funkcje.
+Komponenty komunikują się ze sobą i z innymi systemami za pomocą przekazywania wiadomości. Reagują też na zestaw predefiniowanych wiadomości, które zmieniają ich stan albo wyzwalają konkretne działania. Możesz wysyłać wiadomości, aby ukrywać grafikę lub poruszać obiektami fizycznymi. Silnik używa też wiadomości do powiadamiania komponentów o zdarzeniach, na przykład gdy kształty fizyczne zderzają się ze sobą. Mechanizm przekazywania wiadomości wymaga odbiorcy dla każdej wysłanej wiadomości. Dlatego wszystko w grze ma unikalny adres. Aby ułatwić komunikację między obiektami, Defold rozszerza Lua o przekazywanie wiadomości. Defold udostępnia też bibliotekę przydatnych funkcji.
 
-Przykładowo, aby ukryć sprite `weapon`, wystarczy:
+Na przykład kod Lua potrzebny do ukrycia komponentu sprite na obiekcie gry wygląda tak:
 
 ```lua
 msg.post("#weapon", "disable")
 ```
 
-`"#weapon"` to adres komponentu, z którego wysyłana jest wiadomość, a `"disable"` to nazwa wiadomości, na którą reaguje sprite. Więcej w [dokumentacji do przesyłania wiadomości](/manuals/message-passing).
+Tutaj `"#weapon"` jest adresem komponentu sprite bieżącego obiektu. `"disable"` to wiadomość, na którą reagują komponenty sprite. Dokładniejsze wyjaśnienie działania tego mechanizmu znajdziesz w [dokumentacji przekazywania wiadomości](/manuals/message-passing).
 
 ## Model (Model)
 
-![Model](images/icons/model.png){.left} Komponent Model umożliwia import siatek, szkielety i animacje z formatu glTF do gry. Więcej w [instrukcji do Modeli](/manuals/model/).
+![Model](images/icons/model.png){.left} Komponent modelu 3D może importować zasoby siatki, szkieletu i animacji glTF do gry. Więcej w [instrukcji modelu](/manuals/model/).
 
-## ParticleFX (Efekt cząsteczkowy)
+## ParticleFX (ParticleFX)
 
-![ParticleFX](images/icons/particlefx.png){.left} Efekty cząsteczkowe pomagają tworzyć wizualne efekty, takie jak mgła, ogień, deszcz czy spadające liście. Defold wyposażono w edytor ParticleFX, który pozwala budować i dopasowywać efekty w czasie rzeczywistym. Więcej w [dokumentacji do ParticleFX](/manuals/particlefx).
+![ParticleFX](images/icons/particlefx.png){.left} Cząstki są bardzo przydatne do tworzenia efektownych wizualnie efektów, szczególnie w grach. Możesz ich użyć do mgły, dymu, ognia, deszczu albo opadających liści. Defold zawiera rozbudowany edytor ParticleFX, który pozwala budować i dostrajać efekty podczas ich działania w czasie rzeczywistym. Szczegóły znajdziesz w [dokumentacji ParticleFX](/manuals/particlefx).
 
 ## Profiling (Profilowanie)
 
-Dobra wydajność jest kluczowa, dlatego warto mierzyć wydajność i pamięć gry, aby wykryć wąskie gardła. Defold udostępnia narzędzia do profilowania. Szczegóły w [instrukcji do Profilowania](/manuals/profiling).
+Dobra wydajność jest kluczowa w grach, dlatego ważne jest, aby móc profilować wydajność i pamięć, mierzyć grę oraz znajdować wąskie gardła i problemy z pamięcią wymagające naprawy. Więcej o dostępnych w Defold narzędziach profilujących znajdziesz w [instrukcji profilowania](/manuals/profiling).
 
 ## Render (Render)
 
-![Render](images/icons/render.png){.left} Pliki Render zawierają ustawienia używane podczas renderowania gry — określają, który render script i materiały mają być użyte. Więcej w [instrukcji do Renderowania](/manuals/render/).
+![Render](images/icons/render.png){.left} Pliki Render zawierają ustawienia używane podczas renderowania gry na ekranie. Określają, którego render script użyć do renderowania oraz jakich materiałów użyć. Więcej w [instrukcji renderowania](/manuals/render/).
 
 ## Render script (Skrypt do renderowania)
 
-![Render script](images/icons/script.png){.left} Skrypt do renderowania to skrypt Lua sterujący tym, jak gra jest renderowana na ekranie. Domyślny skrypt pokrywa większość scenariuszy, ale możesz napisać własny, jeśli potrzebujesz niestandardowych efektów lub oświetlenia. Więcej w [instrukcji do Renderowania](/manuals/render/) oraz w [instrukcji do Lua](/manuals/lua).
+![Render script](images/icons/script.png){.left} Render script to skrypt Lua sterujący tym, jak gra lub aplikacja ma być renderowana na ekranie. Istnieje domyślny render script, który pokrywa większość typowych przypadków, ale możesz napisać własny, jeśli potrzebujesz niestandardowych modeli oświetlenia i innych efektów. Szczegóły działania pipeline renderowania i wykorzystania skryptów Lua w Defold znajdziesz w [instrukcji renderowania](/manuals/render/) oraz w [instrukcji Lua w Defold](/manuals/lua).
 
 ## Script (Skrypt)
 
-![Script](images/icons/script.png){.left} Skrypt to komponent zawierający kod, który definiuje zachowanie obiektu gry. Dzięki skryptom ustalasz reguły gry, reagujesz na interakcje i aktualizujesz stan świata. Wszystkie skrypty pisze się w Lua — aby pracować z silnikiem Defold, ty lub ktoś z zespołu musi poznać ten język. Więcej w [instrukcji do Lua](/manuals/lua).
+![Script](images/icons/script.png){.left} Skrypt to komponent zawierający program definiujący zachowanie obiektu gry. Dzięki skryptom możesz określić zasady gry i sposób, w jaki obiekty mają reagować na różne interakcje, zarówno z graczem, jak i z innymi obiektami. Wszystkie skrypty są pisane w Lua. Aby pracować z Defold, ty lub ktoś z twojego zespołu musi nauczyć się programować w Lua. Omówienie Lua i szczegóły użycia skryptów Lua w Defold znajdziesz w [instrukcji Lua w Defold](/manuals/lua).
 
 ## Sound (Dźwięk)
 
-![Sound](images/icons/sound.png){.left} Komponent dźwiękowy odtwarza określony plik audio. Defold wspiera formaty WAV i Ogg Vorbis. Więcej w [instrukcji do Dźwięków](/manuals/sound).
+![Sound](images/icons/sound.png){.left} Komponent sound odpowiada za odtwarzanie określonego dźwięku. Obecnie Defold obsługuje pliki WAV i Ogg Vorbis. Więcej w [instrukcji dźwięku](/manuals/sound).
 
-## Sprite (Obraz)
+## Sprite (Sprite)
 
-![Sprite](images/icons/sprite.png){.left} Sprite to komponent graficzny, który wyświetla obraz z Tile source lub Atlasu. Obsługuje animacje poklatkowe i oparte na kościach. Sprite’y najczęściej reprezentują postacie i przedmioty w grach 2D.
+![Sprite](images/icons/sprite.png){.left} Sprite to komponent, który rozszerza obiekty gry o grafikę. Wyświetla obraz z Tile source albo Atlasu. Sprite ma wbudowaną obsługę animacji poklatkowych i animacji opartych na kościach. Sprite’y są zwykle używane do postaci i przedmiotów.
 
 ## Texture profiles (Profile teksturowania)
 
-![Texture profiles](images/icons/texture-profiles.png){.left} Profile teksturowania używane są podczas bundlingu, aby automatycznie przetwarzać i kompresować dane obrazowe (w atlasach, Tile sources, cubemapach i osobnych teksturach używanych w modelach czy GUI). Więcej w [instrukcji do Profili teksturowania](/manuals/texture-profiles).
+![Texture profiles](images/icons/texture-profiles.png){.left} Plik zasobu texture profiles jest używany w procesie bundlowania do automatycznego przetwarzania i kompresowania danych obrazowych w atlasach, Tile source, Cubemapach oraz osobnych teksturach używanych w modelach, GUI i innych elementach. Więcej w [instrukcji profili teksturowania](/manuals/texture-profiles).
 
 ## Tile map (Mapa kafelków)
 
-![Tile map](images/icons/tilemap.png){.left} Mapa kafelków wyświetla obrazy z Tile source na jednej lub kilku warstwach siatki. Można używać jej do tworzenia poziomów, ścian, budynków, przeszkód czy jaskiń. Obsługuje wiele warstw w różnych trybach mieszania i pozwala na dynamiczną podmianę pojedynczych kafelków (np. żeby zniszczyć most i zmienić kolizje). Więcej w [dokumentacji do Tile map](/manuals/tilemap).
+![Tile map](images/icons/tilemap.png){.left} Komponent tile map wyświetla obrazy z tile source w jednej lub kilku nakładających się siatkach. Najczęściej służy do tworzenia otoczenia gry: podłoża, ścian, budynków i przeszkód. Tile map może wyświetlać kilka warstw wyrównanych jedna nad drugą z określonym trybem mieszania. Przydaje się to na przykład do umieszczania roślinności nad kafelkami trawy. Można też dynamicznie zmieniać obraz wyświetlany w kafelku. Pozwala to na przykład zniszczyć most i uczynić go nieprzejezdnym, po prostu zastępując kafelki obrazami zniszczonego mostu i odpowiednimi kształtami fizyki. Więcej w [dokumentacji tile map](/manuals/tilemap).
 
 ## Tile source (Źródło kafelków)
 
-![Tile source](images/icons/tilesource.png){.left} Tile source to tekstura składająca się z wielu mniejszych obrazów tej samej wielkości, czyli kafelków. Można z niej tworzyć animacje poklatkowe, a także automatycznie generować kształty kolizji. Tile source używa się w Tile mapach, ale też jako teksturę do sprite’ów i efektów cząsteczkowych. Więcej w [dokumentacji do Tile map](/manuals/tilemap).
+![Tile source](images/icons/tilesource.png){.left} Tile source opisuje teksturę złożoną z wielu mniejszych obrazów o tym samym rozmiarze. Można z niej definiować animacje poklatkowe na podstawie sekwencji obrazów. Tile source może też automatycznie obliczać kształty kolizji z danych obrazu. Jest to bardzo przydatne przy tworzeniu kafelkowych poziomów, z którymi obiekty mogą się zderzać i wchodzić w interakcje. Tile source są używane przez komponenty tile map, a także Sprite i ParticleFX, do współdzielenia zasobów graficznych. Zwróć uwagę, że atlasy często lepiej się sprawdzają niż tile source. Więcej w [dokumentacji tile map](/manuals/tilemap).
 
-## Vertex shader (Shader wierzchołków)
+## Vertex shader (Vertex shader)
 
-![Vertex shader](images/icons/vertex-shader.png){.left} Shader wierzchołków to program uruchamiany na GPU, który przetwarza geometrię siatek (wielokąty) i oblicza końcowe pozycje wierzchołków na ekranie. Więcej w [instrukcji do Shaderów](/manuals/shader).
+![Vertex shader](images/icons/vertex-shader.png){.left} Vertex shader oblicza geometrię ekranu dla prymitywnych kształtów wielokąta danego komponentu. Dla każdego typu komponentu wizualnego, czy to sprite, tile map czy model, kształt jest reprezentowany przez zbiór pozycji wierzchołków wielokąta. Program vertex shader przetwarza każdy wierzchołek w przestrzeni świata i oblicza końcowe współrzędne, jakie powinien mieć każdy wierzchołek prymitywu. Więcej w [instrukcji shaderów](/manuals/shader).

@@ -18,6 +18,7 @@ Translate these parts fully into Polish:
 - introductions, explanations, warnings, notes, and recommendations
 - table descriptions and property explanations
 - conceptual text around examples
+- natural-language comments inside code examples, while preserving comment markers and literal identifiers
 - section headings, subheadings, captions, and ordinary link labels
 - operational instructions and caveats from the source, including cases where the user must act in English
 - Polish glosses for official Defold terms on first mention
@@ -81,7 +82,8 @@ After the first mention, use whichever form is clearer in context:
 ## UI And Code Formatting
 
 - Wrap literal UI commands in `<kbd>...</kbd>`.
-- Keep inline code, code blocks, hashes, message ids, and paths unchanged.
+- Keep inline code, code syntax, hashes, message ids, and paths unchanged.
+- Translate code comments inside examples into Polish, but keep comment markers and any literal UI labels, API names, file names, paths, and code identifiers unchanged inside those comments.
 - Do not translate URLs.
 - Do not rename files, extensions, resource ids, or code identifiers inside examples.
 - If the source instructs the reader to report something or interact in English, keep that instruction explicit in the Polish translation.

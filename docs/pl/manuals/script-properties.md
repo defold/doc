@@ -1,22 +1,27 @@
 ---
 title: Właściwości komponentu skryptu
-brief: Ta instrukcja wyjaśnia, jak dodawać niestandardowe właściwości do komponentów skryptu i jak uzyskiwać do nich dostęp z edytora oraz skryptów uruchamianych podczas działania gry.
+brief: Ta instrukcja wyjaśnia, jak dodawać niestandardowe właściwości do komponentów skryptu i jak uzyskiwać do nich dostęp z edytora oraz skryptów uruchamianych w trakcie działania gry.
 ---
 
-# Właściwości skryptów
+# Właściwości skryptu
 
-Właściwości skryptów dostarczają prosty i potężny sposób definiowania i eksponowania niestandardowych właściwości dla określonej instancji obiektu gry. Właściwości skryptów można edytować bezpośrednio w edytorze na określonych instancjach, a ich ustawienia można używać w kodzie do zmiany zachowania obiektu gry. Istnieje wiele przypadków, w których właściwości skryptów są bardzo przydatne:
+Właściwości skryptu to prosty i zarazem skuteczny sposób definiowania oraz udostępniania niestandardowych właściwości dla konkretnej instancji obiektu gry. Takie właściwości można edytować bezpośrednio w edytorze dla wybranych instancji, a ich wartości wykorzystać w kodzie do zmiany zachowania obiektu gry. Właściwości skryptu są szczególnie przydatne w wielu sytuacjach:
 
-* Kiedy chcesz zastąpić wartości dla określonych instancji w edytorze, zwiększając tym samym ponowne wykorzystanie skryptu.
-* Kiedy chcesz utworzyć obiekt gry z wartościami początkowymi.
-* Kiedy chcesz animować wartości właściwości.
-* Kiedy chcesz uzyskać dostęp do danych stanu w jednym skrypcie z innego. (Należy pamiętać, że jeśli często uzyskujesz dostęp do właściwości między obiektami, lepiej jest przenieść dane do wspólnej pamięci.)
+* gdy chcesz nadpisać wartości dla konkretnych instancji w edytorze i dzięki temu zwiększyć możliwość ponownego użycia skryptu,
+* gdy chcesz utworzyć obiekt gry z wartościami początkowymi,
+* gdy chcesz animować wartości właściwości,
+* gdy chcesz odczytywać dane stanu z jednego skryptu w innym. (Jeśli często odwołujesz się do właściwości między obiektami, lepiej przenieść dane do współdzielonego magazynu.)
 
-Powszechnymi przypadkami użycia są ustawianie zdrowia lub prędkości określonego przeciwnika AI, koloru odbierania przedmiotu, atlasu sprite'a lub wiadomości, którą obiekt przycisku ma wysłać po naciśnięciu - i/lub dokąd ma ją wysłać.
+Typowe zastosowania to ustawianie zdrowia lub prędkości konkretnego przeciwnika sterowanego przez AI, koloru obiektu zbieralnego, atlasu sprite'a albo wiadomości, którą obiekt przycisku ma wysłać po naciśnięciu, a także miejsca docelowego, do którego ma ją wysłać.
 
-## Definicja właściwości skryptu
+## Definiowanie właściwości skryptu
 
-Właściwości skryptu są dodawane do komponentu skryptu poprzez ich zdefiniowanie za pomocą specjalnej funkcji `go.property()`. Funkcję tę należy używać na najwyższym poziomie - poza jakimikolwiek funkcjami wywoływanymi, takimi jak `init()` i `update()`. Domyślna wartość podana dla właściwości decyduje o rodzaju właściwości: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` oraz `resource` (patrz niżej).
+Właściwości skryptu dodaje się do komponentu skryptu przez zdefiniowanie ich za pomocą specjalnej funkcji `go.property()`. Funkcję trzeba wywołać na najwyższym poziomie, poza funkcjami cyklu życia, takimi jak `init()` i `update()`. Domyślna wartość podana dla właściwości określa jej typ: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` oraz `resource` (patrz niżej).
+
+::: important
+Odwracanie wartości hash działa tylko w buildzie Debug, co ułatwia debugowanie. W buildzie Release odwrócony ciąg znaków nie istnieje, więc używanie `tostring()` na wartości `hash` w celu wyciągnięcia z niej tekstu nie ma sensu.
+:::
+
 
 ```lua
 -- can.script
@@ -25,15 +30,15 @@ go.property("health", 100)
 go.property("target", msg.url())
 
 function init(self)
-  -- przechowaj początkową pozycję celu.
-  -- self.target to url odnoszący się do innego obiektu.
+  -- zapisanie początkowej pozycji celu.
+  -- self.target to url wskazujący na inny obiekt.
   self.target_pos = go.get_position(self.target)
   ...
 end
 
 function on_message(self, message_id, message, sender)
   if message_id == hash("take_damage") then
-    -- zmniejsz wartość właściwości health
+    -- zmniejszenie wartości właściwości zdrowia
     self.health = self.health - message.damage
     if self.health <= 0 then
       go.delete()
@@ -41,19 +46,25 @@ function on_message(self, message_id, message, sender)
   end
 end
 ```
-Dowolna instancja komponentu skryptu utworzona z tego skryptu może następnie ustawiać wartości właściwości.
+
+Każda instancja komponentu skryptu utworzona z tego skryptu może następnie ustawiać wartości tych właściwości.
 
 ![Component with properties](images/script-properties/component.png)
 
-Wybierz komponent skryptu w widoku *Outline* w Edytorze, a właściwości pojawią się w widoku *Properties*, pozwalając na ich edycję:
+Wybierz komponent skryptu w widoku *<kbd>Outline</kbd>* w edytorze, a właściwości pojawią się w widoku *<kbd>Properties</kbd>*, co pozwoli je edytować:
 
 ![Properties](images/script-properties/properties.png)
 
-Każda właściwość, która zostanie zastąpiona nową wartością określoną dla danej instancji, jest oznaczana kolorem niebieskim. Kliknij przycisk resetowania obok nazwy właściwości, aby przywrócić wartość domyślną (ustawioną w skrypcie).
+Każda właściwość, która zostanie nadpisana nową wartością właściwą dla danej instancji, jest oznaczona na niebiesko. Kliknij przycisk resetowania obok nazwy właściwości, aby przywrócić wartość domyślną ustawioną w skrypcie.
 
-## Dostęp do właściwości skryptu
 
-Każda zdefiniowana właściwość skryptu jest dostępna jako przechowywana zmienna w `self`, odniesieniu do instancji skryptu:
+::: important
+Właściwości skryptu są parsowane podczas budowania projektu. Wyrażenia wartości nie są obliczane. Oznacza to, że coś takiego jak `go.property("hp", 3+6)` nie zadziała, podczas gdy `go.property("hp", 9)` będzie działać.
+:::
+
+## Uzyskiwanie dostępu do właściwości skryptu
+
+Każda zdefiniowana właściwość skryptu jest dostępna jako przechowywany człon w `self`, czyli odwołaniu do instancji skryptu:
 
 ```lua
 -- my_script.script
@@ -67,12 +78,12 @@ function update(self, dt)
 end
 ```
 
-Niestandardowe właściwości skryptu można również uzyskać poprzez funkcje pozyskiwania, ustawiania i animowania, w ten sam sposób, co dowolna inna właściwość:
+Właściwości skryptu zdefiniowane przez użytkownika można też odczytywać i modyfikować za pomocą funkcji get, set i animate, tak samo jak każdą inną właściwość:
 
 ```lua
 -- another.script
 
--- zwiększenie "my_property" w "myobject#script" o 1
+-- zwiększenie "my_property" w "myobject#my_script" o 1
 local val = go.get("myobject#my_script", "my_property")
 go.set("myobject#my_script", "my_property", val + 1)
 
@@ -80,9 +91,9 @@ go.set("myobject#my_script", "my_property", val + 1)
 go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
 ```
 
-## Obiekty utworzone przez fabryki
+## Obiekty tworzone przez fabryki
 
-Jeśli używasz fabryki do tworzenia obiektu gry, możesz ustawić właściwości skryptu podczas tworzenia:
+Jeśli używasz fabryki do tworzenia obiektu gry, możesz ustawić właściwości skryptu już w momencie tworzenia:
 
 ```lua
 local props = { health = 50, target = msg.url("player") }
@@ -93,7 +104,7 @@ local url = msg.url(nil, id, "can")
 local can_health = go.get(url, "health")
 ```
 
-Podczas tworzenia hierarchii obiektów gry przez `collectionfactory.create()` musisz zestawić identyfikatory obiektów z tabelami właściwości. Są one zbierane w jednej tabeli i przekazywane do funkcji `create()`:
+Podczas tworzenia hierarchii obiektów gry za pomocą `collectionfactory.create()` trzeba sparować identyfikatory obiektów z tabelami właściwości. Są one łączone w jedną tabelę i przekazywane do funkcji `create()`:
 
 ```lua
 local props = {}
@@ -104,9 +115,10 @@ props[hash("/can3")] = { health = 200 }
 local ids = collectionfactory.create("#cangang_factory", nil, nil, props)
 ```
 
-Wartości właściwości dostarczane za pomocą `factory.create()` i `collectionfactory.create()` zastępują wartość ustawioną w pliku prototypu, a także wartości domyślne w skrypcie.
+Wartości właściwości przekazane przez `factory.create()` i `collectionfactory.create()` zastępują zarówno wartość ustawioną w pliku prototypu, jak i domyślne wartości ze skryptu.
 
-Jeśli kilka komponentów skryptu przyczepionych do obiektu gry definiuje tę samą właściwość, każdy komponent zostanie zainicjowany wartością dostarczoną za pomocą `factory.create()` lub `collectionfactory.create()`.
+Jeśli kilka komponentów skryptu dołączonych do obiektu gry definiuje tę samą właściwość, każdy komponent zostanie zainicjalizowany wartością przekazaną przez `factory.create()` lub `collectionfactory.create()`.
+
 
 ## Właściwości zasobów
 
@@ -120,11 +132,11 @@ go.property("my_texture", resource.texture("/texture.png"))
 go.property("my_tile_source", resource.tile_source("/tilesource.tilesource"))
 ```
 
-Gdy właściwość zasobu jest zdefiniowana, pojawia się w widoku *Properties* tak samo jak każda inna właściwość skryptu, ale jako pole przeglądarki plików/zasobów:
+Gdy właściwość zasobu zostanie zdefiniowana, pojawia się w widoku *<kbd>Properties</kbd>* tak samo jak każda inna właściwość skryptu, ale jako pole przeglądarki plików i zasobów:
 
 ![Resource Properties](images/script-properties/resource-properties.png)
 
-Dostęp i użycie właściwości zasobu odbywa się za pomocą funkcji `go.get()` lub poprzez odniesienie do instancji skryptu `self` i używając `go.set()`:
+Właściwości zasobów odczytuje się i wykorzystuje za pomocą `go.get()` albo przez odwołanie do instancji skryptu `self` i użycie `go.set()`:
 
 ```lua
 function init(self)
