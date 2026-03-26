@@ -12,7 +12,7 @@ brief: Najczęściej zadawane pytania o silnik gry Defold, edytor i platformę.
 A: Tak, silnik Defold i edytor z pełną funkcjonalnością są całkowicie bezpłatne. Bez ukrytych kosztów, opłat ani tantiem. Po prostu za darmo.
 
 
-#### P: Dlaczego na świecie Defold Foundation oddaje Defold za darmo?
+#### P: Dlaczego Defold Foundation oddaje Defold za darmo?
 
 A: Jednym z celów [Defold Foundation](/foundation) jest zapewnienie, że oprogramowanie Defold będzie dostępne dla deweloperów na całym świecie, a kod źródłowy będzie dostępny bezpłatnie.
 
@@ -48,7 +48,7 @@ A: Oczywiście! Silnik jest pełnoprawnym silnikiem 3D. Zestaw narzędzi jest je
 
 #### P: W jakim języku programowania pracuje się w Defold?
 
-A: Logika gry w projekcie Defold jest przede wszystkim pisana w języku Lua, konkretnie Lua 5.1/LuaJIT. Szczegóły znajdziesz w [podręczniku Lua](/manuals/lua). Lua to lekki, dynamiczny język, który jest szybki i bardzo wydajny. Od wersji 1.8.1 Defold obsługuje użycie transpilerów generujących kod Lua. Po zainstalowaniu rozszerzenia do transpilacji możesz używać alternatywnych języków, takich jak [Teal](https://github.com/defold/extension-teal), do pisania statycznie sprawdzanego Lua. Możesz też używać kodu natywnego (C/C++, Objective-C, Java i JavaScript w zależności od platformy), aby [rozszerzać silnik Defold o nową funkcjonalność](/manuals/extensions/). Przy tworzeniu [własnych materiałów](/manuals/material/) używany jest język shaderów OpenGL ES SL do pisania shaderów wierzchołków i fragmentów.
+A: Logika gry w projekcie Defold jest przede wszystkim pisana w języku Lua, konkretnie Lua 5.1/LuaJIT. Szczegóły znajdziesz w [podręczniku Lua](/manuals/lua). Lua to lekki, dynamiczny język, który jest szybki i bardzo wydajny. Od wersji 1.8.1 Defold obsługuje użycie transpilerów generujących kod Lua. Po zainstalowaniu rozszerzenia do transpilacji możesz używać alternatywnych języków, takich jak [Teal](https://github.com/defold/extension-teal), do pisania statycznie sprawdzanego Lua. Możesz też używać kodu natywnego (C/C++, Objective-C, Java i JavaScript w zależności od platformy), aby [rozszerzać silnik Defold o nową funkcjonalność](/manuals/extensions/). Przy tworzeniu [własnych materiałów](/manuals/material/) używany jest język shaderów OpenGL ES SL do pisania shaderów.
 
 
 #### P: Czy mogę używać C++ do pisania logiki gry?
@@ -68,16 +68,16 @@ A: Haxe nie jest oficjalnie obsługiwany. Społeczność utrzymuje [hxdefold](ht
 
 #### P: Czy mogę używać C# z Defold?
 
-A: Defold Foundation doda obsługę C# i udostępni ją jako zależność biblioteczną. C# to szeroko stosowany język programowania i pomoże studiom oraz deweloperom mocno zainwestowanym w C# przejść na Defold.
+A: Dzięki Defold Foundation dodano obsługę C# do pisania rozszerzeń natywnych. C# to szeroko stosowany język programowania i pomoże studiom oraz deweloperom mocno zainwestowanym w C# przejść na Defold. Przeczytaj [szczegóły tutaj](https://forum.defold.com/t/defold-c-support/79479).
 
 
 #### P: Obawiam się, że dodanie obsługi C# negatywnie wpłynie na Defold. Czy powinienem się martwić?
 
-A: Defold NIE odchodzi od Lua jako głównego języka skryptowego. Obsługa C# zostanie dodana jako nowy język dla rozszerzeń. Nie wpłynie na silnik, chyba że zdecydujesz się używać rozszerzeń C# w swoim projekcie.
+A: Defold NIE odchodzi od Lua jako głównego języka skryptowego. Obsługa C# jest dodana jako nowy język dla rozszerzeń natywnych. Nie wpłynie to na silnik, chyba że zdecydujesz się używać rozszerzeń C# w swoim projekcie.
 
 Obsługa C# będzie miała swoją cenę, na przykład większy rozmiar pliku wykonywalnego czy wpływ na wydajność w czasie działania, ale to już decyzja konkretnego dewelopera lub studia.
 
-Samo C# to stosunkowo niewielka zmiana, ponieważ system rozszerzeń już obsługuje wiele języków (C/C++, Java, Objective-C, Zig). Generowane wiązania C# pozwolą utrzymać SDK w synchronizacji. Dzięki temu te wiązania pozostaną aktualne przy minimalnym nakładzie pracy.
+Samo wsparcie dla C# to stosunkowo niewielka zmiana, ponieważ system rozszerzeń już obsługuje wiele języków (C/C++, Java, Objective-C, Zig). Generowane wiązania C# pozwolą utrzymać SDK w synchronizacji. Dzięki temu te wiązania pozostaną aktualne przy minimalnym nakładzie pracy.
 
 Defold Foundation wcześniej była przeciwna dodaniu obsługi C# w Defold, ale zmieniła zdanie z kilku powodów:
 
@@ -124,7 +124,7 @@ A: Jako deweloper pracujesz tylko z jednym API renderowania, korzystając z [w p
 
 A: Tak, wybierz opcję <kbd>About</kbd> w menu <kbd>Help</kbd>. Okno wyraźnie pokazuje wersję beta Defold i, co ważniejsze, konkretny SHA1 wydania. Aby odczytać wersję środowiska uruchomieniowego, użyj [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
-Najnowszą wersję beta dostępną do pobrania z http://d.defold.com/beta można sprawdzić, otwierając http://d.defold.com/beta/info.json. Ten sam plik istnieje także dla wersji stabilnych: http://d.defold.com/stable/info.json
+Najnowszą wersję beta dostępną do pobrania z [http://d.defold.com/beta](http://d.defold.com/beta) można sprawdzić, otwierając [http://d.defold.com/beta/info.json](http://d.defold.com/beta/info.json). Ten sam plik istnieje także dla wersji stabilnych: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json).
 
 
 #### P: Czy da się sprawdzić, na jakiej platformie działa gra w czasie uruchomienia?
@@ -195,12 +195,12 @@ A: Tak. Nazywają się [kolekcje](/manuals/building-blocks/#collections). Pozwal
 
 #### P: Dlaczego nie mogę dodać obiektu gry jako dziecka innego obiektu gry?
 
-A: Najprawdopodobniej próbujesz dodać obiekt podrzędny w pliku obiektu gry, a to nie jest możliwe. Żeby zrozumieć dlaczego, trzeba pamiętać, że hierarchie rodzic-dziecko są wyłącznie hierarchią transformacji grafu sceny. Obiekt gry, który nie został umieszczony (lub utworzony dynamicznie) w scenie (kolekcji), nie należy do grafu sceny, więc nie może być częścią takiej hierarchii.
+A: Najprawdopodobniej próbujesz dodać obiekt podrzędny w pliku obiektu gry, a to nie jest możliwe. Jest to możliwe tylko w pliku kolekcji. Aby zrozumieć dlaczego, trzeba pamiętać, że hierarchie rodzic-dziecko są wyłącznie hierarchią transformacji grafu sceny. Obiekt gry, który nie został umieszczony (lub utworzony dynamicznie) w scenie (kolekcji), nie należy do grafu sceny, więc nie może być częścią takiej hierarchii.
 
 
 #### P: Dlaczego nie mogę rozsyłać wiadomości do wszystkich dzieci obiektu gry?
 
-A: Relacje rodzic-dziecko wyrażają wyłącznie relacje transformacji w grafie sceny i nie należy ich mylić z agregatami obiektów w programowaniu obiektowym. Jeśli skupisz się na danych swojej gry i na tym, jak najlepiej je przekształcać, gdy gra zmienia stan, prawdopodobnie rzadziej będziesz musiał wysyłać wiadomości z danymi stanu do wielu obiektów jednocześnie. Tam, gdzie potrzebujesz hierarchii danych, można je łatwo tworzyć i obsługiwać w Lua.
+A: Relacje rodzic-dziecko wyrażają wyłącznie relacje transformacji w grafie sceny i nie należy ich mylić z agregatami obiektów w programowaniu obiektowym. Jeśli skupisz się na danych swojej gry i na tym, jak najlepiej je przekształcać, gdy gra zmienia stan, prawdopodobnie rzadziej będziesz musiał wysyłać wiadomości z danymi stanu do wielu obiektów jednocześnie. Tam, gdzie potrzebujesz hierarchii danych, można je łatwo tworzyć i obsługiwać w Lua. Możesz sprawdzić id rodzica danego obiektu gry używając [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
 
 
 #### P: Dlaczego widzę artefakty wizualne wokół krawędzi moich sprite'ów?
@@ -238,7 +238,7 @@ A: W rzeczywistości istnieje spójność. Kąty są wszędzie w edytorze i w AP
 
 #### P: Gdy tworzę węzeł GUI typu box z samym kolorem, bez tekstury, jak będzie renderowany?
 
-A: To po prostu kształt pokolorowany wierzchołkami. Trzeba jednak pamiętać, że nadal będzie to kosztować fill-rate.
+A: To po prostu pokolorowany prostokątny kształt. Trzeba jednak pamiętać, że nadal będzie kosztować wypełnianie.
 
 
 #### P: Jeśli w locie zmienię zasoby, czy silnik automatycznie je zwolni?
@@ -258,7 +258,7 @@ A: Zasadniczo wszystkie zasoby są deklarowane statycznie, dzięki czemu zarząd
 
 #### P: Czy istnieje sposób na dostęp do właściwości kształtu kolizji w fizyce?
 
-A: Nie, obecnie nie jest to możliwe.
+A: Tak, sprawdź funkcji API fizyki, w szczególności [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) i [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table). 
 
 
 #### P: Czy istnieje jakiś szybki sposób na renderowanie obiektów kolizji w mojej scenie? (jak debug draw w Box2D)
