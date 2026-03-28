@@ -11,7 +11,7 @@ Defold can make normal HTTP requests using the `http.request()` function.
 
 This is the most basic request to get some data from the server. Example:
 
-```Lua
+```lua
 local function handle_response(self, id, response)
 	print(response.status, response.response)
 end
@@ -19,7 +19,7 @@ end
 http.request("https://www.defold.com", "GET", handle_response)
 ```
 
-This will make an HTTP GET request to https://www.defold.com. The function is asynchronous and will not block while making the request. Once the request has been made and a server has sent a response it will invoke/call the provided callback function. The callback function will receive the full server response, including status code and response headers.
+This will make an HTTP GET request to https://www.defold.com. The function is asynchronous and will not block while making the request. Once the request has been made and a server has sent a response it will invoke/call the provided callback function. The callback function will receive the full server response, including status code and response headers. See below for additional information about how to work with the response table.
 
 ::: sidenote
 HTTP requests are automatically cached in the client to improve network performance. The cached files are stored in an OS specific application support path in a folder named `defold/http-cache`. You usually don't have to care about the HTTP cache but if you need to clear the cache during development you can manually delete the folder containing the cached files. On macOS this folder is located in `%HOME%/Library/Application Support/Defold/http-cache/` and on Windows in `%APP_DATA%/defold/http-cache`.
@@ -29,23 +29,19 @@ HTTP requests are automatically cached in the client to improve network performa
 
 When sending data, like a score or some authentication data, to a server it is typically done using a POST requests:
 
-```Lua
+```lua
 local function handle_response(self, id, response)
 	print(response.status, response.response)
 end
 
-local headers = {
-	["Content-Type"] = "application/x-www-form-urlencoded"
-}
-local body = "foo=bar"
-http.request("https://httpbin.org/post", "POST", handle_response, headers, body)
+local body = "12345"
+http.request("https://www.myserver.com/score", "POST", handle_response, nil, body)
 ```
 
 
 ### Other HTTP methods
 
-Defold HTTP requests also support the HEAD, DELETE and PUT methods. The CONNECT method is also supported (see section about proxy connections).
-
+Defold HTTP requests also support the HEAD, DELETE and PUT methods. The CONNECT method is also supported (see section about proxy connections below).
 
 ### How to work with the HTTP response
 
@@ -86,6 +82,7 @@ local function handle_response(self, id, response)
 	if response.status == 200 then
 		print("File was successfully written to:", response.path)
 		print("File size:", response.document_size)
+		print("File path:", response.path)
 	else
 		print("File was not written to disk:", response.error)
 	end
@@ -95,6 +92,60 @@ http.request("https://www.foobar.com/myimage.png", "GET", handle_response)
 ```
 
 Another use-case for loading large amounts of data over the network is sound streaming, when "chunks" of sound data are loaded from a URL and fed into a sound resource. A complete example can be found in the [Sound Streaming manual](/sound-streaming#sound-streaming).
+
+
+### Request headers
+
+It is possible to set additional headers when sending a request. This can for instance be used to set an authorization header or content type to tell the server which format the 
+
+```Lua
+local function handle_response(self, id, response)
+	print(response.status, response.response)
+end
+
+-- send some form data
+local headers = {
+	["Content-Type"] = "application/x-www-form-urlencoded"
+}
+local body = "key1=value1&key2=value2"
+http.request("https://www.myserver.com/post", "POST", handle_response, headers, body)
+
+-- send some json encoded data
+local headers = {
+	["Content-Type"] = "application/json"
+}
+local body = json.encode({ key1 = value1, key2 = value2 })
+http.request("https://www.myserver.com/post", "POST", handle_response, headers, body)
+
+-- request some data which requires authorization to access
+local token = ... -- generate an access token (JWT, OAuth etc)
+local headers = {
+	["Authorization"] = "Bearer " .. token
+}
+http.request("https://www.myserver.com/content", "GET", handle_response, headers)
+```
+
+Defold will automatically set a couple of request headers:
+
+* `If-None-Match: <etag>` will be set with the ETag of any previously cached response.
+* `Transfer-Encoding: chunked` will be set if the request body is larger than 16384 bytes.
+* `Content-Length` will be set with the size of the request body (unless the request is chunked).
+* `Range: bytes=<from>-<to>` will be set if requesting a partial response, for instance when [streaming sounds](/sound-streaming#sound-streaming).
+
+
+### Response headers
+
+The server response may contain one or more response headers. These are available on the `response` table:
+
+```lua
+local function handle_response(self, id, response)
+	for header,value in pairs(response.headers) do
+		print(header, value)
+	end
+end
+
+http.request("https://www.defold.com", "GET", handle_response)
+```
 
 
 ### HTTP Proxy
