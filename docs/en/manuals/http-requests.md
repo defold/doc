@@ -45,7 +45,7 @@ Defold HTTP requests also support the HEAD, DELETE and PUT methods. The CONNECT 
 
 ### How to work with the HTTP response
 
-The `response` table returned in the callback contains all of the information necessary to implement granular reponse handling. Two of the key fields are `status` and `response`:
+The `response` table returned in the callback contains all of the information necessary to implement granular response handling. Two of the key fields are `status` and `response`:
 
 ```lua
 
