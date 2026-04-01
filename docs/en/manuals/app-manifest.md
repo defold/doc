@@ -69,6 +69,16 @@ Exclude `types` script module [link](https://defold.com/ref/stable/types/) from 
 Exclude the Basis Universal [texture compression library](/manuals/texture-profiles) from the engine.
 
 
+## Use fat MbedTLS
+
+Use MbedTLS library with extended set of features. Extended set includes:
+* MBEDTLS_FS_IO
+* MBEDTLS_PK_WRITE_C
+* MBEDTLS_SSL_SRV_C
+* MBEDTLS_X509_CREATE_C
+* MBEDTLS_X509_CRT_WRITE_C
+
+
 ## Use Android Support Lib
 
 Use the deprecated Android Support Library instead of Android X. [More info](https://defold.com/manuals/android/#using-androidx).
