@@ -1,37 +1,37 @@
 ---
-title: Fizyka w Defoldzie
-brief: Ta instrukcja prezentuje fizykę w Defoldzie.
+title: Fizyka w Defold
+brief: Defold zawiera silniki fizyki 2D i 3D. Pozwalają one symulować newtonowskie interakcje fizyczne między różnymi typami obiektów kolizji.
 ---
 
 # Fizyka
 
-Defold zawiera zmodyfikowaną wersję silnika fizycznego [Box2D](http://www.box2d.org) (wersja 2.2.1) do symulacji fizyki 2D oraz silnik fizyczny Bullet (wersja 2.77) do fizyki 3D. Pozwala to na symulację oddziaływań fizyki klasycznej Newtona między różnymi rodzajami obiektów kolizji (_collision objects_). Ta instrukcja wyjaśnia, jak to działa.
+Defold zawiera zmodyfikowaną wersję silnika fizycznego [Box2D](http://www.box2d.org) (wersja 2.2.1) do symulacji fizyki 2D oraz silnik fizyczny Bullet (wersja 2.77) do fizyki 3D. Umożliwia to symulowanie interakcji zgodnych z fizyką Newtona między różnymi typami _obiektów kolizji_. Ten podręcznik wyjaśnia, jak to działa.
 
-Główne koncepcje silników fizycznych używanych w Defoldzie to:
+Główne pojęcia silników fizycznych używanych w Defold to:
 
-* **Collision objects** - Obiekt kolizji - komponent, który stosujesz, aby nadać obiektowi gry właściwości fizyczne. Obiekt kolizji posiada właściwości fizyczne, takie jak masa, tarcie i kształt. [Dowiedz się, jak tworzyć obiekt kolizji](/manuals/physics-objects).
-* **Collision shapes** - Kształty kolizi - obiekty kolizji mogą używać kilku kształtów podstawowych (primitive shapes) lub pojedynczego kształtu złożonego (complex shape), aby określić jego rozszerzenie przestrzenne (spatial extension). [Dowiedz się, jak dodawać kształty do obiektu kolizji](/manuals/physics-groups).
-* **Collision groups** - Grupy kolizji - wszystkie obiekty kolizji muszą należeć do zdefiniowanej grupy, a każdy obiekt kolizji może określić listę innych grup, z którymi może kolidować. [Dowiedz się, jak korzystać z grup kolizji](/manuals/physics-groups).
-* **Collision messages** - Wiadomości kolizji - gdy dwa obiekty kolizji zderzają się, silnik fizyczny wysyła wiadomości do obiektów gry, do których należą komponenty obiektów kolizji. [Dowiedz się więcej o wiadomościach kolizji](/manuals/physics-messages).
+* **Collision objects** - Obiekty kolizji - komponent używany do nadania obiektowi gry właściwości fizycznych. Obiekt kolizji ma właściwości fizyczne, takie jak masa, tarcie i kształt. [Dowiedz się, jak utworzyć obiekt kolizji](/manuals/physics-objects).
+* **Collision shapes** - Kształty kolizji - obiekt kolizji może używać kilku prostych kształtów albo jednego złożonego kształtu, aby określić swój zasięg przestrzenny. [Dowiedz się, jak dodać kształty do obiektu kolizji](/manuals/physics-shapes).
+* **Collision groups** - Grupy kolizji - wszystkie obiekty kolizji muszą należeć do zdefiniowanej grupy, a każdy obiekt kolizji może określić listę innych grup, z którymi może się zderzać. [Dowiedz się, jak używać grup kolizji](/manuals/physics-groups).
+* **Collision messages** - Wiadomości kolizji - gdy dwa obiekty kolizji się zderzą, silnik fizyczny wysyła wiadomości do obiektów gry, do których należą te komponenty. [Dowiedz się więcej o wiadomościach kolizji](/manuals/physics-messages)
 
-Oprócz samych obiektów kolizji, można również definiować ograniczenia (**constraints**) obiektu kolizji, bardziej znane jako łączenia (**joints**), aby połączyć ze sobą dwa obiekty kolizji i ograniczyć lub w inny sposób zastosować siłę oraz wpływać na ich zachowanie w symulacji fizycznej. [Dowiedz się więcej o łączeniach](/manuals/physics-joints).
+Oprócz samych obiektów kolizji możesz też definiować obiekt kolizji **ograniczenia**, częściej nazywane **joints**, aby połączyć dwa obiekty kolizji i ograniczyć ich ruch albo w inny sposób wpływać na ich zachowanie w symulacji fizycznej. [Dowiedz się więcej o joints](/manuals/physics-joints).
 
-Możesz również badać i odczytywać świat fizyczny wzdłuż specjalnego liniowego promienia (**ray cast**). [Dowiedz się więcej o promieniach](/manuals/physics-ray-casts).
+Możesz też sondować i odczytywać świat fizyczny wzdłuż liniowego promienia, znanego jako **ray cast**. [Dowiedz się więcej o ray castach](/manuals/physics-ray-casts).
 
-## Jednostki używane w symulacji silnika fizycznego
+## Jednostki używane przez symulację silnika fizycznego
 
-Silnik fizyczny symuluje fizykę klasyczną Newtona i został zaprojektowany do współpracy z jednostkami MKS - metrów, kilogramów i sekund. Ponadto silnik fizyczny jest dostrojony, aby dobrze działał z poruszającymi się obiektami o rozmiarze w zakresie od 0,1 do 10 metrów (obiekty statyczne mogą być większe), a domyślnie silnik traktuje 1 jednostkę (piksel) jako 1 metr. Ta konwersja między pikselami a metrami jest wygodna na poziomie symulacji, ale z perspektywy tworzenia gier nie jest zbyt przydatna. Domyślnie kształt kolizji o rozmiarze 200 pikseli jest traktowany jako obiekt o rozmiarze 200 metrów, co jest znacznie poza zalecanym zakresem, przynajmniej dla obiektu poruszającego się.
+Silnik fizyczny symuluje fizykę Newtona i został zaprojektowany tak, aby dobrze działać z jednostkami metrów, kilogramów i sekund (MKS). Ponadto silnik jest dostrojony do pracy z poruszającymi się obiektami o rozmiarze od 0,1 do 10 metrów (obiekty statyczne mogą być większe), a domyślnie traktuje 1 jednostkę (piksel) jako 1 metr. To przeliczanie pikseli na metry jest wygodne na poziomie symulacji, ale z perspektywy tworzenia gier nie jest zbyt użyteczne. Przy domyślnych ustawieniach kształt kolizji o rozmiarze 200 pikseli będzie traktowany jak obiekt o rozmiarze 200 metrów, czyli znacznie poza zalecanym zakresem, przynajmniej dla obiektu poruszającego się.
 
-W ogólności wymagane jest dostosowanie skali symulacji fizycznej, aby działała dobrze z typowym rozmiarem obiektów w grze. Skalę symulacji fizycznej można zmienić w pliku *game.project* za pomocą ustawienia skali fizyki - [physics scale setting](/manuals/project-settings/#physics). Ustawienie tej wartości na przykład na 0,02 oznacza, że 200 pikseli będzie traktowane jako 4 metry. Należy zauważyć, że grawitacja (również zmieniana w *game.project*) musi zostać zwiększona, aby dostosować się do zmiany skali.
+Ogólnie rzecz biorąc, trzeba przeskalować symulację fizyczną tak, aby dobrze działała z typowym rozmiarem obiektów w grze. Skalę symulacji fizycznej można zmienić w pliku *game.project* za pomocą [ustawienia skali fizyki](/manuals/project-settings/#physics). Na przykład ustawienie tej wartości na 0,02 oznaczałoby, że 200 pikseli byłoby traktowane jako 4 metry. Pamiętaj, że grawitację, również ustawianą w *game.project*, trzeba zwiększyć, aby uwzględnić zmianę skali.
 
-## Aktualizacja fizyki
+## Aktualizacje fizyki
 
-Zaleca się regularną aktualizację silnika fizycznego, aby zapewnić stabilną symulację (w przeciwieństwie do aktualizacji w nieregularnych odstępach czasu zależnych od częstotliwości klatek). Możesz używać stałej aktualizacji dla fizyki, zaznaczając opcję używania stałego kroku czasowego: ["Use Fixed Timestep"](/manuals/project-settings/#physics) w sekcji `Physics` w pliku *game.project*. Częstotliwość aktualizacji jest kontrolowana przez częstotliwość stałej aktualizacji: ["Fixed Update Frequency"](/manuals/project-settings/#engine) w sekcji `Engine` w pliku *game.project*. Gdy używasz stałego kroku czasowego dla fizyki, zaleca się również korzystanie ze specjalnej funkcji cyklu życia `fixed_update(self, dt)` do interakcji z obiektami kolizji w grze, na przykład podczas stosowania sił do nich.
+Zaleca się regularne aktualizowanie silnika fizycznego, aby zapewnić stabilną symulację, zamiast wykonywać aktualizacje w potencjalnie nieregularnych odstępach zależnych od liczby klatek na sekundę. Możesz włączyć stałą aktualizację fizyki, zaznaczając ustawienie [<kbd>Use Fixed Timestep</kbd>](/manuals/project-settings/#physics) w sekcji <kbd>Physics</kbd> pliku *game.project*. Częstotliwość aktualizacji jest kontrolowana przez ustawienie [<kbd>Fixed Update Frequency</kbd>](/manuals/project-settings/#engine) w sekcji <kbd>Engine</kbd> pliku *game.project*. Gdy używasz stałego kroku czasowego dla fizyki, zaleca się również korzystanie z funkcji cyklu życia `fixed_update(self, dt)` do interakcji z obiektami kolizji w grze, na przykład podczas przykładania do nich sił.
 
-## Uwagi i typowe problemy
+## Zastrzeżenia i typowe problemy
 
 Pełnomocnicy kolekcji
-: za pomocą pełnomocników kolekcji (collection proxies) można załadować więcej niż jedną kolekcję najwyższego poziomu lub inaczej *świat gry* do silnika. Przy takim rozwiązaniu ważne jest, aby wiedzieć, że każda kolekcja najwyższego poziomu to *osobny* świat fizyczny. Interakcje fizyczne ([kolizje, trigery/wyzwalacze](/manuals/physics-messages) i [promienie ray-cast](/manuals/physics-ray-casts))
+: Za pomocą pełnomocników kolekcji można załadować do silnika więcej niż jedną kolekcję najwyższego poziomu, czyli *świat gry*. W takiej sytuacji ważne jest, aby wiedzieć, że każda kolekcja najwyższego poziomu jest osobnym światem fizycznym. Interakcje fizyczne ([kolizje, wyzwalacze](/manuals/physics-messages) oraz [ray casty](/manuals/physics-ray-casts)) zachodzą wyłącznie między obiektami należącymi do tego samego świata. Dlatego nawet jeśli obiekty kolizji z dwóch światów wizualnie znajdują się dokładnie w tym samym miejscu, nie może między nimi dojść do żadnej interakcji fizycznej.
 
-Kolizje nie wykrywane
-: Jeśli masz problemy z obsługą lub właściwym wykrywaniem kolizji, upewnij się, że zapoznałeś się z [debugowaniem fizyki w instrukcji debugowania](/manuals/debugging/#debugging-problems-with-physics).
+Kolizje nie są wykrywane
+: Jeśli masz problemy z nieprawidłową obsługą lub wykrywaniem kolizji, koniecznie przeczytaj o [debugowaniu fizyki w podręczniku Debugging](/manuals/debugging/#debugging-problems-with-physics).

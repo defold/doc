@@ -1,0 +1,2122 @@
+---
+title: Zbiorczy słowniczek glosariuszy PL
+brief: Jeden skonsolidowany plik łączący glosariusze z docs/pl/glossaries/manuals i docs/pl/glossaries/shared.
+---
+
+# Zbiorczy słowniczek glosariuszy PL
+
+Ten plik łączy zawartość rozbitych glosariuszy per artykuł i per sekcję `shared` w jeden skonsolidowany dokument.
+
+Terminy zapisane w instrukcji jako `(ang. ...)` warto na pierwszym użyciu podawać w formie `polski termin (ang. English)`; gdy chodzi o literalną nazwę elementu edytora, UI, API lub inną widoczną etykietę, angielska forma może pozostać bez tłumaczenia.
+
+Liczba scalonych plików: 86.
+
+## `manuals/2dgraphics.md`
+
+This glossary covers the most relevant terms from the 2D graphics manual and keeps literal Defold/API identifiers in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| 2D Graphics | grafika 2D |
+| manual | instrukcja, czyli strona dokumentacji opisująca dany obszar |
+| outdated | przestarzały |
+| `This manual has been replaced by the Graphics overview manual` | ten materiał został zastąpiony przez instrukcję ogólną o grafice |
+| `Graphics overview manual` | instrukcja ogólna o grafice; nazwa docelowej strony dokumentacji |
+| `manuals/graphics` | ścieżka do strony dokumentacji o grafice |
+
+## `manuals/3dgraphics.md`
+
+This glossary covers the most relevant terms from the article and keeps literal Defold/documentation identifiers in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| 3D graphics | grafika 3D |
+| 3D graphics manual | podręcznik dotyczący grafiki 3D |
+| `Defold 3D graphics manual` | tytuł angielskiej strony; oznacza starszy materiał |
+| `This manual is outdated` | informacja, że materiał jest przestarzały |
+| `Graphics overview manual` | podręcznik przeglądowy dotyczący grafiki; docelowy materiał, do którego przekierowano |
+| replaced | zastąpiony innym materiałem |
+
+## `manuals/adapting-graphics-to-screen-size.md`
+
+This glossary covers the most relevant terms from the article and keeps literal Defold/API identifiers in English.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| screen size | wielkość ekranu |
+| resolution | rozdzielczość |
+| aspect ratio | proporcje obrazu; stosunek szerokości do wysokości |
+| render script | skrypt do renderowania |
+| `game.project` | plik konfiguracyjny projektu; zawiera ustawienia rozdzielczości, wyświetlania i grafiki |
+| `use_fixed_projection` | wiadomość do `@render` ustawiająca stałą projekcję z określonym zoomem |
+| `use_fixed_fit_projection` | wiadomość do `@render` dopasowująca projekcję do ekranu przy zachowaniu proporcji |
+| `zoom` | powiększenie obrazu lub projekcji |
+| `Fixed Projection` | stała projekcja; nazwa trybu używanego w render script |
+| `nearest` | próbkowanie najbliższego sąsiedniego piksela, dobre dla grafiki pixel art |
+| `linear` | liniowe próbkowanie tekstury, które może rozmywać obraz po skalowaniu |
+| `Subpixels` | opcja ograniczająca renderowanie sprite'ów do pełnych pikseli |
+| `High DPI` | tryb wysokiej gęstości pikseli na ekranach typu Retina |
+| `GUI` | interfejs użytkownika; w Defoldzie system węzłów i layoutów |
+| `pivot` | punkt centralny węzła GUI |
+| `anchor` | zakotwiczenie określające, jak węzeł reaguje na zmianę rozmiaru ekranu |
+| `adjust mode` | tryb dopasowania węzła do zmiany rozmiaru sceny lub rodzica |
+| `Debug->Simulate Resolution` | polecenie menu debugowania do symulacji rozdzielczości; angielska forma może pozostać bez tłumaczenia, bo to literalna etykieta menu |
+| `layout` | układ GUI dostosowany do orientacji i wielkości ekranu |
+
+## `manuals/addressing.md`
+
+Ten słowniczek obejmuje najważniejsze terminy użyte w artykule o adresowaniu w silniku Defold.
+
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| addressing | adresowanie |
+| address | adres |
+| identifier | identyfikator |
+| game object | obiekt gry |
+| game objects | obiekty gry; angielska forma może pozostać bez tłumaczenia jako nazwa pojęcia |
+| component | komponent |
+| collection | kolekcja |
+| collections | kolekcje; angielska forma może pozostać bez tłumaczenia jako nazwa pojęcia |
+| collection file | plik kolekcji |
+| relative address | adres względny |
+| absolute address | adres bezwzględny |
+| naming context | kontekst nazewniczy |
+| namespace | przestrzeń nazw |
+| path | ścieżka |
+| socket | socket, czyli identyfikator świata/instancji kolekcji |
+| fragment | fragment URL, czyli identyfikator komponentu |
+| URL | URL |
+| disable | `disable`, nazwa wiadomości wyłączającej komponent; angielska forma może pozostać bez tłumaczenia |
+| bean | `bean`, przykładowy identyfikator obiektu; angielska forma może pozostać bez tłumaczenia |
+| body | `body`, przykładowy identyfikator komponentu; angielska forma może pozostać bez tłumaczenia |
+| shield | `shield`, przykładowy identyfikator komponentu; angielska forma może pozostać bez tłumaczenia |
+| buddy | `buddy`, przykładowy identyfikator obiektu; angielska forma może pozostać bez tłumaczenia |
+| dance | `dance`, nazwa wiadomości; angielska forma może pozostać bez tłumaczenia |
+| hash | hasz; techniczny termin oznaczający skrót lub funkcję skrótu |
+| hashed | haszowany; angielska forma może pozostać bez tłumaczenia jako opis techniczny |
+| hashed identifier | haszowany identyfikator |
+| `msg.post()` | funkcja do wysyłania wiadomości |
+| `go.get_id()` | funkcja zwracająca identyfikator obiektu gry |
+| `go.set_position()` | funkcja ustawiająca pozycję obiektu |
+| `factory.create()` | funkcja tworząca instancję |
+| `#` | separator obiektu gry i komponentu |
+| `.` | skrót oznaczający bieżący obiekt gry |
+| `/` | prefiks adresu bezwzględnego od root kolekcji bootstrapowej |
+
+## `manuals/ads.md`
+
+This glossary covers the most relevant terms from the ads manual and keeps literal Defold, UI, API, and provider names in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| ads | reklamy |
+| monetization | monetyzacja, czyli zarabianie na grze przez reklamy lub inne mechanizmy |
+| ad format | format reklamy |
+| banner ad | reklama banerowa, zwykle zajmująca niewielki fragment ekranu |
+| interstitial ad | reklama pełnoekranowa wyświetlana między poziomami lub sesjami gry |
+| rewarded ad / incentivized ad | reklama nagradzana; opcjonalna reklama, za której obejrzenie gracz otrzymuje nagrodę |
+| ad network | sieć reklamowa |
+| AdMob | `AdMob`, usługa sieci reklamowej Google |
+| Enhance | `Enhance`, dostawca wspierający wiele sieci reklamowych |
+| Facebook Instant Games | `Facebook Instant Games`, platforma, w której można wyświetlać reklamy |
+| IronSource | `IronSource`, sieć reklamowa |
+| Unity Ads | `Unity Ads`, sieć reklamowa |
+| CPM | koszt za tysiąc wyświetleń reklamy (Cost per mille) |
+| ad revenue | przychody z reklam |
+| project dependency | zależność projektu dodawana do projektu Defold |
+| In-app purchase | zakup wewnątrz aplikacji; w tym kontekście sposób na trwałe usunięcie reklam |
+
+## `manuals/android.md`
+
+This glossary covers the most relevant terms from the Android manual and keeps literal Defold, UI, API, and platform names in English.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| Android | Android |
+| development app | aplikacja do tworzenia i testowania gry na urządzeniu; w tekście pozostaje jako nazwa własna |
+| hot reload | szybkie przeładowanie zasobów i kodu na urządzeniu |
+| APK | pakiet aplikacji Android (`.apk`) |
+| AAB | Android App Bundle (`.aab`) |
+| application bundle | paczka aplikacji przygotowana do dystrybucji |
+| Android application bundle | paczka aplikacji Android przygotowana do dystrybucji; angielska forma może pozostać bez tłumaczenia jako nazwa formatu |
+| keystore | magazyn kluczy i certyfikatów używany do podpisywania aplikacji |
+| certificate | certyfikat podpisu aplikacji |
+| key | klucz prywatny używany przy podpisywaniu |
+| debug keystore | testowy magazyn kluczy tworzony automatycznie przez Defold |
+| Play Console | `Play Console`, panel Google Play do publikowania aplikacji |
+| Play App Signing | `Play App Signing`, usługa Google podpisująca aplikacje po przesłaniu |
+| `game.project` | plik ustawień projektu; zawiera konfigurację Androida |
+| `AndroidManifest.xml` | plik manifestu Androida z uprawnieniami i metadanymi aplikacji |
+| permission | uprawnienie wymagane przez system Android |
+| `android.permission.INTERNET` | uprawnienie do korzystania z sieci |
+| `android.permission.ACCESS_NETWORK_STATE` | uprawnienie do odczytu informacji o stanie sieci |
+| `android.permission.WAKE_LOCK` | uprawnienie do blokowania usypiania urządzenia |
+| `adb` | `Android Debug Bridge`, narzędzie do komunikacji z urządzeniem Android |
+| USB debugging | debugowanie USB; wymagane do instalacji i uruchamiania z edytora |
+| `logcat` | narzędzie do podglądu logów systemu Android |
+| `bundletool` | narzędzie Google do pracy z pakietami AAB i generowania APK |
+| `AndroidX` | `AndroidX`, współczesny zestaw bibliotek zastępujący Android Support Library |
+| `Android Support Library` | starsza biblioteka wsparcia Androida |
+
+## `manuals/animation.md`
+
+This glossary covers the most relevant terms from the animation manual and keeps literal Defold/API identifiers in English.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| animation | animacja |
+| built-in support | wbudowane wsparcie |
+| component | komponent |
+| flip-book animation | animacja poklatkowa; odtwarzanie serii statycznych obrazów po kolei |
+| model animation | animacja modelu 3D |
+| properties | właściwości; angielska forma może pozostać bez tłumaczenia jako nazwa pojęcia używana w manualu |
+| property animation | animacja właściwości, czyli zmienianie wartości takich jak pozycja, skala i rotacja |
+| Rive animation | animacja Rive; wektorowa animacja 2D oparta na szkielecie |
+| Spine animation | animacja Spine; teksturowana animacja 2D oparta na szkielecie |
+| graphics source | źródło grafiki używane przez komponent |
+| extension | rozszerzenie |
+
+## `manuals/application-lifecycle.md`
+
+This glossary covers the most relevant terms from the application lifecycle manual and keeps literal Defold/API identifiers in English.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| application lifecycle | cykl życia aplikacji |
+| initialization | inicjalizacja |
+| update loop | pętla aktualizacyjna |
+| finalization | finalizacja |
+| `init()` | funkcja inicjalizacji wywoływana na starcie komponentu |
+| `update()` | funkcja aktualizacji wywoływana co klatkę |
+| `late_update()` | późna aktualizacja wykonywana po `update()` |
+| `fixed_update()` | aktualizacja wykonywana stałokrokowo, zwykle dla fizyki |
+| `final()` | funkcja czyszcząca wywoływana przed usunięciem komponentu |
+| game object | obiekt gry |
+| component | komponent |
+| collection | kolekcja |
+| collection proxy | pełnomocnik kolekcji |
+| render script | skrypt do renderowania; angielska nazwa może pozostać bez tłumaczenia |
+| view frustum | bryła widokowa |
+| clipping plane | płaszczyzna odcięcia; angielska nazwa może pozostać bez tłumaczenia |
+| `@render` | socket renderera, do którego trafiają wiadomości związane z renderowaniem |
+| `@system` | socket systemowy używany do komunikatów sterujących silnikiem |
+| `game.project` | plik konfiguracyjny projektu |
+| `set_update_frequency` | wiadomość ustawiająca liczbę aktualizacji na sekundę |
+| `set_time_step` | wiadomość ustawiająca krok czasowy kolekcji |
+| `dispatch messages` | etap rozsyłania wiadomości |
+| `message dispatcher` | mechanizm rozsyłania wiadomości |
+| `spawn dynamic objects` | tworzenie dynamicznych obiektów |
+| post update | etap po aktualizacji, w którym silnik przetwarza usuwanie i tworzenie obiektów |
+| input bindings | wiązania wejść |
+| acquired input focus | przechwycone wejście; stan, w którym obiekt otrzymuje zdarzenia wejściowe |
+| transform / transforms | transformacja: pozycja, obrót i skala obiektu |
+| collision object | obiekt kolizji |
+| triggers | wyzwalacze |
+| ray_cast | rzut promienia |
+| socket | gniazdo silnika; angielska nazwa może pozostać bez tłumaczenia |
+| factory | fabryka |
+| time step | krok czasowy |
+| physics | fizyka |
+| frame render | końcowe renderowanie klatki |
+| Advanced topics | sekcja "Advanced topics"; angielska nazwa sekcji może pozostać bez tłumaczenia |
+
+## `manuals/atlas.md`
+
+This glossary covers the most relevant terms from the atlas manual and keeps literal Defold/API identifiers in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| atlas | atlas, czyli zasób łączący wiele obrazów w jedną teksturę |
+| sprite | sprite / obraz używany jako źródło grafiki |
+| particlefx | ParticleFX, komponent efektów cząsteczkowych |
+| Assets | `Assets`, widok projektu z plikami zasobów |
+| Outline | `Outline`, widok struktury atlasu |
+| Properties | `Properties`, panel właściwości atlasu i obrazów |
+| Add Images | `Add Images`, polecenie dodawania pojedynczych obrazów do atlasu |
+| Add Animation Group | `Add Animation Group`, polecenie tworzenia grupy animacji flipbook |
+| flipbook animation | animacja klatkowa odtwarzana z kolejnych obrazów |
+| frame selection | dopasowanie widoku do zaznaczenia |
+| Margin | margines między obrazami w atlasie |
+| Inner Padding | wewnętrzny margines wokół każdego obrazu |
+| Extrude Borders | powielanie pikseli krawędzi, aby ograniczyć „przeciekanie” sąsiednich obrazów |
+| Max Page Size | maksymalny rozmiar strony w atlasie wielostronicowym |
+| Rename Patterns | wzorce wyszukiwania i zamiany używane do zmiany nazw obrazów |
+| Pivot | punkt zakotwiczenia obrazu |
+| Sprite Trim Mode | tryb przycinania sprite'a |
+| Fps | liczba klatek na sekundę; nazwa właściwości animacji |
+| Playback | sposób odtwarzania animacji |
+| `resource.create_texture()` | funkcja tworząca zasób tekstury w czasie działania programu |
+| `resource.set_texture()` | funkcja ustawiająca piksele tekstury lub jej fragmentu |
+| `resource.create_atlas()` | funkcja tworząca atlas w czasie działania programu |
+| `go.set()` | funkcja ustawiająca właściwość komponentu, np. teksturę modelu lub sprite'a |
+| `sprite.play_flipbook()` | funkcja odtwarzająca animację flipbook |
+| `texturec` | skompilowany zasób tekstury |
+| `texturesetc` | skompilowany zasób atlasu tekstur |
+
+## `manuals/building-blocks.md`
+
+Zakres: najważniejsze pojęcia z instrukcji o blokach budujących Defold.
+
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| Collection | kolekcja; plik służący do budowania hierarchii obiektów gry i innych kolekcji |
+| bootstrap collection | główna kolekcja uruchamiana na starcie gry |
+| Game object | obiekt gry; pojemnik na komponenty z własnym `id`, pozycją, rotacją i skalą |
+| Component | komponent; element dodawany do obiektu gry, np. `sprite`, `script` lub `sound` |
+| path | ścieżka adresowania obiektu; angielska forma może pozostać bez tłumaczenia |
+| waypoint / startpoint / checkpoint | znacznik pozycji; w instrukcji występują jako literalne nazwy `waypoint`, `startpoint` i `checkpoint` |
+| blueprint / prototype | prototyp lub szablon pliku bazowego, na którym opiera się instancja; angielskie nazwy mogą pozostać bez tłumaczenia |
+| instance | instancja; konkretne wystąpienie obiektu, kolekcji lub komponentu w projekcie |
+| factory | fabryka; komponent używany do dynamicznego tworzenia obiektów gry |
+| parent-child hierarchy | hierarchia rodzic-dziecko; relacja wpływająca na transformacje obiektów |
+| `Outline` | `Outline`; widok zawartości pliku w edytorze, angielska forma może pozostać bez tłumaczenia |
+| `Add Collection File` | `Add Collection File`; polecenie dodania kolekcji jako referencji do pliku, angielska forma może pozostać bez tłumaczenia |
+| `set_parent` | `set_parent`; wiadomość ustawiająca rodzica obiektu w czasie działania gry, angielska forma może pozostać bez tłumaczenia |
+
+## `manuals/caching-assets.md`
+
+This glossary covers the most relevant terms from the caching assets manual and keeps literal Defold, API, and option names in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| asset cache | bufor zasobów |
+| build | kompilacja lub budowanie projektu, zależnie od kontekstu |
+| compiled assets | skompilowane zasoby |
+| project cache | bufor projektu, domyślny lokalny cache w `build/default` |
+| local cache | bufor lokalny; opcjonalny cache na tym samym komputerze lub w sieci |
+| remote cache | bufor zdalny; opcjonalny cache na serwerze dostępnym przez HTTP |
+| `build/default` | folder z plikami cache projektu |
+| `clean` | polecenie usuwające dane bufora projektu |
+| `resource-cache-local` | opcja włączająca lokalny cache |
+| `resource-cache-remote` | opcja włączająca zdalny cache |
+| checksum | suma kontrolna używana do identyfikacji poprawnych plików w cache |
+| HTTP request | żądanie HTTP |
+| GET / PUT / HEAD | metody HTTP używane do odczytu, zapisu i sprawdzania zasobów |
+
+## `manuals/camera.md`
+
+This glossary covers the most relevant terms from the camera manual and keeps literal Defold/API identifiers in English.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| camera | kamera |
+| render script | skrypt do renderowania; angielska nazwa może pozostać bez tłumaczenia |
+| viewport | obszar widoku, czyli część świata gry widoczna na ekranie |
+| projection | projekcja, czyli sposób odwzorowania świata na ekranie |
+| perspective camera | kamera perspektywiczna |
+| orthographic projection | rzut ortograficzny |
+| view matrix | macierz widoku |
+| projection matrix | macierz projekcji |
+| frustum | bryła widokowa |
+| view frustum | bryła widokowa |
+| clipping plane | płaszczyzna odcięcia; angielska nazwa może pozostać bez tłumaczenia |
+| field of view / `fov` | pole widzenia kamery; `fov` to nazwa właściwości i API |
+| `Near Z` | bliska płaszczyzna odcięcia; nazwa właściwości w edytorze |
+| `Far Z` | daleka płaszczyzna odcięcia; nazwa właściwości w edytorze |
+| `Orthographic Zoom` | powiększenie dla kamery ortograficznej; nazwa właściwości w edytorze |
+| `Orthographic Mode` | tryb określający sposób wyznaczania zoomu względem rozmiaru okna i rozdzielczości projektu |
+| `Auto Fit` | automatyczne dopasowanie, aby cały obszar projektu zmieścił się w oknie |
+| `Auto Cover` | automatyczne pokrycie, aby obszar projektu wypełnił całe okno |
+| `Fixed` | stały zoom ustawiany ręcznie |
+| `acquire_camera_focus` | wiadomość używana w starszym sposobie aktywowania kamery; w nowych projektach preferowane są `enable` i `disable` |
+| `set_view_projection` | wiadomość wysyłana do `@render` z macierzą widoku i projekcji |
+| `render.set_camera()` | funkcja renderowania ustawiająca aktywną kamerę dla rysowania |
+| `camera.get_cameras()` | funkcja zwracająca listę dostępnych kamer |
+| `go.set()` / `go.get()` | funkcje używane do odczytu i zmiany właściwości kamery w czasie działania |
+| `@render` | socket renderera, do którego trafiają wiadomości z kamery |
+| `game.project` | plik konfiguracyjny projektu; w tym kontekście zawiera ustawienia rozdzielczości i wyświetlania |
+| `display.width` / `display.height` | wartości rozdzielczości projektu używane przy obliczaniu proporcji i zoomu |
+| adaptive zoom | adaptacyjny zoom dopasowujący kamerę do zmiany rozdzielczości okna |
+| frustum culling | odrzucanie obiektów poza bryłą widokową |
+
+## `manuals/collection-factory.md`
+
+Zakres: najważniejsze pojęcia z instrukcji o `collectionfactory` i tworzeniu kolekcji w czasie działania gry.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| Collection factory | fabryka kolekcji; komponent tworzący w grze zawartość pliku kolekcji |
+| Collection | kolekcja; plik służący do opisu grup i hierarchii obiektów gry |
+| game object | obiekt gry; pojedynczy element sceny, który może mieć komponenty i relacje rodzic-dziecko |
+| Prototype | `Prototype`; właściwość komponentu wskazująca plik kolekcji używany jako wzorzec |
+| collectionfactory.create() | `collectionfactory.create()`; funkcja tworząca instancje obiektów z kolekcji |
+| collectionfactory.load() | `collectionfactory.load()`; funkcja wczytująca zasoby fabryki asynchronicznie |
+| collectionfactory.unload() | `collectionfactory.unload()`; funkcja zwalniająca zasoby wczytane przez fabrykę |
+| collectionfactory.set_prototype() | `collectionfactory.set_prototype()`; funkcja zmieniająca używany prototyp kolekcji |
+| Load Dynamically | `Load Dynamically`; opcja odraczająca wczytanie zasobów do chwili tworzenia |
+| Dynamic Prototype | `Dynamic Prototype`; opcja pozwalająca zmieniać prototyp w czasie działania |
+| collection proxy | pełnomocnik kolekcji; osobny świat gry ładowany wraz z własnym socketem |
+| `go.property()` | `go.property()`; deklaracja właściwości skryptu używana przy przekazywaniu danych do tworzonych obiektów |
+
+## `manuals/collection-proxy.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o collection proxy i zostawia literalne nazwy API oraz wiadomości w języku angielskim.
+
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| collection proxy | pełnomocnik kolekcji |
+| collection | kolekcja |
+| collection file | plik kolekcji |
+| bootstrap collection | kolekcja startowa ładowana przy uruchomieniu silnika |
+| game world | świat gry |
+| physics world | świat fizyki |
+| collection factory | fabryka kolekcji |
+| `load` | wiadomość rozpoczynająca wczytywanie kolekcji do nowego świata |
+| `async_load` | wiadomość rozpoczynająca asynchroniczne wczytywanie kolekcji |
+| `proxy_loaded` | wiadomość zwrotna wysyłana po zakończeniu wczytywania |
+| `init` | wiadomość inicjalizująca utworzone obiekty i komponenty |
+| `enable` | wiadomość aktywująca obiekty i komponenty |
+| `disable` | wiadomość dezaktywująca obiekty i komponenty |
+| `final` | wiadomość finalizująca obiekty i komponenty |
+| `unload` | wiadomość usuwająca świat z pamięci |
+| `proxy_unloaded` | wiadomość zwrotna wysyłana po zakończeniu zwalniania |
+| `set_time_step` | wiadomość ustawiająca krok czasowy kolekcji |
+| `Name` | właściwość nazwy świata; musi być unikalna |
+| `Collection` | właściwość wskazująca kolekcję do wczytania |
+| `Exclude` | opcja wykluczająca zasób z kompilacji i pozwalająca pobrać go później |
+| `Live update` | funkcja dynamicznego pobierania zasobów w trakcie działania gry |
+| `update()` | funkcja aktualizacji wywoływana co klatkę |
+| `dt` | czas kroku przekazywany do `update()` |
+| loader | obiekt odpowiedzialny za wczytywanie poziomów; angielska nazwa może pozostać bez tłumaczenia |
+| time step | krok czasowy |
+| `factor` | współczynnik skali kroku czasowego |
+| `mode` | tryb skalowania kroku czasowego |
+| `input focus` | przechwycenie wejścia przez obiekt gry |
+
+## `manuals/components.md`
+
+This glossary covers the most relevant terms from the components article and keeps literal Defold/API identifiers in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| component | komponent |
+| game object | obiekt gry |
+| component type | typ komponentu |
+| Collection factory | fabryka kolekcji |
+| Collection proxy | pełnomocnik kolekcji |
+| Collision object | obiekt kolizji |
+| Camera | kamera |
+| Factory | fabryka |
+| GUI | GUI, czyli interfejs użytkownika renderowany w osobnym przebiegu |
+| Label | etykieta |
+| Mesh | siatka 3D |
+| Model | model 3D |
+| Particle FX | efekty cząsteczkowe |
+| Script | skrypt |
+| Sound | dźwięk |
+| Sprite | sprite, czyli obraz 2D |
+| Tilemap | mapa kafelków |
+| enable | wiadomość włączająca komponent |
+| disable | wiadomość wyłączająca komponent |
+| Properties pane | panel `Properties` z właściwościami komponentu |
+| Outline pane | panel `Outline` z listą struktury i zaznaczonego elementu |
+| position | pozycja |
+| rotation | rotacja / orientacja |
+| scale | skala |
+| render script | skrypt do renderowania |
+| predicate | predykat w skrypcie renderowania |
+| material | materiał |
+| tag | tag materiału używany do dopasowania w predykacie |
+| z-value | wartość Z; pozycja w osi głębi |
+| GUI render order | kolejność renderowania GUI |
+| near plane | płaszczyzna bliska |
+| far plane | płaszczyzna daleka |
+
+## `manuals/debugging-game-logic.md`
+
+Zakres: najważniejsze pojęcia z instrukcji o debugowaniu logiki gry w Defoldzie.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| debugger | debugger; narzędzie do zatrzymywania, analizowania i wznawiania wykonania gry |
+| inspection facility | narzędzie do inspekcji; pozwala podglądać stan programu podczas debugowania |
+| profiling tools | narzędzia profilowania; pomagają analizować wydajność |
+| print debugging | debugowanie za pomocą wydruków; używanie `print()` i `pprint()` do śledzenia wykonania |
+| `print()` | `print()`; wypisuje tekst do konsoli i logu gry |
+| `pprint()` | `pprint()`; czytelniej wypisuje struktury danych |
+| `@render` | `@render`; socket, do którego wysyła się wiadomości rysujące debugowanie wizualne |
+| `draw_text` | `draw_text`; rysuje tekst debugowania na ekranie |
+| `draw_debug_text` | `draw_debug_text`; jak `draw_text`, ale z własnym kolorem |
+| `draw_line` | `draw_line`; rysuje linię debugowania, np. między obiektami |
+| breakpoint | punkt przerwania; miejsce, w którym debugger zatrzymuje wykonanie |
+| Break | Break; zatrzymuje wykonanie gry w bieżącym miejscu |
+| Continue | Continue; wznawia wykonanie do następnego zatrzymania |
+| Step Over | Step Over; wykonuje bieżącą linię bez wchodzenia do funkcji |
+| Step Into | Step Into; wchodzi do wywołanej funkcji i pokazuje stos wywołań |
+| Step Out | Step Out; kontynuuje do wyjścia z bieżącej funkcji |
+| conditional breakpoint | warunkowy punkt przerwania; uruchamia się tylko, gdy warunek jest spełniony |
+| call stack | stos wywołań; lista aktywnych wywołań funkcji |
+| Lua debug library | biblioteka debugowania Lua; narzędzia do analizy wnętrza środowiska Lua |
+| physics debugging | debugowanie fizyki; rysowanie kształtów kolizji i punktów kontaktu |
+
+## `manuals/editor-keyboard-shortcuts.md`
+
+This glossary covers the most relevant literal editor terms from the keyboard shortcuts manual and keeps Defold UI labels and command names in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `Add` | komenda do dodawania elementu lub akcji w bieżącym kontekście |
+| `Build` | komenda budowania projektu |
+| `Hot reload` | szybkie przeładowanie zmian bez pełnego restartu |
+| `Open asset` | komenda otwierania zasobu w Edytorze |
+| `Preferences` | preferencje Edytora; nazwa pozycji menu |
+| `File ▸ Preferences` | ścieżka menu prowadząca do ustawień |
+| `Path to Custom Keymap` | pole ustawień, w którym podaje się ścieżkę do własnego pliku mapy skrótów |
+| `keymap.edn` | nazwa przykładowego pliku konfiguracyjnego mapy skrótów |
+| `Rebuild` | komenda ponownego budowania projektu |
+| `Rebundle` | komenda ponownego pakowania artefaktów projektu |
+| `Search in files` | wyszukiwanie tekstu we wszystkich plikach projektu |
+| `Toggle comment` | przełącza komentarz dla zaznaczonego kodu |
+
+## `manuals/editor-preferences.md`
+
+Zakres: najważniejsze terminy użyte w artykule o ustawieniach i preferencjach Edytora Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| Preferences window | okno Preferencji, z którego zmienia się ustawienia Edytora |
+| File -> Preferences | menu <kbd>File -> Preferences</kbd> |
+| Load External Changes on App Focus | wczytywanie zewnętrznych zmian po aktywowaniu aplikacji |
+| Open Bundle Target Folder | otwieranie folderu docelowego pakietu po zakończeniu bundlowania |
+| Enable Texture Compression | włączenie kompresji tekstur dla buildów tworzonych z Edytora |
+| Escape Quits Game | klawisz <kbd>Esc</kbd> kończy uruchomioną grę |
+| Track Active Tab in Asset Browser | śledzenie aktywnej karty w przeglądarce zasobów |
+| Lint Code on Build | sprawdzanie kodu podczas budowania projektu |
+| Engine Arguments | argumenty przekazywane do `dmengine` |
+| Custom Editor | zewnętrzny edytor wskazany pełną ścieżką |
+| Open File at Line | wzorzec otwierania pliku wraz z numerem linii |
+| Build Server | serwer budowania dla projektów z native extensions |
+| Build Server Headers | dodatkowe nagłówki wysyłane do serwera budowania |
+| ADB | narzędzie Android Debug Bridge do instalacji i uruchamiania APK |
+| ios-deploy | narzędzie wiersza poleceń do instalacji i uruchamiania aplikacji iOS |
+| Keymap | mapa skrótów klawiaturowych Edytora |
+| shortcut table | tabela skrótów, w której edytuje się przypisania |
+
+## `manuals/editor-scripts.md`
+
+To są najważniejsze terminy użyte w instrukcji o skryptach Edytora.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `.editor_script` | plik skryptu Edytora; plik Lua z tym rozszerzeniem definiuje komendy, haczyki cyklu życia i inne rozszerzenia |
+| `hooks.editor_script` | specjalny plik w katalogu głównym projektu, który odbiera zdarzenia cyklu życia |
+| `editor` package | pakiet API do komunikacji z Edytorem |
+| `editor.get()` | pobiera wartość właściwości węzła lub zasobu |
+| `editor.can_get()` | sprawdza, czy daną właściwość można odczytać bez błędu |
+| `editor.can_set()` | sprawdza, czy daną właściwość można ustawić bez błędu |
+| `editor.transact()` | wykonuje zestaw zmian w stanie Edytora jako jedną operację z możliwością cofnięcia |
+| `editor.execute()` | uruchamia komendę powłoki; odpowiednik bezpieczniejszy niż `os.execute()` |
+| `editor.save()` | zapisuje niezapisane zmiany na dysk |
+| `get_commands()` | funkcja zwracająca definicje komend menu i menu kontekstowego |
+| `active` | funkcja sprawdzająca, czy komenda jest dostępna w danym momencie |
+| `run` | funkcja wykonywana po wybraniu komendy |
+| `actions` | akcje opisujące zmiany, które Edytor ma wykonać |
+| `undoable` | akcja, którą można cofnąć przez Undo lub `Ctrl + Z` |
+| `non-undoable` | akcja, której nie można cofnąć z poziomu Edytora |
+| `shell` | akcja uruchamiająca skrypt powłoki |
+| `lifecycle hooks` | haki cyklu życia wywoływane podczas budowania, pakowania lub uruchamiania gry |
+| `Project → Reload Editor Scripts` | polecenie do ponownego wczytania skryptów Edytora |
+| `Outline` | widok struktury zasobów i węzłów; literalna nazwa interfejsu |
+| `Assets` | panel zasobów; literalna nazwa interfejsu |
+
+## `manuals/editor-styling.md`
+
+Zakres: najważniejsze terminy użyte w artykule o dostosowywaniu kolorów, czcionek i arkuszy stylów Edytora Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `.defold` | folder w katalogu domowym użytkownika, w którym Edytor szuka własnych ustawień |
+| `editor.css` | plik z własnym arkuszem stylów Edytora |
+| custom stylesheet | niestandardowy arkusz stylów |
+| stylesheet | arkusz stylów |
+| CSS | CSS, czyli język opisu stylu znany z przeglądarek |
+| JavaFX | JavaFX, technologia interfejsu używana przez Edytor |
+| `root` | element główny arkusza stylów; miejsce ustawiania domyślnej czcionki |
+| `_palette.scss` | plik z domyślną paletą kolorów Edytora |
+| `_typography.scss` | plik z domyślnymi definicjami typografii |
+| `@font-face` | reguła definiująca źródło czcionki |
+| `font-family` | nazwa rodziny czcionek używana w stylach |
+| `-fx-font-family` | właściwość JavaFX ustawiająca czcionkę w interfejsie |
+| `Preferences` | okno ustawień, w którym osobno definiuje się czcionkę edytora kodu |
+
+## `manuals/editor-templates.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o dodawaniu własnych szablonów projektów do okna Nowy projekt.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| New Project window | okno <kbd>New Project</kbd> |
+| custom project templates | własne, niestandardowe szablony projektów |
+| tab | zakładka z szablonami w oknie <kbd>New Project</kbd> |
+| `welcome.edn` | plik konfiguracyjny w katalogu `.defold` |
+| `.defold` folder | folder konfiguracyjny w katalogu domowym użytkownika |
+| Extensible Data Notation | format danych używany przez `welcome.edn` |
+| `{:new-project ...}` | struktura konfiguracji definiująca szablony w edytorze |
+| `categories` | lista kategorii szablonów |
+| `templates` | lista pojedynczych szablonów projektu |
+| `zip-url` | adres URL archiwum ZIP z szablonem |
+| `skip-root?` | flaga pomijająca katalog główny archiwum |
+| bundled with the editor | dołączone do Edytora |
+
+## `manuals/editor.md`
+
+Zakres: najważniejsze literalne terminy z artykułu o widokach, panelach i podstawowych akcjach Edytora Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `Editor` | Edytor Defold |
+| `Open From Disk…` | opcja otwierania istniejącego projektu z dysku |
+| `Create New Project` | przycisk tworzenia nowego projektu |
+| `TEMPLATES` | zakładka z gotowymi szablonami projektów |
+| `TUTORIALS` | zakładka z projektami instruktażowymi |
+| `SAMPLES` | zakładka z przykładowymi projektami |
+| `Assets` | panel zasobów z plikami i folderami projektu |
+| `Outline` | panel zawartości pliku w widoku drzewiastym |
+| `Properties` | panel właściwości zaznaczonego elementu |
+| `Tools` | panel narzędzi, m.in. `Console`, `Build Errors` i `Search Results` |
+| `Changed Files` | panel zmienionych plików w repozytorium Git |
+| `Scene Editor` | edytor sceny do pracy z kolekcjami, obiektami gry i komponentami wizualnymi |
+| `Move` | narzędzie przesuwania obiektów |
+| `Rotate` | narzędzie obracania obiektów |
+| `Scale` | narzędzie skalowania obiektów |
+| `Console` | konsola; widoczna etykieta panelu Edytora, angielska forma może pozostać bez tłumaczenia |
+| `Curve Editor` | edytor krzywych; widoczna etykieta panelu Edytora, angielska forma może pozostać bez tłumaczenia |
+| `Build Errors` | błędy budowania; widoczna etykieta panelu Edytora, angielska forma może pozostać bez tłumaczenia |
+| `Search Results` | wyniki wyszukiwania; widoczna etykieta panelu Edytora, angielska forma może pozostać bez tłumaczenia |
+| `File ▸ Preferences ▸ General ▸ Editor Language` | ścieżka ustawienia języka interfejsu Edytora |
+| `Update Available` | komunikat lub przycisk informujący o dostępnej aktualizacji |
+
+## `manuals/factory.md`
+
+Ten słowniczek obejmuje najważniejsze pojęcia użyte w instrukcji o komponencie `factory`.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| factory | fabryka; komponent tworzący nowe obiekty gry w czasie działania |
+| game object | obiekt gry |
+| Prototype | `Prototype`; właściwość wskazująca plik obiektu gry używany jako wzorzec |
+| factory.create() | `factory.create()`; funkcja tworząca nowy obiekt gry |
+| factory.load() | `factory.load()`; funkcja asynchronicznie wczytująca zasoby fabryki |
+| factory.unload() | `factory.unload()`; funkcja zwalniająca zasoby wczytane przez fabrykę |
+| Load Dynamically | `Load Dynamically`; opcja odraczająca wczytanie zasobów do chwili tworzenia |
+| url | `url`; identyfikator komponentu fabryki lub utworzonego obiektu |
+| position | `position`; pozycja świata dla nowego obiektu gry |
+| rotation | `rotation`; obrót świata dla nowego obiektu gry |
+| properties | `properties`; tabela Lua z wartościami właściwości skryptu przekazywanymi przy tworzeniu |
+| scale | `scale`; skala utworzonego obiektu gry, jako `number` lub `vector3` |
+| collision shapes | kształty kolizji; nie obsługują obecnie nieliniowego skalowania |
+| msg.url() | `msg.url()`; funkcja budująca adres komponentu lub obiektu |
+| msg.post() | `msg.post()`; funkcja wysyłająca wiadomość do obiektu lub komponentu |
+
+## `manuals/flash.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o Flashu i pozostawia literalne nazwy API, plików oraz komponentów w języku angielskim.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| movie clip | klip filmowy; symbol z własną osią czasu |
+| timeline | oś czasu; sekwencja klatek i animacji |
+| Stage | scena; najwyższy kontener projektu Flash |
+| ActionScript | język skryptowy używany we Flashu |
+| game object | obiekt gry |
+| collection | kolekcja; kontener na obiekty gry i inne kolekcje |
+| factory | fabryka; komponent tworzący instancje obiektów gry |
+| collection proxy | pełnomocnik kolekcji; ładuje nowy świat gry |
+| `go.animate()` | funkcja do animowania właściwości obiektu |
+| `factory.create()` | funkcja tworząca instancję obiektu gry |
+| `go.get_id()` | funkcja zwracająca id bieżącego obiektu gry |
+| `hitTestObject()` | test kolizji na podstawie prostokątów ograniczających |
+| `hitTestPoint()` | test kolizji punktu względem kształtu |
+| z position | pozycja w osi Z; określa głębię renderowania |
+| display list | lista wyświetlania; porządek rysowania obiektów |
+
+## `manuals/flipbook-animation.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o animacjach flip-book i zachowuje literalne identyfikatory API oraz nazwy własne w języku angielskim.
+
+| English term | Polish translation / explanation |
+|---|---|
+| flip-book animation | animacja poklatkowa; seria statycznych klatek odtwarzanych po kolei |
+| GUI | interfejs graficzny użytkownika; gdy chodzi o nazwę widocznego elementu interfejsu, angielska forma może pozostać bez tłumaczenia |
+| frame | klatka animacji |
+| frames per second (FPS) | liczba klatek na sekundę; skrót FPS może pozostać bez tłumaczenia |
+| sprite | sprite / obraz; komponent odtwarzający animację |
+| GUI box node | węzeł GUI typu box; element interfejsu, który może odtwarzać flip-book |
+| atlas | Atlas; zasób z obrazami używanymi przez animację |
+| Tile Source | Tile Source; źródło kafelków z klatkami ułożonymi w sekwencji |
+| `sprite.play_flipbook()` | funkcja odtwarzająca animację flip-book na sprite'cie |
+| `gui.play_flipbook()` | funkcja odtwarzająca animację flip-book na węźle GUI |
+| Playback mode | tryb odtwarzania |
+| `once ping-pong` | tryb odtwarzania w przód i z powrotem, do drugiej klatki |
+| callback | funkcja wywoływana po zakończeniu animacji |
+| looping animation | animacja zapętlona |
+| `go.cancel_animations()` | funkcja anulująca animacje; przerywa także wywołanie callbacka |
+
+## `manuals/font.md`
+
+Ten słowniczek obejmuje najważniejsze pojęcia użyte w instrukcji o fontach i zachowuje literalne identyfikatory Defold oraz API po angielsku.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| font | font; zasób używany do renderowania tekstu |
+| Label | `Label`; komponent tekstowy |
+| GUI text node | węzeł tekstowy GUI |
+| TrueType | `TrueType`; format pliku czcionki |
+| OpenType | `OpenType`; format pliku czcionki |
+| BMFont | `BMFont`; wstępnie przygotowany format bitmapowy z plikiem `.fnt` |
+| bitmap font | font bitmapowy |
+| distance field font | font pola odległości |
+| runtime font | font uruchamiany w czasie działania; rasteryzacja odbywa się na żądanie |
+| font collection | kolekcja fontów; plik `.fontc` może grupować kilka fontów `.ttf` |
+| glyph | glif; pojedynczy znak w fontcie |
+| glyph cache | pamięć podręczna glifów |
+| Render Mode | `Render Mode`; tryb renderowania glifów |
+| MODE_SINGLE_LAYER | `MODE_SINGLE_LAYER`; jeden quad na znak |
+| MODE_MULTI_LAYER | `MODE_MULTI_LAYER`; osobne quady dla kształtu, obrysu i cienia |
+| Output Format | `Output Format`; format danych generowanych z fontu |
+| TYPE_BITMAP | `TYPE_BITMAP`; bitmapowe dane fontu |
+| TYPE_DISTANCE_FIELD | `TYPE_DISTANCE_FIELD`; dane pola odległości |
+| Material | `Material`; materiał używany do renderowania fontu |
+| builtins/fonts/font-df.material | `builtins/fonts/font-df.material`; materiał dla fontów pola odległości |
+| builtins/fonts/font-fnt.material | `builtins/fonts/font-fnt.material`; materiał dla fontów BMFont |
+| font.runtime_generation | `font.runtime_generation`; ustawienie w `game.project` włączające generowanie w czasie działania |
+| font.prewarm_text() | `font.prewarm_text()`; funkcja wstępnego uzupełniania pamięci podręcznej glifów |
+| texture_size_recip | `texture_size_recip`; stała shadera z metrykami pamięci podręcznej |
+
+## `manuals/getting-help.md`
+
+Zakres: najistotniejsze terminy użyte w artykule o zgłaszaniu problemów i szukaniu pomocy.
+
+| English term | Polish translation / explanation |
+|---|---|
+| forum | forum Defold, miejsce zadawania pytań i omawiania problemów |
+| `Questions` | kategoria pytań na forum |
+| `Bugs` | kategoria zgłoszeń błędów na forum |
+| `search` | wyszukiwanie na forum przed zadaniem pytania |
+| `Help->Report Issue` | polecenie w edytorze do zgłoszenia problemu |
+| `Discord` | kanał do szybkiej rozmowy; nie do zgłoszeń błędów |
+| issue tracker | tracker zgłoszeń, czyli system śledzenia błędów |
+| GitHub account | konto GitHub wymagane do zgłoszenia problemu przez edytor |
+| log files | pliki z logami potrzebne przy zgłaszaniu problemu |
+| `Engine logs` | logi silnika |
+| `Editor logs` | logi edytora |
+| `Build server logs` | logi serwera do budowania |
+| minimal reproduction case project | mały projekt pozwalający odtworzyć błąd |
+| workaround | obejście problemu |
+| screenshots | zrzuty ekranu pomocne przy opisie problemu |
+| additional context | dodatkowy kontekst do zgłoszenia |
+
+## `manuals/glossary.md`
+
+Zakres: najważniejsze literalne terminy z ogólnego słowniczka Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `Graphical User Interface` | interfejs graficzny użytkownika; skrót GUI może pozostać bez tłumaczenia |
+| `Head-up display` | ekranowy interfejs gracza; skrót HUD może pozostać bez tłumaczenia |
+| `tiles` | kafelki; małe powtarzalne obrazki używane do budowy atlasów i źródeł kafelków |
+| `polygon` | wielokąt |
+
+## `manuals/gui-box.md`
+
+Zakres: najważniejsze literalne terminy z artykułu o węzłach GUI typu box i ich teksturowaniu.
+
+| English term | Polish translation / explanation |
+|---|---|
+| box node | węzeł typu box; prostokątny element GUI |
+| GUI | interfejs użytkownika Defold |
+| Outline | `Outline` - widok zawartości pliku w edytorze |
+| Add ▸ Box | polecenie dodania nowego węzła box |
+| Textures | folder `Textures` w `Outline` |
+| Add ▸ Textures... | polecenie dodania tekstur do GUI |
+| Texture | właściwość przypisująca teksturę do węzła |
+| atlas | atlas - zestaw obrazów używany jako źródło tekstur lub animacji |
+| tile source | źródło kafelków używane jako źródło tekstur lub animacji |
+| tint | barwienie obrazu przez mnożenie koloru węzła |
+| alpha | kanał alfa, czyli przezroczystość |
+| renderer | renderer - moduł odpowiedzialny za rysowanie |
+| draw calls | wywołania rysowania |
+| animation | animacja |
+| flipbook animation | animacja flipbook z atlasu lub źródła kafelków |
+
+## `manuals/gui-clipping.md`
+
+Zakres: najważniejsze pojęcia z instrukcji o wycinaniu i maskowaniu GUI w Defoldzie.
+
+| English term | Polish translation / explanation |
+|---|---|
+| clipping node | węzeł wycinający, czyli węzeł GUI, który tworzy lub modyfikuje maskę wycinania |
+| Clipping Mode | tryb wycinania; `None` wyłącza wycinanie, a `Stencil` zapisuje maskę w buforze stencil |
+| Clipping Visible | widoczność zawartości węzła wycinającego |
+| Clipping Inverted | odwrócenie kształtu węzła zapisywanego do maski |
+| stencil buffer | bufor stencil, w którym przechowywana jest maska wycinania |
+| stencil mask | maska wycinania określająca, które piksele mogą zostać wyrenderowane |
+| inverted clipper | odwrócony węzeł wycinający; zapisuje negatyw kształtu do maski |
+| layers | warstwy; kontrolują kolejność renderowania i mogą zmieniać kolejność wycinania |
+| hierarchy | hierarchia węzłów; układ rodzic-dziecko, który wpływa na dziedziczenie maski |
+| Box, Text, Pie | typy węzłów GUI, które mogą służyć jako węzły wycinające |
+
+## `manuals/gui-layouts.md`
+
+This glossary covers the most relevant terms from the article and keeps literal Defold/UI/API identifiers in English.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| GUI layouts | układy GUI; warianty tej samej sceny GUI dla różnych orientacji i rozmiarów ekranu |
+| layouts | układy; warianty układu GUI dopasowane do orientacji i rozmiaru ekranu |
+| display profiles | profile wyświetlania |
+| `game.project` | plik konfiguracyjny projektu |
+| `Display Profiles` | ustawienie wskazujące plik profili wyświetlania |
+| `Dynamic Orientation` | opcja automatycznego przełączania układów po obrocie urządzenia |
+| `Auto Layout Selection` | automatyczny dobór układu na podstawie dopasowania profilu |
+| layout | układ GUI |
+| `Default` | domyślny układ awaryjny, używany gdy nie ma lepszego dopasowania |
+| qualifier | kwalifikator profilu; zestaw parametrów dopasowania |
+| width | szerokość w pikselach |
+| height | wysokość w pikselach |
+| device models | modele urządzeń; lista modeli, z którymi może pasować profil |
+| orientation | orientacja ekranu, np. `landscape` lub `portrait` |
+| `layout_changed` | wiadomość wysyłana do skryptu GUI po zmianie układu |
+| `gui.set_layout()` | funkcja ręcznego przełączania układu |
+| `gui.get_layouts()` | funkcja zwracająca dostępne układy i ich rozmiary |
+| `Outline` | widok `Outline`, w którym dodaje się układy |
+| `Assets` | widok `Assets`, gdzie można utworzyć plik profili wyświetlania |
+
+## `manuals/gui-particlefx.md`
+
+Krótki słowniczek najważniejszych terminów z artykułu o węzłach ParticleFX w GUI.
+
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| particle effect node | węzeł efektu cząsteczkowego |
+| GUI screen space | przestrzeń ekranu GUI |
+| particle effect system | system efektów cząsteczkowych |
+| Outline | `Outline` (widok zawartości pliku w edytorze) |
+| Particle FX | `Particle FX` (folder z zasobami efektów cząsteczkowych) |
+| ParticleFX | `ParticleFX` (typ węzła GUI do odtwarzania efektów cząsteczkowych) |
+| particlefx property | właściwość `Particlefx` |
+| `gui.get_node()` | pobiera węzeł GUI po nazwie |
+| `gui.play_particlefx()` | uruchamia efekt cząsteczkowy na węźle |
+| `gui.stop_particlefx()` | zatrzymuje efekt cząsteczkowy na węźle |
+
+## `manuals/gui-pie.md`
+
+Ten słowniczek obejmuje najważniejsze terminy używane w instrukcji o węzłach GUI typu pie.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| GUI pie node | węzeł GUI typu pie; element interfejsu o kształcie okręgu, elipsy lub pierścienia |
+| Nodes | `Nodes`; sekcja drzewa z węzłami w widoku `Outline` |
+| Outline | `Outline` (widok zawartości) |
+| Add ▸ Pie | `Add ▸ Pie`; polecenie dodania nowego węzła pie |
+| Inner Radius | `Inner Radius`; wewnętrzny promień wzdłuż osi X |
+| Outer Bounds | `Outer Bounds`; kształt zewnętrznej granicy węzła |
+| Ellipse | `Ellipse`; zewnętrzna granica dopasowana do promienia elipsy |
+| Rectangle | `Rectangle`; zewnętrzna granica dopasowana do obwiedni węzła |
+| Perimeter Vertices | `Perimeter Vertices`; liczba wierzchołków tworzących obwód kształtu |
+| Pie Fill Angle | `Pie Fill Angle`; kąt wypełnienia liczony przeciwnie do ruchu wskazówek zegara od prawej strony |
+| texture | tekstura; obraz nakładany płasko na obszar węzła |
+| gui.get_node() | `gui.get_node()`; pobiera węzeł GUI po nazwie |
+| gui.get_fill_angle() | `gui.get_fill_angle()`; zwraca kąt wypełnienia |
+| gui.get_perimeter_vertices() | `gui.get_perimeter_vertices()`; zwraca liczbę wierzchołków obwodu |
+| gui.set_perimeter_vertices() | `gui.set_perimeter_vertices()`; ustawia liczbę wierzchołków obwodu |
+| gui.set_outer_bounds() | `gui.set_outer_bounds()`; ustawia typ zewnętrznej granicy |
+| gui.PIEBOUNDS_RECTANGLE | `gui.PIEBOUNDS_RECTANGLE`; stała oznaczająca granicę prostokątną |
+| gui.animate() | `gui.animate()`; animuje właściwość węzła w czasie działania programu |
+
+## `manuals/gui-script.md`
+
+Zakres: najważniejsze terminy z artykułu o skryptach GUI, z zachowaniem literalnych identyfikatorów Defold i API w języku angielskim.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| GUI script | skrypt GUI; skrypt Lua sterujący zachowaniem komponentu GUI |
+| `gui` | moduł API do pracy z GUI |
+| `go` | moduł API obiektów gry; w skryptach GUI nie jest dostępny |
+| namespace | przestrzeń nazw; w tym artykule `gui`, a w skryptach GUI nie jest dostępna przestrzeń nazw `go` |
+| GUI component | komponent GUI; element interfejsu sterowany przez skrypt GUI |
+| GUI component prototype | prototyp komponentu GUI; plik definiujący strukturę komponentu |
+| `Outline` | widok `Outline`, w którym wybiera się korzeń komponentu |
+| `Properties` | panel `Properties`, gdzie ustawia się właściwości komponentu |
+| `Script` | właściwość wskazująca plik skryptu GUI |
+| node | węzeł GUI; element interfejsu, który można odczytywać i modyfikować |
+| `Id` | unikalny identyfikator węzła ustawiany w edytorze |
+| message passing | przesyłanie wiadomości między komponentami w czasie działania |
+| `msg.post()` | funkcja wysyłająca wiadomość do komponentu |
+| `init()`, `final()`, `update()` | funkcje cyklu życia skryptu |
+| `gui.get_node()` | funkcja pobierająca referencję do węzła po `Id` |
+| `gui.new_[type]_node()` | rodzina funkcji tworzących nowe węzły w czasie działania |
+| `gui.clone()` | funkcja klonująca pojedynczy węzeł |
+| `gui.clone_tree()` | funkcja klonująca całe drzewo węzłów |
+
+## `manuals/gui-spine.md`
+
+Zakres: najważniejsze terminy związane z węzłami GUI Spine i przekierowaniem do `/extension-spine`.
+
+| English term | Polish translation / explanation |
+|---|---|
+| GUI | interfejs użytkownika Defold |
+| GUI scene | scena GUI; dokument lub układ zawierający węzły GUI |
+| Spine | `Spine`, narzędzie do animacji szkieletowej 2D |
+| Spine node | węzeł Spine; węzeł GUI odtwarzający animację szkieletową |
+| bone animated | animowany kośćmi; oparty na szkielecie i jego kościach |
+| bone animation | animacja szkieletowa; animacja sterowana kośćmi |
+| `This manual has moved` | informacja, że instrukcja została przeniesiona |
+| `/extension-spine` | docelowa strona z dokumentacją rozszerzenia Spine |
+
+## `manuals/gui-template.md`
+
+Ten słowniczek obejmuje tylko najważniejsze terminy z instrukcji o szablonach GUI.
+
+
+| English term | Polish translation / explanation |
+|---|---|
+| GUI template | szablon GUI, czyli scena GUI używana jako wzorzec do tworzenia instancji |
+| template nodes | węzły szablonu; węzły należące do sceny-szablonu, z których tworzy się instancje |
+| template instance | instancja szablonu; utworzona kopia szablonu w innej scenie GUI |
+| node | węzeł GUI |
+| node tree | drzewo węzłów |
+| Outline | `Outline`, widok zawartości sceny w edytorze |
+| Nodes | `Nodes`, sekcja w `Outline` zawierająca węzły |
+| Template | `Template`, właściwość wskazująca plik sceny GUI szablonu |
+| Id | `Id`, identyfikator węzła lub instancji szablonu używany jako prefiks nazw |
+| gui.get_node() | `gui.get_node()`, funkcja pobierająca węzeł po nazwie |
+| gui.pick_node() | `gui.pick_node()`, funkcja sprawdzająca, czy punkt trafia w węzeł |
+
+## `manuals/gui-text.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu i zachowuje literalne identyfikatory Defold oraz API po angielsku.
+
+| English term | Polish translation / explanation |
+|---|---|
+| GUI text node | węzeł tekstowy GUI |
+| GUI | interfejs użytkownika Defold |
+| font | font; zasób używany do renderowania tekstu |
+| Fonts | folder `Fonts` w komponencie GUI |
+| Font | właściwość wskazująca font dla węzła tekstowego |
+| Text | właściwość przechowująca wyświetlany tekst |
+| Line Break | właściwość włączająca zawijanie tekstu do kilku linii |
+| pivot / pivot setting | punkt obrotu węzła; w widoku edytora angielska nazwa może pozostać bez tłumaczenia |
+| alignment mode | tryb wyrównywania tekstu; w widoku edytora angielska nazwa może pozostać bez tłumaczenia |
+| Center | wyrównanie do środka |
+| Left | wyrównanie do lewej |
+| Right | wyrównanie do prawej |
+| North | pozycja punktu obrotu traktowana jak wyrównanie do środka |
+| South | pozycja punktu obrotu traktowana jak wyrównanie do środka |
+| West | pozycja punktu obrotu traktowana jak wyrównanie do lewej |
+| East | pozycja punktu obrotu traktowana jak wyrównanie do prawej |
+| gui.set_font() | funkcja zmiany fontu węzła tekstowego |
+| gui.set_line_break() | funkcja zmiany sposobu zawijania tekstu |
+| gui.set_text() | funkcja zmiany treści węzła tekstowego |
+
+## `manuals/gui.md`
+
+Ten glosariusz obejmuje najważniejsze pojęcia i nazwy użyte w instrukcji GUI.
+
+| English term | Polish translation / explanation |
+|---|---|
+| GUI | graficzny interfejs użytkownika; w Defold komponent do budowy UI |
+| GUI component | komponent GUI przypięty do obiektu gry |
+| GUI scene | scena GUI, czyli plik prototypu komponentu GUI |
+| GUI script | skrypt GUI |
+| Outline | `Outline`, widok zawartości sceny i jej zależności |
+| Properties | `Properties`, właściwości komponentu lub węzła |
+| Script | skrypt GUI przypisany do komponentu |
+| Material | materiał używany do renderowania GUI lub węzła |
+| Adjust Reference | ustawienie sterujące sposobem liczenia `Adjust Mode` |
+| Current Nodes | bieżąca liczba używanych węzłów |
+| Max Nodes | maksymalna liczba węzłów w GUI |
+| Max Dynamic Textures | maksymalna liczba tekstur tworzonych w locie |
+| Box node | węzeł prostokątny z kolorem, teksturą albo animacją |
+| Text node | węzeł wyświetlający tekst |
+| Pie node | węzeł kołowy lub eliptyczny, częściowo wypełniany |
+| Template node | węzeł oparty na innej scenie GUI |
+| ParticleFX node | węzeł odtwarzający efekt cząsteczkowy |
+| Id | unikalny identyfikator węzła |
+| Size Mode | tryb rozmiaru, np. `Automatic` lub `Manual` |
+| Enabled | stan aktywności węzła; wpływa też na `gui.pick_node()` |
+| Visible | widoczność węzła bez wyłączania jego logiki |
+| Texture | tekstura przypisana do węzła |
+| Font | font używany przez węzeł tekstowy |
+| Line Break | zawijanie tekstu do szerokości węzła |
+| Slice 9 | skalowanie 9-slice bez rozciągania rogów |
+| Inner Radius | wewnętrzny promień węzła `Pie` |
+| Pivot | punkt obrotu i skalowania węzła |
+| X Anchor / Y Anchor | kotwiczenie pozycji względem krawędzi sceny lub rodzica |
+| Adjust Mode | sposób dopasowania węzła do rozmiaru ekranu |
+| Fit | dopasowanie sceny lub węzła do ekranu |
+| Zoom | skalowanie tak, by wypełnić obszar |
+| Stretch | rozciągnięcie zawartości do obszaru |
+| Clipping Mode | tryb przycinania węzła |
+| Stencil | maska używana do przycinania dzieci węzła |
+| Blend mode | tryb mieszania grafiki z tłem |
+| child | węzeł-dziecko; jeśli odnosi się do hierarchii w edytorze, angielska forma może pozostać bez tłumaczenia |
+| parent | węzeł-rodzic; jeśli odnosi się do hierarchii w edytorze, angielska forma może pozostać bez tłumaczenia |
+| layers | warstwy; w edytorze angielska etykieta może pozostać bez tłumaczenia |
+| draw calls | wywołania rysowania |
+| rendering pipeline | potok renderowania |
+| `go.get()` | odczyt właściwości komponentu GUI w runtime |
+| `go.set()` | ustawianie właściwości komponentu GUI w runtime |
+| `gui.new_texture()` | tworzenie dynamicznej tekstury GUI |
+| `gui.pick_node()` | sprawdzanie trafienia węzła przez input |
+| `gui.set_enabled()` | włącza lub wyłącza węzeł |
+| `gui.is_enabled()` | sprawdza, czy węzeł jest aktywny |
+| `gui.set_visible()` | ustawia widoczność węzła |
+| `gui.get_visible()` | odczytuje widoczność węzła |
+
+## `manuals/importing-assets.md`
+
+This glossary covers the most relevant terms from the importing assets manual and keeps literal Defold, UI, API, file, and tool names in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| asset / assets | zasób / zasoby; plik lub materiał używany w projekcie Defold |
+| external assets | zasoby zewnętrzne tworzone poza Defold, a potem importowane do projektu |
+| project hierarchy | hierarchia projektu; struktura plików w projekcie Defold |
+| `Assets pane` | `Assets pane`, panel edytora, do którego importuje się pliki |
+| PNG | `PNG`, format obrazu obsługiwany przez Defold |
+| JPEG | `JPEG`, format obrazu obsługiwany przez Defold |
+| RGBA | `RGBA`, 32-bitowy tryb koloru wymagany dla obrazów PNG |
+| `Sound component` | `Sound component`, komponent odtwarzający dźwięk |
+| `Label component` | `Label component`, komponent wyświetlający tekst |
+| `text nodes` | węzły tekstowe w GUI |
+| `Model component` | `Model component`, komponent wyświetlający modele 3D |
+| `Editor Scripts` | `Editor Scripts`, skrypty uruchamiane w edytorze do generowania lub modyfikowania zasobów |
+| `Tiled` | `Tiled`, zewnętrzne narzędzie do tworzenia map kafelków i innych zasobów |
+| `Tilesetter` | `Tilesetter`, zewnętrzne narzędzie do generowania zasobów Defold |
+
+## `manuals/importing-graphics.md`
+
+This glossary covers the most relevant terms from the importing 2D graphics manual and keeps literal Defold/API identifiers in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| 2D graphics | grafika 2D |
+| import | importowanie plików graficznych do projektu |
+| Assets pane | `Assets pane`, panel zasobów w edytorze Defold |
+| PNG | PNG, obsługiwany format obrazu |
+| JPEG | JPEG, obsługiwany format obrazu |
+| Atlas | atlas, zasób łączący wiele obrazów w jedną teksturę |
+| Tile Source | źródło kafelków, zasób oparty na siatce małych obrazów |
+| tile | kafelek; pojedynczy element źródła kafelków |
+| sprite sheet | sprite sheet, obraz źródłowy podzielony na regularną siatkę kafelków |
+| Animation Groups | `Animation Groups`, grupy obrazów tworzące animację poklatkową |
+| Bitmap Font | font bitmapowy, czcionka zapisana jako obraz PNG |
+| glyph | glif, pojedynczy znak fontu |
+| flipbook animation | animacja poklatkowa |
+| sprite | sprite / obraz wyświetlany na ekranie |
+| Tile map | mapa kafelków |
+| particles | cząstki |
+| particle emitter | emiter cząsteczek |
+| particle fx | efekt cząsteczkowy |
+| GUI | GUI, interfejs użytkownika w Defold |
+| box nodes | `box nodes`, prostokątne węzły GUI; angielska nazwa może pozostać bez tłumaczenia |
+| pie nodes | `pie nodes`, kołowe węzły GUI; angielska nazwa może pozostać bez tłumaczenia |
+| bone | kość szkieletu |
+
+## `manuals/importing-models.md`
+
+Zakres: najważniejsze terminy z instrukcji importowania modeli 3D do Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| glTF | format wymiany modeli 3D używany przez Defold |
+| Collada | format 3D obsługiwany przez Defold, m.in. w plikach `.dae` |
+| vertices | wierzchołki siatki modelu 3D |
+| faces | ściany lub powierzchnie siatki modelu 3D |
+| polygons | wielokąty siatki modelu 3D |
+| Assets Pane | panel `Assets` w edytorze Defold |
+| Model component | komponent `Model`, który wyświetla model 3D |
+| texture image | obraz tekstury używany do pokrycia siatki modelu |
+| UV coordinates | współrzędne UV, czyli mapowanie fragmentu tekstury na siatkę |
+| UV mapping | mapowanie UV |
+| baked animations | animacje wypiekane, przygotowane do odtwarzania bez dodatkowego przeliczania |
+| animation clips | klipy animacji |
+| keyframe | klatka kluczowa |
+| skeleton | szkielet modelu, czyli układ kości do animacji |
+| bones | kości szkieletu |
+| mesh | siatka modelu 3D |
+| unwrap | rozwinięcie siatki; rozwiń siatkę |
+| layout | rozkład UV |
+| embedded textures | osadzone tekstury zapisane wewnątrz pliku |
+| Selection Only | opcja `Selection Only` w Blenderze; angielska forma może pozostać bez tłumaczenia |
+
+## `manuals/input-gamepads.md`
+
+This glossary covers the most relevant terms from the gamepad input manual and keeps literal Defold, UI, API, and file names in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| gamepad | gamepad; kontroler wejścia używany do sterowania grą |
+| gamepad input | wejście z gamepada |
+| gamepad trigger | wyzwalacz gamepada, czyli przypisanie akcji wejściowej do sygnału z kontrolera |
+| gamepad input bindings | przypisania wejścia od gamepada; angielska forma może pozostać bez tłumaczenia |
+| input binding | wiązanie wejścia; przypisanie sygnału z urządzenia do akcji |
+| action | akcja wejściowa obsługiwana w `on_input()` |
+| digital button | przycisk cyfrowy; generuje zdarzenia `pressed`, `released` i `repeated` |
+| analog stick | analogowa gałka; wysyła wartości ciągłe po wyjściu poza `dead zone` |
+| dead zone | martwa strefa; zakres ruchu ignorowany przez sterowanie analogowe |
+| cardinal directions | kierunki kardynalne |
+| `gamepad` field | pole `gamepad` w tabeli akcji; numer kontrolera, z którego pochodzi wejście |
+| `Connected` | `Connected`; sygnał wykrycia podłączenia gamepada; angielska forma może pozostać bez tłumaczenia |
+| `Disconnected` | `Disconnected`; sygnał wykrycia odłączenia gamepada; angielska forma może pozostać bez tłumaczenia |
+| `Raw` | `Raw`; nieprzefiltrowane dane przycisków, osi i `hat`; angielska forma może pozostać bez tłumaczenia |
+| `gamepads` file | plik `gamepads` z mapowaniami kontrolerów; angielska forma może pozostać bez tłumaczenia |
+| `game.project` | plik ustawień projektu, w którym wskazuje się konfigurację gamepadów; angielska forma może pozostać bez tłumaczenia |
+| `Standard Gamepad` | `Standard Gamepad`; standardowe mapowanie rozpoznawane przez przeglądarkę; angielska forma może pozostać bez tłumaczenia |
+| `iframe` | `iframe`; osadzona ramka HTML wymagająca uprawnienia `gamepad`; angielska forma może pozostać bez tłumaczenia |
+| `Gamepad API` | `Gamepad API`; interfejs przeglądarkowy dla kontrolerów; angielska forma może pozostać bez tłumaczenia |
+| `AKEYCODE_BUTTON_*` | stałe Androida mapujące przyciski na indeksy w pliku `gamepads` |
+| `AMOTION_EVENT_AXIS_*` | stałe Androida mapujące osie ruchu na indeksy w pliku `gamepads` |
+
+## `manuals/input-key-and-text.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu i zachowuje literalne identyfikatory Defold oraz API po angielsku.
+
+| English term | Polish translation / explanation |
+|---|---|
+| key triggers | wyzwalacze klawiszy; mapują pojedyncze klawisze na akcje gry; angielska forma może pozostać bez tłumaczenia |
+| text triggers | wyzwalacze tekstowe; służą do odczytu wprowadzanego tekstu; angielska forma może pozostać bez tłumaczenia |
+| text | `text`; standardowy tekst wpisywany z klawiatury; angielska forma może pozostać bez tłumaczenia |
+| marked text | `marked-text`; tymczasowa sekwencja znaków wyświetlana podczas wprowadzania, np. na klawiaturach azjatyckich; angielska forma może pozostać bez tłumaczenia |
+| action | akcja wejścia otrzymywana w `on_input()` |
+| action_id | identyfikator akcji, np. `hash("left")` |
+| action.pressed | pole oznaczające naciśnięcie klawisza |
+| action.released | pole oznaczające zwolnienie klawisza |
+| action.repeated | pole oznaczające powtórzone zdarzenie klawisza |
+| action.text | pole z wpisanym znakiem lub sekwencją tekstu |
+| input binding list | lista przypisań wejścia |
+| `on_input()` | funkcja skryptowa odbierająca wejście |
+| `gui.get_node()` | funkcja pobierająca węzeł GUI |
+| `gui.get_text()` | funkcja odczytująca tekst z węzła GUI |
+| `gui.set_text()` | funkcja ustawiająca tekst w węźle GUI |
+| `hash("left")` | hashed identyfikator akcji dla przykładowego kierunku w lewo |
+
+## `manuals/input-mouse-and-touch.md`
+
+Ten glosariusz obejmuje najważniejsze pojęcia użyte w instrukcji o obsłudze myszy, dotyku i wskazywania.
+
+| English term | Polish translation / explanation |
+|---|---|
+| Mouse trigger | wyzwalacz myszy, czyli przypisanie akcji do przycisku lub kółka myszy |
+| Mouse button | przycisk myszy |
+| Mouse wheel | kółko myszy; przewijanie jest traktowane jak akcja wejścia |
+| Mouse movement | ruch myszy; zdarzenie bez `action_id`, z danymi w `action` |
+| Touch trigger | wyzwalacz dotyku |
+| Single-touch | pojedynczy dotyk; automatycznie mapowany z `MOUSE_BUTTON_LEFT` lub `MOUSE_BUTTON_1` |
+| multitouch | wielodotyk; wiele punktów dotyku w tabeli `action.touch`; angielska forma może pozostać bez tłumaczenia |
+| Input bindings | wiązania wejść, czyli przypisania akcji do źródeł wejścia |
+| `action_id` | identyfikator akcji wejścia; dla ruchu myszy zwykle `nil` |
+| `action` table | tabela `action` z danymi o wejściu, np. `pressed`, `released`, `value`, `x`, `y` |
+| `gui.pick_node()` | funkcja sprawdzająca, czy punkt leży w granicach węzła GUI |
+| GUI node | węzeł GUI |
+| Collision object | obiekt kolizji; w tym artykule używany do wykrywania kliknięć lub dotknięć |
+| Screen space | przestrzeń ekranu, z której trzeba przeliczyć współrzędne |
+| World space | przestrzeń świata, do której przelicza się pozycję obiektu gry |
+| Camera | kamera; może dostarczać konwersję screen-to-world |
+| Render script | skrypt do renderowania; jego projekcja wpływa na przeliczenia współrzędnych |
+
+## `manuals/input.md`
+
+This glossary covers the most relevant terms from the input manual and keeps literal Defold/API identifiers in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| input | wejście; dane wejściowe od użytkownika lub urządzenia |
+| input bindings | wiązania wejść; tabela mapująca surowe wejście na nazwane akcje |
+| input bindings table | tabela wiązań wejścia; przy cytowaniu terminu angielska forma może pozostać bez tłumaczenia |
+| action | akcja wejściowa z danymi o zdarzeniu, np. wciśnięciu, pozycji lub ruchu |
+| input focus | skupienie wejścia; stan, w którym komponent może odbierać wejście |
+| acquiring input focus | zdobywanie skupienia wejścia; termin angielski może pozostać bez tłumaczenia przy cytowaniu instrukcji |
+| listener | słuchacz wejścia, czyli komponent odbierający akcje wejściowe |
+| input stack | stos wejścia; kolejność słuchaczy, według której silnik rozsyła akcje |
+| `on_input()` | funkcja wywoływana dla każdej akcji wejściowej |
+| `acquire_input_focus` | wiadomość prosząca o przejęcie skupienia wejścia |
+| `release_input_focus` | wiadomość zwalniająca skupienie wejścia |
+| `game.input_binding` | domyślny plik wiązań wejścia w projekcie |
+| `game.project` | plik ustawień projektu, w którym wybiera się `Game Binding` i inne opcje wejścia |
+| `Game Binding` | ustawienie wskazujące aktywny plik `input binding` |
+| `GUI script` | skrypt GUI; może odbierać akcje wejściowe tak jak zwykły skrypt |
+| script component | komponent skryptu; komponent z funkcją `on_input()` |
+| collection proxy | pełnomocnik kolekcji; może mieć własny stos wejścia dla ładowanego świata |
+| trigger / triggers | typ wyzwalacza wejścia, np. klawiatura, mysz, dotyk lub gamepad |
+| key trigger | wyzwalacz klawiatury dla pojedynczego klawisza |
+| text trigger | wyzwalacz tekstu do odczytu wprowadzanego tekstu |
+| mouse trigger | wyzwalacz myszy dla przycisków i kółka przewijania |
+| touch trigger | wyzwalacz dotyku dla jednego lub wielu punktów dotyku |
+| gamepad trigger | wyzwalacz gamepada dla standardowych kontrolerów |
+| accelerometer input | wejście z akcelerometru; dane z `acc_x`, `acc_y` i `acc_z` |
+| consume input | skonsumować wejście; zatrzymać propagację akcji dalej w stosie |
+| `pressed` | pole akcji oznaczające wciśnięcie przycisku |
+| `action_id` | haszowana nazwa akcji |
+| `action.x`, `action.y` | współrzędne akcji, zwykle dla myszy lub dotyku |
+
+## `manuals/install.md`
+
+Zakres: najistotniejsze terminy użyte w artykule o instalacji edytora Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| installation | instalacja |
+| Defold editor | edytor Defold |
+| download | pobrać; pobieranie wersji dla danego systemu |
+| operating system | system operacyjny |
+| extract | wypakować archiwum |
+| copy | skopiować pliki do wybranej lokalizacji |
+| version built for your operating system | wersja skompilowana dla Twojego systemu operacyjnego |
+| suitable location | odpowiednia lokalizacja do zainstalowania plików |
+
+## `manuals/introduction.md`
+
+Zakres: najważniejsze pojęcia z artykułu wprowadzającego do Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| `Defold` | Defold; silnik i środowisko do tworzenia gier |
+| turn-key solution | gotowe rozwiązanie do tworzenia, budowania i wydawania gier |
+| `Product Overview` | przegląd funkcji i możliwości produktu |
+| `editor` | edytor; wizualne środowisko pracy z projektami Defold |
+| tutorials | tutoriale; instrukcje krok po kroku do nauki przez praktykę |
+| manuals | instrukcje / podręczniki; dokumentacja opisująca funkcje i workflow |
+| API documentation | dokumentacja API; opis funkcji, klas i symboli programistycznych |
+| forum | forum społeczności Defold |
+| `Lua` | Lua; język używany do logiki gry |
+| `C++` | C++; język, w którym napisany jest silnik |
+| building blocks | podstawowe elementy budowy gry; proste części składowe projektu |
+| `IDE` | zintegrowane środowisko programistyczne |
+| 3D modelling programs | programy do modelowania 3D |
+
+## `manuals/label.md`
+
+Poniższy słowniczek obejmuje najważniejsze terminy z instrukcji o komponentach `Label`.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| Label | etykieta; komponent renderujący tekst w przestrzeni gry, a jako nazwa komponentu w edytorze angielska forma może pozostać bez tłumaczenia |
+| component | komponent |
+| game object | obiekt gry |
+| text | tekst |
+| font | font; zasób czcionki używany przez `Label` |
+| material | materiał renderowania |
+| size | rozmiar pola tekstu |
+| color | kolor |
+| outline | obrys |
+| shadow | cień |
+| leading | interlinia |
+| tracking | odstęp między literami |
+| pivot | punkt zakotwiczenia tekstu |
+| alignment | wyrównanie |
+| line break | łamanie linii |
+| blend mode | tryb mieszania |
+| `Assets` | `Assets`; widok zasobów w edytorze, angielska nazwa może pozostać bez tłumaczenia |
+| `Add Component ▸ Label` | `Add Component ▸ Label`; polecenie dodania komponentu etykiety, angielska nazwa menu może pozostać bez tłumaczenia |
+| `New... ▸ Label` | `New... ▸ Label`; polecenie utworzenia nowego pliku komponentu etykiety, angielska nazwa menu może pozostać bez tłumaczenia |
+| `label.set_text()` | `label.set_text()`; ustawia tekst etykiety w czasie działania |
+| `go.set()` | `go.set()`; ustawia właściwości komponentu |
+| `vector4` | `vector4`; wektor czteroskładnikowy, np. dla koloru RGBA |
+| `vector3` | `vector3`; wektor trójskładnikowy, np. dla skali lub rozmiaru |
+
+## `manuals/libraries.md`
+
+Krótki słownik najważniejszych pojęć z instrukcji o bibliotekach.
+
+| English term | Polish translation / explanation |
+|---|---|
+| Libraries | biblioteki, czyli sposób udostępniania zasobów między projektami |
+| library project | projekt biblioteki, z którego można pobierać współdzielone zasoby |
+| asset | zasób |
+| shared folder | udostępniony folder z plikami widocznymi dla innych projektów |
+| `include_dirs` | klucz w `game.project`, który wskazuje foldery przeznaczone do udostępniania |
+| `dependencies` | klucz w `game.project`, w którym podaje się adresy bibliotek |
+| Library URL | adres biblioteki używany do wskazania konkretnego projektu lub wydania |
+| release | konkretne wydanie biblioteki, lepsze niż śledzenie gałęzi `master` |
+| `Project ▸ Fetch Libraries` | polecenie w edytorze do odświeżenia zależności bibliotek |
+| Assets pane | panel `Assets`, w którym pojawiają się udostępnione foldery |
+| `builtins` | wbudowana biblioteka silnika Defold |
+| name collision | kolizja nazw, gdy kilka bibliotek ma folder o tej samej nazwie |
+
+## `manuals/live-update.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o Live update i pozostawia literalne nazwy API, plików oraz ustawień w języku angielskim.
+
+| English term | Polish translation / explanation |
+|---|---|
+| Live update | aktualizacja na żywo; mechanizm pobierania i zapisywania zasobów po zbudowaniu paczki |
+| collection proxy | pełnomocnik kolekcji |
+| Exclude | opcja wykluczająca zasób z paczki podczas bundlowania |
+| bundle | paczka aplikacji tworzona dla konkretnej platformy |
+| excluded resources | zasoby pominięte w paczce bazowej i dostarczane później |
+| manifest | manifest; plik z metadanymi i zależnościami zasobów |
+| `liveupdate.game.dmanifest` | nazwa pliku manifestu używanego przez Live update |
+| `bundle.ver` | plik identyfikujący wersję paczki |
+| `game.graph.json` | wygenerowany graf zależności zasobów |
+| resource graph | graf zasobów opisujący zależności między plikami |
+| `resource.store_resource()` | funkcja zapisująca pobrany zasób w pamięci lokalnej |
+| `resource.store_manifest()` | funkcja weryfikująca i zapisująca nowy manifest |
+| `collectionproxy.missing_resources()` | funkcja zwracająca brakujące zasoby dla pełnomocnika kolekcji |
+| `liveupdate.add_mount()` | funkcja montująca archiwum w systemie zasobów silnika |
+| mount | zamontowane archiwum dostępne dla silnika z określonym priorytetem |
+| archive | archiwum z zasobami, zwykle `.zip` |
+| Zip | format archiwum używany do publikacji zasobów Live update |
+| Amazon S3 | usługa przechowywania plików używana do hostowania zasobów |
+| engine version check | sprawdzenie zgodności wersji silnika z archiwum lub manifestem |
+| content verification | weryfikacja, czy zasoby i manifest są zgodne z uruchomionym silnikiem |
+| supported engine versions | obsługiwane wersje silnika dopuszczone przez ustawienia Live update |
+
+## `manuals/lua.md`
+
+Ten słowniczek obejmuje najważniejsze pojęcia użyte w instrukcji o Lua w Defoldzie.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| LuaJIT | zoptymalizowana implementacja Lua używana przez Defold; zgodna z Lua 5.1 |
+| dynamic typing | dynamiczne typowanie, czyli typ ma wartość, a nie zmienna |
+| bytecode interpreter | interpreter kodu bajtowego |
+| incremental garbage collection | inkrementalne zbieranie śmieci, czyli automatyczne zarządzanie pamięcią |
+| standard libraries | standardowe biblioteki Lua |
+| scope | zasięg; zakres widoczności zmiennych i nazw |
+| coroutines | korutyny; współbieżne przebiegi wykonania sterowane przez `coroutine` |
+| Lua runtime context | kontekst uruchomienia Lua; wspólne środowisko wykonywania skryptów |
+| garbage collection | gromadzenie śmieci; automatyczne zwalnianie pamięci |
+| closure object | obiekt zamknięcia; obiekt tworzony przez deklarację funkcji |
+| `nil` | brak wartości; zwykle oznacza nieprzypisaną zmienną |
+| `boolean` | typ logiczny z wartościami `true` i `false` |
+| `number` | liczba, czyli wartość całkowita albo zmiennoprzecinkowa |
+| `string` | niemutowalny ciąg bajtów; tekst w cudzysłowie |
+| `function` | funkcja jako wartość pierwszej klasy |
+| `table` | podstawowy typ struktury danych w Lua; tabela asocjacyjna |
+| `userdata` | obiekt do przechowywania danych C w Lua |
+| `thread` | wątek wykonania używany do implementacji coroutine |
+| `if --- then --- else` | instrukcja warunkowa z opcjonalnym `else` i `elseif` |
+| `for` | pętla numeryczna lub ogólna |
+| `break` | przerywa pętlę |
+| `return` | zwraca wartość z funkcji |
+
+## `manuals/mesh.md`
+
+Zakres: najważniejsze pojęcia z instrukcji o komponencie Mesh.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| Mesh component | komponent Mesh; komponent do renderowania siatki 3D |
+| Mesh file | plik Mesh; zasób siatki używany przez komponent |
+| game object | obiekt gry |
+| collection | kolekcja |
+| material | materiał; określa sposób renderowania siatki |
+| vertices | wierzchołki; dane geometrii przekazywane do siatki |
+| primitive type | typ prymitywu; np. `Lines`, `Triangles` lub `Triangle Strip` |
+| position stream | strumień pozycji; nazwa strumienia `position` w buforze |
+| normal stream | strumień normalnych; nazwa strumienia `normal` w buforze |
+| `tex0` | nazwa slotu tekstury używanego przez siatkę |
+| buffer | bufor Defold; przechowuje dane geometrii w czasie działania |
+| vertex shader | shader wierzchołków; przetwarza dane wierzchołków na GPU |
+| `AABB` | axis-aligned bounding box; prostopadłościenne obramowanie do `frustum culling` |
+| frustum culling | odrzucanie obiektów spoza bryły widoku |
+| `Vertex Space` | ustawienie materiału określające przestrzeń wierzchołków |
+| `Local Space` | przestrzeń lokalna; dane trafiają do shadera bez przekształcenia |
+| `World Space` | przestrzeń świata; silnik przekształca dane do układu świata |
+
+## `manuals/message-passing.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o przekazywaniu wiadomości i zachowuje literalne nazwy API, identyfikatory oraz nazwy wiadomości w języku angielskim.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| message passing | przekazywanie wiadomości |
+| message | wiadomość |
+| `msg.post()` | funkcja wysyłająca wiadomość do kolejki |
+| `on_message()` | funkcja odbierająca i obsługująca wiadomości |
+| `message_id` | identyfikator wiadomości, zwykle hash nazwy |
+| `sender` | nadawca wiadomości, pełny URL źródła |
+| `receiver` | odbiorca wiadomości, adres komponentu lub obiektu gry |
+| game object / game objects | obiekt gry; w liczbie mnogiej także `game objects` |
+| component | komponent |
+| script | skrypt; ogólna nazwa kodu wykonywanego w Defoldzie |
+| script component | komponent skryptowy |
+| GUI script | skrypt GUI |
+| render script | skrypt do renderowania |
+| collection proxy | pełnomocnik kolekcji |
+| game world | świat gry |
+| collection hierarchy | hierarchia kolekcji |
+| relative addressing | adresowanie względne |
+| absolute address | adres bezwzględny |
+| `socket` | pole URL wskazujące świat gry |
+| `punch` | wiadomość o ciosie; w tym przykładzie sama nazwa wystarcza |
+| `update_score` | wiadomość aktualizująca licznik punktów |
+| `update_minimap` | wiadomość aktualizująca pozycję na minimapie |
+| `enable` / `disable` / `set_parent` | przykładowe wiadomości systemowe obsługiwane przez silnik |
+| `collision_response` | wiadomość systemowa wysyłana przy kolizji |
+| `wake_up` | wiadomość budząca obiekt w nowym świecie gry |
+| `main:/my_object#script` | przykład pełnego URL nadawcy |
+
+## `manuals/model-animation.md`
+
+To zestawienie obejmuje tylko kluczowe terminy z instrukcji o animacji modeli 3D.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| 3D model | model 3D |
+| skeletal animation | animacja szkieletowa |
+| bones | kości, czyli elementy szkieletu modelu |
+| vertices | wierzchołki siatki modelu |
+| baked animations | animacje wypieczone; dane przygotowane wcześniej przez eksportera |
+| Model component | komponent `Model` |
+| `model.play_anim()` | funkcja do uruchamiania animacji modelu |
+| `model.get_go()` | funkcja zwracająca `game object` powiązany z kością |
+| cursor | kursor animacji, czyli wartość postępu od `0` do `1` |
+| `go.animate()` | funkcja do animowania właściwości, także kursora |
+| `go.cancel_animations()` | funkcja anulująca animacje |
+| Playback mode | tryb odtwarzania animacji |
+| `go.PLAYBACK_LOOP_PINGPONG` | tryb zapętlenia naprzemiennego przód-tył |
+| callback | funkcja zwrotna wywoływana po zakończeniu animacji |
+
+## `manuals/model.md`
+
+This glossary covers the most relevant terms from the model manual and keeps literal Defold, API, file, and menu identifiers in English.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `Model component` | komponent Model; komponent obiektu gry służący do wyświetlania modelu 3D |
+| `glTF` | format plików 3D używany do modeli, siatek, szkieletów i animacji |
+| `Mesh` | siatka 3D; geometria modelu w pliku `gltf` |
+| `Skeleton` | szkielet; hierarchia kości używana do animacji |
+| `Animation Set File` | plik zestawu animacji; zawiera animacje używane przez model |
+| `Default Animation` | domyślna animacja odtwarzana automatycznie po uruchomieniu |
+| `Material` | materiał renderujący model; łączy shadery z parametrami |
+| `Texture` | tekstura nakładana na model |
+| `model.play_anim()` | funkcja API do uruchamiania animacji modelu |
+| `go.get()` / `go.set()` | funkcje do odczytu i zmiany właściwości modelu w czasie działania |
+| `cursor` | znormalizowany kursor animacji |
+| `playback_rate` | prędkość odtwarzania animacji |
+| `model.material` | wbudowany materiał dla statycznych modeli bez instancji |
+| `model_skinned.material` | wbudowany materiał dla animowanych modeli ze szkieletem |
+| `render.predicate()` | funkcja tworząca predykat renderowania dla modeli |
+| `render.STATE_DEPTH_TEST` | tryb testu głębi potrzebny do renderowania 3D |
+
+## `manuals/modules.md`
+
+Ten glosariusz obejmuje tylko kluczowe terminy potrzebne do zrozumienia artykułu o modułach Lua.
+
+| English term | Polish translation / explanation |
+|---|---|
+| module | moduł; zwykła tabela Lua używana do grupowania funkcji i danych |
+| `require` | `require`; nazwa funkcji API pozostaje po angielsku; wczytuje moduł i zwraca jego wartość |
+| `package.loaded` | `package.loaded`; tabela z pamięcią podręczną już załadowanych modułów |
+| loader | ładowacz; mechanizm używany do wczytywania i wykonywania pliku modułu |
+| hot reloading | szybkie przeładowanie; ponowne wczytanie kodu podczas pracy bez restartu programu |
+| stateful module | moduł ze stanem; przechowuje wspólny stan wewnętrzny dla wszystkich użytkowników |
+| stateless module | moduł bezstanowy; nie trzyma stanu wewnętrznego, a dane przekazuje na zewnątrz |
+| constructor function | funkcja konstruktora; tworzy nową instancję lub tabelę stanu |
+| metatables | metatabele; tabela używana do rozszerzania zachowania innych tabel |
+| closure | domknięcie; funkcja zachowująca dostęp do zmiennych z otaczającego zakresu |
+| local scope | zakres lokalny; widoczność ograniczona do bieżącego bloku lub pliku |
+| global scope | zakres globalny; widoczność współdzielona w całym programie |
+
+## `manuals/particlefx.md`
+
+Ten słowniczek obejmuje najważniejsze terminy używane w instrukcji o efektach cząsteczkowych i w powiązanym edytorze.
+
+| English term | Polish translation / explanation |
+|---|---|
+| particle effects | efekty cząsteczkowe; w edytorze może pojawić się też nazwa `Particle FX` |
+| Emitter | emiter; nazwa w edytorze może pozostać po angielsku i oznacza źródło emitujące cząsteczki z określonego kształtu |
+| Modifier | modyfikator; nazwa w edytorze może pozostać po angielsku i zmienia prędkość lub ruch cząsteczek |
+| Outline | widok drzewa zasobu w edytorze; nazwa panelu może pozostać po angielsku i pokazuje emitery oraz modyfikatory |
+| Properties | panel właściwości; nazwa panelu może pozostać po angielsku i służy do edycji ustawień zaznaczonego elementu |
+| Curve Editor | edytor krzywych; nazwa widoku może pozostać po angielsku i służy do animowania właściwości w czasie |
+| Spawn Rate | liczba cząsteczek emitowanych na sekundę |
+| Particle Life Time | czas życia cząsteczki w sekundach |
+| Initial Speed | początkowa prędkość cząsteczki |
+| Life Scale | skala cząsteczki zmieniająca się w trakcie jej życia |
+| `particlefx.play()` | funkcja API uruchamiająca efekt cząsteczkowy |
+| `particlefx.stop()` | funkcja API zatrzymująca efekt cząsteczkowy |
+| `particlefx.set_constant()` | ustawia stałą materiału, np. `tint` |
+| `game.project` | plik konfiguracji projektu; zawiera ustawienia związane z Particle FX |
+
+## `manuals/physics-groups.md`
+
+Ten glosariusz obejmuje kluczowe terminy z instrukcji o grupach i maskach kolizji w silniku fizyki Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| physics engine | silnik fizyki |
+| physics object | obiekt fizyczny |
+| collision object | obiekt kolizji |
+| properties | właściwości |
+| collision group | grupa kolizji, używana do filtrowania interakcji |
+| Group | `Group`, czyli grupa przypisana do obiektu kolizji; nazwa pola w edytorze może pozostać po angielsku |
+| Mask | `Mask`, czyli lista grup, z którymi obiekt może kolidować; nazwa pola w edytorze może pozostać po angielsku |
+| collision | kolizja, zderzenie dwóch obiektów |
+| collision messages | wiadomości o kolizji generowane przez silnik |
+| detect collisions | wykrywać kolizje |
+
+## `manuals/physics-joints.md`
+
+Zakres: najważniejsze terminy z instrukcji o łączeniach fizycznych w 2D.
+
+| English term | Polish translation / explanation |
+|---|---|
+| joints | łączenia; w pierwszym użyciu warto podać też angielskie `joints` |
+| joint | łączenie fizyczne łączące dwa obiekty kolizji |
+| collision object | obiekt kolizji |
+| constraint | ograniczenie narzucone na ruch obiektów |
+| Fixed (`physics.JOINT_TYPE_FIXED`) | połączenie linowe; ogranicza maksymalną odległość między punktami |
+| Hinge (`physics.JOINT_TYPE_HINGE`) | połączenie zawiasowe/obrotowe; pozwala na obrót wokół punktu kotwiczenia |
+| Weld (`physics.JOINT_TYPE_WELD`) | połączenie spawane; blokuje względny ruch obiektów |
+| Spring (`physics.JOINT_TYPE_SPRING`) | połączenie sprężynowe/dystansowe; utrzymuje stałą odległość |
+| Slider (`physics.JOINT_TYPE_SLIDER`) | połączenie przesuwne/pryzmatyczne; pozwala na ruch wzdłuż osi |
+| rope joint | połączenie linowe; w Box2D odpowiada typowi `Fixed` |
+| motor | silnik połączenia; jeśli chodzi o literalny element fizyki, angielska forma może pozostać bez tłumaczenia |
+| revolute joint | połączenie obrotowe |
+| weld joint | połączenie spawane |
+| distance joint | połączenie dystansowe |
+| prismatic joint | połączenie pryzmatyczne |
+| `physics.create_joint()` | funkcja tworząca połączenie programowo |
+| `physics.destroy_joint()` | funkcja usuwająca połączenie |
+| `physics.get_joint_properties()` | funkcja odczytu właściwości połączenia |
+| `physics.set_joint_properties()` | funkcja ustawiania właściwości połączenia |
+| `physics.get_joint_reaction_force()` | odczyt siły reakcji działającej na połączenie |
+| `physics.get_joint_reaction_torque()` | odczyt momentu reakcji działającego na połączenie |
+
+## `manuals/physics-messages.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o wiadomościach kolizji i zachowuje literalne nazwy wiadomości, pól oraz API w języku angielskim.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| collision messages | wiadomości kolizji |
+| event callback | funkcja zwrotna wywoływana przy zdarzeniu |
+| default message handler | domyślny handler wiadomości |
+| event filtering | filtrowanie zdarzeń |
+| Generate Collision Events | `Generate Collision Events`, czyli przełącznik generowania wiadomości o kolizji |
+| Generate Contact Events | `Generate Contact Events`, czyli przełącznik generowania wiadomości o punkcie kontaktu |
+| Generate Trigger Events | `Generate Trigger Events`, czyli przełącznik generowania wiadomości wyzwalacza |
+| collision object | obiekt kolizji |
+| dynamic | dynamiczny obiekt fizyczny |
+| kinematic | kinematyczny obiekt fizyczny |
+| static | statyczny obiekt fizyczny |
+| trigger | wyzwalacz, obiekt wykrywający wejście i wyjście |
+| `collision_response` | wiadomość o ogólnym zderzeniu |
+| `contact_point_response` | wiadomość o punkcie kontaktu, z danymi do precyzyjnego rozdzielania obiektów |
+| `trigger_response` | wiadomość o wejściu do wyzwalacza i wyjściu z niego |
+| contact point | punkt kontaktu |
+| normal | wektor normalny punktu kontaktu |
+| relative velocity | prędkość względna |
+| penetration distance | odległość penetracji między obiektami |
+| applied impulse | zastosowany impuls |
+| `other_id` | identyfikator drugiej instancji |
+| `other_position` | pozycja drugiej instancji w przestrzeni świata |
+| `other_group` | grupa kolizyjna drugiego obiektu |
+| `own_group` | własna grupa kolizyjna obiektu |
+
+## `manuals/physics-objects.md`
+
+Ten glosariusz obejmuje najważniejsze terminy z instrukcji o obiektach kolizji w silniku fizyki Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| collision object | obiekt kolizji |
+| spatial extension | zasięg przestrzenny obiektu; termin opisuje rozmiar/obszar zajmowany przez komponent |
+| shapes | kształty dołączane do obiektu kolizji |
+| physics object | obiekt fizyczny |
+| Static objects | obiekty statyczne, które się nie poruszają |
+| Dynamic objects | obiekty dynamiczne symulowane przez silnik fizyki |
+| Kinematic objects | obiekty kinematyczne sterowane ręcznie |
+| Triggers | wyzwalacze, które tylko rejestrują zdarzenia |
+| shape | kształt definiujący zasięg obiektu |
+| ray casts | promienie sprawdzające świat fizyczny wzdłuż linii |
+| Collision Shape | `Collision Shape`, czyli nazwa właściwości; angielska forma może pozostać bez tłumaczenia |
+| Friction | `Friction`, czyli tarcie; nazwa właściwości może pozostać po angielsku |
+| Restitution | `Restitution`, czyli sprężystość / współczynnik odbicia; nazwa właściwości może pozostać po angielsku |
+| Linear damping | `Linear damping`, czyli tłumienie liniowe; nazwa właściwości może pozostać po angielsku |
+| Angular damping | `Angular damping`, czyli tłumienie kątowe; nazwa właściwości może pozostać po angielsku |
+| Locked rotation | `Locked rotation`, czyli zablokowanie obrotu; nazwa właściwości może pozostać po angielsku |
+| Bullet | `Bullet`, czyli pocisk; ta właściwość włącza ciągłe wykrywanie kolizji (Continuous Collision Detection, CCD); nazwa właściwości może pozostać po angielsku |
+| Group | `Group`, czyli grupa kolizji; nazwa właściwości może pozostać po angielsku |
+| Mask | `Mask`, czyli lista grup kolizji do wykrywania; nazwa właściwości może pozostać po angielsku |
+| Generate Collision Events | `Generate Collision Events`, czyli generowanie zdarzeń kolizji; nazwa właściwości może pozostać po angielsku |
+| Generate Contact Events | `Generate Contact Events`, czyli generowanie zdarzeń kontaktu; nazwa właściwości może pozostać po angielsku |
+| Generate Trigger Events | `Generate Trigger Events`, czyli generowanie zdarzeń wyzwalacza; nazwa właściwości może pozostać po angielsku |
+| `go.get()` | odczyt właściwości w czasie działania |
+| `go.set()` | ustawianie właściwości w czasie działania |
+| `angular_velocity` | prędkość kątowa |
+| `linear_velocity` | prędkość liniowa |
+
+## `manuals/physics-ray-casts.md`
+
+Zakres: najważniejsze terminy z artykułu o odczytywaniu świata fizycznego za pomocą promienia.
+
+| English term | Polish translation / explanation |
+|---|---|
+| ray cast | rzut promienia; odczyt świata fizycznego wzdłuż linii |
+| ray casts | promienie używane do testowania świata fizycznego |
+| physics world | świat fizyczny |
+| linear ray | promień liniowy |
+| start position | pozycja początkowa promienia |
+| end position | pozycja końcowa promienia |
+| collision groups | grupy kolizyjne, względem których wykonywany jest test |
+| `physics.raycast()` | funkcja wykonująca rzut promienia w świecie fizycznym |
+| physics object | obiekt fizyczny |
+| dynamic object | dynamiczny obiekt fizyczny |
+| kinematic object | kinematyczny obiekt fizyczny |
+| static object | statyczny obiekt fizyczny |
+| trigger | wyzwalacz; jeśli chodzi o literalną nazwę typu/obiektu w edytorze lub API, angielska forma może pozostać bez tłumaczenia |
+| `ray_cast_response` | wiadomość z odpowiedzią na trafienie promieniem |
+| hit | trafienie promienia w obiekt |
+| Box2D | silnik fizyki 2D używany przez Defold; ograniczenie dotyczy promieni zaczynających się wewnątrz obiektu |
+
+## `manuals/physics-resolving-collisions.md`
+
+Ten słowniczek obejmuje tylko najważniejsze terminy z instrukcji o rozwiązywaniu kolizji kinematycznych.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| kinematic collision object | kinematyczny obiekt kolizji; obiekt, którego kolizje rozwiązujesz ręcznie w skrypcie |
+| collision object | obiekt kolizji |
+| `contact_point_response` | nazwa wiadomości zwrotnej z punktu kontaktu po kolizji |
+| penetration distance | odległość penetracji, czyli jak głęboko obiekty na siebie nachodzą |
+| penetration vector | wektor penetracji |
+| separation | rozdzielenie obiektów po kolizji |
+| compensation vector | wektor kompensacji, używany do wyliczenia brakującego przesunięcia |
+| correction vector | wektor korekcji, czyli akumulowana poprawka ruchu |
+| accumulated correction | akumulowana korekcja z poprzednich punktów kontaktu |
+| projection | projekcja jednego wektora na drugi |
+| `vmath.project()` | funkcja do obliczania projekcji wektora |
+| `vmath.length()` | funkcja zwracająca długość wektora |
+| `go.set_position()` | funkcja ustawiająca pozycję obiektu gry |
+
+## `manuals/physics-shapes.md`
+
+Ten glosariusz obejmuje najważniejsze terminy z instrukcji o kształtach kolizji w silniku fizyki Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| collision shape | kształt kolizji |
+| primitive shapes | kształty podstawowe |
+| complex shapes | kształty złożone |
+| primitive shape | kształt podstawowy |
+| complex shape | kształt złożony |
+| box | `box`, czyli kształt prostopadłościanu |
+| sphere | `sphere`, czyli kształt sfery |
+| capsule | `capsule`, czyli kształt kapsuły |
+| tilemap | `tilemap`, czyli mapa kafelków używana jako kształt kolizji |
+| convex hull | wypukła otoczka |
+| Collision Shape | `Collision Shape`, czyli nazwa właściwości; angielska forma może pozostać bez tłumaczenia |
+| `physics.set_shape()` | funkcja do zmiany kształtu kolizji w czasie działania; nazwa API pozostaje po angielsku |
+| 3D physics | fizyka 3D |
+| 2D physics | fizyka 2D |
+| `game.project` | plik konfiguracji projektu |
+| `Allow Dynamic Transforms` | `Allow Dynamic Transforms`, czyli opcja dziedziczenia skali przez kształty; nazwa ustawienia pozostaje po angielsku |
+| `Group` | `Group`, czyli grupa kolizji zdefiniowana w źródle kafelków; nazwa ustawienia pozostaje po angielsku |
+| `Properties` | `Properties`, czyli ustawienia komponentu obiektu kolizji; nazwa panelu pozostaje po angielsku |
+
+## `manuals/physics.md`
+
+Ten glosariusz obejmuje najważniejsze terminy z instrukcji o fizyce w silniku Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| physics engine | silnik fizyki |
+| Box2D | `Box2D`, silnik fizyki 2D |
+| Bullet | `Bullet`, silnik fizyki 3D |
+| collision object | obiekt kolizji |
+| collision shape | kształt kolizji, który określa zasięg obiektu |
+| collision group | grupa kolizji |
+| collision messages | wiadomości kolizji |
+| constraints | ograniczenia łączące obiekty kolizji |
+| joints | łączenia, czyli constraints między dwoma obiektami |
+| ray cast | test promieniem w świecie fizyki |
+| `fixed_update(self, dt)` | funkcja cyklu życia do pracy z fizyką przy stałym kroku czasowym |
+| `game.project` | plik konfiguracji projektu |
+
+## `manuals/project-settings.md`
+
+Krótki słownik najważniejszych pojęć z instrukcji o ustawieniach projektu.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `game.project` | główny plik ustawień projektu Defold; musi leżeć w katalogu głównym projektu |
+| category | kategoria ustawień, według której Defold grupuje pola |
+| Project | sekcja z ogólnymi ustawieniami aplikacji, takimi jak tytuł i wydawca |
+| Write Log File | ustawienie określające, kiedy silnik zapisuje plik logu |
+| `project.log_dir` | ukryte ustawienie wskazujące katalog dla pliku logu |
+| Bootstrap | sekcja startowa z ustawieniami uruchamiania aplikacji |
+| Main Collection | główna kolekcja uruchamiana na starcie |
+| Render | plik render określający potok renderowania |
+| Library | sekcja z ustawieniami współdzielenia bibliotek |
+| Include Dirs | katalogi udostępniane przez bibliotekę |
+| Script | sekcja z ustawieniami skryptów Lua |
+| Shared State | współdzielony stan Lua dla wszystkich skryptów |
+| Engine | sekcja z ustawieniami pracy silnika |
+| Fixed Update Frequency | częstotliwość `fixed_update(self, dt)` w hercach |
+| Display | sekcja z ustawieniami okna i odświeżania obrazu |
+| Vsync | synchronizacja pionowa sterująca tempem odświeżania |
+| Frame Cap | limit liczby klatek; w praktyce powiązany z `display.update_frequency` |
+| High Dpi | bufor o podwyższonej rozdzielczości na obsługiwanych ekranach |
+| Render script | skrypt do renderowania sterujący sposobem wyświetlania obrazu |
+| Physics | sekcja z ustawieniami fizyki |
+| Type | wybór między fizyką `2D` i `3D` |
+| In App Purchases | nazwa zakupów wewnątrz aplikacji; gdy występuje jako widoczna etykieta, angielska forma może pozostać bez tłumaczenia |
+
+## `manuals/project-setup.md`
+
+Zakres: najważniejsze terminy z artykułu o zakładaniu projektu w Defoldzie i pracy z lokalnymi projektami.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `New Project` | opcja utworzenia nowego projektu |
+| `Create New Project` | przycisk tworzenia nowego projektu |
+| `Open From Disk` | opcja otwarcia istniejącego projektu z dysku |
+| `Recent Projects` | lista ostatnio otwieranych projektów; jako widoczna etykieta w edytorze angielska forma może pozostać bez tłumaczenia |
+| template | szablon projektu |
+| tutorial | projekt instruktażowy z krokami do wykonania |
+| sample | gotowy przykładowy projekt lub gra |
+| local project | projekt lokalny, zapisany tylko na dysku |
+| version control system | system kontroli wersji |
+| Git | system kontroli wersji używany do śledzenia zmian |
+| GitHub | usługa do przechowywania repozytoriów Git |
+| repository | repozytorium |
+| clone | sklonować projekt lub repozytorium na dysk |
+
+## `manuals/properties.md`
+
+Poniższy glosariusz obejmuje najważniejsze terminy z instrukcji o właściwościach w Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| properties | właściwości obiektów gry, komponentów, węzłów GUI i shaderów |
+| game object | obiekt gry |
+| component | komponent |
+| GUI node | węzeł GUI |
+| shader constants | stałe shaderów; wartości przekazywane z materiałów i shaderów |
+| `go.get()` | `go.get()`; odczyt właściwości w czasie działania |
+| `go.set()` | `go.set()`; ustawianie właściwości w czasie działania |
+| `go.animate()` | `go.animate()`; animowanie właściwości |
+| `gui.get_color()` | `gui.get_color()`; odczyt koloru węzła GUI |
+| `gui.set_color()` | `gui.set_color()`; ustawianie koloru węzła GUI |
+| `position` | pozycja lokalna obiektu gry lub węzła |
+| `rotation` | rotacja lokalna; dla obiektów gry jako quaternion, dla GUI jako kąty Eulera |
+| `scale` | skala lokalna; może być niejednorodna |
+| `color` | kolor; zwykle `vector4` z kanałami RGBA |
+| `material` | materiał używany przez komponent |
+| `cursor` | pozycja kursora odtwarzania, zwykle w zakresie 0-1 |
+| `playback_rate` | szybkość odtwarzania animacji |
+| `outline` | obrys lub kolor obrysu |
+| `shadow` | cień lub kolor cienia |
+| `fill_angle` | kąt wypełnienia węzła `Pie` |
+| `inner_radius` | promień wewnętrzny węzła `Pie` |
+
+## `manuals/property-animation.md`
+
+Ten słowniczek obejmuje tylko kluczowe pojęcia używane w instrukcji o animacji właściwości.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| property animation | animacja właściwości |
+| properties | właściwości; w tym artykule chodzi o animowalne właściwości obiektów gry, komponentów, węzłów GUI i stałych shaderów |
+| `go.animate()` | funkcja do animowania właściwości obiektów gry i komponentów |
+| `gui.animate()` | funkcja do animowania właściwości węzłów GUI |
+| `go.cancel_animations()` | anuluje animacje właściwości obiektu gry lub komponentu |
+| `gui.cancel_animation()` | anuluje animację właściwości węzła GUI |
+| easing | wygładzanie, czyli sposób zmiany wartości w czasie |
+| playback mode | tryb odtwarzania animacji |
+| tween | płynne dopasowanie wartości między punktem startowym i docelowym |
+| GUI node | węzeł GUI |
+| game object | obiekt gry |
+| component property | właściwość komponentu |
+| `go.PLAYBACK_LOOP_PINGPONG` | tryb pętli, w którym animacja odbija się między wartościami |
+| `go.EASING_OUTBOUNCE` | stała wygładzania typu „odbicie” |
+| `gui.PROP_COLOR` | stała wskazująca właściwość koloru węzła GUI |
+| `hash("position.x")` | hashowana nazwa właściwości, używana zamiast tekstu |
+| `vmath.vector()` | tworzy wektor używany m.in. do własnych krzywych wygładzania |
+
+## `manuals/refactoring.md`
+
+Ten słowniczek obejmuje najważniejsze terminy użyte w instrukcji o refaktoryzacji projektu w Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| Refactoring | refaktoryzacja, czyli reorganizacja istniejącego kodu i zasobów |
+| asset | zasób |
+| rename | zmienić nazwę; w edytorze zmiana nazw jest uwzględniana automatycznie |
+| move | przenieść; w edytorze przenoszenie zasobów aktualizuje odwołania |
+| reference | odwołanie do zasobu |
+| editor | Defold Editor |
+| automatically update references | automatycznie aktualizować odwołania |
+| Build Errors | panel błędów budowania w edytorze |
+| error signal | sygnał błędu |
+| atlas | atlas |
+| animation | animacja |
+| game | gra |
+
+## `manuals/resource.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o zarządzaniu zasobami i zostawia literalne nazwy API, plików oraz opcji w języku angielskim.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| resource management | zarządzanie zasobami |
+| resource tree | drzewo zasobów, czyli statyczny zestaw wszystkich zasobów dołączanych do gry |
+| bootstrap collection | kolekcja startowa uruchamiana jako punkt wejścia gry; w źródle pojawia się też zapis `bootrstrap collection` |
+| bootstrap root | korzeń drzewa startowego gry |
+| bundle | paczka gry tworzona na potrzeby dystrybucji |
+| memory footprint | zużycie pamięci przez grę |
+| bundle size | rozmiar paczki gry |
+| collection proxy | pełnomocnik kolekcji |
+| custom resources | niestandardowe zasoby deklarowane w `game.project` |
+| `sys.load_resource()` | funkcja do ręcznego ładowania zasobów z `game.project` |
+| factory | fabryka |
+| collection factory | fabryka kolekcji |
+| factory components | komponenty fabryki |
+| `Load Dynamically` | opcja opóźniająca automatyczne ładowanie zasobów fabryki |
+| `factory.create()` | synchronizuje ładowanie i tworzy nowe obiekty |
+| `factory.load()` | asynchronicznie ładuje zasoby fabryki |
+| `factory.unload()` | zwalnia odniesienie fabryki do zasobu |
+| `Exclude` | opcja wykluczająca zasób z paczki gry |
+| Live update | mechanizm pobierania wykluczonych zasobów w trakcie działania gry |
+
+## `manuals/script-properties.md`
+
+Ten słowniczek obejmuje najistotniejsze terminy z instrukcji o właściwościach skryptów i zachowuje literalne nazwy API, identyfikatory oraz etykiety edytora w języku angielskim.
+
+| English term | Polish translation / explanation |
+|---|---|
+| script property | właściwość skryptu; niestandardowa wartość przypisana do instancji komponentu skryptu |
+| script component | komponent skryptu |
+| `go.property()` | funkcja definiująca właściwość skryptu na poziomie najwyższym pliku |
+| `self` | odwołanie do instancji skryptu; tu przechowywane są zdefiniowane właściwości |
+| `go.get()` | funkcja odczytująca właściwość po adresie lub `url` |
+| `go.set()` | funkcja ustawiająca właściwość po adresie lub `url` |
+| `go.animate()` | funkcja animująca właściwość |
+| `factory.create()` | funkcja tworząca obiekt gry z możliwością przekazania tabeli `properties` |
+| `collectionfactory.create()` | funkcja tworząca hierarchię obiektów gry z tabelami właściwości |
+| `properties` | tabela Lua z wartościami właściwości przekazywanymi przy tworzeniu |
+| `msg.url()` | funkcja budująca `url` wskazujący obiekt lub komponent |
+| `hash` | hash; typ używany m.in. dla nazw wiadomości i niektórych właściwości |
+| `msg.url` | typ właściwości wskazujący adres komponentu lub obiektu |
+| `resource property` | właściwość zasobu; właściwość wskazująca plik lub zasób silnika |
+| `resource.atlas()` | literalny identyfikator typu zasobu atlasu |
+| `resource.font()` | literalny identyfikator typu zasobu czcionki |
+| `resource.material()` | literalny identyfikator typu zasobu materiału |
+| `resource.texture()` | literalny identyfikator typu zasobu tekstury |
+| `resource.tile_source()` | literalny identyfikator typu zasobu źródła kafelków |
+| `Properties` | widok `Properties` w edytorze, gdzie edytuje się właściwości instancji |
+| `Outline` | widok `Outline` w edytorze, z którego wybiera się komponent |
+
+## `manuals/script.md`
+
+Ten słowniczek obejmuje tylko kluczowe pojęcia z artykułu o skryptach w Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| script component | komponent skryptu |
+| script | skrypt; nazwa techniczna typu komponentu może pozostać bez tłumaczenia |
+| game object script | skrypt obiektu gry |
+| GUI script | skrypt GUI |
+| render script | skrypt do renderowania |
+| lifecycle callbacks | funkcje wywołania zwrotnego cyklu życia |
+| `self` | bieżąca instancja komponentu; używana do przechowywania stanu |
+| `init(self)` | wywoływane przy inicjalizacji komponentu |
+| `final(self)` | wywoływane przy usuwaniu komponentu |
+| `update(self, dt)` | wywoływane raz na klatkę; `dt` to czas delta |
+| `fixed_update(self, dt)` | aktualizacja niezależna od liczby klatek |
+| `on_message(self, message_id, message, sender)` | obsługa wiadomości wysyłanych przez `msg.post()` |
+| `on_input(self, action_id, action)` | obsługa wejścia po przejęciu fokusu wejścia |
+| `on_reload(self)` | wywoływane przy szybkim przeładowaniu skryptu |
+| reactive logic | logika reaktywna, oparta na zdarzeniach zamiast na ciągłym odpytywaniu |
+| preprocessing | przetwarzanie wstępne kodu przed kompilacją |
+| `timer.delay()` | opóźnione wywołanie funkcji po określonym czasie |
+
+## `manuals/sound.md`
+
+Ten słownik obejmuje kluczowe terminy używane w instrukcji o dźwięku w Defoldzie.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| Sound component | komponent dźwięku |
+| Sound group | grupa dźwiękowa; zbiór komponentów sterowanych wspólnie |
+| game object | obiekt gry |
+| `sound.play()` | odtwarza dźwięk; wywołanie API pozostaje w języku angielskim |
+| `sound.stop()` | zatrzymuje dźwięk; wywołanie API pozostaje w języku angielskim |
+| `sound.set_gain()` | ustawia wzmocnienie głosu lub dźwięku |
+| `sound.set_group_gain()` | ustawia wzmocnienie grupy |
+| `sound.get_groups()` | zwraca wszystkie dostępne grupy dźwięku |
+| `sound.get_group_name()` | zwraca nazwę grupy jako `string` w trybie debug |
+| `sound.get_rms()` | zwraca średnią kwadratową RMS sygnału |
+| `sound.get_peak()` | zwraca wzmocnienie szczytowe |
+| peak gain | wzmocnienie szczytowe; w tym miejscu angielska forma może pozostać bez tłumaczenia |
+| gain | wzmocnienie; w praktyce głośność |
+| pan | panorama stereo, czyli balans lewo/prawo |
+| speed | prędkość odtwarzania |
+| looping | odtwarzanie w pętli |
+| loopcount | liczba powtórzeń odtwarzania |
+| master group | wbudowana grupa nadrzędna `master` |
+| gating | filtrowanie powtórnych odtworzeń w krótkim czasie |
+| phase shift | przesunięcie fazowe |
+| streaming sounds | dźwięki strumieniowane |
+
+## `manuals/spine.md`
+
+Ten glosariusz obejmuje tylko najistotniejsze terminy z tej instrukcji.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| Spine | Spine |
+| Spine bone animation | animacja szkieletowa Spine |
+| bone animation | animacja szkieletowa |
+| Defold | Defold |
+| extension-spine | `extension-spine`, rozszerzenie dla integracji Spine z Defold |
+| manual | instrukcja / podręcznik |
+
+## `manuals/sprite.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z artykułu o komponencie Sprite i zachowuje literalne identyfikatory Defold, API oraz nazwę UI w języku angielskim.
+
+| English term | Polish translation / explanation |
+|---|---|
+| Sprite | komponent wyświetlający obraz 2D albo animację poklatkową |
+| atlas | atlas, czyli zestaw obrazów używany przez sprite |
+| Tile Source | źródło kafelków używane jako grafika sprite'a |
+| flipbook animation | animacja poklatkowa odtwarzana klatka po klatce |
+| Image | pole wyboru atlasu lub `Tile Source` dla sprite'a |
+| Default Animation | domyślna animacja używana przez sprite |
+| Material | materiał używany do renderowania sprite'a |
+| Blend Mode | tryb mieszania używany podczas renderowania |
+| Size Mode | tryb określający, czy rozmiar ustawia edytor, czy użytkownik |
+| Automatic | tryb automatycznego ustawiania rozmiaru |
+| Manual | tryb ręcznego ustawiania rozmiaru |
+| Slice 9 | zachowanie 9-slice, które chroni narożniki i krawędzie przy skalowaniu |
+| `sprite.play_flipbook()` | funkcja odtwarzająca animację sprite'a |
+| `sprite.set_hflip()` | funkcja ustawiająca odbicie poziome |
+| `sprite.set_vflip()` | funkcja ustawiająca odbicie pionowe |
+| `go.get()` | funkcja odczytu właściwości obiektu gry lub komponentu |
+| `go.set()` | funkcja ustawiania właściwości obiektu gry lub komponentu |
+| `cursor` | znormalizowany kursor animacji |
+| `image` | identyfikator obrazu sprite'a |
+| `material` | identyfikator materiału sprite'a |
+| `playback_rate` | tempo odtwarzania animacji |
+| `scale` | skala sprite'a |
+| `size` | rozmiar sprite'a |
+| `tint` | zabarwienie koloru sprite'a |
+| `game.project` | plik ustawień projektu, w którym znajdują się opcje sprite'ów |
+| `rename patterns` | wzorce zmiany nazw używane przy wielu teksturach |
+| UVs | współrzędne UV określające mapowanie tekstury |
+| texture bleeding | przebijanie tekstury; artefakty na styku źle dopasowanych obrazów |
+
+## `manuals/texture-filtering.md`
+
+Zakres: najważniejsze terminy z instrukcji o filtrowaniu i próbkowaniu tekstur w grafice.
+
+| English term | Polish translation / explanation |
+|---|---|
+| texture filtering | filtrowanie tekstur; sposób wyznaczania koloru piksela z danych tekstury |
+| texture sampling | próbkowanie tekstur; pobieranie wartości z tekstury dla piksela na ekranie |
+| texel | texel, czyli pojedynczy piksel w teksturze |
+| Nearest | `Nearest`; wybiera najbliższy texel bez uśredniania |
+| Linear | `Linear`; uśrednia texel z sąsiednimi texelami dla gładszego obrazu |
+| minifying filtering | filtrowanie przy pomniejszaniu |
+| magnifying filtering | filtrowanie przy powiększaniu |
+| `default_texture_min_filter` | ustawienie w `game.project` dla filtrowania przy pomniejszaniu |
+| `default_texture_mag_filter` | ustawienie w `game.project` dla filtrowania przy powiększaniu |
+| samplers | samplery; obiekty pobierające próbki tekstury w materiale |
+| `game.project` | plik projektu, w którym zapisuje się domyślne ustawienia filtrowania |
+| `Project Settings` | `Project Settings` (Ustawienia projektu) |
+
+## `manuals/texture-profiles.md`
+
+Zakres: najważniejsze terminy z instrukcji profili teksturowania w Defoldzie.
+
+| English term | Polish translation / explanation |
+|---|---|
+| texture profile | profil teksturowania, czyli zestaw reguł kompresji dla tekstur |
+| texture profiles file | plik `.texture_profiles` z konfiguracją profili |
+| path settings | ustawienia ścieżek, które przypisują profile do wzorców plików |
+| profile | profil używany do przetwarzania zasobów pasujących do wzorca |
+| platform | platforma docelowa, np. `OS_ID_WINDOWS` lub `OS_ID_IOS` |
+| formats | formaty tekstury generowane dla danego profilu |
+| compressor | kompresor używany do kodowania tekstury |
+| compressor preset | predefiniowany poziom kompresji, np. `LOW`, `MEDIUM`, `HIGH`, `HIGHEST` |
+| mipmaps | mipmapy generowane dla tekstury |
+| premultiply alpha | premnożenie kanału alfa w danych tekstury |
+| max texture size | maksymalny rozmiar tekstury po skalowaniu |
+| BasisU | skrót od Basis Universal; format pośredni transkodowany w czasie działania |
+| ASTC | sprzętowy format kompresji tekstur o blokach stałego rozmiaru |
+| `TEXTURE_FORMAT_RGBA_ASTC_4X4` | literał formatu tekstury ASTC; nazwa pozostaje po angielsku |
+| `game.project` | plik projektu Defold, w którym wskazuje się `texture_profiles` |
+| `Enable texture profiles` | opcja edytora włączająca profile teksturowania |
+
+## `manuals/tilemap.md`
+
+Zakres: najważniejsze pojęcia z instrukcji o mapach kafelków. Literalne nazwy UI, API i identyfikatory kodu pozostają po angielsku.
+
+| English term | Polish translation / explanation |
+|---|---|
+| Tile map | mapa kafelków; komponent do układania kafelków na siatce |
+| Tile Source | źródło kafelków; zasób zawierający kafelki i ich kształty kolizji |
+| Layer | warstwa mapy, na której maluje się kafelki |
+| Assets | `Assets`, widok zasobów w edytorze |
+| Outline | `Outline`, widok struktury mapy i warstw |
+| Tile Source property | właściwość `Tile Source`, wskazująca używany plik źródła kafelków |
+| Material | `Material`, materiał używany do renderowania mapy |
+| Blend Mode | `Blend Mode`, tryb mieszania używany podczas renderowania |
+| Collision Shapes | kształty kolizji dostępne w źródle kafelków |
+| tilemap.get_tile() | `tilemap.get_tile()`, funkcja odczytu kafelka z mapy w runtime |
+| tilemap.set_tile() | `tilemap.set_tile()`, funkcja zapisu kafelka w mapie w runtime |
+| go.get() | `go.get()`, funkcja odczytu właściwości komponentu |
+| go.set() | `go.set()`, funkcja ustawiania właściwości komponentu |
+| tile_source | `tile_source`, właściwość komponentu z hashowanym odwołaniem do źródła kafelków |
+| material | `material`, właściwość komponentu z hashowanym odwołaniem do materiału |
+| tint | `tint`, kolor zabarwienia mapy jako `vector4` |
+| game.project | `game.project`, plik konfiguracji projektu |
+| Tiled | `Tiled`, zewnętrzny edytor map, który może eksportować do Defold |
+| Tilesetter | `Tilesetter`, zewnętrzny edytor i generator tilesetów |
+
+## `manuals/tilesource.md`
+
+Krótki słownik najważniejszych pojęć używanych w artykule o `Tile Source`.
+
+| English term | Polish translation / explanation |
+|---|---|
+| Tile Source | źródło kafelków |
+| Tilemap component | komponent `Tilemap` służący do rysowania kafelków na siatce |
+| Sprite | `Sprite`, czyli źródło grafiki dla pojedynczego elementu |
+| Particle Effect component | komponent `Particle Effect` używający źródła grafiki |
+| Collision Shapes | kształty kolizji generowane z obrazu kafelków |
+| spacing | odstęp między kafelkami |
+| margin | margines wokół kafelka |
+| Inner Padding | wewnętrzny margines dodawany automatycznie do tekstury wynikowej |
+| Extrude Border | automatyczne powielanie pikseli krawędzi wokół kafelka |
+| Outline | `Outline`, widok struktury źródła w edytorze |
+| Properties | `Properties`, panel właściwości |
+| Playback | sposób odtwarzania animacji |
+| Fps | liczba klatek na sekundę |
+| Collision | obraz używany do automatycznego generowania kształtów kolizji |
+| convex | wypukły |
+| collision group | grupa kolizji |
+| anim | domyślna animacja utworzona dla nowego `Tile Source` |
+
+## `manuals/writing-code.md`
+
+Zakres: najważniejsze terminy z instrukcji o pisaniu kodu w Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| game logic | logika gry |
+| Lua | język skryptowy używany do logiki gry |
+| Lua 5.1 | konkretna wersja Lua używana przez Defold |
+| LuaJIT | wariant Lua używany na części platform |
+| native code | kod natywny dla danej platformy |
+| native extensions | rozszerzenia natywne do pracy z kodem natywnym |
+| transpiler | narzędzie tłumaczące inny język na Lua |
+| statically-checked Lua | Lua z analizą statyczną, czyli sprawdzaniem błędów przed uruchomieniem |
+| built-in code editor | wbudowany edytor kodu w Defold |
+| code completion | autouzupełnianie kodu |
+| code linting | linting, czyli automatyczne sprawdzanie jakości i błędów kodu |
+| Luacheck | narzędzie do lintingu Lua |
+| Lua language server | serwer języka Lua do analiz i podpowiedzi |
+| `.luacheckrc` | plik konfiguracyjny Luacheck |
+| external code editor | zewnętrzny edytor kodu |
+| Preferences window | okno `Preferences` |
+| Code tab | karta `Code` |
+| Visual Studio Code | edytor Visual Studio Code |
+| Defold Kit | wtyczka Defold Kit do Visual Studio Code |
+| `go.animate()` | API Defold; identyfikator pozostaje w oryginale |
+
+## `shared/blend-modes.md`
+
+Glosariusz najważniejszych terminów związanych z mieszaniem kolorów w właściwości `Blend Mode`.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| `Blend Mode` | właściwość określająca sposób mieszania grafiki komponentu z tłem |
+| `Alpha` | normalne blendowanie z uwzględnieniem kanału alfa |
+| `Add` | dodawanie wartości kolorów, które rozjaśnia tło |
+| `Multiply` | mnożenie wartości kolorów, które przyciemnia tło |
+| `Screen` | odwrotność `Multiply`; rozjaśnia tło |
+| `src` | kolor i alfa aktualnego źródła, czyli grafiki komponentu |
+| `dst` | kolor pikseli tła, czyli obrazu znajdującego się pod spodem |
+
+## `shared/components.md`
+
+To są najważniejsze terminy z artykułu o komponentach i ich polskie odpowiedniki lub objaśnienia.
+
+| English term | Polish translation / explanation |
+|---|---|
+| component | komponent |
+| game object | obiekt gry |
+| position | pozycja |
+| rotation | rotacja |
+| scale | skala |
+| type specific properties | właściwości specyficzne dla typu komponentu |
+| runtime | w czasie działania programu |
+| Outline | `Outline` (widok zawartości pliku) |
+| Add Component | `Add Component` (dodaj komponent w obiekcie gry) |
+| Add Component File | `Add Component File` (dodaj jako odwołanie do pliku komponentu) |
+| Script | `Script` |
+| GUI | `GUI` |
+| Particle FX | `Particle FX` |
+| Tile Map | `Tile Map` |
+
+## `shared/install.md`
+
+Zakres: najistotniejsze terminy z artykułu o pobieraniu, instalacji i uruchamianiu edytora Defold.
+
+| English term | Polish translation / explanation |
+|---|---|
+| `download page` | strona pobierania |
+| `Download` | przycisk pobierania |
+| `installation` | instalacja |
+| `DMG image` | obraz DMG, czyli format instalacyjny używany w macOS |
+| `ZIP archive` | archiwum ZIP do wypakowania |
+| `Extract All` | polecenie wypakowania wszystkich plików w Windows |
+| `Applications` | folder Aplikacje w macOS |
+| `Defold` | nazwa aplikacji i folderu z edytorem; zostaje w języku angielskim |
+| `Defold.exe` | plik wykonywalny edytora w Windows |
+| `unzip` | polecenie w terminalu do rozpakowania archiwum ZIP |
+| `Help > Create Desktop Entry` | pozycja menu do utworzenia skrótu na pulpicie w Linux |
+| `FAQ` | sekcja często zadawanych pytań; w artykule chodzi o część dotyczącą Linux |
+| `GitHub` | serwis, na którym dostępne są starsze wersje Defold |
+
+## `shared/material-constants.md`
+
+Glosariusz najważniejszych terminów z artykułu o stałych materiału i ich zmianie w `go.set()` oraz `go.animate()`.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| `material` | materiał; zasób określający wygląd renderowania |
+| `constants` | stałe materiału, czyli wartości parametryczne możliwe do zmiany w czasie |
+| `go.set()` | funkcja ustawiająca wartość stałej lub innej właściwości komponentu |
+| `go.animate()` | funkcja animująca wartość stałej lub innej właściwości komponentu |
+| `component` | komponent, np. ten wskazywany przez `{{ include.component }}` |
+| `variable` | nazwa stałej w materiale, np. `{{ include.variable }}` |
+| `Material manual` | instrukcja do materiałów; opisuje m.in. stałe wierzchołków i fragmentów |
+| `vertex and fragment constants` | stałe wierzchołków i fragmentów, czyli wartości dostępne w shaderze materiału |
+| `vmath.vector4()` | tworzy wektor czteroelementowy używany jako przykładowa wartość |
+| `go.PLAYBACK_LOOP_PINGPONG` | tryb odtwarzania animacji ping-pong w pętli |
+| `go.EASING_LINEAR` | liniowy przebieg interpolacji animacji |
+
+## `shared/url-shorthands.md`
+
+Ten słowniczek obejmuje najważniejsze terminy z krótkiego artykułu o skrótach URL w silniku Defold.
+
+| English term | Polish translation / explanation |
+| --- | --- |
+| shorthand | skrót |
+| current game object | bieżący obiekt gry |
+| current component | bieżący komponent |
+| `.` | skrót wskazujący bieżący obiekt gry |
+| `#` | skrót wskazujący bieżący komponent |
+| `msg.post()` | funkcja `msg.post()`, używana tutaj do wysyłania wiadomości do bieżącego obiektu lub komponentu |
+| `acquire_input_focus` | nazwa wiadomości; oznacza przejęcie fokusu wejścia |
+| `reset` | nazwa wiadomości wysyłanej do bieżącego skryptu |

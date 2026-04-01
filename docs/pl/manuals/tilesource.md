@@ -1,28 +1,28 @@
 ---
-title: Źródła kafelków (tile source)
-brief: Ta instrukcja opisuje jak korzystać ze Źródła Kafelków.
+title: Podręcznik źródła kafelków w Defoldzie
+brief: Opisuje, jak tworzyć i używać źródła kafelków.
 ---
 
-# Źródła Kafelków (tile source)
+# Źródło kafelków
 
-Źródła Kafelków - *Tile Source* może być używane przez komponent typu [Mapa kafelków - Tilemap](/manuals/tilemap), aby rysować kafelki na obszarze siatki lub może być używane jako źródło grafiki dla komponentu typu [Sprite](/manuals/sprite) lub Efektu cząsteczkowego - [Particle Effect](/manuals/particlefx).. Możesz również użyć Kształtów Kolizji - *Collision Shapes* ze Źródła Kafelków w Mapie Kafelków do [wykrywania kolizji i symulacji fizycznej](/manuals/physics) ([tutaj przykład](/examples/tilemap/collisions/))).
+Źródło kafelków, *Tile Source*, może być używane przez [Tilemap component](/manuals/tilemap) do rysowania kafelków na obszarze siatki albo jako źródło grafiki dla [Sprite](/manuals/sprite) lub [Particle Effect component](/manuals/particlefx). Możesz też użyć *Collision Shapes* ze źródła kafelków w Tilemap do [wykrywania kolizji i symulacji fizycznej](/manuals/physics) ([przykład](/examples/tilemap/collisions/)).
 
-## Tworzenie Źródła Kafelków
+## Tworzenie źródła kafelków
 
-Potrzebujesz obrazu zawierającego wszystkie kafelki. Każdy kafelek musi mieć dokładnie te same wymiary i być umieszczony w siatce. Defold obsługuje odstępy (_spacing_) między kafelkami oraz margines ( _margin_) wokół każdego kafelka.
+Potrzebujesz obrazu zawierającego wszystkie kafelki. Każdy kafelek musi mieć dokładnie takie same wymiary i być ułożony w siatce. Defold obsługuje odstępy (_spacing_) między kafelkami oraz margines (_margin_) wokół każdego kafelka.
 
-![Obraz dla Źródła Kafelków](images/tilemap/small_map.png)
+![Obraz kafelków](images/tilemap/small_map.png)
 
-Gdy już masz utworzony obraz źródłowy, możesz stworzyć Źródło Kafelków (Tile Source):
+Gdy masz już przygotowany obraz źródłowy, możesz utworzyć źródło kafelków:
 
 - Zaimportuj obraz do projektu, przeciągając go do lokalizacji projektu w panelu *Assets*.
-- Utwórz nowy plik Źródła Kafelków (<kbd>klikając prawym przyciskiem myszy</kbd> lokalizację w panelu *Assets*, a następnie wybierając <kbd>New... ▸ Tile Source</kbd>).
-- Nazwij nowy plik.
-- Plik zostanie teraz otwarty w edytorze Źródło Kafelków.
-- Kliknij przycisk przeglądania obok właściwości *Image* (Obraz) i wybierz swój obraz. Teraz powinieneś widzieć obraz wyświetlony w edytorze.
-- Dostosuj Properties* (Właściwości) do obrazu źródłowego. Gdy wszystko jest poprawnie, kafelki będą idealnie do siebie pasować.
+- Utwórz nowy plik źródła kafelków (<kbd>kliknij prawym przyciskiem myszy</kbd> lokalizację w panelu *Assets*, a następnie wybierz <kbd>New... ▸ Tile Source</kbd>).
+- Nadaj nowemu plikowi nazwę.
+- Plik zostanie otwarty w edytorze źródła kafelków.
+- Kliknij przycisk przeglądania obok właściwości *Image* i wybierz obraz. Powinien pojawić się w edytorze.
+- Dopasuj *Properties* do obrazu źródłowego. Gdy wszystko jest poprawne, kafelki będą idealnie wyrównane.
 
-![Tworzenie Źródła Kafelków](images/tilemap/tilesource.png)
+![Tworzenie źródła kafelków](images/tilemap/tilesource.png)
 
 Size
 : Rozmiar obrazu źródłowego.
@@ -34,67 +34,67 @@ Tile Height
 : Wysokość każdego kafelka.
 
 Tile Margin
-: Liczba pikseli otaczająca każdy kafelek (pomarańczowy kolor na obrazku powyżej).
+: Liczba pikseli otaczających każdy kafelek (pomarańczowe na ilustracji powyżej).
 
 Tile Spacing
-: Liczba pikseli między każdym kafelkiem (niebieski kolor na obrazku powyżej).
+: Liczba pikseli między każdym kafelkiem (niebieskie na ilustracji powyżej).
 
 Inner Padding
-: Wewnętrzny margines - określa, ile pustych pikseli ma być automatycznie dodawane dookoła kafelka podczas działania gry.
+: Określa, ile pustych pikseli ma zostać automatycznie dodanych wokół kafelka w wynikowej teksturze używanej podczas uruchamiania gry.
 
 Extrude Border
-: Obramowanie ekstrudera - określa, ile razy krawędzie pikseli mają być automatycznie powielane wokół kafelka podczas działania gry.
+: Określa, ile razy krawędziowe piksele mają zostać automatycznie powielone wokół kafelka w wynikowej teksturze używanej podczas uruchamiania gry.
 
 Collision
-: Określa obraz do automatycznego generowania kształtów kolizji dla kafelków.
+: Określa obraz używany do automatycznego generowania kształtów kolizji dla kafelków.
 
-## Animacje poklatkowe (flip-book) Źródła Kafelków
+## Animacje poklatkowe źródła kafelków
 
-Aby zdefiniować animację poklatkową w Źródle Kafelków, kafelki animacji klatek muszą leżeć obok siebie w sekwencji od lewej do prawej. Sekwencja może zawijać się z jednego wiersza na kolejny. Wszystkie nowo utworzone Źródła Kafelków mają domyślną animację o nazwie "anim". Możesz dodać nowe animacje, <kbd>klikając prawym przyciskiem myszy</kbd> na korzeń (root) Źródła Kafelków w *Outline* i wybierając <kbd>Add ▸ Animation</kbd>.
+Aby zdefiniować animację w źródle kafelków, kafelki klatek animacji muszą leżeć obok siebie w sekwencji od lewej do prawej. Sekwencja może zawijać się z jednego wiersza do następnego. Wszystkie nowo utworzone źródła kafelków mają domyślną animację o nazwie `anim`. Możesz dodać nowe animacje, <kbd>klikając prawym przyciskiem myszy</kbd> korzeń źródła kafelków w *Outline* i wybierając <kbd>Add ▸ Animation</kbd>.
 
-Wybierając animację, wyświetlane są *Properties* (Właściwości) animacji.
+Wybranie animacji wyświetla jej *Properties*.
 
-![Animacje Źródła Kafelków](images/tilemap/animation.png)
+![Animacja źródła kafelków](images/tilemap/animation.png)
 
 Id
-: Identyfikator animacji. Nazwa musi być unikalna w Źródle Kafelków.
+: Identyfikator animacji. Musi być unikalny dla źródła kafelków.
 
 Start Tile
-: Pierwszy kafelek animacji. Numeracja zaczyna się od 1 w lewym górnym rogu i idzie w prawo, wiersz po wierszu, w dół do prawego dolnego rogu.
+: Pierwszy kafelek animacji. Numeracja zaczyna się od 1 w lewym górnym rogu i biegnie w prawo, wiersz po wierszu, aż do prawego dolnego rogu.
 
 End Tile
 : Ostatni kafelek animacji.
 
 Playback
-: Określa, w jaki sposób ma być odtwarzana animacja:
+: Określa sposób odtwarzania animacji:
 
-  - `None` - w ogóle nie jest odtwarzany, wyświetlany jest pierwszy obraz.
-  - `Once Forward` - odtwarza animację raz od pierwszego do ostatniego obrazu.
-  - `Once Backward` - odtwarza animację raz od ostatniego do pierwszego obrazu.
-  - `Once Ping Pong` - odtwarza animację raz od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
-  - `Loop Forward` - odtwarza animację powtarzalnie (w pętli) od pierwszego do ostatniego obrazu.
-  - `Loop Backward` - odtwarza animację powtarzalnie (w pętli) od ostatniego do pierwszego obrazu.
-  - `Loop Ping Pong` - odtwarza animację powtarzalnie (w pętli) od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
+  - `None` nie odtwarza animacji, wyświetlany jest pierwszy obraz.
+  - `Once Forward` odtwarza animację jeden raz od pierwszego do ostatniego obrazu.
+  - `Once Backward` odtwarza animację jeden raz od ostatniego do pierwszego obrazu.
+  - `Once Ping Pong` odtwarza animację jeden raz od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
+  - `Loop Forward` odtwarza animację wielokrotnie od pierwszego do ostatniego obrazu.
+  - `Loop Backward` odtwarza animację wielokrotnie od ostatniego do pierwszego obrazu.
+  - `Loop Ping Pong` odtwarza animację wielokrotnie od pierwszego do ostatniego obrazu, a następnie z powrotem do pierwszego obrazu.
 
 Fps
-: Prędkość odtwarzania animacji, wyrażona w klatkach na sekundę (Frames per second - FPS).
+: Prędkość odtwarzania animacji, wyrażona w klatkach na sekundę (FPS).
 
 Flip horizontal
-: Odbija animację poziomo.
+: Odbija animację w poziomie.
 
 Flip vertical
-: Odbija animację pionowo.
+: Odbija animację w pionie.
 
 ## Kształty kolizji źródła kafelków
 
-Defold używa obrazu określonego w właściwości *Collision* (Kolizja), aby generować kształt wypukły (_convex_) dla każdego kafelka. Kształt będą wyznaczać piksele kafelka, które zawierają informacje o kolorze, czyli nie są w 100% przezroczyste.
+Defold używa obrazu wskazanego we właściwości *Collision*, aby wygenerować wypukły kształt dla każdego kafelka. Kształt obrysowuje tę część kafelka, która zawiera informacje o kolorze, czyli nie jest w 100% przezroczysta.
 
-Często sensowne jest używanie tego samego obrazu do kolizji, co do obrazu zawierającego grafikę, ale możesz wybrać oddzielny obraz, jeśli chcesz kształty kolizji różniące się od wyglądu. Gdy określisz obraz kolizji, podgląd zostaje zaktualizowany z zarysem na każdym kafelku, co wskazuje na wygenerowane kształty kolizji.
+Często sensownie jest użyć do kolizji tego samego obrazu, który zawiera właściwą grafikę, ale możesz też wskazać osobny obraz, jeśli chcesz, aby kształty kolizji różniły się od wyglądu. Gdy wskażesz obraz kolizji, podgląd zostanie zaktualizowany i na każdym kafelku pojawi się obrys pokazujący wygenerowane kształty kolizji.
 
-W zarysie źródła kafelków są wymieniane grupy kolizji, które dodano do źródła kafelków. Nowe pliki źródła kafelków otrzymają dodaną jedną grupę kolizji "default" ("domyślna"). Możesz dodać nowe grupy, <kbd>klikając prawym przyciskiem myszy</kbd> na korzeń (root) Źródła Kafelków w *Outline* i wybierając <kbd>Add ▸ Collision Group</kbd>.
+W zarysie źródła kafelków widoczne są grupy kolizji dodane do tego źródła. Nowe pliki źródła kafelków mają dodaną jedną grupę kolizji o nazwie "default". Możesz dodać nowe grupy, <kbd>klikając prawym przyciskiem myszy</kbd> korzeń źródła kafelków w *Outline* i wybierając <kbd>Add ▸ Collision Group</kbd>.
 
-Aby wybrać kształty kafelków, które powinny należeć do określonej grupy, wybierz grupę w *Outline*, a następnie kliknij każdy kafelek, który chcesz przypisać do wybranej grupy. Kształt kafelka i kształt są wtedy zaznaczane kolorem grupy. Kolor jest automatycznie przypisywany do grupy w Edytorze.
+Aby wybrać kształty kafelków, które mają należeć do danej grupy, zaznacz grupę w *Outline*, a następnie kliknij każdy kafelek, który chcesz do niej przypisać. Obrys kafelka i kształtu jest wtedy kolorowany kolorem grupy. Kolor jest automatycznie przypisywany do grupy w edytorze.
 
 ![Kształty kolizji](images/tilemap/collision.png)
 
-Aby usunąć kafelek z grupy kolizji, wybierz element główny (root) Źródła Kafelków w *Outline*, a następnie kliknij kafelek odznaczając tym samym dotychczas wybraną grupę.
+Aby usunąć kafelek z jego grupy kolizji, zaznacz główny element źródła kafelków w *Outline*, a następnie kliknij kafelek.

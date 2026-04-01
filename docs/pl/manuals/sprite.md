@@ -1,89 +1,130 @@
 ---
-title: Sprite - reprezentacja graficzna 2D
-brief: Instrukcja ta opisuje jak pokazywać dwuwymiarowe grafiki używając komponentu typu Sprite.
+title: Wyświetlanie obrazów 2D
+brief: Ta instrukcja opisuje, jak wyświetlać obrazy 2D i animacje za pomocą komponentu Sprite.
 ---
 
-#  Sprite
+# Sprite'y
 
-Komponent typu Sprite (z ang. dosłownie: chochlik/duszek/krasnoludek - popularna w gamedevie od lat nazwa obrazków 2D w grach - przyp.tłum.) to dwuwymiarowa reprezentacja wizualna w grafice komputerowej wyświetlana jako pojedynczy obrazek lub animacja poklatkowa (flipbook animation).
+Komponent Sprite to prosty obraz albo animacja poklatkowa (flipbook) wyświetlana na ekranie.
 
 ![sprite](images/graphics/sprite.png)
 
-Komponent typu Sprite może wykorzystywać jako teksturę galerię obrazów, tzw. [Atlas](/manuals/atlas) lub [Źródło kafelków - Tile Source](/manuals/tilesource).
+Komponent Sprite może jako źródło grafiki używać [Atlas](/manuals/atlas) albo [Tile Source](/manuals/tilesource).
 
-## Właściwości Sprite'ów
+## Właściwości Sprite
 
-Poza właściwościami takimi jak *Id*, *Position* i *Rotation* komponenty te posiadają swoje specyficzne właściwości (properties):
+Poza właściwościami *Id*, *Position* i *Rotation* komponent ma następujące właściwości specyficzne dla Sprite:
 
 *Image*
-: Obraz/tekstura dwuwymiarowa - może nią być Galeria - `Atlas` lub Źródło kafelków - `Tile Source`.
+: Jeśli shader ma pojedynczy sampler, to pole nazywa się `Image`. W przeciwnym razie każde pole nosi nazwę zgodną z samplerem tekstury w materiale. Każde pole wskazuje zasób Atlas albo Tile Source używany przez sprite na danym samplerze tekstury.
 
 *Default Animation*
-: Domyślna animacja używana przy wyświetlaniu obrazu.
+: Animacja używana przez sprite. Informacje o animacji są pobierane z pierwszego atlasu albo Tile Source.
 
 *Material*
-: Materiał służący do renderowania.
+: Materiał używany do renderowania sprite'a.
 
 *Blend Mode*
-: Tryb "mieszania"/blendowania używany również przy renderowaniu. Więcej szczegółów poniżej.
+: Tryb mieszania używany podczas renderowania sprite'a.
 
 *Size Mode*
-: Tryb rozmiaru - jeśli ustawiony na `Automatic`, to Edytor będzie ustawiał rozmiar sprite'a. Jeśli ustawiony na `Manual`, to możesz dopasować rozmiar sprite'a.
+: Jeśli ustawisz `Automatic`, edytor sam ustawi rozmiar sprite'a. Jeśli ustawisz `Manual`, możesz ustawić rozmiar ręcznie.
 
 *Slice 9*
-: Przekrój na 9 części - ustaw tę właściwość aby zachować prawidłowość pikseli na rogach sprite'a, kiedy jego rozmiar jest zmieniany.
+: Ustaw tę opcję, aby zachować rozmiar pikseli tekstury przy krawędziach sprite'a podczas zmiany jego rozmiaru.
 
-:[Więcej o funkcjonalności Slice-9 tutaj.](../shared/slice-9-texturing.md)
+:[Slice-9](../shared/slice-9-texturing.md)
 
-### Blend modes - tryby blendowania
+### Tryby mieszania
 :[blend-modes](../shared/blend-modes.md)
 
-## Manipulacja w trakcie działania programu
+## Manipulacja w czasie działania
 
-Możesz manipulować właściwościami Sprite'ów w trakcie działania programu dzięki wielu funkcjom i zmiennym właściwościom (szukaj przykładów użycia w [API](/ref/sprite/)). Funkcje:
+Sprite'y można modyfikować w czasie działania za pomocą różnych funkcji i właściwości. Sposób użycia znajdziesz w [dokumentacji API](/ref/sprite/). Funkcje:
 
-* `sprite.play_flipbook()` - Odtwarzaj animację sprite'a.
-* `sprite.set_hflip()` and `sprite.set_vflip()` - Odwróć w pionie lub poziomie animację/obraz sprite'a.
+* `sprite.play_flipbook()` - Odtwarza animację na komponencie Sprite.
+* `sprite.set_hflip()` i `sprite.set_vflip()` - Ustawiają poziome i pionowe odbicie animacji sprite'a.
 
-Sprite posiada również różne właściwości, którymi można manipulować przy użyciu funkcji `go.get()` i `go.set()`:
+Sprite ma też kilka właściwości, którymi można manipulować przy użyciu `go.get()` i `go.set()`:
 
 `cursor`
-: Znormalizowany (czyli w przedziale 0-1) kursor animacji, czyli wskaźnik na klatki danej animacji poklatkowej (liczba - `number`).
+: Znormalizowany kursor animacji (`number`).
 
 `image`
-: Obraz sprite'a (`hash`). Możesz użyć tej właściwości do podmiany tekstury sprite'a na inną galerią lub źródło kafelków, które mogą być właściwościami zasobu (resource property) i ustawić używając `go.set()`. Sprawdź szczegóły i przykłady w [API](/ref/sprite/#image).
+: Obraz sprite'a (`hash`). Możesz go zmienić za pomocą właściwości zasobu wskazującej Atlas albo Tile Source i funkcji `go.set()`. Przykład znajdziesz w [referencji API](/ref/sprite/#image).
 
 `material`
-: Materiał sprite'a (`hash`). Możesz podmienić materiał korzystając z właściwości zasobu (resource property) i ustawić używając `go.set()`. Sprawdź szczegóły i przykłady w [API](/ref/sprite/#material).
+: Materiał sprite'a (`hash`). Możesz go zmienić za pomocą właściwości zasobu materiału i funkcji `go.set()`. Przykład znajdziesz w [referencji API](/ref/sprite/#material).
 
 `playback_rate`
-: Wskaźnik odtwarzania animacji, czyli prędkość z jaką odtwarzana jest animacja (`number`).
+: Tempo odtwarzania animacji (`number`).
 
 `scale`
-: Skala obrazka (wektor - `vector3`).
+: Niejednorodna skala sprite'a (`vector3`).
 
 `size`
-: Rozmiar obrazka (`vector3`) (Wartość tylko do odczytu - pokazuje rozmiar tekstury).
+: Rozmiar sprite'a (`vector3`). Można go zmienić tylko wtedy, gdy tryb rozmiaru sprite'a jest ustawiony na ręczny.
 
 ## Stałe materiału
 
 {% include shared/material-constants.md component='sprite' variable='tint' %}
 
 `tint`
-: Kolor zabarwienia/odcienia obrazka (`vector4`). Wektor czterech komponentów reprezentuje zabarwienie, gdzie komponenty x, y, z, w odpowiadają składowym: czerwony, zielony, niebieski i przezroczystość (red, green, blue, alpha).
+: Odcień koloru sprite'a (`vector4`). vector4 reprezentuje zabarwienie, a składowe x, y, z i w odpowiadają kolejno czerwieni, zieleni, niebieskiemu i alfie.
 
 ## Atrybuty materiału
 
-Sprite może nadpisywać atrybuty wierzchołków (vertex attributes) aktualnie przypisanego materiały i przekazywać je do shadera wierzchołków (vertex shader) z komponentu (szczegóły znajdziesz w [instrukcji do materiałów](/manuals/material/#attributes)).
+Sprite może nadpisywać atrybuty wierzchołków z aktualnie przypisanego materiału. Zostaną one przekazane z komponentu do vertex shadera. Więcej informacji znajdziesz w [instrukcji do materiałów](/manuals/material/#attributes).
 
-Atrybuty określone w materiale pokażą się jako zwykłe właściwości w widoku inspekcyjnym i mogą być ustawione na indywidualne komponenty sprite. Jeśli jakikolwiek atrybut jest nadpisany, zostanie on zaznaczony jako nadpisana właściwość i przechowana w pliku komponenty sprite na dysku.
+Atrybuty określone w materiale pojawią się w inspectorze jako zwykłe właściwości i można je ustawiać osobno dla każdego komponentu Sprite. Jeśli którykolwiek atrybut zostanie nadpisany, będzie widoczny jako nadpisana właściwość i zostanie zapisany w pliku sprite'a na dysku:
 
 ![sprite-attributes](../images/graphics/sprite-attributes.png)
 
-::: sidenote
-Niestandardowe atrybuty są dostępne od wersji Defold 1.4.8!
-:::
-
 ## Konfiguracja projektu
 
-Plik *game.project* zawiera [te ustawienia](/manuals/project-settings#sprite) dotyczące sprite'ów.
+Plik *game.project* zawiera kilka [ustawień projektu](/manuals/project-settings#sprite) związanych ze sprite'ami.
+
+## Sprite'y z wieloma teksturami
+
+Gdy sprite korzysta z wielu tekstur, warto pamiętać o kilku rzeczach.
+
+### Animacje
+
+Dane animacji, takie jak fps i nazwy klatek, są obecnie pobierane z pierwszej tekstury. Nazwijmy ją „animacją sterującą”.
+
+Id obrazów z animacji sterującej są używane do wyszukiwania obrazów w kolejnej teksturze. Dlatego ważne jest, aby id klatek były zgodne pomiędzy teksturami.
+
+Na przykład, jeśli `diffuse.atlas` ma animację `run` w takiej postaci:
+
+```
+run:
+    /main/images/hero_run_color_1.png
+    /main/images/hero_run_color_2.png
+    ...
+```
+
+to id klatek będą wyglądały tak: `run/hero_run_color_1`. Taki identyfikator prawdopodobnie nie zostanie znaleziony na przykład w `normal.atlas`:
+
+```
+run:
+    /main/images/hero_run_normal_1.png
+    /main/images/hero_run_normal_2.png
+    ...
+```
+
+Dlatego używamy `Rename patterns` w [atlasie](/manuals/material/), aby zmienić te nazwy.
+Ustaw `_color=` i `_normal=` w odpowiednich atlasach, a w obu otrzymasz nazwy klatek w takiej postaci:
+
+```
+run/hero_run_1
+run/hero_run_2
+...
+```
+
+### UV
+
+Współrzędne UV są pobierane z pierwszej tekstury. Ponieważ istnieje tylko jeden zestaw wierzchołków, nie da się zagwarantować dobrego dopasowania, jeśli dodatkowe tekstury mają więcej współrzędnych UV albo inny kształt.
+
+Warto o tym pamiętać i zadbać, aby obrazy miały wystarczająco podobne kształty, bo w przeciwnym razie może pojawić się przeciekanie tekstur.
+
+Wymiary obrazów w poszczególnych teksturach mogą się różnić.

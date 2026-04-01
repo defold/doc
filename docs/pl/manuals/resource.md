@@ -1,63 +1,67 @@
 ---
-title: Zarządzanie zasobami w Defoldzie
-brief: Ta instrukcja wyjaśnia jak Defold automatycznie zarządza zasobami i jak można rędzie to robić.
+title: Zarządzanie zasobami
+brief: Ta instrukcja wyjaśnia, jak Defold automatycznie zarządza zasobami oraz jak ręcznie sterować ich ładowaniem, aby utrzymać zużycie pamięci i rozmiar pakietu w ryzach.
 ---
 
 # Zarządzanie zasobami
 
-Jeśli tworzysz bardzo małą grę, ograniczenia platformy docelowej (rozmiar pamięci, rozmiar paczki, moc obliczeniowa i zużycie baterii) mogą nigdy nie stanowić problemu. Jednak tworząc większe gry, zwłaszcza na urządzeniach przenośnych czy na przeglądarki, zużycie pamięci będzie prawdopodobnie jednym z największych ograniczeń. Doświadczony zespół będzie starannie zarządzać zasobami w oparciu o ograniczenia platformy. Defold dostarcza szereg funkcji do zarządzania pamięcią i rozmiarem paczki. Ta instrukcja pozwala się z nimi zapoznać.
+Jeśli tworzysz bardzo małą grę, ograniczenia platformy docelowej, takie jak zużycie pamięci, rozmiar pakietu, moc obliczeniowa czy pobór energii, mogą w ogóle nie stanowić problemu. Przy większych grach, zwłaszcza na urządzeniach przenośnych, zużycie pamięci szybko staje się jednym z głównych ograniczeń. Doświadczony zespół planuje budżety zasobów z uwzględnieniem ograniczeń platformy. Defold udostępnia zestaw funkcji, które pomagają kontrolować pamięć i rozmiar pakietu. Ta instrukcja zawiera ich przegląd.
 
 ## Statyczne drzewo zasobów
 
-Podczas tworzenia gry w Defoldzie deklarujesz statycznie drzewo zasobów. Każda część gry jest łączona z drzewem, począwszy od kolekcji rozruchowej (ang. bootrstrap collection), zwykle nazywanej "main.collection". Drzewo zasobów podąża za każdym odniesieniem i zawiera wszystkie zasoby powiązane z tymi odniesieniami:
+Podczas budowania gry w Defold statycznie deklarujesz drzewo zasobów. Każdy element gry trafia do tego drzewa, począwszy od kolekcji bootstrapowej, zwykle o nazwie main.collection. Drzewo zasobów podąża za wszystkimi odwołaniami i obejmuje wszystkie zasoby z nimi powiązane:
 
-- Dane obiektów gry (game objects) i komponentów (atlasy, dźwięki itp).
-- Prototypy komponentów fabryki (obiekty gry i kolekcje).
-- Odniesienia komponentów pełnomocników kolekcji (kolekcje).
-- Niestandardowe zasoby deklarowane w *game.project*.
+- dane obiektów gry i komponentów, na przykład atlasy, dźwięki itd.
+- prototypy komponentów Factory i Collection factory, czyli obiekty gry oraz kolekcje
+- odwołania komponentów Collection proxy
+- zasoby Custom Resources zadeklarowane w *game.project*
 
-![Drzewo zasobów](images/resource/resource_tree.png)
+![Resource tree](images/resource/resource_tree.png)
 
-Podczas tworzenia i pakowania gry, tylko to, co znajduje się w drzewie zasobów, zostanie uwzględnione w paczce. To, czego nie ma w drzewie, jest pomijane. Nie ma potrzeby ręcznego wybierania, co ma być uwzględnione lub wyłączone z paczki.
+::: sidenote
+Defold ma też pojęcie [zasobów pakietu](/manuals/project-settings/#bundle-resources). Są one dołączane do pakietu aplikacji, ale nie należą do drzewa zasobów. Mogą to być zarówno pliki pomocnicze zależne od platformy, jak i zewnętrzne pliki [wczytywane z systemu plików](/manuals/file-access/#how-to-access-files-bundled-with-the-application) używane przez grę, na przykład banki dźwięków FMOD.
+:::
 
-Podczas *uruchamiania* gry, silnik rozpoczyna działanie od korzenia drzewa rozruchowego (ang. bootstrap root) i ściąga zasoby do pamięci:
+Podczas *tworzenia pakietu* gry dołączane jest tylko to, co znajduje się w drzewie zasobów. Wszystko, do czego nie prowadzi żadne odwołanie w drzewie, zostaje pominięte. Nie trzeba ręcznie wybierać, co ma trafić do pakietu, a co ma zostać z niego wykluczone.
 
-- Każda kolekcja, do której odniesienie istnieje, wraz z jej zawartością.
-- Obiekty gry i dane komponentów.
-- Prototypy komponentów fabryki (obiekty gry i kolekcje).
+Podczas *uruchamiania* gry silnik zaczyna od bootstrapowego korzenia drzewa i ładuje zasoby do pamięci:
 
-Defold nie ładuje jednak automatycznie następujących rodzajów odniesionych zasobów podczas działania:
+- dowolną odwołaną kolekcję wraz z jej zawartością
+- obiekty gry i dane komponentów
+- prototypy komponentów Factory i Collection factory
 
-- Kolekcji świata gry, do której odniesienie istnieje przez proxy kolekcji. Światy gry są stosunkowo duże, więc będziesz musiał ręcznie uruchamiać i wyłączać ich ładowanie w kodzie. Zobacz [instrukcję do pełnomocników kolekcji](/manuals/collection-proxy), aby poznać szczegóły.
-- Pliki dodane za pomocą ustawienia *Custom Resources* (Niestandardowe zasoby) w *game.project*. Te pliki są ręcznie ładowane za pomocą funkcji [sys.load_resource()](/ref/sys/#sys.load_resource).
+Silnik nie ładuje jednak automatycznie następujących typów zasobów wskazanych w drzewie:
 
-Domyślny sposób, w jaki Defold pakuje i ładuje zasoby, można zmienić, aby uzyskać kontrolę nad tym, jak i kiedy zasoby wchodzą do pamięci.
+- kolekcji świata gry wskazywanych przez Collection proxy; takie światy są stosunkowo duże, więc ich ładowanie i zwalnianie trzeba wyzwalać ręcznie w kodzie. Szczegóły znajdziesz w [instrukcji Collection proxy](/manuals/collection-proxy)
+- plików dodanych przez ustawienie Custom Resources w *game.project*; te pliki wczytuje się ręcznie funkcją sys.load_resource()
 
-![Wczytywanie zasobów](images/resource/loading.png)
+Domyślny sposób, w jaki Defold pakuje i ładuje zasoby, można zmienić tak, aby zyskać precyzyjną kontrolę nad tym, kiedy i jak trafiają one do pamięci.
 
-## Dynamiczne ładowanie zasobów fabryki
+![Resource loading](images/resource/loading.png)
 
-Zasoby odniesione przez komponenty fabryki (ang. factory components) są zazwyczaj ładowane do pamięci, w momencie, gdy komponent jest ładowany. Zasoby są gotowe do użycia w grze, zanim fabryka zostanie utworzona w czasie działania. Aby zmienić domyślne zachowanie i opóźnić ładowanie zasobów fabryki, można po prostu zaznaczyć w właściwościach fabryki opcję *Load Dynamically* (Ładuj dynamicznie).
+## Dynamiczne ładowanie zasobów Factory
 
-![Opcja Ładuj dynamicznie](images/resource/load_dynamically.png)
+Zasoby wskazywane przez komponenty Factory są zwykle ładowane do pamięci razem z samym komponentem. Dzięki temu są gotowe do tworzenia obiektów od razu, gdy fabryka istnieje w czasie działania gry. Aby zmienić to zachowanie i odroczyć *ładowanie* zasobów Factory, zaznacz <kbd>Load Dynamically</kbd>.
 
-Zaznaczenie tej opcji spowoduje, że silnik wciąż zawierać będzie odniesione zasoby w paczce gry, ale nie załaduje ich automatycznie. Zamiast tego masz dwie opcje:
+![Load dynamically](images/resource/load_dynamically.png)
 
-1. Wywołać funckję [`factory.create()`](/ref/factory/#factory.create) lub [`collectionfactory.create()`](/ref/collectionfactory/#collectionfactory.create), gdy chcesz tworzyć obiekty. To spowoduje synchroniczne ładowanie zasobów, a następnie tworzenie nowych instancji.
-2. Wywołać funckję [`factory.load()`](/ref/factory/#factory.load) lub [`collectionfactory.load()`](/ref/collectionfactory/#collectionfactory.load), aby asynchronicznie ładować zasoby. Gdy zasoby będą gotowe do tworzenia, zostanie odebrane odpowiednie wywołanie zwrotne (callback).
+Po zaznaczeniu tego pola silnik nadal dołączy wskazane zasoby do pakietu gry, ale nie załaduje ich automatycznie. Zamiast tego masz dwie możliwości:
 
-Zobacz [instrukcję do fabryk](/manuals/factory) i [instrukcję do fabryk kolekcji](/manuals/collection-factory) po szczegóły dotyczące działania tych opcji.
+1. Wywołaj [factory.create()](/ref/factory/#factory.create) albo [collectionfactory.create()](/ref/collectionfactory/#collectionfactory.create), gdy chcesz tworzyć obiekty. Zasoby zostaną wtedy załadowane synchronicznie, a następnie pojawią się nowe instancje.
+2. Wywołaj [factory.load()](/ref/factory/#factory.load) albo [collectionfactory.load()](/ref/collectionfactory/#collectionfactory.load), aby załadować zasoby asynchronicznie. Gdy zasoby będą gotowe do tworzenia, zostanie wywołana funkcja zwrotna.
 
-## Dynamiczne zwalnianie ładowanych zasobów
+Szczegóły działania znajdziesz w [instrukcji Factory](/manuals/factory) i [instrukcji Collection factory](/manuals/collection-factory).
 
-Defold zachowuje liczniki odniesień dla wszystkich zasobów. Jeśli licznik odniesienia zasobu wynosi zero, oznacza to, że nie ma do niego już żadnego odniesienia. Zasób zostaje wtedy automatycznie usunięty z pamięci. Na przykład, jeśli usuniesz wszystkie obiekty utworzone przez fabrykę i dodatkowo usuniesz obiekt zawierający komponent fabryki, zasoby wcześniej odniesione przez fabrykę zostaną usunięte z pamięci.
+## Zwalnianie dynamicznie ładowanych zasobów
 
-Dla fabryk oznaczonych jako *Load Dynamically* można wywołać funkcję [`factory.unload()`](/ref/factory/#factory.unload) albo [`collectionfactory.unload()`](/ref/collectionfactory/#collectionfactory.unload). To wywołanie usuwa odniesienie komponentu fabryki do zasobu. Jeśli nic innego nie odnosi się do zasobu (np. wszystkie utworzone obiekty są usunięte), zasób zostanie zwolniony z pamięci.
+Defold utrzymuje liczniki referencji dla wszystkich zasobów. Jeśli licznik zasobu spadnie do zera, oznacza to, że nic już się do niego nie odwołuje. Zasób jest wtedy automatycznie zwalniany z pamięci. Na przykład jeśli usuniesz wszystkie obiekty utworzone przez fabrykę i dodatkowo usuniesz obiekt zawierający komponent Factory, zasoby wcześniej wskazywane przez tę fabrykę zostaną zwolnione z pamięci.
 
-## Wykluczanie zasobów z paczki
+W przypadku *fabryk* oznaczonych <kbd>Load Dynamically</kbd> możesz wywołać [`factory.unload()`](/ref/factory/#factory.unload) albo [`collectionfactory.unload()`](/ref/collectionfactory/#collectionfactory.unload). To wywołanie usuwa odwołanie komponentu Factory do zasobu. Jeśli nic innego nie odwołuje się już do tego zasobu, na przykład wszystkie utworzone obiekty zostały usunięte, zasób zostanie zwolniony z pamięci.
 
-Dzięki proxy (pełnomocnikom) kolekcji można pominąć wszystkie zasoby, do których odnosi się komponent, w procesie pakowania (bundling). Jest to przydatne, jeśli potrzebujesz zachować minimalny rozmiar paczki. Na przykład, podczas uruchamiania gier w sieci jako HTML5, przeglądarka pobierze całą paczkę przed uruchomieniem gry.
+## Wykluczanie zasobów z pakietu
 
-![Wykluczanie zasobów z paczki](images/resource/exclude.png)
+W przypadku Collection proxy można pominąć w procesie tworzenia pakietu wszystkie zasoby, do których odwołuje się komponent. Jest to przydatne, jeśli chcesz zminimalizować rozmiar pakietu. Na przykład podczas uruchamiania gry w przeglądarce jako HTML5 przeglądarka pobiera cały pakiet, zanim uruchomi grę.
 
-Zaznaczenie opcji pełnomocnika kolekcji nazwanej *Exclude* (Wyklucz) spowoduje, że odniesienie do zasobu zostanie pominięte w paczce gry. Zamiast tego można przechowywać wyłączone kolekcje w wybranym przechowywaniu w chmurze. W [instrukcji do aktualizacji na żywo - Live update](/manuals/live-update/) wyjaśniono, jak działa ta funkcja.
+![Exclude](images/resource/exclude.png)
+
+Po oznaczeniu Collection proxy jako <kbd>Exclude</kbd> wskazany zasób zostanie pominięty w pakiecie gry. Zamiast tego możesz przechowywać *wykluczone kolekcje* w wybranym magazynie w chmurze. [Instrukcja Live update](/manuals/live-update/) wyjaśnia, jak działa ta funkcja.

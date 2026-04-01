@@ -1,18 +1,18 @@
 ---
-title: Grupy kolizji w Defoldzie
-brief: Ta instrukcja jak działają grupy i maski silnika fizyki.
+title: Grupy kolizji w Defold
+brief: Silnik fizyki pozwala grupować obiekty fizyczne i określać, jak powinny ze sobą kolidować.
 ---
 
-# Grupy i maski kolizji
+# Grupa i maska
 
-Silnik fizyczny pozwala na grupowanie obiektów fizycznych i określanie, jak powinny ze sobą kolidować. Jest to możliwe dzięki zdefiniowanym grupom kolizji. Dla każdego obiektu kolizji (ang. collision object) tworzysz dwie właściwości (ang. properties), które kontrolują, jak obiekt koliduje z innymi obiektami, a mianowicie *Group* i *Mask*.
+Silnik fizyki pozwala grupować obiekty fizyczne i określać, jak powinny ze sobą kolidować. Odpowiadają za to nazwane _grupy kolizji_. Dla każdego obiektu kolizji tworzysz dwie właściwości, *Group* i *Mask*, które kontrolują sposób kolizji z innymi obiektami.
 
-Aby kolizja między dwoma obiektami została zarejestrowana, oba obiekty muszą wzajemnie określić grupy, do których należą (określone w *Group*), w swoim polu *Mask*.
+Aby kolizja między dwoma obiektami została zarejestrowana, oba obiekty muszą wzajemnie wskazywać grupy drugiej strony w polu *Mask*.
 
 ![Physics collision group](images/physics/collision_group.png)
 
-Pole *Mask* może zawierać wiele nazw grup, co pozwala na różne scenariusze interakcji.
+Pole *Mask* może zawierać wiele nazw grup, co pozwala tworzyć złożone scenariusze interakcji.
 
 ## Wykrywanie kolizji
 
-Gdy dwa obiekty kolizji o takich samych grupach i maskach kolidują, silnik fizyczny generuje [wiadomości o kolizji](/manuals/physics-messages), które można wykorzystać w grach do odpowiedniej reakcji na kolizje.
+Gdy dwa obiekty kolizji o pasujących grupach i maskach zderzają się, silnik fizyki generuje [wiadomości o kolizji](/manuals/physics-messages), które można wykorzystać w grze do reagowania na kolizje.
