@@ -17,6 +17,8 @@ Bob распространяется в виде Java _JAR_ архива, сод
 
 Если вы используете Windows, выберите установочный файл `.msi` для OpenJDK.
 
+Устаревшие флаги подписи манифеста Live Update `--manifest-private-key` и `--manifest-public-key` были удалены из Bob. Поля `publickey` и `privatekey` в `liveupdate.settings` теперь тоже считаются устаревшими и больше не используются, файл `game.public.der` больше не создается и не включается в бандл, а устаревшая проверка manifest/archive теперь проверяет только поддерживаемые версии движка вместо подписей встроенными ключами.
+
 ## Применение
 
 Bob запускается из оболочки или из командной строки, вызовом `java` (или` java.exe` в Windows) и передачей файла java-архива утилиты bob в качестве аргумента:
@@ -84,10 +86,6 @@ usage: bob [options] [commands]
                                          keystore (Android)
  -l,--liveupdate <arg>                   Yes if liveupdate content should
                                          be published
-    --manifest-private-key <arg>         Private key to use when signing
-                                         manifest and archive.
-    --manifest-public-key <arg>          Public key to use when signing
-                                         manifest and archive.
     --max-cpu-threads <arg>              Max count of threads that bob.jar
                                          can use
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)

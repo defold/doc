@@ -11,6 +11,10 @@ API состоит всего из нескольких функций:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`
 
+::: important
+Устаревший сценарий Live Update с загрузкой отдельных ресурсов больше не рекомендуется. Не используйте `collectionproxy.missing_resources()` и старые алиасы-помощники `resource.*` в новом коде. Современный рабочий процесс Live Update предполагает загрузку и монтирование целых архивов, а при необходимости можно использовать `collectionproxy.get_resources()`, чтобы определить, какой исключенный контент относится к proxy.
+:::
+
 ## Получение mount'ов
 
 Если вы используете более одного архива Live Update, рекомендуется при запуске
@@ -49,7 +53,20 @@ end
 
 Collection proxy, исключенный из бандла, работает как обычный collection proxy, но с одним важным отличием. Если отправить ему сообщение `load`, пока часть его ресурсов недоступна в хранилище бандла, загрузка завершится ошибкой.
 
-Поэтому перед отправкой `load` нужно проверить, есть ли отсутствующие ресурсы. Если они есть, нужно скачать архив, содержащий эти ассеты, а затем сохранить и смонтировать его.
+В текущем архивном сценарии вы обычно заранее определяете, какой архив или набор архивов нужен proxy, и монтируете их перед загрузкой. Если нужно проверить, есть ли у proxy исключенный контент, используйте `collectionproxy.get_resources()`. Более старая функция `collectionproxy.missing_resources()` относится к устаревшему сценарию Live Update с загрузкой отдельных ресурсов.
+
+Если включена опция *Strip Live Update Entries from Main Manifest*, а именно это значение используется по умолчанию при публикации архивного Live Update, то:
+
+* если ни один смонтированный архив не содержит исключенный контент для proxy, `collectionproxy.get_resources("#proxy")` возвращает пустую таблицу `{}`;
+* после монтирования нужного архива `collectionproxy.get_resources("#proxy")` возвращает непустую таблицу с хешами ресурсов этого proxy, например:
+
+```lua
+{
+    "a1b2c3...",
+    "d4e5f6...",
+    "7890ab...",
+    ...
+}
 
 Следующий пример кода предполагает, что ресурсы доступны по URL, указанному в настройке `game.http_url`.
 
@@ -77,6 +94,15 @@ local function mount_zip(self, name, priority, path, callback)
 	end)
 end
 
+local function has_mount(name)
+    for _, mount in ipairs(liveupdate.get_mounts()) do
+        if mount.name == name then
+            return true
+        end
+    end
+    return false
+end
+
 function init(self)
     self.http_url = sys.get_config_string("game.http_url", nil) -- <2>
 
@@ -89,9 +115,12 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
-        local missing_resources = collectionproxy.missing_resources("#" .. message.level) -- <5>
+        local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        if #missing_resources then
+        -- При включенном Strip Live Update Entries from Main Manifest эта таблица
+        -- остается пустой, пока нужный архив не будет смонтирован.
+        -- После монтирования в ней появляются хеши ресурсов proxy.
+        if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
             msg.post("#" .. message.level, "load")
@@ -126,8 +155,8 @@ end
 2. Архив нужно хранить онлайн, например на S3, откуда его можно будет скачать.
 3. По имени collection proxy нужно определить, какой архив или архивы нужно скачать и как их смонтировать.
 4. При запуске мы пытаемся загрузить уровень.
-5. Проверяем, доступны ли все ресурсы collection proxy.
-6. Если каких-то ресурсов не хватает, нужно скачать архив и смонтировать его.
+5. С помощью `collectionproxy.get_resources()` проверяем исключенный контент proxy. При стандартной настройке stripped-manifest функция возвращает `{}` до монтирования нужного архива, а после монтирования возвращает непустую таблицу хешей ресурсов proxy.
+6. Если proxy использует контент Live Update и соответствующий архив еще не смонтирован, мы скачиваем и монтируем его до загрузки proxy.
 7. Выполняем HTTP-запрос и скачиваем архив в `download_path`.
 8. Данные скачаны, и теперь их можно смонтировать в работающий движок.
 

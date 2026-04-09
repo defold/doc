@@ -64,7 +64,11 @@ To bundle with Live update is easy. Select <kbd>Project ▸ Bundle ▸ ...</kbd>
 
 ![Bundle Live application](images/live-update/bundle-app.png)
 
-When bundling, any excluded resource will be left out of the application bundle. By checking the *Publish Live update content* checkbox, you tell Defold to either upload the excluded resources to Amazon or to create a Zip archive, depending on how you have set up your Live update settings (see above). The manifest file for the bundle will also be included in the excluded resources.
+When bundling, any excluded resource will be left out of the application bundle. By checking the *Publish Live update content* checkbox, you tell Defold to either upload the excluded resources to Amazon or to create a Zip archive, depending on how you have set up your Live update settings (see above). The published Live Update content still includes `liveupdate.game.dmanifest`, which contains the full resource list needed for remote delivery.
+
+When publishing archive-based Live Update content, *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) is enabled by default. With this setting enabled, Live Update-only resources are removed from the bundled `game.dmanifest`, which reduces bundle size and runtime memory usage. Disable it only if you need the deprecated behavior where excluded entries remain in the bundled `game.dmanifest`.
+
+With the default setting enabled, `collectionproxy.get_resources()` returns `{}` until the relevant archive has been mounted. After mounting, it returns the resource hashes for that proxy.
 
 Click *Package* and select a location for the application bundle. Now you can start the application and check that everything works as expected.
 
@@ -130,6 +134,12 @@ Mounting an archive doesn't copy or move the archive. The engine only stores the
 
 To actually use the live update content, you need to download and mount the data to your game.
 Read more about about how to [script with live update here](/manuals/live-update-scripting).
+
+::: important
+The legacy single-resource Live Update flow is deprecated. Avoid `collectionproxy.missing_resources()`, the deprecated manifest APIs (`liveupdate.get_current_manifest()`, `liveupdate.store_resource()`, `liveupdate.store_manifest()`, `liveupdate.store_archive()`, `liveupdate.is_using_liveupdate_data()`), and the old `resource.*` helper aliases (`resource.get_current_manifest()`, `resource.store_resource()`, `resource.store_manifest()`, `resource.store_archive()`, `resource.is_using_liveupdate_data()`) in new projects.
+
+Current projects should publish archives, mount them with `liveupdate.add_mount()`, manage them with `liveupdate.get_mounts()` and `liveupdate.remove_mount()`, and use `collectionproxy.get_resources()` when they need to inspect excluded content for a proxy. Legacy manifest-signing keys are no longer part of this pipeline: `liveupdate.settings` `publickey` and `privatekey` are deprecated and unused, and `game.public.der` is no longer generated or bundled.
+:::
 
 ## Development caveats
 

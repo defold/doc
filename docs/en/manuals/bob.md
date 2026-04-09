@@ -17,6 +17,8 @@ Compatible OpenJDK 25 mirrors (from Defold 1.12.0):
 
 If you are on Windows you want the `.msi` file installer for OpenJDK.
 
+Legacy Live Update manifest-signing flags `--manifest-private-key` and `--manifest-public-key` have been removed from Bob. The `publickey` and `privatekey` entries in `liveupdate.settings` are now deprecated and unused, `game.public.der` is no longer generated or bundled, and the deprecated manifest/archive validation flow now checks supported engine versions instead of bundled key signatures.
+
 ## Usage
 
 Bob is run from a shell or from the command line by invoking `java` (or `java.exe` on Windows) and providing the bob java archive as argument:
@@ -84,10 +86,6 @@ usage: bob [options] [commands]
                                          keystore (Android)
  -l,--liveupdate <arg>                   Yes if liveupdate content should
                                          be published
-    --manifest-private-key <arg>         Private key to use when signing
-                                         manifest and archive.
-    --manifest-public-key <arg>          Public key to use when signing
-                                         manifest and archive.
     --max-cpu-threads <arg>              Max count of threads that bob.jar
                                          can use
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)

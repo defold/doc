@@ -11,6 +11,10 @@ API 仅包含几个函数：
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`。
 
+::: important
+旧的按单个资源处理的 Live Update 流程已弃用。新代码中不要再使用 `collectionproxy.missing_resources()` 以及旧的 `resource.*` 辅助别名。当前的 Live Update 工作流应下载并挂载整个归档文件；如果需要检查某个代理关联了哪些被排除的内容，可以使用 `collectionproxy.get_resources()`。
+:::
+
 ## 获取挂载点
 
 如果您使用多个 live update 归档文件，建议在启动时遍历每个挂载点
@@ -48,7 +52,20 @@ end
 
 被排除在打包之外的集合代理与普通集合代理的工作方式类似，但有一个重要区别。当它仍然有在捆绑存储中不可用的资源时，向它发送 `load` 消息将导致它失败。
 
-所以在向它发送 `load` 之前，我们需要检查是否有任何缺失的资源。如果有，我们必须下载包含这些资源的归档文件，然后存储它。
+在当前基于归档的工作流中，通常应预先确定某个代理需要哪个或哪些归档文件，并在加载之前先挂载它们。如果需要检查代理是否引用了被排除的内容，请使用 `collectionproxy.get_resources()`。较旧的 `collectionproxy.missing_resources()` 属于已弃用的单资源 Live Update 流程。
+
+当启用 *Strip Live Update Entries from Main Manifest* 时，也就是发布基于归档的 Live Update 内容时的默认设置：
+
+* 如果当前没有任何已挂载归档包含该代理所需的被排除内容，`collectionproxy.get_resources("#proxy")` 会返回空表 `{}`；
+* 挂载相关归档后，`collectionproxy.get_resources("#proxy")` 会返回一个非空表，其中包含该代理的资源哈希，例如：
+
+```lua
+{
+    "a1b2c3...",
+    "d4e5f6...",
+    "7890ab...",
+    ...
+}
 
 以下示例代码假设资源可以通过设置 `game.http_url` 中指定的 URL 获得。
 
@@ -76,6 +93,15 @@ local function mount_zip(self, name, priority, path, callback)
 	end)
 end
 
+local function has_mount(name)
+    for _, mount in ipairs(liveupdate.get_mounts()) do
+        if mount.name == name then
+            return true
+        end
+    end
+    return false
+end
+
 function init(self)
     self.http_url = sys.get_config_string("game.http_url", nil) -- <2>
 
@@ -88,9 +114,12 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
-        local missing_resources = collectionproxy.missing_resources("#" .. message.level) -- <5>
+        local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        if #missing_resources then
+        -- 启用 Strip Live Update Entries from Main Manifest 后，
+        -- 在相关归档挂载之前这个表会保持为空。
+        -- 挂载之后，它会包含属于该代理的资源哈希。
+        if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
             msg.post("#" .. message.level, "load")
@@ -125,8 +154,8 @@ end
 2. 您需要将归档文件在线存储（例如在 S3 上），以便您可以从中下载。
 3. 给定集合代理名称，您需要确定要下载哪些归档文件，以及如何挂载它们
 4. 在启动时，我们尝试加载关卡。
-5. 检查集合代理是否具有所有可用资源。
-6. 如果有资源缺失，那么我们需要下载归档文件并挂载它。
+5. 使用 `collectionproxy.get_resources()` 检查该代理的被排除内容。在默认的 stripped-manifest 设置下，它会在相关归档挂载前返回 `{}`，挂载后则返回一个包含该代理资源哈希的非空表。
+6. 如果该代理使用 Live Update 内容且相关归档尚未挂载，则先下载并挂载该归档，再加载代理。
 7. 发出 http 请求并将归档文件下载到 `download_path`
 8. 数据已下载，是时候将其挂载到正在运行的引擎上了。
 
