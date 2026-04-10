@@ -53,7 +53,7 @@ The reason why you want to do this is because the game will be drawn on a grid w
 
 ## Creating new folders in Assets pane
 
-Very little is needed in terms of graphics for a minimalistic Snake clone. One 16⨉16 green segment for the snake, one white block for the obstacles and one, smaller red block representing the food.
+Very little is needed in terms of graphics for a minimalist Snake clone. One 16⨉16 green segment for the snake, one white block for the obstacles and one, smaller red block representing the food.
 
 First, create a directory for the assets in the Defold Editor:
 
