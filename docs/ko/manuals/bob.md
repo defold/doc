@@ -5,6 +5,8 @@ title: Defold manual
 # Bob the builder
 Bob은 에디터 외부에서 Defold 프로젝트를 빌드하기 위한 도구입니다. 이 메뉴얼은 이 도구를 사용하는 방법에 대해 설명합니다.
 
+예전 Live Update 매니페스트 서명 옵션인 `--manifest-private-key` 와 `--manifest-public-key` 는 Bob에서 제거되었습니다. `liveupdate.settings` 의 `publickey` 와 `privatekey` 항목도 이제는 폐기되었으며 더 이상 사용되지 않고, `game.public.der` 파일도 더 이상 생성되거나 번들에 포함되지 않습니다. 또한 예전 매니페스트/아카이브 검증 흐름은 번들된 키 서명 대신 지원되는 엔진 버전만 확인합니다.
+
 ## Overview
 Bob은 데이터를 빌드(에디터에서  **Project ▸ Build And Launch** 선택하는 것에 해당함)하고 압축하고 독립(standalone) 및 배포 가능한 어플리케이션 번들을 생성(에디터에서 **Project ▸ Bundle ▸ \*** 을 선택하는 것에 해당함)할 수 있습니다.
 
@@ -76,10 +78,6 @@ usage: bob [options] [commands]
                                          keystore (Android)
  -l,--liveupdate <arg>                   Yes if liveupdate content should
                                          be published
-    --manifest-private-key <arg>         Private key to use when signing
-                                         manifest and archive.
-    --manifest-public-key <arg>          Public key to use when signing
-                                         manifest and archive.
     --max-cpu-threads <arg>              Max count of threads that bob.jar
                                          can use
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)

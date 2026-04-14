@@ -29,7 +29,7 @@ title: Defold manual
 
 ![Live update settings](images/live-update/aws-settings.png)
 
-여기엔 Defold가 설정을 저장할 수 있는 두 가지 방법이 있습니다. 라이브 업데이트 셋팅 창에서 **Mode** 드롭다운 버튼을 열어 저장 방식을 선택해 보세요.
+여기에는 Defold가 제외된 리소스를 저장할 수 있는 세 가지 방법이 있습니다. 라이브 업데이트 설정 창에서 **Mode** 드롭다운 버튼을 열어 저장 방식을 선택해 보세요.
 
 #### Amazon
 이 옵션은 Defold에게 아마존 웹 서비스(AWS) S3 버켓에 제외된 리소스를 자동으로 업로드 하라고 지시합니다.   AWS **Credential profile** 에 이름을 입력하고 적당한 **Bucket**과 **Prefix** 를 선택하세요. [AWS 계정을 셋업하는 자세한 방법은 아래에서 확인해 주세요.](#setting-up-amazon-web-service)
@@ -37,64 +37,96 @@ title: Defold manual
 #### Zip
 이 옵션은 Defold에게 제외된 리소스를 포함한 Zip 압축 파일을 생성하라고 지시합니다. 이 압축 파일은 **Export path**에 설정한 경로에 저장됩니다.
 
+#### Folder
+이 옵션은 제외된 리소스를 모두 포함하는 폴더를 생성하라고 Defold에 지시합니다. `Zip` 과 비슷하지만 압축 파일 대신 디렉터리를 사용합니다. 업로드 전에 파일을 후처리하거나 나중에 직접 다시 압축하고 싶을 때 유용합니다.
+
 ## Scripting with excluded collection proxies
 번들링(bundling)에서 제외된 컬렉션 프록시는 일반적인 컬렉션 프록시 처럼 동작합니다. 하나의 중요한 차이점으로는 번들 스토리지에서 사용할 수 없는 리소스가 있다면, "load" 메세지를 전송하는 것이 실패하게 된다는 것입니다.
 
-그러므로 "load" 메세지를 보내기 전에, 누락된 리소스가 있는지 확인해야 하며, 누락된 리소스가 없다면 다운로드 후 저장하면 됩니다. 다음은 리소스가 아마존 S3에 "my-resources"라는 prefix와 "my-game-bucket" 라는 bucket으로 저장되어 있다고 가정한 예제 코드입니다.
+현재의 아카이브 기반 워크플로우에서는 보통 특정 프록시에 어떤 아카이브가 필요한지 미리 결정하고, 로드하기 전에 먼저 마운트합니다. 프록시가 제외된 컨텐츠를 참조하는지 확인해야 한다면 `collectionproxy.get_resources()` 를 사용하세요. 기존의 `collectionproxy.missing_resources()` 는 개별 리소스를 내려받던 예전 Live Update 흐름에 속하며 이제는 더 이상 권장되지 않습니다.
+
+기본값인 *Strip Live Update Entries from Main Manifest* 옵션을 켠 상태에서는:
+
+* 프록시에 필요한 컬렉션이 들어 있는 Live Update 아카이브가 아직 마운트되지 않았다면 `collectionproxy.get_resources("#proxy")` 는 빈 테이블 `{}` 를 반환합니다.
+* 해당 Live Update 아카이브를 마운트한 뒤에는 `collectionproxy.get_resources("#proxy")` 가 그 프록시에 속한 리소스 해시를 담은 비어 있지 않은 테이블을 반환합니다. 예:
 
 ```lua
-function init(self)
-    self.resources_pending = 0                                 [1]
-    msg.post("#", "attempt_load_resources")
-end
+{
+    "a1b2c3...", -- 대상 컬렉션
+    "d4e5f6...", -- 게임 오브젝트
+    "7890ab...", -- 스크립트
+}
+```
 
--- 이 함수는 컬렉션 프록시를 로드하는데 필요한 다운로드된 리소스를 저장하려 할 때마다 호출 됩니다.
-local function resource_store_response(self, hexdigest, status)
-    if status == true then
-        -- 리소스를 성공적으로 로드함
-        print("Resource data stored: " .. hexdigest)
+아래 예제는 아카이브가 `game.http_url` 설정에 지정된 URL을 통해 제공된다고 가정합니다.
 
-        -- 다음 리소스를 위해 하나 빼기...
-        self.resources_pending = self.resources_pending - 1
+```lua
+-- 어떤 아카이브가 어떤 컨텐츠를 담고 있는지 추적해야 합니다.
+-- 이 예제에서는 필요한 리소스를 담은 liveupdate 아카이브 하나만 사용합니다.
+local lu_infos = {
+    liveupdate = {
+        name = "liveupdate",
+        priority = 10,
+    }
+}
 
-        -- 전부 성공적으로 저장됨, 이제 프록시 컬렉션을 로드할 때가 됨
-        if self.resources_pending == 0 then
-            msg.post("#proxy", "load")            [8]
-        end
-    else
-        -- ERROR! 데이터 저장 실패!
-        print("Failed to store resource data: " .. hexdigest)
+local function get_lu_info_for_level(level_name)
+    if level_name == "level1" then
+        return lu_infos["liveupdate"]
     end
 end
 
+local function mount_zip(self, name, priority, path, callback)
+    liveupdate.add_mount(name, "zip:" .. path, priority, function(_uri, _path, _status) -- [1]
+        callback(_uri, _path, _status)
+    end)
+end
+
+local function has_mount(name)
+    for _, mount in ipairs(liveupdate.get_mounts()) do
+        if mount.name == name then
+            return true
+        end
+    end
+    return false
+end
+
+function init(self)
+    self.http_url = sys.get_config_string("game.http_url", nil) -- [2]
+
+    local level_name = "level1"
+    local info = get_lu_info_for_level(level_name) -- [3]
+
+    msg.post("#", "load_level", { level = "level1", info = info }) -- [4]
+end
+
 function on_message(self, message_id, message, sender)
-    if message_id == hash("attempt_load_resources") then
-        local missing_resources = collectionproxy.missing_resources("#proxy")            [2]
+    if message_id == hash("load_level") then
+        local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- [5]
 
-        -- 아직 시도하지 않은 누락된 리소스를 위해 다운로드 요청을 개시함
-        for _,resource_hash in ipairs(missing_resources) do
-            msg.post("#", "attempt_download", { resource_hash = resource_hash})
+        -- Strip Live Update Entries from Main Manifest 가 켜져 있으면,
+        -- 관련 아카이브를 마운트하기 전까지는 이 테이블이 비어 있습니다.
+        -- 마운트 후에는 프록시에 속한 리소스 해시들이 들어 있습니다.
+        if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
+            msg.post("#", "download_archive", message) -- [6]
+        else
+            msg.post("#" .. message.level, "load")
         end
 
-        self.resources_pending = #missing_resources            [3]
+    elseif message_id == hash("download_archive") then
+        local zip_filename = message.info.name .. ".zip"
+        local download_path = sys.get_save_file("mygame", zip_filename)
+        local url = self.http_url .. "/" .. zip_filename
 
-        -- 만약 에디터상에서 실행하는거면 모든 리소스가 이미 로드된거로 됨
-        if self.resources_pending == 0 then
-            msg.post("#proxy", "load")
-        end
-    elseif message_id == hash("attempt_download") then
-        local manifest = resource.get_current_manifest()            [4]
-        local base_url = "https://my-game-bucket.s3.amazonaws.com/my-resources/"            [5]
-        http.request(base_url .. message.resource_hash, "GET", function(self, id, response)
-                if response.status == 200 or response.status == 304 then            [6]
-                    -- ok로 응답(response) 받음
-                    print("storing " .. message.resource_hash)
-                    resource.store_resource(manifest, response.response, message.resource_hash, resource_store_response)            [7]
-                else
-                    -- ERROR! 리소스 다운로드 실패!
-                    print("Failed to download resource: " .. message.resource_hash)
-                end
-            end)
+        http.request(url, "GET", function(self, id, response) -- [7]
+            if response.status == 200 or response.status == 304 then
+                mount_zip(self, message.info.name, message.info.priority, download_path, function(uri, path, status) -- [8]
+                    msg.post("#", "load_level", message)
+                end)
+            else
+                print("아카이브를 다운로드하지 못했습니다 ", download_path, "from", url, ":", response.status)
+            end
+        end, nil, nil, {path=download_path})
     elseif message_id == hash("proxy_loaded") then
         msg.post(sender, "init")
         msg.post(sender, "enable")
@@ -102,14 +134,14 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-* **[1]** 프록시 컬렉션을 로드하기 전에 얼마나 많은 리소스를 다운로드 하고 저장해야 하는지 알려주는 간단한 카운터. 이 코드는 에러를 전혀 처리하지 않고 있으므로 실제 제품용 코드에서는 다운로드와 저장 작업시 더 많은 처리가 필요함.
-* **[2]** 다운로드와 저장이 필요한 모든 리소스들을 획득함
-* **[3]** 누락된 리소스들의 수를 저장해서 카운트 다운 함
-* **[4]** 번들의 모든 리소스들을 나열하고 사용가능 여부를 확인한 이후의 현재 메니페스트가 필요함
-* **[5]** 리소스를 아마존 S3 에 저장함. 만약 Zip 파일로 저장한다면, 파일을 어딘가에 호스팅하고 http.request()로 다운로드 할 때 파일의 위치를 참조해야 함
-* **[6].** 파일이 크래쉬 나면 아마존이 304 status를 리턴함
-* **[7].** 데이터를 들고 있으므로 저장을 시도함
-* **[8].** 스토리지에 성공적으로 저장했으면 리소스 카운터가 0이 됨. 이제 컬렉션 프록시에 "load" 메세지를 보내도 안전함. 특정 지점에서 다운로드나 저장이 실패한 경우엔 리소스 카운터가 0이 될 수 없음
+* **[1]** `liveupdate.add_mount()` 는 이름, 우선순위, zip 파일을 지정해서 하나의 아카이브를 마운트합니다. 엔진을 재시작하지 않아도 즉시 사용할 수 있습니다.
+* **[2]** 아카이브는 S3 같은 온라인 위치에 저장해 두어야 합니다.
+* **[3]** collection proxy 이름을 기준으로 어떤 아카이브를 받아야 하는지 결정합니다.
+* **[4]** 시작 시점에 레벨을 로드하려고 시도합니다.
+* **[5]** `collectionproxy.get_resources()` 로 프록시의 제외된 컨텐츠를 확인합니다. 기본 stripped-manifest 설정에서는 관련 아카이브를 마운트하기 전까지 `{}` 를 반환하고, 마운트 후에는 프록시에 속한 리소스 해시 테이블을 반환합니다.
+* **[6]** 프록시가 Live Update 컨텐츠를 사용하고 아직 해당 아카이브가 마운트되지 않았다면, 프록시를 로드하기 전에 아카이브를 다운로드하고 마운트합니다.
+* **[7]** HTTP 요청으로 아카이브를 `download_path` 에 다운로드합니다.
+* **[8]** 다운로드가 끝나면 실행 중인 엔진에 아카이브를 마운트합니다.
 
 위의 로딩 코드를 사용해서 어플리케이션을 테스트 할 수 있습니다. 하지만 에디터상에서 실행하면 아무것도 다운로드 하지 않습니다. 왜냐하면 라이브 업데이트는 번들(bundle)의 기능이기 때문입니다. 에디터 환경에서 실행하면 어떤 리소스도 제외(exclude)되지 않습니다. 이 동작이 잘 돌아가는지 확인하려면, 번들로 만들어서 실행해야 합니다.
 
@@ -118,7 +150,11 @@ end
 
 ![Bundle Live application](images/live-update/bundle-app.png)
 
-번들링(dundling) 할 때, 제외 리소스(excluded resource)들은 어플리케이션 번들에서 제외됩니다.  **Publish Live update content** 체크박스를 체크하면 라이브 업데이트를 어떻게 셋팅했는지(위 내용 참고)에 따라 아마존에 올릴지 Zip 파일을 생성할지를 Defold에게 알려줍니다.
+번들링할 때 제외 리소스(excluded resource)들은 어플리케이션 번들에서 제외됩니다. **Publish Live update content** 체크박스를 체크하면 라이브 업데이트를 어떻게 설정했는지(위 내용 참고)에 따라 아마존에 업로드할지 Zip 파일을 생성할지를 Defold에게 알려줍니다. 게시되는 Live Update 컨텐츠에는 원격 전달에 필요한 전체 리소스 목록을 담고 있는 `liveupdate.game.dmanifest` 가 계속 포함됩니다.
+
+아카이브 기반 Live Update 컨텐츠를 게시할 때는 *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) 옵션이 기본으로 켜져 있습니다. 이 옵션이 켜져 있으면 Live Update 전용 리소스가 번들된 `game.dmanifest` 에서 제거되어 번들 크기와 런타임 메모리 사용량을 줄일 수 있습니다. 제외된 항목을 계속 번들된 `game.dmanifest` 에 남겨 두는 예전 동작이 꼭 필요할 때만 이 옵션을 끄세요.
+
+기본 설정에서는 관련 아카이브를 마운트하기 전까지 `collectionproxy.get_resources()` 가 `{}` 를 반환하고, 마운트 후에는 해당 프록시의 리소스 해시들을 반환합니다.
 
 **Package**를 클릭하고 어플리케이션 번들이 만들어질 위치를 선택합니다. 이제 어플리케이션을 시작해서 모두 예상대로 동작하는지 확인할 수 있습니다.
 
@@ -237,12 +273,14 @@ aws_secret_access_key = <Secret access key>
 
 ![Live update settings](images/live-update/05-liveupdate-settings.png)
 
-## The manifest
-메니페스트는 각 리소스의 해쉬값 뿐만 아니라 빌드에 포함된 모든 리소스들의 목록을 들고 있는 내부 데이터 구조(internal data structure)입니다. 라이브 업데이트 기능은 메니페스트를 사용하여 빌드된 게임의 파트를 추척하고, 로드할 수 있는 외부 소스를 나열하고, 로드된 데이터가 손상되지 않았는지 확인합니다.
+## Deprecated legacy manifest flow
+개별 리소스를 다운로드하고 런타임에서 매니페스트를 직접 교체하던 예전 Live Update 흐름은 이제 더 이상 권장되지 않습니다.
 
-유저 관점에서 메니페스트는 숫자 핸들(numeric handle)이며, 엔진을 관리하는 세부 정보는 남겨 둡니다.
+특히 `collectionproxy.missing_resources()`, 폐기된 매니페스트 API (`liveupdate.get_current_manifest()`, `liveupdate.store_resource()`, `liveupdate.store_manifest()`, `liveupdate.store_archive()`, `liveupdate.is_using_liveupdate_data()`), 그리고 오래된 `resource.*` 보조 함수 (`resource.get_current_manifest()`, `resource.store_resource()`, `resource.store_manifest()`, `resource.store_archive()`, `resource.is_using_liveupdate_data()`) 는 새 프로젝트에서 사용하지 않는 것이 좋습니다.
 
-> 현재는 초기 빌드 메니페스트(initial build manifest)만 사용 가능합니다. 새 메니페스트를 저장하는 기능은 시스템에 계획된 업데이트 사항입니다. 이는 알려지지 않은 출품된 게임의 리소스를 빌드 타임에 수정하거나 추가할 수 있게 해 줍니다.
+현재 권장되는 방식은 Live Update 아카이브를 게시한 뒤 `liveupdate.add_mount()` 로 마운트하고, `liveupdate.get_mounts()` 와 `liveupdate.remove_mount()` 로 관리하며, 필요할 때만 `collectionproxy.get_resources()` 로 프록시의 제외된 컨텐츠를 확인하는 것입니다. 예전 매니페스트 서명 키는 더 이상 이 파이프라인에 포함되지 않습니다. `liveupdate.settings` 의 `publickey` 와 `privatekey` 는 폐기되었고 더 이상 사용되지 않으며, `game.public.der` 도 더 이상 생성되거나 번들에 포함되지 않습니다.
+
+Live Update 컨텐츠를 게시하면 Defold는 여전히 `liveupdate.game.dmanifest` 파일을 생성하지만, 이 파일은 번들링과 게시 과정의 일부로 자동 처리됩니다. 더 이상 매니페스트를 수동으로 다운로드하거나 저장할 필요가 없고, 매니페스트 서명을 위한 공개/개인 키 쌍을 설정할 필요도 없습니다.
 
 ## Development caveats
 ### Debugging
@@ -258,8 +296,3 @@ aws_secret_access_key = <Secret access key>
 어플리케이션이 리소스를 저장하려 하면, 로컬 컴퓨터나 휴대장치의 디스크에 저장됩니다. 만약 어플리케이션을 재시작해도, 이 리소스들은 여전히 그대로 있습니다. 개발중인 경우는 때로 리소스들을 삭제해야할 경우도 있고 강제로 다시 다운로드 해야할 경우도 있습니다. sys.get_save_file() 함수는 Defold가 리소스를 저장하는 경로를 반환합니다. 저 폴더에서, Defold는 생성된 번들의 해쉬 이름을 사용하여 폴더를 만듭니다. 만약 이 폴더의 파일들을 삭제하면, 어플리케이션은 메니페스트의 리소스를 무효처리(invalidate) 하므로 당신은 이를 다시 다운로드하고 저장할 수 있게 됩니다.
 
 ![Local storage](images/live-update/local-storage.png)
-
-## Known issues
-* 현재는 빌드타임에 생성한 메니페스트만 액세스할 수 있습니다. 가까운 시일 내에 새 메니페스트를 저장하도록 할 예정입니다. 이는 기존 리소스를 수정하거나 라이브 업데이트를 통해 새 리소스를 게임에 추가할 수 있게 해 줍니다.
-
-* 현재 resource.store_resource() 는 메인 스레드를 차단(block)하고 있습니다. 즉, 큰 리소스를 저장하면 끊김 현상이 발생할 수 있습니다.
