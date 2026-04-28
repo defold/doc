@@ -13,15 +13,11 @@ By default, many visual scenes open with a **2D orthographic** view. For 3D work
 
 Open the Scene Editor by double-clicking a visual resource in the *Assets* pane, such as:
 
-- **Collections** (`.collection`)
-- **Game objects** (`.go`)
-- **Atlas** (`.atlas`)
-- **Models** (`.model`, `.glb`)
-- **GUI scenes** (`.gui`)
-- **Tilemaps** (`.tilemap`)
-- **Tile sources** (`.tilesource`)
-- **Sprites** (`.sprite`)
-- **Particle effects** (`.particlefx`)
+- **Scene structure** — collections (`.collection`), game objects (`.go`)
+- **2D assets** — atlas (`.atlas`), tilemaps (`.tilemap`), sprites (`.sprite`), tile sources (`.tilesource`)
+- **3D assets** — models (`.model`, `.glb`)
+- **UI** — GUI scenes (`.gui`)
+- **Effects** — particle effects (`.particlefx`)
 - And others
 
 ## Scene view navigation (camera controls)
@@ -33,11 +29,11 @@ The Scene Editor camera can be controlled with mouse and keyboard. The available
 These controls are available in visual editors:
 
 - **Pan**
-  - <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Left Mouse Button</kbd>, or <kbd>Right Mouse Button</kbd>
+  - <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Left Mouse Button</kbd>
 - **Zoom**
   - <kbd>Mouse Wheel</kbd>, or
-  - <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Right Mouse Button</kbd>
-- **Rotate (3D) around selection**
+  - <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Left Mouse Button</kbd>
+- **Rotate/Orbit (3D) around selection**
   - <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd>
 
 You may also use **Frame Selection** (<kbd>F</kbd>) to focus the camera on the current selection.
@@ -93,7 +89,7 @@ The gizmo changes and shows a set of manipulators - squares and arrows (selected
 
 - one cyan center square handle to move the object only in the screen space,
 - 3 red, green and blue arrows along each axis to move the object only along the given X, Y or Z axis.
-- 3 red, green and blue square handles to move the object only on the given plane, e.g. X-Y (blue) and (visible if rotating the camera in 3D) X-Z (green) and Y-Z (red) planes.
+- 3 red, green and blue square handles (outlined with a transparent fill) to move the object only on the given plane, e.g. X-Y (blue) and (visible if rotating the camera in 3D) X-Z (green) and Y-Z (red) planes.
 
 #### Rotate tool
 
@@ -196,7 +192,7 @@ While Free Camera Mode is active:
 - <kbd>Q</kbd> — down
 
 ::: sidenote
-All movement keys can be rebound in `File ▸ Preferences ▸ Keys`.
+All movement keys can be rebound in `File ▸ Preferences ▸ Keys`. Then search for `Scene -> Free Camera`
 :::
 
 Speed modifiers:
