@@ -1027,6 +1027,10 @@
                         "name": "Overview"
                     },
                     {
+                        "path": "/manuals/scene-editing",
+                        "name": "Scene Editing"
+                    },
+                    {
                         "path": "/manuals/writing-code",
                         "name": "Code editor"
                     },

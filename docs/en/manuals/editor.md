@@ -60,19 +60,21 @@ Lists all the files and folders that are part of your project in a tree structur
    - <kbd>Drag and Drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
    - <kbd>Right Mouse Click</kbd> to open a _Context Menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
 
-### 2. Editor pane
-The center view shows the currently open file in a specific editor for that file type, for example script files are opened in the built-in Code Editor, while visual components - in 3D Visual Editor. All Visual Editors allows you to change the camera view:
+### 2. Scene Editor pane
 
-- Pan: <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Left Mouse Button</kbd> or <kbd>Right Mouse Button</kbd>
-- Zoom: <kbd>Scroll Mouse Wheel</kbd> or <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Right Mouse Button</kbd>.
-- Rotate in 3D around selection: <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd>.
+Double-clicking a collection, game object, or visual component file opens the *Scene Editor* — the visual editor for building and editing scenes. Script files and other non-visual resources open in their own dedicated editors instead.
 
-#### Toolbar
-There is a toolbar in the top right corner of the scene view where you can find object manipulation tools (from left):
+![Scene Editor](images/editor/2d_scene.png)
 
-*Move* (<kbd>W</kbd>), *Rotate* (<kbd>E</kbd>), *Scale* (<kbd>R</kbd>), *Grid Settings* `▦`, *Align Camera 2D/3D* `2D`, *Camera Perspective/Orthographic Toggle* and *Visibility Filters* `👁`.
+Some of the core features offered by the Scene Editor:
 
-![Toolbar](images/editor/toolbar.png)
+- [2D and 3D scene navigation](/manuals/scene-editing/#2d-and-3d-scene-orientation) with orthographic and perspective camera modes
+- [Transform tools](/manuals/scene-editing/#manipulating-objects) for moving, rotating and scaling objects
+- [Free Camera Mode](/manuals/scene-editing/#free-camera-mode) for first-person 3D navigation
+- [Grid settings](/manuals/scene-editing/#grid-settings) with configurable size, plane and appearance
+- [Visibility filters](/manuals/scene-editing/#visibility-filters) to toggle component types and guides
+
+Read more in the [Scene Editor manual](/manuals/scene-editing/).
 
 ### 3. Outline pane
 
@@ -162,75 +164,6 @@ It is possible to open 2 editor views side by side.
 
 You can also use the tab menu to `Swap with Other Tab Pane` to move given tab between panes or `Join Tab Panes` to a single pane.
 
-## The Scene Editor
-
-Double clicking a collection or game object or visual component file brings up the *Scene Editor*. By default, all visual scenes open with a 2D orthographic perspective:
-
-![Scene Editor](images/editor/2d_scene.png)
-
-If you are working with a 3D project it is worth to check the Toolbar and adjust the *Grid Settings* `▦` e.g. realign camera to toggle 2D/3D `2D` (or <kbd>.</kbd> key), set grid to be displayed on Plane `Y` or any other that looks more intuitively to you and change the camera to perspective - using a toggle on the Toolbar or `View` &rarr; `Perspective Camera`:
-
-![Scene Editor 3D](images/editor/3d_scene.png)
-
-### Manipulating objects
-
-<kbd>Left Mouse Click</kbd> on objects in the main window to select them. The rectangle (or cuboid) surrounding the object in the editor view will highlight with cyan to indicate what item is selected. The selected object is also highlighted in the `Outline` view as in the picture above.
-
-  You can also select objects by:
-
-  - <kbd>Left Mouse Click</kbd> and <kbd>Drag</kbd> to select all objects inside the selection region.
-  - <kbd>Left Mouse Click</kbd> objects in the `Outline`, and while holding <kbd>⇧ Shift</kbd> you can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> you can (un)select clicked.
-
-#### Move tool
-
-![Move tool](images/editor/icon_move.png){.left}
-
-To move objects, use the *Move Tool*. You can find it in the Toolbar in the top right corner of the scene editor, or by pressing the <kbd>W</kbd> key.
-
-![Move object](images/editor/move.png){.inline}![Move object 3D](images/editor/move_3d.png){.inline}
-
-The gizmo changes and shows a set of manipulators - squares and arrows (selected manipulator will turn to orange color) that you can <kbd>Drag</kbd> to move:
-
-- one cyan center square handle to move the object only in the screen space,
-- 3 red, green and blue arrows along each axis to move the object only along the given X, Y or Z axis.
-- 3 red, green and blue square handles to move the object only on the given plane, e.g. X-Y (blue) and (visible if rotating the camera in 3D) X-Z (green) and Y-Z (red) planes.
-
-#### Rotate tool
-
-![Rotate tool](images/editor/icon_rotate.png){.left}
-
-To rotate objects, use the *Rotate Tool* by selecting it in the Toolbar, or by pressing the <kbd>E</kbd> key.
-
-![Rotate object](images/editor/rotate.png){.inline}![Rotate object 3D](images/editor/rotate_3d.png){.inline}
-
-This tool consists of four circular manipulators (selected manipulator will turn to orange color) that you can <kbd>Drag</kbd> to rotate:
-
-- one cyan (outer, biggest circle) manipulator that rotates the object in the screen space
-- 3 smaller red, green and blue circle manipulators allowing rotation around each of the X, Y and Z axes separately. For 2D orthographic view, the 2 of them are perpendicular to the X- and Y-axis, so the circles only appear as two lines crossing the object.
-
-
-#### Scale tool
-
-![Scale tool](images/editor/icon_scale.png){.left}
-
-To scale objects, use the *Scale Tool* by selecting it in the toolbar, or by pressing the <kbd>R</kbd> key.
-
-![Scale object](images/editor/scale.png){.inline}![Scale object 3D](images/editor/scale_3d.png){.inline}
-
-This tool consists of a set of square/cube manipulators (selected manipulator will turn to orange color) that you can <kbd>Drag</kbd> to scale:
-
-- one cyan cube in the center scales the object uniformly in all axes (including Z).
-- 3 red, blue and green cube manipulators scale the object along each of the X, Y and Z axes separately.
-- 3 red, blue and green cube manipulators scale the object in the X-Y plane, the X-Z plane or the Y-Z plane separately.
-
-
-### Visibility filters
-
-Click on the Visibility Eye Icon (`👁`) in the Toolbar to toggle visibility of various component types as well as bounding boxes and guide lines (`Component Guides` or shortcut <kbd>Ctrl</kbd> + <kbd>H</kbd> (Win/Linux) or <kbd>^ Ctrl</kbd> + <kbd>⌘ Cmd</kbd> + <kbd>H</kbd>(Mac)).
-
-![Visibility filters](images/editor/visibilityfilters.png)
-
-
 ## Creating new project files
 
 To create new resource files, either select `File ▸ New…` and then choose the file type from the menu, or use the context menu:
@@ -242,7 +175,6 @@ To create new resource files, either select `File ▸ New…` and then choose th
 Type a suitable *Name* for the new file and eventually change *Location*. The full file name including the file type suffix is shown under *Preview* in the dialog:
 
 ![create file name](images/editor/create_file_name.png)
-
 
 ## Templates
 
