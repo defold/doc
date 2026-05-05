@@ -15,7 +15,7 @@ Open the Scene Editor by double-clicking a visual resource in the *Assets* pane,
 
 - **Scene structure** — collections (`.collection`), game objects (`.go`)
 - **2D assets** — atlas (`.atlas`), tilemaps (`.tilemap`), sprites (`.sprite`), tile sources (`.tilesource`)
-- **3D assets** — models (`.model`, `.glb`)
+- **3D assets** — models (`.model`, `.glb`, `.gltf`)
 - **UI** — GUI scenes (`.gui`)
 - **Effects** — particle effects (`.particlefx`)
 - And others
@@ -68,7 +68,7 @@ In the top-right of the scene view there is a toolbar with commonly used tools a
 
 ## Selecting and manipulating objects
 
-### Manipulating objects
+### Selecting objects
 
 <kbd>Left Mouse Click</kbd> on objects in the main window to select them. The rectangle (or cuboid) surrounding the object in the editor view will highlight with cyan to indicate what item is selected. The selected object is also highlighted in the `Outline` view as in the picture above.
 
@@ -166,14 +166,16 @@ On some keyboard layouts (e.g. Swedish) the backtick key is a dead key and may n
 can rebind this shortcut in `File ▸ Preferences ▸ Keys` and enter a shortcut for `Scene -> Free Camera -> Activate`
 :::
 
+When Free Camera Mode is active the Scene View is highlighted with a line around the edges.
+
 ### Exiting Free Camera Mode
 
 - Release <kbd>Right Mouse Button</kbd> (when activated by hold), or
-- <kbd>Left Mouse Click</kbd>, <kbd>Right Mouse Click</kbd> (press and release), or <kbd>Esc</kbd> (when activated by toggle)
+- <kbd>Left Mouse Button</kbd>, <kbd>Right Mouse Button</kbd> (press and release), or press <kbd>Esc</kbd> when Free Camera Mode was activated as a toggle.
 
 ### Looking around (mouse look)
 
-While Free Camera Mode is active:
+While Free Camera Mode is active, these keys control camera movement (instead of editor tools):
 
 - Move the mouse to control **yaw** (left/right) and **pitch** (up/down)
 - Pitch is clamped to avoid flipping the camera
@@ -205,7 +207,7 @@ Speed modifiers:
 Free Camera Mode supports **Walking Mode**.
 
 When enabled:
-- Up/down movement is constrained so navigation behaves more like walking on a ground plane.
+- Up/down movement is constrained to behave more like grounded first-person walking on a ground plane.
 - This is useful when exploring a level and you want consistent “grounded” movement.
 
 ## Camera settings popup
@@ -220,7 +222,7 @@ The popup contains:
   Adjusts free camera movement speed.
 
 - **Look Sensitivity**
-  Up/down movement is constrained so navigation behaves more like walking on a ground plane. This is useful when exploring a level and you want consistent “grounded” movement.
+  Adjusts how quickly the camera rotates in response to mouse movement.
 
 - **Invert Y**
   Inverts vertical mouse look.
