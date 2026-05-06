@@ -43,7 +43,7 @@ When Defold creates an application bundle it needs to store any excluded resourc
 
 ![Live update settings](images/live-update/05-liveupdate-settings-zip.png)
 
-There are currently two ways that Defold can store the resources. Choose the method in the *Mode* dropdown in the settings window:
+There are currently three ways that Defold can store the resources. Choose the method in the *Mode* dropdown in the settings window:
 
 `Zip`
 : This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
