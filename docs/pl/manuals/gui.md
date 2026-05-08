@@ -1,286 +1,364 @@
 ---
-title: Sceny GUI w Defoldzie
-brief: Ta instrukcja omawia edytor GUI w Defold, różne typy węzłów GUI oraz skrypty GUI.
+title: Sceny GUI w silniku Defold
+brief: Ta instrukcja omawia edytor GUI w silniku Defold, różne typy węzłów GUI oraz skrypty GUI.
 ---
 
 # GUI
 
-GUI - Graphical User Interface, czyli graficzny interfejs użytkownika dostarcza elementów, które są w grze wyświetlana zazwyczaj nad światem gry. Defold dostarcza niestandardowy edytor GUI i potężne możliwości skryptowe, które są specjalnie dostosowane do budowy i implementacji interfejsów użytkownika.
+Silnik Defold udostępnia własny edytor GUI oraz rozbudowane możliwości skryptowe, które są specjalnie dopasowane do tworzenia i implementowania interfejsów użytkownika.
 
-Graficzny interfejs użytkownika w Defoldzie to komponent, który tworzysz i przypisujesz do obiektu gry, umieszczając go w kolekcji. Ten komponent ma następujące właściwości:
+Graficzny interfejs użytkownika w Defold to komponent, który tworzysz, dołączasz do obiektu gry i umieszczasz w kolekcji. Taki komponent ma następujące właściwości:
 
-* Posiada proste, ale potężne funkcje układu (layout), które pozwalają na renderowanie interfejsu użytkownika niezależnie od rozdzielczości i proporcji obrazu.
-* Może mieć dołączoną logikę za pomocą skryptu GUI.
-* Jest (domyślnie) renderowany na wierzchu innych treści, niezależnie od widoku kamery, więc nawet jeśli masz ruchomą kamerę, twoje elementy interfejsu GUI pozostaną na ekranie. Zachowanie renderowania można zmienić.
-* Komponenty GUI są renderowane niezależnie od widoku gry. Dlatego nie są umieszczane w określonym miejscu w edytorze kolekcji, ani nie mają reprezentacji wizualnej w edytorze kolekcji. Komponenty GUI muszą znajdować się w obiekcie gry, który ma swoje miejsce w kolekcji. Zmiana tego miejsca nie ma wpływu na GUI.
+* Ma proste, ale potężne funkcje układu, które pozwalają renderować interfejs użytkownika niezależnie od rozdzielczości i proporcji obrazu.
+* Można do niego dołączyć logikę za pomocą skryptu GUI.
+* Domyślnie jest renderowany nad inną zawartością, niezależnie od widoku kamery, więc nawet przy ruchomej kamerze elementy GUI pozostaną na ekranie. To zachowanie renderowania można zmienić.
+
+Komponenty GUI są renderowane niezależnie od widoku gry. Z tego powodu nie są umieszczane w konkretnym miejscu w edytorze kolekcji ani nie mają tam reprezentacji wizualnej. Muszą jednak znajdować się w obiekcie gry, który ma swoje miejsce w kolekcji. Zmiana tego położenia nie ma wpływu na GUI.
 
 ## Tworzenie komponentu GUI
 
-Komponenty GUI są tworzone na podstawie pliku prototypu sceny GUI (nazywanego również "prefabem", "szablonem" lub "blueprintem" w innych silnikach). Aby utworzyć nowy komponent GUI, <kbd>kliknij prawym przyciskiem myszy</kbd> w panelu *Assets* i wybierz <kbd>New ▸ Gui</kbd>. Wprowadź nazwę nowego pliku GUI i naciśnij <kbd>OK</kbd>.
+Komponenty GUI tworzy się z pliku prototypu sceny GUI, znanego też jako "prefab" lub "blueprint" w innych silnikach. Aby utworzyć nowy komponent GUI, <kbd>kliknij prawym przyciskiem myszy</kbd> w panelu *Assets* i wybierz <kbd>New ▸ Gui</kbd>. Wpisz nazwę nowego pliku GUI i naciśnij <kbd>OK</kbd>.
 
-![New gui file](images/gui/new_gui_file.png)
+![Nowy plik GUI](images/gui/new_gui_file.png)
 
-Teraz Defold automatycznie otwiera plik w edytorze sceny GUI.
+Silnik Defold automatycznie otworzy teraz plik w edytorze sceny GUI.
 
-![New gui](images/gui/new_gui.png)
+![Nowe GUI](images/gui/new_gui.png)
 
-W panelu *Outline* znajdziesz wszystkie elementy GUI: listę węzłów (nodes) i wszelkie zależności (patrz niżej).
+W panelu *Outline* widać całą zawartość GUI: listę węzłów oraz wszystkie zależności (patrz niżej).
 
-Centralny obszar edycji pokazuje GUI. W pasku narzędziowym w prawym górnym rogu obszaru edycji znajdują się narzędzia *Move*, *Rotate* i *Scale* (odpowiednio Przesuń, Obróć i Skaluj), a także selektor układu [layout](/manuals/gui-layouts).
+Centralny obszar edycji pokazuje GUI. Pasek narzędzi w prawym górnym rogu obszaru edycji zawiera narzędzia *Move*, *Rotate* i *Scale* oraz selektor [layout](/manuals/gui-layouts).
 
-![toolbar](images/gui/toolbar.png)
+![pasek narzędzi](images/gui/toolbar.png)
 
-Biały prostokąt pokazuje obszar wybranego layoutu, o domyślnej szerokości i wysokości ekranu ustawionej w ustawieniach projektu.
+Biały prostokąt pokazuje granice aktualnie wybranego layoutu, o domyślnej szerokości i wysokości ekranu ustawionej w ustawieniach projektu.
 
-Wybierając węzeł "Gui" w panelu *Outline*, zostaną wyświetlone *Properties* komponentu GUI:
+## Właściwości GUI
 
-Script
+Wybranie głównego węzła "Gui" w panelu *Outline* pokazuje *Properties* komponentu GUI:
+
+*Script*
 : Skrypt GUI przypisany do tego komponentu GUI.
 
-Material
-: Materiał używany podczas renderowania tego GUI.
+*Material*
+: Materiał używany podczas renderowania tego GUI. Zwróć uwagę, że z panelu Outline można też dodać do Gui kilka materiałów i przypisać je do poszczególnych węzłów.
 
-Adjust Reference
-: Dostosowanie odniesienia - kontroluje, jak powinien być obliczany Tryb dostosowania (*Adjust Mode*) każdego węzła:
+*Adjust Reference*
+: Określa, jak ma być obliczany *Adjust Mode* każdego węzła:
 
-  - `Per Node` - dostosowuje każdy węzeł do dostosowanego rozmiaru węzła nadrzędnego lub zmienionego rozmiaru ekranu.
-  - `Disable` - wyłącza tryb dostosowywania węzła. To wymusza, aby wszystkie węzły zachowały swój ustawiony rozmiar.
+  - `Per Node` dostosowuje każdy węzeł względem dostosowanego rozmiaru węzła nadrzędnego albo przeskalowanego ekranu.
+  - `Disable` wyłącza tryb dostosowania węzła. Wymusza to zachowanie przez wszystkie węzły ustawionego rozmiaru.
 
-Max Nodes
+*Current Nodes*
+: Liczba węzłów aktualnie używanych w tym GUI.
+
+*Max Nodes*
 : Maksymalna liczba węzłów dla tego GUI.
+
+*Max Dynamic Textures*
+: Maksymalna liczba tekstur, które można utworzyć za pomocą [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip).
+
+## Manipulacja w czasie działania
+
+W czasie działania można manipulować właściwościami GUI ze skryptu komponentu, korzystając z `go.get()` i `go.set()`:
+
+Fonty
+: Pobieranie lub ustawianie fontu używanego w GUI.
+
+![get_set_font](images/gui/get_set_font.png)
+
+```lua
+go.property("mybigfont", resource.font("/assets/mybig.font"))
+
+function init(self)
+  -- pobierz plik fontu aktualnie przypisany do fontu o id 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /builtins/fonts/default.font
+
+  -- ustaw font o id 'default' na plik fontu przypisany do właściwości zasobu 'mybigfont'
+  go.set("#gui", "fonts", self.mybigfont, { key = "default" })
+
+  -- pobierz nowy plik fontu przypisany do fontu o id 'default'
+  print(go.get("#gui", "fonts", { key = "default" })) -- /assets/mybig.font
+end
+```
+
+Materiały
+: Pobieranie lub ustawianie materiału używanego w GUI.
+
+![get_set_material](images/gui/get_set_material.png)
+
+```lua
+go.property("myeffect", resource.material("/assets/myeffect.material"))
+
+function init(self)
+  -- pobierz plik materiału aktualnie przypisany do materiału o id 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /effect.material
+
+  -- ustaw materiał o id 'effect' na plik materiału przypisany do właściwości zasobu 'myeffect'
+  go.set("#gui", "materials", self.myeffect, { key = "effect" })
+
+  -- pobierz nowy plik materiału przypisany do materiału o id 'effect'
+  print(go.get("#gui", "materials", { key = "effect" })) -- /assets/myeffect.material
+end
+```
+
+Tekstury
+: Pobieranie lub ustawianie tekstury (atlasu) używanej w GUI.
+
+![get_set_texture](images/gui/get_set_texture.png)
+
+```lua
+go.property("mytheme", resource.atlas("/assets/mytheme.atlas"))
+
+function init(self)
+  -- pobierz plik tekstury aktualnie przypisany do tekstury o id 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /theme.atlas
+
+  -- ustaw teksturę o id 'theme' na plik tekstury przypisany do właściwości zasobu 'mytheme'
+  go.set("#gui", "textures", self.mytheme, { key = "theme" })
+
+  -- pobierz nowy plik tekstury przypisany do tekstury o id 'theme'
+  print(go.get("#gui", "textures", { key = "theme" })) -- /assets/mytheme.atlas
+end
+```
 
 ## Zależności
 
-Drzewo zasobów w grze Defold jest statyczne, więc wszelkie zależności, które potrzebujesz dla swoich węzłów GUI, muszą być dodane do komponentu. W panelu *Outline* grupuje się wszystkie zależności według typu w "folderach":
+Drzewo zasobów w grze Defold jest statyczne, więc wszystkie zależności potrzebne węzłom GUI trzeba dodać do komponentu. *Outline* grupuje wszystkie zależności według typu w "folderach":
 
 ![dependencies](images/gui/dependencies.png)
 
-Aby dodać nową zależność, <kbd>kliknij prawym przyciskiem myszy</kbd> root "Gui" w panelu *Outline*, a następnie wybierz <kbd>Add ▸ [typ]</kbd> z kontekstowego menu.
+Aby dodać nową zależność, przeciągnij ją z panelu *Asset* do widoku edytora.
 
-Możesz także <kbd>kliknąć prawym przyciskiem myszy</kbd> na ikonie folderu dla typu, który chcesz dodać, i wybrać <kbd>Add ▸ [typ]</kbd>.
+Alternatywnie, <kbd>kliknij prawym przyciskiem myszy</kbd> główny węzeł "Gui" w panelu *Outline*, a następnie wybierz <kbd>Add ▸ [type]</kbd> z menu kontekstowego.
+
+Możesz też <kbd>kliknąć prawym przyciskiem myszy</kbd> ikonę folderu dla typu, który chcesz dodać, i wybrać <kbd>Add ▸ [type]</kbd>.
 
 ## Typy węzłów
 
-Komponent GUI jest tworzony z zestawu węzłów (nodes). Węzły to proste elementy. Mogą być przesuwane (przesuwane, skalowane i obracane) oraz uporządkowane w hierarchi rodzic-dziecko zarówno w edytorze, jak i w trakcie działania skryptu. Istnieją następujące typy węzłów:
+Komponent GUI składa się z zestawu węzłów. Węzły są prostymi elementami. Można je przemieszczać, skalować i obracać oraz układać w hierarchie rodzic-dziecko zarówno w edytorze, jak i w czasie działania, korzystając ze skryptów. Dostępne są następujące typy węzłów:
 
 Box node
 : ![box node](images/icons/gui-box-node.png){.left}
-  Węzeł prostokątny z jednym kolorem, teksturą lub animacją typu flip-book. Zobacz [dokumentację węzła prostokątnego](/manuals/gui-box).
+  Prostokątny węzeł z pojedynczym kolorem, teksturą albo animacją flip-book. Szczegóły znajdziesz w [dokumentacji węzła Box](/manuals/gui-box).
 
 <div style="clear: both;"></div>
 
 Text node
 : ![text node](images/icons/gui-text-node.png){.left}
-  Wyświetla tekst. Zobacz [dokumentację węzła tekstowego](/manuals/gui-text) for details.
+  Wyświetla tekst. Szczegóły znajdziesz w [dokumentacji węzła Text](/manuals/gui-text).
 
 <div style="clear: both;"></div>
 
 Pie node
 : ![pie node](images/icons/gui-pie-node.png){.left}
-  Węzeł okrągły lub eliptyczny, który może być częściowo wypełniony (jak pierścień) lub odwrócony. Zobacz [dokumentację węzła pierścienia](/manuals/gui-pie).
+  Okrągły lub eliptyczny węzeł, który można częściowo wypełnić albo odwrócić. Szczegóły znajdziesz w [dokumentacji węzła Pie](/manuals/gui-pie).
 
 <div style="clear: both;"></div>
 
 Template node
 : ![template node](images/icons/gui.png){.left}
-  Szablony służą do tworzenia instancji na podstawie innych plików sceny GUI. Zobacz [dokumentację węzła szablonu](/manuals/gui-template).
+  Szablony służą do tworzenia instancji na podstawie innych plików scen GUI. Szczegóły znajdziesz w [dokumentacji węzła Template](/manuals/gui-template).
 
 <div style="clear: both;"></div>
 
 ParticleFX node
 : ![particlefx node](images/icons/particlefx.png){.left}
-  Odtwarza efekt cząsteczkowy. Zobacz [dokumentację węzła ParticleFX](/manuals/gui-particlefx).
+  Odtwarza efekt cząsteczkowy. Szczegóły znajdziesz w [dokumentacji węzła ParticleFX](/manuals/gui-particlefx).
 
 <div style="clear: both;"></div>
 
-Aby dodać węzły, kliknij prawym przyciskiem myszy na folderze *Nodes* i wybierz <kbd>Add ▸</kbd>, a następnie <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> lub <kbd>ParticleFx</kbd>.
+Węzły można dodawać, <kbd>klikając prawym przyciskiem myszy</kbd> folder *Nodes* i wybierając <kbd>Add ▸</kbd>, a potem <kbd>Box</kbd>, <kbd>Text</kbd>, <kbd>Pie</kbd>, <kbd>Template</kbd> lub <kbd>ParticleFx</kbd>.
 
 ![Add nodes](images/gui/add_node.png)
 
-Możesz także nacisnąć <kbd>A</kbd> i wybrać typ, który chcesz dodać do GUI.
+Możesz też nacisnąć <kbd>A</kbd> i wybrać typ, który chcesz dodać do GUI.
 
 ## Właściwości węzłów
 
-Każdy węzeł ma szeroki zestaw właściwości (properties), które kontrolują jego wygląd:
+Każdy węzeł ma rozbudowany zestaw właściwości, które kontrolują jego wygląd:
 
 Id
-: Identyfikator węzła. Ta nazwa musi być unikalna w ramach sceny GUI.
+: Identyfikator węzła. Ta nazwa musi być unikalna w obrębie sceny GUI.
 
 Position, Rotation and Scale
-: Kontrolują położenie, orientację i skalę węzła. Możesz użyć narzędzi *Move*, *Rotate* i *Scale*  (odpowiednio Przesuń, Obróć i Skaluj), aby zmienić te wartości. Wartości można animować za pomocą skryptu ([dowiedz się więcej](/manuals/property-animation)).
+: Określają położenie, orientację i skalowanie węzła. Możesz użyć narzędzi *Move*, *Rotate* i *Scale*, aby zmienić te wartości. Wartości można animować ze skryptu ([dowiedz się więcej](/manuals/property-animation)).
 
-Rozmiar (węzły box, text i pie)
-: Rozmiar węzła jest domyślnie automatyczny, ale ustawiając *Size Mode* na `Manual`, możesz zmienić wartość. Rozmiar określa granice węzła i jest używany do wykrywania interakcji z myszą. Tę wartość można animować za pomocą skryptu ([dowiedz się więcej](/manuals/property-animation)).
+Size (box, text and pie nodes)
+: Rozmiar węzła jest domyślnie automatyczny, ale ustawiając *Size Mode* na `Manual`, możesz go zmienić. Rozmiar definiuje granice węzła i jest używany przy sprawdzaniu trafień wejścia. Tę wartość można animować ze skryptu ([dowiedz się więcej](/manuals/property-animation)).
 
-Size Mode (węzły box i pie)
-: Jeśli jest ustawiony na `Automatic`, edytor ustawia rozmiar węzła. Jeśli jest ustawiony na `Manual`, możesz samodzielnie ustawić rozmiar.
+Size Mode (box and pie nodes)
+: Jeśli ustawiono `Automatic`, edytor nada węzłowi rozmiar. Jeśli ustawiono `Manual`, możesz ustawić rozmiar samodzielnie.
 
 Enabled
-: Jeśli nie jest zaznaczone, węzeł nie jest renderowany, nie jest animowany i nie można go zaznaczyć za pomocą `gui.pick_node()`. Użyj `gui.set_enabled()` i `gui.is_enabled()` do zmiany w kodzie i sprawdzenia tej właściwości.
+: Jeśli pole jest odznaczone, węzeł nie jest renderowany, nie jest animowany i nie można go wskazać za pomocą `gui.pick_node()`. Użyj `gui.set_enabled()` i `gui.is_enabled()`, aby programowo zmieniać i sprawdzać tę właściwość.
 
 Visible
-: Jeśli nie jest zaznaczone, węzeł nie jest renderowany, ale wciąż może być animowany i można go zaznaczyć za pomocą `gui.pick_node()`. Użyj `gui.set_visible()` i `gui.get_visible()` do zmiany w kodzie i sprawdzenia tej właściwości.
+: Jeśli pole jest odznaczone, węzeł nie jest renderowany, ale nadal można go animować i wskazywać za pomocą `gui.pick_node()`. Użyj `gui.set_visible()` i `gui.get_visible()`, aby programowo zmieniać i sprawdzać tę właściwość.
 
-Text (węzły text)
-: Tekst do wyświetlenia na węźle.
+Text (text nodes)
+: Tekst wyświetlany na węźle.
 
-Line Break (węzły text)
-: Ustaw do zawijania tekstu zgodnie z szerokością węzła.
+Line Break (text nodes)
+: Ustaw, aby tekst zawijał się zgodnie z szerokością węzła.
 
-Font (węzły text)
-: Font do użycia podczas renderowania tekstu.
+Font (text nodes)
+: Font używany do renderowania tekstu.
 
-Texture (węzły box i pie)
-: Tekstura do narysowania na węźle. Jest to odniesienie do obrazu lub animacji w atlasie lub źródle kafelków.
+Texture (box and pie nodes)
+: Tekstura rysowana na węźle. To odwołanie do obrazu albo animacji w atlasie lub źródle kafelków.
 
-Slice 9 (węzły box)
-: Ustaw, aby zachować rozmiar pikseli tekstury węzła wokół krawędzi i na rogach, gdy węzeł ma zmieniany rozmiar. Zobacz szczegóły w [dokumentacji węzła prostokątnego](/manuals/gui-box).
+Material (box, pie nodes, text and particlefx nodes)
+: Materiał używany do rysowania węzła. Może to być materiał dodany do sekcji Materials w Outline albo pusty wybór, który użyje domyślnego materiału przypisanego do komponentu GUI.
 
-Inner Radius (węzły pie)
-: Wewnętrzny promień węzła, wyrażony wzdłuż osi X. Zobacz [dokumentację węzła pierścienia](/manuals/gui-pie).
+Slice 9 (box nodes)
+: Ustawia zachowanie tak, aby przy zmianie rozmiaru węzła zachować rozmiar pikseli tekstury wokół krawędzi. Szczegóły znajdziesz w [dokumentacji węzła Box](/manuals/gui-box).
 
-Outer Bounds(węzły pie)
-: Kontroluje zachowanie zewnętrznych granic. Zobacz [dokumentację węzła pierścienia](/manuals/gui-pie).
+Inner Radius (pie nodes)
+: Wewnętrzny promień węzła, wyrażony wzdłuż osi X. Szczegóły znajdziesz w [dokumentacji węzła Pie](/manuals/gui-pie).
 
-Perimeter Vertices  (węzły pie)
-: Liczba segmentów, które zostaną użyte do zbudowania kształtu. Zobacz [dokumentację węzła pierścienia](/manuals/gui-pie).
+Outer Bounds (pie nodes)
+: Kontroluje zachowanie zewnętrznych granic. Szczegóły znajdziesz w [dokumentacji węzła Pie](/manuals/gui-pie).
 
-Pie Fill Angle (węzły pie)
-: Kąt wypełnienia - ile z pierścienia powinno być wypełnione. Zobacz[dokumentację węzła pierścienia](/manuals/gui-pie).
+Perimeter Vertices (pie nodes)
+: Liczba segmentów użytych do zbudowania kształtu. Szczegóły znajdziesz w [dokumentacji węzła Pie](/manuals/gui-pie).
 
-Template (węzły template)
-: Plik sceny GUI do użycia jako szablon na węźle. Zobacz [dokumentację węzła szablonu](/manuals/gui-template).
+Pie Fill Angle (pie nodes)
+: Określa, jak duża część pie ma być wypełniona. Szczegóły znajdziesz w [dokumentacji węzła Pie](/manuals/gui-pie).
 
-ParticleFX (węzły ParticleFX)
-: Efekt cząsteczkowy do użycia na węźle. Zobacz [dokumentację węzła ParticleFX](/manuals/gui-particlefx).
+Template (template nodes)
+: Plik sceny GUI używany jako szablon dla węzła. Szczegóły znajdziesz w [dokumentacji węzła Template](/manuals/gui-template).
+
+ParticleFX (particlefx nodes)
+: Efekt cząsteczkowy używany w tym węźle. Szczegóły znajdziesz w [dokumentacji węzła ParticleFX](/manuals/gui-particlefx).
 
 Color
-: Kolor węzła. Jeśli węzeł jest tekstury, kolor zmienia odcień tekstury. Kolor można animować za pomocą skryptu (dowiedz się więcej).
+: Kolor węzła. Jeśli węzeł ma teksturę, kolor nadaje jej odcień. Kolor można animować ze skryptu ([dowiedz się więcej](/manuals/property-animation)).
 
 Alpha
-: Przejrzystość węzła. Wartość alfa może być animowana za pomocą skryptu ([dowiedz się więcej](/manuals/property-animation)).
+: Przezroczystość węzła. Wartość alfa może być animowana ze skryptu ([dowiedz się więcej](/manuals/property-animation)).
 
 Inherit Alpha
-: Zaznaczenie tego pola sprawia, że węzeł dziedziczy wartość alfy węzła nadrzędnego. Wartość alfy węzła jest następnie mnożona przez wartość alfy nadrzędnego węzła.
+: Zaznaczenie tego pola sprawia, że węzeł dziedziczy wartość alfa węzła nadrzędnego. Wartość alfa węzła jest wtedy mnożona przez wartość alfa rodzica.
 
-Leading (węzły text)
-: Skalująca liczba dla rozstawu międzywierszowego. Wartość `0` oznacza brak rozstawu międzywierszowego. `1` (domyślnie) to normalny rozstaw międzywierszowy.
+Leading (text nodes)
+: Skaluje odstęp między wierszami. Wartość `0` oznacza brak odstępu między wierszami. `1` (domyślna) oznacza normalny odstęp między wierszami.
 
-Tracking (węzły text)
-: Skalująca liczba dla odstępu między literami. Domyślnie wynosi `0`.
+Tracking (text nodes)
+: Skaluje odstęp między literami. Domyślnie wynosi 0.
 
 Layer
-: Przypisanie warstwy węzłowi zastępuje normalny porządek rysowania i zamiast tego renderowanie podąża za porządkiem warstwy. Poniżej znajdziesz szczegóły.
+: Przypisanie warstwy do węzła nadpisuje zwykłą kolejność rysowania i zamiast niej stosuje kolejność warstw. Szczegóły poniżej.
 
 Blend mode
-: Tryb mieszania kontroluje sposób mieszania się grafiki węzła z grafiką tła:
-
-  - `Alpha` - mieszają się wartości pikseli węzła z tłem. Odpowiada to trybowi "Normal" w oprogramowaniu graficznym.
-  - `Add` - dodaje wartości pikseli węzła do tła. Odpowiada to trybowi "Linear Dodge" w niektórym oprogramowaniu graficznym.
-  - `Multiply` - mnoży wartości pikseli węzła przez tło.
+: Kontroluje sposób mieszania grafiki węzła z grafiką tła:
+  - `Alpha` miesza wartości pikseli węzła z tłem. Odpowiada to trybowi "Normal" w programach graficznych.
+  - `Add` dodaje wartości pikseli węzła do tła. Odpowiada to trybowi "Linear dodge" w niektórych programach graficznych.
+  - `Multiply` mnoży wartości pikseli węzła przez tło.
+  - `Screen` mnoży odwrotnie wartości pikseli węzła i tła. Odpowiada to trybowi "Screen" w programach graficznych.
 
 Pivot
-: Oś obrotu - ustawia punkt obrotu węzła. Można to postrzegać jako "punkt centralny" węzła. Każda rotacja, skalowanie lub zmiana rozmiaru będzie zachodzić wokół tego punktu.
+: Ustawia punkt obrotu węzła. Można go traktować jako "punkt środkowy" węzła. Każdy obrót, skalowanie albo zmiana rozmiaru zachodzą wokół tego punktu.
 
-Możliwe wartości to `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` lub `South East`.
+  Dostępne wartości to `Center`, `North`, `South`, `East`, `West`, `North West`, `North East`, `South West` albo `South East`.
 
   ![pivot point](images/gui/pivot.png)
 
-Jeśli zmienisz punkt obrotu węzła, węzeł zostanie przesunięty tak, że nowy punkt obrotu będzie znajdować się w pozycji węzła. Węzły tekstowe są ustawiane tak, że `Center` ustawia środek tekstu, `West` ustawia tekst wyrównany do lewej, a `East` ustawia tekst wyrównany do prawej.
+  Jeśli zmienisz pivot węzła, węzeł zostanie przesunięty tak, aby nowy pivot znalazł się w jego pozycji. Węzły tekstowe są wyrównywane tak, że `Center` centruje tekst, `West` wyrównuje go do lewej, a `East` wyrównuje go do prawej.
 
 X Anchor, Y Anchor
-: Kotwiczenie kontroluje, w jaki sposób wertykalna i pozioma pozycja węzła jest zmieniana, gdy granice sceny lub granice węzła nadrzędnego są rozciągane, aby pasować do rzeczywistego rozmiaru ekranu.
+: Kotwiczenie określa, jak zmienia się pionowa i pozioma pozycja węzła, gdy granice sceny albo granice węzła nadrzędnego są rozciągane tak, aby dopasować się do fizycznego rozmiaru ekranu.
 
   ![Anchor unadjusted](images/gui/anchoring_unadjusted.png)
 
   Dostępne są następujące tryby kotwiczenia:
 
-  - `None` (zarówno *X Anchor*, jak i *Y Anchor*) zachowuje pozycję węzła od centrum węzła nadrzędnego lub sceny, w odniesieniu do jego zmienionego rozmiaru.
-  - `Left` lub `Right` (*X Anchor*) skaluje poziomą pozycję węzła, aby zachować pozycję z lewego i prawego brzegu węzła nadrzędnego lub sceny w tej samej proporcji.
-  - `Top` lub `Bottom` skaluje pionową pozycję węzła, aby zachować pozycję z górnego i dolnego brzegu węzła nadrzędnego lub sceny w tej samej proporcji.
+  - `None` (zarówno dla *X Anchor*, jak i *Y Anchor*) zachowuje pozycję węzła względem środka węzła nadrzędnego albo sceny, w odniesieniu do jego dostosowanego rozmiaru.
+  - `Left` albo `Right` (*X Anchor*) skaluje poziomą pozycję węzła tak, aby zachować ją w tej samej proporcji względem lewego i prawego brzegu węzła nadrzędnego albo sceny.
+  - `Top` albo `Bottom` (*Y Anchor*) skaluje pionową pozycję węzła tak, aby zachować ją w tej samej proporcji względem górnego i dolnego brzegu węzła nadrzędnego albo sceny.
 
   ![Anchoring](images/gui/anchoring.png)
 
 Adjust Mode
-: Ustala tryb dostosowania węzła. Ustawienie trybu dostosowania kontroluje, co się dzieje z węzłem, gdy granice sceny lub granice węzła nadrzędnego są dostosowywane, aby pasować do rzeczywistego rozmiaru ekranu.
+: Ustawia tryb dostosowania dla węzła. To ustawienie kontroluje, co dzieje się z węzłem, gdy granice sceny albo granice węzła nadrzędnego są dostosowywane do fizycznego rozmiaru ekranu.
 
-  Węzeł utworzony w scenie, w której rozdzielczość logiczna jest typową rozdzielczością krajobrazu:
+  Węzeł utworzony w scenie, w której logiczna rozdzielczość odpowiada typowej rozdzielczości poziomej:
 
   ![Unadjusted](images/gui/unadjusted.png)
 
-  Dostępne są następujące tryby dostosowania:
+  Dopasowanie sceny do ekranu pionowego powoduje rozciągnięcie sceny. Podobnie rozciągana jest ramka ograniczająca każdego węzła. Ustawiając tryb dostosowania, można jednak zachować proporcje zawartości węzła. Dostępne są następujące tryby:
 
-  - `Fit` Dopasowanie sceny do ekranu pionowego powoduje rozciągnięcie sceny. Każdy obszar ograniczający węzła jest podobnie rozciągany. Jednak ustawiając tryb dostosowania, można zachować niezmieniony stosunek szerokości węzła. 
-  - `Zoom` skaluje zawartość węzła tak, aby była równa rozciągniętej szerokości lub wysokości prostokątnego obszaru ograniczającego, w zależności od tego, która jest większa. Innymi słowy, zawartość w pełni pokryje rozciągnięty obszar ograniczający węzła.
-  - `Stretch` rozciąga zawartość węzła, tak aby wypełniła rozciągnięty obszar ograniczający węzła.
+  - `Fit` skaluje zawartość węzła tak, aby odpowiadała rozciągniętej szerokości albo wysokości ramki ograniczającej, zależnie od tego, która z nich jest mniejsza. Innymi słowy, zawartość zmieści się wewnątrz rozciągniętej ramki ograniczającej węzła.
+  - `Zoom` skaluje zawartość węzła tak, aby odpowiadała rozciągniętej szerokości albo wysokości ramki ograniczającej, zależnie od tego, która z nich jest większa. Innymi słowy, zawartość całkowicie pokryje rozciągniętą ramkę ograniczającą węzła.
+  - `Stretch` rozciąga zawartość węzła tak, aby wypełniła rozciągniętą ramkę ograniczającą węzła.
 
   ![Adjust modes](images/gui/adjusted.png)
 
-  Jeśli właściwość sceny GUI *Adjust Reference* jest ustawiona na `Disabled`, czyli wyłaczona, to ustawienie to będzie ignorowane.
+  Jeśli właściwość sceny GUI *Adjust Reference* ma wartość `Disabled`, to ustawienie to zostanie zignorowane.
 
-Clipping Mode (węzły box i pie)
-: Ustawia tryb przycinania na węźle:
+Clipping Mode (box and pie nodes)
+: Ustawia tryb przycinania dla węzła:
 
-  - `None` renderuje węzeł jak zwykle.
-  - `Stencil` powoduje, że obrzeża węzła definiują maskę szablonu, która jest używana do przycinania węzłów podrzędnych węzła.
+  - `None` renderuje węzeł normalnie.
+  - `Stencil` sprawia, że granice węzła definiują maskę szablonu używaną do przycinania jego węzłów potomnych.
 
-  Zobacz [instrukcję przycinania GUI](/manuals/gui-clipping).
+  Szczegóły znajdziesz w [instrukcji przycinania GUI](/manuals/gui-clipping).
 
-Clipping Visible (węzły box i pie)
-: Ustaw, aby renderować zawartość węzła na obszarze maski szablonu. Zobacz [instrukcję przycinania GUI](/manuals/gui-clipping).
+Clipping Visible (box and pie nodes)
+: Ustaw, aby renderować zawartość węzła w obszarze maski szablonu. Szczegóły znajdziesz w [instrukcji przycinania GUI](/manuals/gui-clipping).
 
-Clipping Inverted (węzły box i pie)
-: Odwróć maskę szablonu. Zobacz [instrukcję przycinania GUI](/manuals/gui-clipping).
+Clipping Inverted (box and pie nodes)
+: Odwraca maskę szablonu. Szczegóły znajdziesz w [instrukcji przycinania GUI](/manuals/gui-clipping).
 
-## Punkt obrotu, Kotwice i Tryb Dostosowywania
+## Pivot, Anchors i Adjust Mode
 
-Kombinacja właściwości Pivot, Anchors i Adjust Mode umożliwia bardzo elastyczne projektowanie interfejsów GUI, ale może być to dość trudne do zrozumienia bez konkretnego przykładu. Przyjrzyjmy się temu projektowi interfejsu GUI utworzonemu dla ekranu o rozdzielczości 640x1136 pikseli:
+Połączenie właściwości Pivot, Anchors i Adjust Mode pozwala bardzo elastycznie projektować GUI, ale bez konkretnego przykładu może być trudno zrozumieć, jak to działa. Weźmy jako przykład taki podgląd GUI utworzony dla ekranu 640x1136:
 
 ![](images/gui/adjustmode_example_original.png)
 
-Interfejs użytkownika jest utworzony z kotwicami X i Y ustawionymi na None, a Tryb Dostosowywania Adjust Mode dla każdego węzła pozostawiony na domyślnym ustawieniu Fit. Pivot dla panelu górnego to North, pivot dla panelu dolnego to South, a pivot dla pasków w panelu górnym to West. Reszta węzłów ma punkty obrotu ustawione na Center. Jeśli zmienimy rozmiar okna, aby było szersze, to oto co się stanie:
+Interfejs użytkownika został utworzony z X i Y Anchors ustawionymi na None, a Adjust Mode każdego węzła pozostawiono na domyślnym Fit. Pivot górnego panelu to North, pivot dolnego panelu to South, a pivot pasków w górnym panelu ustawiono na West. Pozostałe węzły mają pivot ustawiony na Center. Jeśli zmienimy rozmiar okna tak, aby było szersze, stanie się to:
 
 ![](images/gui/adjustmode_example_resized.png)
 
-Teraz, co zrobić, jeśli chcemy, aby górne i dolne paski zawsze miały taką samą szerokość jak ekran? Możemy zmienić Adjust Mode dla paneli tła na kolor szary na Stretch:
+A co, jeśli chcemy, aby górny i dolny pasek zawsze były tak szerokie jak ekran? Możemy zmienić Adjust Mode szarych paneli tła u góry i u dołu na Stretch:
 
 ![](images/gui/adjustmode_example_resized_stretch.png)
 
-To jest lepsze. Panele tła w kolorze szarym będą teraz zawsze rozciągnięte do szerokości okna, ale paski w panelu górnym oraz dwie skrzynki na dole nie są właściwie umieszczone. Jeśli chcemy, aby paski na górze pozostały po lewej stronie, musimy zmienić X Anchor z None na Left:
+To lepiej. Szare panele tła będą teraz zawsze rozciągane do szerokości okna, ale paski w górnym panelu oraz dwa pola na dole nie są poprawnie ustawione. Jeśli chcemy, aby paski u góry pozostały po lewej stronie, musimy zmienić X Anchor z None na Left:
 
 ![](images/gui/adjustmode_example_top_anchor_left.png)
 
-To jest dokładnie tak, jak chcemy, żeby było w przypadku panelu górnego. Paski w panelu górnym miały już punkty obrotu ustawione na West, co oznacza, że będą się ładnie pozycjonować z lewym/zachodnim brzegiem pasków (Pivot) przywiązanych do lewego brzegu panelu nadrzędnego (X Anchor).
+To dokładnie to, czego chcemy w przypadku górnego panelu. Paski w górnym panelu miały już ustawiony pivot West, co oznacza, że będą ładnie pozycjonowane tak, aby lewy/zachodni brzeg pasków był zakotwiczony do lewego brzegu panelu nadrzędnego (X Anchor).
 
-Teraz, jeśli ustawimy X Anchor na Left dla lewej skrzynki i na Right dla prawej skrzynki, otrzymamy następujący wynik:
+Jeśli teraz ustawimy X Anchor na Left dla lewego pola i na Right dla prawego pola, otrzymamy następujący wynik:
 
 ![](images/gui/adjustmode_example_bottom_anchor_left_right.png)
 
-To nie jest dokładnie oczekiwany wynik. Obie skrzynki powinny być tak blisko lewego i prawego brzegu, jak paski w panelu górnym. Powodem tego jest błędne ustawienie punktu obrotu:
+To nie jest do końca oczekiwany rezultat. Oba pola powinny pozostać tak blisko lewego i prawego brzegu, jak paski w górnym panelu. Powodem jest nieprawidłowo ustawiony pivot:
 
 ![](images/gui/adjustmode_example_bottom_pivot_center.png)
 
-Obie skrzynki mają ustawiony punkt obrotu - Pivot na Center. Oznacza to, że gdy ekran staje się szerszy, środek skrzynki (punkt obrotu) pozostaje na tej samej względnej odległości od brzegów. W przypadku lewej skrzynki było to 17% od lewego brzegu w oryginalnym oknie o rozdzielczości 640x1136 pikseli:
+Oba pola mają ustawiony pivot Center. Oznacza to, że gdy ekran staje się szerszy, środkowy punkt (pivot) pól pozostaje w tej samej względnej odległości od brzegów. W przypadku lewego pola wynosiło to 17% od lewego brzegu w oryginalnym oknie 640x1136:
 
 ![](images/gui/adjustmode_example_original_ratio.png)
 
-Gdy rozmiar ekranu jest inny, środek lewej skrzynki pozostaje na tej samej odległości 17% od lewego brzegu:
+Gdy ekran zostaje przeskalowany, środkowy punkt lewego pola pozostaje w tej samej odległości 17% od lewego brzegu:
 
 ![](images/gui/adjustmode_example_resized_stretch_ratio.png)
 
-Jeśli zmienimy Pivot z Center na West dla lewej skrzynki i na East dla prawej skrzynki i przesuniemy skrzynki, otrzymamy oczekiwany wynik, nawet gdy ekran zostanie zmieniony w rozmiarze:
+Jeśli zmienimy pivot z Center na West dla lewego pola i na East dla prawego pola, a następnie przestawimy pola, otrzymamy oczekiwany rezultat nawet po zmianie rozmiaru ekranu:
 
 ![](images/gui/adjustmode_example_bottom_pivot_west_east.png)
 
 ## Kolejność rysowania
 
-Wszystkie węzły są renderowane w kolejności, w jakiej są wymienione w folderze "Nodes". Węzeł na górze listy jest rysowany jako pierwszy i będzie więc wyglądać tak, jakby był za innymi węzłami. Ostatni węzeł na liście jest rysowany jako ostatni, co oznacza, że będzie wyglądać tak, jakby był z przodu względem wszystkich innych węzłów. Zmiana wartości Z na węźle nie kontroluje kolejności rysowania; jednakże, jeśli ustawisz wartość Z poza zakresem renderowania swojego skryptu renderującego, węzeł nie będzie już renderowany na ekranie. Możesz również nadpisać kolejność indeksów węzłów warstwami (patrz poniżej).
+Wszystkie węzły są renderowane w kolejności, w jakiej są wymienione w folderze "Nodes". Węzeł na górze listy jest rysowany jako pierwszy i dlatego będzie widoczny za wszystkimi pozostałymi węzłami. Ostatni węzeł na liście jest rysowany jako ostatni, co oznacza, że będzie widoczny przed wszystkimi innymi węzłami. Zmiana wartości Z węzła nie kontroluje jego kolejności rysowania; jeśli jednak ustawisz wartość Z poza zakresem renderowania skryptu do renderowania, węzeł nie będzie już renderowany na ekranie. Kolejność indeksów węzłów można nadpisać za pomocą warstw (patrz niżej).
 
 ![Draw order](images/gui/draw_order.png)
 
-Wybierz węzeł i naciśnij <kbd>Alt + W górę/W dół</kbd>, aby przesunąć węzeł w górę lub w dół i zmienić kolejność indeksu.
+Zaznacz węzeł i naciśnij <kbd>Alt + Up/Down</kbd>, aby przesunąć go w górę lub w dół i zmienić kolejność indeksów.
 
-Kolejność rysowania można zmieniać w skrypcie:
+Kolejność rysowania można też zmieniać w skrypcie:
 
 ```lua
 local bean_node = gui.get_node("bean")
@@ -293,47 +371,47 @@ end
 
 ## Hierarchie rodzic-dziecko
 
-Węzeł staje się dzieckiem (ang. child) innego węzła, przeciągając go na węzeł, który chcesz, aby był rodzicem (ang. parent) dziecka. Węzeł z rodzicem dziedziczy transformację (pozycję, obrót i skalę) stosowaną do rodzica i względem punktu obrotu rodzica.
+Węzeł staje się dzieckiem innego węzła przez przeciągnięcie go na węzeł, który ma być jego rodzicem. Węzeł z rodzicem dziedziczy transformację (pozycję, obrót i skalę) zastosowaną do rodzica oraz względem jego pivota.
 
 ![Parent child](images/gui/parent_child.png)
 
-Rodzice są rysowani przed swoimi dziećmi. Wykorzystaj warstwy, aby zmienić kolejność rysowania węzłów rodzica i dziecka oraz zoptymalizować renderowanie węzłów (patrz poniżej).
+Rodzice są rysowani przed swoimi dziećmi. Używaj warstw, aby zmieniać kolejność rysowania węzłów rodzica i dziecka oraz optymalizować renderowanie węzłów (patrz niżej).
 
-## Warstwy i wywołania rysowania
+## Warstwy i draw calls
 
-Warstwy (ang. layers) pozwalają na dokładną kontrolę nad tym, w jaki sposób węzły są rysowane i mogą być używane do zmniejszenia liczby wywołań rysowania (ang. draw calls), jakie silnik musi tworzyć, aby narysować scenę GUI. Gdy silnik ma rysować węzły sceny GUI, grupuje je we wskaźniki wywołań rysowania na podstawie następujących warunków:
+Warstwy dają precyzyjną kontrolę nad tym, jak rysowane są węzły, i można ich użyć do zmniejszenia liczby wywołań rysowania, które silnik musi utworzyć, aby narysować scenę GUI. Gdy silnik ma narysować węzły sceny GUI, grupuje je w partie wywołań rysowania na podstawie następujących warunków:
 
 - Węzły muszą używać tego samego typu.
-- Węzły muszą używać tego samego atlasu lub źródła kafelków.
-- Węzły muszą być renderowane tym samym trybem mieszania (blend mode).
+- Węzły muszą używać tego samego atlasu albo źródła kafelków.
+- Węzły muszą być renderowane tym samym trybem mieszania.
 - Muszą używać tego samego fontu.
 
-Jeśli węzeł różni się od poprzedniego pod względem któregoś z tych punktów, nastąpi przerwanie wskaźnika i zostanie utworzone inne wywołanie rysowania. Przycinanie węzłów (clipping nodes) zawsze przerywa wskaźnik, tak jak i każdy zakres szablonu (stencil scope).
+Jeśli węzeł różni się od poprzedniego pod którymkolwiek z tych względów, przerwie partię i utworzy kolejne wywołanie rysowania. Węzły przycinające zawsze przerywają partię, a każdy zakres szablonu również przerywa partię.
 
-Możliwość organizowania węzłów w hierarchie ułatwia grupowanie węzłów w jednostki łatwo zarządzalne. Jednak hierarchie mogą skutecznie przerywać renderowanie wskaźników, jeśli miesza się różne typy węzłów:
+Możliwość układania węzłów w hierarchie ułatwia grupowanie ich w wygodne jednostki. Hierarchie mogą jednak skutecznie psuć renderowanie partiami, jeśli miesza się różne typy węzłów:
 
 ![Breaking batch hierarchy](images/gui/break_batch.png)
 
-Kiedy potok renderowania (ang. rendering pipeline) przechodzi przez listę węzłów, zmuszony jest utworzyć oddzielny wskaźnik dla każdego oddzielnego węzła, ponieważ typy są różne. Ogólnie rzecz biorąc, te trzy przyciski będą wymagały sześciu wywołań rysowania.
+Gdy potok renderowania przechodzi przez listę węzłów, musi utworzyć osobną partię dla każdego węzła, ponieważ typy są różne. W sumie te trzy przyciski będą wymagały sześciu wywołań rysowania.
 
-Przypisując węzłom warstwy, można je uporządkować w inny sposób, co pozwala potokowi renderowania grupować węzły w mniej wywołań rysowania. Zacznij od dodania potrzebnych warstw do sceny. Kliknij prawym przyciskiem na ikonę folderu "Layers" w widoku "Outline" i wybierz "Add ▸ Layer". Zaznacz nową warstwę i przypisz jej właściwość "Name" w widoku "Properties".
+Przypisując węzłom warstwy, można je uporządkować inaczej, co pozwala potokowi renderowania grupować węzły w mniejszą liczbę wywołań rysowania. Zacznij od dodania potrzebnych warstw do sceny. <kbd>Kliknij prawym przyciskiem myszy</kbd> ikonę folderu "Layers" w panelu *Outline* i wybierz <kbd>Add ▸ Layer</kbd>. Zaznacz nową warstwę i przypisz jej właściwość *Name* w widoku *Properties*.
 
 ![Layers](images/gui/layers.png)
 
-Następnie ustaw właściwość "Layer" dla każdego węzła na odpowiadającą mu warstwę. Kolejność rysowania warstw ma pierwszeństwo nad zwykłym porządkiem indeksów węzłów, więc ustawienie węzłów graficznych przycisku na warstwę "graphics" i węzłów tekstowych przycisku na warstwę "text" spowoduje następującą kolejność rysowania:
+Następnie ustaw właściwość *Layer* każdego węzła na odpowiednią warstwę. Kolejność rysowania warstw ma pierwszeństwo przed zwykłą kolejnością indeksów węzłów, więc ustawienie prostokątnych węzłów przycisków na warstwę "graphics" i tekstowych węzłów przycisków na warstwę "text" da następującą kolejność rysowania:
 
-Najpierw wszystkie węzły w warstwie "text", od góry:
+* Najpierw wszystkie węzły w warstwie "graphics", od góry:
 
   1. "button-1"
   2. "button-2"
   3. "button-3"
 
-Następnie wszystkie węzły w warstwie "tekst", od góry:
+* Następnie wszystkie węzły w warstwie "text", od góry:
 
   4. "button-text-1"
   5. "button-text-2"
   6. "button-text-3"
 
-Węzły mogą teraz być grupowane w dwóch wywołaniach rysowania, zamiast sześciu. To znaczna wydajnościowa korzyść!
+Węzły można teraz zgrupować w dwa wywołania rysowania zamiast sześciu. To duży zysk wydajnościowy.
 
-Należy zauważyć, że węzeł potomny (child node) bez ustawionej warstwy dziedziczy domyślne ustawienia warstwy od węzła rodzica. Nieustawienie warstwy na węźle domyślnie dodaje go do warstwy "null", która jest rysowana przed innymi warstwami.
+Zwróć uwagę, że węzeł potomny bez ustawionej warstwy dziedziczy niejawnie ustawienie warstwy swojego rodzica. Nieustawienie warstwy na węźle niejawnie dodaje go do warstwy "null", która jest rysowana przed wszystkimi innymi warstwami.

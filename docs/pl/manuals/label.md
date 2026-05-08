@@ -1,106 +1,106 @@
 ---
-title: Etykieta w Defoldzie
-brief: Ta instrukcja wyjaśnia jak korzystać z etykiety w celu wyświetlania tekstu w grach.
+title: Komponenty tekstowe Label w Defold
+brief: Ta instrukcja wyjaśnia, jak używać komponentów Label do wyświetlania tekstu na obiektach gry w świecie gry.
 ---
 
-# Etykieta (Label)
+# Label
 
-Komponent Etykieta (ang. Label) renderuje fragment tekstu na ekranie w przestrzeni gry. Domyślnie jest sortowany i rysowany razem z wszystkimi grafikami sprite i kafelkami. Komponent ten ma zestaw właściwości, które regulują sposób renderowania tekstu. GUI w Defoldzie obsługuje tekst, ale może być trudno umieścić elementy GUI w przestrzeni świata gry, razem z obiektami gry. Etykiety ułatwiają to.
+Komponent *Label* renderuje fragment tekstu na ekranie, w przestrzeni gry. Domyślnie jest sortowany i rysowany razem ze wszystkimi grafikami sprite i tile. Komponent ma zestaw właściwości, które określają sposób renderowania tekstu. GUI w Defold obsługuje tekst, ale umieszczanie elementów GUI w świecie gry może być trudne. Label ułatwia to zadanie.
 
-## Tworzenie etykiety
+## Tworzenie Label
 
-Aby utworzyć komponent etykiety - label, <kbd>kliknij prawym przyciskiem myszy</kbd> na obiekcie gry i wybierz <kbd>Add Component ▸ Label</kbd>.
+Aby utworzyć komponent Label, <kbd>kliknij prawym przyciskiem myszy</kbd> obiekt gry i wybierz <kbd>Add Component ▸ Label</kbd>.
 
-![Dodaj etykietę](images/label/add_label.png)
+![Dodawanie Label](images/label/add_label.png)
 
-(Jeśli chcesz utworzyć kilka etykiet na podstawie tego samego szablonu, możesz także utworzyć nowy plik komponentu etykiety: <kbd>kliknij prawym przyciskiem myszy</kbd> na folder w panelu *Assets* i wybierz <kbd>New... ▸ Label</kbd>, a następnie dodaj plik jako komponent do dowolnych obiektów gry).
+(Jeśli chcesz utworzyć kilka Label z tego samego szablonu, możesz też utworzyć nowy plik komponentu Label: <kbd>kliknij prawym przyciskiem myszy</kbd> folder w przeglądarce *Assets* i wybierz <kbd>New... ▸ Label</kbd>, a następnie dodaj ten plik jako komponent do dowolnych obiektów gry.)
 
-![Nowa etykieta](images/label/label.png)
+![Nowy Label](images/label/label.png)
 
-Ustaw właściwość *Font* na font, który chcesz użyć, i upewnij się, że właściwość *Material* ma materiał, który pasuje do rodzaju fontu:
+Ustaw właściwość *Font* na font, którego chcesz użyć, i upewnij się, że właściwość *Material* wskazuje materiał zgodny z typem fontu:
 
-![Font i materiał](images/label/font_material.png)
+![Font i material](images/label/font_material.png)
 
-## Właściwości etykiety
+## Właściwości Label
 
-Oprócz właściwości *Id*, *Position*, *Rotation* i *Scale*, istnieje kilka specyficznych dla komponentu właściwości (properties):
+Oprócz właściwości *Id*, *Position*, *Rotation* i *Scale* istnieją też następujące właściwości specyficzne dla komponentu:
 
 *Text*
-: Zawartość tekstu etykiety.
+: Treść tekstu Label.
 
 *Size*
-: Rozmiar obwiedni tekstu. Jeśli ustawiona jest *Line Break* (Łamanie linii), szerokość określa punkt, w którym tekst ma być złamany.
+: Rozmiar ramki ograniczającej tekst. Jeśli ustawiono *Line Break*, szerokość określa miejsce, w którym tekst zostanie zawinięty.
 
 *Color*
 : Kolor tekstu.
 
 *Outline*
-: Kolor obramowania tekstu.
+: Kolor obrysu.
 
 *Shadow*
-: Kolor cienia tekstu.
+: Kolor cienia.
 
 ::: sidenote
-Należy zauważyć, że domyślny materiał wyłącza renderowanie cieni ze względów wydajnościowych.
+Należy pamiętać, że domyślny materiał ma renderowanie cienia wyłączone ze względów wydajnościowych.
 :::
 
 *Leading*
-: Interlinia - skalowalna liczba dla odstępu między liniami. Wartość 0 oznacza brak odstępu między liniami. Domyślnie wynosi 1.
+: Skalowany współczynnik odstępu między wierszami. Wartość 0 oznacza brak odstępu między wierszami. Domyślnie wynosi 1.
 
 *Tracking*
-: Śledzenie - skalowalna liczba dla odstępu między literami. Domyślnie wynosi 0.
+: Skalowany współczynnik odstępu między literami. Domyślnie wynosi 0.
 
 *Pivot*
-: Punkt obrotu tekstu. Używaj go, aby zmieniać wyrównanie tekstu (patrz poniżej).
+: Punkt zaczepienia tekstu. Użyj go, aby zmienić wyrównanie tekstu (patrz niżej).
 
 *Blend Mode*
-: Tryb mieszania do użycia podczas renderowania etykiety.
+: Tryb mieszania używany podczas renderowania Label.
 
 *Line Break*
-: Łamanie linii - wyrównanie tekstu podąża za ustawieniem *pivot* i ustawienie tej właściwości pozwala na przepływ tekstu na kilka linii. Szerokość komponentu określa, gdzie tekst ma się zawijać. Należy zauważyć, że tekst musi zawierać spacje, aby mógł się złamać.
+: Wyrównanie tekstu zależy od ustawienia pivot, a włączenie tej właściwości pozwala tekstowi płynąć w kilku wierszach. Szerokość komponentu określa miejsce zawijania tekstu. Pamiętaj, że w tekście musi być spacja, aby mogło dojść do złamania.
 
 *Font*
-: Zasób fontu do użycia w tej etykiecie.
+: Zasób fontu używany przez ten Label.
 
 *Material*
-: Materiał do użycia podczas renderowania tej etykiety. Upewnij się, że wybierasz materiał stworzony dla rodzaju czcionki, którą używasz (mapa bitowa (bitmap), pole odległości (distance field) lub BMFont).
+: Materiał używany do renderowania tego Label. Upewnij się, że wybierasz materiał utworzony dla typu fontu, którego używasz (bitmap, distance field lub BMFont).
 
 ### Tryby mieszania
-: [Tryby mieszania - blend-modes opisane są tutaj](../shared/blend-modes.md)
+:[blend-modes](../shared/blend-modes.md)
 
 ### Pivot i wyrównanie
 
-Ustawiając właściwość *Pivot*, możesz zmienić tryb wyrównania tekstu.
+Ustawiając właściwość *Pivot*, możesz zmienić sposób wyrównania tekstu.
 
 *Center*
-: Środek - jeśli pivot jest ustawiony na `Center`, `North` lub `South`, tekst jest wyrównywany do środka.
+: Jeśli pivot jest ustawiony na `Center`, `North` lub `South`, tekst jest wyrównany do środka.
 
 *Left*
-: Do lewej - jeśli pivot jest ustawiony na którykolwiek z trybów `West`, tekst jest wyrównywany do lewej.
+: Jeśli pivot jest ustawiony na dowolny z trybów `West`, tekst jest wyrównany do lewej.
 
 *Right*
-: Do prawej - jeśli pivot jest ustawiony na którykolwiek z trybów `East`, tekst jest wyrównywany do prawej.
+: Jeśli pivot jest ustawiony na dowolny z trybów `East`, tekst jest wyrównany do prawej.
 
 ![Wyrównanie tekstu](images/label/align.png)
 
-## Manipulacja etykietą w czasie rzeczywistym
+## Modyfikowanie w czasie działania
 
-Możesz manipulować etykietami w czasie działania programu, uzyskując i ustawiając tekst etykiety oraz różne inne właściwości.
+Możesz modyfikować Label w czasie działania, odczytując i ustawiając tekst Label oraz inne właściwości.
 
 `color`
-: Kolor etykiety (typ `vector4`)
+: Kolor Label (`vector4`)
 
 `outline`
-: Kolor obrysu etykiety (typ `vector4`)
+: Kolor obrysu Label (`vector4`)
 
 `shadow`
-: Kolor cienia etykiety (typ `vector4`)
+: Kolor cienia Label (`vector4`)
 
 `scale`
-: Skala etykiety, albo typu `number` dla jednolitej skali, albo `vector3` dla indywidualnej skali wzdłuż każdej osi.
+: Skala Label, jako `number` dla jednolitego skalowania albo `vector3` dla osobnego skalowania wzdłuż każdej osi.
 
 `size`
-: Rozmiar etykiety (typ `vector3`)
+: Rozmiar Label (`vector3`)
 
 ```lua
 function init(self)
@@ -113,14 +113,14 @@ end
 ```lua
 function init(self)
     -- Ustaw kolor komponentu "my_label" w tym samym obiekcie gry.
-    -- Kolor jest wartością RGBA przechowywaną w wektorze 4-składnikowym.
+    -- Kolor to wartość RGBA przechowywana w vector4.
     local grey = vmath.vector4(0.5, 0.5, 0.5, 1.0)
     go.set("#my_label", "color", grey)
 
-    -- ... i usuń obrys, ustawiając jego alfa na 0 ...
+    -- ...i usuń obrys, ustawiając jego alfę na 0...
     go.set("#my_label", "outline.w", 0)
 
-    -- ... i powiększ go dwukrotnie wzdłuż osi x
+    -- ...i przeskaluj go 2x wzdłuż osi x.
     local scale_x = go.get("#my_label", "scale.x")
     go.set("#my_label", "scale.x", scale_x * 2)
 end
@@ -128,4 +128,4 @@ end
 
 ## Konfiguracja projektu
 
-Plik *game.project* ma kilka [ustawień projektu związanych z etykietami](/manuals/project-settings#label.
+Plik *game.project* ma kilka [ustawień projektu](/manuals/project-settings#label) związanych z Label.

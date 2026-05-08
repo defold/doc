@@ -1,66 +1,68 @@
 ---
 title: Jak uzyskać pomoc
-brief: Ta instrukcja opisuje, jak uzyskać pomoc, gdy napotkasz problem podczas korzystania z silnika Defold.
+brief: Ta instrukcja opisuje, jak uzyskać pomoc, jeśli napotkasz problem podczas korzystania z Defold.
 ---
 
 # Jak uzyskać pomoc
 
-Jeśli napotkasz problem podczas korzystania z silnika Defold, chcemy o tym wiedzieć, żeby móc go naprawić lub pomóc Ci znaleźć obejście. Istnieje kilka sposobów, aby omówić lub zgłosić problem. Wybierz ten, który najbardziej Ci odpowiada:
+Jeśli napotkasz problem podczas korzystania z Defold, chcemy o tym wiedzieć, żeby móc naprawić błąd lub pomóc Ci obejść problem. Istnieje kilka sposobów, by omówić problem i zgłosić go dalej. Wybierz opcję, która najlepiej Ci odpowiada:
 
 ## Zgłoś problem na forum
 
-Dobrym sposobem na omówienie problemu i uzyskanie pomocy jest zadanie pytania na naszym [forum](https://forum.defold.com). Zamieść post w [Questions](https://forum.defold.com/c/questions) albo w [Bugs](https://forum.defold.com/c/bugs), w zależności od rodzaju problemu. Pamiętaj, żeby [wyszukać](https://forum.defold.com/search) swoje pytanie/zgłoszenie zanim zapytasz – być może ktoś już znalazł rozwiązanie.
+Dobrym sposobem na omówienie problemu i uzyskanie pomocy jest zadanie pytania na naszym [forum](https://forum.defold.com). Opublikuj wpis w kategorii [Questions](https://forum.defold.com/c/questions) albo [Bugs](https://forum.defold.com/c/bugs), zależnie od rodzaju problemu. Pamiętaj, aby [wyszukać](https://forum.defold.com/search) swoje pytanie lub zgłoszenie, zanim je opublikujesz, bo możliwe, że rozwiązanie już istnieje.
 
-Jeśli masz kilka pytań, utwórz oddzielne posty. Nie zadawaj niezwiązanych pytań w tym samym wątku.
+Jeśli masz kilka pytań, utwórz osobne wpisy. Nie zadawaj niezwiązanych pytań w jednym wpisie.
 
 ### Wymagane informacje
-Nie będziemy mogli udzielić pomocy, jeśli nie przekażesz potrzebnych informacji:
+Nie będziemy w stanie udzielić pomocy, jeśli nie podasz potrzebnych informacji:
 
 **Tytuł**
-Użyj krótkiego i konkretnie opisującego problem tytułu. Dobry tytuł to np. „How do I move a game object in the direction it is rotated?” albo „How do I fade out a sprite?”. Zły tytuł to „I need some help using Defold!” albo „My game is not working!”.
+Użyj krótkiego i jasno opisującego problem tytułu. Dobry tytuł to na przykład „How do I move a game object in the direction it is rotated?” albo „How do I fade out a sprite?”. Zły tytuł to „I need some help using Defold!” albo „My game is not working!”.
 
 **Opisz błąd (WYMAGANE)**
-Jasny i zwięzły opis tego, co jest nie tak.
+Jasny i zwięzły opis tego, na czym polega błąd.
 
 **Odtworzenie problemu (WYMAGANE)**
-Kroki prowadzące do odtworzenia zachowania (raportuj najlepiej w języku angielskim):
+Kroki prowadzące do odtworzenia zachowania:
 1. Go to '...'
-2. Click '....'
+2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
 **Oczekiwane zachowanie (WYMAGANE)**
-Jasny opis tego, co powinno się wydarzyć.
+Jasny i zwięzły opis tego, czego się spodziewałeś.
 
 **Wersja Defold (WYMAGANE):**
   - Version [e.g. 1.2.155]
 
-**Sprzęt i system operacyjny (WYMAGANE):**
+**Platformy (WYMAGANE):**
  - Platforms: [e.g. iOS, Android, Windows, macOS, Linux, HTML5]
  - OS: [e.g. iOS8.1, Windows 10, High Sierra]
  - Device: [e.g. iPhone6]
 
 **Minimal reproduction case project (OPCJONALNIE):**
-Dołącz minimalny projekt, który odtwarza błąd. Ułatwia to diagnozę i naprawę.
+Dołącz minimalny projekt, w którym da się odtworzyć błąd. Bardzo to pomaga osobie, która będzie badać i naprawiać problem.
 
 **Logi (OPCJONALNIE):**
-Dodaj istotne logi z silnika, edytora lub serwera budowania. Dowiedz się, gdzie się znajdują, [tutaj](#log-files).
+Dodaj odpowiednie logi z silnika, edytora lub serwera budowania. Informacje o tym, gdzie są przechowywane, znajdziesz [tutaj](#log-files).
 
 **Workaround (OPCJONALNIE):**
-Jeśli znasz tymczasowe obejście, opisz je w poście.
+Jeśli istnieje obejście problemu, opisz je tutaj.
 
 **Screenshots (OPCJONALNIE):**
-Jeśli obrazy pomagają wyjaśnić problem, dołącz je.
+Jeśli to pomoże wyjaśnić problem, dołącz zrzuty ekranu.
 
 **Additional context (OPCJONALNIE):**
-Dodaj dowolny inny kontekst dotyczący problemu.
+Dodaj tutaj każdy dodatkowy kontekst związany z problemem.
 
 ### Udostępnianie kodu
-Kiedy dzielisz się kodem, lepiej zamieścić go jako tekst zamiast zrzutu ekranu. Dzięki temu można go przeszukać, łatwiej wskazać błędy i zaproponować poprawki. Umieść kod wewnątrz potrójnych backticków (```) albo wcięciu o 4 spacje.
+Kiedy udostępniasz kod, zalecamy umieszczenie go jako tekstu, a nie jako zrzutu ekranu. Dzięki temu łatwiej go wyszukać, wskazać błędy i zaproponować poprawki. Wstaw kod między trzy backticki (\`\`\`) albo wcięty o 4 spacje.
 
 Przykład:
 
+\`\`\`
 print("Hello code!")
+\`\`\`
 
 Efekt:
 
@@ -68,27 +70,27 @@ Efekt:
 print("Hello code!")
 ```
 
-## Zgłoś problem z poziomu Edytora
+## Zgłoś problem z poziomu edytora
 
-Edytor umożliwia wygodne zgłoszenie problemu. Wybierz <kbd>Help->Report Issue</kbd> z poziomu edytora, aby zgłosić błąd.
+Edytor udostępnia wygodny sposób zgłaszania problemów. Wybierz z poziomu edytora <kbd>Help->Report Issue</kbd>, aby zgłosić błąd.
 
 ![](images/getting_help/report_issue.png)
 
-Wybranie tej opcji przeniesie Cię do strony zgłoszeń na GitHubie. Dołącz [pliki z logami](#log-files), informacje o systemie operacyjnym, kroki odtwarzające problem, możliwe obejście itd.
+Wybranie tej opcji przeniesie Cię do systemu zgłoszeń na GitHubie. Dołącz [pliki z logami](#log-files), informacje o systemie operacyjnym, kroki odtworzenia problemu, możliwe obejścia i tym podobne szczegóły.
 
 ::: sidenote
-Musisz mieć konto na GitHubie, żeby zgłosić problem w ten sposób.
+Do przesłania zgłoszenia w ten sposób potrzebujesz konta GitHub.
 :::
 
 
 ## Przedyskutuj problem na Discord
 
-Jeśli napotkasz problem podczas korzystania z silnika Defold, możesz spróbować zadać pytanie na [Discord](https://www.defold.com/discord/). Zalecamy jednak, żeby złożone pytania i głębsze dyskusje prowadzić na forum. Nie przyjmujemy zgłoszeń błędów przesyłanych przez Discord.
+Jeśli napotkasz problem podczas korzystania z Defold, możesz spróbować zadać pytanie na [Discord](https://www.defold.com/discord/). Zalecamy jednak, aby złożone pytania i bardziej szczegółowe dyskusje prowadzić na forum. Nie przyjmujemy zgłoszeń błędów przesyłanych przez Discord.
 
 
-# Log files
+# Pliki z logami
 
-Silnik, edytor i serwer budowania generują logi, które bardzo pomagają przy zgłaszaniu i rozwiązywaniu problemów. Zawsze dołącz pliki z logami, gdy zgłaszasz problem:
+Silnik, edytor i serwer budowania generują informacje do logów, które mogą być bardzo pomocne podczas proszenia o pomoc i diagnozowania problemu. Zawsze dołączaj pliki z logami, gdy zgłaszasz problem:
 
 * [Engine logs](/manuals/debugging-game-and-system-logs)
 * [Editor logs](/manuals/editor#editor-logs)

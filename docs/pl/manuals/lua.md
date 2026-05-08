@@ -1,42 +1,33 @@
 ---
-title: Programowanie Lua w Defoldzie
-brief: Ta instrukcja przedstawi krótkie wprowadzenie do podstaw programowania w języku Lua ogólnie oraz to, na co należy zwrócić uwagę podczas pracy z Lua w Defoldzie.
+title: Programowanie w Lua w silniku Defold
+brief: Ta instrukcja krótko wprowadza w podstawy programowania w języku Lua i wyjaśnia, na co zwracać uwagę podczas pracy z Lua w silniku Defold.
 ---
 
-# Lua w Defoldzie
+# Lua w silniku Defold
 
-Silnik Defold ma wbudowany język Lua do skryptowania. Lua to lekki język dynamiczny, który jest potężny, szybki i łatwy do osadzenia. Jest powszechnie używany jako język skryptowy w grach wideo. Programy w Lua są napisane w prostym składni proceduralnym. Język jest dynamicznie typowany i uruchamiany przez interpreter kodu bajtowego. Posiada automatyczne zarządzanie pamięcią z inkrementalnym zbieraniem śmieci.
+Silnik Defold ma wbudowany język Lua do skryptowania. Lua to lekki język dynamiczny, który jest wydajny, szybki i łatwy do osadzenia. Jest powszechnie używany jako język skryptowy w grach wideo. Programy w Lua zapisuje się prostą składnią proceduralną. Język jest dynamicznie typowany i wykonywany przez interpreter kodu bajtowego. Oferuje automatyczne zarządzanie pamięcią z inkrementalnym odśmiecaniem.
 
-Ta instrukcja przedstawi krótkie wprowadzenie do podstaw programowania w Lua ogólnie oraz to, na co należy zwrócić uwagę podczas pracy z Lua w Defoldzie. Jeśli masz pewne doświadczenie z Pythonem, Perlem, Rubym, Javascriptem lub podobnym językiem dynamicznym, szybko się dostosujesz. Jeśli jesteś zupełnie nowy w programowaniu, możesz rozpocząć od książki o Lua skierowanej dla początkujących. Jest ich wiele do wyboru.
+Ta instrukcja krótko wprowadza w podstawy programowania w Lua i wyjaśnia, na co zwracać uwagę podczas pracy z Lua w silniku Defold. Jeśli masz już doświadczenie z Pythonem, Perlem, Rubym, JavaScriptem lub podobnym językiem dynamicznym, szybko się odnajdziesz. Jeśli dopiero zaczynasz programować, warto sięgnąć po książkę o Lua dla początkujących. Do wyboru jest ich wiele.
 
 ## Wersje Lua
 
-Staramy się, aby Defold był taki sam na wszystkich platformach, ale obecnie mamy kilka drobnych rozbieżności w wersji języka Lua między platformami:
+[LuaJIT](https://luajit.org/) to mocno zoptymalizowana wersja Lua, dobrze nadająca się do gier i innego oprogramowania krytycznego pod względem wydajności. Jest w pełni kompatybilna w górę z Lua 5.1 i obsługuje wszystkie standardowe funkcje bibliotek Lua oraz pełny zestaw funkcji Lua/C API.
 
-| Platforma        | Wersja Lua          | JIT Włączony |
-|------------------|---------------------|--------------|
-| Windows          | LuaJIT 2.1.0-beta3  | Tak          |
-| macOS            | LuaJIT 2.1.0-beta3  | Tak          |
-| Linux            | LuaJIT 2.1.0-beta3  | Tak          |
-| Android          | LuaJIT 2.1.0-beta3  | Tak          |
-| iOS              | LuaJIT 2.1.0-beta3  | Nie*         |
-| Nintendo Switch  | LuaJIT 2.1.0-beta3  | Nie*         |
-| HTML5            | Lua 5.1.4           | N/A          |
+LuaJIT dodaje też kilka [rozszerzeń języka](https://luajit.org/extensions.html) oraz część funkcji z Lua 5.2 i 5.3.
 
-*=Kod kompilowany JIT nie jest dozwolony
-
-[LuaJIT](https://luajit.org/) to bardzo zoptymalizowana wersja Lua, odpowiednia do użycia w grach i innych krytycznych pod względem wydajności oprogramowaniu. LuaJIT jest w pełni kompatybilny w górę z Lua 5.1. Obsługuje wszystkie standardowe funkcje biblioteki Lua oraz pełen zestaw funkcji Lua/C API.
-
-LuaJIT dodaje również kilka [rozszerzeń języka](https://luajit.org/extensions.html) i niektóre funkcje z Lua 5.2.
+Chcemy, aby Defold zachowywał się tak samo na wszystkich platformach, ale obecnie istnieje kilka drobnych różnic dotyczących wersji Lua:
+* iOS nie pozwala na kompilację JIT.
+* Nintendo Switch nie pozwala na kompilację JIT.
+* HTML5 używa Lua 5.1.4 zamiast LuaJIT.
 
 ::: important
 Aby zagwarantować, że Twoja gra działa na wszystkich obsługiwanych platformach, gorąco zalecamy korzystanie TYLKO z funkcji języka z wersji Lua 5.1.
 :::
 
 ### Biblioteki standardowe i rozszerzenia
-Defold zawiera wszystkie [standardowe biblioteki Lua 5.1](http://www.lua.org/manual/5.1/manual.html#5), a także bibliotekę do operacji na gniazdach i operacji bitowych:
+Defold zawiera wszystkie [standardowe biblioteki Lua 5.1](http://www.lua.org/manual/5.1/manual.html#5), a także bibliotekę socket i bibliotekę operacji bitowych:
 
-  - base (`assert()`, `error()`, `print()`, `ipairs()`, `require()`, itp.)
+  - base (`assert()`, `error()`, `print()`, `ipairs()`, `require()` itd.)
   - coroutine
   - package
   - string
@@ -53,22 +44,23 @@ Wszystkie biblioteki są udokumentowane w [dokumentacji API](/ref/go).
 ## Książki i zasoby Lua
 
 ### Zasoby online
-* [Programowanie w Lua (pierwsza edycja)](http://www.lua.org/pil/contents.html) Dostępne są późniejsze edycje w wersji drukowanej.
-* [Podręcznik referencyjny Lua 5.1](http://www.lua.org/manual/5.1/)
-* [Naucz się Lua w 15 minut](http://tylerneylon.com/a/learn-lua/)
-* [Niesamowita Lua - sekcja z tutorialami](https://github.com/LewisJEllis/awesome-lua#tutorials)
+* [Programming in Lua (first edition)](http://www.lua.org/pil/contents.html) Późniejsze wydania są dostępne w druku.
+* [Lua 5.1 reference manual](http://www.lua.org/manual/5.1/)
+* [Learn Lua in 15 Minutes](http://tylerneylon.com/a/learn-lua/)
+* [Awesome Lua - tutorial section](https://github.com/LewisJEllis/awesome-lua#tutorials)
 
 ### Książki
-* [Programowanie w Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Programowanie w Lua to oficjalna książka o języku, stanowiąca solidną podstawę dla każdego programisty, który chce używać Lua. Autorstwa Roberto Ierusalimschy, głównego architekta języka.
-* [Lua programming gems](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Lua Programming Gems to zbiór krótkich i zrozumiałych przepisów, stworzonych przez różnych doświadczonych programistów Lua. Książka ta oferuje wiele przydatnych porad i trików dotyczących programowania w Lua.
-* [Beginning Lua Programming](https://www.amazon.com/gp/product/1484219602/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Ta książka zawiera wiele praktycznych przykładów i projektów, które pomogą Ci opanować język Lua. Jest odpowiednia dla początkujących programistów, ale oferuje także bardziej zaawansowane tematy dla tych, którzy chcą pogłębić swoją wiedzę.
-* [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - Kolejna dobra książka na temat Lua, napisana przez Roberto Ierusalimschy, jednego z autorów języka Lua. Obejmuje wiele aspektów języka Lua i dostarcza praktyczne wskazówki oraz porady dotyczące programowania w nim.
+* [Programming in Lua](https://www.amazon.com/gp/product/8590379868/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i0) - To oficjalna książka o języku, dająca solidne podstawy każdemu programiście chcącemu używać Lua. Jej autorem jest Roberto Ierusalimschy, główny architekt języka.
+* [Lua programming gems](https://www.amazon.com/Programming-Gems-Luiz-Henrique-Figueiredo/dp/8590379841) - Zbiór artykułów dokumentujących dobre praktyki i sprawdzone podejścia do programowania w Lua.
+* [Lua 5.1 reference manual](https://www.amazon.com/gp/product/8590379833/ref=dbs_a_def_rwt_hsch_vapi_taft_p1_i4) - Ta pozycja jest dostępna również online.
+* [Beginning Lua Programming](https://www.amazon.com/Beginning-Lua-Programming-Kurt-Jung/dp/0470069171)
 
-Oczywiście, istnieje wiele innych dostępnych materiałów i samouczków do nauki Lua, więc możesz wybrać te, które najlepiej odpowiadają Twoim potrzebom i poziomowi umiejętności.
+### Wideo
+* [Learn Lua in one video](https://www.youtube.com/watch?v=iMacxZQMPXs)
 
 ## Składnia języka Lua
 
-Programy w Lua mają prostą, czytelną składnię. Instrukcje zapisywane są jedna na każdej linii, i nie ma potrzeby oznaczania końca instrukcji. Opcjonalnie można używać średników `;` do oddzielania instrukcji. Bloki kodu są ograniczane słowem kluczowym `end`. Komentarze mogą być blokowe lub do końca linii:
+Programy w Lua mają prostą, czytelną składnię. Instrukcje zapisuje się po jednej w każdej linii i nie ma potrzeby oznaczania końca instrukcji. Opcjonalnie można używać średników `;` do oddzielania instrukcji. Bloki kodu są ograniczane słowem kluczowym `end`. Komentarze mogą być blokowe lub jednolinijkowe:
 
 ```lua
 --[[
@@ -91,13 +83,13 @@ end
 Lua jest językiem dynamicznym, co oznacza, że zmienne nie mają określonych typów, ale wartości już mają. W odróżnieniu od języków o typach statycznych, możesz przypisać dowolną wartość do dowolnej zmiennej. W Lua istnieje osiem podstawowych typów wartości:
 
 `nil`
-: Ten typ ma tylko jedna wartość, `nil`. Zazwyczaj reprezentuje brak przydatnej wartości, na przykład nieprzypisane zmienne.
+: Ten typ ma tylko jedną wartość: `nil`. Zazwyczaj reprezentuje brak przydatnej wartości, na przykład nieprzypisane zmienne.
 
   ```lua
-  print(my_var) -- wyświetli 'nil', ponieważ 'moja_zmienna' nie ma jeszcze przypisanej wartości
+  print(my_var) -- wyświetli 'nil', ponieważ 'my_var' nie ma jeszcze przypisanej wartości
   ```
 
-`boolean`
+boolean
 : Ma wartość `true` (prawda) lub `false` (fałsz). Warunki, które są `false` lub `nil`, uznawane są za fałsz. Każda inna wartość jest uważana za prawdę.
 
   ```lua
@@ -117,11 +109,11 @@ Lua jest językiem dynamicznym, co oznacza, że zmienne nie mają określonych t
   end
   ```
 
-`number`
+number
 : Liczby są reprezentowane wewnętrznie jako 64-bitowe liczby całkowite (_integers_) lub 64-bitowe liczby zmiennoprzecinkowe (_floating point_). Lua automatycznie przelicza te reprezentacje, więc zazwyczaj nie musisz się tym martwić.
 
   ```lua
-  print(10) --> prints '10'
+  print(10) --> wyświetla '10'
   print(10.0) --> '10'
   print(10.000000000001) --> '10.000000000001'
 
@@ -130,18 +122,18 @@ Lua jest językiem dynamicznym, co oznacza, że zmienne nie mają określonych t
   print(a - b) --> '2.6666666666667'
   ```
 
-`string`
-: Stringi to ciągi znaków; są niemutowalnymi sekwencjami bajtów, które mogą zawierać dowolną wartość 8-bitową, włączając w to znaki zerowe (`\0`). Lua nie zakłada żadnych założeń co do zawartości ciągu, więc można w nich przechowywać dowolne dane. Ciągi znaków zapisuje się w pojedynczych lub podwójnych cudzysłowach. Lua przelicza liczby na ciągi znaków w trakcie wykonywania programu. Ciągi znaków można łączyć za pomocą operatora `..`.
+string
+: Stringi to niemutowalne sekwencje bajtów, które mogą zawierać dowolną wartość 8-bitową, w tym znak null (`\0`). Lua nie zakłada nic o zawartości ciągu, więc można w nim przechowywać dowolne dane. Literały ciągów znaków zapisuje się w pojedynczych lub podwójnych cudzysłowach. Lua konwertuje liczby na ciągi znaków w trakcie wykonywania programu. Ciągi znaków można łączyć za pomocą operatora `..`.
 
-  Ciągi znaków mogą zawierać następujące sekwencje unikodowe w stylu C:
+  Ciągi znaków mogą zawierać następujące sekwencje escape w stylu C:
 
-  | Sekwencja | Znak      |
-  | --------- | --------- |
-  | `\a`      | dzwonek/alert |
-  | `\b`      | backspace |
-  | `\f`      | form feed (przewiń stronę) |
-  | `\n`      | newline (nowa linia) |
-  | `\r`      | carriage return (powrót karetki) |
+  | Sekwencja | Znak |
+  | --------- | ---- |
+  | `\a`      | dzwonek |
+  | `\b`      | Backspace |
+  | `\f`      | form feed |
+  | `\n`      | nowa linia |
+  | `\r`      | powrót karetki |
   | `\t`      | tabulacja pozioma |
   | `\v`      | tabulacja pionowa |
   | `\\`      | ukośnik wsteczny |
@@ -149,7 +141,7 @@ Lua jest językiem dynamicznym, co oznacza, że zmienne nie mają określonych t
   | `\'`      | pojedynczy cudzysłów |
   | `\[`      | lewy nawias kwadratowy |
   | `\]`      | prawy nawias kwadratowy |
-  | `\ddd`    | znak określony wartością liczbową, gdzie ddd to sekwencja od jednej do trzech dziesiętnych cyfr |
+  | `\ddd`    | znak o wartości liczbowej, gdzie `ddd` to sekwencja od jednej do trzech cyfr dziesiętnych |
 
   ```lua
   my_string = "hello"
@@ -209,7 +201,7 @@ function
   print(adder(10)) --> 12
   ```
 
-`table`
+table
 : Tabele są jedynym typem danych strukturalnych w Lua. Są to _obiekty_ tablic asocjacyjnych, które służą do reprezentowania list, tablic, sekwencji, tabel symboli, zbiorów, rekordów, grafów, drzew itp. Tabele są zawsze anonimowe, a zmienne, do których przypisuje się tabelę, nie zawierają samej tabeli, lecz odniesienie do niej. Podczas inicjalizacji tabeli jako sekwencji pierwszy indeks to `1`, a nie `0`.
 
   ```lua
@@ -250,16 +242,16 @@ function
   --> x   1
   ```
 
-`userdata`
-: Userdata (dane użytkownika) pozwala na przechowywanie dowolnych danych C w zmiennych Lua. W Defoldzie, userdata Lua służy do przechowywania wartości Hash (`hash`), obiektów URL (`url`), obiektów Math (`vector3`, `vector4`, `matrix4`, `quaternion`), obiektów gry, węzłów GUI (`GUI node`), predykatów renderowania (`predicate`), celów renderowania (`render_target`) oraz buforów stałych renderowania (`constant_buffer`).
+userdata
+: Userdata (dane użytkownika) pozwala przechowywać dowolne dane C w zmiennych Lua. W silniku Defold userdata Lua służy do przechowywania wartości Hash (hash), obiektów URL (url), obiektów Math (vector3, vector4, matrix4, quaternion), obiektów gry, węzłów GUI (node), predykatów renderowania (predicate), celów renderowania (render_target) oraz buforów stałych renderowania (constant_buffer).
 
-`thread`
-: Wątki reprezentują niezależne wątki wykonywania i są używane do implementacji korygujących. Zobacz poniżej dla szczegółów.
+thread
+: Wątki reprezentują niezależne jednostki wykonywania i są używane do implementacji korutyn. Zobacz poniżej, aby poznać szczegóły.
 
 ## Operatory
 
 Operatory arytmetyczne
-: Operatory matematyczne `+`, `-`, `*`, `/`, unarny `-` (negacja) i eksponenta `^`.
+: Operatory matematyczne `+`, `-`, `*`, `/`, unarny `-` (negacja) oraz `^` (potęgowanie).
 
   ```lua
   a = -1
@@ -303,7 +295,7 @@ Operatory logiczne
   ```
 
 Konkatenacja
-: Ciągi znaków (string) można konkatenować za pomocą operatora `...` Liczby są przeliczane na ciągi znaków podczas konkatenacji.
+: Ciągi znaków można łączyć za pomocą operatora `..`. Liczby są przeliczane na ciągi znaków podczas konkatenacji.
 
   ```lua
   print("donkey" .. "kong") --> "donkeykong"
@@ -311,7 +303,7 @@ Konkatenacja
   ```
 
 Długość
-: Jednoargumentowy operator długości (length) `#`. Długość ciągu znaków to liczba jego bajtów. Długość tabeli to jej długość sekwencji, czyli liczba indeksów o numerze od `1` wzwyż, gdzie wartość nie jest `nil`. Uwaga: Jeśli w sekwencji są "dziury" z wartością `nil`, długość może być indeksem poprzedzającym wartość `nil`.
+: Jednoargumentowy operator długości `#`. Długość ciągu znaków to liczba jego bajtów. Długość tabeli to długość sekwencji, czyli liczba indeksów o numerze od `1` wzwyż, dla których wartość nie jest `nil`. Uwaga: jeśli w sekwencji są „dziury” z wartością `nil`, długość może być dowolnym indeksem poprzedzającym `nil`.
 
   ```lua
   s = "donkey"
@@ -327,12 +319,12 @@ Długość
   print(#v) --> 2
   ```
 
-## Kontrola przepływu danych
+## Sterowanie przepływem
 
-ua dostarcza standardowy zestaw konstrukcji sterowania przepływem (flow control).
+Lua dostarcza standardowy zestaw konstrukcji sterowania przepływem.
 
 if---then---else
-: Testuje warunek, wykonuje część `then`, jeśli warunek jest prawdziwy, w przeciwnym razie wykonuje (opcjonalną) część `else`. Zamiast zagnieżdżać instrukcje `if`, można używać `elseif`. To zastępuje instrukcję `switch`, której Lua nie ma.
+: Testuje warunek, wykonuje część `then`, jeśli warunek jest prawdziwy, w przeciwnym razie wykonuje (opcjonalną) część `else`. Zamiast zagnieżdżać instrukcje `if`, można używać `elseif`. To zastępuje instrukcję switch, której Lua nie ma.
 
   ```lua
   a = 5
@@ -354,13 +346,13 @@ if---then---else
   ```
 
 while
-: Testuje warunek i wykonuje blok tak długo, jak warunek jest prawdziwy (`true`).
+: Testuje warunek i wykonuje blok tak długo, jak warunek jest prawdziwy.
 
   ```lua
   weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
               "Thursday", "Friday", "Saturday"}
 
-  -- Print each weekday
+  -- Wypisz każdy dzień tygodnia
   i = 1
   while weekdays[i] do
       print(weekdays[i])
@@ -369,13 +361,13 @@ while
   ```
 
 repeat---until
-: Powtarza blok aż warunek stanie się prawdziwy (`true`). Warunek jest testowany po bloku kodu, więc blok zostanie wykonany co najmniej raz.
+: Powtarza blok aż warunek stanie się prawdziwy. Warunek jest testowany po bloku kodu, więc blok zostanie wykonany co najmniej raz.
 
   ```lua
   weekdays = {"Sunday", "Monday", "Tuesday", "Wednesday",
               "Thursday", "Friday", "Saturday"}
 
-  -- Print each weekday
+  -- Wypisz każdy dzień tygodnia
   i = 0
   repeat
       i = i + 1
@@ -387,23 +379,23 @@ for
 : Lua posiada dwa rodzaje pętli `for`: numeryczną i ogólną. Numeryczna pętla `for` przyjmuje 2 lub 3 wartości liczbowe, natomiast ogólna pętla `for` iteruje po wszystkich wartościach zwracanych przez funkcję _iteratora_.
 
   ```lua
-  -- Wyświetla liczby do 1 do 10
+  -- Wypisuje liczby od 1 do 10
   for i = 1, 10 do
       print(i)
   end
 
-  -- Wyświetla liczby od 1 do 10 z krokiem 2
+  -- Wypisuje liczby od 1 do 10 z krokiem 2
   for i = 1, 10, 2 do
       print(i)
   end
 
-  -- Wyświetla liczby od 10 do 1
+  -- Wypisuje liczby od 10 do 1
   for i=10, 1, -1 do
       print(i)
   end
 
   t = { "a", "b", "c", "d" }
-  -- Iteruje po sekwencji i wyświetla wartości
+  -- Iteruje po sekwencji i wypisuje wartości
   for i, v in ipairs(t) do
       print(v)
   end
@@ -430,7 +422,7 @@ break and return
 
 ## Lokalne zmienne, zmienne globalne i zasięg leksykalny
 
-Wszystkie zmienne, które deklarujesz, są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomienia Lua. Możesz wyraźnie zadeklarować zmienne jako `local`, co oznacza, że zmienna istnieje tylko w bieżącym zakresie (ang. scope).
+Wszystkie zmienne, które deklarujesz, są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomieniowego Lua. Możesz wyraźnie zadeklarować zmienne jako `local`, co oznacza, że zmienna istnieje tylko w bieżącym zakresie (ang. scope).
 
 Każdy plik źródłowy Lua definiuje osobny zakres. Lokalne deklaracje na najwyższym poziomie w pliku oznaczają, że zmienna jest lokalna w skrypcie Lua. Każda funkcja tworzy inny zagnieżdżony zakres, a każdy blok struktury sterującej tworzy dodatkowe zakresy. Możesz wyraźnie tworzyć zakresy za pomocą słów kluczowych `do` i `end`. Lua działa w zakresie leksykalnym, co oznacza, że zakres ma pełny dostęp do _lokalnych_ zmiennych z otaczającego zakresu. Należy zauważyć, że zmienne lokalne muszą być zadeklarowane przed ich użyciem.
 
@@ -443,7 +435,7 @@ function my_func(a, b)
     end
 
     print(x) --> nil. 'x' nie jest dostępne poza zakresem do-end
-    print(foo) --> nil. 'foo' jest zadeklarowane poza 'moja_funkcja'
+    print(foo) --> nil. 'foo' jest zadeklarowane po 'my_func'
     print(foo_global) --> "value 2", ponieważ jest globalna
 end
 
@@ -453,10 +445,10 @@ foo_global = "value 2"
 print(foo) --> "value 1". 'foo' jest dostępne w najwyższym zakresie po deklaracji.
 ```
 
-Należy zauważyć, że jeśli deklarujesz funkcje jako `local` w pliku skryptu (co jest ogólnie dobrym pomysłem), musisz uważać na kolejność kodu. Możesz użyć deklaracji przód, jeśli masz funkcje, które nawzajem się wywołują.
+Należy zauważyć, że jeśli deklarujesz funkcje jako `local` w pliku skryptu (co jest ogólnie dobrym pomysłem), musisz uważać na kolejność kodu. Możesz użyć deklaracji wstępnej, jeśli masz funkcje, które nawzajem się wywołują.
 
 ```lua
-local func2 -- Forward declaration: 'func2'
+local func2 -- Wstępna deklaracja 'func2'
 
 local function func1(a)
     print("func1")
@@ -517,7 +509,7 @@ end
 
 ## Korutyny
 
-Funkcje wykonują się od początku do końca, i nie ma sposobu, aby zatrzymać je w połowie. Korutyny (ang. coroutines) umożliwiają to, co może być bardzo wygodne w niektórych przypadkach. Załóżmy, że chcemy stworzyć bardzo konkretną animację klatka po klatce, w której przesuwamy obiekt gry z pozycji Y `0` do niektórych konkretnych pozycji Y od klatki 1 do klatki 5. Moglibyśmy rozwiązać to za pomocą licznika w funkcji `update()` (patrz poniżej) i listy pozycji. Jednak z użyciem korutyny uzyskujemy bardzo czystą implementację, która jest łatwa do rozbudowy i pracy. Cały stan jest zawarty w samej korutynie.
+Funkcje wykonują się od początku do końca i nie ma sposobu, aby zatrzymać je w połowie. Korutyny (ang. coroutines) umożliwiają to, co może być bardzo wygodne w niektórych przypadkach. Załóżmy, że chcemy stworzyć bardzo konkretną animację klatka po klatce, w której przesuwamy obiekt gry z pozycji y `0` do określonych pozycji y od klatki 1 do klatki 5. Moglibyśmy rozwiązać to za pomocą licznika w funkcji `update()` (patrz poniżej) i listy pozycji. Jednak z użyciem korutyny otrzymujemy bardzo czystą implementację, którą łatwo rozbudować i utrzymywać. Cały stan jest zawarty w samej korutynie.
 
 Gdy korutyna jest zawieszona, zwraca kontrolę do wywołującego, ale pamięta swój punkt wykonania, więc może kontynuować od tego momentu później.
 
@@ -537,7 +529,7 @@ function init(self)
 end
 
 function update(self, dt)
-    local status, y_pos = coroutine.resume(self.co, self) -- Kontynuuje wykonywanie koriutyny.
+    local status, y_pos = coroutine.resume(self.co, self) -- Kontynuuje wykonywanie korutyny.
     if status then
         -- Jeśli korutyna nie jest jeszcze zakończona, używa wartości zwróconej przez nią jako nowej pozycji
         go.set_position(vmath.vector3(100, y_pos, 0))
@@ -546,9 +538,9 @@ end
 ```
 
 
-## Konteksty Lua w Defoldzie
+## Konteksty Lua w silniku Defold
 
-Wszystkie zmienne, które deklarujesz, są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomienia Lua (ang. Lua runtime context). W Defoldzie istnieje opcja *shared_state* w pliku *game.project*, która kontroluje ten kontekst. Jeśli opcja jest ustawiona, wszystkie skrypty, skrypty GUI i skrypt renderowania są oceniane w tym samym kontekście Lua, a zmienne globalne są widoczne wszędzie. Jeśli opcja nie jest ustawiona, silnik wykonuje skrypty, skrypty GUI i skrypt renderowania w osobnych kontekstach.
+Wszystkie deklarowane zmienne są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomieniowego Lua (ang. Lua runtime context). W pliku *game.project* znajduje się opcja *shared_state*, która steruje tym zachowaniem. Jeśli jest włączona, wszystkie skrypty, skrypty GUI i skrypt renderowania są wykonywane w tym samym kontekście Lua, a zmienne globalne są widoczne wszędzie. Jeśli jest wyłączona, silnik wykonuje skrypty, skrypty GUI i skrypt renderowania w osobnych kontekstach.
 
 ![Contexts](images/lua/lua_contexts.png)
 
@@ -651,25 +643,25 @@ print(collectgarbage("count") * 1024)
 
 ## Najlepsze praktyki
 
-Jednym z podstawowych aspektów projektowania jest sposób strukturyzowania kodu dla współdzielonych zachowań. Istnieje kilka możliwych podejść.
+Jednym z ważnych pytań projektowych jest to, jak strukturyzować kod dla współdzielonych zachowań. Można przyjąć kilka różnych podejść.
 
 Zachowania w module
-: Umieszczenie zachowania w module pozwala na łatwe dzielenie kodu między różnymi komponentami obiektów gry (i skryptami GUI). Podczas pisania funkcji modułu zazwyczaj warto pisać kod ściśle funkcyjny. Są przypadki, w których przechowywanie stanu lub skutki uboczne są koniecznością (lub prowadzą do czystszej struktury). Jeśli trzeba przechowywać stan w module, trzeba pamiętać, że komponenty współdzielą konteksty Lua. Zobacz szczegóły w [instrukcji do modułów](/manuals/modules).
+: Umieszczenie zachowania w module ułatwia współdzielenie kodu między komponentami skryptów obiektów gry i skryptami GUI. Przy pisaniu funkcji modułu zazwyczaj najlepiej trzymać się kodu czysto funkcyjnego. Zdarzają się jednak przypadki, w których przechowywanie stanu lub skutków ubocznych jest konieczne albo po prostu daje czystszy projekt. Jeśli musisz przechowywać stan w module, pamiętaj, że komponenty współdzielą konteksty Lua. Szczegóły znajdziesz w [instrukcji do modułów](/manuals/modules).
 
   ![Module](images/lua/lua_module.png)
-  
-  Ponadto, nawet jeśli modułowi jest możliwe bezpośrednie modyfikowanie wewnętrznych danych obiektu gry (przesyłanie `self` do funkcji modułu), zdecydowanie odradzamy to, ponieważ prowadzi to do bardzo silnego sprzężenia.
 
-Pomocniczy obiekt gry z zamkniętym zachowaniem
-: Tak samo, jak można umieścić kod skryptu w module Lua, można go umieścić w obiekcie gry z komponentem skryptowym. Różnica polega na tym, że umieszczenie go w obiekcie gry pozwala na komunikację z nim tylko poprzez przekazywanie wiadomości.
+  Nawet jeśli kod modułu może bezpośrednio modyfikować wnętrze obiektu gry przez przekazanie `self` do funkcji modułu, zdecydowanie tego odradzamy, bo prowadzi to do bardzo silnego sprzężenia.
+
+Pomocniczy obiekt gry z kapsułkowanym zachowaniem
+: Tak samo jak można umieścić kod skryptu w module Lua, można go umieścić w obiekcie gry z komponentem skryptowym. Różnica polega na tym, że wtedy komunikacja z nim odbywa się wyłącznie przez wiadomości.
 
   ![Helper](images/lua/lua_helper.png)
   
-Grupowanie obiektu gry z pomocniczym obiektem zachowania wewnątrz kolekcji
-: W tym projekcie można stworzyć obiekt gry, który automatycznie działa na innym docelowym obiekcie gry, albo przez zdefiniowaną nazwę (użytkownik musi zmienić nazwę docelowego obiektu gry, aby pasowała), albo poprzez adres URL `go.property()`, który wskazuje na docelowy obiekt gry.
+Grupowanie obiektu gry z pomocniczym obiektem zachowania w kolekcji
+: W takim układzie można stworzyć obiekt gry, który automatycznie działa na innym obiekcie docelowym, albo przez z góry zdefiniowaną nazwę, którą użytkownik musi dopasować, albo przez adres URL z `go.property()`, wskazujący obiekt docelowy.
 
   ![Collection](images/lua/lua_collection.png)
 
-  Zaletą tego rozwiązania jest to, że można umieścić obiekt gry zachowania w kolekcji zawierającej docelowy obiekt. Nie jest wymagany żaden dodatkowy kod.
+  Zaletą tego rozwiązania jest to, że można wstawić taki obiekt do kolekcji zawierającej obiekt docelowy. Nie jest potrzebny żaden dodatkowy kod.
 
-  W przypadkach, gdy musisz zarządzać dużą ilością obiektów gry, to rozwiązanie nie jest zalecane, ponieważ obiekt zachowania jest duplikowany dla każdej instancji, a każdy obiekt będzie kosztować pamięć.
+  W sytuacjach, w których trzeba zarządzać dużą liczbą obiektów gry, to rozwiązanie nie jest zalecane, ponieważ obiekt zachowania jest kopiowany dla każdej instancji, a każdy z nich zajmuje pamięć.

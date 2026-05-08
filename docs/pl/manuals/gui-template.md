@@ -1,56 +1,56 @@
 ---
-title: Szablony GUI w Defoldzie
-brief: Ta instrukcja wyjaśnia, jak działają szablony GUI.
+title: Podręcznik szablonów GUI
+brief: Ta instrukcja wyjaśnia system szablonów GUI w Defold, który służy do tworzenia wielokrotnego użytku wizualnych komponentów GUI opartych na wspólnych szablonach lub "prefabach".
 ---
 
 # Węzły szablonów GUI
 
-Węzły szablonów (ang. template nodes) GUI zapewniają potężny mechanizm tworzenia wielokrotnego użytku komponentów GUI na podstawie wspólnych "szablonów" lub "prefabrykatów". Ten podręcznik wyjaśnia tę funkcję i jej użycie.
+Węzły szablonów GUI (ang. GUI template nodes) zapewniają wygodny mechanizm tworzenia wielokrotnego użytku komponentów GUI opartych na wspólnych szablonach lub "prefabach". Ta instrukcja wyjaśnia tę funkcję i pokazuje, jak z niej korzystać.
 
-Szablon GUI to scena GUI, która jest tworzona, węzeł po węźle, w innej scenie GUI. Wartości właściwości węzłów oryginalnych szablonów można wówczas zastępować.
+Szablon GUI to scena GUI, która jest instancjonowana, węzeł po węźle, w innej scenie GUI. Każdą wartość właściwości w oryginalnych węzłach szablonu można później nadpisać.
 
 ## Tworzenie szablonu
 
-Szablon GUI to zwykła scena GUI, więc tworzy się go tak samo jak każdą inną scenę GUI. <kbd>Kliknij prawym przyciskiem myszy</kbd> w odpowiednim miejscu w panelu Assets i wybierz <kbd>New... ▸ Gui</kbd>.
+Szablon GUI to zwykła scena GUI, więc tworzy się go tak samo jak każdą inną scenę GUI. <kbd>Right click</kbd> w wybranym miejscu w panelu *Assets* i wybierz <kbd>New... ▸ Gui</kbd>.
 
 ![Create template](images/gui-templates/create.png)
 
-Utwórz szablon i zapisz go. Należy zauważyć, że węzły instancji tego szablonu zostaną umieszczone względem położenia początkowego, dlatego dobrym pomysłem jest utworzenie szablonu w pozycji 0, 0, 0.
+Utwórz szablon i zapisz go. Pamiętaj, że węzły instancji zostaną umieszczone względem punktu początkowego, więc najlepiej utworzyć szablon w pozycji 0, 0, 0.
 
 ## Tworzenie instancji na podstawie szablonu
 
-Możesz tworzyć dowolną liczbę instancji opartych na jednej instancji. Utwórz lub otwórz scenę GUI, w której chcesz umieścić szablon, a następnie <kbd>kliknij prawym przyciskiem myszy</kbd> sekcję *Nodes* w widoku *Outline* i wybierz <kbd>Add ▸ Template</kbd>.
+Możesz utworzyć dowolną liczbę instancji na podstawie szablonu. Utwórz lub otwórz scenę GUI, w której chcesz umieścić szablon, a następnie <kbd>right click</kbd> sekcję *Nodes* w widoku *Outline* i wybierz <kbd>Add ▸ Template</kbd>.
 
 ![Create instance](images/gui-templates/create_instance.png)
 
 Ustaw właściwość *Template* na plik sceny GUI szablonu.
 
-Możesz dodać dowolną liczbę instancji szablonów, a dla każdej instancji można zastępować właściwości każdego węzła i zmieniać pozycję węzła instancji, kolorowanie, rozmiar, teksturę itp.
+Możesz dodać dowolną liczbę instancji szablonu, a dla każdej z nich nadpisywać właściwości poszczególnych węzłów oraz zmieniać pozycję węzła instancji, kolor, rozmiar, teksturę i tak dalej.
 
 ![Instances](images/gui-templates/instances.png)
 
-Każda zmieniona właściwość jest oznaczona kolorem niebieskim w edytorze. Naciśnij przycisk resetowania przy właściwości, aby ustawić jej wartość na wartość z szablonu:
+Każda zmieniona właściwość jest oznaczana na niebiesko w edytorze. Naciśnij przycisk resetowania obok właściwości, aby przywrócić wartość z szablonu:
 
 ![Properties](images/gui-templates/properties.png)
 
-Każdy węzeł, który ma zmienione właściwości, jest również kolorowany na niebiesko w widoku *Outline*:
+Każdy węzeł, który ma nadpisane właściwości, jest również oznaczony na niebiesko w widoku *Outline*:
 
 ![Outline](images/gui-templates/outline.png)
 
-Instancja szablonu jest wylistowana jako składana pozycja w widoku *Outline*. Jednak należy zauważyć, że ten element w widoku *nie jest węzłem*. Instancja szablonu nie istnieje także w czasie wykonywania, ale wszystkie węzły, które są częścią instancji, istnieją.
+Instancja szablonu jest widoczna jako zwijany element w widoku *Outline*. Warto jednak pamiętać, że ten element w *Outline* nie jest węzłem. Sama instancja szablonu nie istnieje też w czasie działania programu, ale istnieją wszystkie węzły należące do tej instancji.
 
-Węzły, które są częścią instancji szablonu, są automatycznie nazwane przyrostkiem i ukośnikiem (`"/"`) do ich *Id*. Przyrostek ten to *Id* ustawione w instancji szablonu.
+Węzły należące do instancji szablonu są automatycznie nazywane z prefiksem i ukośnikiem (`"/"`) dołączonym do ich *Id*. Prefiksem jest *Id* ustawione w instancji szablonu.
 
 ## Modyfikowanie szablonów w czasie działania programu
 
-Skrypty, które manipulują lub sprawdzają węzły dodane za pomocą szablonów, muszą uwzględniać tylko nazwy węzłów instancji i uwzględniać *Id* instancji szablonu jako prefiks nazwy węzła:
+Skrypty, które manipulują węzłami dodanymi za pomocą mechanizmu szablonów lub je odczytują, muszą uwzględniać nazewnictwo węzłów instancji i dodawać *Id* instancji szablonu jako prefiks nazwy węzła:
 
 ```lua
 if gui.pick_node(gui.get_node("button_1/button"), x, y) then
-    -- Do something...
+    -- Wykonaj jakieś działanie...
 end
 ```
 
-Nie ma węzła odpowiadającego samej instancji szablonu. Jeśli potrzebujesz węzła głównego dla instancji, dodaj go do szablonu.
+Nie istnieje osobny węzeł odpowiadający samej instancji szablonu. Jeśli potrzebujesz węzła głównego dla instancji, dodaj go do szablonu.
 
-Jeśli skrypt jest powiązany ze sceną GUI szablonu, skrypt ten nie jest częścią drzewa węzłów instancji. Możesz dołączyć jeden pojedynczy skrypt do każdej sceny GUI, więc twoja logika skryptu musi znajdować się na scenie GUI, na której instancjonujesz swoje szablony.
+Jeśli skrypt jest powiązany ze sceną GUI szablonu, nie należy on do drzewa węzłów instancji. Do każdej sceny GUI możesz dołączyć tylko jeden skrypt, więc logika skryptu musi znajdować się w scenie GUI, w której instancjonujesz szablony.

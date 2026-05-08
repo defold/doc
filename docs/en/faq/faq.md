@@ -68,12 +68,12 @@ A: Haxe is not officially supported. The community maintains [hxdefold](https://
 
 #### Q: Can I use C# with Defold?
 
-A: The Defold Foundation will be adding C# support and make it available as a library dependency. C# is a widely adopted programming language and it will help studios and developers heavily invested in C# to transition to Defold.
+A: The Defold Foundation added C# support and made it available as a library dependency. C# is a widely adopted programming language and it will help studios and developers heavily invested in C# to transition to Defold.
 
 
 #### Q: I am concerned that adding C# support will have a negative impact on Defold. Should I be worried?
 
-Defold is NOT moving away from Lua as a the primary scripting language. C# support will be added as a new language for extensions. It will not impact the engine unless you choose to use C# extensions in your project.
+Defold is NOT moving away from Lua as a the primary scripting language. C# support is added as a new language for extensions. It will not impact the engine unless you choose to use C# extensions in your project.
 
 C# support will come at a price (executable size, runtime performance etc), but that's for the individual developer/studio to decide upon.
 
@@ -124,7 +124,7 @@ A: As a developer you only have to worry about a single render API using a [full
 
 A: Yes, select the "About" option in the Help menu. The popup clearly shows Defold beta version and, more importantly, the specific release SHA1. For runtime version lookup, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
-The latest beta version available for download from http://d.defold.com/beta can be checked by opening http://d.defold.com/beta/info.json (the same file exists for stable versions as well: http://d.defold.com/stable/info.json)
+The latest beta version available for download from [http://d.defold.com/beta](http://d.defold.com/beta) can be checked by opening [http://d.defold.com/beta/info.json](http://d.defold.com/beta.json) (the same file exists for stable versions as well: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)).
 
 
 #### Q: Is there a way to know what platform the game is running on at runtime?
@@ -195,7 +195,7 @@ A: Yes, it does. They are called [collections](/manuals/building-blocks/#collect
 
 #### Q: I can't add a game object as a child to another game object, why?
 
-A: Chances are that you try to add a child in the game object file and that is not possible. To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_ transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy.
+A: Chances are that you try to add a child in the game object file and that is not possible. It's only possible in the collection file. To understand why, you have to remember that parent-child hierarchies are strictly a _scene-graph_ transform hierarchy. A game object that has not been placed (or spawned) into a scene (collection) is not part of a scene-graph and can't therefore be part of a scene-graph hierarchy. You can get an id of the parent of the game object using [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
 
 
 #### Q: Why can't I broadcast messages to all children of a game object?
@@ -258,7 +258,7 @@ A: In general all resources are statically declared with the benefit that you ge
 
 #### Q: Is there a way to access the physics collision shape properties?
 
-A: No, it is currently not possible.
+A: Yes, check out the physics API, especially [`physics.get_shape()`](https://defold.com/ref/stable/physics-lua/#physics.get_shape:url-shape) and [`physics.set_shape()`](https://defold.com/ref/stable/physics-lua/#physics.set_shape:url-shape-table). 
 
 
 #### Q: Is there any quick way to render the collision objects in my scene? (like Box2D's debug draw)

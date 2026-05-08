@@ -1,59 +1,74 @@
 ---
 title: Pisanie kodu
-brief: Ta instrukcja krótko omawia, jak pracować z kodem w Defold.
+brief: Ta instrukcja krótko omawia pracę z kodem w Defold.
 ---
 
 # Pisanie kodu
 
-Podczas gdy Defold pozwala tworzyć wiele zawartości gry za pomocą narzędzi wizualnych, takich jak Edytory map kafelków (tilemap) i efektów cząsteczkowych (particle FX), logikę gry tworzysz za pomocą Edytora kodu. Logikę gry pisze się za pomocą języka programowania [Lua](https://www.lua.org/), podczas gdy rozszerzenia samego silnika pisze się przy użyciu języków niskopoziomowych dedykowanych dla docelowej platformy.
+Choć Defold pozwala tworzyć sporą część zawartości gry za pomocą narzędzi wizualnych, takich jak edytory map kafelków i efektów cząsteczkowych, logikę gry nadal tworzysz w edytorze kodu. Logika gry jest pisana w [języku programowania Lua](https://www.lua.org/), a rozszerzenia samego silnika tworzy się w języku lub językach natywnych dla platformy docelowej.
 
 ## Pisanie kodu Lua
 
-Defold używa Lua 5.1 i LuaJIT (w zależności od docelowej platformy) i należy stosować specyfikację tego języka dla konkretnych wersji Lua podczas pisania logiki gry. Aby uzyskać więcej szczegółów na temat pracy z Lua w Defoldzie, zobacz nasz [podręcznik Lua w Defold](/manuals/lua).
+Defold używa Lua 5.1 i LuaJIT, zależnie od platformy docelowej, więc podczas pisania logiki gry trzeba stosować się do specyfikacji tych konkretnych wersji Lua. Więcej informacji o pracy z Lua w Defold znajdziesz w [instrukcji Lua w Defold](/manuals/lua).
+
+## Używanie innych języków transpilujących do Lua
+
+Defold obsługuje transpilatory generujące kod Lua. Po zainstalowaniu rozszerzenia transpilatora możesz używać alternatywnych języków, takich jak [Teal](https://github.com/defold/extension-teal), aby pisać statycznie sprawdzany kod Lua. To funkcja podglądowa i ma ograniczenia: obecna obsługa transpilatorów nie udostępnia informacji o modułach i funkcjach zdefiniowanych w środowisku uruchomieniowym Lua w Defold. Oznacza to, że korzystając z API Defold, takiego jak `go.animate`, musisz samodzielnie przygotować definicje zewnętrzne.
 
 ## Pisanie kodu natywnego
 
-Defold pozwala na rozszerzenie silnika gry kodem natywnym (native extensions), aby uzyskać dostęp do funkcji specyficznych dla danej platformy, których nie dostarcza sam silnik. Możesz również użyć kodu natywnego, gdy wydajność Lua nie jest wystarczająca (obliczenia wymagające dużych zasobów, przetwarzanie obrazów itp.). Aby dowiedzieć się więcej, zajrzyj do naszych [podręczników dotyczących Rozszerzeń Natywnych](/manuals/extensions/).
+Defold pozwala rozszerzać silnik kodem natywnym, aby uzyskać dostęp do funkcji specyficznych dla platformy, których sam silnik nie udostępnia. Kod natywny przydaje się też wtedy, gdy wydajność Lua nie wystarcza, na przykład przy kosztownych obliczeniach lub przetwarzaniu obrazów. Więcej informacji znajdziesz w [instrukcjach o Native Extensions](/manuals/extensions/).
 
-## Używanie wbudowanego Edytora kodu
+## Używanie wbudowanego edytora kodu
 
-Defold posiada wbudowany Edytor kodu, który pozwala na otwieranie i edytowanie plików Lua (.lua), plików skryptów Defold (.script, .gui_script i .render_script) oraz innych plików z rozszerzeniem, które nie są obsługiwane natywnie przez Edytor. Dodatkowo Edytor ten oferuje podświetlanie składni dla plików Lua i skryptów oraz podręczny dostęp do dokumentacji dla funkcji API.
+Defold ma wbudowany edytor kodu, który pozwala otwierać i edytować pliki Lua (.lua), pliki skryptów Defold (.script, .gui_script i .render_script), a także inne pliki z rozszerzeniami, których edytor nie obsługuje natywnie. Edytor zapewnia też podświetlanie składni dla plików Lua i plików skryptów.
 
 ![](/images/editor/code-editor.png)
 
+### Uzupełnianie kodu
 
-### Dodawanie sprawdzania poprawności kodu Lua za pomocą LSP
+Wbudowany edytor kodu wyświetla podpowiedzi dotyczące funkcji podczas pisania:
 
-Defold obsługuje część protokołu Language Server Protocol (LSP), który można użyć do analizy kodu i wskazywania błędów programistycznych i stylowych. Proces ten jest również znany jako sprawdzanie poprawności kodu (linting).
+![](/images/editor/codecompletion.png)
 
-Serwer języka Lua i linter kodu są dostępne jako wtyczka (plugin). Zainstaluj wtyczkę, [dodając ją jako zależność](/manuals/libraries/#setting-up-library-dependencies):
+Naciśnięcie <kbd>CTRL</kbd> + <kbd>Space</kbd> pokazuje dodatkowe informacje o funkcjach, argumentach i wartościach zwracanych:
 
+![](/images/editor/apireference.png)
+
+### Konfiguracja lintingu
+
+Wbudowany edytor kodu wykonuje linting przy użyciu [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) oraz [Lua language server](https://luals.github.io/wiki/diagnostics/). Aby skonfigurować Luacheck, utwórz plik `.luacheckrc` w katalogu głównym projektu. Listę dostępnych opcji znajdziesz na [stronie konfiguracji Luacheck](https://luacheck.readthedocs.io/en/stable/config.html). Defold używa domyślnie następującej konfiguracji Luacheck:
+
+```lua
+unused_args = false      -- nie ostrzegaj o nieużywanych argumentach (częste w plikach .script)
+max_line_length = false  -- nie ostrzegaj o długich liniach
+ignore = {
+    "611",               -- linia zawiera tylko białe znaki
+    "612",               -- linia zawiera białe znaki na końcu
+    "614"                -- białe znaki na końcu komentarza
+},
 ```
-https://github.com/defold/lua-language-server/releases/download/v0.0.5/release.zip
-```
-Dostępne wersje można znaleźć na [stronie wydań](https://github.com/defold/lua-language-server/releases) wtyczki. Dowiedz się więcej na temat tej wtyczki na [stronie wsparcia na forum Defold](https://forum.defold.com/t/linting-in-the-code-editor/72465).
 
+## Używanie zewnętrznego edytora kodu
 
-## Użycie zewnętrznego Edytora kodu
-
-Edytor kodu w Defoldzie zapewnia podstawową funkcjonalność do pisania kodu, ale dla bardziej zaawansowanych przypadków użycia lub dla użytkowników z ulubionym Edytorem kodu, można pozwolić Defoldowi otwierać pliki za pomocą zewnętrznego Edytora, ponieważ skrypty i pliki tworzone przez Defolda w projekcie są edytowalnymi plikami tekstowymi. W [oknie preferencji w zakładce "Code"](/manuals/editor-preferences/#code) można zdefiniować zewnętrzny Edytor, który ma być używany podczas edycji kodu.
+Edytor kodu w Defold zapewnia podstawowe możliwości potrzebne do pisania kodu, ale w bardziej zaawansowanych zastosowaniach lub jeśli wolisz własny edytor, możesz skonfigurować Defold tak, aby otwierał pliki w zewnętrznym edytorze. W [oknie Preferences, na karcie Code](/manuals/editor-preferences/#code) można wskazać zewnętrzny edytor, którego Defold ma używać do pracy z kodem.
 
 ### Visual Studio Code - Defold Kit
 
-Defold Kit to wtyczka dla Visual Studio Code z następującymi funkcjami:
+Defold Kit to wtyczka do Visual Studio Code z następującymi funkcjami:
 
-* Instalowanie zalecanych rozszerzeń
-* Podświetlanie, autouzupełnianie i sprawdzanie poprawności (linting) Lua
-* Zastosowanie odpowiednich ustawień do przestrzeni roboczej
-* Adnotacje Lua dla interfejsu API Defold
-* Adnotacje Lua dla zależności
-* Budowanie i uruchamianie
-* Debugowanie z punktami przerwania (breakpoints)
-* Budowanie i pakowanie dla wszystkich platform
-* Wdrażanie na podłączone urządzenia mobilne
+* instalowanie zalecanych rozszerzeń
+* podświetlanie składni, autouzupełnianie i linting Lua
+* stosowanie odpowiednich ustawień do obszaru roboczego
+* adnotacje Lua dla API Defold
+* adnotacje Lua dla zależności
+* budowanie i uruchamianie
+* debugowanie z punktami przerwania
+* tworzenie paczek dla wszystkich platform
+* wdrażanie na podłączone urządzenia mobilne
 
-Dowiedz się więcej i zainstaluj Defold Kit z [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=astronachos.defold).
+Więcej informacji i możliwość instalacji Defold Kit znajdziesz w [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=astronachos.defold).
 
 ## Oprogramowanie dokumentacyjne
 
-Dostępne są paczki przygotowane przez społeczność Defolda do generowania dokumentacji API dla [Dash i Zeal](https://forum.defold.com/t/defold-docset-for-dash/2417).
+Pakiety referencyjne API przygotowane przez społeczność są dostępne dla [Dash i Zeal](https://forum.defold.com/t/defold-docset-for-dash/2417).

@@ -1,101 +1,89 @@
 ---
-title: Dźwięk w Defoldzie
-brief: Ta instrukcja wyjaśnia jak można importować i obsługiwać dźwięki w Defoldzie.
+title: Dźwięk w Defold
+brief: Ta instrukcja wyjaśnia, jak importować dźwięki do projektu Defold oraz jak je odtwarzać i kontrolować.
 ---
 
 # Dźwięk
 
-Komponent Dźwięku (Sound) w Defoldzie jest prosty, ale potężny. Istnieją tylko dwie koncepcje, o których musisz wiedzieć:
+Implementacja dźwięku w Defoldzie jest prosta, ale potężna. Trzeba znać tylko dwie koncepcje:
 
 Komponenty dźwięku
-: Te komponenty zawierają rzeczywisty dźwięk, który ma być odtwarzany i potrafią go odtwarzać.
+: Te komponenty zawierają rzeczywisty dźwięk, który ma zostać odtworzony, i potrafią go odtwarzać.
 
 Grupy dźwięku
-: Każdy komponent dźwięku może być przypisany do grupy (Sound group). Grupy ułatwiają zarządzanie dźwiękami, które powinny być ze sobą powiązane w intuicyjny sposób. Na przykład grupa "sound_fx" może być utworzona, a każdy dźwięk należący do tej grupy może być wyciszany za pomocą jednego prostego wywołania funkcji.
+: Każdy komponent dźwięku może zostać przypisany do _grupy_. Grupy zapewniają prosty i intuicyjny sposób zarządzania dźwiękami, które należą do siebie. Na przykład grupę "sound_fx" można skonfigurować tak, aby każdy dźwięk należący do tej grupy dało się wyciszyć jednym wywołaniem funkcji.
 
 ## Tworzenie komponentu dźwięku
 
-Komponenty dźwięku można tworzyć tylko w miejscu w obiekcie gry. Aby utworzyć nowy obiekt gry, kliknij go prawym przyciskiem myszy i wybierz <kbd>Add Component ▸ Sound</kbd> oraz kliknij "OK".
+Komponenty dźwięku można instancjonować tylko bezpośrednio w obiekcie gry. Utwórz nowy obiekt gry, kliknij go prawym przyciskiem myszy i wybierz <kbd>Add Component ▸ Sound</kbd>, a następnie kliknij *OK*.
 
-![Wybierz komponent](images/sound/sound_add_component.jpg)
+![Wybór komponentu](images/sound/sound_add_component.jpg)
 
-Utworzony komponent ma zestaw właściwości (properties), które powinny zostać ustawione:
+Utworzony komponent ma zestaw właściwości, które należy ustawić:
 
-![Wybierz komponent](images/sound/sound_properties.png)
+![Właściwości komponentu](images/sound/sound_properties.png)
 
 *Sound*
-: dźwięk - powinien być ustawiony na plik dźwiękowy w twoim projekcie. Plik powinien być w formacie _Wave_ lub _Ogg Vorbis_. Defold obsługuje pliki dźwiękowe zapisane z głębią bitową 16 bitów i częstotliwością próbkowania 44100.
+: Powinien wskazywać plik dźwiękowy w projekcie. Plik powinien być w formacie _Wave_, _Ogg Vorbis_ albo _Ogg Opus_. Defold obsługuje pliki dźwiękowe zapisane z głębią bitową 16 bitów.
 
 *Looping*
-: Jeśli jest zaznaczone, dźwięk będzie odtwarzany _Loopcount_ razy lub do momentu ręcznego zatrzymania.
+: Jeśli opcja jest zaznaczona, dźwięk będzie odtwarzany _Loopcount_ razy albo do momentu jego jawnego zatrzymania.
 
 *Loopcount*
-: Liczba razy, jakie dźwięk odtworzy w przypadku pętli (0 oznacza, że dźwięk będzie odtwarzany w pętli, aż zostanie ręcznie zatrzymany).
+: Liczba odtworzeń dźwięku zapętlonego przed zatrzymaniem (0 oznacza, że dźwięk ma być odtwarzany w pętli aż do jawnego zatrzymania).
 
 *Group*
-: nazwa grupy dźwięku, do której dźwięk powinien należeć. Jeśli to pole pozostanie puste, dźwięk zostanie przypisany do wbudowanej grupy "master".
+: Nazwa grupy dźwięku, do której dźwięk powinien należeć. Jeśli to pole pozostanie puste, dźwięk zostanie przypisany do wbudowanej grupy "master".
 
 *Gain*
-: Wzmocnienie - możesz ustawić wzmocnienie dźwięku bezpośrednio na komponencie. Pozwala to na łatwe dostosowanie wzmocnienia dźwięku bez konieczności powrotu do programu dźwiękowego i ponownego eksportu. Zobacz poniżej, aby dowiedzieć się, jak jest obliczane wzmocnienie.
+: Możesz ustawić wzmocnienie dźwięku bezpośrednio na komponencie. Pozwala to łatwo dostroić głośność bez wracania do programu dźwiękowego i ponownego eksportu. Szczegóły obliczania wzmocnienia znajdziesz poniżej.
 
 *Pan*
-: Panorama - możesz ustawić wartość tzw. panoramy dźwięku bezpośrednio na komponencie. Panorama musi mieć wartość między -1 (lewo - 45 stopni) a 1 (prawo - 45 stopni). Dzięki panoramie mamy kontrolę nad tym, z której strony (lub też – z którego głośnika) dźwięk odtwarzany jest z większa głośnością.
+: Możesz ustawić panoramę dźwięku bezpośrednio na komponencie. Wartość panoramy musi mieścić się w zakresie od -1 (45 stopni w lewo) do 1 (45 stopni w prawo).
 
 *Speed*
-: Prędkość - możesz ustawić wartość prędkości dźwięku bezpośrednio na komponencie. Wartość 1.0 to normalna prędkość, 0.5 to prędkość o połowę mniejsza, a 2.0 to prędkość podwójna.
+: Możesz ustawić prędkość dźwięku bezpośrednio na komponencie. Wartość 1.0 oznacza normalną prędkość, 0.5 - połowę prędkości, a 2.0 - podwójną prędkość.
 
 ## Odtwarzanie dźwięku
 
-Gdy masz komponent dźwięku właściwie skonfigurowany, możesz spowodować odtworzenie dźwięku, wywołując [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
+Gdy komponent dźwięku jest poprawnie skonfigurowany, możesz odtworzyć dźwięk, wywołując [`sound.play()`](/ref/sound/#sound.play:url-[play_properties]-[complete_function]):
 
 ```lua
 sound.play("go#sound", {delay = 1, gain = 0.5, pan = -1.0, speed = 1.25})
 ```
 
-Można też wysłać wiadomość `"play_sound"` do komponentu dźwięku ([szczegóły w dokumentacji](https://defold.com/ref/sound/#play_sound)):
-
-```lua
-msg.post("#sound", "play_sound", {delay = 1, gain = 0.5})
-```
-
 ::: sidenote
-Dźwięk będzie nadal odtwarzany nawet wtedy, gdy obiekt gry, do którego należy komponent dźwięku, zostanie usunięty. Możesz wywołać [`sound.stop()`](/ref/sound/#sound.stop:url), aby zatrzymać dźwięk (patrz poniżej).
+Dźwięk będzie nadal odtwarzany, nawet jeśli obiekt gry, do którego należał komponent dźwięku, zostanie usunięty. Możesz wywołać [`sound.stop()`](/ref/sound/#sound.stop:url), aby zatrzymać dźwięk (patrz niżej).
 :::
 
-Każda wywołanie tej funkcji lub wiadomość wysłana do komponentu spowoduje odtworzenie kolejnego wystąpienia dźwięku, aż dostępny bufor dźwięku zostanie wypełniony, a silnik wyświetli błędy w konsoli. Zaleca się zaimplementowanie mechanizmu filtrowania i grupowania dźwięków.
+Każda wiadomość wysłana do komponentu spowoduje odtworzenie kolejnej instancji dźwięku, aż dostępny bufor dźwięku się zapełni, a silnik zacznie wypisywać błędy w konsoli. Zaleca się zaimplementowanie jakiejś formy bramkowania i mechanizmu grupowania dźwięków.
 
 ## Zatrzymywanie dźwięku
 
-If you wish to stop playing a sound you can call [`sound.stop()`](/ref/sound/#sound.stop:url):
+Jeśli chcesz zatrzymać odtwarzanie dźwięku, możesz wywołać [`sound.stop()`](/ref/sound/#sound.stop:url):
 
 ```lua
 sound.stop("go#sound")
 ```
 
-Można też wysłać wiadomość "stop_sound":
+## Gain
 
-```lua
-msg.post("#sound", "stop_sound")
-```
+![Gain](images/sound/sound_gain.png)
 
-## Wzmocnienie
-
-![Wzmocnienie](images/sound/sound_gain.png)
-
-System dźwięku ma 4 poziomy wzmocnienia (gain):
+System dźwięku ma 4 poziomy wzmocnienia:
 
 - Wzmocnienie ustawione na komponencie dźwięku.
-- Wzmocnienie ustawione podczas rozpoczęcia odtwarzania dźwięku poprzez wywołanie `sound.play()` lub zmianę wzmocnienia na głosie poprzez wywołanie `sound.set_gain()`.
-- Wzmocnienie ustawione w grupie za pomocą funkcji [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
-- Wzmocnienie ustawione w grupie "master". Można je zmieniać za pomocą `sound.set_group_gain(hash("master"))`.
+- Wzmocnienie ustawione przy uruchamianiu dźwięku przez wywołanie `sound.play()` albo przy zmianie wzmocnienia głosu przez wywołanie `sound.set_gain()`.
+- Wzmocnienie ustawione na grupie przez wywołanie funkcji [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
+- Wzmocnienie ustawione na grupie "master". Można je zmienić wywołaniem `sound.set_group_gain(hash("master"))`.
 
-Wzmocnienie wyjściowe jest wynikiem przemnóżenia tych 4 wzmocnień. Domyślne wzmocnienie wynosi wszędzie 1.0 (0 dB).
+Wzmocnienie wyjściowe jest wynikiem pomnożenia tych 4 wartości. Domyślne wzmocnienie wszędzie wynosi 1.0 (0 dB).
 
-## Grupy dźwiękowe
+## Grupy dźwięku
 
-Dowolny komponent dźwięku z określoną nazwą grupy dźwiękowej zostanie umieszczony w grupie dźwiękowej o tej nazwie. Jeśli nie określisz grupy, dźwięk zostanie przypisany do grupy wbudowanej "master". Możesz także jawnie ustawić grupę na komponencie dźwięku na "master", co ma ten sam efekt.
+Każdy komponent dźwięku, dla którego podano nazwę grupy, zostanie przypisany do grupy dźwięku o tej nazwie. Jeśli nie podasz grupy, dźwięk zostanie przypisany do grupy "master". Możesz też jawnie ustawić grupę komponentu dźwięku na "master", co daje ten sam efekt.
 
-Dostępne są pewne funkcje, które pozwalają na pobranie wszystkich dostępnych grup, pobranie nazwy (stringa), ustawienie i pobranie wzmocnienia, średnią kwadratową RMS (patrz [http://pl.wikipedia.org/wiki/Root_mean_square](http://pl.wikipedia.org/wiki/Root_mean_square)) i wzmocnienie szczytowe (ang. peak gain). Istnieje również funkcja, która pozwala sprawdzić, czy czasem aktualnie nie działa odtwarzacz muzyki na urządzeniu docelowym:
+Dostępnych jest kilka funkcji, które pozwalają pobrać wszystkie dostępne grupy, pobrać nazwę jako string, pobrać i ustawić wzmocnienie, RMS (patrz http://en.wikipedia.org/wiki/Root_mean_square) oraz wzmocnienie szczytowe. Istnieje też funkcja, która pozwala sprawdzić, czy na urządzeniu docelowym działa odtwarzacz muzyki:
 
 ```lua
 -- Jeśli dźwięk jest odtwarzany na tym urządzeniu iPhone/Android, wycisz wszystko
@@ -106,15 +94,15 @@ if sound.is_music_playing() then
 end
 ```
 
-Grupy są identyfikowane za pomocą wartości hash. Nazwę (stringa) można pobrać za pomocą [`sound.get_group_name()`](/ref/sound#sound.get_group_name), co można wykorzystać do wyświetlania nazw grup w narzędziach deweloperskich, na przykład w mikserze do testowania poziomów grup.
+Grupy są identyfikowane za pomocą wartości hash. Nazwę jako string można pobrać przez [`sound.get_group_name()`](/ref/sound#sound.get_group_name), co można wykorzystać na przykład do wyświetlania nazw grup w narzędziach deweloperskich, takich jak mikser do testowania poziomów grup.
 
-![Mikser grup](images/sound/sound_mixer.png)
+![Mikser grup dźwięku](images/sound/sound_mixer.png)
 
 ::: important
-Nie należy pisać kodu, który polega na wartości typu string grupy dźwiękowej, ponieważ nie są one dostępne w wersji końcowej, w release.
+Nie powinieneś pisać kodu, który opiera się na stringowej wartości grupy dźwięku, ponieważ nie są one dostępne w wersjach release.
 :::
 
-Wszystkie wartości są liniowe w zakresie od 0 do 1.0 (0 dB). Aby przeliczyć na decybele, wystarczy użyć standardowej formuły:
+Wszystkie wartości są liniowe w zakresie od 0 do 1.0 (0 dB). Aby przeliczyć je na decybele, wystarczy użyć standardowego wzoru:
 
 ```math
 db = 20 \times \log \left( gain \right)
@@ -122,43 +110,43 @@ db = 20 \times \log \left( gain \right)
 
 ```lua
 for i, group_hash in ipairs(sound.get_groups()) do
-    -- Nazwa w typie string jest dostępna tylko w trybie debug. Zwraca "unknown_*" w wersji końcowej.
+    -- Nazwa jako string jest dostępna tylko w debug. Zwraca "unknown_*" w release.
     local name = sound.get_group_name(group_hash)
     local gain = sound.get_group_gain(group_hash)
 
     -- Przelicz na decybele.
     local db = 20 * math.log10(gain)
 
-    -- Pobierz średnią kwadratową RMS (Root Mean Square). Lewy i prawy kanał oddzielnie.
+    -- Pobierz RMS (wzmocnienie Root Mean Square). Osobno dla lewego i prawego kanału.
     local left_rms, right_rms = sound.get_rms(group_hash, 2048 / 65536.0)
     left_rmsdb = 20 * math.log10(left_rms)
     right_rmsdb = 20 * math.log10(right_rms)
 
-    -- Pobierz wzmocnienie szczytowe. Lewy i prawy kanał oddzielnie.
+    -- Pobierz wzmocnienie szczytowe. Osobno dla lewego i prawego kanału.
     left_peak, right_peak = sound.get_peak(group_hash, 2048 * 10 / 65536.0)
     left_peakdb = 20 * math.log10(left_peak)
     right_peakdb = 20 * math.log10(right_peak)
 end
 
--- Ustaw wzmocnienie grupy "master" na +6 dB (math.pow(10, 6/20)).
+-- Ustaw wzmocnienie grupy master na +6 dB (math.pow(10, 6/20)).
 sound.set_group_gain("master", 1.995)
 ```
 
-## Filtrowanie dźwięków
+## Ograniczanie częstotliwości dźwięków
 
-Jeśli Twoja gra odtwarza ten sam dźwięk w przypadku zdarzenia, a to zdarzenie jest często wyzwalane, istnieje ryzyko odtwarzania tego samego dźwięku dwa lub więcej razy niemal jednocześnie. W takim przypadku dźwięki zostaną przesunięte fazowo, co może prowadzić do wyraźnych artefaktów.
+Jeśli twoja gra odtwarza ten sam dźwięk w reakcji na zdarzenie, a zdarzenie to jest wyzwalane często, istnieje ryzyko odtworzenia tego samego dźwięku dwa lub więcej razy niemal jednocześnie. Jeśli tak się stanie, dźwięki będą _przesunięte w fazie_, co może spowodować wyraźne artefakty.
 
-![Phase shift](images/sound/sound_phase_shift.png)
+![Przesunięcie fazowe](images/sound/sound_phase_shift.png)
 
-Najprostszym sposobem radzenia sobie z tym problemem jest stworzenie bramy (gate), która filtrowałaby wiadomości dźwiękowe i nie pozwalałaby na odtworzenie tego samego dźwięku więcej niż raz w określonym odstępie czasu:
+Najprościej poradzić sobie z tym problemem, budując bramkę, która filtruje wiadomości dźwiękowe i nie pozwala odtworzyć tego samego dźwięku częściej niż raz w zadanym odstępie:
 
 ```lua
--- Nie pozwól na odtworzenie tego samego dźwięku w określonym odstępie czasu "gate_time".
+-- Nie pozwalaj odtworzyć tego samego dźwięku w odstępie "gate_time".
 local gate_time = 0.3
 
 function init(self)
-    -- Przechowuj timery odtwarzanych dźwięków w tabeli i odliczaj każdy klatkowy,
-    -- aż będą w tabeli przez "gate_time" sekundy. Następnie usuń je.
+    -- Przechowuj timery odtworzonych dźwięków w tabeli i odliczaj je co klatkę,
+    -- aż znajdą się w tabeli przez "gate_time" sekund. Potem je usuń.
     self.sounds = {}
 end
 
@@ -174,45 +162,45 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("play_gated_sound") then
-        -- Odtwarzaj tylko dźwięki, które nie znajdują się obecnie w tabeli filtrującej.
+        -- Odtwarzaj tylko dźwięki, które nie znajdują się obecnie w tabeli bramki.
         if self.sounds[message.soundcomponent] == nil then
             -- Zapisz timer dźwięku w tabeli
             self.sounds[message.soundcomponent] = gate_time
             -- Odtwórz dźwięk
             sound.play(message.soundcomponent, { gain = message.gain })
         else
-            -- Próba odtworzenia dźwięku była filtrowana
+            -- Próba odtworzenia dźwięku została zablokowana
             print("gated " .. message.soundcomponent)
         end
     end
 end
 ```
 
-Aby skorzystać teraz z takiej bramy, po prostu wyślij jej wiadomość `play_gated_sound` i określ docelowy komponent dźwięku oraz wzmocnienie dźwięku. Brama wywoła `sound.play()` z docelowym komponentem dźwięku, jeśli jest otwarta:
+Aby użyć bramki, po prostu wyślij do niej wiadomość `play_gated_sound` i podaj docelowy komponent dźwięku oraz wzmocnienie dźwięku. Bramka wywoła `sound.play()` z docelowym komponentem dźwięku, jeśli bramka jest otwarta:
 
 ```lua
 msg.post("/sound_gate#script", "play_gated_sound", { soundcomponent = "/sounds#explosion1", gain = 1.0 })
 ```
 
 ::: important
-Nie zadziała to, gdy brama nasłuchiwać będzie wiadomości `play_sound`, ponieważ ta nazwa jest zarezerwowana przez silnik Defold. Mamy do czynienia z nieoczekiwanym zachowaniem, jeśli użyjesz zarezerwowanych nazw wiadomości.
+Nie działa to, jeśli bramka nasłuchuje wiadomości `play_sound`, ponieważ ta nazwa jest zarezerwowana przez silnik Defold. Użycie zarezerwowanych nazw wiadomości spowoduje nieoczekiwane zachowanie.
 :::
 
-## Manipulacja w czasie rzeczywistym
+## Modyfikacja w czasie działania
 
-Możesz manipulować dźwiękami w czasie rzeczywistym za pomocą różnych właściwości (szczegóły w [dokumentacji API](/ref/sound/)). Następujące właściwości można manipulować przy użyciu `go.get()` i `go.set()`:
+Dźwięki można modyfikować w czasie działania za pomocą kilku różnych właściwości (szczegóły użycia znajdziesz w [dokumentacji API](/ref/sound/)). Następujące właściwości można zmieniać za pomocą `go.get()` i `go.set()`:
 
 `gain`
-: Wzmocnienie (głośność) komponentu dźwięku (`number`).
+: Wzmocnienie komponentu dźwięku (`number`).
 
 `pan`
-: Panorama komponentu dźwięku (`number`). Panorama musi mieć wartość między -1 (lewo - 45 stopni) a 1 (prawo - 45 stopni). Dzięki panoramie mamy kontrolę nad tym, z której strony (lub też – z którego głośnika) dźwięk odtwarzany jest z większa głośnością.
+: Panorama komponentu dźwięku (`number`). Wartość panoramy musi mieścić się w zakresie od -1 (45 stopni w lewo) do 1 (45 stopni w prawo).
 
 `speed`
-: Prędkość komponentu dźwięku (`number`). Wartość 1.0 to normalna prędkość, 0.5 to prędkość o połowę mniejsza, a 2.0 to prędkość podwójna.
+: Prędkość komponentu dźwięku (`number`). Wartość 1.0 oznacza normalną prędkość, 0.5 - połowę prędkości, a 2.0 - podwójną prędkość.
 
 `sound`
-: Ścieżka do zasobu dźwięku (`hash)`. Możesz użyć ścieżki zasobu do zmiany dźwięku za pomocą `resource.set_sound(path, buffer)`. Przykład:
+: Ścieżka zasobu dźwięku (`hash`). Możesz użyć ścieżki zasobu, aby zmienić dźwięk za pomocą `resource.set_sound(path, buffer)`. Przykład:
 
 ```lua
 local boom = sys.load_resource("/sounds/boom.wav")
@@ -222,4 +210,8 @@ resource.set_sound(path, boom)
 
 ## Konfiguracja projektu
 
-Plik *game.project* zawiera kilka [ustawień projektu związanych z komponentami dźwięku](/manuals/project-settings#sound).
+Plik *game.project* ma kilka [ustawień projektu](/manuals/project-settings#sound) związanych z komponentami dźwięku.
+
+## Streaming dźwięku
+
+Można też obsługiwać [streaming sounds](/manuals/sound-streaming)

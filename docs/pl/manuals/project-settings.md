@@ -1,466 +1,19 @@
 ---
-title: Ustawienie projektu
-brief: Instrukcja opisuje poszczególne ustawienia projektu w Defoldzie.
+title: Ustawienia projektu Defold
+brief: Ta instrukcja opisuje, jak działają ustawienia specyficzne dla projektu w Defold.
 ---
 
-# Ustawienie projektu
+# Ustawienia projektu
 
-Plik *game.project* zawiera wszystkie ustawienia wykorzystywane w projekcie. Jest to specjalny plik i musi pozostać w głównej lokalizacji Twojego projektu, a nazwa musi pozostać niezmieniona - *game.project*. Pierwsza rzeczą jaką zajmuje się silnik Defold zaraz po starcie Twojej gry jest właśnie wyszukanie tego pliku. (W systemie Windows można przypisać plik .project do domyślnego otwierania za pomocą aplikacji Defold)
+Plik *game.project* zawiera wszystkie ustawienia obowiązujące w całym projekcie. Musi znajdować się w katalogu głównym projektu i musi mieć nazwę *game.project*. Pierwszą rzeczą, jaką silnik robi podczas uruchamiania gry, jest odszukanie tego pliku.
 
-Każde ustawienie w tym pliku przynależy do konkretnej kategorii. Defold wyświetla ustawienia z tego pliku podzielone właśnie na te kategorie.
+Każde ustawienie w tym pliku należy do kategorii. Po otwarciu pliku Defold prezentuje wszystkie ustawienia pogrupowane według kategorii.
 
-![Project settings](images/project-settings/settings.jpg)
-
-Poniżej przedstawiono wszystkie dostępne ustawienia, poukładane w sekcje. Niektóre z nich nie są pokazywane po otwarciu w Edytorze Defold (oznaczono je "hidden setting" (z ang. ukryte ustawienie))), ale wciąż można je zmienić ręcznie otwierając plik *game.project* w edytorze tekstu: <kbd>Open With ▸ Text Editor</kbd>.
-
-## Project
-
-#### Title
-Tytuł aplikacji
-
-#### Version
-Wersja aplikacji
-
-#### Write Log File
-Określa, kiedy silnik zapisuje log do pliku. Opcje:
-
-- "Never": nie zapisuj pliku logu.
-- "Debug": zapisuj plik logu tylko dla buildów Debug.
-- "Always": zapisuj plik logu zarówno dla buildów Debug, jak i Release.
-
-Jeśli uruchamiasz więcej niż jedną instancję z edytora, plik będzie nazwany *instance_2_log.txt*, gdzie `2` to indeks instancji. Jeśli uruchamiasz pojedynczą instancję lub paczkę, plik będzie nazwany *log.txt*. Lokalizacja pliku logu będzie jedną z poniższych (sprawdzane w tej kolejności):
-
-1. Ścieżka określona w *project.log_dir* (ukryte ustawienie)
-2. Systemowa ścieżka logów:
-   * macOS/iOS: `NSDocumentDirectory`
-   * Android: `Context.getExternalFilesDir()`
-   * Inne: katalog aplikacji
-3. Ścieżka wsparcia aplikacji:
-   * macOS/iOS: `NSApplicationSupportDirectory`
-   * Windows: `CSIDL_APPDATA` (np. `C:\Users\<username>\AppData\Roaming`)
-   * Android: `Context.getFilesDir()`
-   * Linux: zmienna środowiskowa `HOME`
-
-#### Compress Archive
-Umożliwia kompresowanie archiwów podczas budowania paczki. Zauważ, że dotyczy to wszystkich platform oprócz systemu Android, gdzie plik apk zawiera od razy skompresowane dane.
-
-#### Dependencies
-Zależoności - lista adresów URL do projektów bibliotek (*Library URL*s). Więcej szczegółów znajdziesz w [instrukcji do Bibliotek](/manuals/libraries/).
-
-#### Custom Resources
-Własne zasoby - lista oddzielonych przecinkami zasobów, które będą dołączone do projektu. Jeśli określone są lokalizacje, wszystkie pliki i katalogi w danej lokalizacji są rekursywnie załączane. Zasoby te można załadować w trakcie działania programu używając [`sys.load_resource()`](/ref/sys/#sys.load_resource).
-
-#### Bundle Resources
-Zasoby paczki - lista oddzielonych przecinkami lokalizacji zasobów zawierających pliki i katalogi, które można skopiować w obecnym stanie do paczki wynikowej podczas budowania. Lokalizacje muszą być opisane ścieżkami bezwzględnymi od poziomu głównego katalogu Twojego projektu, np. `/res`. Taka lokalizacja z zasobami musi zawierać podfoldery nazwane zgodnie z platformą (`platform` lub `architecure-platform`).
-
-  Wspierane platformy to: `ios`, `android`, `osx`, `win32`, `linux`, `web`.
-
-  Dozwolony jest również podfolder `common` zawierający zasoby wspólne dla wszystkich platform.
-
-#### Bundle Exclude Resources
-Zasoby, które należy usunąć z paczki - lista oddzielonych przecinkami zasobów, które nie będą dołączane do paczki.
-
-## Bootstrap (Ustawienia początkowe)
-
-#### Main Collection
-Główna kolekcja - referencja do pliku kolekcji używanej w aplikacji jako startowa, domyślnie: `/logic/main.collection`.
-
-#### Render
-Referencja do pliku render określającego sposób renderowania, domyślnie: `/builtins/render/default.render`.
-
-## Library (Biblioteki)
-
-#### Include Dirs
-Dołączane lokalizacje - lista oddzielonych spacjami lokalizacji, które będą współdzielone z Twojego projektu poprzez udostępnianie bibliotek.
-
-## Script (Skrypy)
-
-#### Shared State
-Stan współdzielony - Gdy opcja ta jest zaznaczona, projekt dzieli wspólny, pojedynczy stan Lua pomiędzy wszystkimi skryptami. Domyślnie odznaczone.
-
-## Engine (silnik)
-
-#### Run While Iconified
-Kontynuuj po zminimalizowaniu okna - pozwól silnikowi na kontynuację pracy, gdy okno aplikacji jest zminimalizowane (dotyczy tylko komputerów), domyślnie odznaczone - `false`.
-
-## Display (Wyświetlanie)
-
-#### Width
-Szerokość okna aplikacji w pikselach, domyślnie: `960`.
-
-#### Height
-Wysokość okna aplikacji w pikselach, domyślnie: `640`.
-
-#### High Dpi
-Tworzy bufor High Dpi na wyświetlaczach, które to wspierają. Gra zostanie wyrenderowana w rozdzielczości dwukrotnie większej niż podana w ustawieniach *Width* i *Height*, ale podana rozdzielczość będzie nadal rozdzielczością dla logiki gry.
-
-#### Samples
-Określa jak wiele próbek aplikacja ma używać przy anty-aliasingu. Ustawia wartość GLFW_FSAA_SAMPLES dla okna. Domyślnie: `0`, co oznacza, że anty-aliasing jest wyłączony.
-
-#### Fullscreen
-Zaznacz, żeby aplikacja startowała w trybie pełnego ekranu. Odznacz, żeby startowała w oknie.
-
-#### Frame Cap
-Jeśli opcja `Vsync` jest zaznaczona, przybliż do najbliższego pasującego przedziału wymiany dla ustawionego limiu ramki, jeśli monitor jest wykryty. W przeciwnym przypadku używaj timer'ów w celu zgodności z ustawioną wartością. 0 oznacza, że nie ma limitu. Ustawienie to dotyczy `display.update_frequency`.
-
-#### Vsync
-Vertical sync, czyli pionowa synchronizacja - polegaj na sprzętowej synchronizacji do określania czasu ramki. Może być nadpisane w zależności od sterownika karty graficznej i specyfiki platformy.
-
-#### Display Profiles
-Profile wyświetlania - określa, których profili używać, domyślnie: `/builtins/render/default.display_profilesc`. Więce szczegółów znajdziesz w [instrukcji do layout'ów GUI](/manuals/gui-layouts/#creating-display-profiles).
-
-#### Dynamic Orientation
-Dynamiczna orientacja - zaznacz, żeby pozwolić aplikacji dynamicznie zmieniać między ustawieniem horyzontalnym i portretowym w zależności od orientacji urządzenia. Aplikacja deweloperska dmegine obecnie nie respektuje tego ustawienia.
-
-## Render (Renderowanie)
-
-#### Clear Color Red
-Czerwona składowa koloru czyszczenia ekranu, używana przez skrypt renderowania, kiedy okno jest tworzone. Dodano w 1.2.167.
-
-#### Clear Color Green
-Zielona składowa koloru czyszczenia ekranu, używana przez skrypt renderowania, kiedy okno jest tworzone. Dodano w 1.2.167.
-
-#### Clear Color Blue
-Niebieska składowa koloru czyszczenia ekranu, używana przez skrypt renderowania, kiedy okno jest tworzone. Dodano w 1.2.167.
-
-#### Clear Color Alpha
-Składowa koloru czyszczenia ekranu odpowiedzialna za transparentność, używana przez skrypt renderowania, kiedy okno jest tworzone. Dodano w 1.2.167.
-
-## Physics (Fizyka)
-
-#### Type
-Jaki typ fizyki jest używany: `2D` (domyślnie) albo `3D`.
-
-#### Gravity Y
-Składowa Y wektora siły grawitacji, domyślnie `-10` (ziemska grawitacja).
-
-#### Debug
-Zaznacz, żeby wizualizować fizykę do celów debugowania.
-
-#### Debug Alpha
-Składowa koloru wizualizacji fizyki odpowiedzialna za transparentność z przedziału `0`--`1`. Domyślnie: `0.9`.
-
-#### World Count
-Maksymalna liczba oddzielnych światów z fizyką, domyślnie: `4`. Jeśli wczytujesz więcej niż 4 światy poprzez pełnomocników kolekcji (collection proxies) musisz zwiększyć tę wartość. Pamiętaj, że każdy osobny świat fizyki zajmuje odpowiednią ilość pamięci.
-
-#### Gravity X
-Składowa X wektora siły grawitacji, domyślnie `0`.
-
-#### Gravity Z
-Składowa Z wektora siły grawitacji, domyślnie `0`.
-
-#### Scale
-Skala fizyki - pomaga silnikowi określić w jaki sposób skalować wartości świata fizyki, aby zachować precyzję numeryczną, z przedziału `0.01`--`1.0`. Jeśli ustawisz wartość `0.02`, oznacza to, że świat fizyki będzie postrzegał 50 jednostek jako jeden metr.($1 / 0.02$). Domyślnie: `1.0`.
-
-#### Allow Dynamic Transforms
-Zaznacz, aby silnik fizyki skalował obiekty kolizji używając skali obiektów gry, do których należą.
-
-#### Debug Scale
-Określa jak duże rysować obiekty służące do debugowania fizyki - np. wektory normalne, domyślnie `30`.
-
-#### Max Collisions
-Określa jak wiele kolizji będzie obsługiwanych przez skrypty, domyślnie `64`.
-
-#### Max Contacts
-Określa jak wiele punktów styku będzie obsługiwanych przez skrypty, domyślnie `128`.
-
-#### Contact Impulse Limit
-Silnik zignoruje zderzenia z impulsem mniejszym niż ta wartość, domyślnie `0.0`.
-
-#### Ray Cast Limit 2d
-Maksymalna liczba promieni 2D rzucanych w czasie jednej ramki, domyślnie `64`.
-
-#### Ray Cast Limit 3d
-Maksymalna liczba promieni 3D rzucanych w czasie jednej ramki, domyślnie `128`.
-
-#### Trigger Overlap Capacity
-Maksymalna liczba pokrywających się przełączników (triggers), domyślnie `16`.
-
-## Graphics (Grafika)
-
-#### Default Texture Min Filter
-Określa jakiego filtra używać podczas pomniejszającego filtrowania tekstur, `linear` (domyślnie) lub `nearest`.
-
-#### Default Texture Mag Filter
-Określa jakiego filtra używać podczas powiększającego filtrowania tekstur, `linear` (domyślnie) lub `nearest`.
-
-#### Max Draw Calls
-Maksymalna liczba wywołań rysowania grafiki (renderowania, ang. render calls), domyślnie `1024`.
-
-#### Max Characters:
-Maksymalna liczba znaków zaalokowanych wcześniej w buforze renderowania tekstu, czyli liczba znaków, które można wyświetlić w każdej ramce, domyślnie `8192`.
-
-#### Max Debug Vertices
-Maksymalna liczba punktów służących do debugowania, między innymi do rysowania kształtów silnika fizyki, domyślnie `10000`.
-
-#### Texture Profiles
-Określa jakiego profilu teksturowania należy używać do tego projektu, domyślnie `/builtins/graphics/default.texture_profiles`.
-
-## Input (Wejścia)
-
-#### Repeat Delay
-Czas w sekundach, który należy odczekać po odczytaniu danego wejścia, zanim to samo wejście może zostać powtórzone, domyślnie `0.5`.
-
-#### Repeat Interval
-Czas w sekundach, który należy odczekać po odczytaniu danego wejścia, które jest ciągle wciskane, zanim to samo wejście może zostać odczytane jako powtórzone, domyślnie `0.2`.
-
-#### Gamepads
-Określa jakiego pliku należy używać do konfiguracji kontrolerów, który mapuje wejścia kontrolera do systemu operacyjnego, domyślnie `/builtins/input/default.gamepads`.
-
-#### Game Binding
-Określa jakiego pliku należy używać do konfiguracji wejść, który mapuje wejścia sprzętowe do podanych akcji, domyślnie `/input/game.input_binding`.
-
-#### Use Accelerometer
-Zaznacz, żeby silnik mógł otrzymywać dane z akceleratora jako wejście dla każdej ramki. Wyłączenie akcelerometra może dawać korzyści pod względem wydajności. Domyślnie zaznaczone.
-
-## Resource (Źródła)
-
-#### Http Cache
-Kiedy zaznaczone, pamięć podręczna (cache) HTTP jest aktywowana, aby szybciej ładować zasoby przez sieć do działającego na urządzeniu silnika. Domyślnie odznaczone.
-
-#### Uri
-Wskazuje gdzie szukać danych do budowania projektu, w formacie URI.
-
-#### Max Resources
-Maksymalna liczba zasobów, które mogą być załadowane jednocześnie, domyślnie `1024`.
-
-## Network (Sieć)
-
-#### Http Timeout
-Czas w sekundach do zaniechania czekania na odpowiedź HTTP. Ustaw na `0`, żeby wyłączyć timeout, domyślnie właśnie wyłączony, czyli czeka na odpowiedź nieskończenie długo.
-
-## Collection (Kolekcje)
-
-#### Max Instances
-Maksymalna liczba instancji obiektów gry w jednej kolekcji, domyślnie `1024`.
-
-## Sound (Dźwięk)
-
-#### Gain
-Globalne wzmocnienie dźwięku (volume), `0`--`1`, domyślnie `1`.
-
-#### Max Sound Data
-Maksymalna liczba źródeł dźwięku, czyli liczba unikalnych plików dźwiękowych, które można otworzyć jednocześnie, domyślnie `128`.
-
-#### Max Sound Buffers
-(Obecnie nie używane) Maksymalna liczba jednocześnie istniejących buforów dźwiękowych, domyślnie `32`.
-
-#### Max Sound Sources
-(Obecnie nie używane) Maksymalna liczba jednocześnie istniejących źródeł dźwięku, domyślnie `16`.
-
-#### Max Sound Instances
-Maksymalna liczba jednocześnie istniejących instancji dźwięku, czyli liczba aktualnych dźwięków odtwarzanych w tym samym momencie, domyślnie `256`.
-
-## Sprite (Obrazy)
-
-#### Max Count
-Maksymalna liczba sprite'ów w jednej kolekcji, domyślnie `128`.
-
-#### Subpixels
-Zaznacz, aby pozwolić sprite'om pojawiać się nieprzylegając do pełnych pikseli, domyślnie zaznaczone.
-
-## Tilemap (Mapy kafelków)
-
-#### Max Count
-Maksymalna liczba map kafelków w jednej kolekcji, domyślnie `16`.
-
-#### Max Tile Count
-Maksymalna liczba jednocześnie widocznych kafelków w jednej kolekcji, domyślnie `2048`.
-
-## Spine
-
-#### Max Count
-Maksymalna liczba modeli szkieletowych Spine, domyślnie `128`.
-
-## GUI
-
-#### Max Count
-Maksymalna liczba komponentów GUI, domyślnie `64`.
-
-#### Max Particlefx Count
-Maksymalna liczba jednocześnie istniejących emiterów cząsteczek w GUI, domyślnie `64`.
-
-#### Max Particle Count
-Maksymalna liczba jednocześnie istniejących cząsteczek w GUI, domyślnie `1024`.
-
-## Label (Etykieta)
-
-#### Max Count
-Maksymalna liczba etykiet z tekstem, domyślnie `64`.
-
-#### Subpixels
-Zaznacz, aby pozwolić etykietom pojawiać się nieprzylegając do pełnych pikseli, domyślnie zaznaczone.
-
-## Particle FX (Efekty cząsteczkowe)
-
-#### Max Count
-Maksymalna liczba jednocześnie istniejących emiterów cząsteczek, domyślnie `64`.
-
-#### Max Particle Count
-Maksymalna liczba jednocześnie istniejących cząsteczek, domyślnie `1024`.
-
-## Collection proxy (Pełnomocnicy kolekcji)
-
-#### Max Count
-Maksymalna liczba pełnomocników kolekcji, domyślnie `8`.
-
-## Collection factory (Fabryki kolekcji)
-
-#### Max Count
-Maksymalna liczba fabryk kolekcji, domyślnie `128`.
-
-## Factory (Fabryki)
-
-#### Max Count
-Maksymalna liczba fabryk, domyślnie `128`.
-
-## iOS
-
-#### App Icon 57x57--180x180
-Plik graficzny (.png) używany jako ikona aplikacji o podanych wymiarach `W` &times; `H`.
-
-#### Launch Screen
-Plik Storyboard (.storyboard). Więcej szczegółów znajdziesz w [instrukcji do systemu iOS](/manuals/ios/#creating-a-storyboard).
-
-#### Pre Rendered Icons
-(Dotyczy iOS 6 i wcześniejszych wersji) Zaznacz, żeby ikony były pre-renderowane. Jeśli ta opcja nie jest zaznaczona ikony będą miały automatycznie dodany świetlistą poświatę.
-
-#### Bundle Identifier
-Identyfikator paczki - pozwala systemowi iOS rozpoznawać Twoją aplikację przy aktualizacjach. ID Twojej paczki musi być zarejestrowane przez Apple i być dla niej unikalne. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS.
-
-#### Info.plist
-Jeśli podany - używany będzie określony plik info.plist podczas budowania paczki aplikacji.
-
-#### Entitlements
-Uprawnienia - jeśli podane, mogą nadpisać domyślne uprawnienia określone w profilach nadzorujących (`.entitlements`, `.xcent`, `.plist`).
-
-#### Default Language
-Domyślny jeżyk aplikacji - używany, jeśli użytkownik nie posiada wybranego preferowanego języka domyślnego w liście `Localizations` (zobacz: [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Należy tutaj użyć dwuznakowego symbolu kraju zgodnego ze standardem ISO 639-1, jeśli preferowany język znajduje się w standardzie, w przeciwnym przypadku - trójznakowego symbolu ze standardu ISO 639-2.
-
-#### Localizations
-Ustawienia regionalne - pole zawiera oddzielone przecinkami słowa (strings) identyfikujące nazwę języka lub oznaczenie języka ISO wspieranych lokalizacji (zobacz: [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
-
-## Android
-
-#### App Icon 36x36--192x192
-Plik graficzny (.png) używany jako ikona aplikacji o podanych wymiarach `W` &times; `H`.
-
-#### Push Icon Small--LargeXxxhdpi
-Plik graficzny (.png) używany jako ikona aplikacji w powiadomieniach *push* systemu Android. Ikony będą używane automatycznie zarówno do lokalnych i zdalnych powiadomień. Jeśli nie podano ikony, domyślna ikona aplikacji będzie używana.
-
-#### Push Field Title
-Określa jakie pole z pliku JSON (payload) ma być użyte jako tytuł powiadomienia. Pozostawienie tego pola pustego sprawia, że domyślnie używana jest nazwa aplikacji.
-
-#### Push Field Text
-Określa jakie pole z pliku JSON (payload) ma być użyte jako treść powiadomienia. Pozostawienie tego pola pustego sprawia, że domyślnie używany jest tekst `alert`, tak jak dla iOS.
-
-#### Version Code
-Kod wersji - wartość numeryczna całkowita (integer) określająca wersję aplikacji. Zwiększaj tę wartość przy każdej aktualizacji.
-
-#### Package
-Identyfikator paczki.
-
-#### Gcm Sender Id
-Google Cloud Messaging Sender Id. Podaj tutaj string przypisany przez Google, aby aktywować powiadomienia *push*.
-
-#### Manifest
-Plik XML - jeśli podany, będzie używany podczas budowania paczki.
-
-#### Iap Provider
-Określa jakiego sklepu używać do zakupów wewnątrz aplikacji (ang. In App Purchases). Możliwe opcje to `Amazon` i `GooglePlay` (domyślnie).
-
-#### Input Method
-Określa jakich sposobów obsługi klawiatury na urządzeniach z Androidem używać. Możliwe opcje to `KeyEvent` (stara metoda, domyślna) i `HiddenInputField` (nowa).
-
-#### Immersive Mode
-Tryb imersyjny. Jeśli ustawiony, ukrywa przyciski nawigacji i górny pasek statusu systemu Android oraz pozwala aplikacji na wykrywanie i przechwytywanie dotyku na powierzchni całego ekranu.
-
-#### Debuggable
-Określa czy aplikacja może być debugowana używając takich narzędzi jak [GAPID](https://github.com/google/gapid) lub [Android Studio](https://developer.android.com/studio/profile/android-profiler). Ustawia flagę `android:debuggable` w manifeście systemu Android.
-
-## macOS
-
-#### App Icon
-Plik graficzny (.png) używany jako ikona aplikacji w systemie macOS.
-
-#### Info.plist
-Jeśli podany - używany będzie określony plik info.plist podczas budowania paczki aplikacji.
-
-#### Bundle Identifier
-Identyfikator paczki - pozwala systemowi iOS rozpoznawać Twoją aplikację przy aktualizacjach. ID Twojej paczki musi być zarejestrowane przez Apple i być dla niej unikalne. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS.
-
-#### Default Language
-Domyślny jeżyk aplikacji - używany, jeśli użytkownik nie posiada wybranego preferowanego języka domyślnego w liście `Localizations` (zobacz: [CFBundleDevelopmentRegion](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)). Należy tutaj użyć dwuznakowego symbolu kraju zgodnego ze standardem ISO 639-1, jeśli preferowany język znajduje się w standardzie, w przeciwnym przypadku - trójznakowego symbolu ze standardu ISO 639-2.
-
-#### Localizations
-Ustawienia regionalne - pole zawiera oddzielone przecinkami słowa (strings) identyfikujące nazwę języka lub oznaczenie języka ISO wspieranych lokalizacji (zobacz: [CFBundleLocalizations](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)).
-
-## Windows
-
-#### App Icon
-Plik graficzny (.ico) używany jako ikona aplikacji w systemie Windows. Więcej szczegółów na temat tworzenia plików .ico znajdziesz w [instrukcji do systemu Windows](/manuals/windows).
-
-#### Iap Provider
-Określa jakiego sklepu używać do zakupów wewnątrz aplikacji (ang. In App Purchases). Możliwe opcje to `None`(domyślnie) i `Gameroom`.
-
-## HTML5
-
-#### Heap Size
-Rozmiar sterty (liczba megabajtów) dla użycia przez Emscripten. Domyślnie 256MB.
-
-#### .html Shell
-Używaj określonego szablonu HTML podczas budowania paczki aplikacji, domyślnie: `/builtins/manifests/web/engine_template.html`.
-
-#### Custom .css
-Używaj określonego pliku z motywem CSS podczas budowania paczki aplikacji, domyślnie: `/builtins/manifests/web/light_theme.css`.
-
-#### Splash Image
-Jeśli określony, użyj podanej grafiki jako ekranu startowego podczas budowania paczki aplikacji zamiast domyślnego logo Defold.
-
-#### Archive Location Prefix
-Podczas budowania paczki aplikacji dane gry HTML5 są rozdzielane na jeden lub więcej plików archiwów. Kiedy silnik uruchamia aplikację, archiwa te są ładowane do pamięci. Użyj tego pola, aby określić lokalizację danych, domyślnie: `archive`.
-
-#### Archive Location Suffix
-Przyrostek dodawany do plików archiwów. Użyteczny na przykład przy wymuszaniu nie-buforowanych (non-cache) zawartości z CDN (na przykład: `?version2`).
-
-#### Engine Arguments
-Lista argumentów, które zostaną przekazane do silnika.
-
-#### Show Fullscreen Button
-Dodaje przycisk trybu pełnoekranowego do pliku `index.html`. Domyślnie `true`.
-
-#### Show Made With Defold
-Dodaje link Made With Defold link do pliku `index.html`. Domyślnie `true`.
-
-#### Scale Mode
-Określa jakiego sposobu skalowania kanwy (obszaru wyświetlania) gry używać. Domyślnie `Downscale Fit`.
-
-## IAP (Zakupy wewnątrz aplikacji)
-
-#### Auto Finish Transactions
-Zaznacz, żeby automatycznie kończyć proces transakcji zakupów IAP. Jeśli odznaczony, musisz jawnie wywołać `iap.finish()` po udanej transakcji, domyślnie zaznaczony.
-
-## Live update (Aktualizacje na żywo)
-
-#### Private Key
-Jeśli zaznaczone, użyj podanego klucza prywatnego podczas budowania paczki aplikacji z zawartością do aktualizacji *live update*. Jeśli nie podany, zostanie automatycznie wygenerowany.
-
-#### Public Key
-Jeśli zaznaczone, użyj podanego klucza publicznego podczas budowania paczki aplikacji z zawartością do aktualizacji *live update*. Jeśli nie podany, zostanie automatycznie wygenerowany.
-
-## Native extension (Rozszerzenia natywne)
-
-#### _App Manifest_
-Jeśli zaznaczone, użyj manifestu aplikacji do personalizacji wersji silnika (engine build). Pozwala to na usunięcie zbędnych części z silnika umożliwiając zmniejszenie ostatecznej wagi aplikacji. Funkcjonalność ta jest w wersji alpha. Odwiedź porszę [ten post na forum](https://forum.defold.com/t/native-extensions/4946/142), aby dowiedzieć się więcej.
-
-## Profiler
-
-#### Track Cpu
-Jeśli zaznaczone, aktywowane będzie profilowanie CPU w wersji release. Normalnie można profilować tylko w wersji debug.
+![Ustawienia projektu](images/project-settings/settings.jpg)
 
 ## Format pliku
 
-Format pliku z ustawieniami jest plikiem tekstowym (INI format) i może być dowolnie modyfikowany przez każdy edytor tekstu. Format wygląda następująco:
+Ustawienia w *game.project* zwykle zmienia się z poziomu Defold, ale plik można też edytować w dowolnym standardowym edytorze tekstu. Plik używa standardowego formatu INI i wygląda tak:
 
 ```ini
 [category1]
@@ -470,61 +23,811 @@ setting2 = value
 ...
 ```
 
-Przykład:
+Prawdziwy przykład:
 
 ```ini
 [bootstrap]
 main_collection = /main/main.collectionc
 ```
 
-co oznacza, że ustawienie *main_collection* należy do kategorii *bootstrap*.
-Kiedy używana jest referencja do pliku, jak w powyższym przykładzie, ścieżka musi być zakończona znakiem 'c', co oznacza, że odnosisz się do skompilowanej wersji pliku.
-Zauważ również, że folder zawieracjący plik *game.project* będzie folderem głównym projektu (root), stąd początkowy znak '/' w ścieżce do pliku.
+co oznacza, że ustawienie *main_collection* należy do kategorii *bootstrap*. Gdy używasz odwołania do pliku, jak w powyższym przykładzie, ścieżka musi zostać zakończona literą 'c', co oznacza odwołanie do skompilowanej wersji pliku. Zwróć też uwagę, że katalog zawierający *game.project* jest katalogiem głównym projektu, dlatego ścieżka ustawienia zaczyna się od /.
 
-## Ustawianie wartości przy starcie silnika
+## Dostęp w czasie działania
 
-Kiedy silnik zostaje uruchomiony jest możliwe podanie wartości konfiguracji z lini wiersza poleceń, które nadpiszą wartości w pliku *game.project*:
-
-```bash
-# Określ kolekcę główną/bootstrapową
-$ dmengine --config=bootstrap.main_collection=/my.collectionc
-
-# Ustaw dwie wartości:
-$ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
-```
-
-Twoje wartości mogą ---tak jak każde inne wartości konfiguracji--- być odczytane w trakcie działania aplikacji dzięki funkcji [`sys.get_config()`](/ref/sys/#sys.get_config):
+Każdą wartość z *game.project* można odczytać w czasie działania za pomocą funkcji [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) i [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Przykłady:
 
 ```lua
-local my_value = tonumber(sys.get_config("test.my_value"))
+local title = sys.get_config_string("project.title")
+local gravity_y = sys.get_config_number("physics.gravity_y")
 ```
 
-## Vsync, frame cap, i swap interval
-Po pierwsze na komputerach osobistych opcja `Vsync` (synchronizacja pionowa) może być kontrolowana globalnie przez ustawienia karty graficznej. Jeśli przykładowo opcja vsync jest wymuszona jako ustawiona w panelu kontrolnym karty graficznej, nie jest już możliwe zmienienie jej z poziomu użytkownika, czyli Defold nie może mieć do niej dostępu ani jej zmodyfikować. Większość urządzeń ma opcję vsync uruchomioną domyślnie.
+::: sidenote
+Klucz jest połączeniem nazwy kategorii i nazwy ustawienia, oddzielonych kropką, zapisanym małymi literami, a spacje zastępuje się znakami podkreślenia. Na przykład pole "Title" z kategorii "Project" staje się `project.title`, a pole "Gravity Y" z kategorii "Physics" staje się `physics.gravity_y`.
+:::
 
-Kiedy opcja `Vsync` jest zaznaczona w pliku *game.project* silnik będzie polegał na sprzętowym wsparciu synchronizacji pionowej i używał stałej wartości długości ramki `dt` bazującej na wartości częstotliwości odświeżania monitora. Jest to domyślne ustawienie. Kiedy opcja `Vsync` jest zaznaczona, a `Frame cap` > 0, wartość długości będzie zmniejszona do interwału przejścia odpowiadającego częstotliwości odświeżania głównego wykrytego monitora. Kiedy opcja `Vsync` jest odznaczona, a `Frame cap` = 0, wartość długości ramki nie jest stała, tylko używa aktualnej przyblizonej wartości różnicy czasowej dla wartości `dt`. Kiedy opcja `Vsync` jest odznaczona, a `Frame cap` > 0, używane są timery, aby dostosować się do podanej wartości frame cap. Nie ma niestety gwarancji, że wartość frame cap zostanie osiągnięta na różnych platformach i w zależności od różnych ustawień sprzętowych.
+## Sekcje i ustawienia
 
-Interwał zmiany (Swap interval) jest przedziałem czasowym określającym kiedy zamienić przedni i tylni bufor podczas synchronizacji z pionowymi pustkami (vertical blanks - v-blank), sprzętowe wydarzenie, gdzie ekran jest aktualizowany danymi z przedniego bufora. Wartość 1 pozwala na zamianę buforów przy każdym v-blanku, wartość 2 zamienia bufory przy co drugim v-blanku itd. Wartość 0 wyłącza oczekiwanie na v-blank przed zamianą buforów\*. Ustawienie `swap_interval` można zmienić dzięki funkcji [```set_vsync_swap_interval```](/ref/sys/#sys.set_vsync_swap_interval:swap_interval).
+Poniżej znajdują się wszystkie dostępne ustawienia, uporządkowane według kategorii.
 
-### Zastrzeżenie
-Obecnie, Defold odpytuje o częstotliwość odświeżania monitora podczas inicjalizacji silnika i używa tej wartości jako bazy przy wyborze stałej wartości `dt`. Jeśli chcesz wspierać monitory ze zmienną wartością częstotliwości odświeżania (np. GSync albo FreeSync) lub w innych scenariuszach gdzie wartość częstotliwości odświeżania nie jest trywialna do ustalenia, odznacz opcję `Vsync`, żeby pozwolić silnikowi dobrać `dt` podczas każdej ramki, zamiast polegać na stałej wartości.
+### Project
 
-### Vsync i frame cap w Defoldzie*
+#### Title
+Tytuł aplikacji.
 
-<table>
-  <tr>
-    <th></th>
-    <th><b>Frame cap 0 (default)</b></th>
-    <th><b>Frame cap > 0</b></th>
-  </tr>
-  <tr>
-    <td><b>Vsync checked (default)</b></td>
-    <td>Relies on hardware vsync. Fixed <code>dt</code> of <code>1/(detected monitor refresh rate)</code>.</td>
-    <td>Fixed <code>dt</code> of <code>(swap interval)/(detected monitor refresh rate)</code> where swap interval is clamped to the closest matching monitor refresh rate frame cap multiple.</td>
-  </tr>
-  <tr>
-    <td><b>Vsync unchecked</b></td>
-    <td>Calculates <code>dt</code> each frame based on elapsed system time. Vsync might still be enabled in driver settings.</td>
-    <td>Uses a fixed <code>dt</code> of <code>1 / (Frame cap)</code>. Uses timers and sleeps to respect the set frame cap.</td>
-  </tr>
-</table>
+#### Version
+Wersja aplikacji.
+
+#### Publisher
+Nazwa wydawcy.
+
+#### Developer
+Nazwa dewelopera.
+
+#### Write Log File
+Określa, kiedy silnik zapisuje plik logu. Dostępne opcje:
+
+- "Never": nie zapisuj pliku logu.
+- "Debug": zapisuj plik logu tylko dla buildów Debug.
+- "Always": zapisuj plik logu zarówno dla buildów Debug, jak i Release.
+
+Jeśli uruchamiasz z edytora więcej niż jedną instancję, plik będzie miał nazwę *instance_2_log.txt*, gdzie `2` oznacza indeks instancji. Przy pojedynczej instancji lub uruchomieniu z bundla plik będzie miał nazwę *log.txt*. Lokalizacja pliku logu będzie jedną z poniższych ścieżek, sprawdzanych w tej kolejności:
+
+1. Ścieżka określona w *project.log_dir* (ukryte ustawienie)
+2. Systemowa ścieżka logów:
+  * macOS/iOS: `NSDocumentDirectory`
+  * Android: `Context.getExternalFilesDir()`
+  * Pozostałe platformy: katalog główny aplikacji
+3. Ścieżka danych wsparcia aplikacji:
+  * macOS/iOS: `NSApplicationSupportDirectory`
+  * Windows: `CSIDL_APPDATA` (na przykład `C:\Users\<username>\AppData\Roaming`)
+  * Android: `Context.getFilesDir()`
+  * Linux: zmienna środowiskowa `HOME`
+
+#### Minimum Log Level
+Określa minimalny poziom logowania. Wyświetlane będą tylko komunikaty na tym poziomie lub wyższym.
+
+#### Compress Archive
+Włącza kompresję archiwów podczas bundlowania. Obecnie dotyczy to wszystkich platform poza Androidem, gdzie plik APK i tak zawiera już skompresowane dane.
+
+#### Dependencies
+Lista adresów URL do projektów będących *Library URL*. Więcej informacji znajdziesz w [instrukcji Libraries](/manuals/libraries/).
+
+#### Custom Resources
+`custom_resources`
+:[Zasoby niestandardowe](../shared/custom-resources.md)
+
+Ładowanie zasobów niestandardowych opisano dokładniej w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
+
+#### Bundle Resources
+`bundle_resources`
+:[Zasoby bundla](../shared/bundle-resources.md)
+
+Ładowanie zasobów bundla opisano dokładniej w [instrukcji File Access](/manuals/file-access/#how-to-access-files-bundled-with-the-application).
+
+#### Bundle Exclude Resources
+`bundle_exclude_resources`
+Lista zasobów rozdzielonych przecinkami, które nie powinny zostać dołączone do bundla. Są usuwane z wyniku kroku zbierania zasobów `bundle_resources`.
+
+---
+
+### Bootstrap
+
+#### Main Collection
+Odwołanie do pliku kolekcji używanej do uruchamiania aplikacji. Domyślnie `/logic/main.collection`.
+
+#### Render
+Plik konfiguracji renderowania definiujący pipeline renderowania. Domyślnie `/builtins/render/default.render`.
+
+---
+
+### Library
+
+#### Include Dirs
+Lista katalogów rozdzielonych spacjami, które mają być współdzielone z projektu przez mechanizm bibliotek. Więcej informacji znajdziesz w [instrukcji Libraries](/manuals/libraries/).
+
+---
+
+### Script
+
+#### Shared State
+Zaznacz, aby współdzielić pojedynczy stan Lua między wszystkimi typami skryptów.
+
+---
+
+### Engine
+
+#### Run While Iconified
+Pozwala silnikowi działać dalej, gdy okno aplikacji jest zminimalizowane lub zredukowane do ikony. Dotyczy tylko platform desktopowych.
+
+#### Fixed Update Frequency
+Częstotliwość aktualizacji funkcji cyklu życia `fixed_update(self, dt)`, wyrażona w hercach.
+
+#### Max Time Step
+Jeśli krok czasu w pojedynczej klatce stanie się zbyt duży, zostanie ograniczony do tej maksymalnej wartości. Jednostką są sekundy.
+
+---
+
+### Display
+
+#### Width
+Szerokość okna aplikacji w pikselach.
+
+#### Height
+Wysokość okna aplikacji w pikselach.
+
+#### High Dpi
+Tworzy bufor o wysokim DPI na wyświetlaczach, które to obsługują. Zwykle gra będzie renderowana w rozdzielczości dwukrotnie wyższej od ustawień *Width* i *Height*, ale nadal będzie to logiczna rozdzielczość używana w skryptach i właściwościach.
+
+#### Samples
+Liczba próbek używanych do supersamplingu antyaliasingu. Ustawia wartość podpowiedzi okna GLFW_FSAA_SAMPLES. Wartość `0` wyłącza antyaliasing.
+
+#### Fullscreen
+Zaznacz, jeśli aplikacja ma startować w trybie pełnoekranowym. Gdy pole nie jest zaznaczone, aplikacja uruchomi się w oknie.
+
+#### Update Frequency
+Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw 0, aby używać zmiennej liczby klatek. Wartość większa od 0 powoduje użycie stałej liczby klatek ograniczanej w czasie działania do rzeczywistej częstotliwości, co oznacza, że pętla gry nie może zostać wykonana dwa razy w ramach jednej klatki silnika. Wartość można zmieniać w czasie działania funkcją [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency). To ustawienie działa także w buildach headless.
+
+#### Swap interval
+Ta liczba całkowita steruje sposobem obsługi vsync. 0 wyłącza vsync, a wartością domyślną jest 1. Przy adapterze OpenGL wartość określa liczbę klatek pomiędzy [zamianami buforów](https://www.khronos.org/opengl/wiki/Swap_Interval). W przypadku Vulkana nie istnieje wbudowane pojęcie swap interval, więc wartość określa po prostu, czy vsync ma być włączony.
+
+#### Vsync
+Polegaj na sprzętowym vsync przy wyznaczaniu czasu klatki. To ustawienie może zostać nadpisane przez sterownik graficzny lub specyfikę platformy. Aby uzyskać przestarzałe zachowanie 'variable_dt', odznacz tę opcję i ustaw limit liczby klatek na 0.
+
+#### Display Profiles
+Określa plik profili wyświetlania, którego należy użyć. Domyślnie `/builtins/render/default.display_profilesc`. Więcej informacji znajdziesz w [instrukcji GUI Layouts](/manuals/gui-layouts/#creating-display-profiles).
+
+#### Dynamic Orientation
+Zaznacz, jeśli aplikacja ma dynamicznie przełączać się między orientacją pionową i poziomą po obróceniu urządzenia. Aplikacja deweloperska obecnie nie respektuje tego ustawienia.
+
+#### Display Device Info
+Wypisuje informacje o GPU do konsoli podczas uruchamiania.
+
+---
+
+### Render
+
+#### Clear Color Red
+Czerwony kanał koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
+
+#### Clear Color Green
+Zielony kanał koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
+
+#### Clear Color Blue
+Niebieski kanał koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
+
+#### Clear Color Alpha
+Kanał alfa koloru czyszczenia, używany przez skrypt renderujący i podczas tworzenia okna.
+
+---
+
+### Font
+
+#### Runtime Generation
+Używa generowania fontów w czasie działania.
+
+---
+
+### Physics
+
+#### Max Collision Object Count
+Maksymalna liczba obiektów kolizji.
+
+#### Type
+Typ fizyki, którego należy użyć: `2D` albo `3D`.
+
+#### Gravity X
+Grawitacja świata wzdłuż osi X, w metrach na sekundę.
+
+#### Gravity Y
+Grawitacja świata wzdłuż osi Y, w metrach na sekundę.
+
+#### Gravity Z
+Grawitacja świata wzdłuż osi Z, w metrach na sekundę.
+
+#### Debug
+Zaznacz, aby wizualizować fizykę do celów debugowania.
+
+#### Debug Alpha
+Wartość składowej alfa dla wizualizacji fizyki, z zakresu `0`--`1`.
+
+#### World Count
+Maksymalna liczba jednoczesnych światów fizyki. Domyślnie `4`. Jeśli przez pełnomocników kolekcji wczytujesz więcej niż 4 światy jednocześnie, musisz zwiększyć tę wartość. Pamiętaj, że każdy świat fizyki zużywa sporą ilość pamięci.
+
+#### Scale
+Informuje silnik fizyki, jak skalować świat fizyczny względem świata gry dla zachowania precyzji numerycznej, w zakresie `0.01`--`1.0`. Jeśli wartość wynosi `0.02`, oznacza to, że silnik fizyki traktuje 50 jednostek jako 1 metr ($1 / 0.02$).
+
+#### Allow Dynamic Transforms
+Zaznacz, jeśli silnik fizyki ma stosować transformację obiektu gry do dołączonych komponentów obiektu kolizji. Umożliwia to przesuwanie, skalowanie i obracanie kształtów kolizji, także tych dynamicznych.
+
+#### Use Fixed Timestep
+Zaznacz, jeśli silnik fizyki ma używać stałych, niezależnych od liczby klatek aktualizacji. Tego ustawienia należy używać razem z funkcją cyklu życia `fixed_update(self, dt)` oraz ustawieniem projektu `engine.fixed_update_frequency`, aby wchodzić w interakcję z fizyką w regularnych odstępach. Dla nowych projektów zalecaną wartością jest `true`.
+
+#### Debug Scale
+Określa rozmiar obiektów jednostkowych rysowanych w debugowaniu fizyki, takich jak osie lokalne i normalne.
+
+#### Max Collisions
+Określa, ile kolizji zostanie przekazanych do skryptów.
+
+#### Max Contacts
+Określa, ile punktów kontaktu zostanie przekazanych do skryptów.
+
+#### Contact Impulse Limit
+Ignoruje impulsy kontaktu o wartościach mniejszych niż to ustawienie.
+
+#### Ray Cast Limit 2d
+Maksymalna liczba zapytań ray cast 2D na klatkę.
+
+#### Ray Cast Limit 3d
+Maksymalna liczba zapytań ray cast 3D na klatkę.
+
+#### Trigger Overlap Capacity
+Maksymalna liczba nakładających się triggerów fizyki.
+
+#### Velocity Threshold
+Minimalna prędkość powodująca zderzenia sprężyste.
+
+#### Max Fixed Timesteps
+Maksymalna liczba kroków symulacji przy użyciu stałego kroku czasu. Dotyczy tylko 3D.
+
+---
+
+### Graphics
+
+#### Default Texture Min Filter
+Określa filtr używany przy minifikacji tekstur.
+
+#### Default Texture Mag Filter
+Określa filtr używany przy magnifikacji tekstur.
+
+#### Max Draw Calls
+Maksymalna liczba wywołań renderowania.
+
+#### Max Characters:
+Liczba znaków prealokowanych w buforze renderowania tekstu, czyli liczba znaków możliwych do wyświetlenia w każdej klatce.
+
+#### Max Font Batches
+Maksymalna liczba partii tekstu, które można wyświetlić w każdej klatce.
+
+#### Max Debug Vertices
+Maksymalna liczba wierzchołków debugowania. Używana między innymi do renderowania kształtów fizyki.
+
+#### Texture Profiles
+Plik profili teksturowania używany przez projekt, domyślnie `/builtins/graphics/default.texture_profiles`.
+
+#### Verify Graphics Calls
+Sprawdza wartość zwrotną po każdym wywołaniu grafiki i raportuje błędy w logu.
+
+#### OpenGL Version Hint
+Podpowiedź dotycząca wersji kontekstu OpenGL. Jeśli wybierzesz konkretną wersję, będzie ona używana jako minimalnie wymagana wersja. Nie dotyczy OpenGL ES.
+
+#### OpenGL Core Profile Hint
+Ustawia podpowiedź profilu 'core' podczas tworzenia kontekstu. Profil core usuwa wszystkie przestarzałe funkcje OpenGL, takie jak renderowanie w trybie immediate. Nie dotyczy OpenGL ES.
+
+---
+
+### Shader
+
+#### Exclude GLES 2.0
+Nie kompiluj shaderów dla urządzeń używających OpenGLES 2.0 / WebGL 1.0.
+
+---
+
+### Input
+
+#### Repeat Delay
+Liczba sekund oczekiwania, zanim przytrzymane wejście zacznie się powtarzać.
+
+#### Repeat Interval
+Liczba sekund pomiędzy kolejnymi powtórzeniami przytrzymanego wejścia.
+
+#### Gamepads
+Odwołanie do pliku konfiguracji gamepadów mapującego sygnały gamepada na system operacyjny. Domyślnie `/builtins/input/default.gamepads`.
+
+#### Game Binding
+Odwołanie do pliku konfiguracji wejść mapującego sprzętowe wejścia na akcje. Domyślnie `/input/game.input_binding`.
+
+#### Use Accelerometer
+Zaznacz, aby silnik otrzymywał zdarzenia z akcelerometru w każdej klatce. Wyłączenie akcelerometru może przynieść pewne korzyści wydajnościowe.
+
+---
+
+### Resource
+
+#### Http Cache
+Po zaznaczeniu włącza pamięć podręczną HTTP, aby szybciej ładować przez sieć zasoby do silnika uruchomionego na urządzeniu.
+
+#### Uri
+Określa lokalizację danych builda projektu w formacie URI.
+
+#### Max Resources
+Maksymalna liczba zasobów, które mogą być załadowane jednocześnie.
+
+---
+
+### Network
+
+#### Http Timeout
+Limit czasu HTTP w sekundach. Ustaw `0`, aby wyłączyć limit czasu.
+
+#### Http Thread Count
+Liczba wątków roboczych używanych przez usługę HTTP.
+
+#### Http Cache Enabled
+Zaznacz, aby włączyć pamięć podręczną HTTP dla żądań sieciowych wykonywanych przez `http.request()`. Cache HTTP przechowuje odpowiedź skojarzoną z żądaniem i ponownie używa jej przy kolejnych żądaniach. Obsługiwane są nagłówki odpowiedzi `ETag` i `Cache-Control: max-age`.
+
+#### SSL Certificates
+Plik zawierający główne certyfikaty SSL używane przy weryfikacji łańcucha certyfikatów podczas handshake SSL.
+
+---
+
+### Collection
+
+#### Max Instances
+Maksymalna liczba instancji obiektów gry w kolekcji. Domyślnie `1024`. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Max Input Stack Entries
+Maksymalna liczba obiektów gry na stosie wejścia.
+
+---
+
+### Sound
+
+#### Gain
+Globalne wzmocnienie dźwięku (głośność), `0`--`1`.
+
+#### Use Linear Gain
+Po włączeniu wzmocnienie jest liniowe. Po wyłączeniu używana jest krzywa wykładnicza.
+
+#### Max Sound Data
+Maksymalna liczba zasobów dźwiękowych, czyli unikalnych plików dźwiękowych dostępnych w czasie działania.
+
+#### Max Sound Buffers
+(Obecnie nieużywane) Maksymalna liczba jednoczesnych buforów dźwięku.
+
+#### Max Sound Sources
+(Obecnie nieużywane) Maksymalna liczba jednocześnie odtwarzanych dźwięków.
+
+#### Max Sound Instances
+Maksymalna liczba jednoczesnych instancji dźwięku, czyli rzeczywistych dźwięków odtwarzanych w tym samym momencie.
+
+#### Max Component Count
+Maksymalna liczba komponentów dźwięku w jednej kolekcji.
+
+#### Sample Frame Count
+Liczba próbek używanych przy każdej aktualizacji audio. 0 oznacza tryb automatyczny (1024 dla 48 kHz, 768 dla 44.1 kHz).
+
+#### Use Thread
+Po zaznaczeniu system dźwięku używa wątków do odtwarzania audio, aby zmniejszyć ryzyko zacięć, gdy główny wątek jest mocno obciążony.
+
+#### Stream Enabled
+Po zaznaczeniu system dźwięku używa streamingu do ładowania plików źródłowych.
+
+#### Stream Cache Size
+Maksymalny rozmiar cache fragmentów dźwięku zawierającego wszystkie fragmenty. Domyślnie `2097152` bajty. Ta wartość powinna być większa niż liczba załadowanych plików dźwiękowych pomnożona przez rozmiar fragmentu streamingu. W przeciwnym razie nowe fragmenty mogą być usuwane z cache w każdej klatce.
+
+#### Stream Chunk Size
+Rozmiar w bajtach każdego fragmentu ładowanego strumieniowo.
+
+#### Stream Preload Size
+Określa rozmiar w bajtach początkowego fragmentu plików dźwiękowych wczytywanych z archiwum.
+
+---
+
+### Sprite
+
+#### Max Count
+Maksymalna liczba sprite'ów w jednej kolekcji. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Subpixels
+Zaznacz, aby pozwolić sprite'om pojawiać się poza siatką pełnych pikseli.
+
+---
+
+### Tilemap
+
+#### Max Count
+Maksymalna liczba map kafelków w jednej kolekcji. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Max Tile Count
+Maksymalna liczba jednocześnie widocznych kafelków w jednej kolekcji.
+
+---
+
+### Spine
+
+#### Max Count
+Maksymalna liczba komponentów modelu Spine. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+---
+
+### Mesh
+
+#### Max Count
+Maksymalna liczba komponentów Mesh w jednej kolekcji. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+---
+
+### Model
+
+#### Max Count
+Maksymalna liczba komponentów Model w jednej kolekcji. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Split Meshes
+Podziel siatki mające więcej niż 65536 wierzchołków na nowe siatki.
+
+#### Max Bone Matrix Texture Width
+Maksymalna szerokość tekstury macierzy kości. Używany jest tylko rozmiar potrzebny animacjom, zaokrąglany w górę do najbliższej potęgi dwójki.
+
+#### Max Bone Matrix Texture Height
+Maksymalna wysokość tekstury macierzy kości. Używany jest tylko rozmiar potrzebny animacjom, zaokrąglany w górę do najbliższej potęgi dwójki.
+
+---
+
+### GUI
+
+#### Max Count
+Maksymalna liczba komponentów GUI. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Max Particle Count
+Maksymalna liczba jednoczesnych cząsteczek w GUI.
+
+#### Max Animation Count
+Maksymalna liczba aktywnych animacji w GUI.
+
+---
+
+### Label
+
+#### Max Count
+Maksymalna liczba etykiet. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Subpixels
+Zaznacz, aby pozwolić etykietom pojawiać się poza siatką pełnych pikseli.
+
+---
+
+### Particle FX
+
+#### Max Count
+Maksymalna liczba jednoczesnych emiterów. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+#### Max Particle Count
+Maksymalna liczba jednoczesnych cząsteczek.
+
+---
+
+### Box2D
+
+#### Velocity Iterations
+Liczba iteracji prędkości dla solvera fizyki Box2D 2.2.
+
+#### Position Iterations
+Liczba iteracji pozycji dla solvera fizyki Box2D 2.2.
+
+#### Sub Step Count
+Liczba podkroków dla solvera fizyki Box2D 3.x.
+
+---
+
+### Collection proxy
+
+#### Max Count
+Maksymalna liczba pełnomocników kolekcji. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+---
+
+### Collection factory
+
+#### Max Count
+Maksymalna liczba fabryk kolekcji. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+---
+
+### Factory
+
+#### Max Count
+Maksymalna liczba fabryk obiektów gry. Zobacz też informacje o [optymalizacji liczników maksymalnych komponentów](#component-max-count-optimizations).
+
+---
+
+### iOS
+
+#### App Icon 57x57--180x180
+Plik obrazu .png używany jako ikona aplikacji dla podanych wymiarów `W` &times; `H`.
+
+#### Launch Screen
+Plik storyboard .storyboard. Więcej informacji o tworzeniu storyboardu znajdziesz w [instrukcji iOS](/manuals/ios/#creating-a-storyboard).
+
+#### Icons Asset
+Plik zasobu ikon .car zawierający ikony aplikacji.
+
+#### Prerendered Icons
+(iOS 6 i starsze) Zaznacz, jeśli ikony są prerenderowane. Gdy to pole nie jest zaznaczone, ikony zostaną automatycznie wzbogacone o błyszczący efekt.
+
+#### Bundle Identifier
+Identyfikator bundla pozwalający iOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (-). Zobacz [`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
+
+#### Bundle Name
+Krótka nazwa bundla, maksymalnie 15 znaków. Zobacz [`CFBundleName`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
+
+#### Bundle Version
+Wersja bundla zapisana jako liczba albo x.y.z. Zobacz [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
+
+#### Info.plist
+Jeśli ustawiono, podczas bundlowania aplikacji zostanie użyty wskazany plik *`info.plist`*.
+
+#### Privacy Manifest
+Apple Privacy Manifest dla aplikacji. Domyślna wartość pola to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
+
+#### Custom Entitlements
+Jeśli ustawiono, uprawnienia z dostarczonego profilu provisioning (`.entitlements`, `.xcent`, `.plist`) zostaną połączone z uprawnieniami z profilu provisioning podanego podczas bundlowania aplikacji.
+
+#### Default Language
+Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli preferowany język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
+
+#### Localizations
+Pole zawierające oddzielone przecinkami ciągi identyfikujące nazwę języka lub oznaczenie ISO dla obsługiwanych lokalizacji. Zobacz [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552).
+
+---
+
+### Android
+
+#### App Icon 36x36--192x192
+Plik obrazu .png używany jako ikona aplikacji dla podanych wymiarów `W` &times; `H`.
+
+#### Push Icon Small--LargeXxxhdpi
+Pliki obrazów .png używane jako własne ikony powiadomień push na Androidzie. Ikony będą automatycznie używane zarówno dla powiadomień lokalnych, jak i zdalnych. Jeśli nie są ustawione, domyślnie używana będzie ikona aplikacji.
+
+#### Push Field Title
+Określa, które pole JSON z payloadu ma zostać użyte jako tytuł powiadomienia. Jeśli pole jest puste, jako tytuł używana jest nazwa aplikacji.
+
+#### Push Field Text
+Określa, które pole JSON z payloadu ma zostać użyte jako treść powiadomienia. Jeśli pole jest puste, używana jest wartość z pola `alert`, tak jak na iOS.
+
+#### Version Code
+Całkowita wartość liczbowa oznaczająca wersję aplikacji. Należy ją zwiększać przy każdej kolejnej aktualizacji.
+
+#### Minimum SDK Version
+Minimalny poziom API wymagany do uruchomienia aplikacji (`android:minSdkVersion`).
+
+#### Target SDK Version
+Poziom API, na który aplikacja jest targetowana (`android:targetSdkVersion`).
+
+#### Package
+Identyfikator pakietu. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne oraz znak podkreślenia.
+
+#### GCM Sender Id
+Google Cloud Messaging Sender Id. Ustaw tutaj ciąg znaków przypisany przez Google, aby włączyć powiadomienia push.
+
+#### FCM Application Id
+Identyfikator aplikacji Firebase Cloud Messaging.
+
+#### Manifest
+Jeśli ustawiono, podczas bundlowania zostanie użyty wskazany plik Android Manifest XML.
+
+#### Iap Provider
+Określa, którego sklepu używać. Poprawne wartości to `Amazon` i `GooglePlay`. Więcej informacji znajdziesz w [extension-iap](/extension-iap/).
+
+#### Input Method
+Określa metodę pobierania wejścia z klawiatury na urządzeniach z Androidem. Poprawne wartości to `KeyEvent` (stara metoda) oraz `HiddenInputField` (nowa).
+
+#### Immersive Mode
+Po włączeniu ukrywa pasek nawigacji i pasek stanu oraz pozwala aplikacji przechwytywać wszystkie zdarzenia dotyku na ekranie.
+
+#### Display Cutout
+Pozwala rozszerzyć obraz na obszar wycięcia ekranu.
+
+#### Debuggable
+Określa, czy aplikację można debugować narzędziami takimi jak [GAPID](https://github.com/google/gapid) albo [Android Studio](https://developer.android.com/studio/profile/android-profiler). Ustawia flagę `android:debuggable` w Android Manifest. Zobacz [oficjalną dokumentację](https://developer.android.com/guide/topics/manifest/application-element#debug).
+
+#### ProGuard config
+Własny plik ProGuard pomagający usunąć zbędne klasy Java z końcowego APK.
+
+#### Extract Native Libraries
+Określa, czy instalator pakietu ma rozpakowywać biblioteki natywne z APK do systemu plików. Jeśli ustawisz `false`, biblioteki będą przechowywane nieskompresowane wewnątrz APK. APK może być wtedy większy, ale aplikacja będzie ładować się szybciej, bo biblioteki będą ładowane bezpośrednio z APK w czasie działania. To ustawienie ustawia flagę `android:extractNativeLibs` w Android Manifest. Zobacz [oficjalną dokumentację](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs).
+
+---
+
+### macOS
+
+#### App Icon
+Plik ikony bundla .icns używany jako ikona aplikacji w macOS.
+
+#### Info.plist
+Jeśli ustawiono, podczas bundlowania zostanie użyty wskazany plik info.plist.
+
+#### Privacy Manifest
+Apple Privacy Manifest dla aplikacji. Domyślna wartość pola to `/builtins/manifests/osx/PrivacyInfo.xcprivacy`.
+
+#### Bundle Identifier
+Identyfikator bundla pozwalający macOS rozpoznawać aktualizacje aplikacji. Musi być zarejestrowany w Apple i unikalny dla aplikacji. Nie można używać tego samego identyfikatora dla aplikacji iOS i macOS. Musi składać się z co najmniej dwóch segmentów oddzielonych kropką. Każdy segment musi zaczynać się literą i może zawierać tylko litery alfanumeryczne, znak podkreślenia lub myślnik (-).
+
+#### Default Language
+Język używany, jeśli aplikacja nie zawiera preferowanego języka użytkownika na liście `Localizations`. Zobacz [`CFBundleDevelopmentRegion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430). Użyj dwuliterowego standardu ISO 639-1, jeśli preferowany język jest tam dostępny, w przeciwnym razie trzy-literowego ISO 639-2.
+
+#### Localizations
+Pole zawierające oddzielone przecinkami ciągi identyfikujące nazwę języka lub oznaczenie ISO dla obsługiwanych lokalizacji. Zobacz [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552).
+
+---
+
+### Windows
+
+#### App Icon
+Plik obrazu .ico używany jako ikona aplikacji w Windows. Więcej informacji o tworzeniu plików .ico znajdziesz w [instrukcji Windows](/manuals/windows).
+
+---
+
+### HTML5
+
+Więcej informacji o wielu z tych opcji znajdziesz w [instrukcji platformy HTML5](/manuals/html5/).
+
+#### Heap Size
+Rozmiar sterty w megabajtach używanej przez Emscripten.
+
+#### .html Shell
+Podczas bundlowania używaj wskazanego szablonu HTML. Domyślnie `/builtins/manifests/web/engine_template.html`.
+
+#### Custom .css
+Podczas bundlowania używaj wskazanego pliku motywu CSS. Domyślnie `/builtins/manifests/web/light_theme.css`.
+
+#### Splash Image
+Jeśli ustawiono, podczas bundlowania użyj wskazanego obrazu startowego zamiast logo Defold.
+
+#### Archive Location Prefix
+Podczas bundlowania dla HTML5 dane gry są dzielone na jeden lub więcej plików archiwum. Gdy silnik uruchamia grę, pliki te są wczytywane do pamięci. To ustawienie określa lokalizację tych danych.
+
+#### Archive Location Suffix
+Sufiks dodawany do plików archiwum. Przydaje się na przykład do wymuszania pobierania niebuforowanej zawartości z CDN, jak `?version2`.
+
+#### Engine Arguments
+Lista argumentów przekazywanych do silnika.
+
+#### Wasm Streaming
+Włącza streaming pliku wasm. Jest szybszy i zużywa mniej pamięci, ale wymaga typu MIME `application/wasm`.
+
+#### Show Fullscreen Button
+Włącza przycisk Fullscreen w pliku `index.html`.
+
+#### Show Made With Defold
+Włącza link Made With Defold w pliku `index.html`.
+
+#### Show Console Banner
+Po włączeniu ta opcja wypisuje informacje o silniku i jego wersji w konsoli przeglądarki za pomocą `console.log()` podczas startu silnika.
+
+#### Scale Mode
+Określa metodę skalowania kanwy gry.
+
+#### Retry Count
+Liczba prób pobrania pliku przy uruchamianiu silnika. Zobacz także `Retry Time`.
+
+#### Retry Time
+Liczba sekund oczekiwania między kolejnymi próbami pobrania pliku po nieudanym pobraniu. Zobacz także `Retry Count`.
+
+#### Transparent Graphics Context
+Zaznacz, jeśli kontekst grafiki ma mieć przezroczyste tło.
+
+---
+
+### IAP
+
+#### Auto Finish Transactions
+Zaznacz, aby automatycznie finalizować transakcje IAP. Jeśli pole jest odznaczone, po udanej transakcji trzeba jawnie wywołać `iap.finish()`.
+
+---
+
+### Live update
+
+#### Settings
+Plik zasobu ustawień Liveupdate używany podczas bundlowania.
+
+#### Mount On Start
+Włącza automatyczne montowanie wcześniej zamontowanych zasobów przy starcie aplikacji.
+
+---
+
+### Native extension
+
+#### _App Manifest_
+Jeśli ustawiono, użyj manifestu aplikacji do dostosowania builda silnika. Pozwala to usunąć nieużywane części silnika i zmniejszyć rozmiar końcowego pliku binarnego. Jak wykluczać nieużywane funkcje opisano w [instrukcji Application Manifest](/manuals/app-manifest).
+
+---
+
+### Profiler
+
+#### Enabled
+Włącza profiler w grze.
+
+#### Track Cpu
+Po zaznaczeniu włącza profilowanie CPU w buildach release. Zwykle informacje profilujące są dostępne tylko w buildach debug.
+
+#### Sleep Between Server Updates
+Liczba milisekund uśpienia pomiędzy aktualizacjami serwera.
+
+#### Performance Timeline Enabled
+Włącza przeglądarkową oś czasu wydajności. Dotyczy tylko HTML5.
+
+---
+
+## Ustawianie wartości konfiguracji podczas uruchamiania silnika
+
+Podczas uruchamiania silnika można przekazać z linii poleceń wartości konfiguracji, które nadpiszą ustawienia z *game.project*:
+
+```bash
+# Określ kolekcję bootstrapową
+$ dmengine --config=bootstrap.main_collection=/my.collectionc
+
+# Ustaw dwie własne wartości konfiguracyjne
+$ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
+```
+
+Własne wartości można odczytywać tak samo jak każdą inną wartość konfiguracyjną, za pomocą [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) albo [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
+
+```lua
+local my_value = sys.get_config_number("test.my_value")
+local my_value2 = sys.get_config_string("test.my_value2")
+```
+
+:[Optymalizacje liczników maksymalnych komponentów](../shared/component-max-count-optimizations.md)
+
+## Własne ustawienia projektu
+
+Można definiować własne ustawienia dla głównego projektu albo dla [native extension](/manuals/extensions/). Własne ustawienia dla głównego projektu należy zdefiniować w pliku `game.properties` w katalogu głównym projektu. W przypadku rozszerzenia natywnego należy je zdefiniować w pliku `ext.properties` obok pliku `ext.manifest`.
+
+Plik ustawień używa tego samego formatu INI co *game.project*, a atrybuty właściwości zapisuje się notacją z kropką i sufiksem:
+
+```
+[my_category]
+my_property.private = 1
+...
+```
+
+Domyślny plik meta, który jest zawsze stosowany, jest dostępny [tutaj](https://github.com/defold/defold/blob/dev/com.dynamo.cr/com.dynamo.cr.bob/src/com/dynamo/bob/meta.properties).
+
+Obecnie dostępne są następujące atrybuty:
+
+```
+[my_extension]
+// `type` - używany przy parsowaniu wartości tekstowej
+my_property.type = string // jedna z wartości: bool, string, number, integer, string_array, resource
+
+// `help` - używany jako podpowiedź pomocy w edytorze (na razie nieużywany)
+my_property.help = string
+
+// `default` - wartość używana jako domyślna, jeśli użytkownik nie ustawił jej ręcznie
+my_property.default = string
+
+// `private` - wartość prywatna używana podczas procesu bundlowania, ale usuwana z samego bundla
+my_property.private = 1 // wartość logiczna 1 albo 0
+
+// `label` - etykieta pola wejściowego w edytorze
+my_property.label = My Awesome Property
+
+// `minimum` i/lub `maximum` - prawidłowy zakres dla właściwości liczbowych, walidowany w UI edytora
+my_property.minimum = 0
+my_property.maximum = 255
+
+// `options` - opcje listy rozwijanej w UI edytora, zapisane jako oddzielone przecinkami pary value[:label]
+my_property.options = android: Android, ios: iOS
+
+// tylko dla typu `resource`:
+my_property.filter = jpg,png // dozwolone rozszerzenia plików w selektorze zasobu
+my_property.preserve-extension = 1 // użyj oryginalnego rozszerzenia zasobu zamiast rozszerzenia builda
+
+// oznaczanie jako przestarzałe
+my_property.deprecated = 1 // oznacz właściwość jako przestarzałą
+my_property.severity-default = warning // gdy przestarzała właściwość jest ustawiona, ale ma wartość domyślną
+my_property.severity-override = error  // gdy przestarzała właściwość jest ustawiona i ma wartość inną niż domyślna
+
+```
+Dodatkowo na kategorii ustawień można ustawić następujące atrybuty:
+```
+[my_extension]
+// `group` - grupa kategorii w game.project, np. Main, Platforms, Components, Runtime, Distribution
+group = Runtime
+// `title` - wyświetlany tytuł kategorii
+title = My Awesome Extension
+// `help` - wyświetlana pomoc kategorii
+help = Settings for My Awesome Extension
+```
+
+Obecnie właściwości meta są używane tylko w `bob.jar` podczas bundlowania aplikacji, ale w przyszłości będą też parsowane przez edytor i prezentowane w widoku *game.project*.

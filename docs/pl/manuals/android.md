@@ -1,144 +1,103 @@
 ---
-title: Rzwój oprogramowania w Defoldzie na platformę Android
-brief: Instrukcja odpowiada na pytania jak zbudować i uruchomić grę lub aplikację stworzoną w Defoldzie na urządzeniach z systemem Android.
+title: Tworzenie aplikacji Defold na platformie Android
+brief: Ta instrukcja opisuje, jak budować i uruchamiać aplikacje Defold na urządzeniach z Androidem
 ---
 
-# Android development
+# Programowanie na Androidzie
 
-Urządzenia z systemem Android pozwalają na swobodne otwieranie Twoich własnych aplikacji i gier. Jest bardzo łatwo zbudować wersję gry i skopiować ją na takie urządzenie. Instrukcja ta opisuje kroki procesu pakowania aplikacji na system Android. Podczas tworzenia oprogramowania z Defoldem, otwieranie i testowanie Twojej gry poprzez specjalną aplikacją zwaną [development app](/manuals/dev-app) jest często preferowane, ponieważ umożliwia szybkie przeładowanie zawartości nawet podczas działania programu i programowanie urządzenia bezprzewodowo.
+Urządzenia z Androidem pozwalają swobodnie uruchamiać na nich własne aplikacje. Bardzo łatwo jest zbudować wersję gry i skopiować ją na urządzenie z Androidem. Ta instrukcja wyjaśnia kolejne kroki pakowania gry na Androida. Podczas tworzenia często wygodniej jest uruchamiać grę przez [development app](/manuals/dev-app), ponieważ umożliwia szybkie przeładowywanie zawartości i kodu bezpośrednio na urządzeniu.
 
-## Proces podpisywania Android i Google Play
+## Proces podpisywania dla Androida i Google Play
 
-Android wyamaga, aby aplikacje, które chcesz zainstalować na urządzeniu były cyfrowo podpisane. W przeciwieństwie do iOS, gdzie wszystkie certyfikaty są przyznawane przez Apple, Android umożliwia własnoręczne podpisanie aplikacji, więc można swobodnie tworzyć certyfikaty i klucze wymagane do podpisywania.
+Android wymaga, aby wszystkie pliki APK były przed instalacją na urządzeniu lub aktualizacją cyfrowo podpisane certyfikatem. Jeśli używasz Android App Bundles, musisz podpisać tylko swój pakiet aplikacji przed przesłaniem go do Play Console, a [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play) zajmie się resztą. Możesz też ręcznie podpisać aplikację przed wysłaniem do Google Play, do innych sklepów z aplikacjami lub do dystrybucji poza sklepami.
 
-Proces tworzenia certyfikatów i kluczy może wyglądać na skomplikowany, ale podczas tworzenia oprogramowania Defold go automatyzuje. Kiedy tworzysz aplikację i pakujesz ją do paczki (ang. Android application bundle) możesz podać specyficzny certyfikat i klucz. Jeśli tego nie zrobisz, Defold wygeneruje je za Ciebie i podpisze aplikację automatycznie.
-
-Ważne, aby zaapamiętać, że przy releasowaniu aplikacji na Google Play, będziesz musiał stworzyć certyfikat i klucz, którymi właśnie podpiszesz tę aplikację. Powodem tego jest to, że _podczas publikowania zaktualizowanej wersji aplikacji użyć musisz tego samego podpisu jak dotychczasowa wersja_. Jeśli podpiszesz aplikację innym kluczem, Google Play odrzuci aktualizację i będziesz musiał opublikować aplikację jako osobna, nowa aplikacja.
-
-Możesz przeczytać więcej na ten temat na stronie [Google Play developer console](https://play.google.com/apps/publish/).
-
-## Tworzenie certyfikatów i kluczy
-
-Musisz stworzyć certyfikaty w formacie *.pem*, a klucze w formacie *.pk8*. Możesz je wygenerować korzystając z narzędzia `openssl`:
-
-```sh
-$ openssl genrsa -out key.pem 2048
-$ openssl req -new -key key.pem -out request.pem
-$ openssl x509 -req -days 9999 -in request.pem -signkey key.pem -out certificate.pem
-$ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocrypt
-```
-
-Uzyskasz dzięki temu pliki *certificate.pem* i *key.pk8*, które użyjesz do podpisania aplikacji.
+Gdy tworzysz pakiet aplikacji Android z edytora Defold albo za pomocą [narzędzia wiersza poleceń](/manuals/bob), możesz podać keystore, który zawiera certyfikat i klucz, oraz hasło do keystore. Te dane zostaną użyte do podpisania aplikacji. Jeśli ich nie podasz, Defold wygeneruje debug keystore i użyje go do podpisania pakietu aplikacji.
 
 ::: important
-Upewnij się, że przechowywujesz certyfikaty i klucze w bezpiecznym miejscu. Jeśli je zgubisz, _nie będziesz mógł_ w żaden sposób zaktualizować aplikacji na Google Play.
+**Nigdy** nie przesyłaj aplikacji do Google Play, jeśli została podpisana za pomocą debug keystore. Zawsze używaj własnego, osobnego keystore.
 :::
 
-## Tworzenie paczki - Android application bundle
+## Tworzenie keystore
 
-Edytor Defold umożliwia łatwe stworzenie paczki z aplikacją. Przed pakowaniem określasz, których ikon należy używać, wersję produktu itd. w pliku *game.project*. Więcej tutaj: [plik konfiguracyjny projektu](/manuals/project-settings/#android).
+::: sidenote
+Proces podpisywania Androida w Defold zmienił się w wersji 1.2.173: zamiast osobnego klucza i certyfikatu używa teraz keystore. [Więcej informacji w tym poście na forum](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
+:::
 
-Aby stworzyć paczkę kliknij <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> w menu.
+Keystore możesz utworzyć [w Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) albo z poziomu terminala / wiersza poleceń:
 
-Jeśli chcesz, aby Defold automatycznie stworzył certyfikat, zostaw pola *Certificate* i *Private key* puste:
+```bash
+keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, L=Unknown, ST=Nevada, C=US" -keystore mykeystore.keystore -storepass 5Up3r_53cR3t -alias myAlias -keyalg RSA -validity 9125
+```
+
+To utworzy plik keystore o nazwie `mykeystore.keystore`, zawierający klucz i certyfikat. Dostęp do klucza i certyfikatu będzie chroniony hasłem `5Up3r_53cR3t`. Klucz i certyfikat będą ważne przez 25 lat, czyli 9125 dni. Wygenerowany klucz i certyfikat będą identyfikowane aliasem `myAlias`.
+
+::: important
+Pamiętaj, aby przechowywać keystore i powiązane z nim hasło w bezpiecznym miejscu. Jeśli sam podpisujesz i przesyłasz aplikacje do Google Play, a keystore lub jego hasło zostanie utracone, nie będzie żadnego sposobu, aby zaktualizować aplikację w Google Play. Możesz tego uniknąć, korzystając z Google Play App Signing i pozwalając Google podpisywać aplikacje za Ciebie.
+:::
+
+## Tworzenie pakietu aplikacji Android
+
+Edytor pozwala łatwo utworzyć samodzielny pakiet aplikacji dla gry. Przed pakowaniem możesz określić, której ikony lub których ikon użyć dla aplikacji, ustawić kod wersji itd. w pliku *game.project* [plik ustawień projektu](/manuals/project-settings/#android).
+
+Aby spakować grę, wybierz <kbd>Project ▸ Bundle... ▸ Android Application...</kbd> z menu.
+
+Jeśli chcesz, aby edytor automatycznie tworzył losowe debug certyfikaty, pozostaw pola *Keystore* i *Keystore password* puste:
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-Jeśli chcesz podpisać paczkę własnym certyfikatem i kluczem, wskaż odpowiednie pliki *.pem* i *.pk8*:
+Jeśli chcesz podpisać pakiet konkretnym keystore, wskaż pola *Keystore* i *Keystore password*. Oczekuje się, że *Keystore* będzie miał rozszerzenie pliku `.keystore`, a hasło ma być zapisane w pliku tekstowym z rozszerzeniem `.txt`. Można też podać *Key password*, jeśli klucz w keystore ma inne hasło niż sam keystore:
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-Defold wspiera tworzenie zarówno paczek APK i AAB. Wybierz APK lub AAB z rozwijanej listy "Bundle Format".
+Defold obsługuje tworzenie zarówno plików APK, jak i AAB. Wybierz APK albo AAB z listy rozwijanej Bundle Format.
 
-Kliknij <kbd>Create Bundle</kbd> po skonfigurowaniu wszystkich ustawień. Będziesz poproszony o wskazanie lokalizacji na Twoim urządzeniu do zapisania zbudowanej paczki.
+Naciśnij <kbd>Create Bundle</kbd>, gdy skonfigurujesz ustawienia pakietu aplikacji. Zostaniesz wtedy poproszony o wskazanie miejsca na komputerze, w którym pakiet ma zostać utworzony.
 
 ![Android Application Package file](images/android/apk_file.png)
 
-:[Build Variants](../shared/build-variants.md)
+:[Warianty budowania](../shared/build-variants.md)
 
-### Instalowanie paczek na Androidzie
+### Instalowanie pakietu aplikacji Android
 
 #### Instalowanie APK
 
-Plik *.apk* może być skopiowany na Twoje urządzenie z systemem Android przy użyciu narzędzia `adb` (zobacz poniżej) lub załadowane do Google Play poprzez [Google Play developer console](https://play.google.com/apps/publish/).
+Plik *`.apk`* można skopiować na urządzenie za pomocą narzędzia `adb` albo przesłać do Google Play przez [konsolę deweloperską Google Play](https://play.google.com/apps/publish/).
 
-```
+:[Android ADB](../shared/android-adb.md)
+
+```bash
 $ adb install Defold\ examples.apk
 4826 KB/s (18774344 bytes in 3.798s)
   pkg: /data/local/tmp/my_app.apk
 Success
 ```
 
+#### Instalowanie APK z poziomu edytora
+
+Plik *`.apk`* możesz zainstalować i uruchomić za pomocą pól wyboru edytora <kbd>Install on connected device</kbd> i <kbd>Launch installed app</kbd> w oknie <kbd>Bundle</kbd>:
+
+![instalowanie i uruchamianie APK](images/android/install_and_launch.png)
+
+Aby ta funkcja działała, musisz mieć zainstalowany ADB oraz włączone <kbd>USB debugging</kbd> na podłączonym urządzeniu. Jeśli edytor nie potrafi wykryć lokalizacji narzędzia wiersza poleceń ADB, musisz ją wskazać w [preferencjach edytora](/manuals/editor-preferences/#tools).
+
 #### Instalowanie AAB
 
-Plik *.aab* może być załadowany do Google Play poprzez [Google Play developer console](https://play.google.com/apps/publish/). Jest również możliwe wygenerowanie pliku *.apk* z pliku *.aab*, aby zainstalować je lokalnie dzięki [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
+Plik *.aab* można przesłać do Google Play przez [konsolę deweloperską Google Play](https://play.google.com/apps/publish/). Można też wygenerować plik *`.apk`* z pliku *.aab*, aby zainstalować go lokalnie za pomocą [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
-## Pozwolenia
+## Uprawnienia
 
-Silnik Defold wymaga niektórych pozwoleń, aby wszystkie jego elementy mogły działać. Pozwolenia są zdefiniowane w pliku `AndroidManifest.xml`, wybranym w pliku *game.project*: [plik konfiguracyjny projektu](/manuals/project-settings/#android). Możesz dowiedzieć się więcej na temat pozwoleń w systemie Android w [oficjalnej dokumenetacji](https://developer.android.com/guide/topics/permissions/overview). Następujące pozwolenia są wymagane przy użyciu domyślnego pliku manifest:
+Silnik Defold wymaga szeregu różnych uprawnień, aby działały wszystkie jego funkcje. Uprawnienia są definiowane w pliku `AndroidManifest.xml`, wskazanym w pliku *game.project* [plik ustawień projektu](/manuals/project-settings/#android). Więcej o uprawnieniach Androida można przeczytać w [oficjalnej dokumentacji](https://developer.android.com/guide/topics/permissions/overview). W domyślnym manifeście są wymagane następujące uprawnienia:
 
 ### android.permission.INTERNET i android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
-Pozwala aplikacji na otwieranie połączeń internetowych i uzyskiwaniu informacji na temat sieci. Potrzebne są przy dostępie do Internetu. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) i ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
-
-### android.permission.WRITE_EXTERNAL_STORAGE (Protection level: dangerous)
-Pozwala aplikacji na zapisywanie do pamięci zewnętrznej. Od poziomu 19 API to pozwolenie nie jest wymagane do zapisu i odczytu plików w lokalizacji przeznaczonej dla Twojej aplikacji (otrzymanej przez Context.getExternalFilesDir(String) i Context.getExternalCacheDir()). To pozwolenie jest wymagane, gdy chcesz zapisywać do lub odczytywać dane z plików z dysku (używając metod z io.* lub sys.save/load) poza lokalizacją wskazaną przez [sys.get_save_file()](/ref/sys/#sys.get_save_file:application_id-file_name) i mając `android:minSdkVersion` ustawione na mniejsze niż 19 w pliku manifest. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WRITE_EXTERNAL_STORAGE)).
+Pozwalają aplikacjom otwierać gniazda sieciowe i uzyskiwać informacje o sieciach. Te uprawnienia są potrzebne do korzystania z Internetu. ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) oraz ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
 ### android.permission.WAKE_LOCK (Protection level: normal)
-Pozwala na użwanie PowerManagera, aby powstrzymać procesor przed przyciemnianiem ekranu lub wygaszaniem. Potrzebne jest do tego, by tymczasowo powstrzymać urządzenie przed uśpieniem podczas otrzymywania powiadomień. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
+Pozwala używać PowerManager WakeLocks, aby zapobiec usypianiu procesora lub wygaszaniu ekranu. To uprawnienie jest potrzebne do tymczasowego powstrzymania urządzenia przed przejściem w stan uśpienia podczas odbierania powiadomienia push. ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
 
+## Korzystanie z AndroidX
+AndroidX to duże ulepszenie oryginalnej Android Support Library, która nie jest już rozwijana. Pakiety AndroidX całkowicie zastępują Support Library, zapewniając pełną zgodność funkcji i nowe biblioteki. Większość rozszerzeń Androida w [Portalu zasobów (Asset Portal)](/assets) obsługuje AndroidX. Jeśli nie chcesz używać AndroidX, możesz je jawnie wyłączyć na rzecz starej Android Support Library, zaznaczając `Use Android Support Lib` w [manifeście aplikacji](https://defold.com/manuals/app-manifest/).
 
-## Narzędzie adb - Android Debug Bridge
-
-Narzędzie `adb` jest łatwym i wszechstronnym programem do interakcji z urządzeniami z systemem Android. Możesz ściągnąć je i zainstalować jako część Android SDK Platform-Tools, dla systemów Mac, Linux czy Windows.
-
-Ściągnij Android SDK Platform-Tools z: [https://developer.android.com/studio/releases/platform-tools](https://developer.android.com/studio/releases/platform-tools). Znajdziesz narzędzie *adb* w */platform-tools/*. Alternatywnie, paczki dla konkretnych platform mogą zostać zainstalowane przez odpowiednie managery paczek.
-
-Na Ubuntu Linux:
-
-```
-$ sudo apt-get install android-tools-adb
-```
-
-Na Fedora 18/19:
-
-```
-$ sudo yum install android-tools
-```
-
-Na macOS (Homebrew)
-
-```
-$ brew cask install android-platform-tools
-```
-
-Możesz sprawdzić czy `adb` działa łącząc Twoje urządzenie z systemem Android do Twojego komputera przez USB i użyć komendy:
-
-```
-$ adb devices
-List of devices attached
-31002535c90ef000    device
-```
-
-Jeśli Twoje urządzenie się nie pojawi, upewnij się najpierw czy zezwolono na *USB debugging* na urządzeniu mobilnym. Otwórz ustawienia *Settings* i wyszukaj *Developer options* (lub *Development*).
-
-![Enable USB debugging](images/android/usb_debugging.png)
-
-## Debugowanie paczki z aplikacją
-
-Paczka zbudowana w trybie Debug silnika (czyli z opcją "Debug" zaznaczoną podczas budowania paczki) będzie wysyłać wszystkie swoje logi do systemu Android. Uzyskaj dostęp do tych logów przez narzędzie `adb` używając komendy`logcat`. Prawdopodobnie też będziesz chcieć przefiltrować wynik używając tagu (`-s [tagname]`):
-
-```
-$ adb logcat -s "defold"
---------- beginning of /dev/log/system
---------- beginning of /dev/log/main
-I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
-I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
-I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
-I/defold  ( 6210):
-D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
-...
-```
+![](images/android/enable_supportlibrary.png)
 
 ## FAQ
 :[Android FAQ](../shared/android-faq.md)

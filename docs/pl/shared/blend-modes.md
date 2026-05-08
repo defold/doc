@@ -1,10 +1,13 @@
-Właściwość *Blend Mode* określa w jaki sposób graficzne komponenty mają być ze sobą mieszane, czyli wyświetlane w momencie nakładania się dwóch obrazów na siebie. Oto dostępne tryby blendowania i wyjaśnienie w jaki sposób są obliczane kolory:
+Właściwość *Blend Mode* określa, w jaki sposób grafika komponentu ma być mieszana z grafiką znajdującą się za nią. Poniżej przedstawiono dostępne tryby mieszania i sposób ich obliczania:
 
 Alpha
 : Normalne blendowanie: `src.a * src.rgb + (1 - src.a) * dst.rgb`
 
 Add
-: Rozświetl grafikę w tle wartościami kolorów z grafiki na przednim planie: `src.rgb + dst.rgb`
+: Rozjaśnia tło wartościami kolorów odpowiednich pikseli komponentu: `src.rgb + dst.rgb`
 
 Multiply
-: Zaciemnij grafikę w tle wartościami kolorów z grafiki na przednim planie: `src.rgb * dst.rgb`
+: Przyciemnia tło wartościami kolorów odpowiednich pikseli komponentu: `src.rgb * dst.rgb`
+
+Screen
+: Odwrotność Multiply. Rozjaśnia tło i wartości kolorów odpowiednich pikseli komponentu: `src.rgb - dst.rgb * dst.rgb`
