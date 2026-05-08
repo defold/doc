@@ -325,11 +325,11 @@ The important difference is not that Defold prevents modular architecture. The d
 
 This can feel unusual at first, especially if you are used to configuring behaviour by adding components in the Inspector. In Defold, many things that you might configure visually in Unity can instead be created, connected, enabled, disabled, or updated through code. This often leads to a more explicit workflow: you can see where behaviour is created, where it is updated, and how modules communicate.
 
-This does not mean that every Defold object needs its own script. For many objects of the same type, such as bullets, enemies, particles, tiles, or simple interactables, it is often better to control them from a system or manager script rather than giving each object a separate script. Use per-object scripts when an object has its own meaningful state and behaviour. Use modules when you want reusable logic. Use system scripts when one script can efficiently control many objects.
+This does not mean that every Defold object needs its own script. For many objects of the same type, such as bullets, enemies, particles, tiles, or simple interactive elements, it is often better to control them from a system or manager script rather than giving each object a separate script. Use per-object scripts when an object has its own meaningful state and behaviour. Use modules when you want reusable logic. Use system scripts when one script can efficiently control many objects.
 
 An example showing how to utilise Defold script properties, factories, addressing, and messaging to control multiple units can be found [here](https://defold.com/examples/factory/spawn_manager/).
 
-Important thing to rememeber is that, while we suggest a change in thinking for a more data oriented way, Defold does not restricts you to do so - you can still write small parts of reusable logic in separate scripts and attach them on the go in the editor, as components.
+Important thing to remember is that, while we suggest a change in thinking for a more data oriented way, Defold does not restricts you to do so - you can still write small parts of reusable logic in separate scripts and attach them on the go in the editor, as components.
 
 Good manuals on code writing:
 - [Script manual](/manuals/script/)
