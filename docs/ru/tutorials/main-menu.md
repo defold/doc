@@ -7,7 +7,7 @@ brief: В этом примере проекта вы познакомитесь
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dPQpSlt3ahw" frameborder="0" allowfullscreen></iframe>
 
 В этом примере проекта, который можно [открыть из редактора](/manuals/project-setup/) или [скачать с GitHub](https://github.com/defold/sample-main-menu-animation), мы показываем эффекты для оформления главного меню. Меню содержит фон и два пункта.
-Проект уже настроен: в нём есть `menu.gui` и `menu.gui_script` с кодом ниже. Графические ресурсы добавлены в атлас `images.atlas` и назначены узлам в `menu.gui`.
+Проект уже настроен: в нём есть menu.gui и menu.gui_script с кодом ниже. Графические ресурсы добавлены в атлас images.atlas и назначены узлам в menu.gui.
 
 Для фона и двух пунктов меню используются одни и те же анимации, но с разными задержками. Это настраивается в `init()` ниже.
 

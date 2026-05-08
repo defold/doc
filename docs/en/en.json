@@ -989,6 +989,10 @@
                         "name": "Glossary"
                     },
                     {
+                        "path": "/manuals/unity",
+                        "name": "Defold for Unity users"
+                    },
+                    {
                         "path": "/manuals/flash",
                         "name": "Defold for Flash users"
                     },
@@ -1025,6 +1029,10 @@
                     {
                         "path": "/manuals/editor",
                         "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/scene-editing",
+                        "name": "Scene Editing"
                     },
                     {
                         "path": "/manuals/writing-code",

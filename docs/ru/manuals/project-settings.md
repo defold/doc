@@ -14,7 +14,7 @@ brief: Данное руководство описывает настройки
 
 ## Формат файла
 
-Формат файла настроек представляет собой простой текст (формат INI) и может быть отредактирован любым стандартным текстовым редактором. Формат выглядит следующим образом:
+Настройки в *game.project* обычно изменяются в Defold, но файл также можно редактировать в любом стандартном текстовом редакторе. Файл использует стандартный формат INI и выглядит так:
 
 ```ini
 [category1]
@@ -24,7 +24,7 @@ setting2 = value
 ...
 ```
 
-Наглядный пример:
+A real example is:
 
 ```ini
 [bootstrap]
@@ -52,7 +52,7 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 Ниже перечислены все доступные настройки, сгруппированные по категориям.
 
-## Project
+### Project
 
 #### Title
 Название приложения.
@@ -77,14 +77,14 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 1. Путь, указанный в *project.log_dir* (скрытая настройка)
 2. Системный путь к журналам:
-   * macOS/iOS: `NSDocumentDirectory`
-   * Android: `Context.getExternalFilesDir()`
-   * Прочие платформы: корень приложения
+  * macOS/iOS: `NSDocumentDirectory`
+  * Android: `Context.getExternalFilesDir()`
+  * Прочие платформы: корень приложения
 3. Путь к поддержке приложения:
-   * macOS/iOS: `NSApplicationSupportDirectory`
-   * Windows: `CSIDL_APPDATA` (например, `C:\Users\<username>\AppData\Roaming`)
-   * Android: `Context.getFilesDir()`
-   * Linux: переменная окружения `HOME`
+  * macOS/iOS: `NSApplicationSupportDirectory`
+  * Windows: `CSIDL_APPDATA` (например, `C:\Users\<username>\AppData\Roaming`)
+  * Android: `Context.getFilesDir()`
+  * Linux: переменная окружения `HOME`
 
 #### Minimum Log Level
 Минимальный уровень логирования. Будут отображаться только логи с этим уровнем или выше.
@@ -113,7 +113,7 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 
 ---
 
-#### Bootstrap
+### Bootstrap
 
 #### Main Collection
 Ссылка на файл коллекции, используемой для запуска приложения. По умолчанию: `/logic/main.collection`.
@@ -168,13 +168,13 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 Если опция отмечена, приложение запускается в полноэкранном режиме. Если нет — в оконном.
 
 #### Update Frequency
-Желаемая частота кадров в герцах. Значение `0` — переменная частота. При значении больше `0` частота фиксируется и ограничивается в рантайме реальной частотой обновления. Это означает, что игровой цикл не сможет выполняться дважды за кадр движка. Используйте [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) для изменения этого значения во время выполнения. Работает и в headless-сборках.
+Желаемая частота кадров в герцах. Значение 0 — переменная частота. При значении больше 0 частота фиксируется и ограничивается в рантайме реальной частотой обновления. Это означает, что игровой цикл не сможет выполняться дважды за кадр движка. Используйте [`sys.set_update_frequency(hz)`](https://defold.com/ref/stable/sys/?q=set_update_frequency#sys.set_update_frequency:frequency) для изменения этого значения во время выполнения. Работает и в headless-сборках.
 
 #### Swap interval
-Целое значение, управляющее VSync. `0` — отключает, по умолчанию `1`. При использовании OpenGL это значение определяет количество кадров между обновлениями буфера ([swap interval](https://www.khronos.org/opengl/wiki/Swap_Interval)). Для Vulkan VSync контролируется напрямую этим значением, так как понятия swap interval нет.
+Целое значение, управляющее VSync. 0 — отключает, по умолчанию 1. При использовании OpenGL это значение определяет количество кадров между обновлениями буфера ([swap interval](https://www.khronos.org/opengl/wiki/Swap_Interval)). Для Vulkan VSync контролируется напрямую этим значением, так как понятия swap interval нет.
 
 #### Vsync
-Использовать аппаратный VSync для тайминга кадров. Может быть переопределено драйвером графики и особенностями платформы. Для устаревшего поведения «variable_dt» отключите этот параметр и установите ограничение частоты кадров в `0`.
+Использовать аппаратный VSync для тайминга кадров. Может быть переопределено драйвером графики и особенностями платформы. Для устаревшего поведения «variable_dt» отключите этот параметр и установите ограничение частоты кадров в 0.
 
 #### Display Profiles
 Файл профилей дисплея. По умолчанию: `/builtins/render/default.display_profilesc`. Подробнее см. в [руководстве по GUI Layouts](/manuals/gui-layouts/#creating-display-profiles).
@@ -237,13 +237,13 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 Максимальное количество одновременных физических миров. По умолчанию `4`. Если загружается больше через прокси, значение необходимо увеличить. Каждый мир использует значительный объём памяти.
 
 #### Scale
-Коэффициент масштабирования физики относительно игрового мира для повышения точности (`0.01`–`1.0`). Например, при `0.02` — 50 единиц равны 1 метру (`1 / 0.02`).
+Коэффициент масштабирования физики относительно игрового мира для повышения точности (`0.01`–`1.0`). Например, при `0.02` — 50 единиц равны 1 метру ($1 / 0.02$).
 
 #### Allow Dynamic Transforms
 Если включено, движок будет применять трансформации игрового объекта (позиция, масштаб, поворот) к привязанным компонентам столкновений.
 
 #### Use Fixed Timestep
-Если включено, физика будет обновляться фиксированным шагом времени, независимым от частоты кадров. Используется вместе с функцией `fixed_update(self, dt)` и настройкой `engine.fixed_update_frequency`. Рекомендуется для новых проектов.
+Если включено, физика будет обновляться фиксированным шагом времени, независимым от частоты кадров. Используется вместе с функцией `fixed_update(self, dt)` и настройкой `engine.fixed_update_frequency`. Для новых проектов рекомендуется значение `true`.
 
 #### Debug Scale
 Размер отрисовки единичных объектов физики, таких как триады и нормали.
@@ -397,7 +397,7 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 Максимальное количество звуковых компонентов на коллекцию.
 
 #### Sample Frame Count
-Количество сэмплов, используемых на каждое обновление аудио. `0` — автоматически (1024 для 48 кГц, 768 для 44.1 кГц).
+Количество сэмплов, используемых на каждое обновление аудио. 0 — автоматически (1024 для 48 кГц, 768 для 44.1 кГц).
 
 #### Use Thread
 Если включено, система звука будет использовать потоки для воспроизведения, что снижает риск запинаний при высокой нагрузке на основной поток.
@@ -550,13 +550,13 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 (iOS 6 и ниже) Если опция не включена, иконки получат глянцевое покрытие автоматически. Если включена — иконки считаются уже готовыми к использованию.
 
 #### Bundle Identifier
-Идентификатор бандла позволяет iOS распознавать обновления вашего приложения. Идентификатор должен быть зарегистрирован в Apple и уникален для приложения. Нельзя использовать один и тот же идентификатор как для iOS, так и для macOS. Он должен состоять минимум из двух сегментов, разделённых точками. Каждый сегмент должен начинаться с буквы и может содержать только буквенно-цифровые символы, подчёркивания или дефисы (`-`) (см. [`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
+Идентификатор бандла позволяет iOS распознавать обновления вашего приложения. Идентификатор должен быть зарегистрирован в Apple и уникален для приложения. Нельзя использовать один и тот же идентификатор как для iOS, так и для macOS. Он должен состоять минимум из двух сегментов, разделённых точками. Каждый сегмент должен начинаться с буквы и может содержать только буквенно-цифровые символы, подчёркивания или дефисы (-) (см. [`CFBundleIdentifier`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
 
 #### Bundle Name
 Короткое имя бандла (до 15 символов) (см. [`CFBundleName`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
 
 #### Bundle Version
-Версия бандла — число или строка в формате `x.y.z` (см. [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
+Версия бандла — число или строка в формате x.y.z (см. [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
 
 #### Info.plist
 Если задано, используется указанный файл *`info.plist`* при сборке приложения.
@@ -765,7 +765,7 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
 ```
 
-Пользовательские значения, как и любое другое значение конфигурации, могут быть считаны с помощью [`sys.get_config()`](/ref/sys/#sys.get_config):
+Пользовательские значения, как и любое другое значение конфигурации, могут быть считаны с помощью [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) или [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
 
 ```lua
 local my_value = sys.get_config_number("test.my_value")
@@ -793,19 +793,49 @@ my_property.private = 1
 Доступны следующие атрибуты:
 
 ```
-// `type` — используется для парсинга строкового значения (на данный момент только в bob.jar)
-my_property.type = string // возможные значения: bool, string, number, integer, string_array, resource
+[my_extension]
+// `type` — используется для парсинга строкового значения
+my_property.type = string // одно из следующих значений: bool, string, number, integer, string_array, resource
 
 // `help` — используется как подсказка в редакторе (на данный момент не используется)
 my_property.help = string
 
-// `default` — значение по умолчанию, если пользователь не задал его вручную (на данный момент только в bob.jar)
+// `default` — значение по умолчанию, если пользователь не задал его вручную
 my_property.default = string
 
 // `private` — приватное значение, используемое при сборке, но не включаемое в итоговый бандл
-my_property.private = 1 // булевое значение: 1 или 0
+my_property.private = 1 // булевое значение 1 или 0
 
+// `label` - editor input label
+my_property.label = My Awesome Property
+
+// `minimum` and/or `maximum` - valid range for numeric properties, validated in the editor UI
+my_property.minimum = 0
+my_property.maximum = 255
+
+// `options` - drop-down choices for the editor UI, comma-separated value[:label] pairs
+my_property.options = android: Android, ios: iOS
+
+// `resource` type only:
+my_property.filter = jpg,png // allowed file extensions for resource selector dialog
+my_property.preserve-extension = 1 // use original resource extension instead of a built one
+
+// deprecation
+my_property.deprecated = 1 // mark property as deprecated
+my_property.severity-default = warning // if deprecated property is specified, but set to a default value
+my_property.severity-override = error  // if deprecated property is specified and set to a non-default value
+
+```
+Additionally, you can set the following attributes on a setting category:
+```
+[my_extension]
+// `group` - category group in game.project, for example Main, Platforms, Components, Runtime, Distribution
+group = Runtime
+// `title` - displayed category title
+title = My Awesome Extension
+// `help` - displayed category help
+help = Settings for My Awesome Extension
 ```
 
 
-На данный момент meta-свойства используются только в `bob.jar` при сборке, но в будущем они будут также обрабатываться редактором и отображаться в *game.project*.
+At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the *game.project* viewer.

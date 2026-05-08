@@ -11,6 +11,10 @@ The api only consists of a few functions:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
+::: important
+The legacy single-resource Live Update flow is deprecated. Avoid `collectionproxy.missing_resources()` and the old `resource.*` helper aliases in new code. Current Live Update workflows download and mount whole archives, optionally using `collectionproxy.get_resources()` to inspect which excluded content belongs to a proxy.
+:::
+
 ## Get mounts
 
 If you are using more than one live update archive, it is recommended to loop over each mount
@@ -48,7 +52,21 @@ end
 
 A collection proxy that has been excluded from bundling works as a normal collection proxy, with one important difference. Sending it a `load` message while it still has resources not available in the bundle storage will cause it to fail.
 
-So before we send it a `load`, we need to check if there are any missing resources. If there are, we have to download the archive containing those assets and then store it.
+In the current archive-based workflow, you generally decide which archive or archives a proxy needs ahead of time and mount them before loading. If you need to inspect whether a proxy has excluded content, use `collectionproxy.get_resources()`. The older `collectionproxy.missing_resources()` function belongs to the deprecated single-resource Live Update flow.
+
+With *Strip Live Update Entries from Main Manifest* enabled, which is the default when publishing archive-based Live Update content:
+
+* If no mounted archive contains the proxy's excluded content, `collectionproxy.get_resources("#proxy")` returns an empty table `{}`.
+* After the relevant archive has been mounted, `collectionproxy.get_resources("#proxy")` returns a non-empty table of resource hashes for that proxy, for example:
+
+```lua
+{
+    "a1b2c3...",
+    "d4e5f6...",
+    "7890ab...",
+    ...
+}
+```
 
  The following example code assumes that the resources are available via the url specified in the setting `game.http_url`.
 
@@ -76,6 +94,15 @@ local function mount_zip(self, name, priority, path, callback)
 	end)
 end
 
+local function has_mount(name)
+    for _, mount in ipairs(liveupdate.get_mounts()) do
+        if mount.name == name then
+            return true
+        end
+    end
+    return false
+end
+
 function init(self)
     self.http_url = sys.get_config_string("game.http_url", nil) -- <2>
 
@@ -88,9 +115,12 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
-        local missing_resources = collectionproxy.missing_resources("#" .. message.level) -- <5>
+        local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        if #missing_resources then
+        -- With Strip Live Update Entries from Main Manifest enabled, this table is
+        -- empty until the relevant archive is mounted. After mounting, it contains
+        -- the resource hashes belonging to the proxy.
+        if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
             msg.post("#" .. message.level, "load")
@@ -125,8 +155,8 @@ The mount info is stored and will be automatically re-added upon next engine res
 2. You need to store the archive online (e.g. on S3), where you can download it from.
 3. Given a collection proxy name, you need to figure our which archive(s) to download, and how to mount them
 4. At startup, we try to load the level.
-5. Check if the collection proxy has all resources available.
-6. If there are resources missing, then we need to download the archive and mount it.
+5. Use `collectionproxy.get_resources()` to inspect the proxy's excluded content. With the default stripped-manifest setting enabled, it returns `{}` until the relevant archive is mounted, and a non-empty table of resource hashes after mounting.
+6. If the proxy uses Live Update content and the matching archive is not mounted yet, we download and mount it before loading the proxy.
 7. Make a http request and download the archive to `download_path`
 8. The data is downloaded, and it's time to mount it to the running engine.
 

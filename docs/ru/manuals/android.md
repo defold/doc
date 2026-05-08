@@ -62,7 +62,7 @@ Defold поддерживает создание файлов APK и AAB. Выб
 
 #### Установка APK
 
-Файл *.apk* можно скопировать на устройство с помощью инструмента `adb` или загрузить в Google Play через [консоль разработчика Google Play](https://play.google.com/apps/publish/) (см. ниже).
+Файл *`.apk`* можно скопировать на устройство с помощью инструмента `adb` или загрузить в Google Play через [консоль разработчика Google Play](https://play.google.com/apps/publish/) (см. ниже).
 
 :[Android ADB](../shared/android-adb.md)
 
@@ -83,7 +83,7 @@ Success
 
 #### Установка AAB
 
-Файл *.aab* можно загрузить в Google Play через [консоль разработчика Google Play](https://play.google.com/apps/publish/). Также можно сгенерировать *.apk* файл из *.aab* файла для локальной установки с помощью [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
+Файл *.aab* можно загрузить в Google Play через [консоль разработчика Google Play](https://play.google.com/apps/publish/). Также можно сгенерировать *`.apk`* файл из *.aab* файла для локальной установки с помощью [Android bundletool](https://developer.android.com/studio/command-line/bundletool).
 
 ## Разрешения
 

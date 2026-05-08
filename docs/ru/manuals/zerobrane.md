@@ -90,7 +90,7 @@ ZeroBrane можно настроить так, чтобы он автомати
 - Добавьте в конфигурационный файл следующее:
 
   ```txt
-  -- to automatically open files requested during debugging
+  - to automatically open files requested during debugging
   editor.autoactivate = true
   ```
 

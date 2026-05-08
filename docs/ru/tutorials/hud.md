@@ -144,7 +144,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-В `main.script` мы принимаем ввод с мыши или касания, а затем отправляем сообщение в gui-скрипт, который создаёт новые очки в позиции касания.
+В main.script мы принимаем ввод с мыши или касания, а затем отправляем сообщение в gui-скрипт, который создаёт новые очки в позиции касания.
 
 ```lua
 -- On click/touch get touch position and send it via message to hud gui script as well as the scored point amount.

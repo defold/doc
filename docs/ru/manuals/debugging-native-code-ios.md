@@ -118,8 +118,7 @@ $ mv <AppName>.dSYM/Contents/Resources/DWARF/dmengine <AppName>.dSYM/Contents/Re
 (lldb) settings append target.source-map /private/var/folders/m5/bcw7ykhd6vq9lwjzq1mkp8j00000gn/T/job4836347589046353012/upload/videoplayer/src /Users/mathiaswesterdahl/work/projects/extension-videoplayer-native/videoplayer/src
 ```
 
-* Возможно получить папку с задачами из исполняемого файла.
-	Папка задачи называется `job1298751322870374150`, каждый раз это имя со случайным номером. 
+* Возможно получить папку с задачами из исполняемого файла. Папка задачи называется `job1298751322870374150`, каждый раз это имя со случайным номером.
 ```sh
 $ dsymutil -dump-debug-map <executable> 2>&1 >/dev/null | grep /job
 

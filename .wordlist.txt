@@ -174,6 +174,7 @@ globals
 GLSL
 glTF
 glyphs
+GML
 goeshard
 GPU
 GPUs
@@ -454,6 +455,7 @@ tilesources
 timestep
 TinyHTTP
 TLS
+toc
 toolset
 tooltip
 tooltips
@@ -474,6 +476,7 @@ tweening
 tweens
 txt
 UASTC
+Udemy
 UDID
 UDP
 UHD
@@ -536,6 +539,7 @@ xcode
 yaml
 yml
 xy
+Zenva
 ZeroBrane
 ZeroBrane's
 zig
