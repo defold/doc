@@ -236,7 +236,7 @@ Unity generates a `Library/` folder for imported assets. Defold doesn’t have s
 
 ## Code Writing
 
-In Defold scripts are written in Lua, with a typed dialect of Lua - Teal - coming as next first class supported language. Native Extensions can be written in several other languages: C, C++, C#, Objective-C, Java or JS depending on target platform.
+In Defold, scripts are written in Lua, with a typed dialect of Lua - Teal - coming as next first class supported language. Native Extensions can be written in several other languages: C, C++, C#, Objective-C, Java or JS depending on target platform.
 
 ### Lua
 
@@ -260,7 +260,7 @@ A common pitfall for developers coming from Unity is treating Defold scripts lik
 
 While you can definitely write in an object oriented way, and there are even libraries to help you with this ([defold-oop](https://github.com/xiyoo0812/defold-oop) or [lua-class](https://github.com/d954mas/lua-class)), the recommended way is to use scripts as systems or managers.
 
-A single script in Defold can even control hundreds or thousands of other objects and their components, while them having no scripts of their own, thanks to powerful addressing and messaging in Defold. Creating a separate script for each object is rarely necessary and can lead to a counterproductive complexity.
+A single script in Defold can even control hundreds or thousands of other objects and their components, even without them having any scripts of their own, thanks to a powerful messaging system in Defold. Creating scripts to match each GameObject is rarely necessary and can lead to a counterproductive complexity.
 
 In Unity, it is common to build a GameObject by attaching several `MonoBehaviour` scripts to it:
 
