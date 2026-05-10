@@ -646,9 +646,9 @@
             },
             {
                 "path": "/tutorials/astronaut",
-                "name": "Walking astronaut",
+                "name": "Top down movement",
                 "description": "In this beginner's tutorial you learn how to capture player input and make a character move and animate. You will also learn about game objects, components and collections.",
-                "image": "/tutorials/images/videos/astronaut.png",
+                "image": "/tutorials/images/top-down-movement.webp",
                 "author": "Defold",
                 "type": "tutorial"
             },
