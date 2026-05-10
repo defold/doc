@@ -1,6 +1,6 @@
 ---
 title: Tutorial z chodzącym astronautą
-brief: W tym tutorialu dla początkujących nauczysz się przechwytywać dane wejściowe gracza oraz poruszać i animować postać. Poznasz też podstawowe elementy silnika Defold: obiekty gry, komponenty i kolekcje.
+brief: "W tym tutorialu dla początkujących nauczysz się przechwytywać dane wejściowe gracza oraz poruszać i animować postać. Poznasz też podstawowe elementy silnika Defold: obiekty gry, komponenty i kolekcje."
 github: https://github.com/defold/tutorial-astronaut
 ---
 
