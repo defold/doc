@@ -87,10 +87,10 @@ local function handle_response(self, id, response)
 	end
 end
 
-http.request("https://www.foobar.com/myimage.png", "GET", handle_response)
+http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-Innym przypadkiem użycia dużych ilości danych pobieranych przez sieć jest strumieniowanie dźwięku, gdy „fragmenty” danych dźwiękowych są wczytywane z adresu URL i przekazywane do zasobu dźwięku. Pełny przykład znajdziesz w [podręczniku strumieniowania dźwięku](/sound-streaming#sound-streaming).
+Innym przypadkiem użycia dużych ilości danych pobieranych przez sieć jest strumieniowanie dźwięku, gdy „fragmenty” danych dźwiękowych są wczytywane z adresu URL i przekazywane do zasobu dźwięku. Pełny przykład znajdziesz w [podręczniku strumieniowania dźwięku](/manuals/sound-streaming/#sound-streaming).
 
 ### Nagłówki żądania
 
@@ -128,7 +128,7 @@ Defold automatycznie ustawi kilka nagłówków żądania:
 * `If-None-Match: <etag>` zostanie ustawiony z ETagiem każdej wcześniej zbuforowanej odpowiedzi.
 * `Transfer-Encoding: chunked` zostanie ustawiony, jeśli ciało żądania jest większe niż 16384 bajty.
 * `Content-Length` zostanie ustawiony z rozmiarem ciała żądania, chyba że żądanie jest dzielone na fragmenty.
-* `Range: bytes=<from>-<to>` zostanie ustawiony przy żądaniu częściowej odpowiedzi, na przykład podczas [strumieniowania dźwięków](/sound-streaming#sound-streaming).
+* `Range: bytes=<from>-<to>` zostanie ustawiony przy żądaniu częściowej odpowiedzi, na przykład podczas [strumieniowania dźwięków](/manuals/sound-streaming/#sound-streaming).
 
 ### Nagłówki odpowiedzi
 

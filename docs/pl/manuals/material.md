@@ -171,12 +171,12 @@ void main()
       length(texture_transform_2d[1].xy)
   );
   // konwersja do lokalnych UV (0..1)
-  vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
+  vec2 localUV = (texcoord0.xy - atlas_pos) / atlas_size;
 
   // Alternatywnie, jeśli współrzędne UV są już w zakresie 0..1,
   // możesz przekształcić je bezpośrednio do przestrzeni atlasu,
   // mnożąc przez transformację:
-  vec2 transformedUv = texture_transform_2d * texcoord0;
+  vec2 transformedUv = (texture_transform_2d * vec3(texcoord0.xy, 1.0)).xy;
 
   // Przekaż wartość do shadera fragmentów
   var_texcoord0 = localUV;

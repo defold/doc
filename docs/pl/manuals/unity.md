@@ -33,7 +33,7 @@ Polecamy też film Game From Scratch o [Defold dla programistów Unity](https://
 
 To wszystko. Bez huba, bez dodatkowych SDK, toolchainów ani pakietów platform. Dlatego mówimy, że Defold ma zerową konfigurację początkową.
 
-Jeśli potrzebujesz więcej szczegółów, przeczytaj krótką [instrukcję instalacji](/manuals/installation).
+Jeśli potrzebujesz więcej szczegółów, przeczytaj krótką [instrukcję instalacji](/manuals/install/).
 
 ### Wersje
 
@@ -212,7 +212,7 @@ Sceny Unity domyślnie współdzielą ten sam globalny stan gry i tę samą symu
 2. Utworzyć w czasie działania oddzielny *świat* gry z własnymi obiektami gry, światem fizyki, operacjami silnika i przestrzenią adresową, korzystając z kolekcji wczytanej podczas bootstrapu albo z komponentu `Collection Proxy`.
 
 Fabryki i komponenty proxy są omówione także niżej.
-Więcej o kolekcjach przeczytasz w [instrukcji o elementach składowych](/manual/building-blocks/#collections).
+Więcej o kolekcjach przeczytasz w [instrukcji o elementach składowych](/manuals/building-blocks/#collections).
 
 ---
 
@@ -256,7 +256,7 @@ Defold wspiera używanie transpilerów, które generują kod Lua, takich jak [Te
 
 W Defold Native Extensions można pisać w kilku innych językach: C, C++, C#, Objective-C, Java albo JS, zależnie od platformy docelowej. Jeśli bardzo dobrze znasz C#, technicznie możliwe jest zbudowanie większości logiki gry w rozszerzeniu C# i wywoływanie jej z małego bootstrapowego skryptu Lua, choć wymaga to zaawansowanej znajomości API i nie jest zalecane dla początkujących.
 
-Więcej o rozszerzeniach przeczytasz w [instrukcji Native Extensions Defold](/manual/extensions.md).
+Więcej o rozszerzeniach przeczytasz w [instrukcji Native Extensions Defold](/manuals/extensions/).
 
 ### Od MonoBehaviours do modułów Lua
 
@@ -337,7 +337,7 @@ Przykład pokazujący, jak wykorzystać właściwości skryptu Defold, fabryki, 
 
 Dobre instrukcje o pisaniu kodu:
 - [Instrukcja o skryptach](/manuals/script/)
-- [Pisanie kodu](/manual/writing-code)
+- [Pisanie kodu](/manuals/writing-code/)
 - [Debugowanie](/manuals/debugging/)
 
 ### Wbudowany edytor kodu

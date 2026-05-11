@@ -33,7 +33,7 @@ We also recommend checking out a video by Game From Scratch about [Defold for Un
 
 That’s it. No hub, no additional SDK, toolchains or platform bundles installation. That’s why we say Defold has zero setup.
 
-If you need more details read this short [Installation manual](/manuals/installation).
+If you need more details read this short [Installation manual](/manuals/install/).
 
 ### Versions
 
@@ -210,7 +210,7 @@ Unity scenes share by default the same global game state and physics simulation,
 2. Create a separate game *world* at runtime, with its own game objects, physics world, engine operations and addressing namespace via a collection loaded at bootstrap or via a `Collection Proxy` component.
 
 Factories and Proxy components are also explained below.
-Read more about Collections in the [Building Blocks manual](/manual/building-blocks/#collections).
+Read more about Collections in the [Building Blocks manual](/manuals/building-blocks/#collections).
 
 ---
 
@@ -254,7 +254,7 @@ Defold supports the usage of transpilers that emit Lua code, such as [Teal](http
 
 In Defold Native Extensions can be written in several other languages: C, C++, C#, Objective-C, Java or JS depending on target platform. If you are very comfortable with C#, it’s technically possible to structure most of your game logic in a C# extension and just call it from a small Lua bootstrap script, though this requires some advanced API knowledge and is not recommended for beginners.
 
-Read more about extensions in [Defold Native Extensions manual](/manual/extensions.md).
+Read more about extensions in [Defold Native Extensions manual](/manuals/extensions/).
 
 
 ### From MonoBehaviours to Lua modules
@@ -336,7 +336,7 @@ An example showing how to utilise Defold script properties, factories, addressin
 
 Good manuals on code writing:
 - [Script manual](/manuals/script/)
-- [Writing code](/manual/writing-code)
+- [Writing code](/manuals/writing-code/)
 - [Debugging](/manuals/debugging/)
 
 

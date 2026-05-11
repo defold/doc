@@ -124,7 +124,7 @@ A: Как разработчику вам нужно работать тольк
 
 A: Да, выберите пункт "About" в меню Help. Во всплывающем окне будет ясно указана beta-версия Defold и, что ещё важнее, конкретный release SHA1. Чтобы узнать runtime-версию, используйте [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
-Последнюю доступную beta-версию для скачивания с [http://d.defold.com/beta](http://d.defold.com/beta) можно проверить, открыв [http://d.defold.com/beta/info.json](http://d.defold.com/beta.json) (такой же файл существует и для стабильных версий: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)).
+Последнюю доступную beta-версию для скачивания с [http://d.defold.com/beta](http://d.defold.com/beta) можно проверить, открыв [http://d.defold.com/beta/info.json](http://d.defold.com/beta/info.json) (такой же файл существует и для стабильных версий: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)).
 
 
 #### Q: Можно ли во время выполнения узнать, на какой платформе запущена игра?

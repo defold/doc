@@ -21,7 +21,7 @@ W tym samouczku nauczysz się:
 
 ### Uwaga dla początkujących
 
-Ten samouczek jest przeznaczony dla początkujących, ale jeśli jesteś zupełnie nowy w Defold i tworzeniu gier, zalecamy najpierw przeczytać kilka wprowadzających instrukcji, szczególnie o [blokach budulcowych Defold](/manuals/building-blocks/) oraz [słowniczku](/manuals/glossary/). Jeśli nie masz jeszcze pobranego Defold, sprawdź [instrukcję instalacji](/manuals/install/). Warto też zajrzeć do [przeglądu edytora](manuals/editor/), aby szybko poznać sam edytor, ale w tym samouczku pokazujemy również zrzuty ekranu dla każdego kroku.
+Ten samouczek jest przeznaczony dla początkujących, ale jeśli jesteś zupełnie nowy w Defold i tworzeniu gier, zalecamy najpierw przeczytać kilka wprowadzających instrukcji, szczególnie o [blokach budulcowych Defold](/manuals/building-blocks/) oraz [słowniczku](/manuals/glossary/). Jeśli nie masz jeszcze pobranego Defold, sprawdź [instrukcję instalacji](/manuals/install/). Warto też zajrzeć do [przeglądu edytora](/manuals/editor/), aby szybko poznać sam edytor, ale w tym samouczku pokazujemy również zrzuty ekranu dla każdego kroku.
 
 ## Tworzenie projektu
 
