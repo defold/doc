@@ -21,7 +21,7 @@ In this tutorial you'll learn how to:
 
 ### A note for beginners
 
-This tutorial is designed for the beginners, but if you are completely new to Defold and the game development, we recommend reading some of the introductory manuals first, especially about [Defold's Building Blocks](/manuals/building-blocks/) and the [Glossary](/manuals/glossary/). If you don't have Defold downloaded yet, check the [Installation manual](/manuals/install/). It's also recommended to check the [Editor's overview](manuals/editor/), to quickly dive into the Editor itself, but we also provide here screenshots for each step.
+This tutorial is designed for the beginners, but if you are completely new to Defold and the game development, we recommend reading some of the introductory manuals first, especially about [Defold's Building Blocks](/manuals/building-blocks/) and the [Glossary](/manuals/glossary/). If you don't have Defold downloaded yet, check the [Installation manual](/manuals/install/). It's also recommended to check the [Editor's overview](/manuals/editor/), to quickly dive into the Editor itself, but we also provide here screenshots for each step.
 
 ## Creating the project
 
@@ -63,7 +63,7 @@ First, create a directory for the assets in the Defold Editor:
 
 ![new_folder](images/snake/3.png)
 
-<input type="checkbox"/>`Done!`
+<input type="checkbox"/> Done!
 
 ## Adding graphics to the game
 
@@ -77,7 +77,7 @@ This image below is the only asset you need:
 
 You can also read more details about [importing assets here](/manuals/importing-graphics/).
 
-<input type="checkbox"/>`Done!`
+<input type="checkbox"/> Done!
 
 ## Adding Tile Source
 
@@ -100,7 +100,7 @@ The tilesource will open in a dedicated Tilesource Editor for this type of file,
 
 Note that the *Extrude Borders* property is set to 2 pixels. This is to prevent visual artifacts around the tiles that have graphics all the way out to the edge.
 
-If you make any changes to a file an asterisk mark `*` appears next to its name on its tab. Select `File` ▸ `Save All` or use shortcut `<kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> on Mac) to save all files.
+If you make any changes to a file an asterisk mark `*` appears next to its name on its tab. Select `File` ▸ `Save All` or use shortcut <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> on Mac) to save all files.
 
 <input type="checkbox"/> Done!
 

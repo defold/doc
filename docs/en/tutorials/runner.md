@@ -255,7 +255,7 @@ The file *hero.spinejson* has been exported in Spine JSON format. You will need 
 
 Now we can start constructing the hero gameobject:
 
-1. Create a new file *hero.go* (Right-click the *hero* folder and select <kbd>New ▸ Game Object File</kbd>.
+1. Create a new file *hero.go* (Right-click the *hero* folder and select <kbd>New ▸ Game Object File</kbd>).
 2. Open the game object file.
 3. Add a *Spine Model* component to it. (Right-click the root in the *Outline* and select <kbd>Add Component</kbd>, then select "Spine Model".)
 4. Set the *Spine Scene* property of the component to the file *hero.spinescene* that you just created and select "run_right" as the default animation (we'll fix animation properly later)
@@ -495,12 +495,11 @@ To make life in our game world a little less dull, we should add platforms to ju
 1. Drag the image file *rock_planks.png* from the asset package to the *level/images* subfolder.
 2. Open *level.atlas* and add the new image to the atlas (right-click the root in the *Outline* and select <kbd>Add Images</kbd>).
 3. Save the file.
-4. Create a new *Game Object* file called *platform.go* in the *level* folder. (Right-click *level*
- in the *Assets pane* then select <kbd>New ▸ Game Object File</kbd>)
+4. Create a new *Game Object* file called *platform.go* in the *level* folder. (Right-click *level* in the *Assets pane* then select <kbd>New ▸ Game Object File</kbd>.)
 5. Add a *Sprite* component to the game object (right-click the root in the *Outline* view and select <kbd>Add Component</kbd> and then *Sprite*).
 6. Set the *Image* property to refer to the file *level.atlas* and set *Default Animation* to "rock_planks". For convenience, keep level objects in a subfolder "level/objects".
 7. Add a *Collision Object* component to the platform game object (right-click the root in the *Outline* view and select <kbd>Add Component</kbd>).
-8. Make sure to set the component's *Type* to "Kinematic" and the *Group* and *Mask* to "geometry" and "hero" respectively
+8. Make sure to set the component's *Type* to "Kinematic" and the *Group* and *Mask* to "geometry" and "hero" respectively.
 9. Add a *Box Shape* to the *Collision Object* component. (Right-click the component in the *Outline* and select <kbd>Add Shape</kbd>, then choose *Box*).
 10. Use the *Move Tool* and the *Scale Tool* (<kbd>Scene ▸ Move Tool</kbd> and <kbd>Scene ▸ Scale Tool</kbd>) to make the shape in the *Collision Object* component cover the platform.
 11. Create a *Script* file *platform.script* (Right-click in the *Assets pane* then select <kbd>New ▸ Script File</kbd>) and put the following code in the file, then save it:
@@ -585,8 +584,8 @@ function update(self, dt) -- <2>
     end
 end
 ```
-1- Predefined values for the Y position to spawn platforms on.
-2- The `update()` function is called once every frame and we use that to decide whether to spawn a regular or long platform at certain intervals (to avoid overlaps) and heights. It's easy to experiment with various spawning algorithms to create different gameplay.
+1. Predefined values for the Y position to spawn platforms on.
+2. The `update()` function is called once every frame and we use that to decide whether to spawn a regular or long platform at certain intervals (to avoid overlaps) and heights. It's easy to experiment with various spawning algorithms to create different gameplay.
 
 Now run the game (<kbd>Project ▸ Build</kbd>).
 
@@ -644,7 +643,7 @@ Lua has "lexical scope" for local variables and is sensitive about the order tha
 That's all that's needed to add jump and fall animations to the hero. If you run the game you will notice that it feels much better to play. You might also realize that the platforms unfortunately can push the hero off the screen. That is a side-effect of the collision handling but the remedy is easy--add violence and make the edges of the platforms dangerous!
 
 1. Drag *spikes.png* from the asset package to the "level/images" folder in the *Assets pane*.
-2. Open *level.atlas* and add the image (right-click and select <kbd>Add Images</kbd>)
+2. Open *level.atlas* and add the image (right-click and select <kbd>Add Images</kbd>).
 3. Open *platform.go* and add a few *Sprite* components. Set the *Image* to *level.atlas* and the *Default Animation* to "spikes".
 4. Use the *Move Tool* and the *Rotate Tool* to place the spikes along the edges of the platform.
 5. To make the spikes render behind the platform, set the *Z* position of the spike sprites to -0.1.

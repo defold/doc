@@ -431,7 +431,7 @@ To kończy ten wprowadzający samouczek. Oto kilka wyzwań, z którymi możesz s
 
 1. Obecnie samochód porusza się z takim samym przyspieszeniem do przodu i do tyłu. Możesz spróbować to zmienić tak, aby przy jeździe wstecz poruszał się wolniej.
 2. Zamień część stałych, na przykład przyspieszenie, na `properties`, aby można je było zmieniać dla różnych instancji samochodu.
-3. Dodaj do samochodu dźwięki i spraw, żeby robił vroom! ([Wskazówka](manuals/sound/))
+3. Dodaj do samochodu dźwięki i spraw, żeby robił vroom! ([Wskazówka](/manuals/sound/))
 
 Teraz śmiało zanurz się w Defold. Przygotowaliśmy wiele [instrukcji i samouczków](/learn), które Cię poprowadzą, a jeśli utkniesz, serdecznie zapraszamy na [forum](//forum.defold.com).
 

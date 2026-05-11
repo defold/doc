@@ -62,7 +62,7 @@ end
 #### `update(self, dt)`
 Wywoływana raz na każdą klatkę po callbacku `fixed_update` wszystkich skryptów, jeśli włączono Fixed Timestep. Parametr `dt` zawiera czas, jaki upłynął od poprzedniej klatki.
 
-```luadifferent
+```lua
 function update(self, dt)
   self.age = self.age + dt -- zwiększ wiek o krok czasu
 end

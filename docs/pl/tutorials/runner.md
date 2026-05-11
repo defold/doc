@@ -495,8 +495,7 @@ Aby trochę urozmaicić życie w naszym świecie gry, powinniśmy dodać platfor
 1. Przeciągnij plik obrazu *rock_planks.png* z paczki zasobów do podfolderu *level/images*.
 2. Otwórz *level.atlas* i dodaj nowy obraz do atlasu (kliknij prawym przyciskiem korzeń w *Outline* i wybierz <kbd>Add Images</kbd>).
 3. Zapisz plik.
-4. Utwórz nowy plik *Game Object* o nazwie *platform.go* w folderze *level*. (Kliknij prawym przyciskiem *level*
- w *Assets pane* i wybierz <kbd>New ▸ Game Object File</kbd>)
+4. Utwórz nowy plik *Game Object* o nazwie *platform.go* w folderze *level*. (Kliknij prawym przyciskiem *level* w *Assets pane* i wybierz <kbd>New ▸ Game Object File</kbd>.)
 5. Dodaj komponent *Sprite* do obiektu gry (kliknij prawym przyciskiem korzeń w widoku *Outline* i wybierz <kbd>Add Component</kbd>, a następnie *Sprite*).
 6. Ustaw właściwość *Image* tak, aby wskazywała plik *level.atlas*, i ustaw *Default Animation* na "rock_planks". Dla wygody trzymaj obiekty poziomu w podfolderze "level/objects".
 7. Dodaj komponent *Collision Object* do obiektu gry platformy (kliknij prawym przyciskiem korzeń w widoku *Outline* i wybierz <kbd>Add Component</kbd>).
@@ -585,8 +584,8 @@ function update(self, dt) -- <2>
     end
 end
 ```
-1- Wstępnie zdefiniowane wartości położenia Y, na których będą tworzone platformy.
-2- Funkcja `update()` jest wywoływana raz na klatkę i używamy jej do decydowania, czy utworzyć zwykłą czy długą platformę w określonych odstępach czasu i na określonych wysokościach, aby uniknąć nakładania się obiektów. Łatwo można eksperymentować z różnymi algorytmami tworzenia, aby uzyskać różne sposoby rozgrywki.
+1. Wstępnie zdefiniowane wartości położenia Y, na których będą tworzone platformy.
+2. Funkcja `update()` jest wywoływana raz na klatkę i używamy jej do decydowania, czy utworzyć zwykłą czy długą platformę w określonych odstępach czasu i na określonych wysokościach, aby uniknąć nakładania się obiektów. Łatwo można eksperymentować z różnymi algorytmami tworzenia, aby uzyskać różne sposoby rozgrywki.
 
 Teraz uruchom grę (<kbd>Project ▸ Build</kbd>).
 

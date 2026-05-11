@@ -64,7 +64,7 @@ Upewnij się, że zachowujesz pliki `manifest.private.der` i `manifest.public.de
 
 ## Optymalizacje aplikacji
 
-Przeczytaj [instrukcję optymalizacji](/manuals/optimizations), aby dowiedzieć się, jak optymalizować aplikację pod kątem wydajności, rozmiaru, zużycia pamięci i energii baterii.
+Przeczytaj [instrukcję optymalizacji](/manuals/optimization), aby dowiedzieć się, jak optymalizować aplikację pod kątem wydajności, rozmiaru, zużycia pamięci i energii baterii.
 
 ## Wydajność
 Zawsze testuj na docelowym sprzęcie. Sprawdź wydajność gry i zoptymalizuj ją, jeśli to potrzebne. Użyj [profilera](/manuals/profiling), aby znaleźć wąskie gardła w kodzie.

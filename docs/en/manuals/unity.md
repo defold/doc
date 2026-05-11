@@ -80,7 +80,7 @@ You just build your first project in Defold and should see your text in the wind
 
 ## Defold Editor Overview
 
-We’ll present the Defold Editor here from the perspective of what a Unity user might want to know at first, but we encourage you to check out the full [Editor Overview manual](/manuals/editor-overview) after.
+We’ll present the Defold Editor here from the perspective of what a Unity user might want to know at first, but we encourage you to check out the full [Editor Overview manual](/manuals/editor) after.
 
 ### Editors comparison
 
@@ -168,7 +168,7 @@ The table below presents similar Unity components for quick lookup, with links f
 | [Sound](/manuals/sound/) | AudioSource | Defold has only a global sound source (not spatial). There is an official [FMOD extension](https://github.com/defold/extension-fmod) for Defold. |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | In Defold, a Factory is a component with a specific prototype (prefab). |
 | [Collection Factory](/manuals/collection-factory/) | - (No direct component equivalent) | A Collection Factory component in Defold can spawn multiple Game Objects with parent-child relationships at once. |
-| [Collision Object](/manuals/physics-object) | Rigidbody + Collider | In Defold, physics objects and collision shapes are combined in a single component. |
+| [Collision Object](/manuals/physics-objects) | Rigidbody + Collider | In Defold, physics objects and collision shapes are combined in a single component. |
 | [Collision Shapes](/manuals/physics-shapes/)  | BoxCollider / SphereCollider / CapsuleCollider | In Defold, shapes (box, sphere, capsule) are configured inside the Collision Object component. Both support collision shapes from tilemaps and convex hull data. |
 | [Camera](/manuals/camera/) | Camera | In Unity, the camera has some more built-in rendering and post-processing settings, while Defold delegates it for custom control for user via the render script. |
 | [GUI](/manuals/gui/) | UI Toolkit / Unity UI / uGUI Canvas | Defold GUI is a powerful component for building complete UIs and templates. Unity doesn’t have an equivalent single UI component, rather multiple UI frameworks. Defold has an extension for [Extension](https://github.com/britzl/extension-imgui) too. |
@@ -180,7 +180,7 @@ The table below presents similar Unity components for quick lookup, with links f
 
 #### Extensions and custom components
 
-Defold also has an official [Spine](/manuals/extension-spine/) and [Rive](/manuals/extension-rive/) components available via extensions.
+Defold also has official [Spine](/extension-spine/) and [Rive](/extension-rive/) components available via extensions.
 
 You can also create your own [custom Components](https://github.com/defold/extension-simpledata) using Native Extensions, like e.g. this community created [Object Interpolation Component](https://github.com/indiesoftby/defold-object-interpolation).
 

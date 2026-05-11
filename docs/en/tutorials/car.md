@@ -432,7 +432,7 @@ That concludes this introductory tutorial. Here is a set of challenges that you 
 
 1. Currently the car moves with the same acceleration in both forward and backward direction. You may wish to change this so that the car moves slower when it is moving backwards.
 2. Make some of the constants (like acceleration) `properties` so that they can be changed for different instances of the car.
-3. Add sounds to your car and make it go vroom! ([Hint](manuals/sound/))
+3. Add sounds to your car and make it go vroom! ([Hint](/manuals/sound/))
 
 Now go ahead and dive into Defold. We have lots of [manuals and tutorials](/learn) prepared to guide you, and if you get stuck, you are very welcome to the [forum](//forum.defold.com).
 

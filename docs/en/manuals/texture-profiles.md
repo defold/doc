@@ -169,7 +169,7 @@ The Basis Universal transcoder supports many output formats, like `ASTC4x4`, `BC
 The following lossy compression formats are currently supported:
 
 | Format                            | Compression | Details  |
-| --------------------------------- | ----------- | -------------------------------- | ---- |
+| --------------------------------- | ----------- | -------------------------------- |
 | `TEXTURE_FORMAT_RGB`              | none        | 3 channel color. Alpha is discarded |
 | `TEXTURE_FORMAT_RGBA`             | none        | 3 channel color and full alpha.    |
 | `TEXTURE_FORMAT_RGB_16BPP`        | none        | 3 channel color. 5+6+5 bits. |
@@ -221,8 +221,8 @@ Base image (1024x512):
 
 ### Compression times
 
-| Preset     | Compression time | Relative time   |
-| ----------------------------- | --------------- |
+| Preset    | Compression time | Relative time |
+| --------- | ---------------- | ------------- |
 | `LOW`     | 0m0.143s         | 0.5x            |
 | `MEDIUM`  | 0m0.294s         | 1.0x            |
 | `HIGH`    | 0m1.764s         | 6.0x            |
@@ -233,8 +233,8 @@ Base image (1024x512):
 The comparison is done using the `basisu` tool (measuring the PSNR)
 100 dB means no signal loss (i.e. it's the same as the original image).
 
-| Preset     | Signal                                          |
-| ------------------------------------------------------------ |
+| Preset    | Signal                                           |
+| --------- | ------------------------------------------------ |
 | `LOW`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
 | `MEDIUM`  | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
 | `HIGH`    | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
@@ -244,8 +244,8 @@ The comparison is done using the `basisu` tool (measuring the PSNR)
 
 Original file size is 1572882 bytes.
 
-| Preset     | File Sizes | Ratio    |
-| ---------------------------------- |
+| Preset    | File Sizes | Ratio   |
+| --------- | ---------- | ------- |
 | `LOW`     | 357225     | 22.71 %  |
 | `MEDIUM`  | 365548     | 23.24 %  |
 | `HIGH`    | 277186     | 17.62 %  |
@@ -267,5 +267,4 @@ Here are the resulting images (retrieved from the ASTC encoding using the `basis
 
 `HIGHEST`
 ![best compression preset](images/texture_profiles/kodim03_pow2.best.png)
-
 

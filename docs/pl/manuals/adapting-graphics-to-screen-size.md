@@ -48,7 +48,7 @@ msg.post("@render:", "use_fixed_projection", { zoom = 4 })
 ```
 
 ::: sidenote
-Ten sam efekt można uzyskać, podłączając [komponent Camera](manuals/camera/) do obiektu gry, zaznaczając *Orthographic Projection* i ustawiając *Orthographic Zoom* na 4.0:
+Ten sam efekt można uzyskać, podłączając [komponent Camera](/manuals/camera/) do obiektu gry, zaznaczając *Orthographic Projection* i ustawiając *Orthographic Zoom* na 4.0:
 
 ![](images/screen_size/retro-camera_zoom.png)
 :::

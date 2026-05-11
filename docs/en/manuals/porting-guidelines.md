@@ -68,7 +68,7 @@ Make sure to store the `manifest.private.der` and `manifest.public.der` files wh
 
 ## Application optimizations
 
-Read the [Optimization manual](/manuals/optimizations) on how to optimize your application for performance, size, memory and battery usage.
+Read the [Optimization manual](/manuals/optimization) on how to optimize your application for performance, size, memory and battery usage.
 
 
 

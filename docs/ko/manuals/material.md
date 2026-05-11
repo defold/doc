@@ -36,7 +36,7 @@ Defold는 모바일 장치에서 렌더링 하기 위해 OpenGL ES 2.0을 사용
 ![Shader files](images/materials/materials_shader_files.png)
 
 ### Material tags
-당신의 렌더 스크립트(render script)가 새 메터리얼을 사용하는 컴포넌트를 렌더링 할 수 있으므로 당신은 메터리얼을 위한 태그(tag)를 설정해야 합니다. 태그는 엔진에서 render.predicate()에 의해 함께 렌더링해야 하는 컴포넌트들을 수집하기위해 사용되며 비트마스크(bitmask)로 표시됩니다. 이를 수행하는 방법을 알고 싶다면 [Rendering](/manuals/rendering)문서를 참고 바랍니다.
+당신의 렌더 스크립트(render script)가 새 메터리얼을 사용하는 컴포넌트를 렌더링 할 수 있으므로 당신은 메터리얼을 위한 태그(tag)를 설정해야 합니다. 태그는 엔진에서 render.predicate()에 의해 함께 렌더링해야 하는 컴포넌트들을 수집하기위해 사용되며 비트마스크(bitmask)로 표시됩니다. 이를 수행하는 방법을 알고 싶다면 [Rendering](/manuals/render)문서를 참고 바랍니다.
 
 > 프로젝트에서 사용할 수 있는 최대 태그의 수는 32개 입니다.
 

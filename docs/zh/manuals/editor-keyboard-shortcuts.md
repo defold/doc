@@ -120,4 +120,4 @@ brief: 本教程介绍了当前编辑器快捷键以及如何自定义快捷键.
 
 可以创建一个配置文件自定义快捷键 (比如在根目录创建 `keymap.edn`). 然后选择 <kbd>File ▸ Preferences</kbd>, 设置 <kbd>Path to custom keymap</kbd> 为刚才创建的配置文件. 然后重启 Defold 即可, 每次修改快捷键配置文件之后也要重启生效.
 
-自定义快捷键配置文件示例: [Windows](examples/keymap_win.edn), [MacOS](examples/keymap_macos.edn) 和 [Linux](examples/keymap_linux.edn)
+自定义快捷键配置文件示例: [Windows](/manuals/examples/keymap_win.edn), [MacOS](/manuals/examples/keymap_macos.edn) 和 [Linux](/manuals/examples/keymap_linux.edn)

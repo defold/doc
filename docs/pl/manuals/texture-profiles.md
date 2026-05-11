@@ -145,7 +145,7 @@ Każdy wpis *Formats* dodany do profilu ma następujące właściwości:
 *Compressor Preset*
 : Wybiera preset kompresji używany do kodowania wynikowego obrazu. Każdy preset jest specyficzny dla kompresora i jego ustawienia zależą od samego kompresora. Aby uprościć te ustawienia, obecne presety kompresji mają cztery poziomy:
 
-| Preset    | Informacja                                  |
+| Ustawienie | Informacja                                  |
 | --------- | ------------------------------------------- |
 | `LOW`     | Najszybsza kompresja. Niska jakość obrazu   |
 | `MEDIUM`  | Domyślna kompresja. Najlepsza jakość obrazu |
@@ -155,7 +155,7 @@ Każdy wpis *Formats* dodany do profilu ma następujące właściwości:
 Pamiętaj, że kompresor `uncompressed` ma tylko jeden preset o nazwie `uncompressed`, co oznacza, że do tekstur nie zostanie zastosowana żadna kompresja.
 Aby zobaczyć listę dostępnych kompresorów, zobacz [Compressors](#compressors).
 
-## Texture formats
+## Formaty tekstur
 
 Tekstury sprzętowe można przetwarzać do danych nieskompresowanych albo *stratnie* skompresowanych, z różną liczbą kanałów i różną głębią bitową. Kompresja sprzętowa o stałym rozmiarze oznacza, że wynikowy obraz będzie miał stały rozmiar niezależnie od zawartości. Oznacza to, że utrata jakości podczas kompresji zależy od zawartości oryginalnej tekstury.
 
@@ -167,7 +167,7 @@ Transkoder Basis Universal obsługuje wiele formatów wyjściowych, takich jak `
 Poniższa tabela pokazuje obecnie obsługiwane formaty stratnej kompresji:
 
 | Format                            | Kompresja | Szczegóły  |
-| --------------------------------- | ----------- | -------------------------------- | ---- |
+| --------------------------------- | --------- | -------------------------------- |
 | `TEXTURE_FORMAT_RGB`              | none        | 3-kanałowy kolor. Kanał alfa jest odrzucany |
 | `TEXTURE_FORMAT_RGBA`             | none        | 3-kanałowy kolor i pełna alfa.    |
 | `TEXTURE_FORMAT_RGB_16BPP`        | none        | 3-kanałowy kolor. 5+6+5 bitów. |
@@ -197,7 +197,7 @@ Pamiętaj, że te formaty są zgodne wyłącznie z kompresorem ASTC. Każda inna
 
 Domyślnie obsługiwane są następujące kompresory tekstur. Dane zostaną zdekompresowane po wczytaniu pliku tekstury do pamięci.
 
-| Name                              | Formats                   | Note                                                                                          |
+| Nazwa                             | Formaty                   | Uwagi                                                                                         |
 | --------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------- |
 | `Uncompressed`                    | All formats               | No compression will be applied. Default.                                                      |
 | `BasisU`                          | All RGB/RGBA formats      | Basis Universal high quality, lossy compression. Lower quality level results in smaller size. |
@@ -215,10 +215,10 @@ Pamiętaj, że jakość obrazu, czas kompresji i rozmiar kompresji zawsze zależ
 Obraz bazowy (1024x512):
 ![New profiles file](images/texture_profiles/kodim03_pow2.png)
 
-### Compression times
+### Czasy kompresji
 
-| Preset     | Compression time | Relative time   |
-| ----------------------------- | --------------- |
+| Ustawienie | Czas kompresji | Czas względny |
+| ---------- | -------------- | ------------- |
 | `LOW`     | 0m0.143s         | 0.5x            |
 | `MEDIUM`  | 0m0.294s         | 1.0x            |
 | `HIGH`    | 0m1.764s         | 6.0x            |
@@ -229,8 +229,8 @@ Obraz bazowy (1024x512):
 Porównanie wykonano narzędziem `basisu` (mierząc PSNR).
 100 dB oznacza brak utraty sygnału, czyli identyczny obraz jak oryginał.
 
-| Preset     | Signal                                          |
-| ------------------------------------------------------------ |
+| Ustawienie | Sygnał                                           |
+| ---------- | ------------------------------------------------ |
 | `LOW`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
 | `MEDIUM`  | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
 | `HIGH`    | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
@@ -240,8 +240,8 @@ Porównanie wykonano narzędziem `basisu` (mierząc PSNR).
 
 Oryginalny plik ma rozmiar 1572882 bajtów.
 
-| Preset     | File Sizes | Ratio    |
-| ---------------------------------- |
+| Ustawienie | Rozmiar pliku | Proporcja |
+| ---------- | ------------- | --------- |
 | `LOW`     | 357225     | 22.71 %  |
 | `MEDIUM`  | 365548     | 23.24 %  |
 | `HIGH`    | 277186     | 17.62 %  |

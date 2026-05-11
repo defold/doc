@@ -66,7 +66,7 @@ end
 #### `update(self, dt)`
 Called once each frame after `fixed_update` callback of all scripts (if Fixed Timestep is enabled). Parameter `dt` contains the delta time since the last frame.
 
-```luadifferent
+```lua
 function update(self, dt)
   self.age = self.age + dt -- increase age with the timestep
 end

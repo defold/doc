@@ -63,7 +63,7 @@ Najpierw utwórz katalog na zasoby w edytorze Defold:
 
 ![new_folder](images/snake/3.png)
 
-<input type="checkbox"/>`Gotowe!`
+<input type="checkbox"/> Gotowe!
 
 ## Dodawanie grafiki do gry
 
@@ -77,7 +77,7 @@ Poniższy obraz jest jedynym zasobem, którego potrzebujesz:
 
 Więcej szczegółów możesz też przeczytać w instrukcji o [importowaniu zasobów graficznych](/manuals/importing-graphics/).
 
-<input type="checkbox"/>`Gotowe!`
+<input type="checkbox"/> Gotowe!
 
 ## Dodawanie Tile Source
 
@@ -100,7 +100,7 @@ Tilesource otworzy się w dedykowanym edytorze Tilesource dla tego typu pliku i 
 
 Zwróć uwagę, że właściwość *Extrude Borders* jest ustawiona na 2 piksele. Zapobiega to artefaktom wizualnym wokół kafelków, których grafika dochodzi aż do krawędzi.
 
-Jeśli dokonasz zmian w pliku, przy jego nazwie na karcie pojawi się znak gwiazdki `*`. Wybierz `File` ▸ `Save All` lub użyj skrótu `<kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> na Macu), aby zapisać wszystkie pliki.
+Jeśli dokonasz zmian w pliku, przy jego nazwie na karcie pojawi się znak gwiazdki `*`. Wybierz `File` ▸ `Save All` lub użyj skrótu <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> na Macu), aby zapisać wszystkie pliki.
 
 <input type="checkbox"/> Gotowe!
 
