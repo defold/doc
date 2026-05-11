@@ -11,7 +11,7 @@ Jeśli masz wcześniejsze doświadczenie z Unity, ten przewodnik pomoże ci szyb
 
 Defold to całkowicie darmowy, naprawdę wieloplatformowy silnik 3D do gier z edytorem dla Windows, Linux i macOS. Pełny kod źródłowy jest dostępny na [GitHub](https://github.com/defold/defold/).
 
-Defold stawia na wydajność, nawet na słabszych urządzeniach. Jego architektura oparta na komponentach i danych jest trochę podobna do podejścia DOTS w Unity.
+Defold stawia na wydajność, nawet na słabszych urządzeniach. Używa małego modelu komponentów, w którym wiele interakcji rozgrywki obsługuje się przez kod i przekazywanie wiadomości.
 
 Defold jest znacznie mniejszy niż Unity. Rozmiar silnika z pustym projektem wynosi od 1 do 3 MB na wszystkich platformach. Możesz odciąć dodatkowe części silnika i przenieść część zawartości gry do [Live Update](/manuals/live-update), aby pobierać ją później osobno. Porównanie rozmiarów i inne powody, dla których warto wybrać Defold, opisano na stronie [Dlaczego Defold](https://defold.com/why/).
 
@@ -150,6 +150,14 @@ Możesz tworzyć relacje rodzic-dziecko między obiektami gry. W Defold można t
 
 W obu silnikach obiekty gry można rozszerzać o **"Components"**. Defold udostępnia minimalny zestaw niezbędnych komponentów. Różnica między 2D i 3D jest mniejsza niż w Unity (na przykład przy colliderach), więc komponentów jest ogólnie mniej, a niektórych z Unity może ci brakować.
 
+#### Komponenty zachowania
+
+W Unity „component” zwykle oznacza `MonoBehaviour` dołączony do `GameObject`. Możesz tworzyć własne komponenty, dziedzicząc po `MonoBehaviour`, albo używać wbudowanych komponentów Unity, takich jak Light, elementy fizyki i inne.
+
+W Defold Component oznacza wyłącznie odpowiednik wbudowanych komponentów Unity. Defold nie traktuje skryptu jak MonoBehaviour i nie wymaga żadnego jawnego „oznaczania”, aby dołączyć go do obiektu gry, poza utworzeniem funkcji nasłuchujących zdarzeń i callbacków.
+
+Własne zachowanie rozgrywki zwykle nie jest dodawane jako wiele osobnych komponentów skryptowych na tym samym obiekcie gry. Często implementuje się je w modułach Lua używanych przez jeden hostujący `.script` albo w większym skrypcie systemowym, który kontroluje wiele obiektów. Sekcja Pisanie kodu poniżej omawia to dokładniej.
+
 Więcej o [komponentach Defold przeczytasz tutaj](/manuals/components/).
 
 Poniższa tabela pokazuje podobne komponenty Unity, aby ułatwić szybkie porównanie, wraz z linkami do instrukcji każdego komponentu Defold:
@@ -232,14 +240,7 @@ Unity generuje katalog `Library/` dla importowanych assetów. Defold nie ma taki
 
 ## Pisanie kodu
 
-Częstą pułapką dla osób przechodzących z Unity jest traktowanie skryptów Defold jak `MonoBehaviour` i dołączanie jednego do *każdego* obiektu gry. Oczywiście można pisać w stylu obiektowym, a nawet istnieją biblioteki, które w tym pomagają, ale zalecanym podejściem, zwłaszcza przy wielu podobnych obiektach gry, jest używanie skryptów jako systemów lub menedżerów. Jeden skrypt może kontrolować setki lub tysiące obiektów i ich komponentów, nawet jeśli same obiekty nie mają własnych skryptów, dzięki silnemu adresowaniu i systemowi wiadomości w Defold. Tworzenie osobnego skryptu dla każdego obiektu jest rzadko potrzebne i może prowadzić do nieproduktywnej złożoności.
-
-Przykład pokazujący, jak wykorzystać właściwości skryptu Defold, fabryki, adresowanie i wiadomości do sterowania wieloma jednostkami, znajdziesz [tutaj](https://defold.com/examples/factory/spawn_manager/).
-
-Dobre instrukcje o pisaniu kodu:
-- [Instrukcja o skryptach](/manuals/script/)
-- [Pisanie kodu](/manual/writing-code)
-- [Debugowanie](/manuals/debugging/)
+Odpowiednikiem skryptów `MonoBehaviour` w Defold jest komponent Script, ale warto znać kilka różnic.
 
 ### Lua
 
@@ -253,9 +254,91 @@ Defold wspiera używanie transpilerów, które generują kod Lua, takich jak [Te
 
 ### Native Extensions C++/C#
 
-W Defold możesz pisać Native Extensions w C++ i C#. Jeśli bardzo dobrze znasz C#, technicznie możliwe jest zbudowanie większości logiki gry w rozszerzeniu C# i wywoływanie jej z małego bootstrapowego skryptu Lua, choć wymaga to zaawansowanej znajomości API i nie jest zalecane dla początkujących.
+W Defold Native Extensions można pisać w kilku innych językach: C, C++, C#, Objective-C, Java albo JS, zależnie od platformy docelowej. Jeśli bardzo dobrze znasz C#, technicznie możliwe jest zbudowanie większości logiki gry w rozszerzeniu C# i wywoływanie jej z małego bootstrapowego skryptu Lua, choć wymaga to zaawansowanej znajomości API i nie jest zalecane dla początkujących.
 
 Więcej o rozszerzeniach przeczytasz w [instrukcji Native Extensions Defold](/manual/extensions.md).
+
+### Od MonoBehaviours do modułów Lua
+
+Unity ma otwarty model skryptowania. Ponieważ `MonoBehaviour` jest głównym sposobem dodawania zachowania w edytorze, wiele projektów Unity zaczyna od jednego skryptu kontrolera dla ważnego GameObject: `PlayerController`, `EnemyController`, `BulletController`, `GameManager`, `EnemyManager` itd.
+
+Defold jest bardziej konkretny w swojej domyślnej architekturze. Obiekt gry może mieć `.script`, ale rzadko trzeba tworzyć skrypt dla każdego Game Object, ponieważ jeden skrypt w Defold może kontrolować setki albo tysiące innych obiektów i ich komponentów, nawet jeśli one same nie mają własnych skryptów, dzięki rozbudowanemu adresowaniu i przekazywaniu wiadomości w Defold. Tworzenie skryptów odpowiadających każdemu Game Object jest rzadko potrzebne i może prowadzić do nieproduktywnej złożoności.
+
+Dla wielokrotnego użycia zachowań rozgrywki deweloperzy Unity często przechodzą w stronę kompozycji: mniejszych skryptów `MonoBehaviour`, takich jak `Health.cs`, `Attack.cs` albo `EnemyFinder.cs`, dołączonych do tego samego GameObject. W Defold zwykle zostawiasz jeden dołączony `.script` jako hosta albo koordynatora, a logikę wielokrotnego użycia umieszczasz w zwykłych modułach Lua.
+
+W Unity taka kompozycja może wyglądać tak:
+
+```text
+Player
+├── PlayerMovement.cs
+├── PlayerAttack.cs
+├── EnemyFinder.cs
+└── Health.cs
+```
+
+W Defold te same odpowiedzialności często dzieli się między jeden dołączony skrypt i moduły wielokrotnego użycia:
+
+```text
+player.go
+├── sprite
+├── collisionobject
+└── player.script
+
+modules/
+├── player_movement.lua
+├── player_attack.lua
+├── enemy_finder.lua
+└── health.lua
+```
+
+Dołączony `.script` staje się hostem albo koordynatorem. Moduły Lua zawierają logikę wielokrotnego użycia, podobnie jak małe skrypty `MonoBehaviour` często zawierają jedną odpowiedzialność w Unity.
+
+```lua
+local movement = require "modules.player_movement"
+local attack = require "modules.player_attack"
+local finder = require "modules.enemy_finder"
+local health = require "modules.health"
+
+function init(self)
+    self.movement = movement.new(self)
+    self.attack = attack.new(self)
+    self.finder = finder.new(self)
+    self.health = health.new(self)
+end
+
+function update(self, dt)
+    self.movement:update(dt)
+    self.attack:update(dt)
+    self.finder:update(dt)
+end
+
+function on_message(self, message_id, message, sender)
+    self.health:on_message(message_id, message, sender)
+    self.attack:on_message(message_id, message, sender)
+end
+```
+
+Ważna różnica nie polega na tym, że Defold uniemożliwia modularną architekturę. Różnica dotyczy miejsca, w którym odbywa się kompozycja, oraz sposobu komunikacji kodu rozgrywki:
+
+| Unity | Defold |
+|---|---|
+| Dołączasz kilka skryptów `MonoBehaviour` w Inspectorze | Dołączasz jeden `.script` i komponujesz moduły Lua w kodzie |
+| Używasz `GetComponent<T>()` albo serializowanych pól do łączenia zachowań | Przechowujesz instancje modułów w `self` i używasz adresów oraz wiadomości między obiektami |
+| Każdy komponent może mieć własne metody cyklu życia | Skrypt hostujący kieruje `init()`, `update()`, `on_message()`, `final()` itd. |
+| Możliwych jest wiele stylów architektury | Częstą praktyką jest kompozycja w kodzie i komunikacja przez wiadomości |
+
+Na początku może to wydawać się nietypowe, szczególnie jeśli przywykłeś do konfigurowania zachowania przez dodawanie komponentów w Inspectorze. W Defold wiele rzeczy, które w Unity można konfigurować wizualnie, można zamiast tego tworzyć, łączyć, włączać, wyłączać albo aktualizować przez kod. System wiadomości Defold pomaga rozdzielać logikę: nadawca wysyła dane pod adres, a odbiorca decyduje, co z nimi zrobić.
+
+To podejście jest zalecane, ale nie wymuszane. Nadal możesz pisać skrypty tak, jak chcesz, w tym dołączać wiele skryptów do jednego obiektu gry albo zbliżać się do obiektowego stylu programowania. Istnieją też biblioteki, które w tym pomagają, na przykład [defold-oop](https://github.com/xiyoo0812/defold-oop) albo [lua-class](https://github.com/d954mas/lua-class).
+
+Dla wielu obiektów tego samego typu, takich jak pociski, przeciwnicy, cząsteczki, kafelki albo proste elementy interaktywne, często lepiej kontrolować je ze skryptu systemowego lub menedżera niż dawać każdemu osobny skrypt. Używaj skryptów per obiekt, gdy obiekt ma własny istotny stan i zachowanie. Używaj modułów, gdy chcesz mieć logikę wielokrotnego użycia. Używaj skryptów systemowych, gdy jeden skrypt może wydajnie kontrolować wiele obiektów.
+
+Przykład pokazujący, jak wykorzystać właściwości skryptu Defold, fabryki, adresowanie i wiadomości do sterowania wieloma jednostkami, znajdziesz [tutaj](https://defold.com/examples/factory/spawn_manager/).
+
+Dobre instrukcje o pisaniu kodu:
+- [Instrukcja o skryptach](/manuals/script/)
+- [Pisanie kodu](/manual/writing-code)
+- [Debugowanie](/manuals/debugging/)
 
 ### Wbudowany edytor kodu
 

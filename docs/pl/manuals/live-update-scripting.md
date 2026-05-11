@@ -11,6 +11,10 @@ Interfejs API składa się tylko z kilku funkcji:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
+::: important
+Przestarzały przepływ Live Update oparty na pojedynczych zasobach jest wycofywany. W nowym kodzie unikaj `collectionproxy.missing_resources()` i starych aliasów pomocniczych `resource.*`. Obecne przepływy Live Update pobierają i montują całe archiwa, opcjonalnie używając `collectionproxy.get_resources()` do sprawdzania, która wykluczona zawartość należy do danego proxy.
+:::
+
 ## Pobieranie mountów
 
 Jeśli używasz więcej niż jednego archiwum Live update, zalecamy przejść po każdym mouncie
@@ -48,7 +52,21 @@ end
 
 Pełnomocnik kolekcji, który został wykluczony z bundlowania, działa jak zwykły pełnomocnik kolekcji, z jedną ważną różnicą. Wysłanie do niego wiadomości `load`, kiedy nadal ma zasoby niedostępne w magazynie bundla, spowoduje błąd.
 
-Zanim więc wyślemy mu `load`, musimy sprawdzić, czy nie brakuje jakichś zasobów. Jeśli tak, trzeba pobrać archiwum zawierające te zasoby, a następnie je zamontować.
+W obecnym przepływie opartym na archiwach zwykle z góry decydujesz, którego archiwum lub archiwów potrzebuje proxy, i montujesz je przed wczytaniem. Jeśli musisz sprawdzić, czy proxy ma wykluczoną zawartość, użyj `collectionproxy.get_resources()`. Starsza funkcja `collectionproxy.missing_resources()` należy do przestarzałego przepływu Live Update opartego na pojedynczych zasobach.
+
+Gdy włączona jest opcja *Strip Live Update Entries from Main Manifest*, domyślna przy publikowaniu archiwalnej zawartości Live Update:
+
+* Jeśli żadne zamontowane archiwum nie zawiera wykluczonej zawartości proxy, `collectionproxy.get_resources("#proxy")` zwraca pustą tabelę `{}`.
+* Po zamontowaniu odpowiedniego archiwum `collectionproxy.get_resources("#proxy")` zwraca niepustą tabelę hashy zasobów dla danego proxy, na przykład:
+
+```lua
+{
+    "a1b2c3...",
+    "d4e5f6...",
+    "7890ab...",
+    ...
+}
+```
 
 Poniższy przykład zakłada, że zasoby są dostępne pod adresem URL podanym w ustawieniu `game.http_url`.
 
@@ -76,6 +94,15 @@ local function mount_zip(self, name, priority, path, callback)
 	end)
 end
 
+local function has_mount(name)
+    for _, mount in ipairs(liveupdate.get_mounts()) do
+        if mount.name == name then
+            return true
+        end
+    end
+    return false
+end
+
 function init(self)
     self.http_url = sys.get_config_string("game.http_url", nil) -- <2>
 
@@ -88,9 +115,12 @@ end
 
 function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
-        local missing_resources = collectionproxy.missing_resources("#" .. message.level) -- <5>
+        local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        if #missing_resources then
+        -- Gdy Strip Live Update Entries from Main Manifest jest włączone, ta tabela
+        -- jest pusta, dopóki odpowiednie archiwum nie zostanie zamontowane. Po
+        -- zamontowaniu zawiera hashe zasobów należące do proxy.
+        if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
             msg.post("#" .. message.level, "load")
@@ -124,8 +154,8 @@ end
 2. Trzeba przechowywać archiwum online, na przykład w S3, skąd będzie można je pobrać.
 3. Mając nazwę pełnomocnika kolekcji, trzeba ustalić, które archiwum lub archiwa pobrać i jak je zamontować.
 4. Przy starcie próbujemy wczytać poziom.
-5. Sprawdź, czy pełnomocnik kolekcji ma dostępne wszystkie zasoby.
-6. Jeśli brakuje zasobów, trzeba pobrać archiwum i je zamontować.
+5. Użyj `collectionproxy.get_resources()`, aby sprawdzić wykluczoną zawartość proxy. Przy domyślnie włączonym ustawieniu usuwania wpisów z manifestu zwraca `{}`, dopóki odpowiednie archiwum nie zostanie zamontowane, a po zamontowaniu zwraca niepustą tabelę hashy zasobów.
+6. Jeśli proxy używa zawartości Live Update, a pasujące archiwum nie jest jeszcze zamontowane, pobieramy je i montujemy przed wczytaniem proxy.
 7. Wykonaj żądanie HTTP i pobierz archiwum do `download_path`.
 8. Dane zostały pobrane i czas je zamontować w uruchomionym silniku.
 

@@ -78,7 +78,7 @@ Plik *`.apk`* możesz zainstalować i uruchomić za pomocą pól wyboru edytora 
 
 ![instalowanie i uruchamianie APK](images/android/install_and_launch.png)
 
-Aby ta funkcja działała, musisz mieć zainstalowany ADB oraz włączone <kbd>USB debugging</kbd> na podłączonym urządzeniu. Jeśli edytor nie potrafi wykryć lokalizacji narzędzia wiersza poleceń ADB, musisz ją wskazać w [preferencjach edytora](/manuals/editor-preferences/#tools).
+Aby ta funkcja działała, musisz mieć zainstalowany ADB oraz włączone *USB debugging* na podłączonym urządzeniu. Jeśli edytor nie potrafi wykryć lokalizacji narzędzia wiersza poleceń ADB, musisz ją wskazać w [preferencjach edytora](/manuals/editor-preferences/#tools).
 
 #### Instalowanie AAB
 

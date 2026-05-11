@@ -55,7 +55,7 @@ Silnik wykonuje wtedy pełne przejście końcowej aktualizacji (`Post Update`) -
 
 ![Końcowa aktualizacja](images/application_lifecycle/post_init.png)
 
-To przejście obsługuje dostarczanie wiadomości, faktyczne tworzenie obiektów przez fabryki oraz usuwanie obiektów. Zwróć uwagę, że przejście `Post Update` obejmuje sekwencję „rozsyłania wiadomości” (`dispatch messages`), która nie tylko dostarcza zakolejkowane wiadomości, ale także przetwarza wiadomości wysyłane do pełnomocników kolekcji. Wszystkie kolejne aktualizacje proxy, takie jak `enable`, `disable`, `init`, `final`, `loading` i `mark for unloading`, są wykonywane w tych krokach.
+To przejście obsługuje dostarczanie wiadomości, faktyczne tworzenie obiektów przez fabryki oraz usuwanie obiektów. Zwróć uwagę, że przejście `Post Update` obejmuje sekwencję „dispatch messages”, która nie tylko dostarcza zakolejkowane wiadomości, ale także przetwarza wiadomości wysyłane do pełnomocników kolekcji. Wszystkie kolejne aktualizacje proxy (enable, disable, init, final, loading i mark for unloading) są wykonywane w tych krokach.
 
 Możliwe jest załadowanie [pełnomocnika kolekcji (Collection Proxy)](/manuals/collection-proxy) w trakcie `init()`, upewnienie się, że wszystkie zawarte w nim obiekty zostały zainicjalizowane, a następnie wyładowanie kolekcji przez proxy - i wszystko to przed wywołaniem pierwszego `update()` komponentu, czyli zanim silnik opuści etap inicjalizacji i wejdzie do pętli aktualizacji:
 
@@ -136,7 +136,7 @@ Na końcu pętli aktualizacji (`Update Loop`) wykonywana jest jeszcze jedna koń
 
 #### Faza aktualizacji silnika bez fixed updates
 
-Poniższe tabele opisują przejścia aktualizacji na poziomie silnika. Celowo pomijają dokładną wewnętrzną kolejność priorytetów komponentów, ponieważ jest to szczegół implementacyjny silnika, ale pokazują gwarancje istotne dla skryptów:
+Poniższe tabele opisują przejścia aktualizacji na poziomie *silnika*. Celowo pomijają dokładną wewnętrzną kolejność priorytetów komponentów, ponieważ jest to szczegół implementacyjny silnika, ale pokazują gwarancje istotne dla skryptów:
 
 - `fixed_update()` działa przed `update()`
 - `late_update()` działa po `update()`
@@ -181,7 +181,7 @@ Blok aktualizacji renderowania najpierw rozsyła wszystkie wiadomości wysłane 
 
 ### Faza post update
 
-Po aktualizacjach uruchamiana jest sekwencja końcowej aktualizacji. Wyładowuje ona z pamięci pełnomocniki kolekcji oznaczone do wyładowania (dzieje się to podczas sekwencji „rozsyłania wiadomości” - `dispatch messages`). Każdy obiekt gry oznaczony do usunięcia wywołuje wszystkie funkcje `final()` swoich komponentów, jeśli takie istnieją. Kod w funkcjach `final()` często wysyła nowe wiadomości do kolejki, więc po tym uruchamiane jest ponownie przejście `dispatch messages`.
+Po aktualizacjach uruchamiana jest sekwencja końcowej aktualizacji. Wyładowuje ona z pamięci pełnomocniki kolekcji oznaczone do wyładowania (dzieje się to podczas sekwencji „dispatch messages”). Każdy obiekt gry oznaczony do usunięcia wywołuje wszystkie funkcje `final()` swoich komponentów, jeśli takie istnieją. Kod w funkcjach `final()` często wysyła nowe wiadomości do kolejki, więc po tym uruchamiane jest ponownie przejście „dispatch messages”.
 
 ![Faza post update](images/application_lifecycle/post_update_phase.png)
 

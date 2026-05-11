@@ -109,4 +109,4 @@ iOS
   Po wyodrębnieniu kontenera zostanie on pokazany w *Finder*. Kliknij kontener prawym przyciskiem myszy i wybierz <kbd>Show Package Content</kbd>. Znajdź plik "`log.txt`", który powinien znajdować się w "`AppData/Documents/`".
 
 Android(
-: Możliwość wyodrębnienia pliku "`log.txt`" zależy od wersji systemu operacyjnego i producenta urządzenia. Oto krótki i prosty [poradnik krok po kroku](https://stackoverflow.com/a/48077004/]129360).
+: Możliwość wyodrębnienia pliku "`log.txt`" zależy od wersji systemu operacyjnego i producenta urządzenia. Oto krótki i prosty [poradnik krok po kroku](https://stackoverflow.com/a/48077004/129360).

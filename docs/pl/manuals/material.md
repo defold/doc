@@ -64,6 +64,7 @@ Semantic type
   - `SEMANTIC_TYPE_TANGENT` Generuje dane stycznej dla atrybutu na poziomie wierzchołka
   - `SEMANTIC_TYPE_WORLD_MATRIX` Generuje dane macierzy świata dla atrybutu na poziomie wierzchołka
   - `SEMANTIC_TYPE_NORMAL_MATRIX` Generuje dane macierzy normalnych dla atrybutu na poziomie wierzchołka
+  - `SEMANTIC_TYPE_TEXTURE_TRANSFORM_2D` Generuje dla atrybutu macierz transformacji tekstury 3x3 na wierzchołek. Dla komponentów particle engine udostępnia macierz, która transformuje współrzędne do przestrzeni atlasu dla właściwości obrazu komponentu. Dla komponentów sprite engine udostępnia macierz dla każdego obrazu używanego przez komponent (przy użyciu wielu tekstur). Dla komponentów modelu udostępniana jest macierz jednostkowa.
 
 Data type
 : Typ danych, na których oparty jest atrybut.
@@ -119,6 +120,7 @@ System materiałów automatycznie przypisze domyślny typ semantyczny na podstaw
   - `tangent` - semantic type: `SEMANTIC_TYPE_TANGENT`
   - `mtx_world` - semantic type: `SEMANTIC_TYPE_WORLD_MATRIX`
   - `mtx_normal` - semantic type: `SEMANTIC_TYPE_NORMAL_MATRIX`
+  - `mtx_texture_transform_2d` - semantic type: `SEMANTIC_TYPE_TEXTURE_TRANSFORM_2D`
 
 Jeśli w materiale masz wpisy dla tych atrybutów, domyślny typ semantyczny zostanie zastąpiony tym, który skonfigurowałeś w Material Editor.
 
@@ -136,10 +138,6 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 Aktualizowanie atrybutów wierzchołków ma jednak pewne ograniczenia. To, czy komponent może użyć danej wartości, zależy od typu semantycznego atrybutu. Na przykład komponent sprite obsługuje `SEMANTIC_TYPE_POSITION`, więc jeśli zaktualizujesz atrybut mający ten typ semantyczny, komponent zignoruje nadpisaną wartość, ponieważ typ semantyczny określa, że dane powinny być zawsze generowane przez pozycję sprite'a.
 
-::: sidenote
-Ustawianie własnych danych wierzchołków w czasie działania jest obecnie obsługiwane tylko dla komponentów sprite.
-:::
-
 W przypadkach, gdy atrybut wierzchołka jest skalarem albo wektorem innym niż `Vec4`, nadal możesz ustawić dane za pomocą `go.set`:
 
 ```lua
@@ -149,6 +147,43 @@ go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vec
 ```
 
 To samo dotyczy atrybutów macierzowych. Jeśli atrybut jest macierzą inną niż `Mat4`, nadal możesz ustawić dane za pomocą `go.set`.
+
+### Przykłady użycia własnych atrybutów wierzchołków
+
+Użycie atrybutu transformacji tekstury do konwersji współrzędnych UV do przestrzeni atlasu:
+
+```glsl
+#version 140
+
+in vec3 position;
+in vec4 texcoord0;
+in mat3 texture_transform_2d;
+
+out vec2 var_texcoord0;
+
+void main()
+{
+  // Wyodrębnij pozycję z transformacji
+  vec2 atlas_pos = texture_transform_2d[2].xy;
+  // Wyodrębnij skalę z transformacji
+  vec2 atlas_size = vec2(
+      length(texture_transform_2d[0].xy),
+      length(texture_transform_2d[1].xy)
+  );
+  // konwersja do lokalnych UV (0..1)
+  vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
+
+  // Alternatywnie, jeśli współrzędne UV są już w zakresie 0..1,
+  // możesz przekształcić je bezpośrednio do przestrzeni atlasu,
+  // mnożąc przez transformację:
+  vec2 transformedUv = texture_transform_2d * texcoord0;
+
+  // Przekaż wartość do shadera fragmentów
+  var_texcoord0 = localUV;
+
+  // ... reszta shadera wierzchołków
+}
+```
 
 ### Instancjonowanie
 

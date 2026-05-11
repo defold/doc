@@ -51,7 +51,7 @@ Dodawanie animacji flipbook
 
   ![Grupa animacji](images/atlas/animation_group.png)
 
-Możesz zmieniać kolejność obrazów w panelu *Outline*, zaznaczając je i naciskając <kbd>Alt + Up/down</kbd>. Możesz też łatwo tworzyć duplikaty, kopiując i wklejając obrazy w panelu *Outline* (z menu <kbd>Edit</kbd>, z menu kontekstowego po kliknięciu prawym przyciskiem myszy lub skrótami klawiaturowymi).
+Możesz zmieniać kolejność obrazów w panelu Outline, zaznaczając je i naciskając <kbd>Alt + Up/down</kbd>. Możesz też łatwo tworzyć duplikaty, kopiując i wklejając obrazy w panelu Outline (z menu <kbd>Edit</kbd>, z menu kontekstowego po kliknięciu prawym przyciskiem myszy lub skrótami klawiaturowymi).
 
 ## Właściwości atlasu
 

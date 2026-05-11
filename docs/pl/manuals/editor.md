@@ -60,19 +60,19 @@ Pokazuje wszystkie pliki i foldery należące do projektu w strukturze drzewa od
 
 ### 2. Panel edytora
 
-Środkowy widok pokazuje aktualnie otwarty plik w edytorze odpowiednim dla jego typu. Na przykład pliki skryptów otwierają się we wbudowanym Code Editor, a komponenty wizualne w trójwymiarowym Visual Editor. Wszystkie Visual Editors pozwalają zmieniać widok kamery:
+Dwukrotne kliknięcie kolekcji, obiektu gry albo pliku komponentu wizualnego otwiera *Scene Editor* - edytor wizualny do budowania i edytowania scen. Pliki skryptów i inne niewizualne zasoby otwierają się w osobnych, przeznaczonych do tego edytorach.
 
-- Przesuwanie: <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Left Mouse Button</kbd> lub <kbd>Right Mouse Button</kbd>
-- Przybliżanie i oddalanie: <kbd>Scroll Mouse Wheel</kbd> albo <kbd>Alt</kbd>/<kbd>⌥ Option</kbd> + <kbd>Right Mouse Button</kbd>
-- Obracanie w 3D wokół zaznaczenia: <kbd>Ctrl</kbd>/<kbd>^ Control</kbd> + <kbd>Left Mouse Button</kbd>
+![Scene Editor](images/editor/2d_scene.png)
 
-#### Pasek narzędzi
+Kilka podstawowych funkcji edytora scen:
 
-W prawym górnym rogu widoku sceny znajduje się pasek narzędzi z narzędziami do manipulacji obiektami. Od lewej są to:
+- [nawigacja sceny 2D i 3D](/manuals/scene-editing/#orientacja-sceny-2d-i-3d) z trybami kamery ortograficznej i perspektywicznej,
+- [narzędzia transformacji](/manuals/scene-editing/#zaznaczanie-i-manipulowanie-obiektami) do przesuwania, obracania i skalowania obiektów,
+- [Free Camera Mode](/manuals/scene-editing/#free-camera-mode) do nawigacji 3D z perspektywy pierwszej osoby,
+- [ustawienia siatki](/manuals/scene-editing/#ustawienia-siatki) z konfigurowalnym rozmiarem, płaszczyzną i wyglądem,
+- [filtry widoczności](/manuals/scene-editing/#filtry-widocznosci) do przełączania typów komponentów i prowadnic.
 
-*Move* (<kbd>W</kbd>), *Rotate* (<kbd>E</kbd>), *Scale* (<kbd>R</kbd>), *Grid Settings* `▦`, *Align Camera 2D/3D* `2D`, przełącznik *Camera Perspective/Orthographic* oraz *Visibility Filters* `👁`.
-
-![Toolbar](images/editor/toolbar.png)
+Więcej informacji znajdziesz w [podręczniku edytora scen](/manuals/scene-editing/).
 
 ### 3. Panel Outline
 
@@ -167,72 +167,6 @@ Możliwe jest otwarcie dwóch widoków edytora obok siebie.
 ![2 panes](images/editor/2-panes.png)
 
 Z tego samego menu zakładki możesz też użyć `Swap with Other Tab Pane`, aby przenieść wybraną zakładkę między panelami, albo `Join Tab Panes`, aby z powrotem połączyć oba panele w jeden.
-
-## Edytor sceny
-
-Dwukrotne kliknięcie kolekcji, obiektu gry albo pliku komponentu wizualnego otwiera *Scene Editor*. Domyślnie wszystkie sceny wizualne otwierają się w ortograficznym widoku 2D:
-
-![Scene Editor](images/editor/2d_scene.png)
-
-Jeśli pracujesz nad projektem 3D, warto zajrzeć do paska narzędzi i dostosować *Grid Settings* `▦`, na przykład przełączyć wyrównanie kamery między 2D i 3D przez `2D` lub klawisz <kbd>.</kbd>, ustawić wyświetlanie siatki na płaszczyźnie `Y` albo innej, która będzie dla Ciebie bardziej intuicyjna, i przełączyć kamerę na perspektywiczną za pomocą przełącznika na pasku narzędzi albo `View` ▸ `Perspective Camera`:
-
-![Scene Editor 3D](images/editor/3d_scene.png)
-
-### Manipulowanie obiektami
-
-<kbd>Left Mouse Click</kbd> na obiekcie w głównym oknie zaznacza go. Prostokąt lub prostopadłościan otaczający obiekt w widoku edytora zostanie podświetlony na kolor cyjan, aby wskazać zaznaczony element. Zaznaczony obiekt zostanie też podświetlony w widoku `Outline`, jak na ilustracji powyżej.
-
-Możesz też zaznaczać obiekty w następujący sposób:
-
-  - <kbd>Left Mouse Click</kbd> i <kbd>Drag</kbd>, aby zaznaczyć wszystkie obiekty mieszczące się w obszarze zaznaczenia
-  - <kbd>Left Mouse Click</kbd> na obiektach w `Outline`; przytrzymując <kbd>⇧ Shift</kbd>, rozszerzysz zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczysz lub odznaczysz kliknięty element
-
-#### Narzędzie Move
-
-![Move tool](images/editor/icon_move.png){.left}
-
-Aby przesuwać obiekty, użyj *Move Tool*. Narzędzie znajduje się na pasku narzędzi w prawym górnym rogu edytora sceny albo możesz włączyć je klawiszem <kbd>W</kbd>.
-
-![Move object](images/editor/move.png){.inline}![Move object 3D](images/editor/move_3d.png){.inline}
-
-Gizmo zmienia się i pokazuje zestaw manipulatorów, czyli kwadratów i strzałek. Zaznaczony manipulator zmienia kolor na pomarańczowy. Możesz je <kbd>Drag</kbd>, aby przesuwać obiekty:
-
-- środkowy cyjanowy kwadrat przesuwa obiekt tylko w przestrzeni ekranu
-- trzy czerwone, zielone i niebieskie strzałki przesuwają obiekt tylko wzdłuż odpowiednio osi X, Y i Z
-- trzy czerwone, zielone i niebieskie kwadratowe uchwyty przesuwają obiekt tylko po wybranej płaszczyźnie, na przykład X-Y (niebieska), a po obróceniu kamery w 3D także X-Z (zielona) i Y-Z (czerwona)
-
-#### Narzędzie Rotate
-
-![Rotate tool](images/editor/icon_rotate.png){.left}
-
-Aby obracać obiekty, użyj *Rotate Tool*, wybierając je na pasku narzędzi albo naciskając <kbd>E</kbd>.
-
-![Rotate object](images/editor/rotate.png){.inline}![Rotate object 3D](images/editor/rotate_3d.png){.inline}
-
-To narzędzie składa się z czterech okrągłych manipulatorów, które możesz <kbd>Drag</kbd>, aby obracać obiekt. Zaznaczony manipulator zmienia kolor na pomarańczowy:
-
-- zewnętrzny, największy, cyjanowy manipulator obraca obiekt w płaszczyźnie ekranu
-- trzy mniejsze czerwone, zielone i niebieskie manipulatory pozwalają obracać osobno wokół osi X, Y i Z; w widoku ortograficznym 2D dwa z nich są prostopadłe do osi X i Y, więc są widoczne tylko jako linie przecinające obiekt
-
-#### Narzędzie Scale
-
-![Scale tool](images/editor/icon_scale.png){.left}
-
-Aby skalować obiekty, użyj *Scale Tool*, wybierając je na pasku narzędzi albo naciskając <kbd>R</kbd>.
-
-![Scale object](images/editor/scale.png){.inline}![Scale object 3D](images/editor/scale_3d.png){.inline}
-
-To narzędzie składa się z zestawu kwadratowych i sześciennych manipulatorów, które możesz <kbd>Drag</kbd>, aby skalować obiekty. Zaznaczony manipulator zmienia kolor na pomarańczowy:
-
-- środkowy cyjanowy sześcian skaluje obiekt równomiernie we wszystkich osiach, także w osi Z
-- trzy czerwone, niebieskie i zielone manipulatory składające się z sześcianów skalują obiekt osobno wzdłuż osi X, Y i Z
-- trzy czerwone, niebieskie i zielone manipulatory składające się z sześcianów skalują obiekt osobno w płaszczyznach X-Y, X-Z i Y-Z
-
-### Filtry widoczności
-
-Kliknij ikonę oka `👁` na pasku narzędzi, aby przełączać widoczność różnych typów komponentów oraz obwiedni i linii pomocniczych. `Component Guides` ma też skrót <kbd>Ctrl</kbd> + <kbd>H</kbd> w Windows/Linux lub <kbd>^ Ctrl</kbd> + <kbd>⌘ Cmd</kbd> + <kbd>H</kbd> na Macu.
-
-![Visibility filters](images/editor/visibilityfilters.png)
 
 ## Tworzenie nowych plików projektu
 

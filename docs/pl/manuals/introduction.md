@@ -1,36 +1,74 @@
 ---
-title: Wprowadzenie do silnika Defold
-brief: Krótki wstęp do silnika Defold.
+brief: Krótkie wprowadzenie do Defold. To dobre miejsce, aby rozpocząć przygodę z tworzeniem gier i Defold.
+github: https://github.com/defold/doc
+layout: manual
+locale: pl
+title: Wprowadzenie do Defold
+toc:
+- Witamy w Defold
+- Od czego zacząć?
 ---
 
-# Witamy w Defold
+## Witamy w Defold
 
-Defold to kompletne rozwiązanie, które oddaje w ręce twórców gry wszystkie potrzebne narzędzia, od projektowania po wdrożenie. Pełna lista możliwości platformy jest dostępna na stronie [przeglądu możliwości silnika Defold](/product).
+Defold to darmowe, lekkie i wydajne kompletne rozwiązanie do tworzenia gier 2D i 3D - silnik gry, edytor i ekosystem budowania w jednym pakiecie, który daje wszystko, czego potrzebujesz do projektowania, tworzenia i publikowania. Pełną listę obsługiwanych funkcji znajdziesz w [przeglądzie produktu](/product).
 
-Spędziliśmy dużo czasu na uproszczeniu kluczowych elementów procesu tworzenia gier, tak aby praca w silniku Defold była możliwie sprawna. Uważamy, że właśnie to wyróżnia Defold, dlatego zachęcamy do zapoznania się z powodami, dla których uznajemy go za dobry wybór. Szczegóły znajdziesz na stronie [dlaczego uważamy, że warto używać silnika Defold](/why).
+Poświęciliśmy dużo czasu i pracy, aby kluczowe elementy procesu tworzenia gier były możliwie płynne i wygodne. Uważamy, że to wyróżnia Defold. Dowiedz się, [dlaczego naszym zdaniem warto używać Defold](/why).
 
 ## Od czego zacząć?
 
-Zachęcamy do eksperymentowania, korzystania z tutoriali, czytania podręczników i dokumentacji API oraz do udziału w forum, by uczyć się od innych użytkowników i śledzić rozwój silnika Defold. Na stronie znajduje się sporo materiałów: podręczniki, referencje API, przykłady i przeglądy technologii. Jeśli czujesz się zagubiony, poniżej znajdziesz kilka wskazówek, od czego zacząć:
+[**Learning Hub**](/learn) to punkt startowy dla wszystkich materiałów edukacyjnych Defold. Znajdziesz tam:
 
-#### Edytor
-![Przegląd edytora](images/introduction/editor.png){.left} [Przegląd edytora](/manuals/editor/) przedstawia podstawy korzystania z edytora, pomoże Ci rozpoznać elementy interfejsu, obsługiwać narzędzia wizualne i pisać kod. Jeżeli znasz inne środowiska programistyczne lub aplikacje do modelowania 3D, większość rzeczy będzie Ci znajoma, choć pewne detale mogą wyglądać inaczej.
+- [**Podręczniki**](/manuals), takie jak ten - aby dokładnie zrozumieć dany temat i poszerzyć wiedzę
+- [**Samouczki**](/tutorials) - aby stworzyć coś, wykonując prowadzone instrukcje krok po kroku
+- [**Przykłady**](/examples) - krótkie fragmenty kodu oraz małe, samodzielne przykłady funkcjonalności
+- [**Kursy**](/courses) - dłuższe, uporządkowane lekcje dostępne na Zenva, Udemy i tworzone przez społeczność
+- [**Wideo**](/videos) - jeśli wolisz oglądać, dostępnych jest wiele samouczków i przeglądów wideo
+- [**API**](/ref/stable/overview_defoldlua) - aktualną dokumentację wszystkich dostępnych funkcji i stałych
+- [**FAQ**](/faq/faq) - odpowiedzi na najczęściej zadawane pytania; warto sprawdzić, czy twój problem nie został już rozwiązany
 
-#### Proste przykłady
-![Przykłady](images/introduction/examples.jpg){.left} [Nasz zbiór prostych przykładów](/examples/) pokazuje, jak łączyć elementy silnika Defold w działające rozwiązania. Znajdziesz tam minimalne przykłady popularnych mechanik, dzięki którym łatwiej zrozumiesz, jak pracować z poszczególnymi komponentami.
+Zachęcamy do eksperymentowania, przechodzenia samouczków, czytania podręczników i dokumentacji API oraz dołączenia do [kanałów społeczności](/community), aby zadawać pytania, uczyć się od innych użytkowników i śledzić rozwój Defold.
 
-#### Język Lua
-![Przegląd Lua](images/introduction/lua.png){.left} [Defold używa języka Lua](/manuals/lua/) do implementacji logiki. Silnik jest napisany w C++, ale sterujesz nim z poziomu Lua. Jeśli programowałeś już w Pythonie, JavaScripcie lub innym języku wysokiego poziomu, nauka Lua powinna być prosta i szybko poradzisz sobie z kolejnymi tutorialami. W przeciwnym razie warto zacząć od podręcznika do Lua.
+Poniżej znajdziesz kilka przydatnych wskazówek na start, jeśli zaczynasz tworzyć gry albo uczysz się Defold:
 
-#### Tutoriale gier
-![Tutoriale](images/introduction/tutorials.jpg){.left} Uczysz się najlepiej, robiąc coś samodzielnie. Dlatego w [edytorze](/manuals/editor/) znajdziesz zestaw tutoriali o różnym poziomie trudności. Uruchom jeden z nich i przechodź kolejne kroki, aby zobaczyć, jak budować projekty i jak działa Defold.
+### Edytor Defold
 
-#### Podstawowe elementy silnika Defold
-![Podstawowe elementy](images/introduction/building_blocks.png){.left} [Gry w silniku Defold buduje się przez składanie prostych elementów](/manuals/building-blocks/), a niektóre pojawiają się też w innych silnikach. Istnieją jednak decyzje architektoniczne, które nadają naszym blokom specyficzny charakter, więc może minąć chwilę, zanim poczujesz się z nimi swobodnie. Instrukcja dotycząca podstawowych elementów to dobry punkt wyjścia, jeśli chcesz zrozumieć, jak działa silnik Defold.
+[![Przegląd edytora](images/editor/editor_overview.png)](/manuals/editor)
 
-#### Forum
-![Forum](images/introduction/forum.jpg){.left} [Uczenie się od innych](//forum.defold.com/) często jest najskuteczniejszym sposobem na naukę. Nasza społeczność jest przyjazna i zna się na tworzeniu gier w ogóle, a szczególnie na pracy z Defold. Jeśli utkniesz, śmiało zajrzyj na forum i poproś o pomoc.
+[Przegląd edytora](/manuals/editor/) dobrze wprowadza w jego użycie i pomoże ci poruszać się po interfejsie, korzystać z narzędzi wizualnych oraz pisać kod. Jeśli znasz edytory innych silników gier, programy do modelowania 3D albo środowiska programistyczne, większość rzeczy nie powinna cię zaskoczyć, choć zawsze znajdą się różnice względem ulubionego narzędzia.
 
-Pamiętaj, że bez względu na to, jaką ścieżkę wybierzesz, zawsze możesz wrócić do tego podręcznika po dokładniejsze wyjaśnienia dotyczące funkcji i konceptów silnika Defold. Nie wahaj się zgłaszać, kiedy coś wydaje się niejasne lub nieprawidłowe — te strony są dla Ciebie i chcemy, żeby były jak najbardziej pomocne.
+### Podstawowe elementy Defold
 
-Mamy nadzieję, że tworzenie kolejnej świetnej gry w silniku Defold sprawi Ci satysfakcję!
+[![Podstawowe elementy](images/building_blocks/building_blocks.png)](/manuals/building-blocks)
+
+[Podstawowe elementy Defold](/manuals/building-blocks/) to dobry podręcznik wprowadzający w najważniejsze pojęcia tworzenia gier w Defold. Defold używa obiektów gry z różnymi komponentami, a obiekty gry są grupowane w kolekcje. Jeśli używałeś innych silników, te pojęcia mogą brzmieć znajomo. Defold ma jednak kilka decyzji architektonicznych, które nadają tym podstawowym elementom własny charakter, więc potrzeba chwili, aby poczuć się z nimi swobodnie. Dlatego ten podręcznik jest dobrym początkiem, szczególnie jeśli chcesz zrozumieć, jak to działa.
+
+### Przykłady
+
+[![Przykłady](images/introduction/examples.png)](/examples)
+
+Zbiór [przykładów](/examples/) dobrze pokazuje, jak połączyć elementy w działającą całość. Znajdziesz tam minimalne przykłady wielu typowych rzeczy wykonywanych w Defold, fragmenty kodu do wykorzystania, próbki popularnych funkcjonalności oraz prezentacje wybranych możliwości.
+
+### Samouczki
+
+[![Samouczki](images/introduction/tutorials.png)](/tutorials)
+
+[Samouczki](/tutorials) są świetne na początek tworzenia gier. Uważamy, że najlepiej uczysz się przez praktykę. Dlatego udostępniamy zestaw samouczków o różnych poziomach trudności i złożoności, bezpośrednio w [edytorze](/manuals/editor/) oraz w Learning Hub. Uruchom jeden z nich i wykonuj instrukcje krok po kroku, aby zobaczyć, jak budować rzeczy i jak działa Defold.
+
+### Język Lua
+
+[![Przegląd Lua](images/introduction/lua.png)](/manuals/lua)
+
+[Lua](/manuals/lua/) to język używany w Defold do sterowania całą logiką. Sam silnik jest szybkim mechanizmem napisanym w C++, ale na wysokim poziomie kontroluje się go za pomocą skryptów Lua. Jeśli programowałeś już w Pythonie, GDScript, GML, JavaScript albo innym języku wysokiego poziomu, Lua będzie dość łatwa do opanowania i prawdopodobnie bez problemu przejdziesz samouczek. W przeciwnym razie zacznij od naszego podręcznika Lua.
+
+### Forum Defold
+
+[![Forum](images/introduction/forum.png)](//forum.defold.com/)
+
+[Forum Defold](//forum.defold.com/) często jest najlepszym sposobem nauki: możesz uczyć się od innych, wyszukać, czy twój problem został już rozwiązany, albo zapytać bezpośrednio. Nasza społeczność jest bardzo przyjazna, pomocna i dużo wie o tworzeniu gier w ogóle, a o Defold w szczególności. Jeśli utkniesz, nie wahaj się zajrzeć na forum po pomoc.
+
+### Learning Hub
+
+Pamiętaj, że niezależnie od wybranej ścieżki nauki zawsze możesz wrócić do [**Learning Hub**](/learn), aby znaleźć inne materiały edukacyjne i czytać podręczniki z dokładniejszymi wyjaśnieniami różnych funkcji oraz pojęć dostępnych w Defold. Nie wahaj się też wskazywać rzeczy, których nie rozumiesz albo które wydają ci się błędne. Te strony są dla ciebie i chcemy, aby były jak najlepsze, dlatego bierzemy pod uwagę opinie użytkowników i staramy się ulepszać materiały, aby nauka była możliwie płynna.
+
+Mamy nadzieję, że tworzenie kolejnej świetnej gry w Defold sprawi ci dużo satysfakcji!

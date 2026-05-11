@@ -43,7 +43,7 @@ Gdy Defold tworzy paczkę aplikacji, musi gdzieś zapisać wykluczone zasoby. Lo
 
 ![Ustawienia Live update](images/live-update/05-liveupdate-settings-zip.png)
 
-Obecnie Defold może przechowywać zasoby na dwa sposoby. Metodę wybierasz w liście rozwijanej *Mode* w oknie ustawień:
+Obecnie Defold może przechowywać zasoby na trzy sposoby. Metodę wybierasz w liście rozwijanej *Mode* w oknie ustawień:
 
 `Zip`
 : Ta opcja każe Defold utworzyć archiwum Zip zawierające wszystkie wykluczone zasoby. Archiwum zostanie zapisane w lokalizacji wskazanej w ustawieniu *Export path*.
@@ -64,7 +64,11 @@ Aby spakować projekt z Live update, wybierz <kbd>Project ▸ Bundle ▸ ...</kb
 
 ![Pakowanie aplikacji Live](images/live-update/bundle-app.png)
 
-Podczas pakowania wszystkie wykluczone zasoby zostaną pominięte w paczce aplikacji. Zaznaczając pole *Publish Live update content*, informujesz Defold, aby albo wysłał wykluczone zasoby do Amazon, albo utworzył archiwum Zip, zależnie od tego, jak skonfigurowano ustawienia Live update (zobacz wyżej). Plik manifestu dla paczki również zostanie dołączony do wykluczonych zasobów.
+Podczas pakowania wszystkie wykluczone zasoby zostaną pominięte w paczce aplikacji. Zaznaczając pole *Publish Live update content*, informujesz Defold, aby albo wysłał wykluczone zasoby do Amazon, albo utworzył archiwum Zip, zależnie od tego, jak skonfigurowano ustawienia Live update (zobacz wyżej). Opublikowana zawartość Live Update nadal zawiera `liveupdate.game.dmanifest`, który przechowuje pełną listę zasobów potrzebną do zdalnej dystrybucji.
+
+Podczas publikowania archiwalnej zawartości Live Update opcja *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) jest domyślnie włączona. Przy tym ustawieniu zasoby używane wyłącznie przez Live Update są usuwane z dołączonego do bundla `game.dmanifest`, co zmniejsza rozmiar bundla i zużycie pamięci w czasie działania. Wyłącz ją tylko wtedy, gdy potrzebujesz przestarzałego zachowania, w którym wykluczone wpisy pozostają w dołączonym `game.dmanifest`.
+
+Przy włączonym ustawieniu domyślnym `collectionproxy.get_resources()` zwraca `{}`, dopóki odpowiednie archiwum nie zostanie zamontowane. Po zamontowaniu zwraca hashe zasobów dla danego proxy.
 
 Kliknij *Package* i wybierz lokalizację dla paczki aplikacji. Teraz możesz uruchomić aplikację i sprawdzić, czy wszystko działa zgodnie z oczekiwaniami.
 
@@ -127,6 +131,12 @@ Montowanie archiwum nie kopiuje go ani nie przenosi. Silnik przechowuje tylko ś
 
 Aby faktycznie korzystać z zawartości Live update, musisz pobrać dane i zamontować je w swojej grze.
 Więcej informacji znajdziesz [w instrukcji skryptowania z Live update](/manuals/live-update-scripting).
+
+::: important
+Przestarzały przepływ Live Update oparty na pojedynczych zasobach jest wycofywany. W nowych projektach unikaj `collectionproxy.missing_resources()`, przestarzałych API manifestu (`liveupdate.get_current_manifest()`, `liveupdate.store_resource()`, `liveupdate.store_manifest()`, `liveupdate.store_archive()`, `liveupdate.is_using_liveupdate_data()`) oraz starych aliasów pomocniczych `resource.*` (`resource.get_current_manifest()`, `resource.store_resource()`, `resource.store_manifest()`, `resource.store_archive()`, `resource.is_using_liveupdate_data()`).
+
+Obecne projekty powinny publikować archiwa, montować je przez `liveupdate.add_mount()`, zarządzać nimi przez `liveupdate.get_mounts()` i `liveupdate.remove_mount()`, oraz używać `collectionproxy.get_resources()`, gdy trzeba sprawdzić wykluczoną zawartość proxy. Starsze klucze podpisywania manifestów nie są już częścią tego przepływu: `publickey` i `privatekey` w `liveupdate.settings` są przestarzałe i nieużywane, a `game.public.der` nie jest już generowany ani pakowany.
+:::
 
 ## Uwagi deweloperskie
 

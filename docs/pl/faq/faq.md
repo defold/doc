@@ -68,7 +68,7 @@ A: Haxe nie jest oficjalnie obsługiwany. Społeczność utrzymuje [hxdefold](ht
 
 #### P: Czy mogę używać C# z Defold?
 
-A: Dzięki Defold Foundation dodano obsługę C# do pisania rozszerzeń natywnych. C# to szeroko stosowany język programowania i pomoże studiom oraz deweloperom mocno zainwestowanym w C# przejść na Defold. Przeczytaj [szczegóły tutaj](https://forum.defold.com/t/defold-c-support/79479).
+A: Defold Foundation dodała obsługę C# i udostępniła ją jako zależność biblioteczną. C# to szeroko stosowany język programowania i pomoże studiom oraz deweloperom mocno związanym z C# przejść na Defold.
 
 
 #### P: Obawiam się, że dodanie obsługi C# negatywnie wpłynie na Defold. Czy powinienem się martwić?
@@ -182,7 +182,7 @@ A: Defold obsługuje zakupy w aplikacji oraz różne rozwiązania reklamowe. Spr
 
 #### P: Nie mogę uruchomić gry i nie ma błędu budowania. Co jest nie tak?
 
-A: Proces budowania może w rzadkich przypadkach nie przebudować plików, jeśli wcześniej wystąpiły błędy budowania, które już naprawiłeś. Wymuś pełną przebudowę, wybierając <kbd>Project ▸ Rebuild And Launch</kbd> z menu.
+A: Proces budowania może w rzadkich przypadkach nie przebudować plików, jeśli wcześniej wystąpiły błędy budowania, które już naprawiłeś. Wymuś pełną przebudowę, wybierając *Project > Rebuild And Launch* z menu.
 
 
 
@@ -195,22 +195,22 @@ A: Tak. Nazywają się [kolekcje](/manuals/building-blocks/#collections). Pozwal
 
 #### P: Dlaczego nie mogę dodać obiektu gry jako dziecka innego obiektu gry?
 
-A: Najprawdopodobniej próbujesz dodać obiekt podrzędny w pliku obiektu gry, a to nie jest możliwe. Jest to możliwe tylko w pliku kolekcji. Aby zrozumieć dlaczego, trzeba pamiętać, że hierarchie rodzic-dziecko są wyłącznie hierarchią transformacji grafu sceny. Obiekt gry, który nie został umieszczony (lub utworzony dynamicznie) w scenie (kolekcji), nie należy do grafu sceny, więc nie może być częścią takiej hierarchii.
+A: Najprawdopodobniej próbujesz dodać obiekt podrzędny w pliku obiektu gry, a to nie jest możliwe. Jest to możliwe tylko w pliku kolekcji. Aby zrozumieć dlaczego, trzeba pamiętać, że hierarchie rodzic-dziecko są wyłącznie hierarchią transformacji grafu sceny. Obiekt gry, który nie został umieszczony (lub utworzony dynamicznie) w scenie (kolekcji), nie należy do grafu sceny, więc nie może być częścią takiej hierarchii. Możesz sprawdzić id rodzica danego obiektu gry używając [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
 
 
 #### P: Dlaczego nie mogę rozsyłać wiadomości do wszystkich dzieci obiektu gry?
 
-A: Relacje rodzic-dziecko wyrażają wyłącznie relacje transformacji w grafie sceny i nie należy ich mylić z agregatami obiektów w programowaniu obiektowym. Jeśli skupisz się na danych swojej gry i na tym, jak najlepiej je przekształcać, gdy gra zmienia stan, prawdopodobnie rzadziej będziesz musiał wysyłać wiadomości z danymi stanu do wielu obiektów jednocześnie. Tam, gdzie potrzebujesz hierarchii danych, można je łatwo tworzyć i obsługiwać w Lua. Możesz sprawdzić id rodzica danego obiektu gry używając [`go.get_parent()`](https://defold.com/ref/stable/go-lua/#go.get_parent:id).
+A: Relacje rodzic-dziecko wyrażają wyłącznie relacje transformacji w grafie sceny i nie należy ich mylić z agregatami obiektów w programowaniu obiektowym. Jeśli skupisz się na danych swojej gry i na tym, jak najlepiej je przekształcać, gdy gra zmienia stan, prawdopodobnie rzadziej będziesz musiał wysyłać wiadomości z danymi stanu do wielu obiektów jednocześnie. Tam, gdzie potrzebujesz hierarchii danych, można je łatwo tworzyć i obsługiwać w Lua.
 
 
 #### P: Dlaczego widzę artefakty wizualne wokół krawędzi moich sprite'ów?
 
-A: To artefakt wizualny nazywany `edge bleeding`, w którym piksele z krawędzi sąsiednich obrazów w atlasie przenikają do obrazu przypisanego do sprite'a. Rozwiązaniem jest dodanie dodatkowych wierszy i kolumn identycznych pikseli na obrzeżach obrazów atlasu. Na szczęście można to zrobić automatycznie w edytorze atlasu w Defold. Otwórz atlas i ustaw wartość właściwości `Extrude Borders` na 1.
+A: To artefakt wizualny nazywany "edge bleeding", w którym piksele z krawędzi sąsiednich obrazów w atlasie przenikają do obrazu przypisanego do sprite'a. Rozwiązaniem jest dodanie dodatkowych wierszy i kolumn identycznych pikseli na obrzeżach obrazów atlasu. Na szczęście można to zrobić automatycznie w edytorze atlasu w Defold. Otwórz atlas i ustaw wartość właściwości *Extrude Borders* na 1.
 
 
 #### P: Czy mogę barwić sprite'y albo uczynić je przezroczystymi, czy muszę napisać do tego własny shader?
 
-A: Wbudowany shader sprite'a, używany domyślnie dla wszystkich sprite'ów, ma zdefiniowaną stałą `tint`:
+A: Wbudowany shader sprite'a, używany domyślnie dla wszystkich sprite'ów, ma zdefiniowaną stałą "tint":
 
   ```lua
   local red = 1
