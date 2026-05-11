@@ -11,7 +11,7 @@ If you have prior experience with Unity, this guide helps you become productive 
 
 Defold is a completely free, truly cross-platform 3D game engine with an Editor for Windows, Linux, and macOS. The full source code is available on [Github](https://github.com/defold/defold/).
 
-Defold is focused on performance, even on low-end devices. It uses a small, explicit component model where many gameplay interactions are handled through code and message passing.
+Defold is focused on performance, even on low-end devices. It uses a small component model where many gameplay interactions are handled through code and message passing.
 
 Defold is much smaller than Unity. Engine size with empty project is between 1-3 MB on all platforms. You can strip out additional parts of the engine, and move some game content into [Live Update](/manuals/live-update) to download separately later. A size comparison and other reasons to choose Defold are described on the [Why Defold webpage](https://defold.com/why/).
 
@@ -150,7 +150,9 @@ In both engines, Game Objects can be extended with **"Components"**. Defold prov
 
 #### Behaviour components
 
-In Unity, "component" can mean an engine component or a custom `MonoBehaviour` that you attach to a GameObject. In Defold, the word "Component" usually refers to engine-level components such as Sprite, Collision Object, Factory, GUI, Sound, Model, Script, and so on. A Script is one such component, but Defold projects usually do not treat scripts as one-to-one equivalents of Unity `MonoBehaviour` scripts.
+In Unity, "component" usually means a `MonoBehaviour` that is attached to a `GameObject`. You can create your own by inheriting from `MonoBehaviour` or you can use their built-in components like Light, some physics stuff, something something, so on and so forth.
+
+In Defold, Component refers exclusively to what would be the equivalent built-in components in Unity, or something, but defold does not treat a script as a monobehaviour and does not require any explicit "marking" in order to attach to a gameobject, other than creating listener events/callbacks.
 
 Custom gameplay behaviour is usually not added as many separate script components on the same game object. Instead, it is commonly implemented in Lua modules and used by one host `.script`, or handled by a larger system script that controls many objects. The Code Writing section below covers this in more detail.
 
@@ -250,7 +252,7 @@ Defold supports the usage of transpilers that emit Lua code, such as [Teal](http
 
 ### C++/C# Native Extensions
 
-In Defold you can write Native Extensions can be written in several other languages: C, C++, C#, Objective-C, Java or JS depending on target platform. If you are very comfortable with C#, it’s technically possible to structure most of your game logic in a C# extension and just call it from a small Lua bootstrap script, though this requires some advanced API knowledge and is not recommended for beginners.
+In Defold Native Extensions can be written in several other languages: C, C++, C#, Objective-C, Java or JS depending on target platform. If you are very comfortable with C#, it’s technically possible to structure most of your game logic in a C# extension and just call it from a small Lua bootstrap script, though this requires some advanced API knowledge and is not recommended for beginners.
 
 Read more about extensions in [Defold Native Extensions manual](/manual/extensions.md).
 
@@ -326,7 +328,7 @@ The important difference is not that Defold prevents modular architecture - it i
 
 This can feel unusual at first, especially if you are used to configuring behaviour by adding components in the Inspector. In Defold, many things that you might configure visually in Unity can instead be created, connected, enabled, disabled, or updated through code. Defold's messaging system helps decouple logic: the sender posts data to an address, and the receiver decides what to do with it.
 
-This approach, even though recommended, is not enforced and you can still write your scripts however you like, including attaching multiple scripts per game object or getting closer to an object oriented programming, and there are even libraries to help you with this ([defold-oop](https://github.com/xiyoo0812/defold-oop) or [lua-class](https://github.com/d954mas/lua-class)).
+This approach, even though recommended, is not enforced and you can still write your scripts however you like, including attaching multiple scripts per game object or getting closer to an object oriented style of programming, and there are even libraries to help you with this ([defold-oop](https://github.com/xiyoo0812/defold-oop) or [lua-class](https://github.com/d954mas/lua-class)).
 
 For many objects of the same type, such as bullets, enemies, particles, tiles, or simple interactive elements, it is often better to control them from a system or manager script rather than giving each object a separate script. Use per-object scripts when an object has its own meaningful state and behaviour. Use modules when you want reusable logic. Use system scripts when one script can efficiently control many objects.
 
