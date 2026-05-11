@@ -1,6 +1,6 @@
 ---
-title: Extensões Depuração.
-brief: Este manual descreve maneiras de depurar o aplicativo que contém  nativas extensões. 
+title: Depuração de extensões
+brief: Este manual descreve algumas formas de depurar uma aplicação que contém extensões nativas.
 ---
 
-Consulte em [Debugging Native Code manual](/manuals/debugging-native-code) para aprender mais.
+Consulte o [manual de depuração de código nativo](/manuals/debugging-native-code) para saber mais.

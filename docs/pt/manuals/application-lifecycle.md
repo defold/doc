@@ -1,41 +1,63 @@
 ---
-title: Manual de ciclo de vida da aplicação Defold.
-brief: Esse manual detalha o ciclo de vida dos games e aplicações do Defold.
+title: Manual de ciclo de vida da aplicação Defold
+brief: Este manual detalha o ciclo de vida de jogos e aplicações no Defold.
 ---
 
 # Ciclo de vida da aplicação
 
-O ciclo de vida de uma aplicação ou jogo no Defold esta em uma escala simples. A engine movimenta entre três estágios de execução: inicialização, update (onde apps e jogos passam maior parte do tempo) e finalização.
+O ciclo de vida de uma aplicação ou jogo no Defold é, em grande escala, simples. A engine passa por três estágios de execução: inicialização, loop de atualização (onde aplicativos e jogos passam a maior parte do tempo) e finalização.
 
-![Visão geral do Ciclo de vida](images/application_lifecycle/application_lifecycle_overview.png)
+::: sidenote
+Este manual se refere às versões do Defold a partir da 1.12.0. Na versão 1.12.0 foram introduzidas mudanças no ciclo de vida e a nova função `late_update()`.
+:::
 
-Em varios casos somente um conhecimento rudimentar do funcionamento do Defold é necessário. De qualquer forma, você pode se deparar com casos em que a ordem que o Defold leva se torna vital. Esse documento descreve como a engine roda uma aplicação do início ao fim
+![Lifecycle overview](images/application_lifecycle/application_lifecycle.png)
 
-A aplicação começa incializando tudo que é necessário para rodar a engine. Ela carrega a coleção principal e chama [`init()`](/ref/go#init) em todos os componentes carregados que têm uma função Lua `init()` (componentes de scripts e GUI com scripts de GUI). Isso permite que você customize a inicialização.
+Em muitos casos, basta ter uma compreensão básica do funcionamento interno do Defold. Porém, você pode encontrar casos de borda em que a ordem exata em que o Defold executa suas tarefas se torna essencial. Este documento descreve como a engine executa uma aplicação do início ao fim.
 
-A aplicação então insere um loop de update em que a aplicação ira gastar maior parte de seu tempo de vida. Cada frame, objeto do jogo e os componentes neles contidas são atualizados. Qualquer script e script de GUI tem suas funções [`update()`](/ref/go#update) chamadas. Durante um loop de update mensagens são disparadas para seus recipientes, sons são tocados e todos os gráficos são renderizados 
+A aplicação começa inicializando tudo o que é necessário para executar a engine. Ela carrega a coleção principal e chama [`init()`](/ref/go#init) em todos os componentes carregados que têm uma função Lua `init()` (componentes de script e componentes GUI com scripts de GUI). Isso permite que você faça uma inicialização personalizada.
 
-Em algum ponto, o ciclo de vida da aplicação chegará a um fim. Antes da aplicação sair, a engine sai do update loop e entra na fase de finalização. Isso prepara todos objetos do jogo carregados para serem deletados. Todos componentes de objetos tem a função [`final()`](/ref/go#final) que são chamados, permitindo uma limpeza personalizada. Então os objetos são deletados e a coleção principal e descarregada. 
+Em seguida, a aplicação entra no loop de atualização, onde passará a maior parte do seu tempo de vida. A cada frame, os objetos de jogo e os componentes que eles contêm são atualizados. Todas as funções [`update()`](/ref/go#update) de scripts e scripts de GUI são chamadas. Durante o loop de atualização, mensagens são despachadas para seus destinatários, sons são reproduzidos e todos os gráficos são renderizados.
+
+Em algum momento, o ciclo de vida da aplicação chega ao fim. Antes de encerrar, a engine sai do loop de atualização e entra em uma etapa de finalização. Ela prepara todos os objetos de jogo carregados para exclusão. As funções [`final()`](/ref/go#final) de todos os componentes dos objetos são chamadas, permitindo limpeza personalizada. Depois, os objetos são excluídos e a coleção principal é descarregada.
+
+As etapas envolvidas na passagem ["despacho de mensagens"](#dispatching-messages) são mostradas em um diagrama separado no fim deste manual, para maior clareza, e são marcadas nos diagramas com um pequeno ícone de "envelope com uma seta" 📩.
 
 ## Inicialização
 
-O diagrama contem uma simplificação mais detalhada dos passos de incialização. Os passos envolvendo as "mensagens de despache" (logo antes de "spawn dynamic objects") foram colocados em um bloco separado à direita para dar maior clareza.
+É aqui que seu jogo começa, no primeiro passo do jogo em execução. A inicialização pode ser separada em 3 fases:
 
-![Visão geral do Ciclo de vida](images/application_lifecycle/application_lifecycle_init.png)
+![Initizalization](images/application_lifecycle/initialization.png)
 
-A engine atualmente requer muito mais passos durante a inicialização, antes da coleção principal ser carregada. O perfilador de memôria, os sockets,os gráficos, os HID (dispositivos de entrada), os sons, a física e muito mais são settados. A configuração da aplicação (*game.project*) também é carregada e settada.
+### Pré-inicialização
 
-O primeiro ponto de entrada controlavel pelo usuário, no fim da inicialização da engine, é a chamada para a função do script de renderização `init()`. 
+Durante a fase `Preinitialization`, a engine executa várias etapas antes de carregar a coleção principal (bootstrap). O perfilador de memória, sockets, gráficos, HID (dispositivos de entrada), som, física e muito mais são configurados. A configuração da aplicação (*game.project*) também é carregada e configurada.
 
-A coleção principal é então carregada e inicializada. Todos os objetos do jogo na coleção aplicam suas transformações (tradução (mudança de posição), rotação e escala) ao seus filhos. Todas funções de componentes `init()` que existem então são chamados.
+![Preinitialization](images/application_lifecycle/pre_init.png)
+
+O primeiro ponto de entrada controlável pelo usuário, no fim da inicialização da engine, é a chamada à função `init()` do script de renderização atual.
+
+A coleção principal é então carregada e inicializada.
+
+### Inicialização da coleção
+
+Durante a fase `Collection Init`, todos os objetos de jogo na coleção aplicam suas transformações: translação (mudança de posição), rotação e escala aos seus filhos. Em seguida, todas as funções `init()` de componentes existentes são chamadas.
+
+![Collection Init](images/application_lifecycle/collection_init.png)
 
 ::: sidenote
-A ordem em que a função do objeto componente `init()` é chamada não é específica. Você não deve assumir que a engine incializa objetos pertencentes a mesma coleção em uma certa ordem.
+A ordem em que as funções `init()` dos componentes de objetos de jogo são chamadas não é especificada. Você não deve assumir que a engine inicializa objetos pertencentes à mesma coleção em uma determinada ordem.
 :::
 
-Desde que o código do seu `init()` possa postar novas mensagens, dizer as fábricas para spawnarem novos objetos, marcar objetos para serem deletados e fazer todo tipo de coisas, a engine performa um full "post-update" em seguida. Esse pass carrega uma mensagem, que contem o objeto factory spawnando e deletando objetos. Perceba que o post-update inclui uma sequencia de "mensagens despachadas" que não somente envia mensagens que estão na fila mas também lida com mensagens enviadas para coletores proxies. Qualquer updates subsequentes nos proxies (habilitados ou desabilitados, carregando e marcado para descarregamento) são realizados durante esses pasos.
+### Post Update na inicialização
 
-Estudando o diagrama acima revela que é possível carregar uma [coleção proxy](/manuals/collection-proxy) durante o `init()`, isso assegura que objetos contidos serão inicializados, e então descarregam a coleção pelo proxy---isso tudo antes do primeiro componente `update()` ser chamado, i.e. antes da engine deixar a fase de incialização e entrar no loop de update:
+A engine então executa uma passagem completa de `Post Update`, a mesma que será executada depois de cada etapa de `Update Loop` mais adiante. Ela é executada no fim da inicialização porque seu código em `init()` pode postar novas mensagens, instruir fábricas a criar novos objetos, marcar objetos para exclusão e realizar outras ações.
+
+![Post Update](images/application_lifecycle/post_init.png)
+
+Essa passagem realiza a entrega de mensagens, a criação efetiva de objetos de jogo por fábricas e a exclusão de objetos. Observe que a passagem `Post Update` inclui uma sequência de "despacho de mensagens" que não apenas entrega mensagens enfileiradas, mas também processa mensagens enviadas a proxies de coleção. Quaisquer atualizações subsequentes de proxy (enable, disable, init, final, loading e marcação para unload) são realizadas durante essas etapas.
+
+É totalmente possível carregar um [proxy de coleção](/manuals/collection-proxy) durante `init()`, garantir que todos os objetos contidos nele sejam inicializados e então descarregar a coleção pelo proxy, tudo isso antes que o primeiro `update()` de componente seja chamado, isto é, antes que a engine deixe a etapa de inicialização e entre no loop de atualização:
 
 ```lua
 function init(self)
@@ -44,7 +66,7 @@ function init(self)
 end
 
 function update(self, dt)
-    -- The proxy collection is unloaded before this code is reached.
+    -- A coleção do proxy é descarregada antes que este código seja alcançado.
     print("update()")
 end
 
@@ -54,66 +76,165 @@ function on_message(self, message_id, message, sender)
         msg.post("#collectionproxy", "init")
         msg.post("#collectionproxy", "enable")
         msg.post("#collectionproxy", "unload")
-        -- The proxy collection objects’ init() and final() functions
-        -- are called before we reach this object’s update()
+        -- As funções init() e final() dos objetos da coleção do proxy
+        -- são chamadas antes de chegarmos ao update() deste objeto
     end
 end
 ```
 
-## O loop de update
+## Loop de atualização
 
-O loop de update roda durante uma longa sequencia em cada frama. A sequência no diagrama abaixo é dividida entre sequências logicas de blocos para clareza. "Mensagens de despache" também são separados pela mesma razão:
+O loop de atualização executa uma sequência específica uma vez por frame. Essa sequência pode ser definida por 5 fases principais:
 
-![loop de Update](images/application_lifecycle/application_lifecycle_update.png)
+![Update Loop](images/application_lifecycle/update_loop.png)
 
-## Input
+1. Entrada (processamento e tratamento)
+2. Atualização (incluindo atualizações Fixed, Regular, Late e de componentes da engine)
+3. Atualização de renderização
+4. Post Update (descarregamento de proxies de coleção, criação e exclusão de objetos de jogo)
+5. Renderização do frame (os gráficos finais são renderizados)
 
-Input é lido de dispositivos disponíveis, mapeados contra [binds de input](/manuals/input) e então despachados. Qualquer objeto que adquirir foco de imput pega inputs enviados para todos as funções de componentes `on_input()`. Um objeto com um componente de script e um GUI componente com um script GUI vai pegar um input para ambas funções de componentes `on_input()` ---dado que eles são definidos e tenham foco de input.
+### Fase de entrada
 
-Qualquer objecto que tenha adquirido foco de input e contenha coleções proxy com componentes dispachaveis com input para componentes dentro da coleção da proxy. Esse processo continua recursivamente abaixo em coleções proxyes dentro de coleções proxies ativas.
+A entrada é lida dos dispositivos disponíveis, mapeada pelos [mapeamentos de entrada](/manuals/input) e então despachada. Qualquer objeto de jogo que tenha adquirido foco de entrada recebe entrada em todas as funções `on_input()` dos seus componentes. Um objeto de jogo com um componente de script e um componente GUI com script de GUI receberá entrada nas funções `on_input()` de ambos os componentes, desde que elas estejam definidas e que os componentes tenham adquirido foco de entrada.
 
-## Update
+![Input Phase](images/application_lifecycle/input_phase.png)
 
-Cada componente game object na coleção principal é atravessado. Se qualquer um desses componentes tiver um função de script `update()`, então isso será chamado. Se o componente é uma coleçaõ proxy, cada componente na coleção proxy é recursivamente atualizado com todos os passos na sequência "update" no diagrama acima. 
+Qualquer objeto de jogo que tenha adquirido foco de entrada e contenha componentes de proxy de coleção despacha entrada para componentes dentro da coleção do proxy. Esse processo continua recursivamente por proxies de coleção habilitados dentro de proxies de coleção habilitados.
+
+### Fase de atualização
+
+A fase `Update` faz parte do loop de atualização. Ela começa uma vez para a coleção raiz e então é executada recursivamente para cada proxy de coleção habilitado.
+
+Dentro de uma coleção, o Defold processa callbacks por tipo de componente: ele percorre todas as instâncias de um tipo de componente que implementa a etapa relevante, chama o callback Lua de cada instância, esvazia as mensagens e então passa para o próximo tipo de componente.
+
+A ordem de alto nível das etapas de callback Lua de componentes de *script* é:
+
+1. `fixed_update()` - chamada 0..N vezes por frame (se estiver usando passo de tempo fixo)
+2. `update()` - chamada 1 vez por frame
+3. `late_update()` - chamada 1 vez por frame
+
+![Update Phase](images/application_lifecycle/update_phase.png)
+
+
+Cada componente de objeto de jogo na coleção principal é percorrido. Se algum desses componentes tiver um script com uma função `fixed_update()`/`update()`/`late_update()`, ela será chamada. Se o componente for um proxy de coleção, cada componente na coleção do proxy é atualizado recursivamente com todas as etapas da fase `Update`.
 
 ::: sidenote
-A ordem em cada função de componende de game object `update()` não é específica. Você não deve assumir que a engine atualiza os objetos pertencentes a mesma coleção em uma certa ordem. 
+A ordem em que as funções `update()` dos componentes de objetos de jogo são chamadas não é especificada. Você não deve assumir que a engine atualiza objetos pertencentes à mesma coleção em uma determinada ordem. O mesmo vale para `fixed_update()` e `late_update()` (desde a 1.12.0).
 :::
 
-No próximo passo, todas as mensagens são despachadas. Desde que qualquer componenente receptor `on_message()` pode postar mensagens adicionais o dispachante de mensagens irá continuar a dispachar mensagens postadas, ate que a fila esteja vazia. Entretanto tem-se um limite a quantas rodadas na fila de mensagens podem ser rodadas pelo dispacher. Veja [Passagem de mensagem](/manuals/message-passing) e a sessão "Tópicos avançados" para maiores detalhes.
+#### Física
 
-Para componentes de objeto de colisão, mensagens de physics (colisões, gatilhos, respostas ray_cast e etc) são dispachados pelo encompassing game object para todos os componentes que contêm funções de script com uma `on_message()`.
+Para componentes de objeto de colisão, mensagens de física (colisões, gatilhos, respostas de ray cast etc.) são despachadas pelo objeto de jogo que as engloba para todos os componentes que contêm um script com a função `on_message()`.
 
-Transformações são entao finalizadas, aplicando qualquer movimento de game object, rotação e escalamento a cada componente de game object e qualquer filho componente de game object.
+Se um [passo de tempo fixo](/manuals/physics/#physics-updates) for usado para simulação de física, também pode haver uma chamada à função `fixed_update()` em todos os componentes de script. Essa função é útil em jogos baseados em física quando você quer manipular objetos físicos em intervalos regulares para obter uma simulação física estável.
 
-## Atualização de Render
+#### Transformações
 
-O bloco de atualização render despacha mensagens ao socket `@render` (mensagens de componente de camera `set_view_projection`, `set_clear_color`, etc). O script de render `update()` é então chamado.   
+Antes de **cada** atualização por tipo de componente, várias vezes durante o `Update Loop`, se necessário, as transformações são atualizadas, aplicando qualquer movimento, rotação e escala de objetos de jogo a cada componente de objeto de jogo e a qualquer componente de objeto de jogo filho.
 
-## Atualização de Post
+Há uma atualização final adicional de transformações no fim do `Update Loop`, se necessário.
 
-Depois das atualizações, uma atualização post é rodada. Ela descarrega da memoria coleções proxy que estão marcas para unloading (isso acontede durante a sequência de "mensagens de despache"). Qualquer game object que é marcado para deleção vai chamar todas suas funções de compontens `final()`, se tiver alguma. O código em funções `final()` geralmente postam novas mensagens na fila para que um dispacher seja rodado posteriormente. 
+#### Fase de atualização da engine (sem atualizações fixas)
 
-Qualquer componente de fabrica que foi invocado para spawnar um game object vai fazer isso depois, Finalmente game objects que estão marcados para deleção serão deletados. 
+As tabelas abaixo descrevem as passagens de atualização no nível da *engine*. Elas omitem deliberadamente a ordem exata de prioridade interna dos componentes (que é um detalhe de implementação da engine), mas refletem as garantias de ordenação relevantes para scripting:
 
-O último passo no loop de updates envolve as mensagens do dispatching `@system` (mensagens de `exit`, `reboot`, habilitando o profiler, inciando e parando capturas de vídeo, etc). Então gráficos são renderizados. Durante a renderização dos gráficos, a captura do vídeo é feita, como qualquer rendering do visual profiler (Veja em [Documentação de debugação](/manuals/debugging).)
+- `fixed_update()` roda antes de `update()`
+- `late_update()` roda depois de `update()`
+- mensagens postadas são esvaziadas entre atualizações por tipo de componente, e também entre as etapas de callback de script
 
-## Frame rate e time step das coleções
+Quando `Use Fixed Timestep` é `false` e/ou Fixed Update Frequency é `0`, no início da fase a engine prepara `dt` e então o fluxo segue como apresentado na tabela abaixo:
 
-O número de frases atualizadas por segundo (que iguala o número runs de loops de update por segundo) podem ser settadas nas configurações do projeto, ou programavelmente enviando uma mensagem de `set_update_frequency` ao socket do `@system`. Em adição, é possível settar o _time step_ para cada coleção de proxies individualmente enviando a mensagem `set_time_step` para o proxy. Mudando o time step da coleção não afeta a frama rate. Afeta o time step do update da física  assim como as variaveis `dt` passadas para o `update().` Também perceba que alterando o time step nao altera o número maximo de `update().` chamados por frame---é sempre um.
+::: sidenote
+Observe que, depois da atualização de **cada** tipo de componente, todas as mensagens são despachadas. Isso não está marcado na tabela abaixo para mantê-la limpa.
+:::
 
-(Veja [Manual de coleção de proxy](/manuals/collection-proxy) e [`set_time_step`](/ref/collectionproxy#set-time-step) para detalhes)
+| Etapa | Fase da engine | Callback Lua | Comentário |
+|-|-|-|-|
+| 1 | **Update** | `update()` | Chamada uma vez por frame para cada tipo de componente que implementa Update na ordem de prioridade interna. Além disso, animações de propriedades de objetos de jogo iniciadas com `go.animate()` são atualizadas aqui como um tipo de componente separado. Componentes de **física** são atualizados aqui. Para cada proxy de coleção habilitado, toda a fase `Update` é chamada recursivamente a partir da etapa 1. |
+| 2 | **Late Update** | `late_update()` | Chamada uma vez por frame para cada tipo de componente que implementa Late Update na ordem de prioridade interna. |
+| 3 | **Transforms** | | Uma atualização final adicional de transformações é executada no fim para cada componente, se necessário. |
+
+#### Fase de atualização da engine com passo de tempo fixo
+
+Quando `Use Fixed Timestep` é `true` e Fixed Update Frequency é diferente de zero, no início da fase a engine prepara `dt` (delta time), `fixed_dt` e `num_fixed_steps` (`0..N`), ou seja, quantas vezes a atualização fixa será chamada, determinado pelo tempo desde a última atualização para garantir uma quantidade fixa de atualizações.
+
+::: sidenote
+Observe que, depois da atualização de **cada** tipo de componente, todas as mensagens são despachadas. Isso não está marcado na tabela abaixo para mantê-la limpa.
+:::
+
+Então ela entra em loop:
+
+| Etapa | Fase da engine | Callback Lua | Comentário |
+|-|-|-|-|
+| 1 | **Fixed Update** | `fixed_update()` | Chamada `0..N` vezes por frame, dependendo do tempo, para cada tipo de componente que implementa Fixed Update na ordem de prioridade interna. Inclui as etapas de Fixed Update dos componentes de *física*. |
+| 2 | **Update** | `update()` | Chamada uma vez por frame para cada tipo de componente que implementa Update na ordem de prioridade interna. Além disso, animações de propriedades de objetos de jogo iniciadas com `go.animate()` são atualizadas aqui como um tipo de componente separado. Para cada proxy de coleção habilitado, a fase `Update` é chamada recursivamente a partir da etapa 1. |
+| 3 | **Late Update** | `late_update()` | Chamada uma vez por frame para cada tipo de componente que implementa Late Update na ordem de prioridade interna. |
+| 4 | **Transforms** | | Uma atualização final adicional de transformações é executada no fim para cada componente, se necessário. |
+
+Se você precisar de mais detalhes sobre como o Defold funciona internamente durante a fase Update, vale a pena ler o próprio código [`gameobject.cpp`](https://github.com/defold/defold/blob/dev/engine/gameobject/src/gameobject/gameobject.cpp).
+
+### Fase de atualização de renderização
+
+O bloco de atualização de renderização primeiro despacha todas as mensagens enviadas ao socket `@render` (por exemplo, mensagens `set_view_projection` de componentes de câmera, mensagens `set_clear_color` etc.). Em seguida, o `update()` do script de renderização é chamado.
+
+![Render Update Phase](images/application_lifecycle/render_update_phase.png)
+
+### Fase de pós-atualização
+
+Depois das atualizações, uma sequência de post update é executada. Ela descarrega da memória proxies de coleção marcados para descarregamento (isso acontece durante a sequência "despacho de mensagens"). Qualquer objeto de jogo marcado para exclusão chamará todas as funções `final()` dos seus componentes, se houver. O código nas funções `final()` frequentemente posta novas mensagens na fila, então a passagem "despacho de mensagens" é executada em seguida.
+
+![Post Update Phase](images/application_lifecycle/post_update_phase.png)
+
+Qualquer componente de fábrica que tenha recebido a instrução de criar um objeto de jogo fará isso em seguida. Por fim, objetos de jogo marcados para exclusão são de fato excluídos.
+
+### Fase de renderização
+
+A última etapa no loop de atualização envolve despachar mensagens de `@system` (mensagens `exit`, `reboot`, alternância do profiler, início e parada de captura de vídeo etc.).
+
+![Render Phase](images/application_lifecycle/render_phase.png)
+
+Depois, os gráficos são renderizados, assim como qualquer renderização do perfilador visual (veja a [documentação de depuração](/manuals/debugging)). Após a renderização dos gráficos, a captura de vídeo é feita.
+
+#### Taxa de quadros e passo de tempo de coleções
+
+O número de atualizações de frame por segundo (que equivale ao número de execuções do loop de atualização por segundo) pode ser definido nas configurações do projeto ou programaticamente enviando uma mensagem `set_update_frequency` ao socket `@system`. Além disso, é possível definir o _time step_ de proxies de coleção individualmente enviando uma mensagem `set_time_step` ao proxy. Alterar o time step de uma coleção não afeta a taxa de quadros. Isso afeta o passo de tempo de atualização da física, bem como a variável `dt` passada para `update().` Observe também que alterar o time step não altera o número de vezes que `update()` será chamado por frame: ele é sempre chamado exatamente uma vez.
+
+(Consulte o [manual de proxy de coleção](/manuals/collection-proxy) e [`set_time_step`](/ref/collectionproxy#set-time-step) para detalhes)
+
+#### Limitação de ritmo da engine
+
+O Defold 1.12.0 introduziu uma API de limitação de ritmo da engine (`engine throttling`) que pode pular completamente atualizações da engine e renderização, ainda detectando entrada. Qualquer entrada desperta a engine novamente, e a engine pode voltar à limitação após um período de espera.
+
+Consulte a API `sys.set_engine_throttle()` para detalhes e exemplos de uso.
 
 ## Finalização
 
-Quando a aplicação sai, primeiro finaliza a última sequência de loop de update, que vai descarregar qualquer coleção proxy: finalizando e deletando todos game objects em cada coleção proxy.
+Quando a aplicação é encerrada, primeiro ela termina a última sequência do loop de atualização, que descarregará quaisquer proxies de coleção: finalizando e excluindo todos os objetos de jogo em cada coleção de proxy.
 
-Quando isso é feito a engine entra em uma sequencia de finalização que lidá a coleção principal e seus objetos:
+Quando isso termina, a engine entra em uma sequência de finalização que trata a coleção principal e seus objetos:
 
-![Finalização](images/application_lifecycle/application_lifecycle_final.png)
+![Finalization](images/application_lifecycle/finalization.png)
 
-A função de componente `final()` são chamadas primeiramente. Subsequentemente despachando mensagens. Finalmente, todos game objects são deletados e a coleção principal é descarregada. 
+As funções `final()` de componentes são chamadas primeiro. Em seguida, ocorre um despacho de mensagens. Por fim, todos os objetos de jogo são excluídos e a coleção principal é descarregada.
 
-A engine segue com o desligamento por tras das cenas, desligando os subsystemas: configurações de projeto é deletada, o memory profiler e desligado, e assim por diante. 
+A engine então prossegue com o desligamento interno dos subsistemas: a configuração do projeto é excluída, o perfilador de memória é desligado, e assim por diante.
 
-A aplicação agora está totalmente desligada.
+A aplicação agora está completamente desligada.
+
+## Despacho de mensagens {#dispatching-messages}
+
+**Despacho de mensagens** é uma passagem especial executada depois da atualização de **cada** tipo de componente, por exemplo, atualização de sprites, atualização de scripts e qualquer outra ação que possa enviar mensagens. Durante sua execução, todas as mensagens postadas e reunidas em uma fila são despachadas. Elas são marcadas nos diagramas com pequenos ícones de "envelope com uma seta" 📩.
+
+![Dispatch Messages](images/application_lifecycle/dispatch_messages.png)
+
+Depois que todas as **mensagens de usuário** são despachadas chamando `on_message()` para cada componente, mensagens especiais do Defold são tratadas na seguinte ordem (também apresentada no diagrama), para cada proxy de coleção:
+
+1. Mensagens `load` - carregam proxies de coleção marcados para carregamento e postam de volta a mensagem `proxy_loaded`.
+2. Mensagens `unload` - descarregam proxies de coleção marcados para descarregamento e postam de volta a mensagem `proxy_unloaded`.
+3. Mensagens `init` - acionam a fase `Collection Init` para todos os proxies de coleção que serão inicializados.
+4. Mensagens `final` - acionam `final()` em todos os componentes do proxy marcado para finalização.
+5. Mensagens `enable` - habilitam o proxy de coleção, então o `Update Loop` será executado para ele no próximo frame; isso aciona implicitamente `init()` para cada componente da coleção.
+6. Mensagens `disable` - desabilitam o proxy de coleção, então o `Update Loop` **não** será executado para ele no próximo frame; isso interrompe completamente a execução do `Update Loop` para esse proxy.
+
+Como o código `on_message()` de qualquer componente receptor pode postar mensagens adicionais, o despachador de mensagens continuará despachando mensagens postadas recursivamente até que a fila de mensagens esteja vazia. No entanto, há um limite para quantas passagens pela fila de mensagens o despachador realiza. Veja [cadeias de mensagens](/manuals/message-passing) para detalhes.

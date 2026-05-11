@@ -1,15 +1,15 @@
 ---
 title: Endereçamento no Defold
-brief: Esse manual explica como o Defold resolve problemas de endereçamento.
+brief: Este manual explica como o Defold resolve o problema de endereçamento.
 ---
 
 # Endereçamento
 
-Um código que controla um jogo rodando tem que ser capaz de alcançar todo objeto e componente para que seja possivel a movimentaçao, a alteração na escala de tamnho, a animação e alterações no que o player vê e escuta. O mecanismo de Endereçamento do Defold torna isso possível.
+O código que controla um jogo em execução precisa conseguir alcançar todos os objetos e componentes para mover, escalar, animar, excluir e manipular o que o jogador vê e ouve. O mecanismo de endereçamento do Defold torna isso possível.
 
 ## Identificadores
 
-O Defold utiliza o Endereçamento (ou URLs, mas vamos ignorar por ora) para se referir a objetos no jogo e componentes. Esses endereçamentos consistem em identificadores. Os seguintes exemplos são sobre como o Defold usa o endereçamento. Dentro desse documento iremos examinar em detalhes como ele funciona:
+O Defold usa endereços (ou URLs, mas vamos ignorar isso por enquanto) para se referir a objetos de jogo e componentes. Esses endereços consistem em identificadores. A seguir estão alguns exemplos de como o Defold usa endereços. Ao longo deste manual, vamos examinar em detalhes como eles funcionam:
 
 ```lua
 local id = factory.create("#enemy_factory")
@@ -22,107 +22,107 @@ msg.post("#", "hello_there")
 local id = go.get_id(".")
 ```
 
-Vamos começar com um exemplo bem simples. Suponha que você tem um game object com um único sprite component. Você também tem um script component para controlar o game object. O setup no editor ficaria parecido com o exibido abaixo :
+Vamos começar com um exemplo bem simples. Suponha que você tenha um objeto de jogo com um único componente de sprite. Você também tem um componente de script para controlar o objeto de jogo. A configuração no editor ficaria mais ou menos assim:
 
 ![bean in editor](images/addressing/bean_editor.png)
 
-Agora você preccisa desabilitar o sprite quando o jogo iniciar para que ele possa aparecer tardiamente. Essa é uma tarefa facil, basta apenas colocar o seguinte código no "controller.script":
+Agora você quer desabilitar o sprite quando o jogo começa, para poder fazê-lo aparecer depois. Isso é fácil: basta colocar o código abaixo em "controller.script":
 
 ```lua
 function init(self)
     msg.post("#body", "disable") -- <1>
 end
 ```
-1. Não se preocupe se não está entendendo o uso do '#'. Nos veremos ele mais adiante no documento.
+1. Não se preocupe se o caractere '#' parecer confuso. Já vamos chegar nele.
 
-Isso vai funcionar como esperado. Quando o jogo começar o script component *addresses*(Endereça) o sprite component pelo sseu identificador "body" e o utiliza esse Endereço para enviar uma *message*(Mensagem) com o "disable". O efeito dessa mensagem especial da engine é que o sprite component esconde o sprite graphics Schematically, o setup fica assim:
+Isso funcionará como esperado. Quando o jogo começa, o componente de script endereça o componente de sprite pelo identificador "body" e usa esse endereço para enviar a ele uma mensagem "disable". O efeito dessa mensagem especial da engine é fazer o componente de sprite ocultar os gráficos do sprite. De forma esquemática, a configuração fica assim:
 
 ![bean](images/addressing/bean.png)
 
-Os identificadores no setup são arbitrários. Aqui nos escolhemos dar ao game object o nome de "bean", o seu componente de sprite foi nominado "body", e o script component que controla o personagem foi nomeado "controller".
+Os identificadores na configuração são arbitrários. Aqui escolhemos dar ao objeto de jogo o identificador "bean"; seu componente de sprite foi chamado de "body"; e o componente de script que controla o personagem foi chamado de "controller".
 
 ::: sidenote
-Se voce não escolher um nome o editor escolherá automaticamente. Sempre que você criar um object ou component ele terá um *Id* próprio que sera automaticamente gerado.
+Se você não escolher um nome, o editor escolherá um. Sempre que você cria um novo objeto de jogo ou componente no editor, uma propriedade *Id* única é definida automaticamente.
 
-- Game objects automaticamente ganham um id chamado "go" com um enumerador ("go2", "go3" etc).
-- Components ganham um id de acordo como tipo de component ("sprite", "sprite2" etc).
+- Objetos de jogo recebem automaticamente um id chamado "go" com um enumerador ("go2", "go3" etc).
+- Componentes recebem um id correspondente ao tipo de componente ("sprite", "sprite2" etc).
 
-Você pode deixar o editor designar os nomes automaticamente, entretanto nos encorajamos você a utilizar nomes descritivos.
+Você pode manter esses nomes atribuídos automaticamente se quiser, mas recomendamos trocar os identificadores por nomes bons e descritivos.
 :::
 
-Agora vamos adicionar outro sprite component e dar ao bean um shield:
+Agora vamos adicionar outro componente de sprite e dar um escudo ao bean:
 
 ![bean](images/addressing/bean_shield_editor.png)
 
-O novo component tem de ser identificado de forma única. se você fosse nomealo "body" o código do script seria ambiguo, assim também recebendo a mensagem de "disable" do sprite. Nesse caso selecionamos um identificador único e descritivo: "shield". Agora podemos desabilitar o "body" e "shield" sprites separadamente.
+O novo componente precisa ser identificado de forma única dentro do objeto de jogo. Se você desse a ele o nome "body", o código do script ficaria ambíguo quanto a qual sprite deveria receber a mensagem "disable". Por isso escolhemos o identificador único (e descritivo) "shield". Agora podemos habilitar e desabilitar os sprites "body" e "shield" separadamente.
 
 ![bean](images/addressing/bean_shield.png)
 
 ::: sidenote
-Se voce tentar utilizar o mesmo identificador mais de uma vez o editor indicará erro, portanto isso não será um problema:
+Se você tentar usar o mesmo identificador mais de uma vez, o editor sinalizará um erro, então isso nunca se torna um problema na prática:
 
 ![bean](images/addressing/name_collision.png)
 :::
 
-Agora vamos ver o que acontece se você adicionar mais de um game object. Suponha que você queira unir dois "beans" em um pequeno time. Você decide chamar um de  "bean" e o outro de  "buddy". Futuramente, quando o "bean" estiver em idle por um tempo , o programa deve fazer com que o "buddy" comece a dançar. Isso é feito enviando uma mensagem personalizada chamada  "dance" do "controller" script component em "bean" para o "controller" script no "buddy":
+Agora vamos ver o que acontece quando você adiciona mais objetos de jogo. Suponha que você queira formar uma pequena equipe com dois "beans". Você decide chamar um dos objetos de jogo "bean" e o outro "buddy". Além disso, quando "bean" ficar ocioso por um tempo, ele deve avisar "buddy" para começar a dançar. Isso é feito enviando uma mensagem personalizada chamada "dance" do componente de script "controller" em "bean" para o script "controller" em "buddy":
 
 ![bean](images/addressing/bean_buddy.png)
 
 ::: sidenote
-Existem dois components chamados "controller", um em cada game object, mas isso não causa problemas uma vez que cada game object cria um new naming context.
+Há dois componentes separados chamados "controller", um em cada objeto de jogo, mas isso é perfeitamente válido, já que cada objeto de jogo cria um novo contexto de nomeação.
 :::
 
-Desde que o endereçamento da mensagem está fora do game object enviando a mensagem ("bean"), o código precisa especificar qual "controller" deve receber a mensagem. Ele precisa especificar ambos, o target game id e o component id. O endereçamento completo fica `"buddy#controller"` e ele consistem em duas partes.
+Como o destinatário da mensagem está fora do objeto de jogo que envia a mensagem ("bean"), o código precisa especificar qual "controller" deve receber a mensagem. Ele precisa especificar tanto o id do objeto de jogo de destino quanto o id do componente. O endereço completo do componente se torna `"buddy#controller"` e consiste em duas partes separadas.
 
--  Primeiro viem o identificador do target game object ("buddy"),
--  A seguir pelo game object/component separator character ("#"),
--  E por fim você escreve o identity do target component("controller").
+- Primeiro vem a identidade do objeto de jogo de destino ("buddy"),
+- depois o caractere separador entre objeto de jogo e componente ("#"),
+- e por fim a identidade do componente de destino ("controller").
 
-Voltando ao último exemplo com um único game object nos vemos que deixando o object identifier sendo parte do target address, o código pode endereçar components no *current game object*.
+Voltando ao exemplo anterior, com um único objeto de jogo, vemos que ao omitir a parte do identificador do objeto de jogo no endereço de destino, o código pode endereçar componentes no *objeto de jogo atual*.
 
-Por exemplo, `"#body"` demonstra o endereço do component "body" no atual game object. Isso é muito útil porque o código ira funcionar em *any*(qualquer) game object, enquanto existir um component "body" presente.
+Por exemplo, `"#body"` representa o endereço do componente "body" no objeto de jogo atual. Isso é muito útil porque esse código funcionará em *qualquer* objeto de jogo, desde que exista um componente "body" nele.
 
-## Collections
+## Coleções
 
-As coleções possibilitam a criação de grupos, ou hierarquias, de game objects ou reutiliza-los controladamente. Você utiliza arquivos de coleção como templates (ou "prototypes" ou "prefabs") no editor quando voce popula o seu game.
+Coleções possibilitam criar grupos, ou hierarquias, de objetos de jogo e reutilizá-los de forma controlada. Você usa arquivos de coleção como modelos (ou "protótipos" ou "prefabs") no editor ao preencher seu jogo com conteúdo.
 
-Suponha que voce deseje criar um número maior de times de  bean/buddy. A melhor maneira de fazer isso é criando um template em um novo *collection file* (coloque o nome de  "team.collection"). Crie o game objects no arquivo de collection e o salve. Depois disso coloque uma instancia desse collection file's contents no seu main bootstrap collection e dê a instancia um identificador (chame-o de "team_1"):
+Suponha que você queira criar um grande número de equipes bean/buddy. Uma boa forma de fazer isso é criar um modelo em um novo *arquivo de coleção* (chame-o de "team.collection"). Monte os objetos de jogo da equipe no arquivo de coleção e salve-o. Depois, coloque uma instância do conteúdo desse arquivo de coleção na sua coleção bootstrap principal e dê um identificador à instância (chame-a de "team_1"):
 
 ![bean](images/addressing/team_editor.png)
 
-Com essa estrutura o "bean" ainda pode se referir ao "controller" component no "buddy" pelo endereço `"buddy#controller"`.
+Com essa estrutura, o objeto de jogo "bean" ainda pode se referir ao componente "controller" em "buddy" pelo endereço `"buddy#controller"`.
 
 ![bean](images/addressing/collection_team.png)
 
-E se você adicionar um segunda instancia de "team.collection" (chame-o de "team_2"), o código rodando dentro do "team_2" script components vai funcionar como esperado. O "bean" game object instance da collection "team_2" ainda pode endereçar o "controller" component no "buddy" pelo endereço `"buddy#controller"`.
+E se você adicionar uma segunda instância de "team.collection" (chame-a de "team_2"), o código em execução dentro dos componentes de script de "team_2" funcionará da mesma forma. A instância do objeto de jogo "bean" da coleção "team_2" ainda pode endereçar o componente "controller" em "buddy" pelo endereço `"buddy#controller"`.
 
 ![bean](images/addressing/teams_editor.png)
 
-## Relative addressing
+## Endereçamento relativo
 
-O endereçamento `"buddy#controller"` funciona para game objects nas duas collections porque é um endereço *relative*(relativo). Cada uma das coleções "team_1" e "team_2" cria um novo contexto de nomeamento, ou "namespace" se voce preferir. Defold evita colisãp de nomes :levando em conta o naming context de uma collection para o endereçamento:
+O endereço `"buddy#controller"` funciona para os objetos de jogo nas duas coleções porque é um endereço *relativo*. Cada uma das coleções "team_1" e "team_2" cria um novo contexto de nomeação, ou "namespace", se preferir. O Defold evita colisões de nomes levando em conta o contexto de nomeação que uma coleção cria para o endereçamento:
 
 ![relative id](images/addressing/relative_same.png)
 
-- Com o contexto de nomeamento "team_1", o game objects "bean" e o "buddy" sçao identificaod unicamente.
-- Similarmente, com o name context do  "team_2", os game objects "bean" e "buddy" também são unicamente identificados.
+- Dentro do contexto de nomeação "team_1", os objetos de jogo "bean" e "buddy" são identificados de forma única.
+- Da mesma forma, dentro do contexto de nomeação "team_2", os objetos de jogo "bean" e "buddy" também são identificados de forma única.
 
-O endereçamento relativo funciona de forma que automaticamente prevê o atual naming context quando esta resolvendo o target adress. Isso novamente vem a ser funcional e importante, sendo que você pode criar grupos de game objects com código e reutiliza-los de forma eficiente.
+O endereçamento relativo funciona acrescentando automaticamente o contexto de nomeação atual ao resolver um endereço de destino. Isso também é extremamente útil e poderoso, porque permite criar grupos de objetos de jogo com código e reutilizá-los de forma eficiente por todo o jogo.
 
-### Shorthands
+### Atalhos
 
-Defold proporciona two handy shorthands que te possibilita enviar messagens sem especificar uma URL completa:
+O Defold fornece dois atalhos práticos que você pode usar para enviar mensagens sem especificar uma URL completa:
 
 :[Shorthands](../shared/url-shorthands.md)
 
-## Game object paths
+## Caminhos de objetos de jogo
 
-Para entendermos o naming mechanism vamos ver o que acontece quando você cria e roda um projeto:
+Para entender corretamente o mecanismo de nomeação, vamos ver o que acontece quando você compila e executa o projeto:
 
-1. O edito lê o bootstrap collection ("main.collection") e adiciona todo seu conteudo (game objects  e outras collections).
-2. Para cada objeto estático, o compilador cria um identificador. Esses são criados como "paths" começando na bootstrap root, até a hierarquia da collection até o object. um '/' character é adicionado em cada level.
+1. O editor lê a coleção bootstrap ("main.collection") e todo o seu conteúdo (objetos de jogo e outras coleções).
+2. Para cada objeto de jogo estático, o compilador cria um identificador. Eles são construídos como "paths", começando na raiz bootstrap e descendo pela hierarquia de coleções até o objeto. Um caractere '/' é adicionado em cada nível.
 
-Para o exemplo acima, o jogo ira rodar com os 4 game objects seguintes:
+No exemplo acima, o jogo será executado com os seguintes 4 objetos de jogo:
 
 - /team_1/bean
 - /team_1/buddy
@@ -130,34 +130,34 @@ Para o exemplo acima, o jogo ira rodar com os 4 game objects seguintes:
 - /team_2/buddy
 
 ::: sidenote
-Os identificadores são guardados como um valor de tamanho fixo. O runtime também guarda o hash state para cada collection identificada, que por sua vez é utilizada para continuar o processo de relative hashing de uma string para um id absoluto.
+As identidades são armazenadas como valores com hash. O runtime também armazena o estado de hash de cada identidade de coleção, usado para continuar o hash de uma string relativa até chegar a um id absoluto.
 :::
 
-No runtime, o agrupamento da collection não existe. Não se pode identificar de qual collection um game object especifico pertencia antes da compilação. Também não é possivel manipular todos os objects de uma collections de uma vez. Se você precisar realizar essas operações você pode tentar achar no código. Cada id de object é estático, e é garantido ele se manter fixo durante a existência do object. Isso signigica que você pode de maneira segura guardar o identificador de um object e utiliza-lo tardiamente.
+Em tempo de execução, o agrupamento por coleção não existe. Não há como descobrir a qual coleção um objeto de jogo específico pertencia antes da compilação. Também não é possível manipular todos os objetos de uma coleção de uma só vez. Se você precisar realizar esse tipo de operação, pode controlar isso facilmente em código. O identificador de cada objeto é estático e tem garantia de permanecer fixo durante todo o tempo de vida do objeto. Isso significa que você pode armazenar com segurança a identidade de um objeto e usá-la mais tarde.
 
-## Absolute addressing
+## Endereçamento absoluto
 
-É possivel utilizar os full identifiers descritos acima ao endereçar. Na maioria dos casos o relative adressing é preferido por permitir a reutilização do conteudo, mas existem casos em que o absolutely adressing é necessário.
+É possível usar os identificadores completos descritos acima ao endereçar. Na maioria dos casos, o endereçamento relativo é preferível, já que permite reutilizar conteúdo, mas há casos em que o endereçamento absoluto se torna necessário.
 
-Por exemplo, supondo que voce queira um AI mananger que siga o estado de cada bean object. Você quer que os beans reportem a sua atividade ao mananger, e o manager toma as decisões táticas e e da ordens aos beans baseado em seus status atuais. Faria total sentido em criar um single manager game object com um  script component e coloca-lo junto a team collections no bootstrap collection.
+Por exemplo, suponha que você queira um gerenciador de IA que acompanhe o estado de cada objeto bean. Você quer que os beans informem seu estado ativo ao gerenciador, e que o gerenciador tome decisões táticas e dê ordens aos beans com base nesse estado. Nesse caso, faz todo sentido criar um único objeto de jogo gerenciador com um componente de script e colocá-lo ao lado das coleções de equipes na coleção bootstrap.
 
 ![manager object](images/addressing/manager_editor.png)
 
-Cada bean é responsavel por enviar o seu status ao mananger: "contact" se encontrar um inimigo ou "ouch!" se for atingido. Para esse trabalho, o bean controller scrips utiliza absolute addressing para enviar mensagens ao component "controller" no "manager".
+Cada bean então fica responsável por enviar mensagens de estado ao gerenciador: "contact" se avistar um inimigo ou "ouch!" se for atingido e sofrer dano. Para isso funcionar, o script controlador do bean usa endereçamento absoluto para enviar mensagens ao componente "controller" em "manager".
 
-Qualquer endereçamento que começar com  '/' sera "resolvido" a partir da root of the game world(raiz do jogo). Isso corresponde a raiz do *bootstrap collection* que é carregada com o início do jogo.
+Qualquer endereço que começa com '/' será resolvido a partir da raiz do mundo do jogo. Isso corresponde à raiz da *coleção bootstrap* carregada no início do jogo.
 
-O absolute address do the manager script é `"/manager#controller"` e esse  absolute address vai até o componet correto idenpendentemente de onde foi utilizado.
+O endereço absoluto do script do gerenciador é `"/manager#controller"`, e esse endereço absoluto será resolvido para o componente correto independentemente de onde for usado.
 
 ![teams and manager](images/addressing/teams_manager.png)
 
 ![absolute addressing](images/addressing/absolute.png)
 
-## Hashed identifiers
+## Identificadores com hash
 
-A engine guarda all identificadores como hashed values. Todas as funções que aceitam como argumento componets or game objects aceitam também uma string, hash ou URL object. Nos vimos como usar strings para endereçamento acima.
+A engine armazena todos os identificadores como valores com hash. Todas as funções que recebem como argumento um componente ou um objeto de jogo aceitam também uma string, um hash ou um objeto URL. Acima, vimos como usar strings para endereçamento.
 
-Quando você pega o identificador de um game object, a engine vai sempre retornar um absolute path identifier que é hashed:
+Quando você obtém o identificador de um objeto de jogo, a engine sempre retorna um identificador de caminho absoluto com hash:
 
 ```lua
 local my_id = go.get_id()
@@ -167,10 +167,10 @@ local spawned_id = factory.create("#some_factory")
 print(spawned_id) --> hash: [/instance42]
 ```
 
-Você pode usar um identificador no lugar de uma string id, ou construir um por conta propria. Uma hashed id corresponde ao path(caminho) ao object, i.e. um absolute address:
+Você pode usar esse tipo de identificador no lugar de um id em string, ou construir um por conta própria. Observe, porém, que um id com hash corresponde ao caminho do objeto, isto é, a um endereço absoluto:
 
 ::: sidenote
-A rasão para  os relative adresses terem de ser dados como strings é porque a engine vai computar um novo hash id baseado no hash state do atual naming context (collection) com a string adicionada ao hash.
+Endereços relativos precisam ser fornecidos como strings porque a engine calcula um novo id com hash com base no estado de hash do contexto de nomeação atual (coleção), adicionando a string fornecida ao hash.
 :::
 
 ```lua
@@ -181,66 +181,66 @@ go.set_position(pos, spawned_id)
 local other_id = hash("/path/to/the/object")
 go.set_position(pos, other_id)
 
--- This will not work! Relative addresses must be given as strings.
+-- Isto não funcionará! Endereços relativos devem ser fornecidos como strings.
 local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```
 
 ## URLs
 
-Para completar a figura, vamo olhar para o formato completo do endereçamento do Defold: the URL.
+Para completar a visão geral, vamos ver o formato completo dos endereços no Defold: a URL.
 
-Uma URL é um object, geralmente escritos como specially formatted strings, ou strings com formatação especial. Uma URL  genérica consistem em tres partes:
+Uma URL é um objeto, geralmente escrito como uma string com formatação especial. Uma URL genérica consiste em três partes:
 
 `[socket:][path][#fragment]`
 
 socket
-: Identifica o mundo do jogo do target. Isso é importante quando trabalhando com o [Collection Proxies](/manuals/collection-proxy) e então é utilizado para identificar o  _dynamically loaded collection_.
+: Identifica o mundo de jogo do alvo. Isso é importante ao trabalhar com [proxies de coleção](/manuals/collection-proxy), quando é usado para identificar a _coleção carregada dinamicamente_.
 
 path
-: Essa parte da URL contem o full id do target game object.
+: Esta parte da URL contém o id completo do objeto de jogo de destino.
 
 fragment
-:  A identidade do target component com o specified game object.
+: A identidade do componente de destino dentro do objeto de jogo especificado.
 
-Assim como vimos acima, você pode deixar de fora parte, ou grande maioria das informações na maioria dos casos. Você quase nunca precisa especificar o socket, e você frequentemente, mas nem sempre, precisa especificar o path. Nesses casos em que você precisa endereçar coisas em um outro mundo do game, você necessitará especificar a parte do socket na URL. Na instancia, a URL string completa para o "controller" script no "manager" game object acima é:
+Como vimos acima, você pode omitir parte, ou a maior parte, dessas informações na maioria dos casos. Quase nunca é necessário especificar o socket, e muitas vezes, mas nem sempre, é necessário especificar o path. Nos casos em que você precisa endereçar coisas em outro mundo de jogo, precisa especificar a parte de socket da URL. Por exemplo, a string de URL completa para o script "controller" no objeto de jogo "manager" acima é:
 
 `"main:/manager#controller"`
 
-e o buddy controller in team_2 é:
+e o controller do buddy em team_2 é:
 
 `"main:/team_2/buddy#controller"`
 
-Nos podemos enviar mensagens para eles:
+Podemos enviar mensagens para eles:
 
 ```lua
--- Send "hello" to the manager script and team buddy bean
+-- Envia "hello" para o script do gerenciador e para o bean buddy da equipe
 msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
 ```
 
-## Constructing URL objects
+## Construindo objetos URL
 
-URL objects também podem ser construidos em forma de programação em código Lua:
+Objetos URL também podem ser construídos programaticamente em código Lua:
 
 ```lua
--- Construct URL object from a string:
+-- Constrói um objeto URL a partir de uma string:
 local my_url = msg.url("main:/manager#controller")
 print(my_url) --> url: [main:/manager#controller]
-print(my_url.socket) --> 786443 (internal numeric value)
+print(my_url.socket) --> 786443 (valor numérico interno)
 print(my_url.path) --> hash: [/manager]
 print(my_url.fragment) --> hash: [controller]
 
--- Construct URL from parameters:
+-- Constrói uma URL a partir de parâmetros:
 local my_url = msg.url("main", "/manager", "controller")
 print(my_url) --> url: [main:/manager#controller]
 
--- Build from empty URL object:
+-- Constrói a partir de um objeto URL vazio:
 local my_url = msg.url()
-my_url.socket = "main" -- specify by valid name
-my_url.path = hash("/manager") -- specify as string or hash
-my_url.fragment = "controller" -- specify as string or hash
+my_url.socket = "main" -- especifique por nome válido
+my_url.path = hash("/manager") -- especifique como string ou hash
+my_url.fragment = "controller" -- especifique como string ou hash
 
--- Post to target specified by URL
+-- Envia para o alvo especificado pela URL
 msg.post(my_url, "hello_manager!")
 ```

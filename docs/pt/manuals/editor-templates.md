@@ -1,13 +1,13 @@
 ---
-title: Modelos do Editor
+title: Modelos do editor
 brief: Você pode adicionar seus próprios modelos de projeto personalizados à janela Novo Projeto.
 ---
 
-# Modelos do Editor
+# Modelos do editor
 
 Você pode adicionar seus próprios modelos de projeto personalizados à janela Novo Projeto:
 
-<img width="1112" height="812" alt="image" src="https://github.com/user-attachments/assets/10c9956e-eaa4-40f6-9db3-6ab0095768bb" />
+![custom project templates](images/editor/custom_project_templates.png)
 
 Para adicionar uma ou mais novas abas com modelos de projeto personalizados, você precisa adicionar um arquivo `welcome.edn` na pasta `.defold` no seu diretório de usuário:
 

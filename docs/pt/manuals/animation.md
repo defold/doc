@@ -1,13 +1,17 @@
 ---
-title: Animações no manual Defold
-brief: Esse manual descreve o suporte a animações do Defold
+title: Manual de animação no Defold
+brief: Este manual descreve o suporte do Defold a animações.
 ---
 
-# Animações
+# Animação
 
-O Defold tem suporte para diversas tipos de animação que voce pode usar como uma fonte de gráfico para componentes
+O Defold tem suporte integrado a vários tipos de animação que você pode usar como fonte de gráficos para componentes:
 
-* [Flip-book animation](/manuals/flipbook-animation) - Joga uma série de imagens em sucessão 
-* [Spine animation](/manuals/spine) - Joga uma série de animações esqueleticas em 2D
-* [Model animation](/manuals/model-animation) - Joga animações em 3D linkando o esqueleto ao mesh(Skinning)
-* [Property animation](/manuals/property-animation) - Anima propriedades como posição, escala, rotação e varias outras 
+* [Animação flip-book](/manuals/flipbook-animation) - Reproduz uma sequência de imagens estáticas.
+* [Animação de modelo](/manuals/model-animation) - Reproduz animações 3D com skinning.
+* [Animação de propriedades](/manuals/property-animation) - Anima propriedades como posição, escala, rotação e muitas outras.
+
+Formatos adicionais de animação podem ser adicionados por meio de extensões:
+
+* [Animação Rive](/extension-rive) - Reproduz animações esqueléticas 2D baseadas em vetores.
+* [Animação Spine](/extension-spine) - Reproduz animações esqueléticas 2D texturizadas.

@@ -1,35 +1,24 @@
 ---
-title: The design of Defold
-brief: The philosophy behind Defold's design
+title: O design do Defold
+brief: A filosofia por trás do design do Defold
 ---
-# The design of Defold
 
- Deflod foi criado para os seguintes objetivos:
+# O design do Defold
 
- - Para ser uma plataforma profissional completa e facil, para equipes de jogos.
+O Defold foi criado com os seguintes objetivos:
 
- - Para ser simples e intuitiva ,fornecendo  explícitas  soluções, para problemas comuns de arquitetura é  fluxo de trabalho no desenvolvimento de jogos.
+- Ser uma plataforma profissional completa e pronta para produção para equipes de jogos.
+- Ser simples e claro, oferecendo soluções explícitas para problemas comuns de arquitetura e fluxo de trabalho no desenvolvimento de jogos.
+- Ser uma plataforma de desenvolvimento extremamente rápida, ideal para o desenvolvimento iterativo de jogos.
+- Ter alto desempenho em tempo de execução.
+- Ser verdadeiramente multiplataforma.
 
- - Para ser uam plataforma ideal e extemamente rápida no desenvolvimento iterativo de jogos.
+O design do editor e da engine foi cuidadosamente criado para atingir esses objetivos. Algumas das nossas decisões de design são diferentes do que você talvez conheça de outras plataformas, por exemplo:
 
- - Para ter um alto desempenho no tempo de execução.
-
- - Sendo realmente  uma multiplataforma
-
-  O design do editor e do mecanismo é cuidadosamente criado para atingir os objetivos.Algumas de nossas decisões de design diferem  das  experiência em outras plataformas que você já está 
-  acostumado, pelos exemplos:
-
- - Nos exigimos estática declaração da   árvore  de recusoso e todos os nomes. Com isso requer algum  esforço inicial
- do usuario , mas ajuda muito o processo de desenvolvimento ao longo prazo. 
- 
- - Nos encorajamos a simples troca de mensagens entre entidades encapsuladas.
-
- -Não há herança de orientação de objeto.
-
- - Nossas APIS são assíncronas.
-
- - A renderização do pipelibe  é orientado por código e é totalmente personalizável.  
- 
- - Todos os recursos de nossos arquivos estão em formatos de texto simples sendo estruturados de forma otimizada para  Git , como importação e processamento com ferramentas externas. 
- 
- - Recursos podem ser alterados e recarregados na execução de um jogo , permitindo extremamente rápidas a iteração e experimentação . 
+- Exigimos a declaração estática da árvore de recursos e de todos os nomes. Isso exige algum esforço inicial, mas ajuda muito o processo de desenvolvimento no longo prazo.
+- Incentivamos a passagem de mensagens entre entidades simples e encapsuladas.
+- Não há herança por orientação a objetos.
+- Nossas APIs são assíncronas.
+- O pipeline de renderização é controlado por código e totalmente personalizável.
+- Todos os nossos arquivos de recursos usam formatos simples de texto puro, estruturados de forma ideal para merges no Git e também para importação e processamento com ferramentas externas.
+- Os recursos podem ser alterados e carregados por hot reload em um jogo em execução, permitindo iteração e experimentação extremamente rápidas.

@@ -1,6 +1,6 @@
 ---
-title: Depuração no Andoid.
-brief: Esse manual descreve como depurar e executar nos dispositivos Andoid.  
+title: Depuração no Android
+brief: Este manual descreve como depurar uma build em execução em um dispositivo Android.
 ---
 
- Mover para [Debugging Native Code on Android](/manuals/debugging-native-code-android)
+Movido para [Depuração de código nativo no Android](/manuals/debugging-native-code-android)
