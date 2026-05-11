@@ -68,7 +68,7 @@ Certifique-se de armazenar os arquivos `manifest.private.der` e `manifest.public
 
 ## Otimizações da aplicação
 
-Leia o [manual de Otimização](/manuals/optimizations) sobre como otimizar sua aplicação em desempenho, tamanho, memória e uso de bateria.
+Leia o [manual de Otimização](/manuals/optimization) sobre como otimizar sua aplicação em desempenho, tamanho, memória e uso de bateria.
 
 
 

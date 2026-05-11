@@ -255,10 +255,10 @@ O arquivo *hero.spinejson* foi exportado no formato Spine JSON. Você precisará
 
 Agora podemos começar a construir o gameobject do herói:
 
-1. Crie um novo arquivo *hero.go* (clique com o botão direito na pasta *hero* e selecione <kbd>New ▸ Game Object File</kbd>.
+1. Crie um novo arquivo *hero.go* (clique com o botão direito na pasta *hero* e selecione <kbd>New ▸ Game Object File</kbd>).
 2. Abra o arquivo de objeto de jogo.
 3. Adicione um componente *Spine Model* a ele. (Clique com o botão direito na raiz no *Outline* e selecione <kbd>Add Component</kbd>, depois selecione "Spine Model".)
-4. Defina a propriedade *Spine Scene* do componente para o arquivo *hero.spinescene* que você acabou de criar e selecione "run_right" como a animação padrão (corrigiremos a animação adequadamente depois)
+4. Defina a propriedade *Spine Scene* do componente para o arquivo *hero.spinescene* que você acabou de criar e selecione "run_right" como a animação padrão (corrigiremos a animação adequadamente depois).
 5. Salve o arquivo.
 
 ![Spinemodel properties](images/runner/2/spinemodel_properties.png)
@@ -495,12 +495,11 @@ Para deixar a vida no mundo do jogo um pouco menos monótona, devemos adicionar 
 1. Arraste o arquivo de imagem *rock_planks.png* do pacote de assets para a subpasta *level/images*.
 2. Abra *level.atlas* e adicione a nova imagem ao atlas (clique com o botão direito na raiz no *Outline* e selecione <kbd>Add Images</kbd>).
 3. Salve o arquivo.
-4. Crie um novo arquivo *Game Object* chamado *platform.go* na pasta *level*. (Clique com o botão direito em *level*
- no *Assets pane* e selecione <kbd>New ▸ Game Object File</kbd>)
+4. Crie um novo arquivo *Game Object* chamado *platform.go* na pasta *level*. (Clique com o botão direito em *level* no *Assets pane* e selecione <kbd>New ▸ Game Object File</kbd>.)
 5. Adicione um componente *Sprite* ao objeto de jogo (clique com o botão direito na raiz na visualização *Outline* e selecione <kbd>Add Component</kbd>, depois *Sprite*).
 6. Defina a propriedade *Image* para se referir ao arquivo *level.atlas* e defina *Default Animation* como "rock_planks". Por conveniência, mantenha objetos de nível em uma subpasta "level/objects".
 7. Adicione um componente *Collision Object* ao objeto de jogo da plataforma (clique com o botão direito na raiz na visualização *Outline* e selecione <kbd>Add Component</kbd>).
-8. Certifique-se de definir o *Type* do componente como "Kinematic" e *Group* e *Mask* como "geometry" e "hero", respectivamente
+8. Certifique-se de definir o *Type* do componente como "Kinematic" e *Group* e *Mask* como "geometry" e "hero", respectivamente.
 9. Adicione uma *Box Shape* ao componente *Collision Object*. (Clique com o botão direito no componente no *Outline* e selecione <kbd>Add Shape</kbd>, depois escolha *Box*).
 10. Use o *Move Tool* e o *Scale Tool* (<kbd>Scene ▸ Move Tool</kbd> e <kbd>Scene ▸ Scale Tool</kbd>) para fazer a forma no componente *Collision Object* cobrir a plataforma.
 11. Crie um arquivo *Script* *platform.script* (clique com o botão direito no *Assets pane* e selecione <kbd>New ▸ Script File</kbd>), coloque o código a seguir no arquivo e salve:
@@ -585,8 +584,8 @@ function update(self, dt) -- <2>
     end
 end
 ```
-1- Valores predefinidos para a posição Y onde as plataformas serão criadas.
-2- A função `update()` é chamada uma vez a cada frame e usamos isso para decidir se devemos criar uma plataforma normal ou longa em certos intervalos (para evitar sobreposições) e alturas. É fácil experimentar vários algoritmos de spawn para criar jogabilidades diferentes.
+1. Valores predefinidos para a posição Y onde as plataformas serão criadas.
+2. A função `update()` é chamada uma vez a cada frame e usamos isso para decidir se devemos criar uma plataforma normal ou longa em certos intervalos (para evitar sobreposições) e alturas. É fácil experimentar vários algoritmos de spawn para criar jogabilidades diferentes.
 
 Agora execute o jogo (<kbd>Project ▸ Build</kbd>).
 
@@ -644,7 +643,7 @@ Lua tem "escopo léxico" para variáveis locais e é sensível à ordem em que v
 Isso é tudo que é necessário para adicionar animações de pulo e queda ao herói. Se você executar o jogo, perceberá que ele fica muito melhor de jogar. Talvez também perceba que, infelizmente, as plataformas podem empurrar o herói para fora da tela. Isso é um efeito colateral do tratamento de colisão, mas o remédio é fácil: adicionar perigo e tornar as bordas das plataformas perigosas!
 
 1. Arraste *spikes.png* do pacote de assets para a pasta "level/images" no *Assets pane*.
-2. Abra *level.atlas* e adicione a imagem (clique com o botão direito e selecione <kbd>Add Images</kbd>)
+2. Abra *level.atlas* e adicione a imagem (clique com o botão direito e selecione <kbd>Add Images</kbd>).
 3. Abra *platform.go* e adicione alguns componentes *Sprite*. Defina *Image* como *level.atlas* e *Default Animation* como "spikes".
 4. Use o *Move Tool* e o *Rotate Tool* para posicionar os espinhos ao longo das bordas da plataforma.
 5. Para fazer os espinhos renderizarem atrás da plataforma, defina a posição *Z* dos sprites de espinho como -0.1.

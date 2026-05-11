@@ -21,7 +21,7 @@ Neste tutorial, você aprenderá a:
 
 ### Uma observação para iniciantes
 
-Este tutorial foi criado para iniciantes, mas se você é completamente novo no Defold e no desenvolvimento de jogos, recomendamos ler primeiro alguns manuais introdutórios, especialmente sobre os [Blocos de Construção do Defold](/manuals/building-blocks/) e o [Glossário](/manuals/glossary/). Se ainda não baixou o Defold, confira o [manual de Instalação](/manuals/install/). Também é recomendado conferir a [visão geral do Editor](manuals/editor/) para mergulhar rapidamente no próprio Editor, mas também fornecemos aqui capturas de tela para cada etapa.
+Este tutorial foi criado para iniciantes, mas se você é completamente novo no Defold e no desenvolvimento de jogos, recomendamos ler primeiro alguns manuais introdutórios, especialmente sobre os [Blocos de Construção do Defold](/manuals/building-blocks/) e o [Glossário](/manuals/glossary/). Se ainda não baixou o Defold, confira o [manual de Instalação](/manuals/install/). Também é recomendado conferir a [visão geral do Editor](/manuals/editor/) para mergulhar rapidamente no próprio Editor, mas também fornecemos aqui capturas de tela para cada etapa.
 
 ## Criando o projeto
 
@@ -35,7 +35,7 @@ Inicie o Defold e:
 
 ![start](images/snake/1.png)
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Configurações do projeto
 
@@ -49,7 +49,7 @@ Começaremos definindo a resolução do jogo.
 
 O motivo para fazer isso é que o jogo será desenhado em uma grade onde cada segmento terá 16x16 pixels. Assim, a tela do jogo não cortará nenhum segmento parcial. Esse arquivo `game.project` contém todas as configurações importantes dos projetos; você pode ler sobre todas elas no [manual de Configurações do Projeto](/manuals/project-settings/).
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Criando novas pastas no painel Assets
 
@@ -63,7 +63,7 @@ Primeiro, crie um diretório para os assets no Defold Editor:
 
 ![new_folder](images/snake/3.png)
 
-<input type="checkbox"/>`Done!`
+<input type="checkbox"/> Concluído!
 
 ## Adicionando gráficos ao jogo
 
@@ -77,7 +77,7 @@ Esta imagem abaixo é o único asset de que você precisa:
 
 Você também pode ler mais detalhes sobre [importar assets aqui](/manuals/importing-graphics/).
 
-<input type="checkbox"/>`Done!`
+<input type="checkbox"/> Concluído!
 
 ## Adicionando Tile Source
 
@@ -100,9 +100,9 @@ O tilesource será aberto em um Tilesource Editor dedicado para esse tipo de arq
 
 Observe que a propriedade *Extrude Borders* está definida como 2 pixels. Isso serve para evitar artefatos visuais ao redor dos tiles que têm gráficos até a borda.
 
-Se você fizer qualquer alteração em um arquivo, um asterisco `*` aparece ao lado do nome dele na aba. Selecione `File` ▸ `Save All` ou use o atalho `<kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> no Mac) para salvar todos os arquivos.
+Se você fizer qualquer alteração em um arquivo, um asterisco `*` aparece ao lado do nome dele na aba. Selecione `File` ▸ `Save All` ou use o atalho <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> no Mac) para salvar todos os arquivos.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Criando o tilemap do campo de jogo
 
@@ -114,7 +114,7 @@ Agora você tem um tilesource pronto para uso, então é hora de criar o compone
 2. Ele será aberto em um Tilemap Editor e destacará que precisa de uma **Tile Source**, então defina a propriedade *Tile Source* para o "snake.tilesource" criado anteriormente.
 ![set_tilesource](images/snake/9.png)
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Desenhando tiles no tilemap
 
@@ -131,7 +131,7 @@ Você precisará de um tilemap de tamanho 48x48 tiles (porque nossa tela é 768 
 
 Salve o tilemap quando terminar.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Adicionando o tilemap ao jogo
 
@@ -151,7 +151,7 @@ Agora temos um tilemap em nossa coleção de jogo. Ele deve ficar visível quand
 
 ![run_game](images/snake/14.png)
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Adicionando um script ao jogo
 
@@ -164,7 +164,7 @@ Agora temos um tilemap em nossa coleção de jogo. Ele deve ficar visível quand
 
 Agora você tem o componente tilemap e o script no lugar.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## O script do jogo
 
@@ -211,7 +211,7 @@ O código de script acima está escrito na linguagem Lua. Há algumas coisas a o
 - Literais de tabela Lua são escritos entre chaves `{}`.
 - Entradas de tabela podem ser pares chave/valor (`{x = 10, y = 20}`), tabelas Lua aninhadas (`{ {a = 1}, {b = 2} }`) ou outros tipos de dados.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ### Update
 
@@ -276,7 +276,7 @@ Se executar o jogo agora, você deve ver a cobra de 4 segmentos rastejar da esqu
 
 ![run the game](images/snake/snake_run_1.png)
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Entrada do jogador
 
@@ -291,7 +291,7 @@ Antes de adicionar código para reagir à entrada do jogador, você precisa conf
 
 O arquivo de mapeamento de entrada mapeia a entrada real do usuário (teclas, movimentos do mouse etc.) para *nomes* de ação que são fornecidos aos scripts que solicitaram entrada.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ### Adquirindo foco de entrada
 
@@ -342,7 +342,7 @@ Esses ramos `if...elseif...` fazem o seguinte:
 
 Execute o jogo novamente e confira se consegue controlar a cobra.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ### Melhorando o tratamento de entrada
 
@@ -437,7 +437,7 @@ end
 
 Inicie o jogo e confira se ele se comporta como esperado.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## Comida e colisão com obstáculos
 
@@ -483,7 +483,7 @@ end
 1. Antes de começar a obter valores aleatórios com `math.random()`, defina a seed aleatória; caso contrário, a mesma série de valores aleatórios será gerada. Essa seed deve ser definida apenas uma vez.
 2. Chame a função `put_food()` no início do jogo para que o jogador comece com um item de comida no mapa.
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ### Comendo a comida
 
@@ -566,7 +566,7 @@ Agora experimente o jogo e certifique-se de que ele funciona bem!
 
 Isso conclui o tutorial, mas continue experimentando o jogo e trabalhando em alguns dos exercícios abaixo!
 
-<input type="checkbox"/> Done!
+<input type="checkbox"/> Concluído!
 
 ## O script completo
 

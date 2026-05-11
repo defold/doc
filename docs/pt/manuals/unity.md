@@ -80,7 +80,7 @@ Você acabou de compilar seu primeiro projeto no Defold e deve ver seu texto na 
 
 ## Visão geral do Defold Editor
 
-Apresentaremos o Defold Editor aqui pela perspectiva do que um usuário de Unity talvez queira saber primeiro, mas recomendamos também conferir o [manual completo de visão geral do editor](/manuals/editor-overview) depois.
+Apresentaremos o Defold Editor aqui pela perspectiva do que um usuário de Unity talvez queira saber primeiro, mas recomendamos também conferir o [manual completo de visão geral do editor](/manuals/editor) depois.
 
 ### Comparação dos editores
 
@@ -168,7 +168,7 @@ A tabela abaixo apresenta componentes semelhantes do Unity para consulta rápida
 | [Sound](/manuals/sound/) | AudioSource | O Defold tem apenas uma fonte de som global (não espacial). Há uma [extensão FMOD](https://github.com/defold/extension-fmod) oficial para Defold. |
 | [Factory](/manuals/factory/) | Prefab Instantiate() | No Defold, uma Factory é um componente com um protótipo específico (prefab). |
 | [Collection Factory](/manuals/collection-factory/) | - (Sem equivalente direto de componente) | Um componente Collection Factory no Defold pode instanciar vários Game Objects com relações pai-filho de uma vez. |
-| [Collision Object](/manuals/physics-object) | Rigidbody + Collider | No Defold, objetos físicos e formas de colisão são combinados em um único componente. |
+| [Collision Object](/manuals/physics-objects) | Rigidbody + Collider | No Defold, objetos físicos e formas de colisão são combinados em um único componente. |
 | [Collision Shapes](/manuals/physics-shapes/)  | BoxCollider / SphereCollider / CapsuleCollider | No Defold, formas (box, sphere, capsule) são configuradas dentro do componente Collision Object. Ambos suportam formas de colisão vindas de tilemaps e dados de casco convexo. |
 | [Camera](/manuals/camera/) | Camera | No Unity, a câmera tem mais configurações integradas de renderização e pós-processamento, enquanto o Defold delega esse controle personalizado ao usuário via script de renderização. |
 | [GUI](/manuals/gui/) | UI Toolkit / Unity UI / uGUI Canvas | A GUI do Defold é um componente poderoso para criar UIs completas e templates. O Unity não tem um componente único equivalente, mas sim vários frameworks de UI. O Defold também tem uma extensão para [Extension](https://github.com/britzl/extension-imgui). |
@@ -180,7 +180,7 @@ A tabela abaixo apresenta componentes semelhantes do Unity para consulta rápida
 
 #### Extensões e componentes personalizados
 
-O Defold também tem componentes oficiais [Spine](/manuals/extension-spine/) e [Rive](/manuals/extension-rive/) disponíveis por extensões.
+O Defold também tem componentes oficiais [Spine](/extension-spine/) e [Rive](/extension-rive/) disponíveis por extensões.
 
 Você também pode criar seus próprios [Components personalizados](https://github.com/defold/extension-simpledata) usando Native Extensions, como este [Object Interpolation Component](https://github.com/indiesoftby/defold-object-interpolation) criado pela comunidade.
 

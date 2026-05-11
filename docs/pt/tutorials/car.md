@@ -432,7 +432,7 @@ Isso conclui este tutorial introdutório. Aqui está um conjunto de desafios que
 
 1. Atualmente, o carro se move com a mesma aceleração para frente e para trás. Você pode querer alterar isso para que o carro se mova mais devagar quando estiver dando ré.
 2. Transforme algumas das constantes (como acceleration) em `properties` para que elas possam ser alteradas para diferentes instâncias do carro.
-3. Adicione sons ao seu carro e faça-o fazer vroom! ([Dica](manuals/sound/))
+3. Adicione sons ao seu carro e faça-o fazer vroom! ([Dica](/manuals/sound/))
 
 Agora vá em frente e mergulhe no Defold. Temos muitos [manuais e tutoriais](/learn) preparados para guiar você e, se ficar preso, será muito bem-vindo no [fórum](//forum.defold.com).
 

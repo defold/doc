@@ -147,7 +147,7 @@ Os *Formats* adicionados a um perfil têm as seguintes propriedades:
 *Compressor Preset*
 : Seleciona uma predefinição de compressão a usar na codificação da imagem comprimida resultante. Cada preset de compressor é único para o compressor e suas configurações dependem do próprio compressor. Para simplificar essas configurações, os presets de compressão atuais vêm em quatro níveis:
 
-| Preset    | Observação                                    |
+| Predefinição | Observação                                    |
 | --------- | --------------------------------------------- |
 | `LOW`     | Compressão mais rápida. Baixa qualidade de imagem |
 | `MEDIUM`  | Compressão padrão. Melhor qualidade de imagem |
@@ -221,8 +221,8 @@ Imagem base (1024x512):
 
 ### Tempos de compressão
 
-| Preset     | Tempo de compressão | Tempo relativo |
-| ----------------------------- | --------------- |
+| Predefinição | Tempo de compressão | Tempo relativo |
+| ------------- | ------------------- | -------------- |
 | `LOW`     | 0m0.143s         | 0.5x            |
 | `MEDIUM`  | 0m0.294s         | 1.0x            |
 | `HIGH`    | 0m1.764s         | 6.0x            |
@@ -233,8 +233,8 @@ Imagem base (1024x512):
 A comparação é feita usando a ferramenta `basisu` (medindo o PSNR)
 100 dB significa nenhuma perda de sinal (ou seja, é igual à imagem original).
 
-| Preset     | Sinal                                           |
-| ------------------------------------------------------------ |
+| Predefinição | Sinal                                            |
+| ------------- | ------------------------------------------------ |
 | `LOW`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
 | `MEDIUM`  | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
 | `HIGH`    | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
@@ -244,8 +244,8 @@ A comparação é feita usando a ferramenta `basisu` (medindo o PSNR)
 
 O tamanho do arquivo original é 1572882 bytes.
 
-| Preset     | Tamanhos de arquivo | Proporção |
-| ---------------------------------- |
+| Predefinição | Tamanho de arquivo | Proporção |
+| ------------- | ------------------ | --------- |
 | `LOW`     | 357225     | 22.71 %  |
 | `MEDIUM`  | 365548     | 23.24 %  |
 | `HIGH`    | 277186     | 17.62 %  |
@@ -267,5 +267,4 @@ Aqui estão as imagens resultantes (recuperadas da codificação ASTC usando a f
 
 `HIGHEST`
 ![best compression preset](images/texture_profiles/kodim03_pow2.best.png)
-
 

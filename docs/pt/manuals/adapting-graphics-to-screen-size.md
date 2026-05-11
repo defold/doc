@@ -48,7 +48,7 @@ msg.post("@render:", "use_fixed_projection", { zoom = 4 })
 ```
 
 ::: sidenote
-O mesmo resultado pode ser obtido anexando um [componente de câmera](manuals/camera/) a um objeto de jogo, marcando *Orthographic Projection* e ajustando *Orthographic Zoom* para 4.0:
+O mesmo resultado pode ser obtido anexando um [componente de câmera](/manuals/camera/) a um objeto de jogo, marcando *Orthographic Projection* e ajustando *Orthographic Zoom* para 4.0:
 
 ![](images/screen_size/retro-camera_zoom.png)
 :::

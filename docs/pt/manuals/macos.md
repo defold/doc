@@ -38,13 +38,13 @@ iconutil -c icns -o game.icns game.iconset
 ## Publicando sua aplicação
 Você pode publicar sua aplicação na Mac App Store, usando uma loja ou portal de terceiros como Steam ou itch.io, ou por conta própria por meio de um site. Antes de publicar sua aplicação, você precisa prepará-la para envio. As etapas a seguir são necessárias independentemente de como você pretende distribuir a aplicação:
 
-* 1) Certifique-se de que qualquer pessoa possa executar seu jogo adicionando as permissões de execução (o padrão é que apenas o proprietário do arquivo tenha permissões de execução):
+1. Certifique-se de que qualquer pessoa possa executar seu jogo adicionando as permissões de execução (o padrão é que apenas o proprietário do arquivo tenha permissões de execução):
 
 ```
 $ chmod +x Game.app/Contents/MacOS/Game
 ```
 
-* 2) Crie um arquivo de entitlements especificando as permissões exigidas pelo seu jogo. Para a maioria dos jogos, as seguintes permissões são suficientes:
+2. Crie um arquivo de entitlements especificando as permissões exigidas pelo seu jogo. Para a maioria dos jogos, as seguintes permissões são suficientes:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -76,7 +76,7 @@ Algumas aplicações também podem precisar de entitlements adicionais. A extens
 
 Todos os entitlements que podem ser concedidos a uma aplicação estão listados na [documentação oficial para desenvolvedores Apple](https://developer.apple.com/documentation/bundleresources/entitlements).
 
-* 3) Assine seu jogo usando `codesign`:
+3. Assine seu jogo usando `codesign`:
 
 ```
 $ codesign --force --sign "Developer ID Application: Company Name" --options runtime --deep --timestamp --entitlements entitlement.plist Game.app
@@ -85,9 +85,9 @@ $ codesign --force --sign "Developer ID Application: Company Name" --options run
 ## Publicando fora da Mac App Store
 A Apple exige que todo software distribuído fora da Mac App Store seja notarizado pela Apple para executar por padrão no macOS Catalina. Consulte a [documentação oficial](https://developer.apple.com/documentation/xcode/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow) para aprender como adicionar notarização a um ambiente de build por script fora do Xcode. Um resumo breve das etapas envolvidas:
 
-* 1) Siga as etapas acima de adicionar permissões e assinar a aplicação.
+1. Siga as etapas acima de adicionar permissões e assinar a aplicação.
 
-* 2) Compacte e envie seu jogo para notarização usando `altool`.
+2. Compacte e envie seu jogo para notarização usando `altool`.
 
 ```
 $ xcrun altool --notarize-app
@@ -101,20 +101,20 @@ altool[16765:378423] No errors uploading 'Game.zip'.
 RequestUUID = 2EFE2717-52EF-43A5-96DC-0797E4CA1041
 ```
 
-* 3) Verifique o status do envio usando o UUID de requisição retornado pela chamada a `altool --notarize-app`:
+3. Verifique o status do envio usando o UUID de requisição retornado pela chamada a `altool --notarize-app`:
 
 ```
 $ xcrun altool --notarization-info 2EFE2717-52EF-43A5-96DC-0797E4CA1041
                -u "AC_USERNAME"
 ```
 
-* 4) Aguarde até que o status se torne `success` e grampeie o ticket de notarização ao jogo:
+4. Aguarde até que o status se torne `success` e grampeie o ticket de notarização ao jogo:
 
 ```
 $ xcrun stapler staple "Game.app"
 ```
 
-* 5) Seu jogo agora está pronto para distribuição.
+5. Seu jogo agora está pronto para distribuição.
 
 ## Publicando na Mac App Store
 O processo de publicação na Mac App Store é bem documentado na [documentação Apple Developer](https://developer.apple.com/macos/submit/). Certifique-se de adicionar permissões e assinar a aplicação com `codesign` conforme descrito acima antes de enviar.
