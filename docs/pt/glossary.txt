@@ -1,0 +1,524 @@
+---
+title: Glossário português da documentação Defold
+brief: Glossário consolidado a partir dos arquivos portugueses já traduzidos em docs/pt.
+---
+
+# Glossário português da documentação Defold
+
+Este glossário consolida termos encontrados na tradução parcial em português de `docs/pt/manuals` e `docs/pt/faq`. Ele normaliza escolhas para continuar a tradução com consistência.
+
+Use a forma portuguesa na prosa comum. Mantenha a forma inglesa quando ela for um rótulo literal da interface, um nome de API, um valor de configuração, um nome de arquivo, um comando, uma plataforma ou uma marca.
+
+Arquivos revisados: 19.
+
+Também foi consultada a localização oficial do editor em português brasileiro:
+https://github.com/defold/defold/blob/dev/editor/resources/localization/pt_BR.editor_localization
+
+Quando uma entrada abaixo indicar `UI oficial`, use essa forma para rótulos visíveis no editor localizado. Em prosa, use a forma natural recomendada para documentação.
+
+## Termos centrais
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| Defold | Defold; use `o Defold` para o produto/engine/editor e `a Defold Foundation` para a fundação |
+| Defold Editor | editor Defold; use `Defold Editor` quando for o nome literal |
+| engine | engine em prosa técnica já existente; `Motor` como UI oficial do editor |
+| game engine | game engine; engine de jogos |
+| editor | editor |
+| platform | plataforma |
+| target platform | plataforma-alvo |
+| project | projeto |
+| project settings | configurações do projeto |
+| `game.project` | arquivo de configuração do projeto |
+| manual | manual |
+| documentation | documentação |
+| API documentation | documentação de API |
+| API reference | documentação de referência da API |
+| FAQ | FAQ; perguntas frequentes |
+| product overview | visão geral do produto |
+| forum | fórum |
+| community | comunidade |
+
+## Construção do jogo
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| game | jogo |
+| game object | objeto de jogo; na primeira menção, `objeto de jogo (game object)`; `Objeto de Jogo` como UI oficial |
+| component | componente; `Componente` como UI oficial |
+| collection | coleção; `Coleção` como UI oficial |
+| collection file | arquivo de coleção |
+| sub-collection | subcoleção |
+| bootstrap collection | coleção principal; coleção bootstrap quando o termo técnico for necessário |
+| root collection | coleção raiz |
+| collection proxy | proxy de coleção; na primeira menção, `proxy de coleção (collection proxy)`; `Proxy de Coleção` como UI oficial |
+| factory | fábrica; `Fábrica` como UI oficial |
+| factory component | componente de fábrica |
+| collection factory | fábrica de coleção; `Fábrica de Coleções` como UI oficial |
+| blueprint | blueprint; protótipo reutilizável |
+| prototype | protótipo |
+| prefab | prefab; em Defold, normalmente uma coleção ou objeto reutilizável |
+| instance | instância |
+| object instance | instância de objeto |
+| in-place | no local; adicionado diretamente no arquivo atual |
+| by reference | por referência |
+| child | filho |
+| parent | pai |
+| parent-child hierarchy | hierarquia pai-filho |
+| scene graph | grafo de cena; preserve `scene-graph` se for usado como termo técnico importado |
+| transform | transformação |
+| position | posição |
+| rotation | rotação |
+| scale | escala |
+| lifespan | tempo de vida |
+| runtime | tempo de execução; `runtime` quando for termo técnico ou em tabelas |
+
+## Endereçamento e mensagens
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| addressing | endereçamento |
+| address | endereço |
+| identifier | identificador |
+| id / ID | id; `ID` quando for sigla/rótulo |
+| relative address | endereço relativo |
+| absolute address | endereço absoluto |
+| URL | URL |
+| URL object | objeto URL |
+| socket | socket |
+| path | caminho; preserve `path` em campos e código |
+| fragment | fragmento |
+| separator character | caractere separador |
+| naming context | contexto de nomeação |
+| namespace | namespace; espaço de nomes se precisar explicar |
+| hash | hash |
+| hashed identifier | identificador com hash |
+| hash state | estado de hash |
+| message | mensagem |
+| message passing | passagem de mensagens |
+| message dispatcher | despachador de mensagens |
+| dispatch messages | despachar mensagens |
+| target | alvo |
+| current game object | objeto de jogo atual |
+| sender | remetente |
+| recipient | destinatário |
+| `msg.post()` | função para enviar uma mensagem |
+| `msg.url()` | função para criar um objeto URL |
+| `go.get_id()` | função que retorna o identificador de um objeto de jogo |
+| `go.set_position()` | função que define a posição de um objeto de jogo |
+| `factory.create()` | função que cria uma instância |
+| `disable` | mensagem `disable`; não traduzir quando for o nome literal |
+| `#` | separador entre objeto de jogo e componente |
+| `/` | prefixo de endereço absoluto ou separador de caminho |
+| `.` | atalho para o objeto de jogo atual |
+
+## Scripts, ciclo de vida e atualização
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| script | script |
+| script component | componente de script |
+| GUI script | script de GUI |
+| render script | script de renderização |
+| Lua | Lua; não usar `LUA` |
+| callback | callback; função de retorno se precisar explicar |
+| application lifecycle | ciclo de vida da aplicação |
+| initialization | inicialização |
+| preinitialization | pré-inicialização |
+| finalization | finalização |
+| update loop | loop de atualização |
+| update | atualização; preserve `update()` como função |
+| post update | pós-atualização |
+| frame | frame; quadro quando falar de taxa de quadros |
+| frame rate | taxa de quadros; `frame rate` quando for termo técnico em título herdado |
+| time step | passo de tempo |
+| fixed timestep | passo de tempo fixo |
+| engine throttling | limitação/controlador de ritmo da engine |
+| `init()` | função `init()` |
+| `update()` | função `update()` |
+| `late_update()` | função `late_update()` |
+| `fixed_update()` | função `fixed_update()` |
+| `final()` | função `final()` |
+| `on_message()` | função `on_message()` |
+| `on_input()` | função `on_input()` |
+| `@render` | socket `@render` |
+| `@system` | socket `@system` |
+| `set_update_frequency` | mensagem `set_update_frequency` |
+| `set_time_step` | mensagem `set_time_step` |
+
+## Entrada, física e renderização
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| input | entrada; preserve `Input` em rótulos da interface |
+| input binding | mapeamento de entrada; `Mapeamento de Entrada` como UI oficial; evite `bind de input` em novas traduções |
+| input focus | foco de entrada |
+| HID | HID; dispositivo de entrada |
+| physics | física |
+| physics engine | engine de física |
+| collision | colisão |
+| collision object | objeto de colisão |
+| trigger | gatilho |
+| ray cast | ray cast; lançamento de raio se precisar explicar |
+| render | renderização; preserve `render` em APIs e caminhos |
+| rendering | renderização |
+| render pipeline | pipeline de renderização |
+| render phase | fase de renderização |
+| projection | projeção |
+| fixed projection | projeção fixa |
+| fixed fit projection | projeção fixa ajustada |
+| orthographic projection | projeção ortográfica; preserve `Orthographic Projection` como rótulo |
+| camera | câmera |
+| view projection | projeção de visualização |
+| clear color | cor de limpeza |
+| shader | shader |
+| vertex shader | vertex shader |
+| fragment shader | fragment shader |
+| OpenGL ES | OpenGL ES |
+| Vulkan | Vulkan |
+| GPU | GPU |
+| CPU | CPU |
+
+## Gráficos e GUI
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| graphics | gráficos |
+| 2D graphics | gráficos 2D |
+| 3D graphics | gráficos 3D |
+| high resolution graphics | gráficos em alta resolução |
+| retro graphics | gráficos retrô |
+| 8-bit graphics | gráficos 8-bit |
+| pixel-perfect | pixel-perfect; nítido em pixels se precisar explicar |
+| screen size | tamanho de tela |
+| resolution | resolução |
+| aspect ratio | proporção de tela |
+| fullscreen | tela cheia |
+| bitmap graphics | gráficos bitmap |
+| texture | textura |
+| texture filtering | filtragem de textura |
+| texture profiles | perfis de textura; `Perfis de Textura`/`Perfis de Texturas` aparecem na UI oficial |
+| linear | `linear`; amostragem linear |
+| nearest | `nearest`; amostragem pelo vizinho mais próximo |
+| subpixels | subpixels |
+| High DPI | High DPI |
+| Retina | Retina |
+| back buffer | back buffer |
+| display | display; tela quando for substantivo comum |
+| display profiles | perfis de exibição; `Perfis de Exibição` como UI oficial |
+| sprite | sprite |
+| tileset | tileset |
+| tile source | tile source; fonte de tiles se explicar |
+| tile map | tile map; mapa de tiles se explicar |
+| atlas | atlas |
+| label | rótulo; `Rótulo` como tipo de recurso/componente oficial |
+| material | material; `Material` como UI oficial |
+| model | modelo; `Modelo` como UI oficial |
+| rig | rig |
+| mesh | malha; `Malha` como UI oficial |
+| font | fonte; `Fonte` como UI oficial |
+| sound | som; `Som` como UI oficial |
+| render target | alvo de renderização; `Alvo de Renderização` como UI oficial |
+| skinning | skinning |
+| GUI | GUI; interface gráfica |
+| GUI component | componente GUI |
+| node | node; nó de GUI se explicar |
+| box node | node do tipo box |
+| pivot | pivô |
+| anchor | âncora |
+| adjust mode | modo de ajuste |
+| layout | layout |
+| adaptive GUI | GUI adaptativa |
+| popup | popup |
+
+## Animação
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| animation | animação |
+| flip-book animation | animação flip-book; animação quadro a quadro se explicar |
+| Spine animation | animação Spine |
+| model animation | animação de modelo |
+| property animation | animação de propriedade |
+| Rive animation | animação Rive |
+| skeleton | esqueleto |
+| skeletal animation | animação esquelética |
+| playback | reprodução |
+| loop | loop; repetição se explicar |
+
+## Build, bundle e ferramentas
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| build | build em prosa técnica; `Compilar` como comando oficial do editor |
+| build error | erro de build; `Erro de Compilação`/`Erros de Compilação` como UI oficial |
+| build target | alvo de build |
+| build variant | variante de build; `Variante` como rótulo oficial |
+| debug build | build Debug; `Depuração` como opção oficial |
+| release build | build Release; `Lançamento` como opção oficial |
+| bundle | pacote; `Empacotar` como comando oficial do editor |
+| to bundle | empacotar |
+| application bundle | pacote de aplicativo |
+| Android application bundle | pacote de aplicativo Android; preserve `Android App Bundle` como formato oficial |
+| APK | APK; arquivo `.apk` |
+| AAB | AAB; arquivo `.aab` |
+| command line tool | ferramenta de linha de comando |
+| Bob | Bob; ferramenta de build de linha de comando do Defold |
+| `keytool` | `keytool` |
+| `adb` | `adb`; Android Debug Bridge |
+| `bundletool` | `bundletool` |
+| terminal | terminal |
+| command prompt | prompt de comando |
+| checksum | checksum |
+| cache | cache |
+| project cache | cache do projeto |
+| local cache | cache local |
+| remote cache | cache remoto |
+| resource cache | cache de recursos |
+| asset cache | cache de assets; cache de recursos se o contexto for geral |
+| clean | comando `clean`; `Compilação Limpa` como comando oficial do editor |
+
+## Android, iOS e distribuição
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| Android | Android |
+| iOS | iOS |
+| macOS | macOS |
+| Windows | Windows |
+| Linux | Linux |
+| HTML5 | HTML5 |
+| mobile | mobile; móvel quando for adjetivo comum |
+| device | dispositivo |
+| connected device | dispositivo conectado |
+| development app | aplicativo de desenvolvimento |
+| native extension | extensão nativa |
+| iterative development | desenvolvimento iterativo |
+| hot reload | hot reload em prosa técnica; `Recarregar` como comando oficial do editor |
+| hot reloading | hot reload; recarregamento de recursos em tempo de execução |
+| USB debugging | Depuração USB (`USB debugging`) |
+| Personal Hotspot | Hotspot Pessoal |
+| tethering | ancoragem |
+| AndroidX | AndroidX |
+| Android Support Library | Android Support Library; Biblioteca de Suporte Android se explicar |
+| AndroidManifest.xml | `AndroidManifest.xml` |
+| permission | permissão |
+| Play Console | Play Console |
+| Google Play | Google Play |
+| Play App Signing | Play App Signing |
+| App Store | App Store |
+| keystore | keystore |
+| debug keystore | keystore de depuração |
+| certificate | certificado |
+| key | chave |
+| alias | alias |
+| password | senha |
+| signing | assinatura |
+| app signing | assinatura do aplicativo |
+| app bundle | app bundle; pacote de aplicativo |
+
+## Manifesto e configuração
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| app manifest | manifesto do aplicativo; `Manifesto de App` como tipo de recurso na UI oficial |
+| application manifest | manifesto da aplicação |
+| feature | recurso; funcionalidade quando for capacidade da engine |
+| exclude | excluir |
+| binary | binário |
+| minimum version | versão mínima |
+| initial memory | memória inicial |
+| stack size | tamanho do stack |
+| heap size | tamanho do heap |
+| WebAssembly | WebAssembly |
+| `js-web` | `js-web` |
+| `wasm-web` | `wasm-web` |
+| YAML field | campo YAML |
+| default value | valor padrão |
+| `minSafariVersion` | `minSafariVersion` |
+| `minFirefoxVersion` | `minFirefoxVersion` |
+| `minChromeVersion` | `minChromeVersion` |
+| `initialMemory` | `initialMemory` |
+| `stackSize` | `stackSize` |
+| `ALLOW_MEMORY_GROWTH` | `ALLOW_MEMORY_GROWTH` |
+| `INITIAL_MEMORY` | `INITIAL_MEMORY` |
+| Live Update | Live Update em nomes de recurso/documentação; `Atualização Ao Vivo` como UI oficial |
+
+## Bibliotecas e assets
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| asset | asset; recurso quando for arquivo/conteúdo de projeto |
+| Asset Portal | Portal de Assets |
+| assets pane | painel Conteúdo; `Conteúdo` como UI oficial para `Assets` |
+| resource | recurso |
+| content | conteúdo |
+| library | biblioteca |
+| library project | projeto de biblioteca |
+| Libraries feature | recurso de Bibliotecas |
+| library URL | URL da biblioteca |
+| dependency | dependência |
+| library dependency | dependência de biblioteca |
+| `dependencies` | propriedade `dependencies` |
+| `include_dirs` | propriedade `include_dirs` |
+| Fetch Libraries | `Buscar Bibliotecas` como comando oficial; buscar/atualizar bibliotecas |
+| basic access authentication | autenticação de acesso básico |
+| advanced access authentication | autenticação de acesso avançada |
+| access token | token de acesso |
+| personal access token | personal access token; token de acesso pessoal |
+| read-only | somente leitura |
+| repository | repositório |
+| GitHub | GitHub |
+| GitLab | GitLab |
+| branch | branch |
+| master branch | branch `master` |
+| broken reference | referência quebrada |
+| name collision | colisão de nomes |
+
+## Depuração, desempenho e otimização
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| debugging | depuração |
+| debugger | depurador |
+| Lua debugger | depurador Lua |
+| native code debugging | depuração de código nativo |
+| crash log | registro de travamento |
+| bug | bug |
+| game logic | lógica de jogo |
+| performance | desempenho |
+| profiling | profiling; análise de desempenho se explicar |
+| profiler | perfilador; `Perfilador` como UI oficial |
+| memory profiler | perfilador de memória |
+| visual profiler | perfilador visual |
+| optimization | otimização |
+| optimize | otimizar |
+| game size | tamanho do jogo |
+| memory usage | uso de memória |
+| battery usage | uso de bateria |
+| execution speed | velocidade de execução |
+| FPS | FPS |
+| stable frame rate | taxa de quadros estável |
+
+## Monetização e anúncios
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| ads | anúncios |
+| advertisement | anúncio |
+| monetization | monetização |
+| ad format | formato de anúncio |
+| banner ad | anúncio de banner |
+| interstitial ad | anúncio intersticial |
+| rewarded ad | anúncio com recompensa |
+| incentivized ad | anúncio com incentivo |
+| ad network | rede de anúncios |
+| ad provider | provedor de anúncios |
+| ad revenue | receita de anúncios |
+| CPM | CPM; custo por mil |
+| rich media | rich media; mídia rica se explicar |
+| loot | loot |
+| in-app purchase | compra dentro do aplicativo |
+| remove ads | remover anúncios |
+| AdMob | AdMob |
+| Enhance | Enhance |
+| Facebook Instant Games | Facebook Instant Games |
+| IronSource | IronSource |
+| Unity Ads | Unity Ads |
+
+## Interface do editor
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| New Project window | janela Novo Projeto; `NOVO PROJETO` como aba oficial |
+| Open From Disk | `Abrir do Disco…` como botão oficial |
+| Create New Project | `Criar Novo Projeto` como botão oficial |
+| Recent Projects | `Projetos Recentes` como UI oficial |
+| Templates | `MODELOS` como aba oficial |
+| Tutorials | `TUTORIAIS` como aba oficial |
+| Samples | `EXEMPLOS` como aba oficial |
+| project template | modelo de projeto |
+| custom template | modelo personalizado |
+| tab | aba |
+| Assets | `Conteúdo` como painel oficial; `Navegador de Conteúdo` em comandos como "Mostrar no Navegador de Conteúdo" |
+| Changed Files | `Arquivos Modificados` como painel oficial |
+| Outline | `Estrutura` como painel oficial |
+| Properties | `Propriedades` como painel oficial |
+| Console | `Console` |
+| Curve Editor | `Editor de Curvas` como painel oficial |
+| Build Errors | `Erros de Compilação` como painel oficial |
+| Search Results | `Resultados da Busca` como painel oficial |
+| Breakpoints | `Pontos de Interrupção` como painel oficial |
+| File | `Arquivo` como menu oficial |
+| Edit | `Editar` como menu oficial |
+| View | `Visualizar` como menu oficial |
+| Project | `Projeto` como menu oficial |
+| Debug | `Depuração` como menu oficial |
+| Help | `Ajuda` como menu oficial |
+| Build | `Compilar` como comando oficial |
+| Bundle | `Empacotar` como comando oficial |
+| Bundle dialog | `Empacotar Aplicação` como título oficial |
+| Bundle Format | `Empacotar formato` como rótulo oficial |
+| Create Bundle | `Criar Pacote…` como botão oficial |
+| Targets | `Alvo` como comando oficial |
+| Simulate Resolution / Set Resolution | `Definir Resolução` como comando oficial; `Resolução Personalizada…` para opção personalizada |
+| Preferences | `Preferências…` como comando oficial |
+| Add Component | `Adicionar Componente` como comando oficial |
+| Add Game Object | `Adicionar Objeto de Jogo` como comando oficial |
+| Add Game Object File | `Adicionar Arquivo de Objeto do Jogo` ao adicionar um arquivo a uma coleção; `Adicionar Arquivo de Objeto de Jogo` ao adicionar um arquivo como item secundário |
+| Add Collection File | `Adicionar Arquivo de Coleção` como comando oficial |
+| Open Project | `Abrir Projeto…` como comando oficial |
+| Save All | `Salvar Tudo` como comando oficial |
+| Undo | `Desfazer` como comando oficial |
+| Redo | `Refazer` como comando oficial |
+| Right-click | clique com o botão direito; preserve em `<kbd>Right-click</kbd>` se for rótulo/instrução literal já formatada |
+| drag and drop | arrastar e soltar |
+| popup | popup |
+
+## FAQ e publicação
+
+| English term | Portuguese translation / explanation |
+|---|---|
+| question | pergunta; em FAQ, `P:` |
+| answer | resposta; em FAQ, `R:` |
+| free | gratuito; de graça em tom informal |
+| hidden cost | custo escondido |
+| fee | taxa |
+| royalty | royalty |
+| user tracking | rastreamento de usuário |
+| anonymous usage data | dados de uso anônimos |
+| privacy policy | Política de Privacidade |
+| source code | código-fonte |
+| open source | código aberto |
+| showcase | demonstração de jogos; showcase se for nome de seção |
+| AppStore / App Store | App Store |
+| IDFA | IDFA; Identificador de Publicidade |
+| ads within the app | propaganda/anúncios dentro do app |
+| install attribution | atribuição de instalação |
+| user action attribution | atribuição de ação do usuário |
+| review | revisão |
+| reviewer | revisor |
+| beta version | versão beta |
+| stable version | versão estável |
+| release SHA1 | SHA1 da release |
+
+## Grafia e formas preferidas
+
+| Avoid | Prefer |
+|---|---|
+| `LUA` | `Lua` |
+| `voce` | `você` |
+| `Nos` / `nos` as pronoun | `Nós` / `nós` |
+| `forum` | `fórum` |
+| `possivel` | `possível` |
+| `conteudo` | `conteúdo` |
+| `memoria` | `memória` |
+| `Andoid` | `Android` |
+| `pipelibe` | `pipeline` |
+| `objecto` | `objeto` |
+| `componet` / `componende` | `componente` |
+| `dispachar` / `dispacher` | `despachar` / `despachador` |
+| `settado` / `settar` | `configurado` / `configurar`, exceto quando citar uma função `set_*` |
+| `comittado` | `commitado` ou `com commit`, conforme o contexto |
+| `hosteado` | `hospedado` |
+| `dar fetch` | `buscar` ou `executar Fetch Libraries`, conforme o contexto |
