@@ -687,8 +687,8 @@
             {
                 "path": "/tutorials/snake",
                 "name": "Snake",
-                "description": "If you are new to Defold, this tutorial will help you to get started with script logic together with a few of the building blocks in Defold.",
-                "image": "/tutorials/images/snake/run_1.png",
+                "description": "If you are new to Defold, this tutorial will help you to get started in Defold. In this tutorial you'll make a snake clone using just a tilemap and a simple script.",
+                "image": "/tutorials/images/snake/thumbnail.webp",
                 "author": "Defold",
                 "type": "tutorial"
             },
@@ -943,6 +943,13 @@
                 "description": "In this module, you’ll learn how to use Defold’s tilemap system to create a small environment, and you’ll be introduced to the concept of modules.",
                 "image": "/courses/images/wisdevgames03.png",
                 "author": "WisDevGames"
+            },
+            {
+                "author": "MDC lessons on Udemy",
+                "description": "Beginner-friendly Defold course on Udemy where you build a playable game while learning Lua basics, movement, collisions, interactions, animations, level design, audio, debugging, optimization, and publishing. Paid course with 2+ hours of content and a certificate of accomplishment.",
+                "name": "Learn Game Making in an Hour",
+                "path": "https://www.udemy.com/course/learn-game-making-in-an-hour/",
+                "image": "/courses/images/mdc_udemy.webp"
             }
         ],
         "resources": [
