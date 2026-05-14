@@ -89,7 +89,7 @@ Defold provides a built-in [Tile Map](/manuals/tilemap/) component that you will
 
 ![new_tilesource](images/snake/5.png)
 
-The tile source will open in a dedicated tile source editor for this type of file, and you'll be asked to provide an image for it in order to make it work. On the right side you can find a `Properties` pane:
+The tile source will open in a dedicated Tile Source Editor for this type of file, and you'll be asked to provide an image for it in order to make it work. On the right side you can find a `Properties` pane:
 
 4. Set the `Image` property to the graphics file you just imported.
 ![tilesource](images/snake/6.png)
@@ -111,7 +111,7 @@ Now you have a tile source ready for use, so it's time to create the playfield t
 1. <kbd>Right click</kbd> the `main` folder and select <kbd>New</kbd> ▸ <kbd>Tile Map</kbd> in the "Components" section. Name the new file "grid" (the editor will save the file as "grid.tilemap").
 ![add_tilemap](images/snake/8.png)
 
-2. It will open in a tile map editor, and highlight that it needs a **Tile Source**, so set the *Tile Source* property to the previously created "snake.tilesource".
+2. It will open in a Tile Map Editor, and highlight that it needs a **Tile Source**, so set the *Tile Source* property to the previously created "snake.tilesource".
 ![set_tilesource](images/snake/9.png)
 
 <input type="checkbox"/> Done!
