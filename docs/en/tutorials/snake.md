@@ -21,7 +21,7 @@ In this tutorial you'll learn how to:
 
 ### A note for beginners
 
-This tutorial is designed for beginners, but if you are completely new to Defold and game development, we recommend reading some of the introductory manuals first, especially about [Defold's Building Blocks](/manuals/building-blocks/) and the [Glossary](/manuals/glossary/). If you don't have Defold downloaded yet, check the [Installation manual](/manuals/install/). It's also recommended to check the [Editor's overview](/manuals/editor/), to quickly dive into the Editor itself, but we also provide screenshots here for each step.
+This tutorial is designed for beginners, but if you are completely new to Defold and game development, we recommend reading some of the introductory manuals first, especially about [Defold's Building Blocks](/manuals/building-blocks/) and the [Glossary](/manuals/glossary/). If you don't have Defold downloaded yet, check the [Installation manual](/manuals/install/). It's also recommended to check the [Editor's overview](/manuals/editor/), to quickly dive into the Editor itself, but we also provide screenshots for each step.
 
 ## Creating the project
 
