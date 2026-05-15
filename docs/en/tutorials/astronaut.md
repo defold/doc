@@ -7,8 +7,6 @@ difficulty: Beginner
 
 # Top down movement tutorial
 
-In this beginner's tutorial you learn how to define and capture player input and make a character move and animate. You will also learn about the core building blocks in Defold: game objects, components and collections.
-
 In this beginner's tutorial, you will learn how to create a simple top-down character controller in Defold. You will start from a specially prepared project, so you don't have to worry about the assets and basic set up, you will focus instead on mechanics.
 
 You will explore the basic structure of a Defold project, including collections, game objects, sprites, scripts, tilemaps, atlases, and cameras. You will add walking animations to the character, handle player input, move the game object using Lua, normalize diagonal movement, and switch animations based on movement direction.
@@ -25,7 +23,7 @@ The tutorial is integrated with the Defold editor and easily accessible from the
 4. Select a *Location* for the project on your local drive.
 5. Click <kbd>Create New Project</kbd>.
 
-![new project](images/top-down-movement.webp)
+![new project](images/top-down-start.webp)
 
 The editor automatically opens the "README" file from the project root, containing the full tutorial text that you can follow.
 

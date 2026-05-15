@@ -25,7 +25,7 @@ Tutorial jest zintegrowany z edytorem Defold i łatwo dostępny z ekranu powital
 4. Wybierz *Location* projektu na lokalnym dysku.
 5. Kliknij <kbd>Create New Project</kbd>.
 
-![Nowy projekt](images/top-down-movement.webp)
+![Nowy projekt](images/top-down-start.webp)
 
 Edytor automatycznie otworzy plik "README" z katalogu głównego projektu, zawierający pełny tekst tutorialu, za którym możesz podążać.
 
