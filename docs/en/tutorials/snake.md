@@ -198,16 +198,16 @@ end
 
 In this code we:
 
-1. Store the segments of the snake as a Lua table named `self.segments` containing a list of tables, each holding a X and Y position for a segment.
+1. Store the segments of the snake as a Lua table named `self.segments` containing a list of tables, each holding an X and Y position for a segment.
 2. Store the current direction as a table named `self.dir` holding an X and Y direction.
 3. Store the current movement speed in `self.speed`, expressed as tiles per second.
 4. Store a timer value in `self.time` that will be used to keep track of movement speed.
 
-The script code above is written in the Lua language. There are a few things to note about the code, but if you won't yet understand any of the below, don't worry about it. Just tag along, experiment and give it time --- you will get it eventually. For now, you can remember in `init()` we just initialized the variables that we will be using.
+The script code above is written in the Lua language. There are a few things to note about the code, but if you don't yet understand any of the below, don't worry about it. Just tag along, experiment and give it time --- you will get it eventually. For now, you can remember that in `init()` we just initialized the variables that we will be using.
 
 - Defold reserves a set of built-in callback *functions* that are called during the lifetime of a script component. These are *not* methods but plain functions.
 - The runtime passes a reference to the current script component instance through the parameter `self`. The `self` reference is used to store instance data.
-- The `self` reference can be used as a Lua table that you can store data in. Just use the dot notation as you would with any other table: `self.data = "value"`. The reference is valid throughout the lifetime of the script, in this case from game start until you quit it.
+- The `self` reference can be used as a Lua table that you can store data in. Just use the dot notation as you would with any other table: `self.data = "value"`. The reference is valid throughout the lifetime of the script, in this case from the start of the game until you quit it.
 - Lua table literals are written surrounded with curly braces `{}`.
 - Table entries can be key/value pairs (`{x = 10, y = 20}`), nested Lua tables (`{ {a = 1}, {b = 2} }`) or other data types.
 
@@ -215,11 +215,11 @@ The script code above is written in the Lua language. There are a few things to 
 
 ### Update
 
-The `init()` function is called exactly once, when the script component is instantiated into the running game. The function `update()`, however, is called once **each frame**, so 60 times a second by default. That makes the function ideal for real-time game logic.
+The `init()` function is called exactly once, when the script component is instantiated into the running game. The function `update()`, however, is called once **each frame**. That makes the function ideal for real-time game logic.
 
 The idea for the update is this: at some set interval do the following:
 
-1. Find where the head of the snake is, then make a new head in the position next to it that is offset by the current movement direction. So, if the snake is moving by X=1 and Y=0 and the current head is at location X=0 and Y=0, then the new head should be at X=1 and Y=0.
+1. Find where the head of the snake is, then make a new head at the position next to it that is offset by the current movement direction. So, if the snake is moving by X=1 and Y=0 and the current head is at location X=0 and Y=0, then the new head should be at X=1 and Y=0.
 2. Save the new head position in the list of segments that constitutes the snake.
 3. Get the position of the tail from the segment table.
 4. Clear the tail tile at this position.
@@ -266,7 +266,7 @@ In this code we:
 3. Get the current head's position. `#` is the operator used to get the length of a table given that it is used as an array, which it is in our case --- all the segments are table values with no key specified.
 4. Create a new head segment based on the current head location and the movement direction (`self.dir`).
 5. Add the new head to the (end of the) segments table.
-6. Pop the tail from the beginning of the segments table.
+6. Remove the tail from the beginning of the segments table.
 7. Clear the tile at the position of the removed tail. Our tile map `#grid` has only 1 layer named `layer1`.
 8. Loop through the elements in the segments table. Each iteration will have `i` set to the position in the table (starting from 1) and `s` set to the current segment.
 9. Set the tile at the position of the segment to the value 2 (which is the tile with the green snake color).
@@ -314,9 +314,9 @@ end
 ```
 
 The added line:
-1. Send a message to the current game object ("." is shorthand for the current game object) telling it to start receiving input from the engine.
+1. Sends a message to the current game object ("." is shorthand for the current game object) telling it to start receiving input from the engine.
 
-Then find `on_input` function and type the following code:
+Then find the `on_input` function and type the following code:
 
 ```lua
 function on_input(self, action_id, action)
