@@ -30,7 +30,7 @@ Una colección puede contener objetos y otras colecciones (por referencia al arc
 
 ![Colección](images/building_blocks/collection.png)
 
-Fíjate que la sub-colección con la id "bean" está guardada en su propio arcivo, llamado "/main/bean.collection" y es únicamente referenciado en "main.collection":
+Fíjate que la sub-colección con la id "bean" está guardada en su propio archivo, llamado "/main/bean.collection" y es únicamente referenciado en "main.collection":
 
 ![Colección Bean](images/building_blocks/bean_collection.png)
 
