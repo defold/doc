@@ -1,0 +1,156 @@
+---
+title: Guia de tradução para português
+brief: Regras e terminologia observadas na tradução parcial em português da documentação Defold.
+---
+
+# Guia de tradução para português
+
+Este arquivo foi criado a partir da leitura dos arquivos portugueses atuais em `docs/pt/manuals` e `docs/pt/faq`.
+
+## Regra principal
+
+Traduza o texto explicativo para português natural e claro. Mantenha em inglês apenas nomes literais de produto, rótulos da interface, símbolos de API, nomes de arquivos, caminhos, mensagens, constantes, enumerações e valores que o leitor precisa reconhecer exatamente no Defold.
+
+A tradução portuguesa ainda está incompleta e alguns arquivos contêm frases em inglês, calques e termos misturados. Trate esses trechos como sobras do original, não como padrão de estilo.
+
+Para rótulos da interface do editor, consulte também a localização oficial do editor em português brasileiro:
+
+https://github.com/defold/defold/blob/dev/editor/resources/localization/pt_BR.editor_localization
+
+Se um rótulo existe nesse arquivo, use a forma oficial em português ao traduzir instruções de interface. Se o artigo precisa orientar leitores que usam a interface em inglês, ou se a captura de tela mostra a interface em inglês, inclua o inglês original entre parênteses na primeira menção.
+
+## Variante e tom
+
+Use português neutro, com preferência pelo estilo brasileiro já presente na maioria dos arquivos:
+
+- use `você`, não `tu`
+- use `aplicativo` para apps móveis e `aplicação` quando o contexto for genérico, como ciclo de vida da aplicação
+- escreva em tom direto e instrucional
+- mantenha a segunda pessoa de forma consistente: `você pode`, `selecione`, `certifique-se`
+- revise acentos e grafia: `você`, `nós`, `possível`, `conteúdo`, `memória`, `fórum`, `está`
+
+Evite misturar português e inglês em frases comuns quando não houver necessidade técnica.
+
+## Traduzir
+
+Traduza estes elementos:
+
+- títulos, subtítulos, briefs e textos introdutórios
+- explicações conceituais, recomendações, notas e avisos
+- perguntas e respostas de FAQ, usando `P:` e `R:`
+- legendas, descrições de tabelas e textos de listas
+- comentários naturais em exemplos de código, preservando marcadores de comentário e identificadores literais
+- textos de links quando forem descrições normais, não rótulos literais da interface ou nomes oficiais
+
+Exemplos preferidos:
+
+- `game object` -> `objeto de jogo`
+- `component` -> `componente`
+- `collection` -> `coleção`
+- `application lifecycle` -> `ciclo de vida da aplicação`
+- `ad network` -> `rede de anúncios`
+- `project settings` -> `configurações do projeto`
+- `command line tool` -> `ferramenta de linha de comando`
+
+## Manter em inglês
+
+Mantenha em inglês ou na grafia original:
+
+- marcas, plataformas e tecnologias: `Defold`, `Lua`, `Android`, `iOS`, `HTML5`, `macOS`, `Windows`, `Linux`, `AndroidX`
+- nomes de arquivos, extensões, caminhos e chaves: `game.project`, `.apk`, `.aab`, `.keystore`, `welcome.edn`, `include_dirs`, `dependencies`
+- funções, callbacks, mensagens e símbolos de API: `msg.post()`, `go.animate()`, `init()`, `update()`, `final()`, `hash("jump")`, `set_time_step`
+- ids de mensagens, sockets e constantes: `@render`, `@system`, `disable`, `proxy_loaded`, `Vsync`
+- rótulos da interface que ainda não tenham localização oficial em português, ou que precisem ser citados exatamente como aparecem em capturas de tela ou na interface em inglês
+- nomes de serviços, lojas e ferramentas: `Google Play`, `Play Console`, `Play App Signing`, `Android Studio`, `ADB`, `bundletool`, `AdMob`, `Unity Ads`
+
+Quando um rótulo da interface aparecer dentro de uma instrução, coloque-o em `<kbd>...</kbd>` e use a localização oficial em português quando existir:
+
+- `<kbd>Projeto ▸ Empacotar ▸ Aplicação Android…</kbd>`
+- `<kbd>Projeto ▸ Alvo</kbd>`
+- `<kbd>Depuração ▸ Definir Resolução</kbd>`
+- `<kbd>Criar Pacote…</kbd>`
+
+Use `▸` em caminhos de menu. Não invente traduções para rótulos da interface: use a localização oficial ou preserve o inglês.
+
+## Termos oficiais
+
+Quando um conceito oficial do Defold aparecer pela primeira vez, prefira apresentar o termo em português com o inglês entre parênteses, ou o inglês com uma explicação em português se o inglês for o termo que o usuário verá no editor.
+
+Use padrões como:
+
+- `objeto de jogo (game object)`
+- `coleção (collection)`
+- `componente (component)`
+- `proxy de coleção (collection proxy)`
+- `script de renderização (render script)`
+- `aplicativo de desenvolvimento (development app)`
+- `pacote de aplicativo Android (Android application bundle)`
+
+Depois da primeira menção, use a forma portuguesa na prosa. Volte ao inglês quando estiver falando do tipo literal no editor, de uma propriedade, de uma extensão de arquivo, de um comando ou de um identificador.
+
+## Defold e Lua
+
+Mantenha `Defold` sem tradução. Use `o Defold` quando se referir ao produto, motor/editor ou ecossistema, e `a Defold Foundation` quando se referir à fundação.
+
+Use `Lua`, não `LUA`.
+
+Use `engine` de forma consistente para o motor do Defold, pois esse termo já aparece bastante no corpus e é comum no contexto de desenvolvimento de jogos. Se precisar explicar, use `engine Defold` ou `motor/engine` na primeira menção, mas evite alternar entre `engine` e `motor` no mesmo artigo.
+
+## Interface, código e Markdown
+
+- Preserve front matter YAML e estrutura Markdown.
+- Preserve diretivas de inclusão como `:[Android FAQ](../shared/android-faq.md)`.
+- Preserve URLs, âncoras, caminhos e nomes de imagens.
+- Preserve blocos de código, identificadores e strings de exemplo.
+- Traduza comentários de código apenas quando forem texto explicativo comum; não altere código, ids, mensagens ou nomes de arquivos dentro dos comentários.
+- Use crases para literais técnicos: `game.project`, `resource-cache-local`, `@render`.
+- Use itálico apenas onde o arquivo original usa itálico para nomes de arquivo, configurações ou ênfase.
+- Traduza nomes de botões, painéis e comandos visíveis no Defold Editor somente quando houver localização oficial em português. Caso contrário, preserve o inglês.
+
+## Estilo técnico
+
+Prefira traduções naturais em vez de traduções palavra por palavra:
+
+- `speed up builds` -> `acelerar builds`
+- `build and run` -> `compilar/empacotar e executar`, conforme o contexto
+- `runtime` -> `tempo de execução`
+- `rendered` -> `renderizado`
+- `input focus` -> `foco de entrada`
+- `screen size` -> `tamanho de tela`
+- `target platform` -> `plataforma-alvo`
+
+Mantenha termos comuns de desenvolvimento quando forem mais claros em inglês no contexto do Defold, como `build`, `asset`, `bundle`, `debug`, `runtime`, `shader`, `sprite`, `layout`, `pipeline`, `profiler` e `hot reload`. Quando houver uma forma oficial do editor em português, use-a para rótulos de UI, por exemplo `Compilar`, `Empacotar`, `Conteúdo`, `Estrutura`, `Propriedades`, `Recarregar`, `Perfilador` e `Motor`.
+
+## Consistência de capitalização
+
+- Use minúsculas em termos comuns: `editor`, `engine`, `componente`, `coleção`, `objeto de jogo`, `biblioteca`.
+- Use maiúsculas em nomes próprios e rótulos literais/localizados: `Defold`, `Lua`, `Projeto`, `Conteúdo`, `Aplicação Android`. Quando preservar a interface em inglês, mantenha a capitalização original, como `Project` e `Assets`.
+- Use `API`, `FAQ`, `GUI`, `APK`, `AAB`, `ADB`, `IDFA`, `CPM`, `CPU`, `GPU`, `USB` em maiúsculas.
+- Use `High DPI`, `Retina`, `OpenGL`, `Vulkan`, `WebAssembly`, `AndroidX` como no original.
+
+## Sinais de conteúdo inacabado
+
+Os arquivos atuais ainda têm trechos em inglês ou português não revisado, especialmente em:
+
+- `docs/pt/manuals/addressing.md`
+- `docs/pt/manuals/application-lifecycle.md`
+- `docs/pt/manuals/building-blocks.md`
+- `docs/pt/manuals/caching-assets.md`
+- `docs/pt/manuals/debugging.md`
+- `docs/pt/manuals/design.md`
+- `docs/pt/manuals/extensions-debugging.md`
+- `docs/pt/manuals/extensions-debugging-android.md`
+- `docs/pt/faq/faq.md`
+
+Ao continuar a tradução:
+
+- não copie esses trechos como estilo de referência
+- corrija grafia, acentuação e concordância
+- substitua inglês residual por português quando não for literal técnico
+- mantenha em inglês somente o que não tiver localização oficial e que o usuário verá exatamente na interface, no código, em arquivos ou em serviços externos
+
+## Padrão prático
+
+Se a expressão aparece literalmente no Defold Editor, use a localização oficial em português quando existir. Se aparece na API, em um arquivo, em uma chave de configuração, em uma URL ou em um comando, mantenha em inglês.
+
+Se a expressão explica o que aquilo significa ou como usar, traduza para português.

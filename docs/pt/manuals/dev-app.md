@@ -5,7 +5,7 @@ brief: Este manual explica como colocar o aplicativo de desenvolvimento no seu d
 
 # O aplicativo de desenvolvimento móvel
 
-O aplicativo de desenvolvimento permite que você envie conteúdo para ele via wifi. Isso reduzirá bastante o tempo de iteração, pois você não precisa empacotar e instalar toda vez que desejar testar suas alterações. Você instala o aplicativo de desenvolvimento no(s) seu(s) dispositivo(s), inicia o aplicativo e então seleciona o dispositivo como um alvo de build a partir do editor.
+O aplicativo de desenvolvimento permite enviar conteúdo para ele via wifi. Isso reduz bastante o tempo de iteração, pois você não precisa empacotar e instalar o app toda vez que quiser testar suas alterações. Você instala o aplicativo de desenvolvimento nos seus dispositivos, inicia o aplicativo e então seleciona o dispositivo como alvo de build no editor.
 
 ## Instalando um aplicativo de desenvolvimento
 
@@ -13,7 +13,7 @@ Qualquer aplicativo iOS ou Android que seja empacotado no modo Debug será capaz
 
 A partir do Defold 1.4.0, é possível empacotar uma variante Debug do seu projeto sem nenhum conteúdo. Use esta opção para criar uma versão do seu aplicativo com extensões nativas, adequada para desenvolvimento iterativo conforme descrito neste manual.
 
-<img width="375" height="319" alt="image" src="https://github.com/user-attachments/assets/c911cd77-05fe-4996-bca7-9e8274667cdc" />
+![content less bundle](images/dev-app/contentless-bundle.png)
 
 ### Instalando no iOS
 

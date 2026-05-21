@@ -1,15 +1,11 @@
 ---
-title: Depuração em Defold.
-brief: Esse manual excplica as  instalações de depuraçãopresentes no Defold.
+title: Depuração no Defold
+brief: Este manual explica os recursos de depuração disponíveis no Defold.
 ---
 
-# Depuração 
+# Depuração
 
-Defold contém um Depurador em Lua
-integrado usando uma instalação de inspeção. Junto e integrado com [profiling tools](/manuals/profiling) é uma ferramenta muito poderosa que consegue ajudar a encontrar a causa do bug na lógica de seu jogo  ou analisar os problemas de desempenho. Defold também fornece registros de travamento em raras ocasiões nas quais o programa trava.
- 
+O Defold inclui um depurador Lua integrado com recursos de inspeção. Junto com as [ferramentas de profiling](/manuals/profiling), ele é uma ferramenta poderosa para encontrar a causa de bugs na lógica do seu jogo ou analisar problemas de desempenho. O Defold também fornece registros de travamento para as raras ocasiões em que a própria engine trava.
 
-
-* Aprender mais sobre [debugging your game logic](/manuals/debugging-game-logic).
-
-* Aprender mais sobre [debugging native code](/manuals/debugging-native-code).
+* Saiba mais sobre [como depurar a lógica do seu jogo](/manuals/debugging-game-logic).
+* Saiba mais sobre [como depurar código nativo](/manuals/debugging-native-code).

@@ -1,51 +1,51 @@
 ---
-title: Caching de recursos
-brief: Esse manual irá explicar como utilizar o cache de recursos para acelerar suas builds.
+title: Cache de assets
+brief: Este manual explica como usar o cache de assets para acelerar builds.
 ---
 
-# Caching de recursos
+# Cache de assets
 
-Jogos criados com Defold geralmente são contruindos em questão de segundos, mas com o crescimento de um projeto também há um crescimento no numero de recursos(assets). Compilando fontes e comprimindo texturas pode demorar em um grande projeto, assim existe o cache de recurso ou(asset cache), que serve para acelerar as builds somente recosntruindo recursos que foram alterados enquanto recursos ja compilados estavão sendo utilizados do cache para recursos que não foram mudados. 
+Jogos criados com o Defold geralmente são compilados em questão de segundos, mas a quantidade de assets cresce junto com o projeto. Compilar fontes e comprimir texturas pode levar bastante tempo em um projeto grande, e o cache de assets existe para acelerar builds recompilando apenas os assets que mudaram e reutilizando do cache os assets já compilados que não mudaram.
 
-O Defold utiliza um cache de três camadas
+O Defold usa um cache em três camadas:
 
-1. Projeto de cache
-2. Cache Local
-3. Cache Remoto
-
-
-## Projeto de cache
-
-O Defold por padrão ira dar cache nos recursos já compilados na pasta `build/default` de um projeto Defold. O projeto cache vai acelerar builds subsequentes sendo que elas so modifica recursos que precisam ser re-compilados, enquanto recursos sem mudanças serão usados do cache do projeto. Esse cache sempre está ativado e é utilizado tanto pelo editor como pelas ferramentas da linha de comando.
-
-O projeto de cache pode ser deletado manualmente simplesmente deletandos os arquivos em `build/default` ou insinuando o comando `clean` da [Ferramenta de construção da linha de comando Bob](/manuals/bob).
+1. Cache do projeto
+2. Cache local
+3. Cache remoto
 
 
-## Cache Local
+## Cache do projeto
+
+Por padrão, o Defold armazena assets compilados na pasta `build/default` de um projeto Defold. O cache do projeto acelera builds subsequentes, já que somente assets modificados precisam ser recompilados, enquanto assets sem alterações são usados a partir do cache do projeto. Esse cache está sempre ativado e é usado tanto pelo editor quanto pelas ferramentas de linha de comando.
+
+O cache do projeto pode ser excluído manualmente apagando os arquivos em `build/default` ou executando o comando `clean` da [ferramenta de build de linha de comando Bob](/manuals/bob).
+
+
+## Cache local
 
 Adicionado no Defold 1.2.187
 
-O cache local é um cache secundário opcional onde recursos compilados estarão guardados em uma localização externa de arquivos na mesma maquina ou em um network drive. Graças ao seu local externo os conteudos do cache sobrevivem a limpeza do cache do projeto. Ele pode ser compartilhado por multiplos desenvolvedores trabalhando no mesmo projeto. O cache é atualmente so está disponivel quando construindo a partir das ferramentas da linha de comando. Ele é ativado pela opção `resource-cache-local`:
+O cache local é um segundo cache opcional em que assets compilados são armazenados em um local externo no mesmo computador ou em uma unidade de rede. Por ficar fora do projeto, o conteúdo do cache sobrevive à limpeza do cache do projeto. Ele também pode ser compartilhado por vários desenvolvedores trabalhando no mesmo projeto. No momento, o cache está disponível apenas ao compilar usando as ferramentas de linha de comando. Ele é ativado pela opção `resource-cache-local`:
 
 ```sh
 java -jar bob.jar --resource-cache-local /Users/john.doe/defold_local_cache
 ```
 
-Recursos compilados são acessados do cache local baseado em um chcksum computado que leva em conta a versão da engine Defold, o nome e os conteudos dos recursos fonte assim como as opções de construção. Isso irá garantir que os recursos em cache sejam únicos e que o cache possa ser compartilhado entre multiplas versões do Defold.
+Assets compilados são acessados do cache local com base em um checksum calculado que leva em conta a versão da engine Defold, os nomes e conteúdos dos assets de origem, bem como as opções de build do projeto. Isso garante que os assets em cache sejam únicos e que o cache possa ser compartilhado entre várias versões do Defold.
 
 ::: sidenote
-Arquivos guardados no cache local são armazenados de forma indefinida. Está sob comando do desenvolvedor a ação de remover arquivos antigos/sem-uso.
+Arquivos armazenados no cache local são mantidos indefinidamente. Cabe ao desenvolvedor remover manualmente arquivos antigos ou sem uso.
 :::
 
 
-## Cache Remoto
+## Cache remoto
 
 Adicionado no Defold 1.2.187
 
-O cache remoto é uma opção terciária de cache em que recursos compilados são armazenados em um servidor que é acessado via requisições HTTP. O cache é atualmente somente disponível quando construindo a partir das ferramentas da linha de comando. Isso pode ser ativado a partir da opção `resource-cache-remote`:
+O cache remoto é um terceiro cache opcional em que assets compilados são armazenados em um servidor e acessados por requisições HTTP. No momento, o cache está disponível apenas ao compilar usando as ferramentas de linha de comando. Ele é ativado pela opção `resource-cache-remote`:
 
 ```sh
 java -jar bob.jar --resource-cache-remote http://192.168.0.100/
 ```
 
-Assim como o cache local todos os recursos são acessados de um cache remoto baseado em um checksum computado. Recursos em cache são acessados por uma requisição HTTP pelos metodos GET, PUT e HEAD. Defold não provê o servidor de cache remoto. Cada desenvolvedor está responsavel por settar esse recurso. Um exemplo de [um servidor básico em Python pode ser visto aqui](https://github.com/britzl/httpserver-python).
+Assim como no cache local, todos os assets são acessados do cache remoto com base em um checksum calculado. Assets em cache são acessados pelos métodos de requisição HTTP GET, PUT e HEAD. O Defold não fornece o servidor de cache remoto. Cabe a cada desenvolvedor configurar esse servidor. Um exemplo de [servidor básico em Python pode ser visto aqui](https://github.com/britzl/httpserver-python).
