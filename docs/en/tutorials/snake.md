@@ -11,17 +11,17 @@ This tutorial walks you through the process of creating one of the most common c
 
 ![thumbnail](images/snake/thumbnail.png)
 
-### What you'll learn here?
+### What you'll learn
 
 In this tutorial you'll learn how to:
-- create a game from scratch in Defold
-- set up and handle inputs
-- create tilemaps and modify them in runtime
-- write scripts in Lua
+- Create a game from scratch in Defold
+- Set up and handle inputs
+- Create tile maps and modify them during runtime
+- Write scripts in Lua
 
 ### A note for beginners
 
-This tutorial is designed for the beginners, but if you are completely new to Defold and the game development, we recommend reading some of the introductory manuals first, especially about [Defold's Building Blocks](/manuals/building-blocks/) and the [Glossary](/manuals/glossary/). If you don't have Defold downloaded yet, check the [Installation manual](/manuals/install/). It's also recommended to check the [Editor's overview](/manuals/editor/), to quickly dive into the Editor itself, but we also provide here screenshots for each step.
+This tutorial is designed for beginners, but if you are completely new to Defold and game development, we recommend reading some of the introductory manuals first, especially about [Defold's Building Blocks](/manuals/building-blocks/) and the [Glossary](/manuals/glossary/). If you don't have Defold downloaded yet, check the [Installation manual](/manuals/install/). It's also recommended to check the [Editor's overview](/manuals/editor/), to quickly dive into the Editor itself, but we also provide screenshots here for each step.
 
 ## Creating the project
 
@@ -29,7 +29,7 @@ Start Defold and:
 
 1. Select *Create From* ▸ *Templates* on the left side.
 2. Select *Empty Project*.
-3. Type a project name in *Title*.
+3. Type a project name in the *Title* field.
 4. Select a *Location* for the project.
 5. Click *Create New Project*.
 
@@ -47,13 +47,13 @@ We'll start with defining the resolution of the game.
 
 ![display](images/snake/2.png)
 
-The reason why you want to do this is because the game will be drawn on a grid where each segment is going to be 16x16 pixels, and this way the game screen won't cut off any partial segments. This `game.project` file contains all important settings of the projects - you can read about all of them in the [Project Settings manual](/manuals/project-settings/).
+The reason why you want to do this is because the game will be drawn on a grid where each segment is going to be 16x16 pixels, and this way the game screen won't cut off any partial segments. The `game.project` file contains all important settings of the project - you can read about all of them in the [Project Settings manual](/manuals/project-settings/).
 
 <input type="checkbox"/> Done!
 
-## Creating new folders in Assets pane
+## Creating new folders in the Assets pane
 
-Very little is needed in terms of graphics for a minimalist Snake clone. One 16⨉16 green segment for the snake, one white block for the obstacles and one, smaller red block representing the food.
+Very little is needed in terms of graphics for a minimalist Snake clone. One 16⨉16 green segment for the snake, one white block for the obstacles, and one smaller red block representing the food.
 
 First, create a directory for the assets in the Defold Editor:
 
@@ -71,7 +71,7 @@ This image below is the only asset you need:
 
 ![snake_sprites](images/snake/snake.png)
 
-1. <kbd>Right click</kbd> the image above and save it to your local disk. Then, drag and drop (or copy + paste) the downloaded image to the new location in the project folder, that you just created.
+1. <kbd>Right click</kbd> the image above and save it to your local disk. Then, drag and drop (or copy + paste) the downloaded image to the new location in the project folder that you just created.
 
 ![new_folder](images/snake/4.png)
 
@@ -79,9 +79,9 @@ You can also read more details about [importing assets here](/manuals/importing-
 
 <input type="checkbox"/> Done!
 
-## Adding Tile Source
+## Adding a Tile Source
 
-Defold provides a built-in [Tilemap](/manuals/tilemap/) component that you will use to create the playfield consisting of the *tiles* aligned in a grid. A tilemap allows you to set and read individual tiles, which suits this game perfectly. Since tilemaps fetch their graphics from a [Tilesource](/manuals/tilesource/), you need to create one:
+Defold provides a built-in [Tile Map](/manuals/tilemap/) component that you will use to create the playfield consisting of the *tiles* aligned in a grid. A tile map allows you to set and read individual tiles, which suits this game perfectly. Since tile maps fetch their graphics from a [Tile Source](/manuals/tilesource/), you need to create one:
 
 1. <kbd>Right click</kbd> the `assets` folder.
 2. Select `New` ▸ `Tile Source` in the "Resources" section.
@@ -89,7 +89,7 @@ Defold provides a built-in [Tilemap](/manuals/tilemap/) component that you will 
 
 ![new_tilesource](images/snake/5.png)
 
-The tilesource will open in a dedicated Tilesource Editor for this type of file, and you'll be asked to provide an image for it, that is necessary. On the right side you can find a `Properties` pane:
+The tile source will open in a dedicated Tile Source Editor for this type of file, and you'll be asked to provide an image for it in order to make it work. On the right side you can find a `Properties` pane:
 
 4. Set the `Image` property to the graphics file you just imported.
 ![tilesource](images/snake/6.png)
@@ -100,25 +100,25 @@ The tilesource will open in a dedicated Tilesource Editor for this type of file,
 
 Note that the *Extrude Borders* property is set to 2 pixels. This is to prevent visual artifacts around the tiles that have graphics all the way out to the edge.
 
-If you make any changes to a file an asterisk mark `*` appears next to its name on its tab. Select `File` ▸ `Save All` or use shortcut <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> on Mac) to save all files.
+If you make any changes to a file an asterisk mark `*` appears next to its name on its tab. Select `File` ▸ `Save All` or use the shortcut <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>⌘Cmd</kbd> + <kbd>S</kbd> on Mac) to save all files.
 
 <input type="checkbox"/> Done!
 
-## Creating the playfield tilemap
+## Creating the playfield tile map
 
-Now you have a tilesource ready for use, so it's time to create the playfield tilemap component:
+Now you have a tile source ready for use, so it's time to create the playfield tile map component:
 
 1. <kbd>Right click</kbd> the `main` folder and select <kbd>New</kbd> ▸ <kbd>Tile Map</kbd> in the "Components" section. Name the new file "grid" (the editor will save the file as "grid.tilemap").
 ![add_tilemap](images/snake/8.png)
 
-2. It will open in a Tilemap Editor, and highlight that it needs a **Tile Source**, so set the *Tile Source* property to the previously created "snake.tilesource".
+2. It will open in a Tile Map Editor, and highlight that it needs a **Tile Source**, so set the *Tile Source* property to the previously created "snake.tilesource".
 ![set_tilesource](images/snake/9.png)
 
 <input type="checkbox"/> Done!
 
-## Drawing tiles in the tilemap
+## Drawing tiles in the tile map
 
-Defold only stores the area of the tilemap that is actually used so you need to add enough tiles to fill the boundaries of the screen.
+Defold only stores the area of the tile map that is actually used so you need to add enough tiles to fill the boundaries of the screen.
 
 1. Select the `layer1` layer in the `Outline` pane on the right side.
 2. Choose the menu option `Edit` ▸ `Select Tile...` or shortcut <kbd>Space</kbd> to display the tile palette, then click the tile you want to use when painting.
@@ -127,15 +127,15 @@ Defold only stores the area of the tilemap that is actually used so you need to 
 3. Paint a border around the edge of the screen and some obstacles.
 ![tilemap_final](images/snake/11.png)
 
-You will need a tilemap of size 48x48 tiles (because our display is 768 and we have 16px tiles, so 768/16 = 48) to fill our game screen.
+You will need a tile map of size 48x48 tiles (because our display is 768 and we have 16px tiles, so 768/16 = 48) to fill our game screen.
 
-Save the tilemap when you are done.
+Save the tile map when you are done.
 
 <input type="checkbox"/> Done!
 
-## Adding the tilemap to the game
+## Adding the tile map to the game
 
-Now we need to add our tilemap to the game. If you are familiar with Defold Building Blocks, components are part of Game Objects and game objects can be defined in the Collections.
+Now we need to add our tile map to the game. If you are familiar with Defold Building Blocks, components are part of Game Objects and game objects can be defined in the Collections.
 
 1. Open `main.collection` by double-clicking on it in the `Assets` pane. This is, in the Empty Project template by default, the bootstrap collection that is loaded on engine start.
 
@@ -145,7 +145,7 @@ Now we need to add our tilemap to the game. If you are familiar with Defold Buil
 3. <kbd>Right click</kbd> the new game object and select `Add Component File`. Choose the file "grid.tilemap" that you just created.
 ![add_component](images/snake/13.png)
 
-Right now we have a tilemap in our game collection. It should be visible, when you run the game from the Editor.
+Right now we have a tile map in our game collection. It should be visible, when you run the game from the Editor.
 
 1. Select `Project` ▸ `Build` or shortcut <kbd>Ctrl</kbd> + <kbd>B</kbd> (<kbd>⌘Cmd</kbd> + <kbd>B</kbd> on Mac).
 
@@ -158,11 +158,11 @@ Right now we have a tilemap in our game collection. It should be visible, when y
 1. <kbd>Right click</kbd> the folder `main` in the `Assets` browser and select `New` ▸ `Script` in the Scripts section. Name the new script file "snake" (it will be saved as "snake.script"). This file will hold all the logic for the game.
 ![add_script](images/snake/15.png)
 
-2. Go back to *main.collection* and <kbd>right click</kbd> the game object holding the tilemap. Select <kbd>Add&nbsp;Component&nbsp;File</kbd> and choose the file "snake.script".
+2. Go back to *main.collection* and <kbd>right click</kbd> the game object holding the tile map. Select <kbd>Add&nbsp;Component&nbsp;File</kbd> and choose the file "snake.script".
 
 ![main _ollection](images/snake/16.png)
 
-Now you have the tilemap component and the script in place.
+Now you have the tile map component and the script in place.
 
 <input type="checkbox"/> Done!
 
@@ -198,16 +198,16 @@ end
 
 In this code we:
 
-1. Store the segments of the snake as a Lua table named `self.segments` containing a list of tables, each holding a X and Y position for a segment.
+1. Store the segments of the snake as a Lua table named `self.segments` containing a list of tables, each holding an X and Y position for a segment.
 2. Store the current direction as a table named `self.dir` holding an X and Y direction.
 3. Store the current movement speed in `self.speed`, expressed as tiles per second.
 4. Store a timer value in `self.time` that will be used to keep track of movement speed.
 
-The script code above is written in the Lua language. There are a few things to note about the code, but if you won't yet understand any of the below, don't worry about it. Just tag along, experiment and give it time --- you will get it eventually. For now, you can remember in `init()` we just initialized the variables that we will be using.
+The script code above is written in the Lua language. There are a few things to note about the code, but if you don't yet understand any of the below, don't worry about it. Just tag along, experiment and give it time --- you will get it eventually. For now, you can remember that in `init()` we just initialized the variables that we will be using.
 
 - Defold reserves a set of built-in callback *functions* that are called during the lifetime of a script component. These are *not* methods but plain functions.
 - The runtime passes a reference to the current script component instance through the parameter `self`. The `self` reference is used to store instance data.
-- The `self` reference can be used as a Lua table that you can store data in. Just use the dot notation as you would with any other table: `self.data = "value"`. The reference is valid throughout the lifetime of the script, in this case from game start until you quit it.
+- The `self` reference can be used as a Lua table that you can store data in. Just use the dot notation as you would with any other table: `self.data = "value"`. The reference is valid throughout the lifetime of the script, in this case from the start of the game until you quit it.
 - Lua table literals are written surrounded with curly braces `{}`.
 - Table entries can be key/value pairs (`{x = 10, y = 20}`), nested Lua tables (`{ {a = 1}, {b = 2} }`) or other data types.
 
@@ -215,11 +215,11 @@ The script code above is written in the Lua language. There are a few things to 
 
 ### Update
 
-The `init()` function is called exactly once, when the script component is instantiated into the running game. The function `update()`, however, is called once **each frame**, so 60 times a second by default. That makes the function ideal for real-time game logic.
+The `init()` function is called exactly once, when the script component is instantiated into the running game. The function `update()`, however, is called once **each frame**. That makes the function ideal for real-time game logic.
 
 The idea for the update is this: at some set interval do the following:
 
-1. Find where the head of the snake is, then make a new head in the position next to it that is offset by the current movement direction. So, if the snake is moving by X=1 and Y=0 and the current head is at location X=0 and Y=0, then the new head should be at X=1 and Y=0.
+1. Find where the head of the snake is, then make a new head at the position next to it that is offset by the current movement direction. So, if the snake is moving by X=1 and Y=0 and the current head is at location X=0 and Y=0, then the new head should be at X=1 and Y=0.
 2. Save the new head position in the list of segments that constitutes the snake.
 3. Get the position of the tail from the segment table.
 4. Clear the tail tile at this position.
@@ -266,8 +266,8 @@ In this code we:
 3. Get the current head's position. `#` is the operator used to get the length of a table given that it is used as an array, which it is in our case --- all the segments are table values with no key specified.
 4. Create a new head segment based on the current head location and the movement direction (`self.dir`).
 5. Add the new head to the (end of the) segments table.
-6. Pop the tail from the beginning of the segments table.
-7. Clear the tile at the position of the removed tail. Our tilemap `#grid` has only 1 layer named `layer1`.
+6. Remove the tail from the beginning of the segments table.
+7. Clear the tile at the position of the removed tail. Our tile map `#grid` has only 1 layer named `layer1`.
 8. Loop through the elements in the segments table. Each iteration will have `i` set to the position in the table (starting from 1) and `s` set to the current segment.
 9. Set the tile at the position of the segment to the value 2 (which is the tile with the green snake color).
 10. When done, reset the timer to zero.
@@ -314,9 +314,9 @@ end
 ```
 
 The added line:
-1. Send a message to the current game object ("." is shorthand for the current game object) telling it to start receiving input from the engine.
+1. Sends a message to the current game object ("." is shorthand for the current game object) telling it to start receiving input from the engine.
 
-Then find `on_input` function and type the following code:
+Then find the `on_input` function and type the following code:
 
 ```lua
 function on_input(self, action_id, action)
@@ -487,7 +487,7 @@ end
 
 ### Eating the food
 
-Now, detecting if the snake has collided with something is just a matter of looking at what's on the tilemap where snake is heading and react.
+Now, detecting if the snake has collided with something is just a matter of looking at what's on the tile map where snake is heading and react.
 
 Add a variable that keeps track of whether the snake is alive or not:
 
@@ -557,7 +557,7 @@ end
 ```
 
 1. Only advance the snake if it's alive.
-2. Before drawing to the tilemap, read what's at the position where the new snake head will be.
+2. Before drawing to the tile map, read what's at the position where the new snake head will be.
 3. If the tile is an obstacle or another part of the snake, game over!
 4. If the tile is food, increase the speed, then put out a new food item.
 5. Note that the removal of the tail only happens if there is no collision. This means that if the player eats food, the snake will grow by one segment since no tail is removed on that move.
