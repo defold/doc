@@ -21,7 +21,7 @@ go.set(".", "position.y", 200)
 go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNCE, 2)
 ```
 
-Aby zatrzymać wszystkie animacje danej właściwości, wywołaj `go.cancel_animations()`, a dla węzłów GUI `gui.cancel_animation()`:
+Aby zatrzymać wszystkie animacje danej właściwości, wywołaj `go.cancel_animations()`, a dla węzłów GUI `gui.cancel_animations()`:
 
 ```lua
 -- Zatrzymaj animację obrotu euler.z bieżącego obiektu gry
@@ -49,7 +49,7 @@ gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 
 ## Wywołania zwrotne po zakończeniu
 
-Funkcje animacji właściwości `go.animate()` i `gui.animate()` obsługują opcjonalną funkcję zwrotną jako ostatni argument. Zostanie ona wywołana po zakończeniu animacji. Taka funkcja zwrotna nigdy nie jest wywoływana dla animacji zapętlonych ani wtedy, gdy animacja została ręcznie anulowana przez `go.cancel_animations()` lub `gui.cancel_animation()`. Można jej używać do wyzwalania zdarzeń po zakończeniu animacji albo do łączenia kilku animacji w sekwencję.
+Funkcje animacji właściwości `go.animate()` i `gui.animate()` obsługują opcjonalną funkcję zwrotną jako ostatni argument. Zostanie ona wywołana po zakończeniu animacji. Taka funkcja zwrotna nigdy nie jest wywoływana dla animacji zapętlonych ani wtedy, gdy animacja została ręcznie anulowana przez `go.cancel_animations()` lub `gui.cancel_animations()`. Można jej używać do wyzwalania zdarzeń po zakończeniu animacji albo do łączenia kilku animacji w sekwencję.
 
 ## Krzywe easing
 

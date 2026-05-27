@@ -137,7 +137,7 @@ O script de renderização padrão é feito sob medida para jogos 2D e não func
   function update()
     ...
     render.set_depth_mask(true)
-    render.enable_state(render.STATE_DEPTH_TEST)
+    render.enable_state(graphics.STATE_DEPTH_TEST)
     render.set_projection(stretch_projection(-1000, 1000))  -- ortográfica
     render.draw(self.model_pred)
     render.set_depth_mask(false)

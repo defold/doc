@@ -114,11 +114,11 @@ function init(self)
     -- Utwórz zasób tekstury jak zwykle, ale dodaj flagę "storage",
     -- aby można go było użyć jako zaplecza dla programów compute
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     -- pobierz uchwyt tekstury z zasobu
@@ -175,11 +175,11 @@ function init(self)
     -- Utwórz zasób tekstury jak zwykle, ale dodaj flagę "storage",
     -- aby można go było użyć jako zaplecza dla programów compute
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     local textures = {

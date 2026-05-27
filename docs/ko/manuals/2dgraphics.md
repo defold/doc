@@ -135,7 +135,7 @@ go.animate("my_object#sprite", "scale.x", go.PLAYBACK_ONCE_FORWARD, 1.5, go.EASI
 2. 복사한 "sprite.material" 파일을 열어, 위에서 복사한 쉐이더 파일(.vp와 .fp 파일)의 경로로 다시 매핑(remap)합니다.
 3. 복사한 쉐이더 파일(.vp와 .fp 파일)을 원하는 대로 수정합니다. 만약 쉐이더 상수(shader constants)를 사용하려면 반드시 메터리얼(material) 파일에 선언되어야 합니다.
 4. 스프라이트를 열어서 속성창(Properties)에서 새 메터리얼로 지정해줍니다.
-5. 게임 실행 중에 쉐이더 상수(shader constants)를 설정하려면,  sprite.set_constant() 함수와 sprite.reset_contant() 함수를 사용하면 됩니다.
+5. 게임 실행 중에 쉐이더 상수(shader constants)를 설정하려면, go.set() 함수를 사용하면 됩니다.
 
 ## Tile Maps
 타일맵은 큰 격자(grid) 공간으로 타일 소스의 타일을 조립하거나 페인팅 하게 해 주는 컴포넌트입니다. 타일맵은 일반적으로 레벨 환경을 만드는데 사용됩니다. 또한 충돌을 감지하고 물리 시뮬레이션을 위해 맵의 타일소스로부터 충돌 모형(Collision Shapes)을 사용할 수도 있습니다.

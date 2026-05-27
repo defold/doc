@@ -114,11 +114,11 @@ function init(self)
     -- Create a texture resource like usual, but add the "storage" flag
     -- so it can be used as the backing storage for compute programs
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     -- get the texture handle from the resource
@@ -175,11 +175,11 @@ function init(self)
     -- Create a texture resource like usual, but add the "storage" flag
     -- so it can be used as the backing storage for compute programs
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     local textures = {

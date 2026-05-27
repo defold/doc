@@ -137,7 +137,7 @@ The default render script is tailor made for 2D games and does not work with 3D 
   function update()
     ...
     render.set_depth_mask(true)
-    render.enable_state(render.STATE_DEPTH_TEST)
+    render.enable_state(graphics.STATE_DEPTH_TEST)
     render.set_projection(stretch_projection(-1000, 1000))  -- orthographic
     render.draw(self.model_pred)
     render.set_depth_mask(false)

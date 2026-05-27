@@ -21,7 +21,7 @@ go.set(".", "position.y", 200)
 go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNCE, 2)
 ```
 
-To stop all animations of a given property, call `go.cancel_animations()`, or for GUI nodes, `gui.cancel_animation()`:
+To stop all animations of a given property, call `go.cancel_animations()`, or for GUI nodes, `gui.cancel_animations()`:
 
 ```lua
 -- Stop euler z rotation animation on the current game object
@@ -49,7 +49,7 @@ gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 
 ## Completion callbacks
 
-The property animation functions `go.animate()` and `gui.animate()` support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations, nor when an animation is manually canceled via `go.cancel_animations()` or `gui.cancel_animation()`. The callback can be used to trigger events on animation completion or to chain multiple animations together.
+The property animation functions `go.animate()` and `gui.animate()` support an optional Lua callback function as the last argument. This function will be called when the animation has played to the end. The function is never called for looping animations, nor when an animation is manually canceled via `go.cancel_animations()` or `gui.cancel_animations()`. The callback can be used to trigger events on animation completion or to chain multiple animations together.
 
 ## Easing
 

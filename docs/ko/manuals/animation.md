@@ -142,7 +142,7 @@ go.set(".", "position.y", 200)
 go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNCE, 2)
 ```
 
-주어진 속성의 모든 애니메이션을 중지하려면, go.cancel_animations() 를 호출하거나 GUI 노드에서는 gui.cancel_animation()를 호출하면 됩니다:
+주어진 속성의 모든 애니메이션을 중지하려면, go.cancel_animations() 를 호출하거나 GUI 노드에서는 gui.cancel_animations()를 호출하면 됩니다:
 
 ```lua
 -- 현재 게임오브젝트에서 오일러(euler) z축의 회전 애니메이션을 중지함

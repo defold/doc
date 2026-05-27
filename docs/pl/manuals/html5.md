@@ -259,7 +259,7 @@ Czasami trzeba przekazać grze dodatkowe argumenty jeszcze przed jej uruchomieni
 
 ### Argumenty silnika
 
-Można określić dodatkowe argumenty silnika podczas konfiguracji i wczytywania silnika. Te dodatkowe argumenty można w czasie działania odczytać za pomocą `sys.get_config()`. Aby dodać pary klucz-wartość, zmodyfikuj pole `engine_arguments` obiektu `extra_params`, które jest przekazywane do silnika podczas wczytywania w `index.html`:
+Można określić dodatkowe argumenty silnika podczas konfiguracji i wczytywania silnika. Te dodatkowe argumenty można w czasie działania odczytać za pomocą `sys.get_config_string()`. Aby dodać pary klucz-wartość, zmodyfikuj pole `engine_arguments` obiektu `extra_params`, które jest przekazywane do silnika podczas wczytywania w `index.html`:
 
 
 ```
@@ -276,8 +276,8 @@ Możesz też dodać `--config=foo1=bar1, --config=foo2=bar2` do pola argumentów
 W czasie działania wartości odczytasz w ten sposób:
 
 ```lua
-local foo1 = sys.get_config("foo1")
-local foo2 = sys.get_config("foo2")
+local foo1 = sys.get_config_string("foo1")
+local foo2 = sys.get_config_string("foo2")
 print(foo1) -- bar1
 print(foo2) -- bar2
 ```

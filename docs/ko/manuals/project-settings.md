@@ -39,7 +39,7 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711
 ```
 
-커스텀 밸류(custom values)는 (다른 config value와 마찬가지로) [sys.get_config()](http://www.defold.com/ref/sys/#sys.get_config) 로 읽을 수 있습니다.
+커스텀 밸류(custom values)는 (다른 config value와 마찬가지로) [sys.get_config_string()](/ref/sys/#sys.get_config_string), [sys.get_config_int()](/ref/sys/#sys.get_config_int), [sys.get_config_number()](/ref/sys/#sys.get_config_number) 로 읽을 수 있습니다.
 
 ## Project
 #### title
