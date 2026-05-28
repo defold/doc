@@ -23,8 +23,6 @@ The project cache can be deleted manually by deleting the files in `build/defaul
 
 ## Local cache
 
-Added in Defold 1.2.187
-
 The local cache is an optional second cache where compiled assets are stored in an external file location on the same machine or on a network drive. Thanks to its external location the contents of the cache survives a cleanup of the project cache. It can also be shared by multiple developers working on the same project. The cache is currently only available when building using the command line tools. It is enabled through the `resource-cache-local` option:
 
 ```sh
@@ -39,8 +37,6 @@ Files stored in the local cache are stored indefinitely. It is up to the develop
 
 
 ## Remote cache
-
-Added in Defold 1.2.187
 
 The remote cache is an optional third cache where compiled assets are stored on a server and accessed through HTTP request. The cache is currently only available when building using the command line tools. It is enabled through the `resource-cache-remote` option:
 

@@ -172,10 +172,6 @@ Once you have the storyboard file you can reference it from *game.project*.
 
 ### Creating an icon asset catalog
 
-::: sidenote
-This is required from Defold 1.2.175.
-:::
-
 Using an asset catalog is Apple's preferred way to manage your application's icons. In fact it is the only way to provide the icon used in the App Store listing. You create an asset catalog in the same way as a storyboard, using Xcode. Start Xcode and create a new project. Select iOS and Single View App:
 
 ![Create project](images/ios/xcode_create_project.png)
