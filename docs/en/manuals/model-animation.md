@@ -3,9 +3,9 @@ title: 3D model animation in Defold manual
 brief: This manual describes how to use 3D model animations in Defold.
 ---
 
-# 3D skinned animation
+# 3D model animation
 
-Skeletal animation of 3D models use the bones of the model to apply deformation to vertices in the model.
+Model components can play skeletal animations and morph target animations imported from glTF files. Skeletal animation uses the bones of the model to apply deformation to vertices in the model. Morph target animation, also known as blend shape animation, changes the shape of the model by animating weights for alternate vertex positions.
 
 For details on how to import 3D data into a Model for animation, see the [Model documentation](/manuals/model).
 
@@ -25,10 +25,42 @@ end
 ```
 
 ::: important
-Defold currently supports only baked animations. Animations need to have matrices for each animated bone each keyframe, and not position, rotation and scale as separate keys.
+Defold currently supports only baked skeletal animations. Skeletal animations need to have matrices for each animated bone each keyframe, and not position, rotation and scale as separate keys.
 
 Animations are also linearly interpolated. If you do more advanced curve interpolation the animations needs to be prebaked from the exporter.
 :::
+
+### Morph targets
+
+Morph targets are alternative shapes for the same mesh. Each target stores vertex deltas, and each target has a blend weight that controls how much of that shape is applied. A weight of `0` means that the target has no effect, while a weight of `1` applies the full target shape. Values outside that range can also be useful for exaggerated effects if the shader and asset are authored for it.
+
+Defold imports morph targets and initial morph weights from glTF model data. glTF animations that animate morph weights are imported into the model animation set and can be played with [`model.play_anim()`](/ref/model#model.play_anim), just like skeletal animations:
+
+```lua
+function init(self)
+    model.play_anim("#model", "smile", go.PLAYBACK_LOOP_FORWARD)
+end
+```
+
+Morph target animations can be used on their own or together with skeletal animation. If a model has animation data but no skeleton, only morph target animation data will be used.
+
+You can also read and override morph target weights from script. [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) returns the current weights for the first mesh in the model that has morph targets. [`model.set_blend_weights()`](/ref/model#model.set_blend_weights) applies a script override to every morphed mesh in the model:
+
+```lua
+function init(self)
+    local weights = model.get_blend_weights("#model")
+    weights[1] = 0.75
+    weights[2] = 0.25
+    model.set_blend_weights("#model", weights)
+end
+```
+
+The weight table uses one-based Lua indices in the same order as the morph targets in the mesh. Extra values are ignored, and missing values are treated as zero for meshes with more morph targets than the table contains. The script override is applied after animation every frame until it is cleared:
+
+```lua
+model.set_blend_weights("#model")     -- clear the override
+model.set_blend_weights("#model", nil) -- also clears the override
+```
 
 ### The bone hierarchy
 

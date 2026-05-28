@@ -23,7 +23,7 @@ With the model created you need to specify a number of properties:
 Apart from the properties *Id*, *Position* and *Rotation* the following component specific properties exist:
 
 *Mesh*
-: This property should refer to the glTF *.gltf* file that contains the mesh to use. If the file contains multiple meshes, only the first one is read.
+: This property should refer to the glTF *.gltf* file that contains the mesh to use. If the file contains morph targets, they are imported together with the mesh. If the file contains multiple meshes, only the first one is read.
 
 *Create GO Bones*
 : Check this to create a game object for every bone of the model. You can use the game objects to attach other game objects such as weapons to hand bones and so on. 
@@ -80,6 +80,8 @@ model.play_anim("#model", "run", go.PLAYBACK_NONE)
 -- animate the cursor
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
 ```
+
+Models can also use glTF morph target animations. Morph target weights are animated with `model.play_anim()` like other model animations, and can be read or overridden at runtime using [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) and [`model.set_blend_weights()`](/ref/model#model.set_blend_weights). See the [morph targets section](/manuals/model-animation#morph-targets) in the model animation manual for details.
 
 ### Changing properties
 
