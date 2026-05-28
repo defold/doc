@@ -21,7 +21,7 @@ go.set(".", "position.y", 200)
 go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNCE, 2)
 ```
 
-Para parar todas as animações de uma determinada propriedade, chame `go.cancel_animations()`, ou, para nodes de GUI, `gui.cancel_animation()`:
+Para parar todas as animações de uma determinada propriedade, chame `go.cancel_animations()`, ou, para nodes de GUI, `gui.cancel_animations()`:
 
 ```lua
 -- Para a animação de rotação euler z no objeto de jogo atual
@@ -49,7 +49,7 @@ gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 
 ## Callbacks de conclusão
 
-As funções de animação de propriedade `go.animate()` e `gui.animate()` aceitam uma função de callback Lua opcional como último argumento. Essa função será chamada quando a animação for reproduzida até o fim. A função nunca é chamada para animações em loop, nem quando uma animação é cancelada manualmente via `go.cancel_animations()` ou `gui.cancel_animation()`. O callback pode ser usado para disparar eventos na conclusão da animação ou para encadear várias animações.
+As funções de animação de propriedade `go.animate()` e `gui.animate()` aceitam uma função de callback Lua opcional como último argumento. Essa função será chamada quando a animação for reproduzida até o fim. A função nunca é chamada para animações em loop, nem quando uma animação é cancelada manualmente via `go.cancel_animations()` ou `gui.cancel_animations()`. O callback pode ser usado para disparar eventos na conclusão da animação ou para encadear várias animações.
 
 ## Easing
 

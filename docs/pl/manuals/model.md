@@ -137,7 +137,7 @@ Domyślny skrypt do renderowania jest zaprojektowany specjalnie z myślą o grac
   function update()
     ...
     render.set_depth_mask(true)
-    render.enable_state(render.STATE_DEPTH_TEST)
+    render.enable_state(graphics.STATE_DEPTH_TEST)
     render.set_projection(stretch_projection(-1000, 1000))  -- ortograficzna
     render.draw(self.model_pred)
     render.set_depth_mask(false)

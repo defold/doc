@@ -115,11 +115,11 @@ function init(self)
     -- Cria um recurso de textura como de costume, mas adiciona a flag "storage"
     -- para que ele possa ser usado como armazenamento de apoio para programas compute
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     -- obtém o handle da textura a partir do recurso
@@ -176,11 +176,11 @@ function init(self)
     -- Cria um recurso de textura como de costume, mas adiciona a flag "storage"
     -- para que ele possa ser usado como armazenamento de apoio para programas compute
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     local textures = {

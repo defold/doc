@@ -117,7 +117,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
   function update()
     ...
     render.set_depth_mask(true)
-    render.enable_state(render.STATE_DEPTH_TEST)
+    render.enable_state(graphics.STATE_DEPTH_TEST)
     render.set_projection(stretch_projection(-1000, 1000))  -- orthographic
     render.draw(self.model_pred)
     render.set_depth_mask(false)

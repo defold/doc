@@ -260,7 +260,7 @@ It is sometimes necessary to provide additional arguments to a game before it or
 
 ### Engine arguments
 
-It is possible to specify additional engine arguments when the engine is configured and loaded. These extra engine arguments can at runtime be retrieved using `sys.get_config()`. To add the key-value pairs you modify the `engine_arguments` field of the `extra_params` object that is passed to the engine when loaded in `index.html`:
+It is possible to specify additional engine arguments when the engine is configured and loaded. These extra engine arguments can at runtime be retrieved using `sys.get_config_string()`. To add the key-value pairs you modify the `engine_arguments` field of the `extra_params` object that is passed to the engine when loaded in `index.html`:
 
 
 ```
@@ -277,8 +277,8 @@ You can also add `--config=foo1=bar1, --config=foo2=bar2` to the engine argument
 At runtime you get the values like this:
 
 ```lua
-local foo1 = sys.get_config("foo1")
-local foo2 = sys.get_config("foo2")
+local foo1 = sys.get_config_string("foo1")
+local foo2 = sys.get_config_string("foo2")
 print(foo1) -- bar1
 print(foo2) -- bar2
 ```

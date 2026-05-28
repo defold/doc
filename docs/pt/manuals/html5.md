@@ -260,7 +260,7 @@ Builds HTML5 oferecem suporte a operações de arquivo como `sys.save()`, `sys.l
 
 ### Argumentos da engine
 
-É possível especificar argumentos adicionais da engine quando ela é configurada e carregada. Esses argumentos extras da engine podem ser recuperados em tempo de execução usando `sys.get_config()`. Para adicionar os pares chave-valor, modifique o campo `engine_arguments` do objeto `extra_params` passado para a engine quando ela é carregada em `index.html`:
+É possível especificar argumentos adicionais da engine quando ela é configurada e carregada. Esses argumentos extras da engine podem ser recuperados em tempo de execução usando `sys.get_config_string()`. Para adicionar os pares chave-valor, modifique o campo `engine_arguments` do objeto `extra_params` passado para a engine quando ela é carregada em `index.html`:
 
 
 ```
@@ -277,8 +277,8 @@ Você também pode adicionar `--config=foo1=bar1, --config=foo2=bar2` ao campo d
 Em tempo de execução, você obtém os valores assim:
 
 ```lua
-local foo1 = sys.get_config("foo1")
-local foo2 = sys.get_config("foo2")
+local foo1 = sys.get_config_string("foo1")
+local foo2 = sys.get_config_string("foo2")
 print(foo1) -- bar1
 print(foo2) -- bar2
 ```

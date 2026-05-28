@@ -143,8 +143,8 @@ Use [`resource.create_texture(path, params)`](https://defold.com/ref/stable/reso
   local params = {
     width  = 128,
     height = 128,
-    type   = resource.TEXTURE_TYPE_2D,
-    format = resource.TEXTURE_FORMAT_RGBA,
+    type   = graphics.TEXTURE_TYPE_2D,
+    format = graphics.TEXTURE_FORMAT_RGBA,
   }
   local my_texture_id = resource.create_texture("/my_custom_texture.texturec", params)
 ```
@@ -167,7 +167,7 @@ Depois que a textura for criada, você pode usar [`resource.set_texture(path, pa
       end
   end
 
-  local params = { width=width, height=height, x=0, y=0, type=resource.TEXTURE_TYPE_2D, format=resource.TEXTURE_FORMAT_RGBA, num_mip_maps=1 }
+  local params = { width=width, height=height, x=0, y=0, type=graphics.TEXTURE_TYPE_2D, format=graphics.TEXTURE_FORMAT_RGBA, num_mip_maps=1 }
   resource.set_texture(my_texture_id, params, buf)
 ```
 

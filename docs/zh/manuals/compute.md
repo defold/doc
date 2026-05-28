@@ -114,11 +114,11 @@ function init(self)
     -- 像往常一样创建纹理资源，但添加"storage"标志
     -- 以便它可以用作计算程序的后备存储
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     -- 从资源中获取纹理句柄
@@ -175,11 +175,11 @@ function init(self)
     -- 像往常一样创建纹理资源，但添加"storage"标志
     -- 以便它可以用作计算程序的后备存储
     local t_backing = resource.create_texture("/my_backing_texture.texturec", {
-        type   = resource.TEXTURE_TYPE_IMAGE_2D,
+        type   = graphics.TEXTURE_TYPE_IMAGE_2D,
         width  = 128,
         height = 128,
-        format = resource.TEXTURE_FORMAT_RGBA32F,
-        flags  = resource.TEXTURE_USAGE_FLAG_STORAGE + resource.TEXTURE_USAGE_FLAG_SAMPLE,
+        format = graphics.TEXTURE_FORMAT_RGBA32F,
+        flags  = graphics.TEXTURE_USAGE_FLAG_STORAGE + graphics.TEXTURE_USAGE_FLAG_SAMPLE,
     })
 
     local textures = {

@@ -233,25 +233,25 @@ function update(self)
 
     -- render models
     --
-    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
-    render.enable_state(render.STATE_CULL_FACE)
-    render.enable_state(render.STATE_DEPTH_TEST)
+    render.set_blend_func(graphics.BLEND_FACTOR_SRC_ALPHA, graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+    render.enable_state(graphics.STATE_CULL_FACE)
+    render.enable_state(graphics.STATE_DEPTH_TEST)
     render.set_depth_mask(true)
     render.draw(predicates.model_pred)
     render.set_depth_mask(false)
-    render.disable_state(render.STATE_DEPTH_TEST)
-    render.disable_state(render.STATE_CULL_FACE)
+    render.disable_state(graphics.STATE_DEPTH_TEST)
+    render.disable_state(graphics.STATE_CULL_FACE)
 
      -- render world (sprites, tilemaps, particles etc)
      --
-    render.set_blend_func(render.BLEND_SRC_ALPHA, render.BLEND_ONE_MINUS_SRC_ALPHA)
-    render.enable_state(render.STATE_DEPTH_TEST)
-    render.enable_state(render.STATE_STENCIL_TEST)
-    render.enable_state(render.STATE_BLEND)
+    render.set_blend_func(graphics.BLEND_FACTOR_SRC_ALPHA, graphics.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA)
+    render.enable_state(graphics.STATE_DEPTH_TEST)
+    render.enable_state(graphics.STATE_STENCIL_TEST)
+    render.enable_state(graphics.STATE_BLEND)
     render.draw(predicates.tile)
     render.draw(predicates.particle)
-    render.disable_state(render.STATE_STENCIL_TEST)
-    render.disable_state(render.STATE_DEPTH_TEST)
+    render.disable_state(graphics.STATE_STENCIL_TEST)
+    render.disable_state(graphics.STATE_DEPTH_TEST)
 
     -- debug
     render.draw_debug3d()
@@ -261,10 +261,10 @@ function update(self)
     local camera_gui = state.cameras.camera_gui
     render.set_view(camera_gui.view)
     render.set_projection(camera_gui.proj)
-    render.enable_state(render.STATE_STENCIL_TEST)
+    render.enable_state(graphics.STATE_STENCIL_TEST)
     render.draw(predicates.gui, camera_gui.frustum)
     render.draw(predicates.text, camera_gui.frustum)
-    render.disable_state(render.STATE_STENCIL_TEST)
+    render.disable_state(graphics.STATE_STENCIL_TEST)
 end
 ```
 
@@ -317,7 +317,7 @@ render.set_render_target(render.RENDER_TARGET_DEFAULT)
 render.disable_material()
 
 -- bind the render target result texture to whatever is getting rendered via the predicate
-render.enable_texture(0, "my_render_target", render.BUFFER_COLOR0_BIT)
+render.enable_texture(0, "my_render_target", graphics.BUFFER_TYPE_COLOR0_BIT)
 render.draw(self.my_tile_predicate)
 ```
 

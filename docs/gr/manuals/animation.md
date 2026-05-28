@@ -171,7 +171,7 @@ go.set(".", "position.y", 200)
 go.animate(".", "position.y", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_OUTBOUNCE, 2)
 ```
 
-Για να σταματήσετε όλες τις κινούμενες εικόνες μιας συγκεκριμένης ιδιότητας, καλέστε `go.cancel_animations()`, ή για κόμβους GUI, `gui.cancel_animation()`:
+Για να σταματήσετε όλες τις κινούμενες εικόνες μιας συγκεκριμένης ιδιότητας, καλέστε `go.cancel_animations()`, ή για κόμβους GUI, `gui.cancel_animations()`:
 
 ```lua
 -- Stop euler z rotation animation on the current game object

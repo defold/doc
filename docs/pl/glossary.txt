@@ -1402,7 +1402,7 @@ This glossary covers the most relevant terms from the model manual and keeps lit
 | `model.material` | wbudowany materiał dla statycznych modeli bez instancji |
 | `model_skinned.material` | wbudowany materiał dla animowanych modeli ze szkieletem |
 | `render.predicate()` | funkcja tworząca predykat renderowania dla modeli |
-| `render.STATE_DEPTH_TEST` | tryb testu głębi potrzebny do renderowania 3D |
+| `graphics.STATE_DEPTH_TEST` | tryb testu głębi potrzebny do renderowania 3D |
 
 ## `manuals/modules.md`
 
@@ -1728,7 +1728,7 @@ Ten słowniczek obejmuje tylko kluczowe pojęcia używane w instrukcji o animacj
 | `go.animate()` | funkcja do animowania właściwości obiektów gry i komponentów |
 | `gui.animate()` | funkcja do animowania właściwości węzłów GUI |
 | `go.cancel_animations()` | anuluje animacje właściwości obiektu gry lub komponentu |
-| `gui.cancel_animation()` | anuluje animację właściwości węzła GUI |
+| `gui.cancel_animations()` | anuluje animację właściwości węzła GUI |
 | easing | wygładzanie, czyli sposób zmiany wartości w czasie |
 | playback mode | tryb odtwarzania animacji |
 | tween | płynne dopasowanie wartości między punktem startowym i docelowym |
