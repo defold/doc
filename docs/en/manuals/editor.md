@@ -42,7 +42,7 @@ You can learn more about the different options in the [Project Setup manual](htt
 
 ## Editor Language
 
-In the bottom left corner of the starting screen you can see a Language selection - select from the available currently localizations (since Defold 1.11.2). This is also available in the Editor in `File ▸ Preferences ▸ General ▸ Editor Language`.
+In the bottom left corner of the starting screen you can see a Language selection - select from the currently available localizations. This is also available in the Editor in `File ▸ Preferences ▸ General ▸ Editor Language`.
 
 ![Languages](images/editor/languages.png)
 
@@ -84,7 +84,7 @@ This view shows the content of the file currently being edited, but in a hierarc
    - <kbd>Drag and drop</kbd> to move items. Drop a game object on another game object in a collection to create a parent-child relationship.
    - <kbd>Right Mouse Click</kbd> to open a _Context Menu_ from where you can add items, delete selected items etc.
 
-It is possible to toggle the visibility of game objects and visual components by clicking on the little `👁` Eye Icon to the right of an element in the list (Defold 1.9.8 and newer).
+It is possible to toggle the visibility of game objects and visual components by clicking on the little `👁` Eye Icon to the right of an element in the list.
 
 ![Outline](images/editor/outline.png)
 
@@ -92,7 +92,7 @@ It is possible to toggle the visibility of game objects and visual components by
 
 This view shows properties associated with the currently selected item, like Id, URL, Position, Rotation, Scale, and/or other component specific properties and also custom properties for scripts.
 
-You can also <kbd>Drag</kbd> the `↕` Up-Down Arrow and move mouse to change value of the given numerical property (1.10.2+).
+You can also <kbd>Drag</kbd> the `↕` Up-Down Arrow and move mouse to change value of the given numerical property.
 
 ![Properties](images/editor/properties.png)
 
@@ -243,9 +243,9 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 ## Editor Server
 
-When the Editor opens a project, it will start a web server on a random port. The server may be used to interact with the editor from other applications. Since 1.11.0, the port is written to the `.internal/editor.port` file.
+When the Editor opens a project, it will start a web server on a random port. The server may be used to interact with the editor from other applications. The port is written to the `.internal/editor.port` file.
 
-Additionally, since 1.11.0 the editor executable has a command line option `--port` (or `-p`), which allows specifying the port during launch, e.g.::
+Additionally, the editor executable has a command line option `--port` (or `-p`), which allows specifying the port during launch, e.g.::
 ```shell
 # Windows
 .\path\to\Defold\Defold.exe --port 8181

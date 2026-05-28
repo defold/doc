@@ -11,7 +11,7 @@ O aplicativo de desenvolvimento permite enviar conteúdo para ele via wifi. Isso
 
 Qualquer aplicativo iOS ou Android que seja empacotado no modo Debug será capaz de atuar como um aplicativo de desenvolvimento. Na verdade, esta é a solução recomendada, pois o aplicativo de desenvolvimento terá as configurações de projeto corretas e usa as mesmas [extensões nativas](/manuals/extensions/) do projeto em que você está trabalhando.
 
-A partir do Defold 1.4.0, é possível empacotar uma variante Debug do seu projeto sem nenhum conteúdo. Use esta opção para criar uma versão do seu aplicativo com extensões nativas, adequada para desenvolvimento iterativo conforme descrito neste manual.
+É possível empacotar uma variante Debug do seu projeto sem nenhum conteúdo. Use esta opção para criar uma versão do seu aplicativo com extensões nativas, adequada para desenvolvimento iterativo conforme descrito neste manual.
 
 ![content less bundle](images/dev-app/contentless-bundle.png)
 

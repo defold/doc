@@ -154,7 +154,7 @@ local mode = camera.get_orthographic_mode("main:/go#camera")
 
 API renderowania w Defold pozwala programistom wykonywać coś, co nazywa się odrzucaniem poza bryłą widokową. Gdy ta funkcja jest włączona, każda grafika znajdująca się poza zdefiniowanym pudełkiem ograniczającym albo bryłą widokową zostanie zignorowana. W dużym świecie gry, w którym jednocześnie widoczna jest tylko część obszaru, odrzucanie poza bryłą widokową może znacznie zmniejszyć ilość danych, które trzeba wysłać do GPU w celu renderowania, a tym samym zwiększyć wydajność i oszczędzać baterię na urządzeniach mobilnych. Do utworzenia pudełka ograniczającego często używa się widoku i projekcji kamery. Domyślny skrypt do renderowania używa widoku i projekcji z kamery, aby obliczyć bryłę widokową.
 
-Odrzucanie poza bryłą widokową jest w silniku implementowane osobno dla każdego typu komponentu. Aktualny stan (Defold 1.9.0):
+Odrzucanie poza bryłą widokową jest w silniku implementowane osobno dla każdego typu komponentu. Aktualny stan:
 
 | Component   | Supported |
 |-------------|-----------|

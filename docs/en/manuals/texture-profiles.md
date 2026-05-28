@@ -207,8 +207,7 @@ The following texture compressors are supported by default. The data is uncompre
 | `ASTC`                            | All ASTC formats          | ASTC lossy compression. Lower quality level results in smaller size.                          |
 
 ::: sidenote
-Defold 1.9.7 refactored the texture compressor pipeline to support installable compressors, which is the first step in
-enabling implementing a texture compression algorithm in an extension (such as WEBP, or something completely custom).
+Defold supports installable compressors in the texture compressor pipeline. This makes it possible to implement a texture compression algorithm in an extension, such as WEBP or something completely custom.
 :::
 
 ## Example image
@@ -267,4 +266,3 @@ Here are the resulting images (retrieved from the ASTC encoding using the `basis
 
 `HIGHEST`
 ![best compression preset](images/texture_profiles/kodim03_pow2.best.png)
-

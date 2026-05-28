@@ -134,7 +134,7 @@ Playback
 
 ## Runtime Texture and Atlas creation
 
-Starting from Defold 1.4.2 it is possible to create a texture and an atlas at runtime.
+It is possible to create a texture and an atlas at runtime.
 
 ### Creating a Texture resource at runtime
 

@@ -172,10 +172,6 @@ Depois de obter o arquivo storyboard, você pode referenciá-lo a partir de *gam
 
 ### Criando um catálogo de assets de ícones
 
-::: sidenote
-Isso é obrigatório a partir do Defold 1.2.175.
-:::
-
 Usar um asset catalog é a forma preferida da Apple para gerenciar os ícones da sua aplicação. Na verdade, é a única forma de fornecer o ícone usado na listagem da App Store. Você cria um asset catalog da mesma forma que um storyboard, usando o Xcode. Inicie o Xcode e crie um novo projeto. Selecione iOS e Single View App:
 
 ![Create project](images/ios/xcode_create_project.png)

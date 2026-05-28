@@ -90,7 +90,6 @@ end
 ```
 
 ## Surowe gamepady
-(Od wersji Defold 1.2.183)
 
 Wiązania wejścia z gamepada udostępniają także osobne wiązanie o nazwie `Raw`, które daje nieprzefiltrowane dane wejściowe przycisków, osi i hatów dowolnego podłączonego gamepada, bez zastosowanej martwej strefy.
 
@@ -124,11 +123,8 @@ Narzędzie poprosi o naciskanie kolejnych przycisków na podłączonym kontroler
 ![Ustawienia gamepadów](images/input/gamepad_setting.png)
 
 ### Niezidentyfikowane gamepady
-(Od wersji Defold 1.2.186)
 
 Gdy gamepad jest podłączony i nie ma dla niego mapowania, będzie generował tylko akcje connected, disconnected i raw. W takim przypadku trzeba ręcznie zmapować surowe dane gamepada na akcje w grze.
-
-(Od wersji Defold 1.4.8)
 
 Można sprawdzić, czy akcja wejścia z gamepada pochodzi z nieznanego gamepada, odczytując wartość `gamepad_unknown` z akcji:
 
@@ -164,7 +160,6 @@ Jeśli gra działa wewnątrz `iframe`, upewnij się też, że `iframe` ma dodane
 ```
 
 ### Standardowe gamepady
-(Od wersji Defold 1.4.1)
 
 Jeśli podłączony gamepad zostanie rozpoznany przez przeglądarkę jako standardowy gamepad, użyje mapowania "Standard Gamepad" z [pliku ustawień gamepads](/manuals/input-gamepads/#gamepads-settings-file) (mapowanie standardowego gamepada jest dołączone do pliku `default.gamepads` w `/builtins`). Standardowy gamepad ma 16 przycisków i 2 gałki analogowe, a układ przycisków jest podobny do kontrolera PlayStation lub Xbox (więcej informacji znajdziesz w [definicji i układzie przycisków W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad)). Jeśli podłączony gamepad nie zostanie rozpoznany jako standardowy, Defold poszuka w pliku ustawień gamepadów mapowania pasującego do jego typu sprzętowego.
 
@@ -172,50 +167,49 @@ Jeśli podłączony gamepad zostanie rozpoznany przez przeglądarkę jako standa
 W systemie Windows obecnie obsługiwane są tylko kontrolery Xbox 360. Aby podłączyć kontroler 360 do komputera z Windows, upewnij się, że został poprawnie skonfigurowany zgodnie z [tym poradnikiem](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 
 ## Gamepady w Android
-(Od wersji Defold 1.2.183)
 
 Gamepady są obsługiwane w buildach Android i generują te same zdarzenia wejścia co na innych platformach. Obsługa gamepadów opiera się na [systemie wejścia Android dla zdarzeń klawiszy i ruchu](https://developer.android.com/training/game-controllers/controller-input). Zdarzenia wejścia Android są tłumaczone na zdarzenia gamepada Defold przy użyciu tego samego pliku *gamepad* opisanego powyżej.
 
 Przy dodawaniu dodatkowych wiązań gamepada w Android możesz użyć poniższych tabel do przetłumaczenia zdarzeń wejścia Android na wartości pliku *gamepad*:
 
-| Zdarzenie klawisza do indeksu przycisku | Indeks | Wersja |
-|-----------------------------------------|-------|--------|
-| `AKEYCODE_BUTTON_A`           | 0     | 1.2.183 |
-| `AKEYCODE_BUTTON_B`           | 1     | 1.2.183 |
-| `AKEYCODE_BUTTON_C`           | 2     | 1.2.183 |
-| `AKEYCODE_BUTTON_X`           | 3     | 1.2.183 |
-| `AKEYCODE_BUTTON_L1`          | 4     | 1.2.183 |
-| `AKEYCODE_BUTTON_R1`          | 5     | 1.2.183 |
-| `AKEYCODE_BUTTON_Y`           | 6     | 1.2.183 |
-| `AKEYCODE_BUTTON_Z`           | 7     | 1.2.183 |
-| `AKEYCODE_BUTTON_L2`          | 8     | 1.2.183 |
-| `AKEYCODE_BUTTON_R2`          | 9     | 1.2.183 |
-| `AKEYCODE_DPAD_CENTER`        | 10    | 1.2.183 |
-| `AKEYCODE_DPAD_DOWN`          | 11    | 1.2.183 |
-| `AKEYCODE_DPAD_LEFT`          | 12    | 1.2.183 |
-| `AKEYCODE_DPAD_RIGHT`         | 13    | 1.2.183 |
-| `AKEYCODE_DPAD_UP`            | 14    | 1.2.183 |
-| `AKEYCODE_BUTTON_START`       | 15    | 1.2.183 |
-| `AKEYCODE_BUTTON_SELECT`      | 16    | 1.2.183 |
-| `AKEYCODE_BUTTON_THUMBL`      | 17    | 1.2.183 |
-| `AKEYCODE_BUTTON_THUMBR`      | 18    | 1.2.183 |
-| `AKEYCODE_BUTTON_MODE`        | 19    | 1.2.183 |
-| `AKEYCODE_BUTTON_1`           | 20    | 1.2.186 |
-| `AKEYCODE_BUTTON_2`           | 21    | 1.2.186 |
-| `AKEYCODE_BUTTON_3`           | 22    | 1.2.186 |
-| `AKEYCODE_BUTTON_4`           | 23    | 1.2.186 |
-| `AKEYCODE_BUTTON_5`           | 24    | 1.2.186 |
-| `AKEYCODE_BUTTON_6`           | 25    | 1.2.186 |
-| `AKEYCODE_BUTTON_7`           | 26    | 1.2.186 |
-| `AKEYCODE_BUTTON_8`           | 27    | 1.2.186 |
-| `AKEYCODE_BUTTON_9`           | 28    | 1.2.186 |
-| `AKEYCODE_BUTTON_10`          | 29    | 1.2.186 |
-| `AKEYCODE_BUTTON_11`          | 30    | 1.2.186 |
-| `AKEYCODE_BUTTON_12`          | 31    | 1.2.186 |
-| `AKEYCODE_BUTTON_13`          | 32    | 1.2.186 |
-| `AKEYCODE_BUTTON_14`          | 33    | 1.2.186 |
-| `AKEYCODE_BUTTON_15`          | 34    | 1.2.186 |
-| `AKEYCODE_BUTTON_16`          | 35    | 1.2.186 |
+| Zdarzenie klawisza do indeksu przycisku | Indeks |
+|-----------------------------------------|-------|
+| `AKEYCODE_BUTTON_A`           | 0     |
+| `AKEYCODE_BUTTON_B`           | 1     |
+| `AKEYCODE_BUTTON_C`           | 2     |
+| `AKEYCODE_BUTTON_X`           | 3     |
+| `AKEYCODE_BUTTON_L1`          | 4     |
+| `AKEYCODE_BUTTON_R1`          | 5     |
+| `AKEYCODE_BUTTON_Y`           | 6     |
+| `AKEYCODE_BUTTON_Z`           | 7     |
+| `AKEYCODE_BUTTON_L2`          | 8     |
+| `AKEYCODE_BUTTON_R2`          | 9     |
+| `AKEYCODE_DPAD_CENTER`        | 10    |
+| `AKEYCODE_DPAD_DOWN`          | 11    |
+| `AKEYCODE_DPAD_LEFT`          | 12    |
+| `AKEYCODE_DPAD_RIGHT`         | 13    |
+| `AKEYCODE_DPAD_UP`            | 14    |
+| `AKEYCODE_BUTTON_START`       | 15    |
+| `AKEYCODE_BUTTON_SELECT`      | 16    |
+| `AKEYCODE_BUTTON_THUMBL`      | 17    |
+| `AKEYCODE_BUTTON_THUMBR`      | 18    |
+| `AKEYCODE_BUTTON_MODE`        | 19    |
+| `AKEYCODE_BUTTON_1`           | 20    |
+| `AKEYCODE_BUTTON_2`           | 21    |
+| `AKEYCODE_BUTTON_3`           | 22    |
+| `AKEYCODE_BUTTON_4`           | 23    |
+| `AKEYCODE_BUTTON_5`           | 24    |
+| `AKEYCODE_BUTTON_6`           | 25    |
+| `AKEYCODE_BUTTON_7`           | 26    |
+| `AKEYCODE_BUTTON_8`           | 27    |
+| `AKEYCODE_BUTTON_9`           | 28    |
+| `AKEYCODE_BUTTON_10`          | 29    |
+| `AKEYCODE_BUTTON_11`          | 30    |
+| `AKEYCODE_BUTTON_12`          | 31    |
+| `AKEYCODE_BUTTON_13`          | 32    |
+| `AKEYCODE_BUTTON_14`          | 33    |
+| `AKEYCODE_BUTTON_15`          | 34    |
+| `AKEYCODE_BUTTON_16`          | 35    |
 
 ([Definicje `KeyEvent` Android](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 

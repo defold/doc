@@ -5,7 +5,7 @@ brief: O tratamento de eventos de colisão pode ser centralizado usando `physics
 
 # Tratamento de eventos de física no Defold
 
-Anteriormente, interações de física no Defold eram tratadas transmitindo mensagens para todos os componentes dos objetos em colisão. No entanto, a partir da versão 1.6.4, o Defold oferece uma abordagem mais centralizada por meio da função `physics.set_event_listener()`. Essa função permite definir um listener personalizado para tratar todos os eventos de interação de física em um único lugar, simplificando seu código e melhorando a eficiência.
+O Defold oferece tratamento centralizado de eventos de física por meio da função `physics.set_event_listener()`. Essa função permite definir um listener personalizado para tratar todos os eventos de interação de física em um único lugar, simplificando seu código e melhorando a eficiência.
 
 ## Definindo o listener do mundo de física
 

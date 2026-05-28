@@ -172,10 +172,6 @@ $ brew install ios-deploy
 
 ### Создание icon asset catalog
 
-::: sidenote
-Это обязательно начиная с Defold 1.2.175.
-:::
-
 Использование asset catalog — предпочтительный для Apple способ управления иконками приложения. Фактически только так можно предоставить иконку, используемую в листинге App Store. Asset catalog создается так же, как storyboard, через Xcode. Запустите Xcode и создайте новый проект. Выберите iOS и Single View App:
 
 ![Create project](images/ios/xcode_create_project.png)

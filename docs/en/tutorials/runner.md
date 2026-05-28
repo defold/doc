@@ -40,7 +40,7 @@ Now, if you haven't already downloaded and installed the Defold editor, it's tim
 When the editor is installed and started it's time to create a new project and getting it ready. Create a [new project](/manuals/project-setup/#creating-a-new-project) from the "Empty Project" template.
 
 ::: sidenote
-This tutorial uses Spine features, which has been moved to its own extension post Defold 1.2.188. If you are on a newer version, please add the [Spine Extension](https://github.com/defold/extension-spine) to the dependencies section of *game.project*.
+This tutorial uses Spine features from the [Spine Extension](https://github.com/defold/extension-spine). Add the extension to the dependencies section of *game.project*.
 :::
 
 ## The editor

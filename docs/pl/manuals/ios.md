@@ -171,10 +171,6 @@ Gdy masz już plik storyboardu, możesz odwołać się do niego w *game.project*
 
 ### Tworzenie katalogu zasobów ikon
 
-::: sidenote
-Wymagane od Defold 1.2.175.
-:::
-
 Korzystanie z katalogu zasobów jest preferowanym przez Apple sposobem zarządzania ikonami aplikacji. W praktyce jest to jedyny sposób na dostarczenie ikony używanej w App Store. Katalog zasobów tworzysz tak samo jak storyboard, używając Xcode. Uruchom Xcode i utwórz nowy projekt. Wybierz iOS i Single View App:
 
 ![Utwórz projekt](images/ios/xcode_create_project.png)
