@@ -99,11 +99,10 @@ Jeśli martwisz się o bezpieczeństwo i dostępność serwerów budowania, zale
 ## Zabezpieczanie zawartości do pobrania
 System Defold Live Update pozwala twórcom wykluczyć zawartość z głównego pakietu gry, aby można ją było pobrać i użyć później. Typowym zastosowaniem jest pobieranie dodatkowych poziomów, map lub światów w miarę postępów gracza.
 
-Gdy wykluczona zawartość zostanie pobrana i przygotowana do użycia w grze, silnik zweryfikuje ją kryptograficznie przed użyciem, aby upewnić się, że nie została zmodyfikowana. Weryfikacja składa się z kilku kontroli:
+Gdy wykluczona zawartość zostanie pobrana i przygotowana do użycia w grze, silnik zweryfikuje ją przed użyciem. Weryfikacja składa się z kilku kontroli:
 
 * Czy format binarny jest poprawny?
 * Czy pobrana zawartość jest obsługiwana przez aktualnie uruchomioną wersję silnika?
-* Czy pobrana zawartość jest podpisana właściwą parą kluczy publicznego i prywatnego?
 * Czy pobrana zawartość jest kompletna i nie brakuje w niej żadnych plików?
 
-Więcej informacji o tym procesie znajdziesz w [instrukcji Live Update](https://defold.com/manuals/live-update/#manifest-verification).
+Więcej informacji o tym procesie znajdziesz w [instrukcji Live Update](https://defold.com/manuals/live-update/#content-verification).

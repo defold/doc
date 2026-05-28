@@ -39,7 +39,7 @@ Więcej o dostępnych opcjach przeczytasz w [instrukcji o konfiguracji projektu]
 
 ## Język edytora
 
-W lewym dolnym rogu ekranu startowego znajduje się wybór języka. Możesz wybrać jedną z aktualnie dostępnych lokalizacji językowych od wersji Defold 1.11.2. Ta sama opcja jest dostępna także w edytorze w `File ▸ Preferences ▸ General ▸ Editor Language`.
+W lewym dolnym rogu ekranu startowego znajduje się wybór języka. Możesz wybrać jedną z aktualnie dostępnych lokalizacji językowych. Ta sama opcja jest dostępna także w edytorze w `File ▸ Preferences ▸ General ▸ Editor Language`.
 
 ![Languages](images/editor/languages.png)
 
@@ -82,7 +82,7 @@ Ten widok pokazuje zawartość aktualnie edytowanego pliku w strukturze hierarch
    - <kbd>Drag and Drop</kbd>, aby przenosić elementy. Upuszczenie obiektu gry na inny obiekt gry w kolekcji tworzy relację rodzic-dziecko.
    - <kbd>Right Mouse Click</kbd>, aby otworzyć _Context Menu_, z którego możesz dodawać elementy, usuwać zaznaczone obiekty i wykonywać inne operacje.
 
-Widoczność obiektów gry i komponentów wizualnych można przełączać, klikając małą ikonę oka `👁` po prawej stronie elementu na liście. Funkcja jest dostępna od Defold 1.9.8.
+Widoczność obiektów gry i komponentów wizualnych można przełączać, klikając małą ikonę oka `👁` po prawej stronie elementu na liście.
 
 ![Outline](images/editor/outline.png)
 
@@ -90,7 +90,7 @@ Widoczność obiektów gry i komponentów wizualnych można przełączać, klika
 
 Ten widok pokazuje właściwości powiązane z aktualnie zaznaczonym elementem, na przykład Id, URL, Position, Rotation, Scale, właściwości specyficzne dla komponentu oraz własne właściwości skryptów.
 
-Możesz też <kbd>Drag</kbd> ikonę strzałki `↕` i poruszać myszą, aby zmieniać wartość danej właściwości liczbowej. Ta funkcja jest dostępna od wersji 1.10.2.
+Możesz też <kbd>Drag</kbd> ikonę strzałki `↕` i poruszać myszą, aby zmieniać wartość danej właściwości liczbowej.
 
 ![Properties](images/editor/properties.png)
 
@@ -247,9 +247,9 @@ $ ./path/to/Defold.app/Contents/MacOS/Defold
 
 ## Serwer edytora
 
-Gdy edytor otwiera projekt, uruchamia serwer WWW na losowym porcie. Serwer może służyć do komunikacji z edytorem z poziomu innych aplikacji. Od wersji 1.11.0 numer portu jest zapisywany w pliku `.internal/editor.port`.
+Gdy edytor otwiera projekt, uruchamia serwer WWW na losowym porcie. Serwer może służyć do komunikacji z edytorem z poziomu innych aplikacji. Numer portu jest zapisywany w pliku `.internal/editor.port`.
 
-Dodatkowo od wersji 1.11.0 plik wykonywalny edytora obsługuje opcję wiersza poleceń `--port` lub `-p`, która pozwala wskazać port przy uruchamianiu. Na przykład:
+Dodatkowo plik wykonywalny edytora obsługuje opcję wiersza poleceń `--port` lub `-p`, która pozwala wskazać port przy uruchamianiu. Na przykład:
 
 ```shell
 # Windows

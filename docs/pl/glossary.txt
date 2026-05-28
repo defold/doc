@@ -1262,9 +1262,6 @@ Ten słowniczek obejmuje najważniejsze terminy z artykułu o Live update i pozo
 | `bundle.ver` | plik identyfikujący wersję paczki |
 | `game.graph.json` | wygenerowany graf zależności zasobów |
 | resource graph | graf zasobów opisujący zależności między plikami |
-| `resource.store_resource()` | funkcja zapisująca pobrany zasób w pamięci lokalnej |
-| `resource.store_manifest()` | funkcja weryfikująca i zapisująca nowy manifest |
-| `collectionproxy.missing_resources()` | funkcja zwracająca brakujące zasoby dla pełnomocnika kolekcji |
 | `liveupdate.add_mount()` | funkcja montująca archiwum w systemie zasobów silnika |
 | mount | zamontowane archiwum dostępne dla silnika z określonym priorytetem |
 | archive | archiwum z zasobami, zwykle `.zip` |

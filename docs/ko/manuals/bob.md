@@ -5,12 +5,10 @@ title: Defold manual
 # Bob the builder
 Bob은 에디터 외부에서 Defold 프로젝트를 빌드하기 위한 도구입니다. 이 메뉴얼은 이 도구를 사용하는 방법에 대해 설명합니다.
 
-예전 Live Update 매니페스트 서명 옵션인 `--manifest-private-key` 와 `--manifest-public-key` 는 Bob에서 제거되었습니다. `liveupdate.settings` 의 `publickey` 와 `privatekey` 항목도 이제는 폐기되었으며 더 이상 사용되지 않고, `game.public.der` 파일도 더 이상 생성되거나 번들에 포함되지 않습니다. 또한 예전 매니페스트/아카이브 검증 흐름은 번들된 키 서명 대신 지원되는 엔진 버전만 확인합니다.
-
 ## Overview
 Bob은 데이터를 빌드(에디터에서  **Project ▸ Build And Launch** 선택하는 것에 해당함)하고 압축하고 독립(standalone) 및 배포 가능한 어플리케이션 번들을 생성(에디터에서 **Project ▸ Bundle ▸ \*** 을 선택하는 것에 해당함)할 수 있습니다.
 
-Bob은 빌드에 필요한 모든 것을 포함하는 Java JAR 파일 형식으로 배포됩니다. http://d.defold.com 에서 최신 "bob.jar" 배포본을 찾을 수 있습니다. 원하는 Releases 버전을 선택해서 "bob/bob.jar" 파일을 다운로드 합니다. Bob 도구를 실행하려면 컴퓨터에 Java 8 이 설치되어야 합니다. Javas는 https://www.java.com 에서 다운로드 할 수 있습니다.
+Bob은 빌드에 필요한 모든 것을 포함하는 Java JAR 파일 형식으로 배포됩니다. 최신 "bob.jar" 배포본은 [GitHub Releases page](https://github.com/defold/defold/releases)에서 찾을 수 있습니다. 원하는 release를 선택한 뒤 "bob/bob.jar" 파일을 다운로드합니다. Bob 도구를 실행하려면 OpenJDK 25가 필요합니다.
 
 ## Usage
 Bob은 쉘이나 커맨드 라인에서 "java"(또는 Windows에서는 "java.exe") 호출시 bob java 파일을 인수로 넘겨서 실행할 수 있습니다.
@@ -149,8 +147,6 @@ usage: bob [options] [commands]
 
 ### Available platforms:
 
-#### x86-darwin
-macOS
 #### x86_64-macos
 macOS 64 bit
 #### arm64-macos
@@ -159,8 +155,8 @@ macOS Apple Silicon (ARM)
 Windows
 #### x86-linux
 Linux
-#### armv7-darwin
-iOS
+#### arm64-ios
+iOS 64 bit
 #### armv7-android
 Android
 #### js-web
@@ -178,7 +174,7 @@ $
 한방에 일련의 작업들을 수행하려면 명령들을 함께 나열하면 됩니다. 아래 예제는 라이브러리 종속성을 처리하고, 빌드 디렉토리를 지우고, 번들과 데이터를 macOS용 어플리케이션(이름은 "My Game.app")으로 빌드합니다.
 
 ```
-$ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle
+$ java -jar bob.jar --archive --platform x86_64-macos resolve distclean build bundle
 100%
 $ ls -al build/default/
 total 70784

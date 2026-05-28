@@ -11,10 +11,6 @@ A API consiste apenas em algumas funções:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
-::: important
-O fluxo antigo de Live Update de recurso único foi descontinuado. Evite `collectionproxy.missing_resources()` e os antigos aliases auxiliares `resource.*` em código novo. Fluxos atuais de Live Update baixam e montam arquivos inteiros, opcionalmente usando `collectionproxy.get_resources()` para inspecionar qual conteúdo excluído pertence a um proxy.
-:::
-
 ## Obter mounts
 
 Se você estiver usando mais de um arquivo live update, recomenda-se iterar por cada mount
@@ -52,7 +48,7 @@ end
 
 Um proxy de coleção que foi excluído do empacotamento funciona como um proxy de coleção normal, com uma diferença importante. Enviar uma mensagem `load` enquanto ele ainda tiver recursos indisponíveis no armazenamento do pacote fará com que ele falhe.
 
-No fluxo atual baseado em arquivos, você geralmente decide com antecedência de qual arquivo ou arquivos um proxy precisa e os monta antes de carregar. Se precisar inspecionar se um proxy tem conteúdo excluído, use `collectionproxy.get_resources()`. A função antiga `collectionproxy.missing_resources()` pertence ao fluxo descontinuado de Live Update de recurso único.
+No fluxo baseado em arquivos, você geralmente decide com antecedência de qual arquivo ou arquivos um proxy precisa e os monta antes de carregar. Se precisar inspecionar se um proxy tem conteúdo excluído, use `collectionproxy.get_resources()`.
 
 Com *Strip Live Update Entries from Main Manifest* habilitado, que é o padrão ao publicar conteúdo Live Update baseado em arquivos:
 

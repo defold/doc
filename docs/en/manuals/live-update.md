@@ -135,12 +135,6 @@ Mounting an archive doesn't copy or move the archive. The engine only stores the
 To actually use the live update content, you need to download and mount the data to your game.
 Read more about about how to [script with live update here](/manuals/live-update-scripting).
 
-::: important
-The legacy single-resource Live Update flow is deprecated. Avoid `collectionproxy.missing_resources()`, the deprecated manifest APIs (`liveupdate.get_current_manifest()`, `liveupdate.store_resource()`, `liveupdate.store_manifest()`, `liveupdate.store_archive()`, `liveupdate.is_using_liveupdate_data()`), and the old `resource.*` helper aliases (`resource.get_current_manifest()`, `resource.store_resource()`, `resource.store_manifest()`, `resource.store_archive()`, `resource.is_using_liveupdate_data()`) in new projects.
-
-Current projects should publish archives, mount them with `liveupdate.add_mount()`, manage them with `liveupdate.get_mounts()` and `liveupdate.remove_mount()`, and use `collectionproxy.get_resources()` when they need to inspect excluded content for a proxy. Legacy manifest-signing keys are no longer part of this pipeline: `liveupdate.settings` `publickey` and `privatekey` are deprecated and unused, and `game.public.der` is no longer generated or bundled.
-:::
-
 ## Development caveats
 
 Debugging

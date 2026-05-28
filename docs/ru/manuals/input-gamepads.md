@@ -90,7 +90,6 @@ end
 ```
 
 ## Нефильтрованые данные с геймпада
-(Начиная с версии 1.2.183)
 
 Привязки ввода геймпада также предоставляют отдельную привязку с именем `Raw` для передачи нефильтрованного (без примененной мертвой зоны) ввода кнопок, осей и шляп любого подключенного геймпада.
 
@@ -124,11 +123,8 @@ end
 ![Настройки геймпада](images/input/gamepad_setting.png)
 
 ### Неопознанные геймпады
-(Начиная с версии 1.2.186)
 
 Если геймпад подключен и для него не существует отображения, геймпад будет генерировать только действия "подключен", "отключен" и "сырой". В этом случае вам необходимо вручную сопоставить необработанные данные геймпада с действиями в вашей игре.
-
-(Начиная с версии 1.4.8)
 
 Можно проверить, поступает ли входное действие от неопознанного геймпада, прочитав значение `gamepad_unknown` из действия:
 
@@ -164,7 +160,6 @@ end
 ```
 
 ### Стандартный геймпад
-(Начиная с версии 1.4.1)
 
 Если подключённый геймпад определяется браузером как стандартный геймпад, будет использоваться отображение для "Standard Gamepad" из [файла настроек геймпадов](/manuals/input-gamepads/#gamepads-settings-file) (отображение Standard Gamepad включено в файл `default.gamepads` в каталоге `/builtins`). Стандартный геймпад определяется как устройство с 16 кнопками и 2 аналоговыми стиками с раскладкой кнопок, аналогичной контроллерам PlayStation или Xbox (см. [определение и раскладку кнопок от W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad) для получения дополнительной информации). Если подключённый геймпад не определяется как стандартный, Defold будет искать отображение, соответствующее типу аппаратного геймпада в файле настроек геймпада.
 
@@ -172,50 +167,49 @@ end
 В Windows в настоящее время поддерживаются только контроллеры XBox 360. Чтобы подключить контроллер 360 к компьютеру с Windows, [убедитесь, что он правильно настроен](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).
 
 ## Геймпады на Android
-(Начиная с версии 1.2.183)
 
 Геймпады поддерживаются в сборках Android и генерируют те же события ввода, что и на других платформах. Поддержка геймпадов основана на [Android input system for key and motion events](https://developer.android.com/training/game-controllers/controller-input). Входные события Android будут переведены в события геймпада Defold с помощью того же файла *gamepad*, как описано выше.
 
 При добавлении дополнительных привязок для геймпада на Android вы можете использовать следующие таблицы поиска для перевода событий ввода Android в значения файлов *gamepad*:
 
-| Событие клавиши с кнопки    | Индекс | Версия  |
-|-----------------------------|--------|---------|
-| `AKEYCODE_BUTTON_A`           | 0      | 1.2.183 |
-| `AKEYCODE_BUTTON_B`           | 1      | 1.2.183 |
-| `AKEYCODE_BUTTON_C`           | 2      | 1.2.183 |
-| `AKEYCODE_BUTTON_X`           | 3      | 1.2.183 |
-| `AKEYCODE_BUTTON_L1`          | 4      | 1.2.183 |
-| `AKEYCODE_BUTTON_R1`          | 5      | 1.2.183 |
-| `AKEYCODE_BUTTON_Y`           | 6      | 1.2.183 |
-| `AKEYCODE_BUTTON_Z`           | 7      | 1.2.183 |
-| `AKEYCODE_BUTTON_L2`          | 8      | 1.2.183 |
-| `AKEYCODE_BUTTON_R2`          | 9      | 1.2.183 |
-| `AKEYCODE_DPAD_CENTER`        | 10     | 1.2.183 |
-| `AKEYCODE_DPAD_DOWN`          | 11     | 1.2.183 |
-| `AKEYCODE_DPAD_LEFT`          | 12     | 1.2.183 |
-| `AKEYCODE_DPAD_RIGHT`         | 13     | 1.2.183 |
-| `AKEYCODE_DPAD_UP`            | 14     | 1.2.183 |
-| `AKEYCODE_BUTTON_START`       | 15     | 1.2.183 |
-| `AKEYCODE_BUTTON_SELECT`      | 16     | 1.2.183 |
-| `AKEYCODE_BUTTON_THUMBL`      | 17     | 1.2.183 |
-| `AKEYCODE_BUTTON_THUMBR`      | 18     | 1.2.183 |
-| `AKEYCODE_BUTTON_MODE`        | 19     | 1.2.183 |
-| `AKEYCODE_BUTTON_1`           | 20     | 1.2.186 |
-| `AKEYCODE_BUTTON_2`           | 21     | 1.2.186 |
-| `AKEYCODE_BUTTON_3`           | 22     | 1.2.186 |
-| `AKEYCODE_BUTTON_4`           | 23     | 1.2.186 |
-| `AKEYCODE_BUTTON_5`           | 24     | 1.2.186 |
-| `AKEYCODE_BUTTON_6`           | 25     | 1.2.186 |
-| `AKEYCODE_BUTTON_7`           | 26     | 1.2.186 |
-| `AKEYCODE_BUTTON_8`           | 27     | 1.2.186 |
-| `AKEYCODE_BUTTON_9`           | 28     | 1.2.186 |
-| `AKEYCODE_BUTTON_10`          | 29     | 1.2.186 |
-| `AKEYCODE_BUTTON_11`          | 30     | 1.2.186 |
-| `AKEYCODE_BUTTON_12`          | 31     | 1.2.186 |
-| `AKEYCODE_BUTTON_13`          | 32     | 1.2.186 |
-| `AKEYCODE_BUTTON_14`          | 33     | 1.2.186 |
-| `AKEYCODE_BUTTON_15`          | 34     | 1.2.186 |
-| `AKEYCODE_BUTTON_16`          | 35     | 1.2.186 |
+| Событие клавиши с кнопки    | Индекс |
+|-----------------------------|--------|
+| `AKEYCODE_BUTTON_A`           | 0      |
+| `AKEYCODE_BUTTON_B`           | 1      |
+| `AKEYCODE_BUTTON_C`           | 2      |
+| `AKEYCODE_BUTTON_X`           | 3      |
+| `AKEYCODE_BUTTON_L1`          | 4      |
+| `AKEYCODE_BUTTON_R1`          | 5      |
+| `AKEYCODE_BUTTON_Y`           | 6      |
+| `AKEYCODE_BUTTON_Z`           | 7      |
+| `AKEYCODE_BUTTON_L2`          | 8      |
+| `AKEYCODE_BUTTON_R2`          | 9      |
+| `AKEYCODE_DPAD_CENTER`        | 10     |
+| `AKEYCODE_DPAD_DOWN`          | 11     |
+| `AKEYCODE_DPAD_LEFT`          | 12     |
+| `AKEYCODE_DPAD_RIGHT`         | 13     |
+| `AKEYCODE_DPAD_UP`            | 14     |
+| `AKEYCODE_BUTTON_START`       | 15     |
+| `AKEYCODE_BUTTON_SELECT`      | 16     |
+| `AKEYCODE_BUTTON_THUMBL`      | 17     |
+| `AKEYCODE_BUTTON_THUMBR`      | 18     |
+| `AKEYCODE_BUTTON_MODE`        | 19     |
+| `AKEYCODE_BUTTON_1`           | 20     |
+| `AKEYCODE_BUTTON_2`           | 21     |
+| `AKEYCODE_BUTTON_3`           | 22     |
+| `AKEYCODE_BUTTON_4`           | 23     |
+| `AKEYCODE_BUTTON_5`           | 24     |
+| `AKEYCODE_BUTTON_6`           | 25     |
+| `AKEYCODE_BUTTON_7`           | 26     |
+| `AKEYCODE_BUTTON_8`           | 27     |
+| `AKEYCODE_BUTTON_9`           | 28     |
+| `AKEYCODE_BUTTON_10`          | 29     |
+| `AKEYCODE_BUTTON_11`          | 30     |
+| `AKEYCODE_BUTTON_12`          | 31     |
+| `AKEYCODE_BUTTON_13`          | 32     |
+| `AKEYCODE_BUTTON_14`          | 33     |
+| `AKEYCODE_BUTTON_15`          | 34     |
+| `AKEYCODE_BUTTON_16`          | 35     |
 
 ([Определения клавишных событий Android `KeyEvent`](https://developer.android.com/ndk/reference/group/input#group___input_1gafccd240f973cf154952fb917c9209719))
 

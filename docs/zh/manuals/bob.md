@@ -9,15 +9,13 @@ Bob 是一个命令行工具，用于在正常编辑器工作流程之外构建 
 
 Bob 能够构建数据（对应于选择编辑器菜单项 <kbd>Project ▸ Build</kbd> 的构建步骤），创建数据存档，并创建独立的、可分发的应用程序包（对应于编辑器菜单项 <kbd>Project ▸ Bundle ▸ ...</kbd> 选项）。
 
-Bob 作为 Java _JAR_ 存档分发，其中包含构建所需的一切。您可以在 [GitHub 发布页面](https://github.com/defold/defold/releases) 上找到最新的 *bob.jar* 分发版本。选择一个发布版本，然后下载 *bob/bob.jar*。如果您使用的是 Defold 1.12.0，您将需要 OpenJDK 25 来运行它。对于旧版本的 Defold，您将需要 OpenJDK 21 或 11。
+Bob 作为 Java _JAR_ 存档分发，其中包含构建所需的一切。您可以在 [GitHub 发布页面](https://github.com/defold/defold/releases) 上找到最新的 *bob.jar* 分发版本。选择一个发布版本，然后下载 *bob/bob.jar*。您需要 OpenJDK 25 来运行它。
 
-兼容的 OpenJDK 25 镜像（从 Defold 1.12.0 开始）：
+兼容的 OpenJDK 25 镜像：
 * [Microsoft 提供的 OpenJDK 25](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-25)
 * [Adoptium 工作组提供的 OpenJDK 25](https://github.com/adoptium/temurin25-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
 如果您在 Windows 上，您需要 OpenJDK 的 `.msi` 文件安装程序。
-
-Bob 已移除旧的 Live Update 清单签名参数 `--manifest-private-key` 和 `--manifest-public-key`。`liveupdate.settings` 中的 `publickey` 和 `privatekey` 现在也已弃用且不再使用，`game.public.der` 不再生成或打包，旧的清单/归档校验流程现在只检查受支持的引擎版本，而不再检查打包的密钥签名。
 
 ## 用法
 
@@ -161,11 +159,10 @@ usage: bob [options] [commands]
 
 可用平台和架构：
 
-`x86_64-darwin` (Defold 1.3.5 及更早版本)
-`x86_64-macos` (Defold 1.3.6 及更新版本)
+`x86_64-macos`
 : macOS 64 位
 
-`arm64-macos` (Defold 1.5.0 及更早版本)
+`arm64-macos`
 : macOS Apple Silicon (ARM)
 
 `x86_64-win32`
@@ -180,9 +177,8 @@ usage: bob [options] [commands]
 `x86_64-ios`
 : iOS macOS 64 位 (iOS 模拟器)
 
-`armv7-darwin` (Defold 1.3.5 及更早版本)
-`armv7-ios` (Defold 1.3.6 及更新版本)
-: iOS，具有可用的 32 位 `armv7-darwin` 和 64 位 `arm64-darwin` 架构。默认情况下，`--architectures` 参数值为 `armv7-darwin,arm64-darwin`。
+`arm64-ios`
+: iOS 64 位。默认情况下，`--architectures` 参数值为 `arm64-ios`。
 
 `armv7-android`
 : Android，具有可用的 32 位 `armv7-android` 和 64 位 `arm64-android` 架构。默认情况下，`--architectures` 参数值为 `armv7-android,arm64-android`。
@@ -202,7 +198,7 @@ $
 您可以将命令串联在一起以一次性执行一系列任务。以下示例解析库，清除构建目录，构建存档数据并将 macOS 应用程序捆绑（命名为 *My Game.app*）：
 
 ```sh
-$ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle
+$ java -jar bob.jar --archive --platform x86_64-macos resolve distclean build bundle
 100%
 $ ls -al build/default/
 total 70784

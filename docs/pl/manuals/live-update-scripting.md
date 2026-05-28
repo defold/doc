@@ -11,10 +11,6 @@ Interfejs API składa się tylko z kilku funkcji:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
-::: important
-Przestarzały przepływ Live Update oparty na pojedynczych zasobach jest wycofywany. W nowym kodzie unikaj `collectionproxy.missing_resources()` i starych aliasów pomocniczych `resource.*`. Obecne przepływy Live Update pobierają i montują całe archiwa, opcjonalnie używając `collectionproxy.get_resources()` do sprawdzania, która wykluczona zawartość należy do danego proxy.
-:::
-
 ## Pobieranie mountów
 
 Jeśli używasz więcej niż jednego archiwum Live update, zalecamy przejść po każdym mouncie
@@ -52,7 +48,7 @@ end
 
 Pełnomocnik kolekcji, który został wykluczony z bundlowania, działa jak zwykły pełnomocnik kolekcji, z jedną ważną różnicą. Wysłanie do niego wiadomości `load`, kiedy nadal ma zasoby niedostępne w magazynie bundla, spowoduje błąd.
 
-W obecnym przepływie opartym na archiwach zwykle z góry decydujesz, którego archiwum lub archiwów potrzebuje proxy, i montujesz je przed wczytaniem. Jeśli musisz sprawdzić, czy proxy ma wykluczoną zawartość, użyj `collectionproxy.get_resources()`. Starsza funkcja `collectionproxy.missing_resources()` należy do przestarzałego przepływu Live Update opartego na pojedynczych zasobach.
+W przepływie opartym na archiwach zwykle z góry decydujesz, którego archiwum lub archiwów potrzebuje proxy, i montujesz je przed wczytaniem. Jeśli musisz sprawdzić, czy proxy ma wykluczoną zawartość, użyj `collectionproxy.get_resources()`.
 
 Gdy włączona jest opcja *Strip Live Update Entries from Main Manifest*, domyślna przy publikowaniu archiwalnej zawartości Live Update:
 

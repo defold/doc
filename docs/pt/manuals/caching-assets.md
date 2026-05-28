@@ -23,8 +23,6 @@ O cache do projeto pode ser excluído manualmente apagando os arquivos em `build
 
 ## Cache local
 
-Adicionado no Defold 1.2.187
-
 O cache local é um segundo cache opcional em que assets compilados são armazenados em um local externo no mesmo computador ou em uma unidade de rede. Por ficar fora do projeto, o conteúdo do cache sobrevive à limpeza do cache do projeto. Ele também pode ser compartilhado por vários desenvolvedores trabalhando no mesmo projeto. No momento, o cache está disponível apenas ao compilar usando as ferramentas de linha de comando. Ele é ativado pela opção `resource-cache-local`:
 
 ```sh
@@ -39,8 +37,6 @@ Arquivos armazenados no cache local são mantidos indefinidamente. Cabe ao desen
 
 
 ## Cache remoto
-
-Adicionado no Defold 1.2.187
 
 O cache remoto é um terceiro cache opcional em que assets compilados são armazenados em um servidor e acessados por requisições HTTP. No momento, o cache está disponível apenas ao compilar usando as ferramentas de linha de comando. Ele é ativado pela opção `resource-cache-remote`:
 

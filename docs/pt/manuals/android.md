@@ -20,7 +20,7 @@ Você **nunca** deve enviar sua aplicação para o Google Play se ela foi assina
 ## Criando um keystore
 
 ::: sidenote
-O processo de assinatura Android no Defold mudou na versão 1.2.173 de usar uma chave e certificado independentes para usar um keystore. [Mais informações neste post do fórum](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
+O Defold usa um keystore no processo de assinatura Android. [Mais informações estão disponíveis neste post do fórum](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
 Você pode criar um keystore [usando o Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) ou a partir de um terminal/prompt de comando:

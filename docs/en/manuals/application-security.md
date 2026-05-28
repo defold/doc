@@ -99,12 +99,10 @@ If the security and availability of the builds servers are of concern to you we 
 ## Securing your downloadable content
 The Defold Live Update system allows developers to exclude content from the main game bundle for download and use at a later time. A typical use case is to download additional levels, maps or worlds as the player progresses through the game.
 
-When excluded content is downloaded and prepared for use in a game, the content will be cryptographically verified by the engine before use to ensure that it has not been tampered with. The verification consists of a number of checks:
+When excluded content is downloaded and prepared for use in a game, the content will be verified by the engine before use. The verification consists of a number of checks:
 
 * Is the binary format correct?
 * Is the downloaded content supported by the currently running engine version?
-* Is the downloaded content signed with the correct public-private key pair?
 * Is the downloaded content complete and not missing any files?
 
-You can read more about this process in the [Live Update manual](https://defold.com/manuals/live-update/#manifest-verification).
-
+You can read more about this process in the [Live Update manual](https://defold.com/manuals/live-update/#content-verification).

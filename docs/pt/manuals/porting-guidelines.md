@@ -63,9 +63,6 @@ end
 
 Certifique-se de [gerar símbolos de depuração](/manuals/debugging-native-code/#symbolicate-a-callstack) para cada versão lançada, para que você possa depurar travamentos. Armazene-os junto com o pacote da aplicação.
 
-Certifique-se de armazenar os arquivos `manifest.private.der` e `manifest.public.der`, que são gerados na raiz do projeto durante o primeiro empacotamento. Esses são as chaves pública e privada de assinatura do arquivo do jogo e do manifesto do arquivo. Você precisa desses arquivos para recriar uma build anterior do seu jogo.
-
-
 ## Otimizações da aplicação
 
 Leia o [manual de Otimização](/manuals/optimization) sobre como otimizar sua aplicação em desempenho, tamanho, memória e uso de bateria.

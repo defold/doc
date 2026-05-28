@@ -11,10 +11,6 @@ API 仅包含几个函数：
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`。
 
-::: important
-旧的按单个资源处理的 Live Update 流程已弃用。新代码中不要再使用 `collectionproxy.missing_resources()` 以及旧的 `resource.*` 辅助别名。当前的 Live Update 工作流应下载并挂载整个归档文件；如果需要检查某个代理关联了哪些被排除的内容，可以使用 `collectionproxy.get_resources()`。
-:::
-
 ## 获取挂载点
 
 如果您使用多个 live update 归档文件，建议在启动时遍历每个挂载点
@@ -52,7 +48,7 @@ end
 
 被排除在打包之外的集合代理与普通集合代理的工作方式类似，但有一个重要区别。当它仍然有在捆绑存储中不可用的资源时，向它发送 `load` 消息将导致它失败。
 
-在当前基于归档的工作流中，通常应预先确定某个代理需要哪个或哪些归档文件，并在加载之前先挂载它们。如果需要检查代理是否引用了被排除的内容，请使用 `collectionproxy.get_resources()`。较旧的 `collectionproxy.missing_resources()` 属于已弃用的单资源 Live Update 流程。
+在基于归档的工作流中，通常应预先确定某个代理需要哪个或哪些归档文件，并在加载之前先挂载它们。如果需要检查代理是否引用了被排除的内容，请使用 `collectionproxy.get_resources()`。
 
 当启用 *Strip Live Update Entries from Main Manifest* 时，也就是发布基于归档的 Live Update 内容时的默认设置：
 

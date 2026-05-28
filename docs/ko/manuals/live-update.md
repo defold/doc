@@ -43,7 +43,7 @@ title: Defold manual
 ## Scripting with excluded collection proxies
 번들링(bundling)에서 제외된 컬렉션 프록시는 일반적인 컬렉션 프록시 처럼 동작합니다. 하나의 중요한 차이점으로는 번들 스토리지에서 사용할 수 없는 리소스가 있다면, "load" 메세지를 전송하는 것이 실패하게 된다는 것입니다.
 
-현재의 아카이브 기반 워크플로우에서는 보통 특정 프록시에 어떤 아카이브가 필요한지 미리 결정하고, 로드하기 전에 먼저 마운트합니다. 프록시가 제외된 컨텐츠를 참조하는지 확인해야 한다면 `collectionproxy.get_resources()` 를 사용하세요. 기존의 `collectionproxy.missing_resources()` 는 개별 리소스를 내려받던 예전 Live Update 흐름에 속하며 이제는 더 이상 권장되지 않습니다.
+아카이브 기반 워크플로우에서는 보통 특정 프록시에 어떤 아카이브가 필요한지 미리 결정하고, 로드하기 전에 먼저 마운트합니다. 프록시가 제외된 컨텐츠를 참조하는지 확인해야 한다면 `collectionproxy.get_resources()` 를 사용하세요.
 
 기본값인 *Strip Live Update Entries from Main Manifest* 옵션을 켠 상태에서는:
 
@@ -272,15 +272,6 @@ aws_secret_access_key = <Secret access key>
 이 defold-liveupdate-example 예제에서 <>괄호 안에 지정해야 하는 식별자는 Defold 편집기에서 프로젝트의 라이브 업데이트 셋팅을 구성할때 제공했던 식별자와 동일합니다.
 
 ![Live update settings](images/live-update/05-liveupdate-settings.png)
-
-## Deprecated legacy manifest flow
-개별 리소스를 다운로드하고 런타임에서 매니페스트를 직접 교체하던 예전 Live Update 흐름은 이제 더 이상 권장되지 않습니다.
-
-특히 `collectionproxy.missing_resources()`, 폐기된 매니페스트 API (`liveupdate.get_current_manifest()`, `liveupdate.store_resource()`, `liveupdate.store_manifest()`, `liveupdate.store_archive()`, `liveupdate.is_using_liveupdate_data()`), 그리고 오래된 `resource.*` 보조 함수 (`resource.get_current_manifest()`, `resource.store_resource()`, `resource.store_manifest()`, `resource.store_archive()`, `resource.is_using_liveupdate_data()`) 는 새 프로젝트에서 사용하지 않는 것이 좋습니다.
-
-현재 권장되는 방식은 Live Update 아카이브를 게시한 뒤 `liveupdate.add_mount()` 로 마운트하고, `liveupdate.get_mounts()` 와 `liveupdate.remove_mount()` 로 관리하며, 필요할 때만 `collectionproxy.get_resources()` 로 프록시의 제외된 컨텐츠를 확인하는 것입니다. 예전 매니페스트 서명 키는 더 이상 이 파이프라인에 포함되지 않습니다. `liveupdate.settings` 의 `publickey` 와 `privatekey` 는 폐기되었고 더 이상 사용되지 않으며, `game.public.der` 도 더 이상 생성되거나 번들에 포함되지 않습니다.
-
-Live Update 컨텐츠를 게시하면 Defold는 여전히 `liveupdate.game.dmanifest` 파일을 생성하지만, 이 파일은 번들링과 게시 과정의 일부로 자동 처리됩니다. 더 이상 매니페스트를 수동으로 다운로드하거나 저장할 필요가 없고, 매니페스트 서명을 위한 공개/개인 키 쌍을 설정할 필요도 없습니다.
 
 ## Development caveats
 ### Debugging

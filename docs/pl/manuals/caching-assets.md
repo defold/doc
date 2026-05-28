@@ -21,8 +21,6 @@ Bufor projektu można usunąć ręcznie, usuwając pliki w katalogu `build/defau
 
 ## Local cache (Bufor lokalny)
 
-Dodano w wersji Defold 1.2.187.
-
 Bufor lokalny to opcjonalny, drugi bufor, w którym skompilowane zasoby są przechowywane w zewnętrznym miejscu na tym samym komputerze lub na dysku sieciowym. Dzięki swojemu zewnętrznemu położeniu zawartość bufora przetrwa oczyszczenie bufora projektu. Może być również współdzielony przez kilku programistów pracujących nad tym samym projektem. Bufor jest obecnie dostępny tylko podczas kompilacji za pomocą narzędzi wiersza poleceń. Jest aktywowany za pomocą opcji `resource-cache-local`:
 
 
@@ -37,8 +35,6 @@ Pliki przechowywane w buforze lokalnym są przechowywane na stałe. To programis
 
 
 ## Remote cache (Bufor zdalny)
-
-Dodano w wersji Defold 1.2.187.
 
 Bufor zdalny to opcjonalny, trzeci bufor, w którym skompilowane zasoby są przechowywane na serwerze i dostępne za pomocą żądania HTTP. Bufor jest obecnie dostępny tylko podczas kompilacji za pomocą narzędzi wiersza poleceń. Jest aktywowany za pomocą opcji `resource-cache-remote`:
 

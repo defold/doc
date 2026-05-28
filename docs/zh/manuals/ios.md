@@ -172,10 +172,6 @@ $ brew install ios-deploy
 
 ### 创建图标资源目录
 
-::: sidenote
-从 Defold 1.2.175 开始需要此设置。
-:::
-
 使用资源目录是 Apple 管理应用图标的首选方式。实际上，这是提供 App Store 列表中使用的图标的唯一方法。你以与故事板相同的方式创建资源目录，使用 Xcode。启动 Xcode 并创建一个新项目。选择 iOS 和单视图应用：
 
 ![Create project](images/ios/xcode_create_project.png)

@@ -9,15 +9,13 @@ Bob é uma ferramenta de linha de comando para compilar projetos Defold fora do 
 
 Bob é capaz de compilar dados (correspondendo à etapa de build de selecionar o item de menu do editor <kbd>Projeto ▸ Compilar</kbd>), criar arquivos de dados e criar pacotes de aplicação independentes e distribuíveis (correspondendo às opções do item de menu do editor <kbd>Projeto ▸ Empacotar ▸ ...</kbd>).
 
-Bob é distribuído como um arquivo Java _JAR_ contendo tudo o que é necessário para compilar. Você encontra a distribuição mais recente de *bob.jar* na [página GitHub Releases](https://github.com/defold/defold/releases). Selecione uma release e baixe *bob/bob.jar*. Se estiver usando Defold 1.12.0 ou mais recente, você precisará do OpenJDK 25 para executá-lo. Para versões mais antigas do Defold, você precisará do OpenJDK 21.
+Bob é distribuído como um arquivo Java _JAR_ contendo tudo o que é necessário para compilar. Você encontra a distribuição mais recente de *bob.jar* na [página GitHub Releases](https://github.com/defold/defold/releases). Selecione uma release e baixe *bob/bob.jar*. Você precisará do OpenJDK 25 para executá-lo.
 
-Mirrors compatíveis do OpenJDK 25 (a partir do Defold 1.12.0):
+Mirrors compatíveis do OpenJDK 25:
 * [OpenJDK 25 by Microsoft](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-25)
 * [OpenJDK 25 by Adoptium Working Group](https://github.com/adoptium/temurin25-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
 No Windows, use o instalador `.msi` do OpenJDK.
-
-As flags antigas de assinatura de manifesto do Live Update, `--manifest-private-key` e `--manifest-public-key`, foram removidas do Bob. As entradas `publickey` e `privatekey` em `liveupdate.settings` agora estão obsoletas e não são usadas, `game.public.der` não é mais gerado nem incluído no pacote, e o fluxo obsoleto de validação de manifesto/arquivo agora verifica versões compatíveis da engine em vez de assinaturas de chaves incluídas no pacote.
 
 ## Uso
 
@@ -161,11 +159,10 @@ Comandos disponíveis:
 
 Plataformas e arquiteturas disponíveis:
 
-`x86_64-darwin` (Defold 1.3.5 e anterior)
-`x86_64-macos` (Defold 1.3.6 e mais recente)
+`x86_64-macos`
 : macOS 64 bit
 
-`arm64-macos` (Defold 1.5.0 e anterior)
+`arm64-macos`
 : macOS Apple Silicon (ARM)
 
 `x86_64-win32`
@@ -180,9 +177,8 @@ Plataformas e arquiteturas disponíveis:
 `x86_64-ios`
 : iOS macOS 64 bit (iOS Simulator)
 
-`armv7-darwin` (Defold 1.3.5 e anterior)
-`armv7-ios` (Defold 1.3.6 e mais recente)
-: iOS com arquiteturas disponíveis de 32 bits `armv7-darwin` e 64 bits `arm64-darwin`. Por padrão, o valor do argumento `--architectures` é `armv7-darwin,arm64-darwin`.
+`arm64-ios`
+: iOS 64 bit. Por padrão, o valor do argumento `--architectures` é `arm64-ios`.
 
 `armv7-android`
 : Android com arquiteturas disponíveis de 32 bits `armv7-android` e 64 bits `arm64-android`. Por padrão, o valor do argumento `--architectures` é `armv7-android,arm64-android`.
@@ -202,7 +198,7 @@ $
 Você pode encadear comandos para executar uma sequência de tarefas de uma só vez. O exemplo a seguir resolve bibliotecas, limpa o diretório de build, compila dados de arquivo e empacota uma aplicação macOS (chamada *My Game.app*):
 
 ```sh
-$ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle
+$ java -jar bob.jar --archive --platform x86_64-macos resolve distclean build bundle
 100%
 $ ls -al build/default/
 total 70784

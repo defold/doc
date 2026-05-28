@@ -99,11 +99,10 @@ Se a segurança e a disponibilidade dos servidores de build forem uma preocupaç
 ## Protegendo seu conteúdo baixável
 O sistema Live Update do Defold permite que desenvolvedores excluam conteúdo do pacote principal do jogo para baixá-lo e usá-lo mais tarde. Um caso de uso típico é baixar fases, mapas ou mundos adicionais conforme o jogador avança pelo jogo.
 
-Quando o conteúdo excluído é baixado e preparado para uso em um jogo, ele é verificado criptograficamente pela engine antes do uso para garantir que não tenha sido adulterado. A verificação consiste em várias checagens:
+Quando o conteúdo excluído é baixado e preparado para uso em um jogo, ele é verificado pela engine antes do uso. A verificação consiste em várias checagens:
 
 * O formato binário está correto?
 * O conteúdo baixado é compatível com a versão da engine que está em execução?
-* O conteúdo baixado está assinado com o par correto de chaves pública e privada?
 * O conteúdo baixado está completo e sem arquivos ausentes?
 
-Você pode ler mais sobre esse processo no [manual do Live Update](https://defold.com/manuals/live-update/#manifest-verification).
+Você pode ler mais sobre esse processo no [manual do Live Update](https://defold.com/manuals/live-update/#content-verification).
