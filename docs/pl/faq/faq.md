@@ -48,7 +48,7 @@ A: Oczywiście! Silnik jest pełnoprawnym silnikiem 3D. Zestaw narzędzi jest je
 
 #### P: W jakim języku programowania pracuje się w Defold?
 
-A: Logika gry w projekcie Defold jest przede wszystkim pisana w języku Lua, konkretnie Lua 5.1/LuaJIT. Szczegóły znajdziesz w [podręczniku Lua](/manuals/lua). Lua to lekki, dynamiczny język, który jest szybki i bardzo wydajny. Od wersji 1.8.1 Defold obsługuje użycie transpilerów generujących kod Lua. Po zainstalowaniu rozszerzenia do transpilacji możesz używać alternatywnych języków, takich jak [Teal](https://github.com/defold/extension-teal), do pisania statycznie sprawdzanego Lua. Możesz też używać kodu natywnego (C/C++, Objective-C, Java i JavaScript w zależności od platformy), aby [rozszerzać silnik Defold o nową funkcjonalność](/manuals/extensions/). Przy tworzeniu [własnych materiałów](/manuals/material/) używany jest język shaderów OpenGL ES SL do pisania shaderów.
+A: Logika gry w projekcie Defold jest przede wszystkim pisana w języku Lua, konkretnie Lua 5.1/LuaJIT. Szczegóły znajdziesz w [podręczniku Lua](/manuals/lua). Lua to lekki, dynamiczny język, który jest szybki i bardzo wydajny. Defold obsługuje użycie transpilerów generujących kod Lua. Po zainstalowaniu rozszerzenia do transpilacji możesz używać alternatywnych języków, takich jak [Teal](https://github.com/defold/extension-teal), do pisania statycznie sprawdzanego Lua. Możesz też używać kodu natywnego (C/C++, Objective-C, Java i JavaScript w zależności od platformy), aby [rozszerzać silnik Defold o nową funkcjonalność](/manuals/extensions/). Przy tworzeniu [własnych materiałów](/manuals/material/) używany jest język shaderów OpenGL ES SL do pisania shaderów.
 
 
 #### P: Czy mogę używać C++ do pisania logiki gry?

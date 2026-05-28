@@ -155,7 +155,7 @@ local mode = camera.get_orthographic_mode("main:/go#camera")
 
 A API de renderização do Defold permite que desenvolvedores façam algo chamado frustum culling. Quando frustum culling está ativado, qualquer gráfico fora de uma caixa delimitadora ou frustum definido será ignorado. Em um mundo de jogo grande, onde apenas uma parte fica visível por vez, frustum culling pode reduzir drasticamente a quantidade de dados que precisa ser enviada à GPU para renderização, aumentando o desempenho e economizando bateria (em dispositivos móveis). É comum usar a visualização e a projeção da câmera para criar a caixa delimitadora. O script de renderização padrão usa a visualização e a projeção (da câmera) para calcular um frustum.
 
-Frustum culling é implementado na engine por tipo de componente. Status atual (Defold 1.9.0):
+Frustum culling é implementado na engine por tipo de componente. Status atual:
 
 | Component   | Supported |
 |-------------|-----------|

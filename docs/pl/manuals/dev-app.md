@@ -11,7 +11,7 @@ Development app (aplikacja do tworzenia i testowania gry na urządzeniu) pozwala
 
 Każda aplikacja na iOS lub Androidzie zbudowana w wariancie Debug może działać jako development app. To zalecane rozwiązanie, ponieważ taka development app ma poprawne ustawienia projektu i korzysta z tych samych [rozszerzeń natywnych](/manuals/extensions/) co projekt, nad którym pracujesz.
 
-Od wersji Defold 1.4.0 można zbudować wariant Debug projektu bez żadnej zawartości. Użyj tej opcji, aby utworzyć wersję aplikacji z rozszerzeniami natywnymi, odpowiednią do iteracyjnego tworzenia i testowania opisanego w tej instrukcji.
+Można zbudować wariant Debug projektu bez żadnej zawartości. Użyj tej opcji, aby utworzyć wersję aplikacji z rozszerzeniami natywnymi, odpowiednią do iteracyjnego tworzenia i testowania opisanego w tej instrukcji.
 
 ![paczka bez zawartości](images/dev-app/contentless-bundle.png)
 

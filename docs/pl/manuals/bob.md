@@ -9,9 +9,9 @@ Bob to narzędzie wiersza poleceń służące do budowania projektów w Defold p
 
 Bob potrafi budować dane projektu (co odpowiada wybraniu w edytorze pozycji <kbd>Project ▸ Build</kbd>), tworzyć archiwa danych oraz tworzyć samodzielne pakiety aplikacji gotowe do dystrybucji (co odpowiada opcjom menu edytora <kbd>Project ▸ Bundle ▸ ...</kbd>).
 
-Bob jest dystrybuowany jako archiwum Java _JAR_ zawierające wszystko, czego potrzeba do budowania. Najnowszą wersję *bob.jar* znajdziesz na [stronie wydań GitHub Releases](https://github.com/defold/defold/releases). Wybierz wydanie, a następnie pobierz *bob/bob.jar*. Jeśli używasz Defold 1.12.0 lub nowszego, do uruchomienia potrzebujesz OpenJDK 25. W przypadku starszych wersji Defold potrzebujesz OpenJDK 21.
+Bob jest dystrybuowany jako archiwum Java _JAR_ zawierające wszystko, czego potrzeba do budowania. Najnowszą wersję *bob.jar* znajdziesz na [stronie wydań GitHub Releases](https://github.com/defold/defold/releases). Wybierz wydanie, a następnie pobierz *bob/bob.jar*. Do uruchomienia potrzebujesz OpenJDK 25.
 
-Zgodne dystrybucje OpenJDK 25 (dla Defold 1.12.0 i nowszego):
+Zgodne dystrybucje OpenJDK 25:
 * [OpenJDK 25 firmy Microsoft](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-25)
 * [OpenJDK 25 od Adoptium Working Group](https://github.com/adoptium/temurin25-binaries/releases) / [Adoptium.net](https://adoptium.net/)
 
@@ -159,11 +159,10 @@ Dostępne polecenia:
 
 Dostępne platformy i architektury:
 
-`x86_64-darwin` (Defold 1.3.5 i starsze)
-`x86_64-macos` (Defold 1.3.6 i nowsze)
+`x86_64-macos`
 : macOS 64-bit
 
-`arm64-macos` (Defold 1.5.0 i starsze)
+`arm64-macos`
 : macOS Apple Silicon (ARM)
 
 `x86_64-win32`
@@ -178,9 +177,8 @@ Dostępne platformy i architektury:
 `x86_64-ios`
 : iOS na macOS 64-bit (symulator iOS)
 
-`armv7-darwin` (Defold 1.3.5 i starsze)
-`armv7-ios` (Defold 1.3.6 i nowsze)
-: iOS z dostępnymi 32-bitowymi architekturami `armv7-darwin` i 64-bitowymi `arm64-darwin`. Domyślnie wartość argumentu `--architectures` to `armv7-darwin,arm64-darwin`.
+`arm64-ios`
+: iOS 64-bit. Domyślnie wartość argumentu `--architectures` to `arm64-ios`.
 
 `armv7-android`
 : Android z dostępnymi 32-bitowymi architekturami `armv7-android` i 64-bitowymi `arm64-android`. Domyślnie wartość argumentu `--architectures` to `armv7-android,arm64-android`.
@@ -200,7 +198,7 @@ $
 Możesz łączyć polecenia, aby jednym uruchomieniem wykonać sekwencję zadań. W poniższym przykładzie najpierw rozwiązywane są zależności bibliotek, potem czyszczony jest katalog build, budowane jest archiwum danych, a na końcu tworzony jest pakiet aplikacji na macOS (o nazwie *My Game.app*):
 
 ```sh
-$ java -jar bob.jar --archive --platform x86-darwin resolve distclean build bundle
+$ java -jar bob.jar --archive --platform x86_64-macos resolve distclean build bundle
 100%
 $ ls -al build/default/
 total 70784

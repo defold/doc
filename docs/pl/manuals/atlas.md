@@ -132,7 +132,7 @@ Playback
 
 ## Tworzenie tekstury i atlasu w czasie działania programu
 
-Począwszy od Defold 1.4.2 można tworzyć teksturę i atlas w czasie działania programu.
+Można tworzyć teksturę i atlas w czasie działania programu.
 
 ### Tworzenie zasobu tekstury w czasie działania programu
 

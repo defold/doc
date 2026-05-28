@@ -40,7 +40,7 @@ Jeśli jeszcze nie pobrałeś i nie zainstalowałeś edytora Defold, to czas to 
 Gdy edytor jest już zainstalowany i uruchomiony, pora utworzyć nowy projekt i przygotować go do pracy. Utwórz [nowy projekt](/manuals/project-setup/#creating-a-new-project) z szablonu "Empty Project".
 
 ::: sidenote
-Ten samouczek korzysta z funkcji Spine, które od wersji Defold 1.2.188 zostały przeniesione do własnego rozszerzenia. Jeśli używasz nowszej wersji, dodaj [Spine Extension](https://github.com/defold/extension-spine) do sekcji zależności w *game.project*.
+Ten samouczek korzysta z funkcji Spine z [Spine Extension](https://github.com/defold/extension-spine). Dodaj rozszerzenie do sekcji zależności w *game.project*.
 :::
 
 ## Edytor

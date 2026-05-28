@@ -42,7 +42,7 @@ Você pode saber mais sobre as diferentes opções no [manual de configuração 
 
 ## Idioma do editor
 
-No canto inferior esquerdo da tela inicial, você pode ver uma seleção de Language; selecione uma das localizações atualmente disponíveis (desde o Defold 1.11.2). Isso também está disponível no editor em `File ▸ Preferences ▸ General ▸ Editor Language`.
+No canto inferior esquerdo da tela inicial, você pode ver uma seleção de Language; selecione uma das localizações atualmente disponíveis. Isso também está disponível no editor em `File ▸ Preferences ▸ General ▸ Editor Language`.
 
 ![Idiomas](images/editor/languages.png)
 
@@ -84,7 +84,7 @@ Esta visualização mostra o conteúdo do arquivo atualmente sendo editado, mas 
    - <kbd>Drag and drop</kbd> para mover itens. Solte um objeto de jogo sobre outro objeto de jogo em uma coleção para criar uma relação pai-filho.
    - <kbd>Right Mouse Click</kbd> para abrir um _Context Menu_ de onde você pode adicionar itens, excluir itens selecionados etc.
 
-É possível alternar a visibilidade de objetos de jogo e componentes visuais clicando no pequeno ícone de olho `👁` à direita de um elemento na lista (Defold 1.9.8 e mais recente).
+É possível alternar a visibilidade de objetos de jogo e componentes visuais clicando no pequeno ícone de olho `👁` à direita de um elemento na lista.
 
 ![Outline](images/editor/outline.png)
 
@@ -92,7 +92,7 @@ Esta visualização mostra o conteúdo do arquivo atualmente sendo editado, mas 
 
 Esta visualização mostra propriedades associadas ao item selecionado no momento, como Id, URL, Position, Rotation, Scale e/ou outras propriedades específicas de componente, além de propriedades personalizadas para scripts.
 
-Você também pode <kbd>Drag</kbd> a seta vertical `↕` e mover o mouse para alterar o valor da propriedade numérica fornecida (1.10.2+).
+Você também pode <kbd>Drag</kbd> a seta vertical `↕` e mover o mouse para alterar o valor da propriedade numérica fornecida.
 
 ![Properties](images/editor/properties.png)
 
@@ -243,9 +243,9 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 ## Servidor do editor
 
-Quando o editor abre um projeto, ele inicia um servidor web em uma porta aleatória. O servidor pode ser usado para interagir com o editor a partir de outras aplicações. Desde a versão 1.11.0, a porta é escrita no arquivo `.internal/editor.port`.
+Quando o editor abre um projeto, ele inicia um servidor web em uma porta aleatória. O servidor pode ser usado para interagir com o editor a partir de outras aplicações. A porta é escrita no arquivo `.internal/editor.port`.
 
-Além disso, desde a versão 1.11.0, o executável do editor tem a opção de linha de comando `--port` (ou `-p`), que permite especificar a porta durante a inicialização, por exemplo::
+Além disso, o executável do editor tem a opção de linha de comando `--port` (ou `-p`), que permite especificar a porta durante a inicialização, por exemplo::
 ```shell
 # Windows
 .\path\to\Defold\Defold.exe --port 8181

@@ -20,7 +20,7 @@ Gdy tworzysz pakiet aplikacji Android z edytora Defold albo za pomocą [narzędz
 ## Tworzenie keystore
 
 ::: sidenote
-Proces podpisywania Androida w Defold zmienił się w wersji 1.2.173: zamiast osobnego klucza i certyfikatu używa teraz keystore. [Więcej informacji w tym poście na forum](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
+Defold używa keystore w procesie podpisywania Androida. [Więcej informacji znajdziesz w tym poście na forum](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
 :::
 
 Keystore możesz utworzyć [w Android Studio](https://developer.android.com/studio/publish/app-signing#generate-key) albo z poziomu terminala / wiersza poleceń:
