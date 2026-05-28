@@ -11,10 +11,6 @@ The api only consists of a few functions:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
-::: important
-The legacy single-resource Live Update flow is deprecated. Avoid `collectionproxy.missing_resources()` and the old `resource.*` helper aliases in new code. Current Live Update workflows download and mount whole archives, optionally using `collectionproxy.get_resources()` to inspect which excluded content belongs to a proxy.
-:::
-
 ## Get mounts
 
 If you are using more than one live update archive, it is recommended to loop over each mount
@@ -52,7 +48,7 @@ end
 
 A collection proxy that has been excluded from bundling works as a normal collection proxy, with one important difference. Sending it a `load` message while it still has resources not available in the bundle storage will cause it to fail.
 
-In the current archive-based workflow, you generally decide which archive or archives a proxy needs ahead of time and mount them before loading. If you need to inspect whether a proxy has excluded content, use `collectionproxy.get_resources()`. The older `collectionproxy.missing_resources()` function belongs to the deprecated single-resource Live Update flow.
+In the archive-based workflow, you generally decide which archive or archives a proxy needs ahead of time and mount them before loading. If you need to inspect whether a proxy has excluded content, use `collectionproxy.get_resources()`.
 
 With *Strip Live Update Entries from Main Manifest* enabled, which is the default when publishing archive-based Live Update content:
 
