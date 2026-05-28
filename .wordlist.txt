@@ -143,6 +143,7 @@ flipbook
 FMOD
 FMOS
 fov
+fragCoord
 framebuffer
 framerate
 frontend
@@ -443,6 +444,7 @@ templated
 templating
 Templatized
 TestFlight
+texcoord
 texel
 texels
 thrusted
