@@ -135,12 +135,6 @@ Montar um arquivo não copia nem move o arquivo. A engine armazena apenas o cami
 Para realmente usar o conteúdo live update, você precisa baixar e montar os dados no seu jogo.
 Leia mais sobre como [programar com live update aqui](/manuals/live-update-scripting).
 
-::: important
-O fluxo antigo de Live Update de recurso único foi descontinuado. Evite `collectionproxy.missing_resources()`, as APIs de manifesto descontinuadas (`liveupdate.get_current_manifest()`, `liveupdate.store_resource()`, `liveupdate.store_manifest()`, `liveupdate.store_archive()`, `liveupdate.is_using_liveupdate_data()`) e os antigos aliases auxiliares `resource.*` (`resource.get_current_manifest()`, `resource.store_resource()`, `resource.store_manifest()`, `resource.store_archive()`, `resource.is_using_liveupdate_data()`) em projetos novos.
-
-Projetos atuais devem publicar arquivos, montá-los com `liveupdate.add_mount()`, gerenciá-los com `liveupdate.get_mounts()` e `liveupdate.remove_mount()`, e usar `collectionproxy.get_resources()` quando precisarem inspecionar conteúdo excluído de um proxy. Chaves antigas de assinatura de manifesto não fazem mais parte deste pipeline: `publickey` e `privatekey` de `liveupdate.settings` estão descontinuadas e não são usadas, e `game.public.der` não é mais gerado nem empacotado.
-:::
-
 ## Observações de desenvolvimento
 
 Depuração

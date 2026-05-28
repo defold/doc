@@ -63,9 +63,6 @@ end
 
 确保为每个发布的版本[生成调试符号](/manuals/debugging-native-code/#symbolicate-a-callstack)，以便您可以调试崩溃。将这些与应用程序包一起存储。
 
-确保存储在第一次打包期间在项目根目录生成的 `manifest.private.der` 和 `manifest.public.der` 文件。这些是游戏存档和存档清单的公钥和私钥签名密钥。您需要这些文件才能重新创建游戏的先前版本。
-
-
 ## 应用程序优化
 
 阅读[优化手册](/manuals/optimization)，了解如何优化应用程序的性能、大小、内存使用和电池消耗。

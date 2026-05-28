@@ -17,8 +17,6 @@ Mirrors compatíveis do OpenJDK 25 (a partir do Defold 1.12.0):
 
 No Windows, use o instalador `.msi` do OpenJDK.
 
-As flags antigas de assinatura de manifesto do Live Update, `--manifest-private-key` e `--manifest-public-key`, foram removidas do Bob. As entradas `publickey` e `privatekey` em `liveupdate.settings` agora estão obsoletas e não são usadas, `game.public.der` não é mais gerado nem incluído no pacote, e o fluxo obsoleto de validação de manifesto/arquivo agora verifica versões compatíveis da engine em vez de assinaturas de chaves incluídas no pacote.
-
 ## Uso
 
 Bob é executado a partir de um shell ou da linha de comando chamando `java` (ou `java.exe` no Windows) e fornecendo o arquivo Java do Bob como argumento:

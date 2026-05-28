@@ -132,12 +132,6 @@ Montowanie archiwum nie kopiuje go ani nie przenosi. Silnik przechowuje tylko ś
 Aby faktycznie korzystać z zawartości Live update, musisz pobrać dane i zamontować je w swojej grze.
 Więcej informacji znajdziesz [w instrukcji skryptowania z Live update](/manuals/live-update-scripting).
 
-::: important
-Przestarzały przepływ Live Update oparty na pojedynczych zasobach jest wycofywany. W nowych projektach unikaj `collectionproxy.missing_resources()`, przestarzałych API manifestu (`liveupdate.get_current_manifest()`, `liveupdate.store_resource()`, `liveupdate.store_manifest()`, `liveupdate.store_archive()`, `liveupdate.is_using_liveupdate_data()`) oraz starych aliasów pomocniczych `resource.*` (`resource.get_current_manifest()`, `resource.store_resource()`, `resource.store_manifest()`, `resource.store_archive()`, `resource.is_using_liveupdate_data()`).
-
-Obecne projekty powinny publikować archiwa, montować je przez `liveupdate.add_mount()`, zarządzać nimi przez `liveupdate.get_mounts()` i `liveupdate.remove_mount()`, oraz używać `collectionproxy.get_resources()`, gdy trzeba sprawdzić wykluczoną zawartość proxy. Starsze klucze podpisywania manifestów nie są już częścią tego przepływu: `publickey` i `privatekey` w `liveupdate.settings` są przestarzałe i nieużywane, a `game.public.der` nie jest już generowany ani pakowany.
-:::
-
 ## Uwagi deweloperskie
 
 Debugowanie
