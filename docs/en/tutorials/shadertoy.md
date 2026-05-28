@@ -1,6 +1,8 @@
 ---
-title: Shadertoy to Defold tutorial
 brief: In this tutorial you will convert a shader from shadertoy.com to Defold.
+layout: tutorial
+locale: en
+title: Shadertoy to Defold tutorial
 ---
 
 # Shadertoy tutorial
@@ -9,7 +11,7 @@ brief: In this tutorial you will convert a shader from shadertoy.com to Defold.
 
 The shader we will use is [Star Nest](https://www.shadertoy.com/view/XlfGRj) by Pablo Andrioli (user "Kali" on Shadertoy). It is a purely procedural mathematical black magic fragment shader that renders a really cool star field effect.
 
-![Star Nest](images/shadertoy/starnest.png)
+![Star Nest](../images/shadertoy/starnest.png)
 
 The shader is just 65 lines of quite complicated GLSL code, but don't worry. We're gonna treat it as a black box that does its thing based on a few simple inputs. Our job here is to modify the shader so it interfaces with Defold instead of Shadertoy.
 
@@ -17,51 +19,66 @@ The shader is just 65 lines of quite complicated GLSL code, but don't worry. We'
 
 The Star Nest shader is a pure fragment shader, so we only need something for the shader to texture. There are a number of options: a sprite, a tilemap, a GUI or a model. For this tutorial we are going to use a simple 3D model. The reason is that we can easily make the model rendering into a full screen effect---something we need to do if we want to do visual post processing, for example.
 
-We start by creating a quadratic plane mesh in Blender (or any other 3D modelling program). For convenience the 4 vertex coordinates are at -1 and 1 on the X-axis and -1 and 1 on the Y axis. Blender has the Z-axis up by default so you need to rotate the mesh 90° around the X-axis. You should also make sure that you generate correct UV-coordinates for the mesh. In Blender, enter *Edit Mode* with the mesh selected, then select <kbd>Mesh ▸ UV unwrap... ▸ Unwrap</kbd>.
+We can start from an empty project.
 
+1. Open Defold and select Create From *Templates*.
+2. Select *Empty Project*.
+3. Set the *Title* and selection *Location* on your disk.
+4. Click <kbd>Create New Project</kbd>.
 
-[Download quad.dae](https://github.com/defold/template-basic-3d/blob/master/assets/meshes/quad.dae)
+![start](../images/shadertoy/empty_project.png)
 
+You can use a built-in built-in `quad.gltf` mesh from `builtins/assets/meshes`.
 
-::: sidenote
+Optionally, you can also create a quadratic plane mesh in Blender, or any other 3D modelling program --- for convenience the 4 vertex coordinates are at -1 and 1 on the X-axis and -1 and 1 on the Y axis. Blender has the Z-axis up by default so you need to rotate the mesh 90° around the X-axis. You should also make sure that you generate correct UV-coordinates for the mesh. In Blender, enter *Edit Mode* with the mesh selected, then select <kbd>Mesh ▸ UV unwrap... ▸ Unwrap</kbd>.
+
+<div class='sidenote' markdown='1'>
 Blender is a free, open-source 3D software which can be downloaded from [blender.org](https://www.blender.org).
-:::
+</div>
 
-![quad in Blender](images/shadertoy/quad_blender.png)
+![quad in Blender](../images/shadertoy/quad_blender.png)
 
 1. Open your "main.collection" file in Defold and create a new game object "star-nest".
-2. Add a *Model* component to "star-nest".
-3. Set the *Mesh* property to the *`quad.gltf`* file found in `builtins/assets/meshes`.
-4. The model is small (2⨉2 units) so we need to scale the "star-nest" game object to a reasonable size. 600⨉600 is a nice large size so set the X and Y scale to 300.
+2. Add a *Model* component to the "star-nest" game object.
+3. Set the *Mesh* property to our `quad.gltf`.
+4. We need to set the material for the model, so for now select the built-in `model.material`.
 
-The model should appear in the scene editor, but it is rendered all black. That is because it has no material set yet:
+The model should appear in the scene editor, but it is rendered all black. That is because it has no texture set yet:
 
-![quad in Defold](images/shadertoy/quad_no_material.png)
+![quad in Defold](../images/shadertoy/quad_default_material.png)
 
 ## Creating the material
 
-Create a new material file *`star-nest.material`*, a vertex shader program *`star-nest.vp`* and a fragment shader program *`star-nest.fp`*:
+1. Create a new material file *`star-nest.material`* by clicking <kbd>Right Mouse Button</kbd> on the `main` folder in the `Assets` pane and selecting <kbd>New</kbd>-><kbd>Material</kbd> and naming it `star-nest`.
 
-1. Open *star-nest.material*.
-2. Set the *Vertex Program* to `star-nest.vp`.
-3. Set the *Fragment Program* to `star-nest.fp`.
-4. Add a *Vertex Constant* and name it "`view_proj`" (for "view projection").
-5. Set its *Type* to `CONSTANT_TYPE_VIEWPROJ`.
-6. Add a tag "tile" to the *Tags*. This is so that the quad is included in the render pass when sprites and tiles are drawn.
+ ![material](../images/shadertoy/new_material.png)
 
-    ![material](images/shadertoy/material.png)
+2. In the same way create a vertex shader program `star-nest.vp` and a fragment shader program `star-nest.fp`:
+3. Open the *star-nest.material*.
+4. Set the *Vertex Program* to `star-nest.vp`.
+5. Set the *Fragment Program* to `star-nest.fp`.
+6. Add a *Vertex Constant* and name it "`view_proj`" of type `Viewproj` (for "view projection").
+8. Add a tag "tile" to the *Tags*. This is so that the quad is included in the render pass when sprites and tiles are drawn.
 
-7. Open the vertex shader program file *`star-nest.vp`*. It should contain the following code. Leave the code as is.
+ ![material](../images/shadertoy/material.png)
+
+### Vertex program
+
+1. Open the vertex shader program file `star-nest.vp`. It should contain the following code:
 
     ```glsl
-    // star-nest.vp
-    uniform mediump mat4 view_proj;
+    #version 140
 
     // positions are in world space
-    attribute mediump vec4 position;
-    attribute mediump vec2 texcoord0;
+    in vec4 position;
+    in vec2 texcoord0;
 
-    varying mediump vec2 var_texcoord0;
+    out vec2 var_texcoord0;
+
+    uniform vertex_inputs
+    {
+        mat4 view_proj;
+    };
 
     void main()
     {
@@ -70,41 +87,112 @@ Create a new material file *`star-nest.material`*, a vertex shader program *`sta
     }
     ```
 
-8. Open the fragment shader program file *`star-nest.fp`* and modify the code so the fragment color is set based on the X and Y coordinates of the UV coordinates (`var_texcoord0`). We do this to make sure we have the model set up correctly:
+### Fragment program
+
+1. Open the fragment shader program file `star-nest.fp` and modify the code so the fragment color is set based on the X and Y coordinates of the UV coordinates (`var_texcoord0`). We do this to make sure we have the model set up correctly:
 
     ```glsl
-    // star-nest.fp
-    varying mediump vec2 var_texcoord0;
+    #version 140
+
+    in vec2 var_texcoord0;
+
+    out vec4 out_fragColor;
 
     void main()
     {
-        gl_FragColor = vec4(var_texcoord0.xy, 0.0, 1.0);
+        out_fragColor = vec4(var_texcoord0.xy, 0.0, 1.0);
     }
     ```
 
-9. Set the material on the model component in the "star-nest" game object.
+2. Set the `Material` property to our newly created `star-nest` material on the model component in the `star-nest` game object in the `main.collection`.
 
 Now the editor should render the model with the new shader and we can clearly see if the UV coordinates are correct; the bottom left corner should have black color (0, 0, 0), the top left corner green color (0, 1, 0), the top right corner yellow color (1, 1, 0) and the bottom right corner should have red color (1, 0, 0):
 
-![quad in Defold](images/shadertoy/quad_material.png)
+![quad in Defold](../images/shadertoy/quad_material.png)
+
+## Camera
+
+We can now run our project (<kbd>Project</kbd>-><kbd>Build</kbd> or shortcut <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>B</kbd>), but we will see a black screen (well, almost, except maybe one tiny pixel in the bottom left corner). This is because there is no camera, and default render script uses a simple fallback, that is showing a huge 2D space, while our model is in (0,0,0) position with only 1 width.
+
+Let's add a game object with a camera component to define what we'll see in the game.
+
+1. Add a game object named `camera` with position (0,0,1). (It's important to set Z coordinate to 1, so that this game object is in front of our model, as Z axis is pointing now, in the default 2D setup, towards us).
+2. Add a `Camera` component and you'll see a camera preview with our quad inside. With the default properties we are fortunate enough in such a setting to not need to change anything and we should already see the correct result, except only one thing - we don't need such a huge camera view frustum, so we can reduce the `Far Z` to `2`.
+
+![camera](../images/shadertoy/camera.png)
+
+Optionally, we can change the camera type by setting `Orthographic Projection` to `true`, and then also adjust the `Orthographic Zoom` to something like 600, but in this case we won't have an automatic aspect ratio, so our model won't fill our screen.
 
 ## The star nest shader
 
-Now everything is in place to start working on the actual shader code. Let's first take a look at the original code. It consists of a few sections:
+Now everything is in place let's start working on the actual shader code. Let's first take a look at the original code. It consists of a few sections:
 
-![Star Nest shader code](images/shadertoy/starnest_code.png)
+![Star Nest shader code](../images/shadertoy/starnest_code.png)
 
-1. Lines 5--18 defines a bunch of constants. We can leave these as is.
+We will use a modern pipeline with GLSL in version 140 - to do so, we'll declare the version on top of the file with `#version 140`.
+
+1. Lines 5--18 defines a bunch of constants. We can leave these as is. They are plain GLSL constants and do not depend on Shadertoy or Defold specifically.
 
 2. Lines 21 and 63 contains the input fragment X and Y screen space texture coordinates (`in vec2 fragCoord`), and output fragment color (`out vec4 fragColor`).
 
-    In Defold, the input texture coordinates are passed from the vertex shader as UV coordinates (in the range 0--1) through a varying variable `var_texcoord0`. The output fragment color is set to the built-in variable `gl_FragColor`.
+    Defold passes texture coordinates from the vertex shader to the fragment shader through an interpolated variable as UV coordinates (in the range 0--1). In our vertex shader this is declared with an `out` qualifier:
 
-3. Lines 23--27 sets up the dimensions of the texture as well as movement direction and scaled time. The resolution of the viewport/texture is passed to the shader as `uniform vec3 iResolution`. The shader calculates UV style coordinates with the right aspect ratio from the fragment coordinates and the resolution. Some resolution offsetting is also done to get a nicer framing.
+    ```glsl
+    // in star-nest.vp
+    out vec2 var_texcoord0;
+    ```
+
+     In the fragment shader the same value is received with an `in` qualifier:
+
+    ```glsl
+    // in star-nest.fp
+    in vec2 var_texcoord0;
+    ```
+
+    Then, in GLSL 140, we declare an explicit fragment output with `out` qualifier:
+
+    ```glsl
+    // in star-nest.fp
+    out vec4 out_fragColor;
+    ```
+
+    So where the original Shadertoy code writes to `fragColor`, our Defold shader writes to `out_fragColor`.
+
+3. Lines 23--27 sets up the dimensions of the texture as well as movement direction and scaled time. In Shadertoy, the shader receives the pixel position through `fragCoord` and the viewport resolution of the viewport/texture is passed to the shader as `uniform vec3 iResolution`. The shader calculates UV style coordinates with the right aspect ratio from the fragment coordinates and the resolution. Some resolution offsetting is also done to get a nicer framing.
+
+    In Defold, we do not start from pixel coordinates. Instead, we already receive normalized UV coordinates from the vertex shader through `var_texcoord0`. These coordinates are in the `0.0` to `1.0` range across the rendered quad.
 
     The Defold version needs to alter these calculations to use the UV coordinates from `var_texcoord0`.
+    A typical conversion looks like this:
 
-    Time is also set up here. It is passed to the shader as `uniform float iGlobalTime`. Defold does not currently support `float` uniforms so we need to provide time through a `vec4` instead.
+    ```glsl
+    vec2 uv = var_texcoord0.xy;
+    uv = uv * 2.0 - 1.0;
+    uv.x *= aspect;
+    ```
+    The exact aspect value depends on how the example is set up. If the effect is rendered on a full-screen quad with a known display size, the aspect ratio can be hardcoded for the tutorial. If the effect needs to support arbitrary window sizes, pass the resolution as a fragment constant and place it inside a GLSL 140 uniform block.
+
+    Time is also set up here. It is passed to the shader as `uniform float iGlobalTime`. Defold (since 1.12.3) provides time to shaders via a special `Time` constant that we'll use.
+
+    In modern Defold, non-opaque uniforms are declared inside uniform blocks.
+    In the fragment shader we declare it like this:
+
+    ```glsl
+    uniform fragment_inputs
+    {
+        vec4 time;
+    };
+    ```
+
+    Then, in the `star-nest.material`, we will add a Fragment Constant named `time` and set its type to `Time`.
+
+    The value can then be used like this:
+
+    ```glsl
+    float iGlobalTime = time.x;
+    float dt = time.y;
+    ```
+    where `time.x` is the time since engine start, and `time.y` is the delta time from the previous frame.
 
 4. Lines 29--39 sets up the rotation of the volumetric rendering, with mouse position affecting the rotation. The mouse coordinates are passed to the shader as `uniform vec4 iMouse`.
 
@@ -117,6 +205,8 @@ Now everything is in place to start working on the actual shader code. Let's fir
 Going through the sections above and doing the necessary changes results in the following shader code. It has been cleaned up a little for better readability. The differences between the Defold and Shadertoy versions are noted:
 
 ```glsl
+#version 140 // <1>
+
 // Star Nest by Pablo Román Andrioli
 // This content is under the MIT License.
 
@@ -135,123 +225,116 @@ Going through the sections above and doing the necessary changes results in the 
 #define distfading 0.730
 #define saturation 0.850
 
-varying mediump vec2 var_texcoord0; // <1>
+in vec2 var_texcoord0; // <2>
 
-void main() // <2>
+out vec4 out_fragColor; // <3>
+
+uniform fragment_inputs // <4>
 {
-    // get coords and direction
-    vec2 res = vec2(1.0, 1.0); // <3>
-    vec2 uv = var_texcoord0.xy * res.xy - 0.5;
-    vec3 dir = vec3(uv * zoom, 1.0);
-    float time = 0.0; // <4>
+	vec4 time;
+};
 
-    float a1=0.5; // <5>
-    float a2=0.8;
-    mat2 rot1=mat2(cos(a1),sin(a1),-sin(a1),cos(a1));
-    mat2 rot2=mat2(cos(a2),sin(a2),-sin(a2),cos(a2));
-    dir.xz*=rot1;
-    dir.xy*=rot2;
-    vec3 from = vec3(1.0, 0.5, 0.5);
-    from += vec3(time * 2.0, time, -2.0);
-    from.xz *= rot1;
-    from.xy *= rot2;
+void main() // <5>
+{
+	// get coords and direction
+	vec2 res = vec2(1.0, 1.0); // <6>
+	vec2 uv = var_texcoord0.xy * res.xy - 0.5;
+	vec3 dir = vec3(uv * zoom, 1.0);
 
-    //volumetric rendering
-    float s = 0.1, fade = 1.0;
-    vec3 v = vec3(0.0);
-    for(int r = 0; r < volsteps; r++) {
-        vec3 p = from + s * dir * 0.5;
-        // tiling fold
-        p = abs(vec3(tile) - mod(p, vec3(tile * 2.0)));
-        float pa, a = pa = 0.0;
-        for (int i=0; i < iterations; i++) {
-            // the magic formula
-            p = abs(p) / dot(p, p) - formuparam;
-            // absolute sum of average change
-            a += abs(length(p) - pa);
-            pa = length(p);
-        }
-        //dark matter
-        float dm = max(0.0, darkmatter - a * a * 0.001);
-        a *= a * a;
-        // dark matter, don't render near
-        if(r > 6) fade *= 1.0 - dm;
-        v += fade;
-        // coloring based on distance
-        v += vec3(s, s * s, s * s * s * s) * a * brightness * fade;
-        fade *= distfading;
-        s += stepsize;
-    }
-    // color adjust
-    v = mix(vec3(length(v)), v, saturation);
-    gl_FragColor = vec4(v * 0.01, 1.0); // <6>
+	float iGlobalTime = time.x; // <7>
+	float shader_time = iGlobalTime * speed;
+
+	float a1 = 0.5; // <8>
+	float a2 = 0.8;
+	mat2 rot1 = mat2(cos(a1), sin(a1), -sin(a1), cos(a1));
+	mat2 rot2 = mat2(cos(a2), sin(a2), -sin(a2), cos(a2));
+
+	dir.xz *= rot1;
+	dir.xy *= rot2;
+
+	vec3 from = vec3(1.0, 0.5, 0.5);
+	from += vec3(shader_time * 2.0, shader_time, -2.0);
+	from.xz *= rot1;
+	from.xy *= rot2;
+
+	// volumetric rendering
+	float s = 0.1;
+	float fade = 1.0;
+	vec3 v = vec3(0.0);
+
+	for (int r = 0; r < volsteps; r++) {
+		vec3 p = from + s * dir * 0.5;
+
+		// tiling fold
+		p = abs(vec3(tile) - mod(p, vec3(tile * 2.0)));
+
+		float pa = 0.0;
+		float a = 0.0;
+
+		for (int i = 0; i < iterations; i++) {
+			// the magic formula
+			p = abs(p) / dot(p, p) - formuparam;
+
+			// absolute sum of average change
+			a += abs(length(p) - pa);
+			pa = length(p);
+		}
+
+		// dark matter
+		float dm = max(0.0, darkmatter - a * a * 0.001);
+
+		a *= a * a;
+
+		// dark matter, don't render near
+		if (r > 6) {
+			fade *= 1.0 - dm;
+		}
+
+		v += fade;
+
+		// coloring based on distance
+		v += vec3(s, s * s, s * s * s * s) * a * brightness * fade;
+
+		fade *= distfading;
+		s += stepsize;
+	}
+
+	// color adjust
+	v = mix(vec3(length(v)), v, saturation);
+
+	out_fragColor = vec4(v * 0.01, 1.0); // <9>
 }
 ```
-1. The vertex shader sets a varying `var_texcoord0` with the UV coordinates. We need to declare it.
-2. Shadertoy has a `void mainImage(out vec4 fragColor, in vec2 fragCoord)` entry point. In Defold we get no parameters to `main()`. So instead, we read the varying `var_texcoord0` and write to `gl_FragColor`.
-3. For this tutorial we define static resolution for the rendering. Currently the model is square so we can use `vec2 = vec2(1.0, 1.0);`. With a rectangular model of size 1280⨉720 we instead set `vec2 res = vec2(1.78, 1.0);` and multiply the uv coordinates with that to get the correct aspect ratio.
-4. For the time being, `time` is set to zero. We will add time in the next stage.
-5. We'll keep this tutorial simple by removing the `iMouse` values altogether. Note that we still use the rotation calculations to reduce visual symmetry in the volumetric rendering.
-6. Finally, set the resulting fragment color.
 
-Save the fragment shader program. The model should now be nicely textured with a star field in the Scene editor:
+1. We declare #version 140 at the top of the file to use Defold's modern GLSL pipeline. Then we leave the defines as is.
+2. The vertex shader passes UV coordinates to the fragment shader through var_texcoord0. In GLSL 140, the fragment shader receives this interpolated value with the in qualifier.
+3. In GLSL 140, the fragment shader should declare an explicit output variable instead of writing to gl_FragColor. Here we use out vec4 out_fragColor.
+4. Defold's Time material constant is exposed to the shader through a uniform block. In star-nest.material, add a Fragment Constant named time and set its type to Time.
+5. Shadertoy uses mainImage(out vec4 fragColor, in vec2 fragCoord). In Defold we use the normal void main() entry point, read the interpolated UV coordinates from var_texcoord0, and write the final color to out_fragColor.
+6. For this tutorial we define a static resolution/aspect value for the rendering. Currently the model is square, so we can use vec2 res = vec2(1.0, 1.0);. With a rectangular model of size 1280×720, we could instead use vec2 res = vec2(1.78, 1.0); and multiply the UV coordinates with that to preserve the correct aspect ratio.
+7. The original Shadertoy shader uses iGlobalTime. In this Defold version, time.x contains the time since engine start, so we assign it to a local iGlobalTime variable and use it to animate the camera movement through the star field.
+8. We keep this tutorial simple by removing the iMouse values altogether. The rotation itself is still kept, because it reduces visual symmetry in the volumetric rendering.
+9. Finally, the shader writes the resulting fragment color to out_fragColor.
 
-![quad with starnest](images/shadertoy/quad_starnest.png)
+Save the fragment shader program. The model should now be nicely textured with a star field in the Scene editor and in runtime:
+
+![quad with starnest](../images/shadertoy/quad_starnest.png)
 
 
 ## Animation
 
-The final piece of the puzzle is the introduction of time to make the stars move. To pass a time value to the shader we need to use a shader constant, a uniform. To set up a new constant:
+The final piece of the puzzle is the introduction of time to make the stars move. Defold (since 1.12.3) provides this automatically through a fragment constant of type `Time`.
 
 1. Open *star-nest.material*.
 2. Add a *Fragment Constant* and name it "time".
-3. Set its *Type* to `CONSTANT_TYPE_USER`. Leave the x, y, z and w components at 0.
+3. Set its *Type* to `Time`.
 
-![time constant](images/shadertoy/time_constant.png)
+![time constant](../images/shadertoy/time_constant.png)
 
-Now we need to modify the shader code to declare and use the new constant:
+And that's it! We already handle this `time` in the fragment shader. We are done!
 
-```glsl
-...
-varying mediump vec2 var_texcoord0;
-uniform lowp vec4 time; // <1>
+## Exercises
 
-void main()
-{
-    //get coords and direction
-    vec2 res = vec2(2.0, 1.0);
-    vec2 uv = var_texcoord0.xy * res.xy - 0.5;
-    vec3 dir = vec3(uv * zoom, 1.0);
-    float time = time.x * speed + 0.25; // <2>
-    ...
-```
-1. Declare a new uniform of type `vec4` with name "time". It should suffice to keep it at `lowp` (Low precision).
-2. Read the `x` component of the time uniform and use it to calculate a time value.
-
-The final step is to feed a time value to the shader:
-
-1. Create a new script file *`star-nest.script`*.
-2. Enter the following code:
-
-```lua
-function init(self)
-    self.t = 0 -- <1>
-end
-
-function update(self, dt)
-    self.t = self.t + dt -- <2>
-    go.set("#model", "time", vmath.vector4(self.t, 0, 0, 0)) -- <3>
-end
-```
-1. Store a value `t` in the script component (`self`) and initialize to 0.
-2. Each frame increase the value of `self.t` with the number of seconds that has passed since the last frame. This value is available through the parameter `dt` (delta time) and is 1/60 (`update()` is called 60 times a second).
-3. Set the "time" constant on the model component. The constant is a `vector4` so we use the `x`component for the time value.
-4. Finally, add *star-nest.script* as a script component to the "star-nest" game object:
-
-    ![script component](images/shadertoy/script_component.png)
-
-And that's it! We are done!
-
-A fun continuation exercise is to add the original mouse movement input to the shader. It should be fairly straightforward if you grasp how to deal with input.
+A fun continuation exercise is to add the original mouse movement input to the shader. You will need to create a new Fragment Constant, this time of type `User` and update it in `on_input` in some script that is detecting mouse movement using the `go.set()` function and setting the input coordinates to the new constant.
 
 Happy Defolding!
