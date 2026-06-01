@@ -88,7 +88,7 @@ local function handle_response(self, id, response)
 	end
 end
 
-http.request("https://www.foobar.com/myimage.png", "GET", handle_response)
+http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
 Еще один сценарий использования загрузки больших объемов данных по сети это потоковая передача звука, когда "фрагменты" звуковых данных загружаются по URL и передаются в звуковой ресурс. Полный пример можно найти в [руководстве по потоковой передаче звука](/sound-streaming#sound-streaming).
