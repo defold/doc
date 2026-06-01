@@ -1775,6 +1775,10 @@
                     {
                         "path": "/extension-poki-sdk",
                         "name": "Poki"
+                    },
+                    {
+                        "path": "https://docs.wavedash.com/engines/defold",
+                        "name": "Wavedash"
                     }
                 ]
             },
