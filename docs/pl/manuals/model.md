@@ -23,7 +23,7 @@ Gdy model jest już utworzony, musisz określić kilka właściwości:
 Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące właściwości specyficzne dla komponentu:
 
 *Mesh*
-: Ta właściwość powinna wskazywać plik glTF *.gltf* zawierający siatkę, której chcesz użyć. Jeśli plik zawiera wiele siatek, odczytywana jest tylko pierwsza z nich.
+: Ta właściwość powinna wskazywać plik glTF *.gltf* zawierający siatkę, której chcesz użyć. Jeśli plik zawiera cele morfingu, zostaną one zaimportowane razem z siatką. Jeśli plik zawiera wiele siatek, odczytywana jest tylko pierwsza z nich.
 
 *Create GO Bones*
 : Zaznacz tę opcję, aby utworzyć obiekt gry dla każdej kości modelu. Takie obiekty gry możesz wykorzystać do dołączania innych obiektów, na przykład broni do kości dłoni.
@@ -80,6 +80,8 @@ model.play_anim("#model", "run", go.PLAYBACK_NONE)
 -- animuj kursor
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
 ```
+
+Modele mogą też używać animacji celów morfingu z glTF. Wagi celów morfingu są animowane funkcją `model.play_anim()` tak jak inne animacje modelu, a w czasie działania można je odczytywać lub nadpisywać za pomocą [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) i [`model.set_blend_weights()`](/ref/model#model.set_blend_weights). Szczegóły znajdziesz w [sekcji o celach morfingu](/manuals/model-animation#morph-targets) w instrukcji animacji modeli.
 
 ### Zmienianie właściwości
 

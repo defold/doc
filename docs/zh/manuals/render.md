@@ -137,6 +137,20 @@ msg.post("@render:", "use_fixed_projection", { near = -1, far = 1, zoom = 2 })
 
 当使用默认渲染脚本且项目中有可用的已启用[摄像机组件](/manuals/camera)时，它们将优先于渲染脚本中设置的任何其他视图/投影。要了解有关在渲染脚本中使用摄像机组件的更多信息，请参阅[摄像机文档](/manuals/camera)。
 
+正交摄像机支持 `Orthographic Mode`，用于控制摄像机如何适配窗口：
+- `Fixed` 使用摄像机的 `Orthographic Zoom` 值。
+- `Auto Fit`（包含）保持完整设计区域可见。
+- `Auto Cover`（覆盖）填满窗口，可能会裁剪。
+
+您可以在编辑器中切换模式，也可以在运行时通过 Camera API 切换：
+
+```lua
+-- 使用正交摄像机的 auto-fit 行为
+camera.set_orthographic_mode("main:/go#camera", camera.ORTHO_MODE_AUTO_FIT)
+-- 查询当前模式
+local mode = camera.get_orthographic_mode("main:/go#camera")
+```
+
 ## 视锥体剔除
 
 Defold 中的渲染 API 允许开发人员执行称为视锥体剔除的操作。启用视锥体剔除后，任何位于定义边界框或视锥体之外的图形都将被忽略。在大型游戏世界中，一次只有一部分可见，视锥体剔除可以显著减少需要发送到 GPU 进行渲染的数据量，从而提高性能并节省电池（在移动设备上）。通常使用摄像机的视图和投影来创建边界框。默认渲染脚本使用视图和投影（来自摄像机）来计算视锥体。

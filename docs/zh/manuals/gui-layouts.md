@@ -32,6 +32,10 @@ Device Models
 
 如果您希望引擎在设备旋转时自动在横屏和竖屏布局之间切换，请勾选*Dynamic Orientation*框。引擎将动态选择匹配的布局，并在设备改变方向时也更改选择。
 
+### 自动布局选择（显示配置文件）
+
+Display Profiles 资源有一个“Auto Layout Selection”选项（默认开启）。开启时，引擎会在场景创建时以及窗口/显示尺寸变化时自动选择最匹配的 GUI 布局。关闭时，引擎不会自动切换布局，请从 GUI 脚本使用 `gui.set_layout()` 手动切换布局。此设置保存在 Display Profiles 文件中，并影响所有 GUI 场景。
+
 ## GUI布局
 
 当前的显示配置文件集可用于创建GUI节点设置的布局变体。要向GUI场景添加新布局，请在*Outline*视图中右键点击*Layouts*图标并选择<kbd>Add ▸ Layout ▸ ...</kbd>：
@@ -52,7 +56,7 @@ Device Models
 
 ## 动态配置文件选择
 
-动态布局匹配根据以下规则对每个显示配置文件限定符进行评分：
+启用 Auto Layout Selection 后，引擎会自动选择最匹配的布局。动态布局匹配根据以下规则对每个显示配置文件限定符进行评分：
 
 1. 如果没有设置设备型号，或者设备型号匹配，则为限定符计算分数（S）。
 
@@ -70,7 +74,7 @@ Device Models
 
 ## 布局更改消息
 
-当引擎因设备旋转而切换布局时，会向受更改影响的GUI组件脚本发送`layout_changed`消息。消息包含布局的哈希ID，以便脚本可以根据选择的布局执行逻辑：
+当布局发生变化时，会向 GUI 组件脚本发送 `layout_changed` 消息。引擎自动切换布局（Auto Layout Selection 开启）或脚本调用 `gui.set_layout()` 且布局确实变化时都会发生这种情况。消息包含布局的哈希ID，以便脚本可以根据选择的布局执行逻辑：
 
 ```lua
 function on_message(self, message_id, message, sender)
@@ -94,3 +98,42 @@ end
 ```
 
 当方向切换时，GUI布局管理器将根据您的布局和节点属性自动缩放和重新定位GUI节点。然而，游戏内容在单独的通道中渲染（默认情况下），使用拉伸适配投影到当前窗口。要更改此行为，要么提供自己修改的渲染脚本，要么使用相机[库](/assets/)。
+
+## 手动布局选择（Lua）
+
+当正在使用的 Display Profiles 关闭 Auto Layout Selection 时，引擎不会自动切换布局。请从 GUI 脚本使用这些函数手动管理布局：
+
+### gui.set_layout(layout)
+
+- 接受字符串或哈希（布局 id）。
+- 返回布尔值：如果布局存在于场景中并已应用，则为 `true`；否则为 `false`。
+- 如果布局存在于 Display Profiles 中，则将场景分辨率更新为该配置文件的宽/高。
+- 当布局确实发生变化时发送 `layout_changed`。
+
+示例：
+
+```lua
+function init(self)
+    -- 手动应用 "Portrait" 布局
+    local ok = gui.set_layout("Portrait")
+    if not ok then
+        print("Portrait layout not found in this scene")
+    end
+end
+```
+
+### gui.get_layouts()
+
+- 返回一个表，将每个布局 id 哈希映射到 `vmath.vector3(width, height, 0)`。
+- 对于默认布局，返回当前场景分辨率。
+
+示例：
+
+```lua
+local layouts = gui.get_layouts()
+for id, size in pairs(layouts) do
+    print(id, size.x, size.y)
+end
+```
+
+注意：如果 GUI 布局存在于场景中，但不存在于 Display Profiles 中，`gui.set_layout()` 仍会应用该布局的节点覆盖，但不会改变场景分辨率。

@@ -520,17 +520,23 @@ Box2D 步骤计数。
 
 集合代理的最大数量。[(有关组件最大数量优化的信息)](#component-max-count-optimizations)。
 
+---
+
 ### Collection factory
 
 #### Max Count
 
 集合工厂的最大数量。[(有关组件最大数量优化的信息)](#component-max-count-optimizations)。
 
+---
+
 ### Factory
 
 #### Max Count
 
 游戏对象工厂的最大数量。[(有关组件最大数量优化的信息)](#component-max-count-optimizations)。
+
+---
 
 ### iOS
 
@@ -581,6 +587,8 @@ Storyboard 文件 (.storyboard)。了解如何在 [iOS 手册](/manuals/ios/#cre
 #### Localizations
 
 此字段包含逗号分隔的字符串，标识支持本地化的语言名称或 ISO 语言指示符（参见 [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)）。
+
+---
 
 ### Android
 
@@ -656,6 +664,8 @@ Firebase Cloud Messaging 应用 ID。
 
 指定包安装程序是否将原生库从 APK 提取到文件系统。如果设置为 `false`，您的原生库将以未压缩的形式存储在 APK 中。虽然您的 APK 可能更大，但您的应用程序加载速度更快，因为库在运行时直接从 APK 加载。这将在 Android 清单中设置 `android:extractNativeLibs` 标志（[官方文档](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)）。
 
+---
+
 ### macOS
 
 #### App Icon
@@ -682,11 +692,15 @@ Firebase Cloud Messaging 应用 ID。
 
 此字段包含逗号分隔的字符串，标识支持本地化的语言名称或 ISO 语言指示符（参见 [`CFBundleLocalizations`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-109552)）。
 
+---
+
 ### Windows
 
 #### App Icon
 
 用作 Windows 应用图标的图像文件 (.ico)。有关如何创建 .ico 文件的更多信息，请参阅 [Windows 手册](/manuals/windows)。
+
+---
 
 ### HTML5
 
@@ -752,11 +766,15 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 
 如果您希望图形上下文具有透明背景，请勾选此项。
 
+---
+
 ### IAP
 
 #### Auto Finish Transactions
 
 勾选以自动完成 IAP 交易。如果未勾选，您需要在成功交易后显式调用 `iap.finish()`。
+
+---
 
 ### Live update
 
@@ -768,11 +786,15 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 
 启用应用启动时自动挂载先前挂载的资源。
 
+---
+
 ### Native extension
 
 #### _App Manifest_
 
 如果设置，使用应用清单自定义引擎构建。这允许您从引擎中删除未使用的部分以减少最终二进制文件的大小。了解如何在 [应用清单手册](/manuals/app-manifest) 中排除未使用的功能。
+
+---
 
 ### Profiler
 
@@ -791,6 +813,8 @@ Emscripten 要使用的堆大小（以兆字节为单位）。
 #### Performance Timeline Enabled
 
 启用浏览器内性能时间线（仅限 HTML5）。
+
+---
 
 ## 在引擎启动时设置配置值
 

@@ -1,36 +1,74 @@
 ---
-title: Defold 介绍
-brief: Defold 简要介绍。
+brief: Defold 的简要介绍。这是开始游戏开发和 Defold 之旅的好地方。
+github: https://github.com/defold/doc
+layout: manual
+locale: zh
+title: Defold 简介
+toc:
+- 欢迎来到 Defold
+- 从哪里开始？
 ---
 
-# 欢迎来到 Defold
+## 欢迎来到 Defold
 
-Defold 是一个一站式解决方案，提供了设计、构建和发布游戏所需的一切。支持功能的完整列表可以在我们的[产品概述](/product)中查看。
+Defold 是一个免费、轻量且高性能的一站式 2D 和 3D 游戏开发解决方案，将游戏引擎、编辑器和构建生态系统整合在一起，提供设计、构建和发布所需的一切。完整支持功能列表可以在我们的[产品概述](/product)中查看。
 
-我们投入了大量时间和精力，确保游戏开发过程中的某些关键元素尽可能顺畅和轻松，我们相信这使得 Defold 在众多引擎中脱颖而出。了解[我们为什么认为您应该使用 Defold](/why)。
+我们投入了大量时间和精力，确保游戏开发流程中的关键环节尽可能顺畅省力，并相信这让 Defold 脱颖而出。了解[我们为什么认为您应该使用 Defold](/why)。
 
 ## 从哪里开始？
 
-我们鼓励您进行实验、跟随教程、阅读我们的手册和 API 文档，并在论坛上积极活动，以向其他用户学习并关注 Defold 的开发。有相当多的文档可用，包括手册、API 参考文档、示例和教程。如果您不知道从哪里开始，这里有一些指引：
+我们的 [**学习中心**](/learn) 是所有 Defold 学习资源的起点。您可以在那里找到：
 
-#### 编辑器
-![Editor overview](images/introduction/editor.png){.left} [编辑器概述](/manuals/editor/)很好地介绍了编辑器，将帮助您熟悉环境、使用可视化工具和编写代码。如果您熟悉 3D 建模程序和编程 IDE，应该不会有太多意外，但总会有一些与您最喜欢的软件不同的地方。
+- [**手册**](/manuals)（就像本页）- 用于深入理解特定主题并扩展知识
+- [**教程**](/tutorials) - 通过分步骤指导创建内容
+- [**示例**](/examples) - 简短代码片段，以及简单、小型、独立的功能和样例
+- [**课程**](/courses) - Zenva、Udemy 和社区创建的更长、更完整、更结构化课程
+- [**视频**](/videos) - 如果您更喜欢观看，有很多视频教程和概览可供选择
+- [**API**](/ref/stable/overview_defoldlua) - 使用最新完整文档理解所有提供的函数和常量
+- [**FAQ**](/faq/faq) - 最常见问题的答案；可以先搜索看看您的问题是否已经解决
 
-#### 简单示例
-![Examples](images/introduction/examples.jpg){.left} [我们的简单示例集合](/examples/)很好地介绍了如何将各个部分组合成有效的东西。您将找到如何在 Defold 中实现各种常见事物的最小示例。
+我们鼓励您进行实验、跟随教程、阅读手册和 API 文档，并加入我们的[社区渠道](/community)，以便提问、向其他用户学习并关注 Defold 的开发。
 
-#### Lua 语言
-![Lua overview](images/introduction/lua.png){.left} [Defold 使用 Lua](/manuals/lua/)进行所有逻辑控制。引擎是一个快速的 C++ 机器，但在高层次上由 Lua 程序控制。如果您使用过 Python、Javascript 或任何其他高级语言进行编程，您会发现 Lua 相当容易掌握，并且可能可以很好地跟随教程。否则，请通读我们的 Lua 手册，然后从那里开始。
+开始游戏开发或学习 Defold 时，下面这些入口很有帮助：
 
-#### 游戏教程
-![Tutorials](images/introduction/tutorials.jpg){.left} 我们相信通过实践学习是最好的。这就是为什么我们直接从[编辑器](/manuals/editor/)中提供了各种技能和复杂程度级别的教程。启动它并跟随一两个教程，学习如何构建事物以及 Defold 是如何工作的。
+### Defold 编辑器
 
-#### Defold 的构建块
-![Building blocks](images/introduction/building_blocks.png){.left} [Defold 游戏是通过组合简单块构建的](/manuals/building-blocks/)，如果您使用过其他引擎，其中一些看起来会很熟悉。有一些架构设计决策使 Defold 的块变得特殊，需要一些时间才能习惯使用它们。如果您觉得需要彻底理解它的工作原理，我们的构建块手册是一个很好的起点。
+[![编辑器概览](images/editor/editor_overview.png)](/manuals/editor)
 
-#### 论坛
-![Forum](images/introduction/forum.jpg){.left} [向他人学习](//forum.defold.com/)通常是学习的最佳方式。我们的社区非常友好，对一般游戏开发和特别是 Defold 开发了解很多。如果您遇到困难，不要犹豫，请前往论坛寻求帮助！
+[编辑器概览](/manuals/editor/)对编辑器有很好的介绍，会帮助您熟悉环境、使用可视化工具并编写代码。如果您熟悉其他游戏引擎编辑器、3D 建模程序和编程 IDE，应该不会有太多意外，但总会有些地方与您常用的软件不同。
 
-请记住，无论您选择哪种方式学习 Defold，您都可以随时回到这里，深入了解 Defold 提供的各种功能和概念。不要犹豫，指出您不理解或认为错误的地方。这些页面是为您准备的，我们希望使它们尽可能完善。
+### Defold 的构建块
 
-我们希望您会喜欢在 Defold 中创作您的下一个精彩游戏！
+[![构建块](images/building_blocks/building_blocks.png)](/manuals/building-blocks)
+
+[Defold 构建块](/manuals/building-blocks/)是一篇很好的入门手册，介绍 Defold 游戏开发的基础核心概念。Defold 使用带有多种组件的游戏对象来构建游戏，然后将游戏对象组织到集合中。如果您以前使用过其他引擎，这些概念可能会比较熟悉。Defold 的构建块有一些特别的架构设计决策，需要一点时间才能习惯。因此，如果您觉得需要理解其工作方式，构建块手册是一个很好的起点。
+
+### 示例
+
+[![示例](images/introduction/examples.png)](/examples)
+
+[示例](/examples/)集合很好地展示了如何把各个部分组合成可工作的内容。您可以在那里找到在 Defold 中完成各种常见任务的最小示例、可用代码片段、常见功能样例以及一些功能展示。
+
+### 教程
+
+[![教程](images/introduction/tutorials.png)](/tutorials)
+
+[教程](/tutorials)非常适合开启游戏开发旅程。我们相信实践是最好的学习方式。因此，我们在[编辑器](/manuals/editor/)和学习中心中提供了不同技能和复杂度等级的教程。打开教程并跟随分步骤说明，学习如何构建内容以及 Defold 如何工作。
+
+### Lua 语言
+
+[![Lua 概览](images/introduction/lua.png)](/manuals/lua)
+
+[Lua](/manuals/lua/) 是 Defold 中用于所有逻辑控制的语言。引擎内部是快速的 C++ 系统，但高层通过 Lua 脚本控制。如果您使用过 Python、GDScript、GML、Javascript 或任何其他高级语言，会发现 Lua 很容易掌握，也通常可以顺利跟随教程。否则，请先阅读我们的 Lua 手册，再继续深入。
+
+### Defold 论坛
+
+[![论坛](images/introduction/forum.png)](//forum.defold.com/)
+
+[Defold 论坛](//forum.defold.com/)通常是最好的学习方式之一。您可以向他人学习，搜索论坛看看您的问题过去是否已经有人回答，也可以直接提问。我们的社区非常友好、乐于助人，并且对一般游戏开发和 Defold 开发都有丰富经验。如果您遇到困难，不要犹豫，请前往论坛寻求帮助！
+
+### 学习中心
+
+请记住，无论您选择哪条路径学习 Defold，都可以随时回到我们的 [**学习中心**](/learn)，查找其他学习资源，并阅读手册来深入理解 Defold 提供的各种功能和概念。也请毫不犹豫地指出您不理解或认为有误的内容。这些页面是为您准备的，我们希望它们尽可能完善，因此会认真考虑用户反馈并努力改进资源，让学习曲线尽可能平滑。
+
+希望您会喜欢在 Defold 中创作下一款精彩游戏！

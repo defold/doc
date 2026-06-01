@@ -47,6 +47,13 @@ Orthographic Projection
 Orthographic Zoom
 : (**仅正交摄像机**) - 用于正交投影的缩放（> 1 = 放大，< 1 = 缩小）。
 
+Orthographic Mode
+: (**仅正交摄像机**) - 控制正交摄像机如何根据窗口大小和设计分辨率（`game.project` 中的 `display.width/height` 值）确定缩放。
+  - `Fixed`（使用固定缩放）：直接使用当前 `Orthographic Zoom` 值。
+  - `Auto Fit`（包含）：自动调整缩放，让完整设计区域适配窗口。侧边或上下可能显示额外内容。
+  - `Auto Cover`（覆盖）：自动调整缩放，让设计区域覆盖整个窗口。侧边或上下可能被裁剪。
+  仅在启用 `Orthographic Projection` 时可用。
+
 
 ## 使用摄像机
 
@@ -162,6 +169,22 @@ end
 go.set("#camera", "orthographic_zoom", 2)
 ```
 
+使用正交摄像机时，您还可以通过 `Orthographic Mode` 设置或脚本切换缩放的确定方式：
+
+```lua
+-- 获取当前模式（camera.ORTHO_MODE_FIXED、_AUTO_FIT、_AUTO_COVER 之一）
+local mode = camera.get_orthographic_mode("#camera")
+
+-- 切换到 auto-fit（包含），始终保持完整设计区域可见
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
+
+-- 切换到 auto-cover，确保设计区域覆盖窗口
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
+
+-- 切回 fixed 模式，通过 orthographic_zoom 手动控制缩放
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
+```
+
 ### 自适应缩放
 
 自适应缩放背后的概念是当显示分辨率从*game.project*中设置的初始分辨率改变时调整摄像机缩放值。
@@ -200,6 +223,8 @@ end
 ```
 
 自适应缩放的完整示例可以在[此示例项目](https://github.com/defold/sample-adaptive-zoom)中看到。
+
+注意：使用正交摄像机时，现在可以通过将 `Orthographic Mode` 设置为 `Auto Fit`（包含）或 `Auto Cover`（覆盖）来实现包含/覆盖行为，而无需自定义代码。在这些模式下，有效缩放会根据窗口大小和设计分辨率自动计算。
 
 ### 跟随游戏对象
 

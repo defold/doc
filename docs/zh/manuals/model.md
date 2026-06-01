@@ -23,22 +23,34 @@ Defold 本质上是一个3D引擎。即使您只使用2D材质，所有渲染也
 除了*Id*、*位置*和*旋转*属性外，还存在以下组件特定属性：
 
 *网格*
-: 此属性应引用包含要使用的网格的glTF *.gltf*或Collada *.dae*文件。如果文件包含多个网格，则只读取第一个。
+: 此属性应引用包含要使用的网格的 glTF *.gltf* 文件。如果文件包含变形目标，它们会与网格一起导入。如果文件包含多个网格，则只读取第一个。
 
-*材质*
-: 将此属性设置为您创建的适合纹理3D对象的材质。有一个内置的*model.material*文件，您可以用它作为起点。
+*Create GO Bones*
+: 勾选此项会为模型的每根骨骼创建一个游戏对象。您可以使用这些游戏对象将其他游戏对象附加到骨骼上，例如把武器附加到手部骨骼等。
 
-*纹理*
-: 此属性应指向您想要应用于对象的纹理图像文件。
+*Skeleton*
+: 此属性应引用包含用于动画的骨架的 glTF *.gltf* 文件。请注意，Defold 要求您的层次结构中有一个单一的根骨骼。
 
-*骨骼*
-: 此属性应引用包含用于动画的骨骼的glTF *.gltf*或Collada *.dae*文件。请注意，Defold要求您的层次结构中有一个单一的根骨骼。
-
-*动画*
+*Animations*
 : 将此设置为包含您想要在模型上使用的动画的*动画集文件*。
 
-*默认动画*
+*Default Animation*
 : 这是将自动在模型上播放的动画（来自动画集）。
+
+除了上述属性之外，还会有一个字段用于为模型的每个网格指定材质：
+
+*Material*
+: 将此属性设置为您创建的适合纹理 3D 对象的材质。有多个内置材质可作为起点：
+
+  * 使用 *model.material* 用于静态非实例化模型
+  * 使用 *model_instances.material* 用于静态实例化模型
+  * 使用 *model_skinned.material* 用于蒙皮（动画）非实例化模型
+  * 使用 *model_skinned_instances.material* 用于蒙皮（动画）实例化模型
+
+根据材质的不同，会有一个或多个纹理属性：
+
+*Texture*
+: 此属性应指向您想要应用到对象上的纹理图像文件。
 
 ## 编辑器操作
 
@@ -68,6 +80,8 @@ model.play_anim("#model", "run", go.PLAYBACK_NONE)
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
 ```
 
+模型也可以使用 glTF 变形目标动画。变形目标权重会像其他模型动画一样通过 `model.play_anim()` 进行动画处理，并且可以在运行时使用 [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) 和 [`model.set_blend_weights()`](/ref/model#model.set_blend_weights) 读取或覆盖。详情请参阅模型动画手册中的[变形目标部分](/manuals/model-animation#morph-targets)。
+
 ### 更改属性
 
 模型还有许多不同的属性，可以使用`go.get()`和`go.set()`进行操作：
@@ -90,9 +104,16 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 
 ## 材质
 
-3D软件通常允许您在对象顶点上设置属性，比如着色和纹理。这些信息会进入您从3D软件导出的glTF *.gltf*或Collada *.dae*文件中。根据您游戏的需求，您必须为您的对象选择和/或创建合适的_高性能_材质。材质将_着色器程序_与一组用于对象渲染的参数结合起来。
+3D软件通常允许您在对象顶点上设置属性，比如着色和纹理。这些信息会进入您从3D软件导出的 glTF *.gltf* 文件中。根据您游戏的需求，您必须为您的对象选择和/或创建合适的_高性能_材质。材质将_着色器程序_与一组用于对象渲染的参数结合起来。
 
-在内置材质文件夹中有一个简单的3D模型材质可用。如果您需要为模型创建自定义材质，请参阅[材质文档](/manuals/material)获取信息。[着色器手册](/manuals/shader)包含有关着色器程序如何工作的信息。
+有多个内置材质可作为起点：
+
+  * 使用 *model.material* 用于静态非实例化模型
+  * 使用 *model_instances.material* 用于静态实例化模型
+  * 使用 *model_skinned.material* 用于蒙皮（动画）非实例化模型
+  * 使用 *model_skinned_instances.material* 用于蒙皮（动画）实例化模型
+
+如果您需要为模型创建自定义材质，请参阅[材质文档](/manuals/material)获取信息。[着色器手册](/manuals/shader)包含有关着色器程序如何工作的信息。
 
 
 ### 材质常量

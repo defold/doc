@@ -54,8 +54,17 @@ function final(self)
 end
 ```
 
+#### `fixed_update(self, dt)`
+与帧率无关的更新。参数 `dt` 包含自上次更新以来的增量时间。此函数会根据帧计时和固定更新频率被调用 `0-N` 次。仅当 *game.project* 中启用 `Physics`-->`Use Fixed Timestep` 且 `Engine`-->`Fixed Update Frequency` 大于 0 时才会调用。适合在固定间隔操作物理对象，以获得稳定的物理模拟。
+
+```lua
+function fixed_update(self, dt)
+  msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+end
+```
+
 #### `update(self, dt)`
-每帧调用一次。`dt` 包含自上一帧以来的增量时间。
+在所有脚本的 `fixed_update` 回调之后（如果启用了 Fixed Timestep）每帧调用一次。参数 `dt` 包含自上一帧以来的增量时间。
 
 ```lua
 function update(self, dt)
@@ -63,12 +72,12 @@ function update(self, dt)
 end
 ```
 
-#### `fixed_update(self, dt)`
-与帧率无关的更新。`dt` 包含自上次更新以来的增量时间。当启用 `engine.fixed_update_frequency`（!= 0）时调用此函数。当在 *game.project* 中启用 `physics.use_fixed_timestep` 时，如果您希望以固定间隔操作物理对象以实现稳定的物理模拟，这很有用。
+#### `late_update(self, dt)`
+在所有脚本的 `update` 回调之后、渲染之前每帧调用一次。参数 `dt` 包含自上一帧以来的增量时间。
 
 ```lua
-function fixed_update(self, dt)
-  msg.post("#co", "apply_force", {force = vmath.vector3(1, 0, 0), position = go.get_world_position()})
+function late_update(self, dt)
+  go.set_position("/camera", self.final_camera_position)
 end
 ```
 

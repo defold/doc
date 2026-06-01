@@ -138,7 +138,7 @@ physics.set_shape("#collisionobject", "my_box_shape", box_data)
 
 
 ## 在2D物理中旋转碰撞形状
-在2D物理中，碰撞形状只能围绕z轴旋转。围绕x或y轴旋转将产生不正确的结果，应避免这样做，即使旋转180度以基本上沿x或y轴翻转形状也不行。要翻转物理形状，建议使用[`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip)和[`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vlip:url-flip)。
+在2D物理中，碰撞形状只能围绕z轴旋转。围绕x或y轴旋转将产生不正确的结果，应避免这样做，即使旋转180度以基本上沿x或y轴翻转形状也不行。要翻转物理形状，建议使用[`physics.set_hlip(url, flip)`](/ref/stable/physics/?#physics.set_hflip:url-flip)和[`physics.set_vlip(url, flip)`](/ref/stable/physics/?#physics.set_vflip:url-flip)。
 
 
 # 调试

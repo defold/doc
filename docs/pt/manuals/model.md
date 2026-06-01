@@ -23,7 +23,7 @@ Com o modelo criado, você precisa especificar algumas propriedades:
 Além das propriedades *Id*, *Position* e *Rotation*, existem as seguintes propriedades específicas do componente:
 
 *Mesh*
-: Esta propriedade deve referenciar o arquivo glTF *.gltf* que contém a malha a usar. Se o arquivo contiver várias malhas, apenas a primeira será lida.
+: Esta propriedade deve referenciar o arquivo glTF *.gltf* que contém a malha a usar. Se o arquivo contiver morph targets, eles serão importados junto com a malha. Se o arquivo contiver várias malhas, apenas a primeira será lida.
 
 *Create GO Bones*
 : Marque isto para criar um objeto de jogo para cada osso do modelo. Você pode usar os objetos de jogo para anexar outros objetos de jogo, como armas, a ossos das mãos e assim por diante. 
@@ -80,6 +80,8 @@ model.play_anim("#model", "run", go.PLAYBACK_NONE)
 -- anima o cursor
 go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 10)
 ```
+
+Modelos também podem usar animações glTF de morph target. Pesos de morph target são animados com `model.play_anim()` como outras animações de modelo, e podem ser lidos ou sobrescritos em tempo de execução usando [`model.get_blend_weights()`](/ref/model#model.get_blend_weights) e [`model.set_blend_weights()`](/ref/model#model.set_blend_weights). Veja a [seção de morph targets](/manuals/model-animation#morph-targets) no manual de animação de modelos para detalhes.
 
 ### Alterando propriedades
 

@@ -52,7 +52,7 @@ Cada alteração em uma propriedade de node feita com um layout selecionado _sob
 
 ![edição em paisagem](images/gui-layouts/landscape.png)
 
-Um layout não pode apagar nem criar novos nodes, apenas sobrescrever propriedades. Se precisar remover um node de um layout, você pode movê-lo para fora da tela ou apagá-lo com lógica de script. Você também deve prestar atenção ao layout selecionado atualmente. Se você adicionar um layout ao seu projeto, o novo layout será configurado de acordo com o layout selecionado no momento. Além disso, copiar e colar nodes considera o layout selecionado atualmente, tanto ao copiar quanto ao colar.
+Um layout não pode apagar nem criar novos nodes, apenas sobrescrever propriedades. Se precisar remover um node de um layout, você pode movê-lo para fora da tela ou apagá-lo com lógica de script. Você também deve prestar atenção ao layout selecionado atualmente. Se você adicionar um layout ao seu projeto, o novo layout será configurado de acordo com o layout selecionado no momento. Além disso, copiar e colar nodes considera o layout selecionado atualmente, ao copiar *e* ao colar.
 
 ## Seleção dinâmica de perfil
 

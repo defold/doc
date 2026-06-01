@@ -88,7 +88,7 @@ local function handle_response(self, id, response)
 	end
 end
 
-http.request("https://www.foobar.com/myimage.png", "GET", handle_response)
+http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
 Another use-case for loading large amounts of data over the network is sound streaming, when "chunks" of sound data are loaded from a URL and fed into a sound resource. A complete example can be found in the [Sound Streaming manual](/sound-streaming#sound-streaming).

@@ -15,7 +15,7 @@ O tutorial é integrado ao editor Defold e pode ser acessado facilmente:
 4. Selecione "Side scroller tutorial"
 5. Selecione uma localização para o projeto no seu disco local e clique em *Create New Project*.
 
-![new project](images/new-side-scroller.png)
+![new project](images/new-side-scroller.webp)
 
 O editor abre automaticamente o arquivo "README" na raiz do projeto, que contém o texto completo do tutorial.
 

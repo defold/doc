@@ -8,13 +8,14 @@ github: https://github.com/defold/tutorial-side-scroller
 
 Samouczek jest zintegrowany z edytorem Defold i łatwo dostępny:
 
-1. Uruchom Defold.
-2. Wybierz <kbd>New Project</kbd> po lewej stronie.
-3. Wybierz kartę <kbd>From Tutorial</kbd>.
-4. Wybierz <kbd>Side scroller tutorial</kbd>.
-5. Wybierz lokalizację projektu na lokalnym dysku i kliknij <kbd>Create New Project</kbd>.
+Uruchom Defold i:
+1. Wybierz `Create From` ▸ `TUTORIALS` po lewej stronie.
+2. Wybierz "Side Scroller Tutorial".
+3. Zmień nazwę projektu, jeśli chcesz.
+4. Wybierz lokalizację projektu na lokalnym dysku.
+5. Kliknij `Create New Project`.
 
-![nowy projekt](images/new-side-scroller.png)
+![nowy projekt](images/new-side-scroller.webp)
 
 Edytor automatycznie otworzy plik "README" z katalogu głównego projektu, który zawiera pełny tekst samouczka.
 

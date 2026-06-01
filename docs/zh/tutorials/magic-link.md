@@ -598,8 +598,6 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-```
-
 现在我们能够制作魔法方块并点亮它们，我们将使用这个效果来指示魔法方块与另一个魔法方块相邻。
 
 ![没有光和有光的魔法方块](images/magic-link/linker_magic_blocks.png)
@@ -911,6 +909,7 @@ function on_input(self, action_id, action)
         end
         self.connectors = {}
     end
+```
 
 现在可以玩游戏并达到获胜状态，即使当您链接所有魔法方块时还没有发生任何事情。
 

@@ -64,6 +64,7 @@ Semantic type
   - `SEMANTIC_TYPE_TANGENT` 为属性生成每个顶点的切线数据
   - `SEMANTIC_TYPE_WORLD_MATRIX` 为属性生成每个顶点的世界矩阵数据
   - `SEMANTIC_TYPE_NORMAL_MATRIX` 为属性生成每个顶点的法线矩阵数据
+  - `SEMANTIC_TYPE_TEXTURE_TRANSFORM_2D` 为属性生成每个顶点的 3x3 纹理变换矩阵。对于粒子组件，引擎会提供一个矩阵，将坐标变换到组件图像属性的图集空间中。对于精灵组件，引擎会为组件使用的每张图像提供一个矩阵（使用多纹理时）。对于模型组件，会提供一个单位矩阵。
 
 Data type
 : 属性后备数据的数据类型。
@@ -119,6 +120,7 @@ Value
   - `tangent` - 语义类型：`SEMANTIC_TYPE_TANGENT`
   - `mtx_world` - 语义类型：`SEMANTIC_TYPE_WORLD_MATRIX`
   - `mtx_normal` - 语义类型：`SEMANTIC_TYPE_NORMAL_MATRIX`
+  - `mtx_texture_transform_2d` - 语义类型：`SEMANTIC_TYPE_TEXTURE_TRANSFORM_2D`
 
 如果您在材质中有这些属性的条目，默认语义类型将被您在材质编辑器中配置的任何内容覆盖。
 
@@ -135,6 +137,52 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 ```
 
 然而，更新顶点属性有一些注意事项，组件是否可以使用该值取决于属性的语义类型。例如，精灵组件支持 `SEMANTIC_TYPE_POSITION`，因此如果您更新具有此语义类型的属性，组件将忽略覆盖的值，因为语义类型规定数据应始终由精灵位置生成。
+
+如果顶点属性是标量，或不是 `Vec4` 的其他向量类型，您仍然可以使用 `go.set` 设置数据：
+
+```lua
+-- vec4 中最后两个分量不会被使用！
+go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
+go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
+```
+
+矩阵属性也是如此；如果属性是 `Mat4` 以外的矩阵类型，仍然可以使用 `go.set` 设置数据。
+
+### 使用自定义顶点属性的示例
+
+使用纹理变换属性将 UV 坐标转换到图集空间：
+
+```glsl
+#version 140
+
+in vec3 position;
+in vec4 texcoord0;
+in mat3 texture_transform_2d;
+
+out vec2 var_texcoord0;
+
+void main()
+{
+  // 从变换中提取位置
+  vec2 atlas_pos = texture_transform_2d[2].xy;
+  // 从变换中提取缩放
+  vec2 atlas_size = vec2(
+      length(texture_transform_2d[0].xy),
+      length(texture_transform_2d[1].xy)
+  );
+  // 转换为本地 UV (0..1)
+  vec2 localUV = (texcoord0 - atlas_pos) / atlas_size;
+
+  // 或者，如果 UV 坐标已经在 0..1 范围内，
+  // 可以直接乘以变换来转换到图集空间：
+  vec2 transformedUv = texture_transform_2d * texcoord0;
+
+  // 将值传递给片段着色器
+  var_texcoord0 = localUV;
+
+  // ... 顶点着色器的其余部分
+}
+```
 
 ::: sidenote
 目前在运行时设置自定义顶点数据仅支持精灵组件。

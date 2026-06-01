@@ -184,7 +184,7 @@ usage: bob [options] [commands]
 : Android，具有可用的 32 位 `armv7-android` 和 64 位 `arm64-android` 架构。默认情况下，`--architectures` 参数值为 `armv7-android,arm64-android`。
 
 `js-web`
-: HTML5，具有可用的 `js-web` 和 `wasm-web` 架构。默认情况下，`--architectures` 参数值为 `js-web,wasm-web`。
+: HTML5，具有可用的 `js-web`、`wasm-web` 和 `wasm_pthread-web` 架构。默认情况下，`--architectures` 参数值为 `js-web,wasm-web`。
 
 默认情况下，Bob 在当前目录中寻找要构建的项目。如果您将当前目录更改为 Defold 项目并调用 bob，它将在默认输出目录 *build/default* 中构建项目的数据。
 

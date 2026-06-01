@@ -124,7 +124,7 @@ R: Como desenvolvedor, você só precisa se preocupar com uma única API de rend
 
 R: Sim, selecione a opção "About" no menu Help. O popup mostra claramente a versão beta do Defold e, mais importante, o SHA1 específico da release. Para consultar a versão em runtime, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
-A versão beta mais recente disponível para download em [http://d.defold.com/beta](http://d.defold.com/beta) pode ser verificada abrindo [http://d.defold.com/beta/info.json](http://d.defold.com/beta.json) (o mesmo arquivo também existe para versões estáveis: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)).
+A versão beta mais recente disponível para download em [http://d.defold.com/beta](http://d.defold.com/beta) pode ser verificada abrindo [http://d.defold.com/beta/info.json](http://d.defold.com/beta/info.json) (o mesmo arquivo também existe para versões estáveis: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)).
 
 
 #### P: Existe uma forma de saber em qual plataforma o jogo está rodando em runtime?

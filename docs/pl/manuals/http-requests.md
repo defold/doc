@@ -90,7 +90,7 @@ end
 http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, nil, options)
 ```
 
-Innym przypadkiem użycia dużych ilości danych pobieranych przez sieć jest strumieniowanie dźwięku, gdy „fragmenty” danych dźwiękowych są wczytywane z adresu URL i przekazywane do zasobu dźwięku. Pełny przykład znajdziesz w [podręczniku strumieniowania dźwięku](/manuals/sound-streaming/#sound-streaming).
+Innym przypadkiem użycia dużych ilości danych pobieranych przez sieć jest strumieniowanie dźwięku, gdy „fragmenty” danych dźwiękowych są wczytywane z adresu URL i przekazywane do zasobu dźwięku. Pełny przykład znajdziesz w [podręczniku strumieniowania dźwięku](/sound-streaming#sound-streaming).
 
 ### Nagłówki żądania
 

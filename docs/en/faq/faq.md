@@ -124,7 +124,7 @@ A: As a developer you only have to worry about a single render API using a [full
 
 A: Yes, select the "About" option in the Help menu. The popup clearly shows Defold beta version and, more importantly, the specific release SHA1. For runtime version lookup, use [`sys.get_engine_info()`](/ref/sys/#sys.get_engine_info).
 
-The latest beta version available for download from [http://d.defold.com/beta](http://d.defold.com/beta) can be checked by opening [http://d.defold.com/beta/info.json](http://d.defold.com/beta.json) (the same file exists for stable versions as well: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)).
+The latest beta version available for download from [http://d.defold.com/beta](http://d.defold.com/beta) can be checked by opening [http://d.defold.com/beta/info.json](http://d.defold.com/beta/info.json) (the same file exists for stable versions as well: [http://d.defold.com/stable/info.json](http://d.defold.com/stable/info.json)).
 
 
 #### Q: Is there a way to know what platform the game is running on at runtime?

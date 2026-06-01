@@ -147,7 +147,7 @@ When `Use Fixed Timestep` is `false` and/or Fixed Update Frequency is `0`, at th
 
 :::sidenote
 Note that after **each** component type’s update, all messages are dispatched - this is not marked in the table below to keep it clean.
-:::’
+:::
 
 | Step | Engine Phase | Lua Callback | Comment |
 |-|-|-|-|
@@ -161,7 +161,7 @@ When `Use Fixed Timestep` is `true` and Fixed Update Frequency is non-zero, at t
 
 :::sidenote
 Note that after **each** component type’s update, all messages are dispatched - this is not marked in the table below to keep it clean.
-:::’
+:::
 
 Then it loops:
 
