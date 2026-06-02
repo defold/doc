@@ -83,7 +83,7 @@ Se você obtiver uma callstack de um arquivo `_crash` ou de um [arquivo de log](
 * Android - a pasta de saída de pacote `projecttitle.apk.symbols/lib/` contém os símbolos de debug para as arquiteturas-alvo.
 * Linux - o executável contém os símbolos de debug.
 * Windows - o arquivo `dmengine.pdb` em `build/x86_64-win32` contém os símbolos de debug para builds Windows.
-* HTML5 - o arquivo `dmengine.js.symbols` em `build/js-web` ou `build/wasm-web` contém os símbolos de debug para builds HTML5.
+* HTML5 - o arquivo `dmengine.js.symbols` em `build/wasm-web` contém os símbolos de debug para builds HTML5.
 
 ::: important
 É muito importante que você salve os símbolos de debug em algum lugar para cada release pública do seu jogo e que saiba a qual release os símbolos de debug pertencem. Você não conseguirá depurar nenhum travamento nativo se não tiver os símbolos de debug. Além disso, mantenha uma versão não stripped da engine. Isso permite a melhor simbolicação da callstack.

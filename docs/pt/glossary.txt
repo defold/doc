@@ -331,7 +331,6 @@ Quando uma entrada abaixo indicar `UI oficial`, use essa forma para rótulos vis
 | stack size | tamanho do stack |
 | heap size | tamanho do heap |
 | WebAssembly | WebAssembly |
-| `js-web` | `js-web` |
 | `wasm-web` | `wasm-web` |
 | YAML field | campo YAML |
 | default value | valor padrão |

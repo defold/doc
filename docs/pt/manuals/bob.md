@@ -183,8 +183,8 @@ Plataformas e arquiteturas disponíveis:
 `armv7-android`
 : Android com arquiteturas disponíveis de 32 bits `armv7-android` e 64 bits `arm64-android`. Por padrão, o valor do argumento `--architectures` é `armv7-android,arm64-android`.
 
-`js-web`
-: HTML5 com arquiteturas disponíveis `js-web`, `wasm-web` e `wasm_pthread-web`. Por padrão, o valor do argumento `--architectures` é `js-web,wasm-web`.
+`wasm-web`
+: HTML5 com arquiteturas disponíveis `wasm-web` e `wasm_pthread-web`. Por padrão, o valor do argumento `--architectures` é `wasm-web`.
 
 Por padrão, Bob procura no diretório atual por um projeto para compilar. Se você mudar o diretório atual para um projeto Defold e chamar Bob, ele compila os dados do projeto no diretório de saída padrão *build/default*.
 

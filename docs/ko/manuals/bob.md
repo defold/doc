@@ -159,7 +159,7 @@ Linux
 iOS 64 bit
 #### armv7-android
 Android
-#### js-web
+#### wasm-web
 HTML5
 
 기본적으로 Bob은 현재 디렉토리에서 빌드할 프로젝트를 찾습니다. 만약 현재 디렉토리를 Defold 프로젝트로 변경하고 bob을 호출하면, 기본 출력 디렉토리인 "build/default" 에서 프로젝트를 빌드합니다.

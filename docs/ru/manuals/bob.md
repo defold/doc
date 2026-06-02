@@ -183,8 +183,8 @@ Available platforms and architectures:
 `armv7-android`
 : Android с доступной 32-битной архитектурой `armv7-android` и 64-битной` arm64-android`. По умолчанию значение аргумента `--architectures` - `armv7-android,arm64-android`.
 
-`js-web`
-: HTML5 с доступными архитектурами `js-web`, `wasm-web` и `wasm_pthread-web`. По умолчанию значение аргумента `--architectures` - `js-web,wasm-web`.
+`wasm-web`
+: HTML5 с доступными архитектурами `wasm-web` и `wasm_pthread-web`. По умолчанию значение аргумента `--architectures` - `wasm-web`.
 
 По умолчанию Bob ищет в текущем каталоге проект, который нужно собрать. Если вы измените текущий каталог на проект Defold и вызовете bob, он соберёт данные для проекта в каталоге вывода по умолчанию *build/default*.
 

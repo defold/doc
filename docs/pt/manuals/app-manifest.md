@@ -88,32 +88,32 @@ Seleciona qual backend de gráficos usar.
 Se ativado (`true`), permite usar geração em tempo de execução para fontes do tipo SDF ao usar fontes True Type (`.ttf`) no projeto. Leia mais detalhes no [Manual de fontes](https://defold.com/manuals/font/#enabling-runtime-fonts).
 
 
-## Versão mínima do Safari (apenas js-web e wasm-web)
+## Versão mínima do Safari (apenas wasm-web)
 Nome do campo YAML: **`minSafariVersion`**
 Valor padrão: **90000**
 
 Versão mínima suportada do Safari. Não pode ser menor que 90000. Para mais informações, consulte as [opções do compilador Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-safari-version).
 
-## Versão mínima do Firefox (apenas js-web e wasm-web)
+## Versão mínima do Firefox (apenas wasm-web)
 Nome do campo YAML: **`minFirefoxVersion`**
 Valor padrão: **34**
 
 Versão mínima suportada do Firefox. Não pode ser menor que 34. Para mais informações, consulte as [opções do compilador Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-firefox-version).
 
-## Versão mínima do Chrome (apenas js-web e wasm-web)
+## Versão mínima do Chrome (apenas wasm-web)
 Nome do campo YAML: **`minChromeVersion`**
 Valor padrão: **32**
 
 Versão mínima suportada do Chrome. Não pode ser menor que 32. Para mais informações, consulte as [opções do compilador Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-chrome-version).
 
-## Memória inicial (apenas js-web e wasm-web)
+## Memória inicial (apenas wasm-web)
 Nome do campo YAML: **`initialMemory`**
 Valor padrão: **33554432**
 
-O tamanho da memória alocada para a aplicação web. Quando ALLOW_MEMORY_GROWTH=0 (js-web), esta é a quantidade total de memória que a aplicação web pode usar. Para mais informações, consulte a [documentação do Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Valor em bytes. Observe que o valor deve ser um múltiplo do tamanho da página WebAssembly (64KiB).
+O tamanho da memória alocada para a aplicação web. Quando ALLOW_MEMORY_GROWTH=0, esta é a quantidade total de memória que a aplicação web pode usar. Para mais informações, consulte a [documentação do Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Valor em bytes. Observe que o valor deve ser um múltiplo do tamanho da página WebAssembly (64KiB).
 Essa opção se relaciona com `html5.heap_size` em *game.project*; consulte a [documentação de HTML5](https://defold.com/manuals/html5/#heap-size). A opção configurada pelo manifesto do aplicativo é definida durante a compilação e usada como valor padrão para a opção `INITIAL_MEMORY`. O valor de *game.project* substitui o valor do manifesto do aplicativo e é usado em tempo de execução.
 
-## Tamanho do stack (apenas js-web e wasm-web)
+## Tamanho do stack (apenas wasm-web)
 Nome do campo YAML: **`stackSize`**
 Valor padrão: **5242880**
 

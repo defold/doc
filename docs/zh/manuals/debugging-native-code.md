@@ -83,7 +83,7 @@ $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/
 * Android - `projecttitle.apk.symbols/lib/` 捆绑输出文件夹包含目标架构的调试符号。
 * Linux - 可执行文件包含调试符号。
 * Windows - `build/x86_64-win32` 中的 `dmengine.pdb` 文件包含 Windows 构建的调试符号。
-* HTML5 - `build/js-web` 或 `build/wasm-web` 中的 `dmengine.js.symbols` 文件包含 HTML5 构建的调试符号。
+* HTML5 - `build/wasm-web` 中的 `dmengine.js.symbols` 文件包含 HTML5 构建的调试符号。
 
 
 ::: important
