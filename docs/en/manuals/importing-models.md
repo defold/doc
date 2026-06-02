@@ -9,7 +9,7 @@ Defold currently support models, skeletons and animations in GL Transmission For
 ![Model in Blender](images/model/blender.png)
 
 ## Importing to Defold
-To import the model, simply drag and drop the *.gltf* file or *.dae* file and the corresponding texture image into the *Assets Pane* somewhere.
+To import the model, simply drag and drop the *.gltf* file and the corresponding texture image into the *Assets Pane* somewhere.
 
 ![Imported model assets](images/model/assets.png)
 

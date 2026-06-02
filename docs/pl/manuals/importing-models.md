@@ -9,7 +9,7 @@ Defold obecnie obsługuje modele, szkielety i animacje w formacie GL Transmissio
 ![Model w Blenderze](images/model/blender.png)
 
 ## Importowanie do Defold
-Aby zaimportować model, po prostu przeciągnij plik *.gltf* albo *.dae* oraz odpowiadający mu obraz tekstury do *<kbd>Assets Pane</kbd>*.
+Aby zaimportować model, po prostu przeciągnij plik *.gltf* oraz odpowiadający mu obraz tekstury do *<kbd>Assets Pane</kbd>*.
 
 ![Zaimportowane zasoby modelu](images/model/assets.png)
 

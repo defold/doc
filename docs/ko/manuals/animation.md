@@ -104,8 +104,6 @@ end
 
 > 또한 애니메이션은 선형적으로 보간(linearly interpolated)됩니다. 고급 곡선 보간(curve interpolation)을 하려면 애니메이션을 익스포터(exporter)에서 미리 구워(prebake)야 합니다.
 
-> Collada의 애니메이션 클립(Animation clip)은 지원하지 않습니다. 모델별로 다수의 애니메이션을 사용하기 위해서는 각각 별도의 **.dae** 파일로 익스포트 하고 Defold의 **.animationset** 파일로 합쳐야 합니다.
-
 ### The bone hierarchy
 모델 스켈레톤의 뼈대들은 게임 오브젝트에 내부적으로 나타납니다. 모델 컴포넌트의 아웃라인 창(**Outline**)에서 뼈대의 계층구조와 각 뼈대의 이름을 볼 수 있습니다.
 

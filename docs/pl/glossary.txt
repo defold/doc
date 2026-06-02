@@ -1032,7 +1032,6 @@ Zakres: najważniejsze terminy z instrukcji importowania modeli 3D do Defold.
 | English term | Polish translation / explanation |
 |---|---|
 | glTF | format wymiany modeli 3D używany przez Defold |
-| Collada | format 3D obsługiwany przez Defold, m.in. w plikach `.dae` |
 | vertices | wierzchołki siatki modelu 3D |
 | faces | ściany lub powierzchnie siatki modelu 3D |
 | polygons | wielokąty siatki modelu 3D |

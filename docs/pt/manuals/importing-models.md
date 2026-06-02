@@ -9,7 +9,7 @@ Atualmente, o Defold oferece suporte a modelos, esqueletos e animações no form
 ![Model in Blender](images/model/blender.png)
 
 ## Importando para o Defold
-Para importar o modelo, basta arrastar e soltar o arquivo *.gltf* ou *.dae* e a imagem de textura correspondente em algum lugar do *painel Conteúdo*.
+Para importar o modelo, basta arrastar e soltar o arquivo *.gltf* e a imagem de textura correspondente em algum lugar do *painel Conteúdo*.
 
 ![Imported model assets](images/model/assets.png)
 
