@@ -168,6 +168,181 @@
 
 
             {
+                "path": "https://www.youtube.com/watch?v=2VWFJS42XHg",
+                "embed": "https://www.youtube.com/embed/2VWFJS42XHg",
+                "name": "Learn Defold Engine in 6 Hours! How to Make a Game With Defold From Zero - Defold Beginner Tutorial",
+                "author": "Asatte Games",
+                "description": "A full beginner tutorial that walks through making a game with Defold from scratch, combining the introductory series into a single 6-hour video."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=spJkDADul7s",
+                "embed": "https://www.youtube.com/embed/spJkDADul7s",
+                "name": "Making A Complete Incremental Game With Defold -  Defold Tutorial, Installing Defold, Project Setup",
+                "author": "Asatte Games",
+                "description": "Start an incremental-game project in Defold, install the engine, and set up the initial project structure and workflow."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=18-3QvvzZWM",
+                "embed": "https://www.youtube.com/embed/18-3QvvzZWM",
+                "name": "Make A Complete Incremental Game With Defold Tutorial -Part 2 -  Scene Management, Scripts & Modules",
+                "author": "Asatte Games",
+                "description": "Part 2 of the incremental-game tutorial series, covering scene management, scripting, and Lua modules in Defold."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=VLXY6e06xwk",
+                "embed": "https://www.youtube.com/embed/VLXY6e06xwk",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 3 -  GUI & Collision Basics, Enemy AI",
+                "author": "Asatte Games",
+                "description": "Part 3 of the incremental-game tutorial series, covering GUI basics, collisions, and simple enemy AI."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=SajP-Cwmt9s",
+                "embed": "https://www.youtube.com/embed/SajP-Cwmt9s",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 4 -  Enemy Spawning, Prefabs and Stats",
+                "author": "Asatte Games",
+                "description": "Part 4 of the incremental-game tutorial series, focused on enemy spawning, prefabs, and gameplay stats."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=7Lr-fPCZynM",
+                "embed": "https://www.youtube.com/embed/7Lr-fPCZynM",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 5 -  Bullet/Bomb Spawning & Hp Logic",
+                "author": "Asatte Games",
+                "description": "Part 5 of the incremental-game tutorial series, covering projectile spawning, bombs, and HP logic."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=Scw2wRRcpqY",
+                "embed": "https://www.youtube.com/embed/Scw2wRRcpqY",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 6 -  Explosion Effect & Button Prefab",
+                "author": "Asatte Games",
+                "description": "Part 6 of the incremental-game tutorial series, adding an explosion effect and a reusable button prefab."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=m7Ld6yshSUQ",
+                "embed": "https://www.youtube.com/embed/m7Ld6yshSUQ",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 7 -  GUI Management, GUI Slider",
+                "author": "Asatte Games",
+                "description": "Part 7 of the incremental-game tutorial series, focused on GUI management and implementing a GUI slider."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=Zz_hY7lEBIs",
+                "embed": "https://www.youtube.com/embed/Zz_hY7lEBIs",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 8 -  Responsive UI, New Buttons",
+                "author": "Asatte Games",
+                "description": "Part 8 of the incremental-game tutorial series, improving the interface with responsive UI and new buttons."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=IDRFtzqq7Kw",
+                "embed": "https://www.youtube.com/embed/IDRFtzqq7Kw",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 9 -  Skill Upgrades, Hp/Gold Systems",
+                "author": "Asatte Games",
+                "description": "Part 9 of the incremental-game tutorial series, adding skill upgrades and HP and gold progression systems."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=Ri65PLA5v64",
+                "embed": "https://www.youtube.com/embed/Ri65PLA5v64",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 10 -  Game Over State, Replay Logic",
+                "author": "Asatte Games",
+                "description": "Part 10 of the incremental-game tutorial series, implementing a game-over state and replay flow."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=hxDIN5SI20U",
+                "embed": "https://www.youtube.com/embed/hxDIN5SI20U",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 11 -  UI Polish, Main/Pause Menu Layout",
+                "author": "Asatte Games",
+                "description": "Part 11 of the incremental-game tutorial series, polishing the UI and laying out main and pause menus."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=SCd1EIwTKUk",
+                "embed": "https://www.youtube.com/embed/SCd1EIwTKUk",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 12 - Main/Pause Menu Logic, Game Speed",
+                "author": "Asatte Games",
+                "description": "Part 12 of the incremental-game tutorial series, adding main and pause menu logic and game-speed control."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=ofs4XnHaCyw",
+                "embed": "https://www.youtube.com/embed/ofs4XnHaCyw",
+                "name": "Make A Complete Incremental Game With Defold Tutorial - Part 13 - Music & Sound Effects, Difficulty",
+                "author": "Asatte Games",
+                "description": "Part 13 of the incremental-game tutorial series, covering music, sound effects, and difficulty tuning."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=kq6TQYGMrQo",
+                "embed": "https://www.youtube.com/embed/kq6TQYGMrQo",
+                "name": "Defold Beginner Tutorial Series - Part 14 - How to Bundle for HTML5 Web & Windows, Uploading Itch io",
+                "author": "Asatte Games",
+                "description": "Part 14 of the beginner tutorial series, showing how to bundle a Defold game for HTML5 and Windows and upload it to itch.io."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=lO8nHBURpz4",
+                "embed": "https://www.youtube.com/embed/lO8nHBURpz4",
+                "name": "Defold 1.12.2 is Out With Great Improvements! Best Version Yet!  - Update Review Video",
+                "author": "Asatte Games",
+                "description": "A review of the Defold 1.12.2 release and the improvements introduced in that version."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=zcKlAa4BwXE",
+                "embed": "https://www.youtube.com/embed/zcKlAa4BwXE",
+                "name": "Defold 1.12.3 is Out With Great Improvements!  - Update Review Video",
+                "author": "Asatte Games",
+                "description": "A review of the Defold 1.12.3 release and the improvements introduced in that version."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=txUyu12S6Oc",
+                "embed": "https://www.youtube.com/embed/txUyu12S6Oc",
+                "name": "Defold 1.12.4 is Out With Great Improvements!  - Update Review Video",
+                "author": "Asatte Games",
+                "description": "A review of the Defold 1.12.4 release and the improvements introduced in that version."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=HEcv-KXp7SQ",
+                "embed": "https://www.youtube.com/embed/HEcv-KXp7SQ",
+                "name": "How To Use Defold Asset Portal? With \"Asset Store\" Asset -  Defold Tutorial",
+                "author": "Asatte Games",
+                "description": "An overview of the Defold Asset Portal, using the Asset Store asset to browse and use shared resources."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=Auhp3ov3ST8",
+                "embed": "https://www.youtube.com/embed/Auhp3ov3ST8",
+                "name": "Should you use Defold engine in 2026? Is it any good? - Engine Review Video",
+                "author": "Asatte Games",
+                "description": "A high-level review of Defold in 2026, covering whether the engine is a good fit and what it offers."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=HVq4UCyJ1IA",
+                "embed": "https://www.youtube.com/embed/HVq4UCyJ1IA",
+                "name": "Import Large 3D Scenes With REFORGE Blender Add-on -  Defold 3D Tutorial",
+                "author": "Asatte Games",
+                "description": "Learn how to import large 3D scenes into Defold with the REFORGE Blender add-on."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=i9rdrryBHsg",
+                "embed": "https://www.youtube.com/embed/i9rdrryBHsg",
+                "name": "Defold 3D Community Projects Showcase",
+                "author": "Asatte Games",
+                "description": "A showcase of community-made 3D projects built with Defold."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=Ku76YKHlTrs",
+                "embed": "https://www.youtube.com/embed/Ku76YKHlTrs",
+                "name": "Import 3D Model With Textures And Animation With Blender Script -  Defold 3D Tutorial",
+                "author": "Asatte Games",
+                "description": "Learn how to import a 3D model with textures and animation into Defold using a Blender script."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=KZk4jx0t1Mc",
+                "embed": "https://www.youtube.com/embed/KZk4jx0t1Mc",
+                "name": "How To Use Property Animations With Defold? -  Defold Tutorial",
+                "author": "Asatte Games",
+                "description": "Learn how to animate properties in Defold for gameplay and presentation effects."
+            },
+            {
+                "path": "https://www.youtube.com/watch?v=_-dhQV9g7AM",
+                "embed": "https://www.youtube.com/embed/_-dhQV9g7AM",
+                "name": "How To Use Fonts With Defold? -  Defold Tutorial",
+                "author": "Asatte Games",
+                "description": "Learn how to work with fonts in Defold and set them up correctly in your project."
+            },
+            {
                 "path": "https://www.youtube.com/watch?v=Sekx4ckbYzI",
                 "embed": "https://www.youtube.com/embed/Sekx4ckbYzI",
                 "name": "Zelda Style Camera With Defold - Smooth Room Transition Camera",
