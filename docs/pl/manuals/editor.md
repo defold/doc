@@ -264,7 +264,7 @@ Dodatkowo plik wykonywalny edytora obsługuje opcję wiersza poleceń `--port` l
 
 ## Stylizacja edytora
 
-Wygląd edytora można zmieniać za pomocą własnej stylizacji. Więcej informacji znajdziesz w [instrukcji stylizacji edytora](/manuals/editor-styling.md).
+Wygląd edytora można zmieniać za pomocą własnej stylizacji. Więcej informacji znajdziesz w [instrukcji stylizacji edytora](/manuals/editor-styling).
 
 ## FAQ
 :[Editor FAQ](../shared/editor-faq.md)

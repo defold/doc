@@ -259,7 +259,7 @@ Além disso, o executável do editor tem a opção de linha de comando `--port` 
 
 ## Estilização do editor
 
-A aparência do editor pode ser alterada com estilização personalizada. Leia mais no [manual de estilização do editor](/manuals/editor-styling.md).
+A aparência do editor pode ser alterada com estilização personalizada. Leia mais no [manual de estilização do editor](/manuals/editor-styling).
 
 ## FAQ
 :[Editor FAQ](../shared/editor-faq.md)

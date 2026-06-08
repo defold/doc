@@ -259,7 +259,7 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 ## 编辑器样式
 
-可以通过自定义样式改变编辑器外观。请阅读[编辑器样式手册](/manuals/editor-styling.md)了解更多信息。
+可以通过自定义样式改变编辑器外观。请阅读[编辑器样式手册](/manuals/editor-styling)了解更多信息。
 
 ## FAQ
 :[Editor FAQ](../shared/editor-faq.md)
