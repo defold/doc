@@ -31,7 +31,7 @@ factory.create(component, p)
 : The id of the factory component that should spawn a new game object.
 
 `[position]`
-: (optional) The world position of the new game object. This should be a `vector3`. If you do not specify a position, the game object is spawned at the position of the factory component.
+: (optional) The world position of the new game object. This should be a `vector3`. If you do not specify a position, the game object is spawned at the position of the game object calling `factory.create()`.
 
 `[rotation]`
 : (optional) The world rotation of the new game object. This should be a `quat`.
