@@ -4,39 +4,52 @@ brief: Ta instrukcja opisuje, jak importować modele 3D używane przez komponent
 ---
 
 # Importowanie modeli 3D
-Defold obecnie obsługuje modele, szkielety i animacje w formacie GL Transmission Format *.glTF*. Możesz użyć narzędzi takich jak Maya, 3D Max, Sketchup i Blender do tworzenia modeli 3D albo konwertowania ich do formatu glTF. Blender to potężny i popularny program do modelowania 3D, animacji i renderowania. Działa w systemach Windows, macOS i Linux i można go bezpłatnie pobrać ze strony http://www.blender.org
+Defold obsługuje modele, szkielety i animacje w formacie glTF 2.0 (GL Transmission Format). Do modeli 3D używaj plików *.gltf* lub *.glb*. glTF to nowoczesny format przeznaczony do przenoszenia i ładowania danych 3D w silnikach gier i aplikacjach czasu rzeczywistego.
 
-![Model w Blenderze](images/model/blender.png)
+Możesz użyć narzędzi takich jak Maya, 3ds Max, SketchUp i Blender do tworzenia modeli 3D albo konwertowania ich do formatu glTF.
+
+Blender to potężny i popularny program do modelowania 3D, animacji i renderowania. Działa w systemach Windows, macOS i Linux i jest dostępny za darmo na stronie [https://www.blender.org](https://www.blender.org).
+
+![Model w Blenderze](images/model/blender_gltf.png)
 
 ## Importowanie do Defold
-Aby zaimportować model, po prostu przeciągnij plik *.gltf* oraz odpowiadający mu obraz tekstury do *<kbd>Assets Pane</kbd>*.
+Aby zaimportować model, przeciągnij i upuść plik *.gltf* lub *.glb* do panelu *Assets* edytora Defold.
 
-![Zaimportowane zasoby modelu](images/model/assets.png)
+glTF może być przechowywany na dwa popularne sposoby:
+
+* *.glb* to pojedynczy plik binarny. Zawiera dane modelu i może też zawierać spakowane obrazy tekstur. Jest wygodny, gdy chcesz przenosić lub przechowywać model jako jeden plik.
+* *.gltf* to tekstowy plik JSON. Zwykle odwołuje się do osobnego pliku *.bin* z danymi siatki oraz osobnych obrazów tekstur, takich jak *.png* lub *.jpg*. Przy tym wariancie dodaj wszystkie powiązane pliki do projektu i zachowaj ich względne ścieżki.
+
+Jeśli model ma używać tekstury w Defold, zaimportuj obraz tekstury jako osobny zasób. Nawet gdy źródłowy plik glTF/GLB zawiera osadzone obrazy, tekstury trzeba przypisać do komponentu Model przez właściwości tekstur materiału komponentu.
+
+![Zaimportowane zasoby modelu](images/model/assets_gltf.png)
 
 ## Używanie modelu
-Gdy model jest już zaimportowany do Defold, możesz użyć go w [komponencie Model](/manuals/model).
+Po zaimportowaniu modelu użyj go w [komponencie Model](/manuals/model):
+
+1. Utwórz plik Model z panelu *Assets* za pomocą <kbd>New... ▸ Model</kbd>, albo dodaj komponent Model bezpośrednio do obiektu gry za pomocą <kbd>Add Component ▸ Model</kbd>.
+2. Ustaw właściwość *Mesh* na zaimportowany plik *.gltf* lub *.glb* zawierający siatkę.
+3. W przypadku modelu animowanego ustaw właściwość *Skeleton* na plik *.gltf* lub *.glb* zawierający szkielet. Często jest to ten sam plik, którego używasz dla *Mesh*, gdy siatka, szkielet i animacje są eksportowane razem.
+4. Utwórz plik *Animation Set* dla animacji i przypisz go do właściwości *Animations*. Ustaw *Default Animation*, jeśli animacja ma rozpocząć się automatycznie.
+5. Ustaw właściwość *Material* na materiał odpowiedni dla modelu. Wbudowane pliki *model.material*, *model_instances.material*, *model_skinned.material* i *model_skinned_instances.material* są przydatnymi punktami wyjścia.
+6. Ustaw właściwości tekstur materiału, takie jak *Texture*, na zaimportowane pliki obrazów tekstur. Jeśli materiał używa wielu tekstur, przypisz każdą teksturę w odpowiednim polu tekstury materiału.
+
 
 ## Eksport do glTF
-Wyeksportowany plik *.gltf* zawiera wszystkie wierzchołki, krawędzie i ściany tworzące model, a także _UV coordinates_ (czyli informację o tym, która część obrazu tekstury odpowiada konkretnej części siatki), jeśli zostały zdefiniowane, kości w szkielecie oraz dane animacji.
+Wyeksportowany plik *.gltf* lub *.glb* zawiera wszystkie wierzchołki, krawędzie i ściany tworzące model, a także _współrzędne UV_ (czyli informację o tym, która część obrazu tekstury odpowiada konkretnej części siatki), jeśli zostały zdefiniowane, kości w szkielecie oraz dane animacji.
 
 * Szczegółowy opis siatek wielokątnych można znaleźć na stronie http://en.wikipedia.org/wiki/Polygon_mesh.
 
-* UV coordinates i UV mapping opisano na stronie http://en.wikipedia.org/wiki/UV_mapping.
+* Współrzędne UV i mapowanie UV opisano na stronie http://en.wikipedia.org/wiki/UV_mapping.
 
 Defold nakłada pewne ograniczenia na eksportowane dane animacji:
 
-* Defold obecnie obsługuje tylko baked animations. Animacje muszą mieć macierze dla każdej animowanej kości w każdej klatce kluczowej, a nie osobne klucze pozycji, rotacji i skali.
+* Defold obecnie obsługuje tylko animacje wypieczone. Animacje muszą mieć macierze dla każdej animowanej kości w każdej klatce kluczowej, a nie osobne klucze pozycji, rotacji i skali.
 
-* Animacje są również interpolowane liniowo. Jeśli używasz bardziej zaawansowanej interpolacji krzywych, animacje muszą zostać wstępnie wypieczone przez eksportera.
+* Animacje są również interpolowane liniowo. Jeśli używasz bardziej zaawansowanej interpolacji krzywych, animacje muszą zostać wstępnie wypieczone przez eksporter.
 
 ### Wymagania
-Przy eksporcie modelu warto pamiętać, że nie obsługujemy jeszcze wszystkich funkcji.
-
-Znane problemy i nieobsługiwane funkcje formatu glTF:
-
-* Morph target animations
-* Material properties
-* Embedded textures
+Podczas eksportu modelu pamiętaj, że obsługa glTF może różnić się między narzędziami i silnikami. Używaj glTF 2.0, upewnij się, że model ma poprawne współrzędne UV, jeśli używa tekstur, i importuj obrazy tekstur osobno, gdy mają być przypisane do komponentu Model.
 
 Naszym celem jest pełna obsługa formatu glTF, ale nie jesteśmy jeszcze w tym miejscu.
 Jeśli brakuje jakiejś funkcji, zgłoś prośbę o jej dodanie w [naszym repozytorium](https://github.com/defold/defold/issues)
@@ -54,11 +67,20 @@ Następnie możesz wyeksportować układ UV do obrazu, którego można użyć ja
 
 ![Eksport układu UV](images/model/blender_export_uv_layout.png)
 
-![Ustawienia eksportu układu UV](images/model/blender_export_uv_layout_settings.png)
-
 ![Wynik eksportu układu UV](images/model/blender_export_uv_layout_result.png)
 
 ### Eksportowanie w Blenderze
-Model eksportujesz za pomocą opcji Export w menu. Zaznacz model przed wybraniem opcji Export i zaznacz <kbd>Selection Only</kbd>, aby wyeksportować tylko model.
+Eksportuj model z Blendera za pomocą <kbd>File ▸ Export ▸ glTF 2.0 (.glb/.gltf)</kbd>.
 
-![Eksportowanie w Blenderze](images/model/blender_export.png)
+![Eksportowanie w Blenderze](images/model/export_gltf.png)
+
+Zaznacz obiekt lub obiekty przed eksportem i włącz *Selected Objects*, jeśli chcesz wyeksportować tylko zaznaczenie.
+
+Wybierz jedną z opcji *Format*:
+
+* *glTF Binary (.glb)* tworzy jeden plik. Użyj tej opcji, gdy model ma być łatwy do przenoszenia lub przechowywania jako pojedynczy zasób.
+* *glTF Separate (.gltf + .bin + textures)* tworzy osobne pliki dla opisu modelu, danych binarnych i tekstur. Użyj tej opcji, gdy chcesz edytować obrazy tekstur albo przypisywać je osobno w Defold.
+
+Jeśli model zawiera animacje, włącz eksport animacji i upewnij się, że animacje są wypieczone. Jeśli model używa tekstur, upewnij się, że siatka ma rozwinięcie UV i że obrazy tekstur są eksportowane w formacie, który Defold może importować, takim jak PNG lub JPEG.
+
+![Eksportowanie w Blenderze](images/model/export_settings.png)

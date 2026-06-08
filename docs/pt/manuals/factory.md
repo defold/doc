@@ -31,7 +31,7 @@ factory.create(component, p)
 : O id do componente de fábrica que deve criar um novo objeto de jogo.
 
 `[position]`
-: (opcional) A posição no mundo do novo objeto de jogo. Deve ser um `vector3`. Se você não especificar uma posição, o objeto de jogo será criado na posição do componente de fábrica.
+: (opcional) A posição no mundo do novo objeto de jogo. Deve ser um `vector3`. Se você não especificar uma posição, o objeto de jogo será criado na posição do objeto de jogo que chama `factory.create()`.
 
 `[rotation]`
 : (opcional) A rotação no mundo do novo objeto de jogo. Deve ser um `quat`.

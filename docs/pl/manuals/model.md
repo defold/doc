@@ -14,7 +14,7 @@ Komponenty modelu tworzy się tak samo jak każdy inny komponent obiektu gry. Mo
 - Utwórz plik *Model* przez <kbd>kliknięcie prawym przyciskiem myszy</kbd> lokalizacji w przeglądarce *Assets* i wybranie <kbd>New... ▸ Model</kbd>.
 - Utwórz komponent osadzony bezpośrednio w obiekcie gry przez <kbd>kliknięcie prawym przyciskiem myszy</kbd> obiektu gry w widoku *Outline* i wybranie <kbd>Add Component ▸ Model</kbd>.
 
-![Model w obiekcie gry](images/model/model.png)
+![Model w obiekcie gry](images/model/model_gltf.png)
 
 Gdy model jest już utworzony, musisz określić kilka właściwości:
 
@@ -23,13 +23,13 @@ Gdy model jest już utworzony, musisz określić kilka właściwości:
 Oprócz właściwości *Id*, *Position* i *Rotation* istnieją następujące właściwości specyficzne dla komponentu:
 
 *Mesh*
-: Ta właściwość powinna wskazywać plik glTF *.gltf* zawierający siatkę, której chcesz użyć. Jeśli plik zawiera cele morfingu, zostaną one zaimportowane razem z siatką. Jeśli plik zawiera wiele siatek, odczytywana jest tylko pierwsza z nich.
+: Ta właściwość powinna wskazywać plik glTF *.gltf* lub *.glb* zawierający siatkę, której chcesz użyć. Jeśli plik zawiera cele morfingu, zostaną one zaimportowane razem z siatką. Jeśli plik zawiera wiele siatek, odczytywana jest tylko pierwsza z nich.
 
 *Create GO Bones*
 : Zaznacz tę opcję, aby utworzyć obiekt gry dla każdej kości modelu. Takie obiekty gry możesz wykorzystać do dołączania innych obiektów, na przykład broni do kości dłoni.
 
 *Skeleton*
-: Ta właściwość powinna wskazywać plik glTF *.gltf* zawierający szkielet używany do animacji. Pamiętaj, że Defold wymaga pojedynczej kości głównej w hierarchii.
+: Ta właściwość powinna wskazywać plik glTF *.gltf* lub *.glb* zawierający szkielet używany do animacji. Pamiętaj, że Defold wymaga pojedynczej kości głównej w hierarchii.
 
 *Animations*
 : Ustaw tę właściwość na *Animation Set File* zawierający animacje, których chcesz używać na modelu.
@@ -57,11 +57,11 @@ W zależności od materiału będzie dostępna jedna lub więcej właściwości 
 
 Mając komponent modelu na miejscu, możesz swobodnie edytować i przekształcać komponent albo otaczający go obiekt gry za pomocą zwykłych narzędzi *Scene Editor*, aby przesuwać, obracać i skalować model według własnego uznania.
 
-![Wiggler w grze](images/model/ingame.png)
-
 ## Modyfikowanie w czasie działania
 
 Możesz manipulować modelami w czasie działania gry za pomocą wielu różnych funkcji i właściwości (zobacz [dokumentację API dotyczącą użycia](/ref/model/)).
+
+![Wiggler w grze](images/model/runtime.png)
 
 ### Animacja w czasie działania
 
@@ -105,7 +105,7 @@ Model ma też kilka właściwości, którymi można manipulować za pomocą `go.
 
 ## Materiał
 
-Oprogramowanie 3D zwykle pozwala ustawiać na wierzchołkach obiektu właściwości, takie jak kolor i teksturowanie. Informacje te trafiają do pliku glTF *.gltf*, który eksportujesz z programu 3D. W zależności od potrzeb gry musisz wybrać i/lub utworzyć odpowiednie i _wydajne_ materiały dla swoich obiektów. Materiał łączy _programy cieniujące_ z zestawem parametrów renderowania obiektu.
+Oprogramowanie 3D zwykle pozwala ustawiać na wierzchołkach obiektu właściwości, takie jak kolor i teksturowanie. Informacje te trafiają do pliku glTF *.gltf* lub *.glb*, który eksportujesz z programu 3D. W zależności od potrzeb gry musisz wybrać i/lub utworzyć odpowiednie i _wydajne_ materiały dla swoich obiektów. Materiał łączy _programy cieniujące_ z zestawem parametrów renderowania obiektu.
 
 Istnieje kilka wbudowanych materiałów, których możesz użyć jako punktu wyjścia:
 

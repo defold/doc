@@ -31,7 +31,7 @@ factory.create(component, p)
 : Id komponentu Factory, który ma utworzyć nowy obiekt gry.
 
 `[position]`
-: (opcjonalnie) Pozycja nowego obiektu gry w przestrzeni świata. Powinien to być `vector3`. Jeśli nie podasz pozycji, obiekt gry pojawi się w pozycji komponentu Factory.
+: (opcjonalnie) Pozycja nowego obiektu gry w przestrzeni świata. Powinien to być `vector3`. Jeśli nie podasz pozycji, obiekt gry pojawi się w pozycji obiektu gry wywołującego `factory.create()`.
 
 `[rotation]`
 : (opcjonalnie) Obrót nowego obiektu gry w przestrzeni świata. Powinien to być `quat`.

@@ -14,7 +14,7 @@ Componentes Model são criados como qualquer outro componente de objeto de jogo.
 - Crie um *arquivo Model* com <kbd>clique com o botão direito</kbd> em um local no navegador *Conteúdo* e selecione <kbd>Novo... ▸ Modelo</kbd>.
 - Crie o componente incorporado diretamente em um objeto de jogo com <kbd>clique com o botão direito</kbd> em um objeto de jogo na visualização *Estrutura* e selecione <kbd>Adicionar Componente ▸ Modelo</kbd>.
 
-![Model in game object](images/model/model.png)
+![Modelo no objeto de jogo](images/model/model_gltf.png)
 
 Com o modelo criado, você precisa especificar algumas propriedades:
 
@@ -23,13 +23,13 @@ Com o modelo criado, você precisa especificar algumas propriedades:
 Além das propriedades *Id*, *Position* e *Rotation*, existem as seguintes propriedades específicas do componente:
 
 *Mesh*
-: Esta propriedade deve referenciar o arquivo glTF *.gltf* que contém a malha a usar. Se o arquivo contiver morph targets, eles serão importados junto com a malha. Se o arquivo contiver várias malhas, apenas a primeira será lida.
+: Esta propriedade deve referenciar o arquivo glTF *.gltf* ou *.glb* que contém a malha a usar. Se o arquivo contiver morph targets, eles serão importados junto com a malha. Se o arquivo contiver várias malhas, apenas a primeira será lida.
 
 *Create GO Bones*
 : Marque isto para criar um objeto de jogo para cada osso do modelo. Você pode usar os objetos de jogo para anexar outros objetos de jogo, como armas, a ossos das mãos e assim por diante. 
 
 *Skeleton*
-: Esta propriedade deve referenciar o arquivo glTF *.gltf* que contém o esqueleto a usar para animação. Observe que o Defold exige um único osso raiz na sua hierarquia.
+: Esta propriedade deve referenciar o arquivo glTF *.gltf* ou *.glb* que contém o esqueleto a usar para animação. Observe que o Defold exige um único osso raiz na sua hierarquia.
 
 *Animations*
 : Defina isto para o *Animation Set File* que contém as animações que você deseja usar no modelo.
@@ -57,11 +57,11 @@ Dependendo do material, haverá uma ou mais propriedades de textura:
 
 Com o componente model no lugar, você pode editar e manipular livremente o componente e/ou o objeto de jogo que o encapsula com as ferramentas normais do *Scene Editor* para mover, rotacionar e escalar o modelo como desejar.
 
-![Wiggler ingame](images/model/ingame.png)
-
 ## Manipulação em tempo de execução
 
 Você pode manipular modelos em tempo de execução por meio de várias funções e propriedades diferentes (consulte a [documentação da API para uso](/ref/model/)).
+
+![Wiggler no jogo](images/model/runtime.png)
 
 ### Animação em tempo de execução
 
@@ -105,7 +105,7 @@ Um modelo também tem várias propriedades diferentes que podem ser manipuladas 
 
 ## Material
 
-Softwares 3D normalmente permitem definir propriedades nos vértices do seu objeto, como coloração e texturização. Essas informações vão para o arquivo glTF *.gltf* que você exporta do seu software 3D. Dependendo dos requisitos do seu jogo, você terá que selecionar e/ou criar materiais apropriados e _performáticos_ para seus objetos. Um material combina _programas de shader_ com um conjunto de parâmetros para renderização do objeto.
+Softwares 3D normalmente permitem definir propriedades nos vértices do seu objeto, como coloração e texturização. Essas informações vão para o arquivo glTF *.gltf* ou *.glb* que você exporta do seu software 3D. Dependendo dos requisitos do seu jogo, você terá que selecionar e/ou criar materiais apropriados e _performáticos_ para seus objetos. Um material combina _programas de shader_ com um conjunto de parâmetros para renderização do objeto.
 
 Há vários materiais integrados que você pode usar como ponto de partida:
 

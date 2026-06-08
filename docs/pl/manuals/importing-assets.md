@@ -26,7 +26,7 @@ Kiedy zasoby są już zaimportowane do projektu, mogą być wykorzystywane przez
 * Pliki graficzne mogą być używane w różnego rodzaju komponentach wizualnych, często używanych np. w grach 2D. Więcej szczegółów znajdziesz w [tej instrukcji jak importować i używać grafiki 2D](/manuals/importing-graphics).
 * Pliki dźwiękowe mogą być używane przez [komponent dźwięku](/manuals/sound) w celu odtwarzania dźwięków.
 * Pliki fontów mogą być używane przez [komponent etykiety](/manuals/label) i przez [węzły tekstowe](/manuals/gui-text) w GUI.
-* Pliki modeli glTF mogą być używane przez [komponent modeli trójwymiarowych](/manuals/model) w celu wyświetlania i animowania modeli trójwymiarowych. Więcej szczegółów znajdziesz w [tej instrukcji jak importować i używać grafiki 3D](/manuals/importing-models).
+* Modele glTF (*.gltf* i *.glb*) mogą być używane przez [komponent Model](/manuals/model) do wyświetlania modeli 3D z animacjami. Zaimportuj obrazy tekstur używane przez model jako osobne zasoby i przypisz je we właściwościach tekstur materiału komponentu Model. Więcej szczegółów znajdziesz w [tej instrukcji jak importować i używać modeli 3D](/manuals/importing-models).
 
 
 ## Edytowanie zewnętrznych zasobów
