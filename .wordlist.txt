@@ -96,6 +96,7 @@ customizable
 customizations
 cutscene
 cutscenes
+ds
 dt
 dae
 deadzone
@@ -223,6 +224,7 @@ javafx
 JIT
 jitter
 jobfolder
+jpg
 js
 json
 JVM
