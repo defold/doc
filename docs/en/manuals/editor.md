@@ -259,7 +259,7 @@ Additionally, the editor executable has a command line option `--port` (or `-p`)
 
 ## Editor Styling
 
-Editor appearance can be changed with custom styling. Read more in the [Editor Styling manual](/manuals/editor-styling.md).
+Editor appearance can be changed with custom styling. Read more in the [Editor Styling manual](/manuals/editor-styling).
 
 ## FAQ
 :[Editor FAQ](../shared/editor-faq.md)
