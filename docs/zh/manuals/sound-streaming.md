@@ -95,7 +95,7 @@ function init(self)
     self.base_url = "http://my.server.com"
     self.filename = "/path/to/sound.ogg"
 
-    liveupdate.add_mount("webmount", self.base_url, 100, function ()
+    liveupdate.add_mount("webmount", self.base_url, 100, function (_self, _name, _uri, _result)
                     -- 一旦挂载点准备就绪，我们就可以开始请求下载第一个块
                     load_web_sound(self.base_url, self.filename)
                 end)

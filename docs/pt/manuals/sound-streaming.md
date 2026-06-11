@@ -95,7 +95,7 @@ function init(self)
     self.base_url = "http://my.server.com"
     self.filename = "/path/to/sound.ogg"
 
-    liveupdate.add_mount("webmount", self.base_url, 100, function ()
+    liveupdate.add_mount("webmount", self.base_url, 100, function (_self, _name, _uri, _result)
                     -- quando a montagem estiver pronta, podemos iniciar a requisição para baixar o primeiro bloco
                     load_web_sound(self.base_url, self.filename)
                 end)

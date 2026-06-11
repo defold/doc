@@ -77,8 +77,8 @@ local function get_lu_info_for_level(level_name)
 end
 
 local function mount_zip(self, name, priority, path, callback)
-    liveupdate.add_mount(name, "zip:" .. path, priority, function(_uri, _path, _status) -- [1]
-        callback(_uri, _path, _status)
+    liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- [1]
+        callback(_name, _uri, _result)
     end)
 end
 
@@ -120,7 +120,7 @@ function on_message(self, message_id, message, sender)
 
         http.request(url, "GET", function(self, id, response) -- [7]
             if response.status == 200 or response.status == 304 then
-                mount_zip(self, message.info.name, message.info.priority, download_path, function(uri, path, status) -- [8]
+                mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- [8]
                     msg.post("#", "load_level", message)
                 end)
             else
