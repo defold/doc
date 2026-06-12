@@ -109,6 +109,8 @@ ios-deploy path
 
 You can configure the editor shortcuts, both adding custom and removing the built-in ones. Use context menu on individual commands in the shortcut table to edit the shortcuts, or double-click/press <kbd>Enter</kbd> to open a new shortcut popup.
 
+In addition to key combinations, you can bind the mouse thumb buttons (back and forward) to commands, optionally combined with modifier keys. Press a thumb button while the new shortcut popup is open to record it. Mouse shortcuts are displayed as e.g. `Mouse Back` or `Ctrl+Mouse Forward`. The other mouse buttons can not be used as shortcuts since they are needed for interacting with the editor. Note that commands bound only to a mouse shortcut do not display a shortcut next to the command in the menus.
+
 Some shortcuts might have warnings: they are displayed using orange color. Hover over the shortcut to see the warning. Typical warnings are:
 - typeable shortcuts: the selected shortcut is typeable in a text inputs. Make sure the command is off in the code editing / text input contexts. 
 - conflicts: the same shortcut is assigned to multiple different commands. Make sure at most one command is enabled when the shortcut is invoked, otherwise the editor will execute one of the assigned commands in an undefined manner.
