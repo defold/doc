@@ -134,7 +134,7 @@ Motion tweens permitem animar várias propriedades de um objeto, incluindo taman
 
 ## Defold - animação de propriedades
 
-O Defold trabalha com imagens em pixels em vez de gráficos vetoriais, portanto não tem um equivalente para shape tweening. No entanto, motion tweening tem um equivalente poderoso em [animação de propriedades](/ref/go/#go.animate). Isso é feito via script, usando a função `go.animate()`. A função go.animate() interpola uma propriedade (como cor, escala, rotação ou posição) do valor inicial para o valor final desejado, usando uma das muitas funções de easing disponíveis (incluindo funções personalizadas). Onde o Flash exigia que o usuário implementasse funções de easing mais avançadas, o Defold inclui [muitas funções de easing](/manuals/animation/#easing) integradas à engine.
+O Defold trabalha com imagens em pixels em vez de gráficos vetoriais, portanto não tem um equivalente para shape tweening. No entanto, motion tweening tem um equivalente poderoso em [animação de propriedades](/ref/go/#go.animate). Isso é feito via script, usando a função `go.animate()`. A função `go.animate()` interpola uma propriedade (como cor, escala, rotação ou posição) do valor inicial para o valor final desejado, usando uma das muitas funções de easing disponíveis (incluindo funções personalizadas). Onde o Flash exigia que o usuário implementasse funções de easing mais avançadas, o Defold inclui [muitas funções de easing](/manuals/animation/#easing) integradas à engine.
 
 Enquanto o Flash usa keyframes de gráficos em uma timeline para animação, um dos principais métodos de animação gráfica no Defold é a animação flip-book de sequências de imagens importadas. As animações são organizadas em um componente de objeto de jogo conhecido como atlas. Neste caso, temos um atlas para um personagem de jogo com uma sequência de animação chamada "run". Ela consiste em uma série de arquivos png:
 
@@ -228,7 +228,7 @@ O objeto de colisão inclui as seguintes propriedades:
 
 ![propriedades do objeto de colisão](images/flash/collision_object_properties.png)
 
-Uma forma de caixa foi usada porque era a mais adequada para o gráfico do projétil. A outra forma usada para colisões 2D, esfera, será usada para o alvo. Definir o tipo como Kinematic significa que a resolução de colisões é feita pelo seu script, em vez da engine de física integrada (para mais informações sobre os outros tipos, consulte o [manual de física](/manuals/physics)). As propriedades group e mask determinam a qual grupo de colisão o objeto pertence e contra qual grupo de colisão ele deve ser verificado, respectivamente. A configuração atual significa que um "bullet" só pode colidir com um "target". Imagine que a configuração fosse alterada para a abaixo:
+Uma forma de caixa foi usada porque era a mais adequada para o gráfico do projétil. A outra forma usada para colisões 2D, esfera, será usada para o alvo. Definir o tipo como Kinematic significa que a resolução de colisões é feita pelo seu script, em vez da engine de física integrada (para mais informações sobre os outros tipos, consulte o [manual de física](/manuals/physics)). As propriedades *Group* e *Mask* determinam a qual grupo de colisão o objeto pertence e contra qual grupo de colisão ele deve ser verificado, respectivamente. A configuração atual significa que um "bullet" só pode colidir com um "target". Imagine que a configuração fosse alterada para a abaixo:
 
 ![grupo/máscara de colisão](images/flash/collision_groupmask.png)
 
@@ -270,7 +270,7 @@ on_reload
 
 As funções callback listadas acima são todas opcionais e podem ser removidas se não forem usadas. Para detalhes sobre como configurar entrada, consulte o [manual de entrada](/manuals/input). Uma armadilha comum ocorre ao trabalhar com proxies de coleção; consulte [esta seção](/manuals/input/#input-dispatch-and-on_input) do manual de entrada para mais informações.
 
-Como discutido na seção de detecção de colisão, eventos de colisão são tratados por meio do envio de mensagens aos objetos de jogo envolvidos. Seus respectivos componentes de script recebem a mensagem em suas funções callback on_message.
+Como discutido na seção de detecção de colisão, eventos de colisão são tratados por meio do envio de mensagens aos objetos de jogo envolvidos. Seus respectivos componentes de script recebem a mensagem em suas funções callback `on_message`.
 
 ## Flash - símbolos de botão
 

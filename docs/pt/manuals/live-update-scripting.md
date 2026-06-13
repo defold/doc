@@ -147,7 +147,7 @@ end
 ```
 
 1. `liveupdate.add_mount()` monta um único arquivo usando um nome, prioridade e arquivo zip especificados. Os dados ficam imediatamente disponíveis para carregamento (não é necessário reiniciar a engine).
-As informações do mount são armazenadas e serão readicionadas automaticamente na próxima reinicialização da engine (não é necessário chamar liveupdate.add_mount() novamente no mesmo mount)
+As informações do mount são armazenadas e serão readicionadas automaticamente na próxima reinicialização da engine (não é necessário chamar `liveupdate.add_mount()` novamente no mesmo mount)
 2. Você precisa armazenar o arquivo online (por exemplo, no S3), de onde poderá baixá-lo.
 3. Dado o nome de um proxy de coleção, você precisa descobrir qual ou quais arquivos baixar e como montá-los
 4. Na inicialização, tentamos carregar a fase.

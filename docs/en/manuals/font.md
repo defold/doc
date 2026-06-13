@@ -20,7 +20,7 @@ Fonts added to your project are automatically converted into a texture format th
 
 By default, the conversion to rasterized glyph images happens at build time (offline). This has the drawback that each font needs to rasterize all possible glyphs in the build stage, producing potentially very large textures that consume memory and also increase the bundle size.
 
-By using "runtime fonts", the .ttf fonts will be bundled as-is, and the rasterization will happen on-demand at runtime. This minimizes both runtime memory usage and the bundle size.
+By using "runtime fonts", the `.ttf` fonts will be bundled as-is, and the rasterization will happen on-demand at runtime. This minimizes both runtime memory usage and the bundle size.
 
 ## Text layout support (e.g. Right-to-left)
 
@@ -32,7 +32,7 @@ See [Enabling Runtime Fonts](/manuals/font#enabling-runtime-fonts)
 ## Font collection
 
 The `.fontc` file format is also known as a font collection. In offline mode, only one font is associated with it.
-When using runtime fonts, you can associate more than one font file (.ttf) with the font collection.
+When using runtime fonts, you can associate more than one font file (`.ttf`) with the font collection.
 
 This allows for using the a font collection when rendering multiple texts in different languages, while also keeping the memory footprint low.
 E.g. loading a collection with the Japanese font, then associate that font with the current main font, followed by unloading the Japanese font collection.
@@ -188,7 +188,7 @@ For more information about shader uniforms, see the [Shader manual](/manuals/sha
 
 ## Enabling Runtime Fonts
 
-It is possible to use runtime generation for SDF type fonts, when using TrueType (.ttf) fonts.
+It is possible to use runtime generation for SDF type fonts, when using TrueType (`.ttf`) fonts.
 This approach can greatly reduce the download size and runtime memory consumption of a Defold game.
 The small downside is the asynchronous nature of generating each glyph.
 
@@ -202,7 +202,7 @@ This feature is currently experimental, but with the intention to be used as the
 :::
 
 ::: important
-The `font.runtime_generation` setting affects all .ttf fonts in the project.
+The `font.runtime_generation` setting affects all `.ttf` fonts in the project.
 :::
 
 
@@ -223,7 +223,7 @@ It is also possible to manually update the glyph cache by calling `font.prewarm_
 
 ### Adding/removing fonts to a font collection
 
-For runtime fonts, it's possible to add or remove fonts (.ttf) to a font collection.
+For runtime fonts, it's possible to add or remove fonts (`.ttf`) to a font collection.
 This is useful when a large font has been split up into multiple files for different character sets (e.g. CJK)
 
 ::: important
@@ -266,4 +266,3 @@ font.prewarm_text(self.font_collection, info.text, function (self, request_id, r
     end
   end)
 ```
-

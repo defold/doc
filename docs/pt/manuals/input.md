@@ -73,7 +73,7 @@ Gamepad Triggers
 
 ### Entrada de acelerômetro
 
-Além dos cinco tipos de trigger listados acima, o Defold também oferece suporte a entrada de acelerômetro em aplicações nativas Android e iOS. Marque a caixa Use Accelerometer na seção Input do arquivo *game.project*.
+Além dos cinco tipos de trigger listados acima, o Defold também oferece suporte a entrada de acelerômetro em aplicações nativas Android e iOS. Marque a caixa *Use Accelerometer* na seção *Input* do arquivo *game.project*.
 
 ```lua
 function on_input(self, action_id, action)

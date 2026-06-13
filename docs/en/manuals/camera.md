@@ -58,14 +58,14 @@ Orthographic Mode
 
 ## Using the camera
 
-All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. Since Defold 1.8.1 there is no longer a need to explicitly enable a camera via sending an `acquire_camera_focus` message to the camera component. The old acquire and release messages are still available, but it is recommended to instead use the "enable" and "disable" messages like for any other component that you wish to enable or disable:
+All cameras are automatically enabled and updated during a frame, and the lua `camera` module is available in all script contexts. Since Defold 1.8.1 there is no longer a need to explicitly enable a camera via sending an `acquire_camera_focus` message to the camera component. The old acquire and release messages are still available, but it is recommended to instead use the `enable` and `disable` messages like for any other component that you wish to enable or disable:
 
 ```lua
 msg.post("#camera", "disable")
 msg.post("#camera", "enable")
 ```
 
-To list all currently available cameras, you can use camera.get_cameras():
+To list all currently available cameras, you can use `camera.get_cameras()`:
 
 ```lua
 -- Note: The render calls are only available in a render script.
@@ -113,7 +113,7 @@ camera.get_fov("main:/go#camera")
 render.set_camera("main:/go#camera")
 ```
 
-Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the "@render" socket:
+Each frame, the camera component that currently has camera focus will send a `set_view_projection` message to the `@render` socket:
 
 ```lua
 -- builtins/render/default.render_script

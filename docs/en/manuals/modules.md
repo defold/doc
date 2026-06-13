@@ -9,7 +9,7 @@ Lua modules allow you to structure your project and create reusable library code
 
 ## Requiring Lua files
 
-Lua code stored in files with file ending ".lua" somewhere in your game project structure can be required into script and gui script files. To create a new Lua module file, right click the folder you want to create it in in the *Assets* view, then select <kbd>New... ▸ Lua Module</kbd>. Give the file a unique name and press <kbd>Ok</kbd>:
+Lua code stored in files with file ending ".lua" somewhere in your game project structure can be loaded with `require` into script and gui script files. To create a new Lua module file, right click the folder you want to create it in in the *Assets* view, then select <kbd>New... ▸ Lua Module</kbd>. Give the file a unique name and press <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
@@ -31,7 +31,7 @@ function direction_animation(direction, char)
 end
 ```
 
-Then it's possible for any script to require this file and use the function:
+Then it's possible for any script to load this file with `require` and use the function:
 
 ```lua
 require "main.anim"
@@ -51,7 +51,7 @@ end
 
 The function `require` loads the given module. It starts by looking into the `package.loaded` table to determine whether the module is already loaded. If it is, then `require` returns the value stored at `package.loaded[module_name]`. Otherwise, it loads and evaluates the file via a loader.
 
-The syntax of the filename string provided to `require` is a bit special. Lua replaces '.' characters in the filename string with path separators: '/' on macOS and Linux and '\\' on Windows.
+The syntax of the filename string provided to `require` is a bit special. Lua replaces `.` characters in the filename string with path separators: `/` on macOS and Linux and `\\` on Windows.
 
 Note that it is usually a bad idea to use the global scope to store state and define functions like we did above. You risk naming collisions, exposing the state of the module or introduce coupling between users of the module.
 
@@ -101,7 +101,7 @@ If you hot reload the module file the code is run again, but nothing happens wit
 
 First, the table created in "module.lua" is created in local scope and a _reference_ to that table is returned to the user. Reloading "module.lua" evaluates the module code again but that creates a new table in the local scope instead of updating the table `m` refers to.
 
-Secondly, Lua caches required files. The first time a file is required, it is put in the table [`package.loaded`](/ref/package/#package.loaded) so it can be read faster on subsequent requires. You can force a file to be re-read from disk by setting the file's entry to nil: `package.loaded["my_module"] = nil`.
+Secondly, Lua caches files loaded with `require`. The first time a file is required, it is put in the table [`package.loaded`](/ref/package/#package.loaded) so it can be read faster on subsequent `require` calls. You can force a file to be re-read from disk by setting the file's entry to `nil`: `package.loaded["my_module"] = nil`.
 
 To properly hot reload a module, you need to reload the module, reset the cache and then reload all files that uses the module. This is far from optimal.
 

@@ -9,7 +9,7 @@ You can create custom menu items and editor lifecycle hooks using Lua files with
 
 ## Editor script runtime
 
-Editor scripts run inside an editor, in a Lua VM emulated by Java VM. All scripts share the same single environment, which means they can interact with each other. You can require Lua modules, just as with `.script` files, but Lua version that is running inside the editor is different, so make sure your shared code is compatible. Editor uses Lua version 5.2.x, more specifically [luaj](https://github.com/luaj/luaj) runtime, which is currently the only viable solution to run Lua on JVM. Besides that, there are some restrictions:
+Editor scripts run inside an editor, in a Lua VM emulated by Java VM. All scripts share the same single environment, which means they can interact with each other. You can `require` Lua modules, just as with `.script` files, but Lua version that is running inside the editor is different, so make sure your shared code is compatible. Editor uses Lua version 5.2.x, more specifically [luaj](https://github.com/luaj/luaj) runtime, which is currently the only viable solution to run Lua on JVM. Besides that, there are some restrictions:
 - there is no `debug` package;
 - there is no `os.execute`, though we provide a similar `editor.execute()`;
 - there is no `os.tmpname` and `io.tmpfile` — currently editor scripts can access files only inside the project directory;

@@ -88,7 +88,7 @@ em que *profile* pode ser:
 * **metrics** - executa VictoriaMetrics + Grafana como backend de métricas e ferramenta de visualização
 Para mais informações sobre argumentos de `docker compose`, veja https://docs.docker.com/reference/cli/docker/compose/.
 
-Quando o docker compose estiver ativo, você pode usar **http://localhost:9000** como endereço do Build server nas preferências do editor ou como valor de `--build-server` se usar Bob para compilar o projeto.
+Quando o docker compose estiver ativo, você pode usar **http://localhost:9000** como `endereço do Build server` nas preferências do editor ou como valor de `--build-server` se usar Bob para compilar o projeto.
 
 Vários profiles podem ser passados na linha de comando. Por exemplo:
 ```sh

@@ -9,7 +9,7 @@ Możesz tworzyć własne pozycje menu i hooki cyklu życia edytora przy użyciu 
 
 ## Środowisko uruchomieniowe skryptów edytora
 
-Skrypty edytora działają wewnątrz edytora, w maszynie wirtualnej Lua emulowanej przez JVM. Wszystkie skrypty współdzielą jedno środowisko, więc mogą ze sobą współpracować. Możesz używać modułów Lua przez require, podobnie jak w plikach `.script`, ale wersja Lua uruchamiana w edytorze jest inna, dlatego współdzielony kod musi być z nią zgodny. Edytor używa Lua 5.2.x, a dokładniej środowiska [luaj](https://github.com/luaj/luaj), które obecnie jest jedynym sensownym sposobem uruchamiania Lua na JVM. Poza tym obowiązuje kilka ograniczeń:
+Skrypty edytora działają wewnątrz edytora, w maszynie wirtualnej Lua emulowanej przez JVM. Wszystkie skrypty współdzielą jedno środowisko, więc mogą ze sobą współpracować. Możesz używać modułów Lua przez `require`, podobnie jak w plikach `.script`, ale wersja Lua uruchamiana w edytorze jest inna, dlatego współdzielony kod musi być z nią zgodny. Edytor używa Lua 5.2.x, a dokładniej środowiska [luaj](https://github.com/luaj/luaj), które obecnie jest jedynym sensownym sposobem uruchamiania Lua na JVM. Poza tym obowiązuje kilka ograniczeń:
 
 - nie ma pakietu `debug`;
 - nie ma `os.execute`, ale dostępna jest podobna funkcja `editor.execute()`;

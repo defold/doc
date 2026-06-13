@@ -95,7 +95,7 @@ The canvas shouldn't be styled with any border or padding. If you do, mouse inpu
 :::
 
 In *game.project* it is possible to turn-off the `Fullscreen` button and the `Made with Defold` link.
-Defold provides a dark and light theme for the index.html. The light theme is set by default but it is possible to change by changing `Custom CSS` file. There is also four predefined scale modes to chose from in the `Scale Mode` field.
+Defold provides a dark and light theme for the `index.html`. The light theme is set by default but it is possible to change by changing `Custom CSS` file. There is also four predefined scale modes to chose from in the `Scale Mode` field.
 
 ::: important
 The calculations for all scale modes include current screen DPI in case if you turn on `High Dpi` option in *game.project* (`Display` section)
@@ -272,7 +272,7 @@ It is possible to specify additional engine arguments when the engine is configu
     }
 ```
 
-You can also add `--config=foo1=bar1, --config=foo2=bar2` to the engine arguments field in the HTML5 section of *game.project* and it will be injected into the generated index.html file.
+You can also add `--config=foo1=bar1, --config=foo2=bar2` to the engine arguments field in the HTML5 section of *game.project* and it will be injected into the generated `index.html` file.
 
 At runtime you get the values like this:
 

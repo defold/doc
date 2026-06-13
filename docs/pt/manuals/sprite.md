@@ -64,14 +64,14 @@ Um sprite também tem várias propriedades diferentes que podem ser manipuladas 
 : A escala não uniforme do sprite (`vector3`).
 
 `size`
-: O tamanho do sprite (`vector3`). Só pode ser alterado se o modo de tamanho do sprite estiver definido como manual.
+: O tamanho do sprite (`vector3`). Só pode ser alterado se o `modo de tamanho` do sprite estiver definido como `manual`.
 
 ## Constantes de material
 
 {% include shared/material-constants.md component='sprite' variable='tint' %}
 
 `tint`
-: A cor de tingimento do sprite (`vector4`). O vector4 é usado para representar o tingimento com x, y, z e w correspondendo ao tingimento vermelho, verde, azul e alfa.
+: A cor de tingimento do sprite (`vector4`). O `vector4` é usado para representar o tingimento com `x`, `y`, `z` e `w` correspondendo ao tingimento vermelho, verde, azul e alfa.
 
 ## Atributos de material
 

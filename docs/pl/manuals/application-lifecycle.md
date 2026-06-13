@@ -84,7 +84,7 @@ end
 
 ## Pętla aktualizacji
 
-Pętla aktualizacji przebiega w każdej klatce według określonej sekwencji. Można ją podzielić na 5 głównych faz:
+`Pętla aktualizacji` przebiega w każdej klatce według określonej sekwencji. Można ją podzielić na 5 głównych faz:
 
 ![Pętla aktualizacji](images/application_lifecycle/update_loop.png)
 
@@ -104,7 +104,7 @@ Każdy obiekt gry, który przechwycił fokus wejścia i zawiera komponenty pełn
 
 ### Faza aktualizacji
 
-Faza aktualizacji (`Update`) jest częścią pętli aktualizacji. Zaczyna się raz dla głównej kolekcji, a następnie działa rekurencyjnie dla każdego włączonego pełnomocnika kolekcji.
+Faza aktualizacji (`Update`) jest częścią `pętli aktualizacji`. Zaczyna się raz dla głównej kolekcji, a następnie działa rekurencyjnie dla każdego włączonego pełnomocnika kolekcji.
 
 W obrębie kolekcji Defold przetwarza callbacki według typu komponentu: iteruje po wszystkich instancjach typu komponentu, który implementuje daną fazę, wywołuje callback Lua dla każdej instancji, opróżnia wiadomości, a potem przechodzi do następnego typu komponentu.
 

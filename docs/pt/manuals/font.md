@@ -20,7 +20,7 @@ Fontes adicionadas ao seu projeto são convertidas automaticamente para um forma
 
 Por padrão, a conversão para imagens de glifos rasterizadas acontece no momento do build (offline). A desvantagem é que cada fonte precisa rasterizar todos os glifos possíveis na etapa de build, produzindo texturas potencialmente muito grandes, que consomem memória e também aumentam o tamanho do pacote.
 
-Ao usar "fontes em runtime", as fontes .ttf serão empacotadas como estão, e a rasterização acontecerá sob demanda em tempo de execução. Isso minimiza tanto o uso de memória em runtime quanto o tamanho do pacote.
+Ao usar "fontes em runtime", as fontes `.ttf` serão empacotadas como estão, e a rasterização acontecerá sob demanda em tempo de execução. Isso minimiza tanto o uso de memória em runtime quanto o tamanho do pacote.
 
 ## Suporte a layout de texto (por exemplo, da direita para a esquerda)
 
@@ -32,7 +32,7 @@ Veja [Habilitando fontes em runtime](/manuals/font#enabling-runtime-fonts)
 ## Coleção de fontes
 
 O formato de arquivo `.fontc` também é conhecido como coleção de fontes. No modo offline, apenas uma fonte é associada a ele.
-Ao usar fontes em runtime, você pode associar mais de um arquivo de fonte (.ttf) à coleção de fontes.
+Ao usar fontes em runtime, você pode associar mais de um arquivo de fonte (`.ttf`) à coleção de fontes.
 
 Isso permite usar uma coleção de fontes ao renderizar vários textos em idiomas diferentes, mantendo baixo o uso de memória.
 Por exemplo, carregar uma coleção com a fonte japonesa, então associar essa fonte à fonte principal atual, seguido pelo descarregamento da coleção de fontes japonesas.
@@ -188,7 +188,7 @@ Para mais informações sobre uniforms de shader, consulte o [manual de shader](
 
 ## Habilitando fontes em runtime
 
-É possível usar geração em runtime para fontes do tipo SDF ao usar fontes TrueType (.ttf).
+É possível usar geração em runtime para fontes do tipo SDF ao usar fontes TrueType (`.ttf`).
 Essa abordagem pode reduzir bastante o tamanho do download e o consumo de memória em runtime de um jogo Defold.
 A pequena desvantagem é a natureza assíncrona da geração de cada glifo.
 
@@ -202,7 +202,7 @@ Este recurso está atualmente experimental, mas com a intenção de ser usado co
 :::
 
 ::: important
-A configuração `font.runtime_generation` afeta todas as fontes .ttf do projeto.
+A configuração `font.runtime_generation` afeta todas as fontes `.ttf` do projeto.
 :::
 
 
@@ -223,7 +223,7 @@ Também é possível atualizar manualmente o cache de glifos chamando `font.prew
 
 ### Adicionando/removendo fontes de uma coleção de fontes
 
-Para fontes em runtime, é possível adicionar ou remover fontes (.ttf) de uma coleção de fontes.
+Para fontes em runtime, é possível adicionar ou remover fontes (`.ttf`) de uma coleção de fontes.
 Isso é útil quando uma fonte grande foi dividida em vários arquivos para diferentes conjuntos de caracteres (por exemplo, CJK).
 
 ::: important

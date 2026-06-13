@@ -95,7 +95,7 @@ O canvas não deve ser estilizado com borda ou padding. Se você fizer isso, as 
 :::
 
 Em *game.project*, é possível desativar o botão `Fullscreen` e o link `Made with Defold`.
-O Defold fornece um tema escuro e um claro para o index.html. O tema claro é definido por padrão, mas é possível alterá-lo mudando o arquivo `Custom CSS`. Também existem quatro modos de escala predefinidos para escolher no campo `Scale Mode`.
+O Defold fornece um tema escuro e um claro para o `index.html`. O tema claro é definido por padrão, mas é possível alterá-lo mudando o arquivo `Custom CSS`. Também existem quatro modos de escala predefinidos para escolher no campo `Scale Mode`.
 
 ::: important
 Os cálculos de todos os modos de escala incluem o DPI atual da tela caso você ative a opção `High Dpi` em *game.project* (seção `Display`)
@@ -272,7 +272,7 @@ Builds HTML5 oferecem suporte a operações de arquivo como `sys.save()`, `sys.l
     }
 ```
 
-Você também pode adicionar `--config=foo1=bar1, --config=foo2=bar2` ao campo de argumentos da engine na seção HTML5 de *game.project*, e isso será injetado no arquivo index.html gerado.
+Você também pode adicionar `--config=foo1=bar1, --config=foo2=bar2` ao campo de argumentos da engine na seção HTML5 de *game.project*, e isso será injetado no arquivo `index.html` gerado.
 
 Em tempo de execução, você obtém os valores assim:
 

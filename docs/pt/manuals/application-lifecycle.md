@@ -84,7 +84,7 @@ end
 
 ## Loop de atualização
 
-O loop de atualização executa uma sequência específica uma vez por frame. Essa sequência pode ser definida por 5 fases principais:
+`O loop de atualização` executa uma sequência específica uma vez por frame. Essa sequência pode ser definida por 5 fases principais:
 
 ![Update Loop](images/application_lifecycle/update_loop.png)
 
@@ -104,7 +104,7 @@ Qualquer objeto de jogo que tenha adquirido foco de entrada e contenha component
 
 ### Fase de atualização
 
-A fase `Update` faz parte do loop de atualização. Ela começa uma vez para a coleção raiz e então é executada recursivamente para cada proxy de coleção habilitado.
+A fase `Update` faz parte do `loop de atualização`. Ela começa uma vez para a coleção raiz e então é executada recursivamente para cada proxy de coleção habilitado.
 
 Dentro de uma coleção, o Defold processa callbacks por tipo de componente: ele percorre todas as instâncias de um tipo de componente que implementa a etapa relevante, chama o callback Lua de cada instância, esvazia as mensagens e então passa para o próximo tipo de componente.
 
@@ -204,7 +204,7 @@ O número de atualizações de frame por segundo (que equivale ao número de exe
 
 #### Limitação de ritmo da engine
 
-O Defold 1.12.0 introduziu uma API de limitação de ritmo da engine (`engine throttling`) que pode pular completamente atualizações da engine e renderização, ainda detectando entrada. Qualquer entrada desperta a engine novamente, e a engine pode voltar à limitação após um período de espera.
+O Defold 1.12.0 introduziu uma API de limitação de ritmo da engine (engine throttling) que pode pular completamente atualizações da engine e renderização, ainda detectando entrada. Qualquer entrada desperta a engine novamente, e a engine pode voltar à limitação após um período de espera.
 
 Consulte a API `sys.set_engine_throttle()` para detalhes e exemplos de uso.
 

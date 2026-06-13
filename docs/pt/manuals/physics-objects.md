@@ -84,13 +84,13 @@ Locked rotation
 : Definir esta propriedade desabilita totalmente a rotação no objeto de colisão, independentemente das forças aplicadas a ele.
 
 Bullet
-: Definir esta propriedade habilita detecção contínua de colisão (CCD) entre o objeto de colisão e outros objetos de colisão dinâmicos. A propriedade Bullet é ignorada se Type não estiver definido como `Dynamic`.
+: Definir esta propriedade habilita detecção contínua de colisão (CCD) entre o objeto de colisão e outros objetos de colisão dinâmicos. A propriedade *Bullet* é ignorada se *Type* não estiver definido como `Dynamic`.
 
 Group
 : O nome do grupo de colisão ao qual o objeto deve pertencer. Você pode ter 16 grupos diferentes e nomeá-los como achar adequado para o seu jogo. Por exemplo, "players", "bullets", "enemies" e "world". Se *Collision Shape* estiver definido como um tile map, este campo não é usado; os nomes dos grupos são obtidos do tile source. [Saiba mais sobre grupos de colisão](/manuals/physics-groups).
 
 Mask
-: Os outros _grupos_ com os quais este objeto deve colidir. Você pode nomear um grupo ou especificar vários grupos em uma lista separada por vírgulas. Se deixar o campo Mask vazio, o objeto não colidirá com nada. [Saiba mais sobre grupos de colisão](/manuals/physics-groups).
+: Os outros _grupos_ com os quais este objeto deve colidir. Você pode nomear um grupo ou especificar vários grupos em uma lista separada por vírgulas. Se deixar o campo *Mask* vazio, o objeto não colidirá com nada. [Saiba mais sobre grupos de colisão](/manuals/physics-groups).
 
 Generate Collision Events
 : Se habilitado, permitirá que este objeto envie eventos de colisão

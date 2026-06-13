@@ -54,7 +54,7 @@ Wiadomość `"collision_response"` jest wysyłana, gdy jeden z obiektów biorąc
 `own_group`
 : grupa kolizyjna obiektu kolizji (`hash`)
 
-Wiadomość collision_response wystarcza do obsługi kolizji, jeśli nie potrzebujesz żadnych szczegółów dotyczących rzeczywistego przecięcia obiektów, na przykład gdy chcesz wykryć, czy pocisk trafił wroga. Dla każdej pary obiektów, które się zderzają, w jednej klatce wysyłana jest tylko jedna taka wiadomość.
+Wiadomość `collision_response` wystarcza do obsługi kolizji, jeśli nie potrzebujesz żadnych szczegółów dotyczących rzeczywistego przecięcia obiektów, na przykład gdy chcesz wykryć, czy pocisk trafił wroga. Dla każdej pary obiektów, które się zderzają, w jednej klatce wysyłana jest tylko jedna taka wiadomość.
 
 ```Lua
 function on_message(self, message_id, message, sender)

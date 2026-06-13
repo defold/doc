@@ -209,7 +209,7 @@ Texture (box and pie nodes)
 : Tekstura rysowana na węźle. To odwołanie do obrazu albo animacji w atlasie lub źródle kafelków.
 
 Material (box, pie nodes, text and particlefx nodes)
-: Materiał używany do rysowania węzła. Może to być materiał dodany do sekcji Materials w Outline albo pusty wybór, który użyje domyślnego materiału przypisanego do komponentu GUI.
+: Materiał używany do rysowania węzła. Może to być materiał dodany do sekcji Materials w *Outline* albo pusty wybór, który użyje domyślnego materiału przypisanego do komponentu GUI.
 
 Slice 9 (box nodes)
 : Ustawia zachowanie tak, aby przy zmianie rozmiaru węzła zachować rozmiar pikseli tekstury wokół krawędzi. Szczegóły znajdziesz w [dokumentacji węzła Box](/manuals/gui-box).

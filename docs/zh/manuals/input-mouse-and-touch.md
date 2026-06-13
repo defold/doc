@@ -21,7 +21,7 @@ brief: 本手册解释了鼠标和触摸输入的工作原理。
 :::
 
 ## 鼠标按钮
-鼠标按钮会生成按下、释放和重复事件。以下示例显示如何检测鼠标左键的输入（按下或释放）：
+鼠标按钮会生成`按下`、`释放`和`重复`事件。以下示例显示如何检测鼠标左键的输入（按下或释放）：
 
 ```lua
 function on_input(self, action_id, action)
@@ -103,7 +103,7 @@ end
 检测用户何时点击或触摸视觉组件是许多游戏中需要的非常常见的操作。可能是用户与按钮或其他UI元素的交互，或者与游戏对象的交互，如策略游戏中的玩家控制单位、地牢爬行游戏中关卡上的宝藏或RPG中的任务给予者。使用的方法取决于视觉组件的类型。
 
 ### 检测与GUI节点的交互
-对于UI元素，有一个`gui.pick_node(node, x, y)`函数，它将根据指定坐标是否在GUI节点的边界内返回true或false。请参阅[API文档](/ref/gui/#gui.pick_node:node-x-y)、[指针悬停示例](/examples/gui/pointer_over/)或[按钮示例](/examples/gui/button/)了解更多信息。
+对于UI元素，有一个`gui.pick_node(node, x, y)`函数，它将根据指定坐标是否在GUI节点的边界内返回`true`或`false`。请参阅[API文档](/ref/gui/#gui.pick_node:node-x-y)、[指针悬停示例](/examples/gui/pointer_over/)或[按钮示例](/examples/gui/button/)了解更多信息。
 
 ### 检测与游戏对象的交互
 对于游戏对象，检测交互更加复杂，因为诸如摄像机平移和渲染脚本投影等因素将影响所需的计算。检测与游戏对象的交互有两种通用方法：

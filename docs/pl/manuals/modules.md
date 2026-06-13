@@ -9,7 +9,7 @@ Moduły Lua pozwalają strukturyzować projekt i tworzyć wielokrotnego użytku 
 
 ## Wczytywanie plików Lua
 
-Kod Lua przechowywany w plikach z rozszerzeniem ".lua" w dowolnym miejscu struktury projektu gry można wczytać do plików skryptowych i plików skryptów GUI. Aby utworzyć nowy plik modułu Lua, kliknij prawym przyciskiem myszy folder, w którym chcesz go utworzyć w widoku *Assets*, a następnie wybierz <kbd>New... ▸ Lua Module</kbd>. Nadaj plikowi unikalną nazwę i naciśnij <kbd>Ok</kbd>:
+Kod Lua przechowywany w plikach z rozszerzeniem ".lua" w dowolnym miejscu struktury projektu gry można wczytać za pomocą `require` do plików skryptowych i plików skryptów GUI. Aby utworzyć nowy plik modułu Lua, kliknij prawym przyciskiem myszy folder, w którym chcesz go utworzyć w widoku *Assets*, a następnie wybierz <kbd>New... ▸ Lua Module</kbd>. Nadaj plikowi unikalną nazwę i naciśnij <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
@@ -31,7 +31,7 @@ function direction_animation(direction, char)
 end
 ```
 
-Następnie dowolny skrypt może wczytać ten plik za pomocą require i używać funkcji:
+Następnie dowolny skrypt może wczytać ten plik za pomocą `require` i używać funkcji:
 
 ```lua
 require "main.anim"
@@ -51,7 +51,7 @@ end
 
 Funkcja `require` wczytuje podany moduł. Na początek przegląda tabelę `package.loaded`, aby sprawdzić, czy moduł jest już załadowany. Jeśli tak, `require` zwraca wartość przechowywaną w `package.loaded[module_name]`. W przeciwnym razie wczytuje i wykonuje plik za pomocą ładowacza (ang. loader).
 
-Łańcuch nazwy pliku przekazywany do `require` ma nieco szczególną składnię. Lua zamienia znaki "." w nazwie pliku na separatory ścieżki: "/" w macOS i Linux oraz "\" w Windows.
+Łańcuch nazwy pliku przekazywany do `require` ma nieco szczególną składnię. Lua zamienia znaki `.` w nazwie pliku na separatory ścieżki: `/` w macOS i Linux oraz `\\` w Windows.
 
 Warto zauważyć, że zwykle nie jest dobrym pomysłem przechowywanie stanu i definiowanie funkcji w zakresie globalnym, tak jak w przykładzie powyżej. Grozi to kolizjami nazw, ujawnieniem stanu modułu albo wprowadzeniem sprzężenia między użytkownikami modułu.
 
@@ -101,7 +101,7 @@ Jeśli ponownie załadujesz plik modułu, kod zostanie uruchomiony ponownie, ale
 
 Po pierwsze, tabela utworzona w pliku "module.lua" powstaje w zakresie lokalnym, a użytkownikowi zwracane jest _odwołanie_ do tej tabeli. Ponowne wczytanie pliku "module.lua" wykonuje kod modułu jeszcze raz, ale tworzy nową tabelę w zakresie lokalnym zamiast aktualizować tabelę `m`.
 
-Po drugie, Lua przechowuje w pamięci podręcznej wczytane pliki. Gdy plik jest wczytywany po raz pierwszy, trafia do tabeli [`package.loaded`](/ref/package/#package.loaded), aby kolejne wczytania mogły być szybsze. Aby wymusić ponowne odczytanie pliku z dysku, można ustawić wpis pliku na `package.loaded["my_module"] = nil`.
+Po drugie, Lua przechowuje w pamięci podręcznej pliki wczytane przez `require`. Gdy plik jest wczytywany po raz pierwszy, trafia do tabeli [`package.loaded`](/ref/package/#package.loaded), aby kolejne wywołania `require` mogły być szybsze. Aby wymusić ponowne odczytanie pliku z dysku, można ustawić wpis pliku na `nil`: `package.loaded["my_module"] = nil`.
 
 Aby poprawnie przeładować moduł, trzeba przeładować sam moduł, wyczyścić pamięć podręczną, a następnie ponownie załadować wszystkie pliki, które z niego korzystają. To jednak dalekie od optymalnego rozwiązania.
 

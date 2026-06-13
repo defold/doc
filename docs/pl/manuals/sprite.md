@@ -63,14 +63,14 @@ Sprite ma też kilka właściwości, którymi można manipulować przy użyciu `
 : Niejednorodna skala sprite'a (`vector3`).
 
 `size`
-: Rozmiar sprite'a (`vector3`). Można go zmienić tylko wtedy, gdy tryb rozmiaru sprite'a jest ustawiony na ręczny.
+: Rozmiar sprite'a (`vector3`). Można go zmienić tylko wtedy, gdy `tryb rozmiaru` sprite'a jest ustawiony na `ręczny`.
 
 ## Stałe materiału
 
 {% include shared/material-constants.md component='sprite' variable='tint' %}
 
 `tint`
-: Odcień koloru sprite'a (`vector4`). vector4 reprezentuje zabarwienie, a składowe x, y, z i w odpowiadają kolejno czerwieni, zieleni, niebieskiemu i alfie.
+: Odcień koloru sprite'a (`vector4`). `vector4` reprezentuje zabarwienie, a składowe `x`, `y`, `z` i `w` odpowiadają kolejno czerwieni, zieleni, niebieskiemu i alfie.
 
 ## Atrybuty materiału
 

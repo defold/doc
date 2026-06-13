@@ -5,7 +5,7 @@ brief: Este manual descreve como usar animações de propriedade no Defold.
 
 # Animação de propriedade
 
-Todas as propriedades numéricas (números, vector3, vector4 e quaternions) e constantes de shader podem ser animadas com o sistema de animação integrado, usando a função `go.animate()`. A engine fará automaticamente o "tween" das propriedades de acordo com os modos de reprodução e funções de easing fornecidos. Você também pode especificar funções de easing personalizadas.
+Todas as propriedades numéricas (`números`, `vector3`, `vector4` e quaternions) e constantes de shader podem ser animadas com o sistema de animação integrado, usando a função `go.animate()`. A engine fará automaticamente o "tween" das propriedades de acordo com os modos de reprodução e funções de easing fornecidos. Você também pode especificar funções de easing personalizadas.
 
   ![Property animation](images/animation/property_animation.png)
   ![Bounce loop](images/animation/bounce.gif)

@@ -207,7 +207,7 @@ Collection в Defold — это, по сути, текстовый файл со
 
 #### Игровые миры
 
-Сцены Unity по умолчанию разделяют одно глобальное состояние игры и одну physics simulation, фактически один и тот же *world*. В Defold у вас есть два варианта:
+Сцены Unity по умолчанию разделяют одно глобальное состояние игры и одну physics simulation, фактически один и тот же *world* (*game world*). В Defold у вас есть два варианта:
 1. Инстанцировать game objects из одного файла game object через `Factory` или из collection через `Collection Factory` в уже инстанцированный *world*, как prefab'ы.
 2. Создавать отдельный игровой *world* во время выполнения с его собственными game objects, physics world, engine operations и namespace адресации через collection, загружаемую на bootstrap, или через компонент `Collection Proxy`.
 

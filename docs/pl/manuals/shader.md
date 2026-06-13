@@ -88,10 +88,10 @@ Współrzędne UV
 
   ![Współrzędne UV](images/shader/uv_map.png)
 
-  Mapa UV jest zwykle generowana w programie do modelowania 3D i przechowywana w siatce. Współrzędne tekstury dla każdego wierzchołka są przekazywane do shadera wierzchołków jako atrybut. Następnie zmienna varying służy do wyznaczenia współrzędnej UV dla każdego fragmentu przez interpolację z wartości wierzchołków.
+  Mapa UV jest zwykle generowana w programie do modelowania 3D i przechowywana w siatce. Współrzędne tekstury dla każdego wierzchołka są przekazywane do shadera wierzchołków jako atrybut. Następnie zmienna `varying` służy do wyznaczenia współrzędnej UV dla każdego fragmentu przez interpolację z wartości wierzchołków.
 
 Zmienne varying
-: Zmienne typu varying służą do przekazywania informacji między etapem wierzchołków a etapem fragmentów.
+: Zmienne typu `varying` służą do przekazywania informacji między etapem wierzchołków a etapem fragmentów.
 
   1. Zmienna varying jest ustawiana w shaderze wierzchołków dla każdego wierzchołka.
   2. Podczas rasteryzacji ta wartość jest interpolowana dla każdego fragmentu renderowanego prymitywu. Odległość fragmentu od wierzchołków kształtu wpływa na wartość interpolowaną.
@@ -99,7 +99,7 @@ Zmienne varying
 
   ![Interpolacja varying](images/shader/varying_vertex.png)
 
-  Na przykład ustawienie varying na wartość koloru RGB `vec3` w każdym rogu trójkąta spowoduje interpolację kolorów na całym kształcie. Podobnie ustawienie współrzędnych odczytu mapy tekstur (czyli *współrzędnych UV*) dla każdego wierzchołka w prostokącie pozwala shaderowi fragmentów odczytać wartości koloru tekstury dla całego obszaru kształtu.
+  Na przykład ustawienie `varying` na wartość koloru RGB `vec3` w każdym rogu trójkąta spowoduje interpolację kolorów na całym kształcie. Podobnie ustawienie współrzędnych odczytu mapy tekstur (czyli *współrzędnych UV*) dla każdego wierzchołka w prostokącie pozwala shaderowi fragmentów odczytać wartości koloru tekstury dla całego obszaru kształtu.
 
   ![Interpolacja varying](images/shader/varying.png)
 

@@ -21,7 +21,7 @@ Os exemplos abaixo usam as ações mostradas na imagem acima. Como em toda entra
 :::
 
 ## Botões do mouse
-Botões do mouse geram eventos pressionados, soltos e repetidos. Exemplo mostrando como detectar entrada para o botão esquerdo do mouse (pressionado ou solto):
+Botões do mouse geram eventos `pressionado`s, `solto`s e `repetido`s. Exemplo mostrando como detectar entrada para o botão esquerdo do mouse (pressionado ou solto):
 
 ```lua
 function on_input(self, action_id, action)
@@ -103,7 +103,7 @@ O [asset Defold-Input](https://defold.com/assets/defoldinput/) pode ser usado pa
 Detectar quando o usuário clicou ou tocou em um componente visual é uma operação muito comum necessária em muitos jogos. Pode ser uma interação do usuário com um botão ou outro elemento de UI, ou a interação com um objeto de jogo, como uma unidade controlada pelo jogador em um jogo de estratégia, algum tesouro em uma fase de dungeon crawler ou um personagem que entrega missões em um RPG. A abordagem a ser usada varia dependendo do tipo de componente visual.
 
 ### Detectando interação com nodes GUI
-Para elementos de UI, existe a função `gui.pick_node(node, x, y)`, que retorna true ou false dependendo se a coordenada especificada está dentro dos limites de um node GUI ou não. Consulte a [documentação da API](/ref/gui/#gui.pick_node:node-x-y), o [exemplo de pointer over](/examples/gui/pointer_over/) ou o [exemplo de botão](/examples/gui/button/) para saber mais.
+Para elementos de UI, existe a função `gui.pick_node(node, x, y)`, que retorna `true` ou `false` dependendo se a coordenada especificada está dentro dos limites de um node GUI ou não. Consulte a [documentação da API](/ref/gui/#gui.pick_node:node-x-y), o [exemplo de pointer over](/examples/gui/pointer_over/) ou o [exemplo de botão](/examples/gui/button/) para saber mais.
 
 ### Detectando interação com objetos de jogo
 Para objetos de jogo, detectar interação é mais complicado, pois coisas como translação da câmera e projeção do script de renderização afetarão os cálculos necessários. Há duas abordagens gerais para detectar interação com objetos de jogo:

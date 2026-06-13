@@ -21,7 +21,7 @@ Poniższe przykłady używają akcji pokazanych na obrazku powyżej. Jak w przyp
 :::
 
 ## Przyciski myszy
-Przyciski myszy generują zdarzenia naciśnięcia, zwolnienia i powtórzenia. Poniższy przykład pokazuje, jak wykryć wejście z lewego przycisku myszy (zarówno przy naciśnięciu, jak i przy zwolnieniu):
+Przyciski myszy generują zdarzenia `naciśnięcia`, `zwolnienia` i `powtórzenia`. Poniższy przykład pokazuje, jak wykryć wejście z lewego przycisku myszy (zarówno przy naciśnięciu, jak i przy zwolnieniu):
 
 ```lua
 function on_input(self, action_id, action)
@@ -102,7 +102,7 @@ Biblioteka [Defold-Input asset](https://defold.com/assets/defoldinput/) może po
 Wykrywanie, kiedy użytkownik kliknął lub stuknął element wizualny, to bardzo częsta operacja potrzebna w wielu grach. Może dotyczyć interakcji z przyciskiem lub innym elementem interfejsu użytkownika albo interakcji z obiektem gry, takim jak jednostka kontrolowana przez gracza w grze strategicznej, skarb na poziomie w grze typu dungeon crawler albo zleceniodawca zadania w RPG. Sposób działania zależy od rodzaju elementu wizualnego.
 
 ### Wykrywanie interakcji z węzłami GUI
-W przypadku elementów UI dostępna jest funkcja `gui.pick_node(node, x, y)`, która zwraca true albo false zależnie od tego, czy podana współrzędna mieści się w granicach węzła GUI. Zobacz [dokumentację API](/ref/gui/#gui.pick_node:node-x-y), [przykład wykrywania wskaźnika](/examples/gui/pointer_over/) lub [przykład przycisku](/examples/gui/button/) aby dowiedzieć się więcej.
+W przypadku elementów UI dostępna jest funkcja `gui.pick_node(node, x, y)`, która zwraca `true` albo `false` zależnie od tego, czy podana współrzędna mieści się w granicach węzła GUI. Zobacz [dokumentację API](/ref/gui/#gui.pick_node:node-x-y), [przykład wykrywania wskaźnika](/examples/gui/pointer_over/) lub [przykład przycisku](/examples/gui/button/) aby dowiedzieć się więcej.
 
 ### Wykrywanie interakcji z obiektami gry
 W przypadku obiektów gry jest to bardziej złożone, ponieważ takie czynniki jak przesunięcie kamery i projekcja w skrypcie renderowania wpływają na wymagane obliczenia. Istnieją dwa ogólne podejścia do wykrywania interakcji z obiektami gry:

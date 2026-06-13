@@ -205,7 +205,7 @@ Uma Collection no Defold é essencialmente um arquivo de texto com uma descriç�
 
 #### Game Worlds
 
-Cenas do Unity compartilham por padrão o mesmo estado global do jogo e a mesma simulação física, efetivamente o mesmo *world*. No Defold, você tem duas opções:
+Cenas do Unity compartilham por padrão o mesmo estado global do jogo e a mesma simulação física, efetivamente o mesmo *world* (*game world*). No Defold, você tem duas opções:
 1. Instanciar objetos de jogo a partir de um único arquivo de objeto de jogo por uma `Factory`, ou de um arquivo de coleção por uma `Collection Factory`, para um *world* já instanciado, como prefabs.
 2. Criar um *world* de jogo separado em tempo de execução, com seus próprios objetos de jogo, mundo físico, operações da engine e namespace de endereçamento, por meio de uma coleção carregada no bootstrap ou por um componente `Collection Proxy`.
 

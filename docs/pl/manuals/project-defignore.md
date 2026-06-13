@@ -5,7 +5,7 @@ brief: Ten podręcznik opisuje, jak ignorować pliki i foldery w projekcie Defol
 
 # Ignorowanie plików
 
-Można skonfigurować edytor Defold i narzędzia tak, aby ignorowały pliki i foldery w projekcie. Jest to przydatne, jeśli projekt zawiera pliki z rozszerzeniami, które kolidują z rozszerzeniami używanymi przez Defold. Jednym z takich przykładów są pliki języka Go z rozszerzeniem .go, które jest takie samo jak to używane przez edytor dla plików obiektów gry.
+Można skonfigurować edytor Defold i narzędzia tak, aby ignorowały pliki i foldery w projekcie. Jest to przydatne, jeśli projekt zawiera pliki z rozszerzeniami, które kolidują z rozszerzeniami używanymi przez Defold. Jednym z takich przykładów są pliki języka Go z rozszerzeniem `.go`, które jest takie samo jak to używane przez edytor dla plików obiektów gry.
 
 ## Plik `.defignore`
 Pliki i foldery do wykluczenia są definiowane w pliku o nazwie `.defignore` w katalogu głównym projektu. Plik powinien zawierać listę plików i folderów do wykluczenia, po jednym wpisie na wiersz. Przykład:

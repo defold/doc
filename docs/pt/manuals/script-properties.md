@@ -78,7 +78,7 @@ function update(self, dt)
 end
 ```
 
-Propriedades de script definidas pelo usuário também podem ser acessadas pelas funções get, set e animate, da mesma forma que qualquer outra propriedade:
+Propriedades de script definidas pelo usuário também podem ser acessadas pelas funções `get`, `set` e `animate`, da mesma forma que qualquer outra propriedade:
 
 ```lua
 -- another.script

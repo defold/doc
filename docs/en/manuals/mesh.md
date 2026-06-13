@@ -99,9 +99,9 @@ buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_F
 {% include shared/material-constants.md component='mesh' variable='tint' %}
 
 `tint`
-: The color tint of the mesh (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
+: The color tint of the mesh (`vector4`). The `vector4` is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
 
 ## Vertex local vs world space
 If the Vertex Space setting of the mesh material is set to Local Space the data will be provided as-is to you in your shader, and you will have to transform vertices/normals as usual on the GPU.
 
-If the Vertex Space setting of the mesh material is set to World Space you have to either provide a default “position” and “normal”, stream, or you can select it from the dropdown, when editing the mesh. This is so that the engine can transform the data to world space for batching with other objects.
+If the Vertex Space setting of the mesh material is set to World Space you have to either provide a default `position` and `normal`, stream, or you can select it from the dropdown, when editing the mesh. This is so that the engine can transform the data to world space for batching with other objects.

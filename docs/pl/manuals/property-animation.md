@@ -5,7 +5,7 @@ brief: Ta instrukcja opisuje, jak używać animacji właściwości w Defold.
 
 # Animacja właściwości
 
-Wszystkie właściwości liczbowe, czyli number, vector3, vector4 i kwaterniony, a także stałe shaderów, można animować za pomocą wbudowanego systemu animacji i funkcji `go.animate()`. Silnik automatycznie interpoluje wartości zgodnie z wybranym trybem odtwarzania i funkcją easing. Możesz też definiować własne funkcje easing.
+Wszystkie właściwości liczbowe, czyli `number`, `vector3`, `vector4` i kwaterniony, a także stałe shaderów, można animować za pomocą wbudowanego systemu animacji i funkcji `go.animate()`. Silnik automatycznie interpoluje wartości zgodnie z wybranym trybem odtwarzania i funkcją easing. Możesz też definiować własne funkcje easing.
 
   ![Animacja właściwości](images/animation/property_animation.png)
   ![Pętla z odbiciem](images/animation/bounce.gif)

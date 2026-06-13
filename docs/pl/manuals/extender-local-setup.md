@@ -88,7 +88,7 @@ gdzie *profile* może mieć jedną z następujących wartości:
 * **metrics** - uruchamia VictoriaMetrics i Grafana jako backend metryk oraz narzędzie do wizualizacji
 Więcej informacji o argumentach `docker compose` znajdziesz pod adresem https://docs.docker.com/reference/cli/docker/compose/.
 
-Gdy docker compose działa, możesz użyć **http://localhost:9000** jako adresu <kbd>Build Server</kbd> w preferencjach edytora albo jako wartości `--build-server`, jeśli do budowania projektu używasz Boba.
+Gdy docker compose działa, możesz użyć **http://localhost:9000** jako adresu `Build Server` w preferencjach edytora albo jako wartości `--build-server`, jeśli do budowania projektu używasz Boba.
 
 Do polecenia można przekazać kilka profili. Na przykład:
 ```sh

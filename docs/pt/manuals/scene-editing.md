@@ -120,7 +120,7 @@ Essa ferramenta consiste em um conjunto de manipuladores quadrados/cúbicos (o m
 
 ### Filtros de visibilidade
 
-Clique no Visibility Eye Icon (`👁`) na barra de ferramentas para alternar a visibilidade de vários tipos de componentes, além de caixas delimitadoras e linhas-guia (`Component Guides` ou o atalho <kbd>Ctrl</kbd> + <kbd>H</kbd> (Win/Linux) ou <kbd>^ Ctrl</kbd> + <kbd>⌘ Cmd</kbd> + <kbd>H</kbd>(Mac)).
+Clique no **Visibility Eye Icon** (`👁`) na barra de ferramentas para alternar a visibilidade de vários tipos de componentes, além de caixas delimitadoras e linhas-guia (`Component Guides` ou o atalho <kbd>Ctrl</kbd> + <kbd>H</kbd> (Win/Linux) ou <kbd>^ Ctrl</kbd> + <kbd>⌘ Cmd</kbd> + <kbd>H</kbd>(Mac)).
 
 ![Visibility filters](images/editor/visibilityfilters.png)
 

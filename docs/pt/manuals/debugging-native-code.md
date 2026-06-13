@@ -86,7 +86,7 @@ Se você obtiver uma callstack de um arquivo `_crash` ou de um [arquivo de log](
 * HTML5 - o arquivo `dmengine.js.symbols` em `build/wasm-web` contém os símbolos de debug para builds HTML5.
 
 ::: important
-É muito importante que você salve os símbolos de debug em algum lugar para cada release pública do seu jogo e que saiba a qual release os símbolos de debug pertencem. Você não conseguirá depurar nenhum travamento nativo se não tiver os símbolos de debug. Além disso, mantenha uma versão não stripped da engine. Isso permite a melhor simbolicação da callstack.
+É muito importante que você salve os símbolos de debug em algum lugar para cada release pública do seu jogo e que saiba a qual release os símbolos de debug pertencem. Você não conseguirá depurar nenhum travamento nativo se não tiver os símbolos de debug. Além disso, mantenha uma versão `não stripped` da engine. Isso permite a melhor simbolicação da callstack.
 :::
 
 
