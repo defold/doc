@@ -29,7 +29,7 @@ Un proyecto local no tendrá integración con cualquier sistema de control, es d
 2. Crea un repositorio usando la opción [New Repository](https://help.github.com/en/articles/creating-a-new-repository)
 3. Sube todos los archivos de proyecto a través de la opción [Upload Files](https://help.github.com/en/articles/adding-a-file-to-a-repository)
 
-El proyecto ahora estará bajo control de versiones y podrás [clonar el proyecto](https://help.github.com/en/articles/cloning-a-repository) a tu disco duro local y trabajar desde tu nueva locación. 
+El proyecto ahora estará bajo control de versiones y podrás [clonar el proyecto](https://help.github.com/en/articles/cloning-a-repository) a tu disco duro local y trabajar desde tu nueva locación.
 
 ## Abrir un proyecto existente
 

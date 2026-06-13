@@ -2,6 +2,9 @@ import os
 import sys
 
 
+IGNORED_EXTENSIONS = {".txt"}
+
+
 def collect_files(directory):
     """
     Collect all file paths under the specified directory
@@ -17,6 +20,8 @@ def collect_files(directory):
     
     for root, dirs, files_in_dir in os.walk(directory):
         for file in files_in_dir:
+            if os.path.splitext(file)[1].lower() in IGNORED_EXTENSIONS:
+                continue
             file_path = os.path.join(root, file)
             rel_path = os.path.relpath(file_path, directory)
             files.add(rel_path)

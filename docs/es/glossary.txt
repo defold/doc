@@ -1,0 +1,302 @@
+---
+title: Glosario español de la documentación Defold
+brief: Glosario consolidado a partir de los archivos españoles ya traducidos en docs/es.
+---
+
+# Glosario español de la documentación Defold
+
+Este glosario consolida términos encontrados en la traducción parcial en español de `docs/es`. Su objetivo es continuar la traducción con un vocabulario consistente, usando como fuente de verdad los archivos existentes traducidos por hablantes nativos.
+
+Usa la forma española en la prosa común. Mantén la forma inglesa cuando sea una etiqueta literal de la interfaz, un nombre de API, un valor de configuración, un nombre de archivo, una ruta, un identificador, un comando, una plataforma o una marca.
+
+Archivos con fuente inglesa equivalente revisados: 15 (`faq`, `manuals` y `shared`).
+
+## Conceptos generales
+
+| English term | Spanish translation / explanation |
+|---|---|
+| Defold | Defold; marca y nombre del producto, sin traducir |
+| Defold Foundation | Defold Foundation; en prosa aparece como `la Defold Foundation` |
+| Defold Editor | editor Defold; usa `Defold Editor` cuando sea nombre literal |
+| editor | editor |
+| engine | motor; usa `engine` solo en etiquetas literales o textos técnicos heredados como `Editor and Engine` |
+| game engine | motor de videojuegos |
+| software | software |
+| product overview | visión general del producto |
+| documentation | documentación |
+| manual | manual |
+| API documentation | documentación de la API |
+| API reference | referencia de la API |
+| forum | foro |
+| community | comunidad |
+| feature | funcionalidad; característica si el contexto lo pide |
+| tool | herramienta |
+| platform | plataforma |
+| target platform | plataforma objetivo |
+| system | sistema |
+| operating system | sistema operativo |
+| computer | computadora; `ordenador` aparece en algunos FAQ, pero usa `computadora` por consistencia |
+| project | proyecto |
+| project settings | configuración del proyecto |
+| `game.project` | archivo de configuración del proyecto; mantener literal |
+
+## Juego y estructura
+
+| English term | Spanish translation / explanation |
+|---|---|
+| game | juego; videojuego cuando el contexto necesita especificar medio |
+| game logic | lógica del juego |
+| game object | objeto de juego; el corpus también usa `objeto del juego`; en primera mención puede usarse `objeto de juego (Game object)` |
+| current game object | objeto de juego actual |
+| component | componente |
+| collection | colección |
+| collection file | archivo de colección |
+| sub-collection | sub-colección; también aceptable `subcolección` si se normaliza un artículo completo |
+| bootstrap collection | colección bootstrap |
+| root | raíz |
+| hierarchy | jerarquía |
+| parent-child hierarchy | jerarquía padre-hijo |
+| parent | padre |
+| child | hijo |
+| scene graph | gráfico de la escena; también aparece `scene-graph` como término técnico entre paréntesis |
+| transform | transformación |
+| position | posición |
+| rotation | rotación |
+| scale | escala |
+| movement | movimiento |
+| local space | espacio local; conservar `Local Space` como etiqueta de UI |
+| world space | espacio del mundo; conservar `World Space` como etiqueta de UI |
+| lifespan | tiempo de vida |
+| lifetime | vida útil |
+| runtime | tiempo de ejecución; conservar `runtime` cuando sea término técnico o parte de una etiqueta |
+| instance | instancia |
+| in-place | en el lugar |
+| by reference | por referencia |
+| file reference | referencia de archivo |
+| blueprint | plano (blueprint) en primera mención; después `plano` o `blueprint` si el artículo ya lo estableció |
+| prototype | prototipo |
+| prefab | prefab; explicar como colección u objeto reutilizable cuando haga falta |
+| template | plantilla; `template` cuando sea tipo o etiqueta literal |
+
+## Objetos, componentes y recursos
+
+| English term | Spanish translation / explanation |
+|---|---|
+| sprite | sprite |
+| script | script |
+| script file | archivo script |
+| factory | factory cuando sea tipo de componente literal; `fábrica` si se explica el concepto |
+| collection proxy | proxy de colección; en primera mención, `proxy de colección (collection proxy)` |
+| model | modelo |
+| sound | sonido |
+| audio | audio |
+| particle effects | efectos de partículas |
+| ParticleFx | ParticleFx; nombre de componente, sin traducir |
+| GUI | GUI |
+| GUI node | nodo GUI |
+| box node | nodo caja (box-node) |
+| label | etiqueta o label según contexto; conservar `label` en API como `label.set_text()` |
+| shader | shader |
+| vertex shader | vertex shader; explicar como shader de vértices si hace falta |
+| fragment shader | fragment shader; explicar como shader de fragmentos si hace falta |
+| material | material |
+| atlas | atlas |
+| resource | recurso |
+| asset | asset; usa `recurso` cuando sea genérico, conserva `Asset Portal` |
+| Asset Portal | Asset Portal |
+| identifier | identificador |
+| id / ID | id en prosa común; `ID` cuando sea sigla o etiqueta literal |
+
+## Direccionamiento y mensajes
+
+| English term | Spanish translation / explanation |
+|---|---|
+| addressing | direccionamiento |
+| address | dirección |
+| relative addressing | direccionamiento relativo |
+| absolute addressing | direccionamiento absoluto |
+| relative address | dirección relativa |
+| absolute address | dirección absoluta |
+| URL | URL |
+| URL object | objeto URL |
+| socket | socket; campo de URL, conservar literal |
+| path | path cuando sea campo de URL o código; `ruta` en prosa |
+| fragment | fragment; campo de URL, conservar literal |
+| separator | separador |
+| separator character | carácter separador |
+| naming mechanism | mecanismo de nomenclatura |
+| naming context | contexto de nomenclatura |
+| namespace | namespace; espacio de nombres si se explica |
+| hash | hash |
+| hashed identifier | identificador hash; identificador almacenado como valor hash |
+| hash state | estado del hash |
+| string | string cuando sea tipo de dato; `cadena` en prosa explicativa |
+| message | mensaje |
+| message passing | paso de mensajes |
+| send a message | enviar un mensaje |
+| post a message | enviar un mensaje; conservar `Post` en comentarios o etiquetas literales |
+| target | objetivo; destino si habla de destinatario de mensaje |
+| recipient | destinatario |
+| sender | remitente |
+| `msg.post()` | función para enviar mensajes |
+| `msg.url()` | función para crear un objeto URL |
+| `go.get_id()` | función que obtiene el identificador del objeto de juego |
+| `go.get_position()` | función que obtiene la posición |
+| `go.set_position()` | función que define la posición |
+| `factory.create()` | función que crea una instancia |
+| `disable` | mensaje `disable`; no traducir cuando sea el nombre literal |
+| `set_parent` | mensaje `set_parent`; no traducir |
+| `#` | separador entre objeto de juego y componente; también atajo al componente actual |
+| `/` | prefijo de dirección absoluta o separador de ruta |
+| `.` | atajo al objeto actual |
+
+## Programación y ciclo de ejecución
+
+| English term | Spanish translation / explanation |
+|---|---|
+| Lua | Lua; no usar `LUA` |
+| C++ | C++ |
+| JavaScript | JavaScript |
+| programming language | lenguaje de programación |
+| high-level language | lenguaje de alto nivel |
+| native language | lenguaje nativo |
+| application | aplicación |
+| app | app cuando el contexto sea móvil o una etiqueta externa |
+| runtime version | versión de runtime |
+| release | release; lanzamiento si se habla de publicar una versión |
+| version | versión |
+| beta version | versión beta |
+| stable version | versión estable |
+| build | build como sustantivo técnico; `crear una build`, `build de depuración` |
+| rebuild | rebuild cuando sea comando o acción técnica; explicar como recompilación completa si hace falta |
+| bundle | bundle como formato o acción técnica; paquete si el contexto es general |
+| command line tools | herramientas de línea de comando |
+| line-ending | line-ending; finales de línea si se explica |
+| data | datos; conservar `data` solo en mensajes de error literales |
+| source code | código fuente |
+| code base | código base |
+| API | API |
+| function | función |
+| callback | callback; función de retorno si se explica |
+| variable | variable |
+| property | propiedad |
+| `sys.get_engine_info()` | API literal, sin traducir |
+| `sys.get_sys_info()` | API literal, sin traducir |
+
+## Interfaz y flujo de trabajo
+
+| English term | Spanish translation / explanation |
+|---|---|
+| UI | interfaz |
+| menu | menú |
+| button | botón |
+| popup | popup; ventana emergente si se explica |
+| dialog | diálogo |
+| click | click; el corpus usa `haz click` y `doble click` |
+| right click | click derecho |
+| double click | doble click |
+| drag and drop | arrastrar y soltar |
+| Outline | `Outline`; vista Outline si se explica |
+| Properties | `Properties`; panel de propiedades si se explica |
+| Assets | `Assets`; vista de assets si se explica |
+| New Project | `New Project`; etiqueta de UI, conservar literal |
+| Create New Project | `Create New Project`; etiqueta de UI, conservar literal |
+| Open From Disk | `Open From Disk`; etiqueta de UI, conservar literal |
+| Add Collection File | `Add Collection File`; etiqueta de UI, conservar literal |
+| Add Game Object | `Add Game Object`; etiqueta de UI, conservar literal |
+| Add Game Object File | `Add Game Object File`; etiqueta de UI, conservar literal |
+| Edit | `Edit`; menú literal |
+| Help | `Help`; menú literal |
+| About | `About`; opción literal |
+| Project | `Project`; menú literal |
+| Rebuild And Launch | `Rebuild And Launch`; opción literal |
+| Extrude Borders | `Extrude Borders`; propiedad literal del editor |
+
+## Plataformas, publicación y herramientas
+
+| English term | Spanish translation / explanation |
+|---|---|
+| macOS | macOS |
+| Windows | Windows |
+| Linux | Linux |
+| Ubuntu | Ubuntu |
+| Android | Android |
+| iOS | iOS |
+| HTML5 | HTML5 |
+| Nintendo Switch | Nintendo Switch |
+| Google Play | Google Play |
+| Apple Developer | Apple Developer |
+| Xcode | Xcode |
+| Git | Git |
+| GitHub | GitHub |
+| repository | repositorio |
+| clone | clonar |
+| version control | control de versiones |
+| DMG | imagen DMG |
+| ZIP | archivo ZIP |
+| executable | ejecutable |
+| terminal | terminal |
+| command | comando |
+| environment variable | variable de ambiente |
+| driver | driver |
+| GPU | GPU |
+| OpenGL | OpenGL |
+| OpenGL ES | OpenGL ES |
+| Vulkan | Vulkan |
+| Metal | Metal |
+| WebGL | WebGL |
+| WebAssembly / wasm | WebAssembly / wasm |
+| APK | APK |
+| AAB | AAB |
+| certificate | certificado |
+| debug certificate | certificado temporal o certificado de depuración |
+| bundle identifier | identificador de bundle |
+| provisioning profile | perfil provisional |
+| entitlement | derecho; conservar `entitlements` en enlaces/títulos literales |
+| SDK | SDK |
+| release SHA1 | release SHA1; hash de lanzamiento si se explica |
+
+## Gráficos, renderizado y rendimiento
+
+| English term | Spanish translation / explanation |
+|---|---|
+| 2D | 2D |
+| 3D | 3D |
+| graphics | gráficos |
+| render | render cuando sea API, script o comando; `renderizar` como verbo |
+| rendering | renderizado |
+| render API | render API |
+| rendering pipeline | rendering pipeline; pipeline de renderizado si se explica |
+| render script | script de render |
+| shader language | shader language si se cita OpenGL ES SL; lenguaje de shaders si se explica |
+| vertex | vértice |
+| fragment | fragmento; conservar `fragment` en el campo de URL |
+| draw call | draw call; llamada de dibujo si se explica |
+| Z buffer | buffer Z |
+| fill-rate | fill-rate; tasa de relleno si se explica |
+| edge bleeding | sangrado de borde (edge bleeding) |
+| pixel | pixel; el corpus no usa tilde |
+| tint | tinte |
+| transparency | transparencia |
+| collision | colisión |
+| collision object | objeto colisionador u objeto de colisión según contexto |
+| physics | físicas; física si se habla del sistema general |
+| profiler | profiler |
+| performance | rendimiento |
+| memory | memoria |
+| reference count | contador de referencia |
+
+## Tono y formato de FAQ
+
+| English term | Spanish translation / explanation |
+|---|---|
+| FAQ | Preguntas Frecuentes; conservar `FAQ` en rutas, títulos compartidos o referencias literales |
+| Q: | `Q:`; el corpus español usa `Q:` para preguntas de FAQ |
+| A: | `A:`; el corpus español usa `A:` para respuestas de FAQ |
+| Questions | Preguntas |
+| general questions | Preguntas generales |
+| platform questions | Preguntas de Plataforma |
+| editor questions | Preguntas del Editor |
+| publishing games | Publicando juegos |
+| game content | Contenido del juego |
+| errors using Defold | Errores usando Defold |

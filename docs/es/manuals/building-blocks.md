@@ -86,6 +86,10 @@ El beneficio de crear archivos blueprint se vuelve aparente cuando tienes múlti
 
 Al cambiar el archivo file, cualquier instancia que usa ese archivo será actualizado inmediatamente.
 
+![GO changing prototype](images/building_blocks/go_change_blueprint.png)
+
+Aquí se cambia la imagen sprite del archivo blueprint e inmediatamente se actualizan todas las instancias que usan el archivo:
+
 ![GO instances updated](images/building_blocks/go_instance2.png)
 
 ## Emparentando objetos de juego

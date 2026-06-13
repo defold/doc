@@ -1,0 +1,210 @@
+---
+title: Guía de traducción al español
+brief: Reglas y terminología observadas en la traducción parcial al español de la documentación Defold.
+---
+
+# Guía de traducción al español
+
+Este archivo fue creado a partir de la lectura de los archivos españoles actuales en `docs/es`. Usa esos archivos ya traducidos por hablantes nativos como fuente de verdad para estilo y terminología, y usa `docs/es/glossary.txt` como referencia rápida de términos.
+
+## Regla principal
+
+Traduce el texto explicativo a español natural y claro. Mantén en inglés solo los nombres literales de producto, etiquetas de la interfaz, símbolos de API, nombres de archivos, rutas, mensajes, constantes, valores enumerados, comandos, campos técnicos y valores que el lector necesita reconocer exactamente en Defold.
+
+La traducción española todavía está incompleta y algunos archivos contienen frases en inglés, calcos, erratas o términos mezclados. Trata esos casos como sobras del original, no como una regla de estilo. Mantén las decisiones repetidas y claras del corpus; corrige lo accidental cuando continúes una traducción.
+
+## Variante y tono
+
+Usa español neutro, directo e instructivo, compatible con el tono actual de los manuales:
+
+- usa `tú` de forma implícita o explícita: `puedes`, `haz click`, `selecciona`, `asegúrate`
+- prefiere frases sencillas sobre calcos literales del inglés
+- usa `juego` como término general y `videojuego` cuando el contexto necesite precisión
+- usa `computadora` por consistencia, aunque algunos FAQ existentes usan `ordenador`
+- conserva el tono práctico de los manuales: explica qué hacer y por qué sin volver la frase demasiado formal
+
+Ejemplos observados:
+
+- `Haz click en la opción <kbd>New Project</kbd>`
+- `Puedes crear fácilmente un proyecto desde el editor Defold`
+- `Si presentas problemas iniciando el editor...`
+
+## Traducir
+
+Traduce estos elementos al español:
+
+- títulos, subtítulos, briefs y texto introductorio
+- explicaciones conceptuales, recomendaciones, notas y advertencias
+- preguntas y respuestas de FAQ, manteniendo el formato `Q:` y `A:`
+- descripciones de tablas y listas cuando no sean valores literales
+- texto normal de enlaces cuando sea descriptivo, no una etiqueta literal de UI ni un nombre oficial
+- comentarios naturales dentro de ejemplos de código, preservando marcadores de comentario e identificadores literales
+- glosas explicativas para conceptos oficiales de Defold en la primera mención
+
+Ejemplos preferidos del corpus:
+
+- `building blocks` -> `bloques de construcción`
+- `addressing` -> `direccionamiento`
+- `game object` -> `objeto de juego`
+- `component` -> `componente`
+- `collection` -> `colección`
+- `project settings` -> `configuración del proyecto`
+- `application icon` -> `icono de la aplicación`
+- `version control` -> `control de versiones`
+
+## Mantener en inglés
+
+Mantén en inglés o en la grafía original:
+
+- marcas, plataformas y tecnologías: `Defold`, `Lua`, `Android`, `iOS`, `HTML5`, `macOS`, `Windows`, `Linux`, `Nintendo Switch`
+- nombres de archivos, extensiones, rutas y claves: `game.project`, `.ico`, `.png`, `.apk`, `main.collection`, `Defold.exe`
+- funciones, callbacks, mensajes y símbolos de API: `msg.post()`, `go.animate()`, `factory.create()`, `sys.get_engine_info()`, `disable`, `set_parent`
+- ids, hashes, sockets, URL y valores técnicos: `@render`, `@system`, `main:/manager#controller`, `hash("/path/to/the/object")`
+- etiquetas de interfaz que aparecen literalmente en el editor o en capturas: `New Project`, `Open From Disk`, `Outline`, `Add Game Object`, `Project > Rebuild And Launch`
+- nombres de servicios y herramientas externas: `GitHub`, `Xcode`, `ImageMagick`, `Google Play`, `Apple Developer`, `ADB`, `Mesa`
+- comandos, variables de ambiente y mensajes de error: `MESA_GL_VERSION_OVERRIDE`, `LD_PRELOAD`, `INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES`
+
+Cuando una etiqueta de interfaz aparezca dentro de una instrucción, colócala en `<kbd>...</kbd>` si se presenta como una acción de UI:
+
+- `<kbd>New Project</kbd>`
+- `<kbd>Create New Project</kbd>`
+- `<kbd>Add Collection File</kbd>`
+- `<kbd>Edit ▸ World Space</kbd>`
+
+Usa `▸` en rutas de menú cuando edites o agregues instrucciones nuevas. Si una ruta existente usa `Project > Rebuild And Launch`, no es necesario cambiarla salvo que estés revisando el artículo completo.
+
+## Términos oficiales de Defold
+
+Cuando un concepto oficial de Defold aparezca por primera vez, usa la forma española con el término inglés entre paréntesis, o el inglés con una explicación en español si el término inglés es lo que el usuario verá en el editor.
+
+Patrones recomendados:
+
+- `colección (Collection)`
+- `objeto de juego (Game object)`
+- `componente (Component)`
+- `colección bootstrap`
+- `proxy de colección (collection proxy)`
+- `plano (blueprint)`
+- `nodo caja (box-node)`
+
+Después de la primera mención, usa la forma española en la prosa. Vuelve al inglés cuando estés hablando del tipo literal en el editor, de una propiedad, de una extensión de archivo, de un comando, de un valor de configuración o de un identificador.
+
+## Defold, motor y editor
+
+Mantén `Defold` sin traducción.
+
+Usa `el motor` para `engine` en prosa normal:
+
+- `el motor Defold`
+- `runtime del motor`
+- `motor de videojuegos`
+
+Usa `editor Defold` para la herramienta. Mantén `Defold Editor` cuando sea el nombre literal o cuando el contexto cite la interfaz/producto en inglés.
+
+Usa `la Defold Foundation` para la organización.
+
+## Código, Markdown y archivos
+
+- Preserva front matter YAML y estructura Markdown.
+- Preserva directivas de inclusión como `:[Android FAQ](../shared/android-faq.md)`.
+- Preserva URLs, anclas, rutas, nombres de imágenes y nombres de archivos.
+- Preserva bloques de código, identificadores, strings de ejemplo, mensajes y rutas.
+- Traduce comentarios de código solo cuando sean texto explicativo común; no alteres APIs, ids, rutas ni nombres de mensajes dentro del comentario.
+- Usa backticks para literales técnicos: `game.project`, `main:/manager#controller`, `hash("jump")`.
+- Usa `<kbd>...</kbd>` para acciones de UI.
+- No renombres archivos, extensiones, recursos ni ids de ejemplo.
+
+## FAQ
+
+El corpus español usa `Q:` y `A:` en las preguntas frecuentes. Continúa con ese formato para mantener consistencia con los archivos actuales:
+
+- `#### Q: ¿Es Defold realmente gratuito?`
+- `A: Sí, ...`
+
+Traduce los encabezados de secciones de FAQ:
+
+- `General questions` -> `Preguntas generales`
+- `Platform questions` -> `Preguntas de Plataforma`
+- `Editor questions` -> `Preguntas del Editor`
+- `Publishing games` -> `Publicando juegos`
+- `Game content` -> `Contenido del juego`
+
+## Estilo técnico
+
+Prefiere traducciones naturales sobre traducciones palabra por palabra:
+
+- `game logic` -> `lógica del juego`
+- `high-level language` -> `lenguaje de alto nivel`
+- `source code` -> `código fuente`
+- `version control` -> `control de versiones`
+- `target platform` -> `plataforma objetivo`
+- `application icon` -> `icono de la aplicación`
+- `reference count` -> `contador de referencia`
+
+Mantén términos técnicos comunes en inglés cuando el corpus español ya los usa o cuando son más reconocibles en el contexto de Defold:
+
+- `build`, `rebuild`, `runtime`, `shader`, `sprite`, `script`, `asset`, `bundle`, `input`, `profiler`, `debug`, `driver`, `socket`, `path`, `fragment`
+
+Si el término inglés puede confundir a lectores nuevos, agrega una explicación breve en español en la primera mención:
+
+- `edge bleeding` -> `sangrado de borde (edge bleeding)`
+- `blueprint` -> `plano (blueprint)`
+- `scene graph` -> `gráfico de la escena (scene-graph)`
+
+## Interfaz del editor
+
+El corpus español conserva la mayoría de las etiquetas del editor en inglés. No inventes traducciones para etiquetas visibles en la interfaz.
+
+Mantén literal:
+
+- `Outline`
+- `Properties`
+- `Assets`
+- `New Project`
+- `Create New Project`
+- `Open From Disk`
+- `Add Collection File`
+- `Add Game Object`
+- `Add Game Object File`
+- `Edit ▸ World Space`
+- `Edit ▸ Local Space`
+- `Project > Rebuild And Launch`
+- `Extrude Borders`
+
+Puedes añadir una explicación en español si ayuda:
+
+- `la vista Outline`
+- `el panel Properties`
+- `la opción <kbd>Open From Disk</kbd>`
+
+## Capitalización
+
+- Usa minúsculas en términos comunes: `editor`, `motor`, `componente`, `colección`, `objeto de juego`, `proyecto`.
+- Usa mayúsculas en nombres propios, marcas, plataformas y etiquetas literales: `Defold`, `Lua`, `GitHub`, `Android`, `New Project`.
+- Conserva siglas técnicas en mayúsculas: `API`, `FAQ`, `GUI`, `APK`, `AAB`, `SDK`, `CPU`, `GPU`, `IDFA`.
+- Mantén la capitalización original en etiquetas de UI y nombres de comandos.
+
+## Señales de contenido inacabado
+
+Algunos archivos españoles actuales tienen restos de inglés, ortografía irregular o mezcla de términos. No copies esos detalles como estilo de referencia.
+
+Ejemplos de cosas a corregir en nuevas traducciones o revisiones:
+
+- comentarios de código que siguen en inglés cuando son explicativos
+- `click` sin problema, pero evita mezclar `click`, `clic` y `cliquea` en el mismo artículo
+- `instanciaren`, `proyeto`, `creememos`, `Defold edior`, `Switc` y otras erratas evidentes
+- frases inglesas sueltas como `The Defold Foundation` cuando no sea una cita literal
+- mezclas innecesarias como `Defold software` si puede traducirse a `software Defold`
+
+Cuando actualices un artículo:
+
+- traduce la prosa común al español
+- preserva literales técnicos y de UI en inglés
+- corrige acentos, concordancia, puntuación y espacios alrededor de Markdown/HTML
+- evita cambiar identificadores, rutas, APIs o strings de ejemplo
+
+## Patrón práctico
+
+Si una expresión aparece literalmente en el editor Defold, una API, un archivo, una clave de configuración, una URL, un comando o un mensaje de error, mantenla en inglés o en su grafía exacta.
+
+Si la expresión explica qué significa algo o cómo usarlo, tradúcela al español.
