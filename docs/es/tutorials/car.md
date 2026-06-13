@@ -1,6 +1,6 @@
 ---
 title: Crear un auto sencillo en Defold.
-brief: Si eres nuevo en Defold, esta guía te ayudará a orientarte correctamente en el editor. También explica las ideas básicas y los bloques de construcción más comunes en Defold: objetos de juego, colecciones, scripts y sprites.
+brief: "Si eres nuevo en Defold, esta guía te ayudará a orientarte correctamente en el editor. También explica las ideas básicas y los bloques de construcción más comunes en Defold: objetos de juego, colecciones, scripts y sprites."
 ---
 
 # Crear un auto
