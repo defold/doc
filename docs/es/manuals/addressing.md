@@ -12,7 +12,7 @@ En un juego, el código que creamos tiene que ser capaz de encontrar cada objeto
 
 Defold usa direcciones (o URL, cómo se mostrará más adelante) para referenciar objetos y componentes del juego. Estas direcciones se basan en identificadores, tal y como se muestra en los siguientes ejemplos.
 
-'''lua
+```lua
 local id = factory.create("#enemy_factory")
 label.set_text("my_gameobject#my_label", "Hello World!")
 
@@ -21,7 +21,7 @@ go.set_position(pos, "/level/stuff/other_gameobject")
 
 msg.post("#", "hello_there")
 local id = go.get_id(".")
-'''
+```
 
 Empecemos con un ejemplo muy simple. Suponiendo que tenemos un objeto simple con un sprite y un script como componentes, se vería de la siguiente forma:
 
@@ -29,11 +29,11 @@ Empecemos con un ejemplo muy simple. Suponiendo que tenemos un objeto simple con
 
 Ahora vamos a deshabilitar el sprite cuando el juego inicia, para hacerlo aparecer cuando lo necesitemos. Esto se hace fácilmente con el siguiente fragmento de código en "controller.script":
 
-'''lua
+```lua
 function init(self)
 msg.post("#body", "disable") -- <1&gt;
 end
-'''
+```
 1. No te preocupes si no acabas de entender el '#'. Más tarde se explicará.
 
 Esto hará que cuando el juego inicie, el script "direccione" el sprite por el identificador "body" y use esa dirección para mandarle un "mensaje" con "disable". Este mensaje hará que el componente sprite se esconda a la vista. La siguiente imagen ayuda a comprender su funcionamiento.
@@ -166,13 +166,13 @@ El motor almacena todos los identificadores como valores hash. Todas las funcion
 
 Cuando obtenemos el identificador de un objeto, el motor siempre devolverá un hash con el identificador de ruta absoluto:
 
-'''lua
+```lua
 local my_id = go.get_id()
 print(my_id) --&gt; hash: [/path/to/the/object]
 
 local spawned_id = factory.create("#some_factory")
 print(spawned_id) --&gt; hash: [/instance42]
-'''
+```
 
 Puedes usar un identificador de este tipo en lugar de una identificación de cadena o construir de cero. Sin embargo, ten en cuenta que una identificación hash corresponde a la ruta al objeto, es decir, una dirección absoluta:
 
@@ -180,7 +180,7 @@ Puedes usar un identificador de este tipo en lugar de una identificación de cad
 La razón por la que la dirección relativa debe ser dada como string es porque se calculara el nuevo id del hash basandose en donde está la colección actual junto con el string que queremos añadir.
 :::
 
-'''lua
+```lua
 local spawned_id = factory.create("#some_factory")
 local pos = vmath.vector3(100, 100, 0)
 go.set_position(pos, spawned_id)
@@ -191,7 +191,7 @@ go.set_position(pos, other_id)
 -- This will not work! Relative addresses must be given as strings.
 local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
-'''
+```
 
 ## URLs
 
@@ -220,17 +220,17 @@ y el controlador de "buddy" en team_2 es:
 
 Podemos enviarles mensaje así:
 
-'''lua
+```lua
 -- Send "hello" to the manager script and team buddy bean
 msg.post("main:/manager#controller", "hello_manager")
 msg.post("main:/team_2/buddy#controller", "hello_buddy")
-'''
+```
 
 ## Construyendo objetos URL
 
 Los objetos URL también se pueden construir mediante Lua:
 
-'''lua
+```lua
 -- Construct URL object from a string:
 local my_url = msg.url("main:/manager#controller")
 print(my_url) --&gt; url: [main:/manager#controller]
@@ -250,4 +250,4 @@ my_url.fragment = "controller" -- specify as string or hash
 
 -- Post to target specified by URL
 msg.post(my_url, "hello_manager!")
-'''
+```
