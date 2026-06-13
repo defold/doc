@@ -9,7 +9,7 @@ Este glosario consolida términos encontrados en la traducción parcial en espa�
 
 Usa la forma española en la prosa común. Mantén la forma inglesa cuando sea una etiqueta literal de la interfaz, un nombre de API, un valor de configuración, un nombre de archivo, una ruta, un identificador, un comando, una plataforma o una marca.
 
-Archivos con fuente inglesa equivalente revisados: 15 (`faq`, `manuals` y `shared`). No se usó como fuente de terminología `docs/es/shared/nintendo-switch-faq.md`: es un archivo localizado extra sin inclusión activa ni ruta inglesa equivalente, mientras `docs/es/faq/faq.md` apunta a `../shared/consoles-faq.md`.
+Archivos con fuente inglesa equivalente revisados: 15 (`faq`, `manuals` y `shared`).
 
 ## Conceptos generales
 
