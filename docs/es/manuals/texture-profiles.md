@@ -159,7 +159,7 @@ Para ver la lista de compresores disponibles, consulta [Compresores](#compressor
 
 ## Formatos de textura {#texture-formats}
 
-Las texturas de hardware gráfico pueden procesarse como datos sin comprimir o datos comprimidos con pérdida, con distintos números de canales y profundidades de bits. La compresión por hardware es fija, lo que significa que la imagen resultante tendrá un tamaño fijo, independientemente del contenido de la imagen. Esto significa que la pérdida de calidad durante la compresión depende del contenido de la textura original.
+Las texturas de hardware gráfico pueden procesarse como datos sin comprimir o datos comprimidos *con pérdida*, con distintos números de canales y profundidades de bits. La compresión por hardware es fija, lo que significa que la imagen resultante tendrá un tamaño fijo, independientemente del contenido de la imagen. Esto significa que la pérdida de calidad durante la compresión depende del contenido de la textura original.
 
 Como la transcodificación de compresión Basis Universal depende de las capacidades de la GPU del dispositivo, los formatos recomendados para usar con la compresión Basis Universal son los formatos genéricos como:
 `TEXTURE_FORMAT_RGB`, `TEXTURE_FORMAT_RGBA`, `TEXTURE_FORMAT_RGB_16BPP`, `TEXTURE_FORMAT_RGBA_16BPP`, `TEXTURE_FORMAT_LUMINANCE` y `TEXTURE_FORMAT_LUMINANCE_ALPHA`.

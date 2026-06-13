@@ -5,7 +5,7 @@ brief: Describe cómo usar y crear un tile source.
 
 # Tile source {#tile-source}
 
-Un *Tile Source* puede ser usado por un [componente Tilemap](/manuals/tilemap) para pintar tiles sobre un área de cuadrícula, o puede usarse como fuente gráfica para un [Sprite](/manuals/sprite) o un [componente Particle Effect](/manuals/particlefx). También puedes usar las formas de colisión del tile source en un Tilemap para [detección de colisiones y simulación física](/manuals/physics) ([ejemplo](/examples/tilemap/collisions/)).
+Un *Tile Source* puede ser usado por un [componente Tilemap](/manuals/tilemap) para pintar tiles sobre un área de cuadrícula, o puede usarse como fuente gráfica para un [Sprite](/manuals/sprite) o un [componente Particle Effect](/manuals/particlefx). También puedes usar las *Collision Shapes* del tile source en un Tilemap para [detección de colisiones y simulación física](/manuals/physics) ([ejemplo](/examples/tilemap/collisions/)).
 
 ## Crear un tile source {#creating-a-tile-source}
 

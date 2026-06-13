@@ -52,7 +52,7 @@ Cada cambio que hagas en una propiedad de un nodo con un layout seleccionado _so
 
 ![edición en horizontal](images/gui-layouts/landscape.png)
 
-Un layout no puede eliminar ni crear nodos nuevos, solo sobrescribir propiedades. Si necesitas quitar un nodo de un layout, puedes mover el nodo fuera de la pantalla o eliminarlo con lógica de script. También debes prestar atención al layout seleccionado actualmente. Si añades un layout a tu proyecto, el nuevo layout se configurará de acuerdo con el layout seleccionado actualmente. Además, copiar y pegar nodos tiene en cuenta el layout seleccionado actualmente, tanto al copiar _como_ al pegar.
+Un layout no puede eliminar ni crear nodos nuevos, solo sobrescribir propiedades. Si necesitas quitar un nodo de un layout, puedes mover el nodo fuera de la pantalla o eliminarlo con lógica de script. También debes prestar atención al layout seleccionado actualmente. Si añades un layout a tu proyecto, el nuevo layout se configurará de acuerdo con el layout seleccionado actualmente. Además, copiar y pegar nodos tiene en cuenta el layout seleccionado actualmente, tanto al copiar *como* al pegar.
 
 ## Selección dinámica de perfiles
 
@@ -70,7 +70,7 @@ Cuando Auto Layout Selection está activado, el motor selecciona automáticament
 
 5. Si no se puede seleccionar ningún perfil, se usa el perfil de respaldo *Default*.
 
-Dado que el layout *Default* se usa como respaldo en runtime si no hay un layout con mejor coincidencia, esto significa que si añades un layout "Landscape", será la mejor coincidencia para _todas_ las orientaciones hasta que también añadas un layout "Portrait".
+Dado que el layout *Default* se usa como respaldo en runtime si no hay un layout con mejor coincidencia, esto significa que si añades un layout "Landscape", será la mejor coincidencia para *todas* las orientaciones hasta que también añadas un layout "Portrait".
 
 ## Mensajes de cambio de layout
 

@@ -95,3 +95,5 @@ El primer paso es acceder al archivo de configuración del editor. Se recomienda
   ```
 
 - Reinicia ZeroBrane
+
+![Other recommended settings](images/zerobrane/otherrecommended.png)

@@ -149,6 +149,6 @@ Depuración
 Forzar la descarga de recursos de nuevo
 : El desarrollador puede descargar el contenido en cualquier archivo/carpeta que quiera, pero a menudo se ubica bajo la ruta de la aplicación. La ubicación de la carpeta de soporte de la aplicación depende del sistema operativo. Puede encontrarse con `print(sys.get_save_file("", ""))`.
 
-  El archivo `liveupdate.mounts` se encuentra bajo el "local storage", y su ruta se muestra en la consola al inicio: `INFO:LIVEUPDATE: Live update folder located at: ...`
+  El archivo liveupdate.mounts se encuentra bajo el "local storage", y su ruta se muestra en la consola al inicio "INFO:LIVEUPDATE: Live update folder located at: ..."
 
   ![Almacenamiento local](images/live-update/local-storage.png)

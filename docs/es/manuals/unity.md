@@ -224,7 +224,7 @@ Unity mantiene los assets en `Assets/` y genera archivos `.meta`. Defold no tien
 
 ### Formatos de recursos
 
-Unity importa y convierte assets a otros formatos entre bastidores. En Defold, trabajas directamente con recursos fuente (`.png`, `.gltf`, `.wav`, `.ogg`, etc.) y los asignas a componentes.
+Unity importa y convierte assets a otros formatos entre bastidores. En Defold, trabajas directamente con recursos fuente (`.png`, `.gltf`, `.wav`, `.ogg`, etc.) y los asignas a `Components`.
 
 Unity puede usar una sola imagen como Sprite. En Defold, las imágenes pueden usarse directamente para Models/Meshes, pero Sprites/GUI/Tilemaps/Particles requieren un atlas (texturas empaquetadas) o un tilesource (tiles basados en cuadrícula).
 
@@ -408,7 +408,7 @@ Ignora `#` y `hash` por ahora; llegaremos a eso más adelante. El resto debería
 
 #### Componentes que no son scripts
 
-A veces envías mensajes, por ejemplo, a componentes `Sprite` o `Collision`, para habilitarlos o deshabilitarlos. A veces los componentes envían mensajes a tu script, por ejemplo cuando ocurre una colisión, para que puedas gestionarla. Defold usa internamente el mismo sistema de mensajes para eventos del motor y comunicación de la lógica del juego.
+A veces envías mensajes, por ejemplo, a componentes `Sprite` o `Collision`, para habilitarlos o deshabilitarlos. A veces `Components` envían mensajes a tu script, por ejemplo cuando ocurre una colisión, para que puedas gestionarla. Defold usa internamente el mismo sistema de mensajes para eventos del motor y comunicación de la lógica del juego.
 
 El sistema de mensajes es algo similar a SendMessage o a los sistemas de eventos de Unity, aunque el direccionamiento y las convenciones difieren.
 

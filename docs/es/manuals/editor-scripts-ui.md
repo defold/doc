@@ -61,7 +61,7 @@ El editor proporciona varios **componentes** de interfaz que se pueden componer 
 
 ### Props
 
-Las **props** son tablas que definen entradas para los componentes. Las props deben tratarse como inmutables: mutar la tabla de props en el lugar no hará que el componente se vuelva a renderizar, pero usar una tabla diferente sí. La interfaz se actualiza cuando la instancia del componente recibe una tabla de props que no es superficialmente igual (`shallow-equal`) a la anterior.
+Las **props** son tablas que definen entradas para los componentes. Las props deben tratarse como inmutables: mutar la tabla de props en el lugar no hará que el componente se vuelva a renderizar, pero usar una tabla diferente sí. La interfaz se actualiza cuando la instancia del componente recibe una tabla de props que no es superficialmente igual a la anterior.
 
 ### Alineación
 

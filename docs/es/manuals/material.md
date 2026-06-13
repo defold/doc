@@ -200,7 +200,7 @@ Instancing se habilita automáticamente cuando es posible. Defold depende mucho 
 - Los valores de constantes deben ser iguales para todas las instancias. En su lugar, los valores de constantes se pueden poner en atributos de vértice personalizados o en algún otro método subyacente (por ejemplo, una textura)
 - Los recursos de shader, como texturas o buffers de almacenamiento, deben ser iguales para todas las instancias
 
-Configurar un atributo de vértice para que se repita por instancia requiere que `Step function` esté definido como `Instance`. Esto se hace automáticamente para ciertos tipos semánticos según el nombre (consulta la tabla "Semántica predeterminada de atributos" anterior), pero también se puede definir manualmente en el editor de materiales configurando `Step function` como `Instance`.
+Configurar un atributo de vértice para que se repita por instancia requiere que `Step function` esté definido como `Instance`. Esto se hace automáticamente para ciertos tipos semánticos según el nombre (consulta la tabla `Default attribute semantics` anterior), pero también se puede definir manualmente en el editor de materiales configurando `Step function` como `Instance`.
 
 Como ejemplo simple, la siguiente escena tiene cuatro objetos de juego, cada uno con un componente de modelo:
 

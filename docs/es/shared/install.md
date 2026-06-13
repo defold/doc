@@ -19,8 +19,8 @@ Instalación en macOS
 Instalación en Windows
 : El archivo descargado es un archivo ZIP que necesita ser extraído:
 
-  1. Localiza el archivo "Defold-x86_64-win32.zip", <kbd>mantén presionado</kbd> (o <kbd>click derecho</kbd>) a la carpeta, selecciona *Extraer todo*(/*Extract All*), y después sigue las instrucciones para extraer el archivo en una carpeta denominada "Defold".
-  2. Mueve la carpeta "Defold" a "C:\Program Files (x86)\"
+  1. Localiza el archivo "Defold-x86_64-win32.zip", <kbd>mantén presionado</kbd> (o <kbd>click derecho</kbd>) a la carpeta, selecciona *Extraer todo*, y después sigue las instrucciones para extraer el archivo en una carpeta denominada "Defold".
+    2. Mueve la carpeta "Defold" a tu ubicación preferida (por ejemplo, `D:\Defold`). No deberías mover Defold a `C:\Program Files (x86)\` o `C:\Program Files\`, ya que esto impedirá que el editor se actualice.
 
   Para iniciar el editor, abre la carpeta "Defold" y <kbd>doble click</kbd> al ejecutable "Defold.exe".
 
@@ -42,22 +42,10 @@ Instalción en Linux
   $ ./Defold
   ```
 
-  Si presentas problemas iniciando el editor, abriendo un proyecto o corriendo un juego de Defold por favor refiere a la [sección del FAQ de Linux](/faq/faq#linux-issues).
+  Hay una ayuda para instalar una entrada de escritorio en el menú `Help > Create Desktop Entry`.
+
+  Si presentas problemas iniciando el editor, abriendo un proyecto o corriendo un juego de Defold por favor refiere a la [sección del FAQ de Linux](/faq/faq#linux-questions).
 
 ## Instalar una versión anterior
 
-### Desde la página de lanzamientos de Defold en GitHub
-
-Toda versión estable de Defold también están [lanzadas en GitHub](https://github.com/defold/defold/releases).
-
-### Desde la página de descargas de Defold
-
-Puedes descargar e instalar una versión antigua del editor utilizando el siguiente patrón de ligas:
-
-* Windows: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-win32.zip
-* macOS: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-macos.dmg
-* Linux: https://d.defold.com/archive/%sha1%/stable/editor2/Defold-x86_64-linux.zip
-
-Reemplaza `%sha1%` por el hash de lanzamiento representando la versión en cuestión. El hash de cada versión de Defold puede verse en los vínculos de la versión lanzada en la página de descarga en https://d.defold.com/stable/ (asegúrate de remover el caracter # inicial y solo copia la parte alfanumérica):
-
-![Descargar editor](../shared/images/old_version_sha1.png)
+Cada versión beta y estable de Defold también está [disponible en GitHub](https://github.com/defold/defold/releases).
