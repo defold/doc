@@ -78,7 +78,7 @@ function update(self, dt)
 end
 ```
 
-用户定义的脚本属性也可以通过get、set和animate函数访问，与任何其他属性一样：
+用户定义的脚本属性也可以通过`get`、`set`和`animate`函数访问，与任何其他属性一样：
 
 ```lua
 -- another.script

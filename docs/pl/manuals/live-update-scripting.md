@@ -146,7 +146,8 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-1. `liveupdate.add_mount()` montuje jedno archiwum, używając podanej nazwy, priorytetu i pliku zip. Dane stają się wtedy natychmiast dostępne do wczytania, bez potrzeby restartowania silnika. Informacja o mouncie jest zapisywana i zostanie automatycznie dodana ponownie przy następnym uruchomieniu silnika, więc nie trzeba wywoływać ponownie `liveupdate.add_mount()` dla tego samego mounta.
+1. `liveupdate.add_mount()` montuje jedno archiwum, używając podanej nazwy, priorytetu i pliku zip. Dane stają się wtedy natychmiast dostępne do wczytania, bez potrzeby restartowania silnika.
+Informacja o mouncie jest zapisywana i zostanie automatycznie dodana ponownie przy następnym uruchomieniu silnika, więc nie trzeba wywoływać ponownie `liveupdate.add_mount()` dla tego samego mounta.
 2. Trzeba przechowywać archiwum online, na przykład w S3, skąd będzie można je pobrać.
 3. Mając nazwę pełnomocnika kolekcji, trzeba ustalić, które archiwum lub archiwa pobrać i jak je zamontować.
 4. Przy starcie próbujemy wczytać poziom.

@@ -23,7 +23,7 @@ Os exemplos abaixo usam as ações mostradas na imagem acima. Como em toda entra
 :::
 
 ## Botões digitais
-Botões digitais geram eventos pressionados, soltos e repetidos. Exemplo mostrando como detectar entrada para um botão digital (pressionado ou solto):
+Botões digitais geram eventos `pressionados`, `soltos` e `repetidos`. Exemplo mostrando como detectar entrada para um botão digital (pressionado ou solto):
 
 ```lua
 function on_input(self, action_id, action)
@@ -49,7 +49,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-Sticks analógicos também geram eventos pressionados e soltos quando movidos nas direções cardeais acima de um certo valor limite. Isso facilita usar também um stick analógico como entrada direcional digital:
+Sticks analógicos também geram eventos `pressionados` e `soltos` quando movidos nas direções cardeais acima de um certo valor limite. Isso facilita usar também um stick analógico como entrada direcional digital:
 
 ```lua
 function on_input(self, action_id, action)

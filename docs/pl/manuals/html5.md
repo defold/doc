@@ -95,7 +95,7 @@ Canvas nie powinien mieć żadnej ramki ani odstępów wewnętrznych. Jeśli je 
 :::
 
 W *game.project* można wyłączyć przycisk `Fullscreen` i link `Made with Defold`.
-Defold udostępnia ciemny i jasny motyw dla index.html. Jasny motyw jest ustawiony domyślnie, ale można go zmienić, modyfikując plik `Custom CSS`. W polu `Scale Mode` dostępne są także cztery predefiniowane tryby skalowania.
+Defold udostępnia ciemny i jasny motyw dla `index.html`. Jasny motyw jest ustawiony domyślnie, ale można go zmienić, modyfikując plik `Custom CSS`. W polu `Scale Mode` dostępne są także cztery predefiniowane tryby skalowania.
 
 ::: important
 Obliczenia dla wszystkich trybów skalowania uwzględniają bieżące DPI ekranu, jeśli włączysz opcję `High Dpi` w *game.project* (sekcja `Display`).
@@ -271,7 +271,7 @@ Można określić dodatkowe argumenty silnika podczas konfiguracji i wczytywania
     }
 ```
 
-Możesz też dodać `--config=foo1=bar1, --config=foo2=bar2` do pola argumentów silnika w sekcji HTML5 pliku *game.project*, a zostanie to wstrzyknięte do wygenerowanego pliku index.html.
+Możesz też dodać `--config=foo1=bar1, --config=foo2=bar2` do pola argumentów silnika w sekcji HTML5 pliku *game.project*, a zostanie to wstrzyknięte do wygenerowanego pliku `index.html`.
 
 W czasie działania wartości odczytasz w ten sposób:
 

@@ -9,7 +9,7 @@ Você pode criar itens de menu personalizados e hooks de ciclo de vida do editor
 
 ## Runtime dos scripts do editor
 
-Editor scripts rodam dentro de um editor, em uma VM Lua emulada pela VM Java. Todos os scripts compartilham o mesmo ambiente único, o que significa que podem interagir entre si. Você pode requerer módulos Lua, assim como com arquivos `.script`, mas a versão de Lua que roda dentro do editor é diferente, então certifique-se de que seu código compartilhado seja compatível. O editor usa Lua versão 5.2.x, mais especificamente o runtime [luaj](https://github.com/luaj/luaj), que atualmente é a única solução viável para rodar Lua na JVM. Além disso, há algumas restrições:
+Editor scripts rodam dentro de um editor, em uma VM Lua emulada pela VM Java. Todos os scripts compartilham o mesmo ambiente único, o que significa que podem interagir entre si. Você pode usar `require` para módulos Lua, assim como com arquivos `.script`, mas a versão de Lua que roda dentro do editor é diferente, então certifique-se de que seu código compartilhado seja compatível. O editor usa Lua versão 5.2.x, mais especificamente o runtime [luaj](https://github.com/luaj/luaj), que atualmente é a única solução viável para rodar Lua na JVM. Além disso, há algumas restrições:
 - não há pacote `debug`;
 - não há `os.execute`, embora forneçamos um `editor.execute()` semelhante;
 - não há `os.tmpname` nem `io.tmpfile` — atualmente, editor scripts só podem acessar arquivos dentro do diretório do projeto;

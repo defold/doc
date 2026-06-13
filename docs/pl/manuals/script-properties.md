@@ -78,7 +78,7 @@ function update(self, dt)
 end
 ```
 
-Właściwości skryptu zdefiniowane przez użytkownika można też odczytywać i modyfikować za pomocą funkcji get, set i animate, tak samo jak każdą inną właściwość:
+Właściwości skryptu zdefiniowane przez użytkownika można też odczytywać i modyfikować za pomocą funkcji `get`, `set` i `animate`, tak samo jak każdą inną właściwość:
 
 ```lua
 -- another.script

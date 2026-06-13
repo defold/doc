@@ -109,7 +109,7 @@ Minimum supported version of Chrome. Cannot be less than 32. For more informatio
 YAML field name: **`initialMemory`**
 Default value: **33554432**
 
-The size of memory that allocated for web application. If ALLOW_MEMORY_GROWTH=0, this is the total amount of memory that web application can use. for more information look [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Value in bytes. Note that value must be a multiple of WebAssembly page size (64KiB).
+The size of memory that allocated for web application. If `ALLOW_MEMORY_GROWTH=0`, this is the total amount of memory that web application can use. for more information look [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Value in bytes. Note that value must be a multiple of WebAssembly page size (64KiB).
 That options relates to `html5.heap_size` in *game.project* [link](https://defold.com/manuals/html5/#heap-size). Option that configured via application manifest is set during compilation and used as default value for `INITIAL_MEMORY` option. Value from *game.project* overrides value from application manifest and used in runtime.
 
 ## Stack size (wasm-web only)

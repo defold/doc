@@ -134,7 +134,7 @@ Tweeny ruchu pozwalają animować różne właściwości obiektu, w tym rozmiar,
 
 ## Defold — animacja właściwości
 
-Defold pracuje na obrazach rastrowych, a nie grafice wektorowej, więc nie ma odpowiednika tweeningu kształtu. Ma jednak bardzo mocny odpowiednik tweeningu ruchu w postaci [animacji właściwości](/ref/go/#go.animate). Wykonuje się ją ze skryptu za pomocą funkcji `go.animate()`. Funkcja go.animate() animuje właściwość, taką jak kolor, skala, rotacja albo pozycja, od wartości początkowej do docelowej, korzystając z jednej z wielu dostępnych funkcji easing, w tym także własnych. Tam, gdzie Flash wymagał własnej implementacji bardziej zaawansowanych funkcji easing, Defold ma w silniku [wiele funkcji easing](/manuals/animation/#easing).
+Defold pracuje na obrazach rastrowych, a nie grafice wektorowej, więc nie ma odpowiednika tweeningu kształtu. Ma jednak bardzo mocny odpowiednik tweeningu ruchu w postaci [animacji właściwości](/ref/go/#go.animate). Wykonuje się ją ze skryptu za pomocą funkcji `go.animate()`. Funkcja `go.animate()` animuje właściwość, taką jak kolor, skala, rotacja albo pozycja, od wartości początkowej do docelowej, korzystając z jednej z wielu dostępnych funkcji easing, w tym także własnych. Tam, gdzie Flash wymagał własnej implementacji bardziej zaawansowanych funkcji easing, Defold ma w silniku [wiele funkcji easing](/manuals/animation/#easing).
 
 Tam, gdzie Flash wykorzystuje klatki kluczowe grafiki na osi czasu, jedną z głównych metod animacji grafiki w Defoldzie jest animacja flipbook importowanych sekwencji obrazów. Animacje są organizowane w komponencie obiektu gry zwanym atlasem. W tym przykładzie atlas zawiera postać z sekwencją animacji o nazwie "run". Składa się ona z serii plików png:
 
@@ -228,7 +228,7 @@ Komponent obiektu kolizji ma następujące właściwości:
 
 ![collision object properties](images/flash/collision_object_properties.png)
 
-Użyto kształtu box, bo najlepiej pasował do grafiki pocisku. Inny kształt używany przy kolizjach 2D, sphere, zostanie użyty dla celu. Ustawienie typu na Kinematic oznacza, że rozstrzyganie kolizji wykonuje skrypt, a nie wbudowany silnik fizyki. Więcej informacji o pozostałych typach znajdziesz w [instrukcji fizyki](/manuals/physics). Właściwości group i mask określają odpowiednio, do jakiej grupy należy obiekt i z jakimi grupami ma być sprawdzany. Bieżąca konfiguracja oznacza, że "bullet" może kolidować tylko z "target". Wyobraź sobie, że konfigurację zmieniono tak jak poniżej:
+Użyto kształtu box, bo najlepiej pasował do grafiki pocisku. Inny kształt używany przy kolizjach 2D, sphere, zostanie użyty dla celu. Ustawienie typu na Kinematic oznacza, że rozstrzyganie kolizji wykonuje skrypt, a nie wbudowany silnik fizyki. Więcej informacji o pozostałych typach znajdziesz w [instrukcji fizyki](/manuals/physics). Właściwości *Group* i *Mask* określają odpowiednio, do jakiej grupy należy obiekt i z jakimi grupami ma być sprawdzany. Bieżąca konfiguracja oznacza, że "bullet" może kolidować tylko z "target". Wyobraź sobie, że konfigurację zmieniono tak jak poniżej:
 
 ![collision group/mask](images/flash/collision_groupmask.png)
 
@@ -273,7 +273,7 @@ on_reload
 
 Wszystkie wymienione wyżej funkcje callback są opcjonalne i można je usunąć, jeśli nie są używane. Informacje o konfiguracji wejścia znajdziesz w [instrukcji o wejściu](/manuals/input). Częstą pułapką jest praca z collection proxy - więcej informacji znajdziesz w [tej sekcji](/manuals/input/#input-dispatch-and-on_input) instrukcji o wejściu.
 
-Jak opisano w sekcji o wykrywaniu kolizji, zdarzenia kolizji są obsługiwane przez wysyłanie wiadomości do obiektów gry, których dotyczą. Ich odpowiednie komponenty skryptu otrzymują wiadomość w funkcji callback on_message.
+Jak opisano w sekcji o wykrywaniu kolizji, zdarzenia kolizji są obsługiwane przez wysyłanie wiadomości do obiektów gry, których dotyczą. Ich odpowiednie komponenty skryptu otrzymują wiadomość w funkcji callback `on_message`.
 
 ## Flash — symbole przycisków
 

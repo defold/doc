@@ -126,7 +126,7 @@ Jeśli w materiale masz wpisy dla tych atrybutów, domyślny typ semantyczny zos
 
 ### Ustawianie własnych danych atrybutów wierzchołka
 
-Podobnie jak w przypadku stałych shaderów zdefiniowanych przez użytkownika, możesz też aktualizować atrybuty wierzchołków w czasie działania, wywołując go.get(), go.set() i go.animate():
+Podobnie jak w przypadku stałych shaderów zdefiniowanych przez użytkownika, możesz też aktualizować atrybuty wierzchołków w czasie działania, wywołując `go.get`(), `go.set`() i `go.animate`():
 
 ![Własny atrybut materiału](images/materials/set_custom_attribute.png)
 

@@ -53,7 +53,7 @@ Se o componente GUI tiver sido adicionado a um objeto de jogo em algum lugar do 
 
 ## O namespace "gui"
 
-Scripts de GUI têm acesso ao namespace `gui` e a [todas as funções gui](/ref/gui). O namespace `go` não está disponível, então você precisará separar a lógica de objeto de jogo em componentes de script e comunicar-se entre a GUI e os scripts de objeto de jogo. Qualquer tentativa de usar funções `go` causará um erro:
+Scripts de GUI têm acesso ao namespace `gui` e a [todas as funções `gui`](/ref/gui). O namespace `go` não está disponível, então você precisará separar a lógica de objeto de jogo em componentes de script e comunicar-se entre a GUI e os scripts de objeto de jogo. Qualquer tentativa de usar funções `go` causará um erro:
 
 ```lua
 function init(self)
@@ -87,7 +87,7 @@ Nodes GUI podem ser manipulados por um script de GUI anexado ao componente. Cada
 
 ![passagem de mensagens](images/gui-script/node_id.png)
 
-O *Id* permite que um script obtenha uma referência ao node e o manipule com as [funções do namespace gui](/ref/gui):
+O *Id* permite que um script obtenha uma referência ao node e o manipule com as [funções do namespace `gui`](/ref/gui):
 
 ```lua
 -- estende a barra de vida em 10 unidades

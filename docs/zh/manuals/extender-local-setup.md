@@ -88,7 +88,7 @@ docker compose -p extender -f server/docker/docker-compose.yml --profile <profil
 * **metrics** - 运行VictoriaMetrics + Grafana作为指标后端和可视化工具
 有关`docker compose`参数的更多信息，请参见 https://docs.docker.com/reference/cli/docker/compose/。
 
-当docker compose启动后，您可以在编辑器的首选项中使用**http://localhost:9000**作为构建服务器地址，或者如果您使用Bob构建项目，则作为`--build-server`值。
+当docker compose启动后，您可以在编辑器的首选项中使用**http://localhost:9000**作为`构建服务器地址`，或者如果您使用Bob构建项目，则作为`--build-server`值。
 
 可以将多个配置文件传递给命令行。例如：
 ```sh

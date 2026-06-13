@@ -207,7 +207,7 @@ Kolekcja w Defold to w praktyce plik tekstowy ze statycznym opisem sceny. To **n
 
 #### Światy gry
 
-Sceny Unity domyślnie współdzielą ten sam globalny stan gry i tę samą symulację fizyki, czyli w praktyce ten sam *świat*. W Defold masz dwie opcje:
+Sceny Unity domyślnie współdzielą ten sam globalny stan gry i tę samą symulację fizyki, czyli w praktyce ten sam *świat* (*świat gry*). W Defold masz dwie opcje:
 1. Utworzyć obiekty gry z pojedynczego pliku obiektu gry przez `Factory` albo z pliku kolekcji przez `Collection Factory` w już utworzonym *świecie*, podobnie jak prefaby.
 2. Utworzyć w czasie działania oddzielny *świat* gry z własnymi obiektami gry, światem fizyki, operacjami silnika i przestrzenią adresową, korzystając z kolekcji wczytanej podczas bootstrapu albo z komponentu `Collection Proxy`.
 

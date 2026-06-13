@@ -5,7 +5,7 @@ brief: Este manual descreve como ignorar arquivos e pastas no Defold.
 
 # Ignorando arquivos
 
-É possível configurar o editor Defold e as ferramentas para ignorar arquivos e pastas em um projeto. Isso pode ser útil se o projeto contiver arquivos com extensões que entram em conflito com extensões usadas pelo Defold. Um exemplo são arquivos da linguagem Go com a extensão .go, que é a mesma que o editor usa para arquivos de objeto de jogo.
+É possível configurar o editor Defold e as ferramentas para ignorar arquivos e pastas em um projeto. Isso pode ser útil se o projeto contiver arquivos com extensões que entram em conflito com extensões usadas pelo Defold. Um exemplo são arquivos da linguagem Go com a extensão `.go`, que é a mesma que o editor usa para arquivos de objeto de jogo.
 
 ## O arquivo `.defignore`
 Os arquivos e pastas a excluir são definidos em um arquivo chamado `.defignore` na raiz do projeto. O arquivo deve listar arquivos e pastas a excluir, um por linha. Exemplo:

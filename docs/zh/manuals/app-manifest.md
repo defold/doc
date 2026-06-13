@@ -98,7 +98,7 @@ YAML 字段名称：**`minChromeVersion`**
 YAML 字段名称：**`initialMemory`**
 默认值：**33554432**
 
-为 Web 应用程序分配的内存大小。如果 ALLOW_MEMORY_GROWTH=0，这是 Web 应用程序可以使用的内存总量。更多信息请查看[链接](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory)。单位为字节。注意该值必须是 WebAssembly 页面大小（64KiB）的倍数。
+为 Web 应用程序分配的内存大小。如果 `ALLOW_MEMORY_GROWTH=0`，这是 Web 应用程序可以使用的内存总量。更多信息请查看[链接](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory)。单位为字节。注意该值必须是 WebAssembly 页面大小（64KiB）的倍数。
 该选项与 *game.project* 中的 `html5.heap_size` [相关](https://defold.com/manuals/html5/#heap-size)。通过应用程序清单配置的选项在编译期间设置，并用作 `INITIAL_MEMORY` 选项的默认值。*game.project* 中的值会覆盖应用程序清单中的值，并在运行时使用。
 
 ## 栈大小（仅适用于 wasm-web）

@@ -99,7 +99,7 @@ buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_F
 {% include shared/material-constants.md component='mesh' variable='tint' %}
 
 `tint`
-: O tint de cor da malha (`vector4`). O vector4 é usado para representar o tint com x, y, z e w correspondendo ao tint vermelho, verde, azul e alfa.
+: O tint de cor da malha (`vector4`). O `vector4` é usado para representar o tint com x, y, z e w correspondendo ao tint vermelho, verde, azul e alfa.
 
 ## Espaço local vs espaço de mundo dos vértices
 Se a configuração Vertex Space do material da malha estiver definida como Local Space, os dados serão fornecidos como estão para você no shader, e você terá que transformar vértices/normais como de costume na GPU.

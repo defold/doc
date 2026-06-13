@@ -23,7 +23,7 @@ The examples below use the actions shown in the image above. As with all input y
 :::
 
 ## Digital buttons
-Digital buttons generate pressed, released and repeated events. Example showing how to detect input for a digital button (either pressed or released):
+Digital buttons generate `pressed`, `released` and `repeated` events. Example showing how to detect input for a digital button (either pressed or released):
 
 ```lua
 function on_input(self, action_id, action)
@@ -49,7 +49,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-Analog sticks also generate pressed and released events when moved in the cardinal directions above a certain threshold value. This makes it easy to also use an analog stick as digital directional input:
+Analog sticks also generate `pressed` and `released` events when moved in the cardinal directions above a certain threshold value. This makes it easy to also use an analog stick as digital directional input:
 
 ```lua
 function on_input(self, action_id, action)

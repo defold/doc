@@ -23,7 +23,7 @@ Poniższe przykłady używają akcji pokazanych na obrazie powyżej. Tak jak w p
 :::
 
 ## Przyciski cyfrowe
-Przyciski cyfrowe generują zdarzenia pressed, released i repeated. Poniższy przykład pokazuje, jak wykryć wejście z przycisku cyfrowego (naciśnięcie albo zwolnienie):
+Przyciski cyfrowe generują zdarzenia `pressed`, `released` i `repeated`. Poniższy przykład pokazuje, jak wykryć wejście z przycisku cyfrowego (naciśnięcie albo zwolnienie):
 
 ```lua
 function on_input(self, action_id, action)
@@ -49,7 +49,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-Gałki analogowe generują też zdarzenia pressed i released, gdy są przesuwane w kierunkach kardynalnych powyżej określonej wartości progowej. Dzięki temu można też używać gałki analogowej jako cyfrowego wejścia kierunkowego:
+Gałki analogowe generują też zdarzenia `pressed` i `released`, gdy są przesuwane w kierunkach kardynalnych powyżej określonej wartości progowej. Dzięki temu można też używać gałki analogowej jako cyfrowego wejścia kierunkowego:
 
 ```lua
 function on_input(self, action_id, action)

@@ -126,7 +126,7 @@ If you have entries for these attributes in the material, the default semantic t
 
 ### Setting custom vertex attribute data
 
-Similar to user defined shader constants, you can also update vertex attributes in runtime by calling go.get, go.set and go.animate:
+Similar to user defined shader constants, you can also update vertex attributes in runtime by calling `go.get`, `go.set` and `go.animate`:
 
 ![Custom material attribute](images/materials/set_custom_attribute.png)
 

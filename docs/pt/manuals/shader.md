@@ -88,10 +88,10 @@ Coordenadas UV
 
   ![UV coordinates](images/shader/uv_map.png)
 
-  Um UV-map normalmente é gerado no programa de modelagem 3D e armazenado na malha. As coordenadas de textura de cada vértice são fornecidas ao vertex shader como um atributo. Uma variável varying é então usada para encontrar a coordenada UV de cada fragmento, interpolada a partir dos valores dos vértices.
+  Um UV-map normalmente é gerado no programa de modelagem 3D e armazenado na malha. As coordenadas de textura de cada vértice são fornecidas ao vertex shader como um atributo. Uma variável `varying` é então usada para encontrar a coordenada UV de cada fragmento, interpolada a partir dos valores dos vértices.
 
 Variáveis varying
-: Variáveis do tipo varying são usadas para passar informações entre a etapa de vértice e a etapa de fragmento.
+: Variáveis do tipo `varying` são usadas para passar informações entre a etapa de vértice e a etapa de fragmento.
 
   1. Uma variável varying é definida no vertex shader para cada vértice.
   2. Durante a rasterização, esse valor é interpolado para cada fragmento da primitiva renderizada. A distância do fragmento aos vértices da forma determina o valor interpolado.
@@ -99,7 +99,7 @@ Variáveis varying
 
   ![Varying interpolation](images/shader/varying_vertex.png)
 
-  Por exemplo, definir um varying para um valor de cor RGB `vec3` em cada canto de um triângulo interpolará as cores por toda a forma. De modo semelhante, definir coordenadas de consulta de mapa de textura (ou *coordenadas UV*) em cada vértice de um retângulo permite que o fragment shader consulte valores de cor da textura para toda a área da forma.
+  Por exemplo, definir um `varying` para um valor de cor RGB `vec3` em cada canto de um triângulo interpolará as cores por toda a forma. De modo semelhante, definir coordenadas de consulta de mapa de textura (ou *coordenadas UV*) em cada vértice de um retângulo permite que o fragment shader consulte valores de cor da textura para toda a área da forma.
 
   ![Varying interpolation](images/shader/varying.png)
 

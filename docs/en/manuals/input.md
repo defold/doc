@@ -73,7 +73,7 @@ Gamepad Triggers
 
 ### Accelerometer input
 
-In addition to the five different trigger types listed above Defold also supports accelerometer input in native Android and iOS applications. Check the Use Accelerometer box in the Input section of your *game.project* file.
+In addition to the five different trigger types listed above Defold also supports accelerometer input in native Android and iOS applications. Check the *Use Accelerometer* box in the *Input* section of your *game.project* file.
 
 ```lua
 function on_input(self, action_id, action)

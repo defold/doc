@@ -53,7 +53,7 @@ If the GUI component has been added to a game object somewhere in your game, the
 
 ## The "gui" namespace
 
-GUI scripts have access to the `gui` name space and [all the gui functions](/ref/gui). The `go` namespace is not available so you will need to separate game object logic into script components and communicate between the GUI and game object scripts. Any attempt to use the `go` functions will cause an error:
+GUI scripts have access to the `gui` name space and [all the `gui` functions](/ref/gui). The `go` namespace is not available so you will need to separate game object logic into script components and communicate between the GUI and game object scripts. Any attempt to use the `go` functions will cause an error:
 
 ```lua
 function init(self)
@@ -87,7 +87,7 @@ GUI nodes can be manipulated by a GUI script attached to the component. Each nod
 
 ![message passing](images/gui-script/node_id.png)
 
-The *Id* allows a script to get hold of a reference to the node and manipulate it with the [gui namespace functions](/ref/gui):
+The *Id* allows a script to get hold of a reference to the node and manipulate it with the [`gui` namespace functions](/ref/gui):
 
 ```lua
 -- extend the health bar by 10 units

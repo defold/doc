@@ -210,7 +210,7 @@ Texture (box and pie nodes)
 : A textura a desenhar no node. Esta é uma referência a uma imagem ou animação em um atlas ou tile source.
 
 Material (box, pie nodes, text and particlefx nodes)
-: O material a usar ao desenhar o node. Pode ser um material adicionado à seção Materials do outline ou deixado em branco para usar o material padrão atribuído ao componente GUI.
+: O material a usar ao desenhar o node. Pode ser um material adicionado à seção Materials do *Outline* ou deixado em branco para usar o material padrão atribuído ao componente GUI.
 
 Slice 9 (box nodes)
 : Defina para preservar o tamanho em pixels da textura do node ao redor das bordas quando o node for redimensionado. Consulte a [documentação de Box node](/manuals/gui-box) para detalhes.

@@ -5,7 +5,7 @@ brief: 本手册描述了如何在 Defold 中使用属性动画。
 
 # 属性动画
 
-所有数值属性（数字、vector3、vector4 和四元数）以及着色器常量都可以使用内置动画系统进行动画制作，使用函数 `go.animate()`。引擎将根据给定的播放模式和缓动函数自动为您对属性进行"tween"处理。您还可以指定自定义缓动函数。
+所有数值属性（`数字`、`vector3`、`vector4` 和四元数）以及着色器常量都可以使用内置动画系统进行动画制作，使用函数 `go.animate()`。引擎将根据给定的播放模式和缓动函数自动为您对属性进行"tween"处理。您还可以指定自定义缓动函数。
 
   ![Property animation](images/animation/property_animation.png)
   ![Bounce loop](images/animation/bounce.gif)

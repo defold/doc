@@ -99,10 +99,10 @@ buffer.set_metadata(buf, hash("AABB"), { 0, 0, 0, 1, 1, 1 }, buffer.VALUE_TYPE_F
 {% include shared/material-constants.md component='mesh' variable='tint' %}
 
 `tint`
-: Odcień koloru siatki (`vector4`). Wektor vector4 reprezentuje odcień, gdzie x, y, z i w odpowiadają odpowiednio kanałom czerwieni, zieleni, błękitu i alfa.
+: Odcień koloru siatki (`vector4`). Wektor `vector4` reprezentuje odcień, gdzie x, y, z i w odpowiadają odpowiednio kanałom czerwieni, zieleni, błękitu i alfa.
 
 ## Lokalna przestrzeń wierzchołków a przestrzeń świata
 
 Jeśli ustawienie Vertex Space materiału siatki ma wartość Local Space, dane zostaną przekazane do shadera bez zmian i musisz samodzielnie przekształcać wierzchołki oraz normalne na GPU, tak jak zwykle.
 
-Jeśli ustawienie Vertex Space materiału siatki ma wartość World Space, musisz albo dostarczyć domyślny strumień "position" i "normal", albo wybrać go z listy rozwijanej podczas edycji siatki. Dzięki temu silnik może przekształcić dane do przestrzeni świata i zgrupować je podczas renderowania razem z innymi obiektami.
+Jeśli ustawienie Vertex Space materiału siatki ma wartość World Space, musisz albo dostarczyć domyślny strumień `position` i `normal`, albo wybrać go z listy rozwijanej podczas edycji siatki. Dzięki temu silnik może przekształcić dane do przestrzeni świata i zgrupować je podczas renderowania razem z innymi obiektami.

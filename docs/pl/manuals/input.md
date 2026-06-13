@@ -73,7 +73,7 @@ Wyzwalacze gamepada (Gamepad Triggers)
 
 ### Wejście z akcelerometru
 
-Oprócz pięciu rodzajów wyzwalaczy wymienionych powyżej Defold obsługuje także wejście z akcelerometru w natywnych aplikacjach na Android i iOS. Zaznacz pole Use Accelerometer w sekcji Input pliku *game.project*.
+Oprócz pięciu rodzajów wyzwalaczy wymienionych powyżej Defold obsługuje także wejście z akcelerometru w natywnych aplikacjach na Android i iOS. Zaznacz pole *Use Accelerometer* w sekcji *Input* pliku *game.project*.
 
 ```lua
 function on_input(self, action_id, action)

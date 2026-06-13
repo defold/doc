@@ -57,14 +57,14 @@ Orthographic Mode
 
 ## 使用摄像机
 
-所有摄像机都会在帧期间自动启用和更新，并且lua `camera`模块在所有脚本上下文中都可用。自Defold 1.8.1起，不再需要通过向摄像机组件发送`acquire_camera_focus`消息来显式启用摄像机。旧的获取和释放消息仍然可用，但建议改为使用"enable"和"disable"消息，就像您希望启用或禁用的任何其他组件一样：
+所有摄像机都会在帧期间自动启用和更新，并且lua `camera`模块在所有脚本上下文中都可用。自Defold 1.8.1起，不再需要通过向摄像机组件发送`acquire_camera_focus`消息来显式启用摄像机。旧的获取和释放消息仍然可用，但建议改为使用`enable`和`disable`消息，就像您希望启用或禁用的任何其他组件一样：
 
 ```lua
 msg.post("#camera", "disable")
 msg.post("#camera", "enable")
 ```
 
-要列出所有当前可用的摄像机，您可以使用camera.get_cameras()：
+要列出所有当前可用的摄像机，您可以使用`camera.get_cameras()`：
 
 ```lua
 -- 注意：渲染调用仅在渲染脚本中可用。
@@ -110,7 +110,7 @@ camera.get_fov("main:/go#camera")
 render.set_camera("main:/go#camera")
 ```
 
-每帧，当前具有摄像机焦点的摄像机组件将向"@render"套接字发送`set_view_projection`消息：
+每帧，当前具有摄像机焦点的摄像机组件将向`@render`套接字发送`set_view_projection`消息：
 
 ```lua
 -- builtins/render/default.render_script

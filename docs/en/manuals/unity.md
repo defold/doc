@@ -205,7 +205,7 @@ A Collection in Defold is essentially a text file with a static scene descriptio
 
 #### Game Worlds
 
-Unity scenes share by default the same global game state and physics simulation, effectively the same *world*. In Defold, you have two options:
+Unity scenes share by default the same global game state and physics simulation, effectively the same *world* (*game world*). In Defold, you have two options:
 1. Instantiate game objects from a single game object file via a `Factory` or a collection file via a `Collection Factory` to a given, instantiated already *world*, like prefabs.
 2. Create a separate game *world* at runtime, with its own game objects, physics world, engine operations and addressing namespace via a collection loaded at bootstrap or via a `Collection Proxy` component.
 

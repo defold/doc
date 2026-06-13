@@ -88,10 +88,10 @@ UV coordinates
 
   ![UV coordinates](images/shader/uv_map.png)
 
-  A UV-map is typically generated in the 3D modeling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A varying variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
+  A UV-map is typically generated in the 3D modeling program and stored in the mesh. The texture coordinates for each vertex are provided to the vertex shader as an attribute. A `varying` variable is then used to find the UV coordinate for each fragment as interpolated from the vertex values.
 
 Varying variables
-: Varying types of variables are used to pass information between the vertex stage and the fragment stage.
+: `Varying` types of variables are used to pass information between the vertex stage and the fragment stage.
 
   1. A varying variable is set in the vertex shader for each vertex.
   2. During rasterization this value is interpolated for each fragment on the primitive being rendered. The distance of the fragment to the shape's vertices dictates the interpolated value.
@@ -99,7 +99,7 @@ Varying variables
 
   ![Varying interpolation](images/shader/varying_vertex.png)
 
-  For instance, setting a varying to a `vec3` RGB color value on each corners of a triangle will interpolate the colors across the whole shape. Similarly, setting texture map lookup coordinates (or *UV-coordinates*) on each vertex in a rectangle allows the fragment shader to look up texture color values for the whole area of the shape.
+  For instance, setting a `varying` to a `vec3` RGB color value on each corners of a triangle will interpolate the colors across the whole shape. Similarly, setting texture map lookup coordinates (or *UV-coordinates*) on each vertex in a rectangle allows the fragment shader to look up texture color values for the whole area of the shape.
 
   ![Varying interpolation](images/shader/varying.png)
 

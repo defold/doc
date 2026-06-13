@@ -86,7 +86,7 @@ It is important that you match the correct engine with the callstack, otherwise 
 * HTML5 - the `dmengine.js.symbols` file in `build/wasm-web` contains the debug symbols for HTML5 builds.
 
 ::: important
-It is very important that your save the debug symbols somewhere for each public release you make of your game and that you know which release the debug symbols belong to. You will not be able to debug any native crashes if you do not have the debug symbols! Also, you should keep an unstripped version of the engine. This allows for the best symbolication of the callstack.
+It is very important that your save the debug symbols somewhere for each public release you make of your game and that you know which release the debug symbols belong to. You will not be able to debug any native crashes if you do not have the debug symbols! Also, you should keep an `unstripped` version of the engine. This allows for the best symbolication of the callstack.
 :::
 
 

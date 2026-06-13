@@ -126,7 +126,7 @@ Value
 
 ### 设置自定义顶点属性数据
 
-与用户定义的着色器常量类似，您也可以通过调用 go.get、go.set 和 go.animate 在运行时更新顶点属性：
+与用户定义的着色器常量类似，您也可以通过调用 `go.get`、`go.set` 和 `go.animate` 在运行时更新顶点属性：
 
 ![Custom material attribute](images/materials/set_custom_attribute.png)
 

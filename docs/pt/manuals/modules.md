@@ -9,7 +9,7 @@ Módulos Lua permitem estruturar seu projeto e criar código de biblioteca reuti
 
 ## Requisitando arquivos Lua
 
-Código Lua armazenado em arquivos com extensão ".lua" em algum lugar da estrutura do seu projeto pode ser requisitado em arquivos de script e scripts de GUI. Para criar um novo arquivo de módulo Lua, clique com o botão direito na pasta onde deseja criá-lo no painel *Assets* e selecione <kbd>New... ▸ Lua Module</kbd>. Dê um nome único ao arquivo e pressione <kbd>Ok</kbd>:
+Código Lua armazenado em arquivos com extensão ".lua" em algum lugar da estrutura do seu projeto pode ser requisitado com `require` em arquivos de script e scripts de GUI. Para criar um novo arquivo de módulo Lua, clique com o botão direito na pasta onde deseja criá-lo no painel *Assets* e selecione <kbd>New... ▸ Lua Module</kbd>. Dê um nome único ao arquivo e pressione <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
@@ -31,7 +31,7 @@ function direction_animation(direction, char)
 end
 ```
 
-Então qualquer script pode requisitar esse arquivo e usar a função:
+Então qualquer script pode requisitar esse arquivo com `require` e usar a função:
 
 ```lua
 require "main.anim"
@@ -51,7 +51,7 @@ end
 
 A função `require` carrega o módulo informado. Ela começa procurando na tabela `package.loaded` para determinar se o módulo já foi carregado. Se tiver sido, `require` retorna o valor armazenado em `package.loaded[module_name]`. Caso contrário, ela carrega e avalia o arquivo por meio de um carregador.
 
-A sintaxe da string de nome de arquivo fornecida a `require` é um pouco especial. Lua substitui caracteres '.' na string do nome de arquivo por separadores de caminho: '/' no macOS e Linux e '\\' no Windows.
+A sintaxe da string de nome de arquivo fornecida a `require` é um pouco especial. Lua substitui caracteres `.` na string do nome de arquivo por separadores de caminho: `/` no macOS e Linux e `\\` no Windows.
 
 Observe que normalmente é uma má ideia usar o escopo global para armazenar estado e definir funções como fizemos acima. Você corre o risco de colisões de nomes, de expor o estado do módulo ou de introduzir acoplamento entre os usuários do módulo.
 
@@ -101,7 +101,7 @@ Se você fizer hot reload do arquivo do módulo, o código é executado novament
 
 Primeiro, a tabela criada em "module.lua" é criada no escopo local e uma _referência_ a essa tabela é retornada ao usuário. Recarregar "module.lua" avalia o código do módulo novamente, mas isso cria uma nova tabela no escopo local em vez de atualizar a tabela à qual `m` se refere.
 
-Segundo, Lua coloca arquivos requisitados em cache. Na primeira vez que um arquivo é requisitado, ele é colocado na tabela [`package.loaded`](/ref/package/#package.loaded) para que possa ser lido mais rapidamente em chamadas `require` posteriores. Você pode forçar um arquivo a ser relido do disco definindo a entrada do arquivo como nil: `package.loaded["my_module"] = nil`.
+Segundo, Lua coloca arquivos carregados com `require` em cache. Na primeira vez que um arquivo é requisitado, ele é colocado na tabela [`package.loaded`](/ref/package/#package.loaded) para que possa ser lido mais rapidamente em chamadas `require` posteriores. Você pode forçar um arquivo a ser relido do disco definindo a entrada do arquivo como `nil`: `package.loaded["my_module"] = nil`.
 
 Para fazer hot reload corretamente de um módulo, você precisa recarregar o módulo, redefinir o cache e então recarregar todos os arquivos que usam o módulo. Isso está longe do ideal.
 

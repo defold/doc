@@ -84,13 +84,13 @@ Locked rotation
 : 设置此属性完全禁用碰撞对象的旋转，无论施加什么力。
 
 Bullet
-: 设置此属性启用碰撞对象与其他动态碰撞对象之间的连续碰撞检测（CCD）。如果类型未设置为 `Dynamic`，则忽略 Bullet 属性。
+: 设置此属性启用碰撞对象与其他动态碰撞对象之间的连续碰撞检测（CCD）。如果*类型*未设置为 `Dynamic`，则忽略 *Bullet* 属性。
 
 Group
 : 对象应属于的碰撞组的名称。您可以有 16 个不同的组，并根据您的游戏需要为它们命名。例如"players"、"bullets"、"enemies"和"world"。如果 *Collision Shape* 设置为瓦片地图，则不使用此字段，但组名取自瓦片源。[了解有关碰撞组的更多信息](/manuals/physics-groups)。
 
 Mask
-: 此对象应该与之碰撞的其他 _组_。您可以命名一个组或在逗号分隔的列表中指定多个组。如果将 Mask 字段留空，对象将不会与任何东西碰撞。[了解有关碰撞组的更多信息](/manuals/physics-groups)。
+: 此对象应该与之碰撞的其他 _组_。您可以命名一个组或在逗号分隔的列表中指定多个组。如果将 *Mask* 字段留空，对象将不会与任何东西碰撞。[了解有关碰撞组的更多信息](/manuals/physics-groups)。
 
 Generate Collision Events
 : 如果启用，将允许此对象发送碰撞事件

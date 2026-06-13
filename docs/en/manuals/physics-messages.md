@@ -54,7 +54,7 @@ The `"collision_response"` message is sent when one of the colliding objects is 
 `own_group`
 : the collision group of the collision object (`hash`)
 
-The collision_response message is only adequate to resolve collisions where you don't need any details on the actual intersection of the objects, for example if you want to detect if a bullet hits an enemy. There is only one of these messages sent for any colliding pair of objects each frame.
+The `collision_response` message is only adequate to resolve collisions where you don't need any details on the actual intersection of the objects, for example if you want to detect if a bullet hits an enemy. There is only one of these messages sent for any colliding pair of objects each frame.
 
 ```Lua
 function on_message(self, message_id, message, sender)
