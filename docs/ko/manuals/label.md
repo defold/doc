@@ -1,97 +1,131 @@
 ---
-title: Defold manual
+title: Defold의 Label 텍스트 컴포넌트
+brief: 이 매뉴얼은 게임 월드의 게임 오브젝트에서 텍스트를 사용하기 위해 Label 컴포넌트를 사용하는 방법을 설명합니다.
 ---
 
 # Label
-게임 오브젝트에 텍스트로 된 컨텐츠를 부착하는 것은 꽤 일반적입니다.  Defold의 GUI 지원 시스템이 있긴 하지만, 정보가 게임 오브젝트에 붙어 따라다니게 만들기는 귀찮은 일입니다. **Label** 컴포넌트는 게임 오브젝트에 텍스트 컨텐츠를 첨부하여 이를 쉽게 구현해 줍니다.
 
-## Creating a label
-라벨 컴포넌트는 게임 공간의 텍스트 조각을 화면에 렌더링합니다. 기본적으로는 스프라이트나 타일 그래픽과 함께 그려지고 정렬됩니다. 이 컴포넌트에는 텍스트를 렌더링 하는 방식을 제어하기 위한 여러 속성들이 있습니다.
+*Label* 컴포넌트는 게임 공간의 텍스트를 화면에 렌더링합니다. 기본적으로 모든 스프라이트 및 타일 그래픽과 함께 정렬되고 그려집니다. 이 컴포넌트에는 텍스트 렌더링 방식을 제어하는 여러 프로퍼티가 있습니다. Defold의 GUI도 텍스트를 지원하지만 GUI 요소를 게임 월드에 배치하는 일은 까다로울 수 있습니다. 라벨은 이 작업을 더 쉽게 해 줍니다.
 
-라벨 컴포넌트를 만드는 방법은 아래와 같습니다.
+## Label 만들기
 
-* 게임 오브젝트에 마우스 오른쪽 버튼을 누르고 **Add Component**를 선택한 후 **Label**을 선택하고 **OK**를 누릅니다. 그러면 해당 게임 오브젝트의 내장 컴포넌트로 라벨이 추가됩니다.
+Label 컴포넌트를 만들려면 게임 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 <kbd>Add Component ▸ Label</kbd>을 선택합니다.
+
 ![Add label](images/label/add_label.png)
 
-* 만약 같은 템플릿으로 부터 다수의 라벨을 인스턴스화 하고 싶다면 새 **Label File**을 만들고 (**Assets pane** 창의 한 폴더에서 오른쪽 클릭하고 **New ▸ Label File** 선택) 게임 오브젝트에 오른쪽 클릭해서 **Add Component From File**을 선택한 후 아까 만든 라벨 파일을 선택하는 방식으로 여러 번 쓸 수 있습니다.
+(같은 템플릿에서 여러 라벨을 인스턴스화하려면 대신 새 Label 컴포넌트 파일을 만들 수 있습니다. *Assets* 브라우저의 폴더를 <kbd>오른쪽 클릭</kbd>하고 <kbd>New... ▸ Label</kbd>을 선택한 다음, 이 파일을 원하는 게임 오브젝트에 컴포넌트로 추가합니다.)
 
-라벨 컴포넌트는 런타임 중에 혹은 개발 중에 변경 가능한 특별한 속성들을 가지고 있습니다.
+![New label](images/label/label.png)
 
-![New Label component](images/label/label_component.png)
+*Font* 프로퍼티를 사용하려는 폰트로 설정하고, *Material* 프로퍼티는 폰트 타입과 맞는 메터리얼로 설정해야 합니다.
 
-#### Size
-텍스트 경계 상자(text bounding box)의 크기입니다. 아래 있는 **Line Break** 속성을 설정하면 이 값을 기준으로 텍스트가 줄바꿈 됩니다.
-#### Text
-이 속성에 입력된 텍스트가 화면에 표시됩니다.
-#### Color
-텍스트의 색상
-#### Alpha
-텍스트의 알파값
-#### Pivot
-텍스트의 피벗(pivot). 텍스트 정렬(text alignment)을 변경하려면 사용하세요. (아래 참고)
-#### Line Break
-이 속성을 설정하면 텍스트가 여러 줄로 나뉘어 질 수 있습니다. 컴포넌트의 넓이에 따라 텍스트가 랩(wrap) 될 것인지가 결정되며 텍스트를 줄바꿈 하기 위해선 공백문자(space)가 필요합니다.
-#### Leading
-행간(line spacing)의 스케일 숫자. 기본값은 1이며, 0 값으로 셋팅하면 행 사이의 공간도 없으므로 한 줄로 표시됩니다.
-#### Tracking
-자간(letter spacing)의 스케일 숫자. 기본값은 0
-#### Outline
-외곽선의 색상
-#### Outline Alpha
-0.0~1.0값 사이의 외곽선 알파채널 값
-#### Shadow
-그림자의 색상
-#### Shadow Alpha
-0.0~1.0값 사이의 그림자 알파채널 값
-#### Font
-라벨에 사용할 폰트 리소스
+![Font and material](images/label/font_material.png)
 
-> 기본 메터리얼은 성능상의 이유로 그림자(shadow) 렌더링이 비활성화 되어 있습니다.
+## Label 프로퍼티
 
-## Alignment
-pivot 속성을 설정하여 텍스트의 정렬 방식을 조정할 수 있습니다.
+*Id*, *Position*, *Rotation*, *Scale* 프로퍼티 외에도 다음 컴포넌트별 프로퍼티가 있습니다.
 
-#### Center
-pivot을 "Center", "North", "South" 로 설정하면, 텍스트가 중앙 정렬됩니다.
-#### Left
-pivot을 "West" 로 설정하면, 텍스트가 왼쪽 정렬됩니다.
-#### Right
-pivot을 "East" 로 설정하면, 텍스트가 오른쪽 정렬됩니다.
+*Text*
+: 라벨의 텍스트 컨텐츠입니다.
+
+*Size*
+: 텍스트 경계 상자의 크기입니다. *Line Break*가 설정되어 있으면 너비는 텍스트가 어느 지점에서 줄바꿈될지를 지정합니다.
+
+*Color*
+: 텍스트의 색상입니다.
+
+*Outline*
+: 외곽선의 색상입니다.
+
+*Shadow*
+: 그림자의 색상입니다.
+
+::: sidenote
+기본 메터리얼은 성능상의 이유로 그림자 렌더링이 비활성화되어 있습니다.
+:::
+
+*Leading*
+: 줄 간격에 대한 스케일 값입니다. 값이 0이면 줄 간격이 없습니다. 기본값은 1입니다.
+
+*Tracking*
+: 글자 간격에 대한 스케일 값입니다. 기본값은 0입니다.
+
+*Pivot*
+: 텍스트의 피벗입니다. 텍스트 정렬을 변경할 때 사용합니다(아래 참고).
+
+*Blend Mode*
+: 라벨을 렌더링할 때 사용할 블렌드 모드입니다.
+
+*Line Break*
+: 텍스트 정렬은 피벗 설정을 따르며, 이 프로퍼티를 설정하면 텍스트가 여러 줄로 흐를 수 있습니다. 컴포넌트의 너비가 텍스트가 줄바꿈되는 위치를 결정합니다. 줄바꿈이 일어나려면 텍스트에 공백이 있어야 합니다.
+
+*Font*
+: 이 라벨에 사용할 폰트 리소스입니다.
+
+*Material*
+: 이 라벨을 렌더링할 때 사용할 메터리얼입니다. 사용하는 폰트 타입(bitmap, distance field 또는 BMFont)에 맞게 만들어진 메터리얼을 선택해야 합니다.
+
+### Blend modes
+:[blend-modes](../shared/blend-modes.md)
+
+### 피벗과 정렬
+
+*Pivot* 프로퍼티를 설정하여 텍스트의 정렬 모드를 변경할 수 있습니다.
+
+*Center*
+: 피벗이 `Center`, `North`, `South`로 설정되어 있으면 텍스트가 중앙 정렬됩니다.
+
+*Left*
+: 피벗이 `West` 모드 중 하나로 설정되어 있으면 텍스트가 왼쪽 정렬됩니다.
+
+*Right*
+: 피벗이 `East` 모드 중 하나로 설정되어 있으면 텍스트가 오른쪽 정렬됩니다.
 
 ![Text alignment](images/label/align.png)
 
-## Runtime manipulation
-런타임시에 라벨 텍스트를 읽고 설정할 수 있을 뿐 아니라 아래와 같은 다양한 속성을 다룰 수도 있습니다.
+## 런타임 조작
 
-#### color
-``vector4`` 라벨의 색상
-#### outline
-``vector4`` 라벨의 외곽선 색상
-#### scale
-``number | vector3`` 라벨의 스케일, 규격화된 스케일이라면 ``number`` 타입, 각 xyz 축에 따라 개별적으로 설정한다면 ``vector3`` 타입
-#### shadow
-``vector4`` 라벨의 그림자 색상
-#### size
-``vector3`` 라벨의 크기
+런타임에 라벨 텍스트를 가져오고 설정할 수 있으며, 그 밖의 여러 프로퍼티도 조작할 수 있습니다.
+
+`color`
+: 라벨 색상(`vector4`)
+
+`outline`
+: 라벨 외곽선 색상(`vector4`)
+
+`shadow`
+: 라벨 그림자 색상(`vector4`)
+
+`scale`
+: 라벨 스케일입니다. 균일 스케일에는 `number`를, 각 축을 개별적으로 스케일하려면 `vector3`를 사용합니다.
+
+`size`
+: 라벨 크기(`vector3`)
 
 ```lua
 function init(self)
-    -- 현재 스크립트와 동일한 오브젝트에 있는 "my_label" 컴포넌트의 텍스트를 설정함
+    -- 이 스크립트와 같은 게임 오브젝트에 있는
+    -- "my_label" 컴포넌트의 텍스트를 설정합니다.
     label.set_text("#my_label", "New text")
 end
 ```
 
 ```lua
 function init(self)
-    -- 현재 스크립트와 동일한 게임 오브젝트에 있는 "my_label" 컴포넌트의 색상을 grey로 설정함...
+    -- 이 스크립트와 같은 게임 오브젝트에 있는 "my_label" 컴포넌트의
+    -- 색상을 설정합니다. 색상은 vector4에 저장된 RGBA 값입니다.
     local grey = vmath.vector4(0.5, 0.5, 0.5, 1.0)
     go.set("#my_label", "color", grey)
 
-    -- ...그리고 알파값에 0을 줘서 외곽선 삭제...
+    -- ...그리고 alpha를 0으로 설정하여 외곽선을 제거합니다...
     go.set("#my_label", "outline.w", 0)
 
-    -- ...그리고 x축으로 크기를 2배로 늘림...
+    -- ...그리고 x축 방향으로 2배 스케일합니다.
     local scale_x = go.get("#my_label", "scale.x")
     go.set("#my_label", "scale.x", scale_x * 2)
 end
 ```
+
+## 프로젝트 설정
+
+*game.project* 파일에는 라벨과 관련된 몇 가지 [프로젝트 설정](/manuals/project-settings#label)이 있습니다.

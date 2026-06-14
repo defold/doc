@@ -1,92 +1,268 @@
 ---
-title: Defold manual
+title: Defold의 텍스쳐 프로파일
+brief:  Defold는 자동 텍스쳐 처리와 이미지 데이터 압축을 지원합니다. 이 매뉴얼은 사용 가능한 기능을 설명합니다.
 ---
 
-# Texture profiles
-Defold는 자동 텍스쳐 프로세싱과 이미지 데이터 압축(**Atlas, Tile sources, Cubemaps** 그리고 모델과 GUI 등에서 사용되는 stand-alone 텍스쳐에서)을 지원합니다. 이 메뉴얼은 사용 가능한 기능에 대해 설명합니다.
+# 텍스쳐 프로파일
 
-압축은 메모리 공간을 줄이고 그래픽 하드웨어는 압축된 텍스쳐를 관리할 수 있습니다. 또한 압축은 이미지 리소스와 번들 사이즈를 줄이기도 합니다. PNG 파일 압축은 더 작은 파일로 생성할 수 있지만, PNG 파일을 메모리로 읽어올 경우 압축을 풀어야할 필요가 있습니다.
+Defold는 이미지 데이터(*Atlas*, *Tile sources*, *Cubemaps*, 그리고 모델, GUI 등에 사용되는 standalone 텍스쳐)의 자동 텍스쳐 처리와 압축을 지원합니다.
 
-텍스처 처리는 특정 텍스쳐 프로파일을 통해 구성됩니다. 이 파일에서 프로파일을 생성해서 어떤 압축 포멧으로 특정 플랫폼 번들 생성시에 사용할지 나타냅니다. 그런 다음 프로파일이 파일 경로 패턴과 일치하는 파일들을 묶어서 프로젝트에서 어떤 파일이 어떻게 압축되는지를 정밀하게 제어할 수 있습니다.
+압축에는 소프트웨어 이미지 압축과 하드웨어 텍스쳐 압축, 두 가지 유형이 있습니다.
 
-사용 가능한 모든 텍스쳐 압축은 손실이 많기 때문에, 텍스쳐 데이터에 이상현상이 생길 수 있습니다. 이러한 이상현상은 원본 메터리얼이 어떻게 보이는지, 어떤 압축 방법을 사용했는지에 따라 크게 좌우됩니다. 원본 메터리얼을 테스트 해보고 최상의 결과를 위해 실험을 해보는 것이 좋습니다. 혹은 구글로 검색하는 것도 좋습니다.
+1. 소프트웨어 압축(PNG, JPEG 등)은 이미지 리소스의 저장 크기를 줄입니다. 따라서 최종 번들 크기가 더 작아집니다. 하지만 이미지 파일을 메모리로 읽을 때는 압축을 해제해야 하므로, 디스크에서는 작은 이미지라도 메모리 사용량은 클 수 있습니다.
 
-> 압축은 자원 집중적이고 시간 소모적인 작업입니다. 그래서 압축할 텍스쳐 이미지들의 수량과 텍스쳐 포멧에 따라 빌드 시간이 아주 오래 걸릴 수도 있습니다.
+2. 하드웨어 텍스쳐 압축도 이미지 리소스의 저장 크기를 줄입니다. 하지만 소프트웨어 압축과 달리 텍스쳐의 메모리 사용량도 줄입니다. 그래픽 하드웨어가 압축을 먼저 해제하지 않고도 압축된 텍스쳐를 직접 관리할 수 있기 때문입니다.
 
-## Texture profiles
-각 프로젝트는 특정한 **.texture_profiles** 파일을 포함하고 있는데 이는 텍스쳐를 압축할 때 사용되는 구성을 포함하고 있습니다. 기본적으로 이 파일은 "builtins/graphics/default.texture_profiles" 경로에 있으며 모든 텍스쳐 리소스와 모든 플랫폼의 비압축 데이터를 남기는 프로파일과 일치하는 구성을 가집니다.
+텍스쳐 처리는 특정 텍스쳐 프로파일을 통해 구성됩니다. 이 파일에서 특정 플랫폼용 번들을 만들 때 사용할 압축 포멧과 유형을 나타내는 _profiles_를 생성합니다. 그런 다음 _Profiles_를 일치하는 파일 _paths patterns_에 연결하여, 프로젝트의 어떤 파일을 어떻게 압축할지 세밀하게 제어할 수 있습니다.
+
+사용 가능한 모든 하드웨어 텍스쳐 압축은 손실 압축이므로 텍스쳐 데이터에 아티팩트가 생깁니다. 이러한 아티팩트는 원본 자료의 모양과 사용한 압축 방식에 크게 좌우됩니다. 최상의 결과를 얻으려면 원본 자료를 테스트하고 실험해 보아야 합니다. 이 부분에서는 Google 검색도 도움이 됩니다.
+
+번들 아카이브의 최종 텍스쳐 데이터(압축된 데이터 또는 원시 데이터)에 어떤 소프트웨어 이미지 압축을 적용할지 선택할 수 있습니다. Defold는 [Basis Universal](https://github.com/BinomialLLC/basis_universal) 및 [ASTC](https://www.khronos.org/opengl/wiki/ASTC_Texture_Compression) 압축 포멧을 지원합니다.
+
+::: sidenote
+압축은 리소스를 많이 사용하고 시간이 오래 걸리는 작업이며, 압축할 텍스쳐 이미지의 수와 선택한 텍스쳐 포멧 및 소프트웨어 압축 유형에 따라 빌드 시간이 _매우_ 길어질 수 있습니다.
+:::
+
+### Basis Universal
+
+Basis Universal(줄여서 BasisU)은 이미지를 중간 포멧으로 압축하고, 런타임에 현재 장치의 GPU에 적합한 하드웨어 포멧으로 트랜스코딩합니다. Basis Universal 포멧은 고품질이지만 손실 포멧입니다.
+모든 이미지는 게임 아카이브에 저장될 때 파일 크기를 더 줄이기 위해 LZ4로도 압축됩니다.
+
+### ASTC
+
+ASTC는 ARM이 개발하고 Khronos Group이 표준화한 유연하고 효율적인 텍스쳐 압축 포멧입니다. 다양한 블록 크기와 비트레이트를 제공하므로 개발자가 이미지 품질과 메모리 사용량의 균형을 효과적으로 맞출 수 있습니다. ASTC는 4×4부터 12×12 텍셀까지 다양한 블록 크기를 지원하며, 이는 텍셀당 8비트부터 텍셀당 0.89비트까지의 비트레이트에 해당합니다. 이러한 유연성 덕분에 텍스쳐 품질과 저장 요구사항 사이의 절충점을 세밀하게 제어할 수 있습니다.
+
+ASTC는 4×4부터 12×12 텍셀까지 다양한 블록 크기를 지원하며, 이는 텍셀당 8비트부터 텍셀당 0.89비트까지의 비트레이트에 해당합니다. 이러한 유연성 덕분에 텍스쳐 품질과 저장 요구사항 사이의 절충점을 세밀하게 제어할 수 있습니다. 다음 표는 지원되는 블록 크기와 해당 비트레이트를 보여줍니다.
+
+| 블록 크기(width x height) | 픽셀당 비트 수 |
+| --------------------------- | -------------- |
+| 4x4                         | 8.00           |
+| 5x4                         | 6.40           |
+| 5x5                         | 5.12           |
+| 6x5                         | 4.27           |
+| 6x6                         | 3.56           |
+| 8x5                         | 3.20           |
+| 8x6                         | 2.67           |
+| 10x5                        | 2.56           |
+| 10x6                        | 2.13           |
+| 8x8                         | 2.00           |
+| 10x8                        | 1.60           |
+| 10x10                       | 1.28           |
+| 12x10                       | 1.07           |
+| 12x12                       | 0.89           |
+
+
+#### 지원 장치
+
+ASTC는 좋은 결과를 제공하지만 모든 그래픽 카드에서 지원되지는 않습니다. 다음은 벤더별 지원 장치의 간단한 목록입니다.
+
+| GPU 벤더          | 지원                                                                  |
+| ------------------ | --------------------------------------------------------------------- |
+| ARM (Mali)         | OpenGL ES 3.2 또는 Vulkan을 지원하는 모든 ARM Mali GPU는 ASTC를 지원합니다. |
+| Qualcomm (Adreno)  | OpenGL ES 3.2 또는 Vulkan을 지원하는 Adreno GPU는 ASTC를 지원합니다.          |
+| Apple              | A8 칩 이후의 Apple GPU는 ASTC를 지원합니다.                            |
+| NVIDIA             | ASTC 지원은 주로 모바일 GPU(예: Tegra 기반 칩)를 대상으로 합니다.     |
+| AMD (Radeon)       | Vulkan을 지원하는 AMD GPU는 일반적으로 소프트웨어를 통해 ASTC를 지원합니다. |
+| Intel (Integrated) | 최신 Intel GPU에서는 소프트웨어를 통해 ASTC가 지원됩니다.                  |
+
+## 텍스쳐 프로파일
+
+각 프로젝트에는 텍스쳐를 압축할 때 사용할 구성을 담은 특정 *.texture_profiles* 파일이 포함됩니다. 기본적으로 이 파일은 *builtins/graphics/default.texture_profiles*이며, 하드웨어 텍스쳐 압축 없이 RGBA를 사용하고 기본 ZLib 파일 압축을 사용하는 프로파일에 모든 텍스쳐 리소스를 일치시키는 구성을 가지고 있습니다.
 
 텍스쳐 압축을 추가하려면:
 
-1. **File > New > Other…** 메뉴를 선택하고 "Texture Profiles File"를 선택해서 새 텍스쳐 프로파일 파일을 생성함(또는 "default.texture_profiles"를 "builtins"의 외부로 복사함)
-2. *game.project*의 **texture_profiles** 항목을 새 파일을 지정하도록 수정
-3. **.texture_profiles** 파일을 열어서 원하는 대로 수정함
+- <kbd>File ▸ New...</kbd>를 선택하고 *Texture Profiles*를 선택하여 새 텍스쳐 프로파일 파일을 만듭니다. (또는 *default.texture_profiles*를 *builtins* 외부 위치로 복사합니다)
+- 새 파일의 이름과 위치를 선택합니다.
+- *game.project*의 *texture_profiles* 항목을 새 파일을 가리키도록 변경합니다.
+- *.texture_profiles* 파일을 열고 요구사항에 맞게 구성합니다.
 
-![New profiles file](images/texture_profiles/texture_profiles_new_file.png)
+![새 프로파일 파일](images/texture_profiles/texture_profiles_new_file.png)
 
-![Setting the texture profile](images/texture_profiles/texture_profiles_game_project.png)
+![텍스쳐 프로파일 설정](images/texture_profiles/texture_profiles_game_project.png)
 
-editor preferences에서 텍스쳐 프로파일 사용 여부를 켜고 끌 수 있습니다. **File > Preferences** 를 선택하고 **Defold** 창에 포함된 **Enable texture profiles** 체크박스로 변경 가능합니다.
+에디터 preferences에서 텍스쳐 프로파일 사용 여부를 켜고 끌 수 있습니다. <kbd>File ▸ Preferences...</kbd>를 선택합니다. *General* 탭에는 *Enable texture profiles* 체크박스 항목이 있습니다.
 
-![Texture profiles preferences](images/texture_profiles/texture_profiles_preferences.png)
+![텍스쳐 프로파일 preferences](images/texture_profiles/texture_profiles_preferences.png)
 
-## Paths
-텍스쳐 프로파일 파일의  **path_settings** 섹션은 경로 정규 표현식(path regular expressions)과 경로와 일치하는 리소스를 처리할 때 사용하는 **profile**의 이름을 포함하고 있습니다. 이 경로 정규 표현식은 "Ant Glob" 패턴 (자세한 것은  http://ant.apache.org/manual/dirtasks.html#patterns 참고)으로 표현됩니다. 패턴은 아래 처럼 와일드 카드(\*)를 사용해 표현될 수 있습니다.
+## Path Settings
 
-#### \*
-0개 이상의 문자와 일치합니다. 예를 들어 "sprite\*.png" 는 "sprite1.png", "sprite.png", "sprite_with_a_long_name.png" 파일들과 일치합니다.
-#### ?
-한 개의 문자와 일치합니다. 예를 들어 "sprite?.png"는 "sprite1.png", "spriteA.png" 와 일치하지만 "sprite.png" 또는 "sprite_with_a_long_name.png"와는 일치하지 않습니다.
-#### '\*\*'
-완전한 디렉토리 트리, 혹은 디렉토리의 이름으로 사용될 때 0개 이상의 디렉토리와 일치합니다. 예를 들어 "/gui/\*\*"는 "/gui" 디렉토리의 모든 하위디렉토리 및 모든 파일들과 일치합니다.
+텍스쳐 프로파일 파일의 *Path Settings* 섹션에는 경로 패턴 목록과, 해당 경로와 일치하는 리소스를 처리할 때 사용할 *profile*이 포함됩니다. 경로는 "Ant Glob" 패턴으로 표현됩니다(자세한 내용은 [문서](http://ant.apache.org/manual/dirtasks.html#patterns)를 참고하세요). 패턴은 다음 와일드카드를 사용해 표현할 수 있습니다.
 
-![Paths](images/texture_profiles/texture_profiles_paths.png)
+`*`
+: 0개 이상의 문자와 일치합니다. 예를 들어 `sprite*.png`는 *`sprite.png`*, *`sprite1.png`*, *`sprite_with_a_long_name.png`* 파일과 일치합니다.
 
-이 예제는 두 개의 경로 패턴(path patterns)과 해당 프로파일을 포함하고 있습니다.
+`?`
+: 정확히 한 문자와 일치합니다. 예를 들어 `sprite?.png`는 *sprite1.png*, *`spriteA.png`* 파일과 일치하지만 *`sprite.png`* 또는 *`sprite_with_a_long_name.png`* 파일과는 일치하지 않습니다.
 
-#### "/gui/\*\*/\*.atlas"
-"/gui" 디렉토리와 모든 하위 디렉터리의 모든 **.atlas** 파일들이 "gui_atlas" 프로파일로 처리됩니다.
-#### "/\*\*/\*.atlas"
-프로젝트 내의 어디서든지 모든 **.atlas** 파일들이  "atlas" 프로파일로 처리됩니다.
+`**`
+: 전체 디렉토리 트리와 일치하거나, 디렉토리 이름으로 사용될 때는 0개 이상의 디렉토리와 일치합니다. 예를 들어 `/gui/**`는 */gui* 디렉토리와 그 모든 하위 디렉토리의 모든 파일과 일치합니다.
 
-일치 작업은 위에서 아래 순서로 동작하기 때문에, 더 일반적인 경로를 뒷쪽에 배치하는 것이 좋습니다.  첫번째로 일치하는 리소스 경로가 사용된 후에는 먼저 사용된 매칭을 재정의 하지 않습니다. 만약 경로가 반대 순서가 된다면, 모든 아틀라스는 "atlas" 프로파일로 처리되며, "/gui" 디렉토리 내의 파일들도 처리됩니다.
+![경로](images/texture_profiles/texture_profiles_paths.png)
 
-프로파일 파일에서 어떤 경로로든 일치하지 않는 텍스쳐 리소스는 컴파일되어 거의 2배 가까이 스케일되며 그렇지 않으면 원래대로 남게 됩니다.
+이 예제에는 두 개의 경로 패턴과 그에 해당하는 프로파일이 포함되어 있습니다.
 
-## Profiles
-텍스쳐 프로파일 파일의  **profiles** 섹션에는 명명된 프로파일의 목록을 포함하고 있습니다. 각 프로파일은 한 개 이상의 플랫폼이 있으며, 각  **platform**은 프로퍼티의 목록에 의해 설명되어집니다.
+`/gui/**/*.atlas`
+: *`/gui`* 디렉토리 또는 그 하위 디렉토리에 있는 모든 *.atlas* 파일은 "gui_atlas" 프로파일에 따라 처리됩니다.
 
-![Profiles](images/texture_profiles/texture_profiles_profiles.png)
+`/**/*.atlas`
+: 프로젝트 어디에 있든 모든 *.atlas* 파일은 "atlas" 프로파일에 따라 처리됩니다.
 
-#### os
-일치하는 OS 플랫폼을 지정합니다. "OS_ID_GENERIC"는 장치의 dev-app builds를 포함하는 모든 플랫폼과 일치하며, "OS_ID_WINDOWS" 는 Windows 타겟 번들과 일치하며, "OS_ID_IOS"는 iOS 번들과 일치합니다.
-#### formats
-생성하려는 한 개 이상의 텍스쳐 포멧. 만약 여러 포멧이 지정되었다면, 각 포멧의 텍스쳐가 번들에서 생성되어 포함됩니다. 엔진은 런타임 플렛폼에 의해 지원되는 포멧의 텍스쳐를 선택합니다.
-#### mipmaps
-각 플랫폼마다, 밉맵의 생성 여부를 지정합니다. 이 프로퍼티는 "true" 또는 "false"로 설정할 수 있습니다.
-#### max_texture_size
-0이 아닌 값으로 설정하면, 텍스쳐의 픽셀 사이즈가 지정된 숫자만큼 제한됩니다. 지정된 값보다 큰 넓이나 높이를 가진 텍스쳐는 축소(scale down) 됩니다.
+더 일반적인 경로가 마지막에 놓여 있다는 점에 유의하세요. 일치 알고리즘은 위에서 아래로 동작합니다. 리소스 경로와 일치하는 첫 번째 항목이 사용됩니다. 목록에서 더 아래에 있는 일치 경로 표현식은 첫 번째 일치를 절대 재정의하지 않습니다. 경로가 반대 순서로 배치되었다면 *`/gui`* 디렉토리에 있는 파일까지 포함하여 모든 atlas가 "atlas" 프로파일로 처리되었을 것입니다.
 
-프로필에 추가되는 각 **formats**는 아래와 같은 프로퍼티를 가지고 있습니다.
+프로파일 파일의 어떤 경로와도 일치하지 _않는_ 텍스쳐 리소스는 컴파일되고 가장 가까운 2의 거듭제곱 크기로 스케일되지만, 그 외에는 그대로 유지됩니다.
 
-#### format
-텍스쳐를 인코딩 할 때 사용되는 포멧. 사용 가능한 텍스쳐 포멧은 아래를 참고 하십시오.
-#### compression_level
-압축된 이미지의 품질 수준을 설정합니다. 이 값의 범위는 "FAST" (낮은 품질, 빠른 압축) 에서 "NORMAL", "HIGH" 와 "BEST" (높은 품질, 느린 압축) 입니다.
+## 프로파일
 
-### Texture formats
-텍스쳐는 다양한 채널과 비트 깊이(bit depths)로 **손실(lossy)** 압축 또는 비압축 데이터로 처리될 수 있습니다. 고정된 압축은 이미지의 내용물과는 관계 없이 결과 이미지가 고정된 사이즈가 된다는 것을 의미하며, 압축하는 동안의 품질 손실은 원본 텍스쳐의 내용에 따라 달라진다는 뜻입니다.
+텍스쳐 프로파일 파일의 *profiles* 섹션에는 이름이 지정된 프로파일 목록이 포함됩니다. 각 프로파일에는 하나 이상의 *platforms*가 포함되며, 각 플랫폼은 프로퍼티 목록으로 설명됩니다.
 
-현재는 아래와 같은 손실 압축 포멧을 지원하고 있습니다.
+![프로파일](images/texture_profiles/texture_profiles_profiles.png)
 
-#### PVRTC
-텍스쳐는 블록 단위로 압축됩니다. 4비트 모드(4BPP)에서는 4x4 픽셀을 하나의 블록으로 가집니다. 2비트 모드(2BPP)에서는 8x4 픽셀을 하나의 블록으로 가집니다. 한 블록은 항상 64 비트(8 바이트)의 메모리 공간을 가집니다. 이 포멧은 iPhone, iPod Touch, iPad의 모든 세대에서 사용되고 있습니다. (PowerVR GPU를 사용하는 특정 Android 장치도 이 형식을 지원함) Defold는 이 포멧에서 "V1" 접미사로 표시된 PVRTC1 포멧을 지원합니다.
+*Platforms*
+: 일치하는 플랫폼을 지정합니다. `OS_ID_GENERIC`은 모든 플랫폼과 일치하고, `OS_ID_WINDOWS`는 Windows 타겟 번들과 일치하며, `OS_ID_IOS`는 iOS 번들과 일치하는 식입니다. `OS_ID_GENERIC`을 지정하면 모든 플랫폼에 포함된다는 점에 유의하세요.
 
-#### ETC
-Ericsson Texture Compression. 4x4 픽셀 그룹은 단일 64비트 word 형식으로 압축됩니다. 4x4 그룹은 절반으로 나뉘며 각각의 절반에는 한 개의 기본 색상이 할당됩니다. 그리고 나서 각 픽셀은 절반의 기본 색상으로부터 4개의 오프셋 값들 중 하나로 인코딩됩니다. Android는 2.2 버전(Froyo) 이후 부터 ETC1을 지원하며 Defold는 ETC1 압축 텍스쳐를 지원합니다.
+::: important
+두 [Path Settings](#path-settings)이 같은 파일과 일치하고 그 경로가 서로 다른 플랫폼을 가진 서로 다른 프로파일을 사용하면, **두** 프로파일이 모두 사용되고 **두 개의** 텍스쳐가 생성됩니다.
+:::
 
-| Format | Compression | Color | Note |
-| :------------ | :------------ | :------------ | :------------ |
-| TEXTURE_FORMAT_LUMINANCE | none  | One channel gray-scale, no alpha | RGB 채널이 하나로 곱해짐. Alpha는 버려짐 |
-| TEXTURE_FORMAT_RGB | none | 3 channel color | Alpha는 버려짐 |
-| TEXTURE_FORMAT_RGBA | none | 3 channel color and full alpha | - |
+*Formats*
+: 생성할 하나 이상의 텍스쳐 포멧입니다. 여러 포멧을 지정하면 각 포멧의 텍스쳐가 생성되어 번들에 포함됩니다. 엔진은 런타임 플랫폼에서 지원되는 포멧의 텍스쳐를 선택합니다.
+
+*Mipmaps*
+: 체크하면 해당 플랫폼에 대한 밉맵이 생성됩니다. 기본값은 체크 해제입니다.
+
+*Premultiply alpha*
+: 체크하면 알파가 텍스쳐 데이터에 premultiply됩니다. 기본값은 체크입니다.
+
+*Max Texture Size*
+: 0이 아닌 값으로 설정하면 텍스쳐의 픽셀 크기가 지정한 숫자로 제한됩니다. 지정한 값보다 너비나 높이가 큰 텍스쳐는 축소됩니다.
+
+프로파일에 추가된 각 *Formats*에는 다음 프로퍼티가 있습니다.
+
+*Format*
+: 텍스쳐를 인코딩할 때 사용할 포멧입니다. 사용 가능한 모든 텍스쳐 포멧은 아래를 참고하세요.
+
+*Compressor*
+: 텍스쳐를 인코딩할 때 사용할 compressor입니다.
+
+*Compressor Preset*
+: 결과 압축 이미지 인코딩에 사용할 압축 프리셋을 선택합니다. 각 compressor preset은 compressor마다 고유하며, 해당 설정은 compressor 자체에 따라 달라집니다. 이러한 설정을 단순화하기 위해 현재 압축 프리셋은 네 단계로 제공됩니다.
+
+| 프리셋    | 설명                                          |
+| --------- | --------------------------------------------- |
+| `LOW`     | 가장 빠른 압축. 낮은 이미지 품질              |
+| `MEDIUM`  | 기본 압축. 가장 좋은 이미지 품질              |
+| `HIGH`    | 가장 느린 압축. 더 작은 파일 크기             |
+| `HIGHEST` | 느린 압축. 가장 작은 파일 크기                |
+
+`uncompressed` compressor에는 `uncompressed`라는 프리셋 하나만 있으며, 이는 텍스쳐에 압축이 적용되지 않음을 의미합니다.
+사용 가능한 compressor 목록은 [Compressors](#compressors)를 참고하세요.
+
+## 텍스쳐 포멧
+
+그래픽 하드웨어 텍스쳐는 다양한 채널 수와 비트 깊이를 가진 비압축 데이터 또는 *손실* 압축 데이터로 처리될 수 있습니다. 고정된 하드웨어 압축은 결과 이미지가 이미지 내용과 관계없이 고정 크기가 된다는 뜻입니다. 즉, 압축 중의 품질 손실은 원본 텍스쳐의 내용에 따라 달라집니다.
+
+Basis Universal 압축 트랜스코딩은 장치의 GPU 기능에 따라 달라지므로, Basis Universal 압축에 권장되는 포멧은 다음과 같은 범용 포멧입니다.
+`TEXTURE_FORMAT_RGB`, `TEXTURE_FORMAT_RGBA`, `TEXTURE_FORMAT_RGB_16BPP`, `TEXTURE_FORMAT_RGBA_16BPP`, `TEXTURE_FORMAT_LUMINANCE`, `TEXTURE_FORMAT_LUMINANCE_ALPHA`.
+
+Basis Universal transcoder는 `ASTC4x4`, `BCx`, `ETC2`, `ETC1`, `PVRTC1` 같은 여러 출력 포멧을 지원합니다.
+
+현재 지원되는 손실 압축 포멧은 다음과 같습니다.
+
+| 포멧                              | 압축        | 세부 정보  |
+| --------------------------------- | ----------- | -------------------------------- |
+| `TEXTURE_FORMAT_RGB`              | none        | 3채널 색상. Alpha는 버려집니다. |
+| `TEXTURE_FORMAT_RGBA`             | none        | 3채널 색상과 전체 alpha.    |
+| `TEXTURE_FORMAT_RGB_16BPP`        | none        | 3채널 색상. 5+6+5비트. |
+| `TEXTURE_FORMAT_RGBA_16BPP`       | none        | 3채널 색상과 전체 alpha. 4+4+4+4비트. |
+| `TEXTURE_FORMAT_LUMINANCE`        | none        | 1채널 회색조, alpha 없음. RGB 채널이 하나로 곱해집니다. Alpha는 버려집니다. |
+| `TEXTURE_FORMAT_LUMINANCE_ALPHA`  | none        | 1채널 회색조와 전체 alpha. RGB 채널이 하나로 곱해집니다. |
+
+ASTC의 경우 채널 수는 항상 4(RGB + alpha)이며, 포멧 자체가 블록 압축의 크기를 정의합니다.
+이 포멧들은 ASTC compressor와만 호환됩니다. 다른 조합은 빌드 오류를 발생시킵니다.
+
+`TEXTURE_FORMAT_RGBA_ASTC_4X4`
+`TEXTURE_FORMAT_RGBA_ASTC_5X4`
+`TEXTURE_FORMAT_RGBA_ASTC_5X5`
+`TEXTURE_FORMAT_RGBA_ASTC_6X5`
+`TEXTURE_FORMAT_RGBA_ASTC_6X6`
+`TEXTURE_FORMAT_RGBA_ASTC_8X5`
+`TEXTURE_FORMAT_RGBA_ASTC_8X6`
+`TEXTURE_FORMAT_RGBA_ASTC_8X8`
+`TEXTURE_FORMAT_RGBA_ASTC_10X5`
+`TEXTURE_FORMAT_RGBA_ASTC_10X6`
+`TEXTURE_FORMAT_RGBA_ASTC_10X8`
+`TEXTURE_FORMAT_RGBA_ASTC_10X10`
+`TEXTURE_FORMAT_RGBA_ASTC_12X10`
+`TEXTURE_FORMAT_RGBA_ASTC_12X12`
+
+
+## Compressors
+
+다음 텍스쳐 compressor가 기본으로 지원됩니다. 텍스쳐 파일이 메모리로 로드될 때 데이터는 압축 해제됩니다.
+
+| 이름                              | 포멧                      | 설명                                                                                          |
+| --------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------- |
+| `Uncompressed`                    | 모든 포멧                 | 압축이 적용되지 않습니다. 기본값입니다.                                                       |
+| `BasisU`                          | 모든 RGB/RGBA 포멧        | Basis Universal 고품질 손실 압축. 품질 수준이 낮을수록 크기가 더 작아집니다. |
+| `ASTC`                            | 모든 ASTC 포멧            | ASTC 손실 압축. 품질 수준이 낮을수록 크기가 더 작아집니다.                          |
+
+::: sidenote
+Defold는 텍스쳐 compressor 파이프라인에서 설치 가능한 compressor를 지원합니다. 이를 통해 WEBP 또는 완전히 커스텀한 방식 같은 텍스쳐 압축 알고리즘을 익스텐션으로 구현할 수 있습니다.
+:::
+
+## 예제 이미지
+
+출력을 더 잘 이해할 수 있도록 예제를 하나 살펴보겠습니다.
+이미지 품질, 압축 시간, 압축 크기는 항상 입력 이미지에 따라 달라지며 달라질 수 있다는 점에 유의하세요.
+
+기본 이미지(1024x512):
+![새 프로파일 파일](images/texture_profiles/kodim03_pow2.png)
+
+### 압축 시간
+
+| 프리셋    | 압축 시간        | 상대 시간     |
+| --------- | ---------------- | ------------- |
+| `LOW`     | 0m0.143s         | 0.5x            |
+| `MEDIUM`  | 0m0.294s         | 1.0x            |
+| `HIGH`    | 0m1.764s         | 6.0x            |
+| `HIGHEST` | 0m1.109s         | 3.8x            |
+
+### 신호 손실
+
+비교는 `basisu` 도구를 사용해 수행했습니다(PSNR 측정).
+100 dB는 신호 손실이 없음을 의미합니다. 즉, 원본 이미지와 같다는 뜻입니다.
+
+| 프리셋    | 신호                                             |
+| --------- | ------------------------------------------------ |
+| `LOW`     | Max:  34 Mean: 0.470 RMS: 1.088 PSNR: 47.399 dB |
+| `MEDIUM`  | Max:  35 Mean: 0.439 RMS: 1.061 PSNR: 47.620 dB |
+| `HIGH`    | Max:  37 Mean: 0.898 RMS: 1.606 PSNR: 44.018 dB |
+| `HIGHEST` | Max:  51 Mean: 1.298 RMS: 2.478 PSNR: 40.249 dB |
+
+### 압축 파일 크기
+
+원본 파일 크기는 1572882바이트입니다.
+
+| 프리셋    | 파일 크기  | 비율    |
+| --------- | ---------- | ------- |
+| `LOW`     | 357225     | 22.71 %  |
+| `MEDIUM`  | 365548     | 23.24 %  |
+| `HIGH`    | 277186     | 17.62 %  |
+| `HIGHEST` | 254380     | 16.17 %  |
+
+
+### 이미지 품질
+
+다음은 결과 이미지입니다(`basisu` 도구를 사용해 ASTC 인코딩에서 가져왔습니다).
+
+`LOW`
+![low compression preset](images/texture_profiles/kodim03_pow2.fast.png)
+
+`MEDIUM`
+![medium compression preset](images/texture_profiles/kodim03_pow2.normal.png)
+
+`HIGH`
+![high compression preset](images/texture_profiles/kodim03_pow2.high.png)
+
+`HIGHEST`
+![best compression preset](images/texture_profiles/kodim03_pow2.best.png)

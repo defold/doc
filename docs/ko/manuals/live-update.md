@@ -1,289 +1,154 @@
 ---
-title: Defold manual
+title: Defold에서 Live update 컨텐츠
+brief: Live update 기능은 빌드 시 의도적으로 번들에서 제외한 리소스를 런타임이 가져와 어플리케이션 번들에 저장할 수 있게 하는 메커니즘을 제공합니다. 이 매뉴얼은 그 동작 방식을 설명합니다.
 ---
 
 # Live update
-게임을 번들(bundle)로 만들 때, Defold는 모든 게임 리소스들 플랫폼 별 패키지로 묶습니다. 대부분의 경우에는 엔진 실행 후에 즉시 모든 리소스에 접근해서 스토리지로부터 신속하게 로드하는 것을 선호합니다. 하지만 리소스 로딩을 나중으로 미루는 것을 원할 경우도 있습니다. 예를 들어,
 
-* 당신의 게임은 에피소드 시리즈를 특징으로 가지고 있으며, 유저가 게임의 나머지 부분을 계속 할지를 결정하기 이전에 플레이어가 플레이 할 수 있는 첫 번째 판만 포함되어 있기를 원한다.
+게임을 번들링할 때 Defold는 모든 게임 리소스를 결과물인 플랫폼별 패키지에 묶습니다. 대부분의 경우 실행 중인 엔진이 모든 리소스에 즉시 액세스하고 스토리지에서 빠르게 로드할 수 있으므로 이 방식이 좋습니다. 하지만 리소스 로딩을 이후 단계로 미루고 싶을 때도 있습니다. 예를 들면 다음과 같습니다.
 
-* 당신의 게임은 HTML5를 타겟으로 하고 있다. 스토리지에서 어플리케이션을 로딩한다는 것은 브라우저에서 전체 어플리케이션 패키지를 다운로드 해야 한다는것을 뜻한다. 이러한 플랫폼에서는 게임 리소스의 나머지를 다운로드 하기 전에 최소한의 시작 패키지를 보내서 앱을 빠르게 실행하는 것이 나을지도 모른다.
+- 게임이 여러 에피소드로 구성되어 있고, 플레이어가 나머지 게임을 계속할지 결정하기 전에 첫 번째 에피소드만 체험할 수 있게 하고 싶을 수 있습니다.
+- 게임이 HTML5를 타겟으로 합니다. 브라우저에서 스토리지의 어플리케이션을 로드한다는 것은 시작 전에 전체 어플리케이션 패키지를 다운로드해야 한다는 뜻입니다. 이런 플랫폼에서는 최소한의 시작 패키지만 보내 앱을 빠르게 실행한 뒤 나머지 게임 리소스를 다운로드하고 싶을 수 있습니다.
+- 게임에 매우 큰 리소스(이미지, 비디오 등)가 포함되어 있고, 실제로 게임에 표시되기 직전까지 다운로드를 미루고 싶을 수 있습니다. 이렇게 하면 설치 크기를 줄일 수 있습니다.
 
-* 당신의 게임에는 게임에 표시될 때까지 다운로드를 연기하려는 아주 큰 리소스들(이미지, 동영상 등)이 포함되어 있다. 이것은 인스톨 사이즈를 줄이기 위함이다.
+Live update 기능은 컬렉션 프록시 개념을 확장하여, 빌드 시 의도적으로 번들에서 제외한 리소스를 런타임이 가져와 어플리케이션 번들에 저장할 수 있게 하는 메커니즘을 제공합니다.
 
-라이브 업데이트 기능은 빌드시에 번들에서 의도적으로 제외한 리소스들을 런타임시 어플리케이션 번들로 리소스를 불러와 저장하게 해주는 메커니즘이며, 이를 사용하여 컬렉션 프록시의 컨셉을 확장합니다.
+이 기능을 사용하면 컨텐츠를 여러 아카이브로 나눌 수 있습니다.
 
-## Preparing content for Live update
-우리가 큰 고해상도 이미지 리소스들을 포함한 게임을 만들고 있다고 가정해 봅시다. 이 게임은 이 이미지들을 스프라이트 게임 오브젝트에 넣어 컬렉션에서 유지 시키려고 합니다.
+* _기본 아카이브_
+* 레벨 공통 파일
+* 레벨 팩 1
+* 레벨 팩 2
+* ...
+
+## Live update용 컨텐츠 준비
+
+크고 고해상도인 이미지 리소스를 포함하는 게임을 만든다고 가정해 봅시다. 이 게임은 게임 오브젝트와 이미지가 있는 스프라이트를 컬렉션에 두어 이미지를 관리합니다.
 
 ![Mona Lisa collection](images/live-update/mona-lisa.png)
 
-이러한 컬렉션을 동적으로 로드하려면, 간단하게는 컬렉션 프록시 컴포넌트를 추가하고 "monalisa.collection"를 지정하면 됩니다. 이제 게임은 "load" 메세지를 컬렉션 프록시로 보내서 스토리지에서 메모리로 컬렉션에 있는 컨텐츠를 언제 로드할지 선택할 수 있습니다. 하지만 우리는 한 발 더 나아가서 컬렉션에 포함된 리소스의 로딩을 제어하려고 합니다.
+엔진이 이런 컬렉션을 동적으로 로드하게 하려면 컬렉션 프록시 컴포넌트를 추가하고 *`monalisa.collection`*을 가리키게 하면 됩니다. 그러면 게임은 컬렉션 프록시에 `load` 메세지를 보내 스토리지에 있는 컬렉션 컨텐츠를 언제 메모리로 로드할지 선택할 수 있습니다. 하지만 여기서는 한 단계 더 나아가 컬렉션 안에 포함된 리소스의 로딩까지 직접 제어하려고 합니다.
 
-이 작업은 컬렉션 프록시 프로퍼티의 **Exclude** 체크박스를 체크하면, 어플리케이션 번들을 생성할때 번들러(bundler)에게  "`monalisa.collection`"의 모든 컨텐츠를 남겨 달라고 말해 줌으로써 수행됩니다.
+이를 위해 컬렉션 프록시 프로퍼티에서 *Exclude* 체크박스를 선택하면 됩니다. 그러면 Defold는 어플리케이션 번들을 만들 때 *`monalisa.collection`* 안의 모든 컨텐츠를 제외합니다.
+
+::: important
+기본 게임 패키지가 참조하는 리소스는 제외되지 않습니다.
+:::
 
 ![Collection proxy excluded](images/live-update/proxy-excluded.png)
 
-## Live update settings
-번들러가 어플리케이션 번들을 생성할때, 제외 된 리소스를 어딘가에는 저장해야 합니다. 라이브 업데이트를 위한 프로젝트 셋팅은 이들 리소스들의 위치를 다룹니다. 이 셋팅은 **Project ▸ Live update Settings…** 에서 찾을 수 있습니다.
+## Live update 설정
 
-![Live update settings](images/live-update/aws-settings.png)
+Defold가 어플리케이션 번들을 만들 때는 제외된 리소스를 어딘가에 저장해야 합니다. Live update의 프로젝트 설정은 이 리소스들의 위치를 제어합니다. 설정은 <kbd>Project ▸ Live update Settings...</kbd> 아래에 있습니다. 설정 파일이 없으면 이 메뉴가 설정 파일을 생성합니다. 번들링할 때 사용할 live-update 설정 파일은 *game.project*에서 선택합니다. 이를 통해 live, QA, development 같은 환경별로 서로 다른 live-update 설정을 사용할 수 있습니다.
 
-여기에는 Defold가 제외된 리소스를 저장할 수 있는 세 가지 방법이 있습니다. 라이브 업데이트 설정 창에서 **Mode** 드롭다운 버튼을 열어 저장 방식을 선택해 보세요.
+![Live update settings](images/live-update/05-liveupdate-settings-zip.png)
 
-#### Amazon
-이 옵션은 Defold에게 아마존 웹 서비스(AWS) S3 버켓에 제외된 리소스를 자동으로 업로드 하라고 지시합니다.   AWS **Credential profile** 에 이름을 입력하고 적당한 **Bucket**과 **Prefix** 를 선택하세요. [AWS 계정을 셋업하는 자세한 방법은 아래에서 확인해 주세요.](#setting-up-amazon-web-service)
+현재 Defold가 리소스를 저장할 수 있는 방법은 세 가지입니다. 설정 창의 *Mode* 드롭다운에서 방식을 선택합니다.
 
-#### Zip
-이 옵션은 Defold에게 제외된 리소스를 포함한 Zip 압축 파일을 생성하라고 지시합니다. 이 압축 파일은 **Export path**에 설정한 경로에 저장됩니다.
+`Zip`
+: 이 옵션은 Defold가 제외된 리소스를 담은 Zip 아카이브 파일을 만들도록 지시합니다. 아카이브는 *Export path* 설정에 지정된 위치에 저장됩니다.
 
-#### Folder
-이 옵션은 제외된 리소스를 모두 포함하는 폴더를 생성하라고 Defold에 지시합니다. `Zip` 과 비슷하지만 압축 파일 대신 디렉터리를 사용합니다. 업로드 전에 파일을 후처리하거나 나중에 직접 다시 압축하고 싶을 때 유용합니다.
+`Folder`
+: 이 옵션은 Defold가 제외된 모든 리소스를 담은 폴더를 만들도록 지시합니다. Zip과 완전히 같은 방식으로 동작하지만, 아카이브 대신 디렉토리를 사용합니다. 업로드 전에 파일을 후처리해야 하거나 직접 아카이브로 패킹하려는 경우에 유용할 수 있습니다.
 
-## Scripting with excluded collection proxies
-번들링(bundling)에서 제외된 컬렉션 프록시는 일반적인 컬렉션 프록시 처럼 동작합니다. 하나의 중요한 차이점으로는 번들 스토리지에서 사용할 수 없는 리소스가 있다면, "load" 메세지를 전송하는 것이 실패하게 된다는 것입니다.
+`Amazon`
+: 이 옵션은 Defold가 제외된 리소스를 아마존 웹 서비스(AWS) S3 버켓에 자동으로 업로드하도록 지시합니다. AWS *Credential profile* 이름을 입력하고, 적절한 *Bucket*을 선택한 뒤 *Prefix* 이름을 제공합니다. AWS 계정 설정 방법은 이 [aws guide](/manuals/live-update-aws)에서 더 읽을 수 있습니다.
 
-아카이브 기반 워크플로우에서는 보통 특정 프록시에 어떤 아카이브가 필요한지 미리 결정하고, 로드하기 전에 먼저 마운트합니다. 프록시가 제외된 컨텐츠를 참조하는지 확인해야 한다면 `collectionproxy.get_resources()` 를 사용하세요.
+## Live update로 번들링하기
 
-기본값인 *Strip Live Update Entries from Main Manifest* 옵션을 켠 상태에서는:
+::: important
+에디터에서 빌드하고 실행하는 방식(<kbd>Project ▸ Build</kbd>)은 Live Update를 지원하지 않습니다. Live Update를 테스트하려면 프로젝트를 번들링해야 합니다.
+:::
 
-* 프록시에 필요한 컬렉션이 들어 있는 Live Update 아카이브가 아직 마운트되지 않았다면 `collectionproxy.get_resources("#proxy")` 는 빈 테이블 `{}` 를 반환합니다.
-* 해당 Live Update 아카이브를 마운트한 뒤에는 `collectionproxy.get_resources("#proxy")` 가 그 프록시에 속한 리소스 해시를 담은 비어 있지 않은 테이블을 반환합니다. 예:
-
-```lua
-{
-    "a1b2c3...", -- 대상 컬렉션
-    "d4e5f6...", -- 게임 오브젝트
-    "7890ab...", -- 스크립트
-}
-```
-
-아래 예제는 아카이브가 `game.http_url` 설정에 지정된 URL을 통해 제공된다고 가정합니다.
-
-```lua
--- 어떤 아카이브가 어떤 컨텐츠를 담고 있는지 추적해야 합니다.
--- 이 예제에서는 필요한 리소스를 담은 liveupdate 아카이브 하나만 사용합니다.
-local lu_infos = {
-    liveupdate = {
-        name = "liveupdate",
-        priority = 10,
-    }
-}
-
-local function get_lu_info_for_level(level_name)
-    if level_name == "level1" then
-        return lu_infos["liveupdate"]
-    end
-end
-
-local function mount_zip(self, name, priority, path, callback)
-    liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- [1]
-        callback(_name, _uri, _result)
-    end)
-end
-
-local function has_mount(name)
-    for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
-            return true
-        end
-    end
-    return false
-end
-
-function init(self)
-    self.http_url = sys.get_config_string("game.http_url", nil) -- [2]
-
-    local level_name = "level1"
-    local info = get_lu_info_for_level(level_name) -- [3]
-
-    msg.post("#", "load_level", { level = "level1", info = info }) -- [4]
-end
-
-function on_message(self, message_id, message, sender)
-    if message_id == hash("load_level") then
-        local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- [5]
-
-        -- Strip Live Update Entries from Main Manifest 가 켜져 있으면,
-        -- 관련 아카이브를 마운트하기 전까지는 이 테이블이 비어 있습니다.
-        -- 마운트 후에는 프록시에 속한 리소스 해시들이 들어 있습니다.
-        if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
-            msg.post("#", "download_archive", message) -- [6]
-        else
-            msg.post("#" .. message.level, "load")
-        end
-
-    elseif message_id == hash("download_archive") then
-        local zip_filename = message.info.name .. ".zip"
-        local download_path = sys.get_save_file("mygame", zip_filename)
-        local url = self.http_url .. "/" .. zip_filename
-
-        http.request(url, "GET", function(self, id, response) -- [7]
-            if response.status == 200 or response.status == 304 then
-                mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- [8]
-                    msg.post("#", "load_level", message)
-                end)
-            else
-                print("아카이브를 다운로드하지 못했습니다 ", download_path, "from", url, ":", response.status)
-            end
-        end, nil, nil, {path=download_path})
-    elseif message_id == hash("proxy_loaded") then
-        msg.post(sender, "init")
-        msg.post(sender, "enable")
-    end
-end
-```
-
-* **[1]** `liveupdate.add_mount()` 는 이름, 우선순위, zip 파일을 지정해서 하나의 아카이브를 마운트합니다. 엔진을 재시작하지 않아도 즉시 사용할 수 있습니다.
-* **[2]** 아카이브는 S3 같은 온라인 위치에 저장해 두어야 합니다.
-* **[3]** collection proxy 이름을 기준으로 어떤 아카이브를 받아야 하는지 결정합니다.
-* **[4]** 시작 시점에 레벨을 로드하려고 시도합니다.
-* **[5]** `collectionproxy.get_resources()` 로 프록시의 제외된 컨텐츠를 확인합니다. 기본 stripped-manifest 설정에서는 관련 아카이브를 마운트하기 전까지 `{}` 를 반환하고, 마운트 후에는 프록시에 속한 리소스 해시 테이블을 반환합니다.
-* **[6]** 프록시가 Live Update 컨텐츠를 사용하고 아직 해당 아카이브가 마운트되지 않았다면, 프록시를 로드하기 전에 아카이브를 다운로드하고 마운트합니다.
-* **[7]** HTTP 요청으로 아카이브를 `download_path` 에 다운로드합니다.
-* **[8]** 다운로드가 끝나면 실행 중인 엔진에 아카이브를 마운트합니다.
-
-위의 로딩 코드를 사용해서 어플리케이션을 테스트 할 수 있습니다. 하지만 에디터상에서 실행하면 아무것도 다운로드 하지 않습니다. 왜냐하면 라이브 업데이트는 번들(bundle)의 기능이기 때문입니다. 에디터 환경에서 실행하면 어떤 리소스도 제외(exclude)되지 않습니다. 이 동작이 잘 돌아가는지 확인하려면, 번들로 만들어서 실행해야 합니다.
-
-## Bundling with Live update
-라이브 업데이트를 이용해 번들을 만드는 것은 쉽습니다. **Project ▸ Bundle** 메뉴를 선택하고 어플리케이션 번들을 만들기 원하는 플랫폼을 선택하면 번들링 다이얼로그 창이 열립니다.
+Live update로 번들링하는 과정은 간단합니다. <kbd>Project ▸ Bundle ▸ ...</kbd>를 선택한 다음 어플리케이션 번들을 만들 플랫폼을 선택합니다. 그러면 번들링 다이얼로그가 열립니다.
 
 ![Bundle Live application](images/live-update/bundle-app.png)
 
-번들링할 때 제외 리소스(excluded resource)들은 어플리케이션 번들에서 제외됩니다. **Publish Live update content** 체크박스를 체크하면 라이브 업데이트를 어떻게 설정했는지(위 내용 참고)에 따라 아마존에 업로드할지 Zip 파일을 생성할지를 Defold에게 알려줍니다. 게시되는 Live Update 컨텐츠에는 원격 전달에 필요한 전체 리소스 목록을 담고 있는 `liveupdate.game.dmanifest` 가 계속 포함됩니다.
+번들링할 때 제외된 리소스는 어플리케이션 번들에서 빠집니다. *Publish Live update content* 체크박스를 선택하면 Live update 설정 방식에 따라 Defold가 제외된 리소스를 Amazon에 업로드하거나 Zip 아카이브를 만들도록 지시합니다(위 내용 참고). 게시된 Live Update 컨텐츠에는 원격 전달에 필요한 전체 리소스 목록이 들어 있는 `liveupdate.game.dmanifest`가 계속 포함됩니다.
 
-아카이브 기반 Live Update 컨텐츠를 게시할 때는 *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) 옵션이 기본으로 켜져 있습니다. 이 옵션이 켜져 있으면 Live Update 전용 리소스가 번들된 `game.dmanifest` 에서 제거되어 번들 크기와 런타임 메모리 사용량을 줄일 수 있습니다. 제외된 항목을 계속 번들된 `game.dmanifest` 에 남겨 두는 예전 동작이 꼭 필요할 때만 이 옵션을 끄세요.
+아카이브 기반 Live Update 컨텐츠를 게시할 때는 *Strip Live Update Entries from Main Manifest*(`liveupdate.exclude_entries_from_main_manifest`)가 기본으로 활성화됩니다. 이 설정이 활성화되어 있으면 Live Update 전용 리소스가 번들된 `game.dmanifest`에서 제거되어 번들 크기와 런타임 메모리 사용량을 줄입니다. 제외된 항목이 번들된 `game.dmanifest`에 남아 있는 더 이상 권장되지 않는 동작이 꼭 필요한 경우에만 이 설정을 비활성화하세요.
 
-기본 설정에서는 관련 아카이브를 마운트하기 전까지 `collectionproxy.get_resources()` 가 `{}` 를 반환하고, 마운트 후에는 해당 프록시의 리소스 해시들을 반환합니다.
+기본 설정이 활성화되어 있으면 관련 아카이브가 마운트될 때까지 `collectionproxy.get_resources()`는 `{}`를 반환합니다. 마운트 후에는 해당 프록시의 리소스 해쉬를 반환합니다.
 
-**Package**를 클릭하고 어플리케이션 번들이 만들어질 위치를 선택합니다. 이제 어플리케이션을 시작해서 모두 예상대로 동작하는지 확인할 수 있습니다.
+*Package*를 클릭하고 어플리케이션 번들의 위치를 선택합니다. 이제 어플리케이션을 시작하고 모든 것이 예상대로 동작하는지 확인할 수 있습니다.
 
-## Setting up Amazon Web Service
-아마존 서비스와 Defold 라이브 업데이트 기능을 함께 사용하기 위해서는 아마존 웹 서비스 계정이 필요합니다. 아직 계정이 준비되지 않았다면 https://aws.amazon.com/ 에서 생성할 수 있습니다.
+## .zip 아카이브
 
-이 섹션에서는 아마존 웹 서비스에서 제한된 액세스 권한으로 새 유저를 생성하는 방법을 설명하고, 게임 클라이언트가 아마존 S3의 리소스를 탐색 할 수 있도록 설정하는 방법도 함께 설명합니다. 아마존 S3 를 설정하는 자세한 정보는 [Amazon S3 문서](http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html)를 참고 바랍니다.
+live update .zip 파일에는 기본 게임 패키지에서 제외된 파일이 들어 있습니다.
 
-### 1. Create a bucket for Live update resources
-Services 메뉴를 열고 Storage 카테고리([Amazon S3 Console](https://console.aws.amazon.com/s3))에 있는 S3를 선택합니다. 기존 버켓(bucket)들과 새 버켓을 만드는 옵션을 볼 수 있습니다. 기존 버켓을 사용할 수도 있지만, 액세스 영역을 쉽게 제한할 수 있도록 라이브 업데이트 리소스(Live update resources)를 위한 새 버켓을 만들기 추천합니다.
+현재 파이프라인은 하나의 .zip 파일 생성만 지원하지만, 실제로는 그 zip 파일을 더 작은 .zip 파일들로 나눌 수 있습니다. 이를 통해 레벨 팩, 시즌 컨텐츠 등 게임의 다운로드 크기를 더 작게 만들 수 있습니다. 각 .zip 파일에는 .zip 파일 안에 포함된 각 리소스의 메타 데이터를 설명하는 메니페스트 파일도 들어 있습니다.
 
-![Create a bucket](images/live-update/01-create-bucket.png)
+## .zip 아카이브 분할
 
-### 2. Add a bucket policy to your bucket
-사용하려는 버켓을 선택하고 **Properties** 패널을 열어 패널에서 **Permissions** 옵션을 확장하세요. **Add bucket policy** 버튼을 클릭해서 버켓 정책을 열어보세요. 이 샘플의 버켓 정책은 아무 유저나 버켓의 파일들을 탐색할 수 있게 해주고, 게임 클라이언트가 라이브 업데이트 리소스를 다운로드 할 수 있게 해줍니다. 버켓 정책에 대한 추가정보를 보고 싶다면, [Amazon 문서](https://docs.aws.amazon.com/AmazonS3/latest/dev/using-iam-policies.html)를 참고하세요.
+리소스 사용을 더 세밀하게 제어하기 위해 제외된 컨텐츠를 여러 개의 더 작은 아카이브로 나누고 싶은 경우가 많습니다. 예를 들어 레벨 기반 게임을 여러 레벨 팩으로 나눌 수 있습니다. 또 다른 예로는 서로 다른 휴일 테마의 UI 장식을 별도 아카이브에 넣고, 달력상 현재 활성화된 테마만 로드하고 마운트할 수 있습니다.
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AddPerm",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::defold-liveupdate-example/*"
-        }
-    ]
-}
-```
-
-![Bucket policy](images/live-update/02-bucket-policy.png)
-
-### 3. Add a CORS configuration to your bucket (Optional)
-[Cross-Origin Resource Sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)는 JavsScript를 사용하여 웹사이트에서 서로 다른 도메인의 리소스를 탐색하게 해 주는 메커니즘입니다. 만약 당신의 게임을 HTML5로 배포하려 한다면, CORS 설정을 당신의 버켓에 추가해야 합니다.
-
-사용하려는 버켓을 선택하고 **Properties** 패널을 열어 패널에서 **Permissions** 옵션을 확장하세요. **Add CORS Configuration** 버튼을 클릭해서 버켓 정책을 열어보세요. 아래 샘플의 Configuration 은 와일드카드(\*) 도메인을 지정해서 어떤 웹사이트에서든 액세스되게 할 수 있지만, 게임을 실행할 웹사이트의 도메인을 알고 있다면 액세스를 제한하는 것도 가능합니다. Amazon CORS configuration 에 대한 더 많은 정보를 알고 싶다면 [Amazon 문서](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html)를 참고 바랍니다.
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-    <CORSRule>
-        <AllowedOrigin>*</AllowedOrigin>
-        <AllowedMethod>GET</AllowedMethod>
-    </CORSRule>
-</CORSConfiguration>
-```
-
-![CORS configuration](images/live-update/03-cors-configuration.png)
-
-### 4. Create IAM policy
-**Services** 메뉴를 열고 Security, Identity & Compliance 카테고리([Amazon IAM Console](https://console.aws.amazon.com/iam))에 있는 **IAM**를 선택합니다. 왼쪽에 있는 메뉴에서 **Policies**를 선택하면 기존 정책들과 새 정책을 만드는 옵션을 볼 수 있습니다.
-
-**Create Policy** 버튼을 클릭하고 Create Your Own Policy 를 선택하세요. 아래 예제의 정책은 유저가 Defold 프로젝트의 라이브 업데이트에 설정했던 모든 버켓들의 목록을 볼 수 있게 해줍니다. 또한 Access Control List (ACL)을 획득하여 라이브 업데이트 리소스에 지정된 버켓에 리소스를 업로드 할 수 있게 해줍니다. Amazon Identity 그리고  Access Management (IAM) 의 더 자세한 정보를 알고 싶다면 [Amazon 문서](http://docs.aws.amazon.com/IAM/latest/UserGuide/access.html)를 참고 바랍니다.
-
+리소스 그래프는 `build/default/game.graph.json`에 저장되며 프로젝트를 번들링할 때마다 자동으로 생성됩니다. 생성된 파일에는 프로젝트의 모든 리소스 목록과 각 리소스의 종속성이 들어 있습니다. 예제 항목은 다음과 같습니다.
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListAllMyBuckets"
-            ],
-            "Resource": "arn:aws:s3:::*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetBucketAcl"
-            ],
-            "Resource": "arn:aws:s3:::defold-liveupdate-example"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:::defold-liveupdate-example/*"
-        }
-    ]
+  "path" : "/game/player.goc",
+  "hexDigest" : "caa342ec99794de45b63735b203e83ba60d7e5a1",
+  "children" : [ "/game/ship.spritec", "/game/player.scriptc" ]
 }
 ```
 
-![IAM policy](images/live-update/04-create-policy.png)
+각 항목에는 프로젝트 안에서 리소스의 유니크한 경로를 나타내는 `path`가 있습니다. `hexDigest`는 리소스의 암호학적 지문을 나타내며 liveupdate .zip 아카이브에서 사용할 파일명이 됩니다. 마지막으로 `children` 필드는 이 리소스가 의존하는 다른 종속성의 목록입니다. 위 예제에서 `/game/player.goc`는 스프라이트와 스크립트 컴포넌트에 종속성을 가집니다.
 
-### 5. Create a user for programmatic access
-**Services** 메뉴를 열고 Security, Identity & Compliance 카테고리([Amazon IAM Console](https://console.aws.amazon.com/iam))에 있는 **IAM**를 선택합니다. 왼쪽에 있는 메뉴에서 **Users** 를 선택하면 기존 유저들과 새 유저를 만드는 옵션을 볼 수 있습니다. 기존 유저를 사용하는 것도 좋지만, 액세스 영역을 쉽게 제한할 수 있도록 라이브 업데이트 리소스(Live update resources)를 위한 새 유저를 만들기 추천합니다.
+`game.graph.json` 파일을 파싱하고 이 정보를 사용해 리소스 그래프의 항목 그룹을 식별한 뒤, 해당 리소스를 원래 메니페스트 파일과 함께 별도 아카이브에 저장할 수 있습니다. 메니페스트 파일은 런타임에 정리되어 아카이브 안의 파일만 포함하게 됩니다.
 
-**Add User** 버튼을 클릭하고 username을 제공하고 **Access type** 으로 **Programmatic access** 를 선택합니다. 그리고 **Next: Permissions** 를 눌러서 **Attach existing policies directly**를 선택하고 위의 4. 에서 만들었던 정책을 선택합니다.
+## Android에서 Live Update 사용
 
-이 작업을 완려하면  **Access key ID** 와 **Secret access key** 가 제공됩니다.
+Play Asset Delivery를 사용해 Live Update 컨텐츠를 다운로드하고 마운트할 수 있습니다. [공식 매뉴얼](https://defold.com/extension-pad/)에서 더 알아보세요.
 
-> 이 페이지에서 나간 이후에는 다시 아마존에서 이 키를 조회 할 수 없으므로, 이들 키를 저장해 두는 것이 **매우 중요**합니다.
+## 컨텐츠 검증
 
-### 6. Create a credentials profile file
-이제까지는 버켓을 만들고, 버켓 정책을 구성하고, CORS 설정을 추가하고, 새 유저를 생성하고, 유저 정책을 생성 했습니다. 이제 남은 한 가지는 Defold 에디터가 사용자를 대신해 버켓에 액세스 할 수 있도록 [credentials profile](https://aws.amazon.com/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks) 파일을 생성하는 것입니다.
+live update 시스템의 주요 기능 중 하나는 이제 여러 컨텐츠 아카이브를 사용할 수 있으며, 잠재적으로 여러 Defold 버전에서 만든 아카이브도 사용할 수 있다는 점입니다.
 
-당신의 home 폴더에 ".aws" 라는 새 디렉토리를 생성하고, 그 폴더에 "credentials" 파일을 생성하세요.
+`liveupdate.add_mount()`의 기본 동작은 마운트를 연결할 때 엔진 버전 검사를 추가하는 것입니다.
+이는 게임 기본 아카이브와 live update 아카이브가 모두 같은 엔진 버전으로 같은 시점에 bundle 옵션을 사용해 생성되어야 한다는 뜻입니다. 이 검사는 클라이언트가 이전에 다운로드한 아카이브를 무효화하여 컨텐츠를 다시 다운로드하도록 만듭니다.
 
-```
-$ mkdir ~/.aws
-$ touch ~/.aws/credentials
-```
+이 동작은 options 플래그로 끌 수 있습니다.
+이 동작을 끄면 각 live update 아카이브가 실행 중인 엔진에서 동작한다는 것을 보장하는 컨텐츠 검증 책임은 전적으로 개발자에게 있습니다.
 
-"~/.aws/credentials" 파일은 프로그래밍 방식으로 AWS에 접근할 수 있게 해주는 자격증명이 포함되어 있으며 이는 AWS credentials 을 관리하는 표준화된 방법입니다. 문서편집기로 이 파일을 열어 당신의 **Access key ID** 와 **Secret access key**를 아래 형식으로 입력합니다.
+각 마운트에 대해 일부 메타데이터를 저장해 두어 개발자가 _시작 직후_ 해당 마운트/아카이브를 제거해야 하는지 결정할 수 있게 하는 것을 권장합니다.
+한 가지 방법은 게임이 번들링된 뒤 zip 아카이브에 추가 파일을 넣는 것입니다. 예를 들어 게임에 필요한 관련 정보를 담은 `metadata.json`을 삽입할 수 있습니다. 그런 다음 시작 시 게임은 `sys.load_resource("/metadata.json")`로 이를 가져올 수 있습니다. _각 마운트의 커스텀 데이터에는 유니크한 이름이 필요합니다. 그렇지 않으면 마운트가 가장 높은 우선순위의 파일을 반환합니다._
 
-```
-[defold-liveupdate-example]
-aws_access_key_id = <Access key ID>
-aws_secret_access_key = <Secret access key>
-```
+이렇게 하지 않으면 컨텐츠가 엔진과 전혀 호환되지 않아 엔진이 종료되어야 하는 상황이 생길 수 있습니다.
 
-이 defold-liveupdate-example 예제에서 <>괄호 안에 지정해야 하는 식별자는 Defold 편집기에서 프로젝트의 라이브 업데이트 셋팅을 구성할때 제공했던 식별자와 동일합니다.
+## 마운트
 
-![Live update settings](images/live-update/05-liveupdate-settings.png)
+live update 시스템은 여러 컨텐츠 아카이브를 동시에 사용할 수 있습니다.
+각 아카이브는 이름과 우선순위를 가지고 엔진의 리소스 시스템에 "마운트"됩니다.
 
-## Development caveats
-### Debugging
-게임을 번들 버전으로 실행하면, 콘솔에 직접 액세스 할 수 없게 되어 디버깅에 문제가 발생합니다. 하지만, 커맨드 라인 혹은 번들 디렉토리의 실행파일을 직접 더블클릭해서 어블리케이션을 실행 할 수 있습니다.
+두 아카이브에 같은 파일 `sprite.texturec`가 있으면 엔진은 가장 높은 우선순위의 마운트에서 파일을 로드합니다.
 
-![Running a bundle application](images/live-update/run-bundle.png)
+엔진은 마운트 안의 어떤 리소스에 대해서도 참조를 유지하지 않습니다. 리소스가 메모리에 로드되고 나면 아카이브를 언마운트할 수 있습니다. 리소스는 언로드될 때까지 메모리에 남아 있습니다.
 
-이제 게임이 시작되고 쉘 윈도우에 print() 문을 출력하게 됩니다.
+마운트는 엔진 재시작 시 자동으로 다시 추가됩니다.
 
-![Console output](images/live-update/run-bundle-console.png)
+::: sidenote
+아카이브를 마운트해도 아카이브가 복사되거나 이동하지 않습니다. 엔진은 아카이브의 경로만 저장합니다. 따라서 개발자는 언제든지 아카이브를 제거할 수 있으며, 다음 시작 시 마운트도 제거됩니다.
+:::
 
-### Forcing re-download of resources
-어플리케이션이 리소스를 저장하려 하면, 로컬 컴퓨터나 휴대장치의 디스크에 저장됩니다. 만약 어플리케이션을 재시작해도, 이 리소스들은 여전히 그대로 있습니다. 개발중인 경우는 때로 리소스들을 삭제해야할 경우도 있고 강제로 다시 다운로드 해야할 경우도 있습니다. sys.get_save_file() 함수는 Defold가 리소스를 저장하는 경로를 반환합니다. 저 폴더에서, Defold는 생성된 번들의 해쉬 이름을 사용하여 폴더를 만듭니다. 만약 이 폴더의 파일들을 삭제하면, 어플리케이션은 메니페스트의 리소스를 무효처리(invalidate) 하므로 당신은 이를 다시 다운로드하고 저장할 수 있게 됩니다.
+## Live Update 스크립팅
 
-![Local storage](images/live-update/local-storage.png)
+live update 컨텐츠를 실제로 사용하려면 데이터를 게임에 다운로드하고 마운트해야 합니다.
+[live update 스크립팅 방법](/manuals/live-update-scripting)에서 더 읽어보세요.
+
+## 개발 시 주의사항
+
+디버깅
+: 게임의 번들된 버전을 실행할 때는 콘솔에 직접 액세스할 수 없습니다. 이 때문에 디버깅에 문제가 생깁니다. 하지만 커맨드 라인에서 어플리케이션을 실행하거나 번들 안의 실행 파일을 직접 더블클릭할 수 있습니다.
+
+  ![Running a bundle application](images/live-update/run-bundle.png)
+
+  이제 게임은 `print()` 문을 출력하는 쉘 창과 함께 시작됩니다.
+
+  ![Console output](images/live-update/run-bundle-console.png)
+
+리소스 강제 재다운로드
+: 개발자는 원하는 파일/폴더 어디에든 컨텐츠를 다운로드할 수 있지만, 보통 어플리케이션 경로 아래에 둡니다. 어플리케이션 지원 폴더의 위치는 운영체제에 따라 다릅니다. `print(sys.get_save_file("", ""))`로 찾을 수 있습니다.
+
+  liveupdate.mounts 파일은 "local storage" 아래에 있으며, 그 경로는 시작 시 콘솔에 "INFO:LIVEUPDATE: Live update folder located at: ..."로 출력됩니다.
+
+  ![Local storage](images/live-update/local-storage.png)

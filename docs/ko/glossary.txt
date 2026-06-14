@@ -1,0 +1,400 @@
+---
+title: Defold 문서 한국어 용어집
+brief: docs/ko의 기존 한국어 번역 파일을 바탕으로 통합한 용어집입니다.
+---
+
+# Defold 문서 한국어 용어집
+
+이 용어집은 `docs/ko/manuals`의 기존 한국어 번역을 기준으로 정리했습니다. 목표는 앞으로 한국어 번역을 이어갈 때 같은 용어와 같은 문체를 유지하는 것입니다.
+
+일반 설명은 자연스러운 한국어로 번역합니다. 단, 제품명, 에디터에 실제로 보이는 UI 라벨, API 이름, 함수, 파일명, 경로, 메세지 ID, 설정 키, 명령어, 플랫폼명, 서비스명은 원문 그대로 유지합니다.
+
+기준 코퍼스: `docs/ko/manuals`의 Markdown 파일 44개.
+
+## 일반 개념
+
+| English term | Korean translation / explanation |
+|---|---|
+| Defold | Defold; 제품명, 번역하지 않음 |
+| Defold Foundation | Defold Foundation; 조직명, 번역하지 않음 |
+| Defold Editor | Defold 에디터; UI 제품명을 그대로 가리킬 때는 `Defold Editor`도 허용 |
+| editor | 에디터 |
+| engine | 엔진 |
+| game engine | 게임엔진 |
+| game | 게임 |
+| application | 어플리케이션 |
+| app | 앱 |
+| software | 소프트웨어 |
+| documentation | 문서 |
+| manual | 매뉴얼 |
+| guide | 가이드 |
+| overview | 개요 |
+| concept | 컨셉; 일반 설명에서는 개념도 가능 |
+| feature | 기능 |
+| tool | 도구 |
+| platform | 플랫폼 |
+| target platform | 타겟 플랫폼 |
+| system | 시스템 |
+| subsystem | 서브시스템 |
+| runtime | 런타임 |
+| lifecycle | 라이프사이클; 문맥에 따라 생명주기 |
+| workflow | 워크플로우 |
+| dashboard | 대쉬보드 |
+| repository | 저장소(repository) |
+| branch | 브랜치 |
+| collaboration | 공동작업; 협업도 가능하지만 기존 문서는 공동작업을 사용 |
+
+## 프로젝트, 빌드, 파일
+
+| English term | Korean translation / explanation |
+|---|---|
+| project | 프로젝트 |
+| project settings | 프로젝트 설정; UI 섹션명일 때는 `Project settings` 유지 가능 |
+| setting | 설정값; UI 속성명일 때는 원문 유지 |
+| `game.project` | `game.project`; 프로젝트 설정 파일 |
+| root | 루트 |
+| path | 경로; URL 컴포넌트명이나 코드 필드일 때는 `path` 유지 |
+| file | 파일 |
+| folder | 폴더 |
+| directory | 디렉토리 |
+| source code | 소스 코드 |
+| build | 빌드 |
+| build and launch | 빌드하고 실행하기; UI 라벨은 `Build And Launch` 유지 |
+| rebuild | 다시 빌드; UI 라벨은 `Rebuild And Launch` 유지 |
+| bundle | 번들 |
+| bundling | 번들링 |
+| package | 패키지; UI 버튼 `Package`는 유지 |
+| export | 익스포트 |
+| import | 임포트 |
+| dependency | 종속성 |
+| library | 라이브러리 |
+| Library URL | `Library URL`; 설명에서는 라이브러리 URL |
+| resource | 리소스 |
+| asset | 에셋 |
+| content | 컨텐츠 |
+| custom resource | 커스텀 리소스 |
+| bundle resource | 번들 리소스 |
+| manifest | 메니페스트; 기존 문서의 반복 표기를 따름. 파일명이나 `AndroidManifest.xml`은 유지 |
+| archive | 아카이브 |
+| cache | 캐쉬 |
+| template | 템플릿 |
+| config value | config 값; 설정값이라고 풀어도 됨 |
+| command line | 커맨드 라인 |
+| command line tool | 커맨드 라인 도구 |
+
+## 게임 구조
+
+| English term | Korean translation / explanation |
+|---|---|
+| building blocks | 빌딩 블록; 설명에서는 구성요소 |
+| game object | 게임 오브젝트 |
+| component | 컴포넌트 |
+| collection | 컬렉션 |
+| collection file | 컬렉션 파일 |
+| sub-collection | 서브-컬렉션 |
+| main collection | main 컬렉션; 설정 키는 `main_collection` 유지 |
+| bootstrap collection | 부트스트랩(bootstrap) 컬렉션 |
+| collection proxy | 컬렉션 프록시(Collection proxy) |
+| collection factory | 컬렉션 팩토리(Collection factory) |
+| factory | 팩토리 |
+| prototype | 프로토타입(prototype) |
+| blueprint | 설계도(blueprint); 문맥에 따라 설계도면 |
+| instance | 인스턴스 |
+| instantiate | 인스턴스화하다 |
+| in-place | 내장(in-place); 게임 오브젝트 문맥에서는 내부에 위치된 |
+| embedded component | 내장 컴포넌트 |
+| embedded game object | 내장 게임 오브젝트 |
+| parent | 부모 |
+| child | 자식 |
+| parent-child hierarchy | 부모-자식 계층구조 |
+| collection hierarchy | 컬렉션 계층구조 |
+| scene graph | 씬 그래프(scene graph) |
+| transform | 변형(transform); 위치, 회전, 스케일 변경 |
+| position | 포지션; 설명에서는 위치 |
+| rotation | 회전 |
+| scale | 스케일; 동사는 확대/축소 |
+| movement | 이동 |
+| spawn | 스폰 |
+| load | 로드 |
+| unload | 언로드 |
+| initialize | 초기화 |
+| finalization | 마무리(finalization) |
+| enable | 활성화 |
+| disable | 비활성화 |
+| delete | 삭제 |
+| object | 오브젝트 |
+| id / ID | 일반 코드 필드는 `id`; 설명에서는 아이디도 가능 |
+| unique | 유니크한; 설명에서는 고유한 |
+
+## 컴포넌트와 리소스
+
+| English term | Korean translation / explanation |
+|---|---|
+| sprite | 스프라이트 |
+| script | 스크립트 |
+| script component | 스크립트 컴포넌트 |
+| script properties | 스크립트 프로퍼티 |
+| GUI | GUI |
+| GUI component | GUI 컴포넌트 |
+| GUI script | GUI 스크립트 |
+| GUI scene | GUI 씬 |
+| GUI node | GUI 노드 |
+| node | 노드 |
+| box node | box 노드; UI 타입명은 `Box node` 유지 가능 |
+| text node | 텍스트 노드 |
+| pie node | 파이 노드 |
+| template node | template 노드; 설명에서는 템플릿 노드 |
+| label | 라벨 |
+| sound | 사운드 |
+| sound component | 사운드 컴포넌트 |
+| sound group | 사운드 그룹 |
+| model | 모델 |
+| model component | 모델 컴포넌트 |
+| camera | 카메라 |
+| camera component | 카메라 컴포넌트 |
+| material | 메터리얼 |
+| shader | 쉐이더 |
+| vertex shader | 버텍스 쉐이더 |
+| fragment shader | 프래그먼트 쉐이더; 기존 문서에는 프레그먼트도 있음 |
+| shader constant | 쉐이더 상수 |
+| texture | 텍스쳐 |
+| atlas | 아틀라스 |
+| tile source | 타일 소스; 기존 문서에는 타일소스도 있음 |
+| tile map | 타일 맵 |
+| ParticleFX | 파티클FX; 컴포넌트명은 `ParticleFX` 유지 가능 |
+| particle effect | 파티클 효과 |
+| emitter | emitter; 설명에서는 방사체 |
+| modifier | modifier; 설명에서는 수정자 |
+| font | 폰트 |
+| input binding | 입력 바인딩; 기존 문서에는 인풋 바인딩, 인풋바인딩도 있음 |
+| input action | 입력 동작; 문맥에 따라 입력 액션도 가능 |
+| input focus | 입력 포커스 |
+| input stack | 인풋 스택; 기존 문서에는 입력스택, 입력 스택도 있음 |
+| collision object | 충돌 오브젝트 |
+| physics | 물리 |
+| physics world | 물리 월드 |
+| physics shape | 물리 모형; 문맥에 따라 물리 shape |
+| collision | 충돌 |
+| trigger | 트리거 |
+| ray-cast | ray-cast; 설명에서는 레이 캐스트 가능 |
+| native extension | 네이티브 익스텐션 |
+| extension | 익스텐션 |
+| SDK | SDK |
+| dmSDK | dmSDK; 번역하지 않음 |
+
+## 메세지, 주소 지정, URL
+
+| English term | Korean translation / explanation |
+|---|---|
+| message passing | 메세지 전달(Message passing) |
+| message | 메세지 |
+| send a message | 메세지를 보내다; 전송하다 |
+| post a message | 메세지를 게시(post)하다; 코드 설명에서는 보내다 |
+| message id | 메세지 ID; 코드 필드는 `message_id` 유지 |
+| message data | 메세지 데이터 |
+| message queue | 메세지 큐 |
+| message dispatcher | 메세지 전달자(message dispatcher) |
+| dispatch | 디스패치; 설명에서는 전달 |
+| receiver | 수신자 |
+| recipient | 수신자 |
+| sender | 발신자 |
+| target | 타겟 |
+| broadcast | 브로드캐스트 |
+| addressing | 주소 지정(addressing) |
+| address | 주소 |
+| relative address | 상대 주소 |
+| absolute address | 절대 주소 |
+| relative path | 상대 경로 |
+| absolute path | 절대 경로 |
+| URL | URL |
+| URL object | URL 오브젝트 |
+| socket | 소켓; URL 필드명일 때는 `socket` |
+| path | 경로; URL 필드명일 때는 `path` |
+| fragment | 프래그먼트; URL 필드명일 때는 `fragment` |
+| hash | 해쉬 |
+| hashed | 해쉬된 |
+| hash value | 해쉬값 |
+| identifier | 식별자; `id` 설명에서는 아이디 가능 |
+| namespace | 네임스페이스 |
+| `msg.post()` | `msg.post()`; 메세지를 보내는 API |
+| `msg.url()` | `msg.url()`; URL 오브젝트를 만드는 API |
+| `go.get_id()` | `go.get_id()`; 게임 오브젝트 id를 얻는 API |
+| `factory.create()` | `factory.create()`; 팩토리에서 오브젝트를 생성하는 API |
+| `.` | 현재 게임 오브젝트를 가리키는 URL 약칭 |
+| `#` | 현재 스크립트 또는 컴포넌트 약칭, 또는 게임 오브젝트와 컴포넌트 구분자 |
+| `/` | 절대 경로 접두어 또는 경로 구분자 |
+| `@render` | `@render`; 렌더 소켓 |
+| `@system` | `@system`; 시스템 소켓 |
+| `@physics` | `@physics`; 물리 소켓 |
+| `proxy_loaded` | 메세지 ID, 번역하지 않음 |
+| `proxy_unloaded` | 메세지 ID, 번역하지 않음 |
+| `acquire_input_focus` | 메세지 ID, 번역하지 않음 |
+| `release_input_focus` | 메세지 ID, 번역하지 않음 |
+| `set_parent` | 메세지 ID, 번역하지 않음 |
+| `set_time_step` | 메세지 ID, 번역하지 않음 |
+
+## 프로그래밍과 Lua
+
+| English term | Korean translation / explanation |
+|---|---|
+| Lua | Lua; 첫 언급에서 Lua(루아) 가능 |
+| C++ | C++ |
+| JavaScript | JavaScript |
+| programming language | 프로그래밍 언어 |
+| native code | 네이티브 코드 |
+| function | 함수 |
+| callback | 콜백 |
+| parameter | 파라미터; 설명에서는 인자 |
+| argument | 인자 |
+| variable | 변수 |
+| local | 로컬 |
+| global | 전역 |
+| global scope | 전역 범위(global scope) |
+| module | 모듈 |
+| Lua context | Lua context; 설명에서는 Lua 컨텍스트 |
+| table | 테이블 |
+| string | 문자열 |
+| boolean | 불린형 |
+| number | 숫자형 |
+| nil | `nil`; 번역하지 않음 |
+| userdata | `userdata`; 번역하지 않음 |
+| coroutine | 코루틴 |
+| thread | thread; Lua 자료형명은 유지 |
+| state | 상태 |
+| internal state | 내부 상태(internal state) |
+| public function | public 함수 |
+| monkey patching | monkey patching; 설명 필요 시 몽키 패칭 |
+| garbage collection | 가비지 컬렉션 |
+| performance consideration | 성능 고려사항 |
+| memory | 메모리 |
+| profiler | 프로파일러 |
+| debug | 디버그; 동사는 디버깅하다 |
+| hot reload | 핫 리로드 |
+
+## 그래픽, 렌더링, GUI
+
+| English term | Korean translation / explanation |
+|---|---|
+| graphics | 그래픽 |
+| 2D graphics | 2D 그래픽 |
+| 3D graphics | 3D 그래픽 |
+| rendering | 렌더링 |
+| renderer | 렌더러 |
+| render script | 렌더 스크립트 |
+| rendering pipeline | 렌더링 파이프라인 |
+| render predicate | 렌더 predicate; 설명에서는 렌더 술어 또는 렌더 조건자 |
+| draw order | 그리기 순서 |
+| draw call | 드로우콜 |
+| batch rendering | 배치 렌더링; 설명에서는 일괄처리 |
+| batch | 배치 |
+| layer | 레이어 |
+| blend mode | 블렌드 모드 |
+| shader program | 쉐이더 프로그램 |
+| vertex | 버텍스 |
+| fragment | 프래그먼트 |
+| pixel | 픽셀 |
+| texel | 텍셀 |
+| mipmap | 밉맵 |
+| sampler | 샘플러 |
+| wrap mode | wrap 모드 |
+| filter mode | filter 모드 |
+| projection | 투영; 코드/행렬 문맥에서는 projection |
+| projection matrix | 프로젝션 메트릭스 |
+| view | 뷰 |
+| view matrix | 뷰 메트릭스 |
+| viewport | 뷰포트 |
+| orthographic projection | 직교 투영(orthographic projection) |
+| perspective | perspective; 설명에서는 시각 |
+| perspective projection | 원근 투영(perspective projection) |
+| frustum | 절두체(frustum) |
+| clipping | 클리핑 |
+| stencil | 스텐실 |
+| stencil mask | 스텐실 마스크 |
+| slice-9 texturing | slice-9 texturing; 설명에서는 slice-9 텍스쳐링 |
+| flipbook animation | 플립북 애니메이션 |
+| animation | 애니메이션 |
+| property animation | 프로퍼티 애니메이션 |
+| layout | 레이아웃 |
+| display profile | 디스플레이 프로파일 |
+| orientation | 방향(orientation) |
+| aspect ratio | 종횡비(aspect ratio) |
+| resolution | 해상도 |
+| screen space | 화면 공간 |
+| coordinate system | 좌표 시스템 |
+| user interface | 유저 인터페이스 |
+| graphical user interface | 그래픽 유저 인터페이스 |
+| HUD | HUD |
+
+## 에디터 UI와 작업 흐름
+
+| English term | Korean translation / explanation |
+|---|---|
+| UI label | UI 라벨; 실제 라벨은 번역하지 않음 |
+| menu | 메뉴 |
+| button | 버튼 |
+| dialog | 다이얼로그 |
+| popup | 팝업 |
+| panel | 패널 |
+| pane | 창; `Assets pane`처럼 UI 라벨은 유지 |
+| inspector | 인스펙터 |
+| Outline | `Outline`; 설명에서는 Outline 창 또는 아웃라인 뷰 |
+| Properties | `Properties`; 설명에서는 Properties 창, 프로퍼티 탭 |
+| Assets pane | `Assets pane`; 설명에서는 Assets pane 창 |
+| Scene Editor | `Scene Editor`; 설명에서는 씬 에디터 |
+| Material Editor | `Material Editor`; 설명에서는 메터리얼 에디터 |
+| Curve Editor | `Curve Editor`; 설명에서는 Curve Editor 창 |
+| select | 선택하다 |
+| create | 생성하다; 만들다 |
+| add | 추가하다 |
+| right click | 마우스 오른쪽 버튼을 누르다; 오른쪽 클릭 |
+| double click | 더블 클릭 |
+| drag | 드래그 |
+| drag and drop | 드래그-앤-드롭 |
+| copy and paste | 복사 붙여넣기 |
+| checkbox | 체크박스 |
+| dropdown | 드롭다운 |
+| `File > New` | UI 메뉴 경로, 번역하지 않음; 새 글에서는 `File ▸ New` 권장 |
+| `Project > Build And Launch` | UI 메뉴 경로, 번역하지 않음 |
+| `Project ▸ Bundle` | UI 메뉴 경로, 번역하지 않음 |
+| `Open With ▸ Text Editor` | UI 메뉴 경로, 번역하지 않음 |
+| `Add Game Object` | UI 라벨, 번역하지 않음 |
+| `Add Game Object File` | UI 라벨, 번역하지 않음 |
+| `Add Component` | UI 라벨, 번역하지 않음 |
+| `Add Component File` | 현재 영어 문서와 튜토리얼에서 쓰이는 UI 라벨, 번역하지 않음 |
+| `Add Component From File` | 기존 한국어 문서와 일부 튜토리얼에 남아 있는 UI 라벨, 번역하지 않음 |
+| `New Project` | UI 라벨, 번역하지 않음 |
+| `Package` | UI 버튼, 번역하지 않음 |
+
+## 플랫폼, 서비스, 외부 도구
+
+| English term | Korean translation / explanation |
+|---|---|
+| Android | Android |
+| iOS | iOS |
+| HTML5 | HTML5 |
+| macOS | macOS |
+| Windows | Windows |
+| Linux | Linux |
+| Nintendo Switch | Nintendo Switch |
+| Google Play | Google Play |
+| App Store | App Store |
+| Apple Developer | Apple Developer |
+| Play Console | Play Console |
+| AWS | AWS; 첫 언급에서 아마존 웹 서비스(AWS) 가능 |
+| Amazon S3 | Amazon S3 |
+| bucket | 버켓(bucket) |
+| IAM | IAM |
+| CORS | CORS |
+| IndexedDB | IndexedDB |
+| Emscripten | Emscripten |
+| OpenGL | OpenGL |
+| OpenGL ES | OpenGL ES |
+| WebGL | WebGL |
+| ADB | ADB |
+| `adb` | `adb`; Android Debug Bridge 명령 |
+| Bob | Bob |
+| `bob.jar` | `bob.jar` |
+| dmengine | dmengine |
+| development app | development app; 설명에서는 개발용 앱 |
+| development engine | 개발용 엔진(development engine) |
+| standalone | standalone; 설명에서는 독립 실행 |

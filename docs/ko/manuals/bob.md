@@ -1,19 +1,27 @@
 ---
-title: Defold manual
+title: Defold 프로젝트 빌더 매뉴얼
+brief: Bob은 Defold 프로젝트를 빌드하기 위한 커맨드 라인 도구입니다. 이 매뉴얼은 이 도구를 사용하는 방법을 설명합니다.
 ---
 
 # Bob the builder
-Bob은 에디터 외부에서 Defold 프로젝트를 빌드하기 위한 도구입니다. 이 메뉴얼은 이 도구를 사용하는 방법에 대해 설명합니다.
 
-## Overview
-Bob은 데이터를 빌드(에디터에서  **Project ▸ Build And Launch** 선택하는 것에 해당함)하고 압축하고 독립(standalone) 및 배포 가능한 어플리케이션 번들을 생성(에디터에서 **Project ▸ Bundle ▸ \*** 을 선택하는 것에 해당함)할 수 있습니다.
+Bob은 일반적인 에디터 워크플로우 밖에서 Defold 프로젝트를 빌드하기 위한 커맨드 라인 도구입니다.
 
-Bob은 빌드에 필요한 모든 것을 포함하는 Java JAR 파일 형식으로 배포됩니다. 최신 "bob.jar" 배포본은 [GitHub Releases page](https://github.com/defold/defold/releases)에서 찾을 수 있습니다. 원하는 release를 선택한 뒤 "bob/bob.jar" 파일을 다운로드합니다. Bob 도구를 실행하려면 OpenJDK 25가 필요합니다.
+Bob은 데이터 빌드(에디터 메뉴 항목 <kbd>Project ▸ Build</kbd>를 선택하는 빌드 단계에 해당), 데이터 아카이브 생성, 그리고 독립 실행 및 배포 가능한 어플리케이션 번들 생성(에디터 메뉴 항목 <kbd>Project ▸ Bundle ▸ ...</kbd> 옵션에 해당)을 할 수 있습니다.
 
-## Usage
-Bob은 쉘이나 커맨드 라인에서 "java"(또는 Windows에서는 "java.exe") 호출시 bob java 파일을 인수로 넘겨서 실행할 수 있습니다.
+Bob은 빌드에 필요한 모든 것을 포함하는 Java _JAR_ 아카이브로 배포됩니다. 최신 *bob.jar* 배포본은 [GitHub Releases 페이지](https://github.com/defold/defold/releases)에서 찾을 수 있습니다. 릴리스를 선택한 다음 *bob/bob.jar*를 다운로드하세요. 실행하려면 OpenJDK 25가 필요합니다.
 
-```
+호환되는 OpenJDK 25 미러:
+* [OpenJDK 25 by Microsoft](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-25)
+* [OpenJDK 25 by Adoptium Working Group](https://github.com/adoptium/temurin25-binaries/releases) / [Adoptium.net](https://adoptium.net/)
+
+Windows를 사용한다면 OpenJDK용 `.msi` 파일 설치 관리자를 사용하면 됩니다.
+
+## 사용법
+
+Bob은 쉘이나 커맨드 라인에서 `java`(Windows에서는 `java.exe`)를 호출하고 bob Java 아카이브를 인자로 제공하여 실행합니다.
+
+```text
 $ java -jar bob.jar --help
 usage: bob [options] [commands]
  -a,--archive                            Build archive
@@ -81,7 +89,7 @@ usage: bob [options] [commands]
  -mp,--mobileprovisioning <arg>          mobileprovisioning profile (iOS)
     --ne-build-dir <arg>                 Specify a folder with includes or
                                          source, to build a specific
-                                         library. More than one occurrance
+                                         library. More than one occurrence
                                          is allowed.
     --ne-output-name <arg>               Specify a library target name
  -o,--output <arg>                       Output directory. Default is
@@ -100,7 +108,7 @@ usage: bob [options] [commands]
     --resource-cache-remote-user <arg>   Username to authenticate access
                                          to the remote resource cache.
     --settings <arg>                     Path to a game project settings
-                                         file. More than one occurrance is
+                                         file. More than one occurrence is
                                          allowed. The settings files are
                                          applied left to right.
     --strip-executable                   Strip the dmengine of debug
@@ -132,48 +140,64 @@ usage: bob [options] [commands]
                                          applicable)
 ```
 
-### Available commands:
+사용 가능한 명령:
 
-#### clean
-빌드 디렉토리에서 빌드된 파일들을 삭제합니다.
-#### distclean
-빌드 디렉토리에서 모든 파일들을 삭제합니다.
-#### build
-모든 프로젝트 데이터를 빌드합니다. "--archive" 옵션을 추가해서 압축 파일(빌드 디렉토리의 "game.darc")로 빌드할 수 있습니다.
-#### bundle
-특정 플랫폼의 어플리케이션 번들을 생성합니다. 번들 작업을 하려면 빌드된 압축 파일("build"에서 "--archive" 옵션을 사용해서)이 있어야 하며 타겟 플랫폼을 지정("--platform" 옵션을 사용해서)해야 합니다. Bob은 "--bundle-output" 옵션을 사용하여 지정된 출력 디렉토리에서 번들을 생성할 수 있습니다. 이 번들은 *game.project*의 프로젝트 이름 설정값에 따라 이름이 정해집니다.
-#### resolve
-모든 외부 라이브러리 종속성을 처리합니다.
+`clean`
+: 빌드 디렉토리에서 빌드된 파일을 삭제합니다.
 
-### Available platforms:
+`distclean`
+: 빌드 디렉토리의 모든 파일을 삭제합니다.
 
-#### x86_64-macos
-macOS 64 bit
-#### arm64-macos
-macOS Apple Silicon (ARM)
-#### x86-win32
-Windows
-#### x86-linux
-Linux
-#### arm64-ios
-iOS 64 bit
-#### armv7-android
-Android
-#### wasm-web
-HTML5
+`build`
+: 모든 프로젝트 데이터를 빌드합니다. 데이터 아카이브 파일(빌드 디렉토리의 "`game.darc`")을 빌드하려면 `--archive` 옵션을 추가하세요.
 
-기본적으로 Bob은 현재 디렉토리에서 빌드할 프로젝트를 찾습니다. 만약 현재 디렉토리를 Defold 프로젝트로 변경하고 bob을 호출하면, 기본 출력 디렉토리인 "build/default" 에서 프로젝트를 빌드합니다.
+`bundle`
+: 플랫폼별 어플리케이션 번들을 생성합니다. 번들링하려면 빌드된 아카이브(`--archive` 옵션을 사용한 `build`)가 있어야 하며 타겟 플랫폼(`--platform` 옵션 사용)이 지정되어야 합니다. `--bundle-output` 옵션으로 다른 디렉토리를 지정하지 않으면 Bob은 출력 디렉토리에 번들을 생성합니다. 번들 이름은 *game.project*의 프로젝트 이름 설정값에 따라 정해집니다. `--variant`는 번들링할 때 빌드할 실행 파일의 종류를 지정하며, `--strip-executable` 옵션과 함께 `--debug` 옵션을 대체합니다. `--variant`를 지정하지 않으면 엔진의 release 버전(Android와 iOS에서는 심볼이 제거된 버전)을 얻게 됩니다. `--variant`를 debug로 설정하고 `--strip-executable`을 생략하면 예전의 `--debug`와 같은 종류의 실행 파일이 생성됩니다.
 
-```
+`resolve`
+: 모든 외부 라이브러리 종속성을 처리합니다.
+
+사용 가능한 플랫폼과 아키텍처:
+
+`x86_64-macos`
+: macOS 64 bit
+
+`arm64-macos`
+: macOS Apple Silicon (ARM)
+
+`x86_64-win32`
+: Windows 64 bit
+
+`x86-win32`
+: Windows 32 bit
+
+`x86_64-linux`
+: Linux 64 bit
+
+`x86_64-ios`
+: iOS macOS 64 bit (iOS Simulator)
+
+`arm64-ios`
+: iOS 64 bit. 기본적으로 `--architectures` 인자 값은 `arm64-ios`입니다.
+
+`armv7-android`
+: 사용 가능한 32 bit `armv7-android` 및 64 bit `arm64-android` 아키텍처가 있는 Android입니다. 기본적으로 `--architectures` 인자 값은 `armv7-android,arm64-android`입니다.
+
+`wasm-web`
+: 사용 가능한 `wasm-web` 및 `wasm_pthread-web` 아키텍처가 있는 HTML5입니다. 기본적으로 `--architectures` 인자 값은 `wasm-web`입니다.
+
+기본적으로 Bob은 빌드할 프로젝트를 현재 디렉토리에서 찾습니다. 현재 디렉토리를 Defold 프로젝트로 바꾸고 bob을 호출하면 기본 출력 디렉토리인 *build/default*에 프로젝트 데이터를 빌드합니다.
+
+```sh
 $ cd /Applications/Defold-beta/branches/14/4/main
 $ java -jar bob.jar
 100%
 $
 ```
 
-한방에 일련의 작업들을 수행하려면 명령들을 함께 나열하면 됩니다. 아래 예제는 라이브러리 종속성을 처리하고, 빌드 디렉토리를 지우고, 번들과 데이터를 macOS용 어플리케이션(이름은 "My Game.app")으로 빌드합니다.
+여러 명령을 이어서 한 번에 일련의 작업을 수행할 수 있습니다. 다음 예제는 라이브러리 종속성을 처리하고, 빌드 디렉토리를 비우고, 아카이브 데이터를 빌드한 다음 macOS 어플리케이션(*My Game.app*이라는 이름)을 번들링합니다.
 
-```
+```sh
 $ java -jar bob.jar --archive --platform x86_64-macos resolve distclean build bundle
 100%
 $ ls -al build/default/

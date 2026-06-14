@@ -1,140 +1,105 @@
 ---
-title: Defold manual
+title: Android 플랫폼용 Defold 개발
+brief: 이 매뉴얼은 Android 기기에서 Defold 어플리케이션을 빌드하고 실행하는 방법을 설명합니다
 ---
 
-# Android development
-이 문서는 Android 장치에서 Defold 어플리케이션을 빌드하고 실행하는 방법에 대해 설명합니다.
+# Android 개발
 
-Android 개발은 컨텐츠를 자유롭게 장치에 업로드 하고 액세스 할 수 있다는 점에서 iOS 개발과 다르며 아주 쉽게 게임의 버전을 빌드하고 Android 장치에 복사할 수 있습니다. 또한 와이파이를 통해 장치에서 반복적인 개발을 위한 개발용 엔진(development engine)도 쉽게 추가할 수 있습니다.
+Android 기기에서는 직접 만든 앱을 자유롭게 실행할 수 있습니다. 게임 버전을 빌드해서 Android 기기에 복사하는 과정도 매우 간단합니다. 이 매뉴얼은 게임을 Android용으로 번들링하는 데 필요한 단계를 설명합니다. 개발 중에는 컨텐츠와 코드를 기기에 직접 핫 리로드할 수 있으므로 [development app](/manuals/dev-app)을 통해 게임을 실행하는 방식을 선호하는 경우가 많습니다.
 
-## Android and Google Play signing process
-Android는 앱을 설치하기 위해 디지털 서명을 필요로 합니다. Apple에서 모든 인증서를 발행하는 iOS와는 달리, Android는 자체 서명된 앱을 허용하므로 앱을 서명하는데 필요한 키나 인증서를 자유롭게 생성할 수 있습니다.
+## Android 및 Google Play 서명 프로세스
 
-인증서나 키를 생성하는 과정은 복잡해 보일 수 있지만, 개발단계에서는 Defold가 이 과정을 완전히 자동화 합니다. 에디터에서 Android 어플리케이션 번들을 만들 때, 당신은 특정 인증서와 키를 제공할 수 있지만, 제공하지 않더라도 Defold가 무작위로 인증서와 키를 생성하고 **.apk**(Android Application Package) 파일을 서명합니다.
+Android는 모든 APK가 기기에 설치되거나 업데이트되기 전에 인증서로 디지털 서명되어 있어야 합니다. Android App Bundles를 사용하는 경우 Play Console에 업로드하기 전에 앱 번들만 서명하면 되며, 나머지는 [Play App Signing](https://developer.android.com/studio/publish/app-signing#app-signing-google-play)이 처리합니다. 하지만 Google Play, 다른 앱 스토어 또는 스토어 외부 배포를 위해 앱을 수동으로 서명할 수도 있습니다.
 
-Google Play에 앱을 릴리즈할 때가 되면 앱을 서명하는데 사용되는 실제 인증서와 키를 생성해야만 합니다. 그 이유는 이 앱의 버전을 배포하고 업데이트 하려 할 때, 엡데이트 된 **.apk** 파일과 현재 버전이 동일한 서명으로 되어있어야 하기 때문입니다. 만약 서로 다른 private key로 서명하면, Google Play는 **.apk** 업데이트를 거부(reject)하게 되고 당신은 이 게임을 완전히 새로운 앱으로 다시 배포해야 합니다.
+Defold 에디터나 [커맨드 라인 도구](/manuals/bob)에서 Android 어플리케이션 번들을 만들 때, 어플리케이션 서명에 사용할 keystore(인증서와 키가 들어 있음)와 keystore password를 제공할 수 있습니다. 제공하지 않으면 Defold가 debug keystore를 생성하고 이를 사용해 어플리케이션 번들을 서명합니다.
 
-더 많은 정보는 [Google Play developer console](https://play.google.com/apps/publish/) 에서 찾을 수 있습니다. 나만의 인증서와 키를 생성하는 방법은 아래 정보를 참고 바랍니다.
+::: important
+debug keystore로 서명된 어플리케이션은 **절대로** Google Play에 업로드하면 안 됩니다. 항상 직접 만든 전용 keystore를 사용하세요.
+:::
 
-## Android Debug Bridge
-adb 명령 줄 도구는 Android 장치와 상호작용하는데 사용되는 다재다능한 프로그램이며 사용하기도 쉽습니다. Mac, Linux, Windows용으로 Android SDK package 에서 adb를 다운로드하고 설치할 수 있습니다.
+## keystore 만들기
 
-http://developer.android.com/sdk/index.html 에서 Android SDK 를 다운로드하세요. <sdk>/platform-tools/ 경로에서 adb 도구를 찾을 수 있습니다. 또는 플랫폼 별 패키지는 각각의 패키지 매니저를 통해서 설치할 수 있습니다.
+::: sidenote
+Defold는 Android 서명 프로세스에 keystore를 사용합니다. [자세한 정보는 이 포럼 게시물에서 확인할 수 있습니다](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
+:::
 
-On Ubuntu Linux:
-```
-$ sudo apt-get install android-tools-adb
-```
+[Android Studio를 사용해](https://developer.android.com/studio/publish/app-signing#generate-key) keystore를 만들거나 터미널/명령 프롬프트에서 만들 수 있습니다.
 
-On Fedora 18/19:
-```
-$ sudo yum install android-tools
+```bash
+keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, L=Unknown, ST=Nevada, C=US" -keystore mykeystore.keystore -storepass 5Up3r_53cR3t -alias myAlias -keyalg RSA -validity 9125
 ```
 
-On macOS (Homebrew)
-```
-$ brew install android-platform-tools
-```
+이 명령은 키와 인증서가 들어 있는 `mykeystore.keystore`라는 keystore 파일을 만듭니다. 키와 인증서에 대한 액세스는 암호 `5Up3r_53cR3t`로 보호됩니다. 키와 인증서는 25년(9125일) 동안 유효합니다. 생성된 키와 인증서는 alias `myAlias`로 식별됩니다.
 
-adb로 USB를 통해 컴퓨터와 Android 장치가 연결되었는지 확인하려면 아래 커맨드를 입력하십시오.
+::: important
+keystore와 관련 암호를 안전한 위치에 보관하세요. 어플리케이션을 직접 서명해서 Google Play에 업로드한 뒤 keystore나 keystore password를 잃어버리면 Google Play의 어플리케이션을 업데이트할 방법이 없습니다. Google Play App Signing을 사용하고 Google이 어플리케이션을 대신 서명하게 하면 이 문제를 피할 수 있습니다.
+:::
 
-```
-$ adb devices
-List of devices attached
-31002535c90ef000    device
-```
-
-장치(device)가 나타나지 않으면, Android에서 **USB 디버깅(USB debugging)** 이 활성화 되어 있는지 확인하세요. **설정(Settings)** 에서 **개발자 옵션(Developer options)** (또는 **Development**)에서 찾을 수 있습니다.
-
-![Enable USB debugging](images/android/usb_debugging.png)
-
-## development dmengine 설치하고 실행하기
-Defold 엔진의 stand-alone 버전은 준비된 **.apk** 파일을 무선으로 장치에 설치하고 반복적인 개발을 가능하게 해 줍니다.
-
-* http://d.defold.com에 방문해서 Defold downloads 항목을 찾습니다.
-* 다운로드할 버전을 클릭해서 사용 가능한 엔진 빌드 목록을 펼칩니다.
-* Android 플랫폼(Armv7)의 디버그 활성 빌드(debug enabled build)를 위해 "engine/armv7-android/dmengine.apk"를 선택합니다.
-
-![Download dmengine](images/android/download_dmengine.png)
-
-이 파일을 다운로드 한 후, **.apk**가 있는 위치에서 아래의 adb 명령을 실행합니다.
-
-```
-$ adb install dmengine.apk
-4445 KB/s (8706017 bytes in 1.912s)
-    pkg: /data/local/tmp/dmengine.apk
-Success
-```
-
-이제 개발용 "dmengine" 앱이 기기에 설치 되었습니다.
-
-![dmengine on the device](images/android/dmengine_on_device.png)
-
-### Launching the game
-Android 장치에서 게임을 실행하려면, dmengine 앱과 에디터가 동일한 와이파이 네트워크에 연결되어 있어야 합니다.
-
-1. 에디터가 실행중인지 확인합니다.
-2. Android에서 "dmengine" 앱을 실행합니다.
-3. 에디터의 **Project > Targets** 에서 당신의 기기를 선택합니다.
-4. **Project > Build And Launch**를 선택해서 게임을 실행합니다. 게임 컨텐츠가 네트워크를 통해 장치로 스트림 되므로 게임이 시작되는데 시간이 걸릴 수 있습니다.
-
-게임이 실행되는 동안, 평소처럼 [핫 리로드](/manuals/debugging#hot-reloading)을 사용할 수 있습니다.
 
 ## Android 어플리케이션 번들 만들기
-에디터는 게임을 위한 standalone 어플리케이션 번들을 쉽게 만들 수 있게 해 줍니다. **Project > Bundle…​ > Android Application…​** 메뉴를 선택해 보세요.
+
+에디터를 사용하면 게임용 독립 어플리케이션 번들을 쉽게 만들 수 있습니다. 번들링하기 전에 *game.project* [프로젝트 설정 파일](/manuals/project-settings/#android)에서 앱에 사용할 아이콘, version code 등을 지정할 수 있습니다.
+
+번들링하려면 메뉴에서 <kbd>Project ▸ Bundle... ▸ Android Application...</kbd>을 선택합니다.
+
+에디터가 무작위 디버그 인증서를 자동으로 만들게 하려면 *Keystore* 및 *Keystore password* 필드를 비워 둡니다.
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
-인증서와 비공개 키(Private Key)를 선택하고 **Package** 버튼을 누르면 컴퓨터에서 번들이 생성될 위치를 지정하라는 창이 뜹니다.
-
-![Android Application Package file](images/android/apk_file.png)
-
-에디터는 Android 어플리케이션 번들인 **.apk** 파일을 생성합니다. 이 파일은 adb 도구를 사용해 기기로 복사하거나 [Google Play developer console](https://play.google.com/apps/publish/) 을 통해서 Google Play에도 복사할 수 있습니다.  *game.project* 프로젝트 설정 파일에서 버전 코드나 앱에서 사용할 아이콘 등을 지정할 수 있습니다.
-
-### 어플리케이션 번들 디버깅하기
-엔진의 디버그 모드 버전(번들 생성시에 "Release mode"를 체크 해제 했을 경우)으로 빌드된 번들은 모든 콘솔 출력(console output)을 Android 시스템 로그로 보냅니다. 이 로그는 adb 도구에 "logcat" 명령어를 사용해서 액세스 할 수 있으며 태그("-s [tagname]")를 사용해서 출력을 필터링 할 수도 있습니다.
-
-```
-$ adb logcat -s "defold"
---------- beginning of /dev/log/system
---------- beginning of /dev/log/main
-I/defold  ( 6210): INFO:DLIB: SSDP started (ssdp://192.168.0.97:58089, http://0.0.0.0:38637)
-I/defold  ( 6210): INFO:ENGINE: Defold Engine 1.2.50 (8d1b912)
-I/defold  ( 6210): INFO:ENGINE: Loading data from:
-I/defold  ( 6210): INFO:ENGINE: Initialised sound device 'default'
-I/defold  ( 6210):
-D/defold  ( 6210): DEBUG:SCRIPT: Hello there, log!
-...
-```
-
-## 인증서와 키 생성하기
-**pem** 포멧의 인증서와 **pk8** 포멧의 키를 생성해야 합니다. 이는 openssl 도구를 사용해 생성할 수 있습니다.
-
-```
-$ openssl genrsa -out key.pem 1024
-$ openssl req -new -key key.pem -out request.pem
-$ openssl x509 -req -days 9999 -in request.pem -signkey key.pem -out certificate.pem
-$ openssl pkcs8 -topk8 -outform DER -in key.pem -inform PEM -out key.pk8 -nocrypt
-```
-
-이렇게 해서 어플리케이션 번들을 서명하는데 사용되는 "certificate.pem" 및 "key.pk8" 파일이 생성됩니다.
+특정 keystore로 번들을 서명하려면 *Keystore*와 *Keystore password*를 지정합니다. *Keystore*는 `.keystore` 파일 확장자를 가진 파일이어야 하며, 암호는 `.txt` 확장자를 가진 텍스트 파일에 저장되어 있어야 합니다. keystore 안의 키가 keystore 자체와 다른 암호를 사용하는 경우 *Key password*를 지정할 수도 있습니다.
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-> 인증서와 키가 안전하게 저장되었는지 확인하십시오. 만약 이 파일들을 잃어버리면 Google Play에 **.apk** 업데이트 버전의 파일을 다신 업로드 할 수 없게 됩니다.
+Defold는 APK와 AAB 파일 생성을 모두 지원합니다. Bundle Format 드롭다운에서 APK 또는 AAB를 선택합니다.
 
-## Troubleshooting
-### 장치가 Targets 메뉴에 나타나지 않을 경우
-장치와 컴퓨터가 동일한 와이파이 네트워크에 있는지 확인합니다. 또한 "dmengine" 앱이 에디터와 동일한 버전인지도 확인합니다. 만약 에디터가 업그레이드 되었다면, "dmengine.apk"도 새로 다운로드해서 장치에 설치해야 합니다.
+어플리케이션 번들 설정을 구성했으면 <kbd>Create Bundle</kbd>을 누릅니다. 그러면 컴퓨터에서 번들을 만들 위치를 지정하라는 메시지가 표시됩니다.
 
-### 설치시 "Failure [INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES]" 오류가 발생할 경우
-Android는 새 인증서로 앱을 설치하려는 것을 감지합니다. 디버그용 빌드로 번들을 생성할 때, 각 빌드는 임시 인증서로 서명됩니다. 새 버전을 설치하기 전에 기존 앱을 제거 하십시오.
+![Android Application Package file](images/android/apk_file.png)
+
+:[Build Variants](../shared/build-variants.md)
+
+### Android 어플리케이션 번들 설치하기
+
+#### APK 설치하기
+
+*`.apk`* 파일은 `adb` 도구를 사용해 기기에 복사하거나 [Google Play developer console](https://play.google.com/apps/publish/)을 통해 Google Play에 업로드할 수 있습니다.
+
+:[Android ADB](../shared/android-adb.md)
 
 ```
-$ adb uninstall com.defold.examples
-Success
 $ adb install Defold\ examples.apk
 4826 KB/s (18774344 bytes in 3.798s)
-    pkg: /data/local/tmp/Defold examples.apk
+  pkg: /data/local/tmp/my_app.apk
 Success
 ```
+
+#### 에디터를 사용해 APK 설치하기
+
+Bundle 대화상자의 "Install on connected device" 및 "Launch installed app" 체크박스를 사용해 *`.apk`* 파일을 설치하고 실행할 수 있습니다.
+
+![Install and Launch APK](images/android/install_and_launch.png)
+
+이 기능이 작동하려면 ADB가 설치되어 있고 연결된 기기에서 *USB debugging*이 활성화되어 있어야 합니다. 에디터가 ADB 커맨드 라인 도구의 설치 위치를 감지하지 못하면 [Preferences](/manuals/editor-preferences/#tools)에서 위치를 지정해야 합니다.
+
+#### AAB 설치하기
+
+*.aab* 파일은 [Google Play developer console](https://play.google.com/apps/publish/)을 통해 Google Play에 업로드할 수 있습니다. 또한 [Android bundletool](https://developer.android.com/studio/command-line/bundletool)을 사용해 *.aab* 파일에서 *`.apk`* 파일을 생성하고 로컬에 설치할 수도 있습니다.
+
+## 권한
+
+Defold 엔진의 모든 기능이 작동하려면 여러 권한이 필요합니다. 권한은 *game.project* [프로젝트 설정 파일](/manuals/project-settings/#android)에 지정된 `AndroidManifest.xml`에 정의됩니다. Android 권한에 대한 자세한 내용은 [공식 문서](https://developer.android.com/guide/topics/permissions/overview)에서 확인할 수 있습니다. 기본 메니페스트에서는 다음 권한을 요청합니다.
+
+### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
+어플리케이션이 네트워크 소켓을 열고 네트워크에 대한 정보에 액세스할 수 있게 합니다. 이 권한은 인터넷 액세스에 필요합니다. ([Android 공식 문서](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) 및 ([Android 공식 문서](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+
+### android.permission.WAKE_LOCK (Protection level: normal)
+PowerManager WakeLocks를 사용해 프로세서가 sleep 상태가 되거나 화면이 어두워지는 것을 막을 수 있게 합니다. 이 권한은 푸시 알림을 받는 동안 기기가 잠시 sleep 상태가 되지 않도록 하는 데 필요합니다. ([Android 공식 문서](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))
+
+
+## AndroidX 사용하기
+AndroidX는 더 이상 유지보수되지 않는 기존 Android Support Library를 크게 개선한 것입니다. AndroidX 패키지는 기능 동등성과 새 라이브러리를 제공하여 Support Library를 완전히 대체합니다. [Asset Portal](/assets)의 Android 익스텐션 대부분은 AndroidX를 지원합니다. AndroidX를 사용하지 않으려면 [어플리케이션 메니페스트](https://defold.com/manuals/app-manifest/)에서 `Use Android Support Lib`를 체크해 기존 Android Support Library를 명시적으로 활성화할 수 있습니다.
+
+![](images/android/enable_supportlibrary.png)
+
+## FAQ
+:[Android FAQ](../shared/android-faq.md)
