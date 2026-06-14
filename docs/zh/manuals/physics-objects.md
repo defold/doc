@@ -48,7 +48,7 @@ Collision Shape
 : 此属性用于瓦片地图几何体或不使用基本形状的凸形状。有关更多信息，请参见[碰撞形状](/manuals/physics-shapes)。
 
 Type
-: 碰撞对象的类型：`Dynamic`、`Kinematic`、`Static` 或 `Trigger`。如果将对象设置为动态，您 _必须_ 将 *Mass* 属性设置为非零值。对于动态或静态对象，您还应该检查 *Friction* 和 *Restitution* 值是否适合您的用例。
+: 碰撞对象的类型：`Dynamic`、`Kinematic`、`Static` 或 `Trigger`。如果将对象设置为 `Dynamic`，您 _必须_ 将 *Mass* 属性设置为非零值。对于 `Dynamic` 或 `Static` 对象，您还应该检查 *Friction* 和 *Restitution* 值是否适合您的用例。
 
 Friction
 : 摩擦使对象能够彼此真实地滑动。摩擦值通常设置在 `0`（完全没有摩擦——非常光滑的对象）和 `1`（强摩擦——磨蚀性对象）之间。但是，任何正值都是有效的。

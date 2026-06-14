@@ -162,7 +162,7 @@ A altura em pixels da janela da aplicação.
 Cria um back buffer high dpi em displays que oferecem suporte a isso. Normalmente o jogo será renderizado no dobro da resolução definida nas configurações *Width* e *Height*, que ainda serão a resolução lógica usada em scripts e propriedades.
 
 #### Samples
-Quantas amostras usar para anti-aliasing por superamostragem. Isso define a hint de janela GLFW_FSAA_SAMPLES. Um valor de `0` significa que anti-aliasing está desativado.
+Quantas amostras usar para anti-aliasing por superamostragem. Isso define a hint de janela `GLFW_FSAA_SAMPLES`. Um valor de `0` significa que anti-aliasing está desativado.
 
 #### Fullscreen
 Marque se a aplicação deve iniciar em tela cheia. Se desmarcado, a aplicação roda em janela.

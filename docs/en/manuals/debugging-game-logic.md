@@ -88,7 +88,7 @@ Setting and clearing breakpoints
   To set or clear a breakpoint, click in the column just right of the line numbers in the code editor. You can also select <kbd>Edit ▸ Toggle Breakpoint</kbd> from the menu.
 
 Disabling and enabling breakpoints
-: Breakpoints can be temporarily disabled without removing them. When disabled, they are ignored during execution but can be re-enabled at any time. Right-click it in the code editor gutter, then toggle the Enabled checkbox. Disabled breakpoints appear hollowed out to indicate they are inactive.
+: Breakpoints can be temporarily disabled without removing them. When disabled, they are ignored during execution but can be re-enabled at any time. Right-click it in the code editor gutter, then toggle the `Enabled` checkbox. Disabled breakpoints appear hollowed out to indicate they are inactive.
 
   ![disable breakpoint](images/debugging/disable_breakpoint.png)
 

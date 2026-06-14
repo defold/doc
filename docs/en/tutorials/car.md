@@ -132,7 +132,7 @@ Defold provides several lifecycle functions to code game logic. Read more about 
 Start by removing the `final`, `on_message` and `on_reload` functions as we won't be needing them
 for this tutorial.
 
-Next, add the following lines of code before the init function start starts.
+Next, add the following lines of code before the `init` function start starts.
 
 ```lua
 -- Constants
@@ -292,7 +292,7 @@ In the constants section at the top of the script, add the following constant
 local drag = 1.1	        --the drag constant <1>
 ```
 
-Then in the update function, just above this line add the following lines and save the file.
+Then in the `update` function, just above this line add the following lines and save the file.
 
 ```lua
 function update(self, dt)

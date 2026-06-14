@@ -91,7 +91,7 @@ Defold uses an image specified in the *Collision* property to generate a _convex
 
 Often it is sensible to use the same image for collision as the one containing the actual graphics, but you are free to specify a separate image if you want collision shapes that differ from the visuals. When you specify a collision image, the preview is updated with an outline on each tile indicating the generated collision shapes.
 
-The tile source outline lists collision groups that you have added to the tile source. New tile source files will get one "default" collision group added. You can add new groups by <kbd>right clicking</kbd> the tile source root in the *Outline* and selecting <kbd>Add ▸ Collision Group</kbd>.
+The tile source *Outline* lists collision groups that you have added to the tile source. New tile source files will get one "default" collision group added. You can add new groups by <kbd>right clicking</kbd> the tile source root in the *Outline* and selecting <kbd>Add ▸ Collision Group</kbd>.
 
 To select the tile shapes that should belong to a certain group, select the group in th *Outline*, then click each tile that you wish to assign to the group. The outline of the tile and shape is colored with the group's color. The color is automatically assigned to the group in the editor.
 

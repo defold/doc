@@ -83,7 +83,7 @@ Unlit
 
 ## 着色器集成
 
-PBR 材质数据会根据类型和命名约定暴露给着色器。PBR 材质系统通过名为 `PbrMaterial` 的结构化 uniform 块，把所有已解析的材质参数提供给着色器。每个受支持的 glTF 扩展都对应这个块中的一个结构体，并可使用 #define 标志进行条件编译。
+PBR 材质数据会根据类型和命名约定暴露给着色器。PBR 材质系统通过名为 `PbrMaterial` 的结构化 uniform 块，把所有已解析的材质参数提供给着色器。每个受支持的 glTF 扩展都对应这个块中的一个结构体，并可使用 `#define` 标志进行条件编译。
 
 ```glsl
 uniform PbrMaterial
@@ -92,7 +92,7 @@ uniform PbrMaterial
 };
 ```
 
-材质的各项功能在着色器中以固定结构体表示。由于 Defold 内部用 vec4 设置常量，数据会尽可能打包到 vec4 中。对于经过打包的数据，下面每个功能的着色器片段都会在注释中标出：
+材质的各项功能在着色器中以固定结构体表示。由于 Defold 内部用 vec4 设置常量，数据会尽可能打包到 `vec4` 中。对于经过打包的数据，下面每个功能的着色器片段都会在注释中标出：
 
 ```glsl
 struct PbrMetallicRoughness
@@ -176,7 +176,7 @@ struct PbrIridescence
 };
 ```
 
-通用属性设置在材质 uniform 本身上（同样要注意数据会打包到 vec4 中）。
+通用属性设置在材质 uniform 本身上（同样要注意数据会打包到 `vec4` 中）。
 
 ```glsl
 // Common textures
@@ -199,7 +199,7 @@ uniform PbrMaterial
 
 ### 示例着色器
 
-下面是一个包含所有功能的示例着色器，并给出了一套建议的纹理绑定命名方案（这些绑定仍然需要手动处理）。注意，你可以像下面示例中那样，在 PbrMaterial 的各个成员周围使用 define 来关闭功能：
+下面是一个包含所有功能的示例着色器，并给出了一套建议的纹理绑定命名方案（这些绑定仍然需要手动处理）。注意，你可以像下面示例中那样，在 `PbrMaterial` 的各个成员周围使用 `#define` 来关闭功能：
 
 ```glsl
 // Feature flags, comment or remove these to slim down the shader.

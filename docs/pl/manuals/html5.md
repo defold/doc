@@ -73,7 +73,7 @@ Po kliknięciu przycisku <kbd>Create bundle</kbd> zostaniesz poproszony o wybran
   * WebGL - Microsoft nie ukończył jeszcze pracy nad implementacją API _WebGL_ (zob. https://www.khronos.org/registry/webgl/specs/latest/). Z tego powodu działa ono gorzej niż w innych przeglądarkach.
   * Tryb pełnoekranowy (Full screen) - tryb pełnoekranowy jest w przeglądarce zawodny.
 * Chrome
-  * Powolne buildy debug (Slow debug builds) - w buildach debug HTML5 sprawdzamy wszystkie wywołania grafiki WebGL, aby wykrywać błędy. Niestety podczas testowania w Chrome jest to bardzo powolne. Można to wyłączyć, ustawiając pole *Engine Arguments* w *game.project* na `--verify-graphics-calls=false`.
+  * Powolne buildy debug (Slow debug builds) - w buildach debug HTML5 sprawdzamy wszystkie wywołania grafiki WebGL, aby wykrywać błędy. Niestety podczas testowania w Chrome jest to bardzo powolne. Można to wyłączyć, ustawiając pole *`Engine Arguments`* w *game.project* na `--verify-graphics-calls=false`.
 * Obsługa gamepadów (Gamepad support) - [dokumentacja gamepadów](/manuals/input-gamepads/#gamepads-in-html5) zawiera szczególne uwagi i kroki, które mogą być potrzebne w HTML5.
 
 ## Dostosowywanie pakietu HTML5
@@ -271,7 +271,7 @@ Można określić dodatkowe argumenty silnika podczas konfiguracji i wczytywania
     }
 ```
 
-Możesz też dodać `--config=foo1=bar1, --config=foo2=bar2` do pola argumentów silnika w sekcji HTML5 pliku *game.project*, a zostanie to wstrzyknięte do wygenerowanego pliku `index.html`.
+Możesz też dodać `--config=foo1=bar1, --config=foo2=bar2` do pola *Engine Arguments* w sekcji HTML5 pliku *game.project*, a zostanie to wstrzyknięte do wygenerowanego pliku `index.html`.
 
 W czasie działania wartości odczytasz w ten sposób:
 

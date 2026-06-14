@@ -53,9 +53,9 @@ Wszystkie obiekty gry i niektóre typy komponentów mają właściwości, które
 | Właściwość | Opis                                   | Typ             |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *position* | Lokalna pozycja obiektu gry.           | `vector3`       | `get+set`{.mark} |
-| *rotation* | Lokalna rotacja obiektu gry wyrażona jako kwaternion.    | `quaternion` | `get+set`{.mark} |
+| *rotation* | Lokalna rotacja obiektu gry wyrażona jako `quaternion`.    | `quaternion` | `get+set`{.mark} |
 | *euler*    | Lokalna rotacja obiektu gry wyrażona jako kąty Eulera.   | `vector3`    | `get+set`{.mark} |
-| *scale*    | Lokalna nieliniowa skala obiektu gry, wyrażona jako wektor, w którym każdy składnik zawiera mnożnik wzdłuż każdej osi. Przykładowo, aby podwoić rozmiar w osiach x i y, użyj vmath.vector3(2.0, 2.0, 0). | `vector3` | `get+set`{.mark} |
+| *scale*    | Lokalna nieliniowa skala obiektu gry, wyrażona jako wektor, w którym każdy składnik zawiera mnożnik wzdłuż każdej osi. Przykładowo, aby podwoić rozmiar w osiach x i y, użyj `vmath.vector3(2.0, 2.0, 0)`. | `vector3` | `get+set`{.mark} |
 | *scale.xy* | Lokalna nieliniowa skala obiektu gry w osiach X i Y. | `vector3` | `get+set`{.mark} |
 
 ::: sidenote
@@ -122,7 +122,7 @@ Węzły GUI również posiadają właściwości, ale są odczytywane i zapisywan
 * `inner_radius` (lub `gui.PROP_INNER_RADIUS`)
 * `slice9` (lub `gui.PROP_SLICE9`)
 
-Zauważ, że wszystkie wartości koloru są zakodowane w vector4, gdzie składniki odpowiadają wartościom RGBA:
+Zauważ, że wszystkie wartości koloru są zakodowane w `vector4`, gdzie składniki odpowiadają wartościom RGBA:
 
 `x`
 : Składnik koloru czerwonego

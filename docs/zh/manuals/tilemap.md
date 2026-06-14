@@ -96,7 +96,7 @@ end
 {% include shared/material-constants.md component='tilemap' variable='tint' %}
 
 `tint`
-: 瓦片地图的颜色色调（`vector4`）。vector4用于表示色调，x、y、z和w分别对应红色、绿色、蓝色和alpha色调。
+: 瓦片地图的颜色色调（`vector4`）。`vector4`用于表示色调，x、y、z和w分别对应红色、绿色、蓝色和alpha色调。
 
 ## 项目配置
 

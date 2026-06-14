@@ -16,7 +16,7 @@ Przy tworzeniu rozszerzenia warto zadbać o kilka rzeczy, które pomagają zaró
 
 Powinno istnieć tylko jedno API Lua i jedna jego implementacja. Dzięki temu znacznie łatwiej zapewnić takie samo działanie na wszystkich platformach.
 
-Jeśli dana platforma nie powinna obsługiwać rozszerzenia, zaleca się po prostu nie rejestrować modułu Lua. Dzięki temu można wykryć obsługę, sprawdzając nil:
+Jeśli dana platforma nie powinna obsługiwać rozszerzenia, zaleca się po prostu nie rejestrować modułu Lua. Dzięki temu można wykryć obsługę, sprawdzając `nil`:
 
 ```lua
     if myextension ~= nil then

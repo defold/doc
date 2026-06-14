@@ -125,7 +125,7 @@ Ze względów bezpieczeństwa przeglądarki internetowe, a przez to także każd
 
 
 ### Dostęp do plików systemowych
-Dostęp do plików systemowych może być ograniczony przez system operacyjny ze względów bezpieczeństwa. Możesz użyć natywnego rozszerzenia [`extension-directories`](https://defold.com/assets/extensiondirectories/), aby uzyskać bezwzględną ścieżkę do niektórych często używanych katalogów systemowych (np. documents, resource, temp). Gdy masz już bezwzględną ścieżkę do tych plików, możesz używać funkcji `io.*` i `os.*` do uzyskiwania do nich dostępu (patrz wyżej).
+Dostęp do plików systemowych może być ograniczony przez system operacyjny ze względów bezpieczeństwa. Możesz użyć natywnego rozszerzenia [`extension-directories`](https://defold.com/assets/extensiondirectories/), aby uzyskać bezwzględną ścieżkę do niektórych często używanych katalogów systemowych (np. `documents`, `resource`, `temp`). Gdy masz już bezwzględną ścieżkę do tych plików, możesz używać funkcji `io.*` i `os.*` do uzyskiwania do nich dostępu (patrz wyżej).
 
 ::: sidenote
 Ze względów bezpieczeństwa przeglądarki internetowe, a przez to także każdy kod JavaScript uruchamiany w przeglądarce, nie mają dostępu do plików systemowych. Operacje na plikach w kompilacjach HTML5 w silniku Defold nadal działają, ale tylko na „wirtualnym systemie plików” korzystającym z API IndexedDB w przeglądarce. Oznacza to, że nie ma sposobu na dostęp do plików systemowych w kompilacjach HTML5.

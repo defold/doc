@@ -29,7 +29,7 @@ Scripts de render
 Defold ejecuta scripts Lua como parte del ciclo de vida del motor y expone el ciclo de vida a través de un conjunto de funciones callback predefinidas. Cuando agregas un componente script a un objeto de juego, el script pasa a formar parte del ciclo de vida del objeto de juego y de sus componentes. El script se evalúa en el contexto Lua cuando se carga; luego el motor ejecuta las siguientes funciones y pasa como parámetro una referencia a la instancia actual del componente script. Puedes usar esta referencia `self` para almacenar estado en la instancia del componente.
 
 ::: important
-`self` es un objeto userdata que actúa como una tabla Lua, pero no puedes iterar sobre él con `pairs()` o `ipairs()` ni puedes imprimirlo usando `pprint()`.
+`self` es un objeto `userdata` que actúa como una tabla Lua, pero no puedes iterar sobre él con `pairs()` o `ipairs()` ni puedes imprimirlo usando `pprint()`.
 :::
 
 #### `init(self)`

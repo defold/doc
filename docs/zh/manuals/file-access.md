@@ -124,7 +124,7 @@ print(txt)
 
 
 ### 系统文件访问
-出于安全原因，操作系统可能会限制对系统文件的访问。您可以使用 [`extension-directories`](https://defold.com/assets/extensiondirectories/) 原生扩展来获取一些常见系统目录（即文档、资源、临时文件）的绝对路径。一旦获得这些文件的绝对路径，您就可以使用 `io.*` 和 `os.*` 函数来访问文件（见上文）。
+出于安全原因，操作系统可能会限制对系统文件的访问。您可以使用 [`extension-directories`](https://defold.com/assets/extensiondirectories/) 原生扩展来获取一些常见系统目录（即 `documents`、`resource`、`temp`）的绝对路径。一旦获得这些文件的绝对路径，您就可以使用 `io.*` 和 `os.*` 函数来访问文件（见上文）。
 
 ::: important
 出于安全原因，浏览器（以及扩展来说，在浏览器中运行的任何 JavaScript）被阻止访问系统文件。在 Defold 的 HTML5 构建中，文件操作仍然有效，但仅在浏览器中使用 IndexedDB API 的"虚拟文件系统"上有效。这意味着在 HTML5 构建中无法访问系统文件。

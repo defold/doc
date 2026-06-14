@@ -96,7 +96,7 @@ Another use-case for loading large amounts of data over the network is sound str
 
 ### Request headers
 
-It is possible to set additional headers when sending a request. This can for instance be used to set an authorization header or content type to tell the server which format the 
+It is possible to set additional headers when sending a request. This can for instance be used to set an `Authorization` header or `Content-Type` to tell the server which format the request body has.
 
 ```Lua
 local function handle_response(self, id, response)

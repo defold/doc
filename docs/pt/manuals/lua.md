@@ -245,8 +245,8 @@ table
   --> x   1
   ```
 
-userdata
-: Userdata é fornecido para permitir que dados C arbitrários sejam armazenados em variáveis Lua. O Defold usa objetos userdata de Lua para armazenar valores Hash (hash), objetos URL (url), objetos matemáticos (vector3, vector4, matrix4, quaternion), objetos de jogo, nodes GUI (node), predicados de Render (predicate), alvos de Render (render_target) e buffers de constantes de Render (constant_buffer)
+`userdata`
+: Userdata é fornecido para permitir que dados C arbitrários sejam armazenados em variáveis Lua. O Defold usa objetos `userdata` de Lua para armazenar valores Hash (hash), objetos URL (url), objetos matemáticos (vector3, vector4, matrix4, quaternion), objetos de jogo, nodes GUI (node), predicados de Render (predicate), alvos de Render (render_target) e buffers de constantes de Render (constant_buffer)
 
 thread
 : Threads representam threads independentes de execução e são usadas para implementar corrotinas. Veja abaixo para detalhes.
@@ -268,7 +268,7 @@ Operadores aritméticos
   ```
 
 Operadores relacionais/de comparação
-: `<` (menor que), `>` (maior que), `<=` (menor ou igual), `>=` (maior ou igual), `==` (igual), `~=` (diferente). Esses operadores sempre retornam `true` ou `false`. Valores de tipos diferentes são considerados diferentes. Se os tipos forem os mesmos, eles são comparados de acordo com seu valor. Lua compara tabelas, userdata e funções por referência. Dois valores assim são considerados iguais apenas se referenciam o mesmo objeto.
+: `<` (menor que), `>` (maior que), `<=` (menor ou igual), `>=` (maior ou igual), `==` (igual), `~=` (diferente). Esses operadores sempre retornam `true` ou `false`. Valores de tipos diferentes são considerados diferentes. Se os tipos forem os mesmos, eles são comparados de acordo com seu valor. Lua compara tabelas, `userdata` e funções por referência. Dois valores assim são considerados iguais apenas se referenciam o mesmo objeto.
 
   ```lua
   a = 5
@@ -427,7 +427,7 @@ break e return
 
 Todas as variáveis que você declara são globais por padrão, o que significa que elas ficam disponíveis por todas as partes do contexto de runtime Lua. Você pode declarar variáveis explicitamente como `local`, o que significa que a variável existirá apenas dentro do escopo atual.
 
-Cada arquivo-fonte Lua define um escopo separado. Declarações locais no nível mais alto de um arquivo significam que a variável é local ao arquivo de script Lua. Cada função cria outro escopo aninhado, e cada bloco de estrutura de controle cria escopos adicionais. Você pode criar explicitamente um escopo com as palavras-chave `do` e `end`. Lua tem escopo léxico, o que significa que um escopo tem acesso total às variáveis _local_ do escopo envolvente. Observe que as variáveis locais devem ser declaradas antes do uso.
+Cada arquivo-fonte Lua define um escopo separado. Declarações locais no nível mais alto de um arquivo significam que a variável é `local` ao arquivo de script Lua. Cada função cria outro escopo aninhado, e cada bloco de estrutura de controle cria escopos adicionais. Você pode criar explicitamente um escopo com as palavras-chave `do` e `end`. Lua tem escopo léxico, o que significa que um escopo tem acesso total às variáveis _local_ do escopo envolvente. Observe que as variáveis locais devem ser declaradas antes do uso.
 
 ```lua
 function my_func(a, b)
@@ -602,7 +602,7 @@ A coleta de lixo de Lua roda automaticamente em segundo plano por padrão e recu
 * Executar uma _instrução de função_ cria um objeto closure. (ou seja, executar a instrução `function () ... end`, não chamar uma função definida)
 * Funções vararg (`function(v, ...) end`) criam uma tabela para as reticências cada vez que a função é _chamada_ (em Lua antes da versão 5.2, ou se não estiver usando LuaJIT).
 * `dofile()` e `dostring()`
-* Objetos userdata
+* Objetos `userdata`
 
 Há muitos casos em que você pode evitar criar novos objetos e, em vez disso, reutilizar os que já tem. Por exemplo, o seguinte é comum ao final de cada `update()`:
 

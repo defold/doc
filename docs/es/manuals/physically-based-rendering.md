@@ -83,7 +83,7 @@ Algunas de estas propiedades proporcionan indicios sobre cómo debe renderizarse
 
 ## Integración con shaders
 
-Los datos de material PBR se exponen a los shaders según tipos y una convención de nombres. El sistema de materiales PBR proporciona todos los parámetros de material analizados a los shaders mediante un bloque uniform estructurado llamado `PbrMaterial`. Cada extensión glTF admitida corresponde a un struct dentro de este bloque, que se puede compilar condicionalmente mediante flags #define.
+Los datos de material PBR se exponen a los shaders según tipos y una convención de nombres. El sistema de materiales PBR proporciona todos los parámetros de material analizados a los shaders mediante un bloque uniform estructurado llamado `PbrMaterial`. Cada extensión glTF admitida corresponde a un struct dentro de este bloque, que se puede compilar condicionalmente mediante flags `#define`.
 
 ```glsl
 uniform PbrMaterial
@@ -92,7 +92,7 @@ uniform PbrMaterial
 };
 ```
 
-Las distintas funcionalidades del material se especifican como structs fijos en el shader. Los datos se han empaquetado tanto como es posible en vec4, ya que así se definen internamente las constantes en Defold. En los casos en que los datos se han empaquetado, se indica como comentarios en los fragmentos de shader para cada funcionalidad a continuación:
+Las distintas funcionalidades del material se especifican como structs fijos en el shader. Los datos se han empaquetado tanto como es posible en `vec4`, ya que así se definen internamente las constantes en Defold. En los casos en que los datos se han empaquetado, se indica como comentarios en los fragmentos de shader para cada funcionalidad a continuación:
 
 ```glsl
 struct PbrMetallicRoughness
@@ -176,7 +176,7 @@ struct PbrIridescence
 };
 ```
 
-Las propiedades comunes se definen en el propio material uniform (y, de nuevo, nota el empaquetado de datos en vec4).
+Las propiedades comunes se definen en el propio material uniform (y, de nuevo, nota el empaquetado de datos en `vec4`).
 
 ```glsl
 // Texturas comunes
@@ -199,7 +199,7 @@ uniform PbrMaterial
 
 ### Shader de ejemplo
 
-Aquí tienes un shader de ejemplo que contiene todas las funcionalidades y un esquema de nombres propuesto para bindings de textura (de nuevo, esto debe gestionarse manualmente). Ten en cuenta que puedes desactivar funcionalidades simplemente usando defines alrededor de cada miembro del propio PbrMaterial, como se muestra en el ejemplo a continuación:
+Aquí tienes un shader de ejemplo que contiene todas las funcionalidades y un esquema de nombres propuesto para bindings de textura (de nuevo, esto debe gestionarse manualmente). Ten en cuenta que puedes desactivar funcionalidades simplemente usando `#define`s alrededor de cada miembro del propio `PbrMaterial`, como se muestra en el ejemplo a continuación:
 
 ```glsl
 // Flags de funcionalidad; coméntalos o elimínalos para reducir el shader.

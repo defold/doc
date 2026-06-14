@@ -122,7 +122,7 @@ Si necesitas crear materiales personalizados para tus modelos, consulta la [docu
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: El tinte de color del modelo (`vector4`). El vector4 se usa para representar el tinte con x, y, z y w correspondientes al tinte rojo, verde, azul y alfa.
+: El tinte de color del modelo (`vector4`). El `vector4` se usa para representar el tinte con x, y, z y w correspondientes al tinte rojo, verde, azul y alfa.
 
 
 ## Renderizado

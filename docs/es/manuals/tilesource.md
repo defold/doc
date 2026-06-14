@@ -91,7 +91,7 @@ Defold usa una imagen especificada en la propiedad *Collision* para generar una 
 
 A menudo tiene sentido usar la misma imagen para la colisión que la que contiene los gráficos reales, pero puedes especificar una imagen separada si quieres formas de colisión que difieran de los gráficos visibles. Cuando especificas una imagen de colisión, la previsualización se actualiza con un contorno en cada tile que indica las formas de colisión generadas.
 
-La vista Outline del tile source lista los grupos de colisión que has agregado al tile source. Los archivos tile source nuevos tendrán agregado un grupo de colisión "default". Puedes agregar grupos nuevos haciendo <kbd>click derecho</kbd> en la raíz del tile source en *Outline* y seleccionando <kbd>Add ▸ Collision Group</kbd>.
+La vista *Outline* del tile source lista los grupos de colisión que has agregado al tile source. Los archivos tile source nuevos tendrán agregado un grupo de colisión "default". Puedes agregar grupos nuevos haciendo <kbd>click derecho</kbd> en la raíz del tile source en *Outline* y seleccionando <kbd>Add ▸ Collision Group</kbd>.
 
 Para seleccionar las formas de tile que deben pertenecer a un grupo determinado, selecciona el grupo en *Outline* y luego haz click en cada tile que quieras asignar al grupo. El contorno del tile y de la forma se colorea con el color del grupo. El editor asigna automáticamente el color al grupo.
 

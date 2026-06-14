@@ -25,7 +25,7 @@ end
 ```
 
 # Text Triggers
-Text triggers are used to read arbitrary text input. There are two types of text triggers; text and marked text.
+Text triggers are used to read arbitrary text input. There are two types of text triggers; `text` and `marked-text`.
 
 ![](images/input/text_bindings.png)
 

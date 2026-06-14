@@ -48,7 +48,7 @@ Collision Shape
 : Esta propiedad se usa para geometría de tile map o formas convexas que no usan formas primitivas. Consulta [Collision Shapes para obtener más información](/manuals/physics-shapes).
 
 Type
-: El tipo de objeto de colisión: `Dynamic`, `Kinematic`, `Static` o `Trigger`. Si defines el objeto como dinámico, _debes_ definir la propiedad *Mass* con un valor distinto de cero. Para objetos dinámicos o estáticos, también deberías comprobar que los valores de *Friction* y *Restitution* sean adecuados para tu caso de uso.
+: El tipo de objeto de colisión: `Dynamic`, `Kinematic`, `Static` o `Trigger`. Si defines el objeto como `Dynamic`, _debes_ definir la propiedad *Mass* con un valor distinto de cero. Para objetos `Dynamic` o `Static`, también deberías comprobar que los valores de *Friction* y *Restitution* sean adecuados para tu caso de uso.
 
 Friction
 : La fricción hace posible que los objetos se deslicen de forma realista unos contra otros. El valor de fricción suele definirse entre `0` (sin fricción en absoluto, un objeto muy resbaladizo) y `1` (fricción fuerte, un objeto abrasivo). Sin embargo, cualquier valor positivo es válido.

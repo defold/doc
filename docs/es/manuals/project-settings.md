@@ -162,7 +162,7 @@ La altura en pixeles de la ventana de la aplicación.
 Crea un back buffer de alta densidad de pixeles en pantallas que lo soportan. Normalmente, el juego se renderizará al doble de la resolución establecida en las configuraciones *Width* y *Height*, que seguirán siendo la resolución lógica usada en scripts y propiedades.
 
 #### Samples
-Cuántas muestras usar para super sampling anti-aliasing. Define el window hint GLFW_FSAA_SAMPLES. Un valor de `0` significa que el anti-aliasing está desactivado.
+Cuántas muestras usar para super sampling anti-aliasing. Define el window hint `GLFW_FSAA_SAMPLES`. Un valor de `0` significa que el anti-aliasing está desactivado.
 
 #### Fullscreen
 Marca esta opción si la aplicación debe iniciar en pantalla completa. Si no está marcada, la aplicación se ejecuta en una ventana.

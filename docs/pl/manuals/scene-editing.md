@@ -74,8 +74,8 @@ Kliknij obiekt w głównym oknie przyciskiem <kbd>Left Mouse Click</kbd>, aby go
 
   Obiekty można też zaznaczać w następujący sposób:
 
-  - <kbd>Left Mouse Click</kbd> i <kbd>Drag</kbd>, aby zaznaczyć wszystkie obiekty w obszarze zaznaczenia.
-  - <kbd>Left Mouse Click</kbd> na obiektach w `Outline`; przytrzymując <kbd>⇧ Shift</kbd>, możesz rozszerzać zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczać lub odznaczać kliknięte elementy.
+- <kbd>Left Mouse Click</kbd> i <kbd>Drag</kbd>, aby zaznaczyć wszystkie obiekty w obszarze zaznaczenia.
+- <kbd>Left Mouse Click</kbd> na obiektach w `Outline`; przytrzymując <kbd>⇧ Shift</kbd>, możesz rozszerzać zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczać lub odznaczać kliknięte elementy.
 
 #### Move tool
 

@@ -88,7 +88,7 @@ Ustawianie i usuwanie breakpointów
   Aby ustawić lub usunąć breakpoint, kliknij w kolumnie bezpośrednio po prawej stronie numerów linii w edytorze kodu. Możesz też wybrać <kbd>Edit ▸ Toggle Breakpoint</kbd> z menu.
 
 Wyłączanie i włączanie breakpointów
-: Breakpointy można tymczasowo wyłączyć bez ich usuwania. Gdy są wyłączone, są ignorowane podczas wykonywania, ale można je włączyć ponownie w dowolnym momencie. Kliknij je prawym przyciskiem myszy w marginesie edytora kodu, a następnie przełącz pole wyboru <kbd>Enabled</kbd>. Wyłączone breakpointy są pokazane jako puste, aby zaznaczyć, że są nieaktywne.
+: Breakpointy można tymczasowo wyłączyć bez ich usuwania. Gdy są wyłączone, są ignorowane podczas wykonywania, ale można je włączyć ponownie w dowolnym momencie. Kliknij je prawym przyciskiem myszy w marginesie edytora kodu, a następnie przełącz pole wyboru <kbd>`Enabled`</kbd>. Wyłączone breakpointy są pokazane jako puste, aby zaznaczyć, że są nieaktywne.
 
   ![disable breakpoint](images/debugging/disable_breakpoint.png)
 

@@ -48,7 +48,7 @@ Collision Shape
 : Ta właściwość służy do geometrii z mapy kafelków albo do kształtów wypukłych, które nie korzystają z prostych kształtów. Więcej informacji znajdziesz w [Collision Shapes](/manuals/physics-shapes).
 
 Type
-: Typ obiektu kolizji: `Dynamic`, `Kinematic`, `Static` albo `Trigger`. Jeśli ustawisz obiekt jako dynamiczny, _musisz_ ustawić właściwość *Mass* na wartość różną od zera. W przypadku obiektów dynamicznych lub statycznych warto też sprawdzić, czy wartości *Friction* i *Restitution* są odpowiednie dla danego zastosowania.
+: Typ obiektu kolizji: `Dynamic`, `Kinematic`, `Static` albo `Trigger`. Jeśli ustawisz obiekt jako `Dynamic`, _musisz_ ustawić właściwość *Mass* na wartość różną od zera. W przypadku obiektów `Dynamic` lub `Static` warto też sprawdzić, czy wartości *Friction* i *Restitution* są odpowiednie dla danego zastosowania.
 
 Friction
 : Tarcie umożliwia realistyczne ślizganie się obiektów względem siebie. Wartość tarcia zwykle ustawia się w zakresie od `0` (brak tarcia, bardzo śliski obiekt) do `1` (duże tarcie, obiekt o chropowatej powierzchni). Każda dodatnia wartość jest jednak poprawna.

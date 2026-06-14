@@ -300,7 +300,7 @@ msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
 ## Zasoby renderowania
-Aby przekazać do skryptu do renderowania określone zasoby silnika, możesz dodać je do tabeli `Render Resources` w pliku .render przypisanym do projektu:
+Aby przekazać do skryptu do renderowania określone zasoby silnika, możesz dodać je do tabeli `Render Resources` w pliku `.render` przypisanym do projektu:
 
 ![Zasoby renderowania](images/render/render_resources.png)
 
@@ -339,7 +339,7 @@ local my_texture_handle = resource.get_texture_info(my_texture_resource)
 msg.post("@render:", "set_texture", { handle = my_texture_handle.handle })
 ```
 
-W pliku .render_script:
+W pliku `.render_script`:
 
 ```lua
 function on_message(self, message_id, message)
@@ -385,7 +385,7 @@ end
 ```
 
 `"draw_line"`
-: Rysuje linię debugowania. Użyj jej, aby wizualizować ray_casty, wektory i inne rzeczy. Linie są rysowane za pomocą wywołania `render.draw_debug3d()`.
+: Rysuje linię debugowania. Użyj jej, aby wizualizować `ray_casts`, wektory i inne rzeczy. Linie są rysowane za pomocą wywołania `render.draw_debug3d()`.
 
 ```lua
 -- narysuj białą linię

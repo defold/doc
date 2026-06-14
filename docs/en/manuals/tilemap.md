@@ -96,7 +96,7 @@ A tilemap has a number of different properties that can be manipulated using `go
 {% include shared/material-constants.md component='tilemap' variable='tint' %}
 
 `tint`
-: The color tint of the tile map (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
+: The color tint of the tile map (`vector4`). The `vector4` is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
 
 ## Project configuration
 
@@ -114,7 +114,6 @@ There are external map/level editors that can export directly to Defold tilemaps
 ### Tilesetter
 
 [Tilesetter](https://www.tilesetter.org/docs/exporting#defold) can be used to automatically create full tilesets from simple base tiles and it has a map editor which can export directly to Defold.
-
 
 
 

@@ -21,7 +21,7 @@ Węzły GUI box
 : Aby odtworzyć animację w czasie działania programu, użyj funkcji [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]). Zobacz przykład poniżej.
 
 ::: sidenote
-Tryb odtwarzania once ping-pong odtwarza animację do ostatniej klatki, a następnie odtwarza ją w odwrotnej kolejności aż do **drugiej** klatki animacji, a nie z powrotem do pierwszej. Dzięki temu łatwiej łączyć animacje w łańcuch.
+Tryb odtwarzania `once ping-pong` odtwarza animację do ostatniej klatki, a następnie odtwarza ją w odwrotnej kolejności aż do **drugiej** klatki animacji, a nie z powrotem do pierwszej. Dzięki temu łatwiej łączyć animacje w łańcuch.
 :::
 
 ### Przykład ze sprite'em

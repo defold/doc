@@ -48,7 +48,7 @@ Collision Shape
 : Esta propriedade é usada para geometria de tile map ou formas convexas que não usam formas primitivas. Veja [Formas de Colisão para mais informações](/manuals/physics-shapes).
 
 Type
-: O tipo de objeto de colisão: `Dynamic`, `Kinematic`, `Static` ou `Trigger`. Se você definir o objeto como dinâmico, _deve_ definir a propriedade *Mass* para um valor diferente de zero. Para objetos dinâmicos ou estáticos, você também deve verificar se os valores de *Friction* e *Restitution* são adequados ao seu caso de uso.
+: O tipo de objeto de colisão: `Dynamic`, `Kinematic`, `Static` ou `Trigger`. Se você definir o objeto como `Dynamic`, _deve_ definir a propriedade *Mass* para um valor diferente de zero. Para objetos `Dynamic` ou `Static`, você também deve verificar se os valores de *Friction* e *Restitution* são adequados ao seu caso de uso.
 
 Friction
 : Atrito torna possível que objetos deslizem realisticamente uns contra os outros. O valor de atrito normalmente fica entre `0` (sem atrito algum, um objeto muito escorregadio) e `1` (atrito forte, um objeto abrasivo). No entanto, qualquer valor positivo é válido.

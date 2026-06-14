@@ -162,7 +162,7 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 在支持的显示器上创建高 dpi 后缓冲区。通常游戏将以比*宽度*和*高度*设置中设置的分辨率高一倍的分辨率渲染，这仍然是脚本和属性中使用的逻辑分辨率。
 
 #### Samples
-用于超级采样抗锯齿的样本数量。它设置 GLFW_FSAA_SAMPLES 窗口提示。值为 `0` 表示关闭抗锯齿。
+用于超级采样抗锯齿的样本数量。它设置 `GLFW_FSAA_SAMPLES` 窗口提示。值为 `0` 表示关闭抗锯齿。
 
 #### Fullscreen
 勾选应用程序是否应全屏启动。如果未勾选，应用程序将在窗口模式下运行。

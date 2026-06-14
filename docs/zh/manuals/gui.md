@@ -41,7 +41,7 @@ Defold现在会自动在GUI场景编辑器中打开该文件。
 : 绑定到此GUI组件的GUI脚本。
 
 *Material*
-: 渲染此GUI时使用的材质。请注意，也可以从大纲面板向GUI添加多个材质，并将这些材质分配给各个节点。
+: 渲染此GUI时使用的材质。请注意，也可以从 *Outline* 面板向 GUI 添加多个材质，并将这些材质分配给各个节点。
 
 *Adjust Reference*
 : 控制如何计算每个节点的*Adjust Mode*：

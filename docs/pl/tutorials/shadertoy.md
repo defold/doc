@@ -168,7 +168,7 @@ Będziemy używać nowoczesnego pipeline z GLSL w wersji 140 - w tym celu zadekl
     uv = uv * 2.0 - 1.0;
     uv.x *= aspect;
     ```
-    Dokładna wartość aspect zależy od konfiguracji przykładu. Jeśli efekt jest renderowany na pełnoekranowym quadzie o znanym rozmiarze wyświetlania, proporcje obrazu można zahardkodować na potrzeby samouczka. Jeśli efekt ma obsługiwać dowolne rozmiary okna, przekaż rozdzielczość jako fragment constant i umieść ją w uniform block GLSL 140.
+    Dokładna wartość `aspect` zależy od konfiguracji przykładu. Jeśli efekt jest renderowany na pełnoekranowym quadzie o znanym rozmiarze wyświetlania, proporcje obrazu można zahardkodować na potrzeby samouczka. Jeśli efekt ma obsługiwać dowolne rozmiary okna, przekaż rozdzielczość jako fragment constant i umieść ją w uniform block GLSL 140.
 
     Tutaj ustawiany jest też czas. Jest on przekazywany do shadera jako `uniform float iGlobalTime`. Defold (od wersji 1.12.3) udostępnia czas shaderom przez specjalną stałą `Time`, której użyjemy.
 
