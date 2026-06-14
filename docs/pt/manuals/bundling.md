@@ -17,7 +17,7 @@ Você cria um pacote de aplicação pelo menu Project e pela opção Bundle:
 
 Selecionar qualquer uma das opções de menu abrirá a caixa de diálogo Bundle para aquela plataforma específica.
 
-### Relatórios de build
+### Relatórios de build {#build-reports}
 
 Ao empacotar seu jogo, há uma opção para criar um relatório de build. Isso é muito útil para entender o tamanho de todos os assets que fazem parte do pacote do seu jogo. Basta marcar a caixa *Generate build report* ao empacotar o jogo.
 
@@ -39,7 +39,7 @@ A criação de um pacote de aplicação macOS (arquivo .app) está documentada n
 
 ### Linux
 
-A criação de um pacote de aplicação Linux não exige configuração específica nem configuração opcional específica da plataforma no [arquivo de configurações do projeto](/manuals/project-settings/#linux) *game.project*.
+A criação de um pacote de aplicação Linux não exige configuração específica nem configuração opcional específica da plataforma no [arquivo de configurações do projeto](/manuals/project-settings/) *game.project*.
 
 ### Windows
 

@@ -46,7 +46,7 @@ No canto inferior esquerdo da tela inicial, você pode ver uma seleção de Lang
 
 ![Idiomas](images/editor/languages.png)
 
-## Os painéis do editor
+## Os painéis do editor {#the-editor-views}
 
 O Defold Editor é separado em um conjunto de painéis, ou visualizações, que exibem informações específicas.
 
@@ -60,7 +60,7 @@ Lista todos os arquivos e pastas que fazem parte do seu projeto em uma estrutura
    - <kbd>Drag and Drop</kbd> para adicionar ao projeto arquivos de outro lugar do seu disco ou mover arquivos e pastas para novos locais no projeto.
    - <kbd>Right Mouse Click</kbd> para abrir um _Context Menu_ de onde você pode criar novos arquivos ou pastas, renomear, excluir, rastrear dependências de arquivo e mais.
 
-### 2. Painel Scene Editor
+### 2. Painel Scene Editor {#the-scene-editor}
 
 Dar duplo clique em uma coleção, objeto de jogo ou arquivo de componente visual abre o *Scene Editor*, o editor visual para construir e editar cenas. Arquivos de script e outros recursos não visuais são abertos em seus próprios editores dedicados.
 
@@ -164,7 +164,7 @@ Se você tiver vários arquivos abertos, uma aba separada para cada arquivo ser�
 
 Você também pode usar o menu da aba para `Swap with Other Tab Pane`, movendo a aba entre painéis, ou `Join Tab Panes`, unindo em um único painel.
 
-## Criando novos arquivos de projeto
+## Criando novos arquivos de projeto {#creating-new-project-files}
 
 Para criar novos arquivos de recurso, selecione `File ▸ New…` e então escolha o tipo de arquivo no menu, ou use o menu de contexto:
 
@@ -218,7 +218,7 @@ Leia mais detalhes no [manual de Preferences](/manuals/editor-preferences)
 
 ![Preferences](images/editor/preferences.png)
 
-## Logs do editor
+## Logs do editor {#editor-logs}
 Se você encontrar um problema com o editor e precisar reportar uma issue (`Help  ▸ Report Issue`), é uma boa ideia fornecer arquivos de log do próprio editor. Para abrir o local dos logs no navegador do sistema, clique em `Help ▸ Show Logs`.
 
 Leia mais no [manual Getting Help](/manuals/getting-help/#getting-help).

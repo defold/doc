@@ -120,7 +120,7 @@ Os valores de propriedade fornecidos por `factory.create()` e `collectionfactory
 Se vários componentes de script anexados a um objeto de jogo definirem a mesma propriedade, cada componente será inicializado com o valor fornecido a `factory.create()` ou `collectionfactory.create()`.
 
 
-## Propriedades de recurso
+## Propriedades de recurso {#resource-properties}
 
 Propriedades de recurso são definidas da mesma forma que as propriedades de script dos tipos de dados básicos:
 

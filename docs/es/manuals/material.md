@@ -45,7 +45,7 @@ Samplers
 Tags
 : Los tags asociados al material. Los tags se representan en el motor como una _bitmask_ que [`render.predicate()`](/ref/render#render.predicate) usa para recopilar componentes que deben dibujarse juntos. Consulta la [documentación de Render](/manuals/render) para saber cómo hacerlo. El número máximo de tags que puedes usar en un proyecto es 32.
 
-## Atributos
+## Atributos {#attributes}
 
 Los atributos de shader (también llamados vertex streams o atributos de vértice) son un mecanismo que indica cómo la GPU recupera vértices de la memoria para renderizar geometría. El vertex shader especifica un conjunto de streams mediante la palabra clave `attribute` y, en la mayoría de los casos, Defold produce y vincula los datos automáticamente internamente a partir de los nombres de los streams. Sin embargo, en algunos casos puede que quieras pasar más datos por vértice para lograr un efecto específico que el motor no produce. Un atributo de vértice se puede configurar con los siguientes campos:
 
@@ -234,7 +234,7 @@ Para verificar que instancing funciona en este caso, puedes mirar el profiler we
 
 En adaptadores gráficos basados en OpenGL, instancing requiere al menos OpenGL 3.1 para escritorio y OpenGL ES 3.0 para móviles. Esto significa que los dispositivos muy antiguos que usan OpenGL ES2 o versiones anteriores de OpenGL podrían no admitir instancing. En este caso, el renderizado seguirá funcionando por defecto sin ningún cuidado especial por parte del desarrollador, pero puede no ser tan eficiente como si se usara instancing real. Actualmente no hay forma de detectar si instancing está soportado o no, pero esta funcionalidad se agregará en el futuro para que se pueda usar un material menos costoso, o para omitir por completo elementos como follaje u objetos decorativos que normalmente serían buenos candidatos para instancing.
 
-## Constantes de vertex y fragment shader
+## Constantes de vertex y fragment shader {#vertex-and-fragment-constants}
 
 Las constantes de shader, o "uniforms", son valores que se pasan desde el motor a los programas de vertex shader y fragment shader. Para usar una constante, la defines en el archivo de material como una propiedad *Vertex Constant* o una propiedad *Fragment Constant*. Las variables `uniform` correspondientes deben definirse en el programa de shader. Las siguientes constantes se pueden definir en un material:
 

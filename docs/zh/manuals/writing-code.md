@@ -36,7 +36,7 @@ Defold 有一个内置代码编辑器，允许您打开和编辑 Lua 文件（.l
 
 ![](/images/editor/apireference.png)
 
-### 代码检查配置
+### 代码检查配置 {#linting-configuration}
 
 内置代码编辑器使用 [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) 和 [Lua 语言服务器](https://luals.github.io/wiki/diagnostics/) 进行代码检查。要配置 Luacheck，请在项目根目录创建一个 `.luacheckrc` 文件。您可以阅读 [Luacheck 配置页面](https://luacheck.readthedocs.io/en/stable/config.html) 了解可用选项列表。Defold 对 Luacheck 配置使用以下默认值：
 

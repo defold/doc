@@ -17,7 +17,7 @@ Dispositivos
   1. Teclado (teclas individuales e input de texto)
   2. Mouse (posición, clicks de botones y acciones de rueda del mouse)
   3. Single-touch y multi-touch (en dispositivos iOS y Android, y HTML5 en móviles)
-  4. Gamepads (según el soporte del sistema operativo y el mapeo en el archivo [gamepads](#gamepads-settings-file))
+  4. Gamepads (según el soporte del sistema operativo y el mapeo en el archivo [gamepads](/manuals/input-gamepads/#gamepads-settings-file))
 
 Bindings de input
 : Antes de que el input se envíe a un script, el input raw del dispositivo se traduce en *acciones* significativas mediante la tabla de bindings de input.
@@ -83,7 +83,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Foco de input
+## Foco de input {#input-focus}
 
 Para escuchar acciones de input en un componente script o script GUI, se debe enviar el mensaje `acquire_input_focus` al objeto de juego que contiene el componente:
 
@@ -99,7 +99,7 @@ Este mensaje indica al motor que agregue a la *pila de input* los componentes ca
 Si un objeto de juego que ya ha adquirido el foco de input lo vuelve a adquirir, sus componentes se moverán a la parte superior de la pila.
 
 
-## Despacho de input y on_input()
+## Despacho de input y on_input() {#input-dispatch-and-on_input}
 
 Las acciones de input se despachan según la pila de input, de arriba hacia abajo.
 

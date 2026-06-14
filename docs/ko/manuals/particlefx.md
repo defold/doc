@@ -1,109 +1,246 @@
 ---
-title: Defold manual
+title: Defold의 파티클 효과
+brief: 이 매뉴얼은 ParticleFX 컴포넌트가 작동하는 방식과 시각적 파티클 효과를 만들기 위해 편집하는 방법을 설명합니다.
 ---
 
 # Particle FX
-이 매뉴얼은 파티클FX 컴포넌트가 어떻게 동작하는지, 파티클의 시각적 효과를 어떻게 생성하고 수정하는지 설명합니다.
 
-## ParticleFX Overview Video
-파티클 효과를 사용하면 게임의 시각적 매력을 높이는 것이 가능합니다. 아래 비디오에서 Defold의 파티클 효과가 어떻게 동작하는지 참고 바랍니다.
+파티클 효과는 게임의 시각적 표현을 강화하는 데 사용됩니다. 폭발, 핏자국, 궤적, 날씨 또는 그 밖의 어떤 효과든 만들 수 있습니다.
 
-[유튜브 링크: https://youtu.be/qzyB1lXNDKQ
-![](https://img.youtube.com/vi/qzyB1lXNDKQ/0.jpg)](https://www.youtube.com/watch?v=qzyB1lXNDKQ)
+![ParticleFX 에디터](images/particlefx/editor.png)
 
-![ParticleFX Editor](images/particlefx/effect_editor.png)
+파티클 효과는 여러 emitter와 선택적 modifier로 구성됩니다.
 
-## Concepts
-* **ParticleFX** - 파티클 효과를 나타내는 컴포넌트
-* **Emitter** - 모양에 따라 일정하게 분포된 파티클 입자를 방출(emit)하는 위치가 지정된 모형(positioned shape)
-* **Modifier** - 스폰된 파티클들의 속도(velocity), 가속도(acceleration), 저항(drag), 방사형(radial), 회오리형(vortex)에 영향을 줌
-* **Tile source** - 텍스쳐와 플립북 애니메이션을 추가해서 사용됨 ([2D graphics](/manuals/2dgraphics) 문서 참고)
+Emitter
+: Emitter는 모양 전체에 균등하게 분포된 파티클을 방출하는, 위치가 지정된 모양입니다. Emitter에는 파티클 생성뿐 아니라 개별 파티클의 이미지 또는 애니메이션, 수명, 색상, 모양, 속도를 제어하는 프로퍼티가 포함됩니다.
 
-파티클FX 파일을 생성하고 열어보면 Outline창에서 마우스 오른쪽 버튼을 눌러 emiter와 modifier를 추가할 수 있습니다.
+Modifier
+: Modifier는 스폰된 파티클의 속도에 영향을 주어 특정 방향으로 가속하거나 감속하게 만들고, 방사형으로 이동하거나 한 점 주위를 소용돌이치게 만듭니다. Modifier는 단일 emitter의 파티클이나 특정 emitter에 영향을 줄 수 있습니다.
 
-![](images/particlefx/effect_outline.png)
+## 효과 만들기
 
-![](images/particlefx/emitter_properties.png)
+*Assets* 브라우저의 컨텍스트 메뉴에서 <kbd>New... ▸ Particle FX</kbd>를 선택합니다. 새 파티클 효과 파일의 이름을 지정합니다. 이제 에디터가 [Scene Editor](/manuals/editor/#the-scene-editor)를 사용해 파일을 엽니다.
 
-## Previewing
-파티클 효과를 미리보기 하려면, 씬 에디터를 사용하면 됩니다. [Scene Editing](/manuals/scene-editing) 에서 자세한 설명을 볼 수 있습니다. 스페이스 키를 사용하면 파티클 효과의 미리보기를 시작하고 중지할 수 있습니다. 파티클 효과가 플레이중인지 아닌지와 상관 없이, 실시간으로 조정(tweak)하면서 파티클을 업데이트 할 수 있습니다.
+*Outline* 창에는 기본 emitter가 표시됩니다. Emitter를 선택하면 아래 *Properties* 창에 해당 프로퍼티가 나타납니다.
 
-## Value tweaking
-숫자로 된 모든 속성들은 alt키를 누른채 마우스 휠(혹은 트랙패드에서 스크롤 제스쳐)을 사용하여 조정할 수 있습니다. alt키를 ctrl키와 같이 눌러 사용하면 10배가 증가된 값으로 조정할 수 있습니다.
+![기본 파티클](images/particlefx/default.png)
 
-## Keying Properties
+효과에 새 emitter를 추가하려면 *Outline*의 루트를 <kbd>right click</kbd>하고 컨텍스트 메뉴에서 <kbd>Add Emitter ▸ [type]</kbd>을 선택합니다. Emitter 프로퍼티에서 emitter 타입을 변경할 수 있습니다.
 
-![](images/particlefx/curve_editor.png)
+새 modifier를 추가하려면 *Outline*에서 modifier를 둘 위치(효과 루트 또는 특정 emitter)를 <kbd>right click</kbd>하고 <kbd>Add Modifier</kbd>를 선택한 다음 modifier 타입을 선택합니다.
 
-시간 대에 따라 다른 속성값을 키를 만들어 삽입(keying)할 수 있습니다. 다시 말해, 이들 값은 시간에 따라 변할 수 있다는 것을 의미합니다. 아래에서 이 기능을 가진 속성들을 볼 수 있습니다:
+![modifier 추가](images/particlefx/add_modifier.png)
 
-* 키값을 삽입하려면:
-    * Properties 창에서 텍스트 필드에 대고 마우스 오른쪽 버튼을 눌러서 Curve를 선택하면 곡선이 추가되고 텍스트 필드의 배경 색상이 녹색으로 바뀝니다.
-    * Curve Editor 창(하단의 탭 중에서 사용 가능)으로 가서 곡선을 수정합니다. 점(point)과 탄젠트(tangent)를 클릭 드래그 할 수 있습니다. 더블클릭 하면 점이 추가되고 삭제됩니다. (Curve Editor 창에서 곡선에 마우스 오른쪽 버튼을 눌러도 됩니다.)
-* 키 속성(Keyed properties)은 Properties창에서 수정할 수 없습니다. 오직 Curve Editor 창에서만 가능합니다.
-* 키 속성을 삭제하려면 해당 텍스트 필드에서 마우스 오른쪽 버튼 눌러 다시 Curve를 선택하면 됩니다.
-* F키를 누르면 Curve Editor의 곡선 전체가 보이게끔 크기를 자동으로 맞춥니다(auto-zoom).
+![modifier 선택 추가](images/particlefx/add_modifier_select.png)
 
-### Spread
-속성에 두 개의 필드가 있는 경우, 첫번째 필드는 값(value)이고 두번째 필드는 스프레드(Spread)입니다. 값(value)은 당신이 기준으로 지정한 값이고, 스프레드(Spread)는 스폰된 각 파티클에 반영되는 랜덤값의 범위입니다. 예를 들어 값이 50이고 스프레드가 10이면, 스폰된 각 파티클은 50을 기준으로 +/- 10의 값을 가지게 됩니다.
+효과 루트에 있는 modifier(emitter의 자식이 아닌 modifier)는 효과의 모든 파티클에 영향을 줍니다.
 
-## Reference
+Emitter의 자식으로 추가된 modifier는 해당 emitter에만 영향을 줍니다.
 
-### Emitter Properties (방사체 속성들)
-* Id - emitter 식별자 (특별한 emitter를 위해 렌더링 상수(render constants)를 설정해야 할 때 사용됨)
-* Mode - emitter가 실행기간(duration)에 도달하면 멈출지(once), 재시작할지(loop) 설정함
-* Duration - 몇 초 동안 파티클 입자를 방출(emit)할지 설정
-* Space - 스폰된 입자들이 존재할 기하학적인 공간. World는 파티클이 게임 월드에 남겨져 emitter와 독립적으로 움직이며, Emitter는 emitter의 위치와 상대적으로 움직임
-* Position/rotation - 파티클FX 컴포넌트와 관계된 emitter를 변형(transform)함
-* Tile Source - 파티클에 텍스쳐를 입히거나 애니메이션 처리를 위해 타일 소스 파일을 설정함
-* Animation - 타일소스의 어떤 애니메이션을 파티클에 사용할지 설정함
-* Material - 파티클을 쉐이딩 하는데 필요한 메터리얼을 설정함
-* Blend Mode - 블렌딩을 위해 Alpha, Add, Add Alpha, Multiply를 설정함
-* Particle Orientation - 파티클이 향하는 방향을 설정함. Default(유닛 방향) 혹은 Initial Direction 설정 가능
-* Inherit Velocity - 파티클들이 상속받는 emitter의 속력을 설정함. 이 값은 Space 속성이 World로 셋팅되어 있을 때 사용 가능함. emitter의 속도는 매 프레임 마다 추정(estimate)됨
-* Max Particle Count - emitter에서 얼마나 많은 파티클 입자가 동시에 존재하는지 설정
-* Type - emitter의 모형(shape)
-    * Circle - 2D 원형은 중심점에서 바깥 방향으로 파티클을 방출함. 지름은 Emitter Size X 값으로 설정 가능
-    * 2D Cone - 2D 원뿔은 아래쪽 코너에서 원뿔의 윗방향으로 파티클을 방출함. Emitter Size X 값으로 상단의 지름을 설정하고 Y 값으로 높이를 설정함
-    * Box - 3D 박스는 로컬 Y 축(axis)을 따라 파티클을 방출함. Emitter Size X, Y, Z 값으로 각각 넓이, 높이, 깊이를 설정함
-    * Sphere - 3D 구체는 중심점에서 바깥 방향으로 파티클을 방출함. 지름은 Emitter Size X 값으로 설정 가능
-    * Cone - 3D 원뿔은 아래쪽 코너에서 원뿔의 윗방향으로 파티클을 방출함. Emitter Size X 값으로 상단의 지름을 설정하고 Y 값으로 높이를 설정함
-* Start Delay - 파티클FX가 시작된 후 emitter가 파티클을 방출하기 전까지 얼마나 대기할지 설정함
+## 효과 미리보기
 
-### Keyable Emitter Properties (조정 가능한 방사체 속성들)
-이들 속성들은 값(value)과 스프레드(spread)라는 2개의 필드를 가지고 있습니다. 이 값들은 emitter의 플레이 시간(duration) 동안 조정할 수 있습니다. 스프레드는 각각 스폰된 파티클 입자들이 랜덤하게 변하는 값의 범위를 어떻게 할 것인지 정의합니다. 스프레드는 현재 값에 합산됩니다.
+* 효과를 미리 보려면 메뉴에서 <kbd>View ▸ Play</kbd>를 선택합니다. 효과를 제대로 보려면 카메라를 축소해야 할 수 있습니다.
+* 효과를 일시 정지하려면 <kbd>View ▸ Play</kbd>를 다시 선택합니다.
+* 효과를 멈추려면 <kbd>View ▸ Stop</kbd>을 선택합니다. 다시 재생하면 초기 상태부터 다시 시작됩니다.
 
-* Spawn Rate - 초당 얼마나 많은 파티클을 방출할지 설정
-* Emitter Size X/Y/Z - emitter 모형(shape)의 크기(dimensions)(위의 설명 참고)
-* Particle Life Time - 스폰된 파티클이 얼마나 오래 살아 있는가를 설정
-* Initial Speed - 스폰된 파티클에 초반에 얼마나 빨리 움직이는지 설정
-* Initial Size - 스폰된 파티클이 초반에 얼마나 큰지 설정
-* Initial Red/Green/Blue/Alpha - 파티클들의 컬러 값들을 설정
+Emitter 또는 modifier를 편집하면 효과가 일시 정지되어 있어도 결과가 에디터에 즉시 표시됩니다.
 
-### Keyable Particle Properties (조정 가능한 파티클 속성들)
-이 속성값들은 파티클의 수명에 따라 조정(keying)될 수 있습니다.
+![파티클 편집](images/particlefx/rotate.gif)
 
-* Life Scale - 파티클의 크기를 수명동안 얼마나 확대축소할지 설정
-* Life Red/Green/Blue/Alpha - 파티클의 색상을 수명동안 어떻게 색칠(tint)할지 설정
+## Emitter 프로퍼티
 
-### Modifier Properties (수정자 속성들)
-* Position/rotation - 부모와 상대적인(relative) modifier를 변형(transform)
-* 종류
-    * Acceleration - 위치값이 없는(no position) 가속도의 방향. 중력 같은걸 표현할 때 이 값을 사용함
-    * Drag - 입자의 속도에 비례하여 가속을 감속시키는 저항값. 공기 저항이나 유체(fluid) 같은걸 표현 할 때 이 값을 사용함
-    * Radial - 방사형(radial)은 중심에서 파티클을 방사하거나 중심으로 끌어 당김. 작은 행성 같은걸 표현할 때 사용함
-    * Vortex - 회오리형(vortex)은 중심점 주위에 원형이나 나선형 방향으로 파티클 입자들에 영향을 줌. 블랙홀이나 토네이도 같은걸 표현할 때 사용
-* Max Distance - 파티클 입자들이 현재 Modifier에 영향을 받게 되는 최대 거리를 설정함. Radial과 Vortex에서만 설정 가능함.
+Id
+: Emitter 식별자입니다(특정 emitter에 렌더 상수를 설정할 때 사용).
 
-![](images/particlefx/drag.png)
+Position/Rotation
+: ParticleFX 컴포넌트를 기준으로 한 emitter의 변형(transform)입니다.
 
-![](images/particlefx/radial.png)
+Play Mode
+: Emitter가 재생되는 방식을 제어합니다.
+  - `Once`는 duration에 도달하면 emitter를 멈춥니다.
+  - `Loop`는 duration에 도달하면 emitter를 다시 시작합니다.
 
-![](images/particlefx/acceleration.png)
+Size Mode
+: 플립북 애니메이션의 크기를 정하는 방식을 제어합니다.
+  - `Auto`는 각 플립북 애니메이션 프레임의 크기를 원본 이미지와 같게 유지합니다.
+  - `Manual`은 size 프로퍼티에 따라 파티클 크기를 설정합니다.
 
-![](images/particlefx/vortex.png)
+Emission Space
+: 스폰된 파티클이 존재할 기하 공간입니다.
+  - `World`는 파티클이 emitter와 독립적으로 움직이게 합니다.
+  - `Emitter`는 파티클이 emitter를 기준으로 움직이게 합니다.
 
-### Keyable Modifier Properties (조정 가능한 수정자 속성들)
-이들 속성들은 값(value)과 스프레드(spread)라는 2개의 필드를 가지고 있습니다. 이 값들은 emitter의 플레이 시간(duration) 동안 조정될 수 있습니다. 스프레드는 각각 스폰된 파티클 입자들이 랜덤하게 변하는 값의 범위를 어떻게 할 것인지 정의합니다. 스프레드는 현재 값에 합산됩니다.
+Duration
+: Emitter가 파티클을 방출할 시간(초)입니다.
 
-* Magnitude - 수정자가 파티클에 미치는 효과의 양을 설정함
+Start Delay
+: Emitter가 파티클 방출을 시작하기 전에 기다릴 시간(초)입니다.
+
+Start Offset
+: Emitter가 파티클 시뮬레이션 안에서 시작할 시간(초), 다시 말해 emitter가 효과를 미리 준비(prewarm)할 시간입니다.
+
+Image
+: 파티클 텍스쳐링과 애니메이션에 사용할 이미지 파일(Tile source 또는 Atlas)입니다.
+
+Animation
+: 파티클에 사용할 *Image* 파일의 애니메이션입니다.
+
+Material
+: 파티클 쉐이딩에 사용할 메터리얼입니다.
+
+Blend Mode
+: 사용 가능한 블렌드 모드는 `Alpha`, `Add`, `Multiply`입니다.
+
+Max Particle Count
+: 이 emitter에서 나온 파티클이 동시에 존재할 수 있는 최대 개수입니다.
+
+Emitter Type
+: Emitter의 모양입니다.
+  - `Circle`은 원 안의 무작위 위치에서 파티클을 방출합니다. 파티클은 중심에서 바깥쪽으로 향합니다. 원의 지름은 *Emitter Size X*로 정의됩니다.
+
+  - `2D Cone`은 평평한 원뿔(삼각형) 안의 무작위 위치에서 파티클을 방출합니다. 파티클은 원뿔의 위쪽으로 향합니다. *Emitter Size X*는 위쪽 너비를 정의하고 *Y*는 높이를 정의합니다.
+
+  - `Box`는 박스 안의 무작위 위치에서 파티클을 방출합니다. 파티클은 박스의 로컬 Y축을 따라 위쪽으로 향합니다. *Emitter Size X*, *Y*, *Z*는 각각 너비, 높이, 깊이를 정의합니다. 2D 사각형의 경우 Z 크기를 0으로 유지합니다.
+
+  - `Sphere`는 구 안의 무작위 위치에서 파티클을 방출합니다. 파티클은 중심에서 바깥쪽으로 향합니다. 구의 지름은 *Emitter Size X*로 정의됩니다.
+
+  - `Cone`은 3D 원뿔 안의 무작위 위치에서 파티클을 방출합니다. 파티클은 원뿔의 위쪽 원반을 통해 바깥으로 향합니다. *Emitter Size X*는 위쪽 원반의 지름을 정의하고 *Y*는 원뿔의 높이를 정의합니다.
+
+  ![emitter 타입](images/particlefx/emitter_types.png)
+
+Particle Orientation
+: 방출된 파티클의 방향을 정하는 방식입니다.
+  - `Default`는 방향을 단위 방향으로 설정합니다.
+  - `Initial Direction`은 방출된 파티클의 초기 방향을 유지합니다.
+  - `Movement Direction`은 파티클의 속도에 따라 방향을 조정합니다.
+
+Inherit Velocity
+: 파티클이 emitter의 속도를 얼마나 상속할지 나타내는 스케일 값입니다. 이 값은 *Space*가 `World`로 설정된 경우에만 사용할 수 있습니다. Emitter의 속도는 매 프레임 추정됩니다.
+
+Stretch With Velocity
+: 파티클 stretch를 이동 방향에 맞춰 스케일하려면 체크합니다.
+
+### 블렌드 모드
+:[blend-modes](../shared/blend-modes.md)
+
+## 키를 지정할 수 있는 Emitter 프로퍼티
+
+이 프로퍼티에는 값과 스프레드라는 두 필드가 있습니다. 스프레드는 스폰된 각 파티클에 무작위로 적용되는 변형값입니다. 예를 들어 값이 50이고 스프레드가 3이면 스폰된 각 파티클은 47에서 53 사이의 값(50 +/- 3)을 갖습니다.
+
+![프로퍼티](images/particlefx/property.png)
+
+키 버튼을 체크하면 프로퍼티 값이 emitter의 duration 동안 곡선으로 제어됩니다. 키가 지정된 프로퍼티를 초기화하려면 키 버튼의 체크를 해제합니다.
+
+![키가 지정된 프로퍼티](images/particlefx/key.png)
+
+*Curve Editor*(하단 뷰의 탭 중 하나에서 사용 가능)는 곡선을 수정하는 데 사용됩니다. 키가 지정된 프로퍼티는 *Properties* 뷰에서 편집할 수 없고 *Curve Editor*에서만 편집할 수 있습니다. 곡선 모양을 수정하려면 포인트와 탄젠트를 <kbd>Click and drag</kbd>합니다. 제어 포인트를 추가하려면 곡선을 <kbd>Double-click</kbd>합니다. 제어 포인트를 제거하려면 해당 포인트를 <kbd>double click</kbd>합니다.
+
+![ParticleFX Curve Editor](images/particlefx/curve_editor.png)
+
+모든 곡선이 보이도록 Curve Editor를 자동 확대하려면 <kbd>F</kbd>를 누릅니다.
+
+다음 프로퍼티는 emitter의 재생 시간 동안 키를 지정할 수 있습니다.
+
+Spawn Rate
+: 초당 방출할 파티클 수입니다.
+
+Emitter Size X/Y/Z
+: Emitter 모양의 크기입니다. 위의 *Emitter Type*을 참고하세요.
+
+Particle Life Time
+: 스폰된 각 파티클의 수명(초)입니다.
+
+Initial Speed
+: 스폰된 각 파티클의 초기 속도입니다.
+
+Initial Size
+: 스폰된 각 파티클의 초기 크기입니다. *Size Mode*를 `Automatic`으로 설정하고 이미지 소스로 플립북 애니메이션을 사용하면 이 프로퍼티는 무시됩니다.
+
+Initial Red/Green/Blue/Alpha
+: 파티클의 초기 색상 컴포넌트 틴트 값입니다.
+
+Initial Rotation
+: 파티클의 초기 회전 값(도)입니다.
+
+Initial Stretch X/Y
+: 파티클의 초기 stretch 값(단위)입니다.
+
+Initial Angular Velocity
+: 스폰된 각 파티클의 초기 각속도(도/초)입니다.
+
+다음 프로퍼티는 파티클의 수명 동안 키를 지정할 수 있습니다.
+
+Life Scale
+: 각 파티클의 수명에 따른 스케일 값입니다.
+
+Life Red/Green/Blue/Alpha
+: 각 파티클의 수명에 따른 색상 컴포넌트 틴트 값입니다.
+
+Life Rotation
+: 각 파티클의 수명에 따른 회전 값(도)입니다.
+
+Life Stretch X/Y
+: 각 파티클의 수명에 따른 stretch 값(단위)입니다.
+
+Life Angular Velocity
+: 각 파티클의 수명에 따른 각속도(도/초)입니다.
+
+## Modifier
+
+파티클의 속도에 영향을 주는 네 가지 modifier 타입을 사용할 수 있습니다.
+
+`Acceleration`
+: 일반적인 방향의 가속도입니다.
+
+`Drag`
+: 파티클 속도에 비례해 파티클의 가속도를 줄입니다.
+
+`Radial`
+: 위치를 향해 파티클을 끌어당기거나 위치에서 밀어냅니다.
+
+`Vortex`
+: 해당 위치 주위에서 원형 또는 나선형 방향으로 파티클에 영향을 줍니다.
+
+  ![modifier](images/particlefx/modifiers.png)
+
+## Modifier 프로퍼티
+
+Position/Rotation
+: 부모를 기준으로 한 modifier의 변형(transform)입니다.
+
+Magnitude
+: Modifier가 파티클에 미치는 효과의 양입니다.
+
+Max Distance
+: 이 modifier가 파티클에 영향을 줄 수 있는 최대 거리입니다. Radial과 Vortex에서만 사용됩니다.
+
+## 파티클 효과 제어하기
+
+스크립트에서 파티클 효과를 시작하고 중지하려면 다음과 같이 합니다.
+
+```lua
+-- 현재 게임 오브젝트의 "particles" 효과 컴포넌트 시작
+particlefx.play("#particles")
+
+-- 현재 게임 오브젝트의 "particles" 효과 컴포넌트 중지
+particlefx.stop("#particles")
+```
+
+GUI 스크립트에서 파티클 효과를 시작하고 중지하는 방법은 [GUI Particle FX 매뉴얼](/manuals/gui-particlefx#controlling-the-effect)에서 자세히 확인할 수 있습니다.
+
+::: sidenote
+파티클 효과 컴포넌트가 속했던 게임 오브젝트가 삭제되어도 파티클 효과는 계속 파티클을 방출합니다.
+:::
+자세한 내용은 [Particle FX 레퍼런스 문서](/ref/particlefx)를 참고하세요.
+
+## 메터리얼 상수
+
+기본 파티클 효과 메터리얼에는 `particlefx.set_constant()`로 변경하고 `particlefx.reset_constant()`로 초기화할 수 있는 다음 상수가 있습니다([자세한 내용은 메터리얼 매뉴얼 참고](/manuals/material/#vertex-and-fragment-constants)).
+
+`tint`
+: 파티클 효과의 색상 틴트(`vector4`)입니다. vector4는 틴트를 나타내는 데 사용되며 x, y, z, w는 각각 빨강, 초록, 파랑, 알파 틴트에 대응합니다. [예제는 API 레퍼런스](/ref/particlefx/#particlefx.set_constant:url-constant-value)를 참고하세요.
+
+
+## 프로젝트 설정
+
+*game.project* 파일에는 파티클과 관련된 몇 가지 [프로젝트 설정](/manuals/project-settings#particle-fx)이 있습니다.

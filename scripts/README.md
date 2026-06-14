@@ -7,11 +7,13 @@ A Python script designed to check consistency between documentation files in dif
 - **File Structure Comparison**: Compares the directory structure between source and target documentation directories
 - **Markdown Syntax Tree Analysis**: Analyzes and compares Markdown syntax elements including:
   - Headers (h1, h2, h3, etc.)
+  - Heading anchor keys (`{#key}`, `<a id="key">`, `<a name="key">`)
   - Code blocks
   - Inline code
   - Bold text
   - Italic text
   - Links
+  - Local documentation link targets and fragments
   - Lists
 - **Excel Report Generation**: Creates a comprehensive Excel report with comparison results
 - **Specific File Checking**: Allows checking individual files or specific file pairs
@@ -66,6 +68,12 @@ python docs_consistency_checker.py --source-file /path/to/source/file.md --targe
 python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh --output custom_comparison.xlsx
 ```
 
+#### Check Only Local Markdown Links
+
+```bash
+python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh --links-only
+```
+
 ### Command Line Arguments
 
 | Argument | Description |
@@ -76,6 +84,7 @@ python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh
 | `--output` | Path for the output Excel file |
 | `--source-file` | Path to a specific source file |
 | `--target-file` | Path to a specific target file |
+| `--links-only` | Only validate local Markdown links and fragments |
 | `--help` | Show help message and exit |
 
 ## Output
@@ -104,7 +113,7 @@ The script generates an Excel file with the following columns:
 3. **Markdown Analysis**: For Markdown files that exist in both versions, the script:
    - Parses the Markdown content to build syntax trees
    - Compares the syntax trees to identify inconsistencies
-   - Reports differences in structure, formatting, and elements
+   - Reports differences in structure, formatting, elements, heading anchor keys, and local documentation links
 4. **Report Generation**: All comparison results are compiled into an Excel spreadsheet with color-coded status indicators.
 
 ## Error Handling

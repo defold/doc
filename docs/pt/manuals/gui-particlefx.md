@@ -15,7 +15,7 @@ Você pode usar efeitos de partículas adicionados à GUI como fonte para o efei
 
 ![Particle fx](images/gui-particlefx/create.png)
 
-## Controlando o efeito
+## Controlando o efeito {#controlling-the-effect}
 
 Você pode iniciar e parar o efeito controlando o node a partir de um script:
 

@@ -17,7 +17,7 @@ Urządzenia
   1. Keyboard - klawiatura, zarówno pojedyncze klawisze, jak i wprowadzanie tekstu
   2. Mouse - mysz, czyli pozycja, kliknięcia przycisków i akcje kółka myszy
   3. Single and multi-touch - pojedynczy i wielodotyk, dostępny na urządzeniach z systemem iOS i Android oraz w HTML5 na urządzeniach mobilnych
-  4. Gamepads - gamepady, obsługiwane przez system operacyjny i mapowane w pliku [gamepads](#gamepads-settings-file)
+  4. Gamepads - gamepady, obsługiwane przez system operacyjny i mapowane w pliku [gamepads](/manuals/input-gamepads/#gamepads-settings-file)
 
 Wiązania wejścia
 : Zanim wejście zostanie wysłane do skryptu, surowe dane z urządzenia są tłumaczone na znaczące *akcje* za pomocą tabeli wiązań wejścia.
@@ -83,7 +83,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Skupienie wejścia
+## Skupienie wejścia {#input-focus}
 
 Aby nasłuchiwać akcji wejścia w komponencie skryptu lub skrypcie GUI, należy wysłać wiadomość `acquire_input_focus` do obiektu gry, który zawiera ten komponent:
 
@@ -98,7 +98,7 @@ Ta wiadomość nakazuje silnikowi dodać do *stosu wejścia* komponenty obsługu
 
 Jeśli obiekt gry, który już przejął skupienie wejścia, zrobi to ponownie, jego komponenty zostaną przeniesione na szczyt stosu.
 
-## Rozsyłanie akcji wejścia i `on_input()`
+## Rozsyłanie akcji wejścia i `on_input()` {#input-dispatch-and-on_input}
 
 Akcje wejścia są rozsyłane zgodnie ze stosem wejścia, od góry do dołu.
 

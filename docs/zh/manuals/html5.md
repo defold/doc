@@ -51,7 +51,7 @@ python3 -m http.server
 如果您在控制台中看到`"wasm streaming compile failed: TypeError: Failed to execute 'compile' on 'WebAssembly': Incorrect response MIME type. Expected 'application/wasm'."`错误，您必须确保您的服务器对`.wasm`文件使用`application/wasm` MIME类型。
 :::
 
-## 创建HTML5包
+## 创建HTML5包 {#creating-html5-bundle}
 
 使用Defold创建HTML5内容很简单，并且遵循与所有其他支持平台相同的模式：从菜单中选择<kbd>Project ▸ Bundle... ▸ HTML5 Application...</kbd>：
 
@@ -65,7 +65,7 @@ python3 -m http.server
 
 当您单击<kbd>Create bundle</kbd>按钮时，系统将提示您选择一个文件夹来创建您的应用程序。导出过程完成后，您将找到运行应用程序所需的所有文件。
 
-## 已知问题和局限性
+## 已知问题和局限性 {#已知问题和局限性}
 
 * 热重载 - 热重载在HTML5构建中不起作用。Defold应用程序必须运行自己的小型Web服务器才能从编辑器接收更新，这在HTML5构建中是不可能的。
 * Internet Explorer 11
@@ -76,7 +76,7 @@ python3 -m http.server
   * 调试构建缓慢 - 在HTML5的调试构建中，我们验证所有WebGL图形调用以检测错误。不幸的是，在Chrome上测试时这非常慢。可以通过将*game.project*的*`Engine Arguments`*字段设置为`--verify-graphics-calls=false`来禁用此功能。
 * 游戏手柄支持 - 有关HTML5上可能需要采取的特殊考虑和步骤，请[参阅游戏手柄文档](/manuals/input-gamepads/#gamepads-in-html5)。
 
-## 自定义HTML5包
+## 自定义HTML5包 {#自定义HTML5打包}
 
 当生成游戏的HTML5版本时，Defold提供了一个默认网页。它引用了样式和脚本资源，这些资源决定了游戏的呈现方式。
 

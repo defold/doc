@@ -26,7 +26,7 @@ Defold 中使用的物理引擎的主要概念是：
 通常，需要缩放物理模拟以使其与游戏中对象的典型大小良好配合。物理模拟的比例可以在 *game.project* 中通过 [物理比例设置](/manuals/project-settings/#physics) 进行更改。将此值设置为例如 0.02 将意味着 200 像素将被视为 4 米。请注意，重力（也在 *game.project* 中更改）必须增加以适应比例的变化。
 
 
-## 物理更新
+## 物理更新 {#physics-updates}
 
 建议以固定间隔更新物理引擎以确保稳定的模拟（而不是以可能不规则的帧率相关间隔更新）。您可以通过检查 *game.project* 文件中物理部分的 [使用固定时间步长设置](/manuals/project-settings/#physics) 来对物理使用固定更新。更新频率由 *game.project* 文件中引擎部分的 [固定更新频率设置](/manuals/project-settings/#engine) 控制。当对物理使用固定时间步长时，还建议使用 `fixed_update(self, dt)` 生命周期函数与游戏中的碰撞对象进行交互，例如在向它们施加力时。
 
@@ -37,4 +37,4 @@ Defold 中使用的物理引擎的主要概念是：
 : 通过集合代理，可以将多个顶级集合或 *游戏世界* 加载到引擎中。这样做时，重要的是要知道每个顶级集合都是一个独立的物理世界。物理交互（[碰撞、触发器](/manuals/physics-messages) 和 [射线投射](/manuals/physics-ray-casts)）只发生在属于同一世界的对象之间。因此，即使来自两个世界的碰撞对象在视觉上恰好彼此重叠，它们之间也不会有任何物理交互。
 
 未检测到碰撞
-: 如果您在碰撞未被正确处理或检测方面遇到问题，请务必阅读 [调试手册中的物理调试部分](/manuals/debugging/#debugging-problems-with-physics)。
+: 如果您在碰撞未被正确处理或检测方面遇到问题，请务必阅读 [调试手册中的物理调试部分](/manuals/debugging-game-logic/#debugging-problems-with-physics)。

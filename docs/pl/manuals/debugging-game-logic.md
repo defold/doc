@@ -153,7 +153,7 @@ Czasami znalezienie błędu jest trudnym i czasochłonnym procesem, który wymag
 
 Powodzenia w poszukiwaniach!
 
-## Debugowanie problemów z fizyką
+## Debugowanie problemów z fizyką {#debugging-problems-with-physics}
 
 Jeśli masz problemy z fizyką i kolizje nie działają zgodnie z oczekiwaniami, zaleca się włączenie debugowania fizyki. Zaznacz pole wyboru *Debug* w sekcji *Physics* pliku *game.project*:
 

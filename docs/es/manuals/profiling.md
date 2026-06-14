@@ -92,7 +92,7 @@ Resources view
 : La vista de recursos muestra todos los recursos cargados actualmente en memoria, su tamaño y el número de referencias a cada recurso. Esto resulta útil al optimizar el uso de memoria en tu aplicación cuando necesitas entender qué está cargado en memoria en un momento dado.
 
 
-## Reportes de build
+## Reportes de build {#build-reports}
 Al crear un bundle de tu juego hay una opción para crear un reporte de build. Esto es muy útil para entender el tamaño de todos los assets que forman parte del bundle de tu juego. Simplemente marca la casilla *Generate build report* al crear el bundle del juego.
 
 ![reporte de build](images/profiling/build_report.png)

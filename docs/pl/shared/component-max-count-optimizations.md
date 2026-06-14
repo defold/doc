@@ -1,4 +1,4 @@
-## Optymalizacja limitów liczby komponentów
+## Optymalizacja limitów liczby komponentów {#component-max-count-optimizations}
 
 Plik ustawień *game.project* zawiera wiele wartości określających maksymalną liczbę danego zasobu, który może istnieć jednocześnie, zwykle w przeliczeniu na załadowaną kolekcję, nazywaną też światem (ang. world). Silnik Defold używa tych wartości do wstępnej alokacji pamięci, aby ograniczyć dynamiczne alokacje i fragmentację pamięci podczas działania gry.
 

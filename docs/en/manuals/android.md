@@ -50,7 +50,7 @@ If you want to sign your bundle with a particular keystore, specify the *Keystor
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-Defold supports the creation of both APK and AAB files. Select APK or AAB from the Bundle Format drop down.
+Defold supports the creation of both APK and AAB files. Select APK or AAB from the *Bundle Format* drop down.
 
 Press <kbd>Create Bundle</kbd> when you have configured the application bundle settings. You will then be prompted to specify where on your computer the bundle will be created.
 
@@ -79,7 +79,7 @@ You can install and launch an *`.apk`* file using the editor's "Install on conne
 
 ![Install and Launch APK](images/android/install_and_launch.png)
 
-For this feature to work, you will need ADB installed and *USB debugging* enabled on the connected device. If the editor can't detect the install location of the ADB command line tool, you will need to specify it in [Preferences](/manuals/editor-preferences/#tools).
+For this feature to work, you will need *ADB* installed and *USB debugging* enabled on the connected device. If the editor can't detect the install location of the ADB command line tool, you will need to specify it in [Preferences](/manuals/editor-preferences/#tools).
 
 #### Installing an AAB
 
@@ -90,7 +90,7 @@ An *.aab* file can be uploaded to Google Play via the [Google Play developer con
 The Defold engine requires a number of different permissions for all engine features to work. The permissions are defined in the `AndroidManifest.xml`, specified in the *game.project* [project settings file](/manuals/project-settings/#android). You can read more about Android permissions in [the official docs](https://developer.android.com/guide/topics/permissions/overview). The following permissions are requested in the default manifest:
 
 ### android.permission.INTERNET and android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
-Allows applications to open network sockets and access information about networks. These permission are needed for internet access. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) and ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+Allows applications to open *network sockets* and access information about networks. These permission are needed for internet access. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) and ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
 ### android.permission.WAKE_LOCK (Protection level: normal)
 Allows using PowerManager WakeLocks to keep processor from sleeping or screen from dimming. This permission is needed to temporarily prevent the device from sleeping while receiving a push notification. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))

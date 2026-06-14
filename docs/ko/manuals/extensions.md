@@ -1,106 +1,140 @@
 ---
-title: Defold manual
+title: Defold용 네이티브 익스텐션 작성하기
+brief: 이 매뉴얼은 Defold 게임엔진용 네이티브 익스텐션을 작성하고 zero setup 클라우드 빌더를 통해 컴파일하는 방법을 설명합니다.
 ---
 
-# Native extensions
-만약 Lua로는 충분하지 못한 외부 소프트웨어나 하드웨어와 로우 레벨로 커스텀 상호작용이 필요한 경우에는, Defold SDK는 C++로 익스텐션을 만들 수 있습니다. 네이티브 익스텐션의 일반적인 사용 사례로는 다음과 같습니다.
+# 네이티브 익스텐션
 
-* 예를 들면 모바일 카메라 같은 특정 하드웨어와 상호작용 하기
-* 광고 네트워크 API나 Luasocket을 사용할 수 있는 네트워크 API 같은 외부 로우 레벨 API와 상호작용 하기
-* 고성능 계산
+Lua만으로는 충분하지 않은 낮은 수준에서 외부 소프트웨어나 하드웨어와 커스텀 상호작용이 필요한 경우, Defold SDK를 사용해 타겟 플랫폼에 따라 C, C++, Objective C, Java 또는 JavaScript로 엔진 익스텐션을 작성할 수 있습니다. 네이티브 익스텐션의 일반적인 사용 사례는 다음과 같습니다.
 
-## The build platform
-Defold는 클라우드 기반 빌드 솔루션을 사용하여 네이티브 익스텐션에 대한 무설정 진입 지점(zero setup entry point)을 제공합니다. 게임 프로젝트에 추가된 네이티브 익스텐션은 일반적인 프로젝트 컨텐츠의 일부가 됩니다. 엔진의 특정 버전으로 빌드하거나 팀원에게 배포할 필요도 없으며 이 작업들은 자동으로 이루어집니다. 프로젝트를 빌드하거나 실행하려는 모든 팀원들은 모든 네이티브 익스텐션과 함께 특정 프로젝트 엔진 실행파일을 받을 수 있습니다.
+- 모바일 폰의 카메라처럼 특정 하드웨어와 상호작용합니다.
+- Luasocket을 사용할 수 있는 네트워크 API를 통한 상호작용을 허용하지 않는 광고 네트워크 API처럼 외부 저수준 API와 상호작용합니다.
+- 고성능 계산과 데이터 처리를 수행합니다.
 
-![Cloud build](images/extensions/cloud_build.png)
+## 빌드 서버
 
-## Project layout
-새 익스텐션을 만들기 위해서는 프로젝트 루트에 폴더를 하나 만들어야 합니다. 이 폴더에는 익스텐션과 관계된 모든 셋팅, 소스코드, 라이브러리, 리소스들을 포함시켜야 합니다. 이 익스텐션 빌더는 폴더 구조를 인식하고 모든 소스파일과 라이브러리를 수집합니다.
+Defold는 클라우드 기반 빌드 솔루션으로 네이티브 익스텐션에 대한 zero setup 진입점을 제공합니다. 직접 또는 [라이브러리 프로젝트](/manuals/libraries/)를 통해 개발되어 게임 프로젝트에 추가된 모든 네이티브 익스텐션은 일반 프로젝트 컨텐츠의 일부가 됩니다. 엔진의 특수 버전을 빌드해서 팀원들에게 배포할 필요가 없습니다. 이 작업은 자동으로 처리되며, 프로젝트를 빌드하고 실행하는 모든 팀원은 모든 네이티브 익스텐션이 포함된 프로젝트별 엔진 실행 파일을 받게 됩니다.
 
-![Project layout](images/extensions/layout.png)
+![클라우드 빌드](images/extensions/cloud_build.png)
 
-#### "ext.manifest"
-익스텐션 폴더에는 "ext.manifest" 파일이 있어야 합니다. 이 파일은 익스텐션 빌더에 의해 선택되는 YAML 형식의 파일입니다. 메니페스트 파일에는 최소한 익스텐션의 이름이 포함되어 있어야 합니다.
-#### src
-이 폴더에는 모든 소스코드 파일들이 있어야 합니다.
-#### include
-이 선택적(optional) 폴더에는 다른 포함 파일(include files)들이 있어야 합니다.
-#### lib
-이 선택적 폴더에는 익스텐션이 의존하는 모든 컴파일된 라이브러리들이 있어야 합니다. 라이브러리 파일들은 라이브러리가 지원하는 아키텍쳐가 무엇인지에 따라 플랫폼 또는 아키텍쳐-플랫폼 이름의 하위 폴더에 있어야 합니다. 지원되는 플랫폼은 ios, android, osx 이며 지원되는 아키텍쳐-플랫폼 쌍(arc-platform pairs)은 armv7-ios, arm64-ios, armv7-android, x86_64-osx 입니다.
-#### res
-이 선택적 폴더에는 익스텐션이 의존하는 모든 추가 리소스들이 있어야 합니다. 리소스 파일들은 "lib" 하위 폴더처럼 플랫폼 또는 아키텍쳐-플랫폼 이름의 하위 폴더에 있어야 합니다. common 이름의 하위폴더에는 모든 플랫폼에 공통적인 리소스 파일들을 포함시킬 수 있습니다.
+Defold는 사용 제한 없이 클라우드 빌드 서버를 무료로 제공합니다. 서버는 유럽에서 호스팅되며, 네이티브 코드가 전송되는 URL은 [Editor Preferences 창](/manuals/editor-preferences/#extensions)에서 설정하거나 [bob](/manuals/bob/#usage)의 `--build-server` 커맨드 라인 옵션으로 설정합니다. 자체 서버를 설정하려면 [이 지침](/manuals/extender-local-setup)을 따르세요.
 
-## A simple example extension
-아주 간단한 익스텐션을 개발해 봅시다. 우선, "myextension" 이라는 새 루트 폴더를 만들고 익스텐션의 이름이 있는 "ext.manifest" 파일을 추가해 봅시다.
+## 프로젝트 레이아웃
 
-![Manifest](images/extensions/manifest.png)
+새 익스텐션을 만들려면 프로젝트 루트에 폴더를 만듭니다. 이 폴더에는 익스텐션과 관련된 모든 설정, 소스 코드, 라이브러리, 리소스가 들어갑니다. 익스텐션 빌더는 폴더 구조를 인식하고 모든 소스 파일과 라이브러리를 수집합니다.
 
+```
+ myextension/
+ │
+ ├── ext.manifest
+ │
+ ├── src/
+ │
+ ├── include/
+ │
+ ├── lib/
+ │   └──[platforms]
+ │
+ ├── manifests/
+ │   └──[platforms]
+ │
+ └── res/
+     └──[platforms]
+
+```
 *ext.manifest*
+: 익스텐션 폴더에는 *ext.manifest* 파일이 반드시 있어야 합니다. 이 파일은 단일 익스텐션을 빌드할 때 사용되는 flags와 defines가 들어 있는 설정 파일입니다. 파일 포멧 정의는 [Extension Manifest 매뉴얼](https://defold.com/manuals/extensions-ext-manifests/)에서 확인할 수 있습니다.
+
+*src*
+: 이 폴더에는 모든 소스 코드 파일이 들어갑니다.
+
+*include*
+: 이 선택적 폴더에는 include 파일이 들어갑니다.
+
+*lib*
+: 이 선택적 폴더에는 익스텐션이 의존하는 컴파일된 라이브러리가 들어갑니다. 라이브러리 파일은 라이브러리가 지원하는 아키텍처에 따라 `platform` 또는 `architecture-platform` 이름의 하위 폴더에 배치해야 합니다.
+
+  :[platforms](../shared/platforms.md)
+
+*manifests*
+: 이 선택적 폴더에는 빌드 또는 번들링 과정에서 사용되는 추가 파일이 들어갑니다. 자세한 내용은 아래를 참조하세요.
+
+*res*
+: 이 선택적 폴더에는 익스텐션이 의존하는 추가 리소스가 들어갑니다. 리소스 파일은 "lib" 하위 폴더와 마찬가지로 `platform` 또는 `architecture-platform` 이름의 하위 폴더에 배치해야 합니다. 모든 플랫폼에 공통으로 사용되는 리소스 파일을 담는 `common` 하위 폴더도 허용됩니다.
+
+### 메니페스트 파일
+
+익스텐션의 선택적 *manifests* 폴더에는 빌드 및 번들링 과정에서 사용되는 추가 파일이 들어갑니다. 파일은 `platform` 이름의 하위 폴더에 배치해야 합니다.
+
+* `android` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
+  * 이 폴더에는 [Gradle로 해결되는](/manuals/extensions-gradle) 종속성이 들어 있는 `build.gradle` 파일도 넣을 수 있습니다.
+  * 마지막으로 이 폴더에는 ProGuard 파일을 0개 이상 넣을 수도 있습니다(실험적).
+* `ios` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
+  * 이 폴더에는 [Cocoapods로 해결되는](/manuals/extensions-cocoapods) 종속성이 들어 있는 `Podfile` 파일도 넣을 수 있습니다.
+* `osx` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
+* `web` - 이 폴더에는 메인 어플리케이션에 병합될 메니페스트 스텁 파일을 넣을 수 있습니다([여기에 설명된 대로](/manuals/extensions-manifest-merge-tool)).
+
+
+## 익스텐션 공유하기
+
+익스텐션은 프로젝트의 다른 에셋과 동일하게 취급되며 같은 방식으로 공유할 수 있습니다. 네이티브 익스텐션 폴더를 라이브러리 폴더로 추가하면 프로젝트 종속성으로 공유하고 다른 사람이 사용할 수 있습니다. 자세한 내용은 [라이브러리 프로젝트 매뉴얼](/manuals/libraries/)을 참조하세요.
+
+
+## 간단한 예제 익스텐션
+
+아주 간단한 익스텐션을 만들어 보겠습니다. 먼저 *`myextension`*이라는 새 루트 폴더를 만들고 익스텐션 이름 "`MyExtension`"이 들어 있는 *`ext.manifest`* 파일을 추가합니다. 이 이름은 C++ 심볼이며 `DM_DECLARE_EXTENSION`의 첫 번째 인자와 일치해야 합니다(아래 참조).
+
+![메니페스트](images/extensions/manifest.png)
+
 ```yaml
+# 익스텐션의 C++ 심볼
 name: "MyExtension"
 ```
 
-익스텐션을 구성하는 C++ 파일 한 개를 "myextension.cpp" 라는 이름으로 "src" 폴더에 생성합니다.
+익스텐션은 "`src`" 폴더에 생성한 *`myextension.cpp`*라는 단일 C++ 파일로 구성됩니다.
 
-Defold 에디터는 기본적으로 .cpp 파일을 열 수 없으므로 파일을 더블 클릭해서 해당 파일 타입에 사용되는 시스템 에디터를 사용합니다. 물론 해당 파일에 마우스 오른쪽 클릭해서  **Open With ▸ Text Editor** 메뉴를 선택해 내장된 텍스트 에디터를 사용해도 되지만, Defold는 C++ 파일을 지원하지 않으므로 최소한의 편집 기능만 사용 가능합니다.
+![C++ 파일](images/extensions/cppfile.png)
 
-![C++ file](images/extensions/cppfile.png)
+익스텐션 소스 파일에는 다음 코드가 들어갑니다.
 
-익스텐션 소스 파일은 아래 코드를 포함합니다.
-
-*myextension.cpp*
 ```cpp
-// Extension lib defines
+// myextension.cpp
+// 익스텐션 lib 정의
 #define LIB_NAME "MyExtension"
 #define MODULE_NAME "myextension"
 
-// include the Defold SDK
+// Defold SDK 포함
 #include <dmsdk/sdk.h>
-#include <malloc.h>
 
-static int Rot13(lua_State* L)
+static int Reverse(lua_State* L)
 {
-    int top = lua_gettop(L);
+    // 이 struct가 범위를 벗어났을 때
+    // Lua 스택에 있어야 하는 예상 아이템 수
+    DM_LUA_STACK_CHECK(L, 1);
 
-    // 스택에서 문자열 파라미터 체크하고 가져오기
-    const char* str = luaL_checkstring(L, 1);
+    // 스택에서 문자열 파라미터를 확인하고 가져오기
+    char* str = (char*)luaL_checkstring(L, 1);
 
-    // 새 문자열 할당
+    // 문자열 뒤집기
     int len = strlen(str);
-    char *rot = (char *) malloc(len + 1);
-
-    // 파라미터 문자열을 반복해서 rot13 문자열 생성하기
-    for(int i = 0; i <= len; i++) {
-        const char c = str[i];
-        if((c >= 'A' && c <= 'M') || (c >= 'a' && c <= 'm')) {
-            // A~M 사이의 char에 13 더하기
-            rot[i] = c + 13;
-        } else if((c >= 'N' && c <= 'Z') || (c >= 'n' && c <= 'z')) {
-            // N~Z 사이의 char에 13을 빼기
-            rot[i] = c - 13;
-        } else {
-            // 문자를 그대로 유지함
-            rot[i] = c;
-        }
+    for(int i = 0; i < len / 2; i++) {
+        const char a = str[i];
+        const char b = str[len - i - 1];
+        str[i] = b;
+        str[len - i - 1] = a;
     }
 
-    // 회전된 문자열을 스택에 넣음
-    lua_pushstring(L, rot);
+    // 뒤집힌 문자열을 스택에 넣기
+    lua_pushstring(L, str);
 
-    // 문자열 메모리 해제. Lua는 지금 복제본을 가지고 있음
-    free(rot);
-
-    // 스택에 하나의 아이템이 있음을 assert 함
-    assert(top + 1 == lua_gettop(L));
-
-    // 1 아이템 반환
+    // 아이템 1개 반환
     return 1;
 }
 
-// Lua에 노출된 함수
+// Lua에 노출되는 함수
 static const luaL_reg Module_methods[] =
 {
-    {"rot13", Rot13},
+    {"reverse", Reverse},
     {0, 0}
 };
 
@@ -108,7 +142,7 @@ static void LuaInit(lua_State* L)
 {
     int top = lua_gettop(L);
 
-    // lua 이름을 등록하기
+    // Lua 이름 등록
     luaL_register(L, MODULE_NAME, Module_methods);
 
     lua_pop(L, 1);
@@ -122,7 +156,7 @@ dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params)
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params)
 {
-    // Init Lua
+    // Lua 초기화
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
@@ -139,54 +173,77 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 }
 
 
-// Defold SDK는 익스텐션 진입점을 셋팅하기 위해 매크로를 사용함
+// Defold SDK는 익스텐션 진입점을 설정하기 위해 매크로를 사용합니다.
 //
 // DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)
 
+// MyExtension은 관련된 모든 익스텐션 데이터를 보관하는 C++ 심볼입니다.
+// `ext.manifest`의 name 필드와 일치해야 합니다.
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-DM_DECLARE_EXTENSION 매크로는 익스텐션 코드에 다양한 진입점(entry points)을 선언하는데 사용됩니다. 이 간단한 예제에서는, "update"나 "on_event" 진입점이 필요하지 않으므로 대신 0 값을 매크로 인자값으로 보냅니다.
+익스텐션 코드의 다양한 진입점을 선언하는 데 사용되는 `DM_DECLARE_EXTENSION` 매크로를 확인하세요. 첫 번째 인자 `symbol`은 *ext.manifest*에 지정된 이름과 일치해야 합니다. 이 간단한 예제에서는 "update" 또는 "on_event" 진입점이 필요하지 않으므로 매크로의 해당 위치에 `0`을 제공합니다.
 
-이제 프로젝트를 빌드(**Project ▸ Build**)할 차례입니다. 이것은 익스텐션을 익스텐션 빌더에 업로드해서 새 익스텐션이 포함된 커스텀 엔진을 생성합니다. 만약 빌더에 에러가 발생하면 빌드 에러가 있는 대화창을 표시합니다.
+이제 프로젝트를 빌드하기만 하면 됩니다(<kbd>Project ▸ Build</kbd>). 그러면 익스텐션이 익스텐션 빌더에 업로드되고, 빌더는 새 익스텐션이 포함된 커스텀 엔진을 생성합니다. 빌더에서 오류가 발생하면 빌드 오류가 포함된 대화 상자가 표시됩니다.
 
-익스텐션을 테스트하려면, 게임 오브젝트를 생성해서 아래와 같은 테스트 코드가 있는 스크립트 컴포넌트를 추가해야 합니다.
+익스텐션을 테스트하려면 게임 오브젝트를 만들고 테스트 코드가 있는 스크립트 컴포넌트를 추가합니다.
 
 ```lua
 local s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-local rot_s = myextension.rot13(s)
-print(rot_s) --> nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM
+local reverse_s = myextension.reverse(s)
+print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 ```
 
-이제 끝입니다! 우리는 완전히 잘 동작하는 네이티브 익스텐션을 만들었습니다.
+이제 완료되었습니다. 완전히 동작하는 네이티브 익스텐션을 만들었습니다.
 
-## The ext.manifest file
-메니페스트 파일에는 익스텐션의 이름 외에도 특정 플랫폼의 compile flags, link flags, libs, frameworks 를 추가할 수 있습니다. 아래에 예제가 있습니다.
 
-*ext.manifest*
-```yaml
-name: "AdExtension"
+## 익스텐션 라이프사이클
 
-platforms:
-    arm64-ios:
-        context:
-            frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
-            flags:      ["-stdlib=libc++"]
-            linkFlags:  ["-ObjC"]
-            libs:       ["z", "c++", "sqlite3"]
+위에서 본 것처럼 `DM_DECLARE_EXTENSION` 매크로는 익스텐션 코드의 다양한 진입점을 선언하는 데 사용됩니다.
 
-    armv7-ios:
-        context:
-            frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
-            flags:      ["-stdlib=libc++"]
-            linkFlags:  ["-ObjC"]
-            libs:       ["z", "c++", "sqlite3"]
-```
+`DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update, on_event, final)`
 
-## Known issues
-네이티브 익스텐션 기능은 알파(alpha) 상태이므로, 아직 모든 기능이 준비되지는 않았습니다.
+진입점을 통해 익스텐션 라이프사이클의 여러 시점에서 코드를 실행할 수 있습니다.
 
-* Platforms: 현재는 macOS, iOS, Android 익스텐션 빌드만 지원합니다.
-* Android 는 .java 와 .jar archives 에 대한 지원이 부족합니다.
-* Editor: 에디터 통합(editor integration). 빌드 프로세스가 표시되지 않고 에러 리포팅 기능도 아직 몇몇 기능만 지원됩니다.
-* Debugging: 현재, iOS에서 빌드하는 경우, .dSYM 파일이 결과 빌드에 포함되고 있지 않습니다.
+* 엔진 시작
+  * 엔진 시스템 시작
+  * 익스텐션 `app_init`
+  * 익스텐션 `init` - 모든 Defold API가 초기화되었습니다. 익스텐션 코드에 대한 Lua 바인딩을 생성하기에 권장되는 익스텐션 라이프사이클 시점입니다.
+  * 스크립트 init - 스크립트 파일의 `init()` 함수가 호출됩니다.
+* 엔진 루프
+  * 엔진 update
+    * 익스텐션 `update`
+    * 스크립트 update - 스크립트 파일의 `update()` 함수가 호출됩니다.
+  * 엔진 이벤트(창 최소화/최대화 등)
+    * 익스텐션 `on_event`
+* 엔진 종료(또는 재부팅)
+  * 스크립트 final - 스크립트 파일의 `final()` 함수가 호출됩니다.
+  * 익스텐션 `final`
+  * 익스텐션 `app_final`
+
+## 정의된 플랫폼 식별자
+
+빌더는 각 플랫폼에서 다음 식별자를 정의합니다.
+
+* `DM_PLATFORM_WINDOWS`
+* `DM_PLATFORM_OSX`
+* `DM_PLATFORM_IOS`
+* `DM_PLATFORM_ANDROID`
+* `DM_PLATFORM_LINUX`
+* `DM_PLATFORM_HTML5`
+
+## 빌드 서버 로그 {#build-server-logs}
+
+프로젝트에서 네이티브 익스텐션을 사용할 때 빌드 서버 로그를 확인할 수 있습니다. 빌드 서버 로그(`log.txt`)는 프로젝트를 빌드할 때 커스텀 엔진과 함께 다운로드되며, `.internal/%platform%/build.zip` 파일 안에 저장되고 프로젝트의 빌드 폴더에도 압축 해제됩니다.
+
+## 예제 익스텐션
+
+* [기본 익스텐션 예제](https://github.com/defold/template-native-extension)(이 매뉴얼의 익스텐션)
+* [Android 익스텐션 예제](https://github.com/defold/extension-android)
+* [HTML5 익스텐션 예제](https://github.com/defold/extension-html5)
+* [macOS, iOS 및 Android 비디오 플레이어 익스텐션](https://github.com/defold/extension-videoplayer)
+* [macOS 및 iOS 카메라 익스텐션](https://github.com/defold/extension-camera)
+* [iOS 및 Android In-app Purchase 익스텐션](https://github.com/defold/extension-iap)
+* [iOS 및 Android Firebase Analytics 익스텐션](https://github.com/defold/extension-firebase-analytics)
+
+[Defold 에셋 포털](https://www.defold.com/assets/)에도 여러 네이티브 익스텐션이 있습니다.

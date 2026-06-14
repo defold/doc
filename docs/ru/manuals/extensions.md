@@ -232,7 +232,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 * DM_PLATFORM_LINUX
 * DM_PLATFORM_HTML5
 
-## Построение журналов сервера
+## Построение журналов сервера {#build-server-logs}
 
 Журналы сервера сборки доступны, если проект использует нативные расширения. Журнал сервера сборки (`log.txt`) загружается вместе с движком при сборке проекта и хранится в файле `.internal/%platform%/build.zip`, а также распаковывается в папку сборки вашего проекта.
 

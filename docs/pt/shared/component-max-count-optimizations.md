@@ -1,4 +1,4 @@
-## Otimizações de contagem máxima de componentes
+## Otimizações de contagem máxima de componentes {#component-max-count-optimizations}
 O arquivo de configurações *game.project* contém muitos valores que especificam o número máximo de determinado recurso que pode existir ao mesmo tempo, geralmente contado por coleção carregada (também chamada de mundo). A engine Defold usará esses valores máximos para pré-alocar memória para essa quantidade, evitando alocações dinâmicas e fragmentação de memória enquanto o jogo está em execução.
 
 As estruturas de dados do Defold usadas para representar componentes e outros recursos são otimizadas para usar o mínimo de memória possível, mas ainda é preciso tomar cuidado ao definir os valores para evitar alocar mais memória do que realmente é necessário.

@@ -92,7 +92,7 @@ Resources view
 : A visualização de recursos mostra todos os recursos atualmente carregados na memória, seu tamanho e o número de referências a cada recurso. Isso é útil ao otimizar o uso de memória na sua aplicação, quando você precisa entender o que está carregado na memória em um determinado momento.
 
 
-## Relatórios de build
+## Relatórios de build {#build-reports}
 Ao empacotar seu jogo, há uma opção para criar um relatório de build. Isso é muito útil para entender o tamanho de todos os assets que fazem parte do pacote do seu jogo. Basta marcar a caixa de seleção *Generate build report* ao empacotar o jogo.
 
 ![build report](images/profiling/build_report.png)

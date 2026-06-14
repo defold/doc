@@ -51,7 +51,7 @@ Nie możesz przetestować pakietu HTML5, otwierając pliku `index.html` w przegl
 Jeśli w konsoli zobaczysz błąd `"wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’."`, upewnij się, że twój serwer używa typu MIME `application/wasm` dla plików `.wasm`.
 :::
 
-## Tworzenie pakietu HTML5
+## Tworzenie pakietu HTML5 {#creating-html5-bundle}
 
 Tworzenie zawartości HTML5 w Defold jest proste i odbywa się tak samo jak dla wszystkich innych obsługiwanych platform: wybierz z menu <kbd>Project ▸ Bundle... ▸ HTML5 Application...</kbd>.
 

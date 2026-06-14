@@ -28,7 +28,7 @@ Biblioteki wskazuje się za pomocą standardowego adresu URL. W przypadku projek
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
 ::: important
-Zaleca się zawsze opierać na konkretnym wydaniu projektu biblioteki zamiast na gałęzi głównej (master). Dzięki temu to Ty decydujesz, kiedy wprowadzić zmiany z projektu biblioteki do swojego projektu, zamiast zawsze pobierać najnowsze, a potencjalnie łamiące zmiany z gałęzi master.
+Zaleca się zawsze opierać na konkretnym wydaniu projektu biblioteki zamiast na gałęzi głównej (`master`). Dzięki temu to Ty decydujesz, kiedy wprowadzić zmiany z projektu biblioteki do swojego projektu, zamiast zawsze pobierać najnowsze, a potencjalnie łamiące zmiany z gałęzi `master`.
 :::
 
 ::: important
@@ -93,7 +93,7 @@ Token użytkownika tylko do odczytu jest w pełni dostępny dla każdego, kto ma
 
 To rozwiązanie zostało zaproponowane na forum Defold i [omówione w tym wątku](https://forum.defold.com/t/private-github-for-library-solved/67240).
 
-## Ustawianie zależności do biblioteki
+## Ustawianie zależności do biblioteki {#setting-up-library-dependencies}
 
 Otwórz projekt, z którego chcesz korzystać z biblioteki. W ustawieniach projektu dodaj adres URL biblioteki do właściwości *dependencies*. Możesz wskazać wiele projektów zależnych, dodając je po kolei za pomocą przycisku `+` i usuwając przyciskiem `-`:
 

@@ -26,7 +26,7 @@ El motor de física simula física newtoniana y está diseñado para funcionar b
 En general, es necesario escalar la simulación de física para que funcione bien con el tamaño típico de los objetos en un juego. La escala de la simulación de física se puede cambiar en *game.project* mediante la [configuración de escala de física](/manuals/project-settings/#physics). Establecer este valor, por ejemplo, en 0.02 significaría que 200 píxeles se tratarían como 4 metros. Ten en cuenta que la gravedad (que también se cambia en *game.project*) debe aumentarse para adaptarse al cambio de escala.
 
 
-## Actualizaciones de física
+## Actualizaciones de física {#physics-updates}
 
 Se recomienda actualizar el motor de física a intervalos regulares para asegurar una simulación estable (en lugar de actualizarlo a intervalos posiblemente irregulares y dependientes de la tasa de fotogramas). Puedes usar una actualización fija para física marcando la [configuración Use Fixed Timestep](/manuals/project-settings/#physics) de la sección Physics en el archivo *game.project*. La frecuencia de actualización se controla mediante la [configuración Fixed Update Frequency](/manuals/project-settings/#engine) de la sección Engine en el archivo *game.project*. Al usar un timestep fijo para física, también se recomienda usar la función de ciclo de vida `fixed_update(self, dt)` para interactuar con los objetos de colisión de tu juego, por ejemplo al aplicarles fuerzas.
 
@@ -37,4 +37,4 @@ Proxies de colección
 : A través de proxies de colección es posible cargar más de una colección de nivel superior, o *mundo de juego*, en el motor. Al hacerlo, es importante saber que cada colección de nivel superior es un mundo físico separado. Las interacciones de física ([colisiones, triggers](/manuals/physics-messages) y [ray-casts](/manuals/physics-ray-casts)) solo ocurren entre objetos que pertenecen al mismo mundo. Por lo tanto, aunque los objetos de colisión de dos mundos visualmente estén justo uno encima del otro, no puede haber ninguna interacción de física entre ellos.
 
 Colisiones no detectadas
-: Si tienes problemas con colisiones que no se manejan o detectan correctamente, asegúrate de leer sobre la [depuración de física en el manual de depuración](/manuals/debugging/#debugging-problems-with-physics).
+: Si tienes problemas con colisiones que no se manejan o detectan correctamente, asegúrate de leer sobre la [depuración de física en el manual de depuración](/manuals/debugging-game-logic/#debugging-problems-with-physics).

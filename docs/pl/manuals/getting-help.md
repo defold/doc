@@ -3,7 +3,7 @@ title: Jak uzyskać pomoc
 brief: Ta instrukcja opisuje, jak uzyskać pomoc, jeśli napotkasz problem podczas korzystania z Defold.
 ---
 
-# Jak uzyskać pomoc
+# Jak uzyskać pomoc {#getting-help}
 
 Jeśli napotkasz problem podczas korzystania z Defold, chcemy o tym wiedzieć, żeby móc naprawić błąd lub pomóc Ci obejść problem. Istnieje kilka sposobów, by omówić problem i zgłosić go dalej. Wybierz opcję, która najlepiej Ci odpowiada:
 
@@ -70,7 +70,7 @@ Efekt:
 print("Hello code!")
 ```
 
-## Zgłoś problem z poziomu edytora
+## Zgłoś problem z poziomu edytora {#report-a-problem-from-the-editor}
 
 Edytor udostępnia wygodny sposób zgłaszania problemów. Wybierz z poziomu edytora <kbd>Help->Report Issue</kbd>, aby zgłosić błąd.
 
@@ -88,7 +88,7 @@ Do przesłania zgłoszenia w ten sposób potrzebujesz konta GitHub.
 Jeśli napotkasz problem podczas korzystania z Defold, możesz spróbować zadać pytanie na [Discord](https://www.defold.com/discord/). Zalecamy jednak, aby złożone pytania i bardziej szczegółowe dyskusje prowadzić na forum. Nie przyjmujemy zgłoszeń błędów przesyłanych przez Discord.
 
 
-# Pliki z logami
+# Pliki z logami {#log-files}
 
 Silnik, edytor i serwer budowania generują informacje do logów, które mogą być bardzo pomocne podczas proszenia o pomoc i diagnozowania problemu. Zawsze dołączaj pliki z logami, gdy zgłaszasz problem:
 

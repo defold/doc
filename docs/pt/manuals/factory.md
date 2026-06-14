@@ -177,7 +177,7 @@ function final(self)
 end
 ```
 
-## Carregamento dinâmico de recursos de fábrica
+## Carregamento dinâmico de recursos de fábrica {#dynamic-loading-of-factory-resources}
 
 Ao marcar a caixa *Load Dynamically* nas propriedades da fábrica, a engine adia o carregamento dos recursos associados à fábrica.
 

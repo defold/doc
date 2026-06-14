@@ -221,7 +221,7 @@ Silnik przechodzi potem do zamykania podsystemów działających w tle: usuwa ko
 
 Aplikacja jest teraz całkowicie zamknięta.
 
-## Rozsyłanie wiadomości
+## Rozsyłanie wiadomości {#dispatching-messages}
 
 **Rozsyłanie wiadomości** to specjalne przejście wykonywane po **każdej** aktualizacji typu komponentu, na przykład po aktualizacji sprite'ów, skryptów i każdej innej operacji, która może wysyłać wiadomości. W trakcie wykonywania wszystkie zakolejkowane wiadomości są rozsyłane. Na diagramach są oznaczone małymi ikonami koperty ze strzałką 📩.
 

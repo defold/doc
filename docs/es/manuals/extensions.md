@@ -232,7 +232,7 @@ El builder define los siguientes identificadores en cada plataforma respectiva:
 * `DM_PLATFORM_LINUX`
 * `DM_PLATFORM_HTML5`
 
-## Logs del servidor de build
+## Logs del servidor de build {#build-server-logs}
 
 Los logs del servidor de build están disponibles cuando el proyecto usa extensiones nativas. El log del servidor de build (`log.txt`) se descarga junto con el motor personalizado cuando se crea la build del proyecto, se almacena dentro del archivo `.internal/%platform%/build.zip` y también se descomprime en la carpeta de build de tu proyecto.
 

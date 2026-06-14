@@ -51,7 +51,7 @@ gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 
 属性动画函数 `go.animate()` 和 `gui.animate()` 支持一个可选的 Lua 回调函数作为最后一个参数。当动画播放到结束时将调用此函数。对于循环动画，或者当动画通过 `go.cancel_animations()` 或 `gui.cancel_animations()` 手动取消时，永远不会调用该函数。回调可用于在动画完成时触发事件或将多个动画链接在一起。
 
-## 缓动
+## 缓动 {#easing}
 
 缓动定义了动画值如何随时间变化。下面的图像描述了随时间应用的函数以创建缓动效果。
 

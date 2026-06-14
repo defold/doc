@@ -156,4 +156,4 @@ Kształty kolizji w fizyce 2D można obracać tylko wokół osi Z. Obracanie wok
 
 # Debugowanie
 
-Możesz [włączyć debugowanie fizyki](/manuals/debugging/#debugging-problems-with-physics), aby zobaczyć kształty kolizji w czasie działania.
+Możesz [włączyć debugowanie fizyki](/manuals/debugging-game-logic/#debugging-problems-with-physics), aby zobaczyć kształty kolizji w czasie działania.

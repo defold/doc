@@ -6,7 +6,12 @@ from .excel_handler import create_workbook, get_status_fills, write_file_info, w
 from .markdown_handler import compare_markdown_syntax_trees
 
 
-def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
+def main(
+    source_dir_path=None,
+    target_dir_path=None,
+    output_file_path=None,
+    links_only=False,
+):
     """
     Main function for document consistency checking
     
@@ -14,6 +19,7 @@ def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
         source_dir_path: Source document directory path (required)
         target_dir_path: Target document directory path (required)
         output_file_path: Output Excel file path (optional, defaults to docs_structure_comparison.xlsx)
+        links_only: Only validate local Markdown links and fragments
     """
     # Check if required parameters are provided
     if source_dir_path is None or target_dir_path is None:
@@ -75,9 +81,11 @@ def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
         # Write file sizes
         write_file_sizes(ws, row_num, source_file_info, target_file_info)
         
-        # Check Markdown syntax consistency
+        # Check Markdown consistency
         markdown_consistency = ""
-        if source_exists and target_exists and source_file_info.get('extension') == ".md":
+        source_is_markdown = source_file_info.get('extension') == ".md"
+        target_is_markdown = target_file_info.get('extension') == ".md"
+        if source_exists and target_exists and source_is_markdown:
             try:
                 source_full_path = os.path.join(source_dir_path, file_path)
                 target_full_path = os.path.join(target_dir_path, file_path)
@@ -87,12 +95,55 @@ def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
                 
                 if source_content is not None and target_content is not None:
                     # Build Markdown syntax tree and compare
-                    markdown_consistency = compare_markdown_syntax_trees(source_content, target_content, file_path)
+                    markdown_consistency = compare_markdown_syntax_trees(
+                        source_content,
+                        target_content,
+                        file_path,
+                        source_file_path=source_full_path,
+                        target_file_path=target_full_path,
+                        source_root=source_dir_path,
+                        target_root=target_dir_path,
+                        links_only=links_only,
+                    )
                 else:
                     markdown_consistency = "File read failed"
             except Exception as e:
                 markdown_consistency = f"Check error: {str(e)}"
-        elif source_exists and target_exists and source_file_info.get('extension') != ".md":
+        elif links_only and source_exists and source_is_markdown:
+            try:
+                source_full_path = os.path.join(source_dir_path, file_path)
+                source_content = read_file_content(source_full_path)
+                if source_content is not None:
+                    markdown_consistency = compare_markdown_syntax_trees(
+                        source_content,
+                        "",
+                        file_path,
+                        source_file_path=source_full_path,
+                        source_root=source_dir_path,
+                        links_only=True,
+                    )
+                else:
+                    markdown_consistency = "File read failed"
+            except Exception as e:
+                markdown_consistency = f"Check error: {str(e)}"
+        elif links_only and target_exists and target_is_markdown:
+            try:
+                target_full_path = os.path.join(target_dir_path, file_path)
+                target_content = read_file_content(target_full_path)
+                if target_content is not None:
+                    markdown_consistency = compare_markdown_syntax_trees(
+                        "",
+                        target_content,
+                        file_path,
+                        target_file_path=target_full_path,
+                        target_root=target_dir_path,
+                        links_only=True,
+                    )
+                else:
+                    markdown_consistency = "File read failed"
+            except Exception as e:
+                markdown_consistency = f"Check error: {str(e)}"
+        elif source_exists and target_exists and not source_is_markdown:
             markdown_consistency = "Non-Markdown file"
         
         # Write Markdown consistency check results

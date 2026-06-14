@@ -289,7 +289,7 @@ Na koniec utwórz nowy plik *hero.script* i dodaj go do obiektu gry.
 ::: sidenote
 Powód, dla którego obsługujemy kolizję samodzielnie, jest taki, że gdybyśmy zamiast tego ustawili typ obiektu kolizji postaci na dynamiczny, silnik wykonałby newtonowską symulację zaangażowanych ciał. W grze takiej jak ta taka symulacja jest daleka od optymalnej, więc zamiast walczyć z silnikiem fizyki przy użyciu różnych sił, przejmujemy pełną kontrolę.
 
-Aby to zrobić i poprawnie obsługiwać kolizje, potrzeba trochę matematyki wektorowej. Szczegółowe wyjaśnienie, jak rozwiązywać kolizje kinematyczne, znajdziesz w [dokumentacji fizyki](/manuals/physics#resolving-kinematic-collisions).
+Aby to zrobić i poprawnie obsługiwać kolizje, potrzeba trochę matematyki wektorowej. Szczegółowe wyjaśnienie, jak rozwiązywać kolizje kinematyczne, znajdziesz w [dokumentacji fizyki](/manuals/physics-resolving-collisions/).
 :::
 
 ```lua

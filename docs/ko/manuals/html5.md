@@ -1,218 +1,334 @@
 ---
-title: Defold manual
+title: HTML5 플랫폼용 Defold 개발
+brief: 이 매뉴얼은 HTML5 게임을 생성하는 과정과 알려진 이슈 및 제약사항을 설명합니다.
 ---
 
-# HTML5 게임 개발하기
-이 매뉴얼은 HTML5 캔버스 어플리케이션을 개발하는 과정에 대해 설명하고, 알려진 이슈들과 몇 가지 제약사항에 대해 설명합니다.
+# HTML5 개발
 
-## Project configuration
-*game.project* 파일에는 HTML5 을 위한 몇 가지 특정 설정값이 있으며  **html5** 섹션에서 찾을 수 있습니다.
+Defold는 다른 플랫폼과 마찬가지로 일반 번들링 메뉴를 통해 HTML5 플랫폼용 게임 빌드를 지원합니다. 또한 생성된 게임은 간단한 템플릿 시스템으로 스타일을 지정할 수 있는 일반 HTML 페이지에 임베드됩니다.
+
+*game.project* 파일에는 HTML5 전용 설정이 들어 있습니다:
 
 ![Project settings](images/html5/html5_project_settings.png)
 
-### Customizing heap size
-Defold는 Emscripten(http://en.wikipedia.org/wiki/Emscripten 참고) 를 사용하여 HTML5 을 지원하고 있습니다. 즉 어플리케이션 동작이 힙(heap) 안에서 이루어지는 샌드박스 메모리를 생성한다는 뜻입니다. 기본적으로 엔진은 많은 양의 메모리(256MB)를 할당합니다. 이는 일반적인 게임에는 충분하지만 최적화를 통해서 더 작은 메모리를 사용할 수도 있습니다. 다음 단계를 따라해 보세요.
+## 힙 크기
 
-1. **custom_heap_size** 를 원하는 바이트 값으로 설정합니다.
-2. **set_custom_heap_size**를 체크해서 활성화 합니다.
-3. HTML5 번들을 생성합니다. (아래 참고)
+Defold의 HTML5 지원은 Emscripten(참고: http://en.wikipedia.org/wiki/Emscripten)을 기반으로 합니다. 간단히 말해 어플리케이션이 동작하는 힙을 위한 샌드박스 메모리를 생성합니다. 기본적으로 엔진은 넉넉한 메모리(256MB)를 할당합니다. 일반적인 게임에는 충분한 양입니다. 최적화 과정에서 더 작은 값을 사용하도록 선택할 수도 있습니다. 이렇게 하려면 다음 단계를 따르세요:
 
-### Monitoring memory usage
-개발하는 동안에는 특수한 메모리를 추적하는 컴포넌트가 포함된 번들을 생성해서 어플리케이션 메모리 사용량을 추적할 수 있습니다. 이 기능은 **include_dev_tool**를 체크해서 활성화 되며 아래에서 더 자세히 설명합니다.
+1. *heap_size*를 원하는 값으로 설정합니다. 메가바이트 단위로 입력해야 합니다.
+2. HTML5 번들을 생성합니다(아래 참고).
 
-### Application cache
-네트워크 트래픽을 줄이고 로딩 시간을 개선하기 위해, HTML5 어플리케이션 캐쉬(https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache 참고) 내에 어플레케이션 데이터를 저장하도록 선택할 수 있습니다. 일반적으로 이 기능은 개발 중에는 사용되지 않고 브라우저는 새로 생성된 컨텐츠보다는 캐쉬된 데이터를 우선하게 됩니다. 만약 이 기능을 테스트 중에 사용한다면 빌드할 새 번들은 캐쉬 메니페스트(cache manifest)를 변경해야 새 데이터를 가져올 수 있게 됩니다. 모든 브라우저는 캐쉬를 삭제(clear)하는 기능을 제공하고 있습니다.
+## HTML5 빌드 테스트
 
-### Creating HTML5 content
-Defold에서 HTML5 컨텐츠를 생성하는 것은 간단하며 다른 모든 지원되는 플랫폼들 처럼 동일한 패턴으로 따라하기만 하면 됩니다. 메뉴에서 **Project > Bundle > HTML5 Application…​** 를 선택합니다.
+테스트하려면 HTML5 빌드에는 HTTP 서버가 필요합니다. <kbd>Project ▸ Build HTML5</kbd>를 선택하면 Defold가 서버를 생성합니다.
 
 ![Build HTML5](images/html5/html5_build_launch.png)
 
-어플리케이션을 생성하기위한 폴더를 선택하라는 창이 뜹니다. 익스포트 과정이 완료되면 어플리케이션을 실행하는데 필요한 모든 파일을 볼 수 있습니다.
+번들을 테스트하려면 원격 HTTP 서버에 업로드하거나, 예를 들어 번들 폴더에서 Python을 사용해 로컬 서버를 생성하면 됩니다.
+Python 2:
 
-![Application files](images/html5/html5_files.png)
-
-### Testing HTML5 Content
-이제 이 컨텐츠를 웹서버가 액세스 할 수 있는 디렉토리에 설치해야 합니다. 사용 가능한 테스트 환경은 프로젝트에 따라 달라집니다. 이 환경에서는 그냥 .html 페이지를 열기만 해도 됩니다.
-
-![Application](images/html5/html5_goat.png)
-
-또한 에디터에서 HTML 컨텐츠를 직접 실행해서 로컬 브라우저에서 열 수도 있습니다. 하지만 게임의 기능에 따라 웹 서버에서 어플리케이션을 테스트 하는 것이 더 좋습니다.
-
-### Known issues and limitations
-
-#### Live update
-Defold 어플리케이션은 에디터에서 라이브 업데이트를 받기 위해 자체적인 소형 웹 브라우저를 실행 해야만 합니다. 다른 일반적인 순수 브라우저 어플리케이션으로는 불가능합니다.
-#### CORS
-Cross-origin resource sharing (http://en.wikipedia.org/wiki/Cross-origin_resource_sharing 참고)는 QA환경에서는 활성화 되지 않으므로 브라우저가 웹 API와 상호작용하는 기능이 제한될 수 있습니다. Chrome을 사용할 때, '--disable-web-security' 플래그로 실행하거나 프록시 서버를 만들어서 이 문제를 해결할 수 있습니다.
-#### Safari (IndexedDB)
-영구적인 사용자 데이터(Persistent user data)는 IndexedDB API (https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API 참고)를 사용해서 로컬에 저장됩니다. 이 HTML5의 기능은 현재 Safari 버전에서는 지원되지 않습니다. 따라서 이 브라우저를 사용할 경우엔 세션(sessions) 간에 데이터가 저장되지 않습니다. 이 기능은 다음 업데이트에 포함될 예정입니다.
-#### Internet Explorer 11 (audio)
-Defold는 HTML5 WebAudio (http://www.w3.org/TR/webaudio 참고)를 사용하여 오디오 재생을 다루며 Internet Explorer 11 에서는 이 기능이 지원되지 않습니다. 이 브라우저에서 사용하면 에러가 발생할 수 있습니다.
-#### Internet Explorer 11 (WebGL)
-Microsoft는 WebGL API (https://www.khronos.org/registry/webgl/specs/latest/ 참고) 구현을 완료하지 않았습니다. 따라서 다른 브라우저들 처럼 동작하지 않을 수 있습니다.
-#### Internet Explorer 11 (Full screen)
-풀 스크린 모드는 이 브라우저에서 제대로 동작하지 않는 경우가 있습니다.
-
-## Customizing HTML5 applications
-어플리케이션의 HTML5 버전을 생성할 때, Defold는 어플리케이션이 위치할 기본 웹 페이지를 제공하며 어플리케이션을 어떻게 표시할지 도와주는 style(css)과 script 리소스들을 참조합니다.
-
-일반적으로, 어플리케이션을 실행하는데 필요한 모든 리소스를 가져오는데 걸리는 시간은 무시할 수 없습니다. 이런 이유로, Defold HTML5 어플리케이션은 메인 어플리케이션을 로드하는 동안 보여주는 스플래쉬 스크린(splash screen) 기능을 제공합니다.
-
-이를 재정의 하지 않는 한, Defold는 아래 처럼 구성된 기본 페이지를 제공합니다.
-
-\+ HTML5 캔버스 + 풀스크린 모드 버튼 + 스플래쉬 스크린 및 로직 + 필요하다면 개발 도구들
-
-이 컨텐츠는 어플리케이션을 익스포트 할 때마다 새로 생성됩니다. 만약 이 요소들을 커스터마이징 하려면 프로젝트 설정을 수정해야 합니다. Defold 에디터의 **game.project** 를 열어서 **html5** 섹션을 찾아 보세요.
-
-![HTML5 settings](images/html5/html5_styling_settings.png)
-
-이 설정은 커스텀 HTML 파일, 스타일시트(css), 스플래시 이미지를 추가할 수 있게 해 줍니다.
-
-> 이 작업을 시작하려면, 어플리케이션을 기본 설정으로 한 번 익스포트 한 후 익스포트된 HTML과 CSS 파일을 프로젝트로 옮겨서 위의 설명대로 설정을 변경하고 이 파일들을 수정하면 됩니다.
-
-이 컨텐츠는 언제든 자유롭게 변경하거나 추가할 수 있지만, 몇 가지 제약 사항이 있습니다.
-
-\+ 캔버스는 다른 스타일로 border 나 padding 을 지정하면 안됩니다. 이렇게 하면 마우스 입력 좌표가 달라질 수 있습니다. \+ 페이스북 지원이 필요한 경우엔 Javscript SDK를 로드하는 스크립트 태그가 메인 어플리케이션 스크립트 앞에 나타나야 합니다.
-
-### Splash screens
-스플래시 스크린은 기본적으로 구현됩니다. 만약 스플래쉬 스크린을 삭제하거나 커스터마이징 하려면 주의가 필요한 몇 가지 기능이 있습니다.
-
-\+ HTML 마크업 \+ CSS 스타일 \+ Javascript 로직
-
-Javascript를 직접 구현하는 것은 선택사항이지만, 만약 아래 함수를 포함하는 "SplashControl" 오브젝트를 구현하면 Defold 어플리케이션이 이와 관련된 정보를 돌려보내 줍니다.
-
-#### onSetMessage(text)
-이 콜백(callback)은 유저에게 표시하려는 텍스트를 수신합니다.
-
-####onSetProgress(current, max)
-어플리케이션이 로드될 때, 이 콜백은 현재 진행률(current progress)을 받습니다. "current"는 로드된 데이터의 양을 가지고 있고 "max"는 로드 할 전체 데이터의 양을 가지고 있습니다.
-
-#### onDismissSplash()
-이 콜백은 어플리케이션이 로드 되어 실행을 시작하고 캔버스를 렌더링(스플래시 스크린이 닫힐 때) 하려 할 때 어플리케이션에 의해 호출됩니다.
-
-또한 기본 구현에는 윈도우 리사이징 이벤트를 다루는 로직도 포함하고 있습니다. 이 구현은 변경하거나 교체하려면, 메인 모듈이 제공하는 아래 두가지 헬퍼 함수를 사용할 수 있습니다.
-
-#### Module.matchToCanvas(id)
-DOM 요소의 id를 받아서 캔버스의 비율에 맞게 "width"와 "height" 속성을 조정합니다. "marginTop" 속성은 브라우저 윈도우의 캔버스를 세로 정렬하는데 사용됩니다.
-
-#### Module.setMarginTop(id, sourcePixels)
-"id" 요소의 "marginTop" 속성을 프로젝트 설정의 어플리케이션 높이와 관련된 스케일값으로 표시된 "sourcePixels" 값으로 설정합니다. 내부적으로 "sourcePixels"는 top margin에 할당되기 전에 스케일 값에 곱해집니다. 이 스케일 값은 실제 브라우저 창의 픽셀 높이에서 어플리케이션 픽셀 높이를 프로젝트 셋팅에 지정한 대로 나눕니다.
-
-> 이 메소드들은 모듈 스크립트가 다 로드되기 전까지는 사용할 수 없습니다. 사용 예제는 기본으로 생성된 HTML 파일을 참고하시기 바랍니다.
-
-> 스플래시 스크린 개발에 중점을 둘 경우, 로딩과 실행에 관련된 코드들을 주석처리 해서 프로세스 속도를 높일 수 있습니다.
-
-### Tokens
-HTML5 어플리케이션을 생성할 때, HTML과 CSS 파일들은 특정 토큰을 프로젝트 설정에 의존하는 값으로 교체할 수 있는 컴파일러를 통해 전달됩니다. 이 토큰은 문자 시퀀스를 이스케이프 해야하는지 말아야 하는지에 따라 항상 이중 혹은 삼중 중괄호(‘{ }‘)로 묶습니다. 이 기능은 프로젝트 설정을 자주 변경하거나 다른 프로젝트에서 메터리얼을 재사용 하려는 경우에 유용합니다.
-
-HTML이나 CSS 컨텐츠에 따라, 아래 토큰들이 모두 지원됩니다.
-
-#### DEFOLD_DISPLAY_WIDTH
-(HTML 또는 CSS) 프로젝트 설정에 지정된 값을 display width에 씁니다.
+```sh
+python -m SimpleHTTPServer
 ```
+
+Python 3:
+
+```sh
+python -m http.server
+```
+
+또는
+
+```sh
+python3 -m http.server
+```
+
+::: important
+브라우저에서 `index.html` 파일을 여는 방식으로는 HTML5 번들을 테스트할 수 없습니다. HTTP 서버가 필요합니다.
+:::
+
+::: important
+콘솔에 `"wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’."` 오류가 표시되면, 서버가 `.wasm` 파일에 `application/wasm` MIME 타입을 사용하도록 해야 합니다.
+:::
+
+## HTML5 번들 생성 {#creating-html5-bundle}
+
+Defold에서 HTML5 컨텐츠를 생성하는 것은 간단하며, 지원되는 다른 모든 플랫폼과 같은 패턴을 따릅니다. 메뉴에서 <kbd>Project ▸ Bundle... ▸ HTML5 Application...</kbd>를 선택합니다:
+
+![Create HTML5 bundle](images/html5/html5_bundle.png)
+
+HTML5 번들에는 Defold 엔진의 `asm.js` 버전과 WebAssembly(wasm) 버전을 모두 포함하도록 선택할 수 있습니다. 대부분의 경우 [모든 최신 브라우저가 WebAssembly를 지원하므로](https://caniuse.com/wasm) WebAssembly를 선택하는 것으로 충분합니다.
+
+::: important
+엔진의 `asm.js` 버전과 `wasm` 버전을 모두 포함해도 게임을 실행할 때 브라우저는 둘 중 하나만 다운로드합니다. 브라우저가 WebAssembly를 지원하면 WebAssembly 버전이 다운로드되고, WebAssembly를 지원하지 않는 드문 경우에는 `asm.js` 버전이 폴백으로 사용됩니다.
+:::
+
+<kbd>Create bundle</kbd> 버튼을 클릭하면 어플리케이션을 생성할 폴더를 선택하라는 메시지가 표시됩니다. 익스포트 과정이 완료되면 어플리케이션 실행에 필요한 모든 파일을 확인할 수 있습니다.
+
+## 알려진 이슈와 제약사항
+
+* 핫 리로드 - HTML5 빌드에서는 핫 리로드가 동작하지 않습니다. Defold 어플리케이션이 에디터에서 업데이트를 받으려면 자체적인 소형 웹 서버를 실행해야 하는데, HTML5 빌드에서는 이것이 불가능합니다.
+* Internet Explorer 11
+  * 오디오 - Defold는 HTML5 _WebAudio_(참고: http://www.w3.org/TR/webaudio)를 사용해 오디오 재생을 처리하며, 이 기능은 현재 Internet Explorer 11에서 지원되지 않습니다. 이 브라우저를 사용하면 어플리케이션은 null 오디오 구현으로 폴백합니다.
+  * WebGL - Microsoft는 _WebGL_ API(참고: https://www.khronos.org/registry/webgl/specs/latest/) 구현 작업을 완료하지 않았습니다. 따라서 다른 브라우저만큼 성능이 좋지 않습니다.
+  * 전체 화면 - 브라우저에서 전체 화면 모드는 안정적이지 않습니다.
+* Chrome
+  * 느린 디버그 빌드 - HTML5 디버그 빌드에서는 오류를 감지하기 위해 모든 WebGL 그래픽 호출을 검증합니다. Chrome에서 테스트할 때는 이 과정이 매우 느립니다. *game.project*의 *Engine Arguments* 필드를 `--verify-graphics-calls=false`로 설정하면 이를 비활성화할 수 있습니다.
+* 게임패드 지원 - HTML5에서 필요한 특별 고려사항과 절차는 [Gamepad 문서](/manuals/input-gamepads/#gamepads-in-html5)를 참조하세요.
+
+## HTML5 번들 커스터마이징
+
+게임의 HTML5 버전을 생성할 때 Defold는 기본 웹 페이지를 제공합니다. 이 페이지는 게임이 표시되는 방식을 결정하는 스타일과 스크립트 리소스를 참조합니다.
+
+어플리케이션을 익스포트할 때마다 이 컨텐츠는 새로 생성됩니다. 이러한 요소 중 하나를 커스터마이징하려면 프로젝트 설정을 수정해야 합니다. 이렇게 하려면 Defold 에디터에서 *game.project*를 열고 *html5* 섹션으로 스크롤합니다:
+
+![HTML5 Section](images/html5/html5_section.png)
+
+각 옵션에 대한 자세한 내용은 [프로젝트 설정 매뉴얼](/manuals/project-settings/#html5)에서 확인할 수 있습니다.
+
+::: important
+`builtins` 폴더에 있는 기본 HTML/CSS 템플릿 파일은 수정할 수 없습니다. 수정사항을 적용하려면 필요한 파일을 `builtins`에서 복사 붙여넣기한 뒤, *game.project*에서 해당 파일을 설정하세요.
+:::
+
+::: important
+canvas에는 border나 padding 스타일을 지정하면 안 됩니다. 지정하면 마우스 입력 좌표가 잘못됩니다.
+:::
+
+*game.project*에서는 `Fullscreen` 버튼과 `Made with Defold` 링크를 끌 수 있습니다.
+Defold는 `index.html`에 다크 테마와 라이트 테마를 제공합니다. 기본값은 라이트 테마이며, `Custom CSS` 파일을 변경해 바꿀 수 있습니다. 또한 `Scale Mode` 필드에서 선택할 수 있는 네 가지 미리 정의된 스케일 모드가 있습니다.
+
+::: important
+*game.project*의 `Display` 섹션에서 `High Dpi` 옵션을 켜면 모든 스케일 모드의 계산에 현재 화면 DPI가 포함됩니다.
+:::
+
+### Downscale Fit and Fit
+
+`Fit` 모드에서는 화면에 원래 비율로 전체 게임 canvas를 표시하도록 canvas 크기가 변경됩니다. `Downscale Fit`과의 유일한 차이는 웹 페이지의 내부 크기가 원래 게임 canvas보다 작을 때만 크기를 변경하고, 웹 페이지가 원래 게임 canvas보다 클 때는 확대하지 않는다는 점입니다.
+
+![HTML5 Section](images/html5/html5_fit.png)
+
+### Stretch
+
+`Stretch` 모드에서는 웹 페이지의 내부 크기를 완전히 채우도록 canvas 크기가 변경됩니다.
+
+![HTML5 Section](images/html5/html5_stretch.png)
+
+### No Scale
+`No Scale` 모드에서는 canvas 크기가 *game.project* 파일의 `[display]` 섹션에서 미리 정의한 크기와 정확히 같습니다.
+
+![HTML5 Section](images/html5/html5_no_scale.png)
+
+## 토큰
+
+`index.html` 파일을 생성할 때는 [Mustache 템플릿 언어](https://mustache.github.io/mustache.5.html)를 사용합니다. 빌드하거나 번들링할 때 HTML과 CSS 파일은 프로젝트 설정에 따라 달라지는 값을 특정 토큰으로 대체할 수 있는 컴파일러를 거칩니다. 이 토큰은 문자 시퀀스를 이스케이프해야 하는지 여부에 따라 항상 이중 또는 삼중 중괄호(`{{TOKEN}}` 또는 `{{{TOKEN}}}`)로 둘러싸입니다. 프로젝트 설정을 자주 변경하거나 다른 프로젝트에서 컨텐츠를 재사용하려는 경우 이 기능이 유용할 수 있습니다.
+
+::: sidenote
+Mustache 템플릿 언어에 대한 자세한 내용은 [매뉴얼](https://mustache.github.io/mustache.5.html)에서 확인할 수 있습니다.
+:::
+
+모든 *game.project* 값은 토큰이 될 수 있습니다. 예를 들어 `Display` 섹션의 `Width` 값을 사용하려면:
+
+![Display section](images/html5/html5_display.png)
+
+*game.project*를 텍스트로 열고 사용하려는 필드의 `[section_name]`과 이름을 확인합니다. 그런 다음 `{{section_name.field}}` 또는 `{{{section_name.field}}}` 형식의 토큰으로 사용할 수 있습니다.
+
+![Display section](images/html5/html5_game_project.png)
+
+예를 들어 HTML 템플릿의 JavaScript에서는 다음과 같이 사용할 수 있습니다:
+
+```javascript
 function doSomething() {
-    var x = {{DEFOLD_DISPLAY_WIDTH}};
+    var x = {{display.width}};
     // ...
 }
 ```
 
-#### DEFOLD_DISPLAY_HEIGHT
-(HTML 또는 CSS) 프로젝트 설정에 지정된 값을 display height에 씁니다.
-```
-function doSomething() {
-    var y = {{DEFOLD_DISPLAY_HEIGHT}};
-}
-```
+또한 다음 커스텀 토큰을 사용할 수 있습니다:
 
-#### DEFOLD_SPLASH_IMAGE
-(HTML 또는 CSS) 스플래시 이미지 파일의 파일명을 씁니다.
-```
-<image class="splashImage" src="{{DEFOLD_SPLASH_IMAGE}}"></image>
+DEFOLD_SPLASH_IMAGE
+: 스플래시 이미지 파일 이름을 쓰거나, *game.project*의 `html5.splash_image`가 비어 있으면 `false`를 씁니다.
+
+
+```css
+{{#DEFOLD_SPLASH_IMAGE}}
+		background-image: url("{{DEFOLD_SPLASH_IMAGE}}");
+{{/DEFOLD_SPLASH_IMAGE}}
 ```
 
-아래 토큰들은 HTML 파일을 처리할 때에만 지원됩니다.
+exe-name
+: 허용되지 않는 문자를 제거한 프로젝트 이름입니다.
 
-#### DEFOLD_APP_TITLE
-(HTML) 프로젝트의 타이틀에 기반한 문자열을 생성합니다.
-```
-<head>
-<title>{{DEFOLD_APP_TITLE}}</title>
-</head>
-```
 
-#### DEFOLD_JS
-(HTML) 메인 어플리케이션의 자바스크립트 파일 이름과 일치됩니다.
+DEFOLD_CUSTOM_CSS_INLINE
+: *game.project* 설정에 지정된 CSS 파일을 인라인으로 삽입하는 위치입니다.
 
-#### DEFOLD_MODULE_JS
-(HTML) 부트스트랩 자바스크립트 파일 이름과 일치됩니다. 이 파일은 어플리케이션 에셋을 로드하고 스플래시 이미지의 활동을 조정합니다.
-```
-<script type='text/javascript' src="{{DEFOLD_MODULE_JS}}"></script>;
+
+```html
+<style>
+{{{DEFOLD_CUSTOM_CSS_INLINE}}}
+</style>
 ```
 
-#### DEFOLD_CSS
-(HTML) 프로젝트 설정에 지정된 기본 또는 템플릿을 익스포트하는 동안 출력되는 CSS 파일의 파일명입니다.
+::: important
+이 인라인 블록은 메인 어플리케이션 스크립트가 로드되기 전에 나타나야 합니다. HTML 태그가 포함되므로 문자 시퀀스가 이스케이프되지 않도록 이 매크로는 삼중 중괄호 `{{{TOKEN}}}` 안에 있어야 합니다.
+:::
+
+DEFOLD_SCALE_MODE_IS_DOWNSCALE_FIT
+: `html5.scale_mode`가 `Downscale Fit`이면 이 토큰은 `true`입니다.
+
+DEFOLD_SCALE_MODE_IS_FIT
+: `html5.scale_mode`가 `Fit`이면 이 토큰은 `true`입니다.
+
+DEFOLD_SCALE_MODE_IS_NO_SCALE
+: `html5.scale_mode`가 `No Scale`이면 이 토큰은 `true`입니다.
+
+DEFOLD_SCALE_MODE_IS_STRETCH
+: `html5.scale_mode`가 `Stretch`이면 이 토큰은 `true`입니다.
+
+DEFOLD_HEAP_SIZE
+: *game.project*의 `html5.heap_size`에 지정된 힙 크기를 바이트로 변환한 값입니다.
+
+DEFOLD_ENGINE_ARGUMENTS
+: *game.project*의 `html5.engine_arguments`에 지정된 엔진 인자이며 `,` 기호로 구분됩니다.
+
+build-timestamp
+: 현재 빌드 타임스탬프(초)입니다.
+
+
+## 추가 파라미터
+
+커스텀 템플릿을 만들면 엔진 로더의 파라미터 집합을 재정의할 수 있습니다. 이를 위해 `<script>` 섹션을 추가하고 `CUSTOM_PARAMETERS` 안의 값을 재정의해야 합니다.
+::: important
+커스텀 `<script>`는 `dmloader.js`를 참조하는 `<script>` 섹션 뒤, `EngineLoader.load` 함수를 호출하기 전에 배치해야 합니다.
+:::
+예:
+
 ```
-<head>
-<link rel="stylesheet" type="text/css" href="{{DEFOLD_CSS}}"></style>
-</head>
+    <script id='custom_setup' type='text/javascript'>
+        CUSTOM_PARAMETERS['disable_context_menu'] = false;
+        CUSTOM_PARAMETERS['unsupported_webgl_callback'] = function() {
+            console.log("Oh-oh. WebGL not supported...");
+        }
+    </script>
 ```
 
-#### DEFOLD_DEV_HEAD
-(HTML) 프로젝트 설정에 따라 HTML 문서의 <head>섹션에서 사용되는 커스텀 HTML 조각을 생성합니다. 이 문자 시퀀스를 이스케이프 하면 안되기 때문에 3중 중괄호(triple braces)를 사용해야 합니다.
+`CUSTOM_PARAMETERS`는 다음 필드를 포함할 수 있습니다:
 
 ```
-<head>
-{{{DEFOLD_DEV_HEAD}}}
-</head>
+'archive_location_filter':
+    각 아카이브 경로마다 실행되는 필터 함수입니다.
+
+'unsupported_webgl_callback':
+    WebGL이 지원되지 않을 때 호출되는 함수입니다.
+
+'engine_arguments':
+    엔진에 전달할 인자(문자열) 목록입니다.
+
+'custom_heap_size':
+    메모리 힙 크기를 지정하는 바이트 수입니다.
+
+'disable_context_menu':
+    true이면 canvas 요소에서 오른쪽 클릭 컨텍스트 메뉴를 비활성화합니다.
+
+'retry_time':
+    오류 후 파일 로딩을 다시 시도하기 전 일시 중지 시간(초)입니다.
+
+'retry_count':
+    파일 다운로드를 시도할 때 수행하는 시도 횟수입니다.
+
+'can_not_download_file_callback':
+    'retry_count'번 시도한 후에도 파일을 다운로드할 수 없을 때 호출되는 함수입니다.
+
+'resize_window_callback':
+    resize/orientationchanges/focus 이벤트가 발생했을 때 호출되는 함수입니다.
+
+'start_success':
+    성공적으로 로드된 뒤 main이 호출되기 바로 전에 호출되는 함수입니다.
+
+'update_progress':
+    진행률이 업데이트될 때 호출되는 함수입니다. progress 파라미터는 0-100으로 업데이트됩니다.
 ```
 
-#### DEFOLD_DEV_INLINE
-(HTML) 프로젝트 설정에 따라 HTML 문서의 <body>섹션에서 사용되는 커스텀 HTML 조각을 생성합니다.
+## HTML5의 파일 작업
+
+HTML5 빌드는 `sys.save()`, `sys.load()`, `io.open()` 같은 파일 작업을 지원하지만, 내부에서 이러한 작업을 처리하는 방식은 다른 플랫폼과 다릅니다. 브라우저에서 JavaScript가 실행될 때는 실제 파일 시스템 개념이 없으며 보안상의 이유로 로컬 파일 액세스가 차단됩니다. 대신 Emscripten(따라서 Defold)은 브라우저에서 데이터를 영구적으로 저장하는 데 사용되는 브라우저 내 데이터베이스인 [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB)를 사용해 브라우저 안에 가상 파일 시스템을 생성합니다. 다른 플랫폼의 파일 시스템 액세스와 다른 중요한 점은 파일에 쓰는 시점과 변경사항이 실제로 데이터베이스에 저장되는 시점 사이에 약간의 지연이 있을 수 있다는 것입니다. 브라우저 개발자 콘솔에서는 보통 IndexedDB의 내용을 검사할 수 있습니다.
+
+
+## HTML5 게임에 인자 전달
+
+게임이 시작되기 전이나 시작되는 동안 게임에 추가 인자를 제공해야 하는 경우가 있습니다. 예를 들면 사용자 id, 세션 토큰, 또는 게임 시작 시 로드할 레벨일 수 있습니다. 이를 수행하는 방법은 여러 가지가 있으며, 그중 일부를 여기서 설명합니다.
+
+### 엔진 인자
+
+엔진이 설정되고 로드될 때 추가 엔진 인자를 지정할 수 있습니다. 이러한 추가 엔진 인자는 런타임에 `sys.get_config_string()`을 사용해 가져올 수 있습니다. 키-값 쌍을 추가하려면 `index.html`에서 엔진이 로드될 때 전달되는 `extra_params` 오브젝트의 `engine_arguments` 필드를 수정합니다:
+
+
 ```
-{{{DEFOLD_DEV_INLINE}}}
-<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
-<!-- etc. -->
+    <script id='engine-setup' type='text/javascript'>
+    var extra_params = {
+        ...,
+        engine_arguments: ["--config=foo1=bar1","--config=foo2=bar2"],
+        ...
+    }
 ```
 
-> 이 인라인 블록(inline block)은 메인 어플리케이션 스크립트를 로드하기 전에 있어야 합니다. HTML 태그가 포함되어 있기 때문에 이 매크로는 문자 시퀀스가 이스케이프 되지 않도록 3중 중괄호를 써야 합니다.
+또한 *game.project*의 HTML5 섹션에 있는 *Engine Arguments* 필드에 `--config=foo1=bar1, --config=foo2=bar2`를 추가할 수 있으며, 그러면 생성된 `index.html` 파일에 주입됩니다.
 
-#### DEFOLD_JS_INIT
-(HTML) 이 태그는 일단 처리되면 Defold 어플리케이션을 로드하기 위한 코드를 추가합니다. 이를 위해선 development options을 활성화 해야 하며, 관계된 모듈들의 초기화를 수행해야 합니다.
+런타임에는 다음과 같이 값을 얻습니다:
+
+```lua
+local foo1 = sys.get_config_string("foo1")
+local foo2 = sys.get_config_string("foo2")
+print(foo1) -- bar1
+print(foo2) -- bar2
 ```
-{{{DEFOLD_DEV_INLINE}}}
-<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
-{{{DEFOLD_JS_INIT}}}
+
+
+### URL의 쿼리 인자
+
+페이지 URL의 쿼리 파라미터로 인자를 전달하고 런타임에 읽을 수 있습니다:
+
+```
+https://www.mygame.com/index.html?foo1=bar1&foo2=bar2
 ```
 
-> 만약 Facebook SDK 를 사용하려 한다면 이 태그를 로드하기 위해 "DEFOLD_JS_INIT" 태그 앞에 있어야 합니다. 또한 이 매크로는 HTML 태그가 포함되어 있으므로 이스케이프 하지 않기 위해 3중 중괄호로 둘러 싸야 합니다.
+```lua
+local url = html5.run("window.location")
+print(url)
+```
 
-## HTML5 Memory Tracker
-개발 중에는 간단한 메모리 추적 도구를 포함하는 HTML5 번들을 생성할 수 있습니다. 어플리케이션에 이 도구를 포함시키기 위해서는 우선 *game.project* 파일을 열어 **html5** 섹션으로 이동해야 합니다.
+모든 쿼리 파라미터를 Lua 테이블로 가져오는 전체 헬퍼 함수:
 
-![Include devtool](images/html5/html5_devtool_include.png)
+```lua
+local function get_query_parameters()
+    local url = html5.run("window.location")
+    -- URL의 쿼리 부분(? 뒤의 부분)을 가져옵니다
+    local query = url:match(".*?(.*)")
+    if not query then
+        return {}
+    end
 
-**include_dev_tool** 옵션을 체크하면 번들 작업이 수행될 때 이 도구를 자동으로 활성화 하고 포함시킵니다.
+    local params = {}
+    -- 모든 키-값 쌍을 순회합니다
+    for kvp in query:gmatch("([^&]+)") do
+        local key, value = kvp:match("(.+)=(.+)")
+        params[key] = value
+    end
+    return params
+end
 
-> 릴리즈 버전을 생성하기 전에는 이 옵션을 해제해야 합니다.
+function init(self)
+    local params = get_query_parameters()
+    print(params.foo1) -- bar1
+end
+```
 
-### Tool features
-브라우저에서 어플리케이션을 정상적으로 실행하면 이 도구가 화면에 나타나게 됩니다.
+## 최적화
+HTML5 게임은 보통 저사양 기기와 느린 인터넷 연결에서도 빠르게 로드되고 잘 실행되도록 초기 다운로드 크기, 시작 시간, 메모리 사용량에 엄격한 요구사항이 있습니다. HTML5 게임을 최적화할 때는 다음 영역에 집중하는 것이 좋습니다:
 
-![Devtool example](images/html5/html5_devtool_goatgold.png)
+* [메모리 사용량](/manuals/optimization-memory)
+* [엔진 크기](/manuals/optimization-size)
+* [게임 크기](/manuals/optimization-size)
 
-토글 버튼을 눌러서 다양한 메모리 리포팅 섹션을 활성화 하고 비활성화 할 수 있습니다. 이 섹션들은 아래의 정보를 포함하고 있습니다.
-
-#### Heap
-힙 메모리의 전체 사이즈입니다. 이 값은 custom heap size 설정에 의해 구성될 수도 있습니다. 이 값을 튜닝하면 리소스를 최적으로 사용하는 릴리즈 버전을 만들 때 유용합니다.
-#### Dynamic
-동적 메모리 할당의 최대치와 현재 수치 및 전체 할당 횟수와 어플리케이션에 의해 수행된 작업의 수를 측정합니다.
-#### Static
-어플리케이션에 직접 빌드된 데이터를 포함하는 정적 메모리 할당을 요약합니다.
-#### Stack
-스택 사용을 위한 코드에 할당된 메모리 총합을 모니터링합니다. 사용된 값이 0으로 보고되면 정상 작동 중이며, 다른 값이면 엔진에 버그가 있음을 나타냅니다.
-
-처음 두 섹션은 개발 과정중에 큰 관련이 있을 가능성이 큽니다. 특히, 성능이 우수한 어플리케이션은 동적 메모리 할당을 자주 요청하지 않습니다.
-
-### Known limitations
-이 메모리 추적 도구는 malloc() 와 free() 함수를 패치해서 작동하며 가능한 빨리 실행됩니다. 이 패치는 메소드가 전역 생성자로 선언되기 이전에 수행되지는 않습니다. 즉, 어플리케이션의 초기 단계에서 일어난 동적 할당은 데이터 사용량(usage)과 피크(peak)를 추적할 수 없습니다. 하지만 동적 메모리 영역과 위치에 관련된 값은 정확하게 추적 가능합니다.
+## FAQ
+:[HTML5 FAQ](../shared/html5-faq.md)

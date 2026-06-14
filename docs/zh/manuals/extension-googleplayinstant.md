@@ -125,4 +125,4 @@ mv tools android-sdk/tools
 sh ./android-sdk/tools/android update sdk --no-ui --all --filter extra-google-instantapps
 ```
 
-设备调试详情请见 [调试教程](/manuals/debugging/#_debugging_on_mobile_devices)。
+设备调试详情请见 [调试教程](/manuals/debugging/)。

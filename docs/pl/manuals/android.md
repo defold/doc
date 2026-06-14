@@ -17,7 +17,7 @@ Gdy tworzysz pakiet aplikacji Android z edytora Defold albo za pomocą [narzędz
 **Nigdy** nie przesyłaj aplikacji do Google Play, jeśli została podpisana za pomocą debug keystore. Zawsze używaj własnego, osobnego keystore.
 :::
 
-## Tworzenie keystore
+## Tworzenie keystore {#creating-a-keystore}
 
 ::: sidenote
 Defold używa keystore w procesie podpisywania Androida. [Więcej informacji znajdziesz w tym poście na forum](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
@@ -35,7 +35,7 @@ To utworzy plik keystore o nazwie `mykeystore.keystore`, zawierający klucz i ce
 Pamiętaj, aby przechowywać keystore i powiązane z nim hasło w bezpiecznym miejscu. Jeśli sam podpisujesz i przesyłasz aplikacje do Google Play, a keystore lub jego hasło zostanie utracone, nie będzie żadnego sposobu, aby zaktualizować aplikację w Google Play. Możesz tego uniknąć, korzystając z Google Play App Signing i pozwalając Google podpisywać aplikacje za Ciebie.
 :::
 
-## Tworzenie pakietu aplikacji Android
+## Tworzenie pakietu aplikacji Android {#creating-an-android-application-bundle}
 
 Edytor pozwala łatwo utworzyć samodzielny pakiet aplikacji dla gry. Przed pakowaniem możesz określić, której ikony lub których ikon użyć dla aplikacji, ustawić kod wersji itd. w pliku *game.project* [plik ustawień projektu](/manuals/project-settings/#android).
 
@@ -49,7 +49,7 @@ Jeśli chcesz podpisać pakiet konkretnym keystore, wskaż pola *Keystore* i *Ke
 
 ![Signing Android bundle](images/android/sign_bundle2.png)
 
-Defold obsługuje tworzenie zarówno plików APK, jak i AAB. Wybierz APK albo AAB z listy rozwijanej Bundle Format.
+Defold obsługuje tworzenie zarówno plików APK, jak i AAB. Wybierz APK albo AAB z listy rozwijanej *Bundle Format*.
 
 Naciśnij <kbd>Create Bundle</kbd>, gdy skonfigurujesz ustawienia pakietu aplikacji. Zostaniesz wtedy poproszony o wskazanie miejsca na komputerze, w którym pakiet ma zostać utworzony.
 
@@ -78,7 +78,7 @@ Plik *`.apk`* możesz zainstalować i uruchomić za pomocą pól wyboru edytora 
 
 ![instalowanie i uruchamianie APK](images/android/install_and_launch.png)
 
-Aby ta funkcja działała, musisz mieć zainstalowany ADB oraz włączone *USB debugging* na podłączonym urządzeniu. Jeśli edytor nie potrafi wykryć lokalizacji narzędzia wiersza poleceń ADB, musisz ją wskazać w [preferencjach edytora](/manuals/editor-preferences/#tools).
+Aby ta funkcja działała, musisz mieć zainstalowany *ADB* oraz włączone *USB debugging* na podłączonym urządzeniu. Jeśli edytor nie potrafi wykryć lokalizacji narzędzia wiersza poleceń ADB, musisz ją wskazać w [preferencjach edytora](/manuals/editor-preferences/#tools).
 
 #### Instalowanie AAB
 
@@ -89,7 +89,7 @@ Plik *.aab* można przesłać do Google Play przez [konsolę deweloperską Googl
 Silnik Defold wymaga szeregu różnych uprawnień, aby działały wszystkie jego funkcje. Uprawnienia są definiowane w pliku `AndroidManifest.xml`, wskazanym w pliku *game.project* [plik ustawień projektu](/manuals/project-settings/#android). Więcej o uprawnieniach Androida można przeczytać w [oficjalnej dokumentacji](https://developer.android.com/guide/topics/permissions/overview). W domyślnym manifeście są wymagane następujące uprawnienia:
 
 ### android.permission.INTERNET i android.permission.ACCESS_NETWORK_STATE (Protection level: normal)
-Pozwalają aplikacjom otwierać gniazda sieciowe i uzyskiwać informacje o sieciach. Te uprawnienia są potrzebne do korzystania z Internetu. ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) oraz ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+Pozwalają aplikacjom otwierać *gniazda sieciowe* i uzyskiwać informacje o sieciach. Te uprawnienia są potrzebne do korzystania z Internetu. ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) oraz ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
 ### android.permission.WAKE_LOCK (Protection level: normal)
 Pozwala używać PowerManager WakeLocks, aby zapobiec usypianiu procesora lub wygaszaniu ekranu. To uprawnienie jest potrzebne do tymczasowego powstrzymania urządzenia przed przejściem w stan uśpienia podczas odbierania powiadomienia push. ([oficjalna dokumentacja Androida](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))

@@ -103,7 +103,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Plik ustawień gamepadów
+## Plik ustawień gamepadów {#gamepads-settings-file}
 Konfiguracja wejścia z gamepada używa osobnego pliku mapowań dla każdego typu sprzętowego gamepada. Mapowania dla konkretnych sprzętowych gamepadów są zapisane w pliku *gamepads*. Defold dostarcza wbudowany plik gamepads z ustawieniami dla popularnych gamepadów:
 
 ![Ustawienia gamepadów](images/input/gamepads.png)
@@ -140,7 +140,7 @@ function on_input(self, action_id, action)
 end
 ``` 
 
-## Gamepady w HTML5
+## Gamepady w HTML5 {#gamepads-in-html5}
 Gamepady są obsługiwane w buildach HTML5 i generują te same zdarzenia wejścia co na innych platformach. Obsługa gamepadów opiera się na [Gamepad API](https://www.w3.org/TR/gamepad/), które jest obsługiwane przez większość przeglądarek ([sprawdź tabelę zgodności](https://caniuse.com/?search=gamepad)). Jeśli przeglądarka nie obsługuje Gamepad API, Defold po prostu zignoruje wszystkie wiązania gamepada w projekcie. Możesz sprawdzić, czy przeglądarka obsługuje Gamepad API, testując, czy funkcja `getGamepads` istnieje w obiekcie `navigator`:
 
 ```lua

@@ -61,7 +61,7 @@ Jest lepiej. Okno i grafika mają już sensowny rozmiar, ale po bliższym przyjr
 
 ![](images/screen_size/retro-zoomed_linear.png)
 
-Grafika jest rozmyta! Wynika to ze sposobu próbkowania powiększonej grafiki z tekstury podczas renderowania przez GPU. Domyślne ustawienie w pliku *game.project* w sekcji Graphics to *linear*:
+Grafika jest rozmyta! Wynika to ze sposobu próbkowania powiększonej grafiki z tekstury podczas renderowania przez GPU. Domyślne ustawienie w pliku *game.project* w sekcji *Graphics* to *linear*:
 
 ![](images/screen_size/retro-settings_linear.png)
 
@@ -71,11 +71,11 @@ Zmiana tego ustawienia na *nearest* daje oczekiwany rezultat:
 
 ![](images/screen_size/retro-zoomed_nearest.png)
 
-Teraz mamy ostrą, pikselową grafikę naszej retro gry. Jest jeszcze więcej rzeczy do rozważenia, na przykład wyłączenie subpikseli dla sprite'ów w pliku *game.project*:
+Teraz mamy ostrą, *pikselową* grafikę naszej retro gry. Jest jeszcze więcej rzeczy do rozważenia, na przykład wyłączenie subpikseli dla sprite'ów w pliku *game.project*:
 
 ![](images/screen_size/retro-subpixels.png)
 
-Gdy opcja Subpixels jest wyłączona, sprite'y nigdy nie są renderowane na półpikselach i zawsze są przyciągane do najbliższego pełnego piksela.
+Gdy opcja *Subpixels* jest wyłączona, sprite'y nigdy nie są renderowane na półpikselach i zawsze są przyciągane do najbliższego pełnego piksela.
 
 ## Grafika o wysokiej rozdzielczości
 
@@ -102,11 +102,11 @@ Spowoduje to utworzenie bufora wysokiego DPI na ekranach, które to obsługują.
 
 ## Tworzenie adaptacyjnego GUI
 
-System tworzenia komponentów GUI opiera się na kilku podstawowych elementach, czyli [węzłach](/manuals/gui/#node-types). Choć może wydawać się uproszczony, można go wykorzystać do tworzenia wszystkiego, od przycisków po złożone menu i popupy. Tworzone GUI można skonfigurować tak, aby automatycznie dostosowywało się do zmian rozmiaru ekranu i orientacji. Na przykład można przypinać węzły do górnej, dolnej lub bocznych krawędzi ekranu, a węzły mogą zachowywać swój rozmiar albo się rozciągać. Relację między węzłami, a także ich rozmiar i wygląd, można również skonfigurować tak, aby zmieniały się wraz ze zmianą rozmiaru ekranu lub orientacji.
+System tworzenia komponentów GUI opiera się na kilku podstawowych elementach, czyli [węzłach](/manuals/gui/#node-types). Choć może wydawać się uproszczony, można go wykorzystać do tworzenia wszystkiego, od przycisków po złożone menu i popupy. Tworzone GUI można skonfigurować tak, aby automatycznie dostosowywało się do zmian rozmiaru ekranu i orientacji. Na przykład można przypinać *węzły* do górnej, dolnej lub bocznych krawędzi ekranu, a *węzły* mogą zachowywać swój rozmiar albo się rozciągać. Relację między węzłami, a także ich rozmiar i wygląd, można również skonfigurować tak, aby zmieniały się wraz ze zmianą rozmiaru ekranu lub orientacji.
 
-### Właściwości węzłów
+### Właściwości *węzłów*
 
-Każdy węzeł w GUI ma punkt pivot, poziome i pionowe zakotwiczenie oraz tryb dopasowania.
+Każdy *węzeł* w GUI ma punkt pivot, poziome i pionowe zakotwiczenie oraz tryb dopasowania.
 
 * Punkt pivot określa środek węzła.
 * Tryb anchor określa, jak zmienia się pozycja pionowa i pozioma węzła, gdy granice sceny lub granice węzła nadrzędnego są rozciągane tak, aby dopasować się do fizycznego rozmiaru ekranu.
@@ -121,6 +121,6 @@ Defold obsługuje GUI, które automatycznie dostosowują się do zmian orientacj
 
 ## Testowanie różnych rozmiarów ekranu
 
-Menu Debug zawiera opcję symulowania rozdzielczości konkretnego modelu urządzenia albo własnej rozdzielczości. Gdy aplikacja jest uruchomiona, możesz wybrać <kbd>Debug->Simulate Resolution</kbd> i wskazać jeden z modeli urządzeń z listy. Okno uruchomionej aplikacji zmieni rozmiar i będziesz mógł sprawdzić, jak gra wygląda w innej rozdzielczości lub przy innych proporcjach obrazu.
+Menu *Debug* zawiera opcję symulowania rozdzielczości konkretnego modelu urządzenia albo własnej rozdzielczości. Gdy aplikacja jest uruchomiona, możesz wybrać <kbd>Debug->Simulate Resolution</kbd> i wskazać jeden z modeli urządzeń z listy. Okno uruchomionej aplikacji zmieni rozmiar i będziesz mógł sprawdzić, jak gra wygląda w innej rozdzielczości lub przy innych proporcjach obrazu.
 
 ![](images/screen_size/simulate-resolution.png)

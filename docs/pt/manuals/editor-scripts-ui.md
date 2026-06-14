@@ -198,7 +198,7 @@ Além disso, o editor define alguns componentes utilitários:
 - **`separator`** é uma linha fina usada para delimitar blocos de conteúdo
 - **`scroll`** é um componente wrapper que mostra barras de rolagem quando o componente envolvido não cabe no espaço atribuído
 
-## Reatividade
+## Reatividade {#reactivity}
 
 Como componentes são **userdata imutável**, é impossível alterá-los depois que são criados. Como fazer a UI mudar com o tempo então? A resposta: **componentes reativos**.
 

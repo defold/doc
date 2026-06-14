@@ -31,7 +31,7 @@ Para configurar un renderizador personalizado:
 3. Cambia la propiedad *Render* (bajo *bootstrap*) en el archivo de configuración *game.project* para que haga referencia a tu copia del archivo "default.render".
 
 
-## Predicados de render
+## Predicados de render {#render-predicates}
 
 Para poder controlar el orden de dibujo de los objetos, creas _predicados_ de render. Un predicado declara qué debe dibujarse a partir de una selección de _tags_ de material.
 
@@ -67,7 +67,7 @@ render.draw(outlined_trees)
 Puedes encontrar una descripción detallada de cómo funcionan los materiales en la [documentación de Material](/manuals/material).
 
 
-## Proyección de vista por defecto
+## Proyección de vista por defecto {#default-view-projection}
 
 El script de render por defecto está configurado para usar una proyección ortográfica adecuada para juegos 2D. Proporciona tres proyecciones ortográficas diferentes: `Stretch` (por defecto), `Fixed Fit` y `Fixed`. Como alternativa a las proyecciones ortográficas del script de render por defecto, también tienes la opción de usar la matriz de proyección proporcionada por un componente Camera.
 
@@ -111,7 +111,7 @@ Activas la proyección fixed fit enviando un mensaje al script de render:
 msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 ```
 
-### Proyección Fixed
+### Proyección Fixed {#fixed-projection}
 
 La proyección fixed mantendrá la relación de aspecto original y renderizará el contenido de tu juego con un nivel de zoom fijo. Esto significa que si el nivel de zoom está definido en algo distinto de 100%, mostrará más o menos que el área del juego definida por las dimensiones en *game.project*:
 
@@ -180,7 +180,7 @@ Los componentes GUI y sus nodos suelen dibujarse en el sistema de coordenadas de
 Los sprites, tilemaps y otros componentes usados por objetos de juego que existen en tu mundo de juego suelen dibujarse en el sistema de coordenadas de espacio del mundo. Si no haces modificaciones en tu script de render y no usas ningún componente Camera para cambiar la proyección de vista, este sistema de coordenadas es igual que el sistema de coordenadas de espacio de pantalla, pero en cuanto agregas una cámara y la mueves o cambias la proyección de vista, los dos sistemas de coordenadas se separan. Cuando la cámara se mueve, la esquina inferior izquierda de la pantalla se desplazará desde (0, 0) para que se rendericen otras partes del mundo. Si la proyección cambia, las coordenadas se trasladarán (es decir, se desplazarán desde 0, 0) y también se modificarán mediante un factor de escala.
 
 
-## El script de render
+## El script de render {#the-render-script}
 
 A continuación se muestra el código de un script de render personalizado que es una versión ligeramente modificada del integrado.
 
@@ -409,7 +409,7 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })
 El profiler visual accesible mediante el mensaje `"toggle_profile"` enviado al socket `@system` no forma parte del renderizador programable. Se dibuja separado de tu script de render.
 
 
-## Draw calls y batching
+## Draw calls y batching {#draw-calls-and-batching}
 
 Una draw call es el término usado para describir el proceso de configurar la GPU para dibujar un objeto en la pantalla usando una textura y un material con ajustes adicionales opcionales. Este proceso suele consumir muchos recursos y se recomienda que el número de draw calls sea lo más bajo posible. Puedes medir el número de draw calls y el tiempo que lleva renderizarlas usando el [profiler integrado](/manuals/profiling/).
 

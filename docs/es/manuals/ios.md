@@ -85,7 +85,7 @@ Este archivo de perfil provisional puede usarse junto con tu identidad de firmad
 
 Cuando el perfil provisional expire, debes crear la build de la app otra vez en Xcode y obtener un nuevo archivo de perfil provisional temporal como se describió arriba.
 
-## Crear un bundle de aplicación iOS
+## Crear un bundle de aplicación iOS {#creating-an-ios-application-bundle}
 
 Cuando tengas la identidad de firmado de código y el perfil provisional, estarás listo para crear desde el editor un bundle de aplicación independiente para tu juego. Simplemente selecciona <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd> en el menú.
 
@@ -118,7 +118,7 @@ $ brew install ios-deploy
 
 Si el editor no puede detectar la ubicación de instalación de la herramienta ios-deploy, tendrás que especificarla en [Preferences](/manuals/editor-preferences/#tools).
 
-### Crear un storyboard
+### Crear un storyboard {#creating-a-storyboard}
 
 Creas un archivo storyboard usando Xcode. Inicia Xcode y crea un proyecto nuevo. Selecciona iOS y Single View App:
 

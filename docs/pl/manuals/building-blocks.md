@@ -20,7 +20,7 @@ Obiekt gry
 Komponent
 : Komponenty to elementy umieszczane w obiekcie gry, aby nadać mu wizualną, dźwiękową i/lub logiczną reprezentację w grze. Zwykle wykorzystuje się je do tworzenia sprite'ów postaci, skryptów, efektów dźwiękowych albo efektów cząsteczkowych.
 
-## Kolekcje
+## Kolekcje {#collections}
 
 Kolekcje są strukturami drzewiastymi, które przechowują obiekty gry i inne kolekcje. Kolekcja jest zawsze zapisana w pliku.
 

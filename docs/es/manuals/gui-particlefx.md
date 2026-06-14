@@ -15,7 +15,7 @@ Puedes usar como origen del efecto los efectos de partículas que hayas añadido
 
 ![Particle fx](images/gui-particlefx/create.png)
 
-## Controlar el efecto
+## Controlar el efecto {#controlling-the-effect}
 
 Puedes iniciar y detener el efecto controlando el nodo desde un script:
 

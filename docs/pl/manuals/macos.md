@@ -120,7 +120,7 @@ $ xcrun stapler staple "Game.app"
 
 ## Publikowanie w Mac App Store
 
-Proces publikowania w Mac App Store jest dobrze opisany w [dokumentacji Apple Developer](https://developer.apple.com/macos/submit/). Przed przesłaniem upewnij się, że dodano uprawnienia i podpisano aplikację zgodnie z powyższym opisem.
+Proces publikowania w Mac App Store jest dobrze opisany w [dokumentacji Apple Developer](https://developer.apple.com/macos/submit/). Przed przesłaniem upewnij się, że dodano uprawnienia i podpisano aplikację za pomocą `codesign` zgodnie z powyższym opisem.
 
 Uwaga: Gra nie musi być notaryzowana, gdy publikujesz ją w Mac App Store.
 

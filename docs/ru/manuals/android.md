@@ -17,7 +17,7 @@ Android требует, чтобы все APK были подписаны циф
 Вы **никогда** не загружайте свое приложение в Google Play, если оно было подписано с использованием отладочного хранилища ключей. Всегда используйте специальное хранилище ключей, которое вы создали сами.
 :::
 
-## Создание хранилища ключей
+## Создание хранилища ключей {#creating-a-keystore}
 
 ::: sidenote
 Defold использует keystore для процесса подписи Android. [Дополнительная информация доступна в сообщении на форуме](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
@@ -36,7 +36,7 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 :::
 
 
-## Создание пакета приложений для Android
+## Создание пакета приложений для Android {#creating-an-android-application-bundle}
 
 Редактор позволяет легко создать отдельный пакет приложений для вашей игры. Перед созданием пакета вы можете указать, какую иконку (иконки) использовать для приложения, установить код версии и т.д. в *game.project* [файл настроек проекта](/manuals/project-settings/#android).
 
@@ -50,7 +50,7 @@ keytool -genkey -v -noprompt -dname "CN=John Smith, OU=Area 51, O=US Air Force, 
 
 ![Подписание пакета Android](images/android/sign_bundle2.png)
 
-Defold поддерживает создание файлов APK и AAB. Выберите APK или AAB из выпадающего списка Bundle Format.
+Defold поддерживает создание файлов APK и AAB. Выберите APK или AAB из выпадающего списка *Bundle Format*.
 
 Нажмите <kbd>Create Bundle</kbd>, когда вы настроите параметры пакета приложений. Затем вам будет предложено указать, где на вашем компьютере будет создан пакет.
 
@@ -79,7 +79,7 @@ Success
 
 ![Установка и запуск APK](images/android/install_and_launch.png)
 
-Для работы этой функции необходимо, чтобы ADB был установлен, а на подключенном устройстве была включена *USB-отладка*. Если редактор не может определить расположение команды ADB, необходимо указать путь к ADB в разделе [Preferences](/manuals/editor-preferences/#tools).
+Для работы этой функции необходимо, чтобы *ADB* был установлен, а на подключенном устройстве была включена *USB-отладка*. Если редактор не может определить расположение команды ADB, необходимо указать путь к ADB в разделе [Preferences](/manuals/editor-preferences/#tools).
 
 #### Установка AAB
 
@@ -90,7 +90,7 @@ Success
 Движок Defold требует ряд различных разрешений для работы всех функций движка. Разрешения определяются в `AndroidManifest.xml`, указанном в *game.project* [файл настроек проекта](/manuals/project-settings/#android). Подробнее о разрешениях Android можно прочитать в [официальных документах](https://developer.android.com/guide/topics/permissions/overview). В манифесте по умолчанию запрашиваются следующие разрешения:
 
 ### android.permission.INTERNET и android.permission.ACCESS_NETWORK_STATE (Уровень защиты: нормальный)
-Позволяет приложениям открывать сетевые сокеты и получать доступ к информации о сетях. Эти разрешения необходимы для доступа в Интернет. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) и ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
+Позволяет приложениям открывать *сетевые сокеты* и получать доступ к информации о сетях. Эти разрешения необходимы для доступа в Интернет. ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#INTERNET)) и ([Android official docs](https://developer.android.com/reference/android/Manifest.permission#ACCESS_NETWORK_STATE)).
 
 ### android.permission.WAKE_LOCK (Уровень защиты: нормальный)
 Позволяет использовать блокировку PowerManager WakeLocks для предотвращения засыпания процессора или затемнения экрана. Это разрешение необходимо для временного предотвращения засыпания устройства при получении push-уведомления. ([Официальные документы Android](https://developer.android.com/reference/android/Manifest.permission#WAKE_LOCK))

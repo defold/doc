@@ -85,7 +85,7 @@ Device identifier (UDID)
 
 Когда срок действия provisioning profile истечет, нужно снова собрать приложение в Xcode и получить новый временный provisioning-файл, как описано выше.
 
-## Создание iOS application bundle
+## Создание iOS application bundle {#creating-an-ios-application-bundle}
 
 Когда у вас есть code signing identity и provisioning profile, можно создавать самостоятельный application bundle для игры из редактора. Просто выберите в меню <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd>.
 
@@ -118,7 +118,7 @@ $ brew install ios-deploy
 
 Если редактор не может определить путь установки инструмента ios-deploy, его нужно указать вручную в [Preferences](/manuals/editor-preferences/#tools).
 
-### Создание storyboard
+### Создание storyboard {#creating-a-storyboard}
 
 Файл storyboard создается в Xcode. Запустите Xcode и создайте новый проект. Выберите iOS и Single View App:
 

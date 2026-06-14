@@ -7,7 +7,7 @@ brief: Instrukcja opisuje sposoby na utworzenie i otwieranie projektów w Defold
 
 Możesz z łatwością utworzyć nowy projekt z poziomu Edytora Defold. Masz również opcję otwarcia istniejącego projektu znajdującego się na Twoim komputerze.
 
-## Tworzenie nowego projektu lokalnie
+## Tworzenie nowego projektu lokalnie {#creating-a-new-project}
 
 Kliknij <kbd>New Project</kbd> (Nowy Projekt) i wybierz jaki rodzaj projektu chcesz utworzyć. Określ lokalizację plików na dysku twardym. Kliknij <kbd>Create New Project</kbd> (Utwórz nowy projekt) aby utworzyć wybrany projekt w wybranej lokalizacji. Możesz utworzyć projekt z szablonów:
 

@@ -81,7 +81,7 @@ Você pode interagir com o editor usando o pacote `editor`, que define esta API:
 
 Você encontra a referência completa da API do editor [aqui](https://defold.com/ref/alpha/editor/).
 
-## Comandos
+## Comandos {#commands}
 
 Se o módulo de editor script definir a função `get_commands`, ela será chamada no recarregamento da extensão, e os comandos retornados ficarão disponíveis para uso dentro do editor na barra de menu ou nos menus de contexto dos painéis Assets e Outline. Exemplo:
 ```lua
@@ -511,7 +511,7 @@ Como este comando invoca um programa de shell de forma somente leitura (e notifi
 Se você quiser distribuir seu editor script como uma biblioteca, talvez queira incluir o programa binário para as plataformas do editor dentro da dependência. Veja [Editor scripts em bibliotecas](#editor-scripts-in-libraries) para mais detalhes sobre como fazer isso.
 :::
 
-## Hooks de ciclo de vida
+## Hooks de ciclo de vida {#lifecycle-hooks}
 
 Há um arquivo de editor script tratado de forma especial: `hooks.editor_script`, localizado na raiz do seu projeto, no mesmo diretório que *game.project*. Este e somente este editor script receberá eventos de ciclo de vida do editor. Exemplo desse arquivo:
 ```lua
@@ -635,13 +635,13 @@ end)
 ```
 Agora, abrir, por exemplo, `http://0.0.0.0:12345/my-extension/files/main/main.collection` no navegador exibirá o conteúdo do arquivo `main/main.collection`.
 
-## Editor scripts em bibliotecas
+## Editor scripts em bibliotecas {#editor-scripts-in-libraries}
 
 Você pode publicar bibliotecas para outras pessoas usarem que contenham comandos, e eles serão carregados automaticamente pelo editor. Hooks, por outro lado, não podem ser carregados automaticamente, pois precisam ser definidos em um arquivo na pasta raiz de um projeto, mas bibliotecas expõem apenas subpastas. Isso é intencional para dar mais controle sobre o processo de build: você ainda pode criar hooks de ciclo de vida como funções simples em arquivos `.lua`, para que usuários da sua biblioteca possam requerê-los e usá-los em seu `/hooks.editor_script`.
 
 Observe também que, embora dependências sejam mostradas na visualização Assets, elas não existem como arquivos (são entradas em um arquivo zip). É possível fazer o editor extrair alguns arquivos das dependências para a pasta `build/plugins/`. Para isso, você precisa criar um arquivo `ext.manifest` na pasta da sua biblioteca e então criar a pasta `plugins/bin/${platform}` na mesma pasta onde o arquivo `ext.manifest` está localizado. Arquivos nessa pasta serão extraídos automaticamente para a pasta `/build/plugins/${extension-path}/plugins/bin/${platform}`, para que seus editor scripts possam referenciá-los.
 
-## Preferências
+## Preferências {#preferences}
 
 Editor scripts podem definir e usar preferências — dados persistentes, não versionados, armazenados no computador do usuário. Essas preferências têm três características principais:
 - tipadas: toda preferência tem uma definição de schema que inclui o tipo de dado e outros metadados, como valor padrão
@@ -682,7 +682,7 @@ editor.prefs.set("my_json_formatter.indent", {
 })
 ```
 
-## Modos de execução
+## Modos de execução {#execution-modes}
 
 O runtime de editor script usa 2 modos de execução que são em grande parte transparentes para editor scripts: **immediate** e **long-running**.
 

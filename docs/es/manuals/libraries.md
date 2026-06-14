@@ -28,7 +28,7 @@ Las bibliotecas se referencian mediante una URL estándar. Para un proyecto aloj
 ![URL de biblioteca de GitHub](images/libraries/libraries_library_url_github.png)
 
 ::: important
-Se recomienda depender siempre de una release específica de un proyecto de biblioteca en lugar de la rama master. De esta forma, tú como desarrollador decides cuándo incorporar cambios de un proyecto de biblioteca, en vez de obtener siempre los cambios más recientes (y potencialmente incompatibles) de la rama master de un proyecto de biblioteca.
+Se recomienda depender siempre de una release específica de un proyecto de biblioteca en lugar de la rama `master`. De esta forma, tú como desarrollador decides cuándo incorporar cambios de un proyecto de biblioteca, en vez de obtener siempre los cambios más recientes (y potencialmente incompatibles) de la rama `master` de un proyecto de biblioteca.
 :::
 
 ::: important
@@ -94,7 +94,7 @@ El token del usuario de solo lectura es completamente accesible para cualquiera 
 
 Esta solución se propuso en el foro de Defold y [se discutió en este hilo](https://forum.defold.com/t/private-github-for-library-solved/67240).
 
-## Configurar dependencias de bibliotecas
+## Configurar dependencias de bibliotecas {#setting-up-library-dependencies}
 
 Abre el proyecto desde el que quieres acceder a la biblioteca. En la configuración del proyecto, agrega la URL de biblioteca a la propiedad *dependencies*. Puedes especificar varios proyectos dependientes si quieres. Solo agrégalos uno por uno con el botón `+` y elimínalos con el botón `-`:
 

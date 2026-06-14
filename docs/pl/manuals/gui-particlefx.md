@@ -15,7 +15,7 @@ Możesz użyć efektów cząsteczkowych, które dodałeś do GUI jako źródła 
 
 ![Particle fx](images/gui-particlefx/create.png)
 
-## Kontrolowanie efektu
+## Kontrolowanie efektu {#controlling-the-effect}
 
 Możesz uruchamiać i zatrzymywać efekt, kontrolując węzeł za pomocą skryptu:
 You can start and stop the effect by controlling the node from a script:

@@ -35,7 +35,7 @@ end
 ```
 1. Não se preocupe se o caractere '#' parecer confuso. Já vamos chegar nele.
 
-Isso funcionará como esperado. Quando o jogo começa, o componente de script endereça o componente de sprite pelo identificador "body" e usa esse endereço para enviar a ele uma mensagem "disable". O efeito dessa mensagem especial da engine é fazer o componente de sprite ocultar os gráficos do sprite. De forma esquemática, a configuração fica assim:
+Isso funcionará como esperado. Quando o jogo começa, o componente de script *endereça* o componente de sprite pelo identificador "body" e usa esse endereço para enviar a ele uma *mensagem* "disable". O efeito dessa mensagem especial da engine é fazer o componente de sprite ocultar os gráficos do sprite. De forma esquemática, a configuração fica assim:
 
 ![bean](images/addressing/bean.png)
 

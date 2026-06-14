@@ -117,7 +117,7 @@ $ xcrun stapler staple "Game.app"
 5. Your game is now ready for distribution.
 
 ## Publishing to the Mac App Store
-The process when publishing to the Mac App Store is well documented in the [Apple Developer documentation](https://developer.apple.com/macos/submit/). Make sure to add permissions and codesign the application as described above before submitting.
+The process when publishing to the Mac App Store is well documented in the [Apple Developer documentation](https://developer.apple.com/macos/submit/). Make sure to add permissions and `codesign` the application as described above before submitting.
 
 Note: The game does not have to be notarized when publishing to the Mac App Store.
 
