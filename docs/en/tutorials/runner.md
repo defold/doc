@@ -289,7 +289,7 @@ Finally, create a new *hero.script* file and add it to the game object.
 ::: sidenote
 The reason we are handling the collision ourselves is that if we instead set the type on the character's collision object to dynamic, the engine will perform a Newtonian simulation of the bodies involved. For a game like this, such a simulation is far from optimal so instead of fighting the physics engine with various forces, we take full control.
 
-Now, to do that and handle collision properly requires a little bit of vector mathematics. A thorough explanation on how to solve kinematic collisions is given in the [Physics documentation](/manuals/physics#resolving-kinematic-collisions).
+Now, to do that and handle collision properly requires a little bit of vector mathematics. A thorough explanation on how to solve kinematic collisions is given in the [Physics documentation](/manuals/physics-resolving-collisions/).
 :::
 
 ```lua

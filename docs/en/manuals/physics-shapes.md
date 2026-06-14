@@ -143,4 +143,4 @@ Collision shapes in 2D physics can only be rotated around the z-axis. Rotation a
 
 
 # Debugging
-You can [enable Physics debugging](/manuals/debugging/#debugging-problems-with-physics) to see the collision shapes at runtime.
+You can [enable Physics debugging](/manuals/debugging-game-logic/#debugging-problems-with-physics) to see the collision shapes at runtime.

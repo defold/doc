@@ -186,7 +186,7 @@ local relative_id = hash("my_object")
 go.set_position(pos, relative_id)
 ```
 
-## URL
+## URL {#urls}
 
 전체 그림을 완성하기 위해 Defold 주소의 전체 형식인 URL을 살펴봅시다.
 

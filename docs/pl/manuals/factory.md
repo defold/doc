@@ -175,7 +175,7 @@ function final(self)
 end
 ```
 
-## Dynamiczne ładowanie zasobów Factory
+## Dynamiczne ładowanie zasobów Factory {#dynamic-loading-of-factory-resources}
 
 Po zaznaczeniu pola *Load Dynamically* we właściwościach Factory silnik odracza ładowanie zasobów powiązanych z fabryką.
 

@@ -289,7 +289,7 @@ Por fim, crie um novo arquivo *hero.script* e adicione-o ao objeto de jogo.
 ::: sidenote
 O motivo de tratarmos a colisão por conta própria é que, se em vez disso definíssemos o tipo do objeto de colisão do personagem como dynamic, a engine executaria uma simulação newtoniana dos corpos envolvidos. Para um jogo como este, tal simulação está longe do ideal; então, em vez de lutar contra a engine de física com várias forças, assumimos controle total.
 
-Para fazer isso e tratar colisão corretamente, é necessário um pouco de matemática vetorial. Uma explicação completa sobre como resolver colisões cinemáticas é dada na [documentação de Física](/manuals/physics#resolving-kinematic-collisions).
+Para fazer isso e tratar colisão corretamente, é necessário um pouco de matemática vetorial. Uma explicação completa sobre como resolver colisões cinemáticas é dada na [documentação de Física](/manuals/physics-resolving-collisions/).
 :::
 
 ```lua

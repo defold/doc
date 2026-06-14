@@ -72,7 +72,7 @@ W iTunes możesz wyświetlić lub pobrać kontener aplikacji.
 W oknie <kbd>Xcode ▸ Devices</kbd> możesz też wybrać logi awarii z menu `Xcode -> Devices`.
 
 
-## Zsymbolikuj stos wywołań
+## Zsymbolikuj stos wywołań {#symbolicate-a-callstack}
 
 Jeśli uzyskasz stos wywołań z pliku `_crash` albo z [pliku logu](/manuals/debugging-game-and-system-logs), możesz go zsymbolikować. Oznacza to przetłumaczenie każdego adresu w stosie wywołań na nazwę pliku i numer linii, co z kolei pomaga ustalić główną przyczynę problemu.
 

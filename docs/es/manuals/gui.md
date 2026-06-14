@@ -135,7 +135,7 @@ Como alternativa, haz <kbd>click derecho</kbd> en la raíz "Gui" en *Outline* y 
 
 También puedes hacer <kbd>click derecho</kbd> en el icono de carpeta del tipo que quieres añadir y seleccionar <kbd>Add ▸ [type]</kbd>.
 
-## Tipos de nodo
+## Tipos de nodo {#node-types}
 
 Un componente GUI se construye a partir de un conjunto de nodos. Los nodos son elementos simples. Se pueden transformar (mover, escalar y rotar) y ordenar en jerarquías padre-hijo, ya sea en el editor o en tiempo de ejecución mediante scripting. Existen los siguientes tipos de nodo:
 
@@ -175,7 +175,7 @@ Añade nodos haciendo <kbd>click derecho</kbd> en la carpeta *Nodes* y seleccion
 
 También puedes presionar <kbd>A</kbd> y seleccionar el tipo que quieres añadir a la GUI.
 
-## Propiedades de nodo
+## Propiedades de nodo {#node-properties}
 
 Cada nodo tiene un conjunto amplio de propiedades que controlan su apariencia:
 
@@ -381,7 +381,7 @@ Un nodo se convierte en hijo de otro nodo arrastrándolo sobre el nodo que quier
 Los padres se dibujan antes que sus hijos. Usa capas para cambiar el orden de dibujo de los nodos padre e hijo y para optimizar el renderizado de nodos (ver abajo).
 
 
-## Capas y draw calls
+## Capas y draw calls {#layers-and-draw-calls}
 
 Las capas proporcionan control preciso sobre cómo se dibujan los nodos y se pueden usar para reducir la cantidad de draw calls que el motor debe crear para dibujar una escena GUI. Cuando el motor está a punto de dibujar los nodos de una escena GUI, agrupa los nodos en lotes de draw calls según las siguientes condiciones:
 

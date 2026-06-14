@@ -134,7 +134,7 @@ Alternatywnie, <kbd>kliknij prawym przyciskiem myszy</kbd> główny węzeł "Gui
 
 Możesz też <kbd>kliknąć prawym przyciskiem myszy</kbd> ikonę folderu dla typu, który chcesz dodać, i wybrać <kbd>Add ▸ [type]</kbd>.
 
-## Typy węzłów
+## Typy węzłów {#node-types}
 
 Komponent GUI składa się z zestawu węzłów. Węzły są prostymi elementami. Można je przemieszczać, skalować i obracać oraz układać w hierarchie rodzic-dziecko zarówno w edytorze, jak i w czasie działania, korzystając ze skryptów. Dostępne są następujące typy węzłów:
 
@@ -174,7 +174,7 @@ Węzły można dodawać, <kbd>klikając prawym przyciskiem myszy</kbd> folder *N
 
 Możesz też nacisnąć <kbd>A</kbd> i wybrać typ, który chcesz dodać do GUI.
 
-## Właściwości węzłów
+## Właściwości węzłów {#node-properties}
 
 Każdy węzeł ma rozbudowany zestaw właściwości, które kontrolują jego wygląd:
 
@@ -377,7 +377,7 @@ Węzeł staje się dzieckiem innego węzła przez przeciągnięcie go na węzeł
 
 Rodzice są rysowani przed swoimi dziećmi. Używaj warstw, aby zmieniać kolejność rysowania węzłów rodzica i dziecka oraz optymalizować renderowanie węzłów (patrz niżej).
 
-## Warstwy i draw calls
+## Warstwy i draw calls {#layers-and-draw-calls}
 
 Warstwy dają precyzyjną kontrolę nad tym, jak rysowane są węzły, i można ich użyć do zmniejszenia liczby wywołań rysowania, które silnik musi utworzyć, aby narysować scenę GUI. Gdy silnik ma narysować węzły sceny GUI, grupuje je w partie wywołań rysowania na podstawie następujących warunków:
 

@@ -86,7 +86,7 @@ resource.set_buffer(res, buf)
 
 Więcej informacji o korzystaniu z komponentu Mesh, wraz z przykładowymi projektami i fragmentami kodu, znajdziesz w [poście ogłoszeniowym na forum](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137).
 
-## Odrzucanie spoza bryły widokowej
+## Odrzucanie spoza bryły widokowej {#frustum-culling}
 
 Komponenty Mesh nie są automatycznie odrzucane, ponieważ mają dynamiczny charakter i nie da się jednoznacznie określić, jak zakodowano dane pozycyjne. Aby włączyć odrzucanie siatki, trzeba zapisać w metadanych bufora ograniczający ją axis-aligned bounding box za pomocą 6 liczb zmiennoprzecinkowych (AABB min/max):
 

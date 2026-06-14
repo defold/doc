@@ -143,4 +143,4 @@ physics.set_shape("#collisionobject", "my_box_shape", box_data)
 
 
 # 디버깅
-런타임에 충돌 모양을 보려면 [물리 디버깅을 활성화](/manuals/debugging/#debugging-problems-with-physics)할 수 있습니다.
+런타임에 충돌 모양을 보려면 [물리 디버깅을 활성화](/manuals/debugging-game-logic/#debugging-problems-with-physics)할 수 있습니다.

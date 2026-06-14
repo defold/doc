@@ -177,7 +177,7 @@ function final(self)
 end
 ```
 
-## 팩토리 리소스의 동적 로딩
+## 팩토리 리소스의 동적 로딩 {#dynamic-loading-of-factory-resources}
 
 팩토리 프로퍼티에서 *Load Dynamically* 체크박스를 선택하면 엔진은 팩토리와 연결된 리소스 로딩을 뒤로 미룹니다.
 

@@ -17,7 +17,7 @@ Gdy tworzysz pakiet aplikacji Android z edytora Defold albo za pomocą [narzędz
 **Nigdy** nie przesyłaj aplikacji do Google Play, jeśli została podpisana za pomocą debug keystore. Zawsze używaj własnego, osobnego keystore.
 :::
 
-## Tworzenie keystore
+## Tworzenie keystore {#creating-a-keystore}
 
 ::: sidenote
 Defold używa keystore w procesie podpisywania Androida. [Więcej informacji znajdziesz w tym poście na forum](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
@@ -35,7 +35,7 @@ To utworzy plik keystore o nazwie `mykeystore.keystore`, zawierający klucz i ce
 Pamiętaj, aby przechowywać keystore i powiązane z nim hasło w bezpiecznym miejscu. Jeśli sam podpisujesz i przesyłasz aplikacje do Google Play, a keystore lub jego hasło zostanie utracone, nie będzie żadnego sposobu, aby zaktualizować aplikację w Google Play. Możesz tego uniknąć, korzystając z Google Play App Signing i pozwalając Google podpisywać aplikacje za Ciebie.
 :::
 
-## Tworzenie pakietu aplikacji Android
+## Tworzenie pakietu aplikacji Android {#creating-an-android-application-bundle}
 
 Edytor pozwala łatwo utworzyć samodzielny pakiet aplikacji dla gry. Przed pakowaniem możesz określić, której ikony lub których ikon użyć dla aplikacji, ustawić kod wersji itd. w pliku *game.project* [plik ustawień projektu](/manuals/project-settings/#android).
 

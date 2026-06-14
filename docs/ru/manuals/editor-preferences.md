@@ -39,7 +39,7 @@ Engine Arguments
 ```
 
 
-## Програмный код
+## Програмный код {#code}
 
 ![](images/editor/preferences_code.png)
 
@@ -77,7 +77,7 @@ Zoom on Scroll
 Символ `.` здесь необходим для открытия всей рабочей области, а не отдельного файла.
 
 
-## Расширения
+## Расширения {#extensions}
 
 ![](images/editor/preferences_extensions.png)
 
@@ -93,7 +93,7 @@ Build Server Password
 Build Server Headers
 : дополнительные заголовки, передаваемые серверу сборки при создании собственных расширений. Это важно при использовании сервиса CloudFlare или аналогичных с extender.
 
-## Инструменты
+## Инструменты {#tools}
 
 ![](images/editor/preferences_tools.png)
 

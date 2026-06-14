@@ -87,7 +87,15 @@ def main(source_dir_path=None, target_dir_path=None, output_file_path=None):
                 
                 if source_content is not None and target_content is not None:
                     # Build Markdown syntax tree and compare
-                    markdown_consistency = compare_markdown_syntax_trees(source_content, target_content, file_path)
+                    markdown_consistency = compare_markdown_syntax_trees(
+                        source_content,
+                        target_content,
+                        file_path,
+                        source_file_path=source_full_path,
+                        target_file_path=target_full_path,
+                        source_root=source_dir_path,
+                        target_root=target_dir_path,
+                    )
                 else:
                     markdown_consistency = "File read failed"
             except Exception as e:

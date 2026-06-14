@@ -26,7 +26,7 @@ A engine de física simula física newtoniana e foi projetada para funcionar bem
 Em geral, é necessário escalar a simulação de física para que ela funcione bem com o tamanho típico dos objetos em um jogo. A escala da simulação de física pode ser alterada em *game.project* pela [configuração physics scale](/manuals/project-settings/#physics). Definir esse valor como, por exemplo, 0.02 significaria que 200 pixels seriam tratados como 4 metros. Observe que a gravidade (também alterada em *game.project*) precisa ser aumentada para acomodar a mudança de escala.
 
 
-## Atualizações de física
+## Atualizações de física {#physics-updates}
 
 É recomendado atualizar a engine de física em intervalos regulares para garantir uma simulação estável (em vez de atualizar em intervalos possivelmente irregulares dependentes da taxa de quadros). Você pode usar uma atualização fixa para física marcando a [configuração Use Fixed Timestep](/manuals/project-settings/#physics) da seção Physics no arquivo *game.project*. A frequência de atualização é controlada pela [configuração Fixed Update Frequency](/manuals/project-settings/#engine) da seção Engine no arquivo *game.project*. Ao usar um timestep fixo para física, também é recomendado usar a função de ciclo de vida `fixed_update(self, dt)` para interagir com os objetos de colisão do seu jogo, por exemplo ao aplicar forças a eles.
 
@@ -37,4 +37,4 @@ Proxies de coleção
 : Por meio de proxies de coleção, é possível carregar mais de uma coleção de nível superior, ou *mundo de jogo*, na engine. Ao fazer isso, é importante saber que cada coleção de nível superior é um mundo físico separado. Interações de física ([colisões, gatilhos](/manuals/physics-messages) e [ray-casts](/manuals/physics-ray-casts)) só acontecem entre objetos pertencentes ao mesmo mundo. Portanto, mesmo que os objetos de colisão de dois mundos estejam visualmente exatamente sobrepostos, não pode haver interação de física entre eles.
 
 Colisões não detectadas
-: Se você tiver problemas com colisões que não são tratadas ou detectadas corretamente, leia sobre [depuração de física no manual de Depuração](/manuals/debugging/#debugging-problems-with-physics).
+: Se você tiver problemas com colisões que não são tratadas ou detectadas corretamente, leia sobre [depuração de física no manual de Depuração](/manuals/debugging-game-logic/#debugging-problems-with-physics).

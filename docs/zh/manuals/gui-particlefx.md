@@ -15,7 +15,7 @@ brief: 本手册解释了Defold GUI中粒子特效的工作原理。
 
 ![Particle fx](images/gui-particlefx/create.png)
 
-## 控制效果
+## 控制效果 {#controlling-the-effect}
 
 您可以通过脚本控制节点来启动和停止效果：
 

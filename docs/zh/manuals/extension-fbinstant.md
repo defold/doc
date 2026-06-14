@@ -63,7 +63,7 @@ end)
 
 ![Tic Tac Toe](images/instant-games/tictactoe.png)
 
-## 减小包体
+## 减小包体 {#reducing-bundle-size}
 
 Facebook Instant Games [最佳实践](https://developers.facebook.com/docs/games/instant-games/best-practices) 建议游戏首次载入时间不得超过 5 秒。这对 Defold 来说有点勉强，好在还有一些方法能减小游戏体积：
 

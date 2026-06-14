@@ -198,7 +198,7 @@ issue = {severity = editor.ui.ISSUE_SEVERITY.WARNING, message = "This value is d
 - **`separator`**是一条细线，用于分隔内容块
 - **`scroll`**是一个包装组件，当包装的组件不适合分配的空间时显示滚动条
 
-## 响应式
+## 响应式 {#reactivity}
 
 由于组件是**不可变用户数据**，因此在创建后无法更改它们。那么如何使UI随时间变化呢？答案是：**响应式组件**。
 

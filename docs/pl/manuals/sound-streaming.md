@@ -3,7 +3,7 @@ title: Strumieniowanie dźwięku w Defold
 brief: Ta instrukcja wyjaśnia, jak strumieniować dźwięki do silnika Defold
 ---
 
-# Strumieniowanie dźwięku
+# Strumieniowanie dźwięku {#sound-streaming}
 
 Domyślnie dane dźwiękowe są wczytywane w całości, ale czasem korzystniejsze może być ładowanie ich partiami, jeszcze przed użyciem. Nazywa się to strumieniowaniem.
 

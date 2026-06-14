@@ -93,7 +93,7 @@ GitHub步骤：
 
 此解决方案在Defold论坛上提出并[在此线程中讨论](https://forum.defold.com/t/private-github-for-library-solved/67240)。
 
-## 设置库依赖
+## 设置库依赖 {#setting-up-library-dependencies}
 
 打开您想要访问库的项目。在项目设置中，将库URL添加到*dependencies*属性中。如果需要，您可以指定多个依赖项目。只需使用`+`按钮一个一个地添加它们，并使用`-`按钮删除：
 

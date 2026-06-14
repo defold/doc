@@ -120,7 +120,7 @@ local ids = collectionfactory.create("#cangang_factory", nil, nil, props)
 게임 오브젝트에 연결된 여러 스크립트 컴포넌트가 같은 프로퍼티를 정의하면, 각 컴포넌트는 `factory.create()` 또는 `collectionfactory.create()`에 제공된 값으로 초기화됩니다.
 
 
-## 리소스 프로퍼티
+## 리소스 프로퍼티 {#resource-properties}
 
 리소스 프로퍼티는 기본 데이터 타입의 스크립트 프로퍼티와 같은 방식으로 정의합니다:
 

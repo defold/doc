@@ -7,11 +7,13 @@ A Python script designed to check consistency between documentation files in dif
 - **File Structure Comparison**: Compares the directory structure between source and target documentation directories
 - **Markdown Syntax Tree Analysis**: Analyzes and compares Markdown syntax elements including:
   - Headers (h1, h2, h3, etc.)
+  - Heading anchor keys (`{#key}`, `<a id="key">`, `<a name="key">`)
   - Code blocks
   - Inline code
   - Bold text
   - Italic text
   - Links
+  - Local documentation link targets and fragments
   - Lists
 - **Excel Report Generation**: Creates a comprehensive Excel report with comparison results
 - **Specific File Checking**: Allows checking individual files or specific file pairs
@@ -104,7 +106,7 @@ The script generates an Excel file with the following columns:
 3. **Markdown Analysis**: For Markdown files that exist in both versions, the script:
    - Parses the Markdown content to build syntax trees
    - Compares the syntax trees to identify inconsistencies
-   - Reports differences in structure, formatting, and elements
+   - Reports differences in structure, formatting, elements, heading anchor keys, and local documentation links
 4. **Report Generation**: All comparison results are compiled into an Excel spreadsheet with color-coded status indicators.
 
 ## Error Handling

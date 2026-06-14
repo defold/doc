@@ -51,7 +51,7 @@ Przeciągnij font, którego chcesz użyć, do panelu *Assets* i upuść go w odp
 
 Ustaw właściwość *Font* na plik fontu i skonfiguruj pozostałe właściwości według potrzeb.
 
-## Właściwości
+## Właściwości {#properties}
 
 *Font*
 : Plik TTF, OTF albo *`.fnt`* używany do wygenerowania danych fontu.
@@ -187,7 +187,7 @@ Na przykład, aby wygenerować gradient w shaderze fragmentu, wystarczy napisać
 
 Więcej informacji o uniformach shaderów znajdziesz w [Shader manual](/manuals/shader).
 
-## Włączanie runtime fonts
+## Włączanie runtime fonts {#enabling-runtime-fonts}
 
 Można używać generowania w czasie działania dla fontów typu SDF, gdy korzystasz z fontów TrueType (`.ttf`).
 Takie podejście może znacznie zmniejszyć rozmiar pobieranych danych i zużycie pamięci w runtime gry Defold.

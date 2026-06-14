@@ -17,7 +17,7 @@ Cuando creas un bundle de aplicación Android desde el editor Defold o desde la 
 **Nunca** debes subir tu aplicación a Google Play si se firmó con un keystore de depuración. Usa siempre un keystore dedicado que hayas creado tú mismo.
 :::
 
-## Crear un keystore
+## Crear un keystore {#creating-a-keystore}
 
 ::: sidenote
 Defold usa un keystore para el proceso de firmado de Android. [Hay más información disponible en esta publicación del foro](https://forum.defold.com/t/upcoming-change-to-the-android-build-pipeline/66084).
@@ -36,7 +36,7 @@ Asegúrate de guardar el keystore y la contraseña asociada en un lugar seguro. 
 :::
 
 
-## Crear un bundle de aplicación Android
+## Crear un bundle de aplicación Android {#creating-an-android-application-bundle}
 
 El editor te permite crear fácilmente un bundle de aplicación independiente para tu juego. Antes de crear el bundle, puedes especificar qué iconos usar para la app, definir el código de versión, etc. en el [archivo de configuración del proyecto](/manuals/project-settings/#android) *game.project*.
 

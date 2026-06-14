@@ -43,7 +43,7 @@ W lewym dolnym rogu ekranu startowego znajduje się wybór języka. Możesz wybr
 
 ![Languages](images/editor/languages.png)
 
-## Panele edytora
+## Panele edytora {#the-editor-views}
 
 Edytor Defold jest podzielony na zestaw paneli, czyli widoków pokazujących określone informacje.
 
@@ -58,7 +58,7 @@ Pokazuje wszystkie pliki i foldery należące do projektu w strukturze drzewa od
    - <kbd>Drag and Drop</kbd>, aby dodać pliki z innych miejsc na dysku do projektu albo przenosić pliki i foldery w obrębie projektu.
    - <kbd>Right Mouse Click</kbd>, aby otworzyć _Context Menu_, z którego możesz tworzyć nowe pliki i foldery, zmieniać nazwy, usuwać elementy, śledzić zależności plików i wykonywać inne operacje.
 
-### 2. Panel edytora
+### 2. Panel edytora {#the-scene-editor}
 
 Dwukrotne kliknięcie kolekcji, obiektu gry albo pliku komponentu wizualnego otwiera *Scene Editor* - edytor wizualny do budowania i edytowania scen. Pliki skryptów i inne niewizualne zasoby otwierają się w osobnych, przeznaczonych do tego edytorach.
 
@@ -67,7 +67,7 @@ Dwukrotne kliknięcie kolekcji, obiektu gry albo pliku komponentu wizualnego otw
 Kilka podstawowych funkcji edytora scen:
 
 - [nawigacja sceny 2D i 3D](/manuals/scene-editing/#orientacja-sceny-2d-i-3d) z trybami kamery ortograficznej i perspektywicznej,
-- [narzędzia transformacji](/manuals/scene-editing/#zaznaczanie-i-manipulowanie-obiektami) do przesuwania, obracania i skalowania obiektów,
+- [narzędzia transformacji](/manuals/scene-editing/#manipulating-objects) do przesuwania, obracania i skalowania obiektów,
 - [Free Camera Mode](/manuals/scene-editing/#free-camera-mode) do nawigacji 3D z perspektywy pierwszej osoby,
 - [ustawienia siatki](/manuals/scene-editing/#ustawienia-siatki) z konfigurowalnym rozmiarem, płaszczyzną i wyglądem,
 - [filtry widoczności](/manuals/scene-editing/#filtry-widocznosci) do przełączania typów komponentów i prowadnic.
@@ -168,7 +168,7 @@ Możliwe jest otwarcie dwóch widoków edytora obok siebie.
 
 Z tego samego menu zakładki możesz też użyć `Swap with Other Tab Pane`, aby przenieść wybraną zakładkę między panelami, albo `Join Tab Panes`, aby z powrotem połączyć oba panele w jeden.
 
-## Tworzenie nowych plików projektu
+## Tworzenie nowych plików projektu {#creating-new-project-files}
 
 Aby utworzyć nowy plik zasobu, wybierz `File ▸ New…`, a następnie typ pliku z menu albo użyj menu kontekstowego:
 
@@ -221,7 +221,7 @@ Więcej szczegółów znajdziesz w [instrukcji Preferencje](/manuals/editor-pref
 
 ![Preferences](images/editor/preferences.png)
 
-## Logi edytora
+## Logi edytora {#editor-logs}
 
 Jeśli napotkasz problem z edytorem i chcesz zgłosić błąd przez `Help ▸ Report Issue`, warto dołączyć pliki logów samego edytora. Aby otworzyć ich lokalizację w systemowej przeglądarce plików, kliknij `Help ▸ Show Logs`.
 

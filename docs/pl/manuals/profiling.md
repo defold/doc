@@ -92,7 +92,7 @@ Widok zasobów
 : Widok Resources view pokazuje wszystkie zasoby aktualnie załadowane do pamięci, ich rozmiar oraz liczbę odwołań do każdego zasobu. Jest to przydatne podczas optymalizowania użycia pamięci w aplikacji, gdy musisz zrozumieć, co jest załadowane do pamięci w danym momencie.
 
 
-## Raporty budowania
+## Raporty budowania {#build-reports}
 Podczas bundlowania gry możesz utworzyć raport budowania. Jest to bardzo przydatne, jeśli chcesz dobrze zorientować się w rozmiarze wszystkich zasobów, które wchodzą w skład bundla gry. Po prostu zaznacz pole *Generate build report* podczas bundlowania gry.
 
 ![build report](images/profiling/build_report.png)

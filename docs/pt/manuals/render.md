@@ -111,7 +111,7 @@ Você ativa a projeção fixed fit enviando uma mensagem ao script de renderiza�
 msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 ```
 
-### Projeção Fixed
+### Projeção Fixed {#fixed-projection}
 
 A projeção fixed manterá a proporção de tela original e renderizará o conteúdo do jogo com um nível fixo de zoom. Isso significa que, se o nível de zoom for definido para algo diferente de 100%, ela mostrará mais ou menos que a área do jogo definida pelas dimensões em *game.project*:
 
@@ -408,7 +408,7 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })
 O profiler visual acessível pela mensagem `"toggle_profile"` enviada ao socket `@system` não faz parte do renderizador programável. Ele é desenhado separadamente do seu script de renderização.
 
 
-## Draw calls e batching
+## Draw calls e batching {#draw-calls-and-batching}
 
 Uma draw call é o termo usado para descrever o processo de configurar a GPU para desenhar um objeto na tela usando uma textura e um material com configurações adicionais opcionais. Esse processo geralmente consome muitos recursos, e recomenda-se que o número de draw calls seja o menor possível. Você pode medir o número de draw calls e o tempo que elas levam para renderizar usando o [profiler integrado](/manuals/profiling/).
 

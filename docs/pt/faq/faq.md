@@ -136,7 +136,7 @@ R: Sim, consulte [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 :[Editor FAQ](../shared/editor-faq.md)
 
 
-## Perguntas sobre Linux
+## Perguntas sobre Linux {#linux-questions}
 :[Linux FAQ](../shared/linux-faq.md)
 
 

@@ -51,7 +51,7 @@ gui.animate(node, hash("position.x"), 100, gui.EASING_INOUTQUAD, 0.5)
 
 Funkcje animacji właściwości `go.animate()` i `gui.animate()` obsługują opcjonalną funkcję zwrotną jako ostatni argument. Zostanie ona wywołana po zakończeniu animacji. Taka funkcja zwrotna nigdy nie jest wywoływana dla animacji zapętlonych ani wtedy, gdy animacja została ręcznie anulowana przez `go.cancel_animations()` lub `gui.cancel_animations()`. Można jej używać do wyzwalania zdarzeń po zakończeniu animacji albo do łączenia kilku animacji w sekwencję.
 
-## Krzywe easing
+## Krzywe easing {#easing}
 
 Easing określa, jak animowana wartość zmienia się w czasie. Poniższe obrazy pokazują funkcje używane do tworzenia poszczególnych krzywych easing.
 

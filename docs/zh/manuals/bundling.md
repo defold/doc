@@ -17,7 +17,7 @@ brief: 本手册介绍了如何创建应用程序包.
 
 选择任何菜单选项都会为该特定平台打开Bundle对话框。
 
-### 构建报告
+### 构建报告 {#build-reports}
 
 打包游戏时，有一个选项可以创建构建报告。这对于了解构成游戏包的所有资源的大小非常有用。只需在打包游戏时勾选*Generate build report*复选框即可。
 
@@ -40,7 +40,7 @@ brief: 本手册介绍了如何创建应用程序包.
 
 ### Linux
 
-创建Linux应用程序包不需要特定设置，也不需要在*game.project*[项目设置文件](/manuals/project-settings/#linux)中进行可选的平台特定配置。
+创建Linux应用程序包不需要特定设置，也不需要在*game.project*[项目设置文件](/manuals/project-settings/)中进行可选的平台特定配置。
 
 ### Windows
 

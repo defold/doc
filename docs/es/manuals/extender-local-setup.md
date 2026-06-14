@@ -9,7 +9,7 @@ Hay dos variantes para ejecutar un servidor de build local (también conocido co
 1. Ejecutar un servidor de build local con artefactos preconfigurados.
 2. Ejecutar un servidor de build local con artefactos compilados localmente.
 
-## Cómo ejecutar Extender local con artefactos preconfigurados
+## Cómo ejecutar Extender local con artefactos preconfigurados {#how-to-run-local-extender-with-preconfigured-artifacts}
 
 Antes de poder ejecutar un builder en la nube local, necesitas instalar el siguiente software:
 

@@ -239,7 +239,7 @@ Puedes hacer que la cámara siga un objeto de juego estableciendo el objeto de j
 
 Una forma alternativa es actualizar en cada frame la posición del objeto de juego al que está adjunto el componente Camera a medida que se mueve el objeto de juego que debe seguir.
 
-### Convertir el mouse a coordenadas del mundo
+### Convertir el mouse a coordenadas del mundo {#converting-mouse-to-world-coordinates}
 
 Cuando la cámara se ha desplazado, ha hecho zoom o ha cambiado su proyección desde la proyección ortográfica Stretch por defecto, las coordenadas del mouse proporcionadas en la función de ciclo de vida `on_input()` ya no coincidirán con las coordenadas del mundo de tus objetos de juego. Debes tener en cuenta manualmente el cambio en la vista o en la proyección. El código para convertir de coordenadas de mouse/pantalla a coordenadas del mundo se ve así:
 
@@ -301,7 +301,7 @@ Una cámara tiene varias propiedades diferentes que pueden manipularse con `go.g
 : La matriz de proyección calculada de la cámara. READ ONLY. (`matrix4`).
 
 
-## Soluciones de cámara de terceros
+## Soluciones de cámara de terceros {#third-party-camera-solutions}
 
 Hay soluciones de cámara creadas por la comunidad que implementan funcionalidades comunes como sacudida de pantalla, seguimiento de objetos de juego, conversión de coordenadas de pantalla a mundo y mucho más. Se pueden descargar desde el Defold asset portal:
 

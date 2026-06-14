@@ -134,7 +134,7 @@ Tweeny ruchu pozwalają animować różne właściwości obiektu, w tym rozmiar,
 
 ## Defold — animacja właściwości
 
-Defold pracuje na obrazach rastrowych, a nie grafice wektorowej, więc nie ma odpowiednika tweeningu kształtu. Ma jednak bardzo mocny odpowiednik tweeningu ruchu w postaci [animacji właściwości](/ref/go/#go.animate). Wykonuje się ją ze skryptu za pomocą funkcji `go.animate()`. Funkcja `go.animate()` animuje właściwość, taką jak kolor, skala, rotacja albo pozycja, od wartości początkowej do docelowej, korzystając z jednej z wielu dostępnych funkcji easing, w tym także własnych. Tam, gdzie Flash wymagał własnej implementacji bardziej zaawansowanych funkcji easing, Defold ma w silniku [wiele funkcji easing](/manuals/animation/#easing).
+Defold pracuje na obrazach rastrowych, a nie grafice wektorowej, więc nie ma odpowiednika tweeningu kształtu. Ma jednak bardzo mocny odpowiednik tweeningu ruchu w postaci [animacji właściwości](/ref/go/#go.animate). Wykonuje się ją ze skryptu za pomocą funkcji `go.animate()`. Funkcja `go.animate()` animuje właściwość, taką jak kolor, skala, rotacja albo pozycja, od wartości początkowej do docelowej, korzystając z jednej z wielu dostępnych funkcji easing, w tym także własnych. Tam, gdzie Flash wymagał własnej implementacji bardziej zaawansowanych funkcji easing, Defold ma w silniku [wiele funkcji easing](/manuals/property-animation/#easing).
 
 Tam, gdzie Flash wykorzystuje klatki kluczowe grafiki na osi czasu, jedną z głównych metod animacji grafiki w Defoldzie jest animacja flipbook importowanych sekwencji obrazów. Animacje są organizowane w komponencie obiektu gry zwanym atlasem. W tym przykładzie atlas zawiera postać z sekwencją animacji o nazwie "run". Składa się ona z serii plików png:
 

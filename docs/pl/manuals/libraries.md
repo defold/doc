@@ -93,7 +93,7 @@ Token użytkownika tylko do odczytu jest w pełni dostępny dla każdego, kto ma
 
 To rozwiązanie zostało zaproponowane na forum Defold i [omówione w tym wątku](https://forum.defold.com/t/private-github-for-library-solved/67240).
 
-## Ustawianie zależności do biblioteki
+## Ustawianie zależności do biblioteki {#setting-up-library-dependencies}
 
 Otwórz projekt, z którego chcesz korzystać z biblioteki. W ustawieniach projektu dodaj adres URL biblioteki do właściwości *dependencies*. Możesz wskazać wiele projektów zależnych, dodając je po kolei za pomocą przycisku `+` i usuwając przyciskiem `-`:
 

@@ -7,7 +7,7 @@ brief: O Defold oferece suporte a GUIs que se adaptam automaticamente a mudança
 
 O Defold oferece suporte a GUIs que se adaptam automaticamente a mudanças de orientação de tela em dispositivos móveis. Usando esse recurso, você pode criar GUIs que se adaptam à orientação e à proporção de tela de vários tamanhos de tela. Também é possível criar layouts que correspondem a modelos específicos de dispositivo.
 
-## Criando perfis de exibição
+## Criando perfis de exibição {#creating-display-profiles}
 
 Por padrão, as configurações de *game.project* especificam que um arquivo integrado de configurações de perfis de exibição ("builtins/render/default.display_profiles") é usado. Os perfis padrão são "Landscape" (1280 pixels de largura e 720 pixels de altura) e "Portrait" (720 pixels de largura e 1280 pixels de altura). Nenhum modelo de dispositivo é definido nos perfis, então eles corresponderão a qualquer dispositivo.
 

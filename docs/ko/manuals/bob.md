@@ -17,7 +17,7 @@ Bob은 빌드에 필요한 모든 것을 포함하는 Java _JAR_ 아카이브로
 
 Windows를 사용한다면 OpenJDK용 `.msi` 파일 설치 관리자를 사용하면 됩니다.
 
-## 사용법
+## 사용법 {#usage}
 
 Bob은 쉘이나 커맨드 라인에서 `java`(Windows에서는 `java.exe`)를 호출하고 bob Java 아카이브를 인자로 제공하여 실행합니다.
 

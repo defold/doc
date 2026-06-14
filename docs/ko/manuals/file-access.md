@@ -77,7 +77,7 @@ print(data.highscore) -- 100
 
 [`sys.save()`와 `sys.load()` 사용 방법을 보여주는 예제를 확인하세요](/examples/file/sys_save_load/).
 
-### 어플리케이션에 번들된 파일에 액세스하는 방법
+### 어플리케이션에 번들된 파일에 액세스하는 방법 {#how-to-access-files-bundled-with-the-application}
 번들 리소스와 커스텀 리소스를 사용해 파일을 어플리케이션에 포함할 수 있습니다.
 
 #### 커스텀 리소스

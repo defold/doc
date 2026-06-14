@@ -136,7 +136,7 @@ A: 예, [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info)를 확인하세요.
 :[Editor FAQ](../shared/editor-faq.md)
 
 
-## Linux 질문
+## Linux 질문 {#linux-questions}
 :[Linux FAQ](../shared/linux-faq.md)
 
 

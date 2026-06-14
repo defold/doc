@@ -81,7 +81,7 @@ return M
 
 您可以在[此处](https://defold.com/ref/alpha/editor/)找到完整的编辑器 API 参考。
 
-## 命令
+## 命令 {#commands}
 
 如果编辑器脚本模块定义了函数 `get_commands`，它将在扩展重新加载时被调用，返回的命令将在编辑器的菜单栏或资源和大纲窗格的上下文菜单中可用。例如：
 ```lua
@@ -513,7 +513,7 @@ editor.transact({
 如果您想将编辑器脚本作为库分发，您可能希望将编辑器平台的二进制程序捆绑在依赖项中。有关如何执行此操作的更多详细信息，请参阅[库中的编辑器脚本](#editor-scripts-in-libraries)。
 :::
 
-## 生命周期钩子
+## 生命周期钩子 {#lifecycle-hooks}
 
 有一个特殊的编辑器脚本文件: `hooks.editor_script`, 位于项目根目录, 就是跟 *game.project* 并存于同一目录. 只有这个编辑器脚本会从编辑器获得生命周期事件. 脚本文件举例:
 ```lua
@@ -637,13 +637,13 @@ end)
 ```
 现在，在浏览器中打开例如 `http://0.0.0.0:12345/my-extension/files/main/main.collection` 将显示 `main/main.collection` 文件的内容。
 
-## 库中的编辑器脚本
+## 库中的编辑器脚本 {#editor-scripts-in-libraries}
 
 您可以发布包含命令的库供他人使用，编辑器会自动获取这些命令。另一方面，钩子不能自动获取，因为它们必须定义在项目根目录的文件中，而库只公开子文件夹。这是为了在构建过程中提供更多控制：您仍然可以在 `.lua` 文件中创建生命周期钩子作为简单函数，以便库的用户可以在他们的 `/hooks.editor_script` 中 require 并使用它们。
 
 还要注意，尽管依赖项显示在资源视图中，但它们并不作为文件存在（它们是 zip 存档中的条目）。可以使编辑器从依赖项中提取一些文件到 `build/plugins/` 文件夹中。为此，您需要在库文件夹中创建 `ext.manifest` 文件，然后在 `ext.manifest` 文件所在的同一文件夹中创建 `plugins/bin/${platform}` 文件夹。该文件夹中的文件将自动提取到 `/build/plugins/${extension-path}/plugins/bin/${platform}` 文件夹，因此您的编辑器脚本可以引用它们。
 
-## 首选项
+## 首选项 {#preferences}
 
 编辑器脚本可以定义和使用首选项 — 存储在用户计算机上的持久化、未提交的数据。这些首选项具有三个关键特性：
 - 类型化：每个首选项都有一个模式定义，包括数据类型和其他元数据，如默认值
@@ -684,7 +684,7 @@ editor.prefs.set("my_json_formatter.indent", {
 })
 ```
 
-## 执行模式
+## 执行模式 {#execution-modes}
 
 编辑器脚本运行时使用两种执行模式，这些模式对编辑器脚本基本上是透明的：**即时**和**长时间运行**。 
 

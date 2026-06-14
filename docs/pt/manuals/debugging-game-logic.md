@@ -153,7 +153,7 @@ Se você encontrar um erro ou se o seu jogo não se comportar como esperado, aqu
 
 Boa caça!
 
-## Depurando problemas com física
+## Depurando problemas com física {#debugging-problems-with-physics}
 
 Se você tem problemas com física e colisões não estão funcionando como esperado, recomenda-se habilitar a depuração de física. Marque a checkbox *Debug* na seção *Physics* do arquivo *game.project*:
 

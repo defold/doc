@@ -17,7 +17,7 @@ brief: 이 매뉴얼은 입력이 작동하는 방식과 입력 동작을 캡쳐
   1. 키보드(단일 키 및 텍스트 입력)
   2. 마우스(위치, 버튼 클릭 및 마우스 휠 동작)
   3. 단일 및 멀티터치(iOS 및 Android 장치와 모바일 HTML5)
-  4. 게임패드(운영체제에서 지원되고 [gamepads](#gamepads-settings-file) 파일에 매핑된 경우)
+  4. 게임패드(운영체제에서 지원되고 [gamepads](/manuals/input-gamepads/#gamepads-settings-file) 파일에 매핑된 경우)
 
 입력 바인딩
 : 입력이 스크립트로 전송되기 전에 장치의 원시 입력은 입력 바인딩 테이블을 통해 의미 있는 *동작*으로 변환됩니다.
@@ -83,7 +83,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## 입력 포커스
+## 입력 포커스 {#input-focus}
 
 스크립트 컴포넌트나 GUI 스크립트에서 입력 동작을 수신하려면, 해당 컴포넌트를 가진 게임 오브젝트로 `acquire_input_focus` 메세지를 보내야 합니다:
 
@@ -99,7 +99,7 @@ msg.post(".", "acquire_input_focus")
 이미 입력 포커스를 획득한 게임 오브젝트가 다시 입력 포커스를 획득하면, 해당 컴포넌트들이 스택 맨 위로 이동합니다.
 
 
-## 입력 디스패치와 on_input()
+## 입력 디스패치와 on_input() {#input-dispatch-and-on_input}
 
 입력 동작은 인풋 스택에 따라 위에서 아래로 디스패치됩니다.
 

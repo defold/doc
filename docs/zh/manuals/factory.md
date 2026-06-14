@@ -176,7 +176,7 @@ function final(self)
 end
 ```
 
-## Factory 资源的动态加载
+## Factory 资源的动态加载 {#dynamic-loading-of-factory-resources}
 
 通过勾选工厂属性中的 *Load Dynamically* 复选框，引擎会推迟与工厂关联的资源的加载。
 

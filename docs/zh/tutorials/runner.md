@@ -288,7 +288,7 @@ Defold在Lua之上添加了一组API，以及一个_消息传递_系统，允许
 ::: sidenote
 我们自己处理碰撞的原因是，如果我们将角色的碰撞对象类型设置为动态，引擎将对所涉及的物体执行牛顿模拟。对于这样的游戏，这样的模拟远非最佳，因此我们完全控制而不是与物理引擎的各种力量作斗争。
 
-现在，要做到这一点并正确处理碰撞需要一点向量数学。在[Physics documentation](/manuals/physics#resolving-kinematic-collisions)中给出了如何解决运动学碰撞的详细解释。
+现在，要做到这一点并正确处理碰撞需要一点向量数学。在[Physics documentation](/manuals/physics-resolving-collisions/)中给出了如何解决运动学碰撞的详细解释。
 :::
 
 ```lua

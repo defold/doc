@@ -46,7 +46,7 @@ En la esquina inferior izquierda de la pantalla de inicio puedes ver una selecci
 
 ![Languages](images/editor/languages.png)
 
-## Paneles del editor
+## Paneles del editor {#the-editor-views}
 
 El Defold Editor está separado en un conjunto de paneles, o vistas, que muestran información específica.
 
@@ -60,7 +60,7 @@ Lista todos los archivos y carpetas que forman parte de tu proyecto en una estru
    - <kbd>Arrastrar y soltar</kbd> para añadir archivos desde otro lugar de tu disco al proyecto o mover archivos y carpetas a nuevas ubicaciones dentro del proyecto.
    - <kbd>Click derecho</kbd> para abrir un _menú contextual_ desde donde puedes crear nuevos archivos o carpetas, renombrar, eliminar, rastrear dependencias de archivos y más.
 
-### 2. Panel Scene Editor
+### 2. Panel Scene Editor {#the-scene-editor}
 
 Al hacer doble click en una colección, un objeto de juego o un archivo de componente visual, se abre el *Scene Editor*: el editor visual para construir y editar escenas. Los archivos script y otros recursos no visuales se abren en sus propios editores dedicados.
 
@@ -164,7 +164,7 @@ Es posible abrir 2 vistas de editor una al lado de la otra.
 
 También puedes usar el menú de pestaña para `Swap with Other Tab Pane` y mover una pestaña dada entre paneles, o `Join Tab Panes` para volver a un solo panel.
 
-## Crear nuevos archivos de proyecto
+## Crear nuevos archivos de proyecto {#creating-new-project-files}
 
 Para crear nuevos archivos de recurso, selecciona `File ▸ New…` y luego elige el tipo de archivo en el menú, o usa el menú contextual:
 
@@ -218,7 +218,7 @@ Lee más detalles en el [manual de preferencias](/manuals/editor-preferences)
 
 ![Preferences](images/editor/preferences.png)
 
-## Logs del editor
+## Logs del editor {#editor-logs}
 Si encuentras un problema con el editor y necesitas reportar un issue (`Help  ▸ Report Issue`), es buena idea proporcionar archivos de log del editor mismo. Para abrir la ubicación de los logs en el navegador de archivos del sistema, haz click en `Help ▸ Show Logs`.
 
 Lee más en el [manual para obtener ayuda](/manuals/getting-help/#getting-help).

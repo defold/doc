@@ -45,7 +45,7 @@ Samplers
 Tags
 : As tags associadas ao material. Tags são representadas na engine como uma _bitmask_ usada por [`render.predicate()`](/ref/render#render.predicate) para coletar componentes que devem ser desenhados juntos. Veja a [documentação de Render](/manuals/render) para saber como fazer isso. O número máximo de tags que você pode usar em um projeto é 32.
 
-## Atributos
+## Atributos {#attributes}
 
 Atributos de shader (também chamados de vertex streams ou atributos de vértice) são um mecanismo que define como a GPU recupera vértices da memória para renderizar geometria. O vertex shader especifica um conjunto de streams usando a palavra-chave `attribute` e, na maioria dos casos, o Defold produz e vincula os dados automaticamente por baixo dos panos com base nos nomes dos streams. No entanto, em alguns casos, talvez você queira encaminhar mais dados por vértice para obter um efeito específico que a engine não produz. Um atributo de vértice pode ser configurado com os seguintes campos:
 
@@ -234,7 +234,7 @@ Para verificar que o instancing funciona neste caso, você pode olhar o perfilad
 
 Em adaptadores gráficos baseados em OpenGL, instancing exige pelo menos OpenGL 3.1 para desktop e OpenGL ES 3.0 para mobile. Isso significa que dispositivos muito antigos usando OpenGL ES2 ou versões mais antigas de OpenGL podem não oferecer suporte a instancing. Nesse caso, a renderização ainda funcionará por padrão sem nenhum cuidado especial do desenvolvedor, mas talvez não tenha o mesmo desempenho que teria se instancing real fosse usado. Atualmente, não há como detectar se instancing é suportado ou não, mas essa funcionalidade será adicionada no futuro para que um material mais barato possa ser usado, ou para que coisas como folhagem ou clutter, que normalmente seriam boas candidatas a instancing, possam ser puladas completamente.
 
-## Constantes de vértice e fragmento
+## Constantes de vértice e fragmento {#vertex-and-fragment-constants}
 
 Constantes de shader, ou "uniforms", são valores passados da engine para programas de vertex e fragment shader. Para usar uma constante, você a define no arquivo de material como uma propriedade *Vertex Constant* ou *Fragment Constant*. Variáveis `uniform` correspondentes precisam ser definidas no programa de shader. As seguintes constantes podem ser definidas em um material:
 

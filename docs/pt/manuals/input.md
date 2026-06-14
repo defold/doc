@@ -17,7 +17,7 @@ Dispositivos
   1. Teclado (tecla única e entrada de texto)
   2. Mouse (posição, cliques de botão e ações da roda do mouse)
   3. Toque único e multitoque (em dispositivos iOS e Android e HTML5 em mobile)
-  4. Gamepads (conforme suportados pelo sistema operacional e mapeados no arquivo [gamepads](#gamepads-settings-file))
+  4. Gamepads (conforme suportados pelo sistema operacional e mapeados no arquivo [gamepads](/manuals/input-gamepads/#gamepads-settings-file))
 
 Mapeamentos de entrada
 : Antes que a entrada seja enviada para um script, a entrada bruta do dispositivo é traduzida em *ações* significativas por meio da tabela de mapeamentos de entrada.
@@ -83,7 +83,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## Foco de entrada
+## Foco de entrada {#input-focus}
 
 Para escutar ações de entrada em um componente de script ou script de GUI, a mensagem `acquire_input_focus` deve ser enviada ao objeto de jogo que contém o componente:
 
@@ -99,7 +99,7 @@ Essa mensagem instrui a engine a adicionar componentes capazes de entrada (compo
 Se um objeto de jogo que já adquiriu foco de entrada fizer isso novamente, seu(s) componente(s) serão movidos para o topo da pilha.
 
 
-## Despacho de entrada e on_input()
+## Despacho de entrada e on_input() {#input-dispatch-and-on_input}
 
 Ações de entrada são despachadas de acordo com a pilha de entrada, do topo para a base.
 

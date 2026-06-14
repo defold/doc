@@ -85,7 +85,7 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
 
 当配置文件过期时，你需要在 Xcode 中再次构建应用并获取新的临时配置文件，如上所述。
 
-## 创建 iOS 应用包
+## 创建 iOS 应用包 {#creating-an-ios-application-bundle}
 
 当你拥有代码签名身份和配置文件后，你就可以从编辑器中为你的游戏创建独立的应用包。只需从菜单中选择 <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd>。
 
@@ -118,7 +118,7 @@ $ brew install ios-deploy
 
 如果编辑器无法检测到 ios-deploy 工具的安装位置，你需要在 [首选项](/manuals/editor-preferences/#tools) 中指定它。 
 
-### 创建故事板
+### 创建故事板 {#creating-a-storyboard}
 
 你使用 Xcode 创建故事板文件。启动 Xcode 并创建一个新项目。选择 iOS 和单视图应用：
 

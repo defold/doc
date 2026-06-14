@@ -136,7 +136,7 @@ A: Tak, zobacz [`sys.get_sys_info()`](/ref/sys#sys.get_sys_info).
 :[FAQ edytora](../shared/editor-faq.md)
 
 
-## Pytania o Linuksa
+## Pytania o Linuksa {#linux-questions}
 :[FAQ Linuksa](../shared/linux-faq.md)
 
 

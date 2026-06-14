@@ -120,7 +120,7 @@ local ids = collectionfactory.create("#cangang_factory", nil, nil, props)
 如果附加到游戏对象的几个脚本组件定义了相同的属性，每个组件都将使用提供给`factory.create()`或`collectionfactory.create()`的值进行初始化。
 
 
-## 资源属性
+## 资源属性 {#resource-properties}
 
 资源属性的定义与基本数据类型的脚本属性类似：
 

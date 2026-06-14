@@ -177,7 +177,7 @@ function final(self)
 end
 ```
 
-## Carga dinámica de recursos de factory
+## Carga dinámica de recursos de factory {#dynamic-loading-of-factory-resources}
 
 Al marcar la casilla *Load Dynamically* en las propiedades de la factory, el motor pospone la carga de los recursos asociados con la factory.
 

@@ -17,7 +17,7 @@ Mirrors compatibles de OpenJDK 25:
 
 Si estás en Windows, necesitas el instalador de archivo `.msi` para OpenJDK.
 
-## Uso
+## Uso {#usage}
 
 Bob se ejecuta desde una shell o desde la línea de comando invocando `java` (o `java.exe` en Windows) y proporcionando el archivo Java de bob como argumento:
 

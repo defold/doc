@@ -17,7 +17,7 @@ Creas un bundle de aplicación desde el menú <kbd>Project</kbd> y la opción <k
 
 Al seleccionar cualquiera de las opciones del menú, se abrirá el diálogo Bundle para esa plataforma específica.
 
-### Reportes de build
+### Reportes de build {#build-reports}
 
 Al crear un bundle de tu juego hay una opción para crear un reporte de build. Esto es muy útil para entender el tamaño de todos los assets que forman parte del bundle de tu juego. Simplemente marca la casilla *Generate build report* al crear el bundle del juego.
 
@@ -39,7 +39,7 @@ La creación de un bundle de aplicación macOS (archivo .app) está documentada 
 
 ### Linux
 
-La creación de un bundle de aplicación Linux no requiere ninguna configuración específica ni configuración opcional específica de la plataforma en el [archivo de configuración del proyecto](/manuals/project-settings/#linux) *game.project*.
+La creación de un bundle de aplicación Linux no requiere ninguna configuración específica ni configuración opcional específica de la plataforma en el [archivo de configuración del proyecto](/manuals/project-settings/) *game.project*.
 
 ### Windows
 

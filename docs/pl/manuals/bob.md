@@ -17,7 +17,7 @@ Zgodne dystrybucje OpenJDK 25:
 
 Jeśli korzystasz z systemu Windows, wybierz instalator `.msi` OpenJDK.
 
-## Użycie
+## Użycie {#usage}
 
 Bob uruchamia się z powłoki lub z wiersza poleceń, wywołując `java` (lub `java.exe` w Windows) i podając archiwum JAR Boba jako argument:
 

@@ -30,7 +30,7 @@ Aby skonfigurować własny renderer:
 3. Zmień właściwość *Render* (w sekcji *bootstrap*) w pliku ustawień *game.project*, aby wskazywała na twoją kopię pliku "default.render".
 
 
-## Predykaty renderowania
+## Predykaty renderowania {#render-predicates}
 
 Aby kontrolować kolejność rysowania obiektów, tworzysz predykaty renderowania. Predykat określa, co ma zostać narysowane, na podstawie wybranych tagów materiału.
 
@@ -66,7 +66,7 @@ render.draw(outlined_trees)
 Szczegółowy opis działania materiałów znajdziesz w [dokumentacji materiału](/manuals/material).
 
 
-## Domyślna projekcja widoku
+## Domyślna projekcja widoku {#default-view-projection}
 
 Domyślny skrypt do renderowania jest skonfigurowany tak, aby używać projekcji ortograficznej odpowiedniej dla gier 2D. Udostępnia trzy różne projekcje ortograficzne: `Stretch` (domyślna), `Fixed Fit` i `Fixed`. Jako alternatywę dla projekcji ortograficznych w domyślnym skrypcie do renderowania możesz też użyć macierzy projekcji udostępnianej przez komponent kamery.
 
@@ -110,7 +110,7 @@ Projekcję Fixed Fit włączasz, wysyłając wiadomość do skryptu do renderowa
 msg.post("@render:", "use_fixed_fit_projection", { near = -1, far = 1 })
 ```
 
-### Projekcja Fixed
+### Projekcja Fixed {#fixed-projection}
 
 Projekcja Fixed zachowa oryginalny współczynnik proporcji i będzie renderować zawartość gry z ustalonym poziomem zoomu. Oznacza to, że jeśli zoom zostanie ustawiony na wartość inną niż 100%, zobaczysz większy albo mniejszy obszar gry zdefiniowany przez wymiary w *game.project*:
 
@@ -150,7 +150,7 @@ camera.set_orthographic_mode("main:/go#camera", camera.ORTHO_MODE_AUTO_FIT)
 local mode = camera.get_orthographic_mode("main:/go#camera")
 ```
 
-## Odrzucanie poza bryłą widokową
+## Odrzucanie poza bryłą widokową {#frustum-culling}
 
 API renderowania w Defold pozwala programistom wykonywać coś, co nazywa się odrzucaniem poza bryłą widokową. Gdy ta funkcja jest włączona, każda grafika znajdująca się poza zdefiniowanym pudełkiem ograniczającym albo bryłą widokową zostanie zignorowana. W dużym świecie gry, w którym jednocześnie widoczna jest tylko część obszaru, odrzucanie poza bryłą widokową może znacznie zmniejszyć ilość danych, które trzeba wysłać do GPU w celu renderowania, a tym samym zwiększyć wydajność i oszczędzać baterię na urządzeniach mobilnych. Do utworzenia pudełka ograniczającego często używa się widoku i projekcji kamery. Domyślny skrypt do renderowania używa widoku i projekcji z kamery, aby obliczyć bryłę widokową.
 
@@ -179,7 +179,7 @@ Komponenty GUI i ich węzły są zwykle rysowane w układzie współrzędnych pr
 Sprite'y, mapy kafelków i inne komponenty używane przez obiekty gry istniejące w twoim świecie gry są zwykle rysowane w układzie współrzędnych przestrzeni świata. Jeśli nie wprowadzisz żadnych zmian do skryptu do renderowania i nie użyjesz komponentu kamery do zmiany projekcji widoku, ten układ jest taki sam jak układ współrzędnych przestrzeni ekranu, ale gdy tylko dodasz kamerę i przesuniesz ją albo zmienisz projekcję widoku, oba układy zaczną się różnić. Gdy kamera się porusza, lewy dolny róg ekranu będzie przesunięty względem (0, 0), aby renderować inne części świata. Jeśli zmieni się projekcja, współrzędne zostaną zarówno przekształcone, czyli przesunięte względem (0, 0), jak i przeskalowane.
 
 
-## Skrypt do renderowania
+## Skrypt do renderowania {#the-render-script}
 
 Poniżej znajduje się kod niestandardowego skryptu do renderowania, który jest lekko zmodyfikowaną wersją wbudowanego.
 
@@ -407,7 +407,7 @@ msg.post("@render:", "draw_text", { text = "Hello world!", position = pos })
 Wizualny profiler dostępny przez wiadomość `"toggle_profile"` wysyłaną do gniazda `@system` nie jest częścią renderera sterowanego skryptem. Jest rysowany oddzielnie od twojego skryptu do renderowania.
 
 
-## Wywołania rysowania i grupowanie
+## Wywołania rysowania i grupowanie {#draw-calls-and-batching}
 
 Wywołanie rysowania to termin opisujący proces przygotowania GPU do narysowania obiektu na ekranie z użyciem tekstury i materiału oraz opcjonalnych dodatkowych ustawień. Proces ten jest zwykle zasobożerny, dlatego zaleca się, aby liczba wywołań rysowania była jak najmniejsza. Liczbę wywołań rysowania i czas potrzebny na ich wyrenderowanie możesz zmierzyć za pomocą [wbudowanego profilera](/manuals/profiling/).
 

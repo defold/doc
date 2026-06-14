@@ -93,7 +93,7 @@ O token do usuário somente leitura fica totalmente acessível a qualquer pessoa
 
 Essa solução foi proposta no fórum do Defold e [discutida nesta thread](https://forum.defold.com/t/private-github-for-library-solved/67240).
 
-## Configurando dependências de biblioteca
+## Configurando dependências de biblioteca {#setting-up-library-dependencies}
 
 Abra o projeto a partir do qual você quer acessar a biblioteca. Nas configurações do projeto, adicione a URL da biblioteca à propriedade *dependencies*. Você pode especificar vários projetos dependentes se quiser. Basta adicioná-los um por um usando o botão `+` e removê-los usando o botão `-`:
 

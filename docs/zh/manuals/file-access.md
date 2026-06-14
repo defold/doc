@@ -76,7 +76,7 @@ print(data.highscore) -- 100
 
 [查看展示如何使用 `sys.save()` 和 `sys.load()` 的示例](/examples/file/sys_save_load/)。
 
-### 如何访问与应用程序捆绑的文件
+### 如何访问与应用程序捆绑的文件 {#how-to-access-files-bundled-with-the-application}
 您可以使用捆绑资源和自定义资源将文件包含在您的应用程序中。
 
 #### 自定义资源

@@ -7,7 +7,7 @@ brief: Defold는 모바일 장치의 화면 방향 전환에 자동으로 맞춰
 
 Defold는 모바일 장치의 화면 방향 전환에 자동으로 맞춰지는 GUI를 지원합니다. 이 기능을 사용하면 다양한 화면 크기의 방향(orientation)과 종횡비(aspect ratio)에 맞게 조정되는 GUI를 디자인할 수 있습니다. 특정 장치 모델에 맞는 레이아웃을 만드는 것도 가능합니다.
 
-## 디스플레이 프로파일 만들기
+## 디스플레이 프로파일 만들기 {#creating-display-profiles}
 
 기본적으로 *game.project* 설정은 내장 디스플레이 프로파일 설정 파일("builtins/render/default.display_profiles")을 사용하도록 지정되어 있습니다. 기본 프로파일은 "Landscape"(폭 1280픽셀, 높이 720픽셀)와 "Portrait"(폭 720픽셀, 높이 1280픽셀)입니다. 프로파일에 장치 모델이 설정되어 있지 않으므로 어떤 장치에도 매칭됩니다.
 

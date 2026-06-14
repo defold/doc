@@ -85,7 +85,7 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
 
 Pełne API edytora znajdziesz [tutaj](https://defold.com/ref/alpha/editor/).
 
-## Polecenia
+## Polecenia {#commands}
 
 Jeśli moduł skryptu edytora definiuje funkcję `get_commands`, zostanie ona wywołana podczas przeładowywania rozszerzeń, a zwrócone polecenia będą dostępne w pasku menu edytora albo w menu kontekstowych paneli Assets i Outline. Przykład:
 
@@ -556,7 +556,7 @@ Ponieważ to polecenie uruchamia program powłoki tylko do odczytu i informuje o
 Jeśli chcesz dystrybuować skrypt edytora jako bibliotekę, możesz chcieć dołączyć binarny program dla platform edytora w ramach zależności. Więcej informacji znajdziesz w sekcji [Skrypty edytora w bibliotekach](#editor-scripts-in-libraries).
 :::
 
-## Hooki cyklu życia
+## Hooki cyklu życia {#lifecycle-hooks}
 
 Istnieje specjalnie traktowany plik skryptu edytora: `hooks.editor_script`, umieszczony w katalogu głównym projektu, obok pliku *game.project*. Tylko ten jeden skrypt edytora otrzymuje zdarzenia cyklu życia z edytora. Przykład:
 
@@ -695,13 +695,13 @@ end)
 
 Po otwarciu adresu takiego jak `http://0.0.0.0:12345/my-extension/files/main/main.collection` w przeglądarce zobaczysz zawartość pliku `main/main.collection`.
 
-## Skrypty edytora w bibliotekach
+## Skrypty edytora w bibliotekach {#editor-scripts-in-libraries}
 
 Możesz publikować biblioteki zawierające polecenia dla innych użytkowników, a edytor wykryje je automatycznie. Haki nie mogą być jednak wykrywane automatycznie, bo muszą być zdefiniowane w pliku znajdującym się w katalogu głównym projektu, podczas gdy biblioteki udostępniają tylko podkatalogi. To celowe: użytkownik powinien mieć większą kontrolę nad procesem builda. Nadal możesz definiować haki cyklu życia jako zwykłe funkcje w plikach `.lua`, a użytkownicy biblioteki mogą je potem załadować i wykorzystać w swoim `/hooks.editor_script`.
 
 Warto też pamiętać, że choć zależności są widoczne w Assets, nie istnieją jako zwykłe pliki — są wpisami w archiwum zip. Edytor potrafi jednak wypakować wybrane pliki z zależności do katalogu `build/plugins/`. W tym celu utwórz plik `ext.manifest` w katalogu biblioteki, a następnie katalog `plugins/bin/${platform}` w tym samym folderze, w którym znajduje się plik `ext.manifest`. Zawartość tego katalogu zostanie automatycznie wypakowana do `/build/plugins/${extension-path}/plugins/bin/${platform}`, dzięki czemu skrypty edytora będą mogły się do niej odwoływać.
 
-## Preferencje
+## Preferencje {#preferences}
 
 Skrypty edytora mogą definiować i używać preferencji, czyli trwałych, niezatwierdzonych danych przechowywanych na komputerze użytkownika. Preferencje mają trzy główne cechy:
 

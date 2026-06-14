@@ -86,7 +86,7 @@ resource.set_buffer(res, buf)
 
 有关如何使用网格组件的更多信息，包括示例项目和代码片段，请参阅[论坛公告帖子](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137)。
 
-## 视锥体剔除
+## 视锥体剔除 {#frustum-culling}
 
 网格组件由于其动态特性以及无法确定位置数据的编码方式，因此不会自动剔除。为了剔除网格，需要使用6个浮点数将网格的轴对齐边界框设置为缓冲区上的元数据（AABB最小/最大）：
 

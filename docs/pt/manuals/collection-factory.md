@@ -11,7 +11,7 @@ Coleções oferecem um mecanismo poderoso para criar modelos reutilizáveis, ou 
 
 Com um componente de fábrica de coleção, você pode criar o conteúdo de um arquivo de coleção dentro de um mundo de jogo. Isso é análogo a executar a criação por fábrica de todos os objetos de jogo dentro da coleção e então construir a hierarquia pai-filho entre os objetos. Um caso de uso típico é criar inimigos compostos por vários objetos de jogo (inimigo + arma, por exemplo).
 
-## Criando uma coleção
+## Criando uma coleção {#spawning-a-collection}
 
 Suponha que queremos um objeto de jogo de personagem e um objeto de jogo de escudo separado como filho do personagem. Construímos a hierarquia de objetos de jogo em um arquivo de coleção e a salvamos como "bean.collection".
 
@@ -89,7 +89,7 @@ function init(self)
 end
 ```
 
-## Carregamento dinâmico de recursos de fábrica
+## Carregamento dinâmico de recursos de fábrica {#dynamic-loading-of-factory-resources}
 
 Ao marcar a caixa *Load Dynamically* nas propriedades da fábrica de coleção, a engine adia o carregamento dos recursos associados à fábrica.
 

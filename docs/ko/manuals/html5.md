@@ -51,7 +51,7 @@ python3 -m http.server
 콘솔에 `"wasm streaming compile failed: TypeError: Failed to execute ‘compile’ on ‘WebAssembly’: Incorrect response MIME type. Expected ‘application/wasm’."` 오류가 표시되면, 서버가 `.wasm` 파일에 `application/wasm` MIME 타입을 사용하도록 해야 합니다.
 :::
 
-## HTML5 번들 생성
+## HTML5 번들 생성 {#creating-html5-bundle}
 
 Defold에서 HTML5 컨텐츠를 생성하는 것은 간단하며, 지원되는 다른 모든 플랫폼과 같은 패턴을 따릅니다. 메뉴에서 <kbd>Project ▸ Bundle... ▸ HTML5 Application...</kbd>를 선택합니다:
 

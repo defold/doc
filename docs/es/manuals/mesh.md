@@ -86,7 +86,7 @@ resource.set_buffer(res, buf)
 
 Consulta la [publicación de anuncio en el foro](https://forum.defold.com/t/mesh-component-in-defold-1-2-169-beta/65137) para obtener más información sobre cómo usar el componente Mesh, incluidos proyectos de ejemplo y fragmentos de código.
 
-## Culling de frustum
+## Culling de frustum {#frustum-culling}
 
 Los componentes Mesh no se descartan automáticamente debido a su naturaleza dinámica y al hecho de que no es posible saber con certeza cómo están codificados los datos posicionales. Para descartar una malla, el cuadro delimitador alineado a los ejes de la malla debe establecerse como metadatos en el buffer usando 6 floats (AABB min/max):
 

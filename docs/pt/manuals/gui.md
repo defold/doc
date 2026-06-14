@@ -135,7 +135,7 @@ Como alternativa, clique com o botão direito na raiz "Gui" no *Outline* e selec
 
 Você também pode clicar com o botão direito no ícone da pasta do tipo que deseja adicionar e selecionar <kbd>Add ▸ [type]</kbd>.
 
-## Tipos de node
+## Tipos de node {#node-types}
 
 Um componente GUI é construído a partir de um conjunto de nodes. Nodes são elementos simples. Eles podem ser transladados (movidos, escalados e rotacionados) e organizados em hierarquias pai-filho, seja no editor ou em runtime por scripting. Existem os seguintes tipos de node:
 
@@ -175,7 +175,7 @@ Adicione nodes clicando com o botão direito na pasta *Nodes* e selecionando <kb
 
 Você também pode pressionar <kbd>A</kbd> e selecionar o tipo que deseja adicionar à GUI.
 
-## Propriedades dos nodes
+## Propriedades dos nodes {#node-properties}
 
 Cada node tem um conjunto extenso de propriedades que controlam sua aparência:
 
@@ -381,7 +381,7 @@ Um node se torna filho de outro node ao ser arrastado para cima do node que voc�
 Pais são desenhados antes de seus filhos. Use layers para alterar a ordem de desenho de nodes pai e filho e para otimizar a renderização de nodes (veja abaixo).
 
 
-## Layers e draw calls
+## Layers e draw calls {#layers-and-draw-calls}
 
 Layers oferecem controle detalhado sobre como os nodes são desenhados e podem ser usadas para reduzir o número de draw calls que a engine precisa criar para desenhar uma cena GUI. Quando a engine está prestes a desenhar os nodes de uma cena GUI, ela agrupa os nodes em lotes de draw calls com base nas seguintes condições:
 

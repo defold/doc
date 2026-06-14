@@ -143,4 +143,4 @@ Las formas de colisión en físicas 2D solo se pueden rotar alrededor del eje z.
 
 
 # Depuración
-Puedes [activar la depuración de físicas](/manuals/debugging/#debugging-problems-with-physics) para ver las formas de colisión en tiempo de ejecución.
+Puedes [activar la depuración de físicas](/manuals/debugging-game-logic/#debugging-problems-with-physics) para ver las formas de colisión en tiempo de ejecución.

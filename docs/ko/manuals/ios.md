@@ -85,7 +85,7 @@ Defold 프로젝트에서 같은 bundle identifier를 사용해야 하므로 bun
 
 provision이 만료되면 위에서 설명한 대로 Xcode에서 앱을 다시 빌드하고 새 임시 provision 파일을 받아야 합니다.
 
-## iOS 어플리케이션 번들 생성하기
+## iOS 어플리케이션 번들 생성하기 {#creating-an-ios-application-bundle}
 
 code signing identity와 provisioning profile이 있으면 에디터에서 게임용 독립 실행 어플리케이션 번들을 생성할 수 있습니다. 메뉴에서 <kbd>Project ▸ Bundle... ▸ iOS Application...</kbd>을 선택하면 됩니다.
 
@@ -118,7 +118,7 @@ $ brew install ios-deploy
 
 에디터가 ios-deploy 도구의 설치 위치를 감지하지 못하면 [Preferences](/manuals/editor-preferences/#tools)에서 위치를 지정해야 합니다.
 
-### storyboard 생성하기
+### storyboard 생성하기 {#creating-a-storyboard}
 
 storyboard 파일은 Xcode로 생성합니다. Xcode를 시작하고 새 프로젝트를 생성합니다. iOS와 Single View App을 선택합니다.
 

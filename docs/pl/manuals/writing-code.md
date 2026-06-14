@@ -35,7 +35,7 @@ Naciśnięcie <kbd>CTRL</kbd> + <kbd>Space</kbd> pokazuje dodatkowe informacje o
 
 ![](/images/editor/apireference.png)
 
-### Konfiguracja lintingu
+### Konfiguracja lintingu {#linting-configuration}
 
 Wbudowany edytor kodu wykonuje linting przy użyciu [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) oraz [Lua language server](https://luals.github.io/wiki/diagnostics/). Aby skonfigurować Luacheck, utwórz plik `.luacheckrc` w katalogu głównym projektu. Listę dostępnych opcji znajdziesz na [stronie konfiguracji Luacheck](https://luacheck.readthedocs.io/en/stable/config.html). Defold używa domyślnie następującej konfiguracji Luacheck:
 

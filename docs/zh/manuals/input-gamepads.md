@@ -103,7 +103,7 @@ function on_input(self, action_id, action)
 end
 ```
 
-## 游戏手柄设置文件
+## 游戏手柄设置文件 {#gamepads-settings-file}
 游戏手柄输入设置为每种硬件游戏手柄类型使用单独的映射文件。特定硬件游戏手柄的游戏手柄映射在*gamepads*文件中设置。Defold附带了一个内置的游戏手柄文件，其中包含常见游戏手柄的设置：
 
 ![Gamepad settings](images/input/gamepads.png)
@@ -140,7 +140,7 @@ function on_input(self, action_id, action)
 end
 ``` 
 
-## HTML5中的游戏手柄
+## HTML5中的游戏手柄 {#gamepads-in-html5}
 HTML5构建中支持游戏手柄，并生成与其他平台相同的输入事件。游戏手柄的支持基于[游戏手柄API](https://www.w3.org/TR/gamepad/)，大多数浏览器都支持此API（[参考此支持图表](https://caniuse.com/?search=gamepad)）。如果浏览器不支持游戏手柄API，Defold将静默忽略项目中的任何游戏手柄触发器。您可以通过检查`navigator`对象上是否存在`getGamepads`函数来检查浏览器是否支持游戏手柄API：
 
 ```lua

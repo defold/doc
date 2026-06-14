@@ -77,7 +77,7 @@ Al guardar y cargar archivos específicos de la aplicación, como puntuaciones a
 
 [Consulta el ejemplo que muestra cómo usar `sys.save()` y `sys.load()`](/examples/file/sys_save_load/).
 
-### Cómo acceder a archivos empaquetados con la aplicación
+### Cómo acceder a archivos empaquetados con la aplicación {#how-to-access-files-bundled-with-the-application}
 Puedes incluir archivos con tu aplicación usando Custom Resources y Bundle Resources.
 
 #### Recursos personalizados (Custom Resources)

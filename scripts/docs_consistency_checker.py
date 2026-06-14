@@ -8,12 +8,23 @@ Uses modules in the scripts/modules directory to implement document consistency 
 import os
 import sys
 import argparse
+from pathlib import Path
 
-# Import modules
-from modules.main import main
 from modules.file_handler import setup_console_encoding
 from modules.markdown_handler import compare_markdown_syntax_trees
 from modules.file_handler import read_file_content
+
+
+def infer_language_root(file_path):
+    """
+    Infer docs/<language> root for a file path when possible.
+    """
+    path = Path(file_path).resolve()
+    parts = path.parts
+    for index, part in enumerate(parts):
+        if part == "docs" and index + 1 < len(parts):
+            return Path(*parts[: index + 2])
+    return path.parent
 
 
 def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=None, specific_file=None, source_file=None, target_file=None):
@@ -63,7 +74,15 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
         
         # Compare Markdown syntax trees
         print(f"Comparing Markdown syntax trees of files...")
-        inconsistencies = compare_markdown_syntax_trees(source_content, target_content, os.path.basename(source_file))
+        inconsistencies = compare_markdown_syntax_trees(
+            source_content,
+            target_content,
+            os.path.basename(source_file),
+            source_file_path=source_file,
+            target_file_path=target_file,
+            source_root=infer_language_root(source_file),
+            target_root=infer_language_root(target_file),
+        )
         
         # Output results
         if inconsistencies and inconsistencies != "Consistent":
@@ -186,7 +205,15 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
         
         # Compare Markdown syntax trees
         print(f"Comparing Markdown syntax trees of {specific_file}...")
-        inconsistencies = compare_markdown_syntax_trees(source_content, target_content, specific_file)
+        inconsistencies = compare_markdown_syntax_trees(
+            source_content,
+            target_content,
+            specific_file,
+            source_file_path=source_file_path,
+            target_file_path=target_file_path,
+            source_root=source_dir,
+            target_root=target_dir,
+        )
         
         # Output results
         if inconsistencies and inconsistencies != "Consistent":
@@ -242,6 +269,8 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
             print("No inconsistency issues found, document structure is consistent")
     else:
         # Run main function, passing parameters
+        from modules.main import main
+
         main(source_dir_path=source_dir, target_dir_path=target_dir, output_file_path=output_file)
 
 

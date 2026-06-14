@@ -45,7 +45,7 @@ Samplers
 Tags
 : Tagi powiązane z materiałem. W silniku tagi są reprezentowane jako _maska bitowa_, z której [`render.predicate()`](/ref/render#render.predicate) korzysta do zbierania komponentów, które powinny zostać narysowane razem. Więcej informacji o tym, jak to zrobić, znajdziesz w [dokumentacji renderowania](/manuals/render). Maksymalna liczba tagów, których możesz użyć w projekcie, to 32.
 
-## Atrybuty
+## Atrybuty {#attributes}
 
 Atrybuty shadera (nazywane też strumieniami wierzchołków albo atrybutami wierzchołków) to mechanizm, dzięki któremu GPU pobiera wierzchołki z pamięci, aby renderować geometrię. Program shadera wierzchołków określa zestaw strumieni za pomocą słowa kluczowego `attribute` i w większości przypadków Defold tworzy oraz wiąże dane automatycznie w tle na podstawie nazw strumieni. Zdarza się jednak, że chcesz przekazać więcej danych na wierzchołek, aby uzyskać konkretny efekt, którego silnik sam nie produkuje. Atrybut wierzchołka można skonfigurować za pomocą następujących pól:
 
@@ -235,7 +235,7 @@ Aby sprawdzić, czy instancing działa w tym przypadku, możesz zajrzeć do web 
 
 Na adapterach graficznych opartych na OpenGL instancing wymaga co najmniej OpenGL 3.1 na desktopie i OpenGL ES 3.0 na urządzeniach mobilnych. Oznacza to, że bardzo stare urządzenia korzystające z OpenGL ES2 albo starszych wersji OpenGL mogą nie obsługiwać instancing. W takim przypadku renderowanie nadal będzie działać domyślnie bez żadnych specjalnych działań ze strony dewelopera, ale może być mniej wydajne niż przy rzeczywistym instancing. Obecnie nie ma sposobu, aby wykryć, czy instancing jest obsługiwane, ale ta funkcjonalność zostanie dodana w przyszłości, tak aby można było użyć tańszego materiału albo całkowicie pominąć rzeczy, które zwykle byłyby dobrymi kandydatami do instancing, na przykład roślinność lub drobne elementy otoczenia.
 
-## Stałe wierzchołków i fragmentów
+## Stałe wierzchołków i fragmentów {#vertex-and-fragment-constants}
 
 Stałe shaderów, czyli "uniformy", to wartości przekazywane z silnika do programów shaderów wierzchołków i fragmentów. Aby użyć stałej, definiujesz ją w pliku materiału jako właściwość *Vertex Constant* albo *Fragment Constant*. Odpowiadające im zmienne `uniform` muszą zostać zdefiniowane w programie shadera. W materiale można ustawić następujące stałe:
 

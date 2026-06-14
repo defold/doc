@@ -7,7 +7,7 @@ brief: 本手册涵盖了如何在 Defold 中创建或打开项目。
 
 您可以在 Defold 编辑器中轻松创建新项目。您也可以选择打开计算机上已有的现有项目。
 
-## 创建新的本地项目
+## 创建新的本地项目 {#creating-a-new-project}
 
 点击 <kbd>New Project</kbd> 选项，然后选择您想要创建的项目类型。在硬盘上指定一个位置来存储项目文件。点击 <kbd>Create New Project</kbd> 在您选择的位置创建项目。您可以从模板创建新项目：
 

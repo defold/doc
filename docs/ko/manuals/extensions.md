@@ -232,7 +232,7 @@ print(reverse_s) --> ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba
 * `DM_PLATFORM_LINUX`
 * `DM_PLATFORM_HTML5`
 
-## 빌드 서버 로그
+## 빌드 서버 로그 {#build-server-logs}
 
 프로젝트에서 네이티브 익스텐션을 사용할 때 빌드 서버 로그를 확인할 수 있습니다. 빌드 서버 로그(`log.txt`)는 프로젝트를 빌드할 때 커스텀 엔진과 함께 다운로드되며, `.internal/%platform%/build.zip` 파일 안에 저장되고 프로젝트의 빌드 폴더에도 압축 해제됩니다.
 

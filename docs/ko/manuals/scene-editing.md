@@ -38,7 +38,7 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 
 **Frame Selection**(<kbd>F</kbd>)을 사용해 현재 선택 항목에 카메라 초점을 맞출 수도 있습니다.
 
-## 2D와 3D 씬 방향
+## 2D와 3D 씬 방향 {#2d-and-3d-scene-orientation}
 
 씬 뷰는 2D와 3D 워크플로우 모두에서 사용할 수 있습니다.
 
@@ -66,7 +66,7 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 
 ![Toolbar](images/editor/toolbar.png)
 
-## 오브젝트 선택 및 조작
+## 오브젝트 선택 및 조작 {#manipulating-objects}
 
 ### 오브젝트 선택
 
@@ -124,7 +124,7 @@ Scene Editor 카메라는 마우스와 키보드로 제어할 수 있습니다. 
 
 ![Visibility filters](images/editor/visibilityfilters.png)
 
-## 그리드 설정
+## 그리드 설정 {#grid-settings}
 
 그리드는 워크플로우에 맞게 사용자 지정할 수 있습니다. 특히 3D에서 유용합니다. **Grid Settings** 버튼(`▦`)을 클릭하여 그리드 설정 팝업을 엽니다.
 
