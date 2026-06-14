@@ -68,6 +68,12 @@ python docs_consistency_checker.py --source-file /path/to/source/file.md --targe
 python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh --output custom_comparison.xlsx
 ```
 
+#### Check Only Local Markdown Links
+
+```bash
+python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh --links-only
+```
+
 ### Command Line Arguments
 
 | Argument | Description |
@@ -78,6 +84,7 @@ python docs_consistency_checker.py --source-dir ./docs/en --target-dir ./docs/zh
 | `--output` | Path for the output Excel file |
 | `--source-file` | Path to a specific source file |
 | `--target-file` | Path to a specific target file |
+| `--links-only` | Only validate local Markdown links and fragments |
 | `--help` | Show help message and exit |
 
 ## Output

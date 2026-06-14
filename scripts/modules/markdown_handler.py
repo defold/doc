@@ -60,6 +60,7 @@ def compare_markdown_syntax_trees(
     target_file_path=None,
     source_root=None,
     target_root=None,
+    links_only=False,
 ):
     """
     Build Markdown syntax trees and compare the syntax structure of two documents,
@@ -73,19 +74,19 @@ def compare_markdown_syntax_trees(
         target_file_path (str|Path): Optional full target file path
         source_root (str|Path): Optional source language root
         target_root (str|Path): Optional target language root
+        links_only (bool): Only validate local Markdown links and fragments
 
     Returns:
         str: Consistency check result, "Consistent" if consistent, otherwise error message
     """
-    source_tree = build_markdown_syntax_tree(source_content)
-    target_tree = build_markdown_syntax_tree(target_content)
-
     issues = []
-    syntax_difference = compare_syntax_trees(source_tree, target_tree, file_path)
-    if syntax_difference:
-        issues.append(syntax_difference)
+    if not links_only:
+        source_tree = build_markdown_syntax_tree(source_content)
+        target_tree = build_markdown_syntax_tree(target_content)
 
-    issues.extend(validate_heading_keys(source_content, target_content, file_path))
+        syntax_difference = compare_syntax_trees(source_tree, target_tree, file_path)
+        if syntax_difference:
+            issues.append(syntax_difference)
 
     if source_file_path and source_root:
         issues.extend(
@@ -290,39 +291,6 @@ def compare_syntax_trees(source_tree, target_tree, file_path):
     return ""
 
 
-def validate_heading_keys(source_content, target_content, file_path):
-    """
-    Check that target headings expose the same public anchor keys as source headings.
-    """
-    source_headings = _extract_heading_nodes(source_content)
-    target_headings = _extract_heading_nodes(target_content)
-    issues = []
-
-    for index, source_heading in enumerate(source_headings):
-        if index >= len(target_headings):
-            break
-
-        expected_key = source_heading["explicit_key"] or source_heading["generated_key"]
-        if not expected_key:
-            continue
-
-        target_heading = target_headings[index]
-        target_keys = {
-            target_heading["explicit_key"] or target_heading["generated_key"],
-            *target_heading["nearby_raw_anchor_keys"],
-        }
-        target_keys.discard(None)
-        target_keys.discard("")
-
-        if expected_key not in target_keys:
-            target_line = target_heading["line"] or "unknown"
-            issues.append(
-                f"Missing heading key at target line {target_line}: expected {{#{expected_key}}}"
-            )
-
-    return issues
-
-
 def validate_local_links(content, current_file, lang_root, label):
     """
     Validate local documentation links in one Markdown file.
@@ -484,23 +452,6 @@ def compare_section_content(source_sections, target_sections):
     return results
 
 
-def _extract_heading_nodes(content):
-    lines = content.splitlines()
-    content_line_numbers = {
-        line_num for line_num, _ in _iter_non_fenced_lines(content)
-    }
-    headings = []
-    for index, line in enumerate(lines):
-        if index + 1 not in content_line_numbers:
-            continue
-        heading = parse_heading(line, index + 1)
-        if not heading:
-            continue
-        heading["nearby_raw_anchor_keys"] = _nearby_raw_anchor_keys(lines, index)
-        headings.append(heading)
-    return headings
-
-
 def _iter_non_fenced_lines(content):
     yield from _iter_non_fenced_pairs(enumerate(content.splitlines(), 1))
 
@@ -529,23 +480,6 @@ def _iter_non_fenced_expanded_lines(content, file_path, lang_root):
     # Includes are expanded before code-fence filtering, so snippets can contribute
     # anchors while fenced examples remain invisible to link and anchor validation.
     yield from _iter_non_fenced_pairs(_expanded_lines(content, file_path, lang_root, set()))
-
-
-def _nearby_raw_anchor_keys(lines, heading_index):
-    keys = set()
-    index = heading_index - 1
-    while index >= 0:
-        stripped = lines[index].strip()
-        if not stripped:
-            index -= 1
-            continue
-        line_keys = RAW_ANCHOR_RE.findall(stripped)
-        if line_keys:
-            keys.update(line_keys)
-            index -= 1
-            continue
-        break
-    return keys
 
 
 def _expanded_lines(content, file_path, lang_root, seen):

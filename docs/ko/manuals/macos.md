@@ -117,7 +117,7 @@ $ xcrun stapler staple "Game.app"
 5. 이제 게임을 배포할 준비가 되었습니다.
 
 ## Mac App Store에 배포하기
-Mac App Store에 배포하는 과정은 [Apple Developer documentation](https://developer.apple.com/macos/submit/)에 잘 문서화되어 있습니다. 제출하기 전에 위에서 설명한 대로 어플리케이션에 권한을 추가하고 codesign을 수행해야 합니다.
+Mac App Store에 배포하는 과정은 [Apple Developer documentation](https://developer.apple.com/macos/submit/)에 잘 문서화되어 있습니다. 제출하기 전에 위에서 설명한 대로 어플리케이션에 권한을 추가하고 `codesign`을 수행해야 합니다.
 
 참고: Mac App Store에 배포할 때는 게임을 공증하지 않아도 됩니다.
 

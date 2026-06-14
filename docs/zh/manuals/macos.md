@@ -117,7 +117,7 @@ $ xcrun stapler staple "Game.app"
 5. 您的游戏现在可以分发了。
 
 ## 发布到 Mac App Store
-发布到 Mac App Store 的过程在 [Apple 开发者文档](https://developer.apple.com/macos/submit/) 中有详细记录。在提交之前，请确保如上所述添加权限并为应用程序签名。
+发布到 Mac App Store 的过程在 [Apple 开发者文档](https://developer.apple.com/macos/submit/) 中有详细记录。在提交之前，请确保如上所述添加权限并使用 `codesign` 为应用程序签名。
 
 注意：发布到 Mac App Store 时，游戏不必经过公证。
 

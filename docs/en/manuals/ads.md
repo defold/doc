@@ -25,11 +25,11 @@ Banner ads are text, image or video based and cover a relatively small part of t
 
 ### Interstitial ads
 
-Interstitial ads are large full screen experiences with animations and sometimes also interactive rich media content. Interstitial ads are typically shown in between levels or game sessions as it is a natural break in the game experience. Interstitial ads typically generate less views than banner ads, but the cost (CPM) is much higher than for banner ads, resulting in significant overall ad revenue.
+Interstitial ads are large full screen experiences with animations and sometimes also interactive *rich media* content. Interstitial ads are typically shown in between levels or game sessions as it is a natural break in the game experience. Interstitial ads typically generate less views than banner ads, but the cost (CPM) is much higher than for banner ads, resulting in significant overall ad revenue.
 
 ### Rewarded ads
 
-Rewarded ads (also know as Incentivized ads) are optional and therefore less obtrusive than many other forms of ads. Rewarded ads are usually full screen experiences like interstitial ads. The user can choose a reward in exchange for viewing the ad - for instance loot, coins, lives, time or some other in-game currency or benefit. Rewarded ads usually has the highest cost (CPM), but the number of views is directly related to user opt-in rates. Rewarded ads will only generate great performance if the rewards are valuable enough and offered at the right time.
+Rewarded ads (also know as Incentivized ads) are optional and therefore less obtrusive than many other forms of ads. Rewarded ads are usually full screen experiences like interstitial ads. The user can choose a reward in exchange for viewing the ad - for instance *loot*, coins, lives, time or some other in-game currency or benefit. Rewarded ads usually has the highest cost (CPM), but the number of views is directly related to user opt-in rates. Rewarded ads will only generate great performance if the rewards are valuable enough and offered at the right time.
 
 
 ## Ad networks
@@ -45,7 +45,7 @@ The [Defold Asset Portal](/tags/stars/ads/) contains several assets which integr
 
 # How to integrate ads in your game
 
-When you have decided on an ad network to integrate in your game you need to follow the installation and usage instructions for that particular asset. What you typically do is to first add the extension as a [project dependency](/manuals/libraries/#setting-up-library-dependencies). Once you have the asset added to your project you can proceed with the integration and call the functions specific to the asset to load and show ads.
+When you have decided on an ad network to integrate in your game you need to follow the installation and usage instructions for that particular *asset*. What you typically do is to first add the extension as a [project dependency](/manuals/libraries/#setting-up-library-dependencies). Once you have the asset added to your project you can proceed with the integration and call the functions specific to the asset to load and show ads.
 
 
 # Combining ads and in-app purchases

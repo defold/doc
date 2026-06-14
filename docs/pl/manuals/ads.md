@@ -25,11 +25,11 @@ Banery to tekstowe, obrazkowe lub filmowe reklamy zasłaniające relatywnie mał
 
 ### Reklamy między przejściami (interstitial)
 
-Reklamy typu "interstitial" to pełnoekranowe reklamy z animacją lub video, a czasem nawet z interaktywnymi mediami. Są zazwyczaj wyświetlane między poziomami, podczas ładowania lub między sesjami gry jako naturalnie odbierana przerwa w rozgrywce. Zazwyczaj samych wyświetleń takich reklam jest mniej niż banerowych (ze względu na charakter momentu wyświetlenia), ale CPM jest zdecydowanie wyższe niż w przypadku banerów, co wiąże się w oczywisty sposób z większymi dochodami.
+Reklamy typu "interstitial" to pełnoekranowe reklamy z animacją lub video, a czasem nawet z *interaktywnymi mediami*. Są zazwyczaj wyświetlane między poziomami, podczas ładowania lub między sesjami gry jako naturalnie odbierana przerwa w rozgrywce. Zazwyczaj samych wyświetleń takich reklam jest mniej niż banerowych (ze względu na charakter momentu wyświetlenia), ale CPM jest zdecydowanie wyższe niż w przypadku banerów, co wiąże się w oczywisty sposób z większymi dochodami.
 
 ### Reklamy nagradzane (reward)
 
-Reklamy nagradzane (znane też jako motywacyjne) są opcjonalne, przez co i mniej agresywne niż pozostałe. Zazwyczaj są pełnoekranowe, więc skupiają całą uwagę gracza. Użytkownik w nagrodę może wybrać sobie korzyść za obejrzenie reklamy - przykładowo daną ilość growej waluty, przedmioty, dodatkowe życia, dodatkowy czas (lub wręcz przeciwnie - skrócenie czasu oczekiwania na coś) czy jakikolwiek benefit czy walutę pasującą do gry. Reklamy nagradzane mają zazwyczaj większe CPM, ale ilość wyświetleń jest stricte związana z chęciami użytkowników. Reklamy te wygenerują więc spory dochód, jeśli nagrody będą wystarczająco wartościowe, aby zachęcić użytkownika do ich obejrzenia i oferowane powinny być w najlepszym dogodnym czasie.
+Reklamy nagradzane (znane też jako motywacyjne) są opcjonalne, przez co i mniej agresywne niż pozostałe. Zazwyczaj są pełnoekranowe, więc skupiają całą uwagę gracza. Użytkownik w nagrodę może wybrać sobie korzyść za obejrzenie reklamy - przykładowo daną ilość growej waluty, *przedmioty*, dodatkowe życia, dodatkowy czas (lub wręcz przeciwnie - skrócenie czasu oczekiwania na coś) czy jakikolwiek benefit czy walutę pasującą do gry. Reklamy nagradzane mają zazwyczaj większe CPM, ale ilość wyświetleń jest stricte związana z chęciami użytkowników. Reklamy te wygenerują więc spory dochód, jeśli nagrody będą wystarczająco wartościowe, aby zachęcić użytkownika do ich obejrzenia i oferowane powinny być w najlepszym dogodnym czasie.
 
 
 ## Sieci reklamodawców
@@ -45,7 +45,7 @@ Reklamy nagradzane (znane też jako motywacyjne) są opcjonalne, przez co i mnie
 
 # Jak zintegrować reklamy do Twojej gry?
 
-Jeśli wybrałeś już dostawcę reklam i ich format postępuj zgodnie z krokami instalacyjnymi i instrukcjami użytkowania dla danych rozszerzeń. W większości przypadków dodajesz bibliotekę do projektu określając tzw. [project dependency](/manuals/libraries/#setting-up-library-dependencies). Kiedy masz zaimportowaną bilbiotekę do Twojego projektu możesz kontynuować integrację i wywoływać w kodzie funckje specyficzne dla danego modułu umożliwiające ładowanie i wyświetlanie reklam.
+Jeśli wybrałeś już dostawcę reklam i ich format postępuj zgodnie z krokami instalacyjnymi i instrukcjami użytkowania dla danych *rozszerzeń*. W większości przypadków dodajesz bibliotekę do projektu określając tzw. [project dependency](/manuals/libraries/#setting-up-library-dependencies). Kiedy masz zaimportowaną bilbiotekę do Twojego projektu możesz kontynuować integrację i wywoływać w kodzie funckje specyficzne dla danego modułu umożliwiające ładowanie i wyświetlanie reklam.
 
 
 # Łączenie reklam i zakupów wewnątrz aplikacji

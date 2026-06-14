@@ -27,7 +27,15 @@ def infer_language_root(file_path):
     return path.parent
 
 
-def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=None, specific_file=None, source_file=None, target_file=None):
+def run_docs_consistency_check(
+    source_dir=None,
+    target_dir=None,
+    output_file=None,
+    specific_file=None,
+    source_file=None,
+    target_file=None,
+    links_only=False,
+):
     """
     Run document consistency check between two language directories
     
@@ -38,6 +46,7 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
         specific_file: Specific file path to check (relative to docs directory)
         source_file: Specified source version file path
         target_file: Specified target version file path
+        links_only: Only validate local Markdown links and fragments
     """
     # Set console encoding to resolve character display issues
     setup_console_encoding()
@@ -69,11 +78,14 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
         
         # Check if they are Markdown files
         if not (source_file.endswith('.md') and target_file.endswith('.md')):
-            print(f"Warning: Files are not Markdown files, skipping syntax tree comparison")
+            print(f"Warning: Files are not Markdown files, skipping Markdown check")
             return
         
-        # Compare Markdown syntax trees
-        print(f"Comparing Markdown syntax trees of files...")
+        # Compare Markdown syntax trees or validate links only
+        if links_only:
+            print(f"Checking local Markdown links of files...")
+        else:
+            print(f"Comparing Markdown syntax trees of files...")
         inconsistencies = compare_markdown_syntax_trees(
             source_content,
             target_content,
@@ -82,6 +94,7 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
             target_file_path=target_file,
             source_root=infer_language_root(source_file),
             target_root=infer_language_root(target_file),
+            links_only=links_only,
         )
         
         # Output results
@@ -200,11 +213,14 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
         
         # Check if it's a Markdown file
         if not specific_file.endswith('.md'):
-            print(f"Warning: File {specific_file} is not a Markdown file, skipping syntax tree comparison")
+            print(f"Warning: File {specific_file} is not a Markdown file, skipping Markdown check")
             return
         
-        # Compare Markdown syntax trees
-        print(f"Comparing Markdown syntax trees of {specific_file}...")
+        # Compare Markdown syntax trees or validate links only
+        if links_only:
+            print(f"Checking local Markdown links of {specific_file}...")
+        else:
+            print(f"Comparing Markdown syntax trees of {specific_file}...")
         inconsistencies = compare_markdown_syntax_trees(
             source_content,
             target_content,
@@ -213,6 +229,7 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
             target_file_path=target_file_path,
             source_root=source_dir,
             target_root=target_dir,
+            links_only=links_only,
         )
         
         # Output results
@@ -271,7 +288,12 @@ def run_docs_consistency_check(source_dir=None, target_dir=None, output_file=Non
         # Run main function, passing parameters
         from modules.main import main
 
-        main(source_dir_path=source_dir, target_dir_path=target_dir, output_file_path=output_file)
+        main(
+            source_dir_path=source_dir,
+            target_dir_path=target_dir,
+            output_file_path=output_file,
+            links_only=links_only,
+        )
 
 
 if __name__ == "__main__":
@@ -283,6 +305,11 @@ if __name__ == "__main__":
     parser.add_argument("--output", help="Output Excel file path")
     parser.add_argument("--source-file", help="Specify source version file path")
     parser.add_argument("--target-file", help="Specify target version file path")
+    parser.add_argument(
+        "--links-only",
+        action="store_true",
+        help="Only validate local Markdown links and fragments",
+    )
     
     args = parser.parse_args()
     
@@ -293,6 +320,7 @@ if __name__ == "__main__":
         output_file=args.output,
         specific_file=args.file,
         source_file=args.source_file,
-        target_file=args.target_file
+        target_file=args.target_file,
+        links_only=args.links_only
     )
     print("Document consistency check completed!")

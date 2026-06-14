@@ -28,7 +28,7 @@ Biblioteki wskazuje się za pomocą standardowego adresu URL. W przypadku projek
 ![GitHub Library URL](images/libraries/libraries_library_url_github.png)
 
 ::: important
-Zaleca się zawsze opierać na konkretnym wydaniu projektu biblioteki zamiast na gałęzi głównej (master). Dzięki temu to Ty decydujesz, kiedy wprowadzić zmiany z projektu biblioteki do swojego projektu, zamiast zawsze pobierać najnowsze, a potencjalnie łamiące zmiany z gałęzi master.
+Zaleca się zawsze opierać na konkretnym wydaniu projektu biblioteki zamiast na gałęzi głównej (`master`). Dzięki temu to Ty decydujesz, kiedy wprowadzić zmiany z projektu biblioteki do swojego projektu, zamiast zawsze pobierać najnowsze, a potencjalnie łamiące zmiany z gałęzi `master`.
 :::
 
 ::: important

@@ -25,11 +25,11 @@ Los anuncios de banner se basan en texto, imagen o video, y cubren una parte rel
 
 ### Anuncios intersticiales
 
-Los anuncios intersticiales son grandes experiencias de pantalla completa con animaciones y, a veces, también contenido multimedia enriquecido e interactivo. Los anuncios intersticiales suelen mostrarse entre niveles o sesiones de juego, ya que es una pausa natural en la experiencia de juego. Los anuncios intersticiales suelen generar menos vistas que los anuncios de banner, pero el costo (CPM) es mucho más alto que el de los anuncios de banner, lo que resulta en ingresos publicitarios totales significativos.
+Los anuncios intersticiales son grandes experiencias de pantalla completa con animaciones y, a veces, también *contenido multimedia enriquecido* e interactivo. Los anuncios intersticiales suelen mostrarse entre niveles o sesiones de juego, ya que es una pausa natural en la experiencia de juego. Los anuncios intersticiales suelen generar menos vistas que los anuncios de banner, pero el costo (CPM) es mucho más alto que el de los anuncios de banner, lo que resulta en ingresos publicitarios totales significativos.
 
 ### Anuncios recompensados
 
-Los anuncios recompensados (también conocidos como anuncios incentivados) son opcionales y, por lo tanto, menos intrusivos que muchas otras formas de anuncios. Los anuncios recompensados suelen ser experiencias de pantalla completa, como los anuncios intersticiales. El usuario puede elegir una recompensa a cambio de ver el anuncio, por ejemplo botín, monedas, vidas, tiempo o alguna otra moneda o beneficio dentro del juego. Los anuncios recompensados suelen tener el costo (CPM) más alto, pero el número de vistas está directamente relacionado con las tasas de aceptación voluntaria de los usuarios. Los anuncios recompensados solo tendrán un gran rendimiento si las recompensas son lo bastante valiosas y se ofrecen en el momento adecuado.
+Los anuncios recompensados (también conocidos como anuncios incentivados) son opcionales y, por lo tanto, menos intrusivos que muchas otras formas de anuncios. Los anuncios recompensados suelen ser experiencias de pantalla completa, como los anuncios intersticiales. El usuario puede elegir una recompensa a cambio de ver el anuncio, por ejemplo *botín*, monedas, vidas, tiempo o alguna otra moneda o beneficio dentro del juego. Los anuncios recompensados suelen tener el costo (CPM) más alto, pero el número de vistas está directamente relacionado con las tasas de aceptación voluntaria de los usuarios. Los anuncios recompensados solo tendrán un gran rendimiento si las recompensas son lo bastante valiosas y se ofrecen en el momento adecuado.
 
 
 ## Redes publicitarias
@@ -45,7 +45,7 @@ El [Defold Asset Portal](/tags/stars/ads/) contiene varios assets que se integra
 
 # Cómo integrar anuncios en tu juego
 
-Cuando hayas elegido una red publicitaria para integrar en tu juego, debes seguir las instrucciones de instalación y uso de ese asset específico. Lo normal es añadir primero la extensión como una [dependencia del proyecto](/manuals/libraries/#setting-up-library-dependencies). Una vez que hayas añadido el asset a tu proyecto, puedes continuar con la integración y llamar a las funciones específicas del asset para cargar y mostrar anuncios.
+Cuando hayas elegido una red publicitaria para integrar en tu juego, debes seguir las instrucciones de instalación y uso de ese *asset* específico. Lo normal es añadir primero la extensión como una [dependencia del proyecto](/manuals/libraries/#setting-up-library-dependencies). Una vez que hayas añadido el asset a tu proyecto, puedes continuar con la integración y llamar a las funciones específicas del asset para cargar y mostrar anuncios.
 
 
 # Combinar anuncios y compras in-app

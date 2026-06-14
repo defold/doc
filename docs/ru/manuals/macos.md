@@ -120,7 +120,7 @@ $ xcrun stapler staple "Game.app"
 
 ## Публикация в Mac App Store
 
-Процесс публикации в Mac App Store хорошо описан в [документации Apple Developer](https://developer.apple.com/macos/submit/). Перед отправкой обязательно добавьте разрешения и подпишите приложение, как описано выше.
+Процесс публикации в Mac App Store хорошо описан в [документации Apple Developer](https://developer.apple.com/macos/submit/). Перед отправкой обязательно добавьте разрешения и подпишите приложение с помощью `codesign`, как описано выше.
 
 Примечание: при публикации в Mac App Store игру не нужно нотариально заверять.
 
