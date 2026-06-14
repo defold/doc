@@ -1,6 +1,6 @@
 ---
 title: Defold의 충돌 이벤트
-brief: `physics.set_event_listener()`를 사용해 모든 충돌 및 상호작용 메세지를 지정한 단일 함수로 전달하면 충돌 이벤트 처리를 중앙화할 수 있습니다.
+brief: "`physics.set_event_listener()`를 사용해 모든 충돌 및 상호작용 메세지를 지정한 단일 함수로 전달하면 충돌 이벤트 처리를 중앙화할 수 있습니다."
 ---
 
 # Defold 물리 이벤트 처리
