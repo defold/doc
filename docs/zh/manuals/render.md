@@ -301,7 +301,7 @@ msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
 ## 渲染资源
-要将某些引擎资源传递到渲染脚本中，您可以将它们添加到分配给项目的 .render 文件中的 `Render Resources` 表中：
+要将某些引擎资源传递到渲染脚本中，您可以将它们添加到分配给项目的 `.render` 文件中的 `Render Resources` 表中：
 
 ![Render resources](images/render/render_resources.png)
 
@@ -340,7 +340,7 @@ local my_texture_handle = resource.get_texture_info(my_texture_resource)
 msg.post("@render:", "set_texture", { handle = my_texture_handle.handle })
 ```
 
-在 .render_script 文件中：
+在 `.render_script` 文件中：
 
 ```lua
 function on_message(self, message_id, message)
@@ -386,7 +386,7 @@ end
 ```
 
 `"draw_line"`
-: 绘制调试线。用于可视化 ray_casts、向量等。线使用 `render.draw_debug3d()` 调用绘制。
+: 绘制调试线。用于可视化 `ray_casts`、向量等。线使用 `render.draw_debug3d()` 调用绘制。
 
 ```lua
 -- 绘制一条白线

@@ -125,7 +125,7 @@ Por motivos de seguridad, los navegadores (y por extensión cualquier JavaScript
 
 
 ### Acceso a archivos del sistema
-El acceso a los archivos del sistema puede estar restringido por el sistema operativo por motivos de seguridad. Puedes usar la extensión nativa [`extension-directories`](https://defold.com/assets/extensiondirectories/) para obtener la ruta absoluta a algunos directorios comunes del sistema (por ejemplo, documents, resource, temp). Una vez que tengas la ruta absoluta, puedes usar las funciones `io.*` y `os.*` para acceder a los archivos (consulta arriba).
+El acceso a los archivos del sistema puede estar restringido por el sistema operativo por motivos de seguridad. Puedes usar la extensión nativa [`extension-directories`](https://defold.com/assets/extensiondirectories/) para obtener la ruta absoluta a algunos directorios comunes del sistema (por ejemplo, `documents`, `resource`, `temp`). Una vez que tengas la ruta absoluta, puedes usar las funciones `io.*` y `os.*` para acceder a los archivos (consulta arriba).
 
 ::: sidenote
 Por motivos de seguridad, los navegadores (y por extensión cualquier JavaScript que se ejecute en un navegador) no pueden acceder a los archivos del sistema. Las operaciones de archivo en builds HTML5 en Defold aún funcionan, pero solo en un "sistema de archivos virtual" que usa la API IndexedDB en el navegador. Esto significa que no hay forma de acceder a archivos del sistema en builds HTML5.

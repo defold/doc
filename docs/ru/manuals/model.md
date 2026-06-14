@@ -121,7 +121,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: Цветовой оттенок модели (`vector4`). Для представления оттенка с компонентами x, y, z и w, соответствующими красному, зеленому, синему и альфа оттенкам, используется тип vector4.
+: Цветовой оттенок модели (`vector4`). Для представления оттенка с компонентами x, y, z и w, соответствующими красному, зеленому, синему и альфа оттенкам, используется тип `vector4`.
 
 
 ## Рендеринг

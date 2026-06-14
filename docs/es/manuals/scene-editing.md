@@ -74,8 +74,8 @@ Haz <kbd>Click izquierdo</kbd> en los objetos de la ventana principal para selec
 
   También puedes seleccionar objetos así:
 
-  - Haz <kbd>Click izquierdo</kbd> y <kbd>Arrastrar</kbd> para seleccionar todos los objetos dentro de la región de selección.
-  - Haz <kbd>Click izquierdo</kbd> en objetos en `Outline`; mientras mantienes <kbd>⇧ Shift</kbd> puedes ampliar la selección, o mientras mantienes <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> puedes seleccionar o deseleccionar el elemento en el que hiciste click.
+- Haz <kbd>Click izquierdo</kbd> y <kbd>Arrastrar</kbd> para seleccionar todos los objetos dentro de la región de selección.
+- Haz <kbd>Click izquierdo</kbd> en objetos en `Outline`; mientras mantienes <kbd>⇧ Shift</kbd> puedes ampliar la selección, o mientras mantienes <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> puedes seleccionar o deseleccionar el elemento en el que hiciste click.
 
 #### Herramienta Move Tool {#move-tool}
 

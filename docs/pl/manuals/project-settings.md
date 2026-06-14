@@ -159,7 +159,7 @@ Wysokość okna aplikacji w pikselach.
 Tworzy bufor o wysokim DPI na wyświetlaczach, które to obsługują. Zwykle gra będzie renderowana w rozdzielczości dwukrotnie wyższej od ustawień *Width* i *Height*, ale nadal będzie to logiczna rozdzielczość używana w skryptach i właściwościach.
 
 #### Samples
-Liczba próbek używanych do supersamplingu antyaliasingu. Ustawia wartość podpowiedzi okna GLFW_FSAA_SAMPLES. Wartość `0` wyłącza antyaliasing.
+Liczba próbek używanych do supersamplingu antyaliasingu. Ustawia wartość podpowiedzi okna `GLFW_FSAA_SAMPLES`. Wartość `0` wyłącza antyaliasing.
 
 #### Fullscreen
 Zaznacz, jeśli aplikacja ma startować w trybie pełnoekranowym. Gdy pole nie jest zaznaczone, aplikacja uruchomi się w oknie.

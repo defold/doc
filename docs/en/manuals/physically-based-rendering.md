@@ -83,7 +83,7 @@ Some of these properties provides hints on how the material should be rendered. 
 
 ## Shader integration
 
-The PBR material data is exposed to the shaders based on types and name convention. The PBR material system provides all parsed material parameters to shaders via a structured uniform block named `PbrMaterial`. Each supported glTF extension corresponds to a struct within this block, which can be conditionally compiled using #define flags.
+The PBR material data is exposed to the shaders based on types and name convention. The PBR material system provides all parsed material parameters to shaders via a structured uniform block named `PbrMaterial`. Each supported glTF extension corresponds to a struct within this block, which can be conditionally compiled using `#define` flags.
 
 ```glsl
 uniform PbrMaterial
@@ -92,7 +92,7 @@ uniform PbrMaterial
 };
 ```
 
-The various features of the material is specified as fixed structs in the shader. Data has been packed as much as possible in vec4's since that is how constants are set internally in Defold. In those cases where data has been packed, it is denoted as comments in the shader snippets for each feature below:
+The various features of the material is specified as fixed structs in the shader. Data has been packed as much as possible in `vec4`'s since that is how constants are set internally in Defold. In those cases where data has been packed, it is denoted as comments in the shader snippets for each feature below:
 
 ```glsl
 struct PbrMetallicRoughness
@@ -176,7 +176,7 @@ struct PbrIridescence
 };
 ```
 
-The common properties are set on the material uniform itself (and once again, note the data packing into vec4).
+The common properties are set on the material uniform itself (and once again, note the data packing into `vec4`).
 
 ```glsl
 // Common textures
@@ -199,7 +199,7 @@ uniform PbrMaterial
 
 ### Example shader
 
-Here is an example shader that contains all features and a proposed naming scheme for texture bindings (again, this must be handled manually). Note that you can turn off features simply by using defines around each member of the PbrMaterial itself, as shown in the example below:
+Here is an example shader that contains all features and a proposed naming scheme for texture bindings (again, this must be handled manually). Note that you can turn off features simply by using `#define`s around each member of the `PbrMaterial` itself, as shown in the example below:
 
 ```glsl
 // Feature flags, comment or remove these to slim down the shader.
@@ -390,4 +390,3 @@ See also:
 * [Shaders manual](/manuals/shader)
 * [Render manual](/manuals/render)
 * [glTF 2.0 specification](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)
-

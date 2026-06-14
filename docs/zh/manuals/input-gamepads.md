@@ -60,7 +60,7 @@ end
 ```
 
 ## 多个游戏手柄
-Defold通过主机操作系统支持多个游戏手柄，操作会将操作表的`gamepad`字段设置为输入来源的游戏手柄编号：
+Defold通过主机操作系统支持多个游戏手柄，操作会将 `action` 表的`gamepad`字段设置为输入来源的游戏手柄编号：
 
 ```lua
 function on_input(self, action_id, action)
@@ -126,7 +126,7 @@ end
 
 当游戏手柄连接且没有该游戏手柄的映射时，游戏手柄将只生成"connected"、"disconnected"和"raw"操作。在这种情况下，您需要在游戏中手动将原始游戏手柄数据映射到操作。
 
-可以通过从操作中读取`gamepad_unknown`值来检查游戏手柄的输入操作是否来自未知游戏手柄：
+可以通过从 `action` 中读取`gamepad_unknown`值来检查游戏手柄的输入操作是否来自未知游戏手柄：
 
 ```lua
 function on_input(self, action_id, action)
@@ -162,7 +162,7 @@ end
 
 ### 标准游戏手柄
 
-如果连接的游戏手柄被浏览器识别为标准游戏手柄，它将使用[游戏手柄设置文件](/manuals/input-gamepads/#gamepads-settings-file)中的"Standard Gamepad"映射（在`/builtins`中的`default.gamepads`文件中包含标准游戏手柄映射）。标准游戏手柄定义为具有16个按钮和2个模拟摇杆，按钮布局类似于PlayStation或Xbox控制器（有关更多信息，请参阅[W3C定义和按钮布局](https://w3c.github.io/gamepad/#dfn-standard-gamepad)）。如果连接的游戏手柄未被识别为标准游戏手柄，Defold将在游戏手柄设置文件中查找与硬件游戏手柄类型匹配的映射。
+如果连接的游戏手柄被浏览器识别为标准游戏手柄，它将使用[游戏手柄设置文件](/manuals/input-gamepads/#gamepads-settings-file)中的"`Standard Gamepad`"映射（在`/builtins`中的`default.gamepads`文件中包含标准游戏手柄映射）。标准游戏手柄定义为具有16个按钮和2个模拟摇杆，按钮布局类似于PlayStation或Xbox控制器（有关更多信息，请参阅[W3C定义和按钮布局](https://w3c.github.io/gamepad/#dfn-standard-gamepad)）。如果连接的游戏手柄未被识别为标准游戏手柄，Defold将在游戏手柄设置文件中查找与硬件游戏手柄类型匹配的映射。
 
 ## Windows上的游戏手柄
 在Windows上，目前只支持XBox 360控制器。要将360控制器连接到Windows机器，[请确保正确设置](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows)。

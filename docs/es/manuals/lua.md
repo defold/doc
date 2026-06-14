@@ -245,8 +245,8 @@ table
   --> x   1
   ```
 
-userdata
-: Userdata se proporciona para permitir almacenar datos arbitrarios de C en variables Lua. Defold usa objetos userdata de Lua para almacenar valores Hash (hash), objetos URL (url), objetos Math (vector3, vector4, matrix4, quaternion), objetos de juego, nodos GUI (node), predicados de Render (predicate), targets de Render (render_target) y buffers de constantes de Render (constant_buffer).
+`userdata`
+: Userdata se proporciona para permitir almacenar datos arbitrarios de C en variables Lua. Defold usa objetos `userdata` de Lua para almacenar valores Hash (hash), objetos URL (url), objetos Math (vector3, vector4, matrix4, quaternion), objetos de juego, nodos GUI (node), predicados de Render (predicate), targets de Render (render_target) y buffers de constantes de Render (constant_buffer).
 
 thread
 : Los threads representan hilos de ejecución independientes y se usan para implementar corrutinas. Consulta los detalles más abajo.
@@ -268,7 +268,7 @@ Operadores aritméticos
   ```
 
 Operadores relacionales/de comparación
-: `<` (menor que), `>` (mayor que), `<=` (menor o igual), `>=` (mayor o igual), `==` (igual), `~=` (distinto). Estos operadores siempre devuelven `true` o `false`. Los valores de tipos distintos se consideran distintos. Si los tipos son iguales, se comparan según su valor. Lua compara tablas, userdata y funciones por referencia. Dos valores de ese tipo solo se consideran iguales si se refieren al mismo objeto.
+: `<` (menor que), `>` (mayor que), `<=` (menor o igual), `>=` (mayor o igual), `==` (igual), `~=` (distinto). Estos operadores siempre devuelven `true` o `false`. Los valores de tipos distintos se consideran distintos. Si los tipos son iguales, se comparan según su valor. Lua compara tablas, `userdata` y funciones por referencia. Dos valores de ese tipo solo se consideran iguales si se refieren al mismo objeto.
 
   ```lua
   a = 5
@@ -427,7 +427,7 @@ break y return
 
 Todas las variables que declaras son globales por defecto, lo que significa que están disponibles en todas las partes del contexto de runtime de Lua. Puedes declarar variables explícitamente como `local`, lo que significa que la variable solo existirá dentro del ámbito actual.
 
-Cada archivo fuente Lua define un ámbito separado. Las declaraciones locales en el nivel superior de un archivo hacen que la variable sea local al archivo script Lua. Cada función crea otro ámbito anidado y cada bloque de estructura de control crea ámbitos adicionales. Puedes crear un ámbito explícitamente con las palabras clave `do` y `end`. Lua tiene ámbito léxico, lo que significa que un ámbito tiene acceso completo a variables _locales_ del ámbito que lo contiene. Ten en cuenta que las variables locales deben declararse antes de usarlas.
+Cada archivo fuente Lua define un ámbito separado. Las declaraciones locales en el nivel superior de un archivo hacen que la variable sea `local` al archivo script Lua. Cada función crea otro ámbito anidado y cada bloque de estructura de control crea ámbitos adicionales. Puedes crear un ámbito explícitamente con las palabras clave `do` y `end`. Lua tiene ámbito léxico, lo que significa que un ámbito tiene acceso completo a variables _locales_ del ámbito que lo contiene. Ten en cuenta que las variables locales deben declararse antes de usarlas.
 
 ```lua
 function my_func(a, b)
@@ -602,7 +602,7 @@ La recolección de basura de Lua se ejecuta automáticamente en segundo plano de
 * Ejecutar una _sentencia de función_ crea un objeto closure. (es decir, ejecutar la sentencia `function () ... end`, no llamar a una función definida)
 * Las funciones variádicas (`function(v, ...) end`) crean una tabla para los puntos suspensivos cada vez que se _llama_ a la función (en Lua anterior a la versión 5.2, o si no se usa LuaJIT).
 * `dofile()` y `dostring()`
-* Objetos userdata
+* Objetos `userdata`
 
 Hay muchos casos en los que puedes evitar crear objetos nuevos y reutilizar los que ya tienes. Por ejemplo, lo siguiente es común al final de cada `update()`:
 

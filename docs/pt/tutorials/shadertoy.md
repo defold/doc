@@ -170,7 +170,7 @@ Usaremos um pipeline moderno com GLSL na versão 140 - para isso, declaramos a v
     uv = uv * 2.0 - 1.0;
     uv.x *= aspect;
     ```
-    O valor exato de aspect depende de como o exemplo está configurado. Se o efeito for renderizado em um quad de tela cheia com tamanho de display conhecido, a proporção pode ser codificada diretamente para o tutorial. Se o efeito precisar suportar tamanhos de janela arbitrários, passe a resolução como uma constante de fragmento e coloque-a dentro de um bloco uniform GLSL 140.
+    O valor exato de `aspect` depende de como o exemplo está configurado. Se o efeito for renderizado em um quad de tela cheia com tamanho de display conhecido, a proporção pode ser codificada diretamente para o tutorial. Se o efeito precisar suportar tamanhos de janela arbitrários, passe a resolução como uma constante de fragmento e coloque-a dentro de um bloco uniform GLSL 140.
 
     O tempo também é configurado aqui. Ele é passado ao shader como `uniform float iGlobalTime`. O Defold (desde 1.12.3) fornece tempo aos shaders por meio de uma constante especial `Time`, que usaremos.
 

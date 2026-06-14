@@ -21,7 +21,7 @@ Nodos caja GUI
 : Para ejecutar una animación durante el tiempo de ejecución, usa la función [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]). Consulta un ejemplo más abajo.
 
 ::: sidenote
-El modo de reproducción once ping-pong reproducirá la animación hasta el último fotograma, luego invertirá el orden y reproducirá de vuelta hasta el **segundo** fotograma de la animación, no hasta el primer fotograma. Esto se hace para que encadenar animaciones sea más fácil.
+El modo de reproducción `once ping-pong` reproducirá la animación hasta el último fotograma, luego invertirá el orden y reproducirá de vuelta hasta el **segundo** fotograma de la animación, no hasta el primer fotograma. Esto se hace para que encadenar animaciones sea más fácil.
 :::
 
 ### Ejemplo de sprite

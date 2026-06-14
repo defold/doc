@@ -60,7 +60,7 @@ end
 ```
 
 ## Wiele gamepadów
-Defold obsługuje wiele gamepadów przez system operacyjny hosta, a akcje ustawiają pole `gamepad` w tabeli akcji na numer gamepada, z którego pochodzi dane wejście:
+Defold obsługuje wiele gamepadów przez system operacyjny hosta, a akcje ustawiają pole `gamepad` w tabeli `action` na numer gamepada, z którego pochodzi dane wejście:
 
 ```lua
 function on_input(self, action_id, action)
@@ -126,7 +126,7 @@ Narzędzie poprosi o naciskanie kolejnych przycisków na podłączonym kontroler
 
 Gdy gamepad jest podłączony i nie ma dla niego mapowania, będzie generował tylko akcje connected, disconnected i raw. W takim przypadku trzeba ręcznie zmapować surowe dane gamepada na akcje w grze.
 
-Można sprawdzić, czy akcja wejścia z gamepada pochodzi z nieznanego gamepada, odczytując wartość `gamepad_unknown` z akcji:
+Można sprawdzić, czy akcja wejścia z gamepada pochodzi z nieznanego gamepada, odczytując wartość `gamepad_unknown` z `action`:
 
 ```lua
 function on_input(self, action_id, action)
@@ -161,7 +161,7 @@ Jeśli gra działa wewnątrz `iframe`, upewnij się też, że `iframe` ma dodane
 
 ### Standardowe gamepady
 
-Jeśli podłączony gamepad zostanie rozpoznany przez przeglądarkę jako standardowy gamepad, użyje mapowania "Standard Gamepad" z [pliku ustawień gamepads](/manuals/input-gamepads/#gamepads-settings-file) (mapowanie standardowego gamepada jest dołączone do pliku `default.gamepads` w `/builtins`). Standardowy gamepad ma 16 przycisków i 2 gałki analogowe, a układ przycisków jest podobny do kontrolera PlayStation lub Xbox (więcej informacji znajdziesz w [definicji i układzie przycisków W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad)). Jeśli podłączony gamepad nie zostanie rozpoznany jako standardowy, Defold poszuka w pliku ustawień gamepadów mapowania pasującego do jego typu sprzętowego.
+Jeśli podłączony gamepad zostanie rozpoznany przez przeglądarkę jako standardowy gamepad, użyje mapowania "`Standard Gamepad`" z [pliku ustawień gamepads](/manuals/input-gamepads/#gamepads-settings-file) (mapowanie standardowego gamepada jest dołączone do pliku `default.gamepads` w `/builtins`). Standardowy gamepad ma 16 przycisków i 2 gałki analogowe, a układ przycisków jest podobny do kontrolera PlayStation lub Xbox (więcej informacji znajdziesz w [definicji i układzie przycisków W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad)). Jeśli podłączony gamepad nie zostanie rozpoznany jako standardowy, Defold poszuka w pliku ustawień gamepadów mapowania pasującego do jego typu sprzętowego.
 
 ## Gamepady w Windows
 W systemie Windows obecnie obsługiwane są tylko kontrolery Xbox 360. Aby podłączyć kontroler 360 do komputera z Windows, upewnij się, że został poprawnie skonfigurowany zgodnie z [tym poradnikiem](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).

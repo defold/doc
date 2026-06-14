@@ -60,7 +60,7 @@ end
 ```
 
 ## Vários gamepads
-O Defold oferece suporte a vários gamepads por meio do sistema operacional host; ações definem o campo `gamepad` da tabela de ação para o número do gamepad de onde a entrada se originou:
+O Defold oferece suporte a vários gamepads por meio do sistema operacional host; ações definem o campo `gamepad` da tabela `action` para o número do gamepad de onde a entrada se originou:
 
 ```lua
 function on_input(self, action_id, action)
@@ -126,7 +126,7 @@ A ferramenta pedirá que você pressione diferentes botões no controle conectad
 
 Quando um gamepad é conectado e não existe mapeamento para ele, o gamepad gerará apenas ações "connected", "disconnected" e "raw". Nesse caso, você precisa mapear manualmente os dados brutos do gamepad para ações no seu jogo.
 
-É possível verificar se uma ação de entrada de um gamepad vem de um gamepad desconhecido ou não lendo o valor `gamepad_unknown` da ação:
+É possível verificar se uma ação de entrada de um gamepad vem de um gamepad desconhecido ou não lendo o valor `gamepad_unknown` de `action`:
 
 ```lua
 function on_input(self, action_id, action)
@@ -161,7 +161,7 @@ Se o seu jogo estiver sendo executado dentro de um `iframe`, você também deve 
 
 ### Gamepad padrão
 
-Se um gamepad conectado for identificado pelo navegador como um gamepad padrão, ele usará o mapeamento de "Standard Gamepad" no [arquivo de configurações de gamepads](/manuals/input-gamepads/#gamepads-settings-file) (um mapeamento de Standard Gamepad está incluído no arquivo `default.gamepads` em `/builtins`). Um gamepad padrão é definido como tendo 16 botões e 2 sticks analógicos com um layout de botões semelhante ao de um controle PlayStation ou Xbox (veja a [definição e o layout de botões do W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad) para mais informações). Se o gamepad conectado não for identificado como um gamepad padrão, o Defold procurará um mapeamento que corresponda ao tipo de hardware do gamepad no arquivo de configurações de gamepad.
+Se um gamepad conectado for identificado pelo navegador como um gamepad padrão, ele usará o mapeamento de "`Standard Gamepad`" no [arquivo de configurações de gamepads](/manuals/input-gamepads/#gamepads-settings-file) (um mapeamento de Standard Gamepad está incluído no arquivo `default.gamepads` em `/builtins`). Um gamepad padrão é definido como tendo 16 botões e 2 sticks analógicos com um layout de botões semelhante ao de um controle PlayStation ou Xbox (veja a [definição e o layout de botões do W3C](https://w3c.github.io/gamepad/#dfn-standard-gamepad) para mais informações). Se o gamepad conectado não for identificado como um gamepad padrão, o Defold procurará um mapeamento que corresponda ao tipo de hardware do gamepad no arquivo de configurações de gamepad.
 
 ## Gamepads no Windows
 No Windows, atualmente apenas controles Xbox 360 têm suporte. Para conectar seu controle 360 à sua máquina Windows, [certifique-se de que ele esteja configurado corretamente](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).

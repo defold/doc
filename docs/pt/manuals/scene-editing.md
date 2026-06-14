@@ -74,8 +74,8 @@ Use <kbd>Left Mouse Click</kbd> em objetos na janela principal para selecioná-l
 
   Você também pode selecionar objetos assim:
 
-  - <kbd>Left Mouse Click</kbd> e <kbd>Drag</kbd> para selecionar todos os objetos dentro da região de seleção.
-  - <kbd>Left Mouse Click</kbd> em objetos no `Outline`; mantendo <kbd>⇧ Shift</kbd> pressionado, você pode expandir a seleção, ou mantendo <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, pode selecionar/desselecionar o item clicado.
+- <kbd>Left Mouse Click</kbd> e <kbd>Drag</kbd> para selecionar todos os objetos dentro da região de seleção.
+- <kbd>Left Mouse Click</kbd> em objetos no `Outline`; mantendo <kbd>⇧ Shift</kbd> pressionado, você pode expandir a seleção, ou mantendo <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, pode selecionar/desselecionar o item clicado.
 
 #### Move tool
 

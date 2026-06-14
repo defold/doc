@@ -96,7 +96,7 @@ Otro caso de uso para cargar grandes cantidades de datos por la red es el stream
 
 ### Headers de solicitud
 
-Es posible definir headers adicionales al enviar una solicitud. Por ejemplo, esto se puede usar para definir un header de autorización o el tipo de contenido para indicar al servidor qué formato tiene el cuerpo de la solicitud.
+Es posible definir headers adicionales al enviar una solicitud. Por ejemplo, esto se puede usar para definir un header `Authorization` o `Content-Type` para indicar al servidor qué formato tiene el cuerpo de la solicitud.
 
 ```Lua
 local function handle_response(self, id, response)

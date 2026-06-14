@@ -29,7 +29,7 @@ Scripts de renderização
 O Defold executa scripts Lua como parte do ciclo de vida da engine e expõe esse ciclo por meio de um conjunto de funções de callback predefinidas. Quando você adiciona um componente de script a um objeto de jogo, o script passa a fazer parte do ciclo de vida do objeto e de seus componentes. O script é avaliado no contexto Lua quando é carregado; depois, a engine executa as funções a seguir e passa como parâmetro uma referência para a instância atual do componente de script. Você pode usar essa referência `self` para armazenar estado na instância do componente.
 
 ::: important
-`self` é um objeto userdata que se comporta como uma tabela Lua, mas você não pode iterar sobre ele com `pairs()` ou `ipairs()` e não pode imprimi-lo usando `pprint()`.
+`self` é um objeto `userdata` que se comporta como uma tabela Lua, mas você não pode iterar sobre ele com `pairs()` ou `ipairs()` e não pode imprimi-lo usando `pprint()`.
 :::
 
 #### `init(self)`

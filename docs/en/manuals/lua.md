@@ -246,7 +246,7 @@ table
   ```
 
 userdata
-: Userdata is provided to allow arbitrary C data to be stored in Lua variables. Defold uses Lua userdata objects to store Hash values (hash), URL objects (url), Math objects (vector3, vector4, matrix4, quaternion), Game objects, GUI nodes (node), Render predicates (predicate), Render targets (render_target) and Render constant buffers (constant_buffer)
+: `userdata` is provided to allow arbitrary C data to be stored in Lua variables. Defold uses Lua `userdata` objects to store Hash values (hash), URL objects (url), Math objects (vector3, vector4, matrix4, quaternion), Game objects, GUI nodes (node), Render predicates (predicate), Render targets (render_target) and Render constant buffers (constant_buffer)
 
 thread
 : Threads represent independent threads of execution and are used to implement coroutines. See below for details.
@@ -268,7 +268,7 @@ Arithmetic operators
   ```
 
 Relational/comparison operators
-: `<` (less than), `>` (greater than), `<=` (less or equal), `>=` (greater or equal), `==` (equal), `~=` (not equal). There operators always return `true` or `false`. Values of different types are considered different. If the types are the same, they are compared according to their value. Lua compares tables, userdata, and functions by reference. Two such values are considered equal only if they refer to the same object.
+: `<` (less than), `>` (greater than), `<=` (less or equal), `>=` (greater or equal), `==` (equal), `~=` (not equal). There operators always return `true` or `false`. Values of different types are considered different. If the types are the same, they are compared according to their value. Lua compares tables, `userdata`, and functions by reference. Two such values are considered equal only if they refer to the same object.
 
   ```lua
   a = 5
@@ -427,7 +427,7 @@ break and return
 
 All variables that you declare are by default global, meaning that they are available through all parts of the Lua runtime context. You can explicitly declare variables `local`, meaning that the variable will only exist within the current scope.
 
-Each Lua source file defines a separate scope. Local declarations on the topmost level in a file mean the variable is local to the Lua script file. Each function creates another nested scope and each control structure block creates additional scopes. You can explicitly create a scope with the `do` and `end` keywords. Lua is lexically scoped, meaning that a scope has full access to _local_ variables from the enclosing scope. Note that the local variables must be declared before their use.
+Each Lua source file defines a separate scope. `local` declarations on the topmost level in a file mean the variable is local to the Lua script file. Each function creates another nested scope and each control structure block creates additional scopes. You can explicitly create a scope with the `do` and `end` keywords. Lua is lexically scoped, meaning that a scope has full access to _local_ variables from the enclosing scope. Note that the local variables must be declared before their use.
 
 ```lua
 function my_func(a, b)

@@ -302,7 +302,7 @@ msg.post("@render:", "clear_color", { color = vmath.vector4(0.3, 0.4, 0.5, 0) })
 ```
 
 ## Recursos de render
-Para pasar ciertos recursos del motor al script de render, puedes agregarlos a la tabla `Render Resources` del archivo .render asignado al proyecto:
+Para pasar ciertos recursos del motor al script de render, puedes agregarlos a la tabla `Render Resources` del archivo `.render` asignado al proyecto:
 
 ![Recursos de render](images/render/render_resources.png)
 
@@ -341,7 +341,7 @@ local my_texture_handle = resource.get_texture_info(my_texture_resource)
 msg.post("@render:", "set_texture", { handle = my_texture_handle.handle })
 ```
 
-En un archivo .render_script:
+En un archivo `.render_script`:
 
 ```lua
 function on_message(self, message_id, message)
@@ -387,7 +387,7 @@ end
 ```
 
 `"draw_line"`
-: Dibuja una línea de debug. Se usa para visualizar ray_casts, vectores y más. Las líneas se dibujan con la llamada `render.draw_debug3d()`.
+: Dibuja una línea de debug. Se usa para visualizar `ray_casts`, vectores y más. Las líneas se dibujan con la llamada `render.draw_debug3d()`.
 
 ```lua
 -- dibujar una línea blanca

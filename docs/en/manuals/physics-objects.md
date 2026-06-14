@@ -48,7 +48,7 @@ Collision Shape
 : This property is used for tile map geometry or convex shapes that does not use primitive shapes. See [Collision Shapes for more information](/manuals/physics-shapes).
 
 Type
-: The type of collision object: `Dynamic`, `Kinematic`, `Static` or `Trigger`. If you set the object to dynamic you _must_ set the *Mass* property to a non zero value. For dynamic or static objects you should also check that the *Friction* and *Restitution* values are good for your use-case.
+: The type of collision object: `Dynamic`, `Kinematic`, `Static` or `Trigger`. If you set the object to `Dynamic` you _must_ set the *Mass* property to a non zero value. For `Dynamic` or `Static` objects you should also check that the *Friction* and *Restitution* values are good for your use-case.
 
 Friction
 : Friction makes it possible for objects to slide realistically against each other. The friction value is usually set between `0` (no friction at all---a very slippery object) and `1` (strong friction---an abrasive object). However, any positive value is valid.

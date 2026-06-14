@@ -55,9 +55,9 @@ Todos os objetos de jogo, e alguns tipos de componente, têm propriedades que po
 | propriedade   | descrição                            | tipo            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *position* | A posição local do objeto de jogo. | `vector3`      | `get+set`{.mark} |
-| *rotation* | Rotação local do objeto de jogo, expressa como um quaternion.  | `quaternion` | `get+set`{.mark} |
+| *rotation* | Rotação local do objeto de jogo, expressa como um `quaternion`.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Rotação local do objeto de jogo, em ângulos de Euler. | `vector3` | `get+set`{.mark} |
-| *scale*    | Escala local não uniforme do objeto de jogo, expressa como um vetor onde cada componente contém um multiplicador ao longo de cada eixo. Para dobrar o tamanho em x e y, forneça vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
+| *scale*    | Escala local não uniforme do objeto de jogo, expressa como um vetor onde cada componente contém um multiplicador ao longo de cada eixo. Para dobrar o tamanho em x e y, forneça `vmath.vector3(2.0, 2.0, 0)` | `vector3` | `get+set`{.mark} |
 | *scale.xy*    | Escala local não uniforme do objeto de jogo, expressa como um vetor onde cada componente contém um multiplicador ao longo dos eixos X e Y.| `vector3` | `get+set`{.mark} |
 
 ::: sidenote
@@ -125,7 +125,7 @@ Nodes de GUI também contêm propriedades, mas elas são lidas e escritas por me
 * `inner_radius` (ou `gui.PROP_INNER_RADIUS`)
 * `slice9` (ou `gui.PROP_SLICE9`)
 
-Observe que todos os valores de cor são codificados em um vector4, onde os componentes correspondem aos valores RGBA:
+Observe que todos os valores de cor são codificados em um `vector4`, onde os componentes correspondem aos valores RGBA:
 
 `x`
 : O componente de cor vermelho

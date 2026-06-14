@@ -60,7 +60,7 @@ end
 ```
 
 ## Multiple gamepads
-Defold supports multiple gamepads through the host operating system, actions set the `gamepad` field of the action table to the gamepad number the input originated from:
+Defold supports multiple gamepads through the host operating system, actions set the `gamepad` field of the `action` table to the gamepad number the input originated from:
 
 ```lua
 function on_input(self, action_id, action)
@@ -126,7 +126,7 @@ The tool will ask you to press different buttons on your connected controller. I
 
 When a gamepad is connected and no mapping exists for the gamepad the gamepad will only generate "connected", "disconnected" and "raw" actions. In this case you need to manually map the raw gamepad data to actions in your game.
 
-It is possible to check if an input action for a gamepad is from an unknown gamepad or not by reading the `gamepad_unknown` value from the action:
+It is possible to check if an input action for a gamepad is from an unknown gamepad or not by reading the `gamepad_unknown` value from the `action`:
 
 ```lua
 function on_input(self, action_id, action)
@@ -161,7 +161,7 @@ If your game is running from inside an `iframe` you must also make sure that the
 
 ### Standard gamepad
 
-If a connected gamepad is identified by the browser as a standard gamepad it will use the mapping for "Standard Gamepad" in the [gamepads settings file](/manuals/input-gamepads/#gamepads-settings-file) (a Standard Gamepad mapping is included in the `default.gamepads` file in `/builtins`). A standard gamepad is defined as having 16 buttons and 2 analog sticks with a button layout similar to a PlayStation or Xbox controller (see the [W3C definition and button layout](https://w3c.github.io/gamepad/#dfn-standard-gamepad) for more information). If the connected gamepad is not identified as a standard gamepad Defold will look for a mapping matching the hardware gamepad type in the gamepad settings file.
+If a connected gamepad is identified by the browser as a standard gamepad it will use the mapping for "Standard Gamepad" in the [gamepads settings file](/manuals/input-gamepads/#gamepads-settings-file) (a `Standard Gamepad` mapping is included in the `default.gamepads` file in `/builtins`). A standard gamepad is defined as having 16 buttons and 2 analog sticks with a button layout similar to a PlayStation or Xbox controller (see the [W3C definition and button layout](https://w3c.github.io/gamepad/#dfn-standard-gamepad) for more information). If the connected gamepad is not identified as a standard gamepad Defold will look for a mapping matching the hardware gamepad type in the gamepad settings file.
 
 ## Gamepads on Windows
 On Windows, only XBox 360 controllers are currently supported. To hook up your 360 controller to your Windows machine, [make sure it is setup correctly](http://www.wikihow.com/Use-Your-Xbox-360-Controller-for-Windows).

@@ -96,7 +96,7 @@ Mapa kafelków ma kilka właściwości, którymi można sterować za pomocą `go
 {% include shared/material-constants.md component='tilemap' variable='tint' %}
 
 `tint`
-: Kolor zabarwienia mapy kafelków (`vector4`). Wartość vector4 reprezentuje zabarwienie za pomocą składowych x, y, z i w, odpowiadających kolejno czerwieni, zieleni, niebieskiemu i alfie.
+: Kolor zabarwienia mapy kafelków (`vector4`). Wartość `vector4` reprezentuje zabarwienie za pomocą składowych x, y, z i w, odpowiadających kolejno czerwieni, zieleni, niebieskiemu i alfie.
 
 ## Konfiguracja projektu
 

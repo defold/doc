@@ -107,7 +107,7 @@ render.dispatch_compute(32, 32, 32, {constants = constants})
 
 Atualmente, gerar qualquer tipo de saída a partir de um programa compute só pode ser feito via `storage textures`. Uma storage texture é semelhante a uma "textura regular", exceto que oferece suporte a mais funcionalidades e configurabilidade. Storage textures, como o nome implica, podem ser usadas como um buffer genérico no qual você pode ler e gravar dados a partir de um programa compute. Depois, você pode vincular o mesmo buffer a um programa shader diferente para leitura.
 
-Para criar uma storage texture no Defold, você precisa fazer isso a partir de um arquivo .script comum. Scripts de renderização não têm essa funcionalidade, pois texturas dinâmicas precisam ser criadas via API `resource`, que só está disponível em arquivos .script comuns.
+Para criar uma storage texture no Defold, você precisa fazer isso a partir de um arquivo `.script` comum. Scripts de renderização não têm essa funcionalidade, pois texturas dinâmicas precisam ser criadas via API `resource`, que só está disponível em arquivos `.script` comuns.
 
 ```lua
 -- Em um arquivo .script:

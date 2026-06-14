@@ -88,7 +88,7 @@ Definir y borrar breakpoints
   Para definir o borrar un breakpoint, haz click en la columna justo a la derecha de los números de línea en el editor de código. También puedes seleccionar <kbd>Edit ▸ Toggle Breakpoint</kbd> desde el menú.
 
 Desactivar y activar breakpoints
-: Los breakpoints pueden desactivarse temporalmente sin eliminarlos. Cuando están desactivados, se ignoran durante la ejecución, pero pueden volver a activarse en cualquier momento. Haz click derecho sobre él en el margen del editor de código y luego activa o desactiva la casilla Enabled. Los breakpoints desactivados aparecen huecos para indicar que están inactivos.
+: Los breakpoints pueden desactivarse temporalmente sin eliminarlos. Cuando están desactivados, se ignoran durante la ejecución, pero pueden volver a activarse en cualquier momento. Haz click derecho sobre él en el margen del editor de código y luego activa o desactiva la casilla `Enabled`. Los breakpoints desactivados aparecen huecos para indicar que están inactivos.
 
   ![disable breakpoint](images/debugging/disable_breakpoint.png)
 

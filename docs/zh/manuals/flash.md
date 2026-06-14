@@ -239,7 +239,7 @@ Defold 包含一个 Box2D 物理引擎的修改版，可以用来自动模拟真
 
 注意 *Group* 属性设置为了 "target" 然后 *Mask* 设置为了 "bullet"。
 
-Flash 里，需要脚本调用才会进行碰撞检测。Defold 里，只要碰撞对象开启，后台就会持续进行碰撞检测。碰撞发生时，消息会发送到游戏对象所有组件上（更确切地说是脚本组件）。有 [碰撞处理和碰撞点处理消息](/manuals/physics-messages)，其中包含了处理碰撞所需的各种信息。
+Flash 里，需要脚本调用才会进行碰撞检测。Defold 里，只要碰撞对象开启，后台就会持续进行碰撞检测。碰撞发生时，消息会发送到游戏对象所有组件上（更确切地说是脚本组件）。有 [`collision_response` 和 `contact_point_response` 消息](/manuals/physics-messages)，其中包含了处理碰撞所需的各种信息。
 
 Defold 的碰撞检测比 Flash 的要高级，毫不费力就能检测复杂形状间的碰撞。碰撞检测是自动的，也就是说不需要手动遍历各个对象然后挨个进行碰撞检测。但是没有 Flash 的 `shapeFlag`。但是对于复杂图形可以使用简单图形组合达成。更复杂的需求下，还可以使用 [自定义图形](//forum.defold.com/t/does-defold-support-only-three-shapes-for-collision-solved/1985)。
 

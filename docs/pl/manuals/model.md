@@ -122,7 +122,7 @@ Jeśli chcesz tworzyć własne materiały dla modeli, zajrzyj do [dokumentacji m
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: Odcień kolorystyczny modelu (`vector4`). Wektor typu vector4 służy do reprezentowania odcienia, a składowe x, y, z i w odpowiadają odpowiednio za odcień czerwony, zielony, niebieski i alfa.
+: Odcień kolorystyczny modelu (`vector4`). Wektor typu `vector4` służy do reprezentowania odcienia, a składowe x, y, z i w odpowiadają odpowiednio za odcień czerwony, zielony, niebieski i alfa.
 
 
 ## Renderowanie

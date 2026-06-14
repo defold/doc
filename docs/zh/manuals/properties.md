@@ -55,9 +55,9 @@ local color = gui.get_color(node)
 | 属性        | 描述                                   | 类型            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *position* | 游戏对象的本地位置。 | `vector3`      | `get+set`{.mark} |
-| *rotation* | 游戏对象的本地旋转，以四元数表示。  | `quaternion` | `get+set`{.mark} |
+| *rotation* | 游戏对象的本地旋转，以 `quaternion` 表示。  | `quaternion` | `get+set`{.mark} |
 | *euler*    | 游戏对象的本地旋转，欧拉角。 | `vector3` | `get+set`{.mark} |
-| *scale*    | 游戏对象的本地非均匀缩放，表示为向量，其中每个组件包含沿每个轴的乘数。要在 x 和 y 方向上将大小加倍，请提供 vmath.vector3(2.0, 2.0, 0) | `vector3` | `get+set`{.mark} |
+| *scale*    | 游戏对象的本地非均匀缩放，表示为向量，其中每个组件包含沿每个轴的乘数。要在 x 和 y 方向上将大小加倍，请提供 `vmath.vector3(2.0, 2.0, 0)` | `vector3` | `get+set`{.mark} |
 | *scale.xy*    | 游戏对象的本地非均匀缩放，表示为向量，其中每个组件包含沿 X 和 Y 轴的乘数。| `vector3` | `get+set`{.mark} |
 
 ::: sidenote
@@ -125,7 +125,7 @@ GUI 节点也包含属性，但它们是通过特殊的 getter 和 setter 函数
 * `inner_radius`（或 `gui.PROP_INNER_RADIUS`）
 * `slice9`（或 `gui.PROP_SLICE9`）
 
-请注意，所有颜色值都编码在 vector4 中，其中组件对应于 RGBA 值：
+请注意，所有颜色值都编码在 `vector4` 中，其中组件对应于 RGBA 值：
 
 `x`
 : 红色颜色组件

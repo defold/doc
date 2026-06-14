@@ -16,7 +16,7 @@ When creating an extension, there are a few things that help out in developing i
 
 There should only be one Lua API, and one implementation of it. This makes it a lot easier to have the same behaviour for all platforms.
 
-If the platform in question shouldn't support the extension, it is recommended to simply not registering a Lua module at all. That way you can detect support by checking for nil:
+If the platform in question shouldn't support the extension, it is recommended to simply not registering a Lua module at all. That way you can detect support by checking for `nil`:
 
 ```lua
     if myextension ~= nil then
@@ -125,4 +125,3 @@ When choosing a 3rd party library to use (regardless of language), consider the 
 Always make sure that you have access to your dependencies. E.g. if you depend on something on GitHub, there's nothing preventing that repository from either being removed, or suddenly change direction or ownership. You can mitigate this risk by forking the repository and using your fork instead of the upstream project.
 
 Remember that the code in the library will be injected into your game, so make sure the library does what it's supposed to do, and nothing more!
-

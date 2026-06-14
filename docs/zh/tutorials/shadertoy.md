@@ -170,7 +170,7 @@ Blender 是免费的开源 3D 软件，可从 [blender.org](https://www.blender.
     uv = uv * 2.0 - 1.0;
     uv.x *= aspect;
     ```
-    具体 aspect 值取决于示例如何设置。如果效果渲染在已知显示尺寸的全屏 quad 上，本教程可以硬编码宽高比。如果效果需要支持任意窗口大小，请把分辨率作为片段常量传入，并将它放入 GLSL 140 uniform block。
+    具体 `aspect` 值取决于示例如何设置。如果效果渲染在已知显示尺寸的全屏 quad 上，本教程可以硬编码宽高比。如果效果需要支持任意窗口大小，请把分辨率作为片段常量传入，并将它放入 GLSL 140 uniform block。
 
     时间也在这里设置。Shadertoy 通过 `uniform float iGlobalTime` 传给着色器。Defold（自 1.12.3 起）通过一个特殊的 `Time` 常量向着色器提供时间，我们会使用它。
 

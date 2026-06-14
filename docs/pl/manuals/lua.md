@@ -242,8 +242,8 @@ table
   --> x   1
   ```
 
-userdata
-: Userdata (dane użytkownika) pozwala przechowywać dowolne dane C w zmiennych Lua. W silniku Defold userdata Lua służy do przechowywania wartości Hash (hash), obiektów URL (url), obiektów Math (vector3, vector4, matrix4, quaternion), obiektów gry, węzłów GUI (node), predykatów renderowania (predicate), celów renderowania (render_target) oraz buforów stałych renderowania (constant_buffer).
+`userdata`
+: Userdata (dane użytkownika) pozwala przechowywać dowolne dane C w zmiennych Lua. W silniku Defold `userdata` Lua służy do przechowywania wartości Hash (hash), obiektów URL (url), obiektów Math (vector3, vector4, matrix4, quaternion), obiektów gry, węzłów GUI (node), predykatów renderowania (predicate), celów renderowania (render_target) oraz buforów stałych renderowania (constant_buffer).
 
 thread
 : Wątki reprezentują niezależne jednostki wykonywania i są używane do implementacji korutyn. Zobacz poniżej, aby poznać szczegóły.
@@ -265,7 +265,7 @@ Operatory arytmetyczne
   ```
 
 Operatory relacyjne/porównania
-: `<` (mniejsze niż), `>` (większe niż), `<=` (mniejsze lub równe), `>=` (większe lub równe), `==` (równe), `~=` (nierówne). Operatory te zawsze zwracają `true` lub `false`. Wartości różnych typów są uważane za różne. Jeśli typy są takie same, są porównywane na podstawie ich wartości. Lua porównuje tabele, userdata i funkcje na podstawie odniesienia. Dwie takie same wartości są uważane za równe tylko wtedy, gdy odnoszą się do tego samego obiektu.
+: `<` (mniejsze niż), `>` (większe niż), `<=` (mniejsze lub równe), `>=` (większe lub równe), `==` (równe), `~=` (nierówne). Operatory te zawsze zwracają `true` lub `false`. Wartości różnych typów są uważane za różne. Jeśli typy są takie same, są porównywane na podstawie ich wartości. Lua porównuje tabele, `userdata` i funkcje na podstawie odniesienia. Dwie takie same wartości są uważane za równe tylko wtedy, gdy odnoszą się do tego samego obiektu.
 
   ```lua
   a = 5
@@ -424,7 +424,7 @@ break and return
 
 Wszystkie zmienne, które deklarujesz, są domyślnie globalne, co oznacza, że są dostępne we wszystkich częściach kontekstu uruchomieniowego Lua. Możesz wyraźnie zadeklarować zmienne jako `local`, co oznacza, że zmienna istnieje tylko w bieżącym zakresie (ang. scope).
 
-Każdy plik źródłowy Lua definiuje osobny zakres. Lokalne deklaracje na najwyższym poziomie w pliku oznaczają, że zmienna jest lokalna w skrypcie Lua. Każda funkcja tworzy inny zagnieżdżony zakres, a każdy blok struktury sterującej tworzy dodatkowe zakresy. Możesz wyraźnie tworzyć zakresy za pomocą słów kluczowych `do` i `end`. Lua działa w zakresie leksykalnym, co oznacza, że zakres ma pełny dostęp do _lokalnych_ zmiennych z otaczającego zakresu. Należy zauważyć, że zmienne lokalne muszą być zadeklarowane przed ich użyciem.
+Każdy plik źródłowy Lua definiuje osobny zakres. Deklaracje `local` na najwyższym poziomie w pliku oznaczają, że zmienna jest lokalna w skrypcie Lua. Każda funkcja tworzy inny zagnieżdżony zakres, a każdy blok struktury sterującej tworzy dodatkowe zakresy. Możesz wyraźnie tworzyć zakresy za pomocą słów kluczowych `do` i `end`. Lua działa w zakresie leksykalnym, co oznacza, że zakres ma pełny dostęp do _lokalnych_ zmiennych z otaczającego zakresu. Należy zauważyć, że zmienne lokalne muszą być zadeklarowane przed ich użyciem.
 
 ```lua
 function my_func(a, b)

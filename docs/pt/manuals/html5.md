@@ -73,7 +73,7 @@ Ao clicar no botão <kbd>Criar Pacote…</kbd>, você será solicitado a selecio
   * WebGL - A Microsoft não concluiu o trabalho de implementação da API _WebGL_ (veja https://www.khronos.org/registry/webgl/specs/latest/). Portanto, ela não tem desempenho tão bom quanto em outros navegadores.
   * Tela cheia - O modo de tela cheia não é confiável no navegador.
 * Chrome
-  * Builds de depuração lentas - Em builds de depuração no HTML5, verificamos todas as chamadas gráficas WebGL para detectar erros. Infelizmente, isso é muito lento ao testar no Chrome. É possível desativar isso definindo o campo *Engine Arguments* de *game.project* como `--verify-graphics-calls=false`.
+  * Builds de depuração lentas - Em builds de depuração no HTML5, verificamos todas as chamadas gráficas WebGL para detectar erros. Infelizmente, isso é muito lento ao testar no Chrome. É possível desativar isso definindo o campo *`Engine Arguments`* de *game.project* como `--verify-graphics-calls=false`.
 * Suporte a gamepad - [Consulte a documentação de Gamepad](/manuals/input-gamepads/#gamepads-in-html5) para considerações especiais e passos que talvez você precise seguir no HTML5.
 
 ## Personalizando o pacote HTML5
@@ -272,7 +272,7 @@ Builds HTML5 oferecem suporte a operações de arquivo como `sys.save()`, `sys.l
     }
 ```
 
-Você também pode adicionar `--config=foo1=bar1, --config=foo2=bar2` ao campo de argumentos da engine na seção HTML5 de *game.project*, e isso será injetado no arquivo `index.html` gerado.
+Você também pode adicionar `--config=foo1=bar1, --config=foo2=bar2` ao campo *Engine Arguments* na seção HTML5 de *game.project*, e isso será injetado no arquivo `index.html` gerado.
 
 Em tempo de execução, você obtém os valores assim:
 

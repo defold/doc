@@ -94,7 +94,7 @@ Innym przypadkiem użycia dużych ilości danych pobieranych przez sieć jest st
 
 ### Nagłówki żądania
 
-Podczas wysyłania żądania można ustawić dodatkowe nagłówki. Można tego użyć na przykład do ustawienia nagłówka autoryzacji albo typu zawartości, aby poinformować serwer o formacie danych.
+Podczas wysyłania żądania można ustawić dodatkowe nagłówki. Można tego użyć na przykład do ustawienia nagłówka `Authorization` albo `Content-Type`, aby poinformować serwer o formacie danych.
 
 ```Lua
 local function handle_response(self, id, response)

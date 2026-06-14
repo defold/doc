@@ -94,7 +94,7 @@ http.request("https://www.foobar.com/myimage.png", "GET", handle_response, nil, 
 
 ### 请求头
 
-发送请求时可以设置额外的请求头。例如，可以用它来设置授权头，或者设置内容类型来告诉服务器所发送数据的格式。
+发送请求时可以设置额外的请求头。例如，可以用它来设置 `Authorization` 请求头，或者设置 `Content-Type` 来告诉服务器所发送数据的格式。
 
 ```Lua
 local function handle_response(self, id, response)

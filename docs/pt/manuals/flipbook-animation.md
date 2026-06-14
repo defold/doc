@@ -21,7 +21,7 @@ Nodes GUI do tipo box
 : Para executar uma animação em tempo de execução, use a função [`gui.play_flipbook()`](/ref/gui/?q=play_flipbook#gui.play_flipbook:node-animation-[complete_function]-[play_properties]). Veja um exemplo abaixo.
 
 ::: sidenote
-O modo de reprodução once ping-pong reproduz a animação até o último frame e então inverte a ordem e reproduz de volta até o **segundo** frame da animação, não até o primeiro. Isso é feito para facilitar o encadeamento de animações.
+O modo de reprodução `once ping-pong` reproduz a animação até o último frame e então inverte a ordem e reproduz de volta até o **segundo** frame da animação, não até o primeiro. Isso é feito para facilitar o encadeamento de animações.
 :::
 
 ### Exemplo de sprite

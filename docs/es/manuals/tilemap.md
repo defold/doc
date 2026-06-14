@@ -96,7 +96,7 @@ Un tilemap tiene varias propiedades diferentes que se pueden manipular con `go.g
 {% include shared/material-constants.md component='tilemap' variable='tint' %}
 
 `tint`
-: El tinte de color del tile map (`vector4`). El vector4 se usa para representar el tinte con x, y, z y w correspondientes al tinte rojo, verde, azul y alfa.
+: El tinte de color del tile map (`vector4`). El `vector4` se usa para representar el tinte con x, y, z y w correspondientes al tinte rojo, verde, azul y alfa.
 
 ## Configuración del proyecto
 

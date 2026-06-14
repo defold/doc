@@ -121,7 +121,7 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: 模型的颜色色调（`vector4`）。vector4用于表示色调，x、y、z和w分别对应红色、绿色、蓝色和alpha色调。
+: 模型的颜色色调（`vector4`）。`vector4`用于表示色调，x、y、z和w分别对应红色、绿色、蓝色和alpha色调。
 
 
 ## 渲染

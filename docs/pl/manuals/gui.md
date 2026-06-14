@@ -41,7 +41,7 @@ Wybranie głównego węzła "Gui" w panelu *Outline* pokazuje *Properties* kompo
 : Skrypt GUI przypisany do tego komponentu GUI.
 
 *Material*
-: Materiał używany podczas renderowania tego GUI. Zwróć uwagę, że z panelu Outline można też dodać do Gui kilka materiałów i przypisać je do poszczególnych węzłów.
+: Materiał używany podczas renderowania tego GUI. Zwróć uwagę, że z panelu *Outline* można też dodać do Gui kilka materiałów i przypisać je do poszczególnych węzłów.
 
 *Adjust Reference*
 : Określa, jak ma być obliczany *Adjust Mode* każdego węzła:

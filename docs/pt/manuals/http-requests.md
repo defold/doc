@@ -96,7 +96,7 @@ Outro caso de uso para carregar grandes quantidades de dados pela rede é o stre
 
 ### Cabeçalhos de requisição
 
-É possível definir cabeçalhos adicionais ao enviar uma requisição. Isso pode, por exemplo, ser usado para definir um cabeçalho de autorização ou um tipo de conteúdo para informar ao servidor o formato dos dados.
+É possível definir cabeçalhos adicionais ao enviar uma requisição. Isso pode, por exemplo, ser usado para definir um cabeçalho `Authorization` ou `Content-Type` para informar ao servidor o formato dos dados.
 
 ```Lua
 local function handle_response(self, id, response)

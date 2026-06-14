@@ -132,7 +132,7 @@ Defold proporciona varias funciones de ciclo de vida para programar lógica de j
 Empieza eliminando las funciones `final`, `on_message` y `on_reload`, ya que no las necesitaremos
 para este tutorial.
 
-Luego, agrega las siguientes líneas de código antes de que empiece la función init.
+Luego, agrega las siguientes líneas de código antes de que empiece la función `init`.
 
 ```lua
 -- Constantes
@@ -292,7 +292,7 @@ En la sección de constantes en la parte superior del script, agrega la siguient
 local drag = 1.1	        --la constante de drag <1>
 ```
 
-Luego, en la función update, justo encima de esta línea, agrega las siguientes líneas y guarda el archivo.
+Luego, en la función `update`, justo encima de esta línea, agrega las siguientes líneas y guarda el archivo.
 
 ```lua
 function update(self, dt)

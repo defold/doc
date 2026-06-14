@@ -41,7 +41,7 @@ Al seleccionar el nodo raíz "Gui" en *Outline* se muestran las propiedades del 
 : El GUI script vinculado a este componente GUI.
 
 *Material*
-: El material usado al renderizar esta GUI. Ten en cuenta que también es posible añadir varios materiales a una Gui desde el panel Outline y asignarlos a nodos individuales.
+: El material usado al renderizar esta GUI. Ten en cuenta que también es posible añadir varios materiales a una Gui desde el panel *Outline* y asignarlos a nodos individuales.
 
 *Adjust Reference*
 : Controla cómo debe calcularse el *Adjust Mode* de cada nodo:

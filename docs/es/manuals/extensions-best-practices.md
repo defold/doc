@@ -16,7 +16,7 @@ Al crear una extensión, hay algunas cosas que ayudan tanto a desarrollarla como
 
 Solo debería haber una API Lua y una implementación de ella. Esto hace que sea mucho más fácil tener el mismo comportamiento en todas las plataformas.
 
-Si la plataforma en cuestión no debe soportar la extensión, se recomienda simplemente no registrar ningún módulo Lua. De esa forma puedes detectar el soporte comprobando si es nil:
+Si la plataforma en cuestión no debe soportar la extensión, se recomienda simplemente no registrar ningún módulo Lua. De esa forma puedes detectar el soporte comprobando si es `nil`:
 
 ```lua
     if myextension ~= nil then

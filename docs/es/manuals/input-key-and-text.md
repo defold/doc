@@ -25,7 +25,7 @@ end
 ```
 
 # Triggers de texto
-Los triggers de texto se usan para leer input de texto arbitrario. Hay dos tipos de triggers de texto: texto y texto marcado.
+Los triggers de texto se usan para leer input de texto arbitrario. Hay dos tipos de triggers de texto: `text` y `marked-text`.
 
 ![](images/input/text_bindings.png)
 

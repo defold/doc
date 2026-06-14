@@ -122,7 +122,7 @@ If you need to create custom materials for your models, see the [Material docume
 {% include shared/material-constants.md component='model' variable='tint' %}
 
 `tint`
-: The color tint of the model (`vector4`). The vector4 is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
+: The color tint of the model (`vector4`). The `vector4` is used to represent the tint with x, y, z, and w corresponding to the red, green, blue and alpha tint.
 
 
 ## Rendering

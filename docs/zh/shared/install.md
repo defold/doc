@@ -20,7 +20,7 @@
 : 下载的文件是一个需要解压的 ZIP 压缩包：
 
   1. 找到压缩包文件 "Defold-x86_64-win32.zip"，<kbd>按住</kbd>（或<kbd>右键单击</kbd>）该文件夹，选择*全部解压*，然后按照说明将压缩包解压到一个名为 "Defold" 的文件夹中。
-  2. 将文件夹 "Defold" 移动到您喜欢的位置（例如 `D:\Defold`）。您不应将 Defold 移动到 `C:\Program Files (x86)\` 或 `C:\Program Files\`，因为这会阻止编辑器更新。
+    2. 将文件夹 "Defold" 移动到您喜欢的位置（例如 `D:\Defold`）。您不应将 Defold 移动到 `C:\Program Files (x86)\` 或 `C:\Program Files\`，因为这会阻止编辑器更新。
 
   要启动编辑器，请打开文件夹 "Defold" 并<kbd>双击</kbd>文件 "Defold.exe"。
 

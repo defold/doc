@@ -73,7 +73,7 @@ Cuando hagas click en el botón <kbd>Create bundle</kbd>, se te pedirá que sele
   * WebGL - Microsoft no ha terminado el trabajo de implementación de la API _WebGL_ (consulta https://www.khronos.org/registry/webgl/specs/latest/). Por lo tanto, no rinde tan bien como otros navegadores.
   * Full screen - El modo de pantalla completa no es fiable en el navegador.
 * Chrome
-  * Builds debug lentas - En builds debug de HTML5 verificamos todas las llamadas gráficas de WebGL para detectar errores. Lamentablemente, esto es muy lento al probar en Chrome. Es posible desactivarlo definiendo el campo *Engine Arguments* de *game.project* como `--verify-graphics-calls=false`.
+  * Builds debug lentas - En builds debug de HTML5 verificamos todas las llamadas gráficas de WebGL para detectar errores. Lamentablemente, esto es muy lento al probar en Chrome. Es posible desactivarlo definiendo el campo *`Engine Arguments`* de *game.project* como `--verify-graphics-calls=false`.
 * Soporte para gamepad - [Consulta la documentación de Gamepad](/manuals/input-gamepads/#gamepads-in-html5) para conocer consideraciones especiales y pasos que quizá debas seguir en HTML5.
 
 ## Personalizar el bundle HTML5
@@ -273,7 +273,7 @@ Es posible especificar argumentos adicionales del motor cuando este se configura
     }
 ```
 
-También puedes agregar `--config=foo1=bar1, --config=foo2=bar2` al campo de argumentos del motor en la sección HTML5 de *game.project* y se inyectará en el archivo `index.html` generado.
+También puedes agregar `--config=foo1=bar1, --config=foo2=bar2` al campo *Engine Arguments* en la sección HTML5 de *game.project* y se inyectará en el archivo `index.html` generado.
 
 En tiempo de ejecución obtienes los valores así:
 
