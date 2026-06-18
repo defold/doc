@@ -12,9 +12,9 @@ The Light component represents a light source in a collection. Defold currently 
 - Point light (`.point_light`)
 - Spot light (`.spot_light`)
 
-Light resources are added to game objects like other component resources. Create a light resource in the *Assets* browser, then add it as a component to a game object in the *Outline* view.
+Light resources are added to game objects like other component resources. You can either create light components directly under a game object, or create a light resource in the *Assets* browser and then add it as a component to a game object in the *Outline* view.
 
-![Creating a light resource](images/light/create-light-resource.png)
+![Creating a light component](images/light/create-light-component.png)
 
 Defold does not apply lighting automatically to every material. Lights are collected by the engine and made available to shaders through the built-in light buffer. Your material shader decides how to use the light data.
 
@@ -22,11 +22,11 @@ Defold does not apply lighting automatically to every material. Lights are colle
 
 All light colors are RGB values. The alpha channel is not used by light resources.
 
-![Light properties](images/light/light-properties.png)
-
 ### Ambient light
 
 Ambient lights add constant light to the scene. They are not affected by the game object position, rotation or scale.
+
+![Ambient light](images/light/ambient-light.png)
 
 `color`
 : The RGB color of the ambient light.
@@ -40,6 +40,8 @@ Ambient lights are accumulated into `light_info.xyz` in the shader light buffer.
 
 Directional lights represent light coming from one direction, such as sunlight. They do not use the game object position or scale.
 
+![Directional light](images/light/directional-light.png)
+
 `color`
 : The RGB color of the directional light.
 
@@ -51,6 +53,8 @@ The light direction is derived from the game object's world rotation applied to 
 ### Point light
 
 Point lights emit light outward from the game object's world position.
+
+![Point light](images/light/point-light.png)
 
 `color`
 : The RGB color of the point light.
@@ -66,6 +70,8 @@ The point light position comes from the game object's world position. The effect
 ### Spot light
 
 Spot lights emit light in a cone from the game object's world position.
+
+![Spot light](images/light/spot-light.png)
 
 `color`
 : The RGB color of the spot light.
@@ -83,8 +89,6 @@ Spot lights emit light in a cone from the game object's world position.
 : The outer cone angle in degrees in the editor. The light fades between the inner and outer cone.
 
 The spot light position comes from the game object's world position. The direction is derived from the game object's world rotation applied to `(0, 0, -1)`. The effective range is multiplied by the smallest absolute axis of the game object's world scale. Cone angles are edited in degrees and converted to radians in the compiled light resource.
-
-![Light gizmos](images/light/light-gizmos.png)
 
 ## Validation
 
@@ -107,8 +111,6 @@ If the number of light components exceeds `light.max_count`, the engine will rep
 ## Light buffer in shaders
 
 A shader can access active lights by declaring a uniform block named `LightBuffer` with the built-in layout. The engine detects this block and binds the light data automatically for materials and compute programs that use it.
-
-![Light buffer shader](images/light/light-buffer-shader.png)
 
 ```glsl
 #version 140
