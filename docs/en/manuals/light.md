@@ -30,6 +30,8 @@ Ambient lights add constant light to the scene. They are not affected by the gam
 
 ![Ambient light with lower intensity](images/light/ambient_light_less_intensity.png)
 
+Properties:
+
 `color`
 : The RGB color of the ambient light.
 
