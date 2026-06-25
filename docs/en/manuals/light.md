@@ -38,7 +38,7 @@ Ambient lights add constant light to the scene. They are not affected by the gam
 
 ![Ambient light with higher intensity](images/light/ambient_light_full_intensity.png)
 
-Ambient lights are accumulated into `light_info.xyz` in the shader light buffer. They do not occupy entries in the `lights[]` array.
+Ambient lights are accumulated into a single ambient color `light_info.xyz` in the shader light buffer. They do not occupy entries in the `lights[]` array. Multiple ambient light components in the scene will produce only one output color that is a blend of all of them.
 
 ### Directional light
 
