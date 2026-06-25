@@ -54,7 +54,6 @@ Properties:
 `intensity`
 : Multiplies the directional light color.
 
-The light direction is derived from the game object's world rotation applied to the local forward direction `(0, 0, -1)`.
 
 Directional lights are often combined with ambient light to keep surfaces facing away from the directional light from becoming completely dark.
 
