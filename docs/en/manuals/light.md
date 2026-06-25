@@ -14,9 +14,11 @@ The Light component represents a light source in a collection. Defold currently 
 
 Light resources are added to game objects like other component resources. You can either create light components directly under a game object, or create a light resource in the *Assets* browser and then add it as a component to a game object in the *Outline* view.
 
-![Creating a light component](images/light/create-light-component.png)
-
 Defold does not apply lighting automatically to every material. Lights are collected by the engine and made available to shaders through the built-in light buffer. Your material shader decides how to use the light data.
+
+The examples below use the same scene to show how the different light types affect the final result:
+
+![Scene without lights](images/light/no_light.png)
 
 ## Light properties
 
@@ -26,7 +28,7 @@ All light colors are RGB values. The alpha channel is not used by light resource
 
 Ambient lights add constant light to the scene. They are not affected by the game object position, rotation or scale.
 
-![Ambient light](images/light/ambient-light.png)
+![Ambient light with lower intensity](images/light/ambient_light_less_intensity.png)
 
 `color`
 : The RGB color of the ambient light.
@@ -34,13 +36,15 @@ Ambient lights add constant light to the scene. They are not affected by the gam
 `intensity`
 : Multiplies the ambient light color.
 
+![Ambient light with higher intensity](images/light/ambient_light_full_intensity.png)
+
 Ambient lights are accumulated into `light_info.xyz` in the shader light buffer. They do not occupy entries in the `lights[]` array.
 
 ### Directional light
 
 Directional lights represent light coming from one direction, such as sunlight. They do not use the game object position or scale.
 
-![Directional light](images/light/directional-light.png)
+![Directional light](images/light/directional_light.png)
 
 `color`
 : The RGB color of the directional light.
@@ -50,11 +54,15 @@ Directional lights represent light coming from one direction, such as sunlight. 
 
 The light direction is derived from the game object's world rotation applied to the local forward direction `(0, 0, -1)`.
 
+Directional lights are often combined with ambient light to keep surfaces facing away from the directional light from becoming completely dark.
+
+![Directional and ambient light](images/light/directional_and_ambient_light.png)
+
 ### Point light
 
 Point lights emit light outward from the game object's world position.
 
-![Point light](images/light/point-light.png)
+![Point light](images/light/point_light.png)
 
 `color`
 : The RGB color of the point light.
@@ -67,11 +75,17 @@ Point lights emit light outward from the game object's world position.
 
 The point light position comes from the game object's world position. The effective range is multiplied by the smallest absolute axis of the game object's world scale.
 
+![Point light range](images/light/point_light_range.png)
+
+Changing the light color tints the point light contribution while the range controls how far from the source the light reaches.
+
+![Point light range with green color](images/light/point_ight_range_green_color.png)
+
 ### Spot light
 
 Spot lights emit light in a cone from the game object's world position.
 
-![Spot light](images/light/spot-light.png)
+![Spot light](images/light/spot_light.png)
 
 `color`
 : The RGB color of the spot light.
@@ -89,6 +103,8 @@ Spot lights emit light in a cone from the game object's world position.
 : The outer cone angle in degrees in the editor. The light fades between the inner and outer cone.
 
 The spot light position comes from the game object's world position. The direction is derived from the game object's world rotation applied to `(0, 0, -1)`. The effective range is multiplied by the smallest absolute axis of the game object's world scale. Cone angles are edited in degrees and converted to radians in the compiled light resource.
+
+![Spot light gizmos](images/light/spot_light_gizmos.png)
 
 ## Validation
 
@@ -111,6 +127,8 @@ If the number of light components exceeds `light.max_count`, the engine will rep
 ## Light buffer in shaders
 
 A shader can access active lights by declaring a uniform block named `LightBuffer` with the built-in layout. The engine detects this block and binds the light data automatically for materials and compute programs that use it.
+
+![Light buffer shader](images/light/light-buffer-shader.png)
 
 ```glsl
 #version 140
