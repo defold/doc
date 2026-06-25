@@ -83,7 +83,9 @@ Changing the light color tints the point light contribution while the range cont
 
 ### Spot light
 
-Spot lights emit light in a cone from the game object's world position.
+Spot lights emit light in a cone from the game object's world position. The direction is derived from the game object's world rotation applied to `(0, 0, -1)`.
+
+Spot light component is represented in the editor with a coloured lamp icon and guide lines that show the outer and inner cones.
 
 ![Spot light](images/light/spot_light.png)
 
