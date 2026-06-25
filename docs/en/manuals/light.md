@@ -46,6 +46,8 @@ Directional lights represent light coming from one direction, such as sunlight. 
 
 ![Directional light](images/light/directional_light.png)
 
+Properties:
+
 `color`
 : The RGB color of the directional light.
 
