@@ -73,7 +73,7 @@ Point lights emit light outward from the game object's world position.
 `range`
 : The light radius in world units.
 
-The point light position comes from the game object's world position. The effective range is multiplied by the smallest absolute axis of the game object's world scale.
+The effective range is multiplied by the smallest absolute axis of the game object's world scale.
 
 ![Point light range](images/light/point_light_range.png)
 
