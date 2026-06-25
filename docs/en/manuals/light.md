@@ -89,6 +89,8 @@ Spot light component is represented in the editor with a coloured lamp icon and 
 
 ![Spot light](images/light/spot_light.png)
 
+Properties:
+
 `color`
 : The RGB color of the spot light.
 
