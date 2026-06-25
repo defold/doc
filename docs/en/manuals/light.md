@@ -42,7 +42,9 @@ Ambient lights are accumulated into a single ambient color `light_info.xyz` in t
 
 ### Directional light
 
-Directional lights represent light coming from one direction, such as sunlight. They do not use the game object position or scale.
+Directional lights represent light coming from one direction, such as sunlight. They do not use the game object position or scale, but the light direction is derived from the game object's world rotation applied to the local forward direction `(0, 0, -1)`.
+
+Directional light component is represented in the editor with a coloured sun icon with a 3D arrow that indicates its direction.
 
 ![Directional light](images/light/directional_light.png)
 
