@@ -26,7 +26,9 @@ All light colors are RGB values. The alpha channel is not used by light resource
 
 ### Ambient light
 
-Ambient lights add constant light to the scene. They are not affected by the game object position, rotation or scale.
+Ambient lights add constant light to the scene. They are not affected by the game object position, rotation or scale. They can be used e.g. for a general, background illumination or to make objects look unlit.
+
+Ambient light component is represented in the editor with an icon with arrows rotated to the center. Color of the icon is same as its `color` property. 
 
 ![Ambient light with lower intensity](images/light/ambient_light_less_intensity.png)
 
