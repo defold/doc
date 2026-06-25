@@ -60,7 +60,9 @@ Directional lights are often combined with ambient light to keep surfaces facing
 
 ### Point light
 
-Point lights emit light outward from the game object's world position.
+Point lights emit light outward from the game object's world position. The point light position comes from the game object's world position.
+
+Point light component is represented in the Editor with a dot with rays emitted around it and its color represents its `color` property and a circle representing the `range`.
 
 ![Point light](images/light/point_light.png)
 
