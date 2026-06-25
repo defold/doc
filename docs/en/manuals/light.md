@@ -106,7 +106,7 @@ Properties:
 `outer_cone_angle`
 : The outer cone angle in degrees in the editor. The light fades between the inner and outer cone.
 
-The spot light position comes from the game object's world position. The direction is derived from the game object's world rotation applied to `(0, 0, -1)`. The effective range is multiplied by the smallest absolute axis of the game object's world scale. Cone angles are edited in degrees and converted to radians in the compiled light resource.
+The effective range is multiplied by the smallest absolute axis of the game object's world scale. Cone angles are edited in degrees and converted to radians in the compiled light resource.
 
 ![Spot light gizmos](images/light/spot_light_gizmos.png)
 
