@@ -66,6 +66,8 @@ Point light component is represented in the Editor with a dot with rays emitted 
 
 ![Point light](images/light/point_light.png)
 
+Properties:
+
 `color`
 : The RGB color of the point light.
 
