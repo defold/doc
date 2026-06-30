@@ -107,8 +107,15 @@ ios-deploy path
 
 ![](images/editor/preferences_keymap.png)
 
-You can configure the editor shortcuts, both adding custom and removing the built-in ones. Use context menu on individual commands in the shortcut table to edit the shortcuts, or double-click/press <kbd>Enter</kbd> to open a new shortcut popup.
+You can configure editor keyboard shortcuts and mouse controls in the Keymap tab. To change a command, double-click it, press <kbd>Enter</kbd> or <kbd>Space</kbd>, or use the row context menu.
 
-Some shortcuts might have warnings: they are displayed using orange color. Hover over the shortcut to see the warning. Typical warnings are:
-- typeable shortcuts: the selected shortcut is typeable in a text inputs. Make sure the command is off in the code editing / text input contexts. 
-- conflicts: the same shortcut is assigned to multiple different commands. Make sure at most one command is enabled when the shortcut is invoked, otherwise the editor will execute one of the assigned commands in an undefined manner.
+Keyboard shortcuts appear as key combinations in the *Shortcuts* column. Mouse controls appear in the same list with a badge:
+
+- <kbd>MB</kbd> means a mouse button binding, optionally combined with <kbd>Shift</kbd>, <kbd>Ctrl</kbd>/<kbd>Control</kbd>, or <kbd>Alt</kbd>.
+- <kbd>MM</kbd> means a modifier key used by a mouse action.
+
+Some mouse controls reuse bindings from the default Scene 2D Camera, so a row can show a binding before you customize it. These are usually darker colored. If you set a custom binding for that row, Defold uses your binding instead. Use *Reset to Defaults* to remove your change and go back to the built-in or inherited behavior.
+
+Warnings are shown in orange. Hover over a warning to see details. Warnings usually mean:
+- the shortcut can type text and may interfere with text fields.
+- the same shortcut or mouse binding is already used by another command.
