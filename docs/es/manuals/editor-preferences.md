@@ -107,8 +107,15 @@ ios-deploy path
 
 ![](images/editor/preferences_keymap.png)
 
-Puedes configurar los atajos del editor, tanto agregar atajos personalizados como eliminar los integrados. Usa el menú contextual en comandos individuales de la tabla de atajos para editar los atajos, o haz doble click/presiona <kbd>Enter</kbd> para abrir un popup para un nuevo atajo.
+Puedes configurar los atajos de teclado y los controles de mouse del editor en la pestaña Keymap. Para cambiar un comando, haz doble click en él, presiona <kbd>Enter</kbd> o <kbd>Space</kbd>, o usa el menú contextual de la fila.
 
-Algunos atajos pueden tener advertencias: se muestran en color naranja. Pasa el cursor sobre el atajo para ver la advertencia. Las advertencias típicas son:
-- atajos que se pueden escribir: el atajo seleccionado se puede introducir en entradas de texto. Asegúrate de que el comando esté desactivado en los contextos de edición de código / entrada de texto.
-- conflictos: el mismo atajo está asignado a varios comandos diferentes. Asegúrate de que como máximo un comando esté activado cuando se invoca el atajo; de lo contrario, el editor ejecutará uno de los comandos asignados sin un comportamiento definido.
+Los atajos de teclado aparecen como combinaciones de teclas en la columna *Shortcuts*. Los controles de mouse aparecen en la misma lista con una insignia:
+
+- <kbd>MB</kbd> significa una asignación de botón del mouse, opcionalmente combinada con <kbd>Shift</kbd>, <kbd>Ctrl</kbd>/<kbd>Control</kbd> o <kbd>Alt</kbd>.
+- <kbd>MM</kbd> significa una tecla modificadora usada por una acción de mouse.
+
+Algunos controles de mouse reutilizan asignaciones de la Scene 2D Camera por defecto, por lo que una fila puede mostrar una asignación antes de que la personalices. Normalmente se muestran con un color más oscuro. Si defines una asignación personalizada para esa fila, Defold usará tu asignación en su lugar. Usa *Reset to Defaults* para eliminar tu cambio y volver al comportamiento integrado o heredado.
+
+Las advertencias se muestran en naranja. Pasa el cursor sobre una advertencia para ver los detalles. Las advertencias suelen significar:
+- el atajo puede introducir texto y podría interferir con los campos de texto.
+- el mismo atajo o asignación de mouse ya está siendo usado por otro comando.

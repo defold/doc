@@ -107,8 +107,15 @@ ios-deploy path
 
 ![](images/editor/preferences_keymap.png)
 
-Você pode configurar os atalhos do editor, tanto adicionando atalhos personalizados quanto removendo os integrados. Use o menu de contexto em comandos individuais na tabela de atalhos para editar os atalhos, ou dê um duplo clique/pressione <kbd>Enter</kbd> para abrir um novo popup de atalho.
+Você pode configurar os atalhos de teclado e controles de mouse do editor na aba Keymap. Para alterar um comando, dê um duplo clique nele, pressione <kbd>Enter</kbd> ou <kbd>Space</kbd>, ou use o menu de contexto da linha.
 
-Alguns atalhos podem ter avisos: eles são exibidos na cor laranja. Passe o mouse sobre o atalho para ver o aviso. Avisos típicos são:
-- atalhos digitáveis: o atalho selecionado é digitável em entradas de texto. Certifique-se de que o comando esteja desativado nos contextos de edição de código/entrada de texto.
-- conflitos: o mesmo atalho está atribuído a vários comandos diferentes. Certifique-se de que no máximo um comando esteja habilitado quando o atalho for invocado; caso contrário, o editor executará um dos comandos atribuídos de forma indefinida.
+Atalhos de teclado aparecem como combinações de teclas na coluna *Shortcuts*. Controles de mouse aparecem na mesma lista com um marcador:
+
+- <kbd>MB</kbd> significa uma vinculação de botão do mouse, opcionalmente combinada com <kbd>Shift</kbd>, <kbd>Ctrl</kbd>/<kbd>Control</kbd> ou <kbd>Alt</kbd>.
+- <kbd>MM</kbd> significa uma tecla modificadora usada por uma ação de mouse.
+
+Alguns controles de mouse reutilizam vinculações do Scene 2D Camera padrão, então uma linha pode mostrar uma vinculação antes de você personalizá-la. Elas geralmente são exibidas com uma cor mais escura. Se você definir uma vinculação personalizada para essa linha, o Defold usará a sua vinculação. Use *Reset to Defaults* para remover sua alteração e voltar ao comportamento integrado ou herdado.
+
+Avisos são exibidos em laranja. Passe o mouse sobre um aviso para ver detalhes. Avisos geralmente significam:
+- o atalho pode digitar texto e interferir em campos de texto.
+- o mesmo atalho ou vinculação de mouse já está sendo usado por outro comando.

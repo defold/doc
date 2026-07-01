@@ -104,8 +104,15 @@ ios-deploy path
 
 ![](images/editor/preferences_keymap.png)
 
-Możesz konfigurować skróty edytora, zarówno dodając własne, jak i usuwając wbudowane. Aby edytować skrót, użyj menu kontekstowego przy wybranym poleceniu w tabeli skrótów albo kliknij je dwukrotnie lub naciśnij <kbd>Enter</kbd>, aby otworzyć okno dodawania nowego skrótu.
+Możesz konfigurować skróty klawiaturowe edytora i sterowanie myszą w zakładce Keymap. Aby zmienić polecenie, kliknij je dwukrotnie, naciśnij <kbd>Enter</kbd> albo <kbd>Space</kbd>, albo użyj menu kontekstowego wiersza.
 
-Przy niektórych skrótach mogą pojawić się ostrzeżenia, wyświetlane na pomarańczowo. Najedź kursorem na skrót, aby zobaczyć ostrzeżenie. Typowe ostrzeżenia to:
-- typeable shortcuts: wybrany skrót można wpisać w polach tekstowych. Upewnij się, że polecenie jest wyłączone w kontekstach edycji kodu i wprowadzania tekstu.
-- conflicts: ten sam skrót jest przypisany do wielu różnych poleceń. Upewnij się, że w chwili wywołania skrótu aktywne jest najwyżej jedno z nich, w przeciwnym razie edytor wykona jedno z przypisanych poleceń w nieokreślony sposób.
+Skróty klawiaturowe są widoczne jako kombinacje klawiszy w kolumnie *Shortcuts*. Sterowanie myszą pojawia się na tej samej liście z oznaczeniem:
+
+- <kbd>MB</kbd> oznacza przypisanie przycisku myszy, opcjonalnie połączone z <kbd>Shift</kbd>, <kbd>Ctrl</kbd>/<kbd>Control</kbd> lub <kbd>Alt</kbd>.
+- <kbd>MM</kbd> oznacza klawisz modyfikujący używany przez akcję myszy.
+
+Niektóre elementy sterowania myszą ponownie wykorzystują przypisania z domyślnej Scene 2D Camera, więc wiersz może pokazywać przypisanie jeszcze przed jego dostosowaniem. Zwykle są one wyświetlane ciemniejszym kolorem. Jeśli ustawisz własne przypisanie dla tego wiersza, Defold użyje go zamiast domyślnego. Użyj *Reset to Defaults*, aby usunąć zmianę i wrócić do działania wbudowanego lub odziedziczonego.
+
+Ostrzeżenia są wyświetlane na pomarańczowo. Najedź na ostrzeżenie, aby zobaczyć szczegóły. Ostrzeżenia zwykle oznaczają:
+- skrót można wpisać jako tekst i może on kolidować z polami tekstowymi.
+- ten sam skrót albo przypisanie myszy jest już używane przez inne polecenie.
