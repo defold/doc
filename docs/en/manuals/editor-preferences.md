@@ -107,14 +107,14 @@ ios-deploy path
 
 ![](images/editor/preferences_keymap.png)
 
-You can configure editor keyboard shortcuts and mouse controls in the Keymap tab. To change a command, double-click it, press <kbd>Enter</kbd> or <kbd>Space</kbd>, or use the row context menu.
+You can configure editor's keyboard shortcuts and mouse controls in the Keymap tab. To change a command, double-click it, press <kbd>Enter</kbd> or <kbd>Space</kbd>, or use the row context menu.
 
 Keyboard shortcuts appear as key combinations in the *Shortcuts* column. Mouse controls appear in the same list with a badge:
 
 - <kbd>MB</kbd> means a mouse button binding, optionally combined with <kbd>Shift</kbd>, <kbd>Ctrl</kbd>/<kbd>Control</kbd>, or <kbd>Alt</kbd>.
 - <kbd>MM</kbd> means a modifier key used by a mouse action.
 
-Some mouse controls reuse bindings from the default Scene 2D Camera, so a row can show a binding before you customize it. These are usually darker colored. If you set a custom binding for that row, Defold uses your binding instead. Use *Reset to Defaults* to remove your change and go back to the built-in or inherited behavior.
+Some mouse controls reuse bindings from the default Scene 2D Camera, so a row can show a binding before you customize it. These are usually displayed with a darker color. If you set a custom binding for that row, Defold uses your binding instead. Use *Reset to Defaults* to remove your change and go back to the built-in or inherited behavior.
 
 Warnings are shown in orange. Hover over a warning to see details. Warnings usually mean:
 - the shortcut can type text and may interfere with text fields.
