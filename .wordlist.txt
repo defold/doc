@@ -12,6 +12,7 @@ addr
 admob
 Adoptium
 Adreno
+agentic
 alt
 Andrioli
 androideabi
