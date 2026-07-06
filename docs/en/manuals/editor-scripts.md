@@ -136,6 +136,9 @@ Editor expects `get_commands()` to return an array of tables, each describing a 
       - `"outline"` — something that can be shown in the Outline. In Outline it's a selected item, in menu bar it's a currently open file;
       - `"scene"` — something that can be rendered to the Scene.
     - `cardinality` defines how many selected items there should be. If `"one"`, selection passed to command callback will be a single node id. If `"many"`, selection passed to command callback will be an array of one or more node ids.
+  - `active_view` means this command is valid when the active editor view matches the requested type. The active view is passed to the command callback as `opts.active_view`.
+    - `type` is the active view type the command is interested in, either `"code"`, `"scene"`, `"html"` or `"form"`.
+    - The active view supports `"type"`, `"resource"` and `"dirty"` properties. Use `editor.get(view, "resource")` to get the resource shown in the view, and `editor.get(view, "dirty")` to check if it has unsaved changes.
   - `argument` — command argument. Currently, only commands in `"Bundle"` location receive an argument, which is `true` when the bundle command is selected explicitly and `false` on rebundle.
 - `id` - command identifier string, used e.g. for persisting the last used bundle command in `prefs`
 - `active` - a callback that is executed to check that command is active, expected to return boolean. If `locations` include `"Assets"`, `"Scene"` or `"Outline"`, `active` will be called when showing context menu. If locations include `"Edit"` or `"View"`, active will be called on every user interaction, such as typing on keyboard or clicking with mouse, so be sure that `active` is relatively fast.
@@ -164,6 +167,25 @@ Inside the `run` handler, you can query and change the in-memory editor state. Q
     })
   end
 }
+```
+
+### Use commands with the active editor view
+
+Commands in menu locations such as `"View"` can query the currently active editor view. This is useful when a command should operate on the file or scene the user is currently looking at:
+
+```lua
+editor.command({
+  label = "Print Active View",
+  locations = {"View"},
+  query = {active_view = {type = "code"}},
+  run = function(opts)
+    local view = opts.active_view
+    local resource = editor.get(view, "resource")
+    print(editor.get(view, "type"))
+    print(editor.get(resource, "path"))
+    print(editor.get(view, "dirty"))
+  end
+})
 ```
 
 #### Editing atlases
