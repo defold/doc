@@ -68,7 +68,7 @@ Constants
   - `CONSTANT_TYPE_WORLD` is the *world matrix* that maps from an object’s local coordinate space into world space.
   - `CONSTANT_TYPE_VIEW` is the *view matrix* that maps from world space to camera space.
   - `CONSTANT_TYPE_PROJECTION` is the *projection matrix* that maps from camera to screen space.
-  - Premultiplied $world * view$, $view * projection$ and $world * view$ matrices are also available.
+  - Premultiplied $world * view$, $view * projection$ and $world * view * projection$ matrices are also available.
   - `CONSTANT_TYPE_USER` is a `vec4` type constant that you can use as you wish.
 
   The [Material manual](/manuals/material) explains how to specify constants.

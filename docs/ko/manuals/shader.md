@@ -68,7 +68,7 @@ Attributes
   - `CONSTANT_TYPE_WORLD`는 오브젝트의 로컬 좌표 공간에서 월드 공간으로 매핑하는 *월드 matrix*입니다.
   - `CONSTANT_TYPE_VIEW`는 월드 공간에서 카메라 공간으로 매핑하는 *뷰 matrix*입니다.
   - `CONSTANT_TYPE_PROJECTION`은 카메라에서 화면 공간으로 매핑하는 *프로젝션 matrix*입니다.
-  - 미리 곱해진 $world * view$, $view * projection$, $world * view$ matrix도 사용할 수 있습니다.
+  - 미리 곱해진 $world * view$, $view * projection$, $world * view * projection$ matrix도 사용할 수 있습니다.
   - `CONSTANT_TYPE_USER`는 원하는 용도로 사용할 수 있는 `vec4` 타입 상수입니다.
 
   [Material 매뉴얼](/manuals/material)에서는 상수를 지정하는 방법을 설명합니다.
