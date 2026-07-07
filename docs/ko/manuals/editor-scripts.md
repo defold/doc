@@ -136,6 +136,9 @@ return M
       - `"outline"` — Outline에 표시할 수 있는 무언가입니다. Outline에서는 선택된 항목이고, 메뉴 바에서는 현재 열려 있는 파일입니다.
       - `"scene"` — Scene에 렌더링할 수 있는 무언가입니다.
     - `cardinality`는 선택된 항목이 몇 개여야 하는지 정의합니다. `"one"`이면 커맨드 콜백에 전달되는 selection은 단일 노드 id입니다. `"many"`이면 커맨드 콜백에 전달되는 selection은 하나 이상의 노드 id 배열입니다.
+  - `active_view`는 활성 에디터 뷰가 요청한 타입과 일치할 때 이 커맨드가 유효하다는 뜻입니다. 활성 뷰는 `opts.active_view`로 커맨드 콜백에 전달됩니다.
+    - `type`은 커맨드가 관심을 가지는 활성 뷰 타입이며, `"code"`, `"scene"`, `"html"` 또는 `"form"`입니다.
+    - 활성 뷰는 `"type"`, `"resource"`, `"dirty"` 프로퍼티를 지원합니다. 뷰에 표시된 리소스를 가져오려면 `editor.get(view, "resource")`를 사용하고, 저장되지 않은 변경사항이 있는지 확인하려면 `editor.get(view, "dirty")`를 사용합니다.
   - `argument` — 커맨드 인자입니다. 현재는 `"Bundle"` 위치의 커맨드만 인자를 받으며, bundle 커맨드를 명시적으로 선택한 경우 `true`, rebundle인 경우 `false`입니다.
 - `id` - 커맨드 식별자 문자열입니다. 예를 들어 마지막으로 사용한 bundle 커맨드를 `prefs`에 유지하는 데 사용됩니다.
 - `active` - 커맨드가 활성 상태인지 확인하기 위해 실행되는 콜백이며, boolean을 반환해야 합니다. `locations`에 `"Assets"`, `"Scene"` 또는 `"Outline"`이 포함되어 있으면 컨텍스트 메뉴를 표시할 때 `active`가 호출됩니다. locations에 `"Edit"` 또는 `"View"`가 포함되어 있으면 키보드 입력이나 마우스 클릭 같은 모든 사용자 상호작용마다 active가 호출되므로, `active`는 비교적 빠르게 실행되도록 해야 합니다.
@@ -164,6 +167,25 @@ return M
     })
   end
 }
+```
+
+### 활성 에디터 뷰와 함께 커맨드 사용하기 {#use-commands-with-the-active-editor-view}
+
+`"View"` 같은 메뉴 위치의 커맨드는 현재 활성 에디터 뷰를 조회할 수 있습니다. 사용자가 현재 보고 있는 파일이나 씬에 대해 커맨드가 동작해야 할 때 유용합니다.
+
+```lua
+editor.command({
+  label = "Print Active View",
+  locations = {"View"},
+  query = {active_view = {type = "code"}},
+  run = function(opts)
+    local view = opts.active_view
+    local resource = editor.get(view, "resource")
+    print(editor.get(view, "type"))
+    print(editor.get(resource, "path"))
+    print(editor.get(view, "dirty"))
+  end
+})
 ```
 
 #### 아틀라스 편집 {#editing-atlases}

@@ -248,6 +248,8 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 Когда редактор открывает проект, он запускает веб‑сервер на случайном порту. Этот сервер можно использовать для взаимодействия с редактором из других приложений. Номер порта записывается в файл `.internal/editor.port`.
 
+Сервер предоставляет спецификацию OpenAPI по адресу `http://localhost:$(cat .internal/editor.port)/openapi.json`. Это полезная минимальная отправная точка для агентных рабочих процессов.
+
 Кроме того, исполняемый файл редактора поддерживает параметр командной строки `--port` (или кратко `-p`), позволяющий задать порт при запуске, например:
 
 ```shell
@@ -259,6 +261,28 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 # macOS:
 ./path/to/Defold.app/Contents/MacOS/Defold --port 8181
+```
+
+## Метаданные установки редактора (Editor Installation Metadata)
+
+При запуске редактор записывает информацию о launcher и путях установки в известное расположение. Интеграции со сторонними IDE и другие инструменты могут использовать это, чтобы находить установленные редакторы Defold:
+
+| ОС      | Расположение |
+|---------|--------------|
+| macOS   | `~/Library/Application Support/Defold/installations.json` |
+| Linux   | `${XDG_STATE_HOME:-~/.local/state}/Defold/installations.json` |
+| Windows | `%LOCALAPPDATA%\Defold\installations.json` |
+
+Файл содержит JSON‑массив с одним объектом для каждой известной установки:
+
+```json
+[
+  {
+    "launcherPath": "/Applications/Defold.app/Contents/MacOS/Defold",
+    "installPath": "/Applications/Defold.app",
+    "lastLaunchedAt": "2026-07-06T12:34:56.789Z"
+  }
+]
 ```
 
 ## Оформление редактора (Editor Styling)

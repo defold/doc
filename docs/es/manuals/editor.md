@@ -245,6 +245,8 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 Cuando el editor abre un proyecto, iniciará un servidor web en un puerto aleatorio. El servidor puede usarse para interactuar con el editor desde otras aplicaciones. El puerto se escribe en el archivo `.internal/editor.port`.
 
+El servidor proporciona una especificación OpenAPI en `http://localhost:$(cat .internal/editor.port)/openapi.json`. Es un punto de partida mínimo útil para flujos de trabajo con agentes.
+
 Además, el ejecutable del editor tiene una opción de línea de comando `--port` (o `-p`), que permite especificar el puerto durante el inicio, por ejemplo::
 ```shell
 # Windows
@@ -255,6 +257,28 @@ Además, el ejecutable del editor tiene una opción de línea de comando `--port
 
 # macOS:
 ./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
+```
+
+## Metadatos de instalación del editor
+
+Cuando el editor se inicia, escribe información sobre el lanzador y las rutas de instalación en una ubicación conocida. Las integraciones con IDE de terceros y otras herramientas pueden usar esto para encontrar editores Defold instalados:
+
+| SO      | Ubicación |
+|---------|-----------|
+| macOS   | `~/Library/Application Support/Defold/installations.json` |
+| Linux   | `${XDG_STATE_HOME:-~/.local/state}/Defold/installations.json` |
+| Windows | `%LOCALAPPDATA%\Defold\installations.json` |
+
+El archivo contiene un array JSON con un objeto por cada instalación conocida:
+
+```json
+[
+  {
+    "launcherPath": "/Applications/Defold.app/Contents/MacOS/Defold",
+    "installPath": "/Applications/Defold.app",
+    "lastLaunchedAt": "2026-07-06T12:34:56.789Z"
+  }
+]
 ```
 
 ## Estilo del editor

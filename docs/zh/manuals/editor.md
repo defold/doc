@@ -245,6 +245,8 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 编辑器打开项目时，会在随机端口上启动一个 Web 服务器。该服务器可用于从其他应用程序与编辑器交互。端口会写入 `.internal/editor.port` 文件。
 
+服务器会在 `http://localhost:$(cat .internal/editor.port)/openapi.json` 提供 OpenAPI 规范。这是代理式工作流的一个有用的最小起点。
+
 此外，编辑器可执行文件带有命令行选项 `--port`（或 `-p`），允许在启动期间指定端口，例如::
 ```shell
 # Windows
@@ -255,6 +257,28 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 # macOS:
 ./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
+```
+
+## 编辑器安装元数据
+
+编辑器启动时，会将启动器和安装路径的信息写入一个已知位置。第三方 IDE 集成和其他工具可以使用这些信息查找已安装的 Defold 编辑器：
+
+| OS      | 位置 |
+|---------|------|
+| macOS   | `~/Library/Application Support/Defold/installations.json` |
+| Linux   | `${XDG_STATE_HOME:-~/.local/state}/Defold/installations.json` |
+| Windows | `%LOCALAPPDATA%\Defold\installations.json` |
+
+该文件包含一个 JSON 数组，每个已知安装对应一个对象：
+
+```json
+[
+  {
+    "launcherPath": "/Applications/Defold.app/Contents/MacOS/Defold",
+    "installPath": "/Applications/Defold.app",
+    "lastLaunchedAt": "2026-07-06T12:34:56.789Z"
+  }
+]
 ```
 
 ## 编辑器样式

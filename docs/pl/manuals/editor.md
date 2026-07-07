@@ -249,6 +249,8 @@ $ ./path/to/Defold.app/Contents/MacOS/Defold
 
 Gdy edytor otwiera projekt, uruchamia serwer WWW na losowym porcie. Serwer może służyć do komunikacji z edytorem z poziomu innych aplikacji. Numer portu jest zapisywany w pliku `.internal/editor.port`.
 
+Serwer udostępnia specyfikację OpenAPI pod adresem `http://localhost:$(cat .internal/editor.port)/openapi.json`. To przydatny minimalny punkt startowy dla przepływów pracy opartych na agentach.
+
 Dodatkowo plik wykonywalny edytora obsługuje opcję wiersza poleceń `--port` lub `-p`, która pozwala wskazać port przy uruchamianiu. Na przykład:
 
 ```shell
@@ -260,6 +262,28 @@ Dodatkowo plik wykonywalny edytora obsługuje opcję wiersza poleceń `--port` l
 
 # macOS:
 ./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
+```
+
+## Metadane instalacji edytora
+
+Po uruchomieniu edytor zapisuje informacje o launcherze i ścieżkach instalacji w znanej lokalizacji. Integracje z zewnętrznymi IDE i inne narzędzia mogą używać tych danych, aby znaleźć zainstalowane edytory Defold:
+
+| OS      | Lokalizacja |
+|---------|-------------|
+| macOS   | `~/Library/Application Support/Defold/installations.json` |
+| Linux   | `${XDG_STATE_HOME:-~/.local/state}/Defold/installations.json` |
+| Windows | `%LOCALAPPDATA%\Defold\installations.json` |
+
+Plik zawiera tablicę JSON z jednym obiektem dla każdej znanej instalacji:
+
+```json
+[
+  {
+    "launcherPath": "/Applications/Defold.app/Contents/MacOS/Defold",
+    "installPath": "/Applications/Defold.app",
+    "lastLaunchedAt": "2026-07-06T12:34:56.789Z"
+  }
+]
 ```
 
 ## Stylizacja edytora

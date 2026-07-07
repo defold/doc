@@ -245,6 +245,8 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 에디터가 프로젝트를 열면 임의의 포트에서 웹 서버를 시작합니다. 서버는 다른 어플리케이션에서 에디터와 상호작용하는 데 사용할 수 있습니다. 포트는 `.internal/editor.port` 파일에 기록됩니다.
 
+서버는 `http://localhost:$(cat .internal/editor.port)/openapi.json`에서 OpenAPI 명세를 제공합니다. 에이전트 기반 워크플로를 시작하기 위한 유용한 최소 출발점입니다.
+
 또한 에디터 실행 파일에는 실행 중 포트를 지정할 수 있는 커맨드 라인 옵션 `--port`(또는 `-p`)가 있습니다. 예:
 ```shell
 # Windows
@@ -255,6 +257,28 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 
 # macOS:
 ./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
+```
+
+## 에디터 설치 메타데이터
+
+에디터가 시작되면 런처와 설치 경로 정보를 잘 알려진 위치에 기록합니다. 서드파티 IDE 통합과 다른 도구는 이 정보를 사용해 설치된 Defold 에디터를 찾을 수 있습니다.
+
+| OS      | 위치 |
+|---------|------|
+| macOS   | `~/Library/Application Support/Defold/installations.json` |
+| Linux   | `${XDG_STATE_HOME:-~/.local/state}/Defold/installations.json` |
+| Windows | `%LOCALAPPDATA%\Defold\installations.json` |
+
+이 파일은 알려진 설치마다 하나의 객체를 가진 JSON 배열을 포함합니다.
+
+```json
+[
+  {
+    "launcherPath": "/Applications/Defold.app/Contents/MacOS/Defold",
+    "installPath": "/Applications/Defold.app",
+    "lastLaunchedAt": "2026-07-06T12:34:56.789Z"
+  }
+]
 ```
 
 ## 에디터 스타일링

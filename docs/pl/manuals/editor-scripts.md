@@ -142,6 +142,9 @@ Edytor oczekuje, że `get_commands()` zwróci tablicę tabel, z których każda 
       - `"outline"` — coś, co może być pokazane w Outline. W Outline to zaznaczony element, w pasku menu — aktualnie otwarty plik;
       - `"scene"` — coś, co da się wyrenderować w Scene;
     - `cardinality` określa liczbę zaznaczonych elementów. Dla `"one"` callback otrzyma pojedynczy `node_id`, a dla `"many"` — tablicę co najmniej jednego `node_id`;
+  - `active_view` oznacza, że polecenie jest poprawne, gdy aktywny widok edytora pasuje do żądanego typu. Aktywny widok jest przekazywany do callbacka polecenia jako `opts.active_view`.
+    - `type` to typ aktywnego widoku, którym interesuje się polecenie: `"code"`, `"scene"`, `"html"` albo `"form"`.
+    - Aktywny widok obsługuje właściwości `"type"`, `"resource"` i `"dirty"`. Użyj `editor.get(view, "resource")`, aby pobrać zasób pokazywany w widoku, oraz `editor.get(view, "dirty")`, aby sprawdzić, czy ma niezapisane zmiany.
   - `argument` — argument polecenia. Obecnie tylko polecenia z lokalizacją `"Bundle"` otrzymują argument: `true`, gdy użytkownik jawnie wybrał bundlowanie, i `false` przy rebundle;
 - `id` — identyfikator polecenia, używany na przykład do zapamiętywania ostatnio użytego polecenia bundlowania w `prefs`;
 - `active` — callback sprawdzający, czy polecenie ma być aktywne. Powinien zwracać wartość logiczną. Jeśli `locations` zawiera `"Assets"`, `"Scene"` albo `"Outline"`, `active` zostanie wywołane przy otwieraniu menu kontekstowego. Jeśli `locations` zawiera `"Edit"` albo `"View"`, `active` będzie uruchamiane przy każdej interakcji użytkownika, na przykład podczas pisania na klawiaturze lub kliknięć myszą, więc musi działać stosunkowo szybko;
@@ -171,6 +174,25 @@ Wewnątrz `run` możesz odczytywać i zmieniać stan edytora zapisany w pamięci
     })
   end
 }
+```
+
+### Używanie poleceń z aktywnym widokiem edytora
+
+Polecenia w lokalizacjach menu takich jak `"View"` mogą odpytywać aktualnie aktywny widok edytora. Przydaje się to, gdy polecenie powinno działać na pliku lub scenie, na które użytkownik właśnie patrzy:
+
+```lua
+editor.command({
+  label = "Print Active View",
+  locations = {"View"},
+  query = {active_view = {type = "code"}},
+  run = function(opts)
+    local view = opts.active_view
+    local resource = editor.get(view, "resource")
+    print(editor.get(view, "type"))
+    print(editor.get(resource, "path"))
+    print(editor.get(view, "dirty"))
+  end
+})
 ```
 
 #### Edycja atlasów

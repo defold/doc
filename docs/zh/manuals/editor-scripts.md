@@ -136,6 +136,9 @@ return M
       - `"outline"` — 可以在大纲中显示的内容。在大纲中它是选定项，在菜单栏中它是当前打开的文件；
       - `"scene"` — 可以渲染到场景中的内容。
     - `cardinality` 定义应该有多少个选定项。如果是 `"one"`，传递给命令回调的选择将是单个节点 id。如果是 `"many"`，传递给命令回调的选择将是一个或多个节点 id 的数组。
+  - `active_view` 表示当活动编辑器视图与请求的类型匹配时，此命令有效。活动视图会作为 `opts.active_view` 传递给命令回调。
+    - `type` 是命令感兴趣的活动视图类型，可以是 `"code"`、`"scene"`、`"html"` 或 `"form"`。
+    - 活动视图支持 `"type"`、`"resource"` 和 `"dirty"` 属性。使用 `editor.get(view, "resource")` 获取视图中显示的资源，使用 `editor.get(view, "dirty")` 检查它是否有未保存的更改。
   - `argument` — 命令参数。目前，只有 `"Bundle"` 位置中的命令接收参数，当明确选择打包命令时为 `true`，在重新打包时为 `false`。
 - `id` - 命令标识符字符串，例如用于在 `prefs` 中持久化最后使用的打包命令
 - `active` - 一个回调函数，用于检查命令是否处于活动状态，预期返回布尔值。如果 `locations` 包括 `"Assets"`、`"Scene"` 或 `"Outline"`，在显示上下文菜单时将调用 `active`。如果位置包括 `"Edit"` 或 `"View"`，则会在每次用户交互时调用 active，例如键盘输入或鼠标点击，因此请确保 `active` 相对较快。
@@ -164,6 +167,25 @@ return M
     })
   end
 }
+```
+
+### 将命令与活动编辑器视图一起使用
+
+位于 `"View"` 等菜单位置的命令可以查询当前活动的编辑器视图。当命令需要作用于用户当前正在查看的文件或场景时，这很有用：
+
+```lua
+editor.command({
+  label = "Print Active View",
+  locations = {"View"},
+  query = {active_view = {type = "code"}},
+  run = function(opts)
+    local view = opts.active_view
+    local resource = editor.get(view, "resource")
+    print(editor.get(view, "type"))
+    print(editor.get(resource, "path"))
+    print(editor.get(view, "dirty"))
+  end
+})
 ```
 
 #### 编辑图集
