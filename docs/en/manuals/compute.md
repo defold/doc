@@ -227,8 +227,22 @@ Defold currently supports compute shaders in the following graphics adapters:
 - OpenGL 4.3+
 - OpenGL ES 3.1+
 
-::: sidenote
-There is currently no way to check if the running client supports compute shaders.
-This means that there is no guarantee that the client supports running compute shaders if the graphics adapter is OpenGL, or OpenGL ES based.
-Vulkan and Metal support compute shaders from version 1.0. To use Vulkan, you need to create a custom manifest and select Vulkan as the backend.
-:::
+Use `graphics.get_adapter_info()` to check if the active graphics adapter supports compute shaders. The `features` field contains an array of the context feature constants supported by the adapter:
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local compute_shaders_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_COMPUTE_SHADER
+)
+```
+
+Only supported features are included in the array; it is not a table keyed by the feature constants. Always perform this check before using compute shaders when the game can run with different graphics adapters or on devices with varying driver support. OpenGL and OpenGL ES support depends on the API version and driver. Vulkan and Metal via MoltenVK support compute shaders from version 1.0. Use an [application manifest](/manuals/app-manifest) to select Vulkan on platforms where it is not already the default graphics backend.
