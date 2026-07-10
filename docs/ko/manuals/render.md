@@ -155,6 +155,23 @@ local mode = camera.get_orthographic_mode("main:/go#camera")
 
 Defold의 render API는 개발자가 절두체 컬링(frustum culling)을 수행할 수 있게 해줍니다. 절두체 컬링이 활성화되면 정의된 바운딩 박스나 절두체 밖에 있는 그래픽은 무시됩니다. 한 번에 일부만 보이는 큰 게임 월드에서는 절두체 컬링을 통해 렌더링을 위해 GPU로 보내야 하는 데이터의 양을 크게 줄일 수 있으므로 성능이 향상되고 배터리도 절약됩니다(모바일 장치의 경우). 바운딩 박스를 만들 때는 카메라의 뷰와 투영을 사용하는 것이 일반적입니다. 기본 렌더 스크립트는 (카메라의) 뷰와 투영을 사용해 절두체를 계산합니다.
 
+그리기 호출에서 절두체 컬링을 활성화하려면 `render.draw()`의 `frustum` 옵션에 뷰-투영 행렬을 전달합니다:
+
+```lua
+local frustum = self.proj * self.view
+render.draw(predicates.particle, { frustum = frustum })
+```
+
+카메라 컴포넌트로 렌더링할 때는 `render.set_camera()`가 이후 그리기 호출에 카메라의 뷰-투영 행렬을 자동으로 사용하도록 설정할 수 있습니다:
+
+```lua
+render.set_camera("main:/go#camera", { use_frustum = true })
+render.draw(predicates.particle)
+render.set_camera()
+```
+
+두 방법 중 하나를 사용하면 Particle FX 이미터가 해당 바운드를 기준으로 컬링됩니다.
+
 절두체 컬링은 엔진에서 컴포넌트 타입별로 구현됩니다. 현재 상태는 다음과 같습니다.
 
 | 컴포넌트 | 지원 여부 |
@@ -164,12 +181,18 @@ Defold의 render API는 개발자가 절두체 컬링(frustum culling)을 수행
 | Mesh        | 예 (1)    |
 | Label       | 예        |
 | Spine       | 예        |
-| Particle fx | 아니요    |
+| Particle fx | 예        |
 | Tilemap     | 예        |
 | Rive        | 아니요    |
 
 1 = Mesh 바운딩 박스는 개발자가 설정해야 합니다. [자세히 알아보기](/manuals/mesh/#frustum-culling).
 
+
+::: sidenote
+Defold 1.13.0부터 컴포넌트 프리미티브는 반시계 방향 정점 순서를 사용하며, 프리미티브의 노멀은 카메라를 향합니다. 스프라이트, GUI 노드, 타일맵(타일그리드), Particle FX는 다른 컴포넌트 유형과 동일한 정점 순서를 사용하므로 모든 컴포넌트에 같은 면 컬링 설정을 사용할 수 있습니다.
+
+이는 모델 이외의 컴포넌트에 면 컬링을 설정한 프로젝트에 영향을 줄 수 있습니다. 컴포넌트가 예기치 않게 컬링되는 경우 `render.set_cull_face(graphics.FACE_TYPE_BACK)`로 뒷면을 선택하거나, `render.set_cull_face()` 호출을 제거하여 기본 `graphics.FACE_TYPE_BACK` 모드를 사용하세요.
+:::
 
 ## 좌표 시스템 {#coordinate-systems}
 

@@ -24,6 +24,12 @@ Jeśli model ma używać tekstury w Defold, zaimportuj obraz tekstury jako osobn
 
 ![Zaimportowane zasoby modelu](images/model/assets_gltf.png)
 
+::: sidenote
+Począwszy od Defold 1.13.0, Defold zachowuje pozycje i transformacje z importowanego pliku glTF i nie wyśrodkowuje automatycznie modelu podczas importu. Podgląd w edytorze i środowisko uruchomieniowe używają importowanych transformacji w spójny sposób: siatki ze skinningiem lub powiązane z kośćmi zachowują transformacje lokalne względem szkieletu, a siatki sztywne zachowują spłaszczone położenie w przestrzeni świata.
+
+Jeśli model utworzony w starszej wersji Defold zmieni pozycję lub orientację po ponownym zaimportowaniu, popraw transformację w Blenderze lub innym narzędziu autorskim, a następnie ponownie wyeksportuj plik *.gltf* lub *.glb*.
+:::
+
 ## Używanie modelu
 Po zaimportowaniu modelu użyj go w [komponencie Model](/manuals/model):
 

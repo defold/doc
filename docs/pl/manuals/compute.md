@@ -227,8 +227,22 @@ Defold obsługuje obecnie shadery obliczeniowe na następujących adapterach gra
 - OpenGL 4.3+
 - OpenGL ES 3.1+
 
-::: sidenote
-Obecnie nie ma sposobu, aby sprawdzić, czy uruchomiony klient obsługuje shadery obliczeniowe.
-Oznacza to, że jeśli adapter graficzny jest oparty na OpenGL lub OpenGL ES, nie ma gwarancji, że klient obsłuży uruchamianie shaderów obliczeniowych.
-Vulkan i Metal obsługują shadery obliczeniowe od wersji 1.0. Aby użyć Vulkan, musisz utworzyć własny manifest i wybrać ten backend.
-:::
+Użyj `graphics.get_adapter_info()`, aby sprawdzić, czy aktywny adapter graficzny obsługuje shadery obliczeniowe. Pole `features` zawiera tablicę stałych funkcji kontekstu obsługiwanych przez adapter:
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local compute_shaders_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_COMPUTE_SHADER
+)
+```
+
+Tablica zawiera tylko obsługiwane funkcje; nie jest to tabela indeksowana stałymi funkcji. Zawsze wykonuj to sprawdzenie przed użyciem shaderów obliczeniowych, jeśli gra może działać z różnymi adapterami graficznymi lub na urządzeniach z różnym poziomem obsługi sterowników. Obsługa OpenGL i OpenGL ES zależy od wersji API i sterownika. Vulkan i Metal przez MoltenVK obsługują shadery obliczeniowe od wersji 1.0. Użyj [manifestu aplikacji](/manuals/app-manifest), aby wybrać Vulkan na platformach, na których nie jest on jeszcze domyślnym backendem graficznym.

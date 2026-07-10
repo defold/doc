@@ -46,13 +46,13 @@ Orthographic Projection
 : Włącz tę opcję, aby przełączyć kamerę na projekcję ortograficzną.
 
 Orthographic Zoom
-: (**Tylko dla kamery ortograficznej**) Powiększenie używane w projekcji ortograficznej (> 1 = przybliżenie, < 1 = oddalenie).
+: (**Tylko dla kamery ortograficznej**) Mnożnik zoomu kontrolowany przez użytkownika (> 1 = przybliżenie, < 1 = oddalenie). W trybie `Fixed` jest to efektywny zoom. W trybach `Auto Fit` i `Auto Cover` jest mnożony przez zoom obliczony automatycznie, dzięki czemu można zastosować dodatkowy zoom bez wyłączania automatycznego dopasowania.
 
 Orthographic Mode
 : (**Tylko dla kamery ortograficznej**) Określa, jak kamera ortograficzna wyznacza zoom względem rozmiaru okna i rozdzielczości projektowej, czyli wartości `game.project` → `display.width/height`.
   - `Fixed` (stały zoom): używa bieżącej wartości `Orthographic Zoom` bez zmian.
-  - `Auto Fit` (contain): automatycznie dopasowuje zoom tak, aby cały obszar projektowy mieścił się w oknie. Może pokazać dodatkową zawartość po bokach albo u góry i na dole.
-  - `Auto Cover` (cover): automatycznie dopasowuje zoom tak, aby obszar projektowy wypełniał całe okno. Może przycinać zawartość po bokach albo u góry i na dole.
+  - `Auto Fit` (contain): automatycznie oblicza zoom tak, aby cały obszar projektowy mieścił się w oknie, a następnie mnoży go przez `Orthographic Zoom`. Może pokazać dodatkową zawartość po bokach albo u góry i na dole.
+  - `Auto Cover` (cover): automatycznie oblicza zoom tak, aby obszar projektowy wypełniał całe okno, a następnie mnoży go przez `Orthographic Zoom`. Może przycinać zawartość po bokach albo u góry i na dole.
   Ta opcja jest dostępna tylko wtedy, gdy włączone jest `Orthographic Projection`.
 
 
@@ -92,6 +92,8 @@ camera.get_aspect_ratio(camera) -- pobierz współczynnik proporcji
 camera.get_far_z(camera) -- pobierz far z
 camera.get_fov(camera) -- pobierz pole widzenia
 camera.get_orthographic_mode(camera) -- pobierz tryb ortograficzny (jedna z wartości camera.ORTHO_MODE_*)
+camera.get_orthographic_zoom(camera) -- pobierz mnożnik zoomu kontrolowany przez użytkownika
+camera.get_orthographic_auto_zoom(camera) -- pobierz zoom obliczony automatycznie
 camera.set_aspect_ratio(camera, ratio) -- ustaw współczynnik proporcji
 camera.set_far_z(camera, far_z) -- ustaw far z
 camera.set_near_z(camera, near_z) -- ustaw near z
@@ -167,10 +169,28 @@ Kamerę przesuwa się po świecie gry przez przesuwanie obiektu gry, do którego
 
 Przy użyciu kamery perspektywicznej możesz przybliżać i oddalać widok, przesuwając obiekt gry, do którego przypisana jest kamera, wzdłuż osi Z. Komponent Camera automatycznie wyśle zaktualizowaną macierz widoku na podstawie bieżącej pozycji kamery na osi Z.
 
-W przypadku kamery ortograficznej możesz przybliżać i oddalać widok przez zmianę właściwości *Orthographic Zoom*:
+W przypadku kamery ortograficznej możesz przybliżać i oddalać widok przez zmianę właściwości *Orthographic Zoom* w edytorze lub podczas działania programu:
 
 ```lua
+-- W trybie Fixed jest to efektywny zoom.
 go.set("#camera", "orthographic_zoom", 2)
+```
+
+W trybach `Auto Fit` i `Auto Cover` właściwość *Orthographic Zoom* jest stosowana dodatkowo do zoomu obliczanego automatycznie; nie jest ignorowana. Na przykład ustaw w edytorze *Orthographic Mode* na `Auto Fit`, a *Orthographic Zoom* na `1.25`, aby dopasować obszar projektowy do okna, a następnie dodatkowo przybliżyć widok o 25%. Odpowiadająca temu konfiguracja w czasie działania programu wygląda następująco:
+
+```lua
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
+go.set("#camera", "orthographic_zoom", 1.25)
+
+local auto_zoom = camera.get_orthographic_auto_zoom("#camera")
+local zoom_multiplier = camera.get_orthographic_zoom("#camera")
+local effective_zoom = auto_zoom * zoom_multiplier
+```
+
+`camera.get_orthographic_auto_zoom()` zwraca zoom obliczony na podstawie bieżących wymiarów okna i projektu w trybach `Auto Fit` i `Auto Cover`. W trybie `Fixed` zwraca `1.0`. Ta sama wartość jest dostępna przez właściwość komponentu `orthographic_auto_zoom`, która jest tylko do odczytu:
+
+```lua
+local auto_zoom = go.get("#camera", "orthographic_auto_zoom")
 ```
 
 Przy użyciu kamery ortograficznej możesz też przełączać sposób wyznaczania zoomu za pomocą ustawienia `Orthographic Mode` albo z poziomu skryptu:
@@ -185,7 +205,7 @@ camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
 -- przełącz na auto-cover, aby obszar projektowy zawsze wypełniał okno
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
 
--- wróć do trybu fixed, aby ręcznie sterować zoomem przez orthographic_zoom
+-- przełącz na tryb fixed, aby używać orthographic_zoom bez automatycznego dopasowania
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
@@ -230,7 +250,7 @@ end
 
 Pełny przykład adaptacyjnego zoomu znajdziesz w [tym projekcie przykładowym](https://github.com/defold/sample-adaptive-zoom).
 
-Uwaga: przy użyciu kamery ortograficznej możesz teraz uzyskać zachowanie contain/cover bez własnego kodu, ustawiając `Orthographic Mode` na `Auto Fit` (contain) albo `Auto Cover` (cover). W tych trybach efektywny zoom jest obliczany automatycznie na podstawie rozmiaru okna i rozdzielczości projektowej.
+Uwaga: przy użyciu kamery ortograficznej możesz teraz uzyskać zachowanie contain/cover bez własnego kodu, ustawiając `Orthographic Mode` na `Auto Fit` (contain) albo `Auto Cover` (cover). W tych trybach zoom obliczony na podstawie rozmiaru okna i rozdzielczości projektowej jest mnożony przez `Orthographic Zoom`.
 
 
 ### Śledzenie obiektu gry
@@ -292,7 +312,10 @@ Kamera ma kilka właściwości, którymi można sterować przy użyciu `go.get()
 : Daleka wartość Z kamery (`number`).
 
 `orthographic_zoom`
-: Zoom kamery ortograficznej (`number`).
+: Mnożnik zoomu kamery ortograficznej kontrolowany przez użytkownika. W trybach `Auto Fit` i `Auto Cover` jest mnożony przez `orthographic_auto_zoom` (`number`).
+
+`orthographic_auto_zoom`
+: Zoom ortograficzny obliczony w trybach `Auto Fit` i `Auto Cover`, albo `1.0` w trybie `Fixed`. Tylko do odczytu (`number`).
 
 `aspect_ratio`
 : Stosunek szerokości bryły widoku do jej wysokości. Używany przy obliczaniu projekcji kamery perspektywicznej (`number`).

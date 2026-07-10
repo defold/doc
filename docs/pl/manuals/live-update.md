@@ -46,10 +46,10 @@ Gdy Defold tworzy paczkę aplikacji, musi gdzieś zapisać wykluczone zasoby. Lo
 Obecnie Defold może przechowywać zasoby na trzy sposoby. Metodę wybierasz w liście rozwijanej *Mode* w oknie ustawień:
 
 `Zip`
-: Ta opcja każe Defold utworzyć archiwum Zip zawierające wszystkie wykluczone zasoby. Archiwum zostanie zapisane w lokalizacji wskazanej w ustawieniu *Export path*.
+: Ta opcja każe Defold utworzyć archiwum Zip zawierające wszystkie wykluczone zasoby. Archiwum zostanie zapisane w lokalizacji wskazanej w *Export path* i można je zamontować w czasie działania za pomocą URI `zip:` oraz `liveupdate.add_mount()`.
 
 `Folder`
-: Ta opcja każe Defold utworzyć folder zawierający wszystkie wykluczone zasoby. Działa dokładnie tak samo jak Zip, ale zamiast archiwum używa katalogu. Może to być przydatne, gdy trzeba przetworzyć pliki przed wysłaniem i samodzielnie spakować je później do archiwum.
+: Ta opcja każe Defold utworzyć folder zawierający wszystkie wykluczone zasoby. Jest przydatny do przetwarzania plików przed wysłaniem lub pakowaniem. Folder pojedynczych skompilowanych plików ułożonych w oczekiwanych ścieżkach zasobów można zamontować w czasie działania za pomocą URI `file:`.
 
 `Amazon`
 : Ta opcja każe Defold automatycznie wysłać wykluczone zasoby do bucketa S3 w Amazon Web Services (AWS). Wpisz nazwę profilu AWS w polu *Credential profile*, wybierz odpowiedni *Bucket* i podaj *Prefix*. Więcej informacji o konfiguracji konta AWS znajdziesz w [instrukcji AWS](/manuals/live-update-aws).
@@ -108,7 +108,7 @@ Domyślne zachowanie `liveupdate.add_mount()` polega na dodaniu sprawdzenia wers
 
 To zachowanie można wyłączyć odpowiednią flagą opcji. Po wyłączeniu pełna odpowiedzialność za weryfikację zawartości spoczywa na deweloperze, który musi zagwarantować, że każde archiwum Live update będzie działało z uruchomionym silnikiem.
 
-Zalecamy przechowywanie metadanych dla każdego mounta, aby _bezpośrednio po uruchomieniu_ deweloper mógł zdecydować, czy dany mount lub archiwum należy usunąć. Jednym ze sposobów jest dodanie do archiwum zip dodatkowego pliku po spakowaniu gry, na przykład `metadata.json` z dowolnymi informacjami wymaganymi przez grę. Następnie przy starcie gry można je odczytać przez `sys.load_resource("/metadata.json")`. _Pamiętaj, że dla niestandardowych danych każdego mounta potrzebna jest unikalna nazwa, w przeciwnym razie mounty zwrócą plik o najwyższym priorytecie._
+Zalecamy przechowywanie metadanych dla każdego mounta, aby aplikacja mogła zdecydować, czy pakiet powinien pozostać zamontowany. Sprawdź je po dodaniu mounta, także gdy aplikacja ponownie dodaje wymagane mounty podczas startu. Możesz dodać do archiwum Zip plik `metadata.json` i odczytać go przez `sys.load_resource("/metadata.json")` po zamontowaniu. _Użyj unikalnej ścieżki zasobu dla danych każdego mounta, inaczej zostanie zwrócony plik z mounta o najwyższym priorytecie._
 
 Jeśli tego nie zrobisz, możesz doprowadzić do sytuacji, w której zawartość w ogóle nie będzie zgodna z silnikiem, co zmusi go do zamknięcia się.
 
@@ -121,10 +121,10 @@ Jeśli dwa archiwa mają ten sam plik `sprite.texturec`, silnik wczyta plik z mo
 
 Silnik nie przechowuje referencji do żadnego zasobu znajdującego się w mouncie. Gdy zasób zostanie wczytany do pamięci, archiwum może zostać odmontowane. Zasób pozostanie w pamięci do momentu, gdy zostanie zwolniony.
 
-Mounty są automatycznie dodawane ponownie po restarcie silnika.
+Mounty są aktywne tylko w bieżącej sesji silnika. Po restarcie aplikacja musi ponownie wywołać `liveupdate.add_mount()` dla każdego potrzebnego pakietu. Jeśli wybór ma przetrwać między sesjami, zapisz lokalizację, nazwę i priorytet pakietu we własnych trwałych danych aplikacji.
 
 ::: sidenote
-Montowanie archiwum nie kopiuje go ani nie przenosi. Silnik przechowuje tylko ścieżkę do archiwum. Dzięki temu deweloper może usunąć archiwum w dowolnej chwili, a mount zostanie usunięty przy następnym uruchomieniu.
+Montowanie archiwum Zip lub folderu nie kopiuje go ani nie przenosi. Zawartość musi pozostać we wskazanej lokalizacji przez cały czas używania mounta.
 :::
 
 ## Skryptowanie z Live Update
@@ -144,8 +144,6 @@ Debugowanie
   ![Wyjście konsoli](images/live-update/run-bundle-console.png)
 
 Wymuszenie ponownego pobrania zasobów
-: Deweloper może pobrać zawartość do dowolnego pliku lub folderu, ale często znajdują się one w ścieżce aplikacji. Lokalizacja folderu wsparcia aplikacji zależy od systemu operacyjnego. Możesz ją sprawdzić przez `print(sys.get_save_file("", ""))`.
-
-  Plik liveupdate.mounts znajduje się w "local storage", a jego ścieżka jest wypisywana na konsolę przy uruchomieniu jako "INFO:LIVEUPDATE: Live update folder located at: ..."
+: Deweloper może pobrać zawartość do dowolnego pliku lub folderu, zwykle w ścieżce aplikacji. Lokalizację folderu wsparcia można sprawdzić przez `print(sys.get_save_file("", ""))`. Aby wymusić ponowne pobranie, usuń pobrany pakiet i odpowiadający mu wpis ze stanu zarządzanego przez aplikację. Nie istnieje lista mountów zarządzana przez silnik; mounty nie są zachowywane po restarcie.
 
   ![Local storage](images/live-update/local-storage.png)

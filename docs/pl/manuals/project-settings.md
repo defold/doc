@@ -720,9 +720,6 @@ Zaznacz, aby automatycznie finalizować transakcje IAP. Jeśli pole jest odznacz
 #### Settings
 Plik zasobu ustawień Liveupdate używany podczas bundlowania.
 
-#### Mount On Start
-Włącza automatyczne montowanie wcześniej zamontowanych zasobów przy starcie aplikacji.
-
 ---
 
 ### Native extension

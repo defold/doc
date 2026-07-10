@@ -227,8 +227,22 @@ end
 - OpenGL 4.3+
 - OpenGL ES 3.1+
 
-::: sidenote
-В настоящее время нет способа проверить, поддерживает ли запущенный клиент compute-шейдеры.
-Это означает, что нет гарантии, что клиент сможет запускать compute-шейдеры, если используется графический адаптер на основе OpenGL или OpenGL ES.
-Vulkan и Metal поддерживают compute-шейдеры начиная с версии 1.0. Чтобы использовать Vulkan, необходимо создать custom manifest и выбрать Vulkan в качестве backend.
-:::
+Используйте `graphics.get_adapter_info()`, чтобы проверить, поддерживает ли активный графический адаптер compute-шейдеры. Поле `features` содержит массив констант контекстных возможностей, поддерживаемых адаптером:
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local compute_shaders_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_COMPUTE_SHADER
+)
+```
+
+В массив включены только поддерживаемые возможности; это не таблица, в которой константы возможностей используются как ключи. Всегда выполняйте эту проверку перед использованием compute-шейдеров, если игра может запускаться с разными графическими адаптерами или на устройствах с разным уровнем поддержки драйверов. Поддержка OpenGL и OpenGL ES зависит от версии API и драйвера. Vulkan и Metal через MoltenVK поддерживают compute-шейдеры начиная с версии 1.0. Используйте [манифест приложения](/manuals/app-manifest), чтобы выбрать Vulkan на платформах, где он ещё не является графическим backend по умолчанию.

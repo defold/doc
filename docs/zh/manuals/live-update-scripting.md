@@ -11,32 +11,37 @@ API 仅包含几个函数：
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`。
 
+推荐的流程是下载完整的 Zip 归档，并使用 `zip:` URI 挂载。
+
 ## 获取挂载点
 
-如果您使用多个 live update 归档文件，建议在启动时遍历每个挂载点
-并确定是否仍应使用该挂载点。
+`liveupdate.get_mounts()` 返回当前会话中的活动挂载点。每个条目包含 URI `mount.uri`、数字优先级 `mount.priority` 和哈希值 `mount.name`。重启后挂载点不会恢复；应用必须自行保存所需设置，并再次调用 `liveupdate.add_mount()`。
 
-这很重要，因为由于文件格式更改，内容可能对引擎不再有效。
+由于 `mount.name` 是哈希值，请将其用作表的键，或与 `hash("name")` 比较；不要将其拼接到路径字符串中。请把每个名称哈希映射到唯一的元数据路径：
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- 包含挂载点的表
+	local version_resources = {
+		[hash("liveupdate")] = "/version_liveupdate.json",
+	}
 
     -- 每个挂载点包含：mount.uri, mount.priority, mount.name
 	for _,mount in ipairs(mounts) do
 
         -- 这需要文件名是唯一的，这样我们就不会从不同的归档文件中获取文件
         -- 这些数据由开发人员创建，作为为归档文件指定元数据的方式
-		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
+		local version_resource = version_resources[mount.name]
+		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
-		else
+		elseif mount.priority >= 0 then
 			version_data = {version = 0} -- 如果没有版本文件，它可能是旧的/无效的归档文件
 		end
 
         -- 验证归档文件版本与游戏支持的版本
-        if version_data.version < sys.get_config_int("game.minimum_lu_version") then
+        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
             -- 它无效，所以我们卸载它！
             liveupdate.remove_mount(mount.name)
         end
@@ -91,8 +96,9 @@ local function mount_zip(self, name, priority, path, callback)
 end
 
 local function has_mount(name)
+    local name_hash = hash(name)
     for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
+        if mount.name == name_hash then
             return true
         end
     end
@@ -147,7 +153,7 @@ end
 ```
 
 1. `liveupdate.add_mount()` 使用指定的名称、优先级和 zip 文件挂载单个归档文件。数据立即可用于加载（无需重启引擎）。
-挂载点信息被存储，并在下次引擎重启时自动重新添加（无需在同一挂载点上再次调用 `liveupdate.add_mount()`）
+挂载点仅在当前会话中有效。请在应用自己的持久数据中保存内容包路径和挂载设置，并在每次重启后再次调用 `liveupdate.add_mount()`。
 2. 您需要将归档文件在线存储（例如在 S3 上），以便您可以从中下载。
 3. 给定集合代理名称，您需要确定要下载哪些归档文件，以及如何挂载它们
 4. 在启动时，我们尝试加载关卡。

@@ -46,13 +46,13 @@ Orthographic Projection
 : Defina isto para mudar a câmera para uma projeção ortográfica (veja abaixo).
 
 Orthographic Zoom
-: (**Somente câmera ortográfica**) - O zoom usado para a projeção ortográfica (> 1 = aproximar, < 1 = afastar).
+: (**Somente câmera ortográfica**) - Um multiplicador de zoom controlado pelo usuário (> 1 = aproximar, < 1 = afastar). No modo `Fixed`, ele é o zoom efetivo. Nos modos `Auto Fit` e `Auto Cover`, ele é multiplicado pelo zoom calculado automaticamente, permitindo aplicar zoom adicional sem desativar o ajuste automático.
 
 Orthographic Mode
 : (**Somente câmera ortográfica**) - Controla como a câmera ortográfica determina o zoom em relação ao tamanho da janela e à resolução de design (os valores em `game.project` → `display.width/height`).
   - `Fixed` (usa zoom constante): Usa o valor atual de `Orthographic Zoom` como está.
-  - `Auto Fit` (contain): Ajusta automaticamente o zoom para que toda a área de design caiba dentro da janela. Pode mostrar conteúdo extra nas laterais ou acima/abaixo.
-  - `Auto Cover` (cover): Ajusta automaticamente o zoom para que a área de design cubra a janela inteira. Pode recortar nas laterais ou acima/abaixo.
+  - `Auto Fit` (contain): Calcula automaticamente o zoom para que toda a área de design caiba dentro da janela e depois o multiplica por `Orthographic Zoom`. Pode mostrar conteúdo extra nas laterais ou acima/abaixo.
+  - `Auto Cover` (cover): Calcula automaticamente o zoom para que a área de design cubra a janela inteira e depois o multiplica por `Orthographic Zoom`. Pode recortar nas laterais ou acima/abaixo.
   Disponível somente quando `Orthographic Projection` está ativado.
 
 
@@ -92,6 +92,8 @@ camera.get_aspect_ratio(camera) -- obtém a proporção de tela
 camera.get_far_z(camera) -- obtém far z
 camera.get_fov(camera) -- obtém o campo de visão
 camera.get_orthographic_mode(camera) -- obtém o modo ortográfico (um de camera.ORTHO_MODE_*)
+camera.get_orthographic_zoom(camera) -- obtém o multiplicador de zoom controlado pelo usuário
+camera.get_orthographic_auto_zoom(camera) -- obtém o zoom calculado automaticamente
 camera.set_aspect_ratio(camera, ratio) -- define a proporção de tela
 camera.set_far_z(camera, far_z) -- define far z
 camera.set_near_z(camera, near_z) -- define near z
@@ -167,10 +169,28 @@ Você desloca/move a câmera pelo mundo do jogo movendo o objeto de jogo ao qual
 
 Você pode aproximar e afastar ao usar uma câmera perspectiva movendo o objeto de jogo ao qual a câmera está anexada ao longo do eixo z. O componente de câmera enviará automaticamente uma matriz de visualização atualizada com base na posição z atual da câmera.
 
-Você pode aproximar e afastar ao usar uma câmera ortográfica alterando a propriedade *Orthographic Zoom* da câmera:
+Você pode aproximar e afastar ao usar uma câmera ortográfica alterando a propriedade *Orthographic Zoom* da câmera, no editor ou em tempo de execução:
 
 ```lua
+-- No modo Fixed, este é o zoom efetivo.
 go.set("#camera", "orthographic_zoom", 2)
+```
+
+Nos modos `Auto Fit` e `Auto Cover`, *Orthographic Zoom* é aplicado sobre o zoom calculado automaticamente; ele não é ignorado. Por exemplo, defina *Orthographic Mode* como `Auto Fit` e *Orthographic Zoom* como `1.25` no editor para ajustar a área de design à janela e depois aplicar 25% de zoom adicional. A configuração equivalente em tempo de execução é:
+
+```lua
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
+go.set("#camera", "orthographic_zoom", 1.25)
+
+local auto_zoom = camera.get_orthographic_auto_zoom("#camera")
+local zoom_multiplier = camera.get_orthographic_zoom("#camera")
+local effective_zoom = auto_zoom * zoom_multiplier
+```
+
+`camera.get_orthographic_auto_zoom()` retorna o zoom calculado a partir das dimensões atuais da janela e do projeto nos modos `Auto Fit` e `Auto Cover`. No modo `Fixed`, retorna `1.0`. O mesmo valor está disponível por meio da propriedade de componente somente leitura `orthographic_auto_zoom`:
+
+```lua
+local auto_zoom = go.get("#camera", "orthographic_auto_zoom")
 ```
 
 Ao usar uma câmera ortográfica, você também pode trocar como o zoom é determinado usando a configuração `Orthographic Mode` ou por script:
@@ -185,7 +205,7 @@ camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
 -- muda para auto-cover para garantir que a área de design cubra a janela
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
 
--- volta para o modo fixed para controlar o zoom manualmente via orthographic_zoom
+-- muda para o modo fixed para usar orthographic_zoom sem ajuste automático
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
@@ -230,7 +250,7 @@ end
 
 Um exemplo completo de zoom adaptativo pode ser visto [neste projeto de exemplo](https://github.com/defold/sample-adaptive-zoom).
 
-Observação: com uma câmera ortográfica, agora você pode obter comportamento contain/cover sem código personalizado definindo `Orthographic Mode` como `Auto Fit` (contain) ou `Auto Cover` (cover). Nesses modos, o zoom efetivo é calculado automaticamente com base no tamanho da janela e na sua resolução de design.
+Observação: com uma câmera ortográfica, agora você pode obter comportamento contain/cover sem código personalizado definindo `Orthographic Mode` como `Auto Fit` (contain) ou `Auto Cover` (cover). Nesses modos, o zoom calculado com base no tamanho da janela e na resolução de design é multiplicado por `Orthographic Zoom`.
 
 
 ### Seguindo um objeto de jogo
@@ -291,7 +311,10 @@ Uma câmera tem várias propriedades diferentes que podem ser manipuladas usando
 : O valor Z distante da câmera (`number`).
 
 `orthographic_zoom`
-: O zoom da câmera ortográfica (`number`).
+: O multiplicador de zoom da câmera ortográfica controlado pelo usuário. Nos modos `Auto Fit` e `Auto Cover`, ele é multiplicado por `orthographic_auto_zoom`. (`number`).
+
+`orthographic_auto_zoom`
+: O zoom ortográfico calculado nos modos `Auto Fit` e `Auto Cover`, ou `1.0` no modo `Fixed`. SOMENTE LEITURA. (`number`).
 
 `aspect_ratio`
 : A razão entre a largura e a altura do frustum. Usada ao calcular a projeção de uma câmera perspectiva. (`number`).
