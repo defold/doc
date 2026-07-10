@@ -109,7 +109,6 @@ function init(self)
     msg.post("#", "load_level", {level = "level1", info = info }) -- <4>
 end
 
-
 function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
         local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
