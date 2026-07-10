@@ -124,10 +124,8 @@ If two archives have the same file `sprite.texturec`, the engine will load the f
 
 The engine doesn't keep a reference to any resource in a mount. Once a resource is loaded into memory, the archive may be unmounted. The resource will remain in memory until it is unloaded.
 
-The mounts are automatically re-added upon engine restart.
-
 ::: sidenote
-Mounting an archive doesn't copy or move the archive. The engine only stores the path to the archive. Thus, the developer can remove the archive at any time, and the mount will also be removed at next startup.
+Mounts are not automatically re-added upon engine restart/reboot. It is up to the developer to make sure the necessary archives are mounted on next startup.
 :::
 
 ## Scripting with Live Update
