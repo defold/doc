@@ -725,9 +725,6 @@ Marca esta opción para finalizar automáticamente las transacciones IAP. Si est
 #### Settings
 Archivo de recurso de configuración de Live Update para usar durante la creación de bundles.
 
-#### Mount On Start
-Activa el montaje automático de recursos montados previamente cuando la aplicación arranca.
-
 ---
 
 ### Native extension

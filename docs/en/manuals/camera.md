@@ -46,13 +46,13 @@ Orthographic Projection
 : Set this to switch the camera to an orthographic projection (see below).
 
 Orthographic Zoom
-: (**Orthographic camera only**) - The zoom used for the orthographic projection (> 1 = zoom in, < 1 = zoom out).
+: (**Orthographic camera only**) - A user-controlled zoom multiplier (> 1 = zoom in, < 1 = zoom out). In `Fixed` mode it is the effective zoom. In `Auto Fit` and `Auto Cover` modes it is multiplied by the automatically calculated zoom, which makes it possible to add extra zoom without disabling automatic sizing.
 
 Orthographic Mode
 : (**Orthographic camera only**) - Controls how the orthographic camera determines zoom relative to the window size and your design resolution (the values in `game.project` → `display.width/height`).
   - `Fixed` (uses constant zoom): Uses the current `Orthographic Zoom` value as-is.
-  - `Auto Fit` (contain): Automatically adjusts zoom so the full design area fits inside the window. May show extra content on sides or top/bottom.
-  - `Auto Cover` (cover): Automatically adjusts zoom so the design area covers the entire window. May crop on sides or top/bottom.
+  - `Auto Fit` (contain): Automatically calculates zoom so the full design area fits inside the window, then multiplies it by `Orthographic Zoom`. May show extra content on sides or top/bottom.
+  - `Auto Cover` (cover): Automatically calculates zoom so the design area covers the entire window, then multiplies it by `Orthographic Zoom`. May crop on sides or top/bottom.
   Available only when `Orthographic Projection` is enabled.
 
 
@@ -91,6 +91,8 @@ camera.get_aspect_ratio(camera) -- get aspect ratio
 camera.get_far_z(camera) -- get far z
 camera.get_fov(camera) -- get field of view
 camera.get_orthographic_mode(camera) -- get orthographic mode (one of camera.ORTHO_MODE_*)
+camera.get_orthographic_zoom(camera) -- get the user-controlled zoom multiplier
+camera.get_orthographic_auto_zoom(camera) -- get the automatically calculated zoom
 camera.set_aspect_ratio(camera, ratio) -- set aspect ratio
 camera.set_far_z(camera, far_z) -- set far z
 camera.set_near_z(camera, near_z) -- set near z
@@ -166,10 +168,28 @@ You pan/move the camera around the game world by moving the game object the came
 
 You can zoom in and out when using a perspective camera by moving the game object the camera is attached to along the z-axis. The camera component will automatically send an updated view matrix based on the current z-position of the camera.
 
-You can zoom in and out when using an orthographic camera by changing the *Orthographic Zoom* property of the camera:
+You can zoom in and out when using an orthographic camera by changing the *Orthographic Zoom* property of the camera, either in the editor or at runtime:
 
 ```lua
+-- In Fixed mode, this is the effective zoom.
 go.set("#camera", "orthographic_zoom", 2)
+```
+
+In `Auto Fit` and `Auto Cover` modes, *Orthographic Zoom* is applied on top of the automatically calculated zoom; it is not ignored. For example, set *Orthographic Mode* to `Auto Fit` and *Orthographic Zoom* to `1.25` in the editor to fit the design area to the window and then zoom in an additional 25%. The equivalent runtime setup is:
+
+```lua
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
+go.set("#camera", "orthographic_zoom", 1.25)
+
+local auto_zoom = camera.get_orthographic_auto_zoom("#camera")
+local zoom_multiplier = camera.get_orthographic_zoom("#camera")
+local effective_zoom = auto_zoom * zoom_multiplier
+```
+
+`camera.get_orthographic_auto_zoom()` returns the zoom calculated from the current window and project dimensions in `Auto Fit` and `Auto Cover` modes. It returns `1.0` in `Fixed` mode. The same value is available through the read-only `orthographic_auto_zoom` component property:
+
+```lua
+local auto_zoom = go.get("#camera", "orthographic_auto_zoom")
 ```
 
 When using an orthographic camera you can also switch how zoom is determined using the `Orthographic Mode` setting or via script:
@@ -184,7 +204,7 @@ camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
 -- switch to auto-cover to ensure the design area covers the window
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
 
--- switch back to fixed mode to control zoom manually via orthographic_zoom
+-- switch to fixed mode to use orthographic_zoom without automatic sizing
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
@@ -227,7 +247,7 @@ end
 
 A complete example of adaptive zoom can be seen in [this sample project](https://github.com/defold/sample-adaptive-zoom).
 
-Note: With an orthographic camera you can now achieve contain/cover behavior without custom code by setting `Orthographic Mode` to `Auto Fit` (contain) or `Auto Cover` (cover). In these modes the effective zoom is computed automatically based on window size and your design resolution.
+Note: With an orthographic camera you can now achieve contain/cover behavior without custom code by setting `Orthographic Mode` to `Auto Fit` (contain) or `Auto Cover` (cover). In these modes the zoom calculated from the window size and design resolution is multiplied by `Orthographic Zoom`.
 
 
 ### Following a game object
@@ -288,7 +308,10 @@ A camera has a number of different properties that can be manipulated using `go.
 : The camera far Z-value (`number`).
 
 `orthographic_zoom`
-: The orthographic camera zoom (`number`).
+: The user-controlled orthographic camera zoom multiplier. In `Auto Fit` and `Auto Cover` modes it is multiplied by `orthographic_auto_zoom`. (`number`).
+
+`orthographic_auto_zoom`
+: The calculated orthographic zoom for `Auto Fit` and `Auto Cover` modes, or `1.0` in `Fixed` mode. READ ONLY. (`number`).
 
 `aspect_ratio`
 : The ratio between the frustum width and height. Used when calculating the projection of a perspective camera. (`number`).

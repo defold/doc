@@ -46,10 +46,10 @@ Cuando Defold crea un bundle de aplicación, necesita almacenar en algún lugar 
 Actualmente hay tres formas en que Defold puede almacenar los recursos. Elige el método en el desplegable *Mode* de la ventana de configuración:
 
 `Zip`
-: Esta opción indica a Defold que cree un archivo Zip con cualquier recurso excluido. El archivo se guarda en la ubicación especificada en la configuración *Export path*.
+: Esta opción indica a Defold que cree un archivo Zip con cualquier recurso excluido. El archivo se guarda en la ubicación especificada en *Export path* y puede montarse durante la ejecución con una URI `zip:` y `liveupdate.add_mount()`.
 
 `Folder`
-: Esta opción indica a Defold que cree una carpeta con todos los recursos excluidos. Funciona exactamente igual que Zip, pero usa un directorio en lugar de un archivo. Esto puede ser útil en casos en los que necesitas posprocesar archivos antes de subirlos y planeas empaquetarlos tú mismo en un archivo.
+: Esta opción indica a Defold que cree una carpeta con todos los recursos excluidos. Resulta útil para posprocesar los archivos antes de subirlos o empaquetarlos. Una carpeta de archivos compilados individuales, organizados en las rutas de recursos esperadas, puede montarse durante la ejecución con una URI `file:`.
 
 `Amazon`
 : Esta opción indica a Defold que suba automáticamente los recursos excluidos a un bucket S3 de Amazon Web Service (AWS). Completa el nombre de tu *Credential profile* de AWS, selecciona el *Bucket* apropiado e indica un nombre de *Prefix*. Puedes leer más sobre cómo configurar una cuenta de AWS en esta [guía de AWS](/manuals/live-update-aws)
@@ -110,8 +110,8 @@ Esto significa que tanto el archivo base del juego como los archivos de live upd
 Este comportamiento puede desactivarse con un flag de opciones.
 Cuando está desactivado, la responsabilidad de verificar el contenido recae completamente en el desarrollador, para garantizar que cada archivo de live update funcione con el motor en ejecución.
 
-Recomendamos almacenar algunos metadatos para cada montaje, de modo que _directamente al arrancar_ el desarrollador pueda decidir si el montaje/archivo debe eliminarse.
-Una forma de hacerlo es agregar un archivo adicional al archivo zip después de crear el bundle del juego. Por ejemplo, insertando un `metadata.json` con cualquier información relevante que el juego requiera. Luego, al arrancar, el juego puede recuperarlo con `sys.load_resource("/metadata.json")`. _Ten en cuenta que necesitarás un nombre único para los datos personalizados de cada montaje, o los montajes te darán el archivo con la prioridad más alta_
+Recomendamos almacenar metadatos para cada montaje, de modo que la aplicación pueda decidir si el paquete debe permanecer montado. Valídalos después de agregar el montaje, también cuando la aplicación vuelva a agregar sus montajes durante el arranque.
+Una forma de hacerlo es agregar un archivo `metadata.json` al Zip después de crear el bundle y recuperarlo con `sys.load_resource("/metadata.json")` tras montar el paquete. _Usa una ruta de recurso única para los datos de cada montaje o se devolverá el archivo del montaje con mayor prioridad._
 
 Si no lo haces, puedes terminar en una situación en la que el contenido no sea compatible con el motor en absoluto, lo que obligará a cerrarlo.
 
@@ -124,10 +124,10 @@ Si dos archivos tienen el mismo archivo `sprite.texturec`, el motor cargará el 
 
 El motor no conserva una referencia a ningún recurso de un montaje. Una vez que un recurso se carga en memoria, el archivo puede desmontarse. El recurso permanecerá en memoria hasta que se descargue.
 
-Los montajes se vuelven a agregar automáticamente al reiniciar el motor.
+Los montajes solo están activos durante la sesión actual del motor. La aplicación debe volver a llamar a `liveupdate.add_mount()` para cada paquete que necesite después de reiniciar. Guarda la ubicación, el nombre y la prioridad del paquete en datos persistentes administrados por la aplicación si deben conservarse entre sesiones.
 
 ::: sidenote
-Montar un archivo no copia ni mueve el archivo. El motor solo almacena la ruta al archivo. Por lo tanto, el desarrollador puede eliminar el archivo en cualquier momento y el montaje también se eliminará en el siguiente arranque.
+Montar un archivo Zip o una carpeta no los copia ni los mueve. El contenido debe permanecer en la ubicación indicada mientras se use el montaje.
 :::
 
 ## Scripting con Live Update
@@ -147,8 +147,6 @@ Depuración
   ![Salida de consola](images/live-update/run-bundle-console.png)
 
 Forzar la descarga de recursos de nuevo
-: El desarrollador puede descargar el contenido en cualquier archivo/carpeta que quiera, pero a menudo se ubica bajo la ruta de la aplicación. La ubicación de la carpeta de soporte de la aplicación depende del sistema operativo. Puede encontrarse con `print(sys.get_save_file("", ""))`.
-
-  El archivo liveupdate.mounts se encuentra bajo el "local storage", y su ruta se muestra en la consola al inicio "INFO:LIVEUPDATE: Live update folder located at: ..."
+: El desarrollador puede descargar el contenido en cualquier archivo/carpeta que quiera, pero a menudo se ubica bajo la ruta de la aplicación. La ubicación de la carpeta de soporte depende del sistema operativo y puede encontrarse con `print(sys.get_save_file("", ""))`. Para forzar una descarga, elimina el paquete descargado y la entrada correspondiente del estado administrado por la aplicación. No existe una lista de montajes administrada por el motor; los montajes no persisten tras reiniciar.
 
   ![Almacenamiento local](images/live-update/local-storage.png)

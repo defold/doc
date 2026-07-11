@@ -11,38 +11,43 @@ The api only consists of a few functions:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
+The recommended workflow is to download and mount a complete Zip archive using a `zip:` URI.
+
 ## Get mounts
 
-If you are using more than one live update archive, it is recommended to loop over each mount
-at startup and determine if the mount should still be used.
+`liveupdate.get_mounts()` returns the mounts that are active in the current session. Each entry has a `uri` string, a numeric `priority`, and a `name` hash. The list also contains the engine's base mounts, whose priorities are below zero and which cannot be removed.
 
-This is important as the content may be not be valid for the engine anymore, due to file format changes.
+Mounts are not restored by the engine after restart. If the application needs previously downloaded content in a later session, it must persist the package URI, name and priority in its own save data and call `liveupdate.add_mount()` again during startup.
+
+When multiple packages are mounted, it is useful to validate their application-defined metadata. Since `mount.name` is a hash, use it as a table key or compare it with `hash("mount-name")`; do not concatenate it into a resource path. The following example maps each name hash to a unique metadata resource path:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- table with mounts
+	local version_resources = {
+		[hash("level-pack")] = "/version_level_pack.json",
+		[hash("season-pack")] = "/version_season_pack.json",
+	}
 
-    -- Each mount has: mount.uri, mount.priority, mount.name
-	for _,mount in ipairs(mounts) do
-
-        -- This requires the file name to be unique, so that we don't get a file from a different archive
-        -- This data is created by the developer as a way to specify meta data for the archive
-		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
+	for _, mount in ipairs(mounts) do
+		local version_resource = version_resources[mount.name]
+		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
-		else
+		elseif mount.priority >= 0 then
 			version_data = {version = 0} -- if it has no version file, it's likely an old/invalid archive
 		end
 
-        -- verify the archive version against the version supported by the game
-        if version_data.version < sys.get_config_int("game.minimum_lu_version") then
-            -- it was invalid, so we'll unmount it!
-            liveupdate.remove_mount(mount.name)
-        end
+		-- Ignore the engine's base mounts, which have negative priorities.
+		if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
+			liveupdate.remove_mount(mount.name)
+		end
 	end
 end
 ```
+
+Use unique metadata paths for different packages. Resource lookup follows mount priority, so using the same path in several packages would read the copy from the highest-priority mount.
 
 ## Scripting with excluded collection proxies
 
@@ -91,8 +96,9 @@ local function mount_zip(self, name, priority, path, callback)
 end
 
 local function has_mount(name)
+    local name_hash = hash(name)
     for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
+        if mount.name == name_hash then
             return true
         end
     end
@@ -147,7 +153,7 @@ end
 ```
 
 1. The `liveupdate.add_mount()` mounts a single archive using a specified name, priority and a zip file. The data is then immediately available for loading (there is no need to restart the engine).
-The mount info is stored and will be automatically re-added upon next engine restart (no need to call `liveupdate.add_mount()` again on the same mount)
+The mount is active only for the current session. Persist the downloaded package path and desired mount settings in your own save data and call `liveupdate.add_mount()` again after each restart.
 2. You need to store the archive online (e.g. on S3), where you can download it from.
 3. Given a collection proxy name, you need to figure our which archive(s) to download, and how to mount them
 4. At startup, we try to load the level.

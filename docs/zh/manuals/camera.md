@@ -45,13 +45,13 @@ Orthographic Projection
 : 设置此项以将摄像机切换到正交投影（见下文）。
 
 Orthographic Zoom
-: (**仅正交摄像机**) - 用于正交投影的缩放（> 1 = 放大，< 1 = 缩小）。
+: (**仅正交摄像机**) - 用户控制的缩放倍数（> 1 = 放大，< 1 = 缩小）。在 `Fixed` 模式下，它就是有效缩放。在 `Auto Fit` 和 `Auto Cover` 模式下，它会与自动计算的缩放相乘，因此无需禁用自动调整即可应用额外缩放。
 
 Orthographic Mode
 : (**仅正交摄像机**) - 控制正交摄像机如何根据窗口大小和设计分辨率（`game.project` 中的 `display.width/height` 值）确定缩放。
   - `Fixed`（使用固定缩放）：直接使用当前 `Orthographic Zoom` 值。
-  - `Auto Fit`（包含）：自动调整缩放，让完整设计区域适配窗口。侧边或上下可能显示额外内容。
-  - `Auto Cover`（覆盖）：自动调整缩放，让设计区域覆盖整个窗口。侧边或上下可能被裁剪。
+  - `Auto Fit`（包含）：自动计算缩放，使完整设计区域适配窗口，然后与 `Orthographic Zoom` 相乘。侧边或上下可能显示额外内容。
+  - `Auto Cover`（覆盖）：自动计算缩放，使设计区域覆盖整个窗口，然后与 `Orthographic Zoom` 相乘。侧边或上下可能被裁剪。
   仅在启用 `Orthographic Projection` 时可用。
 
 
@@ -89,6 +89,8 @@ render.set_camera()
 camera.get_aspect_ratio(camera) -- 获取宽高比
 camera.get_far_z(camera) -- 获取远z值
 camera.get_fov(camera) -- 获取视野
+camera.get_orthographic_zoom(camera) -- 获取用户控制的缩放倍数
+camera.get_orthographic_auto_zoom(camera) -- 获取自动计算的缩放
 camera.set_aspect_ratio(camera, ratio) -- 设置宽高比
 camera.set_far_z(camera, far_z) -- 设置远z值
 camera.set_near_z(camera, near_z) -- 设置近z值
@@ -163,10 +165,28 @@ end
 
 使用透视摄像机时，您可以通过沿z轴移动摄像机所附加到的游戏对象来放大和缩小。摄像机组件将根据摄像机的当前z位置自动发送更新的视图矩阵。
 
-使用正交摄像机时，您可以通过更改摄像机的*正交缩放*属性来放大和缩小：
+使用正交摄像机时，您可以在编辑器或运行时通过更改摄像机的 *Orthographic Zoom* 属性来放大和缩小：
 
 ```lua
+-- 在 Fixed 模式下，这就是有效缩放。
 go.set("#camera", "orthographic_zoom", 2)
+```
+
+在 `Auto Fit` 和 `Auto Cover` 模式下，*Orthographic Zoom* 会应用在自动计算的缩放之上，而不会被忽略。例如，在编辑器中将 *Orthographic Mode* 设为 `Auto Fit`，将 *Orthographic Zoom* 设为 `1.25`，可先让设计区域适配窗口，再额外放大 25%。等效的运行时设置为：
+
+```lua
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
+go.set("#camera", "orthographic_zoom", 1.25)
+
+local auto_zoom = camera.get_orthographic_auto_zoom("#camera")
+local zoom_multiplier = camera.get_orthographic_zoom("#camera")
+local effective_zoom = auto_zoom * zoom_multiplier
+```
+
+`camera.get_orthographic_auto_zoom()` 在 `Auto Fit` 和 `Auto Cover` 模式下返回根据当前窗口和项目尺寸计算的缩放，在 `Fixed` 模式下返回 `1.0`。同一数值也可通过只读组件属性 `orthographic_auto_zoom` 获取：
+
+```lua
+local auto_zoom = go.get("#camera", "orthographic_auto_zoom")
 ```
 
 使用正交摄像机时，您还可以通过 `Orthographic Mode` 设置或脚本切换缩放的确定方式：
@@ -181,7 +201,7 @@ camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
 -- 切换到 auto-cover，确保设计区域覆盖窗口
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
 
--- 切回 fixed 模式，通过 orthographic_zoom 手动控制缩放
+-- 切换到 fixed 模式，不使用自动调整而直接使用 orthographic_zoom
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
@@ -224,7 +244,7 @@ end
 
 自适应缩放的完整示例可以在[此示例项目](https://github.com/defold/sample-adaptive-zoom)中看到。
 
-注意：使用正交摄像机时，现在可以通过将 `Orthographic Mode` 设置为 `Auto Fit`（包含）或 `Auto Cover`（覆盖）来实现包含/覆盖行为，而无需自定义代码。在这些模式下，有效缩放会根据窗口大小和设计分辨率自动计算。
+注意：使用正交摄像机时，现在可以通过将 `Orthographic Mode` 设置为 `Auto Fit`（包含）或 `Auto Cover`（覆盖）来实现包含/覆盖行为，而无需自定义代码。在这些模式下，根据窗口大小和设计分辨率计算的缩放会与 `Orthographic Zoom` 相乘。
 
 ### 跟随游戏对象
 
@@ -284,7 +304,10 @@ end
 : 摄像机远Z值（`number`）。
 
 `orthographic_zoom`
-: 正交摄像机缩放（`number`）。
+: 用户控制的正交摄像机缩放倍数。在 `Auto Fit` 和 `Auto Cover` 模式下，它会与 `orthographic_auto_zoom` 相乘。（`number`）。
+
+`orthographic_auto_zoom`
+: `Auto Fit` 和 `Auto Cover` 模式下计算出的正交缩放；在 `Fixed` 模式下为 `1.0`。只读。（`number`）。
 
 `aspect_ratio`
 : Defold 1.4.8中添加。视锥体宽度和高度之间的比率。用于计算透视摄像机的投影。（`number`）。

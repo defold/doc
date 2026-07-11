@@ -154,6 +154,23 @@ local mode = camera.get_orthographic_mode("main:/go#camera")
 
 API renderowania w Defold pozwala programistom wykonywać coś, co nazywa się odrzucaniem poza bryłą widokową. Gdy ta funkcja jest włączona, każda grafika znajdująca się poza zdefiniowanym pudełkiem ograniczającym albo bryłą widokową zostanie zignorowana. W dużym świecie gry, w którym jednocześnie widoczna jest tylko część obszaru, odrzucanie poza bryłą widokową może znacznie zmniejszyć ilość danych, które trzeba wysłać do GPU w celu renderowania, a tym samym zwiększyć wydajność i oszczędzać baterię na urządzeniach mobilnych. Do utworzenia pudełka ograniczającego często używa się widoku i projekcji kamery. Domyślny skrypt do renderowania używa widoku i projekcji z kamery, aby obliczyć bryłę widokową.
 
+Włącz odrzucanie poza bryłą widokową dla wywołania rysowania, przekazując macierz widoku-projekcji w opcji `frustum` funkcji `render.draw()`:
+
+```lua
+local frustum = self.proj * self.view
+render.draw(predicates.particle, { frustum = frustum })
+```
+
+Podczas renderowania z komponentem kamery funkcja `render.set_camera()` może automatycznie używać macierzy widoku-projekcji kamery dla kolejnych wywołań rysowania:
+
+```lua
+render.set_camera("main:/go#camera", { use_frustum = true })
+render.draw(predicates.particle)
+render.set_camera()
+```
+
+Emitery Particle FX są odrzucane na podstawie swoich brył ograniczających, gdy używana jest jedna z tych metod.
+
 Odrzucanie poza bryłą widokową jest w silniku implementowane osobno dla każdego typu komponentu. Aktualny stan:
 
 | Component   | Supported |
@@ -163,12 +180,18 @@ Odrzucanie poza bryłą widokową jest w silniku implementowane osobno dla każd
 | Mesh        | YES (1)   |
 | Label       | YES       |
 | Spine       | YES       |
-| Particle fx | NO        |
+| Particle fx | YES       |
 | Tilemap     | YES       |
 | Rive        | NO        |
 
 1 = Pudełko ograniczające siatki musi zostać ustawione przez dewelopera. [Dowiedz się więcej](/manuals/mesh/#frustum-culling).
 
+
+::: sidenote
+Począwszy od Defold 1.13.0, prymitywy komponentów używają kolejności wierzchołków przeciwnej do ruchu wskazówek zegara, przy czym normalna prymitywu jest skierowana w stronę kamery. Sprite'y, węzły GUI, mapy kafelków (tilegridy) i efekty cząsteczkowe używają tej samej kolejności co pozostałe typy komponentów, dzięki czemu dla wszystkich komponentów można stosować te same ustawienia odrzucania ścian.
+
+Może to wpłynąć na projekty, które ustawiają odrzucanie ścian dla komponentów innych niż modele. Jeśli komponent jest nieoczekiwanie odrzucany, upewnij się, że tylne ściany są wybrane za pomocą `render.set_cull_face(graphics.FACE_TYPE_BACK)`, albo usuń wywołanie `render.set_cull_face()`, aby użyć domyślnego trybu `graphics.FACE_TYPE_BACK`.
+:::
 
 ## Układy współrzędnych
 

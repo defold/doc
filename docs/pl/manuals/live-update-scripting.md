@@ -11,32 +11,37 @@ Interfejs API składa się tylko z kilku funkcji:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
+Zalecany sposób polega na pobraniu i zamontowaniu pełnego archiwum Zip za pomocą URI `zip:`.
+
 ## Pobieranie mountów
 
-Jeśli używasz więcej niż jednego archiwum Live update, zalecamy przejść po każdym mouncie
-przy starcie i sprawdzić, czy nadal powinien być używany.
+`liveupdate.get_mounts()` zwraca mounty aktywne w bieżącej sesji. Każdy wpis zawiera URI `mount.uri`, liczbowy priorytet `mount.priority` oraz hash `mount.name`. Mounty nie są przywracane po restarcie; aplikacja musi zapisać potrzebne ustawienia i ponownie wywołać `liveupdate.add_mount()`.
 
-Jest to ważne, ponieważ zawartość może już nie być poprawna dla silnika z powodu zmian formatu plików.
+Ponieważ `mount.name` jest hashem, użyj go jako klucza tabeli lub porównaj z `hash("name")`; nie łącz go ze ścieżką. Przypisz każdy hash nazwy do unikalnej ścieżki metadanych:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- tabela z mountami
+	local version_resources = {
+		[hash("liveupdate")] = "/version_liveupdate.json",
+	}
 
     -- Każdy mount ma: mount.uri, mount.priority, mount.name
 	for _,mount in ipairs(mounts) do
 
         -- Wymaga to, aby nazwa pliku była unikalna, dzięki czemu nie pobierzemy pliku z innego archiwum.
         -- Te dane są tworzone przez twórcę gry jako sposób na określenie metadanych archiwum.
-		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
+		local version_resource = version_resources[mount.name]
+		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
-		else
+		elseif mount.priority >= 0 then
 			version_data = {version = 0} -- jeśli nie ma pliku wersji, prawdopodobnie jest to stare lub nieprawidłowe archiwum
 		end
 
         -- Sprawdź wersję archiwum względem wersji obsługiwanej przez grę.
-        if version_data.version < sys.get_config_int("game.minimum_lu_version") then
+        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
             -- Było nieprawidłowe, więc je odmontujemy!
             liveupdate.remove_mount(mount.name)
         end
@@ -91,8 +96,9 @@ local function mount_zip(self, name, priority, path, callback)
 end
 
 local function has_mount(name)
+    local name_hash = hash(name)
     for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
+        if mount.name == name_hash then
             return true
         end
     end
@@ -147,7 +153,7 @@ end
 ```
 
 1. `liveupdate.add_mount()` montuje jedno archiwum, używając podanej nazwy, priorytetu i pliku zip. Dane stają się wtedy natychmiast dostępne do wczytania, bez potrzeby restartowania silnika.
-Informacja o mouncie jest zapisywana i zostanie automatycznie dodana ponownie przy następnym uruchomieniu silnika, więc nie trzeba wywoływać ponownie `liveupdate.add_mount()` dla tego samego mounta.
+Mount jest aktywny tylko w bieżącej sesji. Zapisz ścieżkę pakietu i ustawienia mounta we własnych trwałych danych, a po każdym restarcie ponownie wywołaj `liveupdate.add_mount()`.
 2. Trzeba przechowywać archiwum online, na przykład w S3, skąd będzie można je pobrać.
 3. Mając nazwę pełnomocnika kolekcji, trzeba ustalić, które archiwum lub archiwa pobrać i jak je zamontować.
 4. Przy starcie próbujemy wczytać poziom.

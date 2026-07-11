@@ -46,13 +46,13 @@ Orthographic Projection
 : 카메라를 직교 투영으로 전환하려면 이 값을 설정합니다(아래 참조).
 
 Orthographic Zoom
-: (**직교 카메라 전용**) - 직교 투영에 사용하는 줌입니다(> 1 = 확대, < 1 = 축소).
+: (**직교 카메라 전용**) - 사용자가 제어하는 줌 배율입니다(> 1 = 확대, < 1 = 축소). `Fixed` 모드에서는 이 값이 유효 줌입니다. `Auto Fit` 및 `Auto Cover` 모드에서는 자동으로 계산된 줌과 곱해지므로 자동 크기 조정을 비활성화하지 않고 추가 줌을 적용할 수 있습니다.
 
 Orthographic Mode
 : (**직교 카메라 전용**) - 직교 카메라가 창 크기와 디자인 해상도(`game.project` → `display.width/height`의 값)를 기준으로 줌을 결정하는 방식을 제어합니다.
   - `Fixed` (고정 줌 사용): 현재 `Orthographic Zoom` 값을 그대로 사용합니다.
-  - `Auto Fit` (contain): 전체 디자인 영역이 창 안에 들어가도록 줌을 자동으로 조정합니다. 좌우 또는 상하에 추가 컨텐츠가 보일 수 있습니다.
-  - `Auto Cover` (cover): 디자인 영역이 창 전체를 덮도록 줌을 자동으로 조정합니다. 좌우 또는 상하가 잘릴 수 있습니다.
+  - `Auto Fit` (contain): 전체 디자인 영역이 창 안에 들어가도록 줌을 자동으로 계산한 다음 `Orthographic Zoom`과 곱합니다. 좌우 또는 상하에 추가 컨텐츠가 보일 수 있습니다.
+  - `Auto Cover` (cover): 디자인 영역이 창 전체를 덮도록 줌을 자동으로 계산한 다음 `Orthographic Zoom`과 곱합니다. 좌우 또는 상하가 잘릴 수 있습니다.
   `Orthographic Projection`이 활성화된 경우에만 사용할 수 있습니다.
 
 
@@ -93,6 +93,8 @@ camera.get_aspect_ratio(camera) -- 종횡비 얻기
 camera.get_far_z(camera) -- far z 얻기
 camera.get_fov(camera) -- 시야각 얻기
 camera.get_orthographic_mode(camera) -- 직교 모드 얻기(camera.ORTHO_MODE_* 중 하나)
+camera.get_orthographic_zoom(camera) -- 사용자 제어 줌 배율 얻기
+camera.get_orthographic_auto_zoom(camera) -- 자동으로 계산된 줌 얻기
 camera.set_aspect_ratio(camera, ratio) -- 종횡비 설정
 camera.set_far_z(camera, far_z) -- far z 설정
 camera.set_near_z(camera, near_z) -- near z 설정
@@ -169,10 +171,28 @@ end
 
 원근 카메라를 사용할 때는 카메라가 연결된 게임 오브젝트를 z축을 따라 움직여 확대 및 축소할 수 있습니다. 카메라 컴포넌트는 카메라의 현재 z 위치를 기준으로 업데이트된 뷰 매트릭스를 자동으로 보냅니다.
 
-직교 카메라를 사용할 때는 카메라의 *Orthographic Zoom* 프로퍼티를 변경하여 확대 및 축소할 수 있습니다.
+직교 카메라를 사용할 때는 에디터 또는 런타임에서 카메라의 *Orthographic Zoom* 프로퍼티를 변경하여 확대 및 축소할 수 있습니다.
 
 ```lua
+-- Fixed 모드에서는 이 값이 유효 줌입니다.
 go.set("#camera", "orthographic_zoom", 2)
+```
+
+`Auto Fit` 및 `Auto Cover` 모드에서 *Orthographic Zoom*은 자동으로 계산된 줌에 추가로 적용되며 무시되지 않습니다. 예를 들어 에디터에서 *Orthographic Mode*를 `Auto Fit`으로, *Orthographic Zoom*을 `1.25`로 설정하면 디자인 영역을 창에 맞춘 다음 추가로 25% 확대합니다. 이에 해당하는 런타임 설정은 다음과 같습니다.
+
+```lua
+camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
+go.set("#camera", "orthographic_zoom", 1.25)
+
+local auto_zoom = camera.get_orthographic_auto_zoom("#camera")
+local zoom_multiplier = camera.get_orthographic_zoom("#camera")
+local effective_zoom = auto_zoom * zoom_multiplier
+```
+
+`camera.get_orthographic_auto_zoom()`은 `Auto Fit` 및 `Auto Cover` 모드에서 현재 창과 프로젝트 크기를 기준으로 계산된 줌을 반환합니다. `Fixed` 모드에서는 `1.0`을 반환합니다. 읽기 전용 `orthographic_auto_zoom` 컴포넌트 프로퍼티에서도 같은 값을 얻을 수 있습니다.
+
+```lua
+local auto_zoom = go.get("#camera", "orthographic_auto_zoom")
 ```
 
 직교 카메라를 사용할 때는 `Orthographic Mode` 설정 또는 스크립트를 통해 줌을 결정하는 방식을 전환할 수도 있습니다.
@@ -187,7 +207,7 @@ camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_FIT)
 -- 디자인 영역이 창을 덮도록 auto-cover로 전환
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_AUTO_COVER)
 
--- orthographic_zoom으로 줌을 직접 제어하도록 fixed mode로 다시 전환
+-- 자동 크기 조정 없이 orthographic_zoom을 사용하도록 fixed 모드로 전환
 camera.set_orthographic_mode("#camera", camera.ORTHO_MODE_FIXED)
 ```
 
@@ -230,7 +250,7 @@ end
 
 적응형 줌의 전체 예제는 [이 샘플 프로젝트](https://github.com/defold/sample-adaptive-zoom)에서 볼 수 있습니다.
 
-참고: 직교 카메라를 사용할 때 이제는 커스텀 코드 없이도 `Orthographic Mode`를 `Auto Fit`(contain) 또는 `Auto Cover`(cover)로 설정하여 contain/cover 동작을 구현할 수 있습니다. 이 모드에서는 창 크기와 디자인 해상도를 기준으로 유효 줌이 자동으로 계산됩니다.
+참고: 직교 카메라를 사용할 때 이제는 커스텀 코드 없이도 `Orthographic Mode`를 `Auto Fit`(contain) 또는 `Auto Cover`(cover)로 설정하여 contain/cover 동작을 구현할 수 있습니다. 이 모드에서는 창 크기와 디자인 해상도를 기준으로 계산된 줌에 `Orthographic Zoom`이 곱해집니다.
 
 
 ### 게임 오브젝트 따라가기
@@ -292,7 +312,10 @@ end
 : 카메라 far Z 값입니다(`number`).
 
 `orthographic_zoom`
-: 직교 카메라 줌입니다(`number`).
+: 사용자가 제어하는 직교 카메라 줌 배율입니다. `Auto Fit` 및 `Auto Cover` 모드에서는 `orthographic_auto_zoom`과 곱해집니다(`number`).
+
+`orthographic_auto_zoom`
+: `Auto Fit` 및 `Auto Cover` 모드에서 계산된 직교 줌이며, `Fixed` 모드에서는 `1.0`입니다. 읽기 전용입니다(`number`).
 
 `aspect_ratio`
 : 절두체의 너비와 높이 사이의 비율입니다. 원근 카메라의 투영을 계산할 때 사용됩니다(`number`).

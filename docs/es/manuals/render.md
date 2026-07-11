@@ -155,6 +155,23 @@ local mode = camera.get_orthographic_mode("main:/go#camera")
 
 La API de render de Defold permite a los desarrolladores realizar algo llamado frustum culling. Cuando el frustum culling está activado, se ignora cualquier gráfico que quede fuera de una caja delimitadora o frustum definido. En un mundo de juego grande donde solo una parte es visible a la vez, el frustum culling puede reducir drásticamente la cantidad de datos que deben enviarse a la GPU para el renderizado, lo que aumenta el rendimiento y ahorra batería (en dispositivos móviles). Es común usar la vista y la proyección de la cámara para crear la caja delimitadora. El script de render por defecto usa la vista y la proyección (de la cámara) para calcular un frustum.
 
+Activa el frustum culling para una llamada de dibujo pasando una matriz de vista-proyección en la opción `frustum` de `render.draw()`:
+
+```lua
+local frustum = self.proj * self.view
+render.draw(predicates.particle, { frustum = frustum })
+```
+
+Al renderizar con un componente Camera, `render.set_camera()` puede usar automáticamente la matriz de vista-proyección de la cámara para las llamadas de dibujo posteriores:
+
+```lua
+render.set_camera("main:/go#camera", { use_frustum = true })
+render.draw(predicates.particle)
+render.set_camera()
+```
+
+Los emisores de Particle FX se descartan según sus límites cuando se usa cualquiera de estos métodos.
+
 El frustum culling se implementa en el motor por tipo de componente. Estado actual:
 
 | Componente  | Soportado |
@@ -164,12 +181,18 @@ El frustum culling se implementa en el motor por tipo de componente. Estado actu
 | Mesh        | Sí (1)    |
 | Label       | Sí        |
 | Spine       | Sí        |
-| Particle fx | No        |
+| Particle fx | Sí        |
 | Tilemap     | Sí        |
 | Rive        | No        |
 
 1 = La caja delimitadora de Mesh debe definirla el desarrollador. [Más información](/manuals/mesh/#frustum-culling).
 
+
+::: sidenote
+A partir de Defold 1.13.0, las primitivas de los componentes usan un orden antihorario de los vértices, con la normal de la primitiva apuntando hacia la cámara. Los sprites, los nodos GUI, los tilemaps (tilegrids) y los Particle FX usan el mismo orden que los demás tipos de componentes, por lo que se puede usar la misma configuración de descarte de caras para todos los componentes.
+
+Esto puede afectar a los proyectos que configuran el descarte de caras para componentes distintos de los modelos. Si un componente se descarta de forma inesperada, asegúrate de seleccionar las caras posteriores con `render.set_cull_face(graphics.FACE_TYPE_BACK)`, o elimina la llamada a `render.set_cull_face()` para usar el modo predeterminado `graphics.FACE_TYPE_BACK`.
+:::
 
 ## Sistemas de coordenadas
 

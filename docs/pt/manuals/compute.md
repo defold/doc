@@ -228,9 +228,22 @@ Atualmente, o Defold oferece suporte a compute shaders nos seguintes adaptadores
 - OpenGL 4.3+
 - OpenGL ES 3.1+
 
-::: sidenote
-Atualmente não há como verificar se o cliente em execução oferece suporte a compute shaders.
-Isso significa que não há garantia de que o cliente ofereça suporte à execução de compute shaders se o adaptador gráfico for baseado em OpenGL ou OpenGL ES.
-Vulkan e Metal oferecem suporte a compute shaders desde a versão 1.0. Para usar Vulkan, você precisa criar um manifesto personalizado e selecionar Vulkan como backend.
-:::
+Use `graphics.get_adapter_info()` para verificar se o adaptador gráfico ativo oferece suporte a compute shaders. O campo `features` contém um array com as constantes de recursos de contexto compatíveis com o adaptador:
 
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local compute_shaders_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_COMPUTE_SHADER
+)
+```
+
+Apenas os recursos compatíveis são incluídos no array; ele não é uma tabela indexada pelas constantes de recursos. Sempre faça essa verificação antes de usar compute shaders quando o jogo puder ser executado com diferentes adaptadores gráficos ou em dispositivos com diferentes níveis de suporte do driver. O suporte a OpenGL e OpenGL ES depende da versão da API e do driver. Vulkan e Metal via MoltenVK oferecem suporte a compute shaders desde a versão 1.0. Use um [manifesto de aplicativo](/manuals/app-manifest) para selecionar Vulkan em plataformas nas quais ele ainda não seja o backend gráfico padrão.
