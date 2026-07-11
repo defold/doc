@@ -155,6 +155,23 @@ local mode = camera.get_orthographic_mode("main:/go#camera")
 
 The render API in Defold lets developers perform something called frustum culling. When frustum culling is enabled any graphics that lies outside of a defined bounding box or frustum will be ignored. In a large game world where only a portion is visible at a time, frustum culling can dramatically reduce the amount of data that needs to be sent to the GPU for rendering, thus increasing performance and saving battery (on mobile devices). It is common to use the view and projection of the camera to create the bounding box. The default render script uses the view and projection (from the camera) to calculate a frustum.
 
+Enable frustum culling for a draw call by passing a view-projection matrix in the `frustum` option to `render.draw()`:
+
+```lua
+local frustum = self.proj * self.view
+render.draw(predicates.particle, { frustum = frustum })
+```
+
+When rendering with a camera component, `render.set_camera()` can use the camera's view-projection matrix automatically for subsequent draw calls:
+
+```lua
+render.set_camera("main:/go#camera", { use_frustum = true })
+render.draw(predicates.particle)
+render.set_camera()
+```
+
+Particle FX emitters are culled against their bounds when either of these methods is used.
+
 Frustum culling is implemented in the engine per component type. Current status:
 
 | Component   | Supported |
@@ -164,12 +181,18 @@ Frustum culling is implemented in the engine per component type. Current status:
 | Mesh        | YES (1)   |
 | Label       | YES       |
 | Spine       | YES       |
-| Particle fx | NO        |
+| Particle fx | YES       |
 | Tilemap     | YES       |
 | Rive        | NO        |
 
 1 = Mesh bounding box needs to be set by the developer. [Learn more](/manuals/mesh/#frustum-culling).
 
+
+::: sidenote
+Starting with Defold 1.13.0, component primitives use counter-clockwise vertex winding, with the primitive normal pointing towards the camera. Sprites, GUI nodes, tilemaps (tilegrids), and Particle FX use the same winding as other component types, so the same face-culling settings can be used for all components.
+
+This may affect projects that set face culling for components other than models. If a component is unexpectedly culled, make sure back faces are selected with `render.set_cull_face(graphics.FACE_TYPE_BACK)`, or remove the `render.set_cull_face()` call to use the default `graphics.FACE_TYPE_BACK` mode.
+:::
 
 ## Coordinate systems
 

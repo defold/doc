@@ -11,33 +11,37 @@ API состоит всего из нескольких функций:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`
 
+Рекомендуемый процесс --- скачать и смонтировать целый Zip-архив с URI `zip:`.
+
 ## Получение mount'ов
 
-Если вы используете более одного архива Live Update, рекомендуется при запуске
-перебирать каждый mount и определять, нужно ли его по-прежнему использовать.
+`liveupdate.get_mounts()` возвращает mounts, активные в текущей сессии. Каждая запись содержит URI `mount.uri`, числовой приоритет `mount.priority` и хеш `mount.name`. Mounts не восстанавливаются после перезапуска; приложение должно сохранить нужные настройки и снова вызвать `liveupdate.add_mount()`.
 
-Это важно, поскольку контент может больше не подходить для текущей версии движка
-из-за изменений формата файлов.
+Поскольку `mount.name` является хешем, используйте его как ключ таблицы или сравнивайте с `hash("name")`; не добавляйте его к строке пути. Сопоставьте каждому хешу имени уникальный путь к метаданным:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- таблица с mount'ами
+	local version_resources = {
+		[hash("liveupdate")] = "/version_liveupdate.json",
+	}
 
     -- У каждого mount'а есть: mount.uri, mount.priority, mount.name
 	for _,mount in ipairs(mounts) do
 
         -- Имя файла должно быть уникальным, чтобы мы не получили файл из другого архива
         -- Эти данные разработчик создает как способ задать метаданные для архива
-		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
+		local version_resource = version_resources[mount.name]
+		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
-		else
+		elseif mount.priority >= 0 then
 			version_data = {version = 0} -- если файла версии нет, скорее всего архив старый или недействительный
 		end
 
         -- Проверяем версию архива относительно версии, поддерживаемой игрой
-        if version_data.version < sys.get_config_int("game.minimum_lu_version") then
+        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
             -- Архив недействителен, поэтому размонтируем его
             liveupdate.remove_mount(mount.name)
         end
@@ -92,8 +96,9 @@ local function mount_zip(self, name, priority, path, callback)
 end
 
 local function has_mount(name)
+    local name_hash = hash(name)
     for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
+        if mount.name == name_hash then
             return true
         end
     end
@@ -148,7 +153,7 @@ end
 ```
 
 1. `liveupdate.add_mount()` монтирует один архив, используя заданные имя, приоритет и zip-файл. После этого данные сразу доступны для загрузки, перезапускать движок не нужно.
-Сведения о mount'е сохраняются и будут автоматически добавлены снова при следующем запуске движка, поэтому повторно вызывать `liveupdate.add_mount()` для того же mount'а не требуется.
+Mount активен только в текущей сессии. Сохраните путь к пакету и настройки mount в собственных постоянных данных приложения и после каждого перезапуска снова вызывайте `liveupdate.add_mount()`.
 2. Архив нужно хранить онлайн, например на S3, откуда его можно будет скачать.
 3. По имени collection proxy нужно определить, какой архив или архивы нужно скачать и как их смонтировать.
 4. При запуске мы пытаемся загрузить уровень.

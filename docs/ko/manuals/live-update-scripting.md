@@ -11,32 +11,37 @@ API는 몇 가지 함수만으로 구성됩니다.
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
+권장 방식은 전체 Zip 아카이브를 다운로드하고 `zip:` URI로 마운트하는 것입니다.
+
 ## 마운트 가져오기
 
-Live Update 아카이브를 두 개 이상 사용하는 경우, 시작 시 각 마운트를 순회하며
-해당 마운트를 계속 사용해야 하는지 확인하는 것이 좋습니다.
+`liveupdate.get_mounts()`는 현재 세션에서 활성화된 마운트를 반환합니다. 각 항목에는 URI 문자열 `mount.uri`, 숫자 우선순위 `mount.priority`, 해시인 `mount.name`이 있습니다. 마운트는 재시작 후 복원되지 않으므로 필요한 설정을 애플리케이션이 저장하고 `liveupdate.add_mount()`를 다시 호출해야 합니다.
 
-파일 포멧 변경 때문에 컨텐츠가 더 이상 엔진에 유효하지 않을 수 있으므로 이 작업은 중요합니다.
+`mount.name`은 해시이므로 테이블 키로 사용하거나 `hash("name")`과 비교해야 하며 경로 문자열에 연결하면 안 됩니다. 각 이름 해시를 고유한 메타데이터 경로에 매핑하세요.
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- 마운트가 담긴 테이블
+	local version_resources = {
+		[hash("liveupdate")] = "/version_liveupdate.json",
+	}
 
     -- 각 마운트에는 mount.uri, mount.priority, mount.name이 있습니다
 	for _,mount in ipairs(mounts) do
 
         -- 다른 아카이브의 파일을 가져오지 않도록 파일명이 유니크해야 합니다
         -- 이 데이터는 개발자가 아카이브의 메타 데이터를 지정하기 위해 만듭니다
-		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
+		local version_resource = version_resources[mount.name]
+		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
-		else
+		elseif mount.priority >= 0 then
 			version_data = {version = 0} -- 버전 파일이 없다면 오래되었거나 유효하지 않은 아카이브일 가능성이 큽니다
 		end
 
         -- 게임이 지원하는 버전과 비교해 아카이브 버전을 검증합니다
-        if version_data.version < sys.get_config_int("game.minimum_lu_version") then
+        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
             -- 유효하지 않으므로 언마운트합니다!
             liveupdate.remove_mount(mount.name)
         end
@@ -91,8 +96,9 @@ local function mount_zip(self, name, priority, path, callback)
 end
 
 local function has_mount(name)
+    local name_hash = hash(name)
     for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
+        if mount.name == name_hash then
             return true
         end
     end
@@ -147,7 +153,7 @@ end
 ```
 
 1. `liveupdate.add_mount()`는 지정된 이름, 우선순위, zip 파일을 사용해 단일 아카이브를 마운트합니다. 그러면 데이터를 즉시 로드할 수 있습니다(엔진을 재시작할 필요가 없습니다).
-마운트 정보는 저장되며 다음 엔진 재시작 시 자동으로 다시 추가됩니다(같은 마운트에 대해 `liveupdate.add_mount()`를 다시 호출할 필요가 없습니다).
+마운트는 현재 세션에서만 활성화됩니다. 패키지 경로와 마운트 설정을 애플리케이션의 영구 데이터에 저장하고 재시작할 때마다 `liveupdate.add_mount()`를 다시 호출하세요.
 2. 아카이브는 다운로드할 수 있는 온라인 위치(예: S3)에 저장해야 합니다.
 3. 컬렉션 프록시 이름이 주어지면 어떤 아카이브를 다운로드해야 하는지, 그리고 어떻게 마운트해야 하는지 알아내야 합니다.
 4. 시작 시 레벨 로드를 시도합니다.

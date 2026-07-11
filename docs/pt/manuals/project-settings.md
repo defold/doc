@@ -725,9 +725,6 @@ Marque para finalizar automaticamente transações IAP. Se desmarcado, você pre
 #### Settings
 Arquivo de recurso de configurações Liveupdate a usar durante o empacotamento.
 
-#### Mount On Start
-Habilita montagem automática de recursos montados anteriormente quando a aplicação inicia.
-
 ---
 
 ### Native extension

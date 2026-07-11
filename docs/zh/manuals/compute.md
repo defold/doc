@@ -227,8 +227,22 @@ Defold 目前支持以下图形适配器中的计算着色器：
 - OpenGL 4.3+
 - OpenGL ES 3.1+
 
-::: sidenote
-目前无法检查运行中的客户端是否支持计算着色器。
-这意味着如果图形适配器是基于 OpenGL 或 OpenGL ES 的，则无法保证客户端支持运行计算着色器。
-Vulkan 和 Metal 从 1.0 版本开始支持计算着色器。要使用 Vulkan，您需要创建自定义清单并选择 Vulkan 作为后端。
-:::
+使用 `graphics.get_adapter_info()` 检查当前图形适配器是否支持计算着色器。`features` 字段包含该适配器支持的上下文功能常量数组：
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local compute_shaders_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_COMPUTE_SHADER
+)
+```
+
+数组中只包含支持的功能；它不是以功能常量为键的表。当游戏可能使用不同的图形适配器运行，或运行在驱动程序支持程度不同的设备上时，请务必在使用计算着色器前执行此检查。OpenGL 和 OpenGL ES 的支持取决于 API 版本和驱动程序。Vulkan 以及通过 MoltenVK 运行的 Metal 从 1.0 版本开始支持计算着色器。在 Vulkan 尚未成为默认图形后端的平台上，请使用[应用程序清单](/manuals/app-manifest)选择 Vulkan。

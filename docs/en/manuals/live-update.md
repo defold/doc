@@ -46,10 +46,10 @@ When Defold creates an application bundle it needs to store any excluded resourc
 There are currently three ways that Defold can store the resources. Choose the method in the *Mode* dropdown in the settings window:
 
 `Zip`
-: This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting.
+: This option tells Defold to create a Zip archive file with any excluded resources. The archive is saved at the location specified in the *Export path* setting and can be mounted at runtime using a `zip:` URI and `liveupdate.add_mount()`.
 
 `Folder`  
-: This option tells Defold to create a folder with all the excluded resources. It works exactly the same way as Zip, but uses a directory instead of an archive. This may be useful in cases where you need to post-process files before uploading and plan to pack them into an archive yourself.
+: This option tells Defold to create a folder with all the excluded resources. It is useful when you need to post-process files before uploading or packaging them. A folder of individual compiled files laid out at their expected resource paths can be mounted at runtime using a `file:` URI.
 
 `Amazon`
 : This option tells Defold to automatically upload excluded resources to an Amazon Web Service (AWS) S3 bucket. Fill in your AWS *Credential profile* name, select the appropriate *Bucket* and provide a *Prefix* name.  You can read more on how to setup an AWS account in this [aws guide](/manuals/live-update-aws)
@@ -110,8 +110,8 @@ This means that both the game base archive and live update archive(s) need to be
 This behavior can be turned off with an options flag.
 When turned off, the content verification responsibility lies entirely with the developer, to guarantee that each live update archive will work with the running engine.
 
-We recommend storing some metadata for each mount, so that _directly upon startup_, the developer can decide if the mount/archive should be removed.
-One way to do so is to add an extra file to the zip archive after the game has been bundled. For instance by inserting a `metadata.json` with any relevant information that the game requires. Then, at startup, the game can retrieve with `sys.load_resource("/metadata.json")`. _Note that you will need a unique name for each mount's custom data, or the mounts will give you the file with the topmost priority_
+We recommend storing metadata for each mount so the application can decide whether the package should remain mounted. Validate it after adding the mount, including when the application re-adds its required mounts during startup.
+One way to do so is to add an extra file to the zip archive after the game has been bundled. For instance, insert a `metadata.json` with any information that the game requires, then retrieve it with `sys.load_resource("/metadata.json")` after mounting. _Use a unique resource path for each mount's custom data, or resource lookup will return the file from the mount with the highest priority._
 
 Failure to do so, you may end up in a situation where the content is not compatible with the engine at all, forcing it to quit.
 
@@ -124,8 +124,10 @@ If two archives have the same file `sprite.texturec`, the engine will load the f
 
 The engine doesn't keep a reference to any resource in a mount. Once a resource is loaded into memory, the archive may be unmounted. The resource will remain in memory until it is unloaded.
 
+Mounts are active for the current engine session only. The application must call `liveupdate.add_mount()` again for every package it needs after a restart. Store the package location, mount name and priority in application-managed persistent data if those choices need to survive between sessions.
+
 ::: sidenote
-Mounts are not automatically re-added upon engine restart/reboot. It is up to the developer to make sure the necessary archives are mounted on next startup.
+Mounting a Zip archive or folder doesn't copy or move it. The mounted content must remain at the specified location for as long as the mount is in use.
 :::
 
 ## Scripting with Live Update
@@ -145,8 +147,6 @@ Debugging
   ![Console output](images/live-update/run-bundle-console.png)
 
 Forcing re-download of resources
-: The developer can download the content to any file/folder they wish, but often they're located under the application path. The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`.
-
-  The file liveupdate.mounts is located under the "local storage", and it's path is output to the console at start "INFO:LIVEUPDATE: Live update folder located at: ..."
+: The developer can download the content to any file/folder they wish, but often it is located under the application path. The location of the application support folder depends on the operating system. It can be found with `print(sys.get_save_file("", ""))`. To force a download, remove the downloaded package and the corresponding entry from any application-managed state. There is no engine-managed mount list to delete; mounts do not persist across restarts.
 
   ![Local storage](images/live-update/local-storage.png)

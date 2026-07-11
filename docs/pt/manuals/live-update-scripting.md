@@ -11,32 +11,37 @@ A API consiste apenas em algumas funções:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
+O fluxo recomendado é baixar e montar um arquivo Zip completo usando uma URI `zip:`.
+
 ## Obter mounts
 
-Se você estiver usando mais de um arquivo live update, recomenda-se iterar por cada mount
-na inicialização e determinar se o mount ainda deve ser usado.
+`liveupdate.get_mounts()` retorna os mounts ativos na sessão atual. Cada entrada contém uma URI `mount.uri`, uma prioridade numérica `mount.priority` e um hash `mount.name`. Os mounts não são restaurados após reiniciar; a aplicação deve salvar as configurações necessárias e chamar `liveupdate.add_mount()` novamente.
 
-Isso é importante, pois o conteúdo pode não ser mais válido para a engine, devido a mudanças de formato de arquivo.
+Como `mount.name` é um hash, use-o como chave de tabela ou compare-o com `hash("name")`; não o concatene em um caminho. Mapeie cada hash de nome para um caminho de metadados exclusivo:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- tabela com mounts
+	local version_resources = {
+		[hash("liveupdate")] = "/version_liveupdate.json",
+	}
 
     -- Cada mount tem: mount.uri, mount.priority, mount.name
 	for _,mount in ipairs(mounts) do
 
         -- Isto exige que o nome do arquivo seja único, para não obtermos um arquivo de outro arquivo compactado
         -- Estes dados são criados pelo desenvolvedor como forma de especificar metadados do arquivo
-		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
+		local version_resource = version_resources[mount.name]
+		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
-		else
+		elseif mount.priority >= 0 then
 			version_data = {version = 0} -- se não tiver arquivo de versão, provavelmente é um arquivo antigo/inválido
 		end
 
         -- verifica a versão do arquivo contra a versão suportada pelo jogo
-        if version_data.version < sys.get_config_int("game.minimum_lu_version") then
+        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
             -- era inválido, então vamos desmontá-lo!
             liveupdate.remove_mount(mount.name)
         end
@@ -91,8 +96,9 @@ local function mount_zip(self, name, priority, path, callback)
 end
 
 local function has_mount(name)
+    local name_hash = hash(name)
     for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
+        if mount.name == name_hash then
             return true
         end
     end
@@ -147,7 +153,7 @@ end
 ```
 
 1. `liveupdate.add_mount()` monta um único arquivo usando um nome, prioridade e arquivo zip especificados. Os dados ficam imediatamente disponíveis para carregamento (não é necessário reiniciar a engine).
-As informações do mount são armazenadas e serão readicionadas automaticamente na próxima reinicialização da engine (não é necessário chamar `liveupdate.add_mount()` novamente no mesmo mount)
+O mount fica ativo apenas na sessão atual. Salve o caminho do pacote e as configurações do mount nos dados persistentes da aplicação e chame `liveupdate.add_mount()` novamente após cada reinicialização.
 2. Você precisa armazenar o arquivo online (por exemplo, no S3), de onde poderá baixá-lo.
 3. Dado o nome de um proxy de coleção, você precisa descobrir qual ou quais arquivos baixar e como montá-los
 4. Na inicialização, tentamos carregar a fase.

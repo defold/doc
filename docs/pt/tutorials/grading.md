@@ -76,7 +76,7 @@ function init(self)
 
     self.view = vmath.matrix4()
 
-    local color_params = { format = render.FORMAT_RGBA,
+    local color_params = { format = graphics.TEXTURE_FORMAT_RGBA,
                        width = render.get_width(),
                        height = render.get_height() } -- <1>
     local target_params = {[render.BUFFER_COLOR_BIT] = color_params }

@@ -11,32 +11,37 @@ La API consta solo de unas pocas funciones:
 * `liveupdate.remove_mount()`
 * `liveupdate.get_mounts()`.
 
+El flujo recomendado consiste en descargar y montar un archivo Zip completo con una URI `zip:`.
+
 ## Obtener montajes
 
-Si usas más de un archivo comprimido de Live Update, se recomienda iterar sobre cada montaje
-al iniciar y determinar si ese montaje debe seguir usándose.
+`liveupdate.get_mounts()` devuelve los montajes activos en la sesión actual. Cada entrada contiene una URI `mount.uri`, una prioridad numérica `mount.priority` y un hash `mount.name`. Los montajes no se restauran al reiniciar; la aplicación debe guardar los ajustes necesarios y volver a llamar a `liveupdate.add_mount()`.
 
-Esto es importante porque puede que el contenido ya no sea válido para el motor debido a cambios de formato de archivo.
+Como `mount.name` es un hash, úsalo como clave de tabla o compáralo con `hash("nombre")`; no lo concatenes en una ruta. Asigna cada hash a una ruta de metadatos única:
 
 ```lua
 local function remove_old_mounts()
 	local mounts = liveupdate.get_mounts() -- tabla con montajes
+	local version_resources = {
+		[hash("liveupdate")] = "/version_liveupdate.json",
+	}
 
     -- Cada montaje tiene: mount.uri, mount.priority, mount.name
 	for _,mount in ipairs(mounts) do
 
         -- Esto requiere que el nombre de archivo sea único, para que no obtengamos un archivo desde un archivo comprimido de Live Update diferente
         -- Estos datos los crea el desarrollador como forma de especificar metadatos para el archivo comprimido
-		local version_data = sys.load_resource("/version_" .. mount.name .. ".json")
+		local version_resource = version_resources[mount.name]
+		local version_data = version_resource and sys.load_resource(version_resource)
 
 		if version_data then
 			version_data = json.decode(version_data)
-		else
+		elseif mount.priority >= 0 then
 			version_data = {version = 0} -- si no tiene archivo de versión, es probable que sea un archivo comprimido antiguo/no válido
 		end
 
         -- verificar la versión del archivo comprimido contra la versión soportada por el juego
-        if version_data.version < sys.get_config_int("game.minimum_lu_version") then
+        if version_data and version_data.version < sys.get_config_int("game.minimum_lu_version") then
             -- no era válido, así que lo desmontamos!
             liveupdate.remove_mount(mount.name)
         end
@@ -91,8 +96,9 @@ local function mount_zip(self, name, priority, path, callback)
 end
 
 local function has_mount(name)
+    local name_hash = hash(name)
     for _, mount in ipairs(liveupdate.get_mounts()) do
-        if mount.name == name then
+        if mount.name == name_hash then
             return true
         end
     end
@@ -147,7 +153,7 @@ end
 ```
 
 1. `liveupdate.add_mount()` monta un solo archivo comprimido usando un nombre, una prioridad y un archivo ZIP especificados. Luego los datos quedan disponibles de inmediato para cargarse (no es necesario reiniciar el motor).
-La información del montaje se almacena y se volverá a agregar automáticamente en el siguiente reinicio del motor (no es necesario llamar de nuevo a `liveupdate.add_mount()` para el mismo montaje)
+El montaje solo permanece activo durante la sesión actual. Guarda la ruta del paquete y sus ajustes en tus propios datos persistentes y vuelve a llamar a `liveupdate.add_mount()` después de cada reinicio.
 2. Necesitas almacenar el archivo comprimido en línea (por ejemplo, en S3), desde donde puedas descargarlo.
 3. Dado un nombre de proxy de colección, necesitas averiguar qué archivo comprimido o archivos comprimidos descargar y cómo montarlos.
 4. Al iniciar, intentamos cargar el nivel.

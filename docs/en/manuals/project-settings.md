@@ -725,9 +725,6 @@ Check to automatically finish IAP transactions. If unchecked, you need to explic
 #### Settings
 Liveupdate settings resource file to use during bundling.
 
-#### Mount On Start
-Enables auto-mount of previously mounted resources when the application starts.
-
 ---
 
 ### Native extension
