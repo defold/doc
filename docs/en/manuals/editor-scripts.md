@@ -51,6 +51,7 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.get(node_id, property)` — get a value of some node inside the editor. Nodes in the editor are various entities, such as script or collection files, game objects inside collections, json files loaded as resources, etc. `node_id` is a userdata that is passed to the editor script by the editor. Alternatively, you can pass resource path instead of node id, for example `"/main/game.script"`. `property` is a string. Currently these properties are supported:
   - `"path"` — file path from the project folder for *resources* — entities that exist as files or directories. Example of returned value: `"/main/game.script"`
   - `"children"` — list of children resource paths for directory resources
+  - `"parent"` — parent editor node for an Outline node that has a parent
   - `"text"` — text content of a resource editable as text (such as script files or json). Example of returned value: `"function init(self)\nend"`. Please note that this is not the same as reading file with `io.open()`, because you can edit a file without saving it, and these edits are available only when accessing `"text"` property.
   - for atlases: `images` (list of editor nodes for images in the atlas) and `animations` (list of animation nodes)
   - for atlas animations: `images` (same as `images` in atlas)
@@ -59,7 +60,7 @@ You can interact with the editor using `editor` package that defines this API:
   - for particlefx: `emitters` (list of emitter editor nodes) and `modifiers` (list of modifier editor nodes)
   - for particlefx emitters: `modifiers` (list of modifier editor nodes)
   - for collision objects: `shapes` (list of collision shape editor nodes)
-  - for GUI files: `layers` (list of layer editor nodes)
+  - for GUI files: node lists such as `layers`, `fonts`, `materials`, `textures`, `particlefxs`, `nodes`, and `layouts`
   - some properties that are shown in the Properties view when you have selected something in the Outline view. These types of outline properties supported:
     - `strings`
     - `booleans`
@@ -68,6 +69,7 @@ You can interact with the editor using `editor` package that defines this API:
     - `resources`
     - `curves`
     Please note that some of these properties might be read-only, and some might be unavailable in different contexts, so you should use `editor.can_get` before reading them and `editor.can_set` before making editor set them. Hover over property name in Properties view to see a tooltip with information about how this property is named in editor scripts. You can set resource properties to `nil` by supplying `""` value.
+- `editor.properties(node_id)` — return a sorted, context-sensitive list of property names that can be read from a node, for example `pprint(editor.properties("/game.project"))`. Use the `editor.can_*` functions to check whether a listed property can also be changed, reset, added to, or reordered.
 - `editor.can_get(node_id, property)` — check if you can get this property so `editor.get()` won't throw an error.
 - `editor.can_set(node_id, property)` — check if `editor.tx.set()` transaction step with this property won't throw an error.
 - `editor.create_directory(resource_path)` — create a directory if it does not exist, and all non-existent parent directories.
@@ -79,11 +81,12 @@ You can interact with the editor using `editor` package that defines this API:
 - `editor.ui.*` — various UI-related functions, see [UI manual](/manuals/editor-scripts-ui).
 - `editor.prefs.*` — functions for interacting with editor preferences, see [preferences](#preferences).
 
-You can find the full editor API reference [here](https://defold.com/ref/alpha/editor/).
+You can find the full editor API reference [here](/ref/stable/editor/).
 
 ## Commands
 
-If editor script module defines function `get_commands`, it will be called on extension reload, and returned commands will be available for use inside the editor in menu bar or in context menus in Assets and Outline panes. Example:
+If an editor script module defines `get_commands()`, it is called when extensions reload. The returned commands can appear in menu-bar menus and in the Assets, Outline, Scene, and Code context menus, depending on their `locations`. Example:
+
 ```lua
 local M = {}
 
@@ -128,7 +131,7 @@ return M
 Editor expects `get_commands()` to return an array of tables, each describing a separate command. Command description consists of:
 
 - `label` (required) — text on a menu item that will be displayed to the user
-- `locations` (required) — an array of either `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"`, `"Scene"` or `"Outline"`, describes a place where this command should be available. `"Edit"`, `"View"`, `"Project"` and `"Debug"` mean menu bar at the top, `"Assets"` means context menu in Assets pane, `"Outline"` means context menu in Outline pane, and `"Bundle"` means **Project → Bundle** submenu.
+- `locations` (required) — an array describing where this command should be available. Supported values are `"Edit"`, `"View"`, `"Project"`, `"Debug"`, and `"Help"` for the corresponding menu-bar menus; `"Bundle"` for the **Project → Bundle** submenu; and `"Assets"`, `"Outline"`, `"Scene"`, and `"Code"` for the corresponding context menus.
 - `query` — a way for command to ask editor for relevant information and define what data it operates on. For every key in `query` table there will be corresponding key in `opts` table that `active` and `run` callbacks receive as argument. Supported keys:
   - `selection` means this command is valid when there is something selected, and it operates on this selection.
     - `type` is a type of selected nodes command is interested in, currently these types are allowed:
@@ -146,7 +149,7 @@ Editor expects `get_commands()` to return an array of tables, each describing a 
 
 ### Use commands to change the in-memory editor state
 
-Inside the `run` handler, you can query and change the in-memory editor state. Querying is done using `editor.get()` function, where you can ask the editor about the current state of files and selection (if using `query = {selection = ...}`). You can get the `"text"` property of script files, and also some properties shown in the Properties view — hover over property name to see a tooltip with information about how this property is named in editor scripts. Changing the editor state is done using `editor.transact()`, where you bundle 1 or more modifications in a single undoable step. For example, if you want to be able to reset transform of a game object, you could write a command like that:
+Inside the `run` handler, you can query and change the in-memory editor state. Querying is done using `editor.get()` function, where you can ask the editor about the current state of files and selection (if using `query = {selection = ...}`). You can get the `"text"` property of resources editable as text, and also some properties shown in the Properties view — hover over property name to see a tooltip with information about how this property is named in editor scripts. Changing the editor state is done using `editor.transact()`, where you bundle 1 or more modifications in a single undoable step. For example, if you want to be able to reset transform of a game object, you could write a command like that:
 ```lua
 {
   label = "Reset transform",
@@ -346,9 +349,15 @@ Shape's `type` property is required during creation and cannot be changed after 
 
 #### Editing GUI files
 
-In addition to outline properties, GUI nodes defines the following properties:
+In addition to outline properties, GUI files define several node-list properties:
+
 - `layers` — list of layer editor nodes (reorderable)
+- `fonts` — list of font editor nodes
 - `materials` — list of material editor nodes
+- `textures` — list of texture editor nodes
+- `particlefxs` — list of Particle FX editor nodes
+- `nodes` — list of GUI node editor nodes
+- `layouts` — list of GUI layout editor nodes
 
 It's possible to edit GUI layers using editor `layers` property, e.g.:
 ```lua
@@ -369,7 +378,7 @@ Similarly, fonts, materials, textures, and particlefxs are edited using `fonts`,
 editor.transact({
     editor.tx.add("/main.gui", "fonts", {font = "/main.font"}),
     editor.tx.add("/main.gui", "materials", {name = "shine", material = "/shine.material"}),
-    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.material"}),
+    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.particlefx"}),
     editor.tx.add("/main.gui", "textures", {texture = "/ui.atlas"})
 })
 ```
@@ -453,7 +462,7 @@ editor.transact({
     }),
     editor.tx.add("/npc.go", "components", {
         type = "component-reference",
-        path = "/npc.script"
+        path = "/npc.script",
         id = "controller",
         __hp = 100 -- set a go property defined in the script
     })
@@ -473,13 +482,13 @@ editor.transact({
             {
                 -- referenced game object
                 type = "go-reference",
-                path = "/char-view.go"
+                path = "/char-view.go",
                 id = "view"
             },
             {
                 -- referenced collection
                 type = "collection-reference",
-                path = "/body-attachments.collection"
+                path = "/body-attachments.collection",
                 id = "attachments"
             }
         },
@@ -567,7 +576,7 @@ Please note that lifecycle hooks currently are an editor-only feature, and they 
 
 ## Language servers
 
-The editor supports a subset [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). While we aim to expand the editor's support for LSP features in the future, currently it can only show diagnostics (i.e. lints) in the edited files and provide completions.
+The editor supports a subset of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostics (lints), completions, hover information, document symbols in the Structure pane, go to definition, find references, and symbol rename. Hover over a symbol to see information from the language server. With the cursor on a symbol, use <kbd>F2</kbd> to rename it, <kbd>F12</kbd> to go to its definition, or <kbd>Shift+F12</kbd> to find references. These actions are also available from the <kbd>Edit</kbd> menu.
 
 To define the language server, you need to edit your editor script's `get_language_servers` function like so:
 

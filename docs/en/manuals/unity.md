@@ -536,8 +536,11 @@ Check more details in the [Collection Factory manual](/manuals/collection-factor
 When calling `factory.create()` or `collectionfactory.create()` you can also specify optional parameters such as position, rotation, scale and script properties, so you can control exactly how and where the instance appears, and how it behaves e.g.:
 
 ```lua
-factory.create("#my_factory", my_position, my_rotation, my_scale, my_properties)
+local scale_2d = vmath.vector3(0.5, 0.5, 1.0)
+factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 ```
+
+The optional argument order is properties followed by scale. Use a `vector3` with Z set explicitly to `1.0` when scaling only the X and Y axes of a 2D object; a numeric scale is applied uniformly to all three axes.
 
 #### Dynamic Loading
 

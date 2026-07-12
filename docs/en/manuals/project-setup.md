@@ -23,7 +23,7 @@ Or from a finished Sample game:
 
 ### Adding the project to GitHub
 
-A local project will have no integration with any version control system, meaning that the files reside only on your hard drive. Any changes you make to the files are permanent and there is no way to revert changes or recover deleted files. It is recommended to use a version control system such as Git to track changes to your files. This also makes it very easy to collaborate on a project with other people. Uploading a local project to GitHub can be done in just a few steps:
+A local project has no integration with any version control system, meaning that the files reside only on your hard drive and there is no history from which to revert changes. Files deleted through the editor's Assets pane are moved to the system Trash or Recycle Bin when supported, but may be permanently deleted if that operation is unavailable or fails. Trash does not protect arbitrary edits or provide version history, so it is recommended to use a version control system such as Git to track changes to your files. This also makes it very easy to collaborate on a project with other people. Uploading a local project to GitHub can be done in just a few steps:
 
 1. Create or login to an account on [GitHub](https://github.com/)
 2. Create a repository using the [New Repository](https://help.github.com/en/articles/creating-a-new-repository) option

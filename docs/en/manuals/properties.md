@@ -57,8 +57,8 @@ All game objects, and some component types have properties that can be read and 
 | *position* | The local position of the game object. | `vector3`      | `get+set`{.mark} |
 | *rotation* | Local rotation of game object, expressed as a `quaternion`.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Local rotation of game object, Euler angles. | `vector3` | `get+set`{.mark} |
-| *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in x and y, provide `vmath.vector3(2.0, 2.0, 0)` | `vector3` | `get+set`{.mark} |
-| *scale.xy*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along X and Y axis.| `vector3` | `get+set`{.mark} |
+| *scale*    | Local non uniform scale of the game object, expressed as a vector where each component contains a multiplier along each axis. To double the size in X and Y without changing Z, use `vmath.vector3(2.0, 2.0, 1.0)`. | `vector3` | `get+set`{.mark} |
+| *scale.xy*    | Local non uniform scale of the game object along the X and Y axes. Use this property or `go.set_scale_xy()` when Z scaling is not intended. | `vector3` | `get+set`{.mark} |
 
 ::: sidenote
 Specific functions for working with the game object transform also exist; they are `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()`, `go.set_scale()` and `go.set_scale_xy()`.
@@ -91,7 +91,7 @@ Specific functions for working with the game object transform also exist; they a
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | The current animation.                | `hash`          | `get`{.mark}     |
-| *texture0* | The texture path hash of the model. | `hash` | `get`{.mark}|
+| *texture0*--*texture15* | The texture path hashes of the model. | `hash` | `get+set`{.mark}|
 | *cursor*  | Position (between 0--1) of playback cursor. | `number`   | `get+set`{.mark} |
 | *playback_rate* | The playback rate of the animation. A multiplier to the animation playback rate. | `number` | `get+set`{.mark} |
 | *material* | The material used by the model. | `hash` | `get+set`{.mark}|

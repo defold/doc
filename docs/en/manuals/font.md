@@ -231,20 +231,25 @@ Adding a font to a font collection doesn't automatically load or render all the 
 :::
 
 ```lua
--- get the main font
-local font_collection = go.get("#label", "font")
-font.add_font(font_collection, self.language_ttf_hash)
+function init(self)
+    -- Get the target font collection.
+    self.font_collection = go.get("#label", "font")
 
--- get the selected language font
-local font_collection_language = go.get("localization_japanese#label", "font")
-local font_info = font.get_info(font_collection_language)
-self.language_ttf_hash = font_info.fonts[1].path_hash -- get the first font (the one specified in the editor)
-font.add_font(self.font_collection, self.language_ttf_hash) -- increases the reference count to the font
+    -- Get the first font assigned to the selected language collection.
+    local language_collection = go.get("localization_japanese#label", "font")
+    local font_info = font.get_info(language_collection)
+    self.language_ttf_hash = font_info.fonts[1].path_hash
+
+    -- Associate it with the target collection and increase its reference count.
+    font.add_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ```lua
--- remove the font reference
-font.add_font(self.font_collection, self.language_ttf_hash)
+function final(self)
+    -- Remove the association and release the font reference.
+    font.remove_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ### Prewarming glyphs

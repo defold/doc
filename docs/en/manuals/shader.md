@@ -68,7 +68,9 @@ Constants
   - `CONSTANT_TYPE_WORLD` is the *world matrix* that maps from an object’s local coordinate space into world space.
   - `CONSTANT_TYPE_VIEW` is the *view matrix* that maps from world space to camera space.
   - `CONSTANT_TYPE_PROJECTION` is the *projection matrix* that maps from camera to screen space.
-  - Premultiplied $world * view$, $view * projection$ and $world * view * projection$ matrices are also available.
+  - `CONSTANT_TYPE_WORLDVIEW`, `CONSTANT_TYPE_VIEWPROJ` and `CONSTANT_TYPE_WORLDVIEWPROJ` provide the corresponding combined matrices.
+  - `CONSTANT_TYPE_WORLD_INVERSE`, `CONSTANT_TYPE_VIEW_INVERSE`, `CONSTANT_TYPE_PROJECTION_INVERSE`, `CONSTANT_TYPE_VIEWPROJ_INVERSE`, `CONSTANT_TYPE_WORLDVIEW_INVERSE` and `CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE` provide inverse matrices without requiring the shader to calculate them.
+  - `CONSTANT_TYPE_TIME` is an engine-provided `vec4`: elapsed time since engine start in `.x`, frame delta time in `.y`, and zero in `.z` and `.w`.
   - `CONSTANT_TYPE_USER` is a `vec4` type constant that you can use as you wish.
 
   The [Material manual](/manuals/material) explains how to specify constants.
@@ -212,7 +214,9 @@ vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 
 ### Precision
 
-Setting explicit precision for variables, inputs, outputs and so forth was previously required in order to be compliant with OpenGL ES contexts. This is not required anymore, precision is now set automatically for platforms that support it.
+Defold generates global default precision qualifiers when cross-compiling shaders for GLSL ES. The defaults are `mediump` for floating-point values and `highp` for integers. They can be changed with the **GLSL ES Default Precision Float** (`shader.glsl_es_default_precision_float`) and **GLSL ES Default Precision Int** (`shader.glsl_es_default_precision_int`) [project settings](/manuals/project-settings/#shader); both accept `mediump` or `highp`.
+
+An explicit qualifier on a variable, input or output takes precedence over the generated global default. On OpenGL ES 2.0 and WebGL 1.0 fragment shaders, `highp` is not supported by every device. When `highp` is selected as a global default, Defold guards it with `GL_FRAGMENT_PRECISION_HIGH` and falls back to `mediump` on devices that do not support it.
 
 ### Putting it together
 

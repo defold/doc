@@ -87,7 +87,11 @@ For mobile platforms either lock the screen orientation in *game.project* or mak
 
 
 ## Mobile phones and notch and hole punch cameras
-It has become increasingly popular to use a small lens cut-out on the display screen to fit in the front camera and sensors (also known as a notch or hole punch camera). When porting a game to mobile it is recommended to make sure that no critical information is positioned where a notch (center of upper screen edge) or hole-punch (top left screen area) is typically found. It is also possible to use the [Safe Area extension](/extension-safearea) to restrict the game view to the area outside any notch or hole-punch camera.
+It has become increasingly popular to use a small lens cut-out on the display screen to fit in the front camera and sensors (also known as a notch or hole punch camera). When porting a game to mobile, make sure that critical information is kept within the platform safe area.
+
+Defold has built-in safe-area support on Android and iOS. Set `gui.safe_area_mode` in *game.project* to control which opposing safe-area insets affect GUI adjustment. `none` is the default and ignores the insets; `long` applies left/right in landscape and top/bottom in portrait; `short` applies the opposite pair; and `both` applies all four edges. A GUI script can override the project-wide mode for its scene with [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). For custom GUI or rendering logic, [`window.get_safe_area()`](/ref/window/#window.get_safe_area) returns the safe rectangle and the individual edge insets. Platforms without built-in safe-area insets return the full window and zero insets.
+
+The [Safe Area extension](/extension-safearea) remains an alternative for legacy projects or workflows that need behavior beyond the built-in APIs; it is not required for standard Android and iOS safe-area handling.
 
 
 ## Platform specific guidelines

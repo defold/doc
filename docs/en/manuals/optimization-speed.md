@@ -73,7 +73,7 @@ Reducing the time it takes to render a frame is needed if the profiler shows hig
 
 * Reduce draw calls - Read more about reducing draw calls in [this forum post](https://forum.defold.com/t/draw-calls-and-defold/4674)
 * Reduce overdraw
-* Reduce shader complexity - Read up on GLSL optimizations in [this Khronos article](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). You can also modify the default shaders used by Defold (found in `builtins/materials`) and reduce shader precision to gain some speed on low end devices. All shaders are using `highp` precision and a change to for instance `mediump` can in some cases improve performance slightly.
+* Reduce shader complexity - Read up on GLSL optimizations in [this Khronos article](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). You can also modify the default shaders used by Defold (found in `builtins/materials`) and choose lower precision where the shader does not need `highp`. Cross-compiled GLSL ES shaders default to `mediump` for floating-point values and `highp` for integers, and these defaults can be changed in the Shader project settings. Explicit per-variable qualifiers take precedence. See the [shader precision documentation](/manuals/shader/#precision).
 
 ## Reduce scene graph complexity
 Reducing the scene graph complexity is needed if the profiler shows high values in the `GameObject` scope and more specifically for the `UpdateTransform` sample. Some actions to take:

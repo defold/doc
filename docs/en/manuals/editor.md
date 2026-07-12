@@ -60,6 +60,8 @@ Lists all the files and folders that are part of your project in a tree structur
    - <kbd>Drag and Drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
    - <kbd>Right Mouse Click</kbd> to open a _Context Menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
 
+Files and folders deleted through the Assets pane are moved to the system Trash or Recycle Bin when the platform supports it. If moving an item to the trash is unsupported or fails, the editor permanently deletes it.
+
 ### 2. Scene Editor pane {#the-scene-editor}
 
 Double-clicking a collection, game object, or visual component file opens the *Scene Editor* — the visual editor for building and editing scenes. Script files and other non-visual resources open in their own dedicated editors instead.

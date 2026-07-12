@@ -440,7 +440,18 @@ Defold will try to batch render operation to reduce the number of draw calls acc
 
 ### Batch rules for non-GUI components
 
-Rendering is done based on z-order, from low to high. The engine will start by sorting the list of things to draw and iterate from low to high z-values. Each object in the list will be grouped into the same draw call as the previous object if the following conditions are met:
+Each `render.draw()` call controls how matching world-ordered entries are sorted. The default is `render.SORT_BACK_TO_FRONT`; use `render.SORT_FRONT_TO_BACK` for near-to-far rendering, or `render.SORT_NONE` to retain insertion order:
+
+```lua
+render.draw(self.opaque_predicate, {
+    sort_order = render.SORT_FRONT_TO_BACK
+})
+render.draw(self.transparent_predicate, {
+    sort_order = render.SORT_BACK_TO_FRONT
+})
+```
+
+The selected order determines which entries are adjacent and can therefore affect batching. In that ordered list, each object is grouped into the same draw call as the previous object if the following conditions are met:
 
 * Belongs to the same collection proxy
 * Is of the same component type (sprite, particle fx, tilemap etc)
@@ -448,7 +459,7 @@ Rendering is done based on z-order, from low to high. The engine will start by s
 * Has the same material
 * Has the same shader constants (such as tint)
 
-This means that if two sprite components in the same collection proxy has adjacent or the same z-value (and thus comes next to each other in the sorted list), use the same texture, material and constants they will be grouped into the same draw call.
+This means that if two sprite components in the same collection proxy are adjacent after the selected sort, and use the same texture, material, and constants, they will be grouped into the same draw call.
 
 
 ### Batch rules for GUI components

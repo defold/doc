@@ -57,21 +57,31 @@ Creating HTML5 content with Defold is simple and follows the same pattern as all
 
 ![Create HTML5 bundle](images/html5/html5_bundle.png)
 
-You can chose to include both an `asm.js` and a WebAssembly (wasm) version of the Defold engine in HTML5 bundle. In most cases it is enough to chose WebAssembly since [all modern browsers support WebAssembly](https://caniuse.com/wasm).
+HTML5 bundles support two WebAssembly architectures:
+
+* `wasm-web` - the regular, non-threaded WebAssembly engine.
+* `wasm_pthread-web` - a WebAssembly engine that can use threads.
+
+You can include either architecture or both. When both are included, the loader selects `wasm_pthread-web` when the browser and hosting environment support it and falls back to `wasm-web` otherwise. See the [Bob manual](/manuals/bob/#usage) for the canonical target names.
 
 ::: important
-Even if you include both `asm.js` and `wasm` versions of the engine only one of them will be downloaded by the browser when launching the game. The WebAssembly version will be downloaded if the browser supports WebAssembly and the `asm.js` version will be used as a fallback in the rare case that WebAssembly is not supported.
+The threaded engine requires `SharedArrayBuffer` in a secure, [cross-origin-isolated](https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated) page. Serve the bundle over HTTPS (or localhost) and configure the server with compatible cross-origin isolation headers, commonly:
+
+```txt
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Cross-origin resources loaded by the page must also use compatible CORS or Cross-Origin-Resource-Policy headers. A bundle containing only `wasm_pthread-web` cannot run when these requirements are not met; include `wasm-web` as a fallback if the game may be hosted on a site that does not support cross-origin isolation.
 :::
+
+Defold HTML5 bundles require a modern browser with WebAssembly support. Internet Explorer 11 is not supported.
 
 When you click on the <kbd>Create bundle</kbd> button you will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.
 
 ## Known issues and limitations
 
 * Hot Reload - Hot Reload doesn't work in HTML5 builds. Defold applications must run their own miniature web server in order to receive updates from the editor, which isn't possible in a HTML5 build.
-* Internet Explorer 11
-  * Audio - Defold handles audio playback using HTML5 _WebAudio_ (see http://www.w3.org/TR/webaudio), which is not currently supported by Internet Explorer 11. Applications will fall back to a null audio implementation when using this browser.
-  * WebGL - Microsoft has not completed work implementing the _WebGL_ API (see https://www.khronos.org/registry/webgl/specs/latest/). Therefore, it does not perform as well as other browsers.
-  * Full screen - Full screen mode is unreliable in the browser.
 * Chrome
   * Slow debug builds - In debug builds on HTML5 we verify all WebGL graphics calls to detect errors. This is unfortunately very slow when testing on Chrome. It is possible to disable this by setting the *Engine Arguments* field of *game.project* to `--verify-graphics-calls=false`.
 * Gamepad support - [Refer to the Gamepad documentation](/manuals/input-gamepads/#gamepads-in-html5) for special considerations and steps you may need to take on HTML5.
