@@ -310,7 +310,7 @@ local instancing_supported = has_context_feature(
 : 用于计算法线方向的矩阵。世界变换可能包含非均匀缩放，这会破坏组合世界视图变换的正交性。法线矩阵用于避免变换法线时的方向问题。（法线矩阵是世界视图矩阵的转置逆矩阵）。
 
 `CONSTANT_TYPE_TIME`
-: 引擎提供的 vector4，其中 `.x` 是引擎启动后经过的时间，`.y` 是相对于上一帧的增量时间，`.z` 和 `.w` 目前为零。引擎会自动更新此值，无需使用 `go.set()` 更新。示例请参阅 [Shadertoy 教程](/tutorials/shadertoy/#animation)。
+: 引擎提供的 `vector4`，其中 `.x` 是引擎启动后经过的时间，`.y` 是相对于上一帧的增量时间，`.z` 和 `.w` 目前为零。引擎会自动更新此值，无需使用 `go.set()` 更新。示例请参阅 [Shadertoy 教程](/tutorials/shadertoy/#animation)。
 
   在现代 GLSL uniform block 中声明名为 `time` 的 Time 常量：
 

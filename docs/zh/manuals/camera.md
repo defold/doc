@@ -254,7 +254,7 @@ end
 
 另一种方法是每帧更新摄像机组件所附加到的游戏对象的位置，随着要跟随的游戏对象移动。
 
-### 在屏幕坐标与世界坐标之间转换 {#converting-between-screen-and-world-coordinates}
+### 在屏幕坐标与世界坐标之间转换 {#converting-mouse-to-world-coordinates}
 
 当摄像机发生平移、缩放或更改投影后，输入坐标便不再直接对应世界坐标。请将摄像机转换函数与 `action.screen_x` 和 `action.screen_y` 一起使用。如果省略可选的摄像机 URL，则使用最后启用的摄像机。
 

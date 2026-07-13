@@ -23,7 +23,7 @@ O desde un Juego muestra finalizado:
 
 ### Añadir el proyecto a GitHub
 
-Un proyecto local no está integrado con ningún sistema de control de versiones, por lo que los archivos solo residen en tu disco duro y no existe un historial desde el que revertir cambios. Los archivos eliminados mediante el panel Assets del editor se mueven a la Papelera del sistema cuando es posible, pero pueden eliminarse permanentemente si esa operación no está disponible o falla. La Papelera no protege las ediciones arbitrarias ni proporciona un historial de versiones, por lo que se recomienda usar un sistema de control de versiones como Git para seguir los cambios en tus archivos. Esto también facilita la colaboración en un proyecto con otras personas. Subir un proyecto local a GitHub puede hacerse en pocos pasos:
+Un proyecto local no está integrado con ningún sistema de control de versiones, por lo que los archivos solo residen en tu disco duro y no existe un historial desde el que revertir cambios. Los archivos eliminados mediante el panel *Assets* del editor se mueven a la Papelera del sistema cuando es posible, pero pueden eliminarse permanentemente si esa operación no está disponible o falla. La Papelera no protege las ediciones arbitrarias ni proporciona un historial de versiones, por lo que se recomienda usar un sistema de control de versiones como Git para seguir los cambios en tus archivos. Esto también facilita la colaboración en un proyecto con otras personas. Subir un proyecto local a GitHub puede hacerse en pocos pasos:
 
 1. Crea or inicia sesión en una cuenta en [GitHub](https://github.com/)
 2. Crea un repositorio usando la opción [New Repository](https://help.github.com/en/articles/creating-a-new-repository)

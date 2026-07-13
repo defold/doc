@@ -306,7 +306,7 @@ Las constantes de shader, o "uniforms", son valores que se pasan desde el motor 
 : Una matriz para calcular la orientación de normales. La transformación de mundo puede incluir escalado no uniforme, lo que rompe la ortogonalidad de la transformación mundo-vista combinada. La matriz normal se usa para evitar problemas con la dirección al transformar normales. (La matriz normal es la inversa transpuesta de la matriz mundo-vista).
 
 `CONSTANT_TYPE_TIME`
-: Un vector4 proporcionado por el motor donde `.x` es el tiempo transcurrido desde el inicio del motor, `.y` es el delta de tiempo respecto al frame anterior y `.z` y `.w` son actualmente cero. El motor actualiza este valor automáticamente; no es necesario actualizarlo con `go.set()`. Consulta el [tutorial de Shadertoy](/tutorials/shadertoy/#animation) para ver un ejemplo.
+: Un `vector4` proporcionado por el motor donde `.x` es el tiempo transcurrido desde el inicio del motor, `.y` es el delta de tiempo respecto al frame anterior y `.z` y `.w` son actualmente cero. El motor actualiza este valor automáticamente; no es necesario actualizarlo con `go.set()`. Consulta el [tutorial de Shadertoy](/tutorials/shadertoy/#animation) para ver un ejemplo.
 
   Declara una constante Time llamada `time` en un bloque uniform GLSL moderno:
 

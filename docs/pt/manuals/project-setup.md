@@ -23,7 +23,7 @@ Ou a partir de um jogo Sample concluído:
 
 ### Adicionando o projeto ao GitHub
 
-Um projeto local não tem integração com nenhum sistema de controle de versão, o que significa que os arquivos residem apenas no seu disco rígido e não há um histórico que permita reverter alterações. Arquivos excluídos pelo painel Assets do editor são movidos para a Lixeira do sistema quando há suporte, mas podem ser excluídos permanentemente se essa operação não estiver disponível ou falhar. A Lixeira não protege edições arbitrárias nem fornece um histórico de versões; portanto, recomenda-se usar um sistema de controle de versão como Git para acompanhar alterações nos seus arquivos. Isso também torna muito fácil colaborar em um projeto com outras pessoas. Enviar um projeto local para o GitHub pode ser feito em poucos passos:
+Um projeto local não tem integração com nenhum sistema de controle de versão, o que significa que os arquivos residem apenas no seu disco rígido e não há um histórico que permita reverter alterações. Arquivos excluídos pelo painel *Assets* do editor são movidos para a Lixeira do sistema quando há suporte, mas podem ser excluídos permanentemente se essa operação não estiver disponível ou falhar. A Lixeira não protege edições arbitrárias nem fornece um histórico de versões; portanto, recomenda-se usar um sistema de controle de versão como Git para acompanhar alterações nos seus arquivos. Isso também torna muito fácil colaborar em um projeto com outras pessoas. Enviar um projeto local para o GitHub pode ser feito em poucos passos:
 
 1. Crie ou faça login em uma conta no [GitHub](https://github.com/)
 2. Crie um repositório usando a opção [New Repository](https://help.github.com/en/articles/creating-a-new-repository)

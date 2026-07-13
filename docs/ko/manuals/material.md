@@ -306,7 +306,7 @@ local instancing_supported = has_context_feature(
 : normal 방향을 계산하는 matrix입니다. 월드 transform에는 비균일 스케일링이 포함될 수 있으며, 이는 결합된 world-view transform의 직교성을 깨뜨립니다. normal matrix는 normal을 변환할 때 방향 문제를 피하기 위해 사용됩니다. normal matrix는 world-view matrix의 전치 역행렬입니다.
 
 `CONSTANT_TYPE_TIME`
-: 엔진이 제공하는 vector4입니다. `.x`는 엔진 시작 이후 경과 시간, `.y`는 이전 프레임과의 delta time이며 `.z`와 `.w`는 현재 0입니다. 엔진이 자동으로 업데이트하므로 `go.set()`으로 갱신할 필요가 없습니다. 예제는 [Shadertoy 튜토리얼](/tutorials/shadertoy/#animation)을 참고하세요.
+: 엔진이 제공하는 `vector4`입니다. `.x`는 엔진 시작 이후 경과 시간, `.y`는 이전 프레임과의 delta time이며 `.z`와 `.w`는 현재 0입니다. 엔진이 자동으로 업데이트하므로 `go.set()`으로 갱신할 필요가 없습니다. 예제는 [Shadertoy 튜토리얼](/tutorials/shadertoy/#animation)을 참고하세요.
 
   현대적인 GLSL uniform block에서 `time`이라는 Time 상수를 선언합니다.
 
