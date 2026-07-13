@@ -193,8 +193,7 @@ Playback
         id          = "my_animation",
         width       = width,
         height      = height,
-        frame_start = 1,
-        frame_end   = 2,
+        frames      = { 1 },
       }
     },
     geometries = {
@@ -224,3 +223,5 @@ Playback
   sprite.play_flipbook("#sprite", "my_animation")
 
 ```
+
+`frames` 항목은 `geometries` 테이블을 참조하는 1부터 시작하는 인덱스입니다. 목록에서 geometry를 재사용하거나, 순서를 바꾸거나, 건너뛸 수 있으며, 이는 더 이상 권장되지 않는 `frame_start`와 `frame_end` 구간 필드로는 표현할 수 없습니다. `resource.get_atlas()`는 `frames`를 반환합니다. atlas 데이터를 `resource.set_atlas()` 또는 `resource.create_atlas()`에 전달할 때도 같은 표현을 사용하세요. setter와 creator는 호환성을 위해 구간 필드를 계속 지원하지만 새 코드에서는 `frames`를 사용해야 합니다.

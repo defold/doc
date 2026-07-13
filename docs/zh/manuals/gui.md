@@ -56,7 +56,7 @@ Defold现在会自动在GUI场景编辑器中打开该文件。
 : 此GUI的最大节点数。
 
 *Max Dynamic Textures*
-: 可以使用[`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip)创建的最大纹理数。
+: 此 GUI 组件跟踪的动态纹理的最大数量，默认为 `128`。其中包括使用 [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) 创建的纹理，以及通过 `go.set(..., "textures", ...)` 或 `gui.set(msg.url(), "textures", ...)` 分配给 GUI 的外部纹理。替换大量外部纹理的项目可能需要提高此限制。
 
 ## 运行时操作
 

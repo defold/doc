@@ -138,6 +138,16 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 다만 버텍스 attribute를 업데이트할 때는 몇 가지 주의할 점이 있습니다. 컴포넌트가 해당 값을 사용할 수 있는지는 attribute의 semantic type에 따라 달라집니다. 예를 들어 스프라이트 컴포넌트는 `SEMANTIC_TYPE_POSITION`을 지원하므로, 이 semantic type을 가진 attribute를 업데이트하면 컴포넌트는 오버라이드된 값을 무시합니다. semantic type이 해당 데이터는 항상 스프라이트 위치에서 생성되어야 한다고 지정하기 때문입니다.
 
+Model 컴포넌트도 `go.get()`, `go.set()`, `go.animate()`를 통해 커스텀 메터리얼 attribute를 노출합니다. 예를 들어 모델 메터리얼에 `my_attribute`라는 attribute를 정의한 뒤 다음과 같이 사용할 수 있습니다.
+
+```lua
+go.set("#model", "my_attribute", vmath.vector4(1, 0, 0, 1))
+go.animate("#model", "my_attribute", go.PLAYBACK_LOOP_PINGPONG,
+    vmath.vector4(0, 1, 0, 1), go.EASING_LINEAR, 2)
+```
+
+여러 메쉬가 있는 모델에서는 현재 첫 번째 메쉬만 이 방식으로 주소 지정할 수 있습니다. 인스턴싱되지 않은 per-vertex attribute를 업데이트하면 메쉬 크기에 비례해 버텍스 데이터를 다시 빌드하고 업로드할 수도 있으므로, 큰 메쉬에서 자주 업데이트하면 비용이 클 수 있습니다.
+
 버텍스 attribute가 scalar이거나 `Vec4`가 아닌 vector type인 경우에도 `go.set`을 사용해 데이터를 설정할 수 있습니다.
 
 ```lua
@@ -232,7 +242,25 @@ attribute mediump vec4 instance_color;
 
 #### 하위 호환성
 
-OpenGL 기반 그래픽 어댑터에서 인스턴싱은 데스크탑의 경우 OpenGL 3.1 이상, 모바일의 경우 OpenGL ES 3.0 이상이 필요합니다. 즉 OpenGL ES2 또는 더 오래된 OpenGL 버전을 사용하는 매우 오래된 장치는 인스턴싱을 지원하지 않을 수 있습니다. 이 경우 개발자가 특별히 신경 쓰지 않아도 기본적으로 렌더링은 계속 동작하지만, 실제 인스턴싱을 사용할 때만큼 성능이 좋지 않을 수 있습니다. 현재는 인스턴싱 지원 여부를 감지할 방법이 없지만, 앞으로는 이 기능이 추가되어 더 저렴한 메터리얼을 사용하거나, 일반적으로 인스턴싱에 적합한 후보인 foliage 또는 clutter 같은 것을 완전히 건너뛸 수 있게 될 예정입니다.
+데스크탑의 OpenGL 3.1과 모바일의 OpenGL ES 3.0은 인스턴싱을 핵심 기능으로 제공합니다. 이전 OpenGL ES 및 WebGL context도 `ANGLE_instanced_arrays` 같은 extension을 통해 지원할 수 있지만, 이를 지원하지 않는 오래된 어댑터도 있습니다. 인스턴싱을 사용할 수 없어도 렌더링은 기본적으로 계속 동작하지만 성능이 낮을 수 있습니다.
+
+필요하면 `graphics.get_adapter_info()`로 지원 여부를 감지해 더 저렴한 메터리얼을 선택하거나 인스턴스가 많은 컨텐츠를 생략하세요. `features` 필드는 기능 상수를 키로 사용하는 테이블이 아니라 지원되는 기능 상수의 배열입니다.
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local instancing_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_INSTANCING
+)
+```
 
 ## 버텍스와 프래그먼트 상수 {#vertex-and-fragment-constants}
 
@@ -256,8 +284,38 @@ OpenGL 기반 그래픽 어댑터에서 인스턴싱은 데스크탑의 경우 O
 `CONSTANT_TYPE_WORLDVIEWPROJ`
 : 월드, 뷰, 프로젝션 matrix가 이미 곱해진 matrix입니다.
 
+`CONSTANT_TYPE_WORLD_INVERSE`
+: 월드 matrix의 역행렬입니다. 월드 공간에서 오브젝트의 로컬 공간으로 다시 변환할 때 사용합니다.
+
+`CONSTANT_TYPE_VIEW_INVERSE`
+: 뷰 matrix의 역행렬입니다. 카메라 공간에서 월드 공간으로 다시 변환할 때 사용합니다.
+
+`CONSTANT_TYPE_PROJECTION_INVERSE`
+: 프로젝션 matrix의 역행렬입니다. 클립 공간에서 카메라 공간으로 다시 변환할 때 사용합니다.
+
+`CONSTANT_TYPE_VIEWPROJ_INVERSE`
+: 결합된 뷰와 프로젝션 matrix의 역행렬입니다. 클립 공간에서 월드 공간으로 다시 변환할 때 사용합니다.
+
+`CONSTANT_TYPE_WORLDVIEW_INVERSE`
+: 결합된 월드와 뷰 matrix의 역행렬입니다. 카메라 공간에서 오브젝트 로컬 공간으로 다시 변환할 때 사용합니다.
+
+`CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE`
+: 결합된 월드, 뷰, 프로젝션 matrix의 역행렬입니다. 클립 공간에서 오브젝트 로컬 공간으로 다시 변환할 때 사용합니다. 이 역행렬 상수를 사용하면 쉐이더에서 matrix 역행렬을 계산하지 않아도 됩니다.
+
 `CONSTANT_TYPE_NORMAL`
 : normal 방향을 계산하는 matrix입니다. 월드 transform에는 비균일 스케일링이 포함될 수 있으며, 이는 결합된 world-view transform의 직교성을 깨뜨립니다. normal matrix는 normal을 변환할 때 방향 문제를 피하기 위해 사용됩니다. normal matrix는 world-view matrix의 전치 역행렬입니다.
+
+`CONSTANT_TYPE_TIME`
+: 엔진이 제공하는 vector4입니다. `.x`는 엔진 시작 이후 경과 시간, `.y`는 이전 프레임과의 delta time이며 `.z`와 `.w`는 현재 0입니다. 엔진이 자동으로 업데이트하므로 `go.set()`으로 갱신할 필요가 없습니다. 예제는 [Shadertoy 튜토리얼](/tutorials/shadertoy/#animation)을 참고하세요.
+
+  현대적인 GLSL uniform block에서 `time`이라는 Time 상수를 선언합니다.
+
+  ```glsl
+  uniform fragment_inputs
+  {
+      vec4 time;
+  };
+  ```
 
 `CONSTANT_TYPE_USER`
 : 쉐이더 프로그램으로 전달하려는 커스텀 데이터에 사용할 수 있는 vector4 상수입니다. 상수 정의에서 상수의 초기값을 설정할 수 있지만, [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 함수로 변경할 수 있습니다. [go.get()](/ref/stable/go/#go.get)으로 값을 가져올 수도 있습니다. 단일 컴포넌트 인스턴스의 메터리얼 상수를 변경하면 [렌더 배칭이 깨지고 추가 draw call이 발생합니다](/manuals/render/#draw-calls-and-batching).

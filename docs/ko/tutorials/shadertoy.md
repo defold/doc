@@ -321,7 +321,7 @@ void main() // <5>
 ![starnest가 적용된 quad](../images/shadertoy/quad_starnest.png)
 
 
-## 애니메이션
+## 애니메이션 {#animation}
 
 퍼즐의 마지막 조각은 별이 움직이도록 시간을 도입하는 것입니다. Defold(1.12.3부터)는 `Time` 타입의 프래그먼트 상수를 통해 이를 자동으로 제공합니다.
 

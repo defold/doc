@@ -80,7 +80,11 @@ Na platformach mobilnych albo zablokuj orientację ekranu w *game.project*, albo
   * Vsync i swap interval w sekcji Display pliku *game.project*.
 
 ## Telefony komórkowe oraz kamery z wycięciem i otworem w ekranie
-Coraz popularniejsze staje się stosowanie niewielkiego wycięcia w ekranie, aby zmieścić przednią kamerę i czujniki, znanego też jako notch albo hole punch camera. Podczas portowania gry na urządzenia mobilne zaleca się upewnić, że w miejscu, w którym zwykle występuje notch (na środku górnej krawędzi ekranu) lub hole-punch (w lewym górnym obszarze ekranu), nie znajduje się żadna istotna informacja. Można też użyć [rozszerzenia Safe Area](/extension-safearea), aby ograniczyć widok gry do obszaru poza notchem lub otworem typu hole punch.
+Coraz popularniejsze staje się stosowanie niewielkiego wycięcia w ekranie na przednią kamerę i czujniki, nazywanego też notchem albo hole punch camera. Podczas portowania gry na urządzenia mobilne zadbaj, aby ważne informacje mieściły się w bezpiecznym obszarze platformy.
+
+Defold ma wbudowaną obsługę bezpiecznego obszaru w Androidzie i iOS. Ustaw `gui.safe_area_mode` w pliku *game.project*, aby określić, które przeciwległe marginesy bezpiecznego obszaru wpływają na dostosowanie GUI. `none` jest ustawieniem domyślnym i ignoruje marginesy; `long` stosuje lewy i prawy w orientacji poziomej oraz górny i dolny w pionowej; `short` stosuje przeciwną parę; a `both` stosuje wszystkie cztery krawędzie. Skrypt GUI może zastąpić tryb całego projektu dla swojej sceny za pomocą [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Dla własnej logiki GUI lub renderowania funkcja [`window.get_safe_area()`](/ref/window/#window.get_safe_area) zwraca bezpieczny prostokąt i marginesy poszczególnych krawędzi. Platformy bez wbudowanych marginesów bezpiecznego obszaru zwracają całe okno i zerowe marginesy.
+
+[Rozszerzenie Safe Area](/extension-safearea) pozostaje alternatywą dla starszych projektów lub przepływów pracy wymagających zachowania wykraczającego poza wbudowane API; nie jest wymagane do standardowej obsługi bezpiecznego obszaru w Androidzie i iOS.
 
 ## Wytyczne specyficzne dla platform
 

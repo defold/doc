@@ -138,6 +138,16 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 Há algumas ressalvas ao atualizar atributos de vértice, no entanto: se um componente pode ou não usar o valor depende do tipo semântico do atributo. Por exemplo, um componente sprite oferece suporte a `SEMANTIC_TYPE_POSITION`, então se você atualizar um atributo que tem esse tipo semântico, o componente ignorará o valor sobrescrito, pois o tipo semântico dita que os dados devem sempre ser produzidos pela posição do sprite.
 
+Componentes model também expõem atributos de material personalizados por meio de `go.get()`, `go.set()` e `go.animate()`. Por exemplo, depois de definir um atributo chamado `my_attribute` no material do modelo:
+
+```lua
+go.set("#model", "my_attribute", vmath.vector4(1, 0, 0, 1))
+go.animate("#model", "my_attribute", go.PLAYBACK_LOOP_PINGPONG,
+    vmath.vector4(0, 1, 0, 1), go.EASING_LINEAR, 2)
+```
+
+Atualmente, apenas a primeira malha de um modelo com várias malhas pode ser acessada dessa forma. Atualizar um atributo por vértice sem instancing também pode reconstruir e fazer upload de uma quantidade de dados de vértices proporcional ao tamanho da malha; portanto, atualizações frequentes podem custar caro para malhas grandes.
+
 Nos casos em que um atributo de vértice é um escalar ou um tipo de vetor diferente de `Vec4`, você ainda pode definir os dados usando `go.set`:
 
 ```lua
@@ -232,7 +242,25 @@ Para verificar que o instancing funciona neste caso, você pode olhar o perfilad
 
 #### Compatibilidade retroativa
 
-Em adaptadores gráficos baseados em OpenGL, instancing exige pelo menos OpenGL 3.1 para desktop e OpenGL ES 3.0 para mobile. Isso significa que dispositivos muito antigos usando OpenGL ES2 ou versões mais antigas de OpenGL podem não oferecer suporte a instancing. Nesse caso, a renderização ainda funcionará por padrão sem nenhum cuidado especial do desenvolvedor, mas talvez não tenha o mesmo desempenho que teria se instancing real fosse usado. Atualmente, não há como detectar se instancing é suportado ou não, mas essa funcionalidade será adicionada no futuro para que um material mais barato possa ser usado, ou para que coisas como folhagem ou clutter, que normalmente seriam boas candidatas a instancing, possam ser puladas completamente.
+OpenGL 3.1 no desktop e OpenGL ES 3.0 no mobile fornecem instancing como recurso principal. Contextos mais antigos do OpenGL ES e WebGL ainda podem oferecer suporte por meio de uma extensão como `ANGLE_instanced_arrays`; outros adaptadores antigos não oferecem esse suporte. Quando o instancing não está disponível, a renderização ainda funciona por padrão, mas pode ter desempenho inferior.
+
+Use `graphics.get_adapter_info()` para detectar o suporte e selecionar um material mais barato ou omitir conteúdo com muitas instâncias quando necessário. O campo `features` é um array das constantes de recursos compatíveis, e não uma tabela indexada por essas constantes:
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local instancing_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_INSTANCING
+)
+```
 
 ## Constantes de vértice e fragmento {#vertex-and-fragment-constants}
 
@@ -256,8 +284,38 @@ Constantes de shader, ou "uniforms", são valores passados da engine para progra
 `CONSTANT_TYPE_WORLDVIEWPROJ`
 : Uma matriz com as matrizes de mundo, visualização e projeção já multiplicadas.
 
+`CONSTANT_TYPE_WORLD_INVERSE`
+: A inversa da matriz de mundo. Use-a para transformar do espaço de mundo de volta para o espaço local do objeto.
+
+`CONSTANT_TYPE_VIEW_INVERSE`
+: A inversa da matriz de visualização. Use-a para transformar do espaço da câmera de volta para o espaço de mundo.
+
+`CONSTANT_TYPE_PROJECTION_INVERSE`
+: A inversa da matriz de projeção. Use-a para transformar do espaço de clip de volta para o espaço da câmera.
+
+`CONSTANT_TYPE_VIEWPROJ_INVERSE`
+: A inversa das matrizes de visualização e projeção combinadas. Use-a para transformar do espaço de clip de volta para o espaço de mundo.
+
+`CONSTANT_TYPE_WORLDVIEW_INVERSE`
+: A inversa das matrizes de mundo e visualização combinadas. Use-a para transformar do espaço da câmera de volta para o espaço local do objeto.
+
+`CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE`
+: A inversa das matrizes de mundo, visualização e projeção combinadas. Use-a para transformar do espaço de clip de volta para o espaço local do objeto. Essas constantes inversas evitam calcular uma matriz inversa no shader.
+
 `CONSTANT_TYPE_NORMAL`
 : Uma matriz para calcular a orientação das normais. A transformação de mundo pode incluir escala não uniforme, o que quebra a ortogonalidade da transformação mundo-visualização combinada. A matriz normal é usada para evitar problemas com a direção ao transformar normais. (A matriz normal é a transposta inversa da matriz mundo-visualização).
+
+`CONSTANT_TYPE_TIME`
+: Um vector4 fornecido pela engine, no qual `.x` é o tempo decorrido desde o início da engine, `.y` é o delta time desde o frame anterior e `.z` e `.w` são atualmente zero. A engine atualiza esse valor automaticamente; não é necessário atualizá-lo com `go.set()`. Consulte o [tutorial Shadertoy](/tutorials/shadertoy/#animation) para ver um exemplo.
+
+  Declare uma constante Time chamada `time` em um uniform block GLSL moderno:
+
+  ```glsl
+  uniform fragment_inputs
+  {
+      vec4 time;
+  };
+  ```
 
 `CONSTANT_TYPE_USER`
 : Uma constante vector4 que você pode usar para qualquer dado personalizado que queira passar aos seus programas de shader. Você pode definir o valor inicial da constante na definição da constante, mas ela é mutável pelas funções [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Você também pode recuperar o valor com [go.get()](/ref/stable/go/#go.get). Alterar uma constante de material de uma única instância de componente [quebra o batching de renderização e resultará em draw calls adicionais](/manuals/render/#draw-calls-and-batching).

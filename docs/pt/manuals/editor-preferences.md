@@ -58,6 +58,9 @@ Code editor font
 Zoom on Scroll
 : Define se o tamanho da fonte deve mudar ao rolar no editor de código enquanto mantém o botão Cmd/Ctrl pressionado.
 
+Auto-insert closing parens
+: Insere automaticamente os caracteres de fechamento correspondentes durante a edição de código. Esta opção vem ativada por padrão.
+
 
 ### Abrir arquivos de script no Visual Studio Code
 

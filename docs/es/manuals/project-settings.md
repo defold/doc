@@ -34,13 +34,14 @@ main_collection = /main/main.collectionc
 lo que significa que la configuración *main_collection* pertenece a la categoría *bootstrap*. Cada vez que se usa una referencia de archivo, como en el ejemplo anterior, la ruta debe llevar agregado un carácter 'c', lo que significa que estás referenciando la versión compilada del archivo. Ten en cuenta también que la carpeta que contiene *game.project* será la raíz del proyecto, por eso hay una '/' inicial en la ruta de la configuración.
 
 
-## Acceso en runtime
+## Acceso en runtime {#runtime-access}
 
-Es posible leer cualquier valor de *game.project* en runtime usando [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) y [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Ejemplos:
+Es posible leer valores de *game.project* en runtime usando [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number), [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int) y [`sys.get_config_boolean(key)`](/ref/sys/#sys.get_config_boolean). Ejemplos:
 
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
+local vsync = sys.get_config_boolean("display.vsync", false)
 ```
 
 ::: sidenote
@@ -306,12 +307,24 @@ Indicación de versión de contexto OpenGL. Si se selecciona una versión espec�
 #### OpenGL Core Profile Hint
 Define la indicación de perfil 'core' de OpenGL al crear el contexto. El perfil core elimina todas las funcionalidades obsoletas de OpenGL, como el renderizado en modo inmediato. No se aplica a OpenGL ES.
 
+#### Vulkan Version Major
+`graphics.vulkan_version_major` es la indicación de versión mayor del contexto/API de Vulkan. Solo se aplica cuando se selecciona el backend gráfico Vulkan. El valor predeterminado es `1`.
+
+#### Vulkan Version Minor
+`graphics.vulkan_version_minor` es la indicación de versión menor del contexto/API de Vulkan. Solo se aplica cuando se selecciona el backend gráfico Vulkan. El valor predeterminado es `0`.
+
 ---
 
 ### Shader
 
 #### Exclude GLES 2.0
 No compila shaders para dispositivos que ejecutan OpenGLES 2.0 / WebGL 1.0.
+
+#### GLSL ES Default Precision Float
+`shader.glsl_es_default_precision_float` define el calificador de precisión global predeterminado para valores de punto flotante en shaders GLSL ES compilados de forma cruzada. Los valores válidos son `mediump` y `highp`; el predeterminado es `mediump`.
+
+#### GLSL ES Default Precision Int
+`shader.glsl_es_default_precision_int` define el calificador de precisión global predeterminado para valores enteros en shaders GLSL ES compilados de forma cruzada. Los valores válidos son `mediump` y `highp`; el predeterminado es `highp`.
 
 ---
 
@@ -559,7 +572,7 @@ El nombre corto del bundle (15 caracteres) (consulta [`CFBundleName`](https://de
 La versión del bundle, ya sea un número o x.y.z. (consulta [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-Si se especifica, usa este archivo *`info.plist`* al crear el bundle de tu app.
+Si se especifica, usa este archivo *`Info.plist`* en lugar del manifiesto base integrado de iOS al crear el bundle de tu app. El manifiesto integrado contiene las entradas de red local y Bonjour necesarias para el descubrimiento de targets del editor en builds que no son release. Si proporcionas un manifiesto personalizado y necesitas descubrimiento de targets, profiling, hot reload o streaming de logs en un dispositivo, conserva esas entradas como se describe en el [manual de iOS](/manuals/ios/#creating-an-ios-application-bundle).
 
 #### Privacy Manifest
 El Apple Privacy Manifest para la aplicación. El campo tendrá como valor predeterminado `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -736,17 +749,22 @@ Si se define, usa el manifiesto de la aplicación para personalizar la build del
 
 ### Profiler
 
+El ajuste **Profiler** del manifiesto de la aplicación controla si el código del profiler se enlaza con las builds debug y release. Los ajustes siguientes controlan el comportamiento en runtime del código del profiler presente en la build seleccionada. Consulta el [manual de profiling](/manuals/profiling/) para más detalles.
+
 #### Enabled
 Activa el profiler dentro del juego.
 
 #### Track Cpu
-Si está marcada, activa el profiling de CPU en versiones release de las builds. Normalmente, solo puedes acceder a la información de profiling en builds debug.
+El muestreo de uso de CPU está activado de forma predeterminada en builds debug. Activa este ajuste cuando también necesites muestreo de CPU en una build release que incluya soporte para el profiler mediante el manifiesto de la aplicación.
 
 #### Sleep Between Server Updates
 Número de milisegundos que dormir entre actualizaciones del servidor.
 
 #### Performance Timeline Enabled
 Activa la línea de tiempo de rendimiento en el navegador (solo HTML5).
+
+#### Max Sample Count
+`profiler.max_sample_count` es el número máximo de muestras del profiler registradas por thread y por frame. El valor predeterminado es `4096` y el mínimo es `128`. Auméntalo solo cuando un profile legítimo supere el límite; comprueba primero si el código de profiling de las extensiones nativas tiene llamadas de inicio/fin de scope sin correspondencia.
 
 ---
 
@@ -762,11 +780,12 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
-Los valores personalizados pueden, igual que cualquier otro valor de configuración, leerse con [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) o [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
+Los valores personalizados pueden, igual que cualquier otro valor de configuración, leerse con la función correspondiente descrita en [Acceso en runtime](#runtime-access):
 
 ```lua
 local my_value = sys.get_config_number("test.my_value")
 local my_value2 = sys.get_config_string("test.my_value2")
+local my_flag = sys.get_config_boolean("test.my_flag", false)
 ```
 
 
@@ -775,7 +794,7 @@ local my_value2 = sys.get_config_string("test.my_value2")
 
 ## Configuración personalizada del proyecto
 
-Es posible definir configuraciones personalizadas para el proyecto principal o para una [extensión nativa](/manuals/extensions/). Las configuraciones personalizadas para el proyecto principal deben definirse en un archivo `game.properties` en la raíz del proyecto. Para una extensión nativa, deben definirse en un archivo `ext.properties` junto al archivo `ext.manifest`.
+Es posible definir configuraciones personalizadas para el proyecto principal o para una [extensión nativa](/manuals/extensions/). Las configuraciones personalizadas para el proyecto principal deben definirse en un archivo `game.properties` en la raíz del proyecto. Los archivos llamados `ext.properties` se detectan en cualquier lugar del proyecto y en las dependencias de bibliotecas obtenidas; no necesitan un `ext.manifest` vecino. Primero se combinan todos los metadatos de extensiones detectados y después se aplica el archivo `game.properties` de la raíz, que puede sobrescribirlos.
 
 El archivo de configuración usa el mismo formato INI que *game.project*, y los atributos de propiedad se definen usando una notación con puntos y un sufijo:
 
@@ -794,7 +813,7 @@ Los siguientes atributos están disponibles actualmente:
 // `type` - usado para analizar el string del valor
 my_property.type = string // uno de los siguientes valores: bool, string, number, integer, string_array, resource
 
-// `help` - usado como texto de ayuda en el editor (no se usa por ahora)
+// `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
 // `default` - valor usado como predeterminado si el usuario no definió el valor manualmente
@@ -835,4 +854,4 @@ help = Settings for My Awesome Extension
 ```
 
 
-Por el momento, las propiedades meta se usan solo en `bob.jar` al crear el bundle de la aplicación, pero más adelante el editor las analizará y las representará en el visor de *game.project*.
+Tanto Bob como el editor analizan estos archivos de metadatos. El editor los usa para crear los campos, opciones, validaciones y tooltips de ayuda correspondientes en el visor de *game.project*.

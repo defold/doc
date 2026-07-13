@@ -230,20 +230,25 @@ space ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E 
 :::
 
 ```lua
--- получить основной шрифт
-local font_collection = go.get("#label", "font")
-font.add_font(font_collection, self.language_ttf_hash)
+function init(self)
+    -- Get the target font collection.
+    self.font_collection = go.get("#label", "font")
 
--- получить шрифт выбранного языка
-local font_collection_language = go.get("localization_japanese#label", "font")
-local font_info = font.get_info(font_collection_language)
-self.language_ttf_hash = font_info.fonts[1].path_hash -- получить первый шрифт (тот, что задан в редакторе)
-font.add_font(self.font_collection, self.language_ttf_hash) -- увеличивает счётчик ссылок на шрифт
+    -- Get the first font assigned to the selected language collection.
+    local language_collection = go.get("localization_japanese#label", "font")
+    local font_info = font.get_info(language_collection)
+    self.language_ttf_hash = font_info.fonts[1].path_hash
+
+    -- Associate it with the target collection and increase its reference count.
+    font.add_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ```lua
--- удалить ссылку на шрифт
-font.remove_font(self.font_collection, self.language_ttf_hash)
+function final(self)
+    -- Remove the association and release the font reference.
+    font.remove_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ### Предварительный прогрев глифов

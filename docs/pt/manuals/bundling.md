@@ -81,11 +81,10 @@ Esses assets podem ser acessados pela função [`sys.load_resource()`](https://d
 
 Ao criar um pacote de aplicação, você tem a opção de criar um pacote debug ou release. As diferenças entre os dois pacotes são pequenas, mas importantes:
 
-* Builds Release não incluem o [profiler](/manuals/profiling)
+* Builds Release não incluem o [profiler](/manuals/profiling) por padrão. Defina **Profiler** como **Always** no [Manifesto do aplicativo](/manuals/app-manifest/#profiler) para incluir suporte ao profiler em builds debug e release.
 * Builds Release não incluem o [gravador de tela](/ref/stable/sys/#start_record)
 * Builds Release não mostram a saída de chamadas a `print()` nem a saída de extensões nativas
 * Builds Release têm o valor `is_debug` em `sys.get_engine_info()` definido como `false`
 * Builds Release não fazem consultas reversas de valores `hash` ao chamar `tostring()`. Na prática, isso significa que um `tostring()` para um valor do tipo `url` ou `hash` retornará sua representação numérica, e não a string original (`'hash: [/camera_001]'` vs `'hash: [11844936738040519888 (unknown)]'`)
 * Builds Release não oferecem suporte a direcionamento a partir do editor para [hot reload](/manuals/hot-reload) e funcionalidades semelhantes
-
 

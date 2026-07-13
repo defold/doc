@@ -11,7 +11,7 @@ Plik *game.project* zawiera ustawienia specyficzne dla HTML5:
 
 ![Ustawienia projektu](images/html5/html5_project_settings.png)
 
-## Rozmiar sterty
+## Rozmiar sterty {#heap-size}
 
 Wsparcie dla HTML5 w Defold opiera się na Emscripten (zob. http://en.wikipedia.org/wiki/Emscripten). W skrócie tworzy on odizolowany obszar pamięci dla sterty, w którym działa aplikacja. Domyślnie silnik przydziela sporą ilość pamięci (256 MB). Powinno to być więcej niż wystarczające dla typowej gry. W ramach optymalizacji możesz zdecydować się na mniejszą wartość. Aby to zrobić, wykonaj następujące kroki:
 
@@ -57,21 +57,31 @@ Tworzenie zawartości HTML5 w Defold jest proste i odbywa się tak samo jak dla 
 
 ![Utwórz pakiet HTML5](images/html5/html5_bundle.png)
 
-Możesz zdecydować, czy chcesz dołączyć do pakietu HTML5 zarówno wersję silnika Defold `asm.js`, jak i WebAssembly (wasm). W większości przypadków wystarczy wybrać WebAssembly, ponieważ [wszystkie nowoczesne przeglądarki obsługują WebAssembly](https://caniuse.com/wasm).
+Pakiety HTML5 obsługują dwie architektury WebAssembly:
+
+* `wasm-web` - zwykły, jednowątkowy silnik WebAssembly.
+* `wasm_pthread-web` - silnik WebAssembly, który może korzystać z wątków.
+
+Możesz dołączyć jedną z tych architektur albo obie. Gdy dołączone są obie, loader wybiera `wasm_pthread-web`, jeśli przeglądarka i środowisko hostingu go obsługują, a w przeciwnym razie używa `wasm-web`. Kanoniczne nazwy celów znajdziesz w [instrukcji Boba](/manuals/bob/#usage).
 
 ::: important
-Nawet jeśli dołączysz do silnika zarówno wersję `asm.js`, jak i `wasm`, przeglądarka pobierze tylko jedną z nich podczas uruchamiania gry. Wersja WebAssembly zostanie pobrana, jeśli przeglądarka ją obsługuje, a wersja `asm.js` zostanie użyta jako alternatywa w rzadkim przypadku, gdy WebAssembly nie jest obsługiwane.
+Silnik wielowątkowy wymaga `SharedArrayBuffer` na bezpiecznej stronie z [izolacją między źródłami](https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated). Udostępniaj pakiet przez HTTPS (lub localhost) i skonfiguruj serwer z odpowiednimi nagłówkami izolacji między źródłami, zazwyczaj:
+
+```txt
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Zasoby z innych źródeł wczytywane przez stronę również muszą używać zgodnych nagłówków CORS lub Cross-Origin-Resource-Policy. Pakiet zawierający wyłącznie `wasm_pthread-web` nie uruchomi się, gdy te wymagania nie są spełnione; dołącz `wasm-web` jako rozwiązanie zapasowe, jeśli gra może być hostowana w witrynie bez obsługi izolacji między źródłami.
 :::
+
+Pakiety HTML5 silnika Defold wymagają nowoczesnej przeglądarki z obsługą WebAssembly. Internet Explorer 11 nie jest obsługiwany.
 
 Po kliknięciu przycisku <kbd>Create bundle</kbd> zostaniesz poproszony o wybranie folderu, w którym ma zostać utworzona aplikacja. Po zakończeniu eksportu znajdziesz wszystkie pliki potrzebne do uruchomienia aplikacji.
 
 ## Znane problemy i ograniczenia
 
 * Szybkie przeładowanie (Hot Reload) - szybkie przeładowanie nie działa w buildach HTML5. Aplikacje Defold muszą uruchamiać własny niewielki serwer WWW, aby odbierać aktualizacje z edytora, a nie jest to możliwe w buildzie HTML5.
-* Internet Explorer 11
-  * Audio - Defold odtwarza dźwięk za pomocą HTML5 _WebAudio_ (zob. http://www.w3.org/TR/webaudio), którego Internet Explorer 11 obecnie nie obsługuje. W tej przeglądarce aplikacje przejdą na implementację bez dźwięku.
-  * WebGL - Microsoft nie ukończył jeszcze pracy nad implementacją API _WebGL_ (zob. https://www.khronos.org/registry/webgl/specs/latest/). Z tego powodu działa ono gorzej niż w innych przeglądarkach.
-  * Tryb pełnoekranowy (Full screen) - tryb pełnoekranowy jest w przeglądarce zawodny.
 * Chrome
   * Powolne buildy debug (Slow debug builds) - w buildach debug HTML5 sprawdzamy wszystkie wywołania grafiki WebGL, aby wykrywać błędy. Niestety podczas testowania w Chrome jest to bardzo powolne. Można to wyłączyć, ustawiając pole *`Engine Arguments`* w *game.project* na `--verify-graphics-calls=false`.
 * Obsługa gamepadów (Gamepad support) - [dokumentacja gamepadów](/manuals/input-gamepads/#gamepads-in-html5) zawiera szczególne uwagi i kroki, które mogą być potrzebne w HTML5.

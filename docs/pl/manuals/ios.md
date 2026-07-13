@@ -91,7 +91,7 @@ Gdy masz tożsamość podpisywania kodu i profil provisioningowy, możesz utworz
 
 ![Podpisywanie pakietu iOS](images/ios/sign_bundle.png)
 
-Wybierz tożsamość podpisywania kodu i wskaż plik profilu provisioningowego. Wybierz także, dla jakich architektur chcesz spakować aplikację (32-bit, 64-bit i symulator iOS) oraz wariant (Debug lub Release). Opcjonalnie możesz odznaczyć pole wyboru `Sign application`, aby pominąć proces podpisywania i podpisać pakiet ręcznie później.
+Wybierz tożsamość podpisywania kodu i wskaż plik profilu provisioningowego. Wybierz architekturę urządzenia `arm64-ios`, a w razie potrzeby również architekturę symulatora `x86_64-ios`, oraz wariant Debug lub Release. Opcjonalnie możesz odznaczyć pole wyboru `Sign application`, aby pominąć proces podpisywania i podpisać pakiet ręcznie później.
 
 ::: important
 Musisz **odznaczyć** pole `Sign application`, gdy testujesz grę na symulatorze iOS. Aplikację będzie można zainstalować, ale nie uruchomi się.
@@ -102,6 +102,23 @@ Naciśnij *Create Bundle*, a potem zostaniesz poproszony o wskazanie miejsca na 
 ![plik aplikacji ipa iOS](images/ios/ipa_file.png){.left}
 
 Ikonę aplikacji, storyboard ekranu startowego i inne ustawienia określasz w pliku ustawień projektu *game.project* w [sekcji iOS](/manuals/project-settings/#ios).
+
+### Własny Info.plist i wykrywanie celów w sieci lokalnej
+
+Wbudowany plik iOS `Info.plist` zawiera usługę Bonjour oraz opis użycia sieci lokalnej, które są wymagane do automatycznego wykrywania celów edytora w buildach innych niż release. Własny plik `Info.plist` zastępuje ten wbudowany manifest bazowy. Jeśli używasz własnego manifestu w buildzie debug i potrzebujesz wykrywania celów, profilowania, szybkiego przeładowania lub przesyłania logów przez sieć lokalną, dodaj następujące wpisy:
+
+```xml
+{{^variant_release}}
+<key>NSBonjourServices</key>
+<array>
+    <string>_defold._tcp</string>
+</array>
+<key>NSLocalNetworkUsageDescription</key>
+<string>Discover Defold targets on the local network.</string>
+{{/variant_release}}
+```
+
+Warunek Mustache pomija wpisy wykrywania w pakietach release. Tekst opisu użycia jest pokazywany użytkownikowi przez iOS i można go zmienić lub zlokalizować. Usuń warunek tylko wtedy, gdy sama aplikacja release korzysta z tej samej usługi Bonjour i funkcji sieci lokalnej.
 
 :[Warianty budowania](../shared/build-variants.md)
 
@@ -148,11 +165,7 @@ Wybierz obraz, który wcześniej dodałeś do `Assets.xcassets`, z listy rozwija
 
 ![](images/ios/xcode_storyboard_select_image.png)
 
-Ustaw pozycję obrazu i wprowadź inne potrzebne poprawki, na przykład dodając Label albo inny element UI. Gdy skończysz, ustaw aktywny schemat na <kbd>Build -> Any iOS Device (`arm64`, `armv7`)</kbd> (albo <kbd>Generic iOS Device</kbd>) i wybierz <kbd>Product -> Build</kbd>. Poczekaj, aż proces budowania się zakończy.
-
-::: sidenote
-Jeśli w opcji "Any iOS Device (arm64)" masz tylko `arm64`, zmień `iOS Deployment target` na 10.3 w ustawieniach "Project -> Basic -> Deployment". Dzięki temu storyboard będzie zgodny z urządzeniami `armv7` (na przykład iPhone5c).
-:::
+Ustaw pozycję obrazu i wprowadź inne potrzebne poprawki, na przykład dodając Label albo inny element UI. Gdy skończysz, ustaw aktywny schemat na **Any iOS Device (arm64)** (albo **Generic iOS Device**) i wybierz **Product ▸ Build**. Defold obsługuje iOS 15.0 lub nowszy na urządzeniach 64-bitowych, dlatego pozostaw target wdrożeniowy na poziomie 15.0 lub nowszym. Poczekaj, aż proces budowania się zakończy.
 
 Jeśli używasz obrazów w storyboardzie, nie zostaną one automatycznie uwzględnione w `LaunchScreen.storyboardc`. Aby dołączyć zasoby, użyj pola `Bundle Resources` w *game.project*. Na przykład utwórz folder `LaunchScreen` w projekcie Defold oraz folder `ios` wewnątrz niego (`ios` jest potrzebny, aby dołączać te pliki tylko dla bundli iOS), a następnie umieść pliki w `LaunchScreen/ios/`. Dodaj tę ścieżkę w `Bundle Resources`.
 

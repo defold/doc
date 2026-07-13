@@ -83,7 +83,7 @@ Es importante que hagas coincidir el motor correcto con el callstack; de lo cont
 * Android - la carpeta de salida del bundle `projecttitle.apk.symbols/lib/` contiene los símbolos de depuración para las arquitecturas objetivo.
 * Linux - el ejecutable contiene los símbolos de depuración.
 * Windows - el archivo `dmengine.pdb` en `build/x86_64-win32` contiene los símbolos de depuración para builds de Windows.
-* HTML5 - el archivo `dmengine.js.symbols` en `build/wasm-web` contiene los símbolos de depuración para builds de HTML5.
+* HTML5 - el directorio `<project_name>_symbols`, situado junto al bundle HTML5, contiene `<project_name>_wasm.js.symbols` y, cuando se selecciona la arquitectura `wasm_pthread-web`, `<project_name>_pthread_wasm.js.symbols`.
 
 ::: important
 Es muy importante que guardes los símbolos de depuración en algún lugar para cada release pública que hagas de tu juego y que sepas a qué release pertenecen esos símbolos de depuración. No podrás depurar ningún crash nativo si no tienes los símbolos de depuración. Además, deberías conservar una versión sin strip (`unstripped`) del motor. Esto permite la mejor simbolización del callstack.

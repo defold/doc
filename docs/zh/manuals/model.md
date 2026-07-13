@@ -43,9 +43,9 @@ Defold 本质上是一个3D引擎。即使您只使用2D材质，所有渲染也
 : 将此属性设置为您创建的适合纹理 3D 对象的材质。有多个内置材质可作为起点：
 
   * 使用 *model.material* 用于静态非实例化模型
-  * 使用 *model_instances.material* 用于静态实例化模型
+  * 使用 *model_instanced.material* 用于静态实例化模型
   * 使用 *model_skinned.material* 用于蒙皮（动画）非实例化模型
-  * 使用 *model_skinned_instances.material* 用于蒙皮（动画）实例化模型
+  * 使用 *model_skinned_instanced.material* 用于蒙皮（动画）实例化模型
 
 根据材质的不同，会有一个或多个纹理属性：
 
@@ -99,19 +99,23 @@ go.animate("#model", "cursor", go.PLAYBACK_LOOP_PINGPONG, 1, go.EASING_LINEAR, 1
 : 动画播放速率（`number`）。
 
 `textureN`
-: 模型纹理，其中N为0-7（`hash`）。您可以使用纹理资源属性和`go.set()`更改此设置。有关示例，请参阅[API参考](/ref/model/#textureN)。
+: 模型纹理，其中 N 为 0-15（`hash`）。您可以使用 `go.get()` 读取这些属性，并使用纹理资源属性和 `go.set()` 更改它们。Defold 每次绘制最多支持 16 个纹理，但在纹理采样器限制较低的图形适配器上，着色器可用的数量可能更少。
 
 
-## 材质
+## 材质 {#material}
 
 3D软件通常允许您在对象顶点上设置属性，比如着色和纹理。这些信息会进入您从3D软件导出的 glTF *.gltf* 或 *.glb* 文件中。根据您游戏的需求，您必须为您的对象选择和/或创建合适的_高性能_材质。材质将_着色器程序_与一组用于对象渲染的参数结合起来。
 
 有多个内置材质可作为起点：
 
   * 使用 *model.material* 用于静态非实例化模型
-  * 使用 *model_instances.material* 用于静态实例化模型
+  * 使用 *model_instanced.material* 用于静态实例化模型
   * 使用 *model_skinned.material* 用于蒙皮（动画）非实例化模型
-  * 使用 *model_skinned_instances.material* 用于蒙皮（动画）实例化模型
+  * 使用 *model_skinned_instanced.material* 用于蒙皮（动画）实例化模型
+
+内置模型材质使用局部顶点空间。对于蒙皮模型，局部顶点空间使顶点着色器能够使用骨骼矩阵纹理在 GPU 上执行蒙皮；模型实例化也需要局部顶点空间。因此，用于 GPU 蒙皮或实例化模型的自定义材质应使用 *Local* 顶点空间设置。
+
+骨骼矩阵缓存使用 `RGBA32F` 纹理。如果当前图形适配器不支持该纹理格式，Defold 将无法创建使用局部空间材质的动画 Model 组件。因此，在 OpenGL ES 2.0 和 WebGL 1.0 上，支持情况取决于适配器的浮点纹理扩展。为兼容缺少该扩展的适配器，请使用自定义世界空间材质；它使用 CPU 蒙皮，且不能使用模型实例化。可通过[模型项目设置](/manuals/project-settings/#model)调整缓存尺寸。
 
 如果您需要为模型创建自定义材质，请参阅[材质文档](/manuals/material)获取信息。[着色器手册](/manuals/shader)包含有关着色器程序如何工作的信息。
 

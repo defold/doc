@@ -91,7 +91,7 @@ Quando você tiver a identidade de assinatura de código e o perfil de provision
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
-Selecione sua identidade de assinatura de código e procure seu arquivo de provisionamento mobile. Selecione para quais arquiteturas (32 bits, 64 bits e o simulador iOS) empacotar, bem como a variante (Debug ou Release). Opcionalmente, você pode desmarcar a caixa de seleção `Sign application` para pular o processo de assinatura e assinar manualmente em uma etapa posterior.
+Selecione sua identidade de assinatura de código e procure seu arquivo de provisionamento mobile. Selecione a arquitetura de dispositivo `arm64-ios` e, quando necessário, a arquitetura de simulador `x86_64-ios`, bem como a variante (Debug ou Release). Opcionalmente, você pode desmarcar a caixa de seleção `Sign application` para pular o processo de assinatura e assinar manualmente em uma etapa posterior.
 
 ::: important
 Você **deve** desmarcar a caixa de seleção `Sign application` ao testar seu jogo no simulador iOS. Você conseguirá instalar a aplicação, mas ela não iniciará.
@@ -102,6 +102,23 @@ Pressione *Criar Pacote…* e então será solicitado que você especifique onde
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
 Você especifica qual ícone usar para o app, o storyboard da tela de lançamento e assim por diante no arquivo de configurações do projeto *game.project*, na [seção iOS](/manuals/project-settings/#ios).
+
+### Info.plist personalizado e descoberta de alvos locais
+
+O `Info.plist` integrado do iOS contém o serviço Bonjour e a descrição de uso da rede local necessários para a descoberta automática de alvos pelo editor em builds que não sejam release. Um `Info.plist` personalizado substitui esse manifesto base integrado. Se você usar um manifesto personalizado em uma build debug e precisar da descoberta de alvos, profiling, hot reload ou streaming de logs pela rede local, inclua estas entradas:
+
+```xml
+{{^variant_release}}
+<key>NSBonjourServices</key>
+<array>
+    <string>_defold._tcp</string>
+</array>
+<key>NSLocalNetworkUsageDescription</key>
+<string>Discover Defold targets on the local network.</string>
+{{/variant_release}}
+```
+
+A condição Mustache mantém as entradas de descoberta fora dos pacotes release. A string da descrição de uso é exibida ao usuário pelo iOS e pode ser ajustada ou localizada. Remova a condição somente se a própria aplicação release usar o mesmo serviço Bonjour e a funcionalidade de rede local.
 
 :[Build Variants](../shared/build-variants.md)
 
@@ -148,11 +165,7 @@ Selecione a imagem que você adicionou anteriormente a `Assets.xcassets` no menu
 
 ![](images/ios/xcode_storyboard_select_image.png)
 
-Posicione a imagem e faça quaisquer outros ajustes necessários, talvez adicionando um Label ou outro elemento de UI. Quando terminar, defina o scheme ativo para "Build -> Any iOS Device (`arm64`, `armv7`)" (ou "Generic iOS Device") e selecione Product -> Build. Aguarde o processo de build terminar.
-
-::: sidenote
-Se você tiver apenas a opção `arm64` em "Any iOS Device (arm64)", altere `iOS Deployment target` para 10.3 nas configurações "Project -> Basic -> Deployment". Isso tornará seu storyboard compatível com dispositivos `armv7` (por exemplo, iPhone5c)  
-:::
+Posicione a imagem e faça quaisquer outros ajustes necessários, talvez adicionando um Label ou outro elemento de UI. Quando terminar, defina o scheme ativo como **Any iOS Device (arm64)** (ou **Generic iOS Device**) e selecione **Product ▸ Build**. O Defold oferece suporte ao iOS 15.0 e versões posteriores em dispositivos de 64 bits; portanto, mantenha o deployment target em 15.0 ou posterior. Aguarde o processo de build terminar.
 
 Se você usar imagens no storyboard, elas não serão incluídas automaticamente no seu `LaunchScreen.storyboardc`. Use o campo `Bundle Resources` em *game.project* para incluir recursos.
 Por exemplo, crie a pasta `LaunchScreen` no projeto Defold e uma pasta `ios` dentro dela (a pasta `ios` é necessária para incluir esses arquivos apenas em pacotes iOS), então coloque seus arquivos em `LaunchScreen/ios/`. Adicione esse caminho em `Bundle Resources`.

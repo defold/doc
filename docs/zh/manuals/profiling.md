@@ -5,11 +5,17 @@ brief: 本手册解释了 Defold 中存在的性能分析工具。
 
 # 性能分析
 
-Defold 包含一组与引擎和构建流程集成的性能分析工具。这些工具旨在帮助发现性能和内存使用方面的问题。内置的性能分析器仅在调试版本中可用。Defold 中使用的帧性能分析器是 [Celtoys 的 Remotery 性能分析器](https://github.com/Celtoys/Remotery)。
+Defold 包含与引擎和构建流程集成的性能分析工具，用于查找性能、内存和资源使用问题。运行时性能分析数据可由多种功能使用：
+
+* 基础分析器和游戏内可视化分析器适用于所有平台。
+* [Remotery 分析器](https://github.com/Celtoys/Remotery)和交互式 Web 帧分析器适用于桌面和移动平台。
+* HTML5 构建可将 Defold scope 发布到浏览器的 Web Performance API。
+
+[App Manifest](/manuals/app-manifest/#profiler) 中的 **Profiler** 设置控制是否将分析器代码链接到构建中。**Debug Only** 是默认值，**None** 会排除分析器，**Always** 则在 Debug 和 Release 构建中都包含它。*game.project* 中的 `profiler` 设置控制运行时行为，但不会将已排除的分析器代码重新链接到构建中。尤其是 **Track CPU** 控制 CPU 使用率采样，它与 App Manifest 选项相互独立。
 
 ## 运行时可视化性能分析器
 
-调试版本具有运行时可视化性能分析器，显示实时信息并渲染在运行应用程序的顶部：
+包含分析器支持的构建具有运行时可视化分析器，可将实时信息叠加显示在运行中的应用程序上：
 
 ```lua
 function on_reload(self)
@@ -33,9 +39,9 @@ profiler.view_recorded_frame()
 
 ## Web 性能分析器
 
-运行游戏的调试版本时，可以通过浏览器访问基于 Web 的交互式性能分析器。
+运行包含分析器支持的桌面或移动构建时，可以通过浏览器访问交互式帧分析器和资源分析器。
 
-### 帧性能分析器
+### Remotery 帧性能分析器
 帧性能分析器允许您在游戏运行时对其进行采样，并详细分析各个帧。要访问性能分析器：
 
 1. 在目标设备上启动您的游戏。
@@ -72,6 +78,10 @@ INFO:ENGINE: Loading data from: build/default
 
   ![Global Properties](images/profiling/webprofiler_global_properties.png)
 
+::: important
+[Max Sample Count 设置](/manuals/project-settings/#max-sample-count)限制每个线程每帧记录的分析器样本数。如果分析器报告超出限制，请先检查原生扩展的性能分析代码中是否有未配对的 scope begin/end。只有当正常帧确实包含超过配置限制的 scope 时才提高上限。
+:::
+
 
 ### 资源性能分析器
 资源性能分析器允许您在游戏运行时检查它并详细分析资源使用情况。要访问性能分析器：
@@ -88,6 +98,17 @@ INFO:ENGINE: Loading data from: build/default
 
 资源视图
 : 资源视图显示当前加载到内存中的所有资源、它们的大小以及对每个资源的引用数量。当您需要了解在任何给定时间加载到内存中的内容时，这对于优化应用程序中的内存使用非常有用。
+
+## HTML5 浏览器性能时间线
+
+HTML5 的浏览器时间线使用 Web Performance API，而不是 Remotery。要记录 Defold scope：
+
+1. 确保所选 App Manifest 分析器模式在当前运行的构建变体中包含分析器支持。
+2. 在 *game.project* 中启用 **Performance Timeline Enabled**（`profiler.performance_timeline_enabled`）。
+3. 启动 HTML5 构建并打开浏览器开发者工具。
+4. 在浏览器的 **Performance** 面板中录制会话，然后在生成的时间线中查看 Defold scope。
+
+此浏览器时间线与游戏内可视化分析器和交互式 Remotery Web 分析器均相互独立。
 
 
 ## 构建报告 {#build-reports}

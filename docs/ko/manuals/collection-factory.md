@@ -56,7 +56,7 @@ local bean_ids = collectionfactory.create("#bean_factory")
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
-go.set_scale(0.5, bean_ids[hash("/bean")])
+go.set_scale_xy(0.5, bean_ids[hash("/bean")])
 pprint(bean_ids)
 -- DEBUG:SCRIPT:
 -- {

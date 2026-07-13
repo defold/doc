@@ -123,11 +123,29 @@ El código anterior producirá el siguiente formulario de diálogo:
 
 ### Componentes de presentación de datos
 
-El editor define 4 componentes de presentación de datos:
+El editor define los siguientes componentes de presentación de datos:
 - **`label`**: etiqueta de texto, pensada para usarse con inputs de formularios.
 - **`icon`**: un icono; actualmente solo se puede usar para presentar un conjunto pequeño de iconos predefinidos, pero queremos permitir más iconos en el futuro.
+- **`image`**: una imagen cargada desde una ruta de recurso del proyecto que comienza por `/` o desde una URL externa. Las props opcionales `width` y `height` ajustan la imagen dentro de las dimensiones indicadas conservando su relación de aspecto.
 - **`heading`**: elemento de texto pensado para presentar una línea de texto de encabezado en, por ejemplo, un formulario o un diálogo. El enum `editor.ui.HEADING_STYLE` define varios estilos de encabezado que incluyen los encabezados `H1`-`H6` de HTML, así como `DIALOG` y `FORM`, específicos del editor.
 - **`paragraph`**: elemento de texto pensado para presentar un párrafo de texto. La principal diferencia con `label` es que paragraph soporta ajuste de línea: si los límites asignados son demasiado pequeños horizontalmente, el texto se ajustará y posiblemente se acortará con `"..."` si no cabe en la vista.
+
+Por ejemplo, una interfaz puede mostrar tanto una imagen del proyecto como una imagen de la web:
+
+```lua
+editor.ui.vertical({
+    children = {
+        editor.ui.image({
+            image = "/builtins/assets/images/logo/logo_256.png",
+            width = 64,
+            height = 64
+        }),
+        editor.ui.image({
+            image = "https://defold.com/images/assets/monarch-hero.jpg"
+        })
+    }
+})
+```
 
 ### Componentes de input
 

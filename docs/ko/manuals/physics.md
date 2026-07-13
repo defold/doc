@@ -5,7 +5,9 @@ brief: Defold에는 2D와 3D용 물리 엔진이 포함되어 있습니다. 이 
 
 # 물리
 
-Defold에는 2D 물리 시뮬레이션을 위한 [Box2D](http://www.box2d.org) 물리 엔진의 수정 버전(2.2.1)과 3D 물리를 위한 Bullet 물리 엔진(2.77)이 포함되어 있습니다. 이를 통해 서로 다른 종류의 _충돌 오브젝트_ 사이에서 뉴턴 물리 상호작용을 시뮬레이션할 수 있습니다. 이 매뉴얼에서는 그 동작 방식을 설명합니다.
+Defold에는 2D 물리 시뮬레이션용 [Box2D](https://box2d.org/)와 3D 물리용 Bullet이 포함되어 있습니다. [App Manifest의 Physics 2D 설정](/manuals/app-manifest/#physics-2d)에서 **Box2D Version 3**, **Box2D (Legacy Defold version)** 또는 **None**을 선택합니다. 레거시 구현이 기본값이고 Box2D 3은 선택적으로 활성화합니다. 구현을 바꾸면 시뮬레이션 결과가 달라질 수 있으며 버전별 [Box2D 프로젝트 설정](/manuals/project-settings/#box2d)을 다시 조정해야 할 수 있습니다.
+
+이 매뉴얼에서 설명하는 컴포넌트 중심의 충돌 오브젝트 워크플로와 `physics` 모듈은 두 Box2D 구현 모두에서 동작합니다. **None**을 선택하면 2D 물리가 제거됩니다. 또한 Defold는 2D body, shape, joint, chain, world에 직접 액세스할 수 있는 저수준 [`b2d`](/ref/stable/b2d/), `b2d.body`, `b2d.fixture`, `b2d.shape`, `b2d.joint`, `b2d.chain`, `b2d.world` API를 제공합니다. 모든 저수준 함수를 두 Box2D 구현에서 사용할 수 있는 것은 아니므로 각 함수의 생성된 API 문서를 App Manifest에서 선택한 구현과 대조해 확인하세요.
 
 Defold에서 사용하는 물리 엔진의 주요 개념은 다음과 같습니다:
 

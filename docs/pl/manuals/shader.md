@@ -68,7 +68,9 @@ Stałe
   - `CONSTANT_TYPE_WORLD` to *macierz świata*, która mapuje lokalną przestrzeń współrzędnych obiektu do przestrzeni świata.
   - `CONSTANT_TYPE_VIEW` to *macierz widoku*, która mapuje przestrzeń świata do przestrzeni kamery.
   - `CONSTANT_TYPE_PROJECTION` to *macierz projekcji*, która mapuje przestrzeń kamery do przestrzeni ekranu.
-  - Dostępne są też macierze `world * view`, `view * projection` oraz `world * view * projection`.
+  - `CONSTANT_TYPE_WORLDVIEW`, `CONSTANT_TYPE_VIEWPROJ` i `CONSTANT_TYPE_WORLDVIEWPROJ` udostępniają odpowiednie macierze połączone.
+  - `CONSTANT_TYPE_WORLD_INVERSE`, `CONSTANT_TYPE_VIEW_INVERSE`, `CONSTANT_TYPE_PROJECTION_INVERSE`, `CONSTANT_TYPE_VIEWPROJ_INVERSE`, `CONSTANT_TYPE_WORLDVIEW_INVERSE` i `CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE` udostępniają macierze odwrotne bez konieczności obliczania ich w shaderze.
+  - `CONSTANT_TYPE_TIME` jest dostarczanym przez silnik wektorem `vec4`: czas od uruchomienia silnika w `.x`, czas delta klatki w `.y` oraz zera w `.z` i `.w`.
   - `CONSTANT_TYPE_USER` to stała typu `vec4`, której możesz używać dowolnie.
 
   [Instrukcja do materiałów](/manuals/material) wyjaśnia, jak określać stałe.
@@ -210,9 +212,11 @@ vec4 sampler_2d = texture(my_texture, uv);
 vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 ```
 
-### Precyzja
+### Precyzja {#precision}
 
-Wcześniej jawne ustawienie precyzji dla zmiennych, wejść, wyjść i podobnych elementów było wymagane, aby zachować zgodność z kontekstami OpenGL ES. Nie jest to już potrzebne, ponieważ precyzja jest teraz ustawiana automatycznie na platformach, które to obsługują.
+Defold generuje globalne domyślne kwalifikatory precyzji podczas kompilacji krzyżowej shaderów do GLSL ES. Wartości domyślne to `mediump` dla liczb zmiennoprzecinkowych i `highp` dla liczb całkowitych. Można je zmienić za pomocą [ustawień projektu](/manuals/project-settings/#shader) **GLSL ES Default Precision Float** (`shader.glsl_es_default_precision_float`) i **GLSL ES Default Precision Int** (`shader.glsl_es_default_precision_int`); oba przyjmują `mediump` lub `highp`.
+
+Jawny kwalifikator zmiennej, wejścia lub wyjścia ma pierwszeństwo przed wygenerowaną globalną wartością domyślną. W shaderach fragmentów OpenGL ES 2.0 i WebGL 1.0 nie każde urządzenie obsługuje `highp`. Gdy jako globalną wartość domyślną wybrano `highp`, Defold zabezpiecza ją za pomocą `GL_FRAGMENT_PRECISION_HIGH` i używa `mediump` na urządzeniach bez jej obsługi.
 
 ### Składamy to razem
 

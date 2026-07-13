@@ -535,8 +535,11 @@ Więcej szczegółów znajdziesz w [instrukcji o Collection Factory](/manuals/co
 Wywołując `factory.create()` lub `collectionfactory.create()`, możesz też podać opcjonalne parametry, takie jak pozycja, obrót, skala i właściwości skryptu, aby dokładnie kontrolować, gdzie i jak pojawi się instancja oraz jak będzie się zachowywać, na przykład:
 
 ```lua
-factory.create("#my_factory", my_position, my_rotation, my_scale, my_properties)
+local scale_2d = vmath.vector3(0.5, 0.5, 1.0)
+factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 ```
+
+Opcjonalne argumenty mają kolejność: właściwości, a następnie skala. Jeśli skalujesz obiekt 2D tylko w osiach X i Y, użyj `vector3` z jawną wartością Z równą `1.0`; skala podana jako liczba jest stosowana równomiernie do wszystkich trzech osi.
 
 #### Dynamiczne wczytywanie
 

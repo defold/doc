@@ -55,6 +55,7 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
 - `editor.get(node_id, property)` — odczytuje wartość wybranego węzła wewnątrz edytora. Węzły w edytorze to różne byty, na przykład pliki skryptów lub kolekcji, obiekty gry wewnątrz kolekcji, pliki JSON wczytane jako zasoby itd. `node_id` to wartość userdata przekazywana skryptowi przez edytor. Zamiast `node_id` możesz też podać ścieżkę zasobu, na przykład `"/main/game.script"`. `property` to łańcuch znaków. Obecnie obsługiwane są między innymi:
   - `"path"` — ścieżka zasobu względem katalogu projektu dla zasobów istniejących jako pliki lub katalogi. Przykładowa wartość: `"/main/game.script"`;
   - `"children"` — lista ścieżek zasobów potomnych dla zasobów będących katalogami;
+  - `"parent"` — nadrzędny węzeł edytora dla węzła Outline, który ma element nadrzędny;
   - `"text"` — tekstowa zawartość zasobu edytowalnego jako tekst, na przykład plików skryptów lub JSON. Przykładowa wartość: `"function init(self)\nend"`. To nie jest to samo co odczyt pliku przez `io.open()`, ponieważ plik może być zmieniony, ale jeszcze niezapisany, a takie zmiany są dostępne tylko przez właściwość `"text"`;
   - dla atlasów: `images` (lista węzłów obrazów atlasu) oraz `animations` (lista węzłów animacji);
   - dla animacji atlasu: `images`;
@@ -63,7 +64,7 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
   - dla `particlefx`: `emitters` (lista węzłów emiterów) i `modifiers` (lista węzłów modyfikatorów);
   - dla emiterów `particlefx`: `modifiers`;
   - dla obiektów kolizji: `shapes` (lista węzłów kształtów kolizji);
-  - dla plików GUI: `layers` (lista węzłów warstw);
+  - dla plików GUI: listy węzłów, takie jak `layers`, `fonts`, `materials`, `textures`, `particlefxs`, `nodes` i `layouts`;
   - część właściwości widocznych w panelu Properties, gdy w Outline coś jest zaznaczone. Obecnie obsługiwane są typy:
     - `strings`
     - `booleans`
@@ -72,6 +73,7 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
     - `resources`
     - `curves`
     Niektóre z tych właściwości mogą być tylko do odczytu albo niedostępne w danym kontekście, dlatego przed odczytem użyj `editor.can_get`, a przed zapisem `editor.can_set`. Po najechaniu kursorem na nazwę właściwości w panelu Properties zobaczysz podpowiedź z nazwą używaną w skryptach edytora. Właściwości zasobów możesz ustawić na `nil`, przekazując `""`.
+- `editor.properties(node_id)` — zwraca posortowaną, zależną od kontekstu listę nazw właściwości, które można odczytać z węzła, na przykład `pprint(editor.properties("/game.project"))`. Za pomocą funkcji `editor.can_*` sprawdź, czy wymienioną właściwość można również zmienić, zresetować, uzupełnić lub zmienić jej kolejność;
 - `editor.can_get(node_id, property)` — sprawdza, czy odczyt danej właściwości przez `editor.get()` nie zakończy się błędem;
 - `editor.can_set(node_id, property)` — sprawdza, czy krok transakcji `editor.tx.set()` dla tej właściwości nie zakończy się błędem;
 - `editor.create_directory(resource_path)` — tworzy katalog, jeśli nie istnieje, wraz z brakującymi katalogami nadrzędnymi;
@@ -83,11 +85,11 @@ Z edytorem możesz komunikować się przez pakiet `editor`, który udostępnia n
 - `editor.ui.*` — funkcje związane z interfejsem; szczegóły w [instrukcji UI](/manuals/editor-scripts-ui);
 - `editor.prefs.*` — funkcje do pracy z preferencjami edytora; szczegóły w sekcji [Preferencje](#preferences).
 
-Pełne API edytora znajdziesz [tutaj](https://defold.com/ref/alpha/editor/).
+Pełne API edytora znajdziesz [tutaj](/ref/stable/editor/).
 
 ## Polecenia {#commands}
 
-Jeśli moduł skryptu edytora definiuje funkcję `get_commands`, zostanie ona wywołana podczas przeładowywania rozszerzeń, a zwrócone polecenia będą dostępne w pasku menu edytora albo w menu kontekstowych paneli Assets i Outline. Przykład:
+Jeśli moduł skryptu edytora definiuje funkcję `get_commands()`, jest ona wywoływana podczas przeładowywania rozszerzeń. Zwrócone polecenia mogą pojawiać się w menu paska menu oraz w menu kontekstowych Assets, Outline, Scene i Code, zależnie od ich `locations`. Przykład:
 
 ```lua
 local M = {}
@@ -134,7 +136,7 @@ return M
 Edytor oczekuje, że `get_commands()` zwróci tablicę tabel, z których każda opisuje jedno polecenie. Opis polecenia składa się z:
 
 - `label` (wymagane) — tekst pozycji menu widoczny dla użytkownika;
-- `locations` (wymagane) — tablica zawierająca `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"`, `"Scene"` albo `"Outline"`, określająca, gdzie polecenie ma być dostępne. `"Edit"`, `"View"`, `"Project"` i `"Debug"` oznaczają górny pasek menu, `"Assets"` oznacza menu kontekstowe panelu Assets, `"Outline"` oznacza menu kontekstowe panelu Outline, a `"Bundle"` oznacza podmenu **Project → Bundle**;
+- `locations` (wymagane) — tablica określająca, gdzie polecenie ma być dostępne. Obsługiwane wartości to `"Edit"`, `"View"`, `"Project"`, `"Debug"` i `"Help"` dla odpowiadających im menu paska menu; `"Bundle"` dla podmenu **Project → Bundle**; oraz `"Assets"`, `"Outline"`, `"Scene"` i `"Code"` dla odpowiadających im menu kontekstowych;
 - `query` — sposób, w jaki polecenie prosi edytor o potrzebne dane i definiuje, na czym operuje. Dla każdego klucza w tabeli `query` pojawi się odpowiadający klucz w tabeli `opts`, przekazywanej do funkcji `active` i `run`. Obsługiwane klucze:
   - `selection` oznacza, że polecenie działa na aktualnym zaznaczeniu.
     - `type` określa typ zaznaczonych węzłów. Obecnie dozwolone są:
@@ -152,7 +154,7 @@ Edytor oczekuje, że `get_commands()` zwróci tablicę tabel, z których każda 
 
 ### Używanie poleceń do zmiany stanu edytora w pamięci
 
-Wewnątrz `run` możesz odczytywać i zmieniać stan edytora zapisany w pamięci. Odczyt odbywa się przez `editor.get()`, co pozwala pobierać aktualny stan plików i zaznaczenia (jeśli używasz `query = {selection = ...}`). Możesz pobrać właściwość `"text"` plików skryptów oraz wybrane właściwości widoczne w panelu Properties — najedź kursorem na nazwę właściwości, aby zobaczyć, jak nazywa się w skryptach edytora. Zmiany w stanie edytora wykonuje się przez `editor.transact()`, gdzie grupujesz jedną lub więcej modyfikacji w pojedynczy krok z możliwością cofnięcia. Na przykład polecenie resetujące transformację obiektu gry może wyglądać tak:
+Wewnątrz `run` możesz odczytywać i zmieniać stan edytora zapisany w pamięci. Odczyt odbywa się przez `editor.get()`, co pozwala pobierać aktualny stan plików i zaznaczenia (jeśli używasz `query = {selection = ...}`). Możesz pobrać właściwość `"text"` zasobów edytowalnych jako tekst oraz wybrane właściwości widoczne w panelu Properties — najedź kursorem na nazwę właściwości, aby zobaczyć, jak nazywa się w skryptach edytora. Zmiany w stanie edytora wykonuje się przez `editor.transact()`, gdzie grupujesz jedną lub więcej modyfikacji w pojedynczy krok z możliwością cofnięcia. Na przykład polecenie resetujące transformację obiektu gry może wyglądać tak:
 
 ```lua
 {
@@ -372,10 +374,15 @@ Właściwość `type` kształtu jest wymagana podczas tworzenia i nie można jej
 
 #### Edycja plików GUI
 
-Poza właściwościami z Outline pliki GUI definiują:
+Poza właściwościami z Outline pliki GUI definiują kilka właściwości będących listami węzłów:
 
 - `layers` — listę węzłów warstw GUI z możliwością zmiany kolejności;
-- `materials` — listę węzłów materiałów.
+- `fonts` — listę węzłów fontów;
+- `materials` — listę węzłów materiałów;
+- `textures` — listę węzłów tekstur;
+- `particlefxs` — listę węzłów Particle FX;
+- `nodes` — listę węzłów GUI;
+- `layouts` — listę węzłów layoutów GUI.
 
 Warstwy GUI można edytować przez właściwość `layers`, na przykład:
 
@@ -401,7 +408,7 @@ Podobnie fonty, materiały, tekstury i particlefx są edytowane przez właściwo
 editor.transact({
     editor.tx.add("/main.gui", "fonts", {font = "/main.font"}),
     editor.tx.add("/main.gui", "materials", {name = "shine", material = "/shine.material"}),
-    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.material"}),
+    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.particlefx"}),
     editor.tx.add("/main.gui", "textures", {texture = "/ui.atlas"})
 })
 ```
@@ -615,7 +622,7 @@ Pamiętaj, że hooki cyklu życia są obecnie funkcją dostępną wyłącznie w 
 
 ## Serwery językowe
 
-Edytor obsługuje podzbiór [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). Docelowo chcemy rozszerzyć obsługę funkcji LSP, ale obecnie edytor potrafi tylko pokazywać diagnostykę (czyli linty) w edytowanych plikach oraz podpowiedzi.
+Edytor obsługuje podzbiór [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostykę (linty), podpowiedzi, informacje po najechaniu kursorem, symbole dokumentu w panelu Structure, przechodzenie do definicji, wyszukiwanie odwołań i zmianę nazwy symbolu. Najedź kursorem na symbol, aby zobaczyć informacje z serwera językowego. Gdy kursor znajduje się na symbolu, użyj <kbd>F2</kbd>, aby zmienić jego nazwę, <kbd>F12</kbd>, aby przejść do definicji, lub <kbd>Shift+F12</kbd>, aby znaleźć odwołania. Te działania są też dostępne w menu <kbd>Edit</kbd>.
 
 Aby zdefiniować serwer językowy, edytuj funkcję `get_language_servers` w swoim skrypcie edytora na przykład tak:
 

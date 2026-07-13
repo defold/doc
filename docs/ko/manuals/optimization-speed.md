@@ -73,7 +73,7 @@ end
 
 * 드로우 콜 줄이기 - 드로우 콜 줄이기에 대한 자세한 내용은 [이 포럼 게시물](https://forum.defold.com/t/draw-calls-and-defold/4674)을 참고하세요.
 * 오버드로우 줄이기
-* 쉐이더 복잡도 줄이기 - GLSL 최적화에 대해서는 [이 Khronos 글](https://www.khronos.org/opengl/wiki/GLSL_Optimizations)을 읽어 보세요. Defold에서 사용하는 기본 쉐이더(`builtins/materials`에 있음)를 수정하고 쉐이더 정밀도를 낮춰 저사양 디바이스에서 약간의 속도 향상을 얻을 수도 있습니다. 모든 쉐이더는 `highp` 정밀도를 사용하며, 예를 들어 `mediump`로 변경하면 경우에 따라 성능이 조금 향상될 수 있습니다.
+* 쉐이더 복잡도 줄이기 - GLSL 최적화에 대해서는 [이 Khronos 글](https://www.khronos.org/opengl/wiki/GLSL_Optimizations)을 읽어 보세요. Defold에서 사용하는 기본 쉐이더(`builtins/materials`에 있음)를 수정하고 쉐이더에 `highp`가 필요하지 않은 경우 더 낮은 precision을 선택할 수도 있습니다. cross-compile된 GLSL ES 쉐이더는 부동 소수점 값에 `mediump`, 정수에 `highp`를 기본으로 사용하며, 이 기본값은 Shader 프로젝트 설정에서 변경할 수 있습니다. 변수별로 명시한 qualifier가 우선합니다. [쉐이더 precision 문서](/manuals/shader/#precision)를 참고하세요.
 
 ## 씬 그래프 복잡도 줄이기
 프로파일러에서 `GameObject` 스코프, 더 구체적으로는 `UpdateTransform` 샘플의 값이 높게 나타난다면 씬 그래프 복잡도를 줄여야 합니다. 취할 수 있는 조치는 다음과 같습니다.

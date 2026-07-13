@@ -36,11 +36,12 @@ o que significa que a configuração *main_collection* pertence à categoria *bo
 
 ## Acesso em tempo de execução {#runtime-access}
 
-É possível ler qualquer valor de *game.project* em tempo de execução usando [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) e [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Exemplos:
+É possível ler valores de *game.project* em tempo de execução usando [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number), [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int) e [`sys.get_config_boolean(key)`](/ref/sys/#sys.get_config_boolean). Exemplos:
 
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
+local vsync = sys.get_config_boolean("display.vsync", false)
 ```
 
 ::: sidenote
@@ -306,12 +307,24 @@ Hint de versão de contexto OpenGL. Se uma versão específica for selecionada, 
 #### OpenGL Core Profile Hint
 Define a hint de perfil OpenGL 'core' ao criar o contexto. O core profile remove todos os recursos obsoletos do OpenGL, como renderização em modo imediato. Não se aplica ao OpenGL ES.
 
+#### Vulkan Version Major
+`graphics.vulkan_version_major` é a hint da versão principal do contexto/API Vulkan. Aplica-se somente quando o backend gráfico Vulkan está selecionado. O padrão é `1`.
+
+#### Vulkan Version Minor
+`graphics.vulkan_version_minor` é a hint da versão secundária do contexto/API Vulkan. Aplica-se somente quando o backend gráfico Vulkan está selecionado. O padrão é `0`.
+
 ---
 
 ### Shader
 
 #### Exclude GLES 2.0
 Não compila shaders para dispositivos executando OpenGLES 2.0 / WebGL 1.0.
+
+#### GLSL ES Default Precision Float
+`shader.glsl_es_default_precision_float` define o qualificador global de precisão padrão para valores de ponto flutuante em shaders GLSL ES gerados por compilação cruzada. Os valores válidos são `mediump` e `highp`; o padrão é `mediump`.
+
+#### GLSL ES Default Precision Int
+`shader.glsl_es_default_precision_int` define o qualificador global de precisão padrão para valores inteiros em shaders GLSL ES gerados por compilação cruzada. Os valores válidos são `mediump` e `highp`; o padrão é `highp`.
 
 ---
 
@@ -559,7 +572,7 @@ O nome curto do bundle (15 caracteres) (veja [`CFBundleName`](https://developer.
 A versão do bundle, seja um número ou x.y.z. (veja [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-Se especificado, usa este arquivo *`info.plist`* ao empacotar seu app.
+Se especificado, usa este arquivo *`Info.plist`* em vez do manifesto base integrado do iOS ao empacotar seu app. O manifesto integrado contém as entradas de rede local e Bonjour necessárias para a descoberta de alvos pelo editor em builds que não sejam release. Se você fornecer um manifesto personalizado e precisar da descoberta de alvos, profiling, hot reload ou streaming de logs em um dispositivo, preserve essas entradas conforme descrito no [manual de iOS](/manuals/ios/#creating-an-ios-application-bundle).
 
 #### Privacy Manifest
 O Apple Privacy Manifest da aplicação. O campo usará `/builtins/manifests/ios/PrivacyInfo.xcprivacy` como padrão.
@@ -736,17 +749,22 @@ Se definido, usa o app manifest para personalizar a build da engine. Isso permit
 
 ### Profiler
 
+A configuração **Profiler** do Manifesto do aplicativo controla se o código do profiler é vinculado a builds debug e release. As configurações abaixo controlam o comportamento em tempo de execução do código do profiler presente no build selecionado. Consulte o [manual de Profiling](/manuals/profiling/) para obter detalhes.
+
 #### Enabled
 Habilita o perfilador dentro do jogo.
 
 #### Track Cpu
-Se marcado, habilita profiling de CPU em versões release das builds. Normalmente, você só pode acessar informações de profiling em builds de depuração.
+A amostragem de uso da CPU vem ativada por padrão em builds debug. Ative esta configuração quando a amostragem de CPU também for necessária em uma build release que inclua suporte ao profiler por meio do Manifesto do aplicativo.
 
 #### Sleep Between Server Updates
 Número de milissegundos a dormir entre atualizações do servidor.
 
 #### Performance Timeline Enabled
 Habilita a timeline de desempenho no navegador (somente HTML5).
+
+#### Max Sample Count
+`profiler.max_sample_count` é o número máximo de amostras do profiler registradas por thread e por frame. O padrão é `4096` e o mínimo é `128`. Aumente-o somente quando um perfil legítimo exceder o limite; primeiro verifique se o código de profiling das extensões nativas tem chamadas de início/fim de escopo sem correspondência.
 
 ---
 
@@ -762,11 +780,12 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
-Valores personalizados podem, assim como qualquer outro valor de configuração, ser lidos com [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) ou [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
+Valores personalizados podem, assim como qualquer outro valor de configuração, ser lidos com a função correspondente descrita em [Acesso em tempo de execução](#runtime-access):
 
 ```lua
 local my_value = sys.get_config_number("test.my_value")
 local my_value2 = sys.get_config_string("test.my_value2")
+local my_flag = sys.get_config_boolean("test.my_flag", false)
 ```
 
 
@@ -775,7 +794,7 @@ local my_value2 = sys.get_config_string("test.my_value2")
 
 ## Configurações personalizadas de projeto {#custom-project-settings}
 
-É possível definir configurações personalizadas para o projeto principal ou para uma [extensão nativa](/manuals/extensions/). Configurações personalizadas para o projeto principal devem ser definidas em um arquivo `game.properties` na raiz do projeto. Para uma extensão nativa, elas devem ser definidas em um arquivo `ext.properties` ao lado do arquivo `ext.manifest`.
+É possível definir configurações personalizadas para o projeto principal ou para uma [extensão nativa](/manuals/extensions/). Configurações personalizadas para o projeto principal devem ser definidas em um arquivo `game.properties` na raiz do projeto. Arquivos chamados `ext.properties` são encontrados em qualquer lugar do projeto e nas dependências de bibliotecas obtidas; eles não precisam estar ao lado de um `ext.manifest`. Todos os metadados de extensão encontrados são mesclados e, depois, o arquivo `game.properties` da raiz é aplicado e pode sobrescrevê-los.
 
 O arquivo de configurações usa o mesmo formato INI de *game.project*, e atributos de propriedade são definidos usando notação com ponto e um sufixo:
 
@@ -794,7 +813,7 @@ Os seguintes atributos estão disponíveis atualmente:
 // `type` - usado para analisar a string de valor
 my_property.type = string // um dos seguintes valores: bool, string, number, integer, string_array, resource
 
-// `help` - usado como dica de ajuda no editor (não usado por enquanto)
+// `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
 // `default` - valor usado como padrão se o usuário não definiu valor manualmente
@@ -835,4 +854,4 @@ help = Settings for My Awesome Extension
 ```
 
 
-No momento, meta properties são usadas apenas em `bob.jar` ao empacotar a aplicação, mas futuramente serão analisadas pelo editor e representadas no visualizador de *game.project*.
+Tanto o Bob quanto o Editor analisam esses arquivos de metadados. O Editor os usa para criar os campos, as opções, a validação e as tooltips de ajuda correspondentes no visualizador de *game.project*.

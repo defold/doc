@@ -47,7 +47,7 @@ O Defold oferece suporte a estes formatos:
 * .ogg
 * .opus
 
-Arquivos de som devem usar amostras de 16 bits.
+O Defold oferece suporte a arquivos Wave PCM de 8 e 16 bits. Ogg Vorbis e Ogg Opus usam seus respectivos formatos compactados, sem requisito de profundidade de bits PCM. O decodificador Opus não é incluído por padrão; ative **Include Sound Decoder: Opus** no [Manifesto do aplicativo](/manuals/app-manifest/#sound) antes de usar recursos `.opus`.
 Nossos decodificadores de som ajustam as taxas de amostragem para cima ou para baixo conforme necessário para o dispositivo de som atual.
 
 Sons mais curtos, como efeitos sonoros, costumam ser comprimidos com mais intensidade, enquanto arquivos de música têm menos compressão.

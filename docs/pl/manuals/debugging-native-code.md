@@ -83,7 +83,7 @@ Bardzo ważne jest, aby dopasować właściwy silnik do stosu wywołań, w przec
 * Android - katalog wyjściowy bundla `projecttitle.apk.symbols/lib/` zawiera symbole debugowe dla docelowych architektur.
 * Linux - plik wykonywalny zawiera symbole debugowe.
 * Windows - plik `dmengine.pdb` w `build/x86_64-win32` zawiera symbole debugowe dla buildów Windows.
-* HTML5 - plik `dmengine.js.symbols` w `build/wasm-web` zawiera symbole debugowe dla buildów HTML5.
+* HTML5 - katalog `<project_name>_symbols` znajdujący się obok pakietu HTML5 zawiera `<project_name>_wasm.js.symbols` oraz, gdy wybrano architekturę `wasm_pthread-web`, plik `<project_name>_pthread_wasm.js.symbols`.
 
 ::: important
 Bardzo ważne jest, aby zachować symbole debugowe dla każdego publicznego wydania gry i wiedzieć, do którego wydania należą. Bez symboli debugowych nie da się debugować natywnych awarii. Warto też zachować wersję silnika `bez stripowania`. Umożliwia to najlepszą możliwą symbolikację stosu wywołań.

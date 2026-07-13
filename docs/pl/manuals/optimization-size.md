@@ -47,7 +47,7 @@ Defold obsługuje następujące formaty:
 * .ogg
 * .opus
 
-Pliki dźwiękowe muszą korzystać z 16-bitowych próbek.
+Defold obsługuje pliki Wave PCM z próbkami 8- i 16-bitowymi. Ogg Vorbis i Ogg Opus korzystają z odpowiednich formatów skompresowanych, a nie z wymogu głębi bitowej PCM. Dekoder Opus nie jest domyślnie dołączony; przed użyciem zasobów `.opus` włącz opcję **Include Sound Decoder: Opus** w [manifeście aplikacji](/manuals/app-manifest/#sound).
 Dekodery dźwięku będą automatycznie podnosić lub obniżać częstotliwość próbkowania w zależności od potrzeb bieżącego urządzenia audio.
 
 Krótsze dźwięki, takie jak efekty dźwiękowe, są zwykle mocniej kompresowane, natomiast pliki muzyczne mają mniejszą kompresję.

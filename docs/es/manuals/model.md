@@ -43,9 +43,9 @@ Además de las propiedades anteriores, también habrá un campo para asignar un 
 : Define esta propiedad con un material que hayas creado y que sea adecuado para un objeto 3D con textura. Hay varios materiales integrados que puedes usar como punto de partida:
 
   * Usa *model.material* para modelos estáticos no instanciados
-  * Usa *model_instances.material* para modelos estáticos instanciados
+  * Usa *model_instanced.material* para modelos estáticos instanciados
   * Usa *model_skinned.material* para modelos con skin (animados) no instanciados
-  * Usa *model_skinned_instances.material* para modelos con skin (animados) instanciados
+  * Usa *model_skinned_instanced.material* para modelos con skin (animados) instanciados
 
 Según el material, habrá una o más propiedades de textura:
 
@@ -100,7 +100,7 @@ Un modelo también tiene varias propiedades diferentes que pueden manipularse co
 : La tasa de reproducción de la animación (`number`).
 
 `textureN`
-: Las texturas del modelo donde N es 0-7 (`hash`). Puedes cambiarlas usando una propiedad de recurso de textura y `go.set()`. Consulta la [referencia de la API para ver un ejemplo](/ref/model/#textureN).
+: Las texturas del modelo donde N va de 0 a 15 (`hash`). Puedes leer estas propiedades con `go.get()` y modificarlas mediante una propiedad de recurso de textura y `go.set()`. Defold admite como máximo 16 texturas por draw, pero la cantidad que puede usar un shader podría ser menor en adaptadores gráficos con un límite inferior de samplers de textura.
 
 
 ## Material
@@ -110,9 +110,13 @@ El software 3D suele permitirte definir propiedades en los vértices del objeto,
 Hay varios materiales integrados que puedes usar como punto de partida:
 
   * Usa *model.material* para modelos estáticos no instanciados
-  * Usa *model_instances.material* para modelos estáticos instanciados
+  * Usa *model_instanced.material* para modelos estáticos instanciados
   * Usa *model_skinned.material* para modelos con skin (animados) no instanciados
-  * Usa *model_skinned_instances.material* para modelos con skin (animados) instanciados
+  * Usa *model_skinned_instanced.material* para modelos con skin (animados) instanciados
+
+Los materiales de modelo integrados usan el espacio local de vértices. Para los modelos con skin, el espacio local de vértices permite que el vertex shader realice el skinning en la GPU mediante una textura de matrices de huesos; el espacio local de vértices también es necesario para instancing de modelos. Por tanto, un material personalizado destinado a modelos con skinning por GPU o instanciados debe usar el ajuste de espacio de vértices *Local*.
+
+La caché de matrices de huesos usa una textura `RGBA32F`. Si el adaptador gráfico activo no admite ese formato de textura, Defold no puede crear un componente Model animado que use un material en espacio local. En OpenGL ES 2.0 y WebGL 1.0, la compatibilidad depende por tanto de la extensión de texturas de punto flotante del adaptador. Para ser compatible con un adaptador que no la incluya, usa un material personalizado en espacio del mundo, que emplea skinning por CPU y no admite instancing de modelos. Las dimensiones de la caché pueden ajustarse en las [opciones de proyecto de Model](/manuals/project-settings/#model).
 
 Si necesitas crear materiales personalizados para tus modelos, consulta la [documentación de Material](/manuals/material) para más información. El [manual de Shader](/manuals/shader) contiene información sobre cómo funcionan los programas de shader.
 

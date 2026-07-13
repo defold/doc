@@ -102,7 +102,7 @@ A: Następujące platformy są obsługiwane przez edytor i narzędzia oraz przez
   | Linux (2)          | Dowolna            | `x86-64`, `arm-64` | Silnik             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Silnik             |
   | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Silnik             |
-  | HTML5              |                    | `asm.js`, `wasm`   | Silnik             |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Silnik       |
 
   (1 Edytor jest budowany i testowany dla 64-bitowego Ubuntu. Powinien też działać na innych dystrybucjach, ale nie dajemy żadnych gwarancji.)
 

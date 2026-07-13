@@ -544,8 +544,11 @@ local spawned_instances = collectionfactory.create("#my_collectionfactory")
 调用 `factory.create()` 或 `collectionfactory.create()` 时，也可以指定可选参数，例如位置、旋转、缩放和脚本属性，从而精确控制实例出现的位置和方式，以及它的行为，例如：
 
 ```lua
-factory.create("#my_factory", my_position, my_rotation, my_scale, my_properties)
+local scale_2d = vmath.vector3(0.5, 0.5, 1.0)
+factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 ```
+
+可选参数的顺序是先 properties，后 scale。仅缩放 2D 对象的 X 和 Y 轴时，请使用 Z 显式设为 `1.0` 的 `vector3`；数值缩放会统一应用到三个轴。
 
 #### 动态加载
 

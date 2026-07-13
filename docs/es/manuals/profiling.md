@@ -5,11 +5,17 @@ brief: Este manual explica las herramientas de profiling presentes en Defold.
 
 # Profiling
 
-Defold incluye un conjunto de herramientas de profiling integradas con el motor y el pipeline de build. Están diseñadas para ayudar a encontrar problemas de rendimiento y uso de memoria. Los profilers integrados solo están disponibles en builds de depuración. El profiler de frames que se usa en Defold es el [profiler Remotery de Celtoys](https://github.com/Celtoys/Remotery).
+Defold incluye herramientas de profiling integradas con el motor y el pipeline de build. Ayudan a encontrar problemas de rendimiento, memoria y uso de recursos. Los datos de profiling en runtime pueden utilizarse mediante varias funciones:
+
+* El profiler básico y el profiler visual dentro del juego están disponibles en todas las plataformas.
+* El [profiler Remotery](https://github.com/Celtoys/Remotery) y el profiler web interactivo de frames están disponibles en plataformas de escritorio y móviles.
+* Las builds HTML5 pueden publicar los scopes de Defold en la API Web Performance del navegador.
+
+El ajuste **Profiler** del [manifiesto de la aplicación](/manuals/app-manifest/#profiler) controla si el código del profiler se enlaza con una build. **Debug Only** es el valor predeterminado, **None** lo excluye y **Always** lo incluye tanto en builds debug como release. Los ajustes de `profiler` en *game.project* controlan el comportamiento en runtime, pero no vuelven a enlazar con la build código de profiler que se haya excluido. En particular, **Track CPU** controla el muestreo de uso de CPU; es independiente de la opción del manifiesto de la aplicación.
 
 ## El profiler visual en runtime
 
-Las builds de depuración incluyen un profiler visual en runtime que muestra información en vivo renderizada superpuesta sobre la aplicación en ejecución:
+Las builds que incluyen soporte para el profiler disponen de un profiler visual en runtime que muestra información en vivo superpuesta sobre la aplicación en ejecución:
 
 ```lua
 function on_reload(self)
@@ -32,9 +38,9 @@ profiler.view_recorded_frame()
 Consulta la [referencia de la API del profiler](/ref/stable/profiler/) para obtener más información sobre las funciones del profiler.
 
 ## El profiler web
-Mientras se ejecuta una build de depuración del juego, se puede acceder a un profiler interactivo basado en web desde un navegador.
+Mientras se ejecuta una build de escritorio o móvil que incluya soporte para el profiler, se puede acceder desde un navegador a profilers interactivos de frames y recursos.
 
-### Frame profiler
+### Profiler de frames Remotery
 El Frame profiler te permite muestrear tu juego mientras se ejecuta y analizar frames individuales en detalle. Para acceder al profiler:
 
 1. Inicia tu juego en tu dispositivo objetivo.
@@ -75,6 +81,10 @@ Global Properties
 El valor LuaMem es la cantidad de memoria en kilobytes usada por la VM de Lua según lo informado por el recolector de basura de Lua. Memory es la cantidad de memoria en kilobytes usada por el motor.
 :::
 
+::: important
+El [ajuste Max Sample Count](/manuals/project-settings/#max-sample-count) limita el número de muestras del profiler registradas por thread y por frame. Si el profiler indica que se ha superado el límite, comprueba primero que el código de profiling de las extensiones nativas no tenga un par de inicio/fin de scope sin correspondencia. Aumenta el límite solo cuando un frame legítimo contenga más scopes que el límite configurado.
+:::
+
 ### Resource profiler
 El Resource profiler te permite inspeccionar tu juego mientras se ejecuta y analizar el uso de recursos en detalle. Para acceder al profiler:
 
@@ -90,6 +100,17 @@ Collection view
 
 Resources view
 : La vista de recursos muestra todos los recursos cargados actualmente en memoria, su tamaño y el número de referencias a cada recurso. Esto resulta útil al optimizar el uso de memoria en tu aplicación cuando necesitas entender qué está cargado en memoria en un momento dado.
+
+## Línea de tiempo de rendimiento del navegador en HTML5
+
+HTML5 usa la API Web Performance en lugar de Remotery para su línea de tiempo del navegador. Para registrar los scopes de Defold:
+
+1. Asegúrate de que el modo del profiler seleccionado en el manifiesto de la aplicación incluya soporte para el profiler en la variante de build que estás ejecutando.
+2. Activa **Performance Timeline Enabled** (`profiler.performance_timeline_enabled`) en *game.project*.
+3. Inicia la build HTML5 y abre las herramientas para desarrolladores del navegador.
+4. Graba una sesión en el panel **Performance** del navegador e inspecciona los scopes de Defold en la línea de tiempo resultante.
+
+Esta línea de tiempo del navegador es independiente tanto del profiler visual dentro del juego como del profiler web interactivo Remotery.
 
 
 ## Reportes de build {#build-reports}

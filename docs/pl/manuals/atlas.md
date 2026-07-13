@@ -192,8 +192,7 @@ Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), na
         id          = "my_animation",
         width       = width,
         height      = height,
-        frame_start = 1,
-        frame_end   = 2,
+        frames      = { 1 },
       }
     },
     geometries = {
@@ -223,3 +222,5 @@ Jeśli tekstura ma być używana na [komponencie sprite'a](/manuals/sprite/), na
   sprite.play_flipbook("#sprite", "my_animation")
 
 ```
+
+Wpisy `frames` są indeksami numerowanymi od 1, które wskazują elementy tabeli `geometries`. Lista może ponownie wykorzystywać geometrie, zmieniać ich kolejność lub je pomijać, czego nie da się przedstawić za pomocą przestarzałych pól przedziału `frame_start` i `frame_end`. Funkcja `resource.get_atlas()` zwraca `frames`; używaj tej samej reprezentacji podczas przekazywania danych atlasu do `resource.set_atlas()` lub `resource.create_atlas()`. Ze względu na zgodność setter i funkcja tworząca nadal przyjmują pola przedziału, ale nowy kod powinien używać `frames`.

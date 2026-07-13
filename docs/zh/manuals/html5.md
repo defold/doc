@@ -11,7 +11,7 @@ Defold支持通过常规打包菜单为HTML5平台构建游戏，与其他平台
 
 ![Project settings](images/html5/html5_project_settings.png)
 
-## 堆大小
+## 堆大小 {#heap-size}
 
 Defold对HTML5的支持由Emscripten驱动（参见http://en.wikipedia.org/wiki/Emscripten）。简而言之，它为应用程序运行的堆创建了一个内存沙箱。默认情况下，引擎分配了大量的内存（256MB）。这对于典型游戏来说应该绰绰有余。作为优化过程的一部分，您可以选择使用较小的值。为此，请按照以下步骤操作：
 
@@ -57,21 +57,31 @@ python3 -m http.server
 
 ![Create HTML5 bundle](images/html5/html5_bundle.png)
 
-您可以选择在HTML5包中同时包含`asm.js`和WebAssembly（wasm）版本的Defold引擎。在大多数情况下，只选择WebAssembly就足够了，因为[所有现代浏览器都支持WebAssembly](https://caniuse.com/wasm)。
+HTML5 bundle 支持两种 WebAssembly 架构：
+
+* `wasm-web` - 常规的非线程 WebAssembly 引擎。
+* `wasm_pthread-web` - 可使用线程的 WebAssembly 引擎。
+
+您可以包含其中一种架构，也可以同时包含两种。同时包含时，如果浏览器和托管环境支持，加载器会选择 `wasm_pthread-web`，否则回退到 `wasm-web`。规范的目标名称请参阅 [Bob 手册](/manuals/bob/#usage)。
 
 ::: important
-即使您同时包含`asm.js`和`wasm`版本的引擎，启动游戏时浏览器只会下载其中一个。如果浏览器支持WebAssembly，将下载WebAssembly版本，而在不支持WebAssembly的极少数情况下，将使用`asm.js`版本作为后备。
+线程引擎要求在安全的[跨源隔离](https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated)页面中使用 `SharedArrayBuffer`。请通过 HTTPS（或 localhost）提供 bundle，并为服务器配置兼容的跨源隔离标头，通常为：
+
+```txt
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+页面加载的跨源资源也必须使用兼容的 CORS 或 Cross-Origin-Resource-Policy 标头。如果不满足这些要求，仅包含 `wasm_pthread-web` 的 bundle 将无法运行；如果游戏可能托管在不支持跨源隔离的网站上，请包含 `wasm-web` 作为后备。
 :::
+
+Defold HTML5 bundle 需要支持 WebAssembly 的现代浏览器。不支持 Internet Explorer 11。
 
 当您单击<kbd>Create bundle</kbd>按钮时，系统将提示您选择一个文件夹来创建您的应用程序。导出过程完成后，您将找到运行应用程序所需的所有文件。
 
 ## 已知问题和局限性 {#已知问题和局限性}
 
 * 热重载 - 热重载在HTML5构建中不起作用。Defold应用程序必须运行自己的小型Web服务器才能从编辑器接收更新，这在HTML5构建中是不可能的。
-* Internet Explorer 11
-  * 音频 - Defold使用HTML5 _WebAudio_（参见http://www.w3.org/TR/webaudio）处理音频播放，而Internet Explorer 11目前不支持。使用此浏览器时，应用程序将回退到空音频实现。
-  * WebGL - Microsoft尚未完成实现_WebGL_ API的工作（参见https://www.khronos.org/registry/webgl/specs/latest/）。因此，它的性能不如其他浏览器。
-  * 全屏 - 浏览器中的全屏模式不可靠。
 * Chrome
   * 调试构建缓慢 - 在HTML5的调试构建中，我们验证所有WebGL图形调用以检测错误。不幸的是，在Chrome上测试时这非常慢。可以通过将*game.project*的*`Engine Arguments`*字段设置为`--verify-graphics-calls=false`来禁用此功能。
 * 游戏手柄支持 - 有关HTML5上可能需要采取的特殊考虑和步骤，请[参阅游戏手柄文档](/manuals/input-gamepads/#gamepads-in-html5)。

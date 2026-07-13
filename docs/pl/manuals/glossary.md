@@ -149,7 +149,7 @@ Dobra wydajność jest kluczowa w grach, dlatego ważne jest, aby móc profilowa
 
 ## Sound (Dźwięk)
 
-![Sound](images/icons/sound.png){.left} Komponent sound odpowiada za odtwarzanie określonego dźwięku. Obecnie Defold obsługuje pliki WAV i Ogg Vorbis. Więcej w [instrukcji dźwięku](/manuals/sound).
+![Sound](images/icons/sound.png){.left} Komponent sound odpowiada za odtwarzanie określonego dźwięku. Defold obsługuje pliki WAV, Ogg Vorbis i Ogg Opus. Obsługę Opus należy włączyć w manifeście aplikacji. Więcej informacji znajdziesz w [instrukcji dźwięku](/manuals/sound).
 
 ## Sprite (Sprite)
 

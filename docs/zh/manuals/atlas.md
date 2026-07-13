@@ -195,8 +195,7 @@ Playback
         id          = "my_animation",
         width       = width,
         height      = height,
-        frame_start = 1,
-        frame_end   = 2,
+        frames      = { 1 },
       }
     },
     geometries = {
@@ -226,3 +225,5 @@ Playback
   sprite.play_flipbook("#sprite", "my_animation")
 
 ```
+
+`frames` 中的条目是 `geometries` 表中从 1 开始计数的索引。列表可以重复使用几何图形、调整其顺序或跳过几何图形，而已弃用的 `frame_start` 和 `frame_end` 区间字段无法表示这些情况。`resource.get_atlas()` 返回 `frames`；将图集数据传给 `resource.set_atlas()` 或 `resource.create_atlas()` 时请使用相同的表示方式。为保持兼容性，setter 和 creator 仍接受区间字段，但新代码应使用 `frames`。

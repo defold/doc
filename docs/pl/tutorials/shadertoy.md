@@ -318,7 +318,7 @@ Zapisz program shadera fragmentów. Model powinien teraz być ładnie oteksturow
 ![Quad z efektem Star Nest](../images/shadertoy/quad_starnest.png)
 
 
-## Animacja
+## Animacja {#animation}
 
 Ostatnim elementem układanki jest wprowadzenie czasu, aby gwiazdy zaczęły się poruszać. Defold (od wersji 1.12.3) udostępnia go automatycznie przez fragment constant typu `Time`.
 
