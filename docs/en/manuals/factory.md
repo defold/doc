@@ -257,11 +257,17 @@ When the *Dynamic Prototype* option is set the collection component count cannot
 
 ## Instance limits
 
-The project setting *max_instances* in *Collection related settings* limits the total number of game object instances that can exist in a world (the main.collection loaded at startup or any world loaded via a collection proxy). All game objects that exist in the world are counted against that limit and it does not matter if they are placed by hand in the editor or spawned in runtime through a script.
+The *Max Instances* project setting under *Collection* is the upper bound on the number of game objects in each collection (world). At build time Defold may allocate a smaller capacity when it can determine that this is safe. All concurrently alive game objects in a world count toward the capacity, whether placed in the editor or spawned at runtime.
 
 ![Max instances](images/factory/factory_max_instances.png)
 
-If you set *max_instances* to 1024 and have 24 manually placed game objects in your main collection, you can spawn an additional 1000 game objects. As soon as you delete a game object, you are free to spawn another instance.
+The actual allocation depends on build-time analysis:
+
+* When the build can determine a fixed game-object count (typically when the collection has no factory or collection factory), the capacity is the compiled count, capped by *Max Instances*.
+* A collection containing a factory or collection factory uses *Max Instances* for game-object capacity. For a statically referenced prototype, the build identifies the component types that the factory can spawn. Those types use their respective project maximum counts, while unaffected component types can still use exact counts.
+* Enabling *Dynamic Prototype* disables component-count analysis for the owning collection, so it uses *Max Instances* and the configured per-component maximum counts.
+
+Plan *Max Instances* around the greatest number of game objects that may be alive at once in a dynamic world. See [Component max count optimizations](/manuals/project-settings/#component-max-count-optimizations) for how the other component limits are calculated.
 
 ## Pooling of game objects
 

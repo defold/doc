@@ -15,7 +15,7 @@ Collection proxies differ from [collection factory components](/manuals/collecti
 
 1. Add a collection proxy component to a game object by <kbd>right-clicking</kbd> a game object and selecting <kbd>Add Component ▸ Collection Proxy</kbd> from the context menu.
 
-2. Set the *Collection* property to reference a collection that you wish to dynamically load into the runtime at a later point. The reference is static and makes sure that all the content of the referenced collection end up in the final game.
+2. Set the *Collection* property to reference a collection that you wish to dynamically load into the runtime at a later point. This is a static build-time dependency: the referenced collection and its dependencies are compiled. Unless *Exclude* is checked, they are included in the main bundle. With *Exclude* checked, resources referenced only through excluded proxies can be omitted from the main bundle for Live Update, and the unloaded proxy can be redirected to another compiled collection at runtime as described below.
 
 ![add proxy component](images/collection-proxy/create_proxy.png)
 
@@ -80,6 +80,36 @@ end
 
 `"enable"`
 : This message tells the collection proxy component that all the game objects and components should be enabled. All sprite components begin to draw when enabled, for instance.
+
+## Changing an excluded proxy's collection
+
+[`collectionproxy.set_collection()`](/ref/collectionproxy/#collectionproxy.set_collection) can redirect an excluded, unloaded proxy to a compiled collection, which is useful after mounting a Live Update package. The proxy must have *Exclude* checked and must not be loaded or loading. The path must end in `.collectionc`. The collection and all of its dependencies must be available to the resource system when the proxy is loaded.
+
+Check the return value before loading the proxy. Initialize and enable the new world only after receiving `proxy_loaded`:
+
+```lua
+local function load_mounted_level()
+    local ok, result = collectionproxy.set_collection(
+        "#level_proxy",
+        "/level_pack/level_3.collectionc"
+    )
+
+    if ok then
+        msg.post("#level_proxy", "load")
+    else
+        print("Unable to change proxy collection", result)
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("proxy_loaded") then
+        msg.post(sender, "init")
+        msg.post(sender, "enable")
+    end
+end
+```
+
+Call `collectionproxy.set_collection("#level_proxy", nil)` while the proxy is neither loaded nor loading to restore the collection assigned in the editor. See the [Live Update scripting manual](/manuals/live-update-scripting/) for downloading and mounting content and the API reference for the `collectionproxy.RESULT_*` failure codes.
 
 ## Addressing into the new world
 
