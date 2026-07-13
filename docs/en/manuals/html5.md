@@ -207,22 +207,22 @@ build-timestamp
 
 ## Extra parameters
 
-If you create your custom template, you can redefine set of parameters for the engine loader. To achieve that you need to add `<script>` section and redefine values inside `CUSTOM_PARAMETERS`. 
+If you create a custom template, you can change parameters for the engine loader by assigning values in the global `CUSTOM_PARAMETERS` object. The built-in template provides an intentionally empty `<script id="engine-setup">` block for these customizations.
 ::: important
-Your custom `<script>` should be placed after `<script>` section with reference to `dmloader.js` but before call `EngineLoader.load` function.
+Keep the `engine-setup` block after the script that loads `dmloader.js` and before the `engine-start` block that calls `EngineLoader.load()`.
 :::
 For example:
 
-```
-    <script id='custom_setup' type='text/javascript'>
-        CUSTOM_PARAMETERS['disable_context_menu'] = false;
-        CUSTOM_PARAMETERS['unsupported_webgl_callback'] = function() {
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.disable_context_menu = false;
+        CUSTOM_PARAMETERS.unsupported_webgl_callback = function() {
             console.log("Oh-oh. WebGL not supported...");
-        }
+        };
     </script>
 ```
 
-`CUSTOM_PARAMETERS` may contains following fields:
+`CUSTOM_PARAMETERS` may contain fields including:
 
 ```
 'archive_location_filter':
@@ -270,25 +270,27 @@ It is sometimes necessary to provide additional arguments to a game before it or
 
 ### Engine arguments
 
-It is possible to specify additional engine arguments when the engine is configured and loaded. These extra engine arguments can at runtime be retrieved using `sys.get_config_string()`. To add the key-value pairs you modify the `engine_arguments` field of the `extra_params` object that is passed to the engine when loaded in `index.html`:
+It is possible to specify additional engine arguments when the engine is configured and loaded. These extra engine arguments can be retrieved at runtime using `sys.get_config_string()`. Assign the arguments directly to `CUSTOM_PARAMETERS.engine_arguments` in the `engine-setup` block of `index.html`:
 
 
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.engine_arguments = [
+            "--config=example.foo1=bar1",
+            "--config=example.foo2=bar2"
+        ];
+    </script>
 ```
-    <script id='engine-setup' type='text/javascript'>
-    var extra_params = {
-        ...,
-        engine_arguments: ["--config=foo1=bar1","--config=foo2=bar2"],
-        ...
-    }
-```
 
-You can also add `--config=foo1=bar1, --config=foo2=bar2` to the *Engine Arguments* field in the HTML5 section of *game.project* and it will be injected into the generated `index.html` file.
+Assigning a new array replaces any engine arguments configured in *game.project*. To preserve those arguments and add another, use `CUSTOM_PARAMETERS.engine_arguments.push("--config=example.foo3=bar3")` instead.
+
+You can also add `--config=example.foo1=bar1, --config=example.foo2=bar2` to the *Engine Arguments* field in the HTML5 section of *game.project*. The comma-separated values are added to `CUSTOM_PARAMETERS.engine_arguments` in the generated `dmloader.js`.
 
 At runtime you get the values like this:
 
 ```lua
-local foo1 = sys.get_config_string("foo1")
-local foo2 = sys.get_config_string("foo2")
+local foo1 = sys.get_config_string("example.foo1")
+local foo2 = sys.get_config_string("example.foo2")
 print(foo1) -- bar1
 print(foo2) -- bar2
 ```

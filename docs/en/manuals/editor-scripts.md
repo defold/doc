@@ -565,7 +565,7 @@ Existing lifecycle hooks that `/hooks.editor_script` may specify:
   - `platform` — same as in `on_build_started`
   - `success` — whether build is successful, either `true` or `false`
 - `on_bundle_started(opts)` — executed when you create a bundle or Build HTML5 version of a game. As with `on_build_started`, changes triggered by this hook will appear in a bundle, and errors will abort a bundle. `opts` will have these keys:
-  - `output_directory` — a file path pointing to a directory with bundle output, for example `"/path/to/project/build/default/__htmlLaunchDir"`
+  - `output_directory` — a file path pointing to a directory with bundle output. **Project ▸ Build HTML5** uses its own artifact tree, for example `"/path/to/project/build/default_html5/__htmlLaunchDir"`, separate from the normal Build output under `build/default`.
   - `platform` — platform the game is bundled for. See a list of possible platform values in [Bob manual](/manuals/bob).
   - `variant` — bundle variant, either `"debug"`, `"release"` or `"headless"`
 - `on_bundle_finished(opts)` — executed when bundle is finished, be it successful or not. `opts` is a table with the same data as `opts` in `on_bundle_started`, plus `success` key indicating whether build is successful.

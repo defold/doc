@@ -337,15 +337,30 @@ Example:
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
+### GUI node material constants
+
+Inside a GUI script, read and write a node's material constants with `gui.get()` and `gui.set()` rather than the `go` functions. Vector components, matrix constants, and constant arrays are supported. Array indices in the options table are 1-based:
+
+```lua
+local node = gui.get_node("button")
+
+local tint = gui.get(node, "tint")
+gui.set(node, "tint.x", 0.5)
+gui.set(node, "light_matrix", vmath.matrix4())
+gui.set(node, "tint_array", vmath.vector4(1, 0, 0, 1), { index = 1 })
+```
+
 ::: sidenote
-In order for a material constant of type `CONSTANT_TYPE_USER` or `CONSTANT_TYPE_MATRIX4` to be available using `go.get()` and `go.set()` it has to be used in the shader program. If the constant is defined in the material but not used in the program it will be removed from the material and it will not be available at run-time.
+In order for a material constant of type `CONSTANT_TYPE_USER` or `CONSTANT_TYPE_USER_MATRIX4` to be available using `go.get()` and `go.set()`, or `gui.get()` and `gui.set()`, it has to be used in the shader program. If the constant is defined in the material but not used in the program it will be removed from the material and it will not be available at run-time.
 :::
 
 ## Samplers
 
 Samplers are used to sample the color information from a texture (a tile source or atlas). The color information can then be used for calculations in the shader program.
 
-Sprite, tilemap, GUI and particle effect components automatically gets a `sampler2D` set. The first declared `sampler2D` in the shader program is automatically bound to the image referenced in the graphics component. Therefore there is currently no need to specify any samplers in the materials file for those components. Furthermore, those component types currently only support a single texture. (If you need multiple textures in a shader, you can use [`render.enable_texture()`](/ref/render/#render.enable_texture) and set texture samplers manually from your render script.)
+Sprite, tilemap, GUI and particle effect components automatically bind their image texture to the first declared `sampler2D`. Sprite components also support multiple textures: every sampler declared in the material becomes a named image slot in the Sprite component. The first texture supplies the sprite's animation data and drives the frame sequence. For each frame, its image id is used to find the corresponding image in every additional texture, which supplies its own UVs. The assigned atlases or tile sources should therefore contain matching frame ids and similarly shaped images; differing polygon-packed shapes can cause texture bleeding. See [Multi textured sprites](/manuals/sprite/#multi-textured-sprites) for details.
+
+For a component or render workflow that does not expose an additional texture slot, use [`render.enable_texture()`](/ref/render/#render.enable_texture) to bind extra texture samplers from the render script.
 
 ![Sprite sampler](images/materials/sprite_sampler.png)
 

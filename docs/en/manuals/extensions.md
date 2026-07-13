@@ -5,11 +5,15 @@ brief: This manual explains how to write a native extension for the Defold game 
 
 # Native extensions
 
-If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in C, C++, Objective C, Java or Javascript, depending on target platform. Typical use cases for native extensions are:
+If you need custom interaction with external software or hardware on a low level where Lua won't suffice, the Defold SDK allows you to write extensions to the engine in C, C++, C#, Objective-C, Java, or JavaScript, depending on the target platform. Typical use cases for native extensions are:
 
 - Interaction with specific hardware, for instance the camera on mobile phones.
 - Interaction with external low level APIs, for instance advertising network APIs that do not allow interaction through network APIs where Luasocket could be used.
 - High performance calculations and data processing.
+
+::: sidenote
+C# support is experimental and is intended for native extensions, not Defold script components. It uses .NET 9 NativeAOT to produce a static library; add `.cs` source files to an extension's `src` folder and the build service generates the project file. Target support follows the current NativeAOT and build-service capabilities. See the official [native-extension language example](https://github.com/defold/example-languages) for the current workflow and tested setup.
+:::
 
 ## The build server
 

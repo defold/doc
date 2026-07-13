@@ -41,7 +41,7 @@ It is possible to read values from *game.project* at runtime using [`sys.get_con
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
-local vsync = sys.get_config_boolean("display.vsync", false)
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -175,7 +175,7 @@ The desired frame rate in Hertz. Set to 0 for variable frame rate. A value large
 This integer value controls how the application deals with vsync. 0 disables vsync, and the default value is 1. When using an OpenGL adapter, this value sets the number of frames the window should [update between buffer swaps](https://www.khronos.org/opengl/wiki/Swap_Interval). For Vulkan, there is no built-in concept of swap interval, the value instead controls if vsync should be enabled or not.
 
 #### Vsync
-Rely on hardware vsync for frame timing. Can be overridden depending on graphics driver and platform specifics. For deprecated 'variable_dt' behavior, uncheck this setting and set frame cap 0.
+Legacy compatibility setting. This setting is deprecated; use **Swap Interval** for new projects. If disabled, it forces the effective swap interval to `0`. If enabled, **Swap Interval** determines the effective value.
 
 #### Display Profiles
 Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles).
@@ -621,7 +621,7 @@ Google Cloud Messaging Sender Id. Set this to the string assigned by Google to e
 Firebase Cloud Messaging Application Id.
 
 #### Manifest
-If set, use the specified Android manifest XML file when bundling.
+If set, use the specified Android manifest XML file when bundling. A custom manifest replaces Defold's built-in base manifest. Native-extension manifest fragments are still merged into it, but later changes to the built-in base manifest are not inherited automatically, so compare custom manifests with the current built-in manifest when upgrading. For games, set `android:appCategory="game"` on the `<application>` element. For non-game applications, set `android:appCategory` only if one of Android's defined [application categories](https://developer.android.com/guide/topics/manifest/application-element#appCategory) accurately describes the app.
 
 #### Iap Provider
 Specifies which store to use. Valid options are `Amazon` and `GooglePlay`. Refer to [extension-iap](/extension-iap/) for more information.
