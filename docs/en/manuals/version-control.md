@@ -13,7 +13,7 @@ When the project directory is a Git working-tree root with at least one commit, 
 
 ![changed files](images/workflow/changed_files.png)
 
-Select exactly one modified or renamed file and click <kbd>Diff</kbd> to view its text diff. Click <kbd>Revert</kbd> to discard the selected working-tree and index changes. Tracked files are restored to `HEAD`; files absent from `HEAD` are deleted, whether they are untracked or staged as additions; and renames delete the new path and restore the old path. This cannot be undone in the editor, so commit or back up work you may need.
+Select exactly one modified or renamed file and click <kbd>Diff</kbd> to view its text diff. Click <kbd>Revert</kbd> to discard the selected working-tree and index changes. Tracked files are restored to `HEAD`; files absent from `HEAD` are deleted, whether or not they are staged as additions; and renames delete the new path and restore the old path. This cannot be undone in the editor, so commit or back up work you may need.
 
 ## Git
 

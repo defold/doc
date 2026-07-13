@@ -116,7 +116,7 @@ Specific functions for working with the game object transform also exist; they a
 
 GUI nodes have property-specific getter and setter functions, such as `gui.get_position()` and `gui.set_position()`. The built-in properties listed below can alternatively be read and written with `gui.get(node, property)` and `gui.set(node, property, value)`. Other node values may still require their dedicated functions. Material constants on GUI nodes also use the generic functions. To address one component of a vector property, append its name, for example `gui.set(node, "color.x", 1)`.
 
-The generic and property-specific functions do not always use identical value types. `gui.get()` returns a `vector4` for the complete `position`, `scale`, `size`, and `euler` properties, while their property-specific getters return a `vector3`. `gui.set()` accepts either a `vector3` or `vector4` for those properties. The generic `rotation` property uses a quaternion; use `euler` when setting rotation in degrees.
+The generic and property-specific functions do not always use identical value types. `gui.get()` returns a `vector4` for the complete `position`, `scale`, `size`, and `euler` properties, while the corresponding property-specific functions return a `vector3`. `gui.set()` accepts either a `vector3` or `vector4` for those properties. The generic `rotation` property uses a quaternion; use `euler` when setting rotation in degrees.
 
 * `position` (or `gui.PROP_POSITION`)
 * `rotation` (or `gui.PROP_ROTATION`)

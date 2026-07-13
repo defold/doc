@@ -66,9 +66,9 @@ To bundle with Live update is easy. Select <kbd>Project ▸ Bundle ▸ ...</kbd>
 
 When bundling, any excluded resource will be left out of the application bundle. By checking the *Publish Live update content* checkbox, you tell Defold to either upload the excluded resources to Amazon or to create a Zip archive, depending on how you have set up your Live update settings (see above). The published Live Update content still includes `liveupdate.game.dmanifest`, which contains the full resource list needed for remote delivery.
 
-When publishing archive-based Live Update content, *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) is enabled by default. With this setting enabled, Live Update-only resources are removed from the bundled `game.dmanifest`, which reduces bundle size and runtime memory usage. Disable it only if you need the deprecated behavior where excluded entries remain in the bundled `game.dmanifest`.
+When publishing Live Update content, Defold automatically removes Live Update-only entries from the bundled `game.dmanifest`, while the published `liveupdate.game.dmanifest` retains the complete resource list. This reduces bundle size and runtime memory usage. The former `liveupdate.exclude_entries_from_main_manifest` setting has been removed; any remaining project entry is ignored.
 
-With the default setting enabled, `collectionproxy.get_resources()` returns `{}` until the relevant archive has been mounted. After mounting, it returns the resource hashes for that proxy.
+In the archive-based workflow, `collectionproxy.get_resources()` returns `{}` until the relevant archive has been mounted. After mounting, it returns the resource hashes for that proxy.
 
 Click *Package* and select a location for the application bundle. Now you can start the application and check that everything works as expected.
 

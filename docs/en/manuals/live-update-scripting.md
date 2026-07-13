@@ -63,7 +63,7 @@ In the archive-based workflow, you generally decide which archive or archives a 
 
 After a package is mounted, an excluded and unloaded proxy can also be redirected to a different compiled collection with `collectionproxy.set_collection()`. See [Changing an excluded proxy's collection](/manuals/collection-proxy/#changing-an-excluded-proxys-collection) for the restrictions and loading sequence.
 
-The bundled main manifest omits excluded Live Update entries. `collectionproxy.get_resources()` reads manifest dependency metadata; it does not verify that every referenced data blob is available:
+For an archive build that publishes Live Update content, the bundled main manifest omits excluded Live Update entries while the published package manifest retains them. `collectionproxy.get_resources()` reads manifest dependency metadata; it does not verify that every referenced data blob is available:
 
 * Before a package manifest containing the proxy's excluded entries is mounted, `collectionproxy.get_resources("#proxy")` returns an empty table `{}`.
 * After the relevant package is mounted, it returns a non-empty table of resource hashes for that proxy, for example:
@@ -127,9 +127,9 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
         local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        -- The bundled manifest omits excluded entries, so this table is empty until
-        -- the relevant package manifest is mounted. After mounting, it contains the
-        -- resource hashes belonging to the proxy.
+        -- A build that publishes Live Update content omits excluded entries from the
+        -- bundled manifest, so this table is empty until the relevant package manifest
+        -- is mounted. After mounting, it contains the resource hashes for the proxy.
         if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
@@ -165,7 +165,7 @@ The mount is active only for the current session. Persist the downloaded package
 2. You need to store the archive online (e.g. on S3), where you can download it from.
 3. Given a collection proxy name, you need to figure our which archive(s) to download, and how to mount them
 4. At startup, we try to load the level.
-5. Use `collectionproxy.get_resources()` to inspect the proxy's excluded-content metadata. It returns `{}` until the relevant package manifest is mounted, and a non-empty table of resource hashes after mounting. These hashes describe dependencies; the result does not itself verify that every data blob is available.
+5. In this archive-publishing workflow, use `collectionproxy.get_resources()` to inspect the proxy's excluded-content metadata. It returns `{}` until the relevant package manifest is mounted, and a non-empty table of resource hashes after mounting. These hashes describe dependencies; the result does not itself verify that every data blob is available.
 6. If the proxy uses Live Update content and the matching archive is not mounted yet, we download and mount it before loading the proxy.
 7. Make a http request and download the archive to `download_path`
 8. The data is downloaded, and it's time to mount it to the running engine.
