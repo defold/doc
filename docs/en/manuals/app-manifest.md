@@ -5,8 +5,7 @@ brief: This manual describes how the app manifest can be used to exclude feature
 
 # App manifest
 
-The application manifest is used to exclude or control which features to include in the engine. Excluding unused features of the engine is a recommended best practice since it will decrease the final binary size of your game.
-Also application manifest contains some options to control compiling code for HTML5 platform like minimum browser supported version/memory settings that's also can affect on result binary size.
+The application manifest controls which features and backends are linked into the engine. Excluding unused features is recommended because it decreases the final binary size of your game. The application manifest also contains build-time options such as the minimum supported HTML5 browser versions and WebAssembly memory settings.
 
 ![](images/app_manifest/create-app-manifest.png)
 
@@ -16,13 +15,19 @@ Also application manifest contains some options to control compiling code for HT
 
 In `game.project`, assign the manifest to `Native Extensions` -> `App Manifest`.
 
-## Physics
+## Physics 2D
 
-Control which physics engine to use, or select None to exclude physics completely.
+Select which Box2D implementation to include:
 
-## Physics 2d
+* **Box2D Version 3** - Include Box2D 3. This is opt-in and may produce different simulation results than the legacy implementation, so existing projects may need to retune their physics settings.
+* **Box2D (Legacy Defold version)** - Include the legacy Defold Box2D implementation. This is the default.
+* **None** - Exclude 2D physics.
 
-Select which version of Box2D to use.
+The Box2D solver settings are version-specific. See the [Box2D project settings](/manuals/project-settings/#box2d) for details.
+
+## Physics 3D
+
+Include the Bullet 3D physics implementation. It is included by default; disable this setting to exclude 3D physics.
 
 ## Rig + Model
 
@@ -34,14 +39,36 @@ Control rig and model functionality, or select None to exclude model and rig com
 Excluded the video recording capability from the engine (see the [`start_record`](https://defold.com/ref/stable/sys/#start_record) message documentation).
 
 
-## Exclude Profiler
+## Profiler
 
-Exclude the profiler from the engine. The profiler is used for gathering performance and usage counters. Learn how to use the profiler in the [Profiling manual](/manuals/profiling/).
+Control when profiler functionality is linked into the engine:
+
+* **Debug Only** - Include the profiler in debug builds only. This is the default.
+* **None** - Exclude profiler functionality from all build variants.
+* **Always** - Include the profiler in both debug and release builds.
+
+The app-manifest setting controls whether the profiler code is linked into a build. The settings under `profiler` in *game.project* control profiler behavior at runtime. Learn how to use the available facilities in the [Profiling manual](/manuals/profiling/).
 
 
-## Exclude Sound
+## Sound
+
+The sound controls determine which sound system and decoders are linked into the engine.
+
+### Exclude Sound
 
 Exclude all sound playing capabilities from the engine.
+
+### Exclude Sound Decoder: WAV
+
+Exclude support for WAV sound resources.
+
+### Exclude Sound Decoder: OGG
+
+Exclude support for Ogg Vorbis sound resources.
+
+### Include Sound Decoder: Opus
+
+Include support for Ogg Opus sound resources. The Opus decoder is excluded by default, so this option must be enabled before `.opus` resources can be played. See the [Sound manual](/manuals/sound/) for supported formats.
 
 
 ## Exclude Input
@@ -64,7 +91,7 @@ Exclude `image` script module [link](https://defold.com/ref/stable/image/) from 
 Exclude `types` script module [link](https://defold.com/ref/stable/types/) from the engine.
 
 
-## Exclude Basis Universal
+## Exclude Basis Transcoder
 
 Exclude the Basis Universal [texture compression library](/manuals/texture-profiles) from the engine.
 
@@ -76,44 +103,44 @@ Use the deprecated Android Support Library instead of Android X. [More info](htt
 
 ## Graphics
 
-Select which graphics backend to use.
+Select which graphics backends to include for each platform. A combined choice includes both backends so the preferred backend can fall back when it is unavailable.
 
-* OpenGL - Include only OpenGL.
-* Vulkan - Include only Vulkan.
-* OpenGL and Vulkan - Include both OpenGL and Vulkan. Vulkan will be the default and fall back to OpenGL if Vulkan is not available.
+| Field | Platforms | Choices | Default |
+|---|---|---|---|
+| **Graphics** | Windows and Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Vulkan |
+| **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
+| **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
+| **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
+
+On Linux ARM64, the **OpenGL** choice uses the OpenGL ES backend. The Android combined default prefers Vulkan when available and falls back to OpenGL ES.
 
 ## Use full text layout system
 
 If enabled (`true`), it will allow to use runtime generation for SDF type fonts, when using True Type Fonts (`.ttf`) in the project. Read more details in the [Font Manual](https://defold.com/manuals/font/#enabling-runtime-fonts).
 
 
-## Minimum Safari version (wasm-web only)
-YAML field name: **`minSafariVersion`**
-Default value: **90000**
+## Minimum browser versions
 
-Minimum supported version of Safari. Cannot be less than 90000. For more information look Emscripten compiler options [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-safari-version).
+The YAML fields **`minSafariVersion`**, **`minFirefoxVersion`**, and **`minChromeVersion`** specify the minimum browser versions targeted by Emscripten. The current defaults and minimum supported versions differ between the non-threaded and threaded targets:
 
-## Minimum Firefox version (wasm-web only)
-YAML field name: **`minFirefoxVersion`**
-Default value: **34**
+| Target | Safari | Firefox | Chrome |
+|---|---:|---:|---:|
+| `wasm-web` | `101000` | `40` | `45` |
+| `wasm_pthread-web` | `150000` | `79` | `75` |
 
-Minimum supported version of Firefox. Cannot be less than 34. For more information look Emscripten compiler options [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-firefox-version).
+Specify overrides in the context for the relevant target. The threaded target also has additional [hosting requirements](/manuals/html5/#creating-html5-bundle). See the Emscripten settings reference for [`MIN_SAFARI_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-safari-version), [`MIN_FIREFOX_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-firefox-version), and [`MIN_CHROME_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-chrome-version).
 
-## Minimum Chrome version (wasm-web only)
-YAML field name: **`minChromeVersion`**
-Default value: **32**
-
-Minimum supported version of Chrome. Cannot be less than 32. For more information look Emscripten compiler options [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-chrome-version).
-
-## Initial memory (wasm-web only)
+## Initial memory (HTML5)
 YAML field name: **`initialMemory`**
 Default value: **33554432**
 
-The size of memory that allocated for web application. If `ALLOW_MEMORY_GROWTH=0`, this is the total amount of memory that web application can use. for more information look [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Value in bytes. Note that value must be a multiple of WebAssembly page size (64KiB).
-That options relates to `html5.heap_size` in *game.project* [link](https://defold.com/manuals/html5/#heap-size). Option that configured via application manifest is set during compilation and used as default value for `INITIAL_MEMORY` option. Value from *game.project* overrides value from application manifest and used in runtime.
+The initial amount of memory allocated for the web application, in bytes. The value must be a multiple of the WebAssembly page size (64 KiB). See Emscripten's [`INITIAL_MEMORY`](https://emscripten.org/docs/tools_reference/settings_reference.html#initial-memory) setting.
 
-## Stack size (wasm-web only)
+This option supplies the compile-time default. The [`html5.heap_size`](/manuals/html5/#heap-size) value in *game.project* overrides it at runtime.
+
+## Stack size (HTML5)
 YAML field name: **`stackSize`**
 Default value: **5242880**
 
-The stack size of application. For more information look [link](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#stack-size). Value in bytes.
+The application stack size, in bytes. See Emscripten's [`STACK_SIZE`](https://emscripten.org/docs/tools_reference/settings_reference.html#stack-size) setting.

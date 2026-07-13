@@ -35,7 +35,7 @@ For a complete set of instructions on how to modify your Android manifests, plea
 
 ::: important
 If you don't set your app's `android:targetSdkVersion` in your extension manifest, the following permissions will be added automatically:  `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`. You can read more about it in the official documentation [here](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions).
-We recommend to use: `<uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />`
+We recommend using: `<uses-sdk android:targetSdkVersion="{{android.target_sdk_version}}" />`
 :::
 ### Example
 
@@ -49,7 +49,7 @@ Base manifest
             android:versionName='1.0'
             android:installLocation='auto'>
         <uses-feature android:required='true' android:glEsVersion='0x00020000' />
-        <uses-sdk android:minSdkVersion='9' android:targetSdkVersion='26' />
+        <uses-sdk android:minSdkVersion='21' android:targetSdkVersion='26' />
         <application android:label='Test Project' android:hasCode='true'>
         </application>
         <uses-permission android:name='android.permission.VIBRATE' />
@@ -61,7 +61,7 @@ Extension manifest:
 ```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.defold.testmerge'>
-         <uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />
+         <uses-sdk android:targetSdkVersion="{{android.target_sdk_version}}" />
         <uses-feature android:required='true' android:glEsVersion='0x00030000' />
         <application>
             <meta-data android:name='com.facebook.sdk.ApplicationName'
@@ -84,7 +84,7 @@ Result
         android:versionCode='14'
         android:versionName='1.0' >
         <uses-sdk
-            android:minSdkVersion='9'
+            android:minSdkVersion='21'
             android:targetSdkVersion='26' />
         <uses-permission android:name='android.permission.VIBRATE' />
         <uses-feature

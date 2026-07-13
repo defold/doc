@@ -43,9 +43,9 @@ In addition to the properties above there will also be a field to assign a mater
 : Set this property to a material you have created that is suitable for a textured 3D object. There are a number of built-in materials that you can use as a starting point:
 
   * Use *model.material* for static non-instanced models
-  * Use *model_instances.material* for static instanced models
+  * Use *model_instanced.material* for static instanced models
   * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instances.material* for skinned (animated) instanced models
+  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
 
 Depending on the material there will be one or more texture properties:
 
@@ -100,7 +100,7 @@ A model also has a number of different properties that can be manipulated using 
 : The animation playback rate (`number`).
 
 `textureN`
-: The model textures where N is 0-7 (`hash`). You can change this using a texture resource property and `go.set()`. Refer to the [API reference for an example](/ref/model/#textureN).
+: The model textures where N is 0-15 (`hash`). You can read these properties with `go.get()` and change them using a texture resource property and `go.set()`. Defold supports at most 16 textures per draw, but the number usable by a shader may be lower on graphics adapters with a smaller texture-sampler limit.
 
 
 ## Material
@@ -110,9 +110,13 @@ A model also has a number of different properties that can be manipulated using 
 There are a number of built-in materials that you can use as a starting point:
 
   * Use *model.material* for static non-instanced models
-  * Use *model_instances.material* for static instanced models
+  * Use *model_instanced.material* for static instanced models
   * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instances.material* for skinned (animated) instanced models
+  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
+
+The built-in model materials use local vertex space. For skinned models, local vertex space allows the vertex shader to perform skinning on the GPU using a bone-matrix texture; local vertex space is also required for model instancing. A custom material intended for GPU-skinned or instanced models should therefore use the *Local* vertex-space setting.
+
+The bone-matrix cache uses an `RGBA32F` texture. If the active graphics adapter does not support that texture format, Defold cannot create an animated Model component that uses a local-space material. On OpenGL ES 2.0 and WebGL 1.0, support therefore depends on the adapter's floating-point texture extension. For compatibility with an adapter that lacks it, use a custom world-space material, which uses CPU skinning and cannot use model instancing. The cache dimensions can be adjusted with the [Model project settings](/manuals/project-settings/#model).
 
 If you need to create custom materials for your models, see the [Material documentation](/manuals/material) for information. The [Shader manual](/manuals/shader) contains information on how shader programs work.
 

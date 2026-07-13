@@ -138,6 +138,16 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 There are some caveats to updating the vertex attributes however, whether or not a component can use the value depends on the semantic type of the attribute. For example, a sprite component supports the `SEMANTIC_TYPE_POSITION` so if you update an attribute that has this semantic type, the component will ignore the overridden value since the semantic type dictates that the data should always be produced by the sprites position.
 
+Model components also expose custom material attributes through `go.get()`, `go.set()` and `go.animate()`. For example, after defining an attribute named `my_attribute` in the model material:
+
+```lua
+go.set("#model", "my_attribute", vmath.vector4(1, 0, 0, 1))
+go.animate("#model", "my_attribute", go.PLAYBACK_LOOP_PINGPONG,
+    vmath.vector4(0, 1, 0, 1), go.EASING_LINEAR, 2)
+```
+
+Only the first mesh in a model with multiple meshes can currently be addressed this way. Updating a non-instanced per-vertex attribute may also rebuild and upload vertex data proportional to the mesh size, so frequent updates can be expensive for large meshes.
+
 In cases where that a vertex attribute is either a scalar or a vector type other than a `Vec4` you can still set the data using `go.set`:
 
 ```lua
@@ -232,7 +242,25 @@ To verify that the instancing works in this case, you can look at the web profil
 
 #### Backwards compatibility
 
-On OpenGL based graphics adapters, instancing requires at least OpenGL 3.1 for desktop and OpenGL ES 3.0 for mobile. This means that very old devices that are using OpenGL ES2 or older OpenGL versions might not support instancing. In this case, rendering will still work by default without any special care from the developer, but it may not be as performant as if actual instancing was used. Currently, there is no way of detecting if instancing is supported or not, but this functionality will be added in the future so that a cheaper material can be used, or things like foliage or clutter that typically would be good candidates for instancing, could be skipped completely.
+OpenGL 3.1 on desktop and OpenGL ES 3.0 on mobile provide instancing as a core feature. Older OpenGL ES and WebGL contexts may still support it through an extension such as `ANGLE_instanced_arrays`; other older adapters do not. When instancing is unavailable, rendering still works by default, but may be less performant.
+
+Use `graphics.get_adapter_info()` to detect support and select a cheaper material or omit instance-heavy content when necessary. The `features` field is an array of the supported feature constants, not a table keyed by those constants:
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local instancing_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_INSTANCING
+)
+```
 
 ## Vertex and fragment constants
 
@@ -256,8 +284,38 @@ Shader constants, or "uniforms" are values that are passed from the engine to ve
 `CONSTANT_TYPE_WORLDVIEWPROJ`
 : A matrix with the world, view and projection matrices already multiplied.
 
+`CONSTANT_TYPE_WORLD_INVERSE`
+: The inverse of the world matrix. Use to transform from world space back into the object's local space.
+
+`CONSTANT_TYPE_VIEW_INVERSE`
+: The inverse of the view matrix. Use to transform from camera space back into world space.
+
+`CONSTANT_TYPE_PROJECTION_INVERSE`
+: The inverse of the projection matrix. Use to transform from clip space back into camera space.
+
+`CONSTANT_TYPE_VIEWPROJ_INVERSE`
+: The inverse of the combined view and projection matrices. Use to transform from clip space back into world space.
+
+`CONSTANT_TYPE_WORLDVIEW_INVERSE`
+: The inverse of the combined world and view matrices. Use to transform from camera space back into object-local space.
+
+`CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE`
+: The inverse of the combined world, view and projection matrices. Use to transform from clip space back into object-local space. These inverse constants avoid calculating a matrix inverse in the shader.
+
 `CONSTANT_TYPE_NORMAL`
 : A matrix to compute normal orientation. The world transform might include non-uniform scaling, which breaks the orthogonality of the combined world-view transform. The normal matrix is used to avoid issues with the direction when transforming normals. (The normal matrix is the transpose inverse of the world-view matrix).
+
+`CONSTANT_TYPE_TIME`
+: An engine-provided vector4 where `.x` is elapsed time since engine start, `.y` is the delta time from the previous frame, and `.z` and `.w` are currently zero. The engine updates this value automatically; it does not need to be updated with `go.set()`. See the [Shadertoy tutorial](/tutorials/shadertoy/#animation) for an example.
+
+  Declare a Time constant named `time` in a modern GLSL uniform block:
+
+  ```glsl
+  uniform fragment_inputs
+  {
+      vec4 time;
+  };
+  ```
 
 `CONSTANT_TYPE_USER`
 : A vector4 constant that you can use for any custom data you want to pass into your shader programs. You can set the initial value of the constant in the constant definition, but it is mutable through the functions [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). You can also retrieve the value with [go.get()](/ref/stable/go/#go.get). Changing a material constant of a single component instance [breaks render batching and will result in additional draw calls](/manuals/render/#draw-calls-and-batching).

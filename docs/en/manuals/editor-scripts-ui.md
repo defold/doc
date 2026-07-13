@@ -123,11 +123,30 @@ The code above will produce the following dialog form:
 
 ### Data presentation components
 
-The editor defines 4 data presentation components:
+The editor defines the following data presentation components:
+
 - **`label`** — text label, intended to be used with form inputs.
 - **`icon`** — an icon; currently, it can only be used for presenting a small set of predefined icons, but we intend to allow more icons in the future.
+- **`image`** — an image loaded from a project resource path that starts with `/`, or from an external URL. The optional `width` and `height` props fit the image inside the specified dimensions while preserving its aspect ratio.
 - **`heading`** — text element intended for presenting a heading line of text in e.g. a form or a dialog. The `editor.ui.HEADING_STYLE` enum defines various heading styles that include HTML's `H1`-`H6` heading, as well as editor-specific `DIALOG` and `FORM`.
 - **`paragraph`** — text element intended for presenting a paragraph of text. The main difference with `label` is that paragraph supports word wrapping: if the assigned bounds are too small horizontally, the text will wrap, and possibly will be shortened with `"..."` if it can't fit in the view.
+
+For example, a UI can display both a project image and an image from the web:
+
+```lua
+editor.ui.vertical({
+    children = {
+        editor.ui.image({
+            image = "/builtins/assets/images/logo/logo_256.png",
+            width = 64,
+            height = 64
+        }),
+        editor.ui.image({
+            image = "https://defold.com/images/assets/monarch-hero.jpg"
+        })
+    }
+})
+```
 
 ### Input components
 

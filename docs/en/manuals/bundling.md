@@ -81,12 +81,11 @@ These assets can be accessed via the [`sys.load_resource()`](https://defold.com/
 
 When creating an application bundle you have an option of creating a debug or release bundle. The differences between the two bundles are small but important to keep in mind:
 
-* Release builds do not include the [profiler](/manuals/profiling)
+* Release builds do not include the [profiler](/manuals/profiling) by default. Set **Profiler** to **Always** in the [App Manifest](/manuals/app-manifest/#profiler) to include profiler support in both debug and release builds.
 * Release builds do not include the [screen recorder](/ref/stable/sys/#start_record)
 * Release builds do not show the output of any calls to `print()` or the output from any native extensions
 * Release builds have the `is_debug` value in `sys.get_engine_info()` set to`false`
 * Release builds will not do reverse lookups of `hash` values when calling `tostring()`. What this means in practice is that a `tostring()` for a value of type `url` or `hash` will return its numeric representation and not the original string (`'hash: [/camera_001]'` vs `'hash: [11844936738040519888 (unknown)]'`)
 * Release builds do not support targeting from the editor for [hot-reload](/manuals/hot-reload) and similar functionality
-
 
 

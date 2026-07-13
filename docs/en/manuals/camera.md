@@ -258,36 +258,40 @@ You can have the camera follow a game object by setting the game object the came
 
 An alternative way is to update the position of the game object the camera component is attached to every frame as the game object to follow moves.
 
-### Converting mouse to world coordinates
+### Converting between screen and world coordinates
 
-When the camera has panned, zoomed or changed it's projection from the default orthographic Stretch projection the mouse coordinates provided in the `on_input()` lifecycle function will no longer match to the world coordinates of your game objects. You need to manually account for the change in view or projection. The code to convert from mouse/screen coordinates to world coordinates looks like this:
+When a camera has panned, zoomed, or changed its projection, input coordinates no longer directly match world coordinates. Use the camera conversion functions with `action.screen_x` and `action.screen_y`. If the optional camera URL is omitted, the last enabled camera is used.
 
-```Lua
---- Convert screen to world coordinates taking into account
--- the view and projection of a specific camera
--- @param camera URL of camera to use for conversion
--- @param screen_x Screen x coordinate to convert
--- @param screen_y Screen y coordinate to convert
--- @param z optional z coordinate to pass through the conversion, defaults to 0
--- @return world_x The resulting world x coordinate of the screen coordinate
--- @return world_y The resulting world y coordinate of the screen coordinate
--- @return world_z The resulting world z coordinate of the screen coordinate
-function M.screen_to_world(camera, screen_x, screen_y, z)
-    local projection = go.get(camera, "projection")
-    local view = go.get(camera, "view")
-    local w, h = window.get_size()
+For an orthographic camera, [`camera.screen_xy_to_world()`](/ref/camera/#camera.screen_xy_to_world:x-y-[camera]) returns the world-space point on the camera's near plane for a screen pixel:
 
-    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
-    local inv = vmath.inv(projection * view)
-    local x = (2 * screen_x / w) - 1
-    local y = (2 * screen_y / h) - 1
-    local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-    local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-    return x1, y1, z or 0
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        local world_position = camera.screen_xy_to_world(
+            action.screen_x, action.screen_y, "#camera")
+        go.set_position(world_position, "/marker")
+    end
 end
 ```
 
-Keep in mind that the values `action.screen_x` and `action.screen_y` from `on_input()` should be used as arguments for this function. Visit the [Examples page](https://defold.com/examples/render/screen_to_world/) to see screen to world coordinate conversion in action. There is also a [sample project](https://github.com/defold/sample-screen-to-world-coordinates/) showing how to do screen to world coordinate conversion.
+For a perspective camera, [`camera.screen_to_world()`](/ref/camera/#camera.screen_to_world:pos-[camera]) takes a `vector3` whose Z component is view depth in world units measured from the camera plane:
+
+```lua
+local depth = 10
+local world_position = camera.screen_to_world(
+    vmath.vector3(action.screen_x, action.screen_y, depth), "#camera")
+```
+
+[`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) performs the reverse conversion. It returns screen-pixel X and Y plus the same view-depth convention in Z, so its result can be passed back to `camera.screen_to_world()`:
+
+```lua
+-- Update the cached world transform first if the object moved this frame.
+go.update_world_transform("/marker")
+local world_position = go.get_world_position("/marker")
+local screen_position = camera.world_to_screen(world_position, "#camera")
+```
+
+Visit the [Examples page](https://defold.com/examples/render/screen_to_world/) to see coordinate conversion in action. There is also a [sample project](https://github.com/defold/sample-screen-to-world-coordinates/) showing the same APIs.
 
 ::: sidenote
 The [third-party camera solutions mentioned in this manual](/manuals/camera/#third-party-camera-solutions) provides functions for converting to and from screen coordinates.
