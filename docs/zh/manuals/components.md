@@ -18,6 +18,7 @@ Defold 支持以下组件类型：
 * [Factory](/manuals/factory) - 生成游戏对象
 * [GUI](/manuals/gui) - 渲染图形用户界面
 * [Label](/manuals/label) - 渲染一段文本
+* [Light](/manuals/light) - 为着色器添加光源数据
 * [Mesh](/manuals/mesh) - 显示3D网格（具有运行时创建和操作功能）
 * [Model](/manuals/model) - 显示3D模型（带有可选动画）
 * [Particle FX](/manuals/particlefx) - 生成粒子
