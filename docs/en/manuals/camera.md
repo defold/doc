@@ -258,7 +258,7 @@ You can have the camera follow a game object by setting the game object the came
 
 An alternative way is to update the position of the game object the camera component is attached to every frame as the game object to follow moves.
 
-### Converting between screen and world coordinates
+### Converting between screen and world coordinates {#converting-mouse-to-world-coordinates}
 
 When a camera has panned, zoomed, or changed its projection, input coordinates no longer directly match world coordinates. Use the camera conversion functions with `action.screen_x` and `action.screen_y`. If the optional camera URL is omitted, the last enabled camera is used.
 

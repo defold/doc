@@ -47,7 +47,7 @@ Defold 支持这些格式：
 * .ogg
 * .opus
 
-声音文件必须使用 16 位采样。
+Defold 支持 8 位和 16 位 PCM Wave 文件。Ogg Vorbis 和 Ogg Opus 使用各自的压缩格式，而不受 PCM 位深要求的限制。默认不包含 Opus 解码器；使用 `.opus` 资源前，请在 [App Manifest](/manuals/app-manifest/#sound) 中启用 **Include Sound Decoder: Opus**。
 我们的声音解码器将根据当前声音设备需要向上/向下缩放声音采样率。
 
 像音效这样的较短声音通常压缩得更厉害，而音乐文件的压缩较少。

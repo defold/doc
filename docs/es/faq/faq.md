@@ -102,7 +102,7 @@ A: Las siguientes plataformas tienen soporte para el editor/herramientas y el ru
   | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
   | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Engine             |
-  | HTML5              |                    | `asm.js`, `wasm`   | Engine             |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Engine       |
 
   (1 El editor fue creado y probad para 64-bit Ubuntu 18.04. Debe funcionar en otras distribuciones pero no damos garantía de ello.)
 

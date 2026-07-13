@@ -55,8 +55,8 @@ Wszystkie obiekty gry i niektóre typy komponentów mają właściwości, które
 | *position* | Lokalna pozycja obiektu gry.           | `vector3`       | `get+set`{.mark} |
 | *rotation* | Lokalna rotacja obiektu gry wyrażona jako `quaternion`.    | `quaternion` | `get+set`{.mark} |
 | *euler*    | Lokalna rotacja obiektu gry wyrażona jako kąty Eulera.   | `vector3`    | `get+set`{.mark} |
-| *scale*    | Lokalna nieliniowa skala obiektu gry, wyrażona jako wektor, w którym każdy składnik zawiera mnożnik wzdłuż każdej osi. Przykładowo, aby podwoić rozmiar w osiach x i y, użyj `vmath.vector3(2.0, 2.0, 0)`. | `vector3` | `get+set`{.mark} |
-| *scale.xy* | Lokalna nieliniowa skala obiektu gry w osiach X i Y. | `vector3` | `get+set`{.mark} |
+| *scale*    | Lokalna nieliniowa skala obiektu gry, wyrażona jako wektor, w którym każdy składnik zawiera mnożnik wzdłuż każdej osi. Aby podwoić rozmiar w osiach X i Y bez zmiany Z, użyj `vmath.vector3(2.0, 2.0, 1.0)`. | `vector3` | `get+set`{.mark} |
+| *scale.xy* | Lokalna nieliniowa skala obiektu gry w osiach X i Y. Użyj tej właściwości lub `go.set_scale_xy()`, gdy skalowanie w osi Z nie jest zamierzone. | `vector3` | `get+set`{.mark} |
 
 ::: sidenote
 Istnieją także konkretne funkcje do pracy z transformacją obiektu gry, takie jak `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`, `go.get_scale()`, `go.set_scale()` i `go.set_scale_xy()`.
@@ -89,7 +89,7 @@ Istnieją także konkretne funkcje do pracy z transformacją obiektu gry, takie 
 | Właściwość | Opis                                   | Typ             |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | Aktualna animacja.                    | `hash`          | `get`{.mark}     |
-| *texture0*  | Skrót hasza ścieżki tekstury modelu.  | `hash` | `get`{.mark}|
+| *texture0*--*texture15* | Skróty haszy ścieżek tekstur modelu. | `hash` | `get+set`{.mark}|
 | *cursor*    | Pozycja (między 0 a 1) wskaźnika odtwarzania. | `number`   | `get+set`{.mark} |
 | *playback_rate* | Prędkość odtwarzania animacji. Mnożnik prędkości odtwarzania animacji. | `number` | `get+set`{.mark} |
 | *material* | Materiał używany przez model. | `hash` | `get+set`{.mark}|

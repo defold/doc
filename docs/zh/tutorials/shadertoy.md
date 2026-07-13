@@ -321,7 +321,7 @@ void main() // <5>
 ![quad with starnest](../images/shadertoy/quad_starnest.png)
 
 
-## 动画
+## 动画 {#animation}
 
 最后一块拼图是引入时间，让星星运动。Defold（自 1.12.3 起）会通过 `Time` 类型的片段常量自动提供这一点。
 

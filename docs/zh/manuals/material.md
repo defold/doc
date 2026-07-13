@@ -138,6 +138,16 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 然而，更新顶点属性有一些注意事项，组件是否可以使用该值取决于属性的语义类型。例如，精灵组件支持 `SEMANTIC_TYPE_POSITION`，因此如果您更新具有此语义类型的属性，组件将忽略覆盖的值，因为语义类型规定数据应始终由精灵位置生成。
 
+模型组件也通过 `go.get()`、`go.set()` 和 `go.animate()` 公开自定义材质属性。例如，在模型材质中定义名为 `my_attribute` 的属性后：
+
+```lua
+go.set("#model", "my_attribute", vmath.vector4(1, 0, 0, 1))
+go.animate("#model", "my_attribute", go.PLAYBACK_LOOP_PINGPONG,
+    vmath.vector4(0, 1, 0, 1), go.EASING_LINEAR, 2)
+```
+
+对于包含多个网格的模型，目前只能以这种方式访问第一个网格。更新非实例化的逐顶点属性还可能重建并上传与网格大小成比例的顶点数据，因此对大型网格频繁更新可能代价很高。
+
 如果顶点属性是标量，或不是 `Vec4` 的其他向量类型，您仍然可以使用 `go.set` 设置数据：
 
 ```lua
@@ -236,7 +246,25 @@ attribute mediump vec4 instance_color;
 
 #### 向后兼容性
 
-在基于 OpenGL 的图形适配器上，实例化至少需要桌面版 OpenGL 3.1 和移动版 OpenGL ES 3.0。这意味着使用 OpenGL ES2 或更旧 OpenGL 版本的非常旧的设备可能不支持实例化。在这种情况下，渲染默认仍然可以工作，不需要开发人员任何特殊照顾，但可能不如使用实际实例化那样高效。目前，无法检测是否支持实例化，但此功能将在未来添加，以便可以使用更便宜的材质，或者可以完全跳过通常是实例化良好候选者的东西，如树叶或杂物。
+桌面上的 OpenGL 3.1 和移动设备上的 OpenGL ES 3.0 将实例化作为核心功能提供。较旧的 OpenGL ES 和 WebGL 上下文仍可能通过 `ANGLE_instanced_arrays` 等扩展支持它；其他旧适配器则不支持。当实例化不可用时，渲染默认仍可工作，但性能可能较低。
+
+使用 `graphics.get_adapter_info()` 检测支持情况，并在必要时选择更廉价的材质或省略大量实例化内容。`features` 字段是受支持功能常量的数组，而不是以这些常量为键的表：
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local instancing_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_INSTANCING
+)
+```
 
 ## 顶点和片段常量 {#vertex-and-fragment-constants}
 
@@ -260,8 +288,38 @@ attribute mediump vec4 instance_color;
 `CONSTANT_TYPE_WORLDVIEWPROJ`
 : 已经相乘的世界、视图和投影矩阵。
 
+`CONSTANT_TYPE_WORLD_INVERSE`
+: 世界矩阵的逆矩阵。用于从世界空间变换回对象的局部空间。
+
+`CONSTANT_TYPE_VIEW_INVERSE`
+: 视图矩阵的逆矩阵。用于从摄像机空间变换回世界空间。
+
+`CONSTANT_TYPE_PROJECTION_INVERSE`
+: 投影矩阵的逆矩阵。用于从裁剪空间变换回摄像机空间。
+
+`CONSTANT_TYPE_VIEWPROJ_INVERSE`
+: 组合视图和投影矩阵的逆矩阵。用于从裁剪空间变换回世界空间。
+
+`CONSTANT_TYPE_WORLDVIEW_INVERSE`
+: 组合世界和视图矩阵的逆矩阵。用于从摄像机空间变换回对象局部空间。
+
+`CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE`
+: 组合世界、视图和投影矩阵的逆矩阵。用于从裁剪空间变换回对象局部空间。这些逆矩阵常量可避免在着色器中计算矩阵逆。
+
 `CONSTANT_TYPE_NORMAL`
 : 用于计算法线方向的矩阵。世界变换可能包含非均匀缩放，这会破坏组合世界视图变换的正交性。法线矩阵用于避免变换法线时的方向问题。（法线矩阵是世界视图矩阵的转置逆矩阵）。
+
+`CONSTANT_TYPE_TIME`
+: 引擎提供的 `vector4`，其中 `.x` 是引擎启动后经过的时间，`.y` 是相对于上一帧的增量时间，`.z` 和 `.w` 目前为零。引擎会自动更新此值，无需使用 `go.set()` 更新。示例请参阅 [Shadertoy 教程](/tutorials/shadertoy/#animation)。
+
+  在现代 GLSL uniform block 中声明名为 `time` 的 Time 常量：
+
+  ```glsl
+  uniform fragment_inputs
+  {
+      vec4 time;
+  };
+  ```
 
 `CONSTANT_TYPE_USER`
 : 一个 vector4 常量，您可以用于任何想要传递到着色器程序的自定义数据。您可以在常量定义中设置常量的初始值，但它可以通过函数 [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate) 进行修改。您也可以使用 [go.get()](/ref/stable/go/#go.get) 检索值。更改单个组件实例的材质常量会[破坏渲染批处理并导致额外的绘制调用](/manuals/render/#draw-calls-and-batching)。

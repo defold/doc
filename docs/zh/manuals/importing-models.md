@@ -38,7 +38,7 @@ glTF 常见有两种存储方式：
 2. 将 *Mesh* 属性设置为包含网格的已导入 *.gltf* 或 *.glb* 文件。
 3. 对于动画模型，将 *Skeleton* 属性设置为包含骨架的 *.gltf* 或 *.glb* 文件。当网格、骨架和动画一起导出时，这通常与 *Mesh* 使用同一个文件。
 4. 为动画创建 *Animation Set* 文件，并将其分配给 *Animations* 属性。如果希望动画自动开始，请设置 *Default Animation*。
-5. 将 *Material* 属性设置为适合模型的材质。内置的 *model.material*、*model_instances.material*、*model_skinned.material* 和 *model_skinned_instances.material* 文件都是有用的起点。
+5. 将 *Material* 属性设置为适合模型的材质。内置的 *model.material*、*model_instanced.material*、*model_skinned.material* 和 *model_skinned_instanced.material* 文件都是有用的起点。蒙皮材质使用局部顶点空间，因此蒙皮可以在 GPU 上运行；用于 GPU 蒙皮或实例化模型的自定义材质也应使用局部顶点空间。有关图形适配器要求，请参阅[模型手册](/manuals/model/#material)。
 6. 将材质纹理属性（例如 *Texture*）设置为导入的纹理图像文件。如果材质使用多个纹理，请在相应的材质纹理字段中分配每个纹理。
 
 

@@ -442,7 +442,18 @@ Defold는 아래에 정의된 규칙에 따라 렌더링 작업을 배치로 묶
 
 ### 비 GUI 컴포넌트의 배치 규칙 {#batch-rules-for-non-gui-components}
 
-렌더링은 낮은 값에서 높은 값으로 이어지는 z 순서를 기준으로 수행됩니다. 엔진은 그릴 항목 목록을 먼저 정렬한 뒤 낮은 z 값에서 높은 z 값으로 순회합니다. 목록의 각 오브젝트는 다음 조건을 만족하면 이전 오브젝트와 같은 드로우 콜로 그룹화됩니다.
+각 `render.draw()` 호출은 일치하는 월드 순서 항목을 정렬하는 방식을 제어합니다. 기본값은 `render.SORT_BACK_TO_FRONT`입니다. 가까운 곳에서 먼 곳 순서로 렌더링하려면 `render.SORT_FRONT_TO_BACK`, 삽입 순서를 유지하려면 `render.SORT_NONE`을 사용하세요.
+
+```lua
+render.draw(self.opaque_predicate, {
+    sort_order = render.SORT_FRONT_TO_BACK
+})
+render.draw(self.transparent_predicate, {
+    sort_order = render.SORT_BACK_TO_FRONT
+})
+```
+
+선택한 순서는 어떤 항목이 인접하는지 결정하므로 배칭에 영향을 줄 수 있습니다. 정렬된 목록에서 각 오브젝트는 다음 조건을 만족하면 이전 오브젝트와 같은 드로우 콜로 그룹화됩니다.
 
 * 같은 컬렉션 프록시(Collection proxy)에 속함
 * 같은 컴포넌트 타입(sprite, particle fx, tilemap 등)임
@@ -450,7 +461,7 @@ Defold는 아래에 정의된 규칙에 따라 렌더링 작업을 배치로 묶
 * 같은 메터리얼을 사용함
 * 같은 쉐이더 상수(`tint` 등)를 가짐
 
-즉 같은 컬렉션 프록시에 있는 두 스프라이트 컴포넌트가 인접한 z 값 또는 같은 z 값을 가져 정렬된 목록에서 서로 나란히 오고, 같은 텍스쳐, 메터리얼, 상수를 사용한다면 같은 드로우 콜로 그룹화됩니다.
+즉 같은 컬렉션 프록시에 있는 두 스프라이트 컴포넌트가 선택한 정렬 이후 인접하고 같은 텍스쳐, 메터리얼, 상수를 사용한다면 같은 드로우 콜로 그룹화됩니다.
 
 
 ### GUI 컴포넌트의 배치 규칙 {#batch-rules-for-gui-components}

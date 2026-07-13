@@ -536,8 +536,11 @@ local spawned_instances = collectionfactory.create("#my_collectionfactory")
 `factory.create()` 또는 `collectionfactory.create()`를 호출할 때 위치, 회전, 스케일, 스크립트 프로퍼티 같은 선택적 파라미터도 지정할 수 있으므로, 인스턴스가 정확히 어떻게 어디에 나타나고 어떻게 동작할지 제어할 수 있습니다. 예:
 
 ```lua
-factory.create("#my_factory", my_position, my_rotation, my_scale, my_properties)
+local scale_2d = vmath.vector3(0.5, 0.5, 1.0)
+factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 ```
+
+선택적 인수의 순서는 properties 다음 scale입니다. 2D 오브젝트의 X와 Y축만 스케일할 때는 Z를 명시적으로 `1.0`으로 설정한 `vector3`를 사용하세요. 숫자 scale은 세 축 모두에 균일하게 적용됩니다.
 
 #### 동적 로딩
 

@@ -173,7 +173,6 @@ end
 Przy kroku czasowym 0.2 otrzymujemy następujący wynik w konsoli:
 
 ```txt
-INFO:DLIB: SSDP started (ssdp://192.168.0.102:54967, http://0.0.0.0:62162)
 INFO:ENGINE: Defold Engine 1.2.37 (6b3ae27)
 INFO:ENGINE: Loading data from: build/default
 DEBUG:SCRIPT: update() with timestep (dt) 0

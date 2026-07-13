@@ -37,7 +37,7 @@ Defold 1.13.0부터 임포트된 glTF 파일의 위치와 트랜스폼이 보존
 2. *Mesh* 프로퍼티를 메쉬가 들어 있는 임포트된 *.gltf* 또는 *.glb* 파일로 설정합니다.
 3. 애니메이션되는 모델의 경우 *Skeleton* 프로퍼티를 스켈레톤이 들어 있는 *.gltf* 또는 *.glb* 파일로 설정합니다. 메쉬, 스켈레톤, 애니메이션을 함께 익스포트했다면 *Mesh*에 사용한 파일과 같은 경우가 많습니다.
 4. 애니메이션용 *Animation Set* 파일을 만들고 *Animations* 프로퍼티에 할당합니다. 애니메이션을 자동으로 시작하려면 *Default Animation*을 설정합니다.
-5. *Material* 프로퍼티를 모델에 적합한 메터리얼로 설정합니다. 내장 *model.material*, *model_instances.material*, *model_skinned.material*, *model_skinned_instances.material* 파일은 유용한 시작점입니다.
+5. *Material* 프로퍼티를 모델에 적합한 메터리얼로 설정합니다. 내장 *model.material*, *model_instanced.material*, *model_skinned.material*, *model_skinned_instanced.material* 파일은 유용한 시작점입니다. 스킨드 메터리얼은 GPU에서 스키닝을 실행할 수 있도록 로컬 버텍스 공간을 사용합니다. GPU 스키닝 또는 인스턴싱 모델용 커스텀 메터리얼도 로컬 버텍스 공간을 사용해야 합니다. 그래픽 어댑터 요구 사항은 [모델 매뉴얼](/manuals/model/#material)을 참고하세요.
 6. *Texture* 같은 메터리얼 텍스쳐 프로퍼티를 임포트한 텍스쳐 이미지 파일로 설정합니다. 메터리얼이 여러 텍스쳐를 사용한다면 각 텍스쳐를 해당 메터리얼 텍스쳐 필드에 할당합니다.
 
 

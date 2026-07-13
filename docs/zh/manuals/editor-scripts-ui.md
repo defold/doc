@@ -123,11 +123,30 @@ editor.ui.grid({
 
 ### 数据展示组件
 
-编辑器定义了4个数据展示组件：
+编辑器定义了以下数据展示组件：
+
 - **`label`** — 文本标签，旨在与表单输入一起使用。
 - **`icon`** — 图标；目前，它只能用于呈现一小组预定义图标，但我们打算将来允许更多图标。
+- **`image`** — 从以 `/` 开头的项目资源路径或外部 URL 加载的图像。可选的 `width` 和 `height` 属性会在保持图像宽高比的同时，使其适合指定尺寸。
 - **`heading`** — 文本元素，旨在呈现例如表单或对话框中的标题行文本。`editor.ui.HEADING_STYLE`枚举定义了各种标题样式，包括HTML的`H1`-`H6`标题，以及编辑器特定的`DIALOG`和`FORM`。
 - **`paragraph`** — 文本元素，旨在呈现一段文本。与`label`的主要区别是段落支持自动换行：如果分配的边界在水平方向上太小，文本将换行，如果无法适应视图，可能会用`"..."`缩短。
+
+例如，UI 可以同时显示项目图像和网络图像：
+
+```lua
+editor.ui.vertical({
+    children = {
+        editor.ui.image({
+            image = "/builtins/assets/images/logo/logo_256.png",
+            width = 64,
+            height = 64
+        }),
+        editor.ui.image({
+            image = "https://defold.com/images/assets/monarch-hero.jpg"
+        })
+    }
+})
+```
 
 ### 输入组件
 

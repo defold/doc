@@ -261,36 +261,40 @@ end
 
 다른 방법으로는 따라갈 게임 오브젝트가 움직일 때마다 카메라 컴포넌트가 연결된 게임 오브젝트의 위치를 매 프레임 업데이트하는 방식이 있습니다.
 
-### 마우스를 월드 좌표로 변환하기 {#converting-mouse-to-world-coordinates}
+### 화면 좌표와 월드 좌표 사이 변환 {#converting-mouse-to-world-coordinates}
 
-카메라가 패닝되거나 줌되었거나 기본 직교 Stretch 투영에서 투영이 변경되면, `on_input()` 라이프사이클 함수에서 제공되는 마우스 좌표는 더 이상 게임 오브젝트의 월드 좌표와 일치하지 않습니다. 뷰 또는 투영의 변화를 직접 고려해야 합니다. 마우스/화면 좌표를 월드 좌표로 변환하는 코드는 다음과 같습니다.
+카메라가 패닝되거나 줌되었거나 투영이 변경되면 입력 좌표는 더 이상 월드 좌표와 직접 일치하지 않습니다. 카메라 변환 함수에 `action.screen_x`와 `action.screen_y`를 사용하세요. 선택적인 카메라 URL을 생략하면 마지막으로 활성화된 카메라가 사용됩니다.
 
-```Lua
---- 특정 카메라의 뷰와 투영을 고려하여
--- 화면 좌표를 월드 좌표로 변환합니다.
--- @param camera 변환에 사용할 카메라의 URL
--- @param screen_x 변환할 화면 x 좌표
--- @param screen_y 변환할 화면 y 좌표
--- @param z 변환을 통과시킬 선택적 z 좌표, 기본값은 0
--- @return world_x 화면 좌표의 결과 월드 x 좌표
--- @return world_y 화면 좌표의 결과 월드 y 좌표
--- @return world_z 화면 좌표의 결과 월드 z 좌표
-function M.screen_to_world(camera, screen_x, screen_y, z)
-    local projection = go.get(camera, "projection")
-    local view = go.get(camera, "view")
-    local w, h = window.get_size()
+직교 카메라에서 [`camera.screen_xy_to_world()`](/ref/camera/#camera.screen_xy_to_world:x-y-[camera])는 화면 픽셀에 대응하는 카메라 near plane 위의 월드 공간 점을 반환합니다.
 
-    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
-    local inv = vmath.inv(projection * view)
-    local x = (2 * screen_x / w) - 1
-    local y = (2 * screen_y / h) - 1
-    local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-    local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-    return x1, y1, z or 0
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        local world_position = camera.screen_xy_to_world(
+            action.screen_x, action.screen_y, "#camera")
+        go.set_position(world_position, "/marker")
+    end
 end
 ```
 
-`on_input()`의 `action.screen_x` 및 `action.screen_y` 값을 이 함수의 인수로 사용해야 한다는 점을 기억하세요. 화면 좌표에서 월드 좌표로 변환하는 동작을 보려면 [예제 페이지](https://defold.com/examples/render/screen_to_world/)를 방문하세요. 화면 좌표를 월드 좌표로 변환하는 방법을 보여주는 [샘플 프로젝트](https://github.com/defold/sample-screen-to-world-coordinates/)도 있습니다.
+원근 카메라에서 [`camera.screen_to_world()`](/ref/camera/#camera.screen_to_world:pos-[camera])는 Z 컴포넌트가 카메라 plane에서 측정한 월드 단위의 뷰 깊이인 `vector3`를 받습니다.
+
+```lua
+local depth = 10
+local world_position = camera.screen_to_world(
+    vmath.vector3(action.screen_x, action.screen_y, depth), "#camera")
+```
+
+[`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera])은 반대 방향으로 변환합니다. 화면 픽셀 X와 Y, 그리고 동일한 뷰 깊이 규칙을 사용하는 Z를 반환하므로 결과를 다시 `camera.screen_to_world()`에 전달할 수 있습니다.
+
+```lua
+-- Update the cached world transform first if the object moved this frame.
+go.update_world_transform("/marker")
+local world_position = go.get_world_position("/marker")
+local screen_position = camera.world_to_screen(world_position, "#camera")
+```
+
+좌표 변환 동작은 [예제 페이지](https://defold.com/examples/render/screen_to_world/)에서 확인할 수 있습니다. 동일한 API를 보여주는 [샘플 프로젝트](https://github.com/defold/sample-screen-to-world-coordinates/)도 있습니다.
 
 ::: sidenote
 이 매뉴얼에서 언급한 [서드파티 카메라 솔루션](/manuals/camera/#third-party-camera-solutions)은 화면 좌표로 변환하거나 화면 좌표에서 변환하는 함수를 제공합니다.

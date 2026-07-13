@@ -34,13 +34,14 @@ main_collection = /main/main.collectionc
 что означает, что настройка *main_collection* относится к категории *bootstrap*. Во всех случаях, когда используется ссылка на файл, как в примере выше, путь должен быть дополнен символом 'c'. Это означает, что вы ссылаетесь на скомпилированную версию файла. Также следует учитывать, что папка, содержащая файл *game.project*, будет корнем проекта, поэтому в пути установки присутствует начальный символ '/'.
 
 
-## Доступ к значениям во время выполнения
+## Доступ к значениям во время выполнения {#runtime-access}
 
-Возможно получить доступ к значениям из *game.project* во время выполнения с помощью [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) и [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Примеры:
+Возможно получить доступ к значениям из *game.project* во время выполнения с помощью [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number), [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int) и [`sys.get_config_boolean(key)`](/ref/sys/#sys.get_config_boolean). Примеры:
 
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
+local vsync = sys.get_config_boolean("display.vsync", false)
 ```
 
 ::: sidenote
@@ -306,12 +307,24 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 #### OpenGL Core Profile Hint
 Устанавливает профиль OpenGL 'core' при создании контекста. Core-профиль исключает устаревшие функции OpenGL, такие как немедленный режим отрисовки (immediate mode). Не применяется к OpenGL ES.
 
+#### Vulkan Version Major
+`graphics.vulkan_version_major` задаёт основную версию контекста/API Vulkan. Применяется только при выбранном графическом бэкенде Vulkan. Значение по умолчанию — `1`.
+
+#### Vulkan Version Minor
+`graphics.vulkan_version_minor` задаёт дополнительную версию контекста/API Vulkan. Применяется только при выбранном графическом бэкенде Vulkan. Значение по умолчанию — `0`.
+
 ---
   
 ### Shader
   
 #### Exclude GLES 2.0
 Не компилировать шейдеры для устройств, использующих OpenGLES 2.0 / WebGL 1.0.
+
+#### GLSL ES Default Precision Float
+`shader.glsl_es_default_precision_float` задаёт глобальный квалификатор точности по умолчанию для значений с плавающей точкой в кросс-компилированных шейдерах GLSL ES. Допустимые значения: `mediump` и `highp`; по умолчанию используется `mediump`.
+
+#### GLSL ES Default Precision Int
+`shader.glsl_es_default_precision_int` задаёт глобальный квалификатор точности по умолчанию для целочисленных значений в кросс-компилированных шейдерах GLSL ES. Допустимые значения: `mediump` и `highp`; по умолчанию используется `highp`.
 
 ---
 
@@ -559,7 +572,7 @@ local gravity_y = sys.get_config_number("physics.gravity_y")
 Версия бандла — число или строка в формате x.y.z (см. [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430)).
 
 #### Info.plist
-Если задано, используется указанный файл *`info.plist`* при сборке приложения.
+Если задано, при сборке приложения указанный файл *`Info.plist`* используется вместо встроенного базового манифеста iOS. Встроенный манифест содержит записи локальной сети и Bonjour, необходимые для обнаружения целей редактором в нерелизных сборках. Если вы предоставляете пользовательский манифест и вам нужны обнаружение целей, профилирование, hot reload или передача логов на устройстве, сохраните эти записи, как описано в [руководстве по iOS](/manuals/ios/#creating-an-ios-application-bundle).
 
 #### Privacy Manifest
 Манифест конфиденциальности Apple для приложения. По умолчанию: `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -736,17 +749,22 @@ HTML-шаблон, используемый при сборке. По умолч
 
 ### Profiler
 
+Параметр **Profiler** в манифесте приложения определяет, будет ли код профайлера скомпонован с отладочными и релизными сборками. Приведённые ниже параметры управляют поведением кода профайлера во время выполнения, если он присутствует в выбранной сборке. Подробнее см. в [руководстве по профилированию](/manuals/profiling/).
+
 #### Enabled
 Включить внутриигровой профайлер.
 
 #### Track Cpu
-Если включено, разрешается профилирование CPU в release-сборках. Обычно доступ к профилированию возможен только в debug-сборках.
+Выборка использования CPU по умолчанию включена в отладочных сборках. Включите этот параметр, если выборка CPU также нужна в релизной сборке, содержащей поддержку профайлера согласно манифесту приложения.
 
 #### Sleep Between Server Updates
 Количество миллисекунд ожидания между обновлениями сервера.
 
 #### Performance Timeline Enabled
 Включить таймлайн производительности в браузере (только HTML5).
+
+#### Max Sample Count
+`profiler.max_sample_count` — максимальное число выборок профайлера, записываемых в каждом потоке за кадр. Значение по умолчанию — `4096`, минимальное — `128`. Увеличивайте его только в том случае, если допустимый профиль действительно превышает предел; сначала проверьте код профилирования нативных расширений на несовпадающие вызовы начала/конца области.
 
 ---
 
@@ -762,11 +780,12 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=1234
 ```
 
-Пользовательские значения, как и любое другое значение конфигурации, могут быть считаны с помощью [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) или [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
+Пользовательские значения, как и любые другие значения конфигурации, можно читать соответствующей функцией, описанной в разделе [Доступ к значениям во время выполнения](#runtime-access):
 
 ```lua
 local my_value = sys.get_config_number("test.my_value")
 local my_value2 = sys.get_config_string("test.my_value2")
+local my_flag = sys.get_config_boolean("test.my_flag", false)
 ```
 
 
@@ -775,7 +794,7 @@ local my_value2 = sys.get_config_string("test.my_value2")
 
 ## Пользовательские настройки проекта
 
-Возможно определить собственные настройки как для основного проекта, так и для [нативных расширений](/manuals/extensions/). Для основного проекта они указываются в файле `game.properties` в корне проекта. Для нативного расширения — в файле `ext.properties` рядом с `ext.manifest`.
+Возможно определить собственные настройки как для основного проекта, так и для [нативных расширений](/manuals/extensions/). Для основного проекта они указываются в файле `game.properties` в корне проекта. Файлы с именем `ext.properties` обнаруживаются в любом месте проекта и загруженных библиотек-зависимостей; соседний `ext.manifest` им не требуется. Сначала объединяются все обнаруженные метаданные расширений, затем применяется корневой файл `game.properties`, который может их переопределить.
 
 Файл настроек использует тот же INI-формат, что и *game.project*, а атрибуты свойств указываются с помощью точечной нотации с суффиксами:
 
@@ -794,7 +813,7 @@ my_property.private = 1
 // `type` — используется для парсинга строкового значения
 my_property.type = string // одно из следующих значений: bool, string, number, integer, string_array, resource
 
-// `help` — используется как подсказка в редакторе (на данный момент не используется)
+// `help` — отображается как всплывающая подсказка в редакторе
 my_property.help = string
 
 // `default` — значение по умолчанию, если пользователь не задал его вручную
@@ -835,4 +854,4 @@ help = Settings for My Awesome Extension
 ```
 
 
-At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the *game.project* viewer.
+Эти файлы метаданных обрабатывают и Bob, и редактор. Редактор использует их для создания соответствующих полей, вариантов выбора, правил проверки и всплывающих подсказок в представлении *game.project*.

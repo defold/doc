@@ -23,7 +23,7 @@ lub z gotowych, przykładowych gier:
 
 ### Dodawanie projektu na Githuba
 
-Lokalny projekt nie ma integracji z żadnym systemem kontroli wersji, pliki są jedynie na Twoim nośniku fizycznym. Jakiekolwiek zmiany dokonujesz są one nieodwracalne i nie ma możliwości przywrócenia usuniętych na stałe plików. Zalecamy więc korzystanie z systemu kontroli wersji, np. Git, żeby śledzić zmiany w Twoim projekcie. Ułatwia to również współpracę wielu osób nad jednym projektem. Dodanie projektu na GitHuba może być zrobione w kilku krokach:
+Lokalny projekt nie jest zintegrowany z żadnym systemem kontroli wersji, więc pliki znajdują się wyłącznie na dysku i nie istnieje historia, która pozwalałaby cofnąć zmiany. Pliki usuwane przez panel *Assets* edytora są przenoszone do systemowego kosza, gdy jest to obsługiwane, ale mogą zostać trwale usunięte, jeśli ta operacja jest niedostępna lub się nie powiedzie. Kosz nie chroni przed dowolnymi zmianami ani nie zapewnia historii wersji, dlatego zalecamy używanie systemu kontroli wersji, takiego jak Git, do śledzenia zmian w plikach. Ułatwia to również współpracę wielu osób nad jednym projektem. Dodanie lokalnego projektu do GitHuba wymaga tylko kilku kroków:
 
 1. Utwórz lub zaloguj się na swoje konto [GitHub](https://github.com/)
 2. Utwórz nowe repozytorium klikając [New Repository](https://help.github.com/en/articles/creating-a-new-repository)

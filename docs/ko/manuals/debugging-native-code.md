@@ -83,7 +83,7 @@ iTunes에서 앱 컨테이너를 보거나 다운로드할 수 있습니다.
 * Android - `projecttitle.apk.symbols/lib/` 번들 출력 폴더에는 타겟 아키텍처용 디버그 심볼이 들어 있습니다.
 * Linux - 실행 파일에는 디버그 심볼이 들어 있습니다.
 * Windows - `build/x86_64-win32`의 `dmengine.pdb` 파일에는 Windows 빌드용 디버그 심볼이 들어 있습니다.
-* HTML5 - `build/wasm-web`의 `dmengine.js.symbols` 파일에는 HTML5 빌드용 디버그 심볼이 들어 있습니다.
+* HTML5 - HTML5 번들 옆의 `<project_name>_symbols` 디렉터리에는 `<project_name>_wasm.js.symbols`가 들어 있으며, `wasm_pthread-web` 아키텍처를 선택한 경우 `<project_name>_pthread_wasm.js.symbols`도 들어 있습니다.
 
 ::: important
 게임의 각 공개 릴리스마다 디버그 심볼을 어딘가에 저장하고, 해당 디버그 심볼이 어떤 릴리스에 속하는지 알고 있는 것이 매우 중요합니다. 디버그 심볼이 없으면 네이티브 크래시를 디버깅할 수 없습니다! 또한 엔진의 `unstripped` 버전도 보관해야 합니다. 이렇게 하면 콜스택을 가장 잘 심볼리케이트할 수 있습니다.

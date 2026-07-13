@@ -318,7 +318,7 @@ void main() // <5>
 ![quad with starnest](../images/shadertoy/quad_starnest.png)
 
 
-## Анимация
+## Анимация {#animation}
 
 Последний кусочек пазла — добавить время, чтобы звёзды двигались. Defold (начиная с 1.12.3) предоставляет его автоматически через fragment constant типа `Time`.
 

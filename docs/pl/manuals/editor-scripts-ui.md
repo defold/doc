@@ -123,11 +123,30 @@ Powyższy kod utworzy następujący formularz w oknie dialogowym:
 
 ### Komponenty prezentacji danych
 
-Edytor definiuje 4 komponenty prezentacji danych:
+Edytor definiuje następujące komponenty prezentacji danych:
+
 - **`label`** — etykieta tekstowa przeznaczona do używania z polami formularzy.
 - **`icon`** — ikona; obecnie można jej używać tylko do prezentowania niewielkiego zestawu predefiniowanych ikon, ale w przyszłości chcemy dopuścić więcej ikon.
+- **`image`** — obraz wczytany ze ścieżki zasobu projektu rozpoczynającej się od `/` lub z zewnętrznego adresu URL. Opcjonalne właściwości `width` i `height` dopasowują obraz do podanych wymiarów z zachowaniem proporcji.
 - **`heading`** — element tekstowy przeznaczony do wyświetlania wiersza nagłówka, na przykład w formularzu lub oknie dialogowym. Enum `editor.ui.HEADING_STYLE` definiuje różne style nagłówków, w tym nagłówki `H1`-`H6` z HTML-a, a także specyficzne dla edytora `DIALOG` i `FORM`.
 - **`paragraph`** — element tekstowy przeznaczony do wyświetlania akapitu tekstu. Główna różnica względem `label` polega na tym, że paragraph obsługuje zawijanie wierszy: jeśli przydzielony obszar jest zbyt wąski, tekst zostanie zawinięty, a jeśli nadal nie zmieści się w widoku, zostanie ewentualnie skrócony do `"..."`.
+
+Na przykład interfejs może wyświetlać zarówno obraz projektu, jak i obraz z sieci:
+
+```lua
+editor.ui.vertical({
+    children = {
+        editor.ui.image({
+            image = "/builtins/assets/images/logo/logo_256.png",
+            width = 64,
+            height = 64
+        }),
+        editor.ui.image({
+            image = "https://defold.com/images/assets/monarch-hero.jpg"
+        })
+    }
+})
+```
 
 ### Komponenty wejściowe
 

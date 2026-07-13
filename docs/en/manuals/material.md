@@ -306,7 +306,7 @@ Shader constants, or "uniforms" are values that are passed from the engine to ve
 : A matrix to compute normal orientation. The world transform might include non-uniform scaling, which breaks the orthogonality of the combined world-view transform. The normal matrix is used to avoid issues with the direction when transforming normals. (The normal matrix is the transpose inverse of the world-view matrix).
 
 `CONSTANT_TYPE_TIME`
-: An engine-provided vector4 where `.x` is elapsed time since engine start, `.y` is the delta time from the previous frame, and `.z` and `.w` are currently zero. The engine updates this value automatically; it does not need to be updated with `go.set()`. See the [Shadertoy tutorial](/tutorials/shadertoy/#animation) for an example.
+: An engine-provided `vector4` where `.x` is elapsed time since engine start, `.y` is the delta time from the previous frame, and `.z` and `.w` are currently zero. The engine updates this value automatically; it does not need to be updated with `go.set()`. See the [Shadertoy tutorial](/tutorials/shadertoy/#animation) for an example.
 
   Declare a Time constant named `time` in a modern GLSL uniform block:
 

@@ -43,9 +43,9 @@ Oprócz właściwości powyżej będzie też pole, w którym można przypisać m
 : Ustaw tę właściwość na materiał, który utworzyłeś i który nadaje się do teksturowanego obiektu 3D. Jako punkt wyjścia możesz wykorzystać kilka wbudowanych materiałów:
 
   * Use *model.material* for static non-instanced models
-  * Use *model_instances.material* for static instanced models
+  * Use *model_instanced.material* for static instanced models
   * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instances.material* for skinned (animated) instanced models
+  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
 
 W zależności od materiału będzie dostępna jedna lub więcej właściwości tekstury:
 
@@ -100,19 +100,23 @@ Model ma też kilka właściwości, którymi można manipulować za pomocą `go.
 : Szybkość odtwarzania animacji (`number`).
 
 `textureN`
-: Tekstury modelu, gdzie N ma wartość od 0 do 7 (`hash`). Możesz je zmieniać za pomocą właściwości zasobu tekstury i `go.set()`. Przykład znajdziesz w [dokumentacji API](/ref/model/#textureN).
+: Tekstury modelu, gdzie N ma wartość od 0 do 15 (`hash`). Możesz odczytywać te właściwości za pomocą `go.get()` i zmieniać je przy użyciu właściwości zasobu tekstury oraz `go.set()`. Defold obsługuje najwyżej 16 tekstur na jedno wywołanie rysowania, ale shader może użyć ich mniej na adapterach graficznych z niższym limitem samplerów tekstur.
 
 
-## Materiał
+## Materiał {#material}
 
 Oprogramowanie 3D zwykle pozwala ustawiać na wierzchołkach obiektu właściwości, takie jak kolor i teksturowanie. Informacje te trafiają do pliku glTF *.gltf* lub *.glb*, który eksportujesz z programu 3D. W zależności od potrzeb gry musisz wybrać i/lub utworzyć odpowiednie i _wydajne_ materiały dla swoich obiektów. Materiał łączy _programy cieniujące_ z zestawem parametrów renderowania obiektu.
 
 Istnieje kilka wbudowanych materiałów, których możesz użyć jako punktu wyjścia:
 
   * Use *model.material* for static non-instanced models
-  * Use *model_instances.material* for static instanced models
+  * Use *model_instanced.material* for static instanced models
   * Use *model_skinned.material* for skinned (animated) non-instanced models
-  * Use *model_skinned_instances.material* for skinned (animated) instanced models
+  * Use *model_skinned_instanced.material* for skinned (animated) instanced models
+
+Wbudowane materiały modeli używają lokalnej przestrzeni wierzchołków. W przypadku modeli ze skinningiem lokalna przestrzeń wierzchołków pozwala shaderowi wierzchołków wykonywać skinning na GPU przy użyciu tekstury macierzy kości; lokalna przestrzeń wierzchołków jest również wymagana do instancjonowania modeli. Własny materiał przeznaczony dla modeli ze skinningiem GPU lub instancjonowanych powinien zatem używać ustawienia przestrzeni wierzchołków *Local*.
+
+Cache macierzy kości używa tekstury `RGBA32F`. Jeśli aktywny adapter graficzny nie obsługuje tego formatu tekstury, Defold nie może utworzyć animowanego komponentu Model używającego materiału w przestrzeni lokalnej. W OpenGL ES 2.0 i WebGL 1.0 obsługa zależy więc od rozszerzenia tekstur zmiennoprzecinkowych adaptera. Aby zachować zgodność z adapterem, który go nie ma, użyj własnego materiału w przestrzeni świata; taki materiał wykonuje skinning na CPU i nie pozwala instancjonować modeli. Wymiary cache można dostosować w [ustawieniach projektu Model](/manuals/project-settings/#model).
 
 Jeśli chcesz tworzyć własne materiały dla modeli, zajrzyj do [dokumentacji materiałów](/manuals/material), aby uzyskać więcej informacji. [Instrukcja shaderów](/manuals/shader) zawiera informacje o tym, jak działają programy cieniujące.
 

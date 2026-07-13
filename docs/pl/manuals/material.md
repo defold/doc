@@ -138,6 +138,16 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 Aktualizowanie atrybutów wierzchołków ma jednak pewne ograniczenia. To, czy komponent może użyć danej wartości, zależy od typu semantycznego atrybutu. Na przykład komponent sprite obsługuje `SEMANTIC_TYPE_POSITION`, więc jeśli zaktualizujesz atrybut mający ten typ semantyczny, komponent zignoruje nadpisaną wartość, ponieważ typ semantyczny określa, że dane powinny być zawsze generowane przez pozycję sprite'a.
 
+Komponenty Model również udostępniają niestandardowe atrybuty materiału przez `go.get()`, `go.set()` i `go.animate()`. Na przykład po zdefiniowaniu w materiale modelu atrybutu o nazwie `my_attribute`:
+
+```lua
+go.set("#model", "my_attribute", vmath.vector4(1, 0, 0, 1))
+go.animate("#model", "my_attribute", go.PLAYBACK_LOOP_PINGPONG,
+    vmath.vector4(0, 1, 0, 1), go.EASING_LINEAR, 2)
+```
+
+W ten sposób można obecnie adresować tylko pierwszą siatkę modelu zawierającego wiele siatek. Aktualizacja nieinstancjonowanego atrybutu przypisanego do wierzchołków może również przebudować i przesłać dane wierzchołków proporcjonalne do rozmiaru siatki, dlatego częste aktualizacje mogą być kosztowne dla dużych siatek.
+
 W przypadkach, gdy atrybut wierzchołka jest skalarem albo wektorem innym niż `Vec4`, nadal możesz ustawić dane za pomocą `go.set`:
 
 ```lua
@@ -233,7 +243,25 @@ Aby sprawdzić, czy instancing działa w tym przypadku, możesz zajrzeć do web 
 
 #### Zgodność wsteczna
 
-Na adapterach graficznych opartych na OpenGL instancing wymaga co najmniej OpenGL 3.1 na desktopie i OpenGL ES 3.0 na urządzeniach mobilnych. Oznacza to, że bardzo stare urządzenia korzystające z OpenGL ES2 albo starszych wersji OpenGL mogą nie obsługiwać instancing. W takim przypadku renderowanie nadal będzie działać domyślnie bez żadnych specjalnych działań ze strony dewelopera, ale może być mniej wydajne niż przy rzeczywistym instancing. Obecnie nie ma sposobu, aby wykryć, czy instancing jest obsługiwane, ale ta funkcjonalność zostanie dodana w przyszłości, tak aby można było użyć tańszego materiału albo całkowicie pominąć rzeczy, które zwykle byłyby dobrymi kandydatami do instancing, na przykład roślinność lub drobne elementy otoczenia.
+OpenGL 3.1 na komputerach i OpenGL ES 3.0 na urządzeniach mobilnych udostępniają instancing jako funkcję podstawową. Starsze konteksty OpenGL ES i WebGL mogą nadal obsługiwać go przez rozszerzenie, takie jak `ANGLE_instanced_arrays`; inne starsze adaptery go nie obsługują. Gdy instancing jest niedostępny, renderowanie domyślnie nadal działa, ale może być mniej wydajne.
+
+Użyj `graphics.get_adapter_info()`, aby wykryć obsługę i w razie potrzeby wybrać tańszy materiał albo pominąć zawartość intensywnie korzystającą z instancji. Pole `features` jest tablicą obsługiwanych stałych funkcji, a nie tabelą indeksowaną tymi stałymi:
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local instancing_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_INSTANCING
+)
+```
 
 ## Stałe wierzchołków i fragmentów {#vertex-and-fragment-constants}
 
@@ -257,8 +285,38 @@ Stałe shaderów, czyli "uniformy", to wartości przekazywane z silnika do progr
 `CONSTANT_TYPE_WORLDVIEWPROJ`
 : Macierz, w której macierze świata, widoku i projekcji są już pomnożone.
 
+`CONSTANT_TYPE_WORLD_INVERSE`
+: Odwrotność macierzy świata. Służy do przekształcania z przestrzeni świata z powrotem do lokalnej przestrzeni obiektu.
+
+`CONSTANT_TYPE_VIEW_INVERSE`
+: Odwrotność macierzy widoku. Służy do przekształcania z przestrzeni kamery z powrotem do przestrzeni świata.
+
+`CONSTANT_TYPE_PROJECTION_INVERSE`
+: Odwrotność macierzy projekcji. Służy do przekształcania z przestrzeni przycinania z powrotem do przestrzeni kamery.
+
+`CONSTANT_TYPE_VIEWPROJ_INVERSE`
+: Odwrotność połączonych macierzy widoku i projekcji. Służy do przekształcania z przestrzeni przycinania z powrotem do przestrzeni świata.
+
+`CONSTANT_TYPE_WORLDVIEW_INVERSE`
+: Odwrotność połączonych macierzy świata i widoku. Służy do przekształcania z przestrzeni kamery z powrotem do lokalnej przestrzeni obiektu.
+
+`CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE`
+: Odwrotność połączonych macierzy świata, widoku i projekcji. Służy do przekształcania z przestrzeni przycinania z powrotem do lokalnej przestrzeni obiektu. Te stałe odwrotne pozwalają uniknąć obliczania macierzy odwrotnej w shaderze.
+
 `CONSTANT_TYPE_NORMAL`
 : Macierz do obliczania orientacji normalnej. Transformacja świata może zawierać nierównomierne skalowanie, które psuje ortogonalność połączonej transformacji świat-widok. Macierz normalnych służy do unikania problemów z kierunkiem podczas przekształcania normalnych. (Macierz normalnych jest transponowaną macierzą odwrotną macierzy world-view).
+
+`CONSTANT_TYPE_TIME`
+: Wektor `vector4` dostarczany przez silnik, w którym `.x` jest czasem od uruchomienia silnika, `.y` czasem delta od poprzedniej klatki, a `.z` i `.w` mają obecnie wartość zero. Silnik aktualizuje tę wartość automatycznie; nie trzeba jej aktualizować za pomocą `go.set()`. Przykład znajdziesz w [tutorialu Shadertoy](/tutorials/shadertoy/#animation).
+
+  Zadeklaruj stałą Time o nazwie `time` w nowoczesnym bloku uniformów GLSL:
+
+  ```glsl
+  uniform fragment_inputs
+  {
+      vec4 time;
+  };
+  ```
 
 `CONSTANT_TYPE_USER`
 : Stała vector4, której możesz użyć dla dowolnych niestandardowych danych, jakie chcesz przekazać do swoich programów shaderów. Początkową wartość stałej możesz ustawić w definicji stałej, ale można ją zmieniać za pomocą funkcji [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). Wartość można też odczytać przez [go.get()](/ref/stable/go/#go.get). Zmiana stałej materiału dla pojedynczej instancji komponentu [zrywa batchowanie renderowania i spowoduje dodatkowe wywołania rysowania](/manuals/render/#draw-calls-and-batching).

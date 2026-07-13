@@ -261,36 +261,40 @@ Możesz sprawić, aby kamera śledziła obiekt gry, ustawiając obiekt gry, do k
 
 Innym sposobem jest aktualizowanie co klatkę pozycji obiektu gry, do którego przypisany jest komponent Camera, zgodnie z ruchem śledzonego obiektu.
 
-### Konwersja współrzędnych myszy na współrzędne świata {#converting-mouse-to-world-coordinates}
+### Konwersja między współrzędnymi ekranu i świata {#converting-mouse-to-world-coordinates}
 
-Gdy kamera została przesunięta, przybliżona lub korzysta z innej projekcji niż domyślna rozciągnięta projekcja ortograficzna, współrzędne myszy dostarczane do funkcji cyklu życia `on_input()` przestają odpowiadać współrzędnym świata obiektów gry. Trzeba wtedy ręcznie uwzględnić zmianę widoku albo projekcji. Kod konwertujący współrzędne myszy i ekranu na współrzędne świata wygląda tak:
+Po przesunięciu lub przybliżeniu kamery albo zmianie jej projekcji współrzędne wejściowe przestają bezpośrednio odpowiadać współrzędnym świata. Użyj funkcji konwersji kamery z wartościami `action.screen_x` i `action.screen_y`. Jeśli pominiesz opcjonalny URL kamery, zostanie użyta ostatnia włączona kamera.
 
-```Lua
---- Konwertuje współrzędne ekranu na współrzędne świata,
--- biorąc pod uwagę widok i projekcję konkretnej kamery
--- @param camera URL kamery używanej do konwersji
--- @param screen_x Współrzędna x na ekranie do przeliczenia
--- @param screen_y Współrzędna y na ekranie do przeliczenia
--- @param z opcjonalna współrzędna z przekazywana przez konwersję, domyślnie 0
--- @return world_x Wynikowa współrzędna x w świecie
--- @return world_y Wynikowa współrzędna y w świecie
--- @return world_z Wynikowa współrzędna z w świecie
-function M.screen_to_world(camera, screen_x, screen_y, z)
-    local projection = go.get(camera, "projection")
-    local view = go.get(camera, "view")
-    local w, h = window.get_size()
+Dla kamery ortograficznej funkcja [`camera.screen_xy_to_world()`](/ref/camera/#camera.screen_xy_to_world:x-y-[camera]) zwraca punkt w przestrzeni świata na bliskiej płaszczyźnie kamery dla danego piksela ekranu:
 
-    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
-    local inv = vmath.inv(projection * view)
-    local x = (2 * screen_x / w) - 1
-    local y = (2 * screen_y / h) - 1
-    local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-    local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-    return x1, y1, z or 0
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        local world_position = camera.screen_xy_to_world(
+            action.screen_x, action.screen_y, "#camera")
+        go.set_position(world_position, "/marker")
+    end
 end
 ```
 
-Pamiętaj, że jako argumentów tej funkcji należy używać wartości `action.screen_x` i `action.screen_y` z `on_input()`. Zobacz [stronę Examples](https://defold.com/examples/render/screen_to_world/), aby sprawdzić konwersję współrzędnych ekranu na współrzędne świata w praktyce. Dostępny jest też [projekt przykładowy](https://github.com/defold/sample-screen-to-world-coordinates/) pokazujący, jak wykonać taką konwersję.
+Dla kamery perspektywicznej funkcja [`camera.screen_to_world()`](/ref/camera/#camera.screen_to_world:pos-[camera]) przyjmuje `vector3`, którego składowa Z jest głębokością widoku w jednostkach świata, mierzoną od płaszczyzny kamery:
+
+```lua
+local depth = 10
+local world_position = camera.screen_to_world(
+    vmath.vector3(action.screen_x, action.screen_y, depth), "#camera")
+```
+
+Funkcja [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) wykonuje konwersję odwrotną. Zwraca współrzędne X i Y w pikselach ekranu oraz wartość Z zgodną z tą samą konwencją głębokości widoku, dlatego jej wynik można ponownie przekazać do `camera.screen_to_world()`:
+
+```lua
+-- Update the cached world transform first if the object moved this frame.
+go.update_world_transform("/marker")
+local world_position = go.get_world_position("/marker")
+local screen_position = camera.world_to_screen(world_position, "#camera")
+```
+
+Zobacz [stronę przykładów](https://defold.com/examples/render/screen_to_world/), aby sprawdzić konwersję współrzędnych w praktyce. Dostępny jest też [projekt przykładowy](https://github.com/defold/sample-screen-to-world-coordinates/) pokazujący te same API.
 
 ::: sidenote
 [Rozwiązania kamer od społeczności wymienione w tym podręczniku](/manuals/camera/#third-party-camera-solutions) zawierają funkcje konwersji do współrzędnych ekranu i z powrotem.

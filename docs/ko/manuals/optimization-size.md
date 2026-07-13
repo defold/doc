@@ -47,7 +47,7 @@ Defold는 다음 포멧을 지원합니다.
 * .ogg
 * .opus
 
-사운드 파일은 16비트 샘플을 사용해야 합니다.
+Defold는 8-bit 및 16-bit PCM Wave 파일을 지원합니다. Ogg Vorbis와 Ogg Opus는 PCM bit-depth 요구 사항 대신 각각의 압축 형식을 사용합니다. Opus decoder는 기본적으로 포함되지 않으므로 `.opus` 리소스를 사용하기 전에 [App Manifest](/manuals/app-manifest/#sound)에서 **Include Sound Decoder: Opus**를 활성화하세요.
 Defold의 사운드 디코더는 현재 사운드 장치에 맞게 필요에 따라 사운드 샘플 레이트를 업/다운스케일합니다.
 
 사운드 효과처럼 짧은 사운드는 더 강하게 압축하는 경우가 많고, 음악 파일은 압축을 덜 적용하는 경우가 많습니다.

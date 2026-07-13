@@ -258,36 +258,40 @@ end
 
 Альтернативный способ — обновлять позицию игрового объекта с компонентом камеры каждый кадр в соответствии с позицией объекта, за которым следят.
 
-### Преобразование мыши в мировые координаты {#converting-mouse-to-world-coordinates}
+### Преобразование между экранными и мировыми координатами {#converting-mouse-to-world-coordinates}
 
-Когда камера смещена, масштабирована или изменена проекция с дефолтной ортографической Stretch-проекцией, координаты мыши, получаемые в функции `on_input()`, больше не совпадают с мировыми координатами игровых объектов. Нужно вручную учитывать изменения вида и проекции. Код для преобразования экранных координат в мировые выглядит так:
+После смещения или масштабирования камеры либо изменения её проекции координаты ввода больше не соответствуют мировым координатам напрямую. Используйте функции преобразования камеры со значениями `action.screen_x` и `action.screen_y`. Если необязательный URL камеры не указан, используется последняя включённая камера.
+
+Для ортографической камеры функция [`camera.screen_xy_to_world()`](/ref/camera/#camera.screen_xy_to_world:x-y-[camera]) возвращает точку в мировом пространстве на ближней плоскости камеры для заданного экранного пикселя:
 
 ```lua
---- Преобразует экранные координаты в мировые с учётом
--- вида и проекции конкретной камеры
--- @param camera URL камеры для преобразования
--- @param screen_x экранная координата X
--- @param screen_y экранная координата Y
--- @param z опциональный Z для преобразования, по умолчанию 0
--- @return world_x мировая координата X
--- @return world_y мировая координата Y
--- @return world_z мировая координата Z
-function M.screen_to_world(camera, screen_x, screen_y, z)
-    local projection = go.get(camera, "projection")
-    local view = go.get(camera, "view")
-    local w, h = window.get_size()
-
-    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
-    local inv = vmath.inv(projection * view)
-    local x = (2 * screen_x / w) - 1
-    local y = (2 * screen_y / h) - 1
-    local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-    local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-    return x1, y1, z or 0
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        local world_position = camera.screen_xy_to_world(
+            action.screen_x, action.screen_y, "#camera")
+        go.set_position(world_position, "/marker")
+    end
 end
 ```
 
-Имейте в виду, что значения `action.screen_x` и `action.screen_y` из `on_input()` должны использоваться как аргументы для этой функции. На странице [Примеры](https://defold.com/examples/render/screen_to_world/) показано использование преобразования экранных координат в мировые. Также есть [примерный проект](https://github.com/defold/sample-screen-to-world-coordinates/) с демонстрацией этого процесса.
+Для перспективной камеры функция [`camera.screen_to_world()`](/ref/camera/#camera.screen_to_world:pos-[camera]) принимает `vector3`, компонент Z которого задаёт глубину вида в мировых единицах, измеряемую от плоскости камеры:
+
+```lua
+local depth = 10
+local world_position = camera.screen_to_world(
+    vmath.vector3(action.screen_x, action.screen_y, depth), "#camera")
+```
+
+Функция [`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) выполняет обратное преобразование. Она возвращает X и Y в экранных пикселях, а в Z — глубину вида по тому же соглашению, поэтому её результат можно передать обратно в `camera.screen_to_world()`:
+
+```lua
+-- Update the cached world transform first if the object moved this frame.
+go.update_world_transform("/marker")
+local world_position = go.get_world_position("/marker")
+local screen_position = camera.world_to_screen(world_position, "#camera")
+```
+
+На странице [Примеры](https://defold.com/examples/render/screen_to_world/) показано преобразование координат в действии. В [примерном проекте](https://github.com/defold/sample-screen-to-world-coordinates/) используются те же API.
 
 ::: sidenote
 [Сторонние решения для камеры](/manuals/camera/#third-party-camera-solutions) предоставляют функции для преобразования координат между экраном и миром.

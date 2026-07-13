@@ -60,9 +60,16 @@ if not ok then
 end
 
 -- 데이터를 로드합니다
-local data = sys.load(path)
+local ok, data = pcall(sys.load, path)
+if not ok then
+	-- The file exists, but is corrupt, foreign, or uses an unsupported format.
+	print("Failed to load save data:", data)
+	data = {}
+end
 print(data.highscore) -- 100
 ```
+
+파일이 존재하지 않으면 `sys.load()`는 빈 테이블을 반환합니다. 파일이 존재하지만 `sys.save()`로 생성되지 않았거나, 손상되었거나, 지원되지 않는 직렬화 테이블 형식을 사용하면 `sys.load()`가 Lua 오류를 발생시킵니다. 손상되거나 외부에서 수정된 저장 데이터를 복구해야 한다면 위와 같이 `pcall()`을 사용하세요.
 
 
 ## 파일 및 폴더 위치

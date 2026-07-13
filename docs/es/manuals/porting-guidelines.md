@@ -87,7 +87,11 @@ Para plataformas móviles, bloquea la orientación de pantalla en *game.project*
 
 
 ## Teléfonos móviles, notch y cámaras hole punch
-Se ha vuelto cada vez más popular usar un pequeño recorte para la lente en la pantalla para alojar la cámara frontal y los sensores (también conocido como notch o cámara hole punch). Al portar un juego a móvil, se recomienda asegurarse de que ninguna información crítica esté ubicada donde normalmente se encuentra un notch (centro del borde superior de la pantalla) o un hole-punch (área superior izquierda de la pantalla). También es posible usar la [extensión Safe Area](/extension-safearea) para restringir la vista del juego al área fuera de cualquier notch o cámara hole-punch.
+Se ha vuelto cada vez más popular usar un pequeño recorte para la lente en la pantalla para alojar la cámara frontal y los sensores (también conocido como notch o cámara hole punch). Al portar un juego a móvil, asegúrate de que la información crítica se mantenga dentro del área segura de la plataforma.
+
+Defold cuenta con soporte integrado para áreas seguras en Android e iOS. Define `gui.safe_area_mode` en *game.project* para controlar qué márgenes opuestos del área segura afectan al ajuste de la GUI. `none` es el valor predeterminado e ignora los márgenes; `long` aplica los márgenes izquierdo y derecho en orientación horizontal y superior e inferior en vertical; `short` aplica el par opuesto; y `both` aplica los cuatro bordes. Un script GUI puede sustituir el modo global del proyecto para su escena con [`gui.set_safe_area_mode()`](/ref/gui/#gui.set_safe_area_mode). Para lógica personalizada de GUI o renderizado, [`window.get_safe_area()`](/ref/window/#window.get_safe_area) devuelve el rectángulo seguro y los márgenes individuales de cada borde. Las plataformas sin márgenes de área segura integrados devuelven la ventana completa y márgenes de cero.
+
+La [extensión Safe Area](/extension-safearea) sigue siendo una alternativa para proyectos heredados o flujos de trabajo que necesiten un comportamiento adicional al de las API integradas; no es necesaria para el manejo habitual de áreas seguras en Android e iOS.
 
 
 ## Pautas específicas de plataforma

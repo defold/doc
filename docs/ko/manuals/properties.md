@@ -57,8 +57,8 @@ local color = gui.get_color(node)
 | *position* | 게임 오브젝트의 로컬 위치입니다. | `vector3`      | `get+set`{.mark} |
 | *rotation* | 쿼터니언(`quaternion`)으로 표현된 게임 오브젝트의 로컬 회전입니다.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | 게임 오브젝트의 로컬 회전인 오일러 각도(Euler angles)입니다. | `vector3` | `get+set`{.mark} |
-| *scale*    | 각 컴포넌트가 각 축의 배율을 포함하는 벡터로 표현된 게임 오브젝트의 로컬 비균일 스케일입니다. x와 y 크기를 두 배로 만들려면 `vmath.vector3(2.0, 2.0, 0)`을 지정합니다. | `vector3` | `get+set`{.mark} |
-| *scale.xy*    | 각 컴포넌트가 X축과 Y축의 배율을 포함하는 벡터로 표현된 게임 오브젝트의 로컬 비균일 스케일입니다.| `vector3` | `get+set`{.mark} |
+| *scale*    | 각 컴포넌트가 각 축의 배율을 포함하는 벡터로 표현된 게임 오브젝트의 로컬 비균일 스케일입니다. Z를 변경하지 않고 X와 Y 크기를 두 배로 만들려면 `vmath.vector3(2.0, 2.0, 1.0)`을 사용합니다. | `vector3` | `get+set`{.mark} |
+| *scale.xy*    | X축과 Y축을 따르는 게임 오브젝트의 로컬 비균일 스케일입니다. Z 스케일링이 의도되지 않았다면 이 프로퍼티 또는 `go.set_scale_xy()`를 사용하세요. | `vector3` | `get+set`{.mark} |
 
 ::: sidenote
 게임 오브젝트 변형을 다루는 전용 함수도 있습니다. `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`,  `go.get_scale()`, `go.set_scale()`, `go.set_scale_xy()`입니다.
@@ -91,7 +91,7 @@ local color = gui.get_color(node)
 | 프로퍼티   | 설명                            | 타입            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | 현재 애니메이션입니다.                | `hash`          | `get`{.mark}     |
-| *texture0* | 모델의 텍스쳐 경로 해쉬입니다. | `hash` | `get`{.mark}|
+| *texture0*--*texture15* | 모델의 텍스쳐 경로 해쉬입니다. | `hash` | `get+set`{.mark}|
 | *cursor*  | 재생 커서의 위치(0--1 사이)입니다. | `number`   | `get+set`{.mark} |
 | *playback_rate* | 애니메이션의 재생 속도입니다. 애니메이션 재생 속도에 대한 배율입니다. | `number` | `get+set`{.mark} |
 | *material* | 모델에서 사용하는 메터리얼입니다. | `hash` | `get+set`{.mark}|

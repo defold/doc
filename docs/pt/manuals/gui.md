@@ -56,7 +56,7 @@ Selecionar o node raiz "Gui" no *Outline* mostra as *Properties* do componente G
 : O número máximo de nodes para esta GUI.
 
 *Max Dynamic Textures*
-: O número máximo de texturas que podem ser criadas usando [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip)
+: O número máximo de texturas dinâmicas rastreadas por este componente GUI, `128` por padrão. Isso inclui texturas criadas com [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) e texturas externas atribuídas à GUI com `go.set(..., "textures", ...)` ou `gui.set(msg.url(), "textures", ...)`. Projetos que substituem muitas texturas externas talvez precisem aumentar esse limite.
 
 
 ## Manipulação em runtime
