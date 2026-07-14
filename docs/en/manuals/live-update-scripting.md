@@ -98,9 +98,9 @@ local function get_lu_info_for_level(level_name)
 end
 
 local function mount_zip(self, name, priority, path, callback)
-	liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- <1>
-		callback(_name, _uri, _result)
-	end)
+    liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- <1>
+        callback(_name, _uri, _result)
+    end)
 end
 
 local function has_mount(name)
@@ -137,21 +137,36 @@ function on_message(self, message_id, message, sender)
         end
 
     elseif message_id == hash("download_archive") then
-		local zip_filename = message.info.name .. ".zip"
-		local download_path = sys.get_save_file("mygame", zip_filename)
+        local zip_filename = message.info.name .. ".zip"
+        local download_path = sys.get_save_file("mygame", zip_filename)
         local url = self.http_url .. "/" .. zip_filename
 
-        -- Make the request. You can use credentials
-        http.request(url, "GET", function(self, id, response) -- <7>
-			if response.status == 200 or response.status == 304 then
-				mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
-					msg.post("#", "load_level", message) -- try to load the level again
-				end)
-
-			else
-				print("Failed to download archive ", download_path, "from", url, ":", response.status)
-			end
-		end, nil, nil, {path=download_path})
+        -- Check if the archive already exists. If it does, try to mount it!
+        if sys.exists(download_path) then
+            mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
+                if result == liveupdate.LIVEUPDATE_OK then
+                    msg.post("#", "load_level", message) -- try to load the level again
+                else
+                    os.remove(download_path)             -- remove and try to
+                    msg.post("#", "load_level", message) -- download again
+                end
+            end)
+        else
+            -- Make the request. You can use credentials
+            http.request(url, "GET", function(self, id, response) -- <7>
+                if response.status == 200 or response.status == 304 then
+                    mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
+                        if result == liveupdate.LIVEUPDATE_OK then
+                            msg.post("#", "load_level", message) -- try to load the level again
+                        else
+                            print("Failed to mount archive", download_path, ":", result)
+                        end
+                    end)
+                else
+                    print("Failed to download archive", download_path, "from", url, ":", response.status)
+                end
+            end, nil, nil, {path=download_path})
+        end
 
     elseif message_id == hash("proxy_loaded") then -- the level is loaded, and we can enable it
         msg.post(sender, "init")
@@ -160,8 +175,7 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-1. The `liveupdate.add_mount()` mounts a single archive using a specified name, priority and a zip file. The data is then immediately available for loading (there is no need to restart the engine).
-The mount is active only for the current session. Persist the downloaded package path and desired mount settings in your own save data and call `liveupdate.add_mount()` again after each restart.
+1. The `liveupdate.add_mount()` mounts a single archive using a specified name, priority and a zip file. The data is then immediately available for loading (there is no need to restart the engine). The mount is active only for the current session. Persist the downloaded package path and desired mount settings in your own save data and call `liveupdate.add_mount()` again after each restart.
 2. You need to store the archive online (e.g. on S3), where you can download it from.
 3. Given a collection proxy name, you need to figure our which archive(s) to download, and how to mount them
 4. At startup, we try to load the level.
