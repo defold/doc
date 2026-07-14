@@ -5,11 +5,15 @@ brief: Ta instrukcja wyjaśnia, jak pisać natywne rozszerzenia dla silnika Defo
 
 # Natywne rozszerzenia
 
-Jeśli potrzebujesz niestandardowej integracji z zewnętrznym oprogramowaniem lub sprzętem na niskim poziomie, gdzie Lua nie wystarcza, Defold SDK pozwala pisać rozszerzenia do silnika w C, C++, Objective-C, Java lub JavaScript, zależnie od platformy docelowej. Typowe zastosowania natywnych rozszerzeń to:
+Jeśli potrzebujesz niestandardowej integracji z zewnętrznym oprogramowaniem lub sprzętem na niskim poziomie, gdzie Lua nie wystarcza, Defold SDK pozwala pisać rozszerzenia do silnika w C, C++, C#, Objective-C, Java lub JavaScript, zależnie od platformy docelowej. Typowe zastosowania natywnych rozszerzeń to:
 
 - Integracja z konkretnym sprzętem, na przykład z kamerą w telefonie.
 - Integracja z zewnętrznymi niskopoziomowymi API, na przykład z API sieci reklamowych, które nie pozwalają na komunikację sieciową w sposób, w jaki można by użyć Luasocket.
 - Obliczenia o wysokiej wydajności i przetwarzanie danych.
+
+::: sidenote
+Obsługa C# jest eksperymentalna i przeznaczona dla natywnych rozszerzeń, a nie dla komponentów skryptowych Defold. Używa .NET 9 NativeAOT do utworzenia biblioteki statycznej; dodaj pliki źródłowe `.cs` do folderu `src` rozszerzenia, a usługa budowania wygeneruje plik projektu. Obsługiwane platformy zależą od bieżących możliwości NativeAOT i usługi budowania. Aktualny przepływ pracy i przetestowaną konfigurację przedstawia oficjalny [przykład języków dla natywnych rozszerzeń](https://github.com/defold/example-languages).
+:::
 
 ## Serwer budowania
 

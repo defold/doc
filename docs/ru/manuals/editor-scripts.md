@@ -574,7 +574,7 @@ return M
   - `platform` — как в `on_build_started`
   - `success` — флаг, указывающий на успех сборки: `true` или `false`
 - `on_bundle_started(opts)` — вызывается при создании билда или HTML5-версии игры. Аналогично `on_build_started`, изменения из этого хука попадут в билд, а ошибки его прервут. `opts` содержит:
-  - `output_directory` — путь к каталогу с результатами сборки, например: `"/path/to/project/build/default/__htmlLaunchDir"`
+  - `output_directory` — путь к каталогу с результатами сборки. Команда **Project ▸ Build HTML5** использует отдельное дерево артефактов, например `"/path/to/project/build/default_html5/__htmlLaunchDir"`, не совпадающее с обычным каталогом результатов Build в `build/default`.
   - `platform` — платформа, для которой создаётся сборка. Список возможных значений см. в [руководстве по Bob](/manuals/bob).
   - `variant` — тип сборки: `"debug"`, `"release"` или `"headless"`
 - `on_bundle_finished(opts)` — вызывается по завершении сборки, вне зависимости от результата. `opts` содержит те же поля, что и `on_bundle_started`, плюс ключ `success`.

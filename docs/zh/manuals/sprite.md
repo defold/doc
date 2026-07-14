@@ -85,7 +85,7 @@ brief: 本手册介绍了如何使用 sprite 组件显示 2D 图片和动画。
 
 *game.project* 文件中有一些与精灵相关的[项目设置](/manuals/project-settings#sprite)。
 
-## 多纹理精灵
+## 多纹理精灵 {#multi-textured-sprites}
 
 当精灵使用多个纹理时，有一些注意事项。
 

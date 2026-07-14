@@ -66,9 +66,9 @@ Live update로 번들링하는 과정은 간단합니다. <kbd>Project ▸ Bundl
 
 번들링할 때 제외된 리소스는 어플리케이션 번들에서 빠집니다. *Publish Live update content* 체크박스를 선택하면 Live update 설정 방식에 따라 Defold가 제외된 리소스를 Amazon에 업로드하거나 Zip 아카이브를 만들도록 지시합니다(위 내용 참고). 게시된 Live Update 컨텐츠에는 원격 전달에 필요한 전체 리소스 목록이 들어 있는 `liveupdate.game.dmanifest`가 계속 포함됩니다.
 
-아카이브 기반 Live Update 컨텐츠를 게시할 때는 *Strip Live Update Entries from Main Manifest*(`liveupdate.exclude_entries_from_main_manifest`)가 기본으로 활성화됩니다. 이 설정이 활성화되어 있으면 Live Update 전용 리소스가 번들된 `game.dmanifest`에서 제거되어 번들 크기와 런타임 메모리 사용량을 줄입니다. 제외된 항목이 번들된 `game.dmanifest`에 남아 있는 더 이상 권장되지 않는 동작이 꼭 필요한 경우에만 이 설정을 비활성화하세요.
+Live Update 컨텐츠를 게시하면 Defold는 Live Update 전용 항목을 번들된 `game.dmanifest`에서 자동으로 제거하고, 게시된 `liveupdate.game.dmanifest`에는 전체 리소스 목록을 유지합니다. 이를 통해 번들 크기와 런타임 메모리 사용량을 줄입니다. 기존 `liveupdate.exclude_entries_from_main_manifest` 설정은 제거되었으며 프로젝트에 남아 있는 항목은 무시됩니다.
 
-기본 설정이 활성화되어 있으면 관련 아카이브가 마운트될 때까지 `collectionproxy.get_resources()`는 `{}`를 반환합니다. 마운트 후에는 해당 프록시의 리소스 해쉬를 반환합니다.
+아카이브 기반 워크플로우에서는 관련 아카이브가 마운트될 때까지 `collectionproxy.get_resources()`가 `{}`를 반환합니다. 마운트 후에는 해당 프록시의 리소스 해쉬를 반환합니다.
 
 *Package*를 클릭하고 어플리케이션 번들의 위치를 선택합니다. 이제 어플리케이션을 시작하고 모든 것이 예상대로 동작하는지 확인할 수 있습니다.
 

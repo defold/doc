@@ -338,15 +338,30 @@ Przykład:
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
+### Stałe materiału węzłów GUI
+
+W skrypcie GUI odczytuj i zapisuj stałe materiału węzła za pomocą `gui.get()` i `gui.set()`, a nie funkcji `go`. Obsługiwane są składowe wektorów, stałe macierzowe i tablice stałych. Indeksy tablic w tabeli opcji zaczynają się od 1:
+
+```lua
+local node = gui.get_node("button")
+
+local tint = gui.get(node, "tint")
+gui.set(node, "tint.x", 0.5)
+gui.set(node, "light_matrix", vmath.matrix4())
+gui.set(node, "tint_array", vmath.vector4(1, 0, 0, 1), { index = 1 })
+```
+
 ::: sidenote
-Aby stała materiału typu `CONSTANT_TYPE_USER` albo `CONSTANT_TYPE_MATRIX4` była dostępna przez `go.get()` i `go.set()`, musi być używana w programie shadera. Jeśli stała jest zdefiniowana w materiale, ale nie jest używana w programie, zostanie usunięta z materiału i nie będzie dostępna w czasie działania.
+Aby stała materiału typu `CONSTANT_TYPE_USER` albo `CONSTANT_TYPE_USER_MATRIX4` była dostępna przez `go.get()` i `go.set()` lub `gui.get()` i `gui.set()`, musi być używana w programie shadera. Jeśli stała jest zdefiniowana w materiale, ale nie jest używana w programie, zostanie usunięta z materiału i nie będzie dostępna w czasie działania.
 :::
 
 ## Samplery
 
 Samplery służą do pobierania informacji o kolorze z tekstury (źródła kafelków lub atlasu). Informacje o kolorze można następnie wykorzystać do obliczeń w programie shadera.
 
-Komponenty sprite, tilemap, GUI i efektów cząsteczkowych automatycznie dostają ustawiony `sampler2D`. Pierwszy zadeklarowany `sampler2D` w programie shadera jest automatycznie wiązany z obrazem wskazanym przez komponent graficzny. Dlatego obecnie nie ma potrzeby określania jakichkolwiek samplerów w pliku materiału dla tych komponentów. Co więcej, te typy komponentów obecnie obsługują tylko jedną teksturę. (Jeśli potrzebujesz wielu tekstur w shaderze, możesz użyć [`render.enable_texture()`](/ref/render/#render.enable_texture) i ustawić samplery tekstur ręcznie ze swojego skryptu do renderowania.)
+Komponenty sprite, tilemap, GUI i efektów cząsteczkowych automatycznie wiążą swoją teksturę obrazu z pierwszym zadeklarowanym `sampler2D`. Komponenty sprite obsługują również wiele tekstur: każdy sampler zadeklarowany w materiale staje się nazwanym slotem obrazu w komponencie Sprite. Pierwsza tekstura dostarcza danych animacji sprite'a i steruje kolejnością klatek. W każdej klatce jej identyfikator obrazu służy do znalezienia odpowiadającego obrazu w każdej dodatkowej teksturze, która dostarcza własne współrzędne UV. Przypisane atlasy lub źródła kafelków powinny więc zawierać zgodne identyfikatory klatek i obrazy o podobnym kształcie; różniące się kształty spakowanych wielokątów mogą powodować przenikanie tekstur. Szczegóły opisano w sekcji [Sprite'y z wieloma teksturami](/manuals/sprite/#multi-textured-sprites).
+
+W przypadku komponentu lub przepływu renderowania, który nie udostępnia dodatkowego slotu tekstury, użyj [`render.enable_texture()`](/ref/render/#render.enable_texture), aby powiązać dodatkowe samplery tekstur ze skryptu renderowania.
 
 ![Sampler sprite'a](images/materials/sprite_sampler.png)
 

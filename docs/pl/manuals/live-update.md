@@ -66,9 +66,9 @@ Aby spakować projekt z Live update, wybierz <kbd>Project ▸ Bundle ▸ ...</kb
 
 Podczas pakowania wszystkie wykluczone zasoby zostaną pominięte w paczce aplikacji. Zaznaczając pole *Publish Live update content*, informujesz Defold, aby albo wysłał wykluczone zasoby do Amazon, albo utworzył archiwum Zip, zależnie od tego, jak skonfigurowano ustawienia Live update (zobacz wyżej). Opublikowana zawartość Live Update nadal zawiera `liveupdate.game.dmanifest`, który przechowuje pełną listę zasobów potrzebną do zdalnej dystrybucji.
 
-Podczas publikowania archiwalnej zawartości Live Update opcja *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) jest domyślnie włączona. Przy tym ustawieniu zasoby używane wyłącznie przez Live Update są usuwane z dołączonego do bundla `game.dmanifest`, co zmniejsza rozmiar bundla i zużycie pamięci w czasie działania. Wyłącz ją tylko wtedy, gdy potrzebujesz przestarzałego zachowania, w którym wykluczone wpisy pozostają w dołączonym `game.dmanifest`.
+Podczas publikowania zawartości Live Update Defold automatycznie usuwa wpisy używane wyłącznie przez Live Update z dołączonego do bundla pliku `game.dmanifest`, natomiast opublikowany `liveupdate.game.dmanifest` zachowuje pełną listę zasobów. Zmniejsza to rozmiar bundla i zużycie pamięci w czasie działania. Dawne ustawienie `liveupdate.exclude_entries_from_main_manifest` zostało usunięte; pozostawiony w projekcie wpis jest ignorowany.
 
-Przy włączonym ustawieniu domyślnym `collectionproxy.get_resources()` zwraca `{}`, dopóki odpowiednie archiwum nie zostanie zamontowane. Po zamontowaniu zwraca hashe zasobów dla danego proxy.
+W przepływie opartym na archiwach `collectionproxy.get_resources()` zwraca `{}`, dopóki odpowiednie archiwum nie zostanie zamontowane. Po zamontowaniu zwraca hashe zasobów dla danego proxy.
 
 Kliknij *Package* i wybierz lokalizację dla paczki aplikacji. Teraz możesz uruchomić aplikację i sprawdzić, czy wszystko działa zgodnie z oczekiwaniami.
 

@@ -9,8 +9,18 @@ O SDK do Defold contém a funcionalidade necessária para declarar uma extensão
 
 ## Uso
 
-Você usa o SDK do Defold incluindo o arquivo de cabeçalho `dmsdk/sdk.h`:
+Extensões C++ podem incluir o arquivo de cabeçalho agregador `dmsdk/sdk.h`:
 
-    #include <dmsdk/sdk.h>
+```cpp
+#include <dmsdk/sdk.h>
+```
 
-As funções e namespaces disponíveis do SDK estão documentados na nossa [referência da API](/ref/overview_cpp). Os cabeçalhos do SDK do Defold são incluídos como um arquivo separado `defoldsdk_headers.zip` para cada [release do Defold no GitHub](https://github.com/defold/defold/releases). Você pode usar esses cabeçalhos para autocompletar código no editor de sua escolha.
+O cabeçalho agregador inclui declarações C++ e não pode ser incluído em um arquivo-fonte C. Arquivos-fonte C devem incluir individualmente os cabeçalhos `.h` compatíveis com C de que precisam, por exemplo:
+
+```c
+#include <dmsdk/extension/extension.h>
+#include <dmsdk/dlib/configfile.h>
+#include <dmsdk/resource/resource.h>
+```
+
+Apenas parte do dmSDK possui atualmente uma interface C pura; nem todo subsistema C++ tem um equivalente em C. As funções e os tipos disponíveis estão documentados na [visão geral da API C](/ref/overview_defoldc/) e na [visão geral da API C++](/ref/overview_defoldcpp/). Os cabeçalhos do SDK do Defold são incluídos como um arquivo separado `defoldsdk_headers.zip` para cada [release do Defold no GitHub](https://github.com/defold/defold/releases). Você pode usar esses cabeçalhos para autocompletar código no editor de sua escolha.

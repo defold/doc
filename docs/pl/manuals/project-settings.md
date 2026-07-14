@@ -39,7 +39,7 @@ Wartości z *game.project* można odczytać w czasie działania za pomocą funkc
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
-local vsync = sys.get_config_boolean("display.vsync", false)
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -172,7 +172,7 @@ Docelowa liczba klatek na sekundę, wyrażona w hercach. Ustaw 0, aby używać z
 Ta liczba całkowita steruje sposobem obsługi vsync. 0 wyłącza vsync, a wartością domyślną jest 1. Przy adapterze OpenGL wartość określa liczbę klatek pomiędzy [zamianami buforów](https://www.khronos.org/opengl/wiki/Swap_Interval). W przypadku Vulkana nie istnieje wbudowane pojęcie swap interval, więc wartość określa po prostu, czy vsync ma być włączony.
 
 #### Vsync
-Polegaj na sprzętowym vsync przy wyznaczaniu czasu klatki. To ustawienie może zostać nadpisane przez sterownik graficzny lub specyfikę platformy. Aby uzyskać przestarzałe zachowanie 'variable_dt', odznacz tę opcję i ustaw limit liczby klatek na 0.
+Ustawienie zgodności ze starszymi wersjami. To ustawienie jest przestarzałe; w nowych projektach używaj **Swap Interval**. Gdy jest wyłączone, wymusza efektywną wartość swap interval równą `0`. Gdy jest włączone, efektywną wartość określa **Swap Interval**.
 
 #### Display Profiles
 Określa plik profili wyświetlania, którego należy użyć. Domyślnie `/builtins/render/default.display_profilesc`. Więcej informacji znajdziesz w [instrukcji GUI Layouts](/manuals/gui-layouts/#creating-display-profiles).
@@ -616,7 +616,7 @@ Google Cloud Messaging Sender Id. Ustaw tutaj ciąg znaków przypisany przez Goo
 Identyfikator aplikacji Firebase Cloud Messaging.
 
 #### Manifest
-Jeśli ustawiono, podczas bundlowania zostanie użyty wskazany plik Android Manifest XML.
+Jeśli ustawiono, podczas bundlowania zostanie użyty wskazany plik Android Manifest XML. Niestandardowy manifest zastępuje wbudowany manifest bazowy Defold. Fragmenty manifestów natywnych rozszerzeń nadal są z nim scalane, ale późniejsze zmiany wbudowanego manifestu bazowego nie są dziedziczone automatycznie, dlatego podczas aktualizacji porównuj niestandardowe manifesty z bieżącym wbudowanym manifestem. W przypadku gier ustaw `android:appCategory="game"` w elemencie `<application>`. W przypadku aplikacji innych niż gry ustaw `android:appCategory` tylko wtedy, gdy jedna z [kategorii aplikacji zdefiniowanych przez Android](https://developer.android.com/guide/topics/manifest/application-element#appCategory) trafnie opisuje aplikację.
 
 #### Iap Provider
 Określa, którego sklepu używać. Poprawne wartości to `Amazon` i `GooglePlay`. Więcej informacji znajdziesz w [extension-iap](/extension-iap/).

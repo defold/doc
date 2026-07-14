@@ -39,7 +39,7 @@ To działa zgodnie z oczekiwaniami. Gdy gra się uruchamia, komponent skryptowy 
 
 ![bean](images/addressing/bean.png)
 
-Identyfikatory w tym układzie są dowolne. Tutaj obiekt gry ma identyfikator "bean", jego komponent sprite ma identyfikator "body", a skrypt sterujący postacią nosi nazwę "controller".
+Identyfikatory w tym układzie definiuje programista i muszą być unikalne w swoim kontekście nazewniczym. Tutaj obiekt gry ma identyfikator "bean", jego komponent sprite ma identyfikator "body", a skrypt sterujący postacią nosi nazwę "controller". Identyfikatory używane w tekstowych adresach URL nie powinny zawierać znaków `:` ani `#`, ponieważ składnia URL rezerwuje `:` jako separator gniazda, a `#` jako separator obiektu gry i komponentu. Poza tym parser URL nie odrzuca znaków interpunkcyjnych.
 
 ::: sidenote
 Jeśli nie wybierzesz własnego identyfikatora, zrobi to za Ciebie edytor. Gdy tworzysz nowy obiekt gry lub komponent, automatycznie ustawiane jest unikalne *Id*.

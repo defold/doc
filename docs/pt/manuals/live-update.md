@@ -66,9 +66,9 @@ Empacotar com Live Update é fácil. Selecione <kbd>Projeto ▸ Empacotar ▸ ..
 
 Ao empacotar, qualquer recurso excluído ficará fora do pacote de aplicação. Ao marcar a caixa *Publish Live update content*, você instrui o Defold a fazer upload dos recursos excluídos para a Amazon ou a criar um arquivo Zip, dependendo de como você configurou suas definições de Live Update (veja acima). O conteúdo Live Update publicado ainda inclui `liveupdate.game.dmanifest`, que contém a lista completa de recursos necessária para entrega remota.
 
-Ao publicar conteúdo Live Update baseado em arquivos, *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) é habilitado por padrão. Com essa configuração habilitada, recursos exclusivos de Live Update são removidos do `game.dmanifest` empacotado, o que reduz o tamanho do pacote e o uso de memória em tempo de execução. Desabilite-a apenas se você precisar do comportamento descontinuado em que entradas excluídas permanecem no `game.dmanifest` empacotado.
+Ao publicar conteúdo Live Update, o Defold remove automaticamente do `game.dmanifest` empacotado as entradas exclusivas de Live Update, enquanto o `liveupdate.game.dmanifest` publicado mantém a lista completa de recursos. Isso reduz o tamanho do pacote e o uso de memória em tempo de execução. A antiga configuração `liveupdate.exclude_entries_from_main_manifest` foi removida; qualquer entrada restante no projeto é ignorada.
 
-Com a configuração padrão habilitada, `collectionproxy.get_resources()` retorna `{}` até que o arquivo relevante tenha sido montado. Após a montagem, ela retorna os hashes de recursos para esse proxy.
+No fluxo baseado em arquivos, `collectionproxy.get_resources()` retorna `{}` até que o arquivo relevante tenha sido montado. Após a montagem, ela retorna os hashes de recursos para esse proxy.
 
 Clique em *Package* e selecione um local para o pacote de aplicação. Agora você pode iniciar a aplicação e verificar se tudo funciona conforme esperado.
 

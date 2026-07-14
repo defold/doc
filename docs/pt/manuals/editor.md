@@ -114,7 +114,7 @@ O painel Tools também é usado para interagir com o depurador integrado. Leia m
 
 ### 6. Painel Changed Files
 
-Se seu projeto usa o sistema de controle de versão distribuído Git, esta visualização lista quaisquer arquivos que foram alterados, adicionados ou excluídos no seu projeto. Ao sincronizar o projeto regularmente, você pode alinhar sua cópia local com o que está armazenado no repositório Git do projeto; dessa forma, pode colaborar em uma equipe e não perderá seu trabalho se algo der errado. Você pode aprender mais sobre Git no nosso [manual de controle de versão](/manuals/version-control/). Algumas operações orientadas a arquivos podem ser executadas nesta visualização:
+Se seu projeto usa Git, esta visualização lista os arquivos que foram alterados, adicionados, renomeados ou excluídos localmente em comparação com o commit atual (`HEAD`). Use um cliente Git externo ou a linha de comando para sincronizar com um repositório remoto. Você pode saber mais no nosso [manual de controle de versão](/manuals/version-control/). Algumas operações orientadas a arquivos podem ser executadas nesta visualização:
 
    - <kbd>Left Mouse Click</kbd> - para selecionar um arquivo específico; mantendo <kbd>⇧ Shift</kbd> pressionado você pode expandir a seleção, ou mantendo <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> pressionado você pode selecionar/desselecionar o item clicado. Se um único arquivo alterado estiver selecionado, você pode clicar em `Diff` para mostrar as diferenças. Você pode clicar em `Revert` para desfazer alterações em todos os arquivos selecionados.
    - <kbd>Double Left Mouse Click</kbd> em um arquivo para abrir uma visualização do arquivo. O editor abre o arquivo em um editor adequado, assim como na visualização de assets.

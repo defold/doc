@@ -41,7 +41,7 @@ o que significa que a configuração *main_collection* pertence à categoria *bo
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
-local vsync = sys.get_config_boolean("display.vsync", false)
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -175,7 +175,7 @@ A taxa de quadros desejada em Hertz. Defina como 0 para taxa de quadros variáve
 Este valor inteiro controla como a aplicação lida com vsync. 0 desabilita vsync, e o valor padrão é 1. Ao usar um adaptador OpenGL, esse valor define o número de frames entre [trocas de buffer](https://www.khronos.org/opengl/wiki/Swap_Interval) da janela. Para Vulkan, não há conceito integrado de swap interval; em vez disso, o valor controla se vsync deve ser habilitado ou não.
 
 #### Vsync
-Depende do vsync de hardware para o timing dos frames. Pode ser sobrescrito dependendo do driver gráfico e das especificidades da plataforma. Para o comportamento obsoleto de 'variable_dt', desmarque esta configuração e defina o limite de frames como 0.
+Configuração de compatibilidade legada. Esta configuração está obsoleta; use **Swap Interval** em projetos novos. Se desabilitada, ela força o intervalo de troca efetivo para `0`. Se habilitada, **Swap Interval** determina o valor efetivo.
 
 #### Display Profiles
 Especifica qual arquivo de perfis de exibição usar, `/builtins/render/default.display_profilesc` por padrão. Saiba mais no [manual de Layouts de GUI](/manuals/gui-layouts/#creating-display-profiles).
@@ -621,7 +621,7 @@ Google Cloud Messaging Sender Id. Defina isto como a string atribuída pelo Goog
 Firebase Cloud Messaging Application Id.
 
 #### Manifest
-Se definido, usa o arquivo XML de manifesto Android especificado ao empacotar.
+Se definido, usa o arquivo XML de manifesto Android especificado ao empacotar. Um manifesto personalizado substitui o manifesto-base integrado do Defold. Fragmentos de manifesto de extensões nativas ainda são mesclados a ele, mas alterações posteriores no manifesto-base integrado não são herdadas automaticamente; portanto, compare os manifestos personalizados com o manifesto integrado atual ao atualizar. Para jogos, defina `android:appCategory="game"` no elemento `<application>`. Para aplicações que não são jogos, defina `android:appCategory` apenas se uma das [categorias de aplicação](https://developer.android.com/guide/topics/manifest/application-element#appCategory) definidas pelo Android descrever corretamente a aplicação.
 
 #### Iap Provider
 Especifica qual loja usar. As opções válidas são `Amazon` e `GooglePlay`. Consulte [extension-iap](/extension-iap/) para mais informações.

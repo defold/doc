@@ -9,8 +9,18 @@ Defold SDK zawiera funkcje potrzebne do zadeklarowania natywnego rozszerzenia or
 
 ## Użycie
 
-Z Defold SDK korzystasz, dołączając plik nagłówkowy `dmsdk/sdk.h`:
+C++ rozszerzenia mogą dołączać zbiorczy plik nagłówkowy `dmsdk/sdk.h`:
 
-    #include <dmsdk/sdk.h>
+```cpp
+#include <dmsdk/sdk.h>
+```
 
-Dostępne funkcje i przestrzenie nazw Defold SDK są opisane w naszej [dokumentacji API](/ref/overview_cpp). Pliki nagłówkowe Defold SDK są udostępniane jako osobne archiwum `defoldsdk_headers.zip` dla każdego wydania Defold opublikowanego na [GitHub](https://github.com/defold/defold/releases). Możesz używać tych plików nagłówkowych do podpowiadania kodu w wybranym edytorze.
+Zbiorczy nagłówek zawiera deklaracje C++ i nie można go dołączać z pliku źródłowego C. Pliki źródłowe C powinny dołączać potrzebne im pojedyncze nagłówki `.h` zgodne z C, na przykład:
+
+```c
+#include <dmsdk/extension/extension.h>
+#include <dmsdk/dlib/configfile.h>
+#include <dmsdk/resource/resource.h>
+```
+
+Tylko część dmSDK ma obecnie interfejs w czystym C; nie każdy podsystem C++ ma odpowiednik w C. Dostępne funkcje i typy są opisane w [przeglądzie API C](/ref/overview_defoldc/) oraz [przeglądzie API C++](/ref/overview_defoldcpp/). Pliki nagłówkowe Defold SDK są udostępniane jako osobne archiwum `defoldsdk_headers.zip` dla każdego wydania Defold opublikowanego na [GitHub](https://github.com/defold/defold/releases). Możesz używać tych plików nagłówkowych do podpowiadania kodu w wybranym edytorze.

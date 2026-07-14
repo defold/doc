@@ -15,7 +15,7 @@ Proxies de coleção diferem de [componentes de fábrica de coleção](/manuals/
 
 1. Adicione um componente de proxy de coleção a um objeto de jogo usando <kbd>right-click</kbd> em um objeto de jogo e selecionando <kbd>Add Component ▸ Collection Proxy</kbd> no menu de contexto.
 
-2. Defina a propriedade *Collection* para referenciar uma coleção que você deseja carregar dinamicamente no runtime em um momento posterior. A referência é estática e garante que todo o conteúdo da coleção referenciada acabe no jogo final.
+2. Defina a propriedade *Collection* para referenciar uma coleção que você deseja carregar dinamicamente no runtime em um momento posterior. Esta é uma dependência estática em tempo de build: a coleção referenciada e suas dependências são compiladas. A menos que *Exclude* esteja marcada, elas são incluídas no pacote principal. Quando *Exclude* está marcada, os recursos referenciados apenas por proxies excluídos podem ser omitidos do pacote principal para Live Update, e o proxy descarregado pode ser redirecionado em tempo de execução para outra coleção compilada, conforme descrito abaixo.
 
 ![adicionar componente proxy](images/collection-proxy/create_proxy.png)
 
@@ -80,6 +80,36 @@ end
 
 `"enable"`
 : Esta mensagem informa ao componente de proxy de coleção que todos os objetos de jogo e componentes devem ser ativados. Todos os componentes sprite começam a desenhar quando ativados, por exemplo.
+
+## Alterando a coleção de um proxy excluído {#changing-an-excluded-proxys-collection}
+
+[`collectionproxy.set_collection()`](/ref/collectionproxy/#collectionproxy.set_collection) pode redirecionar um proxy excluído e descarregado para uma coleção compilada, o que é útil após montar um pacote de Live Update. O proxy precisa estar com *Exclude* marcada e não pode estar carregado nem em processo de carregamento. O caminho precisa terminar em `.collectionc`. A coleção e todas as suas dependências precisam estar disponíveis para o sistema de recursos quando o proxy for carregado.
+
+Verifique o valor de retorno antes de carregar o proxy. Inicialize e ative o novo mundo somente após receber `proxy_loaded`:
+
+```lua
+local function load_mounted_level()
+    local ok, result = collectionproxy.set_collection(
+        "#level_proxy",
+        "/level_pack/level_3.collectionc"
+    )
+
+    if ok then
+        msg.post("#level_proxy", "load")
+    else
+        print("Unable to change proxy collection", result)
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("proxy_loaded") then
+        msg.post(sender, "init")
+        msg.post(sender, "enable")
+    end
+end
+```
+
+Chame `collectionproxy.set_collection("#level_proxy", nil)` enquanto o proxy não estiver carregado nem em processo de carregamento para restaurar a coleção atribuída no editor. Consulte o [manual de programação com Live Update](/manuals/live-update-scripting/) para saber como baixar e montar conteúdo e a referência da API para conhecer os códigos de falha `collectionproxy.RESULT_*`.
 
 ## Endereçando o novo mundo
 

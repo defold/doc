@@ -341,15 +341,30 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
+### GUI 节点材质常量
+
+在 GUI 脚本中，请使用 `gui.get()` 和 `gui.set()` 而不是 `go` 函数来读写节点的材质常量。支持向量分量、矩阵常量和常量数组。选项表中的数组索引从 1 开始：
+
+```lua
+local node = gui.get_node("button")
+
+local tint = gui.get(node, "tint")
+gui.set(node, "tint.x", 0.5)
+gui.set(node, "light_matrix", vmath.matrix4())
+gui.set(node, "tint_array", vmath.vector4(1, 0, 0, 1), { index = 1 })
+```
+
 ::: sidenote
-为了使 `CONSTANT_TYPE_USER` 或 `CONSTANT_TYPE_MATRIX4` 类型的材质常量能够使用 `go.get()` 和 `go.set()`，它必须在着色器程序中使用。如果常量在材质中定义但未在程序中使用，它将从材质中删除，并且在运行时将不可用。
+为了使 `CONSTANT_TYPE_USER` 或 `CONSTANT_TYPE_USER_MATRIX4` 类型的材质常量能够使用 `go.get()` 和 `go.set()`，或使用 `gui.get()` 和 `gui.set()`，它必须在着色器程序中使用。如果常量在材质中定义但未在程序中使用，它将从材质中删除，并且在运行时将不可用。
 :::
 
 ## 采样器
 
 采样器用于从纹理（瓦片源或图集）中采样颜色信息。颜色信息然后可以在着色器程序中用于计算。
 
-精灵、瓦片地图、GUI 和粒子效果组件自动获得 `sampler2D` 集。着色器程序中第一个声明的 `sampler2D` 自动绑定到图形组件中引用的图像。因此，目前不需要为这些组件在材质文件中指定任何采样器。此外，这些组件类型目前仅支持单个纹理。（如果您需要在着色器中使用多个纹理，可以使用 [`render.enable_texture()`](/ref/render/#render.enable_texture) 并从渲染脚本手动设置纹理采样器。）
+精灵、瓦片地图、GUI 和粒子效果组件会自动将其图像纹理绑定到第一个声明的 `sampler2D`。精灵组件还支持多个纹理：材质中声明的每个采样器都会成为 Sprite 组件中的命名图像槽位。第一个纹理提供精灵的动画数据并驱动帧序列。对于每一帧，它的图像 id 用于在每个附加纹理中查找对应图像，由该图像提供自己的 UV。因此，分配的图集或瓦片图源应包含匹配的帧 id 和形状相似的图像；多边形紧密打包后的形状不同可能会导致纹理渗色。详见[多纹理精灵](/manuals/sprite/#multi-textured-sprites)。
+
+对于不提供额外纹理槽位的组件或渲染工作流程，请使用 [`render.enable_texture()`](/ref/render/#render.enable_texture) 从渲染脚本绑定额外纹理采样器。
 
 ![Sprite sampler](images/materials/sprite_sampler.png)
 

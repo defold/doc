@@ -567,7 +567,7 @@ return M
   - `platform` — 与 `on_build_started` 中的值相同
   - `success` — 构建是否成功, 其值为 `true` 或 `false`
 - `on_bundle_started(opts)` — 当游戏打包或生成 HTML5 游戏版本时执行. 像 `on_build_started` 一样, 这里做出的更改会反应在打包好的游戏中, 抛出错误的话会导致打包终止. `opts` 包含如下 key:
-  - `output_directory` — 指定打包输出的文件路径, 比如 `"/path/to/project/build/default/__htmlLaunchDir"`
+  - `output_directory` — 指向打包输出目录的文件路径。**Project ▸ Build HTML5** 使用独立的构建产物树，例如 `"/path/to/project/build/default_html5/__htmlLaunchDir"`，它与 `build/default` 下的常规 Build 输出分开。
   - `platform` — 打包的目标平台. 支持的平台值详见 [Bob 教程](/manuals/bob).
   - `variant` — 打包变体, 可以是 `"debug"`, `"release"` 或 `"headless"`
 - `on_bundle_finished(opts)` — 打包完成时执行, 无论打包成功与否. `opts` 与 `on_bundle_started` 里的 `opts` 相同, 加上 `success` 键代表打包是否成功.

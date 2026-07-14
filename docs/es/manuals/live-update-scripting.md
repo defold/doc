@@ -5,11 +5,17 @@ brief: Para usar el contenido de Live Update, necesitas descargar y montar los d
 
 # Scripting con Live Update
 
-La API consta solo de unas pocas funciones:
+El flujo de montaje principal usa `liveupdate.add_mount()`, `liveupdate.remove_mount()` y `liveupdate.get_mounts()`. Consulta la [referencia completa de la API `liveupdate`](/ref/liveupdate/) para conocer todas las funciones disponibles.
 
-* `liveupdate.add_mount()`
-* `liveupdate.remove_mount()`
-* `liveupdate.get_mounts()`.
+Usa `liveupdate.is_built_with_excluded_files()` cuando el código necesite distinguir un bundle cuyo manifiesto de build espera contenido excluido de Live Update:
+
+```lua
+if liveupdate.is_built_with_excluded_files() then
+    print("The bundle expects excluded Live Update content")
+end
+```
+
+Esto solo informa sobre los metadatos del manifiesto de build. No significa que haya un archivo montado en ese momento ni que un recurso concreto esté disponible. Usa `liveupdate.get_mounts()` para inspeccionar los montajes activos y [`collectionproxy.get_resources()`](/ref/collectionproxy/#collectionproxy.get_resources) para inspeccionar los hashes de recursos registrados en el manifiesto de un proxy de colección.
 
 El flujo recomendado consiste en descargar y montar un archivo Zip completo con una URI `zip:`.
 
@@ -53,12 +59,14 @@ end
 
 Un proxy de colección (collection proxy) que se ha excluido del bundling funciona como un proxy de colección normal, con una diferencia importante. Enviarle un mensaje `load` mientras todavía tiene recursos que no están disponibles en el almacenamiento del bundle hará que falle.
 
-En el flujo de trabajo basado en archivos comprimidos de Live Update, por lo general decides de antemano qué archivo comprimido o archivos comprimidos necesita un proxy y los montas antes de cargar. Si necesitas inspeccionar si un proxy tiene contenido excluido, usa `collectionproxy.get_resources()`.
+En el flujo de trabajo basado en archivos comprimidos de Live Update, por lo general decides de antemano qué archivo comprimido o archivos comprimidos necesita un proxy y los montas antes de cargar. Para inspeccionar los hashes de recursos registrados en el manifiesto de un proxy excluido conocido, usa `collectionproxy.get_resources()`.
 
-Con *Strip Live Update Entries from Main Manifest* activado, que es el valor predeterminado al publicar contenido de Live Update basado en archivos comprimidos:
+Después de montar un paquete, un proxy excluido y no cargado también puede redirigirse a otra colección compilada con `collectionproxy.set_collection()`. Consulta [Cambiar la colección de un proxy excluido](/manuals/collection-proxy/#changing-an-excluded-proxys-collection) para conocer las restricciones y la secuencia de carga.
 
-* Si ningún archivo comprimido montado contiene el contenido excluido del proxy, `collectionproxy.get_resources("#proxy")` devuelve una tabla vacía `{}`.
-* Después de montar el archivo comprimido relevante, `collectionproxy.get_resources("#proxy")` devuelve una tabla no vacía de hashes de recursos para ese proxy, por ejemplo:
+En una build basada en archivos comprimidos que publica contenido de Live Update, el manifiesto principal incluido en el bundle omite las entradas excluidas de Live Update, mientras que el manifiesto del paquete publicado las conserva. `collectionproxy.get_resources()` lee los metadatos de dependencias del manifiesto; no comprueba que todos los blobs de datos referenciados estén disponibles:
+
+* Antes de montar un manifiesto de paquete que contenga las entradas excluidas del proxy, `collectionproxy.get_resources("#proxy")` devuelve una tabla vacía `{}`.
+* Después de montar el paquete correspondiente, devuelve una tabla no vacía de hashes de recursos para ese proxy, por ejemplo:
 
 ```lua
 {
@@ -90,9 +98,9 @@ local function get_lu_info_for_level(level_name)
 end
 
 local function mount_zip(self, name, priority, path, callback)
-	liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- <1>
-		callback(_name, _uri, _result)
-	end)
+    liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- <1>
+        callback(_name, _uri, _result)
+    end)
 end
 
 local function has_mount(name)
@@ -119,9 +127,10 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
         local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        -- Con Strip Live Update Entries from Main Manifest activado, esta tabla está
-        -- vacía hasta que se monta el archivo comprimido relevante. Después de montarlo, contiene
-        -- los hashes de recursos que pertenecen al proxy.
+        -- Una build que publica contenido de Live Update omite las entradas excluidas
+        -- del manifiesto incluido en el bundle, por lo que esta tabla está vacía hasta
+        -- que se monta el manifiesto del paquete correspondiente. Después de montarlo,
+        -- contiene los hashes de recursos del proxy.
         if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
@@ -129,21 +138,36 @@ function on_message(self, message_id, message, sender)
         end
 
     elseif message_id == hash("download_archive") then
-		local zip_filename = message.info.name .. ".zip"
-		local download_path = sys.get_save_file("mygame", zip_filename)
+        local zip_filename = message.info.name .. ".zip"
+        local download_path = sys.get_save_file("mygame", zip_filename)
         local url = self.http_url .. "/" .. zip_filename
 
-        -- Realiza la solicitud. Puedes usar credenciales
-        http.request(url, "GET", function(self, id, response) -- <7>
-			if response.status == 200 or response.status == 304 then
-				mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
-					msg.post("#", "load_level", message) -- intenta cargar el nivel de nuevo
-				end)
-
-			else
-				print("Failed to download archive ", download_path, "from", url, ":", response.status)
-			end
-		end, nil, nil, {path=download_path})
+        -- Comprueba si el archivo ya existe. Si existe, intenta montarlo.
+        if sys.exists(download_path) then
+            mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
+                if result == liveupdate.LIVEUPDATE_OK then
+                    msg.post("#", "load_level", message) -- intenta cargar el nivel de nuevo
+                else
+                    os.remove(download_path)             -- elimínalo e intenta
+                    msg.post("#", "load_level", message) -- descargarlo de nuevo
+                end
+            end)
+        else
+            -- Realiza la solicitud. Puedes usar credenciales
+            http.request(url, "GET", function(self, id, response) -- <7>
+                if response.status == 200 or response.status == 304 then
+                    mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
+                        if result == liveupdate.LIVEUPDATE_OK then
+                            msg.post("#", "load_level", message) -- intenta cargar el nivel de nuevo
+                        else
+                            print("Failed to mount archive", download_path, ":", result)
+                        end
+                    end)
+                else
+                    print("Failed to download archive", download_path, "from", url, ":", response.status)
+                end
+            end, nil, nil, {path=download_path})
+        end
 
     elseif message_id == hash("proxy_loaded") then -- el nivel está cargado, y podemos habilitarlo
         msg.post(sender, "init")
@@ -152,12 +176,11 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-1. `liveupdate.add_mount()` monta un solo archivo comprimido usando un nombre, una prioridad y un archivo ZIP especificados. Luego los datos quedan disponibles de inmediato para cargarse (no es necesario reiniciar el motor).
-El montaje solo permanece activo durante la sesión actual. Guarda la ruta del paquete y sus ajustes en tus propios datos persistentes y vuelve a llamar a `liveupdate.add_mount()` después de cada reinicio.
+1. `liveupdate.add_mount()` monta un solo archivo comprimido usando un nombre, una prioridad y un archivo ZIP especificados. Luego los datos quedan disponibles de inmediato para cargarse (no es necesario reiniciar el motor). El montaje solo permanece activo durante la sesión actual. Guarda la ruta del paquete descargado y los ajustes de montaje deseados en tus propios datos persistentes y vuelve a llamar a `liveupdate.add_mount()` después de cada reinicio.
 2. Necesitas almacenar el archivo comprimido en línea (por ejemplo, en S3), desde donde puedas descargarlo.
 3. Dado un nombre de proxy de colección, necesitas averiguar qué archivo comprimido o archivos comprimidos descargar y cómo montarlos.
 4. Al iniciar, intentamos cargar el nivel.
-5. Usa `collectionproxy.get_resources()` para inspeccionar el contenido excluido del proxy. Con la configuración predeterminada que elimina esas entradas del manifiesto activada, devuelve `{}` hasta que se monta el archivo comprimido relevante, y una tabla no vacía de hashes de recursos después de montarlo.
+5. En este flujo de publicación de archivos comprimidos, usa `collectionproxy.get_resources()` para inspeccionar los metadatos del contenido excluido del proxy. Devuelve `{}` hasta que se monta el manifiesto del paquete correspondiente, y una tabla no vacía de hashes de recursos después de montarlo. Estos hashes describen dependencias; el resultado no comprueba por sí mismo que todos los blobs de datos estén disponibles.
 6. Si el proxy usa contenido de Live Update y el archivo comprimido correspondiente aún no está montado, lo descargamos y montamos antes de cargar el proxy.
 7. Realiza una solicitud HTTP y descarga el archivo en `download_path`.
 8. Los datos se descargaron, y es momento de montarlos en el motor en ejecución.

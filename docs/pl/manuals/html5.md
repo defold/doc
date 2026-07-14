@@ -206,22 +206,22 @@ build-timestamp
 
 ## Dodatkowe parametry
 
-Jeśli tworzysz własny szablon, możesz zdefiniować ponownie zestaw parametrów dla loadera silnika. Aby to zrobić, musisz dodać sekcję `<script>` i ponownie zdefiniować wartości w `CUSTOM_PARAMETERS`.
+Jeśli tworzysz własny szablon, możesz zmienić parametry loadera silnika, przypisując wartości w globalnym obiekcie `CUSTOM_PARAMETERS`. Wbudowany szablon zawiera celowo pusty blok `<script id="engine-setup">` przeznaczony na te ustawienia.
 ::: important
-Twój własny `<script>` powinien znajdować się po sekcji `<script>` z odwołaniem do `dmloader.js`, ale przed wywołaniem funkcji `EngineLoader.load`.
+Blok `engine-setup` umieść po skrypcie wczytującym `dmloader.js`, ale przed blokiem `engine-start`, który wywołuje `EngineLoader.load()`.
 :::
 Na przykład:
 
-```
-    <script id='custom_setup' type='text/javascript'>
-        CUSTOM_PARAMETERS['disable_context_menu'] = false;
-        CUSTOM_PARAMETERS['unsupported_webgl_callback'] = function() {
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.disable_context_menu = false;
+        CUSTOM_PARAMETERS.unsupported_webgl_callback = function() {
             console.log("Oh-oh. WebGL not supported...");
-        }
+        };
     </script>
 ```
 
-`CUSTOM_PARAMETERS` może zawierać następujące pola:
+`CUSTOM_PARAMETERS` może zawierać między innymi następujące pola:
 
 ```
 'archive_location_filter':
@@ -269,25 +269,26 @@ Czasami trzeba przekazać grze dodatkowe argumenty jeszcze przed jej uruchomieni
 
 ### Argumenty silnika
 
-Można określić dodatkowe argumenty silnika podczas konfiguracji i wczytywania silnika. Te dodatkowe argumenty można w czasie działania odczytać za pomocą `sys.get_config_string()`. Aby dodać pary klucz-wartość, zmodyfikuj pole `engine_arguments` obiektu `extra_params`, które jest przekazywane do silnika podczas wczytywania w `index.html`:
+Można określić dodatkowe argumenty silnika podczas jego konfiguracji i wczytywania. Te dodatkowe argumenty można w czasie działania odczytać za pomocą `sys.get_config_string()`. Przypisz argumenty bezpośrednio do `CUSTOM_PARAMETERS.engine_arguments` w bloku `engine-setup` pliku `index.html`:
 
-
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.engine_arguments = [
+            "--config=example.foo1=bar1",
+            "--config=example.foo2=bar2"
+        ];
+    </script>
 ```
-    <script id='engine-setup' type='text/javascript'>
-    var extra_params = {
-        ...,
-        engine_arguments: ["--config=foo1=bar1","--config=foo2=bar2"],
-        ...
-    }
-```
 
-Możesz też dodać `--config=foo1=bar1, --config=foo2=bar2` do pola *Engine Arguments* w sekcji HTML5 pliku *game.project*, a zostanie to wstrzyknięte do wygenerowanego pliku `index.html`.
+Przypisanie nowej tablicy zastępuje argumenty silnika skonfigurowane w *game.project*. Aby zachować te argumenty i dodać kolejny, użyj zamiast tego `CUSTOM_PARAMETERS.engine_arguments.push("--config=example.foo3=bar3")`.
+
+Możesz też dodać `--config=example.foo1=bar1, --config=example.foo2=bar2` do pola *Engine Arguments* w sekcji HTML5 pliku *game.project*. Wartości rozdzielone przecinkami zostaną dodane do `CUSTOM_PARAMETERS.engine_arguments` w wygenerowanym pliku `dmloader.js`.
 
 W czasie działania wartości odczytasz w ten sposób:
 
 ```lua
-local foo1 = sys.get_config_string("foo1")
-local foo2 = sys.get_config_string("foo2")
+local foo1 = sys.get_config_string("example.foo1")
+local foo2 = sys.get_config_string("example.foo2")
 print(foo1) -- bar1
 print(foo2) -- bar2
 ```

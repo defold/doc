@@ -1,30 +1,22 @@
 ---
 title: Control de versiones
-brief: Este manual explica cómo trabajar con el sistema integrado de control de versiones.
+brief: Este manual explica cómo usar Git con proyectos Defold e inspeccionar los cambios locales en el editor.
 ---
 
 # Control de versiones
 
-Defold está pensado para equipos pequeños que colaboran intensamente para crear juegos. Los miembros del equipo pueden trabajar en paralelo sobre el mismo contenido con muy poca fricción. Defold tiene soporte integrado para control de versiones mediante [Git](https://git-scm.com). Git está diseñado para el trabajo colaborativo distribuido y es una herramienta extremadamente potente que permite una amplia variedad de flujos de trabajo.
+Los proyectos Defold funcionan bien con [Git](https://git-scm.com), pero la sincronización se gestiona fuera del editor. Usa tu cliente Git preferido o la línea de comando para clonar, hacer fetch y pull, crear commits, hacer push, crear ramas y resolver conflictos.
 
 ## Archivos modificados
 
-Cuando guardas cambios en tu copia de trabajo local, Defold registra todos los cambios en el panel del editor *Changed Files*, donde enumera cada archivo que se ha añadido, eliminado o modificado.
+Cuando el directorio del proyecto es la raíz de un árbol de trabajo de Git con al menos un commit, Defold enumera en el panel del editor *Changed Files* los archivos no ignorados que se detectan como añadidos, modificados, eliminados o renombrados. Obtiene estas entradas comparando directamente los archivos del disco con el commit actual (`HEAD`), por lo que poner un cambio en staging no altera la lista. Resuelve los conflictos de merge en un cliente Git externo.
 
 ![archivos modificados](images/workflow/changed_files.png)
 
-Selecciona un archivo en la lista y haz click en <kbd>Diff</kbd> para ver los cambios que has hecho en el archivo, o en <kbd>Revert</kbd> para deshacer todos los cambios y restaurar el archivo al estado que tenía después de la última sincronización.
+Selecciona exactamente un archivo modificado o renombrado y haz click en <kbd>Diff</kbd> para ver su diff de texto. Haz click en <kbd>Revert</kbd> para descartar los cambios seleccionados del árbol de trabajo y del índice. Los archivos con seguimiento se restauran a `HEAD`; los archivos ausentes de `HEAD` se eliminan, estén o no en staging como archivos añadidos; y los renombrados eliminan la ruta nueva y restauran la antigua. Esto no se puede deshacer en el editor, así que haz commit o crea una copia de seguridad del trabajo que puedas necesitar.
 
 ## Git
 
-Git está diseñado principalmente para manejar código fuente y archivos de texto, y almacena esos tipos de archivos de forma muy eficiente. Solo se almacenan los cambios entre cada versión, lo que significa que puedes conservar un historial amplio de cambios de todos los archivos del proyecto con un costo relativamente bajo. Sin embargo, los archivos binarios, como archivos de imagen o sonido, no se benefician del esquema de almacenamiento de Git. Cada nueva versión que registras y sincronizas ocupa aproximadamente el mismo espacio. Por lo general, esto no es un problema importante con los assets finales del proyecto (imágenes JPEG o PNG, archivos de sonido OGG, etc.), pero puede convertirse rápidamente en un problema con los archivos de trabajo del proyecto (archivos PSD, proyectos Protools, etc.). Estos tipos de archivos suelen crecer mucho, ya que normalmente trabajas con una resolución mucho más alta que la de los assets objetivo. En general, se considera mejor evitar poner archivos de trabajo grandes bajo el control de Git y usar en su lugar una solución independiente de almacenamiento y copia de seguridad para ellos.
+Git almacena de forma eficiente los archivos de proyecto de Defold basados en texto. Los assets binarios grandes que cambian con frecuencia, como archivos PSD o de producción de audio, pueden seguir haciendo crecer rápidamente el historial del repositorio. Considera usar Git LFS o una solución independiente de almacenamiento y copia de seguridad para los archivos de trabajo grandes.
 
-Hay muchas maneras de usar Git en un flujo de trabajo de equipo. La que usa Defold es la siguiente. Cuando sincronizas, ocurre lo siguiente:
-
-1. Cualquier cambio local se guarda en stash para poder restaurarlo si algo falla más adelante en el proceso de sincronización.
-2. Se traen los cambios del servidor.
-3. Se aplica el stash (se restauran los cambios locales); esto puede producir conflictos de merge que deben resolverse.
-4. El usuario recibe la opción de hacer commit de cualquier cambio en archivos locales.
-5. Si hay commits locales, el usuario puede elegir hacer push de estos al servidor. De nuevo, es posible que esto provoque conflictos que deban resolverse.
-
-Si prefieres un flujo de trabajo diferente, puedes ejecutar Git desde la línea de comando o mediante una aplicación de terceros para hacer pulls, pushes, commits y merges, trabajar en varias ramas, etc.
+El panel *Changed Files* solo proporciona operaciones locales de estado, diff y revert. No sabe si los commits se han enviado a un repositorio remoto y no realiza fetch, pull, commit ni push de cambios. Realiza esas operaciones en un cliente Git externo o desde la línea de comando. De forma predeterminada, Defold recarga los cambios externos y actualiza el panel cuando recupera el foco. Si *Load External Changes on App Focus* está desactivado, selecciona *File ▸ Load External Changes*.

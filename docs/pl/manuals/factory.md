@@ -255,11 +255,17 @@ Gdy opcja *Dynamic Prototype* jest włączona, liczby komponentów w kolekcji ni
 
 ## Limity instancji
 
-Ustawienie projektu *max_instances* w sekcji *Collection related settings* ogranicza łączną liczbę instancji obiektów gry, które mogą istnieć w świecie. Dotyczy to main.collection wczytywanej przy starcie i każdego świata załadowanego przez pełnomocnika kolekcji. Do tego limitu wliczają się wszystkie obiekty gry istniejące w świecie, niezależnie od tego, czy zostały ręcznie umieszczone w edytorze, czy utworzone w czasie działania przez skrypt.
+Ustawienie projektu *Max Instances* w sekcji *Collection* określa górną granicę liczby obiektów gry w każdej kolekcji (świecie). Podczas budowania Defold może przydzielić mniejszą pojemność, jeśli potrafi stwierdzić, że jest to bezpieczne. Do tej pojemności wliczają się wszystkie jednocześnie istniejące obiekty gry w świecie, niezależnie od tego, czy zostały umieszczone w edytorze, czy utworzone w czasie działania.
 
 ![Maksymalna liczba instancji](images/factory/factory_max_instances.png)
 
-Jeśli ustawisz *max_instances* na 1024 i masz 24 ręcznie umieszczone obiekty gry w głównej kolekcji, możesz utworzyć jeszcze 1000 obiektów gry. Gdy tylko usuniesz jakiś obiekt gry, możesz utworzyć kolejną instancję.
+Rzeczywista alokacja zależy od analizy wykonywanej podczas budowania:
+
+* Gdy proces budowania może ustalić stałą liczbę obiektów gry (zwykle wtedy, gdy kolekcja nie zawiera fabryki ani fabryki kolekcji), pojemność jest równa liczbie skompilowanych obiektów, ograniczonej przez *Max Instances*.
+* Kolekcja zawierająca fabrykę lub fabrykę kolekcji używa *Max Instances* jako pojemności obiektów gry. W przypadku statycznie wskazanego prototypu proces budowania rozpoznaje typy komponentów, które fabryka może tworzyć. Te typy używają odpowiednich maksymalnych liczników z ustawień projektu, a pozostałe typy komponentów nadal mogą używać dokładnych liczników.
+* Włączenie *Dynamic Prototype* wyłącza analizę liczników komponentów dla kolekcji zawierającej fabrykę, dlatego używa ona *Max Instances* oraz skonfigurowanych maksymalnych liczników poszczególnych komponentów.
+
+Dobierz *Max Instances* do największej liczby obiektów gry, które mogą jednocześnie istnieć w dynamicznym świecie. Sposób obliczania pozostałych limitów komponentów opisano w sekcji [Optymalizacje maksymalnej liczby komponentów](/manuals/project-settings/#component-max-count-optimizations).
 
 ## Ponowne używanie obiektów gry
 

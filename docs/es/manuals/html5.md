@@ -208,22 +208,22 @@ build-timestamp
 
 ## Parámetros extra
 
-Si creas tu plantilla personalizada, puedes redefinir el conjunto de parámetros para el cargador del motor. Para lograrlo, debes agregar una sección `<script>` y redefinir los valores dentro de `CUSTOM_PARAMETERS`.
+Si creas una plantilla personalizada, puedes cambiar los parámetros del cargador del motor asignando valores en el objeto global `CUSTOM_PARAMETERS`. La plantilla integrada proporciona un bloque `<script id="engine-setup">` vacío expresamente para estas personalizaciones.
 ::: important
-Tu `<script>` personalizado debe colocarse después de la sección `<script>` con la referencia a `dmloader.js`, pero antes de la llamada a la función `EngineLoader.load`.
+Mantén el bloque `engine-setup` después del script que carga `dmloader.js` y antes del bloque `engine-start` que llama a `EngineLoader.load()`.
 :::
 Por ejemplo:
 
-```
-    <script id='custom_setup' type='text/javascript'>
-        CUSTOM_PARAMETERS['disable_context_menu'] = false;
-        CUSTOM_PARAMETERS['unsupported_webgl_callback'] = function() {
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.disable_context_menu = false;
+        CUSTOM_PARAMETERS.unsupported_webgl_callback = function() {
             console.log("Oh-oh. WebGL not supported...");
-        }
+        };
     </script>
 ```
 
-`CUSTOM_PARAMETERS` puede contener los siguientes campos:
+`CUSTOM_PARAMETERS` puede contener, entre otros, los siguientes campos:
 
 ```
 'archive_location_filter':
@@ -271,25 +271,26 @@ A veces es necesario proporcionar argumentos adicionales a un juego antes de que
 
 ### Argumentos del motor
 
-Es posible especificar argumentos adicionales del motor cuando este se configura y se carga. Estos argumentos extra del motor se pueden recuperar en tiempo de ejecución usando `sys.get_config_string()`. Para agregar los pares clave-valor, modifica el campo `engine_arguments` del objeto `extra_params` que se pasa al motor cuando se carga en `index.html`:
+Es posible especificar argumentos adicionales del motor cuando este se configura y se carga. Estos argumentos extra del motor se pueden recuperar en runtime usando `sys.get_config_string()`. Asigna los argumentos directamente a `CUSTOM_PARAMETERS.engine_arguments` en el bloque `engine-setup` de `index.html`:
 
-
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.engine_arguments = [
+            "--config=example.foo1=bar1",
+            "--config=example.foo2=bar2"
+        ];
+    </script>
 ```
-    <script id='engine-setup' type='text/javascript'>
-    var extra_params = {
-        ...,
-        engine_arguments: ["--config=foo1=bar1","--config=foo2=bar2"],
-        ...
-    }
-```
 
-También puedes agregar `--config=foo1=bar1, --config=foo2=bar2` al campo *Engine Arguments* en la sección HTML5 de *game.project* y se inyectará en el archivo `index.html` generado.
+Asignar un array nuevo sustituye cualquier argumento del motor configurado en *game.project*. Para conservar esos argumentos y agregar otro, usa `CUSTOM_PARAMETERS.engine_arguments.push("--config=example.foo3=bar3")`.
+
+También puedes agregar `--config=example.foo1=bar1, --config=example.foo2=bar2` al campo *Engine Arguments* de la sección HTML5 de *game.project*. Los valores separados por comas se agregan a `CUSTOM_PARAMETERS.engine_arguments` en el archivo `dmloader.js` generado.
 
 En tiempo de ejecución obtienes los valores así:
 
 ```lua
-local foo1 = sys.get_config_string("foo1")
-local foo2 = sys.get_config_string("foo2")
+local foo1 = sys.get_config_string("example.foo1")
+local foo2 = sys.get_config_string("example.foo2")
 print(foo1) -- bar1
 print(foo2) -- bar2
 ```

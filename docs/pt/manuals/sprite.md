@@ -85,7 +85,7 @@ Os atributos especificados no material aparecerão como propriedades regulares n
 
 O arquivo *game.project* tem algumas [configurações do projeto](/manuals/project-settings#sprite) relacionadas a sprites.
 
-## Sprites com múltiplas texturas
+## Sprites com múltiplas texturas {#multi-textured-sprites}
 
 Quando um sprite usa várias texturas, há alguns pontos a observar.
 

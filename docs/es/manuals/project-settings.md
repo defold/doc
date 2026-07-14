@@ -41,7 +41,7 @@ Es posible leer valores de *game.project* en runtime usando [`sys.get_config_str
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
-local vsync = sys.get_config_boolean("display.vsync", false)
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -175,7 +175,7 @@ La tasa de frames deseada en Hertz. Define 0 para una tasa de frames variable. U
 Este valor entero controla cómo la aplicación gestiona vsync. 0 desactiva vsync, y el valor predeterminado es 1. Al usar un adaptador OpenGL, este valor define el número de frames que la ventana debe [actualizar entre intercambios de buffer](https://www.khronos.org/opengl/wiki/Swap_Interval). Para Vulkan no existe un concepto integrado de swap interval; en su lugar, el valor controla si vsync debe estar activado o no.
 
 #### Vsync
-Depende de vsync por hardware para el timing de frames. Puede ser sobrescrito según el driver gráfico y los detalles específicos de la plataforma. Para el comportamiento obsoleto de 'variable_dt', desmarca esta configuración y define el límite de frames en 0.
+Configuración heredada de compatibilidad. Esta configuración está obsoleta; usa **Swap Interval** en proyectos nuevos. Si se desactiva, fuerza el intervalo de intercambio efectivo a `0`. Si se activa, **Swap Interval** determina el valor efectivo.
 
 #### Display Profiles
 Especifica qué archivo de perfiles de pantalla usar, `/builtins/render/default.display_profilesc` de forma predeterminada. Aprende más en el [manual de layouts de GUI](/manuals/gui-layouts/#creating-display-profiles).
@@ -621,7 +621,7 @@ Google Cloud Messaging Sender Id. Define esto con el string asignado por Google 
 Firebase Cloud Messaging Application Id.
 
 #### Manifest
-Si se define, usa el archivo XML de manifiesto de Android especificado al crear el bundle.
+Si se define, usa el archivo XML de manifiesto de Android especificado al crear el bundle. Un manifiesto personalizado sustituye el manifiesto base integrado de Defold. Los fragmentos de manifiesto de extensiones nativas todavía se fusionan con él, pero los cambios posteriores del manifiesto base integrado no se heredan automáticamente, por lo que debes comparar los manifiestos personalizados con el manifiesto integrado actual al actualizar. En los juegos, define `android:appCategory="game"` en el elemento `<application>`. En aplicaciones que no sean juegos, define `android:appCategory` solo si una de las [categorías de aplicación](https://developer.android.com/guide/topics/manifest/application-element#appCategory) definidas por Android describe la aplicación con precisión.
 
 #### Iap Provider
 Especifica qué tienda usar. Las opciones válidas son `Amazon` y `GooglePlay`. Consulta [extension-iap](/extension-iap/) para obtener más información.

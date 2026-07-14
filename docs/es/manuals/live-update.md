@@ -66,9 +66,9 @@ Crear un bundle con Live update es sencillo. Selecciona <kbd>Project ▸ Bundle 
 
 Al crear el bundle, cualquier recurso excluido se dejará fuera del bundle de la aplicación. Al marcar la casilla *Publish Live update content*, indicas a Defold que suba los recursos excluidos a Amazon o que cree un archivo Zip, según cómo hayas configurado Live update (ver arriba). El contenido de Live Update publicado aún incluye `liveupdate.game.dmanifest`, que contiene la lista completa de recursos necesaria para la entrega remota.
 
-Al publicar contenido de Live Update basado en archivos comprimidos, *Strip Live Update Entries from Main Manifest* (`liveupdate.exclude_entries_from_main_manifest`) está activado por defecto. Con esta configuración activada, los recursos exclusivos de Live Update se eliminan del `game.dmanifest` incluido en el bundle, lo que reduce el tamaño del bundle y el uso de memoria en runtime. Desactívala solo si necesitas el comportamiento obsoleto en el que las entradas excluidas permanecen en el `game.dmanifest` incluido en el bundle.
+Al publicar contenido de Live Update, Defold elimina automáticamente las entradas exclusivas de Live Update del `game.dmanifest` incluido en el bundle, mientras que el `liveupdate.game.dmanifest` publicado conserva la lista completa de recursos. Esto reduce el tamaño del bundle y el uso de memoria en runtime. La configuración anterior `liveupdate.exclude_entries_from_main_manifest` se ha eliminado; cualquier entrada restante en el proyecto se ignora.
 
-Con la configuración por defecto activada, `collectionproxy.get_resources()` devuelve `{}` hasta que se haya montado el archivo correspondiente. Después de montarlo, devuelve los hashes de recursos de ese proxy.
+En el flujo de trabajo basado en archivos comprimidos, `collectionproxy.get_resources()` devuelve `{}` hasta que se haya montado el archivo correspondiente. Después de montarlo, devuelve los hashes de recursos de ese proxy.
 
 Haz click en *Package* y selecciona una ubicación para el bundle de la aplicación. Ahora puedes iniciar la aplicación y comprobar que todo funciona como se espera.
 

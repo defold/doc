@@ -565,7 +565,7 @@ return M
   - `platform` — `on_build_started`와 동일합니다.
   - `success` — 빌드가 성공했는지 여부이며, `true` 또는 `false`입니다.
 - `on_bundle_started(opts)` — 번들을 만들거나 게임의 HTML5 버전을 Build할 때 실행됩니다. `on_build_started`와 마찬가지로, 이 hook이 트리거한 변경사항은 번들에 나타나고, 오류는 번들을 중단시킵니다. `opts`는 다음 키를 가집니다.
-  - `output_directory` — bundle 출력이 있는 디렉토리를 가리키는 파일 경로입니다. 예: `"/path/to/project/build/default/__htmlLaunchDir"`
+  - `output_directory` — bundle 출력이 있는 디렉토리를 가리키는 파일 경로입니다. **Project ▸ Build HTML5**는 일반 Build 출력인 `build/default`와 분리된 자체 아티팩트 트리를 사용합니다. 예: `"/path/to/project/build/default_html5/__htmlLaunchDir"`
   - `platform` — 게임이 번들되는 플랫폼입니다. 가능한 플랫폼 값 목록은 [Bob 매뉴얼](/manuals/bob)을 참고하세요.
   - `variant` — bundle variant이며, `"debug"`, `"release"` 또는 `"headless"` 중 하나입니다.
 - `on_bundle_finished(opts)` — 번들이 성공했든 아니든 번들이 끝나면 실행됩니다. `opts`는 `on_bundle_started`의 `opts`와 같은 데이터를 가진 테이블이며, 빌드가 성공했는지 나타내는 `success` 키가 추가됩니다.

@@ -114,7 +114,7 @@ El panel Tools también se usa para interactuar con el depurador integrado. Lee 
 
 ### 6. Panel Changed Files
 
-Si tu proyecto usa el sistema distribuido de control de versiones Git, esta vista lista cualquier archivo que se haya cambiado, añadido o eliminado en tu proyecto. Al sincronizar el proyecto regularmente puedes mantener tu copia local sincronizada con lo que está almacenado en el repositorio Git del proyecto; de esa manera puedes colaborar dentro de un equipo y no perderás tu trabajo si ocurre un desastre. Puedes aprender más sobre Git en nuestro [manual de control de versiones](/manuals/version-control/). Algunas operaciones orientadas a archivos pueden realizarse en esta vista:
+Si tu proyecto usa Git, esta vista enumera los archivos que se han cambiado, añadido, renombrado o eliminado localmente en comparación con el commit actual (`HEAD`). Usa un cliente Git externo o la línea de comando para sincronizar con un repositorio remoto. Puedes obtener más información en el [manual de control de versiones](/manuals/version-control/). Algunas operaciones orientadas a archivos pueden realizarse en esta vista:
 
    - <kbd>Click izquierdo</kbd> - para seleccionar un archivo dado; mientras mantienes <kbd>⇧ Shift</kbd> puedes ampliar la selección, o mientras mantienes <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> puedes seleccionar o deseleccionar el elemento en el que hiciste click. Si se selecciona un solo archivo cambiado, puedes hacer click en `Diff` para mostrar las diferencias. Puedes hacer click en `Revert` para deshacer los cambios en todos los archivos seleccionados.
    - <kbd>Doble click izquierdo</kbd> en un archivo para abrir una vista del archivo. El editor abre el archivo en un editor adecuado, igual que en la vista Assets.

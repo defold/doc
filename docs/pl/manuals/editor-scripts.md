@@ -611,7 +611,7 @@ Istniejące haki cyklu życia, które może zdefiniować `/hooks.editor_script`:
   - `platform` — to samo co w `on_build_started`;
   - `success` — `true` albo `false`, w zależności od tego, czy build zakończył się powodzeniem;
 - `on_bundle_started(opts)` — wywoływany podczas tworzenia bundla albo budowania wersji HTML5. Podobnie jak `on_build_started`, zmiany wykonane przez ten hak trafią do bundla, a błędy przerwą proces. `opts` zawiera:
-  - `output_directory` — ścieżkę do katalogu z wynikowym bundlem, na przykład `"/path/to/project/build/default/__htmlLaunchDir"`;
+  - `output_directory` — ścieżkę do katalogu z wynikowym bundlem. Polecenie **Project ▸ Build HTML5** używa własnego drzewa artefaktów, na przykład `"/path/to/project/build/default_html5/__htmlLaunchDir"`, oddzielnego od zwykłych wyników budowania w `build/default`;
   - `platform` — platformę, dla której tworzony jest bundle. Listę możliwych wartości znajdziesz w [instrukcji Boba](/manuals/bob);
   - `variant` — wariant bundla: `"debug"`, `"release"` albo `"headless"`;
 - `on_bundle_finished(opts)` — wywoływany po zakończeniu bundlowania, niezależnie od wyniku. `opts` zawiera te same dane co `on_bundle_started`, plus klucz `success`;

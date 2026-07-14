@@ -256,11 +256,17 @@ local enemy_id = factory.create("#factory")
 
 ## 实例限制
 
-项目设置 *Collection related settings* 中的 *max_instances* 限制了世界中可以存在的游戏对象实例总数（启动时加载的 main.collection 或通过集合代理加载的任何世界）。世界中存在的所有游戏对象都计入此限制，无论它们是通过编辑器手动放置的还是通过脚本在运行时生成的。
+项目设置 *Collection* 下的 *Max Instances* 是每个集合（世界）中游戏对象数量的上限。如果 Defold 在构建时能确定较小的容量是安全的，就可能分配较小的容量。世界中所有同时存活的游戏对象都计入该容量，无论它们是在编辑器中放置的还是在运行时生成的。
 
 ![Max instances](images/factory/factory_max_instances.png)
 
-如果您将 *max_instances* 设置为 1024 并在主集合中有 24 个手动放置的游戏对象，您可以额外生成 1000 个游戏对象。一旦删除一个游戏对象，您就可以自由生成另一个实例。
+实际分配量取决于构建时分析：
+
+* 当构建可以确定固定的游戏对象数量时（通常是集合不包含工厂或集合工厂时），容量就是编译得到的数量，但不会超过 *Max Instances*。
+* 包含工厂或集合工厂的集合使用 *Max Instances* 作为游戏对象容量。对于静态引用的原型，构建会识别工厂可生成的组件类型。这些类型使用它们各自的项目最大数量，而未受影响的组件类型仍可使用精确数量。
+* 启用 *Dynamic Prototype* 会禁用所属集合的组件数量分析，因此它使用 *Max Instances* 和已配置的各组件最大数量。
+
+请根据动态世界中可能同时存活的最大游戏对象数量来规划 *Max Instances*。其他组件限制的计算方式请参阅[组件最大数量优化](/manuals/project-settings/#component-max-count-optimizations)。
 
 ## 游戏对象池
 

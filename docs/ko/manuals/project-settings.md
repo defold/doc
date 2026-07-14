@@ -41,7 +41,7 @@ main_collection = /main/main.collectionc
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
-local vsync = sys.get_config_boolean("display.vsync", false)
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -175,7 +175,7 @@ local vsync = sys.get_config_boolean("display.vsync", false)
 이 정수 값은 어플리케이션이 vsync를 처리하는 방식을 제어합니다. 0은 vsync를 비활성화하며, 기본값은 1입니다. OpenGL 어댑터를 사용할 때 이 값은 창이 [buffer swap 사이에 업데이트](https://www.khronos.org/opengl/wiki/Swap_Interval)해야 하는 프레임 수를 설정합니다. Vulkan에는 swap interval이라는 내장 개념이 없으므로, 이 값은 대신 vsync 활성화 여부를 제어합니다.
 
 #### Vsync
-프레임 타이밍을 하드웨어 vsync에 의존합니다. 그래픽 드라이버와 플랫폼 세부 사항에 따라 재정의될 수 있습니다. 더 이상 권장되지 않는 'variable_dt' 동작을 사용하려면 이 설정을 체크 해제하고 frame cap을 0으로 설정합니다.
+레거시 호환성 설정입니다. 이 설정은 더 이상 권장되지 않으므로 새 프로젝트에서는 **Swap Interval**을 사용하세요. 비활성화하면 유효한 swap interval을 강제로 `0`으로 설정합니다. 활성화하면 **Swap Interval**이 유효한 값을 결정합니다.
 
 #### Display Profiles
 사용할 display profiles 파일을 지정합니다. 기본값은 `/builtins/render/default.display_profilesc`입니다. 자세한 내용은 [GUI Layouts 매뉴얼](/manuals/gui-layouts/#creating-display-profiles)을 참고하세요.
@@ -621,7 +621,7 @@ Google Cloud Messaging Sender Id입니다. 푸쉬 알림을 활성화하려면 G
 Firebase Cloud Messaging Application Id입니다.
 
 #### Manifest
-설정하면 번들링할 때 지정한 Android manifest XML 파일을 사용합니다.
+설정하면 번들링할 때 지정한 Android manifest XML 파일을 사용합니다. 커스텀 manifest는 Defold의 내장 base manifest를 대체합니다. 네이티브 익스텐션의 manifest fragment는 여전히 이 파일에 병합되지만, 이후 내장 base manifest의 변경사항은 자동으로 상속되지 않습니다. 따라서 업그레이드할 때 커스텀 manifest를 현재 내장 manifest와 비교하세요. 게임에서는 `<application>` 엘리먼트에 `android:appCategory="game"`을 설정하세요. 게임이 아닌 어플리케이션에서는 Android가 정의한 [어플리케이션 카테고리](https://developer.android.com/guide/topics/manifest/application-element#appCategory) 중 하나가 앱을 정확히 설명하는 경우에만 `android:appCategory`를 설정하세요.
 
 #### Iap Provider
 사용할 스토어를 지정합니다. 유효한 옵션은 `Amazon`과 `GooglePlay`입니다. 자세한 내용은 [extension-iap](/extension-iap/)을 참고하세요.

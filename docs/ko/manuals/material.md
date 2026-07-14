@@ -337,15 +337,30 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
+### GUI 노드 메터리얼 상수
+
+GUI 스크립트 안에서는 `go` 함수 대신 `gui.get()`과 `gui.set()`으로 노드의 메터리얼 상수를 읽고 씁니다. 벡터 컴포넌트, 행렬 상수, 상수 배열이 지원됩니다. 옵션 테이블의 배열 인덱스는 1부터 시작합니다.
+
+```lua
+local node = gui.get_node("button")
+
+local tint = gui.get(node, "tint")
+gui.set(node, "tint.x", 0.5)
+gui.set(node, "light_matrix", vmath.matrix4())
+gui.set(node, "tint_array", vmath.vector4(1, 0, 0, 1), { index = 1 })
+```
+
 ::: sidenote
-`CONSTANT_TYPE_USER` 또는 `CONSTANT_TYPE_MATRIX4` 타입의 메터리얼 상수를 `go.get()`과 `go.set()`으로 사용할 수 있으려면 쉐이더 프로그램에서 사용되어야 합니다. 상수가 메터리얼에는 정의되어 있지만 프로그램에서 사용되지 않으면 메터리얼에서 제거되며 런타임에 사용할 수 없습니다.
+`CONSTANT_TYPE_USER` 또는 `CONSTANT_TYPE_USER_MATRIX4` 타입의 메터리얼 상수를 `go.get()`과 `go.set()` 또는 `gui.get()`과 `gui.set()`으로 사용할 수 있으려면 쉐이더 프로그램에서 사용되어야 합니다. 상수가 메터리얼에는 정의되어 있지만 프로그램에서 사용되지 않으면 메터리얼에서 제거되며 런타임에 사용할 수 없습니다.
 :::
 
 ## 샘플러
 
 샘플러는 텍스쳐(타일 소스 또는 아틀라스)에서 색상 정보를 샘플링하는 데 사용됩니다. 이 색상 정보는 쉐이더 프로그램의 계산에 사용할 수 있습니다.
 
-스프라이트, 타일맵, GUI, 파티클 효과 컴포넌트에는 `sampler2D`가 자동으로 설정됩니다. 쉐이더 프로그램에서 처음 선언된 `sampler2D`는 그래픽 컴포넌트가 참조하는 이미지에 자동으로 바인딩됩니다. 따라서 현재 이러한 컴포넌트의 경우 메터리얼 파일에서 샘플러를 지정할 필요가 없습니다. 또한 이 컴포넌트 타입들은 현재 단일 텍스쳐만 지원합니다. 쉐이더에서 여러 텍스쳐가 필요하다면 [`render.enable_texture()`](/ref/render/#render.enable_texture)를 사용하고 렌더 스크립트에서 텍스쳐 샘플러를 수동으로 설정할 수 있습니다.
+스프라이트, 타일맵, GUI, 파티클 효과 컴포넌트는 이미지 텍스쳐를 처음 선언된 `sampler2D`에 자동으로 바인딩합니다. 스프라이트 컴포넌트는 여러 텍스쳐도 지원합니다. 메터리얼에서 선언한 각 샘플러는 Sprite 컴포넌트의 이름 있는 이미지 슬롯이 됩니다. 첫 번째 텍스쳐는 스프라이트의 애니메이션 데이터를 제공하고 프레임 시퀀스를 제어합니다. 각 프레임에서는 이미지 id를 사용해 모든 추가 텍스쳐에서 이에 대응하는 이미지를 찾으며, 각 텍스쳐는 자체 UV를 제공합니다. 따라서 할당하는 아틀라스나 타일 소스에는 일치하는 프레임 id와 비슷한 모양의 이미지가 있어야 합니다. 폴리곤 패킹된 모양이 서로 다르면 텍스쳐 번짐이 생길 수 있습니다. 자세한 내용은 [다중 텍스쳐 스프라이트](/manuals/sprite/#multi-textured-sprites)를 참고하세요.
+
+추가 텍스쳐 슬롯을 제공하지 않는 컴포넌트나 렌더 워크플로우에서는 [`render.enable_texture()`](/ref/render/#render.enable_texture)를 사용해 렌더 스크립트에서 추가 텍스쳐 샘플러를 바인딩하세요.
 
 ![Sprite sampler](images/materials/sprite_sampler.png)
 

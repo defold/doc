@@ -207,22 +207,22 @@ build-timestamp
 
 ## 추가 파라미터
 
-커스텀 템플릿을 만들면 엔진 로더의 파라미터 집합을 재정의할 수 있습니다. 이를 위해 `<script>` 섹션을 추가하고 `CUSTOM_PARAMETERS` 안의 값을 재정의해야 합니다.
+커스텀 템플릿을 만들면 전역 `CUSTOM_PARAMETERS` 오브젝트에 값을 할당해 엔진 로더의 파라미터를 변경할 수 있습니다. 내장 템플릿에는 이러한 커스터마이징을 위한 의도적으로 비어 있는 `<script id="engine-setup">` 블록이 있습니다.
 ::: important
-커스텀 `<script>`는 `dmloader.js`를 참조하는 `<script>` 섹션 뒤, `EngineLoader.load` 함수를 호출하기 전에 배치해야 합니다.
+`engine-setup` 블록은 `dmloader.js`를 로드하는 스크립트 뒤이면서 `EngineLoader.load()`를 호출하는 `engine-start` 블록 앞에 두세요.
 :::
 예:
 
-```
-    <script id='custom_setup' type='text/javascript'>
-        CUSTOM_PARAMETERS['disable_context_menu'] = false;
-        CUSTOM_PARAMETERS['unsupported_webgl_callback'] = function() {
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.disable_context_menu = false;
+        CUSTOM_PARAMETERS.unsupported_webgl_callback = function() {
             console.log("Oh-oh. WebGL not supported...");
-        }
+        };
     </script>
 ```
 
-`CUSTOM_PARAMETERS`는 다음 필드를 포함할 수 있습니다:
+`CUSTOM_PARAMETERS`는 다음을 비롯한 필드를 포함할 수 있습니다.
 
 ```
 'archive_location_filter':
@@ -270,25 +270,26 @@ HTML5 빌드는 `sys.save()`, `sys.load()`, `io.open()` 같은 파일 작업을 
 
 ### 엔진 인자
 
-엔진이 설정되고 로드될 때 추가 엔진 인자를 지정할 수 있습니다. 이러한 추가 엔진 인자는 런타임에 `sys.get_config_string()`을 사용해 가져올 수 있습니다. 키-값 쌍을 추가하려면 `index.html`에서 엔진이 로드될 때 전달되는 `extra_params` 오브젝트의 `engine_arguments` 필드를 수정합니다:
+엔진이 설정되고 로드될 때 추가 엔진 인자를 지정할 수 있습니다. 이러한 추가 엔진 인자는 런타임에 `sys.get_config_string()`을 사용해 가져올 수 있습니다. `index.html`의 `engine-setup` 블록에서 인자를 `CUSTOM_PARAMETERS.engine_arguments`에 직접 할당하세요.
 
-
+```html
+    <script id="engine-setup" type="text/javascript">
+        CUSTOM_PARAMETERS.engine_arguments = [
+            "--config=example.foo1=bar1",
+            "--config=example.foo2=bar2"
+        ];
+    </script>
 ```
-    <script id='engine-setup' type='text/javascript'>
-    var extra_params = {
-        ...,
-        engine_arguments: ["--config=foo1=bar1","--config=foo2=bar2"],
-        ...
-    }
-```
 
-또한 *game.project*의 HTML5 섹션에 있는 *Engine Arguments* 필드에 `--config=foo1=bar1, --config=foo2=bar2`를 추가할 수 있으며, 그러면 생성된 `index.html` 파일에 주입됩니다.
+새 배열을 할당하면 *game.project*에서 설정한 엔진 인자를 모두 대체합니다. 기존 인자를 유지하면서 새 인자를 추가하려면 대신 `CUSTOM_PARAMETERS.engine_arguments.push("--config=example.foo3=bar3")`를 사용하세요.
+
+*game.project*의 HTML5 섹션에 있는 *Engine Arguments* 필드에 `--config=example.foo1=bar1, --config=example.foo2=bar2`를 추가할 수도 있습니다. 쉼표로 구분한 값은 생성된 `dmloader.js`의 `CUSTOM_PARAMETERS.engine_arguments`에 추가됩니다.
 
 런타임에는 다음과 같이 값을 얻습니다:
 
 ```lua
-local foo1 = sys.get_config_string("foo1")
-local foo2 = sys.get_config_string("foo2")
+local foo1 = sys.get_config_string("example.foo1")
+local foo2 = sys.get_config_string("example.foo2")
 print(foo1) -- bar1
 print(foo2) -- bar2
 ```

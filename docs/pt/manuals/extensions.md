@@ -5,11 +5,15 @@ brief: Este manual explica como escrever uma extensão nativa para a game engine
 
 # Extensões nativas
 
-Se você precisa de interação personalizada com software ou hardware externo em baixo nível, onde Lua não é suficiente, o SDK do Defold permite escrever extensões para a engine em C, C++, Objective C, Java ou Javascript, dependendo da plataforma-alvo. Casos de uso típicos para extensões nativas são:
+Se você precisa de interação personalizada com software ou hardware externo em baixo nível, onde Lua não é suficiente, o SDK do Defold permite escrever extensões para a engine em C, C++, C#, Objective-C, Java ou JavaScript, dependendo da plataforma-alvo. Casos de uso típicos para extensões nativas são:
 
 - Interação com hardware específico, por exemplo a câmera em celulares.
 - Interação com APIs externas de baixo nível, por exemplo APIs de redes de anúncios que não permitem interação por APIs de rede em que Luasocket poderia ser usado.
 - Cálculos e processamento de dados de alto desempenho.
+
+::: sidenote
+O suporte a C# é experimental e destina-se a extensões nativas, não a componentes de script do Defold. Ele usa .NET 9 NativeAOT para produzir uma biblioteca estática; adicione arquivos-fonte `.cs` à pasta `src` de uma extensão e o serviço de build gerará o arquivo de projeto. O suporte a plataformas acompanha os recursos atuais do NativeAOT e do serviço de build. Consulte o [exemplo oficial de linguagens para extensões nativas](https://github.com/defold/example-languages) para ver o fluxo de trabalho atual e a configuração testada.
+:::
 
 ## O servidor de build
 

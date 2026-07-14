@@ -30,12 +30,14 @@ local prop = hash("scale.x")
 go.set(url, prop, 2.0)
 ```
 
-Dla węzłów GUI, identyfikator węzła jest podawany jako pierwszy parametr do funkcji przeznaczonej do właściwości:
+Dla węzłów GUI węzeł jest podawany jako pierwszy parametr funkcji przeznaczonej dla danej właściwości albo ogólnej funkcji `gui.get()` lub `gui.set()`:
 
 ```lua
 -- Pobierz kolor przycisku
 local node = gui.get_node("button")
 local color = gui.get_color(node)
+local same_color = gui.get(node, "color")
+gui.set(node, "color.x", 1)
 ```
 
 ## Właściwości obiektów gry i komponentów
@@ -109,10 +111,13 @@ Istnieją także konkretne funkcje do pracy z transformacją obiektu gry, takie 
 
 ## Właściwości węzłów GUI
 
-Węzły GUI również posiadają właściwości, ale są odczytywane i zapisywane za pomocą specjalnych funkcji getterów i setterów z API gui. Dla każdej właściwości istnieje funkcja gettera i settera. Istnieje także zestaw stałych zdefiniowanych do użycia jako odniesienie do właściwości podczas animacji. Jeśli potrzebujesz odnosić się do oddzielnych składowych właściwości, musisz używać nazwy ciągu znaków właściwości lub hasza nazwy ciągu znaków.
+Węzły GUI mają funkcje getterów i setterów przeznaczone dla konkretnych właściwości, takie jak `gui.get_position()` i `gui.set_position()`. Wbudowane właściwości wymienione poniżej można również odczytywać i zapisywać za pomocą `gui.get(node, property)` i `gui.set(node, property, value)`. Inne wartości węzłów mogą nadal wymagać osobnych funkcji. Stałe materiału węzłów GUI także używają funkcji ogólnych. Aby odwołać się do pojedynczej składowej właściwości wektorowej, dopisz jej nazwę, na przykład `gui.set(node, "color.x", 1)`.
+
+Funkcje ogólne i przeznaczone dla konkretnych właściwości nie zawsze używają identycznych typów wartości. `gui.get()` zwraca `vector4` dla pełnych właściwości `position`, `scale`, `size` i `euler`, natomiast odpowiadające im funkcje specjalizowane zwracają `vector3`. `gui.set()` przyjmuje dla tych właściwości `vector3` albo `vector4`. Ogólna właściwość `rotation` używa kwaternionu; do ustawiania obrotu w stopniach używaj `euler`.
 
 * `position` (lub `gui.PROP_POSITION`)
 * `rotation` (lub `gui.PROP_ROTATION`)
+* `euler` (lub `gui.PROP_EULER`)
 * `scale` (lub `gui.PROP_SCALE`)
 * `color` (lub `gui.PROP_COLOR`)
 * `outline` (lub `gui.PROP_OUTLINE`)
@@ -120,6 +125,8 @@ Węzły GUI również posiadają właściwości, ale są odczytywane i zapisywan
 * `size` (lub `gui.PROP_SIZE`)
 * `fill_angle` (lub `gui.PROP_FILL_ANGLE`)
 * `inner_radius` (lub `gui.PROP_INNER_RADIUS`)
+* `leading` (lub `gui.PROP_LEADING`)
+* `tracking` (lub `gui.PROP_TRACKING`)
 * `slice9` (lub `gui.PROP_SLICE9`)
 
 Zauważ, że wszystkie wartości koloru są zakodowane w `vector4`, gdzie składniki odpowiadają wartościom RGBA:
@@ -143,10 +150,13 @@ Zauważ, że wszystkie wartości koloru są zakodowane w `vector4`, gdzie skład
 | *color*    | Kolor przedniej strony węzła.          | `vector4`       | `gui.get_color()` `gui.set_color()` |
 | *outline*  | Kolor konturu węzła.                   | `vector4`       | `gui.get_outline()` `gui.set_outline()` |
 | *position* | Pozycja węzła.                         | `vector3`       | `gui.get_position()` `gui.set_position()` |
-| *rotation* | Obrót węzła wyrażony w kątach Eulera - stopnie obrócone wokół każdej osi. | `vector3` | `gui.get_rotation()` `gui.set_rotation()` |
+| *rotation* | Obrót węzła. Getter zwraca kwaternion, a setter przyjmuje kwaternion albo kąty Eulera jako wektor. | `quaternion`, `vector3` lub `vector4` | `gui.get_rotation()` `gui.set_rotation()` |
+| *euler*    | Obrót węzła wyrażony w stopniach jako kąty Eulera. | `vector3` | `gui.get_euler()` `gui.set_euler()` |
 | *scale*    | Skala węzła wyrażona jako mnożnik wzdłuż każdej osi.     | `vector3` |`gui.get_scale()` `gui.set_scale()` |
 | *shadow*   | Kolor cienia węzła.                    | `vector4`       | `gui.get_shadow()` `gui.set_shadow()` |
 | *size*     | Rozmiar węzła niezeskalowany.          | `vector3`       | `gui.get_size()` `gui.set_size()` |
 | *fill_angle*   | Kąt wypełnienia węzła typu pie wyrażony w stopniach przeciwnie do ruchu wskazówek zegara. | `number` | `gui.get_fill_angle()` `gui.set_fill_angle()` |
 | *inner_radius* | Wewnętrzny promień węzła typu pie. | `number`        | `gui.get_inner_radius()` `gui.set_inner_radius()` |
+| *leading*  | Skala odstępu między wierszami węzła tekstowego. | `number` | `gui.get_leading()` `gui.set_leading()` |
+| *tracking* | Skala odstępu między literami węzła tekstowego. | `number` | `gui.get_tracking()` `gui.set_tracking()` |
 | *slice9*   | Odległości brzegowe węzła typu slice9. | `vector4`       | `gui.get_slice9()` `gui.set_slice9()` |

@@ -5,11 +5,17 @@ brief: Live Update 컨텐츠를 사용하려면 데이터를 게임에 다운로
 
 # Live Update 스크립팅
 
-API는 몇 가지 함수만으로 구성됩니다.
+핵심 마운트 워크플로우에서는 `liveupdate.add_mount()`, `liveupdate.remove_mount()`, `liveupdate.get_mounts()`를 사용합니다. 사용 가능한 모든 함수는 전체 [`liveupdate` API 레퍼런스](/ref/liveupdate/)를 참고하세요.
 
-* `liveupdate.add_mount()`
-* `liveupdate.remove_mount()`
-* `liveupdate.get_mounts()`.
+코드에서 빌드 manifest가 제외된 Live Update 컨텐츠를 요구하는 번들인지 구분해야 한다면 `liveupdate.is_built_with_excluded_files()`를 사용하세요.
+
+```lua
+if liveupdate.is_built_with_excluded_files() then
+    print("The bundle expects excluded Live Update content")
+end
+```
+
+이 함수는 빌드 manifest 메타데이터만 보고합니다. 현재 아카이브가 마운트되었거나 특정 리소스를 사용할 수 있다는 뜻은 아닙니다. 활성 마운트는 `liveupdate.get_mounts()`로, 컬렉션 프록시에 대해 manifest에 기록된 리소스 해쉬는 [`collectionproxy.get_resources()`](/ref/collectionproxy/#collectionproxy.get_resources)로 검사하세요.
 
 권장 방식은 전체 Zip 아카이브를 다운로드하고 `zip:` URI로 마운트하는 것입니다.
 
@@ -53,12 +59,14 @@ end
 
 번들링에서 제외된 컬렉션 프록시는 일반 컬렉션 프록시처럼 동작하지만, 한 가지 중요한 차이가 있습니다. 번들 스토리지에 아직 사용할 수 없는 리소스가 남아 있는 상태에서 `load` 메세지를 보내면 실패합니다.
 
-아카이브 기반 워크플로우에서는 보통 프록시에 필요한 아카이브를 미리 결정하고, 로드하기 전에 해당 아카이브를 마운트합니다. 프록시에 제외된 컨텐츠가 있는지 검사해야 한다면 `collectionproxy.get_resources()`를 사용하세요.
+아카이브 기반 워크플로우에서는 보통 프록시에 필요한 아카이브를 미리 결정하고, 로드하기 전에 해당 아카이브를 마운트합니다. 알려진 제외 프록시에 대해 manifest에 기록된 리소스 해쉬를 검사하려면 `collectionproxy.get_resources()`를 사용하세요.
 
-아카이브 기반 Live Update 컨텐츠를 게시할 때 기본으로 활성화되는 *Strip Live Update Entries from Main Manifest*를 사용하면 다음과 같이 동작합니다.
+패키지를 마운트한 뒤에는 제외되어 있고 로드되지 않은 프록시를 `collectionproxy.set_collection()`으로 다른 컴파일된 컬렉션으로 전환할 수도 있습니다. 제한사항과 로드 순서는 [제외된 프록시의 컬렉션 변경하기](/manuals/collection-proxy/#changing-an-excluded-proxys-collection)를 참고하세요.
 
-* 마운트된 아카이브 중 프록시의 제외된 컨텐츠를 포함하는 것이 없으면 `collectionproxy.get_resources("#proxy")`는 빈 테이블 `{}`를 반환합니다.
-* 관련 아카이브가 마운트된 후에는 `collectionproxy.get_resources("#proxy")`가 해당 프록시의 리소스 해쉬가 담긴 비어 있지 않은 테이블을 반환합니다. 예:
+Live Update 컨텐츠를 게시하는 아카이브 빌드에서는 번들된 메인 manifest에서 제외된 Live Update 항목을 생략하지만 게시된 패키지 manifest에는 유지합니다. `collectionproxy.get_resources()`는 manifest의 종속성 메타데이터를 읽으며, 참조된 모든 데이터 blob을 실제로 사용할 수 있는지는 확인하지 않습니다.
+
+* 프록시의 제외 항목을 포함하는 패키지 manifest를 마운트하기 전에는 `collectionproxy.get_resources("#proxy")`가 빈 테이블 `{}`를 반환합니다.
+* 관련 패키지를 마운트한 뒤에는 해당 프록시의 리소스 해쉬가 담긴 비어 있지 않은 테이블을 반환합니다. 예:
 
 ```lua
 {
@@ -90,9 +98,9 @@ local function get_lu_info_for_level(level_name)
 end
 
 local function mount_zip(self, name, priority, path, callback)
-	liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- <1>
-		callback(_name, _uri, _result)
-	end)
+    liveupdate.add_mount(name, "zip:" .. path, priority, function(_self, _name, _uri, _result) -- <1>
+        callback(_name, _uri, _result)
+    end)
 end
 
 local function has_mount(name)
@@ -119,9 +127,9 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
         local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        -- Strip Live Update Entries from Main Manifest가 활성화되어 있으면, 이 테이블은
-        -- 관련 아카이브가 마운트될 때까지 비어 있습니다. 마운트 후에는 프록시에 속한
-        -- 리소스 해쉬가 들어 있습니다.
+        -- Live Update 컨텐츠를 게시하는 빌드는 번들된 manifest에서 제외 항목을
+        -- 생략하므로, 관련 패키지 manifest가 마운트될 때까지 이 테이블은 비어 있습니다.
+        -- 마운트 후에는 프록시의 리소스 해쉬가 들어 있습니다.
         if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
@@ -129,21 +137,36 @@ function on_message(self, message_id, message, sender)
         end
 
     elseif message_id == hash("download_archive") then
-		local zip_filename = message.info.name .. ".zip"
-		local download_path = sys.get_save_file("mygame", zip_filename)
+        local zip_filename = message.info.name .. ".zip"
+        local download_path = sys.get_save_file("mygame", zip_filename)
         local url = self.http_url .. "/" .. zip_filename
 
-        -- 요청을 보냅니다. 자격 증명을 사용할 수 있습니다
-        http.request(url, "GET", function(self, id, response) -- <7>
-			if response.status == 200 or response.status == 304 then
-				mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
-					msg.post("#", "load_level", message) -- 레벨 로드를 다시 시도합니다
-				end)
-
-			else
-				print("Failed to download archive ", download_path, "from", url, ":", response.status)
-			end
-		end, nil, nil, {path=download_path})
+        -- 아카이브가 이미 존재하는지 확인합니다. 있다면 마운트를 시도합니다!
+        if sys.exists(download_path) then
+            mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
+                if result == liveupdate.LIVEUPDATE_OK then
+                    msg.post("#", "load_level", message) -- 레벨 로드를 다시 시도합니다
+                else
+                    os.remove(download_path)             -- 파일을 삭제하고 다시
+                    msg.post("#", "load_level", message) -- 다운로드를 시도합니다
+                end
+            end)
+        else
+            -- 요청을 보냅니다. 자격 증명을 사용할 수 있습니다
+            http.request(url, "GET", function(self, id, response) -- <7>
+                if response.status == 200 or response.status == 304 then
+                    mount_zip(self, message.info.name, message.info.priority, download_path, function(name, uri, result) -- <8>
+                        if result == liveupdate.LIVEUPDATE_OK then
+                            msg.post("#", "load_level", message) -- 레벨 로드를 다시 시도합니다
+                        else
+                            print("Failed to mount archive", download_path, ":", result)
+                        end
+                    end)
+                else
+                    print("Failed to download archive", download_path, "from", url, ":", response.status)
+                end
+            end, nil, nil, {path=download_path})
+        end
 
     elseif message_id == hash("proxy_loaded") then -- 레벨이 로드되었으므로 활성화할 수 있습니다
         msg.post(sender, "init")
@@ -152,12 +175,11 @@ function on_message(self, message_id, message, sender)
 end
 ```
 
-1. `liveupdate.add_mount()`는 지정된 이름, 우선순위, zip 파일을 사용해 단일 아카이브를 마운트합니다. 그러면 데이터를 즉시 로드할 수 있습니다(엔진을 재시작할 필요가 없습니다).
-마운트는 현재 세션에서만 활성화됩니다. 패키지 경로와 마운트 설정을 애플리케이션의 영구 데이터에 저장하고 재시작할 때마다 `liveupdate.add_mount()`를 다시 호출하세요.
+1. `liveupdate.add_mount()`는 지정된 이름, 우선순위, zip 파일을 사용해 단일 아카이브를 마운트합니다. 그러면 데이터를 즉시 로드할 수 있습니다(엔진을 재시작할 필요가 없습니다). 마운트는 현재 세션에서만 활성화됩니다. 다운로드한 패키지 경로와 원하는 마운트 설정을 자체 저장 데이터에 유지하고 재시작할 때마다 `liveupdate.add_mount()`를 다시 호출하세요.
 2. 아카이브는 다운로드할 수 있는 온라인 위치(예: S3)에 저장해야 합니다.
 3. 컬렉션 프록시 이름이 주어지면 어떤 아카이브를 다운로드해야 하는지, 그리고 어떻게 마운트해야 하는지 알아내야 합니다.
 4. 시작 시 레벨 로드를 시도합니다.
-5. `collectionproxy.get_resources()`를 사용해 프록시의 제외된 컨텐츠를 검사합니다. 기본 stripped-manifest 설정이 활성화되어 있으면 관련 아카이브가 마운트될 때까지 `{}`를 반환하고, 마운트 후에는 리소스 해쉬가 담긴 비어 있지 않은 테이블을 반환합니다.
+5. 이 아카이브 게시 워크플로우에서는 `collectionproxy.get_resources()`를 사용해 프록시의 제외된 컨텐츠 메타데이터를 검사합니다. 관련 패키지 manifest가 마운트될 때까지 `{}`를 반환하고, 마운트 후에는 리소스 해쉬가 담긴 비어 있지 않은 테이블을 반환합니다. 이 해쉬는 종속성을 설명하며, 반환 결과 자체가 모든 데이터 blob을 사용할 수 있음을 검증하지는 않습니다.
 6. 프록시가 Live Update 컨텐츠를 사용하고 일치하는 아카이브가 아직 마운트되지 않았다면 프록시를 로드하기 전에 해당 아카이브를 다운로드하고 마운트합니다.
 7. HTTP 요청을 보내고 아카이브를 `download_path`에 다운로드합니다.
 8. 데이터가 다운로드되었으므로 실행 중인 엔진에 마운트할 차례입니다.

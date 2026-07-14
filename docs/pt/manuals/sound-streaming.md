@@ -34,7 +34,7 @@ Faça isso assim:
 Aqui está um trecho do projeto de exemplo, usando `http.request()` para obter o arquivo de som inicial.
 
 ::: sidenote
-O servidor web do qual você está carregando conteúdo precisa suportar [requisições HTTP range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests).
+O streaming propriamente dito exige que o servidor web respeite as [requisições HTTP range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests) e retorne o status `206`. Se o servidor ignorar o cabeçalho `Range` e retornar o status `200`, o exemplo abaixo criará um recurso normal, sem streaming, a partir da resposta completa.
 :::
 
 ```lua
@@ -43,25 +43,43 @@ local function play_sound(self, hash)
     sound.play(self.component)            -- começa a tocar o som
 end
 
-local function parse_range(s)
-    local _, _, rstart, rend, size = string.find(s, "(%d+)-(%d+)/(%d+)") -- "bytes 0-16383/103277"
-    return rstart, rend, size
+local function parse_content_range(value)
+    if not value then
+        return nil
+    end
+    local rstart, rend, filesize = value:match("^bytes%s+(%d+)%-(%d+)/(%d+)$")
+    return tonumber(rstart), tonumber(rend), tonumber(filesize)
 end
 
 -- Callback da resposta http.
-local function http_result(self, _id, response, extra)
-    if response.status == 200 or response.status == 206 then
-        -- Requisição bem-sucedida
-        local relative_path = self.filename
-        local range = response.headers['content-range'] -- content-range = "bytes 0-16383/103277"
-        local rstart, rend, filesize = parse_range(range)
-        -- Cria o recurso Defold
-        --   "partial" ativa o modo de streaming
-        print("Creating resource", relative_path)
-        local hash = resource.create_sound_data(relative_path, { data = response.response, filesize = filesize, partial = true })
-        -- envia "play_sound" ao componente
-        play_sound(self, hash)
+local function http_result(self, _id, response)
+    if response.status ~= 200 and response.status ~= 206 then
+        return
     end
+
+    local options = {
+        data = response.response,
+    }
+
+    if response.status == 206 then
+        local rstart, _, filesize = parse_content_range(response.headers["content-range"])
+        if rstart ~= 0 or not filesize then
+            print("Invalid Content-Range response")
+            return
+        end
+
+        -- Um recurso parcial ativa o streaming. filesize é o tamanho do
+        -- arquivo completo, não apenas do intervalo retornado.
+        if #response.response < filesize then
+            options.filesize = filesize
+            options.partial = true
+        end
+    end
+
+    local relative_path = self.filename
+    print("Creating resource", relative_path)
+    local resource_hash = resource.create_sound_data(relative_path, options)
+    play_sound(self, resource_hash)
 end
 
 local function load_web_sound(base_url, relative_path)

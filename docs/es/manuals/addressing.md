@@ -40,7 +40,7 @@ Esto hará que cuando el juego inicie, el script *direccione* el sprite por el i
 
 ![bean](images/addressing/bean.png)
 
-El identificador es un parámetro sobre el que nosotros decidimos el valor. En este caso, se le da al objeto el identificador de "bean", al igual que al script se le nombra "controller" y al sprite "body"
+Los identificadores los define el desarrollador y deben ser únicos dentro de su contexto de nombres. En este caso, se le da al objeto de juego el identificador "bean", a su componente sprite el nombre "body" y al componente script que controla al personaje el nombre "controller". Los identificadores usados en direcciones URL de tipo string no deben contener `:` ni `#`, ya que la sintaxis de URL reserva `:` como separador del socket y `#` como separador entre el objeto de juego y el componente. Por lo demás, el parser de URL no rechaza los signos de puntuación.
 
 ::: sidenote
 

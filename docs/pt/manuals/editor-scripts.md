@@ -565,7 +565,7 @@ Hooks de ciclo de vida existentes que `/hooks.editor_script` pode especificar:
   - `platform` — igual a `on_build_started`
   - `success` — se o build teve sucesso, `true` ou `false`
 - `on_bundle_started(opts)` — executado quando você cria um pacote ou Build HTML5 version de um jogo. Assim como em `on_build_started`, alterações acionadas por este hook aparecerão no pacote, e erros abortarão o pacote. `opts` terá estas chaves:
-  - `output_directory` — um caminho de arquivo apontando para um diretório com a saída do pacote, por exemplo `"/path/to/project/build/default/__htmlLaunchDir"`
+  - `output_directory` — um caminho de arquivo apontando para um diretório com a saída do pacote. **Project ▸ Build HTML5** usa sua própria árvore de artefatos, por exemplo `"/path/to/project/build/default_html5/__htmlLaunchDir"`, separada da saída normal de build em `build/default`.
   - `platform` — plataforma para a qual o jogo é empacotado. Veja uma lista de possíveis valores de plataforma no [manual do Bob](/manuals/bob).
   - `variant` — variante do pacote, `"debug"`, `"release"` ou `"headless"`
 - `on_bundle_finished(opts)` — executado quando o pacote termina, com sucesso ou não. `opts` é uma tabela com os mesmos dados de `opts` em `on_bundle_started`, mais a chave `success`, indicando se o build teve sucesso.

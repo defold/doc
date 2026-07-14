@@ -32,12 +32,14 @@ local prop = hash("scale.x")
 go.set(url, prop, 2.0)
 ```
 
-对于 GUI 节点，节点标识符作为第一个参数提供给特定于属性的函数：
+对于 GUI 节点，节点作为第一个参数提供给特定于属性的函数，或通用的 `gui.get()` 和 `gui.set()` 函数：
 
 ```lua
 -- 获取按钮的颜色
 local node = gui.get_node("button")
 local color = gui.get_color(node)
+local same_color = gui.get(node, "color")
+gui.set(node, "color.x", 1)
 ```
 
 ## 游戏对象和组件属性
@@ -112,10 +114,13 @@ local color = gui.get_color(node)
 
 ## GUI 节点属性
 
-GUI 节点也包含属性，但它们是通过特殊的 getter 和 setter 函数读取和写入的。对于每个属性，存在一个 get 和一个 set 函数。还定义了一组常量，用于在制作动画时作为对属性的引用。如果您需要引用单独的属性组件，您必须使用属性的字符串名称或字符串名称的哈希。
+GUI 节点具有特定于属性的 getter 和 setter 函数，例如 `gui.get_position()` 和 `gui.set_position()`。下面列出的内置属性也可以使用 `gui.get(node, property)` 读取，并使用 `gui.set(node, property, value)` 写入。其他节点值可能仍需要专用函数。GUI 节点上的材质常量也使用这些通用函数。要定位向量属性的某个分量，请附加其名称，例如 `gui.set(node, "color.x", 1)`。
+
+通用函数和属性专用函数使用的值类型并不总是相同。对于完整的 `position`、`scale`、`size` 和 `euler` 属性，`gui.get()` 返回 `vector4`，而对应的属性专用函数返回 `vector3`。`gui.set()` 对这些属性接受 `vector3` 或 `vector4`。通用 `rotation` 属性使用四元数；以度为单位设置旋转时请使用 `euler`。
 
 * `position`（或 `gui.PROP_POSITION`）
 * `rotation`（或 `gui.PROP_ROTATION`）
+* `euler`（或 `gui.PROP_EULER`）
 * `scale`（或 `gui.PROP_SCALE`）
 * `color`（或 `gui.PROP_COLOR`）
 * `outline`（或 `gui.PROP_OUTLINE`）
@@ -123,6 +128,8 @@ GUI 节点也包含属性，但它们是通过特殊的 getter 和 setter 函数
 * `size`（或 `gui.PROP_SIZE`）
 * `fill_angle`（或 `gui.PROP_FILL_ANGLE`）
 * `inner_radius`（或 `gui.PROP_INNER_RADIUS`）
+* `leading`（或 `gui.PROP_LEADING`）
+* `tracking`（或 `gui.PROP_TRACKING`）
 * `slice9`（或 `gui.PROP_SLICE9`）
 
 请注意，所有颜色值都编码在 `vector4` 中，其中组件对应于 RGBA 值：
@@ -146,10 +153,13 @@ GUI 节点也包含属性，但它们是通过特殊的 getter 和 setter 函数
 | *color*   | 节点的面颜色。            | `vector4`      | `gui.get_color()` `gui.set_color()` |
 | *outline* | 节点的轮廓颜色。         | `vector4`       | `gui.get_outline()` `gui.set_outline()` |
 | *position* | 节点的位置。 | `vector3` | `gui.get_position()` `gui.set_position()` |
-| *rotation* | 节点的旋转，表示为欧拉角——围绕每个轴旋转的度数。 | `vector3` | `gui.get_rotation()` `gui.set_rotation()` |
+| *rotation* | 节点旋转。getter 返回四元数；setter 接受四元数或以向量表示的欧拉角。 | `quaternion`、`vector3` 或 `vector4` | `gui.get_rotation()` `gui.set_rotation()` |
+| *euler* | 节点的旋转，以度为单位的欧拉角表示。 | `vector3` | `gui.get_euler()` `gui.set_euler()` |
 | *scale* | 节点的缩放，表示为沿每个轴的乘数。 | `vector3` |`gui.get_scale()` `gui.set_scale()` |
 | *shadow* | 节点的阴影颜色。 | `vector4` | `gui.get_shadow()` `gui.set_shadow()` |
 | *size* | 节点的未缩放大小。 | `vector3` | `gui.get_size()` `gui.set_size()` |
 | *fill_angle* | 饼节点的填充角度，表示为逆时针度数。 | `number` | `gui.get_fill_angle()` `gui.set_fill_angle()` |
 | *inner_radius* | 饼节点的内半径。 | `number` | `gui.get_inner_radius()` `gui.set_inner_radius()` |
+| *leading* | 文本节点的行间距缩放比例。 | `number` | `gui.get_leading()` `gui.set_leading()` |
+| *tracking* | 文本节点的字符间距缩放比例。 | `number` | `gui.get_tracking()` `gui.set_tracking()` |
 | *slice9* | 九宫格节点的边缘距离。 | `vector4` | `gui.get_slice9()` `gui.set_slice9()` |

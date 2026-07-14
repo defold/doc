@@ -116,7 +116,7 @@ Panel Tools służy również do pracy ze zintegrowanym debuggerem. Więcej info
 
 ### 6. Panel Changed Files
 
-Jeśli projekt używa rozproszonego systemu kontroli wersji Git, ten widok pokazuje wszystkie pliki zmienione, dodane lub usunięte w projekcie. Regularna synchronizacja projektu pozwala utrzymywać lokalną kopię zgodną z tym, co znajduje się w repozytorium Git projektu. Dzięki temu łatwiej pracować zespołowo i uniknąć utraty efektów pracy. Więcej o Git znajdziesz w [instrukcji kontroli wersji](/manuals/version-control/). W tym widoku można wykonywać część operacji na plikach:
+Jeśli projekt używa Git, ten widok pokazuje pliki zmienione, dodane, przemianowane lub usunięte lokalnie w porównaniu z bieżącym commitem (`HEAD`). Do synchronizacji ze zdalnym repozytorium używaj zewnętrznego klienta Git albo wiersza poleceń. Więcej informacji znajdziesz w [instrukcji kontroli wersji](/manuals/version-control/). W tym widoku można wykonywać część operacji na plikach:
 
    - <kbd>Left Mouse Click</kbd>, aby wybrać plik. Przytrzymując <kbd>⇧ Shift</kbd>, rozszerzysz zaznaczenie, a przytrzymując <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd>, zaznaczysz lub odznaczysz kliknięty element. Jeśli zaznaczony jest jeden zmieniony plik, możesz kliknąć `Diff`, aby zobaczyć różnice. Kliknięcie `Revert` cofa zmiany we wszystkich zaznaczonych plikach.
    - <kbd>Double Left Mouse Click</kbd> na pliku, aby otworzyć jego widok. Edytor otworzy plik w odpowiednim edytorze, tak jak w panelu `Assets`.

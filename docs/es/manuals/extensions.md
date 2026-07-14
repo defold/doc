@@ -5,11 +5,15 @@ brief: Este manual explica cómo escribir una extensión nativa para el motor de
 
 # Extensiones nativas
 
-Si necesitas una interacción personalizada de bajo nivel con software o hardware externo donde Lua no sea suficiente, el SDK de Defold te permite escribir extensiones para el motor en C, C++, Objective C, Java o JavaScript, según la plataforma objetivo. Los casos de uso típicos para las extensiones nativas son:
+Si necesitas una interacción personalizada de bajo nivel con software o hardware externo donde Lua no sea suficiente, el SDK de Defold te permite escribir extensiones para el motor en C, C++, C#, Objective-C, Java o JavaScript, según la plataforma objetivo. Los casos de uso típicos para las extensiones nativas son:
 
 - Interacción con hardware específico, por ejemplo la cámara de los teléfonos móviles.
 - Interacción con API externas de bajo nivel, por ejemplo API de redes publicitarias que no permiten interacción mediante API de red donde podría usarse Luasocket.
 - Cálculos de alto rendimiento y procesamiento de datos.
+
+::: sidenote
+La compatibilidad con C# es experimental y está pensada para extensiones nativas, no para componentes script de Defold. Usa .NET 9 NativeAOT para producir una biblioteca estática; agrega archivos fuente `.cs` a la carpeta `src` de una extensión y el servicio de build generará el archivo de proyecto. La compatibilidad con plataformas depende de las capacidades actuales de NativeAOT y del servicio de build. Consulta el [ejemplo oficial de lenguajes para extensiones nativas](https://github.com/defold/example-languages) para conocer el flujo de trabajo y la configuración probada actuales.
+:::
 
 ## El servidor de build
 

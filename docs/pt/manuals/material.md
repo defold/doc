@@ -337,15 +337,30 @@ Exemplo:
 go.set("#sprite", "m", vmath.matrix4())
 ```
 
+### Constantes de material de nodes de GUI
+
+Dentro de um script de GUI, leia e escreva as constantes de material de um node com `gui.get()` e `gui.set()`, em vez de usar as funções `go`. Há suporte a componentes de vetores, constantes de matriz e arrays de constantes. Os índices de array na tabela de opções começam em 1:
+
+```lua
+local node = gui.get_node("button")
+
+local tint = gui.get(node, "tint")
+gui.set(node, "tint.x", 0.5)
+gui.set(node, "light_matrix", vmath.matrix4())
+gui.set(node, "tint_array", vmath.vector4(1, 0, 0, 1), { index = 1 })
+```
+
 ::: sidenote
-Para que uma constante de material do tipo `CONSTANT_TYPE_USER` ou `CONSTANT_TYPE_MATRIX4` esteja disponível usando `go.get()` e `go.set()`, ela precisa ser usada no programa de shader. Se a constante for definida no material, mas não usada no programa, ela será removida do material e não ficará disponível em tempo de execução.
+Para que uma constante de material do tipo `CONSTANT_TYPE_USER` ou `CONSTANT_TYPE_USER_MATRIX4` esteja disponível usando `go.get()` e `go.set()`, ou `gui.get()` e `gui.set()`, ela precisa ser usada no programa de shader. Se a constante for definida no material, mas não usada no programa, ela será removida do material e não ficará disponível em tempo de execução.
 :::
 
 ## Samplers
 
 Samplers são usados para amostrar as informações de cor de uma textura (um tile source ou atlas). As informações de cor podem então ser usadas para cálculos no programa de shader.
 
-Componentes Sprite, tilemap, GUI e efeito de partículas recebem automaticamente um `sampler2D` definido. O primeiro `sampler2D` declarado no programa de shader é vinculado automaticamente à imagem referenciada no componente gráfico. Portanto, atualmente não há necessidade de especificar samplers no arquivo de materiais para esses componentes. Além disso, esses tipos de componente atualmente oferecem suporte a apenas uma textura. (Se você precisar de várias texturas em um shader, pode usar [`render.enable_texture()`](/ref/render/#render.enable_texture) e definir samplers de textura manualmente a partir do seu script de renderização.)
+Componentes sprite, tilemap, GUI e efeito de partículas vinculam automaticamente sua textura de imagem ao primeiro `sampler2D` declarado. Componentes sprite também oferecem suporte a várias texturas: cada sampler declarado no material se torna um slot de imagem nomeado no componente Sprite. A primeira textura fornece os dados de animação do sprite e controla a sequência de frames. Para cada frame, seu id de imagem é usado para localizar a imagem correspondente em cada textura adicional, que fornece suas próprias coordenadas UV. Portanto, os atlas ou tile sources atribuídos devem conter ids de frame correspondentes e imagens com formatos semelhantes; diferenças nas formas com compactação poligonal podem causar vazamento de textura. Consulte [Sprites com múltiplas texturas](/manuals/sprite/#multi-textured-sprites) para obter detalhes.
+
+Em um componente ou fluxo de renderização que não expõe um slot de textura adicional, use [`render.enable_texture()`](/ref/render/#render.enable_texture) para vincular samplers de textura adicionais a partir do script de renderização.
 
 ![Sprite sampler](images/materials/sprite_sampler.png)
 

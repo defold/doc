@@ -15,7 +15,7 @@ Pełnomocniki kolekcji różnią się od [fabryk kolekcji](/manuals/collection-f
 
 1. Dodaj komponent Collection proxy do obiektu gry, klikając <kbd>prawym przyciskiem myszy</kbd> obiekt gry i wybierając <kbd>Add Component ▸ Collection Proxy</kbd> z menu kontekstowego.
 
-2. Ustaw właściwość *Collection* tak, aby wskazywała kolekcję, którą chcesz później dynamicznie wczytać w trakcie działania programu. Referencja jest statyczna i zapewnia, że cała zawartość wskazanej kolekcji trafi do końcowej wersji gry.
+2. Ustaw właściwość *Collection* tak, aby wskazywała kolekcję, którą chcesz później dynamicznie wczytać w trakcie działania programu. Jest to statyczna zależność z czasu budowania: wskazana kolekcja i jej zależności są kompilowane. Jeśli opcja *Exclude* nie jest zaznaczona, trafiają do głównego bundla. Po zaznaczeniu *Exclude* zasoby wskazywane wyłącznie przez wykluczone pełnomocniki mogą zostać pominięte w głównym bundlu na potrzeby Live Update, a niewczytany pełnomocnik można w czasie działania przekierować do innej skompilowanej kolekcji, jak opisano poniżej.
 
 ![add proxy component](images/collection-proxy/create_proxy.png)
 
@@ -80,6 +80,36 @@ end
 
 `"enable"`
 : Ta wiadomość każe pełnomocnikowi kolekcji aktywować wszystkie utworzone instancje obiektów. Na przykład komponenty sprite zaczynają wtedy być rysowane.
+
+## Zmienianie kolekcji wykluczonego pełnomocnika {#changing-an-excluded-proxys-collection}
+
+Funkcja [`collectionproxy.set_collection()`](/ref/collectionproxy/#collectionproxy.set_collection) może przekierować wykluczony i niewczytany pełnomocnik do skompilowanej kolekcji, co jest przydatne po zamontowaniu pakietu Live Update. Pełnomocnik musi mieć zaznaczoną opcję *Exclude* i nie może być wczytany ani w trakcie wczytywania. Ścieżka musi kończyć się na `.collectionc`. Kolekcja i wszystkie jej zależności muszą być dostępne w systemie zasobów w chwili wczytywania pełnomocnika.
+
+Sprawdź zwróconą wartość przed wczytaniem pełnomocnika. Nowy świat zainicjalizuj i włącz dopiero po otrzymaniu wiadomości `proxy_loaded`:
+
+```lua
+local function load_mounted_level()
+    local ok, result = collectionproxy.set_collection(
+        "#level_proxy",
+        "/level_pack/level_3.collectionc"
+    )
+
+    if ok then
+        msg.post("#level_proxy", "load")
+    else
+        print("Unable to change proxy collection", result)
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("proxy_loaded") then
+        msg.post(sender, "init")
+        msg.post(sender, "enable")
+    end
+end
+```
+
+Wywołaj `collectionproxy.set_collection("#level_proxy", nil)`, gdy pełnomocnik nie jest wczytany ani w trakcie wczytywania, aby przywrócić kolekcję przypisaną w edytorze. Informacje o pobieraniu i montowaniu zawartości znajdziesz w [instrukcji skryptowania Live Update](/manuals/live-update-scripting/), a kody błędów `collectionproxy.RESULT_*` w dokumentacji API.
 
 ## Adresowanie w nowym świecie
 

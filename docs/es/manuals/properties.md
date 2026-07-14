@@ -32,12 +32,14 @@ local prop = hash("scale.x")
 go.set(url, prop, 2.0)
 ```
 
-En los nodos GUI, el identificador del nodo se proporciona como primer parámetro a la función específica de la propiedad:
+En los nodos GUI, el nodo se proporciona como primer parámetro a una función específica de la propiedad o a las funciones genéricas `gui.get()` y `gui.set()`:
 
 ```lua
 -- Obtiene el color del botón
 local node = gui.get_node("button")
 local color = gui.get_color(node)
+local same_color = gui.get(node, "color")
+gui.set(node, "color.x", 1)
 ```
 
 ## Propiedades de objetos de juego y componentes
@@ -112,10 +114,13 @@ También existen funciones específicas para trabajar con la transformación del
 
 ## Propiedades de nodos GUI
 
-Los nodos GUI también contienen propiedades, pero se leen y escriben mediante funciones getter y setter especiales. Para cada propiedad existe una función get y una función set. También hay un conjunto de constantes definidas para usarlas como referencia a las propiedades al animarlas. Si necesitas hacer referencia a componentes individuales de una propiedad, tienes que usar el nombre de string de la propiedad o un hash del nombre de string.
+Los nodos GUI tienen funciones getter y setter específicas de cada propiedad, como `gui.get_position()` y `gui.set_position()`. Como alternativa, las propiedades integradas que se indican a continuación pueden leerse y escribirse con `gui.get(node, property)` y `gui.set(node, property, value)`. Otros valores de nodo pueden seguir requiriendo sus funciones específicas. Las constantes de material de los nodos GUI también usan las funciones genéricas. Para direccionar un componente de una propiedad vectorial, agrega su nombre; por ejemplo, `gui.set(node, "color.x", 1)`.
+
+Las funciones genéricas y las específicas de cada propiedad no siempre usan tipos de valor idénticos. `gui.get()` devuelve un `vector4` para las propiedades completas `position`, `scale`, `size` y `euler`, mientras que las funciones específicas correspondientes devuelven un `vector3`. `gui.set()` acepta un `vector3` o un `vector4` para esas propiedades. La propiedad genérica `rotation` usa un quaternion; usa `euler` al definir la rotación en grados.
 
 * `position` (o `gui.PROP_POSITION`)
 * `rotation` (o `gui.PROP_ROTATION`)
+* `euler` (o `gui.PROP_EULER`)
 * `scale` (o `gui.PROP_SCALE`)
 * `color` (o `gui.PROP_COLOR`)
 * `outline` (o `gui.PROP_OUTLINE`)
@@ -123,6 +128,8 @@ Los nodos GUI también contienen propiedades, pero se leen y escriben mediante f
 * `size` (o `gui.PROP_SIZE`)
 * `fill_angle` (o `gui.PROP_FILL_ANGLE`)
 * `inner_radius` (o `gui.PROP_INNER_RADIUS`)
+* `leading` (o `gui.PROP_LEADING`)
+* `tracking` (o `gui.PROP_TRACKING`)
 * `slice9` (o `gui.PROP_SLICE9`)
 
 Ten en cuenta que todos los valores de color están codificados en un `vector4`, donde los componentes corresponden a los valores RGBA:
@@ -146,10 +153,13 @@ Ten en cuenta que todos los valores de color están codificados en un `vector4`,
 | *color*   | El color frontal del nodo.             | `vector4`      | `gui.get_color()` `gui.set_color()` |
 | *outline* | El color del contorno del nodo.        | `vector4`       | `gui.get_outline()` `gui.set_outline()` |
 | *position* | La posición del nodo. | `vector3` | `gui.get_position()` `gui.set_position()` |
-| *rotation* | La rotación del nodo expresada como ángulos de Euler, grados rotados alrededor de cada eje. | `vector3` | `gui.get_rotation()` `gui.set_rotation()` |
+| *rotation* | La rotación del nodo. El getter devuelve un quaternion; el setter acepta un quaternion o ángulos de Euler como vector. | `quaternion`, `vector3` o `vector4` | `gui.get_rotation()` `gui.set_rotation()` |
+| *euler* | La rotación del nodo expresada como ángulos de Euler en grados. | `vector3` | `gui.get_euler()` `gui.set_euler()` |
 | *scale* | La escala del nodo expresada como un multiplicador a lo largo de cada eje. | `vector3` |`gui.get_scale()` `gui.set_scale()` |
 | *shadow* | El color de la sombra del nodo. | `vector4` | `gui.get_shadow()` `gui.set_shadow()` |
 | *size* | El tamaño sin escalar del nodo. | `vector3` | `gui.get_size()` `gui.set_size()` |
 | *fill_angle* | El ángulo de relleno de un nodo Pie expresado en grados en sentido antihorario. | `number` | `gui.get_fill_angle()` `gui.set_fill_angle()` |
 | *inner_radius* | El radio interior de un nodo Pie. | `number` | `gui.get_inner_radius()` `gui.set_inner_radius()` |
+| *leading* | La escala del espaciado entre líneas de un nodo de texto. | `number` | `gui.get_leading()` `gui.set_leading()` |
+| *tracking* | La escala del espaciado entre letras de un nodo de texto. | `number` | `gui.get_tracking()` `gui.set_tracking()` |
 | *slice9* | Las distancias de borde de un nodo slice9. | `vector4` | `gui.get_slice9()` `gui.set_slice9()` |

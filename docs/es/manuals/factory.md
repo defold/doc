@@ -257,11 +257,17 @@ Cuando la opción *Dynamic Prototype* está definida, el recuento de componentes
 
 ## Límites de instancias
 
-La configuración de proyecto *max_instances* en *Collection related settings* limita el número total de instancias de objetos de juego que pueden existir en un mundo (la main.collection cargada al inicio o cualquier mundo cargado mediante un proxy de colección). Todos los objetos de juego que existen en el mundo se cuentan contra ese límite y no importa si se colocaron manualmente en el editor o si se generaron en tiempo de ejecución mediante un script.
+La configuración de proyecto *Max Instances* en *Collection* es el límite superior del número de objetos de juego de cada colección (mundo). Durante la build, Defold puede asignar una capacidad menor cuando puede determinar que es seguro hacerlo. Todos los objetos de juego que estén vivos simultáneamente en un mundo cuentan para esa capacidad, tanto si se colocaron en el editor como si se generaron durante el runtime.
 
 ![Máximo de instancias](images/factory/factory_max_instances.png)
 
-Si defines *max_instances* en 1024 y tienes 24 objetos de juego colocados manualmente en tu colección principal, puedes generar 1000 objetos de juego adicionales. En cuanto elimines un objeto de juego, podrás generar otra instancia.
+La asignación real depende del análisis realizado durante la build:
+
+* Cuando la build puede determinar un número fijo de objetos de juego (normalmente cuando la colección no contiene ninguna factory ni collection factory), la capacidad es el número compilado, limitada por *Max Instances*.
+* Una colección que contiene una factory o collection factory usa *Max Instances* como capacidad de objetos de juego. Para un prototipo referenciado estáticamente, la build identifica los tipos de componente que puede generar la factory. Esos tipos usan sus respectivos recuentos máximos del proyecto, mientras que los tipos de componente no afectados pueden seguir usando recuentos exactos.
+* Activar *Dynamic Prototype* desactiva el análisis del recuento de componentes de la colección propietaria, por lo que usa *Max Instances* y los recuentos máximos configurados para cada componente.
+
+Planifica *Max Instances* en función del mayor número de objetos de juego que puedan estar vivos simultáneamente en un mundo dinámico. Consulta [Optimizaciones del recuento máximo de componentes](/manuals/project-settings/#component-max-count-optimizations) para saber cómo se calculan los demás límites de componentes.
 
 ## Pooling de objetos de juego
 

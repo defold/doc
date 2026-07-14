@@ -41,7 +41,7 @@ main_collection = /main/main.collectionc
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
-local vsync = sys.get_config_boolean("display.vsync", false)
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -175,7 +175,7 @@ local vsync = sys.get_config_boolean("display.vsync", false)
 此整数值控制应用程序如何处理垂直同步。0 禁用垂直同步，默认值为 1。使用 OpenGL 适配器时，此值设置窗口应在[缓冲区交换之间更新](https://www.khronos.org/opengl/wiki/Swap_Interval)的帧数。对于 Vulkan，没有内置的交换间隔概念，该值控制是否应启用垂直同步。
 
 #### Vsync
-依赖硬件垂直同步进行帧时序。可以根据图形驱动程序和平台特性进行覆盖。对于已弃用的 'variable_dt' 行为，请取消勾选此设置并将帧上限设置为 0。
+旧版兼容性设置。此设置已弃用；新项目请使用 **Swap Interval**。如果禁用，它会强制有效交换间隔为 `0`。如果启用，则由 **Swap Interval** 决定有效值。
 
 #### Display Profiles
 指定要使用的显示配置文件，默认为 `/builtins/render/default.display_profilesc`。在[GUI 布局手册](/manuals/gui-layouts/#creating-display-profiles)中了解更多信息。
@@ -647,7 +647,7 @@ Firebase Cloud Messaging 应用 ID。
 
 #### Manifest
 
-如果设置，在打包时使用指定的 Android 清单 XML 文件。
+如果设置，在打包时使用指定的 Android 清单 XML 文件。自定义清单会替换 Defold 的内置基础清单。原生扩展的清单片段仍会合并到其中，但它不会自动继承内置基础清单之后的变更，因此升级时请将自定义清单与当前内置清单比较。对于游戏，请在 `<application>` 元素上设置 `android:appCategory="game"`。对于非游戏应用，仅在 Android 定义的某个[应用类别](https://developer.android.com/guide/topics/manifest/application-element#appCategory)能够准确描述该应用时，才设置 `android:appCategory`。
 
 #### Iap Provider
 

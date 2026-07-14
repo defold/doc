@@ -41,7 +41,7 @@ main_collection = /main/main.collectionc
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
-local vsync = sys.get_config_boolean("display.vsync", false)
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -175,7 +175,7 @@ local vsync = sys.get_config_boolean("display.vsync", false)
 Целое значение, управляющее VSync. 0 — отключает, по умолчанию 1. При использовании OpenGL это значение определяет количество кадров между обновлениями буфера ([swap interval](https://www.khronos.org/opengl/wiki/Swap_Interval)). Для Vulkan VSync контролируется напрямую этим значением, так как понятия swap interval нет.
 
 #### Vsync
-Использовать аппаратный VSync для тайминга кадров. Может быть переопределено драйвером графики и особенностями платформы. Для устаревшего поведения «variable_dt» отключите этот параметр и установите ограничение частоты кадров в 0.
+Устаревшая настройка совместимости. Эта настройка объявлена устаревшей; в новых проектах используйте **Swap Interval**. Если она отключена, эффективный интервал смены буфера принудительно становится равен `0`. Если включена, эффективное значение определяется настройкой **Swap Interval**.
 
 #### Display Profiles
 Файл профилей дисплея. По умолчанию: `/builtins/render/default.display_profilesc`. Подробнее см. в [руководстве по GUI Layouts](/manuals/gui-layouts/#creating-display-profiles).
@@ -621,7 +621,7 @@ Sender Id для Google Cloud Messaging. Установите строку, вы
 Идентификатор приложения Firebase Cloud Messaging.
 
 #### Manifest
-Если указано, используется заданный Android-манифест (XML-файл) при сборке.
+Если указано, при бандлинге используется заданный XML-файл Android-манифеста. Пользовательский манифест заменяет встроенный базовый манифест Defold. Фрагменты манифестов нативных расширений по-прежнему объединяются с ним, но последующие изменения встроенного базового манифеста автоматически не наследуются, поэтому при обновлении сравнивайте пользовательские манифесты с актуальным встроенным. Для игр задайте `android:appCategory="game"` в элементе `<application>`. Для неигровых приложений задавайте `android:appCategory` только в том случае, если одна из определённых Android [категорий приложений](https://developer.android.com/guide/topics/manifest/application-element#appCategory) точно описывает приложение.
 
 #### Iap Provider
 Указывает, какой магазин использовать. Допустимые значения: `Amazon` и `GooglePlay`. См. [extension-iap](/extension-iap/) для получения дополнительной информации.

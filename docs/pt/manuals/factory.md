@@ -257,11 +257,17 @@ Quando a opção *Dynamic Prototype* está definida, a contagem de componentes d
 
 ## Limites de instâncias
 
-A configuração de projeto *max_instances* em *Collection related settings* limita o número total de instâncias de objetos de jogo que podem existir em um mundo (a main.collection carregada na inicialização ou qualquer mundo carregado por um proxy de coleção). Todos os objetos de jogo que existem no mundo contam para esse limite, e não importa se eles foram colocados manualmente no editor ou criados em tempo de execução por um script.
+A configuração de projeto *Max Instances* em *Collection* é o limite máximo do número de objetos de jogo em cada coleção (mundo). Durante o build, o Defold pode alocar uma capacidade menor quando consegue determinar que isso é seguro. Todos os objetos de jogo simultaneamente ativos em um mundo contam para a capacidade, sejam eles colocados no editor ou criados em tempo de execução.
 
 ![Máximo de instâncias](images/factory/factory_max_instances.png)
 
-Se você definir *max_instances* como 1024 e tiver 24 objetos de jogo colocados manualmente na sua coleção principal, poderá criar mais 1000 objetos de jogo. Assim que apagar um objeto de jogo, você fica livre para criar outra instância.
+A alocação real depende da análise feita durante o build:
+
+* Quando o build consegue determinar uma contagem fixa de objetos de jogo (normalmente quando a coleção não tem uma fábrica nem uma fábrica de coleção), a capacidade é a contagem compilada, limitada por *Max Instances*.
+* Uma coleção que contém uma fábrica ou uma fábrica de coleção usa *Max Instances* como capacidade de objetos de jogo. No caso de um protótipo referenciado estaticamente, o build identifica os tipos de componente que a fábrica pode criar. Esses tipos usam suas respectivas contagens máximas configuradas no projeto, enquanto tipos de componente não afetados ainda podem usar contagens exatas.
+* Habilitar *Dynamic Prototype* desabilita a análise da contagem de componentes da coleção proprietária; portanto, ela usa *Max Instances* e as contagens máximas configuradas para cada componente.
+
+Planeje *Max Instances* de acordo com o maior número de objetos de jogo que podem estar ativos ao mesmo tempo em um mundo dinâmico. Consulte [Otimizações da contagem máxima de componentes](/manuals/project-settings/#component-max-count-optimizations) para entender como os demais limites de componentes são calculados.
 
 ## Pooling de objetos de jogo
 

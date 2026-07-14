@@ -84,7 +84,7 @@ Atrybuty określone w materiale pojawią się w inspectorze jako zwykłe właśc
 
 Plik *game.project* zawiera kilka [ustawień projektu](/manuals/project-settings#sprite) związanych ze sprite'ami.
 
-## Sprite'y z wieloma teksturami
+## Sprite'y z wieloma teksturami {#multi-textured-sprites}
 
 Gdy sprite korzysta z wielu tekstur, warto pamiętać o kilku rzeczach.
 

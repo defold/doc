@@ -34,7 +34,7 @@ brief: 本手册介绍了如何将声音流式传输到 Defold 游戏引擎中
 以下是示例项目中的摘录，使用 `http.request()` 获取初始声音文件。
 
 ::: sidenote
-您从中加载内容的 Web 服务器必须支持 [HTTP 范围请求](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests)。
+真正的流式传输要求 Web 服务器正确处理 [HTTP 范围请求](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests) 并返回状态码 `206`。如果服务器忽略 `Range` 标头并返回状态码 `200`，下面的示例会改为使用完整响应创建普通的非流式资源。
 :::
 
 ```lua
@@ -43,25 +43,43 @@ local function play_sound(self, hash)
     sound.play(self.component)            -- 开始播放声音
 end
 
-local function parse_range(s)
-    local _, _, rstart, rend, size = string.find(s, "(%d+)-(%d+)/(%d+)") -- "bytes 0-16383/103277"
-    return rstart, rend, size
+local function parse_content_range(value)
+    if not value then
+        return nil
+    end
+    local rstart, rend, filesize = value:match("^bytes%s+(%d+)%-(%d+)/(%d+)$")
+    return tonumber(rstart), tonumber(rend), tonumber(filesize)
 end
 
 -- http 响应的回调函数
-local function http_result(self, _id, response, extra)
-    if response.status == 200 or response.status == 206 then
-        -- 成功的请求
-        local relative_path = self.filename
-        local range = response.headers['content-range'] -- content-range = "bytes 0-16383/103277"
-        local rstart, rend, filesize = parse_range(range)
-        -- 创建 Defold 资源
-        --   "partial" 将启用流传输模式
-        print("Creating resource", relative_path)
-        local hash = resource.create_sound_data(relative_path, { data = response.response, filesize = filesize, partial = true })
-        -- 发送 "play_sound" 到组件
-        play_sound(self, hash)
+local function http_result(self, _id, response)
+    if response.status ~= 200 and response.status ~= 206 then
+        return
     end
+
+    local options = {
+        data = response.response,
+    }
+
+    if response.status == 206 then
+        local rstart, _, filesize = parse_content_range(response.headers["content-range"])
+        if rstart ~= 0 or not filesize then
+            print("Invalid Content-Range response")
+            return
+        end
+
+        -- 部分资源会启用流式传输。filesize 是完整文件的大小，
+        -- 而不只是返回的范围。
+        if #response.response < filesize then
+            options.filesize = filesize
+            options.partial = true
+        end
+    end
+
+    local relative_path = self.filename
+    print("Creating resource", relative_path)
+    local resource_hash = resource.create_sound_data(relative_path, options)
+    play_sound(self, resource_hash)
 end
 
 local function load_web_sound(base_url, relative_path)

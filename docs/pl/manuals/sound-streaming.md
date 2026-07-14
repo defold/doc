@@ -34,7 +34,7 @@ Zrób to w ten sposób:
 Poniżej znajduje się fragment przykładowego projektu, który używa `http.request()` do pobrania początkowej części pliku dźwiękowego.
 
 ::: sidenote
-Serwer WWW, z którego pobierasz treści, musi obsługiwać [żądania zakresowe HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests).
+Rzeczywiste strumieniowanie wymaga, aby serwer WWW respektował [żądania zakresowe HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests) i zwracał status `206`. Jeśli serwer zignoruje nagłówek `Range` i zwróci status `200`, poniższy przykład utworzy zwykły, niestrumieniowany zasób z pełnej odpowiedzi.
 :::
 
 ```lua
@@ -43,25 +43,43 @@ local function play_sound(self, hash)
     sound.play(self.component)            -- rozpocznij odtwarzanie dźwięku
 end
 
-local function parse_range(s)
-    local _, _, rstart, rend, size = string.find(s, "(%d+)-(%d+)/(%d+)") -- "bytes 0-16383/103277"
-    return rstart, rend, size
+local function parse_content_range(value)
+    if not value then
+        return nil
+    end
+    local rstart, rend, filesize = value:match("^bytes%s+(%d+)%-(%d+)/(%d+)$")
+    return tonumber(rstart), tonumber(rend), tonumber(filesize)
 end
 
 -- Funkcja zwrotna dla odpowiedzi HTTP.
-local function http_result(self, _id, response, extra)
-    if response.status == 200 or response.status == 206 then
-        -- Pomyślne żądanie
-        local relative_path = self.filename
-        local range = response.headers['content-range'] -- content-range = "bytes 0-16383/103277"
-        local rstart, rend, filesize = parse_range(range)
-        -- Utwórz zasób w Defold
-        --   "partial" włączy tryb strumieniowania
-        print("Creating resource", relative_path)
-        local hash = resource.create_sound_data(relative_path, { data = response.response, filesize = filesize, partial = true })
-        -- wyślij do komponentu wiadomość "play_sound"
-        play_sound(self, hash)
+local function http_result(self, _id, response)
+    if response.status ~= 200 and response.status ~= 206 then
+        return
     end
+
+    local options = {
+        data = response.response,
+    }
+
+    if response.status == 206 then
+        local rstart, _, filesize = parse_content_range(response.headers["content-range"])
+        if rstart ~= 0 or not filesize then
+            print("Invalid Content-Range response")
+            return
+        end
+
+        -- Zasób częściowy włącza strumieniowanie. filesize jest rozmiarem
+        -- całego pliku, a nie tylko zwróconego zakresu.
+        if #response.response < filesize then
+            options.filesize = filesize
+            options.partial = true
+        end
+    end
+
+    local relative_path = self.filename
+    print("Creating resource", relative_path)
+    local resource_hash = resource.create_sound_data(relative_path, options)
+    play_sound(self, resource_hash)
 end
 
 local function load_web_sound(base_url, relative_path)

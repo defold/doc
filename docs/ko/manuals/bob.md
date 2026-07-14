@@ -47,17 +47,30 @@ usage: bob [options] [commands]
     --build-artifacts <arg>              If left out, will default to
                                          build the engine. Choices:
                                          'engine', 'plugins', 'library'.
-                                         Comma separated list.
+                                         Comma separated list
+    --build-input <arg>                  Project resource path to build
+                                         instead of game.project. May be
+                                         specified more than once. More
+                                         than one occurrence is allowed
+    --build-input-file <arg>             File containing project resource
+                                         paths to build instead of
+                                         game.project. May be specified
+                                         more than once. More than one
+                                         occurrence is allowed
     --build-server <arg>                 The build server (when using
                                          native extensions)
     --build-server-header <arg>          Additional build server header to
-                                         set
+                                         set. More than one occurrence is
+                                         allowed
  -ce,--certificate <arg>                 DEPRECATED! Use --keystore
                                          instead
  -d,--debug                              DEPRECATED! Use --variant=debug
                                          instead
     --debug-ne-upload                    Outputs the files sent to build
                                          server as upload.zip
+    --debug-output-glsl <arg>            Force build GLSL shaders
+    --debug-output-hlsl <arg>            Force build HLSL shaders
+    --debug-output-msl <arg>             Force build Metal shaders
     --debug-output-spirv <arg>           Force build SPIR-V shaders
     --debug-output-wgsl <arg>            Force build WGSL shaders
     --defoldsdk <arg>                    What version of the defold sdk
@@ -70,8 +83,8 @@ usage: bob [options] [commands]
                                          target
     --exclude-build-folder <arg>         DEPRECATED! Use '.defignore' file
                                          instead
-    --experimental-path-minification     Minimizes resource path names in order
-                                         to save bundle size.
+    --experimental-path-minification     Minimizes resource path names in
+                                         order to save bundle size.
  -h,--help                               This help message
  -i,--input <arg>                        DEPRECATED! Use --root instead
     --identity <arg>                     Sign identity (iOS)
@@ -92,7 +105,7 @@ usage: bob [options] [commands]
     --ne-build-dir <arg>                 Specify a folder with includes or
                                          source, to build a specific
                                          library. More than one occurrence
-                                         is allowed.
+                                         is allowed
     --ne-output-name <arg>               Specify a library target name
  -o,--output <arg>                       Output directory. Default is
                                          "build/default"
@@ -102,27 +115,27 @@ usage: bob [options] [commands]
                                          instead
  -r,--root <arg>                         Build root directory. Default is
                                          current directory
-    --resource-cache-local <arg>         Path to local resource cache.
-    --resource-cache-remote <arg>        URL to remote resource cache.
+    --resource-cache-local <arg>         Path to local resource cache
+    --resource-cache-remote <arg>        URL to remote resource cache
     --resource-cache-remote-pass <arg>   Password/token to authenticate
                                          access to the remote resource
-                                         cache.
+                                         cache
     --resource-cache-remote-user <arg>   Username to authenticate access
-                                         to the remote resource cache.
+                                         to the remote resource cache
     --settings <arg>                     Path to a game project settings
-                                         file. More than one occurrence is
-                                         allowed. The settings files are
-                                         applied left to right.
+                                         file. The settings files are
+                                         applied left to right. More than
+                                         one occurrence is allowed
     --strip-executable                   Strip the dmengine of debug
                                          symbols (when bundling iOS or
                                          Android)
- -tc,--texture-compression <arg>         Use texture compression as
+ -tc,--texture-compression               Use texture compression as
                                          specified in texture profiles
  -tp,--texture-profiles <arg>            DEPRECATED! Use
                                          --texture-compression instead
  -u,--auth <arg>                         User auth token
     --use-async-build-server             DEPRECATED! Asynchronous build is
-                                         now the default.
+                                         now the default
     --use-lua-bytecode-delta             Use byte code delta compression
                                          when building for multiple
                                          architectures
@@ -131,16 +144,21 @@ usage: bob [options] [commands]
                                          code
     --use-vanilla-lua                    DEPRECATED! Use
                                          --use-uncompressed-lua-source
-                                         instead.
+                                         instead
  -v,--verbose                            Verbose output
     --variant <arg>                      Specify debug, release or
                                          headless version of dmengine
                                          (when bundling)
     --version                            Prints the version number to the
                                          output
+    --with-sha1                          Generate (and verify) sha1
+                                         signatures from build artifacts
+                                         (when bunding for web)
     --with-symbols                       Generate the symbol file (if
                                          applicable)
 ```
+
+`--texture-compression`은 값을 받지 않는 스위치입니다. 텍스쳐 프로파일에서 선택한 압축을 활성화하려면 포함하고, 텍스쳐 압축을 비활성화하려면 생략하세요. 이전 형식인 `--texture-compression=true`도 계속 허용됩니다. 이전 형식인 `--texture-compression=false`는 무시되고 경고가 표시되므로, 대신 스위치를 생략하세요.
 
 사용 가능한 명령:
 
@@ -151,7 +169,7 @@ usage: bob [options] [commands]
 : 빌드 디렉토리의 모든 파일을 삭제합니다.
 
 `build`
-: 모든 프로젝트 데이터를 빌드합니다. 데이터 아카이브 파일(빌드 디렉토리의 "`game.darc`")을 빌드하려면 `--archive` 옵션을 추가하세요.
+: 선택한 빌드 루트에서 도달할 수 있는 종속성 그래프를 빌드합니다. 기본 루트는 `game.project`이며, `--build-input`과 `--build-input-file`로 다른 루트를 지정할 수 있습니다. 파일이 프로젝트 루트 아래에 존재한다는 이유만으로 빌드되지는 않습니다. `game.project`가 빌드 루트일 때 게임 데이터 아카이브를 빌드 디렉토리에 만들려면 `--archive`를 추가하세요.
 
 `bundle`
 : 플랫폼별 어플리케이션 번들을 생성합니다. 번들링하려면 빌드된 아카이브(`--archive` 옵션을 사용한 `build`)가 있어야 하며 타겟 플랫폼(`--platform` 옵션 사용)이 지정되어야 합니다. `--bundle-output` 옵션으로 다른 디렉토리를 지정하지 않으면 Bob은 출력 디렉토리에 번들을 생성합니다. 번들 이름은 *game.project*의 프로젝트 이름 설정값에 따라 정해집니다. `--variant`는 번들링할 때 빌드할 실행 파일의 종류를 지정하며, `--strip-executable` 옵션과 함께 `--debug` 옵션을 대체합니다. `--variant`를 지정하지 않으면 엔진의 release 버전(Android와 iOS에서는 심볼이 제거된 버전)을 얻게 됩니다. `--variant`를 debug로 설정하고 `--strip-executable`을 생략하면 예전의 `--debug`와 같은 종류의 실행 파일이 생성됩니다.
@@ -191,7 +209,7 @@ usage: bob [options] [commands]
 `wasm-web`
 : 사용 가능한 `wasm-web` 및 `wasm_pthread-web` 아키텍처가 있는 HTML5입니다. 기본적으로 `--architectures` 인자 값은 `wasm-web`입니다.
 
-기본적으로 Bob은 빌드할 프로젝트를 현재 디렉토리에서 찾습니다. 현재 디렉토리를 Defold 프로젝트로 바꾸고 bob을 호출하면 기본 출력 디렉토리인 *build/default*에 프로젝트 데이터를 빌드합니다.
+기본적으로 Bob은 현재 디렉토리에서 프로젝트를 찾고, `game.project`에서 도달할 수 있는 리소스를 *build/default*에 빌드합니다. 참조되지 않은 리소스는 컴파일되지 않습니다. 코드가 런타임에 원시 파일을 경로로 로드한다면 [Custom Resources 프로젝트 설정](/manuals/project-settings/#custom-resources)을 통해 포함하세요. 그 밖의 Defold 리소스는 빌드 루트에서 도달할 수 있는 참조가 필요합니다.
 
 ```sh
 $ cd /Applications/Defold-beta/branches/14/4/main

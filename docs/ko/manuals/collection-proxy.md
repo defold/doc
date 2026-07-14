@@ -15,7 +15,7 @@ Defold는 모든 게임 오브젝트를 컬렉션 안에 구성합니다. 컬렉
 
 1. 게임 오브젝트를 <kbd>오른쪽 클릭</kbd>하고 컨텍스트 메뉴에서 <kbd>Add Component ▸ Collection Proxy</kbd>를 선택하여 게임 오브젝트에 컬렉션 프록시 컴포넌트를 추가합니다.
 
-2. *Collection* 프로퍼티를 나중에 런타임에 동적으로 로드하려는 컬렉션을 참조하도록 설정합니다. 이 참조는 정적이며, 참조된 컬렉션의 모든 컨텐츠가 최종 게임에 포함되도록 보장합니다.
+2. *Collection* 프로퍼티를 나중에 런타임에 동적으로 로드하려는 컬렉션을 참조하도록 설정합니다. 이는 정적인 빌드 타임 종속성이므로 참조된 컬렉션과 그 종속성이 컴파일됩니다. *Exclude*를 체크하지 않으면 메인 번들에 포함됩니다. *Exclude*를 체크하면 제외된 프록시를 통해서만 참조되는 리소스를 Live Update를 위해 메인 번들에서 생략할 수 있으며, 아래 설명처럼 로드되지 않은 프록시를 런타임에 다른 컴파일된 컬렉션으로 전환할 수도 있습니다.
 
 ![프록시 컴포넌트 추가](images/collection-proxy/create_proxy.png)
 
@@ -80,6 +80,36 @@ end
 
 `"enable"`
 : 이 메세지는 모든 게임 오브젝트와 컴포넌트를 활성화해야 한다고 컬렉션 프록시 컴포넌트에 알립니다. 예를 들어 모든 스프라이트 컴포넌트는 활성화되면 그리기를 시작합니다.
+
+## 제외된 프록시의 컬렉션 변경하기 {#changing-an-excluded-proxys-collection}
+
+[`collectionproxy.set_collection()`](/ref/collectionproxy/#collectionproxy.set_collection)을 사용하면 제외되어 있고 로드되지 않은 프록시를 컴파일된 다른 컬렉션으로 전환할 수 있습니다. 이는 Live Update 패키지를 마운트한 뒤 유용합니다. 프록시에는 *Exclude*가 체크되어 있어야 하고, 로드 중이거나 이미 로드된 상태여서는 안 됩니다. 경로는 `.collectionc`로 끝나야 합니다. 프록시를 로드할 때 컬렉션과 그 모든 종속성을 리소스 시스템에서 사용할 수 있어야 합니다.
+
+프록시를 로드하기 전에 반환값을 확인하세요. `proxy_loaded`를 받은 뒤에만 새 월드를 초기화하고 활성화합니다.
+
+```lua
+local function load_mounted_level()
+    local ok, result = collectionproxy.set_collection(
+        "#level_proxy",
+        "/level_pack/level_3.collectionc"
+    )
+
+    if ok then
+        msg.post("#level_proxy", "load")
+    else
+        print("Unable to change proxy collection", result)
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("proxy_loaded") then
+        msg.post(sender, "init")
+        msg.post(sender, "enable")
+    end
+end
+```
+
+프록시가 로드 중이거나 이미 로드된 상태가 아닐 때 `collectionproxy.set_collection("#level_proxy", nil)`을 호출하면 에디터에서 할당한 컬렉션으로 복원됩니다. 컨텐츠 다운로드와 마운트에 관해서는 [Live Update 스크립팅 매뉴얼](/manuals/live-update-scripting/)을, `collectionproxy.RESULT_*` 실패 코드에 관해서는 API 레퍼런스를 참고하세요.
 
 ## 새 월드에 주소 지정하기
 
