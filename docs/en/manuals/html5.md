@@ -296,6 +296,49 @@ print(foo2) -- bar2
 ```
 
 
+### Advanced HTML5 embedding: Host-set Module properties
+These options are intended for advanced HTML5 embedding scenarios, such as WebView wrappers or custom host pages. Most games should not need them.
+
+Embedding hosts can fine-tune the loader's behaviour by pre-setting properties on the global `Module` object *before* the `<script src="dmloader.js">` tag runs. This is the standard Emscripten pattern; `dmloader.js` captures each host-set value before its own `var Module = {...}` redefinition discards the global. Default behaviour is byte-identical when nothing is pre-set.
+
+```html
+<script>
+var Module = {
+    isWASMPthreadSupported: false,
+    isWebGL2Supported: false,
+    webGLContextAttributes: { preserveDrawingBuffer: true },
+    webGLExtensionFilter: function (name) {
+        return typeof name === "string" && name.toLowerCase().includes("compressed_texture");
+    },
+    showButtonStrip: false,
+    autoReloadOnWebGLContextRestore: true
+};
+</script>
+<script src="dmloader.js"></script>
+```
+
+| Property | Type | Effect |
+| --- | --- | --- |
+| `isWASMPthreadSupported` | `=== false` | Force the single-threaded WASM variant. Useful when the page passes the `crossOriginIsolated` + `SharedArrayBuffer` probe but still can't construct same-origin Workers (e.g. a WebView wrapper serving the bundle from a custom URL scheme — Chromium rejects `new Worker('myscheme://...')` with `SecurityError: cannot be accessed from origin 'null'`). |
+| `isWebGL2Supported` | `=== false` | Downgrade `getContext('webgl2')` to `'webgl'`. Useful when the embedded GLES driver advertises WebGL2 but trips inside the engine's VAO / instancing init. |
+| `webGLContextAttributes` | `Object` | Merged (`Object.assign`) into the attrs argument of the WebGL context creation. Notably useful for forcing `preserveDrawingBuffer:true` when the host compositor is flaky and `eglSwapBuffers` may fail between renders. |
+| `webGLExtensionFilter` | `(name) => boolean` | Strip names from `getSupportedExtensions` / `getExtension`. Returning `true` for a name removes it. Useful when the driver falsely advertises compressed-texture / float-texture / depth-texture extensions then rejects the actual upload. |
+| `showButtonStrip` | `=== false` | Hide the engine_template footer (`.buttons-background`). This can be used in addition to the existing html5.show_fullscreen_button and html5.show_made_with_defold project settings - `html5.show_fullscreen_button = 0` + `html5.show_made_with_defold = 0` suppresses the inner anchors but leaves a 42 px white bar behind; this opt-out finishes the job for hosts that want a true-fullscreen canvas. |
+| `autoReloadOnWebGLContextRestore` | `=== true` | Attach `webglcontextlost` / `webglcontextrestored` listeners to the canvas. `preventDefault()` on lost asks the browser to restore; on restored, `location.reload()` so the engine boots cleanly. On restore, the page is reloaded so the engine can initialise a fresh WebGL context. Any game state that should survive the reload must be persisted by the game.|
+
+::: important
+Some of these options patch browser prototypes and may affect other WebGL canvases on the same page. Use them only on controlled host pages dedicated to the Defold game.
+:::
+
+::: important
+Use a `var` declaration or `window.Module = {...}`. Top-level `let Module = ...` creates a script-scoped binding that the loader's global `var Module` can't see — the host-set values will be invisible to the captures.
+:::
+
+::: important
+The checks are strict — only the literal sentinel triggers the opt-out (`=== false` for the booleans, `=== true` for `autoReloadOnWebGLContextRestore`, a `function` typeof for the filter, a truthy object for the attrs). Must be a plain object. Other truthy/falsy values like `0`, `null`, `""`, or `undefined` are unsupported, ignored, and should not be used.
+:::
+
+
 ### Query arguments in the URL
 
 You can pass arguments as part of the query parameters in the page URL and read these at runtime:
