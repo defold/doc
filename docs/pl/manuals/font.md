@@ -232,20 +232,25 @@ Dodanie fontu do font collection nie powoduje automatycznego załadowania ani wy
 :::
 
 ```lua
--- pobierz główny font
-local font_collection = go.get("#label", "font")
-font.add_font(font_collection, self.language_ttf_hash)
+function init(self)
+    -- Get the target font collection.
+    self.font_collection = go.get("#label", "font")
 
--- pobierz font wybranego języka
-local font_collection_language = go.get("localization_japanese#label", "font")
-local font_info = font.get_info(font_collection_language)
-self.language_ttf_hash = font_info.fonts[1].path_hash -- pobierz pierwszy font (ten wskazany w edytorze)
-font.add_font(self.font_collection, self.language_ttf_hash) -- zwiększa licznik referencji do fontu
+    -- Get the first font assigned to the selected language collection.
+    local language_collection = go.get("localization_japanese#label", "font")
+    local font_info = font.get_info(language_collection)
+    self.language_ttf_hash = font_info.fonts[1].path_hash
+
+    -- Associate it with the target collection and increase its reference count.
+    font.add_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ```lua
--- usuń referencję do fontu
-font.add_font(self.font_collection, self.language_ttf_hash)
+function final(self)
+    -- Remove the association and release the font reference.
+    font.remove_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ### Wstępne podgrzewanie glifów

@@ -82,12 +82,11 @@ brief: 本手册介绍了如何创建应用程序包.
 
 创建应用程序包时，您可以选择创建debug或release包。这两种包之间的差异很小，但重要的是要记住：
 
-* Release构建不包含[性能分析器](/manuals/profiling)
+* Release 构建默认不包含[性能分析器](/manuals/profiling)。要在 Debug 和 Release 构建中都包含分析器支持，请在 [App Manifest](/manuals/app-manifest/#profiler) 中将 **Profiler** 设置为 **Always**。
 * Release构建不包含[屏幕录制器](/ref/stable/sys/#start_record)
 * Release构建不显示任何对`print()`的调用的输出或任何原生扩展的输出
 * Release构建在`sys.get_engine_info()`中将`is_debug`值设置为`false`
 * Release构建在调用`tostring()`时不会对`hash`值进行反向查找。这在实践中意味着，对于类型为`url`或`hash`的值的`tostring()`将返回其数字表示，而不是原始字符串（`'hash: [/camera_001]'`对比`'hash: [11844936738040519888 (unknown)]'`）
 * Release构建不支持来自编辑器的[热重载](/manuals/hot-reload)和类似功能的targeting
-
 
 

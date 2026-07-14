@@ -5,7 +5,9 @@ brief: Defold includes physics engines for 2D and 3D. They allow you to simulate
 
 # Physics
 
-Defold includes a modified version of the [Box2D](http://www.box2d.org) physics engine (version 2.2.1) for 2D physics simulations and the Bullet physics engine (version 2.77) for 3D physics. It allows you to simulate Newtonian physics interactions between different types of _collision objects_. This manual explains how this works.
+Defold includes [Box2D](https://box2d.org/) for 2D physics simulations and Bullet for 3D physics. The [App Manifest's Physics 2D setting](/manuals/app-manifest/#physics-2d) selects **Box2D Version 3**, **Box2D (Legacy Defold version)**, or **None**. The legacy implementation is the default; Box2D 3 is opt-in. Changing implementation can change simulation results and may require you to retune the version-specific [Box2D project settings](/manuals/project-settings/#box2d).
+
+The component-oriented collision-object workflow and the `physics` module described by these manuals work with either Box2D implementation; selecting **None** removes 2D physics. Defold also exposes lower-level [`b2d`](/ref/stable/b2d/), `b2d.body`, `b2d.fixture`, `b2d.shape`, `b2d.joint`, `b2d.chain`, and `b2d.world` APIs for direct access to 2D bodies, shapes, joints, chains, and worlds. Not every low-level function is available in both Box2D implementations; check each function's generated API documentation against the implementation selected in the App Manifest.
 
 The main concepts of the physics engines used in Defold are:
 

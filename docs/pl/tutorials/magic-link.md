@@ -217,7 +217,7 @@ Logika planszy tworzy obiekty gry `block` za pomocą komponentu fabryki `blockfa
 go.property("color", hash("none"))
 
 function init(self)
-    go.set_scale(0.18)        -- renderuj w pomniejszonej skali
+    go.set_scale_xy(0.18)     -- render scaled down without changing Z
 ```
 
 Ustaw komponent fabryki "blockfactory" jako *Prototype* na nowy plik obiektu gry *block.go*.
@@ -297,7 +297,7 @@ Skrypt dla tego obiektu gry jest minimalny, potrzebuje tylko przeskalować grafi
 ```lua
 -- plik: connector.script
 function init(self)
-    go.set_scale(0.18)              -- Ustaw skalę tego obiektu gry.
+    go.set_scale_xy(0.18)           -- Scale in 2D without changing Z.
     go.set(".", "position.z", 1)    -- Umieść go na wierzchu.
 end
 ```
@@ -545,7 +545,7 @@ Zwróć uwagę, że do obiektu gry block musimy dodać komponent *Factory* i ust
 ```lua
 -- plik: block.script
 function init(self)
-    go.set_scale(0.18) -- renderuj w pomniejszonej skali
+    go.set_scale_xy(0.18) -- render scaled down without changing Z
 
     self.fx1 = nil
     self.fx2 = nil
@@ -583,9 +583,9 @@ function on_message(self, message_id, message, sender)
         go.set_parent(self.fx2, go.get_id())
 
         go.set(self.fx1, "position.z", 0.01)
-        go.set(self.fx1, "scale", 1)
+        go.set(self.fx1, "scale.xy", 1)
         go.set(self.fx2, "position.z", 0.02)
-        go.set(self.fx2, "scale", 1)
+        go.set(self.fx2, "scale.xy", 1)
     elseif message_id == hash("lights_on") or message_id == hash("lights_off") then
         msg.post(self.fx1, message_id)
         msg.post(self.fx2, message_id)
@@ -1287,8 +1287,8 @@ function on_message(self, message_id, message, sender)
 
         -- Zaanimuj magię!
         for i, m in ipairs(magic_blocks(self)) do
-            go.set_scale(0.17, m.id)
-            go.animate(m.id, "scale", go.PLAYBACK_LOOP_PINGPONG, 0.19, go.EASING_INSINE, 0.5, 0)
+            go.set_scale_xy(0.17, m.id)
+            go.animate(m.id, "scale.xy", go.PLAYBACK_LOOP_PINGPONG, 0.19, go.EASING_INSINE, 0.5, 0)
         end
 
         -- Pokaż ekran ukończenia

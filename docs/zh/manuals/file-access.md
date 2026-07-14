@@ -60,9 +60,16 @@ if not ok then
 end
 
 -- 加载数据
-local data = sys.load(path)
+local ok, data = pcall(sys.load, path)
+if not ok then
+	-- The file exists, but is corrupt, foreign, or uses an unsupported format.
+	print("Failed to load save data:", data)
+	data = {}
+end
 print(data.highscore) -- 100
 ```
+
+如果文件不存在，`sys.load()` 会返回空表。如果文件存在，但并非由 `sys.save()` 创建、文件已损坏或使用了不受支持的序列化表格式，`sys.load()` 会引发 Lua 错误。如果必须能够从损坏或被外部修改的存档数据中恢复，请像上例一样使用 `pcall()`。
 
 ## 文件和文件夹位置
 文件和文件夹位置可以分为三类：

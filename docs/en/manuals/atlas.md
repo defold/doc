@@ -194,8 +194,7 @@ If the texture should be used on a [sprite component](/manuals/sprite/) it first
         id          = "my_animation",
         width       = width,
         height      = height,
-        frame_start = 1,
-        frame_end   = 2,
+        frames      = { 1 },
       }
     },
     geometries = {
@@ -225,3 +224,5 @@ If the texture should be used on a [sprite component](/manuals/sprite/) it first
   sprite.play_flipbook("#sprite", "my_animation")
 
 ```
+
+The `frames` entries are 1-based indices into the `geometries` table. A list can reuse, reorder or skip geometries, which cannot be represented by the deprecated `frame_start` and `frame_end` interval fields. `resource.get_atlas()` returns `frames`; use the same representation when passing atlas data to `resource.set_atlas()` or `resource.create_atlas()`. The interval fields are still accepted by the setter and creator for compatibility, but new code should use `frames`.

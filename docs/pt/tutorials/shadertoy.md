@@ -321,7 +321,7 @@ Salve o programa de fragment shader. O modelo agora deve estar bem texturizado c
 ![quad with starnest](../images/shadertoy/quad_starnest.png)
 
 
-## Animação
+## Animação {#animation}
 
 A peça final do quebra-cabeça é introduzir tempo para fazer as estrelas se moverem. O Defold (desde 1.12.3) fornece isso automaticamente por meio de uma constante de fragmento do tipo `Time`.
 

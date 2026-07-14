@@ -51,6 +51,7 @@ Você pode interagir com o editor usando o pacote `editor`, que define esta API:
 - `editor.get(node_id, property)` — obtém o valor de algum node dentro do editor. Nodes no editor são várias entidades, como arquivos de script ou coleção, objetos de jogo dentro de coleções, arquivos json carregados como recursos etc. `node_id` é um userdata passado ao editor script pelo editor. Como alternativa, você pode passar o caminho do recurso em vez do id do node, por exemplo `"/main/game.script"`. `property` é uma string. Atualmente, estas propriedades são suportadas:
   - `"path"` — caminho do arquivo a partir da pasta do projeto para *recursos* — entidades que existem como arquivos ou diretórios. Exemplo de valor retornado: `"/main/game.script"`
   - `"children"` — lista de caminhos de recursos filhos para recursos de diretório
+  - `"parent"` — node pai do editor para um node do Outline que tenha um pai
   - `"text"` — conteúdo textual de um recurso editável como texto (como arquivos de script ou json). Exemplo de valor retornado: `"function init(self)\nend"`. Observe que isso não é o mesmo que ler o arquivo com `io.open()`, porque você pode editar um arquivo sem salvá-lo, e essas edições ficam disponíveis apenas ao acessar a propriedade `"text"`.
   - para atlases: `images` (lista de nodes do editor para imagens no atlas) e `animations` (lista de nodes de animação)
   - para animações de atlas: `images` (igual a `images` no atlas)
@@ -59,7 +60,7 @@ Você pode interagir com o editor usando o pacote `editor`, que define esta API:
   - para particlefx: `emitters` (lista de nodes de emissor do editor) e `modifiers` (lista de nodes de modificador)
   - para emissores particlefx: `modifiers` (lista de nodes de modificador)
   - para objetos de colisão: `shapes` (lista de nodes de forma de colisão do editor)
-  - para arquivos GUI: `layers` (lista de nodes de camada do editor)
+  - para arquivos GUI: listas de nodes como `layers`, `fonts`, `materials`, `textures`, `particlefxs`, `nodes` e `layouts`
   - algumas propriedades mostradas na visualização Properties quando você tem algo selecionado na visualização Outline. Estes tipos de propriedades de outline são suportados:
     - `strings`
     - `booleans`
@@ -68,6 +69,7 @@ Você pode interagir com o editor usando o pacote `editor`, que define esta API:
     - `resources`
     - `curves`
     Observe que algumas dessas propriedades podem ser somente leitura, e algumas podem estar indisponíveis em contextos diferentes, então você deve usar `editor.can_get` antes de lê-las e `editor.can_set` antes de fazer o editor defini-las. Passe o mouse sobre o nome da propriedade na visualização Properties para ver uma tooltip com informações sobre como essa propriedade é nomeada em editor scripts. Você pode definir propriedades de recurso como `nil` fornecendo o valor `""`.
+- `editor.properties(node_id)` — retorna uma lista ordenada e sensível ao contexto dos nomes de propriedades que podem ser lidas de um node, por exemplo `pprint(editor.properties("/game.project"))`. Use as funções `editor.can_*` para verificar se uma propriedade listada também pode ser alterada, redefinida, receber adições ou ser reordenada.
 - `editor.can_get(node_id, property)` — verifica se você pode obter esta propriedade para que `editor.get()` não lance um erro.
 - `editor.can_set(node_id, property)` — verifica se uma etapa de transação `editor.tx.set()` com esta propriedade não lançará um erro.
 - `editor.create_directory(resource_path)` — cria um diretório se ele não existir, e todos os diretórios pais inexistentes.
@@ -79,11 +81,12 @@ Você pode interagir com o editor usando o pacote `editor`, que define esta API:
 - `editor.ui.*` — várias funções relacionadas a UI, veja o [manual de UI](/manuals/editor-scripts-ui).
 - `editor.prefs.*` — funções para interagir com preferências do editor, veja [preferências](#preferences).
 
-Você encontra a referência completa da API do editor [aqui](https://defold.com/ref/alpha/editor/).
+Você encontra a referência completa da API do editor [aqui](/ref/stable/editor/).
 
 ## Comandos {#commands}
 
-Se o módulo de editor script definir a função `get_commands`, ela será chamada no recarregamento da extensão, e os comandos retornados ficarão disponíveis para uso dentro do editor na barra de menu ou nos menus de contexto dos painéis Assets e Outline. Exemplo:
+Se um módulo de editor script definir `get_commands()`, ela será chamada quando as extensões forem recarregadas. Os comandos retornados podem aparecer nos menus da barra de menus e nos menus de contexto de Assets, Outline, Scene e Code, dependendo de seus `locations`. Exemplo:
+
 ```lua
 local M = {}
 
@@ -128,7 +131,7 @@ return M
 O editor espera que `get_commands()` retorne um array de tabelas, cada uma descrevendo um comando separado. A descrição do comando consiste em:
 
 - `label` (obrigatório) — texto em um item de menu que será exibido ao usuário
-- `locations` (obrigatório) — um array com `"Edit"`, `"View"`, `"Project"`, `"Debug"`, `"Assets"`, `"Bundle"`, `"Scene"` ou `"Outline"`, descrevendo onde este comando deve estar disponível. `"Edit"`, `"View"`, `"Project"` e `"Debug"` significam barra de menu no topo, `"Assets"` significa menu de contexto no painel Assets, `"Outline"` significa menu de contexto no painel Outline, e `"Bundle"` significa submenu **Project → Bundle**.
+- `locations` (obrigatório) — um array que descreve onde este comando deve estar disponível. Os valores permitidos são `"Edit"`, `"View"`, `"Project"`, `"Debug"` e `"Help"` para os menus correspondentes da barra de menus; `"Bundle"` para o submenu **Project → Bundle**; e `"Assets"`, `"Outline"`, `"Scene"` e `"Code"` para os menus de contexto correspondentes.
 - `query` — uma forma de o comando pedir ao editor informações relevantes e definir com quais dados ele opera. Para cada chave na tabela `query`, haverá uma chave correspondente na tabela `opts` que os callbacks `active` e `run` recebem como argumento. Chaves suportadas:
   - `selection` significa que este comando é válido quando há algo selecionado, e opera nessa seleção.
     - `type` é o tipo de nodes selecionados em que o comando tem interesse; atualmente estes tipos são permitidos:
@@ -146,7 +149,7 @@ O editor espera que `get_commands()` retorne um array de tabelas, cada uma descr
 
 ### Use comandos para alterar o estado em memória do editor
 
-Dentro do handler `run`, você pode consultar e alterar o estado em memória do editor. A consulta é feita usando a função `editor.get()`, com a qual você pode perguntar ao editor sobre o estado atual de arquivos e seleção (se estiver usando `query = {selection = ...}`). Você pode obter a propriedade `"text"` de arquivos de script e também algumas propriedades mostradas na visualização Properties — passe o mouse sobre o nome da propriedade para ver uma tooltip com informações sobre como essa propriedade é nomeada em editor scripts. A alteração do estado do editor é feita usando `editor.transact()`, onde você agrupa 1 ou mais modificações em uma única etapa desfazível. Por exemplo, se quiser poder resetar a transformação de um objeto de jogo, você poderia escrever um comando assim:
+Dentro do handler `run`, você pode consultar e alterar o estado em memória do editor. A consulta é feita usando a função `editor.get()`, com a qual você pode perguntar ao editor sobre o estado atual de arquivos e seleção (se estiver usando `query = {selection = ...}`). Você pode obter a propriedade `"text"` de recursos editáveis como texto e também algumas propriedades mostradas na visualização Properties — passe o mouse sobre o nome da propriedade para ver uma tooltip com informações sobre como essa propriedade é nomeada em editor scripts. A alteração do estado do editor é feita usando `editor.transact()`, onde você agrupa 1 ou mais modificações em uma única etapa desfazível. Por exemplo, se quiser poder resetar a transformação de um objeto de jogo, você poderia escrever um comando assim:
 ```lua
 {
   label = "Reset transform",
@@ -346,9 +349,15 @@ A propriedade `type` da forma é obrigatória durante a criação e não pode se
 
 #### Editando arquivos GUI
 
-Além das propriedades de outline, nodes GUI definem as seguintes propriedades:
+Além das propriedades de outline, os arquivos GUI definem várias propriedades de lista de nodes:
+
 - `layers` — lista de nodes de camada do editor (reordenável)
+- `fonts` — lista de nodes de fonte do editor
 - `materials` — lista de nodes de material do editor
+- `textures` — lista de nodes de textura do editor
+- `particlefxs` — lista de nodes de Particle FX do editor
+- `nodes` — lista de nodes GUI do editor
+- `layouts` — lista de nodes de layout GUI do editor
 
 É possível editar camadas GUI usando a propriedade `layers` do editor, por exemplo:
 ```lua
@@ -369,7 +378,7 @@ De forma semelhante, fontes, materiais, texturas e particlefxs são editados usa
 editor.transact({
     editor.tx.add("/main.gui", "fonts", {font = "/main.font"}),
     editor.tx.add("/main.gui", "materials", {name = "shine", material = "/shine.material"}),
-    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.material"}),
+    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.particlefx"}),
     editor.tx.add("/main.gui", "textures", {texture = "/ui.atlas"})
 })
 ```
@@ -453,7 +462,7 @@ editor.transact({
     }),
     editor.tx.add("/npc.go", "components", {
         type = "component-reference",
-        path = "/npc.script"
+        path = "/npc.script",
         id = "controller",
         __hp = 100 -- define uma propriedade go definida no script
     })
@@ -473,13 +482,13 @@ editor.transact({
             {
                 -- objeto de jogo referenciado
                 type = "go-reference",
-                path = "/char-view.go"
+                path = "/char-view.go",
                 id = "view"
             },
             {
                 -- coleção referenciada
                 type = "collection-reference",
-                path = "/body-attachments.collection"
+                path = "/body-attachments.collection",
                 id = "attachments"
             }
         },
@@ -567,7 +576,7 @@ Observe que hooks de ciclo de vida atualmente são um recurso apenas do editor, 
 
 ## Language servers
 
-O editor oferece suporte a um subconjunto do [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). Embora pretendamos expandir o suporte do editor a recursos LSP no futuro, atualmente ele só pode mostrar diagnósticos (isto é, lints) nos arquivos editados e fornecer completions.
+O editor oferece suporte a um subconjunto do [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnósticos (lints), completions, informações ao passar o mouse, símbolos de documento no painel Structure, ir para a definição, localizar referências e renomear símbolos. Passe o mouse sobre um símbolo para ver informações do language server. Com o cursor sobre um símbolo, use <kbd>F2</kbd> para renomeá-lo, <kbd>F12</kbd> para ir à sua definição ou <kbd>Shift+F12</kbd> para localizar referências. Essas ações também estão disponíveis no menu <kbd>Edit</kbd>.
 
 Para definir o language server, você precisa editar a função `get_language_servers` do seu editor script assim:
 

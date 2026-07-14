@@ -24,7 +24,7 @@ O componente criado tem um conjunto de propriedades que devem ser configuradas:
 ![Select component](images/sound/sound_properties.png)
 
 *Sound*
-: Deve ser definido para um arquivo de som no seu projeto. O arquivo deve estar no formato _Wave_, _Ogg Vorbis_ ou _Ogg Opus_. O Defold suporta arquivos de som salvos com profundidade de 16 bits.
+: Deve ser definido para um arquivo de som no seu projeto. O arquivo deve estar no formato _Wave_, _Ogg Vorbis_ ou _Ogg Opus_. O Defold oferece suporte a arquivos Wave PCM de 8 e 16 bits. A reprodução de Ogg Opus é opcional e exige **Include Sound Decoder: Opus** no [Manifesto do aplicativo](/manuals/app-manifest/#sound); o decodificador Opus não é incluído por padrão.
 
 *Looping*
 : Se marcado, o som será reproduzido _Loopcount_ vezes ou até ser explicitamente interrompido.
@@ -75,9 +75,9 @@ O sistema de som tem 4 níveis de ganho:
 - O ganho definido no componente de som.
 - O ganho definido ao iniciar o som por uma chamada a `sound.play()` ou ao alterar o ganho na voz por uma chamada a `sound.set_gain()`.
 - O ganho definido no grupo por uma chamada à função [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
-- O ganho definido no grupo "master". Isso pode ser alterado com `sound.set_group_gain(hash("master"))`.
+- O ganho definido no grupo "master". Isso pode ser alterado com `sound.set_group_gain(hash("master"), gain)`.
 
-O ganho de saída é o resultado da multiplicação desses 4 ganhos. O ganho padrão é 1.0 em todos os lugares (0 dB).
+Quando **Use Linear Gain** está ativado nas [configurações de projeto de Sound](/manuals/project-settings/#sound) (o padrão), o ganho de saída é o resultado desses quatro ganhos multiplicados. Um ganho de `1.0` é o ganho unitário (0 dB). Quando o ganho linear está desativado, o Defold aplica uma curva não linear durante a mixagem; portanto, a multiplicação direta dos quatro valores e a conversão para decibéis abaixo não descrevem o nível de saída resultante.
 
 ## Grupos de som
 
@@ -102,7 +102,7 @@ Os grupos são identificados com um valor hash. O nome em string pode ser recupe
 Você não deve escrever código que dependa do valor em string de um grupo de som, pois esses valores não estão disponíveis em builds release.
 :::
 
-Todos os valores são lineares entre 0 e 1.0 (0 dB). Para converter para decibel, basta usar a fórmula padrão:
+Com **Use Linear Gain** ativado, converta um valor de ganho positivo para decibéis com a fórmula padrão:
 
 ```math
 db = 20 \times \log \left( gain \right)
@@ -131,6 +131,8 @@ end
 -- Define o ganho master como +6 dB (math.pow(10, 6/20)).
 sound.set_group_gain("master", 1.995)
 ```
+
+O Defold 1.10.2 corrigiu uma atenuação antiga de aproximadamente 3 dB no mixer de som. Se a mixagem de um projeto mais antigo compensava essa atenuação e ficar mais alta após a atualização, reajuste a configuração global **Sound ▸ Gain** ou os ganhos dos grupos afetados.
 
 ## Bloqueando sons
 

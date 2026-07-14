@@ -57,8 +57,8 @@ Todos los objetos de juego, y algunos tipos de componente, tienen propiedades qu
 | *position* | La posición local del objeto de juego. | `vector3`      | `get+set`{.mark} |
 | *rotation* | Rotación local del objeto de juego, expresada como un `quaternion`.  | `quaternion` | `get+set`{.mark} |
 | *euler*    | Rotación local del objeto de juego, ángulos de Euler. | `vector3` | `get+set`{.mark} |
-| *scale*    | Escala local no uniforme del objeto de juego, expresada como un vector donde cada componente contiene un multiplicador a lo largo de cada eje. Para duplicar el tamaño en x e y, proporciona `vmath.vector3(2.0, 2.0, 0)` | `vector3` | `get+set`{.mark} |
-| *scale.xy* | Escala local no uniforme del objeto de juego, expresada como un vector donde cada componente contiene un multiplicador a lo largo de los ejes X e Y. | `vector3` | `get+set`{.mark} |
+| *scale*    | Escala local no uniforme del objeto de juego, expresada como un vector donde cada componente contiene un multiplicador a lo largo de cada eje. Para duplicar el tamaño en X e Y sin cambiar Z, usa `vmath.vector3(2.0, 2.0, 1.0)`. | `vector3` | `get+set`{.mark} |
+| *scale.xy* | Escala local no uniforme del objeto de juego a lo largo de los ejes X e Y. Usa esta propiedad o `go.set_scale_xy()` cuando no se pretenda escalar Z. | `vector3` | `get+set`{.mark} |
 
 ::: sidenote
 También existen funciones específicas para trabajar con la transformación del objeto de juego; son `go.get_position()`, `go.set_position()`, `go.get_rotation()`, `go.set_rotation()`, `go.get_scale()`, `go.set_scale()` y `go.set_scale_xy()`.
@@ -91,7 +91,7 @@ También existen funciones específicas para trabajar con la transformación del
 | propiedad  | descripción                            | tipo            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | La animación actual.                  | `hash`          | `get`{.mark}     |
-| *texture0* | El hash de la ruta de textura del modelo. | `hash` | `get`{.mark}|
+| *texture0*--*texture15* | Los hashes de las rutas de textura del modelo. | `hash` | `get+set`{.mark}|
 | *cursor*  | Posición (entre 0--1) del cursor de reproducción. | `number`   | `get+set`{.mark} |
 | *playback_rate* | La tasa de reproducción de la animación. Un multiplicador de la tasa de reproducción de la animación. | `number` | `get+set`{.mark} |
 | *material* | El material que usa el modelo. | `hash` | `get+set`{.mark}|

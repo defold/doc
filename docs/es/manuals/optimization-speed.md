@@ -73,7 +73,7 @@ Reducir el tiempo que tarda en renderizarse un frame es necesario si el profiler
 
 * Reduce las draw calls: lee más sobre cómo reducir las draw calls en [esta publicación del foro](https://forum.defold.com/t/draw-calls-and-defold/4674)
 * Reduce el overdraw
-* Reduce la complejidad de los shaders: lee sobre optimizaciones GLSL en [este artículo de Khronos](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). También puedes modificar los shaders predeterminados que usa Defold (se encuentran en `builtins/materials`) y reducir la precisión de los shaders para ganar algo de velocidad en dispositivos de gama baja. Todos los shaders usan precisión `highp` y cambiarla, por ejemplo, a `mediump` puede mejorar ligeramente el rendimiento en algunos casos.
+* Reduce la complejidad de los shaders: lee sobre optimizaciones GLSL en [este artículo de Khronos](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). También puedes modificar los shaders predeterminados que usa Defold (se encuentran en `builtins/materials`) y elegir una precisión menor donde el shader no necesite `highp`. Los shaders GLSL ES compilados de forma cruzada usan de manera predeterminada `mediump` para los valores de punto flotante y `highp` para los enteros; estos valores pueden cambiarse en los ajustes de proyecto de Shader. Los calificadores explícitos de cada variable tienen prioridad. Consulta la [documentación sobre precisión de shaders](/manuals/shader/#precision).
 
 ## Reduce la complejidad del gráfico de la escena
 Reducir la complejidad del gráfico de la escena es necesario si el profiler muestra valores altos en el scope `GameObject` y, más específicamente, en la muestra `UpdateTransform`. Algunas acciones que puedes tomar:

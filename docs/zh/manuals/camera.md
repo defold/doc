@@ -254,36 +254,40 @@ end
 
 另一种方法是每帧更新摄像机组件所附加到的游戏对象的位置，随着要跟随的游戏对象移动。
 
-### 将鼠标转换为世界坐标 {#converting-mouse-to-world-coordinates}
+### 在屏幕坐标与世界坐标之间转换 {#converting-mouse-to-world-coordinates}
 
-当摄像机已经平移、缩放或将其投影从默认的正交Stretch投影更改时，`on_input()`生命周期函数中提供的鼠标坐标将不再与游戏对象的世界坐标匹配。您需要手动考虑视图或投影的变化。将鼠标/屏幕坐标转换为世界坐标的代码如下：
+当摄像机发生平移、缩放或更改投影后，输入坐标便不再直接对应世界坐标。请将摄像机转换函数与 `action.screen_x` 和 `action.screen_y` 一起使用。如果省略可选的摄像机 URL，则使用最后启用的摄像机。
 
-```Lua
---- 转换屏幕到世界坐标，考虑
--- 特定摄像机的视图和投影
--- @param camera 用于转换的摄像机URL
--- @param screen_x 要转换的屏幕x坐标
--- @param screen_y 要转换的屏幕y坐标
--- @param z 可选的z坐标以通过转换，默认为0
--- @return world_x 屏幕坐标的结果世界x坐标
--- @return world_y 屏幕坐标的结果世界y坐标
--- @return world_z 屏幕坐标的结果世界z坐标
-function M.screen_to_world(camera, screen_x, screen_y, z)
-    local projection = go.get(camera, "projection")
-    local view = go.get(camera, "view")
-    local w, h = window.get_size()
+对于正交摄像机，[`camera.screen_xy_to_world()`](/ref/camera/#camera.screen_xy_to_world:x-y-[camera]) 返回摄像机近平面上与屏幕像素对应的世界空间点：
 
-    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
-    local inv = vmath.inv(projection * view)
-    local x = (2 * screen_x / w) - 1
-    local y = (2 * screen_y / h) - 1
-    local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-    local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-    return x1, y1, z or 0
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        local world_position = camera.screen_xy_to_world(
+            action.screen_x, action.screen_y, "#camera")
+        go.set_position(world_position, "/marker")
+    end
 end
 ```
 
-请记住，来自`on_input()`的值`action.screen_x`和`action.screen_y`应该用作此函数的参数。访问[示例页面](https://defold.com/examples/render/screen_to_world/)以查看屏幕到世界坐标转换的实际操作。还有一个[示例项目](https://github.com/defold/sample-screen-to-world-coordinates/)展示了如何进行屏幕到世界坐标的转换。
+对于透视摄像机，[`camera.screen_to_world()`](/ref/camera/#camera.screen_to_world:pos-[camera]) 接受一个 `vector3`，其 Z 分量是从摄像机平面测量的世界单位视图深度：
+
+```lua
+local depth = 10
+local world_position = camera.screen_to_world(
+    vmath.vector3(action.screen_x, action.screen_y, depth), "#camera")
+```
+
+[`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) 执行反向转换。它返回屏幕像素 X 和 Y，并在 Z 中使用相同的视图深度约定，因此其结果可以传回 `camera.screen_to_world()`：
+
+```lua
+-- Update the cached world transform first if the object moved this frame.
+go.update_world_transform("/marker")
+local world_position = go.get_world_position("/marker")
+local screen_position = camera.world_to_screen(world_position, "#camera")
+```
+
+请访问[示例页面](https://defold.com/examples/render/screen_to_world/)查看坐标转换的实际用法。另有一个[示例项目](https://github.com/defold/sample-screen-to-world-coordinates/)展示相同的 API。
 
 ::: sidenote
 [本手册中提到的第三方摄像机解决方案](/manuals/camera/#third-party-camera-solutions)提供了用于屏幕坐标之间转换的函数。

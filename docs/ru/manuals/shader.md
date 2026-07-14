@@ -68,7 +68,9 @@ brief: Данное руководство объясняет вершинные
   - `CONSTANT_TYPE_WORLD` --- это *матрица мира* которая делает отображение из локальных координат пространства объекта в мировое пространство.
   - `CONSTANT_TYPE_VIEW` --- это *матрица вида* которая делает отображение из пространства мира в пространство камеры.
   - `CONSTANT_TYPE_PROJECTION` --- это *проекционная матрица* которая делает отображение из пространства камеры в пространство экрана.
-  - Также доступны пред-умноженные матрицы $world * view$, $view * projection$ и $world * view * projection$.
+  - `CONSTANT_TYPE_WORLDVIEW`, `CONSTANT_TYPE_VIEWPROJ` и `CONSTANT_TYPE_WORLDVIEWPROJ` предоставляют соответствующие комбинированные матрицы.
+  - `CONSTANT_TYPE_WORLD_INVERSE`, `CONSTANT_TYPE_VIEW_INVERSE`, `CONSTANT_TYPE_PROJECTION_INVERSE`, `CONSTANT_TYPE_VIEWPROJ_INVERSE`, `CONSTANT_TYPE_WORLDVIEW_INVERSE` и `CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE` предоставляют обратные матрицы, не требуя их вычисления в шейдере.
+  - `CONSTANT_TYPE_TIME` — предоставляемый движком `vec4`: время с момента запуска движка в `.x`, дельта времени кадра в `.y` и нули в `.z` и `.w`.
   - `CONSTANT_TYPE_USER` --- это константа типа `vec4` которую вы можете использовать по своему усмотрению.
 
   [Руководство по материалам](/manuals/material) объясняет как задавать константы.
@@ -210,9 +212,11 @@ vec4 sampler_2d = texture(my_texture, uv);
 vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 ```
 
-### Точность
+### Точность {#precision}
 
-Ранее для соответствия спецификациям OpenGL ES требовалось явно указывать точность переменных, входов, выходов и т. д. В этом больше нет необходимости — теперь точность автоматически назначается для платформ, которые это поддерживают.
+При кросс-компиляции шейдеров в GLSL ES Defold создаёт глобальные квалификаторы точности по умолчанию. Для значений с плавающей точкой по умолчанию используется `mediump`, для целых чисел — `highp`. Их можно изменить с помощью [настроек проекта](/manuals/project-settings/#shader) **GLSL ES Default Precision Float** (`shader.glsl_es_default_precision_float`) и **GLSL ES Default Precision Int** (`shader.glsl_es_default_precision_int`); обе принимают `mediump` или `highp`.
+
+Явный квалификатор переменной, входа или выхода имеет приоритет над созданным глобальным значением по умолчанию. Во фрагментных шейдерах OpenGL ES 2.0 и WebGL 1.0 точность `highp` поддерживается не всеми устройствами. Если в качестве глобального значения по умолчанию выбрано `highp`, Defold проверяет `GL_FRAGMENT_PRECISION_HIGH` и на устройствах без поддержки использует `mediump`.
 
 ### Пример
 

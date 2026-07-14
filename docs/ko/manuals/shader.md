@@ -68,7 +68,9 @@ Attributes
   - `CONSTANT_TYPE_WORLD`는 오브젝트의 로컬 좌표 공간에서 월드 공간으로 매핑하는 *월드 matrix*입니다.
   - `CONSTANT_TYPE_VIEW`는 월드 공간에서 카메라 공간으로 매핑하는 *뷰 matrix*입니다.
   - `CONSTANT_TYPE_PROJECTION`은 카메라에서 화면 공간으로 매핑하는 *프로젝션 matrix*입니다.
-  - 미리 곱해진 $world * view$, $view * projection$, $world * view * projection$ matrix도 사용할 수 있습니다.
+  - `CONSTANT_TYPE_WORLDVIEW`, `CONSTANT_TYPE_VIEWPROJ`, `CONSTANT_TYPE_WORLDVIEWPROJ`는 각각에 대응하는 결합 matrix를 제공합니다.
+  - `CONSTANT_TYPE_WORLD_INVERSE`, `CONSTANT_TYPE_VIEW_INVERSE`, `CONSTANT_TYPE_PROJECTION_INVERSE`, `CONSTANT_TYPE_VIEWPROJ_INVERSE`, `CONSTANT_TYPE_WORLDVIEW_INVERSE`, `CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE`는 쉐이더가 직접 계산하지 않아도 되는 역행렬을 제공합니다.
+  - `CONSTANT_TYPE_TIME`은 엔진이 제공하는 `vec4`입니다. `.x`는 엔진 시작 이후 경과 시간, `.y`는 프레임 delta time이며 `.z`와 `.w`는 0입니다.
   - `CONSTANT_TYPE_USER`는 원하는 용도로 사용할 수 있는 `vec4` 타입 상수입니다.
 
   [Material 매뉴얼](/manuals/material)에서는 상수를 지정하는 방법을 설명합니다.
@@ -210,9 +212,11 @@ vec4 sampler_2d = texture(my_texture, uv);
 vec4 sampler_2d_array = texture(my_texture_array, vec3(uv, slice));
 ```
 
-### 정밀도
+### 정밀도 {#precision}
 
-이전에는 OpenGL ES 컨텍스트와 호환되려면 변수, 입력, 출력 등에 명시적인 precision을 설정해야 했습니다. 이제는 더 이상 필요하지 않으며, 지원하는 플랫폼에서는 precision이 자동으로 설정됩니다.
+Defold는 쉐이더를 GLSL ES용으로 cross-compile할 때 전역 기본 precision qualifier를 생성합니다. 기본값은 부동 소수점 값에 `mediump`, 정수에 `highp`입니다. **GLSL ES Default Precision Float**(`shader.glsl_es_default_precision_float`)와 **GLSL ES Default Precision Int**(`shader.glsl_es_default_precision_int`) [프로젝트 설정](/manuals/project-settings/#shader)에서 변경할 수 있으며, 둘 다 `mediump` 또는 `highp`를 받습니다.
+
+변수, 입력 또는 출력에 명시한 qualifier가 생성된 전역 기본값보다 우선합니다. OpenGL ES 2.0 및 WebGL 1.0 프래그먼트 쉐이더에서는 모든 디바이스가 `highp`를 지원하지는 않습니다. 전역 기본값으로 `highp`를 선택하면 Defold는 `GL_FRAGMENT_PRECISION_HIGH`로 이를 guard하고 지원하지 않는 디바이스에서는 `mediump`로 폴백합니다.
 
 ### 모두 합치기
 

@@ -261,36 +261,40 @@ Você pode fazer a câmera seguir um objeto de jogo definindo o objeto de jogo a
 
 Uma forma alternativa é atualizar a posição do objeto de jogo ao qual o componente de câmera está anexado a cada frame, conforme o objeto de jogo a ser seguido se move.
 
-### Convertendo mouse para coordenadas do mundo {#converting-mouse-to-world-coordinates}
+### Conversão entre coordenadas de tela e do mundo {#converting-mouse-to-world-coordinates}
 
-Quando a câmera foi deslocada, recebeu zoom ou teve sua projeção alterada em relação à projeção ortográfica Stretch padrão, as coordenadas do mouse fornecidas na função de ciclo de vida `on_input()` não corresponderão mais às coordenadas do mundo dos seus objetos de jogo. Você precisa levar em conta manualmente a mudança na visualização ou projeção. O código para converter de coordenadas de mouse/tela para coordenadas do mundo é este:
+Quando uma câmera é deslocada, recebe zoom ou tem sua projeção alterada, as coordenadas de entrada deixam de corresponder diretamente às coordenadas do mundo. Use as funções de conversão da câmera com `action.screen_x` e `action.screen_y`. Se a URL opcional da câmera for omitida, será usada a última câmera ativada.
 
-```Lua
---- Converte coordenadas de tela em coordenadas do mundo levando em conta
--- a visualização e a projeção de uma câmera específica
--- @param camera URL da câmera a usar para conversão
--- @param screen_x Coordenada x da tela a converter
--- @param screen_y Coordenada y da tela a converter
--- @param z coordenada z opcional para passar pela conversão; o padrão é 0
--- @return world_x A coordenada x do mundo resultante da coordenada de tela
--- @return world_y A coordenada y do mundo resultante da coordenada de tela
--- @return world_z A coordenada z do mundo resultante da coordenada de tela
-function M.screen_to_world(camera, screen_x, screen_y, z)
-    local projection = go.get(camera, "projection")
-    local view = go.get(camera, "view")
-    local w, h = window.get_size()
+Para uma câmera ortográfica, [`camera.screen_xy_to_world()`](/ref/camera/#camera.screen_xy_to_world:x-y-[camera]) retorna o ponto no espaço do mundo no plano próximo da câmera correspondente a um pixel da tela:
 
-    -- https://defold.com/manuals/camera/#converting-mouse-to-world-coordinates
-    local inv = vmath.inv(projection * view)
-    local x = (2 * screen_x / w) - 1
-    local y = (2 * screen_y / h) - 1
-    local x1 = x * inv.m00 + y * inv.m01 + z * inv.m02 + inv.m03
-    local y1 = x * inv.m10 + y * inv.m11 + z * inv.m12 + inv.m13
-    return x1, y1, z or 0
+```lua
+function on_input(self, action_id, action)
+    if action_id == hash("touch") and action.pressed then
+        local world_position = camera.screen_xy_to_world(
+            action.screen_x, action.screen_y, "#camera")
+        go.set_position(world_position, "/marker")
+    end
 end
 ```
 
-Lembre-se de que os valores `action.screen_x` e `action.screen_y` de `on_input()` devem ser usados como argumentos para esta função. Visite a [página de exemplos](https://defold.com/examples/render/screen_to_world/) para ver a conversão de coordenadas de tela para mundo em ação. Também há um [projeto de exemplo](https://github.com/defold/sample-screen-to-world-coordinates/) mostrando como fazer conversão de coordenadas de tela para mundo.
+Para uma câmera em perspectiva, [`camera.screen_to_world()`](/ref/camera/#camera.screen_to_world:pos-[camera]) recebe um `vector3` cujo componente Z representa a profundidade da visualização em unidades do mundo, medida a partir do plano da câmera:
+
+```lua
+local depth = 10
+local world_position = camera.screen_to_world(
+    vmath.vector3(action.screen_x, action.screen_y, depth), "#camera")
+```
+
+[`camera.world_to_screen()`](/ref/camera/#camera.world_to_screen:world_pos-[camera]) realiza a conversão inversa. Ela retorna X e Y em pixels da tela, além da mesma convenção de profundidade da visualização em Z; portanto, seu resultado pode ser passado novamente para `camera.screen_to_world()`:
+
+```lua
+-- Update the cached world transform first if the object moved this frame.
+go.update_world_transform("/marker")
+local world_position = go.get_world_position("/marker")
+local screen_position = camera.world_to_screen(world_position, "#camera")
+```
+
+Visite a [página de exemplos](https://defold.com/examples/render/screen_to_world/) para ver a conversão de coordenadas em ação. Também há um [projeto de exemplo](https://github.com/defold/sample-screen-to-world-coordinates/) que mostra as mesmas APIs.
 
 ::: sidenote
 As [soluções de câmera de terceiros mencionadas neste manual](/manuals/camera/#third-party-camera-solutions) fornecem funções para converter para e a partir de coordenadas de tela.

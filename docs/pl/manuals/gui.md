@@ -56,7 +56,7 @@ Wybranie głównego węzła "Gui" w panelu *Outline* pokazuje *Properties* kompo
 : Maksymalna liczba węzłów dla tego GUI.
 
 *Max Dynamic Textures*
-: Maksymalna liczba tekstur, które można utworzyć za pomocą [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip).
+: Maksymalna liczba tekstur dynamicznych śledzonych przez ten komponent GUI; domyślnie `128`. Obejmuje tekstury utworzone za pomocą [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip) oraz tekstury zewnętrzne przypisane do GUI za pomocą `go.set(..., "textures", ...)` lub `gui.set(msg.url(), "textures", ...)`. W projektach, które zastępują wiele tekstur zewnętrznych, może być konieczne zwiększenie tego limitu.
 
 ## Manipulacja w czasie działania
 

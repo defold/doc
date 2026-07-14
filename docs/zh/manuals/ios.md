@@ -91,7 +91,7 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
-选择你的代码签名身份并浏览你的移动配置文件。选择要打包的架构（32位、64位和iOS模拟器）以及变体（Debug或Release）。你可以选择取消选中`Sign application`复选框以跳过签名过程，然后在稍后阶段手动签名。
+选择你的代码签名身份并浏览移动配置文件。选择 `arm64-ios` 设备架构，并在需要时选择 `x86_64-ios` 模拟器架构，同时选择变体（Debug 或 Release）。你可以取消选中 `Sign application` 复选框以跳过签名过程，稍后再手动签名。
 
 ::: important
 在 iOS 模拟器上测试游戏时，你 **必须** 取消选中 `Sign application` 复选框。你将能够安装应用程序，但它无法启动。
@@ -102,6 +102,23 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
 ![ipa iOS application bundle](images/ios/ipa_file.png){.left}
 
 你在 *game.project* 项目设置文件的 [iOS 部分](/manuals/project-settings/#ios) 中指定要使用的图标、启动屏幕故事板等。
+
+### 自定义 Info.plist 和本地目标发现
+
+内置 iOS `Info.plist` 包含非 Release 构建自动发现编辑器目标所需的 Bonjour 服务和本地网络使用说明。自定义 `Info.plist` 会替换该内置基础清单。如果 Debug 构建使用自定义清单，并且需要通过本地网络进行目标发现、性能分析、热重载或日志流传输，请包含以下条目：
+
+```xml
+{{^variant_release}}
+<key>NSBonjourServices</key>
+<array>
+    <string>_defold._tcp</string>
+</array>
+<key>NSLocalNetworkUsageDescription</key>
+<string>Discover Defold targets on the local network.</string>
+{{/variant_release}}
+```
+
+Mustache 条件会将发现相关条目排除在 Release bundle 之外。iOS 会向用户显示使用说明字符串，可按需调整或本地化。只有当 Release 应用本身使用相同的 Bonjour 服务和本地网络功能时，才应移除此条件。
 
 :[Build Variants](../shared/build-variants.md)
 
@@ -148,11 +165,7 @@ $ brew install ios-deploy
 
 ![](images/ios/xcode_storyboard_select_image.png)
 
-定位图像并进行你需要的任何其他调整，也许添加标签或其他 UI 元素。完成后，将活动方案设置为"Build -> Any iOS Device (`arm64`, `armv7`)"（或"Generic iOS Device"）并选择 Product -> Build。等待构建过程完成。
-
-::: sidenote
-如果"Any iOS Device (arm64)"中只有 `arm64` 选项，请在"Project -> Basic -> Deployment"设置中将 `iOS Deployment target` 更改为 10.3。这将使你的故事板与 `armv7` 设备（例如 iPhone5c）兼容。
-:::
+定位图像并进行所需的其他调整，例如添加 Label 或其他 UI 元素。完成后，将活动 scheme 设置为 **Any iOS Device (arm64)**（或 **Generic iOS Device**），然后选择 **Product ▸ Build**。Defold 支持 iOS 15.0 及更高版本的 64 位设备，因此请将部署目标保持在 15.0 或更高版本。等待构建过程完成。
 
 如果你在故事板中使用图像，它们不会自动包含在你的 `LaunchScreen.storyboardc` 中。使用 *game.project* 中的 `Bundle Resources` 字段来包含资源。
 例如，在 Defold 项目中创建 `LaunchScreen` 文件夹，并在其中创建 `ios` 文件夹（`ios` 文件夹仅用于包含这些文件到 ios 包中），然后将你的文件放入 `LaunchScreen/ios/`。在 `Bundle Resources` 中添加此路径。

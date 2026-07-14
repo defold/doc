@@ -102,7 +102,7 @@ R: As seguintes plataformas têm suporte para o editor/ferramentas e para o runt
   | Linux (2)          | Qualquer           | `x86-64`, `arm-64` | Engine             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
   | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Engine             |
-  | HTML5              |                    | `asm.js`, `wasm`   | Engine             |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Engine       |
 
   (1 O editor é compilado e testado para Ubuntu 64-bit. Ele também deve funcionar em outras distribuições, mas não damos garantias.)
 

@@ -5,11 +5,17 @@ brief: Ta instrukcja wyjaśnia funkcje profilowania dostępne w Defold.
 
 # Profilowanie
 
-Defold zawiera zestaw narzędzi profilujących zintegrowanych z silnikiem i procesem budowania. Służą one do wykrywania problemów z wydajnością i użyciem pamięci. Wbudowane profilery są dostępne tylko w buildach debug. Profiler klatek używany w Defold to [Remotery profiler firmy Celtoys](https://github.com/Celtoys/Remotery).
+Defold zawiera narzędzia profilujące zintegrowane z silnikiem i procesem budowania. Pomagają one wykrywać problemy z wydajnością, pamięcią i użyciem zasobów. Dane profilowania w czasie działania mogą być wykorzystywane przez kilka narzędzi:
+
+* Podstawowy profiler i wizualny profiler w grze są dostępne na wszystkich platformach.
+* [Profiler Remotery](https://github.com/Celtoys/Remotery) i interaktywny webowy profiler klatek są dostępne na platformach komputerowych i mobilnych.
+* Buildy HTML5 mogą publikować zakresy silnika Defold w Web Performance API przeglądarki.
+
+Ustawienie **Profiler** w [manifeście aplikacji](/manuals/app-manifest/#profiler) określa, czy kod profilera jest dołączany do buildu. **Debug Only** jest opcją domyślną, **None** go wyklucza, a **Always** dołącza go zarówno do buildów debug, jak i release. Ustawienia `profiler` w pliku *game.project* sterują zachowaniem w czasie działania, ale nie przywracają do buildu wykluczonego kodu profilera. W szczególności ustawienie **Track CPU** steruje próbkowaniem użycia CPU i jest niezależne od wyboru w manifeście aplikacji.
 
 ## Wizualny profiler w czasie działania
 
-Buildy debug zawierają wizualny profiler działający w czasie rzeczywistym, który wyświetla bieżące informacje jako nakładkę na uruchomioną aplikację:
+Buildy z dołączoną obsługą profilera zawierają wizualny profiler działający w czasie rzeczywistym, który wyświetla bieżące informacje jako nakładkę na uruchomioną aplikację:
 
 ```lua
 function on_reload(self)
@@ -32,9 +38,9 @@ profiler.view_recorded_frame()
 Więcej informacji o funkcjach profilera znajdziesz w [dokumentacji API profilera](/ref/stable/profiler/).
 
 ## Profiler webowy
-Podczas uruchamiania builda debug gry można otworzyć w przeglądarce interaktywny profiler webowy.
+Podczas uruchamiania buildu komputerowego lub mobilnego z obsługą profilera można otworzyć w przeglądarce interaktywne profilery klatek i zasobów.
 
-### Profiler klatek
+### Profiler klatek Remotery
 Profiler klatek pozwala analizować grę podczas działania i szczegółowo badać poszczególne klatki. Aby otworzyć profiler:
 
 1. Uruchom grę na urządzeniu docelowym.
@@ -75,6 +81,10 @@ Właściwości globalne
 Wartość LuaMem to ilość pamięci w kilobajtach używana przez maszynę wirtualną Lua, raportowana przez garbage collector Lua. Memory to ilość pamięci w kilobajtach używana przez silnik.
 :::
 
+::: important
+[Ustawienie Max Sample Count](/manuals/project-settings/#max-sample-count) ogranicza liczbę próbek profilera rejestrowanych dla każdego wątku w jednej klatce. Jeśli profiler zgłasza przekroczenie limitu, najpierw sprawdź kod profilowania rozszerzeń natywnych pod kątem niedopasowanej pary rozpoczęcia i zakończenia zakresu. Zwiększ limit tylko wtedy, gdy prawidłowa klatka rzeczywiście zawiera więcej zakresów niż skonfigurowany limit.
+:::
+
 ### Profiler zasobów
 Profiler zasobów pozwala analizować grę podczas działania i szczegółowo badać użycie zasobów. Aby otworzyć profiler:
 
@@ -90,6 +100,17 @@ Widok kolekcji
 
 Widok zasobów
 : Widok Resources view pokazuje wszystkie zasoby aktualnie załadowane do pamięci, ich rozmiar oraz liczbę odwołań do każdego zasobu. Jest to przydatne podczas optymalizowania użycia pamięci w aplikacji, gdy musisz zrozumieć, co jest załadowane do pamięci w danym momencie.
+
+## Oś czasu wydajności przeglądarki HTML5
+
+HTML5 używa Web Performance API zamiast Remotery dla osi czasu przeglądarki. Aby rejestrować zakresy silnika Defold:
+
+1. Upewnij się, że wybrany tryb profilera w manifeście aplikacji dołącza obsługę profilera do uruchamianego wariantu buildu.
+2. Włącz **Performance Timeline Enabled** (`profiler.performance_timeline_enabled`) w pliku *game.project*.
+3. Uruchom build HTML5 i otwórz narzędzia deweloperskie przeglądarki.
+4. Zarejestruj sesję w panelu **Performance** przeglądarki i przejrzyj zakresy silnika Defold na wynikowej osi czasu.
+
+Ta oś czasu przeglądarki jest niezależna zarówno od wizualnego profilera w grze, jak i interaktywnego webowego profilera Remotery.
 
 
 ## Raporty budowania {#build-reports}

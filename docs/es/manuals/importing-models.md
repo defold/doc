@@ -37,7 +37,7 @@ Una vez que hayas importado el modelo, úsalo en un [componente Model](/manuals/
 2. Define la propiedad *Mesh* con el archivo *.gltf* o *.glb* importado que contiene la malla.
 3. Para un modelo animado, define la propiedad *Skeleton* con el archivo *.gltf* o *.glb* que contiene el esqueleto. A menudo es el mismo archivo usado para *Mesh* cuando la malla, el esqueleto y las animaciones se exportan juntos.
 4. Crea un archivo *Animation Set* para las animaciones y asígnalo a la propiedad *Animations*. Define *Default Animation* si quieres que una animación se inicie automáticamente.
-5. Define la propiedad *Material* con un material adecuado para el modelo. Los archivos integrados *model.material*, *model_instances.material*, *model_skinned.material* y *model_skinned_instances.material* son puntos de partida útiles.
+5. Define la propiedad *Material* con un material adecuado para el modelo. Los archivos integrados *model.material*, *model_instanced.material*, *model_skinned.material* y *model_skinned_instanced.material* son puntos de partida útiles. Los materiales skinned usan el espacio local de vértices para que el skinning pueda ejecutarse en la GPU; los materiales personalizados para modelos con skinning por GPU o instanciados también deben usar el espacio local de vértices. Consulta el [manual de modelos](/manuals/model/#material) para conocer los requisitos del adaptador gráfico.
 6. Define las propiedades de textura del material, como *Texture*, con los archivos de imagen de textura importados. Si el material usa varias texturas, asigna cada textura en el campo de textura de material correspondiente.
 
 

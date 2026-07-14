@@ -123,11 +123,30 @@ editor.ui.grid({
 
 ### 데이터 표시 컴포넌트 {#data-presentation-components}
 
-에디터는 4가지 데이터 표시 컴포넌트를 정의합니다.
+에디터는 다음 데이터 표시 컴포넌트를 정의합니다.
+
 - **`label`** — 텍스트 라벨이며 form 입력과 함께 사용하기 위한 것입니다.
 - **`icon`** — 아이콘입니다. 현재는 미리 정의된 작은 아이콘 집합을 표시하는 데만 사용할 수 있지만, 앞으로 더 많은 아이콘을 허용하려고 합니다.
+- **`image`** — `/`로 시작하는 프로젝트 리소스 경로나 외부 URL에서 로드한 이미지입니다. 선택적인 `width`와 `height` prop은 종횡비를 유지하면서 지정된 크기 안에 이미지를 맞춥니다.
 - **`heading`** — form이나 dialog 등에서 제목 줄 텍스트를 표시하기 위한 텍스트 요소입니다. `editor.ui.HEADING_STYLE` enum은 HTML의 `H1`-`H6` heading과 에디터 전용 `DIALOG`, `FORM`을 포함하는 다양한 heading 스타일을 정의합니다.
 - **`paragraph`** — 텍스트 단락을 표시하기 위한 텍스트 요소입니다. `label`과의 주요 차이는 paragraph가 word wrapping을 지원한다는 점입니다. 할당된 bounds가 가로로 너무 작으면 텍스트가 줄바꿈되고, view에 들어가지 않으면 `"..."`로 줄어들 수도 있습니다.
+
+예를 들어 UI에서 프로젝트 이미지와 웹 이미지를 모두 표시할 수 있습니다.
+
+```lua
+editor.ui.vertical({
+    children = {
+        editor.ui.image({
+            image = "/builtins/assets/images/logo/logo_256.png",
+            width = 64,
+            height = 64
+        }),
+        editor.ui.image({
+            image = "https://defold.com/images/assets/monarch-hero.jpg"
+        })
+    }
+})
+```
 
 ### 입력 컴포넌트 {#input-components}
 

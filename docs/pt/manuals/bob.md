@@ -70,6 +70,8 @@ usage: bob [options] [commands]
                                          target
     --exclude-build-folder <arg>         DEPRECATED! Use '.defignore' file
                                          instead
+    --experimental-path-minification     Minimizes resource path names in order
+                                         to save bundle size.
  -h,--help                               This help message
  -i,--input <arg>                        DEPRECATED! Use --root instead
     --identity <arg>                     Sign identity (iOS)
@@ -173,6 +175,9 @@ Plataformas e arquiteturas disponíveis:
 
 `x86_64-linux`
 : Linux 64 bit
+
+`arm64-linux`
+: Linux ARM64 para Raspberry Pi e dispositivos portáteis baseados em Linux.
 
 `x86_64-ios`
 : iOS macOS 64 bit (iOS Simulator)

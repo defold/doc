@@ -138,6 +138,16 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 Sin embargo, hay algunas consideraciones al actualizar los atributos de vértice: que un componente pueda usar o no el valor depende del tipo semántico del atributo. Por ejemplo, un componente sprite admite `SEMANTIC_TYPE_POSITION`, así que si actualizas un atributo que tiene este tipo semántico, el componente ignorará el valor sobrescrito porque el tipo semántico indica que los datos siempre deben producirse a partir de la posición del sprite.
 
+Los componentes Model también exponen atributos de material personalizados mediante `go.get()`, `go.set()` y `go.animate()`. Por ejemplo, después de definir un atributo llamado `my_attribute` en el material del modelo:
+
+```lua
+go.set("#model", "my_attribute", vmath.vector4(1, 0, 0, 1))
+go.animate("#model", "my_attribute", go.PLAYBACK_LOOP_PINGPONG,
+    vmath.vector4(0, 1, 0, 1), go.EASING_LINEAR, 2)
+```
+
+Actualmente, de esta forma solo se puede acceder a la primera malla de un modelo con varias mallas. Actualizar un atributo por vértice no instanciado también puede reconstruir y subir datos de vértice en proporción al tamaño de la malla, por lo que las actualizaciones frecuentes pueden ser costosas en mallas grandes.
+
 En los casos en que un atributo de vértice sea un escalar o un tipo de vector distinto de `Vec4`, aún puedes definir los datos usando `go.set`:
 
 ```lua
@@ -232,7 +242,25 @@ Para verificar que instancing funciona en este caso, puedes mirar el profiler we
 
 #### Compatibilidad hacia atrás
 
-En adaptadores gráficos basados en OpenGL, instancing requiere al menos OpenGL 3.1 para escritorio y OpenGL ES 3.0 para móviles. Esto significa que los dispositivos muy antiguos que usan OpenGL ES2 o versiones anteriores de OpenGL podrían no admitir instancing. En este caso, el renderizado seguirá funcionando por defecto sin ningún cuidado especial por parte del desarrollador, pero puede no ser tan eficiente como si se usara instancing real. Actualmente no hay forma de detectar si instancing está soportado o no, pero esta funcionalidad se agregará en el futuro para que se pueda usar un material menos costoso, o para omitir por completo elementos como follaje u objetos decorativos que normalmente serían buenos candidatos para instancing.
+OpenGL 3.1 en escritorio y OpenGL ES 3.0 en móviles proporcionan instancing como funcionalidad básica. Los contextos OpenGL ES y WebGL más antiguos aún pueden admitirlo mediante una extensión como `ANGLE_instanced_arrays`; otros adaptadores antiguos no lo admiten. Cuando instancing no está disponible, el renderizado sigue funcionando de forma predeterminada, pero puede rendir peor.
+
+Usa `graphics.get_adapter_info()` para detectar la compatibilidad y seleccionar un material menos costoso u omitir contenido con muchas instancias cuando sea necesario. El campo `features` es un array de las constantes de funcionalidad admitidas, no una tabla indexada por esas constantes:
+
+```lua
+local function has_context_feature(feature)
+    local adapter_info = graphics.get_adapter_info()
+    for _, supported_feature in ipairs(adapter_info.features) do
+        if supported_feature == feature then
+            return true
+        end
+    end
+    return false
+end
+
+local instancing_supported = has_context_feature(
+    graphics.CONTEXT_FEATURE_INSTANCING
+)
+```
 
 ## Constantes de vertex y fragment shader {#vertex-and-fragment-constants}
 
@@ -256,8 +284,38 @@ Las constantes de shader, o "uniforms", son valores que se pasan desde el motor 
 `CONSTANT_TYPE_WORLDVIEWPROJ`
 : Una matriz con las matrices de mundo, vista y proyección ya multiplicadas.
 
+`CONSTANT_TYPE_WORLD_INVERSE`
+: La inversa de la matriz de mundo. Se usa para transformar desde el espacio del mundo de nuevo al espacio local del objeto.
+
+`CONSTANT_TYPE_VIEW_INVERSE`
+: La inversa de la matriz de vista. Se usa para transformar desde el espacio de cámara de nuevo al espacio del mundo.
+
+`CONSTANT_TYPE_PROJECTION_INVERSE`
+: La inversa de la matriz de proyección. Se usa para transformar desde el espacio de clip de nuevo al espacio de cámara.
+
+`CONSTANT_TYPE_VIEWPROJ_INVERSE`
+: La inversa de las matrices de vista y proyección combinadas. Se usa para transformar desde el espacio de clip de nuevo al espacio del mundo.
+
+`CONSTANT_TYPE_WORLDVIEW_INVERSE`
+: La inversa de las matrices de mundo y vista combinadas. Se usa para transformar desde el espacio de cámara de nuevo al espacio local del objeto.
+
+`CONSTANT_TYPE_WORLDVIEWPROJ_INVERSE`
+: La inversa de las matrices de mundo, vista y proyección combinadas. Se usa para transformar desde el espacio de clip de nuevo al espacio local del objeto. Estas constantes inversas evitan calcular la inversa de una matriz en el shader.
+
 `CONSTANT_TYPE_NORMAL`
 : Una matriz para calcular la orientación de normales. La transformación de mundo puede incluir escalado no uniforme, lo que rompe la ortogonalidad de la transformación mundo-vista combinada. La matriz normal se usa para evitar problemas con la dirección al transformar normales. (La matriz normal es la inversa transpuesta de la matriz mundo-vista).
+
+`CONSTANT_TYPE_TIME`
+: Un `vector4` proporcionado por el motor donde `.x` es el tiempo transcurrido desde el inicio del motor, `.y` es el delta de tiempo respecto al frame anterior y `.z` y `.w` son actualmente cero. El motor actualiza este valor automáticamente; no es necesario actualizarlo con `go.set()`. Consulta el [tutorial de Shadertoy](/tutorials/shadertoy/#animation) para ver un ejemplo.
+
+  Declara una constante Time llamada `time` en un bloque uniform GLSL moderno:
+
+  ```glsl
+  uniform fragment_inputs
+  {
+      vec4 time;
+  };
+  ```
 
 `CONSTANT_TYPE_USER`
 : Una constante vector4 que puedes usar para cualquier dato personalizado que quieras pasar a tus programas de shader. Puedes definir el valor inicial de la constante en la definición de la constante, pero es mutable mediante las funciones [go.set()](/ref/stable/go/#go.set) / [go.animate()](/ref/stable/go/#go.animate). También puedes recuperar el valor con [go.get()](/ref/stable/go/#go.get). Cambiar una constante de material de una sola instancia de componente [rompe el batching de render y producirá draw calls adicionales](/manuals/render/#draw-calls-and-batching).

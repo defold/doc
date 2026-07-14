@@ -24,7 +24,7 @@ Utworzony komponent ma zestaw właściwości, które należy ustawić:
 ![Właściwości komponentu](images/sound/sound_properties.png)
 
 *Sound*
-: Powinien wskazywać plik dźwiękowy w projekcie. Plik powinien być w formacie _Wave_, _Ogg Vorbis_ albo _Ogg Opus_. Defold obsługuje pliki dźwiękowe zapisane z głębią bitową 16 bitów.
+: Powinien wskazywać plik dźwiękowy w projekcie. Plik powinien być w formacie _Wave_, _Ogg Vorbis_ albo _Ogg Opus_. Defold obsługuje pliki Wave PCM z próbkami 8- i 16-bitowymi. Odtwarzanie Ogg Opus jest opcjonalne i wymaga włączenia **Include Sound Decoder: Opus** w [manifeście aplikacji](/manuals/app-manifest/#sound); dekoder Opus nie jest domyślnie dołączony.
 
 *Looping*
 : Jeśli opcja jest zaznaczona, dźwięk będzie odtwarzany _Loopcount_ razy albo do momentu jego jawnego zatrzymania.
@@ -75,9 +75,9 @@ System dźwięku ma 4 poziomy wzmocnienia:
 - Wzmocnienie ustawione na komponencie dźwięku.
 - Wzmocnienie ustawione przy uruchamianiu dźwięku przez wywołanie `sound.play()` albo przy zmianie wzmocnienia głosu przez wywołanie `sound.set_gain()`.
 - Wzmocnienie ustawione na grupie przez wywołanie funkcji [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
-- Wzmocnienie ustawione na grupie "master". Można je zmienić wywołaniem `sound.set_group_gain(hash("master"))`.
+- Wzmocnienie ustawione na grupie "master". Można je zmienić za pomocą `sound.set_group_gain(hash("master"), gain)`.
 
-Wzmocnienie wyjściowe jest wynikiem pomnożenia tych 4 wartości. Domyślne wzmocnienie wszędzie wynosi 1.0 (0 dB).
+Gdy w [ustawieniach projektu Sound](/manuals/project-settings/#sound) włączono **Use Linear Gain** (ustawienie domyślne), wzmocnienie wyjściowe jest wynikiem pomnożenia tych czterech wartości. Wzmocnienie `1.0` jest wzmocnieniem jednostkowym (0 dB). Gdy wzmocnienie liniowe jest wyłączone, Defold stosuje podczas miksowania krzywą nieliniową, więc bezpośrednie mnożenie czterech wartości i poniższe przeliczenie na decybele nie opisują wynikowego poziomu wyjściowego.
 
 ## Grupy dźwięku
 
@@ -102,7 +102,7 @@ Grupy są identyfikowane za pomocą wartości hash. Nazwę jako string można po
 Nie powinieneś pisać kodu, który opiera się na stringowej wartości grupy dźwięku, ponieważ nie są one dostępne w wersjach release.
 :::
 
-Wszystkie wartości są liniowe w zakresie od 0 do 1.0 (0 dB). Aby przeliczyć je na decybele, wystarczy użyć standardowego wzoru:
+Gdy **Use Linear Gain** jest włączone, dodatnią wartość wzmocnienia można przeliczyć na decybele za pomocą standardowego wzoru:
 
 ```math
 db = 20 \times \log \left( gain \right)
@@ -131,6 +131,8 @@ end
 -- Ustaw wzmocnienie grupy master na +6 dB (math.pow(10, 6/20)).
 sound.set_group_gain("master", 1.995)
 ```
+
+W Defold 1.10.2 poprawiono występujące od dawna tłumienie miksera dźwięku o około 3 dB. Jeśli miks starszego projektu kompensował to tłumienie i po aktualizacji brzmi głośniej, dostosuj ponownie globalne ustawienie **Sound ▸ Gain** lub wzmocnienia odpowiednich grup.
 
 ## Ograniczanie częstotliwości dźwięków
 

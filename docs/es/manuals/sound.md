@@ -24,7 +24,7 @@ El componente creado tiene un conjunto de propiedades que se deben definir:
 ![Seleccionar componente](images/sound/sound_properties.png)
 
 *Sound*
-: Se debe definir con un archivo de sonido de tu proyecto. El archivo debe estar en formato _Wave_, _Ogg Vorbis_ o _Ogg Opus_. Defold admite archivos de sonido guardados con una profundidad de bits de 16 bits.
+: Se debe definir con un archivo de sonido de tu proyecto. El archivo debe estar en formato _Wave_, _Ogg Vorbis_ o _Ogg Opus_. Defold admite archivos Wave PCM de 8 y 16 bits. La reproducción de Ogg Opus es opcional y requiere activar **Include Sound Decoder: Opus** en el [manifiesto de la aplicación](/manuals/app-manifest/#sound); el decodificador Opus no se incluye de forma predeterminada.
 
 *Looping*
 : Si está marcada, el sonido se reproducirá _Loopcount_ veces o hasta que se detenga explícitamente.
@@ -75,9 +75,9 @@ El sistema de sonido tiene 4 niveles de ganancia:
 - La ganancia definida en el componente Sound.
 - La ganancia definida al iniciar el sonido mediante una llamada a `sound.play()` o al cambiar la ganancia de la voz mediante una llamada a `sound.set_gain()`.
 - La ganancia definida en el grupo mediante una llamada a la función [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
-- La ganancia definida en el grupo "master". Esto se puede modificar con `sound.set_group_gain(hash("master"))`.
+- La ganancia definida en el grupo "master". Esto se puede modificar con `sound.set_group_gain(hash("master"), gain)`.
 
-La ganancia de salida es el resultado de multiplicar estas 4 ganancias. La ganancia predeterminada es 1.0 en todas partes (0 dB).
+Cuando **Use Linear Gain** está activado en las [opciones de proyecto de Sound](/manuals/project-settings/#sound) (el valor predeterminado), la ganancia de salida es el resultado de multiplicar estas cuatro ganancias. Una ganancia de `1.0` es la ganancia unitaria (0 dB). Cuando la ganancia lineal está desactivada, Defold aplica una curva no lineal durante la mezcla, por lo que la multiplicación directa de los cuatro valores y la conversión a decibelios que se muestra a continuación no describen el nivel de salida resultante.
 
 ## Grupos de sonido
 
@@ -102,7 +102,7 @@ Los grupos se identifican con un valor hash. El nombre como string se puede recu
 No debes escribir código que dependa del valor string de un grupo de sonido, ya que no están disponibles en builds release.
 :::
 
-Todos los valores son lineales entre 0 y 1.0 (0 dB). Para convertir a decibelios, usa simplemente la fórmula estándar:
+Con **Use Linear Gain** activado, convierte un valor de ganancia positivo a decibelios con la fórmula estándar:
 
 ```math
 db = 20 \times \log \left( gain \right)
@@ -131,6 +131,8 @@ end
 -- Define la ganancia master en +6 dB (math.pow(10, 6/20)).
 sound.set_group_gain("master", 1.995)
 ```
+
+Defold 1.10.2 corrigió una atenuación de aproximadamente 3 dB que llevaba mucho tiempo presente en el mezclador de sonido. Si la mezcla de un proyecto antiguo compensaba esa atenuación y suena más fuerte después de actualizar, reajusta la opción global **Sound ▸ Gain** o las ganancias de los grupos afectados.
 
 ## Compuerta de sonidos
 

@@ -32,13 +32,14 @@ main_collection = /main/main.collectionc
 
 co oznacza, że ustawienie *main_collection* należy do kategorii *bootstrap*. Gdy używasz odwołania do pliku, jak w powyższym przykładzie, ścieżka musi zostać zakończona literą 'c', co oznacza odwołanie do skompilowanej wersji pliku. Zwróć też uwagę, że katalog zawierający *game.project* jest katalogiem głównym projektu, dlatego ścieżka ustawienia zaczyna się od /.
 
-## Dostęp w czasie działania
+## Dostęp w czasie działania {#runtime-access}
 
-Każdą wartość z *game.project* można odczytać w czasie działania za pomocą funkcji [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) i [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Przykłady:
+Wartości z *game.project* można odczytać w czasie działania za pomocą funkcji [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number), [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int) i [`sys.get_config_boolean(key)`](/ref/sys/#sys.get_config_boolean). Przykłady:
 
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
+local vsync = sys.get_config_boolean("display.vsync", false)
 ```
 
 ::: sidenote
@@ -303,12 +304,24 @@ Podpowiedź dotycząca wersji kontekstu OpenGL. Jeśli wybierzesz konkretną wer
 #### OpenGL Core Profile Hint
 Ustawia podpowiedź profilu 'core' podczas tworzenia kontekstu. Profil core usuwa wszystkie przestarzałe funkcje OpenGL, takie jak renderowanie w trybie immediate. Nie dotyczy OpenGL ES.
 
+#### Vulkan Version Major
+`graphics.vulkan_version_major` określa główną wersję kontekstu/API Vulkan. Dotyczy tylko wybranego backendu graficznego Vulkan. Wartość domyślna to `1`.
+
+#### Vulkan Version Minor
+`graphics.vulkan_version_minor` określa drugorzędną wersję kontekstu/API Vulkan. Dotyczy tylko wybranego backendu graficznego Vulkan. Wartość domyślna to `0`.
+
 ---
 
 ### Shader
 
 #### Exclude GLES 2.0
 Nie kompiluj shaderów dla urządzeń używających OpenGLES 2.0 / WebGL 1.0.
+
+#### GLSL ES Default Precision Float
+`shader.glsl_es_default_precision_float` ustawia domyślny globalny kwalifikator precyzji dla wartości zmiennoprzecinkowych w shaderach GLSL ES po kompilacji krzyżowej. Prawidłowe wartości to `mediump` i `highp`; wartość domyślna to `mediump`.
+
+#### GLSL ES Default Precision Int
+`shader.glsl_es_default_precision_int` ustawia domyślny globalny kwalifikator precyzji dla wartości całkowitych w shaderach GLSL ES po kompilacji krzyżowej. Prawidłowe wartości to `mediump` i `highp`; wartość domyślna to `highp`.
 
 ---
 
@@ -554,7 +567,7 @@ Krótka nazwa bundla, maksymalnie 15 znaków. Zobacz [`CFBundleName`](https://de
 Wersja bundla zapisana jako liczba albo x.y.z. Zobacz [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430).
 
 #### Info.plist
-Jeśli ustawiono, podczas bundlowania aplikacji zostanie użyty wskazany plik *`info.plist`*.
+Jeśli ustawiono, podczas bundlowania aplikacji wskazany plik *`Info.plist`* zostanie użyty zamiast wbudowanego manifestu bazowego iOS. Wbudowany manifest zawiera wpisy sieci lokalnej i Bonjour wymagane do wykrywania celów edytora w buildach innych niż release. Jeśli dostarczasz własny manifest i potrzebujesz wykrywania celów, profilowania, szybkiego przeładowania lub przesyłania logów na urządzeniu, zachowaj te wpisy zgodnie z opisem w [instrukcji iOS](/manuals/ios/#creating-an-ios-application-bundle).
 
 #### Privacy Manifest
 Apple Privacy Manifest dla aplikacji. Domyślna wartość pola to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -731,17 +744,22 @@ Jeśli ustawiono, użyj manifestu aplikacji do dostosowania builda silnika. Pozw
 
 ### Profiler
 
+Ustawienie **Profiler** w manifeście aplikacji określa, czy kod profilera jest dołączany do buildów debug i release. Poniższe ustawienia sterują zachowaniem kodu profilera obecnego w wybranym buildzie. Szczegóły znajdziesz w [instrukcji profilowania](/manuals/profiling/).
+
 #### Enabled
 Włącza profiler w grze.
 
 #### Track Cpu
-Po zaznaczeniu włącza profilowanie CPU w buildach release. Zwykle informacje profilujące są dostępne tylko w buildach debug.
+Próbkowanie użycia CPU jest domyślnie włączone w buildach debug. Włącz to ustawienie, jeśli próbkowanie CPU jest również potrzebne w buildzie release, który zawiera obsługę profilera dołączoną przez manifest aplikacji.
 
 #### Sleep Between Server Updates
 Liczba milisekund uśpienia pomiędzy aktualizacjami serwera.
 
 #### Performance Timeline Enabled
 Włącza przeglądarkową oś czasu wydajności. Dotyczy tylko HTML5.
+
+#### Max Sample Count
+`profiler.max_sample_count` to maksymalna liczba próbek profilera rejestrowanych dla każdego wątku w jednej klatce. Wartość domyślna to `4096`, a minimalna `128`. Zwiększ ją tylko wtedy, gdy prawidłowy profil przekracza limit; najpierw sprawdź kod profilowania rozszerzeń natywnych pod kątem niedopasowanych wywołań rozpoczęcia i zakończenia zakresu.
 
 ---
 
@@ -757,18 +775,19 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
-Własne wartości można odczytywać tak samo jak każdą inną wartość konfiguracyjną, za pomocą [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) albo [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
+Własne wartości, tak samo jak każdą inną wartość konfiguracyjną, można odczytywać za pomocą odpowiedniej funkcji opisanej w sekcji [Dostęp w czasie działania](#runtime-access):
 
 ```lua
 local my_value = sys.get_config_number("test.my_value")
 local my_value2 = sys.get_config_string("test.my_value2")
+local my_flag = sys.get_config_boolean("test.my_flag", false)
 ```
 
 :[Optymalizacje liczników maksymalnych komponentów](../shared/component-max-count-optimizations.md)
 
 ## Własne ustawienia projektu
 
-Można definiować własne ustawienia dla głównego projektu albo dla [native extension](/manuals/extensions/). Własne ustawienia dla głównego projektu należy zdefiniować w pliku `game.properties` w katalogu głównym projektu. W przypadku rozszerzenia natywnego należy je zdefiniować w pliku `ext.properties` obok pliku `ext.manifest`.
+Można definiować własne ustawienia dla głównego projektu albo dla [native extension](/manuals/extensions/). Własne ustawienia dla głównego projektu należy zdefiniować w pliku `game.properties` w katalogu głównym projektu. Pliki o nazwie `ext.properties` są wykrywane w dowolnym miejscu projektu oraz w pobranych zależnościach bibliotecznych; nie wymagają sąsiadującego pliku `ext.manifest`. Wszystkie wykryte metadane rozszerzeń są łączone, po czym stosowany jest główny plik `game.properties`, który może je nadpisać.
 
 Plik ustawień używa tego samego formatu INI co *game.project*, a atrybuty właściwości zapisuje się notacją z kropką i sufiksem:
 
@@ -787,7 +806,7 @@ Obecnie dostępne są następujące atrybuty:
 // `type` - używany przy parsowaniu wartości tekstowej
 my_property.type = string // jedna z wartości: bool, string, number, integer, string_array, resource
 
-// `help` - używany jako podpowiedź pomocy w edytorze (na razie nieużywany)
+// `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
 // `default` - wartość używana jako domyślna, jeśli użytkownik nie ustawił jej ręcznie
@@ -827,4 +846,4 @@ title = My Awesome Extension
 help = Settings for My Awesome Extension
 ```
 
-Obecnie właściwości meta są używane tylko w `bob.jar` podczas bundlowania aplikacji, ale w przyszłości będą też parsowane przez edytor i prezentowane w widoku *game.project*.
+Zarówno Bob, jak i edytor odczytują te pliki metadanych. Edytor używa ich do tworzenia odpowiednich pól, opcji, walidacji i podpowiedzi w widoku *game.project*.

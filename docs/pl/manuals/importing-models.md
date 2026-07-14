@@ -37,7 +37,7 @@ Po zaimportowaniu modelu użyj go w [komponencie Model](/manuals/model):
 2. Ustaw właściwość *Mesh* na zaimportowany plik *.gltf* lub *.glb* zawierający siatkę.
 3. W przypadku modelu animowanego ustaw właściwość *Skeleton* na plik *.gltf* lub *.glb* zawierający szkielet. Często jest to ten sam plik, którego używasz dla *Mesh*, gdy siatka, szkielet i animacje są eksportowane razem.
 4. Utwórz plik *Animation Set* dla animacji i przypisz go do właściwości *Animations*. Ustaw *Default Animation*, jeśli animacja ma rozpocząć się automatycznie.
-5. Ustaw właściwość *Material* na materiał odpowiedni dla modelu. Wbudowane pliki *model.material*, *model_instances.material*, *model_skinned.material* i *model_skinned_instances.material* są przydatnymi punktami wyjścia.
+5. Ustaw właściwość *Material* na materiał odpowiedni dla modelu. Wbudowane pliki *model.material*, *model_instanced.material*, *model_skinned.material* i *model_skinned_instanced.material* są przydatnymi punktami wyjścia. Materiały dla modeli ze skinningiem używają lokalnej przestrzeni wierzchołków, aby skinning mógł być wykonywany na GPU; niestandardowe materiały dla modeli ze skinningiem GPU lub instancjonowanych również powinny używać lokalnej przestrzeni wierzchołków. Wymagania dotyczące adaptera graficznego opisano w [instrukcji Model](/manuals/model/#material).
 6. Ustaw właściwości tekstur materiału, takie jak *Texture*, na zaimportowane pliki obrazów tekstur. Jeśli materiał używa wielu tekstur, przypisz każdą teksturę w odpowiednim polu tekstury materiału.
 
 

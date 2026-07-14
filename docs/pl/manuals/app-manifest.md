@@ -5,8 +5,7 @@ brief: Ta instrukcja wyjaśnia, jak manifest aplikacji służy do wykluczania fu
 
 # Manifest aplikacji
 
-Manifest aplikacji służy do wykluczania funkcji z silnika albo do określania, które z nich mają zostać do niego dołączone. Wykluczanie nieużywanych funkcji silnika to zalecana praktyka, ponieważ zmniejsza końcowy rozmiar pliku binarnego gry.
-Manifest aplikacji zawiera też kilka opcji sterujących kompilacją kodu dla platformy HTML5, takich jak minimalna obsługiwana wersja przeglądarki i ustawienia pamięci. Te opcje również mogą wpływać na rozmiar wynikowego pliku binarnego.
+Manifest aplikacji określa, które funkcje i backendy są dołączane do silnika. Zaleca się wykluczenie nieużywanych funkcji, ponieważ zmniejsza to końcowy rozmiar pliku binarnego gry. Manifest aplikacji zawiera również opcje używane podczas budowania, takie jak minimalne obsługiwane wersje przeglądarek HTML5 i ustawienia pamięci WebAssembly.
 
 ![](images/app_manifest/create-app-manifest.png)
 
@@ -16,13 +15,19 @@ Manifest aplikacji zawiera też kilka opcji sterujących kompilacją kodu dla pl
 
 W pliku `game.project` przypisz manifest w <kbd>`Native Extensions`</kbd> -> <kbd>`App Manifest`</kbd>.
 
-## Physics
+## Physics 2D
 
-Określa, którego silnika fizyki użyć, albo pozwala wybrać None, aby całkowicie wykluczyć fizykę.
+Wybierz implementację Box2D, która ma zostać dołączona:
 
-## Physics 2d
+* **Box2D Version 3** - Dołącza Box2D 3. Jest to opcja wymagająca jawnego włączenia i może dawać inne wyniki symulacji niż starsza implementacja, dlatego istniejące projekty mogą wymagać ponownego dostrojenia ustawień fizyki.
+* **Box2D (Legacy Defold version)** - Dołącza starszą implementację Box2D silnika Defold. Jest to ustawienie domyślne.
+* **None** - Wyklucza fizykę 2D.
 
-Wybiera, której wersji Box2D użyć.
+Ustawienia solvera Box2D zależą od wersji. Szczegóły znajdziesz w [ustawieniach projektu Box2D](/manuals/project-settings/#box2d).
+
+## Physics 3D
+
+Dołącza implementację fizyki 3D Bullet. Jest ona dołączona domyślnie; wyłącz to ustawienie, aby wykluczyć fizykę 3D.
 
 ## Rig + Model
 
@@ -34,14 +39,36 @@ Steruje funkcjami rig i model albo pozwala wybrać None, aby całkowicie wyklucz
 Wyklucza z silnika możliwość nagrywania wideo (zobacz dokumentację wiadomości [`start_record`](https://defold.com/ref/stable/sys/#start_record)).
 
 
-## Exclude Profiler
+## Profiler
 
-Wyklucza profiler z silnika. Profiler służy do zbierania danych o wydajności oraz liczników użycia. Więcej informacji o korzystaniu z profilera znajdziesz w [podręczniku profilowania](/manuals/profiling/).
+Określa, kiedy funkcje profilera są dołączane do silnika:
+
+* **Debug Only** - Dołącza profiler tylko do buildów debug. Jest to ustawienie domyślne.
+* **None** - Wyklucza funkcje profilera ze wszystkich wariantów buildu.
+* **Always** - Dołącza profiler zarówno do buildów debug, jak i release.
+
+Ustawienie w manifeście aplikacji określa, czy kod profilera jest dołączany do buildu. Ustawienia w sekcji `profiler` pliku *game.project* sterują zachowaniem profilera w czasie działania. Więcej informacji o dostępnych funkcjach znajdziesz w [podręczniku profilowania](/manuals/profiling/).
 
 
-## Exclude Sound
+## Sound
+
+Ustawienia dźwięku określają, który system dźwięku i które dekodery są dołączane do silnika.
+
+### Exclude Sound
 
 Wyklucza z silnika wszystkie możliwości odtwarzania dźwięku.
+
+### Exclude Sound Decoder: WAV
+
+Wyklucza obsługę zasobów dźwiękowych WAV.
+
+### Exclude Sound Decoder: OGG
+
+Wyklucza obsługę zasobów dźwiękowych Ogg Vorbis.
+
+### Include Sound Decoder: Opus
+
+Dołącza obsługę zasobów dźwiękowych Ogg Opus. Dekoder Opus jest domyślnie wykluczony, dlatego przed odtwarzaniem zasobów `.opus` należy włączyć tę opcję. Obsługiwane formaty opisano w [podręczniku dźwięku](/manuals/sound/).
 
 
 ## Exclude Input
@@ -64,7 +91,7 @@ Wyklucza z silnika moduł skryptowy `image`. Więcej informacji znajdziesz w [do
 Wyklucza z silnika moduł skryptowy `types`. Więcej informacji znajdziesz w [dokumentacji](https://defold.com/ref/stable/types/).
 
 
-## Exclude Basis Universal
+## Exclude Basis Transcoder
 
 Wyklucza z silnika [bibliotekę kompresji tekstur Basis Universal](/manuals/texture-profiles).
 
@@ -76,44 +103,44 @@ Korzysta z przestarzałej biblioteki Android Support Library zamiast AndroidX. [
 
 ## Graphics
 
-Określa, którego backendu graficznego użyć.
+Wybierz backendy graficzne, które mają zostać dołączone dla każdej platformy. Wybór łączony dołącza oba backendy, aby można było użyć rozwiązania zapasowego, gdy preferowany backend jest niedostępny.
 
-* OpenGL - Dołącza tylko OpenGL.
-* Vulkan - Dołącza tylko Vulkan.
-* OpenGL and Vulkan - Dołącza zarówno OpenGL, jak i Vulkan. Vulkan będzie używany domyślnie, a jeśli nie będzie dostępny, silnik przełączy się na OpenGL.
+| Pole | Platformy | Opcje | Domyślna |
+|---|---|---|---|
+| **Graphics** | Windows i Linux | OpenGL, Vulkan, OpenGL & Vulkan | OpenGL |
+| **Graphics (macOS)** | macOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | Vulkan |
+| **Graphics (iOS)** | iOS | OpenGL, Metal, Vulkan, OpenGL & Metal, OpenGL & Vulkan | OpenGL |
+| **Graphics (Android)** | Android | OpenGL+Vulkan, OpenGL, Vulkan | OpenGL+Vulkan |
+| **Graphics (HTML5)** | HTML5 | WebGL, WebGPU, WebGL & WebGPU | WebGL |
+
+W systemie Linux ARM64 opcja **OpenGL** używa backendu OpenGL ES. Domyślna opcja łączona dla Androida preferuje Vulkan, gdy jest dostępny, i w przeciwnym razie przełącza się na OpenGL ES.
 
 ## Use full text layout system
 
 Jeśli ta opcja jest włączona (`true`), umożliwia generowanie w czasie działania fontów typu SDF przy użyciu fontów TrueType (`.ttf`) w projekcie. Więcej szczegółów znajdziesz w [podręczniku fontów](https://defold.com/manuals/font/#enabling-runtime-fonts).
 
 
-## Minimum Safari version (wasm-web only)
-Nazwa pola YAML: **`minSafariVersion`**
-Wartość domyślna: **90000**
+## Minimalne wersje przeglądarek
 
-Minimalna obsługiwana wersja Safari. Nie może być mniejsza niż 90000. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-safari-version).
+Pola YAML **`minSafariVersion`**, **`minFirefoxVersion`** i **`minChromeVersion`** określają minimalne wersje przeglądarek, na które ukierunkowany jest Emscripten. Bieżące wartości domyślne i minimalne obsługiwane wersje różnią się między celami bez wątków i z wątkami:
 
-## Minimum Firefox version (wasm-web only)
-Nazwa pola YAML: **`minFirefoxVersion`**
-Wartość domyślna: **34**
+| Cel | Safari | Firefox | Chrome |
+|---|---:|---:|---:|
+| `wasm-web` | `101000` | `40` | `45` |
+| `wasm_pthread-web` | `150000` | `79` | `75` |
 
-Minimalna obsługiwana wersja Firefoxa. Nie może być mniejsza niż 34. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-firefox-version).
+Wartości zastępujące należy określić w kontekście właściwego celu. Cel wielowątkowy ma również dodatkowe [wymagania dotyczące hostingu](/manuals/html5/#creating-html5-bundle). Więcej informacji znajdziesz w dokumentacji ustawień Emscripten: [`MIN_SAFARI_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-safari-version), [`MIN_FIREFOX_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-firefox-version) i [`MIN_CHROME_VERSION`](https://emscripten.org/docs/tools_reference/settings_reference.html#min-chrome-version).
 
-## Minimum Chrome version (wasm-web only)
-Nazwa pola YAML: **`minChromeVersion`**
-Wartość domyślna: **32**
-
-Minimalna obsługiwana wersja Chrome. Nie może być mniejsza niż 32. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#min-chrome-version).
-
-## Initial memory (wasm-web only)
+## Initial memory (HTML5)
 Nazwa pola YAML: **`initialMemory`**
 Wartość domyślna: **33554432**
 
-Rozmiar pamięci przydzielanej aplikacji webowej. Jeśli `ALLOW_MEMORY_GROWTH=0`, jest to całkowita ilość pamięci dostępna dla aplikacji webowej. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#initial-memory). Wartość podawana jest w bajtach. Zwróć uwagę, że musi ona być wielokrotnością rozmiaru strony WebAssembly (64KiB).
-Ta opcja odnosi się do `html5.heap_size` w *game.project* ([więcej informacji](https://defold.com/manuals/html5/#heap-size)). Opcja skonfigurowana w manifeście aplikacji jest ustawiana podczas kompilacji i używana jako domyślna wartość `INITIAL_MEMORY`. Wartość z *game.project* nadpisuje wartość z manifestu aplikacji i jest używana w czasie działania.
+Początkowa ilość pamięci przydzielanej aplikacji webowej, w bajtach. Wartość musi być wielokrotnością rozmiaru strony WebAssembly (64 KiB). Zobacz ustawienie Emscripten [`INITIAL_MEMORY`](https://emscripten.org/docs/tools_reference/settings_reference.html#initial-memory).
 
-## Stack size (wasm-web only)
+Ta opcja określa wartość domyślną podczas kompilacji. Wartość [`html5.heap_size`](/manuals/html5/#heap-size) w pliku *game.project* zastępuje ją w czasie działania.
+
+## Stack size (HTML5)
 Nazwa pola YAML: **`stackSize`**
 Wartość domyślna: **5242880**
 
-Rozmiar stosu aplikacji. Więcej informacji znajdziesz w [opcjach kompilatora Emscripten](https://emscripten.org/docs/tools_reference/settings_reference.html?highlight=environment#stack-size). Wartość podawana jest w bajtach.
+Rozmiar stosu aplikacji w bajtach. Zobacz ustawienie Emscripten [`STACK_SIZE`](https://emscripten.org/docs/tools_reference/settings_reference.html#stack-size).

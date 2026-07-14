@@ -102,7 +102,7 @@ A: 에디터/도구와 엔진 런타임은 다음 플랫폼을 지원합니다.
   | Linux (2)          | Any                | `x86-64`, `arm-64` | 엔진               |
   | iOS                | 15.0               | `arm-64`  `x86_64` | 엔진               |
   | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | 엔진               |
-  | HTML5              |                    | `asm.js`, `wasm`   | 엔진               |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | 엔진       |
 
   (1 에디터는 64-bit Ubuntu용으로 빌드되고 테스트됩니다. 다른 배포판에서도 동작할 수 있지만 보장하지는 않습니다.)
 

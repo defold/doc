@@ -60,6 +60,8 @@ Lista todos os arquivos e pastas que fazem parte do seu projeto em uma estrutura
    - <kbd>Drag and Drop</kbd> para adicionar ao projeto arquivos de outro lugar do seu disco ou mover arquivos e pastas para novos locais no projeto.
    - <kbd>Right Mouse Click</kbd> para abrir um _Context Menu_ de onde você pode criar novos arquivos ou pastas, renomear, excluir, rastrear dependências de arquivo e mais.
 
+Arquivos e pastas excluídos pelo painel *Assets* são movidos para a Lixeira do sistema quando a plataforma oferece suporte a essa operação. Se não houver suporte para mover um item para a Lixeira ou a operação falhar, o editor o exclui permanentemente.
+
 ### 2. Painel Scene Editor {#the-scene-editor}
 
 Dar duplo clique em uma coleção, objeto de jogo ou arquivo de componente visual abre o *Scene Editor*, o editor visual para construir e editar cenas. Arquivos de script e outros recursos não visuais são abertos em seus próprios editores dedicados.

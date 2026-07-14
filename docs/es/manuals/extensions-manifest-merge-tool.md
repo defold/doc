@@ -35,7 +35,7 @@ Para ver un conjunto completo de instrucciones sobre cómo modificar tus manifie
 
 ::: important
 Si no defines `android:targetSdkVersion` de tu aplicación en el manifiesto de extensión, se agregarán automáticamente los siguientes permisos: `WRITE_EXTERNAL_STORAGE`, `READ_PHONE_STATE`, `READ_EXTERNAL_STORAGE`. Puedes leer más al respecto en la documentación oficial [aquí](https://developer.android.com/studio/build/manifest-merge#implicit_system_permissions).
-Recomendamos usar: `<uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />`
+Recomendamos usar: `<uses-sdk android:targetSdkVersion="{{android.target_sdk_version}}" />`
 :::
 ### Ejemplo
 
@@ -49,7 +49,7 @@ Manifiesto base
             android:versionName='1.0'
             android:installLocation='auto'>
         <uses-feature android:required='true' android:glEsVersion='0x00020000' />
-        <uses-sdk android:minSdkVersion='9' android:targetSdkVersion='26' />
+        <uses-sdk android:minSdkVersion='21' android:targetSdkVersion='26' />
         <application android:label='Test Project' android:hasCode='true'>
         </application>
         <uses-permission android:name='android.permission.VIBRATE' />
@@ -61,7 +61,7 @@ Manifiesto de extensión:
 ```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.defold.testmerge'>
-         <uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />
+         <uses-sdk android:targetSdkVersion="{{android.target_sdk_version}}" />
         <uses-feature android:required='true' android:glEsVersion='0x00030000' />
         <application>
             <meta-data android:name='com.facebook.sdk.ApplicationName'
@@ -84,7 +84,7 @@ Resultado
         android:versionCode='14'
         android:versionName='1.0' >
         <uses-sdk
-            android:minSdkVersion='9'
+            android:minSdkVersion='21'
             android:targetSdkVersion='26' />
         <uses-permission android:name='android.permission.VIBRATE' />
         <uses-feature

@@ -231,20 +231,25 @@ Adicionar uma fonte a uma coleção de fontes não carrega nem renderiza automat
 :::
 
 ```lua
--- obtém a fonte principal
-local font_collection = go.get("#label", "font")
-font.add_font(font_collection, self.language_ttf_hash)
+function init(self)
+    -- Get the target font collection.
+    self.font_collection = go.get("#label", "font")
 
--- obtém a fonte do idioma selecionado
-local font_collection_language = go.get("localization_japanese#label", "font")
-local font_info = font.get_info(font_collection_language)
-self.language_ttf_hash = font_info.fonts[1].path_hash -- obtém a primeira fonte (a especificada no editor)
-font.add_font(self.font_collection, self.language_ttf_hash) -- aumenta a contagem de referência da fonte
+    -- Get the first font assigned to the selected language collection.
+    local language_collection = go.get("localization_japanese#label", "font")
+    local font_info = font.get_info(language_collection)
+    self.language_ttf_hash = font_info.fonts[1].path_hash
+
+    -- Associate it with the target collection and increase its reference count.
+    font.add_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ```lua
--- remove a referência da fonte
-font.add_font(self.font_collection, self.language_ttf_hash)
+function final(self)
+    -- Remove the association and release the font reference.
+    font.remove_font(self.font_collection, self.language_ttf_hash)
+end
 ```
 
 ### Pré-aquecendo glifos

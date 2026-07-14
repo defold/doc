@@ -58,6 +58,9 @@ Code editor font
 Zoom on Scroll
 : Cmd/Ctrl 버튼을 누른 상태로 코드 에디터에서 스크롤할 때 폰트 크기를 변경할지 여부입니다.
 
+Auto-insert closing parens
+: 코드를 편집할 때 짝이 되는 닫는 문자를 자동으로 삽입합니다. 이 옵션은 기본적으로 활성화되어 있습니다.
+
 
 ### Visual Studio Code에서 스크립트 파일 열기
 

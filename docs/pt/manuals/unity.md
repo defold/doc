@@ -536,8 +536,11 @@ Confira mais detalhes no [manual de Collection Factory](/manuals/collection-fact
 Ao chamar `factory.create()` ou `collectionfactory.create()`, você também pode especificar parâmetros opcionais como posição, rotação, escala e propriedades de script, para controlar exatamente como e onde a instância aparece e como ela se comporta, por exemplo:
 
 ```lua
-factory.create("#my_factory", my_position, my_rotation, my_scale, my_properties)
+local scale_2d = vmath.vector3(0.5, 0.5, 1.0)
+factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 ```
+
+A ordem dos argumentos opcionais é properties seguida de scale. Use um `vector3` com Z definido explicitamente como `1.0` ao alterar somente a escala dos eixos X e Y de um objeto 2D; uma escala numérica é aplicada uniformemente aos três eixos.
 
 #### Carregamento dinâmico
 

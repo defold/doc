@@ -58,6 +58,8 @@ Pokazuje wszystkie pliki i foldery należące do projektu w strukturze drzewa od
    - <kbd>Drag and Drop</kbd>, aby dodać pliki z innych miejsc na dysku do projektu albo przenosić pliki i foldery w obrębie projektu.
    - <kbd>Right Mouse Click</kbd>, aby otworzyć _Context Menu_, z którego możesz tworzyć nowe pliki i foldery, zmieniać nazwy, usuwać elementy, śledzić zależności plików i wykonywać inne operacje.
 
+Pliki i foldery usunięte w panelu *Assets* są przenoszone do systemowego kosza, jeśli platforma to obsługuje. Jeśli przeniesienie elementu do kosza nie jest obsługiwane lub się nie powiedzie, edytor trwale go usuwa.
+
 ### 2. Panel edytora {#the-scene-editor}
 
 Dwukrotne kliknięcie kolekcji, obiektu gry albo pliku komponentu wizualnego otwiera *Scene Editor* - edytor wizualny do budowania i edytowania scen. Pliki skryptów i inne niewizualne zasoby otwierają się w osobnych, przeznaczonych do tego edytorach.

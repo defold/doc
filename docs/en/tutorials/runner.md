@@ -60,7 +60,7 @@ Main Editor View
 : Depending on which filetype you're editing, this view will show an editor for that type. Most commonly used is the Scene editor that you see here. Each open file is shown in a separate tab.
 
 Changed Files
-: Contains a list of all the edits you have made in your branch since last synchronization. So if you see anything in this pane, you have changes that are not on the server yet. You can open a text-only diff and revert changes through this view.
+: Contains files added, modified, renamed, or deleted locally compared with the current Git commit. For one modified or renamed text file at a time, you can view a diff; you can also revert selected local changes here. Use an external Git client or the command line to synchronize with a remote repository.
 
 Outline
 : The content of the currently edited file in a hierarchical view. You can add, delete, modify and select objects and components through this view.
@@ -578,7 +578,7 @@ function update(self, dt) -- <2>
                 f = "#platform_long_factory"
             end
 
-            local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, 0.6)
+            local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, vmath.vector3(0.6, 0.6, 1))
             msg.post(p, "set_speed", { speed = self.speed })
         end
     end
@@ -737,7 +737,7 @@ If you try the game now it quickly becomes apparent that the reset mechanism doe
                     f = "#platform_long_factory"
                 end
 
-                local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, 0.6)
+                local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, vmath.vector3(0.6, 0.6, 1))
                 msg.post(p, "set_speed", { speed = self.speed })
                 table.insert(self.spawns, p) -- <1>
             end

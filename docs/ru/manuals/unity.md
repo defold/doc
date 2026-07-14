@@ -537,8 +537,11 @@ local spawned_instances = collectionfactory.create("#my_collectionfactory")
 При вызове `factory.create()` или `collectionfactory.create()` можно также задавать дополнительные параметры: position, rotation, scale и script properties, чтобы точно контролировать, как и где instance появится и как будет вести себя, например:
 
 ```lua
-factory.create("#my_factory", my_position, my_rotation, my_scale, my_properties)
+local scale_2d = vmath.vector3(0.5, 0.5, 1.0)
+factory.create("#my_factory", my_position, my_rotation, my_properties, scale_2d)
 ```
+
+Необязательные аргументы передаются в порядке: свойства, затем масштаб. Если 2D-объект нужно масштабировать только по осям X и Y, используйте `vector3` с явно заданным Z, равным `1.0`; числовой масштаб применяется равномерно по всем трём осям.
 
 #### Динамическая загрузка
 

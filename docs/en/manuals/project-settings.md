@@ -36,11 +36,12 @@ which means that the setting *main_collection* belongs to the *bootstrap* catego
 
 ## Runtime access
 
-It is possible to read any value from *game.project* at runtime using [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number) and [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int). Examples:
+It is possible to read values from *game.project* at runtime using [`sys.get_config_string(key)`](/ref/sys/#sys.get_config_string), [`sys.get_config_number(key)`](/ref/sys/#sys.get_config_number), [`sys.get_config_int(key)`](/ref/sys/#sys.get_config_int), and [`sys.get_config_boolean(key)`](/ref/sys/#sys.get_config_boolean). Examples:
 
 ```lua
 local title = sys.get_config_string("project.title")
 local gravity_y = sys.get_config_number("physics.gravity_y")
+local fullscreen = sys.get_config_boolean("display.fullscreen", false)
 ```
 
 ::: sidenote
@@ -174,7 +175,7 @@ The desired frame rate in Hertz. Set to 0 for variable frame rate. A value large
 This integer value controls how the application deals with vsync. 0 disables vsync, and the default value is 1. When using an OpenGL adapter, this value sets the number of frames the window should [update between buffer swaps](https://www.khronos.org/opengl/wiki/Swap_Interval). For Vulkan, there is no built-in concept of swap interval, the value instead controls if vsync should be enabled or not.
 
 #### Vsync
-Rely on hardware vsync for frame timing. Can be overridden depending on graphics driver and platform specifics. For deprecated 'variable_dt' behavior, uncheck this setting and set frame cap 0.
+Legacy compatibility setting. This setting is deprecated; use **Swap Interval** for new projects. If disabled, it forces the effective swap interval to `0`. If enabled, **Swap Interval** determines the effective value.
 
 #### Display Profiles
 Specifies which display profiles file to use, `/builtins/render/default.display_profilesc` by default. Learn more in the [GUI Layouts manual](/manuals/gui-layouts/#creating-display-profiles).
@@ -306,12 +307,24 @@ OpenGL context version hint. If a specific version is selected, this will be use
 #### OpenGL Core Profile Hint
 Set the 'core' OpenGL profile hint when creating the context. The core profile removes all deprecated features from OpenGL, such as immediate mode rendering. Does not apply to OpenGL ES.
 
+#### Vulkan Version Major
+`graphics.vulkan_version_major` is the Vulkan context/API major version hint. This applies only when the Vulkan graphics backend is selected. The default is `1`.
+
+#### Vulkan Version Minor
+`graphics.vulkan_version_minor` is the Vulkan context/API minor version hint. This applies only when the Vulkan graphics backend is selected. The default is `0`.
+
 ---
 
 ### Shader
 
 #### Exclude GLES 2.0
 Don't compile shaders for devices running OpenGLES 2.0 / WebGL 1.0.
+
+#### GLSL ES Default Precision Float
+`shader.glsl_es_default_precision_float` sets the default global precision qualifier for floating-point values in cross-compiled GLSL ES shaders. Valid values are `mediump` and `highp`; the default is `mediump`.
+
+#### GLSL ES Default Precision Int
+`shader.glsl_es_default_precision_int` sets the default global precision qualifier for integer values in cross-compiled GLSL ES shaders. Valid values are `mediump` and `highp`; the default is `highp`.
 
 ---
 
@@ -559,7 +572,7 @@ The bundle short name (15 characters) (see [`CFBundleName`](https://developer.ap
 The bundle version, either a number or x.y.z. (see [`CFBundleVersion`](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-130430))
 
 #### Info.plist
-If specified, use this *`info.plist`* file when bundling your app.
+If specified, use this *`Info.plist`* file instead of the built-in iOS base manifest when bundling your app. The built-in manifest contains the local-network and Bonjour entries needed for Editor target discovery in non-release builds. If you supply a custom manifest and need target discovery, profiling, hot reload, or log streaming on a device, preserve those entries as described in the [iOS manual](/manuals/ios/#creating-an-ios-application-bundle).
 
 #### Privacy Manifest
 The Apple Privacy Manifest for the application. The field will default to `/builtins/manifests/ios/PrivacyInfo.xcprivacy`.
@@ -608,7 +621,7 @@ Google Cloud Messaging Sender Id. Set this to the string assigned by Google to e
 Firebase Cloud Messaging Application Id.
 
 #### Manifest
-If set, use the specified Android manifest XML file when bundling.
+If set, use the specified Android manifest XML file when bundling. A custom manifest replaces Defold's built-in base manifest. Native-extension manifest fragments are still merged into it, but later changes to the built-in base manifest are not inherited automatically, so compare custom manifests with the current built-in manifest when upgrading. For games, set `android:appCategory="game"` on the `<application>` element. For non-game applications, set `android:appCategory` only if one of Android's defined [application categories](https://developer.android.com/guide/topics/manifest/application-element#appCategory) accurately describes the app.
 
 #### Iap Provider
 Specifies which store to use. Valid options are `Amazon` and `GooglePlay`. Refer to [extension-iap](/extension-iap/) for more information.
@@ -736,17 +749,22 @@ If set, use the app manifest to customize the engine build. This allows you to r
 
 ### Profiler
 
+The App Manifest **Profiler** setting controls whether profiler code is linked into debug and release builds. The settings below control the runtime behavior of profiler code that is present in the selected build. See the [Profiling manual](/manuals/profiling/) for details.
+
 #### Enabled
 Enable the in-game profiler.
 
 #### Track Cpu
-If checked, enable CPU profiling in release versions of the builds. Normally, you can only access profiling information in debug builds.
+CPU usage sampling is enabled by default in debug builds. Enable this setting when CPU sampling is also needed in a release build that includes profiler support through the App Manifest.
 
 #### Sleep Between Server Updates
 Number of milliseconds to sleep between server updates.
 
 #### Performance Timeline Enabled
 Enable in-browser performance timeline (HTML5 only).
+
+#### Max Sample Count
+`profiler.max_sample_count` is the maximum number of profiler samples recorded per thread per frame. The default is `4096` and the minimum is `128`. Increase this only when a legitimate profile exceeds the limit; first check native-extension profiling code for mismatched scope begin/end calls.
 
 ---
 
@@ -762,11 +780,12 @@ $ dmengine --config=bootstrap.main_collection=/my.collectionc
 $ dmengine --config=test.my_value=4711 --config=test2.my_value2=foobar
 ```
 
-Custom values can---just like any other config value---be read with [`sys.get_config_string()`](/ref/sys/#sys.get_config_string) or [`sys.get_config_number()`](/ref/sys/#sys.get_config_number):
+Custom values can---just like any other config value---be read with the matching function described under [Runtime access](#runtime-access):
 
 ```lua
 local my_value = sys.get_config_number("test.my_value")
 local my_value2 = sys.get_config_string("test.my_value2")
+local my_flag = sys.get_config_boolean("test.my_flag", false)
 ```
 
 
@@ -775,7 +794,7 @@ local my_value2 = sys.get_config_string("test.my_value2")
 
 ## Custom project settings
 
-It is possible to define custom settings for the main project or for a [native extension](/manuals/extensions/). Custom settings for the main project must be defined in a `game.properties` file in the root of the project. For a native extension they should be defined in an `ext.properties` file next to the `ext.manifest` file.
+It is possible to define custom settings for the main project or for a [native extension](/manuals/extensions/). Custom settings for the main project must be defined in a `game.properties` file in the project root. Files named `ext.properties` are discovered anywhere in the project and fetched library dependencies; they do not require a neighboring `ext.manifest`. All discovered extension metadata is merged, after which the root `game.properties` file is applied and can override it.
 
 The settings file uses the same INI format as *game.project* and property attributes are defined using a dot notation with a suffix:
 
@@ -794,7 +813,7 @@ The following attributes are currently available:
 // `type` - used for the value string parsing
 my_property.type = string // one of the following values: bool, string, number, integer, string_array, resource
 
-// `help` - used as help tip in the editor (not used for now)
+// `help` - displayed as a help tooltip in the editor
 my_property.help = string
 
 // `default` - value used as default if user didn't set value manually
@@ -835,4 +854,4 @@ help = Settings for My Awesome Extension
 ```
 
 
-At the moment meta properties are used only in `bob.jar` when bundling application, but later will be parsed by the editor and represented in the *game.project* viewer.
+Both Bob and the Editor parse these metadata files. The Editor uses them to create the corresponding fields, choices, validation, and help tooltips in the *game.project* viewer.

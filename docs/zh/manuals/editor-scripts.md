@@ -51,6 +51,7 @@ return M
 - `editor.get(node_id, property)` — 获取编辑器内某个节点的值。编辑器中的节点是各种实体，例如脚本或集合文件，集合内的游戏对象，作为资源加载的 json 文件等。`node_id` 是由编辑器传递给编辑器脚本的 userdata。或者，您可以使用资源路径代替节点 id，例如 `"/main/game.script"`。`property` 是一个字符串。目前支持以下属性：
   - `"path"` — *资源* 的项目文件夹文件路径 — 作为文件或目录存在的实体。返回值示例：`"/main/game.script"`
   - `"children"` — 目录资源的子资源路径列表
+  - `"parent"` — 有父级的 Outline 节点的父编辑器节点
   - `"text"` — 可编辑为文本的资源文本内容（例如脚本文件或 json）。返回值示例：`"function init(self)\nend"`。请注意，这与使用 `io.open()` 读取文件不同，因为您可以在不保存文件的情况下编辑文件，这些编辑仅在访问 `"text"` 属性时可用。
   - 对于图集：`images`（图集中图像的编辑器节点列表）和 `animations`（动画节点列表）
   - 对于图集动画：`images`（与图集中的 `images` 相同）
@@ -59,7 +60,7 @@ return M
   - 对于粒子效果：`emitters`（发射器编辑器节点列表）和 `modifiers`（修改器编辑器节点列表）
   - 对于粒子效果发射器：`modifiers`（修改器编辑器节点列表）
   - 对于碰撞对象：`shapes`（碰撞形状编辑器节点列表）
-  - 对于 GUI 文件：`layers`（图层编辑器节点列表）
+  - 对于 GUI 文件：`layers`、`fonts`、`materials`、`textures`、`particlefxs`、`nodes` 和 `layouts` 等节点列表
   - 当您在大纲视图中选择某些内容时，属性视图中显示的一些属性。这些类型的大纲属性支持：
     - `strings`
     - `booleans`
@@ -68,6 +69,7 @@ return M
     - `resources`
     - `curves`
     请注意，其中一些属性可能是只读的，有些在不同上下文中可能不可用，因此您应该在读取它们之前使用 `editor.can_get`，在让编辑器设置它们之前使用 `editor.can_set`。将鼠标悬停在属性视图中的属性名称上，可以看到一个工具提示，其中包含有关该属性在编辑器脚本中如何命名的信息。您可以通过提供 `""` 值将资源属性设置为 `nil`。
+- `editor.properties(node_id)` — 返回可从节点读取的、经过排序且依上下文而定的属性名称列表，例如 `pprint(editor.properties("/game.project"))`。使用 `editor.can_*` 函数检查列出的属性是否还可更改、重置、添加或重新排序。
 - `editor.can_get(node_id, property)` — 检查您是否可以获取此属性，以便 `editor.get()` 不会抛出错误。
 - `editor.can_set(node_id, property)` — 检查带有此属性的 `editor.tx.set()` 事务步骤不会抛出错误。
 - `editor.create_directory(resource_path)` — 如果目录不存在，则创建目录，以及所有不存在的父目录。
@@ -79,11 +81,12 @@ return M
 - `editor.ui.*` — 各种与 UI 相关的函数，请参见[UI 手册](/manuals/editor-scripts-ui)。
 - `editor.prefs.*` — 与编辑器首选项交互的函数，请参见[首选项](#preferences)。
 
-您可以在[此处](https://defold.com/ref/alpha/editor/)找到完整的编辑器 API 参考。
+您可以在[此处](/ref/stable/editor/)找到完整的编辑器 API 参考。
 
 ## 命令 {#commands}
 
-如果编辑器脚本模块定义了函数 `get_commands`，它将在扩展重新加载时被调用，返回的命令将在编辑器的菜单栏或资源和大纲窗格的上下文菜单中可用。例如：
+如果编辑器脚本模块定义了 `get_commands()`，则会在扩展重新加载时调用它。根据命令的 `locations`，返回的命令可以出现在菜单栏菜单以及 Assets、Outline、Scene 和 Code 上下文菜单中。例如：
+
 ```lua
 local M = {}
 
@@ -128,7 +131,7 @@ return M
 编辑器期望 `get_commands()` 返回一个表数组，每个表描述一个单独的命令。命令描述包括：
 
 - `label`（必需）— 将显示给用户的菜单项上的文本
-- `locations`（必需）— 一个数组，包含 `"Edit"`、`"View"`、`"Project"`、`"Debug"`、`"Assets"`、`"Bundle"`、`"Scene"` 或 `"Outline"` 中的一个或多个，描述了该命令应该可用的位置。`"Edit"`、`"View"`、`"Project"` 和 `"Debug"` 表示顶部的菜单栏，`"Assets"` 表示资源窗格中的上下文菜单，`"Outline"` 表示大纲窗格中的上下文菜单，`"Bundle"` 表示 **Project → Bundle** 子菜单。
+- `locations`（必需）— 描述此命令应在哪里可用的数组。支持的值包括对应菜单栏菜单的 `"Edit"`、`"View"`、`"Project"`、`"Debug"` 和 `"Help"`；对应 **Project → Bundle** 子菜单的 `"Bundle"`；以及对应上下文菜单的 `"Assets"`、`"Outline"`、`"Scene"` 和 `"Code"`。
 - `query` — 命令向编辑器询问相关信息并定义它操作的数据的一种方式。对于 `query` 表中的每个键，`opts` 表中将有相应的键，`active` 和 `run` 回调将作为参数接收。支持的键：
   - `selection` 表示此命令在有选择内容时有效，并且它对该选择进行操作。
     - `type` 是命令感兴趣的所选节点类型，目前允许的类型有：
@@ -146,7 +149,7 @@ return M
 
 ### 使用命令更改编辑器内存状态
 
-在 `run` 处理程序中，您可以查询和更改编辑器的内存状态。查询使用 `editor.get()` 函数完成，您可以在其中询问编辑器有关文件和选择的当前状态（如果使用 `query = {selection = ...}`）。您可以获取脚本文件的 `"text"` 属性，以及属性视图中显示的一些属性 — 将鼠标悬停在属性名称上以查看工具提示，其中包含有关该属性在编辑器脚本中如何命名的信息。更改编辑器状态使用 `editor.transact()` 完成，您可以在其中将 1 个或多个修改捆绑在一个可撤销的步骤中。例如，如果您希望能够重置游戏对象的变换，您可以编写如下命令：
+在 `run` 处理程序中，您可以查询和更改编辑器的内存状态。查询使用 `editor.get()` 函数完成，您可以在其中询问编辑器有关文件和选择的当前状态（如果使用 `query = {selection = ...}`）。您可以获取可作为文本编辑的资源的 `"text"` 属性，以及属性视图中显示的一些属性 — 将鼠标悬停在属性名称上以查看工具提示，其中包含有关该属性在编辑器脚本中如何命名的信息。更改编辑器状态使用 `editor.transact()` 完成，您可以在其中将 1 个或多个修改捆绑在一个可撤销的步骤中。例如，如果您希望能够重置游戏对象的变换，您可以编写如下命令：
 ```lua
 {
   label = "重置变换",
@@ -346,9 +349,15 @@ editor.transact({
 
 #### 编辑 GUI 文件
 
-除了大纲属性外，GUI 节点还定义了以下属性：
+除了大纲属性外，GUI 文件还定义了以下节点列表属性：
+
 - `layers` — 图层编辑器节点列表（可重新排序）
+- `fonts` — 字体编辑器节点列表
 - `materials` — 材质编辑器节点列表
+- `textures` — 纹理编辑器节点列表
+- `particlefxs` — Particle FX 编辑器节点列表
+- `nodes` — GUI 节点编辑器节点列表
+- `layouts` — GUI 布局编辑器节点列表
 
 可以使用编辑器的 `layers` 属性编辑 GUI 图层，例如：
 ```lua
@@ -369,7 +378,7 @@ editor.transact({
 editor.transact({
     editor.tx.add("/main.gui", "fonts", {font = "/main.font"}),
     editor.tx.add("/main.gui", "materials", {name = "shine", material = "/shine.material"}),
-    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.material"}),
+    editor.tx.add("/main.gui", "particlefxs", {particlefx = "/confetti.particlefx"}),
     editor.tx.add("/main.gui", "textures", {texture = "/ui.atlas"})
 })
 ```
@@ -569,7 +578,7 @@ return M
 
 ## 语言服务器
 
-编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的子集。虽然我们旨在未来扩展编辑器对 LSP 功能的支持，但目前它只能在编辑的文件中显示诊断（即 lints）并提供补全。
+编辑器支持 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) 的一个子集：诊断（lints）、补全、悬停信息、Structure 面板中的文档符号、转到定义、查找引用和符号重命名。将鼠标悬停在符号上可查看语言服务器提供的信息。光标位于符号上时，使用 <kbd>F2</kbd> 重命名，使用 <kbd>F12</kbd> 转到定义，或使用 <kbd>Shift+F12</kbd> 查找引用。这些操作也可从 <kbd>Edit</kbd> 菜单中使用。
 
 要定义语言服务器，您需要像这样编辑编辑器脚本的 `get_language_servers` 函数：
 

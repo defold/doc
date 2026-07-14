@@ -439,7 +439,18 @@ Defold będzie próbował grupować operacje renderowania, aby zmniejszyć liczb
 
 ### Zasady grupowania dla komponentów innych niż GUI
 
-Renderowanie odbywa się zgodnie z kolejnością Z, od niskiej do wysokiej. Silnik zacznie od posortowania listy rzeczy do narysowania i przejdzie po niej od najniższych do najwyższych wartości Z. Każdy obiekt z listy zostanie dołączony do tego samego wywołania rysowania co poprzedni obiekt, jeśli spełnione są następujące warunki:
+Każde wywołanie `render.draw()` określa sposób sortowania pasujących wpisów uporządkowanych w świecie. Wartością domyślną jest `render.SORT_BACK_TO_FRONT`; użyj `render.SORT_FRONT_TO_BACK`, aby renderować od bliskich do dalekich, albo `render.SORT_NONE`, aby zachować kolejność dodawania:
+
+```lua
+render.draw(self.opaque_predicate, {
+    sort_order = render.SORT_FRONT_TO_BACK
+})
+render.draw(self.transparent_predicate, {
+    sort_order = render.SORT_BACK_TO_FRONT
+})
+```
+
+Wybrana kolejność określa, które wpisy sąsiadują ze sobą, i może przez to wpływać na grupowanie. Na uporządkowanej liście każdy obiekt zostanie dołączony do tego samego wywołania rysowania co poprzedni obiekt, jeśli spełnione są następujące warunki:
 
 * Należy do tego samego pełnomocnika kolekcji
 * Jest tego samego typu komponentu (sprite, particle fx, tilemap itd.)
@@ -447,7 +458,7 @@ Renderowanie odbywa się zgodnie z kolejnością Z, od niskiej do wysokiej. Siln
 * Ma ten sam materiał
 * Ma te same stałe shaderów (takie jak tint)
 
-Oznacza to, że jeśli dwa komponenty sprite w tym samym pełnomocniku kolekcji mają sąsiadujące albo identyczne wartości Z (a więc znajdują się obok siebie na posortowanej liście), używają tej samej tekstury, materiału i stałych, zostaną zgrupowane w to samo wywołanie rysowania.
+Oznacza to, że jeśli dwa komponenty sprite w tym samym pełnomocniku kolekcji sąsiadują ze sobą po wybranym sortowaniu oraz używają tej samej tekstury, materiału i stałych, zostaną zgrupowane w to samo wywołanie rysowania.
 
 
 ### Zasady grupowania dla komponentów GUI

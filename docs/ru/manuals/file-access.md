@@ -60,9 +60,16 @@ if not ok then
 end
 
 -- загрузить данные
-local data = sys.load(path)
+local ok, data = pcall(sys.load, path)
+if not ok then
+	-- The file exists, but is corrupt, foreign, or uses an unsupported format.
+	print("Failed to load save data:", data)
+	data = {}
+end
 print(data.highscore) -- 100
 ```
+
+`sys.load()` возвращает пустую таблицу, если файл не существует. Если файл существует, но не был создан с помощью `sys.save()`, повреждён или использует неподдерживаемый формат сериализованной таблицы, `sys.load()` генерирует ошибку Lua. Используйте `pcall()`, как в примере выше, если приложение должно восстанавливаться после повреждения или внешнего изменения сохранённых данных.
 
 
 ## Расположение файлов и папок

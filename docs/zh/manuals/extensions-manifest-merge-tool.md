@@ -49,7 +49,7 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
             android:versionName='1.0'
             android:installLocation='auto'>
         <uses-feature android:required='true' android:glEsVersion='0x00020000' />
-        <uses-sdk android:minSdkVersion='9' android:targetSdkVersion='26' />
+        <uses-sdk android:minSdkVersion='21' android:targetSdkVersion='26' />
         <application android:label='Test Project' android:hasCode='true'>
         </application>
         <uses-permission android:name='android.permission.VIBRATE' />
@@ -61,7 +61,7 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
 ```xml
     <?xml version='1.0' encoding='utf-8'?>
     <manifest xmlns:android='http://schemas.android.com/apk/res/android' package='com.defold.testmerge'>
-         <uses-sdk android:targetSdkVersion=“{{android.target_sdk_version}}” />
+         <uses-sdk android:targetSdkVersion="{{android.target_sdk_version}}" />
         <uses-feature android:required='true' android:glEsVersion='0x00030000' />
         <application>
             <meta-data android:name='com.facebook.sdk.ApplicationName'
@@ -84,7 +84,7 @@ Android 平台提供了清单合并工具（基于 `ManifestMerger2`），`bob.j
         android:versionCode='14'
         android:versionName='1.0' >
         <uses-sdk
-            android:minSdkVersion='9'
+            android:minSdkVersion='21'
             android:targetSdkVersion='26' />
         <uses-permission android:name='android.permission.VIBRATE' />
         <uses-feature

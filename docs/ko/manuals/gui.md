@@ -56,7 +56,7 @@ GUI 컴포넌트는 GUI 씬 프로토타입 파일(다른 엔진에서 "prefabs"
 : 이 GUI의 최대 노드 수입니다.
 
 *Max Dynamic Textures*
-: [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip)를 사용해 만들 수 있는 최대 텍스쳐 수입니다.
+: 이 GUI 컴포넌트가 추적하는 최대 동적 텍스쳐 수이며 기본값은 `128`입니다. [`gui.new_texture()`](/ref/stable/gui/#gui.new_texture:texture_id-width-height-type-buffer-flip)로 생성한 텍스쳐와 `go.set(..., "textures", ...)` 또는 `gui.set(msg.url(), "textures", ...)`로 GUI에 할당한 외부 텍스쳐가 포함됩니다. 외부 텍스쳐를 많이 교체하는 프로젝트에서는 이 제한을 늘려야 할 수 있습니다.
 
 
 ## 런타임 조작

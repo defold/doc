@@ -68,18 +68,18 @@ function init(self)
     self.text_pred = render.predicate({"text"})
     self.particle_pred = render.predicate({"particle"})
 
-    self.clear_color = vmath.vector4(0, 0, 0, 0)
+    self.clear_color = vmath.vector4(0, 0, 0, 1)
     self.clear_color.x = sys.get_config_number("render.clear_color_red", 0)
     self.clear_color.y = sys.get_config_number("render.clear_color_green", 0)
     self.clear_color.z = sys.get_config_number("render.clear_color_blue", 0)
-    self.clear_color.w = sys.get_config_number("render.clear_color_alpha", 0)
+    self.clear_color.w = sys.get_config_number("render.clear_color_alpha", 1)
 
     self.view = vmath.matrix4()
 
     local color_params = { format = graphics.TEXTURE_FORMAT_RGBA,
                        width = render.get_width(),
                        height = render.get_height() } -- <1>
-    local target_params = {[render.BUFFER_COLOR_BIT] = color_params }
+    local target_params = {[graphics.BUFFER_TYPE_COLOR0_BIT] = color_params }
 
     self.target = render.render_target("original", target_params) -- <2>
 end
@@ -95,7 +95,7 @@ function update(self)
 
   render.set_depth_mask(true)
   render.set_stencil_mask(0xff)
-  render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color, [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0})
+  render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = self.clear_color, [graphics.BUFFER_TYPE_DEPTH_BIT] = 1, [graphics.BUFFER_TYPE_STENCIL_BIT] = 0})
 
   render.set_viewport(0, 0, render.get_width(), render.get_height()) -- <2>
   render.set_view(self.view)
@@ -199,13 +199,13 @@ function update(self)
 
   render.set_render_target(render.RENDER_TARGET_DEFAULT)
 
-  render.clear({[render.BUFFER_COLOR_BIT] = self.clear_color}) -- <1>
+  render.clear({[graphics.BUFFER_TYPE_COLOR0_BIT] = self.clear_color}) -- <1>
 
   render.set_viewport(0, 0, render.get_window_width(), render.get_window_height()) -- <2>
   render.set_view(vmath.matrix4()) -- <3>
   render.set_projection(vmath.matrix4())
 
-  render.enable_texture(0, self.target, render.BUFFER_COLOR_BIT) -- <4>
+  render.enable_texture(0, self.target, graphics.BUFFER_TYPE_COLOR0_BIT) -- <4>
   render.draw(self.grade_pred) -- <5>
   render.disable_texture(0, self.target) -- <6>
 end

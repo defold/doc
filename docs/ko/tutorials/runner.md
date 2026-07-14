@@ -578,7 +578,7 @@ function update(self, dt) -- <2>
                 f = "#platform_long_factory"
             end
 
-            local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, 0.6)
+            local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, vmath.vector3(0.6, 0.6, 1))
             msg.post(p, "set_speed", { speed = self.speed })
         end
     end
@@ -737,7 +737,7 @@ Lua에는 로컬 변수에 대한 "lexical scope"가 있으며 `local` 함수를
                     f = "#platform_long_factory"
                 end
 
-                local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, 0.6)
+                local p = factory.create(f, vmath.vector3(1600, h, 0), nil, {}, vmath.vector3(0.6, 0.6, 1))
                 msg.post(p, "set_speed", { speed = self.speed })
                 table.insert(self.spawns, p) -- <1>
             end

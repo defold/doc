@@ -11,7 +11,7 @@ O arquivo *game.project* contém as configurações específicas de HTML5:
 
 ![Project settings](images/html5/html5_project_settings.png)
 
-## Tamanho do heap
+## Tamanho do heap {#heap-size}
 
 O suporte do Defold a HTML5 é fornecido pelo Emscripten (veja http://en.wikipedia.org/wiki/Emscripten). Em resumo, ele cria uma área isolada de memória para o heap em que a aplicação opera. Por padrão, a engine aloca uma quantidade generosa de memória (256 MB). Isso deve ser mais que suficiente para um jogo típico. Como parte do seu processo de otimização, você pode optar por usar um valor menor. Para fazer isso, siga estes passos:
 
@@ -57,21 +57,31 @@ Criar conteúdo HTML5 com o Defold é simples e segue o mesmo padrão de todas a
 
 ![Create HTML5 bundle](images/html5/html5_bundle.png)
 
-Você pode escolher incluir uma versão `asm.js` e uma versão WebAssembly (wasm) da engine Defold no pacote HTML5. Na maioria dos casos, basta escolher WebAssembly, já que [todos os navegadores modernos oferecem suporte a WebAssembly](https://caniuse.com/wasm).
+Os pacotes HTML5 oferecem suporte a duas arquiteturas WebAssembly:
+
+* `wasm-web` - a engine WebAssembly comum, sem threads.
+* `wasm_pthread-web` - uma engine WebAssembly que pode usar threads.
+
+Você pode incluir uma das arquiteturas ou ambas. Quando as duas são incluídas, o loader seleciona `wasm_pthread-web` se houver suporte no navegador e no ambiente de hospedagem; caso contrário, usa `wasm-web` como fallback. Consulte o [manual do Bob](/manuals/bob/#usage) para ver os nomes canônicos dos alvos.
 
 ::: important
-Mesmo que você inclua as versões `asm.js` e `wasm` da engine, apenas uma delas será baixada pelo navegador ao iniciar o jogo. A versão WebAssembly será baixada se o navegador oferecer suporte a WebAssembly, e a versão `asm.js` será usada como fallback no raro caso em que WebAssembly não tenha suporte.
+A engine com threads requer `SharedArrayBuffer` em uma página segura e [isolada entre origens](https://developer.mozilla.org/en-US/docs/Web/API/Window/crossOriginIsolated). Sirva o pacote por HTTPS (ou localhost) e configure o servidor com cabeçalhos de isolamento entre origens compatíveis, normalmente:
+
+```txt
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+```
+
+Recursos de outras origens carregados pela página também devem usar cabeçalhos CORS ou Cross-Origin-Resource-Policy compatíveis. Um pacote que contenha apenas `wasm_pthread-web` não poderá ser executado se esses requisitos não forem atendidos; inclua `wasm-web` como fallback se o jogo puder ser hospedado em um site sem suporte ao isolamento entre origens.
 :::
+
+Os pacotes HTML5 do Defold exigem um navegador moderno com suporte a WebAssembly. O Internet Explorer 11 não é compatível.
 
 Ao clicar no botão <kbd>Criar Pacote…</kbd>, você será solicitado a selecionar uma pasta onde a aplicação será criada. Depois que o processo de exportação terminar, você encontrará todos os arquivos necessários para executar a aplicação.
 
 ## Problemas conhecidos e limitações
 
 * Hot Reload - Hot Reload não funciona em builds HTML5. Aplicações Defold precisam executar seu próprio mini servidor web para receber atualizações do editor, o que não é possível em uma build HTML5.
-* Internet Explorer 11
-  * Áudio - O Defold lida com a reprodução de áudio usando HTML5 _WebAudio_ (veja http://www.w3.org/TR/webaudio), que atualmente não é suportado pelo Internet Explorer 11. As aplicações usarão como fallback uma implementação de áudio nula nesse navegador.
-  * WebGL - A Microsoft não concluiu o trabalho de implementação da API _WebGL_ (veja https://www.khronos.org/registry/webgl/specs/latest/). Portanto, ela não tem desempenho tão bom quanto em outros navegadores.
-  * Tela cheia - O modo de tela cheia não é confiável no navegador.
 * Chrome
   * Builds de depuração lentas - Em builds de depuração no HTML5, verificamos todas as chamadas gráficas WebGL para detectar erros. Infelizmente, isso é muito lento ao testar no Chrome. É possível desativar isso definindo o campo *`Engine Arguments`* de *game.project* como `--verify-graphics-calls=false`.
 * Suporte a gamepad - [Consulte a documentação de Gamepad](/manuals/input-gamepads/#gamepads-in-html5) para considerações especiais e passos que talvez você precise seguir no HTML5.

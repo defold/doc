@@ -440,7 +440,18 @@ O Defold tentará agrupar operações de renderização para reduzir o número d
 
 ### Regras de batch para componentes não GUI
 
-A renderização é feita com base na ordem z, de baixo para alto. A engine começará ordenando a lista de coisas a desenhar e iterará dos valores z mais baixos para os mais altos. Cada objeto na lista será agrupado na mesma draw call que o objeto anterior se as seguintes condições forem atendidas:
+Cada chamada a `render.draw()` controla como as entradas correspondentes ordenadas no mundo são classificadas. O padrão é `render.SORT_BACK_TO_FRONT`; use `render.SORT_FRONT_TO_BACK` para renderização do mais próximo para o mais distante ou `render.SORT_NONE` para manter a ordem de inserção:
+
+```lua
+render.draw(self.opaque_predicate, {
+    sort_order = render.SORT_FRONT_TO_BACK
+})
+render.draw(self.transparent_predicate, {
+    sort_order = render.SORT_BACK_TO_FRONT
+})
+```
+
+A ordem selecionada determina quais entradas são adjacentes e, portanto, pode afetar o batching. Nessa lista ordenada, cada objeto é agrupado na mesma draw call que o objeto anterior se as seguintes condições forem atendidas:
 
 * Pertence ao mesmo proxy de coleção
 * É do mesmo tipo de componente (sprite, particle fx, tilemap etc)
@@ -448,7 +459,7 @@ A renderização é feita com base na ordem z, de baixo para alto. A engine come
 * Tem o mesmo material
 * Tem as mesmas constantes de shader (como tint)
 
-Isso significa que, se dois componentes sprite no mesmo proxy de coleção tiverem valores z adjacentes ou iguais (e, portanto, ficarem próximos na lista ordenada), usarem a mesma textura, material e constantes, eles serão agrupados na mesma draw call.
+Isso significa que, se dois componentes sprite no mesmo proxy de coleção forem adjacentes depois da ordenação selecionada e usarem a mesma textura, material e constantes, eles serão agrupados na mesma draw call.
 
 
 ### Regras de batch para componentes GUI

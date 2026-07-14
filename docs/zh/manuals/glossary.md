@@ -149,7 +149,7 @@ msg.post("#weapon", "disable")
 
 ## Sound
 
-![Sound](images/icons/sound.png){.left} 声音组件负责播放特定的声音。目前，Defold支持WAV和Ogg Vorbis格式的声音文件。有关更多信息，请参阅[声音手册](/manuals/sound)。
+![Sound](images/icons/sound.png){.left} 声音组件负责播放特定的声音。Defold 支持 WAV、Ogg Vorbis 和 Ogg Opus 文件。必须在 App Manifest 中启用 Opus 支持。有关更多信息，请参阅[声音手册](/manuals/sound)。
 
 ## Sprite
 

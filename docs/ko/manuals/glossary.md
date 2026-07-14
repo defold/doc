@@ -149,7 +149,7 @@ msg.post("#weapon", "disable")
 
 ## 사운드
 
-![사운드](images/icons/sound.png){.left} 사운드 컴포넌트는 특정 사운드를 재생하는 일을 담당합니다. 현재 Defold는 WAV와 Ogg Vorbis 포멧의 사운드 파일을 지원합니다. 자세한 내용은 [사운드 매뉴얼](/manuals/sound)을 참고하세요.
+![사운드](images/icons/sound.png){.left} 사운드 컴포넌트는 특정 사운드를 재생하는 일을 담당합니다. Defold는 WAV, Ogg Vorbis, Ogg Opus 파일을 지원합니다. Opus 지원은 App Manifest에서 활성화해야 합니다. 자세한 내용은 [사운드 매뉴얼](/manuals/sound)을 참고하세요.
 
 ## 스프라이트
 

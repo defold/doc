@@ -18,6 +18,7 @@ Defold wspiera następujące typy komponentów:
 * [Factory](/manuals/factory) - Fabryka do tworzenia obiektów gry
 * [GUI](/manuals/gui) - Graficzny interfejs użytkownika
 * [Label](/manuals/label) - Etykieta tekstu
+* [Light](/manuals/light) - Dodawanie danych świateł dla shaderów
 * [Mesh](/manuals/mesh) - Siatka 3D z możliwością tworzenia i modyfikowania w czasie działania gry
 * [Model](/manuals/model) - Model 3D z opcjonalnymi animacjami
 * [Particle FX](/manuals/particlefx) - Emitowanie cząsteczek

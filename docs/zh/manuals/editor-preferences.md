@@ -58,6 +58,9 @@ Code editor font
 Zoom on Scroll
 : 在代码编辑器中滚动时按住Cmd/Ctrl按钮是否更改字体大小。
 
+Auto-insert closing parens
+: 编辑代码时自动插入匹配的右侧字符。此选项默认启用。
+
 
 ### 在Visual Studio Code中打开脚本文件
 

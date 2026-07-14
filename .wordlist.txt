@@ -50,6 +50,7 @@ BMFont
 BMFonts
 bmGlyph
 bodypart
+Bonjour
 booleans
 breakpoint
 BRDF
@@ -127,9 +128,11 @@ dropdown
 dSYM
 EDN
 EFIGS
+EGL
 Emissive
 emissive
 emscripten
+Emscripten's
 enum
 esc
 excitemike
@@ -318,6 +321,7 @@ particlefxs
 PbrMaterial
 PBR
 pbrSpecularGlossiness
+PCM
 PEM
 performant
 Phaser
@@ -383,6 +387,7 @@ Remotery
 renderer
 Rendy
 repo
+retune
 Revolute
 rgb
 rgba
@@ -496,6 +501,7 @@ uncompress
 undoable
 unloader
 unlockable
+Unreferenced
 unscaled
 unstripped
 upscaled

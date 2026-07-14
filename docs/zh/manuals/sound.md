@@ -24,7 +24,7 @@ Defold 的声音实现简单但强大。您只需要了解两个概念：
 ![Select component](images/sound/sound_properties.png)
 
 *Sound*
-: 应该设置为项目中的声音文件。文件应该是 _Wave_、_Ogg Vorbis_ 或 _Ogg Opus_ 格式。Defold 支持以 16bit 位深保存的声音文件。
+: 应该设置为项目中的声音文件。文件应采用 _Wave_、_Ogg Vorbis_ 或 _Ogg Opus_ 格式。Defold 支持 8 位和 16 位 PCM Wave 文件。Ogg Opus 播放是可选功能，需要在 [App Manifest](/manuals/app-manifest/#sound) 中启用 **Include Sound Decoder: Opus**；默认不包含 Opus 解码器。
 
 *Looping*
 : 如果选中，声音将播放 _Loopcount_ 次或直到明确停止。
@@ -75,9 +75,9 @@ sound.stop("go#sound")
 - 在声音组件上设置的增益。
 - 在通过调用 `sound.play()` 启动声音时或通过调用 `sound.set_gain()` 更改声音上的增益时设置的增益。
 - 通过 [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain) 函数调用在组上设置的增益。
-- 在 "master" 组上设置的增益。这可以通过 `sound.set_group_gain(hash("master"))` 来更改。
+- 在 "master" 组上设置的增益。这可以通过 `sound.set_group_gain(hash("master"), gain)` 来更改。
 
-输出增益是这 4 个增益相乘的结果。默认增益在任何地方都是 1.0（0 dB）。
+启用[声音项目设置](/manuals/project-settings/#sound)中的 **Use Linear Gain**（默认）时，输出增益是这四个增益相乘的结果。增益 `1.0` 是单位增益（0 dB）。禁用线性增益时，Defold 会在混音期间应用非线性曲线，因此直接的四项相乘和下面的分贝换算不再描述最终输出电平。
 
 ## 声音组
 
@@ -102,7 +102,7 @@ end
 您不应该编写依赖声音组的字符串值的代码，因为它们在发布版本中不可用。
 :::
 
-所有值在 0 和 1.0（0 dB）之间都是线性的。要转换为分贝，只需使用标准公式：
+启用 **Use Linear Gain** 时，可使用标准公式将正增益值转换为分贝：
 
 ```math
 db = 20 \times \log \left( gain \right)
@@ -131,6 +131,8 @@ end
 -- 将主增益设置为 +6 dB（math.pow(10, 6/20)）。
 sound.set_group_gain("master", 1.995)
 ```
+
+Defold 1.10.2 修复了声音混音器中长期存在的约 3 dB 衰减。如果旧项目的混音曾对此衰减进行补偿，并在升级后听起来更响，请重新调整全局 **Sound ▸ Gain** 设置或受影响的组增益。
 
 ## 声音门控
 

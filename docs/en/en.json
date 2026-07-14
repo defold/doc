@@ -1382,6 +1382,10 @@
                         "name": "Label"
                     },
                     {
+                        "path": "/manuals/light",
+                        "name": "Light"
+                    },
+                    {
                         "path": "/manuals/mesh",
                         "name": "Mesh"
                     },

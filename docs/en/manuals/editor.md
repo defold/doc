@@ -60,6 +60,8 @@ Lists all the files and folders that are part of your project in a tree structur
    - <kbd>Drag and Drop</kbd> to add files from elsewhere on your disk to the project or move files and folders to new locations in the project.
    - <kbd>Right Mouse Click</kbd> to open a _Context Menu_ from where you can create new files or folders, rename, delete, track file dependencies and more.
 
+Files and folders deleted through the *Assets* pane are moved to the system Trash or Recycle Bin when the platform supports it. If moving an item to the trash is unsupported or fails, the editor permanently deletes it.
+
 ### 2. Scene Editor pane {#the-scene-editor}
 
 Double-clicking a collection, game object, or visual component file opens the *Scene Editor* — the visual editor for building and editing scenes. Script files and other non-visual resources open in their own dedicated editors instead.
@@ -112,7 +114,7 @@ The Tools pane is also used for interacting with the integrated debugger. Read m
 
 ### 6. Changed Files pane
 
-If your project uses the distributed version-control system Git this view lists any files that has been changed, added or deleted in your project. By synchronizing the project regularly you can bring your local copy in sync with what is stored in the project Git repository, that way you can collaborate within a team, and you won’t lose your work if disaster strikes. You can learn more about Git in our [Version Control manual](/manuals/version-control/). Some file oriented operations can be performed in this view:
+If your project uses Git, this view lists files that have been changed, added, renamed, or deleted locally compared with the current commit (`HEAD`). Use an external Git client or the command line to synchronize with a remote repository. You can learn more in the [Version Control manual](/manuals/version-control/). Some file-oriented operations can be performed in this view:
 
    - <kbd>Left Mouse Click</kbd> - to select a given file, and while holding <kbd>⇧ Shift</kbd> you can expand selection or while holding <kbd>Ctrl</kbd>/<kbd>⌘ Cmd</kbd> you can (un)select clicked. If a single changed file is selected you can click `Diff` to show the differences. You can click `Revert` to undo changes in all selected files.
    - <kbd>Double Left Mouse Click</kbd> a file to open a view of the file. The editor opens the file in a suitable editor, just like in the assets view.

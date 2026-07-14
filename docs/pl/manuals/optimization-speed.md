@@ -73,7 +73,7 @@ Ograniczenie czasu potrzebnego na wyrenderowanie klatki jest potrzebne wtedy, gd
 
 * Ogranicz liczbę wywołań rysowania - więcej informacji o ograniczaniu draw calls znajdziesz w [tym poście na forum](https://forum.defold.com/t/draw-calls-and-defold/4674)
 * Ogranicz overdraw
-* Ogranicz złożoność shaderów - więcej o optymalizacjach GLSL przeczytasz w [tym artykule Khronosa](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). Możesz też zmodyfikować domyślne shadery używane przez silnik Defold (znajdujące się w `builtins/materials`) i obniżyć precyzję shaderów, aby uzyskać pewien wzrost szybkości na słabszych urządzeniach. Wszystkie shadery używają precyzji `highp`, a zmiana na przykład na `mediump` w niektórych przypadkach może nieznacznie poprawić wydajność.
+* Ogranicz złożoność shaderów - więcej o optymalizacjach GLSL przeczytasz w [tym artykule Khronosa](https://www.khronos.org/opengl/wiki/GLSL_Optimizations). Możesz też zmodyfikować domyślne shadery używane przez silnik Defold (znajdujące się w `builtins/materials`) i wybrać niższą precyzję tam, gdzie shader nie wymaga `highp`. Shadery GLSL ES po kompilacji krzyżowej domyślnie używają `mediump` dla wartości zmiennoprzecinkowych i `highp` dla liczb całkowitych; te wartości domyślne można zmienić w ustawieniach projektu Shader. Jawne kwalifikatory poszczególnych zmiennych mają pierwszeństwo. Zobacz [dokumentację precyzji shaderów](/manuals/shader/#precision).
 
 ## Ogranicz złożoność grafu sceny
 Ograniczenie złożoności grafu sceny jest potrzebne wtedy, gdy profiler pokazuje wysokie wartości w zakresie `GameObject`, a konkretnie dla próbki `UpdateTransform`. Kilka działań, które można podjąć:

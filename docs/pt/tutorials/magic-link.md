@@ -217,7 +217,7 @@ A lógica do tabuleiro cria objetos de jogo "`block`" por meio do componente de 
 go.property("color", hash("none"))
 
 function init(self)
-    go.set_scale(0.18)        -- renderiza reduzido
+    go.set_scale_xy(0.18)     -- render scaled down without changing Z
 
     if self.color ~= nil then
         sprite.play_flipbook("#sprite", self.color)
@@ -304,7 +304,7 @@ O script deste objeto de jogo é mínimo: ele só precisa escalar os gráficos p
 ```lua
 -- connector.script
 function init(self)
-    go.set_scale(0.18)              -- Define a escala deste objeto de jogo.
+    go.set_scale_xy(0.18)           -- Scale in 2D without changing Z.
     go.set(".", "position.z", 1)    -- Coloca no topo.
 end
 ```
@@ -552,7 +552,7 @@ Observe que precisamos adicionar um componente *Factory* ao objeto de jogo do bl
 ```lua
 -- block.script
 function init(self)
-    go.set_scale(0.18) -- renderiza reduzido
+    go.set_scale_xy(0.18) -- render scaled down without changing Z
 
     self.fx1 = nil
     self.fx2 = nil
@@ -590,9 +590,9 @@ function on_message(self, message_id, message, sender)
         go.set_parent(self.fx2, go.get_id())
 
         go.set(self.fx1, "position.z", 0.01)
-        go.set(self.fx1, "scale", 1)
+        go.set(self.fx1, "scale.xy", 1)
         go.set(self.fx2, "position.z", 0.02)
-        go.set(self.fx2, "scale", 1)
+        go.set(self.fx2, "scale.xy", 1)
     elseif message_id == hash("lights_on") or message_id == hash("lights_off") then
         msg.post(self.fx1, message_id)
         msg.post(self.fx2, message_id)
@@ -1294,8 +1294,8 @@ function on_message(self, message_id, message, sender)
 
         -- Anima a magia!
         for i, m in ipairs(magic_blocks(self)) do
-            go.set_scale(0.17, m.id)
-            go.animate(m.id, "scale", go.PLAYBACK_LOOP_PINGPONG, 0.19, go.EASING_INSINE, 0.5, 0)
+            go.set_scale_xy(0.17, m.id)
+            go.animate(m.id, "scale.xy", go.PLAYBACK_LOOP_PINGPONG, 0.19, go.EASING_INSINE, 0.5, 0)
         end
 
         -- Mostra a tela de conclusão

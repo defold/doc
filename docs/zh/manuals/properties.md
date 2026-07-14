@@ -57,8 +57,8 @@ local color = gui.get_color(node)
 | *position* | 游戏对象的本地位置。 | `vector3`      | `get+set`{.mark} |
 | *rotation* | 游戏对象的本地旋转，以 `quaternion` 表示。  | `quaternion` | `get+set`{.mark} |
 | *euler*    | 游戏对象的本地旋转，欧拉角。 | `vector3` | `get+set`{.mark} |
-| *scale*    | 游戏对象的本地非均匀缩放，表示为向量，其中每个组件包含沿每个轴的乘数。要在 x 和 y 方向上将大小加倍，请提供 `vmath.vector3(2.0, 2.0, 0)` | `vector3` | `get+set`{.mark} |
-| *scale.xy*    | 游戏对象的本地非均匀缩放，表示为向量，其中每个组件包含沿 X 和 Y 轴的乘数。| `vector3` | `get+set`{.mark} |
+| *scale*    | 游戏对象的本地非均匀缩放，表示为向量，其中每个分量包含沿相应轴的乘数。要在不改变 Z 的情况下将 X 和 Y 方向的大小加倍，请使用 `vmath.vector3(2.0, 2.0, 1.0)`。 | `vector3` | `get+set`{.mark} |
+| *scale.xy*    | 游戏对象沿 X 和 Y 轴的本地非均匀缩放。不希望缩放 Z 时，请使用此属性或 `go.set_scale_xy()`。 | `vector3` | `get+set`{.mark} |
 
 ::: sidenote
 还存在用于处理游戏对象变换的特定函数；它们是 `go.get_position()`、`go.set_position()`、`go.get_rotation()`、`go.set_rotation()`、`go.get_scale()`、`go.set_scale()` 和 `go.set_scale_xy()`。
@@ -91,7 +91,7 @@ local color = gui.get_color(node)
 | 属性   | 描述                            | 类型            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
 | *animation* | 当前动画。                | `hash`          | `get`{.mark}     |
-| *texture0* | 模型的纹理路径哈希。 | `hash` | `get`{.mark}|
+| *texture0*--*texture15* | 模型纹理的路径哈希值。 | `hash` | `get+set`{.mark}|
 | *cursor*  | 播放光标的位置（介于 0--1 之间）。 | `number`   | `get+set`{.mark} |
 | *playback_rate* | 动画的播放速率。动画播放速率的乘数。 | `number` | `get+set`{.mark} |
 | *material* | 模型使用的材质。 | `hash` | `get+set`{.mark}|

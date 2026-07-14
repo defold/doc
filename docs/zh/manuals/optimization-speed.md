@@ -73,7 +73,7 @@ end
 
 * 减少绘制调用 - 在[这篇论坛帖子](https://forum.defold.com/t/draw-calls-and-defold/4674)中阅读更多关于减少绘制调用的内容
 * 减少过度绘制
-* 减少着色器复杂度 - 阅读[这篇Khronos文章](https://www.khronos.org/opengl/wiki/GLSL_Optimizations)中的GLSL优化。您还可以修改Defold使用的默认着色器（在`builtins/materials`中找到），并降低着色器精度以在低端设备上获得一些速度。所有着色器都使用`highp`精度，在某些情况下，更改为例如`mediump`可以略微提高性能。
+* 减少着色器复杂度 - 阅读[这篇 Khronos 文章](https://www.khronos.org/opengl/wiki/GLSL_Optimizations)中的 GLSL 优化。您还可以修改 Defold 使用的默认着色器（位于 `builtins/materials`），并在着色器不需要 `highp` 时选择较低的精度。交叉编译的 GLSL ES 着色器默认对浮点值使用 `mediump`，对整数使用 `highp`；可在 Shader 项目设置中更改这些默认值。显式的逐变量限定符具有更高优先级。请参阅[着色器精度文档](/manuals/shader/#precision)。
 
 ## 减少场景图复杂度
 如果分析器在`GameObject`作用域中显示高值，特别是对于`UpdateTransform`采样，则需要减少场景图复杂度。可以采取的一些措施：

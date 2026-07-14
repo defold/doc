@@ -60,6 +60,8 @@ Lista todos los archivos y carpetas que forman parte de tu proyecto en una estru
    - <kbd>Arrastrar y soltar</kbd> para añadir archivos desde otro lugar de tu disco al proyecto o mover archivos y carpetas a nuevas ubicaciones dentro del proyecto.
    - <kbd>Click derecho</kbd> para abrir un _menú contextual_ desde donde puedes crear nuevos archivos o carpetas, renombrar, eliminar, rastrear dependencias de archivos y más.
 
+Los archivos y carpetas eliminados mediante el panel *Assets* se mueven a la Papelera del sistema cuando la plataforma lo permite. Si no se admite mover un elemento a la Papelera o la operación falla, el editor lo elimina permanentemente.
+
 ### 2. Panel Scene Editor {#the-scene-editor}
 
 Al hacer doble click en una colección, un objeto de juego o un archivo de componente visual, se abre el *Scene Editor*: el editor visual para construir y editar escenas. Los archivos script y otros recursos no visuales se abren en sus propios editores dedicados.

@@ -5,11 +5,17 @@ brief: To use the live update content, you need to download and mount the data t
 
 # Scripting Live Update
 
-The api only consists of a few functions:
+The core mounting workflow uses `liveupdate.add_mount()`, `liveupdate.remove_mount()`, and `liveupdate.get_mounts()`. See the complete [`liveupdate` API reference](/ref/liveupdate/) for all available functions.
 
-* `liveupdate.add_mount()`
-* `liveupdate.remove_mount()`
-* `liveupdate.get_mounts()`.
+Use `liveupdate.is_built_with_excluded_files()` when code needs to distinguish a bundle whose build manifest expects excluded Live Update content:
+
+```lua
+if liveupdate.is_built_with_excluded_files() then
+    print("The bundle expects excluded Live Update content")
+end
+```
+
+This reports build-manifest metadata only. It does not mean that an archive is currently mounted or that a particular resource is available. Use `liveupdate.get_mounts()` to inspect active mounts and [`collectionproxy.get_resources()`](/ref/collectionproxy/#collectionproxy.get_resources) to inspect manifest-recorded resource hashes for a collection proxy.
 
 The recommended workflow is to download and mount a complete Zip archive using a `zip:` URI.
 
@@ -53,12 +59,14 @@ Use unique metadata paths for different packages. Resource lookup follows mount 
 
 A collection proxy that has been excluded from bundling works as a normal collection proxy, with one important difference. Sending it a `load` message while it still has resources not available in the bundle storage will cause it to fail.
 
-In the archive-based workflow, you generally decide which archive or archives a proxy needs ahead of time and mount them before loading. If you need to inspect whether a proxy has excluded content, use `collectionproxy.get_resources()`.
+In the archive-based workflow, you generally decide which archive or archives a proxy needs ahead of time and mount them before loading. To inspect the manifest-recorded resource hashes for a known excluded proxy, use `collectionproxy.get_resources()`.
 
-With *Strip Live Update Entries from Main Manifest* enabled, which is the default when publishing archive-based Live Update content:
+After a package is mounted, an excluded and unloaded proxy can also be redirected to a different compiled collection with `collectionproxy.set_collection()`. See [Changing an excluded proxy's collection](/manuals/collection-proxy/#changing-an-excluded-proxys-collection) for the restrictions and loading sequence.
 
-* If no mounted archive contains the proxy's excluded content, `collectionproxy.get_resources("#proxy")` returns an empty table `{}`.
-* After the relevant archive has been mounted, `collectionproxy.get_resources("#proxy")` returns a non-empty table of resource hashes for that proxy, for example:
+For an archive build that publishes Live Update content, the bundled main manifest omits excluded Live Update entries while the published package manifest retains them. `collectionproxy.get_resources()` reads manifest dependency metadata; it does not verify that every referenced data blob is available:
+
+* Before a package manifest containing the proxy's excluded entries is mounted, `collectionproxy.get_resources("#proxy")` returns an empty table `{}`.
+* After the relevant package is mounted, it returns a non-empty table of resource hashes for that proxy, for example:
 
 ```lua
 {
@@ -119,9 +127,9 @@ function on_message(self, message_id, message, sender)
     if message_id == hash("load_level") then
         local proxy_resources = collectionproxy.get_resources("#" .. message.level) -- <5>
 
-        -- With Strip Live Update Entries from Main Manifest enabled, this table is
-        -- empty until the relevant archive is mounted. After mounting, it contains
-        -- the resource hashes belonging to the proxy.
+        -- A build that publishes Live Update content omits excluded entries from the
+        -- bundled manifest, so this table is empty until the relevant package manifest
+        -- is mounted. After mounting, it contains the resource hashes for the proxy.
         if message.info and #proxy_resources == 0 and not has_mount(message.info.name) then
             msg.post("#", "download_archive", message) -- <6>
         else
@@ -171,7 +179,7 @@ end
 2. You need to store the archive online (e.g. on S3), where you can download it from.
 3. Given a collection proxy name, you need to figure our which archive(s) to download, and how to mount them
 4. At startup, we try to load the level.
-5. Use `collectionproxy.get_resources()` to inspect the proxy's excluded content. With the default stripped-manifest setting enabled, it returns `{}` until the relevant archive is mounted, and a non-empty table of resource hashes after mounting.
+5. In this archive-publishing workflow, use `collectionproxy.get_resources()` to inspect the proxy's excluded-content metadata. It returns `{}` until the relevant package manifest is mounted, and a non-empty table of resource hashes after mounting. These hashes describe dependencies; the result does not itself verify that every data blob is available.
 6. If the proxy uses Live Update content and the matching archive is not mounted yet, we download and mount it before loading the proxy.
 7. Make a http request and download the archive to `download_path`
 8. The data is downloaded, and it's time to mount it to the running engine.

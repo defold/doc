@@ -56,7 +56,7 @@ local bean_ids = collectionfactory.create("#bean_factory")
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
-go.set_scale(0.5, bean_ids[hash("/bean")])
+go.set_scale_xy(0.5, bean_ids[hash("/bean")])
 pprint(bean_ids)
 -- DEBUG:SCRIPT:
 -- {
@@ -167,4 +167,3 @@ local ids = collectionfactory.create("#factory")
 ::: important
 当设置*动态原型*选项时，集合组件计数无法优化，拥有集合将使用*game.project*文件中的默认组件计数。
 :::
-
