@@ -157,6 +157,7 @@ framerate
 frontend
 FSAA
 Fullscreen
+Fulviuus
 FX
 GameAnalytics
 Gameboy
