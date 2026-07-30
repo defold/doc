@@ -385,7 +385,8 @@ The project can use `print()` and `pprint()` directly or adopt a community loggi
 Human-readable messages are useful during development and debugging, but automation should use a stable result protocol. One option is a unique prefix followed by a JSON object, e.g.:
 
 ```text
-TEST {"run":"8f13","event":"suite_start","tests":2} TEST {"run":"8f13","event":"case","name":"player_moves","status":"pass","duration_ms":3}
+TEST {"run":"8f13","event":"suite_start","tests":2}
+TEST {"run":"8f13","event":"case","name":"player_moves","status":"pass","duration_ms":3}
 ```
 
 The collector could then search each console line for the `TEST` marker, ignoring unrelated messages, and decode and parse the JSON after it.
