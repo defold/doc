@@ -13,6 +13,7 @@ admob
 Adoptium
 Adreno
 agentic
+AIbase
 alt
 Andrioli
 androideabi
@@ -64,6 +65,7 @@ callstack
 CCD
 CDN
 Celtoys
+ChadAragorn
 checkboxes
 checksums
 childed
@@ -84,6 +86,7 @@ Commonmark
 config
 ConfigFile
 configurability
+configurators
 coroutine
 coroutines
 CORS
@@ -260,6 +263,7 @@ lifecycle
 linkers
 liveupdate
 lldb
+LLM
 localhost
 Localizations
 lookups
@@ -269,6 +273,7 @@ LSP
 Lua
 Lua's
 Luacheck
+LuaCov
 luaj
 luajit
 LuaMem
@@ -278,6 +283,7 @@ LZ4
 macOS
 mathematic
 Mbed
+MCP
 metamethods
 metatables
 Middleware
@@ -397,6 +403,7 @@ Rodrigo
 Rosen
 RPG
 scalable
+schemas
 scriptable
 scroller
 SD
@@ -504,6 +511,7 @@ unlockable
 Unreferenced
 unscaled
 unstripped
+untrusted
 upscaled
 upscaling
 URI
@@ -511,6 +519,7 @@ userdata
 UUID
 UV
 UVs
+validator
 Vararg
 varyings
 vec

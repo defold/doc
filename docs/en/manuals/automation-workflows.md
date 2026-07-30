@@ -347,8 +347,8 @@ Agents should prefer focused queries instead of retrieving the entire API refere
 
 Defold also publishes official documentation in formats suitable for language models and local search tools:
 
-* [llms.txt](https://defold.com/llms.txt) is a concise index of individual manuals, API namespaces, and examples;
-* [llms-full.txt](https://defold.com/llms-full.txt) combines all manuals, API documentation, and examples into one searchable file.
+* the [LLM documentation index](https://defold.com/llms.txt) is a concise index of individual manuals, API namespaces, and examples;
+* the [full LLM documentation](https://defold.com/llms-full.txt) combines all manuals, API documentation, and examples into one searchable file.
 
 Use `llms.txt` to retrieve only the relevant pages in the official documentation needed for the current task.
 
@@ -733,8 +733,8 @@ Do not give every model unrestricted shell and `/eval` access.
 
 Community-created MCP projects include:
 
-* [Fulviuus/defold-mcp](https://github.com/Fulviuus/defold-mcp);
-* [ChadAragorn/defold-mcp](https://github.com/ChadAragorn/defold-mcp);
+* the [Fulviuus Defold MCP project](https://github.com/Fulviuus/defold-mcp);
+* the [ChadAragorn Defold MCP project](https://github.com/ChadAragorn/defold-mcp);
 * an [AIbase directory entry](https://mcp.aibase.com/server/1917146819408359426) for the ChadAragorn project.
 
 These projects are not developed, audited, maintained, or officially supported by the Defold Foundation. Before installing any community solution, inspect its current source code, dependencies, permissions, network behavior, tests, and compatibility with the current Defold version.
