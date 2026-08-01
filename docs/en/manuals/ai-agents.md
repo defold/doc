@@ -11,7 +11,7 @@ Defold does not depend on a particular model provider or agent protocol. An agen
 
 ## When an agent is appropriate
 
-Prefer an ordinary script or test when the sequence of operations is known. Stable generators, formatters, validators, builds, and regression tests should have predictable inputs, outputs, timeouts, and exit codes.
+Prefer an ordinary script or test when the sequence of operations is known. Stable generators, formatters, validation tools, builds, and regression tests should have predictable inputs, outputs, timeouts, and exit codes.
 
 An agent can be useful when a task requires these activities:
 
@@ -98,7 +98,7 @@ One community example of Defold-oriented instructions and skills is available in
 
 ## Documentation discovery
 
-In order for agents to perform well, a good and actual documentation is needed. One can gather actual informations from:
+Agents perform best with accurate, current documentation. Gather current information from:
 
 * `/openapi.json` describes the current editor HTTP API.
 * `/ref` searches API documentation included with the running editor when that operation is available.
