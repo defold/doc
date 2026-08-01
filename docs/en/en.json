@@ -1645,6 +1645,31 @@
                 "divider": true
             },
             {
+                "name": "Automation",
+                "items": [
+                    {
+                        "path": "/manuals/automation",
+                        "name": "Overview"
+                    },
+                    {
+                        "path": "/manuals/editor-http-api",
+                        "name": "Editor HTTP API"
+                    },
+                    {
+                        "path": "/manuals/engine-service",
+                        "name": "Engine service"
+                    },
+                    {
+                        "path": "/manuals/automated-testing",
+                        "name": "Automated testing"
+                    },
+                    {
+                        "path": "/manuals/ai-agents",
+                        "name": "AI coding agents"
+                    }
+                ]
+            },
+            {
                 "name": "Workflow",
                 "items": [
                     {
