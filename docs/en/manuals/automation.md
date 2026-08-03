@@ -5,50 +5,25 @@ brief: This manual introduces Defold's automation interfaces and explains how to
 
 # Automation in Defold
 
-This manual provides the overall mental model and links to the focused manuals for each interface.
+This manual provides the overall description and links to the separate manuals for each topic.
 
-Defold supports automation at several levels:
+Defold supports automation at several levels. Choosing an interface appropriate to the task is one of the most important aspects of effective automation. The table below can help you choose the simplest interface for a given action:
 
-* [editor scripts](/manuals/editor-scripts) - allow you to customize editor workflows, add specific tools, and speed up the creation of levels, assets, etc.
-* [editor UI scripts](/manuals/editor-scripts-ui/) - allow you to create custom visual tools, popups, configurators, etc.
-* [editor HTTP API](/manuals/editor-http-api) - allows you to control an open project via OpenAPI operations.
-* [Bob CLI](/manuals/bob) - can build a project and create data archives or standalone bundles from the command line.
-* [engine HTTP service](/manuals/engine-service) - lets external tools query and send commands to a running debug build
-* [Automation Bridge](https://github.com/defold/extension-automation-bridge) - official Defold extension provides additional runtime automation endpoints
-* shell scripts can generate, validate, and perform ordinary file operations.
-* external platform or web browser automation tools
-
-The most important distinction is between the Defold editor and a running game. They are separate processes with separate HTTP servers:
-
-| Layer | Process | Purpose |
-| --- | --- | --- |
-| Editor HTTP API | Defold editor | Project resources, builds, editor commands, previews, preferences, console output, and editor scripts |
-| Engine service | Running Defold game engine (`dmengine`) | Development services, profiling, runtime messages, and extension-defined runtime automation APIs |
-
-Use the [editor HTTP API](/manuals/editor-http-api) to control the open project. Use the [engine service](/manuals/engine-service) or a runtime automation extension when you must observe or control the running game.
-
-## Choosing an automation interface
-
-Choosing an interface appropriate to the task is one of the most important aspects of effective automation. The table below can help you choose the simplest interface for a given action:
-
-| Interface | Suitable for |
+| Layer | Purpose |
 | --- | --- |
-| Shell script or task runner | Generation, formatting, validation, and repeatable local tasks |
-| Bob | Editor-independent builds, bundles, reports, and CI |
-| Editor script | Custom commands, resource tools, user interfaces, and editor integrations |
-| Lifecycle hook | Validation or generation before and after editor builds or bundling |
-| Editor HTTP API | External tools, IDE integrations, and test controllers for an open project |
-| In-game test collection | Game logic, messages, components, input, physics, and engine behavior |
-| Runtime automation API | Scene inspection, injected input, screenshots, and live application state |
-| Browser automation | HTML5 interaction tests, screenshots, and web integrations |
-| AI coding agent | Tasks where the relevant files and operations are not known in advance |
-| Multimodal model | Semantic analysis of scenes, GUI layouts, and runtime screenshots |
+| [Editor Scripts](/manuals/editor-scripts) | Custom commands and Editor workflows or integrations to speed up testing and development, e.g. creation of levels, assets |
+| [Editor UI scripts](/manuals/editor-scripts-ui/) | Custom visual tools, popups, configurators, or user interfaces utilizing Editor Scripts |
+| [Editor HTTP API](/manuals/editor-http-api) | Control the open game project in the Defold Editor via OpenAPI operations, project resources, builds, editor commands, previews, preferences, console output, or editor scripts for custom operations, external tools, IDE integrations, and test controllers |
+| [Bob CLI](/manuals/bob) | Building a project, creating data archives or standalone bundles from the command line, reports, CI |
+| [Lifecycle hooks](/manuals/editor-http-api#lifecycle-hooks) | Validation or generation before and after editor builds or bundling |
+| [Engine HTTP service](/manuals/engine-service) | Running Defold game engine (`dmengine`) inspection, development services, profiling, runtime messages, or extension-defined runtime automation APIs, external tools querying, sending commands to a running debug build |
+| [Automation Bridge](https://github.com/defold/extension-automation-bridge) | official Defold extension that provides additional engine runtime automation endpoints |
+| [Automated tests](/manuals/automated-tests) | Testing game logic, messages, components, input, physics, and engine behavior, scene inspection, visual feedback e.g. via [editor preview](/manuals/editor-http-api/#rendering-scene-previews), injected input, live application state, [running test collections](/manuals/automated-testing/#tests-in-a-running-collection) |
+| Shell scripts or task runners | Generation, formatting, validation, and repeatable tasks, ordinary file operations |
+| External platform-specific and web browser automation tools | Desktop testing tools, HTML5 interaction tests, screenshots, web integrations |
+| AI coding agents and multimodal models | Tasks where a deterministic approach is difficult or impossible to implement, semantic analysis of scenes, GUI layouts, or runtime screenshots |
 
-For example:
-
-* Need to automatically inspect visually a collection (e.g. level layout), a model (e.g. shaders correctness) or a GUI interface without running the game? Use an [editor preview](/manuals/editor-http-api/#rendering-scene-previews).
-* Need to verify dynamically spawned game objects, physics, or runtime scripts? Use a [running test collection or runtime automation API](/manuals/automated-testing/#tests-in-a-running-collection).
-* Need to build without a graphical editor e.g. during CI automated tests? Use [Bob](/manuals/bob).
+The most important distinction is between the Defold editor and a running game. They are separate processes with separate HTTP servers.
 
 ## Deterministic automation or AI agents
 
