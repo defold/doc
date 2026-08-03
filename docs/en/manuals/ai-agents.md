@@ -20,7 +20,7 @@ An agent can be useful when a task requires for example:
 * comparing a visual result with semantic acceptance criteria;
 * making a bounded repair attempt based on collected evidence.
 
-Agents are powerful for non-deterministic develpoment, investigation and testing processes. They can help with creating diverse solutions and work very well with Defold.
+Agents are powerful for non-deterministic development, investigation and testing processes. They can help with creating diverse solutions and work very well with Defold.
 
 ## Model-neutral Defold interfaces
 
@@ -109,7 +109,7 @@ Agents perform best with accurate, up-to-date documentation. Gather current info
 * The [LLM documentation index](https://defold.com/llms.txt) links to official manuals, API namespaces, and examples.
 * The [full LLM documentation](https://defold.com/llms-full.txt) supports offline search and local indexing.
 
-Retrieve only the relevant pages for the task. It is recommended to use the full combined document for offline indexing or [Retrieval-Augmented Generation (RAG)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) only. Again, the complete file should not normally be included in every model request in order to save on tokens and don't pollute the context with unnecessary informations.
+Retrieve only the relevant pages for the task. It is recommended to use the full combined document for offline indexing or [Retrieval-Augmented Generation (RAG)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) only. Again, the complete file should not normally be included in every model request in order to save on tokens and don't pollute the context with unnecessary information.
 
 ## Bounded change and verification loops
 
@@ -124,7 +124,7 @@ Before changing files, it is good to define the acceptance criteria and optional
 
 An agent may diagnose and repair a deterministic CI failure, but the CI stage itself should remain reproducible without the agent.
 
-Good practices on automated testing and verification are desrcibed in [this manual](/manuals/automated-testing).
+Good practices on automated testing and verification are described in [this manual](/manuals/automated-testing).
 
 ## Multimodal evaluation
 
