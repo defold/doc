@@ -152,7 +152,7 @@ A multimodal model can evaluate semantic conditions in visual inspection that ar
 
 Use Bob the builder CLI tool for editor-independent CI.
 
-Yoy can use it to resolve dependencies, build a game, an archive, or a standalone bundle, and generate a JSON report:
+You can use it to resolve dependencies, build a game, an archive, or a standalone bundle, and generate a JSON report:
 
 ```sh
 mkdir -p build/reports
