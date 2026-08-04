@@ -261,7 +261,7 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
 ```
 
-## 编辑器安装元数据
+## 编辑器安装元数据 {#editor-installation-metadata}
 
 编辑器启动时，会将启动器和安装路径的信息写入一个已知位置。第三方 IDE 集成和其他工具可以使用这些信息查找已安装的 Defold 编辑器：
 

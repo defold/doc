@@ -266,7 +266,7 @@ Dodatkowo plik wykonywalny edytora obsługuje opcję wiersza poleceń `--port` l
 ./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
 ```
 
-## Metadane instalacji edytora
+## Metadane instalacji edytora {#editor-installation-metadata}
 
 Po uruchomieniu edytor zapisuje informacje o launcherze i ścieżkach instalacji w znanej lokalizacji. Integracje z zewnętrznymi IDE i inne narzędzia mogą używać tych danych, aby znaleźć zainstalowane edytory Defold:
 

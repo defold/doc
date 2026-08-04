@@ -606,7 +606,7 @@ end
 - `command`（必需）- 命令及其参数的数组
 - `watched_files` - 带有 `pattern` 键（glob）的表数组，将触发服务器的[监视文件更改](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles)通知。
 
-## HTTP 服务器
+## HTTP 服务器 {#http-server}
 
 每个运行的编辑器实例都有一个正在运行的 HTTP 服务器。可以使用编辑器脚本扩展该服务器。要扩展编辑器 HTTP 服务器，您需要添加 `get_http_server_routes` 编辑器脚本函数 — 它应该返回额外的路由：
 ```lua

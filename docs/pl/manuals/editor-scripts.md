@@ -652,7 +652,7 @@ Tabela definicji serwera językowego może zawierać:
 - `command` (wymagane) — tablicę z poleceniem i argumentami;
 - `watched_files` — tablicę tabel z kluczami `pattern` (glob), które będą wyzwalały powiadomienie serwera o [zmianie obserwowanych plików](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles).
 
-## Serwer HTTP
+## Serwer HTTP {#http-server}
 
 Każda uruchomiona instancja edytora ma aktywny serwer HTTP. Można go rozszerzać przy użyciu skryptów edytora. Aby dodać własne endpointy, zdefiniuj funkcję `get_http_server_routes`, która zwróci dodatkowe trasy:
 

@@ -604,7 +604,7 @@ A tabela de definição do language server pode especificar:
 - `command` (obrigatório) - um array de comando e seus argumentos
 - `watched_files` - um array de tabelas com chaves `pattern` (um glob) que acionarão a notificação [watched files changed](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles) do servidor.
 
-## Servidor HTTP
+## Servidor HTTP {#http-server}
 
 Toda instância em execução do editor tem um servidor HTTP rodando. O servidor pode ser estendido usando editor scripts. Para estender o servidor HTTP do editor, você precisa adicionar a função de editor script `get_http_server_routes` — ela deve retornar as rotas adicionais:
 ```lua

@@ -261,7 +261,7 @@ $ > ./path/to/Defold.app/Contents/MacOS/Defold
 ./path/to/Defold/Defold.app/Contents/MacOS/Defold --port 8181
 ```
 
-## 에디터 설치 메타데이터
+## 에디터 설치 메타데이터 {#editor-installation-metadata}
 
 에디터가 시작되면 런처와 설치 경로 정보를 잘 알려진 위치에 기록합니다. 서드파티 IDE 통합과 다른 도구는 이 정보를 사용해 설치된 Defold 에디터를 찾을 수 있습니다.
 
