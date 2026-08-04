@@ -1649,23 +1649,45 @@
                 "items": [
                     {
                         "path": "/manuals/automation",
-                        "name": "Overview"
+                        "name": "Overview",
+                        "tags": [
+                            "manual",
+                            "automation"
+                        ]
                     },
                     {
                         "path": "/manuals/editor-http-api",
-                        "name": "Editor HTTP API"
+                        "name": "Editor HTTP API",
+                        "tags": [
+                            "manual",
+                            "automation",
+                            "editor",
+                            "network"
+                        ]
                     },
                     {
                         "path": "/manuals/engine-service",
-                        "name": "Engine service"
+                        "name": "Engine service",
+                        "tags": [
+                            "manual",
+                            "automation"
+                        ]
                     },
                     {
                         "path": "/manuals/automated-testing",
-                        "name": "Automated testing"
+                        "name": "Automated testing",
+                        "tags": [
+                            "manual",
+                            "automation"
+                        ]
                     },
                     {
                         "path": "/manuals/ai-agents",
-                        "name": "AI coding agents"
+                        "name": "AI coding agents",
+                        "tags": [
+                            "manual",
+                            "automation"
+                        ]
                     }
                 ]
             },
