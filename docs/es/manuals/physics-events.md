@@ -31,7 +31,9 @@ Si se define un listener, los [mensajes de físicas](/manuals/physics-messages) 
 
 ## Estructura de datos de eventos
 
-Cada evento de físicas proporciona una tabla `data` que contiene información específica relevante para el evento.
+El listener se invoca con `self` y una tabla `events`. La tabla `events` es un array que contiene todos los eventos de físicas recopilados para la llamada. Cada entrada es una tabla de evento con un campo `type` que contiene el nombre del evento en formato hash y campos adicionales específicos de ese tipo de evento.
+
+Las tablas de eventos contienen los siguientes datos:
 
 1. **Evento de punto de contacto (`contact_point_event`):**
 Este evento informa de un punto de contacto entre dos objetos de colisión. Es útil para un manejo detallado de colisiones, como calcular fuerzas de impacto o respuestas de colisión personalizadas.

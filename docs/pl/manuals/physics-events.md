@@ -31,7 +31,9 @@ Jeśli słuchacz zostanie ustawiony, [wiadomości fizyki](/manuals/physics-messa
 
 ## Struktura danych zdarzeń
 
-Każde zdarzenie fizyki udostępnia tabelę `data` zawierającą konkretne informacje istotne dla danego zdarzenia.
+Słuchacz jest wywoływany z argumentami `self` i tabelą `events`. Tabela `events` jest tablicą zawierającą wszystkie zdarzenia fizyki zebrane dla danego wywołania. Każdy element jest tabelą zdarzenia z polem `type`, które zawiera zahaszowaną nazwę zdarzenia, oraz dodatkowymi polami specyficznymi dla danego typu zdarzenia.
+
+Tabele zdarzeń zawierają następujące dane:
 
 1. **Zdarzenie punktu kontaktu (`contact_point_event`):**
 To zdarzenie raportuje punkt kontaktu między dwoma obiektami kolizji. Jest przydatne przy szczegółowej obsłudze kolizji, na przykład do obliczania sił uderzenia albo własnych reakcji na kolizję.
