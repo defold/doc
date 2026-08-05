@@ -31,7 +31,9 @@ If a listener is set, [physics messages](/manuals/physics-messages) will no long
 
 ## Event Data Structure
 
-Each physics event provides a `data` table containing specific information relevant to the event.
+The listener is called with `self` and an `events` table. The `events` table is an array containing all physics events collected for the callback. Each entry is an event table with a `type` field containing the hashed event name and additional fields specific to that event type.
+
+The event tables contain the following data:
 
 1. **Contact Point Event (`contact_point_event`):**
 This event reports a contact point between two collision objects. It is useful for detailed collision handling, such as calculating impact forces or custom collision responses.
