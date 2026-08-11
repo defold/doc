@@ -95,6 +95,8 @@ Defold не сжимает аудио, разработчик должен оп�
 
 ![Подпись Android сборки](images/android/sign_bundle.png)
 
+По умолчанию сборка включает архитектуры `armv7-android` и `arm64-android`. Доступна третья архитектура, `x86_64-android`, но она не включена по умолчанию, так как в основном полезна для эмуляторов Android, ChromeOS и Windows Subsystem for Android, а не для физических устройств. Оставьте её невыбранной, чтобы уменьшить размер сборки, если только вам не нужно специально ориентироваться на одну из этих сред.
+
 Google Play поддерживает [несколько APK](https://developer.android.com/google/play/publishing/multiple-apks) на выпуск, что позволяет разделить сборку по архитектурам и уменьшить итоговый размер каждого APK.
 
 Также вы можете использовать [дополнительные файлы APK Expansion](https://developer.android.com/google/play/expansion-files) в сочетании с [контентом Live Update](/manuals/live-update), используя [расширение APKX](https://defold.com/assets/apkx/).

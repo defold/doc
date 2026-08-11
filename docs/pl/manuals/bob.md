@@ -204,7 +204,7 @@ Dostępne platformy i architektury:
 : iOS 64-bit. Domyślnie wartość argumentu `--architectures` to `arm64-ios`.
 
 `armv7-android`
-: Android z dostępnymi 32-bitowymi architekturami `armv7-android` i 64-bitowymi `arm64-android`. Domyślnie wartość argumentu `--architectures` to `armv7-android,arm64-android`.
+: Android z dostępnymi 32-bitowymi architekturami `armv7-android`, 64-bitowymi `arm64-android` i 64-bitowymi `x86_64-android`. Domyślnie wartość argumentu `--architectures` to `armv7-android,arm64-android`. Architektura `x86_64-android` jest opcjonalna (przydatna głównie dla emulatorów Androida, ChromeOS i Windows Subsystem for Android) i musi zostać dodana jawnie.
 
 `wasm-web`
 : HTML5 z dostępnymi architekturami `wasm-web` i `wasm_pthread-web`. Domyślnie wartość argumentu `--architectures` to `wasm-web`.

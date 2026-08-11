@@ -91,7 +91,7 @@ Es muy importante que guardes los símbolos de depuración en algún lugar para 
 
 
 ### Subir símbolos a Google Play {#uploading-symbols-to-google-play}
-Puedes [subir los símbolos de depuración a Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) para que cualquier crash registrado en Google Play muestre callstacks simbolizados. Comprime en un zip el contenido de la carpeta de salida del bundle `projecttitle.apk.symbols/lib/`. La carpeta incluye una o más subcarpetas con nombres de arquitectura como `arm64-v8a` y `armeabi-v7a`.
+Puedes [subir los símbolos de depuración a Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) para que cualquier crash registrado en Google Play muestre callstacks simbolizados. Comprime en un zip el contenido de la carpeta de salida del bundle `projecttitle.apk.symbols/lib/`. La carpeta incluye una o más subcarpetas con nombres de arquitectura como `arm64-v8a`, `armeabi-v7a` y `x86_64`.
 
 
 ### Simbolizar un callstack de Android {#symbolicate-an-android-callstack}

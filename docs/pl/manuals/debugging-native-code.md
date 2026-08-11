@@ -91,7 +91,7 @@ Bardzo ważne jest, aby zachować symbole debugowe dla każdego publicznego wyda
 
 
 ### Przesyłanie symboli do Google Play
-Możesz [przesłać symbole debugowe do Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems), aby wszystkie awarie zarejestrowane w Google Play pokazywały zsymbolikowane stosy wywołań. Spakuj do ZIP-a zawartość katalogu wyjściowego bundla `projecttitle.apk.symbols/lib/`. Katalog zawiera jeden lub więcej podkatalogów o nazwach architektur, takich jak `arm64-v8a` i `armeabi-v7a`.
+Możesz [przesłać symbole debugowe do Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems), aby wszystkie awarie zarejestrowane w Google Play pokazywały zsymbolikowane stosy wywołań. Spakuj do ZIP-a zawartość katalogu wyjściowego bundla `projecttitle.apk.symbols/lib/`. Katalog zawiera jeden lub więcej podkatalogów o nazwach architektur, takich jak `arm64-v8a`, `armeabi-v7a` i `x86_64`.
 
 
 ### Zsymbolikuj stos wywołań z Androida

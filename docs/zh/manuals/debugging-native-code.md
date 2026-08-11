@@ -92,7 +92,7 @@ $ adb shell "run-as com.defold.example sh -c 'cat /data/data/com.defold.example/
 
 
 ### 将符号上传到 Google Play
-您可以 [将调试符号上传到 Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems)，以便在 Google Play 中记录的任何崩溃都将显示符号化的调用堆栈。将 `projecttitle.apk.symbols/lib/` 捆绑输出文件夹的内容压缩。该文件夹包含一个或多个具有架构名称的子文件夹，如 `arm64-v8a` 和 `armeabi-v7a`。
+您可以 [将调试符号上传到 Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems)，以便在 Google Play 中记录的任何崩溃都将显示符号化的调用堆栈。将 `projecttitle.apk.symbols/lib/` 捆绑输出文件夹的内容压缩。该文件夹包含一个或多个具有架构名称的子文件夹，如 `arm64-v8a`、`armeabi-v7a` 和 `x86_64`。
 
 
 ### 符号化 Android 调用堆栈

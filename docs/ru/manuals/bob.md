@@ -204,7 +204,7 @@ Available platforms and architectures:
 : iOS 64 бита. По умолчанию значение аргумента `--architectures` - `arm64-ios`.
 
 `armv7-android`
-: Android с доступной 32-битной архитектурой `armv7-android` и 64-битной` arm64-android`. По умолчанию значение аргумента `--architectures` - `armv7-android,arm64-android`.
+: Android с доступными архитектурами: 32-битной `armv7-android`, 64-битной `arm64-android` и 64-битной `x86_64-android`. По умолчанию значение аргумента `--architectures` - `armv7-android,arm64-android`. Архитектура `x86_64-android` необязательна (в основном полезна для эмуляторов Android, ChromeOS и Windows Subsystem for Android) и должна быть добавлена явно.
 
 `wasm-web`
 : HTML5 с доступными архитектурами `wasm-web` и `wasm_pthread-web`. По умолчанию значение аргумента `--architectures` - `wasm-web`.

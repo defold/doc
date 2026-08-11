@@ -95,6 +95,8 @@ Android builds must support both 32-bit and 64-bit CPU architectures. When you [
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
+By default a bundle includes the `armv7-android` and `arm64-android` architectures. A third architecture, `x86_64-android`, is available but not included by default since it is mainly useful for Android emulators, ChromeOS and Windows Subsystem for Android rather than for physical devices. Leave it unchecked to keep the bundle size down unless you specifically need to target one of those environments.
+
 Google Play has support for [multiple APKs](https://developer.android.com/google/play/publishing/multiple-apks) per release of a game, which means that you can reduce the application size by generating two APKs, one per CPU architecture, and uploading both to Google Play.
 
 You can also make use of a combination of [APK Expansion Files](https://developer.android.com/google/play/expansion-files) and [Live Update content](/manuals/live-update) thanks to the [APKX extension in the Asset Portal](https://defold.com/assets/apkx/).

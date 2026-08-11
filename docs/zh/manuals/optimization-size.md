@@ -95,6 +95,8 @@ Android 构建必须支持 32 位和 64 位 CPU 架构。当您为 [Android 打�
 
 ![签名 Android 捆绑包](images/android/sign_bundle.png)
 
+默认情况下，捆绑包包含 `armv7-android` 和 `arm64-android` 架构。还有第三种架构 `x86_64-android` 可用，但默认未包含，因为它主要用于 Android 模拟器、ChromeOS 和 Windows Subsystem for Android，而非实体设备。除非您确实需要面向这些环境之一，否则请保持未选中状态，以保持捆绑包体积较小。
+
 Google Play 支持每个游戏发布[多个 APK](https://developer.android.com/google/play/publishing/multiple-apks)，这意味着您可以通过生成两个 APK（每个 CPU 架构一个）并将两者都上传到 Google Play 来减小应用程序大小。
 
 您还可以利用 [APK 扩展文件](https://developer.android.com/google/play/expansion-files)和[Live Update 内容](/manuals/live-update)的组合，这要归功于[资源门户中的 APKX 扩展](https://defold.com/assets/apkx/)。
