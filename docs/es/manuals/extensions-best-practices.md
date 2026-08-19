@@ -82,7 +82,9 @@ En el código fuente de Defold, C++ se usa con mucha moderación y la mayor part
 
 ### Versión de C++
 
-El código fuente de Defold se compila con la versión de C++ predeterminada de cada compilador. En la mayoría de los casos, el propio código fuente de Defold no usa ninguna versión de C++ superior a C++98, pero usa C++11 en algunos lugares. Aunque es posible usar una versión superior para compilar una extensión, una versión superior podría traer cambios de ABI. Esto podría hacer imposible usar una extensión junto con extensiones del motor o del [Asset Portal](/assets).
+Al compilar el motor principal, usamos C++11, pero en Windows usamos C++14. Las compilaciones para consolas generalmente requieren C++14 o superior actualmente.
+
+Para las extensiones nativas, no usamos una versión de C++ fija, sino que dependemos de la versión predeterminada de la cadena de herramientas de la plataforma.
 
 El código fuente de Defold evita usar las últimas funcionalidades o versiones de C++. Principalmente porque no hacen falta funcionalidades nuevas al crear un motor de videojuegos, pero también porque seguir las últimas funcionalidades de C++ lleva mucho tiempo, y dominar realmente esas funcionalidades requerirá mucho tiempo valioso.
 
