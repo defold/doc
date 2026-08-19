@@ -95,6 +95,8 @@ Builds Android devem oferecer suporte a arquiteturas de CPU de 32 bits e 64 bits
 
 ![Signing Android bundle](images/android/sign_bundle.png)
 
+Por padrão, um pacote inclui as arquiteturas `armv7-android` e `arm64-android`. Uma terceira arquitetura, `x86_64-android`, está disponível, mas não é incluída por padrão, pois é útil principalmente para emuladores Android, ChromeOS e Windows Subsystem for Android, em vez de dispositivos físicos. Deixe-a desmarcada para manter o tamanho do pacote reduzido, a menos que você precise especificamente direcionar um desses ambientes.
+
 O Google Play oferece suporte a [vários APKs](https://developer.android.com/google/play/publishing/multiple-apks) por release de um jogo, o que significa que você pode reduzir o tamanho da aplicação gerando dois APKs, um para cada arquitetura de CPU, e enviando ambos para o Google Play.
 
 Você também pode usar uma combinação de [APK Expansion Files](https://developer.android.com/google/play/expansion-files) e [conteúdo Live Update](/manuals/live-update) graças à [extensão APKX no Portal de Assets](https://defold.com/assets/apkx/).

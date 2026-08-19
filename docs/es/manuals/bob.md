@@ -204,7 +204,7 @@ Plataformas y arquitecturas disponibles:
 : iOS 64 bits. De forma predeterminada, el valor del argumento `--architectures` es `arm64-ios`.
 
 `armv7-android`
-: Android con las arquitecturas disponibles `armv7-android` de 32 bits y `arm64-android` de 64 bits. De forma predeterminada, el valor del argumento `--architectures` es `armv7-android,arm64-android`.
+: Android con las arquitecturas disponibles `armv7-android` de 32 bits, `arm64-android` de 64 bits y `x86_64-android` de 64 bits. De forma predeterminada, el valor del argumento `--architectures` es `armv7-android,arm64-android`. La arquitectura `x86_64-android` es opcional (principalmente útil para emuladores de Android, ChromeOS y Windows Subsystem for Android) y debe añadirse explícitamente.
 
 `wasm-web`
 : HTML5 con las arquitecturas disponibles `wasm-web` y `wasm_pthread-web`. De forma predeterminada, el valor del argumento `--architectures` es `wasm-web`.

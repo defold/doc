@@ -91,7 +91,7 @@ Defold неплохо протестирован и очень редко дае
 
 
 ### Загрузка символов отладки в Google Play
-Вы можете [загрузить символы отладки в Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems), чтобы все сбои, зарегистрированные в Google Play, отображались с расшифрованными стеками вызовов. Заархивируйте содержимое папки `projecttitle.apk.symbols/lib/` из выходного архива сборки. Эта папка содержит одну или несколько подпапок с названиями архитектур, например `arm64-v8a` и `armeabi-v7a`.
+Вы можете [загрузить символы отладки в Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems), чтобы все сбои, зарегистрированные в Google Play, отображались с расшифрованными стеками вызовов. Заархивируйте содержимое папки `projecttitle.apk.symbols/lib/` из выходного архива сборки. Эта папка содержит одну или несколько подпапок с названиями архитектур, например `arm64-v8a`, `armeabi-v7a` и `x86_64`.
 
 
 ### Генерация отладочных символов к стеку вызовов Android

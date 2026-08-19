@@ -64,7 +64,7 @@ brief: 本手册介绍了开发原生扩展的最佳实践。
 
 当前列表是：
 
-    arm64-ios, armv7-ios, x86_64-ios, arm64-android, armv7-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
+    arm64-ios, armv7-ios, x86_64-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
 
 因此，例如，将平台特定的库放在：
 

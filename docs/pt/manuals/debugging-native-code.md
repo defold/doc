@@ -91,7 +91,7 @@ Se você obtiver uma callstack de um arquivo `_crash` ou de um [arquivo de log](
 
 
 ### Enviando símbolos para o Google Play
-Você pode [enviar os símbolos de debug para o Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) para que quaisquer travamentos registrados no Google Play mostrem call stacks simbolicadas. Compacte o conteúdo da pasta de saída de pacote `projecttitle.apk.symbols/lib/`. A pasta inclui uma ou mais subpastas com nomes de arquitetura, como `arm64-v8a` e `armeabi-v7a`.
+Você pode [enviar os símbolos de debug para o Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) para que quaisquer travamentos registrados no Google Play mostrem call stacks simbolicadas. Compacte o conteúdo da pasta de saída de pacote `projecttitle.apk.symbols/lib/`. A pasta inclui uma ou mais subpastas com nomes de arquitetura, como `arm64-v8a`, `armeabi-v7a` e `x86_64`.
 
 
 ### Simbolicar uma callstack do Android

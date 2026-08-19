@@ -91,7 +91,7 @@ iTunes에서 앱 컨테이너를 보거나 다운로드할 수 있습니다.
 
 
 ### Google Play에 심볼 업로드하기
-Google Play에 기록된 크래시가 심볼리케이트된 콜스택으로 표시되도록 [디버그 심볼을 Google Play에 업로드](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems)할 수 있습니다. `projecttitle.apk.symbols/lib/` 번들 출력 폴더의 내용을 zip으로 압축하세요. 이 폴더에는 `arm64-v8a`, `armeabi-v7a` 같은 아키텍처 이름을 가진 하위 폴더가 하나 이상 포함됩니다.
+Google Play에 기록된 크래시가 심볼리케이트된 콜스택으로 표시되도록 [디버그 심볼을 Google Play에 업로드](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems)할 수 있습니다. `projecttitle.apk.symbols/lib/` 번들 출력 폴더의 내용을 zip으로 압축하세요. 이 폴더에는 `arm64-v8a`, `armeabi-v7a`, `x86_64` 같은 아키텍처 이름을 가진 하위 폴더가 하나 이상 포함됩니다.
 
 
 ### Android 콜스택 심볼리케이트하기

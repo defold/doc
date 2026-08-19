@@ -91,7 +91,7 @@ It is very important that your save the debug symbols somewhere for each public 
 
 
 ### Uploading symbols to Google Play
-You can [upload the debug symbols to Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) so that any crashes logged in Google Play will show symbolicated call stacks. Zip the contents of the `projecttitle.apk.symbols/lib/` bundle output folder. The folder includes one or more sub folders with architecture names such as `arm64-v8a` and `armeabi-v7a`.
+You can [upload the debug symbols to Google Play](https://developer.android.com/studio/build/shrink-code#android_gradle_plugin_version_40_or_earlier_and_other_build_systems) so that any crashes logged in Google Play will show symbolicated call stacks. Zip the contents of the `projecttitle.apk.symbols/lib/` bundle output folder. The folder includes one or more sub folders with architecture names such as `arm64-v8a`, `armeabi-v7a` and `x86_64`.
 
 
 ### Symbolicate an Android callstack

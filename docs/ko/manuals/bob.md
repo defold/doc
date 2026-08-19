@@ -204,7 +204,7 @@ usage: bob [options] [commands]
 : iOS 64 bit. 기본적으로 `--architectures` 인자 값은 `arm64-ios`입니다.
 
 `armv7-android`
-: 사용 가능한 32 bit `armv7-android` 및 64 bit `arm64-android` 아키텍처가 있는 Android입니다. 기본적으로 `--architectures` 인자 값은 `armv7-android,arm64-android`입니다.
+: 사용 가능한 32 bit `armv7-android`, 64 bit `arm64-android` 및 64 bit `x86_64-android` 아키텍처가 있는 Android입니다. 기본적으로 `--architectures` 인자 값은 `armv7-android,arm64-android`입니다. `x86_64-android` 아키텍처는 선택적으로 추가할 수 있으며(주로 Android 에뮬레이터, ChromeOS, Windows Subsystem for Android에 유용함) 명시적으로 추가해야 합니다.
 
 `wasm-web`
 : 사용 가능한 `wasm-web` 및 `wasm_pthread-web` 아키텍처가 있는 HTML5입니다. 기본적으로 `--architectures` 인자 값은 `wasm-web`입니다.

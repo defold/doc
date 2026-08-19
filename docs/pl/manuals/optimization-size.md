@@ -95,6 +95,8 @@ Kompilacje na Androida muszą obsługiwać zarówno 32-bitowe, jak i 64-bitowe a
 
 ![Podpisywanie pakietu Android](images/android/sign_bundle.png)
 
+Domyślnie pakiet zawiera architektury `armv7-android` i `arm64-android`. Dostępna jest trzecia architektura, `x86_64-android`, ale nie jest dołączana domyślnie, ponieważ jest przydatna głównie dla emulatorów Androida, ChromeOS i Windows Subsystem for Android, a nie dla fizycznych urządzeń. Pozostaw ją odznaczoną, aby zmniejszyć rozmiar pakietu, chyba że musisz celować w jedno z tych środowisk.
+
 Google Play obsługuje [wiele APK](https://developer.android.com/google/play/publishing/multiple-apks) dla jednego wydania gry, co oznacza, że możesz zmniejszyć rozmiar aplikacji, generując dwa APK, po jednym dla każdej architektury CPU, i przesyłając oba do Google Play.
 
 Możesz też skorzystać z połączenia [APK Expansion Files](https://developer.android.com/google/play/expansion-files) oraz zawartości [Live Update](/manuals/live-update) dzięki rozszerzeniu [APKX](https://defold.com/assets/apkx/) w Asset Portal.

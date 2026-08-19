@@ -95,6 +95,8 @@ Android 빌드는 32비트와 64비트 CPU 아키텍처를 모두 지원해야 �
 
 ![Android 번들 서명](images/android/sign_bundle.png)
 
+기본적으로 번들에는 `armv7-android` 및 `arm64-android` 아키텍처가 포함됩니다. 세 번째 아키텍처인 `x86_64-android`도 사용할 수 있지만 기본적으로는 포함되지 않습니다. 이는 실제 기기보다는 Android 에뮬레이터, ChromeOS, Windows Subsystem for Android에서 주로 유용하기 때문입니다. 이러한 환경을 특별히 대상으로 해야 하는 경우가 아니라면 체크 해제된 상태로 두어 번들 크기를 줄이세요.
+
 Google Play는 게임 릴리스당 [여러 APK](https://developer.android.com/google/play/publishing/multiple-apks)를 지원합니다. 즉, CPU 아키텍처마다 하나씩 두 개의 APK를 생성하고 둘 다 Google Play에 업로드하여 어플리케이션 크기를 줄일 수 있습니다.
 
 [APK Expansion Files](https://developer.android.com/google/play/expansion-files)와 [Live Update 컨텐츠](/manuals/live-update)를 조합해 사용할 수도 있으며, 이는 [Asset Portal의 APKX extension](https://defold.com/assets/apkx/) 덕분에 가능합니다.

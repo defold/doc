@@ -204,7 +204,7 @@ usage: bob [options] [commands]
 : iOS 64 位。默认情况下，`--architectures` 参数值为 `arm64-ios`。
 
 `armv7-android`
-: Android，具有可用的 32 位 `armv7-android` 和 64 位 `arm64-android` 架构。默认情况下，`--architectures` 参数值为 `armv7-android,arm64-android`。
+: Android，具有可用的 32 位 `armv7-android`、64 位 `arm64-android` 和 64 位 `x86_64-android` 架构。默认情况下，`--architectures` 参数值为 `armv7-android,arm64-android`。`x86_64-android` 架构是可选的（主要用于 Android 模拟器、ChromeOS 和 Windows Subsystem for Android），需要显式添加。
 
 `wasm-web`
 : HTML5，具有可用的 `wasm-web` 和 `wasm_pthread-web` 架构。默认情况下，`--architectures` 参数值为 `wasm-web`。
