@@ -82,7 +82,7 @@ W kodzie źródłowym Defold C++ jest używany bardzo oszczędnie, a większoś�
 
 ### Wersja C++
 
-Kod źródłowy Defold jest budowany z użyciem domyślnej wersji C++ każdego kompilatora. Sam kod źródłowy Defold nie używa wersji C++ wyższej niż C++98. Chociaż do zbudowania rozszerzenia można użyć nowszej wersji, może ona wiązać się ze zmianami ABI. To może uniemożliwić używanie jednego rozszerzenia razem z innymi rozszerzeniami w silniku lub z [asset portal](/assets).
+Kod źródłowy Defold jest budowany z użyciem domyślnej wersji C++ każdego kompilatora. Sam kod źródłowy Defold w większości miejsc nie używa wersji C++ wyższej niż C++98, ale w niektórych miejscach używa C++11. Chociaż do zbudowania rozszerzenia można użyć nowszej wersji, może ona wiązać się ze zmianami ABI. To może uniemożliwić używanie jednego rozszerzenia razem z innymi rozszerzeniami w silniku lub z [asset portal](/assets).
 
 Kod źródłowy Defold unika korzystania z najnowszych funkcji i wersji C++. Głównie dlatego, że przy tworzeniu silnika gier nie ma potrzeby wprowadzania nowych funkcji, ale też dlatego, że śledzenie najnowszych możliwości C++ jest czasochłonne, a ich naprawdę dobre opanowanie wymagałoby dużo cennego czasu.
 

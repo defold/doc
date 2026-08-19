@@ -82,7 +82,7 @@ In the Defold source, C++ is used very sparingly and most code is very C-like. T
 
 ### C++ version
 
-The Defold source is built with the default C++ version of each compiler. The Defold source itself uses no C++ version higher than C++98. While it is possible to use a higher version to build an extension, a higher version might come with ABI changes. This might make it impossible to use one extension in conjunction with an extensions in the engine or from the [asset portal](/assets).
+The Defold source is built with the default C++ version of each compiler. The Defold source itself uses no C++ version higher than C++98 in most places, but uses C++11 in some places. While it is possible to use a higher version to build an extension, a higher version might come with ABI changes. This might make it impossible to use one extension in conjunction with an extensions in the engine or from the [asset portal](/assets).
 
 The Defold source avoids using the latest features or versions of C++. Mostly because there is no need for new features when building a game engine, but also because keeping track of the latest features of C++ is a time consuming task, and to really master those features will require a lot of precious time.
 
