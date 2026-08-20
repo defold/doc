@@ -25,7 +25,6 @@ Defold has a built-in code editor that allows you to open and edit Lua files (.l
 
 ![](/images/editor/code-editor.png)
 
-
 ### Code completion
 
 The built-in code editor will show code completion of functions while writing code:
@@ -35,6 +34,14 @@ The built-in code editor will show code completion of functions while writing co
 Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information about functions, arguments and return values:
 
 ![](/images/editor/apireference.png)
+
+### Jump to symbol
+
+The built-in code editor can show a searchable list of symbols in the current code file, such as functions, objects, and variables. Select <kbd>View ▸ Jump to Symbol…</kbd>, or press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> on Windows and Linux, or <kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> on macOS.
+
+Start typing to fuzzy search the symbols, use the arrow keys to move through the results and preview their locations in the editor, then press <kbd>Enter</kbd> to jump to the selected symbol. Press <kbd>Esc</kbd> to close the dialog and return to the previous cursor and scroll position.
+
+![](/images/editor/jump-to-symbol.png)
 
 ### Linting configuration
 
