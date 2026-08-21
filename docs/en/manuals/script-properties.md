@@ -16,7 +16,7 @@ Common use cases are to set the health or speed of a specific enemy AI, the tint
 
 ## Defining a script property
 
-Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any lifecycle functions like `init()` and `update()`. The default value provided for the property governs the type of the property: `number`, `boolean`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
+Script properties are added to a script component by defining them with the `go.property()` special function. The function has to be used at the top level---outside any lifecycle functions like `init()` and `update()`. The default value provided for the property governs the type of the property: `number`, `boolean`, `string`, `hash`, `msg.url`, `vmath.vector3`, `vmath.vector4`, `vmath.quaternion` and `resource` (see below).
 
 ::: important
 Note that the reversal of the hash value works only in the Debug build to facilitate debugging. In the Release build, the reversed string value does not exist, so using `tostring()` on a `hash` value to extract the string from it is meaningless.
@@ -28,6 +28,7 @@ Note that the reversal of the hash value works only in the Debug build to facili
 -- Define script properties for health and an attack target
 go.property("health", 100)
 go.property("target", msg.url())
+go.property("display_name", "Can")
 
 function init(self)
   -- store initial position of target.
@@ -62,6 +63,20 @@ Any property that is overridden with a new instance specific value is marked blu
 Script properties are parsed when building the project. Value expressions are not evaluated. This means that something like `go.property("hp", 3+6)` will not work while `go.property("hp", 9)` will.
 :::
 
+### String properties
+
+String properties support UTF-8 text and Lua string literals, including multiline long strings. They are displayed as multiline text fields in the editor:
+
+```lua
+go.property("display_name", "Spelare åäö")
+go.property("description", [[First line
+Second line]])
+```
+
+::: sidenote
+String property values must be valid UTF-8 and cannot contain embedded NUL (`\0`) characters.
+:::
+
 ## Accessing script properties
 
 Any defined script property is available as a stored member in `self`, the script instance reference:
@@ -78,7 +93,7 @@ function update(self, dt)
 end
 ```
 
-User-defined script properties can also be accessed through the `get`, `set` and `animate` functions, the same way as any other property:
+User-defined script properties can also be read and written through the `get` and `set` functions, the same way as any other property. Properties with numerical value types can also be animated with `go.animate()`:
 
 ```lua
 -- another.script
@@ -86,6 +101,10 @@ User-defined script properties can also be accessed through the `get`, `set` and
 -- increase "my_property" in "myobject#script" by 1
 local val = go.get("myobject#my_script", "my_property")
 go.set("myobject#my_script", "my_property", val + 1)
+
+-- read and write a string property
+local display_name = go.get("myobject#my_script", "display_name")
+go.set("myobject#my_script", "display_name", "Guard")
 
 -- animate "my_property" in "myobject#my_script"
 go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, go.EASING_LINEAR, 2.0)
@@ -96,12 +115,13 @@ go.animate("myobject#my_script", "my_property", go.PLAYBACK_LOOP_PINGPONG, 100, 
 If you use a factory to create the game object, it is possible to set script properties at creation time:
 
 ```lua
-local props = { health = 50, target = msg.url("player") }
+local props = { health = 50, target = msg.url("player"), display_name = "Guard" }
 local id = factory.create("#can_factory", nil, nil, props)
 
 -- Accessing factory-created script properties
 local url = msg.url(nil, id, "can")
 local can_health = go.get(url, "health")
+local can_name = go.get(url, "display_name")
 ```
 
 When spawning a hierarchy of game objects through `collectionfactory.create()` you need to pair object id's with property tables. These are put together in a table and passed to the `create()` function:
@@ -109,7 +129,7 @@ When spawning a hierarchy of game objects through `collectionfactory.create()` y
 ```lua
 local props = {}
 props[hash("/can1")] = { health = 150 }
-props[hash("/can2")] = { health = 250, target = msg.url("player") }
+props[hash("/can2")] = { health = 250, target = msg.url("player"), display_name = "Guard" }
 props[hash("/can3")] = { health = 200 }
 
 local ids = collectionfactory.create("#cangang_factory", nil, nil, props)

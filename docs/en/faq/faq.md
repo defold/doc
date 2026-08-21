@@ -283,7 +283,7 @@ A: Each proxy loaded collection has their own input stack. Input is routed from 
 
 #### Q: Can I use string type script properties?
 
-A: No. Defold supports properties of [hash](/ref/builtins#hash) types. These can be used to indicate types, state identifiers or keys of any kind. Hashes can also be used to store game object id's (paths) although [url](/ref/msg#msg.url) properties are often preferable since the editor automatically populate a drop-down with relevant URLs for you. See the [Script properties documentation](/manuals/script-properties) for details.
+A: Yes. Define a string property using a Lua string literal, for example `go.property("display_name", "Player")`. String properties support UTF-8 and multiline text, can be overridden in the editor, and can be accessed at runtime through `self`, `go.get()` and `go.set()`. See the [Script properties documentation](/manuals/script-properties/#string-properties) for details.
 
 
 #### Q: How do I access the individual cells of a matrix (created using [`vmath.matrix4()`](/ref/vmath/#vmath.matrix4:m1) or similar)?
