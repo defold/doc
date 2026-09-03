@@ -317,7 +317,7 @@ Sets outline width, outline color, or both. At least one attribute is required. 
 | Attribute | Required | Default | Meaning |
 | --- | --- | --- | --- |
 | `size` | One of size/color | Inherited; `0` on a default font | Width in layout units, range `[0,)`. Unit suffixes are not accepted. |
-| `color` | One of size/color | Inherited; `#000000` on a default label | `#RRGGBB` or `#RRGGBBAA`. |
+| `color` | One of size/color | Inherited; `#000000` on a default label | Single outline color in hexadecimal RGB (`#RRGGBB`) or RGBA (`#RRGGBBAA`) form; the alpha component controls opacity. |
 
 ```text
 <outline size=3 color=#000000>Black outline</outline>
@@ -362,7 +362,7 @@ Adds a hard shadow to the enclosed text. At least one attribute is required. Att
 </div>
 
 ::: sidenote
-Shadow blur is generated into the glyph atlas. A span can request a smaller blur than the font's baked blur; larger values are preserved in the layout but currently render using the largest blur available in the atlas.
+Shadow blur is generated and stored in the glyph atlas. A span can request a smaller blur than the font's baked blur; larger values are preserved in the layout but currently render using the largest blur available in the atlas.
 :::
 
 ### `shake`
@@ -406,7 +406,7 @@ Moves characters up and down in an animated sine wave without changing line brea
 | --- | --- | --- | --- |
 | `amplitude` | No | 1 | Maximum vertical displacement in layout units, range `[0,)`. |
 | `hz` | No | 1 | Complete temporal cycles per second, range `[0,)`. Zero pauses the wave. |
-| `wavelength` | No | 6 | Visible UTF-32 text positions per complete spatial cycle, range `[1,)`. Glyphs in the same shaped cluster remain connected. |
+| `wavelength` | No | 6 | Visible UTF-32 text positions per complete spatial cycle, range `[1,)`. Characters that the font shapes together, such as a base character and its combining accent, move as a unit. |
 | `fit` | No | `glyph` | `glyph` applies the spatial wave across the text. `span` gives the complete tagged text span one shared vertical sine offset. |
 | `direction` | No | `forward` | `forward` advances normally. `reverse` reverses the wave's travel direction. |
 
@@ -465,7 +465,7 @@ A <sprite src=engine/engine/content/builtins/assets/images/logo/logo_256.png/> l
 
 Dimensions accept positive bare layout units, `px`, `em`, or `%`. Both `em` and `%` use the text layout's base font size.
 
-Each missing dimension defaults independently to `1em`. Omitting both produces a `1em × 1em` object; specifying only the width does not derive the height from a resource aspect ratio.
+Each missing dimension defaults independently to `1em`. Omitting both produces a `1em × 1em` object; specifying only the width does not derive the height automatically from a resource aspect ratio.
 
 ::: important
 The sprite tag is merely a placeholder for the developer to fit whatever object in that place!
@@ -497,9 +497,19 @@ Describes a range of visible text as a link object. The enclosed text is laid ou
 </div>
 </div>
 
-The component owns link interaction state and selects a named style on the layout object for each transition. Clearing the selected style restores the object's default.
+The component tracks each link's pointer state. It applies `link:hover` while the pointer is over the link and `link:active` while the pointer is pressed. When neither state applies, the component restores the style named by the link's `style` attribute, or `link` when the attribute is absent.
 
 ### Interaction messages
+
+Link interaction uses Defold's normal input system. Add a Mouse Trigger binding for `MOUSE_BUTTON_LEFT`, which also enables single-touch input, and acquire input focus in the game object's script or GUI script:
+
+```lua
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+```
+
+See [Input focus](/manuals/input/#input-focus) and [Mouse and touch input](/manuals/input-mouse-and-touch) for setup details.
 
 When a label or GUI component receives pointer input, links produce the following messages. Label messages are sent to the owning game object; GUI messages are sent to the GUI script.
 
@@ -548,7 +558,7 @@ font.set_style("/fonts/ui.fontc", "link:hover",
     "<color=#66b3ff><shake amplitude=0.2 hz=20>")
 ```
 
-Tags are applied from left to right, as though they were nested around the object text. A caller-selected object style is applied after the default style. Static fields supplied later replace earlier fields; effects are appended in order.
+Tags are applied from left to right, as though they were nested around the object text. A caller-selected object style is applied after the default style. When multiple tags set the same render property, the value applied later overrides earlier values. Effects are appended in left-to-right order.
 
 ::: sidenote
 Calling `font.set_style()` replaces that named style's render properties and effects. Resource-defined decorations remain unchanged, so redefining `link` does not remove its default underline. Named styles accept render-only tags such as `color`, `outline`, `shadow`, `gradient`, `wave`, and `shake`. Layout-changing, decoration, and object tags are rejected.
@@ -586,7 +596,7 @@ Both functions return a newly created array containing the current layout object
 | --- | --- | --- |
 | `type` | `string` | `"sprite"` or `"link"`. |
 | `id` | `hash` | Object identifier used in interaction messages. |
-| `text_offset` | `number` | Zero-based position in the visible text, counted in Unicode codepoints after markup has been removed and entities have been decoded. For a sprite, this is its insertion point. |
+| `text_offset` | `number` | Zero-based position in the visible text, measured in Unicode codepoints. Markup is excluded, and entities count as their decoded characters. For a sprite, this is its insertion point. |
 | `text_length` | `number` | Length of the enclosed visible text in Unicode codepoints. A sprite has length one for its inserted U+FFFC object-replacement codepoint. |
 | `width` | `number` | Resolved width in text-layout units. Links currently have width zero. |
 | `height` | `number` | Resolved height in text-layout units. Links currently have height zero. |
