@@ -52,7 +52,7 @@ curl -sS "$ENGINE_URL/info" | jq
 curl -sS "$ENGINE_URL/state" | jq
 ```
 
-La route `/post` è utilizzata da operazioni di sviluppo come hot reload, riavvio, ridimensionamento e controllo dei processi. Il relativo corpo è un messaggio binario Protobuf del tipo indicato nella route; non è un'API per messaggi JSON.
+La route `/post` è utilizzata da operazioni di sviluppo come hot reload, riavvio, ridimensionamento e controllo dei processi. Il relativo corpo è un messaggio binario Protobuf del tipo indicato nella route; non è un'API per messaggi JSON. Il messaggio Protobuf serializzato non può superare i 1024 byte; in caso contrario, viene restituito `400 Too large message`.
 
 Queste route fanno parte dell'infrastruttura di sviluppo; nell'implementazione del motore sono presenti ulteriori route per la profilazione e l'ispezione delle risorse.
 

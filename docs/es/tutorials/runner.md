@@ -60,7 +60,7 @@ Main Editor View
 : Según el tipo de archivo que estés editando, esta vista mostrará un editor para ese tipo. El más usado es el editor de escena que ves aquí. Cada archivo abierto se muestra en una pestaña separada.
 
 Changed Files
-: Contiene una lista de todas las ediciones que has hecho en tu rama desde la última sincronización. Así que si ves algo en este panel, tienes cambios que todavía no están en el servidor. Puedes abrir un diff solo de texto y revertir cambios desde esta vista.
+: Contiene los archivos añadidos, modificados, renombrados o eliminados localmente en comparación con el commit de Git actual. Puedes ver el diff de un archivo de texto modificado o renombrado cada vez; también puedes revertir aquí los cambios locales seleccionados. Usa un cliente de Git externo o la línea de comandos para sincronizar con un repositorio remoto.
 
 Outline
 : El contenido del archivo que se está editando actualmente en una vista jerárquica. Puedes agregar, eliminar, modificar y seleccionar objetos y componentes desde esta vista.

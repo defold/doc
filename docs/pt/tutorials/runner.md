@@ -60,7 +60,7 @@ Main Editor View
 : Dependendo do tipo de arquivo que você está editando, esta visualização mostrará um editor para esse tipo. O mais usado é o editor Scene que você vê aqui. Cada arquivo aberto é mostrado em uma aba separada.
 
 Changed Files
-: Contém uma lista de todas as edições que você fez no seu branch desde a última sincronização. Então, se você vir algo neste painel, há alterações que ainda não estão no servidor. Você pode abrir um diff somente texto e reverter alterações por essa visualização.
+: Contém arquivos adicionados, modificados, renomeados ou excluídos localmente em comparação com o commit atual do Git. Você pode visualizar o diff de um arquivo de texto modificado ou renomeado por vez; também pode reverter alterações locais selecionadas aqui. Use um cliente Git externo ou a linha de comando para sincronizar com um repositório remoto.
 
 Outline
 : O conteúdo do arquivo atualmente editado em uma visualização hierárquica. Você pode adicionar, excluir, modificar e selecionar objetos e componentes por essa visualização.

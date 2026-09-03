@@ -52,7 +52,7 @@ curl -sS "$ENGINE_URL/info" | jq
 curl -sS "$ENGINE_URL/state" | jq
 ```
 
-A rota `/post` é usada por operações de desenvolvimento, como hot reload, reinicialização, redimensionamento e controle de processos. Seu corpo é uma mensagem Protobuf binária do tipo nomeado na rota; ela não é uma API de mensagens JSON.
+A rota `/post` é usada por operações de desenvolvimento, como hot reload, reinicialização, redimensionamento e controle de processos. Seu corpo é uma mensagem Protobuf binária do tipo nomeado na rota; ela não é uma API de mensagens JSON. A mensagem Protobuf não pode ter mais de 1024 bytes quando serializada; caso contrário, será retornado um erro `400 Too large message`.
 
 Essas rotas são infraestrutura de desenvolvimento, e existem outras rotas de profiling e inspeção de recursos na implementação do engine.
 

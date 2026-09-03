@@ -60,7 +60,7 @@ Główny widok edytora
 : W zależności od typu edytowanego pliku ten widok pokazuje edytor dla danego typu. Najczęściej używany jest tu edytor sceny, który widzisz na ilustracji. Każdy otwarty plik jest pokazany w osobnej karcie.
 
 Zmienione pliki
-: Zawiera listę wszystkich zmian, które wprowadziłeś w swojej gałęzi od ostatniej synchronizacji. Jeśli więc widzisz coś w tym panelu, oznacza to, że masz zmiany, których jeszcze nie ma na serwerze. Możesz otworzyć różnicę wyświetlaną tylko jako tekst i wycofać zmiany przez ten widok.
+: Zawiera pliki dodane, zmodyfikowane, przemianowane lub usunięte lokalnie w porównaniu z bieżącym commitem Git. W przypadku jednego zmodyfikowanego lub przemianowanego pliku tekstowego naraz możesz wyświetlić diff; możesz też cofnąć tutaj wybrane zmiany lokalne. Do synchronizacji ze zdalnym repozytorium użyj zewnętrznego klienta Git lub wiersza poleceń.
 
 Outline
 : Hierarchiczny widok zawartości aktualnie edytowanego pliku. Możesz przez ten widok dodawać, usuwać, modyfikować i zaznaczać obiekty oraz komponenty.

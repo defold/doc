@@ -52,7 +52,7 @@ curl -sS "$ENGINE_URL/info" | jq
 curl -sS "$ENGINE_URL/state" | jq
 ```
 
-`/post` 路由供热重载、重新启动、调整大小和进程控制等开发操作使用。其请求体是路由中所指定类型的二进制 Protobuf 消息；它不是 JSON 消息 API。
+`/post` 路由供热重载、重新启动、调整大小和进程控制等开发操作使用。其请求体是路由中所指定类型的二进制 Protobuf 消息；它不是 JSON 消息 API。Protobuf 消息序列化后不得超过 1024 字节，否则将返回 `400 Too large message`。
 
 这些路由属于开发基础设施，引擎实现中还存在其他分析器和资源检查路由。
 

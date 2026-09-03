@@ -36,6 +36,14 @@ Defold에는 Lua 파일(.lua), Defold 스크립트 파일(.script, .gui_script �
 
 ![](/images/editor/apireference.png)
 
+### 심볼로 이동 {#jump-to-symbol}
+
+내장 코드 에디터는 현재 코드 파일에 있는 함수, 오브젝트, 변수 등의 심볼을 검색 가능한 목록으로 표시할 수 있습니다. <kbd>View ▸ Jump to Symbol…</kbd>을 선택하거나, Windows 및 Linux에서는 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>를, macOS에서는 <kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>를 누릅니다.
+
+입력을 시작해 심볼을 퍼지 검색하고, 화살표 키를 사용해 결과 사이를 이동하면서 에디터에서 해당 위치를 미리 본 다음, <kbd>Enter</kbd>를 눌러 선택한 심볼로 이동합니다. <kbd>Esc</kbd>를 누르면 다이얼로그가 닫히고 이전 커서 및 스크롤 위치로 돌아갑니다.
+
+![](/images/editor/jump-to-symbol.png)
+
 ### 린팅 설정 {#linting-configuration}
 
 내장 코드 에디터는 [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html)과 [Lua language server](https://luals.github.io/wiki/diagnostics/)를 사용해 코드 린팅을 수행합니다. Luacheck을 설정하려면 프로젝트 루트에 `.luacheckrc` 파일을 만듭니다. 사용 가능한 옵션 목록은 [Luacheck 설정 페이지](https://luacheck.readthedocs.io/en/stable/config.html)에서 확인할 수 있습니다. Defold는 Luacheck 설정에 다음 기본값을 사용합니다.

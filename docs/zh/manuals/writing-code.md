@@ -36,6 +36,14 @@ Defold 有一个内置代码编辑器，允许您打开和编辑 Lua 文件（.l
 
 ![](/images/editor/apireference.png)
 
+### 跳转到符号 {#jump-to-symbol}
+
+内置代码编辑器可以显示当前代码文件中可搜索的符号列表，例如函数、对象和变量。选择 <kbd>View ▸ Jump to Symbol…</kbd>，或者在 Windows 和 Linux 上按 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>，在 macOS 上按 <kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>。
+
+开始输入以对符号进行模糊搜索，使用方向键在结果中移动并在编辑器中预览其位置，然后按 <kbd>Enter</kbd> 跳转到所选符号。按 <kbd>Esc</kbd> 关闭对话框并返回此前的光标和滚动位置。
+
+![](/images/editor/jump-to-symbol.png)
+
 ### 代码检查配置 {#linting-configuration}
 
 内置代码编辑器使用 [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) 和 [Lua 语言服务器](https://luals.github.io/wiki/diagnostics/) 进行代码检查。要配置 Luacheck，请在项目根目录创建一个 `.luacheckrc` 文件。您可以阅读 [Luacheck 配置页面](https://luacheck.readthedocs.io/en/stable/config.html) 了解可用选项列表。Defold 对 Luacheck 配置使用以下默认值：

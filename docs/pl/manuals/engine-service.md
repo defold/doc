@@ -52,7 +52,7 @@ curl -sS "$ENGINE_URL/info" | jq
 curl -sS "$ENGINE_URL/state" | jq
 ```
 
-Trasa `/post` jest używana przez operacje programistyczne, takie jak szybkie przeładowanie, ponowne uruchamianie, zmiana rozmiaru i sterowanie procesem. Jej treść jest binarną wiadomością Protobuf typu podanego w trasie; nie jest to API wiadomości JSON.
+Trasa `/post` jest używana przez operacje programistyczne, takie jak szybkie przeładowanie, ponowne uruchamianie, zmiana rozmiaru i sterowanie procesem. Jej treść jest binarną wiadomością Protobuf typu podanego w trasie; nie jest to API wiadomości JSON. Zserializowana wiadomość Protobuf nie może być większa niż 1024 bajty; w przeciwnym razie zostanie zwrócona odpowiedź `400 Too large message`.
 
 Trasy te należą do infrastruktury programistycznej. Implementacja silnika zawiera też dodatkowe trasy profilera i sprawdzania zasobów.
 

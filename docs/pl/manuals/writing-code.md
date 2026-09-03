@@ -35,6 +35,14 @@ Naciśnięcie <kbd>CTRL</kbd> + <kbd>Space</kbd> pokazuje dodatkowe informacje o
 
 ![](/images/editor/apireference.png)
 
+### Przejście do symbolu {#jump-to-symbol}
+
+Wbudowany edytor kodu może wyświetlić przeszukiwalną listę symboli w bieżącym pliku kodu, takich jak funkcje, obiekty i zmienne. Wybierz <kbd>View ▸ Jump to Symbol…</kbd> lub naciśnij <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> w systemach Windows i Linux albo <kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> w systemie macOS.
+
+Zacznij pisać, aby wyszukiwać symbole metodą dopasowania rozmytego. Za pomocą klawiszy strzałek poruszaj się po wynikach i podglądaj położenie symboli w edytorze, a następnie naciśnij <kbd>Enter</kbd>, aby przejść do wybranego symbolu. Naciśnij <kbd>Esc</kbd>, aby zamknąć okno dialogowe i wrócić do poprzedniego położenia kursora oraz przewinięcia.
+
+![](/images/editor/jump-to-symbol.png)
+
 ### Konfiguracja lintingu {#linting-configuration}
 
 Wbudowany edytor kodu wykonuje linting przy użyciu [Luacheck](https://luacheck.readthedocs.io/en/stable/index.html) oraz [Lua language server](https://luals.github.io/wiki/diagnostics/). Aby skonfigurować Luacheck, utwórz plik `.luacheckrc` w katalogu głównym projektu. Listę dostępnych opcji znajdziesz na [stronie konfiguracji Luacheck](https://luacheck.readthedocs.io/en/stable/config.html). Defold używa domyślnie następującej konfiguracji Luacheck:
