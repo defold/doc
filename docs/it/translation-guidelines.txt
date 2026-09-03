@@ -1,0 +1,224 @@
+---
+title: Guida alla traduzione italiana
+brief: Regole di stile e terminologia osservate e normalizzate per la documentazione italiana di Defold.
+---
+
+# Guida alla traduzione italiana
+
+Questa guida deriva dalla lettura di tutti i file Markdown presenti in `docs/it`, dalle regole generali del `README.md` del repository e dal consolidamento effettuato in `docs/it/glossary.txt`.
+
+La traduzione italiana è ancora parziale. Il corpus copre bene le FAQ e i temi recenti di automazione, API HTTP, test e agenti, ma non stabilisce ancora ogni termine dell'intera documentazione Defold. Considera il glossario una base operativa da ampliare con attenzione quando vengono tradotti nuovi manuali.
+
+## Regola principale
+
+Traduci in italiano naturale tutto ciò che spiega un concetto, descrive un comportamento o indica al lettore che cosa fare. Mantieni nella grafia originale le stringhe che il lettore deve riconoscere esattamente nell'editor, nell'API, nel codice, nel file system, nella riga di comando o in un servizio esterno.
+
+In pratica:
+
+- traduci la prosa, i titoli, i sottotitoli, i brief, le note, gli avvisi, le didascalie e il testo descrittivo dei link;
+- non tradurre marchi, etichette UI letterali, API, funzioni, callback, messaggi, comandi, campi, chiavi, valori, nomi di file, estensioni, percorsi, URL e output della console;
+- presenta in italiano i concetti ufficiali di Defold e, alla prima menzione, aggiungi l'inglese tra parentesi quando aiuta il lettore a collegarli alla terminologia dell'editor o della documentazione originale.
+
+Esempi:
+
+- `oggetto di gioco (game object)`;
+- `collezione (collection)`;
+- `proxy di collezione (collection proxy)`;
+- `grafo della scena (scene graph)`;
+- `API di automazione a runtime`;
+- `<kbd>Project ▸ Rebuild And Launch</kbd>`.
+
+## Variante, voce e tono
+
+Usa un italiano standard, contemporaneo e adatto alla documentazione tecnica.
+
+- Rivolgiti al lettore con il `tu`, spesso implicito: `puoi`, `seleziona`, `utilizza`, `consulta`, `assicurati`.
+- Usa l'imperativo diretto nelle procedure e l'indicativo nelle spiegazioni.
+- Mantieni un tono pratico e collaborativo, senza formule burocratiche o eccessivamente formali.
+- Preferisci frasi lineari e verbi concreti ai calchi dall'inglese.
+- Evita di cambiare persona nello stesso articolo: non alternare `tu`, `voi` e forme impersonali senza motivo.
+- Usa `Defold` senza articolo quando indichi il prodotto: `Defold supporta`, `un progetto Defold`, `il motore Defold`, `l'editor Defold`.
+
+Esempi coerenti con il corpus:
+
+- `Seleziona <kbd>Help ▸ About</kbd>.`
+- `Utilizza una collezione di test dedicata.`
+- `Consulta il manuale per ulteriori dettagli.`
+- `Non esporre pubblicamente la porta del server.`
+
+Riformula i calchi poco naturali. Per esempio, usa `ha familiarità` invece di `è familiare`, `non scomparirà` invece di `non andrà via`, `conteggio dei riferimenti` invece di `conteggio delle referenze` e `privo di interfaccia grafica` invece di `senza testa` quando `headless` è descrittivo.
+
+## Concetti Defold da tradurre
+
+Nella prosa usa le forme italiane consolidate:
+
+| English term | Forma italiana |
+|---|---|
+| engine | motore |
+| game engine | motore di gioco |
+| game object | oggetto di gioco |
+| component | componente |
+| collection | collezione |
+| collection proxy | proxy di collezione |
+| scene graph | grafo della scena |
+| resource | risorsa |
+| project settings | impostazioni del progetto |
+| editor preview | anteprima dell'editor |
+| runtime screenshot | schermata a runtime |
+| automated testing | test automatici |
+| input focus | focus dell'input |
+| reference count | conteggio dei riferimenti |
+
+Usa l'inglese tra parentesi alla prima menzione quando il termine è fondamentale o quando il lettore lo incontrerà come tipo nell'editor. Dopo la prima menzione, continua con la forma italiana. Torna all'inglese soltanto quando citi una stringa letterale, per esempio l'estensione `.collection`, il percorso `main.collection`, una proprietà o un'etichetta UI.
+
+## Prestiti tecnici intenzionali
+
+Il corpus italiano usa diversi prestiti inglesi comuni nello sviluppo software. Mantienili con coerenza e non alternarli casualmente con traduzioni parziali.
+
+- `runtime`: termine tecnico invariabile. Nei composti tecnici concisi usa forme come `a runtime`, `API di automazione a runtime` e `stato a runtime`; nella prosa esplicativa possono risultare più naturali `durante l'esecuzione` o `in fase di esecuzione`. Usa `in esecuzione` per un processo attivo e riserva `tempo di esecuzione` alla durata di un'operazione.
+- `build`: femminile e invariabile (`una build`, `le build`) quando indica il processo complessivo o il suo artefatto. Usa `compilare` e `compilazione` per la fase specifica di compilazione.
+- `bundle`: maschile e invariabile (`un bundle`, `i bundle`). Usa `pacchetto` solo quando il contesto non richiede il termine tecnico Defold.
+- `script`, `shader`, `sprite`, `atlas`, `layout`, `pipeline`, `backend`, `debugger`, `canvas`, `viewport`, `framework`, `runner`, `mock`, `setup`, `teardown`, `callback`, `timeout`, `polling`, `hot reload`, `wrapper`, `token`, `log` e `report` possono rimanere in inglese.
+- `route` è femminile e invariabile (`una route`, `le route`); `endpoint` è maschile e invariabile.
+- `API` è femminile e invariabile (`l'API`, `le API`); `URL` è maschile nel corpus (`l'URL`, `gli URL`).
+- Distingui `resource` da `asset`: traduci il concetto Defold `resource` con `risorsa`; `asset` può rimanere in inglese quando indica contenuti di produzione del gioco, pacchetti di asset o un termine tecnico stabilito. Mantieni `Asset Portal` come nome proprio.
+- `headless` può rimanere tale in espressioni tecniche come `build headless`; nella spiegazione usa `senza interfaccia grafica`.
+
+Consulta il glossario prima di introdurre un nuovo prestito. Se la forma italiana è chiara e già attestata, preferiscila.
+
+## Build, compilazione e creazione di bundle
+
+Non trattare questi termini come sinonimi perfetti:
+
+- `compilare` descrive la compilazione del codice o una fase precisa;
+- `creare una build` descrive il processo Defold complessivo;
+- `build` può indicare anche il risultato prodotto;
+- `creare un bundle` o `bundling` indica la produzione di un pacchetto autonomo per una piattaforma;
+- `ricostruzione` è adatto nella prosa, mentre il comando dell'editor rimane `<kbd>Project ▸ Rebuild And Launch</kbd>`;
+- i comandi `build`, `clean-build` e `build-html5` restano invariati e vanno formattati come codice.
+
+Questa distinzione evita alternanze imprecise tra `build`, `compilazione`, `pacchetto` e `bundle`.
+
+## Interfaccia dell'editor
+
+Il corpus esaminato cita in inglese le etichette dell'editor Defold. Mantienile esattamente come appaiono e non inventare localizzazioni italiane.
+
+Esempi:
+
+- `<kbd>Help ▸ About</kbd>`;
+- `<kbd>Help ▸ Open Editor Server</kbd>`;
+- `<kbd>Help ▸ Create Desktop Entry</kbd>`;
+- `<kbd>Project ▸ Rebuild And Launch</kbd>`;
+- pannello <kbd>Properties</kbd>;
+- vista <kbd>Outline</kbd>;
+- proprietà `Max Nodes` e `Write Log File`;
+- valore <kbd>Extrude Borders</kbd>.
+
+Usa `<kbd>...</kbd>` per un comando, un pulsante o un'azione UI. Usa `▸` nei percorsi di menu nuovi o revisionati. Un'azione del lettore, invece, va tradotta: `<kbd>fai doppio clic</kbd>`, `<kbd>premi e tieni premuto</kbd>`, `trascina` e `seleziona` sono istruzioni, non etichette Defold.
+
+Le etichette dell'interfaccia del sistema operativo possono essere localizzate quando il contesto dichiara esplicitamente un sistema in italiano; non confonderle con le etichette dell'editor Defold.
+
+## API, HTTP e valori letterali
+
+Mantieni invariati:
+
+- funzioni e namespace: `sys.get_engine_info()`, `gui.clone()`, `go.*`, `html5.run()`, `editor.execute()`;
+- callback e messaggi: `on_input()`, `set_parent`, `disable`;
+- file e percorsi: `game.project`, `.internal/editor.port`, `/test/test.collectionc`;
+- route e metodi: `GET /ping`, `POST /eval`, `/openapi.json`, `/command/{command}`;
+- intestazioni e schemi: `Authorization: Bearer`, `Content-Type`, OpenAPI, JSON, Protobuf;
+- comandi e opzioni: `curl`, `jq`, `--port`, `--settings`, `resolve build bundle`;
+- codici e messaggi HTTP: `200`, `202`, `400`, `422`, `503`, `400 Too large message`;
+- campi e valori strutturati: `success`, `issues`, `suite_start`, `duration_ms`, `pass`;
+- nomi di prodotti, piattaforme e servizi: Defold, Lua, JavaScript, Bob, Automation Bridge, macOS, Windows, Linux, iOS, Android, HTML5, App Store.
+
+Traduci la spiegazione che circonda tali valori. Per esempio, scrivi `Il comando \`build\` compila ed esegue il progetto`, senza tradurre il nome del comando.
+
+## Codice e commenti
+
+Segui la regola del `README.md`: non tradurre i blocchi di codice né i commenti al loro interno.
+
+- Conserva indentazione, spaziatura, stringhe, identificatori, commenti, prompt della shell e output di esempio.
+- Non rinominare variabili, ID, oggetti, messaggi, file, directory o percorsi per farli sembrare italiani.
+- Non modificare il contenuto di esempi JSON, Lua, Python, shell, PowerShell, INI o testo della console.
+- Usa i backtick per i letterali tecnici nella prosa: `game.project`, `max_count`, `/eval`.
+- Se un commento inglese necessita di una spiegazione italiana, aggiungila fuori dal blocco di codice invece di modificare l'esempio.
+
+## Markdown, front matter e struttura
+
+- Conserva i delimitatori e le chiavi del front matter YAML; traduci i valori testuali di `title` e `brief`.
+- Conserva la gerarchia dei titoli e la struttura di elenchi, tabelle, definizioni e blocchi di codice.
+- Non cambiare gli anchor espliciti, per esempio `{#tests-in-a-running-collection}`.
+- Conserva le direttive speciali e i loro identificatori, per esempio `::: important`, `::: sidenote` e le inclusioni `:[install](../shared/install.md)`.
+- Conserva destinazioni dei link, URL, percorsi delle immagini e nomi dei file.
+- Traduci il testo descrittivo dei link e il testo alternativo delle immagini. Mantieni il testo originale soltanto se è un nome proprio, un simbolo API, un'etichetta UI o un altro letterale.
+- Non aggiungere o rimuovere barre finali dagli URL e non correggere anchor nell'ambito di una semplice traduzione.
+
+Esempio:
+
+- `[Project settings](/manuals/project-settings/#debug)` diventa `[impostazioni del progetto](/manuals/project-settings/#debug)`;
+- `[gui.clone()](/ref/gui/#gui.clone:node)` rimane invariato;
+- `![Editor overview](images/introduction/editor.png)` diventa `![Panoramica dell'editor](images/introduction/editor.png)`.
+
+## Maiuscole, sigle e grafia
+
+- Usa la minuscola per nomi comuni: `editor`, `motore`, `progetto`, `collezione`, `componente`, `risorsa`, `server`.
+- Mantieni le maiuscole dei nomi propri e delle etichette letterali: `Defold`, `Defold Foundation`, `Automation Bridge`, `Properties`.
+- Usa le grafie ufficiali: `Lua`, `JavaScript`, `OpenAPI`, `Protobuf`, `GitHub`, `macOS`, `iOS`, `App Store`.
+- Mantieni in maiuscolo le sigle: `API`, `FAQ`, `GUI`, `HTTP`, `HTML5`, `JSON`, `PNG`, `CI`, `IA`, `LLM`, `MCP`, `IDE`, `SDK`, `SHA1`, `IDFA`.
+- Nella prosa usa `ID`; usa `id` soltanto quando riproduce un campo, parametro o identificatore letterale.
+- Usa apostrofi e accenti italiani corretti: `l'editor`, `un'API`, `perché`, `poiché`, `più`, `sì`.
+
+## FAQ
+
+Mantieni il formato già stabilito nel file italiano:
+
+- `#### D: ...` per la domanda;
+- `R: ...` per la risposta.
+
+Traduci i titoli delle sezioni e il testo descrittivo dei link. Mantieni in originale i nomi ufficiali di servizi, categorie o proprietà, per esempio `Work for hire`, `App Store`, `ParticleFx`, `Max Nodes` e `Extrude Borders`.
+
+## Agenti e intelligenza artificiale
+
+Usa `IA` nella prosa italiana, non alternare casualmente `AI` e `IA`.
+
+- Alla prima menzione: `modello linguistico di grandi dimensioni (Large Language Model, LLM)`.
+- Poi: `LLM`, `modello`, `agente di programmazione IA`, `modello multimodale`.
+- Mantieni `Model Context Protocol (MCP)` come nome ufficiale.
+- Mantieni i nomi propri Claude Code, Codex, Cursor e Automation Bridge.
+- `skill`, `prompt`, `sandbox`, `worktree` e `container` possono rimanere in inglese quando indicano concetti tecnici precisi; spiegali in italiano alla prima menzione se il pubblico potrebbe non conoscerli.
+
+## Residui inglesi e incoerenze
+
+Non considerare automaticamente autorevole ogni forma già presente nei file italiani. La revisione iniziale ha rilevato calchi, testi alternativi non tradotti e alternanze tra italiano e inglese.
+
+Quando revisioni un articolo:
+
+- sostituisci `collection` e `game object` nella prosa con `collezione` e `oggetto di gioco`;
+- usa `editor`, mai `editore`, per il programma;
+- usa `motore` nella prosa, mantenendo `engine` soltanto in stringhe e nomi letterali;
+- distingui `runtime` da `tempo di esecuzione` e `build` da `compilazione` come descritto sopra;
+- traduci `resource` con `risorsa`, ma conserva `asset` quando indica contenuti di produzione del gioco, un nome proprio o un termine tecnico stabilito;
+- correggi grafie come `Javascript`, `LUA` e `AppStore` in `JavaScript`, `Lua` e `App Store`;
+- traduci titoli, link e testi alternativi inglesi quando non sono letterali;
+- conserva l'inglese in UI, API, codice, file, percorsi, comandi, output, marchi e nomi ufficiali;
+- correggi i calchi soltanto quando il significato è chiaro; non reinterpretare contenuti tecnici ambigui.
+
+## Controllo finale
+
+Prima di consegnare una traduzione italiana:
+
+1. confronta concetti ripetuti con `docs/it/glossary.txt`;
+2. verifica che la prosa usi `collezione`, `oggetto di gioco`, `motore`, `editor` e `risorsa` in modo coerente;
+3. verifica che `runtime`, `build`, `bundle` e `compilazione` siano usati con il significato corretto;
+4. controlla che UI, API, file, percorsi, URL, comandi, messaggi e codice siano rimasti letterali;
+5. cerca residui inglesi fuori da codice e nomi propri;
+6. controlla front matter, anchor, inclusioni, link, immagini, tabelle e blocchi di codice;
+7. cerca marker di conflitto come `<<<<<<<`, `=======` e `>>>>>>>`;
+8. rileggi il testo come italiano autonomo, non come traduzione parola per parola.
+
+## Criterio pratico
+
+Se il lettore deve trovare o digitare una stringa esatta nell'editor, nell'API, nel codice, nel file system, in una console o in un servizio, mantienila nella grafia originale.
+
+Se il testo spiega che cosa significa quella stringa o come usarla, traducilo in italiano naturale.

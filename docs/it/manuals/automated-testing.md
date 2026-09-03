@@ -5,19 +5,19 @@ brief: Questo manuale spiega come progettare, eseguire e documentare test Defold
 
 # Test automatici e verifica
 
-I test automatici verificano il codice e i contenuti Defold tramite prove esplicite e leggibili dalle macchine. Usa questo manuale per progettare test che funzionino allo stesso modo con script locali, runner CI (Continuous Integration) e agenti di programmazione. Il manuale tratta test dei moduli, collection in esecuzione, test nel browser, automazione a runtime, controlli visivi e build headless, oltre a fornire buone pratiche utili.
+I test automatici verificano il codice e i contenuti Defold tramite prove esplicite e leggibili dalle macchine. Usa questo manuale per progettare test che funzionino allo stesso modo con script locali, runner di CI (integrazione continua) e agenti di programmazione. Il manuale tratta test di modulo, collezioni in esecuzione, test nel browser, automazione a runtime, controlli visivi e build headless, oltre a fornire buone pratiche utili.
 
 ## Livelli di verifica {#verification-levels}
 
-I buoni livelli di test automatico seguono il modello della piramide dei test, che suddivide i test in tre livelli principali: test unitari, test di integrazione e test end-to-end (E2E). In Defold puoi separare i test in collection specifiche caricabili al bootstrap. In genere è opportuno iniziare dal controllo più circoscritto e veloce in grado di rilevare il problema, aggiungendo poi test a runtime o specifici della piattaforma quando necessario.
+I buoni livelli di test automatico seguono il modello della piramide dei test, che suddivide i test in tre livelli principali: test unitari, test di integrazione e test end-to-end (E2E). In Defold puoi separare i test in collezioni specifiche caricabili al bootstrap. In genere è opportuno iniziare dal controllo più circoscritto e veloce in grado di rilevare il problema, aggiungendo poi test a runtime o specifici della piattaforma quando necessario.
 
 | Livello | Prove adatte |
 | --- | --- |
 | Convalida statica | Parser, formatter, validatore di risorse o confronto di file generati |
 | Test di modulo | Risultati delle asserzioni per la logica Lua riutilizzabile con dipendenze minime dal motore |
-| Collection in esecuzione | Messaggi, componenti, input, fisica, ciclo di vita e comportamento del motore |
+| Collezione in esecuzione | Messaggi, componenti, input, fisica, ciclo di vita e comportamento del motore |
 | Automazione a runtime | Stato della scena in esecuzione, input iniettato, stato dell'applicazione e schermate a runtime |
-| Test browser HTML5 | Input nel canvas, integrazione con il browser, comportamento della viewport e output web |
+| Test HTML5 nel browser | Input nel canvas, integrazione con il browser, comportamento della viewport e output web |
 | Test di piattaforma | Comportamento e rendering dalla piattaforma di destinazione effettiva |
 | Build e bundle | Stato di uscita di Bob, report di build, archivio e artefatti del bundle |
 
@@ -31,9 +31,9 @@ Separa il codice che interagisce con il motore dalla logica che richiama. Uno sc
 
 Per ulteriori dettagli, consulta il [manuale Scrivere codice](/manuals/writing-code).
 
-## Test in una collection in esecuzione {#tests-in-a-running-collection}
+## Test in una collezione in esecuzione {#tests-in-a-running-collection}
 
-Utilizza una collection di test dedicata quando il comportamento dipende da game object, componenti, messaggi, input, fisica o altri sistemi del motore.
+Utilizza una collezione di test dedicata quando il comportamento dipende da oggetti di gioco, componenti, messaggi, input, fisica o altri sistemi del motore.
 
 Ogni test dovrebbe:
 
@@ -43,7 +43,7 @@ Ogni test dovrebbe:
 4. rimuovere le risorse create;
 5. emettere una descrizione strutturata del risultato.
 
-Prediligi collection di test isolate. Un progetto può selezionare una collection di bootstrap per i test tramite un'impostazione temporanea del progetto in `game.project`:
+Prediligi collezioni di test isolate. Un progetto può selezionare una collezione di bootstrap per i test tramite un'impostazione temporanea del progetto in `game.project`:
 
 ```ini
 [bootstrap]
@@ -52,13 +52,13 @@ main_collection = /test/test.collectionc
 
 Non lasciare un bootstrap di test temporaneo nella configurazione normale del progetto. Nella CI, prediligi un file di impostazioni dedicato passato a Bob. La CI non può modificare lo stato del repository; dovrebbe apportare soltanto modifiche temporanee quando necessario.
 
-Per i giochi complessi, puoi creare piccole collection "stanze di sviluppo" con scenari predefiniti e semplici volumi provvisori. Rendono le meccaniche riproducibili e agevolano lo sviluppo e i test senza dover attraversare sezioni e stati di gioco non pertinenti.
+Per i giochi complessi, puoi creare piccole collezioni usate come "stanze di sviluppo", con scenari predefiniti e semplici volumi provvisori. Rendono le meccaniche riproducibili e agevolano lo sviluppo e i test senza dover attraversare sezioni e stati di gioco non pertinenti.
 
 ### Framework di test {#test-frameworks}
 
 I progetti possono implementare un piccolo runner o utilizzare una [libreria di test della comunità](https://defold.com/assets/?tag=testing).
 
-Ad esempio, [DefTest](https://defold.com/assets/deftest/) è una libreria di test unitari basata su Telescope. Supporta suite, funzioni di setup e teardown, asserzioni, filtri per nome, mock per determinate API Defold e la copertura facoltativa LuaCov. I test possono essere eseguiti da una collection di bootstrap dedicata, anche in un bundle headless creato con Bob.
+Ad esempio, [DefTest](https://defold.com/assets/deftest/) è una libreria di test unitari basata su Telescope. Supporta suite, funzioni di setup e teardown, asserzioni, filtri per nome, mock per determinate API Defold e la copertura facoltativa LuaCov. I test possono essere eseguiti da una collezione di bootstrap dedicata, anche in un bundle headless creato con Bob.
 
 ## Risultati dei test strutturati {#structured-test-results}
 
@@ -89,13 +89,13 @@ Defold può anche salvare il log del gioco abilitando `Write Log File` in `game.
 
 Il progetto può utilizzare le funzioni integrate `print()` e `pprint()` oppure, ad esempio, qualsiasi altra [libreria di logging](https://defold.com/assets/?tag=logging) disponibile nel nostro Asset Portal.
 
-## Testare un gioco in esecuzione tramite un'API runtime {#testing-a-running-game-through-a-runtime-api}
+## Testare un gioco in esecuzione tramite un'API di runtime {#testing-a-running-game-through-a-runtime-api}
 
 Un'API di automazione a runtime può ispezionare e controllare un motore di debug in esecuzione. Può essere utilizzata quando i test devono trovare oggetti a runtime, iniettare input, attendere uno stato visibile o acquisire il risultato renderizzato.
 
 Per ulteriori dettagli, consulta il [manuale del servizio del motore](/manuals/engine-service/#automation-bridge-extension).
 
-L'esempio seguente utilizza la struttura dell'helper Python di [Automation Bridge](https://github.com/defold/extension-automation-bridge). Il progetto deve includere una versione compatibile dell'estensione di debug, esporre un elemento con l'id di automazione specificato e pubblicare lo stato dell'applicazione `screen`:
+L'esempio seguente utilizza la struttura dell'helper Python di [Automation Bridge](https://github.com/defold/extension-automation-bridge). Il progetto deve includere una versione compatibile dell'estensione di debug, esporre un elemento con l'ID di automazione specificato e pubblicare lo stato dell'applicazione `screen`:
 
 ```python
 from automation_bridge import editor
@@ -113,7 +113,7 @@ finally:
     game.close_engine()
 ```
 
-Gli stati definiti dall'applicazione e gli id di automazione utilizzano l'API Lua facoltativa e disponibile soltanto in modalità debug di Automation Bridge, che il progetto deve abilitare e pubblicare. Un'attesa fissa è sensibile alla velocità del computer e alla temporizzazione dei fotogrammi; un polling circoscritto di uno stato definito è più affidabile.
+Gli stati definiti dall'applicazione e gli ID di automazione utilizzano l'API Lua facoltativa di Automation Bridge, disponibile soltanto in modalità debug. Il progetto deve abilitare l'API ed esporre esplicitamente tali dati. Un'attesa fissa è sensibile alla velocità del computer e alla temporizzazione dei fotogrammi; un polling circoscritto di uno stato definito è più affidabile.
 
 Automation Bridge è un'estensione, non fa parte del motore principale. Consulta il relativo [riferimento API Python](https://github.com/defold/extension-automation-bridge/tree/master/automation_bridge/automation-bridge-python) per selettori, attese, stato, eventi, schermate e diagnostica della versione installata.
 
@@ -137,7 +137,7 @@ Mantieni circoscritti i test nel browser. Nel report finale, distingui tra error
 
 ## Anteprime dell'editor e schermate a runtime per l'ispezione visiva {#editor-previews-and-runtime-screenshots}
 
-È possibile creare una schermata dei file di risorse nella vista scena predefinita dell'editor aperto o di un gioco a runtime.
+È possibile acquisire una schermata di una risorsa nella vista predefinita della scena dell'editor aperto oppure di un gioco a runtime.
 
 | Metodo | Scopo |
 | --- | --- |

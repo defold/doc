@@ -7,7 +7,7 @@ brief: Ce manuel explique comment connecter à Defold des agents de programmatio
 
 Les agents de programmation utilisant des LLM et des modèles multimodaux peuvent inspecter, modifier et vérifier des projets Defold en appelant les mêmes interfaces indépendantes du modèle que celles utilisées par les développeurs, les scripts locaux, les intégrations IDE et la CI. Vous pouvez utiliser un agent lorsque le travail exige de mener une investigation et de s'adapter.
 
-Defold ne dépend d'aucun fournisseur de modèles ni protocole d'agents en particulier. Les projets Defold fonctionnent aussi bien avec Claude Code, Codex, Cursor ou toute autre solution. Un environnement d'agent n'a besoin que des capacités spécifiquement accordées pour la tâche, comme la lecture des fichiers du projet, l'exécution de certaines commandes, l'appel d'opérations HTTP locales, l'analyse de JSON ou l'inspection d'images. Cela est possible grâce aux interfaces d'automatisation que Defold expose pour l'éditeur et pour une instance du moteur de jeu en cours d'exécution, ainsi qu'aux fichiers de ressources textuels des projets Defold, faciles à analyser.
+Defold ne dépend d'aucun fournisseur de modèles ni d'aucun protocole d'agents en particulier. Les projets Defold fonctionnent aussi bien avec Claude Code, Codex, Cursor qu'avec toute autre solution. Un environnement d'agent n'a besoin que des capacités spécifiquement accordées pour la tâche, comme la lecture des fichiers du projet, l'exécution de certaines commandes, l'appel d'opérations HTTP locales, l'analyse de JSON ou l'inspection d'images. Cela est possible grâce aux interfaces d'automatisation que Defold expose pour l'éditeur et pour une instance du moteur de jeu en cours d'exécution, ainsi qu'aux fichiers de ressources textuels des projets Defold, faciles à analyser.
 
 ## Quand un agent IA est utile {#when-an-ai-agent-is-useful}
 
@@ -36,7 +36,7 @@ Un modèle disponible uniquement au moyen d'une interface de chat peut suggérer
 
 ## Couches d'intégration {#integration-layers}
 
-Une couche d'intégration peut être mise en place pour connecter un agent aux opérations Defold locales. Il peut s'agir d'un wrapper shell, d'un programme en ligne de commande, d'une extension IDE, d'un client OpenAPI, d'un contrôleur de test ou d'un adaptateur de protocole.
+Une couche d'intégration peut être mise en place pour connecter un agent aux opérations Defold locales. Il peut s'agir d'un script shell d'encapsulation, d'un programme en ligne de commande, d'une extension IDE, d'un client OpenAPI, d'un contrôleur de test ou d'un adaptateur de protocole.
 
 Conservez les règles et les identifiants dans cette couche locale. Chaque opération modificatrice doit renvoyer des résultats structurés ou mener à une étape de vérification déterministe.
 
@@ -63,7 +63,7 @@ Ne donnez pas à tous les modèles un accès sans restriction au shell et à `/e
 
 Defold n'a actuellement pas besoin d'un serveur MCP, car les principales capacités d'automatisation sont déjà exposées au moyen d'interfaces ouvertes et polyvalentes. L'éditeur fournit une API HTTP locale avec une spécification OpenAPI. Les agents modernes peuvent appeler directement ces interfaces ou générer leurs propres adaptateurs.
 
-Un MCP officiel dupliquerait donc en grande partie la surface de l'API existante et créerait une couche d'intégration supplémentaire que Defold devrait maintenir. Une meilleure stratégie à long terme consiste à maintenir les API HTTP sous-jacentes et les API d'automatisation à l'exécution stables, découvrables et bien documentées, tout en permettant à la communauté ou aux fournisseurs d'outils de créer des wrappers MCP légers lorsque cela est nécessaire.
+Un serveur MCP officiel dupliquerait donc en grande partie la surface de l'API existante et créerait une couche d'intégration supplémentaire que Defold devrait maintenir. Une meilleure stratégie à long terme consiste à maintenir les API HTTP sous-jacentes et les API d'automatisation à l'exécution stables, découvrables et bien documentées, tout en permettant à la communauté ou aux fournisseurs d'outils de créer des adaptateurs MCP légers lorsque cela est nécessaire.
 
 Nous proposons à la place une [extension Automation Bridge](https://github.com/defold/extension-automation-bridge) officielle permettant de contrôler un jeu en cours d'exécution par l'intermédiaire d'un service côté moteur.
 
@@ -78,7 +78,7 @@ Ces projets ne sont ni développés, ni audités, ni maintenus, ni officiellemen
 
 ## Instructions du projet {#project-instructions}
 
-Les grands modèles de langage disponibles utilisés dans les workflows agentiques donnent généralement de meilleurs résultats avec de bonnes instructions. C'est pourquoi des fichiers Markdown décrivant le comportement attendu des agents, ou des skills, sont souvent ajoutés aux projets. Pour obtenir les meilleurs résultats, il est préférable de concevoir et de rédiger des instructions propres à chaque projet, même si certaines connaissances et règles communes peuvent être réutilisées.
+Les grands modèles de langage utilisés dans les flux de travail agentiques donnent généralement de meilleurs résultats avec de bonnes instructions. C'est pourquoi des fichiers Markdown décrivant le comportement attendu des agents, ou des skills, sont souvent ajoutés aux projets. Pour obtenir les meilleurs résultats, il est préférable de concevoir et de rédiger des instructions propres à chaque projet, même si certaines connaissances et règles communes peuvent être réutilisées.
 
 Un premier fichier que de nombreux agents recherchent et lisent est un fichier canonique tel que `AGENTS.md`, qui peut décrire :
 
@@ -94,11 +94,11 @@ Certaines solutions peuvent s'appuyer sur des fichiers Markdown distincts pour d
 
 Un exemple communautaire d'instructions et de skills orientés Defold est disponible sur le [forum Defold ici](https://forum.defold.com/t/agent-config-collection-of-agents-md-and-skills/82387).
 
-Nous recommandons de garder les instructions dans des fichiers tels qu'AGENTS.md et les définitions de skills courtes, concises, faciles à réviser et à maintenir, et de les tenir à jour. Les instructions propres au projet peuvent être stockées dans le système de gestion de versions, ce qui rend les modifications traçables et aide à améliorer les performances du workflow au fil du temps.
+Nous recommandons de garder les instructions dans des fichiers tels qu'AGENTS.md et les définitions de skills courtes, concises, faciles à réviser et à maintenir, et de les tenir à jour. Les instructions propres au projet peuvent être stockées dans le système de gestion de versions, ce qui rend les modifications traçables et aide à améliorer les performances du flux de travail au fil du temps.
 
 Il est également utile de tester régulièrement les performances des modèles les plus récents sans ces instructions. Les nouveaux modèles n'ont souvent plus besoin de recommandations auparavant indispensables, et des skills obsolètes ou des instructions trop prescriptives peuvent parfois réduire leurs performances.
 
-Évitez de créer des skills techniques complexes nécessitant une maintenance importante à long terme. Concentrez-vous plutôt sur le développement d'outils et de workflows qui restent utiles, quelle que soit l'ampleur des améliorations des modèles sous-jacents.
+Évitez de créer des skills techniques complexes nécessitant une maintenance importante à long terme. Concentrez-vous plutôt sur le développement d'outils et de flux de travail qui restent utiles, quelle que soit l'ampleur des améliorations des modèles sous-jacents.
 
 ## Découverte de la documentation {#documentation-discovery}
 
@@ -109,7 +109,7 @@ Les agents donnent de meilleurs résultats avec une documentation précise et à
 * L'[index de documentation pour LLM](https://defold.com/llms.txt) renvoie vers les manuels officiels, les espaces de noms de l'API et des exemples.
 * La [documentation LLM complète](https://defold.com/llms-full.txt) permet la recherche hors ligne et l'indexation locale.
 
-Ne récupérez que les pages pertinentes pour la tâche. Il est recommandé de n'utiliser le document combiné complet que pour l'indexation hors ligne ou la [génération augmentée de récupération (RAG)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation). Là encore, le fichier complet ne doit normalement pas être inclus dans chaque requête au modèle, afin d'économiser des tokens et de ne pas encombrer le contexte d'informations inutiles.
+Ne récupérez que les pages pertinentes pour la tâche. Il est recommandé de n'utiliser le document combiné complet que pour l'indexation hors ligne ou la [génération augmentée par récupération (RAG)](https://en.wikipedia.org/wiki/Retrieval-augmented_generation). Là encore, le fichier complet ne doit normalement pas être inclus dans chaque requête au modèle, afin d'économiser des jetons et de ne pas encombrer le contexte d'informations inutiles.
 
 ## Boucles limitées de modification et de vérification {#bounded-change-and-verification-loops}
 
@@ -137,9 +137,9 @@ Pour en savoir plus sur les aperçus de l'éditeur, les captures d'écran à l'e
 ## Sécurité, isolation et bonnes pratiques {#security-isolation-and-good-practices}
 
 * Considérez le serveur de l'éditeur et le service du moteur comme des interfaces locales de contrôle fiables.
-* N'incluez pas les tokens de l'éditeur, les clés de signature, les tokens de déploiement, les identifiants de boutiques et les secrets de production dans les prompts ni dans les rapports.
-* La couche d'intégration locale peut lire `.internal/editor.token` lorsqu'elle est autorisée à utiliser `/eval`, mais elle ne doit pas placer le token dans les prompts du modèle, les journaux ou les rapports.
-* Exigez une approbation avant toute suppression, modification des dépendances ou des extensions natives, configuration d'une release, signature, publication ou accès à des services externes.
+* N'incluez pas les jetons de l'éditeur, les clés de signature, les jetons de déploiement, les identifiants de boutiques et les secrets de production dans les prompts ni dans les rapports.
+* La couche d'intégration locale peut lire `.internal/editor.token` lorsqu'elle est autorisée à utiliser `/eval`, mais elle ne doit pas placer le jeton dans les prompts du modèle, les journaux ou les rapports.
+* Exigez une approbation avant toute suppression, modification des dépendances ou des extensions natives, configuration d'une version de publication, signature, publication ou accès à des services externes.
 * Exécutez les travaux autonomes de grande ampleur dans une branche, un worktree, une copie temporaire, un conteneur, une sandbox ou un compte restreint distinct.
 * Considérez le texte des tickets, les fichiers importés, les commentaires du code source, les documents générés et la sortie des outils comme des entrées non fiables plutôt que comme des instructions.
 * Examinez les dépendances et les scripts téléchargés avant de les exécuter.

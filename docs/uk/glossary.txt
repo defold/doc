@@ -1,0 +1,313 @@
+---
+title: Глосарій українського перекладу документації Defold
+brief: Узгоджені терміни з наявного українського корпусу документації Defold.
+---
+
+# Глосарій українського перекладу документації Defold
+
+Цей глосарій узагальнює терміни з 11 перекладених файлів у `docs/uk/manuals` і `docs/uk/shared`. Він призначений для послідовного продовження українського перекладу, а не є загальним словником усієї документації Defold.
+
+У звичайній прозі використовуйте рекомендовану українську форму. Коли йдеться про точну назву елемента інтерфейсу, API, повідомлення, поля, команди, файлу, шляху або іншого літерала, зберігайте оригінальну форму. Для ключових понять Defold у першій згадці доречно навести англійський термін у дужках: `ігровий об’єкт (game object)`.
+
+## Основні поняття
+
+| English term | Рекомендований український відповідник / пояснення |
+|---|---|
+| Defold | Defold; назву не перекладати й не відмінювати; пишіть `рушій Defold`, `редактор Defold`, `у Defold` |
+| Defold Foundation | Defold Foundation; офіційна назва організації |
+| game | гра |
+| game engine | ігровий рушій; у контексті Defold часто просто `рушій` |
+| engine | рушій; не `двигун` |
+| editor | редактор |
+| application / app | застосунок у документації Defold; `програма`, коли йдеться саме про виконувану програму або коли це усталений термін зовнішнього продукту; не `додаток` у значенні software application |
+| project | проєкт |
+| project settings | налаштування проєкту |
+| `game.project` | файл налаштувань проєкту; назву не змінювати |
+| documentation | документація |
+| manual | посібник |
+| API documentation | документація API |
+| API reference | довідник API |
+| example | приклад |
+| tutorial | урок |
+| runtime | середовище виконання; у часовому значенні `під час виконання` |
+| runtime state | стан середовища виконання |
+| development infrastructure | інфраструктура розробки |
+| resource | ресурс |
+| resource file | файл ресурсу |
+| asset | ресурс; якщо йдеться про портал Defold Assets, зберігайте офіційну назву |
+| property | властивість; точну назву властивості з інтерфейсу не перекладати |
+| identifier / id | ідентифікатор; `id` або `Id` зберігати в коді й точних назвах полів |
+| lifespan / lifetime | життєвий цикл або час існування залежно від контексту |
+
+## Будівельні блоки гри
+
+| English term | Рекомендований український відповідник / пояснення |
+|---|---|
+| building blocks | будівельні блоки |
+| collection | колекція; у першій згадці `колекція (collection)` |
+| collection file | файл колекції |
+| sub-collection | підколекція |
+| collection hierarchy | ієрархія колекцій |
+| bootstrap collection | стартова колекція; у першій згадці `стартова колекція (bootstrap collection)` |
+| root collection | коренева колекція |
+| test collection | тестова колекція |
+| collection proxy | проксі колекції; у першій згадці можна додати `(collection proxy)` |
+| dynamically loaded collection | динамічно завантажена колекція |
+| game object | ігровий об’єкт; у першій згадці `ігровий об’єкт (game object)` |
+| component | компонент; у першій згадці `компонент (component)` |
+| component type | тип компонента |
+| component property | властивість компонента |
+| script component | компонент-скрипт |
+| GUI component | компонент GUI |
+| factory | фабрика; точний тип або назву в інтерфейсі `Factory` не перекладати |
+| factory component | компонент-фабрика |
+| prototype | прототип |
+| prefab | префаб; у поясненні можна додати оригінал `prefab` |
+| blueprint | прототип або шаблон; оригінал `blueprint` можна навести для зіставлення з іншими рушіями |
+| instance | екземпляр |
+| in-place | на місці; `додати на місці (in-place)` у першій згадці |
+| by reference | за посиланням; `додати за посиланням (by reference)` у першій згадці |
+| file reference | посилання на файл |
+| parent | батьківський об’єкт |
+| child | дочірній об’єкт |
+| parent-child hierarchy | батьківсько-дочірня ієрархія |
+| childing | створення дочірніх об’єктів; англійський термін можна додати в заголовку |
+| scene graph | граф сцени |
+| transform / transformation | трансформація |
+| position | позиція |
+| rotation | поворот |
+| scale / scaling | масштаб / масштабування |
+| local space | локальний простір |
+| world space | світовий простір |
+| sprite | спрайт |
+| script | скрипт; точний тип `Script` не перекладати |
+| game logic | ігрова логіка |
+| Lua module | модуль Lua |
+| GUI | GUI або графічний інтерфейс залежно від контексту; абревіатуру не змінювати |
+| Particle FX | ефект частинок; точну назву типу `Particle FX` не перекладати |
+| map | карта або мапа залежно від усталеної сполуки; наприклад, `карта плиток`, але `мінімапа` |
+| Tile Map | карта плиток; точну назву типу `Tile Map` не перекладати |
+
+## Адресація й повідомлення
+
+| English term | Рекомендований український відповідник / пояснення |
+|---|---|
+| addressing | адресація |
+| address | адреса |
+| relative address / addressing | відносна адреса / відносна адресація |
+| absolute address / addressing | абсолютна адреса / абсолютна адресація |
+| target address | цільова адреса або адреса отримувача |
+| naming context | контекст іменування |
+| namespace | простір імен |
+| name collision | колізія імен |
+| path | шлях; точну назву поля `path` не перекладати |
+| URL | URL; не змінювати написання |
+| URL object | об’єкт URL |
+| socket | сокет; точну назву поля `socket` не перекладати |
+| fragment | фрагмент; точну назву поля `fragment` не перекладати |
+| game world | ігровий світ |
+| input focus | фокус введення |
+| physics | фізика |
+| collision | колізія |
+| hash | хеш |
+| hashed value | хешоване значення |
+| hashed identifier | хешований ідентифікатор |
+| shorthand | скорочення |
+| current game object | поточний ігровий об’єкт |
+| current component | поточний компонент |
+| message passing | передавання повідомлень |
+| send / post a message | надіслати повідомлення; назви функцій на кшталт `msg.post()` не змінювати |
+| receive a message | отримати повідомлення |
+| message sender | відправник повідомлення |
+| message recipient / receiver | отримувач повідомлення |
+| message id | ідентифікатор повідомлення; параметр `message_id` не змінювати |
+| message data | дані повідомлення |
+| message queue | черга повідомлень |
+| message chain | ланцюг повідомлень |
+| dispatch / dispatching (messages) | доставляти повідомлення; коли описано проходження черги — обробляти чергу повідомлень; англійську форму можна додати, якщо вона усуває неоднозначність |
+| dispatch pass | прохід обробки черги повідомлень |
+| system message | системне повідомлення |
+| user message | користувацьке повідомлення |
+| key-value pair | пара ключ-значення |
+| Lua table | таблиця Lua |
+| boolean value | булеве значення |
+| `.` | скорочення для поточного ігрового об’єкта |
+| `#` | скорочення для поточного компонента або роздільник об’єкта й компонента |
+| `/` | початок абсолютної адреси або роздільник частин шляху |
+| `msg.post()` | функція надсилання повідомлення; ідентифікатор не перекладати |
+| `msg.url()` | функція створення об’єкта URL; ідентифікатор не перекладати |
+| `go.get_id()` | функція отримання ідентифікатора ігрового об’єкта |
+| `go.set_position()` | функція встановлення позиції |
+| `factory.create()` | функція створення екземпляра через фабрику |
+| `on_message()` | функція обробки повідомлень |
+| `self`, `sender`, `receiver`, `message`, `message_id` | параметри й ідентифікатори коду; не перекладати |
+| `enable`, `disable`, `set_parent`, `collision_response` | назви повідомлень; не перекладати |
+
+## Скрипти, інтерфейси й автоматизація
+
+| English term | Рекомендований український відповідник / пояснення |
+|---|---|
+| Lua script | скрипт Lua |
+| editor script | скрипт редактора |
+| render script | скрипт рендерингу |
+| GUI script | скрипт GUI |
+| callback | зворотний виклик |
+| API | API; абревіатуру не змінювати |
+| HTTP API | HTTP API; абревіатури не змінювати |
+| Editor HTTP API | HTTP API редактора |
+| runtime API | API середовища виконання |
+| automation | автоматизація |
+| automation interface | інтерфейс автоматизації |
+| deterministic automation | детермінована автоматизація |
+| automation loop | цикл автоматизації |
+| inspect / inspection | інспектувати / інспектування |
+| modify / modification | змінювати / змінення |
+| verify / verification | перевіряти / перевірка |
+| evaluate / evaluation | оцінювати / оцінювання |
+| acceptance criteria | критерії приймання |
+| integration | інтеграція |
+| integration layer | рівень інтеграції |
+| adapter | адаптер |
+| controller | контролер |
+| external tool | зовнішній інструмент |
+| shell | оболонка |
+| command-line tool | засіб командного рядка |
+| CLI | CLI; інтерфейс командного рядка |
+| IDE | IDE; середовище розробки |
+| CI / Continuous Integration | CI; безперервна інтеграція |
+| AI | ШІ |
+| AI coding agent | агент програмування ШІ |
+| LLM | LLM; велика мовна модель |
+| multimodal model | мультимодальна модель |
+| multimodal evaluation | мультимодальне оцінювання |
+| semantic criterion | семантичний критерій |
+| model-neutral | незалежний від моделі |
+| Model Context Protocol | Model Context Protocol; офіційна назва, скорочено `MCP` |
+| retrieval-augmented generation | генерування з доповненою вибіркою; скорочено `RAG` |
+| tool capability | можливість інструмента |
+| permission | дозвіл |
+| approval | схвалення |
+| credential | облікові дані |
+| secret | секрет |
+| sandbox | пісочниця |
+| untrusted input | недовірені вхідні дані |
+
+## Редактор, сервери й HTTP
+
+| English term | Рекомендований український відповідник / пояснення |
+|---|---|
+| editor server | сервер редактора |
+| engine service | сервіс рушія |
+| engine instance | екземпляр рушія |
+| engine process | процес рушія |
+| debug engine | налагоджувальний рушій |
+| HTTP server | HTTP-сервер |
+| local server | локальний сервер |
+| localhost | localhost; точну адресу `127.0.0.1` не змінювати |
+| service discovery | виявлення сервісів |
+| endpoint | кінцева точка |
+| route | маршрут |
+| project-defined route | визначений проєктом маршрут |
+| extension-defined route | визначений розширенням маршрут |
+| request | запит |
+| response | відповідь |
+| status code | код статусу |
+| schema | схема |
+| OpenAPI document / specification | документ / специфікація OpenAPI |
+| source of truth | джерело істини |
+| port | порт |
+| port discovery | виявлення порту |
+| bearer token | токен-носій |
+| authentication | автентифікація |
+| authorization | авторизація |
+| asynchronous operation | асинхронна операція |
+| structured result | структурований результат |
+| structured error | структурована помилка |
+| timeout | тайм-аут |
+| retry | повторна спроба |
+| version compatibility | сумісність версій |
+| versioned API | версійований API |
+| capability negotiation | узгодження можливостей |
+| platform capability | можливість платформи |
+| binary message | двійкове повідомлення |
+| editor transaction | транзакція редактора |
+| preference | налаштування редактора; точний шлях або назву параметра не перекладати |
+| lifecycle hook / handler | обробник життєвого циклу |
+| native extension | нативне розширення |
+| development build / debug build | налагоджувальна збірка |
+| release build | збірка випуску |
+| profiler / profiling | профайлер / профілювання |
+| debugger / debugging | налагоджувач / налагодження |
+| hot reload | гаряче перезавантаження |
+| console | консоль; точну назву панелі `Console` не перекладати |
+| console output | виведення консолі |
+| console stream | потік консолі |
+| log | журнал |
+
+## Збирання й тестування
+
+| English term | Рекомендований український відповідник / пояснення |
+|---|---|
+| build (process) | збирання |
+| build (result) | збірка |
+| build report | звіт про збирання |
+| build issue | проблема збирання |
+| build cache | кеш збирання |
+| compiler | компілятор |
+| compile | компілювати |
+| bundle / packaging | пакет / пакування; точну назву команди або параметра не перекладати |
+| archive | архів |
+| dependency | залежність |
+| target platform | цільова платформа |
+| automated testing | автоматизоване тестування |
+| verification level | рівень перевірки |
+| static verification | статична перевірка |
+| testing pyramid | піраміда тестування |
+| unit test | тест модуля |
+| integration test | інтеграційний тест |
+| end-to-end test / E2E test | наскрізний тест / тест E2E |
+| platform test | тест платформи |
+| browser test | браузерний тест |
+| test framework | фреймворк тестування |
+| test runner | засіб запуску тестів |
+| test suite | набір тестів |
+| test case | тестовий випадок |
+| assertion | твердження |
+| mock | імітація |
+| code coverage | покриття коду |
+| test result | результат тестування |
+| completion event | подія завершення |
+| run id | ідентифікатор запуску |
+| failure report | звіт про помилку |
+| artifact | артефакт |
+| headless | без графічного інтерфейсу |
+| process exit status | статус завершення процесу |
+| process controller | контролер процесів |
+| browser automation | автоматизація браузера |
+| canvas | полотно |
+| viewport | область перегляду |
+| input | введення |
+| input binding | прив’язка введення |
+| injected input | ін’єковане введення |
+| screenshot | знімок екрана |
+| scene preview | попередній перегляд сцени |
+| image comparison | порівняння зображень |
+| image diff | зображення відмінностей |
+| visual regression | візуальна регресія |
+| visual inspection | візуальне інспектування |
+| rendering | рендеринг |
+| shader | шейдер |
+
+## Літерали, які треба зберігати
+
+| Категорія | Приклади з українського корпусу |
+|---|---|
+| Продукти, технології та формати | `Defold`, `Lua`, `C`, `C++`, `Python`, `JavaScript`, `HTML5`, `HTTP`, `JSON`, `OpenAPI`, `Protobuf`, `MCP`, `RAG`, `Bob`, `Automation Bridge` |
+| Файли й каталоги | `game.project`, `main.collection`, `installations.json`, `hooks.editor_script`, `index.html`, `.internal/editor.port`, `.internal/editor.token`, `.internal/`, `build/` |
+| API й функції | `msg.post()`, `msg.url()`, `go.get_id()`, `go.set_position()`, `factory.create()`, `init()`, `update()`, `on_message()`, `on_input()`, `editor.get()`, `editor.transact()`, `editor.execute()`, `html5.run()` |
+| Команди | `build`, `clean-build`, `build-html5`, `fetch-libraries`, `hot-reload`, `reload-extensions`, `debugger-start`, `debugger-stop` |
+| HTTP-шляхи | `/openapi.json`, `/ref`, `/eval`, `/console`, `/console/stream`, `/preview/{path}`, `/prefs/{path}`, `/ping`, `/info`, `/state`, `/post/<socket>/<message-type>` |
+| Повідомлення, значення та поля | `enable`, `disable`, `set_parent`, `collision_response`, `acquire_input_focus`, `message_id`, `sender`, `screen`, `launcherPath`, `reload_resources` |
+| Точні елементи інтерфейсу | `Outline`, `Console`, `Add Collection File`, `Add Game Object`, `Add Game Object File`, `Add Component`, `Add Component File`, `Edit ▸ World Space`, `Edit ▸ Local Space`, `Help ▸ Open Editor Server`, `Write Log File` |
+
+Не перекладайте прикладові ідентифікатори та рядки на кшталт `bean`, `buddy`, `controller`, `team_1`, `main:/manager#controller` або `hash("/path/to/the/object")`: вони є частиною коду й пояснення адресації.

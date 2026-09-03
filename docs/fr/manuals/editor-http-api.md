@@ -34,7 +34,7 @@ L'argument facultatif `--port` ou `-p` sélectionne le port du serveur de l'édi
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-L'éditeur est une application graphique pour ordinateur. Démarrez-la dans une session utilisateur interactive ayant accès à l'affichage. Utilisez [Bob](/manuals/bob) lorsqu'aucune session graphique n'est disponible, par exemple dans une CI headless, ou pour une automatisation limitée à la compilation et pour créer des bundles autonomes.
+L'éditeur est une application graphique pour ordinateur. Démarrez-la dans une session utilisateur interactive ayant accès à l'affichage. Utilisez [Bob](/manuals/bob) lorsqu'aucune session graphique n'est disponible, par exemple dans un environnement de CI sans interface graphique, ou pour une automatisation limitée à la compilation et pour créer des bundles autonomes.
 
 Après avoir démarré l'éditeur, attendez que le projet soit ouvert et que `.internal/editor.port` existe. Interrogez ensuite `/openapi.json` jusqu'à ce qu'il renvoie un document valide. Ne supposez pas que la création du processus signifie que le projet est prêt.
 
@@ -247,7 +247,7 @@ Les paramètres de recherche sont les suivants :
 
 Il existe également des ressources de documentation condensées : l'[index de documentation pour LLM](https://defold.com/llms.txt) renvoie vers les manuels officiels, les espaces de noms de l'API et des exemples, tandis que la [documentation LLM complète](https://defold.com/llms-full.txt) fournit la documentation complète pour la recherche hors ligne et l'indexation locale.
 
-Les agents IA doivent toutefois préférer des recherches ciblées au téléchargement d'une référence complète lorsqu'une seule API ou un seul message est nécessaire, afin d'économiser des tokens et de disposer d'un contexte mieux préparé et plus clair pour une tâche donnée.
+Les agents IA doivent toutefois préférer des recherches ciblées au téléchargement d'une référence complète lorsqu'une seule API ou un seul message est nécessaire, afin d'économiser des jetons et de disposer d'un contexte mieux préparé et plus clair pour une tâche donnée.
 
 ## Lire la sortie de la console {#reading-console-output}
 
@@ -312,13 +312,13 @@ Un aperçu de l'éditeur n'est pas une capture d'écran du jeu en cours d'exécu
 
 ## Exécuter du code Lua dans l'éditeur {#executing-editor-lua}
 
-L'opération authentifiée `POST /eval` exécute du code Lua dans l'environnement des extensions de l'éditeur. Le token bearer propre à la session est stocké dans :
+L'opération authentifiée `POST /eval` exécute du code Lua dans l'environnement des extensions de l'éditeur. Le jeton Bearer propre à la session est stocké dans :
 
 ```text
 .internal/editor.token
 ```
 
-Lisez le token et exécutez le code :
+Lisez le jeton et exécutez le code :
 
 ```sh
 TOKEN="$(cat .internal/editor.token)"
@@ -335,13 +335,13 @@ La sortie imprimée et les valeurs de retour sont renvoyées sous forme de texte
 | État | Signification |
 | --- | --- |
 | `200` | Le code a été exécuté |
-| `401` | Le token bearer est absent ou non valide |
+| `401` | Le jeton Bearer est absent ou non valide |
 | `422` | Le code Lua n'a pas pu être analysé ou exécuté |
 | `503` | L'environnement des extensions de l'éditeur n'est pas prêt |
 
 Un client peut réessayer après une erreur `503`, mais il doit limiter le nombre de tentatives. Corrigez le code avant de répéter une requête qui a renvoyé `422`.
 
-Le code évalué peut utiliser l'[API de l'éditeur](https://defold.com/ref/editor-lua/) et l'environnement des scripts de l'éditeur. Il ne peut pas utiliser les API d'exécution du jeu telles que `go.*` pour manipuler un jeu en cours d'exécution. Utilisez un test d'exécution, le débogueur, un test dans un navigateur ou une [API d'automatisation à l'exécution](/manuals/engine-service/#automation-bridge-extension) pour le gameplay.
+Le code évalué peut utiliser l'[API de l'éditeur](https://defold.com/ref/editor-lua/) et l'environnement des scripts de l'éditeur. Il ne peut pas utiliser les API d'exécution du jeu telles que `go.*` pour manipuler un jeu en cours d'exécution. Utilisez un test d'exécution, le débogueur, un test dans un navigateur ou une [API d'automatisation à l'exécution](/manuals/engine-service/#automation-bridge-extension) pour le comportement du jeu.
 
 ### Modifier les ressources et les fichiers {#modifying-resources-and-files}
 
@@ -414,7 +414,7 @@ curl -sS \
 
 L'éditeur valide la valeur par rapport à son schéma de préférences. Un chemin ou une valeur non valide renvoie l'état HTTP `400`.
 
-Les préférences sont des paramètres persistants propres à l'utilisateur ou au projet et à l'utilisateur ; il ne s'agit pas de la configuration du projet stockée dans `game.project`. Si l'automatisation doit modifier temporairement une préférence, enregistrez sa valeur précédente et restaurez-la ensuite.
+Les préférences sont des paramètres persistants associés à l'utilisateur ou au couple projet-utilisateur ; il ne s'agit pas de la configuration du projet stockée dans `game.project`. Si l'automatisation doit modifier temporairement une préférence, enregistrez sa valeur précédente et restaurez-la ensuite.
 
 ## Routes définies par le projet {#project-defined-routes}
 
@@ -424,7 +424,7 @@ Les routes définies par le projet peuvent assurer la génération de contenu, l
 
 Une bonne route doit effectuer une opération au nom explicite, valider son entrée, renvoyer un résultat structuré, être idempotente lorsque cela est possible et limiter les travaux coûteux.
 
-Les routes définies par le projet ne sont pas automatiquement protégées par le token `/eval`. Ajoutez une authentification propre au projet et des contrôles de sécurité lorsqu'une route effectue des opérations sensibles.
+Les routes définies par le projet ne sont pas automatiquement protégées par le jeton de `/eval`. Ajoutez une authentification propre au projet et des contrôles de sécurité lorsqu'une route effectue des opérations sensibles.
 
 ## Hooks de cycle de vie {#lifecycle-hooks}
 
@@ -462,9 +462,9 @@ Une erreur déclenchée dans `on_build_started()` arrête le build de l'éditeur
 Considérez l'ensemble du serveur de l'éditeur comme une interface locale fiable :
 
 * N'exposez pas publiquement l'accès au port.
-* Protégez `.internal/editor.token` ; il autorise `/eval` pour la session actuelle.
+* Protégez `.internal/editor.token` ; ce jeton autorise `/eval` pour la session actuelle.
 * N'accordez pas à des tiers un accès sans restriction à `/eval`.
-* Conservez le token dans la couche d'intégration locale plutôt que dans les prompts, les rapports ou les journaux.
+* Conservez le jeton dans la couche d'intégration locale plutôt que dans les prompts, les rapports ou les journaux.
 * N'oubliez pas que les routes définies par le projet n'héritent pas de l'authentification `/eval`.
 * Utilisez un `/openapi.json` à jour.
 * Utilisez des attentes limitées pour les commandes automatiques asynchrones et pour le démarrage de l'éditeur.

@@ -1,0 +1,236 @@
+---
+title: Glossaire français de la documentation Defold
+brief: Terminologie établie à partir des manuels français disponibles dans docs/fr.
+---
+
+# Glossaire français de la documentation Defold
+
+Ce glossaire rassemble les termes attestés dans le corpus français actuel. Il sert à poursuivre la traduction avec un vocabulaire cohérent. Le corpus étant encore restreint, il ne couvre que les sujets déjà traduits : introduction, adressage, automatisation, API HTTP de l'éditeur, service du moteur, tests automatisés et agents IA. Les recommandations sont propres au contexte Defold : choisissez toujours le sens qui convient au passage au lieu d'effectuer un remplacement mécanique.
+
+Employez la forme française dans la prose. Conservez la forme anglaise exacte lorsqu'il s'agit d'une marque, d'un libellé d'interface, d'un symbole d'API, d'une commande, d'un nom de fichier, d'un chemin, d'un identifiant, d'une valeur de configuration ou d'une chaîne que le lecteur doit reconnaître ou saisir telle quelle.
+
+## Defold, projets et ressources
+
+| English term | Traduction française / remarque |
+|---|---|
+| Defold | Defold ; marque, ne pas traduire |
+| Defold Foundation | Defold Foundation ; nom officiel, ne pas traduire |
+| Defold Editor | éditeur Defold dans la prose ; conserver `Defold Editor` si le nom officiel est cité littéralement |
+| editor | éditeur |
+| engine | moteur |
+| game engine | moteur de jeu |
+| engine instance | instance du moteur |
+| project | projet |
+| open project | projet ouvert |
+| project file | fichier du projet |
+| project settings | paramètres du projet |
+| `game.project` | `game.project` ; nom de fichier, ne pas traduire |
+| resource | ressource |
+| project resource | ressource du projet |
+| asset | ressource dans la prose générique ; conserver le nom officiel `Asset Portal` |
+| source file | fichier source |
+| generated content | contenu généré |
+| dependency | dépendance |
+| extension | extension |
+| native extension | extension native |
+| platform | plateforme |
+| target platform | plateforme cible |
+| application | application |
+| game | jeu |
+| game logic | logique du jeu |
+| source code | code source |
+| version control system | système de gestion de versions |
+| repository | dépôt |
+| artifact | artefact |
+
+## Structure d'un jeu
+
+| English term | Traduction française / remarque |
+|---|---|
+| game object | objet de jeu ; à la première mention : `objet de jeu (game object)` |
+| current game object | objet de jeu actuel |
+| component | composant ; à la première mention : `composant (component)` si l'anglais aide à reconnaître le concept dans l'éditeur |
+| sprite component | composant sprite |
+| script component | composant script |
+| collection | collection |
+| collection file | fichier de collection |
+| collection instance | instance de collection |
+| bootstrap collection | collection bootstrap |
+| root collection | collection racine ; préciser `collection bootstrap` si c'est bien la collection chargée au démarrage |
+| hierarchy | hiérarchie |
+| root | racine |
+| scene | scène |
+| scene graph | graphe de scène |
+| game world | monde de jeu ; l'anglais peut être indiqué à la première mention |
+| collection proxy | proxy de collection ; à la première mention : `proxy de collection (collection proxy)` |
+| prototype | prototype |
+| prefab | prefab ; expliquer à la première mention si le contexte ne suffit pas |
+| sprite | sprite |
+| script | script |
+| factory | factory si le type de composant ou l'API est visé ; fabrique dans une explication générique |
+| GUI | interface graphique ; conserver `GUI` dans un nom de type ou d'API |
+| atlas | atlas |
+| tile map / tilemap | tilemap lorsque le type de ressource Defold est visé ; carte de tuiles dans une explication générique |
+| shader | shader |
+| input | entrée |
+| rendering | rendu |
+
+## Adressage et messages
+
+| English term | Traduction française / remarque |
+|---|---|
+| addressing | adressage |
+| address | adresse |
+| relative addressing | adressage relatif |
+| absolute addressing | adressage absolu |
+| identifier / id | identifiant dans la prose ; conserver la propriété littérale `Id` et les noms de variables |
+| hashed identifier | identifiant haché |
+| hash / hashed value | hachage / valeur hachée |
+| naming context | contexte de nommage |
+| namespace | espace de noms ; l'anglais `namespace` peut suivre entre parenthèses à la première mention |
+| naming collision | collision de noms |
+| path | chemin dans la prose ; conserver `path` pour le champ exact d'un objet URL |
+| absolute path | chemin absolu |
+| URL | URL |
+| URL object | objet URL |
+| URL string | chaîne URL |
+| socket | `socket` lorsqu'il s'agit du champ exact d'une URL Defold |
+| fragment | `fragment` lorsqu'il s'agit du champ exact d'une URL Defold |
+| string | chaîne de caractères dans la prose ; conserver `string` pour un type ou un littéral exact |
+| message | message |
+| message passing | échange de messages |
+| sender | expéditeur |
+| recipient / addressee | destinataire |
+| target | cible |
+| separator | séparateur |
+| `msg.post()` | fonction d'envoi de message ; ne pas traduire |
+| `msg.url()` | fonction de construction d'un objet URL ; ne pas traduire |
+| `go.get_id()` | symbole d'API ; ne pas traduire |
+| `disable`, `contact`, `ouch!` | noms ou valeurs de messages d'exemple ; conserver exactement |
+| `#`, `/`, `.` | caractères d'adressage ; conserver exactement |
+
+## Build, bundle et exécution
+
+| English term | Traduction française / remarque |
+|---|---|
+| build (noun) | build lorsque le processus ou son résultat Defold est visé ; compilation ou génération dans une explication générique selon le contexte |
+| build (verb) | compiler, générer ou créer un build selon le contexte |
+| build report | rapport de build |
+| build result | résultat du build |
+| build failure | échec du build |
+| build identifier | identifiant du build |
+| clean build | build propre ; conserver la commande exacte `clean-build` |
+| HTML5 build | build HTML5 |
+| bundle (noun) | bundle lorsque l'artefact autonome Defold produit pour une plateforme est visé ; paquet ou regroupement dans un autre contexte selon le sens |
+| bundle (verb) | créer ou générer un bundle |
+| bundling | création de bundles |
+| archive | archive |
+| runtime | `à l'exécution`, `en cours d'exécution`, `environnement d'exécution` ou `moteur d'exécution` selon le sens ; conserver `runtime` comme valeur ou nom littéral |
+| runtime API | API d'exécution |
+| runtime state | état d'exécution |
+| running game | jeu en cours d'exécution |
+| Debug | `Debug` lorsqu'il s'agit de la variante exacte ; débogage dans la prose |
+| Release | `Release` lorsqu'il s'agit de la variante exacte ; version de publication dans une explication |
+| headless | sans interface graphique dans la prose ; `sans interface graphique (headless)` à la première mention si l'anglais aide ; conserver `headless` dans une variante, une option ou un nom exact |
+| hot reload | rechargement à chaud ; conserver la commande exacte `hot-reload` |
+| command line | ligne de commande |
+| CLI | CLI ou interface en ligne de commande |
+| Bob | Bob ; nom de l'outil de build en ligne de commande |
+| `dmengine` | `dmengine` ; nom du processus, ne pas traduire |
+
+## Éditeur et API HTTP
+
+| English term | Traduction française / remarque |
+|---|---|
+| editor server | serveur de l'éditeur |
+| engine service | service du moteur |
+| HTTP API | API HTTP |
+| OpenAPI document | document OpenAPI |
+| source of truth | source de vérité |
+| endpoint | point de terminaison |
+| route | route |
+| built-in endpoint | point de terminaison intégré |
+| project-defined route | route définie par le projet |
+| request | requête |
+| response | réponse |
+| response body | corps de la réponse |
+| status code | code d'état |
+| port | port |
+| dynamically assigned port | port attribué dynamiquement |
+| localhost | localhost ; l'adresse littérale reste `127.0.0.1` |
+| editor command | commande de l'éditeur |
+| asynchronous work | travail asynchrone |
+| timeout | délai d'expiration |
+| console output | sortie de la console |
+| log | journal |
+| stream | flux |
+| preview | aperçu |
+| scene preview | aperçu de scène |
+| preference | préférence |
+| editor script | script de l'éditeur |
+| editor transaction | transaction de l'éditeur |
+| lifecycle hook | hook de cycle de vie ; conserver les noms de fonctions exacts |
+| bearer token | jeton Bearer lorsqu'il s'agit du schéma d'authentification exact ; jeton du porteur dans une explication générale |
+| access token | jeton d'accès |
+| authentication | authentification |
+| authorization | autorisation |
+| `Help ▸ Open Editor Server` | libellé et chemin de menu exacts ; ne pas traduire |
+| `Write Log File` | nom de paramètre exact dans `game.project` ; ne pas traduire |
+| `Basic 3D` | nom de modèle exact ; ne pas traduire |
+
+## Automatisation, tests et agents IA
+
+| English term | Traduction française / remarque |
+|---|---|
+| automation | automatisation |
+| deterministic automation | automatisation déterministe |
+| automation loop | boucle d'automatisation |
+| workflow | flux de travail dans le développement logiciel ; `flux de travaux` existe dans certains contextes industriels ou administratifs, mais ne doit pas être substitué mécaniquement |
+| inspect, change, verify, evaluate | inspecter, modifier, vérifier, évaluer |
+| integration layer | couche d'intégration |
+| adapter | adaptateur |
+| wrapper | outil, couche ou script d'encapsulation selon l'objet ; `wrapper` reste attesté dans certaines documentations de développement et peut être conservé pour un concept établi ; adaptateur seulement si l'élément convertit réellement une interface ou un protocole en un autre |
+| shell tool / shell script | outil shell / script shell |
+| task runner | exécuteur de tâches |
+| AI agent | agent IA |
+| coding agent | agent de programmation |
+| model-neutral | indépendant du modèle |
+| large language model / LLM | grand modèle de langage / LLM |
+| token (LLM) | jeton textuel ; jeton lorsque le contexte est clair |
+| multimodal model | modèle multimodal |
+| prompt | prompt ; préférer `instructions envoyées au modèle` si cela clarifie le sens |
+| skill | skill lorsqu'il s'agit de l'artefact d'instructions reconnu par un agent ; expliquer à la première mention |
+| Model Context Protocol / MCP | Model Context Protocol (MCP) ; nom de protocole |
+| Automation Bridge | Automation Bridge ; nom officiel de l'extension, ne pas traduire |
+| bridge (generic) | passerelle dans la prose générique |
+| permission | autorisation |
+| approval | approbation |
+| privileged operation | opération privilégiée |
+| sandbox | environnement isolé ; `sandbox` est acceptable comme terme technique expliqué à la première mention |
+| automated test | test automatisé |
+| unit test | test unitaire |
+| integration test | test d'intégration |
+| end-to-end test / E2E | test de bout en bout / E2E |
+| test collection | collection de test |
+| test suite | suite de tests |
+| test runner | exécuteur de tests |
+| test framework | framework de test |
+| assertion | assertion |
+| mock | mock ; objet simulé dans une explication destinée aux débutants |
+| continuous integration / CI | intégration continue / CI |
+| structured result | résultat structuré |
+| exit status | état de sortie |
+| test evidence | éléments de preuve du test |
+| failure report | rapport d'échec |
+| screenshot | capture d'écran |
+| visual inspection | inspection visuelle |
+| image comparison | comparaison d'images |
+| viewport | fenêtre d'affichage |
+| browser test | test dans un navigateur |
+| test bridge | passerelle de test |
+
+## Littéraux à préserver
+
+Conservez leur graphie et leur capitalisation pour les marques, plateformes, technologies et formats : `Defold`, `Lua`, `C++`, `JavaScript`, `Python`, `HTML5`, `JSON`, `HTTP`, `OpenAPI`, `Protobuf`, `Claude Code`, `Codex`, `Cursor`, `Automation Bridge`, `Bob`, `DefTest`, `Telescope`, `LuaCov`, `Playwright`, `Puppeteer`, `Selenium`, `WebdriverIO` et `Cypress`.
+
+Conservez également les commandes, méthodes, routes, variables, fichiers, chemins et valeurs exacts, par exemple `build`, `build-html5`, `/openapi.json`, `/eval`, `.internal/editor.port`, `.internal/editor.token`, `AGENTS.md`, `main.collection`, `controller`, `bean`, `buddy` et `team_1`.

@@ -25,7 +25,7 @@ Lorsque l'éditeur démarre un moteur de débogage, il demande un port de servic
 INFO:ENGINE: Engine service started on port <port>
 ```
 
-Cette ligne apparaît dans la console de l'éditeur lorsque le jeu a été lancé depuis celui-ci. Un contrôleur local simple peut l'analyser, mais une intégration réutilisable doit laisser l'éditeur ou son wrapper suivre l'instance du moteur et le port enregistré. Cela évite de confondre un ancien port avec celui d'un processus nouvellement démarré ou réutilisé.
+Cette ligne apparaît dans la console de l'éditeur lorsque le jeu a été lancé depuis celui-ci. Un contrôleur local simple peut l'analyser, mais une intégration réutilisable doit laisser l'éditeur, ou l'outil qui l'encapsule, suivre l'instance du moteur et le port enregistré. Cela évite de confondre un ancien port avec celui d'un processus nouvellement démarré ou réutilisé.
 
 Le moteur annonce également les cibles de développement par la découverte de services sur les plateformes prises en charge. Ce mécanisme est principalement utilisé par les outils Defold et ne doit pas être remplacé par un port codé en dur de manière permanente.
 
@@ -41,7 +41,7 @@ Le moteur de débogage actuel enregistre un petit ensemble de routes principales
 | --- | --- |
 | `GET /ping` | Vérifier que le service du moteur répond |
 | `GET /info` | Lire la version du moteur, la plateforme, l'identifiant du build et les informations du service de journalisation |
-| `GET /state` | Lire l'état de la connexion de développement utilisé par les outils Defold |
+| `GET /state` | Lire l'état de la connexion de développement utilisée par les outils Defold |
 | `POST /post/<socket>/<message-type>` | Envoyer un message Defold encodé en Protobuf à un socket nommé du moteur |
 
 Par exemple :
@@ -73,7 +73,7 @@ Une API d'automatisation à l'exécution définie par une extension doit :
 
 ## Extension Automation Bridge {#automation-bridge-extension}
 
-L'[Automation Bridge](https://github.com/defold/extension-automation-bridge) officielle de Defold est une extension native réservée au débogage et fondée sur le service du moteur. Elle enregistre une API d'automatisation à l'exécution versionnée sous :
+L'extension officielle [Automation Bridge](https://github.com/defold/extension-automation-bridge) de Defold est une extension native réservée au débogage et fondée sur le service du moteur. Elle enregistre une API d'automatisation à l'exécution versionnée sous :
 
 ```text
 http://127.0.0.1:<engine-service-port>/automation-bridge/v1

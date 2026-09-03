@@ -171,7 +171,7 @@ Tra i comandi comunemente utili, quando sono elencati dall'editor in esecuzione,
 `debugger-start`, `debugger-stop` e i comandi di avanzamento del debugger
 : Controllano una sessione di debug e il progetto in esecuzione.
 
-I nomi esatti e la disponibilità dipendono dalla versione dell'editor e dal suo stato corrente; individuali tramite `/openapi.json`.
+I nomi esatti e la disponibilità dipendono dalla versione dell'editor e dal suo stato corrente; ricavali da `/openapi.json`.
 
 I comandi che operano sulle risorse del progetto sincronizzano le modifiche esterne ai file prima dell'esecuzione.
 
@@ -271,7 +271,7 @@ Per l'inquadramento dei risultati dei test e la classificazione degli errori, co
 
 ## Renderizzare le anteprime delle scene {#rendering-scene-previews}
 
-L'editor Defold (a partire dalla versione 1.13.1) può renderizzare in formato PNG una "schermata" di una risorsa scena supportata tramite il comando `/preview/{path}`:
+L'editor Defold (a partire dalla versione 1.13.1) può renderizzare in formato PNG una "schermata" di una risorsa di scena supportata tramite il comando `/preview/{path}`:
 
 ```sh
 mkdir -p build/automation
@@ -281,11 +281,11 @@ curl -sS \
   --output build/automation/main-preview.png
 ```
 
-Questo comando renderizza la collection principale del progetto aperto basato sul modello Basic 3D in una vista iniziale predefinita:
+Questo comando renderizza la collezione principale del progetto aperto basato sul modello Basic 3D in una vista iniziale predefinita:
 
-![Anteprima della collection principale renderizzata dall'editor](images/automation/main-preview.png)
+![Anteprima della collezione principale renderizzata dall'editor](images/automation/main-preview.png)
 
-Puoi utilizzare il rendering per ottenere anteprime delle risorse che usano l'editor visuale delle scene. Ad esempio, puoi renderizzare allo stesso modo un componente modello, così da verificarne l'aspetto o, per esempio, la correttezza dello shader:
+Puoi utilizzare il rendering per ottenere anteprime delle risorse che usano l'editor visivo delle scene. Ad esempio, puoi renderizzare allo stesso modo un componente modello, così da verificarne l'aspetto o, per esempio, la correttezza dello shader:
 
 ```sh
 curl -sS \
@@ -351,7 +351,7 @@ Molte risorse sorgente Defold utilizzano formati testuali e possono essere modif
 | --- | --- |
 | Lua, shader, JSON o un altro formato testuale noto | Modifica diretta del file |
 | Testo non salvato in una scheda aperta dell'editor | `editor.get()` e `editor.transact()` |
-| Collection, game object, GUI, atlas o un'altra risorsa strutturata | Transazione dell'editor |
+| Collezione, oggetto di gioco, GUI, atlas o un'altra risorsa strutturata | Transazione dell'editor |
 | Contenuti generati ripetutamente | Generatore autonomo |
 | Operazione ripetibile sul progetto | Comando dell'editor o endpoint HTTP personalizzato |
 | Trasformazione riservata alla CI | Script autonomo eseguito prima di Bob |
@@ -414,7 +414,7 @@ curl -sS \
 
 L'editor convalida il valore rispetto allo schema delle preferenze. Un percorso o un valore non valido restituisce HTTP `400`.
 
-Le preferenze sono impostazioni persistenti dell'utente o dell'utente del progetto, non configurazioni del progetto archiviate in `game.project`. Se l'automazione deve modificare temporaneamente una preferenza, salva il valore precedente e ripristinalo in seguito.
+Le preferenze sono impostazioni persistenti dell'utente, globali o specifiche del progetto, non configurazioni del progetto archiviate in `game.project`. Se l'automazione deve modificare temporaneamente una preferenza, salva il valore precedente e ripristinalo in seguito.
 
 ## Route definite dal progetto {#project-defined-routes}
 
@@ -428,7 +428,7 @@ Le route definite dal progetto non sono protette automaticamente dal token di `/
 
 ## Hook del ciclo di vita {#lifecycle-hooks}
 
-Gli hook sono funzioni eseguibili prima e dopo le build, prima e dopo la creazione dei bundle e quando un processo di gioco viene avviato o terminato. Un progetto può contenere un file `hooks.editor_script` nella propria root. Soltanto il file hook nella root riceve questi eventi, offrendo al progetto un unico punto in cui definirne l'ordine.
+Gli hook sono funzioni eseguibili prima e dopo le build, prima e dopo la creazione dei bundle e quando un processo di gioco viene avviato o terminato. Un progetto può contenere un file `hooks.editor_script` nella propria directory radice. Soltanto il file hook nella directory radice riceve questi eventi, offrendo al progetto un unico punto in cui definirne l'ordine.
 
 ```lua
 local M = {}

@@ -5,7 +5,7 @@ brief: Ce manuel explique comment concevoir, exécuter et documenter des tests D
 
 # Tests et vérification automatisés {#automated-testing-and-verification}
 
-Les tests automatisés vérifient le code et le contenu Defold à l'aide de preuves explicites et lisibles par une machine. Utilisez ce manuel pour concevoir des tests qui fonctionnent aussi bien avec des scripts locaux, des exécuteurs CI (intégration continue) et des agents de programmation. Il couvre les tests de modules, l'exécution de collections, les tests dans un navigateur, l'automatisation à l'exécution, les contrôles visuels et les builds headless, et présente des bonnes pratiques utiles.
+Les tests automatisés vérifient le code et le contenu Defold à l'aide de preuves explicites et lisibles par une machine. Utilisez ce manuel pour concevoir des tests qui fonctionnent avec des scripts locaux, des exécuteurs de CI (intégration continue) et des agents de programmation. Il couvre les tests de module, l'exécution de collections, les tests dans un navigateur, l'automatisation à l'exécution, les contrôles visuels et les builds sans interface graphique, et présente de bonnes pratiques utiles.
 
 ## Niveaux de vérification {#verification-levels}
 
@@ -58,7 +58,7 @@ Pour les jeux complexes, vous pouvez créer de petites collections de « salles 
 
 Les projets peuvent implémenter un petit exécuteur ou utiliser une [bibliothèque de test communautaire](https://defold.com/assets/?tag=testing).
 
-Par exemple, [DefTest](https://defold.com/assets/deftest/) est une bibliothèque de tests unitaires fondée sur Telescope. Elle prend en charge les suites, les fonctions de préparation et de nettoyage, les assertions, le filtrage par nom, les mocks pour certaines API Defold et, facultativement, la couverture LuaCov. Les tests peuvent s'exécuter à partir d'une collection bootstrap dédiée, y compris dans un bundle headless créé avec Bob.
+Par exemple, [DefTest](https://defold.com/assets/deftest/) est une bibliothèque de tests unitaires fondée sur Telescope. Elle prend en charge les suites, les fonctions de préparation et de nettoyage, les assertions, le filtrage par nom, les mocks pour certaines API Defold et, facultativement, la couverture LuaCov. Les tests peuvent s'exécuter à partir d'une collection bootstrap dédiée, y compris dans un bundle sans interface graphique créé avec Bob.
 
 ## Résultats de test structurés {#structured-test-results}
 
@@ -79,7 +79,7 @@ Incluez un identifiant d'exécution unique afin que la sortie d'un processus anc
 
 ### Collecte de la sortie de la console {#collecting-console-output}
 
-Lorsqu'un jeu s'exécute depuis l'éditeur, celui-ci fournit à la fois l'historique actuel de la console et un flux continu. Fermez le flux après un événement de fin de suite correspondant, l'arrêt du processus, une erreur, ou lorsqu'un délai d'expiration ou une limite de lignes configurés sont atteints.
+Lorsqu'un jeu s'exécute depuis l'éditeur, celui-ci fournit à la fois l'historique actuel de la console et un flux continu. Fermez le flux après un événement de fin de suite correspondant, l'arrêt du processus ou une erreur, ainsi qu'à l'expiration du délai configuré ou lorsque la limite de lignes est atteinte.
 
 Pour en savoir plus, consultez le [manuel de l'API HTTP de l'éditeur](/manuals/editor-http-api/#reading-console-output).
 
@@ -131,13 +131,13 @@ Des outils externes d'automatisation des navigateurs tels que Playwright, Puppet
 
 Les entrées destinées au canvas sont traitées par les liaisons d'entrée normales du projet et les callbacks `on_input()`. Testez à la fois la réponse du jeu et les points d'intégration propres au navigateur.
 
-L'approche la plus fiable consiste à exposer un bridge de test JavaScript explicite dans le fichier `index.html` personnalisé. Du côté de Defold, les builds HTML5 peuvent exécuter du JavaScript avec `html5.run()`, ce qui permet de communiquer avec ce bridge côté navigateur. Pour les commandes qui vont de JavaScript vers Defold, utilisez un bridge dédié entre JavaScript et le moteur.
+L'approche la plus fiable consiste à exposer une passerelle de test JavaScript explicite dans le fichier `index.html` personnalisé. Du côté de Defold, les builds HTML5 peuvent exécuter du JavaScript avec `html5.run()`, ce qui permet de communiquer avec cette passerelle côté navigateur. Pour les commandes qui vont de JavaScript vers Defold, utilisez une passerelle dédiée entre JavaScript et le moteur.
 
 Limitez les tests dans le navigateur. Distinguez dans le rapport final l'échec du chargement de la page, l'absence du canvas, une erreur JavaScript, l'expiration du test et l'échec d'une assertion du jeu.
 
 ## Aperçus de l'éditeur et captures d'écran à l'exécution pour l'inspection visuelle {#editor-previews-and-runtime-screenshots}
 
-Il est possible de créer une capture d'écran des fichiers de ressources dans la vue de scène par défaut de l'éditeur ouvert ou d'un jeu en cours d'exécution.
+Il est possible de créer une capture d'écran d'une ressource dans la vue de scène par défaut de l'éditeur ouvert, ou d'un jeu en cours d'exécution.
 
 | Méthode | Objectif |
 | --- | --- |
@@ -148,7 +148,7 @@ Vous pouvez utiliser la comparaison d'images, par exemple pour les tests de rég
 
 Un modèle multimodal peut évaluer lors de l'inspection visuelle des conditions sémantiques difficiles à exprimer autrement, telles qu'un texte tronqué, des contrôles qui se chevauchent, des états de sélection peu clairs ou du contenu hors d'une zone de sécurité. Il est conseillé de considérer cette évaluation comme un signal supplémentaire associé à des critères explicites, et non comme un remplacement des contrôles logiques déterministes ou de la comparaison d'images.
 
-## Tests headless et CI {#headless-tests-and-ci}
+## Tests sans interface graphique et CI {#headless-tests-and-ci}
 
 Utilisez Bob, l'outil de build en ligne de commande, pour une CI indépendante de l'éditeur.
 
@@ -164,7 +164,7 @@ java -jar bob.jar \
   resolve build
 ```
 
-Créez un bundle de test headless avec des paramètres dédiés :
+Créez un bundle de test sans interface graphique avec des paramètres dédiés :
 
 ```sh
 java -jar bob.jar \

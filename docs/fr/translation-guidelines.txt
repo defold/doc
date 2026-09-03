@@ -1,0 +1,176 @@
+---
+title: Guide de traduction française
+brief: Règles de style et de terminologie pour la documentation française de Defold.
+---
+
+# Guide de traduction française
+
+Ce guide est fondé sur les manuels actuellement disponibles dans `docs/fr`. Utilisez `docs/fr/glossary.txt` comme référence terminologique rapide. Le corpus français reste partiel : ne prenez pas un anglicisme isolé, une phrase résiduelle en anglais ou une ancienne formulation maladroite pour une règle de style.
+
+## Règle principale
+
+Traduisez le texte explicatif dans un français naturel, précis et direct. Conservez dans leur langue et leur graphie d'origine les éléments que le lecteur doit reconnaître ou saisir exactement : marques, libellés de l'interface, symboles d'API, noms de fonctions et de messages, commandes, noms de fichiers, chemins, URL, identifiants, clés de configuration, valeurs énumérées, chaînes d'exemple et messages d'erreur.
+
+Dans le doute, appliquez ce test :
+
+- si le texte explique ce qu'est un élément ou comment l'utiliser, traduisez-le ;
+- si le texte reproduit littéralement ce qui apparaît dans l'éditeur, le code, une API, un fichier ou une commande, conservez-le exactement.
+
+## Registre, personne et ton
+
+Utilisez le vouvoiement dans toute la documentation : `vous pouvez`, `sélectionnez`, `vérifiez`, `n'utilisez pas`. N'alternez pas avec `tu`.
+
+- employez l'impératif à la deuxième personne du pluriel pour les instructions : `Ouvrez le projet`, `Attendez la réponse` ;
+- utilisez `nous` lorsque le texte accompagne le lecteur dans une démonstration ou exprime la position de l'équipe Defold ;
+- préférez des phrases actives et concises aux calques de l'anglais ;
+- gardez un ton professionnel et accessible, sans familiarité excessive ;
+- conservez le sens normatif de `must`, `should`, `may` et des avertissements : ne transformez pas une obligation en simple suggestion.
+
+## Terminologie Defold fondamentale
+
+Dans la prose courante, utilisez systématiquement :
+
+| English | Français préféré |
+|---|---|
+| game object | objet de jeu |
+| component | composant |
+| collection | collection |
+| collection file | fichier de collection |
+| bootstrap collection | collection bootstrap |
+| collection proxy | proxy de collection |
+| editor | éditeur |
+| engine | moteur |
+| project | projet |
+| resource | ressource |
+| addressing | adressage |
+| identifier | identifiant |
+| naming context | contexte de nommage |
+| namespace | espace de noms |
+| workflow | flux de travail |
+| runtime | à l'exécution, en cours d'exécution ou environnement d'exécution selon le contexte |
+
+N'utilisez pas `GameObject`, `GameObjects` ou `Collections` comme noms communs dans une phrase française. Ces formes anglaises peuvent apparaître entre parenthèses à la première mention ou lorsqu'elles reproduisent un nom officiel visible dans l'éditeur.
+
+## Première mention d'un concept
+
+Les concepts fondamentaux doivent rester reconnaissables pour un lecteur qui utilise une interface ou une documentation d'API en anglais. À la première mention utile dans un article, donnez la forme française suivie de l'anglais entre parenthèses :
+
+- `objet de jeu (game object)` ;
+- `composant (component)` ;
+- `proxy de collection (collection proxy)` ;
+- `monde de jeu (game world)` ;
+- `espace de noms (namespace)`.
+
+Après cette première mention, utilisez la forme française dans la prose. Réservez l'anglais aux noms de types, libellés, valeurs ou identifiants exacts. Il n'est pas nécessaire d'ajouter l'anglais à chaque occurrence ni pour les mots identiques dans les deux langues, comme `collection`.
+
+## Anglicismes et termes techniques
+
+Préférez la traduction française lorsqu'elle est claire et attestée :
+
+- `workflow` → `flux de travail` ;
+- `runtime` → `à l'exécution`, `en cours d'exécution`, `environnement d'exécution` ou `moteur d'exécution` selon le sens ;
+- `game world` → `monde de jeu` ;
+- `source of truth` → `source de vérité` ;
+- `endpoint` → `point de terminaison` ;
+- `screenshot` → `capture d'écran` ;
+- `wrapper` → `outil`, `couche` ou `script d'encapsulation` selon l'objet ; le mot anglais reste attesté dans certaines documentations de développement et peut être conservé pour un concept établi ; n'employez `adaptateur` que si l'élément convertit réellement une interface ou un protocole en un autre ;
+- `bridge` générique → `passerelle`.
+
+Certains emprunts techniques sont bien établis dans le corpus et peuvent être conservés : `build`, `bundle`, `script`, `sprite`, `shader`, `framework`, `callback`, `mock`, `hook`, `prompt` et `skill`. Expliquez brièvement le terme à sa première mention s'il peut gêner un lecteur débutant. Ne mélangez pas plusieurs traductions d'un même terme dans un article.
+
+Les usages officiels peuvent varier selon le domaine et la variété de français. Ces choix sont destinés à la documentation technique de Defold : validez le sens dans son contexte et évitez les substitutions mot à mot. Par exemple, `flux de travail` convient au développement logiciel, tandis que `flux de travaux` est attesté dans certains processus industriels ou administratifs.
+
+### Build et bundle
+
+Lorsque le nom désigne le processus ou le résultat Defold, utilisez `build` : `un build`, `des builds`, `un rapport de build`, `un build HTML5`. Dans une explication générique, employez plutôt `compilation` ou `génération` si ce mot exprime précisément le sens. Traduisez le verbe selon l'action : `compiler le projet`, `générer un build` ou `créer un build`. Conservez les noms de commandes comme `build`, `clean-build` et `build-html5`.
+
+Utilisez `bundle` pour l'artefact autonome de plateforme produit par Defold : `un bundle`, `des bundles`, `créer un bundle`. Utilisez `paquet` ou `regroupement` uniquement dans un sens général qui ne désigne pas cet artefact. Conservez les commandes et les noms de propriétés exacts.
+
+### Exécution, Debug et Release
+
+Traduisez `runtime` d'après sa fonction dans la phrase : `API d'exécution`, `état d'exécution`, `jeu en cours d'exécution`, `environnement d'exécution` ou, pour le logiciel qui exécute le code, `moteur d'exécution`. Conservez `runtime` lorsqu'il s'agit d'une valeur littérale, par exemple `environment=runtime`.
+
+Conservez `Debug` et `Release` avec leur capitalisation lorsqu'ils désignent les variantes exactes de Defold. Employez `débogage` et `publication` dans les explications générales.
+
+Dans la prose, traduisez `headless` par `sans interface graphique`. La première mention peut être `sans interface graphique (headless)` si l'anglais aide le lecteur à reconnaître le concept. Conservez néanmoins `headless` dans une option, une variante ou un nom exact, comme `--variant headless`.
+
+### Agents IA
+
+Utilisez `agent IA`, `agent de programmation`, `grand modèle de langage (LLM)`, `modèle multimodal`, `couche d'intégration` et `flux de travail agentique`.
+
+Conservez les noms propres et noms de protocoles : `Claude Code`, `Codex`, `Cursor`, `Model Context Protocol (MCP)` et `Automation Bridge`. Le mot `skill` peut être conservé lorsqu'il désigne l'artefact d'instructions reconnu par un agent ; expliquez-le à la première mention et évitez de l'employer comme synonyme vague de compétence.
+
+## Interface utilisateur
+
+Ne traduisez pas de votre propre initiative un libellé visible dans l'éditeur. Conservez sa graphie et sa capitalisation exactes, et placez les commandes ou chemins de menu dans `<kbd>...</kbd>` :
+
+- `<kbd>Help ▸ Open Editor Server</kbd>` ;
+- `Write Log File` si le texte désigne le nom exact du paramètre dans `game.project`.
+
+Utilisez `▸` entre les niveaux d'un chemin de menu. Traduisez l'action qui entoure le libellé : `Sélectionnez <kbd>Help ▸ Open Editor Server</kbd> pour ouvrir la page`.
+
+Un mot anglais n'est pas automatiquement un libellé d'interface. Les titres, explications, légendes et textes de liens ordinaires doivent être traduits.
+
+## Code, API et commentaires
+
+- Ne modifiez pas les blocs de code ni les commentaires qu'ils contiennent.
+- Conservez les fonctions, callbacks, noms de messages et symboles d'API : `msg.post()`, `go.get_id()`, `editor.transact()`, `on_input()`.
+- Conservez les commandes, méthodes et routes : `POST /eval`, `GET /ping`, `/openapi.json`, `build-html5`.
+- Conservez les noms de fichiers, extensions, chemins et variables : `game.project`, `.internal/editor.port`, `$BASE_URL`, `main.collection`.
+- Conservez les identifiants et chaînes d'exemple : `bean`, `buddy`, `controller`, `"disable"`, `team_1`.
+- Utilisez des accents graves pour les littéraux techniques en prose.
+
+Même si un commentaire de code reste en anglais, traduisez le paragraphe qui l'introduit ou l'explique. Ne traduisez jamais une partie d'un identifiant ou d'une chaîne littérale pour la faire ressembler au français.
+
+## Markdown, front matter et liens
+
+- Préservez la structure Markdown, les niveaux de titres, les tableaux, les listes et les blocs de code.
+- Préservez les clés et les délimiteurs du front matter YAML. Traduisez les valeurs textuelles de `title` et `brief`.
+- Préservez les ancres explicites comme `{#rendering-scene-previews}` afin de ne pas casser les liens entrants.
+- Préservez les marqueurs spéciaux tels que `::: sidenote`, `::: important` et les directives d'inclusion ; traduisez seulement leur contenu textuel.
+- Traduisez le texte descriptif des liens et les textes alternatifs des images, mais ne modifiez jamais leur destination ni le chemin de l'image.
+- Préservez les URL, y compris leurs fragments, paramètres et barres obliques finales.
+- N'ajoutez pas de mise en forme à l'intérieur d'un littéral qui doit être copié exactement.
+
+Placez les délimiteurs `::: sidenote` et `::: important` seuls sur leur ligne, puis fermez le bloc par `:::` sur une ligne distincte.
+
+## Typographie française
+
+- Ajoutez une espace insécable avant `:`, `;`, `?` et `!` lorsque l'outil d'édition le permet ; n'ajoutez pas d'espace avant une virgule ou un point.
+- Utilisez les guillemets français `« ... »` pour une citation en prose, et les accents graves pour le code ou les valeurs littérales.
+- Conservez le type d'apostrophe déjà employé dans le fichier et ne mélangez pas ponctuellement apostrophes droites et typographiques ; employez les ligatures françaises comme dans `œil`.
+- Écrivez les nombres de un à neuf en toutes lettres dans la prose, sauf s'il s'agit d'une mesure, d'une version, d'un code d'état ou d'une valeur technique.
+- Dans les titres, utilisez la casse de phrase : seule la première lettre et les noms propres prennent une majuscule.
+- Évitez les majuscules aux noms communs comme `éditeur`, `moteur`, `collection`, `composant` et `objet de jeu`.
+
+## Capitalisation et graphie
+
+Respectez la graphie officielle : `Defold`, `Lua`, `JavaScript`, `OpenAPI`, `HTML5`, `macOS`, `Automation Bridge`, `Asset Portal`.
+
+Conservez les sigles en majuscules : `API`, `HTTP`, `URL`, `JSON`, `GUI`, `IDE`, `CI`, `IA`, `LLM`, `MCP`, `E2E`, `SDK`.
+
+Respectez la capitalisation exacte des libellés, commandes et variantes, même si elle diffère des règles françaises : `Help`, `Open Editor Server`, `Write Log File`, `Debug`, `Release`.
+
+## Contrôle de l'anglais résiduel
+
+Lors d'une révision, recherchez les phrases, titres, légendes et textes de liens restés entièrement en anglais. Traduisez-les sauf s'ils appartiennent à l'une des catégories de littéraux à préserver.
+
+Un passage anglais peut être légitime lorsqu'il s'agit :
+
+- d'un bloc de code ou d'un commentaire de code ;
+- d'un message de console, d'une réponse JSON ou d'une chaîne d'exemple ;
+- d'un libellé exact de l'éditeur ou d'un nom de modèle ;
+- d'un nom de marque, d'outil, de bibliothèque ou de protocole ;
+- d'un nom de fonction, de commande, de fichier, de route, de champ ou de valeur.
+
+Ne copiez pas les anciennes variantes `GameObject`, `GameObjects`, `Collections`, `workflow` ou `runtime` dans la prose française. Corrigez aussi les fautes manifestes, la ponctuation anglaise, les blocs `:::` mal fermés et les restes de conflits Git, tout en préservant les littéraux et le sens technique.
+
+## Vérification pratique
+
+Avant de terminer un article :
+
+1. comparez les concepts importants au glossaire ;
+2. vérifiez le vouvoiement et la cohérence des termes dans tout l'article ;
+3. contrôlez que le code, les identifiants, les chemins, les URL et les ancres n'ont pas changé ;
+4. recherchez les marqueurs de conflit et l'anglais résiduel ;
+5. relisez la typographie, les accords, les accents et les espaces autour des marqueurs Markdown.

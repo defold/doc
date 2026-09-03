@@ -69,7 +69,7 @@ Un'API di automazione a runtime definita da un'estensione dovrebbe:
 * restituire errori strutturati;
 * gestire esplicitamente le funzionalità della piattaforma o del motore non disponibili;
 * limitare le operazioni allo sviluppo e ai test locali;
-* documentare se viene omessa dalle build release.
+* documentare se viene omessa dalle build di release.
 
 ## Estensione Automation Bridge {#automation-bridge-extension}
 
@@ -79,7 +79,7 @@ L'estensione ufficiale [Automation Bridge](https://github.com/defold/extension-a
 http://127.0.0.1:<engine-service-port>/automation-bridge/v1
 ```
 
-La sua API runtime offre funzionalità quali ispezione di scene e nodi, input, informazioni sullo schermo, schermate, registrazione, informazioni sul ciclo di vita e sincronizzazione facoltativa definita dall'applicazione. Alcune operazioni includono:
+La sua API di runtime offre funzionalità quali ispezione di scene e nodi, input, informazioni sullo schermo, schermate, registrazione, informazioni sul ciclo di vita e sincronizzazione facoltativa definita dall'applicazione. Alcune operazioni includono:
 
 | Operazione | Azione |
 | --- | --- |
@@ -89,7 +89,7 @@ La sua API runtime offre funzionalità quali ispezione di scene e nodi, input, i
 
 Consulta la [documentazione dell'API nativa](https://github.com/defold/extension-automation-bridge/tree/master/automation_bridge) e la [documentazione dell'helper Python](https://github.com/defold/extension-automation-bridge/tree/master/automation_bridge/automation-bridge-python) dell'estensione per la versione installata nel progetto.
 
-Automation Bridge non espone né la propria API HTTP né il proprio modulo Lua nelle build release.
+Automation Bridge non espone né la propria API HTTP né il proprio modulo Lua nelle build di release.
 
 ### Client dell'editor e del runtime {#editor-and-runtime-clients}
 

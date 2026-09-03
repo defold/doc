@@ -1,0 +1,431 @@
+---
+title: Glossario italiano della documentazione Defold
+brief: Glossario consolidato a partire dai file italiani già tradotti in docs/it.
+---
+
+# Glossario italiano della documentazione Defold
+
+Questo glossario raccoglie i termini attestati nella traduzione parziale in italiano di `docs/it` e propone forme coerenti per i concetti presenti nei corrispondenti testi inglesi. Il corpus di riferimento comprende nove file Markdown nelle directory `faq`, `manuals` e `shared`, con particolare copertura della panoramica del prodotto, dell'installazione, delle FAQ, dell'automazione, dei test e delle API HTTP.
+
+Usa la forma italiana nella prosa esplicativa. Mantieni la forma inglese quando è un'etichetta letterale dell'interfaccia, un simbolo API, un comando, un messaggio, un campo, un valore, un nome di file, un percorso, un URL, un marchio o un'altra stringa che il lettore deve riconoscere esattamente.
+
+Il corpus italiano è ancora limitato. Le voci non attestate in modo sufficiente devono essere considerate raccomandazioni provvisorie e verificate quando vengono tradotti nuovi manuali.
+
+## Defold e concetti generali
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| Defold | Defold; marchio e nome del prodotto, non tradurre |
+| Defold Foundation | Defold Foundation; organizzazione, non tradurre |
+| Defold Editor | editor Defold nella prosa; conserva `Defold Editor` quando è un nome letterale |
+| editor | editor; non usare `editore` |
+| engine | motore |
+| game engine | motore di gioco |
+| engine runtime | runtime del motore |
+| runtime | runtime; termine tecnico invariabile |
+| at runtime | a runtime nei composti tecnici concisi; `durante l'esecuzione` o `in fase di esecuzione` nella prosa esplicativa; `in esecuzione` per un processo attivo |
+| execution time | tempo di esecuzione; indica una durata, non il runtime come ambiente |
+| game | gioco |
+| gameplay | gameplay; comportamento o dinamiche di gioco quando il contesto è esplicativo |
+| application | applicazione |
+| software | software |
+| product | prodotto |
+| product overview | panoramica del prodotto |
+| feature | funzionalità; caratteristica se il contesto lo richiede |
+| documentation | documentazione |
+| manual | manuale |
+| guide | guida |
+| API documentation | documentazione API / documentazione dell'API |
+| API reference | riferimento API / documentazione di riferimento dell'API |
+| forum | forum |
+| community | comunità |
+| platform | piattaforma |
+| target platform | piattaforma di destinazione |
+| operating system | sistema operativo |
+| tool | strumento |
+| external tool | strumento esterno |
+
+## Progetti, struttura e risorse
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| project | progetto |
+| project file | file di progetto |
+| project settings | impostazioni del progetto |
+| `game.project` | `game.project`; nome di file, non tradurre |
+| resource | risorsa |
+| asset | asset quando indica contenuti di produzione del gioco, pacchetti di asset o un termine tecnico stabilito; non usarlo per tradurre automaticamente il concetto Defold `resource`, che diventa `risorsa`; conserva `Asset Portal` come nome proprio |
+| Asset Portal | Asset Portal; nome del servizio |
+| content | contenuto |
+| file | file |
+| folder | cartella |
+| directory | directory |
+| path | percorso; conserva `path` come nome di campo o identificatore |
+| root | radice; conserva `root` in percorsi, nomi e termini letterali |
+| source code | codice sorgente |
+| dependency | dipendenza |
+| library | libreria |
+| archive | archivio |
+| cache | cache |
+| extension | estensione |
+| native extension | estensione nativa |
+| game object | oggetto di gioco; alla prima menzione può essere `oggetto di gioco (game object)` |
+| component | componente |
+| collection | collezione; alla prima menzione può essere `collezione (collection)` |
+| collection file | file di collezione |
+| main collection | collezione principale |
+| bootstrap collection | collezione di bootstrap |
+| test collection | collezione di test |
+| collection proxy | proxy di collezione |
+| hierarchy | gerarchia |
+| parent-child hierarchy | gerarchia genitore-figlio |
+| parent | genitore |
+| child | figlio |
+| scene | scena |
+| scene graph | grafo della scena; alla prima menzione può essere `grafo della scena (scene graph)` |
+| transform | trasformazione |
+| position | posizione |
+| rotation | rotazione |
+| scale | scala |
+| instance | istanza |
+| instantiate | istanziare |
+| spawn | generare; conserva `spawn` se è un nome letterale o un termine tecnico già introdotto |
+| prefab | prefab; spiega che in Defold è realizzato con collezioni quando necessario |
+| GUI template | modello GUI |
+
+Nomi di file, estensioni e percorsi rimangono invariati anche quando contengono termini inglesi, per esempio `main.collection`, `main.collectionc`, `/test/test.collectionc` e `/preview/main/main.collection`.
+
+## Programmazione e API
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| Lua | Lua; non usare `LUA` |
+| JavaScript | JavaScript; non usare `Javascript` |
+| Python | Python |
+| C / C++ | C / C++ |
+| Objective-C | Objective-C |
+| programming language | linguaggio di programmazione |
+| high-level language | linguaggio di alto livello |
+| code | codice |
+| script | script; invariabile |
+| editor script | script dell'editor |
+| render script | script di rendering |
+| function | funzione |
+| callback | callback; funzione di callback se serve chiarire |
+| module | modulo |
+| identifier | identificatore |
+| ID | ID nella prosa; conserva `id` se è il nome letterale di un campo o parametro |
+| hash | hash |
+| hashed identifier | identificatore hash / identificatore sottoposto a hash |
+| string | stringa nella prosa; conserva `string` come tipo o valore letterale |
+| URL | URL; nel corpus si usa al maschile (`l'URL`, `gli URL`) |
+| socket | socket |
+| message | messaggio |
+| message type | tipo di messaggio |
+| API | API; femminile e invariabile (`l'API`, `le API`) |
+| field | campo |
+| parameter | parametro |
+| schema | schema |
+| enum | enumerazione nella spiegazione; conserva il nome o valore enum letterale |
+| command | comando |
+| command-line tool | strumento a riga di comando |
+| shell | shell |
+| environment variable | variabile d'ambiente |
+
+Conserva sempre funzioni, callback, moduli, campi, valori e messaggi letterali, per esempio `sys.get_engine_info()`, `sys.get_sys_info()`, `gui.clone()`, `go.*`, `html5.run()`, `editor.get()`, `editor.transact()`, `editor.execute()`, `on_input()`, `angular_velocity`, `screen` e `max_count`.
+
+## Build, bundle e distribuzione
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| build | build per il processo o l'artefatto; femminile e invariabile (`una build`, `le build`) |
+| to build / compile | compilare quando indica la compilazione; creare o generare una build quando indica l'intero processo |
+| compilation | compilazione |
+| build process | processo di build |
+| build error | errore di build |
+| build result | risultato della build |
+| build report | report di build |
+| build identifier | identificatore di build |
+| debug build | build di debug |
+| release build | build di release; build di rilascio quando la prosa è interamente italiana |
+| headless build | build headless |
+| rebuild | ricostruzione nella prosa; conserva `Rebuild And Launch` come comando UI |
+| bundle | bundle; maschile e invariabile (`un bundle`, `i bundle`) |
+| bundling | creazione del bundle / bundling secondo il contesto |
+| standalone bundle | bundle autonomo |
+| package | pacchetto |
+| artifact | artefatto |
+| release | release per una versione pubblicata; rilascio per l'azione |
+| beta version | versione beta |
+| stable version | versione stabile |
+| release SHA1 | SHA1 della release; SHA1 di rilascio quando il contesto è inequivocabile |
+| Bob | Bob; strumento di build a riga di comando |
+| Bob CLI | CLI di Bob / Bob dalla riga di comando |
+| command line | riga di comando |
+
+Non sostituire automaticamente `build` con `compilazione`: una build può includere risoluzione delle dipendenze, trasformazione delle risorse, archiviazione e creazione di un bundle oltre alla compilazione.
+
+## Editor, automazione e servizi HTTP
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| automation | automazione |
+| automated action | azione automatizzata |
+| automated workflow | flusso di lavoro automatizzato |
+| deterministic | deterministico |
+| automation loop | ciclo di automazione |
+| inspect, modify, verify, evaluate | ispezionare, modificare, verificare, valutare |
+| editor server | server dell'editor |
+| engine service | servizio del motore |
+| engine server | server del motore |
+| local server | server locale |
+| HTTP service | servizio HTTP |
+| HTTP API | API HTTP |
+| editor HTTP API | API HTTP dell'editor |
+| runtime API | API di runtime se appartiene all'ambiente di esecuzione; API disponibile o usata a runtime se si descrive quando è accessibile |
+| runtime automation API | API di automazione a runtime |
+| editor command | comando dell'editor |
+| editor transaction | transazione dell'editor |
+| editor preference | preferenza dell'editor |
+| lifecycle hook | hook del ciclo di vita |
+| route | route; femminile e invariabile (`una route`, `le route`) |
+| endpoint | endpoint; maschile e invariabile |
+| route prefix | prefisso di route |
+| request | richiesta |
+| response | risposta |
+| status code | codice di stato |
+| HTTP status | stato HTTP |
+| OpenAPI document | documento OpenAPI |
+| operation | operazione |
+| bearer token | token bearer |
+| authentication | autenticazione |
+| port | porta |
+| port forwarding | inoltro di porta |
+| tunnel | tunnel |
+| localhost | localhost; conserva `127.0.0.1` e gli indirizzi letterali |
+| service discovery | rilevamento dei servizi |
+| hot reload | hot reload; ricaricamento a caldo se serve una spiegazione |
+| wrapper | wrapper; adattatore di contorno quando il contesto lo consente |
+| adapter | adattatore |
+| client | client |
+| controller | controller |
+| debugger | debugger |
+| backend | backend |
+| formatter | formatter; strumento di formattazione se serve chiarire |
+| validator | validatore |
+| generator | generatore |
+| preview | anteprima |
+| editor preview | anteprima dell'editor |
+| screenshot | schermata; conserva `screenshot` nei nomi API o di metodo |
+| console output | output della console |
+| log | log; maschile e invariabile |
+| report | report; maschile e invariabile |
+| preference | preferenza |
+
+Conserva route, metodi, intestazioni e codici letterali, per esempio `GET /ping`, `POST /eval`, `/openapi.json`, `/command/{command}`, `/prefs/{path}`, `/preview/{path}`, `Authorization: Bearer`, `200`, `202`, `422` e `503`.
+
+## Test e integrazione continua
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| automated testing | test automatici |
+| verification | verifica |
+| test level | livello di test |
+| testing pyramid | piramide dei test |
+| unit test | test unitario |
+| module test | test di modulo |
+| integration test | test di integrazione |
+| end-to-end test | test end-to-end / test E2E |
+| browser test | test nel browser |
+| platform test | test di piattaforma |
+| runtime test | test a runtime |
+| visual test | test visivo |
+| regression test | test di regressione |
+| test suite | suite di test |
+| test case | caso di test |
+| test runner | runner di test |
+| CI runner | runner di CI |
+| Continuous Integration (CI) | integrazione continua (CI); dopo la prima menzione usa `CI` |
+| assertion | asserzione |
+| expected result | risultato atteso |
+| pass | esito positivo; conserva `pass` come valore letterale |
+| failure | errore / esito negativo; conserva `Failure` come valore letterale |
+| crash | crash |
+| timeout | timeout |
+| setup / teardown | setup / teardown; spiega come preparazione e pulizia se necessario |
+| mock | mock |
+| test coverage | copertura dei test |
+| polling | polling; interrogazione periodica se serve chiarire |
+| headless | headless; senza interfaccia grafica nella spiegazione |
+| baseline | baseline; immagine di riferimento nei confronti visivi |
+| image comparison | confronto di immagini |
+| visual regression | regressione visiva |
+| browser trace | traccia del browser |
+| canvas | canvas |
+| viewport | viewport; area di visualizzazione se serve chiarire |
+| input binding | binding di input; associazione di input se il contesto è introduttivo |
+| input focus | focus dell'input |
+| input stack | stack di input |
+
+I valori strutturati di esempio come `suite_start`, `suite_end`, `status`, `pass`, `duration_ms` e il prefisso `TEST` sono stringhe letterali e non vanno tradotti.
+
+## Agenti, modelli e sicurezza
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| artificial intelligence (AI) | intelligenza artificiale (IA); usa `IA` nella prosa italiana |
+| AI coding agent | agente di programmazione IA |
+| agent | agente |
+| Large Language Model (LLM) | modello linguistico di grandi dimensioni (Large Language Model, LLM) alla prima menzione; poi `LLM` |
+| multimodal model | modello multimodale |
+| model provider | fornitore di modelli |
+| model-neutral | indipendente dal modello |
+| prompt | prompt |
+| Model Context Protocol (MCP) | Model Context Protocol (MCP); nome ufficiale |
+| MCP server | server MCP |
+| skill | skill; femminile nel corpus (`una skill`, `le skill`) |
+| protocol adapter | adattatore di protocollo |
+| integration layer | livello di integrazione |
+| capability | capacità |
+| permission | autorizzazione |
+| approval | approvazione |
+| credential | credenziale |
+| secret | segreto |
+| signing key | chiave di firma |
+| access token | token di accesso |
+| trusted | attendibile |
+| untrusted input | input non attendibile |
+| sandbox | sandbox |
+| worktree | worktree |
+| container | container |
+| audit | audit; verifica quando non indica un processo formale |
+| Retrieval-Augmented Generation (RAG) | Retrieval-Augmented Generation (RAG); alla prima menzione può essere spiegata come generazione aumentata tramite recupero |
+| Automation Bridge | Automation Bridge; nome dell'estensione ufficiale |
+
+I nomi di prodotti e fornitori come Claude Code, Codex e Cursor restano invariati.
+
+## Grafica, audio, fisica e prestazioni
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| graphics | grafica |
+| graphics API | API grafica |
+| rendering | rendering |
+| render | rendering nella prosa; conserva `render` in API, nomi e percorsi |
+| render pipeline | pipeline di rendering |
+| shader | shader; maschile e invariabile |
+| vertex shader | vertex shader |
+| fragment shader | fragment shader |
+| material | materiale |
+| sprite | sprite; maschile e invariabile |
+| atlas | atlas; maschile e invariabile |
+| texture | texture; femminile e invariabile |
+| GUI | GUI; femminile e invariabile |
+| GUI node | nodo GUI |
+| layout | layout |
+| layer | livello |
+| draw call | chiamata di disegno |
+| edge bleeding | edge bleeding; artefatto di contaminazione dei bordi |
+| Extrude Borders | `Extrude Borders`; proprietà letterale dell'editor |
+| tint | `tint` quando è la costante dello shader; tinta nella spiegazione |
+| Z buffer | buffer Z |
+| fill rate | fill-rate / velocità di riempimento |
+| pixel | pixel; invariabile |
+| physics | fisica |
+| physics engine | motore fisico |
+| collision | collisione |
+| collision object | oggetto di collisione |
+| debug draw | visualizzazione di debug; conserva nomi letterali |
+| ParticleFx | ParticleFx; nome del componente |
+| particle effect | effetto particellare |
+| sound | suono |
+| audio component | componente audio |
+| performance | prestazioni |
+| profiler | profilatore nella prosa già tradotta; anche `profiler` è comune nella documentazione tecnica italiana, soprattutto come nome di strumento o etichetta UI; scegli una forma coerente nell'articolo |
+| memory | memoria |
+| reference count | conteggio dei riferimenti; non `conteggio delle referenze` |
+
+## Piattaforme, pubblicazione e comunità
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| macOS | macOS |
+| Windows | Windows |
+| Linux | Linux |
+| Ubuntu | Ubuntu |
+| iOS | iOS |
+| Android | Android |
+| HTML5 | HTML5 |
+| Nintendo Switch | Nintendo Switch |
+| PlayStation | PlayStation |
+| App Store | App Store; non `AppStore` |
+| in-app purchase | acquisto in-app |
+| monetization | monetizzazione |
+| advertisement / ad | annuncio pubblicitario / annuncio |
+| IDFA | IDFA; identificatore pubblicitario Apple |
+| reviewer | revisore |
+| privacy policy | politica sulla privacy |
+| anonymous usage data | dati anonimi sull'utilizzo |
+| user tracking | tracciamento degli utenti |
+| open source | open source / codice sorgente aperto secondo il contesto |
+| source available | codice sorgente disponibile |
+| thread | thread; maschile e invariabile |
+| Work for hire | `Work for hire`; nome letterale della categoria del forum |
+
+## Etichette e comandi da mantenere letterali
+
+L'interfaccia dell'editor mostrata dal corpus usa etichette inglesi. Non inventare traduzioni italiane per i testi che il lettore deve trovare nell'interfaccia.
+
+| UI literal | Uso |
+|---|---|
+| `Help ▸ About` | comando che mostra versione e SHA1 |
+| `Help ▸ Open Editor Server` | comando che apre il server locale dell'editor |
+| `Help ▸ Create Desktop Entry` | comando Linux per creare la voce sul desktop |
+| `Project ▸ Rebuild And Launch` | ricostruzione completa e avvio |
+| `Properties` | pannello delle proprietà |
+| `Outline` | vista della struttura |
+| `Extrude Borders` | proprietà dell'atlas |
+| `Max Nodes` | proprietà del componente GUI |
+| `Write Log File` | impostazione di `game.project` |
+| `build` | comando HTTP che compila ed esegue il progetto |
+| `clean-build` | comando HTTP che svuota la cache di build e ricompila |
+| `build-html5` | comando HTTP per la build HTML5 |
+| `fetch-libraries` | comando HTTP per le dipendenze |
+| `hot-reload` | comando HTTP di hot reload |
+| `reload-extensions` | comando HTTP per gli script dell'editor |
+| `debugger-start` / `debugger-stop` | comandi del debugger |
+
+Quando un comando UI compare in un'istruzione, usa `<kbd>...</kbd>` e il separatore `▸`, per esempio `<kbd>Project ▸ Rebuild And Launch</kbd>`.
+
+## FAQ e forme redazionali
+
+| English term | Forma italiana preferita / spiegazione |
+|---|---|
+| FAQ | FAQ / domande frequenti |
+| Q: | `D:` nelle FAQ italiane |
+| A: | `R:` nelle FAQ italiane |
+| question | domanda |
+| answer | risposta |
+| general questions | domande generali |
+| platform questions | domande sulla piattaforma |
+| editor questions | domande sull'editor |
+| publishing games | pubblicazione di giochi |
+| game content | contenuto del gioco |
+| errors using Defold | errori nell'uso di Defold |
+
+## Normalizzazioni rapide
+
+| Evita nella prosa | Preferisci |
+|---|---|
+| `editore` per il programma | `editor` |
+| `engine` come nome comune | `motore` |
+| `collection` senza spiegazione | `collezione` |
+| `game object` senza spiegazione | `oggetto di gioco` |
+| `asset` usato per tradurre automaticamente `resource` | `risorsa` per il concetto Defold `resource`; `asset` per i contenuti di produzione del gioco e i termini tecnici stabiliti |
+| `Javascript` | `JavaScript` |
+| `LUA` | `Lua` |
+| `AppStore` | `App Store` |
+| `conteggio delle referenze` | `conteggio dei riferimenti` |
+| `oggetto senza testa` | `oggetto privo di rappresentazione visiva` o `oggetto headless`, secondo il contesto |
+| una traduzione italiana inventata di un'etichetta UI | l'etichetta inglese esatta in `<kbd>...</kbd>` |
+| `>` in un nuovo percorso di menu | `▸` |

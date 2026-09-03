@@ -78,7 +78,7 @@ Questi progetti non sono sviluppati, sottoposti ad audit, mantenuti o supportati
 
 ## Istruzioni del progetto {#project-instructions}
 
-In genere, i Large Language Model disponibili e impiegati nei flussi di lavoro basati su agenti offrono risultati migliori se ricevono buone istruzioni. Per questo motivo, spesso ai progetti vengono aggiunti file Markdown per agenti che descrivono il comportamento desiderato oppure definizioni di cosiddette "skill". Per ottenere i risultati migliori è opportuno progettare e scrivere istruzioni specifiche per ogni progetto, anche se alcune conoscenze e regole comuni possono essere riutilizzate.
+In genere, i modelli linguistici di grandi dimensioni (Large Language Model, LLM) disponibili e impiegati nei flussi di lavoro basati su agenti offrono risultati migliori se ricevono buone istruzioni. Per questo motivo, spesso ai progetti vengono aggiunti file Markdown per agenti che descrivono il comportamento desiderato oppure definizioni di cosiddette "skill". Per ottenere i risultati migliori è opportuno progettare e scrivere istruzioni specifiche per ogni progetto, anche se alcune conoscenze e regole comuni possono essere riutilizzate.
 
 Uno dei primi file che molti agenti cercano e leggono è un file canonico come `AGENTS.md`, che può descrivere:
 

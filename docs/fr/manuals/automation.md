@@ -1,6 +1,6 @@
 ---
 title: L'automatisation dans Defold
-brief: Ce manuel présente les interfaces d'automatisation de Defold et explique comment choisir entre les workflows de l'éditeur, de l'exécution, de la ligne de commande, des tests et des agents.
+brief: Ce manuel présente les interfaces d'automatisation de Defold et explique comment choisir entre les flux de travail de l'éditeur, de l'exécution, de la ligne de commande, des tests et des agents.
 ---
 
 # L'automatisation dans Defold {#automation-in-defold}
@@ -11,7 +11,7 @@ Defold prend en charge l'automatisation à plusieurs niveaux. Le choix d'une int
 
 | Couche | Objectif |
 | --- | --- |
-| [Scripts de l'éditeur](/manuals/editor-scripts) | Commandes personnalisées et workflows ou intégrations de l'éditeur pour accélérer les tests et le développement, par exemple la création de niveaux ou de ressources |
+| [Scripts de l'éditeur](/manuals/editor-scripts) | Commandes personnalisées, flux de travail ou intégrations de l'éditeur pour accélérer les tests et le développement, par exemple la création de niveaux ou de ressources |
 | [Scripts d'interface utilisateur de l'éditeur](/manuals/editor-scripts-ui/) | Outils visuels, fenêtres contextuelles, configurateurs ou interfaces utilisateur personnalisés utilisant les scripts de l'éditeur |
 | [API HTTP de l'éditeur](/manuals/editor-http-api) | Contrôle du projet de jeu ouvert dans l'éditeur Defold par des opérations OpenAPI, des ressources de projet, des builds, des commandes de l'éditeur, des aperçus, des préférences, la sortie de la console ou des scripts de l'éditeur pour des opérations personnalisées, des outils externes, des intégrations IDE et des contrôleurs de test |
 | [CLI Bob](/manuals/bob) | Compilation d'un projet, création d'archives de données ou de bundles autonomes depuis la ligne de commande, rapports, CI |
@@ -55,7 +55,7 @@ Définissez le résultat attendu avant d'effectuer les modifications. Définisse
 
 ## Étapes suivantes {#next-steps}
 
-Vous trouverez davantage de détails sur des sujets précis concernant les workflows d'automatisation dans les manuels suivants :
+Vous trouverez davantage de détails sur des sujets précis concernant les flux de travail d'automatisation dans les manuels suivants :
 
 * [Automatiser les tâches de l'éditeur Defold avec l'API HTTP](/manuals/editor-http-api)
 * [Le service du moteur et l'API HTTP d'exécution](/manuals/engine-service)
