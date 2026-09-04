@@ -51,19 +51,28 @@ R: La logica di gioco nel tuo progetto Defold è scritta principalmente in Lua (
 
 #### D: Su quali piattaforme gira Defold?
 
-R: Le seguenti piattaforme sono supportate per l'editor/strumenti e il runtime del motore:
+R: Le seguenti piattaforme sono supportate:
 
-  | Sistema            | Versione           | Architetture       | Supportato         |
-  | ------------------ | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | editor e motore    |
-  | Windows            | Vista              | `x86-64`           | editor e motore    |
-  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | editor             |
-  | Linux (2)          | Qualsiasi          | `x86-64`, `arm-64` | motore             |
-  | iOS                | 15.0               | `arm-64`, `x86_64` | motore             |
-  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | motore             |
-  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | motore       |
+  **Editor e strumenti**
+
+  | Sistema            | Versione           | Architetture       |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | 10                 | `x86-64`           |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
   (1) L'editor è compilato e testato per Ubuntu 18.04 a 64 bit. Dovrebbe funzionare anche su altre distribuzioni, ma non diamo garanzie.
+
+  **Runtime del motore**
+
+  | Sistema            | Versione           | Architetture       |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | Vista              | `x86-64`           |
+  | Linux (2)          | Qualsiasi          | `x86-64`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`, `x86_64` |
+  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2) Il runtime del motore dovrebbe funzionare sulla maggior parte delle distribuzioni Linux a 64 bit, purché i driver grafici siano aggiornati. Vedi sotto per ulteriori informazioni sulle API grafiche.
 
