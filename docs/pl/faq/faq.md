@@ -92,26 +92,35 @@ Defold Foundation wcześniej była przeciwna dodaniu obsługi C# w Defold, ale z
 
 #### P: Na jakich platformach działa Defold?
 
-A: Następujące platformy są obsługiwane przez edytor i narzędzia oraz przez środowisko uruchomieniowe silnika:
+A: Obsługiwane są następujące platformy:
 
-  | System             | Wersja             | Architektury       | Obsługiwane        |
-  | ------------------ | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Edytor i silnik    |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Edytor i silnik    |
-  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Edytor             |
-  | Linux (2)          | Dowolna            | `x86-64`, `arm-64` | Silnik             |
-  | iOS                | 15.0               | `arm-64`  `x86_64` | Silnik             |
-  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Silnik             |
-  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Silnik       |
+  **Edytor i narzędzia**
+
+  | System             | Wersja             | Architektury       |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | 10                 | `x86-64`           |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
   (1 Edytor jest budowany i testowany dla 64-bitowego Ubuntu. Powinien też działać na innych dystrybucjach, ale nie dajemy żadnych gwarancji.)
+
+  **Środowisko uruchomieniowe silnika**
+
+  | System             | Wersja             | Architektury       |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | Vista              | `x86-64`           |
+  | Linux (2)          | Dowolna            | `x86-64`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`  `x86_64` |
+  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 Środowisko uruchomieniowe silnika powinno działać na większości 64-bitowych dystrybucji Linuksa, o ile sterowniki graficzne są aktualne. Więcej informacji znajdziesz poniżej, w sekcji o API graficznych.)
 
 
 #### P: Na jakie platformy docelowe mogę tworzyć gry z Defold?
 
-A: Jednym kliknięciem możesz publikować na PS4™, PS5™, Nintendo Switch, iOS (64-bit), Android (32-bit i 64-bit) oraz HTML5, a także na macOS (x86-64 i arm64), Windows (32-bit i 64-bit) i Linux (x86-64 i arm64). To naprawdę jedna baza kodu i wiele obsługiwanych platform.
+A: Jednym kliknięciem możesz publikować na PS4™, PS5™, Nintendo Switch, iOS (64-bit), Android (32-bit i 64-bit) oraz HTML5, a także na macOS (x86-64 i arm64), Windows (64-bit) i Linux (x86-64 i arm64). To naprawdę jedna baza kodu i wiele obsługiwanych platform.
 
 
 #### P: Jakiego API renderowania używa Defold?
