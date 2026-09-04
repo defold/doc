@@ -56,7 +56,7 @@ R: Le seguenti piattaforme sono supportate per l'editor/strumenti e il runtime d
   | Sistema            | Versione           | Architetture       | Supportato         |
   | ------------------ | ------------------ | ------------------ | ------------------ |
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | editor e motore    |
-  | Windows            | Vista              | `x86-32`, `x86-64` | editor e motore    |
+  | Windows            | Vista              | `x86-64`           | editor e motore    |
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | editor             |
   | Linux (2)          | Qualsiasi          | `x86-64`, `arm-64` | motore             |
   | iOS                | 15.0               | `arm-64`, `x86_64` | motore             |

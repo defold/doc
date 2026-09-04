@@ -97,7 +97,7 @@ A: Las siguientes plataformas tienen soporte para el editor/herramientas y el ru
   | System             | Version            | Architectures      | Supported          |
   | ------------------ | ------------------ | ------------------ | ------------------ |
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor and Engine  |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine  |
+  | Windows            | Vista              | `x86-64`           | Editor and Engine  |
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
   | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |

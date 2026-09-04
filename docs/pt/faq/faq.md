@@ -97,7 +97,7 @@ R: As seguintes plataformas têm suporte para o editor/ferramentas e para o runt
   | Sistema            | Versão             | Arquiteturas       | Suporte            |
   | ------------------ | ------------------ | ------------------ | ------------------ |
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor e Engine    |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Editor e Engine    |
+  | Windows            | Vista              | `x86-64`           | Editor e Engine    |
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
   | Linux (2)          | Qualquer           | `x86-64`, `arm-64` | Engine             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
@@ -111,7 +111,7 @@ R: As seguintes plataformas têm suporte para o editor/ferramentas e para o runt
 
 #### P: Para quais plataformas-alvo posso desenvolver jogos com o Defold?
 
-R: Com um clique, você pode publicar para PS4™, PS5™, Nintendo Switch, iOS (64-bit), Android (32-bit e 64-bit) e HTML5, além de macOS (x86-64 e arm64), Windows (32-bit e 64-bit) e Linux (x86-64 e arm64). É realmente uma única base de código com várias plataformas suportadas.
+R: Com um clique, você pode publicar para PS4™, PS5™, Nintendo Switch, iOS (64-bit), Android (32-bit e 64-bit) e HTML5, além de macOS (x86-64 e arm64), Windows (64-bit) e Linux (x86-64 e arm64). É realmente uma única base de código com várias plataformas suportadas.
 
 
 #### P: De qual API de renderização o Defold depende?

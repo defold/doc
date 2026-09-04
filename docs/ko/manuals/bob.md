@@ -188,9 +188,6 @@ usage: bob [options] [commands]
 `x86_64-win32`
 : Windows 64 bit
 
-`x86-win32`
-: Windows 32 bit
-
 `x86_64-linux`
 : Linux 64 bit
 

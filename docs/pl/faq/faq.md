@@ -97,7 +97,7 @@ A: Następujące platformy są obsługiwane przez edytor i narzędzia oraz przez
   | System             | Wersja             | Architektury       | Obsługiwane        |
   | ------------------ | ------------------ | ------------------ | ------------------ |
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Edytor i silnik    |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Edytor i silnik    |
+  | Windows            | Vista              | `x86-64`           | Edytor i silnik    |
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Edytor             |
   | Linux (2)          | Dowolna            | `x86-64`, `arm-64` | Silnik             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Silnik             |
@@ -111,7 +111,7 @@ A: Następujące platformy są obsługiwane przez edytor i narzędzia oraz przez
 
 #### P: Na jakie platformy docelowe mogę tworzyć gry z Defold?
 
-A: Jednym kliknięciem możesz publikować na PS4™, PS5™, Nintendo Switch, iOS (64-bit), Android (32-bit i 64-bit) oraz HTML5, a także na macOS (x86-64 i arm64), Windows (32-bit i 64-bit) i Linux (x86-64 i arm64). To naprawdę jedna baza kodu i wiele obsługiwanych platform.
+A: Jednym kliknięciem możesz publikować na PS4™, PS5™, Nintendo Switch, iOS (64-bit), Android (32-bit i 64-bit) oraz HTML5, a także na macOS (x86-64 i arm64), Windows (64-bit) i Linux (x86-64 i arm64). To naprawdę jedna baza kodu i wiele obsługiwanych platform.
 
 
 #### P: Jakiego API renderowania używa Defold?

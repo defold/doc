@@ -97,7 +97,7 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
   | System             | Version            | Architectures      | Supported          |
   | ------------------ | ------------------ | ------------------ | ------------------ |
   | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor and Engine  |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine  |
+  | Windows            | Vista              | `x86-64`           | Editor and Engine  |
   | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
   | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
   | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
@@ -111,7 +111,7 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
 
 #### 问: 使用 Defold 我可以为哪些目标平台开发游戏？
 
-答: 只需点击一下，您就可以发布到 PS4™、PS5™、Nintendo Switch、iOS（64 位）、Android（32 位和 64 位）和 HTML5，以及 macOS（x86-64 和 arm64）、Windows（32 位和 64 位）和 Linux（x86-64 和 arm64）。真正的一套代码库，多个支持的平台。
+答: 只需点击一下，您就可以发布到 PS4™、PS5™、Nintendo Switch、iOS（64 位）、Android（32 位和 64 位）和 HTML5，以及 macOS（x86-64 和 arm64）、Windows（64 位）和 Linux（x86-64 和 arm64）。真正的一套代码库，多个支持的平台。
 
 
 #### 问: Defold 依赖哪种渲染 API？
