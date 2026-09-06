@@ -40,7 +40,7 @@ Los bindings de input son una tabla global del proyecto que te permite especific
 
 ![Configuración de binding de input](images/input/setting.png)
 
-Un archivo de binding de input predeterminado se crea automáticamente con todas las plantillas de proyecto nuevas, así que normalmente no necesitas crear un archivo de binding nuevo. El archivo predeterminado se llama "game.input_binding" y se encuentra en la carpeta "input" en la raíz del proyecto. Haz <kbd>doble click</kbd> en el archivo para abrirlo en el editor:
+Un archivo de binding de input predeterminado se crea automáticamente con todas las plantillas de proyecto nuevas, así que normalmente no necesitas crear un archivo de binding nuevo. El archivo predeterminado se llama `game.input_binding` y se encuentra en la carpeta `input` en la raíz del proyecto. Haz <kbd>doble click</kbd> en el archivo para abrirlo en el editor:
 
 ![Conjunto de bindings de input](images/input/input_binding.png)
 
@@ -50,7 +50,7 @@ Para crear un binding nuevo, haz click en el botón <kbd>+</kbd> en la parte inf
 : El input raw que se escuchará, seleccionado desde una lista desplazable de inputs disponibles.
 
 *Action*
-: El nombre de acción dado a las acciones de input cuando se crean y despachan a tus scripts. El mismo nombre de acción se puede asignar a múltiples inputs. Por ejemplo, puedes vincular la tecla <kbd>Space</kbd> y el botón "A" del gamepad a la acción `jump`. Ten en cuenta que existe un bug conocido por el cual los inputs táctiles, lamentablemente, no pueden tener los mismos nombres de acción que otros inputs.
+: El nombre de acción dado a las acciones de input cuando se crean y despachan a tus scripts. El mismo nombre de acción se puede asignar a múltiples inputs. Por ejemplo, puedes vincular la tecla <kbd>Space</kbd> y el botón `A` del gamepad a la acción `jump`. Ten en cuenta que existe un bug conocido por el cual los inputs táctiles, lamentablemente, no pueden tener los mismos nombres de acción que otros inputs.
 
 ## Tipos de triggers
 
@@ -167,7 +167,7 @@ Hay muchos buenos casos de uso en los que consumir input proporciona una forma s
 
 ![consumir input](images/input/game.png)
 
-El menú de pausa está inicialmente oculto (deshabilitado) y se habilita cuando el jugador toca el elemento HUD "PAUSE":
+El menú de pausa está inicialmente oculto (deshabilitado) y se habilita cuando el jugador toca el elemento HUD `PAUSE`:
 
 ```lua
 function on_input(self, action_id, action)

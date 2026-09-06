@@ -57,8 +57,8 @@ Desde o Xcode 7, qualquer pessoa pode instalar o Xcode e desenvolver no disposit
 1. Conecte seu dispositivo.
 2. Instale o Xcode.
 3. Adicione uma nova conta ao Xcode e entre com seu Apple ID.
-4. Crie um novo projeto. O modelo mais simples "Single View App" funciona bem.
-5. Selecione sua "Team" (criada automaticamente para você) e dê ao app um bundle identifier.
+4. Crie um novo projeto. O modelo mais simples `Single View App` funciona bem.
+5. Selecione sua `Team` (criada automaticamente para você) e dê ao app um bundle identifier.
 
 ::: important
 Anote o bundle identifier, pois você deve usar o mesmo bundle identifier no seu projeto Defold.
@@ -69,7 +69,7 @@ Anote o bundle identifier, pois você deve usar o mesmo bundle identifier no seu
    ![](images/ios/xcode_certificates.png)
 
 7. Compile o app no seu dispositivo. Na primeira vez, o Xcode pedirá que você habilite o Developer mode e preparará o dispositivo com suporte a depurador. Isso pode levar algum tempo.
-8. Depois de verificar que o app funciona, encontre-o no seu disco. Você pode ver o local da build no relatório de build no "Report Navigator".
+8. Depois de verificar que o app funciona, encontre-o no seu disco. Você pode ver o local da build no relatório de build no `Report Navigator`.
 
    ![](images/ios/app_location.png)
 
@@ -77,7 +77,7 @@ Anote o bundle identifier, pois você deve usar o mesmo bundle identifier no seu
 
    ![](images/ios/app_contents.png)
 
-10. Copie o arquivo "embedded.mobileprovision" para algum lugar no seu disco onde você o encontrará.
+10. Copie o arquivo `embedded.mobileprovision` para algum lugar no seu disco onde você o encontrará.
 
    ![](images/ios/free_provisioning.png)
 
@@ -124,7 +124,7 @@ A condição Mustache mantém as entradas de descoberta fora dos pacotes release
 
 ## Instalando e iniciando o pacote em um iPhone conectado
 
-Você pode instalar e iniciar o pacote criado usando as caixas de seleção "Install on connected device" e "Launch installed app" do editor no diálogo Bundle:
+Você pode instalar e iniciar o pacote criado usando as caixas de seleção `Install on connected device` e `Launch installed app` do editor no diálogo Bundle:
 
 ![Install and launch iOS bundle](images/ios/install_and_launch.png)
 
@@ -153,7 +153,7 @@ Arraste e solte uma imagem para importá-la para o projeto. Em seguida, selecion
 
 ![Add image](images/ios/xcode_storyboard_add_image.png)
 
-Abra `LaunchScreen.storyboard` e clique no botão de mais (<kbd>+</kbd>). Digite "imageview" no diálogo para encontrar o componente ImageView.
+Abra `LaunchScreen.storyboard` e clique no botão de mais (<kbd>+</kbd>). Digite `imageview` no diálogo para encontrar o componente ImageView.
 
 ![Add image view](images/ios/xcode_storyboard_add_imageview.png)
 
@@ -205,10 +205,10 @@ Arraste e solte imagens nas caixas vazias que representam os diferentes tamanhos
 Não adicione ícones para Notifications, Settings ou Spotlight.
 :::
 
-Quando terminar, defina o scheme ativo para "Build -> Any iOS Device (arm64)" (ou "Generic iOS Device") e selecione <kbd>Product</kbd> -> <kbd>Build</kbd>. Aguarde o processo de build terminar.
+Quando terminar, defina o scheme ativo para `Build -> Any iOS Device (arm64)` (ou `Generic iOS Device`) e selecione <kbd>Product</kbd> -> <kbd>Build</kbd>. Aguarde o processo de build terminar.
 
 ::: sidenote
-Certifique-se de compilar para "Any iOS Device (arm64)" ou "Generic iOS Device"; caso contrário, você receberá o erro `ERROR ITMS-90704` ao enviar sua build.
+Certifique-se de compilar para `Any iOS Device (arm64)` ou `Generic iOS Device`; caso contrário, você receberá o erro `ERROR ITMS-90704` ao enviar sua build.
 :::
 
 ![Build project](images/ios/xcode_icons_build.png)
@@ -230,7 +230,7 @@ O ícone da App Store não precisa ser referenciado a partir de *game.project*. 
 
 O editor grava um arquivo *.ipa*, que é um pacote de aplicação iOS. Para instalar o arquivo no seu dispositivo, você pode usar uma das seguintes ferramentas:
 
-* Xcode pela janela "Devices and Simulators"
+* Xcode pela janela `Devices and Simulators`
 * Ferramenta de linha de comando [`ios-deploy`](https://github.com/ios-control/ios-deploy)
 * [`Apple Configurator 2`](https://apps.apple.com/us/app/apple-configurator-2/) da macOS App Store
 * iTunes

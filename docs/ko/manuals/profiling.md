@@ -118,7 +118,7 @@ HTML5는 브라우저 timeline에 Remotery 대신 Web Performance API를 사용�
 
 ![빌드 리포트](images/profiling/build_report.png)
 
-빌더는 게임 번들과 함께 "report.html"이라는 파일을 생성합니다. 리포트를 살펴보려면 이 파일을 웹 브라우저에서 엽니다:
+빌더는 게임 번들과 함께 `report.html`이라는 파일을 생성합니다. 리포트를 살펴보려면 이 파일을 웹 브라우저에서 엽니다:
 
 ![빌드 리포트](images/profiling/build_report_html.png)
 
@@ -152,7 +152,7 @@ OpenGL profiler (macOS)
 Android Profiler (Android)
 : https://developer.android.com/studio/profile/android-profiler.html
 
-  게임의 CPU, 메모리, 네트워크 활동에 대한 실시간 데이터를 캡처하는 프로파일링 도구 모음입니다. 코드 실행에 대한 샘플 기반 메서드 추적을 수행하고, 힙 덤프를 캡처하고, 메모리 할당을 확인하고, 네트워크로 전송된 파일의 세부 정보를 검사할 수 있습니다. 이 도구를 사용하려면 "AndroidManifest.xml"에 `android:debuggable="true"`를 설정해야 합니다.
+  게임의 CPU, 메모리, 네트워크 활동에 대한 실시간 데이터를 캡처하는 프로파일링 도구 모음입니다. 코드 실행에 대한 샘플 기반 메서드 추적을 수행하고, 힙 덤프를 캡처하고, 메모리 할당을 확인하고, 네트워크로 전송된 파일의 세부 정보를 검사할 수 있습니다. 이 도구를 사용하려면 `AndroidManifest.xml`에 `android:debuggable="true"`를 설정해야 합니다.
 
   ![android profiler](images/profiling/android_profiler.png)
 
@@ -161,6 +161,6 @@ Android Profiler (Android)
 Graphics API Debugger (Android)
 : https://github.com/google/gapid
 
-  어플리케이션에서 그래픽 드라이버로 보내는 호출을 검사하고, 조정하고, 재생할 수 있는 도구 모음입니다. 이 도구를 사용하려면 "AndroidManifest.xml"에 `android:debuggable="true"`를 설정해야 합니다.
+  어플리케이션에서 그래픽 드라이버로 보내는 호출을 검사하고, 조정하고, 재생할 수 있는 도구 모음입니다. 이 도구를 사용하려면 `AndroidManifest.xml`에 `android:debuggable="true"`를 설정해야 합니다.
 
   ![graphics api debugger](images/profiling/gapid.png)

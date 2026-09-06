@@ -39,9 +39,9 @@ Jesse Warden 的一篇文章提供了 [Actionscript 和 Lua 的基本比较](htt
 
 Defold 中，游戏对象可以在编辑器里手动创建，也可以运行时动态创建。手动创建的游戏对象需要给唯一 id，才能在代码里引用。
 
-集合可以用来管理游戏对象。集合是容纳游戏对象和其他集合的容器（或称 prefabs）。最简单的情况，一个游戏有一个集合。通常，Defold 游戏包含许多集合，或者手动指定启动 “main” 集合或者通过 [集合代理](/manuals/collection-proxy) 动态载入集合。但是 Flash 的 "levels" 或者 "screens" 没有这个能力。
+集合可以用来管理游戏对象。集合是容纳游戏对象和其他集合的容器（或称 prefabs）。最简单的情况，一个游戏有一个集合。通常，Defold 游戏包含许多集合，或者手动指定启动 `main` 集合或者通过 [集合代理](/manuals/collection-proxy) 动态载入集合。但是 Flash 的 "levels" 或者 "screens" 没有这个能力。
 
-下面的例子里，"main" 集合（看右边，*Outline* 窗口里）包含3个 "logo" 游戏对象（看左边，*Assets* 浏览器窗口里）：
+下面的例子里，`main` 集合（看右边，*Outline* 窗口里）包含3个 `logo` 游戏对象（看左边，*Assets* 浏览器窗口里）：
 
 ![manual game objects](images/flash/manual_game_objects.png)
 
@@ -57,9 +57,9 @@ Defold 通过地址引用所有对象. 多数情况下使用快捷地址或者�
 
 - `"."` 定位当前游戏对象.
 - `"#"` 定位当前脚本组件.
-- `"logo"` 定位 id 叫 "logo" 的游戏对象.
-- `"#script"` 定位当前游戏对象里 id 叫 "script" 的脚本组件.
-- `"logo#script"` 定位游戏对象 "logo" 下的 "script" 脚本.
+- `"logo"` 定位 id 叫 `logo` 的游戏对象.
+- `"#script"` 定位当前游戏对象里 id 叫 `script` 的脚本组件.
+- `"logo#script"` 定位游戏对象 `logo` 下的 `script` 脚本.
 
 手动拖放对象的地址由 *Id* 属性 (上图右下角) 决定. 每个集合里一个对象的id是唯一的. 编辑器可以自动生成默认id但是所有对象的id都可以随意更改.
 
@@ -77,7 +77,7 @@ Flash 里动态创建影片剪辑, 需要预先设置好 ActionScript Linkage:
 
 ![actionscript linkage](images/flash/actionscript_linkage.png)
 
-它创建了一个类 (本例是 Logo 图标), 这个类可以用于创建对象. 如下代码使用Logo类在舞台上创建了logo对象:
+它创建了一个类 (本例是 `Logo` 图标), 这个类可以用于创建对象. 如下代码使用`Logo`类在舞台上创建了logo对象:
 
 ```as
 var logo:Logo = new Logo();
@@ -86,11 +86,11 @@ addChild(logo);
 
 ## Defold—使用工厂创建游戏对象
 
-Defold 使用 *工厂* 动态创建游戏对象. 工厂是创建游戏对象拷贝的组件. 本例中, 以 "logo" 游戏对象为原型创建了一个工厂组件:
+Defold 使用 *工厂* 动态创建游戏对象. 工厂是创建游戏对象拷贝的组件. 本例中, 以 `logo` 游戏对象为原型创建了一个工厂组件:
 
 ![logo factory](images/flash/logo_factory.png)
 
-注意工厂组件, 需要像其他组件一样, 需要添加到游戏对象里才能用. 本例中, 我们创建了叫做 "factories" 的游戏对象, 来容纳工厂组件:
+注意工厂组件, 需要像其他组件一样, 需要添加到游戏对象里才能用. 本例中, 我们创建了叫做 `factories` 的游戏对象, 来容纳工厂组件:
 
 ![factory component](images/flash/factory_component.png)
 
@@ -112,11 +112,11 @@ URL 是 `factory.create()` 函数的必要参数. 此外, 还有可选参数用�
 
 ## Defold—collections
 
-Defold 的集合类似于舞台. 引擎启动时集合文件的内容组成了游戏世界. 默认启动集合叫 "main.collection" 但是可以在 *game.project* 项目配置文件里随意更改:
+Defold 的集合类似于舞台. 引擎启动时集合文件的内容组成了游戏世界. 默认启动集合叫 `main.collection` 但是可以在 *game.project* 项目配置文件里随意更改:
 
 ![game.project](images/flash/game_project.png)
 
-集合作为容器管理着游戏对象和其他集合. 通过 [集合工厂](/manuals/collection-factory/#spawning-a-collection) 可以在运行时动态创建集合内容, 就像游戏对象工厂创建游戏对象一样. 集合可以包含多组敌人, 或者一堆钱币, 之类的. 下图中, 我们手动拖放了两组 "logos" 集合到 "main" 集合中.
+集合作为容器管理着游戏对象和其他集合. 通过 [集合工厂](/manuals/collection-factory/#spawning-a-collection) 可以在运行时动态创建集合内容, 就像游戏对象工厂创建游戏对象一样. 集合可以包含多组敌人, 或者一堆钱币, 之类的. 下图中, 我们手动拖放了两组 `logos` 集合到 `main` 集合中.
 
 ![collection](images/flash/collection.png)
 
@@ -138,17 +138,17 @@ Flash 时间轴主要用于动画，使用各种逐帧技术或形状/运动补�
 
 Defold 不使用矢量图而是使用位图，所以没有形状补间。但是运动补间可以使用 [属性动画](/ref/go/#go.animate) 来实现。通过脚本，调用 `go.animate()` 函数即可。`go.animate()` 函数基于各种缓动函数（可以自定义），对属性（比如颜色、缩放、旋转或者位置）进行从初始值到设定结束值的补间。Defold 引擎内置了许多要 Flash 用户自定义才能实现的 [缓动函数](/manuals/property-animation/#easing)。
 
-Flash 在时间轴上用关键帧做动画，Defold 动画功能之一是用导入的序列图做逐帧动画。动画基于图集管理。下例中图集有一个叫做 "run" 的动画，此动画由一组图片组成：
+Flash 在时间轴上用关键帧做动画，Defold 动画功能之一是用导入的序列图做逐帧动画。动画基于图集管理。下例中图集有一个叫做 `run` 的动画，此动画由一组图片组成：
 
 ![flipbook](images/flash/flipbook.png)
 
 ## Flash—depth index
 
-在 Flash 中，显示列表决定显示什么以及以什么顺序显示。容器（如舞台）中对象的排序通过索引处理。使用 `addChild()` 方法添加到容器的对象将自动占据索引的顶部位置，从 0 开始，每个额外对象都会递增。在下面的截图中，我们生成了三个 "logo" 影片剪辑的实例：
+在 Flash 中，显示列表决定显示什么以及以什么顺序显示。容器（如舞台）中对象的排序通过索引处理。使用 `addChild()` 方法添加到容器的对象将自动占据索引的顶部位置，从 0 开始，每个额外对象都会递增。在下面的截图中，我们生成了三个 `logo` 影片剪辑的实例：
 
 ![depth index](images/flash/depth_index.png)
 
-显示列表中的位置由每个标志实例旁边的数字指示。忽略处理影片剪辑 x/y 位置的任何代码，上述内容可以如下生成：
+显示列表中的位置由每个`标志`实例旁边的数字指示。忽略处理影片剪辑 x/y 位置的任何代码，上述内容可以如下生成：
 
 ```as
 var logo1:Logo = new Logo();
@@ -178,11 +178,11 @@ Defold 使用 z 轴位置控制游戏对象的显示顺序。每个游戏对象�
 若游戏对象的 z 值超出 [-1, 1] 范围将不会被渲染（不可见）。这是新手常见困惑点，若对象未显示请优先检查 z 值。
 :::
 
-与 Flash 的深度索引不同，Flash 编辑器只隐含深度索引（并允许使用*Bring Forward*和*Send Backward*等命令修改），而 Defold 可直接在编辑器中设置 z 值。下图示例中，"logo3" 因 z=0.2 显示在最上层，其余两个对象 z 值分别为 0.0 和 0.1：
+与 Flash 的深度索引不同，Flash 编辑器只隐含深度索引（并允许使用*Bring Forward*和*Send Backward*等命令修改），而 Defold 可直接在编辑器中设置 z 值。下图示例中，`logo3` 因 z=0.2 显示在最上层，其余两个对象 z 值分别为 0.0 和 0.1：
 
 ![z-order](images/flash/z_order.png)
 
-层级叠加规则：对象的最终 z 值 = 自身 z 值 + 所有父级 z 值之和。例如，若 "logos" 集合（包含三个图标）的 z=0.9，则三个图标的最终 z 值为 0.9、1.0、1.1，此时 "logo3" 因 z=1.1 > 1 而不可见：
+层级叠加规则：对象的最终 z 值 = 自身 z 值 + 所有父级 z 值之和。例如，若 `logos` 集合（包含三个图标）的 z=0.9，则三个图标的最终 z 值为 0.9、1.0、1.1，此时 `logo3` 因 z=1.1 > 1 而不可见：
 
 ![z-order](images/flash/z_order_outline.png)
 
@@ -195,7 +195,7 @@ go.set_position(pos)
 
 ## Flash `hitTestObject` 和 `hitTestPoint` 碰撞检测
 
-Flash 中的基本碰撞检测通过使用 `hitTestObject()` 方法实现。在这个例子中，我们有两个影片剪辑："bullet" 和 "bullseye"。下图中展示了这两个对象。在 Flash 编辑器中选择符号时可见的蓝色边界框，正是驱动 `hitTestObject()` 方法结果的边界框。
+Flash 中的基本碰撞检测通过使用 `hitTestObject()` 方法实现。在这个例子中，我们有两个影片剪辑：`bullet` 和 `bullseye`。下图中展示了这两个对象。在 Flash 编辑器中选择符号时可见的蓝色边界框，正是驱动 `hitTestObject()` 方法结果的边界框。
 
 ![hit test](images/flash/hittest.png)
 
@@ -219,7 +219,7 @@ bullseye.hitTestPoint(bullet.x, bullet.y, true);
 
 ## Defold—collision objects
 
-Defold 内含物理引擎可以用于碰撞检测然后使用其上的脚本进行响应。首先要在游戏对象上面添加碰撞对象组件。如下图所示，我们对 "bullet" 游戏对象添加了碰撞对象。碰撞对象以红色半透明方块表示（只在编辑器中可见）：
+Defold 内含物理引擎可以用于碰撞检测然后使用其上的脚本进行响应。首先要在游戏对象上面添加碰撞对象组件。如下图所示，我们对 `bullet` 游戏对象添加了碰撞对象。碰撞对象以红色半透明方块表示（只在编辑器中可见）：
 
 ![collision object](images/flash/collision_object.png)
 
@@ -229,7 +229,7 @@ Defold 包含一个 Box2D 物理引擎的修改版，可以用来自动模拟真
 
 ![collision object properties](images/flash/collision_object_properties.png)
 
-用一个矩形代表上例中的子弹。圆形代表靶子进行碰撞检测。设置类型为 Kinematic 意味着使用脚本进行碰撞处理，物理引擎默认不是这样（关于其他类型，请见 [物理手册](/manuals/physics)）。属性 *Group* 和 *Mask* 分别决定了碰撞对象属于哪个组以及和哪个组相碰撞。当前设置是 "bullet" 只能与 "target" 碰撞。要是如下这样：
+用一个矩形代表上例中的子弹。圆形代表靶子进行碰撞检测。设置类型为 Kinematic 意味着使用脚本进行碰撞处理，物理引擎默认不是这样（关于其他类型，请见 [物理手册](/manuals/physics)）。属性 *Group* 和 *Mask* 分别决定了碰撞对象属于哪个组以及和哪个组相碰撞。当前设置是 `bullet` 只能与 `target` 碰撞。要是如下这样：
 
 ![collision group/mask](images/flash/collision_groupmask.png)
 
@@ -237,7 +237,7 @@ Defold 包含一个 Box2D 物理引擎的修改版，可以用来自动模拟真
 
 ![collision object bullet](images/flash/collision_object_bullet.png)
 
-注意 *Group* 属性设置为了 "target" 然后 *Mask* 设置为了 "bullet"。
+注意 *Group* 属性设置为了 `target` 然后 *Mask* 设置为了 `bullet`。
 
 Flash 里，需要脚本调用才会进行碰撞检测。Defold 里，只要碰撞对象开启，后台就会持续进行碰撞检测。碰撞发生时，消息会发送到游戏对象所有组件上（更确切地说是脚本组件）。有 [`collision_response` 和 `contact_point_response` 消息](/manuals/physics-messages)，其中包含了处理碰撞所需的各种信息。
 

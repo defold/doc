@@ -57,8 +57,8 @@ Since Xcode 7, anyone can install Xcode and do on-device development for free. Y
 1. Connect your device.
 2. Install Xcode.
 3. Add a new account to Xcode and sign in with your Apple ID.
-4. Create a new project. The simplest "Single View App" works fine.
-5. Select your "Team" (auto created for you) and give the app a bundle identifier.
+4. Create a new project. The simplest `Single View App` works fine.
+5. Select your `Team` (auto created for you) and give the app a bundle identifier.
 
 ::: important
 Make a note of the bundle identifier as you must use the same bundle identifier in your Defold project.
@@ -69,7 +69,7 @@ Make a note of the bundle identifier as you must use the same bundle identifier 
    ![](images/ios/xcode_certificates.png)
 
 7. Build the app on your device. The first time, Xcode will ask you to enable Developer mode and will prepare the device with debugger support. This may take a while.
-8. When you have verified that the app works, find it on your disk. You can see the build location in the Build report in the "Report Navigator".
+8. When you have verified that the app works, find it on your disk. You can see the build location in the Build report in the `Report Navigator`.
 
    ![](images/ios/app_location.png)
 
@@ -77,7 +77,7 @@ Make a note of the bundle identifier as you must use the same bundle identifier 
 
    ![](images/ios/app_contents.png)
 
-10. Copy the file "embedded.mobileprovision" to some place on your drive where you will find it.
+10. Copy the file `embedded.mobileprovision` to some place on your drive where you will find it.
 
    ![](images/ios/free_provisioning.png)
 
@@ -124,7 +124,7 @@ The Mustache condition keeps the discovery entries out of release bundles. The u
 
 ## Installing and launching bundle on a connected iPhone
 
-You can install and launch the built bundle using editor's "Install on connected device" and "Launch installed app" check-boxes in the Bundle dialog:
+You can install and launch the built bundle using editor's `Install on connected device` and `Launch installed app` check-boxes in the Bundle dialog:
 
 ![Install and launch iOS bundle](images/ios/install_and_launch.png)
 
@@ -153,7 +153,7 @@ Drag and drop an image to import it to the project. Next select `Assets.xcassets
 
 ![Add image](images/ios/xcode_storyboard_add_image.png)
 
-Open `LaunchScreen.storyboard` and click on the plus button (<kbd>+</kbd>). Type "imageview" in the dialog to find the ImageView component.
+Open `LaunchScreen.storyboard` and click on the plus button (<kbd>+</kbd>). Type `imageview` in the dialog to find the ImageView component.
 
 ![Add image view](images/ios/xcode_storyboard_add_imageview.png)
 
@@ -205,10 +205,10 @@ Drag and drop images to the empty boxes representing the different supported ico
 Do not add any icons for Notifications, Settings or Spotlight.
 :::
 
-When you are done, set the active scheme to "Build -> Any iOS Device (arm64)"(or "Generic iOS Device") and select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
+When you are done, set the active scheme to `Build -> Any iOS Device (arm64)`(or `Generic iOS Device`) and select <kbd>Product</kbd> -> <kbd>Build</kbd>. Wait for the build process to finish.
 
 ::: sidenote
-Make sure that you build for "Any iOS Device (arm64)" or "Generic iOS Device" otherwise you will get `ERROR ITMS-90704` error when uploading your build.
+Make sure that you build for `Any iOS Device (arm64)` or `Generic iOS Device` otherwise you will get `ERROR ITMS-90704` error when uploading your build.
 :::
 
 ![Build project](images/ios/xcode_icons_build.png)
@@ -230,7 +230,7 @@ The App Store icon does not have to be referenced from *game.project*. It is aut
 
 The editor writes an *.ipa* file which is an iOS application bundle. To install the file on your device, you can use one of the following tools:
 
-* Xcode via the "Devices and Simulators" window
+* Xcode via the `Devices and Simulators` window
 * [`ios-deploy`](https://github.com/ios-control/ios-deploy) command line tool
 * [`Apple Configurator 2`](https://apps.apple.com/us/app/apple-configurator-2/) from the macOS App Store
 * iTunes

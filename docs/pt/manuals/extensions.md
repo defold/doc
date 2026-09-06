@@ -64,7 +64,7 @@ Para criar uma nova extensão, crie uma pasta na raiz do projeto. Essa pasta con
 : Esta pasta opcional contém arquivos adicionais usados no processo de build ou empacotamento. Veja abaixo os detalhes.
 
 *res*
-: Esta pasta opcional contém quaisquer recursos extras dos quais a extensão depende. Os arquivos de recurso devem ser colocados em subpastas nomeadas por `platform`, ou `architecture-platform`, assim como as subpastas de "lib". Uma subpasta `common` também é permitida, contendo arquivos de recurso comuns a todas as plataformas.
+: Esta pasta opcional contém quaisquer recursos extras dos quais a extensão depende. Os arquivos de recurso devem ser colocados em subpastas nomeadas por `platform`, ou `architecture-platform`, assim como as subpastas de `lib`. Uma subpasta `common` também é permitida, contendo arquivos de recurso comuns a todas as plataformas.
 
 ### Arquivos de manifesto
 
@@ -186,7 +186,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Observe a macro `DM_DECLARE_EXTENSION`, usada para declarar os vários pontos de entrada no código da extensão. O primeiro argumento `symbol` deve corresponder ao nome especificado em *ext.manifest*. Para este exemplo simples, não há necessidade de pontos de entrada "update" ou "on_event", então `0` é fornecido nessas posições da macro.
+Observe a macro `DM_DECLARE_EXTENSION`, usada para declarar os vários pontos de entrada no código da extensão. O primeiro argumento `symbol` deve corresponder ao nome especificado em *ext.manifest*. Para este exemplo simples, não há necessidade de pontos de entrada `update` ou `on_event`, então `0` é fornecido nessas posições da macro.
 
 Agora basta compilar o projeto (<kbd>Projeto ▸ Compilar</kbd>). Isso enviará a extensão ao builder de extensões, que produzirá uma engine personalizada com a nova extensão incluída. Se o builder encontrar algum erro, uma caixa de diálogo com os erros de build será exibida.
 

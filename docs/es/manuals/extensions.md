@@ -64,7 +64,7 @@ Para crear una extensión nueva, crea una carpeta en la raíz del proyecto. Esta
 : Esta carpeta opcional contiene archivos adicionales usados en el proceso de build o bundling. Consulta los detalles más abajo.
 
 *res*
-: Esta carpeta opcional contiene cualquier recurso extra del que dependa la extensión. Los archivos de recursos deben colocarse en subcarpetas nombradas por `platform` o `architecture-platform`, igual que las subcarpetas de "lib". También se permite una subcarpeta `common`, que contiene archivos de recursos comunes para todas las plataformas.
+: Esta carpeta opcional contiene cualquier recurso extra del que dependa la extensión. Los archivos de recursos deben colocarse en subcarpetas nombradas por `platform` o `architecture-platform`, igual que las subcarpetas de `lib`. También se permite una subcarpeta `common`, que contiene archivos de recursos comunes para todas las plataformas.
 
 ### Archivos de manifest
 
@@ -186,7 +186,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Observa la macro `DM_DECLARE_EXTENSION`, que se usa para declarar los distintos puntos de entrada al código de la extensión. El primer argumento, `symbol`, debe coincidir con el nombre especificado en *ext.manifest*. Para este ejemplo sencillo, no hay necesidad de puntos de entrada "update" ni "on_event", por lo que se proporciona `0` en esas posiciones de la macro.
+Observa la macro `DM_DECLARE_EXTENSION`, que se usa para declarar los distintos puntos de entrada al código de la extensión. El primer argumento, `symbol`, debe coincidir con el nombre especificado en *ext.manifest*. Para este ejemplo sencillo, no hay necesidad de puntos de entrada `update` ni `on_event`, por lo que se proporciona `0` en esas posiciones de la macro.
 
 Ahora solo queda crear la build del proyecto (<kbd>Project ▸ Build</kbd>). Esto subirá la extensión al builder de extensiones, que producirá un motor personalizado con la nueva extensión incluida. Si el builder encuentra errores, se mostrará un diálogo con los errores de build.
 

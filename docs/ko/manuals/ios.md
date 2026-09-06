@@ -57,8 +57,8 @@ Xcode 7부터는 누구나 Xcode를 설치하고 무료로 실제 기기에서 �
 1. 기기를 연결합니다.
 2. Xcode를 설치합니다.
 3. Xcode에 새 계정을 추가하고 Apple ID로 로그인합니다.
-4. 새 프로젝트를 생성합니다. 가장 단순한 "Single View App"이면 됩니다.
-5. "Team"(자동 생성됨)을 선택하고 앱에 bundle identifier를 지정합니다.
+4. 새 프로젝트를 생성합니다. 가장 단순한 `Single View App`이면 됩니다.
+5. `Team`(자동 생성됨)을 선택하고 앱에 bundle identifier를 지정합니다.
 
 ::: important
 Defold 프로젝트에서 같은 bundle identifier를 사용해야 하므로 bundle identifier를 기록해 두세요.
@@ -69,7 +69,7 @@ Defold 프로젝트에서 같은 bundle identifier를 사용해야 하므로 bun
    ![](images/ios/xcode_certificates.png)
 
 7. 기기에서 앱을 빌드합니다. 처음에는 Xcode가 Developer mode를 활성화하라고 요청하고 디버거 지원을 위해 기기를 준비합니다. 시간이 조금 걸릴 수 있습니다.
-8. 앱이 작동하는 것을 확인한 뒤 디스크에서 앱을 찾습니다. "Report Navigator"의 Build report에서 빌드 위치를 확인할 수 있습니다.
+8. 앱이 작동하는 것을 확인한 뒤 디스크에서 앱을 찾습니다. `Report Navigator`의 Build report에서 빌드 위치를 확인할 수 있습니다.
 
    ![](images/ios/app_location.png)
 
@@ -77,7 +77,7 @@ Defold 프로젝트에서 같은 bundle identifier를 사용해야 하므로 bun
 
    ![](images/ios/app_contents.png)
 
-10. "embedded.mobileprovision" 파일을 나중에 찾을 수 있는 드라이브 위치로 복사합니다.
+10. `embedded.mobileprovision` 파일을 나중에 찾을 수 있는 드라이브 위치로 복사합니다.
 
    ![](images/ios/free_provisioning.png)
 
@@ -124,7 +124,7 @@ Mustache 조건은 릴리스 번들에서 검색 항목을 제외합니다. 사�
 
 ## 연결된 iPhone에 번들 설치하고 실행하기
 
-Bundle 다이얼로그의 "Install on connected device"와 "Launch installed app" 체크박스를 사용해 빌드된 번들을 설치하고 실행할 수 있습니다.
+Bundle 다이얼로그의 `Install on connected device`와 `Launch installed app` 체크박스를 사용해 빌드된 번들을 설치하고 실행할 수 있습니다.
 
 ![Install and launch iOS bundle](images/ios/install_and_launch.png)
 
@@ -153,7 +153,7 @@ Create를 클릭해 과정을 마칩니다. 이제 프로젝트가 생성되었�
 
 ![Add image](images/ios/xcode_storyboard_add_image.png)
 
-`LaunchScreen.storyboard`를 열고 더하기 버튼(<kbd>+</kbd>)을 클릭합니다. 다이얼로그에 "imageview"를 입력해 ImageView 컴포넌트를 찾습니다.
+`LaunchScreen.storyboard`를 열고 더하기 버튼(<kbd>+</kbd>)을 클릭합니다. 다이얼로그에 `imageview`를 입력해 ImageView 컴포넌트를 찾습니다.
 
 ![Add image view](images/ios/xcode_storyboard_add_imageview.png)
 
@@ -205,10 +205,10 @@ Create를 클릭해 과정을 마칩니다. 이제 프로젝트가 생성되었�
 Notifications, Settings 또는 Spotlight용 아이콘은 추가하지 마세요.
 :::
 
-완료되면 active scheme을 "Build -> Any iOS Device (arm64)"(또는 "Generic iOS Device")로 설정하고 <kbd>Product</kbd> -> <kbd>Build</kbd>를 선택합니다. 빌드 프로세스가 끝날 때까지 기다립니다.
+완료되면 active scheme을 `Build -> Any iOS Device (arm64)`(또는 `Generic iOS Device`)로 설정하고 <kbd>Product</kbd> -> <kbd>Build</kbd>를 선택합니다. 빌드 프로세스가 끝날 때까지 기다립니다.
 
 ::: sidenote
-"Any iOS Device (arm64)" 또는 "Generic iOS Device"용으로 빌드해야 합니다. 그렇지 않으면 빌드를 업로드할 때 `ERROR ITMS-90704` 오류가 발생합니다.
+`Any iOS Device (arm64)` 또는 `Generic iOS Device`용으로 빌드해야 합니다. 그렇지 않으면 빌드를 업로드할 때 `ERROR ITMS-90704` 오류가 발생합니다.
 :::
 
 ![Build project](images/ios/xcode_icons_build.png)
@@ -230,7 +230,7 @@ App Store 아이콘은 *game.project*에서 참조할 필요가 없습니다. iT
 
 에디터는 iOS 어플리케이션 번들인 *.ipa* 파일을 작성합니다. 기기에 이 파일을 설치하려면 다음 도구 중 하나를 사용할 수 있습니다.
 
-* "Devices and Simulators" 창을 통한 Xcode
+* `Devices and Simulators` 창을 통한 Xcode
 * [`ios-deploy`](https://github.com/ios-control/ios-deploy) 커맨드 라인 도구
 * macOS App Store의 [`Apple Configurator 2`](https://apps.apple.com/us/app/apple-configurator-2/)
 * iTunes

@@ -103,7 +103,7 @@ function update(self, dt)
 end
 ```
 
-Alterar e recarregar "my_module.lua" _não_ mudará o comportamento de "user.script". Consulte o [manual de Módulos](/manuals/modules) para mais informações sobre o motivo e sobre como evitar essa armadilha.
+Alterar e recarregar `my_module.lua` _não_ mudará o comportamento de `user.script`. Consulte o [manual de Módulos](/manuals/modules) para mais informações sobre o motivo e sobre como evitar essa armadilha.
 
 ## A função on_reload()
 

@@ -183,7 +183,7 @@ local bone_go = model.get_go("#wiggler", "Bone_002")
 
 ### Animacja kursora
 
-Oprócz używania `model.play_anim()` do sterowania animacją komponenty *Model* udostępniają właściwość "cursor", którą można animować za pomocą `go.animate()` (więcej w sekcji [animacje właściwości](/manuals/property-animation)).
+Oprócz używania `model.play_anim()` do sterowania animacją komponenty *Model* udostępniają właściwość `cursor`, którą można animować za pomocą `go.animate()` (więcej w sekcji [animacje właściwości](/manuals/property-animation)).
 
 ```lua
 -- Ustaw animację na komponencie #model, ale jej nie uruchamiaj

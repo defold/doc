@@ -72,7 +72,7 @@ Some applications may also need additional entitlements. The Steamworks extensio
 <true/>
 ```
 
-    * `com.apple.security.cs.disable-library-validation` - Indicates whether the app may load arbitrary plug-ins or frameworks, without requiring code signing.
+  * `com.apple.security.cs.disable-library-validation` - Indicates whether the app may load arbitrary plug-ins or frameworks, without requiring code signing.
 
 All of the entitlements that can be granted to an application are listed in the official [Apple developer documentation](https://developer.apple.com/documentation/bundleresources/entitlements).
 

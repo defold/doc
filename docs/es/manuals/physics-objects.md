@@ -87,7 +87,7 @@ Bullet
 : Al definir esta propiedad, se habilita la detección continua de colisiones (CCD) entre el objeto de colisión y otros objetos de colisión dinámicos. La propiedad *Bullet* se ignora si *Type* no está definido como `Dynamic`.
 
 Group
-: El nombre del grupo de colisión al que debería pertenecer el objeto. Puedes tener 16 grupos diferentes y nombrarlos como prefieras para tu juego. Por ejemplo, "players", "bullets", "enemies" y "world". Si *Collision Shape* está definido como un tile map, este campo no se usa, sino que los nombres de grupo se toman de la tile source. [Aprende más sobre los grupos de colisión](/manuals/physics-groups).
+: El nombre del grupo de colisión al que debería pertenecer el objeto. Puedes tener 16 grupos diferentes y nombrarlos como prefieras para tu juego. Por ejemplo, `players`, `bullets`, `enemies` y `world`. Si *Collision Shape* está definido como un tile map, este campo no se usa, sino que los nombres de grupo se toman de la tile source. [Aprende más sobre los grupos de colisión](/manuals/physics-groups).
 
 Mask
 : Los otros _grupos_ con los que este objeto debería colisionar. Puedes nombrar un grupo o especificar varios grupos en una lista separada por comas. Si dejas el campo *Mask* vacío, el objeto no colisionará con nada. [Aprende más sobre los grupos de colisión](/manuals/physics-groups).

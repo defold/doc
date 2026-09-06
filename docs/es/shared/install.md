@@ -20,7 +20,7 @@ Instalación en Windows
 : El archivo descargado es un archivo ZIP que necesita ser extraído:
 
   1. Localiza el archivo "Defold-x86_64-win32.zip", <kbd>mantén presionado</kbd> (o <kbd>click derecho</kbd>) a la carpeta, selecciona *Extraer todo*, y después sigue las instrucciones para extraer el archivo en una carpeta denominada "Defold".
-    2. Mueve la carpeta "Defold" a tu ubicación preferida (por ejemplo, `D:\Defold`). No deberías mover Defold a `C:\Program Files (x86)\` o `C:\Program Files\`, ya que esto impedirá que el editor se actualice.
+  2. Mueve la carpeta "Defold" a tu ubicación preferida (por ejemplo, `D:\Defold`). No deberías mover Defold a `C:\Program Files (x86)\` o `C:\Program Files\`, ya que esto impedirá que el editor se actualice.
 
   Para iniciar el editor, abre la carpeta "Defold" y <kbd>doble click</kbd> al ejecutable "Defold.exe".
 

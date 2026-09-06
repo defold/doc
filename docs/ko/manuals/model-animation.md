@@ -184,7 +184,7 @@ local bone_go = model.get_go("#wiggler", "Bone_002")
 
 ### 커서 애니메이션
 
-모델 애니메이션을 진행하기 위해 `model.play_anim()`을 사용하는 것 외에도, *Model* 컴포넌트는 `go.animate()`로 조작할 수 있는 "cursor" 프로퍼티를 노출합니다([프로퍼티 애니메이션](/manuals/property-animation)에 대한 자세한 내용):
+모델 애니메이션을 진행하기 위해 `model.play_anim()`을 사용하는 것 외에도, *Model* 컴포넌트는 `go.animate()`로 조작할 수 있는 `cursor` 프로퍼티를 노출합니다([프로퍼티 애니메이션](/manuals/property-animation)에 대한 자세한 내용):
 
 ```lua
 -- #model에 애니메이션을 설정하지만 시작하지는 않습니다

@@ -72,7 +72,7 @@ $ chmod +x Game.app/Contents/MacOS/Game
 <true/>
 ```
 
-    * `com.apple.security.cs.disable-library-validation` - 表示应用程序是否可以加载任意插件或框架，而不需要代码签名。
+  * `com.apple.security.cs.disable-library-validation` - 表示应用程序是否可以加载任意插件或框架，而不需要代码签名。
 
 可以授予应用程序的所有授权都列在官方的 [Apple 开发者文档](https://developer.apple.com/documentation/bundleresources/entitlements) 中。
 

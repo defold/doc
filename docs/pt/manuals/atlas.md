@@ -38,7 +38,7 @@ Adicionando animações flipbook
 
   Selecione <kbd>Add Animation Group</kbd> no menu de contexto popup para criar um grupo de animação flipbook.
 
-  Um novo grupo de animação vazio, com um nome padrão ("New Animation"), é adicionado ao atlas.
+  Um novo grupo de animação vazio, com um nome padrão (`New Animation`), é adicionado ao atlas.
 
   Arraste e solte imagens do painel *Assets* para a visualização do editor para adicioná-las ao grupo selecionado no momento.
   

@@ -64,7 +64,7 @@ To create a new extension, create a folder in the project root. This folder will
 : This optional folder contains additional files used in the build or bundling process. See below for details.
 
 *res*
-: This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecture-platform` just as the "lib" subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
+: This optional folder contains any extra resources that the extension depends on. Resource files should be placed in subfolders named by `platform`, or `architecture-platform` just as the `lib` subfolders. A subfolder `common` is also allowed, containing resource files common for all platforms.
 
 ### Manifest files
 
@@ -186,7 +186,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. The first argument `symbol` must match the name specified in *ext.manifest*. For this simple example, there is no need for any "update" or "on_event" entry points, so `0` is provided in those locations to the macro.
+Note the macro `DM_DECLARE_EXTENSION` that is used to declare the various entry points into the extension code. The first argument `symbol` must match the name specified in *ext.manifest*. For this simple example, there is no need for any `update` or `on_event` entry points, so `0` is provided in those locations to the macro.
 
 Now it is just a matter of building the project (<kbd>Project ▸ Build</kbd>). This will upload the extension to the extension builder which will produce a custom engine with the new extension included. If the builder encounters any errors, a dialog with the build errors will show.
 

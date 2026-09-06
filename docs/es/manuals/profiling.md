@@ -118,7 +118,7 @@ Al crear un bundle de tu juego hay una opción para crear un reporte de build. E
 
 ![reporte de build](images/profiling/build_report.png)
 
-El builder producirá un archivo llamado "report.html" junto al bundle del juego. Abre el archivo en un navegador web para inspeccionar el reporte:
+El builder producirá un archivo llamado `report.html` junto al bundle del juego. Abre el archivo en un navegador web para inspeccionar el reporte:
 
 ![reporte de build](images/profiling/build_report_html.png)
 
@@ -152,7 +152,7 @@ OpenGL profiler (macOS)
 Android Profiler (Android)
 : https://developer.android.com/studio/profile/android-profiler.html
 
-  Un conjunto de herramientas de profiling que captura datos en tiempo real de la actividad de CPU, memoria y red de tu juego. Puedes realizar trazado de métodos basado en muestras de la ejecución del código, capturar heap dumps, ver asignaciones de memoria e inspeccionar los detalles de los archivos transmitidos por la red. Usar la herramienta requiere que establezcas `android:debuggable="true"` en "AndroidManifest.xml".
+  Un conjunto de herramientas de profiling que captura datos en tiempo real de la actividad de CPU, memoria y red de tu juego. Puedes realizar trazado de métodos basado en muestras de la ejecución del código, capturar heap dumps, ver asignaciones de memoria e inspeccionar los detalles de los archivos transmitidos por la red. Usar la herramienta requiere que establezcas `android:debuggable="true"` en `AndroidManifest.xml`.
 
   ![android profiler](images/profiling/android_profiler.png)
 
@@ -161,6 +161,6 @@ Android Profiler (Android)
 Graphics API Debugger (Android)
 : https://github.com/google/gapid
 
-  Esta es una colección de herramientas que te permite inspeccionar, ajustar y reproducir llamadas de una aplicación a un driver gráfico. Usar la herramienta requiere que establezcas `android:debuggable="true"` en "AndroidManifest.xml".
+  Esta es una colección de herramientas que te permite inspeccionar, ajustar y reproducir llamadas de una aplicación a un driver gráfico. Usar la herramienta requiere que establezcas `android:debuggable="true"` en `AndroidManifest.xml`.
 
   ![graphics api debugger](images/profiling/gapid.png)

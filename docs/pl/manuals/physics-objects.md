@@ -87,7 +87,7 @@ Bullet
 : Ustawienie tej właściwości włącza ciągłe wykrywanie kolizji (CCD) między obiektem kolizji a innymi dynamicznymi obiektami kolizji. Właściwość *Bullet* jest ignorowana, jeśli *Type* nie jest ustawione na `Dynamic`.
 
 Group
-: Nazwa grupy kolizji, do której obiekt powinien należeć. Możesz mieć 16 różnych grup i nadać im dowolne nazwy odpowiednie dla gry. Na przykład "players", "bullets", "enemies" i "world". Jeśli *Collision Shape* jest ustawione na mapę kafelków, to pole to nie jest używane, a nazwy grup są pobierane ze źródła kafelków. [Dowiedz się więcej o grupach kolizji](/manuals/physics-groups).
+: Nazwa grupy kolizji, do której obiekt powinien należeć. Możesz mieć 16 różnych grup i nadać im dowolne nazwy odpowiednie dla gry. Na przykład `players`, `bullets`, `enemies` i `world`. Jeśli *Collision Shape* jest ustawione na mapę kafelków, to pole to nie jest używane, a nazwy grup są pobierane ze źródła kafelków. [Dowiedz się więcej o grupach kolizji](/manuals/physics-groups).
 
 Mask
 : Inne _grupy_, z którymi ten obiekt ma się zderzać. Możesz podać jedną grupę albo kilka grup w liście rozdzielonej przecinkami. Jeśli zostawisz pole *Mask* puste, obiekt nie będzie z niczym kolidował. [Dowiedz się więcej o grupach kolizji](/manuals/physics-groups).

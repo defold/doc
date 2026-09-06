@@ -31,15 +31,15 @@ Klipy filmowe mogą zawierać inne klipy filmowe, natomiast obiekty gry nie mog�
 
 ## Flash — ręczne tworzenie klipów filmowych
 
-We Flashu instancje klipów filmowych można dodawać do sceny ręcznie, przeciągając je z biblioteki na oś czasu. Pokazuje to zrzut poniżej, gdzie każde logo Flasha jest instancją klipu filmowego "logo":
+We Flashu instancje klipów filmowych można dodawać do sceny ręcznie, przeciągając je z biblioteki na oś czasu. Pokazuje to zrzut poniżej, gdzie każde logo Flasha jest instancją klipu filmowego `logo`:
 
 ![manual movie clips](images/flash/manual_movie_clips.png)
 
 ## Defold — ręczne tworzenie obiektów gry
 
-Jak wspomniano wcześniej, Defold nie ma pojęcia osi czasu. Zamiast tego obiekty gry są organizowane w kolekcjach. Kolekcje są kontenerami, czyli prefabami, które przechowują obiekty gry i inne kolekcje. W najprostszym przypadku gra może składać się tylko z jednej kolekcji. Częściej Defold korzysta z wielu kolekcji, dodanych ręcznie do bootstrapowej kolekcji "main" albo wczytywanych dynamicznie przez [collection proxy](/manuals/collection-proxy). Pojęcie wczytywania "poziomów" lub "ekranów" nie ma bezpośredniego odpowiednika we Flashu.
+Jak wspomniano wcześniej, Defold nie ma pojęcia osi czasu. Zamiast tego obiekty gry są organizowane w kolekcjach. Kolekcje są kontenerami, czyli prefabami, które przechowują obiekty gry i inne kolekcje. W najprostszym przypadku gra może składać się tylko z jednej kolekcji. Częściej Defold korzysta z wielu kolekcji, dodanych ręcznie do bootstrapowej kolekcji `main` albo wczytywanych dynamicznie przez [collection proxy](/manuals/collection-proxy). Pojęcie wczytywania "poziomów" lub "ekranów" nie ma bezpośredniego odpowiednika we Flashu.
 
-W przykładzie poniżej kolekcja "main" zawiera trzy instancje klipu filmowego "logo" (na liście po prawej, w oknie *Outline*), widoczne jako obiekty gry "logo" po lewej, w oknie *Assets*:
+W przykładzie poniżej kolekcja `main` zawiera trzy instancje klipu filmowego `logo` (na liście po prawej, w oknie *Outline*), widoczne jako obiekty gry `logo` po lewej, w oknie *Assets*:
 
 ![manual game objects](images/flash/manual_game_objects.png)
 
@@ -75,7 +75,7 @@ Aby dynamicznie tworzyć klipy filmowe we Flashu, najpierw trzeba skonfigurować
 
 ![actionscript linkage](images/flash/actionscript_linkage.png)
 
-Tworzy to klasę (w tym przypadku Logo), która umożliwia tworzenie nowych instancji tej klasy. Dodanie instancji klasy Logo do Stage może wyglądać tak:
+Tworzy to klasę (w tym przypadku `Logo`), która umożliwia tworzenie nowych instancji tej klasy. Dodanie instancji klasy `Logo` do Stage może wyglądać tak:
 
 ```as
 var logo:Logo = new Logo();
@@ -84,15 +84,15 @@ addChild(logo);
 
 ## Defold — tworzenie obiektów gry za pomocą fabryk
 
-W Defoldzie dynamiczne tworzenie obiektów gry odbywa się za pomocą *fabryk*. Fabryki to komponenty służące do tworzenia kopii konkretnego obiektu gry. W tym przykładzie fabrykę utworzono na podstawie obiektu gry "logo" użytego jako prototyp:
+W Defoldzie dynamiczne tworzenie obiektów gry odbywa się za pomocą *fabryk*. Fabryki to komponenty służące do tworzenia kopii konkretnego obiektu gry. W tym przykładzie fabrykę utworzono na podstawie obiektu gry `logo` użytego jako prototyp:
 
 ![logo factory](images/flash/logo_factory.png)
 
-Warto pamiętać, że fabryki, podobnie jak wszystkie komponenty, trzeba dodać do obiektu gry, zanim będzie można ich użyć. W tym przykładzie utworzono obiekt gry "factories", aby przechowywał komponent fabryki:
+Warto pamiętać, że fabryki, podobnie jak wszystkie komponenty, trzeba dodać do obiektu gry, zanim będzie można ich użyć. W tym przykładzie utworzono obiekt gry `factories`, aby przechowywał komponent fabryki:
 
 ![factory component](images/flash/factory_component.png)
 
-Funkcja tworząca instancję obiektu gry logo wygląda tak:
+Funkcja tworząca instancję obiektu gry `logo` wygląda tak:
 
 ```lua
 local logo_id = factory.create("factories#logo_factory")
@@ -110,11 +110,11 @@ Jak wspomniano wcześniej w części o klipach filmowych, Stage jest zasadniczo 
 
 ## Defold — kolekcje
 
-Odpowiednikiem Stage we Flashu w Defoldzie jest kolekcja. Gdy silnik się uruchamia, tworzy nowy świat gry na podstawie zawartości pliku kolekcji. Domyślnie ten plik nazywa się main.collection, ale można zmienić kolekcję wczytywaną przy starcie, edytując plik ustawień *game.project* w katalogu głównym każdego projektu Defold:
+Odpowiednikiem Stage we Flashu w Defoldzie jest kolekcja. Gdy silnik się uruchamia, tworzy nowy świat gry na podstawie zawartości pliku kolekcji. Domyślnie ten plik nazywa się `main.collection`, ale można zmienić kolekcję wczytywaną przy starcie, edytując plik ustawień *game.project* w katalogu głównym każdego projektu Defold:
 
 ![game.project](images/flash/game_project.png)
 
-Kolekcje są kontenerami używanymi w edytorze do organizowania obiektów gry i innych kolekcji. Zawartość kolekcji można też tworzyć w czasie działania gry za pomocą [collection factory](/manuals/collection-factory/#spawning-a-collection), która działa tak samo jak zwykła fabryka obiektów gry. Jest to przydatne na przykład do tworzenia grup przeciwników albo wzorców zbieralnych monet. Na zrzucie poniżej ręcznie umieszczono dwie instancje kolekcji "logos" w kolekcji "main".
+Kolekcje są kontenerami używanymi w edytorze do organizowania obiektów gry i innych kolekcji. Zawartość kolekcji można też tworzyć w czasie działania gry za pomocą [collection factory](/manuals/collection-factory/#spawning-a-collection), która działa tak samo jak zwykła fabryka obiektów gry. Jest to przydatne na przykład do tworzenia grup przeciwników albo wzorców zbieralnych monet. Na zrzucie poniżej ręcznie umieszczono dwie instancje kolekcji `logos` w kolekcji `main`.
 
 ![collection](images/flash/collection.png)
 
@@ -136,17 +136,17 @@ Tweeny ruchu pozwalają animować różne właściwości obiektu, w tym rozmiar,
 
 Defold pracuje na obrazach rastrowych, a nie grafice wektorowej, więc nie ma odpowiednika tweeningu kształtu. Ma jednak bardzo mocny odpowiednik tweeningu ruchu w postaci [animacji właściwości](/ref/go/#go.animate). Wykonuje się ją ze skryptu za pomocą funkcji `go.animate()`. Funkcja `go.animate()` animuje właściwość, taką jak kolor, skala, rotacja albo pozycja, od wartości początkowej do docelowej, korzystając z jednej z wielu dostępnych funkcji easing, w tym także własnych. Tam, gdzie Flash wymagał własnej implementacji bardziej zaawansowanych funkcji easing, Defold ma w silniku [wiele funkcji easing](/manuals/property-animation/#easing).
 
-Tam, gdzie Flash wykorzystuje klatki kluczowe grafiki na osi czasu, jedną z głównych metod animacji grafiki w Defoldzie jest animacja flipbook importowanych sekwencji obrazów. Animacje są organizowane w komponencie obiektu gry zwanym atlasem. W tym przykładzie atlas zawiera postać z sekwencją animacji o nazwie "run". Składa się ona z serii plików png:
+Tam, gdzie Flash wykorzystuje klatki kluczowe grafiki na osi czasu, jedną z głównych metod animacji grafiki w Defoldzie jest animacja flipbook importowanych sekwencji obrazów. Animacje są organizowane w komponencie obiektu gry zwanym atlasem. W tym przykładzie atlas zawiera postać z sekwencją animacji o nazwie `run`. Składa się ona z serii plików png:
 
 ![flipbook](images/flash/flipbook.png)
 
 ## Flash — indeks głębi
 
-We Flashu display list określa, co jest wyświetlane i w jakiej kolejności. Kolejność obiektów w kontenerze, takim jak Stage, jest obsługiwana przez indeks. Obiekty dodane do kontenera metodą `addChild()` automatycznie zajmują najwyższą pozycję w indeksie, zaczynając od 0 i zwiększając ją przy każdym kolejnym obiekcie. Na zrzucie poniżej wygenerowano trzy instancje klipu filmowego "logo":
+We Flashu display list określa, co jest wyświetlane i w jakiej kolejności. Kolejność obiektów w kontenerze, takim jak Stage, jest obsługiwana przez indeks. Obiekty dodane do kontenera metodą `addChild()` automatycznie zajmują najwyższą pozycję w indeksie, zaczynając od 0 i zwiększając ją przy każdym kolejnym obiekcie. Na zrzucie poniżej wygenerowano trzy instancje klipu filmowego `logo`:
 
 ![depth index](images/flash/depth_index.png)
 
-Pozycje na display list są oznaczone numerami obok każdej instancji logo. Pomijając kod odpowiedzialny za pozycję x/y klipów filmowych, powyższy wynik można było uzyskać tak:
+Pozycje na display list są oznaczone numerami obok każdej instancji `logo`. Pomijając kod odpowiedzialny za pozycję x/y klipów filmowych, powyższy wynik można było uzyskać tak:
 
 ```as
 var logo1:Logo = new Logo();
@@ -176,11 +176,11 @@ Pozycje obiektów gry w Defoldzie są reprezentowane przez wektory złożone z t
 Obiekty gry z pozycją Z poza zakresem -1 do 1 nie będą renderowane, a więc nie będą widoczne. To częsta pułapka dla osób zaczynających pracę z Defoldem i warto o niej pamiętać, jeśli obiekt nie jest widoczny, mimo że powinien być.
 :::
 
-W przeciwieństwie do Flasha, gdzie edytor tylko pośrednio sugeruje indeks głębi i pozwala zmieniać go poleceniami takimi jak *Bring Forward* i *Send Backward*, Defold pozwala ustawić pozycję Z obiektów bezpośrednio w edytorze. Na zrzucie poniżej widać, że "logo3" jest wyświetlony najwyżej i ma pozycję Z 0.2. Pozostałe obiekty gry mają pozycje Z 0.0 i 0.1.
+W przeciwieństwie do Flasha, gdzie edytor tylko pośrednio sugeruje indeks głębi i pozwala zmieniać go poleceniami takimi jak *Bring Forward* i *Send Backward*, Defold pozwala ustawić pozycję Z obiektów bezpośrednio w edytorze. Na zrzucie poniżej widać, że `logo3` jest wyświetlony najwyżej i ma pozycję Z 0.2. Pozostałe obiekty gry mają pozycje Z 0.0 i 0.1.
 
 ![z-order](images/flash/z_order.png)
 
-Warto zauważyć, że pozycja Z obiektu gry zagnieżdżonego w jednej lub wielu kolekcjach zależy od jego własnej pozycji Z oraz pozycji wszystkich rodziców. Wyobraź sobie na przykład, że powyższe obiekty logo znajdują się w kolekcji "logos", a ta kolekcja jest umieszczona w "main" (zobacz zrzut poniżej). Gdyby kolekcja "logos" miała pozycję Z 0.9, pozycje Z obiektów wewnątrz wyniosłyby 0.9, 1.0 i 1.1. W efekcie "logo3" nie zostałby wyrenderowany, ponieważ jego pozycja Z byłaby większa niż 1.
+Warto zauważyć, że pozycja Z obiektu gry zagnieżdżonego w jednej lub wielu kolekcjach zależy od jego własnej pozycji Z oraz pozycji wszystkich rodziców. Wyobraź sobie na przykład, że powyższe obiekty `logo` znajdują się w kolekcji `logos`, a ta kolekcja jest umieszczona w `main` (zobacz zrzut poniżej). Gdyby kolekcja `logos` miała pozycję Z 0.9, pozycje Z obiektów wewnątrz wyniosłyby 0.9, 1.0 i 1.1. W efekcie `logo3` nie zostałby wyrenderowany, ponieważ jego pozycja Z byłaby większa niż 1.
 
 ![z-order](images/flash/z_order_outline.png)
 
@@ -194,7 +194,7 @@ go.set_position(pos)
 
 ## Flash `hitTestObject` i `hitTestPoint` - wykrywanie kolizji
 
-Podstawowe wykrywanie kolizji we Flashu realizuje się metodą `hitTestObject()`. W tym przykładzie są dwa klipy filmowe: "bullet" i "bullseye". Widać je na zrzucie poniżej. Niebieska ramka jest widoczna po zaznaczeniu symboli w edytorze Flasha i to właśnie ona decyduje o wyniku `hitTestObject()`.
+Podstawowe wykrywanie kolizji we Flashu realizuje się metodą `hitTestObject()`. W tym przykładzie są dwa klipy filmowe: `bullet` i `bullseye`. Widać je na zrzucie poniżej. Niebieska ramka jest widoczna po zaznaczeniu symboli w edytorze Flasha i to właśnie ona decyduje o wyniku `hitTestObject()`.
 
 ![hit test](images/flash/hittest.png)
 
@@ -218,7 +218,7 @@ Ta linia sprawdza pozycję x i y pocisku w stosunku do kształtu celu. Ponieważ
 
 ## Defold — obiekty kolizji
 
-Defold zawiera silnik fizyki, który potrafi wykrywać kolizje i pozwala skryptowi reagować na nie. Wykrywanie kolizji w Defoldzie zaczyna się od przypisania komponentów obiektu kolizji do obiektów gry. Na zrzucie poniżej dodano obiekt kolizji do obiektu gry "bullet". Obiekt kolizji jest oznaczony czerwonym półprzezroczystym prostokątem, widocznym tylko w edytorze:
+Defold zawiera silnik fizyki, który potrafi wykrywać kolizje i pozwala skryptowi reagować na nie. Wykrywanie kolizji w Defoldzie zaczyna się od przypisania komponentów obiektu kolizji do obiektów gry. Na zrzucie poniżej dodano obiekt kolizji do obiektu gry `bullet`. Obiekt kolizji jest oznaczony czerwonym półprzezroczystym prostokątem, widocznym tylko w edytorze:
 
 ![collision object](images/flash/collision_object.png)
 
@@ -228,7 +228,7 @@ Komponent obiektu kolizji ma następujące właściwości:
 
 ![collision object properties](images/flash/collision_object_properties.png)
 
-Użyto kształtu box, bo najlepiej pasował do grafiki pocisku. Inny kształt używany przy kolizjach 2D, sphere, zostanie użyty dla celu. Ustawienie typu na Kinematic oznacza, że rozstrzyganie kolizji wykonuje skrypt, a nie wbudowany silnik fizyki. Więcej informacji o pozostałych typach znajdziesz w [instrukcji fizyki](/manuals/physics). Właściwości *Group* i *Mask* określają odpowiednio, do jakiej grupy należy obiekt i z jakimi grupami ma być sprawdzany. Bieżąca konfiguracja oznacza, że "bullet" może kolidować tylko z "target". Wyobraź sobie, że konfigurację zmieniono tak jak poniżej:
+Użyto kształtu box, bo najlepiej pasował do grafiki pocisku. Inny kształt używany przy kolizjach 2D, sphere, zostanie użyty dla celu. Ustawienie typu na Kinematic oznacza, że rozstrzyganie kolizji wykonuje skrypt, a nie wbudowany silnik fizyki. Więcej informacji o pozostałych typach znajdziesz w [instrukcji fizyki](/manuals/physics). Właściwości *Group* i *Mask* określają odpowiednio, do jakiej grupy należy obiekt i z jakimi grupami ma być sprawdzany. Bieżąca konfiguracja oznacza, że `bullet` może kolidować tylko z `target`. Wyobraź sobie, że konfigurację zmieniono tak jak poniżej:
 
 ![collision group/mask](images/flash/collision_groupmask.png)
 
@@ -236,7 +236,7 @@ Teraz pociski mogą kolidować z celami i innymi pociskami. Dla porównania obie
 
 ![collision object bullet](images/flash/collision_object_bullet.png)
 
-Zwróć uwagę, że właściwość *Group* jest ustawiona na "target", a *Mask* na "bullet".
+Zwróć uwagę, że właściwość *Group* jest ustawiona na `target`, a *Mask* na `bullet`.
 
 We Flashu wykrywanie kolizji odbywa się tylko wtedy, gdy zostanie jawnie wywołane ze skryptu. W Defoldzie wykrywanie kolizji działa cały czas w tle, dopóki obiekt kolizji jest włączony. Gdy dojdzie do kolizji, odpowiednie wiadomości są wysyłane do wszystkich komponentów obiektu gry, a przede wszystkim do komponentów skryptu. Są to wiadomości [`collision_response` i `contact_point_response`](/manuals/physics-messages), które zawierają wszystkie informacje potrzebne do rozwiązania kolizji w pożądany sposób.
 

@@ -11,7 +11,7 @@ Componentes de som
 : Esses componentes contêm um som real que deve ser tocado e são capazes de reproduzi-lo.
 
 Grupos de som
-: Cada componente de som pode ser designado para pertencer a um _grupo_. Grupos oferecem uma forma fácil de gerenciar sons relacionados de maneira intuitiva. Por exemplo, um grupo "sound_fx" pode ser configurado e qualquer som pertencente a esse grupo pode sofrer ducking com uma simples chamada de função.
+: Cada componente de som pode ser designado para pertencer a um _grupo_. Grupos oferecem uma forma fácil de gerenciar sons relacionados de maneira intuitiva. Por exemplo, um grupo `sound_fx` pode ser configurado e qualquer som pertencente a esse grupo pode sofrer ducking com uma simples chamada de função.
 
 ## Criando um componente de som
 
@@ -33,7 +33,7 @@ O componente criado tem um conjunto de propriedades que devem ser configuradas:
 : O número de vezes que um som em loop será reproduzido antes de parar (0 significa que o som deve repetir até ser explicitamente interrompido).
 
 *Group*
-: O nome do grupo de som ao qual o som deve pertencer. Se essa propriedade ficar vazia, o som será atribuído ao grupo integrado "master".
+: O nome do grupo de som ao qual o som deve pertencer. Se essa propriedade ficar vazia, o som será atribuído ao grupo integrado `master`.
 
 *Gain*
 : Você pode definir o ganho do som diretamente no componente. Isso permite ajustar facilmente o ganho de um som sem voltar ao seu programa de áudio e reexportá-lo. Veja abaixo detalhes sobre como o ganho é calculado.
@@ -75,13 +75,13 @@ O sistema de som tem 4 níveis de ganho:
 - O ganho definido no componente de som.
 - O ganho definido ao iniciar o som por uma chamada a `sound.play()` ou ao alterar o ganho na voz por uma chamada a `sound.set_gain()`.
 - O ganho definido no grupo por uma chamada à função [`sound.set_group_gain()`](/ref/sound#sound.set_group_gain).
-- O ganho definido no grupo "master". Isso pode ser alterado com `sound.set_group_gain(hash("master"), gain)`.
+- O ganho definido no grupo `master`. Isso pode ser alterado com `sound.set_group_gain(hash("master"), gain)`.
 
 Quando **Use Linear Gain** está ativado nas [configurações de projeto de Sound](/manuals/project-settings/#sound) (o padrão), o ganho de saída é o resultado desses quatro ganhos multiplicados. Um ganho de `1.0` é o ganho unitário (0 dB). Quando o ganho linear está desativado, o Defold aplica uma curva não linear durante a mixagem; portanto, a multiplicação direta dos quatro valores e a conversão para decibéis abaixo não descrevem o nível de saída resultante.
 
 ## Grupos de som
 
-Qualquer componente de som com um nome de grupo de som especificado será colocado em um grupo de som com esse nome. Se você não especificar um grupo, o som será atribuído ao grupo "master". Você também pode definir explicitamente o grupo de um componente de som como "master", o que tem o mesmo efeito.
+Qualquer componente de som com um nome de grupo de som especificado será colocado em um grupo de som com esse nome. Se você não especificar um grupo, o som será atribuído ao grupo `master`. Você também pode definir explicitamente o grupo de um componente de som como `master`, o que tem o mesmo efeito.
 
 Há algumas funções disponíveis para obter todos os grupos disponíveis, obter o nome em string, obter e definir ganho, rms (veja http://en.wikipedia.org/wiki/Root_mean_square) e pico de ganho. Também há uma função que permite testar se o player de música do dispositivo-alvo está em execução:
 
