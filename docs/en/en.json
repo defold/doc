@@ -1836,6 +1836,10 @@
                         "name": "App review and ratings"
                     },
                     {
+                        "path": "/extension-applovin",
+                        "name": "AppLovin MAX ad mediation"
+                    },
+                    {
                         "path": "/extension-camera",
                         "name": "Camera"
                     },
@@ -1864,8 +1868,8 @@
                         "name": "Inter-app communication"
                     },
                     {
-                        "path": "/extension-ironsource",
-                        "name": "IronSource ad mediation"
+                        "path": "/extension-levelplay",
+                        "name": "LevelPlay ad mediation"
                     },
                     {
                         "path": "/extension-push",
@@ -1909,6 +1913,10 @@
                         "name": "App review and ratings"
                     },
                     {
+                        "path": "/extension-applovin",
+                        "name": "AppLovin MAX ad mediation"
+                    },
+                    {
                         "path": "/extension-camera",
                         "name": "Camera"
                     },
@@ -1929,8 +1937,8 @@
                         "name": "Inter-app communication"
                     },
                     {
-                        "path": "/extension-ironsource",
-                        "name": "IronSource ad mediation"
+                        "path": "/extension-levelplay",
+                        "name": "LevelPlay ad mediation"
                     },
                     {
                         "path": "/extension-push",

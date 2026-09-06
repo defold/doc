@@ -37,9 +37,9 @@ Anúncios com recompensa (também conhecidos como anúncios com incentivo) são 
 O [Portal de Assets do Defold](/tags/stars/ads/) contém vários assets que se integram com provedores de anúncios:
 
 * [AdMob](https://defold.com/assets/admob-defold/) - Mostra anúncios usando a rede Google AdMob.
-* [Enhance](https://defold.com/assets/enhance/) - Suporta uma série de redes de anúncios diferentes. Requer uma etapa adicional de pós-build.
+* [AppLovin MAX](https://defold.com/extension-applovin/) - Mostra anúncios usando a mediação de anúncios do AppLovin MAX.
 * [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - Mostra anúncios no seu Facebook Instant Game.
-* [IronSource](https://defold.com/assets/ironsource/) - Mostra anúncios usando a rede de anúncios IronSource.
+* [LevelPlay](https://defold.com/extension-levelplay/) - Mostra anúncios usando a mediação de anúncios do Unity LevelPlay.
 * [Unity Ads](https://defold.com/assets/defvideoads/) - Mostra anúncios usando a rede Unity Ads.
 
 

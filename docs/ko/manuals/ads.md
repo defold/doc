@@ -37,9 +37,9 @@ CPM = Cost per mille. 광고주가 1,000회 조회당 지불하는 금액입니�
 [Defold Asset Portal](/tags/stars/ads/)에는 광고 제공업체와 연동되는 여러 에셋이 있습니다.
 
 * [AdMob](https://defold.com/assets/admob-defold/) - Google AdMob 네트워크를 사용해 광고를 표시합니다.
-* [Enhance](https://defold.com/assets/enhance/) - 여러 광고 네트워크를 지원합니다. 추가 post-build 단계가 필요합니다.
+* [AppLovin MAX](https://defold.com/extension-applovin/) - AppLovin MAX 광고 미디에이션을 사용해 광고를 표시합니다.
 * [Facebook Instant Games](https://defold.com/assets/facebookinstantgames/) - Facebook Instant Game에서 광고를 표시합니다.
-* [IronSource](https://defold.com/assets/ironsource/) - IronSource Ad network를 사용해 광고를 표시합니다.
+* [LevelPlay](https://defold.com/extension-levelplay/) - Unity LevelPlay 광고 미디에이션을 사용해 광고를 표시합니다.
 * [Unity Ads](https://defold.com/assets/defvideoads/) - Unity Ads 네트워크를 사용해 광고를 표시합니다.
 
 
