@@ -64,7 +64,7 @@ Defold는 사용 제한 없이 클라우드 빌드 서버를 무료로 제공합
 : 이 선택적 폴더에는 빌드 또는 번들링 과정에서 사용되는 추가 파일이 들어갑니다. 자세한 내용은 아래를 참조하세요.
 
 *res*
-: 이 선택적 폴더에는 익스텐션이 의존하는 추가 리소스가 들어갑니다. 리소스 파일은 "lib" 하위 폴더와 마찬가지로 `platform` 또는 `architecture-platform` 이름의 하위 폴더에 배치해야 합니다. 모든 플랫폼에 공통으로 사용되는 리소스 파일을 담는 `common` 하위 폴더도 허용됩니다.
+: 이 선택적 폴더에는 익스텐션이 의존하는 추가 리소스가 들어갑니다. 리소스 파일은 `lib` 하위 폴더와 마찬가지로 `platform` 또는 `architecture-platform` 이름의 하위 폴더에 배치해야 합니다. 모든 플랫폼에 공통으로 사용되는 리소스 파일을 담는 `common` 하위 폴더도 허용됩니다.
 
 ### 메니페스트 파일
 
@@ -186,7 +186,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-익스텐션 코드의 다양한 진입점을 선언하는 데 사용되는 `DM_DECLARE_EXTENSION` 매크로를 확인하세요. 첫 번째 인자 `symbol`은 *ext.manifest*에 지정된 이름과 일치해야 합니다. 이 간단한 예제에서는 "update" 또는 "on_event" 진입점이 필요하지 않으므로 매크로의 해당 위치에 `0`을 제공합니다.
+익스텐션 코드의 다양한 진입점을 선언하는 데 사용되는 `DM_DECLARE_EXTENSION` 매크로를 확인하세요. 첫 번째 인자 `symbol`은 *ext.manifest*에 지정된 이름과 일치해야 합니다. 이 간단한 예제에서는 `update` 또는 `on_event` 진입점이 필요하지 않으므로 매크로의 해당 위치에 `0`을 제공합니다.
 
 이제 프로젝트를 빌드하기만 하면 됩니다(<kbd>Project ▸ Build</kbd>). 그러면 익스텐션이 익스텐션 빌더에 업로드되고, 빌더는 새 익스텐션이 포함된 커스텀 엔진을 생성합니다. 빌더에서 오류가 발생하면 빌드 오류가 포함된 대화 상자가 표시됩니다.
 

@@ -13,7 +13,7 @@ Con un componente factory de colección puedes generar el contenido de un archiv
 
 ## Generar una colección {#spawning-a-collection}
 
-Supongamos que queremos un objeto de juego de personaje y un objeto de juego de escudo separado como hijo del personaje. Construimos la jerarquía de objetos de juego en un archivo de colección y lo guardamos como "bean.collection".
+Supongamos que queremos un objeto de juego de personaje y un objeto de juego de escudo separado como hijo del personaje. Construimos la jerarquía de objetos de juego en un archivo de colección y lo guardamos como `bean.collection`.
 
 ::: sidenote
 El componente *collection proxy* se usa para crear un mundo de juego nuevo, incluido un mundo de física separado, basado en una colección. Se accede al mundo nuevo a través de un socket nuevo. Todos los recursos contenidos en la colección se cargan a través del proxy cuando envías un mensaje al proxy para iniciar la carga. Esto los hace muy útiles para, por ejemplo, cambiar niveles en un juego. Sin embargo, los mundos de juego nuevos conllevan bastante sobrecarga, así que no los uses para la carga dinámica de elementos pequeños. Para obtener más información, consulta la [documentación de Collection proxy](/manuals/collection-proxy).
@@ -21,11 +21,11 @@ El componente *collection proxy* se usa para crear un mundo de juego nuevo, incl
 
 ![Colección que se va a generar](images/collection_factory/collection.png)
 
-Luego añadimos un *Collection factory* a un objeto de juego que se encargará de la generación y definimos "bean.collection" como el *Prototype* del componente:
+Luego añadimos un *Collection factory* a un objeto de juego que se encargará de la generación y definimos `bean.collection` como el *Prototype* del componente:
 
 ![Factory de colección](images/collection_factory/factory.png)
 
-Generar un bean y un escudo ahora solo requiere llamar a la función `collectionfactory.create()`:
+Generar un `bean` y un escudo ahora solo requiere llamar a la función `collectionfactory.create()`:
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
@@ -51,7 +51,7 @@ La función toma 5 parámetros:
 `collectionfactory.create()` devuelve los identificadores de los objetos de juego generados como una tabla. Las claves de la tabla asignan el hash del id local de cada objeto en la colección al id de runtime de cada objeto:
 
 ::: sidenote
-La relación padre-hijo entre "bean" y "shield" *no* se refleja en la tabla devuelta. Esta relación solo existe en el gráfico de la escena en runtime, es decir, en cómo se transforman juntos los objetos. Cambiar el padre de un objeto nunca cambia su id.
+La relación padre-hijo entre `bean` y `shield` *no* se refleja en la tabla devuelta. Esta relación solo existe en el gráfico de la escena en runtime, es decir, en cómo se transforman juntos los objetos. Cambiar el padre de un objeto nunca cambia su id.
 :::
 
 ```lua
@@ -76,7 +76,7 @@ props[hash("/bean")] = { shield = false }
 local ids = collectionfactory.create("#bean_factory", nil, nil, props)
 ```
 
-Supongamos que el objeto de juego "bean" en "bean.collection" define la propiedad "shield". El [manual de propiedades de script](/manuals/script-properties) contiene información sobre las propiedades de script.
+Supongamos que el objeto de juego `bean` en `bean.collection` define la propiedad `shield`. El [manual de propiedades de script](/manuals/script-properties) contiene información sobre las propiedades de script.
 
 ```lua
 -- bean/controller.script

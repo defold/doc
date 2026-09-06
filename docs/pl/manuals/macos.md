@@ -73,7 +73,7 @@ Niektóre aplikacje mogą też wymagać dodatkowych uprawnień. Rozszerzenie Ste
 <true/>
 ```
 
-    * `com.apple.security.cs.disable-library-validation` - Określa, czy aplikacja może wczytywać dowolne wtyczki lub frameworki bez wymogu podpisywania kodu
+  * `com.apple.security.cs.disable-library-validation` - Określa, czy aplikacja może wczytywać dowolne wtyczki lub frameworki bez wymogu podpisywania kodu
 
 Wszystkie uprawnienia, które można przyznać aplikacji, są wymienione w oficjalnej [dokumentacji Apple dla deweloperów](https://developer.apple.com/documentation/bundleresources/entitlements).
 

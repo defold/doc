@@ -9,7 +9,7 @@ Módulos Lua permitem estruturar seu projeto e criar código de biblioteca reuti
 
 ## Requisitando arquivos Lua
 
-Código Lua armazenado em arquivos com extensão ".lua" em algum lugar da estrutura do seu projeto pode ser requisitado com `require` em arquivos de script e scripts de GUI. Para criar um novo arquivo de módulo Lua, clique com o botão direito na pasta onde deseja criá-lo no painel *Assets* e selecione <kbd>New... ▸ Lua Module</kbd>. Dê um nome único ao arquivo e pressione <kbd>Ok</kbd>:
+Código Lua armazenado em arquivos com extensão `.lua` em algum lugar da estrutura do seu projeto pode ser requisitado com `require` em arquivos de script e scripts de GUI. Para criar um novo arquivo de módulo Lua, clique com o botão direito na pasta onde deseja criá-lo no painel *Assets* e selecione <kbd>New... ▸ Lua Module</kbd>. Dê um nome único ao arquivo e pressione <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
@@ -99,7 +99,7 @@ print(m.value) --> "4711" (mesmo se "module.lua" for alterado e recarregado com 
 
 Se você fizer hot reload do arquivo do módulo, o código é executado novamente, mas nada acontece com `m.value`. Por quê?
 
-Primeiro, a tabela criada em "module.lua" é criada no escopo local e uma _referência_ a essa tabela é retornada ao usuário. Recarregar "module.lua" avalia o código do módulo novamente, mas isso cria uma nova tabela no escopo local em vez de atualizar a tabela à qual `m` se refere.
+Primeiro, a tabela criada em `module.lua` é criada no escopo local e uma _referência_ a essa tabela é retornada ao usuário. Recarregar `module.lua` avalia o código do módulo novamente, mas isso cria uma nova tabela no escopo local em vez de atualizar a tabela à qual `m` se refere.
 
 Segundo, Lua coloca arquivos carregados com `require` em cache. Na primeira vez que um arquivo é requisitado, ele é colocado na tabela [`package.loaded`](/ref/package/#package.loaded) para que possa ser lido mais rapidamente em chamadas `require` posteriores. Você pode forçar um arquivo a ser relido do disco definindo a entrada do arquivo como `nil`: `package.loaded["my_module"] = nil`.
 

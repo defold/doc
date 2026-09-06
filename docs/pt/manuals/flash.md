@@ -31,15 +31,15 @@ Embora movie clips possam conter outros movie clips, objetos de jogo não podem 
 
 ## Flash - criando movie clips manualmente
 
-No Flash, instâncias de movie clips podem ser adicionadas manualmente à cena ao arrastá-las da biblioteca para a timeline. Isso é ilustrado na captura de tela abaixo, em que cada logo do Flash é uma instância do movieclip "logo":
+No Flash, instâncias de movie clips podem ser adicionadas manualmente à cena ao arrastá-las da biblioteca para a timeline. Isso é ilustrado na captura de tela abaixo, em que cada logo do Flash é uma instância do movieclip `logo`:
 
 ![movie clips manuais](images/flash/manual_movie_clips.png)
 
 ## Defold - criando objetos de jogo manualmente
 
-Como mencionado anteriormente, o Defold não tem o conceito de timeline. Em vez disso, objetos de jogo são organizados em coleções. Coleções são contêineres (ou prefabs) que contêm objetos de jogo e outras coleções. No nível mais básico, um jogo pode consistir em apenas uma coleção. Com mais frequência, jogos Defold usam múltiplas coleções, adicionadas manualmente à coleção bootstrap “main” ou carregadas dinamicamente por meio de [proxies de coleção](/manuals/collection-proxy). Esse conceito de carregar "níveis" ou "telas" não tem um equivalente direto no Flash.
+Como mencionado anteriormente, o Defold não tem o conceito de timeline. Em vez disso, objetos de jogo são organizados em coleções. Coleções são contêineres (ou prefabs) que contêm objetos de jogo e outras coleções. No nível mais básico, um jogo pode consistir em apenas uma coleção. Com mais frequência, jogos Defold usam múltiplas coleções, adicionadas manualmente à coleção bootstrap `main` ou carregadas dinamicamente por meio de [proxies de coleção](/manuals/collection-proxy). Esse conceito de carregar "níveis" ou "telas" não tem um equivalente direto no Flash.
 
-No exemplo abaixo, a coleção "main" contém três instâncias (listadas à direita, na janela *Outline*) do objeto de jogo "logo" (visto à esquerda, na janela do navegador *Assets*):
+No exemplo abaixo, a coleção `main` contém três instâncias (listadas à direita, na janela *Outline*) do objeto de jogo `logo` (visto à esquerda, na janela do navegador *Assets*):
 
 ![objetos de jogo manuais](images/flash/manual_game_objects.png)
 
@@ -55,9 +55,9 @@ No Defold, todos os objetos de jogo e componentes são referenciados por meio de
 
 - `"."` endereça o objeto de jogo atual.
 - `"#"` endereça o componente atual (o script).
-- `"logo"` endereça o objeto de jogo com o id "logo".
-- `"#script"` endereça o componente com id "script" no objeto de jogo atual.
-- `"logo#script"` endereça o componente com id "script" no objeto de jogo com id "logo".
+- `"logo"` endereça o objeto de jogo com o id `logo`.
+- `"#script"` endereça o componente com id `script` no objeto de jogo atual.
+- `"logo#script"` endereça o componente com id `script` no objeto de jogo com id `logo`.
 
 O endereço de objetos de jogo colocados manualmente é determinado pela propriedade *Id* atribuída (veja a parte inferior direita da captura de tela). O id precisa ser único no arquivo de coleção atual em que você está trabalhando. O editor define automaticamente um id para você, mas você pode alterá-lo para cada instância de objeto de jogo que criar.
 
@@ -75,7 +75,7 @@ Para criar movie clips dinamicamente no Flash, primeiro é necessário configura
 
 ![actionscript linkage](images/flash/actionscript_linkage.png)
 
-Isso cria uma classe (Logo, neste caso), que então permite instanciar novas instâncias dessa classe. Adicionar uma instância da classe Logo ao Stage poderia ser feito assim:
+Isso cria uma classe (`Logo`, neste caso), que então permite instanciar novas instâncias dessa classe. Adicionar uma instância da classe `Logo` ao Stage poderia ser feito assim:
 
 ```as
 var logo:Logo = new Logo();
@@ -84,15 +84,15 @@ addChild(logo);
 
 ## Defold - criando objetos de jogo usando fábricas
 
-No Defold, a geração dinâmica de objetos de jogo é feita com o uso de *fábricas*. Fábricas são componentes usados para criar cópias de um objeto de jogo específico. Neste exemplo, uma fábrica foi criada com o objeto de jogo "logo" como protótipo:
+No Defold, a geração dinâmica de objetos de jogo é feita com o uso de *fábricas*. Fábricas são componentes usados para criar cópias de um objeto de jogo específico. Neste exemplo, uma fábrica foi criada com o objeto de jogo `logo` como protótipo:
 
 ![fábrica de logo](images/flash/logo_factory.png)
 
-É importante observar que fábricas, como todos os componentes, precisam ser adicionadas a um objeto de jogo antes de poderem ser usadas. Neste exemplo, criamos um objeto de jogo chamado "factories" para conter nosso componente de fábrica:
+É importante observar que fábricas, como todos os componentes, precisam ser adicionadas a um objeto de jogo antes de poderem ser usadas. Neste exemplo, criamos um objeto de jogo chamado `factories` para conter nosso componente de fábrica:
 
 ![componente de fábrica](images/flash/factory_component.png)
 
-A função a chamar para gerar uma instância do objeto de jogo logo é:
+A função a chamar para gerar uma instância do objeto de jogo `logo` é:
 
 ```lua
 local logo_id = factory.create("factories#logo_factory")
@@ -110,11 +110,11 @@ Como discutido na seção sobre movie clips acima, o Stage é essencialmente o c
 
 ## Defold - coleções
 
-O equivalente do Defold ao Stage do Flash é uma coleção. Quando a engine inicia, ela cria um novo mundo de jogo com base no conteúdo de um arquivo de coleção. Por padrão, esse arquivo se chama "main.collection", mas você pode alterar qual coleção é carregada na inicialização acessando o arquivo de configurações *game.project*, que fica na raiz de todo projeto Defold:
+O equivalente do Defold ao Stage do Flash é uma coleção. Quando a engine inicia, ela cria um novo mundo de jogo com base no conteúdo de um arquivo de coleção. Por padrão, esse arquivo se chama `main.collection`, mas você pode alterar qual coleção é carregada na inicialização acessando o arquivo de configurações *game.project*, que fica na raiz de todo projeto Defold:
 
 ![game.project](images/flash/game_project.png)
 
-Coleções são contêineres usados no editor para organizar objetos de jogo e outras coleções. O conteúdo de uma coleção também pode ser criado via script no runtime usando uma [fábrica de coleção](/manuals/collection-factory/#spawning-a-collection), que funciona da mesma forma que uma fábrica comum de objetos de jogo. Isso é útil para criar grupos de inimigos ou um padrão de itens coletáveis, por exemplo. Na captura de tela abaixo, posicionamos manualmente duas instâncias da coleção "logos" na coleção "main".
+Coleções são contêineres usados no editor para organizar objetos de jogo e outras coleções. O conteúdo de uma coleção também pode ser criado via script no runtime usando uma [fábrica de coleção](/manuals/collection-factory/#spawning-a-collection), que funciona da mesma forma que uma fábrica comum de objetos de jogo. Isso é útil para criar grupos de inimigos ou um padrão de itens coletáveis, por exemplo. Na captura de tela abaixo, posicionamos manualmente duas instâncias da coleção `logos` na coleção `main`.
 
 ![coleção](images/flash/collection.png)
 
@@ -136,17 +136,17 @@ Motion tweens permitem animar várias propriedades de um objeto, incluindo taman
 
 O Defold trabalha com imagens em pixels em vez de gráficos vetoriais, portanto não tem um equivalente para shape tweening. No entanto, motion tweening tem um equivalente poderoso em [animação de propriedades](/ref/go/#go.animate). Isso é feito via script, usando a função `go.animate()`. A função `go.animate()` interpola uma propriedade (como cor, escala, rotação ou posição) do valor inicial para o valor final desejado, usando uma das muitas funções de easing disponíveis (incluindo funções personalizadas). Onde o Flash exigia que o usuário implementasse funções de easing mais avançadas, o Defold inclui [muitas funções de easing](/manuals/property-animation/#easing) integradas à engine.
 
-Enquanto o Flash usa keyframes de gráficos em uma timeline para animação, um dos principais métodos de animação gráfica no Defold é a animação flip-book de sequências de imagens importadas. As animações são organizadas em um componente de objeto de jogo conhecido como atlas. Neste caso, temos um atlas para um personagem de jogo com uma sequência de animação chamada "run". Ela consiste em uma série de arquivos png:
+Enquanto o Flash usa keyframes de gráficos em uma timeline para animação, um dos principais métodos de animação gráfica no Defold é a animação flip-book de sequências de imagens importadas. As animações são organizadas em um componente de objeto de jogo conhecido como atlas. Neste caso, temos um atlas para um personagem de jogo com uma sequência de animação chamada `run`. Ela consiste em uma série de arquivos png:
 
 ![flipbook](images/flash/flipbook.png)
 
 ## Flash - índice de profundidade
 
-No Flash, a display list determina o que é mostrado e em que ordem. A ordenação de objetos em um contêiner (como o Stage) é tratada por um índice. Objetos adicionados a um contêiner usando o método `addChild()` ocuparão automaticamente a posição superior do índice, começando em 0 e incrementando a cada objeto adicional. Na captura de tela abaixo, geramos três instâncias do movie clip "logo":
+No Flash, a display list determina o que é mostrado e em que ordem. A ordenação de objetos em um contêiner (como o Stage) é tratada por um índice. Objetos adicionados a um contêiner usando o método `addChild()` ocuparão automaticamente a posição superior do índice, começando em 0 e incrementando a cada objeto adicional. Na captura de tela abaixo, geramos três instâncias do movie clip `logo`:
 
 ![índice de profundidade](images/flash/depth_index.png)
 
-As posições na display list são indicadas pelos números ao lado de cada instância de logo. Ignorando qualquer código para lidar com a posição x/y dos movie clips, o exemplo acima poderia ter sido gerado assim:
+As posições na display list são indicadas pelos números ao lado de cada instância de `logo`. Ignorando qualquer código para lidar com a posição x/y dos movie clips, o exemplo acima poderia ter sido gerado assim:
 
 ```as
 var logo1:Logo = new Logo();
@@ -176,11 +176,11 @@ As posições de objetos de jogo no Defold são representadas por vetores compos
 Objetos de jogo com posição z fora do intervalo de -1 a 1 não serão renderizados e, portanto, não ficarão visíveis. Essa é uma armadilha comum para desenvolvedores novos no Defold e vale a pena lembrar disso se um objeto de jogo não estiver visível quando você espera que esteja.
 :::
 
-Ao contrário do Flash, em que o editor apenas sugere a indexação de profundidade (e permite modificá-la usando comandos como *Bring Forward* e *Send Backward*), o Defold permite definir diretamente a posição z dos objetos no editor. Na captura de tela abaixo, você pode ver que "logo3" é exibido por cima e tem posição z 0.2. Os outros objetos de jogo têm posições z 0.0 e 0.1.
+Ao contrário do Flash, em que o editor apenas sugere a indexação de profundidade (e permite modificá-la usando comandos como *Bring Forward* e *Send Backward*), o Defold permite definir diretamente a posição z dos objetos no editor. Na captura de tela abaixo, você pode ver que `logo3` é exibido por cima e tem posição z 0.2. Os outros objetos de jogo têm posições z 0.0 e 0.1.
 
 ![ordem z](images/flash/z_order.png)
 
-Observe que a posição z de um objeto de jogo aninhado em uma ou mais coleções é decidida por sua própria posição z junto com a de todos os seus pais. Por exemplo, imagine que os objetos de jogo logo acima foram colocados em uma coleção "logos", que por sua vez foi colocada em "main" (veja a captura de tela abaixo). Se a coleção "logos" tivesse posição z 0.9, as posições z dos objetos de jogo contidos nela seriam 0.9, 1.0 e 1.1. Portanto, "logo3" não seria renderizado, pois sua posição z é maior que 1.
+Observe que a posição z de um objeto de jogo aninhado em uma ou mais coleções é decidida por sua própria posição z junto com a de todos os seus pais. Por exemplo, imagine que os objetos de jogo `logo` acima foram colocados em uma coleção `logos`, que por sua vez foi colocada em `main` (veja a captura de tela abaixo). Se a coleção `logos` tivesse posição z 0.9, as posições z dos objetos de jogo contidos nela seriam 0.9, 1.0 e 1.1. Portanto, `logo3` não seria renderizado, pois sua posição z é maior que 1.
 
 ![ordem z](images/flash/z_order_outline.png)
 
@@ -194,7 +194,7 @@ go.set_position(pos)
 
 ## Detecção de colisão com `hitTestObject` e `hitTestPoint` no Flash
 
-A detecção básica de colisão no Flash é feita usando o método `hitTestObject()`. Neste exemplo, temos dois movie clips: "bullet" e "bullseye". Eles são ilustrados na captura de tela abaixo. A caixa de limite azul fica visível ao selecionar os símbolos no editor Flash, e são essas caixas de limite que determinam o resultado do método `hitTestObject()`.
+A detecção básica de colisão no Flash é feita usando o método `hitTestObject()`. Neste exemplo, temos dois movie clips: `bullet` e `bullseye`. Eles são ilustrados na captura de tela abaixo. A caixa de limite azul fica visível ao selecionar os símbolos no editor Flash, e são essas caixas de limite que determinam o resultado do método `hitTestObject()`.
 
 ![hit test](images/flash/hittest.png)
 
@@ -218,7 +218,7 @@ Essa linha verificaria a posição x e y do projétil (canto superior esquerdo n
 
 ## Defold - objetos de colisão
 
-O Defold inclui uma engine de física que consegue detectar colisões e permitir que um script reaja a elas. A detecção de colisão no Defold começa ao atribuir componentes de objeto de colisão a objetos de jogo. Na captura de tela abaixo, adicionamos um objeto de colisão ao objeto de jogo "bullet". O objeto de colisão é indicado como a caixa vermelha transparente (visível apenas no editor):
+O Defold inclui uma engine de física que consegue detectar colisões e permitir que um script reaja a elas. A detecção de colisão no Defold começa ao atribuir componentes de objeto de colisão a objetos de jogo. Na captura de tela abaixo, adicionamos um objeto de colisão ao objeto de jogo `bullet`. O objeto de colisão é indicado como a caixa vermelha transparente (visível apenas no editor):
 
 ![objeto de colisão](images/flash/collision_object.png)
 
@@ -228,7 +228,7 @@ O objeto de colisão inclui as seguintes propriedades:
 
 ![propriedades do objeto de colisão](images/flash/collision_object_properties.png)
 
-Uma forma de caixa foi usada porque era a mais adequada para o gráfico do projétil. A outra forma usada para colisões 2D, esfera, será usada para o alvo. Definir o tipo como Kinematic significa que a resolução de colisões é feita pelo seu script, em vez da engine de física integrada (para mais informações sobre os outros tipos, consulte o [manual de física](/manuals/physics)). As propriedades *Group* e *Mask* determinam a qual grupo de colisão o objeto pertence e contra qual grupo de colisão ele deve ser verificado, respectivamente. A configuração atual significa que um "bullet" só pode colidir com um "target". Imagine que a configuração fosse alterada para a abaixo:
+Uma forma de caixa foi usada porque era a mais adequada para o gráfico do projétil. A outra forma usada para colisões 2D, esfera, será usada para o alvo. Definir o tipo como Kinematic significa que a resolução de colisões é feita pelo seu script, em vez da engine de física integrada (para mais informações sobre os outros tipos, consulte o [manual de física](/manuals/physics)). As propriedades *Group* e *Mask* determinam a qual grupo de colisão o objeto pertence e contra qual grupo de colisão ele deve ser verificado, respectivamente. A configuração atual significa que um `bullet` só pode colidir com um `target`. Imagine que a configuração fosse alterada para a abaixo:
 
 ![grupo/máscara de colisão](images/flash/collision_groupmask.png)
 
@@ -236,7 +236,7 @@ Agora, projéteis podem colidir com alvos e outros projéteis. Para referência,
 
 ![objeto de colisão do projétil](images/flash/collision_object_bullet.png)
 
-Observe como a propriedade *Group* está definida como "target" e *Mask* como "bullet".
+Observe como a propriedade *Group* está definida como `target` e *Mask* como `bullet`.
 
 No Flash, a detecção de colisão ocorre apenas quando é chamada explicitamente pelo script. No Defold, a detecção de colisão ocorre continuamente em segundo plano enquanto um objeto de colisão permanece habilitado. Quando uma colisão ocorre, mensagens são enviadas a todos os componentes de um objeto de jogo (mais relevantemente, aos componentes de script). Essas são as mensagens [`collision_response` and `contact_point_response`](/manuals/physics-messages), que contêm todas as informações necessárias para resolver a colisão como desejado.
 

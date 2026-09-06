@@ -72,7 +72,7 @@ $ chmod +x Game.app/Contents/MacOS/Game
 <true/>
 ```
 
-    * `com.apple.security.cs.disable-library-validation` - 앱이 code signing 없이 임의의 plug-in 또는 framework를 로드할 수 있는지를 나타냅니다.
+  * `com.apple.security.cs.disable-library-validation` - 앱이 code signing 없이 임의의 plug-in 또는 framework를 로드할 수 있는지를 나타냅니다.
 
 어플리케이션에 부여할 수 있는 모든 entitlements는 공식 [Apple developer documentation](https://developer.apple.com/documentation/bundleresources/entitlements)에 나열되어 있습니다.
 

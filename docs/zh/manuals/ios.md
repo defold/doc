@@ -57,8 +57,8 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
 1. 连接你的设备。
 2. 安装 Xcode。
 3. 向 Xcode 添加新账户并使用你的 Apple ID 登录。
-4. 创建一个新项目。最简单的"单视图应用"即可。
-5. 选择你的"团队"（为你自动创建）并为应用提供一个包标识符。
+4. 创建一个新项目。最简单的`单视图应用`即可。
+5. 选择你的`团队`（为你自动创建）并为应用提供一个包标识符。
 
 ::: important
 记下包标识符，因为你必须在你的 Defold 项目中使用相同的包标识符。
@@ -69,7 +69,7 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
    ![](images/ios/xcode_certificates.png)
 
 7. 在你的设备上构建应用。第一次，Xcode 会要求你启用开发者模式，并会用调试器支持准备设备。这可能需要一段时间。
-8. 当你验证应用可以正常工作后，在磁盘上找到它。你可以在"报告导航器"的构建报告中查看构建位置。
+8. 当你验证应用可以正常工作后，在磁盘上找到它。你可以在`报告导航器`的构建报告中查看构建位置。
 
    ![](images/ios/app_location.png)
 
@@ -77,7 +77,7 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
 
    ![](images/ios/app_contents.png)
 
-10. 将"embedded.mobileprovision"文件复制到你驱动器上你将找到它的某个位置。
+10. 将`embedded.mobileprovision`文件复制到你驱动器上你将找到它的某个位置。
 
    ![](images/ios/free_provisioning.png)
 
@@ -124,7 +124,7 @@ Mustache 条件会将发现相关条目排除在 Release bundle 之外。iOS 会
 
 ## 在已连接的 iPhone 上安装和启动包
 
-你可以使用编辑器的打包对话框中的"在已连接设备上安装"和"启动已安装应用"复选框来安装和启动构建的包：
+你可以使用编辑器的打包对话框中的`在已连接设备上安装`和`启动已安装应用`复选框来安装和启动构建的包：
 
 ![Install and launch iOS bundle](images/ios/install_and_launch.png)
 
@@ -153,7 +153,7 @@ $ brew install ios-deploy
 
 ![Add image](images/ios/xcode_storyboard_add_image.png)
 
-打开 `LaunchScreen.storyboard` 并点击加号按钮（<kbd>+</kbd>）。在对话框中输入"imageview"以查找 ImageView 组件。
+打开 `LaunchScreen.storyboard` 并点击加号按钮（<kbd>+</kbd>）。在对话框中输入`imageview`以查找 ImageView 组件。
 
 ![Add image view](images/ios/xcode_storyboard_add_imageview.png)
 
@@ -205,10 +205,10 @@ $ brew install ios-deploy
 不要为通知、设置或 Spotlight 添加任何图标。
 :::
 
-完成后，将活动方案设置为"Build -> Any iOS Device (arm64)"（或"Generic iOS Device"）并选择 <kbd>Product</kbd> -> <kbd>Build</kbd>。等待构建过程完成。
+完成后，将活动方案设置为`Build -> Any iOS Device (arm64)`（或`Generic iOS Device`）并选择 <kbd>Product</kbd> -> <kbd>Build</kbd>。等待构建过程完成。
 
 ::: sidenote
-确保你为"Any iOS Device (arm64)"或"Generic iOS Device"构建，否则在上传构建时你会得到 `ERROR ITMS-90704` 错误。
+确保你为`Any iOS Device (arm64)`或`Generic iOS Device`构建，否则在上传构建时你会得到 `ERROR ITMS-90704` 错误。
 :::
 
 ![Build project](images/ios/xcode_icons_build.png)
@@ -230,7 +230,7 @@ App Store 图标不必从 *game.project* 中引用。上传到 iTunes Connect �
 
 编辑器会写入一个 *.ipa* 文件，这是一个 iOS 应用包。要在你的设备上安装该文件，你可以使用以下工具之一：
 
-* 通过 Xcode 的"设备和模拟器"窗口
+* 通过 Xcode 的`设备和模拟器`窗口
 * [`ios-deploy`](https://github.com/ios-control/ios-deploy) 命令行工具
 * 来自 macOS App Store 的 [`Apple Configurator 2`](https://apps.apple.com/us/app/apple-configurator-2/)
 * iTunes

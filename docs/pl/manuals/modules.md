@@ -9,7 +9,7 @@ Moduły Lua pozwalają strukturyzować projekt i tworzyć wielokrotnego użytku 
 
 ## Wczytywanie plików Lua
 
-Kod Lua przechowywany w plikach z rozszerzeniem ".lua" w dowolnym miejscu struktury projektu gry można wczytać za pomocą `require` do plików skryptowych i plików skryptów GUI. Aby utworzyć nowy plik modułu Lua, kliknij prawym przyciskiem myszy folder, w którym chcesz go utworzyć w widoku *Assets*, a następnie wybierz <kbd>New... ▸ Lua Module</kbd>. Nadaj plikowi unikalną nazwę i naciśnij <kbd>Ok</kbd>:
+Kod Lua przechowywany w plikach z rozszerzeniem `.lua` w dowolnym miejscu struktury projektu gry można wczytać za pomocą `require` do plików skryptowych i plików skryptów GUI. Aby utworzyć nowy plik modułu Lua, kliknij prawym przyciskiem myszy folder, w którym chcesz go utworzyć w widoku *Assets*, a następnie wybierz <kbd>New... ▸ Lua Module</kbd>. Nadaj plikowi unikalną nazwę i naciśnij <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
@@ -99,7 +99,7 @@ print(m.value) --> "4711" (nawet jeśli plik "module.lua" zostanie zmieniony i n
 
 Jeśli ponownie załadujesz plik modułu, kod zostanie uruchomiony ponownie, ale z `m.value` nic się nie dzieje. Dlaczego?
 
-Po pierwsze, tabela utworzona w pliku "module.lua" powstaje w zakresie lokalnym, a użytkownikowi zwracane jest _odwołanie_ do tej tabeli. Ponowne wczytanie pliku "module.lua" wykonuje kod modułu jeszcze raz, ale tworzy nową tabelę w zakresie lokalnym zamiast aktualizować tabelę `m`.
+Po pierwsze, tabela utworzona w pliku `module.lua` powstaje w zakresie lokalnym, a użytkownikowi zwracane jest _odwołanie_ do tej tabeli. Ponowne wczytanie pliku `module.lua` wykonuje kod modułu jeszcze raz, ale tworzy nową tabelę w zakresie lokalnym zamiast aktualizować tabelę `m`.
 
 Po drugie, Lua przechowuje w pamięci podręcznej pliki wczytane przez `require`. Gdy plik jest wczytywany po raz pierwszy, trafia do tabeli [`package.loaded`](/ref/package/#package.loaded), aby kolejne wywołania `require` mogły być szybsze. Aby wymusić ponowne odczytanie pliku z dysku, można ustawić wpis pliku na `nil`: `package.loaded["my_module"] = nil`.
 

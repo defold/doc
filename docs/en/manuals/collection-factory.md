@@ -13,7 +13,7 @@ With a collection factory component you can spawn the contents of a collection f
 
 ## Spawning a collection
 
-Suppose we want a character game object and a separate shield game object childed to the character. We build the game object hierarchy in a collection file and save it as "bean.collection".
+Suppose we want a character game object and a separate shield game object childed to the character. We build the game object hierarchy in a collection file and save it as `bean.collection`.
 
 ::: sidenote
 The *collection proxy* component is used to create a new game world, including a separate physics world, based on a collection. The new world is accessed through a new socket. All assets contained in the collection are loaded through the proxy when you message the proxy to start loading. This makes them very useful to, for instance, change levels in a game. New game worlds come with quite a lot of overhead though so do not use them for dynamic loading of small stuff. For more information, see the [Collection proxy documentation](/manuals/collection-proxy).
@@ -21,11 +21,11 @@ The *collection proxy* component is used to create a new game world, including a
 
 ![Collection to spawn](images/collection_factory/collection.png)
 
-We then add a *Collection factory* to a gameobject that will take care of the spawning and set "bean.collection" as the component's *Prototype*:
+We then add a *Collection factory* to a gameobject that will take care of the spawning and set `bean.collection` as the component's *Prototype*:
 
 ![Collection factory](images/collection_factory/factory.png)
 
-Spawning a bean and shield is now just a matter of calling the `collectionfactory.create()` function:
+Spawning a `bean` and shield is now just a matter of calling the `collectionfactory.create()` function:
 
 ```lua
 local bean_ids = collectionfactory.create("#bean_factory")
@@ -51,7 +51,7 @@ The function takes 5 parameters:
 `collectionfactory.create()` returns the identities of the spawned game objects as a table. The table keys map the hash of the collection-local id of each object to the runtime id of each object:
 
 ::: sidenote
-The parent-child relationship between "bean" and "shield" is *not* reflected in the returned table. This relation only exist in the runtime scene-graph, i.e. how objects are transformed together. Re-parenting an object never changes its id.
+The parent-child relationship between `bean` and `shield` is *not* reflected in the returned table. This relation only exist in the runtime scene-graph, i.e. how objects are transformed together. Re-parenting an object never changes its id.
 :::
 
 ```lua
@@ -76,7 +76,7 @@ props[hash("/bean")] = { shield = false }
 local ids = collectionfactory.create("#bean_factory", nil, nil, props)
 ```
 
-Supposing the "bean" game object in "bean.collection" defines the "shield" property. [The Script property manual](/manuals/script-properties) contains information on script properties.
+Supposing the `bean` game object in `bean.collection` defines the `shield` property. [The Script property manual](/manuals/script-properties) contains information on script properties.
 
 ```lua
 -- bean/controller.script

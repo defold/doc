@@ -23,7 +23,7 @@ Proxies de coleção diferem de [componentes de fábrica de coleção](/manuals/
 
 ## Bootstrap
 
-Quando a engine Defold inicia, ela carrega e instancia todos os objetos de jogo de uma *coleção bootstrap* no runtime. Em seguida, inicializa e ativa os objetos de jogo e seus componentes. Qual coleção bootstrap a engine deve usar é definido nas [configurações do projeto](/manuals/project-settings/#main-collection). Por convenção, esse arquivo de coleção normalmente se chama "main.collection".
+Quando a engine Defold inicia, ela carrega e instancia todos os objetos de jogo de uma *coleção bootstrap* no runtime. Em seguida, inicializa e ativa os objetos de jogo e seus componentes. Qual coleção bootstrap a engine deve usar é definido nas [configurações do projeto](/manuals/project-settings/#main-collection). Por convenção, esse arquivo de coleção normalmente se chama `main.collection`.
 
 ![bootstrap](images/collection-proxy/bootstrap.png)
 

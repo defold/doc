@@ -9,7 +9,7 @@ Los módulos Lua te permiten estructurar tu proyecto y crear código de bibliote
 
 ## Cargar archivos Lua con `require`
 
-El código Lua guardado en archivos con extensión ".lua" en cualquier lugar de la estructura de tu proyecto de juego se puede cargar con `require` desde archivos script y archivos de script GUI. Para crear un nuevo archivo de módulo Lua, haz click derecho en la carpeta donde quieres crearlo en la vista *Assets* y selecciona <kbd>New... ▸ Lua Module</kbd>. Dale al archivo un nombre único y presiona <kbd>Ok</kbd>:
+El código Lua guardado en archivos con extensión `.lua` en cualquier lugar de la estructura de tu proyecto de juego se puede cargar con `require` desde archivos script y archivos de script GUI. Para crear un nuevo archivo de módulo Lua, haz click derecho en la carpeta donde quieres crearlo en la vista *Assets* y selecciona <kbd>New... ▸ Lua Module</kbd>. Dale al archivo un nombre único y presiona <kbd>Ok</kbd>:
 
 ![archivo nuevo](images/modules/new_name.png)
 
@@ -99,7 +99,7 @@ print(m.value) --> "4711" (incluso si "module.lua" se cambia y se recarga en cal
 
 Si recargas en caliente el archivo de módulo, el código se ejecuta de nuevo, pero no ocurre nada con `m.value`. ¿Por qué ocurre esto?
 
-Primero, la tabla creada en "module.lua" se crea en el ámbito local y se devuelve al usuario una _referencia_ a esa tabla. Recargar "module.lua" evalúa de nuevo el código del módulo, pero eso crea una tabla nueva en el ámbito local en lugar de actualizar la tabla a la que hace referencia `m`.
+Primero, la tabla creada en `module.lua` se crea en el ámbito local y se devuelve al usuario una _referencia_ a esa tabla. Recargar `module.lua` evalúa de nuevo el código del módulo, pero eso crea una tabla nueva en el ámbito local en lugar de actualizar la tabla a la que hace referencia `m`.
 
 En segundo lugar, Lua almacena en caché los archivos cargados con `require`. La primera vez que se requiere un archivo, se coloca en la tabla [`package.loaded`](/ref/package/#package.loaded) para que se pueda leer más rápido en llamadas posteriores a `require`. Puedes forzar que un archivo se vuelva a leer desde el disco estableciendo la entrada del archivo en `nil`: `package.loaded["my_module"] = nil`.
 

@@ -117,7 +117,7 @@ HTML5 的浏览器时间线使用 Web Performance API，而不是 Remotery。要
 
 ![build report](images/profiling/build_report.png)
 
-构建器将在游戏包旁边生成一个名为"report.html"的文件。在 Web 浏览器中打开该文件以检查报告：
+构建器将在游戏包旁边生成一个名为`report.html`的文件。在 Web 浏览器中打开该文件以检查报告：
 
 ![build report](images/profiling/build_report_html.png)
 
@@ -152,7 +152,7 @@ OpenGL 性能分析器 (macOS)
 Android 性能分析器 (Android)
 : https://developer.android.com/studio/profile/android-profiler.html
 
-  一组性能分析工具，可捕获游戏 CPU、内存和网络活动的实时数据。您可以执行基于采样的代码执行方法跟踪，捕获堆转储，查看内存分配，并检查网络传输文件的详细信息。使用该工具需要您在"AndroidManifest.xml"中设置 `android:debuggable="true"`。
+  一组性能分析工具，可捕获游戏 CPU、内存和网络活动的实时数据。您可以执行基于采样的代码执行方法跟踪，捕获堆转储，查看内存分配，并检查网络传输文件的详细信息。使用该工具需要您在`AndroidManifest.xml`中设置 `android:debuggable="true"`。
 
   ![android profiler](images/profiling/android_profiler.png)
 
@@ -161,6 +161,6 @@ Android 性能分析器 (Android)
 Graphics API 调试器 (Android)
 : https://github.com/google/gapid
 
-  这是一组工具，允许您检查、调整和重放从应用程序到图形驱动程序的调用。要使用该工具需要您在"AndroidManifest.xml"中设置 `android:debuggable="true"`。
+  这是一组工具，允许您检查、调整和重放从应用程序到图形驱动程序的调用。要使用该工具需要您在`AndroidManifest.xml`中设置 `android:debuggable="true"`。
 
   ![graphics api debugger](images/profiling/gapid.png)

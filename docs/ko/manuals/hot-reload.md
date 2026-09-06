@@ -103,7 +103,7 @@ function update(self, dt)
 end
 ```
 
-"my_module.lua"를 변경하고 다시 로드해도 "user.script"의 동작은 변경되지 _않습니다_. 왜 그런지와 이 함정을 피하는 방법은 [모듈 매뉴얼](/manuals/modules)을 참고하세요.
+`my_module.lua`를 변경하고 다시 로드해도 `user.script`의 동작은 변경되지 _않습니다_. 왜 그런지와 이 함정을 피하는 방법은 [모듈 매뉴얼](/manuals/modules)을 참고하세요.
 
 ## `on_reload()` 함수
 

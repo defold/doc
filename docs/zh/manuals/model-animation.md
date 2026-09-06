@@ -184,7 +184,7 @@ local bone_go = model.get_go("#wiggler", "Bone_002")
 
 ### 游标动画
 
-除了使用`model.play_anim()`来推进模型动画外，*Model*组件还公开了一个"游标"属性，可以使用`go.animate()`进行操作（有关[属性动画](/manuals/property-animation)的更多信息）：
+除了使用`model.play_anim()`来推进模型动画外，*Model*组件还公开了一个`游标`属性，可以使用`go.animate()`进行操作（有关[属性动画](/manuals/property-animation)的更多信息）：
 
 ```lua
 -- 在 #model 上设置动画但不启动它

@@ -64,7 +64,7 @@ Defold免费提供云构建服务器，没有任何使用限制。服务器托�
 : 此可选文件夹包含构建或打包过程中使用的其他文件。详情请见下文。
 
 *res*
-: 此可选文件夹包含扩展所依赖的任何额外资源。资源文件应像"lib"子文件夹一样，放置在按`platform`或`architecture-platform`命名的子文件夹中。还允许使用`common`子文件夹，包含所有平台通用的资源文件。
+: 此可选文件夹包含扩展所依赖的任何额外资源。资源文件应像`lib`子文件夹一样，放置在按`platform`或`architecture-platform`命名的子文件夹中。还允许使用`common`子文件夹，包含所有平台通用的资源文件。
 
 ### 清单文件
 
@@ -186,7 +186,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params)
 DM_DECLARE_EXTENSION(MyExtension, LIB_NAME, AppInitializeMyExtension, AppFinalizeMyExtension, InitializeMyExtension, 0, 0, FinalizeMyExtension)
 ```
 
-请注意用于声明扩展代码中各种入口点的宏 `DM_DECLARE_EXTENSION`。第一个参数 `symbol` 必须与 *ext.manifest* 中指定的名称匹配。对于这个简单的示例，不需要任何 "update" 或 "on_event" 入口点，因此在这些位置向宏提供了 `0`。
+请注意用于声明扩展代码中各种入口点的宏 `DM_DECLARE_EXTENSION`。第一个参数 `symbol` 必须与 *ext.manifest* 中指定的名称匹配。对于这个简单的示例，不需要任何 `update` 或 `on_event` 入口点，因此在这些位置向宏提供了 `0`。
 
 现在只需构建项目（<kbd>Project ▸ Build</kbd>）。这将把扩展上传到扩展构建器，构建器将生成一个包含新扩展的自定义引擎。如果构建器遇到任何错误，将显示一个包含构建错误的对话框。
 

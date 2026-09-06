@@ -103,7 +103,7 @@ function update(self, dt)
 end
 ```
 
-Changing and reloading "my_module.lua" will _not_ change the behavior of "user.script". See [the Modules manual](/manuals/modules) for more information on why, and how to avoid this pitfall.
+Changing and reloading `my_module.lua` will _not_ change the behavior of `user.script`. See [the Modules manual](/manuals/modules) for more information on why, and how to avoid this pitfall.
 
 ## The on_reload() function
 

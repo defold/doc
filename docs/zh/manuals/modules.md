@@ -9,7 +9,7 @@ Lua 模块允许您构建项目结构并创建可重用的库代码. 通常来�
 
 ## 引入 Lua 文件
 
-存储在项目结构中某处以".lua"为文件扩展名的 Lua 代码可以通过 `require` 引入到脚本和 GUI 脚本文件中. 要创建新的 Lua 模块文件，请在 *Assets* 视图中右键单击您想要创建它的文件夹，然后选择 <kbd>New... ▸ Lua Module</kbd>. 给文件一个唯一的名称并按 <kbd>Ok</kbd>:
+存储在项目结构中某处以`.lua`为文件扩展名的 Lua 代码可以通过 `require` 引入到脚本和 GUI 脚本文件中. 要创建新的 Lua 模块文件，请在 *Assets* 视图中右键单击您想要创建它的文件夹，然后选择 <kbd>New... ▸ Lua Module</kbd>. 给文件一个唯一的名称并按 <kbd>Ok</kbd>:
 
 ![new file](images/modules/new_name.png)
 
@@ -99,7 +99,7 @@ print(m.value) --> "4711" (即使 "module.lua" 被更改并热重载)
 
 如果您热重载模块文件，代码会再次运行，但 `m.value` 没有任何变化。为什么会这样？
 
-首先，在 "module.lua" 中创建的表是在局部作用域中创建的，并且该表的 _引用_ 被返回给用户。重新加载 "module.lua" 会再次评估模块代码，但这会在局部作用域中创建一个新表，而不是更新 `m` 所引用的表。
+首先，在 `module.lua` 中创建的表是在局部作用域中创建的，并且该表的 _引用_ 被返回给用户。重新加载 `module.lua` 会再次评估模块代码，但这会在局部作用域中创建一个新表，而不是更新 `m` 所引用的表。
 
 其次，Lua 会缓存通过 `require` 加载的文件。当文件第一次被需要时，它被放在 [`package.loaded`](/ref/package/#package.loaded) 表中，以便在后续 `require` 调用时可以更快地读取。您可以通过将文件的条目设置为 `nil` 来强制文件从磁盘重新读取：`package.loaded["my_module"] = nil`。
 

@@ -184,7 +184,7 @@ local bone_go = model.get_go("#wiggler", "Bone_002")
 
 ### Cursor animation
 
-In addition to using the `model.play_anim()` to advance a model animation, *Model* components expose a "cursor" property that can be manipulated with `go.animate()` (more about [property animations](/manuals/property-animation)):
+In addition to using the `model.play_anim()` to advance a model animation, *Model* components expose a `cursor` property that can be manipulated with `go.animate()` (more about [property animations](/manuals/property-animation)):
 
 ```lua
 -- Set the animation on #model but don't start it
