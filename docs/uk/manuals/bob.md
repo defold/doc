@@ -197,8 +197,8 @@ usage: bob [options] [commands]
 `arm64-linux`
 : Linux ARM64 для Raspberry Pi та портативних пристроїв на базі Linux.
 
-`x86_64-ios`
-: iOS на 64-бітній macOS (симулятор iOS)
+`arm64_sim-ios`
+: Симулятор iOS на Mac з Apple Silicon. Збірки для симулятора завжди підписуються ad-hoc, тому `--identity` і `--mobileprovisioning` ігноруються.
 
 `arm64-ios`
 : 64-бітна iOS. За замовчуванням значення аргументу `--architectures` — `arm64-ios`.

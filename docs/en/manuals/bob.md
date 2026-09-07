@@ -197,8 +197,8 @@ Available platforms and architectures:
 `arm64-linux`
 : Linux ARM64 for Raspberry Pi and Linux-based handheld devices.
 
-`x86_64-ios`
-: iOS macOS 64 bit (iOS Simulator)
+`arm64_sim-ios`
+: iOS Simulator on Apple Silicon Macs. Simulator bundles do not use a signing identity or provisioning profile, so `--identity` and `--mobileprovisioning` are ignored.
 
 `arm64-ios`
 : iOS 64 bit. By default, `--architectures` argument value is `arm64-ios`.

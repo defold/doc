@@ -91,10 +91,10 @@ Quando você tiver a identidade de assinatura de código e o perfil de provision
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
-Selecione sua identidade de assinatura de código e procure seu arquivo de provisionamento mobile. Selecione a arquitetura de dispositivo `arm64-ios` e, quando necessário, a arquitetura de simulador `x86_64-ios`, bem como a variante (Debug ou Release). Opcionalmente, você pode desmarcar a caixa de seleção `Sign application` para pular o processo de assinatura e assinar manualmente em uma etapa posterior.
+Selecione sua identidade de assinatura de código e procure seu arquivo de provisionamento mobile, bem como a variante (Debug ou Release). Opcionalmente, você pode desmarcar a caixa de seleção `Sign application` para pular o processo de assinatura e assinar manualmente em uma etapa posterior. Marque `Simulator` para criar um bundle `arm64_sim-ios` para o iOS Simulator em vez de um bundle para dispositivo.
 
 ::: important
-Você **deve** desmarcar a caixa de seleção `Sign application` ao testar seu jogo no simulador iOS. Você conseguirá instalar a aplicação, mas ela não iniciará.
+Bundles para o simulador só rodam no iOS Simulator em Macs com Apple Silicon. Eles são sempre assinados ad-hoc, portanto as opções de assinatura, instalação e execução ficam desativadas quando `Simulator` está marcado. Instale o bundle com `xcrun simctl` como descrito abaixo.
 :::
 
 Pressione *Criar Pacote…* e então será solicitado que você especifique onde no seu computador o pacote será criado.

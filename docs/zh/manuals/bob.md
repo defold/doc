@@ -197,8 +197,8 @@ usage: bob [options] [commands]
 `arm64-linux`
 : 用于树莓派和基于 Linux 的掌上设备的 Linux ARM64。
 
-`x86_64-ios`
-: iOS macOS 64 位 (iOS 模拟器)
+`arm64_sim-ios`
+: 适用于 Apple Silicon Mac 的 iOS 模拟器。模拟器包始终使用 ad-hoc 签名，因此会忽略 `--identity` 和 `--mobileprovisioning`。
 
 `arm64-ios`
 : iOS 64 位。默认情况下，`--architectures` 参数值为 `arm64-ios`。

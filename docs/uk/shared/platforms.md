@@ -1,3 +1,3 @@
 Підтримувані платформи: `ios`, `android`, `osx`, `win32`, `linux`, `web`.
 
-Підтримувані пари `arc-platform`: `arm64-ios`, `x86_64-ios`, `armv7-android`, `arm64-android`, `x86_64-android`, `arm64-osx`, `x86_64-osx`, `x86-win32`, `x86_64-win32`, `arm64-linux`, `x86_64-linux`, `wasm-web` і `wasm_pthread-web`.
+Підтримувані пари `arc-platform`: `arm64-ios`, `arm64_sim-ios`, `armv7-android`, `arm64-android`, `x86_64-android`, `arm64-osx`, `x86_64-osx`, `x86-win32`, `x86_64-win32`, `arm64-linux`, `x86_64-linux`, `wasm-web` і `wasm_pthread-web`.

@@ -65,7 +65,7 @@ platforms:
             excludeSymbols: []
             libs: []
             linkFlags: []
-    armv7-ios:
+    arm64_sim-ios:
         context:
             excludeLibs: []
             excludeSymbols: []

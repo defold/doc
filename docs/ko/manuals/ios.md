@@ -91,10 +91,10 @@ code signing identity와 provisioning profile이 있으면 에디터에서 게�
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
-code signing identity를 선택하고 mobile provisioning 파일을 찾습니다. `arm64-ios` 디바이스 아키텍처와 필요한 경우 `x86_64-ios` simulator 아키텍처, 그리고 variant(Debug 또는 Release)를 선택합니다. 원한다면 `Sign application` 체크박스를 해제해 서명 프로세스를 건너뛰고 나중에 수동으로 서명할 수 있습니다.
+code signing identity를 선택하고 mobile provisioning 파일을 찾은 뒤 variant(Debug 또는 Release)를 선택합니다. 원한다면 `Sign application` 체크박스를 해제해 서명 프로세스를 건너뛰고 나중에 수동으로 서명할 수 있습니다. 디바이스 번들 대신 iOS Simulator용 `arm64_sim-ios` 번들을 만들려면 `Simulator`를 체크합니다.
 
 ::: important
-iOS simulator에서 게임을 테스트할 때는 `Sign application` 체크박스를 **반드시** 해제해야 합니다. 어플리케이션을 설치할 수는 있지만 부팅되지 않습니다.
+Simulator 번들은 Apple Silicon Mac의 iOS Simulator에서만 실행됩니다. 항상 ad-hoc 서명되므로 `Simulator`를 체크하면 서명, 설치, 실행 옵션이 비활성화됩니다. 아래 설명대로 `xcrun simctl`로 번들을 설치하세요.
 :::
 
 *Create Bundle*을 누르면 컴퓨터에서 번들이 생성될 위치를 지정하라는 프롬프트가 표시됩니다.

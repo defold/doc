@@ -48,7 +48,7 @@ platforms:
             libs:       ["z", "c++", "sqlite3"]
             defines:    ["MY_DEFINE"]
 
-    armv7-ios:
+    arm64_sim-ios:
         context:
             frameworks: ["CoreGraphics", "CFNetwork", "GLKit", "CoreMotion", "MessageUI", "MediaPlayer", "StoreKit", "MobileCoreServices", "AdSupport", "AudioToolbox", "AVFoundation", "CoreGraphics", "CoreMedia", "CoreMotion", "CoreTelephony", "CoreVideo", "Foundation", "GLKit", "JavaScriptCore", "MediaPlayer", "MessageUI", "MobileCoreServices", "OpenGLES", "SafariServices", "StoreKit", "SystemConfiguration", "UIKit", "WebKit"]
             flags:      ["-stdlib=libc++"]
