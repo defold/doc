@@ -29,6 +29,7 @@ apk
 APK's
 APKs
 apkx
+AppLovin
 AppStore
 armeabi
 ASTC
