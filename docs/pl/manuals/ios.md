@@ -91,10 +91,10 @@ Gdy masz tożsamość podpisywania kodu i profil provisioningowy, możesz utworz
 
 ![Podpisywanie pakietu iOS](images/ios/sign_bundle.png)
 
-Wybierz tożsamość podpisywania kodu i wskaż plik profilu provisioningowego. Wybierz architekturę urządzenia `arm64-ios`, a w razie potrzeby również architekturę symulatora `x86_64-ios`, oraz wariant Debug lub Release. Opcjonalnie możesz odznaczyć pole wyboru `Sign application`, aby pominąć proces podpisywania i podpisać pakiet ręcznie później.
+Wybierz tożsamość podpisywania kodu i wskaż plik profilu provisioningowego oraz wariant Debug lub Release. Opcjonalnie możesz odznaczyć pole wyboru `Sign application`, aby pominąć proces podpisywania i podpisać pakiet ręcznie później. Zaznacz `Simulator`, aby zamiast pakietu na urządzenie utworzyć pakiet `arm64_sim-ios` dla symulatora iOS.
 
 ::: important
-Musisz **odznaczyć** pole `Sign application`, gdy testujesz grę na symulatorze iOS. Aplikację będzie można zainstalować, ale nie uruchomi się.
+Pakiety dla symulatora działają wyłącznie w symulatorze iOS na komputerach Mac z Apple Silicon. Są zawsze podpisywane ad-hoc, więc po zaznaczeniu `Simulator` opcje podpisywania, instalacji i uruchamiania są wyłączone. Zainstaluj pakiet za pomocą `xcrun simctl`, jak opisano poniżej.
 :::
 
 Naciśnij *Create Bundle*, a potem zostaniesz poproszony o wskazanie miejsca na komputerze, w którym pakiet ma zostać utworzony.

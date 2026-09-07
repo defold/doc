@@ -197,8 +197,8 @@ usage: bob [options] [commands]
 `arm64-linux`
 : Raspberry Pi 및 Linux 기반 휴대용 기기용 Linux ARM64
 
-`x86_64-ios`
-: iOS macOS 64 bit (iOS Simulator)
+`arm64_sim-ios`
+: Apple Silicon Mac용 iOS Simulator. Simulator 번들은 항상 ad-hoc 서명되므로 `--identity`와 `--mobileprovisioning`은 무시됩니다.
 
 `arm64-ios`
 : iOS 64 bit. 기본적으로 `--architectures` 인자 값은 `arm64-ios`입니다.

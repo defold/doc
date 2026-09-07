@@ -197,8 +197,8 @@ Dostępne platformy i architektury:
 `arm64-linux`
 : Linux ARM64 dla Raspberry Pi i urządzeń przenośnych opartych na systemie Linux.
 
-`x86_64-ios`
-: iOS na macOS 64-bit (symulator iOS)
+`arm64_sim-ios`
+: Symulator iOS na komputerach Mac z Apple Silicon. Pakiety dla symulatora są zawsze podpisywane ad-hoc, więc `--identity` i `--mobileprovisioning` są ignorowane.
 
 `arm64-ios`
 : iOS 64-bit. Domyślnie wartość argumentu `--architectures` to `arm64-ios`.

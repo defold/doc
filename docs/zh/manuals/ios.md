@@ -91,10 +91,10 @@ iOS 要求 _所有_ 你想要在手机或平板电脑上运行的应用 _必须_
 
 ![Signing iOS bundle](images/ios/sign_bundle.png)
 
-选择你的代码签名身份并浏览移动配置文件。选择 `arm64-ios` 设备架构，并在需要时选择 `x86_64-ios` 模拟器架构，同时选择变体（Debug 或 Release）。你可以取消选中 `Sign application` 复选框以跳过签名过程，稍后再手动签名。
+选择你的代码签名身份并浏览移动配置文件，同时选择变体（Debug 或 Release）。你可以取消选中 `Sign application` 复选框以跳过签名过程，稍后再手动签名。勾选 `Simulator` 可以创建用于 iOS 模拟器的 `arm64_sim-ios` 包，而不是设备包。
 
 ::: important
-在 iOS 模拟器上测试游戏时，你 **必须** 取消选中 `Sign application` 复选框。你将能够安装应用程序，但它无法启动。
+模拟器包只能在 Apple Silicon Mac 上的 iOS 模拟器中运行。它们始终使用 ad-hoc 签名，因此勾选 `Simulator` 后，签名、安装和启动选项将被禁用。请按照下文说明使用 `xcrun simctl` 安装该包。
 :::
 
 按*创建包*，然后系统会提示你指定包将在你的计算机上的哪个位置创建。
