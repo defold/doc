@@ -35,6 +35,11 @@
             "translation": "Translation by Fabrizio Codello",
             "active": true
         },
+        "ja":
+        {
+            "name": "日本語 (Japanese)",
+            "active": true
+        },
         "ko":
         {
             "name": "한국어 (Korean)",
