@@ -188,9 +188,6 @@ Available platforms and architectures:
 `x86_64-win32`
 : Windows 64 бита
 
-`x86-win32`
-: Windows 32 бита
-
 `x86_64-linux`
 : Linux 64 бита
 

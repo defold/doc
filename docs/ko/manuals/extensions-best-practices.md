@@ -65,7 +65,7 @@ Lua API는 하나만 있어야 하며, 그 구현도 하나만 있어야 합니�
 
 현재 목록은 다음과 같습니다.
 
-    arm64-ios, armv7-ios, x86_64-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32, x86-win32
+    arm64-ios, armv7-ios, x86_64-ios, arm64-android, armv7-android, x86_64-android, x86_64-linux, x86_64-osx, x86_64-win32
 
 예를 들어 플랫폼별 라이브러리는 다음 위치에 넣습니다.
 

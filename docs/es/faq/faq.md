@@ -92,19 +92,28 @@ La Defold Foundation antes se oponía a agregar soporte de C# en Defold, pero ca
 
 #### Q: ¿En qué plataformas corre Defold?
 
-A: Las siguientes plataformas tienen soporte para el editor/herramientas y el runtime del motor:
+A: Las siguientes plataformas son compatibles:
 
-  | System             | Version            | Architectures      | Supported          |
-  | ------------------ | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor and Engine  |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine  |
-  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
-  | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
-  | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
-  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Engine             |
-  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Engine       |
+  **Editor y herramientas**
+
+  | Sistema            | Versión            | Arquitecturas      |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | 10                 | `x86-64`           |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
   (1 El editor fue creado y probad para 64-bit Ubuntu 18.04. Debe funcionar en otras distribuciones pero no damos garantía de ello.)
+
+  **Runtime del motor**
+
+  | Sistema            | Versión            | Arquitecturas      |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | Vista              | `x86-64`           |
+  | Linux (2)          | Any                | `x86-64`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`  `x86_64` |
+  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 El engine runtime debe correr en la mayoría de distribuciones 64-bit de Linux mientras los drivers de gráficos estén actualizados y soporten OpenGL ES 2.0.)
 

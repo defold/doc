@@ -92,26 +92,35 @@ Defold 基金会以前一直反对在 Defold 中添加 C# 支持，但由于多�
 
 #### 问: Defold 可以在哪些平台上运行？
 
-答: 以下平台支持编辑器/工具和引擎运行时：
+答: 支持以下平台：
 
-  | System             | Version            | Architectures      | Supported          |
-  | ------------------ | ------------------ | ------------------ | ------------------ |
-  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` | Editor and Engine  |
-  | Windows            | Vista              | `x86-32`, `x86-64` | Editor and Engine  |
-  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           | Editor             |
-  | Linux (2)          | Any                | `x86-64`, `arm-64` | Engine             |
-  | iOS                | 15.0               | `arm-64`  `x86_64` | Engine             |
-  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` | Engine             |
-  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` | Engine       |
+  **编辑器和工具**
+
+  | 系统               | 版本               | 架构               |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | 10                 | `x86-64`           |
+  | Ubuntu (1)         | 22.04 LTS          | `x86-64`           |
 
   (1 编辑器为 64 位 Ubuntu 构建和测试。它应该也能在其他发行版上运行，但我们不提供保证。)
+
+  **引擎运行时**
+
+  | 系统               | 版本               | 架构               |
+  | ------------------ | ------------------ | ------------------ |
+  | macOS              | 11 Big Sur         | `x86-64`, `arm-64` |
+  | Windows            | Vista              | `x86-64`           |
+  | Linux (2)          | Any                | `x86-64`, `arm-64` |
+  | iOS                | 15.0               | `arm-64`  `x86_64` |
+  | Android            | 5.0 (API level 21) | `arm-32`, `arm-64` |
+  | HTML5              |                    | `wasm-web`, `wasm_pthread-web` |
 
   (2 只要图形驱动是最新的，引擎运行时应该在大多数 64 位 Linux 发行版上运行，有关图形 API 的更多信息见下文)
 
 
 #### 问: 使用 Defold 我可以为哪些目标平台开发游戏？
 
-答: 只需点击一下，您就可以发布到 PS4™、PS5™、Nintendo Switch、iOS（64 位）、Android（32 位和 64 位）和 HTML5，以及 macOS（x86-64 和 arm64）、Windows（32 位和 64 位）和 Linux（x86-64 和 arm64）。真正的一套代码库，多个支持的平台。
+答: 只需点击一下，您就可以发布到 PS4™、PS5™、Nintendo Switch、iOS（64 位）、Android（32 位和 64 位）和 HTML5，以及 macOS（x86-64 和 arm64）、Windows（64 位）和 Linux（x86-64 和 arm64）。真正的一套代码库，多个支持的平台。
 
 
 #### 问: Defold 依赖哪种渲染 API？
