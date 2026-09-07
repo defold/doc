@@ -26,7 +26,7 @@ Suporte do editor para criar joints está planejado, mas nenhuma data de lançam
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-O código acima criará um fixed joint com id `my_test_joint` conectado entre os dois objetos de colisão `obj_a#collisionobject` e `obj_b#collisionobject`. O joint é conectado 10 pixels à esquerda do centro do objeto de colisão `obj_a#collisionobject` e 20 pixels acima do centro do objeto de colisão `obj_b#collisionobject`. O comprimento máximo do joint é de 20 pixels.
+O código acima criará um fixed joint com id `my_test_joint` conectado entre os dois objetos de colisão `obj_a#collisionobject` e `obj_b#collisionobject`. O joint é conectado 10 pixels à direita do centro do objeto de colisão `obj_a#collisionobject` e 20 pixels acima do centro do objeto de colisão `obj_b#collisionobject`. O comprimento máximo do joint é de 20 pixels.
 
 ## Destruindo joints
 

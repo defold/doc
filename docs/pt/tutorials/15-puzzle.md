@@ -196,7 +196,7 @@ para
 
 `{ ... 6, 11, 2, 13, 0 ... }`
 
-O novo estado adiciona 3 inversões da seguinte forma:
+O número total de inversões diminui em 1, da seguinte forma:
 
 - O número 6 adiciona 1 inversão (o número 2 agora está depois do 6)
 - O número 11 perde 1 inversão (o número 6 agora está antes do 11)

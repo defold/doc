@@ -677,7 +677,7 @@ Tieni inoltre presente che le dipendenze, pur essendo mostrate nella vista Asset
 Gli script dell'editor possono definire e usare preferenze: dati persistenti, esclusi dai commit, memorizzati sul computer dell'utente. Queste preferenze hanno tre caratteristiche fondamentali:
 - tipizzate: ogni preferenza ha una definizione di schema che include il tipo di dato e altri metadati, come il valore predefinito
 - con un ambito: le preferenze si applicano a un singolo progetto o a un utente
-- annidate: ogni chiave di preferenza è una stringa con segmenti separati da punti, in cui il primo segmento del percorso identifica uno script dell'editor, mentre i restanti 
+- annidate: ogni chiave di preferenza è una stringa con segmenti separati da punti, in cui il primo segmento del percorso identifica uno script dell'editor, mentre i restanti identificano gruppi e singole preferenze al suo interno
 
 Tutte le preferenze devono essere registrate definendone lo schema:
 ```lua

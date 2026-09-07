@@ -26,7 +26,7 @@ Obsługa tworzenia łączeń w edytorze jest planowana, ale nie ustalono jeszcze
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-Powyższy przykład tworzy łączenie typu Fixed o id `my_test_joint` pomiędzy obiektami kolizji `obj_a#collisionobject` i `obj_b#collisionobject`. Łączenie jest umieszczone 10 pikseli na lewo od środka `obj_a#collisionobject` i 20 pikseli nad środkiem `obj_b#collisionobject`. Maksymalna długość łączenia wynosi 20 pikseli.
+Powyższy przykład tworzy łączenie typu Fixed o id `my_test_joint` pomiędzy obiektami kolizji `obj_a#collisionobject` i `obj_b#collisionobject`. Łączenie jest umieszczone 10 pikseli na prawo od środka `obj_a#collisionobject` i 20 pikseli nad środkiem `obj_b#collisionobject`. Maksymalna długość łączenia wynosi 20 pikseli.
 
 ## Niszczenie łączeń
 

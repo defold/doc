@@ -26,7 +26,7 @@ Está previsto agregar soporte en el editor para crear articulaciones, pero aún
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-Lo anterior creará una articulación fija con id `my_test_joint`, conectada entre los dos objetos de colisión `obj_a#collisionobject` y `obj_b#collisionobject`. La articulación está conectada 10 píxeles a la izquierda del centro del objeto de colisión `obj_a#collisionobject` y 20 píxeles por encima del centro del objeto de colisión `obj_b#collisionobject`. La longitud máxima de la articulación es de 20 píxeles.
+Lo anterior creará una articulación fija con id `my_test_joint`, conectada entre los dos objetos de colisión `obj_a#collisionobject` y `obj_b#collisionobject`. La articulación está conectada 10 píxeles a la derecha del centro del objeto de colisión `obj_a#collisionobject` y 20 píxeles por encima del centro del objeto de colisión `obj_b#collisionobject`. La longitud máxima de la articulación es de 20 píxeles.
 
 ## Destruir articulaciones
 

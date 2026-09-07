@@ -26,7 +26,7 @@ Defold підтримує з’єднання (joints) для 2D-фізики. �
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-Наведений вище код створить фіксоване з’єднання з ідентифікатором `my_test_joint` між двома об’єктами колізій `obj_a#collisionobject` і `obj_b#collisionobject`. З’єднання кріпиться на 10 пікселів ліворуч від центра об’єкта колізій `obj_a#collisionobject` і на 20 пікселів вище від центра об’єкта колізій `obj_b#collisionobject`. Максимальна довжина з’єднання становить 20 пікселів.
+Наведений вище код створить фіксоване з’єднання з ідентифікатором `my_test_joint` між двома об’єктами колізій `obj_a#collisionobject` і `obj_b#collisionobject`. З’єднання кріпиться на 10 пікселів праворуч від центра об’єкта колізій `obj_a#collisionobject` і на 20 пікселів вище від центра об’єкта колізій `obj_b#collisionobject`. Максимальна довжина з’єднання становить 20 пікселів.
 
 ## Знищення з’єднань {#destroying-joints}
 

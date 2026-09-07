@@ -26,7 +26,7 @@ Defold는 2D 물리용 조인트를 지원합니다. 조인트는 어떤 종류�
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-위 코드는 두 충돌 오브젝트 `obj_a#collisionobject`와 `obj_b#collisionobject` 사이에 연결된 id `my_test_joint`의 고정 조인트를 만듭니다. 이 조인트는 충돌 오브젝트 `obj_a#collisionobject` 중심에서 왼쪽으로 10픽셀, 충돌 오브젝트 `obj_b#collisionobject` 중심에서 위로 20픽셀 떨어진 위치에 연결됩니다. 조인트의 최대 길이는 20픽셀입니다.
+위 코드는 두 충돌 오브젝트 `obj_a#collisionobject`와 `obj_b#collisionobject` 사이에 연결된 id `my_test_joint`의 고정 조인트를 만듭니다. 이 조인트는 충돌 오브젝트 `obj_a#collisionobject` 중심에서 오른쪽으로 10픽셀, 충돌 오브젝트 `obj_b#collisionobject` 중심에서 위로 20픽셀 떨어진 위치에 연결됩니다. 조인트의 최대 길이는 20픽셀입니다.
 
 ## 조인트 삭제하기
 

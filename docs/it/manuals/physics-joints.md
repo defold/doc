@@ -26,7 +26,7 @@ Attualmente puoi creare i giunti soltanto tramite codice, utilizzando [`physics.
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-Il codice precedente crea un giunto fisso con ID `my_test_joint` che collega i due oggetti di collisione `obj_a#collisionobject` e `obj_b#collisionobject`. Il giunto è collegato 10 pixel a sinistra del centro dell'oggetto di collisione `obj_a#collisionobject` e 20 pixel sopra il centro dell'oggetto di collisione `obj_b#collisionobject`. La lunghezza massima del giunto è di 20 pixel.
+Il codice precedente crea un giunto fisso con ID `my_test_joint` che collega i due oggetti di collisione `obj_a#collisionobject` e `obj_b#collisionobject`. Il giunto è collegato 10 pixel a destra del centro dell'oggetto di collisione `obj_a#collisionobject` e 20 pixel sopra il centro dell'oggetto di collisione `obj_b#collisionobject`. La lunghezza massima del giunto è di 20 pixel.
 
 ## Distruzione dei giunti {#destroying-joints}
 

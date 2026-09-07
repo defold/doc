@@ -26,7 +26,7 @@ La prise en charge de la création d'articulations dans l'éditeur est prévue, 
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-Le code ci-dessus crée une articulation fixe portant l'identifiant `my_test_joint` entre les deux objets de collision `obj_a#collisionobject` et `obj_b#collisionobject`. L'articulation est reliée à un point situé 10 pixels à gauche du centre de l'objet de collision `obj_a#collisionobject` et à un point situé 20 pixels au-dessus du centre de l'objet de collision `obj_b#collisionobject`. La longueur maximale de l'articulation est de 20 pixels.
+Le code ci-dessus crée une articulation fixe portant l'identifiant `my_test_joint` entre les deux objets de collision `obj_a#collisionobject` et `obj_b#collisionobject`. L'articulation est reliée à un point situé 10 pixels à droite du centre de l'objet de collision `obj_a#collisionobject` et à un point situé 20 pixels au-dessus du centre de l'objet de collision `obj_b#collisionobject`. La longueur maximale de l'articulation est de 20 pixels.
 
 ## Destruction d'articulations {#destroying-joints}
 

@@ -196,7 +196,7 @@ a
 
 `{ ... 6, 11, 2, 13, 0 ... }`
 
-La nuova configurazione aggiunge 3 inversioni come segue:
+Il numero totale di inversioni diminuisce di 1, come segue:
 
 - Il numero 6 aggiunge 1 inversione (il numero 2 si trova ora dopo il 6)
 - Il numero 11 perde 1 inversione (il numero 6 si trova ora prima dell'11)

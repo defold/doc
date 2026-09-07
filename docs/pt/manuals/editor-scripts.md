@@ -677,7 +677,7 @@ Observe também que, embora dependências sejam mostradas na visualização Asse
 Editor scripts podem definir e usar preferências — dados persistentes, não versionados, armazenados no computador do usuário. Essas preferências têm três características principais:
 - tipadas: toda preferência tem uma definição de schema que inclui o tipo de dado e outros metadados, como valor padrão
 - escopadas: preferências têm escopo por projeto ou por usuário
-- aninhadas: toda chave de preferência é uma string separada por pontos, em que o primeiro segmento do caminho identifica um editor script, e o restante
+- aninhadas: toda chave de preferência é uma string separada por pontos, em que o primeiro segmento do caminho identifica um editor script, e os demais segmentos identificam grupos e preferências individuais dentro dele
 
 Todas as preferências devem ser registradas definindo seu schema:
 ```lua

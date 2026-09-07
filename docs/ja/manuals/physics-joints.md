@@ -26,7 +26,7 @@ Defold は 2D 物理シミュレーションでジョイント（joint）をサ�
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-上記のコードは、2つのコリジョンオブジェクト `obj_a#collisionobject` と `obj_b#collisionobject` の間に、ID が `my_test_joint` の固定ジョイントを作成します。ジョイントは、コリジョンオブジェクト `obj_a#collisionobject` の中心から左に10ピクセルの位置と、コリジョンオブジェクト `obj_b#collisionobject` の中心から上に20ピクセルの位置に接続されます。ジョイントの最大長は20ピクセルです。
+上記のコードは、2つのコリジョンオブジェクト `obj_a#collisionobject` と `obj_b#collisionobject` の間に、ID が `my_test_joint` の固定ジョイントを作成します。ジョイントは、コリジョンオブジェクト `obj_a#collisionobject` の中心から右に10ピクセルの位置と、コリジョンオブジェクト `obj_b#collisionobject` の中心から上に20ピクセルの位置に接続されます。ジョイントの最大長は20ピクセルです。
 
 ## ジョイントの破棄 {#destroying-joints}
 

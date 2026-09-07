@@ -26,7 +26,7 @@ Defold 支持 2D 物理关节。关节使用某种约束连接两个碰撞对象
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-上述代码将创建一个 ID 为 `my_test_joint` 的固定关节，连接在两个碰撞对象 `obj_a#collisionobject` 和 `obj_b#collisionobject` 之间。关节连接在碰撞对象 `obj_a#collisionobject` 中心左侧 10 像素和碰撞对象 `obj_b#collisionobject` 中心上方 20 像素的位置。关节的最大长度为 20 像素。
+上述代码将创建一个 ID 为 `my_test_joint` 的固定关节，连接在两个碰撞对象 `obj_a#collisionobject` 和 `obj_b#collisionobject` 之间。关节连接在碰撞对象 `obj_a#collisionobject` 中心右侧 10 像素和碰撞对象 `obj_b#collisionobject` 中心上方 20 像素的位置。关节的最大长度为 20 像素。
 
 ## 销毁关节
 

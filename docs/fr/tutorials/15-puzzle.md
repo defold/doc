@@ -196,7 +196,7 @@ Ce déplacement fait passer l'ordre des tuiles de :
 
 `{ ... 6, 11, 2, 13, 0 ... }`
 
-Le nouvel état ajoute trois inversions de la manière suivante :
+Le nombre total d'inversions diminue de 1, de la manière suivante :
 
 - Le nombre 6 ajoute une inversion (le nombre 2 se trouve maintenant après 6)
 - Le nombre 11 perd une inversion (le nombre 6 se trouve maintenant avant 11)

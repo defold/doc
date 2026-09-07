@@ -598,6 +598,7 @@ Voici une comparaison :
 
 ::: sidenote
 N’oubliez pas que Defold ne garantit aucun ordre d’exécution entre les composants lorsque plusieurs sont initialisés, mis à jour ou supprimés à la fois. Une conception découplée est encouragée.
+:::
 
 ### Initialisation {#initialization}
 

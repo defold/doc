@@ -677,7 +677,7 @@ Also note that although dependencies are shown in Assets view, they do not exist
 Editor scripts can define and use preferences — persistent, uncommitted pieces of data stored on the user's computer. These preferences have three key characteristics:
 - typed: every preference has a schema definition that includes the data type and other metadata like default value
 - scoped: preferences are scoped either per project or per user
-- nested: every preference key is a dot-separated string, where the first path segment identifies an editor script, and the rest 
+- nested: every preference key is a dot-separated string, where the first path segment identifies an editor script, and the remaining segments identify groups and individual preferences within it
 
 All preferences must be registered by defining their schema:
 ```lua

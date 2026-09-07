@@ -677,7 +677,7 @@ Notez également que, bien que les dépendances soient affichées dans la vue As
 Les scripts de l'éditeur peuvent définir et utiliser des préférences — des données persistantes, non enregistrées dans le système de gestion de versions, stockées sur l'ordinateur de l'utilisateur. Ces préférences possèdent trois caractéristiques principales :
 - typées : chaque préférence possède une définition de schéma qui inclut le type de données et d'autres métadonnées, comme la valeur par défaut
 - à portée définie : les préférences s'appliquent soit à un projet, soit à un utilisateur
-- imbriquées : chaque clé de préférence est une chaîne de caractères dont les segments sont séparés par des points, où le premier segment de chemin identifie un script de l'éditeur, et le reste
+- imbriquées : chaque clé de préférence est une chaîne de caractères dont les segments sont séparés par des points, où le premier segment de chemin identifie un script de l'éditeur, et les segments restants identifient les groupes et les préférences individuelles de ce script
 
 Toutes les préférences doivent être enregistrées en définissant leur schéma :
 ```lua

@@ -26,7 +26,7 @@ Defold поддерживает сочленения для 2D-физики. С�
 physics.create_joint(physics.JOINT_TYPE_FIXED, "obj_a#collisionobject", "my_test_joint", vmath.vector3(10, 0, 0), "obj_b#collisionobject", vmath.vector3(0, 20, 0), { max_length = 20 })
 ```
 
-Код выше создаст фиксированное сочленение с идентификатором `my_test_joint` соединенным между `obj_a#collisionobject` и `obj_b#collisionobject`. Сочленение присоединено в 10 пикселях левее центра объекта столкновения `obj_a#collisionobject` и 20 пикселями выше центра объекта столкновения `obj_b#collisionobject`. Максимальная длина сочленения --- 20 пикселей.
+Код выше создаст фиксированное сочленение с идентификатором `my_test_joint` соединенным между `obj_a#collisionobject` и `obj_b#collisionobject`. Сочленение присоединено в 10 пикселях правее центра объекта столкновения `obj_a#collisionobject` и 20 пикселями выше центра объекта столкновения `obj_b#collisionobject`. Максимальная длина сочленения --- 20 пикселей.
 
 ## Уничтожение сочленений
 

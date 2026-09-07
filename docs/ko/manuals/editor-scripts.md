@@ -677,7 +677,7 @@ end)
 에디터 스크립트는 preferences를 정의하고 사용할 수 있습니다. preferences는 사용자의 컴퓨터에 저장되는, 커밋되지 않는 영구 데이터 조각입니다. 이 preferences에는 세 가지 주요 특징이 있습니다.
 - typed: 모든 preference에는 데이터 타입과 기본값 같은 기타 메타데이터를 포함하는 스키마 정의가 있습니다.
 - scoped: preferences는 프로젝트별 또는 사용자별로 scope가 지정됩니다.
-- nested: 모든 preference 키는 점으로 구분된 문자열이며, 첫 번째 path segment는 에디터 스크립트를 식별하고 나머지는
+- nested: 모든 preference 키는 점으로 구분된 문자열이며, 첫 번째 path segment는 에디터 스크립트를 식별하고 나머지는 해당 스크립트 내의 그룹과 개별 preference를 식별합니다.
 
 모든 preferences는 스키마를 정의해 등록해야 합니다.
 ```lua
