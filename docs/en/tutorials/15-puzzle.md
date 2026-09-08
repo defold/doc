@@ -196,7 +196,7 @@ to
 
 `{ ... 6, 11, 2, 13, 0 ... }`
 
-The new state adds 3 inversions as follows:
+The total number of inversions decreases by 1, as follows:
 
 - The number 6 adds 1 inversion (the number 2 is now after 6)
 - The number 11 loses 1 inversion (the number 6 is now before 11)

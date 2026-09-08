@@ -598,6 +598,7 @@ Here’s a comparison:
 
 ::: sidenote
 Remember that Defold doesn't guarantee any order of execution between components, when multiple ones are initialized/updated/removed at once. Decoupled design is encouraged.
+:::
 
 ### Initialization
 

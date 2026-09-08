@@ -736,7 +736,7 @@ Skrypty edytora mogą definiować i używać preferencji, czyli trwałych, nieza
 
 - są typowane: każda preferencja ma definicję schematu zawierającą typ danych i dodatkowe metadane, takie jak wartość domyślna;
 - mają zakres: preferencje są ograniczone albo do projektu, albo do użytkownika;
-- są zagnieżdżone: każdy klucz preferencji jest łańcuchem rozdzielanym kropkami, gdzie pierwszy segment identyfikuje skrypt edytora, a kolejne opisują strukturę danej preferencji.
+- są zagnieżdżone: każdy klucz preferencji jest łańcuchem rozdzielanym kropkami, gdzie pierwszy segment identyfikuje skrypt edytora, a kolejne identyfikują grupy i poszczególne preferencje w jego obrębie.
 
 Wszystkie preferencje trzeba zarejestrować przez zdefiniowanie schematu:
 

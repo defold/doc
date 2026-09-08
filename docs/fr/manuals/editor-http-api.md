@@ -34,23 +34,23 @@ L'argument facultatif `--port` ou `-p` sélectionne le port du serveur de l'édi
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-L'éditeur est une application graphique pour ordinateur. Démarrez-la dans une session utilisateur interactive ayant accès à l'affichage. Utilisez [Bob](/manuals/bob) lorsqu'aucune session graphique n'est disponible, par exemple dans un environnement de CI sans interface graphique, ou pour une automatisation limitée à la compilation et pour créer des bundles autonomes.
+L'éditeur est une application de bureau graphique. Démarrez-la dans une session utilisateur interactive ayant accès à l'affichage. Utilisez [Bob](/manuals/bob) lorsqu'aucune session graphique n'est disponible, par exemple dans un environnement de CI sans interface graphique, ou pour une automatisation limitée à la compilation et pour créer des bundles autonomes.
 
 Après avoir démarré l'éditeur, attendez que le projet soit ouvert et que `.internal/editor.port` existe. Interrogez ensuite `/openapi.json` jusqu'à ce qu'il renvoie un document valide. Ne supposez pas que la création du processus signifie que le projet est prêt.
 
 ## Localiser le serveur de l'éditeur {#locating-the-editor-server}
 
-L'éditeur démarre un serveur HTTP local tant qu'un projet est ouvert. Sélectionnez <kbd>Help ▸ Open Editor Server</kbd> pour ouvrir sa page d'accueil dans le navigateur par défaut :
+L'éditeur démarre un serveur HTTP local tant qu'un projet est ouvert. Sélectionnez <kbd>Help ▸ Open Editor Server</kbd> pour ouvrir sa page d'accueil dans le navigateur par défaut :
 
 ![Page d'accueil du serveur local de l'éditeur](images/automation/editor_server.png)
 
-Le port sélectionné est écrit dans le projet à l'emplacement suivant :
+Le port sélectionné est écrit dans le projet à l'emplacement suivant :
 
 ```text
 .internal/editor.port
 ```
 
-À partir de maintenant, les exemples et commandes de ce manuel utiliseront les variables shell suivantes :
+À partir de maintenant, les exemples et commandes de ce manuel utiliseront les variables shell suivantes :
 
 ```sh
 PORT="$(cat .internal/editor.port)"
@@ -60,12 +60,12 @@ BASE_URL="http://127.0.0.1:$PORT"
 Le fichier du port appartient à la session actuelle de l'éditeur. Relisez-le après avoir redémarré l'éditeur.
 
 ::: important
-Le serveur de l'éditeur est une interface locale de contrôle fiable. Ne l'exposez pas au moyen d'une adresse publique, d'une redirection de port ou d'un tunnel non fiable.
+Le serveur de l'éditeur est une interface de contrôle locale de confiance. Ne l'exposez pas au moyen d'une adresse publique, d'une redirection de port ou d'un tunnel non fiable.
 :::
 
 ## Découvrir les opérations grâce à OpenAPI {#discovering-operations-through-openapi}
 
-Les seules informations de démarrage propres à Defold dont un outil externe doit avoir besoin sont le port de l'éditeur et le document OpenAPI :
+Les seules informations de démarrage propres à Defold dont un outil externe devrait avoir besoin sont le port de l'éditeur et le document OpenAPI :
 
 ```sh
 curl -sS "http://127.0.0.1:$(cat .internal/editor.port)/openapi.json"
@@ -73,14 +73,14 @@ curl -sS "http://127.0.0.1:$(cat .internal/editor.port)/openapi.json"
 
 Le document OpenAPI 3.0.3 renvoyé décrit les opérations prises en charge par la version de l'éditeur en cours d'exécution, notamment les chemins, les méthodes, les paramètres, les noms de commandes, les formats des requêtes, les réponses, les codes d'état et les exigences d'authentification.
 
-Listez les chemins documentés :
+Listez les chemins documentés :
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-Listez les commandes disponibles de l'éditeur :
+Listez les commandes disponibles de l'éditeur :
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
@@ -91,19 +91,19 @@ curl -sS "$BASE_URL/openapi.json" |
   '
 ```
 
-Une intégration qui tient compte de la version doit vérifier chaque opération requise et configurer les requêtes à partir du schéma renvoyé. Nous déconseillons de maintenir une copie prétendument exhaustive des noms de points de terminaison ou de commandes, car elle peut devenir obsolète.
+Une intégration qui tient compte de la version devrait vérifier chaque opération requise et configurer les requêtes à partir du schéma renvoyé. Nous déconseillons de maintenir une copie prétendument exhaustive des noms de points de terminaison ou de commandes, car elle peut devenir obsolète.
 
 Les routes définies par le projet apparaissent également dans `/openapi.json` lorsque leurs scripts de l'éditeur fournissent une description d'opération OpenAPI.
 
 ## Exécuter des commandes de l'éditeur {#executing-editor-commands}
 
-Les commandes de l'éditeur sont appelées au moyen de :
+Les commandes de l'éditeur sont appelées au moyen de :
 
 ```text
 POST /command/{command}
 ```
 
-Par exemple, la commande actuelle `build` compile et exécute le projet :
+Par exemple, la commande actuelle `build` compile et exécute le projet :
 
 ```sh
 curl -sS \
@@ -112,7 +112,7 @@ curl -sS \
   jq
 ```
 
-Un build réussi renvoie un résultat structuré :
+Un build réussi renvoie un résultat structuré :
 
 ```json
 {
@@ -121,7 +121,7 @@ Un build réussi renvoie un résultat structuré :
 }
 ```
 
-Un échec du build renvoie l'état HTTP `422` avec des problèmes tels que :
+Un échec du build renvoie l'état HTTP `422` avec des problèmes tels que :
 
 ```json
 {
@@ -146,9 +146,9 @@ Un échec du build renvoie l'état HTTP `422` avec des problèmes tels que :
 }
 ```
 
-Les champs disponibles dépendent de l'erreur. Utilisez le chemin de la ressource et la plage du code source lorsqu'ils sont présents, mais gérez également les problèmes qui ne contiennent qu'un message.
+Les champs disponibles dépendent de l'erreur. Utilisez le chemin de la ressource et la plage de positions dans le code source lorsqu'ils sont présents, mais gérez également les problèmes qui ne contiennent qu'un message.
 
-Les commandes couramment utiles, lorsqu'elles sont répertoriées par l'éditeur en cours d'exécution, comprennent :
+Les commandes couramment utiles, lorsqu'elles sont répertoriées par l'éditeur en cours d'exécution, comprennent :
 
 `build`
 : Compiler et exécuter le projet.
@@ -171,7 +171,7 @@ Les commandes couramment utiles, lorsqu'elles sont répertoriées par l'éditeur
 `debugger-start`, `debugger-stop` et les commandes pas à pas du débogueur
 : Contrôler une session de débogage et le projet en cours d'exécution.
 
-Les noms exacts et leur disponibilité dépendent de la version et de l'état actuel de l'éditeur ; découvrez-les dans `/openapi.json`.
+Les noms exacts et leur disponibilité dépendent de la version et de l'état actuel de l'éditeur ; découvrez-les dans `/openapi.json`.
 
 Les commandes qui agissent sur les ressources du projet synchronisent les modifications de fichiers externes avant leur exécution.
 
@@ -192,7 +192,7 @@ Une réponse HTTP `202` ne prouve pas que le résultat demandé existe. Attendez
 
 ### Build HTML5 {#building-html5}
 
-Si le document OpenAPI actuel répertorie `build-html5`, appelez cette commande au moyen de l'opération correspondante :
+Si le document OpenAPI actuel répertorie `build-html5`, appelez cette commande au moyen de l'opération correspondante :
 
 ```sh
 curl -sS \
@@ -200,7 +200,7 @@ curl -sS \
   "$BASE_URL/command/build-html5"
 ```
 
-La commande s'exécute de manière asynchrone et renvoie normalement l'état HTTP `202`. Une fois le build terminé, l'éditeur le sert à l'adresse suivante :
+La commande s'exécute de manière asynchrone et renvoie normalement l'état HTTP `202`. Une fois le build terminé, l'éditeur le sert à l'adresse suivante :
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
@@ -212,7 +212,7 @@ Attendez que l'URL soit disponible avant de lancer les tests dans le navigateur.
 
 Lorsqu'elle est présente dans `/openapi.json`, l'opération `/ref` recherche dans la documentation de l'API incluse avec la version de l'éditeur en cours d'exécution. Elle fournit les noms et les signatures qui correspondent à cette version.
 
-Par exemple, pour rechercher une fonction, utilisez :
+Par exemple, pour rechercher une fonction, utilisez :
 
 ```sh
 curl -sS \
@@ -222,7 +222,7 @@ curl -sS \
   jq
 ```
 
-Filtrez par environnement et par langage :
+Filtrez par environnement et par langage :
 
 ```sh
 curl -sS \
@@ -234,7 +234,7 @@ curl -sS \
   jq
 ```
 
-Les paramètres de recherche sont les suivants :
+Les paramètres de recherche sont les suivants :
 
 `environment`
 : `editor`, `runtime` ou des valeurs séparées par des virgules.
@@ -245,13 +245,13 @@ Les paramètres de recherche sont les suivants :
 `q`
 : Une expression insensible à la casse. Les espaces représentent un ET, tandis que `|` représente un OU.
 
-Il existe également des ressources de documentation condensées : l'[index de documentation pour LLM](https://defold.com/llms.txt) renvoie vers les manuels officiels, les espaces de noms de l'API et des exemples, tandis que la [documentation LLM complète](https://defold.com/llms-full.txt) fournit la documentation complète pour la recherche hors ligne et l'indexation locale.
+Il existe également des ressources de documentation condensées : l'[index de documentation pour LLM](https://defold.com/llms.txt) renvoie vers les manuels officiels, les espaces de noms (namespace) de l'API et des exemples, tandis que la [documentation LLM complète](https://defold.com/llms-full.txt) fournit la documentation complète pour la recherche hors ligne et l'indexation locale.
 
-Les agents IA doivent toutefois préférer des recherches ciblées au téléchargement d'une référence complète lorsqu'une seule API ou un seul message est nécessaire, afin d'économiser des jetons et de disposer d'un contexte mieux préparé et plus clair pour une tâche donnée.
+Les agents IA devraient toutefois préférer des recherches ciblées au téléchargement d'une référence complète lorsqu'une seule API ou un seul message est nécessaire, afin d'économiser des jetons et de disposer d'un contexte mieux préparé et plus clair pour une tâche donnée.
 
 ## Lire la sortie de la console {#reading-console-output}
 
-Lisez la console de l'éditeur au format JSON :
+Lisez la console de l'éditeur au format JSON :
 
 ```sh
 curl -sS "$BASE_URL/console" | jq
@@ -259,7 +259,7 @@ curl -sS "$BASE_URL/console" | jq
 
 La réponse contient le texte de la console dans `lines` et les régions sémantiques dans `regions`, notamment les erreurs, les résultats d'évaluation et les références de ressources.
 
-Pour suivre en continu la sortie de la console, utilisez :
+Pour suivre en continu la sortie de la console, utilisez :
 
 ```sh
 curl -N "$BASE_URL/console/stream"
@@ -267,11 +267,11 @@ curl -N "$BASE_URL/console/stream"
 
 Le flux inclut les lignes déjà présentes dans la console, puis reste ouvert pour les nouvelles sorties. Fermez-le après avoir reçu un marqueur de fin ou une erreur, détecté l'arrêt du processus, ou atteint un délai d'expiration ou une limite de lignes.
 
-Pour l'encadrement des résultats de test et la classification des échecs, consultez [Tests et vérification automatisés](/manuals/automated-testing/#structured-test-results).
+Pour la délimitation des résultats de test et la classification des échecs, consultez [Tests et vérification automatisés](/manuals/automated-testing/#structured-test-results).
 
 ## Générer des aperçus de scènes {#rendering-scene-previews}
 
-L'éditeur Defold (depuis la version 1.13.1) peut générer une « capture d'écran » PNG d'une ressource de scène prise en charge au moyen de la commande `/preview/{path}` :
+L'éditeur Defold (depuis la version 1.13.1) peut générer une « capture d'écran » PNG d'une ressource de scène prise en charge au moyen de la commande `/preview/{path}` :
 
 ```sh
 mkdir -p build/automation
@@ -281,11 +281,11 @@ curl -sS \
   --output build/automation/main-preview.png
 ```
 
-Cette commande génère la collection principale du projet ouvert à partir du modèle Basic 3D, dans une vue initiale par défaut :
+Cette commande produit un rendu de la collection principale du projet ouvert à partir du modèle Basic 3D, dans une vue initiale par défaut :
 
 ![Aperçu de la collection principale généré par l'éditeur](images/automation/main-preview.png)
 
-Vous pouvez utiliser cette génération pour obtenir des aperçus des ressources qui emploient l'éditeur de scène visuel. Par exemple, il est possible de générer de la même manière l'aperçu d'un composant de modèle, ce qui permet de vérifier son apparence ou l'exactitude du shader :
+Vous pouvez utiliser ce rendu pour obtenir des aperçus des ressources qui emploient l'éditeur de scène visuel. Par exemple, il est possible de générer de la même manière l'aperçu d'un composant (component) de modèle, ce qui permet de vérifier son apparence ou, par exemple, le bon fonctionnement du shader :
 
 ```sh
 curl -sS \
@@ -295,7 +295,7 @@ curl -sS \
 
 ![Aperçu du modèle de cube généré par l'éditeur](images/automation/cube-preview.png)
 
-Le chemin situé après `/preview/` ne commence pas par une barre oblique. Les dimensions facultatives utilisent par défaut la taille d'affichage du projet et doivent être comprises entre `1` et `4096`.
+Le chemin situé après `/preview/` ne commence pas par une barre oblique. Les dimensions facultatives correspondent par défaut à la taille d'affichage du projet et doivent être comprises entre `1` et `4096`.
 
 | État | Signification |
 | --- | --- |
@@ -304,7 +304,7 @@ Le chemin situé après `/preview/` ne commence pas par une barre oblique. Les d
 | `404` | La ressource n'a pas été trouvée |
 | `422` | La ressource n'est pas chargée ou ne prend pas en charge les aperçus de scène |
 
-Les aperçus peuvent être très utiles pour l'analyse visuelle du projet : vérification de la disposition des niveaux et des interfaces graphiques, de la configuration des shaders et de l'éclairage, des régressions visuelles ou création de miniatures pour la documentation.
+Les aperçus peuvent être très utiles pour l'analyse visuelle du projet : vérification de la disposition des niveaux et des interfaces graphiques, de la configuration des shaders et de l'éclairage, des régressions visuelles ou création de miniatures pour la documentation.
 
 ::: important
 Un aperçu de l'éditeur n'est pas une capture d'écran du jeu en cours d'exécution. Il ne vérifie pas les objets créés dynamiquement, le post-traitement à l'exécution ni le rendu propre à une plateforme. Utilisez une [capture d'écran à l'exécution](/manuals/automated-testing/#editor-previews-and-runtime-screenshots) lorsque ces éléments sont nécessaires.
@@ -312,13 +312,13 @@ Un aperçu de l'éditeur n'est pas une capture d'écran du jeu en cours d'exécu
 
 ## Exécuter du code Lua dans l'éditeur {#executing-editor-lua}
 
-L'opération authentifiée `POST /eval` exécute du code Lua dans l'environnement des extensions de l'éditeur. Le jeton Bearer propre à la session est stocké dans :
+L'opération authentifiée `POST /eval` exécute du code Lua dans l'environnement des extensions de l'éditeur. Le jeton Bearer propre à la session est stocké dans :
 
 ```text
 .internal/editor.token
 ```
 
-Lisez le jeton et exécutez le code :
+Lisez le jeton et exécutez le code :
 
 ```sh
 TOKEN="$(cat .internal/editor.token)"
@@ -330,7 +330,7 @@ curl -sS \
   "$BASE_URL/eval"
 ```
 
-La sortie imprimée et les valeurs de retour sont renvoyées sous forme de texte. Les réponses courantes sont :
+La sortie imprimée et les valeurs de retour sont renvoyées sous forme de texte. Les réponses courantes sont :
 
 | État | Signification |
 | --- | --- |
@@ -339,9 +339,9 @@ La sortie imprimée et les valeurs de retour sont renvoyées sous forme de texte
 | `422` | Le code Lua n'a pas pu être analysé ou exécuté |
 | `503` | L'environnement des extensions de l'éditeur n'est pas prêt |
 
-Un client peut réessayer après une erreur `503`, mais il doit limiter le nombre de tentatives. Corrigez le code avant de répéter une requête qui a renvoyé `422`.
+Un client peut réessayer après une erreur `503`, mais il devrait limiter le nombre de tentatives. Corrigez le code avant de répéter une requête qui a renvoyé `422`.
 
-Le code évalué peut utiliser l'[API de l'éditeur](https://defold.com/ref/editor-lua/) et l'environnement des scripts de l'éditeur. Il ne peut pas utiliser les API d'exécution du jeu telles que `go.*` pour manipuler un jeu en cours d'exécution. Utilisez un test d'exécution, le débogueur, un test dans un navigateur ou une [API d'automatisation à l'exécution](/manuals/engine-service/#automation-bridge-extension) pour le comportement du jeu.
+Le code évalué peut utiliser l'[API de l'éditeur](https://defold.com/ref/editor-lua/) et l'environnement des scripts de l'éditeur. Il ne peut pas utiliser les API d'exécution du jeu telles que `go.*` pour manipuler un jeu en cours d'exécution. Utilisez un test à l'exécution, le débogueur, un test dans un navigateur ou une [API d'automatisation à l'exécution](/manuals/engine-service/#automation-bridge-extension) pour le comportement du jeu.
 
 ### Modifier les ressources et les fichiers {#modifying-resources-and-files}
 
@@ -351,12 +351,12 @@ De nombreuses ressources source de Defold utilisent des formats texte et peuvent
 | --- | --- |
 | Lua, shader, JSON ou autre format texte connu | Modification directe du fichier |
 | Texte non enregistré dans un onglet ouvert de l'éditeur | `editor.get()` et `editor.transact()` |
-| Collection, objet de jeu, interface graphique, atlas ou autre ressource structurée | Transaction de l'éditeur |
+| Collection, objet de jeu (game object), interface graphique, atlas ou autre ressource structurée | Transaction de l'éditeur |
 | Contenu généré à plusieurs reprises | Générateur autonome |
 | Opération de projet reproductible | Commande de l'éditeur ou point de terminaison HTTP personnalisé |
 | Transformation réservée à la CI | Script autonome exécuté avant Bob |
 
-Inspectez une ressource avant de la modifier :
+Inspectez une ressource avant de la modifier :
 
 ```sh
 curl -sS \
@@ -372,7 +372,7 @@ curl -sS \
 
 Vérifiez `editor.can_get()`, `editor.can_set()` et les autres fonctions `editor.can_*()` avant d'effectuer une transaction.
 
-Utilisez `editor.execute()` dans le code Lua de l'éditeur pour exécuter un outil de formatage, un validateur ou un générateur :
+Utilisez `editor.execute()` dans le code Lua de l'éditeur pour exécuter un outil de formatage, un validateur ou un générateur :
 
 ```lua
 local output = editor.execute(
@@ -396,13 +396,13 @@ Ne modifiez pas les fichiers dans `.internal/` ni le contenu généré dans `bui
 
 Les préférences de l'éditeur peuvent être lues et écrites au moyen du chemin documenté dans OpenAPI, actuellement `/prefs/{path}`.
 
-Vous pouvez par exemple lire la taille configurée de la police du code :
+Vous pouvez par exemple lire la taille configurée de la police du code :
 
 ```sh
 curl -sS "$BASE_URL/prefs/code/font/size" | jq
 ```
 
-Ou la définir, par exemple, sur 16 :
+Ou la définir, par exemple, sur 16 :
 
 ```sh
 curl -sS \
@@ -414,7 +414,7 @@ curl -sS \
 
 L'éditeur valide la valeur par rapport à son schéma de préférences. Un chemin ou une valeur non valide renvoie l'état HTTP `400`.
 
-Les préférences sont des paramètres persistants associés à l'utilisateur ou au couple projet-utilisateur ; il ne s'agit pas de la configuration du projet stockée dans `game.project`. Si l'automatisation doit modifier temporairement une préférence, enregistrez sa valeur précédente et restaurez-la ensuite.
+Les préférences sont des paramètres persistants associés à l'utilisateur ou au couple projet-utilisateur ; il ne s'agit pas de la configuration du projet stockée dans `game.project`. Si l'automatisation doit modifier temporairement une préférence, enregistrez sa valeur précédente et restaurez-la ensuite.
 
 ## Routes définies par le projet {#project-defined-routes}
 
@@ -422,7 +422,7 @@ Les scripts de l'éditeur peuvent définir des routes supplémentaires avec [`ge
 
 Les routes définies par le projet peuvent assurer la génération de contenu, la validation, les rapports, les contrôles de localisation, l'analyse des ressources, les tests propres au projet ou une interface plus restreinte pour un IDE ou un contrôleur externe.
 
-Une bonne route doit effectuer une opération au nom explicite, valider son entrée, renvoyer un résultat structuré, être idempotente lorsque cela est possible et limiter les travaux coûteux.
+Une bonne route devrait effectuer une seule opération au nom explicite, valider son entrée, renvoyer un résultat structuré, être idempotente lorsque cela est possible et limiter les travaux coûteux.
 
 Les routes définies par le projet ne sont pas automatiquement protégées par le jeton de `/eval`. Ajoutez une authentification propre au projet et des contrôles de sécurité lorsqu'une route effectue des opérations sensibles.
 
@@ -455,19 +455,19 @@ end
 return M
 ```
 
-Une erreur déclenchée dans `on_build_started()` arrête le build de l'éditeur. Les hooks de cycle de vie ne s'exécutent que dans l'éditeur ; placez la logique partagée de validation et de génération dans des scripts autonomes pouvant également être appelés depuis la CI.
+Une erreur levée dans `on_build_started()` arrête le build de l'éditeur. Les hooks de cycle de vie ne s'exécutent que dans l'éditeur ; placez la logique partagée de validation et de génération dans des scripts autonomes pouvant également être appelés depuis la CI.
 
 ## Sécurité et compatibilité {#security-and-compatibility}
 
-Considérez l'ensemble du serveur de l'éditeur comme une interface locale fiable :
+Considérez l'ensemble du serveur de l'éditeur comme une interface locale de confiance :
 
 * N'exposez pas publiquement l'accès au port.
-* Protégez `.internal/editor.token` ; ce jeton autorise `/eval` pour la session actuelle.
+* Protégez `.internal/editor.token` ; ce jeton autorise `/eval` pour la session actuelle.
 * N'accordez pas à des tiers un accès sans restriction à `/eval`.
 * Conservez le jeton dans la couche d'intégration locale plutôt que dans les prompts, les rapports ou les journaux.
 * N'oubliez pas que les routes définies par le projet n'héritent pas de l'authentification `/eval`.
 * Utilisez un `/openapi.json` à jour.
-* Utilisez des attentes limitées pour les commandes automatiques asynchrones et pour le démarrage de l'éditeur.
+* Limitez les temps d'attente pour les commandes automatiques asynchrones et pour le démarrage de l'éditeur.
 
 ## Serveur du moteur {#engine-server}
 

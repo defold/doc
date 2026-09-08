@@ -598,6 +598,7 @@ Aquí hay una comparación:
 
 ::: sidenote
 Recuerda que Defold no garantiza ningún orden de ejecución entre componentes cuando varios se inicializan, actualizan o eliminan a la vez. Se recomienda un diseño desacoplado.
+:::
 
 ### Inicialización
 

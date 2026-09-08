@@ -597,6 +597,7 @@ Oto porównanie:
 
 ::: sidenote
 Pamiętaj, że Defold nie gwarantuje żadnej kolejności wykonywania między komponentami, gdy kilka z nich jest inicjalizowanych, aktualizowanych albo usuwanych naraz. Zachęca się do projektowania odseparowanego.
+:::
 
 ### Inicjalizacja
 

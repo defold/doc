@@ -675,7 +675,7 @@ Ten en cuenta también que aunque las dependencias se muestran en la vista Asset
 Los scripts del editor pueden definir y usar preferencias: piezas de datos persistentes y sin commit almacenadas en la computadora del usuario. Estas preferencias tienen tres características clave:
 - tipadas: cada preferencia tiene una definición de esquema que incluye el tipo de dato y otros metadatos, como el valor predeterminado
 - con alcance: las preferencias tienen alcance por proyecto o por usuario
-- anidadas: cada clave de preferencia es un string separado por puntos, donde el primer segmento de ruta identifica un script del editor, y el resto
+- anidadas: cada clave de preferencia es un string separado por puntos, donde el primer segmento de ruta identifica un script del editor, y los segmentos restantes identifican grupos y preferencias individuales dentro de él
 
 Todas las preferencias deben registrarse definiendo su esquema:
 ```lua

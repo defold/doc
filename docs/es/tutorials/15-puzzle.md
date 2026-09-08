@@ -196,7 +196,7 @@ a
 
 `{ ... 6, 11, 2, 13, 0 ... }`
 
-El nuevo estado agrega 3 inversiones así:
+El número total de inversiones disminuye en 1, de la siguiente manera:
 
 - El número 6 agrega 1 inversión (el número 2 está ahora después de 6)
 - El número 11 pierde 1 inversión (el número 6 está ahora antes de 11)
