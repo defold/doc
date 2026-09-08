@@ -25,7 +25,7 @@ Patterns may contain wildcards:
 
 * `*` matches any number of characters except `/`
 * `?` matches exactly one character except `/`
-* `**` matches any number of characters, including `/`
+* `**` matches any number of whole folders, so `/**/name` matches `name` at any depth and `/folder/**` matches the folder and everything inside it
 
 All other characters are matched literally. Example:
 
@@ -35,9 +35,7 @@ All other characters are matched literally. Example:
 /assets/temp_??.png
 ```
 
-This will exclude the `tiled` folder in every direct subfolder of `/levels` (such as `/levels/01/tiled`), every folder named `generated` below any subfolder, and files such as `/assets/temp_01.png`.
-
-Note that `**` does not match the slashes around it, so `/levels/**` matches everything inside `/levels` but not the `/levels` folder itself, and `/**/generated` does not match `/generated` in the project root.
+This will exclude the `tiled` folder in every direct subfolder of `/levels` (such as `/levels/01/tiled`), every folder named `generated` at any depth including `/generated` in the project root, and files such as `/assets/temp_01.png`.
 
 ## The `.defunload` file
 

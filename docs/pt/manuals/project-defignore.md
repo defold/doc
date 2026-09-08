@@ -24,7 +24,7 @@ Os padrões podem conter curingas:
 
 * `*` corresponde a qualquer número de caracteres, exceto `/`
 * `?` corresponde a exatamente um caractere, exceto `/`
-* `**` corresponde a qualquer número de caracteres, incluindo `/`
+* `**` corresponde a qualquer número de pastas inteiras, de modo que `/**/name` corresponde a `name` em qualquer profundidade e `/folder/**` corresponde à pasta e a todo o seu conteúdo
 
 Todos os outros caracteres são comparados literalmente. Exemplo:
 
@@ -34,9 +34,7 @@ Todos os outros caracteres são comparados literalmente. Exemplo:
 /assets/temp_??.png
 ```
 
-Isso excluirá a pasta `tiled` em cada subpasta direta de `/levels` (como `/levels/01/tiled`), todas as pastas chamadas `generated` dentro de qualquer subpasta e arquivos como `/assets/temp_01.png`.
-
-Observe que `**` não corresponde às barras ao seu redor, portanto `/levels/**` corresponde a tudo dentro de `/levels`, mas não à própria pasta `/levels`, e `/**/generated` não corresponde a `/generated` na raiz do projeto.
+Isso excluirá a pasta `tiled` em cada subpasta direta de `/levels` (como `/levels/01/tiled`), todas as pastas chamadas `generated` em qualquer profundidade, incluindo `/generated` na raiz do projeto, e arquivos como `/assets/temp_01.png`.
 
 ## O arquivo `.defunload`
 

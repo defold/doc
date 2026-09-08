@@ -24,7 +24,7 @@ Wzorce mogą zawierać symbole wieloznaczne:
 
 * `*` pasuje do dowolnej liczby znaków z wyjątkiem `/`
 * `?` pasuje do dokładnie jednego znaku z wyjątkiem `/`
-* `**` pasuje do dowolnej liczby znaków, włącznie z `/`
+* `**` pasuje do dowolnej liczby całych folderów, więc `/**/name` pasuje do `name` na dowolnej głębokości, a `/folder/**` pasuje do folderu i całej jego zawartości
 
 Wszystkie pozostałe znaki są dopasowywane dosłownie. Przykład:
 
@@ -34,9 +34,7 @@ Wszystkie pozostałe znaki są dopasowywane dosłownie. Przykład:
 /assets/temp_??.png
 ```
 
-To wykluczy folder `tiled` w każdym bezpośrednim podfolderze `/levels` (na przykład `/levels/01/tiled`), każdy folder o nazwie `generated` w dowolnym podfolderze oraz pliki takie jak `/assets/temp_01.png`.
-
-Zwróć uwagę, że `**` nie pasuje do otaczających go ukośników, więc `/levels/**` pasuje do wszystkiego wewnątrz `/levels`, ale nie do samego folderu `/levels`, a `/**/generated` nie pasuje do `/generated` w katalogu głównym projektu.
+To wykluczy folder `tiled` w każdym bezpośrednim podfolderze `/levels` (na przykład `/levels/01/tiled`), każdy folder o nazwie `generated` na dowolnej głębokości, włącznie z `/generated` w katalogu głównym projektu, oraz pliki takie jak `/assets/temp_01.png`.
 
 ## Plik `.defunload`
 

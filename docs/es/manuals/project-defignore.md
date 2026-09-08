@@ -24,7 +24,7 @@ Los patrones pueden contener comodines:
 
 * `*` coincide con cualquier número de caracteres excepto `/`
 * `?` coincide con exactamente un carácter excepto `/`
-* `**` coincide con cualquier número de caracteres, incluido `/`
+* `**` coincide con cualquier número de carpetas completas, de modo que `/**/name` coincide con `name` a cualquier profundidad y `/folder/**` coincide con la carpeta y todo su contenido
 
 El resto de caracteres se comparan literalmente. Ejemplo:
 
@@ -34,9 +34,7 @@ El resto de caracteres se comparan literalmente. Ejemplo:
 /assets/temp_??.png
 ```
 
-Esto excluirá la carpeta `tiled` de cada subcarpeta directa de `/levels` (por ejemplo `/levels/01/tiled`), todas las carpetas llamadas `generated` dentro de cualquier subcarpeta, y archivos como `/assets/temp_01.png`.
-
-Ten en cuenta que `**` no coincide con las barras que lo rodean, por lo que `/levels/**` coincide con todo lo que hay dentro de `/levels` pero no con la propia carpeta `/levels`, y `/**/generated` no coincide con `/generated` en la raíz del proyecto.
+Esto excluirá la carpeta `tiled` de cada subcarpeta directa de `/levels` (por ejemplo `/levels/01/tiled`), todas las carpetas llamadas `generated` a cualquier profundidad, incluida `/generated` en la raíz del proyecto, y archivos como `/assets/temp_01.png`.
 
 ## El archivo `.defunload`
 
