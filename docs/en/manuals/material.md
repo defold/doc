@@ -126,7 +126,7 @@ If you have entries for these attributes in the material, the default semantic t
 
 ### Setting custom vertex attribute data
 
-Similar to user defined shader constants, you can also update vertex attributes in runtime by calling `go.get`, `go.set` and `go.animate`:
+Similar to user defined shader constants, you can also read and update vertex attributes at runtime using `go.get()` and `go.set()`. Scalar and vector attributes can also be animated using `go.animate()`:
 
 ![Custom material attribute](images/materials/set_custom_attribute.png)
 
@@ -138,7 +138,7 @@ go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,0,0,1),
 
 There are some caveats to updating the vertex attributes however, whether or not a component can use the value depends on the semantic type of the attribute. For example, a sprite component supports the `SEMANTIC_TYPE_POSITION` so if you update an attribute that has this semantic type, the component will ignore the overridden value since the semantic type dictates that the data should always be produced by the sprites position.
 
-Model components also expose custom material attributes through `go.get()`, `go.set()` and `go.animate()`. For example, after defining an attribute named `my_attribute` in the model material:
+Model components also expose custom material attributes through `go.get()` and `go.set()`, and scalar and vector attributes through `go.animate()`. For example, after defining an attribute named `my_attribute` in the model material:
 
 ```lua
 go.set("#model", "my_attribute", vmath.vector4(1, 0, 0, 1))
@@ -148,7 +148,7 @@ go.animate("#model", "my_attribute", go.PLAYBACK_LOOP_PINGPONG,
 
 Only the first mesh in a model with multiple meshes can currently be addressed this way. Updating a non-instanced per-vertex attribute may also rebuild and upload vertex data proportional to the mesh size, so frequent updates can be expensive for large meshes.
 
-In cases where that a vertex attribute is either a scalar or a vector type other than a `Vec4` you can still set the data using `go.set`:
+If a vertex attribute is a scalar or a vector type other than `Vec4`, you can still set the data using `go.set()`:
 
 ```lua
 -- The last two components in the vec4 will not be used!
@@ -156,7 +156,31 @@ go.set("#sprite", "sprite_position_2d", vmath.vector4(my_x,my_y,0,0))
 go.animate("#sprite", "sprite_position_2d", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(1,2,0,0), go.EASING_LINEAR, 2)
 ```
 
-The same is true for matrix attributes, if the attribute is a matrix type other than a `Mat4` you can still set the data using `go.set`.
+Matrix attributes use `vmath.matrix4` values with both `go.get()` and `go.set()`, regardless of whether the attribute is declared as `Mat2`, `Mat3`, or `Mat4`. When setting a `Mat2` or `Mat3`, Defold uses the upper-left 2x2 or 3x3 part of the supplied matrix. When getting a `Mat2` or `Mat3`, Defold returns a `vmath.matrix4` with the attribute value in the upper-left part and identity values in the remaining rows and columns:
+
+```lua
+local value = vmath.matrix4()
+value.c0 = vmath.vector4(1, 2, 3, 4)
+value.c1 = vmath.vector4(5, 6, 7, 8)
+value.c2 = vmath.vector4(9, 10, 11, 12)
+value.c3 = vmath.vector4(13, 14, 15, 16)
+
+-- Mat4 uses the complete matrix.
+go.set("#model", "custom_mat4", value)
+
+-- Mat3 uses the upper-left 3x3 part.
+go.set("#model", "custom_mat3", value)
+
+-- Mat2 uses the upper-left 2x2 part.
+go.set("#model", "custom_mat2", value)
+
+-- All matrix attribute types are returned as vmath.matrix4 values.
+local mat2 = go.get("#model", "custom_mat2")
+local mat3 = go.get("#model", "custom_mat3")
+local mat4 = go.get("#model", "custom_mat4")
+```
+
+A matrix attribute must be set using a `vmath.matrix4`; flattened vector values such as `vmath.vector4` are not supported. Matrix attributes cannot currently be animated using `go.animate()`.
 
 ### Examples of using custom vertex attributes
 
