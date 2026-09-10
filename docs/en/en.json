@@ -1465,6 +1465,27 @@
                 ]
             },
             {
+                "name": "Fonts and text",
+                "items": [
+                    {
+                        "path": "/manuals/font",
+                        "name": "Fonts"
+                    },
+                    {
+                        "path": "/manuals/font-richtext",
+                        "name": "Rich Text"
+                    },
+                    {
+                        "path": "/manuals/gui-text",
+                        "name": "Text nodes"
+                    },
+                    {
+                        "path": "/manuals/labels",
+                        "name": "Label components"
+                    }
+                ]
+            },
+            {
                 "name": "Physics",
                 "items": [
                     {
