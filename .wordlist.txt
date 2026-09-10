@@ -140,6 +140,7 @@ enum
 esc
 excitemike
 exe
+FFFC
 ffmpeg
 FCM
 Fi
@@ -517,6 +518,7 @@ upscaled
 upscaling
 URI
 userdata
+UTF
 UUID
 UV
 UVs
