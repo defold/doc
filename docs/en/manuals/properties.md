@@ -102,6 +102,7 @@ Specific functions for working with the game object transform also exist; they a
 
 | property   | description                            | type            |                  |
 | ---------- | -------------------------------------- | --------------- | ---------------- |
+| *text* | The text content of the label. Available since Defold 1.13.2. | `string` | `get+set`{.mark} |
 | *scale* | The scale of the label. | `vector3` | `get+set`{.mark} |
 | *scale.xy* | The scale of the label along X and Y axis. | `vector3` | `get+set`{.mark}|
 | *color*     | The color of the label. | `vector4` | `get+set`{.mark} |

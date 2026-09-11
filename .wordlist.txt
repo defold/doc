@@ -65,6 +65,7 @@ callstack
 CCD
 CDN
 Celtoys
+CFF
 ChadAragorn
 checkboxes
 checksums
@@ -314,6 +315,7 @@ NDK
 NES
 normals
 NPC
+NUL
 NVDA
 obfuscator
 Ogg
@@ -352,6 +354,7 @@ prebaked
 prebuild
 prebuilt
 preconfigured
+preconnect
 prehash
 preinitialization
 preload
@@ -373,6 +376,7 @@ programmatically
 ProGuard
 protobuf
 Protools
+PTHREAD
 PSD
 PSNR
 qtile

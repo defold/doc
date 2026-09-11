@@ -638,8 +638,12 @@ Extend to display cutout.
 #### Debuggable
 Whether or not the application can be debugged using tools such as [GAPID](https://github.com/google/gapid) or [Android Studio](https://developer.android.com/studio/profile/android-profiler). This will set the `android:debuggable` flag in the Android manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#debug)).
 
-#### ProGuard config
-Custom ProGuard file to help strip redundant Java classes from the final APK.
+#### R8 Keep Rules
+`android.r8_keep_rules` selects a `.keep` file to enable R8 shrinking, optimization and obfuscation of Java code in Android builds. Leave the setting empty to use D8 without shrinking.
+
+Select `/builtins/manifests/android/dmengine.keep` to use the built-in rules. To customize them, copy this file into your project and select the copy. The selected file is the complete project rule set; it replaces the built-in rules rather than adding to them. Extensions can also provide [R8 keep rules](/manuals/extensions/#manifest-files).
+
+Since Defold 1.13.2, this setting replaces `android.proguard`, and the built-in `dmengine.pro` file has been removed. Migrate existing project and extension rules to `.keep` files and select the project rules through **R8 Keep Rules**.
 
 #### Extract Native Libraries
 Specifies whether the package installer extracts native libraries from the APK to the file system. If set to `false`, your native libraries are stored uncompressed in the APK. Although your APK might be larger, your application loads faster because the libraries load directly from the APK at runtime. This will set the `android:extractNativeLibs` flag in the Android Manifest ([official documentation](https://developer.android.com/guide/topics/manifest/application-element#extractNativeLibs)).

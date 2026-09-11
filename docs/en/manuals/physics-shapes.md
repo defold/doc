@@ -1,11 +1,11 @@
 ---
 title: Collision shapes
-brief: A collision component can either use several primitive shapes or a single complex shape.
+brief: Collision objects can contain primitive shapes, hulls or triangle meshes, or use tilemap and convex shape resources.
 ---
 
 # Collision shapes
 
-A collision component can either use several primitive shapes or a single complex shape.
+A collision object can contain several embedded shapes. In 3D physics these can include hulls and triangle meshes from glTF or GLB files. You can also use a tilemap or a convex shape resource through the collision object's *Collision Shape* property.
 
 ### Primitive shapes
 The primitive shapes are *box*, *sphere* and *capsule*. You add a primitive shape by <kbd>right clicking</kbd> the collision object and selecting <kbd>Add Shape</kbd>:
@@ -32,7 +32,21 @@ Capsule shapes are only supported when using 3D physics (configured in the Physi
 :::
 
 ### Complex shapes
-A complex shape can either be created from a tilemap component or from a convex hull shape.
+Complex shapes can use tilemap geometry or convex hull data. Since Defold 1.13.2, 3D collision objects can also create hulls and triangle mesh shapes from meshes in glTF or GLB scenes.
+
+## Hull and mesh shapes in 3D
+
+Use a *Hull* shape for a convex approximation of a mesh, or a *Mesh* shape when collisions need to follow its triangles, including concave areas such as openings in level geometry.
+
+1. Set **Physics → Type** to `3D` in *game.project*.
+2. Right-click the collision object in the *Outline* and select <kbd>Add Shape ▸ Hull</kbd> or <kbd>Add Shape ▸ Mesh</kbd>.
+3. Select the new shape and set its *Scene* property to a *.gltf* or *.glb* file.
+4. Select a named mesh from the *Mesh* field. If it is missing from the list, name the mesh in your modeling tool and export the scene again.
+5. Position and rotate the shape to align it with the game object's visible geometry. Repeat these steps to add more shapes if needed.
+
+The selected mesh supplies its local geometry; glTF node transforms are not applied. Mesh collision shapes are supported by the Bullet 3D backend, including for static and non-static collision objects. They are not supported by the 2D physics backends.
+
+Triangle mesh geometry is read-only through the runtime shape APIs. Edit the source mesh and rebuild to change its triangles. See [scaling collision shapes](#scaling-collision-shapes) for the game object's scale.
 
 ## Tilemap collision shape
 Defold includes a feature allowing you to easily generate physics shapes for the tile source used by a tile map. The [Tilesource manual](/manuals/tilesource/#tile-source-collision-shapes) explains how to add collision groups to a tile source and assign tiles to collision groups ([example](/examples/tilemap/collisions/)).
@@ -51,7 +65,7 @@ Note that the *Group* property is **not** used here since the collision groups a
 :::
 
 ## Convex hull shape
-Defold includes a feature allowing you to create a convex hull shape from three or more points. 
+In 3D physics you can create a hull directly from a mesh using the [editor workflow above](#hull-and-mesh-shapes-in-3d). The legacy `.convexshape` resource is also supported and can be created from points using an external editor:
 
 1. Create convex hull shape file (file extension `.convexshape`) using an external editor.
 2. Edit the file manually using a text editor or external tool (see below)
@@ -102,7 +116,7 @@ There are a number of different external tools that can be used to create collis
 The collision object and its shapes inherit the scale of the game object. To disable this behaviour uncheck the [Allow Dynamic Transforms](/manuals/project-settings/#allow-dynamic-transforms) checkbox in the Physics section of *game.project*. Note that only uniform scaling is supported and that the smallest scale value will be used if the scale isn't uniform.
 
 # Resizing collision shapes
-The shapes of a collision object can be resized at runtime using `physics.set_shape()`. Example:
+Primitive shapes can be resized at runtime using `physics.set_shape()`. This function does not replace hull vertices or triangle mesh geometry. Example:
 
 ```lua
 -- set capsule shape data
