@@ -36,8 +36,8 @@ If a model created with an older version of Defold changes position or orientati
 Once you have imported the model, use it in a [Model component](/manuals/model):
 
 1. Create a Model file from the *Assets* pane with <kbd>New... ▸ Model</kbd>, or add a Model component directly to a game object with <kbd>Add Component ▸ Model</kbd>.
-2. Set the *Mesh* property to the imported *.gltf* or *.glb* file containing the mesh.
-3. For an animated model, set the *Skeleton* property to the *.gltf* or *.glb* file containing the skeleton. This is often the same file used for *Mesh* when mesh, skeleton and animations are exported together.
+2. Set the *Scene* property to the imported *.gltf* or *.glb* file. Leave *Mesh* empty to use the whole scene, or select a named mesh to use only its local geometry.
+3. For an animated model, set the *Skeleton* property to the *.gltf* or *.glb* file containing the skeleton. This is often the same file used for *Scene* when mesh, skeleton and animations are exported together.
 4. Create an *Animation Set* file for the animations and assign it to the *Animations* property. Set *Default Animation* if you want an animation to start automatically.
 5. Set the *Material* property to a material suitable for the model. The built-in *model.material*, *model_instanced.material*, *model_skinned.material* and *model_skinned_instanced.material* files are useful starting points. The skinned materials use local vertex space so skinning can run on the GPU; custom materials for GPU-skinned or instanced models should also use local vertex space. See the [Model manual](/manuals/model/#material) for the graphics-adapter requirement.
 6. Set the material texture properties, such as *Texture*, to the imported texture image files. If the material uses multiple textures, assign each texture in the corresponding material texture field.
