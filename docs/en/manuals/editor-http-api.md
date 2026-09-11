@@ -120,6 +120,8 @@ curl -sS \
   jq
 ```
 
+These pipelines display the response body. In automation scripts, also check the HTTP status and `success`, using the pattern in [Building HTML5](#building-html5).
+
 ::: sidenote
 Since Defold 1.13.2, `/command/build` is a deprecated compatibility alias for `/command/run` and is not listed in OpenAPI. Use `/command/run` in new integrations.
 :::
@@ -209,16 +211,30 @@ An HTTP `202` response is not proof that the requested result exists. Wait for t
 
 ### Building HTML5
 
-If the current OpenAPI document lists `/command/build-html5`, invoke it through that path:
+If the current OpenAPI document lists `/command/build-html5`, invoke it through that path. In a shell script, capture the HTTP status separately from the response body and stop on a failed request or build:
 
 ```sh
-curl -sS \
+build_response_file="$(mktemp)" || exit 1
+if ! build_http_status="$(curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5" |
-  jq
+  -o "$build_response_file" \
+  -w '%{http_code}' \
+  "$BASE_URL/command/build-html5")"; then
+  cat "$build_response_file"
+  rm -f "$build_response_file"
+  exit 1
+fi
+
+cat "$build_response_file"
+if [ "$build_http_status" != "200" ] ||
+   ! jq -e '.success == true' "$build_response_file" > /dev/null; then
+  rm -f "$build_response_file"
+  exit 1
+fi
+rm -f "$build_response_file"
 ```
 
-In Defold 1.13.2 and later, this request waits for the build to finish and returns a structured result. Check both the HTTP status and `success` before starting browser tests. After a successful build, the editor opens the game in a browser and serves it at:
+In Defold 1.13.2 and later, this request waits for the build to finish and returns a structured result. The example prints the response body, including any build issues, and proceeds only on HTTP `200` with `success: true`. After a successful build, the editor opens the game in a browser and serves it at:
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
