@@ -8,7 +8,7 @@ brief: This manual explains how to style Label components and GUI text nodes wit
 Use markup in Label components and GUI text nodes to apply nested visual styles and effects, and inspect links and sprites from Lua.
 
 ```lua
-label.set_text("#label", "Score: <color=#69D2E7>1200</color>")
+go.set("#label", "text", "Score: <color=#69D2E7>1200</color>")
 ```
 
 Alternatively, define a reusable named object style on the font and select it from a link:
@@ -16,7 +16,7 @@ Alternatively, define a reusable named object style on the font and select it fr
 ```lua
 local fontpath = "/fonts/ui.fontc"
 font.set_style(fontpath, "menu_link", "<color=#69D2E7>")
-label.set_text("#label", "Open <link style=menu_link src=inventory>inventory</link>")
+go.set("#label", "text", "Open <link style=menu_link src=inventory>inventory</link>")
 ```
 
 ## Tag reference
@@ -616,7 +616,7 @@ Read the <link src=https://defold.com/manuals/ id=manual>manual</link>
 or inspect <sprite src=images/info.png width=2em/> for more information.
 ]]
 
-label.set_text("#label", text)
+go.set("#label", "text", text)
 
 local objects = label.get_layout_objects("#label")
 for _, object in ipairs(objects) do

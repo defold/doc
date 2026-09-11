@@ -117,7 +117,7 @@ On Linux ARM64, the **OpenGL** choice uses the OpenGL ES backend. The Android co
 
 ## Use full text layout system
 
-If enabled (`true`), it will allow to use runtime generation for SDF type fonts, when using True Type Fonts (`.ttf`) in the project. Read more details in the [Font Manual](https://defold.com/manuals/font/#enabling-runtime-fonts).
+If enabled (`true`), this includes the full text layout system for shaping text, including right-to-left languages. Enable this option together with `font.runtime_generation` in *game.project* to use runtime generation for SDF fonts from TrueType (`.ttf`) or OpenType (`.otf`) resources. Runtime generation from `.otf` resources is supported since Defold 1.13.2. Read more in the [Font Manual](/manuals/font/#enabling-runtime-fonts).
 
 
 ## Minimum browser versions

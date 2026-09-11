@@ -100,6 +100,8 @@ More information about every option is available in [project settings manual](/m
 You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in *game.project*.
 :::
 
+Custom template copies are not updated automatically when upgrading Defold. When moving to Defold 1.13.2, merge the new resource hints from the built-in template as described in [Updating a custom HTML template](#updating-a-custom-html-template-for-defold-1132).
+
 ::: important
 The canvas shouldn't be styled with any border or padding. If you do, mouse input coordinates will be wrong.
 :::
@@ -127,6 +129,29 @@ For the `Stretch` mode canvas size will be changed to fully fill the inner size 
 With `No Scale` mode the canvas size is exactly the same as you predefined in *game.project* file, `[display]` section.
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
+
+### Updating a custom HTML template for Defold 1.13.2
+
+Defold 1.13.2 adds browser resource hints to `builtins/manifests/web/engine_template.html` to start loading the archive manifest and engine files earlier. If your project uses a custom HTML template, compare it with the built-in template from the new editor and merge the preload and preconnect sections into its `<head>`, after the required opening meta tags:
+
+```html
+{{#DEFOLD_HAS_ARCHIVE_ORIGIN}}
+<link rel="preconnect" href="{{DEFOLD_ARCHIVE_ORIGIN}}" crossorigin>
+{{/DEFOLD_HAS_ARCHIVE_ORIGIN}}
+
+<link rel="preload" as="fetch" crossorigin href="{{DEFOLD_ARCHIVE_LOCATION_PREFIX}}/archive_files.json{{DEFOLD_ARCHIVE_LOCATION_SUFFIX}}">
+
+{{#DEFOLD_HAS_WASM_ENGINE}}
+{{^DEFOLD_HAS_WASM_PTHREAD_ENGINE}}
+<link rel="preload" as="fetch" crossorigin href="{{exe-name}}_wasm.js">
+<link rel="preload" as="fetch" crossorigin href="{{exe-name}}.wasm">
+{{/DEFOLD_HAS_WASM_PTHREAD_ENGINE}}
+{{/DEFOLD_HAS_WASM_ENGINE}}
+```
+
+The archive manifest URL must match the URL requested by the loader, including the archive prefix and suffix. If you override `CUSTOM_PARAMETERS.archive_location_filter`, update the preload URL to match or omit that hint. Keep `as="fetch"` and `crossorigin` on the preload hints so the browser can reuse the responses.
+
+Keep the conditions around the engine hints: they preload the regular WebAssembly engine only when the threaded engine is absent. When both architectures are bundled, the loader selects an engine at runtime; preloading one unconditionally could download a variant that will not be used.
 
 ## Tokens
 
@@ -167,6 +192,24 @@ DEFOLD_SPLASH_IMAGE
 
 exe-name
 : The project name without unacceptable symbols
+
+DEFOLD_ARCHIVE_LOCATION_PREFIX
+: The resolved archive path prefix used by the loader, based on `html5.archive_location_prefix`.
+
+DEFOLD_ARCHIVE_LOCATION_SUFFIX
+: The resolved suffix appended to archive URLs, based on `html5.archive_location_suffix`.
+
+DEFOLD_HAS_ARCHIVE_ORIGIN
+: `true` when the archive prefix specifies an HTTP or HTTPS origin, including a protocol-relative URL such as `//cdn.example.com/archive`. It is `false` for relative archive prefixes. Available since Defold 1.13.2.
+
+DEFOLD_ARCHIVE_ORIGIN
+: The archive origin, including the scheme, host and optional port, or an empty string when no origin is specified. A protocol-relative prefix produces a protocol-relative origin. Used for the preconnect hint and available since Defold 1.13.2.
+
+DEFOLD_HAS_WASM_ENGINE
+: `true` if the bundle includes a WebAssembly engine, either `wasm-web` or `wasm_pthread-web`.
+
+DEFOLD_HAS_WASM_PTHREAD_ENGINE
+: `true` if the bundle includes `wasm_pthread-web`. Use it to avoid preloading the wrong engine variant when the loader chooses the architecture at runtime.
 
 
 DEFOLD_CUSTOM_CSS_INLINE
