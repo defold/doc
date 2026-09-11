@@ -90,6 +90,8 @@ You can include files with your application using bundle resources and custom re
 #### Custom Resources
 :[Custom Resources](../shared/custom-resources.md)
 
+Extensions can also contribute these files through `ext.properties`. Their paths are combined with the project's custom resources in both editor builds and Bob archives. See [extension custom resources](/manuals/extensions/#custom-resources).
+
 ```lua
 -- Load level data into a string
 local data, error = sys.load_resource("/assets/level_data.json")

@@ -33,6 +33,8 @@ We currently use the libraries [HarfBuzz](https://github.com/harfbuzz/harfbuzz),
 
 See [Enabling Runtime Fonts](/manuals/font#enabling-runtime-fonts)
 
+The editor uses the engine's font renderer for font and scene text previews. Text shaping and right-to-left layout require [runtime fonts](#enabling-runtime-fonts) and the **Use full text layout system** option in the App Manifest. For offline fonts, the preview respects the font's **Characters** and **All Chars** settings.
+
 ## Font collection
 
 The `.fontc` file format is also known as a font collection. In offline mode, only one font is associated with it.

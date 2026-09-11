@@ -576,9 +576,11 @@ Please note that lifecycle hooks currently are an editor-only feature, and they 
 
 ## Language servers
 
-The editor supports a subset of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostics (lints), completions, hover information, document symbols in the Structure pane, go to definition, find references, and symbol rename. Hover over a symbol to see information from the language server. With the cursor on a symbol, use <kbd>F2</kbd> to rename it, <kbd>F12</kbd> to go to its definition, or <kbd>Shift+F12</kbd> to find references. These actions are also available from the <kbd>Edit</kbd> menu.
+The editor supports a subset of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/): diagnostics (lints), completions, hover information, document symbols in the Structure pane, go to definition, find references, symbol rename, and document/range formatting. Hover over a symbol to see information from the language server. With the cursor on a symbol, use <kbd>F2</kbd> to rename it, <kbd>F12</kbd> to go to its definition, or <kbd>Shift+F12</kbd> to find references. These actions are also available from the <kbd>Edit</kbd> menu. See [formatting code](/manuals/writing-code/#formatting-code) for the formatting command and format-on-save preference.
 
-To define the language server, you need to edit your editor script's `get_language_servers` function like so:
+The bundled Lua language server includes Defold type annotations for the runtime and editor scripting APIs. In `.editor_script` files, completion and diagnostics recognize `editor.*` functions and their argument and return types. See [code completion](/manuals/writing-code/#code-completion).
+
+To register an additional language server, define your editor script's `get_language_servers` function like so:
 
 ```lua
 function M.get_language_servers()

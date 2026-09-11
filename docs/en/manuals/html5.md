@@ -79,6 +79,28 @@ Defold HTML5 bundles require a modern browser with WebAssembly support. Internet
 
 When you click on the <kbd>Create bundle</kbd> button you will be prompted to select a folder in which to create your application. After the export process completes, you will find all of the files needed to run the application.
 
+## WebGL context version
+
+Select the requested graphics context through [`graphics.webgl_version_hint`](/manuals/project-settings/#webgl-version-hint). Its default is WebGL 2; request WebGL 1 to test or target that context on browsers that support both versions.
+
+## Download verification
+
+The HTML5 loader checks the sizes of downloaded engine and archive files by default. Failed checks cause downloads to be retried before the loader reports an error:
+
+* Network errors, failed HTTP statuses and size mismatches in the engine's JavaScript or WebAssembly download use the retry limit in `html5.retry_count`.
+* Archive-file verification has its own retry limit for size or SHA-1 mismatches. Each verification retry downloads the file's pieces again, with the normal network retries available for each download.
+
+The `html5.retry_time` setting controls the delay between retries in both cases.
+
+If your server, proxy or CDN intentionally rewrites served files and changes their sizes, disable size verification in *game.project*:
+
+```ini
+[html5]
+verify_downloaded_file_size = 0
+```
+
+Disabling **Verify Downloaded File Size** leaves any SHA-1 verification included in the bundle enabled. See the [HTML5 project settings](/manuals/project-settings/#verify-downloaded-file-size).
+
 ## Known issues and limitations
 
 * Hot Reload - Hot Reload doesn't work in HTML5 builds. Defold applications must run their own miniature web server in order to receive updates from the editor, which isn't possible in a HTML5 build.

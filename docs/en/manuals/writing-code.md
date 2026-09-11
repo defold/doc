@@ -35,6 +35,16 @@ Pressing <kbd>CTRL</kbd> + <kbd>Space</kbd> will show additional information abo
 
 ![](/images/editor/apireference.png)
 
+The bundled Lua language server includes type annotations for Defold APIs. Completion, hover information and diagnostics understand Defold types such as hashes, URLs, vectors and quaternions, as well as function arguments and return values. The editor provides annotations for game scripts and for the `editor.*` APIs used in `.editor_script` files. No separate annotation library is needed for the built-in APIs when using the Defold code editor.
+
+Third-party extension APIs may need their own annotations.
+
+### Formatting code
+
+Select <kbd>Edit ▸ Format Document/Selection</kbd> or press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> to run the language server's formatter. With a selection, the editor formats the selected lines; without one, it formats the document. Formatting requires a language server that supports the corresponding formatting operation.
+
+To format modified open files when saving, enable **Format on save** in <kbd>Preferences ▸ Code</kbd>. This preference is disabled by default and requires a language server that supports document formatting. See [Code preferences](/manuals/editor-preferences/#code).
+
 ### Jump to symbol
 
 The built-in code editor can show a searchable list of symbols in the current code file, such as functions, objects, and variables. Select <kbd>View ▸ Jump to Symbol…</kbd>, or press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> on Windows and Linux, or <kbd>⌘ Cmd</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd> on macOS.
