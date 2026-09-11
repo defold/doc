@@ -128,29 +128,6 @@ With `No Scale` mode the canvas size is exactly the same as you predefined in *g
 
 ![HTML5 Section](images/html5/html5_no_scale.png)
 
-### Updating a custom HTML template for Defold 1.13.2
-
-Defold 1.13.2 adds browser resource hints to `builtins/manifests/web/engine_template.html` to start loading the archive manifest and engine files earlier. If your project uses a custom HTML template, compare it with the built-in template from the new editor and merge the preload and preconnect sections into its `<head>`, after the required opening meta tags:
-
-```html
-{{#DEFOLD_HAS_ARCHIVE_ORIGIN}}
-<link rel="preconnect" href="{{DEFOLD_ARCHIVE_ORIGIN}}" crossorigin>
-{{/DEFOLD_HAS_ARCHIVE_ORIGIN}}
-
-<link rel="preload" as="fetch" crossorigin href="{{DEFOLD_ARCHIVE_LOCATION_PREFIX}}/archive_files.json{{DEFOLD_ARCHIVE_LOCATION_SUFFIX}}">
-
-{{#DEFOLD_HAS_WASM_ENGINE}}
-{{^DEFOLD_HAS_WASM_PTHREAD_ENGINE}}
-<link rel="preload" as="fetch" crossorigin href="{{exe-name}}_wasm.js">
-<link rel="preload" as="fetch" crossorigin href="{{exe-name}}.wasm">
-{{/DEFOLD_HAS_WASM_PTHREAD_ENGINE}}
-{{/DEFOLD_HAS_WASM_ENGINE}}
-```
-
-The archive manifest URL must match the URL requested by the loader, including the archive prefix and suffix. If you override `CUSTOM_PARAMETERS.archive_location_filter`, update the preload URL to match or omit that hint. Keep `as="fetch"` and `crossorigin` on the preload hints so the browser can reuse the responses.
-
-Keep the conditions around the engine hints: they preload the regular WebAssembly engine only when the threaded engine is absent. When both architectures are bundled, the loader selects an engine at runtime; preloading one unconditionally could download a variant that will not be used.
-
 ## Tokens
 
 We use [Mustache template language](https://mustache.github.io/mustache.5.html) for creation of the `index.html` file. When your are building or bundling, the HTML and CSS files are passed through a compiler that is capable of replacing certain tokens with values that depend upon your project settings. These tokens are always encased in either double or triple curly braces (`{{TOKEN}}` or `{{{TOKEN}}}`), depending on whether character sequences should be escaped or not. This feature can be useful if you either make frequent changes to your project settings or intend for material to be reused in other projects.
