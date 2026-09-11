@@ -34,7 +34,7 @@ The optional `--port` or `-p` argument selects the editor server port. Omitting 
 C:\path\to\Defold\Defold.exe --port 8181 C:\absolute\path\to\project\game.project
 ```
 
-The editor is a graphical desktop application. Start it in an interactive user session with access to the display. Use [Bob](/manuals/bob) when a graphical session is unavailable, such as in headless CI, or for compile-only automation and creating standalone bundles.
+The editor is a graphical desktop application. Start it in an interactive user session with access to the display. Use [Bob](/manuals/bob) when a graphical session is unavailable, such as in headless CI, or for creating standalone bundles. An open editor also supports compile-only automation through `/command/compile`.
 
 After starting the editor, wait until the project has opened and `.internal/editor.port` exists. Then poll `/openapi.json` until it returns a valid document. Do not assume that creating the process means the project is ready.
 
@@ -80,16 +80,14 @@ curl -sS "$BASE_URL/openapi.json" |
   jq -r '.paths | keys[]'
 ```
 
-List the available editor commands:
+List the documented editor command paths:
 
 ```sh
 curl -sS "$BASE_URL/openapi.json" |
-  jq -r '
-    .paths["/command/{command}"].post.parameters[]
-    | select(.name == "command")
-    | .schema.enum[]
-  '
+  jq -r '.paths | keys[] | select(startswith("/command/"))'
 ```
+
+In Defold 1.13.2 and later, each command has its own path in the OpenAPI document. Earlier versions describe commands through a `/command/{command}` path and a command-name enum.
 
 A version-aware integration should verify each required operation and configure requests from the returned schema. We advise against maintaining a supposedly exhaustive copy of endpoint or command names, as this can get outdated.
 
@@ -97,22 +95,36 @@ Project-defined routes also appear in `/openapi.json` when their editor scripts 
 
 ## Executing editor commands
 
-Editor commands are invoked through:
+Invoke editor commands by sending a `POST` request to the command's documented path, for example:
 
 ```text
-POST /command/{command}
+POST /command/compile
+POST /command/run
 ```
 
-For example, the current `build` command compiles and runs the project:
+To compile the project without running it:
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build" |
+  "$BASE_URL/command/compile" |
   jq
 ```
 
-A successful build returns a structured result:
+To compile and run the project:
+
+```sh
+curl -sS \
+  -X POST \
+  "$BASE_URL/command/run" |
+  jq
+```
+
+::: sidenote
+Since Defold 1.13.2, `/command/build` is a deprecated compatibility alias for `/command/run` and is not listed in OpenAPI. Use `/command/run` in new integrations.
+:::
+
+A successful compile returns HTTP status `200` with a structured result:
 
 ```json
 {
@@ -150,7 +162,10 @@ The available fields depend on the error. Use the resource path and source range
 
 Commonly useful commands, when listed by the running editor, include:
 
-`build`
+`compile`
+: Compile the project without running it.
+
+`run`
 : Compile and run the project.
 
 `clean-build`
@@ -177,7 +192,9 @@ Commands that operate on project resources synchronize external file changes bef
 
 ### Command responses and asynchronous work
 
-The command operation documents response codes in the current OpenAPI schema.
+Responses depend on the command. In Defold 1.13.2 and later, `compile`, `run`, `clean-build`, `build-html5`, `debugger-start`, and `hot-reload` wait for command completion and return a structured result with `success` and `issues`, as shown above. A successful result returns HTTP `200`; a build or validation failure returns `422`.
+
+Other commands can still return `202`, for example `debugger-break`. Inspect the operation in the current OpenAPI schema and handle the actual HTTP response status:
 
 | Status | Meaning |
 | --- | --- |
@@ -192,21 +209,22 @@ An HTTP `202` response is not proof that the requested result exists. Wait for t
 
 ### Building HTML5
 
-If the current OpenAPI document lists `build-html5`, invoke it through the command operation:
+If the current OpenAPI document lists `/command/build-html5`, invoke it through that path:
 
 ```sh
 curl -sS \
   -X POST \
-  "$BASE_URL/command/build-html5"
+  "$BASE_URL/command/build-html5" |
+  jq
 ```
 
-The command runs asynchronously and normally returns HTTP `202`. After the build completes, the editor serves it at:
+In Defold 1.13.2 and later, this request waits for the build to finish and returns a structured result. Check both the HTTP status and `success` before starting browser tests. After a successful build, the editor opens the game in a browser and serves it at:
 
 ```text
 http://127.0.0.1:<editor-port>/html5/
 ```
 
-Wait until the URL is available before starting browser tests. See [Browser tests for HTML5](/manuals/automated-testing/#browser-tests-for-html5) for more details.
+A completed build does not mean that the game has finished loading in the browser. Wait for the canvas and application readiness before sending input or checking gameplay. See [Browser tests for HTML5](/manuals/automated-testing/#browser-tests-for-html5) for more details.
 
 ## Searching API documentation
 
