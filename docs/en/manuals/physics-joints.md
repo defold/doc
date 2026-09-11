@@ -1,6 +1,6 @@
 ---
 title: Physics joints in Defold
-brief: This manual explains the 2D physics joint API and how to find the Bullet3D API for 3D constraints.
+brief: Defold supports joints for 2D physics. This manual explains how to create and work with joints.
 ---
 
 # Joints

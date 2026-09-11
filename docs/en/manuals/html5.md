@@ -100,8 +100,6 @@ More information about every option is available in [project settings manual](/m
 You can't modify files of the default html/css template in `builtins` folder. For applying your modifications copy/paste needed file from `builtins` and set this file in *game.project*.
 :::
 
-Custom template copies are not updated automatically when upgrading Defold. When moving to Defold 1.13.2, merge the new resource hints from the built-in template as described in [Updating a custom HTML template](#updating-a-custom-html-template-for-defold-1132).
-
 ::: important
 The canvas shouldn't be styled with any border or padding. If you do, mouse input coordinates will be wrong.
 :::
