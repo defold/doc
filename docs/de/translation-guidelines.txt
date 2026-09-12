@@ -1,0 +1,286 @@
+---
+title: Richtlinien für die deutsche Übersetzung
+brief: Sprache, Terminologie und Formatregeln für die deutsche Dokumentation von Defold.
+---
+
+# Richtlinien für die deutsche Übersetzung
+
+Diese Richtlinien gelten für deutsche Handbücher, Tutorials, FAQ und gemeinsame Textbausteine von Defold. Verwende sie zusammen mit dem [Glossar](glossary.txt). Erstellt und Quellen geprüft am: 2026-09-12.
+
+Bei Beginn der Untersuchung gab es noch keinen deutschen Dokumentationsbestand unter `docs/de`. Die folgenden Regeln legen deshalb eine Grundlage für neue Übersetzungen fest. Sie beruhen auf den vorhandenen Übersetzungsmaterialien, dem [README](../../README.md), den englischen Defold-Handbüchern und deutschsprachigen Dokumentationen auf offiziellen Projekt- und Herstellerseiten.
+
+## Untersuchte Übersetzungsmaterialien
+
+Untersucht wurden alle neun vorhandenen Paare aus `glossary.txt` und `translation-guidelines.txt`, insgesamt 18 Dateien. Ihre Themen, Terminologielisten und Übersetzungsregeln dienen als Vorlage für Umfang und Aufbau. Die deutschen Begriffe werden nach ihrer Bedeutung im englischen Original gewählt.
+
+| Sprache | Dateien | Für die deutsche Fassung besonders relevant |
+|---|---|---|
+| Spanisch (`es`) | [Glossar](../es/glossary.txt), [Richtlinien](../es/translation-guidelines.txt) | Grundbegriffe, englischer Begriff bei der ersten Nennung, FAQ und Bedienhandlungen |
+| Französisch (`fr`) | [Glossar](../fr/glossary.txt), [Richtlinien](../fr/translation-guidelines.txt) | Erhaltung technischer Zeichenfolgen, unterschiedliche Bedeutungen von runtime, HTTP und Automatisierung |
+| Griechisch (`gr`) | [Glossar](../gr/glossary.txt), [Richtlinien](../gr/translation-guidelines.txt) | Mehrdeutige Begriffe wie translation, unterschiedliche Hierarchien, Umgang mit alten Übersetzungsfehlern |
+| Italienisch (`it`) | [Glossar](../it/glossary.txt), [Richtlinien](../it/translation-guidelines.txt) | Build, Kompilierung und Bundle als getrennte Vorgänge; Tests und KI-Werkzeuge |
+| Japanisch (`ja`) | [Glossar](../ja/glossary.txt), [Richtlinien](../ja/translation-guidelines.txt) | Vergleich offizieller Quellen, breite Themenabdeckung, nachvollziehbare redaktionelle Entscheidungen |
+| Koreanisch (`ko`) | [Glossar](../ko/glossary.txt), [Richtlinien](../ko/translation-guidelines.txt) | Komponenten, Ressourcen, GUI, Eingabe und Rendering; Trennung von Begriffen und UI-Beschriftungen |
+| Polnisch (`pl`) | [Glossar](../pl/glossary.txt), [Richtlinien](../pl/translation-guidelines.txt) | Detaillierter Wortschatz aus 86 zusammengeführten Teilglossaren; Wiederholungen nach Begriffen zusammenfassen |
+| Portugiesisch (`pt`) | [Glossar](../pt/glossary.txt), [Richtlinien](../pt/translation-guidelines.txt) | Plattformen und Veröffentlichung; überprüfte UI-Lokalisierung von erklärenden Übersetzungen unterscheiden |
+| Ukrainisch (`uk`) | [Glossar](../uk/glossary.txt), [Richtlinien](../uk/translation-guidelines.txt) | Adressierung, Nachrichten, Lebenszyklus, Automatisierung und Überprüfung |
+
+Die Regeln sind teilweise widersprüchlich: `es`, `ko`, `pl` und `pt` erlauben übersetzte Codekommentare. Das README verlangt dagegen, Codebeispiele einschließlich ihrer Kommentare unverändert zu lassen. Die deutsche Fassung folgt hier dem README, ebenso wie `fr`, `gr`, `it`, `ja` und `uk`. Auch bei Include-Beschriftungen und FAQ-Kürzeln gibt es Unterschiede; für Deutsch gelten die unten festgelegten Regeln.
+
+## Grundregel und Rangfolge der Quellen
+
+Übersetze Erklärungen und Handlungsanweisungen in natürliches, präzises Deutsch. Erhalte Zeichenfolgen exakt, wenn die lesende Person sie auf dem Bildschirm finden, eingeben, aufrufen oder kopieren muss.
+
+1. Für Bedeutung, Verhalten, Voraussetzungen, Einschränkungen und Reihenfolge gilt die entsprechende Datei unter `docs/en`. Lies zunächst den gesamten englischen Artikel.
+2. Für Struktur und besondere Auszeichnungen gelten das README und die Konventionen dieses Repositorys.
+3. Für deutsche Begriffe und Schreibweisen gelten dieses Dokument und `docs/de/glossary.txt`.
+4. Für UI-Beschriftungen gelten die tatsächlich beschriebene Version, Anzeigesprache und Abbildung des Produkts.
+5. Für noch nicht erfasste Fachbegriffe dienen passende deutschsprachige Primärquellen als sprachliche Orientierung.
+
+Die Dokumentation anderer Produkte belegt Sprachgebrauch. Sie ändert keine Defold-Spezifikation. Wenn eine Erklärung im englischen Original unklar erscheint, halte die Frage für eine technische Prüfung fest, statt nur in der Übersetzung ein anderes Verhalten zu beschreiben.
+
+## Sprachvariante, Ansprache und Ton
+
+Verwende heutiges Standarddeutsch mit der in Deutschland üblichen Rechtschreibung, einschließlich Umlauten und `ß`. Das Verzeichnis bleibt `docs/de`; es wird keine regionale Variante im Dateinamen ergänzt.
+
+- Sprich die lesende Person mit kleingeschriebenem `du`, `dir`, `dich` und `dein` an. Schreibe in Anleitungen beispielsweise `Öffne`, `Wähle`, `Klicke`, `Ziehe` und `Prüfe`.
+- Verwende vollständige, direkte Sätze. `Du kannst die Position ändern` ist klarer als `Es besteht die Möglichkeit einer Positionsänderung`.
+- Benenne das handelnde System: `Die Engine lädt die Ressource`, `Der Editor zeigt die Vorschau`.
+- Teile lange englische Sätze bei Bedarf auf. Erhalte Bedingungen, Verneinungen, Begründungen und die Reihenfolge der Schritte.
+- Übersetze `we` passend zum Zusammenhang: `In diesem Beispiel erstellen wir ...` bei einer gemeinsamen Demonstration; benenne das Defold-Team, wenn dessen Aussage gemeint ist.
+- Verwende natürliche neutrale Formulierungen wie `das Entwicklungsteam` oder die direkte Ansprache, wo sie passen. Füge dem Original keine Aussagen über Personengruppen hinzu.
+- Übernimm keine zusätzlichen Wertungen wie `einfach`, `offensichtlich` oder `garantiert`, wenn das Original sie nicht enthält.
+
+Die Du-Ansprache ist eine redaktionelle Entscheidung für diese Dokumentation. Offizielle Quellen verwenden verschiedene Formen: [Godot][G1] und [Visual Studio][M1] verwenden auf den untersuchten Seiten `Sie`, die [Blueprint-Grundlagen von Unreal Engine][E2] verwenden `du`.
+
+| Englischer Ausgangssatz | Deutsche Form |
+|---|---|
+| Select Add Game Object. | Wähle <kbd>Add Game Object</kbd>. |
+| You can change the position at runtime. | Du kannst die Position zur Laufzeit ändern. |
+| The editor displays the resource properties. | Der Editor zeigt die Eigenschaften der Ressource an. |
+| Do not modify this value. | Ändere diesen Wert nicht. |
+
+## Verpflichtung, Empfehlung und Möglichkeit
+
+Erhalte die Verbindlichkeit einer Aussage und die Reichweite ihrer Verneinung.
+
+| Bedeutung im Original | Deutsche Form |
+|---|---|
+| must / required | muss / erforderlich |
+| must not | darf nicht |
+| should / recommended | sollte / empfohlen |
+| should not | sollte nicht |
+| can, bei einer Fähigkeit | kann |
+| may, bei einer Erlaubnis | darf |
+| may / might, bei einer Möglichkeit | kann / möglicherweise |
+| cannot / unsupported | kann nicht / wird nicht unterstützt |
+
+`May not` kann ein Verbot oder die Möglichkeit ausdrücken, dass etwas nicht geschieht. Entscheide anhand des Zusammenhangs. Erhalte Einschränkungen wie `nur`, `alle`, `jeweils`, `mindestens`, `höchstens`, `vor` und `nach`. `Mehr als` und `mindestens` bezeichnen unterschiedliche Grenzen. Zahlen, Einheiten, Standardwerte und Versionsbedingungen behalten ihren Wert.
+
+## Grundbegriffe und erste Nennung
+
+Führe wichtige Defold-Begriffe bei der ersten erklärenden Nennung eines Artikels auf Deutsch mit dem englischen Begriff in Klammern ein:
+
+- `Spielobjekt (game object)`
+- `Komponente (component)`
+- `Sammlung (collection)`
+- `Startsammlung (bootstrap collection)`
+- `Fabrik (factory)`
+- `Sammlungsfabrik (collection factory)`
+- `Sammlungs-Proxy (collection proxy)`
+- `Eingabebindung (input binding)`
+
+Danach genügt die deutsche Form. Eine genaue UI-Beschriftung wie <kbd>Collection Factory</kbd>, eine Erweiterung wie `.collectionfactory` oder ein Aufruf wie `collectionfactory.create()` bleibt unverändert. Gib den englischen Begriff in einem eigenständig lesbaren Artikel bei Bedarf erneut an, aber nicht bei jeder Wiederholung.
+
+Allgemeine Überschriften werden übersetzt. Verwende beispielsweise `Sammlungen` und erläutere den englischen Begriff im ersten Absatz. Eine Überschrift mit einem API-Namen oder einer exakten Einstellung behält diesen Namen.
+
+`Sammlung`, `Startsammlung`, `Fabrik`, `Sammlungsfabrik` und `Sammlungs-Proxy` sind hier festgelegte deutsche Erklärbegriffe für Defold. Sie sind keine aus Godot oder Unreal Engine übernommenen Typnamen und keine bestätigten deutschen Editorbeschriftungen.
+
+## Vergleich der offiziellen deutschsprachigen Quellen
+
+Die Tabelle trennt nachgewiesene Wörter von den Entscheidungen für Defold. Auch offizielle Übersetzungen enthalten wechselnde Schreibweisen oder englische Resttexte. Übernimm daraus keine Fehler und prüfe stets den eigentlichen deutschsprachigen Absatz.
+
+| Bereich | Beobachteter Sprachgebrauch | Entscheidung für die deutsche Defold-Dokumentation |
+|---|---|---|
+| Engine, Editor, Instanz | [Godot][G1] verwendet diese Fachwörter | Engine, Editor und Instanz übernehmen |
+| node | [Godot][G1] verwendet Node; [Unreal Engine][E2] verwendet auch Knoten | Für Defold-GUI-Elemente `Knoten` und `GUI-Knoten`; Godots Typ `Node` bleibt bei Produktvergleichen erhalten |
+| property | [Godot 4.5][G1] verwendet Propertys; [Unreal Engine][E2] verwendet Eigenschaften | Im erklärenden Text `Eigenschaft` |
+| transform / translation | [Godot][G2] verwendet Transformation, Verschiebung, Drehung und Skalierung | `Transformation` als Oberbegriff; räumliche translation heißt `Verschiebung` |
+| material / shader / texture | [Unreal Engine][E1] verwendet Material, Shader und Textur | Diese Begriffe übernehmen und ihre unterschiedlichen Aufgaben erhalten |
+| asset / mesh / component | [Unreal Engine][E2] verwendet Asset, Mesh und Komponente | Asset für Produktionsmaterial, Mesh für Geometrie, Komponente für den Defold-Baustein |
+| layer / opacity / transparency | [GIMP][I1] verwendet Ebene, Deckkraft und Transparenz | Diese Wörter verwenden; GIMP-Ebenen und Defold-GUI-Ebenen behalten ihre produktspezifische Bedeutung |
+| build / compile | [Visual Studio][M1] verwendet Erstellen, Build und Kompilieren | Build als Gesamtvorgang oder Ergebnis, Kompilierung als Teilvorgang |
+| breakpoint / debugging | [Visual Studio][M2] verwendet Haltepunkt und Debuggen | `Haltepunkt`, `debuggen`, `Debugger`; allgemein auch `Fehlersuche` |
+| unit test / integration test | [Microsoft .NET][M3] verwendet Komponententest und Integrationstest | `Unit-Test` und `Integrationstest`; Unit-Test hält die getestete Softwareeinheit sprachlich von einer Defold-Komponente getrennt |
+| HTTP request / response | [MDN][W1] verwendet Anfrage, Antwort und Statuscode | `HTTP-Anfrage`, `HTTP-Antwort`, `Statuscode`; Methoden, Header und Datenfelder bleiben exakt |
+
+## Bedeutungen, die getrennt bleiben müssen
+
+- Eine Sammlung definiert die Anordnung und Hierarchie von Spielobjekten in einer Datei. Die Datei, ihre instanziierten Inhalte und eine geladene Spielwelt sind unterschiedliche Dinge.
+- Eine Fabrik erzeugt Spielobjekte. Eine Sammlungsfabrik erzeugt die Inhalte einer Sammlung in der aktuellen Spielwelt. Ein Sammlungs-Proxy lädt eine eigene Spielwelt einschließlich einer eigenen Physikwelt. Maßgeblich sind die Handbücher zu [Sammlungsfabriken](../en/manuals/collection-factory.md) und [Sammlungs-Proxys](../en/manuals/collection-proxy.md).
+- Die Sammlungshierarchie bestimmt den Kontext der Adressierung. Die Eltern-Kind-Hierarchie bestimmt die Weitergabe von Transformationen. Das Ändern der Elternzuordnung verändert die Adresse des untergeordneten Spielobjekts nicht; siehe [Bausteine](../en/manuals/building-blocks.md).
+- Ein GUI-Knoten ist kein Spielobjekt. Ein Godot-Node, ein Unreal-Actor und ein Defold-Spielobjekt behalten ihre jeweiligen Bedeutungen.
+- Ein Prototyp ist im Defold-Kontext die Definition, auf der Instanzen beruhen. Die Metapher `blueprint` darf als `Bauplan` erklärt werden; die Unreal-Funktion `Blueprint` behält ihren Namen.
+- `Ressource` bezeichnet Daten im Defold-Ressourcensystem. `Asset` bezeichnet Produktionsmaterial wie Bilder, Modelle oder Audiodateien. Wende keine pauschale Ersetzung zwischen beiden an.
+- `Eigenschaft` bezeichnet eine property; ein Vertex-Attribut bleibt ein Attribut. Ein URL-Fragment und ein Fragment beim Rendern haben unterschiedliche Bedeutungen.
+- `Runtime` als Softwareumgebung heißt `Laufzeitumgebung`; `at runtime` heißt `zur Laufzeit`. Die Dauer einer Berechnung heißt `Ausführungszeit`.
+- Build, Kompilierung, Bundle-Erstellung, Start und Veröffentlichung sind getrennte Vorgänge. Schreibe `einen Build erstellen`, `Code kompilieren` und `ein Bundle erstellen` entsprechend dem Original.
+- Hot Reload beim Entwickeln und Live Update für Spielinhalte sind unterschiedliche Funktionen. Ebenso unterscheiden sich Editorvorschau und Aufnahme des laufenden Spiels sowie Editorserver und Engine-Dienst.
+- Aktivieren, sichtbar machen, initialisieren, löschen, finalisieren und entladen bezeichnen unterschiedliche Zustandsänderungen. Erhalte auch die Unterscheidung zwischen Ereignis, Nachricht und Callback.
+
+## Englische Fachwörter, Grammatik und Zusammensetzungen
+
+Verwende etablierte Fachwörter wie `Engine`, `Editor`, `Sprite`, `Shader`, `Mesh`, `Asset`, `Build`, `Bundle`, `Callback`, `Debugger`, `Profiler` und `Cache`, wie im Glossar festgelegt. Gib bei Bedarf eine kurze deutsche Erklärung. Verwende `Skript` mit `k` in der Prosa; `Script` als genaue UI-Beschriftung und `.script` als Dateierweiterung bleiben erhalten.
+
+Die folgenden Formen legen Artikel und Plural für diese Dokumentation fest:
+
+| Singular | Plural |
+|---|---|
+| die Engine | die Engines |
+| der Editor | die Editoren |
+| das Skript | die Skripte |
+| das Sprite | die Sprites |
+| der Shader | die Shader |
+| das Mesh | die Meshes |
+| das Asset | die Assets |
+| der Build | die Builds |
+| das Bundle | die Bundles |
+| der Atlas | die Atlanten |
+| der Proxy | die Proxys |
+| der Cache | die Caches |
+| das Token | die Tokens |
+| der Callback | die Callbacks |
+| die API | die APIs |
+| die GUI | die GUIs |
+| die URL | die URLs |
+
+Schreibe Substantive auch in Überschriften groß und Verben wie `rendern`, `kompilieren` und `debuggen` klein. Überschriften folgen der deutschen Satzschreibung: `Ein neues Spielobjekt erstellen`.
+
+Deutsche Zusammensetzungen stehen zusammen: `Spielobjekt`, `Sammlungsdatei`, `Projekteinstellungen`, `Texturfilterung`, `Bildschirmauflösung`. Bei Abkürzungen und zur besseren Lesbarkeit mit englischen Fachwörtern verwende Bindestriche: `GUI-Knoten`, `Lua-Skript`, `HTTP-Anfrage`, `2D-Grafik`, `3D-Modell`, `Build-Bericht`, `Sprite-Komponente`, `Vertex-Shader`, `Defold-Editor`.
+
+Füge Bindestriche oder deutsche Endungen nicht innerhalb eines Literals ein. Schreibe beispielsweise: der Wert von `message_id`, die Datei `game.project`. Plurale erhalten keinen Apostroph: `Sprites`, `Builds`, `APIs`.
+
+## Benutzeroberfläche, Aktionen und Tastatur
+
+Bei Anleitungen für eine englische Oberfläche und bei englischen Bildschirmabbildungen bleiben die Beschriftungen englisch. Übersetze den Satz um die Beschriftung herum:
+
+- `Wähle <kbd>Add Game Object</kbd>.`
+- `Wähle das Spielobjekt in der Ansicht <kbd>Outline</kbd>.`
+- `Ändere den Wert im Bereich <kbd>Properties</kbd>.`
+- `Wähle <kbd>Edit ▸ World Space</kbd>.`
+
+Wenn ein Artikel ausdrücklich eine deutsche Produktoberfläche beschreibt, verwende deren für die betreffende Version überprüfte offizielle Beschriftung. Prüfe sie im Produkt oder in dessen offizieller Lokalisierungsdatei. Bei englischen Abbildungen hilft die englische Beschriftung in Klammern. Die Wörter im Glossar allein belegen keine deutsche Defold-UI.
+
+In Einstellungsreferenzen bleiben Kategorien, Feldnamen und Werte genau wie in der beschriebenen Oberfläche oder Konfigurationsdatei. Erläutere beispielsweise `Max Nodes` als `maximale Anzahl der Knoten`, ohne den Feldnamen zu ersetzen.
+
+Erhalte vorhandene `<kbd>`-Tags und Hervorhebungen. Verwende für neu formulierte Menüpfade `▸`. Ändere beim Übersetzen nicht pauschal jede andere Menüschreibweise oder Hervorhebung des Originals.
+
+Beschreibt der Inhalt eines `<kbd>`-Tags eine normale Handlung, wird diese übersetzt: `<kbd>right-click</kbd>` → `<kbd>Rechtsklick</kbd>`, `<kbd>drag</kbd>` → `<kbd>ziehen</kbd>`, `<kbd>drop</kbd>` → `<kbd>ablegen</kbd>`. Entscheidend ist die Funktion des Textes, nicht allein das Tag.
+
+Tastennamen, Kombinationen und Unterschiede zwischen Betriebssystemen bleiben wie im Original: `Ctrl`, `Cmd`, `Shift`, `Alt`, `Enter`. Ersetze `Ctrl` nicht automatisch durch `Strg` und passe Kürzel nicht anhand einer vermuteten deutschen Tastaturbelegung an.
+
+## Code, API und genaue Zeichenfolgen
+
+Lasse Codeblöcke einschließlich ihrer Kommentare, Einrückung, Leerzeichen und Zeichenfolgen unverändert, wie im README vorgegeben. Das gilt auch für Shell-Beispiele, JSON, Konfigurationen und Konsolenausgaben. Übersetze die zugehörige Erklärung außerhalb des Blocks.
+
+Erhalte insbesondere:
+
+- Funktionen, Namespaces und Callbacks: `msg.post()`, `go.animate()`, `gui.get_node()`, `init()`, `on_input()`.
+- Nachrichten, Konstanten und Felder: `set_parent`, `proxy_loaded`, `PLAYBACK_LOOP_PINGPONG`, `self`, `message_id`.
+- Beispielnamen und Adressen: `bean`, `buddy`, `controller`, `team_1`, `main:/manager#controller`, `@render`.
+- Dateien, Erweiterungen, Pfade und Schlüssel: `game.project`, `main.collection`, `.gui_script`, `.internal/editor.port`, `display.width`.
+- Befehle, Optionen und Umgebungsvariablen: `build-html5`, `--variant`, `PATH`.
+- HTTP-Methoden, Routen, Header und Ergebniswerte: `GET /ping`, `POST /eval`, `/openapi.json`, `Authorization: Bearer`, `success`, `duration_ms`.
+- Fehlermeldungen und erwartete Ausgaben, einschließlich ihrer Großschreibung und Satzzeichen.
+
+Verwende Backticks für technische Literale in der Prosa. Ersetze ASCII-Anführungszeichen, Bindestriche, Punkte oder andere Zeichen innerhalb von Code und Eingabewerten nicht durch typografische Varianten. Ein englischer Codekommentar ist kein Übersetzungsrest.
+
+## Markdown, Metadaten und Links
+
+- Erhalte die YAML-Begrenzer und Schlüssel des Front Matter. Übersetze die beschreibenden Werte von `title` und `brief`; erhalte Pfade, IDs, boolesche Werte und andere technische Metadaten.
+- Erhalte Reihenfolge und Ebenen der Überschriften sowie die Struktur von Listen, Tabellen und Definitionslisten. Fasse keine Anleitungsschritte zusammen und lasse keine Tabellenzeilen aus.
+- Erhalte explizite Anker wie `{#the-editor-views}` oder `<a id="example">`. Prüfe Verweise auf automatisch aus Überschriften erzeugte Anker nach der Übersetzung.
+- Erhalte `::: sidenote`, `::: important` und die schließenden `:::`. Übersetze den Text innerhalb dieser Blöcke.
+- Erhalte Include-Anweisungen wie `:[components](../shared/components.md)` einschließlich Beschriftung und Pfad. Behandle sie getrennt von gewöhnlichen Markdown-Links.
+- Erhalte Codezäune, Sprachkennungen, HTML-Tags, technische Attribute, Klassen und Template-Ausdrücke.
+- Übersetze beschreibende Linktexte und alternative Bildtexte. Namen von APIs, Produkten und genauen UI-Elementen bleiben darin erhalten.
+- Erhalte Linkziele, Referenz-IDs, Bildpfade, Dateinamen, Abfrageparameter, Fragmente und abschließende Schrägstriche. Ergänze nicht eigenständig `/de/` in URLs.
+- Prüfe, ob kopierte relative Pfade auch vom deutschen Dateistandort aus auflösbar sind. Fehlende Übersetzungen oder Bilddateien müssen ausdrücklich geklärt werden.
+- Setze Leerzeilen um Überschriften, Listen, Tabellen und Codeblöcke. Vermeide Leerzeichen direkt innerhalb von Hervorhebungsmarkierungen.
+
+Beispiele:
+
+- `[Project settings](/manuals/project-settings/#debug)` → `[Projekteinstellungen](/manuals/project-settings/#debug)`.
+- `[gui.clone()](/ref/gui/#gui.clone:node)` bleibt unverändert.
+- `![Editor overview](images/introduction/editor.png)` → `![Übersicht des Editors](images/introduction/editor.png)`.
+
+## Deutsche Zeichensetzung, Zahlen und Einheiten
+
+Diese Regeln gelten für erklärenden Text. Technische Zeichenfolgen behalten die Schreibweise des Originals.
+
+- Verwende `„…“` für gewöhnliche Zitate und `‚…‘` für Zitate darin; Backticks für Literale.
+- Vor Punkt, Komma, Doppelpunkt, Semikolon, Fragezeichen und Ausrufezeichen steht kein Leerzeichen. Nach Satzzeichen folgt ein Leerzeichen, soweit die Markdown-Syntax nichts anderes verlangt.
+- Setze Kommas bei Nebensätzen, beispielsweise mit `wenn`, `weil`, `dass` und `damit`. Übernimm die englische Kommasetzung nicht mechanisch.
+- Verwende echte Umlaute und `ß`: `größer`, `schließen`, `auswählen`. Schreibungen wie `groesser` sind nur Teil eines unveränderten Literals zulässig.
+- Schreibe in gewöhnlichem Fließtext Dezimalzahlen mit Komma, beispielsweise `0,5 Sekunden`. Ein einzugebender Wert, Code, eine Koordinate in Codeformat, eine Version oder ein API-Beispiel behält den Punkt: `0.5`, `vmath.vector3(0.5, 1, 0)`, `1.2.3`.
+- Trenne Zahl und Einheit durch ein Leerzeichen: `60 Hz`, `16 ms`, `128 MB`, `50 %`. Ändere weder Größenordnung noch Präzision und verwechsle `MB` nicht mit `MiB`.
+- Schreibe beschreibende Bildmaße als `1280 × 720`. Literale wie `1280x720` bleiben erhalten.
+- Verwende für technische Werte Ziffern. Portnummern, IDs und Versionsnummern erhalten keine Tausendertrennzeichen. Gruppiere bei Bedarf große Mengen im Fließtext mit Leerzeichen, beispielsweise `10 000 Spielobjekte`.
+- Schreibe Datumsangaben in der Prosa eindeutig, etwa `12. September 2026`. Maschinenlesbare Datumswerte und Metadaten bleiben im Originalformat.
+
+## Produktnamen, Abkürzungen und FAQ
+
+Erhalte die offizielle Schreibweise von `Defold`, `Defold Foundation`, `Lua`, `LuaJIT`, `JavaScript`, `OpenAPI`, `GitHub`, `macOS`, `iOS`, `Spine`, `Rive` und `Automation Bridge`. Schreibe in der Prosa `Defold`, `die Defold-Engine` und `der Defold-Editor`.
+
+API, GUI, HTTP, JSON, HTML5, CPU, GPU, SDK, CI, LLM und MCP bleiben erhalten. Allgemeines `artificial intelligence / AI` heißt `künstliche Intelligenz (KI)`; Produktnamen, API-Felder und exakte englische Titel behalten `AI`. Führe unbekannte Abkürzungen bei der ersten Nennung ein, beispielsweise `großes Sprachmodell (Large Language Model, LLM)`.
+
+Erhalte in FAQ die Kürzel `Q:` und `A:`, die Überschriftenebenen und die Reihenfolge des englischen Originals. Übersetze Frage und Antwort sowie beschreibende Abschnittstitel:
+
+- `#### Q: Ist Defold kostenlos?`
+- `A: Ja, ...`
+- `General questions` → `Allgemeine Fragen`.
+- `Publishing games` → `Spiele veröffentlichen`.
+
+Unterscheide bei Lizenz- und Veröffentlichungsfragen `kostenlos`, `Open Source`, `mit einsehbarem Quellcode` und `lizenzgebührenfrei` entsprechend der Aussage des Originals.
+
+## Glossar erweitern und Übersetzungen prüfen
+
+Suche vor einem neuen Eintrag nach Singular, Plural, Varianten mit Bindestrich und der englischen Schreibweise. Fasse dieselbe Bedeutung in einem Eintrag zusammen. Trenne unterschiedliche Bedeutungen wie räumliche und sprachliche translation ausdrücklich.
+
+Prüfe einen fehlenden Begriff zuerst im englischen Defold-Kontext und anschließend in einer fachlich passenden offiziellen deutschen Quelle. Halte den bevorzugten Ausdruck, die relevante Bedeutung, die URL und bei neuen Belegen das Prüfdatum fest. Eine URL mit `de` allein genügt nicht als Nachweis. Kennzeichne eigene Defold-Erklärbegriffe als redaktionelle Wahl.
+
+Vor Abschluss eines Artikels:
+
+1. Vergleiche den Inhalt mit dem englischen Original: Erklärungen, Voraussetzungen, Einschränkungen, Warnungen, Schritte und Tabellen müssen vollständig sein.
+2. Prüfe Verpflichtungen, Verneinungen, Mengen, Grenzwerte, Einheiten und Ausführungsreihenfolgen.
+3. Prüfe Glossarbegriffe, englische Erstnennungen, Du-Ansprache, Artikel, Plurale und deutsche Zusammensetzungen.
+4. Vergleiche Codeblöcke einschließlich ihrer Kommentare, technische Literale, UI-Beschriftungen, Tastenkürzel und Ausgaben mit dem Original.
+5. Prüfe Front Matter, Markdown, Anker, Includes, Linkziele und Bildpfade. Für übersetzte Markdown-Artikel stehen die [Werkzeuge zur Konsistenzprüfung](../../scripts/README.md) zur Verfügung.
+6. Suche nach unübersetzten Erklärungen, doppelten zweisprachigen Überschriften, beschädigten Zeichen und Git-Konfliktmarkierungen. Bewusst erhaltene Literale bleiben davon ausgenommen.
+7. Lies den deutschen Text eigenständig: Sind Handlung, Bezug und technischer Sinn ohne Rückübersetzung verständlich?
+
+## Geprüfte offizielle Quellen
+
+Die folgenden neun Seiten enthalten die für die Entscheidungen herangezogenen deutschen Textstellen. Sie stammen von zwei Game-Engine-Projekten sowie GIMP, Microsoft Learn und MDN. Versionsangaben bezeichnen die untersuchten Dokumentationsfassungen. Prüfdatum: 2026-09-12.
+
+- [G1: Godot 4.5 — Nodes und Szenen][G1]. Engine, Editor, Instanz, Node und Property; teilweise englische Abschnitte.
+- [G2: Godot 4.5 — Viewport- und Canvas-Transformationen][G2]. Transformation, Verschiebung, Drehung, Skalierung und Koordinatensystem.
+- [E1: Unreal Engine — Materialien][E1]. Material, Shader, Textur und Arbeitsablauf.
+- [E2: Unreal Engine — Blueprint-Grundlagen][E2]. Komponente, Eigenschaft, Knoten, Asset, Mesh und Du-Ansprache.
+- [I1: GIMP 3.0 — Bilder kombinieren][I1]. Ebene, Deckkraft, Transparenz, Alphakanal und Sichtbarkeit; teilweise englische Abschnitte.
+- [M1: Visual Studio — Kompilieren und Erstellen][M1]. Build, Erstellen, Kompilieren und Zielplattform.
+- [M2: Visual Studio — Übersicht über den Debugger][M2]. Haltepunkt, Debugger und schrittweise Ausführung.
+- [M3: .NET — Testen in .NET][M3]. Automatisierte Tests, Komponententests und Integrationstests.
+- [W1: MDN — Überblick über HTTP][W1]. Anfrage, Antwort, Header und Statuscode.
+
+Die Quellen belegen einzelne deutsche Verwendungen. Die daraus abgeleiteten Empfehlungen, insbesondere Ansprache, Artikel, zusammengesetzte Begriffe und Defold-spezifische Übersetzungen, sind redaktionelle Festlegungen dieser deutschen Fassung.
+
+[G1]: https://docs.godotengine.org/de/4.5/getting_started/step_by_step/nodes_and_scenes.html
+[G2]: https://docs.godotengine.org/de/4.5/tutorials/2d/2d_transforms.html
+[E1]: https://dev.epicgames.com/documentation/de-de/unreal-engine/unreal-engine-materials
+[E2]: https://dev.epicgames.com/documentation/de-de/unreal-engine/blueprint-foundations
+[I1]: https://docs.gimp.org/3.0/de/gimp-image-combining.html
+[M1]: https://learn.microsoft.com/de-de/visualstudio/ide/compiling-and-building-in-visual-studio?view=visualstudio
+[M2]: https://learn.microsoft.com/de-de/visualstudio/debugger/debugger-feature-tour?view=visualstudio
+[M3]: https://learn.microsoft.com/de-de/dotnet/core/testing/
+[W1]: https://developer.mozilla.org/de/docs/Web/HTTP/Guides/Overview

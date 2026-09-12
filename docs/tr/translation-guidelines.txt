@@ -1,0 +1,286 @@
+---
+title: Defold belgeleri için Türkçe çeviri kılavuzu
+brief: Türkçe anlatım, terim seçimi, ekler, arayüz etiketleri ve teknik biçimlendirme kuralları.
+---
+
+# Defold belgeleri için Türkçe çeviri kılavuzu
+
+Bu kılavuz, Defold kılavuzları, öğreticileri, sık sorulan soruları ve ortak metin parçaları için geçerlidir. [Terim sözlüğüyle](glossary.txt) birlikte kullanın. Hazırlama ve kaynakları kontrol etme tarihi: 2026-09-12.
+
+Araştırma sırasında `docs/tr` altında çeviri dosyası yoktu. Bu belge mevcut Türkçe çevirilerin alışkanlıklarını aktarmak yerine yeni çeviriler için kurallar belirler. Kurallar, depodaki çeviri materyallerine, [README dosyasına](../../README.md), İngilizce Defold belgelerine ve resmî proje veya üretici kaynaklarına dayanır.
+
+## İncelenen çeviri materyalleri
+
+Depoda bulunan on dilin `glossary.txt` ve `translation-guidelines.txt` dosyaları, toplam yirmi dosya incelendi. Sözlüklerin konu başlıkları, terim listeleri, bağlama bağlı karşılıkları ve yönergeleri karşılaştırıldı. Tekrarlanan terimler, çoğul biçimler ve tam API adları Türkçe sözlükte kavramlara göre düzenlendi. Diğer dillerin karşılıkları Türkçeye yeniden çevrilmedi; anlam için İngilizce Defold metni esas alındı.
+
+| Dil | İncelenen dosyalar | Türkçe çalışma için katkısı |
+|---|---|---|
+| Almanca (`de`) | [Sözlük](../de/glossary.txt), [kılavuz](../de/translation-guidelines.txt) | Geniş konu kapsamı, kaynak karşılaştırması, anlam ayrımları ve teknik değerlerin korunması |
+| İspanyolca (`es`) | [Sözlük](../es/glossary.txt), [kılavuz](../es/translation-guidelines.txt) | Temel kavramlar, ilk kullanımda İngilizce karşılık, kullanıcı eylemleri ve sık sorulan sorular |
+| Fransızca (`fr`) | [Sözlük](../fr/glossary.txt), [kılavuz](../fr/translation-guidelines.txt) | Teknik dizeler, çalışma zamanı, HTTP ve otomasyon |
+| Yunanca (`gr`) | [Sözlük](../gr/glossary.txt), [kılavuz](../gr/translation-guidelines.txt) | Çok anlamlı terimler, hiyerarşiler ve eski çeviri hatalarını sürdürmeme |
+| İtalyanca (`it`) | [Sözlük](../it/glossary.txt), [kılavuz](../it/translation-guidelines.txt) | Derleme ile paketleme ayrımı, testler ve geliştirme araçları |
+| Japonca (`ja`) | [Sözlük](../ja/glossary.txt), [kılavuz](../ja/translation-guidelines.txt) | Farklı resmî kaynakları karşılaştırma ve belge setine özgü seçimleri belirtme |
+| Korece (`ko`) | [Sözlük](../ko/glossary.txt), [kılavuz](../ko/translation-guidelines.txt) | Bileşenler, kaynaklar, GUI, girdi ve grafikler |
+| Lehçe (`pl`) | [Sözlük](../pl/glossary.txt), [kılavuz](../pl/translation-guidelines.txt) | 86 bölümden birleştirilen ayrıntılı terim listesi; tekrarları kavramlara göre toplama |
+| Portekizce (`pt`) | [Sözlük](../pt/glossary.txt), [kılavuz](../pt/translation-guidelines.txt) | Platformlar, yayımlama ve açıklama terimleriyle doğrulanmış arayüz çevirilerini ayırma |
+| Ukraynaca (`uk`) | [Sözlük](../uk/glossary.txt), [kılavuz](../uk/translation-guidelines.txt) | Adresleme, iletiler, yaşam döngüsü, otomasyon ve doğrulama |
+
+Bazı kurallar birbiriyle çelişir. `es`, `ko`, `pl` ve `pt` açıklayıcı kod yorumlarının çevrilmesine izin verir; README ise kod örneklerinin ve yorumlarının korunmasını ister. Türkçe belgeler README kuralını izler. Include etiketleri ve soru-yanıt kısaltmaları konusunda da farklı uygulamalar vardır. Türkçe belgelerde include yönergeleri bütünüyle, sık sorulan sorulardaki `Q:` ve `A:` işaretleri de kaynakta olduğu gibi korunur.
+
+## Temel ilke ve kaynakların önceliği
+
+Kavramları ve işlemleri anlatan metni doğal Türkçeyle yazın. Okuyucunun ekranda bulması, yazması, kopyalaması veya çağırması gereken dizeleri aynen koruyun.
+
+1. Anlam, davranış, koşullar, kısıtlamalar, işlem sırası ve desteklenen sürümler için ilgili `docs/en` dosyasını esas alın. Önce yazının tamamını okuyun.
+2. Dosya yapısı, kod ve özel işaretleme için README ile deponun kurallarını izleyin.
+3. Türkçe terimler ve anlatım için bu kılavuzu ve `docs/tr/glossary.txt` dosyasını kullanın.
+4. Arayüz etiketlerini anlatılan ürünün sürümü, görüntüleme dili ve ekran görüntüleriyle eşleştirin.
+5. Eksik terimler için aynı alandaki resmî Türkçe belgelerden kullanım örnekleri bulun. Genel yazım sorularında Türk Dil Kurumu kaynaklarına başvurun.
+
+Diğer motorların belgeleri Türkçe kullanım için yardımcıdır; Defold davranışını değiştirmek için dayanak değildir. İngilizce kaynakta teknik bir sorun görünüyorsa bunu inceleme notu olarak kaydedin. Yalnızca Türkçe çeviriye varsayılan bir düzeltme veya yeni özellik eklemeyin.
+
+## Dil, hitap ve anlatım
+
+Türkiye Türkçesinin güncel yazımını kullanın. Dosyalar `docs/tr` altında bulunur. Türkçe karakterleri ASCII karşılıklarına dönüştürmeyin.
+
+- Okuyucuya `siz` biçiminde hitap edin; özneyi her cümlede yazmanız gerekmez. Yönergelerde `seçin`, `açın`, `ekleyin`, `kaydedin`, `sürükleyin` gibi kısa emir biçimlerini kullanın.
+- Aynı metinde `seç`, `seçin` ve `seçiniz` biçimlerini karıştırmayın. Bu belge setinde `seçin` tercih edilir.
+- Açıklamalarda özneyi gerektiğinde belirtin: `Motor kaynağı yükler`, `Düzenleyici önizlemeyi gösterir`.
+- Kısa ve doğrudan yapılar kullanın. `Değiştirebilirsiniz`, `değişiklik yapma imkânına sahipsiniz` ifadesinden daha açıktır.
+- İngilizcedeki uzun sıfat ve isim zincirlerini Türkçe tamlamalara veya ayrı cümlelere dönüştürün. Koşulları, neden-sonuç ilişkilerini ve işlem sırasını koruyun.
+- `You`, `your`, `a` ve `the` sözcüklerini her seferinde ayrı bir Türkçe sözcükle karşılamayın. `Open your project` için bağlama göre `Projeyi açın` yeterlidir.
+- Birlikte yapılan örnek için `Bu örnekte ... oluşturacağız` kullanılabilir. Defold ekibinin görüşünü anlatan `we` ifadesinde görüşün kime ait olduğunu koruyun.
+- Kaynakta olmayan `kolayca`, `elbette`, `kesinlikle` gibi vurgular eklemeyin. Açıklamanın kesinliğini veya işlemin zorluğunu değiştirmeyin.
+
+Kısa fiiller ve gereksiz resmiyetten kaçınma, [Microsoft Türkçe yerelleştirme kılavuzunun][S1] yaklaşımıyla uyumludur. Bununla birlikte Microsoft metinlerinde izin verilen pazarlama amaçlı kısaltma ve içerik çıkarma serbestliği Defold teknik belgelerine aktarılmaz.
+
+| İngilizce kaynak | Türkçe anlatım |
+|---|---|
+| Select Add Game Object. | <kbd>Add Game Object</kbd> seçeneğini seçin. |
+| You can change the position at runtime. | Konumu çalışma sırasında değiştirebilirsiniz. |
+| The editor displays the resource properties. | Düzenleyici kaynağın özelliklerini gösterir. |
+| Do not modify this value. | Bu değeri değiştirmeyin. |
+
+## Zorunluluk, öneri ve olasılık
+
+| Kaynak metindeki anlam | Türkçe anlatım |
+|---|---|
+| must / required | gerekir / zorunludur |
+| must not | yapmayın / yapılmamalıdır; açık yasak olarak |
+| should / recommended | önerilir / yapmanız önerilir |
+| should not | önerilmez / kaçınmanız önerilir |
+| can, yetenek veya yapılabilirlik | yapabilir / yapılabilir |
+| may, izin | yapabilirsiniz / yapılmasına izin verilir |
+| may / might, olasılık | olabilir / gerçekleşebilir |
+| cannot / unsupported | yapılamaz / desteklenmez |
+
+`May not` hem yasak hem de bir olayın gerçekleşmeme olasılığı olabilir; bağlama göre karar verin. `Olmayabilir` ile `olmamalıdır` aynı anlamı taşımaz. `Only`, `all`, `each`, `at least`, `at most`, `before` ve `after` gibi kapsamı veya sırayı belirleyen sözcükleri atlamayın. `En az 4` ile `4'ten fazla` farklı sınırlar tanımlar. Birim, varsayılan değer, sürüm ve sayısal hassasiyet korunmalıdır.
+
+## Terimlerin ilk kullanımı
+
+Önemli Defold kavramlarını her bağımsız yazının ilk açıklamasında Türkçe ve İngilizce olarak verin:
+
+- `oyun nesnesi (game object)`
+- `bileşen (component)`
+- `koleksiyon (collection)`
+- `başlangıç koleksiyonu (bootstrap collection)`
+- `fabrika (factory)`
+- `koleksiyon fabrikası (collection factory)`
+- `koleksiyon vekili (collection proxy)`
+- `girdi eşlemesi (input binding)`
+
+Sonraki kullanımlarda Türkçesi yeterlidir. Tam bir etiket, dosya uzantısı veya işlev adı söz konusuysa özgün biçime dönün: <kbd>Collection Factory</kbd>, `.collectionfactory`, `collectionfactory.create()`.
+
+Genel başlıkları Türkçeye çevirin. `Collections Koleksiyonlar` gibi çift başlık kullanmayın; `Koleksiyonlar` yazıp İngilizce terimi ilk paragrafta açıklayın. API veya ayar adından oluşan başlıklar özgün adlarını korur.
+
+## Resmî kaynakların karşılaştırılması
+
+Resmî sitelerdeki Türkçe metinlerde de farklı karşılıklar, çeviri kusurları ve İngilizce kalan bölümler bulunabilir. Aşağıdaki tablo kaynaklarda gözlenen kullanımı bu belge setinin seçimlerinden ayırır.
+
+| Konu | Gözlenen kullanım | Defold Türkçe belgelerindeki seçim |
+|---|---|---|
+| editor | [Godot][G1] düzenleyici, [Epic][E1] editör kullanır | Açıklamalarda `düzenleyici` |
+| node / scene / resource | [Godot][G1] düğüm, sahne ve kaynak kullanır | Bu karşılıklar kullanılır; oyun nesnesi ve koleksiyon yeniden adlandırılmaz |
+| instance / sampling | [Godot][G1] örnek ve örnekleme biçimlerini kullanır; farklı anlamlarda örnekleme görülebilir | `instance` için örnek, `instantiation` için örnek oluşturma, `sampling` için örnekleme |
+| object / component | [Epic][E1] obje ve bileşen kullanır | `oyun nesnesi` ve `bileşen`; Unreal Actor ile Defold oyun nesnesi aynı tür sayılmaz |
+| asset / resource | [Epic][E2] varlık taşıma bağlamında öğe, [Godot][G1] kaynak sistemi için kaynak kullanır | Üretim içeriği için `varlık`, Defold kaynak sistemi için `kaynak` |
+| mesh / material / texture / shader | [Epic][E2] örgü, materyal, doku ve gölgelendirici kullanır | Bu karşılıklar kullanılır; işlevleri birbirine karıştırılmaz |
+| rendering / renderer | [Godot][G1] işleme ve işleyici kullanır | Grafik bağlamında bu karşılıklar; ilk açıklamada görüntü oluşturma anlamı belirtilir |
+| layer / canvas / transparency | [Krita][K1] katman, tuval ve saydamlık kullanır | Aynı karşılıklar; ürünlerin katman davranışları ayrıca korunur |
+| opacity / blend mode | [Krita][K1] matlık ve harmanlama kipi kullanır | Bu belge setinde `opaklık` ve `harmanlama modu`; bunlar Krita etiketlerinin çevirisi olarak sunulmaz |
+| build / compile / bundle | [Visual Studio][M1] derleme ve oluşturma, [Epic][E1] derleme ve paketleme kullanır | Bütün süreç `proje derleme`, belirli aşama `kod derleme`, bağımsız çıktı hazırlama `paketleme` |
+| debugging / breakpoint | [Visual Studio][M2] hata ayıklama ve kesme noktası kullanır | Bu karşılıklar kullanılır |
+| unit test / integration test | [Microsoft .NET][M3] birim testi ve tümleştirme testi kullanır | Bu karşılıklar kullanılır |
+| request / response | [Microsoft .NET][M4] istek ve yanıt kullanır | HTTP açıklamalarında bu karşılıklar; yöntem, alan ve üstbilgi adları korunur |
+| Android App Bundle | [Android Developers][A1] biçimin adını korur | `Android App Bundle (AAB)`; bütün Defold dağıtım paketlerinin ortak adı değildir |
+
+`Sprite` gibi farklı Türkçe karşılıkları bulunan terimlerde tanınabilirlik de dikkate alınır. Bu belgelerde `sprite bileşeni` kullanılır. `Kütüphane`, `varsayılan`, `dize`, `optimizasyon` ve `yayımlama` gibi seçimler de bu belge seti içindir; başka bir ürünün doğrulanmış arayüz etiketini bu tercihlere uydurmayın.
+
+## Karıştırılmaması gereken anlamlar
+
+- Koleksiyon bir düzen ve hiyerarşi tanımıdır. Koleksiyon dosyasını, dosyaya dayalı nesne örneklerini ve yüklenen oyun dünyasını birbirinden ayırın.
+- Fabrika oyun nesneleri oluşturur. Koleksiyon fabrikası içeriği geçerli oyun dünyasında oluşturur. Koleksiyon vekili ayrı bir oyun dünyasını, buna ait fizik dünyasıyla birlikte yükler. [İngilizce koleksiyon fabrikası](../en/manuals/collection-factory.md) ve [koleksiyon vekili](../en/manuals/collection-proxy.md) belgelerindeki ayrımı izleyin.
+- Koleksiyon hiyerarşisi adresleme bağlamını, üst-alt nesne hiyerarşisi dönüşümlerin aktarılmasını belirler. Üst nesnenin değişmesi oyun nesnesinin adresini değiştirmez; [yapı taşları](../en/manuals/building-blocks.md) kılavuzuna bakın.
+- GUI düğümü bir oyun nesnesi değildir. Godot düğümü, Unreal Actor ve Defold oyun nesnesi kendi sistemlerindeki anlamlarını korur.
+- `Translation` dil bağlamında çeviri, koordinat dönüşümlerinde ötelemedir. `Rotation` dönme, `scale` ölçek, `transform` dönüşümdür.
+- `Instance` için örnek, `instantiation` için örnek oluşturma kullanın. `Sampling` doku veya ses verisinden örneklemedir. Bir kod örneğiyle bir nesne örneğini bağlamda açıkça ayırın.
+- Kare (`frame`), parça (`fragment`) ve parçacık (`particle`) ayrı kavramlardır. URL parçası ile gölgelendirici parçasını da ayırın.
+- Çalışma zamanı, çalışma zamanı ortamı ve yürütme süresi aynı şey değildir. `At runtime` için çalışma sırasında, geçen süre için yürütme süresi yazın.
+- Proje derleme, kod derleme, paketleme, başlatma ve yayımlama ayrı işlemlerdir. Türkçede build ile compile için aynı kök kullanılabildiğinden gerektiğinde kapsamı açıkça belirtin.
+- Hot reload geliştirme sırasında yeniden yüklemeyi, Live Update oyun içeriğinin güncellenmesini anlatır. Düzenleyici önizlemesiyle çalışan oyundan alınan ekran görüntüsünü birbirinin yerine kullanmayın.
+- Yükleme, başlangıç işlemleri, etkinleştirme, görünür kılma, silme, sonlandırma işlemleri ve bellekten kaldırma ayrı aşamalardır. Çeviriden yeni bir yürütme sırası çıkarmayın.
+- Geri çağırım, olay ve ileti ayrı kavramlardır. API işlevi ile aldığı ileti aynı adı taşısa bile çağrı biçimlerini birleştirmeyin.
+- HTTP erişim belirteciyle dil modelinin token birimini, derleme çıktısıyla ekrandaki görüntü kusurunu (`artifact`) bağlama göre ayırın.
+
+## Türkçe ekler, tamlamalar ve çoğullar
+
+Ekleri sözcüğün okunuşuna ve ünlü uyumuna göre seçin. [TDK kısaltma kuralları][T1] ve [noktalama kuralları][T2] genel dayanağı sağlar. Teknik dizelerin bire bir korunması gereken yerlerde cümleyi Türkçe bir yardımcı adla kurmak çoğu zaman daha açıktır.
+
+- `game.project` dosyasını açın; dosya adının içine ek eklemeyin.
+- `msg.post()` işlevini çağırın; kod gösteriminin içine Türkçe metin eklemeyin.
+- <kbd>Outline</kbd> görünümünde seçin; etiketin yazımını değiştirmeyin.
+- `position` özelliğinin değerini değiştirin; `position` yerine çevrilmiş bir anahtar yazmayın.
+
+Özel adlara gelen çekim eklerini kesme işaretiyle ayırın: `Lua'nın`, `Krita'da`. Cins adlarına gelen ekleri ayırmayın: `koleksiyonun`, `betiği`, `düğümde`, `atlaslar`. Dil adında `Türkçe`, çekimli biçimde `Türkçeye` yazın; `Türkçe'ye` kullanmayın. Kurum ve kuruluşların açık adlarına ek getirmeyle ilgili TDK istisnasını gözetin; gerekirse `Defold Foundation tarafından` gibi ek gerektirmeyen bir yapı seçin.
+
+Kısaltmaların ekleri okunuşa göre belirlenir. Okuyuşu belirsiz bir teknik kısaltmada gelişigüzel ek seçmek yerine `API çağrısı`, `URL değeri`, `GPU belleği`, `JSON verisi` gibi tamlamalar kullanın. Kısaltmaya veya ürün adına Türkçe ek getirmeniz, adın harflerini değiştirme hakkı vermez.
+
+İlk kullanımda İngilizce açıklama parantez içindeyse eki Türkçe sözcüğe getirin: `koleksiyonun (collection) içeriği`. `Koleksiyon (collection)'un` gibi yapılar kullanmayın.
+
+Türkçe isim tamlamalarının eklerini koruyun: `oyun nesnesi`, `oyun nesnesinin konumu`, `oyun nesneleri`, `girdi eşlemesi`, `koleksiyon fabrikası`, `koleksiyon fabrikaları`. Belirli sayılardan sonra gereksiz çoğul kullanmayın: `3 oyun nesnesi`, `iki bileşen`; `3 oyun nesneleri` yazmayın. İngilizce çoğul eki eklemek yerine `sprite bileşenleri` gibi doğal Türkçe yapılar kullanın.
+
+Bağlaç olan `de/da` ayrı, bulunma durumu eki bitişik yazılır: `Bu bileşen de güncellenir`, `Bu bileşende iki özellik bulunur`. Soru eki ayrıdır: `Proje hazır mı?`. `Dosyadaki` gibi sözcüklerdeki ek olan `-ki` ile bağlaç olan `ki` ayrımını koruyun. Bu kuralları tam dosya adlarına veya kod tanımlayıcılarına uygulamayın.
+
+## Büyük harfler ve Türkçe karakterler
+
+Başlıklarda cümle düzenini kullanın: `Yeni bir oyun nesnesi oluşturma`. İlk sözcük ve özel adlar dışında her sözcüğü büyük harfle başlatmayın. Metin içinde `motor`, `düzenleyici`, `koleksiyon`, `bileşen` ve `oyun nesnesi` küçük harfle yazılır.
+
+Türkçede `i` harfinin büyüğü `İ`, `ı` harfinin büyüğü `I` olur. Örneğin `girdi` → `GİRDİ`, `ışık` → `IŞIK`. Otomatik İngilizce büyük/küçük harf dönüşümü Türkçe metni bozabilir; [Microsoft kılavuzu][S1] bu ayrımı özellikle belirtir. API, dosya yolu, kod, kısaltma ve ürün adlarına Türkçe harf dönüşümü uygulamayın: `init()`, `ID`, `iOS` ve `INPUT` kaynakta nasılsa öyle kalır.
+
+`ç`, `ğ`, `ı`, `İ`, `ö`, `ş`, `ü` harflerini koruyun. `yapay zekâ`, `imkân` ve `resmî` gibi sözcükleri doğru yazın. UTF-8 kullanın; bozulmuş karakterler veya noktalı `i` üzerinde fazladan birleşen nokta bırakmayın.
+
+API, GUI, HTTP, JSON, HTML5, CPU, GPU, SDK, CI, LLM ve MCP gibi teknik kısaltmaları koruyun. Gerektiğinde ilk kullanımda açıklayın: `büyük dil modeli (LLM)`. Genel metinde `yapay zekâ` yazın; yeni bir kısaltma uydurmayın. Boyutları açıklayıcı metinde `2B` ve `3B` ile belirtin, tam adlardaki `2D` ve `3D` biçimlerini koruyun.
+
+## Arayüz, işlemler ve klavye
+
+İngilizce arayüzü veya İngilizce ekran görüntüsünü anlatan kaynakta etiketleri İngilizce koruyun. Etiketi çevirmeden çevresindeki yönergeyi Türkçeleştirin:
+
+- `<kbd>Add Game Object</kbd> seçeneğini seçin.`
+- `Oyun nesnesini <kbd>Outline</kbd> görünümünde seçin.`
+- `<kbd>Properties</kbd> panelindeki değeri değiştirin.`
+- `<kbd>Edit ▸ World Space</kbd> seçeneğini seçin.`
+
+Türkçe arayüzü açıkça anlatan bir yazıda, ilgili sürüm için gerçek ekranda veya ürünün resmî yerelleştirme dosyasında doğrulanan etiketi kullanın. Sözlükte bir Türkçe karşılık bulunması, Defold içinde aynı etiketin bulunduğunu göstermez. Başka bir motorun etiketlerini Defold etiketleri olarak kullanmayın.
+
+Ayar başvurularında kategorilerin, alanların ve değerlerin tam adlarını koruyup açıklamalarını çevirin. Örneğin `Max Nodes` adını koruyun ve açıklamada en fazla kaç düğüme izin verildiğini anlatın.
+
+Kaynağın `<kbd>` etiketlerini ve vurgularını koruyun. Yeni menü yollarında `▸` kullanın. Yalnızca çeviri yaparken kaynakta bulunan bütün `>` işaretlerini veya kalın yazımları topluca değiştirmeyin.
+
+Bir `<kbd>` etiketinin içi arayüz adı değil sıradan bir kullanıcı eylemiyse onu çevirin: `<kbd>right-click</kbd>` → `<kbd>sağ tıklayın</kbd>`, `<kbd>drag</kbd>` → `<kbd>sürükleyin</kbd>`, `<kbd>drop</kbd>` → `<kbd>bırakın</kbd>`. Kararı yalnızca etikete göre değil, metnin işlevine göre verin.
+
+`Ctrl`, `Cmd`, `Shift`, `Alt`, `Enter` gibi tuş adlarını, kısayol birleşimlerini ve işletim sistemleri arasındaki farkları koruyun. Türkçe Q veya F klavyeye göre tahminle yeni kısayol yazmayın.
+
+## Kod, API ve teknik dizeler
+
+README kuralı gereği kod bloklarını yorumlarıyla birlikte aynen koruyun. Lua, C++, gölgelendirici, JSON, YAML, INI, kabuk komutu ve konsol örnekleri buna dahildir. Girinti, boşluklar, yorumlar, dizeler ve beklenen çıktılar değiştirilmez. Türkçe açıklamayı kodun dışındaki metinde verin.
+
+Özellikle şunları koruyun:
+
+- İşlevler, ad alanları ve geri çağırımlar: `msg.post()`, `go.animate()`, `gui.get_node()`, `init()`, `on_message()`.
+- İletiler, sabitler ve alanlar: `set_parent`, `proxy_loaded`, `PLAYBACK_LOOP_PINGPONG`, `self`, `message_id`.
+- Örnek adları ve adresler: `bean`, `buddy`, `shield`, `controller`, `team_1`, `main:/manager#controller`, `@render`.
+- Dosyalar, uzantılar, yollar ve anahtarlar: `game.project`, `main.collection`, `.gui_script`, `.internal/editor.port`, `display.width`.
+- Komutlar, seçenekler ve ortam değişkenleri: `build-html5`, `--variant`, `PATH`.
+- HTTP yöntemleri, rotalar, üstbilgiler ve sonuç değerleri: `GET /ping`, `POST /eval`, `/openapi.json`, `Authorization: Bearer`, `success`, `duration_ms`.
+- Yer tutucular ve kaçış dizileri: `%s`, `%d`, `{name}`, `\n`; sözdizimlerini, sıralarını ve sayılarını değiştirmeyin.
+- Hata iletileri ve beklenen çıktılar; büyük/küçük harfleri ve noktalama işaretleri dahil.
+
+Teknik dizeleri metinde ters tırnakla gösterin. Kod içindeki düz tırnakları tipografik tırnaklara, ASCII kısa çizgiyi başka çizgi işaretlerine veya ondalık noktayı virgüle dönüştürmeyin. İngilizce kod yorumu veya konsol çıktısı çeviri eksiği değildir.
+
+## Markdown, üst veriler ve bağlantılar
+
+- YAML ön bilgilerinin sınırlarını ve anahtarlarını koruyun. Açıklayıcı `title` ve `brief` değerlerini çevirin; yolları, tanımlayıcıları ve mantıksal değerleri koruyun.
+- Başlıkların düzeylerini ve sırasını, listeleri, tabloları ve tanım listelerini koruyun. İşlem adımlarını birleştirmeyin, çıkarmayın veya yeniden sıralamayın.
+- `{#the-editor-views}` ve `<a id="example">` gibi açık bağlantı hedeflerini koruyun. Başlık çevirisiyle otomatik oluşan hedef değişiyorsa ona giden bağlantıları kontrol edin.
+- `::: sidenote`, `::: important` ve kapanış `:::` işaretlerini koruyun; aralarındaki açıklamayı çevirin.
+- `:[components](../shared/components.md)` gibi include yönergelerini etiket ve yol dahil aynen koruyun. Bunları sıradan Markdown bağlantısıyla karıştırmayın.
+- Kod çitlerini, dil etiketlerini, HTML etiketlerini, teknik öznitelikleri, sınıfları ve şablon ifadelerini koruyun.
+- Açıklayıcı bağlantı metinlerini ve görüntülerin alternatif metinlerini çevirin. API, ürün ve tam arayüz adlarını bu metinlerde de koruyun.
+- Bağlantı hedeflerini, referans kimliklerini, görüntü yollarını, dosya adlarını, sorgu parametrelerini, parçaları ve sondaki eğik çizgileri koruyun. Yollara kendiliğinden `/tr/` eklemeyin.
+- Başlık, liste, tablo ve blokların çevresinde boş satır kullanın. Vurgu işaretlerinin içine gereksiz boşluk eklemeyin: `*terim*` yazın.
+
+Örnekler:
+
+- `[Project settings](/manuals/project-settings/#debug)` → `[Proje ayarları](/manuals/project-settings/#debug)`
+- `[gui.clone()](/ref/gui/#gui.clone:node)` → aynen korunur.
+- `![Editor overview](images/introduction/editor.png)` → `![Düzenleyiciye genel bakış](images/introduction/editor.png)`
+
+## Noktalama, sayılar ve birimler
+
+Bu kurallar açıklayıcı Türkçe metin içindir. Girilecek değerler, teknik örnekler ve makine çıktıları özgün biçimlerini korur.
+
+- Nokta, virgül, iki nokta, noktalı virgül, soru ve ünlem işaretinden önce boşluk bırakmayın; cümleler arasında tek boşluk kullanın.
+- Parantezin iç kenarlarında boşluk kullanmayın. Türkçe terimle İngilizce açıklaması arasında bir boşluk bırakın: `düğüm (node)`.
+- Bu düz metin dosyalarında kesme işareti için düz `'` kullanın. Yeni metin içinde kesme biçimlerini karıştırmayın; kod ve aynen aktarılan dizeler bu tercihten etkilenmez.
+- Bir alıntı için düz çift tırnak, teknik dize için ters tırnak kullanın. İşlev çağrılarının `()` işaretlerini değiştirmeyin.
+- İngilizce birleşik sıfatların kısa çizgilerini otomatik taşımayın: `user-defined property` → `kullanıcı tanımlı özellik`.
+- Açıklayıcı metinde ondalık ayıracı virgüldür: `0,5 saniye`. Girilecek değer, kod, sürüm ve biçimi belirli çıktı noktayı korur: `0.5`, `1.2.3`, `vmath.vector3(0.5, 1, 0)`.
+- Birden çok ondalıklı koordinatı açıklarken virgülleri karıştırmayın; `(0,5; 1; 0)` gibi açık bir gösterim kullanın. Kaynakta kod biçiminde verilen koordinatı değiştirmeyin.
+- Yüzde işareti Türkçe açıklamada sayıdan önce ve boşluksuzdur: `%50`. Kodda, CSS değerinde, yer tutucuda veya arayüz değerinde `50%` aynen kalır.
+- Sayı ve birim arasında boşluk kullanın: `60 Hz`, `16 ms`, `128 MB`. Birimi çevirmeyin veya büyüklüğü kendiliğinden dönüştürmeyin; `MB` ve `MiB` aynı değildir.
+- Görüntü boyutları açıklamada `1280 × 720` yazılabilir. Bir tam değer veya dosya adındaki `1280x720` korunur.
+- Port, sürüm ve tanımlayıcı sayılarına binlik ayırıcı eklemeyin. Büyük miktarları açıklarken `10 000 oyun nesnesi` gibi boşlukla gruplama kullanabilirsiniz.
+- Tarihi açıklamada açık yazın: `12 Eylül 2026`. Makinece okunan tarihler ve üst veriler kaynak biçiminde kalır.
+
+## Ürün adları ve sık sorulan sorular
+
+`Defold`, `Defold Foundation`, `Lua`, `JavaScript`, `OpenAPI`, `GitHub`, `macOS`, `iOS`, `Spine`, `Rive` ve `Automation Bridge` adlarının resmî yazımını koruyun. Bunları okunuşlarına göre yeniden yazmayın. `LUA`, `Javascript` ve `AppStore` gibi biçimleri yeni açıklayıcı metne taşımayın.
+
+Sık sorulan sorularda İngilizce kaynağın başlık düzeylerini, sırasını ve `Q:` / `A:` işaretlerini koruyun. Soruyu, yanıtı ve genel bölüm başlıklarını çevirin:
+
+- `#### Q: Defold ücretsiz mi?`
+- `A: Evet, ...`
+- `General questions` → `Genel sorular`.
+- `Publishing games` → `Oyun yayımlama`.
+
+Ücretsiz olma, açık kaynaklı olma, kaynak koduna erişebilme ve telif ücreti gerektirmeme aynı koşullar değildir. İngilizce metindeki lisans anlamını koruyun.
+
+## Sözlüğü genişletme ve çeviriyi kontrol etme
+
+Yeni madde eklemeden önce sözlüğü İngilizce terim, çoğul biçim ve kısa çizgili varyantlarıyla arayın. Aynı anlamı gereksiz yere çoğaltmayın. Farklı anlamlar varsa koşullarını açıkça belirtin.
+
+Eksik terimin anlamını önce ilgili İngilizce Defold yazısında doğrulayın. Sonra aynı teknik bağlamı anlatan resmî Türkçe kaynağı okuyun. Yalnızca URL içinde `tr` bulunması yeterli kanıt değildir. Sayfanın Türkçe gövdesini veya resmî çeviri kataloğundaki karşılıkları kontrol edin. Terimi, anlamı, kaynak URL adresini ve kontrol tarihini kaydedin; kendi seçiminizi dış kaynakta doğrudan yazan bir terim gibi sunmayın.
+
+Bir yazıyı tamamlamadan önce:
+
+1. İçeriği İngilizce kaynakla karşılaştırın: açıklamalar, koşullar, uyarılar, adımlar ve tablo satırları eksiksiz olmalıdır.
+2. Zorunlulukları, olasılıkları, olumsuzlukları, sayıları, sınırları, birimleri ve işlem sırasını kontrol edin.
+3. Sözlük karşılıklarını, ilk kullanımda İngilizce açıklamaları, tutarlı hitabı, tamlamaları, ekleri ve `i/İ/ı/I` harflerini kontrol edin.
+4. Kod bloklarını yorumlarıyla birlikte, API adlarını, etiketleri, kısayolları ve çıktıları kaynakla karşılaştırın.
+5. Ön bilgileri, Markdown yapısını, bağlantıları, açık hedefleri, include yönergelerini ve görüntü yollarını kontrol edin. Markdown yazıları için deponun [tutarlılık denetimi araçları](../../scripts/README.md) kullanılabilir.
+6. İngilizce kalmış açıklamaları, çift başlıkları, bozulmuş karakterleri ve Git çakışma işaretlerini arayın. Bilerek korunan teknik dizeleri çeviri eksiği saymayın.
+7. Türkçe metni tek başına okuyun: okuyucu işlemi, hedef arayüz öğesini ve teknik anlamı İngilizceye geri çevirmeden anlayabilmelidir.
+
+## Kaynaklar ve araştırmanın sınırları
+
+Terim araştırması iki oyun motorunun resmî kaynaklarını ve farklı yazılım belgelerini kapsar: Godot belge çeviri kataloğu, Epic'in Unreal Engine belgeleri, Krita, Visual Studio, .NET ve Android Developers. Dil kuralları için Microsoft'un Türkçe yerelleştirme kılavuzu ile Türk Dil Kurumu kullanıldı. Kontrol tarihi: 2026-09-12.
+
+Godot için yayımlanan Türkçe web sayfasına erişilemediğinden projenin kendi deposundaki `weblate/tr.po` kataloğu okundu. Kaynak yolları `#:` satırlarıyla izlenebilen, boş veya `fuzzy` olmayan çeviriler incelendi. Bu katalog topluluk katkıları içerir ve bütün belgelerin Türkçe olarak tamamlandığını göstermez. Kaynak revizyonu bağlantıda sabitlenmiştir. Epic'in Unity karşılaştırmaları Epic kaynaklarıdır; Unity tarafından yayımlanmış Türkçe belge olarak sayılmaz. GIMP'in incelenen Türkçe adresindeki ana açıklama İngilizce kaldığı için o sayfa Türkçe terim dayanağı olarak kullanılmadı.
+
+[Microsoft kılavuzu][S1] Türkçe yerelleştirmeyi İngilizce açıklamalar ve Türkçe örneklerle ele alır; Türkçe yazılmış bir ürün kılavuzu değildir. Bu çalışma için kısa anlatım, büyük/küçük harf, kısaltma, ek, noktalama ve fiil bölümleri incelendi. Ürün arayüzünü değiştirmeye, kod örneklerini yerelleştirmeye veya kaynak içerikten bölüm çıkarmaya yönelik başka ürün kuralları bu depoya aktarılmaz.
+
+Bu dosyadaki hitap, terim tercihleri, FAQ işaretleri, noktalama tercihleri ve Defold kavramlarının Türkçe karşılıkları bu belge seti için belirlenmiştir. Resmî kaynaklar tüm seçimleri onaylayan bir Defold sözlüğü olarak sunulmaz. Kullanılan teknik kaynakların ayrıntılı listesi [terim sözlüğünde](glossary.txt) bulunur.
+
+[G1]: https://github.com/godotengine/godot-docs-l10n/blob/b8a5a2ee3186c8007ea3f88fc055fc6461ffb8a3/weblate/tr.po
+[E1]: https://dev.epicgames.com/documentation/unreal-engine/unity-to-unreal-engine-overview?lang=tr
+[E2]: https://dev.epicgames.com/documentation/unreal-engine/migrating-assets-from-unity-to-unreal-engine?lang=tr
+[K1]: https://docs.krita.org/tr/user_manual/getting_started/basic_concepts.html
+[M1]: https://learn.microsoft.com/tr-tr/visualstudio/ide/compiling-and-building-in-visual-studio?view=visualstudio
+[M2]: https://learn.microsoft.com/tr-tr/visualstudio/debugger/debugger-feature-tour?view=visualstudio
+[M3]: https://learn.microsoft.com/tr-tr/dotnet/core/testing/
+[M4]: https://learn.microsoft.com/tr-tr/dotnet/fundamentals/networking/http/httpclient
+[A1]: https://developer.android.com/guide/app-bundle?hl=tr
+[S1]: https://download.microsoft.com/download/c/7/e/c7e1f405-1a5a-418d-a56d-3a8c183cabd9/tur-tur-StyleGuide.pdf
+[T1]: https://tdk.gov.tr/icerik/yazim-kurallari/kisaltmalar/
+[T2]: https://tdk.gov.tr/icerik/yazim-kurallari/noktalama-isaretleri-aciklamalar/
